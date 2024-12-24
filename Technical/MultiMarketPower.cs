@@ -427,6 +427,9 @@ public class MultiMarketPower : Indicator
 			RequestForCumulativeTrades(request);
 		}
 
+		if (!_bigTradesIsReceived || bar != CurrentBar - 1)
+			return;
+
 		if (_filter1Series[bar] != 0)
 			return;
 
