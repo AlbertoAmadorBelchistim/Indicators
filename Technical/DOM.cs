@@ -469,6 +469,10 @@ public class DOM : Indicator
 			
 			DrawBackGround(context, currentPriceY);
 
+
+			var chartHigh = chartInfo.PriceChartContainer.High;
+			var chartLow = chartInfo.PriceChartContainer.Low;
+
 			lock (_locker)
 			{
 				var stringRects = new List<(string Text, Rectangle Rect)>();
@@ -480,6 +484,9 @@ public class DOM : Indicator
 
 					foreach (var priceDepth in _mDepth.Values.Where(x => x.DataType is MarketDataType.Ask))
 					{
+						if (!IsInChart(priceDepth.Price))
+							continue;
+
 						int y;
 
 						if (PriceLevelsHeight == 0)
@@ -562,7 +569,10 @@ public class DOM : Indicator
 
 					foreach (var priceDepth in _mDepth.Values.Where(x => x.DataType is MarketDataType.Bid))
 					{
-						int y;
+						if (!IsInChart(priceDepth.Price))
+							continue;
+
+                        int y;
 
 						if (PriceLevelsHeight == 0)
 						{
@@ -651,6 +661,11 @@ public class DOM : Indicator
 			if (ShowCumulativeValues)
 				DrawCumulativeValues(context);
 		}
+	}
+
+	private bool IsInChart(decimal price)
+	{
+		return price <= ChartInfo?.PriceChartContainer.High && price >= ChartInfo?.PriceChartContainer.Low;
 	}
 
 	protected override void OnBestBidAskChanged(MarketDataArg depth)
