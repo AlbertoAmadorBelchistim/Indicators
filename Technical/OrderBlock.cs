@@ -13,7 +13,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Linq;
 
-[FeatureId("NotReady")]
 [DisplayName("Order Block")]
 
 public class OrderBlock : Indicator

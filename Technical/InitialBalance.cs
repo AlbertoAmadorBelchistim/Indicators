@@ -202,6 +202,8 @@ public class InitialBalance : Indicator
 	private decimal iblx3 = decimal.Zero;
 	private decimal mid = decimal.Zero;
 
+	private bool _isStarted;
+
     #endregion
 
     #region Properties
@@ -512,8 +514,9 @@ public class InitialBalance : Indicator
 			_calculate = false;
 			_initialized = false;
 			_targetBar = 0;
+			_isStarted = false;
 
-			if (_days <= 0)
+            if (_days <= 0)
 				return;
 
 			var days = 0;
@@ -530,8 +533,6 @@ public class InitialBalance : Indicator
 				if (days == _days)
 					break;
 			}
-
-			return;
 		}
 
 		if (bar < _targetBar)
@@ -542,36 +543,48 @@ public class InitialBalance : Indicator
 
 		var time = candle.Time.AddHours(InstrumentInfo.TimeZone).TimeOfDay;
 		var lastTime = candle.LastTime.AddHours(InstrumentInfo.TimeZone).TimeOfDay;
-
-		if (CustomSessionStart)
+		
+        if (CustomSessionStart)
 		{
 			bool inSession;
 
-			if (StartDate <= EndDate)
-				inSession = (StartDate <= time || StartDate <= lastTime) && time < EndDate;
+            if (StartDate < EndDate)
+				inSession = (time >= StartDate || lastTime >= StartDate) && time < EndDate;
+			else if (StartDate > EndDate)
+			{
+				inSession = ((time >= StartDate || lastTime >= StartDate) && time > EndDate)
+						 || ((time <= EndDate || lastTime <= EndDate) && time < EndDate);
+            }
 			else
-			{
-				inSession = (StartDate <= lastTime && time >= StartDate && time > EndDate)
-					||
-					((EndDate >= time || EndDate >= lastTime) && time < EndDate);
-			}
+				inSession = true;
 
-			if (!inSession)
+            if (!inSession)
 			{
-				foreach (var dataSeries in DataSeries)
+				_isStarted = false;
+
+                foreach (var dataSeries in DataSeries)
 					if (dataSeries is ValueDataSeries series)
 						series.SetPointOfEndLine(bar - 1);
                 return;
 			}
 		}
 
-		var prevTime = GetCandle(bar - 1).Time.AddHours(InstrumentInfo.TimeZone);
-		var candleFullTime = candle.Time.AddHours(InstrumentInfo.TimeZone);
+        var candleFullDateTime = candle.Time.AddHours(InstrumentInfo.TimeZone);
+		var isStart = false;
+		var isEnd = false;
 
-		var isStart = _customSessionStart ? time >= _startDate && (prevTime.TimeOfDay < _startDate || prevTime.Date < candleFullTime.Date) : IsNewSession(bar);
+        if (!_isStarted)
+		{
+			isStart = _customSessionStart
+				   ? bar != 0 && (time >= StartDate || lastTime >= StartDate) && (GetPrevDateTime(bar).TimeOfDay < StartDate || GetPrevDateTime(bar).Date < candleFullDateTime.Date)
+				   : IsNewSession(bar);
+        }
 
-		var isEnd = (PeriodMode is PeriodType.Minutes && candleFullTime >= _endTime && prevTime < _endTime)
-			|| (PeriodMode is PeriodType.Bars && bar - _lastStartBar >= Period);
+        if (_isStarted)
+		{
+			isEnd = (PeriodMode is PeriodType.Minutes && candleFullDateTime >= _endTime && GetPrevDateTime(bar) < _endTime)
+				 || (PeriodMode is PeriodType.Bars && bar - _lastStartBar >= Period);
+        }           
 
 		if (isStart)
 		{
@@ -590,13 +603,14 @@ public class InitialBalance : Indicator
 			_calculate = true;
 			_highLowIsSet = false;
 			_lastStartBar = bar;
-			_endTime = candleFullTime.AddMinutes(_period);
+			_endTime = candleFullDateTime.AddMinutes(_period);
+            _isStarted = true;
 
-			foreach (var dataSeries in DataSeries)
-				if(dataSeries is ValueDataSeries series)
-					series.SetPointOfEndLine(bar - 1);
+            foreach (var dataSeries in DataSeries)
+                if (dataSeries is ValueDataSeries series)
+                    series.SetPointOfEndLine(bar - 1);
 
-			if (ShowOpenRange)
+            if (ShowOpenRange)
 			{
 				var pen = new Pen(ConvertColor(_borderColor))
 				{
@@ -614,7 +628,7 @@ public class InitialBalance : Indicator
 		}
 		else if (isEnd)
 		{
-			_calculate = false;
+			_calculate = _isStarted = false;
         }
 
 		if (_calculate)
@@ -671,7 +685,6 @@ public class InitialBalance : Indicator
 		_iblx12[bar].Lower = _iblx23[bar].Upper = iblx2;
 		_iblx23[bar].Lower = iblx3;
 
-
         if (DrawText)
 		{
 			AddText(_lastStartBar + "Mid", "Mid", true, bar, mid, 0, 0, ConvertColor(_mid.Color), System.Drawing.Color.Transparent,
@@ -706,11 +719,16 @@ public class InitialBalance : Indicator
 		}
 	}
 
-	#endregion
+    private DateTime GetPrevDateTime(int bar)
+    {
+		return GetCandle(bar - 1).Time.AddHours(InstrumentInfo.TimeZone);
+    }
 
-	#region Private methods
-	
-	private void DataSeriesPropertyChanged(object sender, PropertyChangedEventArgs e)
+    #endregion
+
+    #region Private methods
+
+    private void DataSeriesPropertyChanged(object sender, PropertyChangedEventArgs e)
 	{
 		if (!_initialized)
 			return;
