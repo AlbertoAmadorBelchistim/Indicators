@@ -152,9 +152,7 @@ public class DomPower : Indicator
 			{
 				if (_mDepthAsk.Count <= LevelDepth.Value)
 				{
-					cumAsks = _mDepthAsk.Values
-						.DefaultIfEmpty(0)
-						.Sum();
+					cumAsks = MarketDepthInfo.CumulativeDomAsks;
 				}
 				else
 				{
@@ -166,10 +164,8 @@ public class DomPower : Indicator
 
 				if (_mDepthBid.Count <= LevelDepth.Value)
 				{
-					cumBids = _mDepthAsk.Values
-						.DefaultIfEmpty(0)
-						.Sum();
-				}
+					cumBids = MarketDepthInfo.CumulativeDomBids;
+                }
 				else
 				{
 					cumBids = 0;
