@@ -421,10 +421,10 @@ public class CumulativeDelta : Indicator
                         _currentCandle = new();
                         _candleSeries[bar] = _currentCandle;
                     }
-
+                    
                     _currentCandle.Close = _cumDelta;
-                    _currentCandle.High = _high;
-                    _currentCandle.Low = _low;
+                    _currentCandle.High = Math.Max(_high, Math.Max(_open, _cumDelta));
+                    _currentCandle.Low = Math.Min(_low, Math.Min(_open, _cumDelta));
                     _currentCandle.Open = _open;
 
                     break;
