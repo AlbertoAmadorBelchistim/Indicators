@@ -233,12 +233,7 @@ public class DOM : Indicator
 	public bool UseScale
 	{
 		get => _upScale.ScaleIt;
-		set
-		{
-			_upScale.ScaleIt = _downScale.ScaleIt = value;
-			_upScale.Clear();
-			_downScale.Clear();
-		}
+		set => _upScale.ScaleIt = _downScale.ScaleIt = value;
 	}
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.CustomScale), GroupName = nameof(Strings.Scale), Description = nameof(Strings.ElementScaleValueDescription), Order = 410)]
