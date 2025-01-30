@@ -168,7 +168,7 @@ public class DomPower : Indicator
 				{
 					cumAsks = 0;
 
-					for (var i = 0; i <= LevelDepth.Value; i++)
+					for (var i = 0; i < LevelDepth.Value; i++)
 						cumAsks += _mDepthAsk.Values[i];
 				}
 
@@ -181,7 +181,7 @@ public class DomPower : Indicator
 					cumBids = 0;
 					var lastIdx = _mDepthBid.Values.Count - 1;
 
-					for (var i = 0; i <= LevelDepth.Value; i++)
+					for (var i = 0; i < LevelDepth.Value; i++)
 						cumBids += _mDepthBid.Values[lastIdx - i];
 				}
 			}
