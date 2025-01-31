@@ -763,7 +763,9 @@ public class ClusterStatistic : Indicator
 			return;
 		}
 
-		_deltaPerVol[bar] = Math.Abs(candle.Delta * 100m / candle.Volume);
+		_deltaPerVol[bar] = candle.Volume is 0 
+			? 0
+			: Math.Abs(candle.Delta * 100m / candle.Volume);
 
 		var prevCandle = GetCandle(bar - 1);
 
@@ -794,9 +796,9 @@ public class ClusterStatistic : Indicator
 
 		_minDelta = Math.Min(candle.MinDelta, _minDelta);
 
-		_maxDeltaPerVolume = candle.Volume != 0
-			? Math.Max(Math.Abs(100 * candle.Delta / candle.Volume), _minDelta)
-			: 0;
+		_maxDeltaPerVolume = candle.Volume is 0
+			? 0
+			: Math.Max(Math.Abs(100 * candle.Delta / candle.Volume), _minDelta);
 
 		var candleHeight = candle.High - candle.Low;
 		_maxHeight = Math.Max(candleHeight, _maxHeight);
@@ -808,7 +810,10 @@ public class ClusterStatistic : Indicator
 		_maxDuration = Math.Max(_candleDurations[bar], _maxDuration);
 
 		if (Math.Abs(_cVolume[bar] - 0) > 0.000001m)
-			_cDeltaPerVol[bar] = 100.0m * _cDelta[bar] / _cVolume[bar];
+			_cDeltaPerVol[bar] = _cDelta[bar] * 
+				(_cVolume[bar] is 0 
+					? _cDelta[bar] 
+					: 100.0m / _cVolume[bar]);
 
 		_maxSessionDeltaPerVolume = Math.Max(Math.Abs(_cDeltaPerVol[bar]), _maxSessionDeltaPerVolume);
 

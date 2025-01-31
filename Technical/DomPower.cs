@@ -93,22 +93,32 @@ public class DomPower : Indicator
 
 	protected override void OnCalculate(int bar, decimal value)
 	{
-		if (bar != 0)
-			return;
-
-		lock (_locker)
+		if (bar is 0)
 		{
-			_mDepthAsk.Clear();
-			_mDepthBid.Clear();
-			var depths = MarketDepthInfo.GetMarketDepthSnapshot();
-
-			foreach (var depth in depths)
+			lock (_locker)
 			{
-				if (depth.DataType is MarketDataType.Ask)
-					_mDepthAsk[depth.Price] = depth.Volume;
-				else
-					_mDepthBid[depth.Price] = depth.Volume;
+				_mDepthAsk.Clear();
+				_mDepthBid.Clear();
+				var depths = MarketDepthInfo.GetMarketDepthSnapshot();
+
+				foreach (var depth in depths)
+				{
+					if (depth.DataType is MarketDataType.Ask)
+						_mDepthAsk[depth.Price] = depth.Volume;
+					else
+						_mDepthBid[depth.Price] = depth.Volume;
+				}
 			}
+		}
+		else
+		{
+			DataSeries.ForEach(ds =>
+			{
+				if (ds is ValueDataSeries vds && vds[bar] is 0)
+				{
+					vds[bar] = vds[bar - 1];
+				}
+			});
 		}
 	}
 
@@ -158,7 +168,7 @@ public class DomPower : Indicator
 				{
 					cumAsks = 0;
 
-					for (var i = 0; i <= LevelDepth.Value; i++)
+					for (var i = 0; i < LevelDepth.Value; i++)
 						cumAsks += _mDepthAsk.Values[i];
 				}
 
@@ -171,7 +181,7 @@ public class DomPower : Indicator
 					cumBids = 0;
 					var lastIdx = _mDepthBid.Values.Count - 1;
 
-					for (var i = 0; i <= LevelDepth.Value; i++)
+					for (var i = 0; i < LevelDepth.Value; i++)
 						cumBids += _mDepthBid.Values[lastIdx - i];
 				}
 			}
