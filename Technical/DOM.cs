@@ -105,12 +105,12 @@ public class DOM : Indicator
 	private object _locker = new();
 
 	private decimal _maxBid;
-	private decimal _maxPrice;
+	private decimal _maxPrice = decimal.MinValue;
 
 	private VolumeInfo _maxVolume = new();
 	private SortedDictionary<decimal, MarketDataArg> _mDepth = new();
 	private decimal _minAsk;
-	private decimal _minPrice;
+	private decimal _minPrice = decimal.MaxValue;
 
 	private int _priceLevelsHeight;
 	private int _lastRenderedHeight;
@@ -326,7 +326,10 @@ public class DOM : Indicator
 				_mDepth = mDepth;
 
 				if (_mDepth.Count == 0)
+				{
+					_maxPrice = _minPrice = GetCandle(CurrentBar - 1).Close;
 					return;
+				}
 
 				ResetColors();
 
@@ -334,7 +337,7 @@ public class DOM : Indicator
 				_maxBid = _mDepth.LastOrDefault(x => x.Value.Direction == TradeDirection.Sell).Key;
 
 				_maxPrice = Math.Min(_mDepth.Keys.Last(), _maxBid * 1.3m);
-                _minPrice = Math.Max(_mDepth.Keys.First(), _maxBid * 0.7m) ;
+                _minPrice = Math.Max(_mDepth.Keys.First(), _maxBid * 0.7m);
 
 				var maxLevel = _mDepth
 					.Values
