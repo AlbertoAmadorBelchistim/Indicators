@@ -397,49 +397,43 @@ public class MultiMarketPower : Indicator
 	#endregion
 
 	#region Protected methods
-
-	protected override void OnRecalculate()
-	{
-		_bigTradesIsReceived = false;
-	}
-
+	
 	protected override void OnCalculate(int bar, decimal value)
 	{
-		if (bar == 0)
-		{
-			_ticks.Clear();
-			_trades.Clear();
-			var totalBars = CurrentBar - 1;
-			_sessionBegin = totalBars;
-			_lastBar = totalBars;
-
-			for (var i = totalBars; i >= 0; i--)
-			{
-				if (!IsNewSession(i))
-					continue;
-
-				_sessionBegin = i;
-				break;
-			}
-
-			var request = new CumulativeTradesRequest(GetCandle(_sessionBegin).Time);
-			_requestId = request.RequestId;
-			RequestForCumulativeTrades(request);
-		}
-
 		if (!_bigTradesIsReceived || bar != CurrentBar - 1)
 			return;
 
-		if (_filter1Series[bar] != 0)
-			return;
-
-		_filter1Series[bar] = _filter1Series[bar - 1];
-		_filter2Series[bar] = _filter2Series[bar - 1];
-		_filter3Series[bar] = _filter3Series[bar - 1];
-		_filter4Series[bar] = _filter4Series[bar - 1];
-		_filter5Series[bar] = _filter5Series[bar - 1];
+		DataSeries.ForEach(ds =>
+		{
+			if (ds is ValueDataSeries vds && vds[bar] is 0)
+				vds[bar] = vds[bar - 1];
+		});
 	}
+	
+	protected override void OnFinishRecalculate()
+	{
+		_bigTradesIsReceived = false;
 
+        _ticks.Clear();
+		_trades.Clear();
+		var totalBars = CurrentBar - 1;
+		_sessionBegin = totalBars;
+		_lastBar = totalBars;
+
+		for (var i = totalBars; i >= 0; i--)
+		{
+			if (!IsNewSession(i))
+				continue;
+
+			_sessionBegin = i;
+			break;
+		}
+
+		var request = new CumulativeTradesRequest(GetCandle(_sessionBegin).Time);
+		_requestId = request.RequestId;
+		RequestForCumulativeTrades(request);
+    }
+	
 	protected override void OnCumulativeTradesResponse(CumulativeTradesRequest request, IEnumerable<CumulativeTrade> cumulativeTrades)
 	{
 		if (request.RequestId != _requestId)
