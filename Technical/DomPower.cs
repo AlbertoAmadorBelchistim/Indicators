@@ -112,13 +112,11 @@ public class DomPower : Indicator
 		}
 		else
 		{
-			DataSeries.ForEach(ds =>
-			{
-				if (ds is ValueDataSeries vds && vds[bar] is 0)
-				{
-					vds[bar] = vds[bar - 1];
-				}
-			});
+			if (_asks[bar] is 0)
+				_asks[bar] = _asks[bar - 1];
+
+			if (_bids[bar] is 0)
+				_bids[bar] = _bids[bar - 1];
 		}
 	}
 
@@ -201,6 +199,7 @@ public class DomPower : Indicator
 
 			if (delta > max || max == 0)
 				_maxDelta[i] = delta;
+
 			var min = _minDelta[i];
 
 			if (delta < min || min == 0)

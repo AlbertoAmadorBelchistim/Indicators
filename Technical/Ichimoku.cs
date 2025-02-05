@@ -147,8 +147,9 @@ public class Ichimoku : Indicator
 		: base(true)
 	{
 		DenyToChangePanel = true;
+		SupportsExtendedSeries = true;
 
-		DataSeries[0] = _conversionLine;
+        DataSeries[0] = _conversionLine;
 		DataSeries.Add(_baseLine);
         DataSeries.Add(_laggingSpan);
         DataSeries.Add(_leadLine1);
@@ -195,8 +196,8 @@ public class Ichimoku : Indicator
 				}
 			}
 
-			_leadLine1.SetPointOfEndLine(_targetBar + _displacement - 1);
-			_leadLine2.SetPointOfEndLine(_targetBar + _displacement - 1);
+			_leadLine1.SetPointOfEndLine(_targetBar + _displacement - 2);
+			_leadLine2.SetPointOfEndLine(_targetBar + _displacement - 2);
         }
 
 		_conversionHigh.Calculate(bar, candle.High);

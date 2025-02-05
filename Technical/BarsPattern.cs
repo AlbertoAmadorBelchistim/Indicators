@@ -192,6 +192,9 @@
 
 		#endregion
 
+		private decimal _avgVol;
+		private decimal _volSum;
+
 		#region Protected methods
 
 		protected override void OnRecalculate()
@@ -211,7 +214,28 @@
 			{
 				_lastBar = bar;
 
-				if (bar > 0 && bar == CurrentBar - 1 && UseAlerts && _paintBars[bar - 1] != null) 
+				var volSum = 0m;
+
+				for (var i = Math.Max(0, bar - LastBarsVolume.Value); i < bar; i++)
+				{
+					var avgCandle = GetCandle(i);
+					volSum += avgCandle.Volume;
+				}
+
+				_volSum = volSum;
+
+				volSum = 0;
+
+				for (var i = Math.Max(0, bar - LastBarsSMAVolume.Value); i < bar; i++)
+				{
+					var avgCandle = GetCandle(i);
+					volSum += avgCandle.Volume;
+				}
+
+				_avgVol = volSum / LastBarsSMAVolume.Value;
+
+
+                if (bar > 0 && bar == CurrentBar - 1 && UseAlerts && _paintBars[bar - 1] != null) 
 					AddAlert(AlertFile, "The bar is appropriate");
 			}
 
@@ -221,24 +245,11 @@
 			if (MinVolume.Enabled && candle.Volume < MinVolume.Value)
 				return;
 
-			if (LastBarsVolume.Enabled || LastBarsSMAVolume.Enabled)
-			{
-				if (bar < LastBarsVolume.Value)
-					return;
+			if(LastBarsVolume.Enabled && candle.Volume <= _volSum)
+				return;
 
-				var lastVol = 0m;
-
-				for (var i = bar - 1; i >= bar - LastBarsVolume.Value && i >= 0; i--)
-					lastVol += GetCandle(i).Volume;
-
-				if (LastBarsVolume.Enabled && candle.Volume < lastVol)
-					return;
-
-				var sma = lastVol / LastBarsSMAVolume.Value;
-
-				if (LastBarsSMAVolume.Enabled && candle.Volume < sma)
-					return;
-            }
+			if (LastBarsSMAVolume.Enabled && candle.Volume <= _avgVol)
+				return;
 
             if (MaxBid.Enabled && candle.Bid > MaxBid.Value)
 				return;
