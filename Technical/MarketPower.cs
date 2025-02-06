@@ -285,6 +285,9 @@
 
 					if (_lower[bar] is 0)
 						_lower[bar] = _lower[bar - 1];
+
+					if (_smaSeries[bar] is 0)
+						_smaSeries[bar] = _smaSeries[bar - 1];
 				}
 
 				//_smaSeries[bar] = _sma.Calculate(bar, _cumulativeDelta[bar]);
