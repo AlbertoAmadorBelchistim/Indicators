@@ -63,7 +63,6 @@
 		private bool _bigTradesIsReceived;
 		private bool _cumulativeTrades = true;
 		private decimal _delta;
-		private bool _first = true;
 		private int _lastBar = -1;
         private decimal _lastDelta;
 		private decimal _lastMaxValue;
@@ -263,58 +262,20 @@
 
 		protected override void OnRecalculate()
 		{
-			_gapTrades.Clear();
+			_bigTradesIsReceived = false;
+            _gapTrades.Clear();
 			_gapTicks.Clear();
 			_calculating = true;
 			_sma.SourceDataSeries = new ValueDataSeries("SMA");
-		}
+
+			_maxValue = _minValue = _lastMaxValue = _lastMinValue = 0;
+			DataSeries.ForEach(x => x.Clear());
+			_delta = _lastDelta = 0;
+			_barDelta.Clear();
+        }
 
 		protected override void OnCalculate(int bar, decimal value)
 		{
-			if (bar == 0)
-			{
-				_maxValue = _minValue = _lastMaxValue = _lastMinValue = 0;
-				_first = true;
-				_bigTradesIsReceived = false;
-				DataSeries.ForEach(x => x.Clear());
-				_delta = _lastDelta = 0;
-				_barDelta.Clear();
-            }
-			
-			if (bar == CurrentBar - 1 && _first)
-			{
-				_first = false;
-
-				_sessionBegin = CurrentBar - 1;
-				_lastBar = CurrentBar - 1;
-
-				for (var i = CurrentBar - 1; i >= 0; i--)
-				{
-					if (!IsNewSession(i))
-						continue;
-
-					_sessionBegin = i;
-					break;
-				}
-
-				for (var i = 0; i < _sessionBegin; i++)
-					_sma.Calculate(i, 0);
-
-				try
-				{
-					RequestForCumulativeTrades(new CumulativeTradesRequest(GetCandle(_sessionBegin).Time));
-				}
-				catch (ArgumentException)
-				{
-					var startTime = DateTime.Now;
-
-					while ((DateTime.Now - startTime).TotalSeconds < 1 && !_bigTradesIsReceived)
-						Thread.Sleep(10);
-
-					RecalculateValues();
-				}
-			}
-
 			if (bar == CurrentBar - 1 && _bigTradesIsReceived)
 			{
 				if (ShowCumulative)
@@ -324,9 +285,44 @@
 
 					if (_lower[bar] is 0)
 						_lower[bar] = _lower[bar - 1];
+
+					if (_smaSeries[bar] is 0)
+						_smaSeries[bar] = _smaSeries[bar - 1];
 				}
 
-				_smaSeries[bar] = _sma.Calculate(bar, _cumulativeDelta[bar]);
+				//_smaSeries[bar] = _sma.Calculate(bar, _cumulativeDelta[bar]);
+			}
+		}
+
+		protected override void OnFinishRecalculate()
+		{
+			_sessionBegin = CurrentBar - 1;
+			_lastBar = CurrentBar - 1;
+
+			for (var i = CurrentBar - 1; i >= 0; i--)
+			{
+				if (!IsNewSession(i))
+					continue;
+
+				_sessionBegin = i;
+				break;
+			}
+
+			for (var i = 0; i < _sessionBegin; i++)
+				_sma.Calculate(i, 0);
+
+			try
+			{
+				RequestForCumulativeTrades(new CumulativeTradesRequest(GetCandle(_sessionBegin).Time));
+			}
+			catch (ArgumentException)
+			{
+				var startTime = DateTime.Now;
+
+				while ((DateTime.Now - startTime).TotalSeconds < 1 && !_bigTradesIsReceived)
+					Thread.Sleep(10);
+
+				RecalculateValues();
 			}
 		}
 
@@ -623,7 +619,7 @@
 						);
 			}
 
-			_sum += sum;
+			_sum = sum;
 			_maxValue = _lastMaxValue;
 			_minValue = _lastMinValue;
 
