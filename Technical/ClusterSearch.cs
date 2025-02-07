@@ -91,9 +91,8 @@ public partial class ClusterSearch : Indicator
             MiddleClusterType.Bid => CalcMode.Bid,
             MiddleClusterType.Ask => CalcMode.Ask,
             MiddleClusterType.Delta => CalcMode.Delta,
-            MiddleClusterType.Volume => CalcMode.Volume,
+            MiddleClusterType.Volume or MiddleClusterType.Time => CalcMode.Volume,
             MiddleClusterType.Tick => CalcMode.Tick,
-            MiddleClusterType.Time => CalcMode.Volume,
             _ => throw new ArgumentOutOfRangeException(nameof(value), value, null)
         };
     }
@@ -647,41 +646,18 @@ public partial class ClusterSearch : Indicator
 
 	protected override void OnCalculate(int bar, decimal value)
 	{
-		if (bar == 0)
-		{
-			_mergedLevels = new MergedClusterDictionary(PriceRange, InstrumentInfo.TickSize);
-			_renderDataSeries.Clear();
-
-			_autoFilterValue = 0;
-			_targetBar = 0;
-
-			if (_days > 0)
-			{
-				var days = 0;
-
-				for (var i = CurrentBar - 1; i >= 0; i--)
-				{
-					_targetBar = i;
-
-					if (!IsNewSession(i))
-						continue;
-
-					days++;
-
-					if (days == _days)
-						break;
-				}
-			}
-
-			if (UsePrevClose)
-				return;
-		}
-
-		if (!UsePrevClose && _isFinishRecalculate)
+		if (bar is 0 && UsePrevClose)
 			return;
 
-		if (UsePrevClose)
+		if (!UsePrevClose)
+		{
+			if(_isFinishRecalculate)
+				return;
+		}
+		else
+		{
 			bar--;
+		}
 
 		if (bar < _targetBar || _lastBar == bar)
 			return;
@@ -694,13 +670,37 @@ public partial class ClusterSearch : Indicator
 
 	protected override void OnRecalculate()
 	{
-		_isFinishRecalculate = false;
+		if (InstrumentInfo is null)
+			return;
 
-		base.OnRecalculate();
+		_isFinishRecalculate = false;
+		_mergedLevels = new MergedClusterDictionary(PriceRange, InstrumentInfo.TickSize);
+		_renderDataSeries.Clear();
+
+		_autoFilterValue = 0;
+		_targetBar = 0;
+
+		if (Days is 0)
+			return;
+
+		var days = 0;
+
+		for (var i = CurrentBar - 1; i >= 0; i--)
+		{
+			_targetBar = i;
+
+			if (!IsNewSession(i))
+				continue;
+
+			days++;
+
+			if (days == Days)
+				break;
+		}
 	}
 
-	//Apply autofilter
-	protected override void OnFinishRecalculate()
+    //Apply autofilter
+    protected override void OnFinishRecalculate()
 	{
 		if (!AutoFilter)
 		{
@@ -719,15 +719,17 @@ public partial class ClusterSearch : Indicator
 		}
 
 		if (valuesList.Count is 0)
+		{
+			_isFinishRecalculate = true;
 			return;
+		}
 
 		valuesList = valuesList.OrderByDescending(x => (decimal)x.Context).ToList();
 
-		if (valuesList.Count <= 10)
-			_autoFilterValue = (decimal)valuesList.Last().Context;
-		else
-			_autoFilterValue = (decimal)valuesList.Skip(10).First().Context;
-
+		_autoFilterValue = valuesList.Count <= 10 
+			? (decimal)valuesList.Last().Context 
+			: (decimal)valuesList.Skip(10).First().Context;
+		
 		for (var i = 0; i < _renderDataSeries.Count; i++)
 		{
 			if (_renderDataSeries[i].Count is 0)
@@ -791,12 +793,12 @@ public partial class ClusterSearch : Indicator
 		{
 			case PriceLocation.Any:
 				CheckPriceRange(bar, minPrice, maxPrice);
-				return;
+				break;
 
 			case PriceLocation.AtHigh when maxPrice != candle.High:
 			case PriceLocation.AtLow when minPrice != candle.Low:
 			case PriceLocation.AtHighOrLow when maxPrice != candle.High && minPrice != candle.Low:
-				return;
+				break;
 
 			case PriceLocation.AtHighOrLow:
 			case PriceLocation.AtHigh:
@@ -814,18 +816,28 @@ public partial class ClusterSearch : Indicator
 						PlaceToDataSeries(bar, lowInfo);
 				}
 
-				return;
+				break;
 			}
-			case PriceLocation.AtUpperLowerWick or PriceLocation.UpperWick or PriceLocation.LowerWick:
+			case PriceLocation.AtUpperLowerWick or PriceLocation.UpperWick or PriceLocation.LowerWick or PriceLocation.Body:
 			{
-				var maxBody = Math.Max(candle.Close, candle.Open) + InstrumentInfo.TickSize;
-				var minBody = Math.Min(candle.Close, candle.Open) - InstrumentInfo.TickSize;
+				var maxBody = Math.Max(candle.Close, candle.Open);
+				var minBody = Math.Min(candle.Close, candle.Open);
 
-				if (PriceLoc is PriceLocation.UpperWick or PriceLocation.AtUpperLowerWick)
-					CheckPriceRange(bar, maxBody, maxPrice);
+				if (PriceLoc is PriceLocation.Body)
+				{
+					maxBody = Math.Min(maxBody, maxPrice);
+					minBody = Math.Max(minBody, minPrice);
+					CheckPriceRange(bar, minBody, maxBody);
+				}
+				else
+				{
+					if (PriceLoc is PriceLocation.UpperWick or PriceLocation.AtUpperLowerWick)
+						CheckPriceRange(bar, maxBody, maxPrice);
 
-				if (PriceLoc is PriceLocation.LowerWick or PriceLocation.AtUpperLowerWick)
-					CheckPriceRange(bar, minPrice, minBody);
+					if (PriceLoc is PriceLocation.LowerWick or PriceLocation.AtUpperLowerWick)
+						CheckPriceRange(bar, minPrice, minBody);
+				}
+
 				break;
 			}
 		}
