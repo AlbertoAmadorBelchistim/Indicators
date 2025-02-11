@@ -3,7 +3,6 @@ namespace ATAS.Indicators.Technical;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 
 using OFT.Attributes;
 using OFT.Localization;
@@ -55,11 +54,14 @@ public class DomPower : Indicator
         DescriptionKey = nameof(Strings.MinDeltaSettingsDescription)
     };
 
-	#endregion
+	private int _lastBar = -1;
+    private bool _isLastDeltaCalc;
 
-	#region Properties
+    #endregion
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.DepthMarketFilter), GroupName = nameof(Strings.Period), Description = nameof(Strings.DOMMaxFilterDescription), Order = 100)]
+    #region Properties
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.DepthMarketFilter), GroupName = nameof(Strings.Period), Description = nameof(Strings.DOMMaxFilterDescription), Order = 100)]
 	[Range(1, 1000)]
 	public Filter LevelDepth
 	{
@@ -110,15 +112,20 @@ public class DomPower : Indicator
 				}
 			}
 		}
-		else
-		{
-			if (_asks[bar] is 0)
-				_asks[bar] = _asks[bar - 1];
 
-			if (_bids[bar] is 0)
-				_bids[bar] = _bids[bar - 1];
-		}
-	}
+		if (bar > 0 && bar != _lastBar) 
+		{
+			lock (_locker)
+				_isLastDeltaCalc = false;
+
+            _asks[bar] = _asks[bar - 1];
+            _bids[bar] = _bids[bar - 1];
+            _minDelta[bar] = _minDelta[bar - 1];
+            _maxDelta[bar] = _maxDelta[bar - 1];
+        }
+
+		_lastBar = bar;
+    }
 
 	protected override void MarketDepthChanged(MarketDataArg depth)
 	{
@@ -195,17 +202,23 @@ public class DomPower : Indicator
 		{
 			_asks[i] = -cumAsks;
 			_bids[i] = cumBids;
-			var max = _maxDelta[i];
 
-			if (delta > max || max == 0)
+			if (!_isLastDeltaCalc && i == lastCandle)
+			{
+                _maxDelta[i] = delta;
+                _minDelta[i] = delta;
+
+				lock (_locker)
+					_isLastDeltaCalc = true;
+            }
+
+			if (delta > _maxDelta[i]) 
 				_maxDelta[i] = delta;
 
-			var min = _minDelta[i];
+			if (delta < _minDelta[i])
+				_minDelta[i] = delta;			
 
-			if (delta < min || min == 0)
-				_minDelta[i] = delta;
-
-			RaiseBarValueChanged(i);
+            RaiseBarValueChanged(i);
 		}
 
 		_lastCalculatedBar = lastCandle;
