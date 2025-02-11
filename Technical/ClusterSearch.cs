@@ -645,52 +645,37 @@ public partial class ClusterSearch : Indicator
 		MaxCandleBodyHeight.PropertyChanged += Filter_PropertyChanged;
 	}
 
-	protected override void OnNewTrades(IEnumerable<MarketDataArg> trades)
+	protected override void OnNewTrade(MarketDataArg trade)
 	{
 		if (!_isFinishRecalculate || UsePrevClose)
 			return;
 
 		var curBar = CurrentBar - 1;
 
-		var tradesEnumerator = trades.GetEnumerator();
+		var i = 0;
 
-		try
+		while (i < curBar)
 		{
-			if (!tradesEnumerator.MoveNext())
-				return;
-
-			var i = 0;
-
-			do
+			if (trade.Time < GetCandle(curBar - i).Time)
 			{
-				var curTrade = tradesEnumerator.Current;
-
-				while (i < curBar)
-				{
-					if (curTrade.Time < GetCandle(curBar - i).Time)
-					{
-						i++;
-						continue;
-					}
-
-					break;
-				}
-
-				if (_lastBar < curBar - i)
-				{
-					OnNewBar(curBar - i);
-					_lastBar = curBar - i;
-				}
-
-				CalculateTick(curBar - i, curTrade);
+				i++;
+				continue;
 			}
-			while (tradesEnumerator.MoveNext());
+
+			break;
 		}
-		finally
+
+		if (_lastBar != curBar - i)
 		{
-			tradesEnumerator.Dispose();
+			OnNewBar(curBar - i);
+			_lastBar = curBar - i;
 		}
+
+		CalculateTick(curBar - i, trade);
+		_lastPrice = trade.Price;
 	}
+
+	private decimal _lastPrice;
 
 	private void CalculateTick(int bar, MarketDataArg trade)
 	{
@@ -748,7 +733,244 @@ public partial class ClusterSearch : Indicator
 			CheckPriceRange(bar, range.From, range.To);
 			break;
 		}
+
+		if(_lastPrice == trade.Price)
+			return;
+
+		if (PriceLoc is not PriceLocation.Any)
+		{
+			UpdatePriceLocationValues(bar, trade);
+		}
+
+		if (PipsFromHigh.Enabled)
+		{
+			var lowValue = candle.High - InstrumentInfo.TickSize * PipsFromHigh.Value;
+
+			if (lowValue > candle.Low)
+			{
+				for (var i = _lastSeriesBar.Count - 1; i >= 0; i--)
+				{
+					var item = _lastSeriesBar[i];
+					
+					if (item.MinimumPrice >= lowValue)
+                        break;
+
+                    _lastSeriesBar.RemoveAt(i);
+				}
+			}
+		}
+
+		if (PipsFromLow.Enabled)
+		{
+			var highValue = candle.Low + InstrumentInfo.TickSize * PipsFromLow.Value;
+
+			if (highValue < candle.High)
+			{
+				for (var i = 0; i < _lastSeriesBar.Count; i++)
+				{
+					var item = _lastSeriesBar[i];
+					
+					if (item.MinimumPrice <= highValue)
+                        break;
+
+                    _lastSeriesBar.RemoveAt(i);
+				}
+			}
+		}
 	}
+
+	private void UpdatePriceLocationValues(int bar, MarketDataArg trade)
+	{
+		var candle = GetCandle(bar);
+
+        switch (PriceLoc)
+        {
+            case PriceLocation.AtHigh:
+                if (_lastSeriesBar.Count is 0)
+                    return;
+
+                if (trade.Price != candle.High)
+                    return;
+
+                RemoveOldSelection(bar, _lastPrice, trade.Price - InstrumentInfo.TickSize);
+                break;
+
+            case PriceLocation.AtLow:
+                if (_lastSeriesBar.Count is 0)
+                    return;
+
+                if (trade.Price != candle.Low)
+                    return;
+
+                RemoveOldSelection(bar, trade.Price + InstrumentInfo.TickSize, _lastPrice);
+                break;
+
+            case PriceLocation.Body:
+                {
+                    if (trade.Price >= candle.Open)
+                    {
+                        if (_lastPrice > candle.Open)
+                        {
+                            if (_lastPrice > trade.Price)
+                            {
+                                RemoveOldSelection(bar, trade.Price + InstrumentInfo.TickSize, _lastPrice);
+                            }
+                            else
+                            {
+                                CheckPriceRange(bar, _lastPrice, trade.Price - InstrumentInfo.TickSize);
+                            }
+                        }
+                        else
+                        {
+                            RemoveOldSelection(bar, _lastPrice, candle.Open);
+                            CheckPriceRange(bar, candle.Open, trade.Price - InstrumentInfo.TickSize);
+                        }
+                    }
+                    else
+                    {
+                        if (_lastPrice > candle.Open)
+                        {
+
+                            RemoveOldSelection(bar, _lastPrice, candle.Open);
+                            CheckPriceRange(bar, candle.Open, trade.Price + InstrumentInfo.TickSize);
+                        }
+                        else
+                        {
+                            if (_lastPrice > trade.Price)
+                            {
+
+                                CheckPriceRange(bar, _lastPrice, trade.Price + InstrumentInfo.TickSize);
+                            }
+                            else
+                            {
+
+                                RemoveOldSelection(bar, trade.Price - InstrumentInfo.TickSize, _lastPrice);
+                            }
+                        }
+                    }
+
+                    break;
+                }
+            case PriceLocation.UpperWick:
+                {
+                    if (trade.Price >= candle.Open)
+                    {
+                        if (_lastPrice > candle.Open)
+                        {
+                            if (_lastPrice > trade.Price)
+                            {
+                                CheckPriceRange(bar, trade.Price + InstrumentInfo.TickSize, _lastPrice);
+                            }
+                            else
+                            {
+                                RemoveOldSelection(bar, _lastPrice, trade.Price);
+                            }
+                        }
+                        else
+                        {
+                            RemoveOldSelection(bar, candle.Open, trade.Price);
+                        }
+                    }
+                    else
+                    {
+                        if (_lastPrice > candle.Open)
+                        {
+                            RemoveOldSelection(bar, trade.Price, candle.Open);
+                            CheckPriceRange(bar, candle.Open + InstrumentInfo.TickSize, _lastPrice);
+                        }
+                    }
+
+                    break;
+                }
+            case PriceLocation.LowerWick:
+                {
+                    if (trade.Price >= candle.Open)
+                    {
+                        if (_lastPrice < candle.Open)
+                        {
+                            RemoveOldSelection(bar, candle.Open, trade.Price);
+                            CheckPriceRange(bar, _lastPrice, candle.Open - InstrumentInfo.TickSize);
+                        }
+                    }
+                    else
+                    {
+                        if (_lastPrice > candle.Open)
+                        {
+                            RemoveOldSelection(bar, trade.Price, _lastPrice);
+                        }
+                        else
+                        {
+                            if (_lastPrice > trade.Price)
+                            {
+                                RemoveOldSelection(bar, trade.Price, _lastPrice);
+                            }
+                            else
+                            {
+                                CheckPriceRange(bar, _lastPrice, trade.Price - InstrumentInfo.TickSize);
+                            }
+                        }
+                    }
+
+                    break;
+                }
+            case PriceLocation.AtHighOrLow:
+                {
+                    if (_lastSeriesBar.Count is 0)
+                        return;
+
+                    if (trade.Price == candle.High && _lastPrice != candle.Low)
+                        RemoveOldSelection(bar, _lastPrice, trade.Price - InstrumentInfo.TickSize);
+
+                    else if (trade.Price == candle.Low && _lastPrice != candle.High)
+                        RemoveOldSelection(bar, trade.Price + InstrumentInfo.TickSize, _lastPrice);
+                    break;
+                }
+            case PriceLocation.AtUpperLowerWick:
+                if (trade.Price >= candle.Open)
+                {
+                    if (_lastPrice < candle.Open)
+                    {
+                        CheckPriceRange(bar, _lastPrice, candle.Open - InstrumentInfo.TickSize);
+                        RemoveOldSelection(bar, candle.Open, trade.Price);
+                    }
+                    else
+                    {
+                        if (_lastPrice > trade.Price)
+                        {
+                            CheckPriceRange(bar, trade.Price + InstrumentInfo.TickSize, _lastPrice);
+                        }
+                        else
+                        {
+                            RemoveOldSelection(bar, _lastPrice, trade.Price);
+                        }
+                    }
+                }
+                else
+                {
+                    if (_lastPrice > candle.Open)
+                    {
+                        if (_lastPrice > trade.Price)
+                        {
+                            CheckPriceRange(bar, candle.Open + InstrumentInfo.TickSize, _lastPrice);
+                            RemoveOldSelection(bar, trade.Price, candle.Open);
+                        }
+                    }
+                    else
+                    {
+                        if (_lastPrice > trade.Price)
+                        {
+                            RemoveOldSelection(bar, trade.Price, _lastPrice);
+                        }
+                        else
+                        {
+                            CheckPriceRange(bar, _lastPrice, trade.Price - InstrumentInfo.TickSize);
+                        }
+                    }
+                }
+
+                break;
+        }
+    }
 
 	private SyncList<PriceSelectionValue> _lastSeriesBar = [];
 
@@ -769,7 +991,9 @@ public partial class ClusterSearch : Indicator
 
 		_lastSeriesBar.Clear();
         _renderDataSeries[bar] = _lastSeriesBar;
-	}
+
+        _lastPrice = GetCandle(bar).Close;
+    }
 
     private void RemoveOldSelection(int bar, decimal price)
 	{
@@ -777,6 +1001,12 @@ public partial class ClusterSearch : Indicator
 
 		if (idx >= 0)
 			_lastSeriesBar.RemoveAt(idx);
+    }
+
+    private void RemoveOldSelection(int bar, decimal from, decimal to)
+	{
+		for (var price = from; price <= to; price += InstrumentInfo.TickSize)
+            RemoveOldSelection(bar, price);
     }
 
     protected override void OnCalculate(int bar, decimal value)
@@ -900,8 +1130,8 @@ public partial class ClusterSearch : Indicator
 		var candle = GetCandle(bar);
 
 		var endPrice = Math.Max(candle.Low, candle.High - (PriceRange - 1) * InstrumentInfo.TickSize);
-
-		for (var price = candle.Low; price <= endPrice; price += InstrumentInfo.TickSize)
+		
+        for (var price = candle.Low; price <= endPrice; price += InstrumentInfo.TickSize)
 		{
 			if (!CheckCluster(bar, price))
 				_validVolumeLevels.Remove(price);
@@ -932,7 +1162,7 @@ public partial class ClusterSearch : Indicator
         var candle = GetCandle(bar);
 
 		var maxPrice = PipsFromLow.Enabled
-			? candle.Low + PipsFromHigh.Value * InstrumentInfo.TickSize
+			? candle.Low + PipsFromLow.Value * InstrumentInfo.TickSize
 			: candle.High;
 
 		var minPrice = PipsFromHigh.Enabled
@@ -941,6 +1171,9 @@ public partial class ClusterSearch : Indicator
 
 		if (minPrice > maxPrice)
 			return ranges;
+
+		maxPrice = Math.Min(candle.High, maxPrice);
+		minPrice = Math.Max(candle.Low, minPrice);
 
 		switch (PriceLoc)
 		{
@@ -983,10 +1216,10 @@ public partial class ClusterSearch : Indicator
 				}
 
 				if (PriceLoc is PriceLocation.UpperWick or PriceLocation.AtUpperLowerWick)
-					ranges.Add((maxBody, maxPrice));
+					ranges.Add((maxBody + InstrumentInfo.TickSize, maxPrice));
 
 				if (PriceLoc is PriceLocation.LowerWick or PriceLocation.AtUpperLowerWick)
-					ranges.Add((minPrice, minBody));
+					ranges.Add((minPrice, minBody - InstrumentInfo.TickSize));
 
 				return ranges;
 			}
@@ -1006,6 +1239,8 @@ public partial class ClusterSearch : Indicator
 	{
 		if (_validVolumeLevels.TryGetValue(price, out var info))
 			PlaceToDataSeries(bar, info);
+		else
+			RemoveOldSelection(bar, price);
 	}
 
 	private void PlaceToDataSeries(int bar, CustomVolumeInfo cluster)
