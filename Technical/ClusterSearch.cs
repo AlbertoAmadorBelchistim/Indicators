@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+
 using MoreLinq;
 
 using OFT.Attributes;
@@ -41,6 +42,10 @@ public partial class ClusterSearch : Indicator
 	private bool _fixedSizes;
 	private bool _isFinishRecalculate;
 	private int _lastBar = -1;
+
+	private decimal _lastPrice;
+
+	private SyncList<PriceSelectionValue> _lastSeriesBar = [];
 	private decimal _maxAverageTrade;
 	private Filter _maxFilter = new() { Enabled = true, Value = 99999 };
 	private decimal _maxPercent;
@@ -70,552 +75,11 @@ public partial class ClusterSearch : Indicator
 	private int _visualObjectsTransparency;
 	private ObjectType _visualType = ObjectType.Rectangle;
 
-    #endregion
+	#endregion
 
-    #region Filters
+	#region ctor
 
-    [Browsable(false)]
-    [Obsolete]
-    public MiddleClusterType Type
-    {
-        get => CalcType switch
-        {
-            CalcMode.Bid => MiddleClusterType.Bid,
-            CalcMode.Ask => MiddleClusterType.Ask,
-            CalcMode.Delta => MiddleClusterType.Delta,
-            CalcMode.Volume => MiddleClusterType.Volume,
-            CalcMode.Tick => MiddleClusterType.Tick,
-            _ => MiddleClusterType.Volume
-        };
-        set => CalcType = value switch
-        {
-            MiddleClusterType.Bid => CalcMode.Bid,
-            MiddleClusterType.Ask => CalcMode.Ask,
-            MiddleClusterType.Delta => CalcMode.Delta,
-            MiddleClusterType.Volume or MiddleClusterType.Time => CalcMode.Volume,
-            MiddleClusterType.Tick => CalcMode.Tick,
-            _ => throw new ArgumentOutOfRangeException(nameof(value), value, null)
-        };
-    }
-
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Filters), Name = nameof(Strings.CalculationMode),
-        Description = nameof(Strings.CalculationModeDescription), Order = 200)]
-    public CalcMode CalcType
-    {
-        get => _type;
-        set
-        {
-            _type = value;
-            RecalculateValues();
-        }
-    }
-
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Filters), Name = nameof(Strings.AutoFilter),
-        Description = nameof(Strings.ClusterSearchAutofilterDescription), Order = 215)]
-    public bool AutoFilter
-    {
-        get => _autoFilter;
-        set
-        {
-            _autoFilter = value;
-
-            MinimumFilter.Enabled = MaximumFilter.Enabled = !value;
-
-            RecalculateValues();
-        }
-    }
-
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Filters), Description = nameof(Strings.MinimumFilterDescription),
-        Name = nameof(Strings.MinValue), Order = 220)]
-    public Filter MinimumFilter
-    {
-        get => _minFilter;
-        set
-        {
-            _minFilter = value;
-            RecalculateValues();
-        }
-    }
-
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Filters), Description = nameof(Strings.MaximumFilterDescription),
-        Name = nameof(Strings.MaxValue), Order = 230)]
-    public Filter MaximumFilter
-    {
-        get => _maxFilter;
-        set
-        {
-            _maxFilter = value;
-            RecalculateValues();
-        }
-    }
-
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Filters), Name = nameof(Strings.MinimumAverageTrade), Order = 470,
-        Description = nameof(Strings.MinAvgTradeDescription))]
-    [Range(0, 10000000)]
-    public decimal MinAverageTrade
-    {
-        get => _minAverageTrade;
-        set
-        {
-            _minAverageTrade = value;
-            RecalculateValues();
-        }
-    }
-
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Filters), Name = nameof(Strings.MaximumAverageTrade), Order = 480,
-        Description = nameof(Strings.MaxAvgTradeDescription))]
-    [Range(0, 10000000)]
-    public decimal MaxAverageTrade
-    {
-        get => _maxAverageTrade;
-        set
-        {
-            _maxAverageTrade = value;
-            RecalculateValues();
-        }
-    }
-
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Filters), Name = nameof(Strings.MinVolumePercent), Order = 490,
-        Description = nameof(Strings.MinPercentDescription))]
-    [Range(0, 100)]
-    public decimal MinPercent
-    {
-        get => _minPercent;
-        set
-        {
-            _minPercent = value;
-            RecalculateValues();
-        }
-    }
-
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Filters), Name = nameof(Strings.MaxVolumePercent), Order = 492,
-        Description = nameof(Strings.MaxPercentDescription))]
-    [Range(0, 100)]
-    public decimal MaxPercent
-    {
-        get => _maxPercent;
-        set
-        {
-            _maxPercent = value;
-            RecalculateValues();
-        }
-    }
-
-    #endregion
-
-    #region DeltaFilters
-
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.DeltaFilters), Name = nameof(Strings.DeltaImbalance), Order = 300,
-        Description = nameof(Strings.DeltaImbalanceDescription))]
-    [Range(-100, 100)]
-    public decimal DeltaImbalance
-    {
-        get => _deltaImbalance;
-        set
-        {
-            _deltaImbalance = value;
-            RecalculateValues();
-        }
-    }
-
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.DeltaFilters), Name = nameof(Strings.DeltaFilter), Order = 310,
-        Description = nameof(Strings.DeltaFilterDescription))]
-    public decimal DeltaFilter
-    {
-        get => _deltaFilter;
-        set
-        {
-            _deltaFilter = value;
-            RecalculateValues();
-        }
-    }
-
-    #endregion
-
-    #region Location filters
-
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.LocationFilters), Name = nameof(Strings.CandleDirection),
-        Description = nameof(Strings.CandleDirectionDescription), Order = 400)]
-    public CandleDirection CandleDir
-    {
-        get => _candleDirection;
-        set
-        {
-            _candleDirection = value;
-            RecalculateValues();
-        }
-    }
-
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.LocationFilters), Name = nameof(Strings.BarsRange), Order = 410,
-        Description = nameof(Strings.BarsRangeDescription))]
-    [Range(1, 10000)]
-    public int BarsRange
-    {
-        get => _barsRange;
-        set
-        {
-            _barsRange = value;
-            RecalculateValues();
-        }
-    }
-
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.LocationFilters), Name = nameof(Strings.PriceRange), Order = 420,
-        Description = nameof(Strings.PriceRangeDescription))]
-    [Range(1, 100000)]
-    public int PriceRange
-    {
-        get => _priceRange;
-        set
-        {
-            _priceRange = value;
-            RecalculateValues();
-        }
-    }
-
-    [Range(1, int.MaxValue)]
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.LocationFilters), Name = nameof(Strings.PipsFromHigh), Order = 430,
-        Description = nameof(Strings.PipsFromHighDescription))]
-    public Filter PipsFromHigh
-    {
-        get => _pipsFromHigh;
-        set
-        {
-            _pipsFromHigh = value;
-            RecalculateValues();
-        }
-    }
-
-    [Range(1, int.MaxValue)]
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.LocationFilters), Name = nameof(Strings.PipsFromLow), Order = 440,
-        Description = nameof(Strings.PipsFromLowDescription))]
-    public Filter PipsFromLow
-    {
-        get => _pipsFromLow;
-        set
-        {
-            _pipsFromLow = value;
-            RecalculateValues();
-        }
-    }
-
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.LocationFilters), Name = nameof(Strings.PriceLocation), Order = 450,
-        Description = nameof(Strings.PriceLocationDescription))]
-    public PriceLocation PriceLoc
-    {
-        get => _priceLocation;
-        set
-        {
-            _priceLocation = value;
-            RecalculateValues();
-        }
-    }
-
-    #endregion
-
-    #region Candle size filters
-
-    [Range(1, int.MaxValue)]
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.MinimumCandleHeight), GroupName = nameof(Strings.CandleHeight), Order = 460,
-        Description = nameof(Strings.MinCandleHeightDescription))]
-    public FilterInt MinCandleHeight { get; set; } = new()
-    { Value = 1, Enabled = false };
-
-    [Range(1, int.MaxValue)]
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.MaximumCandleHeight), GroupName = nameof(Strings.CandleHeight), Order = 461,
-        Description = nameof(Strings.MaxCandleHeightDescription))]
-    public FilterInt MaxCandleHeight { get; set; } = new()
-    { Value = 1, Enabled = false };
-
-    [Range(1, int.MaxValue)]
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.MinimumCandleBodyHeight), GroupName = nameof(Strings.CandleHeight), Order = 470,
-        Description = nameof(Strings.MinCandleBodyHeightDescription))]
-    public FilterInt MinCandleBodyHeight { get; set; } = new()
-    { Value = 1, Enabled = false };
-
-    [Range(1, int.MaxValue)]
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.MaximumCandleBodyHeight), GroupName = nameof(Strings.CandleHeight), Order = 471,
-        Description = nameof(Strings.MaxCandleBodyHeightDescription))]
-    public FilterInt MaxCandleBodyHeight { get; set; } = new()
-    { Value = 1, Enabled = false };
-
-    #endregion
-
-    #region Time filtration
-
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.TimeFiltration), Name = nameof(Strings.UseTimeFilter), Order = 500,
-        Description = nameof(Strings.UseTimeFilterDescription))]
-    public bool UseTimeFilter
-    {
-        get => _useTimeFilter;
-        set
-        {
-            _useTimeFilter = value;
-            RecalculateValues();
-        }
-    }
-
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.TimeFiltration), Name = nameof(Strings.TimeFrom), Order = 510,
-        Description = nameof(Strings.TimeFromDescription))]
-    public TimeSpan TimeFrom
-    {
-        get => _timeFrom;
-        set
-        {
-            _timeFrom = value;
-            RecalculateValues();
-        }
-    }
-
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.TimeFiltration), Name = nameof(Strings.TimeTo), Order = 520,
-        Description = nameof(Strings.TimeToDescription))]
-    public TimeSpan TimeTo
-    {
-        get => _timeTo;
-        set
-        {
-            _timeTo = value;
-            RecalculateValues();
-        }
-    }
-
-    #endregion
-
-    #region Visualization
-
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Visualization), Name = nameof(Strings.OnlyOneSelectionPerBar), Order = 590,
-        Description = nameof(Strings.OneSelectionPerBarDescription))]
-    public bool OnlyOneSelectionPerBar
-    {
-        get => _onlyOneSelectionPerBar;
-        set
-        {
-            _onlyOneSelectionPerBar = value;
-            RecalculateValues();
-        }
-    }
-
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Visualization), Name = nameof(Strings.VisualMode), Order = 600,
-        Description = nameof(Strings.VisualModeDescription))]
-    public ObjectType VisualType
-    {
-        get => _visualType;
-        set
-        {
-            _visualType = value;
-
-            for (var i = 0; i < _renderDataSeries.Count; i++)
-                _renderDataSeries[i].ForEach(x => { x.VisualObject = value; });
-        }
-    }
-
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Visualization), Name = nameof(Strings.ObjectsColor), Order = 605,
-        Description = nameof(Strings.VisualObjectsDescription))]
-    public CrossColor ClusterColor
-    {
-        get => _clusterTransColor;
-        set
-        {
-            _clusterTransColor = value;
-
-            for (var i = 0; i < _renderDataSeries.Count; i++)
-            {
-                _renderDataSeries[i].ForEach(x => { x.ObjectColor = _clusterTransColor; });
-            }
-        }
-    }
-
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Visualization), Name = nameof(Strings.VisualObjectsTransparency), Order = 610,
-        Description = nameof(Strings.VisualObjectsTransparencyDescription))]
-    [Range(0, 100)]
-    public int VisualObjectsTransparency
-    {
-        get => _visualObjectsTransparency;
-        set
-        {
-            _visualObjectsTransparency = value;
-
-            for (var i = 0; i < _renderDataSeries.Count; i++)
-            {
-                _renderDataSeries[i].ForEach(x =>
-                {
-                    x.ObjectColor = _clusterTransColor;
-                    x.ObjectsTransparency = _visualObjectsTransparency;
-                });
-            }
-        }
-    }
-
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Visualization), Name = nameof(Strings.ShowPriceSelection), Order = 615,
-        Description = nameof(Strings.ShowPriceSelectionDescription))]
-    public bool ShowPriceSelection
-    {
-        get => _showPriceSelection;
-        set
-        {
-            _showPriceSelection = value;
-
-            for (var i = 0; i < _renderDataSeries.Count; i++)
-                _renderDataSeries[i].ForEach(x => { x.PriceSelectionColor = value ? _clusterPriceColor : CrossColors.Transparent; });
-        }
-    }
-
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Visualization), Name = nameof(Strings.PriceSelectionColor), Order = 620,
-        Description = nameof(Strings.PriceSelectionColorDescription))]
-    public CrossColor PriceSelectionColor
-    {
-        get => _clusterPriceColor;
-        set
-        {
-            _clusterPriceColor = value;
-
-            for (var i = 0; i < _renderDataSeries.Count; i++)
-                _renderDataSeries[i].ForEach(x => x.PriceSelectionColor = ShowPriceSelection ? _clusterPriceColor : CrossColors.Transparent);
-        }
-    }
-
-    [Browsable(false)]
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Visualization), Name = nameof(Strings.ClusterSelectionTransparency), Order = 625,
-        Description = nameof(Strings.PriceSelectionTransparencyDescription))]
-    [Range(0, 100)]
-    public int Transparency { get; set; }
-
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Visualization), Name = nameof(Strings.FixedSizes), Order = 640,
-        Description = nameof(Strings.FixedSizesDescription))]
-    public bool FixedSizes
-    {
-        get => _fixedSizes;
-        set
-        {
-            _fixedSizes = value;
-            SetSize();
-        }
-    }
-
-    [Range(1, int.MaxValue)]
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Visualization), Name = nameof(Strings.Size), Order = 650,
-        Description = nameof(Strings.SizeDescription))]
-    public int Size
-    {
-        get => _size;
-        set
-        {
-            _size = value;
-            SetSize();
-        }
-    }
-
-    [Range(1, int.MaxValue)]
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Visualization), Name = nameof(Strings.MinimumSize), Order = 660,
-        Description = nameof(Strings.MinimumSizeDescription))]
-    public int MinSize
-    {
-        get => _minSize;
-        set
-        {
-            _minSize = value;
-
-            if (!_fixedSizes)
-            {
-                var filterValue = MinimalFilter();
-
-                for (var i = 0; i < _renderDataSeries.Count; i++)
-                {
-                    _renderDataSeries[i].ForEach(x =>
-                    {
-                        x.Size = (int)((decimal)x.Context * _size / Math.Max(filterValue, 1));
-
-                        if (x.Size > MaxSize)
-                            x.Size = MaxSize;
-
-                        if (x.Size < value)
-                            x.Size = value;
-                    });
-                }
-            }
-        }
-    }
-
-    [Range(1, int.MaxValue)]
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Visualization), Name = nameof(Strings.MaximumSize), Order = 670,
-        Description = nameof(Strings.MaximumSizeDescription))]
-    public int MaxSize
-    {
-        get => _maxSize;
-        set
-        {
-            _maxSize = value;
-
-            if (!_fixedSizes)
-            {
-                var filterValue = MinimalFilter();
-
-                for (var i = 0; i < _renderDataSeries.Count; i++)
-                {
-                    _renderDataSeries[i].ForEach(x =>
-                    {
-                        x.Size = (int)((decimal)x.Context * _size / Math.Max(filterValue, 1));
-
-                        if (x.Size > value)
-                            x.Size = value;
-
-                        if (x.Size < MinSize)
-                            x.Size = MinSize;
-                    });
-                }
-            }
-        }
-    }
-
-    #endregion
-
-    #region Alerts
-
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Alerts), Name = nameof(Strings.UseAlerts), Order = 700,
-        Description = nameof(Strings.UseAlertDescription))]
-    public bool UseAlerts { get; set; }
-
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Alerts), Name = nameof(Strings.AlertFile), Order = 720,
-        Description = nameof(Strings.AlertFileDescription))]
-    public string AlertFile { get; set; } = "alert2";
-
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Alerts), Name = nameof(Strings.BackGround), Order = 740,
-        Description = nameof(Strings.AlertBackgroundDescription))]
-    public CrossColor AlertColor { get; set; } = CrossColors.Black;
-
-    #endregion
-
-    #region Calculation
-
-    [Range(0, int.MaxValue)]
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Calculation), Name = nameof(Strings.DaysLookBack), Order = int.MaxValue,
-        Description = nameof(Strings.DaysLookBackDescription))]
-    public int Days
-    {
-        get => _days;
-        set
-        {
-            _days = value;
-            RecalculateValues();
-        }
-    }
-
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Calculation), Name = nameof(Strings.UsePreviousClose), Order = 800,
-        Description = nameof(Strings.CalculateOnBarCloseDescription))]
-    public bool UsePrevClose
-    {
-        get => _usePrevClose;
-        set
-        {
-            _usePrevClose = value;
-            RecalculateValues();
-        }
-    }
-
-    #endregion
-
-    #region ctor
-
-    public ClusterSearch()
+	public ClusterSearch()
 		: base(true)
 	{
 		VisualObjectsTransparency = 70;
@@ -675,7 +139,110 @@ public partial class ClusterSearch : Indicator
 		_lastPrice = trade.Price;
 	}
 
-	private decimal _lastPrice;
+	protected override void OnCalculate(int bar, decimal value)
+	{
+		if (bar is 0 && UsePrevClose)
+			return;
+
+		if (!UsePrevClose)
+		{
+			if (_isFinishRecalculate)
+				return;
+		}
+		else
+			bar--;
+
+		var newBar = _lastBar != bar;
+		_lastBar = bar;
+
+		if (bar < _targetBar || !newBar)
+			return;
+
+		if (bar is not 0)
+			OnNewBar(bar);
+
+		CalculateBar(bar);
+	}
+
+	protected override void OnRecalculate()
+	{
+		if (InstrumentInfo is null)
+			return;
+
+		_isFinishRecalculate = false;
+		_mergedLevels = new MergedClusterDictionary(PriceRange, InstrumentInfo.TickSize);
+		_renderDataSeries.Clear();
+
+		_autoFilterValue = 0;
+		_targetBar = 0;
+
+		if (Days is 0)
+			return;
+
+		var days = 0;
+
+		for (var i = CurrentBar - 1; i >= 0; i--)
+		{
+			_targetBar = i;
+
+			if (!IsNewSession(i))
+				continue;
+
+			days++;
+
+			if (days == Days)
+				break;
+		}
+	}
+
+	//Apply autofilter
+	protected override void OnFinishRecalculate()
+	{
+		if (!AutoFilter)
+		{
+			_isFinishRecalculate = true;
+			return;
+		}
+
+		var valuesList = new List<PriceSelectionValue>();
+
+		for (var i = 0; i < _renderDataSeries.Count; i++)
+		{
+			if (_renderDataSeries[i].Count is 0)
+				continue;
+
+			valuesList.AddRange(_renderDataSeries[i]);
+		}
+
+		if (valuesList.Count is 0)
+		{
+			_isFinishRecalculate = true;
+			return;
+		}
+
+		valuesList = valuesList.OrderByDescending(x => (decimal)x.Context).ToList();
+
+		_autoFilterValue = valuesList.Count <= 10
+			? (decimal)valuesList.Last().Context
+			: (decimal)valuesList.Skip(10).First().Context;
+
+		for (var i = 0; i < _renderDataSeries.Count; i++)
+		{
+			if (_renderDataSeries[i].Count is 0)
+				continue;
+
+			_renderDataSeries[i].RemoveAll(x => (decimal)x.Context < _autoFilterValue);
+		}
+
+		MinimumFilter.SetValueSilently(_autoFilterValue);
+		OnChangeProperty(nameof(MinimumFilter));
+
+		_isFinishRecalculate = true;
+	}
+
+	#endregion
+
+	#region Private methods
 
 	private void CalculateTick(int bar, MarketDataArg trade)
 	{
@@ -716,7 +283,7 @@ public partial class ClusterSearch : Indicator
 
 		_renderDataSeries[bar] = _lastSeriesBar;
 
-        if (_validVolumeLevels.Count is 0)
+		if (_validVolumeLevels.Count is 0)
 		{
 			RemoveOldSelection(bar, trade.Price);
 			return;
@@ -734,13 +301,11 @@ public partial class ClusterSearch : Indicator
 			break;
 		}
 
-		if(_lastPrice == trade.Price)
+		if (_lastPrice == trade.Price)
 			return;
 
 		if (PriceLoc is not PriceLocation.Any)
-		{
 			UpdatePriceLocationValues(bar, trade);
-		}
 
 		if (PipsFromHigh.Enabled)
 		{
@@ -751,11 +316,11 @@ public partial class ClusterSearch : Indicator
 				for (var i = _lastSeriesBar.Count - 1; i >= 0; i--)
 				{
 					var item = _lastSeriesBar[i];
-					
-					if (item.MinimumPrice >= lowValue)
-                        break;
 
-                    _lastSeriesBar.RemoveAt(i);
+					if (item.MinimumPrice >= lowValue)
+						break;
+
+					_lastSeriesBar.RemoveAt(i);
 				}
 			}
 		}
@@ -769,212 +334,17 @@ public partial class ClusterSearch : Indicator
 				for (var i = 0; i < _lastSeriesBar.Count; i++)
 				{
 					var item = _lastSeriesBar[i];
-					
-					if (item.MinimumPrice <= highValue)
-                        break;
 
-                    _lastSeriesBar.RemoveAt(i);
+					if (item.MinimumPrice <= highValue)
+						break;
+
+					_lastSeriesBar.RemoveAt(i);
 				}
 			}
 		}
 	}
 
-	private void UpdatePriceLocationValues(int bar, MarketDataArg trade)
-	{
-		var candle = GetCandle(bar);
-
-        switch (PriceLoc)
-        {
-            case PriceLocation.AtHigh:
-                if (_lastSeriesBar.Count is 0)
-                    return;
-
-                if (trade.Price != candle.High)
-                    return;
-
-                RemoveOldSelection(bar, _lastPrice, trade.Price - InstrumentInfo.TickSize);
-                break;
-
-            case PriceLocation.AtLow:
-                if (_lastSeriesBar.Count is 0)
-                    return;
-
-                if (trade.Price != candle.Low)
-                    return;
-
-                RemoveOldSelection(bar, trade.Price + InstrumentInfo.TickSize, _lastPrice);
-                break;
-
-            case PriceLocation.Body:
-                {
-                    if (trade.Price >= candle.Open)
-                    {
-                        if (_lastPrice > candle.Open)
-                        {
-                            if (_lastPrice > trade.Price)
-                            {
-                                RemoveOldSelection(bar, trade.Price + InstrumentInfo.TickSize, _lastPrice);
-                            }
-                            else
-                            {
-                                CheckPriceRange(bar, _lastPrice, trade.Price - InstrumentInfo.TickSize);
-                            }
-                        }
-                        else
-                        {
-                            RemoveOldSelection(bar, _lastPrice, candle.Open);
-                            CheckPriceRange(bar, candle.Open, trade.Price - InstrumentInfo.TickSize);
-                        }
-                    }
-                    else
-                    {
-                        if (_lastPrice > candle.Open)
-                        {
-
-                            RemoveOldSelection(bar, _lastPrice, candle.Open);
-                            CheckPriceRange(bar, candle.Open, trade.Price + InstrumentInfo.TickSize);
-                        }
-                        else
-                        {
-                            if (_lastPrice > trade.Price)
-                            {
-
-                                CheckPriceRange(bar, _lastPrice, trade.Price + InstrumentInfo.TickSize);
-                            }
-                            else
-                            {
-
-                                RemoveOldSelection(bar, trade.Price - InstrumentInfo.TickSize, _lastPrice);
-                            }
-                        }
-                    }
-
-                    break;
-                }
-            case PriceLocation.UpperWick:
-                {
-                    if (trade.Price >= candle.Open)
-                    {
-                        if (_lastPrice > candle.Open)
-                        {
-                            if (_lastPrice > trade.Price)
-                            {
-                                CheckPriceRange(bar, trade.Price + InstrumentInfo.TickSize, _lastPrice);
-                            }
-                            else
-                            {
-                                RemoveOldSelection(bar, _lastPrice, trade.Price);
-                            }
-                        }
-                        else
-                        {
-                            RemoveOldSelection(bar, candle.Open, trade.Price);
-                        }
-                    }
-                    else
-                    {
-                        if (_lastPrice > candle.Open)
-                        {
-                            RemoveOldSelection(bar, trade.Price, candle.Open);
-                            CheckPriceRange(bar, candle.Open + InstrumentInfo.TickSize, _lastPrice);
-                        }
-                    }
-
-                    break;
-                }
-            case PriceLocation.LowerWick:
-                {
-                    if (trade.Price >= candle.Open)
-                    {
-                        if (_lastPrice < candle.Open)
-                        {
-                            RemoveOldSelection(bar, candle.Open, trade.Price);
-                            CheckPriceRange(bar, _lastPrice, candle.Open - InstrumentInfo.TickSize);
-                        }
-                    }
-                    else
-                    {
-                        if (_lastPrice > candle.Open)
-                        {
-                            RemoveOldSelection(bar, trade.Price, _lastPrice);
-                        }
-                        else
-                        {
-                            if (_lastPrice > trade.Price)
-                            {
-                                RemoveOldSelection(bar, trade.Price, _lastPrice);
-                            }
-                            else
-                            {
-                                CheckPriceRange(bar, _lastPrice, trade.Price - InstrumentInfo.TickSize);
-                            }
-                        }
-                    }
-
-                    break;
-                }
-            case PriceLocation.AtHighOrLow:
-                {
-                    if (_lastSeriesBar.Count is 0)
-                        return;
-
-                    if (trade.Price == candle.High && _lastPrice != candle.Low)
-                        RemoveOldSelection(bar, _lastPrice, trade.Price - InstrumentInfo.TickSize);
-
-                    else if (trade.Price == candle.Low && _lastPrice != candle.High)
-                        RemoveOldSelection(bar, trade.Price + InstrumentInfo.TickSize, _lastPrice);
-                    break;
-                }
-            case PriceLocation.AtUpperLowerWick:
-                if (trade.Price >= candle.Open)
-                {
-                    if (_lastPrice < candle.Open)
-                    {
-                        CheckPriceRange(bar, _lastPrice, candle.Open - InstrumentInfo.TickSize);
-                        RemoveOldSelection(bar, candle.Open, trade.Price);
-                    }
-                    else
-                    {
-                        if (_lastPrice > trade.Price)
-                        {
-                            CheckPriceRange(bar, trade.Price + InstrumentInfo.TickSize, _lastPrice);
-                        }
-                        else
-                        {
-                            RemoveOldSelection(bar, _lastPrice, trade.Price);
-                        }
-                    }
-                }
-                else
-                {
-                    if (_lastPrice > candle.Open)
-                    {
-                        if (_lastPrice > trade.Price)
-                        {
-                            CheckPriceRange(bar, candle.Open + InstrumentInfo.TickSize, _lastPrice);
-                            RemoveOldSelection(bar, trade.Price, candle.Open);
-                        }
-                    }
-                    else
-                    {
-                        if (_lastPrice > trade.Price)
-                        {
-                            RemoveOldSelection(bar, trade.Price, _lastPrice);
-                        }
-                        else
-                        {
-                            CheckPriceRange(bar, _lastPrice, trade.Price - InstrumentInfo.TickSize);
-                        }
-                    }
-                }
-
-                break;
-        }
-    }
-
-	private SyncList<PriceSelectionValue> _lastSeriesBar = [];
-
-    private void OnNewBar(int bar)
+	private void OnNewBar(int bar)
 	{
 		_mergedLevels.Clear();
 		_validVolumeLevels.Clear();
@@ -985,136 +355,13 @@ public partial class ClusterSearch : Indicator
 			_renderDataSeries[bar - 1] = new SyncList<PriceSelectionValue>(lastBar);
 		}
 		else
-		{
 			_renderDataSeries[bar - 1] = [];
-		}
 
 		_lastSeriesBar.Clear();
-        _renderDataSeries[bar] = _lastSeriesBar;
+		_renderDataSeries[bar] = _lastSeriesBar;
 
-        _lastPrice = GetCandle(bar).Close;
-    }
-
-    private void RemoveOldSelection(int bar, decimal price)
-	{
-		var idx = GetSeriesLevelIndex(bar, price);
-
-		if (idx >= 0)
-			_lastSeriesBar.RemoveAt(idx);
-    }
-
-    private void RemoveOldSelection(int bar, decimal from, decimal to)
-	{
-		for (var price = from; price <= to; price += InstrumentInfo.TickSize)
-            RemoveOldSelection(bar, price);
-    }
-
-    protected override void OnCalculate(int bar, decimal value)
-	{
-		if (bar is 0 && UsePrevClose)
-			return;
-
-		if (!UsePrevClose)
-		{
-			if (_isFinishRecalculate)
-				return;
-		}
-		else
-		{
-			bar--;
-		}
-
-		var newBar = _lastBar != bar;
-		_lastBar = bar;
-
-        if (bar < _targetBar || !newBar)
-			return;
-
-		if(bar is not 0)
-			OnNewBar(bar);
-
-		CalculateBar(bar);
+		_lastPrice = GetCandle(bar).Close;
 	}
-
-	protected override void OnRecalculate()
-	{
-		if (InstrumentInfo is null)
-			return;
-
-		_isFinishRecalculate = false;
-		_mergedLevels = new MergedClusterDictionary(PriceRange, InstrumentInfo.TickSize);
-		_renderDataSeries.Clear();
-
-		_autoFilterValue = 0;
-		_targetBar = 0;
-
-		if (Days is 0)
-			return;
-
-		var days = 0;
-
-		for (var i = CurrentBar - 1; i >= 0; i--)
-		{
-			_targetBar = i;
-
-			if (!IsNewSession(i))
-				continue;
-
-			days++;
-
-			if (days == Days)
-				break;
-		}
-	}
-
-    //Apply autofilter
-    protected override void OnFinishRecalculate()
-	{
-		if (!AutoFilter)
-		{
-			_isFinishRecalculate = true;
-			return;
-		}
-
-		var valuesList = new List<PriceSelectionValue>();
-
-		for (var i = 0; i < _renderDataSeries.Count; i++)
-		{
-			if (_renderDataSeries[i].Count is 0)
-				continue;
-
-			valuesList.AddRange(_renderDataSeries[i]);
-		}
-
-		if (valuesList.Count is 0)
-		{
-			_isFinishRecalculate = true;
-			return;
-		}
-
-		valuesList = valuesList.OrderByDescending(x => (decimal)x.Context).ToList();
-
-		_autoFilterValue = valuesList.Count <= 10 
-			? (decimal)valuesList.Last().Context 
-			: (decimal)valuesList.Skip(10).First().Context;
-		
-		for (var i = 0; i < _renderDataSeries.Count; i++)
-		{
-			if (_renderDataSeries[i].Count is 0)
-				continue;
-
-			_renderDataSeries[i].RemoveAll(x => (decimal)x.Context < _autoFilterValue);
-		}
-
-		MinimumFilter.SetValueSilently(_autoFilterValue);
-		OnChangeProperty(nameof(MinimumFilter));
-
-		_isFinishRecalculate = true;
-	}
-
-	#endregion
-
-	#region Private methods
 
 	private void MaxMinFilter_PropertyChanged(object sender, PropertyChangedEventArgs e)
 	{
@@ -1130,8 +377,8 @@ public partial class ClusterSearch : Indicator
 		var candle = GetCandle(bar);
 
 		var endPrice = Math.Max(candle.Low, candle.High - (PriceRange - 1) * InstrumentInfo.TickSize);
-		
-        for (var price = candle.Low; price <= endPrice; price += InstrumentInfo.TickSize)
+
+		for (var price = candle.Low; price <= endPrice; price += InstrumentInfo.TickSize)
 		{
 			if (!CheckCluster(bar, price))
 				_validVolumeLevels.Remove(price);
@@ -1149,17 +396,16 @@ public partial class ClusterSearch : Indicator
 			CheckPriceRange(bar, range.From, range.To);
 	}
 
-
-    /// <summary>
-    /// Get price ranges on bar that are passed candle filters
-    /// </summary>
-    /// <param name="bar">Bar number</param>
-    /// <param name="endPrice">High price minus price range value</param>
-    /// <returns></returns>
-    private List<(decimal From, decimal To)> GetPriceRanges(int bar, decimal endPrice)
+	/// <summary>
+	///     Get price ranges on bar that are passed candle filters
+	/// </summary>
+	/// <param name="bar">Bar number</param>
+	/// <param name="endPrice">High price minus price range value</param>
+	/// <returns></returns>
+	private List<(decimal From, decimal To)> GetPriceRanges(int bar, decimal endPrice)
 	{
 		var ranges = new List<(decimal From, decimal To)>();
-        var candle = GetCandle(bar);
+		var candle = GetCandle(bar);
 
 		var maxPrice = PipsFromLow.Enabled
 			? candle.Low + PipsFromLow.Value * InstrumentInfo.TickSize
@@ -1177,33 +423,33 @@ public partial class ClusterSearch : Indicator
 
 		switch (PriceLoc)
 		{
-            case PriceLocation.AtHigh when maxPrice != candle.High:
-            case PriceLocation.AtLow when minPrice != candle.Low:
-            case PriceLocation.AtHighOrLow when maxPrice != candle.High && minPrice != candle.Low:
-                return ranges;
+			case PriceLocation.AtHigh when maxPrice != candle.High:
+			case PriceLocation.AtLow when minPrice != candle.Low:
+			case PriceLocation.AtHighOrLow when maxPrice != candle.High && minPrice != candle.Low:
+				return ranges;
 
-            case PriceLocation.Any:
+			case PriceLocation.Any:
 				return [(minPrice, maxPrice)];
 
-            case PriceLocation.AtHighOrLow:
-            case PriceLocation.AtHigh:
-            case PriceLocation.AtLow:
-            {
-	            if (PriceLoc is PriceLocation.AtHighOrLow or PriceLocation.AtHigh)
-	            {
-		            if (maxPrice >= endPrice)
-			            ranges.Add((endPrice, endPrice));
-	            }
+			case PriceLocation.AtHighOrLow:
+			case PriceLocation.AtHigh:
+			case PriceLocation.AtLow:
+			{
+				if (PriceLoc is PriceLocation.AtHighOrLow or PriceLocation.AtHigh)
+				{
+					if (maxPrice >= endPrice)
+						ranges.Add((endPrice, endPrice));
+				}
 
-	            if (PriceLoc is PriceLocation.AtHighOrLow or PriceLocation.AtLow)
-	            {
-		            if (minPrice <= candle.Low)
-			            ranges.Add((candle.Low, candle.Low));
-	            }
+				if (PriceLoc is PriceLocation.AtHighOrLow or PriceLocation.AtLow)
+				{
+					if (minPrice <= candle.Low)
+						ranges.Add((candle.Low, candle.Low));
+				}
 
-	            return ranges;
-            }
-            case PriceLocation.AtUpperLowerWick or PriceLocation.UpperWick or PriceLocation.LowerWick or PriceLocation.Body:
+				return ranges;
+			}
+			case PriceLocation.AtUpperLowerWick or PriceLocation.UpperWick or PriceLocation.LowerWick or PriceLocation.Body:
 			{
 				var maxBody = Math.Max(candle.Close, candle.Open);
 				var minBody = Math.Min(candle.Close, candle.Open);
@@ -1227,150 +473,20 @@ public partial class ClusterSearch : Indicator
 
 		return ranges;
 	}
-	
+
 	//Check valid clusters on filtered price range and draw it
 	private void CheckPriceRange(int bar, decimal from, decimal to)
 	{
 		for (var price = from; price <= to; price += InstrumentInfo.TickSize)
 			CheckPriceRange(bar, price);
 	}
-	
+
 	private void CheckPriceRange(int bar, decimal price)
 	{
 		if (_validVolumeLevels.TryGetValue(price, out var info))
 			PlaceToDataSeries(bar, info);
 		else
 			RemoveOldSelection(bar, price);
-	}
-
-	private void PlaceToDataSeries(int bar, CustomVolumeInfo cluster)
-	{
-		var value = CalcType switch
-		{
-			CalcMode.Bid => cluster.Bid,
-			CalcMode.Ask => cluster.Ask,
-			CalcMode.Delta => cluster.Delta,
-			CalcMode.Volume or CalcMode.MaxVolume => cluster.Volume,
-			CalcMode.Tick => cluster.Ticks,
-			_ => 0
-		};
-
-		if (OnlyOneSelectionPerBar
-		    && CalcType is not CalcMode.MaxVolume
-		    && _lastSeriesBar.Count is not 0)
-		{
-			if (_lastSeriesBar[0].Context is decimal vol)
-			{
-				var newMax = CalcType is CalcMode.Delta
-					? Math.Abs(vol) < Math.Abs(value)
-					: vol < value;
-
-				if (newMax)
-					_lastSeriesBar[0] = CreatePriceSelectionValue(cluster);
-			}
-		}
-		else
-		{
-			var level = CreatePriceSelectionValue(cluster);
-			InsertOrReplace(bar, level);
-		}
-	}
-
-	//Binary search of insert index to keep price values sorted
-	public void InsertOrReplace(int bar, PriceSelectionValue value)
-	{
-		var index = GetSeriesLevelIndex(bar, value.MinimumPrice);
-
-		if (index >= 0)
-		{
-			_lastSeriesBar[index] = value;
-		}
-		else
-		{
-			_lastSeriesBar.Insert(~index, value);
-		}
-	}
-
-    private int GetSeriesLevelIndex(int bar, decimal value)
-	{
-		int left = 0, right = _lastSeriesBar.Count;
-
-		while (left < right)
-		{
-			var mid = left + (right - left) / 2;
-
-			if (_lastSeriesBar[mid].MinimumPrice < value)
-				left = mid + 1;
-			else if (_lastSeriesBar[mid].MinimumPrice > value)
-				right = mid;
-			else
-				return mid; 
-		}
-
-		return ~left;
-	}
-	
-    private PriceSelectionValue CreatePriceSelectionValue(CustomVolumeInfo cluster)
-	{
-		var selectionSide = CalcType switch
-		{
-			CalcMode.Ask => SelectionType.Ask,
-			CalcMode.Bid => SelectionType.Bid,
-			_ => SelectionType.Full
-		};
-
-		var value = CalcType switch
-		{
-			CalcMode.Bid => cluster.Bid,
-			CalcMode.Ask => cluster.Ask,
-			CalcMode.Delta => cluster.Delta,
-			CalcMode.Volume or CalcMode.MaxVolume => cluster.Volume,
-			CalcMode.Tick => cluster.Ticks,
-			_ => 0
-		};
-
-		var absValue = CalcType is CalcMode.Delta ? Math.Abs(value) : value;
-		var clusterSize = FixedSizes ? _size : (int)(absValue * _size / Math.Max(_minFilterValue, 1));
-
-		if (!FixedSizes)
-		{
-			clusterSize = Math.Min(clusterSize, MaxSize);
-			clusterSize = Math.Max(clusterSize, MinSize);
-		}
-
-		var priceValue = new PriceSelectionValue(cluster.Price)
-		{
-			VisualObject = VisualType,
-			Size = clusterSize,
-			SelectionSide = selectionSide,
-			ObjectColor = _clusterTransColor,
-			ObjectsTransparency = _visualObjectsTransparency,
-			PriceSelectionColor = ShowPriceSelection ? _clusterPriceColor : CrossColors.Transparent,
-			Tooltip = CreateToolTip(value),
-			Context = absValue,
-			MinimumPrice = cluster.Price,
-			MaximumPrice = cluster.Price + InstrumentInfo.TickSize * (PriceRange - 1)
-		};
-
-		return priceValue;
-	}
-
-	private string CreateToolTip(decimal value)
-	{
-		var tip = "Cluster Search" + Environment.NewLine + ChartInfo.TryGetMinimizedVolumeString(value) + " ";
-
-		tip += CalcType switch
-		{
-			CalcMode.Bid => Strings.Bid,
-			CalcMode.Ask => Strings.Ask,
-			CalcMode.Delta => Strings.Delta,
-			CalcMode.Volume => Strings.Volume,
-			CalcMode.Tick => Strings.Ticks,
-			CalcMode.MaxVolume => Strings.PocLevel,
-			_ => ""
-		};
-
-		return tip;
 	}
 
 	//Compare current candle with current candles filters
@@ -1524,7 +640,7 @@ public partial class ClusterSearch : Indicator
 	}
 
 	//Create horizontal merged clusters on all current bar prices
-    private void UpdateCumulativeCachePerBar(int bar)
+	private void UpdateCumulativeCachePerBar(int bar)
 	{
 		var candle = GetCandle(bar);
 		var highPrice = candle.High - (PriceRange - 1) * InstrumentInfo.TickSize;
@@ -1533,75 +649,76 @@ public partial class ClusterSearch : Indicator
 			CreateLevelCache(bar, iPrice);
 	}
 
-    //Create horizontal merged clusters
-    private void CreateLevelCache(int bar, decimal price)
-    {
-	    var level = new CustomVolumeInfo(price);
-	    var endBar = Math.Max(0, bar - (BarsRange - 1));
+	//Create horizontal merged clusters
+	private void CreateLevelCache(int bar, decimal price)
+	{
+		var level = new CustomVolumeInfo(price);
+		var endBar = Math.Max(0, bar - (BarsRange - 1));
 
-	    for (var i = bar; i >= endBar; i--)
-	    {
-		    var iCandle = GetCandle(i);
-		    var cluster = _clustersCache.GetOrAdd((i, price), () => iCandle.GetPriceVolumeInfo(price), true);
+		for (var i = bar; i >= endBar; i--)
+		{
+			var iCandle = GetCandle(i);
+			var cluster = _clustersCache.GetOrAdd((i, price), () => iCandle.GetPriceVolumeInfo(price), true);
 
-		    if (cluster is null)
-			    continue;
+			if (cluster is null)
+				continue;
 
-		    level.Ask += cluster.Ask;
-		    level.Between += cluster.Between;
-		    level.Bid += cluster.Bid;
-		    level.Ticks += cluster.Ticks;
-		    level.Volume += cluster.Volume;
-	    }
+			level.Ask += cluster.Ask;
+			level.Between += cluster.Between;
+			level.Bid += cluster.Bid;
+			level.Ticks += cluster.Ticks;
+			level.Volume += cluster.Volume;
+		}
 
-	    _mergedLevels[price] = level;
-    }
+		_mergedLevels[price] = level;
+	}
 
-    private void UpdateLevelCache(int bar, MarketDataArg trade)
-    {
-	    if (!_mergedLevels.TryGetValue(trade.Price, out var level))
-	    {
-		    level = new CustomVolumeInfo(trade.Price);
+	//Increment trade data to existing cluster
+	private void UpdateLevelCache(int bar, MarketDataArg trade)
+	{
+		if (!_mergedLevels.TryGetValue(trade.Price, out var level))
+		{
+			level = new CustomVolumeInfo(trade.Price);
 			var startBar = Math.Max(0, bar - 1);
-            var endBar = Math.Max(0, bar - (BarsRange - 1));
+			var endBar = Math.Max(0, bar - (BarsRange - 1));
 
-		    for (var i = startBar; i >= endBar; i--)
-		    {
-			    var iCandle = GetCandle(i);
-			    var cluster = _clustersCache.GetOrAdd((i, trade.Price), () => iCandle.GetPriceVolumeInfo(trade.Price), true);
+			for (var i = startBar; i >= endBar; i--)
+			{
+				var iCandle = GetCandle(i);
+				var cluster = _clustersCache.GetOrAdd((i, trade.Price), () => iCandle.GetPriceVolumeInfo(trade.Price), true);
 
-			    if (cluster is null)
-				    continue;
+				if (cluster is null)
+					continue;
 
-			    level.Ask += cluster.Ask;
-			    level.Between += cluster.Between;
-			    level.Bid += cluster.Bid;
-			    level.Ticks += cluster.Ticks;
-			    level.Volume += cluster.Volume;
-		    }
+				level.Ask += cluster.Ask;
+				level.Between += cluster.Between;
+				level.Bid += cluster.Bid;
+				level.Ticks += cluster.Ticks;
+				level.Volume += cluster.Volume;
+			}
 
 			_mergedLevels[trade.Price] = level;
-        }
-		
-	    switch (trade.Direction)
-	    {
-		    case TradeDirection.Buy:
-			    level.Ask += trade.Volume;
-			    break;
-		    case TradeDirection.Sell:
-			    level.Bid += trade.Volume;
-			    break;
-		    case TradeDirection.Between:
-		    default:
-			    level.Between += trade.Volume;
-			    break;
-	    }
+		}
 
-        level.Volume += trade.Volume;
-	    level.Ticks++;
-    }
+		switch (trade.Direction)
+		{
+			case TradeDirection.Buy:
+				level.Ask += trade.Volume;
+				break;
+			case TradeDirection.Sell:
+				level.Bid += trade.Volume;
+				break;
+			case TradeDirection.Between:
+			default:
+				level.Between += trade.Volume;
+				break;
+		}
 
-	//Update dataseries values size on properties change
+		level.Volume += trade.Volume;
+		level.Ticks++;
+	}
+
+	//Update data series values size on properties change
 	private void SetSize()
 	{
 		if (_fixedSizes)
@@ -1655,6 +772,545 @@ public partial class ClusterSearch : Indicator
 			return Math.Min(Math.Abs(minFilter), maxFilter);
 
 		return Math.Abs(maxFilter);
+	}
+
+	#endregion
+
+	#region Filters
+
+	[Browsable(false)]
+	[Obsolete]
+	public MiddleClusterType Type
+	{
+		get => CalcType switch
+		{
+			CalcMode.Bid => MiddleClusterType.Bid,
+			CalcMode.Ask => MiddleClusterType.Ask,
+			CalcMode.Delta => MiddleClusterType.Delta,
+			CalcMode.Volume => MiddleClusterType.Volume,
+			CalcMode.Tick => MiddleClusterType.Tick,
+			_ => MiddleClusterType.Volume
+		};
+		set => CalcType = value switch
+		{
+			MiddleClusterType.Bid => CalcMode.Bid,
+			MiddleClusterType.Ask => CalcMode.Ask,
+			MiddleClusterType.Delta => CalcMode.Delta,
+			MiddleClusterType.Volume or MiddleClusterType.Time => CalcMode.Volume,
+			MiddleClusterType.Tick => CalcMode.Tick,
+			_ => throw new ArgumentOutOfRangeException(nameof(value), value, null)
+		};
+	}
+
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Filters), Name = nameof(Strings.CalculationMode),
+		Description = nameof(Strings.CalculationModeDescription), Order = 200)]
+	public CalcMode CalcType
+	{
+		get => _type;
+		set
+		{
+			_type = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Filters), Name = nameof(Strings.AutoFilter),
+		Description = nameof(Strings.ClusterSearchAutofilterDescription), Order = 215)]
+	public bool AutoFilter
+	{
+		get => _autoFilter;
+		set
+		{
+			_autoFilter = value;
+
+			MinimumFilter.Enabled = MaximumFilter.Enabled = !value;
+
+			RecalculateValues();
+		}
+	}
+
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Filters), Description = nameof(Strings.MinimumFilterDescription),
+		Name = nameof(Strings.MinValue), Order = 220)]
+	public Filter MinimumFilter
+	{
+		get => _minFilter;
+		set
+		{
+			_minFilter = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Filters), Description = nameof(Strings.MaximumFilterDescription),
+		Name = nameof(Strings.MaxValue), Order = 230)]
+	public Filter MaximumFilter
+	{
+		get => _maxFilter;
+		set
+		{
+			_maxFilter = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Filters), Name = nameof(Strings.MinimumAverageTrade), Order = 470,
+		Description = nameof(Strings.MinAvgTradeDescription))]
+	[Range(0, 10000000)]
+	public decimal MinAverageTrade
+	{
+		get => _minAverageTrade;
+		set
+		{
+			_minAverageTrade = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Filters), Name = nameof(Strings.MaximumAverageTrade), Order = 480,
+		Description = nameof(Strings.MaxAvgTradeDescription))]
+	[Range(0, 10000000)]
+	public decimal MaxAverageTrade
+	{
+		get => _maxAverageTrade;
+		set
+		{
+			_maxAverageTrade = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Filters), Name = nameof(Strings.MinVolumePercent), Order = 490,
+		Description = nameof(Strings.MinPercentDescription))]
+	[Range(0, 100)]
+	public decimal MinPercent
+	{
+		get => _minPercent;
+		set
+		{
+			_minPercent = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Filters), Name = nameof(Strings.MaxVolumePercent), Order = 492,
+		Description = nameof(Strings.MaxPercentDescription))]
+	[Range(0, 100)]
+	public decimal MaxPercent
+	{
+		get => _maxPercent;
+		set
+		{
+			_maxPercent = value;
+			RecalculateValues();
+		}
+	}
+
+	#endregion
+
+	#region DeltaFilters
+
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.DeltaFilters), Name = nameof(Strings.DeltaImbalance), Order = 300,
+		Description = nameof(Strings.DeltaImbalanceDescription))]
+	[Range(-100, 100)]
+	public decimal DeltaImbalance
+	{
+		get => _deltaImbalance;
+		set
+		{
+			_deltaImbalance = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.DeltaFilters), Name = nameof(Strings.DeltaFilter), Order = 310,
+		Description = nameof(Strings.DeltaFilterDescription))]
+	public decimal DeltaFilter
+	{
+		get => _deltaFilter;
+		set
+		{
+			_deltaFilter = value;
+			RecalculateValues();
+		}
+	}
+
+	#endregion
+
+	#region Location filters
+
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.LocationFilters), Name = nameof(Strings.CandleDirection),
+		Description = nameof(Strings.CandleDirectionDescription), Order = 400)]
+	public CandleDirection CandleDir
+	{
+		get => _candleDirection;
+		set
+		{
+			_candleDirection = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.LocationFilters), Name = nameof(Strings.BarsRange), Order = 410,
+		Description = nameof(Strings.BarsRangeDescription))]
+	[Range(1, 10000)]
+	public int BarsRange
+	{
+		get => _barsRange;
+		set
+		{
+			_barsRange = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.LocationFilters), Name = nameof(Strings.PriceRange), Order = 420,
+		Description = nameof(Strings.PriceRangeDescription))]
+	[Range(1, 100000)]
+	public int PriceRange
+	{
+		get => _priceRange;
+		set
+		{
+			_priceRange = value;
+			RecalculateValues();
+		}
+	}
+
+	[Range(1, int.MaxValue)]
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.LocationFilters), Name = nameof(Strings.PipsFromHigh), Order = 430,
+		Description = nameof(Strings.PipsFromHighDescription))]
+	public Filter PipsFromHigh
+	{
+		get => _pipsFromHigh;
+		set
+		{
+			_pipsFromHigh = value;
+			RecalculateValues();
+		}
+	}
+
+	[Range(1, int.MaxValue)]
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.LocationFilters), Name = nameof(Strings.PipsFromLow), Order = 440,
+		Description = nameof(Strings.PipsFromLowDescription))]
+	public Filter PipsFromLow
+	{
+		get => _pipsFromLow;
+		set
+		{
+			_pipsFromLow = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.LocationFilters), Name = nameof(Strings.PriceLocation), Order = 450,
+		Description = nameof(Strings.PriceLocationDescription))]
+	public PriceLocation PriceLoc
+	{
+		get => _priceLocation;
+		set
+		{
+			_priceLocation = value;
+			RecalculateValues();
+		}
+	}
+
+	#endregion
+
+	#region Candle size filters
+
+	[Range(1, int.MaxValue)]
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.MinimumCandleHeight), GroupName = nameof(Strings.CandleHeight), Order = 460,
+		Description = nameof(Strings.MinCandleHeightDescription))]
+	public FilterInt MinCandleHeight { get; set; } = new()
+		{ Value = 1, Enabled = false };
+
+	[Range(1, int.MaxValue)]
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.MaximumCandleHeight), GroupName = nameof(Strings.CandleHeight), Order = 461,
+		Description = nameof(Strings.MaxCandleHeightDescription))]
+	public FilterInt MaxCandleHeight { get; set; } = new()
+		{ Value = 1, Enabled = false };
+
+	[Range(1, int.MaxValue)]
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.MinimumCandleBodyHeight), GroupName = nameof(Strings.CandleHeight), Order = 470,
+		Description = nameof(Strings.MinCandleBodyHeightDescription))]
+	public FilterInt MinCandleBodyHeight { get; set; } = new()
+		{ Value = 1, Enabled = false };
+
+	[Range(1, int.MaxValue)]
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.MaximumCandleBodyHeight), GroupName = nameof(Strings.CandleHeight), Order = 471,
+		Description = nameof(Strings.MaxCandleBodyHeightDescription))]
+	public FilterInt MaxCandleBodyHeight { get; set; } = new()
+		{ Value = 1, Enabled = false };
+
+	#endregion
+
+	#region Time filtration
+
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.TimeFiltration), Name = nameof(Strings.UseTimeFilter), Order = 500,
+		Description = nameof(Strings.UseTimeFilterDescription))]
+	public bool UseTimeFilter
+	{
+		get => _useTimeFilter;
+		set
+		{
+			_useTimeFilter = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.TimeFiltration), Name = nameof(Strings.TimeFrom), Order = 510,
+		Description = nameof(Strings.TimeFromDescription))]
+	public TimeSpan TimeFrom
+	{
+		get => _timeFrom;
+		set
+		{
+			_timeFrom = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.TimeFiltration), Name = nameof(Strings.TimeTo), Order = 520,
+		Description = nameof(Strings.TimeToDescription))]
+	public TimeSpan TimeTo
+	{
+		get => _timeTo;
+		set
+		{
+			_timeTo = value;
+			RecalculateValues();
+		}
+	}
+
+	#endregion
+
+	#region Visualization
+
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Visualization), Name = nameof(Strings.OnlyOneSelectionPerBar), Order = 590,
+		Description = nameof(Strings.OneSelectionPerBarDescription))]
+	public bool OnlyOneSelectionPerBar
+	{
+		get => _onlyOneSelectionPerBar;
+		set
+		{
+			_onlyOneSelectionPerBar = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Visualization), Name = nameof(Strings.VisualMode), Order = 600,
+		Description = nameof(Strings.VisualModeDescription))]
+	public ObjectType VisualType
+	{
+		get => _visualType;
+		set
+		{
+			_visualType = value;
+
+			for (var i = 0; i < _renderDataSeries.Count; i++)
+				_renderDataSeries[i].ForEach(x => { x.VisualObject = value; });
+		}
+	}
+
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Visualization), Name = nameof(Strings.ObjectsColor), Order = 605,
+		Description = nameof(Strings.VisualObjectsDescription))]
+	public CrossColor ClusterColor
+	{
+		get => _clusterTransColor;
+		set
+		{
+			_clusterTransColor = value;
+
+			for (var i = 0; i < _renderDataSeries.Count; i++)
+				_renderDataSeries[i].ForEach(x => { x.ObjectColor = _clusterTransColor; });
+		}
+	}
+
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Visualization), Name = nameof(Strings.VisualObjectsTransparency), Order = 610,
+		Description = nameof(Strings.VisualObjectsTransparencyDescription))]
+	[Range(0, 100)]
+	public int VisualObjectsTransparency
+	{
+		get => _visualObjectsTransparency;
+		set
+		{
+			_visualObjectsTransparency = value;
+
+			for (var i = 0; i < _renderDataSeries.Count; i++)
+			{
+				_renderDataSeries[i].ForEach(x =>
+				{
+					x.ObjectColor = _clusterTransColor;
+					x.ObjectsTransparency = _visualObjectsTransparency;
+				});
+			}
+		}
+	}
+
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Visualization), Name = nameof(Strings.ShowPriceSelection), Order = 615,
+		Description = nameof(Strings.ShowPriceSelectionDescription))]
+	public bool ShowPriceSelection
+	{
+		get => _showPriceSelection;
+		set
+		{
+			_showPriceSelection = value;
+
+			for (var i = 0; i < _renderDataSeries.Count; i++)
+				_renderDataSeries[i].ForEach(x => { x.PriceSelectionColor = value ? _clusterPriceColor : CrossColors.Transparent; });
+		}
+	}
+
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Visualization), Name = nameof(Strings.PriceSelectionColor), Order = 620,
+		Description = nameof(Strings.PriceSelectionColorDescription))]
+	public CrossColor PriceSelectionColor
+	{
+		get => _clusterPriceColor;
+		set
+		{
+			_clusterPriceColor = value;
+
+			for (var i = 0; i < _renderDataSeries.Count; i++)
+				_renderDataSeries[i].ForEach(x => x.PriceSelectionColor = ShowPriceSelection ? _clusterPriceColor : CrossColors.Transparent);
+		}
+	}
+
+	[Browsable(false)]
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Visualization), Name = nameof(Strings.ClusterSelectionTransparency), Order = 625,
+		Description = nameof(Strings.PriceSelectionTransparencyDescription))]
+	[Range(0, 100)]
+	public int Transparency { get; set; }
+
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Visualization), Name = nameof(Strings.FixedSizes), Order = 640,
+		Description = nameof(Strings.FixedSizesDescription))]
+	public bool FixedSizes
+	{
+		get => _fixedSizes;
+		set
+		{
+			_fixedSizes = value;
+			SetSize();
+		}
+	}
+
+	[Range(1, int.MaxValue)]
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Visualization), Name = nameof(Strings.Size), Order = 650,
+		Description = nameof(Strings.SizeDescription))]
+	public int Size
+	{
+		get => _size;
+		set
+		{
+			_size = value;
+			SetSize();
+		}
+	}
+
+	[Range(1, int.MaxValue)]
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Visualization), Name = nameof(Strings.MinimumSize), Order = 660,
+		Description = nameof(Strings.MinimumSizeDescription))]
+	public int MinSize
+	{
+		get => _minSize;
+		set
+		{
+			_minSize = value;
+
+			if (!_fixedSizes)
+			{
+				var filterValue = MinimalFilter();
+
+				for (var i = 0; i < _renderDataSeries.Count; i++)
+				{
+					_renderDataSeries[i].ForEach(x =>
+					{
+						x.Size = (int)((decimal)x.Context * _size / Math.Max(filterValue, 1));
+
+						if (x.Size > MaxSize)
+							x.Size = MaxSize;
+
+						if (x.Size < value)
+							x.Size = value;
+					});
+				}
+			}
+		}
+	}
+
+	[Range(1, int.MaxValue)]
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Visualization), Name = nameof(Strings.MaximumSize), Order = 670,
+		Description = nameof(Strings.MaximumSizeDescription))]
+	public int MaxSize
+	{
+		get => _maxSize;
+		set
+		{
+			_maxSize = value;
+
+			if (!_fixedSizes)
+			{
+				var filterValue = MinimalFilter();
+
+				for (var i = 0; i < _renderDataSeries.Count; i++)
+				{
+					_renderDataSeries[i].ForEach(x =>
+					{
+						x.Size = (int)((decimal)x.Context * _size / Math.Max(filterValue, 1));
+
+						if (x.Size > value)
+							x.Size = value;
+
+						if (x.Size < MinSize)
+							x.Size = MinSize;
+					});
+				}
+			}
+		}
+	}
+
+	#endregion
+
+	#region Alerts
+
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Alerts), Name = nameof(Strings.UseAlerts), Order = 700,
+		Description = nameof(Strings.UseAlertDescription))]
+	public bool UseAlerts { get; set; }
+
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Alerts), Name = nameof(Strings.AlertFile), Order = 720,
+		Description = nameof(Strings.AlertFileDescription))]
+	public string AlertFile { get; set; } = "alert2";
+
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Alerts), Name = nameof(Strings.BackGround), Order = 740,
+		Description = nameof(Strings.AlertBackgroundDescription))]
+	public CrossColor AlertColor { get; set; } = CrossColors.Black;
+
+	#endregion
+
+	#region Calculation
+
+	[Range(0, int.MaxValue)]
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Calculation), Name = nameof(Strings.DaysLookBack), Order = int.MaxValue,
+		Description = nameof(Strings.DaysLookBackDescription))]
+	public int Days
+	{
+		get => _days;
+		set
+		{
+			_days = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Calculation), Name = nameof(Strings.UsePreviousClose), Order = 800,
+		Description = nameof(Strings.CalculateOnBarCloseDescription))]
+	public bool UsePrevClose
+	{
+		get => _usePrevClose;
+		set
+		{
+			_usePrevClose = value;
+			RecalculateValues();
+		}
 	}
 
 	#endregion
