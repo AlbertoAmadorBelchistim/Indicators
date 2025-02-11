@@ -24,10 +24,21 @@ public partial class ClusterSearch
 
 		public decimal TotalVolume { get; private set; }
 
+		/// <summary>
+		/// Calculated with N - 1 levels price merged values
+		/// </summary>
+		
+		/* N = 2
+		 * 30
+		 * 14 |
+		 * 23 | <= POC is 23 + 14 = 37
+		 * 1
+		 */
 		public decimal PocPrice { get; private set; }
 
 		public new CustomVolumeInfo this[decimal price]
 		{
+			get => base[price];
 			set
 			{
 				if (TryGetValue(price, out var level))
@@ -54,11 +65,11 @@ public partial class ClusterSearch
 			}
 		}
 
-		#endregion
+        #endregion
 
-		#region Public methods
+        #region Public methods
 
-		public new void Clear()
+        public new void Clear()
 		{
 			_maxVol = decimal.MinValue;
 			TotalVolume = 0;
@@ -80,27 +91,37 @@ public partial class ClusterSearch
 		#endregion
 
 		#region ctor
-
+		
 		public CustomVolumeInfo(decimal price)
 		{
 			Price = price;
 		}
 
+		public CustomVolumeInfo(PriceVolumeInfo cluster)
+		{
+			Price = cluster.Price;
+
+			Ask = cluster.Ask;
+			Between = cluster.Between;
+			Bid = cluster.Bid;
+			Ticks = cluster.Ticks;
+			Volume = cluster.Volume;
+        }
+
 		#endregion
 
 		#region Public methods
-
+		
 		public static CustomVolumeInfo operator+(CustomVolumeInfo a, CustomVolumeInfo b)
 		{
 			a.Ask += b.Ask;
 			a.Between += b.Between;
 			a.Bid += b.Bid;
 			a.Ticks += b.Ticks;
-			a.Time += b.Time;
 			a.Volume += b.Volume;
 			return a;
 		}
-
+		
 		#endregion
 	}
 

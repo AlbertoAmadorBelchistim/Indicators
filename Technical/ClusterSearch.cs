@@ -5,13 +5,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-
 using MoreLinq;
 
 using OFT.Attributes;
 using OFT.Localization;
 
+using Utils.Common;
 using Utils.Common.Collections;
+using Utils.Common.Collections.Synchronized;
 
 using static DynamicLevels;
 
@@ -644,14 +645,148 @@ public partial class ClusterSearch : Indicator
 		MaxCandleBodyHeight.PropertyChanged += Filter_PropertyChanged;
 	}
 
-	protected override void OnCalculate(int bar, decimal value)
+	protected override void OnNewTrades(IEnumerable<MarketDataArg> trades)
+	{
+		if (!_isFinishRecalculate || UsePrevClose)
+			return;
+
+		var curBar = CurrentBar - 1;
+
+		var tradesEnumerator = trades.GetEnumerator();
+
+		try
+		{
+			if (!tradesEnumerator.MoveNext())
+				return;
+
+			var i = 0;
+
+			do
+			{
+				var curTrade = tradesEnumerator.Current;
+
+				while (i < curBar)
+				{
+					if (curTrade.Time < GetCandle(curBar - i).Time)
+					{
+						i++;
+						continue;
+					}
+
+					break;
+				}
+
+				if (_lastBar < curBar - i)
+				{
+					OnNewBar(curBar - i);
+					_lastBar = curBar - i;
+				}
+
+				CalculateTick(curBar - i, curTrade);
+			}
+			while (tradesEnumerator.MoveNext());
+		}
+		finally
+		{
+			tradesEnumerator.Dispose();
+		}
+	}
+
+	private void CalculateTick(int bar, MarketDataArg trade)
+	{
+		var priceLevel = _clustersCache.GetOrAdd((bar, trade.Price), () => new CustomVolumeInfo(trade.Price));
+
+		switch (trade.Direction)
+		{
+			case TradeDirection.Buy:
+				priceLevel.Ask += trade.Volume;
+				break;
+			case TradeDirection.Sell:
+				priceLevel.Bid += trade.Volume;
+				break;
+			case TradeDirection.Between:
+			default:
+				priceLevel.Between += trade.Volume;
+				break;
+		}
+
+		priceLevel.Volume += trade.Volume;
+		priceLevel.Ticks++;
+		UpdateLevelCache(bar, trade);
+
+		var candle = GetCandle(bar);
+		var endPrice = Math.Max(candle.Low, candle.High - (PriceRange - 1) * InstrumentInfo.TickSize);
+
+		for (var price = candle.Low; price <= endPrice; price += InstrumentInfo.TickSize)
+		{
+			if (!CheckCluster(bar, price))
+				_validVolumeLevels.Remove(price);
+		}
+
+		if (!CheckBarFormation(candle))
+		{
+			_renderDataSeries[bar] = new SyncList<PriceSelectionValue>();
+			return;
+		}
+
+		_renderDataSeries[bar] = _lastSeriesBar;
+
+        if (_validVolumeLevels.Count is 0)
+		{
+			RemoveOldSelection(bar, trade.Price);
+			return;
+		}
+
+		var ranges = GetPriceRanges(bar, endPrice);
+
+		foreach (var range in ranges)
+		{
+			if (trade.Price < range.From || trade.Price > range.To)
+				continue;
+
+			RemoveOldSelection(bar, trade.Price);
+			CheckPriceRange(bar, range.From, range.To);
+			break;
+		}
+	}
+
+	private SyncList<PriceSelectionValue> _lastSeriesBar = [];
+
+    private void OnNewBar(int bar)
+	{
+		_mergedLevels.Clear();
+		_validVolumeLevels.Clear();
+
+		if (CheckBarFormation(GetCandle(bar - 1)))
+		{
+			var lastBar = _lastSeriesBar.Select(p => p.MemberwiseClone()).ToArray();
+			_renderDataSeries[bar - 1] = new SyncList<PriceSelectionValue>(lastBar);
+		}
+		else
+		{
+			_renderDataSeries[bar - 1] = [];
+		}
+
+		_lastSeriesBar.Clear();
+        _renderDataSeries[bar] = _lastSeriesBar;
+	}
+
+    private void RemoveOldSelection(int bar, decimal price)
+	{
+		var idx = GetSeriesLevelIndex(bar, price);
+
+		if (idx >= 0)
+			_lastSeriesBar.RemoveAt(idx);
+    }
+
+    protected override void OnCalculate(int bar, decimal value)
 	{
 		if (bar is 0 && UsePrevClose)
 			return;
 
 		if (!UsePrevClose)
 		{
-			if(_isFinishRecalculate)
+			if (_isFinishRecalculate)
 				return;
 		}
 		else
@@ -659,13 +794,16 @@ public partial class ClusterSearch : Indicator
 			bar--;
 		}
 
-		if (bar < _targetBar || _lastBar == bar)
+		var newBar = _lastBar != bar;
+		_lastBar = bar;
+
+        if (bar < _targetBar || !newBar)
 			return;
 
-		if (_lastBar != bar)
-			CalculateBar(bar);
+		if(bar is not 0)
+			OnNewBar(bar);
 
-		_lastBar = bar;
+		CalculateBar(bar);
 	}
 
 	protected override void OnRecalculate()
@@ -754,12 +892,9 @@ public partial class ClusterSearch : Indicator
 		Filter_PropertyChanged(sender, e);
 	}
 
+	//Calculate all clusters on current bar
 	private void CalculateBar(int bar)
 	{
-		_mergedLevels.Clear();
-		_validVolumeLevels.Clear();
-		_renderDataSeries[bar].Clear();
-
 		UpdateCumulativeCachePerBar(bar);
 
 		var candle = GetCandle(bar);
@@ -778,6 +913,24 @@ public partial class ClusterSearch : Indicator
 		if (!CheckBarFormation(candle))
 			return;
 
+		var ranges = GetPriceRanges(bar, endPrice);
+
+		foreach (var range in ranges)
+			CheckPriceRange(bar, range.From, range.To);
+	}
+
+
+    /// <summary>
+    /// Get price ranges on bar that are passed candle filters
+    /// </summary>
+    /// <param name="bar">Bar number</param>
+    /// <param name="endPrice">High price minus price range value</param>
+    /// <returns></returns>
+    private List<(decimal From, decimal To)> GetPriceRanges(int bar, decimal endPrice)
+	{
+		var ranges = new List<(decimal From, decimal To)>();
+        var candle = GetCandle(bar);
+
 		var maxPrice = PipsFromLow.Enabled
 			? candle.Low + PipsFromHigh.Value * InstrumentInfo.TickSize
 			: candle.High;
@@ -787,38 +940,37 @@ public partial class ClusterSearch : Indicator
 			: candle.Low;
 
 		if (minPrice > maxPrice)
-			return;
+			return ranges;
 
 		switch (PriceLoc)
 		{
-			case PriceLocation.Any:
-				CheckPriceRange(bar, minPrice, maxPrice);
-				break;
+            case PriceLocation.AtHigh when maxPrice != candle.High:
+            case PriceLocation.AtLow when minPrice != candle.Low:
+            case PriceLocation.AtHighOrLow when maxPrice != candle.High && minPrice != candle.Low:
+                return ranges;
 
-			case PriceLocation.AtHigh when maxPrice != candle.High:
-			case PriceLocation.AtLow when minPrice != candle.Low:
-			case PriceLocation.AtHighOrLow when maxPrice != candle.High && minPrice != candle.Low:
-				break;
+            case PriceLocation.Any:
+				return [(minPrice, maxPrice)];
 
-			case PriceLocation.AtHighOrLow:
-			case PriceLocation.AtHigh:
-			case PriceLocation.AtLow:
-			{
-				if (PriceLoc is PriceLocation.AtHighOrLow or PriceLocation.AtHigh)
-				{
-					if (_validVolumeLevels.TryGetValue(endPrice, out var highInfo))
-						PlaceToDataSeries(bar, highInfo);
-				}
+            case PriceLocation.AtHighOrLow:
+            case PriceLocation.AtHigh:
+            case PriceLocation.AtLow:
+            {
+	            if (PriceLoc is PriceLocation.AtHighOrLow or PriceLocation.AtHigh)
+	            {
+		            if (maxPrice >= endPrice)
+			            ranges.Add((endPrice, endPrice));
+	            }
 
-				if (PriceLoc is PriceLocation.AtHighOrLow or PriceLocation.AtLow)
-				{
-					if (_validVolumeLevels.TryGetValue(minPrice, out var lowInfo))
-						PlaceToDataSeries(bar, lowInfo);
-				}
+	            if (PriceLoc is PriceLocation.AtHighOrLow or PriceLocation.AtLow)
+	            {
+		            if (minPrice <= candle.Low)
+			            ranges.Add((candle.Low, candle.Low));
+	            }
 
-				break;
-			}
-			case PriceLocation.AtUpperLowerWick or PriceLocation.UpperWick or PriceLocation.LowerWick or PriceLocation.Body:
+	            return ranges;
+            }
+            case PriceLocation.AtUpperLowerWick or PriceLocation.UpperWick or PriceLocation.LowerWick or PriceLocation.Body:
 			{
 				var maxBody = Math.Max(candle.Close, candle.Open);
 				var minBody = Math.Min(candle.Close, candle.Open);
@@ -827,29 +979,33 @@ public partial class ClusterSearch : Indicator
 				{
 					maxBody = Math.Min(maxBody, maxPrice);
 					minBody = Math.Max(minBody, minPrice);
-					CheckPriceRange(bar, minBody, maxBody);
-				}
-				else
-				{
-					if (PriceLoc is PriceLocation.UpperWick or PriceLocation.AtUpperLowerWick)
-						CheckPriceRange(bar, maxBody, maxPrice);
-
-					if (PriceLoc is PriceLocation.LowerWick or PriceLocation.AtUpperLowerWick)
-						CheckPriceRange(bar, minPrice, minBody);
+					return [(minBody, maxBody)];
 				}
 
-				break;
+				if (PriceLoc is PriceLocation.UpperWick or PriceLocation.AtUpperLowerWick)
+					ranges.Add((maxBody, maxPrice));
+
+				if (PriceLoc is PriceLocation.LowerWick or PriceLocation.AtUpperLowerWick)
+					ranges.Add((minPrice, minBody));
+
+				return ranges;
 			}
 		}
-	}
 
+		return ranges;
+	}
+	
+	//Check valid clusters on filtered price range and draw it
 	private void CheckPriceRange(int bar, decimal from, decimal to)
 	{
 		for (var price = from; price <= to; price += InstrumentInfo.TickSize)
-		{
-			if (_validVolumeLevels.TryGetValue(price, out var info))
-				PlaceToDataSeries(bar, info);
-		}
+			CheckPriceRange(bar, price);
+	}
+	
+	private void CheckPriceRange(int bar, decimal price)
+	{
+		if (_validVolumeLevels.TryGetValue(price, out var info))
+			PlaceToDataSeries(bar, info);
 	}
 
 	private void PlaceToDataSeries(int bar, CustomVolumeInfo cluster)
@@ -866,23 +1022,60 @@ public partial class ClusterSearch : Indicator
 
 		if (OnlyOneSelectionPerBar
 		    && CalcType is not CalcMode.MaxVolume
-		    && _renderDataSeries[bar].Count is not 0)
+		    && _lastSeriesBar.Count is not 0)
 		{
-			if (_renderDataSeries[bar][0].Context is decimal vol)
+			if (_lastSeriesBar[0].Context is decimal vol)
 			{
 				var newMax = CalcType is CalcMode.Delta
 					? Math.Abs(vol) < Math.Abs(value)
 					: vol < value;
 
 				if (newMax)
-					_renderDataSeries[bar][0] = CreatePriceSelectionValue(cluster);
+					_lastSeriesBar[0] = CreatePriceSelectionValue(cluster);
 			}
 		}
 		else
-			_renderDataSeries[bar].Add(CreatePriceSelectionValue(cluster));
+		{
+			var level = CreatePriceSelectionValue(cluster);
+			InsertOrReplace(bar, level);
+		}
 	}
 
-	private PriceSelectionValue CreatePriceSelectionValue(CustomVolumeInfo cluster)
+	//Binary search of insert index to keep price values sorted
+	public void InsertOrReplace(int bar, PriceSelectionValue value)
+	{
+		var index = GetSeriesLevelIndex(bar, value.MinimumPrice);
+
+		if (index >= 0)
+		{
+			_lastSeriesBar[index] = value;
+		}
+		else
+		{
+			_lastSeriesBar.Insert(~index, value);
+		}
+	}
+
+    private int GetSeriesLevelIndex(int bar, decimal value)
+	{
+		int left = 0, right = _lastSeriesBar.Count;
+
+		while (left < right)
+		{
+			var mid = left + (right - left) / 2;
+
+			if (_lastSeriesBar[mid].MinimumPrice < value)
+				left = mid + 1;
+			else if (_lastSeriesBar[mid].MinimumPrice > value)
+				right = mid;
+			else
+				return mid; 
+		}
+
+		return ~left;
+	}
+	
+    private PriceSelectionValue CreatePriceSelectionValue(CustomVolumeInfo cluster)
 	{
 		var selectionSide = CalcType switch
 		{
@@ -945,6 +1138,7 @@ public partial class ClusterSearch : Indicator
 		return tip;
 	}
 
+	//Compare current candle with current candles filters
 	private bool CheckBarFormation(IndicatorCandle candle)
 	{
 		if ((CandleDir is CandleDirection.Bearish && candle.Close >= candle.Open)
@@ -998,6 +1192,8 @@ public partial class ClusterSearch : Indicator
 		return true;
 	}
 
+	//Merge wide clusters if price levels is more then 1
+	//Compare clusters values with volume filters
 	private bool CheckCluster(int bar, decimal price)
 	{
 		var fullLevel = new CustomVolumeInfo(price);
@@ -1092,39 +1288,85 @@ public partial class ClusterSearch : Indicator
 		return true;
 	}
 
-	private void UpdateCumulativeCachePerBar(int bar)
+	//Create horizontal merged clusters on all current bar prices
+    private void UpdateCumulativeCachePerBar(int bar)
 	{
 		var candle = GetCandle(bar);
 		var highPrice = candle.High - (PriceRange - 1) * InstrumentInfo.TickSize;
 
 		for (var iPrice = candle.Low; iPrice <= highPrice; iPrice += InstrumentInfo.TickSize)
-			UpdateLevelCache(bar, iPrice);
+			CreateLevelCache(bar, iPrice);
 	}
 
-	private void UpdateLevelCache(int bar, decimal price)
-	{
-		var level = new CustomVolumeInfo(price);
-		var endBar = Math.Max(0, bar - (BarsRange - 1));
+    //Create horizontal merged clusters
+    private void CreateLevelCache(int bar, decimal price)
+    {
+	    var level = new CustomVolumeInfo(price);
+	    var endBar = Math.Max(0, bar - (BarsRange - 1));
 
-		for (var i = bar; i >= endBar; i--)
-		{
-			var iCandle = GetCandle(i);
-			var cluster = _clustersCache.GetOrAdd((i, price), () => iCandle.GetPriceVolumeInfo(price), true);
+	    for (var i = bar; i >= endBar; i--)
+	    {
+		    var iCandle = GetCandle(i);
+		    var cluster = _clustersCache.GetOrAdd((i, price), () => iCandle.GetPriceVolumeInfo(price), true);
 
-			if (cluster is null)
-				continue;
+		    if (cluster is null)
+			    continue;
 
-			level.Ask += cluster.Ask;
-			level.Between += cluster.Between;
-			level.Bid += cluster.Bid;
-			level.Ticks += cluster.Ticks;
-			level.Time += cluster.Time;
-			level.Volume += cluster.Volume;
-		}
+		    level.Ask += cluster.Ask;
+		    level.Between += cluster.Between;
+		    level.Bid += cluster.Bid;
+		    level.Ticks += cluster.Ticks;
+		    level.Volume += cluster.Volume;
+	    }
 
-		_mergedLevels[price] = level;
-	}
+	    _mergedLevels[price] = level;
+    }
 
+    private void UpdateLevelCache(int bar, MarketDataArg trade)
+    {
+	    if (!_mergedLevels.TryGetValue(trade.Price, out var level))
+	    {
+		    level = new CustomVolumeInfo(trade.Price);
+			var startBar = Math.Max(0, bar - 1);
+            var endBar = Math.Max(0, bar - (BarsRange - 1));
+
+		    for (var i = startBar; i >= endBar; i--)
+		    {
+			    var iCandle = GetCandle(i);
+			    var cluster = _clustersCache.GetOrAdd((i, trade.Price), () => iCandle.GetPriceVolumeInfo(trade.Price), true);
+
+			    if (cluster is null)
+				    continue;
+
+			    level.Ask += cluster.Ask;
+			    level.Between += cluster.Between;
+			    level.Bid += cluster.Bid;
+			    level.Ticks += cluster.Ticks;
+			    level.Volume += cluster.Volume;
+		    }
+
+			_mergedLevels[trade.Price] = level;
+        }
+		
+	    switch (trade.Direction)
+	    {
+		    case TradeDirection.Buy:
+			    level.Ask += trade.Volume;
+			    break;
+		    case TradeDirection.Sell:
+			    level.Bid += trade.Volume;
+			    break;
+		    case TradeDirection.Between:
+		    default:
+			    level.Between += trade.Volume;
+			    break;
+	    }
+
+        level.Volume += trade.Volume;
+	    level.Ticks++;
+    }
+
+	//Update dataseries values size on properties change
 	private void SetSize()
 	{
 		if (_fixedSizes)
