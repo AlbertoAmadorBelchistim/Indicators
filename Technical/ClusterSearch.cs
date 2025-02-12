@@ -158,7 +158,9 @@ public partial class ClusterSearch : Indicator
 		if (bar < _targetBar || !newBar)
 			return;
 
-		if (bar is not 0)
+		if (bar is 0)
+			_renderDataSeries[bar] = _lastSeriesBar;
+		else
 			OnNewBar(bar);
 
 		CalculateBar(bar);
@@ -169,10 +171,10 @@ public partial class ClusterSearch : Indicator
 		if (InstrumentInfo is null)
 			return;
 
-		_isFinishRecalculate = false;
+		_lastBar = -1;
+        _isFinishRecalculate = false;
 		_mergedLevels = new MergedClusterDictionary(PriceRange, InstrumentInfo.TickSize);
-		_renderDataSeries.Clear();
-
+		
 		_autoFilterValue = 0;
 		_targetBar = 0;
 
@@ -193,7 +195,10 @@ public partial class ClusterSearch : Indicator
 			if (days == Days)
 				break;
 		}
-	}
+
+		_lastSeriesBar.Clear();
+		_renderDataSeries.Clear();
+    }
 
 	//Apply autofilter
 	protected override void OnFinishRecalculate()
@@ -226,15 +231,30 @@ public partial class ClusterSearch : Indicator
 			? (decimal)valuesList.Last().Context
 			: (decimal)valuesList.Skip(10).First().Context;
 
-		for (var i = 0; i < _renderDataSeries.Count; i++)
+		//Set autofilter value to see it in minimal filter value
+		MinimumFilter.SetValueSilently(_autoFilterValue);
+
+        for (var i = 0; i < _renderDataSeries.Count; i++)
 		{
 			if (_renderDataSeries[i].Count is 0)
 				continue;
 
 			_renderDataSeries[i].RemoveAll(x => (decimal)x.Context < _autoFilterValue);
+
+			_renderDataSeries[i].ForEach(l =>
+			{
+				var clusterSize = FixedSizes ? _size : (int)((decimal)l.Context * _size / Math.Max(_autoFilterValue, 1));
+
+				if (!FixedSizes)
+				{
+					clusterSize = Math.Min(clusterSize, MaxSize);
+					clusterSize = Math.Max(clusterSize, MinSize);
+				}
+
+				l.Size = clusterSize;
+			});
 		}
 
-		MinimumFilter.SetValueSilently(_autoFilterValue);
 		OnChangeProperty(nameof(MinimumFilter));
 
 		_isFinishRecalculate = true;
@@ -552,7 +572,7 @@ public partial class ClusterSearch : Indicator
 
 		for (var iPrice = price; iPrice <= endPrice; iPrice += InstrumentInfo.TickSize)
 		{
-			if (_mergedLevels.TryGetValue(price, out var level))
+			if (_mergedLevels.TryGetValue(iPrice, out var level))
 				fullLevel += level;
 		}
 
