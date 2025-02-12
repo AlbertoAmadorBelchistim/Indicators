@@ -210,7 +210,9 @@ public partial class ClusterSearch
 			_ => 0
 		};
 
-		if (OnlyOneSelectionPerBar
+		var level = CreatePriceSelectionValue(cluster);
+
+        if (OnlyOneSelectionPerBar
 		    && CalcType is not CalcMode.MaxVolume
 		    && _lastSeriesBar.Count is not 0)
 		{
@@ -221,14 +223,16 @@ public partial class ClusterSearch
 					: vol < value;
 
 				if (newMax)
-					_lastSeriesBar[0] = CreatePriceSelectionValue(cluster);
+					_lastSeriesBar[0] = level;
 			}
 		}
 		else
 		{
-			var level = CreatePriceSelectionValue(cluster);
 			InsertOrReplace(bar, level);
 		}
+
+		if (UseAlerts && _alertPrices.Add(cluster.Price) && _isFinishRecalculate)
+			AddClusterAlert(level.Tooltip);
 	}
 
 	//Find index of price level by price

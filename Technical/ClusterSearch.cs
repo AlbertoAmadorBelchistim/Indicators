@@ -29,6 +29,8 @@ public partial class ClusterSearch : Indicator
 	private bool _autoFilter;
 	private decimal _autoFilterValue;
 
+	private HashSet<decimal> _alertPrices = [];
+
 	private int _barsRange = 1;
 	private CandleDirection _candleDirection = CandleDirection.Any;
 	private CrossColor _clusterPriceColor;
@@ -381,6 +383,7 @@ public partial class ClusterSearch : Indicator
 		_renderDataSeries[bar] = _lastSeriesBar;
 
 		_lastPrice = GetCandle(bar).Close;
+		_alertPrices.Clear();
 	}
 
 	private void MaxMinFilter_PropertyChanged(object sender, PropertyChangedEventArgs e)
