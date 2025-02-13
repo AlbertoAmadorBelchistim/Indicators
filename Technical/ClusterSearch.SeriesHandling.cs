@@ -19,7 +19,7 @@ public partial class ClusterSearch
 			_lastSeriesBar.Insert(~index, value);
 	}
 
-	//Check ranges between last price and trade when Price Location filter is not Any
+	//Check ranges between previous and current trade prices when Price Location filter is not Any
 	private void UpdatePriceLocationValues(int bar, MarketDataArg trade)
 	{
 		var candle = GetCandle(bar);
