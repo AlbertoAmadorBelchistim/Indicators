@@ -61,6 +61,7 @@
 		private ShowMode _mode = ShowMode.All;
         private bool _showLine;
 		private decimal _tickSize;
+		private int _lastBar;
 
 		#endregion
 
@@ -113,7 +114,7 @@
 		}
 
 		#endregion
-
+		
 		#region Protected methods
 
 		protected override void OnCalculate(int bar, decimal value)
@@ -131,6 +132,10 @@
 			if (bar < 4)
 				return;
 
+			var isNewBar = _lastBar != bar;
+			_lastBar = bar;
+
+			var fractalBar = bar - 2;
 
 			var bar0 = GetCandle(bar);
 			var bar1 = GetCandle(bar - 1);
@@ -138,49 +143,92 @@
 			var bar3 = GetCandle(bar - 3);
 			var bar4 = GetCandle(bar - 4);
 
-			if (bar2.High > bar3.High && bar2.High > bar4.High && bar2.High > bar1.High && bar2.High > bar0.High && Mode is ShowMode.High or ShowMode.All)
+			if (bar2.High > bar4.High &&
+			    bar2.High > bar3.High &&
+			    bar2.High > bar1.High &&
+			    bar2.High > bar0.High &&
+			    Mode is ShowMode.High or ShowMode.All)
 			{
-				_fractalUp[bar - 2] = bar2.High + 3 * _tickSize;
+				_fractalUp[fractalBar] = bar2.High + 3 * _tickSize;
 
 				if (ShowLine)
-					HorizontalLinesTillTouch.Add(new LineTillTouch(bar - 2, bar2.High, _highPen));
+				{
+					var line = new LineTillTouch(fractalBar, bar2.High, _highPen) { Context = true };
+
+					if (!isNewBar && IsCurrentLine(fractalBar, true))
+					{
+						HorizontalLinesTillTouch[^1] = line;
+					}
+					else
+					{
+						HorizontalLinesTillTouch.Add(line);
+					}
+				}
 			}
 			else
 			{
-				_fractalUp[bar - 2] = 0;
+				_fractalUp[fractalBar] = 0;
 
-				if (ShowLine)
-					HorizontalLinesTillTouch.RemoveWhere(x => x.FirstBar == bar - 2 && x.Pen == _highPen);
+				if (ShowLine && !isNewBar)
+				{
+					if (IsCurrentLine(fractalBar, true))
+						HorizontalLinesTillTouch.RemoveAt(HorizontalLinesTillTouch.Count - 1);
+				}
 			}
 
-			if (bar2.Low < bar3.Low && bar2.Low < bar4.Low && bar2.Low < bar1.Low && bar2.Low < bar0.Low && Mode is ShowMode.Low or ShowMode.All)
+			if (bar2.Low < bar4.Low &&
+			    bar2.Low < bar3.Low &&
+			    bar2.Low < bar1.Low &&
+			    bar2.Low < bar0.Low &&
+			    Mode is ShowMode.Low or ShowMode.All)
 			{
-				_fractalDown[bar - 2] = bar2.Low - 3 * _tickSize;
+				_fractalDown[fractalBar] = bar2.Low - 3 * _tickSize;
 
 				if (ShowLine)
-					HorizontalLinesTillTouch.Add(new LineTillTouch(bar - 2, bar2.Low, _lowPen));
+				{
+					var line = new LineTillTouch(fractalBar, bar2.Low, _lowPen) { Context = false };
+
+					if (!isNewBar && IsCurrentLine(fractalBar, false))
+					{
+						HorizontalLinesTillTouch[^1] = line;
+					}
+					else
+					{
+						HorizontalLinesTillTouch.Add(line);
+					}
+				}
 			}
 			else
 			{
-				_fractalDown[bar - 2] = 0;
+				_fractalDown[fractalBar] = 0;
 
-				if (ShowLine)
-					HorizontalLinesTillTouch.RemoveWhere(x => x.FirstBar == bar - 2 && x.Pen == _lowPen);
+				if (ShowLine && !isNewBar)
+				{
+					if (IsCurrentLine(fractalBar, false))
+						HorizontalLinesTillTouch.RemoveAt(HorizontalLinesTillTouch.Count - 1);
+				}
 			}
 		}
 
-		#endregion
+        #endregion
 
-		#region Private methods
+        #region Private methods
 
-		private void HighPenChanged(object sender, PropertyChangedEventArgs e)
+        private bool IsCurrentLine(int bar, bool isHighLine)
+        {
+	        return HorizontalLinesTillTouch.Count is not 0 &&
+		        (bool)HorizontalLinesTillTouch[^1].Context == isHighLine &&
+		        HorizontalLinesTillTouch[^1].FirstBar == bar;
+        }
+
+        private void HighPenChanged(object sender, PropertyChangedEventArgs e)
 		{
 			var highPen = HighPen.RenderObject.ToPen();
 
 			HorizontalLinesTillTouch
-				.Where(x => x.Pen == _highPen)
-				.ToList()
+				.Where(x => (bool)x.Context)
 				.ForEach(x => x.Pen = highPen);
+
 			_highPen = highPen;
 		}
 
@@ -189,9 +237,9 @@
 			var lowPen = LowPen.RenderObject.ToPen();
 
 			HorizontalLinesTillTouch
-				.Where(x => x.Pen == _lowPen)
-				.ToList()
+				.Where(x => !(bool)x.Context)
 				.ForEach(x => x.Pen = lowPen);
+
 			_lowPen = lowPen;
 		}
 
