@@ -144,7 +144,7 @@ public class CumulativeDelta : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.CustomSessionStart), GroupName = nameof(Strings.Settings), Description = nameof(Strings.SessionBeginDescription), Order = 25)]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.CustomSessionStart), GroupName = nameof(Strings.Settings), Description = nameof(Strings.CustomSessionStartDescription), Order = 25)]
     public TimeSpan CustomSessionStart
     {
         get => _customSessionStart;
