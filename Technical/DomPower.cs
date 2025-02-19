@@ -3,12 +3,12 @@ namespace ATAS.Indicators.Technical;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 
 using OFT.Attributes;
 using OFT.Localization;
 
-[DisplayName("Dom Power")]
+[Category(IndicatorCategories.OrderBook)]
+[DisplayName("DOM Power")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.DomPowerDescription))]
 [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602374")]
 public class DomPower : Indicator
@@ -54,11 +54,14 @@ public class DomPower : Indicator
         DescriptionKey = nameof(Strings.MinDeltaSettingsDescription)
     };
 
-	#endregion
+	private int _lastBar = -1;
+    private bool _isLastDeltaCalc;
 
-	#region Properties
+    #endregion
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.DepthMarketFilter), GroupName = nameof(Strings.Period), Description = nameof(Strings.DOMMaxFilterDescription), Order = 100)]
+    #region Properties
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.DepthMarketFilter), GroupName = nameof(Strings.Period), Description = nameof(Strings.DOMMaxFilterDescription), Order = 100)]
 	[Range(1, 1000)]
 	public Filter LevelDepth
 	{
@@ -92,24 +95,37 @@ public class DomPower : Indicator
 
 	protected override void OnCalculate(int bar, decimal value)
 	{
-		if (bar != 0)
-			return;
-
-		lock (_locker)
+		if (bar is 0)
 		{
-			_mDepthAsk.Clear();
-			_mDepthBid.Clear();
-			var depths = MarketDepthInfo.GetMarketDepthSnapshot();
-
-			foreach (var depth in depths)
+			lock (_locker)
 			{
-				if (depth.DataType is MarketDataType.Ask)
-					_mDepthAsk[depth.Price] = depth.Volume;
-				else
-					_mDepthBid[depth.Price] = depth.Volume;
+				_mDepthAsk.Clear();
+				_mDepthBid.Clear();
+				var depths = MarketDepthInfo.GetMarketDepthSnapshot();
+
+				foreach (var depth in depths)
+				{
+					if (depth.DataType is MarketDataType.Ask)
+						_mDepthAsk[depth.Price] = depth.Volume;
+					else
+						_mDepthBid[depth.Price] = depth.Volume;
+				}
 			}
 		}
-	}
+
+		if (bar > 0 && bar != _lastBar) 
+		{
+			lock (_locker)
+				_isLastDeltaCalc = false;
+
+            _asks[bar] = _asks[bar - 1];
+            _bids[bar] = _bids[bar - 1];
+            _minDelta[bar] = _minDelta[bar - 1];
+            _maxDelta[bar] = _maxDelta[bar - 1];
+        }
+
+		_lastBar = bar;
+    }
 
 	protected override void MarketDepthChanged(MarketDataArg depth)
 	{
@@ -151,30 +167,26 @@ public class DomPower : Indicator
 			{
 				if (_mDepthAsk.Count <= LevelDepth.Value)
 				{
-					cumAsks = _mDepthAsk.Values
-						.DefaultIfEmpty(0)
-						.Sum();
+					cumAsks = MarketDepthInfo.CumulativeDomAsks;
 				}
 				else
 				{
 					cumAsks = 0;
 
-					for (var i = 0; i <= LevelDepth.Value; i++)
+					for (var i = 0; i < LevelDepth.Value; i++)
 						cumAsks += _mDepthAsk.Values[i];
 				}
 
 				if (_mDepthBid.Count <= LevelDepth.Value)
 				{
-					cumBids = _mDepthAsk.Values
-						.DefaultIfEmpty(0)
-						.Sum();
-				}
+					cumBids = MarketDepthInfo.CumulativeDomBids;
+                }
 				else
 				{
 					cumBids = 0;
 					var lastIdx = _mDepthBid.Values.Count - 1;
 
-					for (var i = 0; i <= LevelDepth.Value; i++)
+					for (var i = 0; i < LevelDepth.Value; i++)
 						cumBids += _mDepthBid.Values[lastIdx - i];
 				}
 			}
@@ -190,16 +202,23 @@ public class DomPower : Indicator
 		{
 			_asks[i] = -cumAsks;
 			_bids[i] = cumBids;
-			var max = _maxDelta[i];
 
-			if (delta > max || max == 0)
+			if (!_isLastDeltaCalc && i == lastCandle)
+			{
+                _maxDelta[i] = delta;
+                _minDelta[i] = delta;
+
+				lock (_locker)
+					_isLastDeltaCalc = true;
+            }
+
+			if (delta > _maxDelta[i]) 
 				_maxDelta[i] = delta;
-			var min = _minDelta[i];
 
-			if (delta < min || min == 0)
-				_minDelta[i] = delta;
+			if (delta < _minDelta[i])
+				_minDelta[i] = delta;			
 
-			RaiseBarValueChanged(i);
+            RaiseBarValueChanged(i);
 		}
 
 		_lastCalculatedBar = lastCandle;

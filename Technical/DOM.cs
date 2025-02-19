@@ -22,7 +22,7 @@ using Utils.Common.Logging;
 
 using Color = System.Drawing.Color;
 
-[Category(IndicatorCategories.Other)]
+[Category(IndicatorCategories.OrderBook)]
 [DisplayName("Depth Of Market")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.DOMDescription))]
 [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602367")]
@@ -105,12 +105,12 @@ public class DOM : Indicator
 	private object _locker = new();
 
 	private decimal _maxBid;
-	private decimal _maxPrice;
+	private decimal _maxPrice = decimal.MinValue;
 
 	private VolumeInfo _maxVolume = new();
 	private SortedDictionary<decimal, MarketDataArg> _mDepth = new();
 	private decimal _minAsk;
-	private decimal _minPrice;
+	private decimal _minPrice = decimal.MaxValue;
 
 	private int _priceLevelsHeight;
 	private int _lastRenderedHeight;
@@ -233,12 +233,7 @@ public class DOM : Indicator
 	public bool UseScale
 	{
 		get => _upScale.ScaleIt;
-		set
-		{
-			_upScale.ScaleIt = _downScale.ScaleIt = value;
-			_upScale.Clear();
-			_downScale.Clear();
-		}
+		set => _upScale.ScaleIt = _downScale.ScaleIt = value;
 	}
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.CustomScale), GroupName = nameof(Strings.Scale), Description = nameof(Strings.ElementScaleValueDescription), Order = 410)]
@@ -331,7 +326,10 @@ public class DOM : Indicator
 				_mDepth = mDepth;
 
 				if (_mDepth.Count == 0)
+				{
+					_maxPrice = _minPrice = GetCandle(CurrentBar - 1).Close;
 					return;
+				}
 
 				ResetColors();
 
@@ -339,7 +337,7 @@ public class DOM : Indicator
 				_maxBid = _mDepth.LastOrDefault(x => x.Value.Direction == TradeDirection.Sell).Key;
 
 				_maxPrice = Math.Min(_mDepth.Keys.Last(), _maxBid * 1.3m);
-                _minPrice = Math.Max(_mDepth.Keys.First(), _maxBid * 0.7m) ;
+                _minPrice = Math.Max(_mDepth.Keys.First(), _maxBid * 0.7m);
 
 				var maxLevel = _mDepth
 					.Values
@@ -469,6 +467,10 @@ public class DOM : Indicator
 			
 			DrawBackGround(context, currentPriceY);
 
+
+			var chartHigh = chartInfo.PriceChartContainer.High;
+			var chartLow = chartInfo.PriceChartContainer.Low;
+
 			lock (_locker)
 			{
 				var stringRects = new List<(string Text, Rectangle Rect)>();
@@ -480,6 +482,9 @@ public class DOM : Indicator
 
 					foreach (var priceDepth in _mDepth.Values.Where(x => x.DataType is MarketDataType.Ask))
 					{
+						if (!IsInChart(priceDepth.Price))
+							continue;
+
 						int y;
 
 						if (PriceLevelsHeight == 0)
@@ -535,7 +540,7 @@ public class DOM : Indicator
 
 							if (_font.Size > 4)
 							{
-								var renderText = chartInfo.TryGetMinimizedVolumeString(priceDepth.Volume);
+								var renderText = chartInfo.TryGetMinimizedVolumeString(priceDepth.Volume, priceDepth.Price);
 								var textWidth = context.MeasureString(renderText, _font).Width + 5;
 
 								var textRect = RightToLeft
@@ -562,7 +567,10 @@ public class DOM : Indicator
 
 					foreach (var priceDepth in _mDepth.Values.Where(x => x.DataType is MarketDataType.Bid))
 					{
-						int y;
+						if (!IsInChart(priceDepth.Price))
+							continue;
+
+                        int y;
 
 						if (PriceLevelsHeight == 0)
 						{
@@ -615,7 +623,7 @@ public class DOM : Indicator
 						{
 							if (_font.Size > 4)
 							{
-								var renderText = chartInfo.TryGetMinimizedVolumeString(priceDepth.Volume);
+								var renderText = chartInfo.TryGetMinimizedVolumeString(priceDepth.Volume, priceDepth.Price);
 								var textWidth = context.MeasureString(renderText, _font).Width + 5;
 
 								var textRect = RightToLeft
@@ -651,6 +659,11 @@ public class DOM : Indicator
 			if (ShowCumulativeValues)
 				DrawCumulativeValues(context);
 		}
+	}
+
+	private bool IsInChart(decimal price)
+	{
+		return price <= ChartInfo?.PriceChartContainer.High && price >= ChartInfo?.PriceChartContainer.Low;
 	}
 
 	protected override void OnBestBidAskChanged(MarketDataArg depth)
@@ -940,7 +953,7 @@ public class DOM : Indicator
 		var form = RightToLeft ? _stringRightFormat : _stringLeftFormat;
 
 		var y = ChartInfo.GetYByPrice(price);
-		var renderText = ChartInfo.TryGetMinimizedVolumeString(volume);
+		var renderText = ChartInfo.TryGetMinimizedVolumeString(volume,price);
 		var textWidth = context.MeasureString(renderText, _font).Width + 5;
 
 		var textRect = new Rectangle(new Point(ChartInfo.Region.Width - textWidth, y),

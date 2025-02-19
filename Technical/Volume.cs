@@ -14,7 +14,7 @@ using OFT.Rendering.Tools;
 
 using Color = System.Drawing.Color;
 
-[Category(IndicatorCategories.BidAskDeltaVolume)]
+[Category(IndicatorCategories.VolumeOrderFlow)]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.VolumeIndDescription))]
 [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602498")]
 public class Volume : Indicator

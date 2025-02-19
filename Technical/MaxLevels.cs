@@ -1,18 +1,21 @@
 namespace ATAS.Indicators.Technical
 {
 	using System;
+	using System.Collections.Generic;
+	using System.Collections.ObjectModel;
 	using System.ComponentModel;
-	using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations;
 	using System.Drawing;
+	using System.Linq;
 	using System.Reflection;
 
 	using OFT.Attributes;
+    using OFT.Attributes.Editors;
     using OFT.Localization;
     using OFT.Rendering.Context;
-	using OFT.Rendering.Tools;
-	
+    using OFT.Rendering.Tools;
     [DisplayName("Maximum Levels")]
-	[Category(IndicatorCategories.ClustersProfilesLevels)]
+	[Category(IndicatorCategories.VolumeOrderFlow)]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.MaxLevelsIndDescription))]
     [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602426")]
     public class MaxLevels : Indicator
@@ -46,11 +49,16 @@ namespace ATAS.Indicators.Technical
 			Time
 		}
 
-		#endregion
+		private sealed class TradingSessionsSource(MaxLevels indicator)
+			: Collection<TradingSessionDescription>(indicator.DataProvider?.ChartInfo?.TradingSessionDescriptions?.ToList() ?? [])
+		{
+		}
 
-		#region Fields
+        #endregion
 
-		private RenderFont _axisFont = new("Arial", 11F, FontStyle.Regular, GraphicsUnit.Point, 204);
+        #region Fields
+
+        private RenderFont _axisFont = new("Arial", 11F, FontStyle.Regular, GraphicsUnit.Point, 204);
 		private Color _axisTextColor = System.Drawing.Color.White;
 		private IndicatorCandle _candle;
 		private bool _candleRequested;
@@ -60,6 +68,7 @@ namespace ATAS.Indicators.Technical
 		private int _lastSession;
 		private Color _lineColor = System.Drawing.Color.CornflowerBlue;
 		private FixedProfilePeriods _period = FixedProfilePeriods.CurrentDay;
+		private long? _tradingSession;
 		private decimal _prevClose;
 		private RenderPen _renderPen = new(System.Drawing.Color.CornflowerBlue, 2);
 
@@ -89,6 +98,29 @@ namespace ATAS.Indicators.Technical
 			{
 				_period = value;
 				_description = GetPeriodDescription(_period);
+				RecalculateValues();
+			}
+		}
+
+		[Parameter]
+		[Display(ResourceType = typeof(Strings),
+			GroupName = nameof(Strings.Calculation),
+			Name = nameof(Strings.TradingSession),
+			Description = nameof(Strings.TradingSessionDescription),
+            Order = 15)]
+		[ComboBoxEditor(typeof(TradingSessionsSource), 
+			DisplayMember = nameof(TradingSessionDescription.Name), 
+			ValueMember = nameof(TradingSessionDescription.Id),
+			SelectItemWithNullValue = true)]
+        public long? TradingSession
+        {
+			get => _tradingSession;
+			set
+			{
+				if (_tradingSession == value)
+					return;
+
+				_tradingSession = value;
 				RecalculateValues();
 			}
 		}
@@ -228,7 +260,7 @@ namespace ATAS.Indicators.Technical
 			if (!_candleRequested)
 			{
 				_candleRequested = true;
-				GetFixedProfile(new FixedProfileRequest(Period));
+				GetFixedProfile(new FixedProfileRequest(Period, TradingSession));
 				_lastSession = bar;
 			}
 

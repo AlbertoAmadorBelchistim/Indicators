@@ -15,19 +15,17 @@ namespace ATAS.Indicators.Technical
 	{
 		#region Fields
 
-		private decimal _accel;
-		private decimal _accelMax = 0.2m;
-        private decimal _accelStart = 0.02m;
-        private decimal _accelStep = 0.02m;
-        private decimal _current;
+        private decimal _start = 0.02m;
+        private decimal _increment = 0.02m;
+        private decimal _max = 0.2m;
 
-		private bool _isDown;
-		private bool _isIncreased;
-		private int _lastbar;
-		private decimal _prev;
-		private decimal _revers;
+        private decimal _sar;
+        private decimal _acceleration;
+        private decimal _extreme;
+        private bool _isUptrend;
+        private int _lastBar;
 
-		#endregion
+        #endregion
 
 		#region Properties
 
@@ -40,10 +38,10 @@ namespace ATAS.Indicators.Technical
 		[Range(0.000000001, 100000000)]
 		public decimal AccelStart
 		{
-			get => _accelStart;
+			get => _start;
 			set
 			{
-				_accelStart = value;
+				_start = value;
 				RecalculateValues();
 			}
 		}
@@ -57,10 +55,10 @@ namespace ATAS.Indicators.Technical
 		[Range(0.000000001, 100000000)]
         public decimal AccelStep
 		{
-			get => _accelStep;
+			get => _increment;
 			set
 			{
-				_accelStep = value;
+				_increment = value;
 				RecalculateValues();
 			}
 		}
@@ -74,10 +72,10 @@ namespace ATAS.Indicators.Technical
 		[Range(0.000000001, 100000000)]
         public decimal AccelMax
 		{
-			get => _accelMax;
+			get => _max;
 			set
 			{
-				_accelMax = value;
+				_max = value;
 				RecalculateValues();
 			}
 		}
@@ -100,117 +98,72 @@ namespace ATAS.Indicators.Technical
 
 		protected override void OnCalculate(int bar, decimal value)
 		{
-			if (bar == 0 || bar == _lastbar)
+			if (bar < 2)
 				return;
 
-			_lastbar = bar;
-			Process(bar - 1);
-		}
+			if (_lastBar == bar)
+				return;
 
-		#endregion
+			_lastBar = bar;
 
-		#region Private methods
+            bar--;
 
-		private void Process(int bar)
-		{
-			var candle = GetCandle(bar);
+			var high = GetCandle(bar).High;
+			var low = GetCandle(bar).Low;
+			var prevHigh = GetCandle(bar - 1).High;
+			var prevLow = GetCandle(bar - 1).Low;
 
-			if (bar == 0)
+			if (bar == 1)
 			{
-				_isDown = true;
-				_isIncreased = true;
-
-				_accel = AccelStart;
-
-				_prev = candle.Low;
-				_current = candle.High;
-				_revers = candle.Low;
-
+				_sar = _isUptrend ? prevLow : prevHigh;
+				_extreme = _isUptrend ? high : low;
 				return;
 			}
 
-			var prevCandle = GetCandle(bar - 1);
+			_sar += _acceleration * (_extreme - _sar);
 
-			if (!_isDown)
+			if (_isUptrend)
 			{
-				if (candle.High > _prev)
+				if (_sar > low)
 				{
-					_isDown = true;
-					_isIncreased = true;
-
-					_prev = _revers;
-					_current = candle.High;
-
-					_accel = AccelStart;
-
-					this[bar] = _prev;
+					_isUptrend = false;
+					_sar = Math.Max(prevHigh, _extreme);
+					_extreme = low;
+					_acceleration = _start;
 				}
 				else
 				{
-					if (candle.Low < _revers)
+					if (high > _extreme)
 					{
-						_revers = candle.Low;
-
-						if (!_isIncreased)
-						{
-							_accel += AccelStep;
-
-							if (_accel > AccelMax)
-								_accel = AccelMax;
-						}
+						_extreme = high;
+						_acceleration = Math.Min(_acceleration + _increment, _max);
 					}
-
-					_isIncreased = false;
-					_prev += (_revers - _prev) * _accel;
-
-					var maxHigh = Math.Max(candle.High, prevCandle.High);
-
-					if (_prev < maxHigh)
-						_prev = maxHigh;
-
-					this[bar] = _prev;
 				}
 			}
 			else
 			{
-				if (candle.Low >= _prev)
+				if (_sar < high)
 				{
-					if (candle.High > _current)
-					{
-						_current = candle.High;
-
-						if (!_isIncreased)
-						{
-							_accel += AccelStart;
-
-							if (_accel > AccelMax)
-								_accel = AccelMax;
-						}
-					}
-
-					_isIncreased = false;
-					_prev += (_current - _prev) * _accel;
-
-					var minLow = Math.Min(candle.Low, prevCandle.Low);
-
-					if (_prev > minLow)
-						_prev = minLow;
-
-					this[bar] = _prev;
+					_isUptrend = true;
+					_sar = Math.Min(prevLow, _extreme);
+					_extreme = high;
+					_acceleration = _start;
 				}
 				else
 				{
-					_isDown = false;
-					_isIncreased = true;
-
-					_prev = _current;
-					_revers = candle.Low;
-
-					_accel = AccelStep;
-
-					this[bar] = _prev;
+					if (low < _extreme)
+					{
+						_extreme = low;
+						_acceleration = Math.Min(_acceleration + _increment, _max);
+					}
 				}
 			}
+
+			_sar = _isUptrend 
+				? Math.Min(_sar, Math.Min(prevLow, GetCandle(bar - 2).Low))
+				: Math.Max(_sar, Math.Max(prevHigh, GetCandle(bar - 2).High));
+
+			this[bar] = _sar;
 		}
 
 		#endregion

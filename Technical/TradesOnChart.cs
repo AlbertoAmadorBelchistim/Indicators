@@ -150,6 +150,8 @@ public class TradesOnChart : Indicator
     {
         TradingStatisticsProvider.Realtime.HistoryMyTrades.Added += OnTradeAdded;
         TradingManager.PortfolioSelected += TradingManager_PortfolioSelected;
+
+        OnRecalculate();
     }
 
     private void TradingManager_PortfolioSelected(Portfolio obj)
@@ -281,12 +283,13 @@ public class TradesOnChart : Indicator
 
     private void AddHistoryMyTrade()
     {
-	    if(TradingManager?.Portfolio == null|| TradingManager?.Security == null)
+	    if (TradingManager?.Portfolio == null|| TradingManager?.Security == null)
             return;
 
 	    var allTrades = TradingStatisticsProvider?.Realtime?.HistoryMyTrades
-		    .Where(t => t.AccountID == TradingManager.Portfolio.AccountID
-			    && t.Security.Instrument == TradingManager.Security.Instrument);
+		    .Where(t => 
+                t.AccountID == TradingManager.Portfolio.AccountID && 
+                t.Security.SecurityId.Equals(TradingManager.Security.SecurityId, StringComparison.InvariantCultureIgnoreCase));
 
 	    foreach (var trade in allTrades)
 	    {

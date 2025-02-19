@@ -12,7 +12,7 @@ using Utils.Common.Logging;
 using Color = System.Drawing.Color;
 
 [DisplayName("CVD - Cumulative Volume Delta")]
-[Category(IndicatorCategories.BidAskDeltaVolume)]
+[Category(IndicatorCategories.VolumeOrderFlow)]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.CumulativeDeltaDescription))]
 [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602360-cumulative-volume-delta")]
 public class CumulativeDelta : Indicator
@@ -144,7 +144,7 @@ public class CumulativeDelta : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.CustomSessionStart), GroupName = nameof(Strings.Settings), Description = nameof(Strings.SessionBeginDescription), Order = 25)]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.CustomSessionStart), GroupName = nameof(Strings.Settings), Description = nameof(Strings.CustomSessionStartDescription), Order = 25)]
     public TimeSpan CustomSessionStart
     {
         get => _customSessionStart;
@@ -421,10 +421,10 @@ public class CumulativeDelta : Indicator
                         _currentCandle = new();
                         _candleSeries[bar] = _currentCandle;
                     }
-
+                    
                     _currentCandle.Close = _cumDelta;
-                    _currentCandle.High = _high;
-                    _currentCandle.Low = _low;
+                    _currentCandle.High = Math.Max(_high, Math.Max(_open, _cumDelta));
+                    _currentCandle.Low = Math.Min(_low, Math.Min(_open, _cumDelta));
                     _currentCandle.Open = _open;
 
                     break;
