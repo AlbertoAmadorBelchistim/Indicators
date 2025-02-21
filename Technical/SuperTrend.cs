@@ -3,6 +3,7 @@ namespace ATAS.Indicators.Technical;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing;
 
 using ATAS.Indicators.Drawing;
 
@@ -18,7 +19,7 @@ public class SuperTrend : Indicator
 
 	private readonly ATR _atr = new() { Period = 14 };
 
-    private ValueDataSeries _trend = new("trend");
+	[Obsolete]
     private ValueDataSeries _upTrend = new("UpTrendId", "Up Trend")
     {
         Color = DefaultColors.Blue.Convert(),
@@ -28,6 +29,7 @@ public class SuperTrend : Indicator
         DescriptionKey = nameof(Strings.UpTrendSettingsDescription)
     };
 
+	[Obsolete]
     private ValueDataSeries _dnTrend = new("DnTrend", "Down Trend")
 	{
 		VisualType = VisualMode.Square,
@@ -80,6 +82,30 @@ public class SuperTrend : Indicator
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertPerBar), GroupName = nameof(Strings.Alerts), Description = nameof(Strings.AlertPerBarDescription), Order = 120)]
 	public bool AlertPerBar { get; set; } = true;
 
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.BullishColor), GroupName = nameof(Strings.Drawing),
+		Description = nameof(Strings.BullishColorDescription), Order = 200)]
+	public Color UpColor
+	{
+		get => _upTrend.RenderColor;
+		set
+		{
+			_upTrend.RenderColor = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.BearishColor), GroupName = nameof(Strings.Drawing),
+		Description = nameof(Strings.BearishColorDescription), Order = 210)]
+	public Color DownColor
+	{
+		get => _dnTrend.RenderColor;
+		set
+		{
+			_dnTrend.RenderColor = value; 
+			RecalculateValues();
+		}
+	}
+
 	#endregion
 
 	#region ctor
@@ -88,7 +114,11 @@ public class SuperTrend : Indicator
 		: base(true)
 	{
 		DenyToChangePanel = true;
-		DataSeries[0] = _upTrend;
+		var series = (ValueDataSeries)DataSeries[0];
+		series.VisualType = VisualMode.Square;
+		series.Width = 2;
+		series.ShowZeroValue = false;
+		DataSeries.Add(_upTrend);
 		DataSeries.Add(_dnTrend);
 		Add(_atr);
 	}
@@ -97,8 +127,16 @@ public class SuperTrend : Indicator
 
 	#region Protected methods
 
+	protected override void OnInitialize()
+	{
+		_upTrend.IsHidden = _dnTrend.IsHidden = true;
+		_upTrend.VisualType = _dnTrend.VisualType = VisualMode.Hide;
+	}
+
 	protected override void OnCalculate(int bar, decimal value)
 	{
+		var series = (ValueDataSeries)DataSeries[0];
+		
 		if (bar == 0)
 		{
 			_tickFormat = "{0:0.";
@@ -107,10 +145,11 @@ public class SuperTrend : Indicator
 				_tickFormat += "#";
 
 			_tickFormat += "}";
+
+			series.SetPointOfEndLine(bar);
 			return;
 		}
 
-		_upTrend[bar] = _dnTrend[bar] = 0;
 		var candle = GetCandle(bar);
 		var prevCandle = GetCandle(bar - 1);
 		var median = (candle.Low + candle.High) / 2;
@@ -119,43 +158,25 @@ public class SuperTrend : Indicator
 		var dLowerLevel = median - atr * Multiplier;
 
 		// Set supertrend levels
-		if (candle.Close > _trend[bar - 1] && prevCandle.Close <= _trend[bar - 1])
-			_trend[bar] = dLowerLevel;
-		else if (candle.Close < _trend[bar - 1] && prevCandle.Close >= _trend[bar - 1])
-			_trend[bar] = dUpperLevel;
-		else if (_trend[bar - 1] < dLowerLevel)
-			_trend[bar] = dLowerLevel;
-		else if (_trend[bar - 1] > dUpperLevel)
-			_trend[bar] = dUpperLevel;
+		if (candle.Close > this[bar - 1] && prevCandle.Close <= this[bar - 1])
+			this[bar] = dLowerLevel;
+		else if (candle.Close < this[bar - 1] && prevCandle.Close >= this[bar - 1])
+			this[bar] = dUpperLevel;
+		else if (this[bar - 1] < dLowerLevel)
+			this[bar] = dLowerLevel;
+		else if (this[bar - 1] > dUpperLevel)
+			this[bar] = dUpperLevel;
 		else
-			_trend[bar] = _trend[bar - 1];
-
-		if (candle.Close > _trend[bar] || (candle.Close == _trend[bar] && prevCandle.Close > _trend[bar - 1]))
-		{
-			_upTrend[bar] = _trend[bar];
-			_dnTrend[bar] = 0;
-		}
-		else if (candle.Close < _trend[bar] || (candle.Close == _trend[bar] && prevCandle.Close < _trend[bar - 1]))
-		{
-			_dnTrend[bar] = _trend[bar];
-			_upTrend[bar] = 0;
+			this[bar] = this[bar - 1];
+		
+        if (candle.Close > this[bar] || (candle.Close == this[bar] && prevCandle.Close > this[bar - 1]))
+        {
+	        series.Colors[bar] = UpColor;
         }
-
-		if (_upTrend[bar - 1] is 0)
+		else if (candle.Close < this[bar] || (candle.Close == this[bar] && prevCandle.Close < this[bar - 1]))
 		{
-			_upTrend.SetPointOfEndLine(bar - 1);
-
-			if (bar > 1)
-				_upTrend.SetPointOfEndLine(bar - 2);
-		}
-
-		if (_dnTrend[bar - 1] is 0)
-		{
-			_dnTrend.SetPointOfEndLine(bar - 1);
-
-			if (bar > 1)
-				_dnTrend.SetPointOfEndLine(bar - 2);
-		}
+			series.Colors[bar] = DownColor;
+        }
 
 		if (bar != CurrentBar - 1 || !UseAlert)
 			return;
@@ -166,15 +187,12 @@ public class SuperTrend : Indicator
 			return;
 		}
 
-		var upBrake = (_lastPrice < _upTrend[bar - 1] && candle.Close >= _upTrend[bar - 1])
-			|| (_lastPrice > _upTrend[bar - 1] && candle.Close <= _upTrend[bar - 1]);
-
-		var downBrake = (_lastPrice < _dnTrend[bar - 1] && candle.Close >= _dnTrend[bar - 1])
-			|| (_lastPrice > _dnTrend[bar - 1] && candle.Close <= _dnTrend[bar - 1]);
-
-		if ((upBrake || downBrake) && (_lastAlert != bar || !AlertPerBar))
+		var brake = (_lastPrice < this[bar - 1] && candle.Close >= this[bar - 1]) || 
+			(_lastPrice > this[bar - 1] && candle.Close <= this[bar - 1]);
+		
+		if (brake && (_lastAlert != bar || !AlertPerBar))
 		{
-			var breakLevel = Math.Max(_upTrend[bar - 1], _dnTrend[bar - 1]);
+			var breakLevel = this[bar - 1];
 
 			AddAlert(AlertFile, InstrumentInfo.Instrument, "Supertrend level break: " + string.Format(_tickFormat, breakLevel),
 				System.Drawing.Color.Black.Convert(), System.Drawing.Color.White.Convert());
