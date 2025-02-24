@@ -130,6 +130,7 @@ public class DailyLines : Indicator
 	private SessionRange _prevSessionRange;
 	private SessionRange _sessionRange;
 	private bool _showText = true;
+	private bool _sessionActive;
 
 	#endregion
 
@@ -426,9 +427,18 @@ public class DailyLines : Indicator
 				if (Period is PeriodType.CurrentDay or PeriodType.PreviousDay)
 				{
 					if (InsideSession(bar))
+					{
 						_sessionRange.IncCandle(candle, bar);
-					else if (_sessionRange.OpenBar >= 0)
-						_sessionRange.IsFinished = true;
+						_sessionActive = true;
+					}
+					else 
+					{
+						if (_sessionRange.OpenBar >= 0)
+							_sessionRange.IsFinished = true;
+
+						if (base.IsNewSession(bar) && Period is PeriodType.CurrentDay)
+							_sessionActive = false;
+					}
 				}
 				else
 				{
@@ -461,6 +471,9 @@ public class DailyLines : Indicator
 	private bool InsideSession(int bar)
 	{
 		if (!CustomSession)
+			return true;
+
+		if (FilterStartTime.Value == FilterEndTime.Value)
 			return true;
 
 		var candle = GetCandle(bar);
@@ -547,6 +560,12 @@ public class DailyLines : Indicator
 		if (DrawFromBar && bar > LastVisibleBarNumber)
 			return;
 
+		if (CustomSession && Period is PeriodType.CurrentDay && !_sessionActive && FilterStartTime.Value < FilterEndTime.Value)
+		{
+			DrawMessage(context);
+			return;
+		}
+
 		var x1 = DrawFromBar ? ChartInfo.GetXByBar(bar) : 0;
 		var x2 = Container.Region.Right;
 		var y = ChartInfo.GetYByPrice(price, false);
@@ -567,6 +586,16 @@ public class DailyLines : Indicator
 			context.SetTextRenderingHint(RenderTextRenderingHint.AntiAlias);
 			context.SetClip(bounds);
 		}
+	}
+
+	private void DrawMessage(RenderContext g)
+	{
+		var text = Strings.CustomSessionInactive;
+
+		var textSize = g.MeasureString(text, ChartInfo.PriceAxisFont);
+
+		var rect = new Rectangle(Container.Region.X, Container.Region.Bottom - textSize.Height, textSize.Width, textSize.Height);
+		g.DrawString(text, ChartInfo.PriceAxisFont, OpenPen.RenderObject.Color, rect);
 	}
 
 	#endregion

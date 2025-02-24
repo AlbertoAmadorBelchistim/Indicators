@@ -475,7 +475,8 @@ public class VWAP : Indicator
 
     #region ctor
 
-    public VWAP()
+    public VWAP() 
+	    : base(DataSeriesType.HLC3)
     {
         _days = 20;
 
