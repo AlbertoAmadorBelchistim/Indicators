@@ -198,7 +198,7 @@ namespace ATAS.Indicators.Technical
 			if (bar - 1 < _targetBar || _lastBar == bar)
 				return;
 
-			if (bar == CurrentBar - 1 && HorizontalLinesTillTouch.Any())
+			if (bar == CurrentBar - 1 && HorizontalLinesTillTouch.Count is not 0)
 			{
 				for (var i = HorizontalLinesTillTouch.Count - 1; i >= 0; i--)
 				{
