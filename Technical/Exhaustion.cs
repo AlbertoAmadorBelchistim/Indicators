@@ -14,6 +14,8 @@ using FilterColor2 = ATAS.Indicators.FilterColor;
 
 [Category(IndicatorCategories.VolumeOrderFlow)]
 [DisplayName("Exhaustion")]
+[Display(ResourceType = typeof(Strings), Description = nameof(Strings.ExhaustionIndDescription))]
+[HelpLink("https://help.atas.net/en/support/solutions/articles/72000641184-exhaustion")]
 public class Exhaustion : Indicator
 {
     #region Nested types
