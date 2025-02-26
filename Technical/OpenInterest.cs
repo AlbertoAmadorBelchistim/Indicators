@@ -163,16 +163,32 @@ namespace ATAS.Indicators.Technical
 
         protected override void OnCalculate(int bar, decimal value)
         {
-            if (bar == 0)
-                return;
-
             var currentCandle = GetCandle(bar);
 
             if (currentCandle.OI == 0)
-                return;
+            {
+                if(bar == 0 || _mode is OpenInterestMode.ByBar)
+                    return;
 
-            var prevCandle = GetCandle(bar - 1);
-            var currentOpen = prevCandle.OI;
+                var close = _oi[bar - 1].Close;
+
+                _oi[bar] = new Candle()
+                {
+	                Open = close,
+	                Low = close,
+	                Close = close,
+	                High = close
+                };
+                return;
+            }
+
+            var currentOpen = bar == 0 
+	            ? currentCandle.OI
+	            : GetCandle(bar - 1).OI;
+
+            if (currentOpen is 0)
+	            currentOpen = currentCandle.OI;
+
             var candle = _oi[bar];
 
             switch (_mode)
