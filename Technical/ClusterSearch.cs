@@ -650,8 +650,8 @@ public partial class ClusterSearch : Indicator
 		{
 			var delta = fullLevel.Delta;
 
-			switch (DeltaImbalance)
-			{
+			switch (DeltaFilter)
+            {
 				case > 0 when delta < DeltaFilter:
 				case < 0 when delta > DeltaFilter:
 					return false;
