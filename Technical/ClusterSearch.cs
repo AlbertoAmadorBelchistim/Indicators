@@ -586,7 +586,7 @@ public partial class ClusterSearch : Indicator
 		{
 			CalcMode.Bid => fullLevel.Bid,
 			CalcMode.Ask => fullLevel.Ask,
-			CalcMode.Delta => Math.Abs(fullLevel.Delta),
+			CalcMode.Delta => fullLevel.Delta,
 			CalcMode.Volume or CalcMode.MaxVolume => fullLevel.Volume,
 			CalcMode.Tick => fullLevel.Ticks,
 			_ => 0
