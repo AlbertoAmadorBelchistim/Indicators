@@ -200,6 +200,7 @@ public partial class ClusterSearch : Indicator
 
 		_lastSeriesBar.Clear();
 		_renderDataSeries.Clear();
+		_minFilterValue = MinimalFilter();
     }
 
 	//Apply autofilter
@@ -388,7 +389,6 @@ public partial class ClusterSearch : Indicator
 
 	private void MaxMinFilter_PropertyChanged(object sender, PropertyChangedEventArgs e)
 	{
-		_minFilterValue = MinimalFilter();
 		Filter_PropertyChanged(sender, e);
 	}
 
