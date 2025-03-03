@@ -595,7 +595,7 @@ public class DailyLines : Indicator
 		var textSize = g.MeasureString(text, ChartInfo.PriceAxisFont);
 
 		var rect = new Rectangle(Container.Region.X, Container.Region.Bottom - textSize.Height, textSize.Width, textSize.Height);
-		g.DrawString(text, ChartInfo.PriceAxisFont, OpenPen.RenderObject.Color, rect);
+		g.DrawString(text, ChartInfo.PriceAxisFont, DefaultColors.Red, rect);
 	}
 
 	#endregion
