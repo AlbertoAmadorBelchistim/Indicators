@@ -13,8 +13,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Linq;
 
-[FeatureId("NotReady")]
 [DisplayName("Order Block")]
+[Display(ResourceType = typeof(Strings), Description = nameof(Strings.OrderBlockIndDescription))]
+[HelpLink("https://help.atas.net/en/support/solutions/articles/72000641186-order-block")]
 
 public class OrderBlock : Indicator
 {

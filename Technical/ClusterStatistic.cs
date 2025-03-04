@@ -24,7 +24,7 @@ using Utils.Common.Logging;
 using Color = CrossColor;
 
 [DisplayName("Cluster Statistic")]
-[Category(IndicatorCategories.ClustersProfilesLevels)]
+[Category(IndicatorCategories.VolumeOrderFlow)]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.ClusterStatisticDescription))]
 [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602624")]
 public class ClusterStatistic : Indicator
@@ -763,7 +763,9 @@ public class ClusterStatistic : Indicator
 			return;
 		}
 
-		_deltaPerVol[bar] = Math.Abs(candle.Delta * 100m / candle.Volume);
+		_deltaPerVol[bar] = candle.Volume is 0 
+			? 0
+			: Math.Abs(candle.Delta * 100m / candle.Volume);
 
 		var prevCandle = GetCandle(bar - 1);
 
@@ -794,9 +796,9 @@ public class ClusterStatistic : Indicator
 
 		_minDelta = Math.Min(candle.MinDelta, _minDelta);
 
-		_maxDeltaPerVolume = candle.Volume != 0
-			? Math.Max(Math.Abs(100 * candle.Delta / candle.Volume), _minDelta)
-			: 0;
+		_maxDeltaPerVolume = candle.Volume is 0
+			? 0
+			: Math.Max(Math.Abs(100 * candle.Delta / candle.Volume), _minDelta);
 
 		var candleHeight = candle.High - candle.Low;
 		_maxHeight = Math.Max(candleHeight, _maxHeight);
@@ -808,7 +810,10 @@ public class ClusterStatistic : Indicator
 		_maxDuration = Math.Max(_candleDurations[bar], _maxDuration);
 
 		if (Math.Abs(_cVolume[bar] - 0) > 0.000001m)
-			_cDeltaPerVol[bar] = 100.0m * _cDelta[bar] / _cVolume[bar];
+			_cDeltaPerVol[bar] = _cDelta[bar] * 
+				(_cVolume[bar] is 0 
+					? _cDelta[bar] 
+					: 100.0m / _cVolume[bar]);
 
 		_maxSessionDeltaPerVolume = Math.Max(Math.Abs(_cDeltaPerVol[bar]), _maxSessionDeltaPerVolume);
 
@@ -1174,10 +1179,11 @@ public class ClusterStatistic : Indicator
 			DataType.Ask or DataType.Bid or DataType.Delta or DataType.DeltaVolume =>
 				Blend(candle.Delta > 0 ? AskColor : BidColor, BackGroundColor, rate),
 
-			DataType.MaxDelta or DataType.MinDelta or DataType.Volume or DataType.VolumeSecond or DataType.SessionVolume or
+			DataType.Volume or DataType.VolumeSecond or DataType.SessionVolume or
 				DataType.Trades or DataType.Height or DataType.Time or DataType.Duration => Blend(VolumeColor, BackGroundColor, rate),
-
-			DataType.SessionDeltaVolume => Blend(_cDeltaPerVol[bar] > 0 ? AskColor : BidColor, BackGroundColor, rate),
+			DataType.MaxDelta => Blend(candle.MaxDelta > 0 ?  AskColor : BidColor, BackGroundColor, rate),
+			DataType.MinDelta => Blend(candle.MinDelta > 0 ?  AskColor : BidColor, BackGroundColor, rate),
+            DataType.SessionDeltaVolume => Blend(_cDeltaPerVol[bar] > 0 ? AskColor : BidColor, BackGroundColor, rate),
 			DataType.SessionDelta => Blend(_cDelta[bar] > 0 ? AskColor : BidColor, BackGroundColor, rate),
 			DataType.DeltaChange => GetDeltaChangeBrush(candle, bar, rate),
 			DataType.None => System.Drawing.Color.Transparent,
@@ -1193,7 +1199,7 @@ public class ClusterStatistic : Indicator
 			DataType.Bid => GetRate(candle.Bid, maxValues.MaxBid),
 			DataType.Delta => GetRate(Math.Abs(candle.Delta), maxValues.MaxDelta),
 			DataType.DeltaVolume => candle.Volume != 0 ? GetRate(Math.Abs(candle.Delta * 100.0m / candle.Volume), maxValues.MaxDeltaPerVolume) : 0,
-			DataType.SessionDelta => GetRate(_deltaPerVol[bar], maxValues.MaxSessionDelta),
+			DataType.SessionDelta => GetRate(Math.Abs(_cDelta[bar]), maxValues.MaxSessionDelta),
 			DataType.SessionDeltaVolume => GetRate(Math.Abs(_cDeltaPerVol[bar]), maxValues.MaxSessionDeltaPerVolume),
 			DataType.MaxDelta => GetRate(Math.Abs(candle.MaxDelta), maxValues.MaxMaxDelta),
 			DataType.MinDelta => GetRate(Math.Abs(candle.MinDelta), maxValues.MaxMinDelta),

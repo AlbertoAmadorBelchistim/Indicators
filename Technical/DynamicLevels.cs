@@ -17,7 +17,7 @@ using OFT.Rendering;
 using Utils.Common.Logging;
 
 [DisplayName("Dynamic Levels")]
-[Category(IndicatorCategories.ClustersProfilesLevels)]
+[Category(IndicatorCategories.VolumeOrderFlow)]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.DynamicLevelsDescription))]
 [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602380")]
 public class DynamicLevels : Indicator
@@ -618,6 +618,7 @@ public class DynamicLevels : Indicator
 		_dynamicLevels.Width = 2;
         _dynamicLevels.Name = "Dynamic levels";
 		_dynamicLevels.DescriptionKey = nameof(Strings.POCLineSettingsDescription);
+		_dynamicLevels.ShowZeroValue = false;
 
         _dynamicLevels.PropertyChanged += LevelsSeriesPropertyChanged;
 
@@ -629,6 +630,16 @@ public class DynamicLevels : Indicator
     #endregion
 
     #region Protected methods
+
+    protected override void OnInitialize()
+    {
+		DataSeries.ForEach(x =>
+		{
+			if (x is ValueDataSeries ds)
+				ds.ShowZeroValue = false;
+		});
+    }
+
     protected override void OnApplyDefaultColors()
     {
 	    if (ChartInfo is null)
@@ -654,7 +665,8 @@ public class DynamicLevels : Indicator
 			_lastCalculatedBar = -1;
 			_lastBar = -1;
 			_closedCandle.Clear();
-		}
+			DataSeries.ForEach(x => x.Clear());
+        }
 	}
 
 	protected override void OnCalculate(int bar, decimal value)
@@ -666,7 +678,6 @@ public class DynamicLevels : Indicator
 			_lastVahAlert = 0;
 			_prevClose = GetCandle(CurrentBar - 1).Close;
 			_lastTime = GetCandle(bar).Time;
-			DataSeries.ForEach(x => x.Clear());
 
 			_targetBar = 0;
 

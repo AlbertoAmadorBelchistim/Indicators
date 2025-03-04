@@ -16,9 +16,9 @@ using System.Collections.Generic;
 
 using OFT.Attributes;
 
-[DisplayName("MBO Dom")]
+[DisplayName("MBO DOM")]
 [HelpLink("https://help.atas.net/en/support/solutions/articles/72000633231")]
-[Category("Order Flow")]
+[Category(IndicatorCategories.OrderBook)]
 public partial class MainIndicator : Indicator
 {
     private MboGridController _gridController = new();

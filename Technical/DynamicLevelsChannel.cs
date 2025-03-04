@@ -10,7 +10,7 @@
     using OFT.Localization;
     using OFT.Rendering;
 
-    [Category(IndicatorCategories.ClustersProfilesLevels)]
+    [Category(IndicatorCategories.VolumeOrderFlow)]
     [DisplayName("Dynamic Levels Channel")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.DynamicLevelsChannelDescription))]
     [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602381")]

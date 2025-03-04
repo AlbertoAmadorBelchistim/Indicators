@@ -20,7 +20,7 @@
 
 	using Color = System.Drawing.Color;
 
-    [Category(IndicatorCategories.OrderFlow)]
+    [Category(IndicatorCategories.VolumeOrderFlow)]
 	[DisplayName("OI Analyzer")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.OIAnalyzerDescription))]
     [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602437")]
@@ -122,6 +122,7 @@
 		private CandleDataSeries _renderValues = new("RenderValues", "Values")
 		{
 			IsHidden = true,
+			ShowCurrentValue = false,
 			ScaleIt = true,
 			DownCandleColor = Color.Green.Convert(),
 			BorderColor = Color.Green.Convert(),
@@ -253,12 +254,13 @@
 			set => _renderValues.UpCandleColor = value;
 		}
 
-		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.FontColor), Order = 190, GroupName = nameof(Strings.Visualization), Description = nameof(Strings.AxisTextColorDescription))]
-		public Color FontColor
-        {
-			get => _renderValues.ValuesColor;
-			set => _renderValues.ValuesColor = value;
-		}
+		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.BullishColor), Order = 190, GroupName = nameof(Strings.AxisTextColor),
+			Description = nameof(Strings.AxisTextColorDescription))]
+		public Color FontColor { get; set; } = Color.Black;
+
+		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.BearishColor), Order = 200, GroupName = nameof(Strings.AxisTextColor),
+			Description = nameof(Strings.AxisTextColorDescription))]
+		public Color BearishFontColor { get; set; } = Color.White;
 
 		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Author), GroupName = nameof(Strings.Copyright), Order = 200, Description = nameof(Strings.IndicatorAuthorDescription))]
 		public string Author => "Sotnikov Denis (sotnik)";
@@ -270,10 +272,10 @@
 		public OIAnalyzer()
 			: base(true)
 		{
+			DrawAbovePrice = true;
 			EnableCustomDrawing = true;
-			SubscribeToDrawingEvents(DrawingLayouts.LatestBar);
+			SubscribeToDrawingEvents(DrawingLayouts.LatestBar | DrawingLayouts.Historical);
 			Panel = IndicatorDataProvider.NewPanel;
-			
 			DataSeries[0] = _renderValues;
 			LineSeries.Add(_up);
 			LineSeries.Add(_dn);
@@ -284,7 +286,12 @@
 		#endregion
 
 		#region Protected methods
-		
+
+		protected override void OnInitialize()
+		{
+			_renderValues.ShowCurrentValue = false;
+		}
+
 		protected override void OnCalculate(int bar, decimal value)
 		{
 			if (bar == 0)
@@ -382,30 +389,94 @@
 			CalculateTrade(trade, CurrentBar - 1, true);
 		}
 
-		protected override void OnRender(RenderContext context, DrawingLayouts layout)
+		protected override void OnRender(RenderContext g, DrawingLayouts layout)
 		{
 			if (ClustersMode)
 			{
-				var firstBar = Math.Max(ChartInfo.PriceChartContainer.FirstVisibleBarNumber, _sessionBegin);
 				var lastBar = ChartInfo.PriceChartContainer.LastVisibleBarNumber;
-
+                var firstBar = Math.Max(ChartInfo.PriceChartContainer.FirstVisibleBarNumber, _sessionBegin);
+				
 				for (var i = firstBar; i <= lastBar; i++)
 				{
 					var x = ChartInfo.GetXByBar(i);
 					var rect = new Rectangle(x, Container.Region.Y, (int)ChartInfo.PriceChartContainer.BarsWidth, Container.Region.Height);
 					var diff = _renderValues[i].Close - _renderValues[i].Open;
-					context.DrawString(diff.ToString("+#;-#;0"), _font, _candlesColor, rect, _stringAxisFormat);
+					g.DrawString(diff.ToString("+#;-#;0"), _font, _candlesColor, rect, _stringAxisFormat);
 				}
 			}
 			else
-				DrawGrid(context);
+			{
+				if (layout is DrawingLayouts.Historical)
+                    DrawGrid(g);
+
+				DrawAxisValue(g);
+            }
 		}
 
-		#endregion
+		private void DrawAxisValue(RenderContext g)
+		{
+			var bounds = g.ClipBounds;
 
-		#region Private methods
+			try
+			{
+				g.ResetClip();
 
-		private void FilterRange_PropertyChanged(object sender, PropertyChangedEventArgs e)
+				var lastBar = ChartInfo.PriceChartContainer.LastVisibleBarNumber;
+
+				var candle = _renderValues[lastBar];
+				var closeValue = candle.Close;
+
+				var x = ChartInfo.PriceChartContainer.Region.Right;
+				var y = Container.GetYByValue(closeValue);
+
+				var font = ChartInfo.PriceAxisFont;
+				var priceString = ChartInfo.TryGetMinimizedVolumeString(closeValue);
+				var size = g.MeasureString(priceString, font);
+
+				var priceHeight = size.Height / 2;
+
+				var leftX = x + priceHeight;
+				var rightX = ChartInfo.ChartContainer.Region.Right;
+				var upperY = y - priceHeight;
+				var lowerY = y + priceHeight;
+
+				var points = new Point[]
+				{
+					new(x, y),
+					new(leftX, upperY),
+					new(rightX, upperY),
+					new(rightX, lowerY),
+					new(leftX, lowerY)
+				};
+
+				var isBullish = candle.Close > candle.Open;
+
+				var bgColor = isBullish
+					? _renderValues.UpCandleColor
+					: _renderValues.DownCandleColor;
+
+				g.FillPolygon(bgColor.Convert(), points);
+
+				var textRect = new Rectangle(leftX, upperY, rightX - leftX, lowerY - upperY);
+
+				var textColor = isBullish
+					? FontColor
+					: BearishFontColor;
+
+				g.DrawString(priceString, font, textColor, textRect);
+			}
+			catch
+			{
+				g.SetClip(bounds);
+				throw;
+			}
+        }
+
+        #endregion
+
+        #region Private methods
+
+        private void FilterRange_PropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			UpdateCustomDiapasonRange();
 
@@ -600,9 +671,17 @@
 
 		private void DrawGrid(RenderContext context)
 		{
+			if (GridStep is 0)
+				return;
+
 			var linePen = Pen.RenderObject;
 
 			var max = Container.Maximum - Container.Maximum % GridStep;
+
+			var levelsCnt = (int)(Container.Maximum - Container.Minimum) / GridStep;
+
+			if (Container.Region.Height < levelsCnt * 5)
+				return;
 
 			while (max > Container.Minimum)
 			{

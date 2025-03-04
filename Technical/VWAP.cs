@@ -475,7 +475,8 @@ public class VWAP : Indicator
 
     #region ctor
 
-    public VWAP()
+    public VWAP() 
+	    : base(DataSeriesType.HLC3)
     {
         _days = 20;
 
@@ -525,43 +526,6 @@ public class VWAP : Indicator
 
     #endregion
 
-    #region Public methods
-
-    public override bool ProcessKeyDown(CrossKeyEventArgs e)
-    {
-        if (!AllowCustomStartPoint)
-            return false;
-
-        if (e.Key == DeleteKey)
-        {
-            _targetBar = 0;
-            StartDate = GetCandle(0).Time;
-            RecalculateValues();
-            RedrawChart();
-
-            return false;
-        }
-
-        if (e.Key != StartKeyFilter.Value)
-            return false;
-
-        var targetBar = ChartInfo.MouseLocationInfo.BarBelowMouse;
-
-        if (targetBar <= -1)
-            return false;
-
-        _targetBar = targetBar;
-        StartDate = GetCandle(targetBar).Time;
-        _userCalculation = true;
-        RecalculateValues();
-        RedrawChart();
-        _userCalculation = false;
-
-        return false;
-    }
-
-    #endregion
-
     #region Protected methods
 
     protected override void OnInitialize()
@@ -599,6 +563,7 @@ public class VWAP : Indicator
 
             if (SavePointFilter.Enabled && SavePointFilter.Value)
                 _targetBar = BarFromDate(StartDate);
+
             DataSeries.ForEach(x => x.Clear());
             _totalVolToClose.Clear();
             _totalVolume.Clear();

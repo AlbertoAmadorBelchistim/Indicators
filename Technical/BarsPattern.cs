@@ -69,6 +69,16 @@
 		public Filter MaxVolume { get; set; } = new()
 			{ Value = 0, Enabled = false };
 
+		[Range(1, int.MaxValue)]
+		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.VolumeMoreNBars), GroupName = nameof(Strings.Volume), Order = 13)]
+		public FilterInt LastBarsVolume { get; set; } = new()
+			{ Value = 5, Enabled = false };
+
+		[Range(1, int.MaxValue)]
+		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.VolumeMoreSma), GroupName = nameof(Strings.Volume), Order = 15)]
+		public FilterInt LastBarsSMAVolume { get; set; } = new()
+			{ Value = 5, Enabled = false };
+
 		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.MinimumBid), GroupName = nameof(Strings.DepthMarket), Description = nameof(Strings.MinBidVolumeFilterCommonDescription), Order = 20)]
 		public Filter MinBid { get; set; } = new()
 			{ Value = 0, Enabled = false };
@@ -139,6 +149,16 @@
 		public Filter MaxCandleBodyHeight { get; set; } = new()
 			{ Value = 0, Enabled = false };
 
+		[Range(0, int.MaxValue)]
+		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.MinimumCandleWickHeight), GroupName = nameof(Strings.CandleHeight), Order = 73)]
+		public Filter MinCandleWickHeight { get; set; } = new()
+			{ Value = 0, Enabled = false };
+
+		[Range(0, int.MaxValue)]
+		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.MaximumCandleWickHeight), GroupName = nameof(Strings.CandleHeight), Order = 75)]
+		public Filter MaxCandleWickHeight { get; set; } = new()
+			{ Value = 0, Enabled = false };
+
         [Display(ResourceType = typeof(Strings), Name = nameof(Strings.UseAlerts), GroupName = nameof(Strings.Alerts), Description = nameof(Strings.UseAlertsDescription), Order = 101)]
         public bool UseAlerts { get; set; }
 
@@ -172,7 +192,15 @@
 
 		#endregion
 
+		private decimal _avgVol;
+		private decimal _volSum;
+
 		#region Protected methods
+
+		protected override void OnRecalculate()
+		{
+			_paintBars.Clear();
+		}
 
 		protected override void OnCalculate(int bar, decimal value)
 		{
@@ -186,7 +214,28 @@
 			{
 				_lastBar = bar;
 
-				if (bar > 0 && bar == CurrentBar - 1 && UseAlerts && _paintBars[bar - 1] != null) 
+				var volSum = 0m;
+
+				for (var i = Math.Max(0, bar - LastBarsVolume.Value); i < bar; i++)
+				{
+					var avgCandle = GetCandle(i);
+					volSum += avgCandle.Volume;
+				}
+
+				_volSum = volSum;
+
+				volSum = 0;
+
+				for (var i = Math.Max(0, bar - LastBarsSMAVolume.Value); i < bar; i++)
+				{
+					var avgCandle = GetCandle(i);
+					volSum += avgCandle.Volume;
+				}
+
+				_avgVol = volSum / LastBarsSMAVolume.Value;
+
+
+                if (bar > 0 && bar == CurrentBar - 1 && UseAlerts && _paintBars[bar - 1] != null) 
 					AddAlert(AlertFile, "The bar is appropriate");
 			}
 
@@ -196,7 +245,13 @@
 			if (MinVolume.Enabled && candle.Volume < MinVolume.Value)
 				return;
 
-			if (MaxBid.Enabled && candle.Bid > MaxBid.Value)
+			if(LastBarsVolume.Enabled && candle.Volume <= _volSum)
+				return;
+
+			if (LastBarsSMAVolume.Enabled && candle.Volume <= _avgVol)
+				return;
+
+            if (MaxBid.Enabled && candle.Bid > MaxBid.Value)
 				return;
 
 			if (MinBid.Enabled && candle.Bid < MinBid.Value)
@@ -304,6 +359,19 @@
 					return;
 			}
 
+			if (MinCandleWickHeight.Enabled || MaxCandleWickHeight.Enabled)
+			{
+				var topBody = Math.Max(candle.Open, candle.Close);
+				var botBody = Math.Min(candle.Open, candle.Close);
+				var maxWick = Math.Max(candle.High - topBody, botBody - candle.Low) / InstrumentInfo.TickSize;
+
+				if (MinCandleWickHeight.Enabled && maxWick < MinCandleWickHeight.Value)
+					return;
+
+				if (MaxCandleWickHeight.Enabled && maxWick > MaxCandleWickHeight.Value)
+					return;
+			}
+
 			_paintBars[bar] = _dataSeriesColor;
 		}
 
@@ -311,6 +379,8 @@
 		{
 			MaxVolume.PropertyChanged += Filter_PropertyChanged;
 			MinVolume.PropertyChanged += Filter_PropertyChanged;
+			LastBarsVolume.PropertyChanged += Filter_PropertyChanged;
+			LastBarsSMAVolume.PropertyChanged += Filter_PropertyChanged;
 
 			MaxBid.PropertyChanged += Filter_PropertyChanged;
 			MinBid.PropertyChanged += Filter_PropertyChanged;
@@ -326,15 +396,43 @@
 			MinCandleHeight.PropertyChanged += Filter_PropertyChanged;
 			MaxCandleBodyHeight.PropertyChanged += Filter_PropertyChanged;
 			MinCandleBodyHeight.PropertyChanged += Filter_PropertyChanged;
-		}
+			MaxCandleWickHeight.PropertyChanged += Filter_PropertyChanged;
+			MinCandleWickHeight.PropertyChanged += Filter_PropertyChanged;
+        }
 
 		#endregion
+
+		public override void Dispose()
+		{
+			MaxVolume.PropertyChanged -= Filter_PropertyChanged;
+			MinVolume.PropertyChanged -= Filter_PropertyChanged;
+			LastBarsVolume.PropertyChanged -= Filter_PropertyChanged;
+			LastBarsSMAVolume.PropertyChanged -= Filter_PropertyChanged;
+
+			MaxBid.PropertyChanged -= Filter_PropertyChanged;
+			MinBid.PropertyChanged -= Filter_PropertyChanged;
+			MaxAsk.PropertyChanged -= Filter_PropertyChanged;
+			MinAsk.PropertyChanged -= Filter_PropertyChanged;
+
+			MaxDelta.PropertyChanged -= Filter_PropertyChanged;
+			MinDelta.PropertyChanged -= Filter_PropertyChanged;
+			MaxTrades.PropertyChanged -= Filter_PropertyChanged;
+			MinTrades.PropertyChanged -= Filter_PropertyChanged;
+
+			MaxCandleHeight.PropertyChanged -= Filter_PropertyChanged;
+			MinCandleHeight.PropertyChanged -= Filter_PropertyChanged;
+			MaxCandleBodyHeight.PropertyChanged -= Filter_PropertyChanged;
+			MinCandleBodyHeight.PropertyChanged -= Filter_PropertyChanged;
+			MaxCandleWickHeight.PropertyChanged -= Filter_PropertyChanged;
+			MinCandleWickHeight.PropertyChanged -= Filter_PropertyChanged;
+        }
 
 		#region Private methods
 
 		private void Filter_PropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			RecalculateValues();
+			RedrawChart();
 		}
 
 		#endregion

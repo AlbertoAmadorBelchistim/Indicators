@@ -12,7 +12,8 @@ using OFT.Localization;
 using OFT.Rendering.Context;
 using OFT.Rendering.Tools;
 
-[DisplayName("Dom Strength")]
+[Category(IndicatorCategories.OrderBook)]
+[DisplayName("DOM Strength")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.DomStrengthDescription))]
 [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602375")]
 public class DomStrength : Indicator

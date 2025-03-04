@@ -147,11 +147,22 @@ public class Demand : Indicator
 				sp = candle.Volume / _emaVolume[bar];
 			else
 			{
-				sp = candle.Volume / _emaVolume[bar] /
-					(decimal)Math.Exp(0.375 * (double)(
+				 var spValue = (double)(candle.Volume / _emaVolume[bar]) /
+					Math.Exp(0.375 * (double)(
 						(_priceSumSeries[bar] + _priceSumSeries[bar - 1]) / (firstCandle.High - firstCandle.Low) *
 						(_priceSumSeries[bar] - _priceSumSeries[bar - 1]) / _priceSumSeries[bar - 1]
 					));
+
+				 try
+				 {
+					 sp = (decimal)spValue;
+				 }
+				 catch (Exception)
+				 {
+					 sp = spValue > (double)decimal.MaxValue
+						 ? decimal.MaxValue
+						 : 0;
+				 }
 			}
 		}
 		else

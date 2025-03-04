@@ -158,6 +158,7 @@ public class VolumeSupResZones : Indicator
         internal readonly List<Signal> _lowerSignals = new();
         private readonly string _name;
 
+        private DateTime _firstCandleTime = new();
         private bool _isNewPeriod;
 
         internal TFPeriod this[int index]
@@ -186,7 +187,7 @@ public class VolumeSupResZones : Indicator
             IsNewMonth = isNewMonth;
             GetCandle = getCandle;
             _smaPeriod = smaPeriod;
-            _name = name;
+            _name = name;           
         }
 
         internal decimal GetSmaVolume(int index) 
@@ -209,7 +210,10 @@ public class VolumeSupResZones : Indicator
             var candle = GetCandle(bar);
 
             if (bar == 0)
+            {
                 CreateNewPeriod(bar, candle);
+                _firstCandleTime = candle.Time;
+            }
 
             var beginTime = GetBeginTime(candle.Time, _timeFrame);
             var isNewBar = false;
@@ -256,7 +260,7 @@ public class VolumeSupResZones : Indicator
             tim = tim.AddMilliseconds(-tim.Millisecond);
             tim = tim.AddSeconds(-tim.Second);
 
-            var begin = (tim - new DateTime()).TotalMinutes % (int)period;
+            var begin = (tim - _firstCandleTime).TotalMinutes % (int)period;
             var res = tim.AddMinutes(-begin);
             return res;
         }
@@ -680,7 +684,7 @@ public class VolumeSupResZones : Indicator
 
     protected override void OnRecalculate()
     {
-        GetCandleSeconds();
+        SetCandleSeconds();
         _tfObj1 = new(TimeFrameType1, _smaPeriod1, "Time frame 1", IsNewSession, IsNewWeek, IsNewMonth, GetCandle);
         _tfObj2 = new(TimeFrameType2, _smaPeriod2, "Time frame 2", IsNewSession, IsNewWeek, IsNewMonth, GetCandle);
         _tfObj3 = new(TimeFrameType3, _smaPeriod3, "Time frame 3", IsNewSession, IsNewWeek, IsNewMonth, GetCandle);
@@ -851,7 +855,7 @@ public class VolumeSupResZones : Indicator
         AddAlert(AlertFile, InstrumentInfo.Instrument, message, _alertBackgroundColor, _alertForeColor);
     }
 
-    private void GetCandleSeconds()
+    private void SetCandleSeconds()
     {
         if (ChartInfo is null) return;
 

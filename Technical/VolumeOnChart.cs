@@ -10,7 +10,7 @@ using OFT.Localization;
 using OFT.Rendering.Context;
 
 [DisplayName("Volume On The Chart")]
-[Category(IndicatorCategories.BidAskDeltaVolume)]
+[Category(IndicatorCategories.VolumeOrderFlow)]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.VolumeOnChartDescription))]
 [HelpLink("https://help.atas.net/en/support/solutions/articles/72000619334")]
 public class VolumeOnChart : Volume

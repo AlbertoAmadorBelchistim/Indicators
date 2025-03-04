@@ -239,16 +239,13 @@ namespace ATAS.Indicators.Technical
 			{
 				_priceAlerts.Clear();
 				_lastCalculatedBar = bar;
-				HorizontalLinesTillTouch.RemoveAll(t => t.FirstBar == bar - 1);
+
 				var volumes = GetVolumes(bar - 1);
 				CalculateAskBid(bar - 1, volumes);
 				CalculateBidAsk(bar - 1, volumes);
 
-				if (_readyToAlert &&
-				    UseAlerts &&
-				    HorizontalLinesTillTouch.Any(x => x.FirstBar == bar - 1)
-				   )
-
+				if (_readyToAlert && UseAlerts &&
+					ContainsCurrentLines(bar - 1))
 				{
 					AddAlert(AlertFile, "StackedImbalance was triggered");
 					_readyToAlert = false;
@@ -283,6 +280,22 @@ namespace ATAS.Indicators.Technical
 			_lastClose = closePrice;
 		}
 
+		private bool ContainsCurrentLines(int bar)
+		{
+			for (var i = HorizontalLinesTillTouch.Count - 1; i >= 0; i--)
+			{
+				var item = HorizontalLinesTillTouch[i];
+
+				if (item.FirstBar == bar)
+					return true;
+
+				if (item.FirstBar < bar)
+					break;
+			}
+
+			return false;
+		}
+		
 		#endregion
 
 		#region Private methods
