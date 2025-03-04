@@ -200,6 +200,7 @@ public partial class ClusterSearch : Indicator
 
 		_lastSeriesBar.Clear();
 		_renderDataSeries.Clear();
+		_minFilterValue = MinimalFilter();
     }
 
 	//Apply autofilter
@@ -388,7 +389,6 @@ public partial class ClusterSearch : Indicator
 
 	private void MaxMinFilter_PropertyChanged(object sender, PropertyChangedEventArgs e)
 	{
-		_minFilterValue = MinimalFilter();
 		Filter_PropertyChanged(sender, e);
 	}
 
@@ -586,7 +586,7 @@ public partial class ClusterSearch : Indicator
 		{
 			CalcMode.Bid => fullLevel.Bid,
 			CalcMode.Ask => fullLevel.Ask,
-			CalcMode.Delta => Math.Abs(fullLevel.Delta),
+			CalcMode.Delta => fullLevel.Delta,
 			CalcMode.Volume or CalcMode.MaxVolume => fullLevel.Volume,
 			CalcMode.Tick => fullLevel.Ticks,
 			_ => 0
@@ -650,8 +650,8 @@ public partial class ClusterSearch : Indicator
 		{
 			var delta = fullLevel.Delta;
 
-			switch (DeltaImbalance)
-			{
+			switch (DeltaFilter)
+            {
 				case > 0 when delta < DeltaFilter:
 				case < 0 when delta > DeltaFilter:
 					return false;
