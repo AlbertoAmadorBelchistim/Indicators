@@ -25,6 +25,7 @@ public class VWAP : Indicator
         M15,
         M30,
         Hourly,
+        H4,
         Daily,
         Weekly,
         Monthly,
@@ -48,9 +49,9 @@ public class VWAP : Indicator
 
     private static readonly VisualMode _upperLowerDefaultMode = VisualMode.Hide;
     private static readonly CrossColor _upperLowerDefaultColor = GetColorFromHex("#FF00BCD4");
-    private static readonly CrossColor _upperFillDefaultColor = GetColorFromHex("#99C30101");
-    private static readonly CrossColor _middleFillDefaultColor = GetColorFromHex("#99808080");
-    private static readonly CrossColor _lowerFillDefaultColor = GetColorFromHex("#9900FF00");
+    private static readonly CrossColor _upperFillDefaultColor = GetColorFromHex("#40C30101");
+    private static readonly CrossColor _middleFillDefaultColor = GetColorFromHex("#40808080");
+    private static readonly CrossColor _lowerFillDefaultColor = GetColorFromHex("#4000FF00");
 
     private readonly ValueDataSeries _lower = new("Lower", Strings.LowerStd1) 
     {
@@ -685,10 +686,11 @@ public class VWAP : Indicator
 
 		switch (Type)
 		{
-			case VWAPPeriodType.M15 when (int)(prevCandle.Time.TimeOfDay.TotalMinutes / 15) != (int)(candle.Time.TimeOfDay.TotalMinutes / 15):
-			case VWAPPeriodType.M30 when (int)(prevCandle.Time.TimeOfDay.TotalMinutes / 30) != (int)(candle.Time.TimeOfDay.TotalMinutes / 30):
-			case VWAPPeriodType.Hourly when GetCandle(bar - 1).Time.Hour != candle.Time.Hour:
-			case VWAPPeriodType.Daily when IsNewSession(bar):
+			case VWAPPeriodType.M15 when PeriodNumber(prevCandle.Time, TimeSpan.FromMinutes(15)) != PeriodNumber(candle.Time, TimeSpan.FromMinutes(15)):
+			case VWAPPeriodType.M30 when PeriodNumber(prevCandle.Time, TimeSpan.FromMinutes(30)) != PeriodNumber(candle.Time, TimeSpan.FromMinutes(30)):
+            case VWAPPeriodType.Hourly when prevCandle.Time.Hour != candle.Time.Hour:
+            case VWAPPeriodType.H4 when PeriodNumber(prevCandle.Time, TimeSpan.FromHours(4)) != PeriodNumber(candle.Time, TimeSpan.FromHours(4)):
+            case VWAPPeriodType.Daily when IsNewSession(bar):
 			case VWAPPeriodType.Weekly when IsNewWeek(bar):
 			case VWAPPeriodType.Monthly when IsNewMonth(bar):
 			case VWAPPeriodType.Custom when IsNewCustomSession(bar):
@@ -823,6 +825,8 @@ public class VWAP : Indicator
     #endregion
 
     #region Private methods
+
+    private static long PeriodNumber(DateTime time, TimeSpan period) => time.Ticks / period.Ticks;
 
     private void SetVWAPOnly(bool toHideAll)
     {
