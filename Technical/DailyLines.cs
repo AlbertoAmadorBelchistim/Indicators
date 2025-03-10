@@ -28,9 +28,9 @@ public class DailyLines : Indicator
 	{
 		#region Properties
 
-		public int OpenBar { get; } = -1;
+		public int OpenBar { get; private set; } = -1;
 
-		public decimal OpenPrice { get; }
+		public decimal OpenPrice { get; private set; }
 
 		public int HighBar { get; private set; }
 
@@ -67,6 +67,12 @@ public class DailyLines : Indicator
 
 		internal void IncCandle(IndicatorCandle candle, int bar)
 		{
+			if (OpenBar < 0)
+			{
+				OpenPrice = candle.Open;
+				OpenBar = bar;
+			}
+
 			if (candle.High > HighPrice)
 			{
 				HighPrice = candle.High;
@@ -130,7 +136,7 @@ public class DailyLines : Indicator
 	private SessionRange _prevSessionRange;
 	private SessionRange _sessionRange;
 	private bool _showText = true;
-	private bool _sessionActive;
+	private int _lastDefaultSession;
 
 	#endregion
 
@@ -324,14 +330,19 @@ public class DailyLines : Indicator
 		if (ChartInfo is null)
 			return;
 
-		var range = Period is PeriodType.CurrentDay or PeriodType.CurrenWeek or PeriodType.CurrentMonth
+		var isCurrent = Period is PeriodType.CurrentDay or PeriodType.CurrenWeek or PeriodType.CurrentMonth;
+
+		if (isCurrent && _lastDefaultSession > _sessionRange.OpenBar && _sessionRange.IsFinished)
+		{
+			DrawMessage(context);
+			return;
+		}
+
+        var range = isCurrent || (!isCurrent && _sessionRange.OpenBar <= _lastDefaultSession)
 			? _sessionRange
 			: _prevSessionRange;
-
-		if (range.OpenBar < 0)
-			return;
-
-		var periodStr = Period switch
+		
+        var periodStr = Period switch
 		{
 			PeriodType.CurrentDay => "Curr. Day",
 			PeriodType.PreviousDay => "Prev. Day",
@@ -412,32 +423,35 @@ public class DailyLines : Indicator
 	{
 		var candle = GetCandle(bar);
 
+		if (base.IsNewSession(bar))
+			_lastDefaultSession = bar;
+
 		if (bar != _sessionRange.OpenBar)
 		{
 			var isNewPeriod = IsNewPeriod(bar);
 
 			if (isNewPeriod)
 			{
-				_sessionRange.IsFinished = true;
-				_prevSessionRange = _sessionRange;
+				if (_sessionRange.OpenBar >= 0)
+				{
+					_sessionRange.IsFinished = true;
+					_prevSessionRange = _sessionRange;
+				}
+
 				_sessionRange = new SessionRange(candle, bar);
-			}
+            }
 			else
 			{
 				if (Period is PeriodType.CurrentDay or PeriodType.PreviousDay)
 				{
-					if (InsideSession(bar))
+                    if (InsideSession(bar))
 					{
 						_sessionRange.IncCandle(candle, bar);
-						_sessionActive = true;
 					}
 					else 
 					{
 						if (_sessionRange.OpenBar >= 0)
 							_sessionRange.IsFinished = true;
-
-						if (base.IsNewSession(bar) && Period is PeriodType.CurrentDay)
-							_sessionActive = false;
 					}
 				}
 				else
@@ -452,9 +466,14 @@ public class DailyLines : Indicator
 			if (Period is PeriodType.CurrentDay or PeriodType.PreviousDay)
 			{
 				if (InsideSession(bar))
+				{
 					_sessionRange.IncCandle(candle, bar);
-				else if (_sessionRange.OpenBar >= 0)
-					_sessionRange.IsFinished = true;
+				}
+				else
+				{
+					if (_sessionRange.OpenBar >= 0)
+						_sessionRange.IsFinished = true;
+				}
 			}
 			else
 			{
@@ -462,7 +481,7 @@ public class DailyLines : Indicator
 					_sessionRange.IncCandle(candle, bar);
 			}
 		}
-	}
+    }
 
 	#endregion
 
@@ -559,13 +578,7 @@ public class DailyLines : Indicator
 	{
 		if (DrawFromBar && bar > LastVisibleBarNumber)
 			return;
-
-		if (CustomSession && Period is PeriodType.CurrentDay && !_sessionActive && FilterStartTime.Value < FilterEndTime.Value)
-		{
-			DrawMessage(context);
-			return;
-		}
-
+		
 		var x1 = DrawFromBar ? ChartInfo.GetXByBar(bar) : 0;
 		var x2 = Container.Region.Right;
 		var y = ChartInfo.GetYByPrice(price, false);
