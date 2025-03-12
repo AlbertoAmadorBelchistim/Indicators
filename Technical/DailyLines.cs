@@ -338,7 +338,7 @@ public class DailyLines : Indicator
 			return;
 		}
 
-        var range = isCurrent || (!isCurrent && _sessionRange.OpenBar <= _lastDefaultSession)
+		var range = isCurrent || (!isCurrent && (_sessionRange.OpenBar <= _lastDefaultSession && CustomSession))
 			? _sessionRange
 			: _prevSessionRange;
 		
