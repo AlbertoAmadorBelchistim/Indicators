@@ -330,11 +330,18 @@ public class Volume : Indicator
 		return "Volume";
 	}
 
-	#endregion
+    #endregion
 
-	#region Protected methods
+    #region Protected methods
 
-	protected override void OnRender(RenderContext context, DrawingLayouts layout)
+    protected override void OnInitialize()
+    {
+		_positive.VisualType = VisualMode.Hide;
+		_negative.VisualType = VisualMode.Hide;
+		_neutral.VisualType = VisualMode.Hide;
+    }
+
+    protected override void OnRender(RenderContext context, DrawingLayouts layout)
 	{
 		if (!ShowVolume || ChartInfo.ChartVisualMode != ChartVisualModes.Clusters || Panel == IndicatorDataProvider.CandlesPanel)
 			return;
