@@ -723,6 +723,8 @@ public partial class ClusterSearch : Indicator
 			_mergedLevels[trade.Price] = level;
 		}
 
+		_mergedLevels.RemoveVolume(level);
+
 		switch (trade.Direction)
 		{
 			case TradeDirection.Buy:
@@ -736,10 +738,12 @@ public partial class ClusterSearch : Indicator
 				level.Between += trade.Volume;
 				break;
 		}
-
+		
 		level.Volume += trade.Volume;
 		level.Ticks++;
-	}
+
+		_mergedLevels.AddVolume(level);
+    }
 
 	//Update data series values size on properties change
 	private void SetSize()
