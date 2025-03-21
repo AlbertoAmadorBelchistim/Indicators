@@ -47,7 +47,7 @@ public partial class ClusterSearch
 				base[price] = value;
 				TotalVolume += value.Volume;
 
-				var sum = 0m;
+                var sum = 0m;
 
 				for (var iPrice = price; iPrice <= price + (priceRowsMerge - 1) * tickSize; iPrice += tickSize)
 				{
@@ -69,8 +69,18 @@ public partial class ClusterSearch
 
         #region Public methods
 
+        public void RemoveVolume(CustomVolumeInfo level)
+        {
+            TotalVolume -= level.Volume;
+        }
+
+        public void AddVolume(CustomVolumeInfo level)
+        {
+            TotalVolume += level.Volume;
+        }
+
         public new void Clear()
-		{
+        {
 			_maxVol = decimal.MinValue;
 			TotalVolume = 0;
 			base.Clear();
