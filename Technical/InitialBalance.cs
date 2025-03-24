@@ -392,6 +392,10 @@ public class InitialBalance : Indicator
 		GroupName = nameof(Strings.Drawing), Description = nameof(Strings.ExtendLastDescription), Order = 150)]
 	public bool ExtendLastLineToRight { get; set; } = true;
 
+ 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDuringFormation),
+	GroupName = nameof(Strings.Show), Description = nameof(Strings.ShowDuringFormationDescription), Order = 160)]
+	public bool ShowDuringFormation { get; set; } = false;
+
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.IBHX32), 
 		GroupName = nameof(Strings.BackGround), Description = nameof(Strings.AreaColorDescription), Order = 200)]
 	public CrossColor Ibhx32
@@ -619,7 +623,7 @@ public class InitialBalance : Indicator
                 if (dataSeries is ValueDataSeries series)
                     series.SetPointOfEndLine(bar - 1);
 
-            if (ShowOpenRange)
+            if (ShowOpenRange && (!_calculate || ShowDuringFormation))
 			{
 				var pen = new Pen(ConvertColor(_borderColor))
 				{
@@ -671,68 +675,72 @@ public class InitialBalance : Indicator
 		if (!_highLowIsSet)
 			return;
 
-		_mid[bar] = mid = (_minValue + _maxValue) / 2m;
-		_ibh[bar] = _ibMax;
-		_ibl[bar] = _ibMin;
-		_ibmValue = _ibm[bar] = (_ibMin + _ibMax) / 2m;
-		var diff = _ibMax - _ibMin;
-
-		ibhx1 = _ibhx1[bar] = _ibMax + diff * _x1;
-		ibhx2 = _ibhx2[bar] = _ibMax + diff * _x2;
-		ibhx3 = _ibhx3[bar] = _ibMax + diff * _x3;
-		iblx1 = _iblx1[bar] = _ibMin - diff * _x1;
-		iblx2 = _iblx2[bar] = _ibMin - diff * _x2;
-		iblx3 = _iblx3[bar] = _ibMin - diff * _x3;
-
-		_ibhx32[bar].Upper = ibhx3;
-		_ibhx32[bar].Lower = _ibhx21[bar].Upper = ibhx2;
-		_ibhx21[bar].Lower = _ibhx1h[bar].Upper = ibhx1;
-		_ibhx1h[bar].Lower = _ibHm[bar].Upper = _ibh[bar];
-		_ibHm[bar].Lower = _ibMl[bar].Upper = _ibm[bar];
-		_ibMl[bar].Lower = _ibl1[bar].Upper = _ibl[bar];
-		_ibl1[bar].Lower = _iblx12[bar].Upper = iblx1;
-		_iblx12[bar].Lower = _iblx23[bar].Upper = iblx2;
-		_iblx23[bar].Lower = iblx3;
-
-        if (DrawText)
+   		if (!_calculate || ShowDuringFormation)
 		{
-			AddText(_lastStartBar + "Mid", "Mid", true, bar, mid, 0, 0, ConvertColor(_mid.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
 
-			AddText(_lastStartBar + "IBH", "IBH", true, bar, _ibMax, 0, 0, ConvertColor(_ibh.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
+			_mid[bar] = mid = (_minValue + _maxValue) / 2m;
+			_ibh[bar] = _ibMax;
+			_ibl[bar] = _ibMin;
+			_ibmValue = _ibm[bar] = (_ibMin + _ibMax) / 2m;
+			var diff = _ibMax - _ibMin;
 
-			AddText(_lastStartBar + "IBL", "IBL", true, bar, _ibMin, 0, 0, ConvertColor(_ibl.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
+			ibhx1 = _ibhx1[bar] = _ibMax + diff * _x1;
+			ibhx2 = _ibhx2[bar] = _ibMax + diff * _x2;
+			ibhx3 = _ibhx3[bar] = _ibMax + diff * _x3;
+			iblx1 = _iblx1[bar] = _ibMin - diff * _x1;
+			iblx2 = _iblx2[bar] = _ibMin - diff * _x2;
+			iblx3 = _iblx3[bar] = _ibMin - diff * _x3;
 
-			AddText(_lastStartBar + "IBM", "IBM", true, bar, _ibmValue, 0, 0, ConvertColor(_ibm.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
+			_ibhx32[bar].Upper = ibhx3;
+			_ibhx32[bar].Lower = _ibhx21[bar].Upper = ibhx2;
+			_ibhx21[bar].Lower = _ibhx1h[bar].Upper = ibhx1;
+			_ibhx1h[bar].Lower = _ibHm[bar].Upper = _ibh[bar];
+			_ibHm[bar].Lower = _ibMl[bar].Upper = _ibm[bar];
+			_ibMl[bar].Lower = _ibl1[bar].Upper = _ibl[bar];
+			_ibl1[bar].Lower = _iblx12[bar].Upper = iblx1;
+			_iblx12[bar].Lower = _iblx23[bar].Upper = iblx2;
+			_iblx23[bar].Lower = iblx3;
 
-			AddText(_lastStartBar + "IBHX1", "IBHX1", true, bar, ibhx1, 0, 0, ConvertColor(_ibhx1.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
+        		if (DrawText)
+			{
+				AddText(_lastStartBar + "Mid", "Mid", true, bar, mid, 0, 0, ConvertColor(_mid.Color), System.Drawing.Color.Transparent,
+					System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
 
-			AddText(_lastStartBar + "IBHX2", "IBHX2", true, bar, ibhx2, 0, 0, ConvertColor(_ibhx2.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
+				AddText(_lastStartBar + "IBH", "IBH", true, bar, _ibMax, 0, 0, ConvertColor(_ibh.Color), System.Drawing.Color.Transparent,
+					System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
 
-			AddText(_lastStartBar + "IBHX3", "IBHX3", true, bar, ibhx3, 0, 0, ConvertColor(_ibhx3.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
+				AddText(_lastStartBar + "IBL", "IBL", true, bar, _ibMin, 0, 0, ConvertColor(_ibl.Color), System.Drawing.Color.Transparent,
+					System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
 
-			AddText(_lastStartBar + "IBLX1", "IBLX1", true, bar, iblx1, 0, 0, ConvertColor(_iblx1.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
+				AddText(_lastStartBar + "IBM", "IBM", true, bar, _ibmValue, 0, 0, ConvertColor(_ibm.Color), System.Drawing.Color.Transparent,
+					System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
 
-			AddText(_lastStartBar + "IBLX2", "IBLX2", true, bar, iblx2, 0, 0, ConvertColor(_iblx2.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
+				AddText(_lastStartBar + "IBHX1", "IBHX1", true, bar, ibhx1, 0, 0, ConvertColor(_ibhx1.Color), System.Drawing.Color.Transparent,
+					System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
 
-			AddText(_lastStartBar + "IBLX3", "IBLX3", true, bar, iblx3, 0, 0, ConvertColor(_iblx3.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
-		}
+				AddText(_lastStartBar + "IBHX2", "IBHX2", true, bar, ibhx2, 0, 0, ConvertColor(_ibhx2.Color), System.Drawing.Color.Transparent,
+					System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
+
+				AddText(_lastStartBar + "IBHX3", "IBHX3", true, bar, ibhx3, 0, 0, ConvertColor(_ibhx3.Color), System.Drawing.Color.Transparent,
+					System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
+
+				AddText(_lastStartBar + "IBLX1", "IBLX1", true, bar, iblx1, 0, 0, ConvertColor(_iblx1.Color), System.Drawing.Color.Transparent,
+					System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
+
+				AddText(_lastStartBar + "IBLX2", "IBLX2", true, bar, iblx2, 0, 0, ConvertColor(_iblx2.Color), System.Drawing.Color.Transparent,
+					System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
+
+				AddText(_lastStartBar + "IBLX3", "IBLX3", true, bar, iblx3, 0, 0, ConvertColor(_iblx3.Color), System.Drawing.Color.Transparent,
+					System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
+			}
+  		}
 	}
 
     protected override void OnRender(GraphicsContext context, object[] parameters)
 	{
 	base.OnRender(context, parameters);
 
-	if (!ExtendLastLineToRight || !_isStarted)
+	if (!ExtendLastLineToRight || !_isStarted || _calculate)
 		return;
 
 	if (!ChartInfo.BarsCoordinates.TryGetValue(_lastStartBar, out var startCoord))
