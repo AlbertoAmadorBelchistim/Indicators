@@ -383,6 +383,15 @@ public class InitialBalance : Indicator
 		}
 	}
 
+ 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.FontSize),
+		GroupName = nameof(Strings.Show), Description = nameof(Strings.TextSizeDescription), Order = 140)]
+		[Range(6, 48)]
+	public float FontSize { get; set; } = 12.0f;
+
+   	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ExtendLast),
+		GroupName = nameof(Strings.Drawing), Description = nameof(Strings.ExtendLastDescription), Order = 150)]
+	public bool ExtendLastLineToRight { get; set; } = true;
+
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.IBHX32), 
 		GroupName = nameof(Strings.BackGround), Description = nameof(Strings.AreaColorDescription), Order = 200)]
 	public CrossColor Ibhx32
@@ -688,42 +697,127 @@ public class InitialBalance : Indicator
         if (DrawText)
 		{
 			AddText(_lastStartBar + "Mid", "Mid", true, bar, mid, 0, 0, ConvertColor(_mid.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
+				System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
 
 			AddText(_lastStartBar + "IBH", "IBH", true, bar, _ibMax, 0, 0, ConvertColor(_ibh.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
+				System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
 
 			AddText(_lastStartBar + "IBL", "IBL", true, bar, _ibMin, 0, 0, ConvertColor(_ibl.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
+				System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
 
 			AddText(_lastStartBar + "IBM", "IBM", true, bar, _ibmValue, 0, 0, ConvertColor(_ibm.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
+				System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
 
 			AddText(_lastStartBar + "IBHX1", "IBHX1", true, bar, ibhx1, 0, 0, ConvertColor(_ibhx1.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
+				System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
 
 			AddText(_lastStartBar + "IBHX2", "IBHX2", true, bar, ibhx2, 0, 0, ConvertColor(_ibhx2.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
+				System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
 
 			AddText(_lastStartBar + "IBHX3", "IBHX3", true, bar, ibhx3, 0, 0, ConvertColor(_ibhx3.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
+				System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
 
 			AddText(_lastStartBar + "IBLX1", "IBLX1", true, bar, iblx1, 0, 0, ConvertColor(_iblx1.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
+				System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
 
 			AddText(_lastStartBar + "IBLX2", "IBLX2", true, bar, iblx2, 0, 0, ConvertColor(_iblx2.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
+				System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
 
 			AddText(_lastStartBar + "IBLX3", "IBLX3", true, bar, iblx3, 0, 0, ConvertColor(_iblx3.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
+				System.Drawing.Color.Transparent, FontSize, DrawingText.TextAlign.Right);
 		}
 	}
 
+    protected override void OnRender(GraphicsContext context, object[] parameters)
+	{
+	base.OnRender(context, parameters);
+
+	if (!ExtendLastLineToRight || !_isStarted)
+		return;
+
+	if (!ChartInfo.BarsCoordinates.TryGetValue(_lastStartBar, out var startCoord))
+		return;
+
+	var x1 = startCoord.X;
+	var x2 = (int)context.ClipBounds.Right;
+
+	// Lista de niveles a extender: (color, dashStyle, grosor, valorY)
+	var levels = new[]
+	{
+		(_ibh.Color, _ibh.LineDashStyle, _ibh.Width, _ibMax),
+		(_ibl.Color, _ibl.LineDashStyle, _ibl.Width, _ibMin),
+		(_ibm.Color, _ibm.LineDashStyle, _ibm.Width, _ibmValue),
+		(_mid.Color, _mid.LineDashStyle, _mid.Width, mid),
+		(_ibhx1.Color, _ibhx1.LineDashStyle, _ibhx1.Width, ibhx1),
+		(_ibhx2.Color, _ibhx2.LineDashStyle, _ibhx2.Width, ibhx2),
+		(_ibhx3.Color, _ibhx3.LineDashStyle, _ibhx3.Width, ibhx3),
+		(_iblx1.Color, _iblx1.LineDashStyle, _iblx1.Width, iblx1),
+		(_iblx2.Color, _iblx2.LineDashStyle, _iblx2.Width, iblx2),
+		(_iblx3.Color, _iblx3.LineDashStyle, _iblx3.Width, iblx3),
+	};
+
+	foreach (var (color, dash, width, price) in levels)
+	{
+		var y = context.BarsY(price);
+
+		var pen = new Pen(ConvertColor(color), width)
+		{
+			DashStyle = ConvertDashStyle(dash)
+		};
+
+		context.DrawLine(pen, x1, y, x2, y);
+	}
+
+	// Crear fuente con tamaño configurable
+	var _font = new Font("Arial", FontSize, FontStyle.Regular);
+
+	// Lista de textos y niveles
+	var labels = new[]
+	{
+	("IBH", _ibh.Color, _ibMax),
+	("IBL", _ibl.Color, _ibMin),
+	("IBM", _ibm.Color, _ibmValue),
+	("MID", _mid.Color, mid),
+	("IBHX1", _ibhx1.Color, ibhx1),
+	("IBHX2", _ibhx2.Color, ibhx2),
+	("IBHX3", _ibhx3.Color, ibhx3),
+	("IBLX1", _iblx1.Color, iblx1),
+	("IBLX2", _iblx2.Color, iblx2),
+	("IBLX3", _iblx3.Color, iblx3)
+	};
+
+	// Offset en píxeles para que el texto no se solape con la línea
+	const int offset = 2;
+
+	foreach (var (label, color, price) in labels)
+	{
+		var y = context.BarsY(price);
+		var brush = new SolidBrush(ConvertColor(color));
+
+		var stringSize = context.MeasureString(label, _font);
+		context.DrawString(label, _font, brush,
+			x2 - stringSize.Width - 2, // alineado a la derecha con pequeño margen
+			y - stringSize.Height - offset); // justo encima de la línea
+	}	
+	}
+    
     private DateTime GetPrevDateTime(int bar)
     {
 		return GetCandle(bar - 1).Time.AddHours(InstrumentInfo.TimeZone);
     }
 
+private System.Drawing.Drawing2D.DashStyle ConvertDashStyle(LineDashStyle style)
+{
+	return style switch
+	{
+		LineDashStyle.Solid => System.Drawing.Drawing2D.DashStyle.Solid,
+		LineDashStyle.Dash => System.Drawing.Drawing2D.DashStyle.Dash,
+		LineDashStyle.Dot => System.Drawing.Drawing2D.DashStyle.Dot,
+		LineDashStyle.DashDot => System.Drawing.Drawing2D.DashStyle.DashDot,
+		LineDashStyle.DashDotDot => System.Drawing.Drawing2D.DashStyle.DashDotDot,
+		_ => System.Drawing.Drawing2D.DashStyle.Solid
+	};
+}
     #endregion
 
     #region Private methods
