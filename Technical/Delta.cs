@@ -11,6 +11,8 @@ using OFT.Rendering.Context;
 using OFT.Rendering.Settings;
 using OFT.Rendering.Tools;
 
+using CrossColor = System.Windows.Media.Color;
+
 [Category(IndicatorCategories.VolumeOrderFlow)]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.DeltaDescription))]
 [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602362")]
@@ -183,6 +185,13 @@ public class Delta : Indicator
 	private decimal _negativeAlertFilter;
 	private int _lastBarNegativeAlert;
 
+     	private readonly ValueDataSeries _absorptionDots = new("AbsorptionDots", "Absorption dots")
+    	{
+        VisualType = VisualMode.Hide,
+        IsHidden = true,
+        UseMinimizedModeIfEnabled = true
+    	};
+
 	#endregion
 
     #region Properties
@@ -336,6 +345,29 @@ public class Delta : Indicator
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDivergence), GroupName = nameof(Strings.Filters), Description = nameof(Strings.BarDirVsDeltaDivergenceDescription), Order = 130)]
     public bool ShowDivergence { get; set; }
 
+    // Displays dots on the chart when the distance between the delta close and the high/low exceeds a threshold
+    [Display(Name = "Show absorption dots", GroupName = nameof(Strings.Filters), Description = "Display dots when the distance between the delta close and high/low exceeds a threshold", Order = 140)]
+    public bool ShowAbsorptionDots { get; set; }
+    private int _absorptionThreshold = 250;
+    
+    [Parameter]
+    [Range(1, int.MaxValue)]
+    
+    // Minimum distance between the close and the delta extremes to consider absorption
+    [Display(Name = "Absorption threshold", GroupName = nameof(Strings.Filters), Description = "Minimum distance between the close and the delta extremes to consider absorption", Order = 141)]
+    public int AbsorptionDeltaThreshold
+    {
+    	get => _absorptionThreshold;
+    	set
+    	{
+        	if (_absorptionThreshold != value)
+        	{
+            		_absorptionThreshold = value;
+            		RecalculateValues(); // Forces recalculation
+        	}
+    	}
+     }
+
     #endregion
 
     #region Volume
@@ -423,6 +455,8 @@ public class Delta : Indicator
 		DataSeries.Add(_downSeries);
 		DataSeries.Add(_currentValues);
 		DataSeries.Add(_downCandles);
+  
+  		DataSeries.Add(_absorptionDots);
 	}
 
     #endregion
@@ -444,6 +478,42 @@ public class Delta : Indicator
 	{
 		if (ChartInfo is null || InstrumentInfo is null)
 			return;
+   	
+    		decimal minVisible = decimal.MaxValue;
+        	decimal maxVisible = decimal.MinValue;
+
+        	var minWidth = GetMinWidth(context, FirstVisibleBarNumber, LastVisibleBarNumber);
+        	var barWidth = ChartInfo.GetXByBar(1) - ChartInfo.GetXByBar(0);
+
+        	if (ShowAbsorptionDots)
+        	{
+
+            		for (var i = FirstVisibleBarNumber; i <= LastVisibleBarNumber; i++)
+            		{
+
+                		var deltaClose = _delta[i];
+                		var deltaHigh = _diapasonHigh[i];
+                		var deltaLow = _diapasonLow[i];
+                		var dotValue = _absorptionDots[i];
+                		var color = dotValue > 0 ? _downColor : _upColor;
+                		dotValue = Math.Abs(dotValue); // Restore the actual value for interpolation
+
+				if (deltaHigh > maxVisible) maxVisible = deltaHigh;
+				if (deltaLow < minVisible) minVisible = deltaLow;
+
+				if (dotValue == 0)
+    					continue;
+
+				var x = ChartInfo.GetXByBar(i) + barWidth / 2;
+				var yAbs = InterpolateY(dotValue, minVisible, maxVisible, Container.Region);
+
+				// Optional small visual offset:
+                		yAbs += dotValue > 0 ? -6 : 6;
+
+                		var rect = new Rectangle(x - 4, (int)yAbs - 4, 8, 8);
+                		context.FillEllipse(color, rect);
+            		}
+        	}
 
 		if (ShowDivergence)
 		{
@@ -489,9 +559,6 @@ public class Delta : Indicator
 
 		if (!ShowVolume || ChartInfo.ChartVisualMode != ChartVisualModes.Clusters || Panel == IndicatorDataProvider.CandlesPanel)
 			return;
-
-		var minWidth = GetMinWidth(context, FirstVisibleBarNumber, LastVisibleBarNumber);
-		var barWidth = ChartInfo.GetXByBar(1) - ChartInfo.GetXByBar(0);
 
 		if (minWidth > barWidth)
 			return;
@@ -647,11 +714,56 @@ public class Delta : Indicator
 
 		_prevDeltaValue = deltaValue;
 
+  		///
+		// === ABSORPTION DOT LOGIC ===
+		if (ShowAbsorptionDots)
+		{
+    			decimal deltaOpen, deltaClose, deltaHigh, deltaLow;
+
+    			if (MinimizedMode)
+    			{
+        			deltaClose = _delta[bar];
+        			deltaHigh = _diapasonHigh[bar];
+        			deltaLow = _diapasonLow[bar];
+        			deltaOpen = 0; // In minimized mode, open is 0 by design
+    			}
+    			else
+    			{
+        			deltaOpen = _candles[bar].Open;
+        			deltaClose = _candles[bar].Close;
+        			deltaHigh = _candles[bar].High;
+        			deltaLow = _candles[bar].Low;
+    			}
+
+    			decimal upperTail, lowerTail;
+
+    			if (deltaClose > deltaOpen)
+    			{
+        			// Bullish candle: upper tail = high - close; lower tail = open - low
+        			upperTail = deltaHigh - deltaClose;
+        			lowerTail = deltaOpen - deltaLow;
+    			}
+    			else
+    			{
+       				// Bearish or neutral candle: upper tail = high - open; lower tail = close - low
+        			upperTail = deltaHigh - deltaOpen;
+        			lowerTail = deltaClose - deltaLow;
+    			}
+
+    			// Determine which tail is dominant
+    			if (upperTail > lowerTail && upperTail > AbsorptionDeltaThreshold)
+        			_absorptionDots[bar] = deltaHigh + 0.000001m; // Red dot (sell absorption)
+    			else if (lowerTail > upperTail && lowerTail > AbsorptionDeltaThreshold)
+        			_absorptionDots[bar] = deltaLow - 0.000001m; // Green dot (buy absorption)
+    			else
+        			_absorptionDots[bar] = 0;
+		}
+
 		if (!ShowCurrentValues)
 			return;
 
 		_currentValues[bar] = MinimizedMode ? absDelta : deltaValue;
-        _currentValues.Colors[bar] = deltaValue > 0 ? _upColor : _downColor;
+        	_currentValues.Colors[bar] = deltaValue > 0 ? _upColor : _downColor;
 	}
 
 	#endregion
@@ -688,6 +800,15 @@ public class Delta : Indicator
 			sampleStr += '0';
 
 		return context.MeasureString(sampleStr, Font.RenderObject).Width;
+	}
+
+ 	float InterpolateY(decimal value, decimal min, decimal max, Rectangle region)
+	{
+    		if (max == min)
+        		return region.Bottom;
+
+    		var relative = (float)((value - min) / (max - min));
+    		return region.Bottom - relative * region.Height;
 	}
 
 	#endregion
