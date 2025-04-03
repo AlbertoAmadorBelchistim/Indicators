@@ -178,6 +178,11 @@ public class SuperTrend : Indicator
 			series.Colors[bar] = DownColor;
         }
 
+		if (series.Colors[bar] != series.Colors[bar - 1])
+			series.SetPointOfEndLine(bar - 1);
+		else
+			series.RemovePointOfEndLine(bar - 1);
+
 		if (bar != CurrentBar - 1 || !UseAlert)
 			return;
 
