@@ -20,6 +20,9 @@ public class WoodiesCCI : Indicator
 {
 	#region Fields
 
+  	private int _trendCciPeriod = 14;
+ 	private int _entryCciPeriod = 6;
+
 	private readonly ValueDataSeries _cciSeries = new("CciSeries", "CCI")
 	{
 		VisualType = VisualMode.Histogram, 
@@ -27,7 +30,7 @@ public class WoodiesCCI : Indicator
 		Width = 2
 	};
 	
-	private readonly CCI _entryCci = new() { Name = "Entry CCI" };
+	private readonly ValueDataSeries _entryCci = new("Entry CCI");
 
 	private readonly ValueDataSeries _lsmaSeries = new("LsmaSeries", "LSMA")
 	{
@@ -39,7 +42,7 @@ public class WoodiesCCI : Indicator
 		ShowTooltip = false
 	};
 	
-	private readonly CCI _trendCci = new() { Name = "Trend CCI" };
+	private readonly ValueDataSeries _trendCci = new("Trend CCI");
 
 	private LineSeries _line100 = new("Line100", "100")
 	{
@@ -59,7 +62,7 @@ public class WoodiesCCI : Indicator
 		Width = 1,
 		IsHidden = true,
         DescriptionKey = nameof(Strings.OverboughtLimitDescription)
-    };
+    	};
 
 	private LineSeries _line300 = new("Line300", "300")
 	{
@@ -70,7 +73,7 @@ public class WoodiesCCI : Indicator
 		IsHidden = true,
 		UseScale = true,
         DescriptionKey = nameof(Strings.OverboughtLimitDescription)
-    };
+    	};
 
 	private LineSeries _lineM100 = new("LineM100", "-100")
 	{
@@ -80,7 +83,7 @@ public class WoodiesCCI : Indicator
 		Width = 1,
 		IsHidden = true,
         DescriptionKey = nameof(Strings.OversoldLimitDescription)
-    };
+    	};
 
 	private LineSeries _lineM200 = new("LineM200", "-200")
 	{
@@ -90,7 +93,7 @@ public class WoodiesCCI : Indicator
 		Width = 1,
 		IsHidden = true,
         DescriptionKey = nameof(Strings.OversoldLimitDescription)
-    };
+    	};
 
 	private LineSeries _lineM300 = new("LineM300", "-300")
 	{
@@ -101,7 +104,7 @@ public class WoodiesCCI : Indicator
 		UseScale = true,
 		IsHidden = true,
         DescriptionKey = nameof(Strings.OversoldLimitDescription)
-    };
+    	};
 
 	private bool _drawLines = true;
 	private int _lsmaPeriod = 25;
@@ -150,10 +153,10 @@ public class WoodiesCCI : Indicator
 	[Range(1, 10000)]
 	public int TrendCCIPeriod
 	{
-		get => _trendCci.Period;
+		get => _trendCciPeriod;
 		set
 		{
-			_trendCci.Period = value;
+			_trendCciPeriod = value;
 			RecalculateValues();
 		}
 	}
@@ -163,10 +166,10 @@ public class WoodiesCCI : Indicator
 	[Range(1, 10000)]
 	public int EntryCCIPeriod
 	{
-		get => _entryCci.Period;
+		get => _entryCciPeriod;
 		set
 		{
-			_entryCci.Period = value;
+			_entryCciPeriod = value;
 			RecalculateValues();
 		}
 	}
@@ -317,23 +320,7 @@ public class WoodiesCCI : Indicator
         Panel = IndicatorDataProvider.NewPanel;
         DenyToChangePanel = true;
 
-        TrendCCIPeriod = 14;
-		EntryCCIPeriod = 6;
-
-		var trendCciDataSeries = (ValueDataSeries)_trendCci.DataSeries[0];
-		trendCciDataSeries.Id = "TrendCciDataSeries";
-        trendCciDataSeries.Name = "Trend CCI";
-		trendCciDataSeries.Width = 2;
-		trendCciDataSeries.Color = DefaultColors.Purple.Convert();
-		trendCciDataSeries.IgnoredByAlerts = true;
-
-		var entryCciDataSeries = (ValueDataSeries)_entryCci.DataSeries[0];
-		entryCciDataSeries.Id = "EntryCciDataSeries";
-        entryCciDataSeries.Name = "Entry CCI";
-		entryCciDataSeries.Color = DefaultColors.Orange.Convert();
-		entryCciDataSeries.IgnoredByAlerts = true;
-
-		var zeroLineDataSeries = (ValueDataSeries)DataSeries[0];
+        	var zeroLineDataSeries = (ValueDataSeries)DataSeries[0];
 		zeroLineDataSeries.ShowCurrentValue = false;
 		zeroLineDataSeries.Name = "Zero Line";
 		zeroLineDataSeries.Color = Color.Gray.Convert();
@@ -343,8 +330,6 @@ public class WoodiesCCI : Indicator
 
 
         DataSeries.Add(_cciSeries);
-		DataSeries.Add(trendCciDataSeries);
-		DataSeries.Add(entryCciDataSeries);
 		DataSeries.Add(_lsmaSeries);
 
         LineSeries.Add(_line100);
@@ -354,89 +339,153 @@ public class WoodiesCCI : Indicator
 		LineSeries.Add(_lineM200);
 		LineSeries.Add(_lineM300);
 
-		Add(_trendCci);
-		Add(_entryCci);
+	DataSeries.Add(_trendUpSeries);
+	DataSeries.Add(_trendDownSeries);
+
+	DataSeries.Add(_trendCci);
+	DataSeries.Add(_entryCci);
+
+	_trendCci.Color = DefaultColors.Purple.Convert();
+	_trendCci.Id = "TrendCciDataSeries";
+	_trendCci.Name = "Trend CCI";
+	_trendCci.Width = 2;
+	_trendCci.IgnoredByAlerts = true;
+
+	_entryCci.Id = "EntryCciDataSeries";
+	_entryCci.Name = "Entry CCI";
+	_entryCci.IgnoredByAlerts = true;
+	_entryCci.Color = DefaultColors.Orange.Convert();
+
+	_trendUpSeries.Color = DefaultColors.Blue.Convert();
+	_trendDownSeries.Color = DefaultColors.Red.Convert();
 	}
 
 	#endregion
 
 	#region Protected methods
+
+ 	private readonly ValueDataSeries _trendUpSeries = new("TrendUpSeries");
+	private readonly ValueDataSeries _trendDownSeries = new("TrendDownSeries");
 	
 	protected override void OnCalculate(int bar, decimal value)
 	{
-		try
+		if (bar == 0)
+    			return;
+
+		// Ensure there are enough bars to calculate both Trend and Entry CCI
+		if (bar < Math.Max(TrendCCIPeriod, EntryCCIPeriod))
+    			return;
+
+		// Ensure there are enough bars to calculate LSMA
+		if (bar < LSMAPeriod + 2)
+    			return;
+		// Calculate Trend and Entry CCI values manually
+		var trendCci = CalculateCCI(bar, TrendCCIPeriod);
+		var entryCci = CalculateCCI(bar, EntryCCIPeriod);
+
+		// Store them in their respective series for visualization
+		_trendCci[bar] = trendCci;
+		_entryCci[bar] = entryCci;
+
+  		// Use Trend CCI value as the main CCI series to color the histogram
+		_cciSeries[bar] = _trendCci[bar];
+
+		// Get previous bar's trend CCI value to detect trend changes
+		var prevTrendCci = CalculateCCI(bar - 1, TrendCCIPeriod);
+
+		// Retrieve previous trend counters
+		var up = (int)_trendUpSeries[bar - 1];
+		var down = (int)_trendDownSeries[bar - 1];
+
+		// Detect and color upward trend based on trend CCI behavior
+		if (trendCci > 0)
 		{
-			this[bar] = 0;
+    			if (prevTrendCci < 0)
+        			up = 0;
 
-			if (_trendCci[bar] > 0 && _trendCci[bar - 1] < 0)
-			{
-				if (_trendDown > TrendPeriod)
-					_trendUp = 0;
-			}
+    			up++;
+    			down = 0;
 
-			_cciSeries[bar] = _trendCci[bar];
-
-			if (_trendCci[bar] > 0)
-			{
-				if (_trendUp < TrendPeriod)
-				{
-					_cciSeries.Colors[bar] = _noTrendColor;
-					_trendUp++;
-				}
-
-				if (_trendUp == TrendPeriod)
-				{
-					_cciSeries.Colors[bar] = _timeBarColor;
-					_trendUp++;
-				}
-
-				if (_trendUp > TrendPeriod)
-					_cciSeries.Colors[bar] = _trendUpColor;
-			}
-
-			if (_trendCci[bar] < 0 && _trendCci[bar - 1] > 0)
-			{
-				if (_trendUp > TrendPeriod)
-					_trendDown = 0;
-			}
-
-			if (_trendCci[bar] < 0)
-			{
-				if (_trendDown < TrendPeriod)
-				{
-					_cciSeries.Colors[bar] = _noTrendColor;
-					_trendDown++;
-				}
-
-				if (_trendDown == TrendPeriod)
-				{
-					_cciSeries.Colors[bar] = _timeBarColor;
-					_trendDown++;
-				}
-
-				if (_trendDown > TrendPeriod)
-					_cciSeries.Colors[bar] = _trendDownColor;
-			}
-
-			decimal summ = 0;
-
-			if (bar < LSMAPeriod + 2)
-				return;
-
-			var lengthvar = (decimal)((LSMAPeriod + 1) / 3.0);
-
-			for (var i = LSMAPeriod; i >= 1; i--)
-				summ += (i - lengthvar) * GetCandle(bar - LSMAPeriod + i).Close;
-
-			var wt = summ * 6 / (LSMAPeriod * (LSMAPeriod + 1));
-			_lsmaSeries[bar] = 0.00001m;
-
-			_lsmaSeries.Colors[bar] = wt > GetCandle(bar).Close
-									? _negativeLsmaColor
-									: _positiveLsmaColor;
+    			if (up < TrendPeriod)
+        			_cciSeries.Colors[bar] = _noTrendColor;
+    			else if (up == TrendPeriod)
+        			_cciSeries.Colors[bar] = _timeBarColor;
+    			else
+        			_cciSeries.Colors[bar] = _trendUpColor;
 		}
-		catch { }
+  		// Detect and color downward trend
+		else if (trendCci < 0)
+		{
+    			if (prevTrendCci > 0)
+        			down = 0;
+
+    			down++;
+    			up = 0;
+
+    			if (down < TrendPeriod)
+        			_cciSeries.Colors[bar] = _noTrendColor;
+    			else if (down == TrendPeriod)
+        			_cciSeries.Colors[bar] = _timeBarColor;
+    			else
+        			_cciSeries.Colors[bar] = _trendDownColor;
+		}
+		
+  		// Save trend counters to display them or use later
+		_trendUpSeries[bar] = up;
+		_trendDownSeries[bar] = down;
+
+		// === LSMA calculation ===
+		// Calculate weighted sum of prices
+		decimal summ = 0;
+
+		var lengthvar = (decimal)((LSMAPeriod + 1) / 3.0);
+
+		for (var i = LSMAPeriod; i >= 1; i--)
+			summ += (i - lengthvar) * GetCandle(bar - LSMAPeriod + i).Close;
+
+		var wt = summ * 6 / (LSMAPeriod * (LSMAPeriod + 1));
+
+  		// Store LSMA value (wt)
+		_lsmaSeries[bar] = 0.00001m;
+
+		// Color LSMA based on whether it's above or below price
+		_lsmaSeries.Colors[bar] = wt > GetCandle(bar).Close
+					? _negativeLsmaColor
+					: _positiveLsmaColor;
 	}
+
+ 	// --- Manual CCI calculation to fully support historical bars ---
+    	private decimal CalculateCCI(int bar, int period)
+    	{
+        	if (bar < period)
+            		return 0;
+
+        	decimal typicalPriceSum = 0;
+        	for (int i = bar - period + 1; i <= bar; i++)
+        	{
+            		var candle = GetCandle(i);
+            		typicalPriceSum += (candle.High + candle.Low + candle.Close) / 3m;
+        	}
+
+        	decimal typicalPriceAvg = typicalPriceSum / period;
+
+        	decimal meanDeviation = 0;
+        	for (int i = bar - period + 1; i <= bar; i++)
+        	{
+            		var candle = GetCandle(i);
+            		var tp = (candle.High + candle.Low + candle.Close) / 3m;
+            		meanDeviation += Math.Abs(tp - typicalPriceAvg);
+        	}
+
+        	meanDeviation /= period;
+
+        	var currentTP = (GetCandle(bar).High + GetCandle(bar).Low + GetCandle(bar).Close) / 3m;
+
+        	if (meanDeviation == 0)
+            		return 0;
+
+        	return (currentTP - typicalPriceAvg) / (0.015m * meanDeviation);
+    	}
 	
 	#endregion
-}
+ }
