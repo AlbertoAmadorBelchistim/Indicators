@@ -120,7 +120,7 @@ public class WoodiesCCI : Indicator
 	#region Properties
 
 	[Parameter]
-	[Display(ResourceType = typeof(Strings), Name = "LSMA Period", GroupName = nameof(Strings.Settings), Description = nameof(Strings.SMAPeriodDescription))]
+	[Display(ResourceType = typeof(Strings), Name = "LsmaPeriod", GroupName = nameof(Strings.Settings), Description = nameof(Strings.SMAPeriodDescription))]
 	[Range(1, 10000)]
 	public int LSMAPeriod
 	{
@@ -133,7 +133,7 @@ public class WoodiesCCI : Indicator
 	}
 
 	[Parameter]
-	[Display(ResourceType = typeof(Strings), Name = "Trend Period", GroupName = nameof(Strings.Settings), Description = nameof(Strings.PeriodDescription))]
+	[Display(ResourceType = typeof(Strings), Name = "TrendPeriod", GroupName = nameof(Strings.Settings), Description = nameof(Strings.PeriodDescription))]
 	[Range(1, 10000)]
 	public int TrendPeriod
 	{
@@ -146,7 +146,7 @@ public class WoodiesCCI : Indicator
 	}
 
 	[Parameter]
-	[Display(ResourceType = typeof(Strings), Name = "Trend CCI Period", GroupName = nameof(Strings.Settings), Description = nameof(Strings.PeriodDescription))]
+	[Display(ResourceType = typeof(Strings), Name = "TrendCciPeriod", GroupName = nameof(Strings.Settings), Description = nameof(Strings.PeriodDescription))]
 	[Range(1, 10000)]
 	public int TrendCCIPeriod
 	{
@@ -159,7 +159,7 @@ public class WoodiesCCI : Indicator
 	}
 
 	[Parameter]
-	[Display(ResourceType = typeof(Strings), Name = "Entry CCI Period", GroupName = nameof(Strings.Settings), Description = nameof(Strings.PeriodDescription))]
+	[Display(ResourceType = typeof(Strings), Name = "EntryCciPeriod", GroupName = nameof(Strings.Settings), Description = nameof(Strings.PeriodDescription))]
 	[Range(1, 10000)]
 	public int EntryCCIPeriod
 	{
@@ -242,7 +242,7 @@ public class WoodiesCCI : Indicator
 		set => _lineM300 = value;
 	}
 
-    [Display(ResourceType = typeof(Strings), Name = "CCI Trend Up", GroupName = nameof(Strings.Colors), Description = nameof(Strings.BullishColorDescription))]
+    [Display(ResourceType = typeof(Strings), Name = "CciTrendUp", GroupName = nameof(Strings.Colors), Description = nameof(Strings.BullishColorDescription))]
     public Color TrendUpColor
     {
         get => _trendUpColor;
@@ -253,7 +253,7 @@ public class WoodiesCCI : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = "CCI Trend Down", GroupName = nameof(Strings.Colors), Description = nameof(Strings.BearishColorDescription))]
+    [Display(ResourceType = typeof(Strings), Name = "CciTrendDown", GroupName = nameof(Strings.Colors), Description = nameof(Strings.BearishColorDescription))]
     public Color TrendDownColor
     {
         get => _trendDownColor;
@@ -264,7 +264,7 @@ public class WoodiesCCI : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = "No Trend", GroupName = nameof(Strings.Colors), Description = nameof(Strings.NeutralColorDescription))]
+    [Display(ResourceType = typeof(Strings), Name = "NoTrend", GroupName = nameof(Strings.Colors), Description = nameof(Strings.NeutralColorDescription))]
     public Color NoTrendColor
     {
         get => _noTrendColor;
@@ -275,7 +275,7 @@ public class WoodiesCCI : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = "Time Bar", GroupName = nameof(Strings.Colors), Description = nameof(Strings.NewTrendColorDescription))]
+    [Display(ResourceType = typeof(Strings), Name = "TimeBar", GroupName = nameof(Strings.Colors), Description = nameof(Strings.NewTrendColorDescription))]
     public Color TimeBarColor
     {
         get => _timeBarColor;
@@ -286,7 +286,7 @@ public class WoodiesCCI : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = "Negative LSMA", GroupName = nameof(Strings.Colors), Description = nameof(Strings.NegativeValueColorDescription))]
+    [Display(ResourceType = typeof(Strings), Name = "NegativeLsma", GroupName = nameof(Strings.Colors), Description = nameof(Strings.NegativeValueColorDescription))]
     public Color NegativeLsmaColor
     {
         get => _negativeLsmaColor;
@@ -297,7 +297,7 @@ public class WoodiesCCI : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = "Positive LSMA", GroupName = nameof(Strings.Colors), Description = nameof(Strings.PositiveValueColorDescription))]
+    [Display(ResourceType = typeof(Strings), Name = "PositiveLsma", GroupName = nameof(Strings.Colors), Description = nameof(Strings.PositiveValueColorDescription))]
     public Color PositiveLsmaColor
     {
         get => _positiveLsmaColor;
