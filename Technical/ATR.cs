@@ -9,7 +9,7 @@ using OFT.Localization;
 
 [DisplayName("ATR")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.ATRDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602536")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602536")]
 public class ATR : Indicator
 {
 	#region Fields

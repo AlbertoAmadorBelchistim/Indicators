@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System;
 	using System.ComponentModel;
@@ -8,7 +8,7 @@
 
     [DisplayName("Accumulation / Distribution - Williams")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.WADDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602568")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602568")]
 	public class WAD : Indicator
 	{
 		#region ctor

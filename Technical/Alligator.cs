@@ -11,7 +11,7 @@ namespace ATAS.Indicators.Technical
 
     [DisplayName("Alligator")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.AlligatorDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602579")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602579")]
 	public class Alligator : Indicator
 	{
 		#region Fields

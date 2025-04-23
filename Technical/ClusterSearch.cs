@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using System;
 using System.Collections.Generic;
@@ -20,7 +20,7 @@ using static DynamicLevels;
 [Category(IndicatorCategories.VolumeOrderFlow)]
 [DisplayName("Cluster Search")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.ClusterSearchDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602240")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602240")]
 public partial class ClusterSearch : Indicator
 {
 	#region Fields

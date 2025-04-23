@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
     using System;
     using System.ComponentModel;
@@ -12,7 +12,7 @@
 	
     [DisplayName("VSA Better Volume")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.VsaBetterVolumeDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602502")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602502")]
 	public class VsaBetterVolume : Indicator
 	{
         #region Fields

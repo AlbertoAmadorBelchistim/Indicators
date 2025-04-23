@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System.Collections.Generic;
 	using System.ComponentModel;
@@ -15,7 +15,7 @@
 
 	[DisplayName("Average Daily Range")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.ADRDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602312")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602312")]
 	public class ADR : Indicator
 	{
 		#region Nested types

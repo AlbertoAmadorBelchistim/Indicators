@@ -14,7 +14,7 @@ namespace ATAS.Indicators.Technical
 	
     [DisplayName("Unfinished Auction")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.UnfinishedAuctionModDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602495")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602495")]
 	public class UnfinishedAuctionMod : Indicator
 	{
 		#region Fields

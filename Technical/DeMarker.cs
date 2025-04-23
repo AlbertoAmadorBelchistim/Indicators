@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System;
 	using System.ComponentModel;
@@ -9,7 +9,7 @@
 
     [DisplayName("DeMarker")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.DeMarkerDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602365")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602365")]
 	public class DeMarker : Indicator
 	{
 		#region Fields

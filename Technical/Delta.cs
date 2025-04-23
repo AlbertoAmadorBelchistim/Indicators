@@ -15,7 +15,7 @@ using CrossColor = CrossColor;
 
 [Category(IndicatorCategories.VolumeOrderFlow)]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.DeltaDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602362")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602362")]
 public class Delta : Indicator
 {
 	#region Nested types

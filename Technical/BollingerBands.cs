@@ -10,7 +10,7 @@ namespace ATAS.Indicators.Technical
 
     [DisplayName("Bollinger Bands")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.BollingerBandsDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602339")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602339")]
 	public class BollingerBands : Indicator
 	{
 		#region Fields

@@ -9,7 +9,7 @@ namespace ATAS.Indicators.Technical
 
     [DisplayName("Chaikin Money Flow")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.CMFDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602540")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602540")]
 	public class CMF : Indicator
 	{
 		#region Fields

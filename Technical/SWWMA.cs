@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System;
 	using System.ComponentModel;
@@ -8,7 +8,7 @@
 
     [DisplayName("Sine-Wave Weighted Moving Average")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.SWWMADescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602467")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602467")]
 	public class SWWMA : Indicator
 	{
 		#region Static and constants

@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System.ComponentModel;
 	using System.ComponentModel.DataAnnotations;
@@ -8,7 +8,7 @@
 
     [DisplayName("Double Exponential Moving Average")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.DEMADescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602543")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602543")]
 	public class DEMA : Indicator
 	{
 		#region Fields

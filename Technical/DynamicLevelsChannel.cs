@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
     using System;
     using System.Collections.Generic;
@@ -13,7 +13,7 @@
     [Category(IndicatorCategories.VolumeOrderFlow)]
     [DisplayName("Dynamic Levels Channel")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.DynamicLevelsChannelDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602381")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602381")]
     public class DynamicLevelsChannel : Indicator
     {
         #region Nested types

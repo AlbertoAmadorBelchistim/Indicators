@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ using OFT.Rendering.Tools;
 [DisplayName("Spread Volumes Indicator")]
 [Category(IndicatorCategories.VolumeOrderFlow)]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.SpreadVolumeDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602630")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602630")]
 public class SpreadVolume : Indicator
 {
 	#region Nested types

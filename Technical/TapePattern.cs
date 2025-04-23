@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using System;
 using System.Collections.Concurrent;
@@ -18,7 +18,7 @@ using Utils.Common.Logging;
 [Category(IndicatorCategories.VolumeOrderFlow)]
 [DisplayName("Tape Patterns")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.TapePatternDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602248")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602248")]
 public class TapePattern : Indicator
 {
 	#region Nested types

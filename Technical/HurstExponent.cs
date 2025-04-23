@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System;
 	using System.ComponentModel;
@@ -9,7 +9,7 @@
 
     [DisplayName("Hurst Exponent")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.HurstExponentDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602551")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602551")]
 	public class HurstExponent : Indicator
 	{
 		#region Nested types

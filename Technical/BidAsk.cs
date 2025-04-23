@@ -9,7 +9,7 @@ using OFT.Localization;
 [DisplayName("Bid Ask")]
 [Category(IndicatorCategories.VolumeOrderFlow)]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.BidAskDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602329")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602329")]
 public class BidAsk : Indicator
 {
 	#region Fields

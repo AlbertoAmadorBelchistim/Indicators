@@ -16,7 +16,7 @@ using Color = System.Drawing.Color;
 
 [Category(IndicatorCategories.VolumeOrderFlow)]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.VolumeIndDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602498")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602498")]
 public class Volume : Indicator
 {
 	#region Nested types

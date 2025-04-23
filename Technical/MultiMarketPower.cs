@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ using Utils.Common;
 [Category(IndicatorCategories.VolumeOrderFlow)]
 [DisplayName("CVD pro(multi) / Multi Market Powers")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.MultiMarketPowerDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602434")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602434")]
 public class MultiMarketPower : Indicator
 {
 	#region Fields

@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System;
 	using System.ComponentModel;
@@ -20,7 +20,7 @@
 
     [DisplayName("Bar Timer")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.BarTimerDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602327")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602327")]
 	public class BarTimer : Indicator
 	{
 		#region Nested types

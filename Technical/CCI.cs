@@ -10,7 +10,7 @@ namespace ATAS.Indicators.Technical
 
     [DisplayName("CCI")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.CCIDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602539")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602539")]
 	public class CCI : Indicator
 	{
 		#region Fields

@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ using Color = System.Drawing.Color;
 
 [DisplayName("Relative Volume")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.RelativeVolumeDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602457")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602457")]
 public class RelativeVolume : Indicator
 {
 	#region Nested types

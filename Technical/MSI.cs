@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
@@ -7,7 +7,7 @@
 
     [DisplayName("McClellan Summation Index")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.MSIDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602427")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602427")]
 	public class MSI : Indicator
 	{
 		#region Static and constants

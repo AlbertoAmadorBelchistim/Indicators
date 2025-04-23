@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System;
 	using System.ComponentModel;
@@ -8,7 +8,7 @@
 
     [DisplayName("True Range")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.TrueRangeDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602234")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602234")]
 	public class TrueRange : Indicator
 	{
 		#region ctor

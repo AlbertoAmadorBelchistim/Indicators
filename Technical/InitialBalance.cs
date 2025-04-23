@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using System;
 using System.ComponentModel;
@@ -16,7 +16,7 @@ using Pen = System.Drawing.Pen;
 
 [DisplayName("Initial Balance")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.InitialBalanceIndDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602294")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602294")]
 public class InitialBalance : Indicator
 {
 	#region Nested types

@@ -9,7 +9,7 @@ namespace ATAS.Indicators.Technical
 
 	[DisplayName("Lowest")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.LowestIndDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602417")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602417")]
 	public class Lowest : Indicator
 	{
 		#region Fields

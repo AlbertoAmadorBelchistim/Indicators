@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System;
 	using System.ComponentModel;
@@ -10,7 +10,7 @@
 
     [DisplayName("Random Walk Indicator")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.RWIDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602453")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602453")]
 	public class RWI : Indicator
 	{
 		#region Fields
