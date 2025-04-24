@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +8,7 @@ using OFT.Localization;
 
 [DisplayName("Color Bar Open/Close")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.ColorBarOpenCloseDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000618541")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000618541")]
 public class ColorBarOpenClose : Indicator
 {
     #region Fields

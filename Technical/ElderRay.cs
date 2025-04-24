@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System.ComponentModel;
 	using System.ComponentModel.DataAnnotations;
@@ -9,7 +9,7 @@
 
     [DisplayName("Elder Ray")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.ElderRayDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602580")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602580")]
 	public class ElderRay : Indicator
 	{
 		#region Fields

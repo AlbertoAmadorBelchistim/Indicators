@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System.ComponentModel;
 	using System.ComponentModel.DataAnnotations;
@@ -8,7 +8,7 @@
 
     [DisplayName("Williams' %R")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.WilliamsRDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602308")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602308")]
 	public class WilliamsR : Indicator
 	{
 		#region Fields

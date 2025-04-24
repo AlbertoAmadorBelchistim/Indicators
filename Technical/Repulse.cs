@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System.ComponentModel;
 	using System.ComponentModel.DataAnnotations;
@@ -8,7 +8,7 @@
 
     [DisplayName("Repulse")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.RepulseDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602283")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602283")]
 	public class Repulse : Indicator
 	{
 		#region Fields

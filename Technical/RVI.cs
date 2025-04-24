@@ -10,7 +10,7 @@ namespace ATAS.Indicators.Technical
 
 	[DisplayName("RVI V1")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.RVI1Description))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602461")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602461")]
 	public class RVI : Indicator
 	{
 		#region ctor

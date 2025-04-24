@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System;
 	using System.ComponentModel;
@@ -11,7 +11,7 @@
 	
     [DisplayName("Money Flow Index")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.MFIDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602430")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602430")]
 	public class MFI : Indicator
 	{
 		#region Fields

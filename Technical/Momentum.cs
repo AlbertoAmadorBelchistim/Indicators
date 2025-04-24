@@ -11,7 +11,7 @@ namespace ATAS.Indicators.Technical
 
 	[DisplayName("Momentum")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.MomentumDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602429")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602429")]
 	public class Momentum : Indicator
 	{
 		#region Fields

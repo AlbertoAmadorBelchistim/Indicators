@@ -10,7 +10,7 @@ using OFT.Localization;
 
 [DisplayName("Ichimoku Kinko Hyo")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.IchimokuDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602553")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602553")]
 public class Ichimoku : Indicator
 {
 	#region Fields

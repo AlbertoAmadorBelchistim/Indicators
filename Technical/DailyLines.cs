@@ -19,7 +19,7 @@ using Color = System.Drawing.Color;
 
 [DisplayName("Daily Lines")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.DailyLinesDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602284")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602284")]
 public class DailyLines : Indicator
 {
 	#region Nested types

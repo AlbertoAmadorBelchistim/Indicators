@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
     using System;
     using System.ComponentModel;
@@ -12,7 +12,7 @@
 	
     [DisplayName("Hull Moving Average")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.HMADescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602550")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602550")]
 	public class HMA : Indicator
 	{
 		#region Fields

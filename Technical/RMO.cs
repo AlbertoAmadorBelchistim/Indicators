@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System.Collections.Generic;
 	using System.ComponentModel;
@@ -13,7 +13,7 @@
 
 	[DisplayName("Rahul Mohindar Oscillator")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.RMODescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602452")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602452")]
 	public class RMO : Indicator
 	{
         #region Fields

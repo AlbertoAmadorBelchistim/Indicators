@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
     using System;
     using System.ComponentModel;
@@ -9,7 +9,7 @@
 
     [DisplayName("Percentage Price Oscillator")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.PercentagePriceDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602445")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602445")]
 	public class PercentagePrice : Indicator
 	{
 		#region Fields

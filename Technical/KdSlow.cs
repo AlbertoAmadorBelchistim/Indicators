@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System.ComponentModel;
 	using System.ComponentModel.DataAnnotations;
@@ -10,7 +10,7 @@
 
     [DisplayName("KD - Slow")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.KdSlowDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602412")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602412")]
 	public class KdSlow : Indicator
 	{
 		#region Fields

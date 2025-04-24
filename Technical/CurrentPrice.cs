@@ -13,7 +13,7 @@ namespace ATAS.Indicators.Technical
 
     [DisplayName("Current price")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.CurrentPriceDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602361-current-price")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602361-current-price")]
 	public class CurrentPrice : Indicator
 	{
 		#region Fields

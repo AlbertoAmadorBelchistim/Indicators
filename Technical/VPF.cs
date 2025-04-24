@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using System;
 using System.ComponentModel;
@@ -12,7 +12,7 @@ using Utils.Common.Logging;
 
 [DisplayName("Voss Predictive Filter")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.VPFDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602500")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602500")]
 public class VPF : Indicator
 {
 	#region Fields

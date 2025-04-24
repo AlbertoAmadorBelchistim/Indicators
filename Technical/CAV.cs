@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System.ComponentModel;
 	using System.ComponentModel.DataAnnotations;
@@ -8,7 +8,7 @@
 
     [DisplayName("Cumulative Adjusted Value")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.CAVDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602359")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602359")]
 	public class CAV : Indicator
 	{
 		#region Fields

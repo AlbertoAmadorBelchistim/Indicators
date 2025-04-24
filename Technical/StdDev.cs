@@ -9,7 +9,7 @@ namespace ATAS.Indicators.Technical
 
 	[DisplayName("Standard Deviation")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.StdDevDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602477")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602477")]
 	public class StdDev : Indicator
 	{
 		#region Fields

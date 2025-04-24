@@ -14,7 +14,7 @@ namespace ATAS.Indicators.Technical
 	
     [Obfuscation(Feature = "renaming", ApplyToMembers = true, Exclude = true)]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.SessionColorIndDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602465")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602465")]
 	[DisplayName("Session Color")]
 	public class SessionColor : Indicator
 	{

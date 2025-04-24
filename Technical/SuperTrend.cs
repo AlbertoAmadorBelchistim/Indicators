@@ -12,7 +12,7 @@ using OFT.Localization;
 
 [DisplayName("Super Trend")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.SuperTrendDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602482")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602482")]
 public class SuperTrend : Indicator
 {
 	#region Fields

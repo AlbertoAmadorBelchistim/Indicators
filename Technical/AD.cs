@@ -8,7 +8,7 @@ using OFT.Localization;
 
 [DisplayName("AD")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.ADDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000606733")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000606733")]
 public class AD : Indicator
 {
 	#region ctor

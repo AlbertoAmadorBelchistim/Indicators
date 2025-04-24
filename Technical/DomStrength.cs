@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,7 @@ using OFT.Rendering.Tools;
 [Category(IndicatorCategories.OrderBook)]
 [DisplayName("DOM Strength")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.DomStrengthDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602375")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602375")]
 public class DomStrength : Indicator
 {
 	#region Fields

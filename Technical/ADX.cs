@@ -12,7 +12,7 @@ using OFT.Rendering.Settings;
 
 [DisplayName("ADX")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.ADXDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602313")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602313")]
 public class ADX : Indicator
 {
 	#region Nested types

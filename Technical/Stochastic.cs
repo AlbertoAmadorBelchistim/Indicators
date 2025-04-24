@@ -11,7 +11,7 @@ namespace ATAS.Indicators.Technical
 
 	[DisplayName("Stochastic")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.StochasticDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602478")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602478")]
 	public class Stochastic : Indicator
 	{
 		#region Fields

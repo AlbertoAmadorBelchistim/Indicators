@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using OFT.Attributes;
 using OFT.Localization;
@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 [DisplayName("COT High/Low")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.CotHighDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602603")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602603")]
 public class CotHigh : Indicator
 {
 	#region Nested types

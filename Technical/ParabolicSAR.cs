@@ -10,7 +10,7 @@ namespace ATAS.Indicators.Technical
 
 	[DisplayName("Parabolic SAR")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.ParabolicSARDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602442")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602442")]
 	public class ParabolicSAR : Indicator
 	{
 		#region Fields

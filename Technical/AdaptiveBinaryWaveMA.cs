@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System.ComponentModel;
 	using System.ComponentModel.DataAnnotations;
@@ -8,7 +8,7 @@
 
     [DisplayName("Adaptive Binary Wave")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.ABWMADescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602535")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602535")]
 	public class AdaptiveBinaryWaveMA : Indicator
 	{
 		#region Fields

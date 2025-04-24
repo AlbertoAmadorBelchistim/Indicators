@@ -12,7 +12,7 @@ using OFT.Localization;
 [Category(IndicatorCategories.VolumeOrderFlow)]
 [DisplayName("Bar's Volume Filter")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.BarVolumeFilterDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602326")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602326")]
 public class BarVolumeFilter : Indicator
 {
 	#region Nested types

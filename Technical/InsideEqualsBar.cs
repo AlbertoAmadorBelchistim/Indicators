@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System;
 	using System.Collections.Concurrent;
@@ -12,7 +12,7 @@
 
     [DisplayName("Inside Bar")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.InsideEqualsBarDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602245")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602245")]
 	public class InsideEqualsBar : Indicator
 	{
 		#region Nested types

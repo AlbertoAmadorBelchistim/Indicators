@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using ATAS.Indicators.Drawing;
 using OFT.Attributes;
@@ -10,7 +10,7 @@ namespace ATAS.Indicators.Technical
     [DisplayName("Cumulative Daily Volume")]
     [Category(IndicatorCategories.VolumeOrderFlow)]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.CumulativeDailyVolumeDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000618670")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000618670")]
     public class CumulativeDailyVolume : Indicator
     {
         #region Fields

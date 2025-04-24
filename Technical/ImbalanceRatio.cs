@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using System;
 using System.ComponentModel;
@@ -19,7 +19,7 @@ using Color = System.Drawing.Color;
 
 [DisplayName("Imbalance Ratio")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.ImbalanceRatioIndDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602404")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602404")]
 public class ImbalanceRatio : Indicator
 {
 	#region Fields

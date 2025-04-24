@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +7,7 @@ using OFT.Localization;
 
 [DisplayName("Accumulation / Distribution Flow")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.ADFDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602569")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602569")]
 public class ADF : Indicator
 {
 	#region Fields

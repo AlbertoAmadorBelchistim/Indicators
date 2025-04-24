@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -9,7 +9,7 @@ using OFT.Localization;
 
 [DisplayName("AC DC Histogram")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.ACDCDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602293")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602293")]
 public class ACDC : Indicator
 {
 	#region Fields

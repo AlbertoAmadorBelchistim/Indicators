@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System;
 	using System.ComponentModel;
@@ -12,7 +12,7 @@
 
 	[DisplayName("Wavetrend")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.WavetrendDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602505")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602505")]
 	public class Wavetrend : Indicator
 	{
 		#region Static and constants
