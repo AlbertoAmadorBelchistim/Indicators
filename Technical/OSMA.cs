@@ -9,7 +9,7 @@
 
     [DisplayName("Moving Average of Oscillator")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.OSMADescription))]
-    [OFT.Attributes.HelpLink("https://help.atas.net/en/support/solutions/articles/72000602432")]	
+    [OFT.Attributes.HelpLink("https://help.atas.net/support/solutions/articles/72000602432")]	
 	public class OSMA : Indicator
 	{
 		#region Fields
