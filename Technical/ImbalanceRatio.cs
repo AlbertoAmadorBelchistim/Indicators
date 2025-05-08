@@ -18,6 +18,7 @@ using OFT.Rendering.Tools;
 using Color = System.Drawing.Color;
 
 [DisplayName("Imbalance Ratio")]
+[Category(IndicatorCategories.VolumeOrderFlow)]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.ImbalanceRatioIndDescription))]
 [HelpLink("https://help.atas.net/support/solutions/articles/72000602404")]
 public class ImbalanceRatio : Indicator
