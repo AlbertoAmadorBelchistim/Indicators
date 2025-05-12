@@ -15,6 +15,7 @@ using OFT.Rendering.Settings;
 using Pen = System.Drawing.Pen;
 
 [DisplayName("Initial Balance")]
+[Category(IndicatorCategories.VolumeOrderFlow)]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.InitialBalanceIndDescription))]
 [HelpLink("https://help.atas.net/support/solutions/articles/72000602294")]
 public class InitialBalance : Indicator
