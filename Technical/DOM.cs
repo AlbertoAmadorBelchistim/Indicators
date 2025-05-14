@@ -115,6 +115,7 @@ public class DOM : Indicator
 	private int _priceLevelsHeight;
 	private int _lastRenderedHeight;
 	private int _scale;
+	private int _fontHeight;
 
 	private List<FilterColor> _sortedFilters = new();
 	private Color _textColor;
@@ -418,10 +419,9 @@ public class DOM : Indicator
 
         height = height < 1 ? 1 : height;
 
-        if (_lastRenderedHeight != height && height < 20)
+        if (_lastRenderedHeight != height && height < 20 || _lastRenderedHeight is 0)
         {
-	        var textAutoSize = GetTextSize(context, height);
-	        _font = new RenderFont("Arial", textAutoSize);
+	        SetTextSize(context, height);
 	        _lastRenderedHeight = height;
         }
 
@@ -534,11 +534,11 @@ public class DOM : Indicator
 						if (!_filteredColors.TryGetValue(priceDepth.Price, out var fillColor))
 							fillColor = _askColor;
 
-						if (_font.Size >= _heightToSolidMode)
+						if (_fontHeight >= _heightToSolidMode)
 						{
 							context.FillRectangle(fillColor, rect);
 
-							if (_font.Size > 4)
+							if (_fontHeight > 4)
 							{
 								var renderText = chartInfo.TryGetMinimizedVolumeString(priceDepth.Volume, priceDepth.Price);
 								var textWidth = context.MeasureString(renderText, _font).Width + 5;
@@ -619,9 +619,9 @@ public class DOM : Indicator
 						if (!_filteredColors.TryGetValue(priceDepth.Price, out var fillColor))
 							fillColor = _bidColor;
 
-						if (_font.Size >= _heightToSolidMode)
+						if (_fontHeight >= _heightToSolidMode)
 						{
-							if (_font.Size > 4)
+							if (_fontHeight > 4)
 							{
 								var renderText = chartInfo.TryGetMinimizedVolumeString(priceDepth.Volume, priceDepth.Price);
 								var textWidth = context.MeasureString(renderText, _font).Width + 5;
@@ -640,7 +640,7 @@ public class DOM : Indicator
 					}
 				}
 
-				if (_font.Size < _heightToSolidMode)
+				if (_fontHeight < _heightToSolidMode)
 				{
 					_asksHistogram?.Draw(context, _askColor, true);
 					_bidsHistogram?.Draw(context, _bidColor, true);
@@ -965,7 +965,7 @@ public class DOM : Indicator
 				new Size(textWidth, (int)ChartInfo.PriceChartContainer.PriceRowHeight));
 		}
 
-		if (_font.Size >= 6)
+		if (_fontHeight >= 10)
 		{
 			context.DrawString(renderText,
 				_font,
@@ -1059,17 +1059,23 @@ public class DOM : Indicator
 		}
 	}
 
-	private int GetTextSize(RenderContext context, int height)
+	private void SetTextSize(RenderContext context, int height)
 	{
-		for (var i = _fontSize; i > 0; i--)
+		for (var i = ChartInfo.PriceAxisFont.Size; i > 0; i--)
 		{
-            var size = context.MeasureString("12", new RenderFont("Arial", i));
+			var font = new RenderFont(ChartInfo.PriceAxisFont.FontFamily, i);
+            var size = context.MeasureString("12", font);
 
-            if (size.Height < height + 4)
-				return i;
+            if (size.Height >= height + 4)
+	            continue;
+
+            _font = font;
+            _fontHeight = size.Height;
+            return;
 		}
 
-		return 0;
+		_font = new RenderFont(ChartInfo.PriceAxisFont.FontFamily, 0);
+		_fontHeight = 0;
 	}
 
 	#endregion
