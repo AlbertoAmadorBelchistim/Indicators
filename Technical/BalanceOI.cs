@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System.ComponentModel;
 	using System.ComponentModel.DataAnnotations;
@@ -9,7 +9,7 @@
     [DisplayName("On Balance Open Interest")]
 	[Category(IndicatorCategories.VolumeOrderFlow)]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.BalanceOIDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602438")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602438")]
     public class BalanceOI : Indicator
 	{
 		private readonly ValueDataSeries _renderSeries = new("RenderSeries", Strings.Visualization)

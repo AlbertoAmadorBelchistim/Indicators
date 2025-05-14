@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System.ComponentModel;
 	using System.ComponentModel.DataAnnotations;
@@ -8,7 +8,7 @@
 
     [DisplayName("MACD - Volume Weighted")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.MacdVWDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602231")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602231")]
 	public class MacdVW : Indicator
 	{
 		#region Fields

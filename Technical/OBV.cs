@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
     using System;
     using System.ComponentModel;
@@ -9,7 +9,7 @@
 
     [DisplayName("OBV")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.OBVDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602436")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602436")]
 	public class OBV : Indicator
 	{
 		private readonly ValueDataSeries _volSignedSeries = new("Signed");

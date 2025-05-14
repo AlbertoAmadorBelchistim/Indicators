@@ -20,7 +20,7 @@ using FilterColor2 = Indicators.FilterColor;
 
 [DisplayName("Margin zones")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.MarginZonesDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602421")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602421")]
 public class MarginZones : Indicator
 {
 	#region Nested types

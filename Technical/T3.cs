@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System;
 	using System.Collections.Generic;
@@ -10,7 +10,7 @@
 
     [DisplayName("T3")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.T3IndDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000606641")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000606641")]
 	public class T3 : Indicator
 	{
 		#region Fields

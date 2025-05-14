@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using ATAS.Indicators.Drawing;
 using OFT.Attributes;
@@ -15,7 +15,7 @@ using System.Linq;
 
 [DisplayName("Order Block")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.OrderBlockIndDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000641186-order-block")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000641186-order-block")]
 
 public class OrderBlock : Indicator
 {

@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System.ComponentModel;
 	using System.ComponentModel.DataAnnotations;
@@ -8,7 +8,7 @@
 
     [DisplayName("Force Index")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.ForceIndexDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602387")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602387")]
 	public class ForceIndex : Indicator
 	{
 		#region Fields

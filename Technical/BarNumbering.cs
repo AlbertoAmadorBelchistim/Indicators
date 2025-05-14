@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -13,7 +13,7 @@ using OFT.Rendering.Tools;
 
 [DisplayName("Bar Numbering")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.BarNumberingDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000618457")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000618457")]
 public class BarNumbering : Indicator
 {
 	#region Fields

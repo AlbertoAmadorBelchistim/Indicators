@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +7,7 @@ using OFT.Localization;
 
 [DisplayName("Ask/Bid Volume Difference Bars")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.AskBidBarsDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602527")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602527")]
 public class AskBidBars : Indicator
 {
 	#region Fields

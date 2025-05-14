@@ -14,7 +14,7 @@ using Color = System.Drawing.Color;
 [DisplayName("CVD - Cumulative Volume Delta")]
 [Category(IndicatorCategories.VolumeOrderFlow)]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.CumulativeDeltaDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602360-cumulative-volume-delta")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602360-cumulative-volume-delta")]
 public class CumulativeDelta : Indicator
 {
     #region Nested types

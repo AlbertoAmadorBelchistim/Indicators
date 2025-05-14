@@ -11,7 +11,7 @@ namespace ATAS.Indicators.Technical
 {
     [DisplayName("DI-")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.DINegIndDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000621048")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000621048")]
 	public class DINeg : Indicator
 	{
 		#region Fields

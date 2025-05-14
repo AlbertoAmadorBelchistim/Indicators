@@ -17,7 +17,7 @@ using System.Collections.Generic;
 using OFT.Attributes;
 
 [DisplayName("MBO DOM")]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000633231")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000633231")]
 [Category(IndicatorCategories.OrderBook)]
 public partial class MainIndicator : Indicator
 {

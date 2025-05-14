@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
     using System;
     using System.ComponentModel;
@@ -10,7 +10,7 @@
 
     [DisplayName("Relative Vigor Index")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.RVIDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000619101")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000619101")]
     public class RelativeVigorIndex : Indicator
 	{
 		#region Fields

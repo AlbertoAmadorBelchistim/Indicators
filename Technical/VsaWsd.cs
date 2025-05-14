@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System.ComponentModel;
 	using System.ComponentModel.DataAnnotations;
@@ -10,8 +10,9 @@
     using OFT.Rendering.Settings;
 
 	[DisplayName("VSA – WSD Histogram")]
+    [Category(IndicatorCategories.VolumeOrderFlow)]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.VsaWsdDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602501")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602501")]
 	public class VsaWsd : Indicator
 	{
         #region Fields

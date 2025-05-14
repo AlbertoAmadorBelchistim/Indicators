@@ -9,7 +9,7 @@ namespace ATAS.Indicators.Technical
 	
     [DisplayName("Heiken Ashi")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.HeikenAshiDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602391")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602391")]
 	public class HeikenAshi : Indicator
 	{
 		#region Fields

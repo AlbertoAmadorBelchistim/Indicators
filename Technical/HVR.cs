@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System;
 	using System.ComponentModel;
@@ -9,7 +9,7 @@
 
     [DisplayName("Historical Volatility Ratio")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.HVRDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602393")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602393")]
 	public class HVR : Indicator
 	{
 		#region Fields

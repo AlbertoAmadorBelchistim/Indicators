@@ -15,7 +15,7 @@ using Color = System.Drawing.Color;
 
 [DisplayName("Woodies CCI")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.WoodiesCCIDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602565")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602565")]
 public class WoodiesCCI : Indicator
 {
 	#region Fields

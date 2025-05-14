@@ -8,8 +8,9 @@ using OFT.Attributes;
 using OFT.Localization;
 
 [DisplayName("VWAP/TWAP")]
+[Category(IndicatorCategories.VolumeOrderFlow)]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.VWAPDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602503")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602503")]
 public class VWAP : Indicator
 {
     #region Nested types

@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System.ComponentModel;
 	using System.ComponentModel.DataAnnotations;
@@ -9,7 +9,7 @@
 
 	[DisplayName("Schaff Trend Cycle")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.SchaffTrendCycleDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602464")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602464")]
 	public class SchaffTrendCycle : Indicator
 	{
 		#region Fields

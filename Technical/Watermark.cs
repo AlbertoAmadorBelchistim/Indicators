@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using System;
 using System.ComponentModel;
@@ -13,7 +13,7 @@ using OFT.Rendering.Tools;
 
 [DisplayName("Watermark")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.WatermarkIndDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602668")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602668")]
 public class Watermark : Indicator
 {
 	#region Nested types

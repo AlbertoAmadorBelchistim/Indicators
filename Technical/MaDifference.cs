@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
@@ -10,7 +10,7 @@
 
     [DisplayName("Moving Average Difference")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.MaDifferenceDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602289")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602289")]
 	public class MaDifference : Indicator
 	{
 		#region Fields

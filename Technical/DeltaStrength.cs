@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System.ComponentModel;
 	using System.ComponentModel.DataAnnotations;
@@ -8,7 +8,7 @@
 
     [DisplayName("Delta Strength")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.DeltaStrengthDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602363")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602363")]
 	public class DeltaStrength : Indicator
 	{
 		#region Nested types

@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System;
 	using System.ComponentModel;
@@ -9,7 +9,7 @@
 
     [DisplayName("Standard Error Bands")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.StdErrBandsDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602232")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602232")]
 	public class StdErrBands : Indicator
 	{
         #region Fields

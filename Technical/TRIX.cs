@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System.ComponentModel;
 	using System.ComponentModel.DataAnnotations;
@@ -8,7 +8,7 @@
 
     [DisplayName("TRIX")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.TRIXDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602493")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602493")]
 	public class TRIX : Indicator
 	{
 		#region Fields

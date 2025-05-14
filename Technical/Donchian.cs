@@ -11,7 +11,7 @@ namespace ATAS.Indicators.Technical
 
     [DisplayName("Donchian Channel")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.DonchianDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602376")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602376")]
 	public class Donchian : Indicator
 	{
 		#region Fields

@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using ATAS.Indicators.Drawing;
@@ -9,7 +9,7 @@ namespace ATAS.Indicators.Technical;
 
 [DisplayName("Average Delta")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.AverageDeltaIndDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000618456")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000618456")]
 public class AverageDelta : Indicator
 {
     #region Nested Types

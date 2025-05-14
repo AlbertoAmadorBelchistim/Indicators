@@ -8,7 +8,7 @@ namespace ATAS.Indicators.Technical
 
     [DisplayName("Linear Regression Slope")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.LinRegSlopeDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602416")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602416")]
 	public class LinRegSlope : Indicator
 	{
 		#region Fields
