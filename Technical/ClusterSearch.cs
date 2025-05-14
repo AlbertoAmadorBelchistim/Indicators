@@ -354,7 +354,7 @@ public partial class ClusterSearch : Indicator
 
 			if (highValue < candle.High)
 			{
-				for (var i = 0; i < _lastSeriesBar.Count; i++)
+                for (var i = _lastSeriesBar.Count - 1; i >= 0 ; i--)
 				{
 					var item = _lastSeriesBar[i];
 
