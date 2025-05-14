@@ -319,7 +319,7 @@ public class Volume : Indicator
 	    {
 		    PosColor = ChartInfo.ColorsStore.UpCandleColor.Convert();
 		    NegColor = ChartInfo.ColorsStore.DownCandleColor.Convert();
-		    NeutralColor = ChartInfo.ColorsStore.UpCandleColor.Convert();
+		    NeutralColor = ChartInfo.ColorsStore.DojiBarPen.Color.Convert();
 	    }
     }
 
