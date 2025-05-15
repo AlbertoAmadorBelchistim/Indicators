@@ -354,7 +354,7 @@ public partial class ClusterSearch : Indicator
 
 			if (highValue < candle.High)
 			{
-				for (var i = 0; i < _lastSeriesBar.Count; i++)
+                for (var i = _lastSeriesBar.Count - 1; i >= 0 ; i--)
 				{
 					var item = _lastSeriesBar[i];
 
@@ -666,9 +666,8 @@ public partial class ClusterSearch : Indicator
 	private void UpdateCumulativeCachePerBar(int bar)
 	{
 		var candle = GetCandle(bar);
-		var highPrice = candle.High - (PriceRange - 1) * InstrumentInfo.TickSize;
-
-		for (var iPrice = candle.Low; iPrice <= highPrice; iPrice += InstrumentInfo.TickSize)
+		
+		for (var iPrice = candle.Low; iPrice <= candle.High; iPrice += InstrumentInfo.TickSize)
 			CreateLevelCache(bar, iPrice);
 	}
 
