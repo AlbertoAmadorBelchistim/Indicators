@@ -22,7 +22,20 @@ namespace ATAS.Indicators.Technical
 			PeriodD = 10
 		};
 
-		private readonly ValueDataSeries _renderSeries = new("RenderSeries", Strings.Visualization) { Color = DefaultColors.Blue.Convert() };
+		private readonly ValueDataSeries _dSeries = new("DSeries", Strings.SMA)
+		{
+			Color = DefaultColors.Green.Convert(),
+			IgnoredByAlerts = true,
+			DescriptionKey = nameof(Strings.SmaSetingsDescription)
+		};
+
+		private readonly ValueDataSeries _kSeries = new("KSeries", Strings.Line)
+		{
+			Color = DefaultColors.Red.Convert(),
+			DescriptionKey = nameof(Strings.BaseLineSettingsDescription)
+		};
+
+        private readonly ValueDataSeries _renderSeries = new("RenderSeries", Strings.Visualization) { Color = DefaultColors.Blue.Convert() };
 
         #endregion
 
@@ -78,19 +91,41 @@ namespace ATAS.Indicators.Technical
 			
 			Add(_kdSlow);
 			DataSeries[0] = _renderSeries;
-			DataSeries.AddRange(_kdSlow.DataSeries);
+
+			DataSeries.Add(_kSeries);
+			DataSeries.Add(_dSeries);
 		}
 
 		#endregion
 
 		#region Protected methods
 
-		protected override void OnCalculate(int bar, decimal value)
-		{
-			_renderSeries[bar] = 3 * ((ValueDataSeries)_kdSlow.DataSeries[0])[bar] -
-				2 * ((ValueDataSeries)_kdSlow.DataSeries[1])[bar];
-		}
+        protected override void OnCalculate(int bar, decimal value)
+        {
+	        if (bar < CurrentBar - 1)
+		        return;
 
-		#endregion
+	        this[bar] = CalcKdj(bar);
+	        _kSeries[bar] = ((ValueDataSeries)_kdSlow.DataSeries[0])[bar];
+	        _dSeries[bar] = ((ValueDataSeries)_kdSlow.DataSeries[1])[bar];
+        }
+
+        protected override void OnFinishRecalculate()
+        {
+	        for (var bar = 0; bar < CurrentBar; bar++)
+	        {
+		        this[bar] = CalcKdj(bar);
+		        _kSeries[bar] = ((ValueDataSeries)_kdSlow.DataSeries[0])[bar];
+		        _dSeries[bar] = ((ValueDataSeries)_kdSlow.DataSeries[1])[bar];
+	        }
+        }
+
+        #endregion
+
+		private decimal CalcKdj(int bar)
+		{
+			return 3 * ((ValueDataSeries)_kdSlow.DataSeries[0])[bar] -
+				2 * ((ValueDataSeries)_kdSlow.DataSeries[1])[bar];
+        }
 	}
 }
