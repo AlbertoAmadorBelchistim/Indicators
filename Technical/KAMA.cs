@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System;
 	using System.Collections.Generic;
@@ -11,7 +11,7 @@
 
     [DisplayName("Kaufman Adaptive Moving Average")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.KAMADescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602525")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602525")]
 	public class KAMA : Indicator
 	{
 		#region Fields

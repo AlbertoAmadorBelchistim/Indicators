@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ using Color = System.Drawing.Color;
 
 [DisplayName("Fair Value Gap")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.FairValueGapDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000618795")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000618795")]
 public class FairValueGap : Indicator
 {
     #region Nested Types
@@ -462,11 +462,13 @@ public class FairValueGap : Indicator
             if (HideOlds && signal.EndBar > 0)
                 continue;
 
+            var isClusterMode = ChartInfo.ChartVisualMode == ChartVisualModes.Clusters;
             var x = ChartInfo.GetXByBar(signal.StartBar);
             var x2 = signal.EndBar > 0 ? ChartInfo.GetXByBar(signal.EndBar) : ChartInfo.Region.Width;
-            var y = ChartInfo.GetYByPrice(signal.HighPrice, false);
+            var priceRowHeight = isClusterMode ? (int)ChartInfo.PriceChartContainer.PriceRowHeight : 0;
+            var y = ChartInfo.GetYByPrice(signal.HighPrice, isClusterMode) + priceRowHeight;
             var w = x2 - x;
-            var h = ChartInfo.GetYByPrice(signal.LowPrice, false) - y;
+            var h = ChartInfo.GetYByPrice(signal.LowPrice, isClusterMode) - y;
             var rec = new Rectangle(x, y, w, h);
             context.DrawFillRectangle(penSet.RenderObject, color, rec);
 

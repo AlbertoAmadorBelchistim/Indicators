@@ -10,7 +10,7 @@ namespace ATAS.Indicators.Technical
 	
     [DisplayName("RSI")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.RSIDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602531")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602531")]
 	public class RSI : Indicator
 	{
 		#region Fields

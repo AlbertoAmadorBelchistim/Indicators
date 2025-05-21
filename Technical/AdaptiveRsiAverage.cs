@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using System;
 using System.ComponentModel;
@@ -9,7 +9,7 @@ using OFT.Localization;
 
 [DisplayName("Adaptive RSI Moving Average")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.AdaptiveRsiAverageDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602311")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602311")]
 public class AdaptiveRsiAverage : Indicator
 {
 	#region Fields

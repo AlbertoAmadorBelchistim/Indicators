@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System.Collections.Generic;
 	using System.ComponentModel;
@@ -12,7 +12,7 @@
 
     [DisplayName("Aroon Indicator")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.AroonIndicatorDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602316")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602316")]
 	public class AroonIndicator : Indicator
 	{
 		#region Nested types

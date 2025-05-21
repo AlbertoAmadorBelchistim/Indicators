@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
@@ -7,7 +7,7 @@
 
     [DisplayName("1 Divided by Price")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.DividedByPriceDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602309")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602309")]
 	public class DividedByPrice : Indicator
 	{
 		#region Fields

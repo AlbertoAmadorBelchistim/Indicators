@@ -13,7 +13,7 @@ namespace ATAS.Indicators.Technical
 
     [DisplayName("Open Line")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.OpenLineDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602440")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602440")]
 	public class OpenLine : Indicator
 	{
 		#region Nested types
@@ -81,6 +81,11 @@ namespace ATAS.Indicators.Technical
 				RedrawChart();
 			});
 		}
+
+  		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ExtendLast),
+		GroupName = nameof(Strings.Drawing), Description = nameof(Strings.ExtendLastDescription),
+		Order = 63)]
+		public bool ExtendLastLineToRight { get; set; } = true;
 
         #region Hidden
 
@@ -194,10 +199,30 @@ namespace ATAS.Indicators.Technical
 
                 context.DrawLine(LinePen.RenderObject, x1, y, x2, y);
 
+                // Show text only for past sessions (not the last one)
+                if (session != _lastSession || !ExtendLastLineToRight)
+                {
+                    var stringSize = context.MeasureString(OpenCandleText, _font);
+                    context.DrawString(OpenCandleText, _font, LinePen.RenderObject.Color, x2 - stringSize.Width, y - stringSize.Height - Offset - 3);
+                }
+            }
+
+            // --- DRAW EXTENDED LINE FOR LAST SESSION ---
+	    // Even if it has already been touched, and even if its opening candle is not visible
+            if (_lastSession != null && ExtendLastLineToRight)
+            {
+                var xStart = ChartInfo.GetXByBar(_lastSession.StartBar, false);
+                var xEnd = context.ClipBounds.Right; ; // Borde derecho del gráfico
+                var y = ChartInfo.GetYByPrice(_lastSession.OpenPrice, false);
+
+                context.DrawLine(LinePen.RenderObject, xStart, y, xEnd, y);
+
                 var stringSize = context.MeasureString(OpenCandleText, _font);
-                context.DrawString(OpenCandleText, _font, LinePen.RenderObject.Color, x2 - stringSize.Width, y - stringSize.Height - Offset - 3);
+                context.DrawString(OpenCandleText, _font, LinePen.RenderObject.Color, xEnd - stringSize.Width, y - stringSize.Height - Offset - 3);
             }
         }
+
+        
 
 		protected override void OnCalculate(int bar, decimal value)
 		{

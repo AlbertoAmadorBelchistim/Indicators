@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -11,7 +11,7 @@ namespace ATAS.Indicators.Technical
 {
     [DisplayName("Chande Momentum Oscillator")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.ChandeMomentumDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602279")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602279")]
 	public class ChandeMomentum : Indicator
 	{
         #region Fields

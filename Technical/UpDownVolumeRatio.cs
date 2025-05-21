@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using ATAS.Indicators.Drawing;
@@ -11,7 +11,7 @@ namespace ATAS.Indicators.Technical
 {
     [DisplayName("Up/Down Volume Ratio")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.UpDownVolumeRatioDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000619242")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000619242")]
     public class UpDownVolumeRatio : Indicator
     {
         #region Nested Types

@@ -17,7 +17,7 @@ namespace ATAS.Indicators.Technical
     [DisplayName("Maximum Levels")]
 	[Category(IndicatorCategories.VolumeOrderFlow)]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.MaxLevelsIndDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602426")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602426")]
     public class MaxLevels : Indicator
 	{
 		#region Nested types

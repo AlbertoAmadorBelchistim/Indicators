@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System;
 	using System.ComponentModel;
@@ -11,7 +11,7 @@
 
 	[DisplayName("Chaikin Oscillator")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.ChaikinOscillatorDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602273")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602273")]
 	public class ChaikinOscillator : Indicator
 	{
 		#region Fields

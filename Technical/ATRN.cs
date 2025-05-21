@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +8,7 @@ using OFT.Localization;
 
 [DisplayName("ATR Normalized")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.ATRNDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602633")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602633")]
 public class ATRN : Indicator
 {
 	#region Fields

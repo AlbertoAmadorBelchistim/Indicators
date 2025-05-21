@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System;
 	using System.ComponentModel;
@@ -9,7 +9,7 @@
 
     [DisplayName("Volatility - Historical")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.VolatilityHistDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602266")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602266")]
 	public class VolatilityHist : Indicator
 	{
 		#region Fields

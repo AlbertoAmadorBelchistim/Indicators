@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
@@ -7,7 +7,7 @@
 
 	[DisplayName("Volume Per Trade")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.VolumePerTradeIndDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000619357")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000619357")]
     public class VolumePerTrade : Indicator
     {
 	    private ValueDataSeries _renderSeries = new("RenderSeries", Strings.Values)

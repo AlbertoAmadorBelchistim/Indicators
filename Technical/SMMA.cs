@@ -7,7 +7,7 @@ namespace ATAS.Indicators.Technical
 
 	[DisplayName("SMMA")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.SMMADescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602532")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602532")]
 	public class SMMA : Indicator
 	{
 		#region Fields

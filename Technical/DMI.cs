@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System;
 	using System.ComponentModel;
@@ -11,7 +11,7 @@
 
     [DisplayName("Dynamic Momentum Index")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.DMIDescription))] 
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602261")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602261")]
 	public class DMI : Indicator
 	{
 		#region Fields

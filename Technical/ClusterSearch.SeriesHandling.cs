@@ -275,8 +275,21 @@ public partial class ClusterSearch
 			_ => 0
 		};
 
-		var absValue = CalcType is CalcMode.Delta ? Math.Abs(value) : value;
-		var clusterSize = FixedSizes ? _size : (int)(absValue * _size / Math.Max(_minFilterValue, 1));
+		var absValue = CalcType is CalcMode.Delta 
+			? Math.Abs(value) 
+			: value;
+
+		var clusterWeight = absValue * _size / Math.Max(_minFilterValue, 1);
+
+
+        var clusterSize = FixedSizes 
+			? _size 
+			: clusterWeight switch
+			{
+				> int.MaxValue => int.MaxValue,
+                < int.MinValue => int.MinValue,
+                _ => (int)clusterWeight
+			};
 
 		if (!FixedSizes)
 		{

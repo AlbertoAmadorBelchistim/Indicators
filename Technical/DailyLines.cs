@@ -19,7 +19,7 @@ using Color = System.Drawing.Color;
 
 [DisplayName("Daily Lines")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.DailyLinesDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602284")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602284")]
 public class DailyLines : Indicator
 {
 	#region Nested types
@@ -338,11 +338,11 @@ public class DailyLines : Indicator
 			return;
 		}
 
-		var range = isCurrent || (!isCurrent && (_sessionRange.OpenBar <= _lastDefaultSession && CustomSession))
+		var range = isCurrent || (Period is PeriodType.PreviousDay && _sessionRange.OpenBar <= _lastDefaultSession && CustomSession)
 			? _sessionRange
 			: _prevSessionRange;
-		
-        var periodStr = Period switch
+
+		var periodStr = Period switch
 		{
 			PeriodType.CurrentDay => "Curr. Day",
 			PeriodType.PreviousDay => "Prev. Day",
@@ -353,11 +353,19 @@ public class DailyLines : Indicator
 			_ => throw new ArgumentOutOfRangeException()
 		};
 
-		DrawLevel(context, OpenPen, range.OpenBar, range.OpenPrice, OpenText, "Open", periodStr);
-		DrawLevel(context, HighPen, range.HighBar, range.HighPrice, HighText, "High", periodStr);
-		DrawLevel(context, LowPen, range.LowBar, range.LowPrice, LowText, "Low", periodStr);
+		var high = ChartInfo.PriceChartContainer.High;
+		var low = ChartInfo.PriceChartContainer.Low;
 
-		if (range.IsFinished)
+		if (range.OpenPrice >= low && range.OpenPrice <= high)
+			DrawLevel(context, OpenPen, range.OpenBar, range.OpenPrice, OpenText, "Open", periodStr);
+
+		if (range.HighPrice >= low && range.HighPrice <= high)
+			DrawLevel(context, HighPen, range.HighBar, range.HighPrice, HighText, "High", periodStr);
+
+		if (range.LowPrice >= low && range.LowPrice <= high)
+			DrawLevel(context, LowPen, range.LowBar, range.LowPrice, LowText, "Low", periodStr);
+
+		if (range.IsFinished && range.ClosePrice >= low && range.ClosePrice <= high)
 			DrawLevel(context, ClosePen, range.CloseBar, range.ClosePrice, CloseText, "Close", periodStr);
 	}
 

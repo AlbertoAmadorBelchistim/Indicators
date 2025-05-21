@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using ATAS.Indicators.Drawing;
 using OFT.Attributes;
@@ -10,7 +10,7 @@ using System.Drawing;
 
 [DisplayName("Moving Average")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.MovingAverageIndDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000618959")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000618959")]
 public class MovingAverage : Indicator
 {
     #region Nested Types

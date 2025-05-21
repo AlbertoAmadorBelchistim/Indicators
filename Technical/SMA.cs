@@ -10,7 +10,7 @@ namespace ATAS.Indicators.Technical
 	
     [DisplayName("SMA")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.SMADescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602468")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602468")]
 	public class SMA : Indicator
 	{
 		#region Fields

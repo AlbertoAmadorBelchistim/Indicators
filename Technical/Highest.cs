@@ -10,7 +10,7 @@ namespace ATAS.Indicators.Technical
 
 	[DisplayName("Highest")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.HighestIndDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602627")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602627")]
 	public class Highest : Indicator
 	{
 		#region Fields

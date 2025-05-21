@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using System;
 using System.Collections.Generic;
@@ -20,7 +20,7 @@ using static DynamicLevels;
 [Category(IndicatorCategories.VolumeOrderFlow)]
 [DisplayName("Cluster Search")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.ClusterSearchDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602240")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602240")]
 public partial class ClusterSearch : Indicator
 {
 	#region Fields
@@ -354,7 +354,7 @@ public partial class ClusterSearch : Indicator
 
 			if (highValue < candle.High)
 			{
-				for (var i = 0; i < _lastSeriesBar.Count; i++)
+                for (var i = _lastSeriesBar.Count - 1; i >= 0 ; i--)
 				{
 					var item = _lastSeriesBar[i];
 
@@ -666,9 +666,8 @@ public partial class ClusterSearch : Indicator
 	private void UpdateCumulativeCachePerBar(int bar)
 	{
 		var candle = GetCandle(bar);
-		var highPrice = candle.High - (PriceRange - 1) * InstrumentInfo.TickSize;
-
-		for (var iPrice = candle.Low; iPrice <= highPrice; iPrice += InstrumentInfo.TickSize)
+		
+		for (var iPrice = candle.Low; iPrice <= candle.High; iPrice += InstrumentInfo.TickSize)
 			CreateLevelCache(bar, iPrice);
 	}
 

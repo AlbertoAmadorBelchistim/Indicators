@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,7 @@ using Rectangle = System.Drawing.Rectangle;
 
 [DisplayName("Volume-based Support & Resistance Zones")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.VolumeSupResZonesDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000619397")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000619397")]
 public class VolumeSupResZones : Indicator
  {
     #region Nested Types

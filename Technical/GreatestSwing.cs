@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
     using System;
     using System.ComponentModel;
@@ -11,7 +11,7 @@
 
     [DisplayName("Greatest Swing Value")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.GreatestSwingDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602635")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602635")]
 	public class GreatestSwing : Indicator
 	{
 		#region Fields

@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System;
 	using System.ComponentModel;
@@ -9,7 +9,7 @@
 
     [DisplayName("Full Contract Value")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.FCVDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602389")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602389")]
 	public class FCV : Indicator
 	{
 		#region Fields

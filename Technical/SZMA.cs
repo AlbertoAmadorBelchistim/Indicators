@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System;
 	using System.ComponentModel;
@@ -9,7 +9,7 @@
 
     [DisplayName("Simple Moving Average - Skip Zeros")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.SZMADescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602237")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602237")]
 	public class SZMA : Indicator
 	{
 		#region Fields
