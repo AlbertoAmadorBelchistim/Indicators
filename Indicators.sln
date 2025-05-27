@@ -1,20 +1,32 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30011.22
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.36105.23 d17.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Technical", "Technical\Technical.csproj", "{61D0B4A8-43DD-40FA-9FC9-9CF8BA0ADC2D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Indicators.Technical", "Technical\Indicators.Technical.csproj", "{5DEFE647-9131-CFA5-1F9D-CD3137CECBBB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|Cross = Debug|Cross
+		Publish|Any CPU = Publish|Any CPU
+		Publish|Cross = Publish|Cross
 		Release|Any CPU = Release|Any CPU
+		Release|Cross = Release|Cross
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{61D0B4A8-43DD-40FA-9FC9-9CF8BA0ADC2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{61D0B4A8-43DD-40FA-9FC9-9CF8BA0ADC2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{61D0B4A8-43DD-40FA-9FC9-9CF8BA0ADC2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{61D0B4A8-43DD-40FA-9FC9-9CF8BA0ADC2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DEFE647-9131-CFA5-1F9D-CD3137CECBBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DEFE647-9131-CFA5-1F9D-CD3137CECBBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DEFE647-9131-CFA5-1F9D-CD3137CECBBB}.Debug|Cross.ActiveCfg = Debug|Cross
+		{5DEFE647-9131-CFA5-1F9D-CD3137CECBBB}.Debug|Cross.Build.0 = Debug|Cross
+		{5DEFE647-9131-CFA5-1F9D-CD3137CECBBB}.Publish|Any CPU.ActiveCfg = Publish|Any CPU
+		{5DEFE647-9131-CFA5-1F9D-CD3137CECBBB}.Publish|Any CPU.Build.0 = Publish|Any CPU
+		{5DEFE647-9131-CFA5-1F9D-CD3137CECBBB}.Publish|Cross.ActiveCfg = Publish|Cross
+		{5DEFE647-9131-CFA5-1F9D-CD3137CECBBB}.Publish|Cross.Build.0 = Publish|Cross
+		{5DEFE647-9131-CFA5-1F9D-CD3137CECBBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DEFE647-9131-CFA5-1F9D-CD3137CECBBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DEFE647-9131-CFA5-1F9D-CD3137CECBBB}.Release|Cross.ActiveCfg = Release|Cross
+		{5DEFE647-9131-CFA5-1F9D-CD3137CECBBB}.Release|Cross.Build.0 = Release|Cross
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
