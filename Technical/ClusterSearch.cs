@@ -311,12 +311,23 @@ public partial class ClusterSearch : Indicator
 			RemoveOldSelection(bar, trade.Price);
 			return;
 		}
-
+		
 		var ranges = GetPriceRanges(bar, endPrice);
+
+		var changedDirection = false;
+
+		if (_lastPrice != trade.Price)
+		{
+			changedDirection = _lastPrice >= candle.Open && trade.Price < candle.Open
+				||
+				_lastPrice <= candle.Open && trade.Price > candle.Open
+				||
+				_lastPrice == candle.Open;
+		}
 
 		foreach (var range in ranges)
 		{
-			if (trade.Price < range.From || trade.Price > range.To)
+			if ((trade.Price < range.From || trade.Price > range.To) && !changedDirection)
 				continue;
 
 			RemoveOldSelection(bar, trade.Price);
