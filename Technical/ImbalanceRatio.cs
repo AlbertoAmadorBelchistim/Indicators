@@ -8,14 +8,12 @@ using System.Linq;
 
 using ATAS.DataFeedsCore;
 
-using MoreLinq;
-
 using OFT.Attributes;
 using OFT.Localization;
 using OFT.Rendering.Context;
 using OFT.Rendering.Tools;
 
-using Color = System.Drawing.Color;
+using Utils.Common.Collections;
 
 [DisplayName("Imbalance Ratio")]
 [Category(IndicatorCategories.VolumeOrderFlow)]

@@ -8,10 +8,11 @@ using System.Linq;
 
 using ATAS.Indicators.Drawing;
 
-using MoreLinq;
 using OFT.Attributes;
 using OFT.Localization;
 using OFT.Rendering.Settings;
+
+using Utils.Common.Collections;
 
 [DisplayName("TD Sequential")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.TDSequentialDescription))]
