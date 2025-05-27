@@ -631,7 +631,7 @@ public partial class ClusterSearch : Indicator
 		{
 			var curPerc = 100 * fullLevel.Volume / _mergedLevels.TotalVolume;
 
-			if (curPerc < MinPercent || curPerc > MaxPercent)
+			if (curPerc < MinPercent || MaxPercent is not 0 && curPerc > MaxPercent)
 				return false;
 		}
 
