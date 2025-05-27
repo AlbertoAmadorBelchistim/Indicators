@@ -73,3 +73,6 @@ sn.snk
 
 # DevExp files
 __temp_file_*
+
+*.DotSettings
+/Indicators.sln.DotSettings
