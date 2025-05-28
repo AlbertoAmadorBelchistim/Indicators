@@ -180,7 +180,7 @@ public class Delta : Indicator
 	private DeltaVisualMode _mode = DeltaVisualMode.Candles;
 
 	private decimal _negativeAlertFilter;
-	private CrossColor _neutralColor = Color.Gray.Convert();
+	private Color _neutralColor = Color.Gray;
 	private decimal _prevDeltaValue;
 	private bool _showCurrentValues = true;
 
@@ -509,6 +509,12 @@ public class Delta : Indicator
 			return;
 
 		_currentValues[bar] = MinimizedMode ? absDelta : deltaValue;
+
+		_currentValues.Colors[bar] = deltaValue > 0
+			? _upColor
+			: deltaValue < 0
+				? _downColor
+				: _neutralColor;
 	}
 
 	#endregion
@@ -652,10 +658,10 @@ public class Delta : Indicator
 		Description = nameof(Strings.NeutralValueDescription), Order = 60)]
 	public CrossColor NeutralColor
 	{
-		get => _neutralColor;
+		get => _neutralColor.Convert();
 		set
 		{
-			_neutralColor = value;
+			_neutralColor = value.Convert();
 			_candles.BorderColor = _downCandles.BorderColor = value;
 			_diapasonHigh.Color = _diapasonLow.Color = value;
 		}
