@@ -839,8 +839,8 @@ public class DOM : Indicator
 		var askRowWidth = (int)Math.Round(MarketDepthInfo.CumulativeDomAsks * (maxWidth - 1) / totalVolume);
 		var bidRowWidth = maxWidth - askRowWidth;
 		var yRect = ChartInfo.Region.Bottom - height;
-		var bidStr = $"{MarketDepthInfo.CumulativeDomBids:0.##}";
-		var askStr = $"{MarketDepthInfo.CumulativeDomAsks:0.##}";
+		var bidStr = ChartInfo.TryGetMinimizedVolumeString(MarketDepthInfo.CumulativeDomBids);
+        var askStr = ChartInfo.TryGetMinimizedVolumeString(MarketDepthInfo.CumulativeDomAsks);
 
 		var askWidth = g.MeasureString(askStr, _cumulativeFont).Width;
 		var bidWidth = g.MeasureString(bidStr, _cumulativeFont).Width;
