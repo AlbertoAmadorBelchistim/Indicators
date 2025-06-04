@@ -6,8 +6,6 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-using MoreLinq;
-
 using OFT.Attributes;
 using OFT.Localization;
 
@@ -311,12 +309,23 @@ public partial class ClusterSearch : Indicator
 			RemoveOldSelection(bar, trade.Price);
 			return;
 		}
-
+		
 		var ranges = GetPriceRanges(bar, endPrice);
+
+		var changedDirection = false;
+
+		if (_lastPrice != trade.Price)
+		{
+			changedDirection = _lastPrice >= candle.Open && trade.Price < candle.Open
+				||
+				_lastPrice <= candle.Open && trade.Price > candle.Open
+				||
+				_lastPrice == candle.Open;
+		}
 
 		foreach (var range in ranges)
 		{
-			if (trade.Price < range.From || trade.Price > range.To)
+			if ((trade.Price < range.From || trade.Price > range.To) && !changedDirection)
 				continue;
 
 			RemoveOldSelection(bar, trade.Price);
@@ -620,7 +629,7 @@ public partial class ClusterSearch : Indicator
 		{
 			var curPerc = 100 * fullLevel.Volume / _mergedLevels.TotalVolume;
 
-			if (curPerc < MinPercent || curPerc > MaxPercent)
+			if (curPerc < MinPercent || MaxPercent is not 0 && curPerc > MaxPercent)
 				return false;
 		}
 
