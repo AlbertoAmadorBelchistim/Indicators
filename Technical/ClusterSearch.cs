@@ -750,7 +750,7 @@ public partial class ClusterSearch : Indicator
 		level.Volume += trade.Volume;
 		level.Ticks++;
 
-		_mergedLevels.AddVolume(level);
+        _mergedLevels[trade.Price] = level;
     }
 
 	//Update data series values size on properties change
