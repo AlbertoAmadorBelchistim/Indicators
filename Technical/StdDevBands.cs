@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System;
 	using System.ComponentModel;
@@ -11,7 +11,7 @@
 
     [DisplayName("Standard Deviation Bands")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.StdDevBandsDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602614")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602614")]
 	public class StdDevBands : Indicator
 	{
         #region Fields

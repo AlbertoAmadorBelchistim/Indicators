@@ -11,7 +11,7 @@ using OFT.Localization;
 
 [DisplayName("Daily HighLow")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.DailyHighLowDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602609")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602609")]
 public class DailyHighLow : Indicator
 {
 	#region Fields

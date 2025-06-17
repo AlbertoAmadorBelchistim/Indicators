@@ -1,12 +1,10 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-
-using MoreLinq;
 
 using OFT.Attributes;
 using OFT.Localization;
@@ -20,7 +18,7 @@ using static DynamicLevels;
 [Category(IndicatorCategories.VolumeOrderFlow)]
 [DisplayName("Cluster Search")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.ClusterSearchDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602240")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602240")]
 public partial class ClusterSearch : Indicator
 {
 	#region Fields
@@ -311,12 +309,23 @@ public partial class ClusterSearch : Indicator
 			RemoveOldSelection(bar, trade.Price);
 			return;
 		}
-
+		
 		var ranges = GetPriceRanges(bar, endPrice);
+
+		var changedDirection = false;
+
+		if (_lastPrice != trade.Price)
+		{
+			changedDirection = _lastPrice >= candle.Open && trade.Price < candle.Open
+				||
+				_lastPrice <= candle.Open && trade.Price > candle.Open
+				||
+				_lastPrice == candle.Open;
+		}
 
 		foreach (var range in ranges)
 		{
-			if (trade.Price < range.From || trade.Price > range.To)
+			if ((trade.Price < range.From || trade.Price > range.To) && !changedDirection)
 				continue;
 
 			RemoveOldSelection(bar, trade.Price);
@@ -354,7 +363,7 @@ public partial class ClusterSearch : Indicator
 
 			if (highValue < candle.High)
 			{
-				for (var i = 0; i < _lastSeriesBar.Count; i++)
+                for (var i = _lastSeriesBar.Count - 1; i >= 0 ; i--)
 				{
 					var item = _lastSeriesBar[i];
 
@@ -620,7 +629,7 @@ public partial class ClusterSearch : Indicator
 		{
 			var curPerc = 100 * fullLevel.Volume / _mergedLevels.TotalVolume;
 
-			if (curPerc < MinPercent || curPerc > MaxPercent)
+			if (curPerc < MinPercent || MaxPercent is not 0 && curPerc > MaxPercent)
 				return false;
 		}
 
@@ -666,9 +675,8 @@ public partial class ClusterSearch : Indicator
 	private void UpdateCumulativeCachePerBar(int bar)
 	{
 		var candle = GetCandle(bar);
-		var highPrice = candle.High - (PriceRange - 1) * InstrumentInfo.TickSize;
-
-		for (var iPrice = candle.Low; iPrice <= highPrice; iPrice += InstrumentInfo.TickSize)
+		
+		for (var iPrice = candle.Low; iPrice <= candle.High; iPrice += InstrumentInfo.TickSize)
 			CreateLevelCache(bar, iPrice);
 	}
 
@@ -742,7 +750,7 @@ public partial class ClusterSearch : Indicator
 		level.Volume += trade.Volume;
 		level.Ticks++;
 
-		_mergedLevels.AddVolume(level);
+        _mergedLevels[trade.Price] = level;
     }
 
 	//Update data series values size on properties change

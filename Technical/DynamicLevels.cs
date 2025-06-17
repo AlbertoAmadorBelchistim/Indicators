@@ -19,7 +19,7 @@ using Utils.Common.Logging;
 [DisplayName("Dynamic Levels")]
 [Category(IndicatorCategories.VolumeOrderFlow)]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.DynamicLevelsDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602380")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602380")]
 public class DynamicLevels : Indicator
 {
 	#region Nested types

@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
@@ -8,7 +8,7 @@
 
     [DisplayName("Clear Method Swing Line")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.CMSDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602257")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602257")]
 	public class CMS : Indicator
 	{
 		#region Fields

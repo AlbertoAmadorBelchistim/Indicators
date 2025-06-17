@@ -10,7 +10,7 @@ using OFT.Localization;
 [Category(IndicatorCategories.OrderBook)]
 [DisplayName("DOM Power")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.DomPowerDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602374")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602374")]
 public class DomPower : Indicator
 {
 	#region Fields

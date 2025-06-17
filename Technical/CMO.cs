@@ -9,7 +9,7 @@ namespace ATAS.Indicators.Technical
 
     [DisplayName("Chaikin Money Oscillator")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.CMODescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602299")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602299")]
 	public class CMO : Indicator
 	{
 		#region Fields

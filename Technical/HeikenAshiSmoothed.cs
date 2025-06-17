@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System;
 	using System.ComponentModel;
@@ -9,7 +9,7 @@
 
     [DisplayName("Heiken Ashi Smoothed")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.HeikenAshiSmoothedDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602392")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602392")]
 	public class HeikenAshiSmoothed : Indicator
 	{
 		#region Fields

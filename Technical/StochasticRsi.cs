@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System;
 	using System.ComponentModel;
@@ -9,7 +9,7 @@
 
     [DisplayName("Stochastic RSI")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.StochasticRsiDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602481")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602481")]
 	public class StochasticRsi : Indicator
 	{
 		#region Fields

@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System.ComponentModel;
 	using System.ComponentModel.DataAnnotations;
@@ -10,7 +10,7 @@
 
     [DisplayName("Price Momentum Oscillator")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.MomentumOscillatorDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602449")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602449")]
 	public class MomentumOscillator : Indicator
 	{
 		#region Fields

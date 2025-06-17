@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System.ComponentModel;
 	using System.ComponentModel.DataAnnotations;
@@ -8,7 +8,7 @@
 
     [DisplayName("Inertia V2")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.InertiaV2IndDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602405")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602405")]
 	public class Inertia2 : Indicator
 	{
 		#region Fields

@@ -9,8 +9,9 @@ namespace ATAS.Indicators.Technical
     using Utils.Common;
     
     [DisplayName("Open Interest")]
+    [Category(IndicatorCategories.VolumeOrderFlow)]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.OpenInterestDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602439")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602439")]
 	public class OpenInterest : Indicator
 	{
         #region Nested types

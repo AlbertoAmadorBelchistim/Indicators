@@ -11,7 +11,7 @@ namespace ATAS.Indicators.Technical
 
     [DisplayName("EMA")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.EMADescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602641")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602641")]
 	public class EMA : Indicator
 	{
 		#region Fields

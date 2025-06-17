@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System.ComponentModel;
 	using System.ComponentModel.DataAnnotations;
@@ -10,7 +10,7 @@
 
     [DisplayName("Directional Movement Index")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.DmIndexDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602285")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602285")]
 	public class DmIndex : Indicator
 	{
 		#region Fields

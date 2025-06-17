@@ -19,7 +19,7 @@ namespace ATAS.Indicators.Technical
     [DisplayName("Speed of Tape")]
 	[Category(IndicatorCategories.VolumeOrderFlow)]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.SpeedOfTapeDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602472")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602472")]
 	public class SpeedOfTape : Indicator
 	{
 		#region Nested types

@@ -9,7 +9,7 @@ namespace ATAS.Indicators.Technical
 
 	[DisplayName("Mean Deviation")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.MeanDevDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602428")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602428")]
 	public class MeanDev : Indicator
 	{
 		#region Fields

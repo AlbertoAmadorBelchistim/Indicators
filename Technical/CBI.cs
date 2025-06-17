@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
@@ -10,7 +10,7 @@
 
     [DisplayName("Connie Brown Composite Index")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.CBIDescription))] 
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602601")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602601")]
 	public class CBI : Indicator
 	{
 		#region Fields
@@ -116,16 +116,16 @@
 		{
 			Panel = IndicatorDataProvider.NewPanel;
 			_momentum.Period = 9;
-			_rsi1.Period = 3;
-			_rsi2.Period = 14;
+			_rsi1.Period = 14;
+			_rsi2.Period = 3;
 
 			_sma1.Period = 3;
 			_sma2.Period = 13;
 			_sma3.Period = 33;
 
 			_cbi1Series.Color = DefaultColors.Red.Convert();
-			_cbi2Series.Color = DefaultColors.Orange.Convert();
-			_cbi3Series.Color = DefaultColors.Green.Convert();
+			_cbi2Series.Color = DefaultColors.Green.Convert();
+			_cbi3Series.Color = DefaultColors.Orange.Convert();
 
 			DataSeries[0] = _cbi1Series;
 			DataSeries.Add(_cbi2Series);

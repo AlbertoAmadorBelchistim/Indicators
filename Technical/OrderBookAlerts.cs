@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using System;
 using System.Collections.Generic;
@@ -12,8 +12,9 @@ using OFT.Rendering.Context;
 using Color = System.Drawing.Color;
 
 [DisplayName("Order Book Alerts")]
+[Category(IndicatorCategories.OrderBook)]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.OrderBookAlertsIndDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000619055")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000619055")]
 public class OrderBookAlerts : Indicator
 {
     #region Nested Types

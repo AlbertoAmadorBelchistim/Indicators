@@ -10,7 +10,7 @@ namespace ATAS.Indicators.Technical
 {
     [DisplayName("DI+")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.DIPosIndDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000621049")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000621049")]
 	public class DIPos : Indicator
 	{
 		#region Fields

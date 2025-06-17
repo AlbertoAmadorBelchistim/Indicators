@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using System;
 using System.ComponentModel;
@@ -8,14 +8,15 @@ using System.Linq;
 
 using ATAS.Indicators.Drawing;
 
-using MoreLinq;
 using OFT.Attributes;
 using OFT.Localization;
 using OFT.Rendering.Settings;
 
+using Utils.Common.Collections;
+
 [DisplayName("TD Sequential")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.TDSequentialDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000619193")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000619193")]
 public class TDSequential : Indicator
 {
 	#region Static and constants

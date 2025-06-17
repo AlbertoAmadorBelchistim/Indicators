@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System;
 	using System.Collections.Concurrent;
@@ -15,7 +15,7 @@
     [Category(IndicatorCategories.VolumeOrderFlow)]
 	[DisplayName("CVD pro / Market Power")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.MarketPowerDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602424")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602424")]
 	public class MarketPower : Indicator
 	{
 		#region Fields

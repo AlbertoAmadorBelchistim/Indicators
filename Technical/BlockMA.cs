@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +8,7 @@ using OFT.Localization;
 
 [DisplayName("Block Moving Average")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.BlockMADescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602335")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602335")]
 public class BlockMA : Indicator
 {
 	#region Fields

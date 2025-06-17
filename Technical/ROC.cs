@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System;
 	using System.ComponentModel;
@@ -9,7 +9,7 @@
 
     [DisplayName("Rate of Change")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.ROCDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602454")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602454")]
 	public class ROC : Indicator
 	{
 		#region Nested types

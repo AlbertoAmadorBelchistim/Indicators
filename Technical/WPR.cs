@@ -10,7 +10,7 @@ namespace ATAS.Indicators.Technical
 
 	[DisplayName("WPR")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.WPRDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602249")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602249")]
 	public class WPR : Indicator
 	{
 		#region Fields

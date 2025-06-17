@@ -9,7 +9,7 @@ namespace ATAS.Indicators.Technical
 
 	[DisplayName("Linear Regression")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.LinearRegIndDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602415")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602415")]
 	public class LinearReg : Indicator
 	{
 		#region Fields

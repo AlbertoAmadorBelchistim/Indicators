@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using System;
 using System.Collections.Generic;
@@ -25,7 +25,7 @@ using Color = System.Drawing.Color;
 [Category(IndicatorCategories.OrderBook)]
 [DisplayName("Depth Of Market")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.DOMDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602367")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602367")]
 public class DOM : Indicator
 {
 	#region Nested types
@@ -58,7 +58,7 @@ public class DOM : Indicator
 	#region Static and constants
 
 	private const int _fontSize = 10;
-	private const int _unitedVolumeHeight = 15;
+	private const int _minFontHeight = 10;
 	private const int _heightToSolidMode = 4;
 
     #endregion
@@ -101,8 +101,10 @@ public class DOM : Indicator
 	private MultiColorsHistogramRender _cumulativeHistogram;
 	private Dictionary<decimal, Color> _filteredColors = new();
 
-	private RenderFont _font = new("Arial", _fontSize);
-	private object _locker = new();
+	private RenderFont _font = new("Arial", _fontSize); 
+	private RenderFont _cumulativeFont = new("Arial", 9);
+
+    private object _locker = new();
 
 	private decimal _maxBid;
 	private decimal _maxPrice = decimal.MinValue;
@@ -115,6 +117,7 @@ public class DOM : Indicator
 	private int _priceLevelsHeight;
 	private int _lastRenderedHeight;
 	private int _scale;
+	private int _fontHeight;
 
 	private List<FilterColor> _sortedFilters = new();
 	private Color _textColor;
@@ -418,10 +421,10 @@ public class DOM : Indicator
 
         height = height < 1 ? 1 : height;
 
-        if (_lastRenderedHeight != height && height < 20)
+        if (_lastRenderedHeight != height && _font.Size < ChartInfo.PriceAxisFont.Size && height >= _minFontHeight
+            || _lastRenderedHeight is 0 || _fontHeight > height)
         {
-	        var textAutoSize = GetTextSize(context, height);
-	        _font = new RenderFont("Arial", textAutoSize);
+	        SetTextSize(context, height);
 	        _lastRenderedHeight = height;
         }
 
@@ -466,10 +469,6 @@ public class DOM : Indicator
 			var currentPriceY = chartInfo.GetYByPrice(currentPrice);
 			
 			DrawBackGround(context, currentPriceY);
-
-
-			var chartHigh = chartInfo.PriceChartContainer.High;
-			var chartLow = chartInfo.PriceChartContainer.Low;
 
 			lock (_locker)
 			{
@@ -534,11 +533,11 @@ public class DOM : Indicator
 						if (!_filteredColors.TryGetValue(priceDepth.Price, out var fillColor))
 							fillColor = _askColor;
 
-						if (_font.Size >= _heightToSolidMode)
+						if (_fontHeight >= _heightToSolidMode)
 						{
 							context.FillRectangle(fillColor, rect);
 
-							if (_font.Size > 4)
+							if (_fontHeight > _minFontHeight)
 							{
 								var renderText = chartInfo.TryGetMinimizedVolumeString(priceDepth.Volume, priceDepth.Price);
 								var textWidth = context.MeasureString(renderText, _font).Width + 5;
@@ -619,9 +618,9 @@ public class DOM : Indicator
 						if (!_filteredColors.TryGetValue(priceDepth.Price, out var fillColor))
 							fillColor = _bidColor;
 
-						if (_font.Size >= _heightToSolidMode)
+						if (_fontHeight >= _heightToSolidMode)
 						{
-							if (_font.Size > 4)
+							if (_fontHeight > _minFontHeight)
 							{
 								var renderText = chartInfo.TryGetMinimizedVolumeString(priceDepth.Volume, priceDepth.Price);
 								var textWidth = context.MeasureString(renderText, _font).Width + 5;
@@ -640,7 +639,7 @@ public class DOM : Indicator
 					}
 				}
 
-				if (_font.Size < _heightToSolidMode)
+				if (_fontHeight < _heightToSolidMode)
 				{
 					_asksHistogram?.Draw(context, _askColor, true);
 					_bidsHistogram?.Draw(context, _bidColor, true);
@@ -828,7 +827,7 @@ public class DOM : Indicator
 
 	#region Private methods
 
-	private void DrawCumulativeValues(RenderContext context)
+    private void DrawCumulativeValues(RenderContext g)
 	{
 		var maxWidth = (int)Math.Round(ChartInfo.Region.Width * 0.2m);
 		var totalVolume = MarketDepthInfo.CumulativeDomAsks + MarketDepthInfo.CumulativeDomBids;
@@ -836,16 +835,15 @@ public class DOM : Indicator
 		if (totalVolume == 0)
 			return;
 
-		var font = new RenderFont("Arial", 9);
-
+		var height = g.MeasureString("12", _cumulativeFont).Height;
 		var askRowWidth = (int)Math.Round(MarketDepthInfo.CumulativeDomAsks * (maxWidth - 1) / totalVolume);
 		var bidRowWidth = maxWidth - askRowWidth;
-		var yRect = ChartInfo.Region.Bottom - _unitedVolumeHeight;
-		var bidStr = $"{MarketDepthInfo.CumulativeDomBids:0.##}";
-		var askStr = $"{MarketDepthInfo.CumulativeDomAsks:0.##}";
+		var yRect = ChartInfo.Region.Bottom - height;
+		var bidStr = ChartInfo.TryGetMinimizedVolumeString(MarketDepthInfo.CumulativeDomBids);
+        var askStr = ChartInfo.TryGetMinimizedVolumeString(MarketDepthInfo.CumulativeDomAsks);
 
-		var askWidth = context.MeasureString(askStr, font).Width;
-		var bidWidth = context.MeasureString(bidStr, font).Width;
+		var askWidth = g.MeasureString(askStr, _cumulativeFont).Width;
+		var bidWidth = g.MeasureString(bidStr, _cumulativeFont).Width;
 
 		if (askWidth > askRowWidth && MarketDepthInfo.CumulativeDomAsks != 0)
 		{
@@ -864,17 +862,17 @@ public class DOM : Indicator
 		if (askRowWidth > 0)
 		{
 			var askRect = new Rectangle(new Point(ChartInfo.Region.Width - askRowWidth, yRect),
-				new Size(askRowWidth, _unitedVolumeHeight));
-			context.FillRectangle(_volumeAskColor, askRect);
-			context.DrawString(askStr, font, _bidColor, askRect, _stringLeftFormat);
+				new Size(askRowWidth, height));
+			g.FillRectangle(_volumeAskColor, askRect);
+			g.DrawString(askStr, _cumulativeFont, _bidColor, askRect, _stringLeftFormat);
 		}
 
 		if (bidRowWidth > 0)
 		{
 			var bidRect = new Rectangle(new Point(ChartInfo.Region.Width - maxWidth, yRect),
-				new Size(bidRowWidth, _unitedVolumeHeight));
-			context.FillRectangle(_volumeBidColor, bidRect);
-			context.DrawString(bidStr, font, _askColor, bidRect, _stringRightFormat);
+				new Size(bidRowWidth, height));
+			g.FillRectangle(_volumeBidColor, bidRect);
+			g.DrawString(bidStr, _cumulativeFont, _askColor, bidRect, _stringRightFormat);
 		}
 	}
 
@@ -965,7 +963,7 @@ public class DOM : Indicator
 				new Size(textWidth, (int)ChartInfo.PriceChartContainer.PriceRowHeight));
 		}
 
-		if (_font.Size >= 6)
+		if (_fontHeight >= _minFontHeight)
 		{
 			context.DrawString(renderText,
 				_font,
@@ -1059,17 +1057,23 @@ public class DOM : Indicator
 		}
 	}
 
-	private int GetTextSize(RenderContext context, int height)
+	private void SetTextSize(RenderContext context, int height)
 	{
-		for (var i = _fontSize; i > 0; i--)
+		for (var i = ChartInfo.PriceAxisFont.Size; i > 0; i--)
 		{
-            var size = context.MeasureString("12", new RenderFont("Arial", i));
+			var font = new RenderFont(ChartInfo.PriceAxisFont.FontFamily, i);
+            var size = context.MeasureString("12", font);
 
-            if (size.Height < height + 4)
-				return i;
+            if (size.Height >= height + 4)
+	            continue;
+
+            _font = font;
+            _fontHeight = size.Height;
+            return;
 		}
 
-		return 0;
+		_font = new RenderFont(ChartInfo.PriceAxisFont.FontFamily, 0);
+		_fontHeight = 0;
 	}
 
 	#endregion

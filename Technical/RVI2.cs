@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
     using System.ComponentModel;
 	using System.ComponentModel.DataAnnotations;
@@ -9,7 +9,7 @@
 
     [DisplayName("RVI V2")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.RVI2Description))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602642")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602642")]
 	public class RVI2 : Indicator
 	{
 		#region Fields

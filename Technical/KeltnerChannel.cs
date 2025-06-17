@@ -11,7 +11,7 @@ namespace ATAS.Indicators.Technical
 
     [DisplayName("Keltner Channel")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.KeltnerChannelDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602574")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602574")]
 	public class KeltnerChannel : Indicator
 	{
 		#region Fields

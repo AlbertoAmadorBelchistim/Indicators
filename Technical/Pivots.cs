@@ -17,7 +17,7 @@ namespace ATAS.Indicators.Technical
     
     [DisplayName("Pivots")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.PivotsDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602446")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602446")]
     public class Pivots : Indicator
     {
         #region Nested types
@@ -66,7 +66,7 @@ namespace ATAS.Indicators.Technical
 
         public enum Formula
         {
-            [Display(Name = "PP +/- 2(High – Low)")]
+            [Display(Name = "PP +/- 2(High ï¿½ Low)")]
             HighLow,
             [Display(Name = "High/Low + 2(PP - Low/High)")]
             PpHighLow

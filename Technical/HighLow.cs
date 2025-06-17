@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
@@ -10,7 +10,7 @@
 
     [DisplayName("Highest High/Lowest Low Over N Bars")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.HighLowIndDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602244")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602244")]
 	public class HighLow : Indicator
 	{
 		#region Fields

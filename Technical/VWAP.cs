@@ -8,8 +8,9 @@ using OFT.Attributes;
 using OFT.Localization;
 
 [DisplayName("VWAP/TWAP")]
+[Category(IndicatorCategories.VolumeOrderFlow)]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.VWAPDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000602503")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000602503")]
 public class VWAP : Indicator
 {
     #region Nested types
@@ -210,7 +211,6 @@ public class VWAP : Indicator
     private int _days;
     private bool _isReserved;
 
-    private int _period = 300;
     private VWAPPeriodType _periodType = VWAPPeriodType.Daily;
     private bool _showFirstPeriod;
     private decimal _stdev = 1;
@@ -368,17 +368,9 @@ public class VWAP : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.TwapPeriod), GroupName = nameof(Strings.Settings), Description = nameof(Strings.PeriodDescription), Order = 30)]
-    [Range(1, 10000)]
-    public int Period
-    {
-        get => _period;
-        set
-        {
-            _period = Math.Max(value, 1);
-            RecalculateValues();
-        }
-    }
+    [Browsable(false)]
+    [Obsolete]
+    public int Period { get; set; } = 300;
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.FirstDev), GroupName = nameof(Strings.Settings), Description = nameof(Strings.StdDevPeriodDescription), Order = 40)]
     [Range(0.0000001, 10000)]

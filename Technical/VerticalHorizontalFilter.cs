@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using System;
 using System.ComponentModel;
@@ -10,7 +10,7 @@ using OFT.Localization;
 
 [DisplayName("Vertical Horizontal Filter")]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.VerticalHorizontalFilterDescription))]
-[HelpLink("https://help.atas.net/en/support/solutions/articles/72000619282")]
+[HelpLink("https://help.atas.net/support/solutions/articles/72000619282")]
 public class VerticalHorizontalFilter : Indicator
 {
     #region Nested Types

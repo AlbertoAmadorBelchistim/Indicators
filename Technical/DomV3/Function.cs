@@ -45,9 +45,11 @@ public partial class MainIndicator
         return w;
     }
 
+    private int _lastHeight;
+
     private (float fontSize, float fontWidth) SetFontSize(RenderContext context, decimal maxHeight)
     {
-	    var maxFontSize = 15;
+	    var maxFontSize = (decimal)ChartInfo.PriceAxisFont.Size;
 
         if (maxHeight < 2) 
 	        return (0, 0);
@@ -64,9 +66,6 @@ public partial class MainIndicator
 
         var indicate = maxHeight - 2;
         
-        if (indicate > maxFontSize) 
-	        indicate = maxFontSize;
-
         _font = new RenderFont("Arial", (float)bestSize);
         do
         {
@@ -89,6 +88,7 @@ public partial class MainIndicator
                 bestW = size.Width;
 
                 _font = new RenderFont(_font.FontFamily, (float)((decimal)_font.Size + increment));
+                _lastHeight = size.Height;
                 continue;
             }
 
@@ -98,15 +98,16 @@ public partial class MainIndicator
                 if (direction == 1) break;
 
                 _font = new RenderFont(_font.FontFamily, (float)((decimal)_font.Size - increment));
-
+                _lastHeight = size.Height;
                 bestSize = _font.Size;
                 bestW = size.Width;
 
                 continue;
             }
-        } while (x++ <= 100);
+        } 
+        while (x++ <= 100);
 
-       _cacheFontSize = (bestSize, bestW);
+		_cacheFontSize = (bestSize, bestW);
         _cacheMaxHeight = maxHeight;
 
         return (bestSize, bestW);

@@ -1,4 +1,4 @@
-﻿namespace ATAS.Indicators.Technical
+namespace ATAS.Indicators.Technical
 {
 	using System.ComponentModel;
 	using System.ComponentModel.DataAnnotations;
@@ -10,7 +10,7 @@
 
     [DisplayName("Momentum Trend")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.MomentumTrendDescription))]
-    [HelpLink("https://help.atas.net/en/support/solutions/articles/72000602636")]
+    [HelpLink("https://help.atas.net/support/solutions/articles/72000602636")]
 	public class MomentumTrend : Indicator
 	{
 		#region Fields
