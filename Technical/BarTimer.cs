@@ -93,7 +93,6 @@ namespace ATAS.Indicators.Technical
 		private int _lastSecond = -1;
 		private bool _offsetIsSet;
 		private Color _textColor;
-		private TimeSpan _timeDiff;
 		private Location _timeLocation;
 		private CrossColor _textBeforeColor = DefaultColors.Red.Convert();
 		private CrossColor _areaBeforeColor = DefaultColors.Yellow.Convert();
@@ -228,7 +227,6 @@ namespace ATAS.Indicators.Technical
 			{
 				_lastBeforeAlert = -1;
 				_customOffset = 0;
-				_timeDiff = TimeSpan.Zero;
 				_offsetIsSet = false;
 				_barLength = CalculateBarLength();
 
@@ -259,15 +257,9 @@ namespace ATAS.Indicators.Technical
             }
 
             if (frameType is "Seconds" or "TimeFrame")
-				_endTime = candle.Time.AddSeconds(_barLength);
+                _endTime = candle.Time.AddSeconds(_barLength);
 
-			
-
-			var lastCandle = GetCandle(bar);
-
-			_timeDiff = MarketTime - lastCandle.LastTime;
-
-			_lastBar = bar;
+            _lastBar = bar;
 		}
 
 		protected override void OnRender(RenderContext context, DrawingLayouts layout)
@@ -415,7 +407,13 @@ namespace ATAS.Indicators.Technical
 
         private TimeSpan CurrentDifference()
 		{
-			return _endTime - MarketTime + _timeDiff;
+			var timeleft = _endTime - MarketTime;
+
+			// when the bar is done but no new candles arrived
+			if (timeleft <= TimeSpan.Zero)
+				timeleft += TimeSpan.FromSeconds(_barLength);
+
+			return timeleft;
 		}
 
 		private int CalculateBarLength()
