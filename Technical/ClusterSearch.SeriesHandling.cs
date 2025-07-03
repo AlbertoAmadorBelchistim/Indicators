@@ -281,7 +281,6 @@ public partial class ClusterSearch
 
 		var clusterWeight = absValue * _size / Math.Max(_minFilterValue, 1);
 
-
         var clusterSize = FixedSizes 
 			? _size 
 			: clusterWeight switch

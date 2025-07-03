@@ -198,7 +198,9 @@ public partial class ClusterSearch : Indicator
 
 		_lastSeriesBar.Clear();
 		_renderDataSeries.Clear();
-		_minFilterValue = MinimalFilter();
+
+		if (!AutoFilter)
+			_minFilterValue = MinimalFilter();
     }
 
 	//Apply autofilter
@@ -234,6 +236,7 @@ public partial class ClusterSearch : Indicator
 
 		//Set autofilter value to see it in minimal filter value
 		MinimumFilter.SetValueSilently(_autoFilterValue);
+        _minFilterValue = MinimalFilter();
 
         for (var i = 0; i < _renderDataSeries.Count; i++)
 		{
@@ -244,7 +247,7 @@ public partial class ClusterSearch : Indicator
 
 			_renderDataSeries[i].ForEach(l =>
 			{
-				var clusterSize = FixedSizes ? _size : (int)((decimal)l.Context * _size / Math.Max(_autoFilterValue, 1));
+				var clusterSize = FixedSizes ? _size : (int)((decimal)l.Context * _size / _minFilterValue);
 
 				if (!FixedSizes)
 				{
@@ -259,7 +262,7 @@ public partial class ClusterSearch : Indicator
 		OnChangeProperty(nameof(MinimumFilter));
 
 		_isFinishRecalculate = true;
-	}
+    }
 
 	#endregion
 
@@ -750,7 +753,7 @@ public partial class ClusterSearch : Indicator
 		level.Volume += trade.Volume;
 		level.Ticks++;
 
-		_mergedLevels.AddVolume(level);
+        _mergedLevels[trade.Price] = level;
     }
 
 	//Update data series values size on properties change
@@ -797,7 +800,10 @@ public partial class ClusterSearch : Indicator
 
 	private decimal MinimalFilter()
 	{
-		var minFilter = MinimumFilter.Enabled ? MinimumFilter.Value : 0;
+		if (AutoFilter)
+			return Math.Max(_autoFilterValue, 1);
+
+        var minFilter = MinimumFilter.Enabled ? MinimumFilter.Value : 0;
 		var maxFilter = MaximumFilter.Enabled ? MaximumFilter.Value : 0;
 
 		if (MinimumFilter.Value >= 0 && MaximumFilter.Value >= 0)
