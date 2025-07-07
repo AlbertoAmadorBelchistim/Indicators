@@ -26,6 +26,7 @@ public class SuperTrend : Indicator
         Width = 2,
         VisualType = VisualMode.Square,
         ShowZeroValue = false,
+        IsHidden = true,
         DescriptionKey = nameof(Strings.UpTrendSettingsDescription)
     };
 
@@ -36,6 +37,7 @@ public class SuperTrend : Indicator
 		Color = DefaultColors.Maroon.Convert(),
 		Width = 2,
 		ShowZeroValue = false,
+		IsHidden = true,
         DescriptionKey = nameof(Strings.DownTrendSettingsDescription)
     };
 
