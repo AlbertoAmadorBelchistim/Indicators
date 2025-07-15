@@ -45,6 +45,8 @@ public class SuperTrend : Indicator
 	private decimal _lastPrice;
 	private decimal _multiplier = 1.7m;
 	private string _tickFormat;
+	private Color _upColor = DefaultColors.Blue;
+	private Color _downColor = DefaultColors.Maroon;
 
 	#endregion
 
@@ -88,10 +90,10 @@ public class SuperTrend : Indicator
 		Description = nameof(Strings.BullishColorDescription), Order = 200)]
 	public Color UpColor
 	{
-		get => _upTrend.RenderColor;
+		get => _upColor;
 		set
 		{
-			_upTrend.RenderColor = value;
+			_upColor = value;
 			RecalculateValues();
 		}
 	}
@@ -100,10 +102,10 @@ public class SuperTrend : Indicator
 		Description = nameof(Strings.BearishColorDescription), Order = 210)]
 	public Color DownColor
 	{
-		get => _dnTrend.RenderColor;
+		get => _downColor;
 		set
 		{
-			_dnTrend.RenderColor = value; 
+			_downColor = value; 
 			RecalculateValues();
 		}
 	}
