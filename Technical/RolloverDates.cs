@@ -1,10 +1,11 @@
 ﻿namespace ATAS.Indicators.Technical;
 
 using System;
-using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
+using System.Linq;
 using System.Threading;
 
 using OFT.Attributes;
@@ -20,7 +21,7 @@ public class RolloverDates : Indicator
 {
     #region Fields
 
-    private readonly ConcurrentDictionary<int, ContractRollover> _barContracts = [];
+    private SortedDictionary<int, ContractRollover> _barContracts = [];
 
     private int _lastBar = -1;
     private int _loading;
@@ -166,9 +167,11 @@ public class RolloverDates : Indicator
 		    if (rollovers is null || rollovers.Rollovers.Length == 0)
 			    return;
 
-		    _barContracts.Clear();
+		    var barContracts = new SortedDictionary<int, ContractRollover>();
 
 		    var index = 0;
+		    var prevLineBar = 0;
+		    var lastLineBar = 0;
 
 		    for (var bar = 0; bar < CurrentBar; bar++)
 		    {
@@ -183,9 +186,16 @@ public class RolloverDates : Indicator
 			    if (rollover.Date > time1 && rollover.Date >= time2)
 				    continue;
 
-			    _barContracts[bar] = rollover;
-			    index++;
+			    barContracts[bar] = rollover;
+			    prevLineBar = lastLineBar;
+				lastLineBar = bar;
+				index++;
 		    }
+
+		    if (lastLineBar > prevLineBar && index < rollovers.Rollovers.Length)
+			    barContracts[lastLineBar + lastLineBar - prevLineBar] = rollovers.Rollovers[index];
+
+			_barContracts = barContracts;
 
 		    RedrawChart();
 		}
@@ -205,45 +215,58 @@ public class RolloverDates : Indicator
         if (_barContracts.Count is 0)
             return;
 
-        for (var bar = FirstVisibleBarNumber; bar <= LastVisibleBarNumber; bar++) 
+        for (var bar = FirstVisibleBarNumber; bar <= LastVisibleBarNumber; bar++)
         {
-            if (!CheckBar(bar) || !_barContracts.TryGetValue(bar, out var item))
+	        if (!CheckBar(bar) || !_barContracts.TryGetValue(bar, out var item))
                 continue;
 
-            var x = ChartInfo.GetXByBar(bar, false);
-            var top = ChartInfo.Region.Top;
-            var bottom = ChartInfo.Region.Bottom;
-
-            context.DrawLine(LineSettings.RenderObject, x, top, x, bottom);
-
-            if (ShowLabels)
-            {
-                string text;
-
-                if (ToDrawTimeLabel(bar, x))
-                {
-                    var time = item.Date.AddHours(InstrumentInfo?.TimeZone ?? 0);
-                    text = $"{item.Code} ({time:dd.MM.yyyy HH:mm})";
-                }
-                else
-                    text = item.Code;
-
-                var xPosition = x;
-                var yPosition = top + LabelOffsetY;
-
-                if (RolloverType.Value is ContractRolloverType.ExpirationDate or ContractRolloverType.VolumeBasedCurrentEnd)
-                {
-	                var textSize = context.MeasureString(text, FontSetting.RenderObject);
-
-	                xPosition -= textSize.Width;
-					xPosition -= LabelOffsetX;
-				}
-                else
-					xPosition += LabelOffsetX;
-
-				context.DrawString(text, FontSetting.RenderObject, LineSettings.Color.Convert(), xPosition, yPosition);
-            }
+	        DrawRollover(context, bar, item);
         }
+
+        if (CurrentBar - 1 >= FirstVisibleBarNumber && CurrentBar - 1 <= LastVisibleBarNumber)
+        {
+	        var rollovers = _barContracts.Where(p => p.Key > CurrentBar);
+
+	        foreach (var (b, r) in rollovers)
+				DrawRollover(context, b, r);
+		}
+    }
+
+    private void DrawRollover(RenderContext context, int bar, ContractRollover item)
+    {
+	    var x = ChartInfo.GetXByBar(bar, false);
+	    var top = ChartInfo.Region.Top;
+	    var bottom = ChartInfo.Region.Bottom;
+
+	    context.DrawLine(LineSettings.RenderObject, x, top, x, bottom);
+
+	    if (!ShowLabels)
+		    return;
+
+	    string text;
+
+	    if (ToDrawTimeLabel(bar, x))
+	    {
+		    var time = item.Date.AddHours(InstrumentInfo?.TimeZone ?? 0);
+		    text = $"{item.Code} ({time:dd.MM.yyyy HH:mm})";
+	    }
+	    else
+		    text = item.Code;
+
+	    var xPosition = x;
+	    var yPosition = top + LabelOffsetY;
+
+	    if (RolloverType.Value is ContractRolloverType.ExpirationDate or ContractRolloverType.VolumeBasedCurrentEnd)
+	    {
+		    var textSize = context.MeasureString(text, FontSetting.RenderObject);
+
+		    xPosition -= textSize.Width;
+		    xPosition -= LabelOffsetX;
+	    }
+	    else
+		    xPosition += LabelOffsetX;
+
+	    context.DrawString(text, FontSetting.RenderObject, LineSettings.Color.Convert(), xPosition, yPosition);
     }
 
     private bool ToDrawTimeLabel(int bar, int x)
@@ -262,8 +285,6 @@ public class RolloverDates : Indicator
 
     private void OnRolloverTypePropertyChanged(object sender, PropertyChangedEventArgs e)
     {
-	    RaisePropertyChanged(nameof(RolloverType));
-
 	    if (e.PropertyName == nameof(FilterEnum<ContractRolloverType>.Value))
 		    RaisePanelPropertyChanged(Name);
     }
