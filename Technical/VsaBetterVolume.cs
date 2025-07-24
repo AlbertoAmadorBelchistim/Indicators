@@ -11,6 +11,7 @@ namespace ATAS.Indicators.Technical
     using Color = System.Drawing.Color;
 	
     [DisplayName("VSA Better Volume")]
+    [Category(IndicatorCategories.VolumeOrderFlow)]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.VsaBetterVolumeDescription))]
     [HelpLink("https://help.atas.net/support/solutions/articles/72000602502")]
 	public class VsaBetterVolume : Indicator

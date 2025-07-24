@@ -8,16 +8,15 @@ using System.Linq;
 
 using ATAS.DataFeedsCore;
 
-using MoreLinq;
-
 using OFT.Attributes;
 using OFT.Localization;
 using OFT.Rendering.Context;
 using OFT.Rendering.Tools;
 
-using Color = System.Drawing.Color;
+using Utils.Common.Collections;
 
 [DisplayName("Imbalance Ratio")]
+[Category(IndicatorCategories.VolumeOrderFlow)]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.ImbalanceRatioIndDescription))]
 [HelpLink("https://help.atas.net/support/solutions/articles/72000602404")]
 public class ImbalanceRatio : Indicator

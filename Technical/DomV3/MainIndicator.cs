@@ -156,11 +156,11 @@ public partial class MainIndicator : Indicator
 			    var height = Math.Abs(yy2 - yy1) / ((ChartInfo.PriceChartContainer.High - ChartInfo.PriceChartContainer.Low) / InstrumentInfo.TickSize);
 
                 var (fontSize, fontWidth) =
-				    SetFontSize(context, ChartInfo.PriceChartContainer.PriceRowHeight);
+				    SetFontSize(context, height);
 
 			    var showSeparately = height >= 4.5m;
 
-				var showText = fontSize >= 5;
+				var showText = _lastHeight < height;
 
                 var maxScreenSize = Container.RelativeRegion.Width * 0.5m;
 			    var (maxVol, maxCount) = _gridController.MaxInView(fixHigh, fixLow, tickSize, true);

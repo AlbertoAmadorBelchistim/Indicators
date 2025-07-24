@@ -6,8 +6,6 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-using MoreLinq;
-
 using OFT.Attributes;
 using OFT.Localization;
 
@@ -200,7 +198,9 @@ public partial class ClusterSearch : Indicator
 
 		_lastSeriesBar.Clear();
 		_renderDataSeries.Clear();
-		_minFilterValue = MinimalFilter();
+
+		if (!AutoFilter)
+			_minFilterValue = MinimalFilter();
     }
 
 	//Apply autofilter
@@ -236,6 +236,7 @@ public partial class ClusterSearch : Indicator
 
 		//Set autofilter value to see it in minimal filter value
 		MinimumFilter.SetValueSilently(_autoFilterValue);
+        _minFilterValue = MinimalFilter();
 
         for (var i = 0; i < _renderDataSeries.Count; i++)
 		{
@@ -246,7 +247,7 @@ public partial class ClusterSearch : Indicator
 
 			_renderDataSeries[i].ForEach(l =>
 			{
-				var clusterSize = FixedSizes ? _size : (int)((decimal)l.Context * _size / Math.Max(_autoFilterValue, 1));
+				var clusterSize = FixedSizes ? _size : (int)((decimal)l.Context * _size / _minFilterValue);
 
 				if (!FixedSizes)
 				{
@@ -261,7 +262,7 @@ public partial class ClusterSearch : Indicator
 		OnChangeProperty(nameof(MinimumFilter));
 
 		_isFinishRecalculate = true;
-	}
+    }
 
 	#endregion
 
@@ -311,12 +312,23 @@ public partial class ClusterSearch : Indicator
 			RemoveOldSelection(bar, trade.Price);
 			return;
 		}
-
+		
 		var ranges = GetPriceRanges(bar, endPrice);
+
+		var changedDirection = false;
+
+		if (_lastPrice != trade.Price)
+		{
+			changedDirection = _lastPrice >= candle.Open && trade.Price < candle.Open
+				||
+				_lastPrice <= candle.Open && trade.Price > candle.Open
+				||
+				_lastPrice == candle.Open;
+		}
 
 		foreach (var range in ranges)
 		{
-			if (trade.Price < range.From || trade.Price > range.To)
+			if ((trade.Price < range.From || trade.Price > range.To) && !changedDirection)
 				continue;
 
 			RemoveOldSelection(bar, trade.Price);
@@ -354,7 +366,7 @@ public partial class ClusterSearch : Indicator
 
 			if (highValue < candle.High)
 			{
-				for (var i = 0; i < _lastSeriesBar.Count; i++)
+                for (var i = _lastSeriesBar.Count - 1; i >= 0 ; i--)
 				{
 					var item = _lastSeriesBar[i];
 
@@ -620,7 +632,7 @@ public partial class ClusterSearch : Indicator
 		{
 			var curPerc = 100 * fullLevel.Volume / _mergedLevels.TotalVolume;
 
-			if (curPerc < MinPercent || curPerc > MaxPercent)
+			if (curPerc < MinPercent || MaxPercent is not 0 && curPerc > MaxPercent)
 				return false;
 		}
 
@@ -666,9 +678,8 @@ public partial class ClusterSearch : Indicator
 	private void UpdateCumulativeCachePerBar(int bar)
 	{
 		var candle = GetCandle(bar);
-		var highPrice = candle.High - (PriceRange - 1) * InstrumentInfo.TickSize;
-
-		for (var iPrice = candle.Low; iPrice <= highPrice; iPrice += InstrumentInfo.TickSize)
+		
+		for (var iPrice = candle.Low; iPrice <= candle.High; iPrice += InstrumentInfo.TickSize)
 			CreateLevelCache(bar, iPrice);
 	}
 
@@ -742,7 +753,7 @@ public partial class ClusterSearch : Indicator
 		level.Volume += trade.Volume;
 		level.Ticks++;
 
-		_mergedLevels.AddVolume(level);
+        _mergedLevels[trade.Price] = level;
     }
 
 	//Update data series values size on properties change
@@ -789,7 +800,10 @@ public partial class ClusterSearch : Indicator
 
 	private decimal MinimalFilter()
 	{
-		var minFilter = MinimumFilter.Enabled ? MinimumFilter.Value : 0;
+		if (AutoFilter)
+			return Math.Max(_autoFilterValue, 1);
+
+        var minFilter = MinimumFilter.Enabled ? MinimumFilter.Value : 0;
 		var maxFilter = MaximumFilter.Enabled ? MaximumFilter.Value : 0;
 
 		if (MinimumFilter.Value >= 0 && MaximumFilter.Value >= 0)

@@ -462,11 +462,13 @@ public class FairValueGap : Indicator
             if (HideOlds && signal.EndBar > 0)
                 continue;
 
+            var isClusterMode = ChartInfo.ChartVisualMode == ChartVisualModes.Clusters;
             var x = ChartInfo.GetXByBar(signal.StartBar);
             var x2 = signal.EndBar > 0 ? ChartInfo.GetXByBar(signal.EndBar) : ChartInfo.Region.Width;
-            var y = ChartInfo.GetYByPrice(signal.HighPrice, false);
+            var priceRowHeight = isClusterMode ? (int)ChartInfo.PriceChartContainer.PriceRowHeight : 0;
+            var y = ChartInfo.GetYByPrice(signal.HighPrice, isClusterMode) + priceRowHeight;
             var w = x2 - x;
-            var h = ChartInfo.GetYByPrice(signal.LowPrice, false) - y;
+            var h = ChartInfo.GetYByPrice(signal.LowPrice, isClusterMode) - y;
             var rec = new Rectangle(x, y, w, h);
             context.DrawFillRectangle(penSet.RenderObject, color, rec);
 
