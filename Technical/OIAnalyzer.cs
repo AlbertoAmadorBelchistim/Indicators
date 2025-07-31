@@ -7,6 +7,7 @@ namespace ATAS.Indicators.Technical
 	using System.Drawing;
 	using System.Linq;
 
+	using ATAS.Indicators.Drawing;
 	using ATAS.Indicators.Technical.Editors;
 
 	using OFT.Attributes;
@@ -124,9 +125,9 @@ namespace ATAS.Indicators.Technical
 			IsHidden = true,
 			ShowCurrentValue = false,
 			ScaleIt = true,
-			DownCandleColor = Color.Green.Convert(),
-			BorderColor = Color.Green.Convert(),
-			UpCandleColor = Color.White.Convert(),
+			DownCandleColor = DefaultColors.Green.Convert(),
+			BorderColor = DefaultColors.Gray.Convert(),
+			UpCandleColor = DefaultColors.White.Convert(),
 			ValuesColor = Color.LightBlue,
 			UseMinimizedModeIfEnabled = true
 		};
@@ -252,6 +253,13 @@ namespace ATAS.Indicators.Technical
 		{
 			get => _renderValues.UpCandleColor;
 			set => _renderValues.UpCandleColor = value;
+		}
+
+		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.BorderColor), Order = 180, GroupName = nameof(Strings.Visualization), Description = nameof(Strings.BullishColorDescription))]
+		public CrossColor BorderColor
+		{
+			get => _renderValues.BorderColor;
+			set => _renderValues.BorderColor = value;
 		}
 
 		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.BullishColor), Order = 190, GroupName = nameof(Strings.AxisTextColor),
