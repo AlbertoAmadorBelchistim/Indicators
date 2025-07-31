@@ -419,11 +419,10 @@ namespace ATAS.Indicators.Technical
 
 			try
 			{
-				g.ResetClip();
-
+				
 				var lastBar = ChartInfo.PriceChartContainer.LastVisibleBarNumber;
-
-				var candle = _renderValues[lastBar];
+				
+                var candle = _renderValues[lastBar];
 				var closeValue = candle.Close;
 
 				var x = ChartInfo.PriceChartContainer.Region.Right;
@@ -454,8 +453,16 @@ namespace ATAS.Indicators.Technical
 				var bgColor = isBullish
 					? _renderValues.UpCandleColor
 					: _renderValues.DownCandleColor;
+				
+				var axis = Container.Region with
+				{
+					X = x,
+					Width = rightX - x
+				};
 
-				g.FillPolygon(bgColor.Convert(), points);
+				g.SetClip(axis);
+
+                g.FillPolygon(bgColor.Convert(), points);
 
 				var textRect = new Rectangle(leftX, upperY, rightX - leftX, lowerY - upperY);
 
