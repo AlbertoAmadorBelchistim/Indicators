@@ -152,6 +152,11 @@ namespace ATAS.Indicators.Technical
 
         #region Protected methods
 
+        protected override void OnInitialize()
+        {
+	        _filterSeries.BorderColor = CrossColors.Transparent;
+        }
+
         protected override void OnApplyDefaultColors()
         {
             if (ChartInfo is null)
