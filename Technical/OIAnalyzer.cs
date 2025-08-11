@@ -244,7 +244,7 @@ namespace ATAS.Indicators.Technical
 			set
 			{
 				_candlesColor = value.Convert();
-				_renderValues.DownCandleColor = _renderValues.BorderColor = value;
+				_renderValues.DownCandleColor = value;
 			}
 		}
 
