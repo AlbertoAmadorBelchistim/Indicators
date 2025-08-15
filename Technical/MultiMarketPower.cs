@@ -522,7 +522,7 @@ public class MultiMarketPower : Indicator
 		{
 			if (_lastTrade.IsEqual(trade))
 			{
-				var prevBarReset = _lastTrade.Time < GetCandle(CurrentBar - 1).Time;
+				var prevBarReset = _lastTrade.Time < GetCandle(CurrentBar - 1).Time && newBar;
 
 				var lastVolume = _lastTrade.Volume * (_lastTrade.Direction == TradeDirection.Buy ? 1 : -1);
 
