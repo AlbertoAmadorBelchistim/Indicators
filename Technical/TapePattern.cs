@@ -489,11 +489,13 @@ public class TapePattern : Indicator
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.Alerts), Description = nameof(Strings.AlertFileDescription), Order = 510)]
 	public string AlertFile { get; set; } = "alert1";
 
-	#endregion
+	public override bool AlertsEnabled => UseAlerts;
 
-	#region ctor
+    #endregion
 
-	public TapePattern()
+    #region ctor
+
+    public TapePattern()
 		: base(true)
 
 	{

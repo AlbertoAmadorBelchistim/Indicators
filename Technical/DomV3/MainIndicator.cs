@@ -13,8 +13,12 @@ namespace DomV10;
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 
 using OFT.Attributes;
+
+using Utils.Common.Collections;
 
 [DisplayName("MBO DOM")]
 [HelpLink("https://help.atas.net/support/solutions/articles/72000633231")]
@@ -97,9 +101,34 @@ public partial class MainIndicator : Indicator
         RedrawChart();
     }
 
+    private SortedDictionary<decimal, SortedList<long, MarketByOrder>> _orders = [];
+
     protected override void OnMarketByOrdersChanged(IEnumerable<MarketByOrder> orders)
     {
-        if (!_gridController.Update(orders)) _gridController.Load(MarketByOrders);
+	    foreach (var order in orders.OrderBy(v => v.Priority))
+	    {
+		    switch (order.Type)
+		    {
+			    case MarketByOrderUpdateTypes.Snapshot:
+			    case MarketByOrderUpdateTypes.New:
+			    case MarketByOrderUpdateTypes.Change:
+				    var priceLevel = _orders.GetOrAdd(order.Price, o => new SortedList<long, MarketByOrder>());
+				    priceLevel[order.ExchangeOrderId] = order;
+				    break;
+			    case MarketByOrderUpdateTypes.Delete:
+
+				    if (!_orders.TryGetValue(order.Price, out var level))
+					    continue;
+
+				    level.RemoveWhere(o => o.Key == order.ExchangeOrderId);
+				    break;
+
+			    default:
+				    throw new ArgumentOutOfRangeException();
+		    }
+	    }
+		/*
+        if (!_gridController.Update(orders)) _gridController.Load(MarketByOrders);*/
     }
 
     protected override void MarketDepthChanged(MarketDataArg depth)
@@ -142,6 +171,25 @@ public partial class MainIndicator : Indicator
 
 			    if (_lastAsk is null || _lastBid is null)
 				    return;
+
+
+
+
+			    foreach (var level in _orders)
+			    {
+				    if (level.Key > ChartInfo.PriceChartContainer.High)
+						break;
+				    
+					if (level.Key < ChartInfo.PriceChartContainer.Low)
+					    continue;
+
+					var vol = level.Value.Sum(o => o.Value.Volume);
+
+					var y = ChartInfo.GetYByPrice(level.Key, false);
+
+					context.DrawString(vol.ToString(CultureInfo.InvariantCulture), _font, level.Key <= _lastBid.Price ? Color.IndianRed : Color.LightGreen, 0, y);
+			    }
+
 
 			    var tickSize = InstrumentInfo.TickSize;
 			    var fixHigh = GetFixPrice(ChartInfo.PriceChartContainer.High, true);
