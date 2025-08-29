@@ -91,7 +91,7 @@ public class DeltaTurnaround : Indicator
 		if (AlertOnNewCandle && _lastBar != bar && bar == CurrentBar - 1)
 		{
 			if (AlertOnNewCandle && (_posSeries[bar - 1] != 0 || _negSeries[bar - 1] != 0))
-				AddAlert(AlertFile, InstrumentInfo.Instrument, "Delta turnaround down signal.", AlertBGColor, AlertForeColor);
+				AddAlert(AlertFile, InstrumentInfo.Instrument, "Delta turnaround signal.", AlertBGColor, AlertForeColor);
 		}
 
 		_lastBar = bar;
@@ -123,7 +123,7 @@ public class DeltaTurnaround : Indicator
             _posSeries[bar] = candle.Low - InstrumentInfo.TickSize * 2;
 
 			if (lastValue == 0 && checkAlerts)
-				AddAlert(AlertFile, InstrumentInfo.Instrument, "Delta turnaround down signal.", AlertBGColor, AlertForeColor);
+				AddAlert(AlertFile, InstrumentInfo.Instrument, "Delta turnaround up signal.", AlertBGColor, AlertForeColor);
         }
 		else
 			_posSeries[bar] = 0;
