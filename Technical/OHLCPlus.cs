@@ -8,6 +8,7 @@ using System.Drawing;
 
 using ATAS.Indicators.Filters;
 using OFT.Attributes;
+using OFT.Attributes.Editors;
 using OFT.Localization;
 using OFT.Rendering.Context;
 using OFT.Rendering.Settings;
@@ -21,25 +22,71 @@ public class OHLCPlus : Indicator
 {
     #region Nested types
 
-    public enum DisplayMode
+    public enum LabelPosition
     {
-        [Display(Name = "Price Only", Order = 100)]
-        PriceOnly = 0,
+        [Display(Name = "None")]
+        None = 0,
         
-        [Display(Name = "Price + Label", Order = 100)]
-        PriceAndLabel = 1,
+        [Display(Name = "Bar")]
+        Bar = 1,
         
-        [Display(Name = "Price + Label + Line To Bar", Order = 100)]
-        PriceAndLabelWithLineToBar = 2,
+        [Display(Name = "Right (Price Scale)")]
+        Right = 2,
         
-        [Display(Name = "Price + Label + Full Line", Order = 100)]
-        PriceAndLabelWithFullLine = 3,
+        [Display(Name = "Left")]
+        Left = 3
+    }
+
+    public enum LineType
+    {
+        [Display(Name = "None")]
+        None = 0,
         
-        [Display(Name = "Label At Bar + Price", Order = 100)]
-        LabelAtBarWithPrice = 4,
+        [Display(Name = "Bar")]
+        Bar = 1,
         
-        [Display(Name = "Label At Bar + Price + Full Line", Order = 100)]
-        LabelAtBarWithPriceAndFullLine = 5
+        [Display(Name = "Full Width")]
+        Full = 2
+    }
+
+    [Editor(typeof(Editors.LevelSettingsEditor), typeof(Editors.LevelSettingsEditor))]
+    public class LevelSettings
+    {
+        public LevelSettings(bool enabled = false, CrossColor color = default, int width = 1, LineDashStyle lineStyle = LineDashStyle.Solid, bool showPrice = true, LabelPosition labelPosition = LabelPosition.Bar, LineType lineType = LineType.Bar)
+        {
+            Enabled = enabled;
+            Color = color == default ? System.Drawing.Color.Blue.Convert() : color;
+            Width = width;
+            LineStyle = lineStyle;
+            ShowPrice = showPrice;
+            LabelPosition = labelPosition;
+            LineType = lineType;
+        }
+
+        [Display(Name = "Enabled")]
+        public bool Enabled { get; set; }
+
+        [Display(Name = "Color")]
+        public CrossColor Color { get; set; }
+
+        [Display(Name = "Price")]
+        public bool ShowPrice { get; set; }
+
+        [Display(Name = "Line")]
+        public LineType LineType { get; set; }
+
+        [Display(Name = "Width")]
+        [Range(1, 10)]
+        public int Width { get; set; }
+
+        [Display(Name = "Style")]
+        public LineDashStyle LineStyle { get; set; }
+
+        [Display(Name = "Label")]
+        public LabelPosition LabelPosition { get; set; }
+
+        [Browsable(false)]
+        public RenderPen RenderPen => new PenSettings { Color = Color, Width = Width, LineDashStyle = LineStyle }.RenderObject;
     }
 
     private class LevelData
@@ -73,691 +120,699 @@ public class OHLCPlus : Indicator
 
     [Category("Day")]
     [Display(Name = "dOpen", Order = 10)]
-    public FilterRenderPen DayOpenPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Blue.Convert(), Width = 1, LineDashStyle = LineDashStyle.Solid }
-    };
-
-    [Category("Day")]
-    [Display(Name = "dOpen Display Mode", Order = 11)]
-    public DisplayMode DayOpenDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
+    public LevelSettings DayOpenLevel { get; set; } = new(
+        enabled: true,
+        color: System.Drawing.Color.Orange.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Day")]
     [Display(Name = "dHigh", Order = 20)]
-    public FilterRenderPen DayHighPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Green.Convert(), Width = 1, LineDashStyle = LineDashStyle.Solid }
-    };
-
-    [Category("Day")]
-    [Display(Name = "dHigh Display Mode", Order = 21)]
-    public DisplayMode DayHighDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
+    public LevelSettings DayHighLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Green.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Day")]
     [Display(Name = "dLow", Order = 30)]
-    public FilterRenderPen DayLowPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Red.Convert(), Width = 1, LineDashStyle = LineDashStyle.Solid }
-    };
+    public LevelSettings DayLowLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Red.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Day")]
-    [Display(Name = "dLow Display Mode", Order = 100)]
-    public DisplayMode DayLowDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
+    [Display(Name = "dClose", Order = 40)]
+    public LevelSettings DayCloseLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Gray.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Day")]
-    [Display(Name = "dClose", Order = 100)]
-    public FilterRenderPen DayClosePen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Gray.Convert(), Width = 1, LineDashStyle = LineDashStyle.Solid }
-    };
+    [Display(Name = "dEquilibrium", Order = 50)]
+    public LevelSettings DayEquilibriumLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Yellow.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Dash,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Day")]
-    [Display(Name = "dClose Display Mode", Order = 100)]
-    public DisplayMode DayCloseDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
+    [Display(Name = "dPOC", Order = 60)]
+    public LevelSettings DayPOCLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Orange.Convert(),
+        width: 2,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Day")]
-    [Display(Name = "dEquilibrium", Order = 100)]
-    public FilterRenderPen DayEquilibriumPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Yellow.Convert(), Width = 1, LineDashStyle = LineDashStyle.Dash }
-    };
+    [Display(Name = "dVAH", Order = 70)]
+    public LevelSettings DayVAHLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Purple.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Dot,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Day")]
-    [Display(Name = "dEquilibrium Display Mode", Order = 100)]
-    public DisplayMode DayEquilibriumDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
-
-    [Category("Day")]
-    [Display(Name = "dPOC", Order = 100)]
-    public FilterRenderPen DayPOCPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Orange.Convert(), Width = 2, LineDashStyle = LineDashStyle.Solid }
-    };
-
-    [Category("Day")]
-    [Display(Name = "dPOC Display Mode", Order = 100)]
-    public DisplayMode DayPOCDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
-
-    [Category("Day")]
-    [Display(Name = "dVAH", Order = 100)]
-    public FilterRenderPen DayVAHPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Purple.Convert(), Width = 1, LineDashStyle = LineDashStyle.Dot }
-    };
-
-    [Category("Day")]
-    [Display(Name = "dVAH Display Mode", Order = 100)]
-    public DisplayMode DayVAHDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
-
-    [Category("Day")]
-    [Display(Name = "dVAL", Order = 100)]
-    public FilterRenderPen DayVALPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Purple.Convert(), Width = 1, LineDashStyle = LineDashStyle.Dot }
-    };
-
-    [Category("Day")]
-    [Display(Name = "dVAL Display Mode", Order = 100)]
-    public DisplayMode DayVALDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
+    [Display(Name = "dVAL", Order = 80)]
+    public LevelSettings DayVALLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Purple.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Dot,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     #endregion
 
     #region Prev.Day Settings
 
     [Category("Prev.Day")]
-    [Display(Name = "pdOpen", Order = 100)]
-    public FilterRenderPen PrevDayOpenPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Blue.Convert(), Width = 1, LineDashStyle = LineDashStyle.Solid },
-        Enabled = false
-    };
+    [Display(Name = "pdOpen", Order = 10)]
+    public LevelSettings PrevDayOpenLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Orange.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Prev.Day")]
-    [Display(Name = "pdOpen Display Mode", Order = 100)]
-    public DisplayMode PrevDayOpenDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
+    [Display(Name = "pdHigh", Order = 20)]
+    public LevelSettings PrevDayHighLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Green.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Prev.Day")]
-    [Display(Name = "pdHigh", Order = 100)]
-    public FilterRenderPen PrevDayHighPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Green.Convert(), Width = 1, LineDashStyle = LineDashStyle.Solid },
-        Enabled = true
-    };
+    [Display(Name = "pdLow", Order = 30)]
+    public LevelSettings PrevDayLowLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Red.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Prev.Day")]
-    [Display(Name = "pdHigh Display Mode", Order = 100)]
-    public DisplayMode PrevDayHighDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
+    [Display(Name = "pdClose", Order = 40)]
+    public LevelSettings PrevDayCloseLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Gray.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Prev.Day")]
-    [Display(Name = "pdLow", Order = 100)]
-    public FilterRenderPen PrevDayLowPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Red.Convert(), Width = 1, LineDashStyle = LineDashStyle.Solid },
-        Enabled = true
-    };
+    [Display(Name = "pdEquilibrium", Order = 50)]
+    public LevelSettings PrevDayEquilibriumLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Yellow.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Dash,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Prev.Day")]
-    [Display(Name = "pdLow Display Mode", Order = 100)]
-    public DisplayMode PrevDayLowDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
+    [Display(Name = "pdPOC", Order = 60)]
+    public LevelSettings PrevDayPOCLevel { get; set; } = new(
+        enabled: true,
+        color: System.Drawing.Color.Orange.Convert(),
+        width: 2,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Prev.Day")]
-    [Display(Name = "pdClose", Order = 100)]
-    public FilterRenderPen PrevDayClosePen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Gray.Convert(), Width = 1, LineDashStyle = LineDashStyle.Solid },
-        Enabled = false
-    };
+    [Display(Name = "pdVAH", Order = 70)]
+    public LevelSettings PrevDayVAHLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Purple.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Dot,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Prev.Day")]
-    [Display(Name = "pdClose Display Mode", Order = 100)]
-    public DisplayMode PrevDayCloseDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
-
-    [Category("Prev.Day")]
-    [Display(Name = "pdEquilibrium", Order = 100)]
-    public FilterRenderPen PrevDayEquilibriumPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Yellow.Convert(), Width = 1, LineDashStyle = LineDashStyle.Dash },
-        Enabled = false
-    };
-
-    [Category("Prev.Day")]
-    [Display(Name = "pdEquilibrium Display Mode", Order = 100)]
-    public DisplayMode PrevDayEquilibriumDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
-
-    [Category("Prev.Day")]
-    [Display(Name = "pdPOC", Order = 100)]
-    public FilterRenderPen PrevDayPOCPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Orange.Convert(), Width = 2, LineDashStyle = LineDashStyle.Solid },
-        Enabled = true
-    };
-
-    [Category("Prev.Day")]
-    [Display(Name = "pdPOC Display Mode", Order = 100)]
-    public DisplayMode PrevDayPOCDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
-
-    [Category("Prev.Day")]
-    [Display(Name = "pdVAH", Order = 100)]
-    public FilterRenderPen PrevDayVAHPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Purple.Convert(), Width = 1, LineDashStyle = LineDashStyle.Dot },
-        Enabled = false
-    };
-
-    [Category("Prev.Day")]
-    [Display(Name = "pdVAH Display Mode", Order = 100)]
-    public DisplayMode PrevDayVAHDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
-
-    [Category("Prev.Day")]
-    [Display(Name = "pdVAL", Order = 100)]
-    public FilterRenderPen PrevDayVALPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Purple.Convert(), Width = 1, LineDashStyle = LineDashStyle.Dot },
-        Enabled = false
-    };
-
-    [Category("Prev.Day")]
-    [Display(Name = "pdVAL Display Mode", Order = 100)]
-    public DisplayMode PrevDayVALDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
+    [Display(Name = "pdVAL", Order = 80)]
+    public LevelSettings PrevDayVALLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Purple.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Dot,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     #endregion
 
     #region Week Settings
 
     [Category("Week")]
-    [Display(Name = "wOpen", Order = 100)]
-    public FilterRenderPen WeekOpenPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Blue.Convert(), Width = 1, LineDashStyle = LineDashStyle.Solid },
-        Enabled = false
-    };
+    [Display(Name = "wOpen", Order = 10)]
+    public LevelSettings WeekOpenLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Orange.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Week")]
-    [Display(Name = "wOpen Display Mode", Order = 100)]
-    public DisplayMode WeekOpenDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
+    [Display(Name = "wHigh", Order = 20)]
+    public LevelSettings WeekHighLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Green.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Week")]
-    [Display(Name = "wHigh", Order = 100)]
-    public FilterRenderPen WeekHighPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Green.Convert(), Width = 1, LineDashStyle = LineDashStyle.Solid },
-        Enabled = false
-    };
+    [Display(Name = "wLow", Order = 30)]
+    public LevelSettings WeekLowLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Red.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Week")]
-    [Display(Name = "wHigh Display Mode", Order = 100)]
-    public DisplayMode WeekHighDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
+    [Display(Name = "wClose", Order = 40)]
+    public LevelSettings WeekCloseLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Gray.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Week")]
-    [Display(Name = "wLow", Order = 100)]
-    public FilterRenderPen WeekLowPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Red.Convert(), Width = 1, LineDashStyle = LineDashStyle.Solid },
-        Enabled = false
-    };
+    [Display(Name = "wEquilibrium", Order = 50)]
+    public LevelSettings WeekEquilibriumLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Yellow.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Dash,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Week")]
-    [Display(Name = "wLow Display Mode", Order = 100)]
-    public DisplayMode WeekLowDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
+    [Display(Name = "wPOC", Order = 60)]
+    public LevelSettings WeekPOCLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Orange.Convert(),
+        width: 2,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Week")]
-    [Display(Name = "wClose", Order = 100)]
-    public FilterRenderPen WeekClosePen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Gray.Convert(), Width = 1, LineDashStyle = LineDashStyle.Solid },
-        Enabled = false
-    };
+    [Display(Name = "wVAH", Order = 70)]
+    public LevelSettings WeekVAHLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Purple.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Dot,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Week")]
-    [Display(Name = "wClose Display Mode", Order = 100)]
-    public DisplayMode WeekCloseDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
-
-    [Category("Week")]
-    [Display(Name = "wEquilibrium", Order = 100)]
-    public FilterRenderPen WeekEquilibriumPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Yellow.Convert(), Width = 1, LineDashStyle = LineDashStyle.Dash },
-        Enabled = false
-    };
-
-    [Category("Week")]
-    [Display(Name = "wEquilibrium Display Mode", Order = 100)]
-    public DisplayMode WeekEquilibriumDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
-
-    [Category("Week")]
-    [Display(Name = "wPOC", Order = 100)]
-    public FilterRenderPen WeekPOCPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Orange.Convert(), Width = 2, LineDashStyle = LineDashStyle.Solid },
-        Enabled = false
-    };
-
-    [Category("Week")]
-    [Display(Name = "wPOC Display Mode", Order = 100)]
-    public DisplayMode WeekPOCDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
-
-    [Category("Week")]
-    [Display(Name = "wVAH", Order = 100)]
-    public FilterRenderPen WeekVAHPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Purple.Convert(), Width = 1, LineDashStyle = LineDashStyle.Dot },
-        Enabled = false
-    };
-
-    [Category("Week")]
-    [Display(Name = "wVAH Display Mode", Order = 100)]
-    public DisplayMode WeekVAHDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
-
-    [Category("Week")]
-    [Display(Name = "wVAL", Order = 100)]
-    public FilterRenderPen WeekVALPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Purple.Convert(), Width = 1, LineDashStyle = LineDashStyle.Dot },
-        Enabled = false
-    };
-
-    [Category("Week")]
-    [Display(Name = "wVAL Display Mode", Order = 100)]
-    public DisplayMode WeekVALDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
+    [Display(Name = "wVAL", Order = 80)]
+    public LevelSettings WeekVALLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Purple.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Dot,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     #endregion
 
     #region Prev.Week Settings
 
     [Category("Prev.Week")]
-    [Display(Name = "pwOpen", Order = 100)]
-    public FilterRenderPen PrevWeekOpenPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Blue.Convert(), Width = 1, LineDashStyle = LineDashStyle.Solid },
-        Enabled = false
-    };
+    [Display(Name = "pwOpen", Order = 10)]
+    public LevelSettings PrevWeekOpenLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Orange.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Prev.Week")]
-    [Display(Name = "pwOpen Display Mode", Order = 100)]
-    public DisplayMode PrevWeekOpenDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
+    [Display(Name = "pwHigh", Order = 20)]
+    public LevelSettings PrevWeekHighLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Green.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Prev.Week")]
-    [Display(Name = "pwHigh", Order = 100)]
-    public FilterRenderPen PrevWeekHighPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Green.Convert(), Width = 1, LineDashStyle = LineDashStyle.Solid },
-        Enabled = false
-    };
+    [Display(Name = "pwLow", Order = 30)]
+    public LevelSettings PrevWeekLowLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Red.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Prev.Week")]
-    [Display(Name = "pwHigh Display Mode", Order = 100)]
-    public DisplayMode PrevWeekHighDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
+    [Display(Name = "pwClose", Order = 40)]
+    public LevelSettings PrevWeekCloseLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Gray.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Prev.Week")]
-    [Display(Name = "pwLow", Order = 100)]
-    public FilterRenderPen PrevWeekLowPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Red.Convert(), Width = 1, LineDashStyle = LineDashStyle.Solid },
-        Enabled = false
-    };
+    [Display(Name = "pwEquilibrium", Order = 50)]
+    public LevelSettings PrevWeekEquilibriumLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Yellow.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Dash,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Prev.Week")]
-    [Display(Name = "pwLow Display Mode", Order = 100)]
-    public DisplayMode PrevWeekLowDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
+    [Display(Name = "pwPOC", Order = 60)]
+    public LevelSettings PrevWeekPOCLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Orange.Convert(),
+        width: 2,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Prev.Week")]
-    [Display(Name = "pwClose", Order = 100)]
-    public FilterRenderPen PrevWeekClosePen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Gray.Convert(), Width = 1, LineDashStyle = LineDashStyle.Solid },
-        Enabled = false
-    };
+    [Display(Name = "pwVAH", Order = 70)]
+    public LevelSettings PrevWeekVAHLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Purple.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Dot,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Prev.Week")]
-    [Display(Name = "pwClose Display Mode", Order = 100)]
-    public DisplayMode PrevWeekCloseDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
-
-    [Category("Prev.Week")]
-    [Display(Name = "pwEquilibrium", Order = 100)]
-    public FilterRenderPen PrevWeekEquilibriumPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Yellow.Convert(), Width = 1, LineDashStyle = LineDashStyle.Dash },
-        Enabled = false
-    };
-
-    [Category("Prev.Week")]
-    [Display(Name = "pwEquilibrium Display Mode", Order = 100)]
-    public DisplayMode PrevWeekEquilibriumDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
-
-    [Category("Prev.Week")]
-    [Display(Name = "pwPOC", Order = 100)]
-    public FilterRenderPen PrevWeekPOCPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Orange.Convert(), Width = 2, LineDashStyle = LineDashStyle.Solid },
-        Enabled = false
-    };
-
-    [Category("Prev.Week")]
-    [Display(Name = "pwPOC Display Mode", Order = 100)]
-    public DisplayMode PrevWeekPOCDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
-
-    [Category("Prev.Week")]
-    [Display(Name = "pwVAH", Order = 100)]
-    public FilterRenderPen PrevWeekVAHPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Purple.Convert(), Width = 1, LineDashStyle = LineDashStyle.Dot },
-        Enabled = false
-    };
-
-    [Category("Prev.Week")]
-    [Display(Name = "pwVAH Display Mode", Order = 100)]
-    public DisplayMode PrevWeekVAHDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
-
-    [Category("Prev.Week")]
-    [Display(Name = "pwVAL", Order = 100)]
-    public FilterRenderPen PrevWeekVALPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Purple.Convert(), Width = 1, LineDashStyle = LineDashStyle.Dot },
-        Enabled = false
-    };
-
-    [Category("Prev.Week")]
-    [Display(Name = "pwVAL Display Mode", Order = 100)]
-    public DisplayMode PrevWeekVALDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
+    [Display(Name = "pwVAL", Order = 80)]
+    public LevelSettings PrevWeekVALLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Purple.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Dot,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     #endregion
 
     #region Month Settings
 
     [Category("Month")]
-    [Display(Name = "mOpen", Order = 100)]
-    public FilterRenderPen MonthOpenPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Blue.Convert(), Width = 1, LineDashStyle = LineDashStyle.Solid },
-        Enabled = false
-    };
+    [Display(Name = "mOpen", Order = 10)]
+    public LevelSettings MonthOpenLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Orange.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Month")]
-    [Display(Name = "mOpen Display Mode", Order = 100)]
-    public DisplayMode MonthOpenDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
+    [Display(Name = "mHigh", Order = 20)]
+    public LevelSettings MonthHighLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Green.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Month")]
-    [Display(Name = "mHigh", Order = 100)]
-    public FilterRenderPen MonthHighPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Green.Convert(), Width = 1, LineDashStyle = LineDashStyle.Solid },
-        Enabled = false
-    };
+    [Display(Name = "mLow", Order = 30)]
+    public LevelSettings MonthLowLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Red.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Month")]
-    [Display(Name = "mHigh Display Mode", Order = 100)]
-    public DisplayMode MonthHighDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
+    [Display(Name = "mClose", Order = 40)]
+    public LevelSettings MonthCloseLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Gray.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Month")]
-    [Display(Name = "mLow", Order = 100)]
-    public FilterRenderPen MonthLowPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Red.Convert(), Width = 1, LineDashStyle = LineDashStyle.Solid },
-        Enabled = false
-    };
+    [Display(Name = "mEquilibrium", Order = 50)]
+    public LevelSettings MonthEquilibriumLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Yellow.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Dash,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Month")]
-    [Display(Name = "mLow Display Mode", Order = 100)]
-    public DisplayMode MonthLowDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
+    [Display(Name = "mPOC", Order = 60)]
+    public LevelSettings MonthPOCLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Orange.Convert(),
+        width: 2,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Month")]
-    [Display(Name = "mClose", Order = 100)]
-    public FilterRenderPen MonthClosePen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Gray.Convert(), Width = 1, LineDashStyle = LineDashStyle.Solid },
-        Enabled = false
-    };
+    [Display(Name = "mVAH", Order = 70)]
+    public LevelSettings MonthVAHLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Purple.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Dot,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Month")]
-    [Display(Name = "mClose Display Mode", Order = 100)]
-    public DisplayMode MonthCloseDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
-
-    [Category("Month")]
-    [Display(Name = "mEquilibrium", Order = 100)]
-    public FilterRenderPen MonthEquilibriumPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Yellow.Convert(), Width = 1, LineDashStyle = LineDashStyle.Dash },
-        Enabled = false
-    };
-
-    [Category("Month")]
-    [Display(Name = "mEquilibrium Display Mode", Order = 100)]
-    public DisplayMode MonthEquilibriumDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
-
-    [Category("Month")]
-    [Display(Name = "mPOC", Order = 100)]
-    public FilterRenderPen MonthPOCPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Orange.Convert(), Width = 2, LineDashStyle = LineDashStyle.Solid },
-        Enabled = false
-    };
-
-    [Category("Month")]
-    [Display(Name = "mPOC Display Mode", Order = 100)]
-    public DisplayMode MonthPOCDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
-
-    [Category("Month")]
-    [Display(Name = "mVAH", Order = 100)]
-    public FilterRenderPen MonthVAHPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Purple.Convert(), Width = 1, LineDashStyle = LineDashStyle.Dot },
-        Enabled = false
-    };
-
-    [Category("Month")]
-    [Display(Name = "mVAH Display Mode", Order = 100)]
-    public DisplayMode MonthVAHDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
-
-    [Category("Month")]
-    [Display(Name = "mVAL", Order = 100)]
-    public FilterRenderPen MonthVALPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Purple.Convert(), Width = 1, LineDashStyle = LineDashStyle.Dot },
-        Enabled = false
-    };
-
-    [Category("Month")]
-    [Display(Name = "mVAL Display Mode", Order = 100)]
-    public DisplayMode MonthVALDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
+    [Display(Name = "mVAL", Order = 80)]
+    public LevelSettings MonthVALLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Purple.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Dot,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     #endregion
 
     #region Prev.Month Settings
 
     [Category("Prev.Month")]
-    [Display(Name = "pmOpen", Order = 100)]
-    public FilterRenderPen PrevMonthOpenPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Blue.Convert(), Width = 1, LineDashStyle = LineDashStyle.Solid },
-        Enabled = false
-    };
+    [Display(Name = "pmOpen", Order = 10)]
+    public LevelSettings PrevMonthOpenLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Orange.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Prev.Month")]
-    [Display(Name = "pmOpen Display Mode", Order = 100)]
-    public DisplayMode PrevMonthOpenDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
+    [Display(Name = "pmHigh", Order = 20)]
+    public LevelSettings PrevMonthHighLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Green.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Prev.Month")]
-    [Display(Name = "pmHigh", Order = 100)]
-    public FilterRenderPen PrevMonthHighPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Green.Convert(), Width = 1, LineDashStyle = LineDashStyle.Solid },
-        Enabled = false
-    };
+    [Display(Name = "pmLow", Order = 30)]
+    public LevelSettings PrevMonthLowLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Red.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Prev.Month")]
-    [Display(Name = "pmHigh Display Mode", Order = 100)]
-    public DisplayMode PrevMonthHighDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
+    [Display(Name = "pmClose", Order = 40)]
+    public LevelSettings PrevMonthCloseLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Gray.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Prev.Month")]
-    [Display(Name = "pmLow", Order = 100)]
-    public FilterRenderPen PrevMonthLowPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Red.Convert(), Width = 1, LineDashStyle = LineDashStyle.Solid },
-        Enabled = false
-    };
+    [Display(Name = "pmEquilibrium", Order = 50)]
+    public LevelSettings PrevMonthEquilibriumLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Yellow.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Dash,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Prev.Month")]
-    [Display(Name = "pmLow Display Mode", Order = 100)]
-    public DisplayMode PrevMonthLowDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
+    [Display(Name = "pmPOC", Order = 60)]
+    public LevelSettings PrevMonthPOCLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Orange.Convert(),
+        width: 2,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Prev.Month")]
-    [Display(Name = "pmClose", Order = 100)]
-    public FilterRenderPen PrevMonthClosePen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Gray.Convert(), Width = 1, LineDashStyle = LineDashStyle.Solid },
-        Enabled = false
-    };
+    [Display(Name = "pmVAH", Order = 70)]
+    public LevelSettings PrevMonthVAHLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Purple.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Dot,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Prev.Month")]
-    [Display(Name = "pmClose Display Mode", Order = 100)]
-    public DisplayMode PrevMonthCloseDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
-
-    [Category("Prev.Month")]
-    [Display(Name = "pmEquilibrium", Order = 100)]
-    public FilterRenderPen PrevMonthEquilibriumPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Yellow.Convert(), Width = 1, LineDashStyle = LineDashStyle.Dash },
-        Enabled = false
-    };
-
-    [Category("Prev.Month")]
-    [Display(Name = "pmEquilibrium Display Mode", Order = 100)]
-    public DisplayMode PrevMonthEquilibriumDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
-
-    [Category("Prev.Month")]
-    [Display(Name = "pmPOC", Order = 100)]
-    public FilterRenderPen PrevMonthPOCPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Orange.Convert(), Width = 2, LineDashStyle = LineDashStyle.Solid },
-        Enabled = false
-    };
-
-    [Category("Prev.Month")]
-    [Display(Name = "pmPOC Display Mode", Order = 100)]
-    public DisplayMode PrevMonthPOCDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
-
-    [Category("Prev.Month")]
-    [Display(Name = "pmVAH", Order = 100)]
-    public FilterRenderPen PrevMonthVAHPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Purple.Convert(), Width = 1, LineDashStyle = LineDashStyle.Dot },
-        Enabled = false
-    };
-
-    [Category("Prev.Month")]
-    [Display(Name = "pmVAH Display Mode", Order = 100)]
-    public DisplayMode PrevMonthVAHDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
-
-    [Category("Prev.Month")]
-    [Display(Name = "pmVAL", Order = 100)]
-    public FilterRenderPen PrevMonthVALPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Purple.Convert(), Width = 1, LineDashStyle = LineDashStyle.Dot },
-        Enabled = false
-    };
-
-    [Category("Prev.Month")]
-    [Display(Name = "pmVAL Display Mode", Order = 100)]
-    public DisplayMode PrevMonthVALDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
+    [Display(Name = "pmVAL", Order = 80)]
+    public LevelSettings PrevMonthVALLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Purple.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Dot,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     #endregion
 
     #region Contract Settings
 
     [Category("Contract")]
-    [Display(Name = "cOpen", Order = 100)]
-    public FilterRenderPen ContractOpenPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Blue.Convert(), Width = 1, LineDashStyle = LineDashStyle.Solid },
-        Enabled = false
-    };
+    [Display(Name = "cOpen", Order = 10)]
+    public LevelSettings ContractOpenLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Orange.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Contract")]
-    [Display(Name = "cOpen Display Mode", Order = 100)]
-    public DisplayMode ContractOpenDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
+    [Display(Name = "cHigh", Order = 20)]
+    public LevelSettings ContractHighLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Green.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Contract")]
-    [Display(Name = "cHigh", Order = 100)]
-    public FilterRenderPen ContractHighPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Green.Convert(), Width = 1, LineDashStyle = LineDashStyle.Solid },
-        Enabled = false
-    };
+    [Display(Name = "cLow", Order = 30)]
+    public LevelSettings ContractLowLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Red.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Contract")]
-    [Display(Name = "cHigh Display Mode", Order = 100)]
-    public DisplayMode ContractHighDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
+    [Display(Name = "cClose", Order = 40)]
+    public LevelSettings ContractCloseLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Gray.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Contract")]
-    [Display(Name = "cLow", Order = 100)]
-    public FilterRenderPen ContractLowPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Red.Convert(), Width = 1, LineDashStyle = LineDashStyle.Solid },
-        Enabled = false
-    };
+    [Display(Name = "cEquilibrium", Order = 50)]
+    public LevelSettings ContractEquilibriumLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Yellow.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Dash,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Contract")]
-    [Display(Name = "cLow Display Mode", Order = 100)]
-    public DisplayMode ContractLowDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
+    [Display(Name = "cPOC", Order = 60)]
+    public LevelSettings ContractPOCLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Orange.Convert(),
+        width: 2,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Contract")]
-    [Display(Name = "cClose", Order = 100)]
-    public FilterRenderPen ContractClosePen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Gray.Convert(), Width = 1, LineDashStyle = LineDashStyle.Solid },
-        Enabled = false
-    };
+    [Display(Name = "cVAH", Order = 70)]
+    public LevelSettings ContractVAHLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Purple.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Dot,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     [Category("Contract")]
-    [Display(Name = "cClose Display Mode", Order = 100)]
-    public DisplayMode ContractCloseDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
-
-    [Category("Contract")]
-    [Display(Name = "cEquilibrium", Order = 100)]
-    public FilterRenderPen ContractEquilibriumPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Yellow.Convert(), Width = 1, LineDashStyle = LineDashStyle.Dash },
-        Enabled = false
-    };
-
-    [Category("Contract")]
-    [Display(Name = "cEquilibrium Display Mode", Order = 100)]
-    public DisplayMode ContractEquilibriumDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
-
-    [Category("Contract")]
-    [Display(Name = "cPOC", Order = 100)]
-    public FilterRenderPen ContractPOCPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Orange.Convert(), Width = 2, LineDashStyle = LineDashStyle.Solid },
-        Enabled = false
-    };
-
-    [Category("Contract")]
-    [Display(Name = "cPOC Display Mode", Order = 100)]
-    public DisplayMode ContractPOCDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
-
-    [Category("Contract")]
-    [Display(Name = "cVAH", Order = 100)]
-    public FilterRenderPen ContractVAHPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Purple.Convert(), Width = 1, LineDashStyle = LineDashStyle.Dot },
-        Enabled = false
-    };
-
-    [Category("Contract")]
-    [Display(Name = "cVAH Display Mode", Order = 100)]
-    public DisplayMode ContractVAHDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
-
-    [Category("Contract")]
-    [Display(Name = "cVAL", Order = 100)]
-    public FilterRenderPen ContractVALPen { get; set; } = new(true)
-    {
-        Value = new PenSettings { Color = System.Drawing.Color.Purple.Convert(), Width = 1, LineDashStyle = LineDashStyle.Dot },
-        Enabled = false
-    };
-
-    [Category("Contract")]
-    [Display(Name = "cVAL Display Mode", Order = 100)]
-    public DisplayMode ContractVALDisplayMode { get; set; } = DisplayMode.PriceAndLabel;
+    [Display(Name = "cVAL", Order = 80)]
+    public LevelSettings ContractVALLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.Purple.Convert(),
+        width: 1,
+        lineStyle: LineDashStyle.Dot,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
 
     #endregion
 
@@ -815,74 +870,74 @@ public class OHLCPlus : Indicator
             return;
 
         // Render Day levels
-        RenderLevel(context, "dOpen", DayOpenPen, DayOpenDisplayMode);
-        RenderLevel(context, "dHigh", DayHighPen, DayHighDisplayMode);
-        RenderLevel(context, "dLow", DayLowPen, DayLowDisplayMode);
-        RenderLevel(context, "dClose", DayClosePen, DayCloseDisplayMode);
-        RenderLevel(context, "dEQ", DayEquilibriumPen, DayEquilibriumDisplayMode);
-        RenderLevel(context, "dPOC", DayPOCPen, DayPOCDisplayMode);
-        RenderLevel(context, "dVAH", DayVAHPen, DayVAHDisplayMode);
-        RenderLevel(context, "dVAL", DayVALPen, DayVALDisplayMode);
+        RenderLevel(context, "dOpen", DayOpenLevel);
+        RenderLevel(context, "dHigh", DayHighLevel);
+        RenderLevel(context, "dLow", DayLowLevel);
+        RenderLevel(context, "dClose", DayCloseLevel);
+        RenderLevel(context, "dEQ", DayEquilibriumLevel);
+        RenderLevel(context, "dPOC", DayPOCLevel);
+        RenderLevel(context, "dVAH", DayVAHLevel);
+        RenderLevel(context, "dVAL", DayVALLevel);
 
         // Render Prev.Day levels
-        RenderLevel(context, "pOpen", PrevDayOpenPen, PrevDayOpenDisplayMode);
-        RenderLevel(context, "pHigh", PrevDayHighPen, PrevDayHighDisplayMode);
-        RenderLevel(context, "pLow", PrevDayLowPen, PrevDayLowDisplayMode);
-        RenderLevel(context, "pClose", PrevDayClosePen, PrevDayCloseDisplayMode);
-        RenderLevel(context, "pEQ", PrevDayEquilibriumPen, PrevDayEquilibriumDisplayMode);
-        RenderLevel(context, "pPOC", PrevDayPOCPen, PrevDayPOCDisplayMode);
-        RenderLevel(context, "pVAH", PrevDayVAHPen, PrevDayVAHDisplayMode);
-        RenderLevel(context, "pVAL", PrevDayVALPen, PrevDayVALDisplayMode);
+        RenderLevel(context, "pOpen", PrevDayOpenLevel);
+        RenderLevel(context, "pHigh", PrevDayHighLevel);
+        RenderLevel(context, "pLow", PrevDayLowLevel);
+        RenderLevel(context, "pClose", PrevDayCloseLevel);
+        RenderLevel(context, "pEQ", PrevDayEquilibriumLevel);
+        RenderLevel(context, "pPOC", PrevDayPOCLevel);
+        RenderLevel(context, "pVAH", PrevDayVAHLevel);
+        RenderLevel(context, "pVAL", PrevDayVALLevel);
 
         // Render Week levels
-        RenderLevel(context, "wOpen", WeekOpenPen, WeekOpenDisplayMode);
-        RenderLevel(context, "wHigh", WeekHighPen, WeekHighDisplayMode);
-        RenderLevel(context, "wLow", WeekLowPen, WeekLowDisplayMode);
-        RenderLevel(context, "wClose", WeekClosePen, WeekCloseDisplayMode);
-        RenderLevel(context, "wEQ", WeekEquilibriumPen, WeekEquilibriumDisplayMode);
-        RenderLevel(context, "wPOC", WeekPOCPen, WeekPOCDisplayMode);
-        RenderLevel(context, "wVAH", WeekVAHPen, WeekVAHDisplayMode);
-        RenderLevel(context, "wVAL", WeekVALPen, WeekVALDisplayMode);
+        RenderLevel(context, "wOpen", WeekOpenLevel);
+        RenderLevel(context, "wHigh", WeekHighLevel);
+        RenderLevel(context, "wLow", WeekLowLevel);
+        RenderLevel(context, "wClose", WeekCloseLevel);
+        RenderLevel(context, "wEQ", WeekEquilibriumLevel);
+        RenderLevel(context, "wPOC", WeekPOCLevel);
+        RenderLevel(context, "wVAH", WeekVAHLevel);
+        RenderLevel(context, "wVAL", WeekVALLevel);
 
         // Render Prev.Week levels
-        RenderLevel(context, "pwOpen", PrevWeekOpenPen, PrevWeekOpenDisplayMode);
-        RenderLevel(context, "pwHigh", PrevWeekHighPen, PrevWeekHighDisplayMode);
-        RenderLevel(context, "pwLow", PrevWeekLowPen, PrevWeekLowDisplayMode);
-        RenderLevel(context, "pwClose", PrevWeekClosePen, PrevWeekCloseDisplayMode);
-        RenderLevel(context, "pwEQ", PrevWeekEquilibriumPen, PrevWeekEquilibriumDisplayMode);
-        RenderLevel(context, "pwPOC", PrevWeekPOCPen, PrevWeekPOCDisplayMode);
-        RenderLevel(context, "pwVAH", PrevWeekVAHPen, PrevWeekVAHDisplayMode);
-        RenderLevel(context, "pwVAL", PrevWeekVALPen, PrevWeekVALDisplayMode);
+        RenderLevel(context, "pwOpen", PrevWeekOpenLevel);
+        RenderLevel(context, "pwHigh", PrevWeekHighLevel);
+        RenderLevel(context, "pwLow", PrevWeekLowLevel);
+        RenderLevel(context, "pwClose", PrevWeekCloseLevel);
+        RenderLevel(context, "pwEQ", PrevWeekEquilibriumLevel);
+        RenderLevel(context, "pwPOC", PrevWeekPOCLevel);
+        RenderLevel(context, "pwVAH", PrevWeekVAHLevel);
+        RenderLevel(context, "pwVAL", PrevWeekVALLevel);
 
         // Render Month levels
-        RenderLevel(context, "mOpen", MonthOpenPen, MonthOpenDisplayMode);
-        RenderLevel(context, "mHigh", MonthHighPen, MonthHighDisplayMode);
-        RenderLevel(context, "mLow", MonthLowPen, MonthLowDisplayMode);
-        RenderLevel(context, "mClose", MonthClosePen, MonthCloseDisplayMode);
-        RenderLevel(context, "mEQ", MonthEquilibriumPen, MonthEquilibriumDisplayMode);
-        RenderLevel(context, "mPOC", MonthPOCPen, MonthPOCDisplayMode);
-        RenderLevel(context, "mVAH", MonthVAHPen, MonthVAHDisplayMode);
-        RenderLevel(context, "mVAL", MonthVALPen, MonthVALDisplayMode);
+        RenderLevel(context, "mOpen", MonthOpenLevel);
+        RenderLevel(context, "mHigh", MonthHighLevel);
+        RenderLevel(context, "mLow", MonthLowLevel);
+        RenderLevel(context, "mClose", MonthCloseLevel);
+        RenderLevel(context, "mEQ", MonthEquilibriumLevel);
+        RenderLevel(context, "mPOC", MonthPOCLevel);
+        RenderLevel(context, "mVAH", MonthVAHLevel);
+        RenderLevel(context, "mVAL", MonthVALLevel);
 
         // Render Prev.Month levels
-        RenderLevel(context, "pmOpen", PrevMonthOpenPen, PrevMonthOpenDisplayMode);
-        RenderLevel(context, "pmHigh", PrevMonthHighPen, PrevMonthHighDisplayMode);
-        RenderLevel(context, "pmLow", PrevMonthLowPen, PrevMonthLowDisplayMode);
-        RenderLevel(context, "pmClose", PrevMonthClosePen, PrevMonthCloseDisplayMode);
-        RenderLevel(context, "pmEQ", PrevMonthEquilibriumPen, PrevMonthEquilibriumDisplayMode);
-        RenderLevel(context, "pmPOC", PrevMonthPOCPen, PrevMonthPOCDisplayMode);
-        RenderLevel(context, "pmVAH", PrevMonthVAHPen, PrevMonthVAHDisplayMode);
-        RenderLevel(context, "pmVAL", PrevMonthVALPen, PrevMonthVALDisplayMode);
+        RenderLevel(context, "pmOpen", PrevMonthOpenLevel);
+        RenderLevel(context, "pmHigh", PrevMonthHighLevel);
+        RenderLevel(context, "pmLow", PrevMonthLowLevel);
+        RenderLevel(context, "pmClose", PrevMonthCloseLevel);
+        RenderLevel(context, "pmEQ", PrevMonthEquilibriumLevel);
+        RenderLevel(context, "pmPOC", PrevMonthPOCLevel);
+        RenderLevel(context, "pmVAH", PrevMonthVAHLevel);
+        RenderLevel(context, "pmVAL", PrevMonthVALLevel);
 
         // Render Contract levels
-        RenderLevel(context, "cOpen", ContractOpenPen, ContractOpenDisplayMode);
-        RenderLevel(context, "cHigh", ContractHighPen, ContractHighDisplayMode);
-        RenderLevel(context, "cLow", ContractLowPen, ContractLowDisplayMode);
-        RenderLevel(context, "cClose", ContractClosePen, ContractCloseDisplayMode);
-        RenderLevel(context, "cEQ", ContractEquilibriumPen, ContractEquilibriumDisplayMode);
-        RenderLevel(context, "cPOC", ContractPOCPen, ContractPOCDisplayMode);
-        RenderLevel(context, "cVAH", ContractVAHPen, ContractVAHDisplayMode);
-        RenderLevel(context, "cVAL", ContractVALPen, ContractVALDisplayMode);
+        RenderLevel(context, "cOpen", ContractOpenLevel);
+        RenderLevel(context, "cHigh", ContractHighLevel);
+        RenderLevel(context, "cLow", ContractLowLevel);
+        RenderLevel(context, "cClose", ContractCloseLevel);
+        RenderLevel(context, "cEQ", ContractEquilibriumLevel);
+        RenderLevel(context, "cPOC", ContractPOCLevel);
+        RenderLevel(context, "cVAH", ContractVAHLevel);
+        RenderLevel(context, "cVAL", ContractVALLevel);
     }
 
     #endregion
@@ -922,44 +977,44 @@ public class OHLCPlus : Indicator
 
     private bool NeedsDayData()
     {
-        return DayOpenPen.Enabled || DayHighPen.Enabled || DayLowPen.Enabled || DayClosePen.Enabled ||
-               DayEquilibriumPen.Enabled || DayPOCPen.Enabled || DayVAHPen.Enabled || DayVALPen.Enabled;
+        return DayOpenLevel.Enabled || DayHighLevel.Enabled || DayLowLevel.Enabled || DayCloseLevel.Enabled ||
+               DayEquilibriumLevel.Enabled || DayPOCLevel.Enabled || DayVAHLevel.Enabled || DayVALLevel.Enabled;
     }
 
     private bool NeedsPrevDayData()
     {
-        return PrevDayOpenPen.Enabled || PrevDayHighPen.Enabled || PrevDayLowPen.Enabled || PrevDayClosePen.Enabled ||
-               PrevDayEquilibriumPen.Enabled || PrevDayPOCPen.Enabled || PrevDayVAHPen.Enabled || PrevDayVALPen.Enabled;
+        return PrevDayOpenLevel.Enabled || PrevDayHighLevel.Enabled || PrevDayLowLevel.Enabled || PrevDayCloseLevel.Enabled ||
+               PrevDayEquilibriumLevel.Enabled || PrevDayPOCLevel.Enabled || PrevDayVAHLevel.Enabled || PrevDayVALLevel.Enabled;
     }
 
     private bool NeedsWeekData()
     {
-        return WeekOpenPen.Enabled || WeekHighPen.Enabled || WeekLowPen.Enabled || WeekClosePen.Enabled ||
-               WeekEquilibriumPen.Enabled || WeekPOCPen.Enabled || WeekVAHPen.Enabled || WeekVALPen.Enabled;
+        return WeekOpenLevel.Enabled || WeekHighLevel.Enabled || WeekLowLevel.Enabled || WeekCloseLevel.Enabled ||
+               WeekEquilibriumLevel.Enabled || WeekPOCLevel.Enabled || WeekVAHLevel.Enabled || WeekVALLevel.Enabled;
     }
 
     private bool NeedsPrevWeekData()
     {
-        return PrevWeekOpenPen.Enabled || PrevWeekHighPen.Enabled || PrevWeekLowPen.Enabled || PrevWeekClosePen.Enabled ||
-               PrevWeekEquilibriumPen.Enabled || PrevWeekPOCPen.Enabled || PrevWeekVAHPen.Enabled || PrevWeekVALPen.Enabled;
+        return PrevWeekOpenLevel.Enabled || PrevWeekHighLevel.Enabled || PrevWeekLowLevel.Enabled || PrevWeekCloseLevel.Enabled ||
+               PrevWeekEquilibriumLevel.Enabled || PrevWeekPOCLevel.Enabled || PrevWeekVAHLevel.Enabled || PrevWeekVALLevel.Enabled;
     }
 
     private bool NeedsMonthData()
     {
-        return MonthOpenPen.Enabled || MonthHighPen.Enabled || MonthLowPen.Enabled || MonthClosePen.Enabled ||
-               MonthEquilibriumPen.Enabled || MonthPOCPen.Enabled || MonthVAHPen.Enabled || MonthVALPen.Enabled;
+        return MonthOpenLevel.Enabled || MonthHighLevel.Enabled || MonthLowLevel.Enabled || MonthCloseLevel.Enabled ||
+               MonthEquilibriumLevel.Enabled || MonthPOCLevel.Enabled || MonthVAHLevel.Enabled || MonthVALLevel.Enabled;
     }
 
     private bool NeedsPrevMonthData()
     {
-        return PrevMonthOpenPen.Enabled || PrevMonthHighPen.Enabled || PrevMonthLowPen.Enabled || PrevMonthClosePen.Enabled ||
-               PrevMonthEquilibriumPen.Enabled || PrevMonthPOCPen.Enabled || PrevMonthVAHPen.Enabled || PrevMonthVALPen.Enabled;
+        return PrevMonthOpenLevel.Enabled || PrevMonthHighLevel.Enabled || PrevMonthLowLevel.Enabled || PrevMonthCloseLevel.Enabled ||
+               PrevMonthEquilibriumLevel.Enabled || PrevMonthPOCLevel.Enabled || PrevMonthVAHLevel.Enabled || PrevMonthVALLevel.Enabled;
     }
 
     private bool NeedsContractData()
     {
-        return ContractOpenPen.Enabled || ContractHighPen.Enabled || ContractLowPen.Enabled || ContractClosePen.Enabled ||
-               ContractEquilibriumPen.Enabled || ContractPOCPen.Enabled || ContractVAHPen.Enabled || ContractVALPen.Enabled;
+        return ContractOpenLevel.Enabled || ContractHighLevel.Enabled || ContractLowLevel.Enabled || ContractCloseLevel.Enabled ||
+               ContractEquilibriumLevel.Enabled || ContractPOCLevel.Enabled || ContractVAHLevel.Enabled || ContractVALLevel.Enabled;
     }
 
     private void UpdateLevels(FixedProfilePeriods period, IndicatorCandle candle)
@@ -1012,9 +1067,9 @@ public class OHLCPlus : Indicator
         };
     }
 
-    private void RenderLevel(RenderContext context, string levelKey, FilterRenderPen pen, DisplayMode displayMode)
+    private void RenderLevel(RenderContext context, string levelKey, LevelSettings levelSettings)
     {
-        if (!pen.Enabled || !_levels.TryGetValue(levelKey, out var level) || !level.IsValid)
+        if (!levelSettings.Enabled || !_levels.TryGetValue(levelKey, out var level) || !level.IsValid)
             return;
 
         var y = ChartInfo.GetYByPrice(level.Price, false);
@@ -1023,63 +1078,91 @@ public class OHLCPlus : Indicator
         var barWidth = (int)ChartInfo.PriceChartContainer.BarsWidth;
         var currentBarRightX = currentBarX + barWidth;
 
-        // Get pen from FilterRenderPen
-        var renderPen = pen.Value.RenderObject;
+        // Get pen from LevelSettings
+        var renderPen = levelSettings.RenderPen;
 
-        switch (displayMode)
+        // Draw line first (if LineType != None)
+        switch (levelSettings.LineType)
         {
-            case DisplayMode.PriceOnly:
-                DrawPriceLabel(context, level.Price, y, renderPen);
+            case LineType.Bar:
+                // If label is at bar position, start line after the label to avoid overlap
+                if (levelSettings.LabelPosition == LabelPosition.Bar)
+                {
+                    // Estimate label width and start line after it
+                    var labelStartX = currentBarRightX + 5;
+                    var estimatedLabelWidth = 30; // Approximate width for label
+                    var lineStartX = labelStartX + estimatedLabelWidth + 2;
+                    context.DrawLine(renderPen, lineStartX, y, chartWidth, y);
+                }
+                else
+                {
+                    // Normal bar line from right edge of bar to price axis
+                    context.DrawLine(renderPen, currentBarRightX, y, chartWidth, y);
+                }
                 break;
-
-            case DisplayMode.PriceAndLabel:
-                DrawPriceLabel(context, level.Price, y, renderPen);
-                // Label should be positioned at the left edge of price axis (right edge of chart area)
-                var labelX = chartWidth - 5;
-                DrawTextLabel(context, level.Label, labelX, y, renderPen, true);
-                break;
-
-            case DisplayMode.PriceAndLabelWithLineToBar:
-                // Draw line first, then labels on top
-                context.DrawLine(renderPen, currentBarRightX, y, chartWidth, y);
-                DrawPriceLabel(context, level.Price, y, renderPen);
-                var labelX2 = chartWidth - 5;
-                DrawTextLabel(context, level.Label, labelX2, y, renderPen, true);
-                break;
-
-            case DisplayMode.PriceAndLabelWithFullLine:
-                // Draw line first, then labels on top
+            case LineType.Full:
                 context.DrawLine(renderPen, 0, y, chartWidth, y);
-                DrawPriceLabel(context, level.Price, y, renderPen);
-                var labelX3 = chartWidth - 5;
-                DrawTextLabel(context, level.Label, labelX3, y, renderPen, true);
                 break;
+            case LineType.None:
+                // No line to draw
+                break;
+        }
 
-            case DisplayMode.LabelAtBarWithPrice:
-                // Draw line first, then labels on top
-                context.DrawLine(renderPen, currentBarRightX, y, chartWidth, y);
-                DrawPriceLabel(context, level.Price, y, renderPen);
-                // Label should be to the right of the last bar
+        // Draw price label (if ShowPrice == true)
+        if (levelSettings.ShowPrice)
+        {
+            DrawPriceLabel(context, level.Price, y, renderPen, levelSettings);
+        }
+
+        // Draw text label (if LabelPosition != None)
+        switch (levelSettings.LabelPosition)
+        {
+            case LabelPosition.Bar:
                 var barLabelX = currentBarRightX + 5;
                 DrawTextLabel(context, level.Label, barLabelX, y, renderPen, false);
                 break;
-
-            case DisplayMode.LabelAtBarWithPriceAndFullLine:
-                // Draw line first, then labels on top
-                context.DrawLine(renderPen, 0, y, chartWidth, y);
-                DrawPriceLabel(context, level.Price, y, renderPen);
-                // Label should be to the right of the last bar
-                var barLabelX2 = currentBarRightX + 5;
-                DrawTextLabel(context, level.Label, barLabelX2, y, renderPen, false);
+            case LabelPosition.Right:
+                var rightLabelX = chartWidth - 5;
+                DrawTextLabel(context, level.Label, rightLabelX, y, renderPen, true);
+                break;
+            case LabelPosition.Left:
+                var leftLabelX = 5;
+                DrawTextLabel(context, level.Label, leftLabelX, y, renderPen, false);
+                break;
+            case LabelPosition.None:
+                // No text label to draw
                 break;
         }
     }
 
-    private void DrawPriceLabel(RenderContext context, decimal price, int y, RenderPen pen)
+    private void DrawPriceLabel(RenderContext context, decimal price, int y, RenderPen pen, LevelSettings levelSettings)
     {
         var priceText = string.Format(ChartInfo.StringFormat, price);
-        var axisTextColor = ChartInfo.ColorsStore.MouseTextColor;
-        this.DrawLabelOnPriceAxis(context, priceText, y, _axisFont, pen.Color, axisTextColor);
+        
+        // Calculate contrasting text color based on background color
+        var backgroundColor = levelSettings.Color;
+        var textColor = GetContrastingColor(backgroundColor);
+        
+        this.DrawLabelOnPriceAxis(context, priceText, y, _axisFont, backgroundColor.Convert(), textColor.Convert());
+    }
+    
+    private CrossColor GetContrastingColor(CrossColor backgroundColor)
+    {
+        // Calculate luminance using relative luminance formula
+        // See: https://www.w3.org/TR/WCAG20/#relativeluminancedef
+        double luminance = (0.299 * backgroundColor.R + 0.587 * backgroundColor.G + 0.114 * backgroundColor.B) / 255;
+        
+        // If background is dark, use white text; if light, use black text
+        if (luminance > 0.5)
+        {
+            // Dark text for light backgrounds
+            return CrossColors.Black;
+        }
+        else
+        {
+            // Light text for dark backgrounds
+            return CrossColors.White;
+        }
     }
 
     private void DrawTextLabel(RenderContext context, string text, int x, int y, RenderPen pen, bool alignRight)
