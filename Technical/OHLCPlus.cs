@@ -16,28 +16,28 @@ using OFT.Rendering.Tools;
 
 public enum LabelPosition
 {
-    [Display(Name = "None")]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.None))]
     None = 0,
     
-    [Display(Name = "Bar")]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Bar))]
     Bar = 1,
     
-    [Display(Name = "Right")]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Right))]
     Right = 2,
     
-    [Display(Name = "Left")]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Left))]
     Left = 3
 }
 
 public enum LineType
 {
-    [Display(Name = "None")]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.None))]
     None = 0,
     
-    [Display(Name = "Till Bar")]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.TillBar))]
     Bar = 1,
     
-    [Display(Name = "Full Width")]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.FullWidth))]
     Full = 2
 }
 
@@ -55,26 +55,26 @@ public class LevelSettings
             LineType = lineType;
         }
 
-        [Display(Name = "Enabled")]
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled))]
         public bool Enabled { get; set; }
 
-        [Display(Name = "Color")]
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Color))]
         public CrossColor Color { get; set; }
 
-        [Display(Name = "Price")]
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowPrice))]
         public bool ShowPrice { get; set; }
 
-        [Display(Name = "Line")]
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Line))]
         public LineType LineType { get; set; }
 
-        [Display(Name = "Width")]
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Width))]
         [Range(1, 10)]
         public int Width { get; set; }
 
-        [Display(Name = "Style")]
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LineStyle))]
         public LineDashStyle LineStyle { get; set; }
 
-        [Display(Name = "Label")]
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Label))]
         public LabelPosition LabelPosition { get; set; }
 
         [Browsable(false)]
@@ -125,7 +125,7 @@ public class OHLCPlus : Indicator
 
     #region Day Settings
 
-    [Category("Day")]
+    [Category(nameof(Strings.CurrentDay))]
     [Display(Name = "dOpen", Order = 10)]
     public LevelSettings DayOpenLevel { get; set; } = new(
         enabled: true,
@@ -137,7 +137,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Day")]
+    [Category(nameof(Strings.CurrentDay))]
     [Display(Name = "dHigh", Order = 20)]
     public LevelSettings DayHighLevel { get; set; } = new(
         enabled: false,
@@ -149,7 +149,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Day")]
+    [Category(nameof(Strings.CurrentDay))]
     [Display(Name = "dLow", Order = 30)]
     public LevelSettings DayLowLevel { get; set; } = new(
         enabled: false,
@@ -161,7 +161,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Day")]
+    [Category(nameof(Strings.CurrentDay))]
     [Display(Name = "dClose", Order = 40)]
     public LevelSettings DayCloseLevel { get; set; } = new(
         enabled: false,
@@ -173,7 +173,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Day")]
+    [Category(nameof(Strings.CurrentDay))]
     [Display(Name = "dEquilibrium", Order = 50)]
     public LevelSettings DayEquilibriumLevel { get; set; } = new(
         enabled: false,
@@ -185,7 +185,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Day")]
+    [Category(nameof(Strings.CurrentDay))]
     [Display(Name = "dPOC", Order = 60)]
     public LevelSettings DayPOCLevel { get; set; } = new(
         enabled: false,
@@ -197,7 +197,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Day")]
+    [Category(nameof(Strings.CurrentDay))]
     [Display(Name = "dVAH", Order = 70)]
     public LevelSettings DayVAHLevel { get; set; } = new(
         enabled: false,
@@ -209,7 +209,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Day")]
+    [Category(nameof(Strings.CurrentDay))]
     [Display(Name = "dVAL", Order = 80)]
     public LevelSettings DayVALLevel { get; set; } = new(
         enabled: false,
@@ -225,7 +225,7 @@ public class OHLCPlus : Indicator
 
     #region Prev.Day Settings
 
-    [Category("Prev.Day")]
+    [Category(nameof(Strings.PreviousDay))]
     [Display(Name = "pdOpen", Order = 10)]
     public LevelSettings PrevDayOpenLevel { get; set; } = new(
         enabled: false,
@@ -237,7 +237,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Prev.Day")]
+    [Category(nameof(Strings.PreviousDay))]
     [Display(Name = "pdHigh", Order = 20)]
     public LevelSettings PrevDayHighLevel { get; set; } = new(
         enabled: false,
@@ -249,7 +249,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Prev.Day")]
+    [Category(nameof(Strings.PreviousDay))]
     [Display(Name = "pdLow", Order = 30)]
     public LevelSettings PrevDayLowLevel { get; set; } = new(
         enabled: false,
@@ -261,7 +261,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Prev.Day")]
+    [Category(nameof(Strings.PreviousDay))]
     [Display(Name = "pdClose", Order = 40)]
     public LevelSettings PrevDayCloseLevel { get; set; } = new(
         enabled: false,
@@ -273,7 +273,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Prev.Day")]
+    [Category(nameof(Strings.PreviousDay))]
     [Display(Name = "pdEquilibrium", Order = 50)]
     public LevelSettings PrevDayEquilibriumLevel { get; set; } = new(
         enabled: false,
@@ -285,7 +285,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Prev.Day")]
+    [Category(nameof(Strings.PreviousDay))]
     [Display(Name = "pdPOC", Order = 60)]
     public LevelSettings PrevDayPOCLevel { get; set; } = new(
         enabled: true,
@@ -297,7 +297,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Prev.Day")]
+    [Category(nameof(Strings.PreviousDay))]
     [Display(Name = "pdVAH", Order = 70)]
     public LevelSettings PrevDayVAHLevel { get; set; } = new(
         enabled: false,
@@ -309,7 +309,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Prev.Day")]
+    [Category(nameof(Strings.PreviousDay))]
     [Display(Name = "pdVAL", Order = 80)]
     public LevelSettings PrevDayVALLevel { get; set; } = new(
         enabled: false,
@@ -325,7 +325,7 @@ public class OHLCPlus : Indicator
 
     #region Week Settings
 
-    [Category("Week")]
+    [Category(nameof(Strings.CurrentWeek))]
     [Display(Name = "wOpen", Order = 10)]
     public LevelSettings WeekOpenLevel { get; set; } = new(
         enabled: false,
@@ -337,7 +337,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Week")]
+    [Category(nameof(Strings.CurrentWeek))]
     [Display(Name = "wHigh", Order = 20)]
     public LevelSettings WeekHighLevel { get; set; } = new(
         enabled: false,
@@ -349,7 +349,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Week")]
+    [Category(nameof(Strings.CurrentWeek))]
     [Display(Name = "wLow", Order = 30)]
     public LevelSettings WeekLowLevel { get; set; } = new(
         enabled: false,
@@ -361,7 +361,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Week")]
+    [Category(nameof(Strings.CurrentWeek))]
     [Display(Name = "wClose", Order = 40)]
     public LevelSettings WeekCloseLevel { get; set; } = new(
         enabled: false,
@@ -373,7 +373,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Week")]
+    [Category(nameof(Strings.CurrentWeek))]
     [Display(Name = "wEquilibrium", Order = 50)]
     public LevelSettings WeekEquilibriumLevel { get; set; } = new(
         enabled: false,
@@ -385,7 +385,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Week")]
+    [Category(nameof(Strings.CurrentWeek))]
     [Display(Name = "wPOC", Order = 60)]
     public LevelSettings WeekPOCLevel { get; set; } = new(
         enabled: false,
@@ -397,7 +397,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Week")]
+    [Category(nameof(Strings.CurrentWeek))]
     [Display(Name = "wVAH", Order = 70)]
     public LevelSettings WeekVAHLevel { get; set; } = new(
         enabled: false,
@@ -409,7 +409,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Week")]
+    [Category(nameof(Strings.CurrentWeek))]
     [Display(Name = "wVAL", Order = 80)]
     public LevelSettings WeekVALLevel { get; set; } = new(
         enabled: false,
@@ -425,7 +425,7 @@ public class OHLCPlus : Indicator
 
     #region Prev.Week Settings
 
-    [Category("Prev.Week")]
+    [Category(nameof(Strings.PreviousWeek))]
     [Display(Name = "pwOpen", Order = 10)]
     public LevelSettings PrevWeekOpenLevel { get; set; } = new(
         enabled: false,
@@ -437,7 +437,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Prev.Week")]
+    [Category(nameof(Strings.PreviousWeek))]
     [Display(Name = "pwHigh", Order = 20)]
     public LevelSettings PrevWeekHighLevel { get; set; } = new(
         enabled: false,
@@ -449,7 +449,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Prev.Week")]
+    [Category(nameof(Strings.PreviousWeek))]
     [Display(Name = "pwLow", Order = 30)]
     public LevelSettings PrevWeekLowLevel { get; set; } = new(
         enabled: false,
@@ -461,7 +461,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Prev.Week")]
+    [Category(nameof(Strings.PreviousWeek))]
     [Display(Name = "pwClose", Order = 40)]
     public LevelSettings PrevWeekCloseLevel { get; set; } = new(
         enabled: false,
@@ -473,7 +473,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Prev.Week")]
+    [Category(nameof(Strings.PreviousWeek))]
     [Display(Name = "pwEquilibrium", Order = 50)]
     public LevelSettings PrevWeekEquilibriumLevel { get; set; } = new(
         enabled: false,
@@ -485,7 +485,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Prev.Week")]
+    [Category(nameof(Strings.PreviousWeek))]
     [Display(Name = "pwPOC", Order = 60)]
     public LevelSettings PrevWeekPOCLevel { get; set; } = new(
         enabled: false,
@@ -497,7 +497,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Prev.Week")]
+    [Category(nameof(Strings.PreviousWeek))]
     [Display(Name = "pwVAH", Order = 70)]
     public LevelSettings PrevWeekVAHLevel { get; set; } = new(
         enabled: false,
@@ -509,7 +509,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Prev.Week")]
+    [Category(nameof(Strings.PreviousWeek))]
     [Display(Name = "pwVAL", Order = 80)]
     public LevelSettings PrevWeekVALLevel { get; set; } = new(
         enabled: false,
@@ -525,7 +525,7 @@ public class OHLCPlus : Indicator
 
     #region Month Settings
 
-    [Category("Month")]
+    [Category(nameof(Strings.CurrentMonth))]
     [Display(Name = "mOpen", Order = 10)]
     public LevelSettings MonthOpenLevel { get; set; } = new(
         enabled: false,
@@ -537,7 +537,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Month")]
+    [Category(nameof(Strings.CurrentMonth))]
     [Display(Name = "mHigh", Order = 20)]
     public LevelSettings MonthHighLevel { get; set; } = new(
         enabled: false,
@@ -549,7 +549,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Month")]
+    [Category(nameof(Strings.CurrentMonth))]
     [Display(Name = "mLow", Order = 30)]
     public LevelSettings MonthLowLevel { get; set; } = new(
         enabled: false,
@@ -561,7 +561,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Month")]
+    [Category(nameof(Strings.CurrentMonth))]
     [Display(Name = "mClose", Order = 40)]
     public LevelSettings MonthCloseLevel { get; set; } = new(
         enabled: false,
@@ -573,7 +573,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Month")]
+    [Category(nameof(Strings.CurrentMonth))]
     [Display(Name = "mEquilibrium", Order = 50)]
     public LevelSettings MonthEquilibriumLevel { get; set; } = new(
         enabled: false,
@@ -585,7 +585,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Month")]
+    [Category(nameof(Strings.CurrentMonth))]
     [Display(Name = "mPOC", Order = 60)]
     public LevelSettings MonthPOCLevel { get; set; } = new(
         enabled: false,
@@ -597,7 +597,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Month")]
+    [Category(nameof(Strings.CurrentMonth))]
     [Display(Name = "mVAH", Order = 70)]
     public LevelSettings MonthVAHLevel { get; set; } = new(
         enabled: false,
@@ -609,7 +609,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Month")]
+    [Category(nameof(Strings.CurrentMonth))]
     [Display(Name = "mVAL", Order = 80)]
     public LevelSettings MonthVALLevel { get; set; } = new(
         enabled: false,
@@ -625,7 +625,7 @@ public class OHLCPlus : Indicator
 
     #region Prev.Month Settings
 
-    [Category("Prev.Month")]
+    [Category(nameof(Strings.PreviousMonth))]
     [Display(Name = "pmOpen", Order = 10)]
     public LevelSettings PrevMonthOpenLevel { get; set; } = new(
         enabled: false,
@@ -637,7 +637,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Prev.Month")]
+    [Category(nameof(Strings.PreviousMonth))]
     [Display(Name = "pmHigh", Order = 20)]
     public LevelSettings PrevMonthHighLevel { get; set; } = new(
         enabled: false,
@@ -649,7 +649,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Prev.Month")]
+    [Category(nameof(Strings.PreviousMonth))]
     [Display(Name = "pmLow", Order = 30)]
     public LevelSettings PrevMonthLowLevel { get; set; } = new(
         enabled: false,
@@ -661,7 +661,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Prev.Month")]
+    [Category(nameof(Strings.PreviousMonth))]
     [Display(Name = "pmClose", Order = 40)]
     public LevelSettings PrevMonthCloseLevel { get; set; } = new(
         enabled: false,
@@ -673,7 +673,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Prev.Month")]
+    [Category(nameof(Strings.PreviousMonth))]
     [Display(Name = "pmEquilibrium", Order = 50)]
     public LevelSettings PrevMonthEquilibriumLevel { get; set; } = new(
         enabled: false,
@@ -685,7 +685,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Prev.Month")]
+    [Category(nameof(Strings.PreviousMonth))]
     [Display(Name = "pmPOC", Order = 60)]
     public LevelSettings PrevMonthPOCLevel { get; set; } = new(
         enabled: false,
@@ -697,7 +697,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Prev.Month")]
+    [Category(nameof(Strings.PreviousMonth))]
     [Display(Name = "pmVAH", Order = 70)]
     public LevelSettings PrevMonthVAHLevel { get; set; } = new(
         enabled: false,
@@ -709,7 +709,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Prev.Month")]
+    [Category(nameof(Strings.PreviousMonth))]
     [Display(Name = "pmVAL", Order = 80)]
     public LevelSettings PrevMonthVALLevel { get; set; } = new(
         enabled: false,
@@ -725,7 +725,7 @@ public class OHLCPlus : Indicator
 
     #region Contract Settings
 
-    [Category("Contract")]
+    [Category(nameof(Strings.Contract))]
     [Display(Name = "cOpen", Order = 10)]
     public LevelSettings ContractOpenLevel { get; set; } = new(
         enabled: false,
@@ -737,7 +737,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Contract")]
+    [Category(nameof(Strings.Contract))]
     [Display(Name = "cHigh", Order = 20)]
     public LevelSettings ContractHighLevel { get; set; } = new(
         enabled: false,
@@ -749,7 +749,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Contract")]
+    [Category(nameof(Strings.Contract))]
     [Display(Name = "cLow", Order = 30)]
     public LevelSettings ContractLowLevel { get; set; } = new(
         enabled: false,
@@ -761,7 +761,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Contract")]
+    [Category(nameof(Strings.Contract))]
     [Display(Name = "cClose", Order = 40)]
     public LevelSettings ContractCloseLevel { get; set; } = new(
         enabled: false,
@@ -773,7 +773,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Contract")]
+    [Category(nameof(Strings.Contract))]
     [Display(Name = "cEquilibrium", Order = 50)]
     public LevelSettings ContractEquilibriumLevel { get; set; } = new(
         enabled: false,
@@ -785,7 +785,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Contract")]
+    [Category(nameof(Strings.Contract))]
     [Display(Name = "cPOC", Order = 60)]
     public LevelSettings ContractPOCLevel { get; set; } = new(
         enabled: false,
@@ -797,7 +797,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Contract")]
+    [Category(nameof(Strings.Contract))]
     [Display(Name = "cVAH", Order = 70)]
     public LevelSettings ContractVAHLevel { get; set; } = new(
         enabled: false,
@@ -809,7 +809,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Category("Contract")]
+    [Category(nameof(Strings.Contract))]
     [Display(Name = "cVAL", Order = 80)]
     public LevelSettings ContractVALLevel { get; set; } = new(
         enabled: false,
