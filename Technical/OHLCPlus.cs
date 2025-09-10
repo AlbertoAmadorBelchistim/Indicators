@@ -14,44 +14,36 @@ using OFT.Rendering.Context;
 using OFT.Rendering.Settings;
 using OFT.Rendering.Tools;
 
-[DisplayName("OHLC Plus")]
-[Category(IndicatorCategories.VolumeOrderFlow)]
-[Display(ResourceType = typeof(Strings), Description = nameof(Strings.MaxLevelsIndDescription))]
-[HelpLink("https://help.atas.net/")]
-public class OHLCPlus : Indicator
+public enum LabelPosition
 {
-    #region Nested types
+    [Display(Name = "None")]
+    None = 0,
+    
+    [Display(Name = "Bar")]
+    Bar = 1,
+    
+    [Display(Name = "Right")]
+    Right = 2,
+    
+    [Display(Name = "Left")]
+    Left = 3
+}
 
-    public enum LabelPosition
-    {
-        [Display(Name = "None")]
-        None = 0,
-        
-        [Display(Name = "Bar")]
-        Bar = 1,
-        
-        [Display(Name = "Right (Price Scale)")]
-        Right = 2,
-        
-        [Display(Name = "Left")]
-        Left = 3
-    }
+public enum LineType
+{
+    [Display(Name = "None")]
+    None = 0,
+    
+    [Display(Name = "Till Bar")]
+    Bar = 1,
+    
+    [Display(Name = "Full Width")]
+    Full = 2
+}
 
-    public enum LineType
-    {
-        [Display(Name = "None")]
-        None = 0,
-        
-        [Display(Name = "Bar")]
-        Bar = 1,
-        
-        [Display(Name = "Full Width")]
-        Full = 2
-    }
-
-    [Editor(typeof(Editors.LevelSettingsEditor), typeof(Editors.LevelSettingsEditor))]
-    public class LevelSettings
-    {
+[Editor(typeof(ATAS.Indicators.Technical.Editors.LevelSettingsEditor), typeof(ATAS.Indicators.Technical.Editors.LevelSettingsEditor))]
+public class LevelSettings
+{
         public LevelSettings(bool enabled = false, CrossColor color = default, int width = 1, LineDashStyle lineStyle = LineDashStyle.Solid, bool showPrice = true, LabelPosition labelPosition = LabelPosition.Bar, LineType lineType = LineType.Bar)
         {
             Enabled = enabled;
@@ -89,6 +81,13 @@ public class OHLCPlus : Indicator
         public RenderPen RenderPen => new PenSettings { Color = Color, Width = Width, LineDashStyle = LineStyle }.RenderObject;
     }
 
+[DisplayName("OHLC Plus")]
+[Category(IndicatorCategories.VolumeOrderFlow)]
+[Display(ResourceType = typeof(Strings), Description = nameof(Strings.MaxLevelsIndDescription))]
+public class OHLCPlus : Indicator
+{
+    #region Nested types
+
     private class LevelData
     {
         public decimal Price { get; set; }
@@ -104,9 +103,17 @@ public class OHLCPlus : Indicator
     private readonly Dictionary<string, LevelData> _levels = new();
     private RenderFont _font = new("Arial", 10);
     private RenderFont _axisFont = new("Arial", 11);
-    private RenderStringFormat _stringFormat = new()
+    private RenderStringFormat _stringRightFormat = new()
     {
         Alignment = StringAlignment.Far,
+        LineAlignment = StringAlignment.Center,
+        Trimming = StringTrimming.EllipsisCharacter,
+        FormatFlags = StringFormatFlags.NoWrap
+    };
+    
+    private RenderStringFormat _stringLeftFormat = new()
+    {
+        Alignment = StringAlignment.Near,
         LineAlignment = StringAlignment.Center,
         Trimming = StringTrimming.EllipsisCharacter,
         FormatFlags = StringFormatFlags.NoWrap
@@ -869,75 +876,14 @@ public class OHLCPlus : Indicator
         if (ChartInfo is null || InstrumentInfo is null)
             return;
 
-        // Render Day levels
-        RenderLevel(context, "dOpen", DayOpenLevel);
-        RenderLevel(context, "dHigh", DayHighLevel);
-        RenderLevel(context, "dLow", DayLowLevel);
-        RenderLevel(context, "dClose", DayCloseLevel);
-        RenderLevel(context, "dEQ", DayEquilibriumLevel);
-        RenderLevel(context, "dPOC", DayPOCLevel);
-        RenderLevel(context, "dVAH", DayVAHLevel);
-        RenderLevel(context, "dVAL", DayVALLevel);
-
-        // Render Prev.Day levels
-        RenderLevel(context, "pOpen", PrevDayOpenLevel);
-        RenderLevel(context, "pHigh", PrevDayHighLevel);
-        RenderLevel(context, "pLow", PrevDayLowLevel);
-        RenderLevel(context, "pClose", PrevDayCloseLevel);
-        RenderLevel(context, "pEQ", PrevDayEquilibriumLevel);
-        RenderLevel(context, "pPOC", PrevDayPOCLevel);
-        RenderLevel(context, "pVAH", PrevDayVAHLevel);
-        RenderLevel(context, "pVAL", PrevDayVALLevel);
-
-        // Render Week levels
-        RenderLevel(context, "wOpen", WeekOpenLevel);
-        RenderLevel(context, "wHigh", WeekHighLevel);
-        RenderLevel(context, "wLow", WeekLowLevel);
-        RenderLevel(context, "wClose", WeekCloseLevel);
-        RenderLevel(context, "wEQ", WeekEquilibriumLevel);
-        RenderLevel(context, "wPOC", WeekPOCLevel);
-        RenderLevel(context, "wVAH", WeekVAHLevel);
-        RenderLevel(context, "wVAL", WeekVALLevel);
-
-        // Render Prev.Week levels
-        RenderLevel(context, "pwOpen", PrevWeekOpenLevel);
-        RenderLevel(context, "pwHigh", PrevWeekHighLevel);
-        RenderLevel(context, "pwLow", PrevWeekLowLevel);
-        RenderLevel(context, "pwClose", PrevWeekCloseLevel);
-        RenderLevel(context, "pwEQ", PrevWeekEquilibriumLevel);
-        RenderLevel(context, "pwPOC", PrevWeekPOCLevel);
-        RenderLevel(context, "pwVAH", PrevWeekVAHLevel);
-        RenderLevel(context, "pwVAL", PrevWeekVALLevel);
-
-        // Render Month levels
-        RenderLevel(context, "mOpen", MonthOpenLevel);
-        RenderLevel(context, "mHigh", MonthHighLevel);
-        RenderLevel(context, "mLow", MonthLowLevel);
-        RenderLevel(context, "mClose", MonthCloseLevel);
-        RenderLevel(context, "mEQ", MonthEquilibriumLevel);
-        RenderLevel(context, "mPOC", MonthPOCLevel);
-        RenderLevel(context, "mVAH", MonthVAHLevel);
-        RenderLevel(context, "mVAL", MonthVALLevel);
-
-        // Render Prev.Month levels
-        RenderLevel(context, "pmOpen", PrevMonthOpenLevel);
-        RenderLevel(context, "pmHigh", PrevMonthHighLevel);
-        RenderLevel(context, "pmLow", PrevMonthLowLevel);
-        RenderLevel(context, "pmClose", PrevMonthCloseLevel);
-        RenderLevel(context, "pmEQ", PrevMonthEquilibriumLevel);
-        RenderLevel(context, "pmPOC", PrevMonthPOCLevel);
-        RenderLevel(context, "pmVAH", PrevMonthVAHLevel);
-        RenderLevel(context, "pmVAL", PrevMonthVALLevel);
-
-        // Render Contract levels
-        RenderLevel(context, "cOpen", ContractOpenLevel);
-        RenderLevel(context, "cHigh", ContractHighLevel);
-        RenderLevel(context, "cLow", ContractLowLevel);
-        RenderLevel(context, "cClose", ContractCloseLevel);
-        RenderLevel(context, "cEQ", ContractEquilibriumLevel);
-        RenderLevel(context, "cPOC", ContractPOCLevel);
-        RenderLevel(context, "cVAH", ContractVAHLevel);
-        RenderLevel(context, "cVAL", ContractVALLevel);
+        // Render all levels in groups for better organization
+        RenderLevelGroup(context, "d", DayOpenLevel, DayHighLevel, DayLowLevel, DayCloseLevel, DayEquilibriumLevel, DayPOCLevel, DayVAHLevel, DayVALLevel);
+        RenderLevelGroup(context, "p", PrevDayOpenLevel, PrevDayHighLevel, PrevDayLowLevel, PrevDayCloseLevel, PrevDayEquilibriumLevel, PrevDayPOCLevel, PrevDayVAHLevel, PrevDayVALLevel);
+        RenderLevelGroup(context, "w", WeekOpenLevel, WeekHighLevel, WeekLowLevel, WeekCloseLevel, WeekEquilibriumLevel, WeekPOCLevel, WeekVAHLevel, WeekVALLevel);
+        RenderLevelGroup(context, "pw", PrevWeekOpenLevel, PrevWeekHighLevel, PrevWeekLowLevel, PrevWeekCloseLevel, PrevWeekEquilibriumLevel, PrevWeekPOCLevel, PrevWeekVAHLevel, PrevWeekVALLevel);
+        RenderLevelGroup(context, "m", MonthOpenLevel, MonthHighLevel, MonthLowLevel, MonthCloseLevel, MonthEquilibriumLevel, MonthPOCLevel, MonthVAHLevel, MonthVALLevel);
+        RenderLevelGroup(context, "pm", PrevMonthOpenLevel, PrevMonthHighLevel, PrevMonthLowLevel, PrevMonthCloseLevel, PrevMonthEquilibriumLevel, PrevMonthPOCLevel, PrevMonthVAHLevel, PrevMonthVALLevel);
+        RenderLevelGroup(context, "c", ContractOpenLevel, ContractHighLevel, ContractLowLevel, ContractCloseLevel, ContractEquilibriumLevel, ContractPOCLevel, ContractVAHLevel, ContractVALLevel);
     }
 
     #endregion
@@ -1031,11 +977,15 @@ public class OHLCPlus : Indicator
         UpdateLevel($"{prefix}Close", candle.Close);
         UpdateLevel($"{prefix}EQ", (candle.High + candle.Low) / 2);
 
-        // Update Volume Profile levels
-        if (candle.MaxVolumePriceInfo != null)
+        // Update Volume Profile levels with validation
+        if (candle.MaxVolumePriceInfo != null && candle.MaxVolumePriceInfo.Price > 0)
             UpdateLevel($"{prefix}POC", candle.MaxVolumePriceInfo.Price);
 
-        if (candle.ValueArea != null)
+        // Safe ValueArea access with validation
+        if (candle.ValueArea != null && 
+            candle.ValueArea.ValueAreaHigh > 0 && 
+            candle.ValueArea.ValueAreaLow > 0 &&
+            candle.ValueArea.ValueAreaHigh >= candle.ValueArea.ValueAreaLow)
         {
             UpdateLevel($"{prefix}VAH", candle.ValueArea.ValueAreaHigh);
             UpdateLevel($"{prefix}VAL", candle.ValueArea.ValueAreaLow);
@@ -1071,8 +1021,17 @@ public class OHLCPlus : Indicator
     {
         if (!levelSettings.Enabled || !_levels.TryGetValue(levelKey, out var level) || !level.IsValid)
             return;
+            
+        // Validate price is reasonable
+        if (level.Price <= 0)
+            return;
 
         var y = ChartInfo.GetYByPrice(level.Price, false);
+        
+        // Check if price is visible on chart
+        if (y < 0 || y > ChartInfo.PriceChartContainer.Region.Height)
+            return;
+            
         var chartWidth = ChartInfo.PriceChartContainer.Region.Width;
         var currentBarX = ChartInfo.GetXByBar(CurrentBar - 1);
         var barWidth = (int)ChartInfo.PriceChartContainer.BarsWidth;
@@ -1088,10 +1047,11 @@ public class OHLCPlus : Indicator
                 // If label is at bar position, start line after the label to avoid overlap
                 if (levelSettings.LabelPosition == LabelPosition.Bar)
                 {
-                    // Estimate label width and start line after it
+                    // Calculate actual label width for better positioning
+                    var labelText = level.Label;
+                    var labelSize = context.MeasureString(labelText, _font);
                     var labelStartX = currentBarRightX + 5;
-                    var estimatedLabelWidth = 30; // Approximate width for label
-                    var lineStartX = labelStartX + estimatedLabelWidth + 2;
+                    var lineStartX = labelStartX + labelSize.Width + 4; // 4px padding
                     context.DrawLine(renderPen, lineStartX, y, chartWidth, y);
                 }
                 else
@@ -1181,14 +1141,30 @@ public class OHLCPlus : Indicator
         
         // Draw text
         var textRect = new Rectangle(rectX, y - size.Height / 2, size.Width, size.Height);
-        var format = alignRight ? _stringFormat : new RenderStringFormat
-        {
-            Alignment = StringAlignment.Near,
-            LineAlignment = StringAlignment.Center,
-            Trimming = StringTrimming.EllipsisCharacter,
-            FormatFlags = StringFormatFlags.NoWrap
-        };
+        var format = alignRight ? _stringRightFormat : _stringLeftFormat;
         context.DrawString(text, _font, textColor, textRect, format);
+    }
+
+    private void RenderLevelGroup(RenderContext context, string prefix, 
+        LevelSettings openLevel, LevelSettings highLevel, LevelSettings lowLevel, LevelSettings closeLevel,
+        LevelSettings eqLevel, LevelSettings pocLevel, LevelSettings vahLevel, LevelSettings valLevel)
+    {
+        var levels = new[]
+        {
+            ("Open", openLevel),
+            ("High", highLevel), 
+            ("Low", lowLevel),
+            ("Close", closeLevel),
+            ("EQ", eqLevel),
+            ("POC", pocLevel),
+            ("VAH", vahLevel),
+            ("VAL", valLevel)
+        };
+        
+        foreach (var (suffix, levelSettings) in levels)
+        {
+            RenderLevel(context, $"{prefix}{suffix}", levelSettings);
+        }
     }
 
     #endregion
