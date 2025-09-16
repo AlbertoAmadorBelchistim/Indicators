@@ -150,7 +150,6 @@ public class Delta : Indicator
 		ResetAlertsOnNewBar = true
 	};
 
-	private decimal _alertFilter;
 	private BarDirection _barDirection;
 	private DeltaType _deltaType;
 	private Color _downColor = Color.Red;
@@ -179,7 +178,6 @@ public class Delta : Indicator
 	private bool _minimizedMode;
 	private DeltaVisualMode _mode = DeltaVisualMode.Candles;
 
-	private decimal _negativeAlertFilter;
 	private Color _neutralColor = Color.Gray;
 	private decimal _prevDeltaValue;
 	private bool _showCurrentValues = true;
@@ -219,6 +217,10 @@ public class Delta : Indicator
 		DataSeries.Add(_downCandles);
 
 		DataSeries.Add(_absorptionCandles);
+
+		// Subscribe to filter property changes to reset alert tracking
+		UpAlert.PropertyChanged += (sender, e) => _lastBarAlert = 0;
+		DownAlert.PropertyChanged += (sender, e) => _lastBarNegativeAlert = 0;
 	}
 
 	#endregion
@@ -423,22 +425,24 @@ public class Delta : Indicator
 			_lastBar = bar;
 		}
 
-		if (UseAlerts && CurrentBar - 1 == bar && _lastBarAlert != bar)
+		if (UpAlert.Enabled && CurrentBar - 1 == bar && _lastBarAlert != bar)
 		{
-			if ((deltaValue >= AlertFilter && _prevDeltaValue < AlertFilter) || (deltaValue <= AlertFilter && _prevDeltaValue > AlertFilter))
+			var alertValue = UpAlert.Value;
+			if ((deltaValue >= alertValue && _prevDeltaValue < alertValue) || (deltaValue <= alertValue && _prevDeltaValue > alertValue))
 			{
 				_lastBarAlert = bar;
-				AddAlert(AlertFile, InstrumentInfo.Instrument, $"Delta reached {AlertFilter} filter", AlertBGColor, AlertForeColor);
+				AddAlert(AlertFile, InstrumentInfo.Instrument, $"Delta reached {alertValue} filter", AlertBGColor, AlertForeColor);
 			}
 		}
 
-		if (UseNegativeAlerts && CurrentBar - 1 == bar && _lastBarNegativeAlert != bar)
+		if (DownAlert.Enabled && CurrentBar - 1 == bar && _lastBarNegativeAlert != bar)
 		{
-			if ((deltaValue >= NegativeAlertFilter && _prevDeltaValue < NegativeAlertFilter) ||
-			    (deltaValue <= NegativeAlertFilter && _prevDeltaValue > NegativeAlertFilter))
+			var negativeAlertValue = DownAlert.Value;
+			if ((deltaValue >= negativeAlertValue && _prevDeltaValue < negativeAlertValue) ||
+			    (deltaValue <= negativeAlertValue && _prevDeltaValue > negativeAlertValue))
 			{
 				_lastBarNegativeAlert = bar;
-				AddAlert(AlertFile, InstrumentInfo.Instrument, $"Delta reached {NegativeAlertFilter} filter", AlertBGColor, AlertForeColor);
+				AddAlert(AlertFile, InstrumentInfo.Instrument, $"Delta reached {negativeAlertValue} filter", AlertBGColor, AlertForeColor);
 			}
 		}
 
@@ -767,38 +771,45 @@ public class Delta : Indicator
 
 	#region Alerts
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.UseAlert), GroupName = nameof(Strings.UpAlert),
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.UpAlert), GroupName = nameof(Strings.Alerts),
 		Description = nameof(Strings.UpAlertFileFilterDescription), Order = 300)]
-	public bool UseAlerts { get; set; }
-
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.UpAlert),
-		Description = nameof(Strings.AlertFilterDescription), Order = 310)]
 	[Range(0, int.MaxValue)]
-	public decimal AlertFilter
+	[DisplayFormat(DataFormatString = "F0")]
+	public Filter UpAlert { get; set; } = new Filter { Enabled = false, Value = 0 };
+
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.DownAlert), GroupName = nameof(Strings.Alerts),
+		Description = nameof(Strings.DownAlertFileFilterDescription), Order = 310)]
+	[Range(int.MinValue, 0)]
+	[DisplayFormat(DataFormatString = "F0")]
+	public Filter DownAlert { get; set; } = new Filter { Enabled = false, Value = 0 };
+
+	// Backward compatibility properties (hidden from UI)
+	[Browsable(false)]
+	public bool UseAlerts
 	{
-		get => _alertFilter;
-		set
-		{
-			_lastBarAlert = 0;
-			_alertFilter = value;
-		}
+		get => UpAlert.Enabled;
+		set => UpAlert.Enabled = value;
 	}
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.UseAlert), GroupName = nameof(Strings.DownAlert),
-		Description = nameof(Strings.DownAlertFileFilterDescription), Order = 312)]
-	public bool UseNegativeAlerts { get; set; }
+	[Browsable(false)]
+	public decimal AlertFilter
+	{
+		get => UpAlert.Value;
+		set => UpAlert.Value = value;
+	}
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.DownAlert),
-		Description = nameof(Strings.AlertFilterDescription), Order = 314)]
-	[Range(int.MinValue, 0)]
+	[Browsable(false)]
+	public bool UseNegativeAlerts
+	{
+		get => DownAlert.Enabled;
+		set => DownAlert.Enabled = value;
+	}
+
+	[Browsable(false)]
 	public decimal NegativeAlertFilter
 	{
-		get => _negativeAlertFilter;
-		set
-		{
-			_lastBarNegativeAlert = 0;
-			_negativeAlertFilter = value;
-		}
+		get => DownAlert.Value;
+		set => DownAlert.Value = value;
 	}
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.Alerts),
