@@ -217,6 +217,7 @@ public class Delta : Indicator
 		UpAlert.PropertyChanged += (sender, e) => _lastBarAlert = 0;
 		DownAlert.PropertyChanged += (sender, e) => _lastBarNegativeAlert = 0;
 		_divergenceBarsFilter.PropertyChanged += OnDivergenceFilterChanged;
+		_absorption.PropertyChanged += OnAbsorptionFilterChanged;
 	}
 
 	#endregion
@@ -529,7 +530,7 @@ public class Delta : Indicator
 
 		///
 		// === ABSORPTION DOT LOGIC ===
-		if (ShowAbsorptionDots)
+		if (Absorption.Enabled)
 		{
 			decimal deltaOpen, deltaClose, deltaHigh, deltaLow;
 
@@ -564,7 +565,7 @@ public class Delta : Indicator
 			}
 
 			// Determine which tail is dominant
-			if (upperTail > lowerTail && upperTail > AbsorptionDeltaThreshold)
+			if (upperTail > lowerTail && upperTail > Absorption.Value)
 			{
 				var c = new Candle();
 				var center = deltaHigh - upperTail / 2; // o deltaLow + (lowerTail / 2);
@@ -574,7 +575,7 @@ public class Delta : Indicator
 				c.Low = center - 12;
 				_absorptionCandles[bar] = c;
 			}
-			else if (lowerTail > upperTail && lowerTail > AbsorptionDeltaThreshold)
+			else if (lowerTail > upperTail && lowerTail > Absorption.Value)
 			{
 				var c = new Candle();
 				var center = deltaLow + lowerTail / 2;
@@ -586,6 +587,10 @@ public class Delta : Indicator
 			}
 			else
 				_absorptionCandles[bar] = new Candle();
+		}
+		else
+		{
+			_absorptionCandles[bar] = new Candle();
 		}
 
 		if (!ShowCurrentValues)
@@ -611,6 +616,12 @@ public class Delta : Indicator
 			ApplyDivergenceColorsToCurrentMode();
 		}
 
+		RedrawChart();
+	}
+
+	private void OnAbsorptionFilterChanged(object sender, PropertyChangedEventArgs e)
+	{
+		RecalculateValues();
 		RedrawChart();
 	}
 
@@ -944,27 +955,46 @@ public class Delta : Indicator
 
 	private int _absorptionThreshold = 250;
 
-	// Displays dots on the chart when the distance between the delta close and the high/low exceeds a threshold
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Show), GroupName = nameof(Strings.Absorption), Description = "ShowAbsorptionDotsDesc",
-		Order = 140)]
-	public bool ShowAbsorptionDots { get; set; }
+	private FilterInt _absorption = new FilterInt(true) { Enabled = false, Value = 250 };
 
-	[Parameter]
-	[Range(1, int.MaxValue)]
-	// Minimum distance between the close and the delta extremes to consider absorption
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Threshold), GroupName = nameof(Strings.Absorption), Description = "AbsorptionThresholdDesc",
-		Order = 141)]
-	public int AbsorptionDeltaThreshold
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Absorption), GroupName = nameof(Strings.Absorption),
+		Description = "AbsorptionThresholdDesc", Order = 140)]
+	[Range(0, int.MaxValue)]
+	public FilterInt Absorption
 	{
-		get => _absorptionThreshold;
+		get => _absorption;
 		set
 		{
-			if (_absorptionThreshold != value)
-			{
-				_absorptionThreshold = value;
-				RecalculateValues(); // Forces recalculation
-			}
+			if (_absorption == value)
+				return;
+
+			// Unsubscribe from old filter
+			if (_absorption != null)
+				_absorption.PropertyChanged -= OnAbsorptionFilterChanged;
+
+			_absorption = value;
+
+			// Subscribe to new filter
+			if (_absorption != null)
+				_absorption.PropertyChanged += OnAbsorptionFilterChanged;
+
+			RaisePropertyChanged(nameof(Absorption));
 		}
+	}
+
+	// Backward compatibility properties (hidden from UI)
+	[Browsable(false)]
+	public bool ShowAbsorptionDots
+	{
+		get => Absorption.Enabled;
+		set => Absorption.Enabled = value;
+	}
+
+	[Browsable(false)]
+	public int AbsorptionDeltaThreshold
+	{
+		get => Absorption.Value;
+		set => Absorption.Value = value;
 	}
 
 	#endregion
