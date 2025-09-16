@@ -133,6 +133,24 @@ public class Delta : Indicator
 
 	private readonly Dictionary<int, bool> _divergenceBars = new();
 
+	private readonly CandleDataSeries _divergenceCandles = new("DivergenceCandles", "Divergence candles")
+	{
+		IsHidden = false,
+		ShowCurrentValue = false,
+		UseMinimizedModeIfEnabled = true,
+		Visible = false,
+		DrawCandleBorder = false
+	};
+
+	private readonly CandleDataSeries _divergenceDownCandles = new("DivergenceDownCandles", "Divergence down candles")
+	{
+		IsHidden = false,
+		ShowCurrentValue = false,
+		UseMinimizedModeIfEnabled = true,
+		Visible = false,
+		DrawCandleBorder = false
+	};
+
 	private readonly CandleDataSeries _downCandles = new("DownCandles", "Delta candles")
 	{
 		DownCandleColor = Color.Green.Convert(),
@@ -144,8 +162,6 @@ public class Delta : Indicator
 	};
 
 	private BarDirection _barDirection;
-	private Color _cachedDivergenceColor = Color.Empty;
-	private RenderPen _cachedDivergencePen;
 	private DeltaType _deltaType;
 	private Color _downColor = Color.Red;
 
@@ -209,6 +225,7 @@ public class Delta : Indicator
                 _diapasonHigh.VisualType = VisualMode.Hide;
                 _diapasonLow.VisualType = VisualMode.Hide;
                 _candles.Visible = _downCandles.Visible = false;
+                _divergenceCandles.Visible = _divergenceDownCandles.Visible = false;
             }
             else if (_mode == DeltaVisualMode.HighLow)
             {
@@ -216,6 +233,7 @@ public class Delta : Indicator
                 _diapasonHigh.VisualType = VisualMode.Histogram;
                 _diapasonLow.VisualType = VisualMode.Histogram;
                 _candles.Visible = _downCandles.Visible = false;
+                _divergenceCandles.Visible = _divergenceDownCandles.Visible = false;
             }
             else if (_mode == DeltaVisualMode.Candles)
             {
@@ -224,6 +242,7 @@ public class Delta : Indicator
                 _diapasonLow.VisualType = VisualMode.Hide;
                 _candles.Visible = _downCandles.Visible = true;
                 _candles.Mode = _downCandles.Mode = CandleVisualMode.Candles;
+                _divergenceCandles.Mode = _divergenceDownCandles.Mode = CandleVisualMode.Candles;
             }
             else
             {
@@ -232,13 +251,14 @@ public class Delta : Indicator
                 _diapasonLow.VisualType = VisualMode.Hide;
                 _candles.Visible = _downCandles.Visible = true;
                 _candles.Mode = _downCandles.Mode = CandleVisualMode.Bars;
+                _divergenceCandles.Mode = _divergenceDownCandles.Mode = CandleVisualMode.Bars;
             }
 
             RaisePropertyChanged("Mode");
             RecalculateValues();
 
-            // Apply divergence colors to newly visible series if needed
-            ApplyDivergenceColorsToCurrentMode();
+			ApplyDivergenceColorsToCurrentMode();
+            UpdateDivergenceCandlesVisibility();
         }
     }
 
@@ -253,6 +273,7 @@ public class Delta : Indicator
             _minimizedMode = value;
             RaisePropertyChanged("MinimizedMode");
             RecalculateValues();
+			UpdateDivergenceCandlesVisibility();
         }
     }
 
@@ -369,13 +390,11 @@ public class Delta : Indicator
             if (_divergenceBarsFilter == value)
                 return;
 
-            // Unsubscribe from old filter
             if (_divergenceBarsFilter != null)
                 _divergenceBarsFilter.PropertyChanged -= OnDivergenceFilterChanged;
 
             _divergenceBarsFilter = value;
 
-            // Subscribe to new filter
             if (_divergenceBarsFilter != null)
                 _divergenceBarsFilter.PropertyChanged += OnDivergenceFilterChanged;
 
@@ -412,13 +431,11 @@ public class Delta : Indicator
             if (_absorption == value)
                 return;
 
-            // Unsubscribe from old filter
             if (_absorption != null)
                 _absorption.PropertyChanged -= OnAbsorptionFilterChanged;
 
             _absorption = value;
 
-            // Subscribe to new filter
             if (_absorption != null)
                 _absorption.PropertyChanged += OnAbsorptionFilterChanged;
 
@@ -537,24 +554,30 @@ public class Delta : Indicator
 		FontColor = Color.Blue.Convert();
 
 		Panel = IndicatorDataProvider.NewPanel;
-		DataSeries[0] = _delta; //2
+		DataSeries[0] = _delta;
 
-		DataSeries.Insert(0, _diapasonHigh); //0
-		DataSeries.Insert(1, _diapasonLow); //1
-		DataSeries.Add(_candles); //4
+		DataSeries.Insert(0, _diapasonHigh);
+		DataSeries.Insert(1, _diapasonLow);
+		DataSeries.Add(_candles);
 
 		DataSeries.Add(_upSeries);
 		DataSeries.Add(_downSeries);
 		DataSeries.Add(_currentValues);
 		DataSeries.Add(_downCandles);
+		DataSeries.Add(_divergenceCandles);
+		DataSeries.Add(_divergenceDownCandles);
 
 		DataSeries.Add(_absorptionCandles);
 
-		// Subscribe to filter property changes to reset alert tracking
 		UpAlert.PropertyChanged += (sender, e) => _lastBarAlert = 0;
 		DownAlert.PropertyChanged += (sender, e) => _lastBarNegativeAlert = 0;
 		_divergenceBarsFilter.PropertyChanged += OnDivergenceFilterChanged;
 		_absorption.PropertyChanged += OnAbsorptionFilterChanged;
+
+		UpdateDivergenceCandlesVisibility();
+
+		if (DivergenceBarsFilter?.Enabled == true)
+			RecalculateValues();
 	}
 
 	#endregion
@@ -570,6 +593,8 @@ public class Delta : Indicator
 		DownColor = ChartInfo.ColorsStore.DownCandleColor.Convert();
 		NeutralColor = ChartInfo.ColorsStore.BarBorderPen.Color.Convert();
 		FontColor = ChartInfo.ColorsStore.FootprintMaximumVolumeTextColor.Convert();
+
+		UpdateDivergenceCandlesVisibility();
 	}
 
 	protected override void OnRender(RenderContext context, DrawingLayouts layout)
@@ -577,47 +602,7 @@ public class Delta : Indicator
 		if (ChartInfo is null || InstrumentInfo is null)
 			return;
 
-		if (DivergenceBarsFilter != null && DivergenceBarsFilter.Enabled &&
-		    (_mode == DeltaVisualMode.Candles || _mode == DeltaVisualMode.Bars))
-		{
-			var divergenceColor = DivergenceBarsFilter.Value.Convert();
-			var candleBarWidth = (int)ChartInfo.PriceChartContainer.BarsWidth;
-
-			for (var i = FirstVisibleBarNumber; i <= LastVisibleBarNumber; i++)
-			{
-				if (!_divergenceBars.TryGetValue(i, out var hasDivergence) || !hasDivergence)
-					continue;
-
-				try
-				{
-					var x = ChartInfo.PriceChartContainer.GetXByBar(i, false);
-
-					if (MinimizedMode)
-					{
-						if (_candles[i].Close > 0)
-						{
-							var candle = _candles[i];
-							DrawDivergenceCandle(context, x, candleBarWidth, candle, divergenceColor);
-						}
-						else if (_downCandles[i].Close > 0)
-						{
-							var candle = _downCandles[i];
-							DrawDivergenceCandle(context, x, candleBarWidth, candle, divergenceColor);
-						}
-					}
-					else
-					{
-						var candle = _candles[i];
-						DrawDivergenceCandle(context, x, candleBarWidth, candle, divergenceColor);
-					}
-				}
-				catch (OverflowException)
-				{
-					return;
-				}
-			}
-		}
-
+	
 		if (ShowDivergence)
 		{
 			for (var i = FirstVisibleBarNumber; i <= LastVisibleBarNumber; i++)
@@ -654,7 +639,6 @@ public class Delta : Indicator
 				}
 				catch (OverflowException)
 				{
-					//Old instrument coordinates exception
 					return;
 				}
 			}
@@ -824,6 +808,34 @@ public class Delta : Indicator
 
 		_divergenceBars[bar] = hasDivergence;
 
+		if (hasDivergence && DivergenceBarsFilter != null && DivergenceBarsFilter.Enabled &&
+		    (_mode == DeltaVisualMode.Candles || _mode == DeltaVisualMode.Bars))
+		{
+			if (MinimizedMode)
+			{
+				if (deltaValue >= 0)
+				{
+					_divergenceCandles[bar] = _candles[bar];
+					_divergenceDownCandles[bar] = new Candle();
+				}
+				else
+				{
+					_divergenceDownCandles[bar] = _downCandles[bar];
+					_divergenceCandles[bar] = new Candle();
+				}
+			}
+			else
+			{
+				_divergenceCandles[bar] = _candles[bar];
+				_divergenceDownCandles[bar] = new Candle();
+			}
+		}
+		else
+		{
+			_divergenceCandles[bar] = new Candle();
+			_divergenceDownCandles[bar] = new Candle();
+		}
+
 		_delta.Colors[bar] = deltaValue > 0 ? _upColor : _downColor;
 
 		if (DivergenceBarsFilter != null && DivergenceBarsFilter.Enabled &&
@@ -867,8 +879,6 @@ public class Delta : Indicator
 
 		_prevDeltaValue = deltaValue;
 
-		///
-		// === ABSORPTION DOT LOGIC ===
 		if (Absorption.Enabled)
 		{
 			decimal deltaOpen, deltaClose, deltaHigh, deltaLow;
@@ -878,7 +888,7 @@ public class Delta : Indicator
 				deltaClose = _delta[bar];
 				deltaHigh = _diapasonHigh[bar];
 				deltaLow = _diapasonLow[bar];
-				deltaOpen = 0; // In minimized mode, open is 0 by design
+				deltaOpen = 0;
 			}
 			else
 			{
@@ -892,22 +902,19 @@ public class Delta : Indicator
 
 			if (deltaClose > deltaOpen)
 			{
-				// Bullish candle: upper tail = high - close; lower tail = open - low
 				upperTail = deltaHigh - deltaClose;
 				lowerTail = deltaOpen - deltaLow;
 			}
 			else
 			{
-				// Bearish or neutral candle: upper tail = high - open; lower tail = close - low
 				upperTail = deltaHigh - deltaOpen;
 				lowerTail = deltaClose - deltaLow;
 			}
 
-			// Determine which tail is dominant
 			if (upperTail > lowerTail && upperTail > Absorption.Value)
 			{
 				var c = new Candle();
-				var center = deltaHigh - upperTail / 2; // o deltaLow + (lowerTail / 2);
+				var center = deltaHigh - upperTail / 2;
 				c.Open = center + 10;
 				c.Close = center - 10;
 				c.High = center + 12;
@@ -946,57 +953,6 @@ public class Delta : Indicator
 
 	#region Private methods
 
-	private void DrawDivergenceCandle(RenderContext context, int x, int barWidth, Candle candle, Color color)
-	{
-		if (candle.High == candle.Low)
-			return;
-
-		var high = Container.GetYByValue(candle.High);
-		var low = Container.GetYByValue(candle.Low);
-		var open = Container.GetYByValue(candle.Open);
-		var close = Container.GetYByValue(candle.Close);
-
-		if (_cachedDivergencePen == null || _cachedDivergenceColor != color)
-		{
-			_cachedDivergencePen = new RenderPen(color);
-			_cachedDivergenceColor = color;
-		}
-
-		var pen = _cachedDivergencePen;
-
-	var halfCandleWidth = barWidth / 2;
-
-		if (_mode == DeltaVisualMode.Candles)
-		{
-			var bodyTop = Math.Min(open, close);
-			var bodyBottom = Math.Max(open, close);
-			var bodyHeight = Math.Max(bodyBottom - bodyTop, 1);
-
-			if (bodyHeight > 0)
-			{
-				var rect = new Rectangle(x - halfCandleWidth, bodyTop + 1, barWidth, bodyHeight);
-				context.FillRectangle(color, rect);
-				context.DrawRectangle(pen, rect);
-			}
-			else
-				context.DrawLine(pen, x - halfCandleWidth, open, x + halfCandleWidth, open);
-
-			if (high < bodyTop)
-				context.DrawLine(pen, x, high, x, bodyTop);
-
-			if (low > bodyBottom)
-				context.DrawLine(pen, x, bodyBottom, x, low);
-		}
-		else
-		{
-			context.DrawLine(pen, x, high, x, low);
-
-			var tickLength = barWidth / 3;
-			context.DrawLine(pen, x - tickLength, open, x, open);
-
-			context.DrawLine(pen, x, close, x + tickLength, close);
-		}
-	}
 
 	private int GetMinWidth(RenderContext context, int startBar, int endBar)
 	{
@@ -1038,6 +994,10 @@ public class Delta : Indicator
 		if (e.PropertyName == nameof(Indicators.FilterColor.Enabled))
 			ApplyDivergenceColorsToCurrentMode();
 
+		UpdateDivergenceCandlesVisibility();
+
+		RecalculateValues();
+
 		RedrawChart();
 	}
 
@@ -1076,6 +1036,30 @@ public class Delta : Indicator
 				var defaultColor = actualDelta > 0 ? _upColor : _downColor;
 				_delta.Colors[i] = defaultColor;
 			}
+		}
+	}
+
+	private void UpdateDivergenceCandlesVisibility()
+	{
+		if (DivergenceBarsFilter != null && (_mode == DeltaVisualMode.Candles || _mode == DeltaVisualMode.Bars))
+		{
+			var divergenceColor = DivergenceBarsFilter.Value;
+			_divergenceCandles.Visible = DivergenceBarsFilter.Enabled;
+			_divergenceCandles.UpCandleColor = divergenceColor;
+			_divergenceCandles.DownCandleColor = divergenceColor;
+			_divergenceCandles.BorderColor = divergenceColor;
+			_divergenceCandles.Mode = _mode == DeltaVisualMode.Candles ? CandleVisualMode.Candles : CandleVisualMode.Bars;
+
+			_divergenceDownCandles.Visible = DivergenceBarsFilter.Enabled && MinimizedMode;
+			_divergenceDownCandles.UpCandleColor = divergenceColor;
+			_divergenceDownCandles.DownCandleColor = divergenceColor;
+			_divergenceDownCandles.BorderColor = divergenceColor;
+			_divergenceDownCandles.Mode = _mode == DeltaVisualMode.Candles ? CandleVisualMode.Candles : CandleVisualMode.Bars;
+		}
+		else
+		{
+			_divergenceCandles.Visible = false;
+			_divergenceDownCandles.Visible = false;
 		}
 	}
 
