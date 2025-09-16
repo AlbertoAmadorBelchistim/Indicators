@@ -964,18 +964,17 @@ public class Delta : Indicator
 
 		var pen = _cachedDivergencePen;
 
-		var candleBodyWidth = barWidth;
-		var halfCandleWidth = candleBodyWidth / 2;
+	var halfCandleWidth = barWidth / 2;
 
 		if (_mode == DeltaVisualMode.Candles)
 		{
 			var bodyTop = Math.Min(open, close);
 			var bodyBottom = Math.Max(open, close);
-			var bodyHeight = bodyBottom - bodyTop;
+			var bodyHeight = Math.Max(bodyBottom - bodyTop, 1);
 
 			if (bodyHeight > 0)
 			{
-				var rect = new Rectangle(x - halfCandleWidth, bodyTop, candleBodyWidth, bodyHeight);
+				var rect = new Rectangle(x - halfCandleWidth, bodyTop + 1, barWidth, bodyHeight);
 				context.FillRectangle(color, rect);
 				context.DrawRectangle(pen, rect);
 			}
@@ -992,7 +991,7 @@ public class Delta : Indicator
 		{
 			context.DrawLine(pen, x, high, x, low);
 
-			var tickLength = candleBodyWidth / 3;
+			var tickLength = barWidth / 3;
 			context.DrawLine(pen, x - tickLength, open, x, open);
 
 			context.DrawLine(pen, x, close, x + tickLength, close);
