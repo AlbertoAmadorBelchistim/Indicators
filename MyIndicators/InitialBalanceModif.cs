@@ -698,9 +698,6 @@ public class InitialBalance : Indicator
 
             _calculate = _isStarted = false;
 
-            foreach (var ds in DataSeries)
-                if (ds is ValueDataSeries vs)
-                    vs.SetPointOfEndLine(bar);
         }
 
 		if (_calculate)
@@ -760,11 +757,8 @@ public class InitialBalance : Indicator
     }
 
     /// <summary>
-    /// Unified label renderer for Initial Balance.
-    /// Draws labels with a consistent visual style (boxed caption) and only changes the X anchor
-    /// depending on the selected LabelPosition (Bar / Left / Right).
-    /// Also supports showing the last completed session after the IB window ends via a final snapshot.
-    /// This method is purely visual and does not modify any ValueDataSeries.
+    /// Renders a single set of IB labels for the most recent session when LabelPosition is Left or Right.
+    /// It does not draw historical session labels and does not modify any ValueDataSeries.
     /// </summary>
     protected override void OnRender(RenderContext context, DrawingLayouts layout)
     {
@@ -861,6 +855,7 @@ public class InitialBalance : Indicator
         var format = alignRight ? _stringRightFormat : _stringLeftFormat;
         context.DrawString(text, _font, textColor, textRect, format);
     }
+
 
 
     private DateTime GetPrevDateTime(int bar)
