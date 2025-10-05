@@ -424,7 +424,20 @@ public class InitialBalance : Indicator
     GroupName = nameof(Strings.Show),
     Description = "Where to draw labels for IB levels",
     Order = 136)]
-    public LabelPosition LabelPosition { get; set; } = LabelPosition.Bar;
+    private LabelPosition _labelPosition = LabelPosition.Bar;
+    public LabelPosition LabelPosition
+    {
+        get => _labelPosition;
+        set
+        {
+            if (_labelPosition == value)
+                return;
+
+            _labelPosition = value;
+            RecalculateValues();
+            RedrawChart();
+        }
+    }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.IBHX32), 
 		GroupName = nameof(Strings.BackGround), Description = nameof(Strings.AreaColorDescription), Order = 200)]
@@ -765,6 +778,10 @@ public class InitialBalance : Indicator
 		}
 	}
 
+    /// <summary>
+    /// Renders a single set of IB labels for the most recent session when LabelPosition is Left or Right.
+    /// It does not draw historical session labels and does not modify any ValueDataSeries.
+    /// </summary>
     protected override void OnRender(RenderContext context, DrawingLayouts layout)
     {
         // Draw labels only when requested and only for Left/Right positions.
@@ -774,14 +791,16 @@ public class InitialBalance : Indicator
         if (ChartInfo is null)
             return;
 
-        // Use the last fully-formed bar as a safe source for values and coordinates.
+        // Use the last formed bar for stable coordinates/values
         var endBar = Math.Max(0, CurrentBar - 1);
-        var chartWidth = ChartInfo.PriceChartContainer.Region.Width;
-        var currentBarX = ChartInfo.GetXByBar(endBar);
-        var barWidth = (int)ChartInfo.PriceChartContainer.BarsWidth;
-        var currentBarRightX = currentBarX + barWidth;
 
-        // List of IB-related levels to label.
+        // If there is no valid session start, skip drawing
+        if (_lastStartBar < 0 || endBar < _lastStartBar)
+            return;
+
+        var chartWidth = ChartInfo.PriceChartContainer.Region.Width;
+
+        // Prepare the current sessionÆs last values only (no past sessions)
         var items = new (string Label, ValueDataSeries Series, decimal Value)[]
         {
         ("Mid",   _mid,   _mid[endBar]),
@@ -796,6 +815,9 @@ public class InitialBalance : Indicator
         ("IBLX3", _iblx3, _iblx3[endBar]),
         };
 
+        var alignRight = LabelPosition == LabelPosition.Right;
+        var x = alignRight ? chartWidth - 5 : 5;
+
         foreach (var (label, series, price) in items)
         {
             if (price == 0m || price == decimal.MinValue || price == decimal.MaxValue)
@@ -804,10 +826,6 @@ public class InitialBalance : Indicator
             var y = ChartInfo.GetYByPrice(price, false);
             if (y < 0 || y > ChartInfo.PriceChartContainer.Region.Height)
                 continue;
-
-            // Compute the target X anchor based on the desired label position.
-            bool alignRight = LabelPosition == LabelPosition.Right;
-            int x = LabelPosition == LabelPosition.Right ? chartWidth - 5 : 5;
 
             DrawTextLabel(context, label, x, y, series, alignRight);
         }
@@ -818,10 +836,14 @@ public class InitialBalance : Indicator
     {
         var size = context.MeasureString(text, _font);
         var textColor = ChartInfo.ColorsStore.MouseTextColor;
-
-        // Fondo y borde como en OHLCPlus
         var backgroundColor = ChartInfo.ColorsStore.BaseBackgroundColor;
-        var pen = new PenSettings { Color = series.Color, Width = series.Width, LineDashStyle = series.LineDashStyle }.RenderObject;
+
+        var pen = new PenSettings
+        {
+            Color = series.Color,
+            Width = series.Width,
+            LineDashStyle = series.LineDashStyle
+        }.RenderObject;
 
         var rectX = alignRight ? x - size.Width : x;
         var rect = new Rectangle(rectX - 2, y - size.Height / 2 - 1, size.Width + 4, size.Height + 2);
