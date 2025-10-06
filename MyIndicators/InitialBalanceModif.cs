@@ -894,15 +894,23 @@ public class InitialBalance : Indicator
             var chartRight = ChartInfo.PriceChartContainer.Region.Width;
 
             int xAnchor;
-            switch (LabelPosition)
-            {
-                case LabelPosition.Right: xAnchor = chartRight - 5; break;
-                case LabelPosition.Left: xAnchor = 5; break;
-                case LabelPosition.Bar:
-                default:
-                    xAnchor = xSeriesEnd + 4; // small padding right after the series end
-                    break;
-            }
+			if (afterCustomSession)
+			{
+				// Freeze like Bar position (same X you calculaste para las etiquetas)
+				xAnchor = xSeriesEnd + 4; // peque±o padding
+			}
+			else
+			{
+				switch (LabelPosition)
+				{
+					case LabelPosition.Right: xAnchor = chartRight - 5; break;
+					case LabelPosition.Left: xAnchor = 5; break;
+					case LabelPosition.Bar:
+					default:
+						xAnchor = xSeriesEnd + 4; // small padding right after the series end
+						break;
+				}
+			}
 
             // 3) Helper to draw one horizontal connector (or full line)
             void DrawOverlayLine(ValueDataSeries s, decimal price)
