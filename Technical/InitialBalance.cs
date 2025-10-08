@@ -188,7 +188,7 @@ public class InitialBalance : Indicator
 	private decimal _minValue = decimal.MaxValue;
 	private int _period = 60;
 	private PeriodType _periodMode = PeriodType.Minutes;
-	private DrawingRectangle _rectangle = new(0, 0, 0, 0, Pens.Gray, new SolidBrush(DefaultColors.Yellow));
+	private DrawingRectangle _rectangle = new(0, 0, 0, 0, CrossPens.Gray, new CrossSolidBrush(DefaultColors.Yellow));
 	private bool _showOpenRange = true;
 	private TimeSpan _startDate = new(9, 0, 0);
 	private int _targetBar;
@@ -613,7 +613,7 @@ public class InitialBalance : Indicator
 
             if (ShowOpenRange)
 			{
-				var pen = new Pen(ConvertColor(_borderColor))
+				var pen = new CrossPen(ConvertColor(_borderColor))
 				{
 					Width = _borderWidth
 				};

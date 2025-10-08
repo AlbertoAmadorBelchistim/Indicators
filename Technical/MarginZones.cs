@@ -41,39 +41,39 @@ public class MarginZones : Indicator
 	private readonly ValueDataSeries _100Line = new("100Line", "100% line")
 		{ Color = DefaultColors.Maroon.Convert(), Width = 2, ScaleIt = false, VisualType = VisualMode.OnlyValueOnAxis, IsHidden = true };
 
-	private readonly DrawingRectangle _100Rectangle = new(0, 0, 0, 0, Pens.Transparent, Brushes.Gray);
+	private readonly DrawingRectangle _100Rectangle = new(0, 0, 0, 0, CrossPens.Transparent, CrossBrushes.Gray);
 
 	private readonly ValueDataSeries _150Line = new("150Line", "150% line")
 		{ Color = Color.SkyBlue.Convert(), Width = 1, ScaleIt = false, VisualType = VisualMode.Hide, IsHidden = true };
 
-	private readonly DrawingRectangle _150Rectangle = new(0, 0, 0, 0, Pens.Transparent, Brushes.Gray);
+	private readonly DrawingRectangle _150Rectangle = new(0, 0, 0, 0, CrossPens.Transparent, CrossBrushes.Gray);
 
 	private readonly ValueDataSeries _200Line = new("200Line", "200% line")
 		{ Color = Color.CadetBlue.Convert(), Width = 1, ScaleIt = false, VisualType = VisualMode.Hide, IsHidden = true };
 
-	private readonly DrawingRectangle _200Rectangle = new(0, 0, 0, 0, Pens.Transparent, Brushes.Gray);
+	private readonly DrawingRectangle _200Rectangle = new(0, 0, 0, 0, CrossPens.Transparent, CrossBrushes.Gray);
 
 	private readonly ValueDataSeries _25Line = new("25Line", "25% line")
 		{ Color = Color.LightSkyBlue.Convert(), Width = 1, ScaleIt = false, VisualType = VisualMode.OnlyValueOnAxis, IsHidden = true };
 
-	private readonly DrawingRectangle _25Rectangle = new(0, 0, 0, 0, Pens.Transparent, Brushes.Gray);
+	private readonly DrawingRectangle _25Rectangle = new(0, 0, 0, 0, CrossPens.Transparent, CrossBrushes.Gray);
 
 	private readonly ValueDataSeries _50Line = new("50Line", "50% line")
 		{ Color = Color.SkyBlue.Convert(), Width = 1, ScaleIt = false, VisualType = VisualMode.OnlyValueOnAxis, IsHidden = true };
 
-	private readonly DrawingRectangle _50Rectangle = new(0, 0, 0, 0, Pens.Transparent, Brushes.Gray);
+	private readonly DrawingRectangle _50Rectangle = new(0, 0, 0, 0, CrossPens.Transparent, CrossBrushes.Gray);
 
 	private readonly ValueDataSeries _75Line = new("75Line", "75% line")
 		{ Color = Color.LightSkyBlue.Convert(), Width = 1, ScaleIt = false, VisualType = VisualMode.Hide, IsHidden = true };
 
-	private readonly DrawingRectangle _75Rectangle = new(0, 0, 0, 0, Pens.Transparent, Brushes.Gray);
+	private readonly DrawingRectangle _75Rectangle = new(0, 0, 0, 0, CrossPens.Transparent, CrossBrushes.Gray);
 
 	private readonly ValueDataSeries _baseLineLabel = new("BaseLineLabel", "Base line")
 		{ Color = Color.Gray.Convert(), Width = 2, ScaleIt = false, VisualType = VisualMode.OnlyValueOnAxis, IsHidden = true };
 
 	private readonly List<int> _newDays = new();
 
-    private TrendLine _baseLine = new(0, 0, 0, 0, Pens.Gray);
+    private TrendLine _baseLine = new(0, 0, 0, 0, new CrossPen(CrossColors.Gray));
 	private RenderPen _baseLineRenderPen = new(Color.Gray);
 	private bool _calculated;
 	private ZoneDirection _direction;
@@ -181,7 +181,7 @@ public class MarginZones : Indicator
             {
                 case nameof(value.Value):
                     _200Line.Color = value.Value;
-                    _200Rectangle.Brush = new SolidBrush(value.Value.Convert());
+                    _200Rectangle.Brush = new CrossSolidBrush(value.Value.Convert());
                     break;
                 case nameof(value.Enabled):
                     _200Line.VisualType = value.Enabled ? VisualMode.OnlyValueOnAxis : VisualMode.Hide;
@@ -203,7 +203,7 @@ public class MarginZones : Indicator
             {
                 case nameof(value.Value):
                     _150Line.Color = value.Value;
-                    _150Rectangle.Brush = new SolidBrush(value.Value.Convert());
+                    _150Rectangle.Brush = new CrossSolidBrush(value.Value.Convert());
                     break;
                 case nameof(value.Enabled):
                     _150Line.VisualType = value.Enabled ? VisualMode.OnlyValueOnAxis : VisualMode.Hide;
@@ -225,7 +225,7 @@ public class MarginZones : Indicator
             {
                 case nameof(value.Value):
                     _100Line.Color = value.Value;
-                    _100Rectangle.Brush = new SolidBrush(value.Value.Convert());
+                    _100Rectangle.Brush = new CrossSolidBrush(value.Value.Convert());
                     break;
                 case nameof(value.Enabled):
                     _100Line.VisualType = value.Enabled ? VisualMode.OnlyValueOnAxis : VisualMode.Hide;
@@ -247,7 +247,7 @@ public class MarginZones : Indicator
             {
                 case nameof(value.Value):
                     _75Line.Color = value.Value;
-                    _75Rectangle.Brush = new SolidBrush(value.Value.Convert());
+                    _75Rectangle.Brush = new CrossSolidBrush(value.Value.Convert());
                     break;
                 case nameof(value.Enabled):
                     _75Line.VisualType = value.Enabled ? VisualMode.OnlyValueOnAxis : VisualMode.Hide;
@@ -269,7 +269,7 @@ public class MarginZones : Indicator
             {
                 case nameof(value.Value):
                     _50Line.Color = value.Value;
-                    _50Rectangle.Brush = new SolidBrush(value.Value.Convert());
+                    _50Rectangle.Brush = new CrossSolidBrush(value.Value.Convert());
                     break;
                 case nameof(value.Enabled):
                     _50Line.VisualType = value.Enabled ? VisualMode.OnlyValueOnAxis : VisualMode.Hide;
@@ -291,7 +291,7 @@ public class MarginZones : Indicator
             {
                 case nameof(value.Value):
                     _25Line.Color = value.Value;
-                    _25Rectangle.Brush = new SolidBrush(value.Value.Convert());
+                    _25Rectangle.Brush = new CrossSolidBrush(value.Value.Convert());
                     break;
                 case nameof(value.Enabled):
                     _25Line.VisualType = value.Enabled ? VisualMode.OnlyValueOnAxis : VisualMode.Hide;
