@@ -18,33 +18,6 @@ using OFT.Rendering.Context;
 using OFT.Rendering.Tools;
 using Parameter = OFT.Attributes.ParameterAttribute;
 
-public enum LabelPosition
-{
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.None))]
-    None = 0,
-
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Bar))]
-    Bar = 1,
-
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Right))]
-    Right = 2,
-
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Left))]
-    Left = 3
-}
-
-public enum LineType
-{
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.None))]
-    None = 0,
-
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.TillBar))]
-    Bar = 1,
-
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.FullWidth))]
-    Full = 2
-}
-
 [DisplayName("Initial Balance Modif")]
 [Category(IndicatorCategories.VolumeOrderFlow)]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.InitialBalanceIndDescription))]
