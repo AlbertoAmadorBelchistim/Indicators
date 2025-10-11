@@ -45,19 +45,17 @@
         public bool ResetMaxEquityNow { get; set; } = false;
 
         // === SERIES ===
-        private readonly ValueDataSeries _equity;        // scale-on
-        private readonly ValueDataSeries _dailyTarget;   // scale-on
-        private readonly ValueDataSeries _dailyLoss;     // scale-on
-        private readonly ValueDataSeries _accountGoal;   // scale-off
-        private readonly ValueDataSeries _accountFloor;  // scale-off
+        private ValueDataSeries _equity;        // scale-on
+        private ValueDataSeries _dailyTarget;   // scale-on
+        private ValueDataSeries _dailyLoss;     // scale-on
+        private ValueDataSeries _accountGoal;   // scale-off
+        private ValueDataSeries _accountFloor;  // scale-off
 
         // === PERSISTENCE ===
         [Display(Name = "State path (JSON)")]
         public string StatePath { get; set; } = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
             "ATAS", "Exports", "riskrails_state.json");
-
-        private string _lastAccountId = "";
 
         private sealed class State
         {
@@ -68,6 +66,8 @@
         private int _startBar = -1;
         private static string GetAccountKey(ATAS.DataFeedsCore.Portfolio p)
     => string.IsNullOrWhiteSpace(p.AccountID) ? "default" : p.AccountID.Trim();
+
+        private string _lastAccountId = "";
 
         public RiskRails()
         {
@@ -126,6 +126,10 @@
         {
             LoadState();
 
+            var (p0, k0) = ResolvePortfolio();
+            if (p0 != null && _perAccount.TryGetValue(k0, out var st0))
+                DebugLog($"[RiskRails] Loaded SavedMaxEquity for '{k0}': {st0.SavedMaxEquity}");
+
             // migración: si hay “default” y tenemos AccountID real, clónalo
             var p = TradingManager?.Portfolio;
             if (p != null)
@@ -146,17 +150,14 @@
 
         protected override void OnPortfolioChanged(Portfolio portfolio)
         {
-            // No limpiamos valores; sólo cortamos el trazo y empezamos desde aquí
-            EndLinesAt(CurrentBar - 1);
-            _startBar = CurrentBar;
             _lastAccountId = portfolio?.AccountID ?? "";
-            RedrawChart();
+            SoftResetSeries();
         }
 
         private void SoftResetSeries()
         {
-            EndLinesAt(CurrentBar - 1);
-            _startBar = CurrentBar;
+            RecreateSeriesAndAttach();  // series limpias, sin pasado
+            _startBar = CurrentBar;     // empezamos a pintar desde aquí
             RedrawChart();
         }
 
@@ -167,11 +168,9 @@
 
             if (!string.Equals(curId, _lastAccountId, StringComparison.Ordinal))
             {
-                EndLinesAt(bar - 1);
-                _startBar = bar;
                 _lastAccountId = curId;
-                // no pintamos esta barra; la siguiente ya arranca limpio
-                return;
+                SoftResetSeries();
+                return; // esta barra no se pinta; la siguiente ya arranca limpio
             }
 
             if (p is null || string.IsNullOrEmpty(key))
@@ -193,11 +192,9 @@
 
                 _perAccount[key] = st;
                 SaveState();                 // <<< guarda ya, no esperes al Dispose
+                DebugLog($"[RiskRails] Seed applied. SavedMaxEquity={st.SavedMaxEquity} | Floor={Math.Max(StartingBalance - Math.Abs(MaxLoss), st.SavedMaxEquity - Math.Abs(MaxLoss))}");
 
-                // corta las líneas y arranca desde aquí (sin NaN)
-                EndLinesAt(bar - 1);
-                _startBar = bar;
-
+                SoftResetSeries();    // corta pasado y recentra rango
                 ApplyFloorSeedNow = false;
                 return;
             }
@@ -291,6 +288,67 @@
             _accountGoal.SetPointOfEndLine(bar);
             _accountFloor.SetPointOfEndLine(bar);
         }
+
+        private void RecreateSeriesAndAttach()
+        {
+            // Equity (scale on)
+            var eq = new ValueDataSeries("Equity")
+            {
+                VisualType = VisualMode.Line,
+                Color = Colors.White,
+                Width = 2,
+                Digits = 2,
+                ScaleIt = true
+            };
+            var dt = new ValueDataSeries("DailyTarget")
+            {
+                VisualType = VisualMode.Line,
+                Color = Colors.DeepSkyBlue,
+                Digits = 2,
+                ScaleIt = true
+            };
+            var dl = new ValueDataSeries("DailyLoss")
+            {
+                VisualType = VisualMode.Line,
+                Color = Colors.HotPink,
+                Digits = 2,
+                ScaleIt = true
+            };
+            var ag = new ValueDataSeries("AccountGoal")
+            {
+                VisualType = VisualMode.Line,
+                Color = Colors.Orange,
+                Digits = 2,
+                ScaleIt = false
+            };
+            var af = new ValueDataSeries("AccountFloor")
+            {
+                VisualType = VisualMode.Line,
+                Color = Colors.MediumPurple,
+                Digits = 2,
+                ScaleIt = false
+            };
+
+            // replace references and reattach to DataSeries
+            DataSeries[0] = eq;
+            DataSeries[1] = dt;
+            DataSeries[2] = dl;
+            DataSeries[3] = ag;
+            DataSeries[4] = af;
+
+            // update fields
+            _equity = eq;
+            _dailyTarget = dt;
+            _dailyLoss = dl;
+            _accountGoal = ag;
+            _accountFloor = af;
+        }
+
+        private void DebugLog(string msg)
+        {
+            try { AddAlert("", msg); } catch { /* ignore in production */ }
+        }
+
     }
 }
 
