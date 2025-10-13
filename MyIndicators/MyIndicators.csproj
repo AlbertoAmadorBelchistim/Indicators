@@ -27,6 +27,29 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<!-- XAML -->
+		<Page Include="..\Technical\Editors\**\*.xaml">
+			<Link>Editors\%(RecursiveDir)%(Filename)%(Extension)</Link>
+			<!-- Necesario para compilar el XAML -->
+			<Generator>MSBuild:Compile</Generator>
+			<SubType>Designer</SubType>
+		</Page>
+
+		<!-- Code-behind de XAML -->
+		<Compile Include="..\Technical\Editors\**\*.xaml.cs">
+			<Link>Editors\%(RecursiveDir)%(Filename)%(Extension)</Link>
+			<!-- Anida el .xaml.cs bajo su .xaml -->
+			<DependentUpon>%(Filename)</DependentUpon>
+		</Compile>
+
+		<!-- .cs “normales” (excluye los .xaml.cs para no duplicarlos) -->
+		<Compile Include="..\Technical\Editors\**\*.cs"
+				 Exclude="..\Technical\Editors\**\*.xaml.cs">
+			<Link>Editors\%(RecursiveDir)%(Filename)%(Extension)</Link>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
 		<Reference Include="ATAS.Indicators.Technical">
 		  <HintPath>..\..\..\..\..\..\Program Files (x86)\ATAS Platform\ATAS.Indicators.Technical.dll</HintPath>
 		</Reference>

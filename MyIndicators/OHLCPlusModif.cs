@@ -1,9 +1,6 @@
 ﻿namespace MyIndicators
 {
     using ATAS.Indicators;
-    using ATAS.Indicators.Filters;
-    using OFT.Attributes;
-    using OFT.Attributes.Editors;
     using OFT.Localization;
     using OFT.Rendering.Context;
     using OFT.Rendering.Settings;
@@ -13,6 +10,7 @@
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.Drawing;
+    using System.Linq;
 
     using Color = System.Drawing.Color;
     using Parameter = OFT.Attributes.ParameterAttribute;
@@ -44,6 +42,17 @@
         Full = 2
     }
 
+    // How colors are chosen at render time
+    public enum ColorMode
+    {
+        // Use the color in each LevelSettings (current behavior)
+        PerLineSettings = 0,
+        // Override by timeframe (Day/PrevDay/Week/...)
+        ByPeriod = 1,
+        // Override by level type (Open/High/Low/Close/EQ/POC/VWAP/VAH/VAL)
+        ByLevel = 2
+    }
+
     [Editor(typeof(ATAS.Indicators.Technical.Editors.LevelSettingsEditor), typeof(ATAS.Indicators.Technical.Editors.LevelSettingsEditor))]
     public class LevelSettings
     {
@@ -64,6 +73,10 @@
         [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Color))]
         public CrossColor Color { get; set; }
 
+        // If true, always use this line's Color regardless of global color scheme.
+        [Display(ResourceType = typeof(Strings), Name = "Use per-line color")]
+        public bool UsePerLineColor { get; set; } = false;
+
         [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowPrice))]
         public bool ShowPrice { get; set; }
 
@@ -80,11 +93,11 @@
         [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Label))]
         public LabelPosition LabelPosition { get; set; }
 
-        [Display(Name = "Override label (optional)")]
-        public string OverrideLabel { get; set; } = string.Empty;
-
         [Browsable(false)]
         public RenderPen RenderPen => new PenSettings { Color = Color, Width = Width, LineDashStyle = LineStyle }.RenderObject;
+
+        [Display(Name = "Override label (optional)")]
+        public string OverrideLabel { get; set; } = string.Empty;
     }
 
     [DisplayName("OHLC Plus Modif")]
@@ -125,6 +138,19 @@
             FormatFlags = StringFormatFlags.NoWrap
         };
 
+        // HVN prices by period
+        private readonly Dictionary<FixedProfilePeriods, List<HVNBand>> _hvnBands = new();
+
+        private static readonly FixedProfilePeriods[] _hvnPriorityOrder = new[]
+    {
+    FixedProfilePeriods.Contract,
+    FixedProfilePeriods.LastMonth,
+    FixedProfilePeriods.CurrentMonth,
+    FixedProfilePeriods.LastWeek,
+    FixedProfilePeriods.CurrentWeek,
+    FixedProfilePeriods.LastDay,
+    FixedProfilePeriods.CurrentDay
+};
         #endregion
 
         #region Properties
@@ -230,6 +256,12 @@
             lineType: LineType.Bar
         );
 
+        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = "Enable HVN", Order = 90)]
+        public bool DayHVNEnabled { get; set; } = false;
+
+        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = "HVN Color", Order = 95)]
+        public CrossColor DayHVNColor { get; set; } = System.Drawing.Color.FromArgb(140, 30, 144, 255).Convert(); // semi-transparent blue/violet
+
         #endregion
 
         #region Prev.Day Settings
@@ -332,6 +364,12 @@
             labelPosition: LabelPosition.Bar,
             lineType: LineType.Bar
         );
+
+        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = "Enable HVN", Order = 90)]
+        public bool PrevDayHVNEnabled { get; set; } = false;
+
+        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = "HVN Color", Order = 95)]
+        public CrossColor PrevDayHVNColor { get; set; } = System.Drawing.Color.FromArgb(140, 255, 140, 0).Convert(); // semi-transparent amber.
 
         #endregion
 
@@ -436,6 +474,11 @@
             lineType: LineType.Bar
         );
 
+        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = "Enable HVN", Order = 90)]
+        public bool WeekHVNEnabled { get; set; } = false;
+        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = "HVN Color", Order = 95)]
+        public CrossColor WeekHVNColor { get; set; } = System.Drawing.Color.FromArgb(140, 70, 130, 180).Convert(); // steel-ish
+
         #endregion
 
         #region Prev.Week Settings
@@ -538,6 +581,11 @@
             labelPosition: LabelPosition.Bar,
             lineType: LineType.Bar
         );
+
+        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = "Enable HVN", Order = 90)]
+        public bool PrevWeekHVNEnabled { get; set; } = false;
+        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = "HVN Color", Order = 95)]
+        public CrossColor PrevWeekHVNColor { get; set; } = System.Drawing.Color.FromArgb(140, 186, 85, 211).Convert(); // mediumPurple
 
         #endregion
 
@@ -642,6 +690,11 @@
             lineType: LineType.Bar
         );
 
+        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = "Enable HVN", Order = 90)]
+        public bool MonthHVNEnabled { get; set; } = false;
+        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = "HVN Color", Order = 95)]
+        public CrossColor MonthHVNColor { get; set; } = System.Drawing.Color.FromArgb(140, 0, 128, 128).Convert(); // teal
+
         #endregion
 
         #region Prev.Month Settings
@@ -744,6 +797,11 @@
             labelPosition: LabelPosition.Bar,
             lineType: LineType.Bar
         );
+
+        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = "Enable HVN", Order = 90)]
+        public bool PrevMonthHVNEnabled { get; set; } = false;
+        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = "HVN Color", Order = 95)]
+        public CrossColor PrevMonthHVNColor { get; set; } = System.Drawing.Color.FromArgb(140, 47, 79, 79).Convert(); // darkslategray
 
         #endregion
 
@@ -848,144 +906,137 @@
             lineType: LineType.Bar
         );
 
+        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = "Enable HVN", Order = 90)]
+        public bool ContractHVNEnabled { get; set; } = false;
+        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = "HVN Color", Order = 95)]
+        public CrossColor ContractHVNColor { get; set; } = System.Drawing.Color.FromArgb(140, 30, 144, 255).Convert(); // dodgerblue
+
         #endregion
 
-        // Template supports {prefix} and {level}
-        public string LabelTemplate = "{prefix}{level}";
+        #region HVN Settings
+        [Display(GroupName = "HVN Settings", Name = "Threshold (% of POC volume)", Order = 10)]
+        [Range(1, 99)]
+        public int HVNThresholdPct { get; set; } = 80;
 
-        #region Prefixes
-        // Defaults kept to current behavior
-        private string _prefixCurrentDay = "d";
+        [Display(GroupName = "HVN Settings", Name = "Gap tolerance (ticks)", Order = 20)]
+        [Range(0, 10)]
+        public int HVNGapToleranceTicks { get; set; } = 1;
+
+        // Tolerancia de solape en ticks: si un precio cae dentro de ±N ticks de otro ya pintado, se oculta.
+        [Display(GroupName = "HVN Settings", Name = "Occlusion tolerance (ticks)", Order = 30)]
+        [Range(0, 10)]
+        public int HVNOcclusionTicks { get; set; } = 1;
+
+        #endregion
+
+        #region Prefix Settings
+        // Display-only prefixes (do not affect storage keys)
         [Display(GroupName = "Prefixes", Name = "Current Day", Order = 10)]
-        public string PrefixCurrentDay
-        {
-            get => _prefixCurrentDay;
-            set => SetProperty(ref _prefixCurrentDay, value, OnUiSettingChanged);
-        }
+        public string PrefixCurrentDay { get; set; } = "d";
 
-        private string _prefixPrevDay = "p";
         [Display(GroupName = "Prefixes", Name = "Previous Day", Order = 20)]
-        public string PrefixPrevDay
-        {
-            get => _prefixPrevDay;
-            set => SetProperty(ref _prefixPrevDay, value, OnUiSettingChanged);
-        }
+        public string PrefixPrevDay { get; set; } = "p";
 
-        private string _prefixCurrentWeek = "w";
         [Display(GroupName = "Prefixes", Name = "Current Week", Order = 30)]
-        public string PrefixCurrentWeek
-        {
-            get => _prefixCurrentWeek;
-            set => SetProperty(ref _prefixCurrentWeek, value, OnUiSettingChanged);
-        }
+        public string PrefixCurrentWeek { get; set; } = "w";
 
-        private string _prefixPrevWeek = "pw";
         [Display(GroupName = "Prefixes", Name = "Previous Week", Order = 40)]
-        public string PrefixPrevWeek
-        {
-            get => _prefixPrevWeek;
-            set => SetProperty(ref _prefixPrevWeek, value, OnUiSettingChanged);
-        }
+        public string PrefixPrevWeek { get; set; } = "pw";
 
-        private string _prefixCurrentMonth = "m";
         [Display(GroupName = "Prefixes", Name = "Current Month", Order = 50)]
-        public string PrefixCurrentMonth
-        {
-            get => _prefixCurrentMonth;
-            set => SetProperty(ref _prefixCurrentMonth, value, OnUiSettingChanged);
-        }
+        public string PrefixCurrentMonth { get; set; } = "m";
 
-        private string _prefixPrevMonth = "pm";
         [Display(GroupName = "Prefixes", Name = "Previous Month", Order = 60)]
-        public string PrefixPrevMonth
-        {
-            get => _prefixPrevMonth;
-            set => SetProperty(ref _prefixPrevMonth, value, OnUiSettingChanged);
-        }
+        public string PrefixPrevMonth { get; set; } = "pm";
 
-        private string _prefixContract = "c";
         [Display(GroupName = "Prefixes", Name = "Contract", Order = 70)]
-        public string PrefixContract
-        {
-            get => _prefixContract;
-            set => SetProperty(ref _prefixContract, value, OnUiSettingChanged);
-        }
-        #endregion Prefixes
+        public string PrefixContract { get; set; } = "c";
+        #endregion
 
-        #region Labels
-        private string _openLabel = "Open";
-        [Display(GroupName = "Labels", Name = "Open", Order = 10)]
-        public string OpenLabel
-        {
-            get => _openLabel;
-            set => SetProperty(ref _openLabel, value, OnUiSettingChanged);
-        }
+        #region Labels Settings
 
-        private string _highLabel = "High";
-        [Display(GroupName = "Labels", Name = "High", Order = 20)]
-        public string HighLabel
-        {
-            get => _highLabel;
-            set => SetProperty(ref _highLabel, value, OnUiSettingChanged);
-        }
+        // Template supports {prefix} and {level}
+        [Display(GroupName = "Labels", Name = "Label template", Order = 10)]
+        public string LabelTemplate { get; set; } = "{prefix}{level}";
 
-        private string _lowLabel = "Low";
-        [Display(GroupName = "Labels", Name = "Low", Order = 30)]
-        public string LowLabel
-        {
-            get => _lowLabel;
-            set => SetProperty(ref _lowLabel, value, OnUiSettingChanged);
-        }
+        [Display(GroupName = "Labels", Name = "Open", Order = 20)]
+        public string OpenLabel { get; set; } = "Open";
+        [Display(GroupName = "Labels", Name = "High", Order = 30)]
+        public string HighLabel { get; set; } = "High";
+        [Display(GroupName = "Labels", Name = "Low", Order = 40)]
+        public string LowLabel { get; set; } = "Low";
+        [Display(GroupName = "Labels", Name = "Close", Order = 50)]
+        public string CloseLabel { get; set; } = "Close";
+        [Display(GroupName = "Labels", Name = "Equilibrium", Order = 60)]
+        public string EqLabel { get; set; } = "EQ";
+        [Display(GroupName = "Labels", Name = "POC", Order = 70)]
+        public string POCLabel { get; set; } = "POC";
+        [Display(GroupName = "Labels", Name = "VWAP", Order = 80)]
+        public string VWAPLabel { get; set; } = "VWAP";
+        [Display(GroupName = "Labels", Name = "VAH", Order = 90)]
+        public string VAHLabel { get; set; } = "VAH";
+        [Display(GroupName = "Labels", Name = "VAL", Order = 100)]
+        public string VALLabel { get; set; } = "VAL";
 
-        private string _closeLabel = "Close";
-        [Display(GroupName = "Labels", Name = "Close", Order = 40)]
-        public string CloseLabel
-        {
-            get => _closeLabel;
-            set => SetProperty(ref _closeLabel, value, OnUiSettingChanged);
-        }
+        #endregion
 
-        private string _eqLabel = "EQ";
-        [Display(GroupName = "Labels", Name = "Equilibrium", Order = 50)]
-        public string EqLabel
-        {
-            get => _eqLabel;
-            set => SetProperty(ref _eqLabel, value, OnUiSettingChanged);
-        }
+        #region Color scheme
+        // Strategy selector
+        [Display(GroupName = "Colors", Name = "Mode", Order = 5)]
+        public ColorMode ColorMode { get; set; } = ColorMode.PerLineSettings;
 
-        private string _pocLabel = "POC";
-        [Display(GroupName = "Labels", Name = "POC", Order = 60)]
-        public string POCLabel
-        {
-            get => _pocLabel;
-            set => SetProperty(ref _pocLabel, value, OnUiSettingChanged);
-        }
+        // --- Palette by PERIOD (used when ColorMode == ByPeriod)
+        [Display(GroupName = "Colors  By Period", Name = "Current Day", Order = 10)]
+        public CrossColor PeriodColorCurrentDay { get; set; } = System.Drawing.Color.Orange.Convert();
 
-        private string _vwapLabel = "VWAP";
-        [Display(GroupName = "Labels", Name = "VWAP", Order = 70)]
-        public string VWAPLabel
-        {
-            get => _vwapLabel;
-            set => SetProperty(ref _vwapLabel, value, OnUiSettingChanged);
-        }
+        [Display(GroupName = "Colors  By Period", Name = "Previous Day", Order = 11)]
+        public CrossColor PeriodColorPrevDay { get; set; } = System.Drawing.Color.Gray.Convert();
 
-        private string _vahLabel = "VAH";
-        [Display(GroupName = "Labels", Name = "VAH", Order = 80)]
-        public string VAHLabel
-        {
-            get => _vahLabel;
-            set => SetProperty(ref _vahLabel, value, OnUiSettingChanged);
-        }
+        [Display(GroupName = "Colors  By Period", Name = "Current Week", Order = 12)]
+        public CrossColor PeriodColorCurrentWeek { get; set; } = System.Drawing.Color.SteelBlue.Convert();
 
-        private string _valLabel = "VAL";
-        [Display(GroupName = "Labels", Name = "VAL", Order = 90)]
-        public string VALLabel
-        {
-            get => _valLabel;
-            set => SetProperty(ref _valLabel, value, OnUiSettingChanged);
-        }
+        [Display(GroupName = "Colors  By Period", Name = "Previous Week", Order = 13)]
+        public CrossColor PeriodColorPrevWeek { get; set; } = System.Drawing.Color.MediumPurple.Convert();
 
-        #endregion Labels
+        [Display(GroupName = "Colors  By Period", Name = "Current Month", Order = 14)]
+        public CrossColor PeriodColorCurrentMonth { get; set; } = System.Drawing.Color.Teal.Convert();
+
+        [Display(GroupName = "Colors  By Period", Name = "Previous Month", Order = 15)]
+        public CrossColor PeriodColorPrevMonth { get; set; } = System.Drawing.Color.DarkSlateGray.Convert();
+
+        [Display(GroupName = "Colors  By Period", Name = "Contract", Order = 16)]
+        public CrossColor PeriodColorContract { get; set; } = System.Drawing.Color.DodgerBlue.Convert();
+
+        // --- Palette by LEVEL TYPE (used when ColorMode == ByLevel)
+        [Display(GroupName = "Colors  By Level", Name = "Open", Order = 110)]
+        public CrossColor LevelColorOpen { get; set; } = System.Drawing.Color.Orange.Convert();
+
+        [Display(GroupName = "Colors  By Level", Name = "High", Order = 120)]
+        public CrossColor LevelColorHigh { get; set; } = System.Drawing.Color.Green.Convert();
+
+        [Display(GroupName = "Colors  By Level", Name = "Low", Order = 130)]
+        public CrossColor LevelColorLow { get; set; } = System.Drawing.Color.Red.Convert();
+
+        [Display(GroupName = "Colors  By Level", Name = "Close", Order = 140)]
+        public CrossColor LevelColorClose { get; set; } = System.Drawing.Color.Gray.Convert();
+
+        [Display(GroupName = "Colors  By Level", Name = "Equilibrium (EQ)", Order = 150)]
+        public CrossColor LevelColorEQ { get; set; } = System.Drawing.Color.Yellow.Convert();
+
+        [Display(GroupName = "Colors  By Level", Name = "POC", Order = 160)]
+        public CrossColor LevelColorPOC { get; set; } = System.Drawing.Color.Orange.Convert();
+
+        [Display(GroupName = "Colors  By Level", Name = "VWAP", Order = 170)]
+        public CrossColor LevelColorVWAP { get; set; } = System.Drawing.Color.SteelBlue.Convert();
+
+        [Display(GroupName = "Colors  By Level", Name = "VAH", Order = 180)]
+        public CrossColor LevelColorVAH { get; set; } = System.Drawing.Color.Purple.Convert();
+
+        [Display(GroupName = "Colors  By Level", Name = "VAL", Order = 190)]
+        public CrossColor LevelColorVAL { get; set; } = System.Drawing.Color.Purple.Convert();
+        #endregion
+
+
 
         #endregion
 
@@ -1032,6 +1083,7 @@
         {
             _profileCandles[period] = fixedProfileOriginScale;
             UpdateLevels(period, fixedProfileOriginScale);
+            UpdateHVNs(period, fixedProfileOriginScale);
             RedrawChart();
         }
 
@@ -1041,13 +1093,16 @@
                 return;
 
             // Render all levels in groups for better organization
-            RenderLevelGroup(context, PrefixCurrentDay, DayOpenLevel, DayHighLevel, DayLowLevel, DayCloseLevel, DayEquilibriumLevel, DayPOCLevel, DayVWAPLevel, DayVAHLevel, DayVALLevel);
-            RenderLevelGroup(context, PrefixPrevDay, PrevDayOpenLevel, PrevDayHighLevel, PrevDayLowLevel, PrevDayCloseLevel, PrevDayEquilibriumLevel, PrevDayPOCLevel, PrevDayVWAPLevel, PrevDayVAHLevel, PrevDayVALLevel);
-            RenderLevelGroup(context, PrefixCurrentWeek, WeekOpenLevel, WeekHighLevel, WeekLowLevel, WeekCloseLevel, WeekEquilibriumLevel, WeekPOCLevel, WeekVWAPLevel, WeekVAHLevel, WeekVALLevel);
-            RenderLevelGroup(context, PrefixPrevWeek, PrevWeekOpenLevel, PrevWeekHighLevel, PrevWeekLowLevel, PrevWeekCloseLevel, PrevWeekEquilibriumLevel, PrevWeekPOCLevel, PrevWeekVWAPLevel, PrevWeekVAHLevel, PrevWeekVALLevel);
-            RenderLevelGroup(context, PrefixCurrentMonth, MonthOpenLevel, MonthHighLevel, MonthLowLevel, MonthCloseLevel, MonthEquilibriumLevel, MonthPOCLevel, MonthVWAPLevel, MonthVAHLevel, MonthVALLevel);
-            RenderLevelGroup(context, PrefixPrevMonth, PrevMonthOpenLevel, PrevMonthHighLevel, PrevMonthLowLevel, PrevMonthCloseLevel, PrevMonthEquilibriumLevel, PrevMonthPOCLevel, PrevMonthVWAPLevel, PrevMonthVAHLevel, PrevMonthVALLevel);
-            RenderLevelGroup(context, PrefixContract, ContractOpenLevel, ContractHighLevel, ContractLowLevel, ContractCloseLevel, ContractEquilibriumLevel, ContractPOCLevel, ContractVWAPLevel, ContractVAHLevel, ContractVALLevel);
+            RenderLevelGroup(context, storagePrefix: "d", displayPrefix: PrefixCurrentDay, period: FixedProfilePeriods.CurrentDay, DayOpenLevel, DayHighLevel, DayLowLevel, DayCloseLevel, DayEquilibriumLevel, DayPOCLevel, DayVWAPLevel, DayVAHLevel, DayVALLevel);
+            RenderLevelGroup(context, storagePrefix: "p", displayPrefix: PrefixPrevDay, period: FixedProfilePeriods.LastDay, PrevDayOpenLevel, PrevDayHighLevel, PrevDayLowLevel, PrevDayCloseLevel, PrevDayEquilibriumLevel, PrevDayPOCLevel, PrevDayVWAPLevel, PrevDayVAHLevel, PrevDayVALLevel);
+            RenderLevelGroup(context, storagePrefix: "w", displayPrefix: PrefixCurrentWeek, period: FixedProfilePeriods.CurrentWeek, WeekOpenLevel, WeekHighLevel, WeekLowLevel, WeekCloseLevel, WeekEquilibriumLevel, WeekPOCLevel, WeekVWAPLevel, WeekVAHLevel, WeekVALLevel);
+            RenderLevelGroup(context, storagePrefix: "pw", displayPrefix: PrefixPrevWeek, period: FixedProfilePeriods.LastWeek, PrevWeekOpenLevel, PrevWeekHighLevel, PrevWeekLowLevel, PrevWeekCloseLevel, PrevWeekEquilibriumLevel, PrevWeekPOCLevel, PrevWeekVWAPLevel, PrevWeekVAHLevel, PrevWeekVALLevel);
+            RenderLevelGroup(context, storagePrefix: "m", displayPrefix: PrefixCurrentMonth, period: FixedProfilePeriods.CurrentMonth, MonthOpenLevel, MonthHighLevel, MonthLowLevel, MonthCloseLevel, MonthEquilibriumLevel, MonthPOCLevel, MonthVWAPLevel, MonthVAHLevel, MonthVALLevel);
+            RenderLevelGroup(context, storagePrefix: "pm", displayPrefix: PrefixPrevMonth, period: FixedProfilePeriods.LastMonth, PrevMonthOpenLevel, PrevMonthHighLevel, PrevMonthLowLevel, PrevMonthCloseLevel, PrevMonthEquilibriumLevel, PrevMonthPOCLevel, PrevMonthVWAPLevel, PrevMonthVAHLevel, PrevMonthVALLevel);
+            RenderLevelGroup(context, storagePrefix: "c", displayPrefix: PrefixContract, period: FixedProfilePeriods.Contract, ContractOpenLevel, ContractHighLevel, ContractLowLevel, ContractCloseLevel, ContractEquilibriumLevel, ContractPOCLevel, ContractVWAPLevel, ContractVAHLevel, ContractVALLevel);
+
+            // HVN rects
+            RenderAllHVNsWithPriority(context);
         }
 
         #endregion
@@ -1088,43 +1143,43 @@
         private bool NeedsDayData()
         {
             return DayOpenLevel.Enabled || DayHighLevel.Enabled || DayLowLevel.Enabled || DayCloseLevel.Enabled ||
-                   DayEquilibriumLevel.Enabled || DayPOCLevel.Enabled || DayVWAPLevel.Enabled || DayVAHLevel.Enabled || DayVALLevel.Enabled;
+                   DayEquilibriumLevel.Enabled || DayPOCLevel.Enabled || DayVWAPLevel.Enabled || DayVAHLevel.Enabled || DayVALLevel.Enabled || DayHVNEnabled;
         }
 
         private bool NeedsPrevDayData()
         {
             return PrevDayOpenLevel.Enabled || PrevDayHighLevel.Enabled || PrevDayLowLevel.Enabled || PrevDayCloseLevel.Enabled ||
-                   PrevDayEquilibriumLevel.Enabled || PrevDayPOCLevel.Enabled || PrevDayVWAPLevel.Enabled || PrevDayVAHLevel.Enabled || PrevDayVALLevel.Enabled;
+                   PrevDayEquilibriumLevel.Enabled || PrevDayPOCLevel.Enabled || PrevDayVWAPLevel.Enabled || PrevDayVAHLevel.Enabled || PrevDayVALLevel.Enabled || PrevDayHVNEnabled;
         }
 
         private bool NeedsWeekData()
         {
             return WeekOpenLevel.Enabled || WeekHighLevel.Enabled || WeekLowLevel.Enabled || WeekCloseLevel.Enabled ||
-                   WeekEquilibriumLevel.Enabled || WeekPOCLevel.Enabled || WeekVWAPLevel.Enabled || WeekVAHLevel.Enabled || WeekVALLevel.Enabled;
+                   WeekEquilibriumLevel.Enabled || WeekPOCLevel.Enabled || WeekVWAPLevel.Enabled || WeekVAHLevel.Enabled || WeekVALLevel.Enabled || WeekHVNEnabled;
         }
 
         private bool NeedsPrevWeekData()
         {
             return PrevWeekOpenLevel.Enabled || PrevWeekHighLevel.Enabled || PrevWeekLowLevel.Enabled || PrevWeekCloseLevel.Enabled ||
-                   PrevWeekEquilibriumLevel.Enabled || PrevWeekPOCLevel.Enabled || PrevWeekVWAPLevel.Enabled || PrevWeekVAHLevel.Enabled || PrevWeekVALLevel.Enabled;
+                   PrevWeekEquilibriumLevel.Enabled || PrevWeekPOCLevel.Enabled || PrevWeekVWAPLevel.Enabled || PrevWeekVAHLevel.Enabled || PrevWeekVALLevel.Enabled || PrevWeekHVNEnabled;
         }
 
         private bool NeedsMonthData()
         {
             return MonthOpenLevel.Enabled || MonthHighLevel.Enabled || MonthLowLevel.Enabled || MonthCloseLevel.Enabled ||
-                   MonthEquilibriumLevel.Enabled || MonthPOCLevel.Enabled || MonthVWAPLevel.Enabled || MonthVAHLevel.Enabled || MonthVALLevel.Enabled;
+                   MonthEquilibriumLevel.Enabled || MonthPOCLevel.Enabled || MonthVWAPLevel.Enabled || MonthVAHLevel.Enabled || MonthVALLevel.Enabled || MonthHVNEnabled;
         }
 
         private bool NeedsPrevMonthData()
         {
             return PrevMonthOpenLevel.Enabled || PrevMonthHighLevel.Enabled || PrevMonthLowLevel.Enabled || PrevMonthCloseLevel.Enabled ||
-                   PrevMonthEquilibriumLevel.Enabled || PrevMonthPOCLevel.Enabled || PrevMonthVWAPLevel.Enabled || PrevMonthVAHLevel.Enabled || PrevMonthVALLevel.Enabled;
+                   PrevMonthEquilibriumLevel.Enabled || PrevMonthPOCLevel.Enabled || PrevMonthVWAPLevel.Enabled || PrevMonthVAHLevel.Enabled || PrevMonthVALLevel.Enabled || PrevMonthHVNEnabled;
         }
 
         private bool NeedsContractData()
         {
             return ContractOpenLevel.Enabled || ContractHighLevel.Enabled || ContractLowLevel.Enabled || ContractCloseLevel.Enabled ||
-                   ContractEquilibriumLevel.Enabled || ContractPOCLevel.Enabled || ContractVWAPLevel.Enabled || ContractVAHLevel.Enabled || ContractVALLevel.Enabled;
+                   ContractEquilibriumLevel.Enabled || ContractPOCLevel.Enabled || ContractVWAPLevel.Enabled || ContractVAHLevel.Enabled || ContractVALLevel.Enabled || ContractHVNEnabled;
         }
 
         private void UpdateLevels(FixedProfilePeriods period, IndicatorCandle candle)
@@ -1132,29 +1187,30 @@
             if (candle == null)
                 return;
 
-            var prefix = PrefixFor(period);
+            var prefix = CanonicalPrefixFor(period);
 
-            // OHLC
-            SetLevel($"{prefix}Open", candle.Open);
-            SetLevel($"{prefix}High", candle.High);
-            SetLevel($"{prefix}Low", candle.Low);
-            SetLevel($"{prefix}Close", candle.Close);
-            SetLevel($"{prefix}EQ", (candle.High + candle.Low) / 2m);
+            // Update OHLC levels
+            UpdateLevel($"{prefix}Open", candle.Open);
+            UpdateLevel($"{prefix}High", candle.High);
+            UpdateLevel($"{prefix}Low", candle.Low);
+            UpdateLevel($"{prefix}Close", candle.Close);
+            UpdateLevel($"{prefix}EQ", (candle.High + candle.Low) / 2);
 
-            // Volume-based
+            // Update Volume Profile levels with validation
             if (candle.MaxVolumePriceInfo != null && candle.MaxVolumePriceInfo.Price > 0)
-                SetLevel($"{prefix}POC", candle.MaxVolumePriceInfo.Price);
+                UpdateLevel($"{prefix}POC", candle.MaxVolumePriceInfo.Price);
 
             if (candle.VWAP > 0)
-                SetLevel($"{prefix}VWAP", candle.VWAP);
+                UpdateLevel($"{prefix}VWAP", candle.VWAP);
 
+            // Safe ValueArea access with validation
             if (candle.ValueArea != null &&
                 candle.ValueArea.ValueAreaHigh > 0 &&
                 candle.ValueArea.ValueAreaLow > 0 &&
                 candle.ValueArea.ValueAreaHigh >= candle.ValueArea.ValueAreaLow)
             {
-                SetLevel($"{prefix}VAH", candle.ValueArea.ValueAreaHigh);
-                SetLevel($"{prefix}VAL", candle.ValueArea.ValueAreaLow);
+                UpdateLevel($"{prefix}VAH", candle.ValueArea.ValueAreaHigh);
+                UpdateLevel($"{prefix}VAL", candle.ValueArea.ValueAreaLow);
             }
         }
 
@@ -1168,30 +1224,81 @@
             _levels[key].IsValid = true;
         }
 
-        private string GetPrefixForPeriod(FixedProfilePeriods period)
+        // Canonical prefixes for internal KEYS (_levels)  do not change
+        private string CanonicalPrefixFor(FixedProfilePeriods period) => period switch
         {
-            return period switch
+            FixedProfilePeriods.CurrentDay => "d",
+            FixedProfilePeriods.LastDay => "p",
+            FixedProfilePeriods.CurrentWeek => "w",
+            FixedProfilePeriods.LastWeek => "pw",
+            FixedProfilePeriods.CurrentMonth => "m",
+            FixedProfilePeriods.LastMonth => "pm",
+            FixedProfilePeriods.Contract => "c",
+            _ => string.Empty
+        };
+
+        // Resolve the color respecting the precedence (per-line override > scheme > per-line default)
+        private CrossColor ResolveColor(FixedProfilePeriods period, string suffix, LevelSettings ls)
+        {
+            if (ls != null && ls.UsePerLineColor)
+                return ls.Color; // per-line override wins
+
+            switch (ColorMode) // TODO: enum you introduce for the color feature
             {
-                FixedProfilePeriods.CurrentDay => "d",
-                FixedProfilePeriods.LastDay => "p",
-                FixedProfilePeriods.CurrentWeek => "w",
-                FixedProfilePeriods.LastWeek => "pw",
-                FixedProfilePeriods.CurrentMonth => "m",
-                FixedProfilePeriods.LastMonth => "pm",
-                FixedProfilePeriods.Contract => "c",
-                _ => ""
-            };
+                case ColorMode.ByPeriod:
+                    return ResolvePeriodPalette(period);
+                case ColorMode.ByLevel:
+                    return ResolveLevelPalette(suffix);
+                default:
+                    return ls?.Color ?? CrossColors.White;
+            }
         }
 
-        private void RenderLevel(RenderContext context, string levelKey, LevelSettings levelSettings, string displayLabel)
+        // Build a pen using the resolved color (do not rely on ls.RenderPen anymore when schemes are active)
+        private RenderPen BuildPen(LevelSettings ls, CrossColor color)
+            => new PenSettings { Color = color, Width = ls.Width, LineDashStyle = ls.LineStyle }.RenderObject;
+
+        // Palette resolvers
+        private CrossColor ResolvePeriodPalette(FixedProfilePeriods period)
+            => period switch
+            {
+                FixedProfilePeriods.CurrentDay => PeriodColorCurrentDay,
+                FixedProfilePeriods.LastDay => PeriodColorPrevDay,
+                FixedProfilePeriods.CurrentWeek => PeriodColorCurrentWeek,
+                FixedProfilePeriods.LastWeek => PeriodColorPrevWeek,
+                FixedProfilePeriods.CurrentMonth => PeriodColorCurrentMonth,
+                FixedProfilePeriods.LastMonth => PeriodColorPrevMonth,
+                FixedProfilePeriods.Contract => PeriodColorContract,
+                _ => CrossColors.White
+            };
+
+        private CrossColor ResolveLevelPalette(string suffix)
+            => suffix switch
+            {
+                "Open" => LevelColorOpen,
+                "High" => LevelColorHigh,
+                "Low" => LevelColorLow,
+                "Close" => LevelColorClose,
+                "EQ" => LevelColorEQ,
+                "POC" => LevelColorPOC,
+                "VWAP" => LevelColorVWAP,
+                "VAH" => LevelColorVAH,
+                "VAL" => LevelColorVAL,
+                _ => CrossColors.White
+            };
+
+        private void RenderLevel(RenderContext context, string levelKey, LevelSettings levelSettings, string displayLabel, FixedProfilePeriods period, string suffix)
         {
             if (!levelSettings.Enabled || !_levels.TryGetValue(levelKey, out var level) || !level.IsValid)
                 return;
 
+            // Validate price is reasonable
             if (level.Price <= 0)
                 return;
 
             var y = ChartInfo.GetYByPrice(level.Price, false);
+
+            // Check if price is visible on chart
             if (y < 0 || y > ChartInfo.PriceChartContainer.Region.Height)
                 return;
 
@@ -1200,21 +1307,28 @@
             var barWidth = (int)ChartInfo.PriceChartContainer.BarsWidth;
             var currentBarRightX = currentBarX + barWidth;
 
-            var renderPen = levelSettings.RenderPen;
+            // Resolve color with the provided period/suffix
+            var color = ResolveColor(period, suffix, levelSettings);
 
-            // Draw line
+            // Build the pen with the resolved color
+            var renderPen = BuildPen(levelSettings, color);
+
+            // Draw line first (if LineType != None)
             switch (levelSettings.LineType)
             {
                 case LineType.Bar:
+                    // If label is at bar position, start line after the label to avoid overlap
                     if (levelSettings.LabelPosition == LabelPosition.Bar)
                     {
-                        var size = context.MeasureString(displayLabel, _font);
+                        // Calculate actual label width for better positioning
+                        var labelSize = context.MeasureString(displayLabel, _font);
                         var labelStartX = currentBarRightX + 5;
-                        var lineStartX = labelStartX + size.Width + 4;
+                        var lineStartX = labelStartX + labelSize.Width + 4; // 4px padding
                         context.DrawLine(renderPen, lineStartX, y, chartWidth, y);
                     }
                     else
                     {
+                        // Normal bar line from right edge of bar to price axis
                         context.DrawLine(renderPen, currentBarRightX, y, chartWidth, y);
                     }
                     break;
@@ -1222,35 +1336,42 @@
                     context.DrawLine(renderPen, 0, y, chartWidth, y);
                     break;
                 case LineType.None:
+                    // No line to draw
                     break;
             }
 
+            // Draw price label (if ShowPrice == true)
             if (levelSettings.ShowPrice)
-                DrawPriceLabel(context, level.Price, y, renderPen, levelSettings);
+            {
+                DrawPriceLabel(context, level.Price, y, renderPen, color);
+            }
 
-            // Draw text label at chosen position
+            // Draw text label (if LabelPosition != None)
             switch (levelSettings.LabelPosition)
             {
                 case LabelPosition.Bar:
-                    DrawTextLabel(context, displayLabel, currentBarRightX + 5, y, renderPen, false);
+                    var barLabelX = currentBarRightX + 5;
+                    DrawTextLabel(context, displayLabel, barLabelX, y, renderPen, false);
                     break;
                 case LabelPosition.Right:
-                    DrawTextLabel(context, displayLabel, chartWidth - 5, y, renderPen, true);
+                    var rightLabelX = chartWidth - 5;
+                    DrawTextLabel(context, displayLabel, rightLabelX, y, renderPen, true);
                     break;
                 case LabelPosition.Left:
-                    DrawTextLabel(context, displayLabel, 5, y, renderPen, false);
+                    var leftLabelX = 5;
+                    DrawTextLabel(context, displayLabel, leftLabelX, y, renderPen, false);
                     break;
                 case LabelPosition.None:
+                    // No text label to draw
                     break;
             }
         }
 
-        private void DrawPriceLabel(RenderContext context, decimal price, int y, RenderPen pen, LevelSettings levelSettings)
+        private void DrawPriceLabel(RenderContext context, decimal price, int y, RenderPen pen, CrossColor backgroundColor)
         {
             var priceText = string.Format(ChartInfo.StringFormat, price);
 
             // Calculate contrasting text color based on background color
-            var backgroundColor = levelSettings.Color;
             var textColor = GetContrastingColor(backgroundColor);
 
             this.DrawLabelOnPriceAxis(context, priceText, y, _axisFont, backgroundColor.Convert(), textColor.Convert());
@@ -1297,7 +1418,9 @@
 
         private void RenderLevelGroup(
         RenderContext context,
-        string prefix,
+        string storagePrefix,
+        string displayPrefix,
+        FixedProfilePeriods period,
         LevelSettings openLevel, LevelSettings highLevel, LevelSettings lowLevel, LevelSettings closeLevel,
         LevelSettings eqLevel, LevelSettings pocLevel, LevelSettings vwapLevel, LevelSettings vahLevel, LevelSettings valLevel)
         {
@@ -1316,68 +1439,21 @@
 
             foreach (var (suffix, ls) in items)
             {
-                var key = $"{prefix}{suffix}";
-                var levelText = ResolveLevelText(prefix, suffix, ls);
-                var display = BuildDisplayLabel(prefix, levelText);
-                RenderLevel(context, key, ls, display);
+                var key = $"{storagePrefix}{suffix}";                  // <- immutable internal key
+                var levelText = ResolveLevelText(suffix, ls);          // <- from PR1 defaults
+                var display = BuildDisplayLabel(displayPrefix, levelText); // <- configurable display prefix
+                RenderLevel(context, key, ls, display, period, suffix);
             }
         }
 
-        // Returns the UI-selected prefix for a fixed profile period
-        private string PrefixFor(FixedProfilePeriods period) => period switch
+        private string ResolveLevelText(string suffix, LevelSettings ls)
         {
-            FixedProfilePeriods.CurrentDay => PrefixCurrentDay,
-            FixedProfilePeriods.LastDay => PrefixPrevDay,
-            FixedProfilePeriods.CurrentWeek => PrefixCurrentWeek,
-            FixedProfilePeriods.LastWeek => PrefixPrevWeek,
-            FixedProfilePeriods.CurrentMonth => PrefixCurrentMonth,
-            FixedProfilePeriods.LastMonth => PrefixPrevMonth,
-            FixedProfilePeriods.Contract => PrefixContract,
-            _ => string.Empty
-        };
-
-        // Builds the human readable label from template + level name
-        private string BuildLabel(string prefix, string levelName)
-            => (LabelTemplate ?? "{prefix} {level}")
-                .Replace("{prefix}", prefix ?? string.Empty)
-                .Replace("{level}", levelName ?? string.Empty);
-
-        // New setter that accepts an explicit label (instead of tying to the key)
-        private void SetLevel(string key, decimal price)
-        {
-            if (price <= 0) return;
-
-            if (!_levels.TryGetValue(key, out var lvl))
-                _levels[key] = lvl = new LevelData();
-
-            lvl.Price = price;
-            lvl.IsValid = true;
-        }
-
-        // Rebuild _levels from cached profile candles using current UI prefixes/labels
-        private void RebuildLevelsFromCachedProfiles()
-        {
-            _levels.Clear();
-
-            // Re-apply all cached profile candles with current prefixes & labels
-            foreach (var kv in _profileCandles)
-            {
-                var period = kv.Key;
-                var candle = kv.Value;
-                UpdateLevels(period, candle);
-            }
-        }
-
-        // Highest precedence: LevelSettings.OverrideLabel
-        // Then specific global overrides (e.g., PrevDayCloseOverride)
-        // Then default per-level label (OpenLabel, etc.)
-        private string ResolveLevelText(string prefix, string levelName, LevelSettings ls)
-        {
+            // Highest precedence: per-line override
             if (!string.IsNullOrWhiteSpace(ls?.OverrideLabel))
                 return ls.OverrideLabel;
 
-            // Fall back to default configured labels
-            return levelName switch
+            // Global defaults
+            return suffix switch
             {
                 "Open" => OpenLabel,
                 "High" => HighLabel,
@@ -1388,30 +1464,255 @@
                 "VWAP" => VWAPLabel,
                 "VAH" => VAHLabel,
                 "VAL" => VALLabel,
-                _ => levelName
+                _ => suffix
             };
         }
 
         private string BuildDisplayLabel(string prefix, string levelText)
-            => (LabelTemplate ?? "{prefix} {level}")
+        {
+            var template = string.IsNullOrEmpty(LabelTemplate) ? "{prefix}{level}" : LabelTemplate;
+            return template
                 .Replace("{prefix}", prefix ?? string.Empty)
                 .Replace("{level}", levelText ?? string.Empty);
+        }
 
-        // Llama a esto desde el onChanged de SetProperty
-        private void OnUiSettingChanged()
+        private void UpdateHVNs(FixedProfilePeriods period, IndicatorCandle candle)
         {
-            // Si ya tenemos perfiles cacheados, rehacer claves/etiquetas y redibujar
-            if (_profileCandles.Count > 0)
+            if (candle == null)
+                return;
+
+            if (!_hvnBands.TryGetValue(period, out var bands))
             {
-                RebuildLevelsFromCachedProfiles();
-                RedrawChart();
+                bands = new List<HVNBand>();
+                _hvnBands[period] = bands;
             }
             else
             {
-                // Fuerza recálculo si aún no hay cache
-                RecalculateValues();
+                bands.Clear();
+            }
+
+            var poc = candle.MaxVolumePriceInfo;
+            if (poc == null || poc.Volume <= 0)
+                return;
+
+            var cutoff = poc.Volume * (HVNThresholdPct / 100m);
+
+            // Materialize and sort by ascending price
+            var levelsEnum = candle.GetAllPriceLevels();
+            if (levelsEnum == null)
+                return;
+
+            var levels = levelsEnum.OrderBy(l => l.Price).ToList();
+            if (levels.Count == 0)
+                return;
+
+            var tick = InstrumentInfo.TickSize;
+            if (tick <= 0m)
+                return;
+
+            // Current run state (a "band" of contiguous HVN ticks allowing small gaps)
+            decimal? runStart = null;   // current band start (price)
+            decimal lastPriceInRun = 0; // last visited price
+            int gapLeft = 0;            // remaining tolerated gaps inside a band
+
+            bool IsNextTick(decimal prev, decimal next)
+                => Math.Abs(next - prev) <= tick * 1.0000001m; // tiny tolerance
+
+            for (int i = 0; i < levels.Count; i++)
+            {
+                var p = levels[i].Price;
+                var v = levels[i].Volume; // Si Volume no es decimal, castea a decimal
+
+                bool isHigh = v >= cutoff;
+
+                if (runStart == null)
+                {
+                    // No open band: only start when level is above cutoff
+                    if (isHigh)
+                    {
+                        runStart = p;
+                        lastPriceInRun = p;
+                        gapLeft = HVNGapToleranceTicks;
+                    }
+                    continue;
+                }
+
+                // There is an open band: check contiguity by tick
+                bool contiguous = IsNextTick(lastPriceInRun, p);
+
+                if (!contiguous)
+                {
+                    // We jumped several ticks -> close previous band
+                    bands.Add(new HVNBand { Low = runStart.Value, High = lastPriceInRun });
+                    runStart = null;
+
+
+                    if (isHigh)
+                    {
+                        runStart = p;
+                        lastPriceInRun = p;
+                        gapLeft = HVNGapToleranceTicks;
+                    }
+                    continue;
+                }
+
+                // Contiguous by tick
+                if (isHigh)
+                {
+                    lastPriceInRun = p;
+                    gapLeft = HVNGapToleranceTicks; // reset tolerance when back to "high" zone
+                }
+                else
+                {
+                    if (gapLeft > 0)
+                    {
+                        gapLeft--;
+                        lastPriceInRun = p; // keep band continuity
+                    }
+                    else
+                    {
+                        // Tolerance exhausted: close band at last "high" tick
+                        var end = lastPriceInRun;
+
+                        // If previous tick was low, step back one tick
+                        if (i > 0 && levels[i - 1].Volume < cutoff)
+                            end -= tick;
+
+                        if (end >= runStart.Value)
+                            bands.Add(new HVNBand { Low = runStart.Value, High = end });
+
+                        runStart = null;
+
+                        // Start a new band with this point if it's high
+                        if (isHigh)
+                        {
+                            runStart = p;
+                            lastPriceInRun = p;
+                            gapLeft = HVNGapToleranceTicks;
+                        }
+                    }
+                }
+            }
+
+            // Close trailing band if any
+            if (runStart != null && lastPriceInRun >= runStart.Value)
+                bands.Add(new HVNBand { Low = runStart.Value, High = lastPriceInRun });
+
+            // Optional: filter very small bands
+            // bands.RemoveAll(b => (b.High - b.Low) < tick);
+        }
+
+        private sealed class HVNBand
+        {
+            public decimal Low { get; init; }
+            public decimal High { get; init; }
+        }
+
+        private void RenderAllHVNsWithPriority(RenderContext ctx)
+        {
+            var tick = InstrumentInfo?.TickSize ?? 0m;
+            if (tick <= 0) return;
+
+            // ranges already claimed by higher-priority periods (stored already expanded)
+            var claimed = new List<(decimal Lo, decimal Hi)>();
+
+            foreach (var period in _hvnPriorityOrder)
+            {
+                var (enabled, color) = period switch
+                {
+                    FixedProfilePeriods.CurrentDay => (DayHVNEnabled, DayHVNColor),
+                    FixedProfilePeriods.LastDay => (PrevDayHVNEnabled, PrevDayHVNColor),
+                    FixedProfilePeriods.CurrentWeek => (WeekHVNEnabled, WeekHVNColor),
+                    FixedProfilePeriods.LastWeek => (PrevWeekHVNEnabled, PrevWeekHVNColor),
+                    FixedProfilePeriods.CurrentMonth => (MonthHVNEnabled, MonthHVNColor),
+                    FixedProfilePeriods.LastMonth => (PrevMonthHVNEnabled, PrevMonthHVNColor),
+                    FixedProfilePeriods.Contract => (ContractHVNEnabled, ContractHVNColor),
+                    _ => (false, CrossColors.Transparent)
+                };
+
+                if (!enabled) continue;
+                if (!_hvnBands.TryGetValue(period, out var bands) || bands.Count == 0) continue;
+
+                foreach (var band in bands)
+                {
+                    // compute the remaining (non-occluded) parts of this band
+                    var leftovers = SubtractClaimed(band, claimed, tick);
+                    foreach (var piece in leftovers)
+                    {
+                        RenderBand(ctx, piece, color);
+                        // claim with occlusion tolerance
+                        claimed.Add((
+                            piece.Low - HVNOcclusionTicks * tick,
+                            piece.High + HVNOcclusionTicks * tick
+                        ));
+                    }
+                }
             }
         }
+
+        private void RenderBand(RenderContext ctx, HVNBand band, CrossColor crossColor)
+        {
+            if (band.Low <= 0 || band.High <= 0) return;
+
+            var yHigh = ChartInfo.GetYByPrice(band.High, false);
+            var yLow = ChartInfo.GetYByPrice(band.Low, false);
+
+            var top = Math.Min(yHigh, yLow);
+            var bottom = Math.Max(yHigh, yLow);
+
+            // Only if visible
+            if (bottom < 0 || top > ChartInfo.PriceChartContainer.Region.Height)
+                return;
+
+            var w = ChartInfo.PriceChartContainer.Region.Width;
+            var drawTop = Math.Max(0, top);
+            var drawBot = Math.Min(ChartInfo.PriceChartContainer.Region.Height, bottom);
+            var drawH = Math.Max(1, drawBot - drawTop + 1);
+
+            var rect = new System.Drawing.Rectangle(0, drawTop, w, drawH);
+            ctx.FillRectangle(crossColor.Convert(), rect);
+        }
+
+        // Split a band by subtracting previously-claimed ranges (already expanded by occlusion tolerance).
+        // Returns the list of remaining sub-bands aligned to the tick grid.
+        private List<HVNBand> SubtractClaimed(HVNBand band, List<(decimal Lo, decimal Hi)> claimed, decimal tick)
+        {
+            // work list as simple (Lo, Hi) intervals
+            var segments = new List<(decimal Lo, decimal Hi)> { (band.Low, band.High) };
+
+            foreach (var r in claimed)
+            {
+                var next = new List<(decimal Lo, decimal Hi)>();
+
+                foreach (var s in segments)
+                {
+                    // no overlap
+                    if (r.Hi < s.Lo || r.Lo > s.Hi)
+                    {
+                        next.Add(s);
+                        continue;
+                    }
+
+                    // overlap -> split into left/right remainders (if any), keeping tick alignment
+                    if (r.Lo > s.Lo)
+                        next.Add((s.Lo, Math.Min(s.Hi, r.Lo - tick)));
+
+                    if (r.Hi < s.Hi)
+                        next.Add((Math.Max(s.Lo, r.Hi + tick), s.Hi));
+                }
+
+                segments = next;
+                if (segments.Count == 0)
+                    break;
+            }
+
+            return segments
+                .Where(seg => seg.Hi >= seg.Lo)
+                .Select(seg => new HVNBand { Low = seg.Lo, High = seg.Hi })
+                .ToList();
+        }
+
+
 
         #endregion
     }
