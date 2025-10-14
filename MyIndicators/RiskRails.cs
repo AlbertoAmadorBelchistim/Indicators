@@ -136,7 +136,13 @@
             {
                 var id = GetAccountKey(p);
                 if (_perAccount.ContainsKey("default") && !_perAccount.ContainsKey(id))
+                {
                     _perAccount[id] = _perAccount["default"];
+                    // Persist migration to ensure the value survives restarts.
+                    SaveState();
+                }
+
+                _lastAccountId = p.AccountID ?? ""; // ← guarda la cuenta actual
             }
 
             _startBar = -1;
@@ -156,14 +162,17 @@
 
         private void SoftResetSeries()
         {
-            RecreateSeriesAndAttach();  // series limpias, sin pasado
-            _startBar = CurrentBar;     // empezamos a pintar desde aquí
+            RecreateSeriesAndAttach();   // series nuevas y vacías
+            _startBar = CurrentBar;      // empezamos a pintar desde aquí
             RedrawChart();
         }
-
         protected override void OnCalculate(int bar, decimal value)
         {
             var (p, key) = ResolvePortfolio();
+            if (p is null || string.IsNullOrEmpty(key))
+                return;
+
+            // detectar cambio de cuenta con p garantizado
             var curId = p.AccountID ?? "";
 
             if (!string.Equals(curId, _lastAccountId, StringComparison.Ordinal))
@@ -172,9 +181,6 @@
                 SoftResetSeries();
                 return; // esta barra no se pinta; la siguiente ya arranca limpio
             }
-
-            if (p is null || string.IsNullOrEmpty(key))
-                return;
 
             var equity = p.Balance + p.OpenPnL;
             var st = _perAccount[key];
@@ -279,20 +285,9 @@
             catch { /* ignore */ }
         }
 
-        private void EndLinesAt(int bar)
-        {
-            if (bar < 0) return;
-            _equity.SetPointOfEndLine(bar);
-            _dailyTarget.SetPointOfEndLine(bar);
-            _dailyLoss.SetPointOfEndLine(bar);
-            _accountGoal.SetPointOfEndLine(bar);
-            _accountFloor.SetPointOfEndLine(bar);
-        }
-
         private void RecreateSeriesAndAttach()
         {
-            // Equity (scale on)
-            var eq = new ValueDataSeries("Equity")
+            _equity = new ValueDataSeries("Equity")
             {
                 VisualType = VisualMode.Line,
                 Color = Colors.White,
@@ -300,28 +295,28 @@
                 Digits = 2,
                 ScaleIt = true
             };
-            var dt = new ValueDataSeries("DailyTarget")
+            _dailyTarget = new ValueDataSeries("DailyTarget")
             {
                 VisualType = VisualMode.Line,
                 Color = Colors.DeepSkyBlue,
                 Digits = 2,
                 ScaleIt = true
             };
-            var dl = new ValueDataSeries("DailyLoss")
+            _dailyLoss = new ValueDataSeries("DailyLoss")
             {
                 VisualType = VisualMode.Line,
                 Color = Colors.HotPink,
                 Digits = 2,
                 ScaleIt = true
             };
-            var ag = new ValueDataSeries("AccountGoal")
+            _accountGoal = new ValueDataSeries("AccountGoal")
             {
                 VisualType = VisualMode.Line,
                 Color = Colors.Orange,
                 Digits = 2,
                 ScaleIt = false
             };
-            var af = new ValueDataSeries("AccountFloor")
+            _accountFloor = new ValueDataSeries("AccountFloor")
             {
                 VisualType = VisualMode.Line,
                 Color = Colors.MediumPurple,
@@ -329,20 +324,15 @@
                 ScaleIt = false
             };
 
-            // replace references and reattach to DataSeries
-            DataSeries[0] = eq;
-            DataSeries[1] = dt;
-            DataSeries[2] = dl;
-            DataSeries[3] = ag;
-            DataSeries[4] = af;
-
-            // update fields
-            _equity = eq;
-            _dailyTarget = dt;
-            _dailyLoss = dl;
-            _accountGoal = ag;
-            _accountFloor = af;
+            DataSeries.Clear();
+            DataSeries.Add(_equity);
+            DataSeries.Add(_dailyTarget);
+            DataSeries.Add(_dailyLoss);
+            DataSeries.Add(_accountGoal);
+            DataSeries.Add(_accountFloor);
         }
+
+
 
         private void DebugLog(string msg)
         {
