@@ -1,18 +1,15 @@
 namespace ATAS.Indicators.Technical;
 
+using OFT.Localization;
+using OFT.Rendering.Context;
+using OFT.Rendering.Settings;
+using OFT.Rendering.Tools;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
-
-using ATAS.Indicators.Filters;
-using OFT.Attributes;
-using OFT.Attributes.Editors;
-using OFT.Localization;
-using OFT.Rendering.Context;
-using OFT.Rendering.Settings;
-using OFT.Rendering.Tools;
+using System.Runtime.CompilerServices;
 
 public enum LabelPosition
 {
@@ -41,45 +38,120 @@ public enum LineType
     Full = 2
 }
 
-[Editor(typeof(ATAS.Indicators.Technical.Editors.LevelSettingsEditor), typeof(ATAS.Indicators.Technical.Editors.LevelSettingsEditor))]
-public class LevelSettings
+public abstract class NotifiableObject : INotifyPropertyChanged
 {
-        public LevelSettings(bool enabled = false, CrossColor color = default, int width = 1, LineDashStyle lineStyle = LineDashStyle.Solid, bool showPrice = true, LabelPosition labelPosition = LabelPosition.Bar, LineType lineType = LineType.Bar)
-        {
-            Enabled = enabled;
-            Color = color == default ? System.Drawing.Color.Blue.Convert() : color;
-            Width = width;
-            LineStyle = lineStyle;
-            ShowPrice = showPrice;
-            LabelPosition = labelPosition;
-            LineType = lineType;
-        }
+    public event PropertyChangedEventHandler? PropertyChanged;
 
-        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled))]
-        public bool Enabled { get; set; }
+    protected bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = "")
+    {
+        if (Equals(field, value))
+            return false;
 
-        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Color))]
-        public CrossColor Color { get; set; }
-
-        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowPrice))]
-        public bool ShowPrice { get; set; }
-
-        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Line))]
-        public LineType LineType { get; set; }
-
-        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Width))]
-        [Range(1, 10)]
-        public int Width { get; set; }
-
-        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LineStyle))]
-        public LineDashStyle LineStyle { get; set; }
-
-        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Label))]
-        public LabelPosition LabelPosition { get; set; }
-
-        [Browsable(false)]
-        public RenderPen RenderPen => new PenSettings { Color = Color, Width = Width, LineDashStyle = LineStyle }.RenderObject;
+        field = value;
+        OnPropertyChanged(propertyName);
+        return true;
     }
+
+    protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+}
+
+[Editor(typeof(ATAS.Indicators.Technical.Editors.LevelSettingsEditor), typeof(ATAS.Indicators.Technical.Editors.LevelSettingsEditor))]
+public class LevelSettings : NotifiableObject
+{
+    #region Fields
+
+    private bool _enabled;
+    private CrossColor _color;
+    private bool _showPrice;
+    private LineType _lineType;
+    private int _width;
+    private LineDashStyle _lineStyle;
+    private LabelPosition _labelPosition;
+
+    #endregion
+      
+    #region Properties
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled))]
+    public bool Enabled 
+    {
+        get => _enabled;
+        set => SetField(ref _enabled, value);
+    }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Color))]
+    public CrossColor Color 
+    {
+        get => _color;
+        set => SetField(ref _color, value);
+    }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowPrice))]
+    public bool ShowPrice 
+    {
+        get => _showPrice;
+        set => SetField(ref _showPrice, value);
+    }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Line))]
+    public LineType LineType 
+    {
+        get => _lineType;
+        set => SetField(ref _lineType, value);
+    }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Width))]
+    [Range(1, 10)]
+    public int Width 
+    { 
+        get => _width;
+        set => SetField(ref _width, value);
+    }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LineStyle))]
+    public LineDashStyle LineStyle 
+    { 
+        get => _lineStyle;
+        set => SetField(ref _lineStyle, value);
+    }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Label))]
+    public LabelPosition LabelPosition 
+    {
+        get => _labelPosition;
+        set => SetField(ref _labelPosition, value);
+    }
+
+    [Browsable(false)]
+    public RenderPen RenderPen => new PenSettings { Color = Color, Width = Width, LineDashStyle = LineStyle }.RenderObject;
+
+    #endregion
+
+    #region ctor
+
+    public LevelSettings
+    (
+        bool enabled = false,
+        CrossColor color = default,
+        int width = 1,
+        LineDashStyle lineStyle = LineDashStyle.Solid,
+        bool showPrice = true,
+        LabelPosition labelPosition = LabelPosition.Bar,
+        LineType lineType = LineType.Bar
+    )
+    {
+        Enabled = enabled;
+        Color = color == default ? System.Drawing.Color.Blue.Convert() : color;
+        Width = width;
+        LineStyle = lineStyle;
+        ShowPrice = showPrice;
+        LabelPosition = labelPosition;
+        LineType = lineType;
+    }
+
+    #endregion
+}
 
 [DisplayName("OHLC Plus")]
 [Category(IndicatorCategories.VolumeOrderFlow)]
@@ -870,6 +942,11 @@ public class OHLCPlus : Indicator
         base.OnApplyDefaultColors();
     }
 
+    protected override void OnInitialize()
+    {
+        SubscribeAllLevels();
+    }
+
     protected override void OnCalculate(int bar, decimal value)
     {
         if (bar == 0)
@@ -1191,6 +1268,54 @@ public class OHLCPlus : Indicator
             RenderLevel(context, $"{prefix}{suffix}", levelSettings);
         }
     }
+
+    #region SubscribeAllLevels
+
+    private sealed class RefEqComparer : IEqualityComparer<object>
+    {
+        public static readonly RefEqComparer Instance = new();
+        public new bool Equals(object x, object y) => ReferenceEquals(x, y);
+        public int GetHashCode(object obj) => RuntimeHelpers.GetHashCode(obj);
+    }
+
+    private readonly HashSet<LevelSettings> _subscribedLevels = new(RefEqComparer.Instance);
+
+    private void SubscribeAllLevels()
+    {
+        foreach (var ls in EnumerateAllLevelSettings())
+            TrySubscribe(ls);
+    }
+
+    private IEnumerable<LevelSettings> EnumerateAllLevelSettings()
+    {
+        var flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public;
+        foreach (var pi in GetType().GetProperties(flags))
+        {
+            if (pi.PropertyType != typeof(LevelSettings) || !pi.CanRead)
+                continue;
+
+            if (pi.GetValue(this) is LevelSettings ls)
+                yield return ls;
+        }
+    }
+
+    private void TrySubscribe(LevelSettings? ls)
+    {
+        if (ls is null) return;
+        if (_subscribedLevels.Add(ls))
+            ls.PropertyChanged += OnLevelSettingsChanged;
+    }
+
+    private void OnLevelSettingsChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(LevelSettings.Enabled))
+        {
+            RedrawChart();
+            return;
+        }
+    }
+
+    #endregion
 
     #endregion
 }
