@@ -18,346 +18,398 @@ using System.Windows.Media;
 
 [Category("Custom")]
 [DisplayName("LevelsLolo")]
-    public class LevelsLolo:Indicator
+public class LevelsLolo : Indicator
+{
+    // -------- Rendering --------
+    private RenderFont _font;
+
+    // Base pens (0DTE inherits color & uses dashed line)
+    private PenSettings _penCombo = new PenSettings { Color = Colors.White, Width = 1 };
+    private PenSettings _penLargeGamma = new PenSettings { Color = Colors.Yellow, Width = 1 };
+    private PenSettings _penVolTrigger = new PenSettings { Color = Colors.DeepSkyBlue, Width = 1 };
+    private PenSettings _penCallWall = new PenSettings { Color = Colors.Orange, Width = 1 };
+    private PenSettings _penPutWall = new PenSettings { Color = Colors.HotPink, Width = 1 };
+    private PenSettings _penZeroGamma = new PenSettings { Color = Colors.MediumPurple, Width = 1 };
+    private PenSettings _penOther = new PenSettings { Color = Colors.Gray, Width = 1 };
+
+    // Merged levels: price -> entry
+    private readonly Dictionary<decimal, MergedLevel> _levelsByPrice = new Dictionary<decimal, MergedLevel>();
+
+    // -------- Parameters --------
+
+    [Display(Name = "Font size", GroupName = "Text", Order = 1)]
+    [Range(6, 48)]
+    public int FontSize
     {
-        // ---- Rendering ----
-        private RenderFont _font;
-        private PenSettings _penCombo = new() { Color = Colors.White, Width = 1 };
-        private PenSettings _penLargeGamma = new() { Color = Colors.Yellow, Width = 1 };
-        private PenSettings _penVolTrigger = new() { Color = Colors.DeepSkyBlue, Width = 1 };
-        private PenSettings _penCallWall = new() { Color = Colors.Orange, Width = 1 };
-        private PenSettings _penPutWall = new() { Color = Colors.HotPink, Width = 1 };
-        private PenSettings _penZeroGamma = new() { Color = Colors.MediumPurple, Width = 1 };
-        private PenSettings _penOther = new() { Color = Colors.Gray, Width = 1 };
+        get { return _fontSize; }
+        set { _fontSize = value; _font = new RenderFont("Arial", _fontSize); RecalculateValues(); }
+    }
+    private int _fontSize = 10;
 
-        // Final computed levels for rendering (price -> merged entry)
-        private readonly Dictionary<decimal, MergedLevel> _levelsByPrice = new();
+    [Display(Name = "Right-aligned text", GroupName = "Text", Order = 2)]
+    public bool RightAligned
+    {
+        get { return _rightAligned; }
+        set { _rightAligned = value; RecalculateValues(); }
+    }
+    private bool _rightAligned = true;
 
-        // Cache for top-N membership per category (recomputed on parse)
-        private readonly HashSet<(Category cat, decimal price)> _isTop = new();
+    [Display(Name = "Last bar only", GroupName = "Text", Order = 3,
+        Description = "Extend to last visible bar instead of full right border.")]
+    public bool LastBarOnly
+    {
+        get { return _lastBarOnly; }
+        set { _lastBarOnly = value; RecalculateValues(); }
+    }
+    private bool _lastBarOnly = true;
 
-        // ---- Parameters (UI) ----
+    [Display(Name = "Offset X", GroupName = "Text", Order = 4)]
+    [Range(0, 500)]
+    public int OffsetX { get; set; } = 6;
 
-        [Display(Name = "Font size", GroupName = "Text", Order = 1)]
-        [Range(6, 48)]
-        public int FontSize
+    [Display(Name = "Offset Y", GroupName = "Text", Order = 5)]
+    [Range(-500, 500)]
+    public int OffsetY { get; set; } = 6;
+
+    // Width tiers
+    [Display(Name = "Thick up to rank", GroupName = "Width tiers", Order = 1)]
+    [Range(1, 20)]
+    public int ThickMaxRank { get; set; } = 3;
+
+    [Display(Name = "Medium up to rank", GroupName = "Width tiers", Order = 2)]
+    [Range(1, 50)]
+    public int MediumMaxRank { get; set; } = 10;
+
+    [Display(Name = "Width (thick)", GroupName = "Width tiers", Order = 3)]
+    [Range(1, 8)]
+    public int ThickWidth { get; set; } = 3;
+
+    [Display(Name = "Width (medium)", GroupName = "Width tiers", Order = 4)]
+    [Range(1, 8)]
+    public int MediumWidth { get; set; } = 2;
+
+    [Display(Name = "Width (thin)", GroupName = "Width tiers", Order = 5)]
+    [Range(1, 8)]
+    public int ThinWidth { get; set; } = 1;
+
+    // Editable pens
+    [Display(Name = "Combo (CO)", GroupName = "Pens", Order = 1)] public PenSettings PenCombo { get { return _penCombo; } set { _penCombo = value; } }
+    [Display(Name = "Large Gamma (LG)", GroupName = "Pens", Order = 2)] public PenSettings PenLargeGamma { get { return _penLargeGamma; } set { _penLargeGamma = value; } }
+    [Display(Name = "Volatility Trigger (VT)", GroupName = "Pens", Order = 3)] public PenSettings PenVolTrigger { get { return _penVolTrigger; } set { _penVolTrigger = value; } }
+    [Display(Name = "Call Wall (CW)", GroupName = "Pens", Order = 4)] public PenSettings PenCallWall { get { return _penCallWall; } set { _penCallWall = value; } }
+    [Display(Name = "Put Wall (PW)", GroupName = "Pens", Order = 5)] public PenSettings PenPutWall { get { return _penPutWall; } set { _penPutWall = value; } }
+    [Display(Name = "Zero Gamma (ZG)", GroupName = "Pens", Order = 6)] public PenSettings PenZeroGamma { get { return _penZeroGamma; } set { _penZeroGamma = value; } }
+    [Display(Name = "Other/Unknown", GroupName = "Pens", Order = 7)] public PenSettings PenOther { get { return _penOther; } set { _penOther = value; } }
+
+    // Free text input
+    [Display(Name = "Raw text", GroupName = "Data", Order = 1,
+        Description = "Example: $SP: CO44, 7073, LG07, 7048, CO05 & LG14, 6898, VT 0DTE, 6743, LG1 0DTE, 6720 ...")]
+    public string RawText
+    {
+        get { return _rawText; }
+        set { _rawText = value ?? string.Empty; ParseRawText(); RecalculateValues(); }
+    }
+    private string _rawText = string.Empty;
+
+    // UI trigger to clear text
+    [Display(Name = "Clear text now", GroupName = "Data", Order = 2, Description = "Toggle to clear the input box.")]
+    public bool ClearTextNow
+    {
+        get { return false; }
+        set
         {
-            get => _fontSize;
-            set { _fontSize = value; _font = new RenderFont("Arial", _fontSize); RecalculateValues(); }
-        }
-        private int _fontSize = 10;
-
-        [Display(Name = "Right-aligned text", GroupName = "Text", Order = 2)]
-        public bool RightAligned
-        {
-            get => _rightAligned;
-            set { _rightAligned = value; RecalculateValues(); }
-        }
-        private bool _rightAligned = true;
-
-        [Display(Name = "Last bar only", GroupName = "Text", Order = 3, Description = "Extend line to last visible bar instead of full right border.")]
-        public bool LastBarOnly
-        {
-            get => _lastBarOnly;
-            set { _lastBarOnly = value; RecalculateValues(); }
-        }
-        private bool _lastBarOnly = true;
-
-        [Display(Name = "Offset X", GroupName = "Text", Order = 4)]
-        [Range(0, 500)]
-        public int OffsetX { get; set; } = 6;
-
-        [Display(Name = "Offset Y", GroupName = "Text", Order = 5)]
-        [Range(-500, 500)]
-        public int OffsetY { get; set; } = 6;
-
-        [Display(Name = "Top-N per type (thick)", GroupName = "Ranking", Order = 1)]
-        [Range(1, 50)]
-        public int TopNPerCategory { get; set; } = 5;
-
-        [Display(Name = "Thick width", GroupName = "Ranking", Order = 2)]
-        [Range(1, 8)]
-        public int ThickWidth { get; set; } = 3;
-
-        [Display(Name = "Thin width", GroupName = "Ranking", Order = 3)]
-        [Range(1, 8)]
-        public int ThinWidth { get; set; } = 1;
-
-        // Pens per category (editable)
-        [Display(Name = "Combo (CO)", GroupName = "Pens", Order = 1)] public PenSettings PenCombo { get => _penCombo; set => _penCombo = value; }
-        [Display(Name = "Large Gamma (LG)", GroupName = "Pens", Order = 2)] public PenSettings PenLargeGamma { get => _penLargeGamma; set => _penLargeGamma = value; }
-        [Display(Name = "Volatility Trigger (VT)", GroupName = "Pens", Order = 3)] public PenSettings PenVolTrigger { get => _penVolTrigger; set => _penVolTrigger = value; }
-        [Display(Name = "Call Wall (CW)", GroupName = "Pens", Order = 4)] public PenSettings PenCallWall { get => _penCallWall; set => _penCallWall = value; }
-        [Display(Name = "Put Wall (PW)", GroupName = "Pens", Order = 5)] public PenSettings PenPutWall { get => _penPutWall; set => _penPutWall = value; }
-        [Display(Name = "Zero Gamma (ZG)", GroupName = "Pens", Order = 6)] public PenSettings PenZeroGamma { get => _penZeroGamma; set => _penZeroGamma = value; }
-        [Display(Name = "Other/Unknown", GroupName = "Pens", Order = 7)] public PenSettings PenOther { get => _penOther; set => _penOther = value; }
-
-        // Main text input
-        [Display(Name = "Raw text", GroupName = "Data", Order = 1, Description = "Free text like: $SP: CO44, 7073, LG07, 7048, ...\nSupports '&' for multiple labels before the price.")]
-        public string RawText
-        {
-            get => _rawText;
-            set { _rawText = value ?? string.Empty; ParseRawText(); RecalculateValues(); }
-        }
-        private string _rawText = string.Empty;
-
-        public LevelsLolo() : base(false)
-        {
-            EnableCustomDrawing = true;
-            SubscribeToDrawingEvents(DrawingLayouts.Final);
-            _font = new RenderFont("Arial", _fontSize);
-        }
-
-        // ---- Core types ----
-
-        private enum Category
-        {
-            Combo,
-            LargeGamma,
-            VolTrigger,
-            CallWall,
-            PutWall,
-            ZeroGamma,
-            Other
-        }
-
-        private sealed class LabelToken
-        {
-            public Category Cat;
-            public string Raw;       // e.g., "CO19" or "Zero Gamma" or "CW"
-            public int? Rank;        // numeric part; null => “max priority”
-            public int EffectiveRank // lower is better; null -> 0
-                => Rank.HasValue ? Rank.Value : 0;
-        }
-
-        private sealed class MergedLevel
-        {
-            public decimal Price;
-            public List<LabelToken> Labels = new();
-            public LabelToken Winner;       // decides style
-            public string LabelText;        // concatenated for drawing
-        }
-
-        // ---- Parsing ----
-
-        private static readonly Regex NumberOnly = new(@"^\s*\d+(\.\d+)?\s*$", RegexOptions.Compiled);
-        // Matches "CO44", "LG07", "VT", "CW", "PW", "ZG13", "Zero Gamma"
-        private static readonly Regex LabelPattern = new(@"^\s*(?<name>[A-Za-z ]+?)(?<rank>\d{1,3})?\s*$",
-            RegexOptions.Compiled | RegexOptions.CultureInvariant);
-
-        private static string NormalizeInvisible(string s)
-        {
-            if (string.IsNullOrEmpty(s)) return string.Empty;
-            // Remove format characters (zero-width, etc.)
-            var cleaned = new string(s.Where(ch => !char.GetUnicodeCategory(ch).HasFlag(UnicodeCategory.Format)).ToArray());
-            return cleaned.Trim();
-        }
-
-        private static Category MapCategory(string name)
-        {
-            name = name.ToUpperInvariant();
-            // Short aliases
-            if (name == "CO" || name == "COMBO") return Category.Combo;
-            if (name == "LG" || name == "LARGE GAMMA" || name == "LARGEGAMMA") return Category.LargeGamma;
-            if (name == "VT" || name == "VOLATILITY TRIGGER" || name == "VOLATILITYTRIGGER") return Category.VolTrigger;
-            if (name == "CW" || name == "CALL WALL" || name == "CALLWALL") return Category.CallWall;
-            if (name == "PW" || name == "PUT WALL" || name == "PUTWALL") return Category.PutWall;
-            if (name == "ZG" || name == "ZERO GAMMA" || name == "ZEROGAMMA") return Category.ZeroGamma;
-            // Fallback
-            return Category.Other;
-        }
-
-        private void ParseRawText()
-        {
-            _levelsByPrice.Clear();
-            _isTop.Clear();
-
-            var text = NormalizeInvisible(_rawText);
-            if (string.IsNullOrWhiteSpace(text)) return;
-
-            // Optional prefix "$SP:" or similar
-            var colonIdx = text.IndexOf(':');
-            if (colonIdx >= 0)
-                text = text[(colonIdx + 1)..];
-
-            // Split by commas, keep order
-            var tokens = text.Split(',').Select(t => NormalizeInvisible(t)).Where(t => t.Length > 0).ToList();
-            if (tokens.Count == 0) return;
-
-            var pendingLabels = new List<LabelToken>();
-            foreach (var token in tokens)
+            if (value)
             {
-                // A token may contain multiple labels separated by "&"
-                var parts = token.Split('&').Select(p => NormalizeInvisible(p)).Where(p => p.Length > 0).ToArray();
-
-                // If single numeric => price for pending labels
-                if (parts.Length == 1 && NumberOnly.IsMatch(parts[0]))
-                {
-                    if (!decimal.TryParse(parts[0], NumberStyles.Any, CultureInfo.InvariantCulture, out var price))
-                    {
-                        // Try current culture as fallback
-                        if (!decimal.TryParse(parts[0], NumberStyles.Any, CultureInfo.CurrentCulture, out price))
-                            continue; // skip malformed number
-                    }
-                    if (pendingLabels.Count == 0)
-                        continue; // no label for this number; ignore
-
-                    // Commit pending labels to this price
-                    if (!_levelsByPrice.TryGetValue(price, out var merged))
-                    {
-                        merged = new MergedLevel { Price = price };
-                        _levelsByPrice[price] = merged;
-                    }
-
-                    merged.Labels.AddRange(pendingLabels);
-                    pendingLabels.Clear();
-                }
-                else
-                {
-                    // One or more labels in the same token (with '&')
-                    foreach (var part in parts)
-                    {
-                        var m = LabelPattern.Match(part);
-                        if (!m.Success) continue;
-
-                        var name = NormalizeInvisible(m.Groups["name"].Value);
-                        var rankStr = m.Groups["rank"].Success ? m.Groups["rank"].Value : null;
-
-                        int? rank = null;
-                        if (!string.IsNullOrEmpty(rankStr) && int.TryParse(rankStr, NumberStyles.Integer, CultureInfo.InvariantCulture, out var r))
-                            rank = r;
-
-                        // Normalize special literal "Zero Gamma"
-                        if (name.Equals("Zero Gamma", StringComparison.OrdinalIgnoreCase))
-                            name = "ZG";
-
-                        var cat = MapCategory(name);
-                        pendingLabels.Add(new LabelToken
-                        {
-                            Cat = cat,
-                            Raw = (rank.HasValue ? $"{name.ToUpperInvariant()}{rank.Value:D2}" : name),
-                            Rank = rank // null => max priority
-                        });
-                    }
-                }
-            }
-
-            // Build winners + label text; compute top-N per category
-            ComputeWinnersAndTopSets();
-        }
-
-        private void ComputeWinnersAndTopSets()
-        {
-            // Per-category sorted lists (lowest rank first; null rank = 0 => highest)
-            var perCat = new Dictionary<Category, List<(decimal price, int effRank)>>();
-
-            foreach (var kv in _levelsByPrice)
-            {
-                var price = kv.Key;
-                var labels = kv.Value.Labels;
-
-                // Winner: lowest EffectiveRank; tie-breaker by category order to stabilize
-                var winner = labels.OrderBy(l => l.EffectiveRank)
-                                   .ThenBy(l => (int)l.Cat)
-                                   .First();
-
-                kv.Value.Winner = winner;
-                kv.Value.LabelText = string.Join(" & ", labels.Select(l => FormatLabelForText(l)));
-
-                // Feed per-category for Top-N computation (only labels of that category count)
-                foreach (var l in labels)
-                {
-                    if (!perCat.TryGetValue(l.Cat, out var list))
-                        perCat[l.Cat] = list = new List<(decimal, int)>();
-                    list.Add((price, l.EffectiveRank));
-                }
-            }
-
-            // Compute TopN sets per category
-            _isTop.Clear();
-            foreach (var kv in perCat)
-            {
-                var cat = kv.Key;
-                var list = kv.Value.OrderBy(t => t.effRank)
-                                   .ThenBy(t => t.price) // stabilize
-                                   .Take(TopNPerCategory)
-                                   .ToArray();
-                foreach (var t in list)
-                    _isTop.Add((cat, t.price));
+                _rawText = string.Empty;
+                _levelsByPrice.Clear();
+                RecalculateValues();
             }
         }
-
-        private static string FormatLabelForText(LabelToken l)
-        {
-            // Human-friendly label for drawing
-            // Example: CO19, LG11, VT, CW, Zero Gamma
-            return l.Cat switch
-            {
-                Category.Combo => l.Rank.HasValue ? $"CO{l.Rank}" : "CO",
-                Category.LargeGamma => l.Rank.HasValue ? $"LG{l.Rank}" : "LG",
-                Category.VolTrigger => "VT",
-                Category.CallWall => "CW",
-                Category.PutWall => "PW",
-                Category.ZeroGamma => l.Rank.HasValue ? $"ZG{l.Rank}" : "Zero Gamma",
-                _ => l.Raw.ToUpperInvariant()
-            };
-        }
-
-        // ---- ATAS cycle ----
-
-        protected override void OnCalculate(int bar, decimal value)
-        {
-            // Nothing to calculate per-bar; drawing uses current dictionary
-        }
-
-        protected override void OnRender(RenderContext context, DrawingLayouts layout)
-        {
-            if (_levelsByPrice.Count == 0)
-                return;
-
-            var chart = ChartInfo;
-            var firstX = Extensions.GetXByBar(chart, FirstVisibleBarNumber, false);
-            var lastX = Extensions.GetXByBar(chart, LastVisibleBarNumber, false);
-            var rightX = LastBarOnly ? lastX : Container.Region.Right;
-
-            foreach (var kv in _levelsByPrice.OrderBy(k => k.Key)) // sorted by price asc
-            {
-                var price = kv.Key;
-                var merged = kv.Value;
-                var cat = merged.Winner.Cat;
-
-                var pen = GetPen(cat);
-                var y = Extensions.GetYByPrice(chart, price, false);
-
-                // Pick width depending on Top-N membership for the *winning* category at this price
-                var width = _isTop.Contains((cat, price)) ? ThickWidth : ThinWidth;
-
-                // Draw line
-                var linePen = new PenSettings { Color = pen.Color, Width = width, LineDashStyle = pen.LineDashStyle };
-                context.DrawLine(linePen.RenderObject, firstX, y, rightX, y);
-
-                // Draw label at y, aligned
-                var label = merged.LabelText;
-                var size = context.MeasureString(label, _font);
-                var textY = y - size.Height - OffsetY;
-                int textX = RightAligned ? rightX - size.Width - OffsetX
-                                         : Container.Region.Left + OffsetX;
-
-                context.DrawString(label, _font, pen.RenderObject.Color, textX, textY);
-            }
-        }
-
-        private PenSettings GetPen(Category c) =>
-            c switch
-            {
-                Category.Combo => _penCombo,
-                Category.LargeGamma => _penLargeGamma,
-                Category.VolTrigger => _penVolTrigger,
-                Category.CallWall => _penCallWall,
-                Category.PutWall => _penPutWall,
-                Category.ZeroGamma => _penZeroGamma,
-                _ => _penOther
-            };
-    
     }
 
+    public LevelsLolo() : base(false)
+    {
+        EnableCustomDrawing = true;
+        SubscribeToDrawingEvents(DrawingLayouts.Final);
+        _font = new RenderFont("Arial", _fontSize);
+    }
+
+    // -------- Model --------
+
+    private enum Category
+    {
+        Combo,
+        LargeGamma,
+        VolTrigger,
+        CallWall,
+        PutWall,
+        ZeroGamma,
+        Other
+    }
+
+    private sealed class LabelToken
+    {
+        public Category Cat;
+        public string Raw;   // original fragment, e.g. "LG1 0DTE"
+        public int? Rank;    // null => max priority
+        public bool Is0DTE;
+
+        public int EffectiveRank { get { return Rank.HasValue ? Rank.Value : 0; } } // lower is better
+    }
+
+    private sealed class MergedLevel
+    {
+        public decimal Price;
+        public List<LabelToken> Labels = new List<LabelToken>();
+        public LabelToken Winner;
+        public string LabelText;
+    }
+
+    // -------- Parsing --------
+
+    private static readonly Regex NumberOnly = new Regex(@"^\s*\d+(\.\d+)?\s*$",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+    // e.g.: "CO44", "LG1 0DTE", "VT 0DTE", "Zero Gamma", "CW", "PW"
+    private static readonly Regex LabelPattern = new Regex(
+        @"^\s*(?<name>[A-Za-z ]+?)(?<rank>\d{1,3})?(?<suffix>\s+0DTE)?\s*$",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+    private static string NormalizeInvisible(string s)
+    {
+        if (string.IsNullOrEmpty(s))
+            return string.Empty;
+
+        // remove Unicode format chars and trim
+        var arr = s.ToCharArray();
+        var res = new List<char>(arr.Length);
+        for (int i = 0; i < arr.Length; i++)
+        {
+            var cat = CharUnicodeInfo.GetUnicodeCategory(arr[i]);
+            if (cat != System.Globalization.UnicodeCategory.Format)
+                res.Add(arr[i]);
+        }
+        return new string(res.ToArray()).Trim();
+    }
+
+    private static Category MapCategory(string name)
+    {
+        var u = (name ?? string.Empty).ToUpperInvariant();
+        if (u == "CO" || u == "COMBO") return Category.Combo;
+        if (u == "LG" || u == "LARGE GAMMA" || u == "LARGEGAMMA") return Category.LargeGamma;
+        if (u == "VT" || u == "VOLATILITY TRIGGER" || u == "VOLATILITYTRIGGER") return Category.VolTrigger;
+        if (u == "CW" || u == "CALL WALL" || u == "CALLWALL") return Category.CallWall;
+        if (u == "PW" || u == "PUT WALL" || u == "PUTWALL") return Category.PutWall;
+        if (u == "ZG" || u == "ZERO GAMMA" || u == "ZEROGAMMA" || u == "ZERO GAMMA") return Category.ZeroGamma;
+        return Category.Other;
+    }
+
+    private void ParseRawText()
+    {
+        _levelsByPrice.Clear();
+
+        var text = NormalizeInvisible(_rawText);
+        if (string.IsNullOrWhiteSpace(text))
+            return;
+
+        // Optional prefix "$SP:"
+        int colon = text.IndexOf(':');
+        if (colon >= 0 && colon + 1 < text.Length)
+            text = text.Substring(colon + 1);
+
+        var tokens = text.Split(',');
+        var cleaned = new List<string>();
+        for (int i = 0; i < tokens.Length; i++)
+        {
+            var t = NormalizeInvisible(tokens[i]);
+            if (!string.IsNullOrEmpty(t))
+                cleaned.Add(t);
+        }
+        if (cleaned.Count == 0)
+            return;
+
+        var pending = new List<LabelToken>();
+
+        foreach (var token in cleaned)
+        {
+            // Split by '&' (multiple labels before one price)
+            var parts = token.Split('&');
+            bool isSingleNumber = (parts.Length == 1) && NumberOnly.IsMatch(parts[0]);
+
+            if (isSingleNumber)
+            {
+                decimal price;
+                var ptxt = parts[0];
+                if (!decimal.TryParse(ptxt, NumberStyles.Any, CultureInfo.InvariantCulture, out price) &&
+                    !decimal.TryParse(ptxt, NumberStyles.Any, CultureInfo.CurrentCulture, out price))
+                    continue;
+
+                if (pending.Count == 0)
+                    continue;
+
+                MergedLevel merged;
+                if (!_levelsByPrice.TryGetValue(price, out merged))
+                {
+                    merged = new MergedLevel { Price = price };
+                    _levelsByPrice[price] = merged;
+                }
+                merged.Labels.AddRange(pending);
+                pending.Clear();
+            }
+            else
+            {
+                for (int i = 0; i < parts.Length; i++)
+                {
+                    var part = NormalizeInvisible(parts[i]);
+                    if (string.IsNullOrEmpty(part))
+                        continue;
+
+                    var m = LabelPattern.Match(part);
+                    if (!m.Success)
+                        continue;
+
+                    string rawName = NormalizeInvisible(m.Groups["name"].Value);
+                    if (string.Equals(rawName, "Zero Gamma", StringComparison.OrdinalIgnoreCase))
+                        rawName = "ZG";
+
+                    int r;
+                    int? rank = null;
+                    if (m.Groups["rank"].Success && int.TryParse(m.Groups["rank"].Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out r))
+                        rank = r;
+
+                    bool is0dte = m.Groups["suffix"].Success;
+
+                    var cat = MapCategory(rawName);
+
+                    pending.Add(new LabelToken
+                    {
+                        Cat = cat,
+                        Raw = part,
+                        Rank = rank,
+                        Is0DTE = is0dte
+                    });
+                }
+            }
+        }
+
+        // Decide winners & label text per price
+        foreach (var kv in _levelsByPrice)
+        {
+            var ml = kv.Value;
+            if (ml.Labels.Count == 0)
+                continue;
+
+            // winner: lowest EffectiveRank; tie-breaker by category ordinal for stability
+            LabelToken winner = ml.Labels[0];
+            for (int i = 1; i < ml.Labels.Count; i++)
+            {
+                var cand = ml.Labels[i];
+                if (cand.EffectiveRank < winner.EffectiveRank)
+                    winner = cand;
+                else if (cand.EffectiveRank == winner.EffectiveRank)
+                {
+                    if ((int)cand.Cat < (int)winner.Cat)
+                        winner = cand;
+                }
+            }
+            ml.Winner = winner;
+
+            // Build label text (CO19 & LG11 0DTE …)
+            var pieces = new List<string>(ml.Labels.Count);
+            for (int i = 0; i < ml.Labels.Count; i++)
+                pieces.Add(FormatLabel(ml.Labels[i]));
+            ml.LabelText = string.Join(" & ", pieces.ToArray());
+        }
+    }
+
+    private static string FormatLabel(LabelToken l)
+    {
+        string baseName;
+        switch (l.Cat)
+        {
+            case Category.Combo: baseName = "CO"; break;
+            case Category.LargeGamma: baseName = "LG"; break;
+            case Category.VolTrigger: baseName = "VT"; break;
+            case Category.CallWall: baseName = "CW"; break;
+            case Category.PutWall: baseName = "PW"; break;
+            case Category.ZeroGamma: baseName = "Zero Gamma"; break;
+            default: baseName = l.Raw.ToUpperInvariant(); break;
+        }
+
+        string rankTxt = (l.Rank.HasValue ? (baseName == "Zero Gamma" ? (" " + l.Rank.Value.ToString()) : l.Rank.Value.ToString()) : "");
+        string suffix = l.Is0DTE ? " 0DTE" : "";
+
+        return (baseName + rankTxt + suffix).Trim();
+    }
+
+    // -------- ATAS --------
+
+    protected override void OnCalculate(int bar, decimal value)
+    {
+        // No per-bar calc; all is drawn from parsed state.
+    }
+
+    protected override void OnRender(RenderContext context, DrawingLayouts layout)
+    {
+        if (_levelsByPrice.Count == 0)
+            return;
+
+        var chart = ChartInfo;
+        int firstX = Extensions.GetXByBar(chart, FirstVisibleBarNumber, false);
+        int lastX = Extensions.GetXByBar(chart, LastVisibleBarNumber, false);
+        int rightX = LastBarOnly ? lastX : Container.Region.Right;
+
+        foreach (var kv in _levelsByPrice.OrderBy(k => k.Key))
+        {
+            decimal price = kv.Key;
+            var merged = kv.Value;
+            if (merged.Winner == null)
+                continue;
+
+            var winner = merged.Winner;
+            var basePen = GetBasePen(winner.Cat);
+
+            // Width tier by rank (null => thick; 1..3 => thick; 4..10 => medium; >10 => thin)
+            int width;
+            if (!winner.Rank.HasValue || winner.Rank.Value <= ThickMaxRank)
+                width = ThickWidth;
+            else if (winner.Rank.Value <= MediumMaxRank)
+                width = MediumWidth;
+            else
+                width = ThinWidth;
+
+            // Effective pen (same color, tiered width, dashed if 0DTE)
+            var effPen = new PenSettings
+            {
+                Color = basePen.Color,
+                Width = width,
+                LineDashStyle = (winner.Is0DTE ? LineDashStyle.Dash : basePen.LineDashStyle)
+            };
+
+            int y = Extensions.GetYByPrice(chart, price, false);
+            context.DrawLine(effPen.RenderObject, firstX, y, rightX, y);
+
+            // Text
+            string label = merged.LabelText;
+            var size = context.MeasureString(label, _font);
+            int textY = y - size.Height - OffsetY;
+            int textX = RightAligned ? (rightX - size.Width - OffsetX) : (Container.Region.Left + OffsetX);
+
+            context.DrawString(label, _font, effPen.RenderObject.Color, textX, textY);
+        }
+    }
+
+    private PenSettings GetBasePen(Category c)
+    {
+        switch (c)
+        {
+            case Category.Combo: return _penCombo;
+            case Category.LargeGamma: return _penLargeGamma;
+            case Category.VolTrigger: return _penVolTrigger;
+            case Category.CallWall: return _penCallWall;
+            case Category.PutWall: return _penPutWall;
+            case Category.ZeroGamma: return _penZeroGamma;
+            default: return _penOther;
+        }
+    }
+}

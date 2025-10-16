@@ -142,15 +142,19 @@
         private readonly Dictionary<FixedProfilePeriods, List<HVNBand>> _hvnBands = new();
 
         private static readonly FixedProfilePeriods[] _hvnPriorityOrder = new[]
-    {
-    FixedProfilePeriods.Contract,
-    FixedProfilePeriods.LastMonth,
-    FixedProfilePeriods.CurrentMonth,
-    FixedProfilePeriods.LastWeek,
-    FixedProfilePeriods.CurrentWeek,
-    FixedProfilePeriods.LastDay,
-    FixedProfilePeriods.CurrentDay
-};
+        {
+        FixedProfilePeriods.Contract,
+        FixedProfilePeriods.LastMonth,
+        FixedProfilePeriods.CurrentMonth,
+        FixedProfilePeriods.LastWeek,
+            FixedProfilePeriods.CurrentWeek,
+        FixedProfilePeriods.LastDay,
+        FixedProfilePeriods.CurrentDay
+        };
+
+        // Tracks which "static" profiles (previous*) have already been requested
+        private readonly HashSet<FixedProfilePeriods> _requestedStatic = new();
+
         #endregion
 
         #region Properties
@@ -922,7 +926,7 @@
         [Range(0, 10)]
         public int HVNGapToleranceTicks { get; set; } = 1;
 
-        // Tolerancia de solape en ticks: si un precio cae dentro de ±N ticks de otro ya pintado, se oculta.
+        // Occlusion tolerance in ticks: if a price falls within ±N ticks of an already painted one, it is hidden.
         [Display(GroupName = "HVN Settings", Name = "Occlusion tolerance (ticks)", Order = 30)]
         [Range(0, 10)]
         public int HVNOcclusionTicks { get; set; } = 1;
@@ -1070,7 +1074,23 @@
             {
                 _profileCandles.Clear();
                 _levels.Clear();
+                _requestedStatic.Clear();
             }
+
+            // Detectar cambios de periodo
+            bool newDay = IsNewSession(bar); // en ATAS "session" ≈ día de trading
+            bool newWeek = IsNewWeek(bar);
+            bool newMonth = IsNewMonth(bar);
+
+            // Invalidar únicamente lo necesario
+            if (newDay)
+                _requestedStatic.Remove(FixedProfilePeriods.LastDay);
+
+            if (newWeek)
+                _requestedStatic.Remove(FixedProfilePeriods.LastWeek);
+
+            if (newMonth)
+                _requestedStatic.Remove(FixedProfilePeriods.LastMonth);
 
             if (bar != CurrentBar - 1)
                 return;
@@ -1111,33 +1131,28 @@
 
         private void RequestProfiles()
         {
-            // Request current day profile
+            // — Current* (dynamic): same as the original → request them every tick
             if (NeedsDayData())
                 GetFixedProfile(new FixedProfileRequest(FixedProfilePeriods.CurrentDay));
-
-            // Request previous day profile
-            if (NeedsPrevDayData())
-                GetFixedProfile(new FixedProfileRequest(FixedProfilePeriods.LastDay));
-
-            // Request current week profile
             if (NeedsWeekData())
                 GetFixedProfile(new FixedProfileRequest(FixedProfilePeriods.CurrentWeek));
-
-            // Request previous week profile
-            if (NeedsPrevWeekData())
-                GetFixedProfile(new FixedProfileRequest(FixedProfilePeriods.LastWeek));
-
-            // Request current month profile
             if (NeedsMonthData())
                 GetFixedProfile(new FixedProfileRequest(FixedProfilePeriods.CurrentMonth));
-
-            // Request previous month profile
-            if (NeedsPrevMonthData())
-                GetFixedProfile(new FixedProfileRequest(FixedProfilePeriods.LastMonth));
-
-            // Request contract profile
             if (NeedsContractData())
                 GetFixedProfile(new FixedProfileRequest(FixedProfilePeriods.Contract));
+
+            // — Previous* (static): request once (until we invalidate them)
+            RequestStaticOnce(FixedProfilePeriods.LastDay, NeedsPrevDayData());
+            RequestStaticOnce(FixedProfilePeriods.LastWeek, NeedsPrevWeekData());
+            RequestStaticOnce(FixedProfilePeriods.LastMonth, NeedsPrevMonthData());
+        }
+
+        private void RequestStaticOnce(FixedProfilePeriods p, bool needed)
+        {
+            if (!needed) return;
+            if (_requestedStatic.Contains(p)) return;
+            GetFixedProfile(new FixedProfileRequest(p));
+            _requestedStatic.Add(p);
         }
 
         private bool NeedsDayData()
@@ -1521,7 +1536,7 @@
             for (int i = 0; i < levels.Count; i++)
             {
                 var p = levels[i].Price;
-                var v = levels[i].Volume; // Si Volume no es decimal, castea a decimal
+                var v = levels[i].Volume; // If Volume is not a decimal, cast to decimal
 
                 bool isHigh = v >= cutoff;
 
