@@ -295,8 +295,11 @@ public partial class ClusterSearch : Indicator
 
 		for (var price = candle.Low; price <= endPrice; price += InstrumentInfo.TickSize)
 		{
-			if (!CheckCluster(bar, price))
-				_validVolumeLevels.Remove(price);
+			if (CheckCluster(bar, price))
+				continue;
+
+			_validVolumeLevels.Remove(price);
+			RemoveOldSelection(bar, trade.Price);
 		}
 
 		if (!CheckBarFormation(candle))
@@ -306,12 +309,6 @@ public partial class ClusterSearch : Indicator
 		}
 
 		_renderDataSeries[bar] = _lastSeriesBar;
-
-		if (_validVolumeLevels.Count is 0)
-		{
-			RemoveOldSelection(bar, trade.Price);
-			return;
-		}
 		
 		var ranges = GetPriceRanges(bar, endPrice);
 
