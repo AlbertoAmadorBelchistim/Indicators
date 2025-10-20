@@ -1,18 +1,15 @@
 namespace ATAS.Indicators.Technical;
 
+using OFT.Localization;
+using OFT.Rendering.Context;
+using OFT.Rendering.Settings;
+using OFT.Rendering.Tools;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
-
-using ATAS.Indicators.Filters;
-using OFT.Attributes;
-using OFT.Attributes.Editors;
-using OFT.Localization;
-using OFT.Rendering.Context;
-using OFT.Rendering.Settings;
-using OFT.Rendering.Tools;
+using System.Runtime.CompilerServices;
 
 public enum LabelPosition
 {
@@ -41,45 +38,120 @@ public enum LineType
     Full = 2
 }
 
-[Editor(typeof(ATAS.Indicators.Technical.Editors.LevelSettingsEditor), typeof(ATAS.Indicators.Technical.Editors.LevelSettingsEditor))]
-public class LevelSettings
+public abstract class NotifiableObject : INotifyPropertyChanged
 {
-        public LevelSettings(bool enabled = false, CrossColor color = default, int width = 1, LineDashStyle lineStyle = LineDashStyle.Solid, bool showPrice = true, LabelPosition labelPosition = LabelPosition.Bar, LineType lineType = LineType.Bar)
-        {
-            Enabled = enabled;
-            Color = color == default ? System.Drawing.Color.Blue.Convert() : color;
-            Width = width;
-            LineStyle = lineStyle;
-            ShowPrice = showPrice;
-            LabelPosition = labelPosition;
-            LineType = lineType;
-        }
+    public event PropertyChangedEventHandler? PropertyChanged;
 
-        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled))]
-        public bool Enabled { get; set; }
+    protected bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = "")
+    {
+        if (Equals(field, value))
+            return false;
 
-        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Color))]
-        public CrossColor Color { get; set; }
-
-        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowPrice))]
-        public bool ShowPrice { get; set; }
-
-        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Line))]
-        public LineType LineType { get; set; }
-
-        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Width))]
-        [Range(1, 10)]
-        public int Width { get; set; }
-
-        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LineStyle))]
-        public LineDashStyle LineStyle { get; set; }
-
-        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Label))]
-        public LabelPosition LabelPosition { get; set; }
-
-        [Browsable(false)]
-        public RenderPen RenderPen => new PenSettings { Color = Color, Width = Width, LineDashStyle = LineStyle }.RenderObject;
+        field = value;
+        OnPropertyChanged(propertyName);
+        return true;
     }
+
+    protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+}
+
+[Editor(typeof(ATAS.Indicators.Technical.Editors.LevelSettingsEditor), typeof(ATAS.Indicators.Technical.Editors.LevelSettingsEditor))]
+public class LevelSettings : NotifiableObject
+{
+    #region Fields
+
+    private bool _enabled;
+    private CrossColor _color;
+    private bool _showPrice;
+    private LineType _lineType;
+    private int _width;
+    private LineDashStyle _lineStyle;
+    private LabelPosition _labelPosition;
+
+    #endregion
+      
+    #region Properties
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled))]
+    public bool Enabled 
+    {
+        get => _enabled;
+        set => SetField(ref _enabled, value);
+    }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Color))]
+    public CrossColor Color 
+    {
+        get => _color;
+        set => SetField(ref _color, value);
+    }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowPrice))]
+    public bool ShowPrice 
+    {
+        get => _showPrice;
+        set => SetField(ref _showPrice, value);
+    }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Line))]
+    public LineType LineType 
+    {
+        get => _lineType;
+        set => SetField(ref _lineType, value);
+    }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Width))]
+    [Range(1, 10)]
+    public int Width 
+    { 
+        get => _width;
+        set => SetField(ref _width, value);
+    }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LineStyle))]
+    public LineDashStyle LineStyle 
+    { 
+        get => _lineStyle;
+        set => SetField(ref _lineStyle, value);
+    }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Label))]
+    public LabelPosition LabelPosition 
+    {
+        get => _labelPosition;
+        set => SetField(ref _labelPosition, value);
+    }
+
+    [Browsable(false)]
+    public RenderPen RenderPen => new PenSettings { Color = Color, Width = Width, LineDashStyle = LineStyle }.RenderObject;
+
+    #endregion
+
+    #region ctor
+
+    public LevelSettings
+    (
+        bool enabled = false,
+        CrossColor color = default,
+        int width = 1,
+        LineDashStyle lineStyle = LineDashStyle.Solid,
+        bool showPrice = true,
+        LabelPosition labelPosition = LabelPosition.Bar,
+        LineType lineType = LineType.Bar
+    )
+    {
+        Enabled = enabled;
+        Color = color == default ? System.Drawing.Color.Blue.Convert() : color;
+        Width = width;
+        LineStyle = lineStyle;
+        ShowPrice = showPrice;
+        LabelPosition = labelPosition;
+        LineType = lineType;
+    }
+
+    #endregion
+}
 
 [DisplayName("OHLC Plus")]
 [Category(IndicatorCategories.VolumeOrderFlow)]
@@ -191,6 +263,17 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.CurrentDay), Order = 65)]
+    public LevelSettings DayVWAPLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.SteelBlue.Convert(),
+        width: 2,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = nameof(Strings.VAH), Order = 70)]
     public LevelSettings DayVAHLevel { get; set; } = new(
         enabled: false,
@@ -276,6 +359,17 @@ public class OHLCPlus : Indicator
     public LevelSettings PrevDayPOCLevel { get; set; } = new(
         enabled: true,
         color: System.Drawing.Color.Orange.Convert(),
+        width: 2,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.PreviousDay), Order = 65)]
+    public LevelSettings PrevDayVWAPLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.SteelBlue.Convert(),
         width: 2,
         lineStyle: LineDashStyle.Solid,
         showPrice: true,
@@ -375,6 +469,17 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.CurrentWeek), Order = 65)]
+    public LevelSettings WeekVWAPLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.SteelBlue.Convert(),
+        width: 2,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.VAH), Order = 70)]
     public LevelSettings WeekVAHLevel { get; set; } = new(
         enabled: false,
@@ -460,6 +565,17 @@ public class OHLCPlus : Indicator
     public LevelSettings PrevWeekPOCLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Orange.Convert(),
+        width: 2,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.PreviousWeek), Order = 65)]
+    public LevelSettings PrevWeekVWAPLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.SteelBlue.Convert(),
         width: 2,
         lineStyle: LineDashStyle.Solid,
         showPrice: true,
@@ -559,6 +675,17 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.CurrentMonth), Order = 65)]
+    public LevelSettings MonthVWAPLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.SteelBlue.Convert(),
+        width: 2,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.VAH), Order = 70)]
     public LevelSettings MonthVAHLevel { get; set; } = new(
         enabled: false,
@@ -644,6 +771,17 @@ public class OHLCPlus : Indicator
     public LevelSettings PrevMonthPOCLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Orange.Convert(),
+        width: 2,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.PreviousMonth), Order = 65)]
+    public LevelSettings PrevMonthVWAPLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.SteelBlue.Convert(),
         width: 2,
         lineStyle: LineDashStyle.Solid,
         showPrice: true,
@@ -743,6 +881,17 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.Contract), Order = 65)]
+    public LevelSettings ContractVWAPLevel { get; set; } = new(
+        enabled: false,
+        color: System.Drawing.Color.SteelBlue.Convert(),
+        width: 2,
+        lineStyle: LineDashStyle.Solid,
+        showPrice: true,
+        labelPosition: LabelPosition.Bar,
+        lineType: LineType.Bar
+    );
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.VAH), Order = 70)]
     public LevelSettings ContractVAHLevel { get; set; } = new(
         enabled: false,
@@ -793,6 +942,11 @@ public class OHLCPlus : Indicator
         base.OnApplyDefaultColors();
     }
 
+    protected override void OnInitialize()
+    {
+        SubscribeAllLevels();
+    }
+
     protected override void OnCalculate(int bar, decimal value)
     {
         if (bar == 0)
@@ -821,13 +975,13 @@ public class OHLCPlus : Indicator
             return;
 
         // Render all levels in groups for better organization
-        RenderLevelGroup(context, "d", DayOpenLevel, DayHighLevel, DayLowLevel, DayCloseLevel, DayEquilibriumLevel, DayPOCLevel, DayVAHLevel, DayVALLevel);
-        RenderLevelGroup(context, "p", PrevDayOpenLevel, PrevDayHighLevel, PrevDayLowLevel, PrevDayCloseLevel, PrevDayEquilibriumLevel, PrevDayPOCLevel, PrevDayVAHLevel, PrevDayVALLevel);
-        RenderLevelGroup(context, "w", WeekOpenLevel, WeekHighLevel, WeekLowLevel, WeekCloseLevel, WeekEquilibriumLevel, WeekPOCLevel, WeekVAHLevel, WeekVALLevel);
-        RenderLevelGroup(context, "pw", PrevWeekOpenLevel, PrevWeekHighLevel, PrevWeekLowLevel, PrevWeekCloseLevel, PrevWeekEquilibriumLevel, PrevWeekPOCLevel, PrevWeekVAHLevel, PrevWeekVALLevel);
-        RenderLevelGroup(context, "m", MonthOpenLevel, MonthHighLevel, MonthLowLevel, MonthCloseLevel, MonthEquilibriumLevel, MonthPOCLevel, MonthVAHLevel, MonthVALLevel);
-        RenderLevelGroup(context, "pm", PrevMonthOpenLevel, PrevMonthHighLevel, PrevMonthLowLevel, PrevMonthCloseLevel, PrevMonthEquilibriumLevel, PrevMonthPOCLevel, PrevMonthVAHLevel, PrevMonthVALLevel);
-        RenderLevelGroup(context, "c", ContractOpenLevel, ContractHighLevel, ContractLowLevel, ContractCloseLevel, ContractEquilibriumLevel, ContractPOCLevel, ContractVAHLevel, ContractVALLevel);
+        RenderLevelGroup(context, "d", DayOpenLevel, DayHighLevel, DayLowLevel, DayCloseLevel, DayEquilibriumLevel, DayPOCLevel, DayVWAPLevel, DayVAHLevel, DayVALLevel);
+        RenderLevelGroup(context, "p", PrevDayOpenLevel, PrevDayHighLevel, PrevDayLowLevel, PrevDayCloseLevel, PrevDayEquilibriumLevel, PrevDayPOCLevel, PrevDayVWAPLevel, PrevDayVAHLevel, PrevDayVALLevel);
+        RenderLevelGroup(context, "w", WeekOpenLevel, WeekHighLevel, WeekLowLevel, WeekCloseLevel, WeekEquilibriumLevel, WeekPOCLevel, WeekVWAPLevel, WeekVAHLevel, WeekVALLevel);
+        RenderLevelGroup(context, "pw", PrevWeekOpenLevel, PrevWeekHighLevel, PrevWeekLowLevel, PrevWeekCloseLevel, PrevWeekEquilibriumLevel, PrevWeekPOCLevel, PrevWeekVWAPLevel, PrevWeekVAHLevel, PrevWeekVALLevel);
+        RenderLevelGroup(context, "m", MonthOpenLevel, MonthHighLevel, MonthLowLevel, MonthCloseLevel, MonthEquilibriumLevel, MonthPOCLevel, MonthVWAPLevel, MonthVAHLevel, MonthVALLevel);
+        RenderLevelGroup(context, "pm", PrevMonthOpenLevel, PrevMonthHighLevel, PrevMonthLowLevel, PrevMonthCloseLevel, PrevMonthEquilibriumLevel, PrevMonthPOCLevel, PrevMonthVWAPLevel, PrevMonthVAHLevel, PrevMonthVALLevel);
+        RenderLevelGroup(context, "c", ContractOpenLevel, ContractHighLevel, ContractLowLevel, ContractCloseLevel, ContractEquilibriumLevel, ContractPOCLevel, ContractVWAPLevel, ContractVAHLevel, ContractVALLevel);
     }
 
     #endregion
@@ -868,43 +1022,43 @@ public class OHLCPlus : Indicator
     private bool NeedsDayData()
     {
         return DayOpenLevel.Enabled || DayHighLevel.Enabled || DayLowLevel.Enabled || DayCloseLevel.Enabled ||
-               DayEquilibriumLevel.Enabled || DayPOCLevel.Enabled || DayVAHLevel.Enabled || DayVALLevel.Enabled;
+               DayEquilibriumLevel.Enabled || DayPOCLevel.Enabled || DayVWAPLevel.Enabled || DayVAHLevel.Enabled || DayVALLevel.Enabled;
     }
 
     private bool NeedsPrevDayData()
     {
         return PrevDayOpenLevel.Enabled || PrevDayHighLevel.Enabled || PrevDayLowLevel.Enabled || PrevDayCloseLevel.Enabled ||
-               PrevDayEquilibriumLevel.Enabled || PrevDayPOCLevel.Enabled || PrevDayVAHLevel.Enabled || PrevDayVALLevel.Enabled;
+               PrevDayEquilibriumLevel.Enabled || PrevDayPOCLevel.Enabled || PrevDayVWAPLevel.Enabled || PrevDayVAHLevel.Enabled || PrevDayVALLevel.Enabled;
     }
 
     private bool NeedsWeekData()
     {
         return WeekOpenLevel.Enabled || WeekHighLevel.Enabled || WeekLowLevel.Enabled || WeekCloseLevel.Enabled ||
-               WeekEquilibriumLevel.Enabled || WeekPOCLevel.Enabled || WeekVAHLevel.Enabled || WeekVALLevel.Enabled;
+               WeekEquilibriumLevel.Enabled || WeekPOCLevel.Enabled || WeekVWAPLevel.Enabled || WeekVAHLevel.Enabled || WeekVALLevel.Enabled;
     }
 
     private bool NeedsPrevWeekData()
     {
         return PrevWeekOpenLevel.Enabled || PrevWeekHighLevel.Enabled || PrevWeekLowLevel.Enabled || PrevWeekCloseLevel.Enabled ||
-               PrevWeekEquilibriumLevel.Enabled || PrevWeekPOCLevel.Enabled || PrevWeekVAHLevel.Enabled || PrevWeekVALLevel.Enabled;
+               PrevWeekEquilibriumLevel.Enabled || PrevWeekPOCLevel.Enabled || PrevWeekVWAPLevel.Enabled || PrevWeekVAHLevel.Enabled || PrevWeekVALLevel.Enabled;
     }
 
     private bool NeedsMonthData()
     {
         return MonthOpenLevel.Enabled || MonthHighLevel.Enabled || MonthLowLevel.Enabled || MonthCloseLevel.Enabled ||
-               MonthEquilibriumLevel.Enabled || MonthPOCLevel.Enabled || MonthVAHLevel.Enabled || MonthVALLevel.Enabled;
+               MonthEquilibriumLevel.Enabled || MonthPOCLevel.Enabled || MonthVWAPLevel.Enabled || MonthVAHLevel.Enabled || MonthVALLevel.Enabled;
     }
 
     private bool NeedsPrevMonthData()
     {
         return PrevMonthOpenLevel.Enabled || PrevMonthHighLevel.Enabled || PrevMonthLowLevel.Enabled || PrevMonthCloseLevel.Enabled ||
-               PrevMonthEquilibriumLevel.Enabled || PrevMonthPOCLevel.Enabled || PrevMonthVAHLevel.Enabled || PrevMonthVALLevel.Enabled;
+               PrevMonthEquilibriumLevel.Enabled || PrevMonthPOCLevel.Enabled || PrevMonthVWAPLevel.Enabled || PrevMonthVAHLevel.Enabled || PrevMonthVALLevel.Enabled;
     }
 
     private bool NeedsContractData()
     {
         return ContractOpenLevel.Enabled || ContractHighLevel.Enabled || ContractLowLevel.Enabled || ContractCloseLevel.Enabled ||
-               ContractEquilibriumLevel.Enabled || ContractPOCLevel.Enabled || ContractVAHLevel.Enabled || ContractVALLevel.Enabled;
+               ContractEquilibriumLevel.Enabled || ContractPOCLevel.Enabled || ContractVWAPLevel.Enabled || ContractVAHLevel.Enabled || ContractVALLevel.Enabled;
     }
 
     private void UpdateLevels(FixedProfilePeriods period, IndicatorCandle candle)
@@ -924,6 +1078,9 @@ public class OHLCPlus : Indicator
         // Update Volume Profile levels with validation
         if (candle.MaxVolumePriceInfo != null && candle.MaxVolumePriceInfo.Price > 0)
             UpdateLevel($"{prefix}POC", candle.MaxVolumePriceInfo.Price);
+
+        if (candle.VWAP > 0)
+            UpdateLevel($"{prefix}VWAP", candle.VWAP);
 
         // Safe ValueArea access with validation
         if (candle.ValueArea != null && 
@@ -1091,7 +1248,7 @@ public class OHLCPlus : Indicator
 
     private void RenderLevelGroup(RenderContext context, string prefix, 
         LevelSettings openLevel, LevelSettings highLevel, LevelSettings lowLevel, LevelSettings closeLevel,
-        LevelSettings eqLevel, LevelSettings pocLevel, LevelSettings vahLevel, LevelSettings valLevel)
+        LevelSettings eqLevel, LevelSettings pocLevel, LevelSettings vwapLevel, LevelSettings vahLevel, LevelSettings valLevel)
     {
         var levels = new[]
         {
@@ -1101,6 +1258,7 @@ public class OHLCPlus : Indicator
             ("Close", closeLevel),
             ("EQ", eqLevel),
             ("POC", pocLevel),
+            ("VWAP", vwapLevel),
             ("VAH", vahLevel),
             ("VAL", valLevel)
         };
@@ -1110,6 +1268,54 @@ public class OHLCPlus : Indicator
             RenderLevel(context, $"{prefix}{suffix}", levelSettings);
         }
     }
+
+    #region SubscribeAllLevels
+
+    private sealed class RefEqComparer : IEqualityComparer<object>
+    {
+        public static readonly RefEqComparer Instance = new();
+        public new bool Equals(object x, object y) => ReferenceEquals(x, y);
+        public int GetHashCode(object obj) => RuntimeHelpers.GetHashCode(obj);
+    }
+
+    private readonly HashSet<LevelSettings> _subscribedLevels = new(RefEqComparer.Instance);
+
+    private void SubscribeAllLevels()
+    {
+        foreach (var ls in EnumerateAllLevelSettings())
+            TrySubscribe(ls);
+    }
+
+    private IEnumerable<LevelSettings> EnumerateAllLevelSettings()
+    {
+        var flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public;
+        foreach (var pi in GetType().GetProperties(flags))
+        {
+            if (pi.PropertyType != typeof(LevelSettings) || !pi.CanRead)
+                continue;
+
+            if (pi.GetValue(this) is LevelSettings ls)
+                yield return ls;
+        }
+    }
+
+    private void TrySubscribe(LevelSettings? ls)
+    {
+        if (ls is null) return;
+        if (_subscribedLevels.Add(ls))
+            ls.PropertyChanged += OnLevelSettingsChanged;
+    }
+
+    private void OnLevelSettingsChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(LevelSettings.Enabled))
+        {
+            RedrawChart();
+            return;
+        }
+    }
+
+    #endregion
 
     #endregion
 }
