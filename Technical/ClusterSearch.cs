@@ -206,63 +206,62 @@ public partial class ClusterSearch : Indicator
 	//Apply autofilter
 	protected override void OnFinishRecalculate()
 	{
-		if (!AutoFilter)
+		try
 		{
-			_isFinishRecalculate = true;
-			return;
-		}
+			if (!AutoFilter)
+				return;
 
-		var valuesList = new List<PriceSelectionValue>();
+			var valuesList = new List<PriceSelectionValue>();
 
-		for (var i = 0; i < _renderDataSeries.Count; i++)
-		{
-			if (_renderDataSeries[i].Count is 0)
-				continue;
-
-			valuesList.AddRange(_renderDataSeries[i]);
-		}
-
-		if (valuesList.Count is 0)
-		{
-			_isFinishRecalculate = true;
-			return;
-		}
-
-		valuesList = valuesList.OrderByDescending(x => (decimal)x.Context).ToList();
-
-		_autoFilterValue = valuesList.Count <= 10
-			? (decimal)valuesList.Last().Context
-			: (decimal)valuesList.Skip(10).First().Context;
-
-		//Set autofilter value to see it in minimal filter value
-		MinimumFilter.SetValueSilently(_autoFilterValue);
-        _minFilterValue = MinimalFilter();
-
-        for (var i = 0; i < _renderDataSeries.Count; i++)
-		{
-			if (_renderDataSeries[i].Count is 0)
-				continue;
-
-			_renderDataSeries[i].RemoveAll(x => (decimal)x.Context < _autoFilterValue);
-
-			_renderDataSeries[i].ForEach(l =>
+			for (var i = 0; i < _renderDataSeries.Count; i++)
 			{
-				var clusterSize = FixedSizes ? _size : (int)((decimal)l.Context * _size / _minFilterValue);
+				if (_renderDataSeries[i].Count is 0)
+					continue;
 
-				if (!FixedSizes)
+				valuesList.AddRange(_renderDataSeries[i]);
+			}
+
+			if (valuesList.Count is 0)
+				return;
+
+			valuesList = valuesList.OrderByDescending(x => (decimal)x.Context).ToList();
+
+			_autoFilterValue = valuesList.Count <= 10
+				? (decimal)valuesList.Last().Context
+				: (decimal)valuesList.Skip(10).First().Context;
+
+			//Set autofilter value to see it in minimal filter value
+			MinimumFilter.Value = _autoFilterValue;
+			_minFilterValue     = MinimalFilter();
+
+			for (var i = 0; i < _renderDataSeries.Count; i++)
+			{
+				if (_renderDataSeries[i].Count is 0)
+					continue;
+
+				_renderDataSeries[i].RemoveAll(x => (decimal)x.Context < _autoFilterValue);
+
+				_renderDataSeries[i].ForEach(l =>
 				{
-					clusterSize = Math.Min(clusterSize, MaxSize);
-					clusterSize = Math.Max(clusterSize, MinSize);
-				}
+					var clusterSize = FixedSizes ? _size : (int)((decimal)l.Context * _size / _minFilterValue);
 
-				l.Size = clusterSize;
-			});
+					if (!FixedSizes)
+					{
+						clusterSize = Math.Min(clusterSize, MaxSize);
+						clusterSize = Math.Max(clusterSize, MinSize);
+					}
+
+					l.Size = clusterSize;
+				});
+			}
 		}
+		finally
+		{
+			OnChangeProperty(nameof(MinimumFilter));
 
-		OnChangeProperty(nameof(MinimumFilter));
-
-		_isFinishRecalculate = true;
-    }
+			_isFinishRecalculate = true;
+		}
+	}
 
 	#endregion
 
@@ -872,11 +871,7 @@ public partial class ClusterSearch : Indicator
 	public Filter MinimumFilter
 	{
 		get => _minFilter;
-		set
-		{
-			_minFilter = value;
-			RecalculateValues();
-		}
+		set => SetTrackedProperty(ref _minFilter, value, _ => RecalculateValues());
 	}
 
 	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Filters), Description = nameof(Strings.MaximumFilterDescription),
@@ -884,11 +879,7 @@ public partial class ClusterSearch : Indicator
 	public Filter MaximumFilter
 	{
 		get => _maxFilter;
-		set
-		{
-			_maxFilter = value;
-			RecalculateValues();
-		}
+		set => SetTrackedProperty(ref _maxFilter, value, _ => RecalculateValues());
 	}
 
 	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Filters), Name = nameof(Strings.MinimumAverageTrade), Order = 470,
@@ -900,6 +891,8 @@ public partial class ClusterSearch : Indicator
 		set
 		{
 			_minAverageTrade = value;
+			OnChangeProperty();
+
 			RecalculateValues();
 		}
 	}
@@ -913,6 +906,8 @@ public partial class ClusterSearch : Indicator
 		set
 		{
 			_maxAverageTrade = value;
+			OnChangeProperty();
+
 			RecalculateValues();
 		}
 	}
@@ -926,6 +921,8 @@ public partial class ClusterSearch : Indicator
 		set
 		{
 			_minPercent = value;
+			OnChangeProperty();
+
 			RecalculateValues();
 		}
 	}
@@ -939,6 +936,8 @@ public partial class ClusterSearch : Indicator
 		set
 		{
 			_maxPercent = value;
+			OnChangeProperty();
+
 			RecalculateValues();
 		}
 	}
