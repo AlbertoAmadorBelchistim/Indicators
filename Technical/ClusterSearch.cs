@@ -860,7 +860,11 @@ public partial class ClusterSearch : Indicator
 		{
 			_autoFilter = value;
 
-			MinimumFilter.Enabled = MaximumFilter.Enabled = !value;
+			if (value)
+			{
+				MinimumFilter.Enabled = true;
+				MaximumFilter.Enabled = false;
+			}
 
 			RecalculateValues();
 		}
