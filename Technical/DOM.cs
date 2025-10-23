@@ -927,7 +927,7 @@ public class DOM : Indicator
 
 				var y2 = curIdx == lastIdx
 					? ChartInfo.GetYByPrice(price)
-					: ChartInfo.GetYByPrice(_cumulativeBid.Keys[curIdx + 1]);
+					: ChartInfo.GetYByPrice(_cumulativeBid.Keys[curIdx + 1] - InstrumentInfo.TickSize);
 
 				_cumulativeHistogram.AddPrice(startX, x, y1, y2, CumulativeBidColor);
 				curIdx++;
