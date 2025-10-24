@@ -290,9 +290,14 @@ public partial class ClusterSearch : Indicator
 		UpdateLevelCache(bar, trade);
 
 		var candle = GetCandle(bar);
-		var endPrice = Math.Max(candle.Low, candle.High - (PriceRange - 1) * InstrumentInfo.TickSize);
 
-		for (var price = candle.Low; price <= endPrice; price += InstrumentInfo.TickSize)
+		var startPrice = Math.Min(_lastPrice, trade.Price);
+		startPrice = Math.Max(candle.Low, startPrice - (PriceRange - 1) * InstrumentInfo.TickSize);
+
+		var endPrice = Math.Max(_lastPrice, trade.Price);
+		endPrice = Math.Min(candle.High - (PriceRange - 1) * InstrumentInfo.TickSize, endPrice);
+
+		for (var price = startPrice; price <= endPrice; price += InstrumentInfo.TickSize)
 		{
 			if (CheckCluster(bar, price))
 				continue;
@@ -301,6 +306,7 @@ public partial class ClusterSearch : Indicator
 			RemoveOldSelection(bar, trade.Price);
 		}
 
+
 		if (!CheckBarFormation(candle))
 		{
 			_renderDataSeries[bar] = new SyncList<PriceSelectionValue>();
@@ -308,7 +314,7 @@ public partial class ClusterSearch : Indicator
 		}
 
 		_renderDataSeries[bar] = _lastSeriesBar;
-		
+
 		var ranges = GetPriceRanges(bar, endPrice);
 
 		var changedDirection = false;
@@ -362,7 +368,7 @@ public partial class ClusterSearch : Indicator
 
 			if (highValue < candle.High)
 			{
-                for (var i = _lastSeriesBar.Count - 1; i >= 0 ; i--)
+				for (var i = _lastSeriesBar.Count - 1; i >= 0; i--)
 				{
 					var item = _lastSeriesBar[i];
 
