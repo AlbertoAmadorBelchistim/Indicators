@@ -7,7 +7,7 @@
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<UseWPF>true</UseWPF>
 		<LangVersion>latest</LangVersion>
-		<AssemblyName>ClusterStatisticModif</AssemblyName>
+		<AssemblyName>IndicatorsLoloGroup</AssemblyName>
 		<Platforms>AnyCPU</Platforms>
 	</PropertyGroup>
 
@@ -43,8 +43,7 @@
 		</Compile>
 
 		<!-- .cs “normales” (excluye los .xaml.cs para no duplicarlos) -->
-		<Compile Include="..\Technical\Editors\**\*.cs"
-				 Exclude="..\Technical\Editors\**\*.xaml.cs">
+		<Compile Include="..\Technical\Editors\**\*.cs" Exclude="..\Technical\Editors\**\*.xaml.cs">
 			<Link>Editors\%(RecursiveDir)%(Filename)%(Extension)</Link>
 		</Compile>
 	</ItemGroup>

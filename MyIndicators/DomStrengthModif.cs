@@ -1,6 +1,7 @@
 ﻿namespace MyIndicators;
 
 using ATAS.Indicators;
+using ATAS.Indicators.Technical;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,6 +13,7 @@ using OFT.Attributes;
 using OFT.Localization;
 using OFT.Rendering.Context;
 using OFT.Rendering.Tools;
+using Parameter = OFT.Attributes.ParameterAttribute;
 
 [Category(IndicatorCategories.OrderBook)]
 [DisplayName("DOM Strength Modif")]

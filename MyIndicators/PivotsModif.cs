@@ -15,7 +15,8 @@
     using Utils.Common.Logging;
 
 	using Color = System.Drawing.Color;
-    
+    using Parameter = OFT.Attributes.ParameterAttribute;
+
     [DisplayName("Pivots modif")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.PivotsDescription))]
     [HelpLink("https://help.atas.net/support/solutions/articles/72000602446")]
