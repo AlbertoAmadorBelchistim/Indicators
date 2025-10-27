@@ -1,9 +1,9 @@
 ﻿## 🟦 LevelsLolo (Levels Text)
 
-**Nombre del archivo:** `LevelsLolo.cs`  
-**Nombre del indicador:** LevelsLolo
-**Web oficial:** — (indicador propio; documentación en este repositorio)  
-**Agradecimientos:** Inspirado en la idea original de **Alejandro Uriza — LevelsPro**, que introdujo el concepto de visualización estructurada de niveles SpotGamma.
+- **Nombre del archivo:** `LevelsLolo.cs`  
+- **Nombre del indicador:** LevelsLolo
+- **Web oficial:** — (indicador propio; documentación en este repositorio)
+- **Agradecimientos:** Inspirado en la idea original de **Alejandro Uriza — LevelsPro**, que introdujo el concepto de visualización estructurada de niveles SpotGamma.
 
 ![Overlay de niveles en el gráfico](../img/LevelsLolo1.png)
 
@@ -13,18 +13,19 @@
 
 #### 🖋️ Texto y alineación
 - **Font size**: tamaño de fuente (6–48 px, por defecto 10).  
-- **Right-aligned text**: alinear el texto a la derecha del gráfico.  
-- **Last bar only**: extender hasta la **última barra visible** en lugar del borde completo.  
-- **Offset X / Offset Y**: desplazamiento del texto en píxeles respecto al punto base.
+- **Right-aligned text**: alinear el texto a la derecha de la línea (si se desactiva se alinea a la izquierda).  
+- **Last bar only**: extender desde la izquierda hasta la **última barra visible** en lugar del borde completo.  
+- **Offset X / Offset Y**: desplazamiento del texto en píxeles en ejes X e Y respecto al punto base.
 
 #### 📏 Grosor y transparencia
 - **Thick / Medium / Thin width**: anchura de línea para cada categoría de grosor.  
 - **Thick / Medium / Thin alpha**: opacidad por nivel de grosor (0–255).  
-- **Thick / Medium max rank**: rango de *rank* máximo para entrar en cada categoría  
+- **Thick / Medium max rank**: nivel de *rank* máximo para entrar en cada categoría  
   (`≤ ThickMaxRank → grueso`, `≤ MediumMaxRank → medio`, resto → fino).
 
 #### 🎨 Colores y estilos
-- **Pens (CO, LG, VT, CW, PW, ZG, Other)**: color y grosor base por tipo.  
+- **Pens (CO, LG, VT, CW, PW, ZG, Other)**: color y grosor base por tipo.
+- Se han predefinido colores cálidos para diferenciarlos de otros indicadores:  
   - `PW` → soporte (verde) `CW` → resistencia (rojo)  
   - `VT` → gatillo de volatilidad (amarillo) `LG` → absorción institucional (naranja)  
   - `CO` → imán de precio (ámbar) `ZG` → contexto de régimen (gris neutro)  
@@ -32,7 +33,8 @@
   - **0DTE halo alpha / extra width**: opacidad y grosor adicional del halo.
 
 #### 💾 Datos y visibilidad
-- **Raw text**: entrada textual de niveles.  
+- **Raw text**: entrada textual de niveles. 
+- Los niveles de precio se separan por comas, y los niveles múltiples en el mismo precio por `&`. 
   Ejemplo:  
   `$SP: CO44, 7073, LG07, 7048, CO05 & LG14, 6898, VT 0DTE, 6743, LG1 0DTE, 6720`
 - **Clear text now**: limpia la entrada manualmente.  
