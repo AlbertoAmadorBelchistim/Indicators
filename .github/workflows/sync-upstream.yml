@@ -1,0 +1,36 @@
+name: 🔁 Sync all branches from upstream
+on:
+  workflow_dispatch:     # ejecución manual
+  schedule:
+    - cron: "30 2 * * *" # (opcional) cada día a las 02:30 UTC
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout empty repo
+        run: |
+          git init .
+          git remote add origin  https://github.com/${{ github.repository }}.git
+          git remote add upstream https://github.com/AtasPlatform/Indicators.git
+          git fetch --all --prune --tags
+
+      - name: Mirror upstream → origin (excluding personal branches)
+        env:
+          EXCLUDE_REGEX: '^(my/|personal/|publish_.*_MyIndicators$|publish/docs$|feature/|develop_lolo$)$'
+          GH_USER: ${{ github.actor }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          UPSTREAM_BRANCHES=$(git for-each-ref --format='%(refname:short)' refs/remotes/upstream/ | sed 's#^upstream/##')
+          for BR in $UPSTREAM_BRANCHES; do
+            if echo "$BR" | grep -Eq "$EXCLUDE_REGEX"; then continue; fi
+            echo "🔁 Syncing upstream/$BR → origin/$BR"
+            git push --force-with-lease \
+              "https://${GH_USER}:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
+              "refs/remotes/upstream/$BR:refs/heads/$BR"
+          done
+
+      - name: Sync tags
+        run: |
+          git push --tags "https://${GH_USER}:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
