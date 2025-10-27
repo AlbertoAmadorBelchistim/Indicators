@@ -1,0 +1,76 @@
+name: 🔁 Sync upstream → origin (mirror)
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 2 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Init and fetch
+        run: |
+          git init .
+          git config user.name  "actions-sync-bot"
+          git config user.email "actions@github"
+          git remote add origin  https://github.com/${{ github.repository }}.git
+          git remote add upstream https://github.com/AtasPlatform/Indicators.git
+          git fetch upstream --prune --tags
+          git fetch origin   --prune --tags
+
+      - name: Mirror upstream → origin (excluding personal/protected)
+        env:
+          GH_USER: ${{ github.actor }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Excluye tus ramas personales/protegidas (ajústalo)
+          EXCLUDE_REGEX: '^(my/|personal/|publish_.*_MyIndicators$|publish/docs$|Develop)$'
+          # Si quieres ESPEJAR a la fuerza algunas ramas de releases:
+          FORCE_BRANCHES: 'publish_alpha publish_beta publish_latest'
+        run: |
+          set -e
+
+          # Lista limpia de ramas de upstream (sin HEAD, sin duplicados)
+          UPSTREAM_BRANCHES=$(git for-each-ref --format='%(refname:short)' refs/remotes/upstream \
+            | sed 's#^upstream/##' \
+            | grep -vEe '(^|/)HEAD$' \
+            | sort -u)
+
+          echo "Upstream branches:"
+          echo "$UPSTREAM_BRANCHES"
+
+          for BR in $UPSTREAM_BRANCHES; do
+            if echo "$BR" | grep -Eq "$EXCLUDE_REGEX"; then
+              echo "⏭  Skipping $BR (excluded)"; continue;
+            fi
+
+            echo "🔁 Syncing upstream/$BR → origin/$BR"
+            git fetch origin --prune --tags
+
+            # Intento con lease (seguro)
+            if git push --force-with-lease \
+              "https://${GH_USER}:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
+              "refs/remotes/upstream/$BR:refs/heads/$BR"; then
+              continue
+            fi
+
+            # Si falla y la rama está en la lista de FORCE_BRANCHES → forzar espejo
+            if echo " $FORCE_BRANCHES " | grep -q " $BR "; then
+              echo "⚠️  Lease failed on $BR → forcing mirror"
+              git push --force \
+                "https://${GH_USER}:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
+                "refs/remotes/upstream/$BR:refs/heads/$BR" || echo "⛔ Force failed on $BR"
+            else
+              echo "⚠️  Push failed on $BR (branch protection or divergence). Skipping without force."
+            fi
+          done
+
+      - name: Sync tags
+        env:
+          GH_USER: ${{ github.actor }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git push --tags "https://${GH_USER}:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
