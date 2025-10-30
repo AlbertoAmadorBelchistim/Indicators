@@ -3,6 +3,8 @@
 - **Nombre del archivo:** `LevelsLolo.cs`  
 - **Nombre del indicador:** LevelsLolo
 - **Web oficial:** — (indicador propio; documentación en este repositorio)
+- **Compatibilidad:** ATAS versión estable y superiores.
+- **Versión actual:** 1.1.0 (30/10/2025)
 - **Agradecimientos:** Inspirado en la idea original de **Alejandro Uriza — LevelsPro**, que introdujo el concepto de visualización estructurada de niveles SpotGamma.
 
 ![Overlay de niveles en el gráfico](../img/LevelsLolo1.png)
@@ -103,6 +105,10 @@
 ---
 
 ### 🆕 Cambios relevantes respecto a versiones anteriores
+#### Versión 1.1 (30/10/2025)
+- **Corrección del botón "Clear text now"**: ahora además de limpiar el gráfico limpia correctamente el campo de texto de niveles de la UI.
+
+#### Versión 1.0 (25/10/2025)
 - **Adaptación del estilo a la importancia del nivel**: el **grosor** y la **opacidad (alpha)** se calculan automáticamente según el *rank* —los niveles más importantes (ranks bajos) se dibujan más gruesos y opacos.  
 - **Jerarquía por tipo y número**: cuando varios niveles coinciden en el **mismo precio**, el indicador aplica el estilo correspondiente al **nivel más importante**, evaluado primero por *rank* (menor = más fuerte) y luego por **tipo** (prioridad: VT > LG > PW/CW > CO > ZG > Other).  
 - **Nuevas etiquetas detectables**: ahora reconoce sufijos y variantes como `0DTE`, `Zero Gamma`, `LargeGamma`, `PutWall`, `CallWall`, entre otros, ampliando la compatibilidad con distintos formatos de texto SpotGamma.

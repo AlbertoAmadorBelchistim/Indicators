@@ -1,7 +1,7 @@
 ﻿## 🟦 Cluster Statistic
 
-- **Nombre del archivo:** `ClusterStatisticModif.cs`  
-- **Nombre del indicador:** Cluster Statistic modif 
+- **Nombre del archivo:** [ClusterStatisticModif.cs](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/compile/myindicators/MyIndicators/ClusterStatisticModif.cs) 
+- **Nombre del indicador:** Cluster Statistic Modif 
 - **Web oficial:** [ATAS — Cluster Statistic](https://help.atas.net/en/support/solutions/articles/72000602624-cluster-statistics)  
 *(Versión extendida y optimizada por Alberto Amador Belchistim)*
 
