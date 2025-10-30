@@ -182,8 +182,15 @@
             {
                 if (value)
                 {
+                    // 1) Clear internal state
                     _rawText = string.Empty;
+                    RawText = string.Empty;
                     _levelsByPrice.Clear();
+
+                    // 2) Notify UI bindings so the textbox clears instantly
+                    RaisePropertyChanged(nameof(RawText));
+
+                    // 3) Recalculate
                     RecalculateValues();
                 }
             }
