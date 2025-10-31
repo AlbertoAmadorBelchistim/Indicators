@@ -49,30 +49,39 @@ public class ClusterStatistic : Indicator
 
 		public RenderOrder()
 		{
-			Add(DataType.Ask, new RenderInfo(0));
-			Add(DataType.Bid, new RenderInfo(1));
-			Add(DataType.Delta, new RenderInfo(2));
-			Add(DataType.DeltaVolume, new RenderInfo(3));
-			Add(DataType.SessionDelta, new RenderInfo(4));
-			Add(DataType.SessionDeltaVolume, new RenderInfo(5));
-			Add(DataType.MaxDelta, new RenderInfo(6));
-			Add(DataType.MinDelta, new RenderInfo(7));
-			Add(DataType.DeltaChange, new RenderInfo(8));
-			Add(DataType.Volume, new RenderInfo(9));
-			Add(DataType.VolumeSecond, new RenderInfo(10));
-			Add(DataType.SessionVolume, new RenderInfo(11));
-			Add(DataType.Trades, new RenderInfo(12));
-			Add(DataType.Height, new RenderInfo(13));
-			Add(DataType.Time, new RenderInfo(14));
-			Add(DataType.Duration, new RenderInfo(15));
-            Add(DataType.DeltaSecond, new RenderInfo(16));
-            Add(DataType.PeakVolPerSec, new RenderInfo(17));
-            Add(DataType.PeakDeltaPerSec, new RenderInfo(18));
-            Add(DataType.PeakDeltaPerVol, new RenderInfo(19));
-            Add(DataType.BuyImbalance, new RenderInfo(20));
-            Add(DataType.SellImbalance, new RenderInfo(21));
-            Add(DataType.NetImbalance, new RenderInfo(22));
-            Add(DataType.StackedImbalance, new RenderInfo(23));
+            // ---- Context (aux fields) -----
+            Add(DataType.Trades, new RenderInfo(0));
+            Add(DataType.Height, new RenderInfo(1));
+            Add(DataType.Time, new RenderInfo(2));
+            Add(DataType.Duration, new RenderInfo(3));
+
+            // ---- Base (normal) reading ----
+            Add(DataType.Volume, new RenderInfo(4));
+            Add(DataType.VolumeSecond, new RenderInfo(5));
+            Add(DataType.Ask, new RenderInfo(6));
+			Add(DataType.Bid, new RenderInfo(7));
+			Add(DataType.Delta, new RenderInfo(8));
+            Add(DataType.DeltaSecond, new RenderInfo(9));
+            Add(DataType.DeltaVolume, new RenderInfo(10));
+            Add(DataType.MaxDelta, new RenderInfo(11));
+            Add(DataType.MinDelta, new RenderInfo(12));
+            Add(DataType.DeltaChange, new RenderInfo(13));
+
+            // ---- Velocity at Peaks -----
+            Add(DataType.PeakVolPerSec, new RenderInfo(14));
+            Add(DataType.PeakDeltaPerSec, new RenderInfo(15));
+            Add(DataType.PeakDeltaPerVol, new RenderInfo(16));
+
+            // ---- Imbalance block -----
+            Add(DataType.BuyImbalance, new RenderInfo(17));
+            Add(DataType.SellImbalance, new RenderInfo(18));
+            Add(DataType.NetImbalance, new RenderInfo(19));
+            Add(DataType.StackedImbalance, new RenderInfo(20));
+
+            // ---- Session strip -----
+            Add(DataType.SessionVolume, new RenderInfo(21));
+            Add(DataType.SessionDelta, new RenderInfo(22));
+            Add(DataType.SessionDeltaVolume, new RenderInfo(23));
         }
 
 		#endregion
@@ -233,26 +242,43 @@ public class ClusterStatistic : Indicator
     private readonly ValueDataSeries _deltaPerSecond = new("Delta/sec");
     private readonly ValueDataSeries _peakVolPerSec = new("PeakVolPerSec");
     private readonly ValueDataSeries _peakDeltaPerSec = new("PeakDeltaPerSec");
+    private readonly ValueDataSeries _peakDeltaPerVol = new("Delta/Vol at Max vol/sec");
     private readonly ValueDataSeries _peakVolAuto = new("MaxVol/sec AutoThr");
     private readonly ValueDataSeries _peakDeltaAuto = new("Delta@MaxVol AutoThr");
-    private readonly ValueDataSeries _peakDeltaPerVol = new("PeakDeltaPerVol");
     private readonly ValueDataSeries _buyImbalance = new("BuyImbalance");
     private readonly ValueDataSeries _sellImbalance = new("SellImbalance");
     private readonly ValueDataSeries _netImbalance = new("NetImbalance");
     private readonly ValueDataSeries _stackedImbalance = new("StackedImbalance");
 
+    // --- SoT core state (historical) ---
+    private List<CumulativeTrade> _allCumulativeTrades;
 
-    // --- SoT core state (historical + real-time) ---
-    private List<CumulativeTrade> _allCumulativeTrades;     // historical storage
-    private readonly Queue<CumulativeTrade> _liveQueue = new(); // sliding RT window
+    // --- SoT user-tunable params with backing fields ---
+    // Threshold is total contracts within the sliding window
+    private int _sotTimeWindowSec = 5;
+    private int _SotMinVolume  = 150;
 
-    // Sliding-window aggregates for RT
-    private int _winTrades;                 // number of executions (sum of Ticks.Count)
-    private decimal _winDelta;              // signed delta (buy vol - sell vol)
+    // --- Sliding window sample for RT computed in OnCalculate ---
+    private sealed class Sample
+    {
+        public DateTime T;
+        public decimal Vol;   // incremental volume since last sample
+        public decimal Delta; // incremental delta since last sample
+    }
 
-    // Per-live-bar peaks while the bar is forming
-    private decimal _rtPeakTradesPerSec;    // trades/sec peak for the current live bar
-    private decimal _rtPeakDeltaPerSec;     // delta/sec at the same window as trades/sec peak
+    private readonly Queue<Sample> _win = new(); // RT rolling window across bars
+    private decimal _winVol = 0m;
+    private decimal _winDelta = 0m;
+
+    private int _rtBar = -1;           // last observed live bar index in OnCalculate
+    private decimal _prevCumVol = 0m;  // candle.Volume seen on previous OnCalculate tick
+    private decimal _prevCumDelta = 0m;// candle.Delta seen on previous OnCalculate tick
+
+    private decimal _rtPeakVolPerSec = 0m;   // per-bar RT peak (Vol/sec)
+    private decimal _rtPeakDeltaPerSec = 0m; // per-bar RT paired Delta/sec
+
+    private bool _seededLiveSoT = false;          // live bar seeded from historical data
+    private bool _hasSoTSampleThisBar = false;    // at least one SoT sample exists in this bar
 
     // AutoFilter state
     private int _afCount;
@@ -342,11 +368,83 @@ public class ClusterStatistic : Indicator
     #region Properties
 
     private int StrCount => RowsOrder.AvailableStrings.Count;
-	
+
     #region Rows
 
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowTradesCount), GroupName = nameof(Strings.Rows),
+        Description = nameof(Strings.ShowTradesCountDescription), Order = 110)]
+    public bool ShowTicks
+    {
+        get => _showTicks;
+        set
+        {
+            _showTicks = value;
+            RowsOrder.SetEnabled(DataType.Trades, value);
+        }
+    }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowHeight), GroupName = nameof(Strings.Rows),
+        Description = nameof(Strings.ShowCandleHeightDescription), Order = 120)]
+    public bool ShowHighLow
+    {
+        get => _showHighLow;
+        set
+        {
+            _showHighLow = value;
+            RowsOrder.SetEnabled(DataType.Height, value);
+        }
+    }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowTime), GroupName = nameof(Strings.Rows),
+        Description = nameof(Strings.ShowCandleTimeDescription), Order = 130)]
+    public bool ShowTime
+    {
+        get => _showTime;
+        set
+        {
+            _showTime = value;
+            RowsOrder.SetEnabled(DataType.Time, value);
+        }
+    }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDuration), GroupName = nameof(Strings.Rows),
+        Description = nameof(Strings.ShowCandleDurationDescription), Order = 140)]
+    public bool ShowDuration
+    {
+        get => _showDuration;
+        set
+        {
+            _showDuration = value;
+            RowsOrder.SetEnabled(DataType.Duration, value);
+        }
+    }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowVolume), GroupName = nameof(Strings.Rows),
+        Description = nameof(Strings.ShowVolumesDescription), Order = 150)]
+    public bool ShowVolume
+    {
+        get => _showVolume;
+        set
+        {
+            _showVolume = value;
+            RowsOrder.SetEnabled(DataType.Volume, value);
+        }
+    }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowVolumePerSecond), GroupName = nameof(Strings.Rows),
+        Description = nameof(Strings.ShowVolumePerSecondDescription), Order = 160)]
+    public bool ShowVolumePerSecond
+    {
+        get => _showVolumePerSecond;
+        set
+        {
+            _showVolumePerSecond = value;
+            RowsOrder.SetEnabled(DataType.VolumeSecond, value);
+        }
+    }
+
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowAsk), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowAsksDescription), Order = 110)]
+        Description = nameof(Strings.ShowAsksDescription), Order = 170)]
     public bool ShowAsk
     {
         get => _showAsk;
@@ -358,7 +456,7 @@ public class ClusterStatistic : Indicator
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowBid), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowBidsDescription), Order = 110)]
+        Description = nameof(Strings.ShowBidsDescription), Order = 180)]
     public bool ShowBid
     {
         get => _showBid;
@@ -370,7 +468,7 @@ public class ClusterStatistic : Indicator
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDelta), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowDeltaDescription), Order = 120)]
+        Description = nameof(Strings.ShowDeltaDescription), Order = 190)]
     public bool ShowDelta
     {
         get => _showDelta;
@@ -381,8 +479,21 @@ public class ClusterStatistic : Indicator
         }
     }
 
+    [DisplayName("Delta/sec")]
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows),
+    Description = "Show Delta per second", Order = 200)]
+    public bool ShowDeltaPerSecond
+    {
+        get => _showDeltaPerSecond;
+        set
+        {
+            _showDeltaPerSecond = value;
+            RowsOrder.SetEnabled(DataType.DeltaSecond, value);
+        }
+    }
+
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDeltaPerVolume), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowDeltaPerVolumeDescription), Order = 130)]
+        Description = nameof(Strings.ShowDeltaPerVolumeDescription), Order = 210)]
     public bool ShowDeltaPerVolume
     {
         get => _showDeltaPerVolume;
@@ -393,8 +504,112 @@ public class ClusterStatistic : Indicator
         }
     }
 
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowMaximumDelta), GroupName = nameof(Strings.Rows),
+        Description = nameof(Strings.ShowMaximumDeltaDescription), Order = 220)]
+    public bool ShowMaximumDelta
+    {
+        get => _showMaximumDelta;
+        set
+        {
+            _showMaximumDelta = value;
+            RowsOrder.SetEnabled(DataType.MaxDelta, value);
+        }
+    }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowMinimumDelta), GroupName = nameof(Strings.Rows),
+        Description = nameof(Strings.ShowMinimumDeltaDescription), Order = 230)]
+    public bool ShowMinimumDelta
+    {
+        get => _showMinimumDelta;
+        set
+        {
+            _showMinimumDelta = value;
+            RowsOrder.SetEnabled(DataType.MinDelta, value);
+        }
+    }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDeltaChange), GroupName = nameof(Strings.Rows),
+        Description = nameof(Strings.ShowDeltaChangeDescription), Order = 240)]
+    public bool ShowDeltaChange
+    {
+        get => _showDeltaChange;
+        set
+        {
+            _showDeltaChange = value;
+            RowsOrder.SetEnabled(DataType.DeltaChange, value);
+        }
+    }
+
+    [DisplayName("Max Vol/sec (peak)")]
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 250)]
+    public bool ShowPeakVolPerSec
+    {
+        get => RowsOrder.TryGetValue(DataType.PeakVolPerSec, out var ri) && ri.Enabled;
+        set => RowsOrder.SetEnabled(DataType.PeakVolPerSec, value);
+    }
+
+    [DisplayName("Delta at peak")]
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 260)]
+    public bool ShowPeakDeltaPerSec
+    {
+        get => RowsOrder.TryGetValue(DataType.PeakDeltaPerSec, out var ri) && ri.Enabled;
+        set => RowsOrder.SetEnabled(DataType.PeakDeltaPerSec, value);
+    }
+
+    [DisplayName("Delta/Vol at peak")]
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 270)]
+    public bool ShowPeakDeltaPerVol
+    {
+        get => RowsOrder.TryGetValue(DataType.PeakDeltaPerVol, out var ri) && ri.Enabled;
+        set => RowsOrder.SetEnabled(DataType.PeakDeltaPerVol, value);
+    }
+
+    [DisplayName("Buy Imbalances")]
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 280)]
+    public bool ShowBuyImbalance
+    {
+        get => RowsOrder.TryGetValue(DataType.BuyImbalance, out var ri) && ri.Enabled;
+        set => RowsOrder.SetEnabled(DataType.BuyImbalance, value);
+    }
+
+    [DisplayName("Sell Imbalances")]
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 290)]
+    public bool ShowSellImbalance
+    {
+        get => RowsOrder.TryGetValue(DataType.SellImbalance, out var ri) && ri.Enabled;
+        set => RowsOrder.SetEnabled(DataType.SellImbalance, value);
+    }
+
+    [DisplayName("Net Imbalances")]
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 300)]
+    public bool ShowNetImbalance
+    {
+        get => RowsOrder.TryGetValue(DataType.NetImbalance, out var ri) && ri.Enabled;
+        set => RowsOrder.SetEnabled(DataType.NetImbalance, value);
+    }
+
+    [DisplayName("Stacked Imbalances")]
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 310)]
+    public bool ShowStackedImbalance
+    {
+        get => RowsOrder.TryGetValue(DataType.StackedImbalance, out var ri) && ri.Enabled;
+        set => RowsOrder.SetEnabled(DataType.StackedImbalance, value);
+    }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowSessionVolume), GroupName = nameof(Strings.Rows),
+        Description = nameof(Strings.ShowSessionVolumeDescription), Order = 320)]
+    public bool ShowSessionVolume
+    {
+        get => _showSessionVolume;
+        set
+        {
+            _showSessionVolume = value;
+            RowsOrder.SetEnabled(DataType.SessionVolume, value);
+        }
+    }
+
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowSessionDelta), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowSessionDeltaDescription), Order = 140)]
+        Description = nameof(Strings.ShowSessionDeltaDescription), Order = 330)]
     public bool ShowSessionDelta
     {
         get => _showSessionDelta;
@@ -406,7 +621,7 @@ public class ClusterStatistic : Indicator
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowSessionDeltaPerVolume), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowSessionDeltaPerVolumeDescription), Order = 150)]
+        Description = nameof(Strings.ShowSessionDeltaPerVolumeDescription), Order = 340)]
     public bool ShowSessionDeltaPerVolume
     {
         get => _showSessionDeltaPerVolume;
@@ -420,206 +635,46 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowMaximumDelta), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowMaximumDeltaDescription), Order = 160)]
-    public bool ShowMaximumDelta
-    {
-        get => _showMaximumDelta;
-        set
-        {
-            _showMaximumDelta = value;
-            RowsOrder.SetEnabled(DataType.MaxDelta, value);
-        }
-    }
-
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowMinimumDelta), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowMinimumDeltaDescription), Order = 170)]
-    public bool ShowMinimumDelta
-    {
-        get => _showMinimumDelta;
-        set
-        {
-            _showMinimumDelta = value;
-            RowsOrder.SetEnabled(DataType.MinDelta, value);
-        }
-    }
-
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDeltaChange), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowDeltaChangeDescription), Order = 175)]
-    public bool ShowDeltaChange
-    {
-        get => _showDeltaChange;
-        set
-        {
-            _showDeltaChange = value;
-            RowsOrder.SetEnabled(DataType.DeltaChange, value);
-        }
-    }
-
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowVolume), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowVolumesDescription), Order = 180)]
-    public bool ShowVolume
-    {
-        get => _showVolume;
-        set
-        {
-            _showVolume = value;
-            RowsOrder.SetEnabled(DataType.Volume, value);
-        }
-    }
-
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowVolumePerSecond), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowVolumePerSecondDescription), Order = 190)]
-    public bool ShowVolumePerSecond
-    {
-        get => _showVolumePerSecond;
-        set
-        {
-            _showVolumePerSecond = value;
-            RowsOrder.SetEnabled(DataType.VolumeSecond, value);
-        }
-    }
-
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowSessionVolume), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowSessionVolumeDescription), Order = 191)]
-    public bool ShowSessionVolume
-    {
-        get => _showSessionVolume;
-        set
-        {
-            _showSessionVolume = value;
-            RowsOrder.SetEnabled(DataType.SessionVolume, value);
-        }
-    }
-
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowTradesCount), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowTradesCountDescription), Order = 192)]
-    public bool ShowTicks
-    {
-        get => _showTicks;
-        set
-        {
-            _showTicks = value;
-            RowsOrder.SetEnabled(DataType.Trades, value);
-        }
-    }
-
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowHeight), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowCandleHeightDescription), Order = 193)]
-    public bool ShowHighLow
-    {
-        get => _showHighLow;
-        set
-        {
-            _showHighLow = value;
-            RowsOrder.SetEnabled(DataType.Height, value);
-        }
-    }
-
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowTime), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowCandleTimeDescription), Order = 194)]
-    public bool ShowTime
-    {
-        get => _showTime;
-        set
-        {
-            _showTime = value;
-            RowsOrder.SetEnabled(DataType.Time, value);
-        }
-    }
-
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDuration), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowCandleDurationDescription), Order = 196)]
-    public bool ShowDuration
-    {
-        get => _showDuration;
-        set
-        {
-            _showDuration = value;
-            RowsOrder.SetEnabled(DataType.Duration, value);
-        }
-    }
-
-    [DisplayName("Delta/sec")]
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows),
-     Description = "Show Delta per second", Order = 197)]
-    public bool ShowDeltaPerSecond
-    {
-        get => _showDeltaPerSecond;
-        set
-        {
-            _showDeltaPerSecond = value;
-            RowsOrder.SetEnabled(DataType.DeltaSecond, value);
-        }
-    }
-
-    [DisplayName("Max Vol/sec (peak)")]
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 198)]
-    public bool ShowPeakVolPerSec
-    {
-        get => RowsOrder.TryGetValue(DataType.PeakVolPerSec, out var ri) && ri.Enabled;
-        set => RowsOrder.SetEnabled(DataType.PeakVolPerSec, value);
-    }
-
-    [DisplayName("Delta at peak")]
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 199)]
-    public bool ShowPeakDeltaPerSec
-    {
-        get => RowsOrder.TryGetValue(DataType.PeakDeltaPerSec, out var ri) && ri.Enabled;
-        set => RowsOrder.SetEnabled(DataType.PeakDeltaPerSec, value);
-    }
-
-    [DisplayName("Delta/Vol at peak")]
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 200)]
-    public bool ShowPeakDeltaPerVol
-    {
-        get => RowsOrder.TryGetValue(DataType.PeakDeltaPerVol, out var ri) && ri.Enabled;
-        set => RowsOrder.SetEnabled(DataType.PeakDeltaPerVol, value);
-    }
-
-    [DisplayName("Buy Imbalances")]
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 201)]
-    public bool ShowBuyImbalance
-    {
-        get => RowsOrder.TryGetValue(DataType.BuyImbalance, out var ri) && ri.Enabled;
-        set => RowsOrder.SetEnabled(DataType.BuyImbalance, value);
-    }
-
-    [DisplayName("Sell Imbalances")]
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 202)]
-    public bool ShowSellImbalance
-    {
-        get => RowsOrder.TryGetValue(DataType.SellImbalance, out var ri) && ri.Enabled;
-        set => RowsOrder.SetEnabled(DataType.SellImbalance, value);
-    }
-
-    [DisplayName("Net Imbalances")]
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 203)]
-    public bool ShowNetImbalance
-    {
-        get => RowsOrder.TryGetValue(DataType.NetImbalance, out var ri) && ri.Enabled;
-        set => RowsOrder.SetEnabled(DataType.NetImbalance, value);
-    }
-
-    [DisplayName("Stacked Imbalances")]
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 204)]
-    public bool ShowStackedImbalance
-    {
-        get => RowsOrder.TryGetValue(DataType.StackedImbalance, out var ri) && ri.Enabled;
-        set => RowsOrder.SetEnabled(DataType.StackedImbalance, value);
-    }
-
     #endregion
 
     #region Max vol/sec settings
 
     [Display(Name = "Time Window (sec)", GroupName = "Max vol/sec", Order = 201)]
     [Range(1, 600)]
-    public int SotTimeWindowSec { get; set; } = 5;
+    public int SotTimeWindowSec
+    {
+        get => _sotTimeWindowSec;
+        set
+        {
+            // EN: Defensive clamp + early exit if no change
+            var v = Math.Max(1, Math.Min(600, value));
+            if (_sotTimeWindowSec == v)
+                return;
 
-    [Display(Name = "Min Trades per Window", GroupName = "Max vol/sec", Order = 202)]
+            _sotTimeWindowSec = v;
+
+            // EN: Immediately rebuild historical SoT and reset RT window
+            OnSoTParamsChanged();
+        }
+    }
+
+    [Display(Name = "Min Volume per Window", GroupName = "Max vol/sec", Order = 202)]
     [Range(1, 100000)]
-    public int SotMinTrades { get; set; } = 150;
+    public int SotMinVolume 
+    {
+        get => _SotMinVolume ;
+        set
+        {
+            var v = Math.Max(1, Math.Min(100000, value));
+            if (_SotMinVolume  == v)
+                return;
+
+            _SotMinVolume  = v;
+
+            // EN: Same reaction: reset RT and recompute history with the new threshold
+            OnSoTParamsChanged();
+        }
+    }
 
     private bool _sotUseAutoFilter = true;
     [Display(Name = "Use Auto Filter", GroupName = "Max vol/sec", Order = 203)]
@@ -675,6 +730,7 @@ public class ClusterStatistic : Indicator
     [Display(Name = "Imbalance Volume Filter", GroupName = "Imbalance", Order = 310)]
     [Range(1, 100000)]
     public int ImbalanceVolumeFilter { get; set; } = 30;
+
 
     #endregion
 
@@ -1055,7 +1111,89 @@ public class ClusterStatistic : Indicator
 					_lastVolumeAlert = bar;
 				}
 			}
-		}
+
+            // Detect bar change and reset per-bar peaks (very important)
+            if (_rtBar != bar)
+            {
+                _rtBar = bar;
+
+                // Candle accumulators restart per bar
+                _prevCumVol = 0m;
+                _prevCumDelta = 0m;
+
+                // Reset per-bar peaks so each bar shows its own max, not a global running max
+                _rtPeakVolPerSec = 0m;
+                _rtPeakDeltaPerSec = 0m;
+                _hasSoTSampleThisBar = false;
+
+                // Also clear the seed flag on bar change
+                _seededLiveSoT = false;
+            }
+
+            // Build increments from candle cumulative
+            var incVol = candle.Volume - _prevCumVol;
+            var incDelta = candle.Delta - _prevCumDelta;
+
+            // Defensive guard for re-ticks/recalc
+            if (incVol < 0m || Math.Abs(incDelta) > Math.Abs(candle.Delta))
+            {
+                incVol = 0m;
+                incDelta = 0m;
+            }
+
+            _prevCumVol = candle.Volume;
+            _prevCumDelta = candle.Delta;
+
+            // "Right edge" timestamp for this sample
+            var now = candle.LastTime;
+
+            // Always purge by time first, even if there is no new increment
+            var cutoff = now.AddSeconds(-_sotTimeWindowSec);
+            while (_win.Count > 0 && _win.Peek().T <= cutoff)
+            {
+                var old = _win.Dequeue();
+                _winVol -= old.Vol;
+                _winDelta -= old.Delta;
+            }
+
+            // Enqueue new increment if any
+            if (incVol > 0m || incDelta != 0m)
+            {
+                _win.Enqueue(new Sample { T = now, Vol = incVol, Delta = incDelta });
+                _winVol += incVol;
+                _winDelta += incDelta;
+                _hasSoTSampleThisBar = true;
+            }
+
+            // If window passes threshold, compute current vps/dps and update *per-bar* peaks
+            if (_winVol >= SotMinVolume )
+            {
+                var vps = _winVol / SotTimeWindowSec;
+                var dps = _winDelta / SotTimeWindowSec;
+
+                if (vps > _rtPeakVolPerSec)
+                {
+                    _rtPeakVolPerSec = vps;
+                    _rtPeakDeltaPerSec = dps;
+                }
+            }
+
+            // Publish per-bar peaks (rounded for UI consistency)
+            if (_hasSoTSampleThisBar || _seededLiveSoT)
+            {
+                var newVps = Math.Round(_rtPeakVolPerSec, 0);
+                var newDps = Math.Round(_rtPeakDeltaPerSec, 0);
+
+                // Do not overwrite if the stored series already shows a higher peak for this live bar
+                if (newVps > _peakVolPerSec[bar])
+                {
+                    _peakVolPerSec[bar] = newVps;
+                    _peakDeltaPerSec[bar] = newDps;
+                    _peakDeltaPerVol[bar] = newVps == 0m ? 0m : (newDps / newVps);
+                }
+                // else: keep existing higher value (monotonic per bar)
+            }
+        }
 
 		_lastVolumeValue = candle.Volume;
 		_lastDeltaValue = candle.Delta;
@@ -1830,7 +1968,9 @@ public class ClusterStatistic : Indicator
 		};
 	}
 
-	private decimal GetRate(decimal value, decimal maximumValue)
+    // Normalize against 60% of the maximum to increase contrast in the heat map.
+    // Clamp to [10, 100] so low values still render visibly.
+    private decimal GetRate(decimal value, decimal maximumValue)
 	{
 		if (maximumValue == 0)
 			return 10;
@@ -1857,25 +1997,28 @@ public class ClusterStatistic : Indicator
     protected override void OnFinishRecalculate()
     {
         ResetAutoFilter();
-
-        // Clear RT window state when a full recalc completes
-        _liveQueue.Clear();
-        _winTrades = 0;
+        // Reset RT sliding-window state after a full rebuild
+        _win.Clear();
+        _winVol = 0m;
         _winDelta = 0m;
-        _rtPeakTradesPerSec = 0m;
+        _rtPeakVolPerSec = 0m;
         _rtPeakDeltaPerSec = 0m;
+        _rtBar = -1;
+        _prevCumVol = 0m;
+        _prevCumDelta = 0m;
 
         if (CurrentBar <= 0)
             return;
 
         // Request historical cumulative trades for the loaded range
         var startTime = GetCandle(0).Time;
-        var endTime = GetCandle(CurrentBar - 1).LastTime;
+        var endTime = GetCandle(CurrentBar - 2).LastTime;
 
         // 0,0 means "no size filter" — ask for all trades
         var request = new CumulativeTradesRequest(startTime, endTime, 0, 0);
         RequestForCumulativeTrades(request);
     }
+
 
     protected override void OnCumulativeTradesResponse(CumulativeTradesRequest request, IEnumerable<CumulativeTrade> cumulativeTrades)
     {
@@ -1884,85 +2027,92 @@ public class ClusterStatistic : Indicator
         // Store and rebuild the SoT peaks over history
         _allCumulativeTrades = cumulativeTrades?.ToList() ?? new List<CumulativeTrade>();
         RebuildHistoricalSoT();
+        SeedLiveWindowFromHistory();
+
+        RedrawChart();
     }
 
-    // Recompute SoT peaks (trades/sec peak inside each bar and its delta/sec) using historical cumulative trades
+    // Recompute SoT peaks (volume/sec peak inside each bar and its paired delta/sec)
+    // using historical cumulative trades � SAME METRIC AS RT (volume/sec).
     private void RebuildHistoricalSoT()
     {
         if (_allCumulativeTrades == null || _allCumulativeTrades.Count == 0 || CurrentBar <= 0)
             return;
 
-        // Optional: clear Peak* series before full rebuild
-        for (int i = 0; i < CurrentBar; i++)
+        // We only (re)write CLOSED bars here. Live bar (CurrentBar-1) is handled by RT.
+        int lastClosedBar = CurrentBar - 2;
+        if (lastClosedBar < 0)
+            return;
+
+        // Clear target series up to the last closed bar
+        for (int i = 0; i <= lastClosedBar; i++)
         {
             _peakVolPerSec[i] = 0m;
             _peakDeltaPerSec[i] = 0m;
         }
 
+        // Sliding window over cumulative trades
         var q = new Queue<CumulativeTrade>();
-        int tradeIdx = 0;
+        int k = 0;                   // cursor in _allCumulativeTrades
 
-        // Sliding-window aggregates
-        int winTrades = 0;
-        decimal winDelta = 0m;
+        decimal winVol = 0m;         // window total volume (contracts)
+        decimal winDelta = 0m;       // window signed delta (contracts)
 
-        // Iterate bars chronologically
-        for (int bar = 0; bar < CurrentBar; bar++)
+        // Walk bar by bar chronologically
+        for (int bar = 0; bar <= lastClosedBar; bar++)
         {
             var c = GetCandle(bar);
-            var barStart = c.Time;
-            var barEnd = c.LastTime;
+            DateTime barStart = c.Time;
+            DateTime barEnd = c.LastTime;
 
             // Reset per-bar peaks
-            decimal peakTradesPerSec = 0m;
+            decimal peakVolPerSec = 0m;
             decimal peakDeltaPerSec = 0m;
 
-            // Move cursor to this bar's start
-            while (tradeIdx < _allCumulativeTrades.Count && _allCumulativeTrades[tradeIdx].Time < barStart)
-                tradeIdx++;
+            // Advance cursor to the first trade that belongs to this bar (>= barStart)
+            while (k < _allCumulativeTrades.Count && _allCumulativeTrades[k].Time < barStart)
+                k++;
 
-            int j = tradeIdx;
+            int j = k;
 
-            // Walk through trades within this bar's time
+            // Consume trades inside [barStart, barEnd]
             while (j < _allCumulativeTrades.Count && _allCumulativeTrades[j].Time <= barEnd)
             {
                 var t = _allCumulativeTrades[j++];
                 q.Enqueue(t);
 
-                // Count number of executions in this bundle; fallback to 1 if null
-                int ticksCount = (t.Ticks != null ? t.Ticks.Count : 1);
-                winTrades += ticksCount;
+                // Add the trade bundle volume to the time-window
+                winVol += t.Volume;
 
-                // Signed delta using Direction
+                // Signed delta from bundle direction
                 winDelta += (t.Direction == TradeDirection.Buy ? t.Volume : -t.Volume);
 
-                // Slide the window: drop trades older than T seconds from current trade time
+                // Drop trades older than T seconds from current right-edge (t.Time)
                 var cutoff = t.Time.AddSeconds(-SotTimeWindowSec);
                 while (q.Count > 0 && q.Peek().Time <= cutoff)
                 {
                     var u = q.Dequeue();
-                    int uTicks = (u.Ticks != null ? u.Ticks.Count : 1);
-                    winTrades -= uTicks;
+                    winVol -= u.Volume;
                     winDelta -= (u.Direction == TradeDirection.Buy ? u.Volume : -u.Volume);
                 }
 
-                // Evaluate if window meets the minimum trade count
-                if (winTrades >= SotMinTrades)
+                // Only evaluate if the window meets the minimum threshold (volume-based)
+                if (winVol >= SotMinVolume )
                 {
-                    var tradesPerSec = (decimal)winTrades / SotTimeWindowSec; // SoT Vol/sec
-                    var deltaPerSec = winDelta / SotTimeWindowSec;            // SoT Delta/sec (same window)
+                    var vps = winVol / SotTimeWindowSec;   // volume per second
+                    var dps = winDelta / SotTimeWindowSec; // delta per second for the same window
 
-                    // Keep delta/sec from the window with the greatest trades/sec (break ties by higher vol/sec)
-                    if (tradesPerSec > peakTradesPerSec)
+                    // Keep the window with the largest volume/sec; break ties by larger vps (implicit)
+                    if (vps > peakVolPerSec)
                     {
-                        peakTradesPerSec = tradesPerSec;
-                        peakDeltaPerSec = deltaPerSec;
+                        peakVolPerSec = vps;
+                        peakDeltaPerSec = dps;
                     }
                 }
             }
 
-            // Store peak-of-bar values (0 if no window met the minimum)
-            _peakVolPerSec[bar] = Math.Round(peakTradesPerSec, 0);
+            // Store per-bar peaks (0 if no qualifying window)
+            _peakVolPerSec[bar] = Math.Round(peakVolPerSec, 0);
             _peakDeltaPerSec[bar] = Math.Round(peakDeltaPerSec, 0);
 
             _peakDeltaPerVol[bar] = _peakVolPerSec[bar] == 0m
@@ -1971,68 +2121,153 @@ public class ClusterStatistic : Indicator
 
             UpdateAutoFilterWithClosedBar(bar);
         }
+
+        // Do NOT touch the live bar here; it will be seeded right after this call.
     }
 
-    // Called by the platform for each incoming cumulative trade in real-time
-    protected override void OnCumulativeTrade(CumulativeTrade trade)
+
+    // Small helper: reset RT sliding window and per-bar peaks
+    private void ResetSoTRuntimeState()
     {
-        if (trade == null || trade.Volume <= 0)
-            return;
+        _win.Clear();
+        _winVol = 0m;
+        _winDelta = 0m;
 
-        var bar = CurrentBar - 1;
-        if (bar < 0)
-            return;
+        _rtBar = -1;
+        _prevCumVol = 0m;
+        _prevCumDelta = 0m;
 
-        // Maintain a sliding window of last SotTimeWindowSec seconds
-        _liveQueue.Enqueue(trade);
+        _rtPeakVolPerSec = 0m;
+        _rtPeakDeltaPerSec = 0m;
+    }
 
-        int ticksCount = (trade.Ticks != null ? trade.Ticks.Count : 1);
-        _winTrades += ticksCount;
-        _winDelta += (trade.Direction == TradeDirection.Buy ? trade.Volume : -trade.Volume);
+    // Centralized reaction when SoT params change from UI
+    private void OnSoTParamsChanged()
+    {
+        // Always reset RT accumulators so the next ticks start fresh with new params.
+        ResetSoTRuntimeState();
 
-        // Remove outdated trades (older than T seconds from current trade time)
-        var cutoff = trade.Time.AddSeconds(-SotTimeWindowSec);
-        while (_liveQueue.Count > 0 && _liveQueue.Peek().Time <= cutoff)
+        // Clear current peaks to avoid showing stale values while recomputing
+        if (CurrentBar > 0)
         {
-            var old = _liveQueue.Dequeue();
-            int oldTicks = (old.Ticks != null ? old.Ticks.Count : 1);
-            _winTrades -= oldTicks;
-            _winDelta -= (old.Direction == TradeDirection.Buy ? old.Volume : -old.Volume);
-        }
-
-        // Only compute/update peaks if the window meets the minimum trades
-        if (_winTrades >= SotMinTrades)
-        {
-            var tradesPerSec = (decimal)_winTrades / SotTimeWindowSec;
-            var deltaPerSec = _winDelta / SotTimeWindowSec;
-
-            if (tradesPerSec > _rtPeakTradesPerSec)
+            for (int i = 0; i <= CurrentBar - 1; i++)
             {
-                _rtPeakTradesPerSec = tradesPerSec;
-                _rtPeakDeltaPerSec = deltaPerSec;
+                _peakVolPerSec[i] = 0m;
+                _peakDeltaPerSec[i] = 0m;
+                _peakDeltaPerVol[i] = 0m;
             }
         }
 
-        // Write to Peak* series (rounded to int-like display like your UI)
-        _peakVolPerSec[bar] = Math.Round(_rtPeakTradesPerSec, 0);
-        _peakDeltaPerSec[bar] = Math.Round(_rtPeakDeltaPerSec, 0);
-
-        _peakDeltaPerVol[bar] = _peakVolPerSec[bar] == 0m
-			? 0m
-			: (_peakDeltaPerSec[bar] / _peakVolPerSec[bar]);
-
-        // If bar changes, reset RT peaks for the next bar
-        if (_lastBar != bar)
+        // If we already have history, recompute immediately (no waiting)
+        if (_allCumulativeTrades != null && _allCumulativeTrades.Count > 0)
         {
-            _rtPeakTradesPerSec = 0m;
-            _rtPeakDeltaPerSec = 0m;
-            _winTrades = 0;
-            _winDelta = 0m;
-            _liveQueue.Clear();
+            RebuildHistoricalSoT();
+            SeedLiveWindowFromHistory();
+            RedrawChart(); // EN: immediate visual feedback
+            return;
         }
 
-        _lastBar = bar;
+        // Otherwise, request history and refresh when it arrives
+        if (CurrentBar > 0)
+        {
+            try
+            {
+                var startTime = GetCandle(0).Time;
+                var endTime = GetCandle(CurrentBar - 1).LastTime;
+
+                var req = new CumulativeTradesRequest(startTime, endTime, 0, 0);
+                RequestForCumulativeTrades(req);
+            }
+            catch
+            {
+                // If candles are not ready yet, do nothing; the next full recalc will request history.
+            }
+        }
+
+        // Force a redraw so the table updates quickly (even before history returns).
+        RedrawChart();
     }
+
+    // Seed the RT window (_win) from historical trades for the current live bar
+    // so that the live bar doesn't show zeros after a rebuild.
+    // Window = (nowRight - SotTimeWindowSec, nowRight], threshold & metrics in VOLUME.
+    private void SeedLiveWindowFromHistory()
+    {
+        if (CurrentBar <= 0 || _allCumulativeTrades == null || _allCumulativeTrades.Count == 0)
+            return;
+
+        int liveBar = CurrentBar - 1;
+        if (liveBar < 0) return;
+
+        var cLive = GetCandle(liveBar);
+        DateTime nowRight = cLive.LastTime;
+        DateTime cutoff = nowRight.AddSeconds(-SotTimeWindowSec);
+
+        // Reset RT window state
+        _win.Clear();
+        _winVol = 0m;
+        _winDelta = 0m;
+        _rtPeakVolPerSec = 0m;
+        _rtPeakDeltaPerSec = 0m;
+
+        // Collect trades in chronological order inside the window (cutoff, nowRight]
+        var chunk = new List<CumulativeTrade>();
+
+        // Linear scan from the end until we exit the range; then reverse.
+        for (int i = _allCumulativeTrades.Count - 1; i >= 0; i--)
+        {
+            var t = _allCumulativeTrades[i];
+            if (t.Time <= cutoff) break;          // out of range on the left (older than cutoff)
+            if (t.Time <= nowRight) chunk.Add(t); // inside (cutoff, nowRight]
+        }
+        chunk.Reverse(); // ensure ascending chronological order
+
+        foreach (var t in chunk)
+        {
+            var sgnVol = (t.Direction == TradeDirection.Buy ? t.Volume : -t.Volume);
+            _win.Enqueue(new Sample { T = t.Time, Vol = t.Volume, Delta = sgnVol });
+            _winVol += t.Volume;
+            _winDelta += sgnVol;
+        }
+
+        // Defensive time-based purge (same logic as in RT)
+        while (_win.Count > 0 && _win.Peek().T <= cutoff)
+        {
+            var u = _win.Dequeue();
+            _winVol -= u.Vol;
+            _winDelta -= u.Delta;
+        }
+
+        // First RT snapshot for the live bar
+        if (_winVol >= SotMinVolume )
+        {
+            var vps = _winVol / SotTimeWindowSec;
+            var dps = _winDelta / SotTimeWindowSec;
+
+            _rtPeakVolPerSec = vps;
+            _rtPeakDeltaPerSec = dps;
+
+            var newVps = Math.Round(_rtPeakVolPerSec, 0);
+            var newDps = Math.Round(_rtPeakDeltaPerSec, 0);
+
+            if (newVps > _peakVolPerSec[liveBar])
+            {
+                _peakVolPerSec[liveBar] = newVps;
+                _peakDeltaPerSec[liveBar] = newDps;
+                _peakDeltaPerVol[liveBar] = newVps == 0m ? 0m : (newDps / newVps);
+            }
+        }
+
+        _seededLiveSoT = _win.Count > 0;
+        _hasSoTSampleThisBar = _seededLiveSoT;
+
+        // Align accumulators so the next OnCalculate starts from zero increment
+        _rtBar = liveBar;
+        _prevCumVol = cLive.Volume;
+        _prevCumDelta = cLive.Delta;
+    }
+
+
     #endregion
 
     #region AutoFilter helpers
@@ -2081,13 +2316,13 @@ public class ClusterStatistic : Indicator
             _peakDeltaAuto[i] = 0m;
         }
     }
-
-    // Escalado 10..100 usando "cuánto por encima/debajo" de la media está el valor
+    
+    // Scaling 10..100 based on "how far above/below" the mean the value is
     private decimal GetRateByMean(decimal value, decimal mean)
     {
         if (mean <= 0m) return 10m;
         var r = value / mean;              // >= 0
-        var gamma = 1.35m;                 // >1: enfatiza valores altos
+        var gamma = 1.35m;                 // >1: emphasizes higher values
         r = (decimal)Math.Pow((double)r, (double)gamma);
 
         const decimal lo = 0.85m, hi = 1.35m;
@@ -2095,7 +2330,6 @@ public class ClusterStatistic : Indicator
         if (r >= hi) return 100m;
         return 10m + (r - lo) * (90m / (hi - lo));
     }
-
     #endregion
 
     #region Formatting helpers
@@ -2143,9 +2377,6 @@ public class ClusterStatistic : Indicator
     }
 
     #endregion
-
-
-
 
     #endregion
 }
