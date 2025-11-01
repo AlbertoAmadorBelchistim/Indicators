@@ -1,6 +1,6 @@
 ﻿## 🟦 LevelsLolo (Levels Text)
 
-- **Nombre del archivo:** `LevelsLolo.cs`  
+- **Nombre del archivo:** [LevelsLolo.cs](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/compile/myindicators/MyIndicators/LevelsLolo.cs)
 - **Nombre del indicador:** LevelsLolo
 - **Web oficial:** — (indicador propio; documentación en este repositorio)
 - **Compatibilidad:** ATAS versión estable y superiores.

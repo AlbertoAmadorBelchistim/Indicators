@@ -1,6 +1,6 @@
 ﻿## 🟦 LevelsLolo (Levels Text)
 
-- **File name:** `LevelsLolo.cs`  
+- **File name:** [LevelsLolo.cs](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/compile/myindicators/MyIndicators/LevelsLolo.cs)
 - **Indicator name:** LevelsLolo  
 - **Official web:** — (custom indicator; documented in this repository)  
 - **Compatibility:** ATAS stable build and above  
