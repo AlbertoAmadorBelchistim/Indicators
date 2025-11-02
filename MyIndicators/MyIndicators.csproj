@@ -11,12 +11,27 @@
 		<Platforms>AnyCPU</Platforms>
 		<AssemblyVersion>1.1.0.0</AssemblyVersion>
 		<FileVersion>1.1.0.0</FileVersion>
+
+		<!-- Canal por defecto si no se pasa /p:ATAS_CHANNEL=... -->
+		<ATAS_CHANNEL Condition="'$(ATAS_CHANNEL)' == ''">Default</ATAS_CHANNEL>
+		<Configurations>Debug;Release</Configurations>
 	</PropertyGroup>
 
 	<!-- Importa el SDK de escritorio (necesario para que coincida con el oficial) -->
 	<Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk.WindowsDesktop" />
 	<Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk.WindowsDesktop" />
 
+	<!-- Canal STABLE -->
+	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
+		<DefineConstants>$(DefineConstants);ATAS_STABLE</DefineConstants>
+		<ATAS_BASE>C:\Program Files (x86)\ATAS Platform stable</ATAS_BASE>
+	</PropertyGroup>
+
+	<!-- Canal DEFAULT (instalación normal) -->
+	<PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+		<DefineConstants>$(DefineConstants);ATAS_DEFAULT</DefineConstants>
+		<ATAS_BASE>C:\Program Files (x86)\ATAS Platform</ATAS_BASE>
+	</PropertyGroup>
 
 	<ItemGroup>
 		<Compile Include="..\Technical\Extensions\CrossColorExtensions.cs">
@@ -32,7 +47,6 @@
 		<!-- XAML -->
 		<Page Include="..\Technical\Editors\**\*.xaml">
 			<Link>Editors\%(RecursiveDir)%(Filename)%(Extension)</Link>
-			<!-- Necesario para compilar el XAML -->
 			<Generator>MSBuild:Compile</Generator>
 			<SubType>Designer</SubType>
 		</Page>
@@ -40,7 +54,6 @@
 		<!-- Code-behind de XAML -->
 		<Compile Include="..\Technical\Editors\**\*.xaml.cs">
 			<Link>Editors\%(RecursiveDir)%(Filename)%(Extension)</Link>
-			<!-- Anida el .xaml.cs bajo su .xaml -->
 			<DependentUpon>%(Filename)</DependentUpon>
 		</Compile>
 
@@ -50,37 +63,37 @@
 		</Compile>
 	</ItemGroup>
 
+	<!-- Referencias: UNIFICADAS a $(ATAS_BASE) -->
 	<ItemGroup>
 		<Reference Include="ATAS.Indicators.Technical">
-		  <HintPath>..\..\..\..\..\..\Program Files (x86)\ATAS Platform\ATAS.Indicators.Technical.dll</HintPath>
-		</Reference>
-		<Reference Include="Newtonsoft.Json">
-			<HintPath>C:\Program Files (x86)\ATAS Platform\Newtonsoft.Json.dll</HintPath>
-		</Reference>
-		<Reference Include="OFT.Attributes">
-			<HintPath>C:\Program Files (x86)\ATAS Platform\OFT.Attributes.dll</HintPath>
-		</Reference>
-		<Reference Include="OFT.Editors">
-			<HintPath>C:\Program Files (x86)\ATAS Platform\OFT.Editors.dll</HintPath>
-		</Reference>
-
-		<Reference Include="ATAS.DataFeedsCore">
-			<HintPath>C:\Program Files (x86)\ATAS Platform\ATAS.DataFeedsCore.dll</HintPath>
+			<HintPath>$(ATAS_BASE)\ATAS.Indicators.Technical.dll</HintPath>
 		</Reference>
 		<Reference Include="ATAS.Indicators">
-			<HintPath>C:\Program Files (x86)\ATAS Platform\ATAS.Indicators.dll</HintPath>
+			<HintPath>$(ATAS_BASE)\ATAS.Indicators.dll</HintPath>
 		</Reference>
-		<Reference Include="OFT.Rendering">
-			<HintPath>C:\Program Files (x86)\ATAS Platform\OFT.Rendering.dll</HintPath>
+		<Reference Include="ATAS.DataFeedsCore">
+			<HintPath>$(ATAS_BASE)\ATAS.DataFeedsCore.dll</HintPath>
 		</Reference>
-		<Reference Include="Utils.Common">
-			<HintPath>C:\Program Files (x86)\ATAS Platform\Utils.Common.dll</HintPath>
+		<Reference Include="OFT.Attributes">
+			<HintPath>$(ATAS_BASE)\OFT.Attributes.dll</HintPath>
 		</Reference>
-		<Reference Include="Utils.Windows">
-			<HintPath>C:\Program Files (x86)\ATAS Platform\Utils.Windows.dll</HintPath>
+		<Reference Include="OFT.Editors">
+			<HintPath>$(ATAS_BASE)\OFT.Editors.dll</HintPath>
 		</Reference>
 		<Reference Include="OFT.Localization">
-			<HintPath>C:\Program Files (x86)\ATAS Platform\OFT.Localization.dll</HintPath>
+			<HintPath>$(ATAS_BASE)\OFT.Localization.dll</HintPath>
+		</Reference>
+		<Reference Include="OFT.Rendering">
+			<HintPath>$(ATAS_BASE)\OFT.Rendering.dll</HintPath>
+		</Reference>
+		<Reference Include="Utils.Common">
+			<HintPath>$(ATAS_BASE)\Utils.Common.dll</HintPath>
+		</Reference>
+		<Reference Include="Utils.Windows">
+			<HintPath>$(ATAS_BASE)\Utils.Windows.dll</HintPath>
+		</Reference>
+		<Reference Include="Newtonsoft.Json">
+			<HintPath>$(ATAS_BASE)\Newtonsoft.Json.dll</HintPath>
 		</Reference>
 	</ItemGroup>
 
