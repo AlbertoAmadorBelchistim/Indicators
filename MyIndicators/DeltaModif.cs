@@ -12,6 +12,7 @@ using System.Drawing;
 
 using Color = System.Drawing.Color;
 using Parameter = OFT.Attributes.ParameterAttribute;
+using Utils.Common.Localization;
 
 namespace MyIndicators
 {
@@ -138,8 +139,12 @@ namespace MyIndicators
             IsHidden = false,
             ShowCurrentValue = false,
             UseMinimizedModeIfEnabled = true,
+            #if RELEASE
+            Visible = false
+            #else
             Visible = false,
             DrawCandleBorder = false
+            #endif
         };
 
         private readonly CandleDataSeries _divergenceDownCandles = new("DivergenceDownCandles", "Divergence down candles")
@@ -147,8 +152,12 @@ namespace MyIndicators
             IsHidden = false,
             ShowCurrentValue = false,
             UseMinimizedModeIfEnabled = true,
+            #if RELEASE
+            Visible = false
+            #else
             Visible = false,
             DrawCandleBorder = false
+            #endif
         };
 
         private readonly CandleDataSeries _downCandles = new("DownCandles", "Delta candles")
@@ -204,7 +213,7 @@ namespace MyIndicators
             IgnoredByAlerts = true
         };
 
-        #endregion
+#endregion
 
         #region Fields (price signals)
 
@@ -475,11 +484,22 @@ namespace MyIndicators
 
         private FilterColor _divergenceBarsFilter = new(true) { Enabled = false, Value = CrossColor.FromArgb(255, 255, 165, 0) };
 
+#if RELEASE
+        [Display(Name = "DivergenceDots", GroupName = "Divergence", Order = 130)]
+
+#else
         [Display(ResourceType = typeof(Strings), Name = "DivergenceDots", GroupName = nameof(Strings.Divergence),
             Description = nameof(Strings.BarDirVsDeltaDivergenceDescription), Order = 130)]
+#endif
+
         public bool ShowDivergence { get; set; }
 
+#if RELEASE
+        [Display(Name = "DivergenceBars", GroupName = "Divergence", Order = 135)]
+
+#else
         [Display(ResourceType = typeof(Strings), Name = "DivergenceBars", GroupName = nameof(Strings.Divergence), Order = 135)]
+#endif
         public FilterColor DivergenceBarsFilter
         {
             get => _divergenceBarsFilter;
@@ -516,8 +536,14 @@ namespace MyIndicators
 
         private FilterInt _absorption = new(true) { Enabled = false, Value = 250 };
 
+#if RELEASE
+        [Display(Name = "Absorption", GroupName = "Absorption", Order = 140)]
+
+#else
         [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Absorption), GroupName = nameof(Strings.Absorption),
             Description = "AbsorptionThresholdDesc", Order = 140)]
+        
+#endif
         [Range(0, int.MaxValue)]
         public FilterInt Absorption
         {
@@ -657,7 +683,7 @@ namespace MyIndicators
 
         #endregion
 
-        #endregion
+#endregion
 
         #region ctor
 
