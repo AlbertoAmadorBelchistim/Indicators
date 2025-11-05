@@ -16,7 +16,7 @@ using OFT.Rendering.Tools;
 /// <summary>
 /// Displays account information on the chart including account ID, balance, blocked margin, available balance, and PnL.
 /// </summary>
-[HelpLink("https://help.atas.net")]
+[HelpLink("https://help.atas.net/en/support/solutions/articles/72000648751-account-info-display")]
 [Category(IndicatorCategories.Trading)]
 [DisplayName("Account Info Display")]
 public class AccountInfoDisplay : Indicator
