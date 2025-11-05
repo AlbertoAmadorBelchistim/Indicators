@@ -94,17 +94,23 @@ public class AccountInfoDisplay : Indicator
 		GroupName = nameof(Strings.Settings))]
 	public bool ShowAccountId { get; set; } = true;
 
+	[Display(Name = "Show Currency", GroupName = nameof(Strings.Settings))]
+	public bool ShowCurrency { get; set; } = true;
+
 	[Display(Name = "Show Balance", Description = "Display balance",
 		GroupName = nameof(Strings.Settings))]
 	public bool ShowBalance { get; set; } = true;
+
+	[Display(Name = "Show Available Balance", Description = "Display available balance",
+		GroupName = nameof(Strings.Settings))]
+	public bool ShowAvailableBalance { get; set; } = true;
 
 	[Display(Name = "Show Blocked Margin", Description = "Display blocked margin",
 		GroupName = nameof(Strings.Settings))]
 	public bool ShowMargin { get; set; } = false;
 
-	[Display(Name = "Show Available Balance", Description = "Display available balance",
-		GroupName = nameof(Strings.Settings))]
-	public bool ShowAvailableBalance { get; set; } = true;
+	[Display(Name = "Show Leverage", GroupName = nameof(Strings.Settings))]
+	public bool ShowLeverage { get; set; } = true;
 
 	[Display(Name = "Show Open PnL", Description = "Display open profit and loss",
 		GroupName = nameof(Strings.Settings))]
@@ -118,28 +124,22 @@ public class AccountInfoDisplay : Indicator
 		GroupName = nameof(Strings.Settings))]
 	public bool ShowTotalPnL { get; set; } = false;
 
-	[Display(Name = "Show Leverage", GroupName = nameof(Strings.Settings))]
-	public bool ShowLeverage { get; set; } = true;
-
-	[Display(Name = "Show Currency", GroupName = nameof(Strings.Settings))]
-	public bool ShowCurrency { get; set; } = true;
-
-	[Display(Name = "Horizontal Position", GroupName = nameof(Strings.Settings))]
+	[Display(Name = "Horizontal Position", GroupName = "Layout")]
 	public HorizontalAlignment HorizontalPosition { get; set; } = HorizontalAlignment.Left;
 
-	[Display(Name = "Vertical Position", GroupName = nameof(Strings.Settings))]
+	[Display(Name = "Vertical Position", GroupName = "Layout")]
 	public VerticalAlignment VerticalPosition { get; set; } = VerticalAlignment.Bottom;
 
-	[Display(Name = "Offset X", GroupName = nameof(Strings.Settings))]
+	[Display(Name = "Offset X", GroupName = "Layout")]
 	[Range(0, 1000)]
 	public int OffsetX { get; set; } = 20;
 
-	[Display(Name = "Offset Y", GroupName = nameof(Strings.Settings))]
+	[Display(Name = "Offset Y", GroupName = "Layout")]
 	[Range(0, 1000)]
 	public int OffsetY { get; set; } = 20;
 
 	[Display(Name = "Column Spacing", Description = "Space between label and value columns",
-		GroupName = nameof(Strings.Settings))]
+		GroupName = "Layout")]
 	[Range(5, 50)]
 	public int ColumnSpacing { get; set; } = 15;
 
