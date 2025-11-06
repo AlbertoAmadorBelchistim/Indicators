@@ -3,9 +3,9 @@
 	using System.ComponentModel;
 	using System.ComponentModel.DataAnnotations;
 
-	using OFT.Attributes.Editors;
 	using OFT.Localization;
-    using Utils.Common.Attributes;
+
+	using Utils.Common.Attributes;
 
     [DisplayName("Moving Average of Oscillator")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.OSMADescription))]
@@ -25,7 +25,6 @@
         [Parameter]
         [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShortPeriod), GroupName = nameof(Strings.Period), Description = nameof(Strings.ShortPeriodDescription), Order = 100)]
 		[Range(2, 10000)]
-		[PostValueMode(PostValueModes.OnLostFocus)]
 		[LessThan<int>(nameof(LongPeriod), ErrorMessageResourceType = typeof(Strings), ErrorMessageResourceName = nameof(Strings.ValueMustBeLessThan))]
 		public int ShortPeriod
 		{
@@ -34,7 +33,7 @@
 			{
 				if (value >= LongPeriod)
 					return;
-				
+
 				_shortEma.Period = value;
 				RecalculateValues();
 			}
@@ -43,8 +42,7 @@
         [Parameter]
         [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LongPeriod), GroupName = nameof(Strings.Period), Description = nameof(Strings.LongPeriodDescription), Order = 110)]
 		[Range(2, 10000)]
-		[PostValueMode(PostValueModes.OnLostFocus)]
-        [GreaterThan<int>(nameof(ShortPeriod), ErrorMessageResourceType = typeof(Strings), ErrorMessageResourceName = nameof(Strings.ValueMustBeGreaterThan))]
+		[GreaterThan<int>(nameof(ShortPeriod), ErrorMessageResourceType = typeof(Strings), ErrorMessageResourceName = nameof(Strings.ValueMustBeGreaterThan))]
 		public int LongPeriod
 		{
 			get => _longEma.Period;
@@ -52,7 +50,7 @@
 			{
 				if (value <= ShortPeriod)
 					return;
-				
+
 				_longEma.Period = value;
 				RecalculateValues();
 			}

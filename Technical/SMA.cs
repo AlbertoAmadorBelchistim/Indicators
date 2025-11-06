@@ -42,7 +42,8 @@ namespace ATAS.Indicators.Technical
 			get => _period;
 			set
 			{
-				_period = value;
+				_period = Math.Max(1, value);
+				
 				RecalculateValues();
 			}
 		}
