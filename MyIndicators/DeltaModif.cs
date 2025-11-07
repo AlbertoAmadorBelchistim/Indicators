@@ -1169,6 +1169,8 @@ public class DeltaModif : Indicator
             _upSeries.Clear();
             _downSeries.Clear();
             _divergenceBars.Clear();
+            ResetDynamicState();
+            _lastBar = -1;
         }
 
         // clear price signal by default
@@ -1325,11 +1327,6 @@ public class DeltaModif : Indicator
                 var divergenceColor = DivergenceBarsFilter.Value.Convert();
                 _delta.Colors[bar] = divergenceColor;
             }
-        }
-
-        if (_lastBar != bar)
-        {
-            _lastBar = bar;
         }
 
         // --- session-anchor resets (daily, time-of-day) ---
@@ -1489,14 +1486,23 @@ public class DeltaModif : Indicator
         _prevDeltaValue = deltaValue;
 
         // ===================== FEED WELFORD AFTER DRAWING (NO LOOK-AHEAD) =====================
-        if (inside)
+        int barToFeed = bar - 1;
+
+        if (barToFeed >= 0 && _lastBar != barToFeed)
         {
-            if (candle.MaxDelta > 0)         // positive side uses MaxDelta
-                _posAcc.Add(candle.MaxDelta);
-            
-            if (candle.MinDelta < 0)         // negative side uses |MinDelta|
-                _negAcc.Add(Math.Abs(candle.MinDelta));
-        }
+            var prevCandle = GetCandle(barToFeed);
+                        
+            if (InSession(prevCandle.Time))
+            {
+                if (prevCandle.MaxDelta > 0)         // positive side uses MaxDelta
+                    _posAcc.Add(prevCandle.MaxDelta);
+
+                if (prevCandle.MinDelta < 0)         // negative side uses |MinDelta|
+                    _negAcc.Add(Math.Abs(prevCandle.MinDelta));
+            }
+
+            _lastBar = barToFeed;
+        }
 
 
         // Absorption dots in delta panel
