@@ -455,6 +455,11 @@ public class DeltaModif : Indicator
             if (_showThresholdLines == value) return;
             _showThresholdLines = value;
             UpdateThresholdSeries();
+
+            // 🔧 ensure dynamic thresholds/price signals are in sync with current UI
+            RecalculateValues();
+            RecalculateVisualSignals();
+            RedrawChart();
         }
     }
     private bool _showThresholdLines = true;
@@ -1692,14 +1697,17 @@ public class DeltaModif : Indicator
         _dnMinor.VisualType = vis;
         _dnMajor.VisualType = vis;
 
-        // Full refill using the current fixed values
-        var last = Math.Max(0, CurrentBar - 1);
-        for (var i = 0; i <= last; i++)
+        // Full refill using the current fixed values ONLY if Thresholds = Fixed
+        if (ShowThresholdLines && _thresholds == ThresholdSource.Fixed)
         {
-            _upMajor[i] = UpMajorLevel;
-            _upMinor[i] = UpMinorLevel;
-            _dnMinor[i] = DownMinorLevel;
-            _dnMajor[i] = DownMajorLevel;
+            var last = Math.Max(0, CurrentBar - 1);
+            for (var i = 0; i <= last; i++)
+            {
+                _upMajor[i] = _upMajorLevel;
+                _upMinor[i] = _upMinorLevel;
+                _dnMinor[i] = _downMinorLevel;
+                _dnMajor[i] = _downMajorLevel;
+            }
         }
 
         RebuildThresholdPens();
