@@ -1569,25 +1569,6 @@ public class DeltaModif : Indicator
                     ? _downColor
                     : _neutralColor;
         }
-
-        // --- Draw threshold lines (visibility only) ---
-        if (ShowThresholdLines)
-        {
-            if (Thresholds == ThresholdSource.Fixed)
-            {
-                _upMajor[bar] = UpMajorLevel;
-                _upMinor[bar] = UpMinorLevel;
-                _dnMinor[bar] = DownMinorLevel;
-                _dnMajor[bar] = DownMajorLevel;
-
-                _upMajor.VisualType = _upMinor.VisualType = _dnMinor.VisualType = _dnMajor.VisualType = VisualMode.Line;
-            }
-        }
-        else
-        {
-            // Hide lines, but keep values computed for pickers
-            _upMajor.VisualType = _upMinor.VisualType = _dnMinor.VisualType = _dnMajor.VisualType = VisualMode.Hide;
-        }
     }
 
     #endregion
