@@ -1,4 +1,4 @@
-﻿## 🟦 Cluster Statistic
+﻿## 🟦 Cluster Statistic (versión modificada)
 
 - **Nombre del archivo:** [ClusterStatisticModif.cs](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/compile/myindicators/MyIndicators/ClusterStatisticModif.cs) 
 - **Nombre del indicador:** Cluster Statistic Modif 
