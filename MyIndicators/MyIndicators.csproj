@@ -16,9 +16,6 @@
 		<Configurations>Debug;Release</Configurations>
 	</PropertyGroup>
 
-	<!-- Importa el SDK de escritorio (necesario para que coincida con el oficial) -->
-	<Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk.WindowsDesktop" />
-	<Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk.WindowsDesktop" />
 
 	<!-- Canal STABLE -->
 	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
@@ -28,8 +25,8 @@
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(Configuration)' == 'Release'">
-		<Compile Remove="OHLCPlusModif" />
-		<Compile Remove="InitialBalanceModif" />
+		<Compile Remove="OHLCPlusModif.cs" />
+		<Compile Remove="InitialBalanceModif.cs" />
 	</ItemGroup>
 
 	<!-- Canal DEFAULT (instalación normal) -->
@@ -112,10 +109,5 @@
 		<Compile Remove="**\*.Common.cs" />
 		<None Include="**\*.Common.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
 	</ItemGroup>
-
-	<!-- (Opcional) Copiar la DLL compilada a la carpeta de indicadores de ATAS -->
-	<Target Name="AfterBuild">
-		<Copy SourceFiles="$(TargetPath)" DestinationFolder="%25AppData%25\ATAS\Indicators" />
-	</Target>
 
 </Project>
