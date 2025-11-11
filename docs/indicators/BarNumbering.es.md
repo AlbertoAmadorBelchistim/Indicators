@@ -215,7 +215,7 @@ Tu puntuación de 4.5/10 es justa. No es una herramienta de _trading_, es una he
 
 Dado que tu objetivo es crear un sistema de _trading_, esta herramienta no aporta valor a tu operativa en vivo. Las "Estrategias" que mencionas ("Contar barras desde evento clave") son cosas que un trader hace mentalmente, pero que no necesita que un indicador le "pinte" en el gráfico, saturándolo de números.
 
-**Acción:** **Descartar.** (Es una buena herramienta de _análisis_, pero no una herramienta de _trading_).
+**Acción:** **Descartar.** (Es una buena herramienta de _análisis_, pero no una herramienta de _trading_) .
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTg5NTQ3ODUzXX0=
+eyJoaXN0b3J5IjpbNTE1MjM5MzM5XX0=
 -->
