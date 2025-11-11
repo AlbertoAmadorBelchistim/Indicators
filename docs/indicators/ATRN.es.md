@@ -1,4 +1,4 @@
-## 🟨 ATR Normalized (5/10)
+## 🟨 ATR Normalized (3/10)
 
   
 
@@ -54,7 +54,7 @@
 
 ### 📊 Nivel de relevancia
 
-🔟 **5 / 10**
+🔟 **3 / 10**
 
   
 
@@ -138,13 +138,11 @@ Aquí tienes la "pregunta clave" de este indicador:
 
 ### 🛠️ Veredicto
 
-Este es un indicador para un analista cuantitativo que compara 20 mercados en un gráfico diario, no para un scalper intradía.
-
 No te aporta absolutamente ninguna información nueva que el **ATR estándar** no te dé ya, y además hereda su implementación subóptima (basada en SMA).
 
 **Acción:** **Descartar.**
 
-Tu análisis fue perfecto. ¿Pasamos al siguiente?
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDkyMjg1Nzc3LC0xNjQ1NDI1NzkzXX0=
+eyJoaXN0b3J5IjpbLTExMjMwODYwNzksLTE2NDU0MjU3OTNdfQ
+==
 -->
