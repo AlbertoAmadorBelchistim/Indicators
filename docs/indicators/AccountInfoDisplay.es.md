@@ -1,24 +1,10 @@
-Aquí tienes mi análisis y la ficha completa.
-
-Primero, sobre tu comentario: este código **no está inacabado**. Al contrario, es un indicador de "utilidad" (no de trading) muy completo, robusto y bien escrito. No calcula valores por vela (`OnCalculate` está vacío a propósito), sino que usa `OnRender` para dibujar información de tu cuenta directamente sobre el gráfico.
-
-Es una pieza de código de alta calidad.
-
-----------
-
-> The Key Question: "What is my account's real-time status (Balance, PnL, Margin) right now, without me having to look away from the chart?"
-> 
-> (¿Cuál es el estado de mi cuenta (Balance, PnL, Margen) en tiempo real, sin tener que apartar la vista del gráfico?)
-
-----------
-
 ## 🟨 Account Info Display (7/10)
 
 Nombre del archivo: AccountInfoDisplay.cs
 
 Nombre del indicador: Account Info Display
 
-Web oficial: https://help.atas.net/en/support/solutions/articles/72000648751-account-info-display
+Web oficial: [Atas - Account Info Display](https://help.atas.net/en/support/solutions/articles/72000648751-account-info-display)
 
 ----------
 
@@ -134,7 +120,9 @@ Las "mejoras" serían más bien "preferencias personales" que se podrían añadi
 -   **Auto-Ocultar:** Una opción para que solo se muestre si hay una posición abierta.
     
 
-Honestamente, el código está listo para usarse tal cual. No necesita arreglos. ¿Lo incluimos en tu sistema como panel de "dashboard"?
+---
+### Pregunta clave: 
+¿Cuál es el estado de mi cuenta (Balance, PnL, Margen) en tiempo real, sin tener que apartar la vista del gráfico?
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwOTk5NDg2NjRdfQ==
+eyJoaXN0b3J5IjpbOTcwODQ0Nzg0XX0=
 -->
