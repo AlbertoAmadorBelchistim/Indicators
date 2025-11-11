@@ -25,7 +25,7 @@
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(Configuration)' == 'Release'">
-		<Compile Remove="OHLCPlusModif.cs" />
+		<!--Compile Remove="OHLCPlusModif.cs" /-->
 		<Compile Remove="InitialBalanceModif.cs" />
 	</ItemGroup>
 

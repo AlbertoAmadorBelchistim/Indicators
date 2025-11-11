@@ -36,11 +36,18 @@
         [Display(ResourceType = typeof(Strings), Name = nameof(Strings.None))]
         None = 0,
 
+#if RELEASE
+        [Display(Name = "Till Bar")]
+        Bar = 1,
+        [Display(Name = "Full Width")]
+        Full = 2
+#else
         [Display(ResourceType = typeof(Strings), Name = nameof(Strings.TillBar))]
         Bar = 1,
 
         [Display(ResourceType = typeof(Strings), Name = nameof(Strings.FullWidth))]
         Full = 2
+#endif
     }
 
     // How colors are chosen at render time
@@ -211,7 +218,16 @@
 
     [DisplayName("OHLC Plus Modif")]
     [Category(IndicatorCategories.VolumeOrderFlow)]
+
+#if RELEASE
+
+    [Display(Description = "Extended price level indicator that displays OHLC, Equilibrium, POC and Value Area for multiple periods")]
+
+#else
+
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.OHLCPlusDescription))]
+
+#endif
     public class OHLCPlus : Indicator
     {
         #region Nested types
@@ -421,7 +437,16 @@
 
         #region Day Settings
 
+    #if RELEASE
+
+        [Display(Name = "Open", GroupName = "Current Day", Order = 10)]
+
+    #else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = nameof(Strings.BarOpen), Order = 10)]
+
+    #endif
+
         public LevelSettings DayOpenLevel { get; set; } = new(
             enabled: true,
             color: System.Drawing.Color.Orange.Convert(),
@@ -432,7 +457,17 @@
             lineType: LineType.Bar
         );
 
+    #if RELEASE
+
+        [Display(Name = "High", GroupName = "Current Day", Order = 20)]
+
+    #else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = nameof(Strings.BarHigh), Order = 20)]
+
+    #endif
+
+
         public LevelSettings DayHighLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Green.Convert(),
@@ -443,7 +478,17 @@
             lineType: LineType.Bar
         );
 
+    #if RELEASE
+
+        [Display(Name = "Low", GroupName = "Current Day", Order = 30)]
+
+    #else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = nameof(Strings.BarLow), Order = 30)]
+
+    #endif
+
+
         public LevelSettings DayLowLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Red.Convert(),
@@ -454,7 +499,17 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "Close", GroupName = "Current Day", Order = 40)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = nameof(Strings.BarClose), Order = 40)]
+
+#endif
+
+
         public LevelSettings DayCloseLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Gray.Convert(),
@@ -465,7 +520,17 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "Equilibrium", GroupName = "Current Day", Order = 50)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = nameof(Strings.Equilibrium), Order = 50)]
+
+#endif
+
+
         public LevelSettings DayEquilibriumLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Yellow.Convert(),
@@ -476,7 +541,17 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "POC", GroupName = "Current Day", Order = 60)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = nameof(Strings.POC), Order = 60)]
+
+#endif
+
+
         public LevelSettings DayPOCLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Orange.Convert(),
@@ -487,7 +562,16 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "VWAP", GroupName = "Current Day", Order = 65)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.CurrentDay), Order = 65)]
+
+#endif
+
         public LevelSettings DayVWAPLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.SteelBlue.Convert(),
@@ -498,7 +582,16 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "VAH", GroupName = "Current Day", Order = 70)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = nameof(Strings.VAH), Order = 70)]
+
+#endif
+
         public LevelSettings DayVAHLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Purple.Convert(),
@@ -509,7 +602,17 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "VAL", GroupName = "Current Day", Order = 80)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = nameof(Strings.VAL), Order = 80)]
+
+#endif
+
+
         public LevelSettings DayVALLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Purple.Convert(),
@@ -520,17 +623,42 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "Enable HVN", GroupName = "Current Day", Order = 90)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = "Enable HVN", Order = 90)]
+
+#endif
         public bool DayHVNEnabled { get; set; } = false;
 
+#if RELEASE
+
+        [Display(Name = "HVN Color", GroupName = "Current Day", Order = 95)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = "HVN Color", Order = 95)]
+
+#endif
+
         public CrossColor DayHVNColor { get; set; } = System.Drawing.Color.FromArgb(140, 30, 144, 255).Convert(); // semi-transparent blue/violet
 
         #endregion
 
         #region Prev.Day Settings
 
+#if RELEASE
+
+        [Display(Name = "Open", GroupName = "Previous Day", Order = 10)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.BarOpen), Order = 10)]
+
+#endif
         public LevelSettings PrevDayOpenLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Orange.Convert(),
@@ -541,7 +669,16 @@
             lineType: LineType.Bar
         );
 
-        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.BarHigh), Order = 20)]
+#if RELEASE
+
+        [Display(Name = "High", GroupName = "Previous Day", Order = 20)]
+
+#else
+
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.BarHigh), Order = 20)]
+
+#endif
+
         public LevelSettings PrevDayHighLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Green.Convert(),
@@ -552,7 +689,16 @@
             lineType: LineType.Bar
         );
 
-        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.BarLow), Order = 30)]
+#if RELEASE
+
+        [Display(Name = "Low", GroupName = "Previous Day", Order = 30)]
+
+#else
+
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.BarLow), Order = 30)]
+
+#endif
+
         public LevelSettings PrevDayLowLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Red.Convert(),
@@ -563,7 +709,16 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "Close", GroupName = "Previous Day", Order = 40)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.BarClose), Order = 40)]
+
+#endif
+
         public LevelSettings PrevDayCloseLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Gray.Convert(),
@@ -574,7 +729,16 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "Equilibrium", GroupName = "Previous Day", Order = 50)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.Equilibrium), Order = 50)]
+
+#endif
+
         public LevelSettings PrevDayEquilibriumLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Yellow.Convert(),
@@ -585,7 +749,16 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "POC", GroupName = "Previous Day", Order = 60)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.POC), Order = 60)]
+
+#endif
+
         public LevelSettings PrevDayPOCLevel { get; set; } = new(
             enabled: true,
             color: System.Drawing.Color.Orange.Convert(),
@@ -596,7 +769,16 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "VWAP", GroupName = "Previous Day", Order = 65)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.PreviousDay), Order = 65)]
+
+#endif
+
         public LevelSettings PrevDayVWAPLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.SteelBlue.Convert(),
@@ -607,7 +789,15 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "VAH", GroupName = "Previous Day", Order = 70)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.VAH), Order = 70)]
+
+#endif
         public LevelSettings PrevDayVAHLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Purple.Convert(),
@@ -618,7 +808,15 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "VAL", GroupName = "Previous Day", Order = 80)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.VAL), Order = 80)]
+
+#endif
         public LevelSettings PrevDayVALLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Purple.Convert(),
@@ -629,17 +827,41 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "Enable HVN", GroupName = "Previous Day", Order = 90)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = "Enable HVN", Order = 90)]
+
+#endif
         public bool PrevDayHVNEnabled { get; set; } = false;
 
+#if RELEASE
+
+        [Display(Name = "HVN Color", GroupName = "Previous Day", Order = 95)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = "HVN Color", Order = 95)]
+
+#endif
         public CrossColor PrevDayHVNColor { get; set; } = System.Drawing.Color.FromArgb(140, 255, 140, 0).Convert(); // semi-transparent amber.
 
         #endregion
 
         #region Week Settings
 
-        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.BarOpen), Order = 10)]
+#if RELEASE
+
+        [Display(Name = "Open", GroupName = "Current Week", Order = 10)]
+
+#else
+
+     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.BarOpen), Order = 10)]
+
+#endif
         public LevelSettings WeekOpenLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Orange.Convert(),
@@ -650,7 +872,16 @@
             lineType: LineType.Bar
         );
 
-        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.BarHigh), Order = 20)]
+#if RELEASE
+
+        [Display(Name = "High", GroupName = "Current Week", Order = 20)]
+
+#else
+
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.BarHigh), Order = 20)]
+
+#endif
+
         public LevelSettings WeekHighLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Green.Convert(),
@@ -661,7 +892,15 @@
             lineType: LineType.Bar
         );
 
-        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.BarLow), Order = 30)]
+#if RELEASE
+
+        [Display(Name = "Low", GroupName = "Current Week", Order = 30)]
+
+#else
+
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.BarLow), Order = 30)]
+
+#endif
         public LevelSettings WeekLowLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Red.Convert(),
@@ -672,7 +911,16 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "Close", GroupName = "Current Week", Order = 40)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.BarClose), Order = 40)]
+
+#endif
+
         public LevelSettings WeekCloseLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Gray.Convert(),
@@ -683,7 +931,16 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "Equilibrium", GroupName = "Current Week", Order = 50)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.Equilibrium), Order = 50)]
+
+#endif
+
         public LevelSettings WeekEquilibriumLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Yellow.Convert(),
@@ -694,7 +951,16 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "POC", GroupName = "Current Week", Order = 60)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.POC), Order = 60)]
+
+#endif
+
         public LevelSettings WeekPOCLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Orange.Convert(),
@@ -705,7 +971,16 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "VWAP", GroupName = "Current Week", Order = 65)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.CurrentWeek), Order = 65)]
+
+#endif
+
         public LevelSettings WeekVWAPLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.SteelBlue.Convert(),
@@ -716,7 +991,16 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "VAH", GroupName = "Current Week", Order = 70)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.VAH), Order = 70)]
+
+#endif
+
         public LevelSettings WeekVAHLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Purple.Convert(),
@@ -727,7 +1011,15 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "VAL", GroupName = "Current Week", Order = 80)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.VAL), Order = 80)]
+
+#endif
         public LevelSettings WeekVALLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Purple.Convert(),
@@ -738,16 +1030,42 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "Enable HVN", GroupName = "Current Week", Order = 90)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = "Enable HVN", Order = 90)]
+
+#endif
         public bool WeekHVNEnabled { get; set; } = false;
+
+#if RELEASE
+
+        [Display(Name = "HVN Color", GroupName = "Current Week", Order = 95)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = "HVN Color", Order = 95)]
+
+#endif
         public CrossColor WeekHVNColor { get; set; } = System.Drawing.Color.FromArgb(140, 70, 130, 180).Convert(); // steel-ish
 
         #endregion
 
         #region Prev.Week Settings
 
-        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.BarOpen), Order = 10)]
+#if RELEASE
+
+        [Display(Name = "Open", GroupName = "Previous Week", Order = 10)]
+
+#else
+
+     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.BarOpen), Order = 10)]
+
+#endif
+
         public LevelSettings PrevWeekOpenLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Orange.Convert(),
@@ -758,7 +1076,16 @@
             lineType: LineType.Bar
         );
 
-        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.BarHigh), Order = 20)]
+#if RELEASE
+
+        [Display(Name = "High", GroupName = "Previous Week", Order = 20)]
+
+#else
+
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.BarHigh), Order = 20)]
+
+#endif
+
         public LevelSettings PrevWeekHighLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Green.Convert(),
@@ -769,7 +1096,16 @@
             lineType: LineType.Bar
         );
 
-        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.BarLow), Order = 30)]
+#if RELEASE
+
+        [Display(Name = "Low", GroupName = "Previous Week", Order = 30)]
+
+#else
+
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.BarLow), Order = 30)]
+
+#endif
+
         public LevelSettings PrevWeekLowLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Red.Convert(),
@@ -780,7 +1116,16 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "Close", GroupName = "Previous Week", Order = 40)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.BarClose), Order = 40)]
+
+#endif
+
         public LevelSettings PrevWeekCloseLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Gray.Convert(),
@@ -791,7 +1136,16 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "Equilibrium", GroupName = "Previous Week", Order = 50)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.Equilibrium), Order = 50)]
+
+#endif
+
         public LevelSettings PrevWeekEquilibriumLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Yellow.Convert(),
@@ -802,7 +1156,16 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "POC", GroupName = "Previous Week", Order = 60)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.POC), Order = 60)]
+
+#endif
+
         public LevelSettings PrevWeekPOCLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Orange.Convert(),
@@ -813,7 +1176,16 @@
             lineType: LineType.Bar
         );
 
-        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.PreviousWeek), Order = 65)]
+#if RELEASE
+
+        [Display(Name = "VWAP", GroupName = "Previous Week", Order = 65)]
+
+#else
+
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.PreviousWeek), GroupName = nameof(Strings.CurrentDay), Order = 65)]
+
+#endif
+
         public LevelSettings PrevWeekVWAPLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.SteelBlue.Convert(),
@@ -824,7 +1196,16 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "VAH", GroupName = "Previous Week", Order = 70)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.VAH), Order = 70)]
+
+#endif
+
         public LevelSettings PrevWeekVAHLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Purple.Convert(),
@@ -835,7 +1216,15 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "VAL", GroupName = "Previous Week", Order = 80)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.VAL), Order = 80)]
+
+#endif
         public LevelSettings PrevWeekVALLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Purple.Convert(),
@@ -846,16 +1235,41 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "Enable HVN", GroupName = "Previous Week", Order = 90)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = "Enable HVN", Order = 90)]
+
+#endif
         public bool PrevWeekHVNEnabled { get; set; } = false;
+
+#if RELEASE
+
+        [Display(Name = "HVN Color", GroupName = "Previous Week", Order = 95)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = "HVN Color", Order = 95)]
+
+#endif
         public CrossColor PrevWeekHVNColor { get; set; } = System.Drawing.Color.FromArgb(140, 186, 85, 211).Convert(); // mediumPurple
 
         #endregion
 
         #region Month Settings
 
-        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.BarOpen), Order = 10)]
+#if RELEASE
+
+        [Display(Name = "Open", GroupName = "Current Month", Order = 10)]
+
+#else
+
+     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.BarOpen), Order = 10)]
+
+#endif
         public LevelSettings MonthOpenLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Orange.Convert(),
@@ -866,7 +1280,16 @@
             lineType: LineType.Bar
         );
 
-        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.BarHigh), Order = 20)]
+#if RELEASE
+
+        [Display(Name = "High", GroupName = "Current Month", Order = 20)]
+
+#else
+
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.BarHigh), Order = 20)]
+
+#endif
+
         public LevelSettings MonthHighLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Green.Convert(),
@@ -877,7 +1300,16 @@
             lineType: LineType.Bar
         );
 
-        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.BarLow), Order = 30)]
+#if RELEASE
+
+        [Display(Name = "Low", GroupName = "Current Month", Order = 30)]
+
+#else
+
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.BarLow), Order = 30)]
+
+#endif
+
         public LevelSettings MonthLowLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Red.Convert(),
@@ -888,7 +1320,16 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "Close", GroupName = "Current Month", Order = 40)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.BarClose), Order = 40)]
+
+#endif
+
         public LevelSettings MonthCloseLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Gray.Convert(),
@@ -899,7 +1340,16 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "Equilibrium", GroupName = "Current Month", Order = 50)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.Equilibrium), Order = 50)]
+
+#endif
+
         public LevelSettings MonthEquilibriumLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Yellow.Convert(),
@@ -910,7 +1360,15 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "POC", GroupName = "Current Month", Order = 60)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.POC), Order = 60)]
+
+#endif
         public LevelSettings MonthPOCLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Orange.Convert(),
@@ -921,7 +1379,15 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "VWAP", GroupName = "Current Month", Order = 65)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.CurrentMonth), Order = 65)]
+
+#endif
         public LevelSettings MonthVWAPLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.SteelBlue.Convert(),
@@ -932,7 +1398,15 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "VAH", GroupName = "Current Month", Order = 70)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.VAH), Order = 70)]
+
+#endif
         public LevelSettings MonthVAHLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Purple.Convert(),
@@ -943,7 +1417,15 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "VAL", GroupName = "Current Month", Order = 80)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.VAL), Order = 80)]
+
+#endif
         public LevelSettings MonthVALLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Purple.Convert(),
@@ -954,16 +1436,41 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "Enable HVN", GroupName = "Current Month", Order = 90)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = "Enable HVN", Order = 90)]
+
+#endif
         public bool MonthHVNEnabled { get; set; } = false;
+
+#if RELEASE
+
+        [Display(Name = "HVN Color", GroupName = "Current Month", Order = 95)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = "HVN Color", Order = 95)]
+
+#endif
         public CrossColor MonthHVNColor { get; set; } = System.Drawing.Color.FromArgb(140, 0, 128, 128).Convert(); // teal
 
         #endregion
 
         #region Prev.Month Settings
 
-        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.BarOpen), Order = 10)]
+#if RELEASE
+
+        [Display(Name = "Open", GroupName = "Previous Month", Order = 10)]
+
+#else
+
+     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.BarOpen), Order = 10)]
+
+#endif
         public LevelSettings PrevMonthOpenLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Orange.Convert(),
@@ -974,7 +1481,15 @@
             lineType: LineType.Bar
         );
 
-        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.BarHigh), Order = 20)]
+#if RELEASE
+
+        [Display(Name = "High", GroupName = "Previous Month", Order = 20)]
+
+#else
+
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.BarHigh), Order = 20)]
+
+#endif
         public LevelSettings PrevMonthHighLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Green.Convert(),
@@ -985,7 +1500,15 @@
             lineType: LineType.Bar
         );
 
-        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.BarLow), Order = 30)]
+#if RELEASE
+
+        [Display(Name = "Low", GroupName = "Previous Month", Order = 30)]
+
+#else
+
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.BarLow), Order = 30)]
+
+#endif
         public LevelSettings PrevMonthLowLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Red.Convert(),
@@ -996,7 +1519,15 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "Close", GroupName = "Previous Month", Order = 40)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.BarClose), Order = 40)]
+
+#endif
         public LevelSettings PrevMonthCloseLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Gray.Convert(),
@@ -1007,7 +1538,15 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "Equilibrium", GroupName = "Previous Month", Order = 50)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.Equilibrium), Order = 50)]
+
+#endif
         public LevelSettings PrevMonthEquilibriumLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Yellow.Convert(),
@@ -1018,7 +1557,15 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "POC", GroupName = "Previous Month", Order = 60)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.POC), Order = 60)]
+
+#endif
         public LevelSettings PrevMonthPOCLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Orange.Convert(),
@@ -1029,7 +1576,15 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "VWAP", GroupName = "Previous Month", Order = 65)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.PreviousMonth), Order = 65)]
+
+#endif
         public LevelSettings PrevMonthVWAPLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.SteelBlue.Convert(),
@@ -1040,7 +1595,15 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "VAH", GroupName = "Previous Month", Order = 70)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.VAH), Order = 70)]
+
+#endif
         public LevelSettings PrevMonthVAHLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Purple.Convert(),
@@ -1051,7 +1614,15 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "VAL", GroupName = "Previous Month", Order = 80)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.VAL), Order = 80)]
+
+#endif
         public LevelSettings PrevMonthVALLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Purple.Convert(),
@@ -1062,16 +1633,41 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "Enable HVN", GroupName = "Previous Month", Order = 90)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = "Enable HVN", Order = 90)]
+
+#endif
         public bool PrevMonthHVNEnabled { get; set; } = false;
+
+#if RELEASE
+
+        [Display(Name = "HVN Color", GroupName = "Previous Month", Order = 95)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = "HVN Color", Order = 95)]
+
+#endif
         public CrossColor PrevMonthHVNColor { get; set; } = System.Drawing.Color.FromArgb(140, 47, 79, 79).Convert(); // darkslategray
 
         #endregion
 
         #region Contract Settings
 
-        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.BarOpen), Order = 10)]
+#if RELEASE
+
+        [Display(Name = "Open", GroupName = "Contract", Order = 10)]
+
+#else
+
+     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.BarOpen), Order = 10)]
+
+#endif
         public LevelSettings ContractOpenLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Orange.Convert(),
@@ -1082,7 +1678,15 @@
             lineType: LineType.Bar
         );
 
-        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.BarHigh), Order = 20)]
+#if RELEASE
+
+        [Display(Name = "High", GroupName = "Contract", Order = 20)]
+
+#else
+
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.BarHigh), Order = 20)]
+
+#endif
         public LevelSettings ContractHighLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Green.Convert(),
@@ -1093,7 +1697,15 @@
             lineType: LineType.Bar
         );
 
-        [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.BarLow), Order = 30)]
+#if RELEASE
+
+        [Display(Name = "Low", GroupName = "Contract", Order = 30)]
+
+#else
+
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.BarLow), Order = 30)]
+
+#endif
         public LevelSettings ContractLowLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Red.Convert(),
@@ -1104,7 +1716,15 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "Close", GroupName = "Contract", Order = 40)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.BarClose), Order = 40)]
+
+#endif
         public LevelSettings ContractCloseLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Gray.Convert(),
@@ -1115,7 +1735,15 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "Equilibrium", GroupName = "Contract", Order = 50)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.Equilibrium), Order = 50)]
+
+#endif
         public LevelSettings ContractEquilibriumLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Yellow.Convert(),
@@ -1126,7 +1754,15 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "POC", GroupName = "Contract", Order = 60)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.POC), Order = 60)]
+
+#endif
         public LevelSettings ContractPOCLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Orange.Convert(),
@@ -1137,7 +1773,16 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "VWAP", GroupName = "Contract", Order = 65)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.Contract), Order = 65)]
+
+#endif
+
         public LevelSettings ContractVWAPLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.SteelBlue.Convert(),
@@ -1148,7 +1793,15 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "VAH", GroupName = "Contract", Order = 70)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.VAH), Order = 70)]
+
+#endif
         public LevelSettings ContractVAHLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Purple.Convert(),
@@ -1159,7 +1812,15 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "VAL", GroupName = "Contract", Order = 80)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.VAL), Order = 80)]
+
+#endif
         public LevelSettings ContractVALLevel { get; set; } = new(
             enabled: false,
             color: System.Drawing.Color.Purple.Convert(),
@@ -1170,9 +1831,26 @@
             lineType: LineType.Bar
         );
 
+#if RELEASE
+
+        [Display(Name = "Enable HVN", GroupName = "Contract", Order = 90)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = "Enable HVN", Order = 90)]
+
+#endif
         public bool ContractHVNEnabled { get; set; } = false;
+
+#if RELEASE
+
+        [Display(Name = "HVN Color", GroupName = "Contract", Order = 95)]
+
+#else
+
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = "HVN Color", Order = 95)]
+
+#endif
         public CrossColor ContractHVNColor { get; set; } = System.Drawing.Color.FromArgb(140, 30, 144, 255).Convert(); // dodgerblue
 
         #endregion
@@ -1610,8 +2288,27 @@
                 UpdateLevel(keys[5], candle.MaxVolumePriceInfo.Price);
 
             // VWAP
+#if RELEASE
+        // --- VERSIÓN ESTABLE ---
+        // VWAP debe calcularse manualmente llamando a nuestro nuevo método.
+        decimal vwap = CalculateVwapManually(candle);
+        if (vwap > 0)
+            UpdateLevel(keys[6], vwap);
+
+        // VAH/VAL (Estos SÍ están en ValueArea)
+        if (candle.ValueArea != null &&
+            candle.ValueArea.ValueAreaHigh > 0 &&
+            candle.ValueArea.ValueAreaLow > 0 &&
+            candle.ValueArea.ValueAreaHigh >= candle.ValueArea.ValueAreaLow)
+        {
+            UpdateLevel(keys[7], candle.ValueArea.ValueAreaHigh);
+            UpdateLevel(keys[8], candle.ValueArea.ValueAreaLow);
+        }
+#else
             if (candle.VWAP > 0)
                 UpdateLevel(keys[6], candle.VWAP);
+
+#endif
 
             // VAH/VAL
             if (candle.ValueArea != null &&
@@ -2522,6 +3219,35 @@
         private static int LineStartAfter(Rectangle labelRect, int padding = 4)
             => labelRect.Right + padding;
 
+        #endregion
+
+        #region stable API helpers
+
+        /// <summary>
+        /// Calcula manualmente el VWAP desde los niveles de precios del perfil.
+        /// Necesario para la API estable donde 'IndicatorCandle' no tiene la propiedad '.VWAP'.
+        /// </summary>
+        private decimal CalculateVwapManually(IndicatorCandle candle)
+        {
+            // Usamos candle.Volume como el Sum(Volume) total.
+            if (candle == null || candle.Volume <= 0)
+                return 0;
+
+            var priceLevels = candle.GetAllPriceLevels();
+            if (priceLevels == null)
+                return 0;
+
+            decimal totalPriceVolume = 0;
+
+            // Calculamos Sum(Price * Volume)
+            foreach (var level in priceLevels)
+            {
+                totalPriceVolume += level.Price * level.Volume;
+            }
+
+            // VWAP = Sum(P*V) / Sum(V)
+            return totalPriceVolume / candle.Volume;
+        }
         #endregion
 
 
