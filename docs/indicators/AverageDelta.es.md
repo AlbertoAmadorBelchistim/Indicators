@@ -158,9 +158,7 @@ Aquí tienes la "pregunta clave" de este indicador:
 
 **Acción:** **Conservar (con reservas)**.
 
-Es una herramienta de contexto válida si entiendes sus limitaciones. Tu "Parametrización óptima" (`Period=5`, `CalcType=Ema`) es la elección perfecta para minimizar el lag y hacerlo lo más útil posible para el scalping.
-
-Excelente trabajo. ¿Continuamos?
+Es una herramienta de contexto válida si entiendes sus limitaciones. 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTUxNTc1MDAxMV19
+eyJoaXN0b3J5IjpbLTEzMjk0NjQxNzRdfQ==
 -->
