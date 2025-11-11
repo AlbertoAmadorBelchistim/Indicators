@@ -192,10 +192,6 @@ ATAS ya tiene un indicador "EMA" (Media Móvil Exponencial) incorporado que es m
 Este indicador (`BWMA.cs`) es una copia menos flexible y con un nombre confuso de una herramienta estándar que ya existe.
 
 **Acción:** **Descartar.** (No porque el concepto sea malo, sino porque es una implementación redundante y peor de un indicador estándar).
-
-Has hecho un gran trabajo al identificar la fórmula, solo te faltó dar el último paso y reconocerla como la fórmula de la EMA. ¡Excelente análisis!
-
-¿Continuamos?
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2MzA0MzQ1ODRdfQ==
+eyJoaXN0b3J5IjpbLTE5MjUzMTkzMl19
 -->
