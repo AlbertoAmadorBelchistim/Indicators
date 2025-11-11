@@ -26,12 +26,12 @@
 | AdaptiveRsiAverage.cs                  | Adaptive RSI Moving Average               | Trend| 6/10                | Stable| Discard|How can I get a moving average that automatically _slows down_ when the market is undecided (RSI near 50) and _speeds up_ to catch trends when momentum is strong (RSI near 0 or 100)? |
 | `Alligator.cs` [(ES)](indicators/Alligator.es.md)           | Alligator                    | Trend| 6/10        | Stable |No |Is the market 'sleeping' (in a range, with intertwined MAs) or is it 'awake and eating' (in a trend, with the MAs spread open)?|
 | Angle.cs                 | Study Angle| Trend| 2/10         | Stable| Discard|What is the literal geometric angle (in degrees) of the price trend over the last X bars? |
-| AroonIndicator.cs        | Aroon Indicator| Momentum                   | 3/10| Stable| Discard| |
+| AroonIndicator.cs        | Aroon Indicator| Momentum                   | 3/10| Stable| Discard| Is the market's strength coming from _recently_ making new highs, or from _recently_ making new lows?|
 | AroonOscillator.cs       | Aroon Oscillator             | Technical                   | Tendencia                        | Stable| No| |
 | AskBidBars.cs            | Ask/Bid Bars                 | VolumeOrderFlow             | Order flow / Bid-Ask             | Stable| Keep (with caveats)| |
 | AverageDelta.cs          | Average Delta                | VolumeOrderFlow             | Delta / Promedio                 | Stable| No| |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTEyNDc1ODYzLDQyODc4ODc1MywtOTI2OT
+eyJoaXN0b3J5IjpbNzE5NjQ5NTQ2LDQyODc4ODc1MywtOTI2OT
 Q2NTg4LDk5OTE2MzE5MywtMjE0NjgzODU1NCwyMDY3MTI1Mzk5
 LDM5ODc1NzI1MCwtMTkzMjMxMzI0NSwxMzIzMzczOTY0LC0zOD
 M5NjIxNzRdfQ==
