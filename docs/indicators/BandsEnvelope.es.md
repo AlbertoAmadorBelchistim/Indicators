@@ -1,4 +1,4 @@
-## 🟦 Bands / Envelope (4/10)
+## 🟦 Bands / Envelope (3/10)
 
   
 
@@ -56,7 +56,7 @@
 
 ### 📊 Nivel de relevancia
 
-🔟 **4 / 10**
+🔟 **3 / 10**
 
   
 
@@ -264,5 +264,5 @@ Por lo tanto, el indicador no solo es conceptualmente inferior a las Bandas de B
 
 **Acción (reconfirmada):** **Descartar.**
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTUyMTYyNzMsMjM2MjA0NF19
+eyJoaXN0b3J5IjpbMTk3NzI3MTE0OSwyMzYyMDQ0XX0=
 -->
