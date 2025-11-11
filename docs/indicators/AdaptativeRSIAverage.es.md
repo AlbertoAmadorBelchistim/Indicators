@@ -209,8 +209,6 @@ El AMA era un filtro de régimen (Tendencia/Rango) de 8/10. Este es un filtro de
 Tu análisis ha sido perfecto.
 
 **Acción:** **Descartar** (no porque sea malo, sino porque el AMA que ya analizamos es mejor y más rápido).
-
-¿Continuamos?
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQ2OTUxNTA3Nl19
+eyJoaXN0b3J5IjpbLTE4NDIxMzI1MDBdfQ==
 -->
