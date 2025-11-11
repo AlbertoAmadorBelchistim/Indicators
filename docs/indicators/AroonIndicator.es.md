@@ -167,9 +167,9 @@ El resultado, como se ve perfectamente en tu captura de pantalla, es un oscilado
 
 Un scalper no puede tomar decisiones con una señal tan errática.
 
-Notas de Desarrollo (Mi Opinión):
+**Notas de Desarrollo:**
 
-Tu análisis del código es correcto. Curiosamente, la implementación es lógicamente correcta pero computacionalmente ineficiente. Usa OrderBy().First() en cada barra para encontrar el máximo/mínimo de la lista. Esto es O(n log n) en cada tick, cuando podría ser O(1) la mayor parte del tiempo. Para un período de 10 esto no importa, pero es un detalle de programación "sucio". Tu análisis de lo que hace (la fórmula) es perfecto.
+La implementación es lógicamente correcta pero computacionalmente ineficiente. Usa OrderBy().First() en cada barra para encontrar el máximo/mínimo de la lista. Esto es O(n log n) en cada tick, cuando podría ser O(1) la mayor parte del tiempo. Para un período de 10 esto no importa, pero es un detalle de programación "sucio". 
 
 ----------
 
@@ -177,19 +177,16 @@ Tu análisis del código es correcto. Curiosamente, la implementación es lógic
 
 **No. Es un claro "Descartar".**
 
-Tu puntuación de 6/10 es correcta para un análisis general, pero para _tu_ sistema de scalping del S&P 500, le doy un **3/10**.
-
 1.  **Es Demasiado Ruidoso:** Como demuestra tu captura, es inutilizable en gráficos de M1/M5.
     
 2.  **Es Lento:** El indicador es, por diseño, un seguidor de tendencias lento. Te confirma un nuevo máximo _después_ de que ha pasado.
     
 3.  **Tenemos Herramientas Mejores:** El **AMA (Kaufman)** que ya hemos "Conservado" hace un trabajo infinitamente superior al identificar "fases de tendencia" y "fases de rango" de una manera suave, visual y mucho más rápida.
     
-
 El Aroon es un indicador clásico diseñado para gráficos diarios, no para el scalping moderno.
 
 **Acción:** **Descartar.**
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwNDAzNjA1OTAsLTk0NzY5MTI3LDY2ND
-IzNzM0Ml19
+eyJoaXN0b3J5IjpbMTAwMDU1MjY0MCwtOTQ3NjkxMjcsNjY0Mj
+M3MzQyXX0=
 -->
