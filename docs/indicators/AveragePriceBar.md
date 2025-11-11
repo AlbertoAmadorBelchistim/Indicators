@@ -115,6 +115,38 @@
 ⛔ Algunas requieren datos adicionales (volumen, rango relativo)
 
 ## Comentario Gemini
+Aquí tienes la "pregunta clave" de este indicador:
+
+> The Key Question: "Instead of just the 'Close', what is the internal average price (e.g., Median, Typical) of each individual bar?"
+> 
+> (¿En lugar de solo el 'Cierre', cuál es el precio promedio interno (ej. Mediana, Típico) de cada vela individual?)
+
+----------
+### ✍️ Mi Opinión sobre el Indicador
+
+Este indicador es el ejemplo perfecto de una herramienta que es **100% redundante**.
+
+**Me explico:**
+
+-   Muchos otros indicadores (SMA, EMA, RSI, etc.) te permiten elegir _sobre qué_ se calculan. En la configuración de un SMA, puedes elegir `Source = Close`, `Source = Open`, `Source = Typical (HLC3)`, `Source = Median (HL2)`, etc.
+    
+-   Este indicador (`AveragePriceBar`) es, literalmente, un `SMA(1)` con la fuente cambiada. No es una _media móvil_, no suaviza nada, no tiene "período".
+    
+-   Es solo una línea que sigue el "Precio Típico" o el "Precio Mediano" de cada vela.
+    
+
+Como puedes ver en tu captura de pantalla, el resultado es una línea ruidosa que sigue al precio casi tick por tick, pero que no es ni el `High`, ni el `Low`, ni el `Close`.
+
+### 📈 Veredicto: ¿Es útil para Scalping?
+
+**No. Es un claro "Descartar".**
+
+1.  **Añade Ruido Visual:** Es una línea nerviosa más en el gráfico que no te da información clara sobre la tendencia o el momentum.  
+2.  **No Filtra Nada:** Al no ser una _media móvil_, no suaviza el precio.
+3.  **Es Redundante:** Si quisieras el "Precio Típico", simplemente usarías una `EMA(20)` aplicada al "Precio Típico". Este indicador no aporta valor.
+    
+
+**Acción:** **Descartar.**
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2MzcwNDE5MDBdfQ==
+eyJoaXN0b3J5IjpbMTc2MzMzMDA2NF19
 -->
