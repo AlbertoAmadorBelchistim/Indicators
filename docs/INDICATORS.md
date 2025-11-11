@@ -8,7 +8,7 @@
 
 | File `.cs`               | Indicator´s name              | Category       | Scalping score           | Version               | Gemini's Verdict | Answer|
 |-----------------------------|-----------------------------------|----------------------------|-------------------------------|------------|-----------|----|
-| `ACBW.cs` [(ES)](indicators/ACBW.es.md)            | Bill Williams AC                  | Momentum         | 4/10          | Stable| No | Is the current trend's momentum accelerating or hitting the brakes?|
+| `ACBW.cs` [(ES)](indicators/ACBW.es.md)            | Bill Williams AC                  | Momentum         | 4/10          | Stable| Discard| Is the current trend's momentum accelerating or hitting the brakes?|
 | `ACDC.cs` [(ES)](indicators/ACDC.es.md)                  | AC DC Histogram          | Momentum          | 2/10          | Stable| No | What is the smoothed, lagging direction of the market's acceleration?|
 | `ACR.cs` [(ES)](indicators/ACR.es.md)                  | Average Candle Range            | Volatility        | 5/10         | Stable | Yes -> 9/10 | What is the average size of a single candle so far today?|
 | `AD.cs` [(ES)](indicators/AD.es.md)                     | Accumulation/Distribution (A/D)         | Volume         | 2/10          | Stable | No | Is the cumulative volume flow confirming the price trend, or is it showing a divergence?|
@@ -31,6 +31,6 @@
 | AskBidBars.cs            | Ask/Bid Bars                 | VolumeOrderFlow             | Order flow / Bid-Ask             | Stable| No| |
 | AverageDelta.cs          | Average Delta                | VolumeOrderFlow             | Delta / Promedio                 | Stable| No| |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5MzIzMTMyNDUsMTMyMzM3Mzk2NCwtMz
-gzOTYyMTc0XX0=
+eyJoaXN0b3J5IjpbLTczNzkwMDk1NiwtMTkzMjMxMzI0NSwxMz
+IzMzczOTY0LC0zODM5NjIxNzRdfQ==
 -->
