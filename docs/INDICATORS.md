@@ -20,7 +20,7 @@
 | AO.cs                    | Awesome Oscillator                           | Momentum| 4/10         | Stable| Discard|Is the market's recent, short-term momentum (5-bar) currently winning against the longer-term trend's momentum (34-bar) |
 | ATR.cs                   | ATR                          | Volatility| 6/10                      | Stable| **Keep and Improve**|What has been the _average true size_ (including gaps) of each bar over the last X periods? |
 | ATRN.cs                  | ATR Normalized               | Volatility| 3/10                | Stable| Discard| What is the instrument's volatility (ATR) _as a percentage of its current price_? |
-| AccountInfoDisplay.cs                  | ATR Normalized               | Technical                   | Volatilidad / ATR                | Beta?| No| |
+| AccountInfoDisplay.cs                  | ATR Normalized               | Technical                   | 7/10                | Beta?| No|What is my account's real-time status (Balance, PnL, Margin) right now, without me having to look away from the chart? |
 | ActiveVolume.cs                  | ATR Normalized               | Technical                   | Volatilidad / ATR                | Beta?|No| |
 | AdaptiveBinaryWaveMA.cs                  | ATR Normalized               | Technical                   | Volatilidad / ATR                | Stable| No| |
 | AdaptiveRsiAverage.cs                  | ATR Normalized               | Technical                   | Volatilidad / ATR                | Stable| No| |
@@ -31,6 +31,7 @@
 | AskBidBars.cs            | Ask/Bid Bars                 | VolumeOrderFlow             | Order flow / Bid-Ask             | Stable| Keep (with caveats)| |
 | AverageDelta.cs          | Average Delta                | VolumeOrderFlow             | Delta / Promedio                 | Stable| No| |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjA2NzEyNTM5OSwzOTg3NTcyNTAsLTE5Mz
-IzMTMyNDUsMTMyMzM3Mzk2NCwtMzgzOTYyMTc0XX0=
+eyJoaXN0b3J5IjpbODY2NzgyODc2LDIwNjcxMjUzOTksMzk4Nz
+U3MjUwLC0xOTMyMzEzMjQ1LDEzMjMzNzM5NjQsLTM4Mzk2MjE3
+NF19
 -->
