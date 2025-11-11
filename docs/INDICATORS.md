@@ -25,14 +25,14 @@
 | AdaptiveBinaryWaveMA.cs                  | Adaptive Binary Wave               | Trend|6/10| Stable| **Keep** |Has the adaptive moving average (AMA) broken out of its recent 'crawl' by a statistically significant amount?|
 | AdaptiveRsiAverage.cs                  | Adaptive RSI Moving Average               | Trend| 6/10                | Stable| Discard|How can I get a moving average that automatically _slows down_ when the market is undecided (RSI near 50) and _speeds up_ to catch trends when momentum is strong (RSI near 0 or 100)? |
 | `Alligator.cs` [(ES)](indicators/Alligator.es.md)           | Alligator                    | Trend| 6/10        | Stable |No |Is the market 'sleeping' (in a range, with intertwined MAs) or is it 'awake and eating' (in a trend, with the MAs spread open)?|
-| Angle.cs                 | Study Angle| Technical                   | Indicadores de pendiente         | Stable| Discard| |
+| Angle.cs                 | Study Angle| Trend| 2/10         | Stable| Discard| |
 | AroonIndicator.cs        | Aroon                        | Technical                   | Tendencia                        | Stable| No| |
 | AroonOscillator.cs       | Aroon Oscillator             | Technical                   | Tendencia                        | Stable| No| |
 | AskBidBars.cs            | Ask/Bid Bars                 | VolumeOrderFlow             | Order flow / Bid-Ask             | Stable| Keep (with caveats)| |
 | AverageDelta.cs          | Average Delta                | VolumeOrderFlow             | Delta / Promedio                 | Stable| No| |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQ4MjI2NjA5Myw0Mjg3ODg3NTMsLTkyNj
-k0NjU4OCw5OTkxNjMxOTMsLTIxNDY4Mzg1NTQsMjA2NzEyNTM5
-OSwzOTg3NTcyNTAsLTE5MzIzMTMyNDUsMTMyMzM3Mzk2NCwtMz
-gzOTYyMTc0XX0=
+eyJoaXN0b3J5IjpbLTE1ODAyMjA4NzcsNDI4Nzg4NzUzLC05Mj
+Y5NDY1ODgsOTk5MTYzMTkzLC0yMTQ2ODM4NTU0LDIwNjcxMjUz
+OTksMzk4NzU3MjUwLC0xOTMyMzEzMjQ1LDEzMjMzNzM5NjQsLT
+M4Mzk2MjE3NF19
 -->
