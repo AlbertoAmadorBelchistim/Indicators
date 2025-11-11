@@ -112,9 +112,7 @@ La "optimización" aquí es minimalista, para evitar distracciones:
 El código es **excelente y está 100% completo**. Es robusto, limpio y profesional. No he encontrado ningún fallo.
 
 Las "mejoras" serían más bien "preferencias personales" que se podrían añadir:
-
--   **Añadir `ShowTotalPnL`:** Esta propiedad está definida (`ShowTotalPnL`) pero parece que no se usa en el `BuildDisplayText`. _Corrección_: No, sí está, yo me equivoqué al leerlo rápido. El código está perfecto.
-    
+  
 -   **Modo Minimalista:** Una opción de "Modo Minimalista" que con un solo clic oculte todo excepto el PnL Abierto.
     
 -   **Auto-Ocultar:** Una opción para que solo se muestre si hay una posición abierta.
@@ -124,5 +122,5 @@ Las "mejoras" serían más bien "preferencias personales" que se podrían añadi
 ### Pregunta clave: 
 ¿Cuál es el estado de mi cuenta (Balance, PnL, Margen) en tiempo real, sin tener que apartar la vista del gráfico?
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbOTcwODQ0Nzg0XX0=
+eyJoaXN0b3J5IjpbLTEzNjk2NDEzNjMsOTcwODQ0Nzg0XX0=
 -->
