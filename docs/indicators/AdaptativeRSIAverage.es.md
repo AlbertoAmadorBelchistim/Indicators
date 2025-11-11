@@ -187,11 +187,7 @@ El resultado es el que se ve en tu captura de pantalla: una media móvil **incre
 
 Es el "primo lento" del AMA (Kaufman).
 
-El AMA era un filtro de régimen (Tendencia/Rango) de 8/10. Este es un filtro de 6/10. Hace lo mismo, pero con más retraso. Dado que ya tenemos el AMA, que es superior, este indicador es redundante.
-
-Tu análisis ha sido perfecto.
-
-**Acción:** **Descartar** (no porque sea malo, sino porque el AMA que ya analizamos es mejor y más rápido).
+**Acción:** **Descartar**.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTUyMjQ1MjM2NSwtMTg0MjEzMjUwMF19
+eyJoaXN0b3J5IjpbLTM5MTA5NzA1MiwtMTg0MjEzMjUwMF19
 -->
