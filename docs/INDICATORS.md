@@ -18,7 +18,7 @@
 | `ADXR.cs` [(ES)](indicators/ADXR.es.md)                 | ADXR                               | Trend         | 2/10         | Stable | Discard| What is the smoothed-out, stable strength of the trend, ignoring short-term noise from the ADX itself?|
 | `AMA.cs` [(ES)](indicators/AMA.es.md)                   | AMA                          | Trend                   | 7/10          | Stable | Discard| How can I get a smooth moving average that doesn't lag during a strong breakout but does filter out the 'chop' in a sideways market?|
 | AO.cs                    | Awesome Oscillator                           | Momentum| 4/10         | Stable| Discard|Is the market's recent, short-term momentum (5-bar) currently winning against the longer-term trend's momentum (34-bar) |
-| ATR.cs                   | ATR                          | Volatility| 6/10                      | Stable| No|What has been the _average true size_ (including gaps) of each bar over the last X periods? |
+| ATR.cs                   | ATR                          | Volatility| 6/10                      | Stable| **Keep and Improve**|What has been the _average true size_ (including gaps) of each bar over the last X periods? |
 | ATRN.cs                  | ATR Normalized               | Volatility| 3/10                | Stable| Discard| What is the instrument's volatility (ATR) _as a percentage of its current price_? |
 | AccountInfoDisplay.cs                  | ATR Normalized               | Technical                   | Volatilidad / ATR                | Beta?| No| |
 | ActiveVolume.cs                  | ATR Normalized               | Technical                   | Volatilidad / ATR                | Beta?|No| |
@@ -31,6 +31,6 @@
 | AskBidBars.cs            | Ask/Bid Bars                 | VolumeOrderFlow             | Order flow / Bid-Ask             | Stable| Keep (with caveats)| |
 | AverageDelta.cs          | Average Delta                | VolumeOrderFlow             | Delta / Promedio                 | Stable| No| |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExNjU3MzU2MTIsMzk4NzU3MjUwLC0xOT
-MyMzEzMjQ1LDEzMjMzNzM5NjQsLTM4Mzk2MjE3NF19
+eyJoaXN0b3J5IjpbMTQ1MzU3NDI1LDM5ODc1NzI1MCwtMTkzMj
+MxMzI0NSwxMzIzMzczOTY0LC0zODM5NjIxNzRdfQ==
 -->
