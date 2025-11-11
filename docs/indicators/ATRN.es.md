@@ -6,7 +6,7 @@
 
 **Nombre del indicador:** ATR Normalized
 
-**Web oficial:**  [https://help.atas.net/support/solutions/articles/72000602633](https://help.atas.net/support/solutions/articles/72000602633)
+**Web oficial:**  [ATAS -   ATR Normalized](https://help.atas.net/support/solutions/articles/72000602633)
 
   
 
@@ -115,6 +115,11 @@
 - El resultado se guarda en la serie `RenderSeries` para ser mostrado en un panel independiente
 
 - La visualización está normalizada en porcentaje, lo que permite comparaciones entre distintos instrumentos o precios
+
+---
+
+## Comentario Gemini
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2NDU0MjU3OTNdfQ==
+eyJoaXN0b3J5IjpbLTEyMzYwMDc2MTUsLTE2NDU0MjU3OTNdfQ
+==
 -->
