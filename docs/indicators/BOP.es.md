@@ -9,14 +9,11 @@
 **Web oficial:** [https://help.atas.net/support/solutions/articles/72000602623](https://help.atas.net/support/solutions/articles/72000602623)
 
   
-
 ---
 
   
 
-### ⚙️ Parámetros configurables
-
-  
+### ⚙️ Parámetros configurables 
 
 - **Period**: Periodo de la media móvil simple aplicada al cálculo del BOP
 
@@ -41,11 +38,8 @@
   
 
 - Medir el **desequilibrio entre compradores y vendedores** dentro de una vela
-
 - Confirmar si una barra fue dominada por la presión compradora o vendedora
-
 - Evaluar la **intensidad relativa del cierre** dentro del rango de la vela
-
 - Usado como oscilador para detectar **divergencias o confirmaciones**
 
   
@@ -56,16 +50,11 @@
 
 ### 📊 Nivel de relevancia
 
-🔟 **5.5 / 10**
-
-  
+🔟 **5.5 / 10** 
 
 ✅ Sencillo de interpretar en contextos claros de tendencia
-
 ✅ Útil como complemento en osciladores multi-fuente
-
 ⛔ Menos eficaz en velas de rango estrecho
-
 ⛔ No incluye volumen ni análisis de order flow
 
   
@@ -74,16 +63,10 @@
 
   
 
-### 🎯 Estrategias de scalping donde se aplica
-
-  
-
+### 🎯 Estrategias de scalping donde se aplica 
 - **Confirmar impulso real**: BOP creciente junto a rupturas o breakout
-
 - **Detectar reversión débil**: divergencias entre precio y BOP
-
 - **Filtrar señales**: evitar entradas si el BOP no confirma el movimiento
-
 - **Validar absorciones**: vela verde con BOP negativo → posible engaño
 
   
@@ -92,18 +75,12 @@
 
   
 
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500) 
 
-  
-
-- **Period**: `14`
-
-  
+- **Period**: `14` 
 
 ✅ Suaviza las señales sin perder agilidad en marcos rápidos
-
 ✅ Compatible con setups que buscan validación estructural
-
 ⛔ Evitar usarlo como única señal de entrada
 
   
@@ -114,18 +91,11 @@
 
 ### 🧪 Notas de desarrollo
 
-  
-
 - Cálculo base por vela:
-
 `(Close - Open) / (High - Low)`
-
 si `(High - Low) != 0`, de lo contrario BOP = 0
-
 - El valor se suaviza mediante una media móvil simple (`SMA`)
-
 - El resultado se representa como una sola serie (`RenderSeries`)
-
 - No utiliza volumen ni delta en el cálculo
 
   
@@ -139,16 +109,12 @@ si `(High - Low) != 0`, de lo contrario BOP = 0
   
 
 - Añadir opción de suavizado por otros tipos de medias (EMA, WMA)
-
 - Incluir alertas por cruce de cero o por divergencia
-
 - Integrar filtros por rango mínimo para evitar barras insignificantes
-
 - Posibilidad de combinar con delta o volumen para mayor precisión
 
 ## Comentario Gemini
 
-----------
 
 > La Pregunta Clave: "¿Cuál es, en promedio, la fuerza del cuerpo de la vela (Cierre vs. Apertura) en relación con su rango total (Máximo vs. Mínimo)?"
 > 
@@ -176,9 +142,7 @@ Este indicador es **redundante**. Ya hemos "Conservado" herramientas infinitamen
 2.  **¿Hay fuerza/absorción?** El `ActiveVolume` (8/10) o el `Bar's Volume Filter` (7/10) te lo dicen usando **Volumen y Delta**, que es información de mucha mayor calidad que el simple Price Action.
     
 
-**Acción:** **Descartar.** (Tu ficha era perfecta; el indicador es el que no da la talla).
-
-Disculpa de nuevo por la confusión. ¿Continuamos?
+**Acción:** **Descartar.**
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyOTY1MjUyNzEsOTYyODE2MDE2XX0=
+eyJoaXN0b3J5IjpbLTg4NzUwNTE2OSw5NjI4MTYwMTZdfQ==
 -->
