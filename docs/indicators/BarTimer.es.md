@@ -194,7 +194,9 @@
 
 - Posibilidad de **mostrar temporizador por separado en panel auxiliar**
 
-###Comentario 
+###Com Comentario Gemini
+
+##entar
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODU3NjYwNTQ3XX0=
+eyJoaXN0b3J5IjpbNDI5Nzk1NzU5LDg1NzY2MDU0N119
 -->
