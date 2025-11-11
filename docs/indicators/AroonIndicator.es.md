@@ -147,17 +147,10 @@
 ## Comentario Gemini
 Aquí tienes la "pregunta clave" de este indicador:
 
-> The Key Question: "Is the market's strength coming from recently making new highs, or from recently making new lows?"
-> 
-> (¿La fortaleza del mercado proviene de haber hecho recientemente nuevos máximos, o de haber hecho recientemente nuevos mínimos?)
+¿La fortaleza del mercado proviene de haber hecho recientemente nuevos máximos, o de haber hecho recientemente nuevos mínimos?
 
 ----------
-
-Tu ficha es, de nuevo, **impecable**. Has analizado la funcionalidad y el propósito del indicador Aroon a la perfección. Tu puntuación de **6/10** es, en mi opinión, totalmente acertada (incluso un poco generosa) para el scalping.
-
 ### ✍️ Mi Opinión sobre el Indicador
-
-Tu análisis es 100% correcto. Ahora, hablemos de _por qué_ es un 6/10 y no un 8 o 9, especialmente para tu sistema.
 
 **El Problema: Es un Indicador "Digital" y Ruidoso**
 
@@ -197,5 +190,6 @@ El Aroon es un indicador clásico diseñado para gráficos diarios, no para el s
 
 **Acción:** **Descartar.**
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTk0NzY5MTI3LDY2NDIzNzM0Ml19
+eyJoaXN0b3J5IjpbLTEwNDAzNjA1OTAsLTk0NzY5MTI3LDY2ND
+IzNzM0Ml19
 -->
