@@ -21,7 +21,7 @@
 | ATR.cs                   | ATR                          | Volatility| 6/10                      | Stable| **Keep and Improve**|What has been the _average true size_ (including gaps) of each bar over the last X periods? |
 | ATRN.cs                  | ATR Normalized               | Volatility| 3/10                | Stable| Discard| What is the instrument's volatility (ATR) _as a percentage of its current price_? |
 | AccountInfoDisplay.cs                  | Account Info Display               | Visualization                   | 7/10                | Beta?| **Keep**|What is my account's real-time status (Balance, PnL, Margin) right now, without me having to look away from the chart? |
-| ActiveVolume.cs                  | ATR Normalized               | Technical                   | Volatilidad / ATR                | Beta?|No| |
+| ActiveVolume.cs                  | Active Volume              | Order Flow                   | 8/10|**Keep and Improve**| |
 | AdaptiveBinaryWaveMA.cs                  | ATR Normalized               | Technical                   | Volatilidad / ATR                | Stable| No| |
 | AdaptiveRsiAverage.cs                  | ATR Normalized               | Technical                   | Volatilidad / ATR                | Stable| No| |
 | `Alligator.cs` [(ES)](indicators/Alligator.es.md)           | Alligator                    | Trend| 6/10        | Stable |No |Is the market 'sleeping' (in a range, with intertwined MAs) or is it 'awake and eating' (in a trend, with the MAs spread open)?|
@@ -31,7 +31,7 @@
 | AskBidBars.cs            | Ask/Bid Bars                 | VolumeOrderFlow             | Order flow / Bid-Ask             | Stable| Keep (with caveats)| |
 | AverageDelta.cs          | Average Delta                | VolumeOrderFlow             | Delta / Promedio                 | Stable| No| |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIxNDY4Mzg1NTQsMjA2NzEyNTM5OSwzOT
-g3NTcyNTAsLTE5MzIzMTMyNDUsMTMyMzM3Mzk2NCwtMzgzOTYy
-MTc0XX0=
+eyJoaXN0b3J5IjpbMTc4MjEzMDcyNCwtMjE0NjgzODU1NCwyMD
+Y3MTI1Mzk5LDM5ODc1NzI1MCwtMTkzMjMxMzI0NSwxMzIzMzcz
+OTY0LC0zODM5NjIxNzRdfQ==
 -->
