@@ -168,13 +168,7 @@ Tu ficha ha identificado perfectamente la debilidad de la implementación y ha p
 
 ### 📊 Discrepancia: Tu Nota de 6/10
 
-Aquí es donde tengo una opinión diferente, pero creo que sé por qué.
-
-Tu nota de **6/10** es justa si estás calificando _esta implementación específica_ (con SMA).
-
-Sin embargo, el **concepto** del ATR es, en mi opinión, un **9/10** o **10/10** para un scalper. Es una de las herramientas no direccionales más importantes que existen.
-
-Mientras que los otros indicadores intentan predecir la _dirección_, el ATR responde a una pregunta mucho más importante para la supervivencia: **"¿De qué tamaño es el riesgo?"**
+El ATR responde a una pregunta mucho más importante para la supervivencia: **"¿De qué tamaño es el riesgo?"**
 
 Para un scalper del S&P 500, el ATR es fundamental:
 
@@ -193,18 +187,12 @@ Para un scalper del S&P 500, el ATR es fundamental:
 
 ### 📈 Veredicto
 
--   **Tu Ficha:** Impecable. Has diagnosticado correctamente la implementación (SMA) y la mejora necesaria (EMA).
-    
--   **El Indicador:**
-    
-    -   **Concepto (9/10):** Absolutamente **esencial**. Debe estar en tu arsenal.
+   -   **Concepto (9/10):** Absolutamente **esencial**. Debe estar en tu arsenal.
         
     -   **Implementación (5/10):** Subóptima. El uso de SMA lo hace menos reactivo de lo que debería ser.
         
 
-**Acción:** **Conservar y Mejorar.** Debes modificarlo para usar una EMA (o RMA) como tú mismo sugeriste. Con esa simple corrección, este se convierte en uno de los indicadores de fondo más importantes de tu sistema.
-
-Gran trabajo al detectar la diferencia en el tipo de media móvil. ¿Continuamos?
+**Acción:** **Conservar y Mejorar.** Debes modificarlo para usar una EMA (o RMA) . Con esa simple corrección, este se convierte en uno de los indicadores de fondo más importantes de tu sistema.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTU2OTMyNTQzN119
+eyJoaXN0b3J5IjpbLTEwNzk2Nzk0MDIsLTU2OTMyNTQzN119
 -->
