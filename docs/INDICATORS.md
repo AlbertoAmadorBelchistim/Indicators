@@ -12,12 +12,12 @@
 | `ACDC.cs` [(ES)](indicators/ACDC.es.md)                  | AC DC Histogram          | Momentum          | 2/10          | Stable| Discard| What is the smoothed, lagging direction of the market's acceleration?|
 | `ACR.cs` [(ES)](indicators/ACR.es.md)                  | Average Candle Range            | Volatility        | 5/10         | Stable | Discard (Improve) | What is the average size of a single candle so far today?|
 | `AD.cs` [(ES)](indicators/AD.es.md)                     | Accumulation/Distribution (A/D)         | Volume         | 2/10          | Stable | Discard| Is the cumulative volume flow confirming the price trend, or is it showing a divergence?|
-| `ADF.cs` [(ES)](indicators/ADF.es.md)                   | Accumulation/Distribution Flow    | Volume         | 6/10          | Stable | Yes -> 9/10 | Where is high 'Effort' (Volume) meeting low 'Result' (Range), signaling a potential absorption or climax?|
-| `ADR.cs` [(ES)](indicators/ADR.es.md)                    | Average Daily Range                                | Volatility          | 7/10          | Stable | No | Has the market already made its expected move of the day?|
-| `ADX.cs` [(ES)](indicators/ADX.es.md)                    | ADX                                | Trend        | 6/10          | Stable | No | Is the market in a strong trend (either up or down), or is it just 'chopping' sideways?|
-| `ADXR.cs` [(ES)](indicators/ADXR.es.md)                 | ADXR                               | Trend         | 2/10         | Stable | No | What is the smoothed-out, stable strength of the trend, ignoring short-term noise from the ADX itself?|
-| `AMA.cs` [(ES)](indicators/AMA.es.md)                   | AMA                          | Trend                   | 7/10          | Stable | No | How can I get a smooth moving average that doesn't lag during a strong breakout but does filter out the 'chop' in a sideways market?|
-| AO.cs                    | Awesome Oscillator                           | Momentum| 4/10         | Stable| No|Is the market's recent, short-term momentum (5-bar) currently winning against the longer-term trend's momentum (34-bar) |
+| `ADF.cs` [(ES)](indicators/ADF.es.md)                   | Accumulation/Distribution Flow    | Volume         | 6/10          | Stable | Discard (Improve) | Where is high 'Effort' (Volume) meeting low 'Result' (Range), signaling a potential absorption or climax?|
+| `ADR.cs` [(ES)](indicators/ADR.es.md)                    | Average Daily Range                                | Volatility          | 7/10          | Stable | Keep (Utility)| Has the market already made its expected move of the day?|
+| `ADX.cs` [(ES)](indicators/ADX.es.md)                    | ADX                                | Trend        | 6/10          | Stable | Discard| Is the market in a strong trend (either up or down), or is it just 'chopping' sideways?|
+| `ADXR.cs` [(ES)](indicators/ADXR.es.md)                 | ADXR                               | Trend         | 2/10         | Stable | Discard| What is the smoothed-out, stable strength of the trend, ignoring short-term noise from the ADX itself?|
+| `AMA.cs` [(ES)](indicators/AMA.es.md)                   | AMA                          | Trend                   | 7/10          | Stable | Discard| How can I get a smooth moving average that doesn't lag during a strong breakout but does filter out the 'chop' in a sideways market?|
+| AO.cs                    | Awesome Oscillator                           | Momentum| 4/10         | Stable| Discard|Is the market's recent, short-term momentum (5-bar) currently winning against the longer-term trend's momentum (34-bar) |
 | ATR.cs                   | ATR                          | Volatility| 6/10                      | Stable| No|What has been the _average true size_ (including gaps) of each bar over the last X periods? |
 | ATRN.cs                  | ATR Normalized               | Technical                   | Volatilidad / ATR                | Stable| No| |
 | AccountInfoDisplay.cs                  | ATR Normalized               | Technical                   | Volatilidad / ATR                | Beta?| No| |
@@ -31,6 +31,6 @@
 | AskBidBars.cs            | Ask/Bid Bars                 | VolumeOrderFlow             | Order flow / Bid-Ask             | Stable| Keep (with caveats)| |
 | AverageDelta.cs          | Average Delta                | VolumeOrderFlow             | Delta / Promedio                 | Stable| No| |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzk4NzU3MjUwLC0xOTMyMzEzMjQ1LDEzMj
-MzNzM5NjQsLTM4Mzk2MjE3NF19
+eyJoaXN0b3J5IjpbLTg2Njc3NDUzLDM5ODc1NzI1MCwtMTkzMj
+MxMzI0NSwxMzIzMzczOTY0LC0zODM5NjIxNzRdfQ==
 -->
