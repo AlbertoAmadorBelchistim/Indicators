@@ -9,9 +9,9 @@
 | File `.cs`               | Indicator´s name              | Category       | Scalping score           | Version               | Gemini's Verdict | Answer|
 |-----------------------------|-----------------------------------|----------------------------|-------------------------------|------------|-----------|----|
 | `ACBW.cs` [(ES)](indicators/ACBW.es.md)            | Bill Williams AC                  | Momentum         | 4/10          | Stable| Discard| Is the current trend's momentum accelerating or hitting the brakes?|
-| `ACDC.cs` [(ES)](indicators/ACDC.es.md)                  | AC DC Histogram          | Momentum          | 2/10          | Stable| No | What is the smoothed, lagging direction of the market's acceleration?|
-| `ACR.cs` [(ES)](indicators/ACR.es.md)                  | Average Candle Range            | Volatility        | 5/10         | Stable | Yes -> 9/10 | What is the average size of a single candle so far today?|
-| `AD.cs` [(ES)](indicators/AD.es.md)                     | Accumulation/Distribution (A/D)         | Volume         | 2/10          | Stable | No | Is the cumulative volume flow confirming the price trend, or is it showing a divergence?|
+| `ACDC.cs` [(ES)](indicators/ACDC.es.md)                  | AC DC Histogram          | Momentum          | 2/10          | Stable| Discard| What is the smoothed, lagging direction of the market's acceleration?|
+| `ACR.cs` [(ES)](indicators/ACR.es.md)                  | Average Candle Range            | Volatility        | 5/10         | Stable | Discard (Improve) | What is the average size of a single candle so far today?|
+| `AD.cs` [(ES)](indicators/AD.es.md)                     | Accumulation/Distribution (A/D)         | Volume         | 2/10          | Stable | Discard| Is the cumulative volume flow confirming the price trend, or is it showing a divergence?|
 | `ADF.cs` [(ES)](indicators/ADF.es.md)                   | Accumulation/Distribution Flow    | Volume         | 6/10          | Stable | Yes -> 9/10 | Where is high 'Effort' (Volume) meeting low 'Result' (Range), signaling a potential absorption or climax?|
 | `ADR.cs` [(ES)](indicators/ADR.es.md)                    | Average Daily Range                                | Volatility          | 7/10          | Stable | No | Has the market already made its expected move of the day?|
 | `ADX.cs` [(ES)](indicators/ADX.es.md)                    | ADX                                | Trend        | 6/10          | Stable | No | Is the market in a strong trend (either up or down), or is it just 'chopping' sideways?|
@@ -31,6 +31,6 @@
 | AskBidBars.cs            | Ask/Bid Bars                 | VolumeOrderFlow             | Order flow / Bid-Ask             | Stable| No| |
 | AverageDelta.cs          | Average Delta                | VolumeOrderFlow             | Delta / Promedio                 | Stable| No| |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTczNzkwMDk1NiwtMTkzMjMxMzI0NSwxMz
-IzMzczOTY0LC0zODM5NjIxNzRdfQ==
+eyJoaXN0b3J5IjpbMjEyNDEwMzE4LC0xOTMyMzEzMjQ1LDEzMj
+MzNzM5NjQsLTM4Mzk2MjE3NF19
 -->
