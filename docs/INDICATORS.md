@@ -22,7 +22,7 @@
 | ATRN.cs                  | ATR Normalized               | Volatility| 3/10                | Stable| Discard| What is the instrument's volatility (ATR) _as a percentage of its current price_? |
 | AccountInfoDisplay.cs                  | Account Info Display               | Visualization                   | 7/10                | Beta?| **Keep**|What is my account's real-time status (Balance, PnL, Margin) right now, without me having to look away from the chart? |
 | ActiveVolume.cs                  | Active Volume              | Order Flow                   | 8/10|**Keep and Improve**| Filtering out all the small 'noise' trades, where is the _significant_, _aggressive_ buying and selling volume actually showing up on the price ladder?|
-| AdaptiveBinaryWaveMA.cs                  | ATR Normalized               | Technical                   | Volatilidad / ATR                | Stable| No| |
+| AdaptiveBinaryWaveMA.cs                  | Adaptive Binary Wave               | Technical                   | Volatilidad / ATR                | Stable| Discard|Has the adaptive moving average (AMA) broken out of its recent 'crawl' by a statistically significant amount?|
 | AdaptiveRsiAverage.cs                  | ATR Normalized               | Technical                   | Volatilidad / ATR                | Stable| No| |
 | `Alligator.cs` [(ES)](indicators/Alligator.es.md)           | Alligator                    | Trend| 6/10        | Stable |No |Is the market 'sleeping' (in a range, with intertwined MAs) or is it 'awake and eating' (in a trend, with the MAs spread open)?|
 | Angle.cs                 | Angle                        | Technical                   | Indicadores de pendiente         | Stable| No| |
@@ -31,7 +31,7 @@
 | AskBidBars.cs            | Ask/Bid Bars                 | VolumeOrderFlow             | Order flow / Bid-Ask             | Stable| Keep (with caveats)| |
 | AverageDelta.cs          | Average Delta                | VolumeOrderFlow             | Delta / Promedio                 | Stable| No| |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbOTk5MTYzMTkzLC0yMTQ2ODM4NTU0LDIwNj
-cxMjUzOTksMzk4NzU3MjUwLC0xOTMyMzEzMjQ1LDEzMjMzNzM5
-NjQsLTM4Mzk2MjE3NF19
+eyJoaXN0b3J5IjpbLTE2NjcxOTc2OTAsOTk5MTYzMTkzLC0yMT
+Q2ODM4NTU0LDIwNjcxMjUzOTksMzk4NzU3MjUwLC0xOTMyMzEz
+MjQ1LDEzMjMzNzM5NjQsLTM4Mzk2MjE3NF19
 -->
