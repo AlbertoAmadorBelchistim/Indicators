@@ -80,8 +80,6 @@ Web oficial: https://help.atas.net/support/solutions/articles/72000602317
 **Descartar, con más motivo que el anterior.**
 
 Este indicador coge los datos ruidosos y lentos del `AroonIndicator` y los presenta de una forma diferente, pero no mejor. Es un indicador de libro de texto diseñado para gráficos diarios de acciones, y es fundamentalmente inútil para el scalping del S&P 500.
-
-¿Continuamos con el siguiente?
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE4NTI0NzU1NDksMjIzNzA0NjIzXX0=
+eyJoaXN0b3J5IjpbLTExNzU3MDMyNzksMjIzNzA0NjIzXX0=
 -->
