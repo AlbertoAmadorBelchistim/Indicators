@@ -134,6 +134,43 @@
 
 - ❕ Agregar visualización de color (verde si ángulo > 0, rojo si < 0) para mejor claridad
 
+## Opinión Gemini
+
+Aquí tienes la "pregunta clave" de este indicador:
+
+**¿Cuál es el ángulo geométrico literal (en grados) de la tendencia del precio durante las últimas X barras?**
+
+----------
+### ✍️ Mi Opinión sobre el Indicador
+
+Este indicador es un ejemplo de algo que es "matemáticamente correcto" pero "prácticamente inútil".
+
+El problema es el concepto:
+
+1.  **Es un Oscilador de Momentum "disfrazado":** El núcleo del cálculo es `(value - SourceDataSeries[bar - _period])`. Esta es la fórmula exacta de un indicador de **Momentum** (o Rate of Change, ROC).
+    
+2.  **Es un Indicador de Momentum Ruidoso:** Como calcula el momentum sobre el precio en bruto (no sobre una media móvil), el resultado es increíblemente ruidoso y "nervioso". Tu propia captura de pantalla lo demuestra: la línea es una serie de picos y valles erráticos que reacciona a cada vela.
+    
+3.  **La "Normalización" es Confusa:** Todo lo que hace la parte de `Atan(..._ / Math.PI)` es "comprimir" ese resultado ruidoso del momentum en una escala fija (entre -90 y +90). Esto no filtra el ruido, solo lo "aplasta" en una banda.
+    
+Para un scalper, esto es lo peor de ambos mundos:
+
+-   Es **ruidoso** como un oscilador de período corto.
+    
+-   Es **lento** como un oscilador de período largo (porque su valor depende de la barra de hace `_period` barras).
+    
+
+**En resumen:** Es solo un indicador de Momentum, pero más ruidoso y más difícil de leer.
+
+----------
+
+### 📈 Veredicto: ¿Es útil para Scalping?
+
+**No. Absolutamente no.**
+
+El **AMA (Kaufman)** que ya hemos "Conservado" es un millón de veces superior para detectar la "pendiente" y el "régimen" del mercado.
+
+**Acción:** **Descartar.**
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTcyMDI5Mjc1N119
+eyJoaXN0b3J5IjpbMTI4NzM1MzA3N119
 -->
