@@ -23,7 +23,7 @@
 | AccountInfoDisplay.cs                  | Account Info Display               | Visualization                   | 7/10                | Beta?| **Keep**|What is my account's real-time status (Balance, PnL, Margin) right now, without me having to look away from the chart? |
 | ActiveVolume.cs                  | Active Volume              | Order Flow                   | 8/10|**Keep and Improve**| Filtering out all the small 'noise' trades, where is the _significant_, _aggressive_ buying and selling volume actually showing up on the price ladder?|
 | AdaptiveBinaryWaveMA.cs                  | Adaptive Binary Wave               | Trend|6/10| Stable| **Keep** |Has the adaptive moving average (AMA) broken out of its recent 'crawl' by a statistically significant amount?|
-| AdaptiveRsiAverage.cs                  | ATR Normalized               | Technical                   | Volatilidad / ATR                | Stable| No| |
+| AdaptiveRsiAverage.cs                  | ATR Normalized               | Technical                   | Volatilidad / ATR                | Stable| Discard| |
 | `Alligator.cs` [(ES)](indicators/Alligator.es.md)           | Alligator                    | Trend| 6/10        | Stable |No |Is the market 'sleeping' (in a range, with intertwined MAs) or is it 'awake and eating' (in a trend, with the MAs spread open)?|
 | Angle.cs                 | Angle                        | Technical                   | Indicadores de pendiente         | Stable| No| |
 | AroonIndicator.cs        | Aroon                        | Technical                   | Tendencia                        | Stable| No| |
@@ -31,7 +31,8 @@
 | AskBidBars.cs            | Ask/Bid Bars                 | VolumeOrderFlow             | Order flow / Bid-Ask             | Stable| Keep (with caveats)| |
 | AverageDelta.cs          | Average Delta                | VolumeOrderFlow             | Delta / Promedio                 | Stable| No| |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTkyNjk0NjU4OCw5OTkxNjMxOTMsLTIxND
-Y4Mzg1NTQsMjA2NzEyNTM5OSwzOTg3NTcyNTAsLTE5MzIzMTMy
-NDUsMTMyMzM3Mzk2NCwtMzgzOTYyMTc0XX0=
+eyJoaXN0b3J5IjpbLTE1NTgzNDgyMzcsLTkyNjk0NjU4OCw5OT
+kxNjMxOTMsLTIxNDY4Mzg1NTQsMjA2NzEyNTM5OSwzOTg3NTcy
+NTAsLTE5MzIzMTMyNDUsMTMyMzM3Mzk2NCwtMzgzOTYyMTc0XX
+0=
 -->
