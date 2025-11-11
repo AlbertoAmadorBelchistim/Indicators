@@ -155,11 +155,9 @@ Aquí tienes la "pregunta clave" de este indicador:
 ----------
 ### ✍️ Sobre el Código (AwesomeOscillator.cs)
 
-Tu ficha ya ha detectado los problemas de _diseño_ (lógica), pero el código tiene también problemas de _implementación_:
-
 1.  Problema Crítico (Diseño): ¡Falta la línea cero!
     
-    Tu propuesta de mejora "Añadir una línea de cero" es la más importante. El indicador está construido con ShowZeroValue = false. Esto es un error de diseño garrafal. El "cruce de la línea cero" es una de las señales principales del AO, y sin ella, el indicador pierde la mitad de su sentido.
+	El indicador está construido con ShowZeroValue = false. Esto es un error de diseño garrafal. El "cruce de la línea cero" es una de las señales principales del AO, y sin ella, el indicador pierde la mitad de su sentido.
     
 2.  Problema de Eficiencia (Implementación):
     
@@ -176,9 +174,9 @@ Tu ficha ya ha detectado los problemas de _diseño_ (lógica), pero el código t
     
     Esto significa que para calcular el AO en una barra, hace 34 iteraciones (más las 5 de la corta). En la siguiente barra, vuelve a hacerlas todas de nuevo. Un indicador bien implementado (como los que hemos visto) usaría `_smaLong.Calculate(...)` y `_smaShort.Calculate(...)`, que es exponencialmente más rápido.
     
-3.  Problema de Lógica (El que tú detectaste):
+3.  Problema de Lógica:
     
-    Tu "Nota de desarrollo" es brillante y 100% correcta. Este indicador no colorea el AO de forma estándar.
+	Este indicador no colorea el AO de forma estándar.
     
     -   **AO Estándar:** Verde si `AO > 0`, Rojo si `AO < 0`.
         
@@ -220,6 +218,6 @@ Es un indicador "ciego" (solo precio, sin volumen) y con lag (es una resta de me
 
 Excelente trabajo. ¿Pasamos al siguiente?
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODY3MzMyMzg1LC03ODI0NDkxMDAsLTIwOD
+eyJoaXN0b3J5IjpbMTg3MzU5MDE0LC03ODI0NDkxMDAsLTIwOD
 g3NDY2MTJdfQ==
 -->
