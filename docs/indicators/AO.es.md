@@ -6,7 +6,7 @@
 
 **Nombre del indicador:** Awesome Oscillator
 
-**Web oficial:**  [https://help.atas.net/support/solutions/articles/72000602325](https://help.atas.net/support/solutions/articles/72000602325)
+**Web oficial:**  [ATAS - Awesome Oscillator](https://help.atas.net/support/solutions/articles/72000602325)
 
   
 
@@ -144,5 +144,6 @@
 
 - Permitir filtros de volumen o volatilidad para reducir señales falsas
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTc4MjQ0OTEwMCwtMjA4ODc0NjYxMl19
+eyJoaXN0b3J5IjpbLTI5NTI5NzUzOCwtNzgyNDQ5MTAwLC0yMD
+g4NzQ2NjEyXX0=
 -->
