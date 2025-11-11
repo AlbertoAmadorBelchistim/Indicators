@@ -28,9 +28,9 @@
 | Angle.cs                 | Angle                        | Technical                   | Indicadores de pendiente         | Stable| No| |
 | AroonIndicator.cs        | Aroon                        | Technical                   | Tendencia                        | Stable| No| |
 | AroonOscillator.cs       | Aroon Oscillator             | Technical                   | Tendencia                        | Stable| No| |
-| AskBidBars.cs            | Ask/Bid Bars                 | VolumeOrderFlow             | Order flow / Bid-Ask             | Stable| No| |
+| AskBidBars.cs            | Ask/Bid Bars                 | VolumeOrderFlow             | Order flow / Bid-Ask             | Stable| Keep (with caveats)| |
 | AverageDelta.cs          | Average Delta                | VolumeOrderFlow             | Delta / Promedio                 | Stable| No| |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjEyNDEwMzE4LC0xOTMyMzEzMjQ1LDEzMj
+eyJoaXN0b3J5IjpbMzk4NzU3MjUwLC0xOTMyMzEzMjQ1LDEzMj
 MzNzM5NjQsLTM4Mzk2MjE3NF19
 -->
