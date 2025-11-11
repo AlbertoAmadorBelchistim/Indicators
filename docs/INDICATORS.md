@@ -17,7 +17,7 @@
 | `ADX.cs` [(ES)](indicators/ADX.es.md)                    | ADX                                | Trend        | 6/10          | Stable | No | Is the market in a strong trend (either up or down), or is it just 'chopping' sideways?|
 | `ADXR.cs` [(ES)](indicators/ADXR.es.md)                 | ADXR                               | Trend         | 2/10         | Stable | No | What is the smoothed-out, stable strength of the trend, ignoring short-term noise from the ADX itself?|
 | `AMA.cs` [(ES)](indicators/AMA.es.md)                   | AMA                          | Trend                   | 7/10          | Stable | No | How can I get a smooth moving average that doesn't lag during a strong breakout but does filter out the 'chop' in a sideways market?|
-| AO.cs                    | AO                           | Technical                   | Momentum / Bill Williams         | Stable| No| |
+| AO.cs                    | AO                           | Technical                   | Momentum / Bill Williams         | Stable| No|Is the market's recent, short-term momentum (5-bar) currently winning against the longer-term trend's momentum (34-bar) |
 | ATR.cs                   | ATR                          | Technical                   | Volatilidad                      | Stable| No| |
 | ATRN.cs                  | ATR Normalized               | Technical                   | Volatilidad / ATR                | Stable| No| |
 | AccountInfoDisplay.cs                  | ATR Normalized               | Technical                   | Volatilidad / ATR                | Beta?| No| |
@@ -30,3 +30,6 @@
 | AroonOscillator.cs       | Aroon Oscillator             | Technical                   | Tendencia                        | Stable| No| |
 | AskBidBars.cs            | Ask/Bid Bars                 | VolumeOrderFlow             | Order flow / Bid-Ask             | Stable| No| |
 | AverageDelta.cs          | Average Delta                | VolumeOrderFlow             | Delta / Promedio                 | Stable| No| |
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbNjk2MzAwOTE0XX0=
+-->
