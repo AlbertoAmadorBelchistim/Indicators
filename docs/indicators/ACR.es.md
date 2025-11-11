@@ -2,7 +2,8 @@
 
 **Nombre del archivo:** `ACR.cs`  
 **Nombre del indicador:** Average Candle Range  
-**Web oficial:** [ATAS — Average Candle Range](https://help.atas.net/support/solutions/articles/72000602323)
+**Web oficial:** [ATAS — Average Candle Range](https://help.atas.net/support/solutions/articles/72000602323)  
+**Compatibilidad:** ATAS versión estable y superiores.
 
 ![ACR](../img/ACR.png)
 

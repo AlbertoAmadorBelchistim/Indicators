@@ -2,11 +2,13 @@
 
   
 
-**Nombre del archivo:**  `ActiveVolume.cs`
+**Nombre del archivo:**  `ActiveVolume.cs`  
+**Nombre del indicador:** Active Volume  
+**Web oficial:**  [ATAS - Active Volume](https://help.atas.net/ru-RU/support/solutions/articles/72000608343-active-volume)  
+**Compatibilidad:** ATAS versión estable y superiores.
 
-**Nombre del indicador:** Active Volume
+![Active Volume](../img/ActiveVolume.png)
 
-**Web oficial:**  [ATAS - Active Volume](https://help.atas.net/ru-RU/support/solutions/articles/72000608343-active-volume)
 
   
 
@@ -19,21 +21,13 @@
   
 
 - **Filter**: Volumen mínimo para acumular (por defecto: 50)
-
 - **RowWidth**: Ancho de cada columna en la tabla (px)
-
 - **ShowBid / ShowAsk / ShowVolume**: Mostrar columnas de Bid, Ask y Suma en tabla
-
 - **Offset**: Desplazamiento de la tabla respecto al gráfico
-
 - **DateFrom**: Fecha desde la cual comenzar a acumular datos
-
 - **DigitsAfterComma**: Decimales mostrados en los valores
-
 - **Mode (CalcMode)**: Modo de visualización (BidAsk / Bid / Ask)
-
 - **ProfileWidth / ProfileOffset**: Ancho y desplazamiento del perfil dibujado
-
 - **ProfileFillColor / BidProfileValueColor / AskProfileValueColor**: Colores de fondo y valores del perfil
 
   
@@ -57,11 +51,8 @@
   
 
 - Visualizar la **acumulación de agresión bid y ask** por nivel de precio
-
 - Identificar zonas donde hubo **actividad agresiva desequilibrada**
-
 - Detectar absorciones o presencia institucional en zonas clave
-
 - Confirmar volumen dominante tras ruptura o rechazo
 
   
@@ -75,12 +66,9 @@
 🔟 **8 / 10**
 
   
-
-✅ Ofrece lectura visual precisa de acumulación de agresión por nivel de precio
-
-✅ Ideal para validar rupturas, absorciones o rechazos
-
-⛔ Requiere buena configuración y espacio visual en el gráfico
+✅ Ofrece lectura visual precisa de acumulación de agresión por nivel de precio  
+✅ Ideal para validar rupturas, absorciones o rechazos  
+⛔ Requiere buena configuración y espacio visual en el gráfico  
 
   
 
@@ -93,11 +81,8 @@
   
 
 - **Absorciones visuales**: Ask elevado + no rompe resistencia = venta
-
 - **Rupturas reales**: fuerte bid agresivo apareciendo en ruptura
-
 - **Rechazo de zona**: volumen concentrado pero sin continuación
-
 - **Actividad institucional**: perfiles desequilibrados en niveles técnicos
 
   
@@ -107,28 +92,19 @@
   
 
 - **Filter**: `100`
-
 - **RowWidth**: `14`
-
 - **Mode**: `BidAsk`
-
 - **ProfileWidth**: `30`
-
 - **ProfileOffset**: `25`
-
 - **DigitsAfterComma**: `2`
-
 - **ShowBid / ShowAsk / ShowVolume**: ✅ activados
-
 - **DateFrom**: sesión actual
 
   
 
-✅ Esta configuración resalta zonas de absorción o agresión intensa
-
-✅ Ideal para confirmar rompimientos y test de soportes/resistencias
-
-⛔ Requiere espacio horizontal, mejor en pantalla secundaria o lateral
+✅ Esta configuración resalta zonas de absorción o agresión intensa  
+✅ Ideal para confirmar rompimientos y test de soportes/resistencias  
+⛔ Requiere espacio horizontal, mejor en pantalla secundaria o lateral  
 
   
 
@@ -137,13 +113,9 @@
   
 
 - El indicador acumula agresión Bid y Ask desde `DateFrom` usando objetos `CumulativeTrade`.
-
 - Los volúmenes se almacenan por precio en diccionarios separados (`_bidValues`, `_askValues`).
-
 - Se actualiza en tiempo real usando `OnCumulativeTrade` y `OnUpdateCumulativeTrade`.
-
 - La representación visual incluye un perfil horizontal escalado y una tabla de valores por fila de precio.
-
 - El filtro por volumen (parámetro `Filter`) evita acumular microtrades irrelevantes.
 
   
@@ -153,13 +125,9 @@
   
 
 - Añadir opción para **resetear acumulación cada sesión** sin tener que cambiar `DateFrom` manualmente.
-
 - Incluir una **línea de POC (nivel de mayor volumen acumulado)**.
-
 - Permitir **configurar escala logarítmica** en la representación del perfil para evitar saturación por valores extremos.
-
 - Ofrecer una **vista resumida o colapsable** si el gráfico tiene muchas filas de precio visibles.
-
 - Incluir **alertas visuales o sonoras** si un nivel supera cierto umbral de agresión.
 
 ## Comentario de Gemini

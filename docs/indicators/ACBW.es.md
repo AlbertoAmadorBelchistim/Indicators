@@ -3,6 +3,7 @@
 **Nombre del archivo:** `ACBW.cs`  
 **Nombre del indicador:** Bill Williams AC  
 **Web oficial:** [ATAS — Bill Williams AC](https://help.atas.net/support/solutions/articles/72000602333)
+**Compatibilidad:** ATAS versión estable y superiores.
 
 ![ACBW](../img/ACBW.png)
 

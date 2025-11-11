@@ -2,7 +2,8 @@
 
 **Nombre del archivo:** `ACDC.cs`  
 **Nombre del indicador:** AC DC Histogram  
-**Web oficial:** [ATAS — AC DC Histogram](https://help.atas.net/support/solutions/articles/72000602293)
+**Web oficial:** [ATAS — AC DC Histogram](https://help.atas.net/support/solutions/articles/72000602293)  
+**Compatibilidad:** ATAS versión estable y superiores.
 
 ![ACDC](../img/ACDC.png)
 
