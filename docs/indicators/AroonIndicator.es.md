@@ -1,4 +1,4 @@
-## 🟦 Aroon Indicator (6/10)
+## 🟦 Aroon Indicator (3/10)
 
   
 
@@ -54,7 +54,7 @@
 
 ### 📊 Nivel de relevancia
 
-🔟 **6 / 10**
+🔟 **3 / 10**
 
   
 
@@ -183,10 +183,10 @@ La implementación es lógicamente correcta pero computacionalmente ineficiente.
     
 3.  **Tenemos Herramientas Mejores:** El **AMA (Kaufman)** que ya hemos "Conservado" hace un trabajo infinitamente superior al identificar "fases de tendencia" y "fases de rango" de una manera suave, visual y mucho más rápida.
     
-El Aroon es un indicador clásico diseñado para gráficos diarios, no para el scalping moderno.
+Es un indicador clásico diseñado para gráficos diarios, no para el scalping moderno.
 
 **Acción:** **Descartar.**
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTAwMDU1MjY0MCwtOTQ3NjkxMjcsNjY0Mj
-M3MzQyXX0=
+eyJoaXN0b3J5IjpbLTk0Mzk5MTIyLC05NDc2OTEyNyw2NjQyMz
+czNDJdfQ==
 -->
