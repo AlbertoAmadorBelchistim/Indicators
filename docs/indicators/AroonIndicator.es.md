@@ -6,7 +6,7 @@
 
 **Nombre del indicador:** Aroon Indicator
 
-**Web oficial:**  [https://help.atas.net/support/solutions/articles/72000602316](https://help.atas.net/support/solutions/articles/72000602316)
+**Web oficial:**  [ATAS - Aroon Indicator](https://help.atas.net/support/solutions/articles/72000602316)
 
   
 
@@ -144,5 +144,5 @@
 
 - Soporte para **visualización condicional por color de fondo** (tendencia alcista / bajista / lateral)
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjY0MjM3MzQyXX0=
+eyJoaXN0b3J5IjpbMTMxOTMyMzUyNyw2NjQyMzczNDJdfQ==
 -->
