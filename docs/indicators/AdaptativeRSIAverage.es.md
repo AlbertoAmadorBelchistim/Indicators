@@ -158,27 +158,10 @@ $$
 
 ## Comentario Gemini
 Aquí tienes la "pregunta clave" de este indicador:
-
-> The Key Question: "How can I get a moving average that automatically slows down when the market is undecided (RSI near 50) and speeds up to catch trends when momentum is strong (RSI near 0 or 100)?"
-> 
-> (¿Cómo puedo obtener una media móvil que automáticamente se ralentice cuando el mercado está indeciso (RSI cerca de 50) y se acelere para capturar tendencias cuando el momentum es fuerte (RSI cerca de 0 o 100)?)
+**¿Cómo puedo obtener una media móvil que automáticamente se ralentice cuando el mercado está indeciso (RSI cerca de 50) y se acelere para capturar tendencias cuando el momentum es fuerte (RSI cerca de 0 o 100)?**
 
 ----------
-
-Tu ficha es, de nuevo, **impecable**. Tu nota de **6/10** me parece perfecta y estoy totalmente de acuerdo con ella.
-
-Tu sección de "Notas de desarrollo" es brillante, ya que has escrito la fórmula exacta y has entendido perfectamente la lógica del indicador.
-
 ### ✍️ Mi Opinión sobre el Indicador
-
-Este es otro indicador de "media móvil adaptativa", conceptualmente muy similar al **AMA (Kaufman)** que tanto nos gustó. La diferencia es el "motor" que usa para adaptarse:
-
--   **AMA (Kaufman):** Usa un "Ratio de Eficiencia" (movimiento neto del precio) para adaptarse. Es _rápido_.
-    
--   **Este (Adaptive RSI):** Usa el **RSI** para adaptarse.
-    
-
-El problema, y la razón por la que tu 6/10 es correcto (y no un 8/10 como el AMA), es el **LAG**.
 
 Vamos a analizar su proceso:
 
@@ -189,7 +172,7 @@ Vamos a analizar su proceso:
 3.  **Lag 3:** Coge ese RSI y lo vuelve a suavizar con otra `EMA(10)` (el `RsiSmooth`).
     
 4.  **Lag 4:** Usa ese valor (suavizado 3 veces) como el factor de suavizado para la media móvil final.
-    
+  
 
 Es un indicador de **"lag sobre lag sobre lag"**.
 
@@ -210,5 +193,5 @@ Tu análisis ha sido perfecto.
 
 **Acción:** **Descartar** (no porque sea malo, sino porque el AMA que ya analizamos es mejor y más rápido).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE4NDIxMzI1MDBdfQ==
+eyJoaXN0b3J5IjpbMTUyMjQ1MjM2NSwtMTg0MjEzMjUwMF19
 -->
