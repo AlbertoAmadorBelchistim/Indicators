@@ -183,29 +183,13 @@ Aquí tienes la "pregunta clave" de este indicador:
     -   **Este Indicador:** Verde si `AO[bar] > AO[bar-1]`, Rojo si `AO[bar] < AO[bar-1]`.
         
     
-    Como puedes ver en tu propia captura de pantalla (ej. ~15:45 a ~17:25), el histograma está _por encima de cero_ (momentum alcista), pero se vuelve rojo porque el _momentum está disminuyendo_. Este indicador está mostrando el valor del **AO** pero con la lógica de color del **AC (Accelerator)**. Esto es una mezcla confusa y no estándar.
-    
-
-----------
-
-### 📋 Sobre tu Ficha (El Manual)
-
-Tu ficha es perfecta.
-
--   **Puntuación (4/10):** Totalmente de acuerdo.
-    
--   **Notas:** Has identificado correctamente que usa el precio medio y, lo más importante, has clavado la lógica de color no estándar.
-    
--   **Propuestas de Mejora:** Son todas correctas, especialmente la de añadir la línea cero.
-    
+    Como puedes ver en tu propia captura de pantalla (ej. ~15:45 a ~17:25), el histograma está _por encima de cero_ (momentum alcista), pero se vuelve rojo porque el _momentum está disminuyendo_. Este indicador está mostrando el valor del **AO** pero con la lógica de color del **AC (Accelerator)**. Esto es una mezcla confusa y no estándar.  
 
 ----------
 
 ### 📈 ¿Es útil para Scalping en S&P 500?
 
 **No como indicador principal.**
-
-Tu conclusión es correcta: "Debe evitarse como única fuente de señal".
 
 Es un indicador "ciego" (solo precio, sin volumen) y con lag (es una resta de medias). Un scalper no puede permitirse ese lag.
 
@@ -214,10 +198,8 @@ Es un indicador "ciego" (solo precio, sin volumen) y con lag (es una resta de me
 -   Las herramientas de **Order Flow** (Delta, Volumen) te dan información mucho más rápida y fiable.
     
 
-**Veredicto:** **Descartar**. Tu análisis fue perfecto. Has identificado un indicador con una implementación ineficiente, un diseño visual defectuoso (sin línea cero) y una lógica de color confusa y no estándar.
-
-Excelente trabajo. ¿Pasamos al siguiente?
+**Veredicto:** **Descartar**. 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTg3MzU5MDE0LC03ODI0NDkxMDAsLTIwOD
-g3NDY2MTJdfQ==
+eyJoaXN0b3J5IjpbLTE0OTU5MDA0NTUsLTc4MjQ0OTEwMCwtMj
+A4ODc0NjYxMl19
 -->
