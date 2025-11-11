@@ -32,10 +32,8 @@ Web oficial: https://help.atas.net/support/solutions/articles/72000602317
 ### 🧠 Uso más frecuente
 
 -   Identificar la **dirección de la tendencia** basándose en un único oscilador.
-    
--   **Valores > 0** indican que el AroonUp es más fuerte que el AroonDown (tendencia alcista).
-    
--   **Valores < 0** indican que el AroonDown es más fuerte (tendencia bajista).
+    -   **Valores > 0** indican que el AroonUp es más fuerte que el AroonDown (tendencia alcista).
+    -   **Valores < 0** indican que el AroonDown es más fuerte (tendencia bajista).
     
 -   El cruce por la línea cero se usa (en teoría) como señal de cambio de tendencia.
     
@@ -47,9 +45,7 @@ Web oficial: https://help.atas.net/support/solutions/articles/72000602317
 🔟 **3 / 10**
 
 ✅ Simplifica las dos líneas del Aroon en una sola.
-
 ⛔ Hereda todos los problemas del Aroon Indicator: es ruidoso, lento y errático.
-
 ⛔ Como se ve en la captura de pantalla, el resultado es un zig-zag "digital" (no suave) que es inutilizable para el scalping.
 
 ----------
@@ -57,7 +53,6 @@ Web oficial: https://help.atas.net/support/solutions/articles/72000602317
 ### 🎯 Estrategias de scalping donde se aplica
 
 -   (Teóricamente) Comprar al cruzar el nivel 0 hacia arriba; vender al cruzar hacia abajo.
-    
 -   **En la práctica, no es aplicable**. La señal es demasiado ruidosa y llega demasiado tarde.
     
 
@@ -73,11 +68,8 @@ Web oficial: https://help.atas.net/support/solutions/articles/72000602317
 ### 🧪 Notas de desarrollo
 
 -   Este es un indicador "envoltorio" (wrapper). No calcula nada por sí mismo.
-    
--   Crea una instancia interna del `AroonIndicator` (el que vimos en el paso anterior).
-    
+-   Crea una instancia interna del `AroonIndicator` (el que vimos en el paso anterior). 
 -   Su única lógica es `_renderSeries[bar] = AroonUp[bar] - AroonDown[bar]`.
-    
 -   Es simplemente una resta de los dos componentes del indicador anterior.
     
 
@@ -91,5 +83,5 @@ Este indicador coge los datos ruidosos y lentos del `AroonIndicator` y los prese
 
 ¿Continuamos con el siguiente?
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjIzNzA0NjIzXX0=
+eyJoaXN0b3J5IjpbLTE4NTI0NzU1NDksMjIzNzA0NjIzXX0=
 -->
