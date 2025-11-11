@@ -179,11 +179,9 @@ Es un filtro de "régimen de tendencia vs. rango" muy, muy robusto.
 
 ----------
 
-### 📈 ¿Es útil para Scalping? (Tu 6/10)
+### 📈 ¿Es útil para Scalping?
 
-Estoy de acuerdo con tu **6/10**, _específicamente_ para el propósito de scalping.
-
-**El Porqué:** Como puedes ver en tu propia imagen, es una herramienta de **confirmación**, no de **entrada**.
+Es una herramienta de **confirmación**, no de **entrada**.
 
 -   Mira el mínimo de las ~22:05. El precio gira. El indicador no pasa a `+1` (alcista) hasta las ~22:20.
     
@@ -195,26 +193,11 @@ Para un scalper, 15-20 minutos (3-4 velas de M5) es una eternidad; el grueso del
 Por lo tanto, este indicador no te ayudará a _entrar_ en el giro, pero es **excelente** para _confirmar_ que el nuevo impulso es real y para _filtrar_ todas las pequeñas sacudidas (ruido) que ocurrieron entre las 19:20 y las 22:05.
 
 ----------
-
-### 🛠️ Tus Propuestas de Mejora son la Clave
-
-Tu análisis es tan bueno que has dado con el principal defecto del indicador: **es una "caja negra"**.
-
-Tu primera propuesta de mejora:
-
-> "Añadir opción para **mostrar visualmente el AMA, AMA High y AMA Low**"
-
-Esta no es solo una "mejora", es la **solución fundamental** que necesita este indicador. Sin ver las líneas AMA y las bandas de desviación (`deviation`), es imposible ajustar el parámetro `Percent` (30) de forma inteligente. No sabes si el 30% es demasiado grande o demasiado pequeño porque no puedes verlo.
-
 ### Veredicto
 
 Es un filtro de régimen (Tendencia/Rango) brillante, mucho más inteligente que el ADX. Pero su valor real está en gráficos de mayor temporalidad (H1/H4) o como un filtro de contexto.
 
-Para el scalping, tu nota de 6/10 es perfecta.
-
 **Acción:** **Conservar.** Es una herramienta de contexto de alta calidad, pero no un sistema de señales.
-
-Excelente análisis. ¿Continuamos?
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExMzI5NjY4MDZdfQ==
+eyJoaXN0b3J5IjpbMTMxMzg2ODUyN119
 -->
