@@ -147,18 +147,12 @@
 ---
 
 ## Comentario de Gemini
-Aquí tienes la "pregunta clave" de este indicador, siguiendo tu petición:
 
-> The Key Question: "Is the market's recent, short-term momentum (5-bar) currently winning against the longer-term trend's momentum (34-bar)?"
-> 
-> (¿Está el momentum reciente a corto plazo (5 barras) ganando la batalla contra el momentum de la tendencia a largo plazo?)
+Aquí tienes la "pregunta clave" de este indicador:
+
+**¿Está el momentum reciente a corto plazo (5 barras) ganando la batalla contra el momentum de la tendencia a largo plazo?**
 
 ----------
-
-Tu análisis es, una vez más, **impecable**. Tu puntuación de **4/10** es exactamente la que yo le daría.
-
-Este es un indicador clásico, pero para un scalper moderno del S&P 500 que tiene acceso a herramientas de flujo de órdenes (Order Flow), se queda muy corto. Tu ficha lo ha capturado a la perfección.
-
 ### ✍️ Sobre el Código (AwesomeOscillator.cs)
 
 Tu ficha ya ha detectado los problemas de _diseño_ (lógica), pero el código tiene también problemas de _implementación_:
@@ -171,8 +165,6 @@ Tu ficha ya ha detectado los problemas de _diseño_ (lógica), pero el código t
     
     Este código es muy ineficiente. En lugar de usar las clases SMA (como hacen otros indicadores), recalcula la media móvil simple (SMA) manualmente con un for loop en cada barra.
     
-    C#
-    
     ```
     for (var ct = 1; ct <= _p1; ct += 1)
     {
@@ -180,7 +172,6 @@ Tu ficha ya ha detectado los problemas de _diseño_ (lógica), pero el código t
         sma1 += midPrice;
         // ...
     }
-    
     ```
     
     Esto significa que para calcular el AO en una barra, hace 34 iteraciones (más las 5 de la corta). En la siguiente barra, vuelve a hacerlas todas de nuevo. Un indicador bien implementado (como los que hemos visto) usaría `_smaLong.Calculate(...)` y `_smaShort.Calculate(...)`, que es exponencialmente más rápido.
@@ -229,6 +220,6 @@ Es un indicador "ciego" (solo precio, sin volumen) y con lag (es una resta de me
 
 Excelente trabajo. ¿Pasamos al siguiente?
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDIwNjA0ODcsLTc4MjQ0OTEwMCwtMjA4OD
-c0NjYxMl19
+eyJoaXN0b3J5IjpbODY3MzMyMzg1LC03ODI0NDkxMDAsLTIwOD
+g3NDY2MTJdfQ==
 -->
