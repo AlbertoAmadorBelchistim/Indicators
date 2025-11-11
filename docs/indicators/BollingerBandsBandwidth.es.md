@@ -145,6 +145,9 @@
 - Opcional: línea de referencia con la media móvil del ancho
 
 - Soporte para exportar señales de compresión extrema
+
+## Comentario Gemini
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE3MTY2OTI3NTldfQ==
+eyJoaXN0b3J5IjpbLTUzOTAyNDIyNSwtMTcxNjY5Mjc1OV19
 -->
