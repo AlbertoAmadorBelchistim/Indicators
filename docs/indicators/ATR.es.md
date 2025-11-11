@@ -144,6 +144,8 @@
 - Permitir **mostrar valor como etiqueta en el gráfico**
 
 - Incluir **nivel medio de ATR histórico** para comparar con el valor actual
+
+##Comentario de Gemin
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTIxODg4MzU4NF19
+eyJoaXN0b3J5IjpbLTYyMTA5MzUzMl19
 -->
