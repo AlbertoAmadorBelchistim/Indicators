@@ -124,21 +124,6 @@ Esta es la "pregunta clave" que el indicador intenta responder:
 
 ----------
 
-Tu ficha es **impecable**. Este es un análisis de nivel profesional.
-
-Has "destripado" el código a la perfección en tus "Notas de desarrollo". Has identificado el 100% de la lógica del indicador: que **no es un indicador, sino una _visualización_**.
-
-Es un indicador que "dibuja" el **Delta** en un formato de vela, donde:
-
--   **Close =** Delta Neto (el valor que verías en un histograma de Delta normal).
-    
--   **High =** Delta Máximo (el punto de mayor agresión compradora dentro de la vela).
-    
--   **Low =** Delta Mínimo (el punto de mayor agresión vendedora dentro de la vela).
-    
-
-Estoy 100% de acuerdo con tu puntuación de **6.5/10** y con tu análisis.
-
 ### ✍️ Mi Opinión sobre tu Ficha y el Indicador
 
 1.  El Valor Único (Las Mechas):
@@ -175,7 +160,6 @@ Estoy 100% de acuerdo con tu puntuación de **6.5/10** y con tu análisis.
 
 Tu 6.5/10 es la nota perfecta. Es una herramienta de "visualización" de Delta muy inteligente. Si te gusta tener un "resumen" rápido de la batalla del Delta sin tener que abrir un gráfico de clúster, este indicador es excelente para eso, especialmente si le añades la línea de cero.
 
-Tu análisis ha sido perfecto. ¿Continuamos?
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTc2Njg2MjkyOF19
+eyJoaXN0b3J5IjpbLTU5MTE1NDkwM119
 -->
