@@ -7,15 +7,9 @@
 ![AD](../img/AD.png)
 
 
-Aquí tienes la ficha del indicador `AD.cs`, adaptada al nuevo formato y con el análisis correspondiente.
-
-La ficha que me has enviado es excelente. El análisis del "Comentario de Gemini" (que entiendo es tu propio análisis en este caso) es absolutamente certero: el indicador es conceptualmente una línea acumulativa, pero está implementado como un histograma, lo que lo hace inútil.
-
-He integrado ese análisis en la ficha oficial.
-
 ----------
 
-## 🟦 AD (2/10)
+## 
 
 Nombre del archivo: AD.cs
 
@@ -25,7 +19,7 @@ Web oficial: ATAS — Accumulation/Distribution (A/D)
 
 Compatibilidad: ATAS versión estable y superiores.
 
-> **La Pregunta Clave:** ¿El flujo de volumen acumulado está confirmando la tendencia del precio, o está mostrando una divergencia?
+> 
 
 ----------
 
@@ -149,5 +143,5 @@ Además, conceptualmente, es un indicador de "Order Flow Falso". Intenta _adivin
 
 **¿Merece la pena arreglarlo?** **No.** Aunque el arreglo es trivial (cambiar `Histogram` por `Line`), el indicador en sí es obsoleto y conceptualmente inferior a las herramientas de Order Flow que ya hemos decidido conservar.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTk1NzI4NzAxNF19
+eyJoaXN0b3J5IjpbLTEwMDU0ODQyNTFdfQ==
 -->
