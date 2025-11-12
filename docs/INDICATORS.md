@@ -23,7 +23,7 @@
 | `AccountInfoDisplay.cs` [(ES)](indicators/AccountInfoDisplay.es.md)                  | Account Info Display               | Utility| 7/10                | Latest| **Keep**|What is my account's real-time status (Balance, PnL, Margin) right now, without me having to look away from the chart? |
 | `ActiveVolume.cs` [(ES)](indicators/ActiveVolume.es.md)                  | Active Volume              | Order Flow                   | 8/10|Stable|**Keep and Improve**| Filtering out all the small 'noise' trades, where is the _significant_, _aggressive_ buying and selling volume actually showing up on the price ladder?|
 | AdaptiveBinaryWaveMA.cs                  | Adaptive Binary Wave               | Trend|6/10| Stable| **Keep** |Has the adaptive moving average (AMA) broken out of its recent 'crawl' by a statistically significant amount?|
-| AdaptiveRsiAverage.cs                  | Adaptive RSI Moving Average               | Trend| 6/10                | Stable| Discard|How can I get a moving average that automatically _slows down_ when the market is undecided (RSI near 50) and _speeds up_ to catch trends when momentum is strong (RSI near 0 or 100)? |
+| AdaptiveRsiAverage.cs                  | Adaptive RSI Moving Average               | Trend| 4/10                | Stable| Discard|How can I get a moving average that automatically _slows down_ when the market is undecided (RSI near 50) and _speeds up_ to catch trends when momentum is strong (RSI near 0 or 100)? |
 | `Alligator.cs` [(ES)](indicators/Alligator.es.md)           | Alligator                    | Trend| 6/10        | Stable |Discard|Is the market 'sleeping' (in a range, with intertwined MAs) or is it 'awake and eating' (in a trend, with the MAs spread open)?|
 | Angle.cs                 | Study Angle| Trend| 2/10         | Stable| Discard|What is the literal geometric angle (in degrees) of the price trend over the last X bars? |
 | AroonIndicator.cs        | Aroon Indicator| Momentum                   | 3/10| Stable| Discard| Is the market's strength coming from _recently_ making new highs, or from _recently_ making new lows?|
@@ -31,8 +31,9 @@
 | AskBidBars.cs            | Ask/Bid Bars                 | VolumeOrderFlow             | Order flow / Bid-Ask             | Stable| Keep (with caveats)| |
 | AverageDelta.cs          | Average Delta                | VolumeOrderFlow             | Delta / Promedio                 | Stable| No| |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTA1NDcyNDI2NCw1MjI2OTU2MTEsNzE5Nj
-Q5NTQ2LDQyODc4ODc1MywtOTI2OTQ2NTg4LDk5OTE2MzE5Mywt
-MjE0NjgzODU1NCwyMDY3MTI1Mzk5LDM5ODc1NzI1MCwtMTkzMj
-MxMzI0NSwxMzIzMzczOTY0LC0zODM5NjIxNzRdfQ==
+eyJoaXN0b3J5IjpbLTE2NDU4NjEyNzAsMTA1NDcyNDI2NCw1Mj
+I2OTU2MTEsNzE5NjQ5NTQ2LDQyODc4ODc1MywtOTI2OTQ2NTg4
+LDk5OTE2MzE5MywtMjE0NjgzODU1NCwyMDY3MTI1Mzk5LDM5OD
+c1NzI1MCwtMTkzMjMxMzI0NSwxMzIzMzczOTY0LC0zODM5NjIx
+NzRdfQ==
 -->
