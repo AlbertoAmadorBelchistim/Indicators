@@ -8,15 +8,6 @@
 
 ![Alligator](../img/Alligator.png)
 
-
-Aquí tienes la ficha del indicador `Alligator.cs`, adaptada al nuevo formato.
-
-He mantenido la puntuación de 6/10. La ficha que me has enviado es coherente: el indicador es un 6/10 (un "aprobado"), y el análisis ("Comentario de Gemini") explica perfectamente _por qué_ no es mejor: es funcional, un clásico, pero conceptualmente obsoleto y demasiado lento para el scalping en comparación con el `AMA (Kaufman)`, que ya hemos conservado.
-
-----------
-
-> 
-
 ----------
 
 ### ⚙️ Parámetros configurables
@@ -168,5 +159,5 @@ El Alligator es el abuelo lento del AMA. Dado que ya tenemos la herramienta mode
 
 **¿Merece la pena arreglarlo?** No. No hay nada que "arreglar". El indicador funciona, pero es conceptualmente inferior a otras herramientas que ya hemos conservado.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTM1MDc4ODQxXX0=
+eyJoaXN0b3J5IjpbLTIwNzg1ODg4NDhdfQ==
 -->
