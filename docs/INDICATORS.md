@@ -30,10 +30,11 @@
 | AroonOscillator.cs       | Aroon Oscillator             | Technical                   | Tendencia                        | Stable| Discard| |
 | AskBidBars.cs            | Ask/Bid Bars                 | VolumeOrderFlow             | Order flow / Bid-Ask             | Stable| Keep (with caveats)| |
 | AverageDelta.cs          | Average Delta                | VolumeOrderFlow             | Delta / Promedio                 | Stable| No| |
+| AveragePriceBar.cs          | Average Price| VolumeOrderFlow             | Delta / Promedio                 | Stable| No| |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwNzQ1NDUwMzEsLTE1NjM0NTUyNjAsMT
-A1NDcyNDI2NCw1MjI2OTU2MTEsNzE5NjQ5NTQ2LDQyODc4ODc1
-MywtOTI2OTQ2NTg4LDk5OTE2MzE5MywtMjE0NjgzODU1NCwyMD
-Y3MTI1Mzk5LDM5ODc1NzI1MCwtMTkzMjMxMzI0NSwxMzIzMzcz
-OTY0LC0zODM5NjIxNzRdfQ==
+eyJoaXN0b3J5IjpbLTE3MzQ3NjY5MCwtMTU2MzQ1NTI2MCwxMD
+U0NzI0MjY0LDUyMjY5NTYxMSw3MTk2NDk1NDYsNDI4Nzg4NzUz
+LC05MjY5NDY1ODgsOTk5MTYzMTkzLC0yMTQ2ODM4NTU0LDIwNj
+cxMjUzOTksMzk4NzU3MjUwLC0xOTMyMzEzMjQ1LDEzMjMzNzM5
+NjQsLTM4Mzk2MjE3NF19
 -->
