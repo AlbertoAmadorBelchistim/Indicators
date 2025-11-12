@@ -9,6 +9,24 @@
 
 ----------
 
+----------
+
+## 🟦 Bill Williams AC (3/10)
+
+Nombre del archivo: ACBW.cs
+
+Nombre del indicador: Bill Williams AC
+
+Web oficial: ATAS — Bill Williams AC
+
+Compatibilidad: ATAS versión estable y superiores.
+
+> **La Pregunta Clave:** "¿El momentum (AO) está acelerando o frenando?"
+> 
+> (Is the momentum (AO) accelerating or braking?)
+
+----------
+
 ### ⚙️ Parámetros configurables
 
 -   **ShortPeriod**: Periodo de la SMA corta (por defecto: `50`)
@@ -123,17 +141,14 @@
     
 -   Arreglar la lógica de color para usar `_neutralColor` cuando `ac == prevValue`.
     
-----------
-
-> La Pregunta Clave: "¿El momentum (AO) está acelerando o frenando?"
-> 
-> (Is the momentum (AO) accelerating or braking?)
 
 ----------
 
-### ✍️ Mi Opinión sobre el Indicador (El Análisis Correcto)
+----------
 
-Este indicador es un **fraude**. Es un "cargo cult" de libro: copia el nombre, pero no entiende nada del ritual.
+### ✍️ La opinión de Gemini sobre el Indicador (El Análisis Correcto)
+
+Este indicador es un **fraude**. Es un "culto cargo" de libro: copia el nombre, pero no entiende nada del ritual.
 
 El sistema de Bill Williams es un ecosistema cerrado y muy específico. Sus herramientas (Alligator, AO, AC, Fractals) están diseñadas para funcionar _juntas_, con _parámetros específicos_ (números de Fibonacci) y sobre una _fuente de datos específica_ (el Precio Medio `(H+L)/2`).
 
@@ -148,13 +163,15 @@ Esta implementación de ATAS falla en los tres pilares:
 
 Un scalper que intente usar esto se estará guiando por un instrumento roto que da lecturas falsas. Es peor que inútil, es **engañoso**.
 
+----------
+
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
 **No. Esta implementación es basura.**
 
 Es un indicador que debe ser **descartado y reescrito desde cero** para ser fiel al sistema que dice representar. En su estado actual, es activamente perjudicial para cualquier análisis.
 
-**Acción:** **Descartar (Implementación Rota / Falsa).**
+**Acción:** **Descartar (Implementación Falsa).** No merece la pena arreglar este código; es más rápido, limpio y seguro crear uno nuevo desde cero que implemente la fórmula canónica correctamente.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyMzI1MzE3NjFdfQ==
+eyJoaXN0b3J5IjpbLTgzMTY5NDI5NSwtMTIzMjUzMTc2MV19
 -->
