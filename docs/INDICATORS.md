@@ -14,7 +14,7 @@
 | `AD.cs` [(ES)](indicators/AD.es.md)                     | Accumulation/Distribution (A/D)         | Volume Classic        | 2/10          | Stable | Discard| Is the cumulative volume flow confirming the price trend, or is it showing a divergence?|
 | `ADF.cs` [(ES)](indicators/ADF.es.md)                   | Accumulation/Distribution Flow    | Volume         | 3/10          | Stable | Discard | Where is high 'Effort' (Volume) meeting low 'Result' (Range), signaling a potential absorption or climax?|
 | `ADR.cs` [(ES)](indicators/ADR.es.md)                    | Average Daily Range                                | Volatility          | 7/10          | Stable | Keep (Utility)| Has the market already made its expected move of the day?|
-| `ADX.cs` [(ES)](indicators/ADX.es.md)                    | ADX                                | Trend        | 6/10          | Stable | Discard| Is the market in a strong trend (either up or down), or is it just 'chopping' sideways?|
+| `ADX.cs` [(ES)](indicators/ADX.es.md)                    | ADX                                | Trend        | 6/10          | Stable | **Keep**| Is the market in a strong trend (either up or down), or is it just 'chopping' sideways?|
 | `ADXR.cs` [(ES)](indicators/ADXR.es.md)                 | ADXR                               | Trend         | 2/10         | Stable | Discard| What is the smoothed-out, stable strength of the trend, ignoring short-term noise from the ADX itself?|
 | `AMA.cs` [(ES)](indicators/AMA.es.md)                   | AMA                          | Trend                   | 7/10          | Stable | Discard| How can I get a smooth moving average that doesn't lag during a strong breakout but does filter out the 'chop' in a sideways market?|
 | `AO.cs` [(ES)](indicators/AO.es.md)                  | Awesome Oscillator                           | Momentum| 4/10         | Stable| Discard|Is the market's recent, short-term momentum (5-bar) currently winning against the longer-term trend's momentum (34-bar) |
@@ -31,7 +31,7 @@
 | AskBidBars.cs            | Ask/Bid Bars                 | VolumeOrderFlow             | Order flow / Bid-Ask             | Stable| Keep (with caveats)| |
 | AverageDelta.cs          | Average Delta                | VolumeOrderFlow             | Delta / Promedio                 | Stable| No| |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTUxMTAwMzk5NywtMTU2MzQ1NTI2MCwxMD
+eyJoaXN0b3J5IjpbLTg4MjUzNDg5MCwtMTU2MzQ1NTI2MCwxMD
 U0NzI0MjY0LDUyMjY5NTYxMSw3MTk2NDk1NDYsNDI4Nzg4NzUz
 LC05MjY5NDY1ODgsOTk5MTYzMTkzLC0yMTQ2ODM4NTU0LDIwNj
 cxMjUzOTksMzk4NzU3MjUwLC0xOTMyMzEzMjQ1LDEzMjMzNzM5
