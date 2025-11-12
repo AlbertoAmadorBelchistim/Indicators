@@ -1,4 +1,4 @@
-## 🟦 Adaptive RSI Moving Average (6/10)
+## 🟦 Adaptive RSI Moving Average (4/10)
 
   
 
@@ -29,7 +29,7 @@
 
 ### 🧭 Clasificación
 
-📂 Momentum — Medias móviles adaptativas según la fuerza del RSI
+📂 Trend — Medias móviles adaptativas según la fuerza del RSI
 
 ----------
 
@@ -155,6 +155,6 @@ Un scalper necesita reaccionar _con_ el momentum, no 10 velas _después_ de él.
 
 **¿Merece la pena arreglarlo?** No. El concepto está mejor y más eficientemente implementado en el `AMA (Kaufman)`. Es un indicador redundante..
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDUxNDc2MDE2LC0zOTEwOTcwNTIsLTE4ND
-IxMzI1MDBdfQ==
+eyJoaXN0b3J5IjpbNjQ2NzU2NzYxLDQ1MTQ3NjAxNiwtMzkxMD
+k3MDUyLC0xODQyMTMyNTAwXX0=
 -->
