@@ -11,7 +11,7 @@
 | `ACBW.cs` [(ES)](indicators/ACBW.es.md)            | Bill Williams AC                  | Momentum         | 3/10          | Stable| Discard| Is the momentum (AO) accelerating or braking?|
 | `ACDC.cs` [(ES)](indicators/ACDC.es.md)                  | AC DC Histogram          | Momentum          | 2/10          | Stable| Discard| What is the smoothed, lagging direction of the market's acceleration?|
 | `ACR.cs` [(ES)](indicators/ACR.es.md)                  | Average Candle Range            | Volatility        | 5/10         | Stable | Discard (or Improve) | What is the average size of a single candle so far today?|
-| `AD.cs` [(ES)](indicators/AD.es.md)                     | Accumulation/Distribution (A/D)         | Volume         | 2/10          | Stable | Discard| Is the cumulative volume flow confirming the price trend, or is it showing a divergence?|
+| `AD.cs` [(ES)](indicators/AD.es.md)                     | Accumulation/Distribution (A/D)         | Volume Classic        | 2/10          | Stable | Discard| Is the cumulative volume flow confirming the price trend, or is it showing a divergence?|
 | `ADF.cs` [(ES)](indicators/ADF.es.md)                   | Accumulation/Distribution Flow    | Volume         | 6/10          | Stable | Discard (or Improve) | Where is high 'Effort' (Volume) meeting low 'Result' (Range), signaling a potential absorption or climax?|
 | `ADR.cs` [(ES)](indicators/ADR.es.md)                    | Average Daily Range                                | Volatility          | 7/10          | Stable | Keep (Utility)| Has the market already made its expected move of the day?|
 | `ADX.cs` [(ES)](indicators/ADX.es.md)                    | ADX                                | Trend        | 6/10          | Stable | Discard| Is the market in a strong trend (either up or down), or is it just 'chopping' sideways?|
@@ -31,9 +31,9 @@
 | AskBidBars.cs            | Ask/Bid Bars                 | VolumeOrderFlow             | Order flow / Bid-Ask             | Stable| Keep (with caveats)| |
 | AverageDelta.cs          | Average Delta                | VolumeOrderFlow             | Delta / Promedio                 | Stable| No| |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2NDU4NjEyNzAsMTA1NDcyNDI2NCw1Mj
-I2OTU2MTEsNzE5NjQ5NTQ2LDQyODc4ODc1MywtOTI2OTQ2NTg4
-LDk5OTE2MzE5MywtMjE0NjgzODU1NCwyMDY3MTI1Mzk5LDM5OD
-c1NzI1MCwtMTkzMjMxMzI0NSwxMzIzMzczOTY0LC0zODM5NjIx
-NzRdfQ==
+eyJoaXN0b3J5IjpbLTM3ODA4OTE5NCwxMDU0NzI0MjY0LDUyMj
+Y5NTYxMSw3MTk2NDk1NDYsNDI4Nzg4NzUzLC05MjY5NDY1ODgs
+OTk5MTYzMTkzLC0yMTQ2ODM4NTU0LDIwNjcxMjUzOTksMzk4Nz
+U3MjUwLC0xOTMyMzEzMjQ1LDEzMjMzNzM5NjQsLTM4Mzk2MjE3
+NF19
 -->
