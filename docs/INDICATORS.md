@@ -20,7 +20,7 @@
 | `AO.cs` [(ES)](indicators/AO.es.md)                  | Awesome Oscillator                           | Momentum| 4/10         | Stable| Discard|Is the market's recent, short-term momentum (5-bar) currently winning against the longer-term trend's momentum (34-bar) |
 | `ATR.cs` [(ES)](indicators/ATR.es.md)                     | ATR                          | Volatility| 6/10                      | Stable| **Keep and Improve**|What has been the _average true size_ (including gaps) of each bar over the last X periods? |
 | `ATRN.cs` [(ES)](indicators/ATRN.es.md)                  | ATR Normalized               | Volatility| 3/10                | Stable| Discard| What is the instrument's volatility (ATR) _as a percentage of its current price_? |
-| `AccountInfoDisplay.cs` [(ES)](indicators/AccountInfoDisplay.es.md)                  | Account Info Display               | Visualization                   | 7/10                | Latest| **Keep**|What is my account's real-time status (Balance, PnL, Margin) right now, without me having to look away from the chart? |
+| `AccountInfoDisplay.cs` [(ES)](indicators/AccountInfoDisplay.es.md)                  | Account Info Display               | Utility| 7/10                | Latest| **Keep**|What is my account's real-time status (Balance, PnL, Margin) right now, without me having to look away from the chart? |
 | `ActiveVolume.cs` [(ES)](indicators/ActiveVolume.es.md)                  | Active Volume              | Order Flow                   | 8/10|Stable|**Keep and Improve**| Filtering out all the small 'noise' trades, where is the _significant_, _aggressive_ buying and selling volume actually showing up on the price ladder?|
 | AdaptiveBinaryWaveMA.cs                  | Adaptive Binary Wave               | Trend|6/10| Stable| **Keep** |Has the adaptive moving average (AMA) broken out of its recent 'crawl' by a statistically significant amount?|
 | AdaptiveRsiAverage.cs                  | Adaptive RSI Moving Average               | Trend| 6/10                | Stable| Discard|How can I get a moving average that automatically _slows down_ when the market is undecided (RSI near 50) and _speeds up_ to catch trends when momentum is strong (RSI near 0 or 100)? |
@@ -31,8 +31,8 @@
 | AskBidBars.cs            | Ask/Bid Bars                 | VolumeOrderFlow             | Order flow / Bid-Ask             | Stable| Keep (with caveats)| |
 | AverageDelta.cs          | Average Delta                | VolumeOrderFlow             | Delta / Promedio                 | Stable| No| |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1MjY1NTQ1NTcsNTIyNjk1NjExLDcxOT
-Y0OTU0Niw0Mjg3ODg3NTMsLTkyNjk0NjU4OCw5OTkxNjMxOTMs
-LTIxNDY4Mzg1NTQsMjA2NzEyNTM5OSwzOTg3NTcyNTAsLTE5Mz
-IzMTMyNDUsMTMyMzM3Mzk2NCwtMzgzOTYyMTc0XX0=
+eyJoaXN0b3J5IjpbMTI0ODkyMjYzMSw1MjI2OTU2MTEsNzE5Nj
+Q5NTQ2LDQyODc4ODc1MywtOTI2OTQ2NTg4LDk5OTE2MzE5Mywt
+MjE0NjgzODU1NCwyMDY3MTI1Mzk5LDM5ODc1NzI1MCwtMTkzMj
+MxMzI0NSwxMzIzMzczOTY0LC0zODM5NjIxNzRdfQ==
 -->
