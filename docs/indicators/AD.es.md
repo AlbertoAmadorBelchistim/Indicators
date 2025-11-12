@@ -3,23 +3,10 @@
 **Nombre del archivo:** `AD.cs`  
 **Nombre del indicador:** Accumulation/Distribution (A/D)  
 **Web oficial:** [ATAS - Accumulation/Distribution (A/D)](https://help.atas.net/support/solutions/articles/72000606733)
+**La Pregunta Clave:** ¿El flujo de volumen acumulado está confirmando la tendencia del precio, o está mostrando una divergencia?
 
 ![AD](../img/AD.png)
 
-
-----------
-
-## 
-
-Nombre del archivo: AD.cs
-
-Nombre del indicador: Accumulation/Distribution (A/D)
-
-Web oficial: ATAS — Accumulation/Distribution (A/D)
-
-Compatibilidad: ATAS versión estable y superiores.
-
-> 
 
 ----------
 
@@ -143,5 +130,5 @@ Además, conceptualmente, es un indicador de "Order Flow Falso". Intenta _adivin
 
 **¿Merece la pena arreglarlo?** **No.** Aunque el arreglo es trivial (cambiar `Histogram` por `Line`), el indicador en sí es obsoleto y conceptualmente inferior a las herramientas de Order Flow que ya hemos decidido conservar.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwMDU0ODQyNTFdfQ==
+eyJoaXN0b3J5IjpbMTY0NDY1MjkyOV19
 -->
