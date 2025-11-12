@@ -8,155 +8,104 @@
 
 **Web oficial:**  [ATAS - Aroon Indicator](https://help.atas.net/support/solutions/articles/72000602316)
 
-  
+**Compatibilidad**: ATAS versión estable y superiores.
 
----
+> **La Pregunta Clave:** ¿La fortaleza del mercado proviene de haber hecho recientemente nuevos máximos, o de haber hecho recientemente nuevos mínimos?
 
-  
+----------
 
 ### ⚙️ Parámetros configurables
 
-  
+-   **Period**: Número de barras para evaluar el máximo y mínimo recientes (por defecto: `10`)
+    
 
-- **Period**: Número de barras para evaluar el máximo y mínimo recientes (por defecto: 10)
-
-  
-
----
-
-  
+----------
 
 ### 🧭 Clasificación
 
-📂 Momentum — Indicadores de fuerza relativa de tendencia y reversión
+📂 Momentum — Indicador de fuerza/tiempo de tendencia.
 
-  
-
----
-
-  
+----------
 
 ### 🧠 Uso más frecuente
 
-  
+-   Detectar el **inicio o final de tendencias** (cruce de líneas AroonUp/AroonDown).
+    
+-   Medir la **fuerza de la tendencia**: AroonUp cerca de 100 indica tendencia alcista fuerte.
+    
+-   Identificar zonas de **consolidación** (ambas líneas bajan o se mueven erráticamente).
+    
 
-- Detectar **inicio o final de tendencias** basadas en la aparición reciente de máximos o mínimos
-
-- Confirmar la **fuerza de la tendencia actual**: valores cercanos a 100 indican fortaleza
-
-- Identificar zonas de **consolidación o cambio de tendencia** cuando ambas líneas convergen
-
-  
-
----
-
-  
+----------
 
 ### 📊 Nivel de relevancia
 
 🔟 **3 / 10**
 
-  
+✅ Concepto clásico para medir el tiempo transcurrido desde un máximo/mínimo.
 
-✅ Útil como herramienta secundaria para confirmar contexto de tendencia
+⛔ EXTREMADAMENTE RUIDOSO: La señal es un "zig-zag" errático e inestable en timeframes cortos, haciéndolo ilegible.
 
-✅ Fácil de interpretar y parametrizar
+⛔ Es Lento: Es un indicador lagging que confirma un máximo/mínimo después de que ha ocurrido.
 
-⛔ No considera volumen ni desequilibrios de order flow
+⛔ Obsoleto y Redundante: El AMA (Kaufman) hace un trabajo infinitamente superior al identificar fases de tendencia y rango.
 
-⛔ Puede retrasarse en marcos muy cortos
-
-  
-
----
-
-  
+----------
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-  
+-   **Ninguna.**
+    
+-   El indicador es demasiado ruidoso y sus señales demasiado erráticas para ser utilizadas en scalping.
+    
 
-- **Confirmación de impulso**: entrada cuando la línea AroonUp supera 70 y AroonDown cae bajo 30
-
-- **Detección de agotamiento**: cuando ambas líneas convergen hacia 50, posible reversión
-
-- **Apoyo a ruptura**: si AroonUp se mantiene alto tras romper resistencia, mayor probabilidad de continuación
-
-  
-
----
-
-  
+----------
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-  
+-   **No se recomienda su uso para scalping.**
+    
 
-- **Period**: `14`
-
-  
-
-✅ Esta configuración permite detectar tendencias recientes sin atraso
-
-✅ Compatible con otros indicadores de momentum como CCI o RSI
-
-⛔ Puede requerir ajuste en sesiones de alta volatilidad
-
-  
-
----
-
-  
+----------
 
 ### 🧪 Notas de desarrollo
 
-  
+-   Calcula el número de barras transcurridas desde el máximo más alto y el mínimo más bajo en el `Period` definido.
+    
+-   Fórmula Up: `100m * (_period - (bar - highValue.Bar)) / _period`
+    
+-   Fórmula Down: `100m * (_period - (bar - lowValue.Bar)) / _period`
+    
+-   **Implementación Ineficiente:** El código usa `_extValues.OrderByDescending(x => x.High).First()` en cada barra. Esto es computacionalmente costoso (O(n log n)) para encontrar un máximo/mínimo, aunque para un `Period` pequeño (10-20) el impacto es mínimo.
+    
 
-- El indicador almacena los últimos `Period` valores de máximos y mínimos mediante una lista (`_extValues`).
+----------
 
-- Calcula el número de barras transcurridas desde el máximo más alto y el mínimo más bajo en ese rango.
+### ❗ Incoherencias o aspectos mejorables detectados
 
-- Aplica la fórmula clásica de Aroon:
+-   La principal incoherencia es conceptual: es un indicador diseñado para gráficos Diarios (para medir "días desde el máximo") que se ofrece en una plataforma de scalping, donde su señal es puro ruido.
+    
+-   La implementación de `OnCalculate` (buscando el max/min con `OrderBy`) es funcional pero ineficiente.
+    
 
-- `AroonUp = 100 * (Period - (bar - barDelMaximo)) / Period`
-
-- `AroonDown = 100 * (Period - (bar - barDelMinimo)) / Period`
-
-- Los valores se almacenan en dos `ValueDataSeries`: `_upSeries` (azul) y `_downSeries` (rojo).
-
-- Incluye lógica para evitar duplicados si se recalcula el mismo `bar`.
-
-  
-
----
-
-  
+----------
 
 ### 🛠️ Propuestas de mejora
 
-  
-
-- Añadir opción para **alertas visuales o sonoras** al cruzarse AroonUp y AroonDown
-
-- Incluir una tercera línea o color para **zona neutra** (ambos valores entre 40 y 60)
-
-- Permitir **mostrar histograma de diferencia** entre ambas líneas como filtro direccional
-
-- Soporte para **visualización condicional por color de fondo** (tendencia alcista / bajista / lateral)
-
-## Comentario Gemini
-Aquí tienes la "pregunta clave" de este indicador:
-
-¿La fortaleza del mercado proviene de haber hecho recientemente nuevos máximos, o de haber hecho recientemente nuevos mínimos?
+-   Reemplazar la búsqueda `OrderBy` por un bucle `for` simple que mantenga un registro del `highestHighBar` y `lowestLowBar`, lo cual sería mucho más eficiente (O(n)).
+    
 
 ----------
-### ✍️ Mi Opinión sobre el Indicador
+
+----------
+
+### ✍️ La opinión de Gemini sobre el Indicador (El Análisis Correcto)
 
 **El Problema: Es un Indicador "Digital" y Ruidoso**
 
 El Aroon no mide la _magnitud_ del momentum (como el RSI). Solo mide el _tiempo_. Su pregunta es binaria: "¿Ha ocurrido un nuevo máximo/mínimo en las últimas X barras? Sí/No".
 
-El resultado, como se ve perfectamente en tu captura de pantalla, es un oscilador **extremadamente ruidoso y dentado**. No te da una lectura suave del "momentum"; te da un zig-zag frenético que es muy difícil de interpretar en tiempo real para un scalper.
+El resultado, como se ve perfectamente en la captura de pantalla, es un oscilador **extremadamente ruidoso y dentado**. No te da una lectura suave del "momentum"; te da un zig-zag frenético que es muy difícil de interpretar en tiempo real para un scalper.
 
 -   A las 09:00, el AroonUp (azul) está en 100 (tendencia alcista fuerte).
     
@@ -167,26 +116,25 @@ El resultado, como se ve perfectamente en tu captura de pantalla, es un oscilado
 
 Un scalper no puede tomar decisiones con una señal tan errática.
 
-**Notas de Desarrollo:**
-
-La implementación es lógicamente correcta pero computacionalmente ineficiente. Usa OrderBy().First() en cada barra para encontrar el máximo/mínimo de la lista. Esto es O(n log n) en cada tick, cuando podría ser O(1) la mayor parte del tiempo. Para un período de 10 esto no importa, pero es un detalle de programación "sucio". 
-
 ----------
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
 **No. Es un claro "Descartar".**
 
-1.  **Es Demasiado Ruidoso:** Como demuestra tu captura, es inutilizable en gráficos de M1/M5.
+1.  **Es Demasiado Ruidoso:** Como demuestra la captura de pantalla, es inutilizable en gráficos de M1/M5.
     
 2.  **Es Lento:** El indicador es, por diseño, un seguidor de tendencias lento. Te confirma un nuevo máximo _después_ de que ha pasado.
     
-3.  **Tenemos Herramientas Mejores:** El **AMA (Kaufman)** que ya hemos "Conservado" hace un trabajo infinitamente superior al identificar "fases de tendencia" y "fases de rango" de una manera suave, visual y mucho más rápida.
+3.  **Tenemos Herramientas Mejores:** El **AMA (Kaufman) (7/10)** que ya hemos "Conservado" hace un trabajo infinitamente superior al identificar "fases de tendencia" y "fases de rango" de una manera suave, visual y mucho más rápida.
     
+
 Es un indicador clásico diseñado para gráficos diarios, no para el scalping moderno.
 
 **Acción:** **Descartar.**
+
+**¿Merece la pena arreglarlo?** **No.** Aunque se podría optimizar el código (arreglando la ineficiencia de `OrderBy`), el concepto fundamental del indicador (un oscilador de _tiempo_ en lugar de _magnitud_) no es adecuado para el scalping y es redundante frente al AMA.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTk0Mzk5MTIyLC05NDc2OTEyNyw2NjQyMz
-czNDJdfQ==
+eyJoaXN0b3J5IjpbLTIwNTU0ODYxNzAsLTk0Mzk5MTIyLC05ND
+c2OTEyNyw2NjQyMzczNDJdfQ==
 -->
