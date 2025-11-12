@@ -8,7 +8,7 @@
 
 | File `.cs`               | Indicator´s name              | Category       | Scalping score           | Version               | Gemini's Verdict | Answer|
 |-----------------------------|-----------------------------------|----------------------------|-------------------------------|------------|-----------|----|
-| `ACBW.cs` [(ES)](indicators/ACBW.es.md)            | Bill Williams AC                  | Momentum         | 4/10          | Stable| Discard| Is the current trend's momentum accelerating or hitting the brakes?|
+| `ACBW.cs` [(ES)](indicators/ACBW.es.md)            | Bill Williams AC                  | Momentum         | 4/10          | Stable| Discard| Is the momentum (AO) accelerating or braking?|
 | `ACDC.cs` [(ES)](indicators/ACDC.es.md)                  | AC DC Histogram          | Momentum          | 2/10          | Stable| Discard| What is the smoothed, lagging direction of the market's acceleration?|
 | `ACR.cs` [(ES)](indicators/ACR.es.md)                  | Average Candle Range            | Volatility        | 5/10         | Stable | Discard (or Improve) | What is the average size of a single candle so far today?|
 | `AD.cs` [(ES)](indicators/AD.es.md)                     | Accumulation/Distribution (A/D)         | Volume         | 2/10          | Stable | Discard| Is the cumulative volume flow confirming the price trend, or is it showing a divergence?|
@@ -31,8 +31,8 @@
 | AskBidBars.cs            | Ask/Bid Bars                 | VolumeOrderFlow             | Order flow / Bid-Ask             | Stable| Keep (with caveats)| |
 | AverageDelta.cs          | Average Delta                | VolumeOrderFlow             | Delta / Promedio                 | Stable| No| |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTIyNjk1NjExLDcxOTY0OTU0Niw0Mjg3OD
-g3NTMsLTkyNjk0NjU4OCw5OTkxNjMxOTMsLTIxNDY4Mzg1NTQs
-MjA2NzEyNTM5OSwzOTg3NTcyNTAsLTE5MzIzMTMyNDUsMTMyMz
-M3Mzk2NCwtMzgzOTYyMTc0XX0=
+eyJoaXN0b3J5IjpbLTE1MjY1NTQ1NTcsNTIyNjk1NjExLDcxOT
+Y0OTU0Niw0Mjg3ODg3NTMsLTkyNjk0NjU4OCw5OTkxNjMxOTMs
+LTIxNDY4Mzg1NTQsMjA2NzEyNTM5OSwzOTg3NTcyNTAsLTE5Mz
+IzMTMyNDUsMTMyMzM3Mzk2NCwtMzgzOTYyMTc0XX0=
 -->
