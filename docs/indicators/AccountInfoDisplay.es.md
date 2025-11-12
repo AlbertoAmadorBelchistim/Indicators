@@ -1,25 +1,14 @@
-## 🟨 Account Info Display (7/10)
-
-Nombre del archivo: AccountInfoDisplay.cs  
-Nombre del indicador: Account Info Display  
-Web oficial: [Atas - Account Info Display](https://help.atas.net/en/support/solutions/articles/72000648751-account-info-display)  
-**Compatibilidad:** ATAS versión latest y superiores.
-
-![Account Info Display](../img/AccountInfoDisplay.png)
-
-----------
-
 ## 🟦 Account Info Display (7/10)
 
 
-Nombre del archivo: AccountInfoDisplay.cs  
-Nombre del indicador: Account Info Display  
-Web oficial: [Atas - Account Info Display](https://help.atas.net/en/support/solutions/articles/72000648751-account-info-display)  
+**Nombre del archivo**: AccountInfoDisplay.cs  
+**Nombre del indicador**: Account Info Display  
+**Web oficial**: [Atas - Account Info Display](https://help.atas.net/en/support/solutions/articles/72000648751-account-info-display)  
 **Compatibilidad:** ATAS versión latest y superiores.
 
 ![Account Info Display](../img/AccountInfoDisplay.png)
 
-> **La Pregunta Clave:** ¿Cuál es el estado de mi cuenta (Balance, PnL, Margen) en tiempo real, sin tener que apartar la vista del gráfico?
+**La Pregunta Clave:** ¿Cuál es el estado de mi cuenta (Balance, PnL, Margen) en tiempo real, sin tener que apartar la vista del gráfico?
 
 ----------
 
@@ -167,6 +156,6 @@ Debe usarse como una herramienta de "chequeo de riesgo" (¿cuánto margen me que
 
 **Acción:** **Conservar.** Es un indicador de utilidad bien construido que, usado con disciplina, aporta valor al centralizar la información.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTc5NDgxODgzMCwtMTM2OTY0MTM2Myw5Nz
+eyJoaXN0b3J5IjpbMjAxNDkyNDA2NiwtMTM2OTY0MTM2Myw5Nz
 A4NDQ3ODRdfQ==
 -->
