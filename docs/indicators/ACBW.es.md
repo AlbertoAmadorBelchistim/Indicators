@@ -1,29 +1,13 @@
-﻿## 🟦 Bill Williams AC (3/10)
+## 🟦 Bill Williams AC (3/10)
 
 **Nombre del archivo:** `ACBW.cs`  
 **Nombre del indicador:** Bill Williams AC  
 **Web oficial:** [ATAS — Bill Williams AC](https://help.atas.net/support/solutions/articles/72000602333)
 **Compatibilidad:** ATAS versión estable y superiores.
 
+**La Pregunta Clave:** "¿El momentum (AO) está acelerando o frenando?"
+
 ![ACBW](../img/ACBW.png)
-
-----------
-
-----------
-
-## 🟦 Bill Williams AC (3/10)
-
-Nombre del archivo: ACBW.cs
-
-Nombre del indicador: Bill Williams AC
-
-Web oficial: ATAS — Bill Williams AC
-
-Compatibilidad: ATAS versión estable y superiores.
-
-> **La Pregunta Clave:** "¿El momentum (AO) está acelerando o frenando?"
-> 
-> (Is the momentum (AO) accelerating or braking?)
 
 ----------
 
@@ -173,5 +157,5 @@ Es un indicador que debe ser **descartado y reescrito desde cero** para ser fiel
 
 **Acción:** **Descartar (Implementación Falsa).** No merece la pena arreglar este código; es más rápido, limpio y seguro crear uno nuevo desde cero que implemente la fórmula canónica correctamente.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTgzMTY5NDI5NSwtMTIzMjUzMTc2MV19
+eyJoaXN0b3J5IjpbMTcwMjExOTI5MiwtMTIzMjUzMTc2MV19
 -->
