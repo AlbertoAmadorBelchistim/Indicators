@@ -159,6 +159,8 @@ $$
 - Añadir alertas visuales si se supera cierto umbral de dispersión
 
 - Mostrar etiquetas o zonas coloreadas cuando el valor está por encima o por debajo de niveles clave
+
+### Comentario Gemini
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDMzMTE4MzI4XX0=
+eyJoaXN0b3J5IjpbLTIwNTEwNjU2ODcsNDMzMTE4MzI4XX0=
 -->
