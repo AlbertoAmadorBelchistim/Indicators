@@ -1,35 +1,13 @@
-﻿## 🟦 Accumulation / Distribution Flow (6/10)
+## 🟦 Accumulation / Distribution Flow (3/10)
 
 **Nombre del archivo:** `ADF.cs`  
 **Nombre del indicador:** Accumulation / Distribution Flow  
 **Web oficial:** [ATAS - Accumulation/Distribution Flow](https://help.atas.net/support/solutions/articles/72000602569)
+**Compatibilidad**: ATAS versión estable y superiores.
+
+**La Pregunta Clave:** ¿Cuál es la _tendencia suavizada (lenta)_ del flujo de volumen acumulado?
 
 ![ADF](../img/ADF.png)
-
-
-Aquí tienes la ficha del indicador `ADF.cs`, adaptada al nuevo formato.
-
-He tenido que hacer una corrección importante. La ficha que me has enviado (y su "Comentario de Gemini") tenía una **"Pregunta Clave" que no se corresponde con la fórmula del indicador**. La pregunta sobre "Esfuerzo vs. Resultado" (`Volumen / Rango`) es para un indicador tipo VSA (Volume Spread Analysis), pero la fórmula de _este_ indicador `ADF.cs` es:
-
-`(Cambio de Precio) * Volumen / Rango`
-
-Esta es una versión del clásico "Accumulation/Distribution" o "OBV".
-
-Además, el análisis de que el `SMA(14)` añade un lag masivo es **100% correcto**. Por lo tanto, he ajustado la puntuación de 6/10 a un **3/10**, ya que es una versión _aún más lenta_ de un indicador (`AD.cs`) que ya habíamos calificado con un 2/10 (obsoleto).
-
-----------
-
-## 🟦 Accumulation / Distribution Flow (3/10)
-
-Nombre del archivo: ADF.cs
-
-Nombre del indicador: Accumulation / Distribution Flow
-
-Web oficial: ATAS — Accumulation/Distribution Flow
-
-Compatibilidad: ATAS versión estable y superiores.
-
-> **La Pregunta Clave:** ¿Cuál es la _tendencia suavizada (lenta)_ del flujo de volumen acumulado?
 
 ----------
 
@@ -146,5 +124,5 @@ Es un indicador de "lag sobre lag". Es una media móvil de un indicador que ya d
 
 **¿Merece la pena arreglarlo?** **No.** Es conceptualmente redundante y obsoleto. Si un trader quiere ver el flujo de volumen, debe usar **Delta Acumulado** o **ActiveVolume**, no una estimación de Price Action con un SMA de 14 períodos encima.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTI4NzczMDgxMl19
+eyJoaXN0b3J5IjpbLTE5Mjk2MzMxMTJdfQ==
 -->
