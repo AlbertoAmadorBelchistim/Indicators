@@ -7,28 +7,6 @@
 
 ![ACBW](../img/ACBW.png)
 
----
-
-
-Entendido. Asumo tus dos puntos:
-
-1.  **Indicadores Arreglables**: Perfecto. A partir de ahora, en mi veredicto, indicaré explícitamente si un indicador roto (como `StdErrBands` o `StdDevBands`) **merece el esfuerzo de ser arreglado** por su valor conceptual, o si es un "descarte" por ser intrínsecamente inútil (como `Dispersion`).
-    
-2.  **Revisión de Fichas Anteriores**: Excelente idea. Es necesario re-evaluar todo con la misma vara. La ficha que me pasaste (y que yo generé originalmente) era, en retrospectiva, **demasiado benévola**.
-    
-
-Aquí tienes la revisión de la ficha del `Bill Williams AC` (`ACBW.cs`) aplicando el mismo nivel de análisis crítico que hemos estado usando. El resultado es... francamente malo.
-
-----------
-
-## 🟦 Bill Williams AC (3/10)
-
-Nombre del archivo: ACBW.cs
-
-Nombre del indicador: Bill Williams AC
-
-Web oficial: https://help.atas.net/support/solutions/articles/72000602333
-
 ----------
 
 ### ⚙️ Parámetros configurables
@@ -178,5 +156,5 @@ Es un indicador que debe ser **descartado y reescrito desde cero** para ser fiel
 
 **Acción:** **Descartar (Implementación Rota / Falsa).**
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTg2MTI2NzM5Nl19
+eyJoaXN0b3J5IjpbMTM0MTMwMDk3NF19
 -->
