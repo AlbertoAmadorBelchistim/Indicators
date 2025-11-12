@@ -1,5 +1,3 @@
-Aquí tienes la ficha que habríamos creado, que confirma por qué es un descarte.
-
 > The Key Question: "Which force is stronger and more recent: the one making new highs (bulls) or the one making new lows (bears)?"
 > 
 > (¿Qué fuerza es más fuerte y reciente: la que está creando nuevos máximos (alcistas) o la que está creando nuevos mínimos (bajistas)?)
@@ -81,5 +79,6 @@ Web oficial: https://help.atas.net/support/solutions/articles/72000602317
 
 Este indicador coge los datos ruidosos y lentos del `AroonIndicator` y los presenta de una forma diferente, pero no mejor. Es un indicador de libro de texto diseñado para gráficos diarios de acciones, y es fundamentalmente inútil para el scalping del S&P 500.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExNzU3MDMyNzksMjIzNzA0NjIzXX0=
+eyJoaXN0b3J5IjpbLTg1NTM2NTgyMiwtMTE3NTcwMzI3OSwyMj
+M3MDQ2MjNdfQ==
 -->
