@@ -15,7 +15,7 @@
 | `ADF.cs` [(ES)](indicators/ADF.es.md)                   | Accumulation/Distribution Flow    | Volume         | 3/10          | Stable | Discard | Where is high 'Effort' (Volume) meeting low 'Result' (Range), signaling a potential absorption or climax?|
 | `ADR.cs` [(ES)](indicators/ADR.es.md)                    | Average Daily Range                                | Volatility          | 7/10          | Stable | Keep (Utility)| Has the market already made its expected move of the day?|
 | `ADX.cs` [(ES)](indicators/ADX.es.md)                    | ADX                                | Trend        | 6/10          | Stable | **Keep**| Is the market in a strong trend (either up or down), or is it just 'chopping' sideways?|
-| `ADXR.cs` [(ES)](indicators/ADXR.es.md)                 | ADXR                               | Trend         | 2/10         | Stable | Discard| What is the smoothed-out, stable strength of the trend, ignoring short-term noise from the ADX itself?|
+| `ADXR.cs` [(ES)](indicators/ADXR.es.md)                 | ADXR                               | Trend         | 3/10         | Stable | Discard| What is the smoothed-out, stable strength of the trend, ignoring short-term noise from the ADX itself?|
 | `AMA.cs` [(ES)](indicators/AMA.es.md)                   | AMA                          | Trend                   | 7/10          | Stable | Discard| How can I get a smooth moving average that doesn't lag during a strong breakout but does filter out the 'chop' in a sideways market?|
 | `AO.cs` [(ES)](indicators/AO.es.md)                  | Awesome Oscillator                           | Momentum| 4/10         | Stable| Discard|Is the market's recent, short-term momentum (5-bar) currently winning against the longer-term trend's momentum (34-bar) |
 | `ATR.cs` [(ES)](indicators/ATR.es.md)                     | ATR                          | Volatility| 6/10                      | Stable| **Keep and Improve**|What has been the _average true size_ (including gaps) of each bar over the last X periods? |
@@ -31,9 +31,9 @@
 | AskBidBars.cs            | Ask/Bid Bars                 | VolumeOrderFlow             | Order flow / Bid-Ask             | Stable| Keep (with caveats)| |
 | AverageDelta.cs          | Average Delta                | VolumeOrderFlow             | Delta / Promedio                 | Stable| No| |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTg4MjUzNDg5MCwtMTU2MzQ1NTI2MCwxMD
-U0NzI0MjY0LDUyMjY5NTYxMSw3MTk2NDk1NDYsNDI4Nzg4NzUz
-LC05MjY5NDY1ODgsOTk5MTYzMTkzLC0yMTQ2ODM4NTU0LDIwNj
-cxMjUzOTksMzk4NzU3MjUwLC0xOTMyMzEzMjQ1LDEzMjMzNzM5
-NjQsLTM4Mzk2MjE3NF19
+eyJoaXN0b3J5IjpbLTE0MDgxMTc0NTEsLTE1NjM0NTUyNjAsMT
+A1NDcyNDI2NCw1MjI2OTU2MTEsNzE5NjQ5NTQ2LDQyODc4ODc1
+MywtOTI2OTQ2NTg4LDk5OTE2MzE5MywtMjE0NjgzODU1NCwyMD
+Y3MTI1Mzk5LDM5ODc1NzI1MCwtMTkzMjMxMzI0NSwxMzIzMzcz
+OTY0LC0zODM5NjIxNzRdfQ==
 -->
