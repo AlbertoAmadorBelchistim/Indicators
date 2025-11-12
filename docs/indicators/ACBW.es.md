@@ -1,4 +1,4 @@
-﻿## 🟦 Bill Williams AC (4/10)
+﻿## 🟦 Bill Williams AC (3/10)
 
 **Nombre del archivo:** `ACBW.cs`  
 **Nombre del indicador:** Bill Williams AC  
@@ -156,5 +156,5 @@ Es un indicador que debe ser **descartado y reescrito desde cero** para ser fiel
 
 **Acción:** **Descartar (Implementación Rota / Falsa).**
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTM0MTMwMDk3NF19
+eyJoaXN0b3J5IjpbLTEyMzI1MzE3NjFdfQ==
 -->
