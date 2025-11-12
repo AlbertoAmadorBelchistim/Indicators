@@ -1,5 +1,3 @@
--
-
 ## 🟦 Standard Deviation Bands (4/10)
 
 Nombre del archivo: StdDevBands.cs
@@ -150,5 +148,5 @@ Es un indicador que _debe_ ser eliminado del arsenal de un trader.
 
 **Acción:** **Descartar (¡Peligroso!).**
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTYxMjg1MTcxMyw3MzA5OTgxMTZdfQ==
+eyJoaXN0b3J5IjpbMTI0OTE5MzEzMCw3MzA5OTgxMTZdfQ==
 -->
