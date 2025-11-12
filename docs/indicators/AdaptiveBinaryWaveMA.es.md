@@ -1,4 +1,4 @@
-## 🟦 Adaptive Binary Wave (6/10)
+## 🟦 Adaptive Binary Wave (7/10)
 
   
 
@@ -8,163 +8,134 @@
 
 **Web oficial:** [ATAS - Adaptative Binary Wave](https://help.atas.net/support/solutions/articles/72000602535)
 
-  
+**Compatibilidad**: ATAS versión estable y superiores.
 
----
+**La Pregunta Clave:** ¿Ha roto la media móvil adaptativa (AMA) su 'canal' reciente por una cantidad estadísticamente significativa?
 
-  
+----------
 
 ### ⚙️ Parámetros configurables
 
-  
+-   **Period**: Periodo base del AMA y la desviación estándar (por defecto: `10` _heredado de StdDev_).
+    
+-   **ShortPeriod**: Constante rápida del AMA (por defecto: `2` _heredado de AMA_).
+    
+-   **LongPeriod**: Constante lenta del AMA (por defecto: `30` _heredado de AMA_).
+    
+-   **Percent**: Porcentaje del umbral de desviación estándar (por defecto: `30`).
+    
 
-- **Period**: Periodo base del AMA y la desviación estándar (por defecto: según inicialización)
-
-- **ShortPeriod**: Constante rápida del AMA
-
-- **LongPeriod**: Constante lenta del AMA
-
-- **Percent**: Porcentaje del umbral de desviación estándar que se usa para detectar señales binarias
-
-  
-
----
-
-  
+----------
 
 ### 🧭 Clasificación
 
-📂 Trend — Indicadores de seguimiento de tendencia adaptativos basados en media móvil y estadística
+📂 Trend — Filtro de régimen (Tendencia vs. Rango) basado en AMA.
 
-  
-
----
-
-  
+----------
 
 ### 🧠 Uso más frecuente
 
-  
+-   Detectar puntos de cambio en la dirección del precio mediante un oscilador binario (`+1`, `0`, `-1`).
+    
+-   Confirmar señales de momentum basadas en la distancia del AMA respecto a sus extremos recientes.
+    
+-   **Filtrar zonas sin tendencia** (valores = `0`) para evitar operaciones en consolidaciones ("chop").
+    
 
-- Detectar puntos de cambio en la dirección del precio mediante un oscilador binario
-
-- Confirmar señales de momentum basadas en la distancia del AMA respecto a sus extremos recientes
-
-- Filtrar zonas sin tendencia (valores = 0) para evitar operaciones en consolidaciones
-
-  
-
----
-
-  
+----------
 
 ### 📊 Nivel de relevancia
 
-🔟 **6 / 10**
+🔟 **7 / 10**
 
-  
+✅ Conceptualemente brillante: Usa la volatilidad del propio AMA (StdDev) para crear un filtro de "ruido" estadístico y robusto.
 
-✅ Proporciona señales binarias claras basadas en lógica adaptativa
+✅ Proporciona señales binarias claras (Tendencia Alcista, Tendencia Bajista, Rango).
 
-✅ Reduce el ruido al usar un umbral dinámico basado en desviación estándar
+✅ Muy superior a un ADX o a una simple media para definir el régimen de mercado.
 
-⛔ Puede requerir ajuste fino de `Percent` para distintos activos o marcos temporales
+⛔ Es lento: No es un indicador de entrada, sino de confirmación. La señal (+1 o -1) aparece varias velas después de que el giro ha comenzado.
 
-⛔ No muestra visualmente los niveles del AMA ni la desviación, solo el resultado binario
-
-  
-
----
-
-  
+----------
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-  
+-   **Filtro de Régimen (Contexto):**
+    
+    -   Si el indicador marca `+1`: Solo buscar operaciones largas.
+        
+    -   Si el indicador marca `-1`: Solo buscar operaciones cortas.
+        
+    -   Si el indicador marca `0`: **No operar** (mercado en "chop" o rango).
+        
+-   **Confirmación de Tendencia:** Esperar a que el indicador pase de `0` a `+1` (o `-1`) para confirmar que una ruptura es "estadísticamente significativa" y no ruido.
+    
 
-- **Pullback controlado**: señal = -1 dentro de tendencia alcista para esperar giro
-
-- **Confirmación de ruptura**: señal = 1 tras consolidación o soporte reciente
-
-- **Reversión rápida**: detectar cambio con confirmación al pasar de -1 a 1 sin zona neutra
-
-  
+----------
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-  
+-   **Period**: `21`
+    
+-   **ShortPeriod**: `2`
+    
+-   **LongPeriod**: `30`
+    
+-   **Percent**: `25` (Un umbral más ajustado para reaccionar antes).
+    
 
-- **Period**: `21`
+✅ Reduce señales falsas en consolidación.
 
-- **ShortPeriod**: `2`
+✅ Reacciona con agilidad a cambios bruscos sin repintar.
 
-- **LongPeriod**: `30`
-
-- **Percent**: `25`
-
-  
-
-✅ Reduce señales falsas en consolidación
-
-✅ Reacciona con agilidad a cambios bruscos sin repintar
-
-⛔ Puede dar señales tardías en velas de rango amplio o gap
-
-  
-
----
-
-  
+----------
 
 ### 🧪 Notas de desarrollo
 
-  
+-   El indicador usa una **Adaptive Moving Average (AMA)** para suavizar el precio.
+    
+-   Calcula la **Desviación Estándar (`StdDev`) sobre el propio AMA**, no sobre el precio.
+    
+-   Mantiene un registro del máximo del AMA (`_amaHigh`) y el mínimo del AMA (`_amaLow`) desde el último "cruce".
+    
+-   Calcula un umbral dinámico: `deviation = _percent * 0.01m * _stdDev[bar]`.
+    
+-   **Genera una señal binaria:**
+    
+    -   `+1` (Alcista): Si `AMA - _amaLow > deviation` (El AMA ha subido desde su último mínimo más que la desviación).
+        
+    -   `-1` (Bajista): Si `_amaHigh - AMA > deviation` (El AMA ha caído desde su último máximo más que la desviación).
+        
+    -   `0` (Rango): En todos los demás casos.
+        
 
-- El indicador usa una **Adaptive Moving Average (AMA)** para suavizar el precio
+----------
 
-- Se calculan los **máximos y mínimos locales del AMA**, actualizados solo si se supera el anterior
+### ❗ Incoherencias o aspectos mejorables detectados
 
-- Usa una **desviación estándar sobre el AMA** como filtro de umbral
+-   El indicador es puramente de salida (un histograma binario). No dibuja el AMA, sus máximos/mínimos, ni las bandas de desviación, lo que dificulta al usuario entender _por qué_ está en estado `0`, `+1` o `-1`.
+    
 
-- Se genera una **señal binaria**:
-
-- `+1` si AMA se aleja del mínimo previo más que el umbral
-
-- `-1` si AMA cae desde el máximo previo más que el umbral
-
-- `0` en el resto de casos
-
-  
-
----
-
-  
+----------
 
 ### 🛠️ Propuestas de mejora
 
-  
-
-- Añadir opción para **mostrar visualmente el AMA, AMA High y AMA Low**
-
-- Incluir series auxiliares para la desviación estándar y los umbrales (+/-)
-
-- Permitir cambiar el modo de salida: binario, oscilador suavizado o modo histograma
-
-- Agregar alertas sonoras/visuales al detectar cruce desde 0 a ±1
-
-- Posibilidad de **filtrar señales según volumen o delta** para integrarlo en order flow
-
-## Comentario Gemini
-Aquí tienes la "pregunta clave" de este indicador:
-
-¿Ha roto la media móvil adaptativa (AMA) su 'canal' reciente por una cantidad estadísticamente significativa?
+-   Añadir una opción para **mostrar visualmente el AMA, _amaHigh y _amaLow** en el gráfico de precios. Esto es crucial para la transparencia.
+    
+-   Incluir series auxiliares para la desviación estándar y los umbrales (+/-).
+    
+-   Agregar alertas sonoras/visuales al detectar cruce desde `0` a `±1`.
+    
 
 ----------
-### ✍️ Mi Opinión sobre el Indicador
+
+----------
+
+### ✍️ La opinión de Gemini sobre el Indicador (El Análisis Correcto)
 
 Este es uno de los indicadores conceptualmente **más inteligentes** que hemos visto hasta ahora.
 
-Es una "evolución" del **AMA (Kaufman)** que tanto nos gustó. En lugar de definir un "rango" (chop) simplemente cuando la línea AMA se queda "plana", este indicador hace algo mucho más robusto:
+Es una "evolución" del **AMA (Kaufman)**. En lugar de definir un "rango" (chop) simplemente cuando la línea AMA se queda "plana", este indicador hace algo mucho más robusto:
 
 1.  Calcula el AMA.
     
@@ -179,25 +150,17 @@ Es un filtro de "régimen de tendencia vs. rango" muy, muy robusto.
 
 ----------
 
-### 📈 ¿Es útil para Scalping?
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-Es una herramienta de **confirmación**, no de **entrada**.
+**Es una excelente herramienta de CONTEXTO (filtro de régimen), pero una mala herramienta de ENTRADA.**
 
--   Mira el mínimo de las ~22:05. El precio gira. El indicador no pasa a `+1` (alcista) hasta las ~22:20.
-    
--   Mira el máximo de las ~23:00. El precio gira. El indicador no pasa a `-1` (bajista) hasta las ~23:15.
-    
+Como se puede ver en la imagen, el indicador es lento. La señal de `+1` o `-1` aparece varias velas después del giro real. Para un scalper, 3-4 velas de retraso es una eternidad; el grueso del movimiento inicial ya ha pasado.
 
-Para un scalper, 15-20 minutos (3-4 velas de M5) es una eternidad; el grueso del movimiento inicial ya ha pasado.
-
-Por lo tanto, este indicador no te ayudará a _entrar_ en el giro, pero es **excelente** para _confirmar_ que el nuevo impulso es real y para _filtrar_ todas las pequeñas sacudidas (ruido) que ocurrieron entre las 19:20 y las 22:05.
-
-----------
-### Veredicto
-
-Es un filtro de régimen (Tendencia/Rango) brillante, mucho más inteligente que el ADX. Pero su valor real está en gráficos de mayor temporalidad (H1/H4) o como un filtro de contexto.
+Por lo tanto, este indicador no te ayudará a _entrar_ en el giro, pero es **excelente** para _confirmar_ que el nuevo impulso es real y para _filtrar_ todo el ruido y los giros falsos.
 
 **Acción:** **Conservar.** Es una herramienta de contexto de alta calidad, pero no un sistema de señales.
+
+**¿Merece la pena arreglarlo?** Sí, las "Propuestas de mejora" (especialmente dibujar el AMA y sus bandas) son mejoras de usabilidad que harían el indicador mucho más transparente, elevándolo de un 7/10 a un 8/10 o 9/10 como filtro.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTMxMzg2ODUyN119
+eyJoaXN0b3J5IjpbLTE4MzgxNzE0MDUsMTMxMzg2ODUyN119
 -->
