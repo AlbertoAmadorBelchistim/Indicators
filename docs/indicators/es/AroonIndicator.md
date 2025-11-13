@@ -5,7 +5,7 @@ category: Momentum
 score: 3/10
 version: Estable
 verdict: Descartar
-description: ¿Cuál es el ángulo geométrico literal (en grados) de la tendencia del precio durante las últimas X barras?
+description: ¿La fortaleza del mercado proviene de haber hecho recientemente nuevos máximos, o de haber hecho recientemente nuevos mínimos?
 ---
 ## 🟦 Aroon Indicator (3/10)
 
@@ -146,5 +146,5 @@ Es un indicador clásico diseñado para gráficos diarios, no para el scalping m
 
 **¿Merece la pena arreglarlo?** **No.** Aunque se podría optimizar el código (arreglando la ineficiencia de `OrderBy`), el concepto fundamental del indicador (un oscilador de _tiempo_ en lugar de _magnitud_) no es adecuado para el scalping y es redundante frente al AMA.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTQ1NDMwNjA3OV19
+eyJoaXN0b3J5IjpbLTEzNzMxMjQ1MF19
 -->
