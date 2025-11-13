@@ -13,7 +13,7 @@ description: ¿Cuál es la fuerza _estable y suavizada_ de la tendencia, ignoran
 **Nombre del archivo:** `Alligator.cs`  
 **Nombre del indicador:** Alligator  
 **Web oficial:** [ATAS - Alligator](https://help.atas.net/support/solutions/articles/72000602579)  
-**Compatibilidad:** ATAS versión stable y superiores.
+**Compatibilidad:** ATAS versión estable y superiores.
 **La Pregunta Clave:** ¿Está el mercado 'durmiendo' (en rango, con las medias entrelazadas) o está 'despierto y comiendo' (en tendencia, con las medias abiertas)?
 
 ![Alligator](../img/Alligator.png)
@@ -169,5 +169,5 @@ El Alligator es el abuelo lento del AMA. Dado que ya tenemos la herramienta mode
 
 **¿Merece la pena arreglarlo?** No. No hay nada que "arreglar". El indicador funciona, pero es conceptualmente inferior a otras herramientas que ya hemos conservado.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE0NTIyMTkxNjRdfQ==
+eyJoaXN0b3J5IjpbOTY4NDg1NjIzXX0=
 -->
