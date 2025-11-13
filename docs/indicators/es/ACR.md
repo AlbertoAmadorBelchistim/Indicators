@@ -15,7 +15,7 @@ description: ¿Cuál es el tamaño promedio de una vela en lo que va de día?
 **Compatibilidad:** ATAS versión estable y superiores.
 **La Pregunta Clave:** ¿Cuál es el tamaño promedio de una vela en lo que va de día?
 
-![ACR](../img/ACR.png)
+![ACR](../../img/ACR.png)
 
 ----------
 
@@ -148,5 +148,5 @@ Un scalper que vea un valor "bajo" en este indicador por la tarde no sabrá si e
 
 **¿Merece la pena arreglarlo?** **SÍ, ABSOLUTAMENTE.** Es el candidato número uno para ser "arreglado". El código base es bueno. Con solo añadir un parámetro `Period` y cambiar _una línea_ de cálculo (usar `SMA` en lugar de `CalcAverage`), este indicador pasaría de ser un "descarte" a ser una pieza central de un sistema de scalping.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTcyNDQ2NTA1OV19
+eyJoaXN0b3J5IjpbMTc5NzU4NDc2Nl19
 -->
