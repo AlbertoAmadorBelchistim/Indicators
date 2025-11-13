@@ -1,20 +1,21 @@
+
 --- 
 cs_file: ACR.cs  
 name: Average Candle Range  
 category: Volatilidad  
 score: 5/10  
 version: Estable  
-verdict: Descartar o arreglar  
+verdict: Descartar  
 description: ¿Cuál es el tamaño promedio de una vela en lo que va de día?  
----﻿
-
+---
+﻿
 ## 🟦 Average Candle Range (5/10)
 
 **Nombre del archivo:** `ACR.cs`  
 **Nombre del indicador:** Average Candle Range  
 **Web oficial:** [ATAS — Average Candle Range](https://help.atas.net/support/solutions/articles/72000602323)  
 **Compatibilidad:** ATAS versión estable y superiores.
-**La Pregunta Clave:** ¿Cuál es el tamaño promedio de una vela en lo que va de día?
+>**La Pregunta Clave:** ¿Cuál es el tamaño promedio de una vela en lo que va de día?
 
 ![ACR](../../img/ACR.png)
 
@@ -149,5 +150,5 @@ Un scalper que vea un valor "bajo" en este indicador por la tarde no sabrá si e
 
 **¿Merece la pena arreglarlo?** **SÍ, ABSOLUTAMENTE.** Es el candidato número uno para ser "arreglado". El código base es bueno. Con solo añadir un parámetro `Period` y cambiar _una línea_ de cálculo (usar `SMA` en lugar de `CalcAverage`), este indicador pasaría de ser un "descarte" a ser una pieza central de un sistema de scalping.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTA5NDI3ODc3Nl19
+eyJoaXN0b3J5IjpbMzc1MDcxMTI5LDEwOTQyNzg3NzZdfQ==
 -->
