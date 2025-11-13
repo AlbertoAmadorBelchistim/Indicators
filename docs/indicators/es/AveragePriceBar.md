@@ -12,12 +12,12 @@ description: ¿En lugar de solo el 'Cierre', cuál es el precio promedio interno
 
   
 
-**Nombre del archivo:** `AveragePriceBar.cs`
-**Nombre del indicador:** Average Price for Bar
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602324](https://help.atas.net/support/solutions/articles/72000602324)
+**Nombre del archivo:** `AveragePriceBar.cs`  
+**Nombre del indicador:** Average Price for Bar  
+**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602324](https://help.atas.net/support/solutions/articles/72000602324)  
 **Compatibilidad** : ATAS versión estable y superiores.
 
-**La Pregunta Clave:** ¿En lugar de solo el 'Cierre', cuál es el precio promedio interno (ej. Mediana, Típico) de cada vela individual?
+>**La Pregunta Clave:** ¿En lugar de solo el 'Cierre', cuál es el precio promedio interno (ej. Mediana, Típico) de cada vela individual?
 
 ![AveragePriceBar](../../img/AveragePriceBar.png)
 
@@ -140,5 +140,6 @@ Como puedes ver en la imagen de la ficha, el resultado es una línea ruidosa que
 
 **¿Merece la pena arreglarlo?** **No.** El indicador no está "roto", es conceptualmente redundante e inútil. No hay nada que arreglar.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTIyNjE3MDEyOCwyMDM5Njk1NjE5XX0=
+eyJoaXN0b3J5IjpbMTE4NjY1MDExNiwxMjI2MTcwMTI4LDIwMz
+k2OTU2MTldfQ==
 -->
