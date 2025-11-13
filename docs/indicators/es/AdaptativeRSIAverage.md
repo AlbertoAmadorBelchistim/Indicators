@@ -6,7 +6,7 @@ category: Tendencia
 score: 4/10
 version: Estable
 verdict: Descartar
-description: ¿Cuál es la _tendencia suavizada (lenta)_ del flujo de volumen acumulado?
+description: ¿Cómo puedo obtener una media móvil que automáticamente se ralentice cuando el mercado está indeciso (RSI cerca de 50) y se acelere para capturar tendencias cuando el momentum es fuerte (RSI cerca de 0 o 100)?
 ---
 
 ## 🟦 Adaptive RSI Moving Average (4/10)
@@ -164,5 +164,5 @@ Un scalper necesita reaccionar _con_ el momentum, no 10 velas _después_ de él.
 
 **¿Merece la pena arreglarlo?** No. El concepto está mejor y más eficientemente implementado en el `AMA (Kaufman)`. Es un indicador redundante..
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzI5NTgyMjQ2LC02MjEwNjAxNDJdfQ==
+eyJoaXN0b3J5IjpbMTg5MDg0NjYwOSwtNjIxMDYwMTQyXX0=
 -->
