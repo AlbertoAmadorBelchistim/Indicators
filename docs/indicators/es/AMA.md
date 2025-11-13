@@ -13,8 +13,8 @@ description: ¿Cómo puedo obtener una media móvil suave que _no_ tenga retardo
 **Nombre del archivo:** `AMA.cs`  
 **Nombre del indicador:** Adaptive Moving Average  
 **Web oficial:** [ATAS - Adaptive Moving Average](https://help.atas.net/support/solutions/articles/72000602310)  
-**Compatibilidad:** ATAS versión estable y superiores.
-**La Pregunta Clave:** ¿Cómo puedo obtener una media móvil suave que _no_ tenga retardo (lag) durante una ruptura fuerte, pero _sí_ filtre el 'ruido' en un mercado lateral?
+**Compatibilidad:** ATAS versión estable y superiores.  
+>**La Pregunta Clave:** ¿Cómo puedo obtener una media móvil suave que _no_ tenga retardo (lag) durante una ruptura fuerte, pero _sí_ filtre el 'ruido' en un mercado lateral?
 
 ![AMA](../../img/AMA.png)
 
@@ -156,5 +156,5 @@ Es muy superior al `Alligator` y al `ADX` porque hace el mismo trabajo (diferenc
 
 **¿Merece la pena arreglarlo?** El indicador funciona perfectamente. Las "Propuestas de mejora" (como ver el Ratio de Eficiencia) son añadidos "nice-to-have" (bueno tenerlos), no correcciones necesarias.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTYyNTQwNjIxM119
+eyJoaXN0b3J5IjpbMTM2MTIyNjU5M119
 -->
