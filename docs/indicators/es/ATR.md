@@ -7,6 +7,7 @@ version: Estable
 verdict: Conservar y Mejorar
 description: ¿Cuál ha sido el tamaño verdadero promedio (incluyendo gaps) de cada barra durante los últimos X períodos?
 ---
+
 ## 🟦 ATR (8/10)
 
   
@@ -153,5 +154,5 @@ A pesar de su implementación subóptima (SMA), el concepto es tan fuerte que si
 
 **¿Merece la pena arreglarlo?** **SÍ.** Este indicador _debe_ ser arreglado. Reemplazar la lógica de cálculo de SMA por una EMA es una corrección prioritaria. Con esa simple corrección, este se convierte en uno de los indicadores de fondo más importantes del sistema.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEzODE3MTc2NV19
+eyJoaXN0b3J5IjpbLTEwMjgzNjg5OTVdfQ==
 -->
