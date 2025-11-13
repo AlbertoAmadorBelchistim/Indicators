@@ -17,7 +17,7 @@
 | `AccountInfoDisplay.cs` | [Account Info Display](indicators/es/AccountInfoDisplay.md) | Utilidad | 7/10 | Conservar | ¿Cuál es el estado de mi cuenta (Balance, PnL, Margen) en tiempo real, sin tener que apartar la vista del gráfico? |
 | `ActiveVolume.cs` | [Active Volume](indicators/es/ActiveVolume.md) | Volatilidad | 5/10 | Descartar o arreglar | ¿Cuál es el tamaño promedio de una vela en lo que va de día? |
 | `ADX.cs` | [ADX](indicators/es/ADX.md) | Tendencia | 6/10 | Conservar| ¿Está el mercado en una fuerte tendencia (alcista o bajista), o simplemente está 'oscilando' lateralmente? |
-| `ATR.cs` | [ATR](indicators/es/ATR.md) | Volatilidad | 8/10 | Consy Mejorar | ¿Cuál ha sido el tamaño verdadero promedio (incluyendo gaps) de cada barra durante los últimos X períodos? |
+| `ATR.cs` | [ATR](indicators/es/ATR.md) | Volatilidad | 8/10 | Conservary Mejorar | ¿Cuál ha sido el tamaño verdadero promedio (incluyendo gaps) de cada barra durante los últimos X períodos? |
 | `ACR.cs` | [Average Candle Range](indicators/es/ACR.md) | Volatilidad | 5/10 | Descartar o arreglar | ¿Cuál es el tamaño promedio de una vela en lo que va de día? |
 ---
 
@@ -27,5 +27,5 @@
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `ACBW.cs` | [Bill Williams AC](indicators/es/ACBW.md) | Momentum | 3/10 | Descartar | ¿El momentum (AO) está acelerando o frenando? |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwODk2NDY5MzZdfQ==
+eyJoaXN0b3J5IjpbNjUwNTkyODg0XX0=
 -->
