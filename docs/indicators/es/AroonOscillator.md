@@ -1,3 +1,12 @@
+---
+cs_file: AroonOscillator.cs
+name: Aroon Oscillator 
+category: Momentum
+score: 3/10
+version: Estable
+verdict: Descartar
+description: ¿Cuál es el ángulo geométrico literal (en grados) de la tendencia del precio durante las últimas X barras?
+---
 ## 🟦 Aroon Oscillator (3/10)
 
 Nombre del archivo: AroonOscillator.cs
@@ -9,6 +18,8 @@ Web oficial: ATAS — Aroon Oscillator
 Compatibilidad: ATAS versión estable y superiores.
 
 **La Pregunta Clave:** ¿Qué fuerza es más fuerte y reciente: la que está creando nuevos máximos (AroonUp) o la que está creando nuevos mínimos (AroonDown)?
+
+![AroonOscillator](../../img/AroonOscillator.png)
 
 ----------
 
@@ -115,5 +126,5 @@ Es un indicador de libro de texto diseñado para gráficos diarios de acciones, 
 
 **¿Merece la pena arreglarlo?** **No.** El indicador no está "roto"; es un "wrapper" de un indicador que ya hemos determinado que es conceptualmente inútil para el scalping. No hay nada que arreglar.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTU0Njg2MzMyMl19
+eyJoaXN0b3J5IjpbLTIxNDI3NjE4OV19
 -->
