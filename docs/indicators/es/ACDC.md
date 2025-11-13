@@ -8,7 +8,7 @@ verdict: Descartar
 description: ¿Cuál es la dirección _suavizada y con retardo_ de la aceleración del mercado?  
 ---
 ﻿
-﻿## 🟦 AC DC Histogram (2/10)
+## 🟦 AC DC Histogram (2/10)
 
 **Nombre del archivo:** `ACDC.cs`  
 **Nombre del indicador:** AC DC Histogram  
@@ -151,5 +151,5 @@ Un scalper necesita velocidad y reaccionar a la aceleración _ahora_. Este indic
 
 **Acción:** **Descartar.** No merece la pena arreglarlo. Si quisiéramos un `AC` real (lo cual sí es útil), deberíamos arreglar el `ACBW` o, mejor, usar este `ACDC` y eliminar la línea de código `_sma3` (el suavizado final). En su estado actual, es un indicador lógicamente roto.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5MzMwMTE0MzJdfQ==
+eyJoaXN0b3J5IjpbMjE3Mzg1MDAxXX0=
 -->
