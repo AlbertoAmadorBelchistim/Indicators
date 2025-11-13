@@ -14,7 +14,7 @@ description: ¿Cuál es la presión agresiva promedio (Delta) durante las últim
 
 **Nombre del archivo:** `AverageDelta.cs`  
 **Nombre del indicador:** Average Delta  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000618456](https://help.atas.net/support/solutions/articles/72000618456)  
+**Web oficial:** [ATAS - Average Delta](https://help.atas.net/support/solutions/articles/72000618456)  
 **Compatibilidad**: ATAS versión estable y superiores.
 
 >**La Pregunta Clave:** ¿Cuál es la presión agresiva promedio (Delta) durante las últimas X velas, suavizando el ruido de vela a vela?

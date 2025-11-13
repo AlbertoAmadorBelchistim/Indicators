@@ -14,7 +14,7 @@ description: ¿Cuál ha sido el tamaño verdadero promedio (incluyendo gaps) de 
 
 **Nombre del archivo:**  `ATR.cs`  
 **Nombre del indicador:** ATR  
-**Web oficial:**  [ATAS - ATR](https://help.atas.net/support/solutions/articles/72000602536)
+**Web oficial:**  [ATAS - ATR](https://help.atas.net/support/solutions/articles/72000602536)  
 **Compatibilidad:** ATAS versión stable y superiores.  
 >**La Pregunta Clave:** ¿Cuál ha sido el tamaño real promedio (incluyendo gaps) de cada vela durante los últimos X períodos?
 

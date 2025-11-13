@@ -1,4 +1,3 @@
-
 ---
 cs_file: AdaptiveRsiAverage.cs
 name: Adaptive RSI Moving Average  

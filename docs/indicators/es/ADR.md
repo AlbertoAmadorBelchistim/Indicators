@@ -1,4 +1,3 @@
-
 ---
 cs_file: ADR.cs
 name: ADR
@@ -13,7 +12,7 @@ description: ¿Cuál es el rango de movimiento "normal" o "promedio" para este i
 
 **Nombre del archivo:** `ADR.cs`  
 **Nombre del indicador:** Average Daily Range  
-**Web oficial:** [ATAS - ADR (Average Daily Range)](https://help.atas.net/support/solutions/articles/72000602312)
+**Web oficial:** [ATAS - ADR (Average Daily Range)](https://help.atas.net/support/solutions/articles/72000602312)  
 **Compatibilidad**: ATAS versión estable y superiores.
 >**La Pregunta Clave:** ¿Cuál es el rango de movimiento "normal" o "promedio" para este instrumento en una sesión, y dónde se proyectarían esos límites hoy?
 

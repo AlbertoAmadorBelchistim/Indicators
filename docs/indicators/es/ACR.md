@@ -1,5 +1,4 @@
-
---- 
+---
 cs_file: ACR.cs  
 name: Average Candle Range  
 category: Volatilidad  

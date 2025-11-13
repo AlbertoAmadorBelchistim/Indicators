@@ -1,4 +1,3 @@
-
 ---
 cs_file: Angle.cs
 name: Study Angle

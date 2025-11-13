@@ -1,4 +1,4 @@
---- 
+---
 cs_file: ActiveVolume.cs
 name: Active Volume
 category: Order Flow
@@ -6,15 +6,15 @@ score: 8/10
 version: Estable
 verdict: Conservar
 description: Filtrando todas las pequeñas operaciones de 'ruido', ¿dónde está apareciendo realmente el volumen significativo y agresivo de compra y venta en la escala de precios?
----﻿
+---
 
 ## 🟦 Active Volume (8/10)
   
 **Nombre del archivo:**  `ActiveVolume.cs`  
 **Nombre del indicador:** Active Volume  
 **Web oficial:**  [ATAS - Active Volume](https://help.atas.net/ru-RU/support/solutions/articles/72000608343-active-volume)  
-**Compatibilidad:** ATAS versión estable y superiores.
-**La Pregunta Clave:** Filtrando todas las pequeñas operaciones de 'ruido', ¿dónde está apareciendo realmente el volumen significativo y agresivo de compra y venta en la escala de precios?
+**Compatibilidad:** ATAS versión estable y superiores.  
+>**La Pregunta Clave:** Filtrando todas las pequeñas operaciones de 'ruido', ¿dónde está apareciendo realmente el volumen significativo y agresivo de compra y venta en la escala de precios?
 
 ![Active Volume](../../img/ActiveVolume.png)
 

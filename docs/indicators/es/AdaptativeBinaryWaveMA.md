@@ -1,4 +1,3 @@
-
 ---
 cs_file: AdaptiveBinaryWaveMA.cs
 name: Adaptive Binary Wave  

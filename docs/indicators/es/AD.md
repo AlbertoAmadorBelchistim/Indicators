@@ -1,4 +1,3 @@
-
 ---
 cs_file: AD .cs
 name: Accumulation/Distribution (A/D)   
