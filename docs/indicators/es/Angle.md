@@ -1,3 +1,4 @@
+
 ---
 cs_file: Angle.cs
 name: Study Angle
@@ -12,15 +13,11 @@ description: ¿Cuál es el ángulo geométrico literal (en grados) de la tendenc
 
   
 
-**Nombre del archivo:**  `Angle.cs`
-
-**Nombre del indicador:** Study Angle
-
-**Web oficial:**  [ATAS - Study Angle](https://help.atas.net/support/solutions/articles/72000602533)
-
-**Compatibilidad**: ATAS versión estable y superiores.
-
-**La Pregunta Clave:** ¿Cuál es el ángulo geométrico literal (en grados) de la tendencia del precio durante las últimas X barras?
+**Nombre del archivo:**  `Angle.cs`  
+**Nombre del indicador:** Study Angle  
+**Web oficial:**  [ATAS - Study Angle](https://help.atas.net/support/solutions/articles/72000602533)  
+**Compatibilidad**: ATAS versión estable y superiores.  
+>**La Pregunta Clave:** ¿Cuál es el ángulo geométrico literal (en grados) de la tendencia del precio durante las últimas X barras?
 
 ![Angle](../../img/Angle.png)
   
@@ -143,5 +140,5 @@ El **AMA (Kaufman) (7/10)** que ya hemos "Conservado" es un millón de veces sup
 
 **¿Merece la pena arreglarlo?** **No.** El concepto es fundamentalmente defectuoso para el trading (ruidoso e ilegible) y es redundante frente a un simple oscilador de Momentum o, mejor aún, el AMA.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1MTQ3MjA1NjldfQ==
+eyJoaXN0b3J5IjpbLTE4ODYxNzEwNzVdfQ==
 -->
