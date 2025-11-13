@@ -13,8 +13,8 @@ description: ¿Cuál es la dirección _suavizada y con retardo_ de la aceleraci�
 **Nombre del archivo:** `ACDC.cs`  
 **Nombre del indicador:** AC DC Histogram  
 **Web oficial:** [ATAS — AC DC Histogram](https://help.atas.net/support/solutions/articles/72000602293)  
-**Compatibilidad:** ATAS versión estable y superiores.
-**La Pregunta Clave:** "¿Cuál es la dirección _suavizada y con retardo_ de la aceleración del mercado?"
+**Compatibilidad:** ATAS versión estable y superiores.  
+>**La Pregunta Clave:** "¿Cuál es la dirección _suavizada y con retardo_ de la aceleración del mercado?"
 
 ![ACDC](../../img/ACDC.png)
 
@@ -151,5 +151,5 @@ Un scalper necesita velocidad y reaccionar a la aceleración _ahora_. Este indic
 
 **Acción:** **Descartar.** No merece la pena arreglarlo. Si quisiéramos un `AC` real (lo cual sí es útil), deberíamos arreglar el `ACBW` o, mejor, usar este `ACDC` y eliminar la línea de código `_sma3` (el suavizado final). En su estado actual, es un indicador lógicamente roto.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjE3Mzg1MDAxXX0=
+eyJoaXN0b3J5IjpbMTQ1MjM5MjMyMSwyMTczODUwMDFdfQ==
 -->
