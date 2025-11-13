@@ -16,7 +16,7 @@ description: ¿Está el mercado en una fuerte tendencia (alcista o bajista), o s
 **Compatibilidad**: ATAS versión estable y superiores.
 **La Pregunta Clave:** ¿Está el mercado en una tendencia fuerte (ya sea alcista o bajista), o está simplemente en un 'rango' lateral?
 
-![ADX](../img/ADX.png)
+![ADX](../../img/ADX.png)
 
 ----------
 
@@ -161,5 +161,5 @@ Su único uso para un scalper es como un "interruptor" en un sistema general:
 
 **¿Merece la pena arreglarlo?** El indicador funciona como fue diseñado. Las "Propuestas de mejora" (añadir líneas de nivel) son mejoras de usabilidad, no correcciones de bugs, y serían muy bienvenidas.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2MzYyMjY2NzFdfQ==
+eyJoaXN0b3J5IjpbLTc3NzQ0MTM0Nl19
 -->
