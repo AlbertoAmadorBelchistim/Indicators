@@ -1,8 +1,8 @@
---- 
-cs_file: ADF.cs   
-name: Accumulation / Distribution Flow     
+---
+cs_file: ADF.cs
+name: Accumulation / Distribution Flow
 category: Tendencia
-score: 3/10 
+score: 3/10
 version: Estable
 verdict: Descartar
 description: ¿Cuál es la _tendencia suavizada (lenta)_ del flujo de volumen acumulado?
@@ -133,5 +133,5 @@ Es un indicador de "lag sobre lag". Es una media móvil de un indicador que ya d
 
 **¿Merece la pena arreglarlo?** **No.** Es conceptualmente redundante y obsoleto. Si un trader quiere ver el flujo de volumen, debe usar **Delta Acumulado** o **ActiveVolume**, no una estimación de Price Action con un SMA de 14 períodos encima.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjExMzQ4OTI5MV19
+eyJoaXN0b3J5IjpbLTExMjYzNzc3OTNdfQ==
 -->
