@@ -5,7 +5,7 @@ category: Order Flow
 score: 6.5/10
 version: Estable
 verdict: Conservar (con reservas)
-description: ¿Cuál es la volatilidad (ATR) del instrumento como un porcentaje de su precio actual?
+description: ¿Cuál es la presión agresiva promedio (Delta) durante las últimas X velas, suavizando el ruido de vela a vela?
 ---
 ## 🟦 Average Delta (6.5/10)
 
@@ -145,5 +145,5 @@ Es una herramienta de contexto válida si entiendes sus limitaciones. Te dice cu
 
 **¿Merece la pena arreglarlo?** **Sí.** El arreglo es trivial (añadir `ShowZeroValue = true`) y mejora significativamente su legibilidad.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTI5MTAwODk4XX0=
+eyJoaXN0b3J5IjpbLTI2MDU0ODldfQ==
 -->
