@@ -16,7 +16,7 @@ description: ¿Cuál es la fuerza _estable y suavizada_ de la tendencia, ignoran
 **Compatibilidad:** ATAS versión estable y superiores.
 **La Pregunta Clave:** ¿Está el mercado 'durmiendo' (en rango, con las medias entrelazadas) o está 'despierto y comiendo' (en tendencia, con las medias abiertas)?
 
-![Alligator](../img/Alligator.png)
+![Alligator](../../img/Alligator.png)
 
 ----------
 
@@ -169,5 +169,5 @@ El Alligator es el abuelo lento del AMA. Dado que ya tenemos la herramienta mode
 
 **¿Merece la pena arreglarlo?** No. No hay nada que "arreglar". El indicador funciona, pero es conceptualmente inferior a otras herramientas que ya hemos conservado.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbOTY4NDg1NjIzXX0=
+eyJoaXN0b3J5IjpbLTExNzIxMzEyMDhdfQ==
 -->
