@@ -16,7 +16,7 @@ description: ¿Cuál es el estado de mi cuenta (Balance, PnL, Margen) en tiempo 
 **Compatibilidad:** ATAS versión latest y superiores.  
 **La Pregunta Clave:** ¿Cuál es el estado de mi cuenta (Balance, PnL, Margen) en tiempo real, sin tener que apartar la vista del gráfico?
 
-![Account Info Display](../img/AccountInfoDisplay.png)
+![Account Info Display](../../img/AccountInfoDisplay.png)
 
 ----------
 
@@ -164,5 +164,5 @@ Debe usarse como una herramienta de "chequeo de riesgo" (¿cuánto margen me que
 
 **Acción:** **Conservar.** Es un indicador de utilidad bien construido que, usado con disciplina, aporta valor al centralizar la información.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDUyMzg1NDkxXX0=
+eyJoaXN0b3J5IjpbLTI3NDk4Nzc4MF19
 -->
