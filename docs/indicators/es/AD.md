@@ -1,5 +1,5 @@
 --- 
-cs_file: AD .cs   
+cs_file: AD .cs  
 name: Accumulation/Distribution (A/D)     
 category: Volumen clásico
 score: 2/10 
@@ -140,6 +140,6 @@ Además, conceptualmente, es un indicador de "Order Flow Falso". Intenta _adivin
 
 **¿Merece la pena arreglarlo?** **No.** Aunque el arreglo es trivial (cambiar `Histogram` por `Line`), el indicador en sí es obsoleto y conceptualmente inferior a las herramientas de Order Flow que ya hemos decidido conservar.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwNjUyODExNTAsNDU1MDQ0ODA4LC01OD
-c4MTY1NzVdfQ==
+eyJoaXN0b3J5IjpbMTcxODY5MjUxNiw0NTUwNDQ4MDgsLTU4Nz
+gxNjU3NV19
 -->
