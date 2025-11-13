@@ -1,3 +1,12 @@
+---
+cs_file: ATRN.cs
+name: ATR Normalized
+category: Volatilidad
+score: 3/10
+version: Estable
+verdict: Descartar
+description: ¿Cuál es la volatilidad (ATR) del instrumento como un porcentaje de su precio actual?
+---
 ## 🟨 ATR Normalized (3/10)
 
   
@@ -114,5 +123,5 @@
 **¿Merece la pena arreglarlo?** **No.** El indicador es conceptualmente inútil para el scalping y redundante.
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwMzcxMTA5MzZdfQ==
+eyJoaXN0b3J5IjpbLTExMDk5MTExOTZdfQ==
 -->
