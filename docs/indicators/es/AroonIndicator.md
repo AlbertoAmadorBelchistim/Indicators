@@ -10,7 +10,9 @@
 
 **Compatibilidad**: ATAS versión estable y superiores.
 
-> **La Pregunta Clave:** ¿La fortaleza del mercado proviene de haber hecho recientemente nuevos máximos, o de haber hecho recientemente nuevos mínimos?
+ **La Pregunta Clave:** ¿La fortaleza del mercado proviene de haber hecho recientemente nuevos máximos, o de haber hecho recientemente nuevos mínimos?
+
+![AO](../../img/AO.png)
 
 ----------
 
@@ -135,5 +137,5 @@ Es un indicador clásico diseñado para gráficos diarios, no para el scalping m
 
 **¿Merece la pena arreglarlo?** **No.** Aunque se podría optimizar el código (arreglando la ineficiencia de `OrderBy`), el concepto fundamental del indicador (un oscilador de _tiempo_ en lugar de _magnitud_) no es adecuado para el scalping y es redundante frente al AMA.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwNTU0ODYxNzBdfQ==
+eyJoaXN0b3J5IjpbLTEyMzIzODgyODFdfQ==
 -->
