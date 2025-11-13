@@ -12,15 +12,11 @@ description: ¿Cuál es la volatilidad (ATR) del instrumento como un porcentaje 
 
   
 
-**Nombre del archivo:**  `ATRN.cs`
-
-**Nombre del indicador:** ATR Normalized
-
-**Web oficial:**  [ATAS -   ATR Normalized](https://help.atas.net/support/solutions/articles/72000602633)
-
-**Compatibilidad**: ATAS versión estable y superiores.
-
-**La Pregunta Clave:** ¿Cuál es la volatilidad (ATR) del instrumento como un porcentaje de su precio actual?
+**Nombre del archivo:**  `ATRN.cs`  
+**Nombre del indicador:** ATR Normalized  
+**Web oficial:**  [ATAS -   ATR Normalized](https://help.atas.net/support/solutions/articles/72000602633)  
+**Compatibilidad**: ATAS versión estable y superiores.  
+>**La Pregunta Clave:** ¿Cuál es la volatilidad (ATR) del instrumento como un porcentaje de su precio actual?
 
 ![ATRN](../../img/ATRN.png)
 
@@ -126,5 +122,5 @@ description: ¿Cuál es la volatilidad (ATR) del instrumento como un porcentaje 
 **¿Merece la pena arreglarlo?** **No.** El indicador es conceptualmente inútil para el scalping y redundante.
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwMjIzMTgzMTldfQ==
+eyJoaXN0b3J5IjpbNDczMzI5MjFdfQ==
 -->
