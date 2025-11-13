@@ -1,8 +1,8 @@
 --- 
-cs_file: ActiveVolume.cs   
-name: Active Volume     
+cs_file: ActiveVolume.cs
+name: Active Volume
 category: Order Flow
-score: 8/10 
+score: 8/10
 version: Estable
 verdict: Conservar
 description: Filtrando todas las pequeñas operaciones de 'ruido', ¿dónde está apareciendo realmente el volumen significativo y agresivo de compra y venta en la escala de precios?
@@ -168,5 +168,5 @@ No es un indicador de "entrada/salida" por sí mismo, sino una herramienta de **
 
 **¿Merece la pena arreglarlo?** Sí. El indicador funciona, pero las "Propuestas de mejora" (especialmente el reseteo por sesión y un POC) lo elevarían de un 8/10 a un 10/10 en usabilidad.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTk1MTA5MDI2XX0=
+eyJoaXN0b3J5IjpbNDQ3MDc1ODIyXX0=
 -->
