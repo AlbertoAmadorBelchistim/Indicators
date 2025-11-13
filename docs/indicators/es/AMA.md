@@ -7,6 +7,7 @@ version: Estable
 verdict: Conservar
 description: ¿Cómo puedo obtener una media móvil suave que _no_ tenga retardo (lag) durante una ruptura fuerte, pero _sí_ filtre el 'ruido' en un mercado lateral?
 ---
+
 ## 🟦 Adaptive Moving Average (AMA) (7/10)
 
 **Nombre del archivo:** `AMA.cs`  
@@ -155,5 +156,5 @@ Es muy superior al `Alligator` y al `ADX` porque hace el mismo trabajo (diferenc
 
 **¿Merece la pena arreglarlo?** El indicador funciona perfectamente. Las "Propuestas de mejora" (como ver el Ratio de Eficiencia) son añadidos "nice-to-have" (bueno tenerlos), no correcciones necesarias.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwMzY0NzUyNDFdfQ==
+eyJoaXN0b3J5IjpbMTYyNTQwNjIxM119
 -->
