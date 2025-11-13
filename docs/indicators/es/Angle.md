@@ -7,6 +7,7 @@ version: Estable
 verdict: Descartar
 description: ¿Cuál es el ángulo geométrico literal (en grados) de la tendencia del precio durante las últimas X barras?
 ---
+
 ## 🟦 Study Angle (2/10)
 
   
@@ -142,5 +143,5 @@ El **AMA (Kaufman) (7/10)** que ya hemos "Conservado" es un millón de veces sup
 
 **¿Merece la pena arreglarlo?** **No.** El concepto es fundamentalmente defectuoso para el trading (ruidoso e ilegible) y es redundante frente a un simple oscilador de Momentum o, mejor aún, el AMA.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2MTQ0NDMzMzldfQ==
+eyJoaXN0b3J5IjpbLTE1MTQ3MjA1NjldfQ==
 -->
