@@ -12,15 +12,11 @@ description: ¿La fortaleza del mercado proviene de haber hecho recientemente nu
 
   
 
-**Nombre del archivo:**  `AroonIndicator.cs`
-
-**Nombre del indicador:** Aroon Indicator
-
-**Web oficial:**  [ATAS - Aroon Indicator](https://help.atas.net/support/solutions/articles/72000602316)
-
-**Compatibilidad**: ATAS versión estable y superiores.
-
- **La Pregunta Clave:** ¿La fortaleza del mercado proviene de haber hecho recientemente nuevos máximos, o de haber hecho recientemente nuevos mínimos?
+**Nombre del archivo:**  `AroonIndicator.cs`  
+**Nombre del indicador:** Aroon Indicator  
+**Web oficial:**  [ATAS - Aroon Indicator](https://help.atas.net/support/solutions/articles/72000602316)  
+**Compatibilidad**: ATAS versión estable y superiores.  
+> **La Pregunta Clave:** ¿La fortaleza del mercado proviene de haber hecho recientemente nuevos máximos, o de haber hecho recientemente nuevos mínimos?
 
 ![AroonIndicator](../../img/AroonIndicator.png)
 
@@ -147,5 +143,5 @@ Es un indicador clásico diseñado para gráficos diarios, no para el scalping m
 
 **¿Merece la pena arreglarlo?** **No.** Aunque se podría optimizar el código (arreglando la ineficiencia de `OrderBy`), el concepto fundamental del indicador (un oscilador de _tiempo_ en lugar de _magnitud_) no es adecuado para el scalping y es redundante frente al AMA.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTkxODk5NjA1Ml19
+eyJoaXN0b3J5IjpbODM2MzIzMzE2XX0=
 -->
