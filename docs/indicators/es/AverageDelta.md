@@ -12,12 +12,12 @@ description: ¿Cuál es la presión agresiva promedio (Delta) durante las últim
 
   
 
-**Nombre del archivo:** `AverageDelta.cs`
-**Nombre del indicador:** Average Delta
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000618456](https://help.atas.net/support/solutions/articles/72000618456)
+**Nombre del archivo:** `AverageDelta.cs`  
+**Nombre del indicador:** Average Delta  
+**Web oficial:** [https://help.atas.net/support/solutions/articles/72000618456](https://help.atas.net/support/solutions/articles/72000618456)  
 **Compatibilidad**: ATAS versión estable y superiores.
 
-**La Pregunta Clave:** ¿Cuál es la presión agresiva promedio (Delta) durante las últimas X velas, suavizando el ruido de vela a vela?
+>**La Pregunta Clave:** ¿Cuál es la presión agresiva promedio (Delta) durante las últimas X velas, suavizando el ruido de vela a vela?
 
 ![AverageDelta](../../img/AverageDelta.png)
 
@@ -146,5 +146,5 @@ Es una herramienta de contexto válida si entiendes sus limitaciones. Te dice cu
 
 **¿Merece la pena arreglarlo?** **Sí.** El arreglo es trivial (añadir `ShowZeroValue = true`) y mejora significativamente su legibilidad.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTMwNDM3NTYxM119
+eyJoaXN0b3J5IjpbMTA0MzM4MzI0NV19
 -->
