@@ -1,8 +1,8 @@
 --- 
-cs_file: AD .cs  
-name: Accumulation/Distribution (A/D)     
+cs_file: AD.cs
+name: Accumulation/Distribution (A/D)
 category: Volumen clásico
-score: 2/10 
+score: 2/10
 version: Estable
 verdict: Descartar
 description: ¿El flujo de volumen acumulado está confirmando la tendencia del precio, o está mostrando una divergencia?
@@ -140,6 +140,6 @@ Además, conceptualmente, es un indicador de "Order Flow Falso". Intenta _adivin
 
 **¿Merece la pena arreglarlo?** **No.** Aunque el arreglo es trivial (cambiar `Histogram` por `Line`), el indicador en sí es obsoleto y conceptualmente inferior a las herramientas de Order Flow que ya hemos decidido conservar.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTcxODY5MjUxNiw0NTUwNDQ4MDgsLTU4Nz
-gxNjU3NV19
+eyJoaXN0b3J5IjpbNDczOTI3MzAsNDU1MDQ0ODA4LC01ODc4MT
+Y1NzVdfQ==
 -->
