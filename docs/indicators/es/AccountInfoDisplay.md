@@ -1,8 +1,8 @@
 --- 
-cs_file: AccountInfoDisplay.cs   
-name: Account Info Display   
-category: Utilidad 
-score: 7/10 
+cs_file: AccountInfoDisplay.cs
+name: Account Info Display
+category: Utilidad
+score: 7/10
 version: Latest
 verdict: Conservar
 description: ¿Cuál es el estado de mi cuenta (Balance, PnL, Margen) en tiempo real, sin tener que apartar la vista del gráfico?
@@ -164,5 +164,5 @@ Debe usarse como una herramienta de "chequeo de riesgo" (¿cuánto margen me que
 
 **Acción:** **Conservar.** Es un indicador de utilidad bien construido que, usado con disciplina, aporta valor al centralizar la información.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTI3NDk4Nzc4MF19
+eyJoaXN0b3J5IjpbMjcwMjEzMTY2LC0yNzQ5ODc3ODBdfQ==
 -->
