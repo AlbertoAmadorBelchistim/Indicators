@@ -1,3 +1,12 @@
+--- 
+cs_file: ADR.cs   
+name: Average Daily Range      
+category: Volatilidad
+score: 7/10 
+version: Estable
+verdict: Conservar
+description: ¿Cuál es el rango de movimiento "normal" o "promedio" para este instrumento en una sesión, y dónde se proyectarían esos límites hoy?
+---﻿﻿
 ## 🟦 Average Daily Range (ADR) (7/10)
 
 **Nombre del archivo:** `ADR.cs`  
@@ -149,5 +158,5 @@ A pesar de su fallo de cálculo (no usar True Range), sigue siendo una de las me
 
 **¿Merece la pena arreglarlo?** **SÍ.** El concepto es un 9/10. La implementación actual es un 7/10. Implementar la "Mejora Crítica" (usar ATR) lo convertiría en una herramienta casi perfecta.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwNzY0NzI0MTNdfQ==
+eyJoaXN0b3J5IjpbNzQ5Mjc4MTczXX0=
 -->
