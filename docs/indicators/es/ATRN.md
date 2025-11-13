@@ -7,6 +7,7 @@ version: Estable
 verdict: Descartar
 description: ¿Cuál es la volatilidad (ATR) del instrumento como un porcentaje de su precio actual?
 ---
+
 ## 🟨 ATR Normalized (3/10)
 
   
@@ -125,5 +126,5 @@ description: ¿Cuál es la volatilidad (ATR) del instrumento como un porcentaje 
 **¿Merece la pena arreglarlo?** **No.** El indicador es conceptualmente inútil para el scalping y redundante.
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTMwMDYzNjVdfQ==
+eyJoaXN0b3J5IjpbLTIwMjIzMTgzMTldfQ==
 -->
