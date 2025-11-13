@@ -10,15 +10,11 @@ description: ¿Qué fuerza es más fuerte y reciente, la que está creando nuevo
 
 ## 🟦 Aroon Oscillator (3/10)
 
-Nombre del archivo: AroonOscillator.cs
-
-Nombre del indicador: Aroon Oscillator
-
-Web oficial: ATAS — Aroon Oscillator
-
-Compatibilidad: ATAS versión estable y superiores.
-
-**La Pregunta Clave:** ¿Qué fuerza es más fuerte y reciente: la que está creando nuevos máximos (AroonUp) o la que está creando nuevos mínimos (AroonDown)?
+**Nombre del archivo**: AroonOscillator.cs  
+**Nombre del indicador**: Aroon Oscillator  
+**Web oficial**: ATAS — Aroon Oscillator  
+**Compatibilidad**: ATAS versión estable y superiores.  
+>**La Pregunta Clave:** ¿Qué fuerza es más fuerte y reciente: la que está creando nuevos máximos (AroonUp) o la que está creando nuevos mínimos (AroonDown)?
 
 ![AroonOscillator](../../img/AroonOscillator.png)
 
@@ -127,5 +123,5 @@ Es un indicador de libro de texto diseñado para gráficos diarios de acciones, 
 
 **¿Merece la pena arreglarlo?** **No.** El indicador no está "roto"; es un "wrapper" de un indicador que ya hemos determinado que es conceptualmente inútil para el scalping. No hay nada que arreglar.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTg2MTE3NzEwMl19
+eyJoaXN0b3J5IjpbLTE0NjYzODU5MjRdfQ==
 -->
