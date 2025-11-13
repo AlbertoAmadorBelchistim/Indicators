@@ -18,6 +18,8 @@ description: ¿Cuál fue el volumen agresivo neto (Delta) de esta vela, e igualm
 
 > **La Pregunta Clave:** ¿Cuál fue el volumen agresivo neto (Delta) de esta vela, e igualmente importante, cuál fue el rango interno (Delta Máx/Mín) de la batalla entre compradores y vendedores dentro de esa vela?
 
+![AskBidBars](../../img/AskBidBars.png)
+
 ----------
 
 ### ⚙️ Parámetros configurables
@@ -157,5 +159,5 @@ Tu 6.5/10 es la nota perfecta. Es una herramienta de "visualización" de Delta m
 **¿Merece la pena arreglarlo?** **Sí.** El arreglo es trivial (añadir `LineSeries.Add(new LineSeries("Zero") { Value = 0, Color = Colors.Gray });` en el constructor) y lo convierte de "ilegible" a "útil".
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTM4ODEwNTU2NF19
+eyJoaXN0b3J5IjpbOTg2MTQzMDAxXX0=
 -->
