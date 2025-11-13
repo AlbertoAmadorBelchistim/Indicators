@@ -1,3 +1,12 @@
+--- 
+cs_file: ActiveVolume.cs   
+name: Active Volume     
+category: Order Flow
+score: 8/10 
+version: Estable
+verdict: Conservar
+description: Filtrando todas las pequeñas operaciones de 'ruido', ¿dónde está apareciendo realmente el volumen significativo y agresivo de compra y venta en la escala de precios?
+---﻿﻿
 ﻿# 🟦 AD (2/10)
 
 **Nombre del archivo:** `AD.cs`  
@@ -130,5 +139,5 @@ Además, conceptualmente, es un indicador de "Order Flow Falso". Intenta _adivin
 
 **¿Merece la pena arreglarlo?** **No.** Aunque el arreglo es trivial (cambiar `Histogram` por `Line`), el indicador en sí es obsoleto y conceptualmente inferior a las herramientas de Order Flow que ya hemos decidido conservar.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTY0NDY1MjkyOV19
+eyJoaXN0b3J5IjpbLTU4NzgxNjU3NV19
 -->
