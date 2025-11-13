@@ -1,11 +1,11 @@
 --- 
-cs_file: ActiveVolume.cs   
-name: Active Volume     
-category: Order Flow
-score: 8/10 
+cs_file: AD .cs   
+name: Accumulation/Distribution (A/D)     
+category: Volumen clásico
+score: 2/10 
 version: Estable
-verdict: Conservar
-description: Filtrando todas las pequeñas operaciones de 'ruido', ¿dónde está apareciendo realmente el volumen significativo y agresivo de compra y venta en la escala de precios?
+verdict: Descartar
+description: ¿El flujo de volumen acumulado está confirmando la tendencia del precio, o está mostrando una divergencia?
 ---﻿﻿
 ﻿# 🟦 AD (2/10)
 
@@ -140,6 +140,6 @@ Además, conceptualmente, es un indicador de "Order Flow Falso". Intenta _adivin
 
 **¿Merece la pena arreglarlo?** **No.** Aunque el arreglo es trivial (cambiar `Histogram` por `Line`), el indicador en sí es obsoleto y conceptualmente inferior a las herramientas de Order Flow que ya hemos decidido conservar.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTg4MDI5MDU4OSw0NTUwNDQ4MDgsLTU4Nz
-gxNjU3NV19
+eyJoaXN0b3J5IjpbLTEwNjUyODExNTAsNDU1MDQ0ODA4LC01OD
+c4MTY1NzVdfQ==
 -->
