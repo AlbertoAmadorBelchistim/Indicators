@@ -12,11 +12,10 @@ description: ¿Cuál fue el volumen agresivo neto (Delta) de esta vela, e igualm
 
   
 
-**Nombre del archivo:** `AskBidBars.cs`
-**Nombre del indicador:** Ask/Bid Volume Difference Bars
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602527](https://help.atas.net/support/solutions/articles/72000602527)
-**Compatibilidad**: ATAS versión estable y superiores.
-
+**Nombre del archivo:** `AskBidBars.cs`  
+**Nombre del indicador:** Ask/Bid Volume Difference Bars  
+**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602527](https://help.atas.net/support/solutions/articles/72000602527)  
+**Compatibilidad**: ATAS versión estable y superiores.  
 > **La Pregunta Clave:** ¿Cuál fue el volumen agresivo neto (Delta) de esta vela, e igualmente importante, cuál fue el rango interno (Delta Máx/Mín) de la batalla entre compradores y vendedores dentro de esa vela?
 
 ![AskBidBars](../../img/AskBidBars.png)
@@ -160,5 +159,5 @@ Tu 6.5/10 es la nota perfecta. Es una herramienta de "visualización" de Delta m
 **¿Merece la pena arreglarlo?** **Sí.** El arreglo es trivial (añadir `LineSeries.Add(new LineSeries("Zero") { Value = 0, Color = Colors.Gray });` en el constructor) y lo convierte de "ilegible" a "útil".
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwNTUzMjY4NDFdfQ==
+eyJoaXN0b3J5IjpbMTIwMTE5OTYwNV19
 -->
