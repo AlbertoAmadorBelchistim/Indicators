@@ -21,7 +21,7 @@ using OFT.Rendering.Tools;
 [DisplayName("Account Info Display")]
 #if RELEASE
 
-[Display(Description = "")]
+[Display(Description = "Muestra información detallada de la cuenta en el gráfico")]
 
 #else
 
@@ -68,7 +68,7 @@ public class AccountInfoDisplay : Indicator
 	}
 #if RELEASE
 
-    [Display(Name = "Positive Color", Description = "", GroupName = "Visualization")]
+    [Display(Name = "Positive Color", Description = "Color para valores de PnL positivos", GroupName = "Visualization")]
 
 #else
 
@@ -85,7 +85,7 @@ public class AccountInfoDisplay : Indicator
 
 #if RELEASE
 
-    [Display(Name = "Negative Color", Description = "", GroupName = "Visualization")]
+    [Display(Name = "Negative Color", Description = "Color para valores de PnL negativos", GroupName = "Visualization")]
 
 #else
 
@@ -119,7 +119,7 @@ public class AccountInfoDisplay : Indicator
 
 #if RELEASE
 
-    [Display(Name = "Show account Id", Description = "", GroupName = "Settings")]
+    [Display(Name = "Show account Id", Description = "Mostrar identificador de cuenta", GroupName = "Settings")]
 
 #else
 
@@ -132,7 +132,7 @@ public class AccountInfoDisplay : Indicator
 
 #if RELEASE
 
-    [Display(Name = "Show Currency", Description = "", GroupName = "Settings")]
+    [Display(Name = "Show Currency", Description = "Mostrar moneda de la cuenta", GroupName = "Settings")]
 
 #else
 
@@ -145,7 +145,7 @@ public class AccountInfoDisplay : Indicator
 
 #if RELEASE
 
-    [Display(Name = "Show Balance", Description = "", GroupName = "Settings")]
+    [Display(Name = "Show Balance", Description = "Mostrar saldo total", GroupName = "Settings")]
 
 #else
 
@@ -158,7 +158,7 @@ public class AccountInfoDisplay : Indicator
 
 #if RELEASE
 
-    [Display(Name = "Show Available Balance", Description = "", GroupName = "Settings")]
+    [Display(Name = "Show Available Balance", Description = "Mostrar fondos disponibles para operar", GroupName = "Settings")]
 
 #else
 
@@ -170,7 +170,7 @@ public class AccountInfoDisplay : Indicator
 
 #if RELEASE
 
-    [Display(Name = "Show Blocked Margin", Description = "", GroupName = "Settings")]
+    [Display(Name = "Show Blocked Margin", Description = "Mostrar margen bloqueado por operaciones abiertas", GroupName = "Settings")]
 
 #else
 
@@ -182,7 +182,7 @@ public class AccountInfoDisplay : Indicator
 
 #if RELEASE
 
-    [Display(Name = "Show Leverage", Description = "", GroupName = "Settings")]
+    [Display(Name = "Show Leverage", Description = "Mostrar apalancamiento de la cuenta", GroupName = "Settings")]
 
 #else
 
@@ -195,7 +195,7 @@ public class AccountInfoDisplay : Indicator
 
 #if RELEASE
 
-    [Display(Name = "Show Open PnL", Description = "", GroupName = "Settings")]
+    [Display(Name = "Show Open PnL", Description = "Mostrar ganancias y pérdidas no realizadas", GroupName = "Settings")]
 
 #else
 
@@ -208,7 +208,7 @@ public class AccountInfoDisplay : Indicator
     public bool ShowOpenPnL { get; set; } = true;
 #if RELEASE
 
-    [Display(Name = "Show Closed PnL", Description = "", GroupName = "Settings")]
+    [Display(Name = "Show Closed PnL", Description = "Mostrar ganancias y pérdidas realizadas", GroupName = "Settings")]
 
 #else
 
@@ -221,7 +221,7 @@ public class AccountInfoDisplay : Indicator
 
 #if RELEASE
 
-    [Display(Name = "Show Total PnL", Description = "", GroupName = "Settings")]
+    [Display(Name = "Show Total PnL", Description = "Mostrar ganancias y pérdidas totales", GroupName = "Settings")]
 
 #else
 
@@ -259,7 +259,7 @@ public class AccountInfoDisplay : Indicator
 
 #if RELEASE
 
-    [Display(Name = "Offset X", Description = "", GroupName = "Layout")]
+    [Display(Name = "Offset X", Description = "Desplazamiento horizontal desde el borde", GroupName = "Layout")]
 
 #else
 
@@ -273,7 +273,7 @@ public class AccountInfoDisplay : Indicator
 
 #if RELEASE
 
-    [Display(Name = "Offset Y", Description = "", GroupName = "Layout")]
+    [Display(Name = "Offset Y", Description = "Desplazamiento vertical desde el borde", GroupName = "Layout")]
 
 #else
 
@@ -287,7 +287,7 @@ public class AccountInfoDisplay : Indicator
 
 #if RELEASE
 
-    [Display(Name = "Column Spacing", Description = "", GroupName = "Layout")]
+    [Display(Name = "Column Spacing", Description = "Espaciado entre columnas de etiquetas y valores", GroupName = "Layout")]
 
 #else
 

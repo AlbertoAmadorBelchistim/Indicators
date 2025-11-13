@@ -625,7 +625,8 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
-
+        
+        private bool _dayHVNEnabled;
 #if RELEASE
 
         [Display(Name = "Enable HVN", GroupName = "Current Day", Order = 90)]
@@ -635,7 +636,6 @@ public class OHLCPlus : Indicator
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = "Enable HVN", Order = 90)]
 
 #endif
-        private bool _dayHVNEnabled;
         public bool DayHVNEnabled
     {
         get => _dayHVNEnabled;
@@ -647,16 +647,17 @@ public class OHLCPlus : Indicator
         }
     }
 
+        private bool _dayLVNEnabled;
 #if RELEASE
 
-    [Display(Name = "Enable LVN", GroupName = "Current Day", Order = 92)]
+        [Display(Name = "Enable LVN", GroupName = "Current Day", Order = 92)]
 
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = "Enable LVN", Order = 92)]
 
 #endif
-        private bool _dayLVNEnabled;
+
         public bool DayLVNEnabled
     {
         get => _dayLVNEnabled;
