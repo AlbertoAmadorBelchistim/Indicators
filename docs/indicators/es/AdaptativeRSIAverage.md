@@ -21,6 +21,8 @@ description: ¿Cómo puedo obtener una media móvil que automáticamente se rale
 
 **La Pregunta Clave:** ¿Cómo puedo obtener una media móvil que automáticamente se ralentice cuando el mercado está indeciso (RSI cerca de 50) y se acelere para capturar tendencias cuando el momentum es fuerte (RSI cerca de 0 o 100)?
 
+![AdaptiveRsiAverage](../../img/AdaptiveRsiAverage.png)
+
 ----------
 
 ### ⚙️ Parámetros configurables
@@ -164,5 +166,5 @@ Un scalper necesita reaccionar _con_ el momentum, no 10 velas _después_ de él.
 
 **¿Merece la pena arreglarlo?** No. El concepto está mejor y más eficientemente implementado en el `AMA (Kaufman)`. Es un indicador redundante..
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTYyMTA2MDE0Ml19
+eyJoaXN0b3J5IjpbLTg4MzA0OTMzLC02MjEwNjAxNDJdfQ==
 -->
