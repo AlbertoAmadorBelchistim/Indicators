@@ -5,7 +5,7 @@ category: Tendencia
 score: 6/10
 version: Estable
 verdict: Descartar
-description: ¿Cuál es la fuerza _estable y suavizada_ de la tendencia, ignorando el ruido a corto plazo del propio ADX?
+description: ¿Está el mercado 'durmiendo' (en rango, con las medias entrelazadas) o está 'despierto y comiendo' (en tendencia, con las medias abiertas)?
 ---
 
 ## 🟦 Alligator (6/10)
@@ -169,5 +169,5 @@ El Alligator es el abuelo lento del AMA. Dado que ya tenemos la herramienta mode
 
 **¿Merece la pena arreglarlo?** No. No hay nada que "arreglar". El indicador funciona, pero es conceptualmente inferior a otras herramientas que ya hemos conservado.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExNzIxMzEyMDhdfQ==
+eyJoaXN0b3J5IjpbMTEzODQ2OTg4XX0=
 -->
