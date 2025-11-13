@@ -16,7 +16,7 @@ description: ¿Cuál es el rango de movimiento "normal" o "promedio" para este i
 
 **La Pregunta Clave:** ¿Cuál es el rango de movimiento "normal" o "promedio" para este instrumento en una sesión, y dónde se proyectarían esos límites hoy?
 
-![ADR](../img/ADR.png)
+![ADR](../../img/ADR.png)
 
 ----------
 
@@ -158,5 +158,5 @@ A pesar de su fallo de cálculo (no usar True Range), sigue siendo una de las me
 
 **¿Merece la pena arreglarlo?** **SÍ.** El concepto es un 9/10. La implementación actual es un 7/10. Implementar la "Mejora Crítica" (usar ATR) lo convertiría en una herramienta casi perfecta.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzQ5Mjc4MTczXX0=
+eyJoaXN0b3J5IjpbNzE5ODAxMzY2XX0=
 -->
