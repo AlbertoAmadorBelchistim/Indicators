@@ -1,3 +1,13 @@
+---
+cs_file: ADX.cs
+name: ADX
+category: Tendencia
+score: 6/10
+version: Estable
+verdict: Mantener
+description: ¿Está el mercado en una fuerte tendencia (alcista o bajista), o simplemente está 'oscilando' lateralmente?
+---
+
 ## 🟦 ADX (Average Directional Index) (6/10)
 
 **Nombre del archivo:** `ADX.cs`  
@@ -151,5 +161,5 @@ Su único uso para un scalper es como un "interruptor" en un sistema general:
 
 **¿Merece la pena arreglarlo?** El indicador funciona como fue diseñado. Las "Propuestas de mejora" (añadir líneas de nivel) son mejoras de usabilidad, no correcciones de bugs, y serían muy bienvenidas.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTI4ODM5NTUxOF19
+eyJoaXN0b3J5IjpbLTgzNjg2Njc1Nl19
 -->
