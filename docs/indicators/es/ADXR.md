@@ -7,6 +7,7 @@ version: Estable
 verdict: Descartar
 description: ¿Cuál es la fuerza _estable y suavizada_ de la tendencia, ignorando el ruido a corto plazo del propio ADX?
 ---
+
 ## 🟦 ADXR (3/10)
 
 **Nombre del archivo:** `ADXR.cs`  
@@ -134,5 +135,5 @@ Es un indicador que _aumenta_ el lag, el enemigo número uno del scalper.
 
 **¿Merece la pena arreglarlo?** **No.** El indicador no está "roto"; está "diseñado para ser lento". No hay nada que arreglar. Simplemente no pertenece a la caja de herramientas de un scalper.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTg1MTQwOTE5N119
+eyJoaXN0b3J5IjpbLTE3MjU3ODQ3OTVdfQ==
 -->
