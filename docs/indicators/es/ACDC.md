@@ -1,3 +1,12 @@
+--- 
+cs_file: ACDC.cs   
+name: Account Info Display   
+category: Utilidad 
+score: 7/10 
+version: Latest
+verdict: Conservar
+description: ¿Cuál es el estado de mi cuenta (Balance, PnL, Margen) en tiempo real, sin tener que apartar la vista del gráfico?
+---﻿
 ﻿## 🟦 AC DC Histogram (2/10)
 
 **Nombre del archivo:** `ACDC.cs`  
@@ -141,5 +150,5 @@ Un scalper necesita velocidad y reaccionar a la aceleración _ahora_. Este indic
 
 **Acción:** **Descartar.** No merece la pena arreglarlo. Si quisiéramos un `AC` real (lo cual sí es útil), deberíamos arreglar el `ACBW` o, mejor, usar este `ACDC` y eliminar la línea de código `_sma3` (el suavizado final). En su estado actual, es un indicador lógicamente roto.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTY1MjgyMDE3OF19
+eyJoaXN0b3J5IjpbMTg0NTU5MjA2Ml19
 -->
