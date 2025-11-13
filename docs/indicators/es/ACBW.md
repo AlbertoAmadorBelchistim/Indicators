@@ -1,3 +1,13 @@
+--- 
+cs_file: ACBW.cs 
+name: Bill Williams AC 
+category: Momentum 
+score: 3/10 
+version: Estable 
+verdict: Descartar 
+description: ¿Está el momentum (AO) acelerando o frenando? 
+---
+
 ## 🟦 Bill Williams AC (3/10)
 
 **Nombre del archivo:** `ACBW.cs`  
@@ -157,5 +167,5 @@ Es un indicador que debe ser **descartado y reescrito desde cero** para ser fiel
 
 **Acción:** **Descartar (Implementación Falsa).** No merece la pena arreglar este código; es más rápido, limpio y seguro crear uno nuevo desde cero que implemente la fórmula canónica correctamente.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTcwMjExOTI5Ml19
+eyJoaXN0b3J5IjpbLTE3NzM4Nzk2NjJdfQ==
 -->
