@@ -1,6 +1,12 @@
 # Índice de Indicadores
 
-(Breve introducción sobre los indicadores de trading.)
+Bienvenidos a la guía de indicadores del repositorio. El objetivo principal de esta documentación es **aclarar el propósito y uso de cada indicador** que se encuentra aquí, ya sea en su versión original del repositorio oficial de ATAS o como una modificación personal. 
+
+El enfoque principal de análisis y las puntuaciones están **orientados al scalping en el S&P 500 (ES/MES)**. 
+
+**Nota Importante:** Las valoraciones, puntuaciones ("Score") y veredictos ("Veredicto") son **opiniones subjetivas** basadas en mi experiencia y el apoyo de herramientas de IA (como Gemini y ChatGPT). 
+
+Para compilar esta información, se ha utilizado la documentación oficial de ATAS, el código fuente de los repositorios """ INTRO_ES_KEEP = """Esta página es un subconjunto del índice principal y lista **únicamente los indicadores que han sido considerados "útiles"** (con un veredicto de "Conservar" o "Conservar y Mejorar") para nuestro *framework* de *scalping*. El enfoque principal de análisis y las puntuaciones están **orientados al scalping en el S&P 500 (ES/MES)**. **Nota Importante:** Las valoraciones, puntuaciones ("Score") y veredictos ("Veredicto") son **opiniones subjetivas** basadas en mi experiencia y *backtesting*. Para compilar esta información, se ha utilizado la documentación oficial de ATAS, el código fuente de los repositorios y el apoyo de herramientas de IA (como Gemini y ChatGPT).
 
 ---
 
@@ -49,5 +55,5 @@
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `Angle.cs` | [Study Angle](indicators/es/Angle.md) | Momentum | 2/10 | Descartar | ¿Cuál es el ángulo geométrico literal (en grados) de la tendencia del precio durante las últimas X barras? |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTk2NDk5NTUwXX0=
+eyJoaXN0b3J5IjpbMTcyNzY4ODA3M119
 -->
