@@ -12,6 +12,7 @@ description: Filtrando todas las pequeñas operaciones de 'ruido', ¿dónde est�
 **Nombre del archivo:** `AD.cs`  
 **Nombre del indicador:** Accumulation/Distribution (A/D)  
 **Web oficial:** [ATAS - Accumulation/Distribution (A/D)](https://help.atas.net/support/solutions/articles/72000606733)
+**Compatibilidad**: ATAS versión estable y superiores.
 **La Pregunta Clave:** ¿El flujo de volumen acumulado está confirmando la tendencia del precio, o está mostrando una divergencia?
 
 ![AD](../../img/AD.png)
@@ -139,5 +140,6 @@ Además, conceptualmente, es un indicador de "Order Flow Falso". Intenta _adivin
 
 **¿Merece la pena arreglarlo?** **No.** Aunque el arreglo es trivial (cambiar `Histogram` por `Line`), el indicador en sí es obsoleto y conceptualmente inferior a las herramientas de Order Flow que ya hemos decidido conservar.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDU1MDQ0ODA4LC01ODc4MTY1NzVdfQ==
+eyJoaXN0b3J5IjpbMTg4MDI5MDU4OSw0NTUwNDQ4MDgsLTU4Nz
+gxNjU3NV19
 -->
