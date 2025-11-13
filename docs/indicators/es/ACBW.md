@@ -17,7 +17,7 @@ description: ¿El momentum (AO) está acelerando o frenando?
 
 **La Pregunta Clave:** "¿El momentum (AO) está acelerando o frenando?"
 
-![ACBW](../img/ACBW.png)
+![ACBW](../../img/ACBW.png)
 
 ----------
 
@@ -167,5 +167,6 @@ Es un indicador que debe ser **descartado y reescrito desde cero** para ser fiel
 
 **Acción:** **Descartar (Implementación Falsa).** No merece la pena arreglar este código; es más rápido, limpio y seguro crear uno nuevo desde cero que implemente la fórmula canónica correctamente.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTI4Mjc1NTU2LC0xNzczODc5NjYyXX0=
+eyJoaXN0b3J5IjpbLTE0NTY3NDQ4NDksNTI4Mjc1NTU2LC0xNz
+czODc5NjYyXX0=
 -->
