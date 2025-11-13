@@ -1,3 +1,13 @@
+---
+cs_file: Alligator.cs
+name: Alligator 
+category: Tendencia
+score: 6/10
+version: Estable
+verdict: Descartar
+description: ¿Cuál es la fuerza _estable y suavizada_ de la tendencia, ignorando el ruido a corto plazo del propio ADX?
+---
+
 ## 🟦 Alligator (6/10)
 
 **Nombre del archivo:** `Alligator.cs`  
@@ -159,5 +169,5 @@ El Alligator es el abuelo lento del AMA. Dado que ya tenemos la herramienta mode
 
 **¿Merece la pena arreglarlo?** No. No hay nada que "arreglar". El indicador funciona, pero es conceptualmente inferior a otras herramientas que ya hemos conservado.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwNzg1ODg4NDhdfQ==
+eyJoaXN0b3J5IjpbLTE0NTIyMTkxNjRdfQ==
 -->
