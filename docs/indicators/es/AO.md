@@ -17,7 +17,7 @@ description: ¿Cuál es el ángulo geométrico literal (en grados) de la tendenc
 **Compatibilidad:** ATAS versión estable y superiores.
 **La Pregunta Clave:** ¿Está el momentum reciente a corto plazo (5 barras) ganando la batalla contra el momentum de la tendencia a largo plazo (34 barras)?
 
-![ADF](../img/AO.png)
+![AO](../../img/AO.png)
 
 ----------
 
@@ -151,5 +151,5 @@ Es un indicador "ciego" (solo precio), con lag (medias móviles), implementado d
 
 **¿Merece la pena arreglarlo?** **No.** El concepto (AO) ya es superado por el `AMA (Kaufman)` como filtro de régimen y por las herramientas de Order Flow como `ActiveVolume` para momentum. No vale la pena arreglar un indicador obsoleto que, además, está tan mal implementado.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjQ1MDY1OTkwXX0=
+eyJoaXN0b3J5IjpbMTgxMzU3MDQ0Nl19
 -->
