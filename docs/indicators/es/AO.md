@@ -5,7 +5,7 @@ category: Momentum
 score: 2/10
 version: Estable
 verdict: Descartar
-description: ¿Cuál es el ángulo geométrico literal (en grados) de la tendencia del precio durante las últimas X barras?
+description: ¿Está el momentum reciente a corto plazo (5 barras) ganando la batalla contra el momentum de la tendencia a largo plazo (34 barras)?
 ---
 ## 🟦 Awesome Oscillator (2/10)
 
@@ -151,5 +151,5 @@ Es un indicador "ciego" (solo precio), con lag (medias móviles), implementado d
 
 **¿Merece la pena arreglarlo?** **No.** El concepto (AO) ya es superado por el `AMA (Kaufman)` como filtro de régimen y por las herramientas de Order Flow como `ActiveVolume` para momentum. No vale la pena arreglar un indicador obsoleto que, además, está tan mal implementado.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTgxMzU3MDQ0Nl19
+eyJoaXN0b3J5IjpbMTc0MDE3MjkzMSwxODEzNTcwNDQ2XX0=
 -->
