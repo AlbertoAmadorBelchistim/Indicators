@@ -1,3 +1,12 @@
+---
+cs_file: AskBidBars.cs
+name: Ask/Bid Volume Difference Bars 
+category: Order Flow
+score: 6.5/10
+version: Estable
+verdict: Descartar
+description: ¿Cuál es el ángulo geométrico literal (en grados) de la tendencia del precio durante las últimas X barras?
+---
 ## 🟦 Ask/Bid Volume Difference Bars (6.5/10)
 
   
@@ -148,5 +157,5 @@ Tu 6.5/10 es la nota perfecta. Es una herramienta de "visualización" de Delta m
 **¿Merece la pena arreglarlo?** **Sí.** El arreglo es trivial (añadir `LineSeries.Add(new LineSeries("Zero") { Value = 0, Color = Colors.Gray });` en el constructor) y lo convierte de "ilegible" a "útil".
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTUxNTEwODQ5NV19
+eyJoaXN0b3J5IjpbLTEzNzg1MTE1NTNdfQ==
 -->
