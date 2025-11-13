@@ -15,7 +15,7 @@ description: ¿Cómo puedo obtener una media móvil suave que _no_ tenga retardo
 **Compatibilidad:** ATAS versión estable y superiores.
 **La Pregunta Clave:** ¿Cómo puedo obtener una media móvil suave que _no_ tenga retardo (lag) durante una ruptura fuerte, pero _sí_ filtre el 'ruido' en un mercado lateral?
 
-![AMA](../img/AMA.png)
+![AMA](../../img/AMA.png)
 
 ----------
 
@@ -155,5 +155,5 @@ Es muy superior al `Alligator` y al `ADX` porque hace el mismo trabajo (diferenc
 
 **¿Merece la pena arreglarlo?** El indicador funciona perfectamente. Las "Propuestas de mejora" (como ver el Ratio de Eficiencia) son añadidos "nice-to-have" (bueno tenerlos), no correcciones necesarias.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTY1Nzg4ODQ1MF19
+eyJoaXN0b3J5IjpbLTIwMzY0NzUyNDFdfQ==
 -->
