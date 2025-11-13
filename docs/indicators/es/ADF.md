@@ -16,7 +16,7 @@ description: ¿Cuál es la _tendencia suavizada (lenta)_ del flujo de volumen ac
 
 **La Pregunta Clave:** ¿Cuál es la _tendencia suavizada (lenta)_ del flujo de volumen acumulado?
 
-![ADF](../img/ADF.png)
+![ADF](../../img/ADF.png)
 
 ----------
 
@@ -133,5 +133,5 @@ Es un indicador de "lag sobre lag". Es una media móvil de un indicador que ya d
 
 **¿Merece la pena arreglarlo?** **No.** Es conceptualmente redundante y obsoleto. Si un trader quiere ver el flujo de volumen, debe usar **Delta Acumulado** o **ActiveVolume**, no una estimación de Price Action con un SMA de 14 períodos encima.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5ODEwMTk1NF19
+eyJoaXN0b3J5IjpbMjExMzQ4OTI5MV19
 -->
