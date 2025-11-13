@@ -15,7 +15,7 @@ description: Filtrando todas las pequeñas operaciones de 'ruido', ¿dónde est�
 **Compatibilidad:** ATAS versión estable y superiores.
 **La Pregunta Clave:** Filtrando todas las pequeñas operaciones de 'ruido', ¿dónde está apareciendo realmente el volumen significativo y agresivo de compra y venta en la escala de precios?
 
-![Active Volume](../img/ActiveVolume.png)
+![Active Volume](../../img/ActiveVolume.png)
 
 ----------
 
@@ -168,5 +168,5 @@ No es un indicador de "entrada/salida" por sí mismo, sino una herramienta de **
 
 **¿Merece la pena arreglarlo?** Sí. El indicador funciona, pero las "Propuestas de mejora" (especialmente el reseteo por sesión y un POC) lo elevarían de un 8/10 a un 10/10 en usabilidad.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExNzk3MzQ0MDFdfQ==
+eyJoaXN0b3J5IjpbMTk1MTA5MDI2XX0=
 -->
