@@ -12,10 +12,10 @@ description: ¿El momentum (AO) está acelerando o frenando?
 
 **Nombre del archivo:** `ACBW.cs`  
 **Nombre del indicador:** Bill Williams AC  
-**Web oficial:** [ATAS — Bill Williams AC](https://help.atas.net/support/solutions/articles/72000602333)
+**Web oficial:** [ATAS — Bill Williams AC](https://help.atas.net/support/solutions/articles/72000602333)  
 **Compatibilidad:** ATAS versión estable y superiores.
 
-**La Pregunta Clave:** "¿El momentum (AO) está acelerando o frenando?"
+>**La Pregunta Clave:** "¿El momentum (AO) está acelerando o frenando?"
 
 ![ACBW](../../img/ACBW.png)
 
@@ -167,6 +167,6 @@ Es un indicador que debe ser **descartado y reescrito desde cero** para ser fiel
 
 **Acción:** **Descartar (Implementación Falsa).** No merece la pena arreglar este código; es más rápido, limpio y seguro crear uno nuevo desde cero que implemente la fórmula canónica correctamente.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIxMzI4Njk3ODEsLTE0NTY3NDQ4NDksNT
-I4Mjc1NTU2LC0xNzczODc5NjYyXX0=
+eyJoaXN0b3J5IjpbMTAzOTY1Nzc1NywtMTQ1Njc0NDg0OSw1Mj
+gyNzU1NTYsLTE3NzM4Nzk2NjJdfQ==
 -->
