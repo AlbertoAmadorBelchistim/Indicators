@@ -12,10 +12,9 @@ description: ¿Cuál es la fuerza _estable y suavizada_ de la tendencia, ignoran
 
 **Nombre del archivo:** `ADXR.cs`  
 **Nombre del indicador:** ADXR  
-**Web oficial:** [ATAS - ADXR](https://help.atas.net/support/solutions/articles/72000602314)
-**Compatibilidad**: ATAS versión estable y superiores.
-
- **La Pregunta Clave:** ¿Cuál es la fuerza _estable y suavizada_ de la tendencia, ignorando el ruido a corto plazo del propio ADX?
+**Web oficial:** [ATAS - ADXR](https://help.atas.net/support/solutions/articles/72000602314)  
+**Compatibilidad**: ATAS versión estable y superiores.  
+> **La Pregunta Clave:** ¿Cuál es la fuerza _estable y suavizada_ de la tendencia, ignorando el ruido a corto plazo del propio ADX?
 
 ![ADXR](../../img/ADXR.png)
 
@@ -135,5 +134,5 @@ Es un indicador que _aumenta_ el lag, el enemigo número uno del scalper.
 
 **¿Merece la pena arreglarlo?** **No.** El indicador no está "roto"; está "diseñado para ser lento". No hay nada que arreglar. Simplemente no pertenece a la caja de herramientas de un scalper.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE3MjU3ODQ3OTVdfQ==
+eyJoaXN0b3J5IjpbMTk0MjU4ODM5OV19
 -->
