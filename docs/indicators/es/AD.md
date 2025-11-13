@@ -1,20 +1,21 @@
---- 
-cs_file: AD.cs  
-name: Accumulation/Distribution (A/D)  
-category: Volumen clásico  
-score: 2/10  
-version: Estable  
-verdict: Descartar  
-description: ¿El flujo de volumen acumulado está confirmando la tendencia del precio, o está mostrando una divergencia?  
----﻿﻿
+
+---
+cs_file: AD .cs
+name: Accumulation/Distribution (A/D)   
+category: Volumen clásico
+score: 2/10
+version: Estable
+verdict: Descartar
+description: ¿El flujo de volumen acumulado está confirmando la tendencia del precio, o está mostrando una divergencia?
+---
 
 ## 🟦 AD (2/10)
 
 **Nombre del archivo:** `AD.cs`  
 **Nombre del indicador:** Accumulation/Distribution (A/D)  
-**Web oficial:** [ATAS - Accumulation/Distribution (A/D)](https://help.atas.net/support/solutions/articles/72000606733)
-**Compatibilidad**: ATAS versión estable y superiores.
-**La Pregunta Clave:** ¿El flujo de volumen acumulado está confirmando la tendencia del precio, o está mostrando una divergencia?
+**Web oficial:** [ATAS - Accumulation/Distribution (A/D)](https://help.atas.net/support/solutions/articles/72000606733)  
+**Compatibilidad**: ATAS versión estable y superiores.  
+>**La Pregunta Clave:** ¿El flujo de volumen acumulado está confirmando la tendencia del precio, o está mostrando una divergencia?
 
 ![AD](../../img/AD.png)
 
@@ -141,6 +142,6 @@ Además, conceptualmente, es un indicador de "Order Flow Falso". Intenta _adivin
 
 **¿Merece la pena arreglarlo?** **No.** Aunque el arreglo es trivial (cambiar `Histogram` por `Line`), el indicador en sí es obsoleto y conceptualmente inferior a las herramientas de Order Flow que ya hemos decidido conservar.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTYyMjYyMjk2OCw0NTUwNDQ4MDgsLTU4Nz
-gxNjU3NV19
+eyJoaXN0b3J5IjpbLTE2NDk1MTg1MTIsLTYyMjYyMjk2OCw0NT
+UwNDQ4MDgsLTU4NzgxNjU3NV19
 -->
