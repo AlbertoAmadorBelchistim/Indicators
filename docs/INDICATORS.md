@@ -1,11 +1,3 @@
-﻿# Modified indicators index
-
-- ClusterStatisticModif [(EN)](indicators/ClusterStatisticModif.md) / [(ES)](indicators/ClusterStatisticModif.es.md)
-- DeltaaModif [(EN)](indicators/DeltaaModif.md) / [(ES)](indicators/DeltaaModif.es.md)
-- LevelsLolo [(EN)](indicators/LevelsLolo.md) / [(ES)](indicators/LevelsLolo.es.md)
-
-# Other repository indicators
-
 | File `.cs`               | Indicator´s name              | Category       | Scalping score           | Version               | Gemini's Verdict | Answer|
 |-----------------------------|-----------------------------------|----------------------------|-------------------------------|------------|-----------|----|
 | `ACBW.cs` [(ES)](indicators/ACBW.es.md)            | Bill Williams AC                  | Momentum         | 3/10          | Stable| Discard| Is the momentum (AO) accelerating or braking?|
@@ -32,9 +24,9 @@
 | AverageDelta.cs          | Average Delta                | VolumeOrderFlow             | Delta / Promedio                 | Stable| No| |
 | AveragePriceBar.cs          | Average Price for Bar| Price| 2/10                 | Stable| Discard| |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwOTA0Njk2NDYsLTE1NjM0NTUyNjAsMT
-A1NDcyNDI2NCw1MjI2OTU2MTEsNzE5NjQ5NTQ2LDQyODc4ODc1
-MywtOTI2OTQ2NTg4LDk5OTE2MzE5MywtMjE0NjgzODU1NCwyMD
-Y3MTI1Mzk5LDM5ODc1NzI1MCwtMTkzMjMxMzI0NSwxMzIzMzcz
-OTY0LC0zODM5NjIxNzRdfQ==
+eyJoaXN0b3J5IjpbLTI4NDA1MDA5MywtMTA5MDQ2OTY0NiwtMT
+U2MzQ1NTI2MCwxMDU0NzI0MjY0LDUyMjY5NTYxMSw3MTk2NDk1
+NDYsNDI4Nzg4NzUzLC05MjY5NDY1ODgsOTk5MTYzMTkzLC0yMT
+Q2ODM4NTU0LDIwNjcxMjUzOTksMzk4NzU3MjUwLC0xOTMyMzEz
+MjQ1LDEzMjMzNzM5NjQsLTM4Mzk2MjE3NF19
 -->
