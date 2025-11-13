@@ -1,13 +1,11 @@
-
-
 ---
-cs_file: ADR.cs
-name: ADR
-category: Volatilidad
-score: 7/10
+cs_file: ADF.cs
+name: ADF
+category: Volumen clásico
+score: 3/10
 version: Estable
-verdict: Conservar
-description: ¿Cuál es el rango de movimiento "normal" o "promedio" para este instrumento en una sesión, y dónde se proyectarían esos límites hoy?
+verdict: Descartar
+description: ¿Cuál es la _tendencia suavizada (lenta)_ del flujo de volumen acumulado?
 ---
 
 ## 🟦 Accumulation / Distribution Flow (3/10)
@@ -136,5 +134,5 @@ Es un indicador de "lag sobre lag". Es una media móvil de un indicador que ya d
 
 **¿Merece la pena arreglarlo?** **No.** Es conceptualmente redundante y obsoleto. Si un trader quiere ver el flujo de volumen, debe usar **Delta Acumulado** o **ActiveVolume**, no una estimación de Price Action con un SMA de 14 períodos encima.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjAzMDg2NTk5MV19
+eyJoaXN0b3J5IjpbLTk1Mjc0MzMxN119
 -->
