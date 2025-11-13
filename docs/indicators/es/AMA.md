@@ -1,3 +1,12 @@
+---
+cs_file: AMA.cs
+name: Adaptive Moving Average
+category: Tendencia
+score: 7/10
+version: Estable
+verdict: Descartar
+description: ¿Cuál es la fuerza _estable y suavizada_ de la tendencia, ignorando el ruido a corto plazo del propio ADX?
+---
 ## 🟦 Adaptive Moving Average (AMA) (7/10)
 
 **Nombre del archivo:** `AMA.cs`  
@@ -146,5 +155,5 @@ Es muy superior al `Alligator` y al `ADX` porque hace el mismo trabajo (diferenc
 
 **¿Merece la pena arreglarlo?** El indicador funciona perfectamente. Las "Propuestas de mejora" (como ver el Ratio de Eficiencia) son añadidos "nice-to-have" (bueno tenerlos), no correcciones necesarias.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQ1MzczNjE1OF19
+eyJoaXN0b3J5IjpbNDIxNjc5NDcxXX0=
 -->
