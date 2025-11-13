@@ -19,6 +19,8 @@ description: ¿Cuál ha sido el tamaño verdadero promedio (incluyendo gaps) de 
 **Compatibilidad:** ATAS versión stable y superiores.
 **La Pregunta Clave:** ¿Cuál ha sido el tamaño real promedio (incluyendo gaps) de cada vela durante los últimos X períodos?
 
+![ATR](../../img/ATR.png)
+
 ----------
 
 ### ⚙️ Parámetros configurables
@@ -151,5 +153,5 @@ A pesar de su implementación subóptima (SMA), el concepto es tan fuerte que si
 
 **¿Merece la pena arreglarlo?** **SÍ.** Este indicador _debe_ ser arreglado. Reemplazar la lógica de cálculo de SMA por una EMA es una corrección prioritaria. Con esa simple corrección, este se convierte en uno de los indicadores de fondo más importantes del sistema.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDMwNjQ3MDkwXX0=
+eyJoaXN0b3J5IjpbLTEzODE3MTc2NV19
 -->
