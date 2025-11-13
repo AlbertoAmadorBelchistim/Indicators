@@ -5,7 +5,7 @@ category: Momentum
 score: 3/10
 version: Estable
 verdict: Descartar
-description: ¿Qué fuerza es más fuerte y reciente: la que está creando nuevos máximos (AroonUp) o la que está creando nuevos mínimos (AroonDown)?
+description: ¿Qué fuerza es más fuerte y reciente, la que está creando nuevos máximos (AroonUp) o la que está creando nuevos mínimos (AroonDown)?
 ---
 ## 🟦 Aroon Oscillator (3/10)
 
@@ -126,5 +126,5 @@ Es un indicador de libro de texto diseñado para gráficos diarios de acciones, 
 
 **¿Merece la pena arreglarlo?** **No.** El indicador no está "roto"; es un "wrapper" de un indicador que ya hemos determinado que es conceptualmente inútil para el scalping. No hay nada que arreglar.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2NTc0ODE2NDZdfQ==
+eyJoaXN0b3J5IjpbLTU4NjQ5NTg0MF19
 -->
