@@ -21,6 +21,8 @@ description: ¿Cuál es la volatilidad (ATR) del instrumento como un porcentaje 
 
 **La Pregunta Clave:** ¿Cuál es la volatilidad (ATR) del instrumento como un porcentaje de su precio actual?
 
+![ATRN](../../img/ATRN.png)
+
 ----------
 ### ⚙️ Parámetros configurables
 
@@ -123,5 +125,5 @@ description: ¿Cuál es la volatilidad (ATR) del instrumento como un porcentaje 
 **¿Merece la pena arreglarlo?** **No.** El indicador es conceptualmente inútil para el scalping y redundante.
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExMDk5MTExOTZdfQ==
+eyJoaXN0b3J5IjpbLTMwMDYzNjVdfQ==
 -->
