@@ -21,6 +21,7 @@ description: ¿Cuál es el ángulo geométrico literal (en grados) de la tendenc
 
 **La Pregunta Clave:** ¿Cuál es el ángulo geométrico literal (en grados) de la tendencia del precio durante las últimas X barras?
 
+![Angle](../../img/Angle.png)
   
 ----------
 
@@ -141,5 +142,5 @@ El **AMA (Kaufman) (7/10)** que ya hemos "Conservado" es un millón de veces sup
 
 **¿Merece la pena arreglarlo?** **No.** El concepto es fundamentalmente defectuoso para el trading (ruidoso e ilegible) y es redundante frente a un simple oscilador de Momentum o, mejor aún, el AMA.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTMwNzE1MDM4MF19
+eyJoaXN0b3J5IjpbLTE2MTQ0NDMzMzldfQ==
 -->
