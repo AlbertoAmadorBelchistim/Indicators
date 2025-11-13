@@ -1,3 +1,12 @@
+--- 
+cs_file: ActiveVolume.cs   
+name: Active Volume     
+category: Volatilidad
+score: 5/10 
+version: Estable
+verdict: Descartar o arreglar
+description: ¿Cuál es el tamaño promedio de una vela en lo que va de día?
+---﻿
 ## 🟦 Active Volume (8/10)
   
 **Nombre del archivo:**  `ActiveVolume.cs`  
@@ -159,5 +168,5 @@ No es un indicador de "entrada/salida" por sí mismo, sino una herramienta de **
 
 **¿Merece la pena arreglarlo?** Sí. El indicador funciona, pero las "Propuestas de mejora" (especialmente el reseteo por sesión y un POC) lo elevarían de un 8/10 a un 10/10 en usabilidad.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODI5MTYwMzU4XX0=
+eyJoaXN0b3J5IjpbLTE3MDg3NzM3MTZdfQ==
 -->
