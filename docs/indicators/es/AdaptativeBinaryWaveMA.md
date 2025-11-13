@@ -7,6 +7,7 @@ version: Estable
 verdict: Conservar
 description: ¿Ha roto la media móvil adaptativa (AMA) su 'canal' reciente por una cantidad estadísticamente significativa?
 ---﻿﻿
+
 ## 🟦 Adaptive Binary Wave (7/10)
 
   
@@ -173,5 +174,5 @@ Por lo tanto, este indicador no te ayudará a _entrar_ en el giro, pero es **exc
 
 **¿Merece la pena arreglarlo?** Sí, las "Propuestas de mejora" (especialmente dibujar el AMA y sus bandas) son mejoras de usabilidad que harían el indicador mucho más transparente, elevándolo de un 7/10 a un 8/10 o 9/10 como filtro.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTM2MzMwNDkyNV19
+eyJoaXN0b3J5IjpbLTExNzIyMzc5MzVdfQ==
 -->
