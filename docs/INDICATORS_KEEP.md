@@ -1,13 +1,9 @@
 | File `.cs`               | Indicator´s name              | Category       | Scalping score           | Version               | Gemini's Verdict | Answer|
 |-----------------------------|-----------------------------------|----------------------------|-------------------------------|------------|-----------|----|
-| `ADR.cs` [(ES)](indicators/ADR.es.md)                    | Average Daily Range                                | Volatility          | 7/10          | Stable | Keep (Utility)| Has the market already made its expected move of the day?|
-| `ADX.cs` [(ES)](indicators/ADX.es.md)| ADX                                | Trend        | 6/10          | Stable | **Keep**| Is the market in a strong trend (either up or down), or is it just 'chopping' sideways?|
-| `ATR.cs` [(ES)](indicators/ATR.es.md)                     | ATR                          | Volatility| 8/10                      | Stable| **Keep and Improve**|What has been the _average true size_ (including gaps) of each bar over the last X periods? |
-| `AccountInfoDisplay.cs` [(ES)](indicators/AccountInfoDisplay.es.md)                  | Account Info Display               | Visualization                   | 7/10                | Latest| **Keep**|What is my account's real-time status (Balance, PnL, Margin) right now, without me having to look away from the chart? |
-| `ActiveVolume.cs` [(ES)](indicators/ActiveVolume.es.md)                  | Active Volume              | Order Flow                   | 8/10|Stable|**Keep and Improve**| Filtering out all the small 'noise' trades, where is the _significant_, _aggressive_ buying and selling volume actually showing up on the price ladder?|
-| `AdaptiveBinaryWaveMA.cs` | [Adaptive Binary Wave](indicators/es/AdaptativeBinaryWaveMA.md) | Tendencia | 7/10 | Conservar | ¿Ha roto la media móvil adaptativa (AMA) su 'canal' reciente por una cantidad estadísticamente significativa? |
-| `AMA.cs` | [Adaptive Moving Average](indicators/es/AMA.md) | Tendencia | 7/10 | Conservar | ¿Cómo puedo obtener una media móvil suave que _no_ tenga retardo (lag) durante una ruptura fuerte, pero _sí_ filtre el 'ruido' en un mercado lateral? |
+| `AccountInfoDisplay.cs` | [Account Info Display](indicators/es/AccountInfoDisplay.md) | Utilidad | 7/10 | Conservar | ¿Cuál es el estado de mi cuenta (Balance, PnL, Margen) en tiempo real, sin tener que apartar la vista del gráfico? |
+| `ActiveVolume.cs` | [Active Volume](indicators/es/ActiveVolume.md) | Order Flow | 8/10 | Conservar | Filtrando todas las pequeñas operaciones de 'ruido', ¿dónde está apareciendo realmente el volumen significativo y agresivo de compra y venta en la escala de precios? |
+| `AverageDelta.cs` | [Average Delta](indicators/es/AverageDelta.md) | Order Flow | 6.5/10 | Conservar (con reservas) | ¿Cuál es la presión agresiva promedio (Delta) durante las últimas X velas, suavizando el ruido de vela a vela? |
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTM4OTM1Nzk3MCw3ODkyNjY2OF19
+eyJoaXN0b3J5IjpbMTk3MTE1NzE2Niw3ODkyNjY2OF19
 -->
