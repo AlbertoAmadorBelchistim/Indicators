@@ -7,6 +7,7 @@ version: Estable
 verdict: Descartar o arreglar  
 description: ¿Cuál es el tamaño promedio de una vela en lo que va de día?  
 ---﻿
+
 ## 🟦 Average Candle Range (5/10)
 
 **Nombre del archivo:** `ACR.cs`  
@@ -148,5 +149,5 @@ Un scalper que vea un valor "bajo" en este indicador por la tarde no sabrá si e
 
 **¿Merece la pena arreglarlo?** **SÍ, ABSOLUTAMENTE.** Es el candidato número uno para ser "arreglado". El código base es bueno. Con solo añadir un parámetro `Period` y cambiar _una línea_ de cálculo (usar `SMA` en lugar de `CalcAverage`), este indicador pasaría de ser un "descarte" a ser una pieza central de un sistema de scalping.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTk4ODQ2OTc1MF19
+eyJoaXN0b3J5IjpbMTA5NDI3ODc3Nl19
 -->
