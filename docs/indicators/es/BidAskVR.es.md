@@ -9,9 +9,9 @@ description: ¿Cuál es el desequilibrio normalizado (de -100% a +100%) del volu
 ---
 ## 🟦 Bid Ask Volume Ratio (7/10)
 
-**Nombre del archivo:** [`BidAskVR.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/BidAskVR.cs)  
+**Nombre del archivo:** [`BidAskVR.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/BidAskVR.cs)  (**confirmar**)
 **Nombre del indicador:** Bid Ask Volume Ratio
-**Web oficial:** [ATAS — Bid Ask Volume Ratio](https://help.atas.net/support/solutions/articles/72000602329)  
+**Web oficial:** [ATAS — Bid Ask Volume Ratio](https://help.atas.net/support/solutions/articles/72000602330)  
 **Compatibilidad:** ATAS versión estable y superiores.  
 **Última revisión del código oficial:** 23/04/2025  (**confirmar**)
 
@@ -172,5 +172,5 @@ Es el complemento perfecto para `BarVolumeFilter` (que te dice _qué_ vela impor
 
 **¿Merece la pena arreglarlo?** **Sí.** El arreglo es trivial (añadir una línea de cero y limpiar el código de arranque) y mejora mucho su legibilidad.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTM4ODk1MzE1NiwtOTMyMzM0OTQ4XX0=
+eyJoaXN0b3J5IjpbLTEzMTIyNDYzODAsLTkzMjMzNDk0OF19
 -->
