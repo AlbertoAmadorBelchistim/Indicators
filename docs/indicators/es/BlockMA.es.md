@@ -10,15 +10,16 @@ description: ¿Cómo puedo crear un 'trailing stop' de volatilidad (basado en el
 
 ## 🟦 Block Moving Average (7/10)
 
-Nombre del archivo: BlockMA.cs
 
-Nombre del indicador: Block Moving Average
-
-Web oficial: ATAS — Block Moving Average
-
-Compatibilidad: ATAS versión estable y superiores.
+**Nombre del archivo:** [`BlockMA.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/BlockMA.cs)  (**confirmar**)
+**Nombre del indicador:** Block Moving Average
+**Web oficial:** [ATAS — Block Moving Average](https://help.atas.net/support/solutions/articles/72000602335)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  (**confirmar**)
 
 > **La Pregunta Clave:** ¿Cómo puedo crear un 'trailing stop' de volatilidad (basado en el ATR) que solo se mueva a favor de la tendencia (hacia arriba o hacia abajo), pero que nunca retroceda?
+
+![BlockMA](../../img/BlockMA.png)  (**falta imagen**)
 
 ----------
 
@@ -148,5 +149,5 @@ Es una herramienta de seguimiento de tendencia de nivel A+. Su única debilidad 
 
 El **AMA (Kaufman) (7/10)** que ya "Conservamos" es superior para _identificar_ el régimen (Tendencia vs. Rango). Este indicador (`BlockMA` / Supertrend) es superior para _gestionar_ una operación _una vez que_ has identificado que estás en una tendencia.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjM0MTcxNTUxLC0xNzQxMDc1ODgxXX0=
+eyJoaXN0b3J5IjpbMTY4OTY2NDI1LC0xNzQxMDc1ODgxXX0=
 -->
