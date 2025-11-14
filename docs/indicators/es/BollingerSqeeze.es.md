@@ -4,7 +4,7 @@ name: Bollinger Squeeze
 category: Volatilidad
 score: 7/10
 version: Estable
-verdict: Conservar (herramienta de contexto clave)
+verdict: Descartar
 description: ¿Se está comprimiendo la volatilidad del precio (Bollinger) dentro de la volatilidad de su rango medio (Keltner), señalando una 'compresión' (squeeze) y un potencial movimiento explosivo?
 ---
 
@@ -14,11 +14,13 @@ description: ¿Se está comprimiendo la volatilidad del precio (Bollinger) dentr
 
 **Nombre del archivo:** [`BollingerSqueeze.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/BollingerSqueeze.cs)  (**confirmar**)
 **Nombre del indicador:** Bollinger Squeeze
-**Web oficial:** [ATAS — Bollinger Squeeze](https://help.atas.net/support/solutions/articles/72000602336)  
+**Web oficial:** [ATAS — Bollinger Squeeze](https://help.atas.net/support/solutions/articles/72000602337)  
 **Compatibilidad:** ATAS versión estable y superiores.  
 **Última revisión del código oficial:** 23/04/2025  (**confirmar**)
 
 > **La Pregunta Clave:** ¿Se está comprimiendo la volatilidad del precio (Bollinger) dentro de la volatilidad de su rango medio (Keltner), señalando una 'compresión' (squeeze) y un potencial movimiento explosivo?
+
+![BollingerSqueeze](../../img/BollingerSqueeze.png)  (**falta imagen**)
 
 ----------
 
@@ -170,9 +172,10 @@ Este indicador es un "filtro de régimen" de primera categoría, superior al `AD
 
 Tu parametrización óptima (`BB(20,2)` y `KC(20, 1.5)`) es la configuración clásica y probada.
 
-**Acción:** **Conservar (Herramienta de Contexto Clave).**
+**Acción:** **Descartar (Redundante).**
 
 **¿Merece la pena arreglarlo?** **SÍ.** Los valores por defecto lo hacen inutilizable. Arreglar los defaults a `(20, 2.0, 20, 1.5)` y añadir una línea de cero es esencial.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTAyNzEzNTk0LC0xNDgzODUzMjk1XX0=
+eyJoaXN0b3J5IjpbLTE5NTYwNDA1NjksLTE0ODM4NTMyOTVdfQ
+==
 -->
