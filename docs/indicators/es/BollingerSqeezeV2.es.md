@@ -1,22 +1,21 @@
 ---
 cs_file: BollingerSqueezeV2.cs
 name: Bollinger Squeeze 2
-category: Volatilidad
+category: Volatilidad / Momentum
 score: 8/10
 version: Estable
-verdict: Descartar
-description: ¿Se está comprimiendo la volatilidad del precio (Bollinger) dentro de la volatilidad de su rango medio (Keltner), señalando una 'compresión' (squeeze) y un potencial movimiento explosivo?
+verdict: Conservar (Herramienta principal)
+description: ¿Cuál es el momentum (y la pendiente de ese momentum) del precio? Y, al mismo tiempo, ¿está el mercado en una 'compresión' (squeeze) de baja volatilidad (punto rojo) o en una 'expansión' de alta volatilidad (punto verde)?
 ---
 
 ## 🟦 Bollinger Squeeze 2 (8/10)
 
-Nombre del archivo: BollingerSqueezeV2.cs
 
-Nombre del indicador: Bollinger Squeeze 2
-
-Web oficial: ATAS — Bollinger Squeeze 2
-
-Compatibilidad: ATAS versión estable y superiores.
+**Nombre del archivo:** [`BollingerSqueezeV2.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/BollingerSqueezeV2.cs)  (**confirmar**)
+**Nombre del indicador:** Bollinger Squeeze 2
+**Web oficial:** [ATAS — Bollinger Squeeze 2](https://help.atas.net/support/solutions/articles/72000602338)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  (**confirmar**)
 
 > **La Pregunta Clave:** ¿Cuál es el momentum (y la pendiente de ese momentum) del precio? Y, al mismo tiempo, ¿está el mercado en una 'compresión' (squeeze) de baja volatilidad (punto rojo) o en una 'expansión' de alta volatilidad (punto verde)?
 
@@ -186,5 +185,5 @@ Combina contexto de volatilidad y señales de momentum/dirección en un solo pan
 
 **¿Merece la pena arreglarlo?** **SÍ.** Los arreglos son esenciales: cambiar los valores por defecto a los estándares (`20, 2.0, 20, 1.5`) y añadir una línea de cero.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQyMTg1NDY1LDE2Nzc5OTg1MjhdfQ==
+eyJoaXN0b3J5IjpbLTEwNDcwNTE5NjcsMTY3Nzk5ODUyOF19
 -->
