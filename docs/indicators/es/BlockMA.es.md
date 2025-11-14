@@ -1,11 +1,12 @@
-
-Aquí tienes la ficha del indicador `BlockMA.cs`, adaptada al nuevo formato.
-
-Tu análisis ("Comentario Gemini") es excepcional. Has identificado perfectamente que el nombre `Block Moving Average` es completamente engañoso y que, en realidad, se trata de una implementación de un **canal de volatilidad "ratcheting" (de trinquete)**, comúnmente conocido como **Supertrend** o **Chandelier Exit**.
-
-He mantenido tu puntuación de 6.5/10 (redondeada a 7/10), ya que tu análisis de sus pros (excelente para seguir tendencias) y sus contras (malo en rangos) es perfecto para el scalping.
-
-----------
+---
+cs_file: BlockMA.cs
+name: Block Moving Average
+category: Tendencia / Volatilidad
+score: 7/10
+version: Estable
+verdict: Conservar (con reservas)
+description: ¿Cómo puedo crear un 'trailing stop' de volatilidad (basado en el ATR) que solo se mueva a favor de la tendencia (hacia arriba o hacia abajo), pero que nunca retroceda?
+---
 
 ## 🟦 Block Moving Average (7/10)
 
@@ -147,6 +148,5 @@ Es una herramienta de seguimiento de tendencia de nivel A+. Su única debilidad 
 
 El **AMA (Kaufman) (7/10)** que ya "Conservamos" es superior para _identificar_ el régimen (Tendencia vs. Rango). Este indicador (`BlockMA` / Supertrend) es superior para _gestionar_ una operación _una vez que_ has identificado que estás en una tendencia.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEzOTgwODMxNjUsLTE3NDEwNzU4ODFdfQ
-==
+eyJoaXN0b3J5IjpbMjM0MTcxNTUxLC0xNzQxMDc1ODgxXX0=
 -->
