@@ -10,15 +10,16 @@ description: ¿Cuál es el precio promedio exponencial (EMA), que da más peso a
 
 ## 🟦 Bill Williams Moving Average (5/10)
 
-Nombre del archivo: BWMA.cs
 
-Nombre del indicador: Bill Williams Moving Average
-
-Web oficial: ATAS — Bill Williams Moving Average
-
-Compatibilidad: ATAS versión estable y superiores.
+**Nombre del archivo:** [`BWMA.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/BWMA.cs)  (**confirmar**)
+**Nombre del indicador:** Bill Williams Moving Average
+**Web oficial:** [ATAS — Bill Williams Moving Average](https://help.atas.net/support/solutions/articles/72000602334)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  (**confirmar**)
 
 > **La Pregunta Clave:** ¿Cuál es el precio promedio exponencial (EMA), que da más peso a las velas más recientes?
+
+
 
 ----------
 
@@ -142,5 +143,5 @@ No hay ninguna razón para usar esta implementación "falsa" y menos configurabl
 
 **¿Merece la pena arreglarlo?** No. ATAS ya tiene un indicador `EMA`. Si quisiéramos una `SMMA` (la media _real_ de Bill Williams), ya la vimos en el indicador `Alligator` (que también descartamos por ser demasiado lento).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTk4MzE0NTk5MCwtMTkyNTMxOTMyXX0=
+eyJoaXN0b3J5IjpbNDE0NzEzMDAwLC0xOTI1MzE5MzJdfQ==
 -->
