@@ -17,7 +17,7 @@ description: ¿Cuál es, en promedio, la fuerza del cuerpo de la vela (Cierre vs
 **Última revisión del código oficial:** 23/04/2025  (**confirmar**)
 > **La Pregunta Clave:** ¿Cuál es, en promedio, la fuerza del cuerpo de la vela (Cierre vs. Apertura) en relación con su rango total (Máximo vs. Mínimo)?
 
-![BollingerSqueezeV3](../../img/BollingerSqueezeV3.png)  (**falta imagen**)
+![BOP](../../img/BOP.png)  (**falta imagen**)
 
 ----------
 
@@ -140,5 +140,5 @@ Ya hemos "Conservado" herramientas infinitamente superiores que responden a preg
 
 **¿Merece la pena arreglarlo?** **No.** El concepto es obsoleto.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTI3NTQxODYzNCwtODg3NTA1MTY5XX0=
+eyJoaXN0b3J5IjpbMTEyNjYyOTc5NCwtODg3NTA1MTY5XX0=
 -->
