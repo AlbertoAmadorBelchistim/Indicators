@@ -19,7 +19,7 @@ description: ¿Cuál es el precio promedio exponencial (EMA), que da más peso a
 
 > **La Pregunta Clave:** ¿Cuál es el precio promedio exponencial (EMA), que da más peso a las velas más recientes?
 
-
+![BWMA](../../img/BWMA.png)  (**falta imagen**)
 
 ----------
 
@@ -143,5 +143,5 @@ No hay ninguna razón para usar esta implementación "falsa" y menos configurabl
 
 **¿Merece la pena arreglarlo?** No. ATAS ya tiene un indicador `EMA`. Si quisiéramos una `SMMA` (la media _real_ de Bill Williams), ya la vimos en el indicador `Alligator` (que también descartamos por ser demasiado lento).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDE0NzEzMDAwLC0xOTI1MzE5MzJdfQ==
+eyJoaXN0b3J5IjpbLTQwMjI3MTUzMSwtMTkyNTMxOTMyXX0=
 -->
