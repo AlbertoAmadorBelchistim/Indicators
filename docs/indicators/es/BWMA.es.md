@@ -1,11 +1,12 @@
-
-Aquí tienes la ficha del indicador `BWMA.cs`, adaptada al nuevo formato.
-
-Tu análisis ("Opinión Gemini") es 100% correcto y ha destapado una incoherencia crítica: el indicador se llama "Bill Williams Moving Average" (que canónicamente es una `SMMA`), pero la fórmula implementada en el código es la de una **`EMA` (Media Móvil Exponencial) estándar**.
-
-Esto lo convierte en un indicador redundante. He mantenido tu puntuación de 5/10 (que es generosa, dado que es redundante) y tu veredicto de "Descartar".
-
-----------
+---
+cs_file: BWMA.cs
+name: Bill Williams Moving Average
+category: Tendencia
+score: 5/10
+version: Estable
+verdict: Descartar
+description: ¿Cuál es el precio promedio exponencial (EMA), que da más peso a las velas más recientes?
+---
 
 ## 🟦 Bill Williams Moving Average (5/10)
 
@@ -141,5 +142,5 @@ No hay ninguna razón para usar esta implementación "falsa" y menos configurabl
 
 **¿Merece la pena arreglarlo?** No. ATAS ya tiene un indicador `EMA`. Si quisiéramos una `SMMA` (la media _real_ de Bill Williams), ya la vimos en el indicador `Alligator` (que también descartamos por ser demasiado lento).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTYyMjM3MDYwMywtMTkyNTMxOTMyXX0=
+eyJoaXN0b3J5IjpbLTk4MzE0NTk5MCwtMTkyNTMxOTMyXX0=
 -->
