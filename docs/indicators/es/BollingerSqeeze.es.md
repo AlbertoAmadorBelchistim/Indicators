@@ -172,10 +172,9 @@ Este indicador es un "filtro de régimen" de primera categoría, superior al `AD
 
 Tu parametrización óptima (`BB(20,2)` y `KC(20, 1.5)`) es la configuración clásica y probada.
 
-**Acción:** **Descartar (Redundante).**
+**Acción:** **Descartar (Redundante con Bollinger Sqeeze V2).**
 
 **¿Merece la pena arreglarlo?** **SÍ.** Los valores por defecto lo hacen inutilizable. Arreglar los defaults a `(20, 2.0, 20, 1.5)` y añadir una línea de cero es esencial.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5NTYwNDA1NjksLTE0ODM4NTMyOTVdfQ
-==
+eyJoaXN0b3J5IjpbLTg1NDY5ODYyNiwtMTQ4Mzg1MzI5NV19
 -->
