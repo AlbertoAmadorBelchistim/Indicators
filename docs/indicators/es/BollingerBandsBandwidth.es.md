@@ -1,6 +1,6 @@
 ---
 cs_file: BollingerBandsBandwidth.cs
-name: Bollinger Bands: Bandwidth
+name: Bollinger Bands Bandwidth
 category: Volatilidad
 score: 6.5/10
 version: Estable
@@ -10,13 +10,15 @@ description: ¿Cómo de 'comprimida' (squeeze) o 'expandida' está la volatilida
 ## 🟦 Bollinger Bands: Bandwidth (6.5/10)
 
 
-**Nombre del archivo:** [`BollingerBands.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/BollingerBands.cs)  (**confirmar**)
-**Nombre del indicador:** Bollinger Bands
-**Web oficial:** [ATAS — Bollinger Bands](https://help.atas.net/support/solutions/articles/72000602339)  
+**Nombre del archivo:** [`BollingerBandsBandwidth.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/BollingerBandsBandwidth.cs)  (**confirmar**)
+**Nombre del indicador:** Bollinger Bands: Bandwidth
+**Web oficial:** [ATAS — Bollinger Bands: Bandwidth](https://help.atas.net/support/solutions/articles/72000602340)  
 **Compatibilidad:** ATAS versión estable y superiores.  
 **Última revisión del código oficial:** 23/04/2025  (**confirmar**)
 
 > **La Pregunta Clave:** ¿Cómo de 'comprimida' (squeeze) o 'expandida' está la volatilidad ahora mismo, medida como un porcentaje del precio medio?
+
+![BollingerBandsBandwidth](../../img/BollingerBandsBandwidth.png)  (**falta imagen**)
 
 ----------
 
@@ -160,5 +162,5 @@ Para mantener un sistema de scalping limpio y minimalista, es mejor descartar lo
 
 **¿Merece la pena arreglarlo?** **No.** El indicador funciona, pero es conceptualmente redundante. No vale la pena gastar esfuerzo en mejorar un indicador que será descartado.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDc4Njc3ODEyLC0xNzc2MjM4MjIwXX0=
+eyJoaXN0b3J5IjpbOTM1ODQ1MDgxLC0xNzc2MjM4MjIwXX0=
 -->
