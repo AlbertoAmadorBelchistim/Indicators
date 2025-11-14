@@ -1,26 +1,23 @@
 ---
 cs_file: BOP.cs
-name: Bollinger Squeeze 3
-category: Volatilidad / Momentum
-score: 6/10
+name: Balance of Power
+category: Momentum / Price action
+score: 5/10
 version: Estable
 verdict: Descartar
-description: ¿Está la volatilidad del precio (StdDev) actualmente mayor o menor que la volatilidad del rango de las velas (ATR)?
+description: ¿Cuál es, en promedio, la fuerza del cuerpo de la vela (Cierre vs. Apertura) en relación con su rango total (Máximo vs. Mínimo)?
 ---
-
-----------
-
 ## 🟦 Balance of Power (BOP) (5/10)
 
-Nombre del archivo: BOP.cs
 
-Nombre del indicador: Balance of Power
-
-Web oficial: ATAS — Balance of Power
-
-Compatibilidad: ATAS versión estable y superiores.
-
+**Nombre del archivo:** [`BOP.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/BOP.cs)  (**confirmar**)
+**Nombre del indicador:** Balance of Power
+**Web oficial:** [ATAS — Balance of Power](https://help.atas.net/support/solutions/articles/72000602623)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  (**confirmar**)
 > **La Pregunta Clave:** ¿Cuál es, en promedio, la fuerza del cuerpo de la vela (Cierre vs. Apertura) en relación con su rango total (Máximo vs. Mínimo)?
+
+![BollingerSqueezeV3](../../img/BollingerSqueezeV3.png)  (**falta imagen**)
 
 ----------
 
@@ -143,5 +140,5 @@ Ya hemos "Conservado" herramientas infinitamente superiores que responden a preg
 
 **¿Merece la pena arreglarlo?** **No.** El concepto es obsoleto.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzU0MTQ5NzYsLTg4NzUwNTE2OV19
+eyJoaXN0b3J5IjpbMTI3NTQxODYzNCwtODg3NTA1MTY5XX0=
 -->
