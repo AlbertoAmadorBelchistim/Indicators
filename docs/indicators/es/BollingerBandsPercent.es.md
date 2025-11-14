@@ -1,15 +1,22 @@
-
+---
+cs_file: BollingerBandsPercent.cs
+name: Bollinger Bands Percentage
+category: Volatilidad
+score: 6/10
+version: Estable
+verdict: Conservar (con reservas)
+description: ¿En qué posición (como un porcentaje normalizado) se encuentra el precio actual dentro de las Bandas de Bollinger?
+---
 
 
 ## 🟦 Bollinger Bands: Percentage (6/10)
 
-Nombre del archivo: BollingerBandsPercent.cs
 
-Nombre del indicador: Bollinger Bands: Percentage
-
-Web oficial: ATAS — Bollinger Bands: Percentage
-
-Compatibilidad: ATAS versión estable y superiores.
+**Nombre del archivo:** [`BollingerBandsPercent.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/BollingerBandsPercent.cs)  (**confirmar**)
+**Nombre del indicador:** Bollinger Bands: Percentage
+**Web oficial:** [ATAS — Bollinger Bands: Percentage](https://help.atas.net/support/solutions/articles/72000602341)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  (**confirmar**)
 
 > **La Pregunta Clave:** ¿En qué posición (como un porcentaje normalizado) se encuentra el precio actual dentro de las Bandas de Bollinger?
 
@@ -172,5 +179,5 @@ Tu primera propuesta ("Añadir líneas horizontales fijas para zonas 0%, 50% y 1
 
 Es un indicador clásico y válido. No es "esencial" (como `BarsPattern` o `ActiveVolume`), pero es una herramienta de confirmación sólida para un arsenal si te gusta cazar divergencias.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTQ3ODI0NTU1NywtNTA1NTYzNzJdfQ==
+eyJoaXN0b3J5IjpbMTk0MDczOTM1NywtNTA1NTYzNzJdfQ==
 -->
