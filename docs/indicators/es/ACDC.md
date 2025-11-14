@@ -10,10 +10,12 @@ description: ¿Cuál es la dirección _suavizada y con retardo_ de la aceleraci�
 ﻿
 ## 🟦 AC DC Histogram (2/10)
 
-**Nombre del archivo:** `ACDC.cs`  
+**Nombre del archivo:** [`ACDC.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/ACDC.cs)  
 **Nombre del indicador:** AC DC Histogram  
 **Web oficial:** [ATAS — AC DC Histogram](https://help.atas.net/support/solutions/articles/72000602293)  
 **Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
 >**La Pregunta Clave:** "¿Cuál es la dirección _suavizada y con retardo_ de la aceleración del mercado?"
 
 ![ACDC](../../img/ACDC.png)

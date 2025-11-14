@@ -12,10 +12,11 @@ description: ¿La fortaleza del mercado proviene de haber hecho recientemente nu
 
   
 
-**Nombre del archivo:**  `AroonIndicator.cs`  
+**Nombre del archivo:**  [`AroonIndicator.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/AroonIndicator.cs)  
 **Nombre del indicador:** Aroon Indicator  
 **Web oficial:**  [ATAS - Aroon Indicator](https://help.atas.net/support/solutions/articles/72000602316)  
 **Compatibilidad**: ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
 > **La Pregunta Clave:** ¿La fortaleza del mercado proviene de haber hecho recientemente nuevos máximos, o de haber hecho recientemente nuevos mínimos?
 
 ![AroonIndicator](../../img/AroonIndicator.png)

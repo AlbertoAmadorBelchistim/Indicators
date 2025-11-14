@@ -10,10 +10,11 @@ description: ¿El momentum (AO) está acelerando o frenando?
 
 ## 🟦 Bill Williams AC (3/10)
 
-**Nombre del archivo:** `ACBW.cs`  
+**Nombre del archivo:** [`ACBW.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/ACBW.cs)  
 **Nombre del indicador:** Bill Williams AC  
 **Web oficial:** [ATAS — Bill Williams AC](https://help.atas.net/support/solutions/articles/72000602333)  
-**Compatibilidad:** ATAS versión estable y superiores.
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
 
 >**La Pregunta Clave:** "¿El momentum (AO) está acelerando o frenando?"
 

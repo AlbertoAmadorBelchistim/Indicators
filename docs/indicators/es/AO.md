@@ -12,10 +12,12 @@ description: ¿Está el momentum reciente a corto plazo (5 barras) ganando la ba
 
   
 
-**Nombre del archivo:**  `AO.cs`  
+**Nombre del archivo:**  [`AO.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/AO.cs)  
 **Nombre del indicador:** Awesome Oscillator  
 **Web oficial:**  [ATAS - Awesome Oscillator](https://help.atas.net/support/solutions/articles/72000602325)  
 **Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
 >**La Pregunta Clave:** ¿Está el momentum reciente a corto plazo (5 barras) ganando la batalla contra el momentum de la tendencia a largo plazo (34 barras)?
 
 ![AO](../../img/AO.png)

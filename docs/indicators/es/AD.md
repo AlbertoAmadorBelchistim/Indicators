@@ -10,10 +10,12 @@ description: ¿El flujo de volumen acumulado está confirmando la tendencia del 
 
 ## 🟦 AD (2/10)
 
-**Nombre del archivo:** `AD.cs`  
+**Nombre del archivo:** [`AD.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/AD.cs)  
 **Nombre del indicador:** Accumulation/Distribution (A/D)  
 **Web oficial:** [ATAS - Accumulation/Distribution (A/D)](https://help.atas.net/support/solutions/articles/72000606733)  
 **Compatibilidad**: ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
 >**La Pregunta Clave:** ¿El flujo de volumen acumulado está confirmando la tendencia del precio, o está mostrando una divergencia?
 
 ![AD](../../img/AD.png)

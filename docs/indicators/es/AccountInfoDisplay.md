@@ -11,10 +11,14 @@ description: ¿Cuál es el estado de mi cuenta (Balance, PnL, Margen) en tiempo 
 ## 🟦 Account Info Display (7/10)
 
 
-**Nombre del archivo**: AccountInfoDisplay.cs  
+**Nombre del archivo**: [`AccountInfoDisplay.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/AccountInfoDisplay.cs)  
+**Versión modificada:** [`AccountInfoDisplay.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/compile/myindicators/MyIndicators/AccountInfoDisplay.cs)  
 **Nombre del indicador**: Account Info Display  
 **Web oficial**: [Atas - Account Info Display](https://help.atas.net/en/support/solutions/articles/72000648751-account-info-display)  
-**Compatibilidad:** ATAS versión latest y superiores.  
+**Compatibilidad:** ATAS versión latest y superiores (la modificada es compatible con versiones estables también).)  
+**Última revisión del código oficial:** 5/11/2025  
+**Última revisión del código modificado:** 13/11/2025  
+
 >**La Pregunta Clave:** ¿Cuál es el estado de mi cuenta (Balance, PnL, Margen) en tiempo real, sin tener que apartar la vista del gráfico?
 
 ![Account Info Display](../../img/AccountInfoDisplay.png)

@@ -10,10 +10,11 @@ description: ¿Cuál es la _tendencia suavizada (lenta)_ del flujo de volumen ac
 
 ## 🟦 Accumulation / Distribution Flow (3/10)
 
-**Nombre del archivo:** `ADF.cs`  
+**Nombre del archivo:** [`ADF.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/ADF.cs)  
 **Nombre del indicador:** Accumulation / Distribution Flow  
 **Web oficial:** [ATAS - Accumulation/Distribution Flow](https://help.atas.net/support/solutions/articles/72000602569)  
-**Compatibilidad**: ATAS versión estable y superiores.
+**Compatibilidad**: ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
 
 >**La Pregunta Clave:** ¿Cuál es la _tendencia suavizada (lenta)_ del flujo de volumen acumulado?
 

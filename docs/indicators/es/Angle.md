@@ -12,10 +12,12 @@ description: ¿Cuál es el ángulo geométrico literal (en grados) de la tendenc
 
   
 
-**Nombre del archivo:**  `Angle.cs`  
+**Nombre del archivo:**  [`Angle.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/Angle.cs)  
 **Nombre del indicador:** Study Angle  
 **Web oficial:**  [ATAS - Study Angle](https://help.atas.net/support/solutions/articles/72000602533)  
 **Compatibilidad**: ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
 >**La Pregunta Clave:** ¿Cuál es el ángulo geométrico literal (en grados) de la tendencia del precio durante las últimas X barras?
 
 ![Angle](../../img/Angle.png)

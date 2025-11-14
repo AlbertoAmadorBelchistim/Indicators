@@ -10,10 +10,11 @@ description: ¿Qué fuerza es más fuerte y reciente, la que está creando nuevo
 
 ## 🟦 Aroon Oscillator (3/10)
 
-**Nombre del archivo**: AroonOscillator.cs  
+**Nombre del archivo**: [`AroonOscillator.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/AroonOscillator.cs)  
 **Nombre del indicador**: Aroon Oscillator  
 **Web oficial**: [ATAS — Aroon Oscillator](https://help.atas.net/support/solutions/articles/72000602317-aroon-oscillator)  
 **Compatibilidad**: ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
 >**La Pregunta Clave:** ¿Qué fuerza es más fuerte y reciente: la que está creando nuevos máximos (AroonUp) o la que está creando nuevos mínimos (AroonDown)?
 
 ![AroonOscillator](../../img/AroonOscillator.png)

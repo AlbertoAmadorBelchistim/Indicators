@@ -10,10 +10,11 @@ description: ¿Está el mercado 'durmiendo' (en rango, con las medias entrelazad
 
 ## 🟦 Alligator (6/10)
 
-**Nombre del archivo:** `Alligator.cs`  
+**Nombre del archivo:** [`Alligator.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/Alligator.cs)  
 **Nombre del indicador:** Alligator  
 **Web oficial:** [ATAS - Alligator](https://help.atas.net/support/solutions/articles/72000602579)  
 **Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
 >**La Pregunta Clave:** ¿Está el mercado 'durmiendo' (en rango, con las medias entrelazadas) o está 'despierto y comiendo' (en tendencia, con las medias abiertas)?
 
 ![Alligator](../../img/Alligator.png)

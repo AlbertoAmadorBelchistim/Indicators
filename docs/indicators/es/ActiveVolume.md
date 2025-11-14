@@ -10,10 +10,14 @@ description: Filtrando todas las pequeñas operaciones de 'ruido', ¿dónde est�
 
 ## 🟦 Active Volume (8/10)
   
-**Nombre del archivo:**  `ActiveVolume.cs`  
+**Nombre del archivo:**  [`ActiveVolume.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/ActiveVolume.cs)  
+**Versión modificada:** [`ActiveVolume.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/compile/myindicators/MyIndicators/ActiveVolume.cs)  
 **Nombre del indicador:** Active Volume  
 **Web oficial:**  [ATAS - Active Volume](https://help.atas.net/ru-RU/support/solutions/articles/72000608343-active-volume)  
 **Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 3/12/2024  
+**Última revisión del código modificado:** 13/11/2025
+
 >**La Pregunta Clave:** Filtrando todas las pequeñas operaciones de 'ruido', ¿dónde está apareciendo realmente el volumen significativo y agresivo de compra y venta en la escala de precios?
 
 ![Active Volume](../../img/ActiveVolume.png)

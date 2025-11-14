@@ -10,10 +10,12 @@ description: ¿Está el mercado en una fuerte tendencia (alcista o bajista), o s
 
 ## 🟦 ADX (Average Directional Index) (6/10)
 
-**Nombre del archivo:** `ADX.cs`  
+**Nombre del archivo:** [`ADX.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/ADX.cs)  
 **Nombre del indicador:** ADX  
 **Web oficial:** [ATAS - ADX](https://help.atas.net/support/solutions/articles/72000602313)  
 **Compatibilidad**: ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
 >**La Pregunta Clave:** ¿Está el mercado en una tendencia fuerte (ya sea alcista o bajista), o está simplemente en un 'rango' lateral?
 
 ![ADX](../../img/ADX.png)

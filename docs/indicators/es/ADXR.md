@@ -10,10 +10,12 @@ description: ¿Cuál es la fuerza _estable y suavizada_ de la tendencia, ignoran
 
 ## 🟦 ADXR (3/10)
 
-**Nombre del archivo:** `ADXR.cs`  
+**Nombre del archivo:** [`ADXR.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/ADXR.cs)  
 **Nombre del indicador:** ADXR  
 **Web oficial:** [ATAS - ADXR](https://help.atas.net/support/solutions/articles/72000602314)  
 **Compatibilidad**: ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
 > **La Pregunta Clave:** ¿Cuál es la fuerza _estable y suavizada_ de la tendencia, ignorando el ruido a corto plazo del propio ADX?
 
 ![ADXR](../../img/ADXR.png)

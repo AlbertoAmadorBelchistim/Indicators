@@ -12,10 +12,11 @@ description: ¿Cuál fue el volumen agresivo neto (Delta) de esta vela, e igualm
 
   
 
-**Nombre del archivo:** `AskBidBars.cs`  
+**Nombre del archivo:** [`AskBidBars.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/AskBidBars.cs)  
 **Nombre del indicador:** Ask/Bid Volume Difference Bars  
 **Web oficial:** [ATAS - Ask/Bid Volume Difference Bars](https://help.atas.net/support/solutions/articles/72000602527)  
 **Compatibilidad**: ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
 > **La Pregunta Clave:** ¿Cuál fue el volumen agresivo neto (Delta) de esta vela, e igualmente importante, cuál fue el rango interno (Delta Máx/Mín) de la batalla entre compradores y vendedores dentro de esa vela?
 
 ![AskBidBars](../../img/AskBidBars.png)

@@ -12,10 +12,11 @@ description: ¿Cuál es la volatilidad (ATR) del instrumento como un porcentaje 
 
   
 
-**Nombre del archivo:**  `ATRN.cs`  
+**Nombre del archivo:**  [`ATRN.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/ATRN.cs)  
 **Nombre del indicador:** ATR Normalized  
 **Web oficial:**  [ATAS -   ATR Normalized](https://help.atas.net/support/solutions/articles/72000602633)  
 **Compatibilidad**: ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
 >**La Pregunta Clave:** ¿Cuál es la volatilidad (ATR) del instrumento como un porcentaje de su precio actual?
 
 ![ATRN](../../img/ATRN.png)

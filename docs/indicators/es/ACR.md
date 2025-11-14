@@ -10,10 +10,11 @@ description: ¿Cuál es el tamaño promedio de una vela en lo que va de día?
 ﻿
 ## 🟦 Average Candle Range (5/10)
 
-**Nombre del archivo:** `ACR.cs`  
+**Nombre del archivo:** [`ACR.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/ACR.cs)  
 **Nombre del indicador:** Average Candle Range  
 **Web oficial:** [ATAS — Average Candle Range](https://help.atas.net/support/solutions/articles/72000602323)  
-**Compatibilidad:** ATAS versión estable y superiores.
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
 >**La Pregunta Clave:** ¿Cuál es el tamaño promedio de una vela en lo que va de día?
 
 ![ACR](../../img/ACR.png)

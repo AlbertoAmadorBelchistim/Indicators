@@ -12,10 +12,12 @@ description: ¿Ha roto la media móvil adaptativa (AMA) su 'canal' reciente por 
 
   
 
-**Nombre del archivo:** `AdaptiveBinaryWaveMA.cs`  
+**Nombre del archivo:** [`AdaptiveBinaryWaveMA.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/AdaptiveBinaryWaveMA.cs)  
 **Nombre del indicador:** Adaptive Binary Wave  
 **Web oficial:** [ATAS - Adaptative Binary Wave](https://help.atas.net/support/solutions/articles/72000602535)  
 **Compatibilidad**: ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
 >**La Pregunta Clave:** ¿Ha roto la media móvil adaptativa (AMA) su 'canal' reciente por una cantidad estadísticamente significativa?
 
 ![AdaptiveBinaryWaveMA](../../img/AdaptiveBinaryWaveMA.png)

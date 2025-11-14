@@ -12,10 +12,11 @@ description: ¿En lugar de solo el 'Cierre', cuál es el precio promedio interno
 
   
 
-**Nombre del archivo:** `AveragePriceBar.cs`  
+**Nombre del archivo:** [`AveragePriceBar.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/AveragePriceBar.cs)  
 **Nombre del indicador:** Average Price for Bar  
 **Web oficial:** [ATAS - Average Price for Bar](https://help.atas.net/support/solutions/articles/72000602324)  
-**Compatibilidad** : ATAS versión estable y superiores.
+**Compatibilidad** : ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
 
 >**La Pregunta Clave:** ¿En lugar de solo el 'Cierre', cuál es el precio promedio interno (ej. Mediana, Típico) de cada vela individual?
 

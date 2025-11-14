@@ -12,10 +12,12 @@ description: ¿Cómo puedo obtener una media móvil que automáticamente se rale
 
   
 
-**Nombre del archivo:**  `AdaptiveRsiAverage.cs`  
+**Nombre del archivo:**  [`AdaptiveRsiAverage.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/AdaptiveRsiAverage.cs)  
 **Nombre del indicador:** Adaptive RSI Moving Average  
 **Web oficial:**  [ATAS - Adaptive RSI Moving Average](https://help.atas.net/support/solutions/articles/72000602311)  
 **Compatibilidad**: ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
 >**La Pregunta Clave:** ¿Cómo puedo obtener una media móvil que automáticamente se ralentice cuando el mercado está indeciso (RSI cerca de 50) y se acelere para capturar tendencias cuando el momentum es fuerte (RSI cerca de 0 o 100)?
 
 ![AdaptiveRsiAverage](../../img/AdaptiveRsiAverage.png)
