@@ -1,7 +1,6 @@
 ﻿.vs/
 bin/
 obj/
-*.dll
 *.pdb
 *.log
 *.user
