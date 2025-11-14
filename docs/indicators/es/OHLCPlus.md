@@ -43,6 +43,8 @@ Ahora puedes activar y dibujar **Nodos de Alto Volumen (HVN)** y **Nodos de Bajo
   * **HVN (High Volume Nodes):** Zonas de alta aceptación (equilibrio, "imanes" de precio).
   * **LVN (Low Volume Nodes / Voids):** Zonas de bajo volumen (desequilibrio, "vacíos") donde el precio tiende a moverse rápido.
 
+  ![OHLCPlusHVNLVN](../../img/OHLCPlusHVNLVN.png)
+
 #### 3\. Esquemas de Color (Color Modes)
 
 Se ha añadido un parámetro `ColorMode` que te permite colorear todas las líneas de forma centralizada, ahorrando docenas de clics.
@@ -51,6 +53,10 @@ Se ha añadido un parámetro `ColorMode` que te permite colorear todas las líne
   * **`ByPeriod`:** Todas las líneas *Diarias* de un color, todas las *Semanales* de otro, etc.
   * **`ByLevel`:** Todos los *POCs* de un color, todos los *VWAPs* de otro, etc.
   * **`SemanticMatrix`:** (Recomendado) Un esquema de color profesional predefinido (ver imagen y parametrización) que da más importancia (color, grosor, estilo) a los niveles clave (`PrevDayPOC`, `PrevDayVAH/VAL`) y menos a los niveles secundarios.
+
+  ![OHLCPlusVisualization](../../img/OHLCPlusVisualization.png)
+   
+  
 
 #### 4\. Personalización Total de Etiquetas
 
