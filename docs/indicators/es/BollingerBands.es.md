@@ -1,24 +1,25 @@
 ---
 cs_file: BollingerBands.cs
 name: Bollinger Bands
-category: Volatilidad / Volatilidad
-score: 7/10
+category: Volatilidad / Canal
+score: 8/10
 version: Estable
-verdict: Conservar (con reservas)
-description: ¿Cómo puedo crear un 'trailing stop' de volatilidad (basado en el ATR) que solo se mueva a favor de la tendencia (hacia arriba o hacia abajo), pero que nunca retroceda?
+verdict: Conservar (esencial)
+description: ¿Está el precio actual estadísticamente 'demasiado alto' o 'demasiado bajo' (sobre-extendido) en comparación con su media reciente, basándose en la volatilidad?
 ---
 
 ## 🟦 Bollinger Bands (8/10)
 
-Nombre del archivo: BollingerBands.cs
 
-Nombre del indicador: Bollinger Bands
-
-Web oficial: ATAS — Bollinger Bands
-
-Compatibilidad: ATAS versión estable y superiores.
+**Nombre del archivo:** [`BollingerBands.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/BollingerBands.cs)  (**confirmar**)
+**Nombre del indicador:** Bollinger Bands
+**Web oficial:** [ATAS — Bollinger Bands](https://help.atas.net/support/solutions/articles/72000602339)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  (**confirmar**)
 
 > **La Pregunta Clave:** ¿Está el precio actual estadísticamente 'demasiado alto' o 'demasiado bajo' (sobre-extendido) en comparación con su media reciente, basándose en la volatilidad?
+> 
+![BollingerBands](../../img/BollingerBands.png)  (**falta imagen**)
 
 ----------
 
@@ -178,5 +179,5 @@ Junto con el `AMA` (para régimen) y el `ATR` (para riesgo), las `Bollinger Band
 
 **¿Merece la pena arreglarlo?** **SÍ.** El bug de la alerta es menor pero molesto. Corregir eso y ajustar los valores por defecto a `20` y `2.0` haría que este indicador fuera perfecto.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE0ODkxNzI5NjgsOTE4MzYxNTg2XX0=
+eyJoaXN0b3J5IjpbLTE2NTkwODA5NTcsOTE4MzYxNTg2XX0=
 -->
