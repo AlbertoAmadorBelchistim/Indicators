@@ -13,11 +13,13 @@ description: ¿Cuál es el momentum (y la pendiente de ese momentum) del precio?
 
 **Nombre del archivo:** [`BollingerSqueezeV2.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/BollingerSqueezeV2.cs)  (**confirmar**)
 **Nombre del indicador:** Bollinger Squeeze 2
-**Web oficial:** [ATAS — Bollinger Squeeze 2](https://help.atas.net/support/solutions/articles/72000602338)  
+**Web oficial:** [ATAS — Bollinger Squeeze 2](https://help.atas.net/support/solutions/articles/72000602634)  
 **Compatibilidad:** ATAS versión estable y superiores.  
 **Última revisión del código oficial:** 23/04/2025  (**confirmar**)
 
 > **La Pregunta Clave:** ¿Cuál es el momentum (y la pendiente de ese momentum) del precio? Y, al mismo tiempo, ¿está el mercado en una 'compresión' (squeeze) de baja volatilidad (punto rojo) o en una 'expansión' de alta volatilidad (punto verde)?
+
+![BollingerSqueezeV2](../../img/BollingerSqueezeV2.png)  (**falta imagen**)
 
 ----------
 
@@ -185,5 +187,5 @@ Combina contexto de volatilidad y señales de momentum/dirección en un solo pan
 
 **¿Merece la pena arreglarlo?** **SÍ.** Los arreglos son esenciales: cambiar los valores por defecto a los estándares (`20, 2.0, 20, 1.5`) y añadir una línea de cero.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwNDcwNTE5NjcsMTY3Nzk5ODUyOF19
+eyJoaXN0b3J5IjpbLTEyNzM3MTEwNjEsMTY3Nzk5ODUyOF19
 -->
