@@ -10,13 +10,15 @@ description: ¿Está la volatilidad del precio (StdDev) actualmente mayor o meno
 ## 🟦 Bollinger Squeeze 3 (6/10)
 
 
-**Nombre del archivo:** [`BollingerSqueezeV3.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/BollingerSqueeze.cs)  (**confirmar**)
-**Nombre del indicador:** Bollinger Squeeze
-**Web oficial:** [ATAS — Bollinger Squeeze](https://help.atas.net/support/solutions/articles/72000602337)  
+**Nombre del archivo:** [`BollingerSqueezeV3.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/BollingerSqueezeV3.cs)  (**confirmar**)
+**Nombre del indicador:** Bollinger Squeeze 3
+**Web oficial:** [ATAS — Bollinger Squeeze 3](https://help.atas.net/support/solutions/articles/72000602338)  
 **Compatibilidad:** ATAS versión estable y superiores.  
 **Última revisión del código oficial:** 23/04/2025  (**confirmar**)
 
 > **La Pregunta Clave:** ¿Está la volatilidad del precio (StdDev) actualmente mayor o menor que la volatilidad del rango de las velas (ATR)?
+
+![BollingerSqueezeV3](../../img/BollingerSqueezeV3.png)  (**falta imagen**)
 
 ----------
 
@@ -162,5 +164,5 @@ Este indicador (`V3`) es solo la _mitad_ de la información del `V2`, y la prese
 
 **¿Merece la pena arreglarlo?** **No.** El indicador no está "roto", es simplemente una versión inferior de otro indicador (`V2`) que ya hemos conservado.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExMzMzODA3MDYsNzY3MTg1NTQ2XX0=
+eyJoaXN0b3J5IjpbLTExMjgyODEzNTMsNzY3MTg1NTQ2XX0=
 -->
