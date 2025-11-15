@@ -255,6 +255,17 @@ public partial class ClusterSearch : Indicator
                     l.Size = clusterSize;
                 });
             }
+
+            _validVolumeLevels.RemoveWhere(level =>
+                CalcType switch
+                {
+                    CalcMode.Bid => level.Value.Bid,
+                    CalcMode.Ask => level.Value.Ask,
+                    CalcMode.Delta => level.Value.Delta,
+                    CalcMode.Volume or CalcMode.MaxVolume => level.Value.Volume,
+                    CalcMode.Tick => level.Value.Ticks,
+                    _ => 0
+                } < _autoFilterValue);
         }
         finally
         {
