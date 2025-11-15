@@ -15,7 +15,6 @@ Para compilar esta información, se ha utilizado la documentación oficial de AT
 
 ---
 
-
 ## A
 
 | Archivo (`.cs`) | Nombre del Indicador | Categoría | Puntuación Scalping | Veredicto | Descripción |
@@ -70,10 +69,43 @@ Para compilar esta información, se ha utilizado la documentación oficial de AT
 
 ---
 
+## C
+
+| Archivo (`.cs`) | Nombre del Indicador | Categoría | Puntuación Scalping | Veredicto | Descripción |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `CamarillaPivots.cs` | [Camarilla Pivots](indicators/es/CamarillaPivots.md) | Niveles | 8/10 | Conservar | ¿Dónde están los niveles de soporte y resistencia intradía más relevantes, basados en la fórmula de Camarilla, para operar rupturas (en L4/H4) y reversiones (en L3/H3)? |
+| `CandleStatistics.cs` | [Candle Statistics](indicators/es/CandleStatistics.md) | Utilidad / Visualización | 8/10 | Conservar | ¿Cuál es la "radiografía" de esta vela? ¿Cuál fue su Volumen total, su Delta neto, su número de Ticks (trades) y su Duración? |
+| `CCI.cs` | [CCI](indicators/es/CCI.md) | Momentum | 7/10 | Conservar | ¿Qué tan lejos se ha desviado el precio "típico" de hoy de su precio "promedio", medido en unidades de desviación estadística? |
+| `ChaikinOscillator.cs` | [Chaikin Oscillator](indicators/es/ChaikinOscillator.md) | Momentum / Volumen clásico | 3/10 | Descartar | ¿Cuál es el *momentum* del flujo de dinero (Línea AD)? ¿Está el flujo de dinero (acumulación/distribución) acelerando o frenando? |
+| `CFO.cs` | [Chande Forecast Oscillator](indicators/es/CFO.md) | Momentum | 5/10 | Descartar | ¿Cuán lejos, en porcentaje, se ha desviado el precio de su propia línea de tendencia (Regresión Lineal)? |
+| `ChandeMomentum.cs` | [Chande Momentum Oscillator ](indicators/es/ChandeMomentum.md) | Momentum | 6/10 | Descartar | ¿Cuál es la fuerza neta del impulso (Suma de Subidas vs. Suma de Bajadas), expresada como un oscilador centrado en cero? |
+| `ClusterStatisticModif.cs` | [Cluster Statistic Modif ](indicators/es/ClusterStatisticModif.md) | Order FLow | 10/10 | Conservar (herramienta principal) | ¿Cuál es el "dashboard" estadístico completo (Volumen, Delta, Ticks, *Velocidad* e *Imbalances*) de cada vela, y cómo se compara cada vela con la más "fuerte" del gráfico? |
+| `CBI.cs` | [Connie Brown Composite Index](indicators/es/CBI.md) | Momentum | 6/10 | Descartar | ¿Cuál es el momentum "compuesto" (RSI + Momentum) del precio, y cómo se compara con sus propias medias móviles (lenta y rápida)? |
+| `CAV.cs` | [Cumulative Adjusted Value](indicators/es/CAV.md) | Momentum | 5/10 | Descartar | ¿Está el precio *consistente y acumulativamente* cotizando por encima de su media (momentum alcista), o por debajo de ella (momentum bajista)? |
+
+---
+
+## D
+
+| Archivo (`.cs`) | Nombre del Indicador | Categoría | Puntuación Scalping | Veredicto | Descripción |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `DeltaModif.cs` | [Delta Modif ](indicators/es/DeltaModif.md) | Order FLow | 10/10 | Conservar (herramienta principal) | ¿Qué barras muestran una agresión (Delta) extrema, divergencia o absorción, y cómo puedo ver esas señales directamente en el gráfico de precio? |
+
+---
+
+## L
+
+| Archivo (`.cs`) | Nombre del Indicador | Categoría | Puntuación Scalping | Veredicto | Descripción |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `LevelsLolo.cs` | [LevelsLolo](indicators/es/LevelsLolo.md) | Levels | 9/10 | Conservar (herramienta de contexto clave) | ¿Dónde están los niveles clave de SpotGamma (CO, LG, VT, PW/CW) y cómo puedo visualizarlos en mi gráfico con una jerarquía clara de importancia? |
+
+---
+
 ## O
 
 | Archivo (`.cs`) | Nombre del Indicador | Categoría | Puntuación Scalping | Veredicto | Descripción |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| `OHLCPlusmodif.cs` | [OHLC Plus Modif](indicators/es/OHLCPlus.md) | Order Flow / Precio | 10/10 | Descartar | ¿Puedo tener TODOS los niveles de contexto clave (Diario, Semanal, Mensual, Contrato) en un solo indicador, con estilos profesionales y un sistema de etiquetas que no se solapen y sean 100% legibles? |
 | `BalanceOI.cs` | [On Balance Open Interest](indicators/es/BalanceOI.md) | Order Flow | 8/10 | Conservar | ¿Está el compromiso acumulado del 'dinero inteligente' (Interés Abierto) subiendo cuando los precios suben y bajando cuando los precios bajan, o está divergiendo? |
 
 ---
