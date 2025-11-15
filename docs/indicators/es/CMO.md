@@ -7,7 +7,6 @@ version: Estable
 verdict: Descartar (ROTO)
 description: Mide la "aceleración" del flujo de dinero (AD) usando la diferencia entre dos EMAs (pero la implementación es errónea).
 ---
-
 ## 🟦 Chaikin Money Oscillator (CMO) (1/10)
 
 **Nombre del archivo:** [`CMO.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/CMO.cs)  
