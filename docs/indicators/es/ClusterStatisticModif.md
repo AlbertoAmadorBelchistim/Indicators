@@ -1,19 +1,32 @@
-﻿## 🟦 Cluster Statistic (versión modificada)
+﻿---
+cs_file: ClusterStatisticModif.cs
+name: Cluster Statistic Modif 
+category: Order FLow
+score: 10/10
+version: Estable
+verdict: Conservar (herramienta principal)
+description: ¿Cuál es el "dashboard" estadístico completo (Volumen, Delta, Ticks, *Velocidad* e *Imbalances*) de cada vela, y cómo se compara cada vela con la más "fuerte" del gráfico?
+---
+
+## 🟦 Cluster Statistic (versión modificada)
 
 - **Nombre del archivo:** [ClusterStatisticModif.cs](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/compile/myindicators/MyIndicators/ClusterStatisticModif.cs) 
 - **Nombre del indicador:** Cluster Statistic Modif 
 - **Web oficial:** [ATAS — Cluster Statistic](https://help.atas.net/en/support/solutions/articles/72000602624-cluster-statistics)  
 - **Compatibilidad:** ATAS versión estable y superiores.
-- **Versión actual:** 1.1.0 (1/10/2025)
+- **Última revisión del código base:**  [`ClusterStatistic.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/ClusterStatistic.cs): 23/4/2025  
+- **Última revisión del código modificado:** 1/10/2025 (v 1.1.0)
 *(Versión extendida y optimizada por Alberto Amador Belchistim)*
 
-![Tabla completa de estadísticas](../img/ClusterStatistics.png)
+![Tabla completa de estadísticas](../../img/ClusterStatistics.png)
+
+> **La Pregunta Clave:** ¿Cuál es el "dashboard" estadístico completo (Volumen, Delta, Ticks, *Velocidad* e *Imbalances*) de cada vela, y cómo se compara cada vela con la más "fuerte" del gráfico?
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-![Configuración de las filas](../img/ClusterStatisticRawsConfig.png)
+![Configuración de las filas](../../img/ClusterStatisticRawsConfig.png)
 
 #### 🧱 Filas
 Selección de las filas de datos que se muestran en la tabla de estadísticas del clúster.
@@ -42,7 +55,7 @@ Selección de las filas de datos que se muestran en la tabla de estadísticas de
 #### ⚡ Max vol/seg
 Parámetros del cálculo de velocidad pico (volumen por segundo).
 
-![Configuración de la velocidad pico](../img/ClusterStatisticPeakConfig.png)
+![Configuración de la velocidad pico](../../img/ClusterStatisticPeakConfig.png)
 
 - **Ventana temporal (seg.)** – tamaño de la ventana móvil usada para el cálculo. <br>
 En el ejemplo compararía el volumen acumulado en cada intervalo de 5 segundos dentro de la vela.
@@ -56,7 +69,7 @@ En el ejemplo compararía el volumen acumulado en cada intervalo de 5 segundos d
 #### ⚖️ Imbalance
 Control de los umbrales de desequilibrio y filtrado.
 
-![Configuración de los imbalances](../img/ClusterStatisticImbalanceConfig.png)
+![Configuración de los imbalances](../../img/ClusterStatisticImbalanceConfig.png)
 
 - **Umbral de desequilibrio (%)** – porcentaje de diferencia mínima entre el ask de un nivel y el bid del inferior para resaltar un desequilibrio.  
 - **Filtro de volumen de desequilibrio** – volumen mínimo necesario para tener en cuenta el desequilibrio.
@@ -66,7 +79,7 @@ Control de los umbrales de desequilibrio y filtrado.
 #### 🎨 Visualización
 Ajustes generales de apariencia del panel.
 
-![Configuración de la visualización](../img/ClusterStatisticVisualizationConfig.png)
+![Configuración de la visualización](../../img/ClusterStatisticVisualizationConfig.png)
 
 - **Fondo** – color de fondo del panel.  
 - **Transparencia** – opacidad del fondo (0–255).  
@@ -78,7 +91,7 @@ Ajustes generales de apariencia del panel.
 
 #### ✏️ Texto
 
-![Configuración del texto](../img/ClusterStatisticVisualizationConfig.png)
+![Configuración del texto](../../img/ClusterStatisticVisualizationConfig.png)
 - **Color** – color del texto.  
 - **Tipo de letra** – fuente y tamaño (por ejemplo, Arial 9 px).  
 - **Alineación centrada** – centra el texto dentro de cada celda.  
@@ -87,14 +100,14 @@ Ajustes generales de apariencia del panel.
 ---
 
 #### 🧩 Encabezados
-![Configuración de los encabezados](../img/ClusterStatisticHeadersConfig.png)
+![Configuración de los encabezados](../../img/ClusterStatisticHeadersConfig.png)
 - **Color** – color de fondo del encabezado.  
 - **Ocultar encabezamientos** – oculta la columna de títulos de la tabla.
 
 ---
 
 #### 🔔 Alertas de volumen / Delta / Net Imbalance
-![Configuración de las alertas](../img/ClusterStatisticAlertsConfig.png)
+![Configuración de las alertas](../../img/ClusterStatisticAlertsConfig.png)
 - **Habilitado** – activa la alerta.  
 - **Filtro** – valor de umbral para activar la alerta.  
 - **Archivo de alarma** – nombre del archivo de sonido (por ejemplo, `alert1`).
@@ -109,15 +122,16 @@ Ajustes generales de apariencia del panel.
 ---
 
 ### 🧭 Clasificación  
-📂 **VolumeOrderFlow** — Indicadores basados en estadísticas agrupadas por vela (volumen, delta, número de ejecuciones, etc.).
+📂 VolumeOrderFlow / Dashboard — Dashboard de estadísticas avanzadas de vela (Volumen, Delta, Velocidad e Imbalance).
 
 ---
 
-### 🧠 Uso más frecuente (versión original)
+### 🧠 Uso más frecuente
 
-- Mostrar un **resumen por vela** de variables clave como Volumen, Delta, Trades.  
-- Detectar velas con **delta extremo** (agresión de compra o venta).  
-- Confirmar **impulso** cuando volumen y delta acompañan una ruptura.  
+  * Mostrar un **resumen por vela** de variables clave (Volumen, Delta, Ticks).
+  * Detectar **picos de velocidad** (`Max Vol/sec`) para identificar ignición, pánico o clímax.
+  * Cuantificar la **agresión** (`Delta/seg`, `Delta/Vol at peak`).
+  * Contar **desequilibrios** (`Net Imbalances`, `Stacked Imbalances`) para confirmar la presión institucional.
 
 ---
 
@@ -151,61 +165,35 @@ Se han incorporado las siguientes mejoras respecto a la versión oficial:
 ---
 
 ### 📊 Nivel de relevancia  
-🔟 **8 / 10**
+🔟 **10 / 10**
 
-✅ Extiende una herramienta ya relevante en el ecosistema de flujo de órdenes.  
-✅ Introduce métricas nuevas que mejoran detección y velocidad de respuesta.  
-⛔ Requiere buen dominio del contexto de volumen/delta y cierto espacio visual en el gráfico.
+✅ **Dashboard Definitivo:** Combina las estadísticas de `CandleStatistics` (8/10) con métricas avanzadas de *velocidad* (SoT) e *imbalance* (Footprint), todo en una tabla interactiva.  
+✅ **Métricas de Velocidad:** Añadir `Max Vol/sec` y `Delta at peak` es una mejora de nivel profesional que aporta un contexto que el volumen por sí solo no puede.  
+⛔ **Sobrecarga de Información:** Es el indicador más denso en datos. Requiere que el trader sepa exactamente qué filas activar y cuáles ocultar.
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Ruptura con convicción**: vela que muestra Volumen alto + Delta/sec elevado + PeakVol/sec > umbral = señal de continuación.  
-- **Absorción de mercado**: Volumen elevado + Delta/segs bajo o negativo + desequilibrio de huella importante cerca de soporte/resistencia = posible rechazo.  
-- **Falsas rupturas**: Volumen total alto pero Delta/sec bajo + PeakDeltaPerVol bajo = falta de impulso, posible retroceso.  
-- **Secuencia de impulso sostenido**: varias velas consecutivas con incremento de Trades, Vol/sec, Delta/sec → confirmar continuidad.
+  * **Ruptura con Convicción (Ignición):** Buscar una vela de ruptura que muestre: `Volume` alto + `Delta` alto + `Net Imbalances` alto + `Max Vol/sec` alto + `Delta at peak` positivo.
+  * **Absorción en S/R:** Buscar una vela en un nivel clave que muestre: `Volume` alto + `Delta` cercano a cero (o contrario) + `Net Imbalances` opuestos (ej. muchos Buy Imbalances en una resistencia que no rompe).
+  * **Clímax de Agotamiento:** Una vela con `Volume` extremo, `Height` extrema, y un `Max Vol/sec` muy alto, pero un `Delta` que no acompaña (divergencia).
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **Filas activas:**  
-  - ✅ Delta  
-  - ✅ Delta/seg.  
-  - ✅ Delta/Volumen  
-  - ✅ Cambio de Delta  
-  - ✅ Delta/Volumen en el pico (Delta/Vol at peak)  
-  - ✅ Net Imbalances  
-  - ✅ Stacked Imbalances  
-
-- **Ventana de velocidad (Max vol/sec):**  
-  - **Time Window (sec):** `5`  
-  - **Min Volume per Window:** `150`  
-  - **Use Auto Filter:** ✅  
-  - **Auto Filter Period:** `3`  
-  - **Auto Filter = EMA (off = SMA):** ✅
-
-- **Umbrales de desequilibrio:**  
-  - **Imbalance Threshold (%):** `300`  
-  - **Imbalance Volume Filter:** `30`
-
-- **Visualización:**  
-  - **Fondo:** `#80000000` (gris translúcido)  
-  - **Transparencia:** `10`  
-  - **Cuadrícula:** `White`  
-  - **Mostrar por degradado:** ❌  
-  - **Color de Ask / Bid:** `#FF059E05` (verde) / `Red`  
-  - **Color de volumen / texto:** `White`
-
-- **Texto:**  
-  - **Tipo de letra:** `Arial; 9px`  
-  - **Ratios como porcentaje:** ✅  
-  - **Alineación centrada:** ✅
-
-- **Encabezados:**  
-  - **Color:** `#FF787B86`  
-  - **Ocultar encabezados:** ❌  
+| **Parámetro** | **Valor recomendado** | **Comentario** |
+| :--- | :--- | :--- |
+| **Filas Activas (Rows)** | `Delta`, `Delta/seg`, `Delta/Vol`, `Delta at peak`, `Net Imb`, `Stacked Imb` | Foco en Delta, Velocidad y Desequilibrio. |
+| **Time Window (sec)** | `5` | Ventana de 5 segundos para medir la velocidad. |
+| **Min Volume per Window** | `150` | Filtro de ruido para la velocidad. |
+| **Use Auto Filter** | `true` | Heatmap adaptativo para picos de velocidad. |
+| **Auto Filter Period** | `3` (EMA) | Filtro muy rápido. |
+| **Imbalance Threshold** | `300` (300%) | Ratio estándar 3:1. |
+| **Imbalance Volume Filter**| `30` | Filtro de ruido para imbalances. |
+| **VisibleProportion** | `true` | **¡Clave\!** Normaliza el heatmap a la sesión visible. |
+| **Ratios as percent** | `true` | Más fácil de leer ("30%" vs "0.30"). |
 
 ✅ Esta configuración ofrece una lectura equilibrada entre **intensidad del flujo** y **desequilibrio neto**, permitiendo detectar fácilmente:
 - Cambios bruscos de delta intrabarra (fatiga o absorción).  
@@ -219,9 +207,10 @@ Se han incorporado las siguientes mejoras respecto a la versión oficial:
 
 ### 🧪 Notas de desarrollo
 
-- Basado en la implementación estándar del indicador de ATAS, pero ampliado con nuevas métricas que permiten una lectura más rica del flujo de órdenes.  
-- La lógica original de acumulación por vela se mantiene, pero se añade una ventana de tiempo interno para calcular Vol/sec, Delta/sec, picos por segundo y umbrales dinámicos.  
-- La interfaz ha sido ajustada para scalping, con mejor alineación, más métricas y mayor claridad visual.  
+  * Es un indicador de **dibujo 100% personalizado** (`OnRender`) que dibuja una tabla interactiva (filas arrastrables).
+  * **Cálculo Histórico (SoT):** `OnCumulativeTradesResponse` se usa para solicitar *todos* los trades históricos (`RequestForCumulativeTrades`). `RebuildHistoricalSoT` luego itera por esta enorme lista para calcular los picos de velocidad (`_peakVolPerSec`, `_peakDeltaPerSec`) para cada barra cerrada.
+  * **Cálculo en Tiempo Real (SoT):** `OnCalculate` gestiona el "live bar". Usa una `Queue<Sample>` (`_win`) como ventana deslizante. Cada tick (o actualización de `OnCalculate`) añade el `incVol` y `incDelta`, purga los datos antiguos de la cola, y recalcula el `_rtPeakVolPerSec` de la barra actual.
+  * **Imbalances:** La lógica de imbalances (`for (decimal price = candle.High...`) se ejecuta al final de `OnCalculate` para escanear el footprint de la vela actual.
 
 ---
 
@@ -229,7 +218,31 @@ Se han incorporado las siguientes mejoras respecto a la versión oficial:
 
 - Permitir **alertas automáticas** cuando Delta/sec o PeakDeltaPerVol superen umbral dinámico calculado por sesión.  
 
----
-<!--stackedit_data:
-eyJoaXN0b3J5IjpbNDc3OTQ5MzE0XX0=
--->
+-----
+
+-----
+
+### ✍️ La opinión de Gemini sobre el Indicador (El Análisis Correcto)
+
+Este es un indicador "Data-Dump" o "Dashboard" de nivel profesional. Es el hermano mayor de `CandleStatistics` (8/10). Mientras `CandleStatistics` te da un pequeño resumen *encima* de la vela, `ClusterStatistic` te da un *panel completo y dedicado* con 16 métricas, un heatmap y la capacidad de reordenar las filas.
+
+**Tus Modificaciones ("Alfa"):**
+Tus añadidos elevan este indicador a un 10/10. La versión estable es un 9/10, pero añadir:
+
+1.  **Velocidad (Speed of Tape):** `Max Vol/sec` y `Delta at peak`.
+2.  **Imbalances:** `Net Imbalance` y `Stacked Imbalance`.
+    ...transforma esto de un "dashboard estadístico" a una "herramienta de ejecución" completa.
+
+La *Velocidad* es crucial: un `Volume` de 2000 lotes en 1 segundo (ignición) es una señal completamente diferente a un `Volume` de 2000 lotes en 60 segundos (absorción/distribución). Tu indicador es el único que hemos visto que mide esto.
+
+-----
+
+### 📈 Veredicto: ¿Es útil para Scalping?
+
+**Sí, es una herramienta de análisis de contexto de primera categoría.**
+
+No te da señales de entrada, pero te da toda la información que necesitas para *validar* una señal. Te permite ver la "anatomía" completa de cada vela. Su único "defecto" es que puede ser una sobrecarga de información si no se configura para mostrar solo lo esencial (lo cual has resuelto con tu parametrización óptima).
+
+**Acción:** **Conservar (Herramienta Principal).**
+
+**¿Merece la pena arreglarlo?** El indicador (tu versión modificada) es una obra maestra. Está completo.
