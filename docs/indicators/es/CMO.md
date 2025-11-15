@@ -1,5 +1,5 @@
 ﻿---
-cs_file: CMO.cs
+cs_file: CMO
 name: Chaikin Money Oscillator
 category: Volumen
 score: 1/10
