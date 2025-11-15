@@ -1,11 +1,11 @@
 ﻿---
-cs_file: CMO
-name: Chaikin Money Oscillator
-category: Volumen
-score: 1/10
+cs_file: BollingerSqueezeV3.cs
+name: Bollinger Squeeze 3
+category: Volatilidad / Momentum
+score: 6/10
 version: Estable
-verdict: Descartar (ROTO)
-description: Mide la "aceleración" del flujo de dinero (AD) usando la diferencia entre dos EMAs (pero la implementación es errónea).
+verdict: Descartar
+description: ¿Está la volatilidad del precio (StdDev) actualmente mayor o menor que la volatilidad del rango de las velas (ATR)?
 ---
 ## 🟦 Chaikin Money Oscillator (CMO) (1/10)
 
