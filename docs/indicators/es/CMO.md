@@ -9,6 +9,7 @@ description: ¿Está la volatilidad del precio (StdDev) actualmente mayor o meno
 ---
 ## 🟦 Chaikin Money Oscillator (CMO) (1/10)
 
+
 **Nombre del archivo:** [`CMO.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/CMO.cs)  
 **Nombre del indicador:** Chaikin Money Oscillator  
 **Web oficial:** [ATAS — Chaikin Money Oscillator](https://help.atas.net/support/solutions/articles/72000602299)  
