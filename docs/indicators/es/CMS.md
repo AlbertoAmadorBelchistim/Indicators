@@ -1,4 +1,4 @@
-﻿## 🟦 Clear Method Swing Line (8/10)
+## 🟦 Clear Method Swing Line (8/10)
 
 **Nombre del archivo:** `CMS.cs`  
 **Nombre del indicador:** Clear Method Swing Line  

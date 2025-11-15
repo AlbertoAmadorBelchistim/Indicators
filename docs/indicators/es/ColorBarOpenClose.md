@@ -1,4 +1,4 @@
-﻿## 🟦 Color Bar Open/Close (5/10)
+## 🟦 Color Bar Open/Close (5/10)
 
 **Nombre del archivo:** `ColorBarOpenClose.cs`  
 **Nombre del indicador:** Color Bar Open/Close  

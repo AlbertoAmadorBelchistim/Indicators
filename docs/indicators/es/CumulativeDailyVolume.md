@@ -1,4 +1,4 @@
-﻿## 🟦 Cumulative Daily Volume (6/10)
+## 🟦 Cumulative Daily Volume (6/10)
 
 **Nombre del archivo:** `CumulativeDailyVolume.cs`  
 **Nombre del indicador:** Cumulative Daily Volume  

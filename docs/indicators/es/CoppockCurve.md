@@ -1,4 +1,4 @@
-﻿## 🟦 Coppock Curve (3/10)
+## 🟦 Coppock Curve (3/10)
 
 **Nombre del archivo:** `CoppockCurve.cs`  
 **Nombre del indicador:** Coppock Curve  

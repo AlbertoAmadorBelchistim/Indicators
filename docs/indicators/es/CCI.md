@@ -1,4 +1,4 @@
-﻿---
+---
 cs_file: CCI.cs
 name: CCI
 category: Momentum

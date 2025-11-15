@@ -1,4 +1,4 @@
-﻿---
+---
 cs_file: OHLCPlusmodif.cs
 name: OHLC Plus Modif
 category: Order Flow / Precio

@@ -1,4 +1,4 @@
-﻿---
+---
 cs_file: CamarillaPivots.cs
 name: Camarilla Pivots
 category: Niveles

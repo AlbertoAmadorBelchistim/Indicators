@@ -1,4 +1,4 @@
-﻿---
+---
 cs_file: CFO.cs
 name: Chande Forecast Oscillator
 category: Momentum

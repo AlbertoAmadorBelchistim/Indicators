@@ -1,4 +1,4 @@
-﻿## 🟦 CVD - Cumulative Volume Delta (9/10)
+## 🟦 CVD - Cumulative Volume Delta (9/10)
 
 **Nombre del archivo:** `CumulativeDelta.cs`  
 **Nombre del indicador:** CVD - Cumulative Volume Delta  

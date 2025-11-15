@@ -1,4 +1,4 @@
-﻿## 🟦 COT High/Low (7/10)
+## 🟦 COT High/Low (7/10)
 
 **Nombre del archivo:** `CotHigh.cs`  
 **Nombre del indicador:** COT High/Low  

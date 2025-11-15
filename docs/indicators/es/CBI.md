@@ -1,4 +1,4 @@
-﻿---
+---
 cs_file: CBI.cs
 name: Connie Brown Composite Index
 category: Momentum

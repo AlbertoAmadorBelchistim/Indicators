@@ -1,4 +1,4 @@
-﻿---
+---
 cs_file: ChaikinOscillator.cs
 name: Chaikin Oscillator
 category: Momentum / Volumen clásico

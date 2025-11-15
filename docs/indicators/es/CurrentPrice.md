@@ -1,4 +1,4 @@
-﻿## 🟦 Current Price (4.5/10)
+## 🟦 Current Price (4.5/10)
 
 **Nombre del archivo:** `CurrentPrice.cs`  
 **Nombre del indicador:** Current Price  

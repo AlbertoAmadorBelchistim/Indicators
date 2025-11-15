@@ -1,4 +1,4 @@
-﻿---
+---
 cs_file: CandleStatistics.cs
 name: Candle Statistics
 category: Utilidad / Visualización

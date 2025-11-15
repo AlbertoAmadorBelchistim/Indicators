@@ -1,4 +1,4 @@
-﻿---
+---
 cs_file: CAV.cs
 name: Cumulative Adjusted Value
 category: Momentum

@@ -1,4 +1,4 @@
-﻿---
+---
 cs_file: DeltaModif.cs
 name: Delta Modif 
 category: Order FLow

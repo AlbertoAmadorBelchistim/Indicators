@@ -1,4 +1,4 @@
-﻿---
+---
 cs_file: ChandeMomentum.cs
 name: Chande Momentum Oscillator 
 category: Momentum

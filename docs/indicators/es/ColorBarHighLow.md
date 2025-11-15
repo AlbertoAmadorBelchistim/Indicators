@@ -1,4 +1,4 @@
-﻿## 🟦 Color Bar HH/LL (6/10)
+## 🟦 Color Bar HH/LL (6/10)
 
 **Nombre del archivo:** `ColorBarHighLow.cs`  
 **Nombre del indicador:** Color Bar HH/LL  

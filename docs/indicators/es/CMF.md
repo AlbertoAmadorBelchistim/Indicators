@@ -1,4 +1,4 @@
-﻿---
+---
 cs_file: CMF.cs
 name: Chaikin Money Flow
 category: Volumen

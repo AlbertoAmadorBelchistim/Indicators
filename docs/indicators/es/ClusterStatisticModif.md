@@ -1,4 +1,4 @@
-﻿---
+---
 cs_file: ClusterStatisticModif.cs
 name: Cluster Statistic Modif 
 category: Order FLow
