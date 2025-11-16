@@ -10,7 +10,7 @@ description: ¿Qué clústeres de precio específicos en este gráfico cumplen *
 
 ## 🟦 Cluster Search Modif (9/10)
 
-**Nombre del archivo:** [`ClusterSearchModif.cs`]((https://github.com/AlbertoAmadorBelchistim/Indicators/blob/compile/myindicators/MyIndicators/ClusterSearchModif.cs)  
+**Nombre del archivo:** [`ClusterSearchModif.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/compile/myindicators/MyIndicators/ClusterSearchModif.cs)  
 **Nombre del indicador:** Cluster Search Modif  
 **Web oficial (Base):** [ATAS — Cluster Search](https://help.atas.net/support/solutions/articles/72000602240)  
 **Compatibilidad:** ATAS versión estable y superiores (modificación requiere compilación).  
