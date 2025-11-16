@@ -48,7 +48,11 @@
 | `CamarillaPivots.cs` | [Camarilla Pivots](indicators/es/CamarillaPivots.md) | Niveles | 8/10 | Conservar | ¿Dónde están los niveles de soporte y resistencia intradía más relevantes, basados en la fórmula de Camarilla, para operar rupturas (en L4/H4) y reversiones (en L3/H3)? |
 | `CandleStatistics.cs` | [Candle Statistics](indicators/es/CandleStatistics.md) | Utilidad / Visualización | 8/10 | Conservar | ¿Cuál es la "radiografía" de esta vela? ¿Cuál fue su Volumen total, su Delta neto, su número de Ticks (trades) y su Duración? |
 | `CCI.cs` | [CCI](indicators/es/CCI.md) | Momentum | 7/10 | Conservar | ¿Qué tan lejos se ha desviado el precio "típico" de hoy de su precio "promedio", medido en unidades de desviación estadística? |
+| `CMS.cs` | [Clear Method Swing Line](indicators/es/CMS.md) | Tendencia | 8/10 | Conservar (herramienta de contexto) | ¿Cuál es la estructura de mercado (swing highs/lows) objetiva y actual, sin subjetividad? |
+| `ClusterSearchModif.cs` | [Cluster Search Modif ](indicators/es/ClusterSearchModif.md) | Order Flow | 9/10 | Conservar (Herramienta Principal) | ¿Qué clústeres de precio específicos en este gráfico cumplen *todos* mis criterios de filtro (por Volumen, Delta, Localización, Imbalance, etc.)? |
 | `ClusterStatisticModif.cs` | [Cluster Statistic Modif ](indicators/es/ClusterStatisticModif.md) | Order FLow | 10/10 | Conservar (herramienta principal) | ¿Cuál es el "dashboard" estadístico completo (Volumen, Delta, Ticks, *Velocidad* e *Imbalances*) de cada vela, y cómo se compara cada vela con la más "fuerte" del gráfico? |
+| `CumulativeDailyVolume.cs` | [Cumulative Daily Volume](indicators/es/CumulativeDailyVolume.md) | Volume | 6/10 | Conservar (contexto esencial) | ¿Cuál es el volumen total acumulado desde el inicio de la sesión? |
+| `CumulativeDelta.cs` | [CVD - Cumulative Volume Delta](indicators/es/CumulativeDelta.md) | VolumeOrderFlow | 9/10 | Conservar (herramienta principal) | ¿Cuál es el delta acumulado (la agresión neta) desde el inicio de la sesión? |
 
 ---
 
