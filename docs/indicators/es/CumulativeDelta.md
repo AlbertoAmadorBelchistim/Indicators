@@ -1,102 +1,113 @@
+---
+cs_file: CumulativeDelta.cs
+name: CVD - Cumulative Volume Delta
+category: VolumeOrderFlow
+score: 9/10
+version: Estable
+verdict: Conservar (herramienta principal)
+description: ¿Cuál es el delta acumulado (la agresión neta) desde el inicio de la sesión?
+---
+
 ## 🟦 CVD - Cumulative Volume Delta (9/10)
 
-**Nombre del archivo:** `CumulativeDelta.cs`  
+**Nombre del archivo:** [`CumulativeDelta.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/CumulativeDelta.cs)  
 **Nombre del indicador:** CVD - Cumulative Volume Delta  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602360-cumulative-volume-delta](https://help.atas.net/support/solutions/articles/72000602360-cumulative-volume-delta)
+**Web oficial:** [ATAS — CVD - Cumulative Volume Delta](https://help.atas.net/support/solutions/articles/72000602360-cumulative-volume-delta)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 13/11/2025  
+
+> **La Pregunta Clave:** ¿Cuál es el delta acumulado (la agresión neta) desde el inicio de la sesión?
+
+![Cumulative Volume Delta](../../img/CumulativeDelta.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **Mode**: Tipo de visualización (Candles, Bars, Line)  
-- **SessionCumDeltaMode**: Tipo de sesión para reiniciar acumulación (None / Default / Custom)  
-- **CustomSessionStart**: Hora de inicio para sesión personalizada  
-- **UseScale**: Usar escala  
-- **ShowValue**: Mostrar valor actual  
-- **IsVisible**: Visibilidad del indicador  
-- **PosColor / NegColor**: Colores para delta positivo o negativo  
-- **AlertFile**: Archivo de sonido para alerta  
-- **ChangeSize**: Delta mínimo para lanzar alerta  
-- **AlertBGColor / AlertForeColor**: Colores para fondo y texto de alerta  
-- **BorderColorFilter / CandleModeFilter / WidthFilter / LineStyleFilter**: Opciones visuales y de estilo para velas o línea
+* **Mode**: Tipo de visualización (Candles, Bars, Line).
+* **SessionCumDeltaMode**: Tipo de sesión para reiniciar la acumulación (`None` / `Default` / `Custom`).
+* **CustomSessionStart**: Hora de inicio para la sesión personalizada (ej. 09:30).
+* **PosColor / NegColor**: Colores para delta positivo o negativo.
+* **Alerts**: Parámetros para alertas sonoras/visuales basadas en el *delta de la vela individual* (`ChangeSize`).
 
 ---
 
-### 🧭 Clasificación  
-📂 VolumeOrderFlow — Delta acumulado por sesión o total
+### 🧭 Clasificación
+📂 VolumeOrderFlow — Delta acumulado por sesión o total.
 
 ---
 
 ### 🧠 Uso más frecuente
 
-- Acumular el **delta por sesión o de forma continua** para detectar presión agresiva  
-- Visualizar el comportamiento del flujo de órdenes comprador vs vendedor  
-- Identificar **divergencias entre precio y delta acumulado**  
-- Generar alertas ante movimientos de delta superiores a cierto umbral
+* Acumular el **delta por sesión o de forma continua** para detectar la presión agresiva neta.
+* Identificar **divergencias entre el precio y el delta acumulado** (la señal de CVD más clásica).
+* Visualizar el "esfuerzo vs. resultado" del flujo de órdenes (ej. si el CVD sube pero el precio no, indica absorción).
 
 ---
 
-### 📊 Nivel de relevancia  
+### 📊 Nivel de relevancia
 🔟 **9 / 10**
 
-✅ Uno de los indicadores más utilizados en order flow  
-✅ Altamente configurable para análisis en tiempo real o sesiones personalizadas  
-⛔ Puede dar señales confusas en rangos laterales o días de bajo volumen  
-⛔ Requiere buena configuración del modo de sesión para evitar falsos resets
+✅ **Herramienta "Core":** Uno de los indicadores más importantes y utilizados en Order Flow.  
+✅ **Altamente Configurable:** El modo `CustomSession` es una función profesional clave, que permite aislar el delta del RTH (Regular Trading Hours).  
+✅ Imprescindible para detectar divergencias y absorción a nivel "macro" de la sesión.  
+⛔ Requiere una configuración correcta del modo de sesión para ser útil (el modo `None` no suele servir para scalping).
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Reversión con divergencia de delta**  
-- **Confirmación de breakout con delta creciente**  
-- **Absorción**: si el precio sube pero el CVD cae  
-- **Entrada con alerta de delta fuerte en soporte/resistencia**
+* **Reversión por Divergencia:** La estrategia más potente. Si el precio hace un nuevo máximo (HH) pero el CVD hace un máximo más bajo (LH), es una divergencia bajista.
+* **Confirmación de Breakout:** Una ruptura de precio acompañada de un CVD que también rompe su propia estructura (haciendo un nuevo máximo/mínimo) tiene más probabilidad de éxito.
+* **Detección de Absorción:** Si el precio baja a un soporte y el CVD cae con fuerza, pero el precio deja de caer, indica absorción pasiva de los vendedores.
+
+---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **Mode**: `Candles` o `Line`  
-- **SessionCumDeltaMode**: `CustomSession`, con hora personalizada a 15:30 UTC  
-- **ChangeSize**: `4000`  
-- **PosColor / NegColor**: Verde / Rojo intensos  
-- **AlertBGColor**: gris oscuro  
-- **WidthFilter**: `2`  
-- **UseScale**: `true`
+* **Mode**: `Line` (es la más clara para ver divergencias).
+* **SessionCumDeltaMode**: `CustomSession`.
+* **CustomSessionStart**: `09:30:00` (o `15:30:00` si tu ATAS está en UTC). **Esta es la clave:** aísla el delta solo del mercado RTH, ignorando el ruido de la noche.
+* **UseScale**: `true`.
 
-✅ Facilita la lectura estructural del delta intradía  
-✅ Las alertas permiten reacción rápida a spikes de agresión
+✅ Esta configuración permite leer la agresión neta de la sesión RTH, que es la más relevante.
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Acumula `candle.Delta` para construir una serie de delta acumulado  
-- Soporta tres modos de visualización:  
-  - `Candles`: como velas tradicionales de delta  
-  - `Bars`: histograma  
-  - `Line`: curva continua  
-- Permite reiniciar el cálculo:
-  - Nunca (`None`)  
-  - Por sesión (`DefaultSession`)  
-  - Por hora personalizada (`CustomSession`)  
-- El acumulado se reinicia en función de `CheckStartBar()` que adapta la lógica a la sesión seleccionada  
-- Admite alertas configurables al superar cierto tamaño de delta  
-- El valor acumulado se guarda en `_cumDelta` y se actualiza dinámicamente
-
----
-
-### ❗ Incoherencias o aspectos mejorables detectados
-
-- El cálculo de **`CheckStartBar()` usa `AddHours(InstrumentInfo.TimeZone)`**, lo cual puede fallar si el timezone es negativo o si el horario de verano está mal definido.  
-- En modo `Candles`, el valor de `_currentCandle` se asigna sin protección si ya existía en una llamada previa.  
-- El valor de referencia del eje cero (`ZeroLine`) puede no actualizarse correctamente si `LineSeries[0]` no se inicializa en orden.
+* El indicador acumula `candle.Delta` en una variable (`_cumDelta`) barra a barra.
+* La función `CheckStartBar(bar)` gestiona cuándo reiniciar el acumulador (`_cumDelta`) a cero, basándose en la configuración de `SessionCumDeltaMode`.
+* Los tres modos de visualización (Candles, Bars, Line) usan la misma data de `_cumDelta`, solo cambia cómo se dibuja.
+* La lógica de reinicio para `CustomSession` es correcta y usa el `InstrumentInfo.TimeZone` para convertir la hora UTC de la vela a la hora local del instrumento antes de comparar.
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-- Añadir opción para **acumular delta por bloques de tiempo (ej. cada 5 minutos)**  
-- Añadir soporte para **varios acumuladores simultáneos** (por sesión, diario, semana)  
-- Optimizar gestión de memoria con reuso de objetos `Candle`  
-- Mostrar **etiquetas de divergencia automáticas**  
-- Control más preciso sobre cuándo y cómo se resetea el delta acumulado
+* Añadir opción para **acumular delta por bloques de tiempo (ej. cada 5 minutos)**.
+* Mostrar **etiquetas de divergencia automáticas** en el gráfico.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador (El Análisis Correcto)
+
+Este es un pilar del trading de Order Flow, y su nota 9/10 está totalmente justificada. Es el complemento "macro" del `DeltaModif` (que es "micro", por barra).
+
+* `DeltaModif` te muestra la **batalla** (la agresión en cada vela).
+* `CVD` te muestra la **guerra** (quién va ganando la batalla de agresión en toda la sesión).
+
+Su uso principal e indispensable es la **detección de divergencias**. Cuando el precio y el delta acumulado se desacoplan, es una de las señales más potentes de que la tendencia está perdiendo fuerza y es probable una reversión.
+
+La función clave que lo hace una herramienta profesional es `SessionCumDeltaMode = CustomSession`. Un scalper de S&P 500 (`ES`) no opera el CVD de la sesión Globex (noche), sino que lo reinicia exactamente a las 9:30 ET (apertura RTH) para ver quién gana la batalla *cuando el dinero real está en juego*.
+
+---
+
+### 📈 Veredicto: ¿Es útil para Scalping?
+
+**Sí. Es una herramienta principal, indispensable.**
+
+Mientras que `DeltaModif` te ayuda a *temporizar* la entrada (ej. una vela de delta extremo), el `CVD` te da el *contexto* para esa entrada (ej. "estás entrando en un soporte *con* una divergencia alcista de CVD en 1M").
+
+**Acción:** **Conservar (Herramienta Principal).**

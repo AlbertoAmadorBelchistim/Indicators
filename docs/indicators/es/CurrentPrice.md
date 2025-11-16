@@ -1,86 +1,101 @@
-## 🟦 Current Price (4.5/10)
+---
+cs_file: CurrentPrice.cs
+name: Current Price
+category: Visualization
+score: 3/10
+version: Estable
+verdict: Descartar (Redundante / Con fallos)
+description: Muestra el precio y la hora de la última vela en una etiqueta flotante.
+---
 
-**Nombre del archivo:** `CurrentPrice.cs`  
+## 🟦 Current Price (3/10)
+
+**Nombre del archivo:** [`CurrentPrice.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/CurrentPrice.cs)  
 **Nombre del indicador:** Current Price  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602361-current-price](https://help.atas.net/support/solutions/articles/72000602361-current-price)
+**Web oficial:** [ATAS — Current Price](https://help.atas.net/support/solutions/articles/72000602361-current-price)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** ¿Cuál es el último precio y la hora actual, mostrados directamente en el gráfico?
+
+![Current Price](../../img/CurrentPrice.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **Background**: Color de fondo del recuadro que muestra el precio actual (por defecto: azul)  
-- **TextColor**: Color del texto (por defecto: azul claro)  
-- **FontSize**: Tamaño de la fuente del precio (6–30)  
-- **ShowTime**: Mostrar hora actual junto al precio (por defecto: activado)  
-- **TimeFormat**: Formato horario (`HH:mm:ss`, etc.)
+* **Background**: Color de fondo del recuadro.
+* **TextColor**: Color del texto.
+* **FontSize**: Tamaño de la fuente (6–30).
+* **ShowTime**: Mostrar hora actual junto al precio.
+* **TimeFormat**: Formato horario (`HH:mm:ss`, etc.).
 
 ---
 
-### 🧭 Clasificación  
-📂 Visualization — Indicadores de representación gráfica o elementos de apoyo visual
+### 🧭 Clasificación
+📂 Visualization — Indicadores de representación gráfica o elementos de apoyo visual.
 
 ---
 
 ### 🧠 Uso más frecuente
 
-- Mostrar de forma visible el **último precio de cierre**  
-- Facilitar la lectura rápida del valor actual sin mirar el eje derecho  
-- Combinar con otros indicadores para destacar momentos clave con precio + hora
+* Mostrar de forma visible el **último precio de cierre**.
+* Facilitar la lectura rápida del valor actual sin mirar el eje derecho.
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **4.5 / 10**
+### 📊 Nivel de relevancia
+🔟 **3 / 10**
 
-✅ Aporta valor visual como complemento  
-✅ Útil para traders discrecionales que siguen precio en tiempo real  
-⛔ No tiene lógica de cálculo técnico ni análisis de datos  
-⛔ Puede superponerse a otros elementos en gráficos densos
+⛔ **Completamente Redundante:** El indicador solo duplica información que ya está presente en el eje de precios (Y) y en el eje de tiempo (X). No aporta ningún dato nuevo.  
+⛔ **Lógica Defectuosa:** El indicador desaparece intencionadamente si el usuario se desplaza hacia atrás en el gráfico (scroll), debido a un bug/mal diseño en su lógica de renderizado.  
+⛔ Puede superponerse a otros elementos en gráficos densos.  
+✅ Aporta (mínimo) valor visual como complemento para quien lo prefiera.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Confirmación visual rápida** de nivel actual de precio antes de entrar  
-- **Visualización clara** del precio tras un evento (noticia, absorción, ruptura)  
-- **Coordinación con plataformas externas** (ej. copy trading) si necesitas ver hora exacta del tick
+* **Ninguna.** No es una herramienta de análisis ni de contexto, solo un "gadget" visual. Su uso es puramente cosmético.
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **Background**: Azul oscuro o negro para no distraer  
-- **TextColor**: Blanco o verde fosforito  
-- **FontSize**: `18` o superior  
-- **ShowTime**: `true`  
-- **TimeFormat**: `HH:mm:ss`
-
-✅ Mejora la reactividad y control visual en operaciones rápidas  
-✅ Compatible con entornos multitarea o doble pantalla
+* **Ninguna.** Se recomienda no usarlo para evitar el "clutter" (ruido visual) y el bug que presenta.
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- El valor mostrado es el **Close de la última vela visible en pantalla**  
-- Se dibuja un rectángulo a la derecha del gráfico con el precio y la hora  
-- Usa `OnRender()` para pintar directamente en el gráfico (modo `Final`)  
-- `OnCalculate()` está vacío, ya que no realiza cálculos, solo visualización  
-- La posición se alinea con la última barra visible y el valor del cierre
-
----
-
-### ❗ Incoherencias o aspectos mejorables detectados
-
-- La condición `if (LastVisibleBarNumber != CurrentBar - 1)` **puede ocultar el precio si se cambia el zoom o se hace scroll rápido**, aunque el gráfico esté actualizado correctamente  
-- No hay control para evitar que el **recuadro del precio se superponga con otros indicadores** en el margen derecho  
-- No contempla el caso de gráficos invertidos o escalas logarítmicas
+* El indicador no usa `OnCalculate()`.
+* Toda la lógica reside en `OnRender()`, donde dibuja un recuadro (`Rectangle`) y un polígono (`FillPolygon`) con el precio de cierre (`candle.Close`) de la última vela visible.
+* **FALLO DE DISEÑO:** El indicador solo se dibuja si `LastVisibleBarNumber == CurrentBar - 1`. Esto significa que si el usuario hace scroll hacia la izquierda (para revisar el historial), la etiqueta de precio **desaparece**.
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-- Añadir opción para **mostrar el precio medio, apertura o máximo/mínimo** además del cierre  
-- Permitir **mover manualmente la etiqueta** o anclarla a una posición fija  
-- Incluir opción para **resaltar si el precio ha cambiado desde la última barra**  
-- Añadir visibilidad condicional (ej. solo mostrar en horario de mercado activo)
+* Permitir **mover manualmente la etiqueta** o anclarla a una posición fija.
+* (Propuesta principal) Corregir el bug de `OnRender` para que la etiqueta permanezca visible si la última vela *aún está en pantalla*, aunque no sea la última barra del gráfico.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador (El Análisis Correcto)
+
+Este indicador es un "gadget" cosmético, no una herramienta de trading. Su única función es dibujar en el gráfico información que ya está literalmente a unos centímetros de distancia en los ejes X e Y.
+
+No aporta ningún análisis, ningún dato nuevo y ninguna ventaja. Es 100% redundante.
+
+Peor aún, como bien has detectado en tu ficha (`.md`), el indicador está mal diseñado: la condición `if (LastVisibleBarNumber != CurrentBar - 1)` en `OnRender` hace que la etiqueta desaparezca en cuanto dejas de estar en el borde derecho del gráfico. Esto lo hace inútil incluso como "gadget", ya que desaparece cuando más podrías necesitarlo (al revisar una operación pasada).
+
+---
+
+### 📈 Veredicto: ¿Es útil para Scalping?
+
+**No. Es inútil, redundante y tiene fallos.**
+
+Un scalper necesita eliminar todo el ruido visual que no aporte información crítica. Este indicador *es* ruido visual.
+
+**Acción:** **Descartar (Redundante / Con fallos).**

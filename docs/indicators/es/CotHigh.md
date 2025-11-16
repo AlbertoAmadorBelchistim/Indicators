@@ -1,75 +1,99 @@
-## 🟦 COT High/Low (7/10)
+---
+cs_file: CotHigh.cs
+name: COT High/Low
+category: VolumeOrderFlow
+score: 2/10
+version: Estable
+verdict: Descartar (ROTO)
+description: (Teóricamente) Acumula el delta desde un nuevo máximo (High) o mínimo (Low), pero la lógica está rota.
+---
 
-**Nombre del archivo:** `CotHigh.cs`  
+## 🟦 COT High/Low (2/10)
+
+**Nombre del archivo:** [`CotHigh.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/CotHigh.cs)  
 **Nombre del indicador:** COT High/Low  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602603](https://help.atas.net/support/solutions/articles/72000602603)
+**Web oficial:** [ATAS — COT High/Low](https://help.atas.net/support/solutions/articles/72000602603)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** (Teóricamente) ¿Cuál es el delta acumulado desde el último máximo/mínimo? *(En la práctica, la lógica es errónea).*
+
+![COT High/Low](../../img/CotHigh.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **Mode** (`High` / `Low`): Define si se buscan nuevos máximos o nuevos mínimos  
-- **PosColor**: Color para barras con delta acumulado positivo (por defecto: verde)  
-- **NegColor**: Color para barras con delta acumulado negativo (por defecto: rojo)
+* **Mode** (`High` / `Low`): Define si se buscan nuevos máximos o nuevos mínimos.
+* **PosColor**: Color para barras con delta acumulado positivo.
+* **NegColor**: Color para barras con delta acumulado negativo.
 
 ---
 
-### 🧭 Clasificación  
-📂 VolumeOrderFlow — Indicadores de acumulación de delta en extremos
+### 🧭 Clasificación
+📂 VolumeOrderFlow — Indicadores de acumulación de delta en extremos.
 
 ---
 
 ### 🧠 Uso más frecuente
 
-- Acumular el **delta neto** desde un nuevo **máximo o mínimo local**  
-- Evaluar la **intensidad de la agresión compradora o vendedora** tras una expansión del rango  
-- Detectar zonas donde hubo un nuevo high/low seguido de acumulación o absorción
+* (Teórico) Acumular el **delta neto** desde un nuevo **máximo o mínimo local**.
+* (Teórico) Evaluar la **intensidad de la agresión** tras una expansión del rango.
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **7 / 10**
+### 📊 Nivel de relevancia
+🔟 **2 / 10**
 
-✅ Ideal para validar si los nuevos extremos están respaldados por flujo agresivo  
-✅ Compatible con lectura contextual de order flow y estructuras de precio  
-⛔ Puede confundir si no se entiende la lógica de acumulación continua  
-⛔ No reinicia automáticamente si el mercado se estanca
+⛔ **LÓGICA ROTA (MODO LOW):** El `Mode = Low` no funciona. El código no contiene lógica para comprobar este modo, por lo que **nunca reinicia el delta** y se limita a acumularlo desde el inicio del gráfico.  
+⛔ **LÓGICA ERRÓNEA (MODO HIGH):** El `Mode = High` (que sí se ejecuta) también es incorrecto. Se reinicia si `candle.High >= _extValue` O si `candle.Low >= _extValue`. Esta segunda condición (comprobar el mínimo de la vela) no tiene sentido para buscar un nuevo máximo.  
+✅ La idea conceptual es buena.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Ruptura válida**: buscar acumulación positiva en nuevos máximos o negativa en nuevos mínimos  
-- **Falsos breakouts**: si el delta acumulado tras el nuevo high/low es bajo o contrario  
-- **Absorción en extremos**: acumulación opuesta tras marcar un nuevo extremo
+* **Ninguna.** El indicador no funciona como se espera. Sus señales no son fiables debido a los errores fundamentales en su lógica.
+
+---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **Mode**: `High` si se buscan breakout alcistas, `Low` para entradas bajistas  
-- **Colores**:  
-  - `PosColor`: verde intenso  
-  - `NegColor`: rojo oscuro  
-
-✅ Muy útil en confluencia con footprint, POC, o zonas de reversión
+* **Ninguna.** El indicador está roto.
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Usa un `ValueDataSeries` con visualización en histograma para mostrar acumulación del delta  
-- Solo **resetea** el valor acumulado si se detecta un nuevo máximo o mínimo (según el `Mode`)  
-- ❗ **Incoherencia lógica detectada**:
-  - En `Mode = High`, también reinicia si el **mínimo** es mayor que el máximo anterior (`candle.Low >= _extValue`), lo cual **no es coherente**
-  - En `Mode = Low`, se reinicia si `Low >= _extValue`, cuando **debería ser `Low <= _extValue`**
-  - Esto puede provocar reinicios indebidos o acumulaciones incorrectas en tendencia
+* Usa un `ValueDataSeries` con visualización en histograma para mostrar la acumulación del delta.
+* **FALLO CRÍTICO (Modo Low):** La condición de reinicio solo comprueba `Mode is CotMode.High`. Si se selecciona `Mode = Low`, la condición `if` siempre es falsa, y el indicador entra perpetuamente en el `else`, acumulando delta (`_renderSeries[bar - 1] + candle.Delta`) sin reiniciar jamás.
+* **FALLO LÓGICO (Modo High):** La condición de reinicio para `Mode.High` es `(candle.High >= _extValue || candle.Low >= _extValue)`. La comprobación `candle.Low >= _extValue` es incoherente y provoca reinicios erróCneos.
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-- Corregir la lógica de comparación:
-  - Para `Mode.High`: reiniciar solo si `candle.High > _extValue`
-  - Para `Mode.Low`: reiniciar solo si `candle.Low < _extValue`
-- Añadir parámetro para definir si se reinicia con **breakout limpio o con cierre confirmado**  
-- Implementar validación visual del extremo alcanzado con etiquetas  
-- Incluir documentación en la UI que explique **cuándo se reinicia** el contador de delta  
+* **Reescritura completa.** El indicador debe ser corregido desde cero:
+    * Corregir la lógica de reinicio para `Mode.High` (solo debe comprobar `candle.High`).
+    * **Implementar** la lógica de reinicio para `Mode.Low` (debe comprobar `candle.Low <= _extValue`).
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador (El Análisis Correcto)
+
+Este indicador es un ejemplo de una buena idea con una ejecución desastrosa. El concepto de "acumular delta desde el último swing high/low" es una herramienta de Order Flow muy potente (similar a lo que hacen indicadores como "Delta Profile").
+
+Sin embargo, el código está fundamentalmente roto. Como he detallado en las notas, la mitad del indicador (`Mode = Low`) **directamente no funciona**, y la otra mitad (`Mode = High`) tiene una lógica errónea que lo hace impredecible.
+
+La ficha original que proporcionaste le daba un 7/10, pero esa nota se basaba en una diagnosis incorrecta del bug. La realidad es mucho peor. Un indicador que no funciona no puede tener una nota de aprobado.
+
+---
+
+### 📈 Veredicto: ¿Es útil para Scalping?
+
+**No. Es categóricamente inútil.**
+
+El indicador no solo no ayuda, sino que proporciona información falsa que llevaría a tomar decisiones de trading incorrectas. El `Mode = High` se reinicia cuando no debe, y el `Mode = Low` te muestra un delta acumulado desde hace días o semanas.
+
+**Acción:** **Descartar (ROTO).**

@@ -15,9 +15,10 @@ description: ¿Cuál es, en promedio, la fuerza del cuerpo de la vela (Cierre vs
 **Web oficial:** [ATAS — Balance of Power](https://help.atas.net/support/solutions/articles/72000602623)  
 **Compatibilidad:** ATAS versión estable y superiores.  
 **Última revisión del código oficial:** 23/04/2025  
+
 > **La Pregunta Clave:** ¿Cuál es, en promedio, la fuerza del cuerpo de la vela (Cierre vs. Apertura) en relación con su rango total (Máximo vs. Mínimo)?
 
-![BOP](../../img/BOP.png)  (**falta imagen**)
+![BOP](../../img/BOP.png)
 
 ----------
 
