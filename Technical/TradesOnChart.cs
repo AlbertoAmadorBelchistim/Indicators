@@ -195,10 +195,10 @@ public class TradesOnChart : Indicator
     {
         if (ChartInfo is null) return;
 
-        BuyColor = Color.FromArgb(0xFF, 0x00, 0x7A, 0xCC);
-        SellColor = Color.FromArgb(0xFF, 0x00, 0x7A, 0xCC);
-        ProfitColor = Color.FromArgb(0xFF, 0x49, 0xA0, 0x69);
-        LossColor = Color.FromArgb(0xFF, 0xC6, 0x4F, 0x4F);
+        BuyColor = Color.FromArgb(0xFF, 0x2C, 0x4F, 0x3A);
+        SellColor = Color.FromArgb(0xFF, 0x64, 0x27, 0x33);
+        ProfitColor = Color.FromArgb(0xFF, 0x16, 0x7A, 0x3B);
+        LossColor = Color.FromArgb(0xFF, 0xB0, 0x49, 0x4F);
     }
 
     protected override void OnRecalculate()
