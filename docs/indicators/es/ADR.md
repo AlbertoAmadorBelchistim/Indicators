@@ -2,13 +2,24 @@
 cs_file: ADR.cs
 name: ADR
 category: Volatilidad
-score: 7/10
+score_current: 7/10
 version: Estable
-verdict: Conservar
+recommended_action: Mejorar
 description: ¿Cuál es el rango de movimiento "normal" o "promedio" para este instrumento en una sesión, y dónde se proyectarían esos límites hoy?
+
+# --- Análisis y Triaje de Gemini ---
+gemini_summary: Contexto esencial (7/10), pero con un fallo conceptual. Ignora gaps (usa Rango, no ATR).
+file_state: Mejorable
+score_potential: 9/10
+effort: Bajo
+action_priority: P1 (Arreglo Rápido)
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
+user_modification_date: null
+# ------------------------------------
 ---
 
-## 🟦 Average Daily Range (ADR) (7/10)
+## 🟦 Average Daily Range (ADR) (7/10 | Potencial: 9/10)
 
 **Nombre del archivo:** [`ADR.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/ADR.cs)  
 **Nombre del indicador:** Average Daily Range  
@@ -156,7 +167,7 @@ El problema, como se ha señalado, es que **ignora los gaps**. En un instrumento
 
 A pesar de su fallo de cálculo (no usar True Range), sigue siendo una de las mejores herramientas para definir el "campo de juego" del día. Un scalper debe tener siempre los niveles de ADR marcados.
 
-**Acción:** **Conservar.**
+**Acción:** **Mejorar (Prioridad P1).**
 
 **¿Merece la pena arreglarlo?** **SÍ.** El concepto es un 9/10. La implementación actual es un 7/10. Implementar la "Mejora Crítica" (usar ATR) lo convertiría en una herramienta casi perfecta.
 <!--stackedit_data:

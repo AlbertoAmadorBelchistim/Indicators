@@ -2,10 +2,21 @@
 cs_file: AveragePriceBar.cs
 name: Average Price for Bar
 category: Precio
-score: 2/10
+score_current: 2/10
 version: Estable
-verdict: Descartar
+recommended_action: Descartar
 description: ¿En lugar de solo el 'Cierre', cuál es el precio promedio interno (ej. Mediana, Típico) de cada vela individual?
+
+# --- Análisis y Triaje de Gemini ---
+gemini_summary: "Bloatware" (2/10). 100% redundante. Los indicadores estándar (SMA, EMA) ya tienen un parámetro "Source" (Typical, Median) que hace esto.
+file_state: Estable (Redundante)
+score_potential: 2/10
+effort: N/A
+action_priority: P4 (Descartar)
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
+user_modification_date: null
+# ------------------------------------
 ---
 
 ## 🟦 Average Price for Bar (2/10)

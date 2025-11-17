@@ -1,14 +1,24 @@
 ---
-cs_file: ACR.cs  
-name: Average Candle Range  
-category: Volatilidad  
-score: 5/10  
-version: Estable  
-verdict: Descartar  
-description: ¿Cuál es el tamaño promedio de una vela en lo que va de día?  
+cs_file: ACR.cs
+name: Average Candle Range
+category: Volatilidad
+score_current: 4/10
+version: Estable
+recommended_action: Descartar
+description: ¿Cuál es el tamaño promedio de una vela en lo que va de día?
+
+# --- Análisis y Triaje de Gemini ---
+gemini_summary: Inútil (4/10). Lógica de "Promedio de Sesión" y redundante con ATR.cs, que es el indicador superior.
+file_state: Estable (Conceptualm. Roto)
+score_potential: 4/10
+effort: N/A
+action_priority: P4 (Descartar)
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
+user_modification_date: null
+# ------------------------------------
 ---
-﻿
-## 🟦 Average Candle Range (5/10)
+## 🟦 Average Candle Range (4/10)
 
 **Nombre del archivo:** [`ACR.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/ACR.cs)  
 **Nombre del indicador:** Average Candle Range  
@@ -47,7 +57,7 @@ description: ¿Cuál es el tamaño promedio de una vela en lo que va de día?
 
 ### 📊 Nivel de relevancia
 
-🔟 **5 / 10**
+🔟 **4 / 10**
 
 ✅ Útil para tener un contexto de "qué tipo de día" es (volátil o comprimido).
 
@@ -112,43 +122,25 @@ description: ¿Cuál es el tamaño promedio de una vela en lo que va de día?
 
 ----------
 
-### ✍️ La opinión de Gemini sobre el Indicador (El Análisis Correcto)
+### ✍️ La opinión de Gemini sobre el Indicador (Análisis de "Ganador Único")
 
-Este indicador es un ejemplo perfecto de una buena idea con una implementación que la hace inútil para el scalping.
+Este indicador es un ejemplo perfecto de una buena idea con una implementación que la hace inútil para el scalping. Su lógica de "promedio de sesión" lo vuelve lento e insensible.
 
-El código implementa una lógica muy particular. La línea clave es:
+Sin embargo, su principal problema es que es **conceptualemente redundante**.
 
-_renderSeries[bar] = _rangeSeries.CalcAverage(bar - _lastSession + 1, bar);
+El indicador `ATR.cs` (Average True Range) hace el mismo trabajo (medir volatilidad) pero de forma **infinitamente superior**:
+1.  `ATR` usa **True Range** (incluye gaps). `ACR` no.
+2.  `ATR` usa un **promedio móvil** (reciente). `ACR` usa un "promedio de sesión" (lento).
 
-Como tus "Notas de desarrollo" han detectado perfectamente, esto calcula el **promedio de rango de todas las velas desde que empezó la sesión**.
-
--   A las 09:31 (vela 1 de la sesión), el promedio es solo de 1 vela.
-    
--   A las 09:32 (vela 2), es el promedio de 2 velas.
-    
--   A las 15:00, es el promedio de cientos de velas.
-    
-
-**El problema:** Esto significa que el valor del indicador por la tarde está "contaminado" por la volatilidad (o falta de ella) de la mañana. No te dice cuál es la volatilidad _reciente_, sino cuál es la volatilidad _promedio de todo el día hasta ahora_. Un scalper necesita saber la volatilidad de los últimos 10-20 minutos, no el promedio de las últimas 5 horas.
-
-----------
+No tiene sentido mejorar `ACR` para convertirlo en un `ATR` cuando ya tenemos `ATR`.
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**No. En su estado actual, es inútil para la toma de decisiones.**
+**No. Es inútil y redundante.**
 
-Un scalper que vea un valor "bajo" en este indicador por la tarde no sabrá si es porque la tarde está en calma, o si es porque la mañana fue _extremadamente_ calma y está arrastrando el promedio hacia abajo.
+Cualquier scalper que necesite medir la volatilidad de la vela debe usar el indicador `ATR` estándar, no esta versión conceptualmente rota.
 
--   **Como está (Promedio de Sesión): 4/10.** Utilidad muy limitada, solo para un vago contexto diario.
-    
--   **Con `IgnoreWicks = true`: 6/10.** Mejora. Se vuelve un "Tamaño de Cuerpo Promedio del Día", un filtro de "mercado de rango" decente.
-    
--   **Con la "Propuesta de Mejora" (Promedio Móvil): 9/10.** Si se implementara esa mejora (un `Period` y un `SMA`), este indicador se transformaría en un **ATR**, una herramienta _esencial_ para el scalping (gestión de stops, objetivos, filtro de chop, etc.).
-    
-
-**Acción:** **Descartar (en su estado actual).**
-
-**¿Merece la pena arreglarlo?** **SÍ, ABSOLUTAMENTE.** Es el candidato número uno para ser "arreglado". El código base es bueno. Con solo añadir un parámetro `Period` y cambiar _una línea_ de cálculo (usar `SMA` en lugar de `CalcAverage`), este indicador pasaría de ser un "descarte" a ser una pieza central de un sistema de scalping.
+**Acción:** **Descartar (Redundante).**
 <!--stackedit_data:
 eyJoaXN0b3J5IjpbMzc1MDcxMTI5LDEwOTQyNzg3NzZdfQ==
 -->

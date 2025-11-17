@@ -1,14 +1,25 @@
 ---
 cs_file: AdaptiveBinaryWaveMA.cs
-name: Adaptive Binary Wave  
+name: Adaptive Binary Wave
 category: Tendencia
-score: 7/10
+score_current: 7/10
 version: Estable
-verdict: Conservar
+recommended_action: Mejorar
 description: ¿Ha roto la media móvil adaptativa (AMA) su 'canal' reciente por una cantidad estadísticamente significativa?
+
+# --- Análisis y Triaje de Gemini ---
+gemini_summary: Filtro de régimen brillante (7/10), pero es una "caja negra". Lento para entradas. Potencial 9/10 si dibuja sus bandas.
+file_state: Mejorable
+score_potential: 9/10
+effort: Medio
+action_priority: P2 (Mejora Estratégica)
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
+user_modification_date: null
+# ------------------------------------
 ---
 
-## 🟦 Adaptive Binary Wave (7/10)
+## 🟦 Adaptive Binary Wave (7/10 | Potencial: 9/10)
 
   
 
@@ -168,9 +179,9 @@ Como se puede ver en la imagen, el indicador es lento. La señal de `+1` o `-1` 
 
 Por lo tanto, este indicador no te ayudará a _entrar_ en el giro, pero es **excelente** para _confirmar_ que el nuevo impulso es real y para _filtrar_ todo el ruido y los giros falsos.
 
-**Acción:** **Conservar.** Es una herramienta de contexto de alta calidad, pero no un sistema de señales.
+**Acción:** **Mejorar (Prioridad P2).** Es una herramienta de contexto de alta calidad, pero no un sistema de señales.
 
-**¿Merece la pena arreglarlo?** Sí, las "Propuestas de mejora" (especialmente dibujar el AMA y sus bandas) son mejoras de usabilidad que harían el indicador mucho más transparente, elevándolo de un 7/10 a un 8/10 o 9/10 como filtro.
+**¿Merece la pena arreglarlo?** Sí, las "Propuestas de mejora" (dibujar el AMA y las bandas) son un esfuerzo medio (P2) que lo elevarían a un filtro 9/10.
 <!--stackedit_data:
 eyJoaXN0b3J5IjpbLTEyMTYyNDA2NDNdfQ==
 -->

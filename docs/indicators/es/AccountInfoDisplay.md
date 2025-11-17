@@ -4,7 +4,7 @@ name: Account Info Display
 category: Utilidad
 score_current: 7/10
 version: Latest
-recommended_action: Conservar y mejorar
+recommended_action: Mejorar
 description: ¿Cuál es el estado de mi cuenta (Balance, PnL, Margen) en tiempo real, sin tener que apartar la vista del gráfico?
 
 # --- Análisis y Triaje de Gemini ---

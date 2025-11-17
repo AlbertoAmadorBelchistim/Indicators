@@ -1,14 +1,25 @@
 ---
 cs_file: AskBidBars.cs
-name: Ask/Bid Volume Difference Bars 
+name: Ask/Bid Volume Difference Bars
 category: Order Flow
-score: 6.5/10
+score_current: 6.5/10
 version: Estable
-verdict: Conservar (con reservas)
+recommended_action: Mejorar
 description: ¿Cuál fue el volumen agresivo neto (Delta) de esta vela, e igualmente importante, cuál fue el rango interno (Delta Máx/Mín) de la batalla entre compradores y vendedores dentro de esa vela?
+
+# --- Análisis y Triaje de Gemini ---
+gemini_summary: Gran concepto (8/10), "La historia del Delta". Arruinado por un fallo de UI (6.5/10): falta la línea cero.
+file_state: Mejorable
+score_potential: 8/10
+effort: Bajo
+action_priority: P1 (Arreglo Rápido)
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
+user_modification_date: null
+# ------------------------------------
 ---
 
-## 🟦 Ask/Bid Volume Difference Bars (6.5/10)
+## 🟦 Ask/Bid Volume Difference Bars (6.5/10 | Potencial: 8/10)
 
   
 
@@ -146,18 +157,15 @@ De todas tus excelentes propuestas, esta es la más importante:
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí, pero con un gran "pero"**: es **redundante** para un trader avanzado.
+**Sí, es un "dashboard" de Delta excelente (6.5/10).**
 
--   **¿Por qué es útil?** Es un "dashboard" de Delta excelente. Te da un resumen visual de la batalla interna de cada vela, mucho más rico que un simple histograma de Delta.
-    
--   **¿Por qué es redundante?** Si ya usas un **gráfico de clúster (footprint)**, estás viendo esta información (y 10 veces más) en cada nivel de precio. Si usas el indicador `ActiveVolume` que vimos antes (el 8/10), estás viendo la acumulación de estos deltas en los niveles clave.
-    
+Te da un resumen visual de la "historia" de la batalla del Delta de cada vela (Min/Max/Close), lo cual es mucho más rico que un simple histograma de Delta. Es una herramienta de "absorción" y "agotamiento" muy visual.
 
-**Acción:** **Conservar (con reservas).**
+Su principal problema es que es redundante si ya usas gráficos de clúster (footprint), que dan esta información con más detalle.
 
-Tu 6.5/10 es la nota perfecta. Es una herramienta de "visualización" de Delta muy inteligente. Si te gusta tener un "resumen" rápido de la batalla del Delta sin tener que abrir un gráfico de clúster, este indicador es excelente para eso, especialmente si le añades manualmente una línea de cero.
+**Acción:** **Mejorar (Prioridad P1).**
 
-**¿Merece la pena arreglarlo?** **Sí.** El arreglo es trivial (añadir `LineSeries.Add(new LineSeries("Zero") { Value = 0, Color = Colors.Gray });` en el constructor) y lo convierte de "ilegible" a "útil".
+**¿Merece la pena mejorarlo?** **SÍ.** El arreglo es trivial (`effort: Bajo`) y es una prioridad P1. Añadir una línea de cero en el constructor lo convierte de "ilegible" a "muy útil" (un 8/10) para traders que no usan clúster.
 
 <!--stackedit_data:
 eyJoaXN0b3J5IjpbMTIwMTE5OTYwNV19

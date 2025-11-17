@@ -2,13 +2,24 @@
 cs_file: ADX.cs
 name: ADX
 category: Tendencia
-score: 6/10
+score_current: 6/10
 version: Estable
-verdict: Conservar
+recommended_action: Mejorar
 description: ¿Está el mercado en una fuerte tendencia (alcista o bajista), o simplemente está 'oscilando' lateralmente?
+
+# --- Análisis y Triaje de Gemini ---
+gemini_summary: Filtro de régimen clásico (6/10). Fiel a la fórmula de Wilder (RMA). Su lag extremo es por diseño, no es un bug.
+file_state: Estable
+score_potential: 7/10
+effort: Bajo
+action_priority: P3 (Mejora Opcional)
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
+user_modification_date: null
+# ------------------------------------
 ---
 
-## 🟦 ADX (Average Directional Index) (6/10)
+## 🟦 ADX (Average Directional Index) (6/10 | Potencial 7/10)
 
 **Nombre del archivo:** [`ADX.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/ADX.cs)  
 **Nombre del indicador:** ADX  
@@ -153,15 +164,12 @@ Nunca debes usar el ADX para entrar o salir de una operación de scalping. Cuand
 **Sí, pero solo como un "filtro de régimen" (un interruptor).**
 
 Su único uso para un scalper es como un "interruptor" en un sistema general:
+* **Si ADX < 20:** El mercado está en rango. (Activar estrategias de reversión a la media).
+* **Si ADX > 25 y subiendo:** El mercado está en tendencia. (Activar estrategias de pullback).
 
--   **Si ADX < 20:** El mercado está en rango. (Activar estrategias de reversión a la media, evitar operar rupturas).
-    
--   **Si ADX > 25 y subiendo:** El mercado está en tendencia. (Activar estrategias de pullback/continuación, evitar buscar techos/suelos).
-    
+**Acción:** **Mejorar (Prioridad P3).**
 
-**Acción:** **Conservar (como Filtro de Contexto).**
-
-**¿Merece la pena arreglarlo?** El indicador funciona como fue diseñado. Las "Propuestas de mejora" (añadir líneas de nivel) son mejoras de usabilidad, no correcciones de bugs, y serían muy bienvenidas.
+**¿Merece la pena mejorarlo?** Sí. El indicador funciona como fue diseñado (6/10). Las "Propuestas de mejora" (añadir líneas de nivel) son mejoras de usabilidad (`effort: Bajo`) que lo elevarían a un (7/10), pero no es una prioridad estratégica.
 <!--stackedit_data:
 eyJoaXN0b3J5IjpbODU3Njg5OTE0XX0=
 -->

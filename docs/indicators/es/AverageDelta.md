@@ -2,13 +2,24 @@
 cs_file: AverageDelta.cs
 name: Average Delta
 category: Order Flow
-score: 6.5/10
+score_current: 6.5/10
 version: Estable
-verdict: Conservar (con reservas)
+recommended_action: Mejorar
 description: ¿Cuál es la presión agresiva promedio (Delta) durante las últimas X velas, suavizando el ruido de vela a vela?
+
+# --- Análisis y Triaje de Gemini ---
+gemini_summary: Filtro de régimen de Delta decente (6.5/10). Su usabilidad está mermada por la falta de una línea cero.
+file_state: Mejorable
+score_potential: 7.5/10
+effort: Bajo
+action_priority: P1 (Arreglo Rápido)
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
+user_modification_date: null
+# ------------------------------------
 ---
 
-## 🟦 Average Delta (6.5/10)
+## 🟦 Average Delta (6.5/10 | Potencial: 7.5/10)
 
   
 
@@ -141,11 +152,12 @@ description: ¿Cuál es la presión agresiva promedio (Delta) durante las últim
 
 **Sí, como filtro de contexto (con reservas).**
 
-Es una herramienta de contexto válida si entiendes sus limitaciones. Te dice cuál es la "marea" del Delta, pero te oculta las "olas" (picos) que a menudo son las mejores señales. Es útil para confirmar que no estás "nadando contra la corriente" del flujo de órdenes.
+Es una herramienta válida si entiendes sus limitaciones. Te dice cuál es la "marea" del Delta (régimen), pero te oculta las "olas" (picos) que a menudo son las mejores señales. Es útil para confirmar que no estás "nadando contra la corriente" del flujo de órdenes.
 
-**Acción:** **Conservar (con reservas).**
+**Acción:** **Mejorar (Prioridad P1).**
 
-**¿Merece la pena arreglarlo?** **Sí.** El arreglo es trivial (añadir `ShowZeroValue = true`) y mejora significativamente su legibilidad.
+**¿Merece la pena mejorarlo?** **SÍ.** El arreglo es trivial (`effort: Bajo`) y es una prioridad P1. Establecer `ShowZeroValue = true` por defecto mejora significativamente su legibilidad, elevándolo a un 7.5/10.
+
 <!--stackedit_data:
 eyJoaXN0b3J5IjpbMTA0MzM4MzI0NV19
 -->

@@ -1,11 +1,22 @@
 ---
 cs_file: AdaptiveRsiAverage.cs
-name: Adaptive RSI Moving Average  
+name: Adaptive RSI Moving Average
 category: Tendencia
-score: 4/10
+score_current: 4/10
 version: Estable
-verdict: Descartar
+recommended_action: Descartar
 description: ¿Cómo puedo obtener una media móvil que automáticamente se ralentice cuando el mercado está indeciso (RSI cerca de 50) y se acelere para capturar tendencias cuando el momentum es fuerte (RSI cerca de 0 o 100)?
+
+# --- Análisis y Triaje de Gemini ---
+gemini_summary: "Lag sobre lag sobre lag" (4 capas de suavizado). Inútil para scalping y redundante vs. AMA (Kaufman).
+file_state: Estable (Conceptualm. Roto)
+score_potential: 4/10
+effort: N/A
+action_priority: P4 (Descartar)
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
+user_modification_date: null
+# ------------------------------------
 ---
 
 ## 🟦 Adaptive RSI Moving Average (4/10)

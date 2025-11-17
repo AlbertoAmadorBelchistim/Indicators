@@ -2,13 +2,24 @@
 cs_file: AMA.cs
 name: Adaptive Moving Average
 category: Tendencia
-score: 7/10
+score_current: 7/10
 version: Estable
-verdict: Conservar
+recommended_action: Mejorar
 description: ¿Cómo puedo obtener una media móvil suave que _no_ tenga retardo (lag) durante una ruptura fuerte, pero _sí_ filtre el 'ruido' en un mercado lateral?
+
+# --- Análisis y Triaje de Gemini ---
+gemini_summary: El mejor filtro de régimen (7/10). Rápido en tendencias, lento en rangos. Potencial 9/10 si colorea su línea según la velocidad.
+file_state: Mejorable
+score_potential: 9/10
+effort: Medio
+action_priority: P2 (Mejora Estratégica)
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
+user_modification_date: null
+# ------------------------------------
 ---
 
-## 🟦 Adaptive Moving Average (AMA) (7/10)
+## 🟦 Adaptive Moving Average (AMA) (7/10 | Potencial: 9/10)
 
 **Nombre del archivo:** [`AMA.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/AMA.cs)  
 **Nombre del indicador:** Adaptive Moving Average  
@@ -118,11 +129,12 @@ description: ¿Cómo puedo obtener una media móvil suave que _no_ tenga retardo
 
 ----------
 
-### 🛠️ Propuestas de mejora
+### 🛠️ Propuestas de mejora (Prioridad P2)
 
--   Añadir opción para **visualizar el "Ratio de Eficiencia"** en un panel separado para ver _por qué_ la media se está acelerando o frenando.
-    
--   Incluir alertas visuales o sonoras al cambio de pendiente (ej. cuando el AMA pasa de "plano" a "tendencia").
+* **¡Mejora Transformacional!:** Añadir un modo de **coloreado de línea adaptativo**. La línea AMA debería cambiar de color según su velocidad (el factor `c` interno).
+    * Ej: Color `Lento` (gris) si `c` está cerca del `SlowConstant`.
+    * Ej: Color `Rápido` (azul) si `c` está cerca del `FastConstant`.
+* Añadir opción para **visualizar el "Ratio de Eficiencia"** en un panel separado para ver *por qué* la media se está acelerando o frenando.
     
 
 ----------
@@ -150,13 +162,13 @@ Para un scalper, esto es oro. Te da un "interruptor" visual inmediato para cambi
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí. Es una herramienta de contexto (filtro de régimen) de primera categoría.**
+**Sí. Es una herramienta de contexto (filtro de régimen) de primera categoría (7/10).**
 
-Es muy superior al `Alligator` y al `ADX` porque hace el mismo trabajo (diferenciar tendencia de rango) pero de forma más rápida, adaptativa y visualmente limpia.
+Es superior a los filtros de régimen clásicos (como Alligator o ADX) porque es adaptativo: se aplana en rangos (filtrando ruido) y se acelera en tendencias (reduciendo el lag). Para un scalper, es un "interruptor" visual inmediato para cambiar de mentalidad "rango" a "tendencia".
 
-**Acción:** **Conservar.** (Recomendado como filtro de tendencia/régimen principal).
+**Acción:** **Mejorar (Prioridad P2).**
 
-**¿Merece la pena arreglarlo?** El indicador funciona perfectamente. Las "Propuestas de mejora" (como ver el Ratio de Eficiencia) son añadidos "nice-to-have" (bueno tenerlos), no correcciones necesarias.
+**¿Merece la pena mejorarlo?** **Sí.** El indicador funciona perfectamente (7/10). Las mejoras propuestas (`effort: Medio`), especialmente el coloreado de línea adaptativo, lo convertirían en un filtro de régimen 9/10 visualmente instantáneo.
 <!--stackedit_data:
 eyJoaXN0b3J5IjpbMTM2MTIyNjU5M119
 -->

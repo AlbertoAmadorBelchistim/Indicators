@@ -2,10 +2,21 @@
 cs_file: ATRN.cs
 name: ATR Normalized
 category: Volatilidad
-score: 3/10
+score_current: 3/10
 version: Estable
-verdict: Descartar
+recommended_action: Descartar
 description: ¿Cuál es la volatilidad (ATR) del instrumento como un porcentaje de su precio actual?
+
+# --- Análisis y Triaje de Gemini ---
+gemini_summary: Inútil para scalping (3/10). Resuelve un problema (comparar activos) que un scalper no tiene. Redundante con ATR.
+file_state: Estable (Redundante)
+score_potential: 3/10
+effort: N/A
+action_priority: P4 (Descartar)
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
+user_modification_date: null
+# ------------------------------------
 ---
 
 ## 🟨 ATR Normalized (3/10)

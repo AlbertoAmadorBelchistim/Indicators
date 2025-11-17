@@ -2,10 +2,21 @@
 cs_file: AroonIndicator.cs
 name: Aroon Indicator
 category: Momentum
-score: 3/10
+score_current: 3/10
 version: Estable
-verdict: Descartar
+recommended_action: Descartar
 description: ¿La fortaleza del mercado proviene de haber hecho recientemente nuevos máximos, o de haber hecho recientemente nuevos mínimos?
+
+# --- Análisis y Triaje de Gemini ---
+gemini_summary: Inútil (3/10). Concepto (basado en tiempo) demasiado ruidoso/dentado para scalping. Código ineficiente (Usa OrderBy).
+file_state: Estable (Conceptualm. Roto)
+score_potential: 3/10
+effort: N/A
+action_priority: P4 (Descartar)
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
+user_modification_date: null
+# ------------------------------------
 ---
 
 ## 🟦 Aroon Indicator (3/10)

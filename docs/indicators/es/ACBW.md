@@ -4,7 +4,7 @@ name: Bill Williams AC
 category: Momentum
 score_current: 1/10
 version: Estable
-recommended_action: Descartar (y Reemplazar)
+recommended_action: Descartar
 description: ¿El momentum (AO) está acelerando o frenando?
 
 
@@ -12,7 +12,7 @@ description: ¿El momentum (AO) está acelerando o frenando?
 gemini_summary: Implementación 'fraude'. Falla en defaults (50,51,50), fuente de datos (Close) y lógica de color. Inservible.
 file_state: Impostor
 score_potential: 7/10
-effort: Alto (Requiere reescritura total)
+effort: Alto
 action_priority: P2 (Refactorización Estratégica)
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025

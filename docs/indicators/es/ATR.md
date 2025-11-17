@@ -2,13 +2,24 @@
 cs_file: ATR.cs
 name: ATR
 category: Volatilidad
-score: 8/10
+score_current: 8/10
 version: Estable
-verdict: Conservar y Mejorar
+recommended_action: Mejorar
 description: ¿Cuál ha sido el tamaño verdadero promedio (incluyendo gaps) de cada barra durante los últimos X períodos?
+
+# --- Análisis y Triaje de Gemini ---
+gemini_summary: "¡El Ganador de la Familia!" Herramienta 'Core' 10/10. La implementación actual (8/10) usa SMA en lugar de EMA/RMA. Arreglo P1.
+file_state: Mejorable (No Estándar)
+score_potential: 10/10
+effort: Bajo
+action_priority: P1 (Arreglo Rápido)
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
+user_modification_date: null
+# ------------------------------------
 ---
 
-## 🟦 ATR (8/10)
+## 🟦 ATR (8/10 | Potencial: 10/10)
 
   
 
@@ -149,9 +160,9 @@ El único problema es la **implementación (5/10)** de _este_ código, que es su
 
 A pesar de su implementación subóptima (SMA), el concepto es tan fuerte que sigue siendo una herramienta de 8/10.
 
-**Acción:** **Conservar.**
+**Acción:** **Mejorar (Prioridad P1).**
 
-**¿Merece la pena arreglarlo?** **SÍ.** Este indicador _debe_ ser arreglado. Reemplazar la lógica de cálculo de SMA por una EMA es una corrección prioritaria. Con esa simple corrección, este se convierte en uno de los indicadores de fondo más importantes del sistema.
+**¿Merece la pena arreglarlo?** **SÍ.** Es una prioridad P1. El concepto es un 10/10 y el arreglo (cambiar SMA por EMA/RMA) es de esfuerzo bajo y lo alinea con el estándar de la industria.
 <!--stackedit_data:
 eyJoaXN0b3J5IjpbLTYwNDgwNDg4OV19
 -->
