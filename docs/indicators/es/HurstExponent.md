@@ -1,87 +1,107 @@
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: HurstExponent.cs
+name: Hurst Exponent
+category: Statistical
+score_current: 8/10
+version: ATAS Official
+recommended_action: Conservar
+description: ¿El comportamiento del mercado es tendencial (persistente, H>0.5), de reversión (antipersistente, H<0.5) o aleatorio (H=0.5)?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Implementación 'Quant' estable del exponente de Hurst (R/S); una herramienta de 'régimen' de alto nivel, aunque su uso de 'Math.Abs()' es una peculiaridad de diseño."
+file_state: Estable
+score_potential: 8/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
 ## 🟦 Hurst Exponent (8/10)
 
-**Nombre del archivo:** `HurstExponent.cs`  
+**Nombre del archivo:** [`HurstExponent.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/HurstExponent.cs)  
 **Nombre del indicador:** Hurst Exponent  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602551](https://help.atas.net/support/solutions/articles/72000602551)
+**Web oficial:** [ATAS — Hurst Exponent](https://help.atas.net/support/solutions/articles/72000602551)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025
+
+> **La Pregunta Clave:** ¿El comportamiento del mercado es tendencial (persistente, H>0.5), de reversión (antipersistente, H<0.5) o aleatorio (H=0.5)?
+
+![Hurst Exponent](../../img/HurstExponent.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **Length**: Periodo base sobre el cual se evalúa el exponente, en potencias de 2:  
-  - 32 (2⁵),  
-  - 64 (2⁶),  
-  - 128 (2⁷)
+* **Length**: Periodo base sobre el cual se evalúa el exponente, en potencias de 2 (32, 64, 128)
 
 ---
 
-### 🧭 Clasificación  
+### 🧭 Clasificación
 📂 Statistical — Indicadores basados en propiedades estadísticas del comportamiento del precio
 
 ---
 
 ### 🧠 Uso más frecuente
 
-- Evaluar si un mercado presenta **comportamiento persistente, aleatorio o antipersistente**  
-- Detectar **tendencias estables** o **estructura de reversión** mediante análisis fractal  
-- Usar el Hurst exponent como **filtro estructural** en sistemas de seguimiento o reversión
+* Evaluar si un mercado presenta **comportamiento persistente (tendencia), aleatorio o antipersistente (reversión)**
+* Detectar **tendencias estables** o **estructura de reversión** mediante análisis fractal
+* Usar el Hurst exponent como **filtro estructural**
 
 ---
 
-### 📊 Nivel de relevancia  
+### 📊 Nivel de relevancia
 🔟 **8 / 10**
 
-✅ Proporciona una medida objetiva de la "memoria del mercado"  
-✅ Útil como filtro estructural o de volatilidad implícita  
-⛔ Difícil de interpretar sin contexto estadístico  
-⛔ Sensible al tipo de activo y ruido en temporalidades cortas
+✅ **Herramienta "Quant" de Régimen**: Proporciona una medida objetiva de la "memoria del mercado".
+✅ Útil como filtro estructural para saber qué tipo de estrategia aplicar (tendencia o reversión).
+⛔ Difícil de interpretar sin contexto estadístico.
+⛔ Peculiaridad de diseño: Usa `Math.Abs()` al final, eliminando el signo.
 
 ---
 
 ### 🎯 Estrategias donde se aplica
 
-- **Seguir tendencia si H > 0.5**: el mercado tiende a continuar  
-- **Operar reversión si H < 0.5**: el mercado tiende a revertir  
-- **Evitar operar si H ≈ 0.5**: comportamiento aleatorio  
-- Filtrar estrategias automáticas en función del régimen estructural
+* **Filtro de Tendencia**: Activar estrategias de seguimiento de tendencia solo si H > 0.5 (y subiendo).
+* **Filtro de Reversión**: Activar estrategias de reversión a la media solo si H < 0.5 (y bajando).
+* **Filtro de "No Operar"**: Evitar operar si H está "plano" alrededor de 0.5 (mercado aleatorio).
+
+---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **Length**: `64` (equilibrio entre sensibilidad y fiabilidad)  
-- Mostrar en panel separado  
-- Marcar líneas guía en `0.5` (umbral aleatoriedad) y `0.7` (alta persistencia)
-
-✅ Permite ajustar setups al régimen actual del mercado  
-✅ Compatible con sistemas adaptativos o autocontenidos
+* **Length**: `64` (equilibrio entre sensibilidad y fiabilidad)
+* Marcar líneas guía en `0.5` (umbral aleatoriedad)
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Calcula una regresión logarítmica sobre múltiples escalas de subdivisión del periodo base (potencias de 2)  
-- En cada subdivisión:
-  - Calcula media, desviación estándar y rango acumulado (máximo-mínimo)  
-  - Evalúa el valor de log(range / stdDev) y log(period)  
-- Se estima el exponente Hurst como la pendiente de la regresión logarítmica:
-  $$
-  H = \frac{n \cdot \sum(xy) - \sum x \cdot \sum y}{n \cdot \sum(x^2) - (\sum x)^2}
-  $$
-- El valor se toma en **valor absoluto** y se guarda en `_renderSeries`
+* Es una implementación del análisis de **Rango Re-escalado (R/S)**.
+* Calcula una regresión logarítmica sobre múltiples escalas de subdivisión del periodo base (potencias de 2).
+* En cada subdivisión (`shortPeriod`), calcula el Rango (`range = maxSum - minSum`) y la Desviación Estándar (`stdDev`).
+* Se estima el exponente Hurst como la pendiente (`exponent`) de la regresión log-log(R/S) vs log(Período).
+* El valor final renderizado es el **valor absoluto** de esta pendiente: `_renderSeries[bar] = Math.Abs(exponent);`.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Este es un indicador estadístico ("Quant") muy complejo, diseñado para hacer algo que pocos indicadores hacen: decirte *cómo* se está moviendo el mercado (en tendencia, en rango, o aleatoriamente).
+
+El código implementa la regresión log-log del Rango Re-escalado (R/S) para estimar el exponente H. Es una herramienta de "régimen" de alto nivel.
+
+La "incoherencia" que detectaste (el uso de `Math.Abs(exponent)` al final) es una observación excelente. Teóricamente, el exponente H debe estar entre 0 y 1. Un valor de 0.2 (antipersistente) y 0.8 (persistente) son ambos positivos, por lo que el `Math.Abs()` podría ser simplemente un "seguro" contra valores negativos que la regresión pudiera arrojar. A pesar de esta peculiaridad de diseño, el indicador es `Estable` y cumple su propósito.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- El valor calculado se **normaliza por valor absoluto**, lo cual puede eliminar información de dirección útil en estudios más avanzados  
-- No hay visualización del grado de confianza o dispersión de la regresión (ajuste R²)  
-- El uso de `maxSum == 0` y `minSum == 0` como condiciones iniciales puede generar sesgo si el acumulado es simétrico  
-- Las subdivisiones se limitan a potencias de 2 sin validación flexible o adaptativa
+**Sí, como filtro de régimen.**
 
----
+No te da una señal de entrada. Te dice *qué tipo de señales* deberías estar buscando (de tendencia o de reversión). Es un indicador de contexto avanzado.
 
-### 🛠️ Propuestas de mejora
-
-- Permitir mostrar el signo real del exponente, no sólo su valor absoluto  
-- Añadir una línea guía dinámica con color si el exponente está por encima o debajo de 0.5  
-- Incluir opción de exportar o mostrar `R²` de la regresión para evaluar calidad de ajuste  
-- Exponer como serie secundaria el valor del rango promedio o desviación estándar usada
+**Acción:** **Conservar.**

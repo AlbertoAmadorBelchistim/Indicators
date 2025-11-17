@@ -1,79 +1,106 @@
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: HighLow.cs
+name: Highest High / Lowest Low Over N Bars
+category: Levels
+score_current: 7/10
+version: ATAS Official
+recommended_action: Conservar
+description: ¿Cuál es el rango de precio (máximo más alto y mínimo más bajo) de las últimas N barras?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Implementación 'Core' y estable del canal de precios (Donchian Channel), que traza el High más alto y el Low más bajo de las últimas N barras."
+file_state: Estable
+score_potential: 7/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
 ## 🟦 Highest High / Lowest Low Over N Bars (7/10)
 
-**Nombre del archivo:** `HighLow.cs`  
+**Nombre del archivo:** [`HighLow.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/HighLow.cs)  
 **Nombre del indicador:** Highest High / Lowest Low Over N Bars  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602244](https://help.atas.net/support/solutions/articles/72000602244)
+**Web oficial:** [ATAS — Highest High / Lowest Low Over N Bars](https://help.atas.net/support/solutions/articles/72000602244)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025
+
+> **La Pregunta Clave:** ¿Cuál es el rango de precio (máximo más alto y mínimo más bajo) de las últimas N barras?
+
+![Highest High / Lowest Low Over N Bars](../../img/HighLow.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **Period**: Número de barras para calcular el máximo y mínimo (por defecto: 15)
+* **Period**: Número de barras para calcular el máximo y mínimo (por defecto: 15)
 
 ---
 
-### 🧭 Clasificación  
+### 🧭 Clasificación
 📂 Levels — Indicadores de extremos móviles (canales dinámicos)
 
 ---
 
 ### 🧠 Uso más frecuente
 
-- Identificar el **rango dinámico** de precios de los últimos N periodos  
-- Marcar niveles de **soporte y resistencia dinámicos**  
-- Utilizar como base para breakout, reversión o trailing
+* Identificar el **rango dinámico** de precios (Canal Donchian)
+* Marcar niveles de **soporte y resistencia dinámicos**
+* Utilizar como base para breakout, reversión o trailing
 
 ---
 
-### 📊 Nivel de relevancia  
+### 📊 Nivel de relevancia
 🔟 **7 / 10**
 
-✅ Fácil de interpretar visualmente  
-✅ Sirve como base para múltiples estrategias técnicas  
-⛔ No considera volumen ni momentum  
-⛔ No discrimina entre máximos/minimos relevantes o recientes
+✅ **Herramienta "Core" de Niveles**: Es el Canal Donchian/Price Channel estándar.  
+✅ Fácil de interpretar visualmente.  
+✅ Sirve como base para múltiples estrategias técnicas.  
+⛔ No considera volumen ni momentum.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Breakout por canal**: entrada si el precio supera el máximo/mínimo del periodo  
-- **Trailing stop estructural**: usar el mínimo como trailing dinámico en largos  
-- **Reversión técnica**: operar rechazos en zonas de alto/bajo relativo
+* **Breakout por canal**: entrada si el precio supera el máximo/mínimo del periodo
+* **Falso Breakout (Reversión)**: Vender si el precio toca el canal superior y es rechazado.
+* **Trailing stop estructural**: usar el mínimo como trailing dinámico en largos
+
+---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **Period**: `15` a `20`  
-- Color verde para máximos, rojo/gris para mínimos  
-- Combinar con Delta o DOM Strength para validar la agresión en extremos
-
-✅ Muy eficaz para detectar puntos de decisión clave  
-✅ Compatible con estructuras de rango, acumulación o continuación
+* **Period**: `15` a `20`
+* Combinar con Delta o DOM Strength para validar la agresión en extremos
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Usa dos series auxiliares (`_highSeries` y `_lowSeries`) para almacenar valores High y Low de cada vela  
-- Calcula:
-  - **Máximo**: `_highSeries.MAX(_period, bar)`  
-  - **Mínimo**: `_lowSeries.MIN(_period, bar)`  
-- Almacena los resultados en `_maxSeries` y `_minSeries`, que se visualizan directamente  
-- Ambos valores se recalculan por cada barra en `OnCalculate()`
+* El indicador almacena los High y Low de cada vela en series internas (`_highSeries`, `_lowSeries`).
+* Utiliza las funciones optimizadas `_highSeries.MAX(_period, bar)` y `_lowSeries.MIN(_period, bar)` para calcular los extremos de la ventana.
+* Dibuja dos líneas (`_maxSeries` y `_minSeries`) que representan el canal.
+* Está diseñado específicamente para `High` y `Low`; no está pensado para ser configurable a `Close` (para eso existe `Highest.cs`).
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Esta es una herramienta "Core" de niveles. Es la implementación estándar y robusta del canal de precios (a menudo llamado Canal Donchian). Dibuja el máximo más alto y el mínimo más bajo de las últimas N barras.
+
+El `.md` original menciona que "no permite elegir el tipo de precio". Esto no es una incoherencia, sino la *definición* del indicador. Se llama "Highest **High** / Lowest **Low**". Su propósito es trazar los extremos del precio (las mechas), que es lo que la mayoría de los traders de breakout buscan.
+
+Es estable, ligero y hace exactamente lo que promete.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- El indicador **no permite elegir el tipo de precio** (por ejemplo, `Close`, `Typical`, `Median`)  
-- No se controla si el gráfico tiene menos barras que el `Period` inicial  
-- Los colores por defecto solo se aplican al máximo (`_maxSeries`), no al mínimo
+**Sí. Es una herramienta de contexto "Core".**
 
----
+Define el "campo de juego" inmediato. Es fundamental para estrategias de ruptura (breakout) y de reversión en los extremos del rango.
 
-### 🛠️ Propuestas de mejora
-
-- Añadir parámetro para seleccionar el tipo de precio (High, Close, Typical, etc.)  
-- Visualizar los niveles como `RangeDataSeries` para poder extenderlos hasta ser rotos  
-- Añadir etiquetas opcionales con los valores actuales del máximo y mínimo  
-- Incorporar una lógica de alerta cuando se rompa el máximo/mínimo actual
+**Acción:** **Conservar (Herramienta de Contexto).**

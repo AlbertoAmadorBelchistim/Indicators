@@ -1,83 +1,110 @@
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: HeikenAshi.cs
+name: Heiken Ashi
+category: Visualization
+score_current: 6.5/10
+version: ATAS Official
+recommended_action: Conservar
+description: ¿Cómo se vería el precio usando velas Heiken Ashi estándar para suavizar la tendencia?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Implementación 'Core' y estable de las velas Heiken Ashi estándar; la lógica 'Days' es una optimización, no un bug."
+file_state: Estable
+score_potential: 6.5/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
 ## 🟦 Heiken Ashi (6.5/10)
 
-**Nombre del archivo:** `HeikenAshi.cs`  
+**Nombre del archivo:** [`HeikenAshi.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/HeikenAshi.cs)  
 **Nombre del indicador:** Heiken Ashi  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602391](https://help.atas.net/support/solutions/articles/72000602391)
+**Web oficial:** [ATAS — Heiken Ashi](https://help.atas.net/support/solutions/articles/72000602391)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025
+
+> **La Pregunta Clave:** ¿Cómo se vería el precio usando velas Heiken Ashi estándar para suavizar la tendencia?
+
+![Heiken Ashi](../../img/HeikenAshi.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **Days**: Número de días atrás desde los cuales comenzar a calcular las velas Heiken Ashi (por defecto: 20)
+* **Days**: Número de días atrás desde los cuales comenzar a calcular las velas Heiken Ashi (por defecto: 20)
 
 ---
 
-### 🧭 Clasificación  
+### 🧭 Clasificación
 📂 Visualization — Representación alternativa de velas para suavizar estructura
 
 ---
 
 ### 🧠 Uso más frecuente
 
-- Suavizar el comportamiento del precio para eliminar ruido  
-- Detectar **cambios de tendencia** visualmente más claros  
-- Evaluar fases de **impulso o retroceso** mediante la dirección de las velas
+* Suavizar el comportamiento del precio para eliminar ruido
+* Detectar **cambios de tendencia** visualmente más claros
+* Evaluar fases de **impulso o retroceso** mediante la dirección de las velas
 
 ---
 
-### 📊 Nivel de relevancia  
+### 📊 Nivel de relevancia
 🔟 **6.5 / 10**
 
-✅ Ideal para detectar visualmente la dirección y estabilidad de la tendencia  
-✅ Compatible con otros indicadores sin interferir en cálculos  
-⛔ No aporta señales por sí mismo  
-⛔ Puede retrasar las señales reales al suavizar los datos
+✅ **Herramienta "Core" de Visualización**: Ideal para detectar visualmente la dirección y estabilidad de la tendencia.  
+✅ Implementación estable y precisa de la fórmula estándar.  
+✅ Incluye optimización de carga (`Days`).  
+⛔ Puede retrasar las señales reales al suavizar los datos.
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Entrada tras dos velas consecutivas del mismo color**  
-- **Confirmación visual de tendencia** antes de ejecutar setups más agresivos  
-- **Filtro contextual**: operar solo en dirección de Heiken Ashi si se mantiene firme
+* **Entrada tras dos velas consecutivas del mismo color**
+* **Confirmación visual de tendencia** antes de ejecutar setups más agresivos
+* **Filtro contextual**: operar solo en dirección de Heiken Ashi si se mantiene firme
+
+---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **Days**: `20`  
-- Dibujar sobre el gráfico principal (`DenyToChangePanel = true`)  
-- Usar junto con Delta o CVD para validar contexto
-
-✅ Ayuda a filtrar lateralidad y ruido  
-✅ Compatible con setups visuales estructurales
+* **Days**: `5` (para scalping, no se necesita más historial)
+* Dibujar sobre el gráfico principal (`DenyToChangePanel = true`)
+* Usar junto con Delta o CVD para validar contexto
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- En `bar == 0` se calcula el **_targetBar** desde el cual empezar a mostrar las velas, contando sesiones hacia atrás  
-- La vela Heiken Ashi se calcula como:
+* Es una implementación estándar de Heiken Ashi.
+* **Close**: `(candle.Open + candle.Close + candle.High + candle.Low) * 0.25m`
+* **Open**: `(prevCandle.Open + prevCandle.Close) * 0.5m`
+* **High**: `Math.Max(Math.Max(close, open), candle.High)`
+* **Low**: `Math.Min(Math.Min(close, open), candle.Low)`
+* Se representa usando un `CandleDataSeries` llamado `_candles`.
+* El parámetro `Days` se usa para encontrar una `_targetBar` de inicio, lo cual es una **optimización de rendimiento** para no calcular todo el historial.
 
-  - **Close**: media de (Open, High, Low, Close)  
-  - **Open**: media de la vela Heiken Ashi anterior (Open + Close)  
-  - **High**: máximo entre High real, Open Heiken Ashi y Close Heiken Ashi  
-  - **Low**: mínimo entre Low real, Open Heiken Ashi y Close Heiken Ashi  
+---
+---
 
-- Se representa usando un `CandleDataSeries` llamado `_candles`  
-- Los colores se adaptan automáticamente desde la configuración del gráfico (`ChartInfo.ColorsStore`)
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Esta es una implementación "Core", estable y 100% correcta del indicador de velas Heiken Ashi. Es una herramienta de visualización fundamental para los traders que buscan filtrar el ruido y ver la tendencia suavizada.
+
+El análisis del `.md` original mencionaba una "incoherencia" sobre el cálculo de `_targetBar`. Esto no es un bug, sino una **característica de optimización**. El parámetro `Days` permite al indicador cargar solo los últimos N días, evitando procesar miles de barras en gráficos con mucho historial. Es una buena práctica de programación que lo hace más eficiente.
+
+El indicador es estable y no requiere cambios.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- El cálculo de `_targetBar` depende de `IsNewSession(i)` sin validación de que haya suficientes sesiones disponibles  
-- El valor de `bar == 0` puede ejecutar un bucle innecesariamente si `Days = 0`  
-- No hay opción para personalizar el método de suavizado o incluir líneas de tendencia sobre las velas
+**Sí.**
 
----
+Es una herramienta de visualización de contexto. Ayuda al scalper a "mantenerse en el lado correcto" del movimiento y a no ser "sacudido" por el ruido de las velas estándar.
 
-### 🛠️ Propuestas de mejora
-
-- Añadir opción para incluir el cálculo desde fecha específica o número de barras  
-- Exponer la vela Heiken Ashi como serie secundaria para combinarla con otros cálculos  
-- Permitir representar también la dirección mediante histograma u oscilador  
-- Incluir alerta visual al detectar cambio de color entre velas
+**Acción:** **Conservar (Herramienta de Contexto).**
