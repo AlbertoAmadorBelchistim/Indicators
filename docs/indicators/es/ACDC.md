@@ -1,13 +1,24 @@
 --- 
-cs_file: ACDC.cs  
-name: AC DC Histogram  
-category: Momentum  
-score: 2/10  
-version: Estable  
-verdict: Descartar  
-description: ¿Cuál es la dirección _suavizada y con retardo_ de la aceleración del mercado?  
+cs_file: ACDC.cs
+name: AC DC Histogram
+category: Momentum
+score_current: 2/10
+version: Estable
+recommended_action: Descartar
+description: ¿Cuál es la dirección _suavizada y con retardo_ de la aceleración del mercado?
+
+
+# --- Análisis y Triaje de Gemini ---
+gemini_summary: Conceptualmente roto. Es un 'acelerador con freno' (AC + SMA(10)) que anula su propósito. Inútil para scalping.
+file_state: Estable (Conceptualm. Roto)
+score_potential: 2/10
+effort: N/A
+action_priority: P4 (Descartar)
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
+user_modification_date: null
+# ------------------------------------
 ---
-﻿
 ## 🟦 AC DC Histogram (2/10)
 
 **Nombre del archivo:** [`ACDC.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/ACDC.cs)  

@@ -1,15 +1,17 @@
 --- 
+cs_file: ACBW.cs
 name: Bill Williams AC
 category: Momentum
-version: Estable
-description: ¿El momentum (AO) está acelerando o frenando?
 score_current: 1/10
+version: Estable
+recommended_action: Descartar (y Reemplazar)
+description: ¿El momentum (AO) está acelerando o frenando?
+
 
 # --- Análisis y Triaje de Gemini ---
 gemini_summary: Implementación 'fraude'. Falla en defaults (50,51,50), fuente de datos (Close) y lógica de color. Inservible.
 file_state: Impostor
 score_potential: 7/10
-recommended_action: Descartar (y Reemplazar)
 effort: Alto (Requiere reescritura total)
 action_priority: P2 (Refactorización Estratégica)
 analysis_date: 2025-11-17

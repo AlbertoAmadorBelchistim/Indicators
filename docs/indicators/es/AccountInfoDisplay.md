@@ -2,13 +2,24 @@
 cs_file: AccountInfoDisplay.cs
 name: Account Info Display
 category: Utilidad
-score: 7/10
+score_current: 7/10
 version: Latest
-verdict: Conservar
+recommended_action: Conservar y mejorar
 description: ¿Cuál es el estado de mi cuenta (Balance, PnL, Margen) en tiempo real, sin tener que apartar la vista del gráfico?
+
+# --- Análisis y Triaje de Gemini ---
+gemini_summary: Útil (7/10), pero carece de funciones críticas (límites de pérdida/objetivos) para scalpers de fondeo.
+file_state: Mejorable
+score_potential: 10/10
+effort: Medio
+action_priority: P2 (Mejora Estratégica)
+analysis_date: 2025-11-17
+official_code_date: 5/11/2025
+user_modification_date: 13/11/2025
+# ------------------------------------
 ---
 
-## 🟦 Account Info Display (7/10)
+## 🟦 Account Info Display (7/10 | Potencial: 10/10)
 
 
 **Nombre del archivo**: [`AccountInfoDisplay.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/AccountInfoDisplay.cs)  
@@ -131,43 +142,35 @@ La "optimización" aquí es minimalista, para evitar distracciones:
 
 ----------
 
-### 🛠️ Propuestas de mejora
+### 🛠️ Propuestas de mejora (Prioridad P2: Estratégica)
 
--   Añadir una opción "Modo Minimalista" que con un solo clic oculte todo excepto el `OpenPnL`.
-    
--   Añadir una opción de "Auto-Ocultar" para que el panel solo sea visible si hay una posición abierta.
+El indicador es útil, pero para un scalper (especialmente de cuentas de fondeo), le faltan funciones críticas.
+-   **Límites de Riesgo:** Añadir inputs para `Límite de Pérdida Diario` y `Límite de Pérdida Total`.
+-   **Objetivos:** Añadir input para `Objetivo de Ganancia Diario`.
+-   **Visualización de Riesgo:** Mostrar una barra o texto que indique: "Pérdida Restante: X€".
+-   **Alertas:** Añadir alertas cuando se esté acercando (ej. al 80%) del límite de pérdida.
+-   **Auto-Ocultar:** Añadir opción para que el panel solo sea visible si hay una posición abierta.
     
 
 ----------
 
-----------
+---
 
 ### ✍️ La opinión de Gemini sobre el Indicador (El Análisis Correcto)
 
-Este no es un indicador, es una **extensión de la interfaz de usuario (UI)**. No analiza datos, solo los _muestra_. Su valor no es analítico, sino de pura **conveniencia**.
+Este no es un indicador, es una **extensión de la interfaz de usuario (UI)**. Su valor no es analítico, sino de pura **conveniencia**.
 
-Desde la perspectiva del desarrollador (como indican las notas), el código es limpio, profesional y sigue las mejores prácticas (`OnRender` en lugar de `OnCalculate`, suscripción a eventos, etc.). Es un código de alta calidad.
+Sin embargo, la versión actual (7/10) es una oportunidad perdida. Como herramienta de conveniencia, es buena. Como **herramienta de gestión de riesgo**, es incompleta.
 
-Desde la perspectiva del trader, es un arma de doble filo:
-
-1.  **El Lado Bueno:** Para un scalper que gestiona un alto volumen de contratos, ver el `Blocked Margin` (Margen Bloqueado) directamente en el gráfico es una herramienta de gestión de riesgo vital. Le impide sobre-apalancarse accidentalmente.
-    
-2.  **El Lado Malo (La Trampa Psicológica):** Se ha demostrado que "vigilar el PnL" (`PnL-watching`) es una de las peores cosas que un trader puede hacer. Ver el PnL fluctuar tick a tick induce a tomar decisiones emocionales (cerrar ganancias demasiado pronto por miedo a que se reviertan, o aguantar pérdidas demasiado tiempo). Un trader disciplinado debería operar basándose en el _precio_ y la _estructura_, no en el _dinero_.
-    
-
-----------
+Un scalper, especialmente uno que opera cuentas de fondeo, no solo necesita ver su PnL; necesita ver su **riesgo restante** (cuánto le falta para alcanzar su límite de pérdida diario/total) y su **objetivo**.
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí, pero con una advertencia psicológica.**
+**Sí, pero es incompleto.** En su estado actual, es una herramienta de "vanidad" (ver el PnL, lo cual es psicológicamente peligroso).
 
-Es una herramienta de **conveniencia** (7/10), no una herramienta de _análisis_ (0/10).
+Con las mejoras propuestas, se convertiría en una **herramienta de gestión de riesgo crítica (10/10)**, permitiendo al scalper gestionar su operativa basándose en sus reglas de riesgo predefinidas sin apartar la vista del gráfico.
 
-El uso correcto para un scalper es la configuración "minimalista" descrita en la ficha: mostrar **SÓLO** el `Open PnL` y, más importante aún, el `Blocked Margin`. Ocultar el `Balance`, `Closed PnL` y otros datos "ruidosos".
-
-Debe usarse como una herramienta de "chequeo de riesgo" (¿cuánto margen me queda?), no como una herramienta de "gestión de trade" (¿cuánto estoy ganando/perdiendo ahora mismo?).
-
-**Acción:** **Conservar.** Es un indicador de utilidad bien construido que, usado con disciplina, aporta valor al centralizar la información.
+**Acción:** **Mejorar (P2 - Prioridad Media).** Las mejoras propuestas (añadir límites y objetivos) son de esfuerzo medio, pero elevarían el indicador de "útil" a "esencial".
 <!--stackedit_data:
 eyJoaXN0b3J5IjpbLTE1OTA4Mjc4NjAsLTI3NDk4Nzc4MF19
 -->
