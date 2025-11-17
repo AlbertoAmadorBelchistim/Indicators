@@ -1,11 +1,23 @@
 ---
+# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: CMS.cs
 name: Clear Method Swing Line
 category: Tendencia
-score: 8/10
+score_current: 8/10
 version: Estable
-verdict: Conservar (herramienta de contexto)
-description: ¿Cuál es la estructura de mercado (swing highs/lows) objetiva y actual, sin subjetividad?
+recommended_action: Conservar
+description: ¿Cuál es la estructura de mercado (swing highs/lows) objetiva y actual,
+  sin subjetividad?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Herramienta de contexto (mapa) de primer nivel que define la estructura de mercado (BOS/CHoCH) de forma objetiva al no tener parámetros configurables."
+file_state: Estable
+score_potential: 8/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
 ---
 
 ## 🟦 Clear Method Swing Line (8/10)

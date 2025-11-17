@@ -1,11 +1,24 @@
 ---
+# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: CumulativeDelta.cs
 name: CVD - Cumulative Volume Delta
 category: VolumeOrderFlow
-score: 9/10
+score_current: 9/10
 version: Estable
-verdict: Conservar (herramienta principal)
+recommended_action: Conservar
 description: ¿Cuál es el delta acumulado (la agresión neta) desde el inicio de la sesión?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: Herramienta 'Core' (P1) de Order Flow que acumula el delta para
+  detectar divergencias ('la guerra'), con una función profesional clave
+  'CustomSession'.
+file_state: Estable
+score_potential: 9/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-11-13
+user_modification_date: null
 ---
 
 ## 🟦 CVD - Cumulative Volume Delta (9/10)

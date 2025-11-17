@@ -1,11 +1,23 @@
 ---
+# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: ColorBarOpenClose.cs
 name: Color Bar Open/Close
 category: Trend
-score: 1/10
+score_current: 1/10
 version: Estable
-verdict: Descartar (Redundante / Defectuoso)
-description: Colorea las velas según si el cierre es mayor (alcista) o menor (bajista) que la apertura.
+recommended_action: Descartar
+description: Colorea las velas según si el cierre es mayor (alcista) o menor (bajista)
+  que la apertura.
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Indicador redundante (replica la función base del gráfico) y defectuoso, ya que su lógica de herencia de color para velas Doji es incorrecta."
+file_state: Defectuoso
+score_potential: 1/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
 ---
 
 ## 🟦 Color Bar Open/Close (1/10)

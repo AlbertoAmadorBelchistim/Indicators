@@ -1,11 +1,23 @@
 ---
+# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: CurrentPrice.cs
 name: Current Price
 category: Visualization
-score: 3/10
+score_current: 3/10
 version: Estable
-verdict: Descartar (Redundante / Con fallos)
+recommended_action: Descartar
 description: Muestra el precio y la hora de la última vela en una etiqueta flotante.
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: Gadget visual redundante (duplica los ejes X/Y) y con un fallo de
+  diseño en OnRender que hace que la etiqueta desaparezca al hacer scroll.
+file_state: Defectuoso
+score_potential: 3/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
 ---
 
 ## 🟦 Current Price (3/10)

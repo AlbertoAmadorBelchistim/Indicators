@@ -1,11 +1,23 @@
 ---
+# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: ColorBarHighLow.cs
 name: Color Bar HH/LL
 category: Tendencia
-score: 3/10
+score_current: 3/10
 version: Estable
-verdict: Descartar (incompleto/ruidoso)
-description: Colorea las velas si hacen un nuevo máximo (HH) o mínimo (LL) en comparación con la vela inmediatamente anterior.
+recommended_action: Descartar
+description: Colorea las velas si hacen un nuevo máximo (HH) o mínimo (LL) en comparación
+  con la vela inmediatamente anterior.
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Falla en su propósito de seguir la tendencia, ya que su memoria de 1 barra le impide identificar HL/LH y es inferior a la herramienta correcta (CMS)."
+file_state: Estable
+score_potential: 3/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
 ---
 
 ## 🟦 Color Bar HH/LL (3/10)
