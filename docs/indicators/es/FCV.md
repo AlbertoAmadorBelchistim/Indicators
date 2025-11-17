@@ -1,82 +1,104 @@
-## 🟦 Full Contract Value (FCV) (6/10)
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: FCV.cs
+name: Full Contract Value
+category: Price
+score_current: 2/10
+version: ATAS Official
+recommended_action: Descartar
+description: (Teórico) ¿Cuál es el valor del precio escalado por un multiplicador personalizado?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Indicador 'Impostor'; el nombre 'Full Contract Value' es engañoso. El código no calcula el valor monetario (TickValue), es solo un multiplicador de precio confuso."
+file_state: Impostor
+score_potential: 2/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
+---
 
-**Nombre del archivo:** `FCV.cs`  
+## 🟦 Full Contract Value (FCV) (2/10)
+
+**Nombre del archivo:** [`FCV.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/FCV.cs)  
 **Nombre del indicador:** Full Contract Value  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602389](https://help.atas.net/support/solutions/articles/72000602389)
+**Web oficial:** [ATAS — Full Contract Value](https://help.atas.net/support/solutions/articles/72000602389)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025
+
+> **La Pregunta Clave:** (Teórico) ¿Cuál es el valor del precio escalado por un multiplicador personalizado?
+
+![Full Contract Value](../../img/FCV.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **CustomTickSize (CustomScale)**: Valor personalizado para escalar el indicador  
-- **CurrentTickSize**: Tamaño de tick del instrumento (solo lectura)
+* **CustomTickSize (CustomScale)**: Valor personalizado para escalar el indicador
+* **CurrentTickSize**: Tamaño de tick del instrumento (solo lectura)
 
 ---
 
-### 🧭 Clasificación  
+### 🧭 Clasificación
 📂 Price — Escalado proporcional de precios según contrato
 
 ---
 
 ### 🧠 Uso más frecuente
 
-- Visualizar el precio multiplicado por el valor del tick, simulando el **valor monetario del contrato**  
-- Facilitar análisis económico del movimiento del precio (valor en USD o divisa base)  
-- Integrar en análisis donde se requiera transformar precios en base a capital o contrato
+* (Uso previsto) Visualizar el precio multiplicado por un valor, intentando simular un valor monetario
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **6 / 10**
+### 📊 Nivel de relevancia
+🔟 **2 / 10**
 
-✅ Útil para convertir precios en magnitudes monetarias reales  
-✅ Facilita análisis financiero directo sin cálculo externo  
-⛔ No aporta señal técnica  
-⛔ Requiere conocer bien el valor del tick o multiplicador del instrumento
+⛔ **Indicador Impostor:** El nombre es engañoso. No calcula el "Valor Completo del Contrato".
+⛔ **No usa el Valor del Tick:** El código no utiliza `InstrumentInfo.TickValue` (ej. $12.50 para el ES), que es esencial para calcular el valor monetario.
+⛔ **Fórmula Confusa:** La fórmula es `valor * Max(TickSize, Multiplicador) / TickSize`. Esto no se traduce en un valor monetario; es un simple multiplicador de precio.
+⛔ Inútil para scalping.
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Análisis de riesgo por tick**: calcular fácilmente la pérdida/ganancia por movimiento mínimo  
-- **Confirmación de escalas monetarias**: ver si una zona representa $100, $500, etc.  
-- **Filtro de impacto**: descartar operaciones con movimiento bajo valorado
+* **Ninguna.** El indicador no proporciona la información que su nombre promete y los datos que muestra son confusos.
+
+---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **CustomTickSize**: activado, valor `12.5` para ES (1 tick = $12.5)  
-- Representar el valor de las velas en escala monetaria  
-- Combinar con indicadores de volumen para evaluar el impacto financiero real
-
-✅ Traduce precio a magnitudes económicas  
-✅ Ideal para calcular riesgo/recompensa directamente en gráfico
+* **No recomendado.**
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- El valor mostrado es:
-  $$
-  FCV = \text{Precio} \times \frac{\max(\text{TickSize}, \text{Multiplier})}{\text{TickSize}}
-  $$
-- Usa un campo `Filter` para definir el multiplicador (`CustomTickFilter`)  
-- Si está desactivado, usa `InstrumentInfo.TickSize` como valor base  
-- El `Multiplier` se recalcula automáticamente si se modifica el filtro  
-- El valor se guarda en `_renderSeries` y se actualiza dinámicamente
+* El indicador calcula: `_renderSeries[bar] = value * Math.Max(InstrumentInfo.TickSize, _multiplier) / InstrumentInfo.TickSize;`.
+* Si el filtro customizado está apagado, `_multiplier` es igual a `InstrumentInfo.TickSize`. La fórmula se convierte en `value * TickSize / TickSize`, lo que resulta en `value`. Es decir, **dibuja la propia línea de precio**.
+* Si el filtro customizado está encendido (ej. 12.5 para ES, con TickSize 0.25), la fórmula es `value * 12.5 / 0.25`, que es `value * 50`.
+* En ningún caso calcula el valor monetario (que sería `value * InstrumentInfo.TickValue`).
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Este es un indicador **Impostor**.
+
+Un scalper que añade un indicador llamado "Full Contract Value" espera ver el valor monetario del precio (ej. `Precio * ValorDelTick`). Si el ES está en 5000, el FCV debería mostrar `5000 * $12.50` (o alguna variación de esto).
+
+Este indicador no hace nada de eso. No tiene acceso al `InstrumentInfo.TickValue`. Es un simple (y muy confuso) multiplicador de precio. Como se ve en "Notas de desarrollo", si el filtro está apagado, literalmente se limita a volver a dibujar el precio, haciéndolo 100% redundante. Si está encendido, aplica un ratio que no tiene una correlación directa obvia con el valor monetario.
+
+Es un indicador mal nombrado, confuso e inútil.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- En `OnCalculate`, se usa `Math.Max(TickSize, Multiplier)`, lo que puede provocar **valores inconsistentes si el usuario no entiende la relación entre ambos**  
-- El nombre `FCV` sugiere un valor absoluto de contrato, pero solo aplica una transformación proporcional (no considera tamaño de contrato ni leverage)  
-- No se valida si el `Multiplier` tiene sentido económico (por ejemplo, 0.0001 para contratos grandes)
+**No. Es un indicador "Impostor" que no debe usarse.**
 
----
+Promete un cálculo de valor monetario pero entrega un multiplicador de precio sin sentido.
 
-### 🛠️ Propuestas de mejora
-
-- Añadir una opción para mostrar directamente el valor en **USD por movimiento**  
-- Cambiar nombre visible a `Full Contract Value (Tick × Price)` para mayor claridad  
-- Incluir etiqueta flotante con el valor por tick o por punto completo  
-- Permitir multiplicar por tamaño del contrato (ej. `price × tick × lotSize`)
+**Acción:** **Descartar (Impostor).**
