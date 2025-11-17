@@ -59,9 +59,9 @@ user_modification_date: null
 ### 📊 Nivel de relevancia
 🔟 **8.5 / 10**
 
-✅ **Herramienta "Core" de Perfil**: Lógica robusta para análisis de rangos con filtro por volumen y duración.
-✅ **Filtros Profesionales**: Los filtros `VolumeFilter` y `BarsRange` son esenciales para eliminar el ruido.
-✅ Detección estructurada de zonas clave sin necesidad de intervención manual.
+✅ **Herramienta "Core" de Perfil**: Lógica robusta para análisis de rangos con filtro por volumen y duración.  
+✅ **Filtros Profesionales**: Los filtros `VolumeFilter` y `BarsRange` son esenciales para eliminar el ruido.  
+✅ Detección estructurada de zonas clave sin necesidad de intervención manual.  
 ⛔ Visualización compleja si hay muchos rangos consecutivos.
 
 ---

@@ -55,9 +55,9 @@ user_modification_date: null
 ### 📊 Nivel de relevancia
 🔟 **8 / 10**
 
-✅ **Herramienta "Quant" de Régimen**: Proporciona una medida objetiva de la "memoria del mercado".
-✅ Útil como filtro estructural para saber qué tipo de estrategia aplicar (tendencia o reversión).
-⛔ Difícil de interpretar sin contexto estadístico.
+✅ **Herramienta "Quant" de Régimen**: Proporciona una medida objetiva de la "memoria del mercado".  
+✅ Útil como filtro estructural para saber qué tipo de estrategia aplicar (tendencia o reversión).  
+⛔ Difícil de interpretar sin contexto estadístico.  
 ⛔ Peculiaridad de diseño: Usa `Math.Abs()` al final, eliminando el signo.
 
 ---

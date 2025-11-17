@@ -57,9 +57,9 @@ user_modification_date: null
 ### 📊 Nivel de relevancia
 🔟 **8 / 10**
 
-✅ **Herramienta "Core" de Tendencia**: Excelente MA de bajo lag.
-✅ Reacciona mucho más rápido que una EMA o SMA del mismo período.
-✅ La visualización con colores por pendiente es muy clara.
+✅ **Herramienta "Core" de Tendencia**: Excelente MA de bajo lag.  
+✅ Reacciona mucho más rápido que una EMA o SMA del mismo período.  
+✅ La visualización con colores por pendiente es muy clara.  
 ⛔ Fija a `candle.Close`, no permite cambiar la fuente de precio.
 
 ---
