@@ -1,14 +1,23 @@
 --- 
-cs_file: ACBW.cs  
-name: Bill Williams AC  
-category: Momentum  
-score: 3/10  
-version: Estable  
-verdict: Descartar  
-description: ¿El momentum (AO) está acelerando o frenando?  
+name: Bill Williams AC
+category: Momentum
+version: Estable
+description: ¿El momentum (AO) está acelerando o frenando?
+score_current: 1/10
+
+# --- Análisis y Triaje de Gemini ---
+gemini_summary: Implementación 'fraude'. Falla en defaults (50,51,50), fuente de datos (Close) y lógica de color. Inservible.
+file_state: Impostor
+score_potential: 7/10
+recommended_action: Descartar (y Reemplazar)
+effort: Alto (Requiere reescritura total)
+action_priority: P2 (Refactorización Estratégica)
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
+user_modification_date: null
 ---
 
-## 🟦 Bill Williams AC (3/10)
+## 🟦 Bill Williams AC (1/10)
 
 **Nombre del archivo:** [`ACBW.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/ACBW.cs)  
 **Nombre del indicador:** Bill Williams AC  
@@ -54,7 +63,7 @@ description: ¿El momentum (AO) está acelerando o frenando?
 
 ### 📊 Nivel de relevancia
 
-🔟 **3 / 10**
+🔟 **1 / 10**
 
 ⛔ ¡IMPLEMENTACIÓN COMPLETAMENTE ROTA! Este indicador es un ejemplo de "copiar sin entender".
 
