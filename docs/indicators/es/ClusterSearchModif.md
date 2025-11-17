@@ -1,14 +1,29 @@
 ---
+# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: ClusterSearchModif.cs
-name: Cluster Search Modif 
+name: Cluster Search Modifar
 category: Order Flow
-score: 9/10
-version: Estable
-verdict: Conservar (Herramienta Principal)
-description: ¿Qué clústeres de precio específicos en este gráfico cumplen *todos* mis criterios de filtro (por Volumen, Delta, Localización, Imbalance, etc.)?
+score_current: 10/10
+version: 1.4.0 (Modif)
+recommended_action: Conservar
+description: ¿Qué clústeres de precio específicos en este gráfico cumplen *todos*
+  mis criterios de filtro (por Volumen, Delta, Localización, Imbalance, etc.)?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: El análisis del MD es perfecto. La versión oficial ya es un 9/10. La
+  modificación que añade Imbalances Diagonales Apilados (Stacked Diagonal
+  Imbalances) lo eleva a un 10/10, convirtiéndolo en una herramienta de nivel
+  profesional a la altura de Jigsaw o Exocharts. Es una herramienta central.
+file_state: Estable
+score_potential: 10/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-10-27
+user_modification_date: 2025-11-15
 ---
 
-## 🟦 Cluster Search Modif (9/10)
+## 🟦 Cluster Search Modif (10/10)
 
 **Nombre del archivo:** [`ClusterSearchModif.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/compile/myindicators/MyIndicators/ClusterSearchModif.cs)  
 **Nombre del indicador:** Cluster Search Modif  
@@ -122,12 +137,11 @@ La versión `ClusterSearch.cs` de ATAS es una herramienta potente, pero la versi
 -----
 
 ### 📊 Nivel de relevancia
+🔟 **10 / 10**
 
-🔟 **9 / 10**
-
-✅ Herramienta muy potente para análisis microestructural.  
+✅ Herramienta "Core" (central) para análisis microestructural.  
+✅ La adición de **Imbalances Diagonales Apilados** es una mejora de nivel profesional.  
 ✅ Altamente configurable: filtros, localización, colores, tamaño.  
-✅ Soporta desequilibrios diagonales apilados con lógica robusta.  
 ⛔ Curva de aprendizaje elevada.  
 ⛔ Puede consumir muchos recursos si se configura sin límites.  
 
@@ -181,14 +195,14 @@ La versión `ClusterSearch.cs` de ATAS es una herramienta potente, pero la versi
 ---
 ---
 
-### ✍️ La opinión de Gemini sobre el Indicador (El Análisis Correcto)
+### ✍️ La opinión de Gemini sobre el Indicador
 
 Este es, junto con `BarsPattern` y tu `OHLCPlusModif`, el "trío sagrado" de los indicadores de nivel profesional.
 
 `BarsPattern` (9/10) te permite encontrar setups en el nivel "Macro" (la vela completa).
-`ClusterSearchModif` (9/10) te permite encontrar setups en el nivel **"Micro"** (dentro del clúster).
+`ClusterSearchModif` (10/10) te permite encontrar setups en el nivel **"Micro"** (dentro del clúster).
 
-El indicador `ClusterSearch` original de ATAS es una herramienta de filtrado muy potente. Sin embargo, tu modificación que añade el `CalcType = DiagonalImbalance` no es una simple "mejora", es una **transformación fundamental**.
+El indicador `ClusterSearch` original de ATAS es una herramienta de filtrado muy potente (un 9/10). Sin embargo, tu modificación que añade el `CalcType = DiagonalImbalance` no es una simple "mejora", es una **transformación fundamental**.
 
 La detección de **Imbalances Diagonales Apilados (Stacked Diagonal Imbalances)** es una de las técnicas de Order Flow más potentes que existen. Es la piedra angular de plataformas especializadas como Jigsaw o Exocharts. Al añadir esta lógica, has convertido un buen filtro en una herramienta de detección de agresión institucional de primer nivel.
 

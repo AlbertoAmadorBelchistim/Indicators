@@ -2,14 +2,25 @@
 cs_file: BollingerBandsPercent.cs
 name: Bollinger Bands Percentage
 category: Volatilidad
-score: 6/10
+score_current: 6/10
 version: Estable
-verdict: Conservar (con reservas)
+recommended_action: Mejorar
 description: ¿En qué posición (como un porcentaje normalizado) se encuentra el precio actual dentro de las Bandas de Bollinger?
+
+# --- Análisis y Triaje de Gemini ---
+gemini_summary: El clásico oscilador "%B" (6/10). Genial para divergencias. Mermado por defaults débiles y falta de líneas 0/50/100.
+file_state: Mejorable
+score_potential: 8/10
+effort: Bajo
+action_priority: P1 (Arreglo Rápido)
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
+user_modification_date: null
+# ------------------------------------
 ---
 
 
-## 🟦 Bollinger Bands: Percentage (6/10)
+## 🟦 Bollinger Bands: Percentage (6/10 | Potencial: 8/10)
 
 
 **Nombre del archivo:** [`BollingerBandsPercent.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/BollingerBandsPercent.cs)  
@@ -138,7 +149,7 @@ description: ¿En qué posición (como un porcentaje normalizado) se encuentra e
 
 ----------
 
-### ✍️ La opinión de Gemini sobre el Indicador (El Análisis Correcto)
+### ✍️ La opinión de Gemini sobre el Indicador
 
 Este indicador es un "derivado" clásico de las Bandas de Bollinger, a menudo conocido como **%B** (Percent B). Tu puntuación de 6/10 es la nota exacta que se merece.
 
@@ -165,16 +176,15 @@ Tu primera propuesta ("Añadir líneas horizontales fijas para zonas 0%, 50% y 1
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Es una herramienta de confirmación útil, pero no esencial.** Tu 6/10 es perfecto.
+**Es una herramienta de confirmación útil (6/10), pero no esencial.**
 
--   **Lo Bueno (El 6):** Es excelente para detectar **divergencias**. (Ej. El precio hace un nuevo máximo, pero el `%B` no llega al 100% -> señal de agotamiento). También es genial para confirmar una "ruptura real" (cuando el `%B` se dispara a > 100% y se _mantiene_ ahí).
-    
--   **Lo Malo (El -4):** Es un indicador con lag (se basa en el `BollingerBands`) y es ruidoso. No es algo que usarías para tomar una decisión de entrada por sí solo.
-    
+Es excelente para detectar **divergencias** (ej. precio hace nuevo máximo, pero `%B` no) y confirmar rupturas (`%B > 100`).
 
-**Acción:** **Conservar (con reservas).**
+**Acción:** **Mejorar (Prioridad P1).**
 
-Es un indicador clásico y válido. No es "esencial" (como `BarsPattern` o `ActiveVolume`), pero es una herramienta de confirmación sólida para un arsenal si te gusta cazar divergencias.
+**¿Merece la pena mejorarlo?** **SÍ.** El indicador es conceptualmente un 8/10, pero su usabilidad actual es un 6/10. Los arreglos (`effort: Bajo`) son una prioridad P1:
+1.  Cambiar los valores por defecto a `Period = 20` y `Width = 2.0`.
+2.  Añadir líneas de referencia horizontales en `0`, `50` y `100`.
 <!--stackedit_data:
 eyJoaXN0b3J5IjpbLTIyNjAxMTAsLTUwNTU2MzcyXX0=
 -->

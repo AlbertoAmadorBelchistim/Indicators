@@ -2,13 +2,24 @@
 cs_file: BidAsk.cs
 name: Bid Ask
 category: Order Flow
-score: 6.5/10
+score_current: 6.5/10
 version: Estable
-verdict: Conservar (con reservas)
+recommended_action: Mejorar
 description: ¿Cuáles fueron los volúmenes brutos de agresión de compra (Ask) y de agresión de venta (Bid) en cada vela?
+
+# --- Análisis y Triaje de Gemini ---
+gemini_summary: El histograma de OF más puro (6.5/10). Muestra la "batalla" (Bid vs Ask), no solo el resultado (Delta).
+file_state: Mejorable
+score_potential: 7/10
+effort: Bajo
+action_priority: P3 (Mejora Opcional)
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
+user_modification_date: null
+# ------------------------------------
 ---
 
-## 🟦 Bid Ask (6.5/10)
+## 🟦 Bid Ask (6.5/10 | Potencial: 7/10)
 
 **Nombre del archivo:** [`BidAsk.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/BidAsk.cs)  
 **Nombre del indicador:** Bid Ask  
@@ -95,7 +106,7 @@ Este indicador **no tiene parámetros configurables**.
 
 -----
 
-### ✍️ La opinión de Gemini sobre el Indicador (El Análisis Correcto)
+### ✍️ La opinión de Gemini sobre el Indicador
 
 Este es uno de los indicadores de Order Flow más "puros" y fundamentales. Tu puntuación de 6.5/10 es la correcta, ya que captura perfectamente el "trade-off" de esta herramienta:
 
@@ -111,10 +122,10 @@ Este es uno de los indicadores de Order Flow más "puros" y fundamentales. Tu pu
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí, pero con reservas.** Es una herramienta de "análisis profundo" más que una herramienta de "señales rápidas".
+**Sí, pero con reservas (6.5/10).**
 
-Es una buena herramienta visual para confirmar lo que ves en un gráfico de clúster (footprint) o para entender *por qué* el Delta es el que es. Si ya usas un histograma de Delta, este puede ser redundante. Si prefieres ver la "batalla" completa de Ask vs. Bid, este indicador es una visualización excelente.
+Es una herramienta de "análisis profundo" más que una herramienta de "señales rápidas". Es útil para entender *por qué* el Delta es el que es. Si ya usas un histograma de Delta, este puede ser redundante.
 
-**Acción:** **Conservar (con reservas).**
+**Acción:** **Mejorar (Prioridad P3).**
 
-**¿Merece la pena arreglarlo?** El indicador funciona perfectamente. Las "Propuestas de mejora" (como añadir el Delta) lo convertirían en un indicador diferente y más complejo.
+**¿Merece la pena mejorarlo?** **Sí.** El indicador funciona perfectamente (6.5/10). El arreglo es trivial (`effort: Bajo`) y consiste en añadir una línea de cero (`ShowZeroValue = true`), lo cual mejora la legibilidad y lo convierte en una herramienta 7/10.

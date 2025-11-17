@@ -1,14 +1,29 @@
 ---
+# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: CMF.cs
 name: Chaikin Money Flow
 category: Volumen
-score: 4/10
+score_current: 2/10
 version: Estable
-verdict: Descartar (obsoleto para scalping)
-description: ¿Está entrando o saliendo dinero del activo? (Mide el volumen ponderado por la posición del cierre en el rango de la vela).
+recommended_action: Descartar
+description: ¿Está entrando o saliendo dinero del activo? (Mide el volumen ponderado
+  por la posición del cierre en el rango de la vela).
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: Este es un indicador "Impostor". No implementa el CMF estándar
+  (que usa el H/L de la barra). En su lugar, usa el H/L de la *sesión* para
+  calcular el multiplicador de flujo, creando una métrica extraña, con un lag
+  masivo e inútil para el scalping. Es peor que el CMF clásico.
+file_state: Impostor
+score_potential: 4/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
 ---
 
-## 🟦 Chaikin Money Flow (CMF) (4/10)
+## 🟦 Chaikin Money Flow (CMF) (2/10)
 
 **Nombre del archivo:** [`CMF.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/CMF.cs)  
 **Nombre del indicador:** Chaikin Money Flow  
@@ -44,7 +59,7 @@ description: ¿Está entrando o saliendo dinero del activo? (Mide el volumen pon
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **4 / 10**
+🔟 **2 / 10**
 
 ✅ Lógica clásica que combina precio y volumen.  
 ⛔ **Lento (lag):** Demasiado retraso para scalping en 1M.  
@@ -72,6 +87,7 @@ description: ¿Está entrando o saliendo dinero del activo? (Mide el volumen pon
 
 ### 🧪 Notas de desarrollo
 
+* Es un **Impostor**: El código no implementa el CMF clásico. Utiliza el _dailyHigh y _dailyLow (H/L de la sesión) en lugar del H/L de la vela para su cálculo, haciéndolo aún más lento e irrelevante.
 * Calcula el **AD (Acumulation/Distribution)** (no ADL) en función del rango de cada vela:
     $$AD = \left(\frac{(Close - Low) - (High - Close)}{High - Low}\right) \times Volume$$
 * La curva CMF es el cociente entre la suma del AD y la suma del volumen durante el periodo seleccionado

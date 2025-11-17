@@ -2,14 +2,25 @@
 cs_file: BollingerSqueeze.cs
 name: Bollinger Squeeze
 category: Volatilidad
-score: 7/10
+score_current: 7/10
 version: Estable
-verdict: Descartar
+recommended_action: Mejorar
 description: ¿Se está comprimiendo la volatilidad del precio (Bollinger) dentro de la volatilidad de su rango medio (Keltner), señalando una 'compresión' (squeeze) y un potencial movimiento explosivo?
+
+# --- Análisis y Triaje de Gemini ---
+gemini_summary: El "TTM Squeeze" (7/10). Concepto 'Pro'. Inutilizable por defecto (10,1,1) y le falta la línea cero.
+file_state: Mejorable
+score_potential: 9/10
+effort: Bajo
+action_priority: P1 (Arreglo Rápido)
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
+user_modification_date: null
+# ------------------------------------
 ---
 
 
-## 🟦 Bollinger Squeeze (7/10)
+## 🟦 Bollinger Squeeze (7/10 | Potencial: 9/10)
 
 
 **Nombre del archivo:** [`BollingerSqueeze.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/BollingerSqueeze.cs)  
@@ -137,40 +148,21 @@ description: ¿Se está comprimiendo la volatilidad del precio (Bollinger) dentr
 
 ----------
 
-### ✍️ La opinión de Gemini sobre el Indicador (El Análisis Correcto)
+### ✍️ La opinión de Gemini sobre el Indicador (Análisis de Fase 1)
 
-Este indicador es el famoso **"TTM Squeeze"** (o Bollinger Squeeze) de John Carter. Es una herramienta de nivel profesional que compara dos tipos de volatilidad:
-
-1.  **Volatilidad del Precio:** Las Bandas de Bollinger (basadas en Desviación Estándar).
-    
-2.  **Volatilidad del Rango:** Los Canales de Keltner (basados en el ATR).
-    
-
-La lógica es:
-
--   Si `(Ancho Keltner / Ancho Bollinger) - 1 > 0` (Histograma Positivo): **El "Squeeze" está ACTIVO**. Las Bandas de Bollinger (volatilidad del precio) se han contraído _dentro_ de los Canales de Keltner (rango medio). El mercado está en compresión, "cargando" para un movimiento explosivo.
-    
--   Si `(Ancho Keltner / Ancho Bollinger) - 1 < 0` (Histograma Negativo): **El "Squeeze" está LIBERADO**. La volatilidad ha explotado y las Bandas de Bollinger están _fuera_ del Canal de Keltner. El mercado está en una fase de expansión o tendencia.
-    
-
-----------
+Este indicador es el famoso **"TTM Squeeze"** (7/10). Es una herramienta de nivel profesional que compara la volatilidad del precio (Bollinger) con la volatilidad del rango (Keltner) para encontrar "compresiones" antes de un movimiento explosivo.
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí. Es una herramienta de contexto fundamental.**
+**Sí. Es una herramienta de contexto fundamental (9/10 en concepto).**
 
-Este indicador es un "filtro de régimen" de primera categoría, superior al `ADX` y complementario al `AMA (Kaufman)`.
+Es un filtro de régimen de primera categoría que te dice cuándo el mercado está "cargando" (histograma positivo, Squeeze ON) y cuándo está "disparando" (histograma negativo, Squeeze OFF).
 
--   El `AMA (Kaufman)` te dice: "¿Hay tendencia o rango?"
-    
--   Este `BollingerSqueeze` te dice: "¿El rango está en compresión (peligroso, a punto de explotar) o en expansión (seguro para operar con momentum)?"
-    
+**Acción:** **Mejorar (Prioridad P1).**
 
-Tu parametrización óptima (`BB(20,2)` y `KC(20, 1.5)`) es la configuración clásica y probada.
-
-**Acción:** **Descartar (Redundante con Bollinger Sqeeze V2).**
-
-**¿Merece la pena arreglarlo?** **SÍ.** Los valores por defecto lo hacen inutilizable. Arreglar los defaults a `(20, 2.0, 20, 1.5)` y añadir una línea de cero es esencial.
+**¿Merece la pena mejorarlo?** **SÍ.** Es una prioridad P1. El indicador es conceptualmente un 9/10, pero su implementación actual es un 7/10. Los arreglos (`effort: Bajo`) son críticos:
+1.  Añadir una línea de cero (`ShowZeroValue = true`).
+2.  Cambiar los valores por defecto al estándar de la industria: `BbPeriod=20`, `BbWidth=2.0`, `KbPeriod=20`, `KbMultiplier=1.5`.
 <!--stackedit_data:
 eyJoaXN0b3J5IjpbLTg1NDY5ODYyNiwtMTQ4Mzg1MzI5NV19
 -->

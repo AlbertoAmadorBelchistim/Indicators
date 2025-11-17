@@ -2,13 +2,24 @@
 cs_file: BollingerBands.cs
 name: Bollinger Bands
 category: Volatilidad / Canal
-score: 8/10
+score_current: 8/10
 version: Estable
-verdict: Conservar (esencial)
+recommended_action: Mejorar
 description: ¿Está el precio actual estadísticamente 'demasiado alto' o 'demasiado bajo' (sobre-extendido) en comparación con su media reciente, basándose en la volatilidad?
+
+# --- Análisis y Triaje de Gemini ---
+gemini_summary: "Herramienta Core" (8/10). Implementación avanzada con coloreado de tendencia. Tiene un bug menor de alerta (copypaste).
+file_state: Buggy
+score_potential: 10/10
+effort: Bajo
+action_priority: P1 (Arreglo Rápido)
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
+user_modification_date: null
+# ------------------------------------
 ---
 
-## 🟦 Bollinger Bands (8/10)
+## 🟦 Bollinger Bands (8/10 | Potencial: 10/10))
 
 
 **Nombre del archivo:** [`BollingerBands.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/BollingerBands.cs)  
@@ -143,7 +154,7 @@ description: ¿Está el precio actual estadísticamente 'demasiado alto' o 'dema
 
 ----------
 
-### ✍️ La opinión de Gemini sobre el Indicador (El Análisis Correcto)
+### ✍️ La opinión de Gemini sobre el Indicador
 
 Este indicador **es un "Conservar" esencial**. Es la versión "inteligente" y "adaptativa" del indicador `BandsEnvelope` (1/10) que descartamos.
 
@@ -167,13 +178,16 @@ Para un scalper, esto es una herramienta fundamental:
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí. Es una herramienta de contexto y señal de volatilidad fundamental.**
+**Sí. Es una herramienta de contexto y señal de volatilidad fundamental (8/10).**
 
-Junto con el `AMA` (para régimen) y el `ATR` (para riesgo), las `Bollinger Bands` son uno de los tres pilares del análisis de volatilidad clásico. Esta implementación avanzada con coloreado y alertas la hace aún más útil.
+Es la herramienta estándar de la industria para medir la volatilidad relativa, identificar "Squeezes" y señales de reversión en extremos.
 
-**Acción:** **Conservar (Esencial).**
+**Acción:** **Mejorar (Prioridad P1).**
 
-**¿Merece la pena arreglarlo?** **SÍ.** El bug de la alerta es menor pero molesto. Corregir eso y ajustar los valores por defecto a `20` y `2.0` haría que este indicador fuera perfecto.
+**¿Merece la pena mejorarlo?** **SÍ.** Es una prioridad P1. El indicador es conceptualmente un 10/10. Los arreglos (`effort: Bajo`) son:
+1.  Corregir el bug de "copiar/pegar" en `AlertFileBot`.
+2.  Cambiar los valores por defecto a `Period = 20` y `Width = 2.0` para cumplir con el estándar de la industria.
+ 1. 
 <!--stackedit_data:
 eyJoaXN0b3J5IjpbLTE2NTkwODA5NTcsOTE4MzYxNTg2XX0=
 -->

@@ -2,13 +2,24 @@
 cs_file: CBI.cs
 name: Connie Brown Composite Index
 category: Momentum
-score: 6/10
+score_current: 5/10
 version: Estable
-verdict: Descartar
+recommended_action: Descartar
 description: ¿Cuál es el momentum "compuesto" (RSI + Momentum) del precio, y cómo se compara con sus propias medias móviles (lenta y rápida)?
+
+# --- Análisis y Triaje de Gemini ---
+gemini_summary: "Lag sobre lag" (5/10). Conceptualm. lento. Tiene bugs (etiquetas, warm-up). Inútil para scalping.
+file_state: Buggy
+score_potential: 5/10
+effort: N/A
+action_priority: P4 (Descartar)
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
+user_modification_date: null
+# ------------------------------------
 ---
 
-## 🟦 Connie Brown Composite Index (6/10)
+## 🟦 Connie Brown Composite Index (5/10)
 
 **Nombre del archivo:** [`CBI.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/CBI.cs)  
 **Nombre del indicador:** Connie Brown Composite Index  
@@ -49,7 +60,7 @@ description: ¿Cuál es el momentum "compuesto" (RSI + Momentum) del precio, y c
 
 ### 📊 Nivel de relevancia
 
-🔟 **6 / 10**
+🔟 **5 / 10**
 
 ✅ Indicador técnico avanzado para análisis de momentum compuesto.  
 ✅ Buena capacidad para detectar divergencias compuestas.  
@@ -124,12 +135,12 @@ El resultado es un sistema de cruce de medias (`CBI1`, `CBI2`, `CBI3`) que tiene
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**No.**
+**No.** 
 
-Es un indicador diseñado para swing trading en gráficos diarios o semanales, para capturar giros de tendencia de largo plazo. Para un scalper, las señales (cruces de medias) llegarán horas o incluso días tarde.
-
-Es un indicador redundante, ya que el `AMA (Kaufman)` (7/10) o el `AdaptiveBinaryWave` (7/10) hacen un trabajo infinitamente mejor (y más rápido) de filtrar el régimen del mercado.
+Es un indicador de swing trading (gráficos diarios/semanales) con un lag masivo. Para un scalper, las señales llegarán horas tarde.
 
 **Acción:** **Descartar.**
 
-**¿Merece la pena arreglarlo?** **No.** Arreglar las incoherencias (etiquetas y warm-up) no arregla el fallo conceptual (lag extremo). Es un indicador obsoleto para el scalping.
+**¿Merece la pena arreglarlo?** 
+
+**No.** El indicador tiene bugs (etiquetas de parámetros incorrectas y falta de "warm-up"), pero arreglarlos no soluciona el fallo conceptual (es demasiado lento para scalping).

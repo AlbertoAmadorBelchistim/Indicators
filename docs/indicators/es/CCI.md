@@ -2,13 +2,24 @@
 cs_file: CCI.cs
 name: CCI
 category: Momentum
-score: 7/10
+score_current: 7/10
 version: Estable
-verdict: Conservar
+recommended_action: Mejorar
 description: ¿Qué tan lejos se ha desviado el precio "típico" de hoy de su precio "promedio", medido en unidades de desviación estadística?
+
+# --- Análisis y Triaje de Gemini ---
+gemini_summary: Clásico (7/10). Útil para divergencias. Implementación correcta pero sin "warm-up", genera ruido inicial.
+file_state: Buggy
+score_potential: 8/10
+effort: Bajo
+action_priority: P1 (Arreglo Rápido)
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
+user_modification_date: null
+# ------------------------------------
 ---
 
-## 🟦 Commodity Channel Index (CCI) (7/10)
+## 🟦 Commodity Channel Index (CCI) (7/10 | Potencial: 8/10)
 
 **Nombre del archivo:** [`CCI.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/CCI.cs)  
 **Nombre del indicador:** CCI  
@@ -120,8 +131,10 @@ Su uso principal para un scalper no es la señal de "sobrecompra" (vender a +100
 
 **Sí, como indicador de confirmación (7/10).**
 
-Es una buena herramienta para identificar divergencias y filtrar la dirección del momentum a corto plazo. No debe usarse como una señal de entrada principal (especialmente no para "fading" en tendencias fuertes), pero es un excelente complemento para confirmar un setup de reversión.
+Es una buena herramienta para identificar divergencias y filtrar la dirección del momentum a corto plazo. No debe usarse como una señal de entrada principal, pero es un excelente complemento.
 
-**Acción:** **Conservar.**
+**Acción:** **Mejorar (Prioridad P1).**
 
-**¿Merece la pena arreglarlo?** **Sí.** El arreglo es trivial (añadir un `if (bar < Period) return;` al inicio de `OnCalculate`) y mejoraría la calidad de la señal al eliminar el ruido inicial.
+**¿Merece la pena mejorarlo?** 
+
+**SÍ.** El indicador es conceptualmente un 8/10, pero su implementación actual es un 7/10. Tiene un **bug P1** (`effort: Bajo`): le falta un "warm-up", lo que genera ruido en las primeras barras. Arreglar esto es una corrección simple que mejora la calidad de la señal.

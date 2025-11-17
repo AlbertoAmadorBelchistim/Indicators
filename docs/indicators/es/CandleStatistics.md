@@ -2,13 +2,24 @@
 cs_file: CandleStatistics.cs
 name: Candle Statistics
 category: Utilidad / Visualización
-score: 8/10
+score_current: 8/10
 version: Estable
-verdict: Conservar
+recommended_action: Mejorar
 description: ¿Cuál es la "radiografía" de esta vela? ¿Cuál fue su Volumen total, su Delta neto, su número de Ticks (trades) y su Duración?
+
+# --- Análisis y Triaje de Gemini ---
+gemini_summary: "Mini-Cluster" (8/10). Herramienta de UI 'Core' que da el 80% de la info de OF sin el ruido del clúster.
+file_state: Mejorable
+score_potential: 10/10
+effort: Medio
+action_priority: P2 (Mejora Estratégica)
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
+user_modification_date: null
+# ------------------------------------
 ---
 
-## 🟦 Candle Statistics (8/10)
+## 🟦 Candle Statistics (8/10 | Potencial: 10/10)
 
 **Nombre del archivo:** [`CandleStatistics.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/CandleStatistics.cs)  
 **Nombre del indicador:** Candle Statistics  
@@ -131,10 +142,12 @@ La configuración de `LabelLocation = CandleDirection` es particularmente inteli
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí. Es una herramienta de visualización "Core" (central).**
+**Sí. Es una herramienta de visualización "Core" (8/10).**
 
-Te da la información clave de un gráfico de clúster (footprint) sin la sobrecarga visual del clúster. Para tomar decisiones rápidas, ver un resumen de `Vol | Delta | Ticks` es, a menudo, más rápido y más limpio que analizar 50 niveles de precios dentro de un clúster.
+Te da la información clave de un gráfico de clúster (Volumen, Delta, Ticks) sin la sobrecarga visual. Para tomar decisiones rápidas, este resumen es a menudo más limpio.
 
-**Acción:** **Conservar.**
+**Acción:** **Mejorar (Prioridad P2).**
 
-**¿Merece la pena arreglarlo?** **No (está completo).** El indicador funciona perfectamente y es robusto. Las "Propuestas de mejora" (añadir POC, filtros) lo harían aún más potente, pero no son necesarias.
+**¿Merece la pena mejorarlo?** **SÍ.** El indicador funciona perfectamente (8/10). Las mejoras (`effort: Medio`) lo convertirían en una herramienta 10/10:
+1.  Añadir filtros (como en `BarsPattern`) para mostrar el bloque solo en velas que cumplan un criterio (ej. `Delta > 500`).
+2.  Añadir el **POC de la vela** y el **Ratio Delta** (`Delta / Volume`) a la lista de estadísticas.

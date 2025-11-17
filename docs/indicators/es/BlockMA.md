@@ -2,13 +2,24 @@
 cs_file: BlockMA.cs
 name: Block Moving Average
 category: Tendencia / Volatilidad
-score: 7/10
+score_current: 7/10
 version: Estable
-verdict: Conservar (con reservas)
+recommended_action: Mejorar
 description: ¿Cómo puedo crear un 'trailing stop' de volatilidad (basado en el ATR) que solo se mueva a favor de la tendencia (hacia arriba o hacia abajo), pero que nunca retroceda?
+
+# --- Análisis y Triaje de Gemini ---
+gemini_summary: "Nombre Engañoso". Es un "Supertrend" (7/10), no una MA. Excelente trailing stop, pero falla en rangos.
+file_state: Mejorable
+score_potential: 8/10
+effort: Bajo
+action_priority: P2 (Mejora Estratégica)
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
+user_modification_date: null
+# ------------------------------------
 ---
 
-## 🟦 Block Moving Average (7/10)
+## 🟦 Block Moving Average (7/10 | Potencial: 8/10)
 
 
 **Nombre del archivo:** [`BlockMA.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/BlockMA.cs)  
@@ -112,28 +123,21 @@ description: ¿Cómo puedo crear un 'trailing stop' de volatilidad (basado en el
 
 ----------
 
-### ✍️ La opinión de Gemini sobre el Indicador (El Análisis Correcto)
+### ✍️ La opinión de Gemini sobre el Indicador
 
-Has ignorado el nombre **completamente engañoso** del indicador (`Block Moving Average`) y has analizado el código `OnCalculate` para identificar perfectamente lo que _realmente_ es: un **Canal de Volatilidad dinámico basado en ATR** con lógica "ratcheting" (de trinquete).
-
-Es una herramienta fantástica para **seguimiento de tendencia** y para usarla como un **trailing stop dinámico**.
-
-----------
+Tu análisis es perfecto. Has ignorado el **nombre completamente engañoso** (`Block Moving Average`) y has identificado su verdadera naturaleza: es un **Canal de Volatilidad (Supertrend)** con lógica "ratchet" (de trinquete). Es una herramienta fantástica para **seguimiento de tendencia** y para usarla como un **trailing stop dinámico**.
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí, pero con reservas.** Tu puntuación de 6.5/10 (redondeada a 7/10) es perfecta.
+**Sí, pero con reservas (7/10).**
+* **Lo Bueno (El 7):** Es _excelente_ para confirmar una tendencia y, lo que es más importante, para _mantenerte en_ una operación ganadora. Te da un nivel claro de "soporte/resistencia" dinámico.
+* **Lo Malo (El -3):** Es un desastre en mercados laterales o de "rango" (chop), donde genera muchas señales falsas.
 
--   **Lo Bueno (El 7):** Es _excelente_ para confirmar una tendencia y, lo que es más importante, para _mantenerte en_ una operación ganadora. Te da un nivel claro de "soporte/resistencia" dinámico que, mientras no se rompa, te dice "sigue en la operación".
-    
--   **Lo Malo (El -3):** Es un desastre en mercados laterales o de "rango" (chop). Como el indicador _tiene_ que moverse (hacia arriba o hacia abajo), en un mercado lateral estará constantemente "saltando" de alcista a bajista, generando muchas señales falsas.
-    
+**Acción:** **Mejorar (Prioridad P2).**
 
-**Acción:** **Conservar (con reservas).**
-
-Es una herramienta de seguimiento de tendencia de nivel A+. Su única debilidad es la misma que la de todas las herramientas de seguimiento de tendencia: los mercados en rango.
-
-El **AMA (Kaufman) (7/10)** que ya "Conservamos" es superior para _identificar_ el régimen (Tendencia vs. Rango). Este indicador (`BlockMA` / Supertrend) es superior para _gestionar_ una operación _una vez que_ has identificado que estás en una tendencia.
+**¿Merece la pena mejorarlo?** **SÍ.** El indicador funciona, pero sus mejoras de usabilidad (`effort: Bajo`) son una prioridad P2.
+1.  **Renombrar** el indicador a "ATR Trailing Stop" o "Supertrend".
+2.  **Dibujar** las bandas exteriores (`_top1`, `_bot1`, etc.) que ya calcula, para que el usuario vea los niveles de ruptura reales.
 <!--stackedit_data:
 eyJoaXN0b3J5IjpbMTY4OTY2NDI1LC0xNzQxMDc1ODgxXX0=
 -->

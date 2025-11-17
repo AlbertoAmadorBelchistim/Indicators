@@ -2,13 +2,24 @@
 cs_file: BollingerSqueezeV2.cs
 name: Bollinger Squeeze 2
 category: Volatilidad / Momentum
-score: 8/10
+score_current: 8/10
 version: Estable
-verdict: Conservar (Herramienta principal)
-description: ¿Cuál es el momentum (y la pendiente de ese momentum) del precio? Y, al mismo tiempo, ¿está el mercado en una 'compresión' (squeeze) de baja volatilidad (punto rojo) o en una 'expansión' de alta volatilidad (punto verde)?
+recommended_action: Mejorar
+description: ¿Está el mercado en compresión (Squeeze) Y cuál es la dirección del momentum (Histograma)?
+
+# --- Análisis y Triaje de Gemini ---
+gemini_summary: "TTM Squeeze" (8/10). Herramienta 'Pro' que combina Squeeze (puntos) + Momentum (histograma). Defaults débiles (10,1,1).
+file_state: Mejorable
+score_potential: 10/10
+effort: Bajo
+action_priority: P1 (Arreglo Rápido)
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
+user_modification_date: null
+# ------------------------------------
 ---
 
-## 🟦 Bollinger Squeeze 2 (8/10)
+## 🟦 Bollinger Squeeze 2 (8/10 | Potencial: 10/10)
 
 
 **Nombre del archivo:** [`BollingerSqueezeV2.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/BollingerSqueezeV2.cs)  
@@ -175,13 +186,15 @@ Una estrategia clásica de scalping (y la que este indicador está diseñado par
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí. Es una herramienta de nivel profesional.**
+**Sí. Es una herramienta de nivel profesional (8/10).**
 
-Combina contexto de volatilidad y señales de momentum/dirección en un solo panel. Es superior al `BollingerSqueeze` (v1) en todos los sentidos.
+Combina contexto de volatilidad (Squeeze) y señales de momentum/dirección (histograma) en un solo panel. Es superior al `BollingerSqueeze` (v1) en todos los sentidos.
 
-**Acción:** **Conservar (Herramienta Principal).** (Este indicador **reemplaza** al `BollingerSqueeze` (v1), que ahora puede ser descartado por redundante).
+**Acción:** **Mejorar (Prioridad P1).**
 
-**¿Merece la pena arreglarlo?** **SÍ.** Los arreglos son esenciales: cambiar los valores por defecto a los estándares (`20, 2.0, 20, 1.5`) y añadir una línea de cero.
+**¿Merece la pena mejorarlo?** **SÍ.** Es una prioridad P1. El indicador es conceptualmente un 10/10, pero sus valores por defecto (`10, 1, 10, 1`) lo hacen inutilizable. Los arreglos (`effort: Bajo`) son:
+1.  Cambiar los valores por defecto al estándar: `BbPeriod=20`, `BbWidth=2.0`, `KbPeriod=20`, `KbMultiplier=1.5`.
+2.  Añadir una línea de cero (`ShowZeroValue = true`) al histograma `_renderSeries`.
 <!--stackedit_data:
 eyJoaXN0b3J5IjpbLTEyNzM3MTEwNjEsMTY3Nzk5ODUyOF19
 -->

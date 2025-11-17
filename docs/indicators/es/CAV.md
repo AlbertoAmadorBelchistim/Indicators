@@ -2,10 +2,21 @@
 cs_file: CAV.cs
 name: Cumulative Adjusted Value
 category: Momentum
-score: 5/10
+score_current: 5/10
 version: Estable
-verdict: Descartar
+recommended_action: Descartar
 description: ¿Está el precio *consistente y acumulativamente* cotizando por encima de su media (momentum alcista), o por debajo de ella (momentum bajista)?
+
+# --- Análisis y Triaje de Gemini ---
+gemini_summary: Oscilador acumulativo (5/10). No acotado, abstracto y redundante vs. un MACD o la propia EMA.
+file_state: Estable (Redundante)
+score_potential: 5/10
+effort: N/A
+action_priority: P4 (Descartar)
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
+user_modification_date: null
+# ------------------------------------
 ---
 
 ## 🟦 Cumulative Adjusted Value (5/10)
@@ -111,10 +122,14 @@ El problema es que es **abstracto y redundante**:
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**No.** Es demasiado lento, abstracto y redundante.
+**No.** 
+
+Es demasiado lento, abstracto y redundante.
 
 Ya hemos descartado indicadores de momentum/acumulación similares (como `AD`, `ADF`, `BarDifference`, `Angle`) porque eran ruidosos u obsoletos. Este indicador cae en la misma categoría. Un scalper obtiene información mucho mejor y más rápida del `Delta`, `ActiveVolume` o incluso del `AMA (Kaufman)`.
 
 **Acción:** **Descartar.**
 
-**¿Merece la pena arreglarlo?** **No.** Aunque se le podría añadir un reseteo por sesión, el concepto base (acumular la diferencia Precio-EMA) no es lo suficientemente robusto para el scalping.
+**¿Merece la pena arreglarlo?** 
+
+**No.** Aunque se le podría añadir un reseteo por sesión, el concepto base (acumular la diferencia Precio-EMA) no es lo suficientemente robusto para el scalping.

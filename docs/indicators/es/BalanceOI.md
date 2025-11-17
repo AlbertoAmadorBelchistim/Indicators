@@ -2,13 +2,24 @@
 cs_file: BalanceOI.cs
 name: On Balance Open Interest
 category: Order Flow
-score: 8/10
+score_current: 8/10
 version: Estable
-verdict: Conservar
+recommended_action: Mejorar
 description: ¿Está el compromiso acumulado del 'dinero inteligente' (Interés Abierto) subiendo cuando los precios suben y bajando cuando los precios bajan, o está divergiendo?
+
+# --- Análisis y Triaje de Gemini ---
+gemini_summary: Herramienta "Pro" (8/10). Un OBV que usa OI (más inteligente). El Modo Oscilador es excelente para scalping, pero le falta una línea cero.
+file_state: Mejorable
+score_potential: 9/10
+effort: Bajo
+action_priority: P1 (Arreglo Rápido)
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
+user_modification_date: null
+# ------------------------------------
 ---
 
-## 🟦 On Balance Open Interest (8/10)
+## 🟦 On Balance Open Interest (8/10 | Potencial: 9/10)
 
 **Nombre del archivo:** [`BalanceOI.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/BalanceOI.cs)  
 **Nombre del indicador:** On Balance Open Interest  
@@ -147,13 +158,13 @@ La implementación tiene dos modos:
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí, absolutamente.** Es una herramienta de confirmación de nivel profesional para el trading de futuros.
+**Sí, absolutamente.** Es una herramienta de confirmación de nivel profesional para el trading de futuros, superior al OBV.
 
-Te permite ver si un breakout está siendo impulsado por "dinero nuevo" o si es solo un "apretón de cortos" (short squeeze), lo que te da una ventaja significativa.
+Te permite ver si un breakout está siendo impulsado por "dinero nuevo" (aumento de OI) o si es solo un "apretón de cortos" (short squeeze), lo que te da una ventaja significativa. El "Modo Minimizado" (oscilador) es el más útil para este fin.
 
-**Acción:** **Conservar.**
+**Acción:** **Mejorar (Prioridad P1).**
 
-**¿Merece la pena arreglarlo?** **Sí.** El arreglo es trivial (añadir una línea de cero) y es esencial para hacer que el "Modo Minimizado" (el más útil para scalping) sea legible.
+**¿Merece la pena mejorarlo?** **SÍ.** El arreglo es trivial (`effort: Bajo`) y es una prioridad P1. Añadir una línea de cero (`ShowZeroValue = true`) es esencial para hacer que el "Modo Minimizado" (el más útil para scalping) sea legible, elevándolo a un 9/10.
 <!--stackedit_data:
 eyJoaXN0b3J5IjpbLTEwNDczOTYyNzFdfQ==
 -->

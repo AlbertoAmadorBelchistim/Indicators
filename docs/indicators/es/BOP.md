@@ -2,10 +2,21 @@
 cs_file: BOP.cs
 name: Balance of Power
 category: Momentum / Price action
-score: 5/10
+score_current: 5/10
 version: Estable
-verdict: Descartar
+recommended_action: Descartar
 description: ¿Cuál es, en promedio, la fuerza del cuerpo de la vela (Cierre vs. Apertura) en relación con su rango total (Máximo vs. Mínimo)?
+
+# --- Análisis y Triaje de Gemini ---
+gemini_summary: "Ciego" al volumen y a los gaps (5/10). Es un SMA(14) de un ratio de Price Action. Obsoleto vs. herramientas de Order Flow.
+file_state: Estable (Conceptualm. Roto)
+score_potential: 5/10
+effort: N/A
+action_priority: P4 (Descartar)
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
+user_modification_date: null
+# ------------------------------------
 ---
 ## 🟦 Balance of Power (BOP) (5/10)
 

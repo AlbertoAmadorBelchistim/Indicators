@@ -2,13 +2,24 @@
 cs_file: CFO.cs
 name: Chande Forecast Oscillator
 category: Momentum
-score: 5/10
+score_current: 4/10
 version: Estable
-verdict: Descartar
+recommended_action: Descartar
 description: ¿Cuán lejos, en porcentaje, se ha desviado el precio de su propia línea de tendencia (Regresión Lineal)?
+
+# --- Análisis y Triaje de Gemini ---
+gemini_summary: Abstracto y redundante (4/10). Mide la distancia a la LinReg. Tiene bug de warm-up.
+file_state: Buggy
+score_potential: 4/10
+effort: N/A
+action_priority: P4 (Descartar)
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
+user_modification_date: null
+# ------------------------------------
 ---
 
-## 🟦 Chande Forecast Oscillator (CFO) (5/10)
+## 🟦 Chande Forecast Oscillator (CFO) (4/10)
 
 **Nombre del archivo:** [`CFO.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/CFO.cs)  
 **Nombre del indicador:** Chande Forecast Oscillator  
@@ -44,7 +55,7 @@ description: ¿Cuán lejos, en porcentaje, se ha desviado el precio de su propia
 
 ### 📊 Nivel de relevancia
 
-🔟 **5 / 10**
+🔟 **4 / 10**
 
 ✅ Bueno para detectar sobrecompra/sobreventa *relativa a la tendencia*, no a niveles fijos.  
 ⛔ **Abstracto:** El valor (ej. "0.5%") no es tan tangible como el precio o el delta.  
@@ -106,10 +117,12 @@ El problema es que:
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**No.**
+**No.** 
 
-Es un indicador lento, abstracto y redundante. El `AMA (Kaufman)` (que ya conservamos) hace el mismo trabajo de identificación de "tendencia vs. sobreextensión" de una forma visualmente superior y más rápida.
+Es un indicador lento, abstracto y redundante (4/10). El `AMA (Kaufman)` hace un trabajo superior de identificar la "tendencia vs. sobreextensión" de una forma visualmente más limpia.
 
 **Acción:** **Descartar.**
 
-**¿Merece la pena arreglarlo?** **No.** Arreglar el "warm-up" no arregla el fallo conceptual (es redundante).
+**¿Merece la pena arreglarlo?** 
+
+**No.** Tiene un bug de "warm-up", pero arreglarlo no soluciona el fallo conceptual (es redundante).

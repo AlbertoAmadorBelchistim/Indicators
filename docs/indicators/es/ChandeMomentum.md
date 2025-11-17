@@ -1,14 +1,29 @@
 ---
+# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: ChandeMomentum.cs
-name: Chande Momentum Oscillator 
+name: Chande Momentum Oscillators
 category: Momentum
-score: 6/10
+score_current: 5/10
 version: Estable
-verdict: Descartar
-description: ¿Cuál es la fuerza neta del impulso (Suma de Subidas vs. Suma de Bajadas), expresada como un oscilador centrado en cero?
+recommended_action: Mejorar
+description: ¿Cuál es la fuerza neta del impulso (Suma de Subidas vs. Suma de
+  Bajadas), expresada como un oscilador centrado en cero?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: Una implementación estable y correcta del CMO. Es un "RSI ruidoso".
+  El concepto es un 6/10 (redundante con RSI/CCI, pero funcional). La
+  implementación actual es un 5/10 porque carece de las líneas guía básicas
+  (0, +50, -50), que son esenciales para su uso.
+file_state: Mejorable
+score_potential: 6/10
+effort: Bajo
+action_priority: P4
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
 ---
 
-## 🟦 Chande Momentum Oscillator (CMO) (6/10)
+## 🟦 Chande Momentum Oscillator (CMO) (5/10)
 
 **Nombre del archivo:** [`ChandeMomentum.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/ChandeMomentum.cs)  
 **Nombre del indicador:** Chande Momentum Oscillator  
@@ -45,7 +60,7 @@ description: ¿Cuál es la fuerza neta del impulso (Suma de Subidas vs. Suma de 
 
 ### 📊 Nivel de relevancia
 
-🔟 **6 / 10**
+🔟 **5 / 10**
 
 ✅ Es un oscilador "puro" de momentum, centrado en 0, lo que facilita la lectura del sesgo.  
 ✅ Más directo que el RSI (usa Suma Simple vs. la EMA/RMA del RSI).  
@@ -123,6 +138,6 @@ Para un scalper, la elección de un oscilador "ciego" (solo de precio) es import
 
 Dado que ya hemos conservado el `CCI` (7/10) como un oscilador de momentum viable, el `CMO` es redundante.
 
-**Acción:** **Descartar (Redundante).**
+**Acción:** **Mejorar.**
 
 **¿Merece la pena arreglarlo?** **No.** Las mejoras (añadir líneas guía) son triviales, pero no arreglan el hecho de que es un indicador conceptualmente redundante frente al RSI o el CCI.

@@ -2,13 +2,24 @@
 cs_file: CamarillaPivots.cs
 name: Camarilla Pivots
 category: Niveles
-score: 8/10
+score_current: 8/10
 version: Estable
-verdict: Conservar
+recommended_action: Mejorar
 description: ¿Dónde están los niveles de soporte y resistencia intradía más relevantes, basados en la fórmula de Camarilla, para operar rupturas (en L4/H4) y reversiones (en L3/H3)?
+
+# --- Análisis y Triaje de Gemini ---
+gemini_summary: "Mapa de niveles" esencial (8/10). Tiene un bug de 'DivideByZero' (P1) y sus colores son mejorables (P2).
+file_state: Buggy
+score_potential: 9/10
+effort: Bajo
+action_priority: P1 (Arreglo Rápido)
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
+user_modification_date: null
+# ------------------------------------
 ---
 
-## 🟦 Camarilla Pivots (8/10)
+## 🟦 Camarilla Pivots (8/10 | Potencial: 9/10)
 
 **Nombre del archivo:** [`CamarillaPivots.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/CamarillaPivots.cs)  
 **Nombre del indicador:** Camarilla Pivots  
@@ -118,10 +129,12 @@ Es una herramienta de "mapa" excelente para el scalper. Te dice dónde están la
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí, es una herramienta de contexto (mapa) muy útil.**
+**Sí, es una herramienta de contexto (mapa) muy útil (8/10).**
 
-No te da señales de entrada por sí mismo, pero te dice *dónde* buscar esas señales. Para un scalper, operar en un nivel de Camarilla conocido es estadísticamente superior a operar en un precio aleatorio.
+No te da señales de entrada, pero te dice *dónde* buscar esas señales. Para un scalper, operar en un nivel de Camarilla conocido es estadísticamente superior a operar en un precio aleatorio.
 
-**Acción:** **Conservar.**
+**Acción:** **Mejorar (Prioridad P1).**
 
-**¿Merece la pena arreglarlo?** **Sí.** El bug de `DivideByZero` debe ser corregido. Las mejoras de color y las alertas lo harían pasar de un 8/10 a un 9/10 en usabilidad.
+**¿Merece la pena mejorarlo?** 
+
+**SÍ.** El indicador es conceptualmente un 9/10, pero tiene un **bug P1** (`effort: Bajo`). El cálculo de `_lastH5` no comprueba la división por cero, lo que supone un riesgo. Las mejoras de color y alertas son P2.
