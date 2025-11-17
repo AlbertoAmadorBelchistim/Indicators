@@ -1,91 +1,122 @@
-## 🟦 Exponential Moving Average (EMA) (8/10)
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: EMA.cs
+name: EMA
+category: Trend
+score_current: 9/10
+version: ATAS Official
+recommended_action: Conservar
+description: ¿Cuál es el valor de la media móvil exponencial, coloreada por pendiente, con alertas de proximidad al precio?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Implementación 'Core' con color de pendiente y alertas de proximidad (ticks); las 'incoherencias' del .md original son incorrectas."
+file_state: Estable
+score_potential: 9/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
+---
 
-**Nombre del archivo:** `EMA.cs`  
+## 🟦 Exponential Moving Average (EMA) (9/10)
+
+**Nombre del archivo:** [`EMA.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/EMA.cs)  
 **Nombre del indicador:** Exponential Moving Average  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602641](https://help.atas.net/support/solutions/articles/72000602641)
+**Web oficial:** [ATAS — Exponential Moving Average](https://help.atas.net/support/solutions/articles/72000602641)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025
+
+> **La Pregunta Clave:** ¿Cuál es el valor de la media móvil exponencial, coloreada por pendiente, con alertas de proximidad al precio?
+
+![Exponential Moving Average](../../img/EMA.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **Period**: Número de barras para el cálculo de la media exponencial (por defecto: 10)  
-- **ColoredDirection**: Activar coloración según dirección de la EMA  
-- **BullishColor / BearishColor**: Colores para pendiente ascendente o descendente  
-- **UseAlerts**: Activar alertas de proximidad del precio a la EMA  
-- **RepeatAlert**: Permitir alertas múltiples en una misma barra  
-- **AlertSensitivity**: Número de ticks máximo entre el precio y la EMA para disparar alerta  
-- **AlertFile**: Archivo de sonido para la alerta  
-- **FontColor / BackgroundColor**: Colores del texto y fondo de la alerta
+* **Period**: Número de barras para el cálculo de la media exponencial (por defecto: 10)
+* **ColoredDirection**: Activar coloración según dirección de la EMA
+* **BullishColor / BearishColor**: Colores para pendiente ascendente o descendente
+* **UseAlerts**: Activar alertas de proximidad del precio a la EMA
+* **RepeatAlert**: Permitir alertas múltiples en una misma barra
+* **AlertSensitivity**: Número de ticks máximo entre el precio y la EMA para disparar alerta
+* **AlertFile**: Archivo de sonido para la alerta
+* **FontColor / BackgroundColor**: Colores del texto y fondo de la alerta
 
 ---
 
-### 🧭 Clasificación  
+### 🧭 Clasificación
 📂 Trend — Medias móviles con lógica adaptativa y alertas
 
 ---
 
 ### 🧠 Uso más frecuente
 
-- Suavizar el precio para identificar la **tendencia predominante**  
-- Activar alertas cuando el **precio se aproxima a la EMA**  
-- Usar coloración para **confirmar pendiente** o zona favorable
+* Suavizar el precio para identificar la **tendencia predominante**
+* Activar alertas cuando el **precio se aproxima a la EMA** (función de scalping)
+* Usar coloración para **confirmar pendiente** o zona favorable
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **8 / 10**
+### 📊 Nivel de relevancia
+🔟 **9 / 10**
 
-✅ Muy útil como referencia dinámica para entrada y salida  
-✅ Alta visibilidad gracias a la coloración y alertas configurables  
-⛔ Solo considera el cierre, no admite otros tipos de precio  
-⛔ No expone valores intermedios o pendientes como series auxiliares
+✅ Implementación robusta que va más allá de una simple EMA  
+✅ La coloración por pendiente (`ColoredDirection`) es muy útil visualmente  
+✅ Las alertas de proximidad (`AlertSensitivity`) son una herramienta de scalping de alto valor  
+✅ Estable y eficiente
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Entrada por rebote en EMA**: comprar cuando el precio toca EMA ascendente  
-- **Reversión o retesteo**: operar rechazo tras testear la EMA  
-- **Filtro de sesgo direccional**: operar solo en la dirección del color de la EMA  
-- **Alerta reactiva**: recibir notificación cuando el precio se aproxima a la EMA con baja distancia
+* **Entrada por rebote en EMA**: comprar cuando el precio toca EMA ascendente
+* **Reversión o retesteo**: operar rechazo tras testear la EMA
+* **Filtro de sesgo direccional**: operar solo en la dirección del color de la EMA
+* **Alerta reactiva**: recibir notificación cuando el precio se aproxima a la EMA con `AlertSensitivity` (ej. 1 tick)
+
+---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **Period**: `9` a `13`  
-- **ColoredDirection**: `true`  
-- **UseAlerts**: `true`  
-- **AlertSensitivity**: `1` (1 tick)  
-- **BullishColor / BearishColor**: verde / rojo  
-- **AlertFile**: `"alert1"`
-
-✅ Aporta alta precisión visual y auditiva  
-✅ Compatible con otras herramientas de confirmación (Delta, DOM)
+* **Period**: `9` a `13`
+* **ColoredDirection**: `true`
+* **UseAlerts**: `true`
+* **AlertSensitivity**: `1` (1 tick)
+* **AlertFile**: `"alert1"`
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- El valor se calcula como:
-  $$
-  EMA_t = \alpha \cdot \text{Precio}_t + (1 - \alpha) \cdot EMA_{t-1}, \quad \alpha = \frac{2}{1 + \text{Period}}
-  $$
-- El valor inicial (bar = 0) se iguala al primer precio  
-- Si `ColoredDirection` está activo, la línea se colorea según la pendiente  
-- Las alertas se activan si la diferencia entre `Close` y la EMA es menor o igual al número de ticks definido por `AlertSensitivity`
+* El valor se calcula usando la fórmula estándar de EMA: `value * (2.0m / (1 + Period)) + (1 - 2.0m / (1 + Period)) * _renderSeries[bar - 1]`.
+* Si `ColoredDirection` está activo, la línea se colorea según la pendiente (`_renderSeries[bar] > _renderSeries[bar - 1]`).
+* Las alertas se activan si la diferencia entre `Close` y la EMA es menor o igual al número de ticks definido por `AlertSensitivity`.
+* La lógica de alertas solo se ejecuta en la barra actual (`if (bar != CurrentBar - 1 || !UseAlerts) return;`), lo cual es correcto para evitar alertas en datos históricos.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Esta no es solo "una EMA"; es una **herramienta de trading completa** construida alrededor de una EMA. Es un ejemplo perfecto de cómo tomar un indicador clásico y darle valor real para un scalper.
+
+Las dos características clave son la coloración por pendiente (`ColoredDirection`) y las alertas de proximidad (`AlertSensitivity`). Para un scalper, ser alertado automáticamente cuando el precio toca o se acerca a 1 tick de la EMA es una funcionalidad de alto valor que ahorra tiempo de pantalla y reduce la fatiga.
+
+El análisis de la ficha `.md` original era incorrecto en sus "Incoherencias":
+
+1.  **Falso Error (Fuente de Precio):** El `.md` criticaba que usaba `Close` como entrada fija. Esto es incorrecto. El indicador recibe `value` en `OnCalculate`. La plataforma ATAS permite al usuario elegir la fuente (Close, Open, High, Low, Typical, etc.) en la UI del indicador, y la plataforma se encarga de pasar el `value` correcto. El código es genérico y correcto.
+2.  **Falso Error (Lógica de Alerta):** El `.md` criticaba que las alertas solo funcionan en `bar == CurrentBar - 1`. ¡Ese es el comportamiento *deseado*! Las alertas de trading deben sonar en tiempo real (en la última barra), no en datos históricos.
+
+Este indicador es estable, está bien pensado y es una herramienta "Core".
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- El cálculo usa el `Close` como entrada fija, sin posibilidad de configurar otro tipo de precio  
-- La condición `bar != CurrentBar - 1` para alertas impide dispararlas en barras pasadas o durante ciertos replays  
-- No hay control sobre repintado si `ColoredDirection` se modifica con el gráfico ya cargado
+**Sí. Es una herramienta principal.**
 
----
+Las alertas de proximidad por ticks son una función diseñada específicamente para scalping y trading de alta frecuencia.
 
-### 🛠️ Propuestas de mejora
-
-- Permitir elegir el tipo de precio para calcular la EMA (Typical, Weighted, Median, etc.)  
-- Exponer la **pendiente de la EMA** como serie auxiliar para usarla como filtro cuantitativo  
-- Añadir líneas auxiliares de alerta visible sobre el gráfico  
-- Permitir representar también la diferencia entre el precio y la EMA como histograma
+**Acción:** **Conservar (Herramienta Principal).**

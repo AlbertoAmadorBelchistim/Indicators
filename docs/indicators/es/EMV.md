@@ -1,82 +1,113 @@
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: EMV.cs
+name: Arms Ease of Movement
+category: Volume
+score_current: 6.5/10
+version: ATAS Official
+recommended_action: Conservar
+description: ¿Es el movimiento del precio (cambio en el punto medio) eficiente en relación con su volumen y rango?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Implementación estable y correcta de un indicador clásico; las 'incoherencias' detectadas en el .md original son incorrectas."
+file_state: Estable
+score_potential: 6.5/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
 ## 🟦 Arms Ease of Movement (EMV) (6.5/10)
 
-**Nombre del archivo:** `EMV.cs`  
+**Nombre del archivo:** [`EMV.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/EMV.cs)  
 **Nombre del indicador:** Arms Ease of Movement  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602315](https://help.atas.net/support/solutions/articles/72000602315)
+**Web oficial:** [ATAS — Arms Ease of Movement](https://help.atas.net/support/solutions/articles/72000602315)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025
+
+> **La Pregunta Clave:** ¿Es el movimiento del precio (cambio en el punto medio) eficiente en relación con su volumen y rango?
+
+![Arms Ease of Movement](../../img/EMV.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **Period**: Número de barras para suavizar el valor de EMV (por defecto: 9)  
-- **MaType**: Tipo de media móvil utilizada para el suavizado (`EMA`, `SMA`, `WMA`, `SMMA`, `LinearReg`)
+* **Period**: Número de barras para suavizar el valor de EMV (por defecto: 9)
+* **MaType**: Tipo de media móvil utilizada para el suavizado (`EMA`, `SMA`, `WMA`, `SMMA`, `LinearReg`)
 
 ---
 
-### 🧭 Clasificación  
+### 🧭 Clasificación
 📂 Volume — Indicadores que relacionan volumen con desplazamiento del precio
 
 ---
 
 ### 🧠 Uso más frecuente
 
-- Medir la **facilidad con la que el precio se desplaza en relación al volumen**  
-- Detectar **fases de movimiento eficiente o ineficiente**  
-- Confirmar rupturas o fases de expansión con mayor claridad
+* Medir la **facilidad con la que el precio se desplaza en relación al volumen**
+* Detectar **fases de movimiento eficiente o ineficiente**
+* Confirmar rupturas o fases de expansión con mayor claridad
 
 ---
 
-### 📊 Nivel de relevancia  
+### 📊 Nivel de relevancia
 🔟 **6.5 / 10**
 
 ✅ Mide relación entre volumen y rango, no solo precio  
 ✅ Ofrece información de momentum con ajuste por fricción  
 ⛔ No es intuitivo sin conocer la fórmula  
-⛔ Depende de datos completos y puede oscilar bruscamente con velas anómalas
+⛔ Concepto clásico, a menudo menos útil que el análisis directo de Delta o CVD
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Breakout eficiente**: si el EMV sube con vela expansiva y volumen bajo → movimiento limpio  
-- **Reversión por agotamiento**: caída del EMV indica falta de eficiencia en impulso  
-- **Confirmación contextual**: combinar con volumen o delta para validar fases de movimiento
+* **Breakout eficiente**: si el EMV sube con vela expansiva y volumen bajo → movimiento limpio
+* **Reversión por agotamiento**: caída del EMV indica falta de eficiencia en impulso
+* **Confirmación contextual**: combinar con volumen o delta para validar fases de movimiento
+
+---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **Period**: `5` a `9`  
-- **MaType**: `EMA` o `WMA` para mayor reactividad  
-- Combinar con VWAP o CVD para contextos estructurales
-
-✅ Compatible con setups de impulso y ruptura  
-✅ Puede anticipar falta de eficiencia en movimientos fuertes
+* **Period**: `5` a `9`
+* **MaType**: `EMA` o `WMA` para mayor reactividad
+* Combinar con VWAP o CVD para contextos estructurales
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Calcula:
-  $$
-  EMV = \frac{\text{Midpoint}_{t} - \text{Midpoint}_{t-1}}{\text{Volume} / (\text{High} - \text{Low})}
-  $$
-- El resultado se suaviza usando el tipo de media móvil seleccionado  
-- El valor final se guarda en `_renderSeries[bar]`  
-- Usa objetos de tipo `EMA`, `SMA`, `SMMA`, `WMA` o `LinearReg` internamente para suavizado  
-- Inicializa el valor en `bar == 0` con `value = 0`
+* Calcula el MidPoint Move: `(candle.High + candle.Low) / 2m - (prevCandle.High + prevCandle.Low) / 2m`.
+* Calcula el Box Ratio: `candle.Volume / (candle.High - candle.Low)`.
+* El valor EMV es `midPoint / ratio`.
+* **Maneja correctamente la división por cero**: si `candle.High - candle.Low == 0`, `ratio` se establece en 0, y `emv` también se establece en 0, evitando errores.
+* El resultado se suaviza usando el tipo de media móvil seleccionado.
+* El objeto `_movingIndicator` se recrea en `OnRecalculate()`, que es la forma estándar de ATAS de manejar cambios de parámetros.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Se trata de una implementación estándar y **estable** del indicador clásico "Arms Ease of Movement". El código calcula correctamente la relación entre el movimiento del punto medio y el "volumen por rango" y luego lo suaviza con la MA seleccionada.
+
+El análisis de la ficha `.md` original (sección "Incoherencias") contenía errores:
+
+1.  **Falso Error (División por Cero):** El `.md` sugería un problema si `High == Low`. El código (`EMV.cs`) maneja esto explícitamente: si el rango es cero, `ratio` es cero, y `emv` (el valor final) se establece en cero. Esto es un manejo de errores intencional y correcto, no un fallo.
+2.  **Falso Error (Recreación de Objeto):** El `.md` criticaba que `OnRecalculate()` recrea el objeto MA. Esto *es necesario* y es la forma estándar de ATAS de manejar un cambio de parámetros (como `Period` o `MaType`).
+
+El indicador funciona como se espera, es estable y no requiere ninguna acción. Su utilidad para scalping es subjetiva (es un concepto algo anticuado), pero el código es sólido.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- Si `High == Low`, el cálculo de `ratio` da 0, lo cual impide calcular el EMV aunque pueda haber datos relevantes  
-- La inicialización de `_movingIndicator` no se protege ante errores si el tipo es desconocido  
-- La lógica de `OnRecalculate()` recrea el objeto cada vez que se llama, lo que podría optimizarse
+**Ocasionalmente.**
 
----
+Puede dar una visión alternativa del "esfuerzo vs resultado" que el volumen por sí solo no muestra. No es una herramienta principal.
 
-### 🛠️ Propuestas de mejora
-
-- Añadir control sobre el caso `High == Low` usando una tolerancia mínima para evitar división por cero sin eliminar señal  
-- Exponer los valores sin suavizar como una segunda serie para análisis más fino  
-- Añadir opción para representar el indicador como histograma o con zonas de color  
-- Permitir alertas cuando el EMV cruza ciertos niveles o cambia de signo
+**Acción:** **Conservar (Estable).**
