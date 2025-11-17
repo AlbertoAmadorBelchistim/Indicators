@@ -1,11 +1,24 @@
 ---
+# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: DeltaStrength.cs
 name: Delta Strength
 category: VolumeOrderFlow
-score: 5/10
+score_current: 5/10
 version: Estable
-verdict: Descartar (lógica confusa)
-description: Dibuja un punto si el Delta de la vela está en un rango porcentual (ej. 90%-98%) del MaxDelta/MinDelta de esa vela.
+recommended_action: Descartar
+description: ¿Qué velas cierran con un delta que está *casi* en su extremo
+  (MaxDelta/MinDelta), pero no *exactamente* en él?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: Concepto de normalización de delta arruinado por una lógica de
+  filtro de 'banda' (ej. 90-98%) que ignora la señal de agotamiento (98-100%).
+file_state: Estable
+score_potential: 5/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
 ---
 
 ## 🟦 Delta Strength (5/10)

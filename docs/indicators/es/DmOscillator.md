@@ -1,82 +1,103 @@
-## 🟦 Directional Movement Oscillator (7/10)
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: DmOscillator.cs
+name: Directional Movement Oscillator
+category: Tendencia
+score_current: 3/10
+version: Estable
+recommended_action: Descartar
+description: ¿Cuál es la diferencia neta (DI+ menos DI-)? (Basado en un DMI no estándar)
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Indicador 'Impostor por Derivación'; se basa en el indicador 'DmIndex'
+  (que es un impostor no estándar), por lo que este oscilador no es fiable."
+file_state: Impostor
+score_potential: 3/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
+---
 
-**Nombre del archivo:** `DmOscillator.cs`  
+## 🟦 Directional Movement Oscillator (3/10)
+
+**Nombre del archivo:** [`DmOscillator.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/DmOscillator.cs)  
 **Nombre del indicador:** Directional Movement Oscillator  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602371](https://help.atas.net/support/solutions/articles/72000602371)
+**Web oficial:** [ATAS — Directional Movement Oscillator](https://help.atas.net/support/solutions/articles/72000602371)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025
+
+> **La Pregunta Clave:** ¿Cuál es la diferencia neta (DI+ menos DI-)? (Basado en un DMI no estándar)
+
+![DmOscillator](../../img/DmOscillator.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **Period**: Número de barras usadas para suavizar DI+ y DI- (por defecto: 14)
+* **Period**: Número de barras usadas por el `DmIndex` interno (por defecto: 14).
 
 ---
 
-### 🧭 Clasificación  
-📂 Trend — Osciladores de dirección de movimiento
+### 🧭 Clasificación
+📂 Trend — Osciladores de dirección de movimiento.
 
 ---
 
 ### 🧠 Uso más frecuente
 
-- Medir la **diferencia neta entre DI+ y DI-**  
-- Confirmar si la dirección dominante es compradora o vendedora  
-- Detectar posibles **cambios de dirección** mediante cruces por el eje cero
+* (Teórico) Medir la **diferencia neta entre DI+ y DI-**.
+* (Teórico) Detectar cruces por el eje cero como cambios de dirección.
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **7 / 10**
+### 📊 Nivel de relevancia
+🔟 **3 / 10**
 
-✅ Muy visual e intuitivo para evaluar tendencia dominante  
-✅ Útil como oscilador confirmatorio o filtro  
-⛔ No tiene lógica de señal por sí solo (requiere interpretación)  
-⛔ No incluye información sobre la fuerza (ADX)
+⛔ **Impostor por Derivación:** Este indicador basa todos sus cálculos en el indicador `DmIndex`.  
+⛔ Dado que `DmIndex` es un "Impostor" (usa una fórmula no estándar), este oscilador también es un impostor y no coincide con un DMI Oscillator estándar.
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Cruce por encima de cero**: posible inicio de tendencia alcista  
-- **Cruce por debajo de cero**: posible inicio de tendencia bajista  
-- **Confirmación de fuerza direccional**: operar solo si el valor absoluto crece
+* **Ninguna.** Los valores no son fiables ni estándar.
+
+---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **Period**: `10` a `14`  
-- Visualización con línea azul o histograma  
-- Añadir línea cero como referencia clara
-
-✅ Ideal para detectar sesgo direccional  
-✅ Rápido de interpretar en decisiones tácticas
+* **Ninguna.**
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- El indicador encapsula internamente un `DmIndex`, que calcula DI+ y DI-  
-- Obtiene el valor del oscilador como:
-  \[
-  \text{DM Oscillator}_t = DI^+_t - DI^-_t
-  \]
-- Usa dos `ValueDataSeries` internas del `DmIndex`:
-  - `DataSeries[0]`: DI+  
-  - `DataSeries[1]`: DI-
-- El valor final se guarda en `_renderSeries`
-
----
-
-### ❗ Incoherencias o aspectos mejorables detectados
-
-- El nombre `RenderSeries` no especifica claramente que representa la diferencia DI+ - DI-, lo que puede dificultar la interpretación técnica si no se consulta la documentación  
-- El indicador depende de un `DmIndex` como subindicador, lo cual podría afectar el rendimiento si se instancia repetidamente  
-- No hay control si alguno de los valores de `DataSeries` está vacío o fuera de índice
+* El indicador es un simple "wrapper" o "derivado".
+* Añade el indicador `DmIndex` como un sub-indicador (`_dm`).
+* Su único cálculo es: `_renderSeries[bar] = _dm.DataSeries[0] - _dm.DataSeries[1]`.
+* Hereda todos los problemas de `DmIndex`.
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-- Renombrar `_renderSeries` como `DmOscSeries` o similar para mayor claridad  
-- Añadir líneas auxiliares en cero y umbrales opcionales  
-- Incluir visualización tipo histograma para mayor contraste visual  
-- Permitir mostrar simultáneamente DI+, DI- y el oscilador en el mismo panel
+* **Descartar.**
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Este indicador es un "Impostor por Derivación". Está construido sobre una fundación podrida.
+
+Dado que su indicador base, `DmIndex`, está roto (es un impostor que no sigue la fórmula estándar), este oscilador simplemente resta dos líneas de datos incorrectos. El resultado es un oscilador no estándar que no tiene correlación con ninguna estrategia probada de DMI.
+
+---
+
+### 📈 Veredicto: ¿Es útil para Scalping?
+
+**No. Es un indicador "Impostor".**
+
+**Acción:** **Descartar (Impostor).**

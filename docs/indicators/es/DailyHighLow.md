@@ -1,14 +1,28 @@
 ---
+# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: DailyHighLow.cs
 name: Daily HighLow
 category: Levels
-score: 7/10
+score_current: 6/10
 version: Estable
-verdict: Conservar (contexto clave, visualización pobre)
-description: Dibuja el Máximo, Mínimo y Mediana del día actual, y la Mediana del día anterior.
+recommended_action: Reparar
+description: ¿Dónde están el Máximo, Mínimo y Mediana del día actual, y la Mediana
+  del día anterior?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Concepto de contexto 10/10 (D-H/L/M, PD-M) arruinado por una implementación
+  visual 2/10 ('Square' en lugar de 'Line'); reparación trivial y de alta
+  prioridad."
+file_state: Mejorable
+score_potential: 9/10
+effort: Bajo
+action_priority: P2
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
 ---
 
-## 🟦 Daily HighLow (7/10)
+## 🟦 Daily HighLow (6/10)
 
 **Nombre del archivo:** [`DailyHighLow.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/DailyHighLow.cs)  
 **Nombre del indicador:** Daily HighLow  
@@ -43,12 +57,12 @@ description: Dibuja el Máximo, Mínimo y Mediana del día actual, y la Mediana 
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **7 / 10**
+🔟 **6 / 10**
 
-✅ **Contexto A+:** Proporciona los 4 niveles diarios más importantes para el trading intradía.
-✅ Facilita el análisis estructural (ver si el precio está por encima/debajo de las medianas).
-⛔ **Defecto Visual Grave:** El indicador dibuja los niveles como una serie de **puntos** (`VisualMode.Square`), en lugar de líneas horizontales limpias. Esto ensucia mucho el gráfico y es poco práctico.
-⛔ El parámetro `Days` es confuso: no filtra datos, solo define el punto de inicio del dibujo (cuántos días deben cargarse primero).
+✅ **Contexto A+:** Proporciona los 4 niveles diarios más importantes para el trading intradía.  
+✅ Facilita el análisis estructural (ver si el precio está por encima/debajo de las medianas).  
+⛔ **Defecto Visual Grave:** El indicador dibuja los niveles como una serie de **puntos** (`VisualMode.Square`), en lugar de líneas horizontales limpias. Esto ensucia mucho el gráfico y es poco práctico.  
+⛔ El parámetro `Days` es confuso: no filtra datos, solo define el punto de inicio del dibujo (cuántos días deben cargarse primero).  
 
 ---
 
@@ -79,16 +93,16 @@ description: Dibuja el Máximo, Mínimo y Mediana del día actual, y la Mediana 
 
 ---
 
-### 🛠️ Propuestas de mejora
+### 🛠️ Propuestas de mejora (Reparación)
 
-* **Crítico:** Cambiar el `VisualType` de `VisualMode.Square` a `VisualMode.Line` (o `Dash`) para que dibuje líneas limpias en lugar de puntos.
+* **Crítico (Reparación Visual):** Cambiar el `VisualType` de las 4 `ValueDataSeries` (`_highSeries`, `_lowSeries`, `_medianSeries`, `_prevMiddleSeries`) de `VisualMode.Square` a `VisualMode.Line` (o `Dash`). Esta reparación es trivial (4 líneas) y transforma el indicador de "ruidoso" a "excelente".
 * Añadir una opción para que las líneas se extiendan hacia la derecha.
 * Añadir etiquetas opcionales con los valores (por ejemplo: “Day High 5320.25”).
 
 ---
 ---
 
-### ✍️ La opinión de Gemini sobre el Indicador (El Análisis Correcto)
+### ✍️ La opinión de Gemini sobre el Indicador
 
 La *información* que proporciona este indicador es de **10/10**. Para un scalper, saber dónde están el Máximo, Mínimo y Mediana del día, y dónde estaba la Mediana de ayer, es un contexto fundamental. Es el "mapa" básico del territorio intradía.
 
@@ -100,8 +114,10 @@ El indicador es un ejemplo perfecto de una idea brillante arruinada por una mala
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí, es una herramienta de contexto clave.**
+**Sí, el *concepto* es una herramienta de contexto clave. La *implementación* es pobre.**
 
-Aunque su visualización es muy pobre (puntos en lugar de líneas), los 4 niveles que dibuja son fundamentales para el scalping. Se usa para definir el sesgo (comparando medianas) y para encontrar zonas de alta probabilidad para reversiones (Day High/Low) o continuaciones (rupturas).
+Aunque su visualización es terrible (puntos en lugar de líneas), los 4 niveles que dibuja son fundamentales para el scalping. Se usa para definir el sesgo (comparando medianas) y para encontrar zonas de alta probabilidad para reversiones (Day High/Low).
 
-**Acción:** **Conservar (Contexto Clave).** (Pero necesita una corrección visual urgente).
+**Acción:** **Reparar.**
+
+**¿Merece la pena arreglarlo?** **Absolutamente.** Es un esfuerzo de programación `Bajo` (P2) para una ganancia de usabilidad `Alta`. El indicador pasa de 6/10 a 9/10 con solo cambiar 4 líneas de código.

@@ -1,98 +1,138 @@
-## 🟦 Delta Turnaround (7.5/10)
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: DeltaTurnaround.cs
+name: Delta Turnaround
+category: VolumeOrderFlow
+score_current: 6/10
+version: Latest
+recommended_action: Descartar
+description: ¿Se ha producido un patrón de giro de 3 velas (dos en una dirección,
+  una en la opuesta) confirmado por el delta?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: Patrón de giro de 3 velas válido pero 'hard-codeado', haciéndolo 100%
+  redundante frente a la flexibilidad del indicador 'BarsPattern'.
+file_state: Estable
+score_potential: 6/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-07-31
+user_modification_date: null
+---
 
-**Nombre del archivo:** `DeltaTurnaround.cs`  
+## 🟦 Delta Turnaround (6/10)
+
+**Nombre del archivo:** [`DeltaTurnaround.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/DeltaTurnaround.cs)  
 **Nombre del indicador:** Delta Turnaround  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602364](https://help.atas.net/support/solutions/articles/72000602364)
+**Web oficial:** [ATAS — Delta Turnaround](https://help.atas.net/support/solutions/articles/72000602364)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 31/07/2025
+
+> **La Pregunta Clave:** ¿Se ha producido un patrón de giro de 3 velas (dos en una dirección, una en la opuesta) confirmado por el delta?
+
+![DeltaTurnaround](../../img/DeltaTurnaround.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **UseAlerts**: Activar alertas automáticas  
-- **AlertOnNewCandle**: Lanzar alerta al abrir nueva vela si hubo señal en la anterior  
-- **AlertFile**: Archivo de sonido para la alerta  
-- **AlertBGColor / AlertForeColor**: Colores de fondo y texto de alerta
+* **UseAlerts**: Activar alertas sonoras.
+* **AlertOnNewCandle**: Lanzar alerta al abrir la siguiente vela (en lugar de en la vela de la señal).
+* **AlertFile**: Archivo de sonido para la alerta.
+* **AlertBGColor / AlertForeColor**: Colores del pop-up de alerta.
+* *Nota: La lógica del patrón (nº de velas, etc.) no es configurable.*
 
 ---
 
-### 🧭 Clasificación  
-📂 VolumeOrderFlow — Señales de giro basadas en delta y estructura
+### 🧭 Clasificación
+📂 VolumeOrderFlow — Señales de giro basadas en delta y estructura.
 
 ---
 
 ### 🧠 Uso más frecuente
 
-- Detectar patrones de **reversión en el delta** tras dos velas fuertes en dirección contraria  
-- Visualizar señales de giro con confirmación por delta negativo (venta) o positivo (compra)  
-- Lanzar alertas cuando se forma el patrón completo de vuelta delta  
-- Combinar con otros indicadores para entradas tácticas o detección de absorciones
+* Detectar patrones de reversión en el delta tras dos velas fuertes en dirección contraria.
+* Visualizar señales de giro con confirmación por delta negativo (venta) o positivo (compra)
+* Lanzar alertas cuando se forma el patrón completo de vuelta delta.
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **7.5 / 10**
+### 📊 Nivel de relevancia
+🔟 **6 / 10**
 
-✅ Patrón claro de estructura + delta, fácil de validar  
-✅ Visualización simple con flechas (up/down arrows)  
-⛔ No configurable: el patrón es fijo y no admite variantes  
-⛔ Puede lanzar señales falsas si la tercera vela es pequeña o de consolidación
+✅ **Patrón Válido:** El patrón que busca (estructura de 2 velas + 1 giro con delta) es un setup de scalping válido.  
+✅ **Simple:** Visualización muy limpia (flechas arriba/abajo).  
+⛔ **Extremadamente Rígido:** El patrón está "hard-codeado" (2 velas previas, 1 de giro). No se puede configurar para buscar giros de 3 velas, o con un delta mínimo.  
+⛔ **Redundante:** El indicador `BarsPattern` puede ser configurado para encontrar este exacto patrón (y miles más) con mucha más flexibilidad.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Vuelta bajista** (flecha roja): dos velas alcistas seguidas de una bajista con delta negativo  
-- **Vuelta alcista** (flecha verde): dos velas bajistas seguidas de una alcista con delta positivo  
-- **Confirmación**: se puede usar como trigger tras ruptura fallida o spike de agresión  
-- **Entrada contraria al movimiento previo** cuando se forma la tercera vela del patrón
+* **Vuelta bajista (flecha roja):** Dos velas alcistas, seguidas de una vela bajista que hace un nuevo máximo (o igual) y tiene delta negativo.
+* **Vuelta alcista (flecha verde):** Dos velas bajistas, seguidas de una vela alcista que hace un nuevo mínimo (o igual) y tiene delta positivo.
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **UseAlerts**: `true`  
-- **AlertOnNewCandle**: `true`  
-- **AlertFile**: `"alert1"`  
-- **Colores**: rojo para ventas, verde para compras  
-- **Visibilidad**: `UpArrow` y `DownArrow` activados
-
-✅ Permite reacción rápida con señales visuales y sonoras  
-✅ Compatible con lógica de ruptura/absorción en extremos
+* **UseAlerts**: `true`
+* **AlertOnNewCandle**: `false` (Para recibir la alerta en la vela de señal, no una vela tarde).
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Detecta dos patrones:
-  - **Giro bajista**:
-    - Dos velas alcistas seguidas de una bajista  
-    - La tercera vela debe cerrar por debajo de su apertura  
-    - Su máximo debe ser igual o mayor que el de la vela previa  
-    - Su delta debe ser negativo
-  - **Giro alcista**:
-    - Dos velas bajistas seguidas de una alcista  
-    - El mínimo debe ser igual o inferior al de la vela anterior  
-    - Delta debe ser positivo
-- En ambos casos se dibuja una flecha (`VisualMode.UpArrow` o `DownArrow`)  
-- Si `AlertOnNewCandle` está activo, se lanza alerta al abrir nueva vela si hubo señal previa  
-- Si `UseAlerts` está activo, lanza alerta en la misma barra cuando se detecta la señal
+* El indicador busca dos patrones fijos en `OnCalculate`:
+    * **Giro bajista (Flecha Roja):**
+        * `prevCandle` es alcista (Close > Open).
+        * `prev2Candle` es alcista (Close > Open).
+        * `candle` es bajista (Close < Open).
+        * `candle.High >= prevCandle.High` (Fallo en el nuevo máximo).
+        * `candle.Delta < 0` (Confirmación de agresión vendedora).
+    * **Giro alcista (Flecha Verde):**
+        * `prevCandle` es bajista (Close < Open).
+        * `prev2Candle` es bajista (Close < Open).
+        * `candle` es alcista (Close > Open).
+        * `candle.Low <= prevCandle.Low` (Fallo en el nuevo mínimo).
+        * `candle.Delta > 0` (Confirmación de agresión compradora).
 
 ---
 
 ### ❗ Incoherencias o aspectos mejorables detectados
 
-- El texto de alerta es **el mismo para señales alcistas y bajistas**:  
-  `"Delta turnaround down signal."` → debería diferenciarse entre "up signal" y "down signal"  
-- No hay parámetros para modificar la **cantidad de velas previas necesarias** ni umbrales de delta  
-- La señal se borra si el patrón se rompe en tiempo real (no queda marcado si luego cambia)  
-- No permite filtrar por tamaño de vela o volumen, lo cual puede generar ruido en laterales
+* **Alerta Genérica (Bug):** Si `AlertOnNewCandle = true`, el texto de la alerta es `"Delta turnaround signal."`, sin diferenciar si es alcista o bajista. (Las alertas inmediatas, `AlertOnNewCandle = false`, sí están diferenciadas correctamente en el código).
+* **Rigidez:** Como se mencionó, el patrón no es configurable (nº de velas, umbral de delta, etc.).
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-- Diferenciar alertas de compra y venta con textos y sonidos distintos  
-- Añadir opción para requerir delta mínimo en la tercera vela  
-- Permitir definir cuántas velas previas considerar (ej. 3 en vez de 2)  
-- Incluir lógica para dejar la señal fija una vez confirmada  
-- Añadir etiquetas con el valor del delta que generó la señal
+* Reparar el bug del texto de la alerta genérica en modo `AlertOnNewCandle`.
+* *Propuesta conceptual:* Descartar este indicador y replicar su lógica en `BarsPattern` para mayor flexibilidad.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Este indicador es un buen ejemplo de una herramienta que hace una sola cosa específica. El patrón que busca (una micro-tendencia de 2 velas que falla en el tercer intento, con el delta confirmando el fallo) es un setup de reversión de libro de texto.
+
+El problema es su rigidez. ¿Qué pasa si la micro-tendencia tenía 3 velas? ¿O 4? ¿Qué pasa si el delta es positivo, pero la vela de giro es una absorción masiva? El indicador ignora todos estos matices.
+
+Es un indicador obsoleto porque su funcionalidad ha sido completamente superada por el indicador `BarsPattern`. Con `BarsPattern`, podrías construir este exacto setup (y 100 variaciones del mismo) de forma mucho más robusta y flexible.
+
+---
+
+### 📈 Veredicto: ¿Es útil para Scalping?
+
+**No. Es redundante y demasiado rígido.**
+
+Un scalper necesita flexibilidad. Las herramientas que ya hemos decidido "Conservar" (como `BarsPattern`, `DeltaModif` y `CMS`) te permiten identificar este mismo patrón de giro de forma mucho más fiable y contextual.
+
+No hay razón para usar este indicador si ya tienes `BarsPattern` en tu arsenal.
+
+**Acción:** **Descartar (Rígido / Redundante).**
+
+**¿Merece la pena arreglarlo?** **No.** Arreglarlo implicaría añadirle parámetros (nº de velas, filtro de delta), lo que lo convertiría en una versión "lite" de `BarsPattern`. Es mejor usar `BarsPattern` directamente.

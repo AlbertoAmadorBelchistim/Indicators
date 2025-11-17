@@ -1,83 +1,108 @@
-## 🟦 DI+ (Directional Indicator Positivo) (7/10)
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: DIPos.cs
+name: DI+ (Directional Indicator Positivo)
+category: Tendencia
+score_current: 3/10
+version: Estable
+recommended_action: Descartar
+description: ¿Cuál es la presión compradora relativa? (Componente del sistema ADX/DMI)
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Indicador de 'componente' inútil por sí solo; su funcionalidad está
+  (o debería estar) incluida en el indicador ADX/DMI completo, haciéndolo
+  redundante."
+file_state: Estable
+score_potential: 3/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
+---
 
-**Nombre del archivo:** `DIPos.cs`  
+## 🟦 DI+ (Directional Indicator Positivo) (3/10)
+
+**Nombre del archivo:** [`DIPos.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/DIPos.cs)  
 **Nombre del indicador:** DI+  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000621049](https://help.atas.net/support/solutions/articles/72000621049)
+**Web oficial:** [ATAS — DI+](https://help.atas.net/support/solutions/articles/72000621049)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025
+
+> **La Pregunta Clave:** ¿Cuál es la presión compradora relativa? (Componente del sistema ADX/DMI)
+
+![DI+](../../img/DIPos.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **Period**: Número de barras para el cálculo del ATR y WMA (por defecto: 10)
+* **Period**: Número de barras para el cálculo del ATR y WMA (por defecto: 10).
 
 ---
 
-### 🧭 Clasificación  
-📂 Trend — Indicadores de fuerza direccional
+### 🧭 Clasificación
+📂 Trend — Indicadores de fuerza direccional.
 
 ---
 
 ### 🧠 Uso más frecuente
 
-- Medir la **presión compradora relativa**  
-- Identificar **tendencias alcistas** con fortaleza creciente  
-- Usar junto a DI- y ADX en sistemas de **Directional Movement Index (DMI)**
+* **Componente** del sistema **Directional Movement Index (DMI)**, junto con DI- y ADX.
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **7 / 10**
+### 📊 Nivel de relevancia
+🔟 **3 / 10**
 
-✅ Mide fuerza alcista basada en máximos crecientes  
-✅ Compatible con DI-, ADX y estrategias de cruce direccional  
-⛔ Aislado, no sirve para análisis completo de tendencia  
-⛔ No representa ni confirma la dirección dominante sin compararlo con DI-
+⛔ **Indicador Incompleto:** Este indicador es solo una parte (DI+) de un sistema de 3 partes (DI+, DI-, ADX).
+⛔ **Redundante:** ATAS ofrece un indicador `ADX` completo que ya incluye DI+ y DI-. Cargar este indicador por separado no tiene sentido y consume recursos.
+⛔ No aporta señales por sí solo.
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Confirmación de tendencia alcista** si DI+ crece de forma sostenida  
-- **Cruce DI+ sobre DI-**: posible señal de compra  
-- **Evitar cortos** cuando DI+ está muy elevado y estable
+* **Ninguna.** Un trader usaría el indicador `ADX` completo para ver el cruce de DI+/DI- y el valor de ADX, no este componente por separado.
+
+---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **Period**: `7` o `10`  
-- Color azul, línea continua  
-- Combinar con DI- y ADX para visión completa de tendencia y fuerza
-
-✅ Detecta impulsos alcistas con claridad  
-✅ Compatible con estructuras de continuación en tendencia
+* **Ninguna.** Se recomienda usar el indicador `ADX` en su lugar.
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Detecta presión compradora cuando:
-  - **El máximo actual supera al anterior**  
-  - **La diferencia en máximos es mayor que la caída en mínimos**
-- Si se cumple, se mide esa distancia como “val” y se suaviza con WMA  
-- Se normaliza por ATR del mismo periodo:
-  $$
-  DI^+ = 100 \times \frac{\text{WMA}_{\text{positivo}}}{ATR}
-  $$
-- El valor se guarda en `this[bar]`  
-- El color por defecto es azul (línea sólida)
-
----
-
-### ❗ Incoherencias o aspectos mejorables detectados
-
-- Igual que en **DI-**, la señal puede ser inconsistente en velas con bajo rango o gaps  
-- No se expone valor conjunto con DI- ni se incluye ADX, por lo que se debe complementar manualmente  
-- No hay alertas ni líneas auxiliares (ej. umbral de 20 o 40)
+* Implementación estándar de DI positivo (`DI+`).
+* Calcula el movimiento positivo (`val`), lo suaviza con una WMA, y lo normaliza usando el ATR.
+* Está diseñado para ser usado junto con `DINeg.cs` y `ADX.cs`.
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-- Integrar DI+ y DI- en un solo indicador opcional con colores diferenciados  
-- Añadir visualización del **ADX** para analizar fuerza direccional  
-- Incluir **alertas configurables** cuando se cruce cierto nivel o haya cruce DI+ / DI-  
-- Mostrar etiquetas con valor actual o máximo reciente
+* **Descartar.**
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Este indicador no debería existir por separado. Es un "componente".
+
+El sistema DMI/ADX de J. Welles Wilder requiere tres líneas para ser interpretable:
+1.  **DI+ (este indicador):** Muestra la presión compradora.
+2.  **DI-:** Muestra la presión vendedora.
+3.  **ADX:** Muestra la *fuerza* de la tendencia (si DI+ o DI- está ganando).
+
+Publicar `DI+` como un indicador independiente es como vender un coche sin ruedas. No sirve para nada. Un scalper que quiera usar este sistema cargará el indicador `ADX` (que incluye las 3 líneas) en un solo panel.
+
+---
+
+### 📈 Veredicto: ¿Es útil para Scalping?
+
+**No. Es un componente inútil y redundante.**
+
+**Acción:** **Descartar (Redundante / Componente).**

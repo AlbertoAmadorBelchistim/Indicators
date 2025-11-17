@@ -1,82 +1,119 @@
-## 🟦 DOM Power (8/10)
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: DomPowerModif.cs
+name: DOM Power Modif
+category: OrderBook
+score_current: 9/10
+version: Modif
+recommended_action: Conservar
+description: ¿Cuál es el desequilibrio neto (Bids vs Asks) en el libro de órdenes y
+  cuál es su rango de volatilidad?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Versión 'Pro' que arregla el bug de actualización y añade un 'Histograma
+  de Desequilibrio' y un 'Rango de Desequilibrio' (volatilidad del DOM)."
+file_state: Estable
+score_potential: 10/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
+---
 
-**Nombre del archivo:** `DomPower.cs`  
-**Nombre del indicador:** DOM Power  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602374](https://help.atas.net/support/solutions/articles/72000602374)
+## 🟦 DOM Power Modif (9/10)
+
+**Nombre del archivo:** [`DomPowerModif.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/compile/myindicators/MyIndicators/DomPowerModif.cs)  
+**Nombre del indicador:** DOM Power Modif  
+**Web oficial (Base):** [ATAS — DOM Power](https://help.atas.net/support/solutions/articles/72000602374)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código base:**  [`DomPower.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/DomPower.cs): 23/4/2025  
+**Última revisión del código modificado:** 13/11/2025 (v 1.3.0)  
+*(Versión extendida y mejorada por Alberto Amador Belchistim sobre la beta oficial de ATAS)*
+
+*(Versión modificada y mejorada por Alberto Amador Belchistim)*
+
+> **La Pregunta Clave:** ¿Cuál es el desequilibrio neto (Bids vs Asks) en el libro de órdenes y cuál es su rango de volatilidad?
+
+![DOM Power Modif](../../img/DomPower.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **LevelDepth**: Número de niveles de profundidad del DOM a considerar (por defecto: 5, desactivado por defecto)
+* **LevelDepth**: Número de niveles de profundidad del DOM a considerar (por defecto: 5, desactivado).
+* **Mode**: Modo de visualización (`SeparateLines` / `HistogramDom`).
+* **DomRangeThreshold**: Umbral para alertas de rango de desequilibrio.
+* **AlertEnabled**: Activar alertas.
+* **AlertExtremesPercent**: % de la cola para alertas (ej. 10%).
 
 ---
 
-### 🧭 Clasificación  
-📂 OrderBook — Indicadores basados en profundidad de mercado
+### ✨ Mejoras (Modificación vs. Original)
+
+Esta versión `DomPowerModif.cs` arregla el bug más crítico del original y añade funciones de nivel profesional:
+
+1.  **Arreglo de Bug de Actualización:** El indicador original solo se actualizaba *una vez por barra*. Esta versión se actualiza **en tiempo real** con cada cambio del DOM, lo cual es esencial para scalping.
+2.  **Modo Histograma (`HistogramDom`):** Añade un modo de visualización que muestra el desequilibrio neto (`Bids - Asks`) como un histograma positivo/negativo. Esto es, en esencia, un **"CVD Pasivo"** (CVD del libro de órdenes).
+3.  **Rango de Desequilibrio (`DomImbalanceRange`):** Añade una línea que mide la *volatilidad* del desequilibrio del DOM dentro de cada barra (Max Imbalance - Min Imbalance).
+4.  **Alertas Avanzadas:** Las alertas se basan en la expansión de esta "Volatilidad del DOM".
+
+---
+
+### 🧭 Clasificación
+📂 OrderBook — Análisis de desequilibrio del libro de órdenes (DOM Imbalance).
 
 ---
 
 ### 🧠 Uso más frecuente
 
-- Medir la **presión relativa de órdenes límite en el libro**  
-- Evaluar si hay más intención de compra o venta en los primeros niveles del DOM  
-- Detectar desequilibrios latentes antes de que se ejecuten agresivamente  
-- Visualizar máximos y mínimos de delta de profundidad en tiempo real
+* Medir el **Desequilibrio del DOM (DOM Imbalance)** como un histograma, similar al Delta.
+* Identificar la **volatilidad del libro de órdenes** (DOM Range) para detectar compresión o expansión de la liquidez.
+* Recibir alertas cuando la liquidez pasiva se vuelve errática o se expande bruscamente.
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **8 / 10**
+### 📊 Nivel de relevancia
+🔟 **9 / 10**
 
-✅ Accede directamente a los datos de profundidad en tiempo real  
-✅ Permite filtrar por número de niveles visibles en el DOM  
-⛔ No tiene señal explícita, es un indicador de interpretación visual  
-⛔ Puede requerir ajuste fino según instrumento o momento del mercado
+✅ **Herramienta Profesional:** Arregla el bug de actualización y añade métricas (Histograma y Rango de Imbalance) que no existen en la versión oficial.  
+✅ **"CVD Pasivo":** El histograma de desequilibrio es el complemento perfecto al CVD de agresión.  
+✅ **Métrica Única:** El "Rango de Imbalance" es una métrica de volatilidad del DOM muy avanzada.  
+⛔ **Bug Menor Persistente:** El bug de la lógica del filtro `LevelDepth` (de la versión original) no se ha corregido. Sin embargo, no es crítico si se usa el DOM completo (`LevelDepth` desactivado).  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Spoofing detectado**: presión aparente desaparece al acercarse el precio  
-- **Desequilibrio de liquidez**: el delta de bids y asks anticipa movimientos  
-- **Confirmación pasiva**: entrada sólo si el DOM respalda la dirección del flujo agresivo
+* **Divergencia DOM/Delta:** Buscar divergencias entre el `CVD` (agresión) y el `Histograma DOM` (intención). Ej: Agresión vendedora fuerte (CVD bajando) mientras la intención pasiva (Histograma DOM) sube, indica una trampa de liquidez.
+* **Breakout de Volatilidad del DOM:** Buscar entradas después de que el `DOM Range` (línea de rango) muestre un pico extremo, indicando una batalla de liquidez que se ha resuelto.
+
+---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **LevelDepth**: `5` o `10` según profundidad media del instrumento  
-- Usar junto a indicadores de agresión (delta, CVD, imbalances)  
-- Activar visualización en panel propio con colores diferenciados para bids y asks
+* **LevelDepth.Enabled**: `false` (Para usar el DOM completo y evitar el bug del filtro).
+* **Mode**: `HistogramDom` (El modo más útil).
+* **AlertEnabled**: `true`.
+* **DomRangeThreshold**: (Ajustar al activo, ej. 800-1000 para ES).
 
-✅ Detecta presión real de liquidez antes de que ocurra la ejecución  
-✅ Compatible con estrategias de absorción, empuje o agotamiento
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Esta modificación es excelente. Arregla el fallo más grave del original (la actualización por barra) y añade dos métricas de nivel profesional: el **Histograma de Desequilibrio del DOM** y el **Rango de Desequilibrio del DOM**.
+
+El Histograma (Bids - Asks) es el "CVD Pasivo" y es una herramienta fundamental que faltaba. El Rango (Max - Min Imbalance) mide la "volatilidad de la intención", una métrica muy avanzada para detectar cuándo las "ballenas" están moviendo sus órdenes (tirando y apilando).
+
+Aunque persiste un bug menor en el filtro `LevelDepth`, la funcionalidad principal es tan buena que se convierte en una herramienta 9/10.
 
 ---
 
-### 🧪 Notas de desarrollo
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- El indicador accede directamente al **MarketDepthInfo** para obtener snapshots del libro  
-- Si el filtro está activado (`LevelDepth.Enabled`), usa `SortedList<decimal, decimal>` para mantener los `n` primeros niveles  
-- Calcula:
-  - `_asks[bar] = -cumAsks` (valor negativo)  
-  - `_bids[bar] = cumBids`  
-  - `delta = cumBids - cumAsks`  
-  - `_maxDelta` y `_minDelta` se actualizan si el nuevo delta supera valores anteriores  
-- Controla visualmente el valor acumulado de cada barra, actualizándose en cada tick mediante `MarketDepthChanged`
+**Sí. Es una herramienta de Order Flow de nivel profesional.**
 
----
+Las métricas que proporciona (Desequilibrio y Rango del DOM en tiempo real) son extremadamente valiosas para un scalper que busca entender la liquidez pasiva.
 
-### ❗ Incoherencias o aspectos mejorables detectados
-
-- En `MarketDepthChanged`, si `LevelDepth.Enabled` y hay menos niveles de los requeridos, **se ignora el filtro** y se usa `CumulativeDomAsks` / `CumulativeDomBids`, lo que puede generar valores inconsistentes entre barras  
-- En `OnCalculate`, el código vuelve a asignar valores de barras anteriores aunque no hayan cambiado, **duplicando procesamiento innecesariamente**  
-- El uso de `_isLastDeltaCalc` y `lastCandle` permite solo **una actualización por barra**, lo cual puede ocultar movimientos intermedios si hay múltiples actualizaciones de DOM entre dos velas
-
----
-
-### 🛠️ Propuestas de mejora
-
-- Añadir opción para limitar la frecuencia de actualización (por ejemplo, una vez por tick o por intervalo de tiempo)  
-- Mostrar delta relativo acumulado en porcentaje (`(bids - asks)/(bids + asks)`)  
-- Incluir **alertas visuales o etiquetas** cuando el delta supere cierto umbral  
-- Permitir visualizar `maxDelta` y `minDelta` como líneas adicionales o bandas
+**Acción:** **Conservar (Herramienta Principal).**

@@ -6,7 +6,8 @@ category: Visualization
 score_current: 3/10
 version: Estable
 recommended_action: Descartar
-description: Muestra el precio y la hora de la última vela en una etiqueta flotante.
+description: ¿Cuál es el último precio y la hora actual, mostrados directamente en
+  el gráfico?
 # --- Campos de Triaje (Para ROADMAP.md) ---
 gemini_summary: Gadget visual redundante (duplica los ejes X/Y) y con un fallo de
   diseño en OnRender que hace que la etiqueta desaparezca al hacer scroll.

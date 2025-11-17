@@ -1,11 +1,23 @@
 ---
+# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: DailyChange.cs
 name: Daily Change
 category: Visualization
-score: 6/10
+score_current: 6/10
 version: Estable
-verdict: Conservar (contexto esencial)
-description: Muestra la variación (%, $, ticks) del precio actual contra la apertura o el cierre anterior.
+recommended_action: Conservar
+description: ¿Cuál es la variación neta del precio en el día (en %, ticks o $)?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Gadget de contexto esencial que responde '¿de qué humor está la
+  fiesta?' (sesgo del día en %), dato clave para filtrar trades."
+file_state: Estable
+score_potential: 6/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
 ---
 
 ## 🟦 Daily Change (6/10)

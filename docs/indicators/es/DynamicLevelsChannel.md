@@ -1,95 +1,123 @@
-## 🟦 Dynamic Levels Channel (8.5/10)
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: DynamicLevelsChannel.cs
+name: Dynamic Levels Channel
+category: VolumeOrderFlow
+score_current: 9/10
+version: Estable
+recommended_action: Conservar
+description: ¿Dónde se están formando el POC, VAH y VAL de las últimas N barras (un
+  perfil móvil)?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Herramienta 'Core' que calcula un 'Perfil Móvil' (Rolling
+  POC/VAH/VAL) de las últimas N barras; excelente para seguir el valor inmediato."
+file_state: Estable
+score_potential: 9/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
+---
 
-**Nombre del archivo:** `DynamicLevelsChannel.cs`  
+## 🟦 Dynamic Levels Channel (9/10)
+
+**Nombre del archivo:** [`DynamicLevelsChannel.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/DynamicLevelsChannel.cs)  
 **Nombre del indicador:** Dynamic Levels Channel  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602381](https://help.atas.net/support/solutions/articles/72000602381)
+**Web oficial:** [ATAS — Dynamic Levels Channel](https://help.atas.net/support/solutions/articles/72000602381)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025
+
+> **La Pregunta Clave:** ¿Dónde se están formando el POC, VAH y VAL de las últimas N barras (un perfil móvil)?
+
+![Dynamic Levels Channel](../../img/DynamicLevelsChannel.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **CalcMode**: Fuente de cálculo para el POC (Volume, PosDelta, NegDelta, Delta)  
-- **Period**: Número de velas consideradas (por defecto: 40)  
-- **Days**: Número de días hacia atrás a partir de los cuales iniciar el análisis (por defecto: 20)  
-- **AreaColor**: Color del canal de valor (entre VAL y VAH)  
-- **UseApproximationAlert**: Activar alerta por proximidad al POC  
-- **ApproximationFilter**: Número de ticks de margen para lanzar alerta de aproximación  
-- **UseAlerts / UsePocTouchAlert / UseValTouchAlert / UseVahTouchAlert**: Activación de alertas específicas  
-- **AlertFile**: Sonido asociado a las alertas  
-- **AlertBGColor / AlertForeColor**: Colores de fondo y texto para las alertas
+* **CalcMode**: Fuente de cálculo para el POC (Volume, PosDelta, NegDelta, Delta).
+* **Period**: Número de velas en la ventana móvil (por defecto: 40).
+* **Days**: Días de historial a cargar (filtro de inicio).
+* **AreaColor**: Color del canal de valor (entre VAL y VAH).
+* **Alertas**: Aproximación, toque de POC, VAH, VAL.
 
 ---
 
-### 🧭 Clasificación  
-📂 VolumeOrderFlow — Indicadores de volumen por nivel con áreas dinámicas
+### 🧭 Clasificación
+📂 VolumeOrderFlow — Perfil de Volumen/Delta móvil (Rolling VPOC).
 
 ---
 
 ### 🧠 Uso más frecuente
 
-- Visualizar **POC, VAH y VAL dinámicos** dentro de un canal móvil de volumen o delta  
-- Detectar zonas de posible **rechazo, ruptura o absorción**  
-- Generar alertas cuando el precio alcanza o se aproxima a niveles relevantes  
-- Mostrar señales de entrada (flechas) cuando se cumple cierta proporción entre el POC y los extremos
+* Visualizar el **POC, VAH y VAL dinámicos** dentro de un canal *móvil* (rolling).
+* Trazar el "valor a corto plazo" que viaja con el precio.
+* Identificar niveles de soporte/resistencia que se mueven con la acción del precio.
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **8.5 / 10**
+### 📊 Nivel de relevancia
+🔟 **9 / 10**
 
-✅ Visualmente claro y táctico, con canal de valor incluido  
-✅ Soporta múltiples modos de cálculo (Volume, Delta, PosDelta, NegDelta)  
-⛔ No guarda niveles históricos anteriores  
-⛔ La lógica de señales puede resultar opaca si no se comprende la relación entre POC y extremos
+✅ **Herramienta "Core":** Es un "Rolling POC/VA". Esencial para seguir la migración del valor.  
+✅ Complemento perfecto para `DynamicLevels` (que es expansivo, no móvil).  
+✅ Soporta múltiples modos de cálculo (Volume, Delta, etc.).  
+⛔ No guarda niveles históricos (es puramente dinámico).
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Reversión con test de VAL / VAH**: si hay confluencia con desequilibrios  
-- **Breakout validado**: si el precio sale del canal y no vuelve en X velas  
-- **Alerta de aproximación**: para preparar entrada manual cuando el precio se acerca al POC  
-- **Entrada confirmada**: si la mecha alcanza un extremo y el precio se mueve contra el POC (señal de flecha)
+* **Tendencia (Migración del POC):** En una tendencia alcista, el canal (POC/VAH/VAL) migra hacia arriba. Se buscan largos en pullbacks al VAH o POC del canal móvil.
+* **Reversión (POC Atrapado):** Si el precio se mueve bruscamente, pero el POC móvil se queda atrás, indica una posible reversión (trampa).
+* **Rechazo en VAH/VAL móvil:** Buscar señales de absorción en los bordes del canal móvil.
+
+---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **Period**: `40`  
-- **Days**: `3`  
-- **CalcMode**: `Delta` o `PosDelta`  
-- **ApproximationFilter**: `2`  
-- **AreaColor**: rojo translúcido  
-- **AlertFile**: `alert1`  
-- **AlertBGColor / AlertForeColor**: negro y blanco
-
-✅ Preciso para operativas tácticas basadas en presión institucional  
-✅ Compatible con DOM Strength y CVD
+* **Period**: `30` a `60` (representa los últimos 30-60 minutos de valor).
+* **CalcMode**: `Volume` o `Delta`.
+* **Alertas**: `UsePocTouchAlert = true`.
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Acumula volumen por nivel mediante `GetPriceVolumeInfo()`  
-- Calcula el **POC** dependiendo del `CalcMode`: por volumen, delta, positivo o negativo  
-- El canal (área de valor) se construye expandiendo desde el POC hasta cubrir el 70% del volumen  
-- Las líneas POC, VAL, VAH se actualizan cada barra  
-- Si se detecta rechazo en VAH o VAL y se cumple una proporción respecto al POC, se dibuja una **flecha de señal**  
-- Genera alertas configurables cuando el precio toca o se aproxima a los niveles claves
-
----
-
-### ❗ Incoherencias o aspectos mejorables detectadas
-
-- La lógica para determinar VAL y VAH no garantiza simetría ni continuidad entre barras si el volumen se dispersa rápidamente  
-- No hay protección si la lista `_volumeGroup` está vacía o tiene niveles muy próximos entre sí  
-- El uso de `_signals` no elimina duplicados si la vela actual forma dos señales contrarias consecutivas  
-- En `GetArea()`, el bucle puede seguir creciendo aunque ya se haya superado el volumen objetivo
+* A diferencia de `DynamicLevels` (que es *expansivo*), este indicador es *móvil*.
+* Acumula los datos de perfil de las últimas `Period` barras (ej. `bar - Period`).
+* Recalcula el POC/VAH/VAL de esta ventana de `Period` barras en *cada* barra nueva.
+* Incluye una lógica de "señales" (flechas) basada en patrones de rechazo en los bordes del canal.
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-- Exponer el área como `RangeDataSeries` para compatibilidad visual cruzada  
-- Incluir visualización de los últimos niveles históricos anteriores  
-- Añadir opción de extensión de líneas horizontales hasta el margen derecho  
-- Incluir leyendas o etiquetas con los valores exactos de POC, VAH y VAL  
-- Mostrar número de veces que el precio tocó un nivel dentro del periodo para filtrar ruido
+* Añadir una opción para un suavizado (SMA/EMA) del POC/VAH/VAL, ya que pueden "saltar" mucho de una barra a otra.
+* Exponer el porcentaje del Área de Valor (fijo en 70%) como un parámetro configurable.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Esta es la segunda herramienta "Core" de Perfil de Volumen.
+
+* `DynamicLevels` (9/10) te da el "Valor del Día" (expansivo, lento).
+* `DynamicLevelsChannel` (9/10) te da el "Valor de la Hora" (móvil, rápido).
+
+Para un scalper, el "Rolling POC" (este indicador) es a menudo más importante que el POC del día, ya que te dice dónde está el "valor inmediato". Te permite ver si el valor está migrando con el precio (tendencia saludable) o si el precio está corriendo lejos del valor (extensión, posible reversión).
+
+La capacidad de cambiar el `CalcMode` a `Delta` es una función profesional que te permite seguir el "Rolling Delta POC", una herramienta muy avanzada.
+
+---
+
+### 📈 Veredicto: ¿Es útil para Scalping?
+
+**Sí. Es una herramienta principal indispensable.**
+
+Proporciona el mapa contextual de "valor inmediato" (últimas N barras), que es crucial para el scalping de tendencia.
+
+**Acción:** **Conservar (Herramienta Principal).**

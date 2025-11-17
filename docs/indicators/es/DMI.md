@@ -1,86 +1,138 @@
-## 🟦 Dynamic Momentum Index (DMI) (6.5/10)
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: DMI.cs
+name: Dynamic Momentum Index
+category: Momentum
+score_current: 5/10
+version: Estable
+recommended_action: Reparar
+description: ¿Cuál es el RSI, pero con un periodo que se ajusta automáticamente a la
+  volatilidad del mercado?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Concepto de RSI adaptativo 9/10 (muy bueno para scalping) arruinado
+  por un bug lógico ('if' anidado imposible) en el cálculo de RSI; necesita
+  reparación."
+file_state: Buggy
+score_potential: 9/10
+effort: Bajo
+action_priority: P3
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
+---
 
-**Nombre del archivo:** `DMI.cs`  
+## 🟦 Dynamic Momentum Index (DMI) (5/10)
+
+**Nombre del archivo:** [`DMI.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/DMI.cs)  
 **Nombre del indicador:** Dynamic Momentum Index  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602261](https://help.atas.net/support/solutions/articles/72000602261)
+**Web oficial:** [ATAS — Dynamic Momentum Index](https://help.atas.net/support/solutions/articles/72000602261)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025
+
+> **La Pregunta Clave:** ¿Cuál es el RSI, pero con un periodo que se ajusta automáticamente a la volatilidad del mercado?
+
+![Dynamic Momentum Index](../../img/DMI.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **RsiPeriod**: Periodo base del RSI dinámico (por defecto: 14)  
-- **RsiMin / RsiMax**: Límites inferior y superior del periodo dinámico permitido  
-- **StdPeriod**: Periodo para el cálculo de la desviación estándar  
-- **SmaPeriod**: Periodo para la media móvil usada como base de comparación
+* **RsiPeriod**: Periodo base del RSI dinámico (por defecto: 14).
+* **RsiMin / RsiMax**: Límites inferior y superior del periodo dinámico permitido (ej. 3-30).
+* **StdPeriod**: Periodo para el cálculo de la desviación estándar (volatilidad).
+* **SmaPeriod**: Periodo para la media móvil usada como base de la volatilidad.
 
 ---
 
-### 🧭 Clasificación  
-📂 Momentum — Osciladores adaptativos basados en volatilidad
+### 🧭 Clasificación
+📂 Momentum — Osciladores adaptativos basados en volatilidad.
 
 ---
 
 ### 🧠 Uso más frecuente
 
-- Detectar condiciones de **sobrecompra o sobreventa ajustadas a la volatilidad actual**  
-- Utilizar un RSI dinámico que se adapta al mercado en vez de ser fijo  
-- Evaluar momentos de aceleración o desaceleración del momentum con mayor precisión
+* Detectar condiciones de **sobrecompra o sobreventa ajustadas a la volatilidad actual**.
+* Utilizar un RSI dinámico que se adapta al mercado en vez de ser fijo.
+* Evaluar momentos de aceleración o desaceleración del momentum con mayor precisión.
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **6.5 / 10**
+### 📊 Nivel de relevancia
+🔟 **5 / 10**
 
-✅ Más reactivo que un RSI clásico en mercados volátiles  
-✅ Útil para adaptar setups en función del entorno (rango vs impulso)  
-⛔ Más difícil de interpretar sin conocer su lógica interna  
-⛔ Requiere más parámetros y calibración que un RSI tradicional
+✅ **Concepto Excelente:** Un RSI que se acelera (periodo corto) en alta volatilidad y se frena (periodo largo) en baja volatilidad es, en teoría, superior a un RSI fijo.  
+⛔ **BUG CRÍTICO:** El indicador tiene un bug lógico en su implementación del RSI que lo hace poco fiable.  
+⛔ Requiere más parámetros y calibración que un RSI tradicional.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Entrada en reversión adaptativa**: cuando el DMI se cruza desde zona extrema con periodo corto  
-- **Filtro de impulso**: operar solo si el DMI se encuentra en zona media con volatilidad creciente  
-- **Divergencia dinámica**: detectar pérdida de momentum comparado con precio
+* (Teóricas, si se repara) **Divergencia adaptativa**: Buscar divergencias en un oscilador que no se "satura" tan rápido como un RSI fijo.
+* (Teóricas, si se repara) **Reversión en extremos**: Vender en sobrecompra / Comprar en sobreventa, con niveles que se adaptan al régimen del mercado.
+
+---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **RsiPeriod**: `14`  
-- **RsiMin**: `3`  
-- **RsiMax**: `30`  
-- **StdPeriod**: `5`  
-- **SmaPeriod**: `10`
-
-✅ Permite adaptar señales de reversión a la velocidad del mercado  
-✅ Mejora el timing en entornos cambiantes
+* **No recomendado hasta ser reparado.**
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Calcula la **desviación estándar (`_std`)** y la **media móvil (`_sma`)** del precio  
-- La relación `vi = std / sma` determina el periodo dinámico para el RSI  
-- El RSI resultante se calcula como:
-  $$
-  RSI = 100 - \frac{100}{1 + \frac{\text{avgGain}}{\text{avgLoss}}}
-  $$
-- Usa promedios suavizados (`_posSmma`, `_negSmma`) en lugar de EMA clásica  
-- El periodo final es ajustado entre `RsiMin` y `RsiMax` antes de calcular
+* El indicador calcula la volatilidad (`vi = std / sma`).
+* Usa esa volatilidad para calcular un periodo dinámico: `td = RsiPeriod / vi`.
+* El periodo `td` se "sujeta" entre `RsiMin` y `RsiMax`.
+* **FALLO CRÍTICO:** En la función `RsiDynamic(bar, period)`, hay un bug lógico:
+    ```csharp
+    if (_negSmma != 0) 
+    {
+        if (_negSmma == 0) // <-- Este 'if' es imposible, nunca se ejecutará
+            return 0;
+
+        var div = _posSmma / _negSmma;
+        return div == 1 ? 0 : 100 - 100 / (1 + div);
+    }
+    return 100; // Esto se ejecuta si _negSmma == 0
+    ```
+* Este bug hace que la lógica del RSI sea defectuosa en ciertas condiciones.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas
+### 🛠️ Propuestas de mejora (Reparación)
 
-- Dentro de `RsiDynamic()`, se comprueba si `_negSmma != 0`, pero justo después hay otro `if (_negSmma == 0)`, lo cual es contradictorio y **puede dejar pasar errores lógicos**  
-- No hay control explícito sobre valores NaN si la volatilidad (`vi`) se vuelve inestable  
-- No se exponen visualmente los valores del periodo dinámico (`td`) que se está usando en cada vela
+* **Crítico (P3):** Reescribir la función `RsiDynamic` para que la lógica del RSI sea correcta. La lógica estándar de RSI es:
+    ```csharp
+    if (_negSmma == 0)
+    {
+        return (_posSmma == 0) ? 50 : 100; // Si ambos son 0, neutral (50). Si solo neg es 0, 100.
+    }
+    var rs = _posSmma / _negSmma;
+    return 100 - (100 / (1 + rs));
+    ```
+* Añadir opción para mostrar el periodo dinámico (`td`) como una línea secundaria.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+El concepto de este indicador es de **9/10**. Un RSI adaptativo es exactamente lo que un scalper necesita, ya que un RSI(14) fijo es inútil, se satura en tendencias fuertes y da señales falsas en rangos. Un RSI que "sabe" cuándo acelerar y cuándo frenar es una idea de nivel profesional.
+
+Lamentablemente, la implementación tiene un bug claro en la lógica de cálculo del RSI (`RsiDynamic`). Este error, aunque sutil, hace que el indicador sea poco fiable.
+
+Dado que el concepto es excelente y la reparación es trivial (`effort: Bajo`), este es un candidato P3 claro para `Reparar`. Una vez reparado, podría ser una herramienta de momentum superior.
 
 ---
 
-### 🛠️ Propuestas de mejora
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- Corregir el bloque `if (_negSmma != 0)` que contiene un `if (_negSmma == 0)` redundante  
-- Añadir opción para **mostrar el periodo dinámico como serie secundaria**  
-- Permitir activar alertas visuales o sonoras cuando el DMI cruce niveles clave  
-- Incluir bandas opcionales en los niveles clásicos (30, 70) adaptados al contexto
+**No en su estado actual (Buggy).**
+
+Si se repara, tiene el potencial de ser una herramienta de momentum de 9/10, mucho más útil que el RSI estándar.
+
+**Acción:** **Reparar (Buggy).**
+
+**¿Merece la pena arreglarlo?** **Sí.** Es un esfuerzo de programación `Bajo` (P3) para obtener una herramienta de momentum adaptativa de alto potencial.

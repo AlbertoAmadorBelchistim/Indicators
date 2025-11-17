@@ -1,83 +1,106 @@
-## 🟦 Directional Movement Index (DMI) (8/10)
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: DmIndex.cs
+name: Directional Movement Index
+category: Tendencia
+score_current: 3/10
+version: Estable
+recommended_action: Descartar
+description: ¿Cuál es la fuerza direccional (DI+ vs DI-)? (Implementación NO estándar)
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Indicador 'Impostor'; no usa el suavizado de Wilder, sino una 'CalcSum'
+  y una fórmula de suavizado personalizada. No es el DMI estándar."
+file_state: Impostor
+score_potential: 3/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
+---
 
-**Nombre del archivo:** `DmIndex.cs`  
+## 🟦 Directional Movement Index (DMI) (3/10)
+
+**Nombre del archivo:** [`DmIndex.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/DmIndex.cs)  
 **Nombre del indicador:** Directional Movement Index  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602285](https://help.atas.net/support/solutions/articles/72000602285)
+**Web oficial:** [ATAS — Directional Movement Index](https://help.atas.net/support/solutions/articles/72000602285)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025
+
+> **La Pregunta Clave:** ¿Cuál es la fuerza direccional (DI+ vs DI-)? (Implementación NO estándar)
+
+![DmIndex](../../img/DmIndex.png) 
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **Period**: Número de barras utilizadas para suavizar DI+ y DI- mediante suma móvil (por defecto: 14)
+* **Period**: Número de barras (por defecto: 14).
 
 ---
 
-### 🧭 Clasificación  
-📂 Trend — Indicadores de dirección y fuerza de movimiento
+### 🧭 Clasificación
+📂 Trend — Indicadores de dirección y fuerza de movimiento.
 
 ---
 
 ### 🧠 Uso más frecuente
 
-- Detectar qué fuerza direccional domina (DI+ vs DI-)  
-- Confirmar si hay **tendencia definida** cuando uno de los valores se impone claramente  
-- Usar junto con ADX para evaluar si la tendencia es fuerte o débil
+* (Teórico) Detectar qué fuerza direccional domina (DI+ vs DI-).
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **8 / 10**
+### 📊 Nivel de relevancia
+🔟 **3 / 10**
 
-✅ Implementación completa de los componentes DI+ y DI- en un solo indicador  
-✅ Muy útil para sistemas direccionales de seguimiento de tendencia  
-⛔ No incluye ADX, por lo que no mide fuerza de la tendencia  
-⛔ Puede dar señales falsas en rangos laterales si se usa sin filtros
+⛔ **Impostor:** Este indicador **no es el DMI estándar** de J. Welles Wilder.  
+⛔ **Lógica Incorrecta:** La fórmula clásica de DMI usa un suavizado exponencial/modificado (RMA/SMMA) sobre el *True Range* y los movimientos direccionales. Este indicador usa `CalcSum` (una suma simple) y luego un suavizado personalizado (`Sum - Sum/Period + CurrentValue`).  
+⛔ **Redundante:** Es una de las (al menos) tres implementaciones diferentes y confusas del sistema DMI en ATAS (junto con `DIPos`, `DINeg` y `ADX`).  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Cruce DI+ > DI-**: señal de entrada alcista (fortaleza compradora)  
-- **Cruce DI- > DI+**: entrada bajista  
-- **Filtro de tendencia**: operar solo si uno de los valores supera un umbral (ej. 20 o 25)
+* **Ninguna.** Los valores no son estándar y no son fiables para replicar estrategias de DMI.
+
+---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **Period**: `10` a `14`  
-- Color: azul para DI+, rojo para DI-  
-- Umbrales visuales en `20` o `25` pueden marcar zonas de interés
-
-✅ Muy eficaz para filtrar operaciones direccionales  
-✅ Complemento ideal a ADX o setups de continuación
+* **Ninguna.**
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Calcula:
-  - `dmUp = High actual - High previo`  
-  - `dmDown = Low previo - Low actual`  
-- Realiza una **suma móvil suavizada** para cada uno (no media exponencial):  
-  $$
-  \text{Smooth}_{Up} = \text{Sum}_{Up} - \frac{\text{Sum}_{Up}}{Period} + dmUp
-  $$
-- Divide cada valor suavizado entre el ATR para normalizarlo y multiplicarlo por 100  
-- Guarda los resultados en dos series: `_upSeries` y `_downSeries`  
-- El ATR se calcula mediante el subindicador `_atr`
-
----
-
-### ❗ Incoherencias o aspectos mejorables detectados
-
-- El uso de `.CalcSum()` seguido de un suavizado no corresponde a la fórmula clásica de Welles Wilder, que usa un **True Range exponencialmente suavizado**  
-- Los nombres `_dmDown` y `_dmUp` están **invertidos en cuanto a contenido**, lo que puede inducir a errores al leer el código (el campo `"DmUp"` contiene el cálculo de diferencia hacia abajo y viceversa)  
-- No se incluye la **línea de ADX**, que suele acompañar al DMI para medir la fuerza
+* El código calcula `dmUp` y `dmDown`.
+* Luego aplica una suma simple: `dmUpSum = _dmUp.CalcSum(_period, bar)`.
+* Luego aplica un suavizado personalizado no estándar: `smoothedUp = dmUpSum - dmUpSum / _period + _dmUp[bar]`.
+* Normaliza con el ATR (`_atr[bar]`).
+* Los nombres `_dmDown` y `_dmUp` están **invertidos en el código**, causando confusión.
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-- Corregir los nombres de las series `_dmUp` y `_dmDown` para evitar confusión  
-- Añadir cálculo y visualización opcional de **ADX** en el mismo panel  
-- Permitir visualización de líneas horizontales como umbrales (ej. 20 o 25)  
-- Incluir alertas al producirse el cruce entre DI+ y DI-
+* **Descartar.**
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Este indicador es un "Impostor". Se llama "Directional Movement Index", pero no implementa la fórmula estándar de Wilder. El método de suavizado es incorrecto (usa `CalcSum` y una fórmula propia).
+
+Esto significa que cualquier estrategia de DMI probada (como "comprar cuando DI+ cruza DI- y ADX > 20") no funcionará con este indicador, ya que sus valores no coincidirán con los de ninguna otra plataforma de trading.
+
+Es una herramienta confusa y técnicamente incorrecta.
+
+---
+
+### 📈 Veredicto: ¿Es útil para Scalping?
+
+**No. Es un indicador "Impostor" que da valores no estándar.**
+
+**Acción:** **Descartar (Impostor).**

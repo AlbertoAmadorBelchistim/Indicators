@@ -1,85 +1,113 @@
-## 🟦 DeMarker (6/10)
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: DeMarker.cs
+name: DeMarker
+category: Momentum
+score_current: 2/10
+version: Estable
+recommended_action: Reparar
+description: ¿Cuáles son las zonas de sobrecompra o sobreventa basadas en la
+  comparación de máximos y mínimos? (Implementación ROTA)
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Indicador Roto: un error de 'Math.Min' en lugar de 'Math.Max' en
+  el cálculo de 'deMin' corrompe la fórmula, pero la reparación es trivial (P3)."
+file_state: Roto
+score_potential: 6/10
+effort: Bajo
+action_priority: P3
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
+---
 
-**Nombre del archivo:** `DeMarker.cs`  
+## 🟦 DeMarker (2/10)
+
+**Nombre del archivo:** [`DeMarker.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/DeMarker.cs)  
 **Nombre del indicador:** DeMarker  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602365](https://help.atas.net/support/solutions/articles/72000602365)
+**Web oficial:** [ATAS — DeMarker](https://help.atas.net/support/solutions/articles/72000602365)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025
+
+> **La Pregunta Clave:** ¿Cuáles son las zonas de sobrecompra o sobreventa basadas en la comparación de máximos y mínimos? (Implementación ROTA)
+
+![DeMarker](../../img/DeMarker.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **Period**: Número de barras utilizadas en el cálculo de las medias móviles (por defecto: 10)
+* **Period**: Número de barras utilizadas en el cálculo de las SMAs (por defecto: 10).
 
 ---
 
-### 🧭 Clasificación  
-📂 Momentum — Osciladores basados en comparación intrabarra
+### 🧭 Clasificación
+📂 Momentum — Osciladores basados en comparación intrabarra.
 
 ---
 
 ### 🧠 Uso más frecuente
 
-- Detectar **zonas de sobrecompra y sobreventa**  
-- Medir la **intensidad del impulso** comparando máximos y mínimos recientes  
-- Generar señales de reversión cuando el valor se aproxima a extremos (ej. 0.7 o 0.3)
+* (Teórico) Detectar **zonas de sobrecompra y sobreventa**.
+* (Teórico) Medir la **intensidad del impulso** comparando máximos y mínimos recientes.
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **6 / 10**
+### 📊 Nivel de relevancia
+🔟 **2 / 10**
 
-✅ Ligero y fácil de interpretar  
-✅ Utilizado como complemento de RSI o Stochastics  
-⛔ Menos reactivo que otros osciladores en movimientos abruptos  
-⛔ No incluye volumen ni delta, solo precios
+⛔ **INDICADOR ROTO:** La implementación del código tiene un error crítico que invalida la fórmula.  
+⛔ El indicador, tal como está, produce valores incorrectos (a menudo > 1.0) o se bloquea en un valor por división por cero.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Entrada en reversión**: cuando el DeMarker cae por debajo de 0.3 y luego sube  
-- **Salida parcial**: cuando el DeMarker supera 0.7 en una posición ganadora  
-- **Confirmación**: usar junto a otros indicadores como filtro de sobrecompra/sobreventa
+* **Ninguna.** El indicador está roto y no proporciona datos fiables.
+
+---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **Period**: `7` o `10`  
-- Líneas auxiliares en `0.3` (sobreventa) y `0.7` (sobrecompra)  
-- Combinar con volumen o delta para validar giros
-
-✅ Funciona bien como filtro visual  
-✅ Complementa setups basados en impulso
+* **Ninguna.** El indicador es inservible.
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Calcula dos series internas:
-  - **deMax** = `High actual - High anterior` si positivo, sino 0  
-  - **deMin** = `Low anterior - Low actual` si positivo, sino 0  
-- Se aplican medias móviles simples (`SMA`) sobre cada serie  
-- Fórmula final:
-  $$
-  \text{DeMarker} = \frac{\text{SMA}_{\text{deMax}}}{\text{SMA}_{\text{deMax}} + \text{SMA}_{\text{deMin}}}
-  $$
-- Si el denominador es cero, se conserva el valor anterior (`bar - 1`)
+* El indicador intenta calcular `deMax` (basado en `High_t - High_t-1`) y `deMin` (basado en `Low_t-1 - Low_t`).
+* **FALLO CRÍTICO:** La línea `var deMin = Math.Min(0, prevCandle.Low - candle.Low);` es incorrecta.
+    * La fórmula estándar del DeMarker requiere que `deMin` sea `Math.Max(0, prevCandle.Low - candle.Low)`.
+    * Al usar `Math.Min`, `deMin` es siempre negativo o cero.
+    * Esto corrompe la fórmula final `_smaMax / (_smaMax + _smaMin)`, provocando que el denominador sea incorrecto y el oscilador no funcione entre 0 y 1.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectados
+### 🛠️ Propuestas de mejora (Reparación)
 
-- En la línea:
-  `var deMin = Math.Min(0, prevCandle.Low - candle.Low);`  
-  El uso de `Math.Min` da siempre un número **negativo o cero**, pero en la fórmula debería acumularse como **positivo**. Esto **invalida la lógica esperada**, ya que el denominador puede volverse 0 o erróneamente negativo.
+* **Crítico (P3):** Corregir la línea de `deMin` por:
+  `var deMin = Math.Max(0, prevCandle.Low - candle.Low);`
+* Añadir líneas horizontales auxiliares (`0.3`, `0.7`) para facilitar la interpretación una vez reparado.
 
-- Al conservar el valor anterior en caso de división por cero, no se informa visualmente de que el cálculo no es válido
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Este indicador es un oscilador de momentum clásico, similar al RSI, pero que se enfoca en la comparación de máximos y mínimos entre velas en lugar del cierre. Es un concepto válido.
+
+Sin embargo, la implementación de ATAS está **rota**. El error `Math.Min` en lugar de `Math.Max` en el cálculo de `deMin` es un bug fundamental que invalida completamente la lógica del indicador. Produce resultados basura, valores por encima de 1.0, o se congela por divisiones por cero.
+
+El concepto es un 6/10, pero la implementación actual es un 2/10 por estar rota.
 
 ---
 
-### 🛠️ Propuestas de mejora
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- Corregir la línea de `deMin` por:
-  `var deMin = Math.Max(0, prevCandle.Low - candle.Low);`  
-- Añadir líneas horizontales auxiliares (`0.3`, `0.5`, `0.7`) para facilitar interpretación  
-- Incluir alerta o mensaje cuando el cálculo se salta por falta de datos válidos  
-- Ofrecer opción de media exponencial (EMA) en lugar de SMA para mayor reactividad
+**No. Está roto.**
+
+No debe usarse hasta que se corrija el bug de `deMin`.
+
+**Acción:** **Reparar (ROTO).**
+
+**¿Merece la pena arreglarlo?** **Sí.** Es una reparación de 1 línea (`effort: Bajo`) para un indicador de momentum estándar (P3).

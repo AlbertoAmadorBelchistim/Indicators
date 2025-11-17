@@ -1,91 +1,112 @@
-## 🟦 Demand Index (6.5/10)
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: Demand.cs
+name: Demand Index
+category: Volume
+score_current: 2/10
+version: Estable
+recommended_action: Reparar
+description: ¿Cuál es la presión de compra o venta relativa basada en precio y volumen?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Indicador Roto: la fórmula usa el rango de la *primera vela del
+  gráfico* (`bar == 0`) para todos los cálculos futuros, haciéndolo arbitrario e
+  inútil."
+file_state: Roto
+score_potential: 6/10
+effort: Medio
+action_priority: P4
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-10-20
+user_modification_date: null
+---
+## 🟦 Demand Index (2/10)
 
-**Nombre del archivo:** `Demand.cs`  
+**Nombre del archivo:** [`Demand.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/Demand.cs)  
 **Nombre del indicador:** Demand Index  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602288](https://help.atas.net/support/solutions/articles/72000602288)
+**Web oficial:** [ATAS — Demand Index](https://help.atas.net/support/solutions/articles/72000602288)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 20/10/2025
+
+> **La Pregunta Clave:** ¿Cuál es la presión de compra o venta relativa basada en precio y volumen?
+
+![Demand Index](../../img/Demand.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **BuySellPower**: Periodo para suavizado del volumen y rango (por defecto: 10)  
-- **BuySellSmooth**: Periodo para suavizado de buy/sell power (por defecto: 10)  
-- **IndicatorSmooth**: Periodo de la SMA aplicada al valor final (por defecto: 10)
+* **BuySellPower**: Periodo para suavizado EMA del volumen (por defecto: 10).  
+* **BuySellSmooth**: Periodo para suavizado EMA de *Buy Power* y *Sell Power* (por defecto: 10).  
+* **IndicatorSmooth**: Periodo de la SMA aplicada al valor final (por defecto: 10).  
 
 ---
 
-### 🧭 Clasificación  
-📂 Volume — Indicadores derivados del análisis de volumen y rango
+### 🧭 Clasificación
+📂 Volume — Indicadores derivados del análisis de volumen y rango.
 
 ---
 
 ### 🧠 Uso más frecuente
 
-- Medir la **presión de compra o venta** relativa en base a cambios de precio y volumen  
-- Detectar acumulación o distribución oculta con herramientas no convencionales  
-- Evaluar la **fuerza direccional** combinando volumen y dinámica de precio
+* (Teórico) Medir la **presión de compra o venta** relativa.
+* (Teórico) Detectar acumulación o distribución.
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **6.5 / 10**
+### 📊 Nivel de relevancia
+🔟 **2 / 10**
 
-✅ Basado en una fórmula clásica (James Sibbet) con valor teórico  
-✅ Representación clara con línea principal y SMA suavizada  
-⛔ Fórmula compleja, poco conocida por la mayoría de operadores  
-⛔ Sensible a errores de datos si hay huecos o volumen cero
+⛔ **INDICADOR ROTO:** La fórmula utiliza el rango (`High - Low`) de la **primera vela del gráfico** (`GetCandle(0)`) como denominador para *todos* los cálculos futuros. Esto hace que el indicador sea completamente arbitrario y dependiente del historial cargado.  
+⛔ Fórmula compleja y poco intuitiva.
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Detección de acumulación**: índice positivo creciente sin subida de precio  
-- **Confirmación de ruptura**: spike de demanda index con precio saliendo de rango  
-- **Reversión por agotamiento**: divergencia entre precio y línea de demanda index
+* **Ninguna.** El indicador está roto y no proporciona datos fiables.
+
+---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **BuySellPower**: `10`  
-- **BuySellSmooth**: `7`  
-- **IndicatorSmooth**: `5`  
-- Combinar con Delta, CVD o zonas de perfil para detectar entrada institucional
-
-✅ Suaviza bien el ruido sin perder señales importantes  
-✅ Compatible con setups de absorción y presión delta sostenida
+* **Ninguna.** El indicador es inservible en su estado actual.
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Usa una fórmula basada en **price sum**, volumen y diferencia relativa para calcular dos valores:
-  - **bp** (Buy Power)
-  - **sp** (Sell Power)
-- Aplica medias exponenciales sobre bp y sp, luego compara ambas:
-  - Si `bp > sp`:  
-$$
-    DI = 100 \times \left(1 - \frac{sp}{bp}\right)
-$$
-  - Si `sp > bp`:  
-    $$
-    DI = 100 \times (\frac{bp}{sp} - 1)
-    $$
-- Aplica una **SMA adicional** sobre el resultado final  
-- Representa la serie principal y la suavizada  
-- Incluye una línea cero como referencia neutral
+* El indicador intenta implementar el *Demand Index* de James Sibbet.
+* Calcula un `_priceSumSeries` (H+L+2*C).
+* Calcula *Buy Power* (bp) y *Sell Power* (sp) usando fórmulas exponenciales complejas.
+* **FALLO CRÍTICO:** En el cálculo de `bp` y `sp`, la fórmula utiliza `(firstCandle.High - firstCandle.Low)` como denominador de escalado. `firstCandle` se define como `GetCandle(0)`. El valor del indicador dependerá de si la primera vela de tu gráfico (hace días o semanas) tuvo un rango de 1 tick o 20 ticks, corrompiendo todo el análisis.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectados
+### 🛠️ Propuestas de mejora (Reparación)
 
-- Usa el `High` y `Low` de la primera vela como base de comparación para todos los cálculos, lo que puede provocar **sesgos si esa vela es atípica o errónea**  
-- Si el volumen de la vela actual es cero o menor que el del EMA, el índice puede volverse extremadamente sensible  
-- El uso de `Math.Exp` con multiplicadores de rango puede generar **overflow o resultados extremos**, ya controlados en parte por try/catch
+* **Crítico (P4):** La fórmula debe ser reescrita para usar un **rango móvil** (ej. un `ATR(Periodo)`) o un rango dinámico de la sesión, en lugar del rango estático de `bar == 0`.
+* Dado que el concepto es de "Volume Clásico", la prioridad de reparación es baja.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+El concepto de un índice de Demanda que combina precio y volumen es un pilar del análisis técnico clásico. Sin embargo, esta implementación específica de ATAS está fundamentalmente rota.
+
+El error de usar el rango de la primera vela (`GetCandle(0)`) para escalar *todo* el indicador es un fallo de programación de nivel 1. Hace que el indicador sea no-determinista (su valor cambia dependiendo de cuánto historial cargues) e imposible de comparar entre diferentes gráficos o días.
+
+Un indicador que da valores arbitrarios no es un indicador, es un generador de números aleatorios.
 
 ---
 
-### 🛠️ Propuestas de mejora
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- Permitir usar el rango promedio en vez del rango de la primera vela para mayor robustez  
-- Añadir etiquetas visuales o colores para zona de fuerte presión de compra/venta  
-- Mostrar delta o volumen como línea secundaria para validación rápida  
-- Permitir activar alertas cuando la línea cruce umbrales (ej. +30 o -30)
+**No. Es categóricamente inútil y está roto.**
+
+Proporciona información falsa.
+
+**Acción:** **Reparar (ROTO).**
+
+**¿Merece la pena arreglarlo?** **Probablemente no (P4).** Es un esfuerzo de reparación `Medio` para un indicador de "Volume Clásico" (potencial 6/10) que es conceptualmente inferior a las herramientas de Order Flow (como `DeltaModif`) que ya poseemos.

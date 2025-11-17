@@ -1,11 +1,25 @@
 ---
+# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: DeltaColoredCandles.cs
 name: Delta Colored Candles
 category: VolumeOrderFlow
-score: 5/10
+score_current: 4/10
 version: Estable
-verdict: Descartar (requiere calibración manual)
-description: Colorea las velas basado en el Delta acumulado en un 'Periodo' fijo, escalado contra un 'MaxDelta' fijo.
+recommended_action: Mejorar
+description: ¿Cuál es la intensidad del *momentum* del delta (delta acumulado en N
+  barras) en relación con un máximo fijo?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Idea de 'momentum de delta' 9/10 arruinada por una implementación
+  2/10 que requiere un 'MaxDelta' fijo, haciéndolo inútil; necesita ser
+  'Mejorado' con un umbral dinámico."
+file_state: Mejorable
+score_potential: 9/10
+effort: Medio
+action_priority: P3
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
 ---
 
 ## 🟦 Delta Colored Candles (5/10)
@@ -44,7 +58,7 @@ description: Colorea las velas basado en el Delta acumulado en un 'Periodo' fijo
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **5 / 10**
+🔟 **4 / 10**
 
 ✅ **Buena Idea:** El concepto de medir el *momentum* del delta (acumulando N barras) es muy útil, ya que es el "término medio" entre el Delta (1 barra) y el CVD (toda la sesión).
 ⛔ **Fallo de Implementación:** El indicador es **impractical** para scalping. Requiere que el usuario defina un `MaxDelta` **fijo**. Esto hace que el indicador sea inútil, ya que un `MaxDelta` de 5000 puede ser correcto para la apertura (9:30), pero totalmente incorrecto para el almuerzo (12:00), saturando los colores o no mostrando ninguno.
@@ -76,16 +90,16 @@ description: Colorea las velas basado en el Delta acumulado en un 'Periodo' fijo
 
 ---
 
-### 🛠️ Propuestas de mejora
+### 🛠️ Propuestas de mejora (Reparación/Mejora)
 
-* **Crítico:** Reemplazar el `MaxDelta` fijo por un cálculo **dinámico**, como una desviación estándar del `sumDelta` o un `MaxDelta` autoajustable basado en las últimas N barras.
-* Limitar `rate` a un máximo de 100 antes de pasarlo a la función de color.
-* Añadir opción para mostrar **leyenda de colores** o escala de intensidad.
+* **Crítico (P3):** Reemplazar el `MaxDelta` fijo por un cálculo **dinámico**. La solución ideal es usar una media móvil (ej. SMA) del `sumDelta` y una desviación estándar (StDev) del `sumDelta`, y colorear basado en cuántas desviaciones estándar se aleja de la media (similar a un Z-Score).
+* Alternativamente, usar un `sumDelta.MAX(PeriodoLookback, bar)` para encontrar el máximo dinámico en un lookback.
+* Limitar `rate` a un máximo de 100 y mínimo de 0 antes de pasarlo a la función de color para evitar *wraparounds* de color.
 
 ---
 ---
 
-### ✍️ La opinión de Gemini sobre el Indicador (El Análisis Correcto)
+### ✍️ La opinión de Gemini sobre el Indicador
 
 Este indicador tiene una **idea de 9/10** arruinada por una **implementación de 2/10**.
 
@@ -97,11 +111,10 @@ Sin embargo, el fallo en la implementación es fatal. Al basar toda la escala de
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**No.** No en su estado actual.
+**No. No en su estado actual.**
 
 Un scalper necesita herramientas que se adapten a la volatilidad del momento. Una herramienta que requiere calibración manual constante no es una herramienta, es un obstáculo.
 
-**Acción:** **Descartar (requiere calibración manual).**
+**Acción:** **Mejorar.**
 
-**¿Merece la pena arreglarlo?** **Conceptualmente, sí.** Si se modifica para usar un `MaxDelta` dinámico (basado en StDev o un lookback), se convertiría instantáneamente en un indicador de 8/10 o 9/10. Pero tal y como está, es inútil.
-
+**¿Merece la pena arreglarlo?** **Sí.** El concepto es excelente y muy valioso. La reparación (cambiar `MaxDelta` fijo por uno dinámico) es un esfuerzo `Medio` (P3), pero convertiría un indicador inútil de 4/10 en una herramienta potente de 9/10.

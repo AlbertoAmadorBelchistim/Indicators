@@ -1,80 +1,113 @@
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: DeTrendedDi.cs
+name: Detrended Oscillator - DiNapoli
+category: Momentum
+score_current: 6/10
+version: Estable
+recommended_action: Conservar
+description: ¿Cuál es el ciclo del precio, eliminando la tendencia de una SMA?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Implementación estable de un oscilador simple (Precio - SMA) que
+  elimina la tendencia para mostrar ciclos; una herramienta de contexto válida."
+file_state: Estable
+score_potential: 6/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
 ## 🟦 Detrended Oscillator - DiNapoli (6/10)
 
-**Nombre del archivo:** `DeTrendedDi.cs`  
+**Nombre del archivo:** [`DeTrendedDi.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/DeTrendedDi.cs)  
 **Nombre del indicador:** Detrended Oscillator - DiNapoli  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602369](https://help.atas.net/support/solutions/articles/72000602369)
+**Web oficial:** [ATAS — Detrended Oscillator - DiNapoli](https://help.atas.net/support/solutions/articles/72000602369)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025
+
+> **La Pregunta Clave:** ¿Cuál es el ciclo del precio, eliminando la tendencia de una SMA?
+
+![DeTrendedDi](../../img/DeTrendedDi.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **Period**: Número de barras usadas para la media móvil simple (por defecto: 10)
+* **Period**: Número de barras usadas para la media móvil simple (por defecto: 10).
 
 ---
 
-### 🧭 Clasificación  
-📂 Momentum — Osciladores que eliminan la tendencia para analizar ciclos
+### 🧭 Clasificación
+📂 Momentum — Osciladores que eliminan la tendencia para analizar ciclos.
 
 ---
 
 ### 🧠 Uso más frecuente
 
-- Identificar **máximos y mínimos locales** sin el efecto de la tendencia general  
-- Detectar **reversiones de corto plazo** comparando precio y SMA  
-- Apoyar análisis de ciclos o herramientas de tiempo (DiNapoli, Gann, etc.)
+* Identificar **máximos y mínimos de ciclos de corto plazo** sin el "ruido" de la tendencia principal.
+* Detectar **reversiones** cuando el oscilador cruza la línea cero.
+* Medir la **sobreextensión** del precio respecto a su media.
 
 ---
 
-### 📊 Nivel de relevancia  
+### 📊 Nivel de relevancia
 🔟 **6 / 10**
 
-✅ Simple, directo y efectivo para análisis visual  
-✅ Muy útil como base para sistemas cíclicos y de reversión  
-⛔ No tiene lógica de señal ni líneas auxiliares  
-⛔ Es redundante si ya se usa DPO o filtros similares
+✅ **Simple y Efectivo:** Es la forma más pura de un oscilador.
+✅ Útil como base para sistemas cíclicos y de reversión a la media.
+⛔ No tiene líneas de sobrecompra/sobreventa (no está normalizado).
+⛔ Es redundante si ya se usa DPO o MACD (el MACD es una resta de dos EMAs).
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Entrada en sobreextensión**: si el oscilador alcanza un extremo y cambia de dirección  
-- **Filtro para timing**: entrar solo cuando el oscilador se aproxima a cero  
-- **Detección de pico/dip**: ayuda a anticipar el final de microimpulsos
+* **Reversión a la media**: Vender cuando el oscilador está en un extremo positivo y cruza hacia abajo; Comprar cuando está en un extremo negativo y cruza hacia arriba.
+* **Filtro de Momento**: Entrar largo solo si el oscilador está por encima de cero.
+
+---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **Period**: `7` o `10`  
-- Añadir línea cero como guía visual  
-- Complementar con delta o volumen para validar el giro
-
-✅ Ayuda a limpiar el ruido y ver zonas de interés en ciclos cortos  
-✅ Compatible con setups visuales basados en estructura
+* **Period**: `10` a `20`.
+* Es fundamental añadir manualmente una línea cero (`LineSeries`) al indicador para tener la referencia.
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Cálculo muy simple:
-  $$
-  \text{DiNapoli}_t = \text{Precio}_t - SMA_t
-  $$
-- Usa una única `SMA` para suavizar el precio  
-- El resultado se guarda en `_renderSeries[bar]`  
-- No hay lógica de buffers ni desfase: el valor es instantáneo
-
----
-
-### ❗ Incoherencias o aspectos mejorables detectados
-
-- No hay verificación en `bar == 0` antes de calcular, aunque en práctica ATAS lo tolera  
-- No incluye visualización de la propia SMA, lo cual podría ser útil para interpretación  
-- No gestiona casos extremos si `value` es NaN o infinito (aunque poco probable)
+* Cálculo muy simple: `Oscilador = PrecioActual - SMA(PrecioActual, Periodo)`.
+* Usa una única `SMA` y resta su valor al precio de cierre de la barra actual.
+* Es la implementación estándar y correcta de un oscilador de precio "detrended".
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-- Añadir opción para mostrar la **línea cero** de referencia  
-- Permitir elegir el tipo de precio (ej. Typical, Weighted)  
-- Mostrar también la **línea SMA** como comparación visual  
-- Añadir alertas opcionales cuando el oscilador cruce cero o alcance máximos relativos
+* Añadir una **línea cero** (`LineSeries`) por defecto, ya que es esencial para su interpretación.
+* Permitir elegir el tipo de precio (ej. Typical, Weighted) además del Cierre.
+* Permitir elegir el tipo de MA (SMA, EMA, etc.).
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Esta es la implementación *correcta* y simple de un oscilador de precio. A diferencia del indicador `DeTrended` (que es un impostor con una fórmula confusa), este hace exactamente lo que se espera: `Precio - Media`.
+
+Muestra la distancia (el "delta") entre el precio actual y su media reciente. Cuando esta distancia es grande, el precio está sobreextendido y es probable que revierta a la media. Cuando cruza el cero, indica un cambio en el momentum de corto plazo.
+
+Es una herramienta simple, funcional y que todo scalper de reversión a la media puede apreciar.
+
+---
+
+### 📈 Veredicto: ¿Es útil para Scalping?
+
+**Sí. Es una herramienta de momentum/ciclo válida.**
+
+Es un oscilador simple y eficaz para identificar la sobreextensión del precio. Su principal debilidad es que carece de una línea cero por defecto, lo que dificulta su lectura (aunque se puede añadir manualmente).
+
+**Acción:** **Conservar.**
