@@ -41,39 +41,39 @@ public class MarginZones : Indicator
 	private readonly ValueDataSeries _100Line = new("100Line", "100% line")
 		{ Color = DefaultColors.Maroon.Convert(), Width = 2, ScaleIt = false, VisualType = VisualMode.OnlyValueOnAxis, IsHidden = true };
 
-	private readonly DrawingRectangle _100Rectangle = new(0, 0, 0, 0, Pens.Transparent, Brushes.Gray);
+	private readonly DrawingRectangle _100Rectangle = new(0, 0, 0, 0, CrossPens.Transparent, Brushes.Gray);
 
 	private readonly ValueDataSeries _150Line = new("150Line", "150% line")
 		{ Color = Color.SkyBlue.Convert(), Width = 1, ScaleIt = false, VisualType = VisualMode.Hide, IsHidden = true };
 
-	private readonly DrawingRectangle _150Rectangle = new(0, 0, 0, 0, Pens.Transparent, Brushes.Gray);
+	private readonly DrawingRectangle _150Rectangle = new(0, 0, 0, 0, CrossPens.Transparent, Brushes.Gray);
 
 	private readonly ValueDataSeries _200Line = new("200Line", "200% line")
 		{ Color = Color.CadetBlue.Convert(), Width = 1, ScaleIt = false, VisualType = VisualMode.Hide, IsHidden = true };
 
-	private readonly DrawingRectangle _200Rectangle = new(0, 0, 0, 0, Pens.Transparent, Brushes.Gray);
+	private readonly DrawingRectangle _200Rectangle = new(0, 0, 0, 0, CrossPens.Transparent, Brushes.Gray);
 
 	private readonly ValueDataSeries _25Line = new("25Line", "25% line")
 		{ Color = Color.LightSkyBlue.Convert(), Width = 1, ScaleIt = false, VisualType = VisualMode.OnlyValueOnAxis, IsHidden = true };
 
-	private readonly DrawingRectangle _25Rectangle = new(0, 0, 0, 0, Pens.Transparent, Brushes.Gray);
+	private readonly DrawingRectangle _25Rectangle = new(0, 0, 0, 0, CrossPens.Transparent, Brushes.Gray);
 
 	private readonly ValueDataSeries _50Line = new("50Line", "50% line")
 		{ Color = Color.SkyBlue.Convert(), Width = 1, ScaleIt = false, VisualType = VisualMode.OnlyValueOnAxis, IsHidden = true };
 
-	private readonly DrawingRectangle _50Rectangle = new(0, 0, 0, 0, Pens.Transparent, Brushes.Gray);
+	private readonly DrawingRectangle _50Rectangle = new(0, 0, 0, 0, CrossPens.Transparent, Brushes.Gray);
 
 	private readonly ValueDataSeries _75Line = new("75Line", "75% line")
 		{ Color = Color.LightSkyBlue.Convert(), Width = 1, ScaleIt = false, VisualType = VisualMode.Hide, IsHidden = true };
 
-	private readonly DrawingRectangle _75Rectangle = new(0, 0, 0, 0, Pens.Transparent, Brushes.Gray);
+	private readonly DrawingRectangle _75Rectangle = new(0, 0, 0, 0, CrossPens.Transparent, Brushes.Gray);
 
 	private readonly ValueDataSeries _baseLineLabel = new("BaseLineLabel", "Base line")
 		{ Color = Color.Gray.Convert(), Width = 2, ScaleIt = false, VisualType = VisualMode.OnlyValueOnAxis, IsHidden = true };
 
 	private readonly List<int> _newDays = new();
 
-    private TrendLine _baseLine = new(0, 0, 0, 0, Pens.Gray);
+    private TrendLine _baseLine = new(0, 0, 0, 0, CrossPens.Gray);
 	private RenderPen _baseLineRenderPen = new(Color.Gray);
 	private bool _calculated;
 	private ZoneDirection _direction;
