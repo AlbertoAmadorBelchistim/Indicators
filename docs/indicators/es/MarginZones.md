@@ -5,10 +5,12 @@ name: Margin zones
 category: Level
 score_current: 3/10
 version: ATAS Official
-recommended_action: Reparar
-description: ¿Dónde están los niveles de margen clave (25%, 50%, 100%...) calculados desde el extremo semanal o un precio fijo?
+recommended_action: 'Reparar'
+description: >-
+  ¿Dónde están los niveles de margen clave (25%, 50%, 100%...) calculados desde el extremo semanal o un precio fijo?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Indicador ROTO. Concepto excelente para niveles institucionales, pero causa un crash por división por cero si TickCost es 0.
+gemini_summary: >-
+  Indicador ROTO. Concepto excelente para niveles institucionales, pero causa un crash por división por cero si TickCost es 0.
 file_state: Roto
 score_potential: 9/10
 effort: Bajo

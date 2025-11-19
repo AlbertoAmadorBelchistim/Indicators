@@ -5,10 +5,12 @@ name: Outside Bar
 category: PriceAction
 score_current: 6/10
 version: ATAS Official
-recommended_action: Mejorar
-description: ¿Es la barra actual una "Outside Bar" (engloba completamente a la anterior)?
+recommended_action: 'Mejorar'
+description: >-
+  ¿Es la barra actual una "Outside Bar" (engloba completamente a la anterior)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Detector de patrón simple y funcional. Visualización pobre (solo un punto en el High), debería distinguir entre Outside Bar alcista/bajista.
+gemini_summary: >-
+  Detector de patrón simple y funcional. Visualización pobre (solo un punto en el High), debería distinguir entre Outside Bar alcista/bajista.
 file_state: Mejorable
 score_potential: 7/10
 effort: Bajo

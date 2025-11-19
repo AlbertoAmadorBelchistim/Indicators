@@ -4,11 +4,12 @@ name: Alligator
 category: Tendencia
 score_current: 6/10
 version: Estable
-recommended_action: Conservar
-description: ¿Está el mercado 'durmiendo' (en rango, con las medias entrelazadas) o está 'despierto y comiendo' (en tendencia, con las medias abiertas)?
-
+recommended_action: 'Conservar'
+description: >-
+  ¿Está el mercado 'durmiendo' (en rango, con las medias entrelazadas) o está 'despierto y comiendo' (en tendencia, con las medias abiertas)?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: Filtro de régimen clásico (6/10). Implementación correcta (SMMA + Shifts) pero con lag masivo por diseño.
+gemini_summary: >-
+  Filtro de régimen clásico (6/10). Implementación correcta (SMMA + Shifts) pero con lag masivo por diseño.
 file_state: Estable
 score_potential: 6/10
 effort: N/A

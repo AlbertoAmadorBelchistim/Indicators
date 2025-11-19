@@ -5,10 +5,12 @@ name: Relative Vigor Index
 category: Momentum
 score_current: 6/10
 version: ATAS Official
-recommended_action: Mejorar
-description: ¿Cuál es la convicción del cierre (Close vs Open) relativa al rango (High vs Low)?
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cuál es la convicción del cierre (Close vs Open) relativa al rango (High vs Low)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Indicador de vigor relativo. Funcional, pero con riesgo de división por cero si High==Low. La línea de señal se calcula de forma inusual (sobre el valor crudo).
+gemini_summary: >-
+  Indicador de vigor relativo. Funcional, pero con riesgo de división por cero si High==Low. La línea de señal se calcula de forma inusual (sobre el valor crudo).
 file_state: Mejorable
 score_potential: 7/10
 effort: Bajo

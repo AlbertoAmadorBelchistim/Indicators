@@ -5,10 +5,12 @@ name: Absorption
 category: OrderFlow
 score_current: 10/10
 version: Stable
-recommended_action: Conservar
-description: ¿En qué niveles de precio se frenó el mercado a pesar de una gran agresión de volumen?
+recommended_action: 'Conservar'
+description: >-
+  ¿En qué niveles de precio se frenó el mercado a pesar de una gran agresión de volumen?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Detector de absorción intra-vela. Compara Bid vs Ask en cada nivel de precio. Crítico para scalping."
+gemini_summary: >-
+  Detector de absorción intra-vela. Compara Bid vs Ask en cada nivel de precio. Crítico para scalping.
 file_state: Estable
 score_potential: 10/10
 effort: Medio

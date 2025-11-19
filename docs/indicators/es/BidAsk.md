@@ -4,11 +4,12 @@ name: Bid Ask
 category: Order Flow
 score_current: 6.5/10
 version: Estable
-recommended_action: Mejorar
-description: ¿Cuáles fueron los volúmenes brutos de agresión de compra (Ask) y de agresión de venta (Bid) en cada vela?
-
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cuáles fueron los volúmenes brutos de agresión de compra (Ask) y de agresión de venta (Bid) en cada vela?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: El histograma de OF más puro (6.5/10). Muestra la "batalla" (Bid vs Ask), no solo el resultado (Delta).
+gemini_summary: >-
+  El histograma de OF más puro (6.5/10). Muestra la "batalla" (Bid vs Ask), no solo el resultado (Delta).
 file_state: Mejorable
 score_potential: 7/10
 effort: Bajo

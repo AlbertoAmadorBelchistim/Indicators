@@ -5,10 +5,12 @@ name: Qualitative Quantitative Estimation
 category: Momentum
 score_current: 7/10
 version: ATAS Official
-recommended_action: Mejorar
-description: ¿Cuál es el RSI suavizado y filtrado por volatilidad (QQE)?
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cuál es el RSI suavizado y filtrado por volatilidad (QQE)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Implementación sólida del QQE. Defecto de usabilidad: el nivel de alerta (50) está fijo en código y no es configurable por el usuario.
+gemini_summary: >-
+  Implementación sólida del QQE. Defecto de usabilidad: el nivel de alerta (50) está fijo en código y no es configurable por el usuario.
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo

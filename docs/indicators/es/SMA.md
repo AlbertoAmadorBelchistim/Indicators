@@ -5,10 +5,12 @@ name: SMA (Simple Moving Average)
 category: Trend
 score_current: 9/10
 version: Stable
-recommended_action: Conservar
-description: Media Móvil Simple optimizada con alertas de precio y cambio de color por tendencia.
+recommended_action: 'Conservar'
+description: >-
+  Media Móvil Simple optimizada con alertas de precio y cambio de color por tendencia.
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación de referencia. Algoritmo optimizado (sliding window sum), alertas y UX completa."
+gemini_summary: >-
+  Implementación de referencia. Algoritmo optimizado (sliding window sum), alertas y UX completa.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo

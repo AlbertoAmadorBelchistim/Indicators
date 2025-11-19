@@ -5,10 +5,12 @@ name: VSA Better Volume
 category: Volume
 score_current: 9/10
 version: Stable
-recommended_action: Conservar
-description: ¿Qué nos dice el volumen sobre la intención profesional (Clímax, Churn, Trampa)?
+recommended_action: 'Conservar'
+description: >-
+  ¿Qué nos dice el volumen sobre la intención profesional (Clímax, Churn, Trampa)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación completa del sistema 'Better Volume'. Clasifica velas por colores según VSA."
+gemini_summary: >-
+  Implementación completa del sistema 'Better Volume'. Clasifica velas por colores según VSA.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo

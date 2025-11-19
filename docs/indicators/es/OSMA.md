@@ -5,10 +5,12 @@ name: OSMA (Moving Average of Oscillator)
 category: Momentum
 score_current: 7/10
 version: ATAS Official
-recommended_action: Mejorar
-description: ¿Cuál es la diferencia entre el MACD y su línea de señal (el histograma MACD)?
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cuál es la diferencia entre el MACD y su línea de señal (el histograma MACD)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Implementación estable del OSMA. Inusual uso de SMA para la línea de señal (el estándar es EMA), lo que puede causar discrepancias con otras plataformas.
+gemini_summary: >-
+  Implementación estable del OSMA. Inusual uso de SMA para la línea de señal (el estándar es EMA), lo que puede causar discrepancias con otras plataformas.
 file_state: Mejorable
 score_potential: 7/10
 effort: Bajo

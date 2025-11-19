@@ -5,11 +5,12 @@ name: Coppock Curve
 category: Momentum
 score_current: 3/10
 version: Estable
-recommended_action: Descartar
-description: ¿Cuál es el momentum de largo plazo del mercado? (Diseñado para gráficos
-  semanales/mensuales).
+recommended_action: 'Descartar'
+description: >-
+  '¿Cuál es el momentum de largo plazo del mercado? (Diseñado para gráficos' semanales/mensuales).
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Herramienta de inversión a largo plazo (W/MN) con un lag extremo por diseño (doble ROC + WMA), haciéndola categóricamente inútil para scalping."
+gemini_summary: >-
+  Herramienta de inversión a largo plazo (W/MN) con un lag extremo por diseño (doble ROC + WMA), haciéndola categóricamente inútil para scalping.
 file_state: Estable
 score_potential: 3/10
 effort: N/A

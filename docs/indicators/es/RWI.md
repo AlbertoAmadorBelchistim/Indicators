@@ -5,10 +5,12 @@ name: Random Walk Index
 category: Momentum
 score_current: 5/10
 version: Stable
-recommended_action: Mejorar
-description: Determina si el movimiento del precio es estadísticamente significativo o solo ruido aleatorio.
+recommended_action: 'Mejorar'
+description: >-
+  Determina si el movimiento del precio es estadísticamente significativo o solo ruido aleatorio.
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Concepto interesante pero implementación ineficiente (O(N^2)) al recalcular ATR en bucle."
+gemini_summary: >-
+  Concepto interesante pero implementación ineficiente (O(N^2)) al recalcular ATR en bucle.
 file_state: Mejorable
 score_potential: 7/10
 effort: Medio

@@ -4,11 +4,12 @@ name: Average Price for Bar
 category: Precio
 score_current: 2/10
 version: Estable
-recommended_action: Descartar
-description: ¿En lugar de solo el 'Cierre', cuál es el precio promedio interno (ej. Mediana, Típico) de cada vela individual?
-
+recommended_action: 'Descartar'
+description: >-
+  ¿En lugar de solo el 'Cierre', cuál es el precio promedio interno (ej. Mediana, Típico) de cada vela individual?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: "Bloatware" (2/10). 100% redundante. Los indicadores estándar (SMA, EMA) ya tienen un parámetro "Source" (Typical, Median) que hace esto.
+gemini_summary: >-
+  "Bloatware" (2/10). 100% redundante. Los indicadores estándar (SMA, EMA) ya tienen un parámetro "Source" (Typical, Median) que hace esto.
 file_state: Estable (Redundante)
 score_potential: 2/10
 effort: N/A

@@ -5,10 +5,12 @@ name: Bionic Candle (Clean)
 category: Visualization
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cómo visualizar la estructura interna de fuerza y rechazo de la vela eliminando el ruido visual?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cómo visualizar la estructura interna de fuerza y rechazo de la vela eliminando el ruido visual?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Renderizador de velas personalizado de alto rendimiento (GDI). Estilo visual limpio 'Bionic'."
+gemini_summary: >-
+  Renderizador de velas personalizado de alto rendimiento (GDI). Estilo visual limpio 'Bionic'.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

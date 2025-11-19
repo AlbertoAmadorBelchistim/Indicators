@@ -5,10 +5,12 @@ name: Open Interest
 category: Volume
 score_current: 8/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Cuál es el Interés Abierto total (o su cambio neto) por barra o sesión?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es el Interés Abierto total (o su cambio neto) por barra o sesión?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Indicador estándar de OI. Implementación sólida con modos por barra, sesión y acumulado. Incluye alertas y filtros visuales útiles.
+gemini_summary: >-
+  Indicador estándar de OI. Implementación sólida con modos por barra, sesión y acumulado. Incluye alertas y filtros visuales útiles.
 file_state: Estable
 score_potential: 8/10
 effort: N/A

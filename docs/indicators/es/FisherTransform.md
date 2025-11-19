@@ -5,10 +5,12 @@ name: Fisher Transform
 category: Momentum
 score_current: 6.5/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Cuál es el momentum del precio, normalizado por una transformación estadística de Fisher?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es el momentum del precio, normalizado por una transformación estadística de Fisher?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación estándar de un oscilador de momentum rápido; contiene una 'quirk' de cálculo (High/Close) y un bug de performance inofensivo."
+gemini_summary: >-
+  Implementación estándar de un oscilador de momentum rápido; contiene una 'quirk' de cálculo (High/Close) y un bug de performance inofensivo.
 file_state: Estable
 score_potential: 6.5/10
 effort: N/A

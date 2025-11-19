@@ -4,11 +4,12 @@ name: Bar Numbering
 category: Utilidad / Visualización
 score_current: 4/10
 version: Estable
-recommended_action: Descartar
-description: ¿Cuántas velas han pasado desde el inicio de la sesión, y puedes etiquetarlas cada X velas, por favor?
-
+recommended_action: 'Descartar'
+description: >-
+  ¿Cuántas velas han pasado desde el inicio de la sesión, y puedes etiquetarlas cada X velas, por favor?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: Herramienta de backtesting/conteo (4/10), no de trading. Añade ruido visual en vivo.
+gemini_summary: >-
+  Herramienta de backtesting/conteo (4/10), no de trading. Añade ruido visual en vivo.
 file_state: Estable
 score_potential: 4/10
 effort: N/A

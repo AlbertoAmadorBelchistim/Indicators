@@ -5,10 +5,12 @@ name: Schaff Trend Cycle
 category: Momentum
 score_current: 7/10
 version: Stable
-recommended_action: Conservar
-description: Oscilador cíclico que combina MACD y Estocástico para detectar giros de mercado más rápido que el MACD tradicional.
+recommended_action: 'Conservar'
+description: >-
+  Oscilador cíclico que combina MACD y Estocástico para detectar giros de mercado más rápido que el MACD tradicional.
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación canónica correcta. Algo rígida en constantes (0.5 factor) pero funcional."
+gemini_summary: >-
+  Implementación canónica correcta. Algo rígida en constantes (0.5 factor) pero funcional.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

@@ -4,11 +4,12 @@ name: Bar Range
 category: Volatilidad
 score_current: 5/10
 version: Estable
-recommended_action: Descartar
-description: ¿Cuál es el rango (Máximo - Mínimo) de cada vela, y cuál ha sido el rango más alto de las últimas X velas?
-
+recommended_action: 'Descartar'
+description: >-
+  ¿Cuál es el rango (Máximo - Mínimo) de cada vela, y cuál ha sido el rango más alto de las últimas X velas?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: Inútil y 100% redundante (5/10). Es un "ATR tonto": ignora gaps y no está suavizado. Usar ATR en su lugar.
+gemini_summary: >-
+  Inútil y 100% redundante (5/10). Es un "ATR tonto": ignora gaps y no está suavizado. Usar ATR en su lugar.
 file_state: Estable (Redundante)
 score_potential: 5/10
 effort: N/A

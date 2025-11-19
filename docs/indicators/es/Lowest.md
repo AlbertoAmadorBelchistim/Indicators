@@ -5,10 +5,12 @@ name: Lowest
 category: Level
 score_current: 6/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Cuál es el valor más bajo (mínimo) en las últimas N barras?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es el valor más bajo (mínimo) en las últimas N barras?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Indicador de 'bloque de construcción' estable y funcional que calcula correctamente el mínimo de un período, manejando bien los casos de borde.
+gemini_summary: >-
+  Indicador de 'bloque de construcción' estable y funcional que calcula correctamente el mínimo de un período, manejando bien los casos de borde.
 file_state: Estable
 score_potential: 6/10
 effort: N/A

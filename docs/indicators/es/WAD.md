@@ -5,10 +5,12 @@ name: Williams Accumulation / Distribution (WAD)
 category: Volume
 score_current: 7/10
 version: Stable
-recommended_action: Conservar
-description: ¿Se está acumulando o distribuyendo el activo (basado en la presión de cierre)?
+recommended_action: 'Conservar'
+description: >-
+  ¿Se está acumulando o distribuyendo el activo (basado en la presión de cierre)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Acumulador de presión de cierre. Simple y funcional. No usa volumen real."
+gemini_summary: >-
+  Acumulador de presión de cierre. Simple y funcional. No usa volumen real.
 file_state: Estable
 score_potential: 7/10
 effort: Bajo

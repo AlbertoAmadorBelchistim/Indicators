@@ -4,11 +4,12 @@ name: Bollinger Bands Percentage
 category: Volatilidad
 score_current: 6/10
 version: Estable
-recommended_action: Mejorar
-description: ¿En qué posición (como un porcentaje normalizado) se encuentra el precio actual dentro de las Bandas de Bollinger?
-
+recommended_action: 'Mejorar'
+description: >-
+  ¿En qué posición (como un porcentaje normalizado) se encuentra el precio actual dentro de las Bandas de Bollinger?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: El clásico oscilador "%B" (6/10). Genial para divergencias. Mermado por defaults débiles y falta de líneas 0/50/100.
+gemini_summary: >-
+  El clásico oscilador "%B" (6/10). Genial para divergencias. Mermado por defaults débiles y falta de líneas 0/50/100.
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo

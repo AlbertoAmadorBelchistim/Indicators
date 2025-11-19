@@ -5,10 +5,12 @@ name: Moving Average Envelope
 category: Level
 score_current: 5/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Cuál es el canal de precios (fijo o porcentual) alrededor de una media móvil simple?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es el canal de precios (fijo o porcentual) alrededor de una media móvil simple?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Indicador estable pero básico que dibuja bandas fijas/porcentuales. Su principal debilidad es que no se adapta a la volatilidad.
+gemini_summary: >-
+  Indicador estable pero básico que dibuja bandas fijas/porcentuales. Su principal debilidad es que no se adapta a la volatilidad.
 file_state: Estable
 score_potential: 5/10
 effort: N/A

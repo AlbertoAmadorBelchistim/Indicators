@@ -5,10 +5,12 @@ name: Repulse
 category: Momentum
 score_current: 6/10
 version: ATAS Official
-recommended_action: Mejorar
-description: ¿Cuál es la "presión de repulsión" (fuerza de compra/venta interna) suavizada de las velas?
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cuál es la "presión de repulsión" (fuerza de compra/venta interna) suavizada de las velas?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Indicador de presión interna. Código funcional, pero con dependencia excesiva de la vela 0 para la inicialización y factores de suavizado fijos.
+gemini_summary: >-
+  Indicador de presión interna. Código funcional, pero con dependencia excesiva de la vela 0 para la inicialización y factores de suavizado fijos.
 file_state: Mejorable
 score_potential: 6/10
 effort: Bajo

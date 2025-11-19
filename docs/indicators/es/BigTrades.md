@@ -5,10 +5,12 @@ name: Big Trades (Final Fix)
 category: OrderFlow
 score_current: 9/10
 version: Stable
-recommended_action: Conservar
-description: ¿Dónde están entrando los agresores institucionales (bloques grandes de compra/venta)?
+recommended_action: 'Conservar'
+description: >-
+  ¿Dónde están entrando los agresores institucionales (bloques grandes de compra/venta)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador esencial de Tape Reading. Versión corregida para evitar conflictos de color GDI/WPF."
+gemini_summary: >-
+  Indicador esencial de Tape Reading. Versión corregida para evitar conflictos de color GDI/WPF.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo

@@ -5,11 +5,12 @@ name: Directional Movement Index
 category: Tendencia
 score_current: 3/10
 version: Estable
-recommended_action: Descartar
-description: ¿Cuál es la fuerza direccional (DI+ vs DI-)? (Implementación NO estándar)
+recommended_action: 'Descartar'
+description: >-
+  ¿Cuál es la fuerza direccional (DI+ vs DI-)? (Implementación NO estándar)
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador 'Impostor'; no usa el suavizado de Wilder, sino una 'CalcSum'
-  y una fórmula de suavizado personalizada. No es el DMI estándar."
+gemini_summary: >-
+  '"Indicador 'Impostor'; no usa el suavizado de Wilder, sino una 'CalcSum'' y una fórmula de suavizado personalizada. No es el DMI estándar."
 file_state: Impostor
 score_potential: 3/10
 effort: N/A

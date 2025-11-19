@@ -5,10 +5,12 @@ name: Gaps
 category: Levels
 score_current: 8.5/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Dónde están los huecos de precio (Gaps) que superan una desviación mínima relativa al rango promedio?
+recommended_action: 'Conservar'
+description: >-
+  ¿Dónde están los huecos de precio (Gaps) que superan una desviación mínima relativa al rango promedio?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación 'Core' y avanzada de un detector de Gaps; su filtro 'MinDeviation' (vs rango promedio) y el 'Cierre Parcial' lo hacen profesional y estable."
+gemini_summary: >-
+  Implementación 'Core' y avanzada de un detector de Gaps; su filtro 'MinDeviation' (vs rango promedio) y el 'Cierre Parcial' lo hacen profesional y estable.
 file_state: Estable
 score_potential: 8.5/10
 effort: N/A

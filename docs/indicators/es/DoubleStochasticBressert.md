@@ -5,12 +5,12 @@ name: Double Stochastic - Bressert
 category: Momentum
 score_current: 5/10
 version: Estable
-recommended_action: Descartar
-description: ¿Cuál es el indicador Double Stochastic, pero con una capa extra de
-  suavizado EMA?
+recommended_action: 'Descartar'
+description: >-
+  '¿Cuál es el indicador Double Stochastic, pero con una capa extra de' suavizado EMA?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador 'Derivado' que aplica un tercer suavizado (EMA) al
-  'Double Stochastic'; tiene demasiado lag y es redundante."
+gemini_summary: >-
+  '"Indicador 'Derivado' que aplica un tercer suavizado (EMA) al' 'Double Stochastic'; tiene demasiado lag y es redundante."
 file_state: Estable
 score_potential: 5/10
 effort: N/A

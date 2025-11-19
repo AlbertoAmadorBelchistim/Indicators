@@ -4,8 +4,9 @@ name: Delta Modif 
 category: Order FLow
 score: 10/10
 version: Estable
-verdict: Conservar (herramienta principal)
-description: ¿Qué barras muestran una agresión (Delta) extrema, divergencia o absorción, y cómo puedo ver esas señales directamente en el gráfico de precio?
+verdict: 'Conservar (herramienta principal)'
+description: >-
+  ¿Qué barras muestran una agresión (Delta) extrema, divergencia o absorción, y cómo puedo ver esas señales directamente en el gráfico de precio?
 ---
 
 ## 🟥 Delta (versión modificada) (10/10)

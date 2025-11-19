@@ -4,11 +4,12 @@ name: Bar Timer
 category: Utilidad / Visualización
 score_current: 8/10
 version: Latest
-recommended_action: Mejorar
-description: ¿Cuánto tiempo (o ticks/volumen) le queda a esta vela, y puedes avisarme 3 segundos antes de que cierre?
-
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cuánto tiempo (o ticks/volumen) le queda a esta vela, y puedes avisarme 3 segundos antes de que cierre?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: Herramienta de "Ejecución" esencial (8/10). Su alerta anticipada es 'Pro'. Funciona con Tiempo, Ticks y Volumen.
+gemini_summary: >-
+  Herramienta de "Ejecución" esencial (8/10). Su alerta anticipada es 'Pro'. Funciona con Tiempo, Ticks y Volumen.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo

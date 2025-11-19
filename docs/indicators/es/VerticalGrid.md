@@ -5,10 +5,12 @@ name: Vertical Grid
 category: Visualization
 score_current: 4/10
 version: Stable
-recommended_action: Mejorar
-description: Dibuja líneas verticales y etiquetas de tiempo a intervalos regulares personalizados.
+recommended_action: 'Mejorar'
+description: >-
+  Dibuja líneas verticales y etiquetas de tiempo a intervalos regulares personalizados.
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Herramienta visual básica. Dibuja grid vertical. Código correcto pero de utilidad limitada."
+gemini_summary: >-
+  Herramienta visual básica. Dibuja grid vertical. Código correcto pero de utilidad limitada.
 file_state: Mejorable
 score_potential: 6/10
 effort: Bajo

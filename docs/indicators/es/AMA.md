@@ -4,11 +4,12 @@ name: Adaptive Moving Average
 category: Tendencia
 score_current: 7/10
 version: Estable
-recommended_action: Mejorar
-description: ¿Cómo puedo obtener una media móvil suave que _no_ tenga retardo (lag) durante una ruptura fuerte, pero _sí_ filtre el 'ruido' en un mercado lateral?
-
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cómo puedo obtener una media móvil suave que _no_ tenga retardo (lag) durante una ruptura fuerte, pero _sí_ filtre el 'ruido' en un mercado lateral?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: El mejor filtro de régimen (7/10). Rápido en tendencias, lento en rangos. Potencial 9/10 si colorea su línea según la velocidad.
+gemini_summary: >-
+  El mejor filtro de régimen (7/10). Rápido en tendencias, lento en rangos. Potencial 9/10 si colorea su línea según la velocidad.
 file_state: Mejorable
 score_potential: 9/10
 effort: Medio

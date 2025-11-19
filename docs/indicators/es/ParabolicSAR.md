@@ -5,10 +5,12 @@ name: Parabolic SAR
 category: Trend
 score_current: 8/10
 version: ATAS Official
-recommended_action: Mejorar
-description: ¿Cuál es el nivel de stop dinámico (trailing stop) basado en precio y tiempo (aceleración)?
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cuál es el nivel de stop dinámico (trailing stop) basado en precio y tiempo (aceleración)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Implementación clásica del Parabolic SAR. Tiene un defecto: no actualiza en tiempo real (intra-barra) debido a un chequeo de _lastBar, lo que retrasa la señal de giro.
+gemini_summary: >-
+  Implementación clásica del Parabolic SAR. Tiene un defecto: no actualiza en tiempo real (intra-barra) debido a un chequeo de _lastBar, lo que retrasa la señal de giro.
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo

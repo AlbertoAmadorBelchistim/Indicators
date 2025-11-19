@@ -5,10 +5,12 @@ name: Volatility Trend
 category: Volatility
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuál es el canal de tendencia dinámico ajustado por la persistencia de la dirección y la volatilidad?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es el canal de tendencia dinámico ajustado por la persistencia de la dirección y la volatilidad?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Híbrido inteligente. Stop dinámico basado en ATR y conteo de velas consecutivas."
+gemini_summary: >-
+  Híbrido inteligente. Stop dinámico basado en ATR y conteo de velas consecutivas.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

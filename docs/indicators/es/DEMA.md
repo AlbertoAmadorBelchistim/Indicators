@@ -5,12 +5,12 @@ name: Double Exponential Moving Average
 category: Tendencia
 score_current: 6/10
 version: Estable
-recommended_action: Conservar
-description: ¿Cuál es el precio suavizado, pero con menos retraso (lag) que una EMA
-  estándar?
+recommended_action: 'Conservar'
+description: >-
+  '¿Cuál es el precio suavizado, pero con menos retraso (lag) que una EMA' estándar?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación estable de DEMA (2*EMA1 - EMA2), una media móvil
-  más rápida (menos lag) que la EMA, útil como herramienta de tendencia reactiva."
+gemini_summary: >-
+  '"Implementación estable de DEMA (2*EMA1 - EMA2), una media móvil' más rápida (menos lag) que la EMA, útil como herramienta de tendencia reactiva."
 file_state: Estable
 score_potential: 6/10
 effort: N/A

@@ -5,10 +5,12 @@ name: Guppy Multiple Moving Average
 category: Trend
 score_current: 8.5/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Cuál es la relación (compresión/expansión) entre las 6 EMAs de traders (cortas) y las 6 EMAs de inversores (largas)?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es la relación (compresión/expansión) entre las 6 EMAs de traders (cortas) y las 6 EMAs de inversores (largas)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación 'Core' y estable del GMMA; una herramienta de visualización de tendencia/compresión indispensable, aunque el código es repetitivo."
+gemini_summary: >-
+  Implementación 'Core' y estable del GMMA; una herramienta de visualización de tendencia/compresión indispensable, aunque el código es repetitivo.
 file_state: Estable
 score_potential: 8.5/10
 effort: N/A

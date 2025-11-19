@@ -5,10 +5,12 @@ name: True Range
 category: Volatility
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuál es la volatilidad real de la vela actual incluyendo los gaps de apertura?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es la volatilidad real de la vela actual incluyendo los gaps de apertura?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Cálculo base de volatilidad. Código simple y sin errores."
+gemini_summary: >-
+  Cálculo base de volatilidad. Código simple y sin errores.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

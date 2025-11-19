@@ -5,12 +5,12 @@ name: Donchian Channel
 category: Levels
 score_current: 8/10
 version: Estable
-recommended_action: Conservar
-description: ¿Cuál es el rango de precio (máximo y mínimo) de las últimas N barras?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es el rango de precio (máximo y mínimo) de las últimas N barras?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación estable del canal de breakout clásico (max/min de N
-  barras); una herramienta 'Core' indispensable para estrategias de rango y
-  ruptura."
+gemini_summary: >-
+  '"Implementación estable del canal de breakout clásico (max/min de N' barras); una herramienta 'Core' indispensable para estrategias de rango y ruptura."
 file_state: Estable
 score_potential: 8/10
 effort: N/A

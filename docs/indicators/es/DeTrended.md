@@ -5,12 +5,12 @@ name: DeTrended Price Oscillator
 category: Momentum
 score_current: 3/10
 version: Estable
-recommended_action: Descartar
-description: ¿Cuáles son los ciclos de corto plazo eliminando la tendencia general?
-  (Implementación no estándar)
+recommended_action: 'Descartar'
+description: >-
+  '¿Cuáles son los ciclos de corto plazo eliminando la tendencia general?' (Implementación no estándar)
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador 'Impostor' que usa una fórmula de DPO no estándar y un
-  desfase confuso; el indicador 'DeTrendedDi' es la implementación correcta."
+gemini_summary: >-
+  '"Indicador 'Impostor' que usa una fórmula de DPO no estándar y un' desfase confuso; el indicador 'DeTrendedDi' es la implementación correcta."
 file_state: Impostor
 score_potential: 3/10
 effort: N/A

@@ -5,10 +5,12 @@ name: Stacked Imbalance
 category: VolumeOrderFlow
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: ¿Dónde existen zonas de desequilibrio agresivo de compra/venta apiladas que actúan como soporte/resistencia?
+recommended_action: 'Conservar'
+description: >-
+  ¿Dónde existen zonas de desequilibrio agresivo de compra/venta apiladas que actúan como soporte/resistencia?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador complejo de Order Flow. Usa lógica intensiva de escaneo de niveles de precio. Funcionalidad TillTouch útil."
+gemini_summary: >-
+  Indicador complejo de Order Flow. Usa lógica intensiva de escaneo de niveles de precio. Funcionalidad TillTouch útil.
 file_state: Estable
 score_potential: 9/10
 effort: Alto

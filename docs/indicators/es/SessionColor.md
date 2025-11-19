@@ -5,10 +5,12 @@ name: Session Color
 category: Visualization
 score_current: 6/10
 version: Stable
-recommended_action: Mejorar
-description: Dibuja un fondo de color o líneas verticales para marcar una franja horaria específica (Sesión).
+recommended_action: 'Mejorar'
+description: >-
+  Dibuja un fondo de color o líneas verticales para marcar una franja horaria específica (Sesión).
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Funcional pero con sobreingeniería (locks innecesarios) y gestión de listas subóptima."
+gemini_summary: >-
+  Funcional pero con sobreingeniería (locks innecesarios) y gestión de listas subóptima.
 file_state: Mejorable
 score_potential: 8/10
 effort: Medio

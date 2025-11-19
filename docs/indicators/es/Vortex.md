@@ -5,10 +5,12 @@ name: Vortex
 category: Momentum
 score_current: 7/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuál es la fuerza direccional del mercado basada en el flujo de vórtices (High-Low)?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es la fuerza direccional del mercado basada en el flujo de vórtices (High-Low)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador direccional estándar. Implementación correcta de VI+ y VI-."
+gemini_summary: >-
+  Indicador direccional estándar. Implementación correcta de VI+ y VI-.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

@@ -5,14 +5,12 @@ name: Cluster Search Modifar
 category: Order Flow
 score_current: 10/10
 version: 1.4.0 (Modif)
-recommended_action: Conservar
-description: ¿Qué clústeres de precio específicos en este gráfico cumplen *todos*
-  mis criterios de filtro (por Volumen, Delta, Localización, Imbalance, etc.)?
+recommended_action: 'Conservar'
+description: >-
+  '¿Qué clústeres de precio específicos en este gráfico cumplen *todos*' mis criterios de filtro (por Volumen, Delta, Localización, Imbalance, etc.)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: El análisis del MD es perfecto. La versión oficial ya es un 9/10. La
-  modificación que añade Imbalances Diagonales Apilados (Stacked Diagonal
-  Imbalances) lo eleva a un 10/10, convirtiéndolo en una herramienta de nivel
-  profesional a la altura de Jigsaw o Exocharts. Es una herramienta central.
+gemini_summary: >-
+  'El análisis del MD es perfecto. La versión oficial ya es un 9/10. La' modificación que añade Imbalances Diagonales Apilados (Stacked Diagonal Imbalances) lo eleva a un 10/10, convirtiéndolo en una herramienta de nivel profesional a la altura de Jigsaw o Exocharts. Es una herramienta central.
 file_state: Estable
 score_potential: 10/10
 effort: N/A

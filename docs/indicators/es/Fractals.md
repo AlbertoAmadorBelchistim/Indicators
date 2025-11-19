@@ -5,10 +5,12 @@ name: Fractals
 category: Levels
 score_current: 7.5/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Dónde están los máximos y mínimos fractales (swing) de 5 barras, con líneas opcionales de S/R?
+recommended_action: 'Conservar'
+description: >-
+  ¿Dónde están los máximos y mínimos fractales (swing) de 5 barras, con líneas opcionales de S/R?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación 'Core' y estable del fractal de 5 barras, mejorada con una excelente función 'ShowLine' (LineTillTouch) para S/R automáticos."
+gemini_summary: >-
+  Implementación 'Core' y estable del fractal de 5 barras, mejorada con una excelente función 'ShowLine' (LineTillTouch) para S/R automáticos.
 file_state: Estable
 score_potential: 7.5/10
 effort: N/A

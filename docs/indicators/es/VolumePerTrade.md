@@ -5,10 +5,12 @@ name: Volume Per Trade
 category: Volume
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuál es el tamaño promedio de las órdenes ejecutadas en cada vela (Institucional vs Retail)?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es el tamaño promedio de las órdenes ejecutadas en cada vela (Institucional vs Retail)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Métrica de calidad de orden. Volumen / Ticks. Simple y revelador."
+gemini_summary: >-
+  Métrica de calidad de orden. Volumen / Ticks. Simple y revelador.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo

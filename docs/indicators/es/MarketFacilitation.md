@@ -5,10 +5,12 @@ name: Market Facilitation Index
 category: Volume
 score_current: 6/10
 version: ATAS Official
-recommended_action: Mejorar
-description: ¿Cuál es la eficiencia del mercado (MFI) para mover el precio en relación con el volumen?
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cuál es la eficiencia del mercado (MFI) para mover el precio en relación con el volumen?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Indicador estable (con control de división por cero) pero incompleto. Le falta la lógica clave de clasificación de Bill Williams (Green, Fade, Fake, Squat).
+gemini_summary: >-
+  Indicador estable (con control de división por cero) pero incompleto. Le falta la lógica clave de clasificación de Bill Williams (Green, Fade, Fake, Squat).
 file_state: Mejorable
 score_potential: 8/10
 effort: Medio

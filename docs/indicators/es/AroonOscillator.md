@@ -4,11 +4,12 @@ name: Aroon Oscillator
 category: Momentum
 score_current: 3/10
 version: Estable
-recommended_action: Descartar
-description: ¿Qué fuerza es más fuerte y reciente, la que está creando nuevos máximos (AroonUp) o la que está creando nuevos mínimos (AroonDown)?
-
+recommended_action: 'Descartar'
+description: >-
+  ¿Qué fuerza es más fuerte y reciente, la que está creando nuevos máximos (AroonUp) o la que está creando nuevos mínimos (AroonDown)?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: Inútil (3/10). Es un "wrapper" que resta los valores de AroonIndicator (otro P4). Redundante y ruidoso.
+gemini_summary: >-
+  Inútil (3/10). Es un "wrapper" que resta los valores de AroonIndicator (otro P4). Redundante y ruidoso.
 file_state: Estable (Redundante)
 score_potential: 3/10
 effort: N/A

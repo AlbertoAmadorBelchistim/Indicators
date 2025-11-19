@@ -5,11 +5,12 @@ name: Daily Change
 category: Visualization
 score_current: 6/10
 version: Estable
-recommended_action: Conservar
-description: ¿Cuál es la variación neta del precio en el día (en %, ticks o $)?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es la variación neta del precio en el día (en %, ticks o $)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Gadget de contexto esencial que responde '¿de qué humor está la
-  fiesta?' (sesgo del día en %), dato clave para filtrar trades."
+gemini_summary: >-
+  '"Gadget de contexto esencial que responde '¿de qué humor está la' fiesta?' (sesgo del día en %), dato clave para filtrar trades."
 file_state: Estable
 score_potential: 6/10
 effort: N/A

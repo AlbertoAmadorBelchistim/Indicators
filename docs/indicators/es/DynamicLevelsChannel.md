@@ -5,12 +5,12 @@ name: Dynamic Levels Channel
 category: VolumeOrderFlow
 score_current: 9/10
 version: Estable
-recommended_action: Conservar
-description: ¿Dónde se están formando el POC, VAH y VAL de las últimas N barras (un
-  perfil móvil)?
+recommended_action: 'Conservar'
+description: >-
+  '¿Dónde se están formando el POC, VAH y VAL de las últimas N barras (un' perfil móvil)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Herramienta 'Core' que calcula un 'Perfil Móvil' (Rolling
-  POC/VAH/VAL) de las últimas N barras; excelente para seguir el valor inmediato."
+gemini_summary: >-
+  '"Herramienta 'Core' que calcula un 'Perfil Móvil' (Rolling' POC/VAH/VAL) de las últimas N barras; excelente para seguir el valor inmediato."
 file_state: Estable
 score_potential: 9/10
 effort: N/A

@@ -5,10 +5,12 @@ name: RVI V1 (Relative Vigor Index)
 category: Momentum
 score_current: 4/10
 version: Stable
-recommended_action: Mejorar
-description: ¿Cierran las velas consistentemente en la parte alta o baja de su rango?
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cierran las velas consistentemente en la parte alta o baja de su rango?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Código extremadamente rígido (hardcoded 4 periodos) y con riesgo matemático de división por cero."
+gemini_summary: >-
+  Código extremadamente rígido (hardcoded 4 periodos) y con riesgo matemático de división por cero.
 file_state: Buggy
 score_potential: 7/10
 effort: Bajo

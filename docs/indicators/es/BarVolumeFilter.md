@@ -4,11 +4,12 @@ name: Bar's Volume Filter
 category: Order Flow
 score_current: 7/10
 version: Estable
-recommended_action: Mejorar
-description: ¿Qué velas de este gráfico cumplen mi criterio específico de Volumen, Delta o Ticks (ej. 'Volumen > 1500' y solo 'dentro de la sesión RTH')?
-
+recommended_action: 'Mejorar'
+description: >-
+  ¿Qué velas de este gráfico cumplen mi criterio específico de Volumen, Delta o Ticks (ej. 'Volumen > 1500' y solo 'dentro de la sesión RTH')?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: Filtro de ruido/contexto esencial (7/10). Permite aislar velas "importantes" (Volumen, Delta, RTH).
+gemini_summary: >-
+  Filtro de ruido/contexto esencial (7/10). Permite aislar velas "importantes" (Volumen, Delta, RTH).
 file_state: Mejorable
 score_potential: 9/10
 effort: Medio

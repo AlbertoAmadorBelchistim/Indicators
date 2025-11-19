@@ -5,10 +5,12 @@ name: McClellan Summation Index
 category: Momentum
 score_current: 7/10
 version: ATAS Official
-recommended_action: Mejorar
-description: ¿Cuál es la suma acumulada del Oscilador McClellan (amplitud de mercado a largo plazo)?
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cuál es la suma acumulada del Oscilador McClellan (amplitud de mercado a largo plazo)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Indicador de amplitud clásico pero rígido. Los períodos (19, 39) son constantes fijas en el código y no se pueden cambiar.
+gemini_summary: >-
+  Indicador de amplitud clásico pero rígido. Los períodos (19, 39) son constantes fijas en el código y no se pueden cambiar.
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo

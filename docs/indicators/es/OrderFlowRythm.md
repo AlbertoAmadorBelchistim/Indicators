@@ -5,10 +5,12 @@ name: Order Flow Rhythm (Clean)
 category: OrderFlow
 score_current: 9/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuál es la velocidad de ejecución (ritmo) del mercado visualizada como mapa de calor?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es la velocidad de ejecución (ritmo) del mercado visualizada como mapa de calor?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Heatmap de velocidad de cinta. Visualización excelente de la intensidad del mercado."
+gemini_summary: >-
+  Heatmap de velocidad de cinta. Visualización excelente de la intensidad del mercado.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo

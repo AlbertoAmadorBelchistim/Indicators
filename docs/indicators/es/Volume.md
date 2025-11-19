@@ -5,10 +5,12 @@ name: Volume
 category: Volume
 score_current: 9/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuál es el volumen de actividad (o ticks/bid/ask) en cada vela, y cómo se relaciona con el movimiento?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es el volumen de actividad (o ticks/bid/ask) en cada vela, y cómo se relaciona con el movimiento?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador de volumen definitivo. Completo, flexible (InputType) y visualmente rico (Etiquetas, Alertas)."
+gemini_summary: >-
+  Indicador de volumen definitivo. Completo, flexible (InputType) y visualmente rico (Etiquetas, Alertas).
 file_state: Estable
 score_potential: 9/10
 effort: Bajo

@@ -4,11 +4,12 @@ name: Adaptive RSI Moving Average
 category: Tendencia
 score_current: 4/10
 version: Estable
-recommended_action: Descartar
-description: ¿Cómo puedo obtener una media móvil que automáticamente se ralentice cuando el mercado está indeciso (RSI cerca de 50) y se acelere para capturar tendencias cuando el momentum es fuerte (RSI cerca de 0 o 100)?
-
+recommended_action: 'Descartar'
+description: >-
+  ¿Cómo puedo obtener una media móvil que automáticamente se ralentice cuando el mercado está indeciso (RSI cerca de 50) y se acelere para capturar tendencias cuando el momentum es fuerte (RSI cerca de 0 o 100)?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: "Lag sobre lag sobre lag" (4 capas de suavizado). Inútil para scalping y redundante vs. AMA (Kaufman).
+gemini_summary: >-
+  "Lag sobre lag sobre lag" (4 capas de suavizado). Inútil para scalping y redundante vs. AMA (Kaufman).
 file_state: Estable (Conceptualm. Roto)
 score_potential: 4/10
 effort: N/A

@@ -5,10 +5,12 @@ name: KD - Slow
 category: Momentum
 score_current: 6/10
 version: ATAS Official
-recommended_action: Reparar
-description: ¿Cuál es el valor del oscilador Estocástico Lento (%K Lento = SMA(%K Rápido), %D Lento = SMA(%D Rápido))?
+recommended_action: 'Reparar'
+description: >-
+  ¿Cuál es el valor del oscilador Estocástico Lento (%K Lento = SMA(%K Rápido), %D Lento = SMA(%D Rápido))?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador 'Buggy' (UI). El concepto (Estocástico Lento) es 7/10, pero tiene dos parámetros con el mismo nombre ('PeriodD') en la UI, haciendo la configuración confusa e inutilizable."
+gemini_summary: >-
+  Indicador 'Buggy' (UI). El concepto (Estocástico Lento) es 7/10, pero tiene dos parámetros con el mismo nombre ('PeriodD') en la UI, haciendo la configuración confusa e inutilizable.
 file_state: Buggy
 score_potential: 7/10
 effort: Bajo

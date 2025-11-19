@@ -5,11 +5,12 @@ name: Color Bar HH/LL
 category: Tendencia
 score_current: 3/10
 version: Estable
-recommended_action: Descartar
-description: Colorea las velas si hacen un nuevo máximo (HH) o mínimo (LL) en comparación
-  con la vela inmediatamente anterior.
+recommended_action: 'Descartar'
+description: >-
+  'Colorea las velas si hacen un nuevo máximo (HH) o mínimo (LL) en comparación' con la vela inmediatamente anterior.
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Falla en su propósito de seguir la tendencia, ya que su memoria de 1 barra le impide identificar HL/LH y es inferior a la herramienta correcta (CMS)."
+gemini_summary: >-
+  Falla en su propósito de seguir la tendencia, ya que su memoria de 1 barra le impide identificar HL/LH y es inferior a la herramienta correcta (CMS).
 file_state: Estable
 score_potential: 3/10
 effort: N/A

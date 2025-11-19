@@ -5,10 +5,12 @@ name: Standard Deviation Bands
 category: Volatility
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: ¿Está el precio alcanzando extremos estadísticos de volatilidad basados en máximos y mínimos?
+recommended_action: 'Conservar'
+description: >-
+  ¿Está el precio alcanzando extremos estadísticos de volatilidad basados en máximos y mínimos?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Variante de Bollinger que usa High/Low en lugar de Close. Buena gestión de alertas."
+gemini_summary: >-
+  Variante de Bollinger que usa High/Low en lugar de Close. Buena gestión de alertas.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

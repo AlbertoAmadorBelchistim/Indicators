@@ -5,10 +5,12 @@ name: Pin Bar Pro (Final Fix)
 category: OrderFlow
 score_current: 9/10
 version: Stable
-recommended_action: Conservar
-description: ¿Es este Pin Bar (rechazo) genuino, confirmado por absorción de volumen en la mecha?
+recommended_action: 'Conservar'
+description: >-
+  ¿Es este Pin Bar (rechazo) genuino, confirmado por absorción de volumen en la mecha?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Pin Bar detector vitaminado con análisis de Delta en la mecha. Filtra señales falsas."
+gemini_summary: >-
+  Pin Bar detector vitaminado con análisis de Delta en la mecha. Filtra señales falsas.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo

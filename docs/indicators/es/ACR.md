@@ -4,11 +4,12 @@ name: Average Candle Range
 category: Volatilidad
 score_current: 4/10
 version: Estable
-recommended_action: Descartar
-description: ¿Cuál es el tamaño promedio de una vela en lo que va de día?
-
+recommended_action: 'Descartar'
+description: >-
+  ¿Cuál es el tamaño promedio de una vela en lo que va de día?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: Inútil (4/10). Lógica de "Promedio de Sesión" y redundante con ATR.cs, que es el indicador superior.
+gemini_summary: >-
+  Inútil (4/10). Lógica de "Promedio de Sesión" y redundante con ATR.cs, que es el indicador superior.
 file_state: Estable (Conceptualm. Roto)
 score_potential: 4/10
 effort: N/A

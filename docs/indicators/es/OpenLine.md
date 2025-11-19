@@ -5,10 +5,12 @@ name: Open Line
 category: Level
 score_current: 8/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Dónde está el precio de apertura de la sesión actual (o personalizada) y ha sido tocado ya?
+recommended_action: 'Conservar'
+description: >-
+  ¿Dónde está el precio de apertura de la sesión actual (o personalizada) y ha sido tocado ya?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Indicador de nivel de apertura simple y efectivo. Soporta horarios personalizados y la función "Till Touch" (cortar línea al toque). Código limpio.
+gemini_summary: >-
+  Indicador de nivel de apertura simple y efectivo. Soporta horarios personalizados y la función "Till Touch" (cortar línea al toque). Código limpio.
 file_state: Estable
 score_potential: 8/10
 effort: N/A

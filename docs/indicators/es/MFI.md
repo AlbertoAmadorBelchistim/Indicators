@@ -5,10 +5,12 @@ name: Money Flow Index (MFI)
 category: Volume
 score_current: 7/10
 version: ATAS Official
-recommended_action: Mejorar
-description: ¿Cuál es la presión de compra/venta (RSI ponderado por volumen) basada en el precio típico?
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cuál es la presión de compra/venta (RSI ponderado por volumen) basada en el precio típico?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Implementación sólida del MFI. El sistema de coloreado por defecto es complejo (mezcla MFI y Ticks) y puede confundir sin una leyenda clara.
+gemini_summary: >-
+  Implementación sólida del MFI. El sistema de coloreado por defecto es complejo (mezcla MFI y Ticks) y puede confundir sin una leyenda clara.
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo

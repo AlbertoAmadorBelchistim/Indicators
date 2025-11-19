@@ -5,10 +5,12 @@ name: Volume Bar Range Ratio
 category: Volume
 score_current: 7/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuánto volumen es necesario para mover el precio 1 tick (Eficiencia del movimiento)?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuánto volumen es necesario para mover el precio 1 tick (Eficiencia del movimiento)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador simple de eficiencia. Volumen / Rango. Útil para detectar absorción."
+gemini_summary: >-
+  Indicador simple de eficiencia. Volumen / Rango. Útil para detectar absorción.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

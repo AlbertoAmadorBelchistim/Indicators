@@ -5,10 +5,12 @@ name: Volume Zone Oscillator
 category: Volume
 score_current: 9/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuál es la presión neta de compra/venta normalizada por el volumen total (Oscilador de Zona)?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es la presión neta de compra/venta normalizada por el volumen total (Oscilador de Zona)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Oscilador de volumen normalizado (-100 a +100). Código limpio y lógica robusta."
+gemini_summary: >-
+  Oscilador de volumen normalizado (-100 a +100). Código limpio y lógica robusta.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo

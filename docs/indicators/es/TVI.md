@@ -5,10 +5,12 @@ name: Trade Volume Index
 category: Volume
 score_current: 7/10
 version: Stable
-recommended_action: Conservar
-description: ¿Se está acumulando o distribuyendo el volumen basándose en la dirección del tick?
+recommended_action: 'Conservar'
+description: >-
+  ¿Se está acumulando o distribuyendo el volumen basándose en la dirección del tick?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Acumulador de volumen simple basado en ticks. Similar al OBV pero con granularidad tick a tick."
+gemini_summary: >-
+  Acumulador de volumen simple basado en ticks. Similar al OBV pero con granularidad tick a tick.
 file_state: Estable
 score_potential: 7/10
 effort: Bajo

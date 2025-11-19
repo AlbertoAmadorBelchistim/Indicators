@@ -4,11 +4,12 @@ name: Account Info Display
 category: Utilidad
 score_current: 7/10
 version: Latest
-recommended_action: Mejorar
-description: ¿Cuál es el estado de mi cuenta (Balance, PnL, Margen) en tiempo real, sin tener que apartar la vista del gráfico?
-
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cuál es el estado de mi cuenta (Balance, PnL, Margen) en tiempo real, sin tener que apartar la vista del gráfico?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: Útil (7/10), pero carece de funciones críticas (límites de pérdida/objetivos) para scalpers de fondeo.
+gemini_summary: >-
+  Útil (7/10), pero carece de funciones críticas (límites de pérdida/objetivos) para scalpers de fondeo.
 file_state: Mejorable
 score_potential: 10/10
 effort: Medio

@@ -5,10 +5,12 @@ name: RT Indicator (Clean)
 category: Trend
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: ¿Está el precio acelerando su pendiente (Slope) con confirmación de momentum interno?
+recommended_action: 'Conservar'
+description: >-
+  ¿Está el precio acelerando su pendiente (Slope) con confirmación de momentum interno?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Detector de pendiente (Slope) con filtro dinámico y confirmación de RSI. Estrategia completa."
+gemini_summary: >-
+  Detector de pendiente (Slope) con filtro dinámico y confirmación de RSI. Estrategia completa.
 file_state: Estable
 score_potential: 8/10
 effort: Medio

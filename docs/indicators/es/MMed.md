@@ -5,10 +5,12 @@ name: Moving Median
 category: Statistical
 score_current: 6/10
 version: ATAS Official
-recommended_action: Mejorar
-description: ¿Cuál es la mediana (valor central) de los precios en el período reciente?
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cuál es la mediana (valor central) de los precios en el período reciente?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Funcional, pero ineficiente. Reordena la lista completa de precios en cada cálculo (OrderBy), lo que puede afectar el rendimiento con períodos largos.
+gemini_summary: >-
+  Funcional, pero ineficiente. Reordena la lista completa de precios en cada cálculo (OrderBy), lo que puede afectar el rendimiento con períodos largos.
 file_state: Mejorable
 score_potential: 6/10
 effort: Medio

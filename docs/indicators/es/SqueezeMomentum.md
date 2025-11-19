@@ -5,10 +5,12 @@ name: Squeeze Momentum
 category: Volatility
 score_current: 9/10
 version: Stable
-recommended_action: Conservar
-description: El famoso indicador de John Carter. Detecta periodos de baja volatilidad (Squeeze) seguidos de explosiones direccionales.
+recommended_action: 'Conservar'
+description: >-
+  El famoso indicador de John Carter. Detecta periodos de baja volatilidad (Squeeze) seguidos de explosiones direccionales.
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación impecable y completa (BB + KC + Momentum). Usa un hack visual curioso para los puntos cero."
+gemini_summary: >-
+  Implementación impecable y completa (BB + KC + Momentum). Usa un hack visual curioso para los puntos cero.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo

@@ -5,10 +5,12 @@ name: Spread Volume
 category: VolumeOrderFlow
 score_current: 7/10
 version: Stable
-recommended_action: Conservar
-description: Visualiza el volumen ejecutado en el Ask y el Bid por separado, dibujado como histogramas en el spread.
+recommended_action: 'Conservar'
+description: >-
+  Visualiza el volumen ejecutado en el Ask y el Bid por separado, dibujado como histogramas en el spread.
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Visualización compleja 'On Chart'. Buen manejo de concurrencia (locks). UX mejorable."
+gemini_summary: >-
+  Visualización compleja 'On Chart'. Buen manejo de concurrencia (locks). UX mejorable.
 file_state: Estable
 score_potential: 8/10
 effort: Medio

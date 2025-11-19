@@ -5,10 +5,12 @@ name: Heiken Ashi Smoothed
 category: Visualization
 score_current: 5/10
 version: ATAS Official
-recommended_action: Mejorar
-description: ¿Cómo se vería el precio usando velas Heiken Ashi "doblemente suavizadas" (SMMA + HA + WMA)?
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cómo se vería el precio usando velas Heiken Ashi "doblemente suavizadas" (SMMA + HA + WMA)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación 'Mejorable' de un indicador de lag extremo (triple suavizado: SMMA + HA + WMA). Tiene un bug en 'bar == 0' que crea una vela inconsistente."
+gemini_summary: >-
+  Implementación 'Mejorable' de un indicador de lag extremo (triple suavizado: SMMA + HA + WMA). Tiene un bug en 'bar == 0' que crea una vela inconsistente.
 file_state: Mejorable
 score_potential: 6/10
 effort: Bajo

@@ -5,10 +5,12 @@ name: HRanges
 category: Volume
 score_current: 8.5/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Dónde se están formando rangos (consolidaciones) y cuál es el POC interno de esos rangos, filtrado por volumen y duración?
+recommended_action: 'Conservar'
+description: >-
+  ¿Dónde se están formando rangos (consolidaciones) y cuál es el POC interno de esos rangos, filtrado por volumen y duración?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador 'Core' de Nivel 2; implementa una máquina de estados para detectar rangos, clasificarlos (Up/Down/Flat) y encontrar su POC, con filtros profesionales."
+gemini_summary: >-
+  Indicador 'Core' de Nivel 2; implementa una máquina de estados para detectar rangos, clasificarlos (Up/Down/Flat) y encontrar su POC, con filtros profesionales.
 file_state: Estable
 score_potential: 8.5/10
 effort: N/A

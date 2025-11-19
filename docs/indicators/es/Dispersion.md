@@ -5,12 +5,12 @@ name: Dispersion
 category: Volatility
 score_current: 1/10
 version: Estable
-recommended_action: Descartar
-description: ¿Está el precio 'pegado' a su media (comprimido) o 'explotando' lejos
-  de ella (volátil)?
+recommended_action: 'Descartar'
+description: >-
+  '¿Está el precio 'pegado' a su media (comprimido) o 'explotando' lejos' de ella (volátil)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador Roto e Inferior: mide la Varianza ('ticks^2') en lugar
-  de StDev, la calcula mal, y es 100% inferior a usar ATR o Bollinger Bands."
+gemini_summary: >-
+  '"Indicador Roto e Inferior: mide la Varianza ('ticks^2') en lugar' de StDev, la calcula mal, y es 100% inferior a usar ATR o Bollinger Bands."
 file_state: Roto
 score_potential: 1/10
 effort: N/A

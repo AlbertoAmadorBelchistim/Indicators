@@ -4,11 +4,12 @@ name: Connie Brown Composite Index
 category: Momentum
 score_current: 5/10
 version: Estable
-recommended_action: Descartar
-description: ¿Cuál es el momentum "compuesto" (RSI + Momentum) del precio, y cómo se compara con sus propias medias móviles (lenta y rápida)?
-
+recommended_action: 'Descartar'
+description: >-
+  ¿Cuál es el momentum "compuesto" (RSI + Momentum) del precio, y cómo se compara con sus propias medias móviles (lenta y rápida)?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: "Lag sobre lag" (5/10). Conceptualm. lento. Tiene bugs (etiquetas, warm-up). Inútil para scalping.
+gemini_summary: >-
+  "Lag sobre lag" (5/10). Conceptualm. lento. Tiene bugs (etiquetas, warm-up). Inútil para scalping.
 file_state: Buggy
 score_potential: 5/10
 effort: N/A

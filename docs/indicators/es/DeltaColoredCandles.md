@@ -5,13 +5,12 @@ name: Delta Colored Candles
 category: VolumeOrderFlow
 score_current: 4/10
 version: Estable
-recommended_action: Mejorar
-description: ¿Cuál es la intensidad del *momentum* del delta (delta acumulado en N
-  barras) en relación con un máximo fijo?
+recommended_action: 'Mejorar'
+description: >-
+  '¿Cuál es la intensidad del *momentum* del delta (delta acumulado en N' barras) en relación con un máximo fijo?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Idea de 'momentum de delta' 9/10 arruinada por una implementación
-  2/10 que requiere un 'MaxDelta' fijo, haciéndolo inútil; necesita ser
-  'Mejorado' con un umbral dinámico."
+gemini_summary: >-
+  '"Idea de 'momentum de delta' 9/10 arruinada por una implementación' 2/10 que requiere un 'MaxDelta' fijo, haciéndolo inútil; necesita ser 'Mejorado' con un umbral dinámico."
 file_state: Mejorable
 score_potential: 9/10
 effort: Medio

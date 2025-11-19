@@ -5,10 +5,12 @@ name: OI Analyzer
 category: VolumeOrderFlow
 score_current: 9/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Cómo cambia el Interés Abierto (OI) filtrado por dirección (Buy/Sell) y visualizado en detalle?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cómo cambia el Interés Abierto (OI) filtrado por dirección (Buy/Sell) y visualizado en detalle?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Herramienta avanzada para analizar el OI. Soporta múltiples modos (Buy/Sell, Acumulado/Separado) y visualización de clusters. Código robusto y bien protegido.
+gemini_summary: >-
+  Herramienta avanzada para analizar el OI. Soporta múltiples modos (Buy/Sell, Acumulado/Separado) y visualización de clusters. Código robusto y bien protegido.
 file_state: Estable
 score_potential: 9/10
 effort: N/A

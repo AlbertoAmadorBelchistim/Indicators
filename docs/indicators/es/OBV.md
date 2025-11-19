@@ -5,10 +5,12 @@ name: OBV
 category: Volume
 score_current: 7/10
 version: ATAS Official
-recommended_action: Mejorar
-description: ¿Cuál es el flujo de volumen acumulado (presión de compra/venta) basado en el cierre de velas?
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cuál es el flujo de volumen acumulado (presión de compra/venta) basado en el cierre de velas?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Implementación del OBV con un modo "miniminzado" útil. Tiene un bug menor: la lógica de inicialización de la barra 0 es inalcanzable debido a un return previo.
+gemini_summary: >-
+  Implementación del OBV con un modo "miniminzado" útil. Tiene un bug menor: la lógica de inicialización de la barra 0 es inalcanzable debido a un return previo.
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo

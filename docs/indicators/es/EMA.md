@@ -5,10 +5,12 @@ name: EMA
 category: Trend
 score_current: 9/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Cuál es el valor de la media móvil exponencial, coloreada por pendiente, con alertas de proximidad al precio?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es el valor de la media móvil exponencial, coloreada por pendiente, con alertas de proximidad al precio?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación 'Core' con color de pendiente y alertas de proximidad (ticks); las 'incoherencias' del .md original son incorrectas."
+gemini_summary: >-
+  Implementación 'Core' con color de pendiente y alertas de proximidad (ticks); las 'incoherencias' del .md original son incorrectas.
 file_state: Estable
 score_potential: 9/10
 effort: N/A

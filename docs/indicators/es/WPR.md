@@ -5,10 +5,12 @@ name: WPR (Williams %R)
 category: Momentum
 score_current: 6/10
 version: Stable
-recommended_action: Descartar
-description: Versión duplicada de Williams %R con visualización ligeramente diferente.
+recommended_action: 'Descartar'
+description: >-
+  Versión duplicada de Williams %R con visualización ligeramente diferente.
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Duplicado de WilliamsR.cs. Código correcto pero redundante. Sugiero mantener WilliamsR y descartar este."
+gemini_summary: >-
+  Duplicado de WilliamsR.cs. Código correcto pero redundante. Sugiero mantener WilliamsR y descartar este.
 file_state: Estable
 score_potential: 6/10
 effort: Bajo

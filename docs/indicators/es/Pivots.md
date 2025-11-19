@@ -5,10 +5,12 @@ name: Pivots modif
 category: Level
 score_current: 8/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Cuáles son los niveles de soporte y resistencia (Pivots, R1-3, S1-3) calculados sobre sesiones estándar o personalizadas?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuáles son los niveles de soporte y resistencia (Pivots, R1-3, S1-3) calculados sobre sesiones estándar o personalizadas?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Indicador de Pivots robusto con soporte para sesiones personalizadas (RTH). Código funcional, aunque la gestión de etiquetas de texto es ineficiente.
+gemini_summary: >-
+  Indicador de Pivots robusto con soporte para sesiones personalizadas (RTH). Código funcional, aunque la gestión de etiquetas de texto es ineficiente.
 file_state: Estable
 score_potential: 8/10
 effort: N/A

@@ -5,11 +5,12 @@ name: 1 Divided by Price
 category: Price
 score_current: 1/10
 version: Estable
-recommended_action: Descartar
-description: ¿Cuál es el gráfico de precios invertido (1 / Precio)?
+recommended_action: 'Descartar'
+description: >-
+  ¿Cuál es el gráfico de precios invertido (1 / Precio)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador 'gimmick' que dibuja 1/Precio; no es una herramienta
-  de trading sino una transformación matemática sin utilidad para scalping."
+gemini_summary: >-
+  '"Indicador 'gimmick' que dibuja 1/Precio; no es una herramienta' de trading sino una transformación matemática sin utilidad para scalping."
 file_state: Estable
 score_potential: 1/10
 effort: N/A

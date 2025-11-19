@@ -5,10 +5,12 @@ name: Order Book Alerts
 category: OrderBook
 score_current: 9/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Dónde hay muros de liquidez en el DOM que superan un cierto tamaño y persisten en el tiempo?
+recommended_action: 'Conservar'
+description: >-
+  ¿Dónde hay muros de liquidez en el DOM que superan un cierto tamaño y persisten en el tiempo?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Monitor de DOM eficaz. Alerta sobre niveles de liquidez grandes y persistentes. Código eficiente basado en eventos de profundidad de mercado.
+gemini_summary: >-
+  Monitor de DOM eficaz. Alerta sobre niveles de liquidez grandes y persistentes. Código eficiente basado en eventos de profundidad de mercado.
 file_state: Estable
 score_potential: 9/10
 effort: N/A

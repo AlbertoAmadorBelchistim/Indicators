@@ -5,10 +5,12 @@ name: Volatility - Historical
 category: Volatility
 score_current: 4/10
 version: Buggy
-recommended_action: Reparar
-description: ¿Cuál es la volatilidad estadística histórica basada en los retornos logarítmicos?
+recommended_action: 'Reparar'
+description: >-
+  ¿Cuál es la volatilidad estadística histórica basada en los retornos logarítmicos?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Error conceptual grave: usa 'CurrentBar' (tiempo total) como factor de escalado. Resultados distorsionados."
+gemini_summary: >-
+  Error conceptual grave: usa 'CurrentBar' (tiempo total) como factor de escalado. Resultados distorsionados.
 file_state: Roto
 score_potential: 8/10
 effort: Bajo

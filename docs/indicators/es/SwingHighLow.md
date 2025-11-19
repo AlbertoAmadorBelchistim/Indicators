@@ -5,10 +5,12 @@ name: Swing High and Low
 category: Momentum
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuáles son los puntos de giro (máximos/mínimos locales) confirmados en la estructura del mercado?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuáles son los puntos de giro (máximos/mínimos locales) confirmados en la estructura del mercado?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Detector de fractales/pivotes. Correctamente implementado con lag retrospectivo."
+gemini_summary: >-
+  Detector de fractales/pivotes. Correctamente implementado con lag retrospectivo.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

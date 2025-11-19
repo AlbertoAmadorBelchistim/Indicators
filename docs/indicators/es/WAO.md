@@ -5,10 +5,12 @@ name: Weighted Average Oscillator
 category: Momentum
 score_current: 7/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuál es la diferencia entre dos medias móviles ponderadas (WMA)? (MACD rápido).
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es la diferencia entre dos medias móviles ponderadas (WMA)? (MACD rápido).
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Oscilador simple WMA-WMA. Reactivo pero básico. Código correcto."
+gemini_summary: >-
+  Oscilador simple WMA-WMA. Reactivo pero básico. Código correcto.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

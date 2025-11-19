@@ -5,10 +5,12 @@ name: VSA – WSD Histogram
 category: Volume
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cómo se distribuye la estructura de la vela (mechas vs cuerpo) y el volumen relativo?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cómo se distribuye la estructura de la vela (mechas vs cuerpo) y el volumen relativo?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Deconstruye la vela en histogramas de mechas y cuerpo. Útil para análisis estructural."
+gemini_summary: >-
+  Deconstruye la vela en histogramas de mechas y cuerpo. Útil para análisis estructural.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

@@ -5,10 +5,12 @@ name: MACD
 category: Momentum
 score_current: 8/10
 version: ATAS Official
-recommended_action: Mejorar
-description: ¿Cuál es la convergencia o divergencia entre las medias móviles de corto y largo plazo?
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cuál es la convergencia o divergencia entre las medias móviles de corto y largo plazo?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Implementación clásica y estable del MACD; carece de mejoras modernas como histograma coloreado o tipos de MA seleccionables.
+gemini_summary: >-
+  Implementación clásica y estable del MACD; carece de mejoras modernas como histograma coloreado o tipos de MA seleccionables.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo

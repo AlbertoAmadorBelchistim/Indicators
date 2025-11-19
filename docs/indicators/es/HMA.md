@@ -5,10 +5,12 @@ name: Hull Moving Average
 category: Trend
 score_current: 8/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Cuál es el valor de la media móvil de Hull (HMA), una media rápida y de bajo lag coloreada por pendiente?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es el valor de la media móvil de Hull (HMA), una media rápida y de bajo lag coloreada por pendiente?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación 'Core' y estable de la HMA; una media móvil rápida y de bajo lag, ideal para filtrar la tendencia a corto plazo."
+gemini_summary: >-
+  Implementación 'Core' y estable de la HMA; una media móvil rápida y de bajo lag, ideal para filtrar la tendencia a corto plazo.
 file_state: Estable
 score_potential: 8/10
 effort: N/A

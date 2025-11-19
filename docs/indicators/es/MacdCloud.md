@@ -5,10 +5,12 @@ name: MACD Cloud
 category: Trend
 score_current: 7/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuál es la tendencia visual definida por el cruce de dos medias ponderadas (WMA)?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es la tendencia visual definida por el cruce de dos medias ponderadas (WMA)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Cruce de WMAs con relleno de color (Cloud). Simple, visual y efectivo para seguimiento de tendencia."
+gemini_summary: >-
+  Cruce de WMAs con relleno de color (Cloud). Simple, visual y efectivo para seguimiento de tendencia.
 file_state: Estable
 score_potential: 7/10
 effort: Bajo

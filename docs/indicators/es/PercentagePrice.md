@@ -5,10 +5,12 @@ name: Percentage Price Oscillator
 category: Momentum
 score_current: 7/10
 version: ATAS Official
-recommended_action: Mejorar
-description: ¿Cuál es la diferencia porcentual entre dos medias móviles (MACD normalizado)?
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cuál es la diferencia porcentual entre dos medias móviles (MACD normalizado)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Implementación básica del PPO. Funcional, pero carece de línea de señal e histograma, lo que limita su utilidad comparado con un MACD completo.
+gemini_summary: >-
+  Implementación básica del PPO. Funcional, pero carece de línea de señal e histograma, lo que limita su utilidad comparado con un MACD completo.
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo

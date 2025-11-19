@@ -5,10 +5,12 @@ name: TD Sequential
 category: Momentum
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: ¿En qué punto del ciclo de agotamiento (Setup/Countdown) se encuentra la tendencia actual?
+recommended_action: 'Conservar'
+description: >-
+  ¿En qué punto del ciclo de agotamiento (Setup/Countdown) se encuentra la tendencia actual?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación fiel del sistema de DeMark. Buena visualización de números y niveles S/R."
+gemini_summary: >-
+  Implementación fiel del sistema de DeMark. Buena visualización de números y niveles S/R.
 file_state: Estable
 score_potential: 8/10
 effort: Medio

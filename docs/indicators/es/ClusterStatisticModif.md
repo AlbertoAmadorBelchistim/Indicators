@@ -4,14 +4,12 @@ name: Cluster Statistic Modif 
 category: Order FLow
 score_current: 10/10
 version: Estable
-recommended_action: Conservar
-description: ¿Cuál es el "dashboard" estadístico completo (Volumen, Delta, Ticks, *Velocidad* e *Imbalances*) de cada vela, y cómo se compara cada vela con la más "fuerte" del gráfico?
-
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es el "dashboard" estadístico completo (Volumen, Delta, Ticks, *Velocidad* e *Imbalances*) de cada vela, y cómo se compara cada vela con la más "fuerte" del gráfico?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Esta es una obra maestra. Es un "dashboard" de nivel profesional
-  que combina estadísticas base (Vol, Delta) con métricas avanzadas (Speed of
-  Tape, Imbalances). El código es complejo pero logra su objetivo a la perfección.
-  Es una herramienta central.
+gemini_summary: >-
+  'Esta es una obra maestra. Es un "dashboard" de nivel profesional' que combina estadísticas base (Vol, Delta) con métricas avanzadas (Speed of Tape, Imbalances). El código es complejo pero logra su objetivo a la perfección. Es una herramienta central.
 file_state: Estable
 score_potential: 10/10
 effort: N/A

@@ -5,10 +5,12 @@ name: Arms Ease of Movement
 category: Volume
 score_current: 6.5/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Es el movimiento del precio (cambio en el punto medio) eficiente en relación con su volumen y rango?
+recommended_action: 'Conservar'
+description: >-
+  ¿Es el movimiento del precio (cambio en el punto medio) eficiente en relación con su volumen y rango?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación estable y correcta de un indicador clásico; las 'incoherencias' detectadas en el .md original son incorrectas."
+gemini_summary: >-
+  Implementación estable y correcta de un indicador clásico; las 'incoherencias' detectadas en el .md original son incorrectas.
 file_state: Estable
 score_potential: 6.5/10
 effort: N/A

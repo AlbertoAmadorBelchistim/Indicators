@@ -5,10 +5,12 @@ name: Linear Regression Channel
 category: Trend
 score_current: 3/10
 version: ATAS Official
-recommended_action: Reparar
-description: ¿Cuál es el canal de tendencia dominante (regresión lineal) y dónde están sus límites de desviación estándar?
+recommended_action: 'Reparar'
+description: >-
+  ¿Cuál es el canal de tendencia dominante (regresión lineal) y dónde están sus límites de desviación estándar?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Concepto excelente (canal + flecha) pero ROTO por un bug crítico de división por cero si InstrumentInfo.TickSize es 0.
+gemini_summary: >-
+  Concepto excelente (canal + flecha) pero ROTO por un bug crítico de división por cero si InstrumentInfo.TickSize es 0.
 file_state: Roto
 score_potential: 9/10
 effort: Bajo

@@ -5,14 +5,12 @@ name: Chaikin Oscillator
 category: Momentum / Volumen clásico
 score_current: 3/10
 version: Estable
-recommended_action: Descartar
-description: ¿Cuál es el *momentum* del flujo de dinero (Línea AD)? ¿Está el flujo
-  de dinero (acumulación/distribución) acelerando o frenando?
+recommended_action: 'Descartar'
+description: >-
+  '¿Cuál es el *momentum* del flujo de dinero (Línea AD)? ¿Está el flujo' de dinero (acumulación/distribución) acelerando o frenando?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: El análisis del MD es 100% correcto. Es un "MACD del ADL", un
-  indicador con lag de triple capa (ADL acumulativo + 2 EMAs). Se basa en un
-  proxy de flujo obsoleto (ADL) en lugar de datos reales (Delta). Totalmente
-  inútil para scalping.
+gemini_summary: >-
+  'El análisis del MD es 100% correcto. Es un "MACD del ADL", un' indicador con lag de triple capa (ADL acumulativo + 2 EMAs). Se basa en un proxy de flujo obsoleto (ADL) en lugar de datos reales (Delta). Totalmente inútil para scalping.
 file_state: Estable
 score_potential: 3/10
 effort: N/A

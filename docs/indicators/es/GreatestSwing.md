@@ -5,10 +5,12 @@ name: Greatest Swing Value
 category: Levels
 score_current: 7/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Dónde están los niveles S/R dinámicos, proyectados desde el Open actual usando la media de los 'swings de rechazo' anteriores?
+recommended_action: 'Conservar'
+description: >-
+  ¿Dónde están los niveles S/R dinámicos, proyectados desde el Open actual usando la media de los 'swings de rechazo' anteriores?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación estable de un canal de volatilidad; proyecta la media (con lag de 1 barra) de los 'swings de rechazo' (mechas) desde el Open actual."
+gemini_summary: >-
+  Implementación estable de un canal de volatilidad; proyecta la media (con lag de 1 barra) de los 'swings de rechazo' (mechas) desde el Open actual.
 file_state: Estable
 score_potential: 7/10
 effort: N/A

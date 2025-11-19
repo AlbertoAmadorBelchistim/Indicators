@@ -5,10 +5,12 @@ name: SMMA (Smoothed Moving Average)
 category: Trend
 score_current: 7/10
 version: Stable
-recommended_action: Conservar
-description: Media móvil suavizada que reduce el ruido del mercado dando menos peso a los precios recientes que una EMA.
+recommended_action: 'Conservar'
+description: >-
+  Media móvil suavizada que reduce el ruido del mercado dando menos peso a los precios recientes que una EMA.
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación recursiva estándar y eficiente. Sin bugs."
+gemini_summary: >-
+  Implementación recursiva estándar y eficiente. Sin bugs.
 file_state: Estable
 score_potential: 7/10
 effort: Bajo

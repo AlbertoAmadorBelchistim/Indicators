@@ -5,10 +5,12 @@ name: Unfinished Auction
 category: VolumeOrderFlow
 score_current: 9/10
 version: Stable
-recommended_action: Conservar
-description: ¿Quedaron órdenes pendientes (desequilibrio) en los extremos de la vela que el precio debe volver a visitar?
+recommended_action: 'Conservar'
+description: >-
+  ¿Quedaron órdenes pendientes (desequilibrio) en los extremos de la vela que el precio debe volver a visitar?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Herramienta de Order Flow avanzada. Detecta anomalías en extremos y dibuja líneas hasta que se mitigan."
+gemini_summary: >-
+  Herramienta de Order Flow avanzada. Detecta anomalías en extremos y dibuja líneas hasta que se mitigan.
 file_state: Estable
 score_potential: 9/10
 effort: Alto

@@ -5,10 +5,12 @@ name: Murrey Math
 category: Level
 score_current: 8/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Cuáles son los niveles de soporte y resistencia armónicos basados en la teoría de Murrey Math?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuáles son los niveles de soporte y resistencia armónicos basados en la teoría de Murrey Math?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Implementación matemática compleja y fiel de las líneas Murrey Math. Estable, aunque el código es denso y difícil de auditar.
+gemini_summary: >-
+  Implementación matemática compleja y fiel de las líneas Murrey Math. Estable, aunque el código es denso y difícil de auditar.
 file_state: Estable
 score_potential: 8/10
 effort: N/A

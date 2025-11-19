@@ -5,10 +5,12 @@ name: Synthetic VIX
 category: Volatility
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cómo de lejos está el precio actual del máximo reciente (Proxy de miedo/pánico)?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cómo de lejos está el precio actual del máximo reciente (Proxy de miedo/pánico)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Calcula el 'Williams VIX Fix'. Simple y eficaz para detectar suelos de mercado."
+gemini_summary: >-
+  Calcula el 'Williams VIX Fix'. Simple y eficaz para detectar suelos de mercado.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

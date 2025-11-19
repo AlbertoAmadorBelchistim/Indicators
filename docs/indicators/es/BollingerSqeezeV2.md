@@ -4,11 +4,12 @@ name: Bollinger Squeeze 2
 category: Volatilidad / Momentum
 score_current: 8/10
 version: Estable
-recommended_action: Mejorar
-description: ¿Está el mercado en compresión (Squeeze) Y cuál es la dirección del momentum (Histograma)?
-
+recommended_action: 'Mejorar'
+description: >-
+  ¿Está el mercado en compresión (Squeeze) Y cuál es la dirección del momentum (Histograma)?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: "TTM Squeeze" (8/10). Herramienta 'Pro' que combina Squeeze (puntos) + Momentum (histograma). Defaults débiles (10,1,1).
+gemini_summary: >-
+  "TTM Squeeze" (8/10). Herramienta 'Pro' que combina Squeeze (puntos) + Momentum (histograma). Defaults débiles (10,1,1).
 file_state: Mejorable
 score_potential: 10/10
 effort: Bajo

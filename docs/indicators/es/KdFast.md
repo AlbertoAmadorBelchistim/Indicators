@@ -5,10 +5,12 @@ name: KD - Fast
 category: Momentum
 score_current: 6/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Cuál es el valor del oscilador Estocástico Rápido (%K) y su media móvil (%D)?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es el valor del oscilador Estocástico Rápido (%K) y su media móvil (%D)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación 'Core' y estable del Estocástico Rápido (%K = Estocástico, %D = SMA(%K)). Es la base para 'KdSlow' y 'KDJ'."
+gemini_summary: >-
+  Implementación 'Core' y estable del Estocástico Rápido (%K = Estocástico, %D = SMA(%K)). Es la base para 'KdSlow' y 'KDJ'.
 file_state: Estable
 score_potential: 6/10
 effort: N/A

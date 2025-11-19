@@ -5,14 +5,12 @@ name: Chaikin Money Flow
 category: Volumen
 score_current: 2/10
 version: Estable
-recommended_action: Descartar
-description: ¿Está entrando o saliendo dinero del activo? (Mide el volumen ponderado
-  por la posición del cierre en el rango de la vela).
+recommended_action: 'Descartar'
+description: >-
+  '¿Está entrando o saliendo dinero del activo? (Mide el volumen ponderado' por la posición del cierre en el rango de la vela).
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Este es un indicador "Impostor". No implementa el CMF estándar
-  (que usa el H/L de la barra). En su lugar, usa el H/L de la *sesión* para
-  calcular el multiplicador de flujo, creando una métrica extraña, con un lag
-  masivo e inútil para el scalping. Es peor que el CMF clásico.
+gemini_summary: >-
+  'Este es un indicador "Impostor". No implementa el CMF estándar' (que usa el H/L de la barra). En su lugar, usa el H/L de la *sesión* para calcular el multiplicador de flujo, creando una métrica extraña, con un lag masivo e inútil para el scalping. Es peor que el CMF clásico.
 file_state: Impostor
 score_potential: 4/10
 effort: N/A

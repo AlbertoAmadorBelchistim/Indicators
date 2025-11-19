@@ -5,10 +5,12 @@ name: Up/Down Volume Ratio
 category: Volume
 score_current: 9/10
 version: Stable
-recommended_action: Conservar
-description: ¿Quién controla el flujo de volumen (compradores o vendedores) y con qué intensidad relativa?
+recommended_action: 'Conservar'
+description: >-
+  ¿Quién controla el flujo de volumen (compradores o vendedores) y con qué intensidad relativa?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Oscilador de volumen versátil. Permite comparar Up/Down o Ask/Bid con múltiples tipos de suavizado."
+gemini_summary: >-
+  Oscilador de volumen versátil. Permite comparar Up/Down o Ask/Bid con múltiples tipos de suavizado.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo

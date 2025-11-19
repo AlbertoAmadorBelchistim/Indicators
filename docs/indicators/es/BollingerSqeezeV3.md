@@ -4,11 +4,12 @@ name: Bollinger Squeeze 3
 category: Volatilidad / Momentum
 score_current: 6/10
 version: Estable
-recommended_action: Descartar
-description: ¿Está la volatilidad del precio (StdDev) actualmente mayor o menor que la volatilidad del rango de las velas (ATR)?
-
+recommended_action: 'Descartar'
+description: >-
+  ¿Está la volatilidad del precio (StdDev) actualmente mayor o menor que la volatilidad del rango de las velas (ATR)?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: Redundante (6/10). Es un filtro de Squeeze (StdDev vs ATR) que es inferior a BollingerSqueezeV2 (que también incluye Momentum).
+gemini_summary: >-
+  Redundante (6/10). Es un filtro de Squeeze (StdDev vs ATR) que es inferior a BollingerSqueezeV2 (que también incluye Momentum).
 file_state: Estable (Redundante)
 score_potential: 6/10
 effort: N/A

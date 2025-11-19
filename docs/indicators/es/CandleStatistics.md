@@ -4,11 +4,12 @@ name: Candle Statistics
 category: Utilidad / Visualización
 score_current: 8/10
 version: Estable
-recommended_action: Mejorar
-description: ¿Cuál es la "radiografía" de esta vela? ¿Cuál fue su Volumen total, su Delta neto, su número de Ticks (trades) y su Duración?
-
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cuál es la "radiografía" de esta vela? ¿Cuál fue su Volumen total, su Delta neto, su número de Ticks (trades) y su Duración?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: "Mini-Cluster" (8/10). Herramienta de UI 'Core' que da el 80% de la info de OF sin el ruido del clúster.
+gemini_summary: >-
+  "Mini-Cluster" (8/10). Herramienta de UI 'Core' que da el 80% de la info de OF sin el ruido del clúster.
 file_state: Mejorable
 score_potential: 10/10
 effort: Medio

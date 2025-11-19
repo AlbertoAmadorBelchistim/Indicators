@@ -5,10 +5,12 @@ name: Momentum Trend
 category: Momentum
 score_current: 3/10
 version: ATAS Official
-recommended_action: Mejorar
-description: ¿Está el momentum aumentando o disminuyendo vela a vela (visualizado como puntos)?
+recommended_action: 'Mejorar'
+description: >-
+  ¿Está el momentum aumentando o disminuyendo vela a vela (visualizado como puntos)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Indicador visual muy básico. Tiene un defecto lógico: si el momentum es igual al anterior, no dibuja nada, creando huecos visuales.
+gemini_summary: >-
+  Indicador visual muy básico. Tiene un defecto lógico: si el momentum es igual al anterior, no dibuja nada, creando huecos visuales.
 file_state: Mejorable
 score_potential: 5/10
 effort: Bajo

@@ -5,10 +5,12 @@ name: Momentum
 category: Momentum
 score_current: 7/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Cuál es la diferencia de precio (velocidad) entre la barra actual y la de hace N periodos?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es la diferencia de precio (velocidad) entre la barra actual y la de hace N periodos?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Implementación clásica y robusta del indicador Momentum. Incluye una SMA de suavizado opcional bien integrada. Sin problemas detectados.
+gemini_summary: >-
+  Implementación clásica y robusta del indicador Momentum. Incluye una SMA de suavizado opcional bien integrada. Sin problemas detectados.
 file_state: Estable
 score_potential: 7/10
 effort: N/A

@@ -4,11 +4,12 @@ name: Bars Pattern
 category: Order Flow / Utilidad
 score_current: 9/10
 version: Estable
-recommended_action: Mejorar
-description: ¿Qué velas de este gráfico cumplen _todos_ mis criterios específicos y multicapa para un setup de alta calidad (Volumen, Delta, forma de vela, etc.)?
-
+recommended_action: 'Mejorar'
+description: >-
+  ¿Qué velas de este gráfico cumplen _todos_ mis criterios específicos y multicapa para un setup de alta calidad (Volumen, Delta, forma de vela, etc.)?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: "Buscador de Setups" (9/10). Herramienta "Pro" para definir patrones VSA/Delta. Su único fallo es un cálculo de SMA ineficiente (for loop).
+gemini_summary: >-
+  "Buscador de Setups" (9/10). Herramienta "Pro" para definir patrones VSA/Delta. Su único fallo es un cálculo de SMA ineficiente (for loop).
 file_state: Mejorable (Ineficiente)
 score_potential: 10/10
 effort: Bajo (Arreglar SMA) / Alto (Añadir 'OR')

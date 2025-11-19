@@ -4,11 +4,12 @@ name: ADX
 category: Tendencia
 score_current: 6/10
 version: Estable
-recommended_action: Mejorar
-description: ¿Está el mercado en una fuerte tendencia (alcista o bajista), o simplemente está 'oscilando' lateralmente?
-
+recommended_action: 'Mejorar'
+description: >-
+  ¿Está el mercado en una fuerte tendencia (alcista o bajista), o simplemente está 'oscilando' lateralmente?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: Filtro de régimen clásico (6/10). Fiel a la fórmula de Wilder (RMA). Su lag extremo es por diseño, no es un bug.
+gemini_summary: >-
+  Filtro de régimen clásico (6/10). Fiel a la fórmula de Wilder (RMA). Su lag extremo es por diseño, no es un bug.
 file_state: Estable
 score_potential: 7/10
 effort: Bajo

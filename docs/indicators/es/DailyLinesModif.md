@@ -5,13 +5,12 @@ name: Daily Lines Modif
 category: Levels
 score_current: 9/10
 version: 1.2.0 (Modif)
-recommended_action: Conservar
-description: ¿Dónde están los niveles estructurales (OHLC) del día/semana/mes
-  anterior, y dónde está el "Half Gap" (mitad del hueco) de la apertura de
-  hoy?
+recommended_action: 'Conservar'
+description: >-
+  '¿Dónde están los niveles estructurales (OHLC) del día/semana/mes' anterior, y dónde está el "Half Gap" (mitad del hueco) de la apertura de hoy?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Herramienta de contexto 'Core' que dibuja niveles OHLC, mejorada
-  con un 'Half Gap' (nivel pro) y un historial de sesión robusto ('Queue')."
+gemini_summary: >-
+  '"Herramienta de contexto 'Core' que dibuja niveles OHLC, mejorada' con un 'Half Gap' (nivel pro) y un historial de sesión robusto ('Queue')."
 file_state: Estable
 score_potential: 9/10
 effort: N/A

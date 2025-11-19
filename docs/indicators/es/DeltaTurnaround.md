@@ -5,12 +5,12 @@ name: Delta Turnaround
 category: VolumeOrderFlow
 score_current: 6/10
 version: Latest
-recommended_action: Descartar
-description: ¿Se ha producido un patrón de giro de 3 velas (dos en una dirección,
-  una en la opuesta) confirmado por el delta?
+recommended_action: 'Descartar'
+description: >-
+  '¿Se ha producido un patrón de giro de 3 velas (dos en una dirección,' una en la opuesta) confirmado por el delta?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Patrón de giro de 3 velas válido pero 'hard-codeado', haciéndolo 100%
-  redundante frente a la flexibilidad del indicador 'BarsPattern'.
+gemini_summary: >-
+  'Patrón de giro de 3 velas válido pero 'hard-codeado', haciéndolo 100%' redundante frente a la flexibilidad del indicador 'BarsPattern'.
 file_state: Estable
 score_potential: 6/10
 effort: N/A

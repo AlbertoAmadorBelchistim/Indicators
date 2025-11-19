@@ -5,10 +5,12 @@ name: LevelsLolo
 category: Levels
 score_current: 9/10
 version: Modif.
-recommended_action: Conservar
-description: ¿Dónde están los niveles clave externos (ej. SpotGamma) y cuál es su jerarquía de importancia (Rank, Tipo, 0DTE)?
+recommended_action: 'Conservar'
+description: >-
+  ¿Dónde están los niveles clave externos (ej. SpotGamma) y cuál es su jerarquía de importancia (Rank, Tipo, 0DTE)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador 'Core' de visualización (OnRender); parsea texto de niveles (SpotGamma), los renderiza con jerarquía (Rank/Tipo) y acentos (0DTE). Estable y profesional."
+gemini_summary: >-
+  Indicador 'Core' de visualización (OnRender); parsea texto de niveles (SpotGamma), los renderiza con jerarquía (Rank/Tipo) y acentos (0DTE). Estable y profesional.
 file_state: Estable
 score_potential: 9/10
 effort: N/A

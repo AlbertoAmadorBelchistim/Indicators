@@ -5,10 +5,12 @@ name: KDJ
 category: Momentum
 score_current: 5/10
 version: ATAS Official
-recommended_action: Reparar
-description: ¿Cuál es el valor del Estocástico Lento (%K, %D) más la línea de señal %J (3*%K - 2*%D)?
+recommended_action: 'Reparar'
+description: >-
+  ¿Cuál es el valor del Estocástico Lento (%K, %D) más la línea de señal %J (3*%K - 2*%D)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador 'Buggy' (UI). Hereda el mismo bug de UI que 'KdSlow' (dos parámetros 'PeriodD'). El concepto (añadir línea %J) es 6.5/10, pero es inconfigurable."
+gemini_summary: >-
+  Indicador 'Buggy' (UI). Hereda el mismo bug de UI que 'KdSlow' (dos parámetros 'PeriodD'). El concepto (añadir línea %J) es 6.5/10, pero es inconfigurable.
 file_state: Buggy
 score_potential: 6.5/10
 effort: Bajo

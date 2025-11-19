@@ -5,10 +5,12 @@ name: Price Volume Trend
 category: Volume
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuál es el flujo acumulado de volumen ponderado por la magnitud del movimiento del precio?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es el flujo acumulado de volumen ponderado por la magnitud del movimiento del precio?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Variante mejorada del OBV. Pondera volumen por cambio porcentual de precio."
+gemini_summary: >-
+  Variante mejorada del OBV. Pondera volumen por cambio porcentual de precio.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

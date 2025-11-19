@@ -4,11 +4,12 @@ name: Bollinger Bands
 category: Volatilidad / Canal
 score_current: 8/10
 version: Estable
-recommended_action: Mejorar
-description: ¿Está el precio actual estadísticamente 'demasiado alto' o 'demasiado bajo' (sobre-extendido) en comparación con su media reciente, basándose en la volatilidad?
-
+recommended_action: 'Mejorar'
+description: >-
+  ¿Está el precio actual estadísticamente 'demasiado alto' o 'demasiado bajo' (sobre-extendido) en comparación con su media reciente, basándose en la volatilidad?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: "Herramienta Core" (8/10). Implementación avanzada con coloreado de tendencia. Tiene un bug menor de alerta (copypaste).
+gemini_summary: >-
+  "Herramienta Core" (8/10). Implementación avanzada con coloreado de tendencia. Tiene un bug menor de alerta (copypaste).
 file_state: Buggy
 score_potential: 10/10
 effort: Bajo

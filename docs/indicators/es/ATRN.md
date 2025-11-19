@@ -4,11 +4,12 @@ name: ATR Normalized
 category: Volatilidad
 score_current: 3/10
 version: Estable
-recommended_action: Descartar
-description: ¿Cuál es la volatilidad (ATR) del instrumento como un porcentaje de su precio actual?
-
+recommended_action: 'Descartar'
+description: >-
+  ¿Cuál es la volatilidad (ATR) del instrumento como un porcentaje de su precio actual?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: Inútil para scalping (3/10). Resuelve un problema (comparar activos) que un scalper no tiene. Redundante con ATR.
+gemini_summary: >-
+  Inútil para scalping (3/10). Resuelve un problema (comparar activos) que un scalper no tiene. Redundante con ATR.
 file_state: Estable (Redundante)
 score_potential: 3/10
 effort: N/A

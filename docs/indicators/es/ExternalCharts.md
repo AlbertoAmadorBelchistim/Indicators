@@ -5,10 +5,12 @@ name: External Chart
 category: Visualization
 score_current: 7.5/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Cómo se ven las velas de un timeframe superior (ej. H1, H4) superpuestas en mi gráfico actual?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cómo se ven las velas de un timeframe superior (ej. H1, H4) superpuestas en mi gráfico actual?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Herramienta de visualización 'Core' que dibuja velas de Timeframe Superior (HTF) en el gráfico actual; estable e indispensable para el análisis Multi-Timeframe."
+gemini_summary: >-
+  Herramienta de visualización 'Core' que dibuja velas de Timeframe Superior (HTF) en el gráfico actual; estable e indispensable para el análisis Multi-Timeframe.
 file_state: Estable
 score_potential: 7.5/10
 effort: N/A

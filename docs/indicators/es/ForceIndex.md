@@ -5,10 +5,12 @@ name: Force Index
 category: Volume
 score_current: 7/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Cuál es la fuerza de un movimiento (Volumen * (Cierre - CierreAnterior)), con suavizado opcional?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es la fuerza de un movimiento (Volumen * (Cierre - CierreAnterior)), con suavizado opcional?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación 'Core' y estable del clásico 'Force Index' (Volumen * Delta de Cierre) con un suavizado EMA opcional."
+gemini_summary: >-
+  Implementación 'Core' y estable del clásico 'Force Index' (Volumen * Delta de Cierre) con un suavizado EMA opcional.
 file_state: Estable
 score_potential: 7/10
 effort: N/A

@@ -5,10 +5,12 @@ name: Imbalance Ratio
 category: VolumeOrderFlow
 score_current: 9/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Dónde se están produciendo desequilibrios (imbalances) diagonales de Ask vs. Bid en el clúster que superan un ratio y volumen mínimos?
+recommended_action: 'Conservar'
+description: >-
+  ¿Dónde se están produciendo desequilibrios (imbalances) diagonales de Ask vs. Bid en el clúster que superan un ratio y volumen mínimos?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación 'Core' y estable del Imbalance de clúster (diagonal); incluye filtros clave (Ratio, VolumeFilter) y un resumen de texto en la vela."
+gemini_summary: >-
+  Implementación 'Core' y estable del Imbalance de clúster (diagonal); incluye filtros clave (Ratio, VolumeFilter) y un resumen de texto en la vela.
 file_state: Estable
 score_potential: 9/10
 effort: N/A

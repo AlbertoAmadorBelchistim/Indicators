@@ -4,11 +4,12 @@ name: Block Moving Average
 category: Tendencia / Volatilidad
 score_current: 7/10
 version: Estable
-recommended_action: Mejorar
-description: ¿Cómo puedo crear un 'trailing stop' de volatilidad (basado en el ATR) que solo se mueva a favor de la tendencia (hacia arriba o hacia abajo), pero que nunca retroceda?
-
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cómo puedo crear un 'trailing stop' de volatilidad (basado en el ATR) que solo se mueva a favor de la tendencia (hacia arriba o hacia abajo), pero que nunca retroceda?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: "Nombre Engañoso". Es un "Supertrend" (7/10), no una MA. Excelente trailing stop, pero falla en rangos.
+gemini_summary: >-
+  "Nombre Engañoso". Es un "Supertrend" (7/10), no una MA. Excelente trailing stop, pero falla en rangos.
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo

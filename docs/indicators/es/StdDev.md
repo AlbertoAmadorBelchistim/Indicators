@@ -5,10 +5,12 @@ name: Standard Deviation
 category: Volatility
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuánto se está alejando el precio de su media (volatilidad absoluta)?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuánto se está alejando el precio de su media (volatilidad absoluta)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Cálculo matemático estándar de la desviación típica. Código simple y correcto."
+gemini_summary: >-
+  Cálculo matemático estándar de la desviación típica. Código simple y correcto.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

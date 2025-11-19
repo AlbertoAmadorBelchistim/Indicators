@@ -5,10 +5,12 @@ name: Adaptive Big Trades
 category: OrderFlow
 score_current: 9/10
 version: Stable
-recommended_action: Conservar
-description: ¿Dónde están las operaciones grandes relativas a la liquidez actual (sin configurar filtros fijos)?
+recommended_action: 'Conservar'
+description: >-
+  ¿Dónde están las operaciones grandes relativas a la liquidez actual (sin configurar filtros fijos)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Calcula dinámicamente el umbral de 'Big Trade' usando percentiles estadísticos. Excelente UX."
+gemini_summary: >-
+  Calcula dinámicamente el umbral de 'Big Trade' usando percentiles estadísticos. Excelente UX.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo

@@ -5,10 +5,12 @@ name: Linear Regression Slope
 category: Trend
 score_current: 1/10
 version: ATAS Official
-recommended_action: Reparar
-description: ¿Cuál es la pendiente (dirección e intensidad) de la tendencia en el período reciente?
+recommended_action: 'Reparar'
+description: >-
+  ¿Cuál es la pendiente (dirección e intensidad) de la tendencia en el período reciente?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: ROTO. Causa una división por cero si Period=1, un valor permitido por la UI [Range(1, ...)], resultando en un crash.
+gemini_summary: >-
+  ROTO. Causa una división por cero si Period=1, un valor permitido por la UI [Range(1, ...)], resultando en un crash.
 file_state: Roto
 score_potential: 7/10
 effort: Bajo

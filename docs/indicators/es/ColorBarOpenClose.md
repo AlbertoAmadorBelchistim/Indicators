@@ -5,11 +5,12 @@ name: Color Bar Open/Close
 category: Trend
 score_current: 1/10
 version: Estable
-recommended_action: Descartar
-description: Colorea las velas según si el cierre es mayor (alcista) o menor (bajista)
-  que la apertura.
+recommended_action: 'Descartar'
+description: >-
+  'Colorea las velas según si el cierre es mayor (alcista) o menor (bajista)' que la apertura.
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador redundante (replica la función base del gráfico) y defectuoso, ya que su lógica de herencia de color para velas Doji es incorrecta."
+gemini_summary: >-
+  Indicador redundante (replica la función base del gráfico) y defectuoso, ya que su lógica de herencia de color para velas Doji es incorrecta.
 file_state: Defectuoso
 score_potential: 1/10
 effort: N/A

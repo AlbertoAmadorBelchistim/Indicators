@@ -5,10 +5,12 @@ name: Q Stick
 category: Momentum
 score_current: 6/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Cuál es el promedio móvil de la distancia entre apertura y cierre de las velas?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es el promedio móvil de la distancia entre apertura y cierre de las velas?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Indicador simple de Chande (SMA de Close-Open). Código limpio y funcional. Utilidad limitada comparada con herramientas de volumen modernas.
+gemini_summary: >-
+  Indicador simple de Chande (SMA de Close-Open). Código limpio y funcional. Utilidad limitada comparada con herramientas de volumen modernas.
 file_state: Estable
 score_potential: 6/10
 effort: N/A

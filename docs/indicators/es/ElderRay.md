@@ -5,10 +5,12 @@ name: Elder Ray
 category: Momentum
 score_current: 6.5/10
 version: ATAS Official
-recommended_action: Mejorar
-description: ¿Cuál es la fuerza de los compradores (High - EMA) y vendedores (Low - EMA) en relación con el consenso (EMA)?
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cuál es la fuerza de los compradores (High - EMA) y vendedores (Low - EMA) en relación con el consenso (EMA)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación estable de un clásico, pero necesita mejoras de flexibilidad (tipo de MA, plot de MA en gráfico)."
+gemini_summary: >-
+  Implementación estable de un clásico, pero necesita mejoras de flexibilidad (tipo de MA, plot de MA en gráfico).
 file_state: Mejorable
 score_potential: 7/10
 effort: Bajo

@@ -5,10 +5,12 @@ name: Full Contract Value
 category: Price
 score_current: 2/10
 version: ATAS Official
-recommended_action: Descartar
-description: (Teórico) ¿Cuál es el valor del precio escalado por un multiplicador personalizado?
+recommended_action: 'Descartar'
+description: >-
+  (Teórico) ¿Cuál es el valor del precio escalado por un multiplicador personalizado?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador 'Impostor'; el nombre 'Full Contract Value' es engañoso. El código no calcula el valor monetario (TickValue), es solo un multiplicador de precio confuso."
+gemini_summary: >-
+  Indicador 'Impostor'; el nombre 'Full Contract Value' es engañoso. El código no calcula el valor monetario (TickValue), es solo un multiplicador de precio confuso.
 file_state: Impostor
 score_potential: 2/10
 effort: N/A

@@ -5,11 +5,12 @@ name: Depth of Market
 category: OrderBook
 score_current: 9/10
 version: Latest
-recommended_action: Conservar
-description: ¿Cuál es la liquidez (libro de órdenes) actual, dibujada en el gráfico?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es la liquidez (libro de órdenes) actual, dibujada en el gráfico?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Herramienta 'Core' de Order Flow que visualiza el libro de órdenes
-  (DOM) directamente en el gráfico, esencial para scalping de liquidez."
+gemini_summary: >-
+  '"Herramienta 'Core' de Order Flow que visualiza el libro de órdenes' (DOM) directamente en el gráfico, esencial para scalping de liquidez."
 file_state: Estable
 score_potential: 9/10
 effort: N/A

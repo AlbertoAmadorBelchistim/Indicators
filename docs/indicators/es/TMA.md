@@ -5,10 +5,12 @@ name: Triangular Moving Average
 category: Trend
 score_current: 7/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuál es la tendencia central "verdadera" con un suavizado extremo (doble promedio)?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es la tendencia central "verdadera" con un suavizado extremo (doble promedio)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Media doblemente suavizada. Código funcional pero con cálculo O(N) por tick (mejorable a O(1))."
+gemini_summary: >-
+  Media doblemente suavizada. Código funcional pero con cálculo O(N) por tick (mejorable a O(1)).
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

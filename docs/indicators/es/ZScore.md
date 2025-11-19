@@ -5,10 +5,12 @@ name: Z-Score
 category: Statistical
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: ¿A cuántas desviaciones estándar se encuentra el precio actual de su media histórica?
+recommended_action: 'Conservar'
+description: >-
+  ¿A cuántas desviaciones estándar se encuentra el precio actual de su media histórica?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador estadístico estándar. Implementación correcta de la fórmula Z-Score."
+gemini_summary: >-
+  Indicador estadístico estándar. Implementación correcta de la fórmula Z-Score.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

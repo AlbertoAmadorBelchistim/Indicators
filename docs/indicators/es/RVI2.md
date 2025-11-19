@@ -5,10 +5,12 @@ name: RVI V2 (Relative Vigor Index)
 category: Momentum
 score_current: 7/10
 version: Stable
-recommended_action: Conservar
-description: Versión mejorada y configurable del RVI que mide la convicción de los cierres respecto al rango.
+recommended_action: 'Conservar'
+description: >-
+  Versión mejorada y configurable del RVI que mide la convicción de los cierres respecto al rango.
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Versión paramétrica correcta del RVI. Resuelve los problemas de rigidez de la V1."
+gemini_summary: >-
+  Versión paramétrica correcta del RVI. Resuelve los problemas de rigidez de la V1.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

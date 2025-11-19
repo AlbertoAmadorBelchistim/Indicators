@@ -1,92 +1,112 @@
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: FairValueGap.cs
+name: Fair Value Gap
+category: VolumeOrderFlow
+score_current: 9/10
+version: Stable
+recommended_action: 'Conservar'
+description: >-
+  ¿Dónde están los desequilibrios de precio (gaps) no mitigados en el marco actual y superior?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: >-
+  Detector de FVG multitemporal. Reconstruye velas superiores internamente. Código complejo y potente.
+file_state: Estable
+score_potential: 10/10
+effort: Alto
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-19
+official_code_date: 2025-05-12
+user_modification_date: null
+---
+
 ## 🟦 Fair Value Gap (9/10)
 
-**Nombre del archivo:** `FairValueGap.cs`  
+**Nombre del archivo:** [`FairValueGap.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/FairValueGap.cs)  
 **Nombre del indicador:** Fair Value Gap  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000618795](https://help.atas.net/support/solutions/articles/72000618795)
+**Web oficial:** [ATAS — Fair Value Gap](https://help.atas.net/support/solutions/articles/72000618795)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 12/05/2025  
+
+> **La Pregunta Clave:** ¿Dónde están los desequilibrios de precio (gaps) no mitigados en el marco actual y superior?
+
+![FairValueGap](../../img/FairValueGap.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **HigherTimeframe**: Marco temporal superior desde el cual detectar gaps  
-- **ShowCurrentTF / ShowHigherTF**: Mostrar gaps del marco actual o superior  
-- **MidpointTouch**: Usar o no la línea media como condición de cierre  
-- **HideOlds**: Ocultar gaps ya cerrados  
-- **Transparency**: Transparencia de las zonas (0 a 10)  
-- **Colores**: Colores de los gaps para marcos actual y superior (bullish/bearish)  
-- **MidPointColor / MidPointWidth**: Color y grosor de la línea del punto medio  
-- **ShowLabel / LabelSize / LabelColor / LabelOffsetX / LabelOffsetY**: Opciones visuales de etiquetas
+* **HigherTimeframe**: Marco temporal superior para buscar estructuras mayores (ej. H1, H4).
+* **MidpointTouch**: Si activado, el FVG se considera "cerrado" solo al tocar el 50% (Consequent Encroachment), si no, al tocar el borde.
+* **HideOlds**: Ocultar gaps que ya han sido mitigados completamente.
+* **Transparency**: Opacidad de los rectángulos.
+* **Colors**: Configuración visual separada para marco actual y superior.
 
 ---
 
-### 🧭 Clasificación  
-📂 VolumeOrderFlow — Detección de zonas de desequilibrio institucional por estructura de velas
+### 🧭 Clasificación
+📂 VolumeOrderFlow — Estructura de mercado institucional (SMC / ICT).
 
 ---
 
 ### 🧠 Uso más frecuente
 
-- Identificar **zonas de desequilibrio entre oferta y demanda**  
-- Detectar huecos de valor justo (Fair Value Gaps) en marcos múltiples  
-- Visualizar zonas de posible **absorción, reversión o continuidad institucional**
+* **Objetivos (Targets):** El precio tiende a ir a cerrar los FVGs abiertos. Son imanes de liquidez.
+* **Entradas:** Colocar órdenes límite en el borde del FVG o en su punto medio (50%).
+* **Contexto MTF:** Operar en 1 minuto sabiendo que estás dentro de un FVG alcista de 1 hora (zona de demanda mayor).
 
 ---
 
-### 📊 Nivel de relevancia  
+### 📊 Nivel de relevancia
 🔟 **9 / 10**
 
-✅ Compatible con múltiples marcos y estructuras simultáneas  
-✅ Dibujo limpio, con lógica clara y etiquetas visuales  
-⛔ Complejo de entender si no se conoce la teoría de FVG  
-⛔ Requiere buena gestión de recursos si se usa con gráficos extensos o en múltiples instancias
+✅ **Multitemporalidad Real:** No se limita a pintar lo que ves. Calcula velas virtuales (ej. H4) usando los datos del gráfico actual (ej. M5) para encontrar gaps invisibles en el timeframe menor.  
+✅ **Mitigación Dinámica:** Los rectángulos se "comen" a medida que el precio los testea (`signal.HighPrice = candle.Low`), mostrando solo la parte virgen del gap.  
+✅ **Etiquetas:** Muestra texto informativo ("H1 FVG") que ayuda a no perderse.  
+⛔ **Fragilidad de Timeframe:** La lógica para detectar el timeframe actual depende de nombres de cadena ("M1", "Hourly"), lo cual es un punto débil si la plataforma cambia sus IDs.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Reversión en FVG no cerrada**: entrada al volver a testear el gap desde el lado opuesto  
-- **Confirmación institucional**: gap que no se cierra tras varios intentos → sesgo direccional  
-- **Spring o Upthrust**: si la mecha crea un FVG y luego lo respeta  
-- **Entrada agresiva si hay confluencia con Delta, DOM o CVD en el borde del FVG**
+* **FVG Rejection:** El precio entra rápido en un FVG contrario y es rechazado con fuerza -> Entrada a favor de la tendencia.
+* **FVG Inversion:** Si un FVG de soporte es roto con fuerza, se convierte en resistencia (Inversion FVG).
+
+---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **HigherTimeframe**: `M15` o `H1`  
-- **ShowCurrentTF**: `true`  
-- **MidpointTouch**: `true`  
-- **Transparency**: `5`  
-- **ShowLabel**: `true`  
-- **LabelColor**: `Gray`, `LabelSize`: `10`
-
-✅ Muy útil para validar entrada con contexto institucional  
-✅ Compatible con zonas clave como POC, VAL/VAH o Imbalances
+* **HigherTimeframe**: `Hourly` (H1) o `M15`.
+* **MidpointTouch**: `True` (El 50% es un nivel clave en SMC).
+* **HideOlds**: `True` (Para mantener el gráfico limpio).
+* **Transparency**: `8` (Muy transparente para no tapar las velas).
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Evalúa gaps creados por un salto entre la vela actual y la de dos velas atrás (`bar - 2`)  
-- Crea rectángulos entre el `High` de la vela 2 y el `Low` de la actual (o viceversa)  
-- Si el precio vuelve a tocar la zona (o su punto medio), se considera **cerrado**  
-- Soporta cálculo de FVG en marcos personalizados (Daily, H4, H1, etc.)  
-- Usa listas internas de `Signal` para almacenar cada gap abierto  
-- El renderizado se realiza en `OnRender` y respeta filtros de visibilidad y color
+* **Arquitectura:** Clase interna `TimeFrameObj` que actúa como un agregador de velas. En cada `OnCalculate`, alimenta este objeto con la barra actual y él decide si se ha completado una vela superior.
+* **Lógica de Gap:**
+    * `candle1.High < current.Low` -> Gap Alcista.
+    * `candle1.Low > current.High` -> Gap Bajista.
+    * Compara barra `n` con barra `n-2`.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Es una herramienta imprescindible para el trading moderno basado en estructura. La capacidad de ver gaps de H4 mientras operas en M1 sin cambiar de pantalla es una ventaja táctica enorme. La implementación es robusta y visualmente limpia.
+
+**Propuestas de Mejora:**
+* **Alertas:** Añadir alerta sonora cuando el precio toca un FVG de timeframe superior.
+* **Extension:** Opción para extender los rectángulos hasta el futuro infinito ("Ray") hasta que sean mitigados.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- El valor de `_secondsPerCandle` depende del `TimeFrame` por texto, lo que puede fallar si se cambian convenciones de nombre  
-- La condición `if (signal.EndBar > 0)` en `DrawGaps()` puede hacer que **no se vean gaps cerrados recientes si HideOlds está activo**  
-- En `CreateNewGap()`, puede haber repetición si varias velas consecutivas cumplen condiciones similares  
-- El uso de `RoundToFraction()` para calcular `midPrice` puede provocar desajustes visuales si el gap tiene tamaño impar (en ticks)
+**Sí.** Define dónde el precio tiene "prisa" por ir.
 
----
-
-### 🛠️ Propuestas de mejora
-
-- Exponer como `RangeDataSeries` los gaps activos para trazado cruzado u otras herramientas  
-- Añadir **alertas visuales/sonoras** cuando un FVG se toca o se cierra  
-- Incluir una opción para **marcar los gaps que nunca se cerraron**  
-- Añadir una estadística de porcentaje de cierre vs permanencia de FVG  
-- Mostrar datos de volumen dentro del gap si hay clúster disponible
+**Acción:** **Conservar.**

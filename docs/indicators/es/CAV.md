@@ -4,11 +4,12 @@ name: Cumulative Adjusted Value
 category: Momentum
 score_current: 5/10
 version: Estable
-recommended_action: Descartar
-description: ¿Está el precio *consistente y acumulativamente* cotizando por encima de su media (momentum alcista), o por debajo de ella (momentum bajista)?
-
+recommended_action: 'Descartar'
+description: >-
+  ¿Está el precio *consistente y acumulativamente* cotizando por encima de su media (momentum alcista), o por debajo de ella (momentum bajista)?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: Oscilador acumulativo (5/10). No acotado, abstracto y redundante vs. un MACD o la propia EMA.
+gemini_summary: >-
+  Oscilador acumulativo (5/10). No acotado, abstracto y redundante vs. un MACD o la propia EMA.
 file_state: Estable (Redundante)
 score_potential: 5/10
 effort: N/A

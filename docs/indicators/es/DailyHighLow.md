@@ -5,13 +5,12 @@ name: Daily HighLow
 category: Levels
 score_current: 6/10
 version: Estable
-recommended_action: Reparar
-description: ¿Dónde están el Máximo, Mínimo y Mediana del día actual, y la Mediana
-  del día anterior?
+recommended_action: 'Reparar'
+description: >-
+  '¿Dónde están el Máximo, Mínimo y Mediana del día actual, y la Mediana' del día anterior?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Concepto de contexto 10/10 (D-H/L/M, PD-M) arruinado por una implementación
-  visual 2/10 ('Square' en lugar de 'Line'); reparación trivial y de alta
-  prioridad."
+gemini_summary: >-
+  '"Concepto de contexto 10/10 (D-H/L/M, PD-M) arruinado por una implementación' visual 2/10 ('Square' en lugar de 'Line'); reparación trivial y de alta prioridad."
 file_state: Mejorable
 score_potential: 9/10
 effort: Bajo

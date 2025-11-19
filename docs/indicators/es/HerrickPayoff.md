@@ -5,10 +5,12 @@ name: Herrick Payoff Index (HPI)
 category: Volume
 score_current: 3/10
 version: ATAS Official
-recommended_action: Reparar
-description: ¿Cuál es la fuerza del movimiento (Precio + Volumen + Open Interest)? (Implementación Rota)
+recommended_action: 'Reparar'
+description: >-
+  ¿Cuál es la fuerza del movimiento (Precio + Volumen + Open Interest)? (Implementación Rota)
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador 'Roto'; el concepto (Precio+Vol+OI) es 8/10, but la implementación del 'Smooth' no es un suavizado, sino un acumulador de diferencias que genera valores erróneos."
+gemini_summary: >-
+  Indicador 'Roto'; el concepto (Precio+Vol+OI) es 8/10, but la implementación del 'Smooth' no es un suavizado, sino un acumulador de diferencias que genera valores erróneos.
 file_state: Roto
 score_potential: 8/10
 effort: Medio

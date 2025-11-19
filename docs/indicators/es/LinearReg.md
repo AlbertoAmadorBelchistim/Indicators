@@ -5,10 +5,12 @@ name: Linear Regression
 category: Trend
 score_current: 5/10
 version: ATAS Official
-recommended_action: Mejorar
-description: ¿Cuál es la línea de tendencia de regresión lineal (mínimos cuadrados) de las últimas N barras?
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cuál es la línea de tendencia de regresión lineal (mínimos cuadrados) de las últimas N barras?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador 'Mejorable'. Implementación estándar de Regresión Lineal, pero con un 'bug' de diseño (usa el índice 'bar' absoluto como 'x'), lo que puede causar repintado/imprecisiones."
+gemini_summary: >-
+  Indicador 'Mejorable'. Implementación estándar de Regresión Lineal, pero con un 'bug' de diseño (usa el índice 'bar' absoluto como 'x'), lo que puede causar repintado/imprecisiones.
 file_state: Mejorable
 score_potential: 6.5/10
 effort: Bajo

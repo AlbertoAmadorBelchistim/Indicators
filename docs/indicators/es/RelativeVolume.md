@@ -5,10 +5,12 @@ name: Relative Volume
 category: Volume
 score_current: 7/10
 version: ATAS Official
-recommended_action: Mejorar
-description: ¿Es el volumen actual anómalamente alto o bajo comparado con el promedio histórico para esta misma hora?
+recommended_action: 'Mejorar'
+description: >-
+  ¿Es el volumen actual anómalamente alto o bajo comparado con el promedio histórico para esta misma hora?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Comparador de volumen histórico. Concepto útil, pero lógica de actualización de promedio desfasada. Limitado a gráficos de tiempo.
+gemini_summary: >-
+  Comparador de volumen histórico. Concepto útil, pero lógica de actualización de promedio desfasada. Limitado a gráficos de tiempo.
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo

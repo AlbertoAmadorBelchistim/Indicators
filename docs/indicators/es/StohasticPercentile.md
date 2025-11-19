@@ -5,10 +5,12 @@ name: Stochastic - Percentile
 category: Momentum
 score_current: 5/10
 version: Stable
-recommended_action: Mejorar
-description: ¿Qué percentil estadístico ocupa el precio actual respecto a los últimos N periodos?
+recommended_action: 'Mejorar'
+description: >-
+  ¿Qué percentil estadístico ocupa el precio actual respecto a los últimos N periodos?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Ineficiente (sort O(N log N) por tick) y con error tipográfico en el nombre de archivo/clase."
+gemini_summary: >-
+  Ineficiente (sort O(N log N) por tick) y con error tipográfico en el nombre de archivo/clase.
 file_state: Mejorable
 score_potential: 7/10
 effort: Medio

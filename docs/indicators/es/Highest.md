@@ -5,10 +5,12 @@ name: Highest
 category: Levels
 score_current: 6/10
 version: ATAS Official
-recommended_action: Descartar
-description: ¿Cuál es el valor más alto del "Source" (por defecto, el Cierre) de las últimas N barras?
+recommended_action: 'Descartar'
+description: >-
+  ¿Cuál es el valor más alto del "Source" (por defecto, el Cierre) de las últimas N barras?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador estable que traza el 'Highest Close' (por defecto). Es funcionalmente redundante y menos útil que el indicador 'HighLow' (Donchian Channel)."
+gemini_summary: >-
+  Indicador estable que traza el 'Highest Close' (por defecto). Es funcionalmente redundante y menos útil que el indicador 'HighLow' (Donchian Channel).
 file_state: Estable
 score_potential: 6/10
 effort: N/A

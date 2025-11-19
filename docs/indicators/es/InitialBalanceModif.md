@@ -5,10 +5,12 @@ name: Initial Balance Modif
 category: Levels
 score_current: 9/10
 version: Modif.
-recommended_action: Conservar
-description: ¿Cuáles son el rango de apertura (IB) y sus expansiones proyectadas (IBHX/IBLX) para la sesión actual?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuáles son el rango de apertura (IB) y sus expansiones proyectadas (IBHX/IBLX) para la sesión actual?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Versión 'Modif' superior que repara el original; usa 'OnRender' para etiquetas limpias y 'snapshotting' para niveles históricos estables. 'Core' de niveles."
+gemini_summary: >-
+  Versión 'Modif' superior que repara el original; usa 'OnRender' para etiquetas limpias y 'snapshotting' para niveles históricos estables. 'Core' de niveles.
 file_state: Estable
 score_potential: 9/10
 effort: N/A

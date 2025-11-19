@@ -5,10 +5,12 @@ name: Inverse Fisher Transform
 category: Momentum
 score_current: 6.5/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Cuál es el momentum del precio, suavizado y normalizado por una transformación inversa de Fisher?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es el momentum del precio, suavizado y normalizado por una transformación inversa de Fisher?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación estable de un oscilador de momentum 'doble-suavizado' (WMA + SMA); una alternativa más lenta al Fisher Transform."
+gemini_summary: >-
+  Implementación estable de un oscilador de momentum 'doble-suavizado' (WMA + SMA); una alternativa más lenta al Fisher Transform.
 file_state: Estable
 score_potential: 6.5/10
 effort: N/A

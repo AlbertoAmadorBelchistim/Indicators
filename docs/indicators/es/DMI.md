@@ -5,13 +5,12 @@ name: Dynamic Momentum Index
 category: Momentum
 score_current: 5/10
 version: Estable
-recommended_action: Reparar
-description: ¿Cuál es el RSI, pero con un periodo que se ajusta automáticamente a la
-  volatilidad del mercado?
+recommended_action: 'Reparar'
+description: >-
+  '¿Cuál es el RSI, pero con un periodo que se ajusta automáticamente a la' volatilidad del mercado?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Concepto de RSI adaptativo 9/10 (muy bueno para scalping) arruinado
-  por un bug lógico ('if' anidado imposible) en el cálculo de RSI; necesita
-  reparación."
+gemini_summary: >-
+  '"Concepto de RSI adaptativo 9/10 (muy bueno para scalping) arruinado' por un bug lógico ('if' anidado imposible) en el cálculo de RSI; necesita reparación."
 file_state: Buggy
 score_potential: 9/10
 effort: Bajo

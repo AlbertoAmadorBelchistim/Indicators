@@ -5,10 +5,12 @@ name: Moving Average Difference
 category: Momentum
 score_current: 6/10
 version: ATAS Official
-recommended_action: Mejorar
-description: ¿Cuál es la diferencia (momentum) entre dos medias móviles y está acelerando o desacelerando?
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cuál es la diferencia (momentum) entre dos medias móviles y está acelerando o desacelerando?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Estable, pero su lógica de coloreado (basada en la pendiente, no en el signo) es confusa y debería ser una opción configurable.
+gemini_summary: >-
+  Estable, pero su lógica de coloreado (basada en la pendiente, no en el signo) es confusa y debería ser una opción configurable.
 file_state: Mejorable
 score_potential: 7/10
 effort: Bajo

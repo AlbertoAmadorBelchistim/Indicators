@@ -5,10 +5,12 @@ name: Wavetrend
 category: Momentum
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuál es el ciclo de oscilación del precio basado en la volatilidad (famoso indicador de TV)?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es el ciclo de oscilación del precio basado en la volatilidad (famoso indicador de TV)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación fiel del famoso script de TradingView. Visualmente rico con puntos de señal."
+gemini_summary: >-
+  Implementación fiel del famoso script de TradingView. Visualmente rico con puntos de señal.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo

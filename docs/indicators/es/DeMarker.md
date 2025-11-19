@@ -5,12 +5,12 @@ name: DeMarker
 category: Momentum
 score_current: 2/10
 version: Estable
-recommended_action: Reparar
-description: ¿Cuáles son las zonas de sobrecompra o sobreventa basadas en la
-  comparación de máximos y mínimos? (Implementación ROTA)
+recommended_action: 'Reparar'
+description: >-
+  '¿Cuáles son las zonas de sobrecompra o sobreventa basadas en la' comparación de máximos y mínimos? (Implementación ROTA)
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador Roto: un error de 'Math.Min' en lugar de 'Math.Max' en
-  el cálculo de 'deMin' corrompe la fórmula, pero la reparación es trivial (P3)."
+gemini_summary: >-
+  '"Indicador Roto: un error de 'Math.Min' en lugar de 'Math.Max' en' el cálculo de 'deMin' corrompe la fórmula, pero la reparación es trivial (P3)."
 file_state: Roto
 score_potential: 6/10
 effort: Bajo

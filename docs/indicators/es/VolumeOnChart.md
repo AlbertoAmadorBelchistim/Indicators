@@ -5,10 +5,12 @@ name: Volume On The Chart
 category: Volume
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: Visualiza el volumen como un histograma de fondo superpuesto al precio para ahorrar espacio.
+recommended_action: 'Conservar'
+description: >-
+  Visualiza el volumen como un histograma de fondo superpuesto al precio para ahorrar espacio.
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Versión visual eficiente del indicador de volumen. Dibuja en el fondo del panel de precios."
+gemini_summary: >-
+  Versión visual eficiente del indicador de volumen. Dibuja en el fondo del panel de precios.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo

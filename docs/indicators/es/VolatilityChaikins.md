@@ -5,10 +5,12 @@ name: Volatility - Chaikins
 category: Volatility
 score_current: 7/10
 version: Stable
-recommended_action: Conservar
-description: ¿Se está expandiendo o contrayendo el rango de precios (volatilidad) respecto al pasado reciente?
+recommended_action: 'Conservar'
+description: >-
+  ¿Se está expandiendo o contrayendo el rango de precios (volatilidad) respecto al pasado reciente?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Oscilador de cambio de volatilidad (ROC del EMA del Rango). Simple y funcional."
+gemini_summary: >-
+  Oscilador de cambio de volatilidad (ROC del EMA del Rango). Simple y funcional.
 file_state: Estable
 score_potential: 7/10
 effort: Bajo

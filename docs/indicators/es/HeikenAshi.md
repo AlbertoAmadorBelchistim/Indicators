@@ -5,10 +5,12 @@ name: Heiken Ashi
 category: Visualization
 score_current: 6.5/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Cómo se vería el precio usando velas Heiken Ashi estándar para suavizar la tendencia?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cómo se vería el precio usando velas Heiken Ashi estándar para suavizar la tendencia?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación 'Core' y estable de las velas Heiken Ashi estándar; la lógica 'Days' es una optimización, no un bug."
+gemini_summary: >-
+  Implementación 'Core' y estable de las velas Heiken Ashi estándar; la lógica 'Days' es una optimización, no un bug.
 file_state: Estable
 score_potential: 6.5/10
 effort: N/A

@@ -5,10 +5,12 @@ name: Mean Deviation
 category: Statistical
 score_current: 5/10
 version: ATAS Official
-recommended_action: Mejorar
-description: ¿Cuál es la desviación media absoluta (volatilidad) del precio respecto a su media simple?
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cuál es la desviación media absoluta (volatilidad) del precio respecto a su media simple?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Indicador estadístico estable pero rígido. Solo permite usar SMA como base, limitando su uso en estrategias modernas que prefieren EMA.
+gemini_summary: >-
+  Indicador estadístico estable pero rígido. Solo permite usar SMA como base, limitando su uso en estrategias modernas que prefieren EMA.
 file_state: Mejorable
 score_potential: 7/10
 effort: Bajo

@@ -5,10 +5,12 @@ name: Speed of Tape
 category: VolumeOrderFlow
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: Mide la velocidad de ejecución (ticks, volumen o delta) en una ventana de tiempo deslizante.
+recommended_action: 'Conservar'
+description: >-
+  Mide la velocidad de ejecución (ticks, volumen o delta) en una ventana de tiempo deslizante.
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Herramienta táctica de alto valor. Algoritmo O(N) por tick mejorable en rendimiento, pero funcional."
+gemini_summary: >-
+  Herramienta táctica de alto valor. Algoritmo O(N) por tick mejorable en rendimiento, pero funcional.
 file_state: Estable
 score_potential: 9/10
 effort: Medio

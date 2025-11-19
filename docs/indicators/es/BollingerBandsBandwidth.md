@@ -4,11 +4,12 @@ name: Bollinger Bands Bandwidth
 category: Volatilidad
 score_current: 6.5/10
 version: Estable
-recommended_action: Mejorar
-description: ¿Cómo de 'comprimida' (squeeze) o 'expandida' está la volatilidad ahora mismo, medida como un porcentaje del precio medio?
-
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cómo de 'comprimida' (squeeze) o 'expandida' está la volatilidad ahora mismo, medida como un porcentaje del precio medio?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: Cuantificador de Squeeze (6.5/10). Útil para alertas de compresión. Hereda defaults débiles (10, 1.0) de BB.
+gemini_summary: >-
+  Cuantificador de Squeeze (6.5/10). Útil para alertas de compresión. Hereda defaults débiles (10, 1.0) de BB.
 file_state: Mejorable
 score_potential: 7.5/10
 effort: Bajo

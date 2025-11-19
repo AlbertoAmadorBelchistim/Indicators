@@ -5,10 +5,12 @@ name: Zero Lag Exponential Moving Average
 category: Trend
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuál es la tendencia suavizada eliminando el retraso matemático inherente a las medias móviles?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es la tendencia suavizada eliminando el retraso matemático inherente a las medias móviles?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "EMA sobre datos 'des-lagged'. Código simple y efectivo para reducir latencia."
+gemini_summary: >-
+  EMA sobre datos 'des-lagged'. Código simple y efectivo para reducir latencia.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

@@ -5,10 +5,12 @@ name: Ichimoku Kinko Hyo
 category: Trend
 score_current: 9/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Cuál es el estado de la tendencia y el equilibrio del mercado según el sistema Ichimoku (Nube, Tenkan, Kijun, Chikou)?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es el estado de la tendencia y el equilibrio del mercado según el sistema Ichimoku (Nube, Tenkan, Kijun, Chikou)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación 'Core' y estable del sistema Ichimoku completo; maneja correctamente los 5 componentes y el desplazamiento temporal (Nube y Lagging)."
+gemini_summary: >-
+  Implementación 'Core' y estable del sistema Ichimoku completo; maneja correctamente los 5 componentes y el desplazamiento temporal (Nube y Lagging).
 file_state: Estable
 score_potential: 9/10
 effort: N/A

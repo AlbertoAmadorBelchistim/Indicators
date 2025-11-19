@@ -5,10 +5,12 @@ name: Weis Wave
 category: Volume
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuánto volumen acumulado (esfuerzo) hay en la onda de precio actual?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuánto volumen acumulado (esfuerzo) hay en la onda de precio actual?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Acumulador de volumen por ondas (ZigZag de volumen). Esencial para Wyckoff."
+gemini_summary: >-
+  Acumulador de volumen por ondas (ZigZag de volumen). Esencial para Wyckoff.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo

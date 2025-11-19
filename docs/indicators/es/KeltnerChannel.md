@@ -5,10 +5,12 @@ name: Keltner Channel
 category: Volatility
 score_current: 7.5/10
 version: ATAS Official
-recommended_action: Reparar
-description: ¿Dónde se sitúan las bandas de volatilidad (SMA +/- ATR * Multiplicador) y el precio se está aproximando a ellas?
+recommended_action: 'Reparar'
+description: >-
+  ¿Dónde se sitúan las bandas de volatilidad (SMA +/- ATR * Multiplicador) y el precio se está aproximando a ellas?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador 'Core' de canal de volatilidad (SMA+ATR), con excelentes alertas de proximidad. 'Buggy' (Bajo): la alerta de la banda inferior usa el archivo de sonido de la banda superior."
+gemini_summary: >-
+  Indicador 'Core' de canal de volatilidad (SMA+ATR), con excelentes alertas de proximidad. 'Buggy' (Bajo): la alerta de la banda inferior usa el archivo de sonido de la banda superior.
 file_state: Buggy
 score_potential: 8/10
 effort: Bajo

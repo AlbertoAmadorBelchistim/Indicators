@@ -4,11 +4,12 @@ name: ADR
 category: Volatilidad
 score_current: 7/10
 version: Estable
-recommended_action: Mejorar
-description: ¿Cuál es el rango de movimiento "normal" o "promedio" para este instrumento en una sesión, y dónde se proyectarían esos límites hoy?
-
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cuál es el rango de movimiento "normal" o "promedio" para este instrumento en una sesión, y dónde se proyectarían esos límites hoy?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: Contexto esencial (7/10), pero con un fallo conceptual. Ignora gaps (usa Rango, no ATR).
+gemini_summary: >-
+  Contexto esencial (7/10), pero con un fallo conceptual. Ignora gaps (usa Rango, no ATR).
 file_state: Mejorable
 score_potential: 9/10
 effort: Bajo

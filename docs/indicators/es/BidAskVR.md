@@ -4,11 +4,12 @@ name: Bid Ask Volume Ratio
 category: Order Flow
 score_current: 7/10
 version: Estable
-recommended_action: Mejorar
-description: ¿Cuál es el desequilibrio normalizado (de -100% a +100%) del volumen agresivo, y cuál es el momentum (pendiente) de ese desequilibrio?
-
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cuál es el desequilibrio normalizado (de -100% a +100%) del volumen agresivo, y cuál es el momentum (pendiente) de ese desequilibrio?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: "Delta Normalizado" (7/10). Conceptualm. superior (Ratio). Lógica de 4 colores es genial para divergencias.
+gemini_summary: >-
+  "Delta Normalizado" (7/10). Conceptualm. superior (Ratio). Lógica de 4 colores es genial para divergencias.
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo

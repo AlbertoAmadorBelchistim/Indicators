@@ -5,13 +5,12 @@ name: DX (Directional Index)
 category: Tendencia
 score_current: 3/10
 version: Estable
-recommended_action: Descartar
-description: ¿Cuál es la fuerza de la tendencia? (Componente del ADX, implementación
-  NO estándar)
+recommended_action: 'Descartar'
+description: >-
+  '¿Cuál es la fuerza de la tendencia? (Componente del ADX, implementación' NO estándar)
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador 'Impostor por Derivación'; se basa en los indicadores
-  'DIPos'/'DINeg' (que son impostores, usan WMA), por lo que este 'DX' no es
-  estándar."
+gemini_summary: >-
+  '"Indicador 'Impostor por Derivación'; se basa en los indicadores' 'DIPos'/'DINeg' (que son impostores, usan WMA), por lo que este 'DX' no es estándar."
 file_state: Impostor
 score_potential: 3/10
 effort: N/A

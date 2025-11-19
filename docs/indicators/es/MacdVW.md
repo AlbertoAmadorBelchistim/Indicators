@@ -5,10 +5,12 @@ name: MACD - Volume Weighted
 category: Momentum
 score_current: 8/10
 version: ATAS Official
-recommended_action: Mejorar
-description: ¿Cuál es la convergencia/divergencia entre dos medias ponderadas por volumen (VWMAs)?
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cuál es la convergencia/divergencia entre dos medias ponderadas por volumen (VWMAs)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Implementación excelente y segura (con control de división por cero) de un MACD ponderado por volumen. Su única carencia es un histograma coloreado.
+gemini_summary: >-
+  Implementación excelente y segura (con control de división por cero) de un MACD ponderado por volumen. Su única carencia es un histograma coloreado.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo

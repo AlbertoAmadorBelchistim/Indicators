@@ -5,14 +5,12 @@ name: Chande Momentum Oscillators
 category: Momentum
 score_current: 5/10
 version: Estable
-recommended_action: Mejorar
-description: ¿Cuál es la fuerza neta del impulso (Suma de Subidas vs. Suma de
-  Bajadas), expresada como un oscilador centrado en cero?
+recommended_action: 'Mejorar'
+description: >-
+  '¿Cuál es la fuerza neta del impulso (Suma de Subidas vs. Suma de' Bajadas), expresada como un oscilador centrado en cero?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Una implementación estable y correcta del CMO. Es un "RSI ruidoso".
-  El concepto es un 6/10 (redundante con RSI/CCI, pero funcional). La
-  implementación actual es un 5/10 porque carece de las líneas guía básicas
-  (0, +50, -50), que son esenciales para su uso.
+gemini_summary: >-
+  'Una implementación estable y correcta del CMO. Es un "RSI ruidoso".' El concepto es un 6/10 (redundante con RSI/CCI, pero funcional). La implementación actual es un 5/10 porque carece de las líneas guía básicas (0, +50, -50), que son esenciales para su uso.
 file_state: Mejorable
 score_potential: 6/10
 effort: Bajo

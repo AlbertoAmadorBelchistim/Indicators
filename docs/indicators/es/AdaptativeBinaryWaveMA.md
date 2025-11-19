@@ -4,11 +4,12 @@ name: Adaptive Binary Wave
 category: Tendencia
 score_current: 7/10
 version: Estable
-recommended_action: Mejorar
-description: ¿Ha roto la media móvil adaptativa (AMA) su 'canal' reciente por una cantidad estadísticamente significativa?
-
+recommended_action: 'Mejorar'
+description: >-
+  ¿Ha roto la media móvil adaptativa (AMA) su 'canal' reciente por una cantidad estadísticamente significativa?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: Filtro de régimen brillante (7/10), pero es una "caja negra". Lento para entradas. Potencial 9/10 si dibuja sus bandas.
+gemini_summary: >-
+  Filtro de régimen brillante (7/10), pero es una "caja negra". Lento para entradas. Potencial 9/10 si dibuja sus bandas.
 file_state: Mejorable
 score_potential: 9/10
 effort: Medio

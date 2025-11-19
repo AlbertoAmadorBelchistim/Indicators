@@ -5,10 +5,12 @@ name: Tape Patterns
 category: VolumeOrderFlow
 score_current: 9/10
 version: Stable
-recommended_action: Conservar
-description: ¿Dónde están los bloques de órdenes grandes y patrones de ejecución específicos en la cinta?
+recommended_action: 'Conservar'
+description: >-
+  ¿Dónde están los bloques de órdenes grandes y patrones de ejecución específicos en la cinta?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador complejo de nivel institucional. Usa hilos dedicados para procesar CumulativeTrades. Alto valor."
+gemini_summary: >-
+  Indicador complejo de nivel institucional. Usa hilos dedicados para procesar CumulativeTrades. Alto valor.
 file_state: Estable
 score_potential: 9/10
 effort: Alto

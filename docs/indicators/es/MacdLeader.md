@@ -5,10 +5,12 @@ name: MACD Leader
 category: Momentum
 score_current: 7/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Cuál es una versión "adelantada" del MACD que incorpora la diferencia entre el precio y sus EMAs?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es una versión "adelantada" del MACD que incorpora la diferencia entre el precio y sus EMAs?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Implementación estable de un concepto de "MACD + residuales de EMA" diseñado para adelantar las señales. Lógica compleja pero funcional.
+gemini_summary: >-
+  Implementación estable de un concepto de "MACD + residuales de EMA" diseñado para adelantar las señales. Lógica compleja pero funcional.
 file_state: Estable
 score_potential: 7/10
 effort: N/A

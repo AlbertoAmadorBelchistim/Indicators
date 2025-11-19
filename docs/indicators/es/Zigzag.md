@@ -5,10 +5,12 @@ name: ZigZag Pro
 category: PriceAction
 score_current: 10/10
 version: Stable
-recommended_action: Conservar
-description: ¿Qué dicen las métricas acumuladas (Delta/Volumen) de cada onda de precio sobre la estructura del mercado?
+recommended_action: 'Conservar'
+description: >-
+  ¿Qué dicen las métricas acumuladas (Delta/Volumen) de cada onda de precio sobre la estructura del mercado?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador premium. Analiza ondas con métricas de Order Flow acumulado. Código complejo y muy valioso."
+gemini_summary: >-
+  Indicador premium. Analiza ondas con métricas de Order Flow acumulado. Código complejo y muy valioso.
 file_state: Estable
 score_potential: 10/10
 effort: Alto

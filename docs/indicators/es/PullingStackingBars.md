@@ -5,10 +5,12 @@ name: Pulling & Stacking Bars (Clean)
 category: OrderFlow
 score_current: 10/10
 version: Stable
-recommended_action: Conservar
-description: ¿Se está añadiendo (Stacking) o retirando (Pulling) liquidez del libro de órdenes en tiempo real?
+recommended_action: 'Conservar'
+description: >-
+  ¿Se está añadiendo (Stacking) o retirando (Pulling) liquidez del libro de órdenes en tiempo real?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Analizador de cambios en el DOM (L2). Muestra la intención de los proveedores de liquidez."
+gemini_summary: >-
+  Analizador de cambios en el DOM (L2). Muestra la intención de los proveedores de liquidez.
 file_state: Estable
 score_potential: 10/10
 effort: Medio

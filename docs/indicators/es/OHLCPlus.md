@@ -5,10 +5,12 @@ name: OHLC Plus Modif
 category: VolumeOrderFlow
 score_current: 10/10
 version: Modif.
-recommended_action: Conservar
-description: ¿Puedo tener TODOS los niveles de contexto clave (Diario, Semanal, Mensual, Contrato) en un solo indicador, con estilos profesionales y un sistema de etiquetas que no se solapen?
+recommended_action: 'Conservar'
+description: >-
+  ¿Puedo tener TODOS los niveles de contexto clave (Diario, Semanal, Mensual, Contrato) en un solo indicador, con estilos profesionales y un sistema de etiquetas que no se solapen?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Modificación 'Pro' de OHLC Plus. Resuelve el solapamiento de etiquetas, añade HVN/LVN y un sistema de estilos semántico. Código complejo pero excelente.
+gemini_summary: >-
+  Modificación 'Pro' de OHLC Plus. Resuelve el solapamiento de etiquetas, añade HVN/LVN y un sistema de estilos semántico. Código complejo pero excelente.
 file_state: Estable
 score_potential: 10/10
 effort: N/A

@@ -4,12 +4,12 @@ name: AC DC Histogram
 category: Momentum
 score_current: 2/10
 version: Estable
-recommended_action: Descartar
-description: ¿Cuál es la dirección _suavizada y con retardo_ de la aceleración del mercado?
-
-
+recommended_action: 'Descartar'
+description: >-
+  ¿Cuál es la dirección _suavizada y con retardo_ de la aceleración del mercado?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: Conceptualmente roto. Es un 'acelerador con freno' (AC + SMA(10)) que anula su propósito. Inútil para scalping.
+gemini_summary: >-
+  Conceptualmente roto. Es un 'acelerador con freno' (AC + SMA(10)) que anula su propósito. Inútil para scalping.
 file_state: Estable (Conceptualm. Roto)
 score_potential: 2/10
 effort: N/A

@@ -5,10 +5,12 @@ name: Williams' %R
 category: Momentum
 score_current: 7/10
 version: Stable
-recommended_action: Conservar
-description: ¿Dónde cerró el precio relativo al rango High-Low (versión invertida)?
+recommended_action: 'Conservar'
+description: >-
+  ¿Dónde cerró el precio relativo al rango High-Low (versión invertida)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación estándar de Williams %R. Redundante con WPR.cs."
+gemini_summary: >-
+  Implementación estándar de Williams %R. Redundante con WPR.cs.
 file_state: Estable
 score_potential: 7/10
 effort: Bajo

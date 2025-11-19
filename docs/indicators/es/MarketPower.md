@@ -5,10 +5,12 @@ name: CVD pro / Market Power
 category: VolumeOrderFlow
 score_current: 9/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Cuál es el delta acumulado (CVD) filtrado por tamaño de trade, y cómo se compara con su SMA?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es el delta acumulado (CVD) filtrado por tamaño de trade, y cómo se compara con su SMA?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Indicador CVD profesional, muy robusto y complejo. Maneja correctamente trades tick-a-tick y acumulados, filtros de volumen y gaps de datos.
+gemini_summary: >-
+  Indicador CVD profesional, muy robusto y complejo. Maneja correctamente trades tick-a-tick y acumulados, filtros de volumen y gaps de datos.
 file_state: Estable
 score_potential: 9/10
 effort: N/A

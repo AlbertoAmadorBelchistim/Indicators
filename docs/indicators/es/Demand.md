@@ -5,12 +5,12 @@ name: Demand Index
 category: Volume
 score_current: 2/10
 version: Estable
-recommended_action: Reparar
-description: ¿Cuál es la presión de compra o venta relativa basada en precio y volumen?
+recommended_action: 'Reparar'
+description: >-
+  ¿Cuál es la presión de compra o venta relativa basada en precio y volumen?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador Roto: la fórmula usa el rango de la *primera vela del
-  gráfico* (`bar == 0`) para todos los cálculos futuros, haciéndolo arbitrario e
-  inútil."
+gemini_summary: >-
+  '"Indicador Roto: la fórmula usa el rango de la *primera vela del' gráfico* (`bar == 0`) para todos los cálculos futuros, haciéndolo arbitrario e inútil."
 file_state: Roto
 score_potential: 6/10
 effort: Medio

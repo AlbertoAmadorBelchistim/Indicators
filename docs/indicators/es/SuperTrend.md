@@ -5,10 +5,12 @@ name: Super Trend
 category: Trend
 score_current: 9/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuál es la dirección actual de la tendencia y dónde está el nivel de Stop Loss dinámico (Trailing Stop)?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es la dirección actual de la tendencia y dónde está el nivel de Stop Loss dinámico (Trailing Stop)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "El estándar de la industria para Trailing Stops. Código optimizado y visualmente pulido."
+gemini_summary: >-
+  El estándar de la industria para Trailing Stops. Código optimizado y visualmente pulido.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo

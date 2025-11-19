@@ -5,10 +5,12 @@ name: Volume-based Support & Resistance Zones
 category: VolumeOrderFlow
 score_current: 10/10
 version: Stable
-recommended_action: Conservar
-description: ¿Dónde están las zonas de soporte y resistencia definidas por volumen en múltiples marcos temporales?
+recommended_action: 'Conservar'
+description: >-
+  ¿Dónde están las zonas de soporte y resistencia definidas por volumen en múltiples marcos temporales?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador MTF avanzado. Genera zonas S/R dinámicas de 4 timeframes en un solo gráfico. Código complejo y robusto."
+gemini_summary: >-
+  Indicador MTF avanzado. Genera zonas S/R dinámicas de 4 timeframes en un solo gráfico. Código complejo y robusto.
 file_state: Estable
 score_potential: 10/10
 effort: Alto

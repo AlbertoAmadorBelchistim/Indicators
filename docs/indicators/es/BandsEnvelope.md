@@ -4,11 +4,12 @@ name: Bands / Envelope
 category: Volatilidad
 score_current: 1/10
 version: Estable
-recommended_action: Descartar
-description: ¿Cuán lejos puede moverse el precio (en Ticks Fijos, Valor Fijo o Porcentaje Fijo) antes de considerarse 'sobre-extendido'?
-
+recommended_action: 'Descartar'
+description: >-
+  ¿Cuán lejos puede moverse el precio (en Ticks Fijos, Valor Fijo o Porcentaje Fijo) antes de considerarse 'sobre-extendido'?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: "Roto y Peligroso" (1/10). Bug crítico en el modo 'Percentage' y concepto estático (no adaptativo) peligroso.
+gemini_summary: >-
+  "Roto y Peligroso" (1/10). Bug crítico en el modo 'Percentage' y concepto estático (no adaptativo) peligroso.
 file_state: Roto
 score_potential: 1/10
 effort: N/A

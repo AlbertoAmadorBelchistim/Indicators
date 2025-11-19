@@ -5,10 +5,12 @@ name: RSI (Relative Strength Index)
 category: Momentum
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: ¿Está el precio sobreextendido (sobrecompra/sobreventa) en relación a su historial reciente?
+recommended_action: 'Conservar'
+description: >-
+  ¿Está el precio sobreextendido (sobrecompra/sobreventa) en relación a su historial reciente?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación sólida y estándar con SMMA. Buen sistema de alertas."
+gemini_summary: >-
+  Implementación sólida y estándar con SMMA. Buen sistema de alertas.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo

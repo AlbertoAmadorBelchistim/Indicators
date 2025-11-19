@@ -4,11 +4,12 @@ name: ATR
 category: Volatilidad
 score_current: 8/10
 version: Estable
-recommended_action: Mejorar
-description: ¿Cuál ha sido el tamaño verdadero promedio (incluyendo gaps) de cada barra durante los últimos X períodos?
-
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cuál ha sido el tamaño verdadero promedio (incluyendo gaps) de cada barra durante los últimos X períodos?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: "¡El Ganador de la Familia!" Herramienta 'Core' 10/10. La implementación actual (8/10) usa SMA en lugar de EMA/RMA. Arreglo P1.
+gemini_summary: >-
+  "¡El Ganador de la Familia!" Herramienta 'Core' 10/10. La implementación actual (8/10) usa SMA en lugar de EMA/RMA. Arreglo P1.
 file_state: Mejorable (No Estándar)
 score_potential: 10/10
 effort: Bajo

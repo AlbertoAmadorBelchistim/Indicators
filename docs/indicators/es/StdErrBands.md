@@ -5,10 +5,12 @@ name: Standard Error Bands
 category: Volatility
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuál es el rango de error estadístico esperado alrededor de la tendencia de regresión actual?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es el rango de error estadístico esperado alrededor de la tendencia de regresión actual?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Bandas basadas en Regresión Lineal y Error Estándar. Matemáticamente denso pero correcto."
+gemini_summary: >-
+  Bandas basadas en Regresión Lineal y Error Estándar. Matemáticamente denso pero correcto.
 file_state: Estable
 score_potential: 8/10
 effort: Medio

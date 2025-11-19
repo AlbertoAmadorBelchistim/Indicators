@@ -5,10 +5,12 @@ name: Inertia V2
 category: Momentum
 score_current: 7/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Cuál es el momentum, basado en un RVI (calculado sobre StdDev) y suavizado por una Regresión Lineal?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es el momentum, basado en un RVI (calculado sobre StdDev) y suavizado por una Regresión Lineal?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación 'Quant' estable de un oscilador de 'doble suavizado'; crea un RVI personalizado basado en StdDev y luego lo suaviza con Regresión Lineal."
+gemini_summary: >-
+  Implementación 'Quant' estable de un oscilador de 'doble suavizado'; crea un RVI personalizado basado en StdDev y luego lo suaviza con Regresión Lineal.
 file_state: Estable
 score_potential: 7/10
 effort: N/A

@@ -5,12 +5,12 @@ name: DOM Power Modif
 category: OrderBook
 score_current: 9/10
 version: Modif
-recommended_action: Conservar
-description: ¿Cuál es el desequilibrio neto (Bids vs Asks) en el libro de órdenes y
-  cuál es su rango de volatilidad?
+recommended_action: 'Conservar'
+description: >-
+  '¿Cuál es el desequilibrio neto (Bids vs Asks) en el libro de órdenes y' cuál es su rango de volatilidad?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Versión 'Pro' que arregla el bug de actualización y añade un 'Histograma
-  de Desequilibrio' y un 'Rango de Desequilibrio' (volatilidad del DOM)."
+gemini_summary: >-
+  '"Versión 'Pro' que arregla el bug de actualización y añade un 'Histograma' de Desequilibrio' y un 'Rango de Desequilibrio' (volatilidad del DOM)."
 file_state: Estable
 score_potential: 10/10
 effort: N/A

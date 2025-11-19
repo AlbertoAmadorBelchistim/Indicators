@@ -5,10 +5,12 @@ name: Weighted Moving Average
 category: Trend
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuál es la media móvil ponderada linealmente (más peso a lo reciente)?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es la media móvil ponderada linealmente (más peso a lo reciente)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Media ponderada con algoritmo optimizado O(1). Código excelente."
+gemini_summary: >-
+  Media ponderada con algoritmo optimizado O(1). Código excelente.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

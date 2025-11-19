@@ -5,10 +5,12 @@ name: Welles Wilder's Moving Average
 category: Trend
 score_current: 7/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuál es la tendencia suavizada según el método original de Wilder (base de RSI/ATR)?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es la tendencia suavizada según el método original de Wilder (base de RSI/ATR)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación correcta de la media de Wilder. Base para indicadores clásicos."
+gemini_summary: >-
+  Implementación correcta de la media de Wilder. Base para indicadores clásicos.
 file_state: Estable
 score_potential: 7/10
 effort: Bajo

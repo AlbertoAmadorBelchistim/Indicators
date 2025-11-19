@@ -4,11 +4,12 @@ name: Ask/Bid Volume Difference Bars
 category: Order Flow
 score_current: 6.5/10
 version: Estable
-recommended_action: Mejorar
-description: ¿Cuál fue el volumen agresivo neto (Delta) de esta vela, e igualmente importante, cuál fue el rango interno (Delta Máx/Mín) de la batalla entre compradores y vendedores dentro de esa vela?
-
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cuál fue el volumen agresivo neto (Delta) de esta vela, e igualmente importante, cuál fue el rango interno (Delta Máx/Mín) de la batalla entre compradores y vendedores dentro de esa vela?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: Gran concepto (8/10), "La historia del Delta". Arruinado por un fallo de UI (6.5/10): falta la línea cero.
+gemini_summary: >-
+  Gran concepto (8/10), "La historia del Delta". Arruinado por un fallo de UI (6.5/10): falta la línea cero.
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo

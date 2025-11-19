@@ -4,11 +4,12 @@ name: Chande Forecast Oscillator
 category: Momentum
 score_current: 4/10
 version: Estable
-recommended_action: Descartar
-description: ¿Cuán lejos, en porcentaje, se ha desviado el precio de su propia línea de tendencia (Regresión Lineal)?
-
+recommended_action: 'Descartar'
+description: >-
+  ¿Cuán lejos, en porcentaje, se ha desviado el precio de su propia línea de tendencia (Regresión Lineal)?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: Abstracto y redundante (4/10). Mide la distancia a la LinReg. Tiene bug de warm-up.
+gemini_summary: >-
+  Abstracto y redundante (4/10). Mide la distancia a la LinReg. Tiene bug de warm-up.
 file_state: Buggy
 score_potential: 4/10
 effort: N/A

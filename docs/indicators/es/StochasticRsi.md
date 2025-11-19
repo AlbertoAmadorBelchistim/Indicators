@@ -5,10 +5,12 @@ name: Stochastic RSI
 category: Momentum
 score_current: 6/10
 version: Stable
-recommended_action: Mejorar
-description: ¿En qué parte de su rango reciente se encuentra el RSI actual (Sensibilidad extrema)?
+recommended_action: 'Mejorar'
+description: >-
+  ¿En qué parte de su rango reciente se encuentra el RSI actual (Sensibilidad extrema)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación básica que devuelve solo el %K del StochRSI. Le falta la línea %D (señal)."
+gemini_summary: >-
+  Implementación básica que devuelve solo el %K del StochRSI. Le falta la línea %D (señal).
 file_state: Mejorable
 score_potential: 9/10
 effort: Medio

@@ -5,10 +5,12 @@ name: Maximum Levels
 category: VolumeOrderFlow
 score_current: 9/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿En qué nivel de precio se produjo el máximo Volumen (o Bid, Ask, Delta) para el período seleccionado?
+recommended_action: 'Conservar'
+description: >-
+  ¿En qué nivel de precio se produjo el máximo Volumen (o Bid, Ask, Delta) para el período seleccionado?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Indicador de perfil robusto y estable. Utiliza correctamente la API asíncrona (GetFixedProfile) para encontrar el nivel máximo (Vol, Delta, etc.).
+gemini_summary: >-
+  Indicador de perfil robusto y estable. Utiliza correctamente la API asíncrona (GetFixedProfile) para encontrar el nivel máximo (Vol, Delta, etc.).
 file_state: Estable
 score_potential: 9/10
 effort: N/A

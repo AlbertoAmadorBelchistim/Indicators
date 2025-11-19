@@ -5,10 +5,12 @@ name: TRIX
 category: Momentum
 score_current: 7/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuál es la tasa de cambio (ROC) de una media móvil triplemente suavizada?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es la tasa de cambio (ROC) de una media móvil triplemente suavizada?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación estándar del TRIX. Triple EMA + ROC. Funcional pero con el lag inherente al método."
+gemini_summary: >-
+  Implementación estándar del TRIX. Triple EMA + ROC. Funcional pero con el lag inherente al método.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

@@ -5,10 +5,12 @@ name: Positive/Negative Volume Index
 category: Volume
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: ¿Qué está haciendo el 'dinero inteligente' (días de bajo volumen) frente al 'público' (días de alto volumen)?
+recommended_action: 'Conservar'
+description: >-
+  ¿Qué está haciendo el 'dinero inteligente' (días de bajo volumen) frente al 'público' (días de alto volumen)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación clásica de PVI/NVI. Útil para análisis de fondo."
+gemini_summary: >-
+  Implementación clásica de PVI/NVI. Útil para análisis de fondo.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

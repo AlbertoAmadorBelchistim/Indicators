@@ -5,10 +5,12 @@ name: Price Momentum Oscillator
 category: Momentum
 score_current: 7/10
 version: ATAS Official
-recommended_action: Mejorar
-description: ¿Cuál es la tasa de cambio del precio, suavizada doblemente y amplificada x10?
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cuál es la tasa de cambio del precio, suavizada doblemente y amplificada x10?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Oscilador de momentum avanzado con doble suavizado. Multiplica arbitrariamente x10 la señal final, lo que es confuso. Falta validación de división por cero.
+gemini_summary: >-
+  Oscilador de momentum avanzado con doble suavizado. Multiplica arbitrariamente x10 la señal final, lo que es confuso. Falta validación de división por cero.
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo

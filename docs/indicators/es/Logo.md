@@ -5,10 +5,12 @@ name: Background Picture
 category: Visualization
 score_current: 2/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Cómo puedo superponer una imagen o logo personalizado en el gráfico?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cómo puedo superponer una imagen o logo personalizado en el gráfico?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Utilidad visual estable para branding o decoración; no es un indicador de trading. El código es seguro.
+gemini_summary: >-
+  Utilidad visual estable para branding o decoración; no es un indicador de trading. El código es seguro.
 file_state: Estable
 score_potential: 2/10
 effort: N/A

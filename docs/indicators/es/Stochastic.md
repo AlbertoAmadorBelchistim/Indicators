@@ -5,10 +5,12 @@ name: Stochastic
 category: Momentum
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: ¿Dónde cerró el precio en relación con su rango High-Low reciente?
+recommended_action: 'Conservar'
+description: >-
+  ¿Dónde cerró el precio en relación con su rango High-Low reciente?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación canónica y completa. Incluye %K, %D, Slowing y líneas de referencia."
+gemini_summary: >-
+  Implementación canónica y completa. Incluye %K, %D, Slowing y líneas de referencia.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo

@@ -5,10 +5,12 @@ name: Preferred Stochastic - DiNapoli
 category: Momentum
 score_current: 7/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cómo filtrar el ruido del estocástico usando el método de suavizado de DiNapoli?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cómo filtrar el ruido del estocástico usando el método de suavizado de DiNapoli?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación opaca (usa clases internas KdFast/Slow) pero funcional del método DiNapoli."
+gemini_summary: >-
+  Implementación opaca (usa clases internas KdFast/Slow) pero funcional del método DiNapoli.
 file_state: Estable
 score_potential: 7/10
 effort: Bajo

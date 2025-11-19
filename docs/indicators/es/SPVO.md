@@ -5,10 +5,12 @@ name: Simple Percentage Volume Oscillator
 category: Volume
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: Oscilador que muestra la diferencia porcentual entre dos medias móviles de volumen.
+recommended_action: 'Conservar'
+description: >-
+  Oscilador que muestra la diferencia porcentual entre dos medias móviles de volumen.
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Oscilador de volumen robusto. Protección contra división por cero implementada correctamente."
+gemini_summary: >-
+  Oscilador de volumen robusto. Protección contra división por cero implementada correctamente.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

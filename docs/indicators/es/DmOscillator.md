@@ -5,11 +5,12 @@ name: Directional Movement Oscillator
 category: Tendencia
 score_current: 3/10
 version: Estable
-recommended_action: Descartar
-description: ¿Cuál es la diferencia neta (DI+ menos DI-)? (Basado en un DMI no estándar)
+recommended_action: 'Descartar'
+description: >-
+  ¿Cuál es la diferencia neta (DI+ menos DI-)? (Basado en un DMI no estándar)
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador 'Impostor por Derivación'; se basa en el indicador 'DmIndex'
-  (que es un impostor no estándar), por lo que este oscilador no es fiable."
+gemini_summary: >-
+  '"Indicador 'Impostor por Derivación'; se basa en el indicador 'DmIndex'' (que es un impostor no estándar), por lo que este oscilador no es fiable."
 file_state: Impostor
 score_potential: 3/10
 effort: N/A

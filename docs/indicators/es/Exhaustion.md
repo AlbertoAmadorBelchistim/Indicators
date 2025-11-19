@@ -5,10 +5,12 @@ name: Exhaustion
 category: VolumeOrderFlow
 score_current: 8/10
 version: ATAS Official
-recommended_action: Reparar
-description: ¿Está el precio mostrando agotamiento (volumen creciente) en los últimos N ticks del máximo o mínimo de la vela?
+recommended_action: 'Reparar'
+description: >-
+  ¿Está el precio mostrando agotamiento (volumen creciente) en los últimos N ticks del máximo o mínimo de la vela?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Concepto excelente (agotamiento en N ticks), pero 'Buggy' debido a un error tipográfico ('AmoutOfPrices') y una lógica 'todo o nada' que oculta patrones parciales."
+gemini_summary: >-
+  Concepto excelente (agotamiento en N ticks), pero 'Buggy' debido a un error tipográfico ('AmoutOfPrices') y una lógica 'todo o nada' que oculta patrones parciales.
 file_state: Buggy
 score_potential: 9/10
 effort: Medio

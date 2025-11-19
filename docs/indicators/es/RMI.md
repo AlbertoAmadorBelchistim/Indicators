@@ -5,10 +5,12 @@ name: Relative Momentum Index
 category: Momentum
 score_current: 7/10
 version: ATAS Official
-recommended_action: Mejorar
-description: ¿Cuál es la fuerza relativa del impulso (RSI suavizado con SMMA) en una ventana temporal?
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cuál es la fuerza relativa del impulso (RSI suavizado con SMMA) en una ventana temporal?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Variante del RSI que usa SMMA. Implementación matemática correcta y segura. Le faltan líneas de referencia (30/70) visuales por defecto.
+gemini_summary: >-
+  Variante del RSI que usa SMMA. Implementación matemática correcta y segura. Le faltan líneas de referencia (30/70) visuales por defecto.
 file_state: Mejorable
 score_potential: 7/10
 effort: Bajo

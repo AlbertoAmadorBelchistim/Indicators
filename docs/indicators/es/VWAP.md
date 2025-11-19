@@ -5,10 +5,12 @@ name: VWAP / TWAP
 category: VolumeOrderFlow
 score_current: 10/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuál es el precio medio ponderado por volumen (institucional) y sus desviaciones estándar?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es el precio medio ponderado por volumen (institucional) y sus desviaciones estándar?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "El indicador más completo y profesional. Múltiples periodos, desviaciones, anclaje manual. Perfecto."
+gemini_summary: >-
+  El indicador más completo y profesional. Múltiples periodos, desviaciones, anclaje manual. Perfecto.
 file_state: Estable
 score_potential: 10/10
 effort: Alto

@@ -4,11 +4,12 @@ name: Study Angle
 category: Momentum
 score_current: 2/10
 version: Estable
-recommended_action: Descartar
-description: ¿Cuál es el ángulo geométrico literal (en grados) de la tendencia del precio durante las últimas X barras?
-
+recommended_action: 'Descartar'
+description: >-
+  ¿Cuál es el ángulo geométrico literal (en grados) de la tendencia del precio durante las últimas X barras?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: Inútil (2/10). Es un indicador de Momentum ruidoso, disfrazado con Atan(). Ilegible y conceptualmente defectuoso.
+gemini_summary: >-
+  Inútil (2/10). Es un indicador de Momentum ruidoso, disfrazado con Atan(). Ilegible y conceptualmente defectuoso.
 file_state: Estable (Conceptualm. Roto)
 score_potential: 2/10
 effort: N/A

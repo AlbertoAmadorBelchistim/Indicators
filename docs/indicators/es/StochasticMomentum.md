@@ -5,10 +5,12 @@ name: Stochastic Momentum
 category: Momentum
 score_current: 7/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuál es el impulso del precio relativo al centro de su rango (SMI) en lugar de al mínimo?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es el impulso del precio relativo al centro de su rango (SMI) en lugar de al mínimo?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación del SMI (Stochastic Momentum Index). Fórmula correcta, riesgo menor de div/0."
+gemini_summary: >-
+  Implementación del SMI (Stochastic Momentum Index). Fórmula correcta, riesgo menor de div/0.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

@@ -5,10 +5,12 @@ name: Trades On Chart
 category: Visualization
 score_current: 9/10
 version: Stable
-recommended_action: Conservar
-description: ¿Dónde ejecuté mis operaciones pasadas y cuál fue el resultado (PnL) visualmente?
+recommended_action: 'Conservar'
+description: >-
+  ¿Dónde ejecuté mis operaciones pasadas y cuál fue el resultado (PnL) visualmente?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Excelente herramienta de post-análisis. Dibuja trades del historial con PnL y líneas de conexión."
+gemini_summary: >-
+  Excelente herramienta de post-análisis. Dibuja trades del historial con PnL y líneas de conexión.
 file_state: Estable
 score_potential: 9/10
 effort: Medio

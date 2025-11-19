@@ -5,11 +5,12 @@ name: Detrended Oscillator - DiNapoli
 category: Momentum
 score_current: 6/10
 version: Estable
-recommended_action: Conservar
-description: ¿Cuál es el ciclo del precio, eliminando la tendencia de una SMA?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es el ciclo del precio, eliminando la tendencia de una SMA?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación estable de un oscilador simple (Precio - SMA) que
-  elimina la tendencia para mostrar ciclos; una herramienta de contexto válida."
+gemini_summary: >-
+  '"Implementación estable de un oscilador simple (Precio - SMA) que' elimina la tendencia para mostrar ciclos; una herramienta de contexto válida."
 file_state: Estable
 score_potential: 6/10
 effort: N/A

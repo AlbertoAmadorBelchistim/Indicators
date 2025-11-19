@@ -5,10 +5,12 @@ name: Ultimate Oscillator
 category: Momentum
 score_current: 7/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuál es el momentum real del mercado combinando tres marcos temporales para evitar señales falsas?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es el momentum real del mercado combinando tres marcos temporales para evitar señales falsas?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación canónica de Larry Williams. Promedio ponderado de 3 osciladores. Correcto."
+gemini_summary: >-
+  Implementación canónica de Larry Williams. Promedio ponderado de 3 osciladores. Correcto.
 file_state: Estable
 score_potential: 7/10
 effort: Bajo

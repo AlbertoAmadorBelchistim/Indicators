@@ -5,10 +5,12 @@ name: Watermark
 category: Visualization
 score_current: 5/10
 version: Stable
-recommended_action: Conservar
-description: Muestra información del instrumento o texto personalizado en el fondo del gráfico.
+recommended_action: 'Conservar'
+description: >-
+  Muestra información del instrumento o texto personalizado en el fondo del gráfico.
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Utilidad de texto en pantalla. Simple, funcional y estéticamente configurable."
+gemini_summary: >-
+  Utilidad de texto en pantalla. Simple, funcional y estéticamente configurable.
 file_state: Estable
 score_potential: 6/10
 effort: Bajo

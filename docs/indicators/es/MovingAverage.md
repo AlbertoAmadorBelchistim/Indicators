@@ -5,10 +5,12 @@ name: Moving Average
 category: Trend
 score_current: 9/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Cuál es la tendencia suavizada del precio usando uno de los 11 tipos de medias disponibles?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es la tendencia suavizada del precio usando uno de los 11 tipos de medias disponibles?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: Indicador "navaja suiza" de medias móviles. Soporta 11 tipos (SMA, EMA, ZLEMA...). Código robusto, salvo por una falta de validación de TickSize en alertas.
+gemini_summary: >-
+  Indicador "navaja suiza" de medias móviles. Soporta 11 tipos (SMA, EMA, ZLEMA...). Código robusto, salvo por una falta de validación de TickSize en alertas.
 file_state: Estable
 score_potential: 9/10
 effort: N/A

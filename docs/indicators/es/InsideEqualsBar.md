@@ -5,10 +5,12 @@ name: Inside Bar
 category: Levels
 score_current: 7.5/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Dónde se están formando patrones de "Inside Bar" (compresión), con tolerancia y definición de área (Cuerpo o Mechas) personalizables?
+recommended_action: 'Conservar'
+description: >-
+  ¿Dónde se están formando patrones de "Inside Bar" (compresión), con tolerancia y definición de área (Cuerpo o Mechas) personalizables?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación 'Core' y estable de un detector de Inside Bar; incluye características profesionales como 'Tolerancia' y modo 'Cuerpo/Mechas'."
+gemini_summary: >-
+  Implementación 'Core' y estable de un detector de Inside Bar; incluye características profesionales como 'Tolerancia' y modo 'Cuerpo/Mechas'.
 file_state: Estable
 score_potential: 7.5/10
 effort: N/A

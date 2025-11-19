@@ -5,10 +5,12 @@ name: Triple Exponential Moving Average
 category: Trend
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuál es la tendencia inmediata con el mínimo retraso posible (Lag casi cero)?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es la tendencia inmediata con el mínimo retraso posible (Lag casi cero)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Media de Mulloy estándar. Implementación eficiente reusando la clase EMA."
+gemini_summary: >-
+  Media de Mulloy estándar. Implementación eficiente reusando la clase EMA.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

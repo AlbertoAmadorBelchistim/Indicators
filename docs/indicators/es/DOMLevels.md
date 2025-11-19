@@ -5,10 +5,12 @@ name: DOM Heatmap (Manual)
 category: OrderFlow
 score_current: 9/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cómo ha evolucionado la liquidez del libro de órdenes (Heatmap) a lo largo del tiempo en el gráfico?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cómo ha evolucionado la liquidez del libro de órdenes (Heatmap) a lo largo del tiempo en el gráfico?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Generador de mapa de calor (Bookmap-style) dentro del gráfico. Gestión de memoria eficiente."
+gemini_summary: >-
+  Generador de mapa de calor (Bookmap-style) dentro del gráfico. Gestión de memoria eficiente.
 file_state: Estable
 score_potential: 10/10
 effort: Alto

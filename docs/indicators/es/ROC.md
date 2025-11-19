@@ -5,10 +5,12 @@ name: Rate of Change (ROC)
 category: Momentum
 score_current: 6/10
 version: Stable
-recommended_action: Mejorar
-description: ¿Cuál es la velocidad del cambio de precio (en % o ticks) comparado con 'n' barras atrás?
+recommended_action: 'Mejorar'
+description: >-
+  ¿Cuál es la velocidad del cambio de precio (en % o ticks) comparado con 'n' barras atrás?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Funcional pero con UX confusa (parámetro inútil visible) y riesgo de crash si TickSize=0."
+gemini_summary: >-
+  Funcional pero con UX confusa (parámetro inútil visible) y riesgo de crash si TickSize=0.
 file_state: Mejorable
 score_potential: 8/10
 effort: Medio

@@ -5,10 +5,12 @@ name: Rollover Dates
 category: Utility
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuándo vence el contrato de futuros actual y debo cambiar al siguiente?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuándo vence el contrato de futuros actual y debo cambiar al siguiente?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Excelente utilidad técnica. Usa async/await para obtener datos de expiración. Esencial para futuros."
+gemini_summary: >-
+  Excelente utilidad técnica. Usa async/await para obtener datos de expiración. Esencial para futuros.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

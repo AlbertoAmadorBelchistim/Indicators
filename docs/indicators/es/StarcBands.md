@@ -5,10 +5,12 @@ name: Starc Bands
 category: Volatility
 score_current: 6/10
 version: Stable
-recommended_action: Mejorar
-description: ¿Dónde están los límites de volatilidad basados en el rango medio verdadero (ATR) alrededor de la media?
+recommended_action: 'Mejorar'
+description: >-
+  ¿Dónde están los límites de volatilidad basados en el rango medio verdadero (ATR) alrededor de la media?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación funcional pero con código 'sucio' (parámetros obsoletos visibles en código)."
+gemini_summary: >-
+  Implementación funcional pero con código 'sucio' (parámetros obsoletos visibles en código).
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo

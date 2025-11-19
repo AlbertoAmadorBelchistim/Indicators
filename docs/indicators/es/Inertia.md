@@ -5,10 +5,12 @@ name: Inertia
 category: Momentum
 score_current: 6.5/10
 version: ATAS Official
-recommended_action: Descartar
-description: ¿Cuál es el momentum del RVI, suavizado por una Regresión Lineal?
+recommended_action: 'Descartar'
+description: >-
+  ¿Cuál es el momentum del RVI, suavizado por una Regresión Lineal?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador 'Derivado' y estable que aplica un 'doble suavizado' (RVI + LinearReg). Es redundante con 'Inertia2' y tiene un lag considerable."
+gemini_summary: >-
+  Indicador 'Derivado' y estable que aplica un 'doble suavizado' (RVI + LinearReg). Es redundante con 'Inertia2' y tiene un lag considerable.
 file_state: Estable
 score_potential: 6.5/10
 effort: N/A

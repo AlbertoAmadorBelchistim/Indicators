@@ -4,11 +4,12 @@ name: Aroon Indicator
 category: Momentum
 score_current: 3/10
 version: Estable
-recommended_action: Descartar
-description: ¿La fortaleza del mercado proviene de haber hecho recientemente nuevos máximos, o de haber hecho recientemente nuevos mínimos?
-
+recommended_action: 'Descartar'
+description: >-
+  ¿La fortaleza del mercado proviene de haber hecho recientemente nuevos máximos, o de haber hecho recientemente nuevos mínimos?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: Inútil (3/10). Concepto (basado en tiempo) demasiado ruidoso/dentado para scalping. Código ineficiente (Usa OrderBy).
+gemini_summary: >-
+  Inútil (3/10). Concepto (basado en tiempo) demasiado ruidoso/dentado para scalping. Código ineficiente (Usa OrderBy).
 file_state: Estable (Conceptualm. Roto)
 score_potential: 3/10
 effort: N/A

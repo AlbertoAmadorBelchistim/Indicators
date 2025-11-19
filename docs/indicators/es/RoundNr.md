@@ -5,10 +5,12 @@ name: Round Numbers
 category: Level
 score_current: 7/10
 version: Stable
-recommended_action: Mejorar
-description: ¿Dónde están los niveles de precio psicológicos (números redondos) en el gráfico?
+recommended_action: 'Mejorar'
+description: >-
+  ¿Dónde están los niveles de precio psicológicos (números redondos) en el gráfico?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Visualizador eficiente de niveles. Pequeña rigidez en opciones de visualización de texto."
+gemini_summary: >-
+  Visualizador eficiente de niveles. Pequeña rigidez en opciones de visualización de texto.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

@@ -4,11 +4,12 @@ name: Accumulation / Distribution Flow
 category: Volumen clásico
 score_current: 1/10
 version: Estable
-recommended_action: Descartar
-description: ¿Cuál es la _tendencia suavizada (lenta)_ del flujo de volumen acumulado?
-
+recommended_action: 'Descartar'
+description: >-
+  ¿Cuál es la _tendencia suavizada (lenta)_ del flujo de volumen acumulado?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: "Lag sobre lag" (1/10). Es el AD (ya obsoleto y roto) con una SMA(14). Inútil para scalping.
+gemini_summary: >-
+  "Lag sobre lag" (1/10). Es el AD (ya obsoleto y roto) con una SMA(14). Inútil para scalping.
 file_state: Roto
 score_potential: 1/10
 effort: N/A

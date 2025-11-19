@@ -4,11 +4,12 @@ name: ADXR
 category: Tendencia
 score_current: 3/10
 version: Estable
-recommended_action: Descartar
-description: ¿Cuál es la fuerza _estable y suavizada_ de la tendencia, ignorando el ruido a corto plazo del propio ADX?
-
+recommended_action: 'Descartar'
+description: >-
+  ¿Cuál es la fuerza _estable y suavizada_ de la tendencia, ignorando el ruido a corto plazo del propio ADX?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: "Lag sobre lag" (3/10). Es un promedio del ADX (que ya es lento). Inútil para scalping.
+gemini_summary: >-
+  "Lag sobre lag" (3/10). Es un promedio del ADX (que ya es lento). Inútil para scalping.
 file_state: Estable (Conceptualm. Roto)
 score_potential: 3/10
 effort: N/A

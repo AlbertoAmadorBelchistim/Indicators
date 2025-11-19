@@ -5,10 +5,12 @@ name: Highest High / Lowest Low Over N Bars
 category: Levels
 score_current: 7/10
 version: ATAS Official
-recommended_action: Conservar
-description: ¿Cuál es el rango de precio (máximo más alto y mínimo más bajo) de las últimas N barras?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es el rango de precio (máximo más alto y mínimo más bajo) de las últimas N barras?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Implementación 'Core' y estable del canal de precios (Donchian Channel), que traza el High más alto y el Low más bajo de las últimas N barras."
+gemini_summary: >-
+  Implementación 'Core' y estable del canal de precios (Donchian Channel), que traza el High más alto y el Low más bajo de las últimas N barras.
 file_state: Estable
 score_potential: 7/10
 effort: N/A

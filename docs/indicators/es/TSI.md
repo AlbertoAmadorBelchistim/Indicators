@@ -5,10 +5,12 @@ name: True Strength Index
 category: Momentum
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuál es el momentum del precio libre de ruido gracias a un doble suavizado exponencial?
+recommended_action: 'Conservar'
+description: >-
+  ¿Cuál es el momentum del precio libre de ruido gracias a un doble suavizado exponencial?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Oscilador de momentum robusto. Código limpio con línea de señal y doble suavizado."
+gemini_summary: >-
+  Oscilador de momentum robusto. Código limpio con línea de señal y doble suavizado.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

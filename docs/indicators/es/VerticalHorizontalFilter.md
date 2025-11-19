@@ -5,10 +5,12 @@ name: Vertical Horizontal Filter
 category: Statistical
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: ¿Está el mercado en tendencia (movimiento vertical) o en rango (movimiento horizontal)?
+recommended_action: 'Conservar'
+description: >-
+  ¿Está el mercado en tendencia (movimiento vertical) o en rango (movimiento horizontal)?
 # --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: "Indicador de eficiencia de movimiento. Código flexible con múltiples fuentes de datos."
+gemini_summary: >-
+  Indicador de eficiencia de movimiento. Código flexible con múltiples fuentes de datos.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

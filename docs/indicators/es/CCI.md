@@ -4,11 +4,12 @@ name: CCI
 category: Momentum
 score_current: 7/10
 version: Estable
-recommended_action: Mejorar
-description: ¿Qué tan lejos se ha desviado el precio "típico" de hoy de su precio "promedio", medido en unidades de desviación estadística?
-
+recommended_action: 'Mejorar'
+description: >-
+  ¿Qué tan lejos se ha desviado el precio "típico" de hoy de su precio "promedio", medido en unidades de desviación estadística?
 # --- Análisis y Triaje de Gemini ---
-gemini_summary: Clásico (7/10). Útil para divergencias. Implementación correcta pero sin "warm-up", genera ruido inicial.
+gemini_summary: >-
+  Clásico (7/10). Útil para divergencias. Implementación correcta pero sin "warm-up", genera ruido inicial.
 file_state: Buggy
 score_potential: 8/10
 effort: Bajo
