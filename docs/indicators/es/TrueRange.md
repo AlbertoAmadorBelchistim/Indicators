@@ -1,68 +1,96 @@
-## 🟦 True Range (8/10)  
-**Nombre del archivo:** `TrueRange.cs`  
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: TrueRange.cs
+name: True Range
+category: Volatility
+score_current: 8/10
+version: Stable
+recommended_action: Conservar
+description: ¿Cuál es la volatilidad real de la vela actual incluyendo los gaps de apertura?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Cálculo base de volatilidad. Código simple y sin errores."
+file_state: Estable
+score_potential: 8/10
+effort: Bajo
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
+## 🟦 True Range (8/10)
+
+**Nombre del archivo:** [`TrueRange.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/TrueRange.cs)  
 **Nombre del indicador:** True Range  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602234](https://help.atas.net/support/solutions/articles/72000602234)
+**Web oficial:** [ATAS — True Range](https://help.atas.net/support/solutions/articles/72000602234)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** ¿Cuál es la volatilidad real de la vela actual incluyendo los gaps de apertura?
+
+![TrueRange](../../img/TrueRange.png)
 
 ---
 
-### ⚙️ Parámetros configurables  
-- No tiene parámetros configurables desde la UI.
+### ⚙️ Parámetros configurables
+
+* **Ninguno**: Es un cálculo puro sin periodo de suavizado (eso sería el ATR).
 
 ---
 
-### 🧭 Clasificación  
-📂 Volatility — Indicador de volatilidad basado en el **True Range**
+### 🧭 Clasificación
+📂 Volatility — Medida de rango expandido.
 
 ---
 
-### 🧠 Uso más frecuente  
-- Medir la **volatilidad del mercado** mediante el **True Range**  
-- Identificar **rangos de precio** en un periodo determinado para evaluar el riesgo y la volatilidad  
-- Utilizar como parte de estrategias para establecer **niveles de stop loss** y **take profit** basados en la volatilidad del mercado
+### 🧠 Uso más frecuente
+
+* **Detección de Expansión:** Un pico en el True Range indica pánico o euforia (velas de rango amplio o gaps).  
+* **Cálculo de Riesgo:** Usar el valor actual para definir el stop loss mínimo (ej. 1x TR).  
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **8 / 10**  
-✅ Ideal para **medir la volatilidad** del mercado  
-✅ Funciona bien en **estrategias que requieren análisis de riesgo y volatilidad**  
-⛔ Menos útil en **mercados sin fluctuaciones significativas** o con **baja volatilidad**
+### 📊 Nivel de relevancia
+🔟 **8 / 10**
+
+✅ **Precisión:** Captura la volatilidad de los gaps que el rango simple (High-Low) ignora.  
+✅ **Base:** Es el componente fundamental de indicadores como ATR, SuperTrend y Keltner Channels.  
+⛔ **Ruido:** Al no tener suavizado, es muy errático para usarlo como señal directa.  
 
 ---
 
-### 🎯 Estrategias de scalping donde se aplica  
-- **Rangos de volatilidad**: Usar el **True Range** para detectar **niveles de volatilidad extrema**  
-- **Ajuste de stop loss**: Establecer **niveles de protección** en función de la **volatilidad actual del mercado**  
-- **Tendencias y consolidaciones**: Confirmar **movimientos fuertes de precio** en mercados que atraviesan períodos de baja volatilidad
+### 🎯 Estrategias de scalping donde se aplica
+
+* **Volatilidad de Apertura:** Observar el TR de la primera vela. Si es muy alto, esperar reversión a la media. Si es bajo, esperar expansión.  
 
 ---
 
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
-- **No aplica parámetros específicos**, ya que no tiene configuraciones desde la UI.
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-✅ Excelente para **medir rangos de volatilidad** y adaptar estrategias a la situación actual del mercado  
-✅ Ideal para **ajustar stops dinámicamente** en función de la volatilidad  
-⛔ Menos útil en **mercados sin cambios significativos** en el rango de precios
+* **N/A**: No tiene parámetros.
 
 ---
 
-### 🧪 Notas de desarrollo  
-- Calcula el **True Range** utilizando tres componentes:  
-  1. La diferencia entre el **máximo y el mínimo** de la vela  
-  2. La diferencia entre el **máximo de la vela** y el **cierre de la vela anterior**  
-  3. La diferencia entre el **mínimo de la vela** y el **cierre de la vela anterior**  
-- El valor del **True Range** es el máximo de los tres cálculos anteriores
+### 🧪 Notas de desarrollo
+
+* **Fórmula:** `Max(High-Low, Abs(High-PrevClose), Abs(Low-PrevClose))`.  
+* **Implementación:** Correcta.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Es un bloque de construcción. Esencial para desarrolladores o traders que construyen sus propias métricas de riesgo.
+
+**Propuestas de Mejora:**
+* **Suavizado Opcional:** Añadir una opción para convertirlo en ATR (aplicar SMA al resultado) directamente desde este indicador para no tener dos indicadores separados.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas  
-- No permite personalizar el **estilo visual** del indicador  
-- No tiene soporte para **alertas automáticas** cuando el True Range supera ciertos umbrales  
-- **No ajusta dinámicamente** el cálculo en función de la volatilidad o el contexto de mercado
+### 📈 Veredicto: ¿Es útil para Scalping?
 
----
+**Sí.** Para medir el "ruido" actual tick a tick.
 
-### 🛠️ Propuestas de mejora  
-- Añadir **alertas automáticas** cuando el True Range alcance un valor específico  
-- Mejorar la **personalización visual** del indicador (colores, grosor de línea)  
-- Implementar un **ajuste dinámico** que permita calcular el True Range de manera más precisa durante eventos de alta volatilidad
+**Acción:** **Conservar.**

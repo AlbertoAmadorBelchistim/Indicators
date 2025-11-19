@@ -1,85 +1,105 @@
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: RoundNr.cs
+name: Round Numbers
+category: Level
+score_current: 7/10
+version: Stable
+recommended_action: Mejorar
+description: ¿Dónde están los niveles de precio psicológicos (números redondos) en el gráfico?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Visualizador eficiente de niveles. Pequeña rigidez en opciones de visualización de texto."
+file_state: Estable
+score_potential: 8/10
+effort: Bajo
+action_priority: P3
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: null
+user_modification_date: null
+---
+
 ## 🟦 Round Numbers (7/10)
 
-**Nombre del archivo:** `RoundNr.cs`  
+**Nombre del archivo:** [`RoundNr.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/RoundNr.cs)  
 **Nombre del indicador:** Round Numbers  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602459](https://help.atas.net/support/solutions/articles/72000602459)
+**Web oficial:** [ATAS — Round Numbers](https://help.atas.net/support/solutions/articles/72000602459)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** ¿Dónde están los niveles de precio psicológicos (números redondos) en el gráfico?
+
+![RoundNr](../../img/RoundNr.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **Step**: Número de ticks entre niveles de precios redondos (por defecto: 100)  
-- **Pen**: Color y grosor de las líneas horizontales de los niveles
+* **Step**: Distancia en ticks entre líneas (ej. 100 ticks).
+* **Pen**: Configuración de la línea (Color, grosor).
 
 ---
 
 ### 🧭 Clasificación
-📂 Level — Indicador de niveles de precios redondos fijos en el gráfico
+📂 Level — Indicador de niveles estáticos horizontales basados en precio.
 
 ---
 
 ### 🧠 Uso más frecuente
 
-- Visualizar **niveles de precios redondos** (ej. 4000, 4050, 4100…) como referencia estructural  
-- Evaluar la reacción del precio en **zonas psicológicas** o de concentración de órdenes  
-- Utilizar como **soporte/resistencia pasivos** para scalping técnico
+* **Soportes/Resistencias Psicológicos:** Los humanos y algoritmos tienden a poner órdenes en números terminados en 00 o 50.
+* **Grid Visual:** Ayuda a medir distancias visualmente sin usar la herramienta de regla.
 
 ---
 
 ### 📊 Nivel de relevancia
 🔟 **7 / 10**
 
-✅ Niveles clave fáciles de visualizar y personalizar  
-✅ Útil para complementar estructuras, order flow o volumen  
-⛔ No se adapta dinámicamente al contexto de mercado
+✅ Muy ligero (renderizado puro, sin cálculos históricos).  
+✅ Útil para limpiar el gráfico de grids predeterminados y usar uno personalizado.  
+⛔ **Opciones limitadas:** No permite desactivar las etiquetas de texto independientemente de las líneas.  
+⛔ **Cálculo de Módulo:** `lowLines % 1 == 0` es técnicamente arriesgado con decimales, aunque suele funcionar.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Entrada tras test de un número redondo** con confirmación de volumen  
-- **Evitar entradas** justo en niveles clave si no hay absorción clara  
-- **Proyección de stops o targets** usando múltiplos del nivel base
+* **Magnet Trading:** El precio suele ser atraído a los números redondos. Scalping hacia el nivel 00.
+* **Rebote en Nivel:** Esperar absorción en el Order Flow justo en el número redondo.
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **Step**: `50` (equivale a niveles cada 12.5 puntos en ES)  
-- **Pen.Color**: gris claro o rojo tenue  
-- **Pen.Width**: `1`
-
-✅ Niveles precisos cada 50 ticks ofrecen buena guía estructural  
-✅ Proporciona contexto sin sobrecargar el gráfico  
-⛔ Si se usa con `Step` muy bajo, puede saturar el entorno visual
+* **Step**: `40` (En ES, 1 punto = 4 ticks. 40 ticks = 10 puntos). Niveles cada 10 puntos son clave en el S&P 500.
+* **Color**: Gris muy claro, para que sea fondo y no señal.
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Calcula el primer valor redondo por debajo del mínimo del gráfico visible  
-- Dibuja líneas horizontales desde `low` hasta `high` cada `Step × TickSize`  
-- Mide la altura vertical entre niveles y la compara con el alto del texto para decidir si renderizar etiquetas  
-- Si hay espacio, añade el valor numérico del nivel en el borde derecho del gráfico  
-- Todo el dibujo se realiza en `OnRender`, sin lógica en `OnCalculate`
+* **Render-Only:** Sobrescribe `OnRender` y deja `OnCalculate` vacío. Este es el patrón de diseño correcto para indicadores puramente visuales.
+* **Lógica de Dibujo:** Calcula dinámicamente qué líneas son visibles en la ventana (`ChartInfo.Region`) para no dibujar líneas fuera de pantalla. Eficiente.
+* **Detección de Espacio:** Verifica si hay espacio vertical (`isFreeSpace`) antes de dibujar el texto para evitar solapamientos. Buen detalle.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Cumple su función con eficiencia. Es el tipo de indicador "invisible" que mejora la calidad de vida del trader sin molestar. La lógica de renderizado es inteligente al dibujar solo lo visible.
+
+**Propuestas de Mejora:**
+* **Toggle de Texto:** Añadir `bool ShowText` para permitir líneas limpias sin números.
+* **Estilos de Línea:** Permitir definir diferentes estilos para niveles "Mayores" (ej. cada 1000 ticks) y "Menores" (ej. cada 100 ticks).
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- El método `GetFirstValue` no redondea correctamente si `low` ya es múltiplo exacto pero está justo por debajo del primer nivel visible  
-- No hay validación visual si `Step × TickSize` es menor que el espacio vertical disponible — podría saturar el gráfico sin advertencia  
-- El valor `"TextCheck"` se utiliza para medir altura de texto, pero no representa un número real → pequeña incoherencia semántica  
-- No hay forma de ocultar las etiquetas numéricas si el usuario solo desea líneas  
-- No se ofrecen opciones para líneas discontinuas o relleno entre zonas
+**Sí.**
 
----
+El scalping es precisión. Saber dónde está el "doble cero" (00) de un vistazo ayuda a colocar Take Profits racionales.
 
-### 🛠️ Propuestas de mejora
-
-- Permitir activar/desactivar la visualización del texto numérico desde la UI  
-- Añadir opción de estilo de línea (`sólida`, `discontinua`, `punteada`)  
-- Incluir filtro para limitar la visualización a un rango definido (ej: ±X puntos desde el precio actual)  
-- Mejorar lógica de `GetFirstValue` para evitar redondeo erróneo en niveles exactos  
-- Reemplazar `"TextCheck"` por una muestra representativa (ej: `10000.00`) acorde al número de decimales del instrumento
+**Acción:** **Mejorar (Añadir opciones de visibilidad de texto).**
 

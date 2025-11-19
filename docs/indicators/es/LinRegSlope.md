@@ -1,14 +1,41 @@
-## 🟦 Linear Regression Slope (7/10)
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: LinRegSlope.cs
+name: Linear Regression Slope
+category: Trend
+score_current: 1/10
+version: ATAS Official
+recommended_action: Reparar
+description: ¿Cuál es la pendiente (dirección e intensidad) de la tendencia en el período reciente?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: ROTO. Causa una división por cero si Period=1, un valor permitido por la UI [Range(1, ...)], resultando en un crash.
+file_state: Roto
+score_potential: 7/10
+effort: Bajo
+action_priority: P1
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
+---
 
-**Nombre del archivo:** `LinRegSlope.cs`  
+## 🟦 Linear Regression Slope (1/10)
+
+**Nombre del archivo:** [`LinRegSlope.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/LinRegSlope.cs)  
 **Nombre del indicador:** Linear Regression Slope  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602416](https://help.atas.net/support/solutions/articles/72000602416)
+**Web oficial:** [ATAS — Linear Regression Slope](https://help.atas.net/support/solutions/articles/72000602416)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025
+
+> **La Pregunta Clave:** ¿Cuál es la pendiente (dirección e intensidad) de la tendencia en el período reciente?
+
+![LinearRegressionSlope](../../img/LinearRegressionSlope.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **Period**: Número de barras usadas para calcular la pendiente de la regresión lineal (por defecto: 14)
+* **Period**: Número de barras usadas para calcular la pendiente (por defecto: 14)
 
 ---
 
@@ -19,62 +46,66 @@
 
 ### 🧠 Uso más frecuente
 
-- Evaluar la **dirección e intensidad** de una tendencia en el precio  
-- Confirmar la **fuerza del movimiento** según si la pendiente se mantiene positiva o negativa  
-- Filtrar señales de entrada basándose en si la pendiente supera un umbral mínimo
+* Evaluar la **dirección e intensidad** de una tendencia en el precio
+* Confirmar la **fuerza del movimiento** según si la pendiente se mantiene positiva o negativa
+* Filtrar señales de entrada basándose en si la pendiente supera un umbral mínimo
 
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **7 / 10**
+🔟 **1 / 10**
 
-✅ Mide tendencia de forma cuantitativa y objetiva  
-✅ Apto para sistemas algorítmicos como filtro de entrada o sesgo  
+✅ Mide tendencia de forma cuantitativa y objetiva (conceptual)  
+✅ Apto para sistemas algorítmicos como filtro (conceptual)  
+⛔ **BUG CRÍTICO:** Causa un **crash** por división por cero si `Period` se establece en 1  
 ⛔ No distingue consolidaciones de pendiente cercana a cero
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Filtro de entrada**: solo operar a favor de la pendiente  
-- **Confirmación de continuación**: mantener posición mientras la pendiente no cambie de signo  
-- **Evitar zonas planas**: pendiente cercana a cero indica bajo impulso
+* **Filtro de entrada**: solo operar a favor de la pendiente (si estuviera reparado)
+* **Confirmación de continuación**: mantener posición mientras la pendiente no cambie (si estuviera reparado)
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **Period**: `10`
-
-✅ Suficiente para detectar inclinación real de corto plazo  
-✅ Evita señales falsas en consolidaciones largas  
-⛔ Valores demasiado altos producen lentitud en la respuesta
+* **Period**: `10` (¡No usar `1`!)
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Calcula la pendiente (`slope`) de la regresión lineal clásica en cada barra  
-- Usa sumatorias predefinidas para `x`, `x²` y `x*y` evitando recomputación innecesaria  
-- El resultado representa la **variación promedio por barra** del precio  
-- Representa una única serie (`this[bar]`) con el valor de la pendiente
+* Calcula la pendiente (`slope`) de la regresión lineal clásica en cada barra
+* Usa sumatorias predefinidas para `x`, `x²` y `x*y`
+* El resultado representa la **variación promedio por barra** del precio
+* Tiene un **bug fatal** de división por cero si `Period = 1`
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Este indicador está **completamente roto** y es peligroso de usar. El bug es evidente en el código `LinRegSlope.cs`.
+
+El parámetro `Period` tiene un `[Range(1, 10000)]` en sus atributos, permitiendo explícitamente al usuario seleccionar `Period = 1`.
+
+Si `Period = 1`, la fórmula del `divisor` (`var divisor = sumX * sumX - Period * Period * (Period - 1m) * (2 * Period - 1) / 6;`) se evalúa a 0. Esto lleva inevitablemente a un **crash por división por cero** en la línea final de `OnCalculate` (`... / divisor`).
+
+Un indicador que crashea la plataforma con una configuración permitida por su propia UI es inaceptable.
+
+**Propuesta de Reparación (P1):**
+* **URGENTE (Opción 1):** Cambiar el rango del parámetro a `[Range(2, 10000)]`.
+* **URGENTE (Opción 2):** Añadir una validación en `OnCalculate`: `if (divisor == 0) { this[bar] = 0; return; }`.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- El cálculo del denominador (`divisor`) no valida explícitamente si es cero → riesgo de división indefinida en casos extremos  
-- No se ofrece al usuario ninguna información visual sobre el signo o intensidad del valor (colores, etiquetas, etc.)  
-- El uso de `count * value` como `x*y` asume que `x` es una secuencia natural sin centrado → puede introducir sesgo en algunos marcos  
-- No permite elegir el origen de datos (por defecto es siempre `SourceDataSeries`)  
+**No (Está Roto).**
 
----
+Es un concepto útil para medir momentum, pero actualmente es una bomba de tiempo que puede crashear la plataforma.
 
-### 🛠️ Propuestas de mejora
-
-- Añadir validación explícita para evitar división por cero en el cálculo de `divisor`  
-- Incluir opción para visualizar cambios de signo con color distinto en el panel  
-- Permitir elegir la fuente de datos (`Close`, `Open`, etc.)  
-- Añadir líneas horizontales o alertas si la pendiente supera umbrales definidos  
-- Ofrecer modo normalizado (por ejemplo, pendiente relativa al rango de precios)
+**Acción:** **Reparar (Bug P1 - Crash por división por cero).**
 

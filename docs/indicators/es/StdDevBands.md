@@ -1,70 +1,99 @@
-## 🟦 Standard Deviation Bands (StdDev Bands) (8/10)  
-**Nombre del archivo:** `StdDevBands.cs`  
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: StdDevBands.cs
+name: Standard Deviation Bands
+category: Volatility
+score_current: 8/10
+version: Stable
+recommended_action: Conservar
+description: ¿Está el precio alcanzando extremos estadísticos de volatilidad basados en máximos y mínimos?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Variante de Bollinger que usa High/Low en lugar de Close. Buena gestión de alertas."
+file_state: Estable
+score_potential: 8/10
+effort: Bajo
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 23/04/2025
+user_modification_date: null
+---
+
+## 🟦 Standard Deviation Bands (StdDev Bands) (8/10)
+
+**Nombre del archivo:** [`StdDevBands.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/StdDevBands.cs)  
 **Nombre del indicador:** Standard Deviation Bands  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602614](https://help.atas.net/support/solutions/articles/72000602614)
+**Web oficial:** [ATAS — Standard Deviation Bands](https://help.atas.net/support/solutions/articles/72000602614)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** ¿Está el precio alcanzando extremos estadísticos de volatilidad basados en máximos y mínimos?
+
+![StdDevBands](../../img/StdDevBands.png)
 
 ---
 
-### ⚙️ Parámetros configurables  
-- **Period**: Periodo de la media móvil para el cálculo de las bandas (por defecto: `10`)  
-- **SmaPeriod**: Periodo de la media móvil para la base de las bandas (por defecto: `10`)  
-- **BBandsWidth**: Ancho de las bandas calculadas mediante la desviación estándar (por defecto: `2`)
+### ⚙️ Parámetros configurables
+
+* **Period**: Ventana de cálculo (Estándar: 10).
+* **BBandsWidth**: Multiplicador de desviación estándar (Estándar: 2).
+* **Alerts**: Configuración exhaustiva de alertas para banda superior, inferior y medias.
 
 ---
 
-### 🧭 Clasificación  
-📂 Volatility — Bandas de volatilidad basadas en la desviación estándar
+### 🧭 Clasificación
+📂 Volatility — Canal de precios estadístico. Similar a Bollinger Bands pero usando High/Low.
 
 ---
 
-### 🧠 Uso más frecuente  
-- Establecer **bandas de volatilidad** en torno a una media móvil simple  
-- Detectar **condiciones de sobrecompra o sobreventa** cuando el precio toca las bandas  
-- Confirmar **rupturas** o **expansiones de volatilidad** en el mercado
+### 🧠 Uso más frecuente
+
+* **Contención de Precio:** Al usar High/Low para el cálculo, las bandas "encierran" mejor la acción del precio que las Bollinger tradicionales (basadas en Close).  
+* **Reversión a la Media:** Toque de banda superior + patrón de giro = Venta hacia la media.  
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **8 / 10**  
-✅ Ideal para **identificar cambios de volatilidad**  
-✅ Funciona bien en **mercados con altos movimientos de precios**  
-⛔ No es tan útil en **mercados con baja volatilidad**
+### 📊 Nivel de relevancia
+🔟 **8 / 10**
+
+✅ **Precisión en Mechas:** Al calcular la desviación sobre máximos y mínimos, se adapta mejor a la volatilidad intradía real que las Bollinger.  
+✅ **Sistema de Alertas:** Muy completo, permite alertar cruces de cada línea individualmente.  
+⛔ **Redundancia:** Se solapa conceptualmente con las Bandas de Bollinger, aunque el cálculo interno difiere ligeramente.  
 
 ---
 
-### 🎯 Estrategias de scalping donde se aplica  
-- **Rupturas de bandas**: Usar la **ruptura de la banda superior** como señal de compra y la **banda inferior** para venta  
-- **Sobrecompra/sobreventa**: Identificar zonas donde el precio toca las bandas para posibles **reversiones**  
-- **Confirmación de tendencias**: Usar la **expansión de las bandas** para confirmar el inicio de una tendencia fuerte
+### 🎯 Estrategias de scalping donde se aplica
+
+* **Scalping de Bordes:** Vender cuando el precio toca la banda superior en un mercado lateral. Esta versión es mejor que Bollinger para esto porque las bandas son más "anchas" y filtran mejor los toques falsos.  
 
 ---
 
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
-- **Period**: `10`  
-- **SmaPeriod**: `10`  
-- **BBandsWidth**: `2`
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-✅ Ideal para **capturar rupturas y expansiones de volatilidad**  
-✅ Las **bandas de volatilidad** son útiles para determinar **niveles de entrada y salida**  
-⛔ Menos eficaz si el mercado no muestra grandes **movimientos de volatilidad**
+* **Period**: `20`.
+* **Width**: `2.0` o `2.5` (Para asegurar que solo capturamos extremos reales).
 
 ---
 
-### 🧪 Notas de desarrollo  
-- Calcula las **bandas superior e inferior** basadas en la desviación estándar multiplicada por un factor de ajuste  
-- La **media móvil simple (SMA)** se utiliza como base para las bandas  
-- La visualización muestra **tres líneas**: la SMA, la banda superior y la banda inferior
+### 🧪 Notas de desarrollo
+
+* **Arquitectura Interna:** Instancia múltiples objetos: `Highest`, `Lowest`, `SMA` (High/Low), `StdDev` (High/Low). Es un ensamblaje de otros indicadores.
+* **Cálculo:** `Top = SMA(High) + Width * StdDev(High)`. Esto es diferente a Bollinger (`SMA(Close) + Width * StdDev(Close)`). Es una distinción técnica importante.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Es una mejora técnica sobre las Bandas de Bollinger para traders que operan mirando las mechas de las velas. El código es limpio y reutiliza componentes existentes.
+
+**Propuestas de Mejora:**
+* Ninguna crítica significativa. Es una variante útil bien implementada.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas  
-- No permite personalizar el **color o grosor de las bandas**  
-- Las alertas no se pueden personalizar directamente, lo que limita su uso en estrategias automatizadas  
-- La **configuración de los períodos** puede no adaptarse a mercados con alta volatilidad
+### 📈 Veredicto: ¿Es útil para Scalping?
 
----
+**Sí.** Mejor que Bollinger para mercados con muchas "mechas" largas (como Crypto o NQ).
 
-### 🛠️ Propuestas de mejora  
-- Añadir soporte para **alertas automáticas** cuando el precio toque o rompa las bandas de volatilidad  
-- Mejorar la **personalización visual** (grosor de línea, colores) del indicador  
-- Implementar un **filtro dinámico de volatilidad** que ajuste las bandas en función de la **volatilidad del mercado**
+**Acción:** **Conservar.**

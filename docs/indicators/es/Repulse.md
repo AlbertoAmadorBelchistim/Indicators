@@ -1,14 +1,41 @@
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: Repulse.cs
+name: Repulse
+category: Momentum
+score_current: 6/10
+version: ATAS Official
+recommended_action: Mejorar
+description: ¿Cuál es la "presión de repulsión" (fuerza de compra/venta interna) suavizada de las velas?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: Indicador de presión interna. Código funcional, pero con dependencia excesiva de la vela 0 para la inicialización y factores de suavizado fijos.
+file_state: Mejorable
+score_potential: 6/10
+effort: Bajo
+action_priority: P3
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
 ## 🟦 Repulse (6/10)
 
-**Nombre del archivo:** `Repulse.cs`  
+**Nombre del archivo:** [`Repulse.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/Repulse.cs)  
 **Nombre del indicador:** Repulse  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602283](https://help.atas.net/support/solutions/articles/72000602283)
+**Web oficial:** [ATAS — Repulse](https://help.atas.net/support/solutions/articles/72000602283)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** ¿Cuál es la "presión de repulsión" (fuerza de compra/venta interna) suavizada de las velas?
+
+![Repulse](../../img/Repulse.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **Period**: Número de barras para el cálculo principal (por defecto: 10)
+* **Period**: Número de barras para el cálculo principal (por defecto: 10)
 
 ---
 
@@ -19,9 +46,9 @@
 
 ### 🧠 Uso más frecuente
 
-- Medir la **intensidad comparada entre fuerzas alcistas y bajistas**  
-- Confirmar fases de impulso o debilidad  
-- Filtrar movimientos sin intención en estructuras laterales
+* Medir la **intensidad comparada entre fuerzas alcistas y bajistas**
+* Confirmar fases de impulso o debilidad
+* Filtrar movimientos sin intención en estructuras laterales
 
 ---
 
@@ -36,46 +63,43 @@
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Confirmación de dirección** si la línea se mantiene claramente positiva o negativa  
-- **Detección de giro** si cambia de pendiente bruscamente  
-- **Filtro de contexto** para evitar operar en zonas sin presión dominante
+* **Confirmación de dirección** si la línea se mantiene claramente positiva o negativa
+* **Detección de giro** si cambia de pendiente bruscamente
+* **Filtro de contexto** para evitar operar en zonas sin presión dominante
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **Period**: `8`  
-✅ Suavizado suficiente sin perder sensibilidad en M1  
-✅ Detecta fuerza direccional en tramos estructurados  
-⛔ Puede dar señales erróneas si hay gap o vela con rango extremo
+* **Period**: `8`
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Calcula dos componentes: `bull` (fuerza alcista) y `bear` (fuerza bajista), en función del `Close`, `Open` y extremos  
-- Usa dos EMAs (`_emaHigh`, `_emaLow`) con periodo igual a `Period × 5`  
-- El valor final es: `Repulse = EMA(bull) − EMA(bear)`  
-- En las primeras `Period` barras se usa `GetCandle(0)` como referencia inicial  
-- Se guarda el resultado en `_renderSeries`, mostrada en panel separado
+* Calcula componentes de presión alcista y bajista basados en la posición del cierre relativo a máximos/mínimos y apertura
+* Usa dos EMAs (`_emaHigh`, `_emaLow`) con un periodo fijo de `Period * 5` (No configurable)
+* Inicialización dependiente de `GetCandle(0)`
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Es un indicador esotérico. La implementación parece seguir la fórmula original, pero tiene decisiones de diseño cuestionables.
+
+El hecho de que el período de las EMAs sea `Period * 5` y no sea configurable es una limitación innecesaria. Además, la lógica de inicialización basada en la vela 0 es frágil.
+
+**Propuesta de Mejora (P3):**
+* Hacer configurable el multiplicador de suavizado (actualmente 5).
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- El uso de `GetCandle(0)` para las primeras barras puede generar sesgos importantes si el primer `Open` es atípico  
-- El factor fijo de multiplicación `Period × 5` para las EMAs no es configurable desde la UI  
-- No se valida si `Close == 0`, lo que podría causar división por cero en escenarios extremos  
-- No hay opción de visualizar las líneas `bull` y `bear` por separado  
-- No existe codificación de color ni alertas al cruce de cero o al cambio de pendiente
+**Ocasionalmente.**
 
----
+Puede servir para ver la "intención" interna de las velas, pero el Delta Acumulado suele ser superior.
 
-### 🛠️ Propuestas de mejora
-
-- Permitir configurar el multiplicador de suavizado de las EMAs  
-- Añadir validación o manejo explícito si `Close == 0` para evitar errores silenciosos  
-- Incluir visualización opcional de `EMA(bull)` y `EMA(bear)` como líneas separadas  
-- Implementar alertas al cruce con cero o cambios significativos de pendiente  
-- Permitir colorear la línea principal según dirección (verde/rojo, por ejemplo)
+**Acción:** **Mejorar (Hacer configurables los parámetros internos).**
 

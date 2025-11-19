@@ -1,16 +1,43 @@
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: MomentumOscillator.cs
+name: Price Momentum Oscillator
+category: Momentum
+score_current: 7/10
+version: ATAS Official
+recommended_action: Mejorar
+description: ¿Cuál es la tasa de cambio del precio, suavizada doblemente y amplificada x10?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: Oscilador de momentum avanzado con doble suavizado. Multiplica arbitrariamente x10 la señal final, lo que es confuso. Falta validación de división por cero.
+file_state: Mejorable
+score_potential: 8/10
+effort: Bajo
+action_priority: P3
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
 ## 🟦 Price Momentum Oscillator (7/10)
 
-**Nombre del archivo:** `MomentumOscillator.cs`  
+**Nombre del archivo:** [`MomentumOscillator.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/MomentumOscillator.cs)  
 **Nombre del indicador:** Price Momentum Oscillator  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602449](https://help.atas.net/support/solutions/articles/72000602449)
+**Web oficial:** [ATAS — Price Momentum Oscillator](https://help.atas.net/support/solutions/articles/72000602449)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** ¿Cuál es la tasa de cambio del precio, suavizada doblemente y amplificada x10?
+
+![MomentumOscillator](../../img/MomentumOscillator.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **Period1**: Periodo para el cálculo de la tasa de cambio suavizada (por defecto: 10)  
-- **Period2**: Periodo para el suavizado adicional sobre la señal (por defecto: 10)  
-- **SignalPeriod**: Periodo del suavizado final con EMA (`_smoothSeries`, por defecto: 10)
+* **Period1**: Periodo para el cálculo de la tasa de cambio suavizada (por defecto: 10)
+* **Period2**: Periodo para el suavizado adicional sobre la señal (por defecto: 10)
+* **SignalPeriod**: Periodo del suavizado final con EMA (`_smoothSeries`, por defecto: 10)
 
 ---
 
@@ -21,9 +48,9 @@
 
 ### 🧠 Uso más frecuente
 
-- Detectar **cambios de impulso** mediante la pendiente de la línea  
-- Confirmar entradas por **cruce de línea de señal**  
-- Evaluar **fuerza relativa** de movimientos recientes
+* Detectar **cambios de impulso** mediante la pendiente de la línea
+* Confirmar entradas por **cruce de línea de señal**
+* Evaluar **fuerza relativa** de movimientos recientes
 
 ---
 
@@ -38,51 +65,49 @@
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Entrada por cruce** de `_signalSeries` y `_smoothSeries`  
-- **Confirmación de aceleración** cuando ambas líneas se alinean al alza o baja  
-- **Filtro de tendencia suave** para evitar señales falsas
+* **Entrada por cruce** de `_signalSeries` y `_smoothSeries`
+* **Confirmación de aceleración** cuando ambas líneas se alinean al alza o baja
+* **Filtro de tendencia suave** para evitar señales falsas
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **Period1**: `6`  
-- **Period2**: `3`  
-- **SignalPeriod**: `5`
-
-✅ Alta sensibilidad con suficiente filtrado  
-✅ Compatible con estrategias de impulso y ruptura  
-⛔ El cálculo acumulado puede introducir retrasos si se configuran periodos largos
+* **Period1**: `6`
+* **Period2**: `3`
+* **SignalPeriod**: `5`
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Calcula la **tasa de cambio relativa**:  
-  `rate = 100 * (Close[t] - Close[t-1]) / Close[t-1]`  
-- Aplica dos capas de suavizado (tipo EMA manual):  
-  - Primero sobre `rate`  
-  - Luego sobre `signalSeries`  
-- Finalmente aplica un EMA adicional (`_smoothSeries`) con multiplicador ×10  
-- Las dos series principales se visualizan como líneas
+* Calcula la **tasa de cambio relativa**: `rate = 100 * (Close[t] - Close[t-1]) / Close[t-1]`
+* Aplica un suavizado exponencial manual sobre `rate` (`_rateSeries`) usando `Period1`
+* Aplica un segundo suavizado exponencial sobre `_rateSeries` para obtener `_signalSeries` usando `Period2`
+* Finalmente, calcula una `EMA` sobre `10 * _signalSeries` para obtener la línea suave (`_smoothSeries`)
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Este es un oscilador de momentum sofisticado que intenta filtrar el ruido mediante un doble suavizado exponencial. El código es estable en general, pero tiene dos puntos débiles.
+
+Primero, en el cálculo de `rate` (`(value - ...[bar-1]) / ...[bar-1]`), no hay validación para evitar la división por cero si el precio anterior es 0. Aunque es raro en precios, es una mala práctica.
+
+Segundo, la línea `_smoothSeries[bar] = _ema.Calculate(bar, 10 * _signalSeries[bar]);` contiene un "número mágico" (`10`). Multiplicar arbitrariamente la señal por 10 cambia la escala del oscilador sin avisar al usuario. Esto hace que los valores sean difíciles de comparar con otros indicadores estándar o entre diferentes activos si no se conoce este factor.
+
+**Propuesta de Mejora (P3):**
+* Eliminar el multiplicador `10` o hacerlo configurable (`Multiplier`).
+* Añadir validación para `SourceDataSeries[bar - 1] != 0`.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- No hay validación para evitar división por cero en `SourceDataSeries[bar - 1]`  
-- El suavizado se hace manualmente con fórmula EMA pero no se documenta su naturaleza claramente  
-- La serie `_rateSeries` no se muestra en pantalla ni puede activarse desde la UI  
-- La multiplicación por 10 en `_smoothSeries` es arbitraria y no está documentada en la interfaz  
-- No existe opción para mostrar cruce visual ni alertas por intersección de líneas
+**Sí.**
 
----
+El doble suavizado lo hace menos nervioso que el Momentum estándar, lo cual es excelente para evitar señales falsas en scalping.
 
-### 🛠️ Propuestas de mejora
-
-- Añadir validación contra división por cero en barras con precio anterior igual a 0  
-- Permitir visualizar también la serie `rate` como referencia  
-- Documentar y permitir modificar el factor multiplicador (`×10`) en `_smoothSeries`  
-- Añadir opción de alertas visuales o sonoras al cruce entre `_signalSeries` y `_smoothSeries`  
-- Ofrecer un modo de visualización tipo histograma para el cruce de impulso
+**Acción:** **Mejorar (Eliminar "magic numbers" y añadir validación).**
 

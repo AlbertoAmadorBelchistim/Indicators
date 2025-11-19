@@ -1,66 +1,96 @@
-## 🟦 Synthetic VIX (8/10)  
-**Nombre del archivo:** `SyntheticVix.cs`  
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: SyntheticVix.cs
+name: Synthetic VIX
+category: Volatility
+score_current: 8/10
+version: Stable
+recommended_action: Conservar
+description: ¿Cómo de lejos está el precio actual del máximo reciente (Proxy de miedo/pánico)?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Calcula el 'Williams VIX Fix'. Simple y eficaz para detectar suelos de mercado."
+file_state: Estable
+score_potential: 8/10
+effort: Bajo
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
+## 🟦 Synthetic VIX (8/10)
+
+**Nombre del archivo:** [`SyntheticVix.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/SyntheticVix.cs)  
 **Nombre del indicador:** Synthetic VIX  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602484](https://help.atas.net/support/solutions/articles/72000602484)
+**Web oficial:** [ATAS — Synthetic VIX](https://help.atas.net/support/solutions/articles/72000602484)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** ¿Cómo de lejos está el precio actual del máximo reciente (Proxy de miedo/pánico)?
+
+![SyntheticVix](../../img/SyntheticVix.png)
 
 ---
 
-### ⚙️ Parámetros configurables  
-- **Period**: Periodo para el cálculo del valor máximo de cierre (por defecto: `10`)
+### ⚙️ Parámetros configurables
+
+* **Period**: Ventana para buscar el máximo de referencia (ej. 22 días en diario, o intradía).
 
 ---
 
-### 🧭 Clasificación  
-📂 Volatility — Indicador de volatilidad sintética inspirado en el VIX
+### 🧭 Clasificación
+📂 Volatility — Indicador de sentimiento contrario (Williams VIX Fix).
 
 ---
 
-### 🧠 Uso más frecuente  
-- Medir la **volatilidad implícita** del mercado mediante un cálculo simplificado del **Synthetic VIX**  
-- Observar **condiciones de alta volatilidad** cuando el indicador se aproxima a niveles extremos  
-- Utilizar como un filtro para **operaciones en mercados con alta volatilidad**
+### 🧠 Uso más frecuente
+
+* **Detección de Suelos:** Picos altos en el Synthetic VIX indican pánico vendedor y a menudo marcan el suelo del mercado.  
+* **Timing de Entrada:** Esperar a que el VIX sintético baje desde un pico extremo para entrar largo.  
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **8 / 10**  
-✅ Ideal para capturar **fluctuaciones de alta volatilidad**  
-✅ Funciona bien como **indicador complementario** para medir el estrés del mercado  
-⛔ Menos útil en **mercados con baja volatilidad o sin grandes movimientos**
+### 📊 Nivel de relevancia
+🔟 **8 / 10**
+
+✅ **Réplica del VIX:** Funciona en cualquier activo (Crypto, Forex, Futuros) replicando la mecánica del VIX del S&P500.  
+✅ **Código Eficiente:** Cálculo muy ligero.  
+⛔ **Solo para Suelos:** Funciona muy bien para detectar suelos de mercado, pero no tanto para techos (ya que mide caída desde máximos).  
 
 ---
 
-### 🎯 Estrategias de scalping donde se aplica  
-- **Volatilidad implícita**: Confirmar que el mercado está **en un periodo de alta volatilidad** antes de operar  
-- **Confirmación de tendencias**: Observar **picos de volatilidad** que preceden a rupturas de precios  
-- **Filtrar señales erróneas**: Usar el indicador para evitar operar durante **rango lateral o baja volatilidad**
+### 🎯 Estrategias de scalping donde se aplica
+
+* **Panic Fade:** En una caída vertical, si el Synthetic VIX llega a niveles históricos extremos, buscar absorción para un rebote en V.  
 
 ---
 
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
-- **Period**: `10`
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-✅ Ideal para **mercados volátiles** que muestran fluctuaciones rápidas  
-✅ Funciona bien para **confirmar movimientos fuertes** tras un aumento de la volatilidad  
-⛔ Menos efectivo en **mercados sin grandes cambios de precio o muy estables**
+* **Period**: `20` a `50`.
 
 ---
 
-### 🧪 Notas de desarrollo  
-- El indicador calcula una **volatilidad sintética** utilizando el **precio máximo** de cierre de un periodo  
-- Utiliza la **fórmula simplificada** para generar un valor entre 0 y 100 que refleja la volatilidad del mercado  
-- El valor de **Synthethic VIX** se calcula como un porcentaje de la diferencia entre el precio más bajo y el valor máximo de cierre
+### 🧪 Notas de desarrollo
+
+* **Fórmula:** `(MaxClose - Low) / MaxClose`. Normalizado a porcentaje.
+* **Implementación:** Usa la clase `Highest` para encontrar el máximo eficiente.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Es una joya oculta. Muchos traders buscan el VIX real, pero en intradía o en activos sin opciones líquidas, este indicador es el mejor proxy disponible para medir "miedo".
+
+**Propuestas de Mejora:**
+* **Invertido:** Opción para calcular también la "Euforia" (distancia del Mínimo al High) para detectar techos.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas  
-- No permite personalizar **el estilo visual** del indicador  
-- El cálculo de la **volatilidad** puede no reflejar con precisión las **fluctuaciones reales** en mercados con picos extremos de precios  
-- **Alertas** no configurables cuando el valor alcanza niveles críticos de volatilidad
+### 📈 Veredicto: ¿Es útil para Scalping?
 
----
+**Sí.** Para scalping de reversión en caídas fuertes.
 
-### 🛠️ Propuestas de mejora  
-- Añadir soporte para **alertas automáticas** cuando el valor de volatilidad se acerque a un umbral  
-- Mejorar la **personalización visual** del indicador (colores, estilo de línea)  
-- Implementar una **versión ajustada** para medir la volatilidad en función de los **movimientos de precios específicos**
+**Acción:** **Conservar.**

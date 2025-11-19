@@ -1,66 +1,95 @@
-## 🟦 Volatility – Chaikins (7/10)  
-**Nombre del archivo:** `VolatilityChaikins.cs`  
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: VolatilityChaikins.cs
+name: Volatility - Chaikins
+category: Volatility
+score_current: 7/10
+version: Stable
+recommended_action: Conservar
+description: ¿Se está expandiendo o contrayendo el rango de precios (volatilidad) respecto al pasado reciente?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Oscilador de cambio de volatilidad (ROC del EMA del Rango). Simple y funcional."
+file_state: Estable
+score_potential: 7/10
+effort: Bajo
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
+## 🟦 Volatility - Chaikins (7/10)
+
+**Nombre del archivo:** [`VolatilityChaikins.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/VolatilityChaikins.cs)  
 **Nombre del indicador:** Volatility - Chaikins  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602497](https://help.atas.net/support/solutions/articles/72000602497)
+**Web oficial:** [ATAS — Volatility - Chaikins](https://help.atas.net/support/solutions/articles/72000602497)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** ¿Se está expandiendo o contrayendo el rango de precios (volatilidad) respecto al pasado reciente?
+
+![VolatilityChaikins](../../img/VolatilityChaikins.png)
 
 ---
 
-### ⚙️ Parámetros configurables  
-- **Period**: Número de barras para comparar la variación del EMA del rango (por defecto: `10`)
+### ⚙️ Parámetros configurables
+
+* **Period**: Ventana de suavizado y comparación.
 
 ---
 
-### 🧭 Clasificación  
-📂 Volatility — Indicador de variación porcentual del rango con suavizado EMA
+### 🧭 Clasificación
+📂 Volatility — Oscilador de expansión/contracción.
 
 ---
 
-### 🧠 Uso más frecuente  
-- Medir el **cambio relativo de volatilidad** comparando el rango (high - low) suavizado  
-- Detectar **expansiones o contracciones de volatilidad** en función del valor del oscilador  
-- Confirmar fases previas a rupturas importantes o condiciones de mercado comprimido
+### 🧠 Uso más frecuente
+
+* **Squeeze:** Valores muy bajos (negativos) indican que el rango se ha muerto. Esperar explosión.  
+* **Clímax:** Picos altos indican pánico o euforia máxima. Suelen marcar techos/suelos de corto plazo.  
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **7 / 10**  
-✅ Útil para anticipar **fases de ruptura o expansión** tras compresión  
-✅ Basado en una fórmula directa y limpia, fácil de interpretar  
-⛔ Puede ser **lento en reaccionar** frente a cambios bruscos si el periodo es alto
+### 📊 Nivel de relevancia
+🔟 **7 / 10**
+
+✅ **Claridad:** Muestra el cambio porcentual. Fácil de leer.  
+⛔ **Retardo:** Al comparar con `bar - Period`, la señal de expansión llega cuando el movimiento ya ha empezado.  
 
 ---
 
-### 🎯 Estrategias de scalping donde se aplica  
-- **Pre-rupturas**: Detectar compresión con valores bajos o negativos del oscilador  
-- **Validación de ruptura**: Confirmar que un breakout va acompañado de **aumento de volatilidad**  
-- **Filtrado de contexto**: Evitar operar durante fases con **volatilidad decreciente**
+### 🎯 Estrategias de scalping donde se aplica
+
+* **Volatilidad Cíclica:** No abrir operaciones nuevas si el Chaikin Volatility está en máximos y girando a la baja (el mercado se va a parar).  
 
 ---
 
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
-- **Period**: `10`
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-✅ Captura aumentos o caídas sostenidas en el rango de las velas  
-✅ Facilita leer si la ruptura tiene respaldo en cambio de rango real  
-⛔ Menos útil para señales instantáneas o microestructuras
+* **Period**: `10`.
 
 ---
 
-### 🧪 Notas de desarrollo  
-- Usa un **EMA del rango (High - Low)** como base  
-- Calcula la **variación porcentual** entre el valor actual y el de `Period` barras atrás  
-- Escala el resultado por 100 para mostrarlo como porcentaje (positivo o negativo)
+### 🧪 Notas de desarrollo
+
+* **Fórmula:** `ROC(EMA(High-Low, Period), Period)`.
+* **Código:** Correcto.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Es un clásico. Útil para entender el régimen de mercado.
+
+**Propuestas de Mejora:**
+* Ninguna.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas  
-- No protege ante división por cero explícitamente si `ema[bar - Period] == 0`  
-- No incluye **líneas guía ni umbrales visuales** para facilitar interpretación rápida  
-- Solo hay una serie de salida y **no se puede suavizar el resultado final**
+### 📈 Veredicto: ¿Es útil para Scalping?
 
----
+**Moderadamente.** Como filtro de contexto.
 
-### 🛠️ Propuestas de mejora  
-- Añadir líneas horizontales (por ejemplo, ±5%) como referencia visual  
-- Incluir opción de **EMA secundaria** o media móvil para suavizar el resultado  
-- Añadir soporte para **alertas automáticas** cuando se alcance un umbral de cambio de volatilidad
+**Acción:** **Conservar.**

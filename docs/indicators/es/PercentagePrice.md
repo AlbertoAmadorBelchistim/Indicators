@@ -1,15 +1,42 @@
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: PercentagePrice.cs
+name: Percentage Price Oscillator
+category: Momentum
+score_current: 7/10
+version: ATAS Official
+recommended_action: Mejorar
+description: ¿Cuál es la diferencia porcentual entre dos medias móviles (MACD normalizado)?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: Implementación básica del PPO. Funcional, pero carece de línea de señal e histograma, lo que limita su utilidad comparado con un MACD completo.
+file_state: Mejorable
+score_potential: 8/10
+effort: Bajo
+action_priority: P3
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
 ## 🟦 Percentage Price Oscillator (PPO) (7/10)
 
-**Nombre del archivo:** `PercentagePrice.cs`  
+**Nombre del archivo:** [`PercentagePrice.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/PercentagePrice.cs)  
 **Nombre del indicador:** Percentage Price Oscillator  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602445](https://help.atas.net/support/solutions/articles/72000602445)
+**Web oficial:** [ATAS — Percentage Price Oscillator](https://help.atas.net/support/solutions/articles/72000602445)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** ¿Cuál es la diferencia porcentual entre dos medias móviles (MACD normalizado)?
+
+![PercentagePrice](../../img/PercentagePrice.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **ShortPeriod**: Periodo para la EMA corta (por defecto: 5)  
-- **LongPeriod**: Periodo para la EMA larga (por defecto: 20)
+* **ShortPeriod**: Periodo para la EMA corta (por defecto: 5)
+* **LongPeriod**: Periodo para la EMA larga (por defecto: 20)
 
 ---
 
@@ -20,9 +47,9 @@
 
 ### 🧠 Uso más frecuente
 
-- Medir la **fuerza del impulso** relativo en porcentaje  
-- Confirmar rupturas o cambios de dirección en función del sesgo porcentual  
-- Detectar condiciones de **divergencia o aceleración** frente al precio
+* Medir la **fuerza del impulso** relativo en porcentaje
+* Confirmar rupturas o cambios de dirección en función del sesgo porcentual
+* Detectar condiciones de **divergencia o aceleración** frente al precio
 
 ---
 
@@ -30,55 +57,52 @@
 🔟 **7 / 10**
 
 ✅ Proporciona información de impulso normalizada (porcentaje)  
-✅ Similar al MACD pero comparando en términos relativos  
-⛔ Requiere calibración para evitar señales erróneas en activos muy volátiles
+✅ Similar al MACD pero útil para comparar activos de precios muy diferentes  
+⛔ Incompleto: le falta la línea de señal y el histograma
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Confirmación de dirección** cuando el PPO cruza cero con pendiente clara  
-- **Entrada por divergencia** si el PPO muestra desaceleración mientras el precio sigue  
-- **Filtro direccional** en sistemas que requieren confirmación por impulso porcentual
+* **Confirmación de dirección** cuando el PPO cruza cero con pendiente clara
+* **Entrada por divergencia** si el PPO muestra desaceleración mientras el precio sigue
+* **Filtro direccional** en sistemas que requieren confirmación por impulso porcentual
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **ShortPeriod**: `6`  
-- **LongPeriod**: `21`
-
-✅ Sensible al impulso sin exceso de ruido  
-✅ Detecta bien aceleraciones en ruptura o test de nivel  
-⛔ No se recomienda con periodos muy bajos o muy cercanos entre sí
+* **ShortPeriod**: `6`
+* **LongPeriod**: `21`
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Calcula dos EMAs (corta y larga) y obtiene la diferencia relativa:  
-  `PPO = 100 * (EMA corta − EMA larga) / EMA larga`  
-- Si el valor de la EMA larga es cero, reutiliza el valor anterior  
-- El resultado se guarda en una única `ValueDataSeries` (`_renderSeries`)  
-- Se representa como línea en un panel separado
+* Fórmula: `100 * (EMA_Short - EMA_Long) / EMA_Long`
+* Protege contra división por cero (`_emaLong[bar] != 0`)
+* Solo dibuja la línea principal PPO (`_renderSeries`)
+* Falta validación `ShortPeriod < LongPeriod`
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+El PPO es un indicador excelente porque, al ser porcentual, permite comparar la volatilidad de momentum entre diferentes activos (algo que el MACD no permite). La implementación es matemáticamente correcta y segura.
+
+Su gran defecto es que es **incompleto**. Un oscilador tipo MACD (como es el PPO) necesita tres componentes para ser plenamente operativo: la Línea Principal (PPO), la Línea de Señal (EMA del PPO) y el Histograma (Diferencia). Este indicador solo dibuja la línea principal, lo que elimina las señales de cruce y dificulta la lectura de divergencias.
+
+**Propuesta de Mejora (P3):**
+* Añadir cálculo y visualización de `Signal Line` e `Histograma`.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- No se valida si `ShortPeriod ≥ LongPeriod`, lo que puede llevar a lecturas erróneas  
-- Si `EMA larga == 0`, el valor se mantiene con `bar - 1`, sin advertencia → puede ocultar error persistente  
-- No incluye línea de señal ni histograma, lo que lo limita frente a MACD clásico  
-- No ofrece alertas visuales o sonoras al cruce con cero o cambios de dirección  
-- No se puede elegir el tipo de media (solo EMA)
+**Sí.**
 
----
+Especialmente para comparar la fuerza de tendencia entre varios activos correlacionados (ej. ES vs NQ).
 
-### 🛠️ Propuestas de mejora
-
-- Validar que `LongPeriod > ShortPeriod` o al menos advertir si no se cumple  
-- Añadir línea de señal (EMA del PPO) y opción de histograma  
-- Implementar alertas por cruce con cero o por cambio de signo  
-- Permitir seleccionar tipo de media (`SMA`, `EMA`, `WMA`)  
-- Colorear la línea según la dirección o pendiente para facilitar lectura visual
+**Acción:** **Mejorar (Añadir componentes faltantes).**
 

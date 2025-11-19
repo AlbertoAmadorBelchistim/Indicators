@@ -1,80 +1,100 @@
-## 🟦 Unfinished Auction (9/10)  
-**Nombre del archivo:** `UnfinishedAuction.cs`  
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: UnfinishedAuction.cs
+name: Unfinished Auction
+category: VolumeOrderFlow
+score_current: 9/10
+version: Stable
+recommended_action: Conservar
+description: ¿Quedaron órdenes pendientes (desequilibrio) en los extremos de la vela que el precio debe volver a visitar?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Herramienta de Order Flow avanzada. Detecta anomalías en extremos y dibuja líneas hasta que se mitigan."
+file_state: Estable
+score_potential: 9/10
+effort: Alto
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 2025-05-8
+user_modification_date: null
+---
+
+## 🟦 Unfinished Auction (9/10)
+
+**Nombre del archivo:** [`UnfinishedAuction.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/UnfinishedAuction.cs)  
 **Nombre del indicador:** Unfinished Auction  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602495](https://help.atas.net/support/solutions/articles/72000602495)
+**Web oficial:** [ATAS — Unfinished Auction](https://help.atas.net/support/solutions/articles/72000602495)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 8/05/2025  
+
+> **La Pregunta Clave:** ¿Quedaron órdenes pendientes (desequilibrio) en los extremos de la vela que el precio debe volver a visitar?
+
+![UnfinishedAuction](../../img/UnfinishedAuction.png)
 
 ---
 
-### ⚙️ Parámetros configurables  
-- **BidFilter**: Filtro mínimo de volumen Bid para validar una subasta inacabada (por defecto: `20`)  
-- **AskFilter**: Filtro mínimo de volumen Ask para validar una subasta inacabada (por defecto: `20`)  
-- **Days**: Días hacia atrás a considerar para buscar subastas inacabadas (por defecto: `20`)  
-- **LineWidth**: Grosor de las líneas dibujadas (por defecto: `10`)  
-- **LowLineColor / HighLineColor**: Color de las líneas de subasta inacabada para mínimo/máximo  
-- **LowColor / HighColor**: Color de los marcadores de clúster para subasta inacabada  
-- **UseAlerts**: Activar alertas al detectar o cerrar una subasta inacabada  
-- **AlertFile**: Archivo de alerta a reproducir (por defecto: `"alert1"`)
+### ⚙️ Parámetros configurables
+
+* **Filters**: BidFilter y AskFilter (Volumen mínimo para considerar la subasta inacabada).  
+* **Days**: Historial a escanear.  
+* **Visuals**: Colores y grosores de líneas y clústeres.  
+* **Alerts**: Notificación al crear o cerrar una zona.  
 
 ---
 
-### 🧭 Clasificación  
-📂 VolumeOrderFlow — Subastas inacabadas por volumen agresivo en extremos de vela
+### 🧭 Clasificación
+📂 VolumeOrderFlow — Indicador de microestructura de mercado (Market Profile Theory).
 
 ---
 
-### 🧠 Uso más frecuente  
-- Identificar **subastas inacabadas** cuando el precio toca un extremo con desequilibrio de volumen  
-- Detectar **niveles de posible reversión** o zonas que pueden actuar como **soporte/resistencia**  
-- Confirmar contextos de **rechazo de precios** en máximos o mínimos no agresivamente defendidos
+### 🧠 Uso más frecuente
+
+* **Target Magnet:** Las líneas de "Unfinished Auction" actúan como imanes. El mercado odia la ineficiencia y suele volver para completar la subasta (0 volumen en el extremo).  
+* **Soporte Débil:** Un mínimo con Unfinished Auction no es un buen soporte, es probable que se rompa o se testee de nuevo.  
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **9 / 10**  
-✅ Clave para **confirmar rechazo o absorción** en extremos del rango  
-✅ Permite detectar **niveles técnicos potentes** donde no hubo liquidez suficiente  
-⛔ Requiere gráficos con clústeres y **no es útil en velas sin extremos claros**
+### 📊 Nivel de relevancia
+🔟 **9 / 10**
+
+✅ **Teoría Robusta:** Basado en la teoría de subastas. Un extremo de mercado sólido debe tener volumen decreciente (0). Si hay volumen alto, la subasta no acabó.  
+✅ **Gestión Automática:** Borra las líneas cuando el precio las toca (`HorizontalLinesTillTouch`), manteniendo el gráfico limpio de niveles viejos.  
+⛔ **Requiere Tick Data:** No funciona con datos OHLC simples.  
 
 ---
 
-### 🎯 Estrategias de scalping donde se aplica  
-- **Reversión en extremos**: Buscar subasta inacabada en el high/low como señal anticipada de giro  
-- **Ruptura fallida**: Confirmar falsos breakouts si hay subasta inacabada y luego recuperación  
-- **Retesteo y entrada**: Esperar que el precio vuelva a tocar la línea hasta que se "toque" (touch), luego entrar
+### 🎯 Estrategias de scalping donde se aplica
+
+* **Repair Trade:** Si dejamos una subasta inacabada arriba y el precio baja, buscar largos para el "retest" de esa línea.  
+* **Breakout Confirmation:** Si rompe un nivel y deja UA, es señal de fuerza, pero cuidado con el pullback inmediato.  
 
 ---
 
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
-- **BidFilter**: `30`  
-- **AskFilter**: `30`  
-- **Days**: `20`  
-- **LineWidth**: `8`  
-- **UseAlerts**: `true`  
-- **LowLineColor / HighLineColor**: `Blue` / `Red`  
-- **LowColor / HighColor**: `Aqua` / `Crimson`
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-✅ Muestra **líneas claras y persistentes** hasta que el precio las toca  
-✅ Excelente para **confirmar zonas clave** antes de entrada agresiva  
-⛔ Puede generar muchas líneas si se usan filtros demasiado bajos
+* **Bid/Ask Filter**: `10` o `20` (Depende de la liquidez del horario).  
 
 ---
 
-### 🧪 Notas de desarrollo  
-- Dibuja líneas horizontales hasta que el precio las "toca" (`LineTillTouch`)  
-- Usa datos de clúster (`GetPriceVolumeInfo`) para validar subasta inacabada en extremos  
-- Muestra **clusters visuales** con color personalizado en el precio afectado  
-- Limpia líneas obsoletas y actualiza estado dinámicamente en cada vela
+### 🧪 Notas de desarrollo
+
+* **Lógica:** `candle.GetPriceVolumeInfo(High/Low)`. Verifica si en el tick exacto del máximo/mínimo hubo volumen de Ask/Bid superior al filtro.
+* **Persistencia:** Usa `LineTillTouch` con `IsRay = true`. El sistema de ATAS se encarga de cortar la línea cuando el precio la cruza en el futuro.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Es una herramienta táctica de primer nivel. Para el trader de Order Flow, ver estas líneas es ver "asuntos pendientes" del mercado. El código es excelente y muy específico para la plataforma ATAS.
+
+**Propuestas de Mejora:**
+* Ninguna. Es una implementación canónica.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas  
-- No permite visualizar **historial de subastas inacabadas cerradas**  
-- No incluye **filtros por sesión u horario**, lo que puede ensuciar gráficos intradía  
-- No permite ajustar el tipo de visualización de los clústeres (tamaño, forma)
+### 📈 Veredicto: ¿Es útil para Scalping?
 
----
+**Sí.** Define objetivos (Targets) de muy alta probabilidad.
 
-### 🛠️ Propuestas de mejora  
-- Añadir opción para **guardar y mostrar historial** de subastas inacabadas tocadas  
-- Permitir filtrado adicional por **hora o sesión activa**  
-- Incluir más opciones visuales como **etiquetas con precio, tipo y volumen total**
+**Acción:** **Conservar.**

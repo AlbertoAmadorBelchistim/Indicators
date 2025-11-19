@@ -1,22 +1,45 @@
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: OIAnalyzer.cs
+name: OI Analyzer
+category: VolumeOrderFlow
+score_current: 9/10
+version: ATAS Official
+recommended_action: Conservar
+description: ¿Cómo cambia el Interés Abierto (OI) filtrado por dirección (Buy/Sell) y visualizado en detalle?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: Herramienta avanzada para analizar el OI. Soporta múltiples modos (Buy/Sell, Acumulado/Separado) y visualización de clusters. Código robusto y bien protegido.
+file_state: Estable
+score_potential: 9/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
 ## 🟦 OI Analyzer (9/10)
 
-**Nombre del archivo:** `OIAnalyzer.cs`  
+**Nombre del archivo:** [`OIAnalyzer.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/OIAnalyzer.cs)  
 **Nombre del indicador:** OI Analyzer  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602437](https://help.atas.net/support/solutions/articles/72000602437)
+**Web oficial:** [ATAS — OI Analyzer](https://help.atas.net/support/solutions/articles/72000602437)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** ¿Cómo cambia el Interés Abierto (OI) filtrado por dirección (Buy/Sell) y visualizado en detalle?
+
+![OIAnalyzer](../../img/OIAnalyzer.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **OiMode**: Tipo de operación a mostrar (`Buys` o `Sells`)  
-- **CalculationMode**: Tipo de análisis (`CumulativeTrades` o `SeparatedTrades`)  
-- **CumulativeMode**: Mostrar valores acumulados o reseteados por barra  
-- **ClustersMode**: Modo visual en clúster o estilo tradicional  
-- **CustomDiapason / FilterRange**: Rango personalizado de escala (mínimo/máximo)  
-- **GridStep / Pen**: Tamaño y estilo de la rejilla horizontal  
-- **Colores visuales**: para velas alcistas, bajistas y texto  
-- **ShowCurrentValue**: Mostrar valor actual en el eje  
-- **Autor**: Sotnikov Denis
+* **OiMode**: Tipo de operación a mostrar (`Buys` o `Sells`)
+* **CalculationMode**: Tipo de análisis (`CumulativeTrades` o `SeparatedTrades`)
+* **CumulativeMode**: Mostrar valores acumulados o reseteados por barra
+* **ClustersMode**: Modo visual en clúster o estilo tradicional
+* **CustomDiapason**: Rango personalizado de escala
 
 ---
 
@@ -27,69 +50,59 @@
 
 ### 🧠 Uso más frecuente
 
-- Medir la **intensidad y dirección del flujo institucional** mediante el interés abierto  
-- Identificar acumulación/distribución según `Buy OI` o `Sell OI`  
-- Confirmar rupturas, absorciones o agotamientos mediante el comportamiento del OI
+* Medir la **intensidad y dirección del flujo institucional** mediante el interés abierto
+* Identificar acumulación/distribución según `Buy OI` o `Sell OI`
+* Confirmar rupturas, absorciones o agotamientos mediante el comportamiento del OI
 
 ---
 
 ### 📊 Nivel de relevancia
 🔟 **9 / 10**
 
-✅ Herramienta clave para analizar **apertura o cierre real de posiciones**  
-✅ Soporta granularidad por `trade` o `tick`, y acumulación total o parcial  
+✅ Herramienta clave para analizar **apertura o cierre real de posiciones** ✅ Soporta granularidad por `trade` o `tick`, y acumulación total o parcial  
 ⛔ Necesita buena configuración y comprensión del contexto para evitar malinterpretaciones
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Entrada por acumulación institucional**: OI aumenta + agresión visible  
-- **Reversión tras trampa**: OI cae mientras el precio se mantiene o sube  
-- **Confirmación de ruptura** si el OI acompaña la dirección del precio
+* **Entrada por acumulación institucional**: OI aumenta + agresión visible
+* **Reversión tras trampa**: OI cae mientras el precio se mantiene o sube
+* **Confirmación de ruptura** si el OI acompaña la dirección del precio
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **OiMode**: `Buys`  
-- **CalculationMode**: `CumulativeTrades`  
-- **CumulativeMode**: `true`  
-- **ClustersMode**: `false`  
-- **GridStep**: `500`  
-- **CustomDiapason**: desactivado salvo análisis concreto
-
-✅ Permite seguir a los participantes dominantes en tiempo real  
-✅ Compatible con análisis de absorción y presión  
-⛔ Su lectura aislada puede ser engañosa sin delta, volumen y contexto
+* **OiMode**: `Buys`
+* **CalculationMode**: `CumulativeTrades`
+* **CumulativeMode**: `true`
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Solicita datos de tipo `CumulativeTrade` y actualiza en tiempo real y al cargar histórico  
-- Representa velas sobre eje de volumen según el cambio en el OI y dirección de los trades  
-- Soporta visualización en clúster o en eje horizontal con valores dinámicos  
-- Filtra operaciones por dirección (`Buy` / `Sell`) y por tipo (`Cumulative` o `Tick`)  
-- Permite configurar un rango visual y alerta visual en la zona actual
+* Solicita datos históricos detallados (`CumulativeTradesRequest`) para calcular el OI con precisión
+* Permite descomponer el OI por dirección (`Buy`/`Sell`) analizando el cambio de OI trade a trade (`dOi`)
+* Soporta un modo `ClustersMode` que dibuja los valores numéricos directamente sobre el gráfico usando `OnRender`
+* Gestión robusta de estados de carga (`_requestWaiting`, `_requireNewRequest`)
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Es una herramienta analítica de primer nivel. A diferencia del indicador `Open Interest` estándar, este permite diseccionar el OI por dirección (compras vs ventas), lo cual es vital para entender quién está abriendo o cerrando posiciones.
+
+El código es sólido. Maneja correctamente la asincronía de la carga de datos históricos y la actualización en tiempo real. La inclusión de un modo `ClustersMode` para ver los números exactos en el gráfico es un gran plus para el scalping de precisión.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- No se valida si el `GridStep == 0` al activar la cuadrícula, lo que puede causar fallo silencioso  
-- Si se activa `CustomDiapason` pero los valores `From > To`, no hay validación ni mensaje de error  
-- El objeto `_prevCandle` se clona sin validación de nulidad en casos iniciales  
-- En `CumulativeTradesResponse`, si no se devuelven datos se recurre a `Calculate(0,0)`, lo cual puede confundir al usuario si el gráfico no se dibuja  
-- No hay alertas ni anotaciones si se detecta una caída brusca o ruptura en el OI
+**Sí.**
 
----
+Permite detectar manipulaciones. Por ejemplo, si el precio sube pero el OI de Compras baja, significa que los largos están cerrando, no que hay nuevos compradores agresivos. Información crítica para no caer en trampas.
 
-### 🛠️ Propuestas de mejora
-
-- Añadir validación cruzada entre `From` y `To` en `CustomDiapason`  
-- Mostrar mensaje informativo si el `CumulativeTradesRequest` no devuelve datos  
-- Implementar alertas visuales al detectar cambios bruscos en OI  
-- Incluir opción para mostrar tooltips o etiquetas flotantes con el valor del OI por vela  
-- Añadir opción de colorear las velas según intensidad o pendiente del cambio de OI
+**Acción:** **Conservar (Herramienta avanzada).**
 

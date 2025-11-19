@@ -1,15 +1,42 @@
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: PolarizedFractal.cs
+name: Polarized Fractal Efficiency
+category: Momentum
+score_current: 7/10
+version: ATAS Official
+recommended_action: Conservar
+description: ¿Cuál es la eficiencia (tendencia vs ruido) del movimiento del precio?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: Indicador de eficiencia de tendencia. Implementación matemática correcta. Nombre de parámetro confuso (ShortPeriod) y falta de líneas de referencia visuales.
+file_state: Estable
+score_potential: 7/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
 ## 🟦 Polarized Fractal Efficiency (7/10)
 
-**Nombre del archivo:** `PolarizedFractal.cs`  
+**Nombre del archivo:** [`PolarizedFractal.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/PolarizedFractal.cs)  
 **Nombre del indicador:** Polarized Fractal Efficiency  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602281](https://help.atas.net/support/solutions/articles/72000602281)
+**Web oficial:** [ATAS — Polarized Fractal Efficiency](https://help.atas.net/support/solutions/articles/72000602281)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** ¿Cuál es la eficiencia (tendencia vs ruido) del movimiento del precio?
+
+![PolarizedFractal](../../img/PolarizedFractal.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **ShortPeriod**: Periodo para calcular la eficiencia fractal (por defecto: 10)  
-- **Smooth**: Periodo de suavizado EMA sobre el valor final (por defecto: 10)
+* **ShortPeriod**: Periodo para calcular la eficiencia fractal (por defecto: 10)
+* **Smooth**: Periodo de suavizado EMA sobre el valor final (por defecto: 10)
 
 ---
 
@@ -20,9 +47,9 @@
 
 ### 🧠 Uso más frecuente
 
-- Medir la **eficiencia del movimiento direccional** del precio  
-- Identificar fases de **movimiento tendencial vs. ruido lateral**  
-- Confirmar la calidad de una ruptura o impulso
+* Medir la **eficiencia del movimiento direccional** del precio
+* Identificar fases de **movimiento tendencial vs. ruido lateral**
+* Confirmar la calidad de una ruptura o impulso
 
 ---
 
@@ -37,48 +64,42 @@
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Filtro de contexto**: evitar operar en fases ineficientes (< ±30)  
-- **Confirmación de tendencia**: operar solo si el valor crece sostenidamente  
-- **Señal de reversión**: si el valor cae bruscamente tras pico de eficiencia
+* **Filtro de contexto**: evitar operar en fases ineficientes (cerca de 0)
+* **Confirmación de tendencia**: operar solo si el valor se aleja de 0 hacia +/- 100
+* **Señal de reversión**: si el valor cae bruscamente tras pico de eficiencia
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **ShortPeriod**: `10`  
-- **Smooth**: `6`
-
-✅ Buena sensibilidad al cambio direccional  
-✅ Evita operar en lateralizaciones ineficientes  
-⛔ Puede reaccionar con retraso tras movimientos explosivos
+* **ShortPeriod**: `10`
+* **Smooth**: `6`
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Calcula el cociente entre la distancia entre extremos y la suma de desviaciones cuadráticas intermedias  
-- Convierte el resultado en valor porcentual (`× 100`) tras aplicar suavizado con EMA  
-- Si el movimiento es bajista, el valor se invierte (`-pfe`)  
-- Usa internamente dos series auxiliares (`_renderSeries`, `_sqrtSeries`)  
-- Se dibuja como línea en panel separado
+* Calcula la distancia neta entre `Close` y `Close[Period]`
+* Calcula la "longitud del camino" sumando las distancias euclidianas de cada barra
+* `PFE = (Distancia Neta / Longitud Camino) * 100`
+* Aplica un suavizado `EMA` al resultado
+* El código usa `Math.Sqrt` para calcular distancias geométricamente correctas
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+El indicador está bien implementado. Sigue fielmente la fórmula original. Es una herramienta útil para distinguir entre una tendencia "limpia" (eficiente) y una "sucia" o lateral (ineficiente).
+
+El único defecto menor es que el parámetro principal se llama `ShortPeriod`, lo cual sugiere que debería haber un `LongPeriod`, pero no lo hay. Debería llamarse simplemente `Period`. Además, visualmente se beneficiaría de líneas horizontales en +50, 0 y -50.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- El nombre del parámetro `ShortPeriod` es confuso, ya que no hay un `LongPeriod`; sería más claro como `Period`  
-- En `bar == 0`, se limpian las series pero no se inicializan con valor nulo explícito  
-- No hay validación si `Smooth` es mayor que el número de barras disponibles  
-- La fórmula de eficiencia incluye `+1` en el numerador y `+N²` en el denominador, pero no está documentado en UI ni en comentarios  
-- No incluye alertas ni coloración dinámica según la dirección o intensidad
+**Moderadamente.**
 
----
+Es un excelente filtro de contexto ("¿debo operar tendencia o rango?"), pero no es una señal de gatillo rápida.
 
-### 🛠️ Propuestas de mejora
-
-- Renombrar `ShortPeriod` a `Period` para mayor claridad  
-- Añadir validación si el periodo de suavizado es mayor que las barras disponibles  
-- Documentar en la interfaz la interpretación del valor: qué es eficiencia, rango útil, etc.  
-- Incluir codificación de color según signo o magnitud (verde/rojo o intensidad)  
-- Añadir alertas visuales o etiquetas si se supera cierto umbral (ej: ±50)
-
+**Acción:** **Conservar (Cálculo correcto).**

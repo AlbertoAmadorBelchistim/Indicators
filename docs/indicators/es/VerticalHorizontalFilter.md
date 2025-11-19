@@ -1,70 +1,97 @@
-## 🟦 Vertical Horizontal Filter (8/10)  
-**Nombre del archivo:** `VerticalHorizontalFilter.cs`  
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: VerticalHorizontalFilter.cs
+name: Vertical Horizontal Filter
+category: Statistical
+score_current: 8/10
+version: Stable
+recommended_action: Conservar
+description: ¿Está el mercado en tendencia (movimiento vertical) o en rango (movimiento horizontal)?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Indicador de eficiencia de movimiento. Código flexible con múltiples fuentes de datos."
+file_state: Estable
+score_potential: 8/10
+effort: Bajo
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
+## 🟦 Vertical Horizontal Filter (8/10)
+
+**Nombre del archivo:** [`VerticalHorizontalFilter.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/VerticalHorizontalFilter.cs)  
 **Nombre del indicador:** Vertical Horizontal Filter  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000619282](https://help.atas.net/support/solutions/articles/72000619282)
+**Web oficial:** [ATAS — Vertical Horizontal Filter](https://help.atas.net/support/solutions/articles/72000619282)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** ¿Está el mercado en tendencia (movimiento vertical) o en rango (movimiento horizontal)?
+
+![VerticalHorizontalFilter](../../img/VerticalHorizontalFilter.png)
 
 ---
 
-### ⚙️ Parámetros configurables  
-- **Period**: Número de barras para el cálculo del filtro (por defecto: `10`)  
-- **Type**: Tipo de dato de entrada a utilizar (`Volume`, `Ticks`, `Asks`, `Bids`, `Open`, `High`, `Low`, `Close`, `OHLCAverage`, `HLCAverage`, `HLAverage`)  
-- **HistogramColor**: Color del histograma
+### ⚙️ Parámetros configurables
+
+* **Period**: Ventana de cálculo (ej. 28).  
+* **Type**: Fuente de datos (Close, Volume, Ticks, etc.).  
 
 ---
 
-### 🧭 Clasificación  
-📂 Statistical — Indicador de tendencia vs lateralidad basado en relación vertical/horizontal
+### 🧭 Clasificación
+📂 Statistical — Indicador de "Eficiencia de Tendencia".
 
 ---
 
-### 🧠 Uso más frecuente  
-- Medir si el mercado se encuentra en una **fase tendencial (direccional)** o **lateral (consolidación)**  
-- Confirmar si existe un **movimiento significativo o solo fluctuación aleatoria**  
-- Ayudar a seleccionar **estrategias de breakout vs rango** dependiendo del valor del filtro
+### 🧠 Uso más frecuente
+
+* **Selección de Estrategia:** Si VHF es alto, usar sistemas de seguimiento de tendencia (Medias Móviles). Si VHF es bajo, usar osciladores de rango (RSI, Estocástico).  
+* **Fin de Tendencia:** Un pico muy alto en VHF suele indicar el clímax y final de la tendencia actual.  
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **8 / 10**  
-✅ Útil para filtrar **mercados en rango vs direccionales**  
-✅ Compatible con múltiples fuentes (volumen, precio, bid/ask…)  
-⛔ Requiere interpretación y calibración según el activo y timeframe
+### 📊 Nivel de relevancia
+🔟 **8 / 10**
+
+✅ **Versatilidad:** Permite analizar no solo precio, sino también si el *Volumen* está en tendencia o en rango.  
+✅ **Concepto:** Mide `(Max - Min) / Suma(Cambios)`. Es una forma excelente de ver cuánto "esfuerzo" (camino recorrido) costó llegar al desplazamiento neto.  
+⛔ **Interpretación:** No dice la dirección (sube o baja), solo la *calidad* de la tendencia.  
 
 ---
 
-### 🎯 Estrategias de scalping donde se aplica  
-- **Activación de estrategias de ruptura** solo si el filtro supera cierto umbral  
-- **Evitación de falsas señales** cuando el mercado no presenta movimiento real  
-- **Confirmación de fases impulsivas** antes de operar en la dirección del flujo
+### 🎯 Estrategias de scalping donde se aplica
+
+* **Breakout Filter:** Solo tomar rupturas si el VHF está subiendo desde mínimos (inicio de fase direccional).  
 
 ---
 
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
-- **Period**: `10`  
-- **Type**: `Volume` o `Close`  
-- **HistogramColor**: `Blue`
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-✅ Permite distinguir si un movimiento tiene verdadera intención  
-✅ Excelente filtro previo a operar setups en consolidación  
-⛔ No emite señales directas de entrada ni salida
+* **Period**: `14` a `28`.
 
 ---
 
-### 🧪 Notas de desarrollo  
-- Calcula la relación entre el **rango vertical** (máximo - mínimo) y la **suma de movimientos absolutos** durante el periodo  
-- Cuanto mayor es el valor, más direccional es el movimiento  
-- Puede aplicarse a **volumen, precio, o cualquier fuente** configurable
+### 🧪 Notas de desarrollo
+
+* **Implementación:** Usa `CalcSum` para el denominador y `MAX/MIN` para el numerador. Eficiente.
+* **Fuente:** El `switch` en `GetSource` permite usarlo sobre `Ticks` o `Volume`, lo cual abre puertas a análisis cuantitativo avanzado.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Es una herramienta estratégica. No te dice cuándo comprar, te dice *qué tipo de sistema* deberías estar usando ahora mismo.
+
+**Propuestas de Mejora:**
+* **Niveles:** Añadir líneas guía visuales.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas  
-- No incluye líneas de umbral que ayuden a interpretar cuándo el valor es "alto" o "bajo"  
-- No ofrece **alertas automáticas** ni interpretación visual integrada  
-- La interpretación cambia según el tipo de entrada (volumen vs precio)
+### 📈 Veredicto: ¿Es útil para Scalping?
 
----
+**Sí.** Para evitar operar rupturas en mercados picados (Choppy).
 
-### 🛠️ Propuestas de mejora  
-- Añadir **líneas horizontales de referencia** para facilitar lectura rápida (ej: nivel 0.5 como neutralidad)  
-- Permitir definir **alertas visuales o sonoras** al cruzar cierto umbral  
-- Incluir una **leyenda contextual** que indique si el mercado está en fase lateral o direccional
+**Acción:** **Conservar.**

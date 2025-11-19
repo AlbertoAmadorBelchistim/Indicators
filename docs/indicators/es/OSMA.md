@@ -1,16 +1,43 @@
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: OSMA.cs
+name: OSMA (Moving Average of Oscillator)
+category: Momentum
+score_current: 7/10
+version: ATAS Official
+recommended_action: Mejorar
+description: ¿Cuál es la diferencia entre el MACD y su línea de señal (el histograma MACD)?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: Implementación estable del OSMA. Inusual uso de SMA para la línea de señal (el estándar es EMA), lo que puede causar discrepancias con otras plataformas.
+file_state: Mejorable
+score_potential: 7/10
+effort: Bajo
+action_priority: P3
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
 ## 🟦 OSMA (Moving Average of Oscillator) (7/10)
 
-**Nombre del archivo:** `OSMA.cs`  
+**Nombre del archivo:** [`OSMA.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/OSMA.cs)  
 **Nombre del indicador:** OSMA (Moving Average of Oscillator)  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602432](https://help.atas.net/support/solutions/articles/72000602432)
+**Web oficial:** [ATAS — OSMA](https://help.atas.net/support/solutions/articles/72000602432)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** ¿Cuál es la diferencia entre el MACD y su línea de señal (el histograma MACD)?
+
+![OSMA](../../img/OSMA.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **ShortPeriod**: Periodo de la media exponencial rápida (por defecto: 9)  
-- **LongPeriod**: Periodo de la media exponencial lenta (por defecto: 12)  
-- **SignalPeriod**: Periodo de la media de la línea MACD (por defecto: 26)
+* **ShortPeriod**: Periodo de la media exponencial rápida (por defecto: 9)
+* **LongPeriod**: Periodo de la media exponencial lenta (por defecto: 12)
+* **SignalPeriod**: Periodo de la media de la línea MACD (por defecto: 26)
 
 ---
 
@@ -21,9 +48,9 @@
 
 ### 🧠 Uso más frecuente
 
-- Detectar **cambios de momentum** en el precio  
-- Confirmar **tendencias** o anticipar giros mediante el cruce con la línea cero  
-- Evaluar la diferencia entre impulso y su media suavizada
+* Detectar **cambios de momentum** en el precio
+* Confirmar **tendencias** o anticipar giros mediante el cruce con la línea cero
+* Evaluar la diferencia entre impulso y su media suavizada
 
 ---
 
@@ -32,56 +59,51 @@
 
 ✅ Suaviza el MACD y reduce ruido para confirmar señales  
 ✅ Relevante para identificar la fuerza de movimientos continuados  
-⛔ Puede retrasar las señales respecto a indicadores más reactivos
+⛔ Utiliza SMA para la señal (no estándar), lo que puede retrasar las señales
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Confirmación de dirección**: operar a favor del histograma creciente/decreciente  
-- **Cruce con cero** como señal de entrada/salida  
-- **Divergencia entre precio y OSMA** para anticipar reversión
+* **Confirmación de dirección**: operar a favor del histograma creciente/decreciente
+* **Cruce con cero** como señal de entrada/salida
+* **Divergencia entre precio y OSMA** para anticipar reversión
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **ShortPeriod**: `6`  
-- **LongPeriod**: `19`  
-- **SignalPeriod**: `5`
-
-✅ Alta sensibilidad manteniendo estructura del MACD  
-✅ Buena representación de cambios de impulso en 1M  
-⛔ Puede requerir filtro adicional en entornos laterales
+* **ShortPeriod**: `6`
+* **LongPeriod**: `19`
+* **SignalPeriod**: `5`
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Calcula `MACD = EMA(Short) - EMA(Long)`  
-- Luego aplica una `SMA` al MACD para suavizarlo  
-- El valor de OSMA es la diferencia entre MACD y su SMA:  
-  `OSMA = MACD - Signal`  
-- Representado como histograma (`VisualMode.Histogram`) en un nuevo panel  
-- Compatible con modo minimizado para optimizar visualización
+* Calcula `MACD = EMA(Short) - EMA(Long)`
+* Calcula `Signal = SMA(MACD)` (Nota: Usa SMA, no EMA como es estándar)
+* `OSMA = MACD - Signal`
+* Incluye validación de atributos `[LessThan]` y `[GreaterThan]` para asegurar `Short < Long`, lo cual es una buena práctica.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+El indicador funciona correctamente y es estable. El uso de atributos de validación (`[LessThan]`, `[GreaterThan]`) en las propiedades es un toque de calidad de código excelente que previene configuraciones erróneas por parte del usuario.
+
+La única crítica técnica es la elección de `SMA` para la línea de señal (`private SMA _signalSma`). El estándar industrial para el MACD (del cual deriva el OSMA) es usar una `EMA` para la señal. Esto hace que este OSMA sea ligeramente diferente al de otras plataformas.
+
+**Propuesta de Mejora (P3):**
+* Cambiar `_signalSma` por una `EMA`, o añadir un parámetro para que el usuario elija el tipo de media de la señal.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- Utiliza `SMA` como línea de señal, mientras que el MACD clásico suele usar `EMA`, lo cual puede cambiar la dinámica  
-- No permite al usuario elegir el tipo de media para el suavizado (solo `SMA`)  
-- El histograma no tiene coloración dinámica según signo o pendiente  
-- No se valida si los periodos están muy próximos (por ejemplo, `Short = 9`, `Long = 10`) → puede generar señales poco útiles  
-- No incluye alertas ni cruces ni ofrece niveles de referencia
+**Sí.**
 
----
+Es idéntico al histograma del MACD, una herramienta fundamental para ver la aceleración del precio.
 
-### 🛠️ Propuestas de mejora
-
-- Añadir opción para seleccionar el tipo de media para `SignalPeriod` (`SMA`, `EMA`, etc.)  
-- Incluir coloración del histograma según si el valor es positivo o negativo  
-- Agregar alertas visuales/sonoras al cruce con cero o cambio de signo  
-- Permitir visualización de las líneas de MACD y Signal para comparación directa  
-- Validar que la diferencia entre `LongPeriod` y `ShortPeriod` sea suficiente para obtener señales significativas
-
+**Acción:** **Mejorar (Estandarizar tipo de MA de señal).**

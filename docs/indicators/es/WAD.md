@@ -1,68 +1,98 @@
-## 🟦 Williams Accumulation / Distribution (WAD) (7 / 10)  
-**Nombre del archivo:** `WAD.cs`  
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: WAD.cs
+name: Williams Accumulation / Distribution (WAD)
+category: Volume
+score_current: 7/10
+version: Stable
+recommended_action: Conservar
+description: ¿Se está acumulando o distribuyendo el activo (basado en la presión de cierre)?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Acumulador de presión de cierre. Simple y funcional. No usa volumen real."
+file_state: Estable
+score_potential: 7/10
+effort: Bajo
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
+## 🟦 Williams Accumulation / Distribution (WAD) (7/10)
+
+**Nombre del archivo:** [`WAD.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/WAD.cs)  
 **Nombre del indicador:** Accumulation / Distribution - Williams  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602568](https://help.atas.net/support/solutions/articles/72000602568)
+**Web oficial:** [ATAS — Williams Accumulation / Distribution (WAD)](https://help.atas.net/support/solutions/articles/72000602568)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** ¿Se está acumulando o distribuyendo el activo (basado en la presión de cierre)?
+
+![WAD](../../img/WAD.png)
 
 ---
 
-### ⚙️ Parámetros configurables  
-Este indicador **no tiene parámetros configurables desde la UI**.
+### ⚙️ Parámetros configurables
+
+* **Ninguno**: Cálculo acumulativo directo.
 
 ---
 
-### 🧭 Clasificación  
-📂 Volume — Indicador clásico de acumulación/distribución basado en el precio de cierre
+### 🧭 Clasificación
+📂 Volume — Indicador de flujo (aunque curiosamente solo usa precios en su fórmula original de Williams, a diferencia del A/D de Chaikin).
 
 ---
 
-### 🧠 Uso más frecuente  
-- Medir la **presión de compra o venta acumulada** sin utilizar directamente el volumen  
-- Confirmar **tendencias** mediante la dirección del acumulado  
-- Detectar **divergencias entre precio y presión acumulativa** del mercado
+### 🧠 Uso más frecuente
+
+* **Divergencias:** Precio sube pero WAD no hace nuevo máximo = Distribución.  
+* **Confirmación:** Rompimiento de resistencia en precio confirmado por rompimiento en WAD.  
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **7 / 10**  
-✅ Muy útil como confirmador de dirección en sistemas simples  
-✅ Fácil de interpretar y calcular  
-⛔ No tiene en cuenta el volumen real, por lo que puede ser engañoso en movimientos sin participación
+### 📊 Nivel de relevancia
+🔟 **7 / 10**
+
+✅ **Concepto:** Intenta medir quién gana la batalla intradía (cierre vs true range).  
+⛔ **Nombre Confuso:** A menudo se confunde con la línea A/D de Chaikin que usa volumen. El WAD de Williams es puramente de precio (`True Range High/Low`).  
+⛔ **Sin Reset:** Acumula indefinidamente.  
 
 ---
 
-### 🎯 Estrategias de scalping donde se aplica  
-- **Confirmación de dirección**: Si el WAD sube mientras el precio sube, tendencia válida  
-- **Divergencias**: Si el precio sube pero el WAD baja, posible agotamiento  
-- **Filtro de entrada**: Evitar compras si el WAD cae mientras el precio sube (discrepancia)
+### 🎯 Estrategias de scalping donde se aplica
+
+* **Divergencia Oculta:** Precio hace mínimo más alto, WAD hace mínimo más bajo -> Señal de continuación alcista fuerte.  
 
 ---
 
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
-- No tiene parámetros configurables  
-- Se recomienda combinar con indicadores de volumen o delta para validar
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-✅ Útil como **indicador de contexto acumulativo**  
-✅ Ayuda a detectar **fallos de continuación en movimientos extendidos**  
-⛔ No válido como única fuente de decisión sin validación externa
+* **N/A**.
 
 ---
 
-### 🧪 Notas de desarrollo  
-- Si el cierre actual es mayor que el anterior, suma la diferencia con el mínimo  
-- Si el cierre actual es menor, resta la diferencia con el máximo  
-- Si el cierre es igual, mantiene el valor anterior  
-- No utiliza volumen ni delta, solo precios de la vela
+### 🧪 Notas de desarrollo
+
+* **Fórmula:** * Si Close > PrevClose: `WAD = PrevWAD + Close - Min(Low, PrevClose)`.  
+    * Si Close < PrevClose: `WAD = PrevWAD + Close - Max(High, PrevClose)`.  
+    * Es una suma de "Buying Pressure" o "Selling Pressure".  
+* **Implementación:** Correcta.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Es útil si entiendes que no mide "Volumen" sino "Presión de Precio". Es un complemento bueno para el RSI.
+
+**Propuestas de Mejora:**
+* **Nombre:** Aclarar en la descripción que es "Williams AD" para no confundir.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas  
-- No valida `GetCandle(bar - 1)` al inicio (aunque el cálculo lo evita si `bar == 0`)  
-- No incluye volumen real en su lógica → el nombre puede llevar a error  
-- No tiene etiquetas ni elementos visuales auxiliares para interpretación rápida
+### 📈 Veredicto: ¿Es útil para Scalping?
 
----
+**Moderadamente.** Bueno para divergencias.
 
-### 🛠️ Propuestas de mejora  
-- Añadir opción de mostrar **divergencias visuales** frente al precio  
-- Incluir posibilidad de aplicar una **media móvil** sobre el WAD  
-- Integrar opción de mostrar **acumulado porcentual relativo**
+**Acción:** **Conservar.**

@@ -1,16 +1,43 @@
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: MaDifference.cs
+name: Moving Average Difference
+category: Momentum
+score_current: 6/10
+version: ATAS Official
+recommended_action: Mejorar
+description: ¿Cuál es la diferencia (momentum) entre dos medias móviles y está acelerando o desacelerando?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: Estable, pero su lógica de coloreado (basada en la pendiente, no en el signo) es confusa y debería ser una opción configurable.
+file_state: Mejorable
+score_potential: 7/10
+effort: Bajo
+action_priority: P3
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
 ## 🟦 Moving Average Difference (6/10)
 
-**Nombre del archivo:** `MaDifference.cs`  
-**Nombre del indicador:** Moving Average Difference  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602289](https://help.atas.net/support/solutions/articles/72000602289)
+**Nombre del archivo:** [`MaDifference.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/MaDifference.cs)    
+**Nombre del indicador:** Moving Average Difference    
+**Web oficial:** [ATAS — Moving Average Difference](https://help.atas.net/support/solutions/articles/72000602289)    
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** ¿Cuál es la diferencia (momentum) entre dos medias móviles y está acelerando o desacelerando?
+
+![MovingAverageDifference](../../img/MaDifference.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **Period1**: Periodo de la primera media móvil simple (por defecto: 10)  
-- **Period2**: Periodo de la segunda media móvil simple (por defecto: 20)  
-- **PosColor / NegColor**: Colores para valores crecientes o decrecientes del histograma
+* **Period1**: Periodo de la primera media móvil simple (por defecto: 10)
+* **Period2**: Periodo de la segunda media móvil simple (por defecto: 20)
+* **PosColor / NegColor**: Colores para valores crecientes o decrecientes del histograma
 
 ---
 
@@ -21,9 +48,9 @@
 
 ### 🧠 Uso más frecuente
 
-- Identificar el **impulso relativo** entre dos medias móviles  
-- Evaluar la **aceleración o desaceleración** del precio según el histograma  
-- Confirmar cruces de medias móviles con visualización continua
+* Identificar el **impulso relativo** entre dos medias móviles
+* Evaluar la **aceleración o desaceleración** del precio según el histograma
+* Confirmar cruces de medias móviles con visualización continua
 
 ---
 
@@ -31,55 +58,57 @@
 🔟 **6 / 10**
 
 ✅ Muy útil como filtro visual de momentum  
-✅ Simple de interpretar y personalizable visualmente  
-⛔ No tiene señal explícita de entrada/salida, solo contexto
+✅ Simple de interpretar  
+⛔ El coloreado por defecto se basa en la *pendiente* (aceleración), no en el *signo* (cruce de cero), lo que puede ser confuso
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Confirmación de entrada**: entrada solo si el histograma es creciente  
-- **Detección de giros**: cuando el color del histograma cambia  
-- **Filtro de tendencia**: operar solo en la dirección de la diferencia dominante
+* **Confirmación de entrada**: entrada solo si el histograma es creciente (cambia a `PosColor`)
+* **Detección de giros**: cuando el color del histograma cambia (el momentum pierde aceleración)
+* **Filtro de tendencia**: operar solo en la dirección de la diferencia dominante
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **Period1**: `8`  
-- **Period2**: `21`  
-- **Colores**: Verde (positivo), Rojo (negativo)
-
-✅ Proporciona indicación clara de la presión direccional  
-✅ Compatible con otros indicadores de entrada como MACD o RSI  
-⛔ Requiere confirmación adicional (estructura, volumen)
+* **Period1**: `8`
+* **Period2**: `21`
+* **Colores**: Verde (positivo), Rojo (negativo)
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Calcula la diferencia entre dos `SMA` y la representa como histograma  
-- Colorea cada barra según si es mayor o menor que la anterior  
-- Usa una única `ValueDataSeries` con `VisualMode.Histogram`  
-- El color del histograma se actualiza dinámicamente en tiempo real
+* Calcula la diferencia entre dos `SMA` y la representa como histograma (`VisualMode.Histogram`)
+* Colorea cada barra según si es mayor o menor que la anterior (`diff > _renderSeries[bar - 1]`)
+* Usa una única `ValueDataSeries` (`_renderSeries`) para el dibujo
+* Limpia las series en `bar == 0` antes de calcular
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+El indicador es estable y su código es simple y seguro. Utiliza dos objetos `SMA` y calcula su diferencia, representándola como un histograma.
+
+El principal problema es una decisión de diseño en su lógica de coloreado. El código `_renderSeries.Colors[bar] = diff > _renderSeries[bar - 1] ? _posColor : _negColor;` colorea la barra del histograma basándose en su *pendiente* (si está subiendo o bajando), no en su *signo* (si está por encima o por debajo de cero).
+
+Esto puede ser extremadamente confuso para un trader que espera que "verde" signifique "momentum positivo" (por encima de 0) y "rojo" signifique "momentum negativo" (por debajo de 0). Esta lógica de coloreado basada en la aceleración es una característica válida, pero debería ser una opción configurable, no la única implementación.
+
+**Propuesta de Mejora (P3):**
+* Añadir un parámetro tipo `enum` llamado `ColoringMode` con opciones:
+    * `OnSlope` (comportamiento actual)
+    * `OnZeroCrossover` (comportamiento estándar: `diff > 0 ? _posColor : _negColor;`)
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- El color se define según si el valor actual es mayor al anterior, **no según el signo de la diferencia** → puede ser confuso si la tendencia es negativa pero creciente  
-- No se valida si `Period1 > Period2` o viceversa; esto puede alterar la interpretación si se invierten sin querer  
-- No se permite seleccionar el tipo de media móvil (solo SMA)  
-- El histograma se borra en `bar == 0`, lo cual puede provocar pérdidas de datos si se recalcula parcialmente  
-- No se incluyen alertas o condiciones lógicas basadas en el cruce cero
+**Sí.**
 
----
+Es un oscilador de momentum simple y eficaz para medir la fuerza relativa. Es muy útil como filtro de confirmación.
 
-### 🛠️ Propuestas de mejora
-
-- Añadir opción de colorear según signo (`> 0` verde, `< 0` rojo) o cambio de pendiente (actual)  
-- Validar coherencia entre periodos (`Period1 < Period2` recomendado por convención)  
-- Permitir elegir el tipo de media (SMA, EMA, SMMA...)  
-- Añadir alertas visuales al cruce de cero o al cambio de color  
-- Evitar limpieza completa del histograma al recalcular en `bar == 0`
+**Acción:** **Mejorar (Añadir opción de coloreado por cruce de cero).**
 

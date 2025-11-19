@@ -1,76 +1,100 @@
-## 🟦 Volume Zone Oscillator (VZO) (9 / 10)  
-**Nombre del archivo:** `VolumeZone.cs`  
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: VolumeZone.cs
+name: Volume Zone Oscillator
+category: Volume
+score_current: 9/10
+version: Stable
+recommended_action: Conservar
+description: ¿Cuál es la presión neta de compra/venta normalizada por el volumen total (Oscilador de Zona)?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Oscilador de volumen normalizado (-100 a +100). Código limpio y lógica robusta."
+file_state: Estable
+score_potential: 9/10
+effort: Bajo
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
+## 🟦 Volume Zone Oscillator (VZO) (9/10)
+
+**Nombre del archivo:** [`VolumeZone.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/VolumeZone.cs)  
 **Nombre del indicador:** Volume Zone Oscillator  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602268](https://help.atas.net/support/solutions/articles/72000602268)
+**Web oficial:** [ATAS — Volume Zone Oscillator](https://help.atas.net/support/solutions/articles/72000602268)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** ¿Cuál es la presión neta de compra/venta normalizada por el volumen total (Oscilador de Zona)?
+
+![VolumeZone](../../img/VolumeZone.png)
 
 ---
 
-### ⚙️ Parámetros configurables  
-- **Period**: Periodo para el cálculo de las EMAs (por defecto: `14`)  
-- **DrawLines**: Mostrar líneas horizontales de sobrecompra/sobreventa  
-- **OverboughtLine1 / 2 / 3**: Líneas de sobrecompra (`50`, `75`, `90`)  
-- **OversoldLine1 / 2 / 3**: Líneas de sobreventa (`-50`, `-75`, `-90`)  
-- **Colores y visibilidad** de cada línea personalizables individualmente
+### ⚙️ Parámetros configurables
+
+* **Period**: Suavizado del volumen (EMA).  
+* **Niveles**: Líneas de Sobrecompra/Venta (±50, ±75, ±90).  
 
 ---
 
-### 🧭 Clasificación  
-📂 Volume — Oscilador de momentum basado en volumen relativo a dirección del precio
+### 🧭 Clasificación
+📂 Volume — Oscilador de volumen acotado.
 
 ---
 
-### 🧠 Uso más frecuente  
-- Medir la **intensidad del flujo de volumen comprador o vendedor**  
-- Identificar zonas de **sobrecompra o sobreventa por volumen**  
-- Confirmar **dirección del mercado** según la proporción de volumen positivo/negativo
+### 🧠 Uso más frecuente
+
+* **Zonas de Actividad:** * > 50: Tendencia Alcista.  
+    * > 75: Sobrecompra (Precaución).  
+    * < -50: Tendencia Bajista.  
+* **Señales de Giro:** Salida de zona extrema (ej. cruzar de >90 a <75).  
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **9 / 10**  
-✅ Integra volumen y dirección de precio de forma suave y eficaz  
-✅ Muy útil para detectar **zonas críticas** y validar movimientos  
-⛔ Puede ser más lento en detectar giros bruscos si el volumen es bajo
+### 📊 Nivel de relevancia
+🔟 **9 / 10**
+
+✅ **Normalización:** Al dividir por el volumen total suavizado, el indicador se mantiene en un rango constante independientemente de si el volumen es alto o bajo en términos absolutos.  
+✅ **Señales Claras:** Las zonas de 50/75 son muy respetadas en tendencias intradía.  
+⛔ **Riesgo Lateral:** En rangos estrechos con poco volumen, puede generar ruido alrededor de 0.  
 
 ---
 
-### 🎯 Estrategias de scalping donde se aplica  
-- **Entradas en extremos**: Entrar en reversión cuando el VZO cruza niveles como ±75 o ±90  
-- **Confirmación de tendencia**: Operar en la dirección del VZO si se mantiene en zona positiva o negativa  
-- **Evitar entradas en zona neutra**: Si el VZO está entre -50 y 50, evitar señales débiles
+### 🎯 Estrategias de scalping donde se aplica
+
+* **Trend Following:** Mantener largos mientras VZO > 0 (o > 20 para ser conservador).  
+* **Reversal:** Venta corta si VZO toca 90 y gira.  
 
 ---
 
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
-- **Period**: `14`  
-- **DrawLines**: `true`  
-- **OverboughtLine1/2/3**: `50 / 75 / 90`  
-- **OversoldLine1/2/3**: `-50 / -75 / -90`
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-✅ Claramente visual y muy interpretativo  
-✅ Compatible con otras herramientas de volumen o delta  
-⛔ En lateralidad prolongada puede fluctuar sin señal clara
+* **Period**: `14` o `21`.  
 
 ---
 
-### 🧪 Notas de desarrollo  
-- Calcula dos EMAs:  
-  - Una del volumen total (`_emaTv`)  
-  - Otra del volumen relativo a la dirección (`_emaVp`), positivo si cierra más alto que la vela anterior  
-- El valor del VZO es `100 × _emaVp / _emaTv`  
-- Si el divisor es cero, repite el valor anterior  
-- Dibuja 6 líneas horizontales configurables para zonas clave
+### 🧪 Notas de desarrollo
+
+* **Fórmula:** $VP = \text{Vol}$ si Close > PrevClose, else $-\text{Vol}$. $VZO = 100 \times \frac{EMA(VP)}{EMA(Vol)}$.
+* **Código:** Usa `LineSeries` ocultas por defecto para configurar los niveles. Buena práctica de UX para no ensuciar el gráfico si no se quiere.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Es uno de los mejores osciladores de volumen para trading direccional. Elimina el problema de interpretar barras de volumen de distintos tamaños y lo convierte en una curva fácil de leer.
+
+**Propuestas de Mejora:**
+* **Color Dinámico:** Colorear la línea del VZO según la zona en la que esté.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas  
-- No valida explícitamente la división por cero, aunque usa fallback  
-- No incluye opciones de **alerta automática** si se cruzan los niveles  
-- La lógica asume que **todo volumen en vela alcista es positivo**, lo cual puede ignorar absorciones o mechas largas
+### 📈 Veredicto: ¿Es útil para Scalping?
 
----
+**Sí.** Excelente para confirmar la fuerza del flujo.
 
-### 🛠️ Propuestas de mejora  
-- Añadir soporte para **alertas visuales o sonoras** al cruzar niveles  
-- Permitir usar **delta o volumen agresivo** como fuente alternativa  
-- Incluir una **versión suavizada adicional** para evitar señales erráticas en zonas neutras
+**Acción:** **Conservar.**

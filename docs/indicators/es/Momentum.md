@@ -1,16 +1,43 @@
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: Momentum.cs
+name: Momentum
+category: Momentum
+score_current: 7/10
+version: ATAS Official
+recommended_action: Conservar
+description: ¿Cuál es la diferencia de precio (velocidad) entre la barra actual y la de hace N periodos?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: Implementación clásica y robusta del indicador Momentum. Incluye una SMA de suavizado opcional bien integrada. Sin problemas detectados.
+file_state: Estable
+score_potential: 7/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
 ## 🟦 Momentum (7/10)
 
-**Nombre del archivo:** `Momentum.cs`  
+**Nombre del archivo:** [`Momentum.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/Momentum.cs)  
 **Nombre del indicador:** Momentum  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602429](https://help.atas.net/support/solutions/articles/72000602429)
+**Web oficial:** [ATAS — Momentum](https://help.atas.net/support/solutions/articles/72000602429)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** ¿Cuál es la diferencia de precio (velocidad) entre la barra actual y la de hace N periodos?
+
+![Momentum](../../img/Momentum.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **Period**: Número de barras hacia atrás para medir el impulso (por defecto: 10)  
-- **ShowSMA**: Mostrar media del valor del Momentum  
-- **SmaPeriod**: Periodo para la media del Momentum si está activada (por defecto: 10)
+* **Period**: Número de barras hacia atrás para medir el impulso (por defecto: 10)
+* **ShowSMA**: Mostrar media del valor del Momentum
+* **SmaPeriod**: Periodo para la media del Momentum si está activada (por defecto: 10)
 
 ---
 
@@ -21,9 +48,9 @@
 
 ### 🧠 Uso más frecuente
 
-- Medir la **fuerza y dirección** del movimiento reciente del precio  
-- Identificar fases de **aceleración** o **debilitamiento** del mercado  
-- Servir como **base para estrategias de cruce de línea cero**
+* Medir la **fuerza y dirección** del movimiento reciente del precio
+* Identificar fases de **aceleración** o **debilitamiento** del mercado
+* Servir como **base para estrategias de cruce de línea cero**
 
 ---
 
@@ -38,48 +65,42 @@
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Cruce con cero** como señal de entrada/salida  
-- **Confirmación de impulso**: valores crecientes con pendiente positiva  
-- **Soporte para divergencias**: comparación con máximos/mínimos del precio
+* **Cruce con cero** como señal de entrada/salida
+* **Confirmación de impulso**: valores crecientes con pendiente positiva
+* **Soporte para divergencias**: comparación con máximos/mínimos del precio
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **Period**: `9`  
-- **SmaPeriod**: `5`  
-- **ShowSMA**: `true`
-
-✅ Responde rápidamente a los movimientos de corto plazo  
-✅ La media ayuda a filtrar señales ruidosas  
-⛔ Menos útil en consolidaciones sin dirección clara
+* **Period**: `9`
+* **SmaPeriod**: `5`
+* **ShowSMA**: `true`
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Calcula la diferencia entre el valor actual y el de `Period` barras atrás  
-- Añade una SMA opcional sobre la serie de momentum  
-- La SMA se representa como segunda serie (`SmaSeries`) y puede activarse desde el panel  
-- Compatible con el modo minimizado para mejorar rendimiento
+* Calcula la diferencia simple: `this[bar] = value - SourceDataSeries[bar - Period]`
+* Incluye una `SMA` interna opcional que suaviza el resultado del momentum
+* Maneja correctamente el inicio del gráfico con `Math.Max`
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Es una implementación de libro de texto, limpia y eficiente. No tiene pretensiones innecesarias.
+
+Destaca la inclusión de una SMA de suavizado integrada (`_smaSeries`), lo cual es muy útil en scalping para filtrar el ruido inherente al cálculo de momentum puro (que puede ser muy "dentado"). El código es seguro y estable.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- No hay validación si `Period > CurrentBar`, aunque se mitiga con `Math.Max(0, ...)`  
-- La visualización por defecto no incluye línea cero, clave en este tipo de osciladores  
-- La media (`SmaSeries`) no puede personalizar su color o grosor desde la UI  
-- No se ofrece modo de histograma, que suele ser útil para visualizar impulso  
-- No hay alerta ni codificación de color por cruce con cero o pendiente
+**Sí.**
 
----
+Es la forma más pura de medir la velocidad del precio. Ideal para detectar agotamiento (divergencias) en movimientos rápidos de scalping.
 
-### 🛠️ Propuestas de mejora
-
-- Añadir línea cero visible como referencia clave  
-- Permitir configuración visual completa de la SMA (color, grosor, estilo)  
-- Añadir opción de mostrar el Momentum como histograma  
-- Incluir alertas visuales/sonoras para cruces con cero o cambios de pendiente  
-- Ofrecer opción de suavizado adicional (por ejemplo, EMA en lugar de SMA)
+**Acción:** **Conservar (Clásico y estable).**
 

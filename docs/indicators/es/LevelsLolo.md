@@ -1,10 +1,22 @@
 ---
+# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: LevelsLolo.cs
-name: LevelsLolo 
-category: Levels 
-score: 9/10 
-verdict: Conservar (herramienta de contexto clave) 
-description: ¿Dónde están los niveles clave de SpotGamma (CO, LG, VT, PW/CW) y cómo puedo visualizarlos en mi gráfico con una jerarquía clara de importancia?
+name: LevelsLolo
+category: Levels
+score_current: 9/10
+version: Modif.
+recommended_action: Conservar
+description: ¿Dónde están los niveles clave externos (ej. SpotGamma) y cuál es su jerarquía de importancia (Rank, Tipo, 0DTE)?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Indicador 'Core' de visualización (OnRender); parsea texto de niveles (SpotGamma), los renderiza con jerarquía (Rank/Tipo) y acentos (0DTE). Estable y profesional."
+file_state: Estable
+score_potential: 9/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: null
+user_modification_date: 2025-10-30
 ---
 
 ## 🟦 LevelsLolo (9/10)
@@ -135,32 +147,23 @@ description: ¿Dónde están los niveles clave de SpotGamma (CO, LG, VT, PW/CW) 
 
 -----
 
-### ✍️ La opinión de Gemini sobre el Indicador (El Análisis Correcto)
+### ✍️ La opinión de Gemini sobre el Indicador
 
-Este indicador es el "mapa del tesoro". Mientras que `DeltaModif` y `ClusterSearchModif` te dicen *qué* está pasando (la agresión, la batalla), `LevelsLolo` te dice *dónde* es importante que mires.
+Este es un indicador de visualización de niveles de nivel profesional, diseñado para una tarea muy específica: parsear y mostrar niveles de SpotGamma. Es el ejemplo perfecto de una herramienta "Modif" que llena un vacío que ATAS no cubre.
 
-Cualquier plataforma puede dibujar líneas horizontales. El valor de `LevelsLolo` no es dibujar líneas, es **dibujar la jerarquía**. La innovación clave de este indicador es su motor de *parseo* y *renderizado*:
+El código es excelente. El uso de `OnRender` es la forma moderna y correcta de dibujar. La lógica de parseo (`ParseRawText`) es robusta, y la idea de un "Winner" para niveles en el mismo precio (basado en Rank y Tipo) es una solución elegante.
 
-1.  **Entiende el Rango:** Sabe que `LG01` es infinitamente más importante que `LG15`.
-2.  **Visualiza la Jerarquía:** Traduce esa importancia en propiedades visuales (grosor, opacidad). Un `LG01` (rank 1-3) se ve grueso y opaco, mientras que un `LG15` (rank \> 10) se ve fino y semitransparente.
-3.  **Resuelve Conflictos:** Sabe que si `LG01` y `CO05` están en el mismo precio, la línea debe dibujarse con las propiedades de `LG01` (el nivel más importante).
-4.  **Destaca el Peligro:** El "halo" rojo para los niveles `0DTE` es un recordatorio visual constante de "cuidado, zona de alta volatilidad/gamma".
+Las características de estilo dinámico (grosor/opacidad por rank y el halo 0DTE) le dan una densidad de información visual que un indicador estándar no puede igualar. Es una herramienta `Estable` y de 9/10.
 
-Este indicador es el pilar del contexto. Sin él, estarías viendo señales de `DeltaModif` o `ClusterSearchModif` "en el vacío". Con él, puedes decir: "Estoy viendo una señal de absorción de `BarsPattern` *justo en* un nivel `LG01`". Eso es un setup A+.
-
------
+---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí. Es una herramienta de contexto indispensable.**
+**Sí. Es una herramienta de niveles "Core" para traders que usan flujos de opciones (GEX).**
 
-Para un scalper, operar sin contexto es suicida. `LevelsLolo` proporciona el contexto macro (basado en opciones y flujos institucionales de SpotGamma) en el gráfico micro (1 minuto).
+Proporciona el mapa de S/R más relevante de SpotGamma directamente en el gráfico, permitiendo al scalper reaccionar instantáneamente a estos niveles clave.
 
-Te permite anticipar *dónde* es probable que el precio reaccione. No es un indicador de *señal* (no te dice "compra aquí"), sino un indicador de *zona* (te dice "prepárate para buscar tu señal aquí"). Saber que te acercas a un `PutWall` (PW) o un `Volatility Trigger` (VT) cambia por completo cómo interpretas el flujo de órdenes en ese momento.
-
-**Acción:** **Conservar (Herramienta de Contexto Clave).**
-
-**¿Merece la pena arreglarlo?** **No (está completo).** La funcionalidad principal de parseo y renderizado jerárquico es perfecta. La única mejora mencionada (importación automática) es "calidad de vida", no un defecto del indicador en sí.
+**Acción:** **Conservar (Herramienta Principal).**
 
 ---
 <!--stackedit_data:

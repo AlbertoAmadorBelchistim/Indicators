@@ -1,80 +1,103 @@
-## 🟦 ZigZag Pro (10 / 10)  
-**Nombre del archivo:** `Zigzag.cs`  
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: Zigzag.cs
+name: ZigZag Pro
+category: PriceAction
+score_current: 10/10
+version: Stable
+recommended_action: Conservar
+description: ¿Qué dicen las métricas acumuladas (Delta/Volumen) de cada onda de precio sobre la estructura del mercado?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Indicador premium. Analiza ondas con métricas de Order Flow acumulado. Código complejo y muy valioso."
+file_state: Estable
+score_potential: 10/10
+effort: Alto
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
+## 🟦 ZigZag Pro (10/10)
+
+**Nombre del archivo:** [`Zigzag.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/Zigzag.cs)  
 **Nombre del indicador:** ZigZag Pro  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602632](https://help.atas.net/support/solutions/articles/72000602632)
+**Web oficial:** [ATAS — ZigZag Pro](https://help.atas.net/support/solutions/articles/72000602632)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** ¿Qué dicen las métricas acumuladas (Delta/Volumen) de cada onda de precio sobre la estructura del mercado?
+
+![Zigzag](../../img/Zigzag.png)
 
 ---
 
-### ⚙️ Parámetros configurables  
-- **CalcMode**: Modo de cálculo (`Relative`, `Absolute`, `Ticks`)  
-- **Percentage**: Umbral de cambio requerido (en %/ticks/precio según modo)  
-- **Days**: Días hacia atrás desde los que comenzar el cálculo  
-- **IgnoreWicks**: Ignorar mechas en el cálculo de máximos y mínimos  
-- **TextSize / TextColor**: Tamaño y color del texto  
-- **VerticalOffset**: Desplazamiento vertical del texto respecto al precio  
-- **ShowDelta / ShowVolume / ShowTicks / ShowBars / ShowTime**: Mostrar datos acumulativos en cada tramo (delta, volumen, número de ticks, número de barras, duración)
+### ⚙️ Parámetros configurables
+
+* **Mode**: Ticks, Porcentaje, Absoluto.  
+* **Percentage**: Umbral de reversión para confirmar nueva onda.  
+* **Labels**: Mostrar Delta, Volumen, Ticks, Tiempo, Barras.  
+* **Visuals**: Colores, tamaños de texto, offsets.  
 
 ---
 
-### 🧭 Clasificación  
-📂 PriceAction — Indicador visual de ondas basado en estructura de zigzag con métricas acumuladas
+### 🧭 Clasificación
+📂 PriceAction — Analizador de ondas (Wave Analyzer) con datos de Order Flow.
 
 ---
 
-### 🧠 Uso más frecuente  
-- Visualizar ondas de precio con etiquetas de **delta, volumen, ticks y duración**  
-- Confirmar **intensidad de un tramo** o debilidad mediante las métricas acumuladas  
-- Identificar zonas de reversión, clímax o absorción basándose en la estructura
+### 🧠 Uso más frecuente
+
+* **Wyckoff:** Comparar el volumen de la onda impulsiva vs la correctiva ("Law of Effort vs Result").  
+* **Divergencia de Delta:** Precio hace nuevo máximo en la onda, pero el Delta acumulado de esa onda es menor que la anterior (Agotamiento de compradores).  
+* **Estructura:** Ver claramente HH/HL (Highs más altos, Lows más altos).  
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **10 / 10**  
-✅ Altamente configurable y visualmente potente para lectura estructural  
-✅ Compatible con múltiples estilos de análisis (Wyckoff, VSA, patrones armónicos)  
-⛔ No genera señales automáticas; depende de la interpretación del operador
+### 📊 Nivel de relevancia
+🔟 **10 / 10**
+
+✅ **Información Única:** Sumar el delta de toda una onda manualmente es imposible en tiempo real. Este indicador lo hace automático.  
+✅ **Configurable:** Se adapta a cualquier activo (Forex, Futuros, Crypto) gracias a los modos de cálculo.  
+✅ **Visual:** Las etiquetas de texto enriquecidas son fundamentales para tomar decisiones rápidas.  
 
 ---
 
-### 🎯 Estrategias de scalping donde se aplica  
-- **Lectura de estructura**: Confirmar si un tramo con muchos ticks y poco delta es absorción  
-- **Comparación de ondas**: Validar si una onda de continuación pierde fuerza (menos volumen/delta)  
-- **Reversión en contexto**: Entrada cuando se rompe una onda y el tramo nuevo muestra delta agresivo
+### 🎯 Estrategias de scalping donde se aplica
+
+* **Wave Exhaustion:** Onda alcista con mucho volumen pero Delta negativo (o muy bajo) -> Absorción de ventas -> Short.  
+* **1-2-3 Reversal:** Usar el ZigZag para identificar el patrón 1-2-3 de cambio de tendencia objetivamente.  
 
 ---
 
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
-- **CalcMode**: `Ticks`  
-- **Percentage**: `30`  
-- **Days**: `2`  
-- **IgnoreWicks**: `true`  
-- **ShowDelta / Volume / Ticks / Bars / Time**: `true`  
-- **VerticalOffset**: `1`  
-- **TextSize**: `15`
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-✅ Ideal para desglosar estructura intradía en tiempo real  
-✅ Complemento clave para análisis de clúster y confirmación contextual  
-⛔ Requiere interpretación activa por parte del operador
+* **Mode**: `Ticks`.  
+* **Value**: `12` (3 puntos en ES) o `20`.  
+* **Show**: Delta y Volume.  
 
 ---
 
-### 🧪 Notas de desarrollo  
-- Calcula ondas según cambio porcentual, absoluto o en ticks  
-- Etiqueta cada swing con datos acumulados: delta, volumen, ticks, barras y duración  
-- Permite visualización adaptativa con desplazamiento vertical y tamaño de texto  
-- Usa lógica robusta para evitar repintado en swings recientes  
-- Alterna automáticamente entre _uptrend_ y _downtrend_ con lógica de validación
+### 🧪 Notas de desarrollo
+
+* **Lógica:** Mantiene el estado de la tendencia actual (`_direction`). Si el precio retrocede más que `requiredChange`, cambia la dirección, cierra la onda anterior, calcula sus acumulados y dibuja la línea.
+* **Repintado:** Por definición, el último tramo del ZigZag siempre repinta (se extiende) hasta que se confirma el giro. Esto es comportamiento correcto, no un bug.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Es una herramienta indispensable para el trader moderno de Order Flow. Transforma el flujo de órdenes en estructura legible.
+
+**Propuestas de Mejora:**
+* **Cumulative Delta Wave:** Opción para dibujar una línea separada con el Delta Acumulado de las ondas (tipo Weis Wave pero de línea).
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas  
-- Uso de `bar - 1` y `GetCandle(0)` para comparación puede dar lecturas sesgadas al inicio  
-- El identificador de texto `AddText(id)` puede generar conflictos si hay varias instancias  
-- No muestra líneas de conexión entre extremos previos en tiempo real (solo visualización actual)
+### 📈 Veredicto: ¿Es útil para Scalping?
 
----
+**Sí.** Es el "microscopio" de la estructura de mercado.
 
-### 🛠️ Propuestas de mejora  
-- Añadir modo de **líneas conectadas entre swings** con valores históricos  
-- Incluir opción de **resaltado visual de máximos acumulativos** (volumen o delta)  
-- Permitir activar **alertas sonoras o visuales** al cerrar una nueva onda
+**Acción:** **Conservar.**

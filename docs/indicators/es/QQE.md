@@ -1,17 +1,44 @@
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: QQE.cs
+name: Qualitative Quantitative Estimation
+category: Momentum
+score_current: 7/10
+version: ATAS Official
+recommended_action: Mejorar
+description: ¿Cuál es el RSI suavizado y filtrado por volatilidad (QQE)?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: Implementación sólida del QQE. Defecto de usabilidad: el nivel de alerta (50) está fijo en código y no es configurable por el usuario.
+file_state: Mejorable
+score_potential: 8/10
+effort: Bajo
+action_priority: P3
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
 ## 🟦 QQE (Qualitative Quantitative Estimation) (7/10)
 
-**Nombre del archivo:** `QQE.cs`  
+**Nombre del archivo:** [`QQE.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/QQE.cs)  
 **Nombre del indicador:** Qualitative Quantitative Estimation  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602629](https://help.atas.net/support/solutions/articles/72000602629)
+**Web oficial:** [ATAS — Qualitative Quantitative Estimation](https://help.atas.net/support/solutions/articles/72000602629)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** ¿Cuál es el RSI suavizado y filtrado por volatilidad (QQE)?
+
+![QQE](../../img/QQE.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **RsiPeriod**: Periodo del RSI base (por defecto: 14)  
-- **SlowFactor**: Periodo del suavizado del RSI (por defecto: 5)  
-- **UseAlerts**: Activar alertas al cruce del nivel objetivo  
-- **AlertFile**: Archivo de sonido de la alerta
+* **RsiPeriod**: Periodo del RSI base (por defecto: 14)
+* **SlowFactor**: Periodo del suavizado del RSI (por defecto: 5)
+* **UseAlerts**: Activar alertas al cruce del nivel objetivo
+* **AlertFile**: Archivo de sonido de la alerta
 
 ---
 
@@ -22,9 +49,9 @@
 
 ### 🧠 Uso más frecuente
 
-- Confirmar la **dirección y estabilidad del impulso**  
-- Detectar **cambios de fase** en la tendencia mediante cruce de líneas  
-- Usar como **sistema de alertas suaves** cuando se alcanza una zona objetivo
+* Confirmar la **dirección y estabilidad del impulso**
+* Detectar **cambios de fase** en la tendencia mediante cruce de líneas
+* Usar como **sistema de alertas suaves** cuando se alcanza una zona objetivo
 
 ---
 
@@ -33,56 +60,51 @@
 
 ✅ Mejora del RSI con control de ruido y señal más estable  
 ✅ Indicador visual con buen comportamiento en tendencias  
-⛔ Puede ser difícil de interpretar sin conocer la lógica del QQE
+⛔ El nivel de alerta es fijo (50) y no configurable
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Filtro direccional** cuando la línea QQE está por encima/por debajo del nivel 50  
-- **Confirmación de impulso** tras rebote en la línea de referencia  
-- **Alertas por cruce de línea** como señal de continuación o agotamiento
+* **Filtro direccional** cuando la línea QQE está por encima/por debajo del nivel 50
+* **Confirmación de impulso** tras rebote en la línea de referencia
+* **Alertas por cruce de línea** como señal de continuación o agotamiento
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **RsiPeriod**: `10`  
-- **SlowFactor**: `4`  
-- **UseAlerts**: `true`  
-- **LineSeries[0].Value**: `50` (nivel objetivo)
-
-✅ Buen equilibrio entre sensibilidad y filtrado  
-✅ Alertas visuales y sonoras para decisiones rápidas  
-⛔ Ligeramente más lento que RSI puro por capas de suavizado
+* **RsiPeriod**: `10`
+* **SlowFactor**: `4`
+* **UseAlerts**: `true`
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Usa un RSI base con suavizado adicional (EMA) → `_rsiMa`  
-- Calcula ATR del RSI suavizado y aplica doble EMA  
-- Calcula umbral dinámico (`dar`) como `ema(atr(rsi_smooth)) × 4.236`  
-- Traza línea dinámica `_trLevelSlow` que se ajusta al comportamiento del RSI suavizado  
-- Lanza alertas cuando se cruza el nivel 50 en la dirección contraria a la vela previa
+* Calcula RSI y lo suaviza (`_rsiEma`)
+* Calcula ATR del RSI suavizado para determinar la volatilidad del indicador
+* Genera una línea "lenta" (`_trLevelSlow`) basada en el ATR del RSI
+* **Defecto:** La alerta de cruce compara con `LineSeries[0].Value`, que se inicializa a 50 y no tiene propiedad pública para cambiarlo.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+El QQE es una excelente mejora sobre el RSI tradicional, reduciendo el ruido y las señales falsas. La implementación matemática es correcta.
+
+Sin embargo, el indicador tiene un defecto de diseño en la interfaz de usuario: la alerta de cruce está programada para dispararse cuando el indicador cruza el valor `50`. Este valor está definido internamente en el constructor (`LineSeries.Add(new LineSeries... Value = 50...)`) y **no existe ningún parámetro público** para que el usuario lo modifique. Si un trader quiere alertas al cruzar 70 o 30, no puede configurarlo.
+
+**Propuesta de Mejora (P3):**
+* Añadir una propiedad `[Parameter] public decimal AlertLevel` para hacer configurable el nivel de alerta.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- El valor del cruce de alerta está fijo en `LineSeries[0].Value = 50` y no puede modificarse desde la UI  
-- La lógica de inicialización en `bar == 0` no establece valores explícitos en las series  
-- La alerta depende del valor en `bar - 2` y `bar - 1` sin tolerancia ni control de ticks mínimos  
-- No se permite visualizar el ATR del RSI ni sus valores individuales como series separadas  
-- El multiplicador `4.236` está hardcoded y no se puede ajustar por el usuario
+**Sí.**
 
----
+Es un oscilador muy limpio que ayuda a mantenerse en el lado correcto de la tendencia a corto plazo.
 
-### 🛠️ Propuestas de mejora
-
-- Permitir modificar el nivel objetivo directamente desde la interfaz  
-- Exponer el multiplicador `4.236` como parámetro configurable  
-- Añadir opción para mostrar series auxiliares (ATR del RSI, RSI suavizado)  
-- Implementar coloración dinámica del fondo o línea según la pendiente  
-- Incluir validación si `bar < max(Period, SlowFactor)` para evitar accesos incorrectos
-
+**Acción:** **Mejorar (Hacer configurable el nivel de alerta).**

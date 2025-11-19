@@ -1,14 +1,41 @@
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: MeanDeviation.cs
+name: Mean Deviation
+category: Statistical
+score_current: 5/10
+version: ATAS Official
+recommended_action: Mejorar
+description: ¿Cuál es la desviación media absoluta (volatilidad) del precio respecto a su media simple?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: Indicador estadístico estable pero rígido. Solo permite usar SMA como base, limitando su uso en estrategias modernas que prefieren EMA.
+file_state: Mejorable
+score_potential: 7/10
+effort: Bajo
+action_priority: P3
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
 ## 🟦 Mean Deviation (5/10)
 
-**Nombre del archivo:** `MeanDeviation.cs`  
+**Nombre del archivo:** [`MeanDeviation.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/MeanDeviation.cs)  
 **Nombre del indicador:** Mean Deviation  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602428](https://help.atas.net/support/solutions/articles/72000602428)
+**Web oficial:** [ATAS — Mean Deviation](https://help.atas.net/support/solutions/articles/72000602428)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** ¿Cuál es la desviación media absoluta (volatilidad) del precio respecto a su media simple?
+
+![MeanDeviation](../../img/MeanDeviation.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **Period**: Número de barras para calcular la media y la desviación respecto a ella (por defecto: 10)
+* **Period**: Número de barras para calcular la media y la desviación respecto a ella (por defecto: 10)
 
 ---
 
@@ -19,9 +46,9 @@
 
 ### 🧠 Uso más frecuente
 
-- Medir la **variabilidad media** del precio respecto a su promedio  
-- Estimar si el precio está en una fase de **alta o baja dispersión**  
-- Complementar a medias móviles como filtro de contexto
+* Medir la **variabilidad media** del precio respecto a su promedio
+* Estimar si el precio está en una fase de **alta o baja dispersión**
+* Complementar a medias móviles como filtro de contexto
 
 ---
 
@@ -30,53 +57,50 @@
 
 ✅ Útil para estimar el "ruido" del mercado  
 ✅ Más robusto ante valores extremos que la desviación estándar  
-⛔ Menos comúnmente utilizado y menos intuitivo que otros indicadores de volatilidad
+⛔ Solo permite usar SMA como referencia base
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Filtro de contexto**: evitar operar en fases de baja variabilidad  
-- **Confirmación de explosión de volatilidad**: si la desviación se incrementa rápidamente  
-- **Soporte para bandas dinámicas**: usar como componente para crear canales adaptativos
+* **Filtro de contexto**: evitar operar en fases de baja variabilidad
+* **Confirmación de explosión de volatilidad**: si la desviación se incrementa rápidamente
+* **Soporte para bandas dinámicas**: usar como componente para crear canales adaptativos
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **Period**: `14`
-
-✅ Capta bien el rango medio de dispersión en tramos de 1 minuto  
-✅ Ayuda a identificar compresión antes de ruptura  
-⛔ No proporciona señales de entrada/salida por sí solo
+* **Period**: `14`
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Calcula la **desviación media absoluta**:  
-  `MeanDev = avg(|precio - SMA|)`  
-- Se usa una `SMA` interna como base  
-- La lógica recorre el número de barras definido en `Period` y acumula la distancia absoluta  
-- El resultado se guarda en la serie principal (`this[bar]`)  
-- No tiene visualización personalizada ni configuración de color
+* Calcula la **desviación media absoluta**: `avg(|precio - SMA|)`
+* Utiliza una instancia interna de `SMA` (`_sma`) para calcular la media base
+* Itera sobre las últimas `Period` barras para sumar las diferencias absolutas y luego divide por `count`
+* Maneja correctamente el inicio del array con `Math.Max(0, bar - Period + 1)`
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+El indicador funciona correctamente y es estable. Calcula la desviación media absoluta, que es una medida de volatilidad más robusta frente a *outliers* que la desviación estándar.
+
+Su principal limitación es la rigidez: utiliza obligatoriamente una Media Móvil Simple (`SMA`) como referencia central. No permite al usuario seleccionar una EMA, SMMA o VWMA. En el análisis técnico moderno, la EMA suele preferirse por su menor retraso ("lag").
+
+**Propuesta de Mejora (P3):**
+* Añadir un parámetro `MaType` (o similar) para permitir seleccionar el tipo de media móvil base (SMA, EMA, etc.).
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- No se permite elegir el tipo de media base (solo `SMA`), lo cual limita flexibilidad  
-- El nombre del indicador puede inducir a confusión con la desviación estándar (que es diferente)  
-- No incluye opciones visuales ni panel de configuración estética  
-- No hay validación explícita si el periodo supera el número de barras disponibles (aunque se mitiga con `Math.Min`)
+**Moderadamente.**
 
----
+Es útil para medir la volatilidad pura, pero la desviación estándar (Bollinger) es más común.
 
-### 🛠️ Propuestas de mejora
-
-- Permitir elegir entre `SMA`, `EMA` u otras como base del cálculo  
-- Incluir una línea cero como referencia visual  
-- Añadir opción de coloreado dinámico si la desviación aumenta o disminuye  
-- Ofrecer un modo de visualización alternativo (barra, área o relleno)  
-- Añadir línea de señal opcional (por ejemplo, media móvil de la Mean Dev)
+**Acción:** **Mejorar (Añadir selección de tipo de MA).**
 

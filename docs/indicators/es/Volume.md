@@ -1,89 +1,104 @@
-## 🟦 Volume (9 / 10)  
-**Nombre del archivo:** `Volume.cs`  
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: Volume.cs
+name: Volume
+category: Volume
+score_current: 9/10
+version: Stable
+recommended_action: Conservar
+description: ¿Cuál es el volumen de actividad (o ticks/bid/ask) en cada vela, y cómo se relaciona con el movimiento?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Indicador de volumen definitivo. Completo, flexible (InputType) y visualmente rico (Etiquetas, Alertas)."
+file_state: Estable
+score_potential: 9/10
+effort: Bajo
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 2025-05-14
+user_modification_date: null
+---
+
+## 🟦 Volume (9/10)
+
+**Nombre del archivo:** [`Volume.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/Volume.cs)  
 **Nombre del indicador:** Volume  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602498](https://help.atas.net/support/solutions/articles/72000602498)
+**Web oficial:** [ATAS — Volume](https://help.atas.net/support/solutions/articles/72000602498)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 14/05/2025  
+
+> **La Pregunta Clave:** ¿Cuál es el volumen de actividad (o ticks/bid/ask) en cada vela, y cómo se relaciona con el movimiento?
+
+![Volume](../../img/Volume.png)
 
 ---
 
-### ⚙️ Parámetros configurables  
-- **Input**: Fuente de datos (`Volume`, `Ticks`, `Asks`, `Bids`)  
-- **UseFilter**: Activar filtro de volumen mínimo  
-- **FilterValue**: Valor mínimo de volumen para pintar la barra  
-- **FilterColor**: Color de la barra que supera el filtro  
-- **UseVolumeAlerts**: Activar alertas por volumen  
-- **AlertVolumeFile**: Archivo de sonido para alerta por volumen  
-- **UseReverseAlerts**: Activar alertas por reversión (volumen vs vela)  
-- **AlertReverseFile**: Archivo de sonido para alerta de reversión  
-- **ShowMaxVolume**: Mostrar línea de volumen máximo  
-- **HiVolPeriod**: Periodo de cálculo del volumen máximo  
-- **LineColor**: Color de la línea de volumen máximo  
-- **ShowVolume**: Mostrar etiquetas de volumen en clúster  
-- **FontColor / Font / VolLocation**: Personalización de texto  
-- **DeltaColored**: Colorear barras por delta  
-- **PosColor / NegColor / NeutralColor**: Colores según delta
+### ⚙️ Parámetros configurables
+
+* **Input**: `Volume`, `Ticks`, `Asks`, `Bids`.  
+* **Filter**: Resaltar barras que superen X volumen.  
+* **Alerts**: Volumen alto y Reversión (Vela alcista con Delta negativo y viceversa).  
+* **Visuals**: Colores por Delta o por Vela. Línea de Máximo Volumen.  
+* **Labels**: Mostrar texto con el valor numérico en el gráfico.  
 
 ---
 
-### 🧭 Clasificación  
-📂 Volume — Volumen clásico por vela y tipo de transacción
+### 🧭 Clasificación
+📂 Volume — El indicador de actividad de mercado por excelencia.
 
 ---
 
-### 🧠 Uso más frecuente  
-- Visualizar volumen **por vela** según tipo de transacción (bid, ask, ticks, total)  
-- Aplicar **filtros de volumen** para detectar velas significativas  
-- Mostrar **alertas sonoras** por picos de volumen o condiciones de reversión
+### 🧠 Uso más frecuente
+
+* **Confirmación:** Volumen alto confirma ruptura. Volumen bajo sugiere falta de interés.  
+* **Clímax:** Volumen ultra-alto en extremos indica parada y giro (Absorción).  
+* **Divergencia Delta:** Vela sube pero Delta es negativo (coloreado por Delta) → Venta limitadas absorbiendo compras mercado.  
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **9 / 10**  
-✅ Altamente configurable y flexible según estilo operativo  
-✅ Compatible con visualización en modo clúster y análisis de contexto  
-⛔ Puede requerir ajustes precisos para no saturar el gráfico con datos
+### 📊 Nivel de relevancia
+🔟 **9 / 10**
+
+✅ **Todo en Uno:** No necesitas otro indicador de volumen.  
+✅ **Alertas Inteligentes:** La alerta de "Reversión" (Divergencia precio-delta) es una estrategia de trading en sí misma.  
+✅ **UX:** Etiquetas de texto integradas (`ShowVolume`) que se adaptan al zoom.  
 
 ---
 
-### 🎯 Estrategias de scalping donde se aplica  
-- **Confirmación de intención**: Validar si un movimiento está respaldado por volumen alto  
-- **Absorción/reversión**: Detectar si el cuerpo de vela contradice al delta  
-- **Clúster + volumen extremo**: Marcar zonas donde el volumen excede umbral y confirmar reacción
+### 🎯 Estrategias de scalping donde se aplica
+
+* **Volume Stopping:** Buscar la vela con mayor volumen de la sesión en un soporte. Si la siguiente vela es alcista, entrar.  
+* **Effort vs Result:** Mucho volumen (esfuerzo) y poco avance del precio (resultado) = Giro inminente.  
 
 ---
 
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
-- **Input**: `Volume`  
-- **UseFilter**: `true`  
-- **FilterValue**: `1500`  
-- **FilterColor**: `LightBlue`  
-- **UseReverseAlerts**: `true`  
-- **HiVolPeriod**: `20`  
-- **ShowVolume**: `true`  
-- **DeltaColored**: `true`  
-- **PosColor / NegColor**: `Green / Red`
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-✅ Proporciona contexto visual potente para zonas de volumen elevado  
-✅ Útil en conjunto con clústeres y herramientas de absorción  
-⛔ Requiere calibración manual en activos de baja liquidez
+* **Input**: `Volume`.  
+* **DeltaColored**: `True` (Vital para ver quién ganó la batalla interna).  
+* **Filter**: `2000` (o valor relevante para la sesión).  
 
 ---
 
-### 🧪 Notas de desarrollo  
-- Usa datos de vela (`GetCandle(bar)`) para extraer volumen, bid, ask o ticks  
-- Permite alertas por reversión delta vs cuerpo de vela y por volumen absoluto  
-- Dibuja etiquetas directamente en el gráfico en modo clúster  
-- Mide el volumen máximo dentro de un rango configurable (`HiVolPeriod`)
+### 🧪 Notas de desarrollo
+
+* **Código:** Muy completo. Gestiona renderizado de texto manual (`OnRender`) para optimizar rendimiento.
+* **Flexibilidad:** El `enum InputType` permite usarlo como contador de Ticks o indicador de Ask/Bid específico.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Es el estándar. La capacidad de colorear por Delta y las alertas de divergencia integradas lo elevan por encima de un simple histograma de volumen.
+
+**Propuestas de Mejora:**
+* Ninguna. Es la referencia.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas  
-- El cálculo de alerta de reversión no considera **cuerpo insignificante con gran delta**  
-- No incluye opción de **suavizado del volumen** (ej. media móvil)  
-- Las etiquetas pueden solaparse en modos clúster densos
+### 📈 Veredicto: ¿Es útil para Scalping?
 
----
+**Sí.** El volumen es la gasolina del mercado. No se puede scalpear ciego al volumen.
 
-### 🛠️ Propuestas de mejora  
-- Añadir opción de **media móvil del volumen**  
-- Permitir mostrar **delta junto al volumen** en la etiqueta  
-- Implementar **condiciones compuestas de alerta** (volumen + delta, volumen + cuerpo)
+**Acción:** **Conservar.**

@@ -1,79 +1,105 @@
-## 🟦 Tape Patterns (9/10)  
-**Nombre del archivo:** `TapePattern.cs`  
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: TapePattern.cs
+name: Tape Patterns
+category: VolumeOrderFlow
+score_current: 9/10
+version: Stable
+recommended_action: Conservar
+description: ¿Dónde están los bloques de órdenes grandes y patrones de ejecución específicos en la cinta?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Indicador complejo de nivel institucional. Usa hilos dedicados para procesar CumulativeTrades. Alto valor."
+file_state: Estable
+score_potential: 9/10
+effort: Alto
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 2025-08-25
+user_modification_date: null
+---
+
+## 🟦 Tape Patterns (9/10)
+
+**Nombre del archivo:** [`TapePattern.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/TapePattern.cs)  
 **Nombre del indicador:** Tape Patterns  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602248](https://help.atas.net/support/solutions/articles/72000602248)
+**Web oficial:** [ATAS — Tape Patterns](https://help.atas.net/support/solutions/articles/72000602248)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 25/08/2025  
+
+> **La Pregunta Clave:** ¿Dónde están los bloques de órdenes grandes y patrones de ejecución específicos en la cinta?
+
+![TapePattern](../../img/TapePattern.png)
 
 ---
 
-### ⚙️ Parámetros configurables  
-- **UseTimeFilter**: Activar el filtro de **tiempo** para incluir solo las transacciones dentro de un rango horario (por defecto: `false`)  
-- **TimeFrom**: Hora de inicio del filtro de tiempo (por defecto: `00:00`)  
-- **TimeTo**: Hora de finalización del filtro de tiempo (por defecto: `23:59`)  
-- **CumulativeTrades**: Activar el uso de **comercio acumulado** para el cálculo (por defecto: `false`)  
-- **MinVol**: Volumen mínimo de las transacciones a considerar (por defecto: `1`)  
-- **MaxVol**: Volumen máximo de las transacciones a considerar (por defecto: `10000`)  
-- **MinCount**: Número mínimo de transacciones a considerar (por defecto: `1`)  
-- **MaxCount**: Número máximo de transacciones a considerar (por defecto: `100`)  
-- **AlertFile**: Nombre del archivo de alerta a activar cuando se detecte una transacción relevante (por defecto: `alert1`)  
-- **AlertSensitivity**: Sensibilidad de las alertas para la proximidad al nivel de la transacción (por defecto: `1`)
+### ⚙️ Parámetros configurables
+
+* **Filtros de Volumen:** Min/Max volumen por print, Min/Max volumen acumulado.  
+* **Filtros de Tiempo:** TimeFilter (agrupar trades cercanos en tiempo).  
+* **Filtros de Precio:** RangeFilter (agrupar trades en un rango de ticks).  
+* **Visualización:** Formas (Cuadrados, Círculos), Transparencia, Tamaños.  
+* **CumulativeTrades:** Usar la lógica de reconstrucción de trades de ATAS.  
 
 ---
 
-### 🧭 Clasificación  
-📂 VolumeOrderFlow — Análisis de patrones en el flujo de transacciones
+### 🧭 Clasificación
+📂 VolumeOrderFlow — Escáner de Cinta (Time & Sales) visualizado en el gráfico.
 
 ---
 
-### 🧠 Uso más frecuente  
-- Detectar **patrones de volumen** en el flujo de órdenes, como clusters de volumen significativos  
-- Utilizar para analizar las **transacciones acumuladas** y obtener información sobre el sentimiento del mercado  
-- Confirmar **rupturas de precios** basadas en grandes transacciones dentro de un rango específico
+### 🧠 Uso más frecuente
+
+* **Detección de Icebergs:** Si ves muchos prints pequeños agrupados en el mismo precio que suman un gran volumen, es un iceberg.  
+* **Bloques Institucionales:** Detectar ejecuciones únicas de gran tamaño (ej. 500 lotes de golpe).  
+* **Absorción:** Ver grandes bolas de volumen en un nivel que el precio no logra romper.  
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **9 / 10**  
-✅ Ideal para **analizar flujos de órdenes** y detectar cambios significativos en el mercado  
-✅ Útil para **identificar clusters de volumen** que preceden a movimientos fuertes de precio  
-⛔ Puede no ser útil en **mercados con transacciones de bajo volumen o sin patrones claros**
+### 📊 Nivel de relevancia
+🔟 **9 / 10**
+
+✅ **Potencia Extrema:** Convierte la cinta (que es ilegible a alta velocidad) en señales visuales en el gráfico.  
+✅ **Multihilo:** Procesa los datos en un hilo de fondo (`_tradesThread`) para no congelar la interfaz de usuario durante picos de volatilidad.  
+✅ **Granularidad:** Permite filtrar por Bid, Ask o Ambos.  
+⛔ **Curva de Aprendizaje:** Requiere configuración experta para no llenar el gráfico de basura.  
 
 ---
 
-### 🎯 Estrategias de scalping donde se aplica  
-- **Captura de grandes transacciones**: Detectar **cambios de precio significativos** cuando el volumen es anormalmente alto  
-- **Confirmación de rupturas**: Observar **movimientos de precio** en momentos de alta concentración de volumen  
-- **Identificación de manipulación de mercado**: Analizar patrones de **compras/vendas** para detectar **movimientos manipulativos**
+### 🎯 Estrategias de scalping donde se aplica
+
+* **Momentum Ignition:** Entrar cuando aparece un patrón de cinta grande a favor de la ruptura.  
+* **Reversal en Soporte:** Buscar patrones de compra masiva en el Bid (absorción) en mínimos del día.  
 
 ---
 
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
-- **MinVol**: `100`  
-- **MaxVol**: `5000`  
-- **MinCount**: `2`  
-- **MaxCount**: `50`
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-✅ Ideal para detectar **movimientos de precio respaldados por grandes transacciones**  
-✅ Funciona bien para **confirmar grandes rupturas de volumen**  
-⛔ Menos útil en **mercados con bajo volumen o sin movimientos significativos**
+* **MinVol**: `50` (Filtrar pececillos).  
+* **CumulativeTrades**: `True`.  
+* **TimeFilter**: `100ms` (Agrupar ejecuciones HFT).  
 
 ---
 
-### 🧪 Notas de desarrollo  
-- El indicador analiza **patrones de transacciones** utilizando los datos de **volumen** y **precio**  
-- Utiliza **transacciones acumuladas** para identificar movimientos significativos de volumen y precio  
-- El cálculo y visualización se basan en las **transacciones dentro de un rango de tiempo y volumen específico**  
-- El indicador genera **alertas automáticas** cuando el precio y el volumen alcanzan ciertos umbrales
+### 🧪 Notas de desarrollo
+
+* **Ingeniería de Software:** Es uno de los indicadores más complejos de ATAS. Usa `BlockingCollection` para una cola productor-consumidor de trades. Esto es programación concurrente avanzada.
+* **Optimización:** Agrupa ticks en objetos visuales (`PriceSelectionValue`) para reducir la carga de renderizado.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Es una herramienta profesional. Si sabes leer el Order Flow, esto es oro puro. El código demuestra un alto nivel de competencia técnica para manejar el flujo masivo de datos de nivel 2 sin bloquear la plataforma.
+
+**Propuestas de Mejora:**
+* **Alertas Sonoras Distintas:** Permitir diferentes sonidos según el tamaño del bloque (ej. sonido suave para 100 lotes, alarma fuerte para 1000 lotes).
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas  
-- La **configuración de las alertas** no es flexible, limitando las opciones de personalización  
-- **Visualización limitada**: no permite personalizar completamente el estilo o los colores de las transacciones y patrones  
-- No permite **ajustes dinámicos** en función de la volatilidad o de la actividad del mercado
+### 📈 Veredicto: ¿Es útil para Scalping?
 
----
+**Imprescindible.** Para scalping moderno de futuros, ver la cinta en el gráfico es una ventaja competitiva enorme.
 
-### 🛠️ Propuestas de mejora  
-- Añadir soporte para **alertas más personalizables** basadas en el volumen y el precio  
-- Mejorar la **visualización** de los patrones y transacciones con más opciones de personalización (colores, formas, etc.)  
-- Implementar **ajustes dinámicos** en los parámetros de análisis según el comportamiento del mercado en tiempo real
+**Acción:** **Conservar.**

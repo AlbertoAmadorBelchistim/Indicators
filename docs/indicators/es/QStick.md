@@ -1,14 +1,41 @@
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: QStick.cs
+name: Q Stick
+category: Momentum
+score_current: 6/10
+version: ATAS Official
+recommended_action: Conservar
+description: ¿Cuál es el promedio móvil de la distancia entre apertura y cierre de las velas?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: Indicador simple de Chande (SMA de Close-Open). Código limpio y funcional. Utilidad limitada comparada con herramientas de volumen modernas.
+file_state: Estable
+score_potential: 6/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
 ## 🟦 Q Stick (6/10)
 
-**Nombre del archivo:** `QStick.cs`  
+**Nombre del archivo:** [`QStick.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/QStick.cs)  
 **Nombre del indicador:** Q Stick  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602451](https://help.atas.net/support/solutions/articles/72000602451)
+**Web oficial:** [ATAS — Q Stick](https://help.atas.net/support/solutions/articles/72000602451)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** ¿Cuál es el promedio móvil de la distancia entre apertura y cierre de las velas?
+
+![QStick](../../img/QStick.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **Period**: Número de barras para calcular la media de la diferencia Open–Close (por defecto: 10)
+* **Period**: Número de barras para calcular la media de la diferencia Open–Close (por defecto: 10)
 
 ---
 
@@ -19,9 +46,9 @@
 
 ### 🧠 Uso más frecuente
 
-- Medir el **impulso direccional promedio** de las velas  
-- Detectar **sesgos alcistas o bajistas acumulados**  
-- Confirmar rupturas o giros mediante persistencia del signo del QStick
+* Medir el **impulso direccional promedio** de las velas (cuerpos)
+* Detectar **sesgos alcistas o bajistas acumulados**
+* Confirmar rupturas o giros mediante persistencia del signo del QStick
 
 ---
 
@@ -29,54 +56,46 @@
 🔟 **6 / 10**
 
 ✅ Indicador simple, útil como filtro o confirmador direccional  
-✅ Puede combinarse con otros osciladores para filtrar señales falsas  
-⛔ Poco conocido y limitado si se usa de forma aislada
+✅ Visualización clara de la "presión" de las velas  
+⛔ Ignora completamente el volumen y las mechas
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Confirmación de dirección**: operar solo si el QStick es positivo/negativo  
-- **Cruce con la línea cero** como gatillo de entrada o salida  
-- **Filtro de contexto**: evitar operar en rangos si QStick permanece cercano a cero
+* **Confirmación de dirección**: operar solo si el QStick es positivo/negativo
+* **Cruce con la línea cero** como gatillo de entrada o salida
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **Period**: `9`
-
-✅ Detecta con rapidez cambios sostenidos en la dirección de las velas  
-✅ Sencillo de leer y configurar  
-⛔ Puede necesitar combinación con volumen o delta para robustecer la señal
+* **Period**: `9`
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Calcula la diferencia entre cierre y apertura en cada vela y guarda en `_openCloseSeries`  
-- La serie principal (`_renderSeries`) es la media de esas diferencias en el periodo seleccionado  
-- Añade una línea horizontal fija en cero (`ZeroVal`) como referencia visual  
-- Soporta `MinimizedMode` para visualización simplificada  
-- Usa `CalcSum(period, bar)` para optimizar cálculo acumulado
+* Calcula `_openCloseSeries[bar] = Close - Open`
+* Calcula `_renderSeries[bar] = SMA(_openCloseSeries, Period)`
+* Incluye una línea cero de referencia (`ZeroVal`)
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+El indicador es una implementación correcta de la idea de Tushar Chande. Es una forma matemática de cuantificar si las velas están cerrando consistentemente por encima de su apertura ("presión alcista interna") o por debajo.
+
+Es un indicador "correcto" pero algo obsoleto en la era del Order Flow. El Delta Acumulado o el CVD ofrecen una información similar (presión de compra/venta) pero basada en datos reales de mercado, no solo en la geometría de la vela.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- No se valida si el número de barras cargadas es menor que `Period`  
-- No permite aplicar suavizado adicional (ej: EMA del QStick)  
-- El nombre del indicador puede confundirse con indicadores de tipo "stick" de patrones de velas  
-- No ofrece alertas ni visualización dinámica de color según dirección  
-- No expone la serie de diferencia cruda (`Close - Open`) como serie auxiliar visible
+**Ocasionalmente.**
 
----
+Puede servir como un filtro de tendencia muy básico si no tienes datos de volumen.
 
-### 🛠️ Propuestas de mejora
-
-- Añadir opción para suavizar el resultado con EMA o SMA adicional  
-- Incluir alertas visuales o sonoras al cruce con cero  
-- Permitir mostrar la serie `Close - Open` como histograma adicional  
-- Añadir codificación de color en la línea principal según signo o pendiente  
-- Documentar en la interfaz cómo se interpreta el QStick y sus rangos típicos
+**Acción:** **Conservar (Indicador técnico clásico).**
 

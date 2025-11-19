@@ -1,74 +1,101 @@
-## 🟦 Volume On The Chart (8 / 10)  
-**Nombre del archivo:** `VolumeOnChart.cs`  
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: VolumeOnChart.cs
+name: Volume On The Chart
+category: Volume
+score_current: 8/10
+version: Stable
+recommended_action: Conservar
+description: Visualiza el volumen como un histograma de fondo superpuesto al precio para ahorrar espacio.
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Versión visual eficiente del indicador de volumen. Dibuja en el fondo del panel de precios."
+file_state: Estable
+score_potential: 9/10
+effort: Bajo
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
+## 🟦 Volume On The Chart (8/10)
+
+**Nombre del archivo:** [`VolumeOnChart.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/VolumeOnChart.cs)  
 **Nombre del indicador:** Volume On The Chart  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000619334](https://help.atas.net/support/solutions/articles/72000619334)
+**Web oficial:** [ATAS — Volume On The Chart](https://help.atas.net/support/solutions/articles/72000619334)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** Visualiza el volumen como un histograma de fondo superpuesto al precio para ahorrar espacio.
+
+![VolumeOnChart](../../img/VolumeOnChart.png)
 
 ---
 
-### ⚙️ Parámetros configurables  
-- **Height**: Altura del área de visualización del volumen como porcentaje del panel de velas (por defecto: `15`)  
-- **ShowVolume**: Mostrar etiquetas de volumen en modo clúster (controlado internamente)  
-- **VolLocation**: Posición vertical del texto del volumen (`Up`, `Center`, `Down`)  
-- **Font / FontColor**: Fuente y color del texto del volumen (usados internamente)  
-- **Input**: Fuente de datos (`Volume` o `Ticks`)  
+### ⚙️ Parámetros configurables
+
+* **Height**: Porcentaje de altura del panel que ocupará el volumen máximo (ej. 15%).  
+* **Location**: Posición (Arriba, Abajo).  
+* **Heredados**: Todos los parámetros del indicador `Volume` base (Alertas, Filtros, Colores).  
 
 ---
 
-### 🧭 Clasificación  
-📂 Volume — Visualización directa del volumen sobre el gráfico de velas
+### 🧭 Clasificación
+📂 Volume — Optimización de espacio de trabajo (Workspace).
 
 ---
 
-### 🧠 Uso más frecuente  
-- Mostrar el **volumen o número de transacciones** de cada vela sobre el gráfico  
-- Comparar fácilmente la **intensidad de participación por vela** sin panel adicional  
-- Visualizar el volumen directamente sin distraerse del contexto de precio
+### 🧠 Uso más frecuente
+
+* **Pantallas Pequeñas:** En portátiles, ganar un 15-20% de altura vertical eliminando el sub-panel de volumen es vital.  
+* **Correlación Visual:** Al tener el volumen pegado a la vela, es más fácil ver la relación tamaño/volumen sin mover los ojos.  
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **8 / 10**  
-✅ Muy visual y directo para confirmar si el movimiento está respaldado por volumen  
-✅ Compatible con análisis de clúster y volumen sin saturar el gráfico  
-⛔ Requiere ajustar altura y color si se superpone a elementos importantes
+### 📊 Nivel de relevancia
+🔟 **8 / 10**
+
+✅ **Eficiencia de Espacio:** Su principal virtud.  
+✅ **Herencia:** Al heredar de `Volume`, mantiene todas las funciones avanzadas (alertas, filtros) sin duplicar código.  
+✅ **Escalado Automático:** Calcula el máximo visible (`maxValue`) para escalar las barras dinámicamente.  
 
 ---
 
-### 🎯 Estrategias de scalping donde se aplica  
-- **Validación de ruptura**: Ver si el movimiento está acompañado por volumen creciente  
-- **Rechazo/absorción**: Detectar velas de gran volumen con cierre contrario  
-- **Segmentación intrabar**: Visualizar diferencias entre volumen y ticks para evaluar agresividad
+### 🎯 Estrategias de scalping donde se aplica
+
+* **Igual que Volumen:** Cualquier estrategia de volumen aplica, pero con una visualización más compacta.  
 
 ---
 
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
-- **Height**: `15`  
-- **Input**: `Volume`  
-- **VolLocation**: `Center`  
-- **FontColor**: `White`
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-✅ Ideal para seguimiento de volumen por vela sin ocupar otro panel  
-✅ Compatible con visualización de delta y clúster simultáneamente  
-⛔ Puede dificultar lectura si hay demasiadas etiquetas o texto pequeño
+* **Height**: `15` o `20`.  
+* **Location**: `Down` (Estándar).  
+* **Filter**: Usar colores brillantes para volumen alto para que destaque sobre el fondo del gráfico.  
 
 ---
 
-### 🧪 Notas de desarrollo  
-- Dibuja un **rectángulo de volumen proporcional** en cada vela usando `RenderContext`  
-- Calcula el volumen máximo visible para escalar proporcionalmente  
-- El texto de volumen se muestra opcionalmente, y solo en modo de clúster  
-- No usa panel propio: el gráfico se dibuja **sobre el panel de velas**
+### 🧪 Notas de desarrollo
+
+* **Herencia:** `public class VolumeOnChart : Volume`. Buena práctica de OOP. Reutiliza toda la lógica de cálculo.
+* **Render:** Usa `context.FillRectangle` en el panel `CandlesPanel`.
+* **Escalado:** Recorre las barras visibles (`FirstVisible` a `LastVisible`) en cada render para normalizar la altura. Correcto para UX.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Es una variante de interfaz de usuario (UI) más que un indicador nuevo, pero muy valiosa. Demuestra cómo extender indicadores existentes para cambiar su presentación.
+
+**Propuestas de Mejora:**
+* **Opacidad:** Asegurar que los colores tengan alfa (transparencia) por defecto para no tapar las velas si el volumen es muy alto.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas  
-- No permite cambiar el color de los rectángulos desde la UI  
-- Las etiquetas de texto solo se muestran si está activado el modo clúster  
-- No se puede alternar entre `Volume` y `Ticks` desde la interfaz (requiere código)
+### 📈 Veredicto: ¿Es útil para Scalping?
 
----
+**Sí.** Especialmente para setups de múltiples gráficos donde el espacio es oro.
 
-### 🛠️ Propuestas de mejora  
-- Permitir **cambiar colores de volumen directamente** desde la interfaz  
-- Incluir opción para **mostrar volumen como histograma transparente bajo la vela**  
-- Añadir compatibilidad con **delta u otras métricas personalizadas**
+**Acción:** **Conservar.**

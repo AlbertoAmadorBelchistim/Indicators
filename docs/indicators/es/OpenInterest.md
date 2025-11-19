@@ -1,19 +1,44 @@
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: OpenInterest.cs
+name: Open Interest
+category: Volume
+score_current: 8/10
+version: ATAS Official
+recommended_action: Conservar
+description: ¿Cuál es el Interés Abierto total (o su cambio neto) por barra o sesión?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: Indicador estándar de OI. Implementación sólida con modos por barra, sesión y acumulado. Incluye alertas y filtros visuales útiles.
+file_state: Estable
+score_potential: 8/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
 ## 🟦 Open Interest (8/10)
 
-**Nombre del archivo:** `OpenInterest.cs`  
+**Nombre del archivo:** [`OpenInterest.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/OpenInterest.cs)  
 **Nombre del indicador:** Open Interest  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602439](https://help.atas.net/support/solutions/articles/72000602439)
+**Web oficial:** [ATAS — Open Interest](https://help.atas.net/support/solutions/articles/72000602439)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** ¿Cuál es el Interés Abierto total (o su cambio neto) por barra o sesión?
+
+![OpenInterest](../../img/OpenInterest.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **Mode**: Modo de cálculo (`ByBar`, `Session`, `Cumulative`)  
-- **MinimizedMode**: Mostrar en modo minimizado (solo parte superior del histograma)  
-- **Filter**: Umbral mínimo de cambio para mostrar vela  
-- **FilterColor**: Color de las velas filtradas  
-- **UseAlerts / AlertFile / ChangeSize**: Activar alertas y sensibilidad  
-- **AlertForeColor / AlertBGColor**: Colores del texto y fondo de la alerta
+* **Mode**: Modo de cálculo (`ByBar`, `Session`, `Cumulative`)
+* **MinimizedMode**: Mostrar en modo minimizado (solo parte superior del histograma)
+* **Filter**: Umbral mínimo de cambio para mostrar vela
+* **UseAlerts**: Activar alertas ante cambios relevantes
 
 ---
 
@@ -24,9 +49,9 @@
 
 ### 🧠 Uso más frecuente
 
-- Visualizar el **cambio de posiciones abiertas** por barra o sesión  
-- Confirmar **acumulación o distribución**  
-- Generar **alertas ante cambios relevantes en el OI**
+* Visualizar el **cambio de posiciones abiertas** por barra o sesión
+* Confirmar **acumulación o distribución**
+* Generar **alertas ante cambios relevantes en el OI**
 
 ---
 
@@ -41,51 +66,45 @@
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Confirmación de ruptura real** si el OI aumenta tras superar nivel  
-- **Filtro de trampa** si el precio sube pero el OI cae → posible cierre de posiciones  
-- **Alertas para scalping rápido** ante picos de OI no habituales
+* **Confirmación de ruptura real** si el OI aumenta tras superar nivel
+* **Filtro de trampa** si el precio sube pero el OI cae → posible cierre de posiciones
+* **Alertas para scalping rápido** ante picos de OI no habituales
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **Mode**: `ByBar`  
-- **MinimizedMode**: `true`  
-- **Filter**: `0` o ajustado al ruido típico  
-- **UseAlerts**: `true`  
-- **ChangeSize**: `50` (ajustable según contrato)
-
-✅ Útil como filtro adicional de contexto institucional  
-✅ Compatible con análisis de absorción, presión o rotura  
-⛔ Depende fuertemente de la calidad de los datos de OI
+* **Mode**: `ByBar`
+* **Filter**: `0` (o ajustado al ruido)
+* **UseAlerts**: `true`
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- El cálculo se adapta según el modo elegido (`ByBar`, `Session`, `Cumulative`)  
-- Las velas se pintan solo si el valor de `OI` cambia o cumple con el filtro  
-- Se colorea una segunda serie (`_filterSeries`) solo si el cambio supera el umbral  
-- Las alertas se lanzan si el cambio supera `ChangeSize` en la última barra  
-- Compatible con modo minimizado para mostrar solo parte positiva
+* Calcula el OI según el modo:
+    * `ByBar`: Diferencia `OI[t] - OI[t-1]`
+    * `Cumulative`: Valor total `OI[t]`
+    * `Session`: Diferencia desde el inicio de la sesión
+* Implementa alertas simples basadas en el cambio neto (`Math.Abs(this[bar]) >= _changeSize`)
+* Usa una serie secundaria (`_filterSeries`) para colorear barras que superan el filtro
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Es una implementación estándar y fiable del Interés Abierto. El código es limpio y no tiene problemas de rendimiento ni bugs evidentes.
+
+La inclusión de un sistema de alertas integrado (`ChangeSize`) es muy útil para scalping, ya que permite al trader ser notificado de entradas masivas de posiciones sin tener que mirar el indicador constantemente. Es menos granular que el `OI Analyzer`, pero más fácil de configurar y leer rápidamente.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- En `bar == 0`, si el OI es cero y el modo es `ByBar`, la vela se omite completamente  
-- No se valida que `ChangeSize` sea coherente con el filtro visual → puede lanzar alerta aunque no se vea vela  
-- El valor por defecto de `MinimizedMode` puede ocultar parte de la señal si no se entiende su funcionamiento  
-- No permite mostrar `OI` como línea continua (solo velas)  
-- La condición de alerta depende de `this[bar]`, que puede estar oculta por filtro o minimización
+**Sí.**
 
----
+Para una lectura rápida de "están entrando o saliendo", es suficiente y eficaz.
 
-### 🛠️ Propuestas de mejora
-
-- Mostrar una línea auxiliar de OI acumulado si se desea  
-- Incluir leyenda visual que indique el modo de cálculo activo  
-- Permitir representar el `OI` como histograma o línea según preferencia  
-- Añadir codificación de color dinámica según crecimiento o decrecimiento  
-- Validar coherencia entre alerta y visibilidad de la vela (evitar señales ocultas)
+**Acción:** **Conservar (Estándar y eficaz).**
 

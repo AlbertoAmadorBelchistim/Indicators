@@ -1,72 +1,97 @@
-## 🟦 Weiss Wave (8 / 10)  
-**Nombre del archivo:** `WeissWave.cs`  
-**Nombre del indicador:** Weiss Wave  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602507](https://help.atas.net/support/solutions/articles/72000602507)
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: WeissWave.cs
+name: Weis Wave
+category: Volume
+score_current: 8/10
+version: Stable
+recommended_action: Conservar
+description: ¿Cuánto volumen acumulado (esfuerzo) hay en la onda de precio actual?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Acumulador de volumen por ondas (ZigZag de volumen). Esencial para Wyckoff."
+file_state: Estable
+score_potential: 9/10
+effort: Bajo
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
+## 🟦 Weis Wave (8/10)
+
+**Nombre del archivo:** [`WeissWave.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/WeissWave.cs)  
+**Nombre del indicador:** Weis Wave  
+**Web oficial:** [ATAS — Weis Wave](https://help.atas.net/support/solutions/articles/72000602507)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** ¿Cuánto volumen acumulado (esfuerzo) hay en la onda de precio actual?
+
+![WeissWave](../../img/WeissWave.png)
 
 ---
 
-### ⚙️ Parámetros configurables  
-- **Filter**: Volumen mínimo para destacar una ola como relevante  
-- **PosColor / NegColor**: Color para olas alcistas y bajistas  
-- **FilterColor**: Color especial para olas que superan el filtro
+### ⚙️ Parámetros configurables
+
+* **Filter**: Resaltar ondas con volumen superior a X.  
+* **Colors**: Positivo, Negativo, Filtro.  
 
 ---
 
-### 🧭 Clasificación  
-📂 Volume — Indicador clásico de volumen por ondas acumuladas
+### 🧭 Clasificación
+📂 Volume — Indicador de estructura de mercado y flujo (Wyckoff).
 
 ---
 
-### 🧠 Uso más frecuente  
-- Medir el **volumen acumulado por movimientos de precio consecutivos** en una misma dirección  
-- Visualizar la **intensidad del movimiento** en forma de olas de volumen  
-- Detectar **cambios de intención** o clímax de volumen durante la evolución de una tendencia
+### 🧠 Uso más frecuente
+
+* **Esfuerzo vs Resultado:** Si la onda de volumen es gigante pero el precio apenas avanza, es absorción.  
+* **Secado:** Si el precio retrocede a soporte y la onda de volumen es minúscula, no hay oferta. Compra.  
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **8 / 10**  
-✅ Muy útil para **confirmar la intención de una ola de precio**  
-✅ Compatible con la lógica de **Wyckoff, VSA y estructuras swing**  
-⛔ No tiene detección automática de cambio de ola (solo compara dirección visual)
+### 📊 Nivel de relevancia
+🔟 **8 / 10**
+
+✅ **Visión Estructural:** Agrupa el ruido de velas individuales en "olas" de presión.  
+✅ **Detección de Giro:** El cambio de color indica cambio de carácter inmediato.  
+⛔ **Lógica Simple:** Esta versión usa `Open < Close` para definir la dirección. Una versión más avanzada usaría un ZigZag de precio para definir las ondas, no la dirección de la vela individual.  
 
 ---
 
-### 🎯 Estrategias de scalping donde se aplica  
-- **Validación de ruptura**: Confirmar una ruptura si la nueva ola muestra volumen creciente  
-- **Debilitamiento de tendencia**: Volumen decreciente en nuevas olas → posible giro  
-- **Confirmación de absorción**: Ola pequeña pero con gran volumen → posible absorción o test institucional
+### 🎯 Estrategias de scalping donde se aplica
+
+* **Wave Failure:** Precio hace nuevo mínimo pero la onda Weis roja es mucho menor que la anterior -> Divergencia de volumen.  
 
 ---
 
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
-- **Filter**: `2000`  
-- **PosColor**: `Lime`  
-- **NegColor**: `Red`  
-- **FilterColor**: `Aqua`
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-✅ Muestra si un movimiento tiene volumen acumulado real  
-✅ Ideal para confirmar giros, absorciones y desequilibrios  
-⛔ Puede repintar si se cambia el criterio de dirección entre velas
+* **Filter**: `5000` (Para ver clímax).  
 
 ---
 
-### 🧪 Notas de desarrollo  
-- Suma el volumen de la vela actual a la ola previa si mantiene la dirección del cuerpo  
-- Si cambia la dirección (open-close), inicia una nueva ola con el volumen actual  
-- Usa `VisualMode.Histogram` con colores codificados por dirección y volumen  
-- Aplica un **color alternativo (FilterColor)** si el volumen de la ola supera el umbral configurado
+### 🧪 Notas de desarrollo
+
+* **Algoritmo:** Acumula volumen si `Sign(Close - Open)` es igual al de la vela anterior.
+* **Limitación:** Si tienes una vela alcista pequeña en medio de una caída fuerte, la onda se rompe. La versión "ZigZag" es mejor para ver ondas reales.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Es bueno, pero la lógica de "vela a vela" lo hace muy nervioso. Sería mejor si se basara en un ZigZag de precio (ej. 3 ticks de retroceso) para acumular el volumen.
+
+**Propuestas de Mejora:**
+* **Modo ZigZag:** Integrar lógica de ZigZag para definir el cambio de onda en lugar de usar solo el color de la vela.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas  
-- La lógica de dirección usa solo `Math.Sign(Open - Close)` → ignora casos de cuerpo plano o cambio por mecha  
-- No hay validación explícita de `Filter < 0` (aunque no genera errores funcionales)  
-- No permite visualizar la **etiqueta de volumen total por ola** ni su duración
+### 📈 Veredicto: ¿Es útil para Scalping?
 
----
+**Sí.** Para ver divergencias de flujo rápidas.
 
-### 🛠️ Propuestas de mejora  
-- Añadir opción de **mostrar etiqueta con valor de volumen acumulado**  
-- Incluir **líneas de cambio de ola** o visualización de pivotes  
-- Permitir definir la dirección basada en `Close > Close[bar - 1]` o swings reales en vez de solo open/close
+**Acción:** **Mejorar (Añadir lógica ZigZag).**

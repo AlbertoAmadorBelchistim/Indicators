@@ -1,66 +1,95 @@
-## 🟦 Volatility – Historical (8 / 10)  
-**Nombre del archivo:** `VolatilityHist.cs`  
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: VolatilityHist.cs
+name: Volatility - Historical
+category: Volatility
+score_current: 4/10
+version: Buggy
+recommended_action: Reparar
+description: ¿Cuál es la volatilidad estadística histórica basada en los retornos logarítmicos?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Error conceptual grave: usa 'CurrentBar' (tiempo total) como factor de escalado. Resultados distorsionados."
+file_state: Roto
+score_potential: 8/10
+effort: Bajo
+action_priority: P1
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
+## 🟦 Volatility - Historical (4/10)
+
+**Nombre del archivo:** [`VolatilityHist.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/VolatilityHist.cs)  
 **Nombre del indicador:** Volatility - Historical  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602266](https://help.atas.net/support/solutions/articles/72000602266)
+**Web oficial:** [ATAS — Volatility - Historical](https://help.atas.net/support/solutions/articles/72000602266)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** ¿Cuál es la volatilidad estadística histórica basada en los retornos logarítmicos?
+
+![VolatilityHist](../../img/VolatilityHist.png)
 
 ---
 
-### ⚙️ Parámetros configurables  
-- **Period**: Número de barras para calcular la desviación estándar logarítmica (por defecto: `10`)
+### ⚙️ Parámetros configurables
+
+* **Period**: Ventana de cálculo de la desviación estándar.
 
 ---
 
-### 🧭 Clasificación  
-📂 Volatility — Volatilidad histórica basada en desviación estándar logarítmica
+### 🧭 Clasificación
+📂 Volatility — Medida estadística académica (HV).
 
 ---
 
-### 🧠 Uso más frecuente  
-- Medir la **volatilidad histórica real** del activo a través del **log-retorno**  
-- Comparar periodos de **alta o baja variación relativa**  
-- Usar como filtro para activar o desactivar estrategias en función de la **volatilidad implícita reciente**
+### 🧠 Uso más frecuente
+
+* **Trading de Opciones:** Comparar HV (Historical Volatility) con IV (Implied Volatility).  
+* **Ajuste de Posición:** Reducir tamaño si HV se dispara.  
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **8 / 10**  
-✅ Basado en una medida **estandarizada y estadísticamente robusta**  
-✅ Muy útil como **indicador de contexto** para evaluar riesgo  
-⛔ Puede ser complejo de interpretar sin conocimiento de estadística financiera
+### 📊 Nivel de relevancia
+🔟 **4 / 10**
+
+✅ **Base Teórica:** Usa log-retornos (`ln(P/P_prev)`), que es lo correcto en finanzas.  
+⛔ **BUG CRÍTICO:** La fórmula incluye `Math.Sqrt(CurrentBar)`. Esto hace que la volatilidad calculada aumente a medida que avanza el día simplemente porque el número de barra es mayor. Debería ser una constante de anualización (ej. $\sqrt{252}$ para días, o $\sqrt{N}$ para intradía fijo), no una variable creciente. Esto invalida el indicador para sesiones largas.  
 
 ---
 
-### 🎯 Estrategias de scalping donde se aplica  
-- **Activación por volatilidad**: Ejecutar estrategias solo si la volatilidad supera cierto nivel  
-- **Tamaño de stop variable**: Ajustar el riesgo según el valor del indicador  
-- **Filtrado de entorno**: Evitar operar en zonas con compresión extrema
+### 🎯 Estrategias de scalping donde se aplica
+
+* **N/A:** En su estado actual, los valores no son fiables intradía.
 
 ---
 
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
-- **Period**: `10`
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-✅ Ofrece una métrica de **volatilidad confiable** y comparable entre activos  
-✅ Útil para **gestión de riesgo dinámica**  
-⛔ No es un indicador de señal, sino **de contexto**
+* **No usar** hasta que se repare.
 
 ---
 
-### 🧪 Notas de desarrollo  
-- Calcula el **logaritmo natural del cociente** entre el cierre actual y el anterior  
-- Usa una **SMA** para suavizar los log-retornos y calcular la **varianza**  
-- Escala el resultado por 100 y por la raíz cuadrada del número de barras (como en estadística de muestra)
+### 🧪 Notas de desarrollo
+
+* **Error:** `this[bar] = 100 * (decimal)(Math.Sqrt(CurrentBar) * ...`. `CurrentBar` es el índice de la barra actual desde el inicio de la carga. En la barra 1000 el valor será $\sqrt{10} \approx 3$ veces mayor que en la barra 100, aunque la volatilidad real sea la misma.
+* **Corrección:** Reemplazar `CurrentBar` por una constante que represente el número de periodos en un año (si se quiere anualizar) o eliminarlo para tener volatilidad por periodo.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Está roto conceptualmente. El desarrollador probablemente confundió "Número de observaciones en la muestra anual" con "Número de barra actual".
+
+**Propuestas de Mejora:**
+* **REPARAR:** Cambiar la fórmula de escalado. Permitir al usuario definir el factor de anualización o usar volatilidad per-periodo.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas  
-- Usa `CurrentBar` en lugar de `Period` en el cálculo final del escalado (puede provocar errores al inicio)  
-- No hay protección ante división por cero si `SourceDataSeries[bar - 1] == 0`  
-- No incluye líneas guía ni umbrales para facilitar su lectura
+### 📈 Veredicto: ¿Es útil para Scalping?
 
----
+**No.** Da datos falsos crecientes.
 
-### 🛠️ Propuestas de mejora  
-- Corregir uso de `CurrentBar` por `Period` para coherencia estadística  
-- Añadir **alertas automáticas** o líneas guía para niveles clave de volatilidad  
-- Incluir opciones visuales para representar volatilidad media, máxima o mínima
+**Acción:** **Reparar (Prioridad Alta).**

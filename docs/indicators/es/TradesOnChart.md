@@ -1,77 +1,101 @@
-## 🟦 Trades On Chart (9/10)  
-**Nombre del archivo:** `TradesOnChart.cs`  
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: TradesOnChart.cs
+name: Trades On Chart
+category: Visualization
+score_current: 9/10
+version: Stable
+recommended_action: Conservar
+description: ¿Dónde ejecuté mis operaciones pasadas y cuál fue el resultado (PnL) visualmente?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Excelente herramienta de post-análisis. Dibuja trades del historial con PnL y líneas de conexión."
+file_state: Estable
+score_potential: 9/10
+effort: Medio
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 2025-11-13
+user_modification_date: null
+---
+
+## 🟦 Trades On Chart (9/10)
+
+**Nombre del archivo:** [`TradesOnChart.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/TradesOnChart.cs)  
 **Nombre del indicador:** Trades On Chart  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000633119](https://help.atas.net/support/solutions/articles/72000633119)
+**Web oficial:** [ATAS — Trades On Chart](https://help.atas.net/support/solutions/articles/72000633119)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 13/11/2025  
+
+> **La Pregunta Clave:** ¿Dónde ejecuté mis operaciones pasadas y cuál fue el resultado (PnL) visualmente?
+
+![TradesOnChart](../../img/TradesOnChart.png)
 
 ---
 
-### ⚙️ Parámetros configurables  
-- **ShowLine**: Mostrar líneas que conectan las **entradas** y **salidas** de las transacciones (por defecto: `true`)  
-- **ShowTooltip**: Mostrar las **descripciones** de las transacciones (por defecto: `true`)  
-- **BuyColor**: Color para las barras de **compra** (por defecto: `Green`)  
-- **SellColor**: Color para las barras de **venta** (por defecto: `Red`)  
-- **LineWidth**: Ancho de las líneas de conexión entre las transacciones (por defecto: `2`)  
-- **LineStyle**: Estilo de línea para las conexiones (por defecto: `Dash`)  
-- **MarkerSize**: Tamaño de los marcadores de las transacciones (por defecto: `2`)
+### ⚙️ Parámetros configurables
+
+* **ShowLine / ShowTooltip**: Mostrar líneas de conexión y etiquetas de texto.  
+* **Colores**: Compra, Venta, Profit, Loss.  
+* **Estilos**: Grosor, tipo de línea, tamaño de marcador.  
+* **LabelDisplay**: Modo de etiqueta (Oculto, Corto, Completo).  
 
 ---
 
-### 🧭 Clasificación  
-📂 Visualization — Indicador para mostrar las **transacciones en el gráfico**
+### 🧭 Clasificación
+📂 Visualization — Herramienta de auditoría y revisión de trading.
 
 ---
 
-### 🧠 Uso más frecuente  
-- Visualizar las **transacciones de compra y venta** directamente en el gráfico  
-- Mostrar los **resultados de las transacciones** y calcular el **PNL** (ganancias o pérdidas)  
-- **Marcar entradas y salidas** de cada transacción con líneas y colores personalizados
+### 🧠 Uso más frecuente
+
+* **Review Diario:** Al terminar la sesión, revisar si las entradas cumplieron las reglas.  
+* **Journaling:** Tomar capturas de pantalla con este indicador activo para el diario de trading.  
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **9 / 10**  
-✅ Ideal para visualizar las **transacciones pasadas** y sus resultados directamente en el gráfico  
-✅ Muy útil para **analizar el rendimiento histórico de las transacciones**  
-⛔ No es útil para **predecir movimientos futuros** o para **estrategias de trading en tiempo real**
+### 📊 Nivel de relevancia
+🔟 **9 / 10**
+
+✅ **Didáctico:** Ver tus errores pintados en el gráfico es la mejor forma de aprender.  
+✅ **Interactividad:** Detecta el ratón (`DrawTooltip`) para mostrar detalles solo cuando se necesita, manteniendo el gráfico limpio.  
+✅ **Integración:** Se conecta automáticamente al portfolio seleccionado en ATAS.  
 
 ---
 
-### 🎯 Estrategias de scalping donde se aplica  
-- **Confirmación de entrada/salida**: Usar las **líneas de transacción** para confirmar puntos de **entrada y salida**  
-- **Gestión de riesgos**: Analizar las transacciones anteriores para **ajustar tamaños de posición** y **gestionar el riesgo**  
-- **PNL de las transacciones**: Ver el **rendimiento histórico** de las transacciones para mejorar la toma de decisiones
+### 🎯 Estrategias de scalping donde se aplica
+
+* **Análisis de MAE/MFE:** Visualmente puedes ver si tu stop (línea roja) estaba demasiado cerca o si saliste demasiado pronto (línea verde corta).  
 
 ---
 
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
-- **ShowLine**: `true`  
-- **ShowTooltip**: `true`  
-- **BuyColor**: `Green`  
-- **SellColor**: `Red`  
-- **LineWidth**: `2`  
-- **MarkerSize**: `2`
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-✅ Funciona bien para **mostrar transacciones pasadas** y verificar su rendimiento  
-✅ Las **descripciones y líneas de transacciones** ayudan a evaluar el **rendimiento histórico**  
-⛔ No es útil para **visualizar transacciones en tiempo real**
+* **ShowLine**: `True`.  
+* **LabelDisplay**: `Short` (Para no tapar las velas).  
 
 ---
 
-### 🧪 Notas de desarrollo  
-- Muestra las **transacciones de compra y venta** utilizando **líneas de conexión** y **marcadores**  
-- Calcula el **PNL** y muestra el rendimiento de cada transacción en función del precio de apertura y cierre  
-- Permite personalizar los colores y el estilo de las líneas y marcadores para las transacciones
+### 🧪 Notas de desarrollo
+
+* **Eventos:** Se suscribe a `TradingStatisticsProvider.Realtime.HistoryMyTrades.Added`. Esto asegura que los trades aparecen en tiempo real.
+* **Render:** Dibuja todo en capa final (`DrawingLayouts.Final`).
+* **Lógica de Labels:** Tiene un algoritmo de detección de colisiones (`IntersectsWith`) para evitar que las etiquetas se solapen. Muy sofisticado.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Es una herramienta de calidad profesional. El esfuerzo puesto en que las etiquetas no se solapen y en los tooltips interactivos demuestra un gran cuidado por la UX.
+
+**Propuestas de Mejora:**
+* Ninguna. Es excelente.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas  
-- No permite personalizar **el estilo de las descripciones** o la **información mostrada en los tooltips**  
-- **Alertas no configurables** basadas en las transacciones de compra/venta  
-- La **visualización de las líneas de transacción** podría ser más flexible en cuanto a colores y estilos
+### 📈 Veredicto: ¿Es útil para Scalping?
 
----
+**Sí (Post-Trade).** No te da señales, pero te ayuda a mejorar tu ejecución.
 
-### 🛠️ Propuestas de mejora  
-- Añadir soporte para **alertas automáticas** cuando se produzcan transacciones de compra/venta  
-- Mejorar la **personalización visual** de las transacciones (colores, tamaños de líneas y marcadores)  
-- Permitir ajustes de **transparencia** para las líneas de transacciones y los marcadores para mejorar la visibilidad
+**Acción:** **Conservar.**

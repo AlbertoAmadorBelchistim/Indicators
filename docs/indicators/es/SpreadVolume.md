@@ -1,77 +1,103 @@
-## 🟦 Spread Volume (7/10)  
-**Nombre del archivo:** `SpreadVolume.cs`  
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: SpreadVolume.cs
+name: Spread Volume
+category: VolumeOrderFlow
+score_current: 7/10
+version: Stable
+recommended_action: Conservar
+description: Visualiza el volumen ejecutado en el Ask y el Bid por separado, dibujado como histogramas en el spread.
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Visualización compleja 'On Chart'. Buen manejo de concurrencia (locks). UX mejorable."
+file_state: Estable
+score_potential: 8/10
+effort: Medio
+action_priority: P3
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 2025-10-20
+user_modification_date: null
+---
+
+## 🟦 Spread Volume (7/10)
+
+**Nombre del archivo:** [`SpreadVolume.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/SpreadVolume.cs)  
 **Nombre del indicador:** Spread Volume  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602630](https://help.atas.net/support/solutions/articles/72000602630)
+**Web oficial:** [ATAS — Spread Volume](https://help.atas.net/support/solutions/articles/72000602630)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 20/10/2025  
+
+> **La Pregunta Clave:** ¿Quién está agrediendo más dentro del spread actual, los compradores (Ask) o los vendedores (Bid)?
+
+![SpreadVolume](../../img/SpreadVolume.png)
 
 ---
 
-### ⚙️ Parámetros configurables  
-- **BuyColor**: Color para el volumen de compra (por defecto: `Green`)  
-- **SellColor**: Color para el volumen de venta (por defecto: `Red`)  
-- **TextColor**: Color del texto de los valores (por defecto: `Black`)  
-- **Spacing**: Espaciado entre las barras de volumen (por defecto: `10`)  
-- **Offset**: Desplazamiento horizontal de las barras (por defecto: `1`)  
-- **Width**: Ancho de las barras de volumen (por defecto: `20`)
+### ⚙️ Parámetros configurables
+
+* **Colors**: Compra, Venta, Texto.  
+* **Dimensiones**: Spacing (espaciado), Width (ancho de barras), Offset (distancia al precio actual).  
 
 ---
 
-### 🧭 Clasificación  
-📂 VolumeOrderFlow — Volumen de compra y venta en el spread
+### 🧭 Clasificación
+📂 VolumeOrderFlow — Microestructura de mercado y visualización de agresividad.
 
 ---
 
-### 🧠 Uso más frecuente  
-- Visualizar el **volumen de compra y venta** en el spread entre el bid y el ask  
-- Analizar la **presión de compra/venta** a través de la relación de volúmenes  
-- Representar el volumen de **operaciones ejecutadas** en los precios de bid y ask
+### 🧠 Uso más frecuente
+
+* **Micro-Soportes:** Ver gran volumen en el Bid (rojo) que no baja el precio → Absorción pasiva de ventas.  
+* **Escalera de Precios:** Ver cómo el volumen se desplaza tick a tick.  
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **7 / 10**  
-✅ Ideal para ver la **distribución de volúmenes** en cada nivel de precios  
-✅ Buena visualización de **presión compradora y vendedora**  
-⛔ Requiere interpretación manual para análisis de señales directas
+### 📊 Nivel de relevancia
+🔟 **7 / 10**
+
+✅ **Detalle Extremo:** Muestra lo que pasa "dentro" de la vela.  
+✅ **Seguridad:** Usa `lock` para gestionar la colección de trades, evitando errores de concurrencia comunes en indicadores de alto flujo.  
+⛔ **Ruido Visual:** Dibuja rectángulos flotantes que pueden tapar el precio o confundirse con Footprint. Requiere configuración cuidadosa.  
+⛔ **Limpieza:** Borra datos antiguos (`RemoveRange`) para no saturar RAM, lo cual es buena práctica.  
 
 ---
 
-### 🎯 Estrategias de scalping donde se aplica  
-- **Presión de compra/venta**: Confirmar si el volumen de compra o venta está dominando el spread  
-- **Ruptura de niveles clave**: Usar el indicador para observar la acumulación de volumen en niveles técnicos  
-- **Lectura de flujo de órdenes**: Detectar agresión de compradores o vendedores a través de los volúmenes en el spread
+### 🎯 Estrategias de scalping donde se aplica
+
+* **Scalping de Spread:** En activos lentos (como Bonos), ver el desequilibrio inmediato Bid/Ask para robar un tick.  
+* **Rejection:** Gran volumen en un lado del spread seguido de movimiento contrario rápido.  
 
 ---
 
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
-- **BuyColor**: `Green`  
-- **SellColor**: `Red`  
-- **Spacing**: `10`  
-- **Offset**: `1`  
-- **Width**: `20`
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-✅ Excelente para captar **volumen en el spread** y detectar desequilibrios  
-✅ Ideal para análisis de **presión de mercado en tiempo real**  
-⛔ No es adecuado para mercados con bajo volumen o sin tendencias claras
+* **Width**: `15`.  
+* **Offset**: `50` (Alejarlo un poco de la vela actual para ver el precio claro).  
 
 ---
 
-### 🧪 Notas de desarrollo  
-- Muestra **barras de volumen** para cada transacción en los niveles de precio bid y ask  
-- El volumen se representa en **colores personalizados** (compra/venta) y se ajusta visualmente con el **espaciado y el ancho de las barras**  
-- El cálculo de volúmenes se basa en los datos de **CumulativeTrade** y se actualiza en tiempo real
+### 🧪 Notas de desarrollo
+
+* **Arquitectura:** Escucha `OnCumulativeTrade` (ticks agregados) para construir su propia base de datos en memoria (`_prints`).  
+* **Render:** Dibuja todo manualmente en `OnRender`.  
+* **Gestión de Memoria:** Mantiene una lista de `_prints` limitada a 200 elementos. Esto es excelente para el rendimiento: solo le importa el "ahora", no el histórico de hace 3 días.  
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Es una herramienta técnica bien codificada. El desarrollador entendió que para scalping de spread solo necesitas los últimos datos, por lo que la limpieza automática de la lista es un acierto de diseño.
+
+**Propuestas de Mejora:**
+* **Filtro de Valor:** Mostrar solo barras si el volumen supera X, para limpiar ruido.
+* **Delta Mode:** Opción de mostrar solo la diferencia (Delta) en el spread en lugar de los dos lados.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas  
-- No se valida si el valor de `Volume` es cero, lo que puede resultar en barras vacías no deseadas  
-- No ofrece opciones para **alertas basadas en volúmenes** o cambios de presión de mercado  
-- El **cálculo de volúmenes** puede no reflejar adecuadamente las operaciones en mercados con alta dispersión de precios  
-- La visualización podría mejorarse con **más configuraciones de personalización** de las barras
+### 📈 Veredicto: ¿Es útil para Scalping?
 
----
+**Sí.** Especialmente para scalpers de "Tick" o DOM que quieren una referencia visual en el gráfico.
 
-### 🛠️ Propuestas de mejora  
-- Añadir soporte para **alertas automáticas** cuando el volumen de compra o venta supere ciertos umbrales  
-- Mejorar la **precisión de visualización** ajustando dinámicamente el **ancho y la altura de las barras**  
-- Ofrecer la opción de **colorear las barras** según otras condiciones de mercado (p. ej. acumulación de volumen o delta)
+**Acción:** **Conservar.**
 

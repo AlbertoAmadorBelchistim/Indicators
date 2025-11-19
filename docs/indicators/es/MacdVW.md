@@ -1,16 +1,43 @@
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: MacdVW.cs
+name: MACD - Volume Weighted
+category: Momentum
+score_current: 8/10
+version: ATAS Official
+recommended_action: Mejorar
+description: ¿Cuál es la convergencia/divergencia entre dos medias ponderadas por volumen (VWMAs)?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: Implementación excelente y segura (con control de división por cero) de un MACD ponderado por volumen. Su única carencia es un histograma coloreado.
+file_state: Estable
+score_potential: 9/10
+effort: Bajo
+action_priority: P3
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
 ## 🟦 MACD - Volume Weighted (8/10)
 
-**Nombre del archivo:** `MacdVW.cs`  
-**Nombre del indicador:** MACD - Volume Weighted  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602231](https://help.atas.net/support/solutions/articles/72000602231)
+**Nombre del archivo:** [`MacdVW.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/MacdVW.cs)    
+**Nombre del indicador:** MACD - Volume Weighted    
+**Web oficial:** [ATAS — MACD - Volume Weighted](https://help.atas.net/support/solutions/articles/72000602231)    
+**Compatibilidad:** ATAS versión estable y superiores.    
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** ¿Cuál es la convergencia/divergencia entre dos medias ponderadas por volumen (VWMAs)?
+
+![MACDVolumeWeighted](../../img/MacdVW.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **Period**: Periodo de suavizado de la línea de señal (por defecto: 9)  
-- **ShortPeriod**: Periodo de cálculo de media corta ponderada por volumen (por defecto: 12)  
-- **LongPeriod**: Periodo de cálculo de media larga ponderada por volumen (por defecto: 26)
+* **Period**: Periodo de suavizado de la línea de señal (por defecto: 9)
+* **ShortPeriod**: Periodo de cálculo de media corta ponderada por volumen (por defecto: 12)
+* **LongPeriod**: Periodo de cálculo de media larga ponderada por volumen (por defecto: 26)
 
 ---
 
@@ -21,9 +48,9 @@
 
 ### 🧠 Uso más frecuente
 
-- Identificar cambios en la tendencia ponderando la acción del precio por volumen  
-- Confirmar movimientos de mayor relevancia al tener en cuenta la participación  
-- Filtrar señales débiles en sesiones con bajo volumen
+* Identificar cambios en la tendencia ponderando la acción del precio por volumen
+* Confirmar movimientos de mayor relevancia al tener en cuenta la participación
+* Filtrar señales débiles en sesiones con bajo volumen
 
 ---
 
@@ -32,55 +59,56 @@
 
 ✅ Refina el MACD clásico incorporando el volumen como peso en el cálculo  
 ✅ Mejora la fiabilidad de señales en entornos institucionales o con fuerte liquidez  
-⛔ Menos útil en activos o momentos con volumen muy bajo o errático
+⛔ El histograma no está coloreado, lo que dificulta la lectura rápida  
+⛔ Menos útil en activos o momentos con volumen muy bajo o errático  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Entrada por cruce** de MACD y señal, con mayor fiabilidad si el volumen acompaña  
-- **Divergencia ponderada**: si el MACDVW diverge mientras el volumen es elevado  
-- **Confirmación de ruptura**: histograma creciente junto con volumen ascendente
+* **Entrada por cruce** de MACD y señal, con mayor fiabilidad si el volumen acompaña
+* **Divergencia ponderada**: si el MACDVW diverge mientras el volumen es elevado
+* **Confirmación de ruptura**: histograma creciente junto con volumen ascendente
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **ShortPeriod**: `8`  
-- **LongPeriod**: `21`  
-- **Period (signal)**: `5`
-
-✅ Mejora la respuesta en gráficos de 1 minuto con alto volumen relativo  
-✅ Aumenta la sensibilidad sin sacrificar consistencia  
-⛔ Puede necesitar filtros adicionales para eliminar ruido en zonas de bajo volumen
+* **ShortPeriod**: `8`
+* **LongPeriod**: `21`
+* **Period (signal)**: `5`
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Sustituye las EMAs clásicas del MACD por medias **ponderadas por volumen**  
-- Calcula dos valores VWAP (corto y largo) y los resta para obtener el MACD  
-- Usa una EMA adicional para suavizar el resultado (línea de señal)  
-- Representa el histograma (`MacdSeries`) y la línea de señal (`SignalSeries`) en un panel separado  
-- Usa internamente dos `ValueDataSeries` auxiliares (`valVol` y `vol`) para cálculos acumulados
+* Sustituye las EMAs clásicas del MACD por Medias Móviles Ponderadas por Volumen (VWMA)
+* Calcula `VWMA = Sum(Precio * Volumen) / Sum(Volumen)` para un período corto y uno largo
+* El MACDVW es la diferencia: `VWMA(Corta) - VWMA(Larga)`
+* Usa una EMA adicional para suavizar el resultado (línea de señal)
+* Incluye una validación de seguridad para evitar división por cero si la suma de volumen es 0
+* Representa el histograma (`MacdSeries`) y la línea de señal (`SignalSeries`)
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Esta es una variación excelente del MACD y su implementación en `MacdVW.cs` es robusta y segura. El concepto de ponderar las medias móviles por el volumen es una mejora lógica sobre el MACD clásico, ya que da más peso a los movimientos de precios que ocurrieron con alta participación.
+
+El código calcula la VWMA (Precio*Volumen / Volumen) para dos períodos y luego calcula su diferencia. Lo más importante es que la implementación incluye una validación de seguridad crucial: `if (volSumShort == 0 || volSumLong == 0) ... return;`. Esto previene un crash por división por cero en barras o instrumentos con volumen nulo, demostrando una codificación defensiva y robusta.
+
+La única debilidad es la misma que la del MACD estándar: el histograma (`_macdSeries`) es monocromático.
+
+**Propuesta de Mejora (P3):**
+* Colorear el histograma `_macdSeries` según su signo (positivo/negativo) o su pendiente (subiendo/bajando) para una lectura visual mucho más rápida.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- No se valida si `ShortPeriod` ≥ `LongPeriod`, lo que puede romper el significado del MACD  
-- No hay visualización diferenciada entre histogramas positivos y negativos (sin color dinámico)  
-- El cálculo puede fallar silenciosamente si `volSumShort` o `volSumLong` son cero (solo se retorna 0 sin alerta)  
-- No permite cambiar el tipo de suavizado (solo EMA como línea de señal)  
-- La lógica no permite visualizar la diferencia entre MACD y señal directamente como tercera serie
+**Sí, mucho.**
 
----
+Al incorporar el volumen, ayuda a filtrar señales falsas de MACD que ocurren con bajo volumen, lo que es un problema común en el scalping. Es una versión superior al MACD clásico.
 
-### 🛠️ Propuestas de mejora
-
-- Añadir codificación de color en el histograma según signo del valor (verde/rojo, por ejemplo)  
-- Mostrar tercera serie opcional: diferencia entre MACD y señal  
-- Añadir validación cruzada de parámetros para evitar configuraciones incoherentes  
-- Permitir seleccionar el tipo de media para suavizar la señal (`EMA`, `SMA`, etc.)  
-- Implementar alertas visuales o auditivas para cruces clave
-
+**Acción:** **Mejorar (Añadir histograma coloreado).**

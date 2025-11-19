@@ -1,14 +1,41 @@
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: MutualFundBars.cs
+name: Mutual Fund Bars
+category: Visualization
+score_current: 4/10
+version: ATAS Official
+recommended_action: Conservar
+description: ¿Cómo se vería el gráfico si cada vela abriera exactamente al cierre de la anterior (estilo fondo mutuo)?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: Indicador de visualización simple que elimina gaps y ruido intradía reescribiendo el Open = Close anterior. Funcional pero de uso muy específico.
+file_state: Estable
+score_potential: 4/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
 ## 🟦 Mutual Fund Bars (4/10)
 
-**Nombre del archivo:** `MutualFundBars.cs`  
+**Nombre del archivo:** [`MutualFundBars.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/MutualFundBars.cs)  
 **Nombre del indicador:** Mutual Fund Bars  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000619006](https://help.atas.net/support/solutions/articles/72000619006)
+**Web oficial:** [ATAS — Mutual Fund Bars](https://help.atas.net/support/solutions/articles/72000619006)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** ¿Cómo se vería el gráfico si cada vela abriera exactamente al cierre de la anterior (estilo fondo mutuo)?
+
+![MutualFundBars](../../img/MutualFundBars.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-Este indicador **no tiene parámetros configurables desde la UI**.
+* **No tiene parámetros configurables.**
 
 ---
 
@@ -19,9 +46,9 @@ Este indicador **no tiene parámetros configurables desde la UI**.
 
 ### 🧠 Uso más frecuente
 
-- Mostrar **barras suavizadas** en las que el precio abre donde cerró la vela anterior  
-- Reproducir comportamiento de activos o fondos que solo muestran el valor al cierre  
-- Visualizar movimientos eliminando el ruido intradía
+* Mostrar **barras suavizadas** en las que el precio abre donde cerró la vela anterior
+* Reproducir comportamiento de activos o fondos que solo muestran el valor al cierre
+* Visualizar movimientos eliminando el ruido intradía
 
 ---
 
@@ -36,44 +63,39 @@ Este indicador **no tiene parámetros configurables desde la UI**.
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-⛔ No aplicable directamente a scalping.  
-✅ Puede usarse como herramienta visual de comparación o en backtesting pasivo
+* No aplicable directamente a scalping.
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-No aplicable como herramienta principal en M1.  
-✅ Posible uso como **referencia visual secundaria**
+* No aplicable.
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Genera una **nueva serie de velas artificiales** (`_renderSeries`) donde:  
-  - `Open = Close` de la vela anterior  
-  - `High/Low = max/min` entre `Close` actual y anterior  
-  - `Close = Close` actual  
-- Usa `CandleDataSeries` y sobreescribe los colores por defecto en `OnApplyDefaultColors`  
-- La serie original de velas (`_bars`) se oculta mediante `_transparent`
+* Genera una **nueva serie de velas artificiales** (`_renderSeries`)
+* Lógica: `Open[t] = Close[t-1]`
+* Ajusta `High` y `Low` para incluir este nuevo `Open` artificial
+* Oculta las velas originales (`_bars`) pintándolas de transparente
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+El indicador es muy simple y estable. Su única función es alterar la visualización de las velas para que no haya saltos entre el cierre de una y la apertura de la siguiente. Esto simula el estilo de gráfico de línea o de fondos mutuos diarios.
+
+El código es correcto. Su utilidad es puramente visual y específica para ciertos tipos de análisis de largo plazo o backtesting simplificado. No tiene aplicación real en trading intradía o scalping.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- No hay control de errores si el `bar == 0`, más allá de limpiar la serie; podría añadirse protección más robusta  
-- No permite personalizar los colores, grosores o bordes desde la UI  
-- La lógica presupone que `GetCandle(bar - 1)` siempre está disponible (no válido en cargas parciales)  
-- No existe opción para usar el `Open` real si se desea  
-- No permite aplicar lógica condicional sobre el tipo de vela generada (ej. pintar solo si cambio relevante)
+**No.**
 
----
+Elimina información vital (gaps de apertura, volatilidad intradía) que un scalper necesita.
 
-### 🛠️ Propuestas de mejora
-
-- Añadir opción para seleccionar entre `Open real` y `Close previo` como apertura  
-- Incluir parámetros para personalizar colores y estilo de las velas  
-- Añadir validación explícita si `bar < 1` o si falta histórico  
-- Mostrar tooltip o valores sobre la vela reconstruida  
-- Permitir aplicar lógicas de filtrado (ej: pintar solo si el movimiento supera X ticks)
+**Acción:** **Conservar (Utilidad de nicho).**
 

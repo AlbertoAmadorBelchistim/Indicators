@@ -1,70 +1,100 @@
-## 🟦 Simple Percentage Volume Oscillator (SPVO) (8/10)  
-**Nombre del archivo:** `SPVO.cs`  
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: SPVO.cs
+name: Simple Percentage Volume Oscillator
+category: Volume
+score_current: 8/10
+version: Stable
+recommended_action: Conservar
+description: Oscilador que muestra la diferencia porcentual entre dos medias móviles de volumen.
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Oscilador de volumen robusto. Protección contra división por cero implementada correctamente."
+file_state: Estable
+score_potential: 8/10
+effort: Bajo
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
+## 🟦 Simple Percentage Volume Oscillator (SPVO) (8/10)
+
+**Nombre del archivo:** [`SPVO.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/SPVO.cs)  
 **Nombre del indicador:** Simple Percentage Volume Oscillator  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602263](https://help.atas.net/support/solutions/articles/72000602263)
+**Web oficial:** [ATAS — SPVO](https://help.atas.net/support/solutions/articles/72000602263)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** ¿Está entrando un volumen inusualmente alto (o bajo) comparado con el promedio reciente?
+
+![SPVO](../../img/SPVO.png)
 
 ---
 
-### ⚙️ Parámetros configurables  
-- **ShortPeriod**: Periodo de la media móvil corta (por defecto: `20`)  
-- **LongPeriod**: Periodo de la media móvil larga (por defecto: `60`)
+### ⚙️ Parámetros configurables
+
+* **ShortPeriod**: Media rápida de volumen (ej. 20).  
+* **LongPeriod**: Media lenta de volumen (ej. 60).  
 
 ---
 
-### 🧭 Clasificación  
-📂 Volume — Volumen Tradicional — Oscilador de volumen ponderado por porcentaje
+### 🧭 Clasificación
+📂 Volume — Oscilador normalizado de actividad.
 
 ---
 
-### 🧠 Uso más frecuente  
-- Analizar el **diferencial entre medias móviles de volumen**  
-- Determinar la **fuerza del volumen relativo** entre periodos cortos y largos  
-- Usar como **indicador de momentum** o para detectar **divergencias de volumen**
+### 🧠 Uso más frecuente
+
+* **Detección de Rupturas:** Una ruptura de precio acompañada de un SPVO disparándose confirma la validez del movimiento.  
+* **Agotamiento:** Precio subiendo pero SPVO bajando (divergencia) sugiere falta de interés profesional.  
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **8 / 10**  
-✅ Excelente para medir **cambios en el momentum del volumen**  
-✅ Ideal para **confirmar tendencias** o detectar **divergencias**  
-⛔ Menos efectivo en mercados con **volumen estable o sin grandes movimientos**
+### 📊 Nivel de relevancia
+🔟 **8 / 10**
+
+✅ **Normalizado:** Al ser porcentual, permite comparar activos distintos o momentos históricos diferentes.  
+✅ **Seguro:** Código protegido contra errores matemáticos básicos.  
+⛔ **Simpleza:** No distingue entre volumen de compra/venta (es volumen total).  
 
 ---
 
-### 🎯 Estrategias de scalping donde se aplica  
-- **Confirmación de tendencias**: Usar el cruce de la media móvil corta sobre la larga como señal de entrada  
-- **Divergencias**: Detectar divergencias entre el SPVO y el precio como indicativo de **reversión**  
-- **Filtrado de ruido**: Confirmar si el volumen respalda el movimiento de precio
+### 🎯 Estrategias de scalping donde se aplica
+
+* **Breakout Confirmation:** Si el precio rompe nivel y SPVO > 10%, entrar. Si SPVO < 0%, es probable falsa ruptura.  
+* **Volume Spike Fade:** Picos extremos en SPVO a menudo marcan el final de un movimiento climático.  
 
 ---
 
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
-- **ShortPeriod**: `20`  
-- **LongPeriod**: `60`
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-✅ Detecta **cambios rápidos de momentum** en el volumen  
-✅ Ideal para **confirmar rupturas** o tendencias en mercados activos  
-⛔ No es útil en **mercados sin grandes movimientos o cambios de volumen significativos**
+* **ShortPeriod**: `5` (Muy reactivo).  
+* **LongPeriod**: `20` (Promedio de la última media hora aprox).  
 
 ---
 
-### 🧪 Notas de desarrollo  
-- El SPVO calcula la diferencia porcentual entre dos medias móviles del volumen: una **corta** y una **larga**  
-- Utiliza dos instancias de la clase `SMA` para las medias móviles y calcula el valor del oscilador en función de la fórmula:  
-  `SPVO = (SMA_corta - SMA_larga) / SMA_larga * 100`
-- La serie de valores se renderiza como un **histograma** que refleja el diferencial de volumen
+### 🧪 Notas de desarrollo
+
+* **Cálculo:** `100 * (Short - Long) / Long`.  
+* **Seguridad:** Verifica `_longSma[bar] != 0` antes de dividir. Esto previene el crash clásico en la barra 0 o en activos sin liquidez inicial.  
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Es una herramienta de confirmación sólida. A diferencia del volumen bruto (barras), el SPVO te dice *cuánto* más volumen hay en términos relativos, lo cual es información procesable al instante.
+
+**Propuestas de Mejora:**
+* **Coloreado:** Pintar el histograma de verde/rojo si el oscilador sube/baja respecto a la barra anterior.
+* **Niveles:** Añadir líneas horizontales configurables para marcar niveles de "Volumen Extremo" (ej. +50%).
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas  
-- No valida si el valor de la **media móvil larga** es cero, lo que podría generar resultados erróneos o nulos  
-- El cálculo de la **media móvil** podría no ser preciso en mercados con **volatilidad extrema o volumen bajo**  
-- No permite **ajustes visuales adicionales** como el color o grosor del histograma
+### 📈 Veredicto: ¿Es útil para Scalping?
 
----
+**Sí.** Vital para filtrar rupturas falsas en segundos.
 
-### 🛠️ Propuestas de mejora  
-- Añadir soporte para **medias móviles exponenciales (EMA)** y otras variantes  
-- Permitir la **personalización visual** del indicador (colores, grosores)  
-- Implementar **alertas automáticas** cuando el SPVO cruce ciertos umbrales  
-- Mejorar el manejo de **errores de cálculo** en casos de datos incompletos o extremos
+**Acción:** **Conservar.**

@@ -1,85 +1,103 @@
-## 🟦 Speed of Tape (8/10)  
-**Nombre del archivo:** `SpeedOfTape.cs`  
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: null
+name: Speed of Tape
+category: VolumeOrderFlow
+score_current: 8/10
+version: Stable
+recommended_action: Conservar
+description: Mide la velocidad de ejecución (ticks, volumen o delta) en una ventana de tiempo deslizante.
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Herramienta táctica de alto valor. Algoritmo O(N) por tick mejorable en rendimiento, pero funcional."
+file_state: Estable
+score_potential: 9/10
+effort: Medio
+action_priority: P3
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
+## 🟦 Speed of Tape (8/10)
+
 **Nombre del indicador:** Speed of Tape  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602472](https://help.atas.net/support/solutions/articles/72000602472)
+**Web oficial:** [ATAS — Speed of Tape](https://help.atas.net/support/solutions/articles/72000602472)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** ¿Se está acelerando el mercado ahora mismo (actividad HFT o institucional)?
+
+![SpeedOfTape](../../img/SpeedOfTape.png)
 
 ---
 
-### ⚙️ Parámetros configurables  
-- **AutoFilter**: Activar/desactivar el filtro automático (por defecto: `true`)  
-- **AutoFilterPeriod**: Período del filtro SMA (por defecto: `14`)  
-- **Sec**: Número de segundos para calcular la "velocidad" del tape (por defecto: `15`)  
-- **Trades**: Número de operaciones para filtrar (por defecto: `100`)  
-- **Type**: Tipo de cálculo (Volume, Ticks, Buys, Sells, Delta)  
-- **UseAlerts**: Activar alertas (por defecto: `false`)  
-- **AlertFile**: Nombre del archivo de alerta  
-- **AlertForeColor**: Color del texto de la alerta  
-- **AlertBgColor**: Color de fondo de la alerta  
-- **DrawLines**: Dibujar líneas para señales (por defecto: `true`)  
-- **BarsLength**: Longitud de las líneas de señales (por defecto: `10`)  
-- **MaxSpeedColor**: Color para la velocidad máxima  
+### ⚙️ Parámetros configurables
+
+* **Sec**: Ventana de tiempo en segundos para medir la velocidad (ej. 15s).  
+* **Type**: Qué medir (Volumen, Ticks, Delta, Compras, Ventas).  
+* **Trades**: Umbral manual para alertas/color si `AutoFilter` está apagado.  
+* **AutoFilter**: Calcula un umbral dinámico basado en una SMA de la velocidad.  
+* **Visualization**: Colores para PaintBars y líneas de señal.  
 
 ---
 
-### 🧭 Clasificación  
-📂 VolumeOrderFlow — Indicador de velocidad del tape
+### 🧭 Clasificación
+📂 VolumeOrderFlow — Indicador de frecuencia y velocidad de transacciones.
 
 ---
 
-### 🧠 Uso más frecuente  
-- Medir la **velocidad del tape** observando el número de transacciones en un periodo de tiempo determinado  
-- Analizar el **sentimiento del mercado** mediante el delta de compra/venta  
-- Identificar **movimientos rápidos** en el mercado basados en el volumen o los ticks
+### 🧠 Uso más frecuente
+
+* **Detección de Algoritmos:** Los HFT suelen disparar ráfagas de órdenes en milisegundos. Este indicador detecta esos picos.  
+* **Inicio de Impulso:** Un aumento repentino de la velocidad del tape suele preceder al movimiento del precio.  
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **8 / 10**  
-✅ Excelente para identificar **movimientos rápidos** y cambios de ritmo  
-✅ Compatible con **alertas automáticas** para señales en tiempo real  
-⛔ No útil para mercados sin movimientos significativos o con bajo volumen
+### 📊 Nivel de relevancia
+🔟 **8 / 10**
+
+✅ **PaintBars:** Colorea la vela en tiempo real cuando la velocidad supera el promedio, señal visual muy rápida.  
+✅ **AutoFilter:** Se adapta a la volatilidad cambiante del mercado (apertura vs mediodía).  
+⛔ **Rendimiento:** El cálculo itera velas hacia atrás. En gráficos de ticks rápidos y ventanas de tiempo grandes, puede consumir CPU.  
 
 ---
 
-### 🎯 Estrategias de scalping donde se aplica  
-- **Captura de movimientos rápidos**: Detectar aceleraciones de precio con alta actividad  
-- **Confirmación de cambios de tendencia**: Observar la **aceleración en ticks o delta** para confirmar rupturas  
-- **Filtrado de operaciones**: Evitar entrar en momentos de baja velocidad o volumen
+### 🎯 Estrategias de scalping donde se aplica
+
+* **Momentum Scalp:** Si SpeedOfTape se dispara y el Delta es positivo → Comprar mercado.  
+* **Absorción:** Si SpeedOfTape es alto (muchos ticks) pero el precio no se mueve → Posible absorción/giro.  
 
 ---
 
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
-- **Sec**: `15`  
-- **Trades**: `100`  
-- **Type**: `Ticks`  
-- **MaxSpeedColor**: `Yellow`  
-- **DrawLines**: `true`  
-- **BarsLength**: `10`
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-✅ Detecta rápidamente cambios de velocidad de tape  
-✅ Las alertas permiten actuar con agilidad ante variaciones en el tape  
-⛔ Menos efectivo en mercados sin volatilidad significativa
+* **Sec**: `5` o `10` (Para detectar microráfagas).  
+* **Type**: `Ticks` (Mejor para ver actividad algorítmica) o `Volume` (Mejor para ver institucionales).  
+* **AutoFilter**: `True`.  
 
 ---
 
-### 🧪 Notas de desarrollo  
-- Calcula la **velocidad del tape** mediante volumen, ticks, compras, ventas o delta, según el tipo seleccionado  
-- Utiliza un filtro SMA para suavizar los valores de velocidad  
-- Los valores de velocidad máxima se destacan en color personalizado  
-- Se pueden **dibujar líneas** en el gráfico para mostrar las señales de velocidad máxima  
+### 🧪 Notas de desarrollo
+
+* **Bucle Crítico:** `while (j >= 0) ... ts.TotalSeconds < Sec`. Este bucle se ejecuta en cada tick. Si tienes un gráfico de 100 ticks y pones `Sec = 60`, el bucle iterará muchas veces. No es crítico hoy día, pero es un punto de presión.  
+* **Signals:** Almacena señales en una `ConcurrentBag`. Correcto para thread-safety.  
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Es uno de los mejores indicadores para "sentir" el mercado sin mirar el DOM. Cuando las barras se pintan de amarillo (por defecto), sabes que "algo está pasando" antes de que el precio se desplace.
+
+**Propuestas de Mejora:**
+* **Optimización:** Mantener una suma rodante (sliding window) de volumen/ticks asociada a timestamps para evitar el bucle `while` en cada tick.
+* **Delta Alert:** Alerta específica si la velocidad sube Y el Delta es extremadamente positivo/negativo.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas  
-- El cálculo de la velocidad puede ser **menos preciso** en mercados con alta volatilidad o ruido  
-- No permite personalizar **la fórmula de cálculo** de la velocidad  
-- Las **alertas de velocidad** no son personalizables más allá de la activación por eventos de velocidad  
-- La visualización de las **líneas de señal** podría mejorarse con más opciones de personalización
+### 📈 Veredicto: ¿Es útil para Scalping?
 
----
+**Sí.** Indispensable para scalpers de Order Flow.
 
-### 🛠️ Propuestas de mejora  
-- Añadir **más tipos de filtro** para personalizar la detección de señales de tape  
-- Permitir configurar **la longitud de las señales** y su visualización más detallada  
-- Incluir **más tipos de alertas** y condiciones para personalizar los disparadores de alertas  
-- Mejorar la **precisión del cálculo** en mercados altamente volátiles
+**Acción:** **Conservar.**

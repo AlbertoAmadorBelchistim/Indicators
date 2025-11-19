@@ -1,18 +1,45 @@
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: MarketPower.cs
+name: CVD pro / Market Power
+category: VolumeOrderFlow
+score_current: 9/10
+version: ATAS Official
+recommended_action: Conservar
+description: ¿Cuál es el delta acumulado (CVD) filtrado por tamaño de trade, y cómo se compara con su SMA?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: Indicador CVD profesional, muy robusto y complejo. Maneja correctamente trades tick-a-tick y acumulados, filtros de volumen y gaps de datos.
+file_state: Estable
+score_potential: 9/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
 ## 🟦 CVD pro / Market Power (9/10)
 
-**Nombre del archivo:** `MarketPower.cs`  
+**Nombre del archivo:** [`MarketPower.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/MarketPower.cs)  
 **Nombre del indicador:** CVD pro / Market Power  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602424](https://help.atas.net/support/solutions/articles/72000602424)
+**Web oficial:** [ATAS — CVD pro / Market Power](https://help.atas.net/support/solutions/articles/72000602424)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025
+
+> **La Pregunta Clave:** ¿Cuál es el delta acumulado (CVD) filtrado por tamaño de trade, y cómo se compara con su SMA?
+
+![MarketPower](../../img/MarketPower.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **SmaPeriod**: Periodo para suavizado de la línea CVD (por defecto: 14)  
-- **CumulativeTrades**: Activar modo de acumulación (CVD real) o tick a tick  
-- **MinimumVolume / MaximumVolume**: Filtro por volumen mínimo y máximo de cada trade  
-- **ShowSMA / ShowHighLow / ShowCumulative**: Opciones de visualización de SMA, extremos y acumulación  
-- **LineColor / HighLowColor / SmaColor / Width**: Configuración de colores y grosor
+* **SmaPeriod**: Periodo para suavizado de la línea CVD (por defecto: 14)
+* **CumulativeTrades**: Activar modo de acumulación (CVD real) o tick a tick
+* **MinimumVolume / MaximumVolume**: Filtro por volumen mínimo y máximo de cada trade
+* **ShowSMA / ShowHighLow / ShowCumulative**: Opciones de visualización de SMA, extremos y acumulación
+* **LineColor / HighLowColor / SmaColor / Width**: Configuración de colores y grosor
 
 ---
 
@@ -23,9 +50,9 @@
 
 ### 🧠 Uso más frecuente
 
-- Visualizar el **delta acumulado** o por barra con control avanzado  
-- Detectar zonas de presión agresiva de compra o venta  
-- Identificar divergencias delta/precio o aceleraciones de volumen agresivo
+* Visualizar el **delta acumulado** o por barra con control avanzado
+* Detectar zonas de presión agresiva de compra o venta
+* Identificar divergencias delta/precio o aceleraciones de volumen agresivo
 
 ---
 
@@ -40,52 +67,50 @@
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Entrada por divergencia delta/precio** detectando acumulación silenciosa  
-- **Confirmación de intención** con rupturas acompañadas de CVD creciente  
-- **Detección de agotamiento** si el precio sube pero el delta no acompaña
+* **Entrada por divergencia delta/precio** detectando acumulación silenciosa
+* **Confirmación de intención** con rupturas acompañadas de CVD creciente
+* **Detección de agotamiento** si el precio sube pero el delta no acompaña
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **SmaPeriod**: `14`  
-- **CumulativeTrades**: `true`  
-- **MinimumVolume**: `10`  
-- **MaximumVolume**: `0` (sin límite)  
-- **ShowCumulative**: `true`  
-- **ShowSMA / ShowHighLow**: activados
-
-✅ Compatible con análisis de absorciones, desequilibrios y trampas de liquidez  
-✅ Aporta contexto dinámico sobre la agresividad real  
-⛔ Su visualización puede ser densa si no se configura correctamente
+* **SmaPeriod**: `14`
+* **CumulativeTrades**: `true`
+* **MinimumVolume**: `10`
+* **MaximumVolume**: `0` (sin límite)
+* **ShowCumulative**: `true`
+* **ShowSMA / ShowHighLow**: activados
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Soporta dos modos de entrada: `OnCumulativeTrade` (agregado) y `OnNewTrade` (tick a tick)  
-- Se puede cambiar entre delta acumulado o delta por barra con histogramas  
-- Aplica filtros por volumen y traza líneas de máximos/mínimos del delta  
-- Calcula SMA sobre CVD acumulado para análisis de tendencia del delta  
-- Usa colas (`ConcurrentQueue`) para gestionar trades mientras se inicializa el indicador
+* Soporta dos modos de entrada: `OnCumulativeTrade` (agregado) y `OnNewTrade` (tick a tick)
+* Permite filtrar trades por `MinimumVolume` y `MaximumVolume`
+* Maneja `MaximumVolume = 0` como "sin límite" (`|| _maxVolume is 0`) en la función `IsTradeValid`
+* Calcula `_barDelta` (delta por barra) y `_cumulativeDelta` (delta acumulado)
+* Calcula SMA sobre CVD acumulado (`_smaSeries`)
+* Usa `ConcurrentQueue` (`_gapTrades`, `_gapTicks`) para gestionar trades que llegan durante la inicialización histórica
+* Solicita datos históricos de trades con `RequestForCumulativeTrades`
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Este es un indicador de Flujo de Órdenes de nivel profesional. El código en `MarketPower.cs` es complejo pero muy robusto.
+
+Maneja correctamente múltiples modos de entrada de datos (ticks individuales con `OnNewTrade` o trades agregados con `OnCumulativeTrade`). Su lógica de inicialización es excelente: solicita datos históricos (`RequestForCumulativeTrades`) y utiliza colas concurrentes (`_gapTrades`, `_gapTicks`) para almacenar los datos en tiempo real que llegan *mientras* se cargan los históricos, evitando así "gaps" o saltos en el CVD.
+
+La lógica de filtrado `IsTradeValid` también es robusta, ya que maneja explícitamente `_maxVolume is 0` como "sin límite", una práctica de codificación defensiva que evita errores. Es una herramienta potente y estable.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- La lógica de validación de volumen (`IsTradeValid`) no contempla `MaximumVolume = 0` como “sin límite” explícitamente documentado  
-- La representación del delta por barra (`_barDelta`) y el CVD acumulado pueden solaparse sin indicación clara al usuario  
-- Las líneas `_higher` y `_lower` actúan como histogramas o líneas según el modo, pero esto no se indica en la UI  
-- No hay alertas ni coloración dinámica según la pendiente del delta o su cruce con la SMA  
-- La lógica de cambio de sesión depende de `IsNewSession` pero no está claramente desacoplada de `OnFinishRecalculate`, lo que podría generar errores en replay o carga parcial
+**Sí, es una herramienta esencial.**
 
----
+El CVD, especialmente con filtros de volumen, es fundamental para el scalping de flujo de órdenes, permitiendo ver la agresión real detrás de los movimientos.
 
-### 🛠️ Propuestas de mejora
-
-- Añadir codificación de color para histogramas y líneas según dirección o fuerza del delta  
-- Ofrecer alertas visuales o sonoras al cruce del CVD con su media o niveles clave  
-- Mostrar tooltips o etiquetas con los valores del CVD, HighLow y SMA  
-- Separar visualmente las líneas `_barDelta` y `_cumulativeDelta` en la UI  
-- Documentar en la interfaz los distintos modos (acumulativo vs tick a tick) con ayuda contextual
-
+**Acción:** **Conservar (Herramienta profesional).**

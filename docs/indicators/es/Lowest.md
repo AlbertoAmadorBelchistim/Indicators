@@ -1,14 +1,41 @@
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: Lowest.cs
+name: Lowest
+category: Level
+score_current: 6/10
+version: ATAS Official
+recommended_action: Conservar
+description: ¿Cuál es el valor más bajo (mínimo) en las últimas N barras?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: Indicador de 'bloque de construcción' estable y funcional que calcula correctamente el mínimo de un período, manejando bien los casos de borde.
+file_state: Estable
+score_potential: 6/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
 ## 🟦 Lowest (6/10)
 
-**Nombre del archivo:** `Lowest.cs`  
-**Nombre del indicador:** Lowest  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602417](https://help.atas.net/support/solutions/articles/72000602417)
+**Nombre del archivo:** [`Lowest.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/Lowest.cs)  
+**Nombre del indicador:** Lowest  
+**Web oficial:** [ATAS — Lowest](https://help.atas.net/support/solutions/articles/72000602417)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025
+
+> **La Pregunta Clave:** ¿Cuál es el valor más bajo (mínimo) en las últimas N barras?
+
+![Lowest](../../img/Lowest.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **Period**: Número de barras hacia atrás para buscar el mínimo valor en la serie de entrada (por defecto: 10)
+* **Period**: Número de barras hacia atrás para buscar el mínimo valor en la serie de entrada (por defecto: 10)
 
 ---
 
@@ -19,62 +46,60 @@
 
 ### 🧠 Uso más frecuente
 
-- Determinar el **mínimo local** de un rango para detectar soportes  
-- Generar señales de compra cuando el precio rompe por encima del mínimo anterior  
-- Servir como base para otros indicadores (e.g. %K, trailing stops, breakout)
+* Determinar el **mínimo local** de un rango para detectar soportes
+* Generar señales de compra cuando el precio rompe por encima del mínimo anterior
+* Servir como base para otros indicadores (e.g. %K, trailing stops, breakout)
 
 ---
 
 ### 📊 Nivel de relevancia
 🔟 **6 / 10**
 
-✅ Simple y eficiente para detección de extremos  
-✅ Útil como componente en estrategias más complejas  
+✅ Simple y eficiente para detección de extremos
+✅ Útil como componente en estrategias más complejas
 ⛔ Por sí solo, no ofrece contexto ni validación adicional
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Confirmación de giro**: si el precio deja de hacer mínimos decrecientes  
-- **Entrada por breakout**: tras superación del último mínimo importante  
-- **Trailing stop dinámico**: ajustar stop al mínimo de las últimas `n` velas
+* **Confirmación de giro**: si el precio deja de hacer mínimos decrecientes
+* **Entrada por breakout**: tras superación del último mínimo importante
+* **Trailing stop dinámico**: ajustar stop al mínimo de las últimas `n` velas
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **Period**: `10`
-
-✅ Captura zonas de soporte recientes  
-✅ Buena respuesta sin ser excesivamente volátil  
-⛔ Puede dar señales atrasadas si el mercado gira rápido
+* **Period**: `10`
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Calcula el mínimo en una ventana móvil de longitud `Period`  
-- Usa `SourceDataSeries` como entrada de datos  
-- Solo utiliza un bucle sencillo para comparar valores históricos  
-- El valor se actualiza en `this[bar]` con el mínimo encontrado
+* Calcula el mínimo en una ventana móvil de longitud `Period`
+* Usa `SourceDataSeries` como entrada de datos
+* Utiliza `Math.Max` y `Math.Min` para determinar el rango de inicio y el conteo, manejando correctamente las barras iniciales donde `bar < Period`
+* El valor se actualiza en `this[bar]` con el mínimo encontrado
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Este es un indicador de "bloque de construcción" simple pero fundamental. Su implementación en `Lowest.cs` es robusta y segura.
+
+Destaca el uso de `var start = Math.Max(0, bar - Period + 1);` y `var count = Math.Min(bar + 1, Period);` para definir el rango de la ventana. Esto previene elegantemente cualquier error de índice fuera de rango en las primeras barras del gráfico, un error común en indicadores de ventana móvil.
+
+Sus limitaciones son conceptuales, no técnicas: solo opera sobre la `SourceDataSeries` (normalmente el 'Close') y no permite, por ejemplo, encontrar el mínimo del 'Low'. Sin embargo, para lo que está diseñado, es estable.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- No se permite elegir qué serie (Close, Low, etc.) se evalúa como entrada → depende exclusivamente de `SourceDataSeries`  
-- No se controla el caso donde `Period > CurrentBar`, lo que puede causar resultados inconsistentes en barras iniciales  
-- No ofrece opción de visualizar el valor mínimo mediante líneas auxiliares o etiquetas  
-- No se expone ninguna alerta si el mínimo cambia de valor
+**Moderadamente.**
 
----
+No es una estrategia en sí misma, pero es un componente esencial y estable para crear `Trailing Stops` o sistemas de reversión a la media.
 
-### 🛠️ Propuestas de mejora
-
-- Permitir selección de la fuente de datos (`Low`, `Close`, etc.)  
-- Añadir visualización opcional del mínimo actual con una línea en el gráfico  
-- Incluir alertas visuales o sonoras cuando el valor mínimo cambia  
-- Añadir una opción para mostrar también el bar en el que ocurrió el mínimo  
-- Ofrecer posibilidad de suavizar el mínimo mediante una media móvil si se desea
+**Acción:** **Conservar (Bloque de construcción estable).**
 

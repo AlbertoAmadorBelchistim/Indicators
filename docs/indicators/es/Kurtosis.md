@@ -1,14 +1,41 @@
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: Kurtosis.cs
+name: Kurtosis
+category: Statistical
+score_current: 5/10
+version: ATAS Official
+recommended_action: Conservar
+description: ¿Cuál es la "pesadez de las colas" (Kurtosis) de la distribución de precios, para medir la frecuencia de eventos extremos?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Implementación 'Quant' estable de Kurtosis (poblacional y muestral). Teóricamente 'Buggy' (riesgo div/0), pero su utilidad para scalping es casi nula."
+file_state: Estable
+score_potential: 5/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
 ## 🟦 Kurtosis (5/10)
 
-**Nombre del archivo:** `Kurtosis.cs`  
+**Nombre del archivo:** [`Kurtosis.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/Kurtosis.cs)  
 **Nombre del indicador:** Kurtosis  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602556](https://help.atas.net/support/solutions/articles/72000602556)
+**Web oficial:** [ATAS — Kurtosis](https://help.atas.net/support/solutions/articles/72000602556)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025
+
+> **La Pregunta Clave:** ¿Cuál es la "pesadez de las colas" (Kurtosis) de la distribución de precios, para medir la frecuencia de eventos extremos?
+
+![Kurtosis](../../img/Kurtosis.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **Period**: Número de barras usadas para calcular la curtosis (mínimo: 4; por defecto: 20)
+* **Period**: Número de barras usadas para calcular la curtosis (mínimo: 4; por defecto: 20)
 
 ---
 
@@ -19,62 +46,58 @@
 
 ### 🧠 Uso más frecuente
 
-- Medir si la distribución de precios presenta colas pesadas (leptocúrtica) o ligeras (platicúrtica)  
-- Detectar momentos de alta concentración o dispersión extrema en los precios  
-- Complementar análisis de volatilidad o eventos estadísticamente atípicos
+* Medir si la distribución de precios presenta colas pesadas (leptocúrtica) o ligeras (platicúrtica)
+* Detectar momentos de alta concentración o dispersión extrema en los precios
+* Complementar análisis de volatilidad o eventos estadísticamente atípicos
 
 ---
 
 ### 📊 Nivel de relevancia
 🔟 **5 / 10**
 
-✅ Útil en análisis cuantitativo o estudios de comportamiento estadístico del precio  
-✅ Distingue fases de concentración vs dispersión de precios  
-⛔ Poco intuitivo para uso visual directo sin formación estadística
+✅ Útil en análisis cuantitativo o estudios de comportamiento estadístico del precio.
+⛔ **Nula utilidad para scalping**: Poco intuitivo y no accionable en tiempo real.
+⛔ Riesgo teórico de división por cero si el precio es 100% plano.
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Filtro de entorno**: evitar entradas cuando la curtosis indica alta concentración de precios  
-- **Confirmación de agotamiento** tras un spike de curtosis (colas pesadas = evento extremo)  
-- **Detección de anomalías** para scalping estadístico en gráficos cuantitativos
+* **Ninguna.** Este no es un indicador para scalping discrecional.
+* (Uso Quant) Filtro de régimen para sistemas algorítmicos.
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **Period**: `20`  
-
-✅ Captura bien las fases de agrupación o expansión anómalas  
-✅ Útil como filtro estadístico en sistemas avanzados  
-⛔ Necesita interpretación contextual: no es señal directa de entrada/salida
+* **No recomendado.**
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Calcula tanto **curtosis poblacional** como **muestral (estimador)**  
-- La SMA se usa como media base para restar y calcular desviaciones  
-- Usa dos `ValueDataSeries` auxiliares (`Square`, `Quad`) para almacenar potencias 2 y 4 de la desviación  
-- Representa dos líneas: `PopulationSeries` (línea base) y `SampleSeries` (en azul)
+* Calcula la **curtosis poblacional** (`_populationSeries`) y **muestral** (`_sampleSeries`).
+* Utiliza una `SMA` como media y calcula la suma de las desviaciones al cuadrado (`_squareSeries`) y a la cuarta (`_quadSeries`).
+* **Riesgo de Bug**: El cálculo `quadSum / (squareSum * squareSum)` no está protegido contra una división por cero si `squareSum` es 0 (extremadamente improbable en un mercado real, pero posible si el precio es plano).
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Este es un indicador puramente estadístico (`Quant`). Mide la "pesadez" de las colas de la distribución de retornos, es decir, si los movimientos extremos ("outliers") son más o menos probables de lo normal.
+
+Para un scalper discrecional, esta información es **inútil en tiempo real**. No te dice nada sobre la dirección, el volumen o el momentum inmediato. Es una herramienta para analistas cuantitativos que estudian las propiedades de un activo a largo plazo.
+
+El código es una implementación académica de la fórmula y es estable (aunque tiene un riesgo teórico de división por cero). Dado que no tiene utilidad práctica para nuestro objetivo, es un claro 5/10.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- No se valida si `squareSum` es cero → división por cero puede ocurrir si no hay volatilidad (precio plano)  
-- El cálculo para `SampleSeries` incluye constantes que pueden ser inestables para valores de `Period` muy cercanos a 4  
-- No se indica en UI cuál serie corresponde a curtosis poblacional o muestral, lo que puede confundir al usuario  
-- La fórmula del estimador muestral no está comentada ni referenciada, lo que dificulta su comprensión y validación
+**No.**
 
----
+Es un indicador estadístico complejo, no una herramienta de timing o contexto para scalping.
 
-### 🛠️ Propuestas de mejora
-
-- Añadir validación y control si `squareSum == 0` para evitar división por cero  
-- Incluir tooltip o descripción clara de qué representa cada línea (Poblacional vs Muestral)  
-- Ofrecer opción de mostrar solo una de las dos líneas  
-- Añadir referencias estadísticas o bibliográficas en comentarios para futuras validaciones  
-- Posibilidad de exportar valores para análisis externo en sistemas cuantitativos
+**Acción:** **Conservar** (Como herramienta estadística, es estable).
 

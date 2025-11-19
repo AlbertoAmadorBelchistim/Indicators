@@ -1,71 +1,97 @@
-## 🟦 VSA – WSD Histogram (8 / 10)  
-**Nombre del archivo:** `VsaWsd.cs`  
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: VsaWsd.cs
+name: VSA – WSD Histogram
+category: Volume
+score_current: 8/10
+version: Stable
+recommended_action: Conservar
+description: ¿Cómo se distribuye la estructura de la vela (mechas vs cuerpo) y el volumen relativo?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Deconstruye la vela en histogramas de mechas y cuerpo. Útil para análisis estructural."
+file_state: Estable
+score_potential: 8/10
+effort: Bajo
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 2025-05-8
+user_modification_date: null
+---
+
+## 🟦 VSA – WSD Histogram (8/10)
+
+**Nombre del archivo:** [`VsaWsd.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/VsaWsd.cs)  
 **Nombre del indicador:** VSA – WSD Histogram  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602501](https://help.atas.net/support/solutions/articles/72000602501)
+**Web oficial:** [ATAS — VSA – WSD Histogram](https://help.atas.net/support/solutions/articles/72000602501)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 8/05/2025  
+
+> **La Pregunta Clave:** ¿Cómo se distribuye la estructura de la vela (mechas vs cuerpo) y el volumen relativo?
+
+![VsaWsd](../../img/VsaWsd.png)
 
 ---
 
-### ⚙️ Parámetros configurables  
-- **Period**: Periodo para la media móvil exponencial del rango en ticks (por defecto: `100`)
+### ⚙️ Parámetros configurables
+
+* **Period**: Media móvil del volumen para referencia.  
+* **Visuals**: Colores para mechas, cuerpo y señales de puntos.  
 
 ---
 
-### 🧭 Clasificación  
-📂 Volume — Análisis clásico de vela y rango basado en estructura, sin order flow
+### 🧭 Clasificación
+📂 Volume — Análisis estructural de velas (Price Action detallado).
 
 ---
 
-### 🧠 Uso más frecuente  
-- Visualizar de forma codificada **rango total**, **mecha superior**, **mecha inferior** y **volumen relativo**  
-- Detectar patrones de vela de tipo VSA como **shakeouts, stopping volume, clímax o test**  
-- Clasificar cada vela como señal de compra, venta o neutral según reglas de rango y dirección
+### 🧠 Uso más frecuente
+
+* **Análisis de Mechas:** Permite ver en un histograma qué parte del rango fue "rechazo" (mecha) y qué parte fue "aceptación" (cuerpo).  
+* **Contracción:** Detecta velas de rango estrecho (puntos grises/rojos/verdes) que indican falta de interés o preparación para movimiento (WSD = Weakness/Strength Detection?).  
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **8 / 10**  
-✅ Útil para interpretar **estructura de la vela con lógica VSA**  
-✅ Visualmente claro con histogramas codificados y puntos de señal  
-⛔ No evalúa order flow ni clústeres directamente
+### 📊 Nivel de relevancia
+🔟 **8 / 10**
+
+✅ **Desglose:** Muy original. Separa visualmente la mecha superior e inferior en histogramas apilados o paralelos.  
+✅ **Señales de Contracción:** Marca con puntos cuando el rango se contrae (`HighLow < Prev`), lo cual es clave en VSA (No Supply / No Demand).  
+⛔ **Nombre Confuso:** "WSD" no es un término estándar universal, aunque se entiende en contexto VSA.  
 
 ---
 
-### 🎯 Estrategias de scalping donde se aplica  
-- **Entrada por test**: Detectar velas con mecha baja, cuerpo pequeño y punto verde  
-- **Salida por clímax**: Observar contracción de rango con punto rojo tras gran vela expansiva  
-- **Filtro de contexto**: Confirmar si hay disminución de intención (contracción de rango sin reversión)
+### 🎯 Estrategias de scalping donde se aplica
+
+* **No Demand:** Vela alcista, rango estrecho (punto generado), volumen bajo mecha superior grande -> Venta.  
 
 ---
 
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
-- **Period**: `100`  
-- Usar en conjunto con volumen total o clúster para validar  
-- Ajustar `TickSize` según activo si se desea alta sensibilidad
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-✅ Compatible con lógica de Wyckoff y detección visual rápida  
-✅ Puede identificar zonas de reversión antes de que aparezcan otros indicadores  
-⛔ No válido como única fuente para entradas sin validación externa
+* **Period**: `100` (Para tener una media de volumen estable de fondo).  
 
 ---
 
-### 🧪 Notas de desarrollo  
-- Calcula tres histogramas: **rango completo**, **mecha superior**, **mecha inferior**  
-- Usa una **EMA** del volumen/rango en ticks para marcar la media  
-- Asigna señales según:  
-  - Contracción de rango  
-  - Relación con apertura anterior  
-  - Dirección relativa (cierre > apertura anterior = compra, etc.)
+### 🧪 Notas de desarrollo
+
+* **Lógica:** Calcula el tamaño de las mechas y el cuerpo en ticks (`/ _tickSize`).
+* **Señales:** `_dotsBuy`, `_dotsSell`, `_dotsNeutral`. Se activan si el rango se contrae (`< Prev`) y la relación Close/Open favorece una dirección.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Es una herramienta analítica excelente para quienes operan "Price Action" puro y quieren cuantificar el tamaño de las mechas y cuerpos en lugar de hacerlo "a ojo".
+
+**Propuestas de Mejora:**
+* **Normalización:** Opción para mostrar los valores como porcentaje del rango total en lugar de ticks absolutos.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas  
-- No valida el valor de `TickSize` si es muy pequeño (puede exagerar escalado)  
-- El criterio de señal solo considera el `Open` anterior, no el `Close` o rango total  
-- No representa los puntos con etiquetas ni incluye explicación visual en el gráfico
+### 📈 Veredicto: ¿Es útil para Scalping?
 
----
+**Sí.** Ayuda a ver la "calidad" de la vela rápidamente.
 
-### 🛠️ Propuestas de mejora  
-- Añadir **tooltip explicativo** al pasar el cursor sobre puntos Buy/Sell/Neutral  
-- Permitir lógica más sofisticada: volumen creciente + rango decreciente  
-- Incluir opción de mostrar etiquetas con tipo de señal (“Clímax”, “Test”, “Neutral”, etc.)
+**Acción:** **Conservar.**

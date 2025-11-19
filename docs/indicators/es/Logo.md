@@ -1,19 +1,46 @@
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: Logo.cs
+name: Background Picture
+category: Visualization
+score_current: 2/10
+version: ATAS Official
+recommended_action: Conservar
+description: ¿Cómo puedo superponer una imagen o logo personalizado en el gráfico?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: Utilidad visual estable para branding o decoración; no es un indicador de trading. El código es seguro.
+file_state: Estable
+score_potential: 2/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-17
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
 ## 🟦 Background Picture (2/10)
 
-**Nombre del archivo:** `Logo.cs`  
-**Nombre del indicador:** Background Picture  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602528](https://help.atas.net/support/solutions/articles/72000602528)
+**Nombre del archivo:** [`Logo.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/Logo.cs)    
+**Nombre del indicador:** Background Picture    
+**Web oficial:** [ATAS — Background Picture](https://help.atas.net/support/solutions/articles/72000602528)    
+**Compatibilidad:** ATAS versión estable y superiores.    
+**Última revisión del código oficial:** 23/04/2025
+
+> **La Pregunta Clave:** ¿Cómo puedo superponer una imagen o logo personalizado en el gráfico?
+
+![BackgroundPicture](../../img/BackgroundPicture.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **LogoLocation**: Posición de la imagen en el gráfico (Centro, Esquinas)  
-- **Scale**: Escalado del tamaño de la imagen (0–100%)  
-- **Transparency**: Transparencia de la imagen (0–100%)  
-- **HorizontalOffset / VerticalOffset**: Ajustes finos de posición en X/Y  
-- **AbovePrice**: Si se muestra sobre o bajo el gráfico de precios  
-- **FilePath**: Ruta local de la imagen a mostrar
+* **LogoLocation**: Posición de la imagen en el gráfico (Centro, Esquinas)
+* **Scale**: Escalado del tamaño de la imagen (0–100%)
+* **Transparency**: Transparencia de la imagen (0–100%)
+* **HorizontalOffset / VerticalOffset**: Ajustes finos de posición en X/Y
+* **AbovePrice**: Si se muestra sobre o bajo el gráfico de precios
+* **FilePath**: Ruta local de la imagen a mostrar
 
 ---
 
@@ -24,65 +51,64 @@
 
 ### 🧠 Uso más frecuente
 
-- Mostrar **logos de marca o empresa** sobre el gráfico  
-- Añadir elementos gráficos decorativos en análisis visuales  
-- Usar imágenes como **referencia visual** o branding en presentaciones o vídeos
+* Mostrar **logos de marca o empresa** sobre el gráfico
+* Añadir elementos gráficos decorativos en análisis visuales
+* Usar imágenes como **referencia visual** o branding en presentaciones o vídeos
 
 ---
 
 ### 📊 Nivel de relevancia
 🔟 **2 / 10**
 
-✅ Útil para branding o presentaciones visuales  
-✅ Personalización estética sin afectar el análisis técnico  
+✅ Útil para branding o presentaciones visuales
+✅ Personalización estética sin afectar el análisis técnico
 ⛔ No tiene ningún impacto funcional en cálculos o señales
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-⛔ No aplica directamente. Es un elemento visual sin función analítica.  
-✅ Puede usarse para etiquetar el gráfico (por ejemplo, con nombre de estrategia)
+* No aplica directamente. Es un elemento visual sin función analítica.
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **LogoLocation**: `BottomRight`  
-- **Scale**: `20`  
-- **Transparency**: `60`  
-- **AbovePrice**: `false`  
-- **Offset**: ajustar según resolución de pantalla
-
-✅ Permite dejar visible un logo o recordatorio sin interferir con los niveles de precio
+* **LogoLocation**: `BottomRight`
+* **Scale**: `20`
+* **Transparency**: `60`
+* **AbovePrice**: `false`
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Permite cargar imágenes desde disco local (`.bmp`, `.jpg`, `.png`, etc.)  
-- Limita el tamaño de archivo a 1 MB para evitar bloqueos o errores  
-- Calcula el rectángulo de renderizado dinámicamente en base a posición, escala y tamaño  
-- Usa `SetOpacity` para aplicar transparencia mediante una `ColorMatrix`  
-- Usa `EnableCustomDrawing` y `OnRender` para insertar imagen en `RenderContext`
+* Permite cargar imágenes desde disco local (`.bmp`, `.jpg`, `.png`, etc.)
+* Limita el tamaño de archivo a 1 MB (`Math.Pow(2, 20)`) para evitar bloqueos o errores
+* Calcula el rectángulo de renderizado dinámicamente en base a posición, escala y tamaño
+* Usa `SetOpacity` para aplicar transparencia mediante una `ColorMatrix`
+* Usa `EnableCustomDrawing` y `OnRender` para insertar imagen en `RenderContext`
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Esto no es un indicador de análisis técnico, sino una utilidad de visualización para branding o decoración. El código en `Logo.cs` es estable y seguro. Utiliza `EnableCustomDrawing` y `OnRender` para dibujar la imagen.
+
+Implementa dos buenas prácticas de seguridad:
+1.  Comprueba si el archivo existe con `File.Exists(_filePath)`.
+2.  Limita el tamaño del archivo a 1MB (`new FileInfo(_filePath).Length <= Math.Pow(2, 20)`) para evitar cargar imágenes excesivamente grandes que podrían consumir mucha memoria.
+
+El único "code smell" es un "throttle" manual de 200ms en el *setter* de la propiedad `Transparency`, que es una forma inusual de manejar la actualización, pero no rompe la funcionalidad. Es una herramienta estable con un propósito puramente no analítico.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- El indicador intenta aplicar la transparencia **cada vez que se cambia el valor**, pero se limita artificialmente a una frecuencia mínima de 200 ms → esto puede causar que no se aplique al instante  
-- No hay validación previa para formatos corruptos o incompatibles de imagen  
-- La propiedad `DrawAbovePrice` se expone como `AbovePrice` pero puede generar confusión si no se actualiza correctamente  
-- No se informa al usuario si la imagen no se carga por no encontrar el archivo o por tamaño excesivo (excepto una alerta textual)  
-- El uso de `FileInfo.Length` en bytes no valida tipo MIME ni calidad real del archivo
+**No.**
 
----
+Es una herramienta de decoración, no de análisis.
 
-### 🛠️ Propuestas de mejora
-
-- Aplicar siempre la transparencia incluso si se cambia rápidamente  
-- Añadir feedback visual en caso de error al cargar la imagen (formato inválido, corrupto, etc.)  
-- Separar claramente la lógica de visualización y carga para facilitar depuración  
-- Mostrar nombre o información básica de la imagen cargada como tooltip  
-- Añadir opción de mantener proporción (aspect ratio) o recortar automáticamente
+**Acción:** **Conservar (Utilidad de visualización).**
 

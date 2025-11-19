@@ -1,25 +1,49 @@
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: OrderFlow.cs
+name: Order Flow Indicator
+category: VolumeOrderFlow
+score_current: 9/10
+version: ATAS Official
+recommended_action: Conservar
+description: ¿Cómo se visualiza el flujo de órdenes (trades individuales o acumulados) en el gráfico (círculos/rectángulos)?
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: Visualizador de Order Flow sólido. Dibuja trades como círculos/rectángulos. Tiene un pequeño riesgo de concurrencia en OnRender, pero es funcional.
+file_state: Estable
+score_potential: 9/10
+effort: N/A
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
 ## 🟦 Order Flow Indicator (9/10)
 
-**Nombre del archivo:** `OrderFlow.cs`  
+**Nombre del archivo:** [`OrderFlow.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/OrderFlow.cs)  
 **Nombre del indicador:** Order Flow Indicator  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602441](https://help.atas.net/support/solutions/articles/72000602441)
+**Web oficial:** [ATAS — Order Flow Indicator](https://help.atas.net/support/solutions/articles/72000602441)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** ¿Cómo se visualiza el flujo de órdenes (trades individuales o acumulados) en el gráfico (círculos/rectángulos)?
+
+![OrderFlow](../../img/OrderFlow.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-- **VisMode**: Forma de visualización (`Circles`, `Rectangles`)  
-- **TradesMode**: Tipo de trade (`Cumulative`, `Separated`)  
-- **Filter**: Volumen mínimo para mostrar  
-- **ShowSmallTrades**: Mostrar trades con volumen inferior al filtro  
-- **CombineSmallTrades**: Agrupar pequeños trades del mismo precio  
-- **Size / Spacing**: Tamaño y espaciado de los objetos  
-- **SpeedInterval**: Frecuencia de actualización (ms)  
-- **Offset**: Separación horizontal respecto al precio actual  
-- **LinkingToBar / DoNotShowAboveChart**: Ubicación en relación al gráfico  
-- **Buys / Sells / BorderColor / LineColor**: Colores visuales  
-- **Font / TextColor**: Fuente y color del texto  
-- **UseAlerts / AlertFilter / AlertFile / AlertColor**: Sistema de alertas por volumen
+* **VisMode**: Forma de visualización (`Circles`, `Rectangles`)
+* **TradesMode**: Tipo de trade (`Cumulative`, `Separated`)
+* **Filter**: Volumen mínimo para mostrar
+* **ShowSmallTrades**: Mostrar trades con volumen inferior al filtro
+* **CombineSmallTrades**: Agrupar pequeños trades del mismo precio
+* **Size / Spacing**: Tamaño y espaciado de los objetos
+* **SpeedInterval**: Frecuencia de actualización (ms)
+* **Offset**: Separación horizontal respecto al precio actual
+* **UseAlerts / AlertFilter**: Sistema de alertas por volumen
 
 ---
 
@@ -30,9 +54,9 @@
 
 ### 🧠 Uso más frecuente
 
-- Visualizar **trades individuales o acumulados** con color y volumen  
-- Confirmar momentos de **agresión direccional relevante**  
-- Identificar **intensidad de entrada institucional o desequilibrio**
+* Visualizar **trades individuales o acumulados** con color y volumen
+* Confirmar momentos de **agresión direccional relevante**
+* Identificar **intensidad de entrada institucional o desequilibrio**
 
 ---
 
@@ -47,52 +71,45 @@
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-- **Entrada por agresión clara** (conglomerado de puntos verdes/rojos grandes)  
-- **Confirmación de ruptura** si aparecen grandes trades sobre nivel clave  
-- **Filtro direccional** si hay asimetría clara en la agresión de compra o venta
+* **Entrada por agresión clara** (conglomerado de puntos verdes/rojos grandes)
+* **Confirmación de ruptura** si aparecen grandes trades sobre nivel clave
+* **Filtro direccional** si hay asimetría clara en la agresión de compra o venta
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-- **TradesMode**: `Cumulative`  
-- **Filter**: `15`  
-- **CombineSmallTrades**: `true`  
-- **Spacing**: `8`  
-- **Size**: `12`  
-- **SpeedInterval**: `300`  
-- **UseAlerts**: `true`, **AlertFilter**: `30`
-
-✅ Representación dinámica y precisa del volumen agresivo  
-✅ Compatible con interpretación de absorciones o agresiones por nivel  
-⛔ Puede sobrecargar la pantalla si no se filtran correctamente los trades
+* **TradesMode**: `Cumulative`
+* **Filter**: `15`
+* **CombineSmallTrades**: `true`
+* **Spacing**: `8`
+* **Size**: `12`
+* **UseAlerts**: `true`, **AlertFilter**: `30`
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-- Usa `OnNewTrade` o `OnCumulativeTrade` según configuración  
-- Almacena los trades en listas (`_trades`, `_singleTrades`) con limpieza periódica  
-- Dibuja visualmente objetos (`Ellipse` o `Rect`) con color, tamaño y volumen  
-- Aplica alertas cuando el volumen supera el umbral definido  
-- Se actualiza por temporizador interno cada `SpeedInterval`
+* Usa `OnNewTrade` o `OnCumulativeTrade` para capturar datos en tiempo real
+* Almacena los trades en listas (`_trades`, `_singleTrades`) y las limpia periódicamente (`CleanUpTrades`) para no saturar la memoria
+* Dibuja visualmente objetos (`Ellipse` o `Rect`) con color, tamaño y volumen usando `OnRender`
+* Se actualiza por temporizador interno (`OnTimerCall`) para controlar la carga de renderizado
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Es una herramienta de visualización de Order Flow muy útil y bien implementada. El uso de un temporizador (`SpeedInterval`) para controlar el redibujado es una decisión inteligente para evitar lag en mercados rápidos.
+
+El código tiene un pequeño riesgo de concurrencia en `OnRender`: aunque usa `lock`, accede a las propiedades de los trades (`_trades[i].Volume`) fuera del bloque de bloqueo principal en algunas partes, lo que *podría* causar problemas si la lista se modifica simultáneamente, aunque la estructura del código intenta minimizar esto copiando datos a listas locales (`ellipses`). En la práctica, es estable.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas
+### 📈 Veredicto: ¿Es útil para Scalping?
 
-- La lógica para combinar trades pequeños en `CombineSmallTrades` depende del tipo de visualización, lo que puede ser confuso  
-- En `bar == 0`, no hay validación explícita en `OnCumulativeTrade` si el objeto anterior es `null`  
-- No se permite configurar el tipo de volumen mostrado (`Bid`, `Ask`, `Delta`, etc.)  
-- No existe opción para mostrar líneas o niveles si se detectan clusters  
-- La alerta puede activarse aunque el punto correspondiente quede fuera del área visible (`DoNotShowAboveChart` activado)
+**Sí.**
 
----
+Ver la agresión en tiempo real (bolas grandes entrando) es una de las señales más directas para el scalping.
 
-### 🛠️ Propuestas de mejora
-
-- Permitir elegir tipo de volumen mostrado: `Delta`, `Bid`, `Ask`, `Total`  
-- Añadir opción para resaltar visualmente zonas de cluster (acumulación en rango estrecho)  
-- Incluir alertas visuales (etiquetas o flechas) junto con la sonora  
-- Optimizar la lógica de combinación de pequeños trades para que funcione de forma unificada  
-- Añadir suavizado visual o agrupación por precio para mejorar legibilidad en entornos densos
+**Acción:** **Conservar (Herramienta visual sólida).**

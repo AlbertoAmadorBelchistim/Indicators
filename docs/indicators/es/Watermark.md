@@ -1,74 +1,99 @@
-## 🟦 Watermark (2 / 10)  
-**Nombre del archivo:** `Watermark.cs`  
+---
+# --- Campos Públicos (Para INDICATORS.es) ---
+cs_file: Watermark.cs
+name: Watermark
+category: Visualization
+score_current: 5/10
+version: Stable
+recommended_action: Conservar
+description: Muestra información del instrumento o texto personalizado en el fondo del gráfico.
+# --- Campos de Triaje (Para ROADMAP.md) ---
+gemini_summary: "Utilidad de texto en pantalla. Simple, funcional y estéticamente configurable."
+file_state: Estable
+score_potential: 6/10
+effort: Bajo
+action_priority: N/A
+# --- Control de Versiones ---
+analysis_date: 2025-11-18
+official_code_date: 2025-04-23
+user_modification_date: null
+---
+
+## 🟦 Watermark (5/10)
+
+**Nombre del archivo:** [`Watermark.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/Watermark.cs)  
 **Nombre del indicador:** Watermark  
-**Web oficial:** [https://help.atas.net/support/solutions/articles/72000602668](https://help.atas.net/support/solutions/articles/72000602668)
+**Web oficial:** [ATAS — Watermark](https://help.atas.net/support/solutions/articles/72000602668)  
+**Compatibilidad:** ATAS versión estable y superiores.  
+**Última revisión del código oficial:** 23/04/2025  
+
+> **La Pregunta Clave:** Muestra información del instrumento o texto personalizado en el fondo del gráfico.
+
+![Watermark](../../img/Watermark.png)
 
 ---
 
-### ⚙️ Parámetros configurables  
-- **TextColor**: Color del texto  
-- **TextLocation**: Ubicación del texto en el gráfico (centro, esquina, etc.)  
-- **HorizontalOffset / VerticalOffset**: Desplazamiento de la línea principal  
-- **ShowInstrument / ShowPeriod**: Mostrar nombre del instrumento y periodo  
-- **Font**: Fuente de la línea principal  
-- **AdditionalText / AdditionalFont / AdditionalTextYOffset**: Texto adicional, fuente y desplazamiento vertical
+### ⚙️ Parámetros configurables
+
+* **Texto**: Instrumento, Periodo, Texto Adicional.  
+* **Posición**: Centro, Esquinas.  
+* **Estilo**: Fuente, Tamaño, Color, Offsets.  
 
 ---
 
-### 🧭 Clasificación  
-📂 Visualization — Indicador decorativo con información del gráfico
+### 🧭 Clasificación
+📂 Visualization — Utilidad de interfaz (UI).
 
 ---
 
-### 🧠 Uso más frecuente  
-- Mostrar en pantalla el **nombre del instrumento y el timeframe** actual  
-- Añadir un **texto personalizado** como firma, recordatorio, etiqueta o marca  
-- Personalizar el diseño visual de la zona de trading con elementos estáticos
+### 🧠 Uso más frecuente
+
+* **Contexto:** Saber qué gráfico estás mirando cuando tienes 12 ventanas abiertas en 4 monitores.  
+* **Compartir:** Poner tu marca/nombre para capturas de pantalla en redes sociales.  
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **2 / 10**  
-✅ Útil como complemento visual en entornos multi-instrumento  
-✅ Facilita capturas de pantalla informativas o sesiones de formación  
-⛔ No aporta información técnica ni señales operativas
+### 📊 Nivel de relevancia
+🔟 **5 / 10**
+
+✅ **Personalizable:** Permite ajustar fuentes y posiciones al píxel.  
+✅ **Automático:** Lee `InstrumentInfo` y `ChartInfo` para actualizarse si cambias de activo.  
+⛔ **No Técnico:** No ayuda a operar, solo a organizar.  
 
 ---
 
-### 🎯 Estrategias de scalping donde se aplica  
-⛔ No se aplica directamente a estrategias de scalping  
-✅ Puede ser útil en **pantallas de control múltiples** para identificar activos rápidamente
+### 🎯 Estrategias de scalping donde se aplica
+
+* **Organización:** Vital para no confundir el gráfico del Micro S&P con el Mini S&P en el calor del momento.  
 
 ---
 
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
-- **ShowInstrument / ShowPeriod**: `true`  
-- **TextLocation**: `TopLeft`  
-- **Font.Size**: `36`  
-- **TextColor**: `White`  
-- **AdditionalText**: `"RTH Only"` (si aplica)  
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-✅ Aporta claridad organizativa en pantallas complejas  
-⛔ No modifica ni influye en cálculos técnicos
+* **Posición**: `TopLeft` o `BottomRight` (El centro suele molestar).  
+* **Color**: Gris muy claro (casi transparente) para que sea sutil.  
 
 ---
 
-### 🧪 Notas de desarrollo  
-- No realiza cálculos en `OnCalculate`  
-- Solo dibuja texto en `OnRender`, con control completo de posición y formato  
-- Usa `RenderContext.DrawString` con medidas adaptativas  
-- Puede mostrar **una o dos líneas** de texto, centradas o alineadas
+### 🧪 Notas de desarrollo
+
+* **Render:** Usa `context.MeasureString` para centrar perfectamente el texto.
+* **Lógica:** Renderizado puro.
+
+---
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador
+
+Cumple su función estética perfectamente.
+
+**Propuestas de Mejora:**
+* **Variables:** Permitir usar variables en el texto adicional, ej: `{Bid}`, `{Ask}`, `{Time}`.
 
 ---
 
-### ❗ Incoherencias o aspectos mejorables detectadas  
-- No ofrece preview del texto completo hasta que se aplica  
-- No se adapta automáticamente al tamaño del gráfico o resolución  
-- No permite vincular contenido dinámico (precio, fecha, delta…)
+### 📈 Veredicto: ¿Es útil para Scalping?
 
----
+**Sí (UX).** Ayuda a mantener el foco y evitar errores de instrumento.
 
-### 🛠️ Propuestas de mejora  
-- Añadir soporte para **variables dinámicas** (ej: `{LastPrice}`, `{Delta}`)  
-- Incluir **modo de visibilidad condicional** (por sesión, por timeframe, etc.)  
-- Permitir **rotación del texto** o fondo difuminado estilo watermark real
+**Acción:** **Conservar.**
