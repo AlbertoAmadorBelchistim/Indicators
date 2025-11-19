@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: SchaffTrendCycle.cs
 name: Schaff Trend Cycle
-category: Momentum
+category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 7/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  Oscilador cíclico que combina MACD y Estocástico para detectar giros de mercado más rápido que el MACD tradicional.
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación canónica correcta. Algo rígida en constantes (0.5 factor) pero funcional.
+recommended_action: Conservar
+description: Oscilador cíclico que combina MACD y Estocástico para detectar giros
+  de mercado más rápido que el MACD tradicional.
+gemini_summary: Implementación canónica correcta. Algo rígida en constantes (0.5 factor)
+  pero funcional.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 23/04/2025
-user_modification_date: null
 ---
 
 ## 🟦 Schaff Trend Cycle (7/10)

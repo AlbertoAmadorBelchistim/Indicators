@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: MutualFundBars.cs
 name: Mutual Fund Bars
-category: Visualization
+category: Structure
+group: Structure
+subgroup: Price Action
 score_current: 4/10
 version: ATAS Official
-recommended_action: 'Conservar'
-description: >-
-  ¿Cómo se vería el gráfico si cada vela abriera exactamente al cierre de la anterior (estilo fondo mutuo)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador de visualización simple que elimina gaps y ruido intradía reescribiendo el Open = Close anterior. Funcional pero de uso muy específico.
+recommended_action: Conservar
+description: ¿Cómo se vería el gráfico si cada vela abriera exactamente al cierre
+  de la anterior (estilo fondo mutuo)?
+gemini_summary: Indicador de visualización simple que elimina gaps y ruido intradía
+  reescribiendo el Open = Close anterior. Funcional pero de uso muy específico.
 file_state: Estable
 score_potential: 4/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Mutual Fund Bars (4/10)

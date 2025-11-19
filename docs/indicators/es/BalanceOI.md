@@ -2,22 +2,21 @@
 cs_file: BalanceOI.cs
 name: On Balance Open Interest
 category: Order Flow
+group: Order Flow
+subgroup: Open Interest
 score_current: 8/10
 version: Estable
-recommended_action: 'Mejorar'
-description: >-
-  ¿Está el compromiso acumulado del 'dinero inteligente' (Interés Abierto) subiendo cuando los precios suben y bajando cuando los precios bajan, o está divergiendo?
-# --- Análisis y Triaje de Gemini ---
-gemini_summary: >-
-  Herramienta "Pro" (8/10). Un OBV que usa OI (más inteligente). El Modo Oscilador es excelente para scalping, pero le falta una línea cero.
+recommended_action: Mejorar
+description: ¿Está el compromiso acumulado del 'dinero inteligente' (Interés Abierto)
+  subiendo cuando los precios suben y bajando cuando los precios bajan, o está divergiendo?
+gemini_summary: Herramienta "Pro" (8/10). Un OBV que usa OI (más inteligente). El
+  Modo Oscilador es excelente para scalping, pero le falta una línea cero.
 file_state: Mejorable
 score_potential: 9/10
 effort: Bajo
 action_priority: P1 (Arreglo Rápido)
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
-user_modification_date: null
-# ------------------------------------
 ---
 
 ## 🟦 On Balance Open Interest (8/10 | Potencial: 9/10)

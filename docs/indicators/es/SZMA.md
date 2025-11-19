@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: SZMA.cs
 name: Simple Moving Average - Skip Zeros
 category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 7/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es el promedio real de una serie de datos ignorando los valores vacíos o ceros?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Media móvil especializada que filtra ceros. Útil para datos dispersos (sparse data).
+recommended_action: Conservar
+description: ¿Cuál es el promedio real de una serie de datos ignorando los valores
+  vacíos o ceros?
+gemini_summary: Media móvil especializada que filtra ceros. Útil para datos dispersos
+  (sparse data).
 file_state: Estable
 score_potential: 7/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Simple Moving Average - Skip Zeros (SZMA) (7/10)

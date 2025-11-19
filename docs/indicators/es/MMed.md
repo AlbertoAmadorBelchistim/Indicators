@@ -1,24 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: MMed.cs
 name: Moving Median
-category: Statistical
+category: Utility
+group: Utility
+subgroup: Stats
 score_current: 6/10
 version: ATAS Official
-recommended_action: 'Mejorar'
-description: >-
-  ¿Cuál es la mediana (valor central) de los precios en el período reciente?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Funcional, pero ineficiente. Reordena la lista completa de precios en cada cálculo (OrderBy), lo que puede afectar el rendimiento con períodos largos.
+recommended_action: Mejorar
+description: ¿Cuál es la mediana (valor central) de los precios en el período reciente?
+gemini_summary: Funcional, pero ineficiente. Reordena la lista completa de precios
+  en cada cálculo (OrderBy), lo que puede afectar el rendimiento con períodos largos.
 file_state: Mejorable
 score_potential: 6/10
 effort: Medio
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Moving Median (6/10)

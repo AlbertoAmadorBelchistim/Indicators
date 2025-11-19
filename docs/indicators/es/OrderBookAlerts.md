@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: OrderBookAlerts.cs
 name: Order Book Alerts
-category: OrderBook
+category: Order Flow
+group: Order Flow
+subgroup: DOM
 score_current: 9/10
 version: ATAS Official
-recommended_action: 'Conservar'
-description: >-
-  ¿Dónde hay muros de liquidez en el DOM que superan un cierto tamaño y persisten en el tiempo?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Monitor de DOM eficaz. Alerta sobre niveles de liquidez grandes y persistentes. Código eficiente basado en eventos de profundidad de mercado.
+recommended_action: Conservar
+description: ¿Dónde hay muros de liquidez en el DOM que superan un cierto tamaño y
+  persisten en el tiempo?
+gemini_summary: Monitor de DOM eficaz. Alerta sobre niveles de liquidez grandes y
+  persistentes. Código eficiente basado en eventos de profundidad de mercado.
 file_state: Estable
 score_potential: 9/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-05-8
-user_modification_date: null
 ---
 
 ## 🟦 Order Book Alerts (9/10)

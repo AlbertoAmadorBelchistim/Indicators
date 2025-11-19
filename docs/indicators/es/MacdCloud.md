@@ -1,23 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: MacdCloud.cs
 name: MACD Cloud
 category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 7/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es la tendencia visual definida por el cruce de dos medias ponderadas (WMA)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Cruce de WMAs con relleno de color (Cloud). Simple, visual y efectivo para seguimiento de tendencia.
+recommended_action: Conservar
+description: ¿Cuál es la tendencia visual definida por el cruce de dos medias ponderadas
+  (WMA)?
+gemini_summary: Cruce de WMAs con relleno de color (Cloud). Simple, visual y efectivo
+  para seguimiento de tendencia.
 file_state: Estable
 score_potential: 7/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-19
-official_code_date: null
 user_modification_date: 2025-11-19
 ---
 

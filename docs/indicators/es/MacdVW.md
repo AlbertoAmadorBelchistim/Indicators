@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: MacdVW.cs
 name: MACD - Volume Weighted
-category: Momentum
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 8/10
 version: ATAS Official
-recommended_action: 'Mejorar'
-description: >-
-  ¿Cuál es la convergencia/divergencia entre dos medias ponderadas por volumen (VWMAs)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación excelente y segura (con control de división por cero) de un MACD ponderado por volumen. Su única carencia es un histograma coloreado.
+recommended_action: Mejorar
+description: ¿Cuál es la convergencia/divergencia entre dos medias ponderadas por
+  volumen (VWMAs)?
+gemini_summary: Implementación excelente y segura (con control de división por cero)
+  de un MACD ponderado por volumen. Su única carencia es un histograma coloreado.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 MACD - Volume Weighted (8/10)

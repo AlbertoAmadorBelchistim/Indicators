@@ -1,24 +1,20 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: RVI.cs
 name: RVI V1 (Relative Vigor Index)
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 4/10
 version: Stable
-recommended_action: 'Mejorar'
-description: >-
-  ¿Cierran las velas consistentemente en la parte alta o baja de su rango?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Código extremadamente rígido (hardcoded 4 periodos) y con riesgo matemático de división por cero.
+recommended_action: Mejorar
+description: ¿Cierran las velas consistentemente en la parte alta o baja de su rango?
+gemini_summary: Código extremadamente rígido (hardcoded 4 periodos) y con riesgo matemático
+  de división por cero.
 file_state: Buggy
 score_potential: 7/10
 effort: Bajo
 action_priority: P2
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
-official_code_date: null
-user_modification_date: null
 ---
 
 ## 🟦 RVI V1 (Relative Vigor Index) (4/10) 

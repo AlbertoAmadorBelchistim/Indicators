@@ -1,24 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
-cs_file: null
 name: Speed of Tape
-category: VolumeOrderFlow
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 8/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  Mide la velocidad de ejecución (ticks, volumen o delta) en una ventana de tiempo deslizante.
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Herramienta táctica de alto valor. Algoritmo O(N) por tick mejorable en rendimiento, pero funcional.
+recommended_action: Conservar
+description: Mide la velocidad de ejecución (ticks, volumen o delta) en una ventana
+  de tiempo deslizante.
+gemini_summary: Herramienta táctica de alto valor. Algoritmo O(N) por tick mejorable
+  en rendimiento, pero funcional.
 file_state: Estable
 score_potential: 9/10
 effort: Medio
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Speed of Tape (8/10)

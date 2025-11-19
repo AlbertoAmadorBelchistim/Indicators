@@ -1,24 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: DIPos.cs
 name: DI+ (Directional Indicator Positivo)
-category: Tendencia
+category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 3/10
 version: Estable
-recommended_action: 'Descartar'
-description: >-
-  ¿Cuál es la presión compradora relativa? (Componente del sistema ADX/DMI)
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  '"Indicador de 'componente' inútil por sí solo; su funcionalidad está' (o debería estar) incluida en el indicador ADX/DMI completo, haciéndolo redundante."
+recommended_action: Descartar
+description: ¿Cuál es la presión compradora relativa? (Componente del sistema ADX/DMI)
+gemini_summary: '''"Indicador de ''componente'' inútil por sí solo; su funcionalidad
+  está'' (o debería estar) incluida en el indicador ADX/DMI completo, haciéndolo redundante."'
 file_state: Estable
 score_potential: 3/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 DI+ (Directional Indicator Positivo) (3/10)

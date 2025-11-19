@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: StdDevBands.cs
 name: Standard Deviation Bands
-category: Volatility
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 8/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Está el precio alcanzando extremos estadísticos de volatilidad basados en máximos y mínimos?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Variante de Bollinger que usa High/Low en lugar de Close. Buena gestión de alertas.
+recommended_action: Conservar
+description: ¿Está el precio alcanzando extremos estadísticos de volatilidad basados
+  en máximos y mínimos?
+gemini_summary: Variante de Bollinger que usa High/Low en lugar de Close. Buena gestión
+  de alertas.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 23/04/2025
-user_modification_date: null
 ---
 
 ## 🟦 Standard Deviation Bands (StdDev Bands) (8/10)

@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: SpreadVolume.cs
 name: Spread Volume
-category: VolumeOrderFlow
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 7/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  Visualiza el volumen ejecutado en el Ask y el Bid por separado, dibujado como histogramas en el spread.
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Visualización compleja 'On Chart'. Buen manejo de concurrencia (locks). UX mejorable.
+recommended_action: Conservar
+description: Visualiza el volumen ejecutado en el Ask y el Bid por separado, dibujado
+  como histogramas en el spread.
+gemini_summary: Visualización compleja 'On Chart'. Buen manejo de concurrencia (locks).
+  UX mejorable.
 file_state: Estable
 score_potential: 8/10
 effort: Medio
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-10-20
-user_modification_date: null
 ---
 
 ## 🟦 Spread Volume (7/10)

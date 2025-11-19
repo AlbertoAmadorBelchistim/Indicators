@@ -1,24 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: VPF.cs
 name: Voss Predictive Filter
 category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 8/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es la proyección cíclica del precio eliminando el ruido espectral?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Filtro digital avanzado. Matemática compleja (transformada). Código limpio y robusto.
+recommended_action: Conservar
+description: ¿Cuál es la proyección cíclica del precio eliminando el ruido espectral?
+gemini_summary: Filtro digital avanzado. Matemática compleja (transformada). Código
+  limpio y robusto.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Voss Predictive Filter (VPF) (8/10)

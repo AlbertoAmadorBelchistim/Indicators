@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: SqueezeMomentum.cs
 name: Squeeze Momentum
-category: Volatility
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 9/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  El famoso indicador de John Carter. Detecta periodos de baja volatilidad (Squeeze) seguidos de explosiones direccionales.
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación impecable y completa (BB + KC + Momentum). Usa un hack visual curioso para los puntos cero.
+recommended_action: Conservar
+description: El famoso indicador de John Carter. Detecta periodos de baja volatilidad
+  (Squeeze) seguidos de explosiones direccionales.
+gemini_summary: Implementación impecable y completa (BB + KC + Momentum). Usa un hack
+  visual curioso para los puntos cero.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Squeeze Momentum (9/10)

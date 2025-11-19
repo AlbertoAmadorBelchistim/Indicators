@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: StarcBands.cs
 name: Starc Bands
-category: Volatility
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 6/10
 version: Stable
-recommended_action: 'Mejorar'
-description: >-
-  ¿Dónde están los límites de volatilidad basados en el rango medio verdadero (ATR) alrededor de la media?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación funcional pero con código 'sucio' (parámetros obsoletos visibles en código).
+recommended_action: Mejorar
+description: ¿Dónde están los límites de volatilidad basados en el rango medio verdadero
+  (ATR) alrededor de la media?
+gemini_summary: Implementación funcional pero con código 'sucio' (parámetros obsoletos
+  visibles en código).
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 23/04/2025
-user_modification_date: null
 ---
 
 ## 🟦 Starc Bands (6/10)

@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: RVI2.cs
 name: RVI V2 (Relative Vigor Index)
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 7/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  Versión mejorada y configurable del RVI que mide la convicción de los cierres respecto al rango.
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Versión paramétrica correcta del RVI. Resuelve los problemas de rigidez de la V1.
+recommended_action: Conservar
+description: Versión mejorada y configurable del RVI que mide la convicción de los
+  cierres respecto al rango.
+gemini_summary: Versión paramétrica correcta del RVI. Resuelve los problemas de rigidez
+  de la V1.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 23/04/2025
-user_modification_date: null
 ---
 
 ## 🟦 RVI V2 (Relative Vigor Index) (7/10)

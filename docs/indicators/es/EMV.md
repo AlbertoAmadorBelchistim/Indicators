@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: EMV.cs
 name: Arms Ease of Movement
-category: Volume
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 6.5/10
 version: ATAS Official
-recommended_action: 'Conservar'
-description: >-
-  ¿Es el movimiento del precio (cambio en el punto medio) eficiente en relación con su volumen y rango?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación estable y correcta de un indicador clásico; las 'incoherencias' detectadas en el .md original son incorrectas.
+recommended_action: Conservar
+description: ¿Es el movimiento del precio (cambio en el punto medio) eficiente en
+  relación con su volumen y rango?
+gemini_summary: Implementación estable y correcta de un indicador clásico; las 'incoherencias'
+  detectadas en el .md original son incorrectas.
 file_state: Estable
 score_potential: 6.5/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Arms Ease of Movement (EMV) (6.5/10)

@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: OpenLine.cs
 name: Open Line
-category: Level
+category: Utility
+group: Utility
+subgroup: Visuals
 score_current: 8/10
 version: ATAS Official
-recommended_action: 'Conservar'
-description: >-
-  ¿Dónde está el precio de apertura de la sesión actual (o personalizada) y ha sido tocado ya?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador de nivel de apertura simple y efectivo. Soporta horarios personalizados y la función "Till Touch" (cortar línea al toque). Código limpio.
+recommended_action: Conservar
+description: ¿Dónde está el precio de apertura de la sesión actual (o personalizada)
+  y ha sido tocado ya?
+gemini_summary: Indicador de nivel de apertura simple y efectivo. Soporta horarios
+  personalizados y la función "Till Touch" (cortar línea al toque). Código limpio.
 file_state: Estable
 score_potential: 8/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Open Line (8/10)

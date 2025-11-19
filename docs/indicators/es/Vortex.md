@@ -1,24 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: Vortex.cs
 name: Vortex
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 7/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es la fuerza direccional del mercado basada en el flujo de vórtices (High-Low)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador direccional estándar. Implementación correcta de VI+ y VI-.
+recommended_action: Conservar
+description: ¿Cuál es la fuerza direccional del mercado basada en el flujo de vórtices
+  (High-Low)?
+gemini_summary: Indicador direccional estándar. Implementación correcta de VI+ y VI-.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Vortex (7/10)

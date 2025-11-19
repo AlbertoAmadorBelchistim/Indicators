@@ -1,24 +1,23 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: KdSlow.cs
 name: KD - Slow
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 6/10
 version: ATAS Official
-recommended_action: 'Reparar'
-description: >-
-  ¿Cuál es el valor del oscilador Estocástico Lento (%K Lento = SMA(%K Rápido), %D Lento = SMA(%D Rápido))?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador 'Buggy' (UI). El concepto (Estocástico Lento) es 7/10, pero tiene dos parámetros con el mismo nombre ('PeriodD') en la UI, haciendo la configuración confusa e inutilizable.
+recommended_action: Reparar
+description: ¿Cuál es el valor del oscilador Estocástico Lento (%K Lento = SMA(%K
+  Rápido), %D Lento = SMA(%D Rápido))?
+gemini_summary: Indicador 'Buggy' (UI). El concepto (Estocástico Lento) es 7/10, pero
+  tiene dos parámetros con el mismo nombre ('PeriodD') en la UI, haciendo la configuración
+  confusa e inutilizable.
 file_state: Buggy
 score_potential: 7/10
 effort: Bajo
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 KD - Slow (6/10)

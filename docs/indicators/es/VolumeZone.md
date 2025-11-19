@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: VolumeZone.cs
 name: Volume Zone Oscillator
-category: Volume
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 9/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es la presión neta de compra/venta normalizada por el volumen total (Oscilador de Zona)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Oscilador de volumen normalizado (-100 a +100). Código limpio y lógica robusta.
+recommended_action: Conservar
+description: ¿Cuál es la presión neta de compra/venta normalizada por el volumen total
+  (Oscilador de Zona)?
+gemini_summary: Oscilador de volumen normalizado (-100 a +100). Código limpio y lógica
+  robusta.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Volume Zone Oscillator (VZO) (9/10)

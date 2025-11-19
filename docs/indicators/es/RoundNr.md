@@ -1,24 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: RoundNr.cs
 name: Round Numbers
-category: Level
+category: Structure
+group: Structure
+subgroup: Static Levels
 score_current: 7/10
 version: Stable
-recommended_action: 'Mejorar'
-description: >-
-  ¿Dónde están los niveles de precio psicológicos (números redondos) en el gráfico?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Visualizador eficiente de niveles. Pequeña rigidez en opciones de visualización de texto.
+recommended_action: Mejorar
+description: ¿Dónde están los niveles de precio psicológicos (números redondos) en
+  el gráfico?
+gemini_summary: Visualizador eficiente de niveles. Pequeña rigidez en opciones de
+  visualización de texto.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
-official_code_date: null
-user_modification_date: null
 ---
 
 ## 🟦 Round Numbers (7/10)

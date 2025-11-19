@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: OrderBlock.cs
 name: Order Block
-category: Level
+category: Structure
+group: Structure
+subgroup: Levels
 score_current: 9/10
 version: ATAS Official
-recommended_action: 'Conservar'
-description: >-
-  ¿Dónde están los bloques de órdenes institucionales (zonas de oferta/demanda no mitigadas) basados en la estructura de swings?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador de SMC (Smart Money Concepts) bien implementado. Detecta bloques alcistas/bajistas y su rotura. Código lógico y limpio.
+recommended_action: Conservar
+description: ¿Dónde están los bloques de órdenes institucionales (zonas de oferta/demanda
+  no mitigadas) basados en la estructura de swings?
+gemini_summary: Indicador de SMC (Smart Money Concepts) bien implementado. Detecta
+  bloques alcistas/bajistas y su rotura. Código lógico y limpio.
 file_state: Estable
 score_potential: 9/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Order Block (9/10)

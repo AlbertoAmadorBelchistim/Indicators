@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: DoubleStochasticBressert.cs
 name: Double Stochastic - Bressert
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: RSI/Stochastic
 score_current: 5/10
 version: Estable
-recommended_action: 'Descartar'
-description: >-
-  '¿Cuál es el indicador Double Stochastic, pero con una capa extra de' suavizado EMA?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  '"Indicador 'Derivado' que aplica un tercer suavizado (EMA) al' 'Double Stochastic'; tiene demasiado lag y es redundante."
+recommended_action: Descartar
+description: '''¿Cuál es el indicador Double Stochastic, pero con una capa extra de''
+  suavizado EMA?'
+gemini_summary: '''"Indicador ''Derivado'' que aplica un tercer suavizado (EMA) al''
+  ''Double Stochastic''; tiene demasiado lag y es redundante."'
 file_state: Estable
 score_potential: 5/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Double Stochastic - Bressert (5/10)

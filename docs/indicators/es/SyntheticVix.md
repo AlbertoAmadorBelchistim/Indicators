@@ -1,24 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: SyntheticVix.cs
 name: Synthetic VIX
-category: Volatility
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 8/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cómo de lejos está el precio actual del máximo reciente (Proxy de miedo/pánico)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Calcula el 'Williams VIX Fix'. Simple y eficaz para detectar suelos de mercado.
+recommended_action: Conservar
+description: ¿Cómo de lejos está el precio actual del máximo reciente (Proxy de miedo/pánico)?
+gemini_summary: Calcula el 'Williams VIX Fix'. Simple y eficaz para detectar suelos
+  de mercado.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Synthetic VIX (8/10)

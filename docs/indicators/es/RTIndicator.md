@@ -1,23 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: RTIndicator.cs
 name: RT Indicator (Clean)
 category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 8/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Está el precio acelerando su pendiente (Slope) con confirmación de momentum interno?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Detector de pendiente (Slope) con filtro dinámico y confirmación de RSI. Estrategia completa.
+recommended_action: Conservar
+description: ¿Está el precio acelerando su pendiente (Slope) con confirmación de momentum
+  interno?
+gemini_summary: Detector de pendiente (Slope) con filtro dinámico y confirmación de
+  RSI. Estrategia completa.
 file_state: Estable
 score_potential: 8/10
 effort: Medio
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-19
-official_code_date: null
 user_modification_date: 2025-11-19
 ---
 

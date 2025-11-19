@@ -1,24 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: Lowest.cs
 name: Lowest
-category: Level
+category: Structure
+group: Structure
+subgroup: Levels
 score_current: 6/10
 version: ATAS Official
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es el valor más bajo (mínimo) en las últimas N barras?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador de 'bloque de construcción' estable y funcional que calcula correctamente el mínimo de un período, manejando bien los casos de borde.
+recommended_action: Conservar
+description: ¿Cuál es el valor más bajo (mínimo) en las últimas N barras?
+gemini_summary: Indicador de 'bloque de construcción' estable y funcional que calcula
+  correctamente el mínimo de un período, manejando bien los casos de borde.
 file_state: Estable
 score_potential: 6/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Lowest (6/10)

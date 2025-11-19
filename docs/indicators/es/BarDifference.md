@@ -1,23 +1,22 @@
 ---
 cs_file: BarDifference.cs
 name: Bar Difference
-category: Momentum
+category: Structure
+group: Structure
+subgroup: Price Action
 score_current: 3/10
 version: Estable
-recommended_action: 'Descartar'
-description: >-
-  ¿Cuántos ticks ha subido o bajado el precio (Cierre) en comparación con hace X velas?
-# --- Análisis y Triaje de Gemini ---
-gemini_summary: >-
-  Inútil (3/10). Es un indicador de "Momentum" (ROC) ruidoso y redundante. El default (Period=1) es puro ruido.
+recommended_action: Descartar
+description: ¿Cuántos ticks ha subido o bajado el precio (Cierre) en comparación con
+  hace X velas?
+gemini_summary: Inútil (3/10). Es un indicador de "Momentum" (ROC) ruidoso y redundante.
+  El default (Period=1) es puro ruido.
 file_state: Estable (Redundante)
 score_potential: 3/10
 effort: N/A
 action_priority: P4 (Descartar)
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
-user_modification_date: null
-# ------------------------------------
 ---
 
 ## 🟦 Bar Difference (3/10)

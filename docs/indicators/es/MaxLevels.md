@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: MaxLevels.cs
 name: Maximum Levels
-category: VolumeOrderFlow
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 9/10
 version: ATAS Official
-recommended_action: 'Conservar'
-description: >-
-  ¿En qué nivel de precio se produjo el máximo Volumen (o Bid, Ask, Delta) para el período seleccionado?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador de perfil robusto y estable. Utiliza correctamente la API asíncrona (GetFixedProfile) para encontrar el nivel máximo (Vol, Delta, etc.).
+recommended_action: Conservar
+description: ¿En qué nivel de precio se produjo el máximo Volumen (o Bid, Ask, Delta)
+  para el período seleccionado?
+gemini_summary: Indicador de perfil robusto y estable. Utiliza correctamente la API
+  asíncrona (GetFixedProfile) para encontrar el nivel máximo (Vol, Delta, etc.).
 file_state: Estable
 score_potential: 9/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Maximum Levels (9/10)

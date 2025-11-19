@@ -1,23 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: AdaptativeBigTrades.cs
 name: Adaptive Big Trades
-category: OrderFlow
+category: Order Flow
+group: Order Flow
+subgroup: Footprint
 score_current: 9/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Dónde están las operaciones grandes relativas a la liquidez actual (sin configurar filtros fijos)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Calcula dinámicamente el umbral de 'Big Trade' usando percentiles estadísticos. Excelente UX.
+recommended_action: Conservar
+description: ¿Dónde están las operaciones grandes relativas a la liquidez actual (sin
+  configurar filtros fijos)?
+gemini_summary: Calcula dinámicamente el umbral de 'Big Trade' usando percentiles
+  estadísticos. Excelente UX.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-19
-official_code_date: null
 user_modification_date: 2025-11-19
 ---
 

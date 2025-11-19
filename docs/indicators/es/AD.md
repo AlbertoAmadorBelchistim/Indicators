@@ -1,23 +1,22 @@
 ---
 cs_file: AD.cs
 name: Accumulation/Distribution (A/D)
-category: Volumen clásico
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 2/10
 version: Estable
-recommended_action: 'Descartar'
-description: >-
-  ¿El flujo de volumen acumulado está confirmando la tendencia del precio, o está mostrando una divergencia?
-# --- Análisis y Triaje de Gemini ---
-gemini_summary: >-
-  Inútil (2/10). El bug de visualización (Histograma) lo rompe. Además, el concepto es obsoleto vs. Delta.
+recommended_action: Descartar
+description: ¿El flujo de volumen acumulado está confirmando la tendencia del precio,
+  o está mostrando una divergencia?
+gemini_summary: Inútil (2/10). El bug de visualización (Histograma) lo rompe. Además,
+  el concepto es obsoleto vs. Delta.
 file_state: Roto
 score_potential: 3/10
 effort: Bajo
 action_priority: P4 (Descartar)
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
-user_modification_date: null
-# ------------------------------------
 ---
 
 ## 🟦 AD (2/10)

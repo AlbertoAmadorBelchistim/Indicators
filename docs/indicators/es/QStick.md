@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: QStick.cs
 name: Q Stick
-category: Momentum
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 6/10
 version: ATAS Official
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es el promedio móvil de la distancia entre apertura y cierre de las velas?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador simple de Chande (SMA de Close-Open). Código limpio y funcional. Utilidad limitada comparada con herramientas de volumen modernas.
+recommended_action: Conservar
+description: ¿Cuál es el promedio móvil de la distancia entre apertura y cierre de
+  las velas?
+gemini_summary: Indicador simple de Chande (SMA de Close-Open). Código limpio y funcional.
+  Utilidad limitada comparada con herramientas de volumen modernas.
 file_state: Estable
 score_potential: 6/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Q Stick (6/10)

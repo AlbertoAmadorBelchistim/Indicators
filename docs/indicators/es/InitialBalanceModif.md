@@ -1,21 +1,20 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: InitialBalanceModif.cs
 name: Initial Balance Modif
-category: Levels
+category: Structure
+group: Structure
+subgroup: Levels
 score_current: 9/10
 version: Modif.
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuáles son el rango de apertura (IB) y sus expansiones proyectadas (IBHX/IBLX) para la sesión actual?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Versión 'Modif' superior que repara el original; usa 'OnRender' para etiquetas limpias y 'snapshotting' para niveles históricos estables. 'Core' de niveles.
+recommended_action: Conservar
+description: ¿Cuáles son el rango de apertura (IB) y sus expansiones proyectadas (IBHX/IBLX)
+  para la sesión actual?
+gemini_summary: Versión 'Modif' superior que repara el original; usa 'OnRender' para
+  etiquetas limpias y 'snapshotting' para niveles históricos estables. 'Core' de niveles.
 file_state: Estable
 score_potential: 9/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-05-8
 user_modification_date: 2025-11-17

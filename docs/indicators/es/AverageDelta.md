@@ -2,22 +2,21 @@
 cs_file: AverageDelta.cs
 name: Average Delta
 category: Order Flow
+group: Order Flow
+subgroup: Delta
 score_current: 6.5/10
 version: Estable
-recommended_action: 'Mejorar'
-description: >-
-  ¿Cuál es la presión agresiva promedio (Delta) durante las últimas X velas, suavizando el ruido de vela a vela?
-# --- Análisis y Triaje de Gemini ---
-gemini_summary: >-
-  Filtro de régimen de Delta decente (6.5/10). Su usabilidad está mermada por la falta de una línea cero.
+recommended_action: Mejorar
+description: ¿Cuál es la presión agresiva promedio (Delta) durante las últimas X velas,
+  suavizando el ruido de vela a vela?
+gemini_summary: Filtro de régimen de Delta decente (6.5/10). Su usabilidad está mermada
+  por la falta de una línea cero.
 file_state: Mejorable
 score_potential: 7.5/10
 effort: Bajo
 action_priority: P1 (Arreglo Rápido)
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
-user_modification_date: null
-# ------------------------------------
 ---
 
 ## 🟦 Average Delta (6.5/10 | Potencial: 7.5/10)

@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: HRanges.cs
 name: HRanges
-category: Volume
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 8.5/10
 version: ATAS Official
-recommended_action: 'Conservar'
-description: >-
-  ¿Dónde se están formando rangos (consolidaciones) y cuál es el POC interno de esos rangos, filtrado por volumen y duración?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador 'Core' de Nivel 2; implementa una máquina de estados para detectar rangos, clasificarlos (Up/Down/Flat) y encontrar su POC, con filtros profesionales.
+recommended_action: Conservar
+description: ¿Dónde se están formando rangos (consolidaciones) y cuál es el POC interno
+  de esos rangos, filtrado por volumen y duración?
+gemini_summary: Indicador 'Core' de Nivel 2; implementa una máquina de estados para
+  detectar rangos, clasificarlos (Up/Down/Flat) y encontrar su POC, con filtros profesionales.
 file_state: Estable
 score_potential: 8.5/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 HRanges (8.5/10)

@@ -1,24 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: TRIX.cs
 name: TRIX
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 7/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es la tasa de cambio (ROC) de una media móvil triplemente suavizada?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación estándar del TRIX. Triple EMA + ROC. Funcional pero con el lag inherente al método.
+recommended_action: Conservar
+description: ¿Cuál es la tasa de cambio (ROC) de una media móvil triplemente suavizada?
+gemini_summary: Implementación estándar del TRIX. Triple EMA + ROC. Funcional pero
+  con el lag inherente al método.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 TRIX (7/10)

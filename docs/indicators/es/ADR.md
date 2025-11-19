@@ -1,23 +1,22 @@
 ---
 cs_file: ADR.cs
 name: ADR
-category: Volatilidad
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 7/10
 version: Estable
-recommended_action: 'Mejorar'
-description: >-
-  ¿Cuál es el rango de movimiento "normal" o "promedio" para este instrumento en una sesión, y dónde se proyectarían esos límites hoy?
-# --- Análisis y Triaje de Gemini ---
-gemini_summary: >-
-  Contexto esencial (7/10), pero con un fallo conceptual. Ignora gaps (usa Rango, no ATR).
+recommended_action: Mejorar
+description: ¿Cuál es el rango de movimiento "normal" o "promedio" para este instrumento
+  en una sesión, y dónde se proyectarían esos límites hoy?
+gemini_summary: Contexto esencial (7/10), pero con un fallo conceptual. Ignora gaps
+  (usa Rango, no ATR).
 file_state: Mejorable
 score_potential: 9/10
 effort: Bajo
 action_priority: P1 (Arreglo Rápido)
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
-user_modification_date: null
-# ------------------------------------
 ---
 
 ## 🟦 Average Daily Range (ADR) (7/10 | Potencial: 9/10)

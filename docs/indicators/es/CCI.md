@@ -1,23 +1,22 @@
 ---
 cs_file: CCI.cs
 name: CCI
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 7/10
 version: Estable
-recommended_action: 'Mejorar'
-description: >-
-  ¿Qué tan lejos se ha desviado el precio "típico" de hoy de su precio "promedio", medido en unidades de desviación estadística?
-# --- Análisis y Triaje de Gemini ---
-gemini_summary: >-
-  Clásico (7/10). Útil para divergencias. Implementación correcta pero sin "warm-up", genera ruido inicial.
+recommended_action: Mejorar
+description: ¿Qué tan lejos se ha desviado el precio "típico" de hoy de su precio
+  "promedio", medido en unidades de desviación estadística?
+gemini_summary: Clásico (7/10). Útil para divergencias. Implementación correcta pero
+  sin "warm-up", genera ruido inicial.
 file_state: Buggy
 score_potential: 8/10
 effort: Bajo
 action_priority: P1 (Arreglo Rápido)
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
-user_modification_date: null
-# ------------------------------------
 ---
 
 ## 🟦 Commodity Channel Index (CCI) (7/10 | Potencial: 8/10)

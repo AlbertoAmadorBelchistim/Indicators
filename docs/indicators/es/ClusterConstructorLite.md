@@ -1,23 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: ClusterConstructorLite.cs
 name: Cluster Constructor Lite
-category: OrderFlow
+category: Order Flow
+group: Order Flow
+subgroup: Footprint
 score_current: 8/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Existen patrones anómalos de volumen (ej. doble núcleo) dentro de la estructura de la vela?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Detector de patrones de clúster específicos (Double Max Volume). Útil para situaciones de bloqueo.
+recommended_action: Conservar
+description: ¿Existen patrones anómalos de volumen (ej. doble núcleo) dentro de la
+  estructura de la vela?
+gemini_summary: Detector de patrones de clúster específicos (Double Max Volume). Útil
+  para situaciones de bloqueo.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-19
-official_code_date: null
 user_modification_date: 2025-11-19
 ---
 

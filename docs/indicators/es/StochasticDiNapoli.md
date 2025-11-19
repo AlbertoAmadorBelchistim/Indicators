@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: StochasticDiNapoli.cs
 name: Preferred Stochastic - DiNapoli
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: RSI/Stochastic
 score_current: 7/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cómo filtrar el ruido del estocástico usando el método de suavizado de DiNapoli?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación opaca (usa clases internas KdFast/Slow) pero funcional del método DiNapoli.
+recommended_action: Conservar
+description: ¿Cómo filtrar el ruido del estocástico usando el método de suavizado
+  de DiNapoli?
+gemini_summary: Implementación opaca (usa clases internas KdFast/Slow) pero funcional
+  del método DiNapoli.
 file_state: Estable
 score_potential: 7/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Preferred Stochastic - DiNapoli (7/10)

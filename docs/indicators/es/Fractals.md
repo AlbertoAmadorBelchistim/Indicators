@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: Fractals.cs
 name: Fractals
-category: Levels
+category: Structure
+group: Structure
+subgroup: Price Action
 score_current: 7.5/10
 version: ATAS Official
-recommended_action: 'Conservar'
-description: >-
-  ¿Dónde están los máximos y mínimos fractales (swing) de 5 barras, con líneas opcionales de S/R?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación 'Core' y estable del fractal de 5 barras, mejorada con una excelente función 'ShowLine' (LineTillTouch) para S/R automáticos.
+recommended_action: Conservar
+description: ¿Dónde están los máximos y mínimos fractales (swing) de 5 barras, con
+  líneas opcionales de S/R?
+gemini_summary: Implementación 'Core' y estable del fractal de 5 barras, mejorada
+  con una excelente función 'ShowLine' (LineTillTouch) para S/R automáticos.
 file_state: Estable
 score_potential: 7.5/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Fractals (7.5/10)

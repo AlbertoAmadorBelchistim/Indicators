@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: ForceIndex.cs
 name: Force Index
-category: Volume
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 7/10
 version: ATAS Official
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es la fuerza de un movimiento (Volumen * (Cierre - CierreAnterior)), con suavizado opcional?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación 'Core' y estable del clásico 'Force Index' (Volumen * Delta de Cierre) con un suavizado EMA opcional.
+recommended_action: Conservar
+description: ¿Cuál es la fuerza de un movimiento (Volumen * (Cierre - CierreAnterior)),
+  con suavizado opcional?
+gemini_summary: Implementación 'Core' y estable del clásico 'Force Index' (Volumen
+  * Delta de Cierre) con un suavizado EMA opcional.
 file_state: Estable
 score_potential: 7/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Force Index (7/10)

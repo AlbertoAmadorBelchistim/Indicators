@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: ImbalanceRatio.cs
 name: Imbalance Ratio
-category: VolumeOrderFlow
+category: Order Flow
+group: Order Flow
+subgroup: Footprint
 score_current: 9/10
 version: ATAS Official
-recommended_action: 'Conservar'
-description: >-
-  ¿Dónde se están produciendo desequilibrios (imbalances) diagonales de Ask vs. Bid en el clúster que superan un ratio y volumen mínimos?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación 'Core' y estable del Imbalance de clúster (diagonal); incluye filtros clave (Ratio, VolumeFilter) y un resumen de texto en la vela.
+recommended_action: Conservar
+description: ¿Dónde se están produciendo desequilibrios (imbalances) diagonales de
+  Ask vs. Bid en el clúster que superan un ratio y volumen mínimos?
+gemini_summary: Implementación 'Core' y estable del Imbalance de clúster (diagonal);
+  incluye filtros clave (Ratio, VolumeFilter) y un resumen de texto en la vela.
 file_state: Estable
 score_potential: 9/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-05-27
-user_modification_date: null
 ---
 
 ## 🟦 Imbalance Ratio (9/10)

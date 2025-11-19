@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: VolatilityTrend.cs
 name: Volatility Trend
-category: Volatility
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 8/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es el canal de tendencia dinámico ajustado por la persistencia de la dirección y la volatilidad?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Híbrido inteligente. Stop dinámico basado en ATR y conteo de velas consecutivas.
+recommended_action: Conservar
+description: ¿Cuál es el canal de tendencia dinámico ajustado por la persistencia
+  de la dirección y la volatilidad?
+gemini_summary: Híbrido inteligente. Stop dinámico basado en ATR y conteo de velas
+  consecutivas.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Volatility Trend (8/10)

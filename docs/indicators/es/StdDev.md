@@ -1,24 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: StdDev.cs
 name: Standard Deviation
-category: Volatility
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 8/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuánto se está alejando el precio de su media (volatilidad absoluta)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Cálculo matemático estándar de la desviación típica. Código simple y correcto.
+recommended_action: Conservar
+description: ¿Cuánto se está alejando el precio de su media (volatilidad absoluta)?
+gemini_summary: Cálculo matemático estándar de la desviación típica. Código simple
+  y correcto.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 23/04/2025
-user_modification_date: null
 ---
 
 ## 🟦 Standard Deviation (StdDev) (8/10)

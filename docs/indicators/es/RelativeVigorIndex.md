@@ -1,24 +1,23 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: RelativeVigorIndex.cs
 name: Relative Vigor Index
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 6/10
 version: ATAS Official
-recommended_action: 'Mejorar'
-description: >-
-  ¿Cuál es la convicción del cierre (Close vs Open) relativa al rango (High vs Low)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador de vigor relativo. Funcional, pero con riesgo de división por cero si High==Low. La línea de señal se calcula de forma inusual (sobre el valor crudo).
+recommended_action: Mejorar
+description: ¿Cuál es la convicción del cierre (Close vs Open) relativa al rango (High
+  vs Low)?
+gemini_summary: Indicador de vigor relativo. Funcional, pero con riesgo de división
+  por cero si High==Low. La línea de señal se calcula de forma inusual (sobre el valor
+  crudo).
 file_state: Mejorable
 score_potential: 7/10
 effort: Bajo
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Relative Vigor Index (6/10)

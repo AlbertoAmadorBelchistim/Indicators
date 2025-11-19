@@ -1,24 +1,20 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: RSI.cs
 name: RSI (Relative Strength Index)
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: RSI/Stochastic
 score_current: 8/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Está el precio sobreextendido (sobrecompra/sobreventa) en relación a su historial reciente?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación sólida y estándar con SMMA. Buen sistema de alertas.
+recommended_action: Conservar
+description: ¿Está el precio sobreextendido (sobrecompra/sobreventa) en relación a
+  su historial reciente?
+gemini_summary: Implementación sólida y estándar con SMMA. Buen sistema de alertas.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
-official_code_date: null
-user_modification_date: null
 ---
 
 ## 🟦 RSI (Relative Strength Index) (8/10)

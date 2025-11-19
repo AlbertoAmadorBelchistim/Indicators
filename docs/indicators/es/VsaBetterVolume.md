@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: VsaBetterVolume.cs
 name: VSA Better Volume
-category: Volume
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 9/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Qué nos dice el volumen sobre la intención profesional (Clímax, Churn, Trampa)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación completa del sistema 'Better Volume'. Clasifica velas por colores según VSA.
+recommended_action: Conservar
+description: ¿Qué nos dice el volumen sobre la intención profesional (Clímax, Churn,
+  Trampa)?
+gemini_summary: Implementación completa del sistema 'Better Volume'. Clasifica velas
+  por colores según VSA.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-05-8
-user_modification_date: null
 ---
 
 ## 🟦 VSA Better Volume (9/10)

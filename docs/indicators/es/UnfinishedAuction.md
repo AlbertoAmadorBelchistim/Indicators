@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: UnfinishedAuction.cs
 name: Unfinished Auction
-category: VolumeOrderFlow
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 9/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Quedaron órdenes pendientes (desequilibrio) en los extremos de la vela que el precio debe volver a visitar?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Herramienta de Order Flow avanzada. Detecta anomalías en extremos y dibuja líneas hasta que se mitigan.
+recommended_action: Conservar
+description: ¿Quedaron órdenes pendientes (desequilibrio) en los extremos de la vela
+  que el precio debe volver a visitar?
+gemini_summary: Herramienta de Order Flow avanzada. Detecta anomalías en extremos
+  y dibuja líneas hasta que se mitigan.
 file_state: Estable
 score_potential: 9/10
 effort: Alto
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-05-8
-user_modification_date: null
 ---
 
 ## 🟦 Unfinished Auction (9/10)

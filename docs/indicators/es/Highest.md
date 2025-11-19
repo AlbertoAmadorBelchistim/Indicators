@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: Highest.cs
 name: Highest
-category: Levels
+category: Structure
+group: Structure
+subgroup: Levels
 score_current: 6/10
 version: ATAS Official
-recommended_action: 'Descartar'
-description: >-
-  ¿Cuál es el valor más alto del "Source" (por defecto, el Cierre) de las últimas N barras?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador estable que traza el 'Highest Close' (por defecto). Es funcionalmente redundante y menos útil que el indicador 'HighLow' (Donchian Channel).
+recommended_action: Descartar
+description: ¿Cuál es el valor más alto del "Source" (por defecto, el Cierre) de las
+  últimas N barras?
+gemini_summary: Indicador estable que traza el 'Highest Close' (por defecto). Es funcionalmente
+  redundante y menos útil que el indicador 'HighLow' (Donchian Channel).
 file_state: Estable
 score_potential: 6/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Highest (6/10)

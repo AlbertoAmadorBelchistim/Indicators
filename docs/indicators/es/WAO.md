@@ -1,24 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: WAO.cs
 name: Weighted Average Oscillator
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 7/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es la diferencia entre dos medias móviles ponderadas (WMA)? (MACD rápido).
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Oscilador simple WMA-WMA. Reactivo pero básico. Código correcto.
+recommended_action: Conservar
+description: ¿Cuál es la diferencia entre dos medias móviles ponderadas (WMA)? (MACD
+  rápido).
+gemini_summary: Oscilador simple WMA-WMA. Reactivo pero básico. Código correcto.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Weighted Average Oscillator (WAO) (7/10)

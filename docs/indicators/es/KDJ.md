@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: KDJ.cs
 name: KDJ
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 5/10
 version: ATAS Official
-recommended_action: 'Reparar'
-description: >-
-  ¿Cuál es el valor del Estocástico Lento (%K, %D) más la línea de señal %J (3*%K - 2*%D)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador 'Buggy' (UI). Hereda el mismo bug de UI que 'KdSlow' (dos parámetros 'PeriodD'). El concepto (añadir línea %J) es 6.5/10, pero es inconfigurable.
+recommended_action: Reparar
+description: ¿Cuál es el valor del Estocástico Lento (%K, %D) más la línea de señal
+  %J (3*%K - 2*%D)?
+gemini_summary: Indicador 'Buggy' (UI). Hereda el mismo bug de UI que 'KdSlow' (dos
+  parámetros 'PeriodD'). El concepto (añadir línea %J) es 6.5/10, pero es inconfigurable.
 file_state: Buggy
 score_potential: 6.5/10
 effort: Bajo
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-05-15
-user_modification_date: null
 ---
 
 ## 🟦 KDJ (5/10)

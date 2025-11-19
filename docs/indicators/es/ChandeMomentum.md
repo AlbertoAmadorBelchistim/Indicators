@@ -1,24 +1,24 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: ChandeMomentum.cs
 name: Chande Momentum Oscillators
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 5/10
 version: Estable
-recommended_action: 'Mejorar'
-description: >-
-  '¿Cuál es la fuerza neta del impulso (Suma de Subidas vs. Suma de' Bajadas), expresada como un oscilador centrado en cero?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  'Una implementación estable y correcta del CMO. Es un "RSI ruidoso".' El concepto es un 6/10 (redundante con RSI/CCI, pero funcional). La implementación actual es un 5/10 porque carece de las líneas guía básicas (0, +50, -50), que son esenciales para su uso.
+recommended_action: Mejorar
+description: '''¿Cuál es la fuerza neta del impulso (Suma de Subidas vs. Suma de''
+  Bajadas), expresada como un oscilador centrado en cero?'
+gemini_summary: '''Una implementación estable y correcta del CMO. Es un "RSI ruidoso".''
+  El concepto es un 6/10 (redundante con RSI/CCI, pero funcional). La implementación
+  actual es un 5/10 porque carece de las líneas guía básicas (0, +50, -50), que son
+  esenciales para su uso.'
 file_state: Mejorable
 score_potential: 6/10
 effort: Bajo
 action_priority: P4
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Chande Momentum Oscillator (CMO) (5/10)

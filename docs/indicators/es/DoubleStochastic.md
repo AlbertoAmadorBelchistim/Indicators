@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: DoubleStochastic.cs
 name: Double Stochastic
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: RSI/Stochastic
 score_current: 7/10
 version: Estable
-recommended_action: 'Conservar'
-description: >-
-  '¿Cuál es el indicador Estocástico, pero aplicado por segunda vez sobre' sí mismo para suavizar el ruido?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  '"Implementación estable de un Estocástico suavizado (Estocástico' de un Estocástico); una buena herramienta de momentum que reduce el ruido."
+recommended_action: Conservar
+description: '''¿Cuál es el indicador Estocástico, pero aplicado por segunda vez sobre''
+  sí mismo para suavizar el ruido?'
+gemini_summary: '''"Implementación estable de un Estocástico suavizado (Estocástico''
+  de un Estocástico); una buena herramienta de momentum que reduce el ruido."'
 file_state: Estable
 score_potential: 7/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Double Stochastic (7/10)

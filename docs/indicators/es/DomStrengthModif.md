@@ -1,24 +1,23 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: DomStrengthModif.cs
 name: DOM Strength Modif
-category: OrderBook
+category: Order Flow
+group: Order Flow
+subgroup: DOM
 score_current: 9/10
 version: Modif
-recommended_action: 'Conservar'
-description: >-
-  '¿Cuál es la fuerza de la agresión (Trades) en relación con la liquidez' pasiva (DOM)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  '"Concepto 10/10 (Agresión vs Liquidez) que estaba roto en la versión' original; esta 'Modif' corrige los bugs de cálculo y lo convierte en una herramienta 'Core'."
+recommended_action: Conservar
+description: '''¿Cuál es la fuerza de la agresión (Trades) en relación con la liquidez''
+  pasiva (DOM)?'
+gemini_summary: '''"Concepto 10/10 (Agresión vs Liquidez) que estaba roto en la versión''
+  original; esta ''Modif'' corrige los bugs de cálculo y lo convierte en una herramienta
+  ''Core''."'
 file_state: Estable
 score_potential: 10/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 DOM Strength Modif (9/10)

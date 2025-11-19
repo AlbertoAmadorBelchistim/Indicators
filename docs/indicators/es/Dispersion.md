@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: Dispersion.cs
 name: Dispersion
-category: Volatility
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 1/10
 version: Estable
-recommended_action: 'Descartar'
-description: >-
-  '¿Está el precio 'pegado' a su media (comprimido) o 'explotando' lejos' de ella (volátil)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  '"Indicador Roto e Inferior: mide la Varianza ('ticks^2') en lugar' de StDev, la calcula mal, y es 100% inferior a usar ATR o Bollinger Bands."
+recommended_action: Descartar
+description: '''¿Está el precio ''pegado'' a su media (comprimido) o ''explotando''
+  lejos'' de ella (volátil)?'
+gemini_summary: '''"Indicador Roto e Inferior: mide la Varianza (''ticks^2'') en lugar''
+  de StDev, la calcula mal, y es 100% inferior a usar ATR o Bollinger Bands."'
 file_state: Roto
 score_potential: 1/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Dispersion (1/10)

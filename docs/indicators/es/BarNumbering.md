@@ -1,24 +1,24 @@
 ---
 cs_file: BarNumbering.cs
 name: Bar Numbering
-category: Utilidad / Visualización
+category: Structure
+group: Structure
+subgroup: Price Action
 score_current: 4/10
 version: Estable
-recommended_action: 'Descartar'
-description: >-
-  ¿Cuántas velas han pasado desde el inicio de la sesión, y puedes etiquetarlas cada X velas, por favor?
-# --- Análisis y Triaje de Gemini ---
-gemini_summary: >-
-  Herramienta de backtesting/conteo (4/10), no de trading. Añade ruido visual en vivo.
+recommended_action: Descartar
+description: ¿Cuántas velas han pasado desde el inicio de la sesión, y puedes etiquetarlas
+  cada X velas, por favor?
+gemini_summary: Herramienta de backtesting/conteo (4/10), no de trading. Añade ruido
+  visual en vivo.
 file_state: Estable
 score_potential: 4/10
 effort: N/A
 action_priority: P4 (Descartar)
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
-user_modification_date: null
-# ------------------------------------
 ---
+
 ## 🟦 Bar Numbering (4/10)
 
   

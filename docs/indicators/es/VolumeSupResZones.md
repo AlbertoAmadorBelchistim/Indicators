@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: VolumeSupResZones.cs
 name: Volume-based Support & Resistance Zones
-category: VolumeOrderFlow
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 10/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Dónde están las zonas de soporte y resistencia definidas por volumen en múltiples marcos temporales?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador MTF avanzado. Genera zonas S/R dinámicas de 4 timeframes en un solo gráfico. Código complejo y robusto.
+recommended_action: Conservar
+description: ¿Dónde están las zonas de soporte y resistencia definidas por volumen
+  en múltiples marcos temporales?
+gemini_summary: Indicador MTF avanzado. Genera zonas S/R dinámicas de 4 timeframes
+  en un solo gráfico. Código complejo y robusto.
 file_state: Estable
 score_potential: 10/10
 effort: Alto
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Volume-based Support & Resistance Zones (10/10)

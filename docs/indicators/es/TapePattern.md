@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: TapePattern.cs
 name: Tape Patterns
-category: VolumeOrderFlow
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 9/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Dónde están los bloques de órdenes grandes y patrones de ejecución específicos en la cinta?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador complejo de nivel institucional. Usa hilos dedicados para procesar CumulativeTrades. Alto valor.
+recommended_action: Conservar
+description: ¿Dónde están los bloques de órdenes grandes y patrones de ejecución específicos
+  en la cinta?
+gemini_summary: Indicador complejo de nivel institucional. Usa hilos dedicados para
+  procesar CumulativeTrades. Alto valor.
 file_state: Estable
 score_potential: 9/10
 effort: Alto
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-08-25
-user_modification_date: null
 ---
 
 ## 🟦 Tape Patterns (9/10)

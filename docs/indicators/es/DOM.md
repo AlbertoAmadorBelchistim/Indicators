@@ -1,24 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: DOM.cs
 name: Depth of Market
-category: OrderBook
+category: Order Flow
+group: Order Flow
+subgroup: DOM
 score_current: 9/10
 version: Latest
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es la liquidez (libro de órdenes) actual, dibujada en el gráfico?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  '"Herramienta 'Core' de Order Flow que visualiza el libro de órdenes' (DOM) directamente en el gráfico, esencial para scalping de liquidez."
+recommended_action: Conservar
+description: ¿Cuál es la liquidez (libro de órdenes) actual, dibujada en el gráfico?
+gemini_summary: '''"Herramienta ''Core'' de Order Flow que visualiza el libro de órdenes''
+  (DOM) directamente en el gráfico, esencial para scalping de liquidez."'
 file_state: Estable
 score_potential: 9/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-11-10
-user_modification_date: null
 ---
 
 ## 🟦 Depth of Market (DOM) (9/10)

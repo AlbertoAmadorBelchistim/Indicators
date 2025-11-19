@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: ZLEMA.cs
 name: Zero Lag Exponential Moving Average
 category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 8/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es la tendencia suavizada eliminando el retraso matemático inherente a las medias móviles?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  EMA sobre datos 'des-lagged'. Código simple y efectivo para reducir latencia.
+recommended_action: Conservar
+description: ¿Cuál es la tendencia suavizada eliminando el retraso matemático inherente
+  a las medias móviles?
+gemini_summary: EMA sobre datos 'des-lagged'. Código simple y efectivo para reducir
+  latencia.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Zero Lag Exponential Moving Average (ZLEMA) (8/10)

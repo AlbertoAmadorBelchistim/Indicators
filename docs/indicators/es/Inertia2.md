@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: Inertia2.cs
 name: Inertia V2
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 7/10
 version: ATAS Official
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es el momentum, basado en un RVI (calculado sobre StdDev) y suavizado por una Regresión Lineal?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación 'Quant' estable de un oscilador de 'doble suavizado'; crea un RVI personalizado basado en StdDev y luego lo suaviza con Regresión Lineal.
+recommended_action: Conservar
+description: ¿Cuál es el momentum, basado en un RVI (calculado sobre StdDev) y suavizado
+  por una Regresión Lineal?
+gemini_summary: Implementación 'Quant' estable de un oscilador de 'doble suavizado';
+  crea un RVI personalizado basado en StdDev y luego lo suaviza con Regresión Lineal.
 file_state: Estable
 score_potential: 7/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Inertia V2 (7/10)

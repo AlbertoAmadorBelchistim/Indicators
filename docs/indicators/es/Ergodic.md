@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: Ergodic.cs
 name: Ergodic
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 4/10
 version: ATAS Official
-recommended_action: 'Reparar'
-description: >-
-  ¿Cuál es la diferencia (histograma) entre el True Strength Index (TSI) y su línea de señal?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Conceptualmente 'Roto'; calcula el TSI y su señal pero solo muestra el histograma, ocultando las líneas principales.
+recommended_action: Reparar
+description: ¿Cuál es la diferencia (histograma) entre el True Strength Index (TSI)
+  y su línea de señal?
+gemini_summary: Conceptualmente 'Roto'; calcula el TSI y su señal pero solo muestra
+  el histograma, ocultando las líneas principales.
 file_state: Roto
 score_potential: 8/10
 effort: Bajo
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Ergodic Oscillator (4/10)

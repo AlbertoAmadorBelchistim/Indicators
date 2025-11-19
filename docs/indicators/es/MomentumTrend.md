@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: MomentumTrend.cs
 name: Momentum Trend
-category: Momentum
+category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 3/10
 version: ATAS Official
-recommended_action: 'Mejorar'
-description: >-
-  ¿Está el momentum aumentando o disminuyendo vela a vela (visualizado como puntos)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador visual muy básico. Tiene un defecto lógico: si el momentum es igual al anterior, no dibuja nada, creando huecos visuales.
+recommended_action: Mejorar
+description: ¿Está el momentum aumentando o disminuyendo vela a vela (visualizado
+  como puntos)?
+gemini_summary: 'Indicador visual muy básico. Tiene un defecto lógico: si el momentum
+  es igual al anterior, no dibuja nada, creando huecos visuales.'
 file_state: Mejorable
 score_potential: 5/10
 effort: Bajo
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Momentum Trend (3/10)

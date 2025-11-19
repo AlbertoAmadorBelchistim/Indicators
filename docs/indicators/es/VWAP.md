@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: VWAP.cs
 name: VWAP / TWAP
-category: VolumeOrderFlow
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 10/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es el precio medio ponderado por volumen (institucional) y sus desviaciones estándar?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  El indicador más completo y profesional. Múltiples periodos, desviaciones, anclaje manual. Perfecto.
+recommended_action: Conservar
+description: ¿Cuál es el precio medio ponderado por volumen (institucional) y sus
+  desviaciones estándar?
+gemini_summary: El indicador más completo y profesional. Múltiples periodos, desviaciones,
+  anclaje manual. Perfecto.
 file_state: Estable
 score_potential: 10/10
 effort: Alto
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-05-08
-user_modification_date: null
 ---
 
 ## 🟦 VWAP / TWAP (10/10)

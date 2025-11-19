@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: Repulse.cs
 name: Repulse
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 6/10
 version: ATAS Official
-recommended_action: 'Mejorar'
-description: >-
-  ¿Cuál es la "presión de repulsión" (fuerza de compra/venta interna) suavizada de las velas?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador de presión interna. Código funcional, pero con dependencia excesiva de la vela 0 para la inicialización y factores de suavizado fijos.
+recommended_action: Mejorar
+description: ¿Cuál es la "presión de repulsión" (fuerza de compra/venta interna) suavizada
+  de las velas?
+gemini_summary: Indicador de presión interna. Código funcional, pero con dependencia
+  excesiva de la vela 0 para la inicialización y factores de suavizado fijos.
 file_state: Mejorable
 score_potential: 6/10
 effort: Bajo
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Repulse (6/10)

@@ -1,24 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: Inertia.cs
 name: Inertia
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 6.5/10
 version: ATAS Official
-recommended_action: 'Descartar'
-description: >-
-  ¿Cuál es el momentum del RVI, suavizado por una Regresión Lineal?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador 'Derivado' y estable que aplica un 'doble suavizado' (RVI + LinearReg). Es redundante con 'Inertia2' y tiene un lag considerable.
+recommended_action: Descartar
+description: ¿Cuál es el momentum del RVI, suavizado por una Regresión Lineal?
+gemini_summary: Indicador 'Derivado' y estable que aplica un 'doble suavizado' (RVI
+  + LinearReg). Es redundante con 'Inertia2' y tiene un lag considerable.
 file_state: Estable
 score_potential: 6.5/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Inertia (6.5/10)

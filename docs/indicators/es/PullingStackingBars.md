@@ -1,23 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: PullingStackingBars.cs
 name: Pulling & Stacking Bars (Clean)
-category: OrderFlow
+category: Structure
+group: Structure
+subgroup: Price Action
 score_current: 10/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Se está añadiendo (Stacking) o retirando (Pulling) liquidez del libro de órdenes en tiempo real?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Analizador de cambios en el DOM (L2). Muestra la intención de los proveedores de liquidez.
+recommended_action: Conservar
+description: ¿Se está añadiendo (Stacking) o retirando (Pulling) liquidez del libro
+  de órdenes en tiempo real?
+gemini_summary: Analizador de cambios en el DOM (L2). Muestra la intención de los
+  proveedores de liquidez.
 file_state: Estable
 score_potential: 10/10
 effort: Medio
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-19
-official_code_date: null
 user_modification_date: 2025-11-19
 ---
 

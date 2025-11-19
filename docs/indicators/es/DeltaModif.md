@@ -1,12 +1,14 @@
 ---
 cs_file: DeltaModif.cs
 name: Delta Modif 
-category: Order FLow
-score: 10/10
+category: Order Flow
+group: Order Flow
+subgroup: Delta
 version: Estable
-verdict: 'Conservar (herramienta principal)'
-description: >-
-  ¿Qué barras muestran una agresión (Delta) extrema, divergencia o absorción, y cómo puedo ver esas señales directamente en el gráfico de precio?
+description: ¿Qué barras muestran una agresión (Delta) extrema, divergencia o absorción,
+  y cómo puedo ver esas señales directamente en el gráfico de precio?
+score: 10/10
+verdict: Conservar (herramienta principal)
 ---
 
 ## 🟥 Delta (versión modificada) (10/10)

@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: FisherTransformInverseRsi.cs
 name: Inverse Fisher Transform with RSI
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: RSI/Stochastic
 score_current: 6.5/10
 version: ATAS Official
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es el momentum, basado en un RSI suavizado y normalizado por una transformación inversa de Fisher?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación estable de un oscilador de momentum 'suave' (RSI + WMA + IFT); el nombre del parámetro 'HighLowPeriod' es confuso pero el UI es correcto.
+recommended_action: Conservar
+description: ¿Cuál es el momentum, basado en un RSI suavizado y normalizado por una
+  transformación inversa de Fisher?
+gemini_summary: Implementación estable de un oscilador de momentum 'suave' (RSI +
+  WMA + IFT); el nombre del parámetro 'HighLowPeriod' es confuso pero el UI es correcto.
 file_state: Estable
 score_potential: 6.5/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Inverse Fisher Transform with RSI (6.5/10)

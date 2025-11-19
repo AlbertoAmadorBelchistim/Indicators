@@ -1,24 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: PolarizedFractal.cs
 name: Polarized Fractal Efficiency
-category: Momentum
+category: Structure
+group: Structure
+subgroup: Price Action
 score_current: 7/10
 version: ATAS Official
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es la eficiencia (tendencia vs ruido) del movimiento del precio?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador de eficiencia de tendencia. Implementación matemática correcta. Nombre de parámetro confuso (ShortPeriod) y falta de líneas de referencia visuales.
+recommended_action: Conservar
+description: ¿Cuál es la eficiencia (tendencia vs ruido) del movimiento del precio?
+gemini_summary: Indicador de eficiencia de tendencia. Implementación matemática correcta.
+  Nombre de parámetro confuso (ShortPeriod) y falta de líneas de referencia visuales.
 file_state: Estable
 score_potential: 7/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Polarized Fractal Efficiency (7/10)

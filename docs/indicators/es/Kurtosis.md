@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: Kurtosis.cs
 name: Kurtosis
-category: Statistical
+category: Utility
+group: Utility
+subgroup: Stats
 score_current: 5/10
 version: ATAS Official
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es la "pesadez de las colas" (Kurtosis) de la distribución de precios, para medir la frecuencia de eventos extremos?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación 'Quant' estable de Kurtosis (poblacional y muestral). Teóricamente 'Buggy' (riesgo div/0), pero su utilidad para scalping es casi nula.
+recommended_action: Conservar
+description: ¿Cuál es la "pesadez de las colas" (Kurtosis) de la distribución de precios,
+  para medir la frecuencia de eventos extremos?
+gemini_summary: Implementación 'Quant' estable de Kurtosis (poblacional y muestral).
+  Teóricamente 'Buggy' (riesgo div/0), pero su utilidad para scalping es casi nula.
 file_state: Estable
 score_potential: 5/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Kurtosis (5/10)

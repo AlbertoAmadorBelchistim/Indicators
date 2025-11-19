@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: VolatilityHist.cs
 name: Volatility - Historical
-category: Volatility
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 4/10
 version: Buggy
-recommended_action: 'Reparar'
-description: >-
-  ¿Cuál es la volatilidad estadística histórica basada en los retornos logarítmicos?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Error conceptual grave: usa 'CurrentBar' (tiempo total) como factor de escalado. Resultados distorsionados.
+recommended_action: Reparar
+description: ¿Cuál es la volatilidad estadística histórica basada en los retornos
+  logarítmicos?
+gemini_summary: 'Error conceptual grave: usa ''CurrentBar'' (tiempo total) como factor
+  de escalado. Resultados distorsionados.'
 file_state: Roto
 score_potential: 8/10
 effort: Bajo
 action_priority: P1
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Volatility - Historical (4/10)

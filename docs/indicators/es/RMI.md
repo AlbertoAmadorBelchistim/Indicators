@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: RMI.cs
 name: Relative Momentum Index
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 7/10
 version: ATAS Official
-recommended_action: 'Mejorar'
-description: >-
-  ¿Cuál es la fuerza relativa del impulso (RSI suavizado con SMMA) en una ventana temporal?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Variante del RSI que usa SMMA. Implementación matemática correcta y segura. Le faltan líneas de referencia (30/70) visuales por defecto.
+recommended_action: Mejorar
+description: ¿Cuál es la fuerza relativa del impulso (RSI suavizado con SMMA) en una
+  ventana temporal?
+gemini_summary: Variante del RSI que usa SMMA. Implementación matemática correcta
+  y segura. Le faltan líneas de referencia (30/70) visuales por defecto.
 file_state: Mejorable
 score_potential: 7/10
 effort: Bajo
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Relative Momentum Index (7/10)

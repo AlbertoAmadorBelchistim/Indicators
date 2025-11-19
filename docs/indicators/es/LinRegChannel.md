@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: LinRegChannel.cs
 name: Linear Regression Channel
 category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 3/10
 version: ATAS Official
-recommended_action: 'Reparar'
-description: >-
-  ¿Cuál es el canal de tendencia dominante (regresión lineal) y dónde están sus límites de desviación estándar?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Concepto excelente (canal + flecha) pero ROTO por un bug crítico de división por cero si InstrumentInfo.TickSize es 0.
+recommended_action: Reparar
+description: ¿Cuál es el canal de tendencia dominante (regresión lineal) y dónde están
+  sus límites de desviación estándar?
+gemini_summary: Concepto excelente (canal + flecha) pero ROTO por un bug crítico de
+  división por cero si InstrumentInfo.TickSize es 0.
 file_state: Roto
 score_potential: 9/10
 effort: Bajo
 action_priority: P1
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Linear Regression Channel (3/10)

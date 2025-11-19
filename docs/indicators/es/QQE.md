@@ -1,24 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: QQE.cs
 name: Qualitative Quantitative Estimation
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 7/10
 version: ATAS Official
-recommended_action: 'Mejorar'
-description: >-
-  ¿Cuál es el RSI suavizado y filtrado por volatilidad (QQE)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación sólida del QQE. Defecto de usabilidad: el nivel de alerta (50) está fijo en código y no es configurable por el usuario.
+recommended_action: Mejorar
+description: ¿Cuál es el RSI suavizado y filtrado por volatilidad (QQE)?
+gemini_summary: 'Implementación sólida del QQE. Defecto de usabilidad: el nivel de
+  alerta (50) está fijo en código y no es configurable por el usuario.'
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 QQE (Qualitative Quantitative Estimation) (7/10)

@@ -1,24 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: Stochastic.cs
 name: Stochastic
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: RSI/Stochastic
 score_current: 8/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Dónde cerró el precio en relación con su rango High-Low reciente?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación canónica y completa. Incluye %K, %D, Slowing y líneas de referencia.
+recommended_action: Conservar
+description: ¿Dónde cerró el precio en relación con su rango High-Low reciente?
+gemini_summary: Implementación canónica y completa. Incluye %K, %D, Slowing y líneas
+  de referencia.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Stochastic (8/10)

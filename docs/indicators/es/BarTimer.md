@@ -1,23 +1,22 @@
 ---
 cs_file: BarTimer.cs
 name: Bar Timer
-category: Utilidad / Visualización
+category: Structure
+group: Structure
+subgroup: Price Action
 score_current: 8/10
 version: Latest
-recommended_action: 'Mejorar'
-description: >-
-  ¿Cuánto tiempo (o ticks/volumen) le queda a esta vela, y puedes avisarme 3 segundos antes de que cierre?
-# --- Análisis y Triaje de Gemini ---
-gemini_summary: >-
-  Herramienta de "Ejecución" esencial (8/10). Su alerta anticipada es 'Pro'. Funciona con Tiempo, Ticks y Volumen.
+recommended_action: Mejorar
+description: ¿Cuánto tiempo (o ticks/volumen) le queda a esta vela, y puedes avisarme
+  3 segundos antes de que cierre?
+gemini_summary: Herramienta de "Ejecución" esencial (8/10). Su alerta anticipada es
+  'Pro'. Funciona con Tiempo, Ticks y Volumen.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo
 action_priority: P3 (Mejora Opcional)
 analysis_date: 2025-11-17
 official_code_date: 22/10/2025
-user_modification_date: null
-# ------------------------------------
 ---
 
 ## 🟦 Bar Timer (8/10 | Potencial: 9/10)

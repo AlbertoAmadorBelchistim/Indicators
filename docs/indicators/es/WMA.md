@@ -1,24 +1,20 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: WMA.cs
 name: Weighted Moving Average
 category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 8/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es la media móvil ponderada linealmente (más peso a lo reciente)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Media ponderada con algoritmo optimizado O(1). Código excelente.
+recommended_action: Conservar
+description: ¿Cuál es la media móvil ponderada linealmente (más peso a lo reciente)?
+gemini_summary: Media ponderada con algoritmo optimizado O(1). Código excelente.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Weighted Moving Average (WMA) (8/10)

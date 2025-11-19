@@ -1,24 +1,24 @@
 ---
 cs_file: BollingerBandsBandwidth.cs
 name: Bollinger Bands Bandwidth
-category: Volatilidad
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 6.5/10
 version: Estable
-recommended_action: 'Mejorar'
-description: >-
-  ¿Cómo de 'comprimida' (squeeze) o 'expandida' está la volatilidad ahora mismo, medida como un porcentaje del precio medio?
-# --- Análisis y Triaje de Gemini ---
-gemini_summary: >-
-  Cuantificador de Squeeze (6.5/10). Útil para alertas de compresión. Hereda defaults débiles (10, 1.0) de BB.
+recommended_action: Mejorar
+description: ¿Cómo de 'comprimida' (squeeze) o 'expandida' está la volatilidad ahora
+  mismo, medida como un porcentaje del precio medio?
+gemini_summary: Cuantificador de Squeeze (6.5/10). Útil para alertas de compresión.
+  Hereda defaults débiles (10, 1.0) de BB.
 file_state: Mejorable
 score_potential: 7.5/10
 effort: Bajo
 action_priority: P3 (Mejora Opcional)
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
-user_modification_date: null
-# ------------------------------------
 ---
+
 ## 🟦 Bollinger Bands: Bandwidth (6.5/10 | Potencial: 7.5/10)
 
 

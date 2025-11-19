@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: MaEnvelope.cs
 name: Moving Average Envelope
-category: Level
+category: Trend
+group: Trend
+subgroup: Moving Average
 score_current: 5/10
 version: ATAS Official
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es el canal de precios (fijo o porcentual) alrededor de una media móvil simple?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador estable pero básico que dibuja bandas fijas/porcentuales. Su principal debilidad es que no se adapta a la volatilidad.
+recommended_action: Conservar
+description: ¿Cuál es el canal de precios (fijo o porcentual) alrededor de una media
+  móvil simple?
+gemini_summary: Indicador estable pero básico que dibuja bandas fijas/porcentuales.
+  Su principal debilidad es que no se adapta a la volatilidad.
 file_state: Estable
 score_potential: 5/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Moving Average Envelope (5/10)

@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: InsideEqualsBar.cs
 name: Inside Bar
-category: Levels
+category: Structure
+group: Structure
+subgroup: Price Action
 score_current: 7.5/10
 version: ATAS Official
-recommended_action: 'Conservar'
-description: >-
-  ¿Dónde se están formando patrones de "Inside Bar" (compresión), con tolerancia y definición de área (Cuerpo o Mechas) personalizables?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación 'Core' y estable de un detector de Inside Bar; incluye características profesionales como 'Tolerancia' y modo 'Cuerpo/Mechas'.
+recommended_action: Conservar
+description: ¿Dónde se están formando patrones de "Inside Bar" (compresión), con tolerancia
+  y definición de área (Cuerpo o Mechas) personalizables?
+gemini_summary: Implementación 'Core' y estable de un detector de Inside Bar; incluye
+  características profesionales como 'Tolerancia' y modo 'Cuerpo/Mechas'.
 file_state: Estable
 score_potential: 7.5/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Inside Bar (InsideEqualsBar) (7.5/10)

@@ -1,24 +1,23 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: FCV.cs
 name: Full Contract Value
-category: Price
+category: Structure
+group: Structure
+subgroup: Profile
 score_current: 2/10
 version: ATAS Official
-recommended_action: 'Descartar'
-description: >-
-  (Teórico) ¿Cuál es el valor del precio escalado por un multiplicador personalizado?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador 'Impostor'; el nombre 'Full Contract Value' es engañoso. El código no calcula el valor monetario (TickValue), es solo un multiplicador de precio confuso.
+recommended_action: Descartar
+description: (Teórico) ¿Cuál es el valor del precio escalado por un multiplicador
+  personalizado?
+gemini_summary: Indicador 'Impostor'; el nombre 'Full Contract Value' es engañoso.
+  El código no calcula el valor monetario (TickValue), es solo un multiplicador de
+  precio confuso.
 file_state: Impostor
 score_potential: 2/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Full Contract Value (FCV) (2/10)

@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: Ichimoku.cs
 name: Ichimoku Kinko Hyo
 category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 9/10
 version: ATAS Official
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es el estado de la tendencia y el equilibrio del mercado según el sistema Ichimoku (Nube, Tenkan, Kijun, Chikou)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación 'Core' y estable del sistema Ichimoku completo; maneja correctamente los 5 componentes y el desplazamiento temporal (Nube y Lagging).
+recommended_action: Conservar
+description: ¿Cuál es el estado de la tendencia y el equilibrio del mercado según
+  el sistema Ichimoku (Nube, Tenkan, Kijun, Chikou)?
+gemini_summary: Implementación 'Core' y estable del sistema Ichimoku completo; maneja
+  correctamente los 5 componentes y el desplazamiento temporal (Nube y Lagging).
 file_state: Estable
 score_potential: 9/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Ichimoku Kinko Hyo (9/10)

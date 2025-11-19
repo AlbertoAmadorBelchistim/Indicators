@@ -2,22 +2,22 @@
 cs_file: AskBidBars.cs
 name: Ask/Bid Volume Difference Bars
 category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 6.5/10
 version: Estable
-recommended_action: 'Mejorar'
-description: >-
-  ¿Cuál fue el volumen agresivo neto (Delta) de esta vela, e igualmente importante, cuál fue el rango interno (Delta Máx/Mín) de la batalla entre compradores y vendedores dentro de esa vela?
-# --- Análisis y Triaje de Gemini ---
-gemini_summary: >-
-  Gran concepto (8/10), "La historia del Delta". Arruinado por un fallo de UI (6.5/10): falta la línea cero.
+recommended_action: Mejorar
+description: ¿Cuál fue el volumen agresivo neto (Delta) de esta vela, e igualmente
+  importante, cuál fue el rango interno (Delta Máx/Mín) de la batalla entre compradores
+  y vendedores dentro de esa vela?
+gemini_summary: 'Gran concepto (8/10), "La historia del Delta". Arruinado por un fallo
+  de UI (6.5/10): falta la línea cero.'
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo
 action_priority: P1 (Arreglo Rápido)
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
-user_modification_date: null
-# ------------------------------------
 ---
 
 ## 🟦 Ask/Bid Volume Difference Bars (6.5/10 | Potencial: 8/10)

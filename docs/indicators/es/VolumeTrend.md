@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: VolumeTrend.cs
 name: Price Volume Trend
-category: Volume
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 8/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es el flujo acumulado de volumen ponderado por la magnitud del movimiento del precio?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Variante mejorada del OBV. Pondera volumen por cambio porcentual de precio.
+recommended_action: Conservar
+description: ¿Cuál es el flujo acumulado de volumen ponderado por la magnitud del
+  movimiento del precio?
+gemini_summary: Variante mejorada del OBV. Pondera volumen por cambio porcentual de
+  precio.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Price Volume Trend (8/10)

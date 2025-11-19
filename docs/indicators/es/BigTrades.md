@@ -1,23 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: BigTrades.cs
 name: Big Trades (Final Fix)
-category: OrderFlow
+category: Order Flow
+group: Order Flow
+subgroup: Footprint
 score_current: 9/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Dónde están entrando los agresores institucionales (bloques grandes de compra/venta)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador esencial de Tape Reading. Versión corregida para evitar conflictos de color GDI/WPF.
+recommended_action: Conservar
+description: ¿Dónde están entrando los agresores institucionales (bloques grandes
+  de compra/venta)?
+gemini_summary: Indicador esencial de Tape Reading. Versión corregida para evitar
+  conflictos de color GDI/WPF.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-19
-official_code_date: null
 user_modification_date: 2025-11-19
 ---
 

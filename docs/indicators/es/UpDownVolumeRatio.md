@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: UpDownVolumeRatio.cs
 name: Up/Down Volume Ratio
-category: Volume
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 9/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Quién controla el flujo de volumen (compradores o vendedores) y con qué intensidad relativa?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Oscilador de volumen versátil. Permite comparar Up/Down o Ask/Bid con múltiples tipos de suavizado.
+recommended_action: Conservar
+description: ¿Quién controla el flujo de volumen (compradores o vendedores) y con
+  qué intensidad relativa?
+gemini_summary: Oscilador de volumen versátil. Permite comparar Up/Down o Ask/Bid
+  con múltiples tipos de suavizado.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Up/Down Volume Ratio (9/10)

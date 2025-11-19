@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: LinRegSlope.cs
 name: Linear Regression Slope
 category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 1/10
 version: ATAS Official
-recommended_action: 'Reparar'
-description: >-
-  ¿Cuál es la pendiente (dirección e intensidad) de la tendencia en el período reciente?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  ROTO. Causa una división por cero si Period=1, un valor permitido por la UI [Range(1, ...)], resultando en un crash.
+recommended_action: Reparar
+description: ¿Cuál es la pendiente (dirección e intensidad) de la tendencia en el
+  período reciente?
+gemini_summary: ROTO. Causa una división por cero si Period=1, un valor permitido
+  por la UI [Range(1, ...)], resultando en un crash.
 file_state: Roto
 score_potential: 7/10
 effort: Bajo
 action_priority: P1
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Linear Regression Slope (1/10)

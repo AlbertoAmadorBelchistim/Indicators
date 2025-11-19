@@ -1,24 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: Watermark.cs
 name: Watermark
-category: Visualization
+category: Utility
+group: Utility
+subgroup: Visuals
 score_current: 5/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  Muestra información del instrumento o texto personalizado en el fondo del gráfico.
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Utilidad de texto en pantalla. Simple, funcional y estéticamente configurable.
+recommended_action: Conservar
+description: Muestra información del instrumento o texto personalizado en el fondo
+  del gráfico.
+gemini_summary: Utilidad de texto en pantalla. Simple, funcional y estéticamente configurable.
 file_state: Estable
 score_potential: 6/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Watermark (5/10)

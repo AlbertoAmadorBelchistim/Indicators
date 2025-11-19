@@ -1,25 +1,23 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: Demand.cs
 name: Demand Index
-category: Volume
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 2/10
 version: Estable
-recommended_action: 'Reparar'
-description: >-
-  ¿Cuál es la presión de compra o venta relativa basada en precio y volumen?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  '"Indicador Roto: la fórmula usa el rango de la *primera vela del' gráfico* (`bar == 0`) para todos los cálculos futuros, haciéndolo arbitrario e inútil."
+recommended_action: Reparar
+description: ¿Cuál es la presión de compra o venta relativa basada en precio y volumen?
+gemini_summary: '''"Indicador Roto: la fórmula usa el rango de la *primera vela del''
+  gráfico* (`bar == 0`) para todos los cálculos futuros, haciéndolo arbitrario e inútil."'
 file_state: Roto
 score_potential: 6/10
 effort: Medio
 action_priority: P4
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-10-20
-user_modification_date: null
 ---
+
 ## 🟦 Demand Index (2/10)
 
 **Nombre del archivo:** [`Demand.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/Demand.cs)  

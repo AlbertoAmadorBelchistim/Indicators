@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: StohasticPercentile.cs
 name: Stochastic - Percentile
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: RSI/Stochastic
 score_current: 5/10
 version: Stable
-recommended_action: 'Mejorar'
-description: >-
-  ¿Qué percentil estadístico ocupa el precio actual respecto a los últimos N periodos?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Ineficiente (sort O(N log N) por tick) y con error tipográfico en el nombre de archivo/clase.
+recommended_action: Mejorar
+description: ¿Qué percentil estadístico ocupa el precio actual respecto a los últimos
+  N periodos?
+gemini_summary: Ineficiente (sort O(N log N) por tick) y con error tipográfico en
+  el nombre de archivo/clase.
 file_state: Mejorable
 score_potential: 7/10
 effort: Medio
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Stochastic - Percentile (5/10)

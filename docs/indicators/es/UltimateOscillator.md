@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: UltimateOscillator.cs
 name: Ultimate Oscillator
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 7/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es el momentum real del mercado combinando tres marcos temporales para evitar señales falsas?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación canónica de Larry Williams. Promedio ponderado de 3 osciladores. Correcto.
+recommended_action: Conservar
+description: ¿Cuál es el momentum real del mercado combinando tres marcos temporales
+  para evitar señales falsas?
+gemini_summary: Implementación canónica de Larry Williams. Promedio ponderado de 3
+  osciladores. Correcto.
 file_state: Estable
 score_potential: 7/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Ultimate Oscillator (7/10)

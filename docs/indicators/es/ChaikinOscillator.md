@@ -1,24 +1,24 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: ChaikinOscillator.cs
 name: Chaikin Oscillator
-category: Momentum / Volumen clásico
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 3/10
 version: Estable
-recommended_action: 'Descartar'
-description: >-
-  '¿Cuál es el *momentum* del flujo de dinero (Línea AD)? ¿Está el flujo' de dinero (acumulación/distribución) acelerando o frenando?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  'El análisis del MD es 100% correcto. Es un "MACD del ADL", un' indicador con lag de triple capa (ADL acumulativo + 2 EMAs). Se basa en un proxy de flujo obsoleto (ADL) en lugar de datos reales (Delta). Totalmente inútil para scalping.
+recommended_action: Descartar
+description: '''¿Cuál es el *momentum* del flujo de dinero (Línea AD)? ¿Está el flujo''
+  de dinero (acumulación/distribución) acelerando o frenando?'
+gemini_summary: '''El análisis del MD es 100% correcto. Es un "MACD del ADL", un''
+  indicador con lag de triple capa (ADL acumulativo + 2 EMAs). Se basa en un proxy
+  de flujo obsoleto (ADL) en lugar de datos reales (Delta). Totalmente inútil para
+  scalping.'
 file_state: Estable
 score_potential: 3/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Chaikin Oscillator (3/10)

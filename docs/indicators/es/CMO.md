@@ -1,25 +1,25 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: CMO.cs
 name: Chaikin Money Oscillator
-category: Volume
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 1/10
 version: Estable
-recommended_action: 'Descartar'
-description: >-
-  'Mide la "aceleración" del flujo de dinero (AD) usando la diferencia' entre dos EMAs (pero la implementación es errónea).
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  'El indicador está fundamentalmente roto. La fórmula de la EMA es incorrecta; no' usa el valor EMA anterior, sino el valor AD anterior (`_ad[bar - 1]`). Esto lo convierte en ruido puro. Es inútil.
+recommended_action: Descartar
+description: '''Mide la "aceleración" del flujo de dinero (AD) usando la diferencia''
+  entre dos EMAs (pero la implementación es errónea).'
+gemini_summary: '''El indicador está fundamentalmente roto. La fórmula de la EMA es
+  incorrecta; no'' usa el valor EMA anterior, sino el valor AD anterior (`_ad[bar
+  - 1]`). Esto lo convierte en ruido puro. Es inútil.'
 file_state: Roto
 score_potential: 3/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
+
 ## 🟦 Chaikin Money Oscillator (CMO) (1/10)
 
 

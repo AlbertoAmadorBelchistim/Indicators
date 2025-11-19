@@ -1,23 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: Absorption.cs
 name: Absorption
-category: OrderFlow
+category: Order Flow
+group: Order Flow
+subgroup: Footprint
 score_current: 10/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿En qué niveles de precio se frenó el mercado a pesar de una gran agresión de volumen?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Detector de absorción intra-vela. Compara Bid vs Ask en cada nivel de precio. Crítico para scalping.
+recommended_action: Conservar
+description: ¿En qué niveles de precio se frenó el mercado a pesar de una gran agresión
+  de volumen?
+gemini_summary: Detector de absorción intra-vela. Compara Bid vs Ask en cada nivel
+  de precio. Crítico para scalping.
 file_state: Estable
 score_potential: 10/10
 effort: Medio
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-19
-official_code_date: null
 user_modification_date: 2025-11-19
 ---
 

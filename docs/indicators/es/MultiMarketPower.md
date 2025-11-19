@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: MultiMarketPower.cs
 name: CVD pro(multi) / Multi Market Powers
-category: VolumeOrderFlow
+category: Order Flow
+group: Order Flow
+subgroup: Delta
 score_current: 10/10
 version: Latest
-recommended_action: 'Conservar'
-description: >-
-  ¿Cómo se distribuye el delta acumulado entre 5 rangos de tamaño de orden diferentes (filtro institucional)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Herramienta OFA de élite. Permite filtrar el CVD en 5 categorías de tamaño simultáneas. Código robusto, eficiente y bien estructurado.
+recommended_action: Conservar
+description: ¿Cómo se distribuye el delta acumulado entre 5 rangos de tamaño de orden
+  diferentes (filtro institucional)?
+gemini_summary: Herramienta OFA de élite. Permite filtrar el CVD en 5 categorías de
+  tamaño simultáneas. Código robusto, eficiente y bien estructurado.
 file_state: Estable
 score_potential: 10/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-08-14
-user_modification_date: null
 ---
 
 ## 🟦 CVD pro(multi) / Multi Market Powers (10/10)

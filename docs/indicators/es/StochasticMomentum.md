@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: StochasticMomentum.cs
 name: Stochastic Momentum
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: RSI/Stochastic
 score_current: 7/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es el impulso del precio relativo al centro de su rango (SMI) en lugar de al mínimo?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación del SMI (Stochastic Momentum Index). Fórmula correcta, riesgo menor de div/0.
+recommended_action: Conservar
+description: ¿Cuál es el impulso del precio relativo al centro de su rango (SMI) en
+  lugar de al mínimo?
+gemini_summary: Implementación del SMI (Stochastic Momentum Index). Fórmula correcta,
+  riesgo menor de div/0.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Stochastic Momentum (7/10)

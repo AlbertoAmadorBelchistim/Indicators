@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: ZScore.cs
 name: Z-Score
-category: Statistical
+category: Utility
+group: Utility
+subgroup: Stats
 score_current: 8/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿A cuántas desviaciones estándar se encuentra el precio actual de su media histórica?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador estadístico estándar. Implementación correcta de la fórmula Z-Score.
+recommended_action: Conservar
+description: ¿A cuántas desviaciones estándar se encuentra el precio actual de su
+  media histórica?
+gemini_summary: Indicador estadístico estándar. Implementación correcta de la fórmula
+  Z-Score.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Z-Score (8/10)

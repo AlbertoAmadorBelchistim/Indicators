@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: Volume.cs
 name: Volume
-category: Volume
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 9/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es el volumen de actividad (o ticks/bid/ask) en cada vela, y cómo se relaciona con el movimiento?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador de volumen definitivo. Completo, flexible (InputType) y visualmente rico (Etiquetas, Alertas).
+recommended_action: Conservar
+description: ¿Cuál es el volumen de actividad (o ticks/bid/ask) en cada vela, y cómo
+  se relaciona con el movimiento?
+gemini_summary: Indicador de volumen definitivo. Completo, flexible (InputType) y
+  visualmente rico (Etiquetas, Alertas).
 file_state: Estable
 score_potential: 9/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-05-14
-user_modification_date: null
 ---
 
 ## 🟦 Volume (9/10)

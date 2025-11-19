@@ -1,24 +1,23 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: DX.cs
 name: DX (Directional Index)
-category: Tendencia
+category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 3/10
 version: Estable
-recommended_action: 'Descartar'
-description: >-
-  '¿Cuál es la fuerza de la tendencia? (Componente del ADX, implementación' NO estándar)
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  '"Indicador 'Impostor por Derivación'; se basa en los indicadores' 'DIPos'/'DINeg' (que son impostores, usan WMA), por lo que este 'DX' no es estándar."
+recommended_action: Descartar
+description: '''¿Cuál es la fuerza de la tendencia? (Componente del ADX, implementación''
+  NO estándar)'
+gemini_summary: '''"Indicador ''Impostor por Derivación''; se basa en los indicadores''
+  ''DIPos''/''DINeg'' (que son impostores, usan WMA), por lo que este ''DX'' no es
+  estándar."'
 file_state: Impostor
 score_potential: 3/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 DX (Directional Index) (3/10)

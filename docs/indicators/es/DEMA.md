@@ -1,25 +1,24 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: DEMA.cs
 name: Double Exponential Moving Average
-category: Tendencia
+category: Trend
+group: Trend
+subgroup: Moving Average
 score_current: 6/10
 version: Estable
-recommended_action: 'Conservar'
-description: >-
-  '¿Cuál es el precio suavizado, pero con menos retraso (lag) que una EMA' estándar?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  '"Implementación estable de DEMA (2*EMA1 - EMA2), una media móvil' más rápida (menos lag) que la EMA, útil como herramienta de tendencia reactiva."
+recommended_action: Conservar
+description: '''¿Cuál es el precio suavizado, pero con menos retraso (lag) que una
+  EMA'' estándar?'
+gemini_summary: '''"Implementación estable de DEMA (2*EMA1 - EMA2), una media móvil''
+  más rápida (menos lag) que la EMA, útil como herramienta de tendencia reactiva."'
 file_state: Estable
 score_potential: 6/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
+
 ## 🟦 Double Exponential Moving Average (DEMA) (6/10)
 
 **Nombre del archivo:** [`DEMA.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/DEMA.cs)  

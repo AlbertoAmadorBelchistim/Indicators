@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: VerticalGrid.cs
 name: Vertical Grid
-category: Visualization
+category: Utility
+group: Utility
+subgroup: Visuals
 score_current: 4/10
 version: Stable
-recommended_action: 'Mejorar'
-description: >-
-  Dibuja líneas verticales y etiquetas de tiempo a intervalos regulares personalizados.
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Herramienta visual básica. Dibuja grid vertical. Código correcto pero de utilidad limitada.
+recommended_action: Mejorar
+description: Dibuja líneas verticales y etiquetas de tiempo a intervalos regulares
+  personalizados.
+gemini_summary: Herramienta visual básica. Dibuja grid vertical. Código correcto pero
+  de utilidad limitada.
 file_state: Mejorable
 score_potential: 6/10
 effort: Bajo
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2024-04-25
-user_modification_date: null
 ---
 
 ## 🟦 Vertical Grid (4/10)

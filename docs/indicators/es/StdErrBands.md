@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: StdErrBands.cs
 name: Standard Error Bands
-category: Volatility
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 8/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es el rango de error estadístico esperado alrededor de la tendencia de regresión actual?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Bandas basadas en Regresión Lineal y Error Estándar. Matemáticamente denso pero correcto.
+recommended_action: Conservar
+description: ¿Cuál es el rango de error estadístico esperado alrededor de la tendencia
+  de regresión actual?
+gemini_summary: Bandas basadas en Regresión Lineal y Error Estándar. Matemáticamente
+  denso pero correcto.
 file_state: Estable
 score_potential: 8/10
 effort: Medio
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 23/04/2025
-user_modification_date: null
 ---
 
 ## 🟦 Standard Error Bands (StdErr Bands) (8/10)

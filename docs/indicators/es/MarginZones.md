@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: MarginZones.cs
 name: Margin zones
-category: Level
+category: Structure
+group: Structure
+subgroup: Levels
 score_current: 3/10
 version: ATAS Official
-recommended_action: 'Reparar'
-description: >-
-  ¿Dónde están los niveles de margen clave (25%, 50%, 100%...) calculados desde el extremo semanal o un precio fijo?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador ROTO. Concepto excelente para niveles institucionales, pero causa un crash por división por cero si TickCost es 0.
+recommended_action: Reparar
+description: ¿Dónde están los niveles de margen clave (25%, 50%, 100%...) calculados
+  desde el extremo semanal o un precio fijo?
+gemini_summary: Indicador ROTO. Concepto excelente para niveles institucionales, pero
+  causa un crash por división por cero si TickCost es 0.
 file_state: Roto
 score_potential: 9/10
 effort: Bajo
 action_priority: P1
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Margin Zones (3/10)

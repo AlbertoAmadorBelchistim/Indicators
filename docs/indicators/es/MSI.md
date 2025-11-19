@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: MSI.cs
 name: McClellan Summation Index
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 7/10
 version: ATAS Official
-recommended_action: 'Mejorar'
-description: >-
-  ¿Cuál es la suma acumulada del Oscilador McClellan (amplitud de mercado a largo plazo)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador de amplitud clásico pero rígido. Los períodos (19, 39) son constantes fijas en el código y no se pueden cambiar.
+recommended_action: Mejorar
+description: ¿Cuál es la suma acumulada del Oscilador McClellan (amplitud de mercado
+  a largo plazo)?
+gemini_summary: Indicador de amplitud clásico pero rígido. Los períodos (19, 39) son
+  constantes fijas en el código y no se pueden cambiar.
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 McClellan Summation Index (MSI) (7/10)

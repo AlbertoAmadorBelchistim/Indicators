@@ -1,24 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: WeissWave.cs
 name: Weis Wave
-category: Volume
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 8/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuánto volumen acumulado (esfuerzo) hay en la onda de precio actual?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Acumulador de volumen por ondas (ZigZag de volumen). Esencial para Wyckoff.
+recommended_action: Conservar
+description: ¿Cuánto volumen acumulado (esfuerzo) hay en la onda de precio actual?
+gemini_summary: Acumulador de volumen por ondas (ZigZag de volumen). Esencial para
+  Wyckoff.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Weis Wave (8/10)

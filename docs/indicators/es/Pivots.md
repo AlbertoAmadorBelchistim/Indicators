@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: PivotsModif.cs
 name: Pivots modif
-category: Level
+category: Structure
+group: Structure
+subgroup: Static Levels
 score_current: 8/10
 version: ATAS Official
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuáles son los niveles de soporte y resistencia (Pivots, R1-3, S1-3) calculados sobre sesiones estándar o personalizadas?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador de Pivots robusto con soporte para sesiones personalizadas (RTH). Código funcional, aunque la gestión de etiquetas de texto es ineficiente.
+recommended_action: Conservar
+description: ¿Cuáles son los niveles de soporte y resistencia (Pivots, R1-3, S1-3)
+  calculados sobre sesiones estándar o personalizadas?
+gemini_summary: Indicador de Pivots robusto con soporte para sesiones personalizadas
+  (RTH). Código funcional, aunque la gestión de etiquetas de texto es ineficiente.
 file_state: Estable
 score_potential: 8/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Pivots modif (8/10)

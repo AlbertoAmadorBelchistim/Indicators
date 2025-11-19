@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: CurrentPrice.cs
 name: Current Price
-category: Visualization
+category: Uncategorized
+group: Uncategorized
+subgroup: Other
 score_current: 3/10
 version: Estable
-recommended_action: 'Descartar'
-description: >-
-  '¿Cuál es el último precio y la hora actual, mostrados directamente en' el gráfico?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  'Gadget visual redundante (duplica los ejes X/Y) y con un fallo de' diseño en OnRender que hace que la etiqueta desaparezca al hacer scroll.
+recommended_action: Descartar
+description: '''¿Cuál es el último precio y la hora actual, mostrados directamente
+  en'' el gráfico?'
+gemini_summary: '''Gadget visual redundante (duplica los ejes X/Y) y con un fallo
+  de'' diseño en OnRender que hace que la etiqueta desaparezca al hacer scroll.'
 file_state: Defectuoso
 score_potential: 3/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Current Price (3/10)

@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: HeikenAshiSmoothed.cs
 name: Heiken Ashi Smoothed
-category: Visualization
+category: Structure
+group: Structure
+subgroup: Price Action
 score_current: 5/10
 version: ATAS Official
-recommended_action: 'Mejorar'
-description: >-
-  ¿Cómo se vería el precio usando velas Heiken Ashi "doblemente suavizadas" (SMMA + HA + WMA)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación 'Mejorable' de un indicador de lag extremo (triple suavizado: SMMA + HA + WMA). Tiene un bug en 'bar == 0' que crea una vela inconsistente.
+recommended_action: Mejorar
+description: ¿Cómo se vería el precio usando velas Heiken Ashi "doblemente suavizadas"
+  (SMMA + HA + WMA)?
+gemini_summary: 'Implementación ''Mejorable'' de un indicador de lag extremo (triple
+  suavizado: SMMA + HA + WMA). Tiene un bug en ''bar == 0'' que crea una vela inconsistente.'
 file_state: Mejorable
 score_potential: 6/10
 effort: Bajo
 action_priority: P4
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Heiken Ashi Smoothed (5/10)

@@ -1,24 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: VolumeIndex.cs
 name: Positive/Negative Volume Index
-category: Volume
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 8/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Qué está haciendo el 'dinero inteligente' (días de bajo volumen) frente al 'público' (días de alto volumen)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación clásica de PVI/NVI. Útil para análisis de fondo.
+recommended_action: Conservar
+description: ¿Qué está haciendo el 'dinero inteligente' (días de bajo volumen) frente
+  al 'público' (días de alto volumen)?
+gemini_summary: Implementación clásica de PVI/NVI. Útil para análisis de fondo.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Positive/Negative Volume Index (8/10)

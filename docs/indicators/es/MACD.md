@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: MACD.cs
 name: MACD
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: MACD
 score_current: 8/10
 version: ATAS Official
-recommended_action: 'Mejorar'
-description: >-
-  ¿Cuál es la convergencia o divergencia entre las medias móviles de corto y largo plazo?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación clásica y estable del MACD; carece de mejoras modernas como histograma coloreado o tipos de MA seleccionables.
+recommended_action: Mejorar
+description: ¿Cuál es la convergencia o divergencia entre las medias móviles de corto
+  y largo plazo?
+gemini_summary: Implementación clásica y estable del MACD; carece de mejoras modernas
+  como histograma coloreado o tipos de MA seleccionables.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 MACD (Moving Average Convergence Divergence) (8/10)

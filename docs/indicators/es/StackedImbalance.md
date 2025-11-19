@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: StackedImbalance.cs
 name: Stacked Imbalance
-category: VolumeOrderFlow
+category: Order Flow
+group: Order Flow
+subgroup: Footprint
 score_current: 8/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Dónde existen zonas de desequilibrio agresivo de compra/venta apiladas que actúan como soporte/resistencia?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador complejo de Order Flow. Usa lógica intensiva de escaneo de niveles de precio. Funcionalidad TillTouch útil.
+recommended_action: Conservar
+description: ¿Dónde existen zonas de desequilibrio agresivo de compra/venta apiladas
+  que actúan como soporte/resistencia?
+gemini_summary: Indicador complejo de Order Flow. Usa lógica intensiva de escaneo
+  de niveles de precio. Funcionalidad TillTouch útil.
 file_state: Estable
 score_potential: 9/10
 effort: Alto
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 23/04/2025
-user_modification_date: null
 ---
 
 ## 🟦 Stacked Imbalance (8/10)

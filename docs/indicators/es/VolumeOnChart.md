@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: VolumeOnChart.cs
 name: Volume On The Chart
-category: Volume
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 8/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  Visualiza el volumen como un histograma de fondo superpuesto al precio para ahorrar espacio.
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Versión visual eficiente del indicador de volumen. Dibuja en el fondo del panel de precios.
+recommended_action: Conservar
+description: Visualiza el volumen como un histograma de fondo superpuesto al precio
+  para ahorrar espacio.
+gemini_summary: Versión visual eficiente del indicador de volumen. Dibuja en el fondo
+  del panel de precios.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Volume On The Chart (8/10)

@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: WAD.cs
 name: Williams Accumulation / Distribution (WAD)
-category: Volume
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 7/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Se está acumulando o distribuyendo el activo (basado en la presión de cierre)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Acumulador de presión de cierre. Simple y funcional. No usa volumen real.
+recommended_action: Conservar
+description: ¿Se está acumulando o distribuyendo el activo (basado en la presión de
+  cierre)?
+gemini_summary: Acumulador de presión de cierre. Simple y funcional. No usa volumen
+  real.
 file_state: Estable
 score_potential: 7/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Williams Accumulation / Distribution (WAD) (7/10)

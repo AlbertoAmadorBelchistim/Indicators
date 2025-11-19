@@ -2,23 +2,23 @@
 cs_file: BidAskVR.cs
 name: Bid Ask Volume Ratio
 category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 7/10
 version: Estable
-recommended_action: 'Mejorar'
-description: >-
-  ¿Cuál es el desequilibrio normalizado (de -100% a +100%) del volumen agresivo, y cuál es el momentum (pendiente) de ese desequilibrio?
-# --- Análisis y Triaje de Gemini ---
-gemini_summary: >-
-  "Delta Normalizado" (7/10). Conceptualm. superior (Ratio). Lógica de 4 colores es genial para divergencias.
+recommended_action: Mejorar
+description: ¿Cuál es el desequilibrio normalizado (de -100% a +100%) del volumen
+  agresivo, y cuál es el momentum (pendiente) de ese desequilibrio?
+gemini_summary: '"Delta Normalizado" (7/10). Conceptualm. superior (Ratio). Lógica
+  de 4 colores es genial para divergencias.'
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo
 action_priority: P1 (Arreglo Rápido)
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
-user_modification_date: null
-# ------------------------------------
 ---
+
 ## 🟦 Bid Ask Volume Ratio (7/10 | Potencial: 8/10)
 
 **Nombre del archivo:** [`BidAskVR.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/BidAskVR.cs)  

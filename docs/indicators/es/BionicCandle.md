@@ -1,23 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: BionicCandle.cs
 name: Bionic Candle (Clean)
-category: Visualization
+category: Structure
+group: Structure
+subgroup: Price Action
 score_current: 8/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cómo visualizar la estructura interna de fuerza y rechazo de la vela eliminando el ruido visual?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Renderizador de velas personalizado de alto rendimiento (GDI). Estilo visual limpio 'Bionic'.
+recommended_action: Conservar
+description: ¿Cómo visualizar la estructura interna de fuerza y rechazo de la vela
+  eliminando el ruido visual?
+gemini_summary: Renderizador de velas personalizado de alto rendimiento (GDI). Estilo
+  visual limpio 'Bionic'.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-19
-official_code_date: null
 user_modification_date: 2025-11-19
 ---
 

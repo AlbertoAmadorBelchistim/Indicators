@@ -1,24 +1,23 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: MacdBbStandart.cs
 name: MACD Bollinger Bands - Standard
-category: Momentum
+category: Trend
+group: Trend
+subgroup: Volatility
 score_current: 6/10
 version: ATAS Official
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es el rango de volatilidad (Bollinger Bands) alrededor de la línea de señal del MACD?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación estable que aplica BBs a la línea de señal del MACD, no al histograma. Su principal debilidad es acoplar el período de la señal y el de StdDev.
+recommended_action: Conservar
+description: ¿Cuál es el rango de volatilidad (Bollinger Bands) alrededor de la línea
+  de señal del MACD?
+gemini_summary: Implementación estable que aplica BBs a la línea de señal del MACD,
+  no al histograma. Su principal debilidad es acoplar el período de la señal y el
+  de StdDev.
 file_state: Estable
 score_potential: 6/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 MACD Bollinger Bands - Standard (6/10)

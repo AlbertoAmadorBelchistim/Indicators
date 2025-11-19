@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: DeltaTurnaround.cs
 name: Delta Turnaround
-category: VolumeOrderFlow
+category: Order Flow
+group: Order Flow
+subgroup: Delta
 score_current: 6/10
 version: Latest
-recommended_action: 'Descartar'
-description: >-
-  '¿Se ha producido un patrón de giro de 3 velas (dos en una dirección,' una en la opuesta) confirmado por el delta?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  'Patrón de giro de 3 velas válido pero 'hard-codeado', haciéndolo 100%' redundante frente a la flexibilidad del indicador 'BarsPattern'.
+recommended_action: Descartar
+description: '''¿Se ha producido un patrón de giro de 3 velas (dos en una dirección,''
+  una en la opuesta) confirmado por el delta?'
+gemini_summary: '''Patrón de giro de 3 velas válido pero ''hard-codeado'', haciéndolo
+  100%'' redundante frente a la flexibilidad del indicador ''BarsPattern''.'
 file_state: Estable
 score_potential: 6/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-07-31
-user_modification_date: null
 ---
 
 ## 🟦 Delta Turnaround (6/10)

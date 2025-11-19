@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: KAMA.cs
 name: Kaufman Adaptive Moving Average
 category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 7/10
 version: ATAS Official
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es el valor de la media móvil adaptativa (KAMA), que se acelera en tendencias y se frena en rangos?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación 'Core' y estable de la KAMA; una media móvil de tendencia adaptativa basada en el 'Efficiency Ratio' (ruido vs. dirección).
+recommended_action: Conservar
+description: ¿Cuál es el valor de la media móvil adaptativa (KAMA), que se acelera
+  en tendencias y se frena en rangos?
+gemini_summary: Implementación 'Core' y estable de la KAMA; una media móvil de tendencia
+  adaptativa basada en el 'Efficiency Ratio' (ruido vs. dirección).
 file_state: Estable
 score_potential: 7/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Kaufman Adaptive Moving Average (KAMA) (7/10)

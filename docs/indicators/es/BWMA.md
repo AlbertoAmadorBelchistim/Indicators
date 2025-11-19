@@ -1,23 +1,22 @@
 ---
 cs_file: BWMA.cs
 name: Bill Williams Moving Average
-category: Tendencia / Volatilidad
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 5/10
 version: Estable
-recommended_action: 'Descartar'
-description: >-
-  ¿Cuál es el precio promedio exponencial (EMA), que da más peso a las velas más recientes?
-# --- Análisis y Triaje de Gemini ---
-gemini_summary: >-
-  "Nombre Engañoso" (5/10). Es un EMA, no un BWMA (SMMA). 100% redundante con el indicador EMA estándar.
+recommended_action: Descartar
+description: ¿Cuál es el precio promedio exponencial (EMA), que da más peso a las
+  velas más recientes?
+gemini_summary: '"Nombre Engañoso" (5/10). Es un EMA, no un BWMA (SMMA). 100% redundante
+  con el indicador EMA estándar.'
 file_state: Estable (Redundante)
 score_potential: 5/10
 effort: N/A
 action_priority: P4 (Descartar)
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
-user_modification_date: null
-# ------------------------------------
 ---
 
 ## 🟦 Bill Williams Moving Average (5/10)

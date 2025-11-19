@@ -1,24 +1,24 @@
 ---
 cs_file: BarsPattern.cs
 name: Bars Pattern
-category: Order Flow / Utilidad
+category: Structure
+group: Structure
+subgroup: Price Action
 score_current: 9/10
 version: Estable
-recommended_action: 'Mejorar'
-description: >-
-  ¿Qué velas de este gráfico cumplen _todos_ mis criterios específicos y multicapa para un setup de alta calidad (Volumen, Delta, forma de vela, etc.)?
-# --- Análisis y Triaje de Gemini ---
-gemini_summary: >-
-  "Buscador de Setups" (9/10). Herramienta "Pro" para definir patrones VSA/Delta. Su único fallo es un cálculo de SMA ineficiente (for loop).
+recommended_action: Mejorar
+description: ¿Qué velas de este gráfico cumplen _todos_ mis criterios específicos
+  y multicapa para un setup de alta calidad (Volumen, Delta, forma de vela, etc.)?
+gemini_summary: '"Buscador de Setups" (9/10). Herramienta "Pro" para definir patrones
+  VSA/Delta. Su único fallo es un cálculo de SMA ineficiente (for loop).'
 file_state: Mejorable (Ineficiente)
 score_potential: 10/10
 effort: Bajo (Arreglar SMA) / Alto (Añadir 'OR')
 action_priority: P1 (Arreglo Rápido)
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
-user_modification_date: null
-# ------------------------------------
 ---
+
 ## 🟦 Bars Pattern (9/10 | Potencial: 10/10)
 
   

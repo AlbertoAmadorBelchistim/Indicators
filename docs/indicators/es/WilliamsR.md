@@ -1,24 +1,20 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: WilliamsR.cs
 name: Williams' %R
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: RSI/Stochastic
 score_current: 7/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Dónde cerró el precio relativo al rango High-Low (versión invertida)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación estándar de Williams %R. Redundante con WPR.cs.
+recommended_action: Conservar
+description: ¿Dónde cerró el precio relativo al rango High-Low (versión invertida)?
+gemini_summary: Implementación estándar de Williams %R. Redundante con WPR.cs.
 file_state: Estable
 score_potential: 7/10
 effort: Bajo
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Williams' %R (7/10)

@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: TDSequential.cs
 name: TD Sequential
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 8/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿En qué punto del ciclo de agotamiento (Setup/Countdown) se encuentra la tendencia actual?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación fiel del sistema de DeMark. Buena visualización de números y niveles S/R.
+recommended_action: Conservar
+description: ¿En qué punto del ciclo de agotamiento (Setup/Countdown) se encuentra
+  la tendencia actual?
+gemini_summary: Implementación fiel del sistema de DeMark. Buena visualización de
+  números y niveles S/R.
 file_state: Estable
 score_potential: 8/10
 effort: Medio
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-05-27
-user_modification_date: null
 ---
 
 ## 🟦 TD Sequential (8/10)

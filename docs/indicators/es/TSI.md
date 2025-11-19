@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: TSI.cs
 name: True Strength Index
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 8/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es el momentum del precio libre de ruido gracias a un doble suavizado exponencial?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Oscilador de momentum robusto. Código limpio con línea de señal y doble suavizado.
+recommended_action: Conservar
+description: ¿Cuál es el momentum del precio libre de ruido gracias a un doble suavizado
+  exponencial?
+gemini_summary: Oscilador de momentum robusto. Código limpio con línea de señal y
+  doble suavizado.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 True Strength Index (TSI) (8/10)

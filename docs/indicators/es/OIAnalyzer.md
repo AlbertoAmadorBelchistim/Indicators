@@ -1,24 +1,23 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: OIAnalyzer.cs
 name: OI Analyzer
-category: VolumeOrderFlow
+category: Order Flow
+group: Order Flow
+subgroup: Open Interest
 score_current: 9/10
 version: ATAS Official
-recommended_action: 'Conservar'
-description: >-
-  ¿Cómo cambia el Interés Abierto (OI) filtrado por dirección (Buy/Sell) y visualizado en detalle?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Herramienta avanzada para analizar el OI. Soporta múltiples modos (Buy/Sell, Acumulado/Separado) y visualización de clusters. Código robusto y bien protegido.
+recommended_action: Conservar
+description: ¿Cómo cambia el Interés Abierto (OI) filtrado por dirección (Buy/Sell)
+  y visualizado en detalle?
+gemini_summary: Herramienta avanzada para analizar el OI. Soporta múltiples modos
+  (Buy/Sell, Acumulado/Separado) y visualización de clusters. Código robusto y bien
+  protegido.
 file_state: Estable
 score_potential: 9/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 OI Analyzer (9/10)

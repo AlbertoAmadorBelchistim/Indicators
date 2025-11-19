@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: VolatilityChaikins.cs
 name: Volatility - Chaikins
-category: Volatility
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 7/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Se está expandiendo o contrayendo el rango de precios (volatilidad) respecto al pasado reciente?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Oscilador de cambio de volatilidad (ROC del EMA del Rango). Simple y funcional.
+recommended_action: Conservar
+description: ¿Se está expandiendo o contrayendo el rango de precios (volatilidad)
+  respecto al pasado reciente?
+gemini_summary: Oscilador de cambio de volatilidad (ROC del EMA del Rango). Simple
+  y funcional.
 file_state: Estable
 score_potential: 7/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Volatility - Chaikins (7/10)

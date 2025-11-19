@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: MacdBbImproved.cs
 name: MACD Bollinger Bands - Improved
-category: Momentum
+category: Trend
+group: Trend
+subgroup: Volatility
 score_current: 6/10
 version: ATAS Official
-recommended_action: 'Mejorar'
-description: >-
-  ¿Cuál es el rango de volatilidad "mejorado" (BB + SMA del histograma) alrededor de la línea de señal del MACD?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Lógica estable pero muy confusa (mezcla de BB y Keltner). Sufre de un mal diseño al acoplar 3 períodos en un solo parámetro.
+recommended_action: Mejorar
+description: ¿Cuál es el rango de volatilidad "mejorado" (BB + SMA del histograma)
+  alrededor de la línea de señal del MACD?
+gemini_summary: Lógica estable pero muy confusa (mezcla de BB y Keltner). Sufre de
+  un mal diseño al acoplar 3 períodos en un solo parámetro.
 file_state: Mejorable
 score_potential: 7/10
 effort: Medio
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 MACD Bollinger Bands - Improved (6/10)

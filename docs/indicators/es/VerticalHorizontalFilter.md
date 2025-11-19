@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: VerticalHorizontalFilter.cs
 name: Vertical Horizontal Filter
-category: Statistical
+category: Utility
+group: Utility
+subgroup: Stats
 score_current: 8/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Está el mercado en tendencia (movimiento vertical) o en rango (movimiento horizontal)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador de eficiencia de movimiento. Código flexible con múltiples fuentes de datos.
+recommended_action: Conservar
+description: ¿Está el mercado en tendencia (movimiento vertical) o en rango (movimiento
+  horizontal)?
+gemini_summary: Indicador de eficiencia de movimiento. Código flexible con múltiples
+  fuentes de datos.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Vertical Horizontal Filter (8/10)

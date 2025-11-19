@@ -1,24 +1,23 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: MovingAverage.cs
 name: Moving Average
 category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 9/10
 version: ATAS Official
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es la tendencia suavizada del precio usando uno de los 11 tipos de medias disponibles?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador "navaja suiza" de medias móviles. Soporta 11 tipos (SMA, EMA, ZLEMA...). Código robusto, salvo por una falta de validación de TickSize en alertas.
+recommended_action: Conservar
+description: ¿Cuál es la tendencia suavizada del precio usando uno de los 11 tipos
+  de medias disponibles?
+gemini_summary: Indicador "navaja suiza" de medias móviles. Soporta 11 tipos (SMA,
+  EMA, ZLEMA...). Código robusto, salvo por una falta de validación de TickSize en
+  alertas.
 file_state: Estable
 score_potential: 9/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Moving Average (9/10)

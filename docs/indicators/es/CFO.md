@@ -1,23 +1,22 @@
 ---
 cs_file: CFO.cs
 name: Chande Forecast Oscillator
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 4/10
 version: Estable
-recommended_action: 'Descartar'
-description: >-
-  ¿Cuán lejos, en porcentaje, se ha desviado el precio de su propia línea de tendencia (Regresión Lineal)?
-# --- Análisis y Triaje de Gemini ---
-gemini_summary: >-
-  Abstracto y redundante (4/10). Mide la distancia a la LinReg. Tiene bug de warm-up.
+recommended_action: Descartar
+description: ¿Cuán lejos, en porcentaje, se ha desviado el precio de su propia línea
+  de tendencia (Regresión Lineal)?
+gemini_summary: Abstracto y redundante (4/10). Mide la distancia a la LinReg. Tiene
+  bug de warm-up.
 file_state: Buggy
 score_potential: 4/10
 effort: N/A
 action_priority: P4 (Descartar)
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
-user_modification_date: null
-# ------------------------------------
 ---
 
 ## 🟦 Chande Forecast Oscillator (CFO) (4/10)

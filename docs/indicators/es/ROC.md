@@ -1,24 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: ROC.cs
 name: Rate of Change (ROC)
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 6/10
 version: Stable
-recommended_action: 'Mejorar'
-description: >-
-  ¿Cuál es la velocidad del cambio de precio (en % o ticks) comparado con 'n' barras atrás?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Funcional pero con UX confusa (parámetro inútil visible) y riesgo de crash si TickSize=0.
+recommended_action: Mejorar
+description: ¿Cuál es la velocidad del cambio de precio (en % o ticks) comparado con
+  'n' barras atrás?
+gemini_summary: Funcional pero con UX confusa (parámetro inútil visible) y riesgo
+  de crash si TickSize=0.
 file_state: Mejorable
 score_potential: 8/10
 effort: Medio
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
-official_code_date: null
-user_modification_date: null
 ---
 
 ## 🟦 Rate of Change (ROC) (6/10)

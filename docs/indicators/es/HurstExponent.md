@@ -1,24 +1,23 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: HurstExponent.cs
 name: Hurst Exponent
-category: Statistical
+category: Utility
+group: Utility
+subgroup: Stats
 score_current: 8/10
 version: ATAS Official
-recommended_action: 'Conservar'
-description: >-
-  ¿El comportamiento del mercado es tendencial (persistente, H>0.5), de reversión (antipersistente, H<0.5) o aleatorio (H=0.5)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación 'Quant' estable del exponente de Hurst (R/S); una herramienta de 'régimen' de alto nivel, aunque su uso de 'Math.Abs()' es una peculiaridad de diseño.
+recommended_action: Conservar
+description: ¿El comportamiento del mercado es tendencial (persistente, H>0.5), de
+  reversión (antipersistente, H<0.5) o aleatorio (H=0.5)?
+gemini_summary: Implementación 'Quant' estable del exponente de Hurst (R/S); una herramienta
+  de 'régimen' de alto nivel, aunque su uso de 'Math.Abs()' es una peculiaridad de
+  diseño.
 file_state: Estable
 score_potential: 8/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Hurst Exponent (8/10)

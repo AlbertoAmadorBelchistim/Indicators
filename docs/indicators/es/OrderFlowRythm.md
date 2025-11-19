@@ -1,23 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: OrderFlowRythm.cs
 name: Order Flow Rhythm (Clean)
-category: OrderFlow
+category: Order Flow
+group: Order Flow
+subgroup: General
 score_current: 9/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es la velocidad de ejecución (ritmo) del mercado visualizada como mapa de calor?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Heatmap de velocidad de cinta. Visualización excelente de la intensidad del mercado.
+recommended_action: Conservar
+description: ¿Cuál es la velocidad de ejecución (ritmo) del mercado visualizada como
+  mapa de calor?
+gemini_summary: Heatmap de velocidad de cinta. Visualización excelente de la intensidad
+  del mercado.
 file_state: Estable
 score_potential: 9/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-19
-official_code_date: null
 user_modification_date: 2025-11-19
 ---
 

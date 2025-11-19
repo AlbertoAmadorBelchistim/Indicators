@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: TVI.cs
 name: Trade Volume Index
-category: Volume
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 7/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Se está acumulando o distribuyendo el volumen basándose en la dirección del tick?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Acumulador de volumen simple basado en ticks. Similar al OBV pero con granularidad tick a tick.
+recommended_action: Conservar
+description: ¿Se está acumulando o distribuyendo el volumen basándose en la dirección
+  del tick?
+gemini_summary: Acumulador de volumen simple basado en ticks. Similar al OBV pero
+  con granularidad tick a tick.
 file_state: Estable
 score_potential: 7/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Trade Volume Index (TVI) (7/10)

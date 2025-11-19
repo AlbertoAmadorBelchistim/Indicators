@@ -1,25 +1,24 @@
 ---
 cs_file: BollingerSqueeze.cs
 name: Bollinger Squeeze
-category: Volatilidad
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 7/10
 version: Estable
-recommended_action: 'Mejorar'
-description: >-
-  ¿Se está comprimiendo la volatilidad del precio (Bollinger) dentro de la volatilidad de su rango medio (Keltner), señalando una 'compresión' (squeeze) y un potencial movimiento explosivo?
-# --- Análisis y Triaje de Gemini ---
-gemini_summary: >-
-  El "TTM Squeeze" (7/10). Concepto 'Pro'. Inutilizable por defecto (10,1,1) y le falta la línea cero.
+recommended_action: Mejorar
+description: ¿Se está comprimiendo la volatilidad del precio (Bollinger) dentro de
+  la volatilidad de su rango medio (Keltner), señalando una 'compresión' (squeeze)
+  y un potencial movimiento explosivo?
+gemini_summary: El "TTM Squeeze" (7/10). Concepto 'Pro'. Inutilizable por defecto
+  (10,1,1) y le falta la línea cero.
 file_state: Mejorable
 score_potential: 9/10
 effort: Bajo
 action_priority: P1 (Arreglo Rápido)
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
-user_modification_date: null
-# ------------------------------------
 ---
-
 
 ## 🟦 Bollinger Squeeze (7/10 | Potencial: 9/10)
 

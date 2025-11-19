@@ -1,23 +1,22 @@
 ---
 cs_file: ADX.cs
 name: ADX
-category: Tendencia
+category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 6/10
 version: Estable
-recommended_action: 'Mejorar'
-description: >-
-  ¿Está el mercado en una fuerte tendencia (alcista o bajista), o simplemente está 'oscilando' lateralmente?
-# --- Análisis y Triaje de Gemini ---
-gemini_summary: >-
-  Filtro de régimen clásico (6/10). Fiel a la fórmula de Wilder (RMA). Su lag extremo es por diseño, no es un bug.
+recommended_action: Mejorar
+description: ¿Está el mercado en una fuerte tendencia (alcista o bajista), o simplemente
+  está 'oscilando' lateralmente?
+gemini_summary: Filtro de régimen clásico (6/10). Fiel a la fórmula de Wilder (RMA).
+  Su lag extremo es por diseño, no es un bug.
 file_state: Estable
 score_potential: 7/10
 effort: Bajo
 action_priority: P3 (Mejora Opcional)
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
-user_modification_date: null
-# ------------------------------------
 ---
 
 ## 🟦 ADX (Average Directional Index) (6/10 | Potencial 7/10)

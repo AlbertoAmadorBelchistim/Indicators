@@ -1,24 +1,23 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: DomPowerModif.cs
 name: DOM Power Modif
-category: OrderBook
+category: Order Flow
+group: Order Flow
+subgroup: DOM
 score_current: 9/10
 version: Modif
-recommended_action: 'Conservar'
-description: >-
-  '¿Cuál es el desequilibrio neto (Bids vs Asks) en el libro de órdenes y' cuál es su rango de volatilidad?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  '"Versión 'Pro' que arregla el bug de actualización y añade un 'Histograma' de Desequilibrio' y un 'Rango de Desequilibrio' (volatilidad del DOM)."
+recommended_action: Conservar
+description: '''¿Cuál es el desequilibrio neto (Bids vs Asks) en el libro de órdenes
+  y'' cuál es su rango de volatilidad?'
+gemini_summary: '''"Versión ''Pro'' que arregla el bug de actualización y añade un
+  ''Histograma'' de Desequilibrio'' y un ''Rango de Desequilibrio'' (volatilidad del
+  DOM)."'
 file_state: Estable
 score_potential: 10/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 DOM Power Modif (9/10)

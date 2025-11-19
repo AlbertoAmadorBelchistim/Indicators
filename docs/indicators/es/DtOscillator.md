@@ -1,24 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: DtOscillator.cs
 name: DT Oscillator
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 7/10
 version: Estable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es el momentum, basado en un StochasticRSI suavizado con dos SMAs?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  '"Implementación estable del DT Oscillator (StochRSI + doble SMA);' un oscilador de momentum suave y fiable que reduce el ruido."
+recommended_action: Conservar
+description: ¿Cuál es el momentum, basado en un StochasticRSI suavizado con dos SMAs?
+gemini_summary: '''"Implementación estable del DT Oscillator (StochRSI + doble SMA);''
+  un oscilador de momentum suave y fiable que reduce el ruido."'
 file_state: Estable
 score_potential: 7/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 DT Oscillator (7/10)

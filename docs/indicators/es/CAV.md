@@ -1,23 +1,22 @@
 ---
 cs_file: CAV.cs
 name: Cumulative Adjusted Value
-category: Momentum
+category: Order Flow
+group: Order Flow
+subgroup: Delta
 score_current: 5/10
 version: Estable
-recommended_action: 'Descartar'
-description: >-
-  ¿Está el precio *consistente y acumulativamente* cotizando por encima de su media (momentum alcista), o por debajo de ella (momentum bajista)?
-# --- Análisis y Triaje de Gemini ---
-gemini_summary: >-
-  Oscilador acumulativo (5/10). No acotado, abstracto y redundante vs. un MACD o la propia EMA.
+recommended_action: Descartar
+description: ¿Está el precio *consistente y acumulativamente* cotizando por encima
+  de su media (momentum alcista), o por debajo de ella (momentum bajista)?
+gemini_summary: Oscilador acumulativo (5/10). No acotado, abstracto y redundante vs.
+  un MACD o la propia EMA.
 file_state: Estable (Redundante)
 score_potential: 5/10
 effort: N/A
 action_priority: P4 (Descartar)
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
-user_modification_date: null
-# ------------------------------------
 ---
 
 ## 🟦 Cumulative Adjusted Value (5/10)

@@ -1,24 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: SMMA.cs
 name: SMMA (Smoothed Moving Average)
 category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 7/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  Media móvil suavizada que reduce el ruido del mercado dando menos peso a los precios recientes que una EMA.
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación recursiva estándar y eficiente. Sin bugs.
+recommended_action: Conservar
+description: Media móvil suavizada que reduce el ruido del mercado dando menos peso
+  a los precios recientes que una EMA.
+gemini_summary: Implementación recursiva estándar y eficiente. Sin bugs.
 file_state: Estable
 score_potential: 7/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 SMMA (7/10)

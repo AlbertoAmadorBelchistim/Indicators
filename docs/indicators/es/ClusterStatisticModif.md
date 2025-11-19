@@ -1,20 +1,23 @@
 ---
 cs_file: ClusterStatisticModif.cs
 name: Cluster Statistic Modif 
-category: Order FLow
+category: Order Flow
+group: Order Flow
+subgroup: Footprint
 score_current: 10/10
 version: Estable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es el "dashboard" estadístico completo (Volumen, Delta, Ticks, *Velocidad* e *Imbalances*) de cada vela, y cómo se compara cada vela con la más "fuerte" del gráfico?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  'Esta es una obra maestra. Es un "dashboard" de nivel profesional' que combina estadísticas base (Vol, Delta) con métricas avanzadas (Speed of Tape, Imbalances). El código es complejo pero logra su objetivo a la perfección. Es una herramienta central.
+recommended_action: Conservar
+description: ¿Cuál es el "dashboard" estadístico completo (Volumen, Delta, Ticks,
+  *Velocidad* e *Imbalances*) de cada vela, y cómo se compara cada vela con la más
+  "fuerte" del gráfico?
+gemini_summary: '''Esta es una obra maestra. Es un "dashboard" de nivel profesional''
+  que combina estadísticas base (Vol, Delta) con métricas avanzadas (Speed of Tape,
+  Imbalances). El código es complejo pero logra su objetivo a la perfección. Es una
+  herramienta central.'
 file_state: Estable
 score_potential: 10/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
 user_modification_date: 2025-10-01

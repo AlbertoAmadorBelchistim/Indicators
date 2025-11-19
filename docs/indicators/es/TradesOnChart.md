@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: TradesOnChart.cs
 name: Trades On Chart
-category: Visualization
+category: Utility
+group: Utility
+subgroup: Visuals
 score_current: 9/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Dónde ejecuté mis operaciones pasadas y cuál fue el resultado (PnL) visualmente?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Excelente herramienta de post-análisis. Dibuja trades del historial con PnL y líneas de conexión.
+recommended_action: Conservar
+description: ¿Dónde ejecuté mis operaciones pasadas y cuál fue el resultado (PnL)
+  visualmente?
+gemini_summary: Excelente herramienta de post-análisis. Dibuja trades del historial
+  con PnL y líneas de conexión.
 file_state: Estable
 score_potential: 9/10
 effort: Medio
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-11-13
-user_modification_date: null
 ---
 
 ## 🟦 Trades On Chart (9/10)

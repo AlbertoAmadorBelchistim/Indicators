@@ -1,24 +1,23 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: DeMarker.cs
 name: DeMarker
-category: Momentum
+category: Trend
+group: Trend
+subgroup: Moving Average
 score_current: 2/10
 version: Estable
-recommended_action: 'Reparar'
-description: >-
-  '¿Cuáles son las zonas de sobrecompra o sobreventa basadas en la' comparación de máximos y mínimos? (Implementación ROTA)
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  '"Indicador Roto: un error de 'Math.Min' en lugar de 'Math.Max' en' el cálculo de 'deMin' corrompe la fórmula, pero la reparación es trivial (P3)."
+recommended_action: Reparar
+description: '''¿Cuáles son las zonas de sobrecompra o sobreventa basadas en la''
+  comparación de máximos y mínimos? (Implementación ROTA)'
+gemini_summary: '''"Indicador Roto: un error de ''Math.Min'' en lugar de ''Math.Max''
+  en'' el cálculo de ''deMin'' corrompe la fórmula, pero la reparación es trivial
+  (P3)."'
 file_state: Roto
 score_potential: 6/10
 effort: Bajo
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 DeMarker (2/10)

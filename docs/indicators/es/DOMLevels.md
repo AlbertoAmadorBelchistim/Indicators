@@ -1,23 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: DOMLevels.cs
 name: DOM Heatmap (Manual)
-category: OrderFlow
+category: Order Flow
+group: Order Flow
+subgroup: DOM
 score_current: 9/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cómo ha evolucionado la liquidez del libro de órdenes (Heatmap) a lo largo del tiempo en el gráfico?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Generador de mapa de calor (Bookmap-style) dentro del gráfico. Gestión de memoria eficiente.
+recommended_action: Conservar
+description: ¿Cómo ha evolucionado la liquidez del libro de órdenes (Heatmap) a lo
+  largo del tiempo en el gráfico?
+gemini_summary: Generador de mapa de calor (Bookmap-style) dentro del gráfico. Gestión
+  de memoria eficiente.
 file_state: Estable
 score_potential: 10/10
 effort: Alto
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-19
-official_code_date: null
 user_modification_date: 2025-11-19
 ---
 

@@ -1,24 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: DmIndex.cs
 name: Directional Movement Index
-category: Tendencia
+category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 3/10
 version: Estable
-recommended_action: 'Descartar'
-description: >-
-  ¿Cuál es la fuerza direccional (DI+ vs DI-)? (Implementación NO estándar)
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  '"Indicador 'Impostor'; no usa el suavizado de Wilder, sino una 'CalcSum'' y una fórmula de suavizado personalizada. No es el DMI estándar."
+recommended_action: Descartar
+description: ¿Cuál es la fuerza direccional (DI+ vs DI-)? (Implementación NO estándar)
+gemini_summary: '''"Indicador ''Impostor''; no usa el suavizado de Wilder, sino una
+  ''CalcSum'''' y una fórmula de suavizado personalizada. No es el DMI estándar."'
 file_state: Impostor
 score_potential: 3/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Directional Movement Index (DMI) (3/10)

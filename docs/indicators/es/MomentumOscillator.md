@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: MomentumOscillator.cs
 name: Price Momentum Oscillator
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 7/10
 version: ATAS Official
-recommended_action: 'Mejorar'
-description: >-
-  ¿Cuál es la tasa de cambio del precio, suavizada doblemente y amplificada x10?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Oscilador de momentum avanzado con doble suavizado. Multiplica arbitrariamente x10 la señal final, lo que es confuso. Falta validación de división por cero.
+recommended_action: Mejorar
+description: ¿Cuál es la tasa de cambio del precio, suavizada doblemente y amplificada
+  x10?
+gemini_summary: Oscilador de momentum avanzado con doble suavizado. Multiplica arbitrariamente
+  x10 la señal final, lo que es confuso. Falta validación de división por cero.
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Price Momentum Oscillator (7/10)

@@ -1,23 +1,22 @@
 ---
 cs_file: AdaptiveBinaryWaveMA.cs
 name: Adaptive Binary Wave
-category: Tendencia
+category: Trend
+group: Trend
+subgroup: Moving Average
 score_current: 7/10
 version: Estable
-recommended_action: 'Mejorar'
-description: >-
-  ¿Ha roto la media móvil adaptativa (AMA) su 'canal' reciente por una cantidad estadísticamente significativa?
-# --- Análisis y Triaje de Gemini ---
-gemini_summary: >-
-  Filtro de régimen brillante (7/10), pero es una "caja negra". Lento para entradas. Potencial 9/10 si dibuja sus bandas.
+recommended_action: Mejorar
+description: ¿Ha roto la media móvil adaptativa (AMA) su 'canal' reciente por una
+  cantidad estadísticamente significativa?
+gemini_summary: Filtro de régimen brillante (7/10), pero es una "caja negra". Lento
+  para entradas. Potencial 9/10 si dibuja sus bandas.
 file_state: Mejorable
 score_potential: 9/10
 effort: Medio
 action_priority: P2 (Mejora Estratégica)
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
-user_modification_date: null
-# ------------------------------------
 ---
 
 ## 🟦 Adaptive Binary Wave (7/10 | Potencial: 9/10)

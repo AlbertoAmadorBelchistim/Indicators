@@ -1,24 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: RolloverDates.cs
 name: Rollover Dates
 category: Utility
+group: Utility
+subgroup: General
 score_current: 8/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuándo vence el contrato de futuros actual y debo cambiar al siguiente?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Excelente utilidad técnica. Usa async/await para obtener datos de expiración. Esencial para futuros.
+recommended_action: Conservar
+description: ¿Cuándo vence el contrato de futuros actual y debo cambiar al siguiente?
+gemini_summary: Excelente utilidad técnica. Usa async/await para obtener datos de
+  expiración. Esencial para futuros.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-07-18
-user_modification_date: null
 ---
 
 ## 🟦 Rollover Dates (8/10)

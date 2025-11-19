@@ -1,24 +1,23 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: DeltaColoredCandles.cs
 name: Delta Colored Candles
-category: VolumeOrderFlow
+category: Order Flow
+group: Order Flow
+subgroup: Delta
 score_current: 4/10
 version: Estable
-recommended_action: 'Mejorar'
-description: >-
-  '¿Cuál es la intensidad del *momentum* del delta (delta acumulado en N' barras) en relación con un máximo fijo?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  '"Idea de 'momentum de delta' 9/10 arruinada por una implementación' 2/10 que requiere un 'MaxDelta' fijo, haciéndolo inútil; necesita ser 'Mejorado' con un umbral dinámico."
+recommended_action: Mejorar
+description: '''¿Cuál es la intensidad del *momentum* del delta (delta acumulado en
+  N'' barras) en relación con un máximo fijo?'
+gemini_summary: '''"Idea de ''momentum de delta'' 9/10 arruinada por una implementación''
+  2/10 que requiere un ''MaxDelta'' fijo, haciéndolo inútil; necesita ser ''Mejorado''
+  con un umbral dinámico."'
 file_state: Mejorable
 score_potential: 9/10
 effort: Medio
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Delta Colored Candles (5/10)

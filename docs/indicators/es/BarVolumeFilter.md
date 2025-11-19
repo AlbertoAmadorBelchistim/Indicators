@@ -2,23 +2,23 @@
 cs_file: BarVolumeFilter.cs
 name: Bar's Volume Filter
 category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 7/10
 version: Estable
-recommended_action: 'Mejorar'
-description: >-
-  ¿Qué velas de este gráfico cumplen mi criterio específico de Volumen, Delta o Ticks (ej. 'Volumen > 1500' y solo 'dentro de la sesión RTH')?
-# --- Análisis y Triaje de Gemini ---
-gemini_summary: >-
-  Filtro de ruido/contexto esencial (7/10). Permite aislar velas "importantes" (Volumen, Delta, RTH).
+recommended_action: Mejorar
+description: ¿Qué velas de este gráfico cumplen mi criterio específico de Volumen,
+  Delta o Ticks (ej. 'Volumen > 1500' y solo 'dentro de la sesión RTH')?
+gemini_summary: Filtro de ruido/contexto esencial (7/10). Permite aislar velas "importantes"
+  (Volumen, Delta, RTH).
 file_state: Mejorable
 score_potential: 9/10
 effort: Medio
 action_priority: P2 (Mejora Estratégica)
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
-user_modification_date: null
-# ------------------------------------
 ---
+
 ## 🟦 Bar's Volume Filter (7/10 | Potencial: 9/10)
 
 **Nombre del archivo:** [`BarVolumeFilter.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/BarVolumeFilter.cs)  

@@ -1,24 +1,23 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: OBV.cs
 name: OBV
-category: Volume
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 7/10
 version: ATAS Official
-recommended_action: 'Mejorar'
-description: >-
-  ¿Cuál es el flujo de volumen acumulado (presión de compra/venta) basado en el cierre de velas?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación del OBV con un modo "miniminzado" útil. Tiene un bug menor: la lógica de inicialización de la barra 0 es inalcanzable debido a un return previo.
+recommended_action: Mejorar
+description: ¿Cuál es el flujo de volumen acumulado (presión de compra/venta) basado
+  en el cierre de velas?
+gemini_summary: 'Implementación del OBV con un modo "miniminzado" útil. Tiene un bug
+  menor: la lógica de inicialización de la barra 0 es inalcanzable debido a un return
+  previo.'
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 OBV (On Balance Volume) (7/10)

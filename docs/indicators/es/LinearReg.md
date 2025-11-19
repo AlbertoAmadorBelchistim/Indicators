@@ -1,24 +1,23 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: LinearReg.cs
 name: Linear Regression
 category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 5/10
 version: ATAS Official
-recommended_action: 'Mejorar'
-description: >-
-  ¿Cuál es la línea de tendencia de regresión lineal (mínimos cuadrados) de las últimas N barras?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador 'Mejorable'. Implementación estándar de Regresión Lineal, pero con un 'bug' de diseño (usa el índice 'bar' absoluto como 'x'), lo que puede causar repintado/imprecisiones.
+recommended_action: Mejorar
+description: ¿Cuál es la línea de tendencia de regresión lineal (mínimos cuadrados)
+  de las últimas N barras?
+gemini_summary: Indicador 'Mejorable'. Implementación estándar de Regresión Lineal,
+  pero con un 'bug' de diseño (usa el índice 'bar' absoluto como 'x'), lo que puede
+  causar repintado/imprecisiones.
 file_state: Mejorable
 score_potential: 6.5/10
 effort: Bajo
 action_priority: P4
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Linear Regression (5/10)

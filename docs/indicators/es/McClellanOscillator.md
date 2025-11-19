@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: McClellanOscillator.cs
 name: McClellan Oscillator
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 6/10
 version: ATAS Official
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es la diferencia entre la EMA rápida y la EMA lenta (impulso de mercado)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Oscilador de momentum estándar (diferencia de dos EMAs). Estable y funcional, aunque básico.
+recommended_action: Conservar
+description: ¿Cuál es la diferencia entre la EMA rápida y la EMA lenta (impulso de
+  mercado)?
+gemini_summary: Oscilador de momentum estándar (diferencia de dos EMAs). Estable y
+  funcional, aunque básico.
 file_state: Estable
 score_potential: 6/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 McClellan Oscillator (6/10)

@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: DmOscillator.cs
 name: Directional Movement Oscillator
-category: Tendencia
+category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 3/10
 version: Estable
-recommended_action: 'Descartar'
-description: >-
-  ¿Cuál es la diferencia neta (DI+ menos DI-)? (Basado en un DMI no estándar)
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  '"Indicador 'Impostor por Derivación'; se basa en el indicador 'DmIndex'' (que es un impostor no estándar), por lo que este oscilador no es fiable."
+recommended_action: Descartar
+description: ¿Cuál es la diferencia neta (DI+ menos DI-)? (Basado en un DMI no estándar)
+gemini_summary: '''"Indicador ''Impostor por Derivación''; se basa en el indicador
+  ''DmIndex'''' (que es un impostor no estándar), por lo que este oscilador no es
+  fiable."'
 file_state: Impostor
 score_potential: 3/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Directional Movement Oscillator (3/10)

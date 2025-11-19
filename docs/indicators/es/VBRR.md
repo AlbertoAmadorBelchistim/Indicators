@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: VBRR.cs
 name: Volume Bar Range Ratio
-category: Volume
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 7/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuánto volumen es necesario para mover el precio 1 tick (Eficiencia del movimiento)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador simple de eficiencia. Volumen / Rango. Útil para detectar absorción.
+recommended_action: Conservar
+description: ¿Cuánto volumen es necesario para mover el precio 1 tick (Eficiencia
+  del movimiento)?
+gemini_summary: Indicador simple de eficiencia. Volumen / Rango. Útil para detectar
+  absorción.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Volume Bar Range Ratio (VBRR) (7/10)

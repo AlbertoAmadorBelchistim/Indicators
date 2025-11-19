@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: SWWMA.cs
 name: Sine-Wave Weighted Moving Average
 category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 5/10
 version: Stable
-recommended_action: 'Mejorar'
-description: >-
-  ¿Cuál es la tendencia suavizada usando una ponderación sinusoidal fija de 5 periodos?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador rígido sin parámetros. Usa un kernel fijo de 5 barras con pesos seno.
+recommended_action: Mejorar
+description: ¿Cuál es la tendencia suavizada usando una ponderación sinusoidal fija
+  de 5 periodos?
+gemini_summary: Indicador rígido sin parámetros. Usa un kernel fijo de 5 barras con
+  pesos seno.
 file_state: Estable
 score_potential: 7/10
 effort: Bajo
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Sine-Wave Weighted Moving Average (SWWMA) (5/10)

@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: RMO.cs
 name: Rahul Mohindar Oscillator
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 7/10
 version: ATAS Official
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es la tendencia primaria y el impulso de corto plazo (basado en múltiples medias)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador complejo con múltiples capas de medias móviles. Implementación correcta pero pesada (10 SMAs internas). Señales visuales fijas.
+recommended_action: Conservar
+description: ¿Cuál es la tendencia primaria y el impulso de corto plazo (basado en
+  múltiples medias)?
+gemini_summary: Indicador complejo con múltiples capas de medias móviles. Implementación
+  correcta pero pesada (10 SMAs internas). Señales visuales fijas.
 file_state: Estable
 score_potential: 7/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 RMO (Rahul Mohindar Oscillator) (7/10)

@@ -1,25 +1,24 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: DeTrended.cs
 name: DeTrended Price Oscillator
-category: Momentum
+category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 3/10
 version: Estable
-recommended_action: 'Descartar'
-description: >-
-  '¿Cuáles son los ciclos de corto plazo eliminando la tendencia general?' (Implementación no estándar)
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  '"Indicador 'Impostor' que usa una fórmula de DPO no estándar y un' desfase confuso; el indicador 'DeTrendedDi' es la implementación correcta."
+recommended_action: Descartar
+description: '''¿Cuáles son los ciclos de corto plazo eliminando la tendencia general?''
+  (Implementación no estándar)'
+gemini_summary: '''"Indicador ''Impostor'' que usa una fórmula de DPO no estándar
+  y un'' desfase confuso; el indicador ''DeTrendedDi'' es la implementación correcta."'
 file_state: Impostor
 score_potential: 3/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
+
 ## 🟦 DeTrended Price Oscillator (DPO) (3/10)
 
 **Nombre del archivo:** [`DeTrended.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/DeTrended.cs)  

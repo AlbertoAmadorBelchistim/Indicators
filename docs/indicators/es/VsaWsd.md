@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: VsaWsd.cs
 name: VSA – WSD Histogram
-category: Volume
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 8/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cómo se distribuye la estructura de la vela (mechas vs cuerpo) y el volumen relativo?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Deconstruye la vela en histogramas de mechas y cuerpo. Útil para análisis estructural.
+recommended_action: Conservar
+description: ¿Cómo se distribuye la estructura de la vela (mechas vs cuerpo) y el
+  volumen relativo?
+gemini_summary: Deconstruye la vela en histogramas de mechas y cuerpo. Útil para análisis
+  estructural.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-05-8
-user_modification_date: null
 ---
 
 ## 🟦 VSA – WSD Histogram (8/10)

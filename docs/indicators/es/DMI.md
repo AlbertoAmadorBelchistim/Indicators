@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: DMI.cs
 name: Dynamic Momentum Index
-category: Momentum
+category: Structure
+group: Structure
+subgroup: Profile
 score_current: 5/10
 version: Estable
-recommended_action: 'Reparar'
-description: >-
-  '¿Cuál es el RSI, pero con un periodo que se ajusta automáticamente a la' volatilidad del mercado?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  '"Concepto de RSI adaptativo 9/10 (muy bueno para scalping) arruinado' por un bug lógico ('if' anidado imposible) en el cálculo de RSI; necesita reparación."
+recommended_action: Reparar
+description: '''¿Cuál es el RSI, pero con un periodo que se ajusta automáticamente
+  a la'' volatilidad del mercado?'
+gemini_summary: '''"Concepto de RSI adaptativo 9/10 (muy bueno para scalping) arruinado''
+  por un bug lógico (''if'' anidado imposible) en el cálculo de RSI; necesita reparación."'
 file_state: Buggy
 score_potential: 9/10
 effort: Bajo
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Dynamic Momentum Index (DMI) (5/10)

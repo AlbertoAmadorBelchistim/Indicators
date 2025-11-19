@@ -1,23 +1,23 @@
 ---
 cs_file: CamarillaPivots.cs
 name: Camarilla Pivots
-category: Niveles
+category: Structure
+group: Structure
+subgroup: Static Levels
 score_current: 8/10
 version: Estable
-recommended_action: 'Mejorar'
-description: >-
-  ¿Dónde están los niveles de soporte y resistencia intradía más relevantes, basados en la fórmula de Camarilla, para operar rupturas (en L4/H4) y reversiones (en L3/H3)?
-# --- Análisis y Triaje de Gemini ---
-gemini_summary: >-
-  "Mapa de niveles" esencial (8/10). Tiene un bug de 'DivideByZero' (P1) y sus colores son mejorables (P2).
+recommended_action: Mejorar
+description: ¿Dónde están los niveles de soporte y resistencia intradía más relevantes,
+  basados en la fórmula de Camarilla, para operar rupturas (en L4/H4) y reversiones
+  (en L3/H3)?
+gemini_summary: '"Mapa de niveles" esencial (8/10). Tiene un bug de ''DivideByZero''
+  (P1) y sus colores son mejorables (P2).'
 file_state: Buggy
 score_potential: 9/10
 effort: Bajo
 action_priority: P1 (Arreglo Rápido)
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
-user_modification_date: null
-# ------------------------------------
 ---
 
 ## 🟦 Camarilla Pivots (8/10 | Potencial: 9/10)

@@ -1,24 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: OutsideBar.cs
 name: Outside Bar
-category: PriceAction
+category: Structure
+group: Structure
+subgroup: Price Action
 score_current: 6/10
 version: ATAS Official
-recommended_action: 'Mejorar'
-description: >-
-  ¿Es la barra actual una "Outside Bar" (engloba completamente a la anterior)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Detector de patrón simple y funcional. Visualización pobre (solo un punto en el High), debería distinguir entre Outside Bar alcista/bajista.
+recommended_action: Mejorar
+description: ¿Es la barra actual una "Outside Bar" (engloba completamente a la anterior)?
+gemini_summary: Detector de patrón simple y funcional. Visualización pobre (solo un
+  punto en el High), debería distinguir entre Outside Bar alcista/bajista.
 file_state: Mejorable
 score_potential: 7/10
 effort: Bajo
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Outside Bar (6/10)

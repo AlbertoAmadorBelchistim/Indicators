@@ -1,23 +1,22 @@
 ---
 cs_file: AO.cs
 name: Awesome Oscillator
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 2/10
 version: Estable
-recommended_action: 'Descartar'
-description: >-
-  ¿Está el momentum reciente a corto plazo (5 barras) ganando la batalla contra el momentum de la tendencia a largo plazo (34 barras)?
-# --- Análisis y Triaje de Gemini ---
-gemini_summary: >-
-  "Impostor" (2/10). Lógica de color incorrecta (AC), UI rota (sin línea cero) e ineficiente (for loop).
+recommended_action: Descartar
+description: ¿Está el momentum reciente a corto plazo (5 barras) ganando la batalla
+  contra el momentum de la tendencia a largo plazo (34 barras)?
+gemini_summary: '"Impostor" (2/10). Lógica de color incorrecta (AC), UI rota (sin
+  línea cero) e ineficiente (for loop).'
 file_state: Impostor
 score_potential: 2/10
 effort: N/A
 action_priority: P4 (Descartar)
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
-user_modification_date: null
-# ------------------------------------
 ---
 
 ## 🟦 Awesome Oscillator (2/10)

@@ -1,21 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: ClusterSearchModif.cs
 name: Cluster Search Modifar
 category: Order Flow
+group: Order Flow
+subgroup: Footprint
 score_current: 10/10
 version: 1.4.0 (Modif)
-recommended_action: 'Conservar'
-description: >-
-  '¿Qué clústeres de precio específicos en este gráfico cumplen *todos*' mis criterios de filtro (por Volumen, Delta, Localización, Imbalance, etc.)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  'El análisis del MD es perfecto. La versión oficial ya es un 9/10. La' modificación que añade Imbalances Diagonales Apilados (Stacked Diagonal Imbalances) lo eleva a un 10/10, convirtiéndolo en una herramienta de nivel profesional a la altura de Jigsaw o Exocharts. Es una herramienta central.
+recommended_action: Conservar
+description: '''¿Qué clústeres de precio específicos en este gráfico cumplen *todos*''
+  mis criterios de filtro (por Volumen, Delta, Localización, Imbalance, etc.)?'
+gemini_summary: '''El análisis del MD es perfecto. La versión oficial ya es un 9/10.
+  La'' modificación que añade Imbalances Diagonales Apilados (Stacked Diagonal Imbalances)
+  lo eleva a un 10/10, convirtiéndolo en una herramienta de nivel profesional a la
+  altura de Jigsaw o Exocharts. Es una herramienta central.'
 file_state: Estable
 score_potential: 10/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-10-27
 user_modification_date: 2025-11-15

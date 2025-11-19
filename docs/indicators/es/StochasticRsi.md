@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: StochasticRsi.cs
 name: Stochastic RSI
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: RSI/Stochastic
 score_current: 6/10
 version: Stable
-recommended_action: 'Mejorar'
-description: >-
-  ¿En qué parte de su rango reciente se encuentra el RSI actual (Sensibilidad extrema)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación básica que devuelve solo el %K del StochRSI. Le falta la línea %D (señal).
+recommended_action: Mejorar
+description: ¿En qué parte de su rango reciente se encuentra el RSI actual (Sensibilidad
+  extrema)?
+gemini_summary: Implementación básica que devuelve solo el %K del StochRSI. Le falta
+  la línea %D (señal).
 file_state: Mejorable
 score_potential: 9/10
 effort: Medio
 action_priority: P2
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Stochastic RSI (6/10)

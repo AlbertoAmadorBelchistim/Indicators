@@ -1,24 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: DailyChange.cs
 name: Daily Change
-category: Visualization
+category: Structure
+group: Structure
+subgroup: Static Levels
 score_current: 6/10
 version: Estable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es la variación neta del precio en el día (en %, ticks o $)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  '"Gadget de contexto esencial que responde '¿de qué humor está la' fiesta?' (sesgo del día en %), dato clave para filtrar trades."
+recommended_action: Conservar
+description: ¿Cuál es la variación neta del precio en el día (en %, ticks o $)?
+gemini_summary: '''"Gadget de contexto esencial que responde ''¿de qué humor está
+  la'' fiesta?'' (sesgo del día en %), dato clave para filtrar trades."'
 file_state: Estable
 score_potential: 6/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Daily Change (6/10)

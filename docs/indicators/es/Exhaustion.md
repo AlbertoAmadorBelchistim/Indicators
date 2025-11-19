@@ -1,24 +1,23 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: Exhaustion.cs
 name: Exhaustion
-category: VolumeOrderFlow
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 8/10
 version: ATAS Official
-recommended_action: 'Reparar'
-description: >-
-  ¿Está el precio mostrando agotamiento (volumen creciente) en los últimos N ticks del máximo o mínimo de la vela?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Concepto excelente (agotamiento en N ticks), pero 'Buggy' debido a un error tipográfico ('AmoutOfPrices') y una lógica 'todo o nada' que oculta patrones parciales.
+recommended_action: Reparar
+description: ¿Está el precio mostrando agotamiento (volumen creciente) en los últimos
+  N ticks del máximo o mínimo de la vela?
+gemini_summary: Concepto excelente (agotamiento en N ticks), pero 'Buggy' debido a
+  un error tipográfico ('AmoutOfPrices') y una lógica 'todo o nada' que oculta patrones
+  parciales.
 file_state: Buggy
 score_potential: 9/10
 effort: Medio
 action_priority: P2
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Exhaustion (8/10)

@@ -1,24 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: PercentagePrice.cs
 name: Percentage Price Oscillator
-category: Momentum
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 7/10
 version: ATAS Official
-recommended_action: 'Mejorar'
-description: >-
-  ¿Cuál es la diferencia porcentual entre dos medias móviles (MACD normalizado)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación básica del PPO. Funcional, pero carece de línea de señal e histograma, lo que limita su utilidad comparado con un MACD completo.
+recommended_action: Mejorar
+description: ¿Cuál es la diferencia porcentual entre dos medias móviles (MACD normalizado)?
+gemini_summary: Implementación básica del PPO. Funcional, pero carece de línea de
+  señal e histograma, lo que limita su utilidad comparado con un MACD completo.
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Percentage Price Oscillator (PPO) (7/10)

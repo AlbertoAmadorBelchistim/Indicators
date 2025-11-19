@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: FairValueGap.cs
 name: Fair Value Gap
-category: VolumeOrderFlow
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 9/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Dónde están los desequilibrios de precio (gaps) no mitigados en el marco actual y superior?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Detector de FVG multitemporal. Reconstruye velas superiores internamente. Código complejo y potente.
+recommended_action: Conservar
+description: ¿Dónde están los desequilibrios de precio (gaps) no mitigados en el marco
+  actual y superior?
+gemini_summary: Detector de FVG multitemporal. Reconstruye velas superiores internamente.
+  Código complejo y potente.
 file_state: Estable
 score_potential: 10/10
 effort: Alto
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-19
 official_code_date: 2025-05-12
-user_modification_date: null
 ---
 
 ## 🟦 Fair Value Gap (9/10)

@@ -1,23 +1,22 @@
 ---
 cs_file: BollingerSqueezeV2.cs
 name: Bollinger Squeeze 2
-category: Volatilidad / Momentum
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 8/10
 version: Estable
-recommended_action: 'Mejorar'
-description: >-
-  ¿Está el mercado en compresión (Squeeze) Y cuál es la dirección del momentum (Histograma)?
-# --- Análisis y Triaje de Gemini ---
-gemini_summary: >-
-  "TTM Squeeze" (8/10). Herramienta 'Pro' que combina Squeeze (puntos) + Momentum (histograma). Defaults débiles (10,1,1).
+recommended_action: Mejorar
+description: ¿Está el mercado en compresión (Squeeze) Y cuál es la dirección del momentum
+  (Histograma)?
+gemini_summary: '"TTM Squeeze" (8/10). Herramienta ''Pro'' que combina Squeeze (puntos)
+  + Momentum (histograma). Defaults débiles (10,1,1).'
 file_state: Mejorable
 score_potential: 10/10
 effort: Bajo
 action_priority: P1 (Arreglo Rápido)
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
-user_modification_date: null
-# ------------------------------------
 ---
 
 ## 🟦 Bollinger Squeeze 2 (8/10 | Potencial: 10/10)

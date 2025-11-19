@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: TMA.cs
 name: Triangular Moving Average
 category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 7/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es la tendencia central "verdadera" con un suavizado extremo (doble promedio)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Media doblemente suavizada. Código funcional pero con cálculo O(N) por tick (mejorable a O(1)).
+recommended_action: Conservar
+description: ¿Cuál es la tendencia central "verdadera" con un suavizado extremo (doble
+  promedio)?
+gemini_summary: Media doblemente suavizada. Código funcional pero con cálculo O(N)
+  por tick (mejorable a O(1)).
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Triangular Moving Average (TMA) (7/10)

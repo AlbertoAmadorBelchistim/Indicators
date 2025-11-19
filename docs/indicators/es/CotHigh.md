@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: CotHigh.cs
 name: COT High/Low
-category: VolumeOrderFlow
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 2/10
 version: Estable
-recommended_action: 'Descartar'
-description: >-
-  '(Teóricamente) Acumula el delta desde un nuevo máximo (High) o mínimo' (Low), pero la lógica está rota.
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador Roto (lógica 'Low' no implementada), pero el concepto de 'Delta desde el Swing' es valioso para scalping y merece ser reparado.
+recommended_action: Descartar
+description: '''(Teóricamente) Acumula el delta desde un nuevo máximo (High) o mínimo''
+  (Low), pero la lógica está rota.'
+gemini_summary: Indicador Roto (lógica 'Low' no implementada), pero el concepto de
+  'Delta desde el Swing' es valioso para scalping y merece ser reparado.
 file_state: Roto
 score_potential: 6/10
 effort: Bajo
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 COT High/Low (2/10)

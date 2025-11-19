@@ -1,24 +1,21 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: OpenInterest.cs
 name: Open Interest
-category: Volume
+category: Order Flow
+group: Order Flow
+subgroup: Open Interest
 score_current: 8/10
 version: ATAS Official
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es el Interés Abierto total (o su cambio neto) por barra o sesión?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Indicador estándar de OI. Implementación sólida con modos por barra, sesión y acumulado. Incluye alertas y filtros visuales útiles.
+recommended_action: Conservar
+description: ¿Cuál es el Interés Abierto total (o su cambio neto) por barra o sesión?
+gemini_summary: Indicador estándar de OI. Implementación sólida con modos por barra,
+  sesión y acumulado. Incluye alertas y filtros visuales útiles.
 file_state: Estable
 score_potential: 8/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Open Interest (8/10)

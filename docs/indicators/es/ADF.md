@@ -1,23 +1,21 @@
 ---
 cs_file: ADF.cs
 name: Accumulation / Distribution Flow
-category: Volumen clásico
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 1/10
 version: Estable
-recommended_action: 'Descartar'
-description: >-
-  ¿Cuál es la _tendencia suavizada (lenta)_ del flujo de volumen acumulado?
-# --- Análisis y Triaje de Gemini ---
-gemini_summary: >-
-  "Lag sobre lag" (1/10). Es el AD (ya obsoleto y roto) con una SMA(14). Inútil para scalping.
+recommended_action: Descartar
+description: ¿Cuál es la _tendencia suavizada (lenta)_ del flujo de volumen acumulado?
+gemini_summary: '"Lag sobre lag" (1/10). Es el AD (ya obsoleto y roto) con una SMA(14).
+  Inútil para scalping.'
 file_state: Roto
 score_potential: 1/10
 effort: N/A
 action_priority: P4 (Descartar)
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
-user_modification_date: null
-# ------------------------------------
 ---
 
 ## 🟦 Accumulation / Distribution Flow (1/10)

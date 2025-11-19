@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: RelativeVolume.cs
 name: Relative Volume
-category: Volume
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 7/10
 version: ATAS Official
-recommended_action: 'Mejorar'
-description: >-
-  ¿Es el volumen actual anómalamente alto o bajo comparado con el promedio histórico para esta misma hora?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Comparador de volumen histórico. Concepto útil, pero lógica de actualización de promedio desfasada. Limitado a gráficos de tiempo.
+recommended_action: Mejorar
+description: ¿Es el volumen actual anómalamente alto o bajo comparado con el promedio
+  histórico para esta misma hora?
+gemini_summary: Comparador de volumen histórico. Concepto útil, pero lógica de actualización
+  de promedio desfasada. Limitado a gráficos de tiempo.
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo
 action_priority: P3
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Relative Volume (7/10)

@@ -1,23 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: OHLCPlusModif.cs
 name: OHLC Plus Modif
-category: VolumeOrderFlow
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 10/10
 version: Modif.
-recommended_action: 'Conservar'
-description: >-
-  ¿Puedo tener TODOS los niveles de contexto clave (Diario, Semanal, Mensual, Contrato) en un solo indicador, con estilos profesionales y un sistema de etiquetas que no se solapen?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Modificación 'Pro' de OHLC Plus. Resuelve el solapamiento de etiquetas, añade HVN/LVN y un sistema de estilos semántico. Código complejo pero excelente.
+recommended_action: Conservar
+description: ¿Puedo tener TODOS los niveles de contexto clave (Diario, Semanal, Mensual,
+  Contrato) en un solo indicador, con estilos profesionales y un sistema de etiquetas
+  que no se solapen?
+gemini_summary: Modificación 'Pro' de OHLC Plus. Resuelve el solapamiento de etiquetas,
+  añade HVN/LVN y un sistema de estilos semántico. Código complejo pero excelente.
 file_state: Estable
 score_potential: 10/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
-official_code_date: null
 user_modification_date: 2025-11-15
 ---
 

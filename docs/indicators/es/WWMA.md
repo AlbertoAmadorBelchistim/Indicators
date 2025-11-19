@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: WWMA.cs
 name: Welles Wilder's Moving Average
 category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 7/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  ¿Cuál es la tendencia suavizada según el método original de Wilder (base de RSI/ATR)?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación correcta de la media de Wilder. Base para indicadores clásicos.
+recommended_action: Conservar
+description: ¿Cuál es la tendencia suavizada según el método original de Wilder (base
+  de RSI/ATR)?
+gemini_summary: Implementación correcta de la media de Wilder. Base para indicadores
+  clásicos.
 file_state: Estable
 score_potential: 7/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Welles Wilder’s Moving Average (WWMA) (7/10)

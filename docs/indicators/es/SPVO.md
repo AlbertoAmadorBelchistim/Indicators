@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: SPVO.cs
 name: Simple Percentage Volume Oscillator
-category: Volume
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 8/10
 version: Stable
-recommended_action: 'Conservar'
-description: >-
-  Oscilador que muestra la diferencia porcentual entre dos medias móviles de volumen.
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Oscilador de volumen robusto. Protección contra división por cero implementada correctamente.
+recommended_action: Conservar
+description: Oscilador que muestra la diferencia porcentual entre dos medias móviles
+  de volumen.
+gemini_summary: Oscilador de volumen robusto. Protección contra división por cero
+  implementada correctamente.
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Simple Percentage Volume Oscillator (SPVO) (8/10)

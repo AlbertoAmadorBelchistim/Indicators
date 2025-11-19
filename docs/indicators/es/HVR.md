@@ -1,24 +1,22 @@
 ---
-# --- Campos Públicos (Para INDICATORS.es) ---
 cs_file: HVR.cs
 name: Historical Volatility Ratio
-category: Volatility
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 7/10
 version: ATAS Official
-recommended_action: 'Conservar'
-description: >-
-  ¿Está el mercado 'comprimido' (HVR<1) o 'explotando' (HVR>1) en relación con su volatilidad histórica?
-# --- Campos de Triaje (Para ROADMAP.md) ---
-gemini_summary: >-
-  Implementación 'Quant' y estable de un filtro de régimen de volatilidad; calcula el ratio de StdDev(Log-Returns) de corto plazo vs. largo plazo.
+recommended_action: Conservar
+description: ¿Está el mercado 'comprimido' (HVR<1) o 'explotando' (HVR>1) en relación
+  con su volatilidad histórica?
+gemini_summary: Implementación 'Quant' y estable de un filtro de régimen de volatilidad;
+  calcula el ratio de StdDev(Log-Returns) de corto plazo vs. largo plazo.
 file_state: Estable
 score_potential: 7/10
 effort: N/A
 action_priority: N/A
-# --- Control de Versiones ---
 analysis_date: 2025-11-17
 official_code_date: 2025-04-23
-user_modification_date: null
 ---
 
 ## 🟦 Historical Volatility Ratio (7/10)

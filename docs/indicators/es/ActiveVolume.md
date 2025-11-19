@@ -2,14 +2,16 @@
 cs_file: ActiveVolume.cs
 name: Active Volume
 category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 8/10
 version: Estable
-recommended_action: 'Mejorar'
-description: >-
-  Filtrando todas las pequeñas operaciones de 'ruido', ¿dónde está apareciendo realmente el volumen significativo y agresivo de compra y venta en la escala de precios?
-# --- Análisis y Triaje de Gemini ---
-gemini_summary: >-
-  Herramienta "Core" (8/10). Su potencial transformacional (Delta por Precio) es una mejora P1 de alto impacto.
+recommended_action: Mejorar
+description: Filtrando todas las pequeñas operaciones de 'ruido', ¿dónde está apareciendo
+  realmente el volumen significativo y agresivo de compra y venta en la escala de
+  precios?
+gemini_summary: Herramienta "Core" (8/10). Su potencial transformacional (Delta por
+  Precio) es una mejora P1 de alto impacto.
 file_state: Mejorable
 score_potential: 10/10 (Transformacional)
 effort: Medio
@@ -17,7 +19,6 @@ action_priority: P1 (Mejora Estratégica)
 analysis_date: 2025-11-17
 official_code_date: 3/12/2024
 user_modification_date: 13/11/2025
-# ------------------------------------
 ---
 
 ## 🟦 Active Volume (8/10 | Potencial: 10/10)
