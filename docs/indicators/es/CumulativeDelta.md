@@ -4,22 +4,23 @@ name: CVD - Cumulative Volume Delta
 category: Order Flow
 group: Order Flow
 subgroup: Delta
-score_current: 9/10
+score_current: 8/10
 version: Estable
-recommended_action: Conservar
-description: ¿Cuál es el delta acumulado (la agresión neta) desde el inicio de la
-  sesión?
-gemini_summary: '''Herramienta ''Core'' (P1) de Order Flow que acumula el delta para''
-  detectar divergencias (''la guerra''), con una función profesional clave ''CustomSession''.'
+recommended_action: Conservar (Reserva / Donante)
+description: ¿Cuál es el delta acumulado (la agresión neta) desde el inicio de la sesión?
+gemini_summary: "El estándar de la industria. Sólido y fiable. Se mantiene como respaldo 'ligero'. Su mayor valor actual es su código de 'CustomSession', que debería ser portado al indicador principal MultiMarketPower."
+comparison_group: "Cumulative Delta"
+competitor_notes: "Inferior al MultiMarketPower en profundidad de análisis, pero superior en gestión de sesiones personalizadas (RTH)."
+reusable_code: "Lógica CustomSession (CheckStartBar), Visualización CandleDataSeries"
 file_state: Estable
-score_potential: 9/10
+score_potential: 8/10
 effort: N/A
-action_priority: N/A
-analysis_date: 2025-11-17
+action_priority: Bajo
+analysis_date: 2025-11-19
 official_code_date: 2025-11-13
 ---
 
-## 🟦 CVD - Cumulative Volume Delta (9/10)
+## 🛡️ CVD - Cumulative Volume Delta (8/10)
 
 **Nombre del archivo:** [`CumulativeDelta.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/CumulativeDelta.cs)  
 **Nombre del indicador:** CVD - Cumulative Volume Delta  
@@ -35,53 +36,51 @@ official_code_date: 2025-11-13
 
 ### ⚙️ Parámetros configurables
 
-* **Mode**: Tipo de visualización (Candles, Bars, Line).
-* **SessionCumDeltaMode**: Tipo de sesión para reiniciar la acumulación (`None` / `Default` / `Custom`).
+* **Mode**: Tipo de visualización. `Candles` (Velas de Delta), `Bars` o `Line` (Línea simple).
+* **SessionCumDeltaMode**: Lógica de reinicio del acumulado.
+    * `DefaultSession`: Reinicia al cambio de día del servidor.
+    * `CustomSession`: Reinicia a una hora específica (Vital para scalping RTH).
 * **CustomSessionStart**: Hora de inicio para la sesión personalizada (ej. 09:30).
-* **PosColor / NegColor**: Colores para delta positivo o negativo.
-* **Alerts**: Parámetros para alertas sonoras/visuales basadas en el *delta de la vela individual* (`ChangeSize`).
+* **Alerts**: Configuración de alertas si el delta de una vela individual excede un tamaño (`ChangeSize`).
 
 ---
 
 ### 🧭 Clasificación
-📂 VolumeOrderFlow — Delta acumulado por sesión o total.
+**Grupo:** Order Flow
+**Subgrupo:** Delta (Acumulado)
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* Acumular el **delta por sesión o de forma continua** para detectar la presión agresiva neta.
-* Identificar **divergencias entre el precio y el delta acumulado** (la señal de CVD más clásica).
-* Visualizar el "esfuerzo vs. resultado" del flujo de órdenes (ej. si el CVD sube pero el precio no, indica absorción).
+* **Contexto General:** Ver "quién va ganando" la sesión global.
+* **Divergencias:** Detectar agotamiento en extremos.
+* **Segregación de Sesión (RTH):** Usar `CustomSession` para limpiar el volumen overnight.
 
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **9 / 10**
+8️⃣ **8 / 10 (RESERVA / DONANTE)**
 
-✅ **Herramienta "Core":** Uno de los indicadores más importantes y utilizados en Order Flow.  
-✅ **Altamente Configurable:** El modo `CustomSession` es una función profesional clave, que permite aislar el delta del RTH (Regular Trading Hours).  
-✅ Imprescindible para detectar divergencias y absorción a nivel "macro" de la sesión.  
-⛔ Requiere una configuración correcta del modo de sesión para ser útil (el modo `None` no suele servir para scalping).
+✅ **Código Base Sólido:** Referencia oficial de ATAS.  
+✅ **Gestión de Sesión:** Único indicador que maneja correctamente el reinicio por hora personalizada.  
+⚠️ **Limitación:** No filtra por tamaño de orden.
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Reversión por Divergencia:** La estrategia más potente. Si el precio hace un nuevo máximo (HH) pero el CVD hace un máximo más bajo (LH), es una divergencia bajista.
-* **Confirmación de Breakout:** Una ruptura de precio acompañada de un CVD que también rompe su propia estructura (haciendo un nuevo máximo/mínimo) tiene más probabilidad de éxito.
-* **Detección de Absorción:** Si el precio baja a un soporte y el CVD cae con fuerza, pero el precio deja de caer, indica absorción pasiva de los vendedores.
+* **Divergencia de Reversión:** Precio hace HH (Higher High), CVD hace LH (Lower High) -> Posible corto.
+* **Ruptura Confirmada:** Precio rompe resistencia y CVD rompe su resistencia con pendiente fuerte -> Largo confirmado.
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **Mode**: `Line` (es la más clara para ver divergencias).
+* **Mode**: `Line` (Más limpio para ver divergencias rápidas).
 * **SessionCumDeltaMode**: `CustomSession`.
-* **CustomSessionStart**: `09:30:00` (o `15:30:00` si tu ATAS está en UTC). **Esta es la clave:** aísla el delta solo del mercado RTH, ignorando el ruido de la noche.
-* **UseScale**: `true`.
-
-✅ Esta configuración permite leer la agresión neta de la sesión RTH, que es la más relevante.
+* **CustomSessionStart**: `15:30` (Hora España para apertura NYSE) o `09:30` (Hora NY).
+* **Alerts**: `Desactivado` (Suelen generar ruido en m1).
 
 ---
 
@@ -96,29 +95,35 @@ official_code_date: 2025-11-13
 
 ### 🛠️ Propuestas de mejora
 
-* Añadir opción para **acumular delta por bloques de tiempo (ej. cada 5 minutos)**.
-* Mostrar **etiquetas de divergencia automáticas** en el gráfico.
+Ninguna. El indicador cumple su función como respaldo sólido y fiable y no compensa invertir tiempo en él.
+
 
 ---
+### 💎 Valor Reutilizable (Código Donante)
+Este indicador contiene lógica que **falta** en el indicador ganador (`MultiMarketPower`) y debería ser portada para crear el "Santo Grial" definitivo:
+1.  **Lógica `CustomSession`:**
+    * *Código:* Función `CheckStartBar(bar)` y parámetros `_customSessionStart`.
+    * *Por qué:* `MultiMarketPower` no permite reiniciar el cálculo a las 15:30 (apertura USA). Portar este código es prioridad **Alta**.
+2.  **Visualización `CandleDataSeries`:**
+    * *Código:* Implementación de velas OHLC para el Delta.
+    * *Por qué:* Ver la volatilidad *dentro* de la barra de delta institucional aportaría mucha más información que una simple línea.
+
 ---
 
-### ✍️ La opinión de Gemini sobre el Indicador (El Análisis Correcto)
+### ✍️ La opinión de Gemini sobre el Indicador
 
-Este es un pilar del trading de Order Flow, y su nota 9/10 está totalmente justificada. Es el complemento "macro" del `DeltaModif` (que es "micro", por barra).
+Aunque `MultiMarketPower` ha ganado el torneo por su capacidad de filtrar "Peces Gordos", este indicador sigue siendo respetable.
 
-* `DeltaModif` te muestra la **batalla** (la agresión en cada vela).
-* `CVD` te muestra la **guerra** (quién va ganando la batalla de agresión en toda la sesión).
+Es la "Línea Base". A veces, `MultiMarketPower` puede ser ruidoso si no se configura bien. El CVD estándar es la verdad simple: "Neto Compradores vs Neto Vendedores". Si tienes dudas con el MMP, miras este para confirmar la tendencia general.
 
-Su uso principal e indispensable es la **detección de divergencias**. Cuando el precio y el delta acumulado se desacoplan, es una de las señales más potentes de que la tendencia está perdiendo fuerza y es probable una reversión.
-
-La función clave que lo hace una herramienta profesional es `SessionCumDeltaMode = CustomSession`. Un scalper de S&P 500 (`ES`) no opera el CVD de la sesión Globex (noche), sino que lo reinicia exactamente a las 9:30 ET (apertura RTH) para ver quién gana la batalla *cuando el dinero real está en juego*.
+Sin embargo, para tomar la decisión final de entrada, siempre preferiré la granularidad del MMP.
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí. Es una herramienta principal, indispensable.**
+**Sí, como respaldo.**
 
-Mientras que `DeltaModif` te ayuda a *temporizar* la entrada (ej. una vela de delta extremo), el `CVD` te da el *contexto* para esa entrada (ej. "estás entrando en un soporte *con* una divergencia alcista de CVD en 1M").
+Mantenlo en la recámara. Si tu MMP falla o se desconfigura, este es tu salvavidas.
 
-**Acción:** **Conservar (Herramienta Principal).**
+**Acción:** **Conservar (Secundario / Código Reutilizable).**

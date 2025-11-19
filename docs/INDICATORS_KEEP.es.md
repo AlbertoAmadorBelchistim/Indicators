@@ -39,8 +39,7 @@
 | `ClusterSearchModif.cs` | [Cluster Search Modifar](indicators/es/ClusterSearchModif.md) | Order Flow | 10/10 | Conservar | '¿Qué clústeres de precio específicos en este gráfico cumplen *todos*' mis criterios de filtro (por Volumen, Delta, Localización, Imbalance, etc.)? |
 | `ClusterStatisticModif.cs` | [Cluster Statistic Modif](indicators/es/ClusterStatisticModif.md) | Order Flow | 10/10 | Conservar | ¿Cuál es el "dashboard" estadístico completo (Volumen, Delta, Ticks, *Velocidad* e *Imbalances*) de cada vela, y cómo se compara cada vela con la más "fuerte" del gráfico? |
 | `CumulativeDailyVolume.cs` | [Cumulative Daily Volume](indicators/es/CumulativeDailyVolume.md) | Order Flow | 6/10 | Conservar | ¿Cuál es el volumen total acumulado desde el inicio de la sesión? |
-| `CumulativeDelta.cs` | [CVD - Cumulative Volume Delta](indicators/es/CumulativeDelta.md) | Order Flow | 9/10 | Conservar | ¿Cuál es el delta acumulado (la agresión neta) desde el inicio de la sesión? |
-| `MarketPower.cs` | [CVD pro / Market Power](indicators/es/MarketPower.md) | Order Flow | 9/10 | Conservar | ¿Cuál es el delta acumulado (CVD) filtrado por tamaño de trade, y cómo se compara con su SMA? |
+| `CumulativeDelta.cs` | [CVD - Cumulative Volume Delta](indicators/es/CumulativeDelta.md) | Order Flow | 8/10 | Conservar (Reserva / Donante) | ¿Cuál es el delta acumulado (la agresión neta) desde el inicio de la sesión? |
 | `MultiMarketPower.cs` | [CVD pro(multi) / Multi Market Powers](indicators/es/MultiMarketPower.md) | Order Flow | 10/10 | Conservar | ¿Cómo se distribuye el delta acumulado entre 5 rangos de tamaño de orden diferentes (filtro institucional)? |
 
 ---
@@ -51,6 +50,7 @@
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `DailyChange.cs` | [Daily Change](indicators/es/DailyChange.md) | Structure | 6/10 | Conservar | ¿Cuál es la variación neta del precio en el día (en %, ticks o $)? |
 | `DailyLinesModif.cs` | [Daily Lines Modif](indicators/es/DailyLinesModif.md) | Structure | 9/10 | Conservar | '¿Dónde están los niveles estructurales (OHLC) del día/semana/mes' anterior, y dónde está el "Half Gap" (mitad del hueco) de la apertura de hoy? |
+| `DeltaModif.cs` | [Delta Modif](indicators/es/DeltaModif.md) | Order Flow | 10/10 | Conservar (Indicador Core) | ¿Qué barras muestran una agresión (Delta) extrema, divergencia o absorción, y cómo puedo ver esas señales directamente en el gráfico de precio? |
 | `DOM.cs` | [Depth of Market](indicators/es/DOM.md) | Order Flow | 9/10 | Conservar | ¿Cuál es la liquidez (libro de órdenes) actual, dibujada en el gráfico? |
 | `DeTrendedDi.cs` | [Detrended Oscillator - DiNapoli](indicators/es/DeTrendedDi.md) | Trend | 6/10 | Conservar | ¿Cuál es el ciclo del precio, eliminando la tendencia de una SMA? |
 | `DOMLevels.cs` | [DOM Heatmap (Manual)](indicators/es/DOMLevels.md) | Order Flow | 9/10 | Conservar | ¿Cómo ha evolucionado la liquidez del libro de órdenes (Heatmap) a lo largo del tiempo en el gráfico? |

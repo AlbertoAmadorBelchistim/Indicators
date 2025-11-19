@@ -7,7 +7,6 @@ El enfoque principal de análisis y las puntuaciones están **orientados al scal
 **Nota Importante**: Las valoraciones, puntuaciones ("Score") y veredictos ("Veredicto") son **opiniones subjetivas** basadas en mi experiencia y el apoyo de herramientas de IA (como Gemini y ChatGPT).
 
 Para compilar esta información, se ha utilizado la documentación oficial de ATAS, el código fuente de los repositorios.
-
 ---
 
 ## 🧭 Navegación Rápida
@@ -41,7 +40,7 @@ Para compilar esta información, se ha utilizado la documentación oficial de AT
 | `ATR.cs` | [ATR](indicators/es/ATR.md) | Order Flow | 8/10 | Mejorar | ¿Cuál ha sido el tamaño verdadero promedio (incluyendo gaps) de cada barra durante los últimos X períodos? |
 | `ATRN.cs` | [ATR Normalized](indicators/es/ATRN.md) | Order Flow | 3/10 | Descartar | ¿Cuál es la volatilidad (ATR) del instrumento como un porcentaje de su precio actual? |
 | `ACR.cs` | [Average Candle Range](indicators/es/ACR.md) | Order Flow | 4/10 | Descartar | ¿Cuál es el tamaño promedio de una vela en lo que va de día? |
-| `AverageDelta.cs` | [Average Delta](indicators/es/AverageDelta.md) | Order Flow | 6.5/10 | Mejorar | ¿Cuál es la presión agresiva promedio (Delta) durante las últimas X velas, suavizando el ruido de vela a vela? |
+| `AverageDelta.cs` | [Average Delta](indicators/es/AverageDelta.md) | Order Flow | 5/10 | Fusionar Lógica | ¿Cuál es la presión agresiva promedio (Delta) durante las últimas X velas? |
 | `AveragePriceBar.cs` | [Average Price for Bar](indicators/es/AveragePriceBar.md) | Structure | 2/10 | Descartar | ¿En lugar de solo el 'Cierre', cuál es el precio promedio interno (ej. Mediana, Típico) de cada vela individual? |
 | `AO.cs` | [Awesome Oscillator](indicators/es/AO.md) | Oscillators | 2/10 | Descartar | ¿Está el momentum reciente a corto plazo (5 barras) ganando la batalla contra el momentum de la tendencia a largo plazo (34 barras)? |
 
@@ -100,8 +99,8 @@ Para compilar esta información, se ha utilizado la documentación oficial de AT
 | `CAV.cs` | [Cumulative Adjusted Value](indicators/es/CAV.md) | Order Flow | 5/10 | Descartar | ¿Está el precio *consistente y acumulativamente* cotizando por encima de su media (momentum alcista), o por debajo de ella (momentum bajista)? |
 | `CumulativeDailyVolume.cs` | [Cumulative Daily Volume](indicators/es/CumulativeDailyVolume.md) | Order Flow | 6/10 | Conservar | ¿Cuál es el volumen total acumulado desde el inicio de la sesión? |
 | `CurrentPrice.cs` | [Current Price](indicators/es/CurrentPrice.md) | Uncategorized | 3/10 | Descartar | '¿Cuál es el último precio y la hora actual, mostrados directamente en' el gráfico? |
-| `CumulativeDelta.cs` | [CVD - Cumulative Volume Delta](indicators/es/CumulativeDelta.md) | Order Flow | 9/10 | Conservar | ¿Cuál es el delta acumulado (la agresión neta) desde el inicio de la sesión? |
-| `MarketPower.cs` | [CVD pro / Market Power](indicators/es/MarketPower.md) | Order Flow | 9/10 | Conservar | ¿Cuál es el delta acumulado (CVD) filtrado por tamaño de trade, y cómo se compara con su SMA? |
+| `CumulativeDelta.cs` | [CVD - Cumulative Volume Delta](indicators/es/CumulativeDelta.md) | Order Flow | 8/10 | Conservar (Reserva / Donante) | ¿Cuál es el delta acumulado (la agresión neta) desde el inicio de la sesión? |
+| `MarketPower.cs` | [CVD pro / Market Power](indicators/es/MarketPower.md) | Order Flow | 6/10 | Reemplazar por MultiMarketPower | ¿Cuál es el delta acumulado (CVD) filtrado por tamaño de trade, y cómo se compara con su SMA? |
 | `MultiMarketPower.cs` | [CVD pro(multi) / Multi Market Powers](indicators/es/MultiMarketPower.md) | Order Flow | 10/10 | Conservar | ¿Cómo se distribuye el delta acumulado entre 5 rangos de tamaño de orden diferentes (filtro institucional)? |
 
 ---
@@ -113,10 +112,10 @@ Para compilar esta información, se ha utilizado la documentación oficial de AT
 | `DailyChange.cs` | [Daily Change](indicators/es/DailyChange.md) | Structure | 6/10 | Conservar | ¿Cuál es la variación neta del precio en el día (en %, ticks o $)? |
 | `DailyHighLow.cs` | [Daily HighLow](indicators/es/DailyHighLow.md) | Structure | 6/10 | Reparar | '¿Dónde están el Máximo, Mínimo y Mediana del día actual, y la Mediana' del día anterior? |
 | `DailyLinesModif.cs` | [Daily Lines Modif](indicators/es/DailyLinesModif.md) | Structure | 9/10 | Conservar | '¿Dónde están los niveles estructurales (OHLC) del día/semana/mes' anterior, y dónde está el "Half Gap" (mitad del hueco) de la apertura de hoy? |
-| `DeltaColoredCandles.cs` | [Delta Colored Candles](indicators/es/DeltaColoredCandles.md) | Order Flow | 4/10 | Mejorar | '¿Cuál es la intensidad del *momentum* del delta (delta acumulado en N' barras) en relación con un máximo fijo? |
-| `DeltaModif.cs` | [Delta Modif](indicators/es/DeltaModif.md) | Order Flow | N/A | N/A | ¿Qué barras muestran una agresión (Delta) extrema, divergencia o absorción, y cómo puedo ver esas señales directamente en el gráfico de precio? |
-| `DeltaStrength.cs` | [Delta Strength](indicators/es/DeltaStrength.md) | Order Flow | 5/10 | Descartar | '¿Qué velas cierran con un delta que está *casi* en su extremo' (MaxDelta/MinDelta), pero no *exactamente* en él? |
-| `DeltaTurnaround.cs` | [Delta Turnaround](indicators/es/DeltaTurnaround.md) | Order Flow | 6/10 | Descartar | '¿Se ha producido un patrón de giro de 3 velas (dos en una dirección,' una en la opuesta) confirmado por el delta? |
+| `DeltaColoredCandles.cs` | [Delta Colored Candles](indicators/es/DeltaColoredCandles.md) | Order Flow | 3/10 | Descartar | ¿Cuál es la intensidad del momentum del delta en relación con un máximo fijo? |
+| `DeltaModif.cs` | [Delta Modif](indicators/es/DeltaModif.md) | Order Flow | 10/10 | Conservar (Indicador Core) | ¿Qué barras muestran una agresión (Delta) extrema, divergencia o absorción, y cómo puedo ver esas señales directamente en el gráfico de precio? |
+| `DeltaStrength.cs` | [Delta Strength](indicators/es/DeltaStrength.md) | Order Flow | 2/10 | Descartar / Revisar | ¿Qué velas cierran con un delta que está *casi* en su extremo (MaxDelta/MinDelta)? |
+| `DeltaTurnaround.cs` | [Delta Turnaround](indicators/es/DeltaTurnaround.md) | Order Flow | 4/10 | Descartar | ¿Se ha producido un patrón de giro de 3 velas confirmado por el delta? |
 | `Demand.cs` | [Demand Index](indicators/es/Demand.md) | Order Flow | 2/10 | Reparar | ¿Cuál es la presión de compra o venta relativa basada en precio y volumen? |
 | `DeMarker.cs` | [DeMarker](indicators/es/DeMarker.md) | Trend | 2/10 | Reparar | '¿Cuáles son las zonas de sobrecompra o sobreventa basadas en la' comparación de máximos y mínimos? (Implementación ROTA) |
 | `DOM.cs` | [Depth of Market](indicators/es/DOM.md) | Order Flow | 9/10 | Conservar | ¿Cuál es la liquidez (libro de órdenes) actual, dibujada en el gráfico? |
