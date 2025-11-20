@@ -3,18 +3,19 @@ cs_file: BarTimer.cs
 name: Bar Timer
 category: Utility
 group: Utility
-subgroup: Alerts
+subgroup: Visuals
 score_current: 8/10
 version: Latest
-recommended_action: Mejorar
-description: ¿Cuánto tiempo (o ticks/volumen) le queda a esta vela, y puedes avisarme
-  3 segundos antes de que cierre?
-gemini_summary: Herramienta de "Ejecución" esencial (8/10). Su alerta anticipada es
-  'Pro'. Funciona con Tiempo, Ticks y Volumen.
+recommended_action: Conservar
+description: ¿Cuánto tiempo (o ticks/volumen) le queda a esta vela?
+gemini_summary: "Herramienta de 'Ejecución' esencial (8/10). Su alerta anticipada es 'Pro'. Funciona con Tiempo, Ticks y Volumen."
+comparison_group: "Timer Tools"
+competitor_notes: "El mejor timer nativo."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: Bajo
-action_priority: P3 (Mejora Opcional)
+action_priority: P3
 analysis_date: 2025-11-17
 official_code_date: 22/10/2025
 ---

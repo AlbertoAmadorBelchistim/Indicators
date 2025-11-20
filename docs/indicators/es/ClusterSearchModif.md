@@ -1,25 +1,24 @@
 ---
 cs_file: ClusterSearchModif.cs
-name: Cluster Search Modifar
+name: Cluster Search Modif
 category: Order Flow
 group: Order Flow
 subgroup: Footprint
 score_current: 10/10
-version: 1.4.0 (Modif)
+version: Latest
 recommended_action: Conservar
-description: '''¿Qué clústeres de precio específicos en este gráfico cumplen *todos*''
-  mis criterios de filtro (por Volumen, Delta, Localización, Imbalance, etc.)?'
-gemini_summary: '''El análisis del MD es perfecto. La versión oficial ya es un 9/10.
-  La'' modificación que añade Imbalances Diagonales Apilados (Stacked Diagonal Imbalances)
-  lo eleva a un 10/10, convirtiéndolo en una herramienta de nivel profesional a la
-  altura de Jigsaw o Exocharts. Es una herramienta central.'
+description: ¿Qué clústeres de precio específicos cumplen TODOS mis criterios de filtro?
+gemini_summary: "La versión oficial ya es un 9/10. La modificación que añade Imbalances Diagonales Apilados lo eleva a un 10/10. Herramienta central."
+comparison_group: "Cluster Analysis"
+competitor_notes: "El líder indiscutible del análisis de Footprint."
+reusable_code: null
 file_state: Estable
 score_potential: 10/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-10-27
-user_modification_date: 2025-11-15
+official_code_date: 27/10/2025
+user_modification_date: 15/11/2025
 ---
 
 ## 🟦 Cluster Search Modif (10/10)

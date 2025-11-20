@@ -7,14 +7,15 @@ subgroup: Volatility
 score_current: 8/10
 version: Estable
 recommended_action: Mejorar
-description: ¿Está el mercado en compresión (Squeeze) Y cuál es la dirección del momentum
-  (Histograma)?
-gemini_summary: '"TTM Squeeze" (8/10). Herramienta ''Pro'' que combina Squeeze (puntos)
-  + Momentum (histograma). Defaults débiles (10,1,1).'
+description: ¿Está el mercado en compresión (Squeeze) Y cuál es la dirección del momentum?
+gemini_summary: "'TTM Squeeze' (8/10). Herramienta 'Pro' que combina Squeeze (puntos) + Momentum (histograma). Defaults débiles."
+comparison_group: "Volatility Squeeze"
+competitor_notes: "El ganador de la serie Squeeze."
+reusable_code: null
 file_state: Mejorable
 score_potential: 10/10
 effort: Bajo
-action_priority: P1 (Arreglo Rápido)
+action_priority: P1
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---

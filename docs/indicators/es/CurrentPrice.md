@@ -1,22 +1,23 @@
 ---
 cs_file: CurrentPrice.cs
 name: Current Price
-category: Uncategorized
-group: Uncategorized
-subgroup: Other
+category: Utility
+group: Utility
+subgroup: Visuals
 score_current: 3/10
 version: Estable
 recommended_action: Descartar
-description: '''¿Cuál es el último precio y la hora actual, mostrados directamente
-  en'' el gráfico?'
-gemini_summary: '''Gadget visual redundante (duplica los ejes X/Y) y con un fallo
-  de'' diseño en OnRender que hace que la etiqueta desaparezca al hacer scroll.'
+description: ¿Cuál es el último precio y la hora actual?
+gemini_summary: "Redundante (duplica los ejes). Fallo de diseño al hacer scroll."
+comparison_group: "Data Display"
+competitor_notes: "Nativo de la plataforma."
+reusable_code: null
 file_state: Defectuoso
 score_potential: 3/10
 effort: N/A
-action_priority: N/A
+action_priority: P4
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Current Price (3/10)

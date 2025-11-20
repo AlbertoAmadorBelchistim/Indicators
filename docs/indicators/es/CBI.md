@@ -7,14 +7,15 @@ subgroup: Momentum
 score_current: 5/10
 version: Estable
 recommended_action: Descartar
-description: ¿Cuál es el momentum "compuesto" (RSI + Momentum) del precio, y cómo
-  se compara con sus propias medias móviles (lenta y rápida)?
-gemini_summary: '"Lag sobre lag" (5/10). Conceptualm. lento. Tiene bugs (etiquetas,
-  warm-up). Inútil para scalping.'
+description: ¿Cuál es el momentum 'compuesto' (RSI + Momentum) del precio?
+gemini_summary: "'Lag sobre lag' (5/10). Conceptualm. lento. Tiene bugs (etiquetas, warm-up). Inútil para scalping."
+comparison_group: "Complex Momentum"
+competitor_notes: "Inferior a RSI simple."
+reusable_code: null
 file_state: Buggy
 score_potential: 5/10
 effort: N/A
-action_priority: P4 (Descartar)
+action_priority: P4
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---

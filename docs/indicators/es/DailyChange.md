@@ -7,15 +7,17 @@ subgroup: Static Levels
 score_current: 6/10
 version: Estable
 recommended_action: Conservar
-description: ¿Cuál es la variación neta del precio en el día (en %, ticks o $)?
-gemini_summary: '''"Gadget de contexto esencial que responde ''¿de qué humor está
-  la'' fiesta?'' (sesgo del día en %), dato clave para filtrar trades."'
+description: ¿Cuál es la variación neta del precio en el día?
+gemini_summary: "Contexto esencial ('¿de qué humor está la fiesta?'). Dato clave para filtrar trades."
+comparison_group: "Session Stats"
+competitor_notes: "Único en su función."
+reusable_code: null
 file_state: Estable
 score_potential: 6/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Daily Change (6/10)

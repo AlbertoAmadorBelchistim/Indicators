@@ -7,16 +7,17 @@ subgroup: Price Action
 score_current: 8/10
 version: Estable
 recommended_action: Conservar
-description: '''¿Cuál es la estructura de mercado (swing highs/lows) objetiva y actual,''
-  sin subjetividad?'
-gemini_summary: Herramienta de contexto (mapa) de primer nivel que define la estructura
-  de mercado (BOS/CHoCH) de forma objetiva al no tener parámetros configurables.
+description: ¿Cuál es la estructura de mercado (swing highs/lows) objetiva y actual?
+gemini_summary: "Herramienta de contexto de primer nivel. Define la estructura de mercado (BOS/CHoCH) de forma objetiva."
+comparison_group: "Swing Structure"
+competitor_notes: "Superior a ZigZag estándar por su objetividad."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Clear Method Swing Line (8/10)

@@ -4,20 +4,20 @@ name: CVD - Cumulative Volume Delta
 category: Order Flow
 group: Order Flow
 subgroup: Delta
-score_current: 8/10
+score_current: 9/10
 version: Estable
-recommended_action: Conservar (Reserva / Donante)
-description: ¿Cuál es el delta acumulado (la agresión neta) desde el inicio de la sesión?
-gemini_summary: "El estándar de la industria. Sólido y fiable. Se mantiene como respaldo 'ligero'. Su mayor valor actual es su código de 'CustomSession', que debería ser portado al indicador principal MultiMarketPower."
+recommended_action: Conservar
+description: ¿Cuál es el delta acumulado desde el inicio de la sesión?
+gemini_summary: "Herramienta 'Core' (9/10). Detecta divergencias ('la guerra'). Función clave 'CustomSession'."
 comparison_group: "Cumulative Delta"
-competitor_notes: "Inferior al MultiMarketPower en profundidad de análisis, pero superior en gestión de sesiones personalizadas (RTH)."
-reusable_code: "Lógica CustomSession (CheckStartBar), Visualización CandleDataSeries"
+competitor_notes: "Reserva de MultiMarketPower."
+reusable_code: "Lógica CustomSession"
 file_state: Estable
-score_potential: 8/10
+score_potential: 9/10
 effort: N/A
-action_priority: Bajo
-analysis_date: 2025-11-19
-official_code_date: 2025-11-13
+action_priority: N/A
+analysis_date: 2025-11-17
+official_code_date: 13/11/2025
 ---
 
 ## 🛡️ CVD - Cumulative Volume Delta (8/10)

@@ -7,14 +7,15 @@ subgroup: Volatility
 score_current: 6/10
 version: Estable
 recommended_action: Descartar
-description: ¿Está la volatilidad del precio (StdDev) actualmente mayor o menor que
-  la volatilidad del rango de las velas (ATR)?
-gemini_summary: Redundante (6/10). Es un filtro de Squeeze (StdDev vs ATR) que es
-  inferior a BollingerSqueezeV2 (que también incluye Momentum).
+description: ¿Está la volatilidad del precio (StdDev) actualmente mayor o menor que la volatilidad del rango de las velas (ATR)?
+gemini_summary: "Redundante (6/10). Es un filtro de Squeeze (StdDev vs ATR) que es inferior a BollingerSqueezeV2."
+comparison_group: "Volatility Squeeze"
+competitor_notes: "Inferior a V2."
+reusable_code: null
 file_state: Estable (Redundante)
 score_potential: 6/10
 effort: N/A
-action_priority: P4 (Descartar)
+action_priority: P4
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---

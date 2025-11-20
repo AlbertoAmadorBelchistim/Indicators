@@ -7,17 +7,17 @@ subgroup: Delta
 score_current: 2/10
 version: Estable
 recommended_action: Descartar
-description: '(Teóricamente) Acumula el delta desde un nuevo máximo (High) o mínimo (Low), pero la lógica está rota.'
-gemini_summary: "Intento fallido de crear un 'Delta desde máximos'. La lógica de reinicio es simplista y genera ruido constante. Inferior a cualquier perfil de volumen o Weis Wave."
-comparison_group: "Bar Delta"
-competitor_notes: "Perdedor frente a DeltaModif o Weis Wave."
+description: ¿Acumula el delta desde un nuevo máximo o mínimo?
+gemini_summary: "Concepto valioso ('Delta desde el Swing') pero implementación rota. Lógica 'Low' faltante."
+comparison_group: "Delta Profile"
+competitor_notes: "Inferior a Weis Wave."
 reusable_code: null
-file_state: Estable
-score_potential: 2/10
-effort: N/A
-action_priority: N/A
-analysis_date: 2025-11-20
-official_code_date: 2025-02-25
+file_state: Roto
+score_potential: 6/10
+effort: Bajo
+action_priority: P3
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 COT High/Low (2/10)

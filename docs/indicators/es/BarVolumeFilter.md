@@ -7,14 +7,15 @@ subgroup: Volume
 score_current: 7/10
 version: Estable
 recommended_action: Mejorar
-description: ¿Qué velas de este gráfico cumplen mi criterio específico de Volumen,
-  Delta o Ticks (ej. 'Volumen > 1500' y solo 'dentro de la sesión RTH')?
-gemini_summary: Filtro de ruido/contexto esencial (7/10). Permite aislar velas "importantes"
-  (Volumen, Delta, RTH).
+description: ¿Qué velas de este gráfico cumplen mi criterio específico de Volumen, Delta o Ticks?
+gemini_summary: "Filtro de ruido/contexto esencial (7/10). Permite aislar velas 'importantes' (Volumen, Delta, RTH)."
+comparison_group: "Volume Filter"
+competitor_notes: "Complementario a indicadores de Volume Profile."
+reusable_code: null
 file_state: Mejorable
 score_potential: 9/10
 effort: Medio
-action_priority: P2 (Mejora Estratégica)
+action_priority: P2
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---

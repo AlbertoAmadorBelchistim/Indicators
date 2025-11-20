@@ -3,19 +3,19 @@ cs_file: BlockMA.cs
 name: Block Moving Average
 category: Trend
 group: Trend
-subgroup: Moving Average
+subgroup: Trend Filter
 score_current: 7/10
 version: Estable
 recommended_action: Mejorar
-description: ¿Cómo puedo crear un 'trailing stop' de volatilidad (basado en el ATR)
-  que solo se mueva a favor de la tendencia (hacia arriba o hacia abajo), pero que
-  nunca retroceda?
-gemini_summary: '"Nombre Engañoso". Es un "Supertrend" (7/10), no una MA. Excelente
-  trailing stop, pero falla en rangos.'
+description: ¿Cómo puedo crear un 'trailing stop' de volatilidad que solo se mueva a favor de la tendencia?
+gemini_summary: "'Nombre Engañoso'. Es un 'Supertrend' (7/10), no una MA. Excelente trailing stop, pero falla en rangos."
+comparison_group: "Trailing Stop"
+competitor_notes: "Compite con SuperTrend y Volatility Trend."
+reusable_code: null
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo
-action_priority: P2 (Mejora Estratégica)
+action_priority: P2
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---

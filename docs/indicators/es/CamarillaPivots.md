@@ -7,15 +7,15 @@ subgroup: Static Levels
 score_current: 8/10
 version: Estable
 recommended_action: Mejorar
-description: ¿Dónde están los niveles de soporte y resistencia intradía más relevantes,
-  basados en la fórmula de Camarilla, para operar rupturas (en L4/H4) y reversiones
-  (en L3/H3)?
-gemini_summary: '"Mapa de niveles" esencial (8/10). Tiene un bug de ''DivideByZero''
-  (P1) y sus colores son mejorables (P2).'
+description: ¿Dónde están los niveles de soporte y resistencia intradía más relevantes basados en Camarilla?
+gemini_summary: "'Mapa de niveles' esencial (8/10). Tiene un bug de 'DivideByZero' (P1) y sus colores son mejorables."
+comparison_group: "Pivots"
+competitor_notes: "Compite con Pivots estándar."
+reusable_code: null
 file_state: Buggy
 score_potential: 9/10
 effort: Bajo
-action_priority: P1 (Arreglo Rápido)
+action_priority: P1
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---

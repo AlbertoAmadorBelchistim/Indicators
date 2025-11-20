@@ -7,17 +7,17 @@ subgroup: Delta
 score_current: 3/10
 version: Estable
 recommended_action: Descartar
-description: '¿Cuál es la intensidad del momentum del delta en relación con un máximo fijo?'
-gemini_summary: "Inútil en la práctica. Requiere que el usuario 'adivine' y configure manualmente un valor de 'MaxDelta' fijo. Si el mercado cambia de volatilidad, el indicador deja de funcionar."
+description: ¿Cuál es la intensidad del momentum del delta en relación con un máximo fijo?
+gemini_summary: "Inútil. Requiere 'MaxDelta' fijo. Si cambia la volatilidad, falla."
 comparison_group: "Bar Delta"
-competitor_notes: "Mala arquitectura de software. DeltaModif es superior."
+competitor_notes: "Inferior a Delta Modif."
 reusable_code: null
-file_state: Estable (Diseño Pobre)
+file_state: Mejorable
 score_potential: 3/10
-effort: N/A
-action_priority: N/A
-analysis_date: 2025-11-19
-official_code_date: 2025-04-23
+effort: Medio
+action_priority: P3
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
 ---
 
 ## ⛔ Delta Colored Candles (3/10)

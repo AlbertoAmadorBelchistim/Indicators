@@ -3,20 +3,21 @@ cs_file: CoppockCurve.cs
 name: Coppock Curve
 category: Oscillators
 group: Oscillators
-subgroup: MACD
+subgroup: Momentum
 score_current: 3/10
 version: Estable
 recommended_action: Descartar
-description: '''¿Cuál es el momentum de largo plazo del mercado? (Diseñado para gráficos''
-  semanales/mensuales).'
-gemini_summary: Herramienta de inversión a largo plazo (W/MN) con un lag extremo por
-  diseño (doble ROC + WMA), haciéndola categóricamente inútil para scalping.
+description: ¿Cuál es el momentum de largo plazo del mercado?
+gemini_summary: "Herramienta de inversión (W/MN). Lag extremo por diseño. Inútil para scalping."
+comparison_group: "Classic Momentum"
+competitor_notes: "No aplica para scalping."
+reusable_code: null
 file_state: Estable
 score_potential: 3/10
 effort: N/A
-action_priority: N/A
+action_priority: P4
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Coppock Curve (3/10)

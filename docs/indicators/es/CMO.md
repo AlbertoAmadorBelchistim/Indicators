@@ -7,17 +7,17 @@ subgroup: Momentum
 score_current: 1/10
 version: Estable
 recommended_action: Descartar
-description: '''Mide la "aceleración" del flujo de dinero (AD) usando la diferencia''
-  entre dos EMAs (pero la implementación es errónea).'
-gemini_summary: '''El indicador está fundamentalmente roto. La fórmula de la EMA es
-  incorrecta; no'' usa el valor EMA anterior, sino el valor AD anterior (`_ad[bar
-  - 1]`). Esto lo convierte en ruido puro. Es inútil.'
+description: ¿Cuál es la aceleración del flujo de dinero?
+gemini_summary: "Fundamentalmente roto. Fórmula de EMA incorrecta. Es ruido puro. Inútil."
+comparison_group: "Volume Oscillator"
+competitor_notes: "Basura."
+reusable_code: null
 file_state: Roto
 score_potential: 3/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Chaikin Money Oscillator (CMO) (1/10)

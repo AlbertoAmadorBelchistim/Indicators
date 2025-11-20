@@ -1,26 +1,24 @@
 ---
 cs_file: ClusterStatisticModif.cs
-name: Cluster Statistic Modif 
-category: Utility
-group: Utility
-subgroup: Stats
+name: Cluster Statistic Modif
+category: Order Flow
+group: Order Flow
+subgroup: Footprint
 score_current: 10/10
 version: Estable
 recommended_action: Conservar
-description: ¿Cuál es el "dashboard" estadístico completo (Volumen, Delta, Ticks,
-  *Velocidad* e *Imbalances*) de cada vela, y cómo se compara cada vela con la más
-  "fuerte" del gráfico?
-gemini_summary: '''Esta es una obra maestra. Es un "dashboard" de nivel profesional''
-  que combina estadísticas base (Vol, Delta) con métricas avanzadas (Speed of Tape,
-  Imbalances). El código es complejo pero logra su objetivo a la perfección. Es una
-  herramienta central.'
+description: ¿Cuál es el 'dashboard' estadístico completo de cada vela?
+gemini_summary: "Obra maestra. Dashboard profesional que combina estadísticas base con métricas avanzadas (Speed of Tape, Imbalances). Herramienta central."
+comparison_group: "Data Display"
+competitor_notes: "Sin competencia."
+reusable_code: null
 file_state: Estable
 score_potential: 10/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
-user_modification_date: 2025-10-01
+official_code_date: 23/04/2025
+user_modification_date: 01/10/2025
 ---
 
 ## 🟦 Cluster Statistic (versión modificada)

@@ -7,10 +7,11 @@ subgroup: Footprint
 score_current: 9/10
 version: Stable
 recommended_action: Conservar
-description: ¿Dónde están entrando los agresores institucionales (bloques grandes
-  de compra/venta)?
-gemini_summary: Indicador esencial de Tape Reading. Versión corregida para evitar
-  conflictos de color GDI/WPF.
+description: ¿Dónde están entrando los agresores institucionales (bloques grandes)?
+gemini_summary: "Indicador esencial de Tape Reading. Versión corregida para evitar conflictos de color GDI/WPF."
+comparison_group: "Big Trades Analysis"
+competitor_notes: "El estándar. Adaptive Big Trades es su evolución."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: Bajo

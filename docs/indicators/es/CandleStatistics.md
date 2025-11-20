@@ -3,18 +3,19 @@ cs_file: CandleStatistics.cs
 name: Candle Statistics
 category: Utility
 group: Utility
-subgroup: Stats
+subgroup: Visuals
 score_current: 8/10
 version: Estable
 recommended_action: Mejorar
-description: ¿Cuál es la "radiografía" de esta vela? ¿Cuál fue su Volumen total, su
-  Delta neto, su número de Ticks (trades) y su Duración?
-gemini_summary: '"Mini-Cluster" (8/10). Herramienta de UI ''Core'' que da el 80% de
-  la info de OF sin el ruido del clúster.'
+description: ¿Cuál es la 'radiografía' de esta vela (Volumen, Delta, Ticks)?
+gemini_summary: "'Mini-Cluster' (8/10). Herramienta de UI 'Core' que da el 80% de la info de OF sin el ruido del clúster."
+comparison_group: "Data Display"
+competitor_notes: "Útil para limpiar el gráfico."
+reusable_code: null
 file_state: Mejorable
 score_potential: 10/10
 effort: Medio
-action_priority: P2 (Mejora Estratégica)
+action_priority: P2
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---

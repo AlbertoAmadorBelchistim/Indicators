@@ -1,22 +1,23 @@
 ---
 cs_file: ColorBarOpenClose.cs
 name: Color Bar Open/Close
-category: Utility
-group: Utility
-subgroup: Visuals
+category: Structure
+group: Structure
+subgroup: Price Action
 score_current: 1/10
 version: Estable
 recommended_action: Descartar
-description: '''Colorea las velas según si el cierre es mayor (alcista) o menor (bajista)''
-  que la apertura.'
-gemini_summary: Indicador redundante (replica la función base del gráfico) y defectuoso,
-  ya que su lógica de herencia de color para velas Doji es incorrecta.
+description: ¿Colorea las velas según si el cierre es mayor o menor que la apertura?
+gemini_summary: "Redundante (1/10). Replica la función base del gráfico. Defectuoso con velas Doji."
+comparison_group: "Candle Type"
+competitor_notes: "Nativo de la plataforma."
+reusable_code: null
 file_state: Defectuoso
 score_potential: 1/10
 effort: N/A
-action_priority: N/A
+action_priority: P4
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Color Bar Open/Close (1/10)

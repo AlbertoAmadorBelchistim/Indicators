@@ -7,16 +7,17 @@ subgroup: Static Levels
 score_current: 6/10
 version: Estable
 recommended_action: Reparar
-description: '''¿Dónde están el Máximo, Mínimo y Mediana del día actual, y la Mediana''
-  del día anterior?'
-gemini_summary: '''"Concepto de contexto 10/10 (D-H/L/M, PD-M) arruinado por una implementación''
-  visual 2/10 (''Square'' en lugar de ''Line''); reparación trivial y de alta prioridad."'
+description: ¿Dónde están el Máximo, Mínimo y Mediana del día actual y anterior?
+gemini_summary: "Concepto 10/10, visualización 2/10 ('Square' en lugar de 'Line'). Reparación trivial P2."
+comparison_group: "Daily Levels"
+competitor_notes: "Compite con OHLC Plus."
+reusable_code: null
 file_state: Mejorable
 score_potential: 9/10
 effort: Bajo
 action_priority: P2
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Daily HighLow (6/10)

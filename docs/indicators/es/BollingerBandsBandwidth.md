@@ -7,14 +7,15 @@ subgroup: Volatility
 score_current: 6.5/10
 version: Estable
 recommended_action: Mejorar
-description: ¿Cómo de 'comprimida' (squeeze) o 'expandida' está la volatilidad ahora
-  mismo, medida como un porcentaje del precio medio?
-gemini_summary: Cuantificador de Squeeze (6.5/10). Útil para alertas de compresión.
-  Hereda defaults débiles (10, 1.0) de BB.
+description: ¿Cómo de 'comprimida' (squeeze) o 'expandida' está la volatilidad ahora mismo?
+gemini_summary: "Cuantificador de Squeeze (6.5/10). Útil para alertas de compresión. Hereda defaults débiles de BB."
+comparison_group: "Volatility Squeeze"
+competitor_notes: "Componente del sistema Bollinger."
+reusable_code: null
 file_state: Mejorable
 score_potential: 7.5/10
 effort: Bajo
-action_priority: P3 (Mejora Opcional)
+action_priority: P3
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---

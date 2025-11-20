@@ -7,14 +7,15 @@ subgroup: Momentum
 score_current: 4/10
 version: Estable
 recommended_action: Descartar
-description: ¿Cuán lejos, en porcentaje, se ha desviado el precio de su propia línea
-  de tendencia (Regresión Lineal)?
-gemini_summary: Abstracto y redundante (4/10). Mide la distancia a la LinReg. Tiene
-  bug de warm-up.
+description: ¿Cuán lejos se ha desviado el precio de su propia línea de tendencia?
+gemini_summary: "Abstracto y redundante (4/10). Mide la distancia a la LinReg. Tiene bug de warm-up."
+comparison_group: "Detrended Oscillator"
+competitor_notes: "Inferior a CCI."
+reusable_code: null
 file_state: Buggy
 score_potential: 4/10
 effort: N/A
-action_priority: P4 (Descartar)
+action_priority: P4
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---

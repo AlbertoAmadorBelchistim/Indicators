@@ -5,19 +5,20 @@ category: Structure
 group: Structure
 subgroup: Static Levels
 score_current: 9/10
-version: 1.2.0 (Modif)
+version: Custom (v1.2.0)
 recommended_action: Conservar
-description: '''¿Dónde están los niveles estructurales (OHLC) del día/semana/mes''
-  anterior, y dónde está el "Half Gap" (mitad del hueco) de la apertura de hoy?'
-gemini_summary: '''"Herramienta de contexto ''Core'' que dibuja niveles OHLC, mejorada''
-  con un ''Half Gap'' (nivel pro) y un historial de sesión robusto (''Queue'')."'
+description: ¿Dónde están los niveles estructurales (OHLC) del día/semana/mes anterior?
+gemini_summary: "Herramienta de contexto 'Core'. Niveles OHLC + Half Gap + Historial de sesión."
+comparison_group: "Daily Levels"
+competitor_notes: "El mejor de su clase."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
-user_modification_date: 2025-11-03
+official_code_date: 23/04/2025
+user_modification_date: 03/11/2025
 ---
 
 ## 🟦 Daily Lines Modif (9/10)

@@ -3,20 +3,21 @@ cs_file: ColorBarHighLow.cs
 name: Color Bar HH/LL
 category: Structure
 group: Structure
-subgroup: Static Levels
+subgroup: Price Action
 score_current: 3/10
 version: Estable
 recommended_action: Descartar
-description: '''Colorea las velas si hacen un nuevo máximo (HH) o mínimo (LL) en comparación''
-  con la vela inmediatamente anterior.'
-gemini_summary: Falla en su propósito de seguir la tendencia, ya que su memoria de
-  1 barra le impide identificar HL/LH y es inferior a la herramienta correcta (CMS).
+description: ¿Colorea las velas si hacen un nuevo máximo o mínimo en comparación con la vela anterior?
+gemini_summary: "Falla en su propósito de seguir la tendencia, ya que su memoria de 1 barra es insuficiente. Inferior a CMS."
+comparison_group: "Candle Pattern"
+competitor_notes: "Redundante."
+reusable_code: null
 file_state: Estable
 score_potential: 3/10
 effort: N/A
-action_priority: N/A
+action_priority: P4
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Color Bar HH/LL (3/10)

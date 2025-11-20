@@ -7,18 +7,17 @@ subgroup: Momentum
 score_current: 2/10
 version: Estable
 recommended_action: Descartar
-description: '''¿Está entrando o saliendo dinero del activo? (Mide el volumen ponderado''
-  por la posición del cierre en el rango de la vela).'
-gemini_summary: '''Este es un indicador "Impostor". No implementa el CMF estándar''
-  (que usa el H/L de la barra). En su lugar, usa el H/L de la *sesión* para calcular
-  el multiplicador de flujo, creando una métrica extraña, con un lag masivo e inútil
-  para el scalping. Es peor que el CMF clásico.'
+description: ¿Está entrando o saliendo dinero del activo?
+gemini_summary: "Impostor. No implementa el CMF estándar. Usa H/L de sesión en vez de barra, creando un lag masivo. Inútil."
+comparison_group: "Volume Oscillator"
+competitor_notes: "Inferior a Cumulative Delta."
+reusable_code: null
 file_state: Impostor
 score_potential: 4/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Chaikin Money Flow (CMF) (2/10)

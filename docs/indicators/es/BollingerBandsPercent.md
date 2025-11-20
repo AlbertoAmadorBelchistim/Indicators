@@ -7,14 +7,15 @@ subgroup: Volatility
 score_current: 6/10
 version: Estable
 recommended_action: Mejorar
-description: ¿En qué posición (como un porcentaje normalizado) se encuentra el precio
-  actual dentro de las Bandas de Bollinger?
-gemini_summary: El clásico oscilador "%B" (6/10). Genial para divergencias. Mermado
-  por defaults débiles y falta de líneas 0/50/100.
+description: ¿En qué posición (como un porcentaje normalizado) se encuentra el precio actual dentro de las Bandas?
+gemini_summary: "El clásico oscilador '%B' (6/10). Genial para divergencias. Mermado por defaults débiles y falta de líneas."
+comparison_group: "Volatility Oscillator"
+competitor_notes: "Componente del sistema Bollinger."
+reusable_code: null
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo
-action_priority: P1 (Arreglo Rápido)
+action_priority: P1
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---
