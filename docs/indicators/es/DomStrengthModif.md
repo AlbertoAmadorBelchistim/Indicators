@@ -5,19 +5,19 @@ category: Order Flow
 group: Order Flow
 subgroup: DOM
 score_current: 9/10
-version: Modif
+version: Estable
 recommended_action: Conservar
-description: '''¿Cuál es la fuerza de la agresión (Trades) en relación con la liquidez''
-  pasiva (DOM)?'
-gemini_summary: '''"Concepto 10/10 (Agresión vs Liquidez) que estaba roto en la versión''
-  original; esta ''Modif'' corrige los bugs de cálculo y lo convierte en una herramienta
-  ''Core''."'
+description: ¿Cuál es la fuerza de la agresión (Trades) en relación con la liquidez pasiva (DOM)?
+gemini_summary: "Concepto 10/10 (Agresión vs Liquidez) que estaba roto en la versión original; esta 'Modif' corrige los bugs de cálculo y lo convierte en una herramienta Core."
+comparison_group: "Liquidez vs Agresión"
+competitor_notes: "Superior a la versión oficial (DomStrength)."
+reusable_code: null
 file_state: Estable
 score_potential: 10/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 DOM Strength Modif (9/10)

@@ -7,15 +7,17 @@ subgroup: Trend Filter
 score_current: 3/10
 version: Estable
 recommended_action: Descartar
-description: ¿Cuál es la fuerza direccional (DI+ vs DI-)? (Implementación NO estándar)
-gemini_summary: '''"Indicador ''Impostor''; no usa el suavizado de Wilder, sino una
-  ''CalcSum'''' y una fórmula de suavizado personalizada. No es el DMI estándar."'
+description: ¿Cuál es la fuerza direccional (DI+ vs DI-)?
+gemini_summary: "Indicador 'Impostor'; no usa el suavizado de Wilder estándar. No es el DMI estándar."
+comparison_group: "Trend Component"
+competitor_notes: "Inferior a ADX oficial."
+reusable_code: null
 file_state: Impostor
 score_potential: 3/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Directional Movement Index (DMI) (3/10)

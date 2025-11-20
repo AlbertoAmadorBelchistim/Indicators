@@ -7,17 +7,17 @@ subgroup: Stats
 score_current: 2/10
 version: Estable
 recommended_action: Descartar
-description: (Teórico) ¿Cuál es el valor del precio escalado por un multiplicador personalizado?
-gemini_summary: "Herramienta de utilidad básica, no de análisis de mercado. Simplemente multiplica el precio por un valor. Irrelevante para lectura de Order Flow."
-comparison_group: "-"
-competitor_notes: "No aplica."
+description: (Teórico) ¿Cuál es el valor del precio escalado por un multiplicador?
+gemini_summary: "Indicador 'Impostor'. No calcula el valor monetario real, es solo un multiplicador. Irrelevante."
+comparison_group: "Math Tools"
+competitor_notes: "Inútil."
 reusable_code: null
-file_state: Estable
+file_state: Impostor
 score_potential: 2/10
 effort: N/A
 action_priority: N/A
-analysis_date: 2025-11-20
-official_code_date: 2025-05-01
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Full Contract Value (FCV) (2/10)

@@ -1,22 +1,23 @@
 ---
 cs_file: ForceIndex.cs
 name: Force Index
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 7/10
-version: ATAS Official
+version: Estable
 recommended_action: Conservar
-description: ¿Cuál es la fuerza de un movimiento (Volumen * (Cierre - CierreAnterior)),
-  con suavizado opcional?
-gemini_summary: Implementación 'Core' y estable del clásico 'Force Index' (Volumen
-  * Delta de Cierre) con un suavizado EMA opcional.
+description: ¿Cuál es la fuerza de un movimiento (Volumen x Cambio de Precio)?
+gemini_summary: "Implementación 'Core' y estable del clásico 'Force Index'. Oscilador de momentum ponderado por volumen."
+comparison_group: "Volume Oscillator"
+competitor_notes: "Competidor de MFI y CMF."
+reusable_code: null
 file_state: Estable
 score_potential: 7/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Force Index (7/10)

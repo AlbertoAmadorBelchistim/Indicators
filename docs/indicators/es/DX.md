@@ -7,17 +7,17 @@ subgroup: Trend Filter
 score_current: 3/10
 version: Estable
 recommended_action: Descartar
-description: '''¿Cuál es la fuerza de la tendencia? (Componente del ADX, implementación''
-  NO estándar)'
-gemini_summary: '''"Indicador ''Impostor por Derivación''; se basa en los indicadores''
-  ''DIPos''/''DINeg'' (que son impostores, usan WMA), por lo que este ''DX'' no es
-  estándar."'
+description: ¿Cuál es la fuerza de la tendencia? (Componente del ADX)
+gemini_summary: "Indicador 'Impostor por Derivación'. Se basa en componentes DIPos/DINeg no estándar. Inútil solo."
+comparison_group: "Trend Component"
+competitor_notes: "Parte de ADX."
+reusable_code: null
 file_state: Impostor
 score_potential: 3/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 DX (Directional Index) (3/10)

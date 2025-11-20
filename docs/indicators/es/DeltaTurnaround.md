@@ -15,9 +15,9 @@ reusable_code: null
 file_state: Estable
 score_potential: 4/10
 effort: N/A
-action_priority: N/A
+action_priority: P4
 analysis_date: 2025-11-19
-official_code_date: 2025-07-31
+official_code_date: 31/07/2025
 ---
 
 ## ⚠️ Delta Turnaround (4/10)

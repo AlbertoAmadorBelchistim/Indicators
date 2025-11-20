@@ -5,18 +5,19 @@ category: Structure
 group: Structure
 subgroup: Price Action
 score_current: 7.5/10
-version: ATAS Official
+version: Estable
 recommended_action: Conservar
-description: ¿Dónde están los máximos y mínimos fractales (swing) de 5 barras, con
-  líneas opcionales de S/R?
-gemini_summary: Implementación 'Core' y estable del fractal de 5 barras, mejorada
-  con una excelente función 'ShowLine' (LineTillTouch) para S/R automáticos.
+description: ¿Dónde están los máximos y mínimos fractales (swing) de 5 barras?
+gemini_summary: "Implementación 'Core' estable. Mejorada con función 'ShowLine' (LineTillTouch) para S/R automáticos."
+comparison_group: "Swing High/Low"
+competitor_notes: "Estándar para estructura de mercado."
+reusable_code: null
 file_state: Estable
 score_potential: 7.5/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Fractals (7.5/10)

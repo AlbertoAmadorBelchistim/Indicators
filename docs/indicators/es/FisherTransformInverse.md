@@ -5,18 +5,19 @@ category: Oscillators
 group: Oscillators
 subgroup: Momentum
 score_current: 6.5/10
-version: ATAS Official
+version: Estable
 recommended_action: Conservar
-description: ¿Cuál es el momentum del precio, suavizado y normalizado por una transformación
-  inversa de Fisher?
-gemini_summary: Implementación estable de un oscilador de momentum 'doble-suavizado'
-  (WMA + SMA); una alternativa más lenta al Fisher Transform.
+description: ¿Cuál es el momentum del precio suavizado y normalizado por Fisher Inverso?
+gemini_summary: "Implementación estable de un oscilador 'doble-suavizado'. Alternativa más lenta al Fisher Transform."
+comparison_group: "Normalized Momentum"
+competitor_notes: "Variante de Fisher."
+reusable_code: null
 file_state: Estable
 score_potential: 6.5/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Inverse Fisher Transform (6.5/10)

@@ -5,12 +5,13 @@ category: Order Flow
 group: Order Flow
 subgroup: DOM
 score_current: 9/10
-version: Stable
+version: Estable
 recommended_action: Conservar
-description: ¿Cómo ha evolucionado la liquidez del libro de órdenes (Heatmap) a lo
-  largo del tiempo en el gráfico?
-gemini_summary: Generador de mapa de calor (Bookmap-style) dentro del gráfico. Gestión
-  de memoria eficiente.
+description: ¿Cómo ha evolucionado la liquidez del libro de órdenes (Heatmap) a lo largo del tiempo?
+gemini_summary: "Generador de mapa de calor (Bookmap-style) dentro del gráfico. Gestión de memoria eficiente."
+comparison_group: "Heatmap"
+competitor_notes: "Único en su clase."
+reusable_code: null
 file_state: Estable
 score_potential: 10/10
 effort: Alto

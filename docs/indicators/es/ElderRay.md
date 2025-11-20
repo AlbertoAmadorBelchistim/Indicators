@@ -5,18 +5,19 @@ category: Oscillators
 group: Oscillators
 subgroup: Momentum
 score_current: 6.5/10
-version: ATAS Official
+version: Estable
 recommended_action: Mejorar
-description: ¿Cuál es la fuerza de los compradores (High - EMA) y vendedores (Low
-  - EMA) en relación con el consenso (EMA)?
-gemini_summary: Implementación estable de un clásico, pero necesita mejoras de flexibilidad
-  (tipo de MA, plot de MA en gráfico).
+description: ¿Cuál es la fuerza de los compradores y vendedores en relación con el consenso?
+gemini_summary: "Implementación estable de un clásico. Necesita mejoras de flexibilidad (tipo de MA)."
+comparison_group: "Market Power"
+competitor_notes: "Clásico pero superado por Delta."
+reusable_code: null
 file_state: Mejorable
 score_potential: 7/10
 effort: Bajo
 action_priority: P4
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Elder Ray (6.5/10)

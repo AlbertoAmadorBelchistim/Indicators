@@ -1,22 +1,23 @@
 ---
 cs_file: Donchian.cs
 name: Donchian Channel
-category: Trend
-group: Trend
-subgroup: Volatility
+category: Structure
+group: Structure
+subgroup: Static Levels
 score_current: 8/10
 version: Estable
 recommended_action: Conservar
 description: ¿Cuál es el rango de precio (máximo y mínimo) de las últimas N barras?
-gemini_summary: '''"Implementación estable del canal de breakout clásico (max/min
-  de N'' barras); una herramienta ''Core'' indispensable para estrategias de rango
-  y ruptura."'
+gemini_summary: "Herramienta 'Core' indispensable para estrategias de breakout. Implementación estable."
+comparison_group: "Channel Breakout"
+competitor_notes: "El estándar de canales de precio."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Donchian Channel (8/10)

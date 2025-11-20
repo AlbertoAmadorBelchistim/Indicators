@@ -5,18 +5,19 @@ category: Order Flow
 group: Order Flow
 subgroup: Volume
 score_current: 6.5/10
-version: ATAS Official
+version: Estable
 recommended_action: Conservar
-description: ¿Es el movimiento del precio (cambio en el punto medio) eficiente en
-  relación con su volumen y rango?
-gemini_summary: Implementación estable y correcta de un indicador clásico; las 'incoherencias'
-  detectadas en el .md original son incorrectas.
+description: ¿Es el movimiento del precio eficiente en relación con su volumen y rango?
+gemini_summary: "Implementación estable y correcta de un indicador clásico (Volume + Price Range)."
+comparison_group: "Volume Efficiency"
+competitor_notes: "Precursor de Force Index."
+reusable_code: null
 file_state: Estable
 score_potential: 6.5/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Arms Ease of Movement (EMV) (6.5/10)

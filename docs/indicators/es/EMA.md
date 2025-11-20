@@ -3,20 +3,21 @@ cs_file: EMA.cs
 name: EMA
 category: Trend
 group: Trend
-subgroup: Trend Filter
+subgroup: Moving Average
 score_current: 9/10
-version: ATAS Official
+version: Estable
 recommended_action: Conservar
-description: ¿Cuál es el valor de la media móvil exponencial, coloreada por pendiente,
-  con alertas de proximidad al precio?
-gemini_summary: Implementación 'Core' con color de pendiente y alertas de proximidad
-  (ticks); las 'incoherencias' del .md original son incorrectas.
+description: ¿Cuál es el valor de la media móvil exponencial?
+gemini_summary: "Implementación 'Core' con color de pendiente y alertas. El estándar de medias rápidas."
+comparison_group: "Standard MA"
+competitor_notes: "La referencia base."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Exponential Moving Average (EMA) (9/10)

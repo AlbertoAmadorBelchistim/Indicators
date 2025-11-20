@@ -1,22 +1,23 @@
 ---
 cs_file: Dispersion.cs
 name: Dispersion
-category: Oscillators
-group: Oscillators
-subgroup: RSI/Stochastic
+category: Trend
+group: Trend
+subgroup: Volatility
 score_current: 1/10
 version: Estable
 recommended_action: Descartar
-description: '''¿Está el precio ''pegado'' a su media (comprimido) o ''explotando''
-  lejos'' de ella (volátil)?'
-gemini_summary: '''"Indicador Roto e Inferior: mide la Varianza (''ticks^2'') en lugar''
-  de StDev, la calcula mal, y es 100% inferior a usar ATR o Bollinger Bands."'
+description: ¿Está el precio pegado a su media o explotando lejos de ella?
+gemini_summary: "Indicador Roto e Inferior: mide la Varianza (ticks^2) en lugar de StDev, la calcula mal, y es 100% inferior a usar ATR o Bollinger Bands."
+comparison_group: "Volatility Measures"
+competitor_notes: "Inferior a StdDev."
+reusable_code: null
 file_state: Roto
 score_potential: 1/10
 effort: N/A
-action_priority: N/A
+action_priority: P4
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Dispersion (1/10)

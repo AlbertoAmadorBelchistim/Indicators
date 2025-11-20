@@ -7,16 +7,17 @@ subgroup: Momentum
 score_current: 3/10
 version: Estable
 recommended_action: Descartar
-description: '''¿Cuáles son los ciclos de corto plazo eliminando la tendencia general?''
-  (Implementación no estándar)'
-gemini_summary: '''"Indicador ''Impostor'' que usa una fórmula de DPO no estándar
-  y un'' desfase confuso; el indicador ''DeTrendedDi'' es la implementación correcta."'
+description: ¿Cuáles son los ciclos de corto plazo eliminando la tendencia general?
+gemini_summary: "Indicador 'Impostor'. Fórmula no estándar. DeTrendedDi es la implementación correcta."
+comparison_group: "Detrended Oscillator"
+competitor_notes: "Inferior a DeTrendedDi."
+reusable_code: null
 file_state: Impostor
 score_potential: 3/10
 effort: N/A
-action_priority: N/A
+action_priority: P4
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 DeTrended Price Oscillator (DPO) (3/10)

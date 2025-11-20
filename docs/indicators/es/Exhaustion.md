@@ -3,21 +3,21 @@ cs_file: Exhaustion.cs
 name: Exhaustion
 category: Order Flow
 group: Order Flow
-subgroup: Volume
+subgroup: Footprint
 score_current: 8/10
-version: ATAS Official
+version: Stable
 recommended_action: Reparar
-description: ¿Está el precio mostrando agotamiento (volumen creciente) en los últimos
-  N ticks del máximo o mínimo de la vela?
-gemini_summary: Concepto excelente (agotamiento en N ticks), pero 'Buggy' debido a
-  un error tipográfico ('AmoutOfPrices') y una lógica 'todo o nada' que oculta patrones
-  parciales.
+description: ¿Está el precio mostrando agotamiento en los últimos N ticks de la vela?
+gemini_summary: "Concepto excelente (agotamiento en N ticks), pero 'Buggy' debido a un error tipográfico ('AmoutOfPrices')."
+comparison_group: "Microstructure"
+competitor_notes: "Complementario a Cluster Search."
+reusable_code: null
 file_state: Buggy
 score_potential: 9/10
 effort: Medio
 action_priority: P2
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Exhaustion (8/10)

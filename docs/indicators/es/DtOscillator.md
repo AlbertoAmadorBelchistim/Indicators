@@ -8,14 +8,16 @@ score_current: 7/10
 version: Estable
 recommended_action: Conservar
 description: ¿Cuál es el momentum, basado en un StochasticRSI suavizado con dos SMAs?
-gemini_summary: '''"Implementación estable del DT Oscillator (StochRSI + doble SMA);''
-  un oscilador de momentum suave y fiable que reduce el ruido."'
+gemini_summary: "Implementación estable del DT Oscillator. Oscilador de momentum suave y fiable."
+comparison_group: "Complex Momentum"
+competitor_notes: "Alternativa a Stochastic RSI."
+reusable_code: null
 file_state: Estable
 score_potential: 7/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 DT Oscillator (7/10)

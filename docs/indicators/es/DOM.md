@@ -8,14 +8,16 @@ score_current: 9/10
 version: Latest
 recommended_action: Conservar
 description: ¿Cuál es la liquidez (libro de órdenes) actual, dibujada en el gráfico?
-gemini_summary: '''"Herramienta ''Core'' de Order Flow que visualiza el libro de órdenes''
-  (DOM) directamente en el gráfico, esencial para scalping de liquidez."'
+gemini_summary: "Herramienta 'Core' de Order Flow que visualiza el libro de órdenes (DOM) directamente en el gráfico. Esencial."
+comparison_group: "DOM Visuals"
+competitor_notes: "El estándar visual."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-11-10
+official_code_date: 10/11/2025
 ---
 
 ## 🟦 Depth of Market (DOM) (9/10)

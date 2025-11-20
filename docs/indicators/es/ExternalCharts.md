@@ -5,18 +5,19 @@ category: Utility
 group: Utility
 subgroup: Visuals
 score_current: 7.5/10
-version: ATAS Official
+version: Estable
 recommended_action: Conservar
-description: ¿Cómo se ven las velas de un timeframe superior (ej. H1, H4) superpuestas
-  en mi gráfico actual?
-gemini_summary: Herramienta de visualización 'Core' que dibuja velas de Timeframe
-  Superior (HTF) en el gráfico actual; estable e indispensable para el análisis Multi-Timeframe.
+description: ¿Cómo se ven las velas de un timeframe superior superpuestas en mi gráfico?
+gemini_summary: "Herramienta de visualización 'Core'. Indispensable para el análisis Multi-Timeframe."
+comparison_group: "Multi-Timeframe"
+competitor_notes: "Único en su clase."
+reusable_code: null
 file_state: Estable
 score_potential: 7.5/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 External Chart (7.5/10)

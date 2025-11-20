@@ -1,22 +1,23 @@
 ---
 cs_file: FairValueGap.cs
 name: Fair Value Gap
-category: Order Flow
-group: Order Flow
-subgroup: Volume Profile
+category: Structure
+group: Structure
+subgroup: Price Action
 score_current: 9/10
-version: Stable
+version: Estable
 recommended_action: Conservar
-description: ¿Dónde están los desequilibrios de precio (gaps) no mitigados en el marco
-  actual y superior?
-gemini_summary: Detector de FVG multitemporal. Reconstruye velas superiores internamente.
-  Código complejo y potente.
+description: ¿Dónde están los desequilibrios de precio (gaps) no mitigados?
+gemini_summary: "Detector de FVG multitemporal. Reconstruye velas superiores internamente. Código complejo y potente."
+comparison_group: "Gap Analysis"
+competitor_notes: "Líder en detección de Gaps."
+reusable_code: null
 file_state: Estable
 score_potential: 10/10
-effort: Alto
+effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-19
-official_code_date: 2025-05-12
+official_code_date: 12/05/2025
 ---
 
 ## 🟦 Fair Value Gap (9/10)

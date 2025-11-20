@@ -7,16 +7,17 @@ subgroup: Momentum
 score_current: 5/10
 version: Estable
 recommended_action: Reparar
-description: '''¿Cuál es el RSI, pero con un periodo que se ajusta automáticamente
-  a la'' volatilidad del mercado?'
-gemini_summary: '''"Concepto de RSI adaptativo 9/10 (muy bueno para scalping) arruinado''
-  por un bug lógico (''if'' anidado imposible) en el cálculo de RSI; necesita reparación."'
+description: ¿Cuál es el RSI, pero con un periodo que se ajusta automáticamente a la volatilidad?
+gemini_summary: "Concepto de RSI adaptativo 9/10 arruinado por un bug lógico en el cálculo. Necesita reparación."
+comparison_group: "Adaptive RSI"
+competitor_notes: "Potencialmente superior a RSI si se arregla."
+reusable_code: null
 file_state: Buggy
 score_potential: 9/10
 effort: Bajo
 action_priority: P3
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Dynamic Momentum Index (DMI) (5/10)

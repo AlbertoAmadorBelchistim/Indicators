@@ -1,22 +1,23 @@
 ---
 cs_file: DynamicLevelsChannel.cs
 name: Dynamic Levels Channel
-category: Trend
-group: Trend
-subgroup: Volatility
+category: Order Flow
+group: Order Flow
+subgroup: Volume Profile
 score_current: 9/10
 version: Estable
 recommended_action: Conservar
-description: '''¿Dónde se están formando el POC, VAH y VAL de las últimas N barras
-  (un'' perfil móvil)?'
-gemini_summary: '''"Herramienta ''Core'' que calcula un ''Perfil Móvil'' (Rolling''
-  POC/VAH/VAL) de las últimas N barras; excelente para seguir el valor inmediato."'
+description: ¿Dónde se están formando el POC, VAH y VAL de las últimas N barras (perfil móvil)?
+gemini_summary: "Herramienta 'Core' que calcula un 'Perfil Móvil' (Rolling POC). Excelente para seguir el valor inmediato."
+comparison_group: "Rolling Profile"
+competitor_notes: "Único en su clase."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Dynamic Levels Channel (9/10)

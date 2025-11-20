@@ -5,18 +5,19 @@ category: Oscillators
 group: Oscillators
 subgroup: Momentum
 score_current: 6.5/10
-version: ATAS Official
+version: Estable
 recommended_action: Conservar
-description: ¿Cuál es el momentum del precio, normalizado por una transformación estadística
-  de Fisher?
-gemini_summary: Implementación estándar de un oscilador de momentum rápido; contiene
-  una 'quirk' de cálculo (High/Close) y un bug de performance inofensivo.
+description: ¿Cuál es el momentum del precio normalizado por Fisher?
+gemini_summary: "Implementación estándar de un oscilador de momentum rápido. Contiene una 'quirk' de cálculo inofensiva."
+comparison_group: "Normalized Momentum"
+competitor_notes: "Más rápido que RSI."
+reusable_code: null
 file_state: Estable
 score_potential: 6.5/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Fisher Transform (6.5/10)

@@ -5,18 +5,19 @@ category: Oscillators
 group: Oscillators
 subgroup: Momentum
 score_current: 4/10
-version: ATAS Official
+version: Estable
 recommended_action: Reparar
-description: ¿Cuál es la diferencia (histograma) entre el True Strength Index (TSI)
-  y su línea de señal?
-gemini_summary: Conceptualmente 'Roto'; calcula el TSI y su señal pero solo muestra
-  el histograma, ocultando las líneas principales.
+description: ¿Cuál es la diferencia (histograma) entre el True Strength Index (TSI) y su señal?
+gemini_summary: "Conceptualmente 'Roto'; calcula el TSI y su señal pero solo muestra el histograma, ocultando las líneas principales."
+comparison_group: "Complex Momentum"
+competitor_notes: "Inferior a TSI completo."
+reusable_code: null
 file_state: Roto
 score_potential: 8/10
 effort: Bajo
 action_priority: P3
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Ergodic Oscillator (4/10)

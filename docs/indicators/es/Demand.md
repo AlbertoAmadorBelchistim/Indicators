@@ -1,21 +1,23 @@
 ---
 cs_file: Demand.cs
 name: Demand Index
-category: Trend
-group: Trend
-subgroup: Moving Average
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 2/10
 version: Estable
-recommended_action: Reparar
+recommended_action: Descartar
 description: ¿Cuál es la presión de compra o venta relativa basada en precio y volumen?
-gemini_summary: '''"Indicador Roto: la fórmula usa el rango de la *primera vela del''
-  gráfico* (`bar == 0`) para todos los cálculos futuros, haciéndolo arbitrario e inútil."'
+gemini_summary: "Indicador Roto: usa el rango de la primera vela para todo el cálculo. Inservible."
+comparison_group: "Volume Oscillator"
+competitor_notes: "Inferior a MFI."
+reusable_code: null
 file_state: Roto
 score_potential: 6/10
 effort: Medio
 action_priority: P4
 analysis_date: 2025-11-17
-official_code_date: 2025-10-20
+official_code_date: 20/10/2025
 ---
 
 ## 🟦 Demand Index (2/10)

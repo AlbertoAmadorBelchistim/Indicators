@@ -7,16 +7,17 @@ subgroup: RSI/Stochastic
 score_current: 7/10
 version: Estable
 recommended_action: Conservar
-description: '''¿Cuál es el indicador Estocástico, pero aplicado por segunda vez sobre''
-  sí mismo para suavizar el ruido?'
-gemini_summary: '''"Implementación estable de un Estocástico suavizado (Estocástico''
-  de un Estocástico); una buena herramienta de momentum que reduce el ruido."'
+description: ¿Cuál es el indicador Estocástico, pero aplicado por segunda vez sobre sí mismo?
+gemini_summary: "Implementación estable de un Estocástico suavizado. Reduce el ruido significativamente."
+comparison_group: "Stochastic Variant"
+competitor_notes: "Más suave que Stochastic estándar."
+reusable_code: null
 file_state: Estable
 score_potential: 7/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Double Stochastic (7/10)

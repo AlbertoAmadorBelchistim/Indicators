@@ -5,18 +5,19 @@ category: Oscillators
 group: Oscillators
 subgroup: RSI/Stochastic
 score_current: 6.5/10
-version: ATAS Official
+version: Estable
 recommended_action: Conservar
-description: ¿Cuál es el momentum, basado en un RSI suavizado y normalizado por una
-  transformación inversa de Fisher?
-gemini_summary: Implementación estable de un oscilador de momentum 'suave' (RSI +
-  WMA + IFT); el nombre del parámetro 'HighLowPeriod' es confuso pero el UI es correcto.
+description: ¿Cuál es el momentum basado en un RSI suavizado por Fisher?
+gemini_summary: "Oscilador de momentum 'suave' (RSI + WMA + IFT). Nombre de parámetro confuso pero correcto."
+comparison_group: "RSI Variant"
+competitor_notes: "Variante de RSI."
+reusable_code: null
 file_state: Estable
 score_potential: 6.5/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Inverse Fisher Transform with RSI (6.5/10)

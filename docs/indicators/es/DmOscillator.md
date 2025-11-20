@@ -1,22 +1,23 @@
 ---
 cs_file: DmOscillator.cs
 name: Directional Movement Oscillator
-category: Oscillators
-group: Oscillators
-subgroup: Momentum
+category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 3/10
 version: Estable
 recommended_action: Descartar
-description: ¿Cuál es la diferencia neta (DI+ menos DI-)? (Basado en un DMI no estándar)
-gemini_summary: '''"Indicador ''Impostor por Derivación''; se basa en el indicador
-  ''DmIndex'''' (que es un impostor no estándar), por lo que este oscilador no es
-  fiable."'
+description: ¿Cuál es la diferencia neta (DI+ menos DI-)?
+gemini_summary: "Indicador 'Impostor por Derivación'; se basa en el indicador DmIndex (impostor), por lo que no es fiable."
+comparison_group: "Trend Component"
+competitor_notes: "Inferior a ADX oficial."
+reusable_code: null
 file_state: Impostor
 score_potential: 3/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Directional Movement Oscillator (3/10)

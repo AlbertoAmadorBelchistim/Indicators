@@ -7,16 +7,17 @@ subgroup: Volume Profile
 score_current: 9/10
 version: Estable
 recommended_action: Conservar
-description: '''¿Dónde se están formando el POC, VAH y VAL del período actual (ej.''
-  Día, Semana, Hora) en tiempo real?'
-gemini_summary: '''"Herramienta ''Core'' de Nivel 2 que calcula un POC/VAH/VAL'' *expansivo*
-  (por Hora, Día, etc.) y configurable (Vol, Delta, etc.); indispensable para scalping."'
+description: ¿Dónde se están formando el POC, VAH y VAL del período actual en tiempo real?
+gemini_summary: "Herramienta 'Core' de Nivel 2 que calcula un POC/VAH/VAL expansivo. Indispensable."
+comparison_group: "Session Profile"
+competitor_notes: "El estándar para niveles dinámicos."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Dynamic Levels (9/10)

@@ -3,20 +3,21 @@ cs_file: DEMA.cs
 name: Double Exponential Moving Average
 category: Trend
 group: Trend
-subgroup: Trend Filter
+subgroup: Moving Average
 score_current: 6/10
 version: Estable
 recommended_action: Conservar
-description: '''¿Cuál es el precio suavizado, pero con menos retraso (lag) que una
-  EMA'' estándar?'
-gemini_summary: '''"Implementación estable de DEMA (2*EMA1 - EMA2), una media móvil''
-  más rápida (menos lag) que la EMA, útil como herramienta de tendencia reactiva."'
+description: ¿Cuál es el precio suavizado, pero con menos retraso que una EMA estándar?
+gemini_summary: "Implementación estable de DEMA (2*EMA1 - EMA2). Útil como media reactiva."
+comparison_group: "Fast MA"
+competitor_notes: "Compite con TEMA y ZLEMA."
+reusable_code: null
 file_state: Estable
 score_potential: 6/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Double Exponential Moving Average (DEMA) (6/10)

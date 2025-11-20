@@ -8,14 +8,16 @@ score_current: 3/10
 version: Estable
 recommended_action: Descartar
 description: ¿Cuál es la presión vendedora relativa? (Componente del sistema ADX/DMI)
-gemini_summary: '''"Indicador de ''componente'' inútil por sí solo; su funcionalidad
-  está'' (o debería estar) incluida en el indicador ADX/DMI completo, haciéndolo redundante."'
+gemini_summary: "Componente inútil por sí solo. Debe usarse dentro del ADX completo."
+comparison_group: "Trend Component"
+competitor_notes: "Parte de ADX."
+reusable_code: null
 file_state: Estable
 score_potential: 3/10
 effort: N/A
-action_priority: N/A
+action_priority: P4
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 DI- (Directional Indicator Negativo) (3/10)
