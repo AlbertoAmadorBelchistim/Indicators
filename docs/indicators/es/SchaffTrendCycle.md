@@ -1,9 +1,9 @@
 ---
 cs_file: SchaffTrendCycle.cs
 name: Schaff Trend Cycle
-category: Trend
-group: Trend
-subgroup: Trend Filter
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 7/10
 version: Stable
 recommended_action: Conservar

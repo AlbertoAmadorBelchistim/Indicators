@@ -1,9 +1,9 @@
 ---
 cs_file: Kurtosis.cs
 name: Kurtosis
-category: Utility
-group: Utility
-subgroup: Stats
+category: Uncategorized
+group: Uncategorized
+subgroup: Other
 score_current: 5/10
 version: ATAS Official
 recommended_action: Conservar

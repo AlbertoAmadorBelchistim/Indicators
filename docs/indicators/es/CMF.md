@@ -1,9 +1,9 @@
 ---
 cs_file: CMF.cs
 name: Chaikin Money Flow
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 2/10
 version: Estable
 recommended_action: Descartar

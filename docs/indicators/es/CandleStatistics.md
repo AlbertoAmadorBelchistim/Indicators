@@ -1,9 +1,9 @@
 ---
 cs_file: CandleStatistics.cs
 name: Candle Statistics
-category: Structure
-group: Structure
-subgroup: Price Action
+category: Utility
+group: Utility
+subgroup: Stats
 score_current: 8/10
 version: Estable
 recommended_action: Mejorar

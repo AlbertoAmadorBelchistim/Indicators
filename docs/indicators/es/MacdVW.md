@@ -1,9 +1,9 @@
 ---
 cs_file: MacdVW.cs
 name: MACD - Volume Weighted
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Oscillators
+group: Oscillators
+subgroup: MACD
 score_current: 8/10
 version: ATAS Official
 recommended_action: Mejorar

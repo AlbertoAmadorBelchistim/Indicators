@@ -3,7 +3,7 @@ cs_file: LinRegChannel.cs
 name: Linear Regression Channel
 category: Trend
 group: Trend
-subgroup: Trend Filter
+subgroup: Volatility
 score_current: 3/10
 version: ATAS Official
 recommended_action: Reparar

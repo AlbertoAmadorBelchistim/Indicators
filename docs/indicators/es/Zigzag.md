@@ -1,9 +1,9 @@
 ---
 cs_file: Zigzag.cs
 name: ZigZag Pro
-category: Structure
-group: Structure
-subgroup: Price Action
+category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 10/10
 version: Stable
 recommended_action: Conservar

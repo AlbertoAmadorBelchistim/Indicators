@@ -3,7 +3,7 @@ cs_file: DEMA.cs
 name: Double Exponential Moving Average
 category: Trend
 group: Trend
-subgroup: Moving Average
+subgroup: Trend Filter
 score_current: 6/10
 version: Estable
 recommended_action: Conservar

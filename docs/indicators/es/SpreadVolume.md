@@ -1,9 +1,9 @@
 ---
 cs_file: SpreadVolume.cs
 name: Spread Volume
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Utility
+group: Utility
+subgroup: Stats
 score_current: 7/10
 version: Stable
 recommended_action: Conservar

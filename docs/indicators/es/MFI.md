@@ -1,9 +1,9 @@
 ---
 cs_file: MFI.cs
 name: Money Flow Index (MFI)
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 7/10
 version: ATAS Official
 recommended_action: Mejorar

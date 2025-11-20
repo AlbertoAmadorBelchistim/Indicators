@@ -3,7 +3,7 @@ cs_file: FairValueGap.cs
 name: Fair Value Gap
 category: Order Flow
 group: Order Flow
-subgroup: Volume
+subgroup: Volume Profile
 score_current: 9/10
 version: Stable
 recommended_action: Conservar

@@ -1,9 +1,9 @@
 ---
 cs_file: SPVO.cs
 name: Simple Percentage Volume Oscillator
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 8/10
 version: Stable
 recommended_action: Conservar

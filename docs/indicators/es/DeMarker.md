@@ -3,7 +3,7 @@ cs_file: DeMarker.cs
 name: DeMarker
 category: Trend
 group: Trend
-subgroup: Moving Average
+subgroup: Trend Filter
 score_current: 2/10
 version: Estable
 recommended_action: Reparar

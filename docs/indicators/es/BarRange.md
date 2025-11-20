@@ -1,9 +1,9 @@
 ---
 cs_file: BarRange.cs
 name: Bar Range
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Structure
+group: Structure
+subgroup: Price Action
 score_current: 5/10
 version: Estable
 recommended_action: Descartar

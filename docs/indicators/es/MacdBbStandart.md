@@ -1,9 +1,9 @@
 ---
 cs_file: MacdBbStandart.cs
 name: MACD Bollinger Bands - Standard
-category: Trend
-group: Trend
-subgroup: Volatility
+category: Oscillators
+group: Oscillators
+subgroup: MACD
 score_current: 6/10
 version: ATAS Official
 recommended_action: Conservar

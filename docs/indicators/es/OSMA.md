@@ -1,9 +1,9 @@
 ---
 cs_file: OSMA.cs
 name: OSMA (Moving Average of Oscillator)
-category: Trend
-group: Trend
-subgroup: Moving Average
+category: Oscillators
+group: Oscillators
+subgroup: MACD
 score_current: 7/10
 version: ATAS Official
 recommended_action: Mejorar

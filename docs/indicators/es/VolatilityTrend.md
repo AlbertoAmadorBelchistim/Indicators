@@ -1,9 +1,9 @@
 ---
 cs_file: VolatilityTrend.cs
 name: Volatility Trend
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Trend
+group: Trend
+subgroup: Volatility
 score_current: 8/10
 version: Stable
 recommended_action: Conservar

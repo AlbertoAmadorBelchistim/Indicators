@@ -1,9 +1,9 @@
 ---
 cs_file: WAD.cs
 name: Williams Accumulation / Distribution (WAD)
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Oscillators
+group: Oscillators
+subgroup: RSI/Stochastic
 score_current: 7/10
 version: Stable
 recommended_action: Conservar

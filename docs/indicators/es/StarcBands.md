@@ -1,9 +1,9 @@
 ---
 cs_file: StarcBands.cs
 name: Starc Bands
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Trend
+group: Trend
+subgroup: Volatility
 score_current: 6/10
 version: Stable
 recommended_action: Mejorar

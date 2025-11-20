@@ -1,9 +1,9 @@
 ---
 cs_file: Lowest.cs
 name: Lowest
-category: Structure
-group: Structure
-subgroup: Levels
+category: Uncategorized
+group: Uncategorized
+subgroup: Other
 score_current: 6/10
 version: ATAS Official
 recommended_action: Conservar

@@ -1,9 +1,9 @@
 ---
 cs_file: RolloverDates.cs
 name: Rollover Dates
-category: Utility
-group: Utility
-subgroup: General
+category: Uncategorized
+group: Uncategorized
+subgroup: Other
 score_current: 8/10
 version: Stable
 recommended_action: Conservar

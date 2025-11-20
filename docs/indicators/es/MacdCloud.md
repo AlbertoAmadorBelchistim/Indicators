@@ -1,9 +1,9 @@
 ---
 cs_file: MacdCloud.cs
 name: MACD Cloud
-category: Trend
-group: Trend
-subgroup: Trend Filter
+category: Oscillators
+group: Oscillators
+subgroup: MACD
 score_current: 7/10
 version: Stable
 recommended_action: Conservar

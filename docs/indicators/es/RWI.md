@@ -1,9 +1,9 @@
 ---
 cs_file: RWI.cs
 name: Random Walk Index
-category: Order Flow
-group: Order Flow
-subgroup: DOM
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 5/10
 version: Stable
 recommended_action: Mejorar

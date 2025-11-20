@@ -1,9 +1,9 @@
 ---
 cs_file: VolumeTrend.cs
 name: Price Volume Trend
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 8/10
 version: Stable
 recommended_action: Conservar

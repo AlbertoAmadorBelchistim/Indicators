@@ -3,7 +3,7 @@ cs_file: MaEnvelope.cs
 name: Moving Average Envelope
 category: Trend
 group: Trend
-subgroup: Moving Average
+subgroup: Volatility
 score_current: 5/10
 version: ATAS Official
 recommended_action: Conservar

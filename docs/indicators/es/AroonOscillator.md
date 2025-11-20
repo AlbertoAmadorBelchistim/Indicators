@@ -1,9 +1,9 @@
 ---
 cs_file: AroonOscillator.cs
 name: Aroon Oscillator
-category: Trend
-group: Trend
-subgroup: Trend Filter
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 3/10
 version: Estable
 recommended_action: Descartar

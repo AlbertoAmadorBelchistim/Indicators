@@ -3,7 +3,7 @@ cs_file: OrderFlowRythm.cs
 name: Order Flow Rhythm (Clean)
 category: Order Flow
 group: Order Flow
-subgroup: General
+subgroup: Volume
 score_current: 9/10
 version: Stable
 recommended_action: Conservar

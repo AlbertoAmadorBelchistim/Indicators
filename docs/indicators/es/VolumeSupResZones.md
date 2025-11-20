@@ -1,9 +1,9 @@
 ---
 cs_file: VolumeSupResZones.cs
 name: Volume-based Support & Resistance Zones
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Oscillators
+group: Oscillators
+subgroup: MACD
 score_current: 10/10
 version: Stable
 recommended_action: Conservar

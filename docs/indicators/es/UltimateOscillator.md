@@ -3,7 +3,7 @@ cs_file: UltimateOscillator.cs
 name: Ultimate Oscillator
 category: Oscillators
 group: Oscillators
-subgroup: Momentum
+subgroup: RSI/Stochastic
 score_current: 7/10
 version: Stable
 recommended_action: Conservar

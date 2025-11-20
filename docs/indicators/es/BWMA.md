@@ -1,9 +1,9 @@
 ---
 cs_file: BWMA.cs
 name: Bill Williams Moving Average
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Oscillators
+group: Oscillators
+subgroup: RSI/Stochastic
 score_current: 5/10
 version: Estable
 recommended_action: Descartar

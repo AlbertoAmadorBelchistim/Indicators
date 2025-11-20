@@ -1,9 +1,9 @@
 ---
 cs_file: OrderBlock.cs
 name: Order Block
-category: Structure
-group: Structure
-subgroup: Levels
+category: Uncategorized
+group: Uncategorized
+subgroup: Other
 score_current: 9/10
 version: ATAS Official
 recommended_action: Conservar

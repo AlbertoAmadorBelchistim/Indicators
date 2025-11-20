@@ -3,7 +3,7 @@ cs_file: AdaptiveBinaryWaveMA.cs
 name: Adaptive Binary Wave
 category: Trend
 group: Trend
-subgroup: Moving Average
+subgroup: Trend Filter
 score_current: 7/10
 version: Estable
 recommended_action: Mejorar

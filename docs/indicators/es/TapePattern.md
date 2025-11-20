@@ -1,9 +1,9 @@
 ---
 cs_file: TapePattern.cs
 name: Tape Patterns
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Structure
+group: Structure
+subgroup: Price Action
 score_current: 9/10
 version: Stable
 recommended_action: Conservar

@@ -1,9 +1,9 @@
 ---
 cs_file: OrderBookAlerts.cs
 name: Order Book Alerts
-category: Order Flow
-group: Order Flow
-subgroup: DOM
+category: Utility
+group: Utility
+subgroup: Alerts
 score_current: 9/10
 version: ATAS Official
 recommended_action: Conservar

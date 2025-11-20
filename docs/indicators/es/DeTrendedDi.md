@@ -1,9 +1,9 @@
 ---
 cs_file: DeTrendedDi.cs
 name: Detrended Oscillator - DiNapoli
-category: Trend
-group: Trend
-subgroup: Trend Filter
+category: Oscillators
+group: Oscillators
+subgroup: MACD
 score_current: 6/10
 version: Estable
 recommended_action: Conservar

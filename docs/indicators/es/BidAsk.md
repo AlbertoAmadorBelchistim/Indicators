@@ -3,7 +3,7 @@ cs_file: BidAsk.cs
 name: Bid Ask
 category: Order Flow
 group: Order Flow
-subgroup: General
+subgroup: Volume
 score_current: 6.5/10
 version: Estable
 recommended_action: Mejorar

@@ -1,9 +1,9 @@
 ---
 cs_file: DynamicLevelsChannel.cs
 name: Dynamic Levels Channel
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Trend
+group: Trend
+subgroup: Volatility
 score_current: 9/10
 version: Estable
 recommended_action: Conservar

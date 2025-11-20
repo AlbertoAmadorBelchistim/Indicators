@@ -1,9 +1,9 @@
 ---
 cs_file: BionicCandle.cs
 name: Bionic Candle (Clean)
-category: Structure
-group: Structure
-subgroup: Price Action
+category: Uncategorized
+group: Uncategorized
+subgroup: Other
 score_current: 8/10
 version: Stable
 recommended_action: Conservar

@@ -1,9 +1,9 @@
 ---
 cs_file: ClusterStatisticModif.cs
 name: Cluster Statistic Modif 
-category: Order Flow
-group: Order Flow
-subgroup: Footprint
+category: Utility
+group: Utility
+subgroup: Stats
 score_current: 10/10
 version: Estable
 recommended_action: Conservar

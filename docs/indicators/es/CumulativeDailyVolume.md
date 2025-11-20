@@ -1,9 +1,9 @@
 ---
 cs_file: CumulativeDailyVolume.cs
 name: Cumulative Daily Volume
-category: Order Flow
-group: Order Flow
-subgroup: Delta
+category: Structure
+group: Structure
+subgroup: Static Levels
 score_current: 6/10
 version: Estable
 recommended_action: Conservar

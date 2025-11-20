@@ -3,7 +3,7 @@ cs_file: AMA.cs
 name: Adaptive Moving Average
 category: Trend
 group: Trend
-subgroup: Moving Average
+subgroup: Trend Filter
 score_current: 7/10
 version: Estable
 recommended_action: Mejorar

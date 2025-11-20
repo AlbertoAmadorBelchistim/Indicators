@@ -1,9 +1,9 @@
 ---
 cs_file: VolumeOnChart.cs
 name: Volume On The Chart
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Utility
+group: Utility
+subgroup: Visuals
 score_current: 8/10
 version: Stable
 recommended_action: Conservar

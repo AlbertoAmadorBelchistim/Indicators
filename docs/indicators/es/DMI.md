@@ -1,9 +1,9 @@
 ---
 cs_file: DMI.cs
 name: Dynamic Momentum Index
-category: Structure
-group: Structure
-subgroup: Profile
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 5/10
 version: Estable
 recommended_action: Reparar

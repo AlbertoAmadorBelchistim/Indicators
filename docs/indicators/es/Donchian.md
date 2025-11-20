@@ -1,9 +1,9 @@
 ---
 cs_file: Donchian.cs
 name: Donchian Channel
-category: Structure
-group: Structure
-subgroup: Static Levels
+category: Trend
+group: Trend
+subgroup: Volatility
 score_current: 8/10
 version: Estable
 recommended_action: Conservar

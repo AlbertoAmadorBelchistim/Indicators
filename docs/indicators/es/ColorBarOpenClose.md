@@ -1,9 +1,9 @@
 ---
 cs_file: ColorBarOpenClose.cs
 name: Color Bar Open/Close
-category: Structure
-group: Structure
-subgroup: Price Action
+category: Utility
+group: Utility
+subgroup: Visuals
 score_current: 1/10
 version: Estable
 recommended_action: Descartar

@@ -1,9 +1,9 @@
 ---
 cs_file: BollingerBandsBandwidth.cs
 name: Bollinger Bands Bandwidth
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Trend
+group: Trend
+subgroup: Volatility
 score_current: 6.5/10
 version: Estable
 recommended_action: Mejorar

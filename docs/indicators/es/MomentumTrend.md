@@ -1,9 +1,9 @@
 ---
 cs_file: MomentumTrend.cs
 name: Momentum Trend
-category: Trend
-group: Trend
-subgroup: Trend Filter
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 3/10
 version: ATAS Official
 recommended_action: Mejorar

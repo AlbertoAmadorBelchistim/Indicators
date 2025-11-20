@@ -1,9 +1,9 @@
 ---
 cs_file: LevelsLolo.cs
 name: LevelsLolo
-category: Structure
-group: Structure
-subgroup: Levels
+category: Uncategorized
+group: Uncategorized
+subgroup: Other
 score_current: 9/10
 version: Modif.
 recommended_action: Conservar

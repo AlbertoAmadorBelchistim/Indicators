@@ -1,9 +1,9 @@
 ---
 cs_file: PullingStackingBars.cs
 name: Pulling & Stacking Bars (Clean)
-category: Structure
-group: Structure
-subgroup: Price Action
+category: Uncategorized
+group: Uncategorized
+subgroup: Other
 score_current: 10/10
 version: Stable
 recommended_action: Conservar

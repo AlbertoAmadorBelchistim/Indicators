@@ -1,9 +1,9 @@
 ---
 cs_file: BollingerSqueezeV3.cs
 name: Bollinger Squeeze 3
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Trend
+group: Trend
+subgroup: Volatility
 score_current: 6/10
 version: Estable
 recommended_action: Descartar

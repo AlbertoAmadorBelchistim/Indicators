@@ -1,9 +1,9 @@
 ---
 cs_file: CMO.cs
 name: Chaikin Money Oscillator
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 1/10
 version: Estable
 recommended_action: Descartar

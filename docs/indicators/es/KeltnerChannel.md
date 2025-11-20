@@ -1,9 +1,9 @@
 ---
 cs_file: KeltnerChannel.cs
 name: Keltner Channel
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Trend
+group: Trend
+subgroup: Volatility
 score_current: 7.5/10
 version: ATAS Official
 recommended_action: Reparar

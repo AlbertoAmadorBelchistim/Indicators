@@ -1,9 +1,9 @@
 ---
 cs_file: VolumeZone.cs
 name: Volume Zone Oscillator
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 9/10
 version: Stable
 recommended_action: Conservar

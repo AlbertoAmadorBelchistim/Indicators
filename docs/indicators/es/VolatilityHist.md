@@ -1,9 +1,9 @@
 ---
 cs_file: VolatilityHist.cs
 name: Volatility - Historical
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Trend
+group: Trend
+subgroup: Volatility
 score_current: 4/10
 version: Buggy
 recommended_action: Reparar

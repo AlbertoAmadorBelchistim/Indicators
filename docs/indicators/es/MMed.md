@@ -1,9 +1,9 @@
 ---
 cs_file: MMed.cs
 name: Moving Median
-category: Utility
-group: Utility
-subgroup: Stats
+category: Uncategorized
+group: Uncategorized
+subgroup: Other
 score_current: 6/10
 version: ATAS Official
 recommended_action: Mejorar

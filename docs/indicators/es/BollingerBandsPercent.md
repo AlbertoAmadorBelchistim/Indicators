@@ -1,9 +1,9 @@
 ---
 cs_file: BollingerBandsPercent.cs
 name: Bollinger Bands Percentage
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Trend
+group: Trend
+subgroup: Volatility
 score_current: 6/10
 version: Estable
 recommended_action: Mejorar

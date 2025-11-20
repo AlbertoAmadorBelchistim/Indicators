@@ -1,9 +1,9 @@
 ---
 cs_file: AdaptiveRsiAverage.cs
 name: Adaptive RSI Moving Average
-category: Trend
-group: Trend
-subgroup: Moving Average
+category: Oscillators
+group: Oscillators
+subgroup: RSI/Stochastic
 score_current: 4/10
 version: Estable
 recommended_action: Descartar

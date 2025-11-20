@@ -1,9 +1,9 @@
 ---
 cs_file: SqueezeMomentum.cs
 name: Squeeze Momentum
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 9/10
 version: Stable
 recommended_action: Conservar

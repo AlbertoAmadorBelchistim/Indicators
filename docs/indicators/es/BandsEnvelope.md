@@ -1,9 +1,9 @@
 ---
 cs_file: BandsEnvelope.cs
 name: Bands / Envelope
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Trend
+group: Trend
+subgroup: Volatility
 score_current: 1/10
 version: Estable
 recommended_action: Descartar

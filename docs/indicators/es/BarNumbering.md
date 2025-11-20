@@ -1,9 +1,9 @@
 ---
 cs_file: BarNumbering.cs
 name: Bar Numbering
-category: Structure
-group: Structure
-subgroup: Price Action
+category: Uncategorized
+group: Uncategorized
+subgroup: Other
 score_current: 4/10
 version: Estable
 recommended_action: Descartar

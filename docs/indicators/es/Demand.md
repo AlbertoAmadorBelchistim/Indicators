@@ -1,9 +1,9 @@
 ---
 cs_file: Demand.cs
 name: Demand Index
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Trend
+group: Trend
+subgroup: Moving Average
 score_current: 2/10
 version: Estable
 recommended_action: Reparar

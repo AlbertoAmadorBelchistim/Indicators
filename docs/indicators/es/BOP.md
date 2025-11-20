@@ -1,9 +1,9 @@
 ---
 cs_file: BOP.cs
 name: Balance of Power
-category: Structure
-group: Structure
-subgroup: Price Action
+category: Uncategorized
+group: Uncategorized
+subgroup: Other
 score_current: 5/10
 version: Estable
 recommended_action: Descartar

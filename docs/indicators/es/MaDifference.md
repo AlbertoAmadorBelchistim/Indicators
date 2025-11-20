@@ -3,7 +3,7 @@ cs_file: MaDifference.cs
 name: Moving Average Difference
 category: Trend
 group: Trend
-subgroup: Moving Average
+subgroup: Trend Filter
 score_current: 6/10
 version: ATAS Official
 recommended_action: Mejorar

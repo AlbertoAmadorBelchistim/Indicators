@@ -1,9 +1,9 @@
 ---
 cs_file: ATR.cs
 name: ATR
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Trend
+group: Trend
+subgroup: Volatility
 score_current: 8/10
 version: Estable
 recommended_action: Mejorar

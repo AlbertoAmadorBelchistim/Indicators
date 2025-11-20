@@ -1,9 +1,9 @@
 ---
 cs_file: MutualFundBars.cs
 name: Mutual Fund Bars
-category: Structure
-group: Structure
-subgroup: Price Action
+category: Uncategorized
+group: Uncategorized
+subgroup: Other
 score_current: 4/10
 version: ATAS Official
 recommended_action: Conservar

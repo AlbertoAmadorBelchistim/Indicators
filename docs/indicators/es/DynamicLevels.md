@@ -3,7 +3,7 @@ cs_file: DynamicLevels.cs
 name: Dynamic Levels
 category: Order Flow
 group: Order Flow
-subgroup: Volume
+subgroup: Volume Profile
 score_current: 9/10
 version: Estable
 recommended_action: Conservar

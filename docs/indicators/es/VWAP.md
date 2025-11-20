@@ -3,7 +3,7 @@ cs_file: VWAP.cs
 name: VWAP / TWAP
 category: Order Flow
 group: Order Flow
-subgroup: Volume
+subgroup: Volume Profile
 score_current: 10/10
 version: Stable
 recommended_action: Conservar

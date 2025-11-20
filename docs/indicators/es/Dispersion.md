@@ -1,9 +1,9 @@
 ---
 cs_file: Dispersion.cs
 name: Dispersion
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Oscillators
+group: Oscillators
+subgroup: RSI/Stochastic
 score_current: 1/10
 version: Estable
 recommended_action: Descartar

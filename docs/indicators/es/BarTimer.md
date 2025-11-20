@@ -1,9 +1,9 @@
 ---
 cs_file: BarTimer.cs
 name: Bar Timer
-category: Structure
-group: Structure
-subgroup: Price Action
+category: Utility
+group: Utility
+subgroup: Alerts
 score_current: 8/10
 version: Latest
 recommended_action: Mejorar

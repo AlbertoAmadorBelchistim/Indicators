@@ -1,9 +1,9 @@
 ---
 cs_file: ATRN.cs
 name: ATR Normalized
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Trend
+group: Trend
+subgroup: Volatility
 score_current: 3/10
 version: Estable
 recommended_action: Descartar

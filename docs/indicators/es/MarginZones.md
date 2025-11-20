@@ -1,9 +1,9 @@
 ---
 cs_file: MarginZones.cs
 name: Margin zones
-category: Structure
-group: Structure
-subgroup: Levels
+category: Uncategorized
+group: Uncategorized
+subgroup: Other
 score_current: 3/10
 version: ATAS Official
 recommended_action: Reparar

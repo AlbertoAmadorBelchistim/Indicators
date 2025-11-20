@@ -1,9 +1,9 @@
 ---
 cs_file: VerticalHorizontalFilter.cs
 name: Vertical Horizontal Filter
-category: Utility
-group: Utility
-subgroup: Stats
+category: Uncategorized
+group: Uncategorized
+subgroup: Other
 score_current: 8/10
 version: Stable
 recommended_action: Conservar

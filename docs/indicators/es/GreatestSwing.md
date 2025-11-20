@@ -3,7 +3,7 @@ cs_file: GreatestSwing.cs
 name: Greatest Swing Value
 category: Structure
 group: Structure
-subgroup: Profile
+subgroup: Price Action
 score_current: 7/10
 version: ATAS Official
 recommended_action: Conservar

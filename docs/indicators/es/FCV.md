@@ -1,9 +1,9 @@
 ---
 cs_file: FCV.cs
 name: Full Contract Value
-category: Structure
-group: Structure
-subgroup: Profile
+category: Order Flow
+group: Order Flow
+subgroup: Volume Profile
 score_current: 2/10
 version: ATAS Official
 recommended_action: Descartar

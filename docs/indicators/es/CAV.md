@@ -1,9 +1,9 @@
 ---
 cs_file: CAV.cs
 name: Cumulative Adjusted Value
-category: Order Flow
-group: Order Flow
-subgroup: Delta
+category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 5/10
 version: Estable
 recommended_action: Descartar

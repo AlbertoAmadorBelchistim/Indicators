@@ -1,9 +1,9 @@
 ---
 cs_file: OutsideBar.cs
 name: Outside Bar
-category: Structure
-group: Structure
-subgroup: Price Action
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 6/10
 version: ATAS Official
 recommended_action: Mejorar

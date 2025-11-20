@@ -1,9 +1,9 @@
 ---
 cs_file: CoppockCurve.cs
 name: Coppock Curve
-category: Structure
-group: Structure
-subgroup: Profile
+category: Oscillators
+group: Oscillators
+subgroup: MACD
 score_current: 3/10
 version: Estable
 recommended_action: Descartar

@@ -1,9 +1,9 @@
 ---
 cs_file: ChaikinOscillator.cs
 name: Chaikin Oscillator
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 3/10
 version: Estable
 recommended_action: Descartar

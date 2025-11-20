@@ -1,9 +1,9 @@
 ---
 cs_file: VBRR.cs
 name: Volume Bar Range Ratio
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Structure
+group: Structure
+subgroup: Price Action
 score_current: 7/10
 version: Stable
 recommended_action: Conservar

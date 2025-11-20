@@ -1,9 +1,9 @@
 ---
 cs_file: HurstExponent.cs
 name: Hurst Exponent
-category: Utility
-group: Utility
-subgroup: Stats
+category: Uncategorized
+group: Uncategorized
+subgroup: Other
 score_current: 8/10
 version: ATAS Official
 recommended_action: Conservar

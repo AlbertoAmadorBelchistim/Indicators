@@ -1,9 +1,9 @@
 ---
 cs_file: HVR.cs
 name: Historical Volatility Ratio
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Trend
+group: Trend
+subgroup: Volatility
 score_current: 7/10
 version: ATAS Official
 recommended_action: Conservar
