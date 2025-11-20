@@ -5,18 +5,19 @@ category: Oscillators
 group: Oscillators
 subgroup: Momentum
 score_current: 7/10
-version: ATAS Official
+version: Estable
 recommended_action: Conservar
-description: ¿Cuál es el momentum, basado en un RVI (calculado sobre StdDev) y suavizado
-  por una Regresión Lineal?
-gemini_summary: Implementación 'Quant' estable de un oscilador de 'doble suavizado';
-  crea un RVI personalizado basado en StdDev y luego lo suaviza con Regresión Lineal.
+description: ¿Cuál es el momentum basado en un RVI (sobre StdDev) y suavizado por Regresión?
+gemini_summary: "Implementación 'Quant' estable. RVI personalizado basado en StdDev + Regresión Lineal."
+comparison_group: "Complex Momentum"
+competitor_notes: "Superior a Inertia V1."
+reusable_code: null
 file_state: Estable
 score_potential: 7/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Inertia V2 (7/10)

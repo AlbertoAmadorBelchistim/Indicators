@@ -3,20 +3,21 @@ cs_file: KDJ.cs
 name: KDJ
 category: Oscillators
 group: Oscillators
-subgroup: Momentum
+subgroup: RSI/Stochastic
 score_current: 5/10
-version: ATAS Official
+version: Estable
 recommended_action: Reparar
-description: ¿Cuál es el valor del Estocástico Lento (%K, %D) más la línea de señal
-  %J (3*%K - 2*%D)?
-gemini_summary: Indicador 'Buggy' (UI). Hereda el mismo bug de UI que 'KdSlow' (dos
-  parámetros 'PeriodD'). El concepto (añadir línea %J) es 6.5/10, pero es inconfigurable.
+description: ¿Cuál es el valor del Estocástico Lento (%K, %D) más la línea de señal %J?
+gemini_summary: "Indicador 'Buggy' (UI). Hereda un bug de parámetros duplicados ('PeriodD'). Necesita reparación de UI."
+comparison_group: "Stochastic System"
+competitor_notes: "Compite con Stochastic."
+reusable_code: null
 file_state: Buggy
 score_potential: 6.5/10
 effort: Bajo
 action_priority: P3
 analysis_date: 2025-11-17
-official_code_date: 2025-05-15
+official_code_date: 15/05/2025
 ---
 
 ## 🟦 KDJ (5/10)

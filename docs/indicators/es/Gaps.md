@@ -5,19 +5,19 @@ category: Structure
 group: Structure
 subgroup: Static Levels
 score_current: 8.5/10
-version: ATAS Official
+version: Estable
 recommended_action: Conservar
-description: ¿Dónde están los huecos de precio (Gaps) que superan una desviación mínima
-  relativa al rango promedio?
-gemini_summary: Implementación 'Core' y avanzada de un detector de Gaps; su filtro
-  'MinDeviation' (vs rango promedio) y el 'Cierre Parcial' lo hacen profesional y
-  estable.
+description: ¿Dónde están los huecos de precio (Gaps) que superan una desviación mínima?
+gemini_summary: "Implementación 'Core' avanzada. Filtro 'MinDeviation' y 'Cierre Parcial' lo hacen profesional."
+comparison_group: "Gap Analysis"
+competitor_notes: "Complementario a Fair Value Gap."
+reusable_code: null
 file_state: Estable
 score_potential: 8.5/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Gaps (8.5/10)

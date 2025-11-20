@@ -3,20 +3,21 @@ cs_file: GMMA.cs
 name: Guppy Multiple Moving Average
 category: Trend
 group: Trend
-subgroup: Trend Filter
+subgroup: Moving Average
 score_current: 8.5/10
-version: ATAS Official
+version: Estable
 recommended_action: Conservar
-description: ¿Cuál es la relación (compresión/expansión) entre las 6 EMAs de traders
-  (cortas) y las 6 EMAs de inversores (largas)?
-gemini_summary: Implementación 'Core' y estable del GMMA; una herramienta de visualización
-  de tendencia/compresión indispensable, aunque el código es repetitivo.
+description: ¿Cuál es la relación (compresión/expansión) entre las 6 EMAs cortas y largas?
+gemini_summary: "Implementación 'Core' estable. Herramienta de visualización de tendencia/compresión indispensable."
+comparison_group: "Moving Average Systems"
+competitor_notes: "Sin competencia directa."
+reusable_code: null
 file_state: Estable
 score_potential: 8.5/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Guppy Multiple Moving Average (GMMA) (8.5/10)

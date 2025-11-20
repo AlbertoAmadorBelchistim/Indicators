@@ -5,19 +5,19 @@ category: Trend
 group: Trend
 subgroup: Trend Filter
 score_current: 5/10
-version: ATAS Official
+version: Estable
 recommended_action: Mejorar
-description: ¿Cuál es la línea de tendencia de regresión lineal (mínimos cuadrados)
-  de las últimas N barras?
-gemini_summary: Indicador 'Mejorable'. Implementación estándar de Regresión Lineal,
-  pero con un 'bug' de diseño (usa el índice 'bar' absoluto como 'x'), lo que puede
-  causar repintado/imprecisiones.
+description: ¿Cuál es la línea de tendencia de regresión lineal de las últimas N barras?
+gemini_summary: "Implementación estándar. Bug de diseño (usa índice absoluto como X). Mejorable."
+comparison_group: "Regression Analysis"
+competitor_notes: "Básico."
+reusable_code: null
 file_state: Mejorable
 score_potential: 6.5/10
 effort: Bajo
 action_priority: P4
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Linear Regression (5/10)

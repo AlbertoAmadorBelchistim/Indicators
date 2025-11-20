@@ -1,22 +1,23 @@
 ---
 cs_file: HeikenAshiSmoothed.cs
 name: Heiken Ashi Smoothed
-category: Structure
-group: Structure
-subgroup: Price Action
+category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 5/10
-version: ATAS Official
+version: Estable
 recommended_action: Mejorar
-description: ¿Cómo se vería el precio usando velas Heiken Ashi "doblemente suavizadas"
-  (SMMA + HA + WMA)?
-gemini_summary: 'Implementación ''Mejorable'' de un indicador de lag extremo (triple
-  suavizado: SMMA + HA + WMA). Tiene un bug en ''bar == 0'' que crea una vela inconsistente.'
+description: ¿Cómo se vería el precio usando velas Heiken Ashi doblemente suavizadas?
+gemini_summary: "Indicador de lag extremo (triple suavizado). Bug en 'bar == 0'. Mejorable pero lento."
+comparison_group: "Trend Filter"
+competitor_notes: "Inferior a SuperTrend."
+reusable_code: null
 file_state: Mejorable
 score_potential: 6/10
 effort: Bajo
 action_priority: P4
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Heiken Ashi Smoothed (5/10)

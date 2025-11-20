@@ -1,23 +1,24 @@
 ---
 cs_file: InitialBalanceModif.cs
 name: Initial Balance Modif
-category: Uncategorized
-group: Uncategorized
-subgroup: Other
+category: Structure
+group: Structure
+subgroup: Static Levels
 score_current: 9/10
-version: Modif.
+version: Latest
 recommended_action: Conservar
-description: ¿Cuáles son el rango de apertura (IB) y sus expansiones proyectadas (IBHX/IBLX)
-  para la sesión actual?
-gemini_summary: Versión 'Modif' superior que repara el original; usa 'OnRender' para
-  etiquetas limpias y 'snapshotting' para niveles históricos estables. 'Core' de niveles.
+description: ¿Cuáles son el rango de apertura (IB) y sus expansiones para la sesión actual?
+gemini_summary: "Versión 'Modif' superior. Usa 'OnRender' para etiquetas limpias y 'snapshotting' para niveles históricos."
+comparison_group: "Session Levels"
+competitor_notes: "Líder en niveles de sesión."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-05-8
-user_modification_date: 2025-11-17
+official_code_date: 08/05/2025
+user_modification_date: 17/11/2025
 ---
 
 ## 🟦 Initial Balance Modif (9/10)

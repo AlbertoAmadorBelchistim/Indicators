@@ -3,20 +3,21 @@ cs_file: LinRegChannel.cs
 name: Linear Regression Channel
 category: Trend
 group: Trend
-subgroup: Volatility
+subgroup: Trend Filter
 score_current: 3/10
-version: ATAS Official
+version: Estable
 recommended_action: Reparar
-description: ¿Cuál es el canal de tendencia dominante (regresión lineal) y dónde están
-  sus límites de desviación estándar?
-gemini_summary: Concepto excelente (canal + flecha) pero ROTO por un bug crítico de
-  división por cero si InstrumentInfo.TickSize es 0.
+description: ¿Cuál es el canal de tendencia dominante y sus límites de desviación?
+gemini_summary: "Concepto excelente pero ROTO por bug de división por cero. Prioridad P1."
+comparison_group: "Regression Channel"
+competitor_notes: "Potencialmente excelente."
+reusable_code: null
 file_state: Roto
 score_potential: 9/10
 effort: Bajo
 action_priority: P1
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Linear Regression Channel (3/10)

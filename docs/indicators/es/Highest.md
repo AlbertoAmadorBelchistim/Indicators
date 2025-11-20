@@ -1,22 +1,23 @@
 ---
 cs_file: Highest.cs
 name: Highest
-category: Uncategorized
-group: Uncategorized
-subgroup: Other
+category: Structure
+group: Structure
+subgroup: Static Levels
 score_current: 6/10
-version: ATAS Official
+version: Estable
 recommended_action: Descartar
-description: ¿Cuál es el valor más alto del "Source" (por defecto, el Cierre) de las
-  últimas N barras?
-gemini_summary: Indicador estable que traza el 'Highest Close' (por defecto). Es funcionalmente
-  redundante y menos útil que el indicador 'HighLow' (Donchian Channel).
+description: ¿Cuál es el valor más alto del cierre de las últimas N barras?
+gemini_summary: "Redundante. Menos útil que el indicador 'HighLow' (Donchian Channel)."
+comparison_group: "Price Extremes"
+competitor_notes: "Inferior a Donchian."
+reusable_code: null
 file_state: Estable
 score_potential: 6/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Highest (6/10)

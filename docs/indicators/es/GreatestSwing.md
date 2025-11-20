@@ -3,20 +3,21 @@ cs_file: GreatestSwing.cs
 name: Greatest Swing Value
 category: Structure
 group: Structure
-subgroup: Price Action
+subgroup: Static Levels
 score_current: 7/10
-version: ATAS Official
+version: Estable
 recommended_action: Conservar
-description: ¿Dónde están los niveles S/R dinámicos, proyectados desde el Open actual
-  usando la media de los 'swings de rechazo' anteriores?
-gemini_summary: Implementación estable de un canal de volatilidad; proyecta la media
-  (con lag de 1 barra) de los 'swings de rechazo' (mechas) desde el Open actual.
+description: ¿Dónde están los niveles S/R dinámicos, proyectados desde el Open actual?
+gemini_summary: "Implementación estable. Proyecta la media de los 'swings de rechazo' (mechas). Útil para volatilidad."
+comparison_group: "Volatility Range"
+competitor_notes: "Alternativa a ADR."
+reusable_code: null
 file_state: Estable
 score_potential: 7/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Greatest Swing Value (7/10)

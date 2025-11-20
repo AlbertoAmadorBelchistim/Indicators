@@ -5,19 +5,19 @@ category: Trend
 group: Trend
 subgroup: Volatility
 score_current: 7.5/10
-version: ATAS Official
+version: Estable
 recommended_action: Reparar
-description: ¿Dónde se sitúan las bandas de volatilidad (SMA +/- ATR * Multiplicador)
-  y el precio se está aproximando a ellas?
-gemini_summary: 'Indicador ''Core'' de canal de volatilidad (SMA+ATR), con excelentes
-  alertas de proximidad. ''Buggy'' (Bajo): la alerta de la banda inferior usa el archivo
-  de sonido de la banda superior.'
+description: ¿Dónde se sitúan las bandas de volatilidad (SMA +/- ATR)?
+gemini_summary: "Indicador 'Core' de volatilidad. Bug menor en alertas (sonido incorrecto)."
+comparison_group: "Volatility Channel"
+competitor_notes: "Alternativa a Bollinger."
+reusable_code: null
 file_state: Buggy
 score_potential: 8/10
 effort: Bajo
 action_priority: P4
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Keltner Channel (7.5/10)

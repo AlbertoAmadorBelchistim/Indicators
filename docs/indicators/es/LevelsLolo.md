@@ -1,23 +1,23 @@
 ---
 cs_file: LevelsLolo.cs
 name: LevelsLolo
-category: Uncategorized
-group: Uncategorized
-subgroup: Other
+category: Structure
+group: Structure
+subgroup: Static Levels
 score_current: 9/10
-version: Modif.
+version: Estable
 recommended_action: Conservar
-description: ¿Dónde están los niveles clave externos (ej. SpotGamma) y cuál es su
-  jerarquía de importancia (Rank, Tipo, 0DTE)?
-gemini_summary: Indicador 'Core' de visualización (OnRender); parsea texto de niveles
-  (SpotGamma), los renderiza con jerarquía (Rank/Tipo) y acentos (0DTE). Estable y
-  profesional.
+description: ¿Dónde están los niveles clave externos (ej. SpotGamma)?
+gemini_summary: "Indicador 'Core' de visualización. Parsea texto y dibuja niveles jerárquicos. Profesional."
+comparison_group: "Level Manager"
+competitor_notes: "Líder en gestión de niveles externos."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-user_modification_date: 2025-10-30
+user_modification_date: 30/10/2025
 ---
 
 ## 🟦 LevelsLolo (9/10)

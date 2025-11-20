@@ -3,20 +3,21 @@ cs_file: HMA.cs
 name: Hull Moving Average
 category: Trend
 group: Trend
-subgroup: Trend Filter
+subgroup: Moving Average
 score_current: 8/10
-version: ATAS Official
+version: Estable
 recommended_action: Conservar
-description: ¿Cuál es el valor de la media móvil de Hull (HMA), una media rápida y
-  de bajo lag coloreada por pendiente?
-gemini_summary: Implementación 'Core' y estable de la HMA; una media móvil rápida
-  y de bajo lag, ideal para filtrar la tendencia a corto plazo.
+description: ¿Cuál es el valor de la media móvil de Hull?
+gemini_summary: "Implementación 'Core' estable. Media móvil rápida y de bajo lag. Indispensable."
+comparison_group: "Fast MA"
+competitor_notes: "Líder en medias rápidas."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Hull Moving Average (HMA) (8/10)

@@ -1,22 +1,23 @@
 ---
 cs_file: Kurtosis.cs
 name: Kurtosis
-category: Uncategorized
-group: Uncategorized
-subgroup: Other
+category: Trend
+group: Trend
+subgroup: Volatility
 score_current: 5/10
-version: ATAS Official
+version: Estable
 recommended_action: Conservar
-description: ¿Cuál es la "pesadez de las colas" (Kurtosis) de la distribución de precios,
-  para medir la frecuencia de eventos extremos?
-gemini_summary: Implementación 'Quant' estable de Kurtosis (poblacional y muestral).
-  Teóricamente 'Buggy' (riesgo div/0), pero su utilidad para scalping es casi nula.
+description: ¿Cuál es la 'pesadez de las colas' de la distribución de precios?
+gemini_summary: "Implementación 'Quant' estable. Teóricamente útil para riesgo, pero irrelevante para scalping directo."
+comparison_group: "Statistical Analysis"
+competitor_notes: "Sin competencia."
+reusable_code: null
 file_state: Estable
 score_potential: 5/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Kurtosis (5/10)

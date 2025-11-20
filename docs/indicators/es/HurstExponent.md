@@ -1,23 +1,23 @@
 ---
 cs_file: HurstExponent.cs
 name: Hurst Exponent
-category: Uncategorized
-group: Uncategorized
-subgroup: Other
+category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 8/10
-version: ATAS Official
+version: Estable
 recommended_action: Conservar
-description: ¿El comportamiento del mercado es tendencial (persistente, H>0.5), de
-  reversión (antipersistente, H<0.5) o aleatorio (H=0.5)?
-gemini_summary: Implementación 'Quant' estable del exponente de Hurst (R/S); una herramienta
-  de 'régimen' de alto nivel, aunque su uso de 'Math.Abs()' es una peculiaridad de
-  diseño.
+description: ¿El comportamiento del mercado es tendencial, de reversión o aleatorio?
+gemini_summary: "Implementación 'Quant' estable del exponente de Hurst. Herramienta de 'régimen' de alto nivel."
+comparison_group: "Market Regime"
+competitor_notes: "Único en su clase (R/S analysis)."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Hurst Exponent (8/10)

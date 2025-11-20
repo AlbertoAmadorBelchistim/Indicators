@@ -3,21 +3,21 @@ cs_file: KdSlow.cs
 name: KD - Slow
 category: Oscillators
 group: Oscillators
-subgroup: Momentum
+subgroup: RSI/Stochastic
 score_current: 6/10
-version: ATAS Official
+version: Estable
 recommended_action: Reparar
-description: ¿Cuál es el valor del oscilador Estocástico Lento (%K Lento = SMA(%K
-  Rápido), %D Lento = SMA(%D Rápido))?
-gemini_summary: Indicador 'Buggy' (UI). El concepto (Estocástico Lento) es 7/10, pero
-  tiene dos parámetros con el mismo nombre ('PeriodD') en la UI, haciendo la configuración
-  confusa e inutilizable.
+description: ¿Cuál es el valor del oscilador Estocástico Lento?
+gemini_summary: "Indicador 'Buggy' (UI). Tiene dos parámetros con el mismo nombre ('PeriodD'). Confuso."
+comparison_group: "Stochastic Variant"
+competitor_notes: "Inferior a Stochastic."
+reusable_code: null
 file_state: Buggy
 score_potential: 7/10
 effort: Bajo
 action_priority: P3
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 KD - Slow (6/10)

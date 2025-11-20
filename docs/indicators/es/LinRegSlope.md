@@ -5,18 +5,19 @@ category: Trend
 group: Trend
 subgroup: Trend Filter
 score_current: 1/10
-version: ATAS Official
+version: Estable
 recommended_action: Reparar
-description: ¿Cuál es la pendiente (dirección e intensidad) de la tendencia en el
-  período reciente?
-gemini_summary: ROTO. Causa una división por cero si Period=1, un valor permitido
-  por la UI [Range(1, ...)], resultando en un crash.
+description: ¿Cuál es la pendiente de la tendencia en el período reciente?
+gemini_summary: "ROTO. Causa división por cero si Period=1. Crash seguro."
+comparison_group: "Trend Slope"
+competitor_notes: "Inutilizable actualmente."
+reusable_code: null
 file_state: Roto
 score_potential: 7/10
 effort: Bajo
 action_priority: P1
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Linear Regression Slope (1/10)

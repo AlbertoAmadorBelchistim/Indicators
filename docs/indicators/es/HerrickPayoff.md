@@ -6,18 +6,18 @@ group: Order Flow
 subgroup: Open Interest
 score_current: 3/10
 version: Estable
-recommended_action: Descartar
-description: ¿Cuál es la fuerza del movimiento (Precio + Volumen + Open Interest)? (Implementación Rota)
-gemini_summary: "Indicador 'vintage' complejo y oscuro. Intenta combinar Precio, Volumen y OI en una sola línea. En scalping moderno, preferimos ver el OI desglosado (OI Analyzer) en lugar de mezclado en una fórmula mágica."
+recommended_action: Reparar
+description: ¿Cuál es la fuerza del movimiento (Precio + Volumen + OI)?
+gemini_summary: "Indicador 'Roto'. Concepto 8/10 pero implementación de 'Smooth' errónea. Complejo y oscuro."
 comparison_group: "Open Interest Analysis"
-competitor_notes: "Inferior a OI Analyzer por falta de claridad."
+competitor_notes: "Inferior a OI Analyzer."
 reusable_code: null
-file_state: Estable
-score_potential: 3/10
-effort: N/A
-action_priority: N/A
-analysis_date: 2025-11-20
-official_code_date: 2025-02-28
+file_state: Roto
+score_potential: 8/10
+effort: Medio
+action_priority: P2
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Herrick Payoff Index (HPI) (3/10)

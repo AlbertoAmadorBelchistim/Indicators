@@ -5,17 +5,19 @@ category: Oscillators
 group: Oscillators
 subgroup: Momentum
 score_current: 6.5/10
-version: ATAS Official
+version: Estable
 recommended_action: Descartar
 description: ¿Cuál es el momentum del RVI, suavizado por una Regresión Lineal?
-gemini_summary: Indicador 'Derivado' y estable que aplica un 'doble suavizado' (RVI
-  + LinearReg). Es redundante con 'Inertia2' y tiene un lag considerable.
+gemini_summary: "Indicador 'Derivado' estable. Redundante con 'Inertia2' y tiene un lag considerable."
+comparison_group: "Complex Momentum"
+competitor_notes: "Inferior a Inertia V2."
+reusable_code: null
 file_state: Estable
 score_potential: 6.5/10
 effort: N/A
-action_priority: N/A
+action_priority: P4
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Inertia (6.5/10)

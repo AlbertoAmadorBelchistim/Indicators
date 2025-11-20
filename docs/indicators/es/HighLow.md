@@ -5,18 +5,19 @@ category: Structure
 group: Structure
 subgroup: Static Levels
 score_current: 7/10
-version: ATAS Official
+version: Estable
 recommended_action: Conservar
-description: ¿Cuál es el rango de precio (máximo más alto y mínimo más bajo) de las
-  últimas N barras?
-gemini_summary: Implementación 'Core' y estable del canal de precios (Donchian Channel),
-  que traza el High más alto y el Low más bajo de las últimas N barras.
+description: ¿Cuál es el rango de precio (máximo y mínimo) de las últimas N barras?
+gemini_summary: "Implementación 'Core' del Canal Donchian. Estable y útil."
+comparison_group: "Channel Breakout"
+competitor_notes: "Duplicado de Donchian Channel (misma lógica)."
+reusable_code: null
 file_state: Estable
 score_potential: 7/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Highest High / Lowest Low Over N Bars (7/10)

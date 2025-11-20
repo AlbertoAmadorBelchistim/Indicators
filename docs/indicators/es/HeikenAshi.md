@@ -5,18 +5,19 @@ category: Structure
 group: Structure
 subgroup: Price Action
 score_current: 6.5/10
-version: ATAS Official
+version: Estable
 recommended_action: Conservar
-description: ¿Cómo se vería el precio usando velas Heiken Ashi estándar para suavizar
-  la tendencia?
-gemini_summary: Implementación 'Core' y estable de las velas Heiken Ashi estándar;
-  la lógica 'Days' es una optimización, no un bug.
+description: ¿Cómo se vería el precio usando velas Heiken Ashi estándar?
+gemini_summary: "Implementación 'Core' estable. Lógica estándar."
+comparison_group: "Candle Type"
+competitor_notes: "Alternativa a Bionic Candle."
+reusable_code: null
 file_state: Estable
 score_potential: 6.5/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Heiken Ashi (6.5/10)

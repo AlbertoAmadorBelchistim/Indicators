@@ -5,18 +5,19 @@ category: Order Flow
 group: Order Flow
 subgroup: Footprint
 score_current: 9/10
-version: ATAS Official
+version: Estable
 recommended_action: Conservar
-description: ¿Dónde se están produciendo desequilibrios (imbalances) diagonales de
-  Ask vs. Bid en el clúster que superan un ratio y volumen mínimos?
-gemini_summary: Implementación 'Core' y estable del Imbalance de clúster (diagonal);
-  incluye filtros clave (Ratio, VolumeFilter) y un resumen de texto en la vela.
+description: ¿Dónde se están produciendo desequilibrios diagonales de Ask vs. Bid en el clúster?
+gemini_summary: "Implementación 'Core' estable del Imbalance de clúster. Filtros clave y resumen de texto."
+comparison_group: "Imbalance Analysis"
+competitor_notes: "Estándar para imbalances."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-05-27
+official_code_date: 27/05/2025
 ---
 
 ## 🟦 Imbalance Ratio (9/10)

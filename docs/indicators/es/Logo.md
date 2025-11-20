@@ -1,21 +1,23 @@
 ---
 cs_file: Logo.cs
 name: Background Picture
-category: Structure
-group: Structure
-subgroup: Static Levels
+category: Utility
+group: Utility
+subgroup: Visuals
 score_current: 2/10
-version: ATAS Official
+version: Estable
 recommended_action: Conservar
 description: ¿Cómo puedo superponer una imagen o logo personalizado en el gráfico?
-gemini_summary: Utilidad visual estable para branding o decoración; no es un indicador
-  de trading. El código es seguro.
+gemini_summary: "Utilidad visual para branding. Código seguro y estable."
+comparison_group: "Drawing Tools"
+competitor_notes: "Único en su clase."
+reusable_code: null
 file_state: Estable
 score_potential: 2/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Background Picture (2/10)

@@ -5,18 +5,19 @@ category: Trend
 group: Trend
 subgroup: Volatility
 score_current: 7/10
-version: ATAS Official
+version: Estable
 recommended_action: Conservar
-description: ¿Está el mercado 'comprimido' (HVR<1) o 'explotando' (HVR>1) en relación
-  con su volatilidad histórica?
-gemini_summary: Implementación 'Quant' y estable de un filtro de régimen de volatilidad;
-  calcula el ratio de StdDev(Log-Returns) de corto plazo vs. largo plazo.
+description: ¿Está el mercado 'comprimido' o 'explotando' en relación con su volatilidad histórica?
+gemini_summary: "Implementación 'Quant' estable. Filtro de régimen de volatilidad (StdDev corto vs largo)."
+comparison_group: "Volatility Regime"
+competitor_notes: "Compite con Squeeze."
+reusable_code: null
 file_state: Estable
 score_potential: 7/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Historical Volatility Ratio (7/10)
