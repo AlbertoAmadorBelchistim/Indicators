@@ -7,14 +7,15 @@ subgroup: Momentum
 score_current: 2/10
 version: Estable
 recommended_action: Descartar
-description: ¿Está el momentum reciente a corto plazo (5 barras) ganando la batalla
-  contra el momentum de la tendencia a largo plazo (34 barras)?
-gemini_summary: '"Impostor" (2/10). Lógica de color incorrecta (AC), UI rota (sin
-  línea cero) e ineficiente (for loop).'
+description: ¿Está el momentum reciente a corto plazo ganando la batalla contra el momentum a largo plazo?
+gemini_summary: "Impostor. Lógica de color incorrecta (AC), UI rota (sin línea cero) e ineficiente."
+comparison_group: "Classic Momentum"
+competitor_notes: "Inferior a MACD."
+reusable_code: null
 file_state: Impostor
 score_potential: 2/10
 effort: N/A
-action_priority: P4 (Descartar)
+action_priority: P4
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---

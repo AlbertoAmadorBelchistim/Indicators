@@ -1,20 +1,21 @@
 ---
 cs_file: BarDifference.cs
 name: Bar Difference
-category: Uncategorized
-group: Uncategorized
-subgroup: Other
+category: Structure
+group: Structure
+subgroup: Price Action
 score_current: 3/10
 version: Estable
 recommended_action: Descartar
-description: ¿Cuántos ticks ha subido o bajado el precio (Cierre) en comparación con
-  hace X velas?
-gemini_summary: Inútil (3/10). Es un indicador de "Momentum" (ROC) ruidoso y redundante.
-  El default (Period=1) es puro ruido.
+description: ¿Cuántos ticks ha subido o bajado el precio (Cierre) en comparación con hace X velas?
+gemini_summary: "Inútil (3/10). Es un indicador de 'Momentum' (ROC) ruidoso y redundante. El default (Period=1) es puro ruido."
+comparison_group: "Price Momentum"
+competitor_notes: "Inferior a ROC."
+reusable_code: null
 file_state: Estable (Redundante)
 score_potential: 3/10
 effort: N/A
-action_priority: P4 (Descartar)
+action_priority: P4
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---

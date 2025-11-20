@@ -7,14 +7,15 @@ subgroup: Trend Filter
 score_current: 6/10
 version: Estable
 recommended_action: Mejorar
-description: ¿Está el mercado en una fuerte tendencia (alcista o bajista), o simplemente
-  está 'oscilando' lateralmente?
-gemini_summary: Filtro de régimen clásico (6/10). Fiel a la fórmula de Wilder (RMA).
-  Su lag extremo es por diseño, no es un bug.
+description: ¿Está el mercado en una fuerte tendencia (alcista o bajista), o simplemente está 'oscilando' lateralmente?
+gemini_summary: "Filtro de régimen clásico (6/10). Fiel a la fórmula de Wilder (RMA). Su lag extremo es por diseño, no es un bug."
+comparison_group: "Trend Strength"
+competitor_notes: "El estándar de la industria. Otros intentan mejorarlo (ADXR) sin éxito."
+reusable_code: null
 file_state: Estable
 score_potential: 7/10
 effort: Bajo
-action_priority: P3 (Mejora Opcional)
+action_priority: P3
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---

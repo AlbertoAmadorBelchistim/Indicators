@@ -8,14 +8,16 @@ score_current: 1/10
 version: Estable
 recommended_action: Descartar
 description: ¿Cuál es la _tendencia suavizada (lenta)_ del flujo de volumen acumulado?
-gemini_summary: '"Lag sobre lag" (1/10). Es el AD (ya obsoleto y roto) con una SMA(14).
-  Inútil para scalping.'
-file_state: Roto
+gemini_summary: "Lag sobre lag. Aplica una media móvil a un indicador (AD) que ya es una estimación imprecisa del volumen. Totalmente inútil para scalping."
+comparison_group: "Classic Volume"
+competitor_notes: "Obsoleto frente a CVD."
+reusable_code: null
+file_state: Estable
 score_potential: 1/10
 effort: N/A
-action_priority: P4 (Descartar)
-analysis_date: 2025-11-17
-official_code_date: 23/04/2025
+action_priority: N/A
+analysis_date: 2025-11-20
+official_code_date: 2025-04-23
 ---
 
 ## 🟦 Accumulation / Distribution Flow (1/10)

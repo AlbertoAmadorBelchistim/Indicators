@@ -8,15 +8,15 @@ score_current: 5/10
 version: Estable
 recommended_action: Fusionar Lógica
 description: ¿Cuál es la presión agresiva promedio (Delta) durante las últimas X velas?
-gemini_summary: "Indicador 'Huérfano'. La idea de suavizar el delta con una SMA/EMA es válida para ver el régimen de fondo, pero no justifica un indicador separado. Esta lógica debería integrarse como una opción dentro de 'MultiMarketPower'."
+gemini_summary: "Indicador 'Huérfano'. La idea de suavizar el delta con una SMA/EMA es válida para ver el régimen de fondo, pero no justifica un indicador separado."
 comparison_group: "Bar Delta"
 competitor_notes: "Su funcionalidad es una característica, no un producto completo."
-reusable_code: "Lógica de cálculo de SMA/EMA sobre valores puros de Delta (no acumulado)"
+reusable_code: "Lógica de cálculo de SMA/EMA sobre valores puros de Delta"
 file_state: Estable
 score_potential: 5/10
-effort: Medio (Fusionar)
+effort: Medio
 action_priority: Medio
-analysis_date: 2025-11-19
+analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---
 

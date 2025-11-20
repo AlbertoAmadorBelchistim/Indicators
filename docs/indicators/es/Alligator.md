@@ -7,14 +7,15 @@ subgroup: Trend Filter
 score_current: 6/10
 version: Estable
 recommended_action: Conservar
-description: ¿Está el mercado 'durmiendo' (en rango, con las medias entrelazadas)
-  o está 'despierto y comiendo' (en tendencia, con las medias abiertas)?
-gemini_summary: Filtro de régimen clásico (6/10). Implementación correcta (SMMA +
-  Shifts) pero con lag masivo por diseño.
+description: ¿Está el mercado 'durmiendo' (en rango, con las medias entrelazadas) o está 'despierto y comiendo' (en tendencia)?
+gemini_summary: "Filtro de régimen clásico. Implementación correcta (SMMA + Shifts) pero con lag masivo por diseño."
+comparison_group: "Moving Average Systems"
+competitor_notes: "Sistema clásico. Útil para identificar rangos."
+reusable_code: null
 file_state: Estable
 score_potential: 6/10
 effort: N/A
-action_priority: P3 (Mejora Opcional)
+action_priority: P3
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---

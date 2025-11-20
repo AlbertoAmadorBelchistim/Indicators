@@ -7,10 +7,11 @@ subgroup: Footprint
 score_current: 10/10
 version: Stable
 recommended_action: Conservar
-description: ¿En qué niveles de precio se frenó el mercado a pesar de una gran agresión
-  de volumen?
-gemini_summary: Detector de absorción intra-vela. Compara Bid vs Ask en cada nivel
-  de precio. Crítico para scalping.
+description: ¿En qué niveles de precio se frenó el mercado a pesar de una gran agresión de volumen?
+gemini_summary: "Detector de absorción intra-vela. Compara Bid vs Ask en cada nivel de precio. Crítico para scalping."
+comparison_group: "Cluster Analysis"
+competitor_notes: "Único en su clase por la visualización específica de absorción."
+reusable_code: null
 file_state: Estable
 score_potential: 10/10
 effort: Medio

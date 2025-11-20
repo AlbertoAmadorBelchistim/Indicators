@@ -1,20 +1,21 @@
 ---
 cs_file: BarRange.cs
 name: Bar Range
-category: Structure
-group: Structure
-subgroup: Price Action
+category: Trend
+group: Trend
+subgroup: Volatility
 score_current: 5/10
 version: Estable
 recommended_action: Descartar
-description: ¿Cuál es el rango (Máximo - Mínimo) de cada vela, y cuál ha sido el rango
-  más alto de las últimas X velas?
-gemini_summary: 'Inútil y 100% redundante (5/10). Es un "ATR tonto": ignora gaps y
-  no está suavizado. Usar ATR en su lugar.'
+description: ¿Cuál es el rango (Máximo - Mínimo) de cada vela?
+gemini_summary: "Inútil y 100% redundante (5/10). Es un 'ATR tonto': ignora gaps y no está suavizado. Usar ATR en su lugar."
+comparison_group: "Range Analysis"
+competitor_notes: "Inferior a ATR."
+reusable_code: null
 file_state: Estable (Redundante)
 score_potential: 5/10
 effort: N/A
-action_priority: P4 (Descartar)
+action_priority: P4
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---

@@ -3,21 +3,21 @@ cs_file: HerrickPayoff.cs
 name: Herrick Payoff Index (HPI)
 category: Order Flow
 group: Order Flow
-subgroup: Volume
+subgroup: Open Interest
 score_current: 3/10
-version: ATAS Official
-recommended_action: Reparar
-description: ¿Cuál es la fuerza del movimiento (Precio + Volumen + Open Interest)?
-  (Implementación Rota)
-gemini_summary: Indicador 'Roto'; el concepto (Precio+Vol+OI) es 8/10, but la implementación
-  del 'Smooth' no es un suavizado, sino un acumulador de diferencias que genera valores
-  erróneos.
-file_state: Roto
-score_potential: 8/10
-effort: Medio
-action_priority: P2
-analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+version: Estable
+recommended_action: Descartar
+description: ¿Cuál es la fuerza del movimiento (Precio + Volumen + Open Interest)? (Implementación Rota)
+gemini_summary: "Indicador 'vintage' complejo y oscuro. Intenta combinar Precio, Volumen y OI en una sola línea. En scalping moderno, preferimos ver el OI desglosado (OI Analyzer) en lugar de mezclado en una fórmula mágica."
+comparison_group: "Open Interest Analysis"
+competitor_notes: "Inferior a OI Analyzer por falta de claridad."
+reusable_code: null
+file_state: Estable
+score_potential: 3/10
+effort: N/A
+action_priority: N/A
+analysis_date: 2025-11-20
+official_code_date: 2025-02-28
 ---
 
 ## 🟦 Herrick Payoff Index (HPI) (3/10)

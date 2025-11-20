@@ -3,20 +3,21 @@ cs_file: CotHigh.cs
 name: COT High/Low
 category: Order Flow
 group: Order Flow
-subgroup: Volume
+subgroup: Delta
 score_current: 2/10
 version: Estable
 recommended_action: Descartar
-description: '''(Teóricamente) Acumula el delta desde un nuevo máximo (High) o mínimo''
-  (Low), pero la lógica está rota.'
-gemini_summary: Indicador Roto (lógica 'Low' no implementada), pero el concepto de
-  'Delta desde el Swing' es valioso para scalping y merece ser reparado.
-file_state: Roto
-score_potential: 6/10
-effort: Bajo
-action_priority: P3
-analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+description: '(Teóricamente) Acumula el delta desde un nuevo máximo (High) o mínimo (Low), pero la lógica está rota.'
+gemini_summary: "Intento fallido de crear un 'Delta desde máximos'. La lógica de reinicio es simplista y genera ruido constante. Inferior a cualquier perfil de volumen o Weis Wave."
+comparison_group: "Bar Delta"
+competitor_notes: "Perdedor frente a DeltaModif o Weis Wave."
+reusable_code: null
+file_state: Estable
+score_potential: 2/10
+effort: N/A
+action_priority: N/A
+analysis_date: 2025-11-20
+official_code_date: 2025-02-25
 ---
 
 ## 🟦 COT High/Low (2/10)

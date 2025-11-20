@@ -7,10 +7,11 @@ subgroup: Footprint
 score_current: 9/10
 version: Stable
 recommended_action: Conservar
-description: ¿Dónde están las operaciones grandes relativas a la liquidez actual (sin
-  configurar filtros fijos)?
-gemini_summary: Calcula dinámicamente el umbral de 'Big Trade' usando percentiles
-  estadísticos. Excelente UX.
+description: ¿Dónde están las operaciones grandes relativas a la liquidez actual (sin configurar filtros fijos)?
+gemini_summary: "Calcula dinámicamente el umbral de 'Big Trade' usando percentiles estadísticos. Excelente UX."
+comparison_group: "Big Trades Analysis"
+competitor_notes: "Compite directamente con Big Trades (Fijo). Su ventaja es la adaptabilidad."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: Bajo

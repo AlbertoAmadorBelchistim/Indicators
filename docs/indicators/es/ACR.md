@@ -1,19 +1,21 @@
 ---
 cs_file: ACR.cs
 name: Average Candle Range
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Trend
+group: Trend
+subgroup: Volatility
 score_current: 4/10
 version: Estable
 recommended_action: Descartar
 description: ¿Cuál es el tamaño promedio de una vela en lo que va de día?
-gemini_summary: Inútil (4/10). Lógica de "Promedio de Sesión" y redundante con ATR.cs,
-  que es el indicador superior.
-file_state: Estable (Conceptualm. Roto)
+gemini_summary: "Inútil (4/10). Redundante con ATR.cs, que es el indicador superior."
+comparison_group: "Volatility Range"
+competitor_notes: "Inferior al ATR."
+reusable_code: null
+file_state: Estable
 score_potential: 4/10
 effort: N/A
-action_priority: P4 (Descartar)
+action_priority: P4
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---

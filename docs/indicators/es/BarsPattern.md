@@ -7,14 +7,15 @@ subgroup: Price Action
 score_current: 9/10
 version: Estable
 recommended_action: Mejorar
-description: ¿Qué velas de este gráfico cumplen _todos_ mis criterios específicos
-  y multicapa para un setup de alta calidad (Volumen, Delta, forma de vela, etc.)?
-gemini_summary: '"Buscador de Setups" (9/10). Herramienta "Pro" para definir patrones
-  VSA/Delta. Su único fallo es un cálculo de SMA ineficiente (for loop).'
+description: ¿Qué velas de este gráfico cumplen TODOS mis criterios específicos de forma?
+gemini_summary: "'Buscador de Setups' (9/10). Herramienta 'Pro' para definir patrones VSA/Delta. Su único fallo es un cálculo de SMA ineficiente."
+comparison_group: "Pattern Recognition"
+competitor_notes: "Líder en su clase."
+reusable_code: null
 file_state: Mejorable (Ineficiente)
 score_potential: 10/10
-effort: Bajo (Arreglar SMA) / Alto (Añadir 'OR')
-action_priority: P1 (Arreglo Rápido)
+effort: Bajo
+action_priority: P1
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---

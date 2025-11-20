@@ -1,20 +1,21 @@
 ---
 cs_file: ADR.cs
 name: ADR
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Trend
+group: Trend
+subgroup: Volatility
 score_current: 7/10
 version: Estable
 recommended_action: Mejorar
-description: ¿Cuál es el rango de movimiento "normal" o "promedio" para este instrumento
-  en una sesión, y dónde se proyectarían esos límites hoy?
-gemini_summary: Contexto esencial (7/10), pero con un fallo conceptual. Ignora gaps
-  (usa Rango, no ATR).
+description: ¿Cuál es el rango de movimiento "normal" o "promedio" para este instrumento en una sesión, y dónde se proyectarían esos límites hoy?
+gemini_summary: "Contexto esencial (7/10), pero con un fallo conceptual. Ignora gaps (usa Rango, no ATR)."
+comparison_group: "Range Analysis"
+competitor_notes: "Compite con ATR y Daily Range."
+reusable_code: null
 file_state: Mejorable
 score_potential: 9/10
 effort: Bajo
-action_priority: P1 (Arreglo Rápido)
+action_priority: P1
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---

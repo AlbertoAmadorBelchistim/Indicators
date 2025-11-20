@@ -1,20 +1,21 @@
 ---
 cs_file: AroonOscillator.cs
 name: Aroon Oscillator
-category: Oscillators
-group: Oscillators
-subgroup: Momentum
+category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 3/10
 version: Estable
 recommended_action: Descartar
-description: ¿Qué fuerza es más fuerte y reciente, la que está creando nuevos máximos
-  (AroonUp) o la que está creando nuevos mínimos (AroonDown)?
-gemini_summary: Inútil (3/10). Es un "wrapper" que resta los valores de AroonIndicator
-  (otro P4). Redundante y ruidoso.
+description: ¿Qué fuerza es más fuerte y reciente, la que está creando nuevos máximos o mínimos?
+gemini_summary: "Inútil. Es un 'wrapper' que resta los valores de AroonIndicator. Redundante y ruidoso."
+comparison_group: "Trend Strength"
+competitor_notes: "Inferior a ADX."
+reusable_code: null
 file_state: Estable (Redundante)
 score_potential: 3/10
 effort: N/A
-action_priority: P4 (Descartar)
+action_priority: P4
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---

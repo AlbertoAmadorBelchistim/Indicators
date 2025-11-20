@@ -7,14 +7,15 @@ subgroup: Trend Filter
 score_current: 3/10
 version: Estable
 recommended_action: Descartar
-description: ¿Cuál es la fuerza _estable y suavizada_ de la tendencia, ignorando el
-  ruido a corto plazo del propio ADX?
-gemini_summary: '"Lag sobre lag" (3/10). Es un promedio del ADX (que ya es lento).
-  Inútil para scalping.'
+description: ¿Cuál es la fuerza _estable y suavizada_ de la tendencia, ignorando el ruido a corto plazo del propio ADX?
+gemini_summary: "Lag sobre lag. Es un promedio del ADX (que ya es lento). Inútil para scalping."
+comparison_group: "Trend Strength"
+competitor_notes: "Inferior a ADX por exceso de retraso."
+reusable_code: null
 file_state: Estable (Conceptualm. Roto)
 score_potential: 3/10
 effort: N/A
-action_priority: P4 (Descartar)
+action_priority: P4
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---

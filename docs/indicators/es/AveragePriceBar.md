@@ -1,20 +1,21 @@
 ---
 cs_file: AveragePriceBar.cs
 name: Average Price for Bar
-category: Uncategorized
-group: Uncategorized
-subgroup: Other
+category: Structure
+group: Structure
+subgroup: Price Action
 score_current: 2/10
 version: Estable
 recommended_action: Descartar
-description: ¿En lugar de solo el 'Cierre', cuál es el precio promedio interno (ej.
-  Mediana, Típico) de cada vela individual?
-gemini_summary: '"Bloatware" (2/10). 100% redundante. Los indicadores estándar (SMA,
-  EMA) ya tienen un parámetro "Source" (Typical, Median) que hace esto.'
+description: ¿Cuál es el precio promedio interno (ej. Mediana, Típico) de cada vela?
+gemini_summary: "'Bloatware' (2/10). 100% redundante. Los indicadores estándar (SMA, EMA) ya tienen un parámetro 'Source' que hace esto."
+comparison_group: "Price Calculation"
+competitor_notes: "No aplica, es redundante."
+reusable_code: null
 file_state: Estable (Redundante)
 score_potential: 2/10
 effort: N/A
-action_priority: P4 (Descartar)
+action_priority: P4
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---

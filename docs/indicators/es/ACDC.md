@@ -7,14 +7,15 @@ subgroup: Momentum
 score_current: 2/10
 version: Estable
 recommended_action: Descartar
-description: ¿Cuál es la dirección _suavizada y con retardo_ de la aceleración del
-  mercado?
-gemini_summary: Conceptualmente roto. Es un 'acelerador con freno' (AC + SMA(10))
-  que anula su propósito. Inútil para scalping.
+description: ¿Cuál es la dirección suavizada y con retardo de la aceleración del mercado?
+gemini_summary: "Conceptualmente roto. Es un 'acelerador con freno'. Inútil para scalping."
+comparison_group: "Classic Momentum"
+competitor_notes: "Redundante e inferior a ACBW."
+reusable_code: null
 file_state: Estable (Conceptualm. Roto)
 score_potential: 2/10
 effort: N/A
-action_priority: P4 (Descartar)
+action_priority: P4
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---

@@ -3,20 +3,21 @@ cs_file: AccountInfoDisplay.cs
 name: Account Info Display
 category: Utility
 group: Utility
-subgroup: Visuals
+subgroup: Account
 score_current: 7/10
 version: Latest
 recommended_action: Mejorar
-description: ¿Cuál es el estado de mi cuenta (Balance, PnL, Margen) en tiempo real,
-  sin tener que apartar la vista del gráfico?
-gemini_summary: Útil (7/10), pero carece de funciones críticas (límites de pérdida/objetivos)
-  para scalpers de fondeo.
+description: ¿Cuál es el estado de mi cuenta (Balance, PnL, Margen) en tiempo real?
+gemini_summary: "Útil (7/10), pero carece de funciones críticas para scalpers de fondeo."
+comparison_group: "Account Management"
+competitor_notes: "Sin competencia directa, es una utilidad base."
+reusable_code: null
 file_state: Mejorable
 score_potential: 10/10
 effort: Medio
-action_priority: P2 (Mejora Estratégica)
+action_priority: P2
 analysis_date: 2025-11-17
-official_code_date: 5/11/2025
+official_code_date: 05/11/2025
 user_modification_date: 13/11/2025
 ---
 

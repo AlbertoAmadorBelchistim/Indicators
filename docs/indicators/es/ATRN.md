@@ -5,16 +5,17 @@ category: Trend
 group: Trend
 subgroup: Volatility
 score_current: 3/10
-version: Estable
+version: Stable
 recommended_action: Descartar
-description: ¿Cuál es la volatilidad (ATR) del instrumento como un porcentaje de su
-  precio actual?
-gemini_summary: Inútil para scalping (3/10). Resuelve un problema (comparar activos)
-  que un scalper no tiene. Redundante con ATR.
+description: ¿Cuál es la volatilidad (ATR) del instrumento como un porcentaje de su precio actual?
+gemini_summary: "Inútil para scalping (3/10). Resuelve un problema (comparar activos) que un scalper no tiene. Redundante con ATR."
+comparison_group: "Range Analysis"
+competitor_notes: "Redundante con ATR."
+reusable_code: null
 file_state: Estable (Redundante)
 score_potential: 3/10
 effort: N/A
-action_priority: P4 (Descartar)
+action_priority: P4
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---

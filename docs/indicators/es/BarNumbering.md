@@ -1,20 +1,21 @@
 ---
 cs_file: BarNumbering.cs
 name: Bar Numbering
-category: Uncategorized
-group: Uncategorized
-subgroup: Other
+category: Utility
+group: Utility
+subgroup: Visuals
 score_current: 4/10
 version: Estable
 recommended_action: Descartar
-description: ¿Cuántas velas han pasado desde el inicio de la sesión, y puedes etiquetarlas
-  cada X velas, por favor?
-gemini_summary: Herramienta de backtesting/conteo (4/10), no de trading. Añade ruido
-  visual en vivo.
+description: ¿Cuántas velas han pasado desde el inicio de la sesión?
+gemini_summary: "Herramienta de backtesting/conteo (4/10), no de trading. Añade ruido visual en vivo."
+comparison_group: "Drawing Tools"
+competitor_notes: "No es un indicador, es un utilitario."
+reusable_code: null
 file_state: Estable
 score_potential: 4/10
 effort: N/A
-action_priority: P4 (Descartar)
+action_priority: P4
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---

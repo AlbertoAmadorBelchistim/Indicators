@@ -5,16 +5,17 @@ category: Trend
 group: Trend
 subgroup: Volatility
 score_current: 8/10
-version: Estable
+version: Stable
 recommended_action: Mejorar
-description: ¿Cuál ha sido el tamaño verdadero promedio (incluyendo gaps) de cada
-  barra durante los últimos X períodos?
-gemini_summary: '"¡El Ganador de la Familia!" Herramienta ''Core'' 10/10. La implementación
-  actual (8/10) usa SMA en lugar de EMA/RMA. Arreglo P1.'
+description: ¿Cuál ha sido el tamaño verdadero promedio de cada barra?
+gemini_summary: "'¡El Ganador de la Familia!' Herramienta 'Core' 10/10. La implementación actual (8/10) usa SMA en lugar de EMA/RMA. Arreglo P1."
+comparison_group: "Range Analysis"
+competitor_notes: "El estándar de oro de la volatilidad."
+reusable_code: null
 file_state: Mejorable (No Estándar)
 score_potential: 10/10
 effort: Bajo
-action_priority: P1 (Arreglo Rápido)
+action_priority: P1
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---

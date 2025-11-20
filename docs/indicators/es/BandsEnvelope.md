@@ -7,14 +7,15 @@ subgroup: Volatility
 score_current: 1/10
 version: Estable
 recommended_action: Descartar
-description: ¿Cuán lejos puede moverse el precio (en Ticks Fijos, Valor Fijo o Porcentaje
-  Fijo) antes de considerarse 'sobre-extendido'?
-gemini_summary: '"Roto y Peligroso" (1/10). Bug crítico en el modo ''Percentage''
-  y concepto estático (no adaptativo) peligroso.'
+description: ¿Cuán lejos puede moverse el precio (en Ticks Fijos) antes de considerarse 'sobre-extendido'?
+gemini_summary: "'Roto y Peligroso' (1/10). Bug crítico en el modo 'Percentage' y concepto estático peligroso."
+comparison_group: "Volatility Bands"
+competitor_notes: "Inferior a Keltner/Bollinger."
+reusable_code: null
 file_state: Roto
 score_potential: 1/10
 effort: N/A
-action_priority: P4 (Descartar)
+action_priority: P4
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---

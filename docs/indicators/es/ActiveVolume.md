@@ -7,18 +7,17 @@ subgroup: Volume
 score_current: 8/10
 version: Estable
 recommended_action: Mejorar
-description: Filtrando todas las pequeñas operaciones de 'ruido', ¿dónde está apareciendo
-  realmente el volumen significativo y agresivo de compra y venta en la escala de
-  precios?
-gemini_summary: Herramienta "Core" (8/10). Su potencial transformacional (Delta por
-  Precio) es una mejora P1 de alto impacto.
+description: Filtrando ruido, ¿dónde está el volumen significativo y agresivo?
+gemini_summary: "Herramienta 'Core' (8/10). Potencial transformacional (Delta por Precio)."
+comparison_group: "Volume Profile"
+competitor_notes: "Complementario a perfiles de volumen estándar."
+reusable_code: null
 file_state: Mejorable
-score_potential: 10/10 (Transformacional)
+score_potential: 10/10
 effort: Medio
-action_priority: P1 (Mejora Estratégica)
+action_priority: P1
 analysis_date: 2025-11-17
-official_code_date: 3/12/2024
-user_modification_date: 13/11/2025
+official_code_date: 03/12/2024
 ---
 
 ## 🟦 Active Volume (8/10 | Potencial: 10/10)

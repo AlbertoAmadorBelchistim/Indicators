@@ -3,17 +3,19 @@ cs_file: ACBW.cs
 name: Bill Williams AC
 category: Oscillators
 group: Oscillators
-subgroup: RSI/Stochastic
+subgroup: Momentum
 score_current: 1/10
 version: Estable
 recommended_action: Descartar
 description: ¿El momentum (AO) está acelerando o frenando?
-gemini_summary: Implementación 'fraude'. Falla en defaults (50,51,50), fuente de datos
-  (Close) y lógica de color. Inservible.
+gemini_summary: "Implementación 'fraude'. Falla en defaults y lógica. Inservible frente a herramientas modernas."
+comparison_group: "Classic Momentum"
+competitor_notes: "Inferior a cualquier MACD o AO estándar."
+reusable_code: null
 file_state: Impostor
 score_potential: 7/10
 effort: Alto
-action_priority: P2 (Refactorización Estratégica)
+action_priority: P2
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---

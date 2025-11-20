@@ -1,21 +1,21 @@
 ---
 cs_file: AdaptiveRsiAverage.cs
 name: Adaptive RSI Moving Average
-category: Oscillators
-group: Oscillators
-subgroup: RSI/Stochastic
+category: Trend
+group: Trend
+subgroup: Moving Average
 score_current: 4/10
 version: Estable
 recommended_action: Descartar
-description: ¿Cómo puedo obtener una media móvil que automáticamente se ralentice
-  cuando el mercado está indeciso (RSI cerca de 50) y se acelere para capturar tendencias
-  cuando el momentum es fuerte (RSI cerca de 0 o 100)?
-gemini_summary: '"Lag sobre lag sobre lag" (4 capas de suavizado). Inútil para scalping
-  y redundante vs. AMA (Kaufman).'
-file_state: Estable (Conceptualm. Roto)
+description: ¿Cómo obtener una media que se adapta según el RSI?
+gemini_summary: "Lag sobre lag. Inútil para scalping y redundante vs. AMA."
+comparison_group: "Adaptive MA"
+competitor_notes: "Inferior a KAMA."
+reusable_code: null
+file_state: Estable
 score_potential: 4/10
 effort: N/A
-action_priority: P4 (Descartar)
+action_priority: P4
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---

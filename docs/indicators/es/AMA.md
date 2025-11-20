@@ -3,18 +3,19 @@ cs_file: AMA.cs
 name: Adaptive Moving Average
 category: Trend
 group: Trend
-subgroup: Trend Filter
+subgroup: Moving Average
 score_current: 7/10
 version: Estable
 recommended_action: Mejorar
-description: ¿Cómo puedo obtener una media móvil suave que _no_ tenga retardo (lag)
-  durante una ruptura fuerte, pero _sí_ filtre el 'ruido' en un mercado lateral?
-gemini_summary: El mejor filtro de régimen (7/10). Rápido en tendencias, lento en
-  rangos. Potencial 9/10 si colorea su línea según la velocidad.
+description: ¿Cómo puedo obtener una media móvil suave que no tenga retardo durante una ruptura fuerte?
+gemini_summary: "El mejor filtro de régimen (7/10). Rápido en tendencias, lento en rangos. Potencial 9/10 si colorea su línea según la velocidad."
+comparison_group: "Adaptive MA"
+competitor_notes: "Superior a las medias estándar (SMA/EMA) para filtrar ruido."
+reusable_code: null
 file_state: Mejorable
 score_potential: 9/10
 effort: Medio
-action_priority: P2 (Mejora Estratégica)
+action_priority: P2
 analysis_date: 2025-11-17
 official_code_date: 23/04/2025
 ---
