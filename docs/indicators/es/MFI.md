@@ -5,18 +5,19 @@ category: Oscillators
 group: Oscillators
 subgroup: Momentum
 score_current: 7/10
-version: ATAS Official
+version: Estable
 recommended_action: Mejorar
-description: ¿Cuál es la presión de compra/venta (RSI ponderado por volumen) basada
-  en el precio típico?
-gemini_summary: Implementación sólida del MFI. El sistema de coloreado por defecto
-  es complejo (mezcla MFI y Ticks) y puede confundir sin una leyenda clara.
+description: ¿Cuál es la presión de compra/venta (RSI ponderado por volumen)?
+gemini_summary: "Implementación sólida del MFI. Sistema de coloreado complejo. Bueno para divergencias."
+comparison_group: "Volume Oscillator"
+competitor_notes: "Competidor de RSI y CMF."
+reusable_code: null
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo
 action_priority: P3
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Money Flow Index (MFI) (7/10)

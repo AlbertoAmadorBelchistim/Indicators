@@ -1,22 +1,23 @@
 ---
 cs_file: MarginZones.cs
 name: Margin zones
-category: Uncategorized
-group: Uncategorized
-subgroup: Other
+category: Structure
+group: Structure
+subgroup: Static Levels
 score_current: 3/10
-version: ATAS Official
+version: Estable
 recommended_action: Reparar
-description: ¿Dónde están los niveles de margen clave (25%, 50%, 100%...) calculados
-  desde el extremo semanal o un precio fijo?
-gemini_summary: Indicador ROTO. Concepto excelente para niveles institucionales, pero
-  causa un crash por división por cero si TickCost es 0.
+description: ¿Dónde están los niveles de margen clave calculados desde el extremo?
+gemini_summary: "Indicador ROTO. Concepto excelente para niveles institucionales, pero causa un crash por división por cero si TickCost es 0."
+comparison_group: "Margin Levels"
+competitor_notes: "Sin competencia."
+reusable_code: null
 file_state: Roto
 score_potential: 9/10
 effort: Bajo
 action_priority: P1
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Margin Zones (3/10)

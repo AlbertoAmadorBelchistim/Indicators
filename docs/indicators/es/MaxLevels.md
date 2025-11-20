@@ -3,20 +3,21 @@ cs_file: MaxLevels.cs
 name: Maximum Levels
 category: Order Flow
 group: Order Flow
-subgroup: Volume
+subgroup: Volume Profile
 score_current: 9/10
-version: ATAS Official
+version: Estable
 recommended_action: Conservar
-description: ¿En qué nivel de precio se produjo el máximo Volumen (o Bid, Ask, Delta)
-  para el período seleccionado?
-gemini_summary: Indicador de perfil robusto y estable. Utiliza correctamente la API
-  asíncrona (GetFixedProfile) para encontrar el nivel máximo (Vol, Delta, etc.).
+description: ¿En qué nivel de precio se produjo el máximo Volumen (o Bid, Ask, Delta)?
+gemini_summary: "Indicador de perfil robusto. Utiliza correctamente la API asíncrona para encontrar niveles clave."
+comparison_group: "Session Profile"
+competitor_notes: "Estándar para POCs estáticos."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Maximum Levels (9/10)

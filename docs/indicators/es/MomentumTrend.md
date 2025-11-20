@@ -1,22 +1,23 @@
 ---
 cs_file: MomentumTrend.cs
 name: Momentum Trend
-category: Oscillators
-group: Oscillators
-subgroup: Momentum
+category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 3/10
-version: ATAS Official
+version: Stable
 recommended_action: Mejorar
-description: ¿Está el momentum aumentando o disminuyendo vela a vela (visualizado
-  como puntos)?
-gemini_summary: 'Indicador visual muy básico. Tiene un defecto lógico: si el momentum
-  es igual al anterior, no dibuja nada, creando huecos visuales.'
+description: ¿Está el momentum aumentando o disminuyendo vela a vela?
+gemini_summary: "Indicador visual muy básico. Defecto lógico: si momentum es igual, no dibuja nada."
+comparison_group: "Trend Strength"
+competitor_notes: "Muy básico."
+reusable_code: null
 file_state: Mejorable
 score_potential: 5/10
 effort: Bajo
 action_priority: P3
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Momentum Trend (3/10)

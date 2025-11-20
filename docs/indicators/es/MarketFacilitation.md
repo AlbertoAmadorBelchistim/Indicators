@@ -5,18 +5,19 @@ category: Order Flow
 group: Order Flow
 subgroup: Volume
 score_current: 6/10
-version: ATAS Official
+version: Estable
 recommended_action: Mejorar
-description: ¿Cuál es la eficiencia del mercado (MFI) para mover el precio en relación
-  con el volumen?
-gemini_summary: Indicador estable (con control de división por cero) pero incompleto.
-  Le falta la lógica clave de clasificación de Bill Williams (Green, Fade, Fake, Squat).
+description: ¿Cuál es la eficiencia del mercado (MFI) para mover el precio en relación con el volumen?
+gemini_summary: "Indicador estable pero incompleto. Le falta la lógica clave de clasificación de Bill Williams (Green, Fade, Fake, Squat)."
+comparison_group: "Volume Efficiency"
+competitor_notes: "Complementario a EMV."
+reusable_code: null
 file_state: Mejorable
 score_potential: 8/10
 effort: Medio
 action_priority: P3
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Market Facilitation Index (6/10)

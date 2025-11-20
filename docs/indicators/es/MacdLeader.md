@@ -5,18 +5,19 @@ category: Oscillators
 group: Oscillators
 subgroup: MACD
 score_current: 7/10
-version: ATAS Official
+version: Estable
 recommended_action: Conservar
-description: ¿Cuál es una versión "adelantada" del MACD que incorpora la diferencia
-  entre el precio y sus EMAs?
-gemini_summary: Implementación estable de un concepto de "MACD + residuales de EMA"
-  diseñado para adelantar las señales. Lógica compleja pero funcional.
+description: ¿Cuál es una versión 'adelantada' del MACD?
+gemini_summary: "Implementación estable de 'MACD + residuales de EMA' para adelantar señales. Complejo pero funcional."
+comparison_group: "Advanced MACD"
+competitor_notes: "Intenta reducir lag."
+reusable_code: null
 file_state: Estable
 score_potential: 7/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 MACD Leader (7/10)

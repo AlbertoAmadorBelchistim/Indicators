@@ -1,16 +1,17 @@
 ---
 cs_file: MacdCloud.cs
 name: MACD Cloud
-category: Oscillators
-group: Oscillators
-subgroup: MACD
+category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 7/10
-version: Stable
+version: Estable
 recommended_action: Conservar
-description: ¿Cuál es la tendencia visual definida por el cruce de dos medias ponderadas
-  (WMA)?
-gemini_summary: Cruce de WMAs con relleno de color (Cloud). Simple, visual y efectivo
-  para seguimiento de tendencia.
+description: ¿Cuál es la tendencia visual definida por el cruce de dos medias ponderadas?
+gemini_summary: "Cruce de WMAs con relleno de color (Cloud). Simple, visual y efectivo para tendencia."
+comparison_group: "Trend Cloud"
+competitor_notes: "Visualmente superior a 2 MAs."
+reusable_code: null
 file_state: Estable
 score_potential: 7/10
 effort: Bajo

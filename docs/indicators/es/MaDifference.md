@@ -3,20 +3,21 @@ cs_file: MaDifference.cs
 name: Moving Average Difference
 category: Trend
 group: Trend
-subgroup: Trend Filter
+subgroup: Moving Average
 score_current: 6/10
-version: ATAS Official
+version: Estable
 recommended_action: Mejorar
-description: ¿Cuál es la diferencia (momentum) entre dos medias móviles y está acelerando
-  o desacelerando?
-gemini_summary: Estable, pero su lógica de coloreado (basada en la pendiente, no en
-  el signo) es confusa y debería ser una opción configurable.
+description: ¿Cuál es la diferencia (momentum) entre dos medias móviles?
+gemini_summary: "Estable, pero lógica de coloreado basada en pendiente (no signo) es confusa."
+comparison_group: "MA Ribbon"
+competitor_notes: "Básico."
+reusable_code: null
 file_state: Mejorable
 score_potential: 7/10
 effort: Bajo
 action_priority: P3
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Moving Average Difference (6/10)

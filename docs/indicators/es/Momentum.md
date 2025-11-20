@@ -5,18 +5,19 @@ category: Oscillators
 group: Oscillators
 subgroup: Momentum
 score_current: 7/10
-version: ATAS Official
+version: Estable
 recommended_action: Conservar
-description: ¿Cuál es la diferencia de precio (velocidad) entre la barra actual y
-  la de hace N periodos?
-gemini_summary: Implementación clásica y robusta del indicador Momentum. Incluye una
-  SMA de suavizado opcional bien integrada. Sin problemas detectados.
+description: ¿Cuál es la diferencia de precio (velocidad) entre la barra actual y la de hace N periodos?
+gemini_summary: "Implementación clásica y robusta. Incluye suavizado opcional."
+comparison_group: "Classic Momentum"
+competitor_notes: "La base del momentum."
+reusable_code: null
 file_state: Estable
 score_potential: 7/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Momentum (7/10)

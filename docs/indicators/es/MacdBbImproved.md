@@ -5,18 +5,19 @@ category: Oscillators
 group: Oscillators
 subgroup: MACD
 score_current: 6/10
-version: ATAS Official
+version: Estable
 recommended_action: Mejorar
-description: ¿Cuál es el rango de volatilidad "mejorado" (BB + SMA del histograma)
-  alrededor de la línea de señal del MACD?
-gemini_summary: Lógica estable pero muy confusa (mezcla de BB y Keltner). Sufre de
-  un mal diseño al acoplar 3 períodos en un solo parámetro.
+description: ¿Cuál es el rango de volatilidad 'mejorado' alrededor de la señal del MACD?
+gemini_summary: "Lógica estable pero confusa (mezcla de BB y Keltner). Mal diseño al acoplar 3 períodos en un parámetro."
+comparison_group: "MACD Volatility"
+competitor_notes: "Competidor de BB Standard."
+reusable_code: null
 file_state: Mejorable
 score_potential: 7/10
 effort: Medio
 action_priority: P3
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 MACD Bollinger Bands - Improved (6/10)

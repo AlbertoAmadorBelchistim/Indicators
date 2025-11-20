@@ -5,19 +5,19 @@ category: Oscillators
 group: Oscillators
 subgroup: MACD
 score_current: 6/10
-version: ATAS Official
+version: Estable
 recommended_action: Conservar
-description: ¿Cuál es el rango de volatilidad (Bollinger Bands) alrededor de la línea
-  de señal del MACD?
-gemini_summary: Implementación estable que aplica BBs a la línea de señal del MACD,
-  no al histograma. Su principal debilidad es acoplar el período de la señal y el
-  de StdDev.
+description: ¿Cuál es el rango de volatilidad (Bollinger) alrededor de la señal del MACD?
+gemini_summary: "Implementación estable que aplica BBs a la señal del MACD. Debilidad: acopla períodos."
+comparison_group: "MACD Volatility"
+competitor_notes: "Estándar de volatilidad en MACD."
+reusable_code: null
 file_state: Estable
 score_potential: 6/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 MACD Bollinger Bands - Standard (6/10)

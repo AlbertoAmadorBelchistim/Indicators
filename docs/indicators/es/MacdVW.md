@@ -1,22 +1,23 @@
 ---
 cs_file: MacdVW.cs
 name: MACD - Volume Weighted
-category: Oscillators
-group: Oscillators
-subgroup: MACD
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 8/10
-version: ATAS Official
+version: Estable
 recommended_action: Mejorar
-description: ¿Cuál es la convergencia/divergencia entre dos medias ponderadas por
-  volumen (VWMAs)?
-gemini_summary: Implementación excelente y segura (con control de división por cero)
-  de un MACD ponderado por volumen. Su única carencia es un histograma coloreado.
+description: ¿Cuál es la convergencia entre dos medias ponderadas por volumen (VWMAs)?
+gemini_summary: "Implementación excelente y segura de un MACD ponderado por volumen. Le falta histograma coloreado."
+comparison_group: "Volume MACD"
+competitor_notes: "Superior al MACD estándar si hay volumen real."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: Bajo
 action_priority: P3
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 MACD - Volume Weighted (8/10)

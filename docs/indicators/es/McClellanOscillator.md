@@ -5,18 +5,19 @@ category: Oscillators
 group: Oscillators
 subgroup: Momentum
 score_current: 6/10
-version: ATAS Official
+version: Estable
 recommended_action: Conservar
-description: ¿Cuál es la diferencia entre la EMA rápida y la EMA lenta (impulso de
-  mercado)?
-gemini_summary: Oscilador de momentum estándar (diferencia de dos EMAs). Estable y
-  funcional, aunque básico.
+description: ¿Cuál es la diferencia entre la EMA rápida y la EMA lenta?
+gemini_summary: "Oscilador de momentum estándar. Estable y funcional, aunque básico."
+comparison_group: "Market Breadth"
+competitor_notes: "Útil para índices."
+reusable_code: null
 file_state: Estable
 score_potential: 6/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 McClellan Oscillator (6/10)

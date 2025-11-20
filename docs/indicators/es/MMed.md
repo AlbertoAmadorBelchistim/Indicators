@@ -1,21 +1,23 @@
 ---
 cs_file: MMed.cs
 name: Moving Median
-category: Uncategorized
-group: Uncategorized
-subgroup: Other
+category: Trend
+group: Trend
+subgroup: Moving Average
 score_current: 6/10
-version: ATAS Official
+version: Estable
 recommended_action: Mejorar
 description: ¿Cuál es la mediana (valor central) de los precios en el período reciente?
-gemini_summary: Funcional, pero ineficiente. Reordena la lista completa de precios
-  en cada cálculo (OrderBy), lo que puede afectar el rendimiento con períodos largos.
+gemini_summary: "Funcional, pero ineficiente (OrderBy en cada tick). Útil para filtrar valores extremos (outliers)."
+comparison_group: "Robust MA"
+competitor_notes: "Alternativa robusta a la media."
+reusable_code: null
 file_state: Mejorable
 score_potential: 6/10
 effort: Medio
 action_priority: P3
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Moving Median (6/10)

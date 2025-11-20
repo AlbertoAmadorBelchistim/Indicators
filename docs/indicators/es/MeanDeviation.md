@@ -1,22 +1,23 @@
 ---
 cs_file: MeanDeviation.cs
 name: Mean Deviation
-category: Uncategorized
-group: Uncategorized
-subgroup: Other
+category: Trend
+group: Trend
+subgroup: Volatility
 score_current: 5/10
-version: ATAS Official
+version: Estable
 recommended_action: Mejorar
-description: ¿Cuál es la desviación media absoluta (volatilidad) del precio respecto
-  a su media simple?
-gemini_summary: Indicador estadístico estable pero rígido. Solo permite usar SMA como
-  base, limitando su uso en estrategias modernas que prefieren EMA.
+description: ¿Cuál es la desviación media absoluta (volatilidad) del precio respecto a su media?
+gemini_summary: "Indicador estadístico estable pero rígido. Solo permite usar SMA. Inferior a StdDev."
+comparison_group: "Statistical Analysis"
+competitor_notes: "Inferior a StdDev."
+reusable_code: null
 file_state: Mejorable
 score_potential: 7/10
 effort: Bajo
 action_priority: P3
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Mean Deviation (5/10)

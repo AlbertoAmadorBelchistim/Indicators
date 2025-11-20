@@ -5,18 +5,19 @@ category: Trend
 group: Trend
 subgroup: Volatility
 score_current: 5/10
-version: ATAS Official
+version: Estable
 recommended_action: Conservar
-description: ¿Cuál es el canal de precios (fijo o porcentual) alrededor de una media
-  móvil simple?
-gemini_summary: Indicador estable pero básico que dibuja bandas fijas/porcentuales.
-  Su principal debilidad es que no se adapta a la volatilidad.
+description: ¿Cuál es el canal de precios fijo o porcentual alrededor de una media?
+gemini_summary: "Indicador estable pero básico. Debilidad: no se adapta a la volatilidad."
+comparison_group: "Volatility Channel"
+competitor_notes: "Inferior a Keltner/Bollinger."
+reusable_code: null
 file_state: Estable
 score_potential: 5/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Moving Average Envelope (5/10)

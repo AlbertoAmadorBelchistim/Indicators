@@ -5,18 +5,19 @@ category: Oscillators
 group: Oscillators
 subgroup: MACD
 score_current: 8/10
-version: ATAS Official
+version: Estable
 recommended_action: Mejorar
-description: ¿Cuál es la convergencia o divergencia entre las medias móviles de corto
-  y largo plazo?
-gemini_summary: Implementación clásica y estable del MACD; carece de mejoras modernas
-  como histograma coloreado o tipos de MA seleccionables.
+description: ¿Cuál es la convergencia o divergencia entre las medias móviles de corto y largo plazo?
+gemini_summary: "Implementación clásica y estable del MACD. Carece de mejoras modernas como histograma coloreado."
+comparison_group: "Standard MACD"
+competitor_notes: "El estándar."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: Bajo
 action_priority: P3
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 MACD (Moving Average Convergence Divergence) (8/10)
