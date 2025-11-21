@@ -17,8 +17,8 @@ score_potential: 10/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-17
-official_code_date: 27/10/2025
-user_modification_date: 15/11/2025
+official_code_date: 19/11/2025
+user_modification_date: 21/11/2025
 ---
 
 ## 🟦 Cluster Search Modif (10/10)
@@ -27,8 +27,8 @@ user_modification_date: 15/11/2025
 **Nombre del indicador:** Cluster Search Modif  
 **Web oficial (Base):** [ATAS — Cluster Search](https://help.atas.net/support/solutions/articles/72000602240)  
 **Compatibilidad:** ATAS versión estable y superiores (modificación requiere compilación).  
-**Última revisión del código base:**  [`ClusterSearch.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/ClusterSearch.cs): 27/10/2025  
-**Última revisión del código modificado:** 15/11/2025 (v 1.4.0) *(Versión extendida y mejorada por Alberto Amador Belchistim sobre la beta oficial de ATAS)*
+**Última revisión del código base:**  [`ClusterSearch.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/ClusterSearch.cs): 19/11/2025  
+**Última revisión del código modificado:** 21/11/2025 (v 1.5.0) *(Versión extendida y mejorada por Alberto Amador Belchistim sobre la beta oficial de ATAS)*
 
 
 > **La Pregunta Clave:** ¿Qué clústeres de precio específicos en este gráfico cumplen *todos* mis criterios de filtro (por Volumen, Delta, Localización, Imbalance, etc.)?
