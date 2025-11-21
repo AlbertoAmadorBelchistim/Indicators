@@ -1,23 +1,23 @@
 ---
 cs_file: OBV.cs
 name: OBV
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 7/10
-version: ATAS Official
+version: Stable
 recommended_action: Mejorar
-description: ¿Cuál es el flujo de volumen acumulado (presión de compra/venta) basado
-  en el cierre de velas?
-gemini_summary: 'Implementación del OBV con un modo "miniminzado" útil. Tiene un bug
-  menor: la lógica de inicialización de la barra 0 es inalcanzable debido a un return
-  previo.'
+description: ¿Cuál es el flujo de volumen acumulado basado en el cierre de velas?
+gemini_summary: "Implementación del OBV con un modo 'miniminzado' útil. Bug menor de inicialización."
+comparison_group: "Volume Oscillator"
+competitor_notes: "Inferior a Cumulative Delta."
+reusable_code: null
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo
 action_priority: P3
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 OBV (On Balance Volume) (7/10)

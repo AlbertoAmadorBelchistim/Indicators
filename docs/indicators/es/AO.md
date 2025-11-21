@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: AO.cs
 name: Awesome Oscillator
 category: Oscillators
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Descartar
 description: ¿Está el momentum reciente a corto plazo ganando la batalla contra el momentum a largo plazo?
 gemini_summary: "Impostor. Lógica de color incorrecta (AC), UI rota (sin línea cero) e ineficiente."
-comparison_group: "Classic Momentum"
+comparison_group: "Momentum Indexes"
 competitor_notes: "Inferior a MACD."
 reusable_code: null
 file_state: Impostor

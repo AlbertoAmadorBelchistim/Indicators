@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: MMed.cs
 name: Moving Median
 category: Trend
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Mejorar
 description: ¿Cuál es la mediana (valor central) de los precios en el período reciente?
 gemini_summary: "Funcional, pero ineficiente (OrderBy en cada tick). Útil para filtrar valores extremos (outliers)."
-comparison_group: "Robust MA"
+comparison_group: "Advanced MA"
 competitor_notes: "Alternativa robusta a la media."
 reusable_code: null
 file_state: Mejorable

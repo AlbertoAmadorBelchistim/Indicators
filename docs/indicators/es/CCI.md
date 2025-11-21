@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: CCI.cs
 name: CCI
 category: Oscillators
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Mejorar
 description: ¿Qué tan lejos se ha desviado el precio "típico" de hoy de su precio "promedio"?
 gemini_summary: "Clásico (7/10). Útil para divergencias. Implementación correcta pero sin 'warm-up', genera ruido inicial."
-comparison_group: "Classic Momentum"
+comparison_group: "Momentum Indexes"
 competitor_notes: "Competidor de RSI."
 reusable_code: null
 file_state: Buggy

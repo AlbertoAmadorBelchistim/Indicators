@@ -1,18 +1,20 @@
----
+﻿---
 cs_file: VolumeIndex.cs
 name: Positive/Negative Volume Index
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 8/10
 version: Stable
 recommended_action: Conservar
-description: ¿Qué está haciendo el 'dinero inteligente' (días de bajo volumen) frente
-  al 'público' (días de alto volumen)?
-gemini_summary: Implementación clásica de PVI/NVI. Útil para análisis de fondo.
+description: ¿Qué hace el 'dinero inteligente' (bajo volumen) frente al 'público' (alto volumen)?
+gemini_summary: "Implementación clásica de PVI/NVI. Útil para análisis de fondo."
+comparison_group: "Accumulation Flow"
+competitor_notes: "Único en su clase."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
-effort: Bajo
+effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23

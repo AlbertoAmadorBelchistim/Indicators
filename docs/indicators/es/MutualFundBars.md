@@ -1,22 +1,23 @@
 ---
 cs_file: MutualFundBars.cs
 name: Mutual Fund Bars
-category: Uncategorized
-group: Uncategorized
-subgroup: Other
+category: Structure
+group: Structure
+subgroup: Price Action
 score_current: 4/10
-version: ATAS Official
+version: Stable
 recommended_action: Conservar
-description: ¿Cómo se vería el gráfico si cada vela abriera exactamente al cierre
-  de la anterior (estilo fondo mutuo)?
-gemini_summary: Indicador de visualización simple que elimina gaps y ruido intradía
-  reescribiendo el Open = Close anterior. Funcional pero de uso muy específico.
+description: ¿Cómo se vería el gráfico si cada vela abriera exactamente al cierre de la anterior?
+gemini_summary: "Indicador visual simple que elimina gaps intradía. Uso muy específico."
+comparison_group: "Candle Type"
+competitor_notes: "Sin competencia."
+reusable_code: null
 file_state: Estable
 score_potential: 4/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Mutual Fund Bars (4/10)

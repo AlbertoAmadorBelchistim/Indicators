@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: LevelsLolo.cs
 name: LevelsLolo
 category: Structure
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Conservar
 description: ¿Dónde están los niveles clave externos (ej. SpotGamma)?
 gemini_summary: "Indicador 'Core' de visualización. Parsea texto y dibuja niveles jerárquicos. Profesional."
-comparison_group: "Level Manager"
+comparison_group: "Grid Levels"
 competitor_notes: "Líder en gestión de niveles externos."
 reusable_code: null
 file_state: Estable

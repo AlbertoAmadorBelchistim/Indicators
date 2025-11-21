@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: CumulativeDailyVolume.cs
 name: Cumulative Daily Volume
 category: Order Flow
@@ -9,7 +9,7 @@ version: Stable
 recommended_action: Conservar
 description: ¿Cuál es el volumen total acumulado desde el inicio de la sesión?
 gemini_summary: "Herramienta de contexto simple ('el odómetro'). Útil para filtrar días de baja actividad."
-comparison_group: "Session Volume"
+comparison_group: "Standard Volume"
 competitor_notes: "Sin competencia directa, es un dato base."
 reusable_code: null
 file_state: Estable

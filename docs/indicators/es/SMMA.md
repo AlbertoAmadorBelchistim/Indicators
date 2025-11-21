@@ -3,19 +3,21 @@ cs_file: SMMA.cs
 name: SMMA (Smoothed Moving Average)
 category: Trend
 group: Trend
-subgroup: Trend Filter
+subgroup: Moving Average
 score_current: 7/10
 version: Stable
 recommended_action: Conservar
-description: Media móvil suavizada que reduce el ruido del mercado dando menos peso
-  a los precios recientes que una EMA.
-gemini_summary: Implementación recursiva estándar y eficiente. Sin bugs.
+description: ¿Cuál es la tendencia de largo plazo eliminando el ruido reciente?
+gemini_summary: "Implementación recursiva estándar y eficiente. Sin bugs."
+comparison_group: "Standard MA"
+competitor_notes: "Más lenta que SMA/EMA."
+reusable_code: null
 file_state: Estable
 score_potential: 7/10
 effort: Bajo
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 SMMA (7/10)

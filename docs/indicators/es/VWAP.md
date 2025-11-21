@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: VWAP.cs
 name: VWAP / TWAP
 category: Order Flow
@@ -7,16 +7,17 @@ subgroup: Volume Profile
 score_current: 10/10
 version: Stable
 recommended_action: Conservar
-description: ¿Cuál es el precio medio ponderado por volumen (institucional) y sus
-  desviaciones estándar?
-gemini_summary: El indicador más completo y profesional. Múltiples periodos, desviaciones,
-  anclaje manual. Perfecto.
+description: ¿Cuál es el precio medio ponderado por volumen (institucional) y sus desviaciones?
+gemini_summary: "El indicador más completo y profesional. Múltiples periodos, desviaciones, anclaje manual. Perfecto."
+comparison_group: "Dynamic Profiles"
+competitor_notes: "El estándar de oro."
+reusable_code: null
 file_state: Estable
 score_potential: 10/10
 effort: Alto
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-05-08
+official_code_date: 08/05/2025
 ---
 
 ## 🟦 VWAP / TWAP (10/10)

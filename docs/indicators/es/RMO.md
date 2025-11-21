@@ -5,18 +5,19 @@ category: Oscillators
 group: Oscillators
 subgroup: Momentum
 score_current: 7/10
-version: ATAS Official
+version: Stable
 recommended_action: Conservar
-description: ¿Cuál es la tendencia primaria y el impulso de corto plazo (basado en
-  múltiples medias)?
-gemini_summary: Indicador complejo con múltiples capas de medias móviles. Implementación
-  correcta pero pesada (10 SMAs internas). Señales visuales fijas.
+description: ¿Cuál es la tendencia primaria y el impulso de corto plazo (basado en múltiples medias)?
+gemini_summary: "Indicador complejo con múltiples capas de medias móviles. Correcto pero pesado."
+comparison_group: "Complex Momentum"
+competitor_notes: "Sistema completo en un indicador."
+reusable_code: null
 file_state: Estable
 score_potential: 7/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 RMO (Rahul Mohindar Oscillator) (7/10)

@@ -3,14 +3,15 @@ cs_file: SMA.cs
 name: SMA (Simple Moving Average)
 category: Trend
 group: Trend
-subgroup: Trend Filter
+subgroup: Moving Average
 score_current: 9/10
 version: Stable
 recommended_action: Conservar
-description: Media Móvil Simple optimizada con alertas de precio y cambio de color
-  por tendencia.
-gemini_summary: Implementación de referencia. Algoritmo optimizado (sliding window
-  sum), alertas y UX completa.
+description: ¿Cuál es el precio promedio de las últimas N barras?
+gemini_summary: "Implementación de referencia. Algoritmo optimizado (sliding window sum), alertas y UX completa."
+comparison_group: "Standard MA"
+competitor_notes: "La base."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: Bajo

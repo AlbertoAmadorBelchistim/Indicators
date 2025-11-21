@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: MaDifference.cs
 name: Moving Average Difference
 category: Trend
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Mejorar
 description: ¿Cuál es la diferencia (momentum) entre dos medias móviles?
 gemini_summary: "Estable, pero lógica de coloreado basada en pendiente (no signo) es confusa."
-comparison_group: "MA Ribbon"
+comparison_group: "MA Systems"
 competitor_notes: "Básico."
 reusable_code: null
 file_state: Mejorable

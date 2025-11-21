@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: ClusterConstructorLite.cs
 name: Cluster Constructor Lite
 category: Order Flow
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Conservar
 description: ¿Existen patrones anómalos de volumen dentro de la estructura de la vela?
 gemini_summary: "Detector de patrones de clúster específicos (Double Max Volume). Útil para situaciones de bloqueo."
-comparison_group: "Cluster Pattern"
+comparison_group: "Cluster Structure"
 competitor_notes: "Complementario a Cluster Search."
 reusable_code: null
 file_state: Estable

@@ -7,10 +7,11 @@ subgroup: Volatility
 score_current: 6/10
 version: Stable
 recommended_action: Mejorar
-description: ¿Dónde están los límites de volatilidad basados en el rango medio verdadero
-  (ATR) alrededor de la media?
-gemini_summary: Implementación funcional pero con código 'sucio' (parámetros obsoletos
-  visibles en código).
+description: ¿Dónde están los límites de volatilidad basados en ATR alrededor de la media?
+gemini_summary: "Implementación funcional pero con código 'sucio'. Inferior a Keltner Channel."
+comparison_group: "Volatility Channel"
+competitor_notes: "Redundante con Keltner."
+reusable_code: null
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo

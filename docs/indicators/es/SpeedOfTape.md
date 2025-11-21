@@ -1,4 +1,5 @@
 ---
+cs_file: SpeedOfTape.cs
 name: Speed of Tape
 category: Order Flow
 group: Order Flow
@@ -6,16 +7,17 @@ subgroup: Volume
 score_current: 8/10
 version: Stable
 recommended_action: Conservar
-description: Mide la velocidad de ejecución (ticks, volumen o delta) en una ventana
-  de tiempo deslizante.
-gemini_summary: Herramienta táctica de alto valor. Algoritmo O(N) por tick mejorable
-  en rendimiento, pero funcional.
+description: ¿Cuál es la velocidad de ejecución (ritmo) del mercado?
+gemini_summary: "Herramienta táctica de alto valor. Algoritmo funcional aunque mejorable en rendimiento. Inferior visualmente a Rhythm."
+comparison_group: "Tape Speed"
+competitor_notes: "Alternativa a Order Flow Rhythm."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: Medio
 action_priority: P3
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Speed of Tape (8/10)

@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: CAV.cs
 name: Cumulative Adjusted Value
 category: Trend
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Descartar
 description: ¿Está el precio consistentemente cotizando por encima de su media?
 gemini_summary: "Oscilador acumulativo (5/10). No acotado, abstracto y redundante vs. un MACD o la propia EMA."
-comparison_group: "Trend Momentum"
+comparison_group: "Trend Strength"
 competitor_notes: "Inferior a MACD."
 reusable_code: null
 file_state: Estable (Redundante)

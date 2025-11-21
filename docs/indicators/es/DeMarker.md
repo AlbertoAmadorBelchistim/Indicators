@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: DeMarker.cs
 name: DeMarker
 category: Oscillators
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Reparar
 description: ¿Cuáles son las zonas de sobrecompra o sobreventa basadas en máximos y mínimos?
 gemini_summary: "Indicador Roto: error de Math.Min vs Math.Max corrompe la fórmula. Reparación trivial."
-comparison_group: "Classic Momentum"
+comparison_group: "Momentum Indexes"
 competitor_notes: "Compite con RSI."
 reusable_code: null
 file_state: Roto

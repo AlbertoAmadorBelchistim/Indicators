@@ -3,20 +3,21 @@ cs_file: VolatilityTrend.cs
 name: Volatility Trend
 category: Trend
 group: Trend
-subgroup: Volatility
+subgroup: Trend Filter
 score_current: 8/10
 version: Stable
 recommended_action: Conservar
-description: ¿Cuál es el canal de tendencia dinámico ajustado por la persistencia
-  de la dirección y la volatilidad?
-gemini_summary: Híbrido inteligente. Stop dinámico basado en ATR y conteo de velas
-  consecutivas.
+description: ¿Cuál es el canal de tendencia dinámico ajustado por la persistencia de la dirección y la volatilidad?
+gemini_summary: "Híbrido inteligente. Stop dinámico basado en ATR y conteo de velas consecutivas."
+comparison_group: "Trailing Stop"
+competitor_notes: "Alternativa avanzada a SuperTrend."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
-effort: Bajo
+effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Volatility Trend (8/10)

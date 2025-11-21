@@ -8,14 +8,16 @@ score_current: 6/10
 version: Stable
 recommended_action: Descartar
 description: Versión duplicada de Williams %R con visualización ligeramente diferente.
-gemini_summary: Duplicado de WilliamsR.cs. Código correcto pero redundante. Sugiero
-  mantener WilliamsR y descartar este.
+gemini_summary: "Duplicado de WilliamsR.cs. Código correcto pero redundante. Sugiero mantener WilliamsR y descartar este."
+comparison_group: "Stochastic Variant"
+competitor_notes: "Duplicado de WilliamsR."
+reusable_code: null
 file_state: Estable
 score_potential: 6/10
 effort: Bajo
 action_priority: P3
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 WPR (6/10)

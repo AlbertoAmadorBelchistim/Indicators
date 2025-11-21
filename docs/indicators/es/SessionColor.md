@@ -1,16 +1,17 @@
----
+﻿---
 cs_file: SessionColor.cs
 name: Session Color
-category: Structure
-group: Structure
-subgroup: Static Levels
+category: Utility
+group: Utility
+subgroup: Visuals
 score_current: 6/10
 version: Stable
 recommended_action: Mejorar
-description: Dibuja un fondo de color o líneas verticales para marcar una franja horaria
-  específica (Sesión).
-gemini_summary: Funcional pero con sobreingeniería (locks innecesarios) y gestión
-  de listas subóptima.
+description: ¿En qué momento de la sesión de trading estoy visualmente?
+gemini_summary: "Funcional pero con sobreingeniería (locks innecesarios) y gestión de listas subóptima."
+comparison_group: "Time Tools"
+competitor_notes: "Básico."
+reusable_code: null
 file_state: Mejorable
 score_potential: 8/10
 effort: Medio

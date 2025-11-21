@@ -1,21 +1,23 @@
 ---
 cs_file: TrueRange.cs
 name: True Range
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Trend
+group: Trend
+subgroup: Volatility
 score_current: 8/10
 version: Stable
 recommended_action: Conservar
-description: ¿Cuál es la volatilidad real de la vela actual incluyendo los gaps de
-  apertura?
-gemini_summary: Cálculo base de volatilidad. Código simple y sin errores.
+description: ¿Cuál es la volatilidad real de la vela actual incluyendo los gaps?
+gemini_summary: "Cálculo base de volatilidad. Código simple y sin errores."
+comparison_group: "Range Analysis"
+competitor_notes: "Componente base."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 True Range (8/10)

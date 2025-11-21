@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: ClusterStatisticModif.cs
 name: Cluster Statistic Modif
 category: Order Flow
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Conservar
 description: ¿Cuál es el 'dashboard' estadístico completo de cada vela?
 gemini_summary: "Obra maestra. Dashboard profesional que combina estadísticas base con métricas avanzadas (Speed of Tape, Imbalances). Herramienta central."
-comparison_group: "Data Display"
+comparison_group: "Cluster Analysis"
 competitor_notes: "Sin competencia."
 reusable_code: null
 file_state: Estable

@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: VolumePerTrade.cs
 name: Volume Per Trade
 category: Order Flow
@@ -7,9 +7,11 @@ subgroup: Volume
 score_current: 8/10
 version: Stable
 recommended_action: Conservar
-description: ¿Cuál es el tamaño promedio de las órdenes ejecutadas en cada vela (Institucional
-  vs Retail)?
-gemini_summary: Métrica de calidad de orden. Volumen / Ticks. Simple y revelador.
+description: ¿Cuál es el tamaño promedio de las órdenes ejecutadas en cada vela?
+gemini_summary: "Métrica de calidad de orden. Volumen / Ticks. Simple y revelador para ver institucional vs retail."
+comparison_group: "Volume Efficiency"
+competitor_notes: "Simple pero efectivo."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: Bajo

@@ -7,16 +7,17 @@ subgroup: Volatility
 score_current: 4/10
 version: Buggy
 recommended_action: Reparar
-description: ¿Cuál es la volatilidad estadística histórica basada en los retornos
-  logarítmicos?
-gemini_summary: 'Error conceptual grave: usa ''CurrentBar'' (tiempo total) como factor
-  de escalado. Resultados distorsionados.'
+description: ¿Cuál es la volatilidad estadística histórica basada en los retornos logarítmicos?
+gemini_summary: "Error conceptual grave: usa 'CurrentBar' (tiempo total) como factor de escalado. Resultados distorsionados."
+comparison_group: "Statistical Analysis"
+competitor_notes: "Inferior a HVR."
+reusable_code: null
 file_state: Roto
 score_potential: 8/10
 effort: Bajo
 action_priority: P1
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Volatility - Historical (4/10)

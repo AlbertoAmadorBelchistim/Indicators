@@ -7,10 +7,11 @@ subgroup: Footprint
 score_current: 8/10
 version: Stable
 recommended_action: Conservar
-description: ¿Dónde existen zonas de desequilibrio agresivo de compra/venta apiladas
-  que actúan como soporte/resistencia?
-gemini_summary: Indicador complejo de Order Flow. Usa lógica intensiva de escaneo
-  de niveles de precio. Funcionalidad TillTouch útil.
+description: ¿Dónde existen zonas de desequilibrio agresivo apiladas que actúan como soporte?
+gemini_summary: "Indicador complejo de Order Flow. Usa lógica intensiva de escaneo. Funcionalidad TillTouch útil."
+comparison_group: "Imbalance Analysis"
+competitor_notes: "Complementario a Cluster Search."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: Alto

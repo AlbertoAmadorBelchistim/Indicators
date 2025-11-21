@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: RSI.cs
 name: RSI (Relative Strength Index)
 category: Oscillators
@@ -7,14 +7,17 @@ subgroup: RSI/Stochastic
 score_current: 8/10
 version: Stable
 recommended_action: Conservar
-description: ¿Está el precio sobreextendido (sobrecompra/sobreventa) en relación a
-  su historial reciente?
-gemini_summary: Implementación sólida y estándar con SMMA. Buen sistema de alertas.
+description: ¿Está el precio sobreextendido en relación a su historial reciente?
+gemini_summary: "Implementación sólida y estándar con SMMA. Buen sistema de alertas."
+comparison_group: "RSI Variants"
+competitor_notes: "El estándar."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: Bajo
 action_priority: N/A
 analysis_date: 2025-11-18
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 RSI (Relative Strength Index) (8/10)

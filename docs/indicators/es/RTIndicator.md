@@ -7,10 +7,11 @@ subgroup: Trend Filter
 score_current: 8/10
 version: Stable
 recommended_action: Conservar
-description: ¿Está el precio acelerando su pendiente (Slope) con confirmación de momentum
-  interno?
-gemini_summary: Detector de pendiente (Slope) con filtro dinámico y confirmación de
-  RSI. Estrategia completa.
+description: ¿Está el precio acelerando su pendiente con confirmación de momentum interno?
+gemini_summary: "Detector de pendiente (Slope) con filtro dinámico y confirmación de RSI. Estrategia completa."
+comparison_group: "Trend Slope"
+competitor_notes: "Único en su clase."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
 effort: Medio

@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: CMS.cs
 name: Clear Method Swing Line
 category: Structure
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Conservar
 description: ¿Cuál es la estructura de mercado (swing highs/lows) objetiva y actual?
 gemini_summary: "Herramienta de contexto de primer nivel. Define la estructura de mercado (BOS/CHoCH) de forma objetiva."
-comparison_group: "Swing Structure"
+comparison_group: "Swing Analysis"
 competitor_notes: "Superior a ZigZag estándar por su objetividad."
 reusable_code: null
 file_state: Estable

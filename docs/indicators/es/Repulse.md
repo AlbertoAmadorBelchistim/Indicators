@@ -5,18 +5,19 @@ category: Oscillators
 group: Oscillators
 subgroup: Momentum
 score_current: 6/10
-version: ATAS Official
-recommended_action: Mejorar
-description: ¿Cuál es la "presión de repulsión" (fuerza de compra/venta interna) suavizada
-  de las velas?
-gemini_summary: Indicador de presión interna. Código funcional, pero con dependencia
-  excesiva de la vela 0 para la inicialización y factores de suavizado fijos.
+version: Stable
+recommended_action: Descartar
+description: ¿Cuál es la 'presión de repulsión' suavizada de las velas?
+gemini_summary: "Indicador de presión interna. Código funcional pero con dependencias rígidas. Uso esotérico."
+comparison_group: "Complex Momentum"
+competitor_notes: "Poco estándar."
+reusable_code: null
 file_state: Mejorable
 score_potential: 6/10
 effort: Bajo
 action_priority: P3
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Repulse (6/10)

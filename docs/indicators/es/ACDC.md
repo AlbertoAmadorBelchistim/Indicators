@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: ACDC.cs
 name: AC DC Histogram
 category: Oscillators
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Descartar
 description: ¿Cuál es la dirección suavizada y con retardo de la aceleración del mercado?
 gemini_summary: "Conceptualmente roto. Es un 'acelerador con freno'. Inútil para scalping."
-comparison_group: "Classic Momentum"
+comparison_group: "Momentum Trend"
 competitor_notes: "Redundante e inferior a ACBW."
 reusable_code: null
 file_state: Estable (Conceptualm. Roto)

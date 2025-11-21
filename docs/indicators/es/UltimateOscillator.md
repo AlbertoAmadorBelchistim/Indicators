@@ -3,20 +3,21 @@ cs_file: UltimateOscillator.cs
 name: Ultimate Oscillator
 category: Oscillators
 group: Oscillators
-subgroup: RSI/Stochastic
+subgroup: Momentum
 score_current: 7/10
 version: Stable
 recommended_action: Conservar
-description: ¿Cuál es el momentum real del mercado combinando tres marcos temporales
-  para evitar señales falsas?
-gemini_summary: Implementación canónica de Larry Williams. Promedio ponderado de 3
-  osciladores. Correcto.
+description: ¿Cuál es el momentum real del mercado combinando tres marcos temporales?
+gemini_summary: "Implementación canónica de Larry Williams. Promedio ponderado de 3 osciladores. Correcto."
+comparison_group: "Complex Momentum"
+competitor_notes: "Menos señales falsas que RSI."
+reusable_code: null
 file_state: Estable
 score_potential: 7/10
-effort: Bajo
+effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Ultimate Oscillator (7/10)

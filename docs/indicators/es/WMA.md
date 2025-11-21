@@ -3,18 +3,21 @@ cs_file: WMA.cs
 name: Weighted Moving Average
 category: Trend
 group: Trend
-subgroup: Trend Filter
+subgroup: Moving Average
 score_current: 8/10
 version: Stable
 recommended_action: Conservar
-description: ¿Cuál es la media móvil ponderada linealmente (más peso a lo reciente)?
-gemini_summary: Media ponderada con algoritmo optimizado O(1). Código excelente.
+description: ¿Cuál es la media móvil ponderada linealmente?
+gemini_summary: "Media ponderada con algoritmo optimizado O(1). Código excelente."
+comparison_group: "Standard MA"
+competitor_notes: "Más rápida que SMA."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Weighted Moving Average (WMA) (8/10)

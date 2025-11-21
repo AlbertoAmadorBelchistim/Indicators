@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: TRIX.cs
 name: TRIX
 category: Oscillators
@@ -8,14 +8,16 @@ score_current: 7/10
 version: Stable
 recommended_action: Conservar
 description: ¿Cuál es la tasa de cambio (ROC) de una media móvil triplemente suavizada?
-gemini_summary: Implementación estándar del TRIX. Triple EMA + ROC. Funcional pero
-  con el lag inherente al método.
+gemini_summary: "Implementación estándar del TRIX. Triple EMA + ROC. Funcional pero con lag."
+comparison_group: "Momentum Trend"
+competitor_notes: "Muy suave."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 TRIX (7/10)

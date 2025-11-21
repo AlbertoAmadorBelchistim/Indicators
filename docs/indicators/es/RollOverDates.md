@@ -1,21 +1,23 @@
----
+﻿---
 cs_file: RolloverDates.cs
 name: Rollover Dates
-category: Uncategorized
-group: Uncategorized
-subgroup: Other
+category: Utility
+group: Utility
+subgroup: Visuals
 score_current: 8/10
 version: Stable
 recommended_action: Conservar
-description: ¿Cuándo vence el contrato de futuros actual y debo cambiar al siguiente?
-gemini_summary: Excelente utilidad técnica. Usa async/await para obtener datos de
-  expiración. Esencial para futuros.
+description: ¿Cuándo vence el contrato de futuros actual?
+gemini_summary: "Excelente utilidad técnica. Usa async/await para obtener datos. Esencial para futuros."
+comparison_group: "Time Tools"
+competitor_notes: "Sin competencia."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-07-18
+official_code_date: 18/07/2025
 ---
 
 ## 🟦 Rollover Dates (8/10)

@@ -1,22 +1,23 @@
----
+﻿---
 cs_file: MurrayMath.cs
 name: Murrey Math
 category: Structure
 group: Structure
 subgroup: Static Levels
 score_current: 8/10
-version: ATAS Official
+version: Stable
 recommended_action: Conservar
-description: ¿Cuáles son los niveles de soporte y resistencia armónicos basados en
-  la teoría de Murrey Math?
-gemini_summary: Implementación matemática compleja y fiel de las líneas Murrey Math.
-  Estable, aunque el código es denso y difícil de auditar.
+description: ¿Cuáles son los niveles de soporte y resistencia armónicos basados en Murrey Math?
+gemini_summary: "Implementación matemática compleja y fiel. Estable, aunque el código es denso."
+comparison_group: "Calculated Levels"
+competitor_notes: "Alternativa a Pivots."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Murrey Math (8/10)

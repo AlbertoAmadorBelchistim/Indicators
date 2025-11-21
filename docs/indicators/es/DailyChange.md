@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: DailyChange.cs
 name: Daily Change
 category: Structure
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Conservar
 description: ¿Cuál es la variación neta del precio en el día?
 gemini_summary: "Contexto esencial ('¿de qué humor está la fiesta?'). Dato clave para filtrar trades."
-comparison_group: "Session Stats"
+comparison_group: "Timeframe Levels"
 competitor_notes: "Único en su función."
 reusable_code: null
 file_state: Estable

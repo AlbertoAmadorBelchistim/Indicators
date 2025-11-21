@@ -1,16 +1,17 @@
----
+﻿---
 cs_file: PullingStackingBars.cs
 name: Pulling & Stacking Bars (Clean)
-category: Uncategorized
-group: Uncategorized
-subgroup: Other
+category: Order Flow
+group: Order Flow
+subgroup: DOM
 score_current: 10/10
 version: Stable
 recommended_action: Conservar
-description: ¿Se está añadiendo (Stacking) o retirando (Pulling) liquidez del libro
-  de órdenes en tiempo real?
-gemini_summary: Analizador de cambios en el DOM (L2). Muestra la intención de los
-  proveedores de liquidez.
+description: ¿Se está añadiendo (Stacking) o retirando (Pulling) liquidez del libro de órdenes?
+gemini_summary: "Analizador de cambios en el DOM. Muestra la intención de los proveedores de liquidez."
+comparison_group: "Liquidity Events"
+competitor_notes: "Único en su clase."
+reusable_code: null
 file_state: Estable
 score_potential: 10/10
 effort: Medio

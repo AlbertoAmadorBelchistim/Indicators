@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: ZScore.cs
 name: Z-Score
 category: Utility
@@ -7,16 +7,17 @@ subgroup: Stats
 score_current: 8/10
 version: Stable
 recommended_action: Conservar
-description: ¿A cuántas desviaciones estándar se encuentra el precio actual de su
-  media histórica?
-gemini_summary: Indicador estadístico estándar. Implementación correcta de la fórmula
-  Z-Score.
+description: ¿A cuántas desviaciones estándar se encuentra el precio actual de su media histórica?
+gemini_summary: "Indicador estadístico estándar. Implementación correcta de la fórmula Z-Score."
+comparison_group: "Math Tools"
+competitor_notes: "Único."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Z-Score (8/10)

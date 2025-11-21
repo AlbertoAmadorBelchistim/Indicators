@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: BarsPattern.cs
 name: Bars Pattern
 category: Structure
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Mejorar
 description: ¿Qué velas de este gráfico cumplen TODOS mis criterios específicos de forma?
 gemini_summary: "'Buscador de Setups' (9/10). Herramienta 'Pro' para definir patrones VSA/Delta. Su único fallo es un cálculo de SMA ineficiente."
-comparison_group: "Pattern Recognition"
+comparison_group: "Candle Pattern"
 competitor_notes: "Líder en su clase."
 reusable_code: null
 file_state: Mejorable (Ineficiente)

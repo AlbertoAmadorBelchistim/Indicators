@@ -1,22 +1,23 @@
 ---
 cs_file: VolatilityChaikins.cs
 name: Volatility - Chaikins
-category: Oscillators
-group: Oscillators
-subgroup: Momentum
+category: Trend
+group: Trend
+subgroup: Volatility
 score_current: 7/10
 version: Stable
 recommended_action: Conservar
-description: ¿Se está expandiendo o contrayendo el rango de precios (volatilidad)
-  respecto al pasado reciente?
-gemini_summary: Oscilador de cambio de volatilidad (ROC del EMA del Rango). Simple
-  y funcional.
+description: ¿Se está expandiendo o contrayendo el rango de precios respecto al pasado reciente?
+gemini_summary: "Oscilador de cambio de volatilidad (ROC del EMA del Rango). Simple y funcional."
+comparison_group: "Volatility Oscillator"
+competitor_notes: "Útil para breakouts."
+reusable_code: null
 file_state: Estable
 score_potential: 7/10
-effort: Bajo
+effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Volatility - Chaikins (7/10)

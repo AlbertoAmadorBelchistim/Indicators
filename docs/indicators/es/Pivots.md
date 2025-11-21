@@ -5,18 +5,19 @@ category: Structure
 group: Structure
 subgroup: Static Levels
 score_current: 8/10
-version: ATAS Official
+version: Stable
 recommended_action: Conservar
-description: ¿Cuáles son los niveles de soporte y resistencia (Pivots, R1-3, S1-3)
-  calculados sobre sesiones estándar o personalizadas?
-gemini_summary: Indicador de Pivots robusto con soporte para sesiones personalizadas
-  (RTH). Código funcional, aunque la gestión de etiquetas de texto es ineficiente.
+description: ¿Cuáles son los niveles de soporte y resistencia (Pivots, R1-3, S1-3)?
+gemini_summary: "Indicador de Pivots robusto con soporte para sesiones personalizadas (RTH)."
+comparison_group: "Pivots"
+competitor_notes: "Estándar."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
 effort: N/A
 action_priority: N/A
-analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Pivots modif (8/10)

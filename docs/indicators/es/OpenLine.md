@@ -1,22 +1,23 @@
----
+﻿---
 cs_file: OpenLine.cs
 name: Open Line
-category: Utility
-group: Utility
-subgroup: Visuals
+category: Structure
+group: Structure
+subgroup: Static Levels
 score_current: 8/10
-version: ATAS Official
+version: Stable
 recommended_action: Conservar
-description: ¿Dónde está el precio de apertura de la sesión actual (o personalizada)
-  y ha sido tocado ya?
-gemini_summary: Indicador de nivel de apertura simple y efectivo. Soporta horarios
-  personalizados y la función "Till Touch" (cortar línea al toque). Código limpio.
+description: ¿Dónde está el precio de apertura de la sesión actual y ha sido tocado ya?
+gemini_summary: "Indicador de nivel de apertura efectivo. Soporta horarios personalizados y función 'Till Touch'."
+comparison_group: "Timeframe Levels"
+competitor_notes: "Útil y ligero."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Open Line (8/10)

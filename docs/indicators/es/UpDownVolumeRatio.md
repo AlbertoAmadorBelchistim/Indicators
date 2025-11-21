@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: UpDownVolumeRatio.cs
 name: Up/Down Volume Ratio
 category: Order Flow
@@ -7,16 +7,17 @@ subgroup: Volume
 score_current: 9/10
 version: Stable
 recommended_action: Conservar
-description: ¿Quién controla el flujo de volumen (compradores o vendedores) y con
-  qué intensidad relativa?
-gemini_summary: Oscilador de volumen versátil. Permite comparar Up/Down o Ask/Bid
-  con múltiples tipos de suavizado.
+description: ¿Quién controla el flujo de volumen (compradores o vendedores) y con qué intensidad?
+gemini_summary: "Oscilador de volumen versátil. Permite comparar Up/Down o Ask/Bid con múltiples tipos de suavizado."
+comparison_group: "Volume Oscillators"
+competitor_notes: "Superior a Volume Oscillator estándar."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: Bajo
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Up/Down Volume Ratio (9/10)

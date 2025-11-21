@@ -1,22 +1,23 @@
----
+﻿---
 cs_file: Wavetrend.cs
 name: Wavetrend
-category: Trend
-group: Trend
-subgroup: Trend Filter
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 8/10
 version: Stable
 recommended_action: Conservar
-description: ¿Cuál es el ciclo de oscilación del precio basado en la volatilidad (famoso
-  indicador de TV)?
-gemini_summary: Implementación fiel del famoso script de TradingView. Visualmente
-  rico con puntos de señal.
+description: ¿Cuál es el ciclo de oscilación del precio basado en la volatilidad?
+gemini_summary: "Implementación fiel del famoso script de TradingView. Visualmente rico con puntos de señal."
+comparison_group: "Cycle Oscillators"
+competitor_notes: "Popular en retail."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: Bajo
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Wavetrend (8/10)

@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: StdErrBands.cs
 name: Standard Error Bands
 category: Trend
@@ -7,10 +7,11 @@ subgroup: Volatility
 score_current: 8/10
 version: Stable
 recommended_action: Conservar
-description: ¿Cuál es el rango de error estadístico esperado alrededor de la tendencia
-  de regresión actual?
-gemini_summary: Bandas basadas en Regresión Lineal y Error Estándar. Matemáticamente
-  denso pero correcto.
+description: ¿Cuál es el rango de error estadístico esperado alrededor de la tendencia?
+gemini_summary: "Bandas basadas en Regresión Lineal y Error Estándar. Matemáticamente denso pero correcto."
+comparison_group: "Volatility Bands"
+competitor_notes: "Alternativa a LinReg Channel."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
 effort: Medio

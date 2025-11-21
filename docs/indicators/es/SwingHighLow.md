@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: SwingHighLow.cs
 name: Swing High and Low
 category: Structure
@@ -7,16 +7,17 @@ subgroup: Static Levels
 score_current: 8/10
 version: Stable
 recommended_action: Conservar
-description: ¿Cuáles son los puntos de giro (máximos/mínimos locales) confirmados
-  en la estructura del mercado?
-gemini_summary: Detector de fractales/pivotes. Correctamente implementado con lag
-  retrospectivo.
+description: ¿Cuáles son los puntos de giro (máximos/mínimos locales) confirmados?
+gemini_summary: "Detector de fractales/pivotes. Correctamente implementado con lag retrospectivo (necesario para confirmación)."
+comparison_group: "Swing Levels"
+competitor_notes: "Alternativa a Fractals."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Swing High and Low (8/10)

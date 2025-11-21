@@ -1,22 +1,23 @@
----
+﻿---
 cs_file: Zigzag.cs
 name: ZigZag Pro
-category: Trend
-group: Trend
-subgroup: Trend Filter
+category: Order Flow
+group: Order Flow
+subgroup: Footprint
 score_current: 10/10
 version: Stable
 recommended_action: Conservar
-description: ¿Qué dicen las métricas acumuladas (Delta/Volumen) de cada onda de precio
-  sobre la estructura del mercado?
-gemini_summary: Indicador premium. Analiza ondas con métricas de Order Flow acumulado.
-  Código complejo y muy valioso.
+description: ¿Qué dicen las métricas acumuladas (Delta/Volumen) de cada onda de precio?
+gemini_summary: "Indicador premium. Analiza ondas con métricas de Order Flow acumulado. Código complejo y muy valioso."
+comparison_group: "Cluster Structure"
+competitor_notes: "El mejor analizador de ondas (Weiss Wave mejorado)."
+reusable_code: null
 file_state: Estable
 score_potential: 10/10
 effort: Alto
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 ZigZag Pro (10/10)

@@ -1,22 +1,23 @@
----
+﻿---
 cs_file: SpreadVolume.cs
 name: Spread Volume
-category: Utility
-group: Utility
-subgroup: Stats
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 7/10
 version: Stable
 recommended_action: Conservar
-description: Visualiza el volumen ejecutado en el Ask y el Bid por separado, dibujado
-  como histogramas en el spread.
-gemini_summary: Visualización compleja 'On Chart'. Buen manejo de concurrencia (locks).
-  UX mejorable.
+description: ¿Quién está agrediendo más dentro del spread actual?
+gemini_summary: "Visualización compleja 'On Chart'. Buen manejo de concurrencia. UX mejorable."
+comparison_group: "VSA & Anomalies"
+competitor_notes: "Único en su clase."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
 effort: Medio
 action_priority: P3
 analysis_date: 2025-11-18
-official_code_date: 2025-10-20
+official_code_date: 20/10/2025
 ---
 
 ## 🟦 Spread Volume (7/10)

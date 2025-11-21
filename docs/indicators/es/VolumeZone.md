@@ -7,13 +7,14 @@ subgroup: Momentum
 score_current: 9/10
 version: Stable
 recommended_action: Conservar
-description: ¿Cuál es la presión neta de compra/venta normalizada por el volumen total
-  (Oscilador de Zona)?
-gemini_summary: Oscilador de volumen normalizado (-100 a +100). Código limpio y lógica
-  robusta.
+description: ¿Cuál es la presión neta de compra/venta normalizada por el volumen total?
+gemini_summary: "Oscilador de volumen normalizado (-100 a +100). Código limpio y lógica robusta."
+comparison_group: "Volume Oscillator"
+competitor_notes: "El mejor oscilador de volumen."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
-effort: Bajo
+effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23

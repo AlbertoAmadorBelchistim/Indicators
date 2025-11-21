@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: MacdLeader.cs
 name: MACD Leader
 category: Oscillators
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Conservar
 description: ¿Cuál es una versión 'adelantada' del MACD?
 gemini_summary: "Implementación estable de 'MACD + residuales de EMA' para adelantar señales. Complejo pero funcional."
-comparison_group: "Advanced MACD"
+comparison_group: "Standard MACD"
 competitor_notes: "Intenta reducir lag."
 reusable_code: null
 file_state: Estable

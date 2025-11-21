@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: ElderRay.cs
 name: Elder Ray
 category: Oscillators
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Mejorar
 description: ¿Cuál es la fuerza de los compradores y vendedores en relación con el consenso?
 gemini_summary: "Implementación estable de un clásico. Necesita mejoras de flexibilidad (tipo de MA)."
-comparison_group: "Market Power"
+comparison_group: "Power Oscillators"
 competitor_notes: "Clásico pero superado por Delta."
 reusable_code: null
 file_state: Mejorable

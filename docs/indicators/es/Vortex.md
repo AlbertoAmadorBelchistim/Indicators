@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: Vortex.cs
 name: Vortex
 category: Oscillators
@@ -7,12 +7,14 @@ subgroup: Momentum
 score_current: 7/10
 version: Stable
 recommended_action: Conservar
-description: ¿Cuál es la fuerza direccional del mercado basada en el flujo de vórtices
-  (High-Low)?
-gemini_summary: Indicador direccional estándar. Implementación correcta de VI+ y VI-.
+description: ¿Cuál es la fuerza direccional del mercado basada en el flujo de vórtices?
+gemini_summary: "Indicador direccional estándar. Implementación correcta de VI+ y VI-."
+comparison_group: "Trend Efficiency"
+competitor_notes: "Alternativa a ADX."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
-effort: Bajo
+effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23

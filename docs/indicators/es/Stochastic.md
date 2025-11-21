@@ -8,14 +8,16 @@ score_current: 8/10
 version: Stable
 recommended_action: Conservar
 description: ¿Dónde cerró el precio en relación con su rango High-Low reciente?
-gemini_summary: Implementación canónica y completa. Incluye %K, %D, Slowing y líneas
-  de referencia.
+gemini_summary: "Implementación canónica y completa. Incluye %K, %D, Slowing y líneas de referencia."
+comparison_group: "Stochastic System"
+competitor_notes: "El estándar."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: Bajo
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Stochastic (8/10)

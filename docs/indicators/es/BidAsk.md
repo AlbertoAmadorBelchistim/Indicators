@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: BidAsk.cs
 name: Bid Ask
 category: Order Flow
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Mejorar
 description: ¿Cuáles fueron los volúmenes brutos de agresión de compra (Ask) y de agresión de venta (Bid) en cada vela?
 gemini_summary: "El histograma de OF más puro (6.5/10). Muestra la 'batalla' (Bid vs Ask), no solo el resultado (Delta)."
-comparison_group: "Bar Delta Breakdown"
+comparison_group: "Bar Delta Details"
 competitor_notes: "Alternativa analítica al Delta neto."
 reusable_code: null
 file_state: Mejorable

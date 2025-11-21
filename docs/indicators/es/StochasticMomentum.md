@@ -7,16 +7,17 @@ subgroup: RSI/Stochastic
 score_current: 7/10
 version: Stable
 recommended_action: Conservar
-description: ¿Cuál es el impulso del precio relativo al centro de su rango (SMI) en
-  lugar de al mínimo?
-gemini_summary: Implementación del SMI (Stochastic Momentum Index). Fórmula correcta,
-  riesgo menor de div/0.
+description: ¿Cuál es el impulso del precio relativo al centro de su rango (SMI)?
+gemini_summary: "Implementación del SMI (Stochastic Momentum Index). Fórmula correcta. Mejor que Stoch clásico para tendencia."
+comparison_group: "Stochastic Variant"
+competitor_notes: "Alternativa centrada."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Stochastic Momentum (7/10)

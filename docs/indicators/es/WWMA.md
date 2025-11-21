@@ -3,20 +3,21 @@ cs_file: WWMA.cs
 name: Welles Wilder's Moving Average
 category: Trend
 group: Trend
-subgroup: Trend Filter
+subgroup: Moving Average
 score_current: 7/10
 version: Stable
 recommended_action: Conservar
-description: ¿Cuál es la tendencia suavizada según el método original de Wilder (base
-  de RSI/ATR)?
-gemini_summary: Implementación correcta de la media de Wilder. Base para indicadores
-  clásicos.
+description: ¿Cuál es la tendencia suavizada según el método original de Wilder?
+gemini_summary: "Implementación correcta de la media de Wilder. Base para indicadores clásicos (RSI, ATR)."
+comparison_group: "Standard MA"
+competitor_notes: "Lenta pero robusta."
+reusable_code: null
 file_state: Estable
 score_potential: 7/10
 effort: Bajo
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Welles Wilder’s Moving Average (WWMA) (7/10)

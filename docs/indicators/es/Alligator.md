@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: Alligator.cs
 name: Alligator
 category: Trend
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Conservar
 description: ¿Está el mercado 'durmiendo' (en rango, con las medias entrelazadas) o está 'despierto y comiendo' (en tendencia)?
 gemini_summary: "Filtro de régimen clásico. Implementación correcta (SMMA + Shifts) pero con lag masivo por diseño."
-comparison_group: "Moving Average Systems"
+comparison_group: "Trend Systems"
 competitor_notes: "Sistema clásico. Útil para identificar rangos."
 reusable_code: null
 file_state: Estable

@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: LinearReg.cs
 name: Linear Regression
 category: Trend
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Mejorar
 description: ¿Cuál es la línea de tendencia de regresión lineal de las últimas N barras?
 gemini_summary: "Implementación estándar. Bug de diseño (usa índice absoluto como X). Mejorable."
-comparison_group: "Regression Analysis"
+comparison_group: "Regression Tools"
 competitor_notes: "Básico."
 reusable_code: null
 file_state: Mejorable

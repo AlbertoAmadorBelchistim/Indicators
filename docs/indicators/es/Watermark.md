@@ -7,15 +7,17 @@ subgroup: Visuals
 score_current: 5/10
 version: Stable
 recommended_action: Conservar
-description: Muestra información del instrumento o texto personalizado en el fondo
-  del gráfico.
-gemini_summary: Utilidad de texto en pantalla. Simple, funcional y estéticamente configurable.
+description: Muestra información del instrumento o texto personalizado en el fondo del gráfico.
+gemini_summary: "Utilidad de texto en pantalla. Simple, funcional y estéticamente configurable."
+comparison_group: "Drawing Tools"
+competitor_notes: "Básico."
+reusable_code: null
 file_state: Estable
 score_potential: 6/10
 effort: Bajo
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Watermark (5/10)

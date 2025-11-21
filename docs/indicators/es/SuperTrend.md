@@ -7,16 +7,17 @@ subgroup: Trend Filter
 score_current: 9/10
 version: Stable
 recommended_action: Conservar
-description: ¿Cuál es la dirección actual de la tendencia y dónde está el nivel de
-  Stop Loss dinámico (Trailing Stop)?
-gemini_summary: El estándar de la industria para Trailing Stops. Código optimizado
-  y visualmente pulido.
+description: ¿Cuál es la dirección actual de la tendencia y el nivel de Stop Loss dinámico?
+gemini_summary: "El estándar de la industria para Trailing Stops. Código optimizado y visualmente pulido."
+comparison_group: "Trailing Stop"
+competitor_notes: "El líder."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: Bajo
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-7-14
+official_code_date: 14/07/2025
 ---
 
 ## 🟦 Super Trend (9/10)

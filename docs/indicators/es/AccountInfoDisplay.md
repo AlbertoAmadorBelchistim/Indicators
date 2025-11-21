@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: AccountInfoDisplay.cs
 name: Account Info Display
 category: Utility
@@ -9,7 +9,7 @@ version: Latest
 recommended_action: Mejorar
 description: ¿Cuál es el estado de mi cuenta (Balance, PnL, Margen) en tiempo real?
 gemini_summary: "Útil (7/10), pero carece de funciones críticas para scalpers de fondeo."
-comparison_group: "Account Management"
+comparison_group: "Account Tools"
 competitor_notes: "Sin competencia directa, es una utilidad base."
 reusable_code: null
 file_state: Mejorable

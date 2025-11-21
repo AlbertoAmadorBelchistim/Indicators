@@ -1,22 +1,23 @@
 ---
 cs_file: QStick.cs
 name: Q Stick
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Structure
+group: Structure
+subgroup: Price Action
 score_current: 6/10
-version: ATAS Official
-recommended_action: Conservar
-description: ¿Cuál es el promedio móvil de la distancia entre apertura y cierre de
-  las velas?
-gemini_summary: Indicador simple de Chande (SMA de Close-Open). Código limpio y funcional.
-  Utilidad limitada comparada con herramientas de volumen modernas.
+version: Stable
+recommended_action: Descartar
+description: ¿Cuál es el promedio móvil de la distancia entre apertura y cierre de las velas?
+gemini_summary: "Indicador simple de Chande. Código limpio. Utilidad limitada comparada con Delta."
+comparison_group: "Candle Pattern"
+competitor_notes: "Inferior a Delta."
+reusable_code: null
 file_state: Estable
 score_potential: 6/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Q Stick (6/10)

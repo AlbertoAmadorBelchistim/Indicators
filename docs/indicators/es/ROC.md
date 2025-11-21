@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: ROC.cs
 name: Rate of Change (ROC)
 category: Oscillators
@@ -7,15 +7,17 @@ subgroup: Momentum
 score_current: 6/10
 version: Stable
 recommended_action: Mejorar
-description: ¿Cuál es la velocidad del cambio de precio (en % o ticks) comparado con
-  'n' barras atrás?
-gemini_summary: Funcional pero con UX confusa (parámetro inútil visible) y riesgo
-  de crash si TickSize=0.
+description: ¿Cuál es la velocidad del cambio de precio comparado con 'n' barras atrás?
+gemini_summary: "Funcional pero con UX confusa y riesgo de crash si TickSize=0."
+comparison_group: "Momentum Trend"
+competitor_notes: "El estándar de velocidad."
+reusable_code: null
 file_state: Mejorable
 score_potential: 8/10
 effort: Medio
 action_priority: P3
 analysis_date: 2025-11-18
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Rate of Change (ROC) (6/10)

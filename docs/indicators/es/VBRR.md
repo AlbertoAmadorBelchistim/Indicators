@@ -1,22 +1,23 @@
 ---
 cs_file: VBRR.cs
 name: Volume Bar Range Ratio
-category: Structure
-group: Structure
-subgroup: Price Action
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 7/10
 version: Stable
 recommended_action: Conservar
-description: ¿Cuánto volumen es necesario para mover el precio 1 tick (Eficiencia
-  del movimiento)?
-gemini_summary: Indicador simple de eficiencia. Volumen / Rango. Útil para detectar
-  absorción.
+description: ¿Quanto volumen es necesario para mover el precio 1 tick (Eficiencia)?
+gemini_summary: "Indicador simple de eficiencia. Volumen / Rango. Útil para detectar absorción."
+comparison_group: "Volume Efficiency"
+competitor_notes: "Similar a Market Facilitation Index."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
-effort: Bajo
+effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Volume Bar Range Ratio (VBRR) (7/10)

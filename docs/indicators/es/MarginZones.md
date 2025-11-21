@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: MarginZones.cs
 name: Margin zones
 category: Structure
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Reparar
 description: ¿Dónde están los niveles de margen clave calculados desde el extremo?
 gemini_summary: "Indicador ROTO. Concepto excelente para niveles institucionales, pero causa un crash por división por cero si TickCost es 0."
-comparison_group: "Margin Levels"
+comparison_group: "Grid Levels"
 competitor_notes: "Sin competencia."
 reusable_code: null
 file_state: Roto

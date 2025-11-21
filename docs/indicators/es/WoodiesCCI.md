@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: WoodiesCCI.cs
 name: Woodies CCI
 category: Oscillators
@@ -8,14 +8,16 @@ score_current: 9/10
 version: Stable
 recommended_action: Conservar
 description: Sistema completo de trading de Woodie basado en patrones de CCI.
-gemini_summary: Sistema 'todo en uno'. Complejo, visualmente rico y fiel a la estrategia
-  de Woodie.
+gemini_summary: "Sistema 'todo en uno'. Complejo, visualmente rico y fiel a la estrategia de Woodie."
+comparison_group: "Momentum Indexes"
+competitor_notes: "Versión avanzada de CCI."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: Bajo
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Woodies CCI (9/10)

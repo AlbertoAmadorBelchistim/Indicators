@@ -5,18 +5,19 @@ category: Oscillators
 group: Oscillators
 subgroup: Momentum
 score_current: 7/10
-version: ATAS Official
+version: Stable
 recommended_action: Mejorar
-description: ¿Cuál es la suma acumulada del Oscilador McClellan (amplitud de mercado
-  a largo plazo)?
-gemini_summary: Indicador de amplitud clásico pero rígido. Los períodos (19, 39) son
-  constantes fijas en el código y no se pueden cambiar.
+description: ¿Cuál es la suma acumulada del Oscilador McClellan (amplitud de mercado)?
+gemini_summary: "Indicador de amplitud clásico pero rígido. Los períodos (19, 39) son constantes fijas."
+comparison_group: "Market Breadth"
+competitor_notes: "Derivado de McClellan Oscillator."
+reusable_code: null
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo
 action_priority: P3
 analysis_date: 2025-11-17
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 McClellan Summation Index (MSI) (7/10)

@@ -1,16 +1,17 @@
----
+﻿---
 cs_file: VolumeSupResZones.cs
 name: Volume-based Support & Resistance Zones
-category: Oscillators
-group: Oscillators
-subgroup: MACD
+category: Structure
+group: "Order Flow"
+subgroup: "Volume"
 score_current: 10/10
 version: Stable
 recommended_action: Conservar
-description: ¿Dónde están las zonas de soporte y resistencia definidas por volumen
-  en múltiples marcos temporales?
-gemini_summary: Indicador MTF avanzado. Genera zonas S/R dinámicas de 4 timeframes
-  en un solo gráfico. Código complejo y robusto.
+description: ¿Dónde están las zonas de soporte y resistencia definidas por volumen en múltiples marcos temporales?
+gemini_summary: "Indicador MTF avanzado. Genera zonas S/R dinámicas de 4 timeframes. Código complejo y robusto."
+comparison_group: "Volume Profile"
+competitor_notes: "El mejor detector de zonas de volumen."
+reusable_code: null
 file_state: Estable
 score_potential: 10/10
 effort: Alto

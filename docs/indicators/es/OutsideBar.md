@@ -1,21 +1,23 @@
 ---
 cs_file: OutsideBar.cs
 name: Outside Bar
-category: Oscillators
-group: Oscillators
-subgroup: Momentum
+category: Structure
+group: Structure
+subgroup: Price Action
 score_current: 6/10
-version: ATAS Official
+version: Stable
 recommended_action: Mejorar
-description: ¿Es la barra actual una "Outside Bar" (engloba completamente a la anterior)?
-gemini_summary: Detector de patrón simple y funcional. Visualización pobre (solo un
-  punto en el High), debería distinguir entre Outside Bar alcista/bajista.
+description: ¿Es la barra actual una 'Outside Bar' (engloba a la anterior)?
+gemini_summary: "Detector de patrón simple. Visualización pobre (solo punto). Debería distinguir alcista/bajista."
+comparison_group: "Candle Pattern"
+competitor_notes: "Básico."
+reusable_code: null
 file_state: Mejorable
 score_potential: 7/10
 effort: Bajo
 action_priority: P3
-analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Outside Bar (6/10)

@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: HeikenAshiSmoothed.cs
 name: Heiken Ashi Smoothed
 category: Trend
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Mejorar
 description: ¿Cómo se vería el precio usando velas Heiken Ashi doblemente suavizadas?
 gemini_summary: "Indicador de lag extremo (triple suavizado). Bug en 'bar == 0'. Mejorable pero lento."
-comparison_group: "Trend Filter"
+comparison_group: "Trend Visuals"
 competitor_notes: "Inferior a SuperTrend."
 reusable_code: null
 file_state: Mejorable

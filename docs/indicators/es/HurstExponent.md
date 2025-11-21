@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: HurstExponent.cs
 name: Hurst Exponent
 category: Trend
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Conservar
 description: ¿El comportamiento del mercado es tendencial, de reversión o aleatorio?
 gemini_summary: "Implementación 'Quant' estable del exponente de Hurst. Herramienta de 'régimen' de alto nivel."
-comparison_group: "Market Regime"
+comparison_group: "Cycle & Regimes"
 competitor_notes: "Único en su clase (R/S analysis)."
 reusable_code: null
 file_state: Estable

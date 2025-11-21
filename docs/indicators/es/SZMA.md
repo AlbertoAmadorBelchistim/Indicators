@@ -1,22 +1,23 @@
----
+﻿---
 cs_file: SZMA.cs
 name: Simple Moving Average - Skip Zeros
 category: Trend
 group: Trend
-subgroup: Trend Filter
+subgroup: Moving Average
 score_current: 7/10
 version: Stable
 recommended_action: Conservar
-description: ¿Cuál es el promedio real de una serie de datos ignorando los valores
-  vacíos o ceros?
-gemini_summary: Media móvil especializada que filtra ceros. Útil para datos dispersos
-  (sparse data).
+description: ¿Cuál es el promedio real ignorando los valores cero?
+gemini_summary: "Media móvil especializada que filtra ceros. Útil para datos dispersos (sparse data)."
+comparison_group: "Advanced MA"
+competitor_notes: "Útil para volumen bajo."
+reusable_code: null
 file_state: Estable
 score_potential: 7/10
 effort: Bajo
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Simple Moving Average - Skip Zeros (SZMA) (7/10)

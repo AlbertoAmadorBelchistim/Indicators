@@ -1,21 +1,23 @@
 ---
 cs_file: PolarizedFractal.cs
 name: Polarized Fractal Efficiency
-category: Structure
-group: Structure
-subgroup: Price Action
+category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 7/10
-version: ATAS Official
+version: Stable
 recommended_action: Conservar
 description: ¿Cuál es la eficiencia (tendencia vs ruido) del movimiento del precio?
-gemini_summary: Indicador de eficiencia de tendencia. Implementación matemática correcta.
-  Nombre de parámetro confuso (ShortPeriod) y falta de líneas de referencia visuales.
+gemini_summary: "Indicador de eficiencia de tendencia. Implementación correcta."
+comparison_group: "Trend Efficiency"
+competitor_notes: "Sin competencia directa."
+reusable_code: null
 file_state: Estable
 score_potential: 7/10
 effort: N/A
 action_priority: N/A
-analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Polarized Fractal Efficiency (7/10)

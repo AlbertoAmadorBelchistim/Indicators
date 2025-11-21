@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: GreatestSwing.cs
 name: Greatest Swing Value
 category: Structure
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Conservar
 description: ¿Dónde están los niveles S/R dinámicos, proyectados desde el Open actual?
 gemini_summary: "Implementación estable. Proyecta la media de los 'swings de rechazo' (mechas). Útil para volatilidad."
-comparison_group: "Volatility Range"
+comparison_group: "Swing Levels"
 competitor_notes: "Alternativa a ADR."
 reusable_code: null
 file_state: Estable

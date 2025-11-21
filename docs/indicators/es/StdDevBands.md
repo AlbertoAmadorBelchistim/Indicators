@@ -7,10 +7,11 @@ subgroup: Volatility
 score_current: 8/10
 version: Stable
 recommended_action: Conservar
-description: ¿Está el precio alcanzando extremos estadísticos de volatilidad basados
-  en máximos y mínimos?
-gemini_summary: Variante de Bollinger que usa High/Low en lugar de Close. Buena gestión
-  de alertas.
+description: ¿Está el precio alcanzando extremos estadísticos de volatilidad basados en máximos y mínimos?
+gemini_summary: "Variante de Bollinger que usa High/Low en lugar de Close. Buena gestión de alertas."
+comparison_group: "Volatility Bands"
+competitor_notes: "Alternativa a Bollinger."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

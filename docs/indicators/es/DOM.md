@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: DOM.cs
 name: Depth of Market
 category: Order Flow

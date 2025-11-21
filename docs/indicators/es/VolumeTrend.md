@@ -1,19 +1,20 @@
 ---
 cs_file: VolumeTrend.cs
 name: Price Volume Trend
-category: Trend
-group: Trend
-subgroup: Trend Filter
+category: Oscillators
+group: Oscillators
+subgroup: Momentum
 score_current: 8/10
 version: Stable
 recommended_action: Conservar
-description: ¿Cuál es el flujo acumulado de volumen ponderado por la magnitud del
-  movimiento del precio?
-gemini_summary: Variante mejorada del OBV. Pondera volumen por cambio porcentual de
-  precio.
+description: ¿Cuál es el flujo acumulado de volumen ponderado por la magnitud del movimiento?
+gemini_summary: "Variante mejorada del OBV. Pondera volumen por cambio porcentual de precio."
+comparison_group: "Volume Oscillator"
+competitor_notes: "Superior a OBV."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
-effort: Bajo
+effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-18
 official_code_date: 2025-04-23

@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: BidAskVR.cs
 name: Bid Ask Volume Ratio
 category: Order Flow
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Mejorar
 description: ¿Cuál es el desequilibrio normalizado del volumen agresivo?
 gemini_summary: "'Delta Normalizado' (7/10). Conceptualmente superior (Ratio). Lógica de 4 colores genial para divergencias."
-comparison_group: "Bar Delta Ratio"
+comparison_group: "Bar Delta Details"
 competitor_notes: "Competidor de Imbalance Ratio."
 reusable_code: null
 file_state: Mejorable

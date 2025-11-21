@@ -1,22 +1,23 @@
----
+﻿---
 cs_file: TradesOnChart.cs
 name: Trades On Chart
 category: Utility
 group: Utility
-subgroup: Visuals
+subgroup: Account
 score_current: 9/10
 version: Stable
 recommended_action: Conservar
-description: ¿Dónde ejecuté mis operaciones pasadas y cuál fue el resultado (PnL)
-  visualmente?
-gemini_summary: Excelente herramienta de post-análisis. Dibuja trades del historial
-  con PnL y líneas de conexión.
+description: ¿Dónde ejecuté mis operaciones pasadas y cuál fue el resultado?
+gemini_summary: "Excelente herramienta de post-análisis. Dibuja trades del historial con PnL."
+comparison_group: "Account Tools"
+competitor_notes: "Sin competencia."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: Medio
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-11-13
+official_code_date: 13/11/2025
 ---
 
 ## 🟦 Trades On Chart (9/10)

@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: Gaps.cs
 name: Gaps
 category: Structure
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Conservar
 description: ¿Dónde están los huecos de precio (Gaps) que superan una desviación mínima?
 gemini_summary: "Implementación 'Core' avanzada. Filtro 'MinDeviation' y 'Cierre Parcial' lo hacen profesional."
-comparison_group: "Gap Analysis"
+comparison_group: "Calculated Levels"
 competitor_notes: "Complementario a Fair Value Gap."
 reusable_code: null
 file_state: Estable

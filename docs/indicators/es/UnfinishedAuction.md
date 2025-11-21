@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: UnfinishedAuction.cs
 name: Unfinished Auction
 category: Order Flow
@@ -7,16 +7,17 @@ subgroup: Volume Profile
 score_current: 9/10
 version: Stable
 recommended_action: Conservar
-description: ¿Quedaron órdenes pendientes (desequilibrio) en los extremos de la vela
-  que el precio debe volver a visitar?
-gemini_summary: Herramienta de Order Flow avanzada. Detecta anomalías en extremos
-  y dibuja líneas hasta que se mitigan.
+description: ¿Quedaron órdenes pendientes en los extremos de la vela que el precio debe volver a visitar?
+gemini_summary: "Herramienta de Order Flow avanzada. Detecta anomalías en extremos y dibuja líneas hasta que se mitigan."
+comparison_group: "Session Profile"
+competitor_notes: "Único para detectar UA."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: Alto
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-05-8
+official_code_date: 08/05/2025
 ---
 
 ## 🟦 Unfinished Auction (9/10)

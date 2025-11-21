@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: DOMLevels.cs
 name: DOM Heatmap (Manual)
 category: Order Flow
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Conservar
 description: ¿Cómo ha evolucionado la liquidez del libro de órdenes (Heatmap) a lo largo del tiempo?
 gemini_summary: "Generador de mapa de calor (Bookmap-style) dentro del gráfico. Gestión de memoria eficiente."
-comparison_group: "Heatmap"
+comparison_group: "DOM Visuals"
 competitor_notes: "Único en su clase."
 reusable_code: null
 file_state: Estable

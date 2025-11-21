@@ -7,16 +7,17 @@ subgroup: RSI/Stochastic
 score_current: 5/10
 version: Stable
 recommended_action: Mejorar
-description: ¿Qué percentil estadístico ocupa el precio actual respecto a los últimos
-  N periodos?
-gemini_summary: Ineficiente (sort O(N log N) por tick) y con error tipográfico en
-  el nombre de archivo/clase.
+description: ¿Qué percentil estadístico ocupa el precio actual respecto a los últimos N periodos?
+gemini_summary: "Ineficiente (sort O(N log N) por tick) y con error tipográfico en el nombre. Concepto válido (Rank)."
+comparison_group: "Stochastic Variant"
+competitor_notes: "Lento."
+reusable_code: null
 file_state: Mejorable
 score_potential: 7/10
 effort: Medio
 action_priority: P3
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Stochastic - Percentile (5/10)

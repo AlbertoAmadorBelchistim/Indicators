@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: Momentum.cs
 name: Momentum
 category: Oscillators
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Conservar
 description: ¿Cuál es la diferencia de precio (velocidad) entre la barra actual y la de hace N periodos?
 gemini_summary: "Implementación clásica y robusta. Incluye suavizado opcional."
-comparison_group: "Classic Momentum"
+comparison_group: "Momentum Trend"
 competitor_notes: "La base del momentum."
 reusable_code: null
 file_state: Estable

@@ -1,22 +1,23 @@
----
+﻿---
 cs_file: OrderFlow.cs
 name: Order Flow Indicator
 category: Order Flow
 group: Order Flow
 subgroup: Volume
 score_current: 9/10
-version: ATAS Official
+version: Stable
 recommended_action: Conservar
-description: ¿Cómo se visualiza el flujo de órdenes (trades individuales o acumulados)
-  en el gráfico (círculos/rectángulos)?
-gemini_summary: Visualizador de Order Flow sólido. Dibuja trades como círculos/rectángulos.
-  Tiene un pequeño riesgo de concurrencia en OnRender, pero es funcional.
+description: ¿Cómo se visualiza el flujo de órdenes (trades individuales) en el gráfico?
+gemini_summary: "Visualizador de Order Flow sólido (Círculos/Rectángulos). Pequeño riesgo en OnRender pero funcional."
+comparison_group: "Tape Analysis"
+competitor_notes: "Estándar visual."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Order Flow Indicator (9/10)

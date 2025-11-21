@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: FairValueGap.cs
 name: Fair Value Gap
 category: Structure
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Conservar
 description: ¿Dónde están los desequilibrios de precio (gaps) no mitigados?
 gemini_summary: "Detector de FVG multitemporal. Reconstruye velas superiores internamente. Código complejo y potente."
-comparison_group: "Gap Analysis"
+comparison_group: "SMC & Gaps"
 competitor_notes: "Líder en detección de Gaps."
 reusable_code: null
 file_state: Estable

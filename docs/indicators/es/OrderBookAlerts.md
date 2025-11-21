@@ -1,22 +1,23 @@
----
+﻿---
 cs_file: OrderBookAlerts.cs
 name: Order Book Alerts
-category: Utility
-group: Utility
-subgroup: Alerts
+category: Order Flow
+group: Order Flow
+subgroup: DOM
 score_current: 9/10
-version: ATAS Official
+version: Stable
 recommended_action: Conservar
-description: ¿Dónde hay muros de liquidez en el DOM que superan un cierto tamaño y
-  persisten en el tiempo?
-gemini_summary: Monitor de DOM eficaz. Alerta sobre niveles de liquidez grandes y
-  persistentes. Código eficiente basado en eventos de profundidad de mercado.
+description: ¿Dónde hay muros de liquidez en el DOM que superan un tamaño y persisten?
+gemini_summary: "Monitor de DOM eficaz. Alerta sobre niveles de liquidez grandes. Código eficiente."
+comparison_group: "Liquidity Events"
+competitor_notes: "Complementario a Heatmap."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-05-8
+official_code_date: 08/05/2025
 ---
 
 ## 🟦 Order Book Alerts (9/10)

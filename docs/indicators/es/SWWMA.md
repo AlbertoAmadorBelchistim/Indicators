@@ -1,22 +1,23 @@
----
+﻿---
 cs_file: SWWMA.cs
 name: Sine-Wave Weighted Moving Average
 category: Trend
 group: Trend
-subgroup: Trend Filter
+subgroup: Moving Average
 score_current: 5/10
 version: Stable
 recommended_action: Mejorar
-description: ¿Cuál es la tendencia suavizada usando una ponderación sinusoidal fija
-  de 5 periodos?
-gemini_summary: Indicador rígido sin parámetros. Usa un kernel fijo de 5 barras con
-  pesos seno.
+description: ¿Cuál es la tendencia suavizada usando una ponderación sinusoidal fija?
+gemini_summary: "Indicador rígido sin parámetros. Usa un kernel fijo de 5 barras con pesos seno. Inflexible."
+comparison_group: "Advanced MA"
+competitor_notes: "Inferior a WMA."
+reusable_code: null
 file_state: Estable
 score_potential: 7/10
 effort: Bajo
 action_priority: P3
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Sine-Wave Weighted Moving Average (SWWMA) (5/10)

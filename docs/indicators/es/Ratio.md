@@ -3,20 +3,21 @@ cs_file: Ratio.cs
 name: Ratio
 category: Order Flow
 group: Order Flow
-subgroup: Volume
+subgroup: Footprint
 score_current: 9/10
-version: ATAS Official
+version: Stable
 recommended_action: Conservar
-description: ¿Cuál es el ratio de absorción/agresión (Bid vs Ask) en el extremo de
-  la vela?
-gemini_summary: Indicador de microestructura excelente. Calcula el ratio de volumen
-  en los extremos de la vela para detectar agotamiento. Código sólido y funcional.
+description: ¿Cuál es el ratio de absorción/agresión (Bid vs Ask) en el extremo de la vela?
+gemini_summary: "Indicador de microestructura excelente. Calcula el ratio de volumen en extremos. Código sólido."
+comparison_group: "Microstructure"
+competitor_notes: "Complementario a Imbalance Ratio."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Ratio (9/10)

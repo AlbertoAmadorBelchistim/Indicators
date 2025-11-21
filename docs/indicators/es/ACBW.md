@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: ACBW.cs
 name: Bill Williams AC
 category: Oscillators
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Descartar
 description: ¿El momentum (AO) está acelerando o frenando?
 gemini_summary: "Implementación 'fraude'. Falla en defaults y lógica. Inservible frente a herramientas modernas."
-comparison_group: "Classic Momentum"
+comparison_group: "Momentum Trend"
 competitor_notes: "Inferior a cualquier MACD o AO estándar."
 reusable_code: null
 file_state: Impostor

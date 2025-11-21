@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: ExternalCharts.cs
 name: External Chart
 category: Utility
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Conservar
 description: ¿Cómo se ven las velas de un timeframe superior superpuestas en mi gráfico?
 gemini_summary: "Herramienta de visualización 'Core'. Indispensable para el análisis Multi-Timeframe."
-comparison_group: "Multi-Timeframe"
+comparison_group: "Time Tools"
 competitor_notes: "Único en su clase."
 reusable_code: null
 file_state: Estable

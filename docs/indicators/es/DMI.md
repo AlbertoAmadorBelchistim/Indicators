@@ -1,15 +1,15 @@
----
+﻿---
 cs_file: DMI.cs
 name: Dynamic Momentum Index
 category: Oscillators
-group: Oscillators
-subgroup: Momentum
+group: "Trend"
+subgroup: "Trend Filter"
 score_current: 5/10
 version: Estable
 recommended_action: Reparar
 description: ¿Cuál es el RSI, pero con un periodo que se ajusta automáticamente a la volatilidad?
 gemini_summary: "Concepto de RSI adaptativo 9/10 arruinado por un bug lógico en el cálculo. Necesita reparación."
-comparison_group: "Adaptive RSI"
+comparison_group: "Trend Component"
 competitor_notes: "Potencialmente superior a RSI si se arregla."
 reusable_code: null
 file_state: Buggy

@@ -1,23 +1,23 @@
----
+﻿---
 cs_file: RelativeVigorIndex.cs
 name: Relative Vigor Index
 category: Oscillators
 group: Oscillators
 subgroup: Momentum
 score_current: 6/10
-version: ATAS Official
-recommended_action: Mejorar
-description: ¿Cuál es la convicción del cierre (Close vs Open) relativa al rango (High
-  vs Low)?
-gemini_summary: Indicador de vigor relativo. Funcional, pero con riesgo de división
-  por cero si High==Low. La línea de señal se calcula de forma inusual (sobre el valor
-  crudo).
+version: Stable
+recommended_action: Conservar
+description: ¿Cuál es la convicción del cierre relativa al rango?
+gemini_summary: "Indicador de vigor relativo. Funcional, riesgo de división por cero. Señal calculada sobre valor crudo."
+comparison_group: "Momentum Indexes"
+competitor_notes: "Inferior a RVI V2 (Inertia2)."
+reusable_code: null
 file_state: Mejorable
 score_potential: 7/10
 effort: Bajo
 action_priority: P3
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Relative Vigor Index (6/10)

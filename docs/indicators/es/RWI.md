@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: RWI.cs
 name: Random Walk Index
 category: Oscillators
@@ -7,10 +7,11 @@ subgroup: Momentum
 score_current: 5/10
 version: Stable
 recommended_action: Mejorar
-description: Determina si el movimiento del precio es estadísticamente significativo
-  o solo ruido aleatorio.
-gemini_summary: Concepto interesante pero implementación ineficiente (O(N^2)) al recalcular
-  ATR en bucle.
+description: ¿Es el movimiento del precio estadísticamente significativo o solo ruido aleatorio?
+gemini_summary: "Concepto interesante pero implementación ineficiente (O(N^2)). Recalcula ATR en bucle."
+comparison_group: "Trend Efficiency"
+competitor_notes: "Inferior a Polarized Fractal."
+reusable_code: null
 file_state: Mejorable
 score_potential: 7/10
 effort: Medio

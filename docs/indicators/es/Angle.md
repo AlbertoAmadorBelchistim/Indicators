@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: Angle.cs
 name: Study Angle
 category: Oscillators
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Descartar
 description: ¿Cuál es el ángulo geométrico literal (en grados) de la tendencia del precio?
 gemini_summary: "Inútil. Es un indicador de Momentum ruidoso, disfrazado con Atan(). Ilegible y conceptualmente defectuoso."
-comparison_group: "Classic Momentum"
+comparison_group: "Momentum Trend"
 competitor_notes: "Inferior a Momentum o ROC."
 reusable_code: null
 file_state: Estable (Conceptualm. Roto)

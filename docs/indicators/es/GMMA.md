@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: GMMA.cs
 name: Guppy Multiple Moving Average
 category: Trend
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Conservar
 description: ¿Cuál es la relación (compresión/expansión) entre las 6 EMAs cortas y largas?
 gemini_summary: "Implementación 'Core' estable. Herramienta de visualización de tendencia/compresión indispensable."
-comparison_group: "Moving Average Systems"
+comparison_group: "MA Systems"
 competitor_notes: "Sin competencia directa."
 reusable_code: null
 file_state: Estable

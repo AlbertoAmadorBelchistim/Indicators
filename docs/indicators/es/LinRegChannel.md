@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: LinRegChannel.cs
 name: Linear Regression Channel
 category: Trend
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Reparar
 description: ¿Cuál es el canal de tendencia dominante y sus límites de desviación?
 gemini_summary: "Concepto excelente pero ROTO por bug de división por cero. Prioridad P1."
-comparison_group: "Regression Channel"
+comparison_group: "Regression Tools"
 competitor_notes: "Potencialmente excelente."
 reusable_code: null
 file_state: Roto

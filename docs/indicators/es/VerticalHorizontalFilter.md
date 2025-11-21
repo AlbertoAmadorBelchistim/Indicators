@@ -1,22 +1,23 @@
 ---
 cs_file: VerticalHorizontalFilter.cs
 name: Vertical Horizontal Filter
-category: Uncategorized
-group: Uncategorized
-subgroup: Other
+category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 8/10
 version: Stable
 recommended_action: Conservar
-description: ¿Está el mercado en tendencia (movimiento vertical) o en rango (movimiento
-  horizontal)?
-gemini_summary: Indicador de eficiencia de movimiento. Código flexible con múltiples
-  fuentes de datos.
+description: ¿Está el mercado en tendencia (vertical) o en rango (horizontal)?
+gemini_summary: "Indicador de eficiencia de movimiento. Código flexible con múltiples fuentes de datos."
+comparison_group: "Trend Efficiency"
+competitor_notes: "Compite con Polarized Fractal."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
-effort: Bajo
+effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Vertical Horizontal Filter (8/10)

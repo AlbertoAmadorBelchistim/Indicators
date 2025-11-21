@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: Ichimoku.cs
 name: Ichimoku Kinko Hyo
 category: Trend
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Conservar
 description: ¿Cuál es el estado de la tendencia y el equilibrio del mercado según Ichimoku?
 gemini_summary: "Implementación 'Core' estable del sistema completo. Maneja correctamente el desplazamiento temporal."
-comparison_group: "Trend System"
+comparison_group: "Trend Systems"
 competitor_notes: "Sistema completo."
 reusable_code: null
 file_state: Estable

@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: AveragePriceBar.cs
 name: Average Price for Bar
 category: Structure
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Descartar
 description: ¿Cuál es el precio promedio interno (ej. Mediana, Típico) de cada vela?
 gemini_summary: "'Bloatware' (2/10). 100% redundante. Los indicadores estándar (SMA, EMA) ya tienen un parámetro 'Source' que hace esto."
-comparison_group: "Price Calculation"
+comparison_group: "Price Computation"
 competitor_notes: "No aplica, es redundante."
 reusable_code: null
 file_state: Estable (Redundante)

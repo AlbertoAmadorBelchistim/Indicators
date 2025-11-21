@@ -1,21 +1,23 @@
----
+﻿---
 cs_file: QQE.cs
 name: Qualitative Quantitative Estimation
 category: Oscillators
 group: Oscillators
-subgroup: Momentum
+subgroup: RSI/Stochastic
 score_current: 7/10
-version: ATAS Official
+version: Stable
 recommended_action: Mejorar
 description: ¿Cuál es el RSI suavizado y filtrado por volatilidad (QQE)?
-gemini_summary: 'Implementación sólida del QQE. Defecto de usabilidad: el nivel de
-  alerta (50) está fijo en código y no es configurable por el usuario.'
+gemini_summary: "Implementación sólida del QQE. Defecto: nivel de alerta (50) fijo."
+comparison_group: "RSI Variants"
+competitor_notes: "Versión suavizada de RSI."
+reusable_code: null
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo
 action_priority: P3
-analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 QQE (Qualitative Quantitative Estimation) (7/10)

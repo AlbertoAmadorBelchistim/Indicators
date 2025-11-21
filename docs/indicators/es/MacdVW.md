@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: MacdVW.cs
 name: MACD - Volume Weighted
 category: Order Flow
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Mejorar
 description: ¿Cuál es la convergencia entre dos medias ponderadas por volumen (VWMAs)?
 gemini_summary: "Implementación excelente y segura de un MACD ponderado por volumen. Le falta histograma coloreado."
-comparison_group: "Volume MACD"
+comparison_group: "Volume Oscillators"
 competitor_notes: "Superior al MACD estándar si hay volumen real."
 reusable_code: null
 file_state: Estable

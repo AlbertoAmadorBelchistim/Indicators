@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: Fractals.cs
 name: Fractals
 category: Structure
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Conservar
 description: ¿Dónde están los máximos y mínimos fractales (swing) de 5 barras?
 gemini_summary: "Implementación 'Core' estable. Mejorada con función 'ShowLine' (LineTillTouch) para S/R automáticos."
-comparison_group: "Swing High/Low"
+comparison_group: "Swing Analysis"
 competitor_notes: "Estándar para estructura de mercado."
 reusable_code: null
 file_state: Estable

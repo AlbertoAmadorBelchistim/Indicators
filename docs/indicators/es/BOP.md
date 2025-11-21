@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: BOP.cs
 name: Balance of Power
 category: Oscillators
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Descartar
 description: ¿Cuál es, en promedio, la fuerza del cuerpo de la vela en relación con su rango total?
 gemini_summary: "'Ciego' al volumen y a los gaps (5/10). Es un SMA(14) de un ratio de Price Action. Obsoleto vs. herramientas de Order Flow."
-comparison_group: "Price Momentum"
+comparison_group: "Power Oscillators"
 competitor_notes: "Inferior a Delta."
 reusable_code: null
 file_state: Estable (Conceptualm. Roto)

@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: CotHigh.cs
 name: COT High/Low
 category: Order Flow
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Descartar
 description: ¿Acumula el delta desde un nuevo máximo o mínimo?
 gemini_summary: "Concepto valioso ('Delta desde el Swing') pero implementación rota. Lógica 'Low' faltante."
-comparison_group: "Delta Profile"
+comparison_group: "Cumulative Delta"
 competitor_notes: "Inferior a Weis Wave."
 reusable_code: null
 file_state: Roto

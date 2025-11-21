@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: InitialBalanceModif.cs
 name: Initial Balance Modif
 category: Structure
@@ -9,7 +9,7 @@ version: Latest
 recommended_action: Conservar
 description: ¿Cuáles son el rango de apertura (IB) y sus expansiones para la sesión actual?
 gemini_summary: "Versión 'Modif' superior. Usa 'OnRender' para etiquetas limpias y 'snapshotting' para niveles históricos."
-comparison_group: "Session Levels"
+comparison_group: "Timeframe Levels"
 competitor_notes: "Líder en niveles de sesión."
 reusable_code: null
 file_state: Estable

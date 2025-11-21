@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: Dispersion.cs
 name: Dispersion
 category: Trend
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Descartar
 description: ¿Está el precio pegado a su media o explotando lejos de ella?
 gemini_summary: "Indicador Roto e Inferior: mide la Varianza (ticks^2) en lugar de StDev, la calcula mal, y es 100% inferior a usar ATR o Bollinger Bands."
-comparison_group: "Volatility Measures"
+comparison_group: "Volatility Metrics"
 competitor_notes: "Inferior a StdDev."
 reusable_code: null
 file_state: Roto

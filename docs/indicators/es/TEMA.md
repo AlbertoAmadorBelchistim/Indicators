@@ -3,20 +3,21 @@ cs_file: TEMA.cs
 name: Triple Exponential Moving Average
 category: Trend
 group: Trend
-subgroup: Trend Filter
+subgroup: Moving Average
 score_current: 8/10
 version: Stable
 recommended_action: Conservar
-description: ¿Cuál es la tendencia inmediata con el mínimo retraso posible (Lag casi
-  cero)?
-gemini_summary: Media de Mulloy estándar. Implementación eficiente reusando la clase
-  EMA.
+description: ¿Cuál es la tendencia inmediata con el mínimo retraso posible?
+gemini_summary: "Media de Mulloy estándar. Implementación eficiente reusando la clase EMA."
+comparison_group: "Fast MA"
+competitor_notes: "Más rápida que EMA."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Triple Exponential Moving Average (TEMA) (8/10)

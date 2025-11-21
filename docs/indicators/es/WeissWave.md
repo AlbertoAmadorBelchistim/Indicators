@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: WeissWave.cs
 name: Weis Wave
 category: Order Flow
@@ -8,14 +8,16 @@ score_current: 8/10
 version: Stable
 recommended_action: Conservar
 description: ¿Cuánto volumen acumulado (esfuerzo) hay en la onda de precio actual?
-gemini_summary: Acumulador de volumen por ondas (ZigZag de volumen). Esencial para
-  Wyckoff.
+gemini_summary: "Acumulador de volumen por ondas (ZigZag de volumen). Esencial para Wyckoff."
+comparison_group: "Volume Oscillators"
+competitor_notes: "Único."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: Bajo
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Weis Wave (8/10)

@@ -7,10 +7,11 @@ subgroup: Volume
 score_current: 9/10
 version: Stable
 recommended_action: Conservar
-description: ¿Cuál es la velocidad de ejecución (ritmo) del mercado visualizada como
-  mapa de calor?
-gemini_summary: Heatmap de velocidad de cinta. Visualización excelente de la intensidad
-  del mercado.
+description: ¿Cuál es la velocidad de ejecución (ritmo) del mercado visualizada como mapa de calor?
+gemini_summary: "Heatmap de velocidad de cinta. Visualización excelente de la intensidad del mercado."
+comparison_group: "Tape Speed"
+competitor_notes: "Mejor visualización que Speed of Tape."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: Bajo

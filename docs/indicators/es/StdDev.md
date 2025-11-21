@@ -8,8 +8,10 @@ score_current: 8/10
 version: Stable
 recommended_action: Conservar
 description: ¿Cuánto se está alejando el precio de su media (volatilidad absoluta)?
-gemini_summary: Cálculo matemático estándar de la desviación típica. Código simple
-  y correcto.
+gemini_summary: "Cálculo matemático estándar de la desviación típica. Componente base indispensable."
+comparison_group: "Statistical Analysis"
+competitor_notes: "Bloque de construcción."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

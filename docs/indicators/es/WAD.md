@@ -1,22 +1,23 @@
----
+﻿---
 cs_file: WAD.cs
 name: Williams Accumulation / Distribution (WAD)
 category: Oscillators
 group: Oscillators
-subgroup: RSI/Stochastic
+subgroup: Momentum
 score_current: 7/10
 version: Stable
 recommended_action: Conservar
-description: ¿Se está acumulando o distribuyendo el activo (basado en la presión de
-  cierre)?
-gemini_summary: Acumulador de presión de cierre. Simple y funcional. No usa volumen
-  real.
+description: ¿Se está acumulando o distribuyendo el activo (basado en la presión de cierre)?
+gemini_summary: "Acumulador de presión de cierre. Simple y funcional. No usa volumen real."
+comparison_group: "Accumulation Flow"
+competitor_notes: "Inferior a CVD."
+reusable_code: null
 file_state: Estable
 score_potential: 7/10
 effort: Bajo
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Williams Accumulation / Distribution (WAD) (7/10)

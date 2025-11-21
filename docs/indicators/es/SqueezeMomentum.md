@@ -1,22 +1,23 @@
 ---
 cs_file: SqueezeMomentum.cs
 name: Squeeze Momentum
-category: Oscillators
-group: Oscillators
-subgroup: Momentum
+category: Trend
+group: Trend
+subgroup: Volatility
 score_current: 9/10
 version: Stable
 recommended_action: Conservar
-description: El famoso indicador de John Carter. Detecta periodos de baja volatilidad
-  (Squeeze) seguidos de explosiones direccionales.
-gemini_summary: Implementación impecable y completa (BB + KC + Momentum). Usa un hack
-  visual curioso para los puntos cero.
+description: ¿Está el mercado acumulando energía (Squeeze) para un movimiento explosivo?
+gemini_summary: "Implementación impecable y completa (BB + KC + Momentum). El estándar de oro."
+comparison_group: "Volatility Squeeze"
+competitor_notes: "Superior a Bollinger Squeeze."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: Bajo
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Squeeze Momentum (9/10)

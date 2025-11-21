@@ -1,22 +1,23 @@
----
+﻿---
 cs_file: VsaWsd.cs
 name: VSA – WSD Histogram
-category: Order Flow
-group: Order Flow
-subgroup: Volume
+category: Structure
+group: "Order Flow"
+subgroup: "Volume"
 score_current: 8/10
 version: Stable
 recommended_action: Conservar
-description: ¿Cómo se distribuye la estructura de la vela (mechas vs cuerpo) y el
-  volumen relativo?
-gemini_summary: Deconstruye la vela en histogramas de mechas y cuerpo. Útil para análisis
-  estructural.
+description: ¿Cómo se distribuye la estructura de la vela (mechas vs cuerpo) y el volumen relativo?
+gemini_summary: "Deconstruye la vela en histogramas de mechas y cuerpo. Útil para análisis estructural."
+comparison_group: "VSA & Anomalies"
+competitor_notes: "Único."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-05-8
+official_code_date: 08/05/2025
 ---
 
 ## 🟦 VSA – WSD Histogram (8/10)

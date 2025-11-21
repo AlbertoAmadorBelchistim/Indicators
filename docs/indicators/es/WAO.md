@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: WAO.cs
 name: Weighted Average Oscillator
 category: Oscillators
@@ -7,15 +7,17 @@ subgroup: Momentum
 score_current: 7/10
 version: Stable
 recommended_action: Conservar
-description: ¿Cuál es la diferencia entre dos medias móviles ponderadas (WMA)? (MACD
-  rápido).
-gemini_summary: Oscilador simple WMA-WMA. Reactivo pero básico. Código correcto.
+description: ¿Cuál es la diferencia entre dos medias móviles ponderadas (WMA)?
+gemini_summary: "Oscilador simple WMA-WMA. Reactivo pero básico. Código correcto."
+comparison_group: "Cycle Oscillators"
+competitor_notes: "Variante de MACD."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Weighted Average Oscillator (WAO) (7/10)

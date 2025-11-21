@@ -1,22 +1,23 @@
----
+﻿---
 cs_file: TDSequential.cs
 name: TD Sequential
-category: Oscillators
-group: Oscillators
-subgroup: Momentum
+category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 8/10
 version: Stable
 recommended_action: Conservar
-description: ¿En qué punto del ciclo de agotamiento (Setup/Countdown) se encuentra
-  la tendencia actual?
-gemini_summary: Implementación fiel del sistema de DeMark. Buena visualización de
-  números y niveles S/R.
+description: ¿En qué punto del ciclo de agotamiento se encuentra la tendencia?
+gemini_summary: "Implementación fiel del sistema de DeMark. Buena visualización de números y niveles S/R."
+comparison_group: "Trend Systems"
+competitor_notes: "Único en su clase."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
 effort: Medio
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-05-27
+official_code_date: 27/05/2025
 ---
 
 ## 🟦 TD Sequential (8/10)

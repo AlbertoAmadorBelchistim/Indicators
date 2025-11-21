@@ -7,16 +7,17 @@ subgroup: RSI/Stochastic
 score_current: 6/10
 version: Stable
 recommended_action: Mejorar
-description: ¿En qué parte de su rango reciente se encuentra el RSI actual (Sensibilidad
-  extrema)?
-gemini_summary: Implementación básica que devuelve solo el %K del StochRSI. Le falta
-  la línea %D (señal).
+description: ¿En qué parte de su rango reciente se encuentra el RSI actual?
+gemini_summary: "Implementación básica que devuelve solo el %K del StochRSI. Le falta la línea %D (señal) para ser útil."
+comparison_group: "Stochastic Variant"
+competitor_notes: "Incompleto."
+reusable_code: null
 file_state: Mejorable
 score_potential: 9/10
 effort: Medio
 action_priority: P2
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Stochastic RSI (6/10)

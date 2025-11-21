@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: VPF.cs
 name: Voss Predictive Filter
 category: Trend
@@ -8,8 +8,10 @@ score_current: 8/10
 version: Stable
 recommended_action: Conservar
 description: ¿Cuál es la proyección cíclica del precio eliminando el ruido espectral?
-gemini_summary: Filtro digital avanzado. Matemática compleja (transformada). Código
-  limpio y robusto.
+gemini_summary: "Filtro digital avanzado. Matemática compleja (transformada). Código limpio y robusto."
+comparison_group: "Cycle & Regimes"
+competitor_notes: "Único en su clase."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

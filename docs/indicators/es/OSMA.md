@@ -5,18 +5,19 @@ category: Oscillators
 group: Oscillators
 subgroup: MACD
 score_current: 7/10
-version: ATAS Official
+version: Stable
 recommended_action: Mejorar
-description: ¿Cuál es la diferencia entre el MACD y su línea de señal (el histograma
-  MACD)?
-gemini_summary: Implementación estable del OSMA. Inusual uso de SMA para la línea
-  de señal (el estándar es EMA), lo que puede causar discrepancias con otras plataformas.
+description: ¿Cuál es la diferencia entre el MACD y su línea de señal (el histograma MACD)?
+gemini_summary: "Implementación estable del OSMA. Inusual uso de SMA para señal (el estándar es EMA)."
+comparison_group: "Standard MACD"
+competitor_notes: "Variante de MACD."
+reusable_code: null
 file_state: Mejorable
 score_potential: 7/10
 effort: Bajo
 action_priority: P3
-analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 OSMA (Moving Average of Oscillator) (7/10)

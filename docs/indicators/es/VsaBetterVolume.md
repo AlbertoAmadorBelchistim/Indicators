@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: VsaBetterVolume.cs
 name: VSA Better Volume
 category: Order Flow
@@ -7,10 +7,11 @@ subgroup: Volume
 score_current: 9/10
 version: Stable
 recommended_action: Conservar
-description: ¿Qué nos dice el volumen sobre la intención profesional (Clímax, Churn,
-  Trampa)?
-gemini_summary: Implementación completa del sistema 'Better Volume'. Clasifica velas
-  por colores según VSA.
+description: ¿Qué nos dice el volumen sobre la intención profesional (Clímax, Churn, Trampa)?
+gemini_summary: "Implementación completa del sistema 'Better Volume'. Clasifica velas por colores según VSA. Excelente."
+comparison_group: "VSA & Anomalies"
+competitor_notes: "El estándar VSA."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: Bajo

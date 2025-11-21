@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: BarVolumeFilter.cs
 name: Bar's Volume Filter
 category: Order Flow
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Mejorar
 description: ¿Qué velas de este gráfico cumplen mi criterio específico de Volumen, Delta o Ticks?
 gemini_summary: "Filtro de ruido/contexto esencial (7/10). Permite aislar velas 'importantes' (Volumen, Delta, RTH)."
-comparison_group: "Volume Filter"
+comparison_group: "VSA & Anomalies"
 competitor_notes: "Complementario a indicadores de Volume Profile."
 reusable_code: null
 file_state: Mejorable

@@ -8,13 +8,16 @@ score_current: 7/10
 version: Stable
 recommended_action: Conservar
 description: ¿Dónde cerró el precio relativo al rango High-Low (versión invertida)?
-gemini_summary: Implementación estándar de Williams %R. Redundante con WPR.cs.
+gemini_summary: "Implementación estándar de Williams %R. Redundante con WPR.cs."
+comparison_group: "Stochastic Variant"
+competitor_notes: "Igual a Fast Stochastic."
+reusable_code: null
 file_state: Estable
 score_potential: 7/10
 effort: Bajo
 action_priority: P3
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Williams' %R (7/10)

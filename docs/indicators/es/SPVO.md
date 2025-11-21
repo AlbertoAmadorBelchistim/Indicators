@@ -7,16 +7,17 @@ subgroup: Momentum
 score_current: 8/10
 version: Stable
 recommended_action: Conservar
-description: Oscilador que muestra la diferencia porcentual entre dos medias móviles
-  de volumen.
-gemini_summary: Oscilador de volumen robusto. Protección contra división por cero
-  implementada correctamente.
+description: ¿Está entrando un volumen inusualmente alto comparado con el promedio?
+gemini_summary: "Oscilador de volumen robusto. Protección contra división por cero implementada correctamente."
+comparison_group: "Volume Oscillator"
+competitor_notes: "Competidor de MFI."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Simple Percentage Volume Oscillator (SPVO) (8/10)

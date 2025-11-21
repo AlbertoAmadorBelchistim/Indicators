@@ -1,16 +1,17 @@
----
+﻿---
 cs_file: SchaffTrendCycle.cs
 name: Schaff Trend Cycle
-category: Oscillators
-group: Oscillators
-subgroup: Momentum
+category: Trend
+group: Trend
+subgroup: Trend Filter
 score_current: 7/10
 version: Stable
 recommended_action: Conservar
-description: Oscilador cíclico que combina MACD y Estocástico para detectar giros
-  de mercado más rápido que el MACD tradicional.
-gemini_summary: Implementación canónica correcta. Algo rígida en constantes (0.5 factor)
-  pero funcional.
+description: ¿Está el ciclo del mercado en fase de aceleración o desaceleración?
+gemini_summary: "Implementación canónica correcta del oscilador cíclico. Algo rígida en constantes pero funcional."
+comparison_group: "Cycle & Regimes"
+competitor_notes: "Alternativa rápida a MACD."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

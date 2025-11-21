@@ -1,16 +1,17 @@
 ---
 cs_file: VolumeOnChart.cs
 name: Volume On The Chart
-category: Utility
-group: Utility
-subgroup: Visuals
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 8/10
 version: Stable
 recommended_action: Conservar
-description: Visualiza el volumen como un histograma de fondo superpuesto al precio
-  para ahorrar espacio.
-gemini_summary: Versión visual eficiente del indicador de volumen. Dibuja en el fondo
-  del panel de precios.
+description: Visualiza el volumen como un histograma de fondo superpuesto al precio.
+gemini_summary: "Versión visual eficiente del indicador de volumen. Dibuja en el fondo del panel de precios."
+comparison_group: "Standard Volume"
+competitor_notes: "Alternativa visual a Volume."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: Bajo

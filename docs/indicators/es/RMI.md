@@ -5,18 +5,19 @@ category: Oscillators
 group: Oscillators
 subgroup: Momentum
 score_current: 7/10
-version: ATAS Official
-recommended_action: Mejorar
-description: ¿Cuál es la fuerza relativa del impulso (RSI suavizado con SMMA) en una
-  ventana temporal?
-gemini_summary: Variante del RSI que usa SMMA. Implementación matemática correcta
-  y segura. Le faltan líneas de referencia (30/70) visuales por defecto.
+version: Stable
+recommended_action: Conservar
+description: ¿Cuál es la fuerza relativa del impulso (RSI suavizado con SMMA)?
+gemini_summary: "Variante del RSI que usa SMMA. Implementación correcta. Le faltan líneas de referencia."
+comparison_group: "RSI Variant"
+competitor_notes: "Alternativa suave a RSI."
+reusable_code: null
 file_state: Mejorable
 score_potential: 7/10
 effort: Bajo
 action_priority: P3
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Relative Momentum Index (7/10)

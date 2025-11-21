@@ -1,22 +1,23 @@
----
+﻿---
 cs_file: TapePattern.cs
 name: Tape Patterns
-category: Structure
-group: Structure
-subgroup: Price Action
+category: Order Flow
+group: Order Flow
+subgroup: Volume
 score_current: 9/10
 version: Stable
 recommended_action: Conservar
-description: ¿Dónde están los bloques de órdenes grandes y patrones de ejecución específicos
-  en la cinta?
-gemini_summary: Indicador complejo de nivel institucional. Usa hilos dedicados para
-  procesar CumulativeTrades. Alto valor.
+description: ¿Dónde están los bloques de órdenes grandes en la cinta?
+gemini_summary: "Indicador complejo de nivel institucional. Usa hilos dedicados para procesar Tape. Alto valor."
+comparison_group: "Tape Analysis"
+competitor_notes: "Complementario a Big Trades."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: Alto
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-08-25
+official_code_date: 25/08/2025
 ---
 
 ## 🟦 Tape Patterns (9/10)

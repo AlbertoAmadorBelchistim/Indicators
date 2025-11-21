@@ -7,16 +7,17 @@ subgroup: RSI/Stochastic
 score_current: 7/10
 version: Stable
 recommended_action: Conservar
-description: ¿Cómo filtrar el ruido del estocástico usando el método de suavizado
-  de DiNapoli?
-gemini_summary: Implementación opaca (usa clases internas KdFast/Slow) pero funcional
-  del método DiNapoli.
+description: ¿Cómo filtrar el ruido del estocástico usando el método de DiNapoli?
+gemini_summary: "Implementación opaca (usa clases internas) pero funcional del método DiNapoli (suavizado)."
+comparison_group: "Stochastic Variant"
+competitor_notes: "Alternativa suave."
+reusable_code: null
 file_state: Estable
 score_potential: 7/10
 effort: Bajo
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Preferred Stochastic - DiNapoli (7/10)

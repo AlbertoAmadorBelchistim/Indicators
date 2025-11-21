@@ -1,16 +1,17 @@
 ---
 cs_file: PinBarPro.cs
 name: Pin Bar Pro (Final Fix)
-category: Uncategorized
-group: Uncategorized
-subgroup: Other
+category: Structure
+group: Structure
+subgroup: Price Action
 score_current: 9/10
 version: Stable
 recommended_action: Conservar
-description: ¿Es este Pin Bar (rechazo) genuino, confirmado por absorción de volumen
-  en la mecha?
-gemini_summary: Pin Bar detector vitaminado con análisis de Delta en la mecha. Filtra
-  señales falsas.
+description: ¿Es este Pin Bar (rechazo) genuino, confirmado por absorción de volumen?
+gemini_summary: "Pin Bar detector vitaminado con análisis de Delta. Filtra señales falsas."
+comparison_group: "Candle Pattern"
+competitor_notes: "Líder en detección de Pin Bars."
+reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: Bajo

@@ -5,19 +5,19 @@ category: Trend
 group: Trend
 subgroup: Trend Filter
 score_current: 8/10
-version: ATAS Official
+version: Stable
 recommended_action: Mejorar
-description: ¿Cuál es el nivel de stop dinámico (trailing stop) basado en precio y
-  tiempo (aceleración)?
-gemini_summary: 'Implementación clásica del Parabolic SAR. Tiene un defecto: no actualiza
-  en tiempo real (intra-barra) debido a un chequeo de _lastBar, lo que retrasa la
-  señal de giro.'
+description: ¿Cuál es el nivel de stop dinámico (trailing stop) basado en precio y tiempo?
+gemini_summary: "Implementación clásica. Defecto: no actualiza en tiempo real (intra-barra)."
+comparison_group: "Trailing Stop"
+competitor_notes: "El estándar."
+reusable_code: null
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo
 action_priority: P3
-analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+analysis_date: 2025-11-17
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Parabolic SAR (8/10)

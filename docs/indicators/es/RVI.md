@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: RVI.cs
 name: RVI V1 (Relative Vigor Index)
 category: Oscillators
@@ -8,13 +8,16 @@ score_current: 4/10
 version: Stable
 recommended_action: Mejorar
 description: ¿Cierran las velas consistentemente en la parte alta o baja de su rango?
-gemini_summary: Código extremadamente rígido (hardcoded 4 periodos) y con riesgo matemático
-  de división por cero.
+gemini_summary: "Código extremadamente rígido (hardcoded 4 periodos). Riesgo matemático de división por cero."
+comparison_group: "Momentum Indexes"
+competitor_notes: "Inferior a RVI V2."
+reusable_code: null
 file_state: Buggy
 score_potential: 7/10
 effort: Bajo
 action_priority: P2
 analysis_date: 2025-11-18
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 RVI V1 (Relative Vigor Index) (4/10) 

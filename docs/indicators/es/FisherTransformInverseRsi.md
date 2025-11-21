@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: FisherTransformInverseRsi.cs
 name: Inverse Fisher Transform with RSI
 category: Oscillators
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Conservar
 description: ¿Cuál es el momentum basado en un RSI suavizado por Fisher?
 gemini_summary: "Oscilador de momentum 'suave' (RSI + WMA + IFT). Nombre de parámetro confuso pero correcto."
-comparison_group: "RSI Variant"
+comparison_group: "RSI Variants"
 competitor_notes: "Variante de RSI."
 reusable_code: null
 file_state: Estable

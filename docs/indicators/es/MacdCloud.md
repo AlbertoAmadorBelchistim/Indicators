@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: MacdCloud.cs
 name: MACD Cloud
 category: Trend
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Conservar
 description: ¿Cuál es la tendencia visual definida por el cruce de dos medias ponderadas?
 gemini_summary: "Cruce de WMAs con relleno de color (Cloud). Simple, visual y efectivo para tendencia."
-comparison_group: "Trend Cloud"
+comparison_group: "Trend Visuals"
 competitor_notes: "Visualmente superior a 2 MAs."
 reusable_code: null
 file_state: Estable

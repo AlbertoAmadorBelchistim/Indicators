@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: RVI2.cs
 name: RVI V2 (Relative Vigor Index)
 category: Oscillators
@@ -7,10 +7,11 @@ subgroup: Momentum
 score_current: 7/10
 version: Stable
 recommended_action: Conservar
-description: Versión mejorada y configurable del RVI que mide la convicción de los
-  cierres respecto al rango.
-gemini_summary: Versión paramétrica correcta del RVI. Resuelve los problemas de rigidez
-  de la V1.
+description: ¿Con qué convicción cierra el precio respecto al rango (Versión configurable)?
+gemini_summary: "Versión paramétrica correcta del RVI. Resuelve los problemas de rigidez de la V1."
+comparison_group: "Momentum Indexes"
+competitor_notes: "Superior a RVI V1."
+reusable_code: null
 file_state: Estable
 score_potential: 8/10
 effort: Bajo

@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: HVR.cs
 name: Historical Volatility Ratio
 category: Trend
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Conservar
 description: ¿Está el mercado 'comprimido' o 'explotando' en relación con su volatilidad histórica?
 gemini_summary: "Implementación 'Quant' estable. Filtro de régimen de volatilidad (StdDev corto vs largo)."
-comparison_group: "Volatility Regime"
+comparison_group: "Volatility Ranges"
 competitor_notes: "Compite con Squeeze."
 reusable_code: null
 file_state: Estable

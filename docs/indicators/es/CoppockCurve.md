@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: CoppockCurve.cs
 name: Coppock Curve
 category: Oscillators
@@ -9,7 +9,7 @@ version: Estable
 recommended_action: Descartar
 description: ¿Cuál es el momentum de largo plazo del mercado?
 gemini_summary: "Herramienta de inversión (W/MN). Lag extremo por diseño. Inútil para scalping."
-comparison_group: "Classic Momentum"
+comparison_group: "Momentum Trend"
 competitor_notes: "No aplica para scalping."
 reusable_code: null
 file_state: Estable

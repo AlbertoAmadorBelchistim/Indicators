@@ -1,22 +1,23 @@
----
+﻿---
 cs_file: RelativeVolume.cs
 name: Relative Volume
 category: Order Flow
 group: Order Flow
 subgroup: Volume
 score_current: 7/10
-version: ATAS Official
+version: Stable
 recommended_action: Mejorar
-description: ¿Es el volumen actual anómalamente alto o bajo comparado con el promedio
-  histórico para esta misma hora?
-gemini_summary: Comparador de volumen histórico. Concepto útil, pero lógica de actualización
-  de promedio desfasada. Limitado a gráficos de tiempo.
+description: ¿Es el volumen actual anómalamente alto o bajo comparado con el promedio histórico?
+gemini_summary: "Comparador de volumen histórico. Concepto útil, lógica de actualización desfasada. Solo gráficos de tiempo."
+comparison_group: "VSA & Anomalies"
+competitor_notes: "Único en su clase."
+reusable_code: null
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo
 action_priority: P3
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Relative Volume (7/10)

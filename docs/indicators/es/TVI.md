@@ -1,4 +1,4 @@
----
+﻿---
 cs_file: TVI.cs
 name: Trade Volume Index
 category: Order Flow
@@ -7,16 +7,17 @@ subgroup: Volume
 score_current: 7/10
 version: Stable
 recommended_action: Conservar
-description: ¿Se está acumulando o distribuyendo el volumen basándose en la dirección
-  del tick?
-gemini_summary: Acumulador de volumen simple basado en ticks. Similar al OBV pero
-  con granularidad tick a tick.
+description: ¿Se está acumulando o distribuyendo el volumen basándose en la dirección del tick?
+gemini_summary: "Acumulador de volumen simple basado en ticks. Similar al OBV pero con granularidad tick a tick."
+comparison_group: "Volume Oscillators"
+competitor_notes: "Similar a OBV."
+reusable_code: null
 file_state: Estable
 score_potential: 7/10
-effort: Bajo
+effort: N/A
 action_priority: N/A
 analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+official_code_date: 23/04/2025
 ---
 
 ## 🟦 Trade Volume Index (TVI) (7/10)
