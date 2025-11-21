@@ -1,32 +1,31 @@
 ﻿---
 cs_file: DynamicLevelsChannel.cs
 name: Dynamic Levels Channel
-category: Order Flow
 group: Order Flow
 subgroup: Volume Profile
 score_current: 9/10
-version: Estable
-recommended_action: Conservar
-description: ¿Dónde se están formando el POC, VAH y VAL de las últimas N barras (perfil móvil)?
-gemini_summary: "Herramienta 'Core' que calcula un 'Perfil Móvil' (Rolling POC). Excelente para seguir el valor inmediato."
+version: Stable
+recommended_action: Conservar (Core)
+description: ¿Dónde se están formando el POC, VAH y VAL de las últimas N barras (un perfil móvil)?
+gemini_summary: "Herramienta 'Core' de Perfil Móvil. Calcula un Volume Profile dinámico sobre una ventana deslizante (ej. últimos 30 mins). Esencial para ver la migración del valor a corto plazo."
 comparison_group: "Dynamic Profiles"
-competitor_notes: "Único en su clase."
+competitor_notes: "Único. Complementa al VWAP (Acumulado) ofreciendo una visión de 'Ventana Móvil'."
 reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: N/A
 action_priority: N/A
-analysis_date: 2025-11-17
+analysis_date: 2025-11-21
 official_code_date: 23/04/2025
 ---
 
-## 🟦 Dynamic Levels Channel (9/10)
+## 🏆 Dynamic Levels Channel (9/10)
 
 **Nombre del archivo:** [`DynamicLevelsChannel.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/DynamicLevelsChannel.cs)  
 **Nombre del indicador:** Dynamic Levels Channel  
 **Web oficial:** [ATAS — Dynamic Levels Channel](https://help.atas.net/support/solutions/articles/72000602381)  
 **Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 23/04/2025
+**Última revisión del código oficial:** 23/04/2025  
 
 > **La Pregunta Clave:** ¿Dónde se están formando el POC, VAH y VAL de las últimas N barras (un perfil móvil)?
 
@@ -36,87 +35,106 @@ official_code_date: 23/04/2025
 
 ### ⚙️ Parámetros configurables
 
-* **CalcMode**: Fuente de cálculo para el POC (Volume, PosDelta, NegDelta, Delta).
-* **Period**: Número de velas en la ventana móvil (por defecto: 40).
-* **Days**: Días de historial a cargar (filtro de inicio).
-* **AreaColor**: Color del canal de valor (entre VAL y VAH).
-* **Alertas**: Aproximación, toque de POC, VAH, VAL.
+Este indicador crea un canal dinámico basado en el perfil de volumen reciente:
+
+#### 📊 Cálculo
+* **Period:** Tamaño de la ventana móvil (ej. 40 barras). El perfil se calcula *solo* con estas barras.
+* **Calc Mode:**
+    * `Volume`: Perfil de volumen estándar.
+    * `Delta` / `PosDelta` / `NegDelta`: Perfiles avanzados basados en Order Flow.
+* **Days:** Días de historial a cargar.
+
+#### 🎨 Visualización
+* **Area Color:** Relleno del Value Area (70%).
+* **Lines:** POC, VAL, VAH (Colores y grosores).
+* **Signals:** Flechas de compra/venta cuando el precio interactúa con los bordes del canal.
+
+#### 🔔 Alertas
+* **Poc Touch:** Alerta al tocar el POC móvil.
+* **Approximation:** Alerta al acercarse.
 
 ---
 
 ### 🧭 Clasificación
-📂 VolumeOrderFlow — Perfil de Volumen/Delta móvil (Rolling VPOC).
+**Grupo:** Order Flow  
+**Subgrupo:** Volume Profile  
+**Comparison Group:** "Dynamic Profiles"  
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* Visualizar el **POC, VAH y VAL dinámicos** dentro de un canal *móvil* (rolling).
-* Trazar el "valor a corto plazo" que viaja con el precio.
-* Identificar niveles de soporte/resistencia que se mueven con la acción del precio.
+* **Rolling Value:** Ver si el valor (POC) está subiendo o bajando *ahora mismo*, independientemente de lo que hizo el mercado hace 2 horas.  
+* **Soporte Dinámico:** El VAL (Value Area Low) de un canal móvil alcista actúa como soporte dinámico para la tendencia inmediata.  
+* **Divergencia de Valor:** El precio hace un nuevo máximo, pero el POC móvil no logra subir (debilidad).  
 
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **9 / 10**
+🔟 **9 / 10 (CORE TÁCTICO)**
 
-✅ **Herramienta "Core":** Es un "Rolling POC/VA". Esencial para seguir la migración del valor.  
-✅ Complemento perfecto para `DynamicLevels` (que es expansivo, no móvil).  
-✅ Soporta múltiples modos de cálculo (Volume, Delta, etc.).  
-⛔ No guarda niveles históricos (es puramente dinámico).
+✅ **Agilidad:** A diferencia del VWAP (que se vuelve lento al final del día por el peso acumulado), este indicador mantiene la misma reactividad siempre.  
+✅ **Versatilidad:** El modo `Delta` permite crear un canal de "Sentimiento" muy potente.  
+✅ **Señales:** Incluye lógica de reversión en bordes.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Tendencia (Migración del POC):** En una tendencia alcista, el canal (POC/VAH/VAL) migra hacia arriba. Se buscan largos en pullbacks al VAH o POC del canal móvil.
-* **Reversión (POC Atrapado):** Si el precio se mueve bruscamente, pero el POC móvil se queda atrás, indica una posible reversión (trampa).
-* **Rechazo en VAH/VAL móvil:** Buscar señales de absorción en los bordes del canal móvil.
+* **Trend Pullback:** En tendencia alcista, comprar cuando el precio toca el VAL (borde inferior) del canal móvil.  
+* **Reversión:** Si el precio rompe el canal y el POC no le sigue, buscar el fallo.  
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **Period**: `30` a `60` (representa los últimos 30-60 minutos de valor).
-* **CalcMode**: `Volume` o `Delta`.
-* **Alertas**: `UsePocTouchAlert = true`.
+| Parámetro | Valor Recomendado | Razón |
+| :--- | :--- | :--- |
+| **Period** | `40` - `60` | Ventana de ~1 hora de contexto. |
+| **Calc Mode** | `Volume` | Estándar. |
+| **Area Color** | *Transparente* | Marcar solo el canal. |
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* A diferencia de `DynamicLevels` (que es *expansivo*), este indicador es *móvil*.
-* Acumula los datos de perfil de las últimas `Period` barras (ej. `bar - Period`).
-* Recalcula el POC/VAH/VAL de esta ventana de `Period` barras en *cada* barra nueva.
-* Incluye una lógica de "señales" (flechas) basada en patrones de rechazo en los bordes del canal.
+* **Algoritmo:** Mantiene una lista de `VolumeInfo` de las últimas N velas.
+* En cada tick, añade la nueva data y *remueve* la data de la vela que sale de la ventana (`RemoveAll(x => x.Bar == bar - Period)`). Esto es computacionalmente intensivo pero necesario para un perfil móvil exacto.
+* Calcula el Value Area (70%) dinámicamente en cada barra.
+
+---
+
+### ❗ Incoherencias o aspectos mejorables detectados
+
+* **Ninguna.** Funciona como debe.
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-* Añadir una opción para un suavizado (SMA/EMA) del POC/VAH/VAL, ya que pueden "saltar" mucho de una barra a otra.
-* Exponer el porcentaje del Área de Valor (fijo en 70%) como un parámetro configurable.
+* **Suavizado (P3):** El POC puede saltar bruscamente. Una opción de suavizado visual ayudaría.
 
 ---
+
+### 💎 Valor Reutilizable (Código Donante)
+
+* **Lógica de Ventana Deslizante:** El manejo de la lista `_priceInfo` para añadir/quitar datos es un buen ejemplo de buffer circular para perfiles.
+
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Esta es la segunda herramienta "Core" de Perfil de Volumen.
+Es el complemento perfecto al VWAP. El VWAP te dice la tendencia del día; el Dynamic Channel te dice la tendencia de la hora.
 
-* `DynamicLevels` (9/10) te da el "Valor del Día" (expansivo, lento).
-* `DynamicLevelsChannel` (9/10) te da el "Valor de la Hora" (móvil, rápido).
-
-Para un scalper, el "Rolling POC" (este indicador) es a menudo más importante que el POC del día, ya que te dice dónde está el "valor inmediato". Te permite ver si el valor está migrando con el precio (tendencia saludable) o si el precio está corriendo lejos del valor (extensión, posible reversión).
-
-La capacidad de cambiar el `CalcMode` a `Delta` es una función profesional que te permite seguir el "Rolling Delta POC", una herramienta muy avanzada.
+**Propuestas de Acción:**
+* **Conservar como CORE.**
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí. Es una herramienta principal indispensable.**
+**Sí.**
 
-Proporciona el mapa contextual de "valor inmediato" (últimas N barras), que es crucial para el scalping de tendencia.
+Te mantiene en el lado correcto del valor inmediato.
 
-**Acción:** **Conservar (Herramienta Principal).**
+**Acción:** **Conservar (Core).**

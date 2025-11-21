@@ -72,7 +72,9 @@ official_code_date: 31/07/2025
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **No Recomendado.** ---
+* **No Recomendado.** 
+
+---
 
 ### 🧪 Notas de desarrollo
 

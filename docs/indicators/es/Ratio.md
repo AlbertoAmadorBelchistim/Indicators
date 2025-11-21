@@ -1,26 +1,25 @@
 ---
 cs_file: Ratio.cs
 name: Ratio
-category: Order Flow
 group: Order Flow
 subgroup: Footprint
 score_current: 9/10
 version: Stable
-recommended_action: Conservar
+recommended_action: Conservar (Core)
 description: ¿Cuál es el ratio de absorción/agresión (Bid vs Ask) en el extremo de la vela?
-gemini_summary: "Indicador de microestructura excelente. Calcula el ratio de volumen en extremos. Código sólido."
+gemini_summary: "Herramienta de precisión quirúrgica. Calcula matemáticamente la relación de fuerzas en la mecha de la vela. Un ratio bajo (<0.7) indica absorción/defensa; un ratio alto (>10) indica ruptura/iniciativa. Esencial para validar giros."
 comparison_group: "Microstructure"
-competitor_notes: "Complementario a Imbalance Ratio."
+competitor_notes: "Más fiable y estándar que 'Exhaustion'."
 reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: N/A
 action_priority: N/A
-analysis_date: 2025-11-18
+analysis_date: 2025-11-21
 official_code_date: 23/04/2025
 ---
 
-## 🟦 Ratio (9/10)
+## 🏆 Ratio (9/10)
 
 **Nombre del archivo:** [`Ratio.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/Ratio.cs)  
 **Nombre del indicador:** Ratio  
@@ -36,72 +35,98 @@ official_code_date: 23/04/2025
 
 ### ⚙️ Parámetros configurables
 
-* **Days**: Número de sesiones hacia atrás a analizar (por defecto: 20)
-* **LowRatio / NeutralRatio**: Umbrales para colorear el ratio (Bajo, Neutro, Alto)
-* **FontSize**: Tamaño del texto
-* **Colores**: Configuración visual para cada nivel de ratio
+Este indicador clasifica el extremo de la vela en tres estados:
+
+#### 📊 Umbrales de Ratio
+* **Low Ratio:** Valor por debajo del cual se considera "Absorción/Defensa" (Default: 0.71).
+* **Neutral Ratio:** Zona gris (Default: 29.0).
+* **High Ratio:** Valor por encima del cual se considera "Ruptura/Iniciativa".
+
+#### 🎨 Visualización
+* **Colors:** Colores distintos para Low, Neutral y High.
+* **Font Size:** Tamaño de la etiqueta numérica.
+* **Background:** Color de fondo de la etiqueta.
 
 ---
 
 ### 🧭 Clasificación
-📂 VolumeOrderFlow — Ratio de presión bid/ask en zonas clave según dirección de la vela
+**Grupo:** Order Flow  
+**Subgrupo:** Footprint  
+**Comparison Group:** "Microstructure"  
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* Medir **presión en bid o ask** en el extremo de la vela
-* Identificar zonas con **desequilibrio o absorción significativa**
-* Visualizar **etiquetas numéricas** en el gráfico con ratio de agresión
+* **Validación de Giros:** Si el precio llega a un soporte y aparece una etiqueta con ratio bajo (ej. 0.15) en color verde, significa que hubo una defensa masiva (Absorción). Señal de compra.  
+* **Trampas de Ruptura:** Si el precio rompe un nivel pero cierra con mecha y ratio bajo, es una trampa (Fakeout).  
+* **Confirmación de Ruptura:** Si el precio rompe y el ratio es alto (ej. 50.0) en color azul, indica que no hubo resistencia. Ruptura válida.  
 
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **9 / 10**
+🔟 **9 / 10 (IMPRESCINDIBLE)**
 
-✅ Indica con precisión desequilibrios relevantes al final de la vela  
-✅ Útil para confirmar trampas o validaciones de nivel (Reversión en extremos)  
-⛔ Solo muestra una etiqueta por vela
+✅ **Lectura Objetiva:** Elimina la subjetividad de mirar el Footprint. Te da un número exacto.  
+✅ **Micro-Estructura:** Analiza lo que pasa en el tick exacto del giro.  
+✅ **Eficiente:** Solo pone una etiqueta por vela, no ensucia el gráfico.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Confirmación de ruptura con presión** en el lado esperado
-* **Trampa con absorción** si la vela cierra bajista pero hay fuerte ratio comprador en el mínimo
-* **Soporte/resistencia reforzada** si aparece un ratio bajo o neutro tras testeo
+* **Ratio Defense:** Entrar a la contra en cuanto aparece un Ratio < 0.5 en un extremo de vela.  
+* **Pullback Validation:** En tendencia alcista, esperar un retroceso. Si la vela de retroceso acaba con Ratio de absorción, entrar largo.  
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **LowRatio**: `0.70` (Señala absorción/agotamiento)
-* **NeutralRatio**: `10.0` (o superior, para filtrar extremos)
+| Parámetro | Valor Recomendado | Razón |
+| :--- | :--- | :--- |
+| **Low Ratio** | `0.70` | Menos de 1 indica absorción. 0.7 es un buen filtro. |
+| **Neutral Ratio** | `10.0` | Filtrar valores intermedios. |
+| **Days** | `2` | Solo interesa el presente. |
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* Para velas alcistas: Compara el Bid en el Low con el Bid en el tick superior.
-* Para velas bajistas: Compara el Ask en el High con el Ask en el tick inferior.
-* Dibuja una etiqueta de texto (`AddText`) encima/debajo de la vela con el valor.
-* Utiliza `GetPriceVolumeInfo` para acceder a los datos internos del Footprint.
+* **Lógica Alcista:** `LowBid2 / LowBid`. Compara el Bid del mínimo con el Bid del tick superior.
+* **Lógica Bajista:** `HighAsk2 / HighAsk`. Compara el Ask del máximo con el Ask del tick inferior.
+* Dibuja etiquetas usando `AddText` con IDs únicos por barra (`BAR_x`).
 
 ---
+
+### ❗ Incoherencias o aspectos mejorables detectados
+
+* **Ninguna.** Es la implementación estándar del Ratio de Order Flow.
+
+---
+
+### 🛠️ Propuestas de mejora
+
+* **Ninguna.** ---
+
+### 💎 Valor Reutilizable (Código Donante)
+
+* **Lógica de Ratio:** El método `CaclulateRatio` es exportable a estrategias automáticas.
+
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Este es un indicador de "micro-scalping" excelente. Automatiza la lectura del Footprint chart centrándose en lo más importante: ¿qué pasó en la mecha?
+Es una de esas herramientas pequeñas que marcan la diferencia. Saber si un mínimo fue "vendido con fuerza pero absorbido" (Ratio bajo) o "simplemente rechazado por falta de interés" es vital.
 
-El código es correcto y eficiente. Calcula el ratio solo en el cierre de la barra (o en tiempo real si se desea), y gestiona las etiquetas de texto correctamente para no saturar el gráfico (usando IDs únicos por barra). Es una herramienta muy específica pero muy potente para validar giros.
+**Propuestas de Acción:**
+* **Conservar como CORE.**
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí, muy útil.**
+**Sí.**
 
-Ayuda a confirmar si un "rechazo" (mecha) fue realmente una absorción o simplemente falta de interés.
+Te dice si el freno es real.
 
-**Acción:** **Conservar (Herramienta OFA de precisión).**
+**Acción:** **Conservar (Core).**

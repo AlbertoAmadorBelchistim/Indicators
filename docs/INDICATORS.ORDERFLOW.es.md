@@ -57,7 +57,7 @@ _Desglose intra-vela del Delta (Bid vs Ask) y ratios de fuerza._
 
 | Score | Estado | Indicador | Descripción / Notas |
 | :---: | :--- | :--- | :--- |
-| **7/10** | ✅ Conservar (Core) | [Bid Ask Volume Ratio](indicators/es/BidAskVR.md) | ¿Cuál es el desequilibrio normalizado del volumen agresivo y su momentum? |
+| **8.5/10** | ✅ Conservar (Core) | [Bid Ask Volume Ratio](indicators/es/BidAskVR.md) | ¿Cuál es el desequilibrio normalizado del volumen agresivo y su momentum? |
 | **6.5/10** | ✅ Conservar (Reserva) | [Bid Ask](indicators/es/BidAsk.md) | ¿Cuáles fueron los volúmenes brutos de agresión de compra (Ask) y de agresión de venta (Bid) en cada vela? |
 
 ### ⚔️ Cumulative Delta <small>✅ (Fase 2)</small>
@@ -99,21 +99,21 @@ _Patrones de forma dentro del Footprint (P, b, D profiles)._
 | 10/10 | ✅ Conservar | [ZigZag Pro](indicators/es/Zigzag.md) | ¿Qué dicen las métricas acumuladas (Delta/Volumen) de cada onda de precio? |
 | 8/10 | ✅ Conservar | [Cluster Constructor Lite](indicators/es/ClusterConstructorLite.md) | ¿Existen patrones anómalos de volumen dentro de la estructura de la vela? |
 
-### ⚔️ Imbalance Analysis <small>⚠️ (Pendiente)</small>
+### ⚔️ Imbalance Analysis <small>✅ (Fase 2)</small>
 _Desequilibrios diagonales agresivos (Aggressive Buying/Selling Imbalances)._
 
 | Score | Estado | Indicador | Descripción / Notas |
 | :---: | :--- | :--- | :--- |
-| 9/10 | ✅ Conservar | [Imbalance Ratio](indicators/es/ImbalanceRatio.md) | ¿Dónde se están produciendo desequilibrios diagonales de Ask vs. Bid en el clúster? |
-| 8/10 | ✅ Conservar | [Stacked Imbalance](indicators/es/StackedImbalance.md) | ¿Dónde existen zonas de desequilibrio agresivo apiladas que actúan como soporte? |
+| **9/10** | ✅ Conservar (Core) | [Imbalance Ratio](indicators/es/ImbalanceRatio.md) | ¿Dónde se están produciendo desequilibrios diagonales de Ask vs. Bid en el clúster? |
+| **8/10** | ✅ Conservar (Core) | [Stacked Imbalance](indicators/es/StackedImbalance.md) | ¿Dónde existen zonas de desequilibrio agresivo apiladas que actúan como soporte? |
 
-### ⚔️ Microstructure <small>⚠️ (Pendiente)</small>
+### ⚔️ Microstructure <small>✅ (Fase 2)</small>
 _Eventos finos: Agotamiento (Exhaustion) y Absorción en extremos._
 
 | Score | Estado | Indicador | Descripción / Notas |
 | :---: | :--- | :--- | :--- |
-| 9/10 | ✅ Conservar | [Ratio](indicators/es/Ratio.md) | ¿Cuál es el ratio de absorción/agresión (Bid vs Ask) en el extremo de la vela? |
-| 8/10 | 🛠️ Reparar | [Exhaustion](indicators/es/Exhaustion.md) | ¿Está el precio mostrando agotamiento en los últimos N ticks de la vela? |
+| **9/10** | ✅ Conservar (Core) | [Ratio](indicators/es/Ratio.md) | ¿Cuál es el ratio de absorción/agresión (Bid vs Ask) en el extremo de la vela? |
+| **8/10** | 🛠️ Reparar | [Exhaustion](indicators/es/Exhaustion.md) | ¿Está el precio mostrando agotamiento en los últimos N ticks de la vela? |
 
 ## 💎 Open Interest
 > *El compromiso. Dinero nuevo vs cierres.*
@@ -125,8 +125,8 @@ _Salud de la tendencia basada en la entrada/salida de contratos reales._
 | Score | Estado | Indicador | Descripción / Notas |
 | :---: | :--- | :--- | :--- |
 | **10/10** | ✅ Conservar (Core) | [OI Analyzer](indicators/es/OIAnalyzer.md) | ¿Cómo cambia el Interés Abierto (OI) filtrado por dirección (Buy/Sell) y visualizado en detalle? |
+| **8/10** | ✅ Conservar (Reserva / Donante) | [Open Interest](indicators/es/OpenInterest.md) | ¿Cuál es el Interés Abierto total (o su cambio neto) por barra o sesión? |
 | **7/10** | ✅ Conservar (Reserva) | [On Balance Open Interest](indicators/es/BalanceOI.md) | ¿Está el compromiso acumulado del 'dinero inteligente' subiendo o bajando en relación al precio? |
-| **6/10** | ✅ Conservar (Reserva / Donante) | [Open Interest](indicators/es/OpenInterest.md) | ¿Cuál es el Interés Abierto total (o su cambio neto) por barra o sesión? |
 | **3/10** | 💀 Descartar | [Herrick Payoff Index (HPI)](indicators/es/HerrickPayoff.md) | ¿Cuál es la fuerza del movimiento combinando Precio, Volumen y OI? |
 
 ## 📊 Volume
@@ -150,13 +150,13 @@ _Volumen total por barra y sus variantes visuales._
 | **8/10** | ✅ Conservar (Reserva) | [Volume On The Chart](indicators/es/VolumeOnChart.md) | Visualiza el volumen como un histograma de fondo superpuesto al precio. |
 | **6/10** | ✅ Conservar (Reserva) | [Cumulative Daily Volume](indicators/es/CumulativeDailyVolume.md) | ¿Cuál es el volumen total acumulado desde el inicio de la sesión? |
 
-### ⚔️ Tape Analysis <small>⚠️ (Pendiente)</small>
+### ⚔️ Tape Analysis <small>✅ (Fase 2)</small>
 _Lectura de Cinta (Time & Sales). Reconstrucción de órdenes._
 
 | Score | Estado | Indicador | Descripción / Notas |
 | :---: | :--- | :--- | :--- |
-| 9/10 | ✅ Conservar | [Order Flow Indicator](indicators/es/OrderFlow.md) | ¿Cómo se visualiza el flujo de órdenes (trades individuales) en el gráfico? |
-| 9/10 | ✅ Conservar | [Tape Patterns](indicators/es/TapePattern.md) | ¿Dónde están los bloques de órdenes grandes en la cinta? |
+| **9/10** | ✅ Conservar (Reserva) | [Order Flow Indicator](indicators/es/OrderFlow.md) | ¿Cómo se visualiza el flujo de órdenes (trades individuales) en el gráfico? |
+| **9/10** | ✅ Conservar (Core) | [Tape Patterns](indicators/es/TapePattern.md) | ¿Dónde están los bloques de órdenes grandes y patrones de ejecución específicos en la cinta? |
 
 ### ⚔️ Tape Speed <small>⚠️ (Pendiente)</small>
 _Ritmo del mercado. Detección de aceleraciones y frenazos en la cinta._
@@ -166,61 +166,61 @@ _Ritmo del mercado. Detección de aceleraciones y frenazos en la cinta._
 | 9/10 | ✅ Conservar | [Order Flow Rhythm (Clean)](indicators/es/OrderFlowRythm.md) | ¿Cuál es la velocidad de ejecución (ritmo) del mercado visualizada como mapa de calor? |
 | 8/10 | ✅ Conservar | [Speed of Tape](indicators/es/SpeedOfTape.md) | ¿Cuál es la velocidad de ejecución (ritmo) del mercado? |
 
-### ⚔️ VSA & Anomalies <small>⚠️ (Pendiente)</small>
+### ⚔️ VSA & Anomalies <small>✅ (Fase 2)</small>
 _Volume Spread Analysis. Velas climáticas, volumen de parada y anomalías._
 
 | Score | Estado | Indicador | Descripción / Notas |
 | :---: | :--- | :--- | :--- |
-| 9/10 | ✅ Conservar | [VSA Better Volume](indicators/es/VsaBetterVolume.md) | ¿Qué nos dice el volumen sobre la intención profesional (Clímax, Churn, Trampa)? |
-| 8/10 | ✅ Conservar | [VSA – WSD Histogram](indicators/es/VsaWsd.md) | ¿Cómo se distribuye la estructura de la vela (mechas vs cuerpo) y el volumen relativo? |
-| 7/10 | 🔧 Mejorar | [Bar's Volume Filter](indicators/es/BarVolumeFilter.md) | ¿Qué velas de este gráfico cumplen mi criterio específico de Volumen, Delta o Ticks? |
-| 7/10 | 🔧 Mejorar | [Relative Volume](indicators/es/RelativeVolume.md) | ¿Es el volumen actual anómalamente alto o bajo comparado con el promedio histórico? |
-| 7/10 | ✅ Conservar | [Spread Volume](indicators/es/SpreadVolume.md) | ¿Quién está agrediendo más dentro del spread actual? |
+| **9/10** | ✅ Conservar (Core) | [VSA Better Volume](indicators/es/VsaBetterVolume.md) | ¿Qué nos dice el volumen sobre la intención profesional (Clímax, Churn, Trampa)? |
+| **8/10** | ✅ Conservar (Reserva) | [VSA – WSD Histogram](indicators/es/VsaWsd.md) | ¿Cómo se distribuye la estructura de la vela (mechas vs cuerpo) y el volumen relativo? |
+| **7/10** | ✅ Conservar (Reserva) | [Bar's Volume Filter](indicators/es/BarVolumeFilter.md) | ¿Qué velas de este gráfico cumplen mi criterio específico de Volumen, Delta o Ticks? |
+| **7/10** | ✅ Conservar (Reserva) | [Relative Volume](indicators/es/RelativeVolume.md) | ¿Es el volumen actual anómalamente alto o bajo comparado con el promedio histórico para esta misma hora? |
+| **7/10** | ✅ Conservar (Reserva) | [Spread Volume](indicators/es/SpreadVolume.md) | ¿Quién está agrediendo más dentro del spread actual? |
 
-### ⚔️ Volume Efficiency <small>⚠️ (Pendiente)</small>
+### ⚔️ Volume Efficiency <small>✅ (Fase 2)</small>
 _Esfuerzo vs Resultado. ¿Cuánto mueve el precio cada unidad de volumen?_
 
 | Score | Estado | Indicador | Descripción / Notas |
 | :---: | :--- | :--- | :--- |
-| 8/10 | ✅ Conservar | [Volume Per Trade](indicators/es/VolumePerTrade.md) | ¿Cuál es el tamaño promedio de las órdenes ejecutadas en cada vela? |
-| 7/10 | ✅ Conservar | [Volume Bar Range Ratio](indicators/es/VBRR.md) | ¿Quanto volumen es necesario para mover el precio 1 tick (Eficiencia)? |
-| 6.5/10 | ✅ Conservar | [Arms Ease of Movement](indicators/es/EMV.md) | ¿Es el movimiento del precio eficiente en relación con su volumen y rango? |
-| 6/10 | 🔧 Mejorar | [Market Facilitation Index](indicators/es/MarketFacilitation.md) | ¿Cuál es la eficiencia del mercado (MFI) para mover el precio en relación con el volumen? |
+| **9/10** | ✅ Conservar (Core) | [Volume Per Trade](indicators/es/VolumePerTrade.md) | ¿Cuál es el tamaño promedio de las órdenes ejecutadas en cada vela? |
+| **7/10** | ✅ Conservar (Reserva) | [Volume Bar Range Ratio](indicators/es/VBRR.md) | ¿Cuánto volumen es necesario para mover el precio 1 tick (Eficiencia)? |
+| **6.5/10** | ✅ Conservar (Reserva) | [Arms Ease of Movement](indicators/es/EMV.md) | ¿Es el movimiento del precio eficiente en relación con su volumen y rango? |
+| **6/10** | 🔧 Mejorar | [Market Facilitation Index](indicators/es/MarketFacilitation.md) | ¿Cuál es la eficiencia del mercado (MFI) para mover el precio en relación con el volumen? |
 
-### ⚔️ Volume Oscillators <small>⚠️ (Pendiente)</small>
+### ⚔️ Volume Oscillators <small>✅ (Fase 2)</small>
 _Olas y flujos de volumen oscilante (Weiss Wave, TVI)._
 
 | Score | Estado | Indicador | Descripción / Notas |
 | :---: | :--- | :--- | :--- |
-| 9/10 | ✅ Conservar | [Up/Down Volume Ratio](indicators/es/UpDownVolumeRatio.md) | ¿Quién controla el flujo de volumen (compradores o vendedores) y con qué intensidad? |
-| 8/10 | 🔧 Mejorar | [MACD - Volume Weighted](indicators/es/MacdVW.md) | ¿Cuál es la convergencia entre dos medias ponderadas por volumen (VWMAs)? |
-| 8/10 | ✅ Conservar | [Weis Wave](indicators/es/WeissWave.md) | ¿Cuánto volumen acumulado (esfuerzo) hay en la onda de precio actual? |
-| 7/10 | ✅ Conservar | [Trade Volume Index](indicators/es/TVI.md) | ¿Se está acumulando o distribuyendo el volumen basándose en la dirección del tick? |
-
-### ⚔️ Volume Profile <small>⚠️ (Pendiente)</small>
-_Perfiles de volumen estáticos y zonas de alto valor (High Volume Nodes)._
-
-| Score | Estado | Indicador | Descripción / Notas |
-| :---: | :--- | :--- | :--- |
-| 10/10 | ✅ Conservar | [Volume-based Support & Resistance Zones](indicators/es/VolumeSupResZones.md) | ¿Dónde están las zonas de soporte y resistencia definidas por volumen en múltiples marcos temporales? |
-| 8.5/10 | ✅ Conservar | [HRanges](indicators/es/HRanges.md) | ¿Dónde se están formando rangos (consolidaciones) y cuál es el POC interno? |
-| 8/10 | 🔧 Mejorar | [Active Volume](indicators/es/ActiveVolume.md) | Filtrando ruido, ¿dónde está el volumen significativo y agresivo? |
+| **9/10** | ✅ Conservar (Core) | [Up/Down Volume Ratio](indicators/es/UpDownVolumeRatio.md) | ¿Quién controla el flujo de volumen (compradores o vendedores) y con qué intensidad relativa? |
+| **8/10** | ✅ Conservar (Reserva) | [MACD - Volume Weighted](indicators/es/MacdVW.md) | ¿Cuál es la convergencia entre dos medias ponderadas por volumen (VWMAs)? |
+| **8/10** | ✅ Conservar (Reserva) | [Weis Wave](indicators/es/WeissWave.md) | ¿Quanto volumen acumulado (esfuerzo) hay en la onda de precio actual? |
+| **7/10** | ✅ Conservar (Reserva) | [Trade Volume Index](indicators/es/TVI.md) | ¿Se está acumulando o distribuyendo el volumen basándose en la dirección del tick? |
 
 ## 📂 Volume Profile
 
-### ⚔️ Dynamic Profiles <small>⚠️ (Pendiente)</small>
+### ⚔️ Dynamic Profiles <small>✅ (Fase 2)</small>
 _Perfiles móviles que se adaptan al precio (VWAP, Canales dinámicos)._
 
 | Score | Estado | Indicador | Descripción / Notas |
 | :---: | :--- | :--- | :--- |
-| 10/10 | ✅ Conservar | [VWAP / TWAP](indicators/es/VWAP.md) | ¿Cuál es el precio medio ponderado por volumen (institucional) y sus desviaciones? |
-| 9/10 | ✅ Conservar | [Dynamic Levels Channel](indicators/es/DynamicLevelsChannel.md) | ¿Dónde se están formando el POC, VAH y VAL de las últimas N barras (perfil móvil)? |
+| **10/10** | ✅ Conservar (Core) | [VWAP/TWAP](indicators/es/VWAP.md) | ¿Cuál es el precio medio ponderado por volumen (institucional) y sus desviaciones estándar? |
+| **9/10** | ✅ Conservar (Core) | [Dynamic Levels Channel](indicators/es/DynamicLevelsChannel.md) | ¿Dónde se están formando el POC, VAH y VAL de las últimas N barras (un perfil móvil)? |
 
-### ⚔️ Session Profile <small>⚠️ (Pendiente)</small>
+### ⚔️ Session Profile <small>✅ (Fase 2)</small>
 _Perfil de Volumen fijo por sesión (TPO, Market Profile, VPOC)._
 
 | Score | Estado | Indicador | Descripción / Notas |
 | :---: | :--- | :--- | :--- |
-| 9/10 | ✅ Conservar | [Dynamic Levels](indicators/es/DynamicLevels.md) | ¿Dónde se están formando el POC, VAH y VAL del período actual en tiempo real? |
-| 9/10 | ✅ Conservar | [Maximum Levels](indicators/es/MaxLevels.md) | ¿En qué nivel de precio se produjo el máximo Volumen (o Bid, Ask, Delta)? |
-| 9/10 | ✅ Conservar | [Unfinished Auction](indicators/es/UnfinishedAuction.md) | ¿Quedaron órdenes pendientes en los extremos de la vela que el precio debe volver a visitar? |
+| **9/10** | ✅ Conservar (Core) | [Dynamic Levels](indicators/es/DynamicLevels.md) | ¿Dónde se están formando el POC, VAH y VAL del período actual en tiempo real? |
+| **8.5/10** | ✅ Conservar (Core) | [Maximum Levels](indicators/es/MaxLevels.md) | ¿En qué nivel de precio se produjo el máximo Volumen (o Bid, Ask, Delta) para el período seleccionado? |
+| **8.5/10** | ✅ Conservar (Core) | [Unfinished Auction](indicators/es/UnfinishedAuction.md) | ¿Quedaron órdenes pendientes en los extremos de la vela que el precio debe volver a visitar? |
+
+### ⚔️ Volume Profile <small>✅ (Fase 2)</small>
+_Perfiles de volumen estáticos y zonas de alto valor (High Volume Nodes)._
+
+| Score | Estado | Indicador | Descripción / Notas |
+| :---: | :--- | :--- | :--- |
+| **10/10** | ✅ Conservar (Core) | [Volume-based Support & Resistance Zones](indicators/es/VolumeSupResZones.md) | ¿Dónde están las zonas de soporte y resistencia definidas por volumen en múltiples marcos temporales? |
+| **9/10** | ✅ Conservar (Core) | [Active Volume](indicators/es/ActiveVolume.md) | Filtrando ruido, ¿dónde está el volumen significativo y agresivo? |
+| **8/10** | ✅ Conservar (Core) | [HRanges](indicators/es/HRanges.md) | ¿Dónde se están formando rangos (consolidaciones) y cuál es el POC interno? |

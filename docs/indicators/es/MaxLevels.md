@@ -1,32 +1,31 @@
 ---
 cs_file: MaxLevels.cs
 name: Maximum Levels
-category: Order Flow
 group: Order Flow
 subgroup: Volume Profile
-score_current: 9/10
-version: Estable
-recommended_action: Conservar
-description: ¿En qué nivel de precio se produjo el máximo Volumen (o Bid, Ask, Delta)?
-gemini_summary: "Indicador de perfil robusto. Utiliza correctamente la API asíncrona para encontrar niveles clave."
+score_current: 8.5/10
+version: Stable
+recommended_action: Conservar (Core)
+description: ¿En qué nivel de precio se produjo el máximo Volumen (o Bid, Ask, Delta) para el período seleccionado?
+gemini_summary: "Detector de niveles clave estáticos. A diferencia del Dynamic Levels que muestra la evolución, este indicador marca el nivel GANADOR final de un periodo (ayer, semana pasada, mes pasado). Esencial para soportes/resistencias mayores."
 comparison_group: "Session Profile"
-competitor_notes: "Estándar para POCs estáticos."
+competitor_notes: "Complemento estático al perfil dinámico."
 reusable_code: null
 file_state: Estable
-score_potential: 9/10
+score_potential: 8.5/10
 effort: N/A
 action_priority: N/A
-analysis_date: 2025-11-17
+analysis_date: 2025-11-21
 official_code_date: 23/04/2025
 ---
 
-## 🟦 Maximum Levels (9/10)
+## 🏆 Maximum Levels (8.5/10)
 
 **Nombre del archivo:** [`MaxLevels.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/MaxLevels.cs)  
 **Nombre del indicador:** Maximum Levels  
 **Web oficial:** [ATAS — Maximum Levels](https://help.atas.net/support/solutions/articles/72000602426)  
 **Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 23/04/2025
+**Última revisión del código oficial:** 23/04/2025  
 
 > **La Pregunta Clave:** ¿En qué nivel de precio se produjo el máximo Volumen (o Bid, Ask, Delta) para el período seleccionado?
 
@@ -36,84 +35,90 @@ official_code_date: 23/04/2025
 
 ### ⚙️ Parámetros configurables
 
-* **Period**: Periodo de análisis (día actual, semana, mes, etc.)
-* **TradingSession**: Sesión específica a analizar
-* **Type**: Tipo de nivel máximo (Volume, Bid, Ask, Delta positivo, negativo, etc.)
-* **Color / Width / Length**: Personalización visual de la línea
-* **Label**: Configuración del texto, valor, tamaño y color
-* **UseAlert / AlertFile**: Activar alertas si el precio alcanza el nivel
-* **AlertForeColor / AlertBgColor**: Colores de las alertas
+* **Period:** Periodo de referencia (`CurrentDay`, `LastDay`, `LastWeek`, `Contract`, etc.).
+* **Type:** Dato a buscar (`Volume`, `Bid`, `Ask`, `Delta`, `Tick`).
+* **Trading Session:** Filtro de sesión específico.
+* **Visuals:** Longitud de línea, texto, valor, colores.
+* **Alerts:** Alerta al tocar el nivel.
 
 ---
 
 ### 🧭 Clasificación
-📂 VolumeOrderFlow — Detección de niveles máximos de volumen u otros datos de clúster
+**Grupo:** Order Flow  
+**Subgrupo:** Volume Profile  
+**Comparison Group:** "Session Profile"  
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* Detectar **puntos de máximo interés institucional** en un periodo
-* Usar los niveles como **referencia clave de soporte/resistencia dinámica**
-* Confirmar entrada/salida si el precio interactúa con ese nivel
+* **Niveles de Ayer:** Marcar el POC de ayer (`LastDay` + `Volume`) como soporte/resistencia clave para hoy.  
+* **Niveles Semanales:** Marcar el POC de la semana pasada.  
+* **Niveles de Delta:** Marcar dónde hubo la mayor agresión compradora/vendedora (`PositiveDelta` / `NegativeDelta`).  
 
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **9 / 10**
+🔟 **8.5 / 10 (ESTRUCTURAL)**
 
-✅ Muy eficaz para marcar niveles técnicos relevantes  
-✅ Compatible con alertas automáticas y etiquetas  
-⛔ Limitado a un único nivel por tipo y periodo; no muestra evolución
+✅ **Referencia Sólida:** Los niveles de máximo volumen son zonas de alta liquidez que el mercado tiende a respetar.  
+✅ **Asíncrono:** Usa `FixedProfileRequest` para cargar datos pesados sin congelar el chart.  
+✅ **Flexible:** Puede buscar máximos de Delta, lo cual es muy potente para ver zonas de "atrapados".  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Reversión en máximos de volumen** (zona defendida)
-* **Entrada tras ruptura con volumen dominante**
-* **Confirmación institucional** si el precio se frena en el nivel
+* **Poc Bounce:** El precio suele rebotar en el primer test del POC de ayer.  
+* **Delta Defense:** Si el precio vuelve al nivel de `MaxNegativeDelta` y rebota, los vendedores están defendiendo su posición.  
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **Period**: `CurrentDay`
-* **Type**: `Volume`
-* **Length**: `300`
-* **UseAlert**: `true`
-* **ShowText / ShowValue**: activados
-* **TradingSession**: `Custom` (para aislar la sesión de cash US)
+| Parámetro | Valor Recomendado | Razón |
+| :--- | :--- | :--- |
+| **Period** | `LastDay` | Referencia inmediata. |
+| **Type** | `Volume` | POC clásico. |
+| **Length** | `300` | Línea discreta a la derecha. |
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* Utiliza un objeto `FixedProfileRequest` para solicitar asíncronamente el perfil del período elegido
-* El resultado del perfil se recibe en `OnFixedProfilesResponse` y se almacena en `_candle`
-* Usa `OnRender` para dibujar la línea (`DrawLine`) y la etiqueta (`DrawLabelOnPriceAxis`)
-* Soporta niveles de máximo Volume, Bid, Ask, Delta (positivo/negativo) y Ticks
-* El tipo `Time` está correctamente marcado como `[Obsolete]` en el código
-* Incluye una función de Alerta (`UseAlert`) que se activa al cruzar el nivel
+* Implementación asíncrona ejemplar (`GetFixedProfile`).
+* Renderizado manual eficiente en `OnRender` (Dibuja línea y etiqueta).
 
 ---
+
+### ❗ Incoherencias o aspectos mejorables detectados
+
+* **Ninguna.** ---
+
+### 🛠️ Propuestas de mejora
+
+* **Ninguna.** ---
+
+### 💎 Valor Reutilizable (Código Donante)
+
+* **Solicitud de Perfiles:** El patrón de `FixedProfileRequest` es la forma correcta de pedir datos de volumen agregados al servidor de ATAS.
+
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Este es un indicador de Flujo de Órdenes de nivel profesional, y su código en `MaxLevels.cs` es un ejemplo de implementación robusta.
+Es simple pero vital. No quieres calcular el perfil de ayer a mano. Este indicador te pone la línea donde debe estar.
 
-Su arquitectura maneja correctamente los datos de perfil, que son pesados. En lugar de calcular en `OnCalculate`, solicita los datos de forma asíncrona usando `GetFixedProfile(new FixedProfileRequest(Period, TradingSession));`. La respuesta se maneja en el callback `OnFixedProfilesResponse`, que almacena los datos en la variable `_candle`.
-
-La lógica de `OnRender` es eficiente: simplemente comprueba si `_candle` existe y luego extrae el `PriceVolumeInfo` relevante según el `Type` seleccionado para dibujar la línea y la etiqueta. Este diseño asíncrono previene que el indicador congele la plataforma. Es una herramienta estable, esencial y bien construida.
+**Propuestas de Acción:**
+* **Conservar como CORE.**
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí, es una herramienta esencial.**
+**Sí.**
 
-Conocer el nivel de máximo volumen/delta del día o de la sesión es fundamental para cualquier estrategia de scalping basada en perfiles o OFA.
+Los niveles históricos son imanes.
 
-**Acción:** **Conservar (Herramienta de OFA esencial).**
+**Acción:** **Conservar (Core).**
 

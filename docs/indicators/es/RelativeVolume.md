@@ -1,26 +1,25 @@
 ﻿---
 cs_file: RelativeVolume.cs
 name: Relative Volume
-category: Order Flow
 group: Order Flow
 subgroup: Volume
 score_current: 7/10
 version: Stable
-recommended_action: Mejorar
-description: ¿Es el volumen actual anómalamente alto o bajo comparado con el promedio histórico?
-gemini_summary: "Comparador de volumen histórico. Concepto útil, lógica de actualización desfasada. Solo gráficos de tiempo."
+recommended_action: Conservar (Reserva)
+description: ¿Es el volumen actual anómalamente alto o bajo comparado con el promedio histórico para esta misma hora?
+gemini_summary: "El contexto temporal. Compara el volumen de ahora con el volumen de 'ayer a esta hora'. Vital para no confundir volumen alto de apertura con volumen alto real."
 comparison_group: "VSA & Anomalies"
-competitor_notes: "Único en su clase."
-reusable_code: null
+competitor_notes: "Único. Aporta el contexto 'Time-of-Day' que le falta al Better Volume."
+reusable_code: "Lógica de promedio por hora (Dictionary<TimeSpan, AvgBar>)"
 file_state: Mejorable
 score_potential: 8/10
 effort: Bajo
 action_priority: P3
-analysis_date: 2025-11-18
+analysis_date: 2025-11-21
 official_code_date: 23/04/2025
 ---
 
-## 🟦 Relative Volume (7/10)
+## 🛡️ Relative Volume (7/10)
 
 **Nombre del archivo:** [`RelativeVolume.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/RelativeVolume.cs)  
 **Nombre del indicador:** Relative Volume  
@@ -36,67 +35,76 @@ official_code_date: 23/04/2025
 
 ### ⚙️ Parámetros configurables
 
-* **LookBack**: Número de sesiones para calcular el promedio horario (por defecto: 20)
-* **DeltaColored**: Activar coloreado según el delta en lugar del cuerpo de la vela
-* **PosColor / NegColor / NeutralColor**: Colores para barras con delta positivo, negativo o neutro
+* **LookBack:** Número de días atrás para calcular el promedio (Default: 20).  
+* **DeltaColored:** Opción para colorear por delta.  
 
 ---
 
 ### 🧭 Clasificación
-📂 Volume — Comparativa entre el volumen actual y su media en ese mismo horario
+**Grupo:** Order Flow  
+**Subgrupo:** Volume  
+**Comparison Group:** "VSA & Anomalies"  
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* Detectar si el **volumen de una vela es significativamente mayor o menor al promedio histórico**
-* Confirmar entradas si el volumen relativo es alto en una ruptura o zona relevante
-* Medir **momentos de alta o baja participación relativa** a nivel horario
+* **Normalización:** Saber si 5000 contratos a las 16:00 es mucho (RVOL > 1.5) o normal (RVOL = 1.0).  
+* **Filtro de Ruptura:** Exigir RVOL > 1.5 para validar un breakout.  
 
 ---
 
 ### 📊 Nivel de relevancia
 🔟 **7 / 10**
 
-✅ Útil para filtrar señales según contexto de participación relativa  
-✅ Resalta automáticamente barras anómalas en comparación al histórico  
-⛔ Solo funciona correctamente en gráficos basados en tiempo
+✅ **Contexto Temporal:** Resuelve el problema de la estacionalidad intradía (la "U" de volumen).  
+⛔ **Limitación:** Solo funciona en gráficos de tiempo (TimeFrame). En Renko o Range falla.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Validación de ruptura**: volumen relativo alto confirma movimiento
-* **Filtro direccional**: evitar operar en condiciones de volumen débil
-* **Detección de absorción** si hay delta bajo pero volumen alto relativo
+* **News Trading:** Ver si el volumen tras una noticia es realmente excepcional.  
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **LookBack**: `20`
-* **DeltaColored**: `true`
+* **LookBack:** `20` (Un mes de trading aprox).  
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* Almacena promedios históricos en un diccionario `Dictionary<TimeSpan, AvgBar>` indexado por la hora del día
-* Solo funciona en gráficos de Tiempo o Segundos (`_isSupportedTimeFrame`)
-* **Defecto:** El promedio mostrado en la barra actual no incluye el dato de la sesión más reciente hasta que se cierra, lo que puede generar un pequeño lag en la adaptación del promedio.
+* Usa un `Dictionary<TimeSpan, AvgBar>` para guardar el historial de cada minuto del día.  
+* **Defecto:** Pequeño lag en la actualización del promedio del día en curso.  
 
 ---
+
+### ❗ Incoherencias o aspectos mejorables detectados
+
+* **TimeFrame:** No avisa si se usa en un gráfico no soportado (ej. Tick).  
+
+---
+
+### 🛠️ Propuestas de mejora
+
+* **P3:** Añadir aviso visual si `ChartType` no es TimeFrame.  
+
+---
+
+### 💎 Valor Reutilizable (Código Donante)
+
+* **Lógica RVOL:** El uso del Diccionario por `TimeOfDay` es exportable a cualquier indicador que necesite estacionalidad.  
+
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Es una herramienta de contexto vital para saber si "hay gente" en el mercado. La implementación es ingeniosa (usar un diccionario para guardar el historial de cada franja horaria).
+Esencial para entender si el mercado está "caliente" o "frío" ajustado a la hora. 2000 contratos a las 3 AM es una locura; a las 9:30 AM es silencio. Este indicador te dice la diferencia.
 
-El principal defecto es su limitación a gráficos temporales. En un gráfico de Range o Renko, el concepto de "hora del día" es menos relevante o directamente inaplicable, y el indicador simplemente deja de calcular el promedio. Debería mostrar un aviso al usuario en esos casos.
-
-**Propuesta de Mejora (P3):**
-* Añadir una etiqueta o aviso visual si se usa en un TimeFrame no soportado.
-* Corregir el orden de actualización del promedio para que sea más reactivo.
+**Propuestas de Acción:**
+* **Conservar como Reserva.**
 
 ---
 
@@ -104,7 +112,7 @@ El principal defecto es su limitación a gráficos temporales. En un gráfico de
 
 **Sí.**
 
-Saber si el volumen de ruptura es "real" (superior al promedio) o "falso" (inferior al promedio) es clave.
+Para filtrar falsas rupturas en horas muertas.
 
-**Acción:** **Mejorar (Validación de TimeFrame y lógica de actualización).**
+**Acción:** **Conservar (Reserva).**
 

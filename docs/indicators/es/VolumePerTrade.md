@@ -1,26 +1,25 @@
 ﻿---
 cs_file: VolumePerTrade.cs
 name: Volume Per Trade
-category: Order Flow
 group: Order Flow
 subgroup: Volume
-score_current: 8/10
+score_current: 9/10
 version: Stable
-recommended_action: Conservar
+recommended_action: Conservar (Core)
 description: ¿Cuál es el tamaño promedio de las órdenes ejecutadas en cada vela?
-gemini_summary: "Métrica de calidad de orden. Volumen / Ticks. Simple y revelador para ver institucional vs retail."
+gemini_summary: "Métrica de calidad institucional. Al dividir el Volumen total por el número de Ticks (trades), revela si el mercado lo mueven muchos pececillos (Retail) o pocos tiburones (Institucional)."
 comparison_group: "Volume Efficiency"
-competitor_notes: "Simple pero efectivo."
+competitor_notes: "Único en su enfoque de 'Calidad de Orden' vs 'Cantidad de Volumen'."
 reusable_code: null
 file_state: Estable
-score_potential: 9/10
-effort: Bajo
-action_priority: P3
-analysis_date: 2025-11-18
-official_code_date: 2025-04-23
+score_potential: 9.5/10
+effort: N/A
+action_priority: N/A
+analysis_date: 2025-11-21
+official_code_date: 23/04/2025
 ---
 
-## 🟦 Volume Per Trade (8/10)
+## 🏆 Volume Per Trade (9/10)
 
 **Nombre del archivo:** [`VolumePerTrade.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/VolumePerTrade.cs)  
 **Nombre del indicador:** Volume Per Trade  
@@ -36,62 +35,84 @@ official_code_date: 2025-04-23
 
 ### ⚙️ Parámetros configurables
 
-* **Ninguno**: Cálculo directo.
+* **N/A:** Este indicador es una métrica directa sin parámetros de ajuste.
 
 ---
 
 ### 🧭 Clasificación
-📂 Volume — Indicador de actividad institucional.
+**Grupo:** Order Flow  
+**Subgrupo:** Volume  
+**Comparison Group:** "Volume Efficiency"  
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* **Detectar Ballenas:** Si el VPT sube drásticamente, significa que están entrando órdenes de muchos lotes por ticket.  
-* **Detectar Robots:** Si el volumen es alto pero el VPT es bajo (cercano a 1), son algoritmos HFT o minoristas operando lotes pequeños a alta frecuencia.  
+* **Detector de Ballenas:** Un VPT alto indica que están entrando órdenes de gran tamaño (bloques), característico de actividad institucional.  
+* **Detector de HFT/Retail:** Un volumen muy alto con un VPT bajo (cercano a 1) indica una "lluvia" de órdenes pequeñas (algoritmos de alta frecuencia o pánico minorista).  
 
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **8 / 10**
+🔟 **8 / 10 (IMPRESCINDIBLE)**
 
-✅ **Insight Único:** Revela la "textura" del volumen. 1000 de volumen hechos por 1000 trades de 1 lote es muy diferente a 1000 de volumen en 2 trades de 500.  
-⛔ **Riesgo Matemático:** Divide por `candle.Ticks`. Si el data feed reporta 0 ticks (improbable en tiempo real, posible en históricos corruptos), crashea. Debería protegerse.  
+✅ **Visión de Rayos X:** Diferencia 1000 contratos hechos por 1 persona de 1000 contratos hechos por 1000 personas.  
+✅ **Simplicidad:** No requiere configuración. Es un dato puro.  
+⛔ **Sin Suavizado:** La serie puede ser muy volátil (ruidosa) en gráficos rápidos.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Institutional Follow:** Si VPT se dispara en una ruptura, es ruptura real (dinero grande). Si VPT es bajo en ruptura, es trampa de HFT.  
+* **Institutional Breakout:** Si el precio rompe un nivel y el VPT se dispara, es una ruptura respaldada por "dinero inteligente".  
+* **Fakeout:** Ruptura con volumen alto pero VPT bajo = Trampa de minoristas/HFT.  
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **N/A**.
+* **N/A** (Sin parámetros).  
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* **Fórmula:** `Volume / Ticks`.
-* **Código:** Extremadamente simple.
+* Fórmula: `candle.Volume / candle.Ticks`.
+* Código extremadamente eficiente y limpio.
 
 ---
+
+### ❗ Incoherencias o aspectos mejorables detectados
+
+* **División por Cero:** Teóricamente, si `candle.Ticks` es 0, podría dar error, aunque en un mercado real es imposible tener Volumen > 0 con Ticks = 0.
+
+---
+
+### 🛠️ Propuestas de mejora
+
+* **SMA (P2):** Añadir una media móvil simple al gráfico para ver si el tamaño medio de la orden está creciendo o decreciendo a lo largo de la sesión.
+
+---
+
+### 💎 Valor Reutilizable (Código Donante)
+
+* **Ninguno.** Cálculo trivial.
+
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Una herramienta pequeña pero matona. Diferencia el ruido de la señal real.
+Es una de las métricas más subestimadas del Order Flow. En un mundo de algoritmos que trocean las órdenes, ver el tamaño medio de ejecución es una de las pocas formas de intuir la presencia de grandes jugadores que no logran ocultar del todo su huella.
 
-**Propuestas de Mejora:**
-* **Media Móvil:** Añadir una SMA del VPT para ver si el tamaño medio está creciendo o decreciendo en la sesión.
-* **Protección:** `candle.Ticks > 0 ? ... : 0`.
+**Propuestas de Acción:**
+* **Conservar como CORE.**
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí.** Muy útil para filtrar falsas rupturas impulsadas solo por stops de minoristas (VPT bajo).
+**Sí.**
 
-**Acción:** **Conservar.**
+Para filtrar la calidad de las rupturas.
+
+**Acción:** **Conservar (Core).**

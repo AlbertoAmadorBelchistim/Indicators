@@ -3,7 +3,7 @@ cs_file: BidAskVR.cs
 name: Bid Ask Volume Ratio
 group: Order Flow
 subgroup: Delta
-score_current: 7/10
+score_current: 8.5/10
 version: Estable
 recommended_action: Conservar (Core)
 description: ¿Cuál es el desequilibrio normalizado del volumen agresivo y su momentum?
@@ -12,14 +12,14 @@ comparison_group: "Bar Delta Details"
 competitor_notes: "Superior a 'Bid Ask' porque contextualiza el volumen. Un desequilibrio del 80% es visible aquí, mientras que en volumen bruto podría perderse en una vela pequeña."
 reusable_code: null
 file_state: Estable
-score_potential: 8/10
+score_potential: 9/10
 effort: Bajo
 action_priority: P2
 analysis_date: 2025-11-21
 official_code_date: 23/04/2025
 ---
 
-## 🏆 Bid Ask Volume Ratio (7/10)
+## 🏆 Bid Ask Volume Ratio (8.5/10)
 
 **Nombre del archivo:** [`BidAskVR.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/BidAskVR.cs)  
 **Nombre del indicador:** Bid Ask Volume Ratio  

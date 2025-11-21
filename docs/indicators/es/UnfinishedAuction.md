@@ -1,32 +1,31 @@
 ﻿---
 cs_file: UnfinishedAuction.cs
 name: Unfinished Auction
-category: Order Flow
 group: Order Flow
 subgroup: Volume Profile
-score_current: 9/10
+score_current: 8.5/10
 version: Stable
-recommended_action: Conservar
+recommended_action: Conservar (Core)
 description: ¿Quedaron órdenes pendientes en los extremos de la vela que el precio debe volver a visitar?
-gemini_summary: "Herramienta de Order Flow avanzada. Detecta anomalías en extremos y dibuja líneas hasta que se mitigan."
+gemini_summary: "Herramienta táctica de precisión. Detecta 'Subastas Inacabadas' (Unfinished Auctions) en máximos y mínimos, trazando líneas que actúan como imanes para el precio. Basado en teoría de Market Profile."
 comparison_group: "Session Profile"
-competitor_notes: "Único para detectar UA."
+competitor_notes: "Único. No tiene competencia directa."
 reusable_code: null
 file_state: Estable
-score_potential: 9/10
-effort: Alto
+score_potential: 8.5/10
+effort: N/A
 action_priority: N/A
-analysis_date: 2025-11-18
+analysis_date: 2025-11-21
 official_code_date: 08/05/2025
 ---
 
-## 🟦 Unfinished Auction (9/10)
+## 🏆 Unfinished Auction (8.5/10)
 
 **Nombre del archivo:** [`UnfinishedAuction.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/UnfinishedAuction.cs)  
 **Nombre del indicador:** Unfinished Auction  
 **Web oficial:** [ATAS — Unfinished Auction](https://help.atas.net/support/solutions/articles/72000602495)  
 **Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 8/05/2025  
+**Última revisión del código oficial:** 08/05/2025  
 
 > **La Pregunta Clave:** ¿Quedaron órdenes pendientes (desequilibrio) en los extremos de la vela que el precio debe volver a visitar?
 
@@ -36,66 +35,89 @@ official_code_date: 08/05/2025
 
 ### ⚙️ Parámetros configurables
 
-* **Filters**: BidFilter y AskFilter (Volumen mínimo para considerar la subasta inacabada).  
-* **Days**: Historial a escanear.  
-* **Visuals**: Colores y grosores de líneas y clústeres.  
-* **Alerts**: Notificación al crear o cerrar una zona.  
+* **Bid/Ask Filter:** Volumen mínimo en el extremo para considerar la subasta inacabada (ej. > 0).
+* **Days:** Días de historial a analizar.
+* **Visuals:** Colores de líneas y clusters.
+* **Alerts:** Aviso al crear o cerrar una UA.
 
 ---
 
 ### 🧭 Clasificación
-📂 VolumeOrderFlow — Indicador de microestructura de mercado (Market Profile Theory).
+**Grupo:** Order Flow  
+**Subgrupo:** Volume Profile  
+**Comparison Group:** "Session Profile"  
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* **Target Magnet:** Las líneas de "Unfinished Auction" actúan como imanes. El mercado odia la ineficiencia y suele volver para completar la subasta (0 volumen en el extremo).  
-* **Soporte Débil:** Un mínimo con Unfinished Auction no es un buen soporte, es probable que se rompa o se testee de nuevo.  
+* **Target Magnet:** Las líneas UA actúan como imanes. El mercado tiende a volver para completar la subasta (dejar 0 volumen en el tick extremo).  
+* **Weak High/Low:** Un máximo con UA es un "máximo débil", probable de ser roto.  
+* **Gap Fill:** Similar a los gaps, las UA suelen rellenarse.  
 
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **9 / 10**
+🔟 **8.5 / 10 (TACTICO)**
 
-✅ **Teoría Robusta:** Basado en la teoría de subastas. Un extremo de mercado sólido debe tener volumen decreciente (0). Si hay volumen alto, la subasta no acabó.  
-✅ **Gestión Automática:** Borra las líneas cuando el precio las toca (`HorizontalLinesTillTouch`), manteniendo el gráfico limpio de niveles viejos.  
-⛔ **Requiere Tick Data:** No funciona con datos OHLC simples.  
+✅ **Teoría Sólida:** Basado en principios de subasta. Un mercado eficiente debe terminar con volumen cero en el extremo.  
+✅ **Auto-Limpieza:** Las líneas desaparecen automáticamente cuando el precio las toca (`HorizontalLinesTillTouch`), manteniendo el gráfico limpio.  
+✅ **Precisión:** Mira dentro del tick exacto del extremo.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Repair Trade:** Si dejamos una subasta inacabada arriba y el precio baja, buscar largos para el "retest" de esa línea.  
-* **Breakout Confirmation:** Si rompe un nivel y deja UA, es señal de fuerza, pero cuidado con el pullback inmediato.  
+* **Repair Trade:** Si hay una UA arriba y el precio gira al alza, el objetivo mínimo es tocar esa línea UA.  
+* **Breakout Confirmation:** Una ruptura que deja UA atrás es fuerte, pero espera un retest inmediato para cerrarla.  
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **Bid/Ask Filter**: `10` o `20` (Depende de la liquidez del horario).  
+| Parámetro | Valor Recomendado | Razón |
+| :--- | :--- | :--- |
+| **Filter** | `1` (o `10`) | Cualquier volumen > 0 es técnicamente UA. |
+| **Days** | `2` | Foco en el corto plazo. |
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* **Lógica:** `candle.GetPriceVolumeInfo(High/Low)`. Verifica si en el tick exacto del máximo/mínimo hubo volumen de Ask/Bid superior al filtro.
-* **Persistencia:** Usa `LineTillTouch` con `IsRay = true`. El sistema de ATAS se encarga de cortar la línea cuando el precio la cruza en el futuro.
+* Utiliza `LineTillTouch` con `IsRay = true`. Esta clase especial de ATAS gestiona automáticamente la extensión y corte de la línea.
+* Escanea `candle.GetPriceVolumeInfo(High)` y `Low`.
 
 ---
+
+### ❗ Incoherencias o aspectos mejorables detectados
+
+* **Ninguna.** Implementación perfecta.
+
+---
+
+### 🛠️ Propuestas de mejora
+
+* **Ninguna.** ---
+
+### 💎 Valor Reutilizable (Código Donante)
+
+* **Lógica TillTouch:** El uso de `HorizontalLinesTillTouch` es un ejemplo perfecto de cómo dibujar niveles de soporte/resistencia dinámicos que se autogestionan.
+
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Es una herramienta táctica de primer nivel. Para el trader de Order Flow, ver estas líneas es ver "asuntos pendientes" del mercado. El código es excelente y muy específico para la plataforma ATAS.
+Es una herramienta de "francotirador". Te da objetivos de precio exactos al tick.
 
-**Propuestas de Mejora:**
-* Ninguna. Es una implementación canónica.
+**Propuestas de Acción:**
+* **Conservar como CORE.**
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí.** Define objetivos (Targets) de muy alta probabilidad.
+**Sí.**
 
-**Acción:** **Conservar.**
+Define objetivos claros.
+
+**Acción:** **Conservar (Core).**

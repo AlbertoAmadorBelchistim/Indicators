@@ -3,7 +3,7 @@ cs_file: OpenInterest.cs
 name: Open Interest
 group: Order Flow
 subgroup: Open Interest
-score_current: 6/10
+score_current: 8/10
 version: Estable
 recommended_action: Conservar (Reserva / Donante)
 description: ¿Cuál es el Interés Abierto total (o su cambio neto) por barra o sesión?
@@ -12,14 +12,14 @@ comparison_group: "Open Interest Analysis"
 competitor_notes: "Muy inferior al OI Analyzer en análisis, pero gana en utilidad pasiva (alertas)."
 reusable_code: "Sistema de Alertas por cambio de valor (ChangeSize)"
 file_state: Estable
-score_potential: 6/10
+score_potential: 8/10
 effort: Bajo
 action_priority: P3
 analysis_date: 2025-11-21
 official_code_date: 23/04/2025
 ---
 
-## 🛡️ Open Interest (6/10)
+## 🛡️ Open Interest (8/10)
 
 **Nombre del archivo:** [`OpenInterest.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/OpenInterest.cs)  
 **Nombre del indicador:** Open Interest  

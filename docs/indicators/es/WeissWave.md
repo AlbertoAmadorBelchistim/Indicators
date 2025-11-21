@@ -1,26 +1,25 @@
 ﻿---
 cs_file: WeissWave.cs
 name: Weis Wave
-category: Order Flow
 group: Order Flow
 subgroup: Volume
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuánto volumen acumulado (esfuerzo) hay en la onda de precio actual?
-gemini_summary: "Acumulador de volumen por ondas (ZigZag de volumen). Esencial para Wyckoff."
+recommended_action: Conservar (Reserva)
+description: ¿Quanto volumen acumulado (esfuerzo) hay en la onda de precio actual?
+gemini_summary: "El indicador estructural por excelencia. Acumula el volumen de velas consecutivas en la misma dirección, creando 'ondas' de presión. Esencial para el análisis Wyckoff."
 comparison_group: "Volume Oscillators"
-competitor_notes: "Único."
+competitor_notes: "Único. No es un oscilador matemático, es un acumulador estructural."
 reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: Bajo
-action_priority: N/A
-analysis_date: 2025-11-18
+action_priority: P3
+analysis_date: 2025-11-21
 official_code_date: 23/04/2025
 ---
 
-## 🟦 Weis Wave (8/10)
+## 🛡️ Weis Wave (8/10)
 
 **Nombre del archivo:** [`WeissWave.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/WeissWave.cs)  
 **Nombre del indicador:** Weis Wave  
@@ -36,63 +35,81 @@ official_code_date: 23/04/2025
 
 ### ⚙️ Parámetros configurables
 
-* **Filter**: Resaltar ondas con volumen superior a X.  
-* **Colors**: Positivo, Negativo, Filtro.  
+* **Filter:** Umbral para resaltar ondas gigantes.  
+* **Colors:** Up/Down.  
 
 ---
 
 ### 🧭 Clasificación
-📂 Volume — Indicador de estructura de mercado y flujo (Wyckoff).
+**Grupo:** Order Flow  
+**Subgrupo:** Volume  
+**Comparison Group:** "Volume Oscillators"  
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* **Esfuerzo vs Resultado:** Si la onda de volumen es gigante pero el precio apenas avanza, es absorción.  
-* **Secado:** Si el precio retrocede a soporte y la onda de volumen es minúscula, no hay oferta. Compra.  
+* **Ley de Esfuerzo vs Resultado:** Onda de volumen masiva (Esfuerzo) con poco avance de precio (Resultado) = Absorción/Giro.  
+* **Secado (No Supply):** Retroceso bajista con onda de volumen minúscula = Falta de vendedores.  
 
 ---
 
 ### 📊 Nivel de relevancia
 🔟 **8 / 10**
 
-✅ **Visión Estructural:** Agrupa el ruido de velas individuales en "olas" de presión.  
-✅ **Detección de Giro:** El cambio de color indica cambio de carácter inmediato.  
-⛔ **Lógica Simple:** Esta versión usa `Open < Close` para definir la dirección. Una versión más avanzada usaría un ZigZag de precio para definir las ondas, no la dirección de la vela individual.  
+✅ **Visión Macro:** Ayuda a ver el mercado en movimientos, no en velas sueltas.  
+⛔ **Sensible:** Esta versión cambia de onda con una sola vela de color contrario. Sería mejor si usara un ZigZag de precio.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Wave Failure:** Precio hace nuevo mínimo pero la onda Weis roja es mucho menor que la anterior -> Divergencia de volumen.  
+* **Wave Failure:** Precio hace nuevo mínimo, pero la onda de volumen bajista es mucho menor que la anterior.  
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **Filter**: `5000` (Para ver clímax).  
+* **Filter:** `5000` (Para destacar clímax).  
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* **Algoritmo:** Acumula volumen si `Sign(Close - Open)` es igual al de la vela anterior.
-* **Limitación:** Si tienes una vela alcista pequeña en medio de una caída fuerte, la onda se rompe. La versión "ZigZag" es mejor para ver ondas reales.
+* Lógica simple: `Sign(Close - Open)`.  
+* Acumula volumen mientras el signo se mantenga.  
 
 ---
+
+### ❗ Incoherencias o aspectos mejorables detectados
+
+* **Ruido:** Una vela Doji o de color contrario rompe la onda.  
+
 ---
+
+### 🛠️ Propuestas de mejora
+
+* **P3 (ZigZag):** Integrar lógica de ZigZag (cambio mínimo de ticks) para definir las ondas de forma más robusta.  
+
+---
+
+### 💎 Valor Reutilizable (Código Donante)
+
+* **Ninguno.** ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Es bueno, pero la lógica de "vela a vela" lo hace muy nervioso. Sería mejor si se basara en un ZigZag de precio (ej. 3 ticks de retroceso) para acumular el volumen.
+Es fundamental para entender la estructura. No te da la entrada exacta, te da el contexto del ciclo.
 
-**Propuestas de Mejora:**
-* **Modo ZigZag:** Integrar lógica de ZigZag para definir el cambio de onda en lugar de usar solo el color de la vela.
+**Propuestas de Acción:**
+* **Conservar como Reserva.**
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí.** Para ver divergencias de flujo rápidas.
+**Sí.**
 
-**Acción:** **Mejorar (Añadir lógica ZigZag).**
+Para ver divergencias estructurales.
+
+**Acción:** **Conservar (Reserva).**

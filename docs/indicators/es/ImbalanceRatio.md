@@ -1,34 +1,33 @@
 ---
 cs_file: ImbalanceRatio.cs
 name: Imbalance Ratio
-category: Order Flow
 group: Order Flow
 subgroup: Footprint
 score_current: 9/10
-version: Estable
-recommended_action: Conservar
+version: Stable
+recommended_action: Conservar (Core)
 description: ¿Dónde se están produciendo desequilibrios diagonales de Ask vs. Bid en el clúster?
-gemini_summary: "Implementación 'Core' estable del Imbalance de clúster. Filtros clave y resumen de texto."
+gemini_summary: "La herramienta estándar para detectar agresión direccional. Compara el volumen diagonal (Bid vs Ask en el tick superior) y resalta cuando la diferencia supera un ratio (ej. 300%). Incluye un resumen numérico visual muy útil."
 comparison_group: "Imbalance Analysis"
-competitor_notes: "Estándar para imbalances."
+competitor_notes: "La base del análisis de imbalance. Más ligero y directo que el Stacked Imbalance."
 reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: N/A
 action_priority: N/A
-analysis_date: 2025-11-17
+analysis_date: 2025-11-21
 official_code_date: 27/05/2025
 ---
 
-## 🟦 Imbalance Ratio (9/10)
+## 🏆 Imbalance Ratio (9/10)
 
 **Nombre del archivo:** [`ImbalanceRatio.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/ImbalanceRatio.cs)  
 **Nombre del indicador:** Imbalance Ratio  
 **Web oficial:** [ATAS — Imbalance Ratio](https://help.atas.net/support/solutions/articles/72000602404)  
 **Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 27/05/2025
+**Última revisión del código oficial:** 27/05/2025  
 
-> **La Pregunta Clave:** ¿Dónde se están produciendo desequilibrios (imbalances) diagonales de Ask vs. Bid en el clúster que superan un ratio y volumen mínimos?
+> **La Pregunta Clave:** ¿Dónde se están produciendo desequilibrios diagonales de Ask vs. Bid en el clúster que superan un ratio y volumen mínimos?
 
 ![Imbalance Ratio](../../img/ImbalanceRatio.png)
 
@@ -36,80 +35,96 @@ official_code_date: 27/05/2025
 
 ### ⚙️ Parámetros configurables
 
-* **Ratio**: Relación mínima Ask/Bid (o Bid/Ask) para considerar un desequilibrio (por defecto: 4)
-* **VolumeFilter**: Volumen mínimo en el par de niveles para considerar el desequilibrio
-* **Transparency**: Transparencia del clúster visualizado (0 a 100)
-* **BuyColor / SellColor**: Colores para desequilibrios de compra o venta
-* **TextColor**: Color del texto que muestra la cantidad de desequilibrios por vela
-* **ShowTop / ShowBot**: Mostrar el resumen de texto arriba o abajo de la vela
+Este indicador filtra el ruido para mostrar solo la agresión real:
+
+#### 📊 Filtros de Agresión
+* **Ratio:** Relación mínima para considerar desequilibrio (ej. 4 significa 400% más volumen en un lado).
+* **Volume Filter:** Volumen mínimo acumulado en el par de ticks para activar la señal (evita imbalances de 1 vs 0).
+
+#### 🎨 Visualización
+* **Transparency:** Opacidad del resaltado en el Footprint.
+* **Colors:** Buy/Sell.
+* **Show Top/Bot:** Muestra un resumen de texto (ej. `3x0`) encima o debajo de la vela indicando cuántos imbalances hubo.
 
 ---
 
 ### 🧭 Clasificación
-📂 VolumeOrderFlow — Detección de desequilibrios agresivos entre Bid y Ask por nivel
+**Grupo:** Order Flow  
+**Subgrupo:** Footprint  
+**Comparison Group:** "Imbalance Analysis"  
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* Detectar **zonas de desequilibrio agresivo** en el clúster
-* Visualizar acumulaciones de compras o ventas dominantes (stacked imbalances)
-* Usar como filtro o confirmación de **absorciones, agotamientos o empuje institucional**
+* **Detección de Iniciativa:** Un clúster lleno de imbalances de compra indica compradores agresivos tomando el control.  
+* **Trampas:** Un imbalance fuerte de compra en el máximo de una vela que cierra bajista es una señal de "Atrapados" (Trapped Buyers).  
+* **Confirmación:** Ruptura de nivel acompañada de múltiples imbalances a favor.  
 
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **9 / 10**
+🔟 **9 / 10 (IMPRESCINDIBLE)**
 
-✅ **Herramienta "Core" de Order Flow**: Es la implementación estándar y esencial de Imbalance de clúster.  
-✅ **Filtros Clave**: `Ratio` y `VolumeFilter` son cruciales para eliminar el ruido y encontrar agresión significativa.  
-✅ **Resumen Visual**: El conteo (`{buyRows}x{sellRows}`) en `OnRender` es una excelente ayuda visual.  
-✅ Código estable y eficiente.
+✅ **Lectura Diagonal:** Es la única forma correcta de leer el cruce de órdenes a mercado vs limitadas.  
+✅ **Resumen Visual:** El conteo `NxM` sobre la vela permite evaluar la intensidad sin mirar dentro del clúster.  
+✅ **Eficiente:** Código optimizado para renderizado en tiempo real.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Ruptura con desequilibrio agresivo**: Entrada si aparecen *stacked imbalances* (desequilibrios apilados) en dirección de la ruptura.
-* **Absorción Inversa**: Entrada contraria si aparece un gran desequilibrio justo en una zona de S/R (ej. absorción).
-* **Seguimiento de "Dinero Inteligente"**: Múltiples desequilibrios agrupados indican presión institucional.
+* **Momentum:** Entrar en la dirección de los imbalances si el precio rompe un nivel.  
+* **Reversión:** Si el precio vuelve a una zona de imbalance previo y reacciona.  
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **Ratio**: `3` a `5` (4 es un buen estándar)
-* **VolumeFilter**: `300` a `800` (depende de la liquidez del momento)
-* **Transparency**: `50`
+| Parámetro | Valor Recomendado | Razón |
+| :--- | :--- | :--- |
+| **Ratio** | `3` o `4` | Estándar institucional (300-400%). |
+| **Volume Filter** | `50` | Filtrar ruido en ES. |
+| **Transparency** | `40` | Visible pero sin tapar números. |
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* El indicador recorre el clúster comparando ticks diagonales.
-* **Imbalance de Compra**: `upperInfo.Ask / lowerInfo.Bid >= _imbalanceRatio`.
-* **Imbalance de Venta**: `lowerInfo.Bid / upperInfo.Ask >= _imbalanceRatio`.
-* Ambos están protegidos por un `VolumeFilter` y protección contra división por cero (ej. `lowerInfo.Bid == 0`).
-* Los desequilibrios se representan con `PriceSelectionValue` y `ObjectType.OnlyCluster` para dibujar solo el resaltado del clúster.
-* `OnRender` dibuja el resumen de texto (`buyRows}x{sellRows}`) encima o debajo de la vela.
+* **Algoritmo:** Recorre la vela comparando `Ask[i] / Bid[i-1]` (Compra) y `Bid[i] / Ask[i+1]` (Venta).
+* **Optimización:** Usa `GetPriceVolumeInfo` para acceso directo a datos de clúster.
 
 ---
+
+### ❗ Incoherencias o aspectos mejorables detectados
+
+* **Ninguna.** Es la implementación canónica.
+
+---
+
+### 🛠️ Propuestas de mejora
+
+* **Ninguna.** ---
+
+### 💎 Valor Reutilizable (Código Donante)
+
+* **Lógica Diagonal:** El bucle de comparación diagonal es la base para cualquier estrategia de Order Flow avanzado.
+
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Este es un indicador "Core" indispensable para cualquier scalper de Order Flow. Es la herramienta fundamental para "leer dentro" de la vela.
+Es el "detector de mentiras". El precio puede subir por falta de liquidez, pero para subir con *imbalance* hace falta dinero agresivo.
 
-La implementación de ATAS es excelente: es rápida, visualmente clara y, lo más importante, incluye los dos filtros cruciales que la hacen profesional: `Ratio` y `VolumeFilter`. Sin estos filtros, un gráfico de imbalance es solo ruido. Con ellos, el scalper puede aislar con precisión dónde está entrando la agresión *significativa*.
-
-El resumen de texto (`{buyRows}x{sellRows}`) que dibuja en `OnRender` es una característica de QoL (Calidad de Vida) fantástica que te da un resumen instantáneo de la batalla de la vela. Es una herramienta estable y de 9/10.
+**Propuestas de Acción:**
+* **Conservar como CORE.**
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí. Es una herramienta principal indispensable.**
+**Sí.**
 
-Es la base del trading de Order Flow. Se usa para confirmar rupturas, detectar absorción y seguir la agresión institucional.
+Indispensable para confirmar la fuerza.
 
-**Acción:** **Conservar (Herramienta Principal).**
+**Acción:** **Conservar (Core).**

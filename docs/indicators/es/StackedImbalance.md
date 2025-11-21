@@ -1,26 +1,25 @@
 ---
 cs_file: StackedImbalance.cs
 name: Stacked Imbalance
-category: Order Flow
 group: Order Flow
 subgroup: Footprint
 score_current: 8/10
 version: Stable
-recommended_action: Conservar
+recommended_action: Conservar (Core)
 description: ¿Dónde existen zonas de desequilibrio agresivo apiladas que actúan como soporte?
-gemini_summary: "Indicador complejo de Order Flow. Usa lógica intensiva de escaneo. Funcionalidad TillTouch útil."
+gemini_summary: "La evolución estructural del Imbalance. Busca zonas donde ocurren múltiples desequilibrios consecutivos (apilados) y proyecta esas zonas hacia el futuro como soporte/resistencia. Es una herramienta de memoria de mercado."
 comparison_group: "Imbalance Analysis"
-competitor_notes: "Complementario a Cluster Search."
+competitor_notes: "Complementa al Imbalance Ratio añadiendo persistencia en el gráfico."
 reusable_code: null
 file_state: Estable
 score_potential: 9/10
-effort: Alto
+effort: N/A
 action_priority: N/A
-analysis_date: 2025-11-18
+analysis_date: 2025-11-21
 official_code_date: 23/04/2025
 ---
 
-## 🟦 Stacked Imbalance (8/10)
+## 🏆 Stacked Imbalance (8/10)
 
 **Nombre del archivo:** [`StackedImbalance.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/StackedImbalance.cs)  
 **Nombre del indicador:** Stacked Imbalance  
@@ -28,7 +27,7 @@ official_code_date: 23/04/2025
 **Compatibilidad:** ATAS versión estable y superiores.  
 **Última revisión del código oficial:** 23/04/2025  
 
-> **La Pregunta Clave:** ¿Dónde existen zonas de desequilibrio agresivo de compra/venta apiladas que actúan como soporte/resistencia?
+> **La Pregunta Clave:** ¿Dónde existen zonas de desequilibrio agresivo apiladas (consecutivas) que actúan como soporte/resistencia futuro?
 
 ![StackedImbalance](../../img/StackedImbalance.png)
 
@@ -36,71 +35,97 @@ official_code_date: 23/04/2025
 
 ### ⚙️ Parámetros configurables
 
-* **ImbalanceRatio**: Porcentaje de diferencia requerido entre Ask y Bid (ej. 300%).
-* **ImbalanceRange**: Cantidad de niveles de precio consecutivos con desequilibrio para activar la señal (ej. 3 niveles).
-* **ImbalanceVolume**: Volumen mínimo en el nivel para considerarlo.
-* **TillTouch**: Si es `true`, extiende la línea horizontal hasta que el precio futuro la toque.
-* **Days**: Días hacia atrás para calcular zonas históricas.
+Este indicador busca patrones de fuerza:
+
+#### 📊 Definición de Stacked
+* **Imbalance Ratio:** Ratio mínimo (ej. 300%).
+* **Imbalance Range:** Cantidad de niveles consecutivos necesarios para activar la zona (ej. 3 niveles).
+* **Imbalance Volume:** Volumen mínimo.
+
+#### 🛠️ Gestión de Zonas
+* **Line Till Touch:** Extender la zona hasta que el precio la toque de nuevo (Test).
+* **Days:** Historial a analizar.
 
 ---
 
 ### 🧭 Clasificación
-📂 VolumeOrderFlow — Indicador de microestructura y zonas de absorción/agresión.
+**Grupo:** Order Flow  
+**Subgrupo:** Footprint  
+**Comparison Group:** "Imbalance Analysis"  
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* **Soporte/Resistencia Fresco:** Un "Stacked Imbalance" de compra (varios niveles donde Ask >>> Bid) actúa como soporte inmediato.
-* **Re-test:** El mercado suele volver a probar el inicio del desequilibrio.
-* **Trampas:** Si un Stacked Imbalance es atravesado rápidamente en contra, indica una trampa de mercado fuerte.
+* **Soporte de Alta Calidad:** Una zona de Stacked Imbalance de compra (verde) es un soporte muy fuerte. El mercado suele rebotar en el primer test.  
+* **Zona de Aceleración:** Si el precio atraviesa un Stacked Imbalance sin parar, indica una fuerza de tendencia extrema.  
 
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **8 / 10**
+🔟 **8 / 10 (TACTICO)**
 
-✅ **Información Institucional:** Revela huellas que las velas normales ocultan.  
-✅ **Visualización Inteligente:** La función `TillTouch` mantiene el nivel relevante en pantalla hasta que es invalidado (tocado).  
-⛔ **Consumo de Recursos:** Analiza el volumen por nivel de precio (Tick data), lo que puede ser pesado en instrumentos muy líquidos.  
+✅ **Memoria:** Mantiene en pantalla la zona de agresión para operar el re-test.  
+✅ **Filtrado:** El parámetro `Range` (mínimo 3 niveles) filtra los imbalances aleatorios y deja solo los institucionales.  
+⛔ **Recursos:** Puede ser pesado si se configuran muchos días de historial.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Defensa de Zona:** Entrar largo cuando el precio vuelve a tocar una zona de *Stacked Imbalance* alcista reciente.  
-* **Breakout Failure:** Si hay un imbalance bajista pero el precio cierra por encima, entrar largo (absorción de ventas).  
+* **Defensa de Zona:** Poner orden límite de compra en el borde superior de un Stacked Imbalance alcista reciente.  
+* **Inversión:** Si una zona Stacked es rota con volumen, se convierte en resistencia (Flip).  
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **ImbalanceRatio**: `300` o `400` (3x o 4x veces más volumen en un lado).
-* **ImbalanceRange**: `3` (Tres ticks consecutivos).
-* **TillTouch**: `True`.
+| Parámetro | Valor Recomendado | Razón |
+| :--- | :--- | :--- |
+| **Ratio** | `300` | Filtro estándar. |
+| **Range** | `3` | Mínimo para ser significativo. |
+| **Till Touch** | `True` | Vital para ver objetivos. |
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* **Acceso a Datos:** Usa `candle.GetPriceVolumeInfo(price)`, lo que implica que requiere datos de tipo "Order Log" o "Tick" cargados. No funcionará con datos históricos que solo tengan OHLCV.
-* **Gestión de Líneas:** Usa la colección especial `HorizontalLinesTillTouch`. Esta es una característica optimizada de ATAS para no redibujar líneas infinitas manualmente.
-* **Lógica de Días:** El parámetro `Days` controla cuánto historial se escanea al iniciar. Está implementado correctamente para limitar la carga inicial.
+* Usa `HorizontalLinesTillTouch` para gestionar la extensión de líneas automáticamente.
+* Escanea arrays de volúmenes diagonales (`volumes[i]` vs `volumes[i+1]`).
 
 ---
+
+### ❗ Incoherencias o aspectos mejorables detectados
+
+* **Ninguna.** Código robusto.
+
+---
+
+### 🛠️ Propuestas de mejora
+
+* **Alertas de Quiebre (P3):** Avisar no solo cuando se crea, sino cuando se rompe la zona.
+
+---
+
+### 💎 Valor Reutilizable (Código Donante)
+
+* **Algoritmo de Detección de Secuencias:** La lógica para encontrar `count >= _imbalanceRange` consecutivos es útil.
+
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Es una herramienta de "Clase A" para scalpers profesionales. Automatiza la lectura del Footprint chart. En lugar de mirar números, ves líneas extendidas. El código es robusto y aprovecha las APIs específicas de ATAS para dibujo eficiente.
+Es el mejor amigo del trader de soporte/resistencia. Convierte el flujo de órdenes efímero en niveles de precio operables.
 
-**Propuestas de Mejora:**
-* **Alerta de Rotura:** Añadir una alerta específica cuando una zona de Imbalance es rota (invalidad) con fuerza, no solo cuando se crea.
+**Propuestas de Acción:**
+* **Conservar como CORE Secundario.**
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí.** Vital para entender por qué el precio se detiene en "la nada" (generalmente un imbalance previo).
+**Sí.**
 
-**Acción:** **Conservar.** de días para retroceder correctamente en el cálculo de desequilibrio
+Define dónde poner el Stop o el Limit.
+
+**Acción:** **Conservar (Core).**

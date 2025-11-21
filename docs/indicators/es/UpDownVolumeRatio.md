@@ -1,26 +1,25 @@
 ﻿---
 cs_file: UpDownVolumeRatio.cs
 name: Up/Down Volume Ratio
-category: Order Flow
 group: Order Flow
 subgroup: Volume
 score_current: 9/10
 version: Stable
-recommended_action: Conservar
-description: ¿Quién controla el flujo de volumen (compradores o vendedores) y con qué intensidad?
-gemini_summary: "Oscilador de volumen versátil. Permite comparar Up/Down o Ask/Bid con múltiples tipos de suavizado."
+recommended_action: Conservar (Core)
+description: ¿Quién controla el flujo de volumen (compradores o vendedores) y con qué intensidad relativa?
+gemini_summary: "Oscilador de volumen definitivo. Normaliza el flujo en un ratio porcentual (-100 a +100), lo que lo hace perfecto para detectar condiciones de sobrecompra/sobreventa de flujo y divergencias. Versátil y completo."
 comparison_group: "Volume Oscillators"
-competitor_notes: "Superior a Volume Oscillator estándar."
+competitor_notes: "Superior a osciladores simples por su normalización y opciones de suavizado."
 reusable_code: null
 file_state: Estable
 score_potential: 9/10
-effort: Bajo
+effort: N/A
 action_priority: N/A
-analysis_date: 2025-11-18
+analysis_date: 2025-11-21
 official_code_date: 23/04/2025
 ---
 
-## 🟦 Up/Down Volume Ratio (9/10)
+## 🏆 Up/Down Volume Ratio (9/10)
 
 **Nombre del archivo:** [`UpDownVolumeRatio.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/UpDownVolumeRatio.cs)  
 **Nombre del indicador:** Up/Down Volume Ratio  
@@ -36,67 +35,103 @@ official_code_date: 23/04/2025
 
 ### ⚙️ Parámetros configurables
 
-* **Mode**: `UpDownVolume` (Volumen de velas alcistas vs bajistas) o `AskBidVolume` (Delta real).  
-* **MovingType**: Tipo de suavizado (SMA, EMA, LinearReg, etc.).  
-* **Period**: Longitud del suavizado.  
+Este oscilador permite ajustar qué se mide y cómo se suaviza:
+
+#### 📊 Modo de Cálculo
+* **Calculation Mode:**
+    * `AskBidVolume`: Utiliza el Delta real (Ask - Bid). Es la opción recomendada para Order Flow.
+    * `UpDownVolume`: Utiliza la dirección de la vela (Close > Open). Opción clásica.
+
+#### 📉 Suavizado
+* **Moving Type:** Tipo de media móvil aplicada al ratio bruto.
+    * `EMA`: Exponencial (Rápida).
+    * `LinReg`: Regresión Lineal (Reactiva, menos lag).
+    * `SMA`: Simple (Suave).
+    * ... y otras (WMA, WWMA, SZMA).
+* **Period:** Longitud del suavizado (Default: 10).
+
+#### 🎨 Visualización
+* **Color:** Color del histograma.
 
 ---
 
 ### 🧭 Clasificación
-📂 Volume — Oscilador de flujo de dinero/volumen.
+**Grupo:** Order Flow  
+**Subgrupo:** Volume  
+**Comparison Group:** "Volume Oscillators"  
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* **Confirmación de Tendencia:** Si el precio sube y el Ratio es positivo y creciente, la tendencia es sana.  
-* **Divergencia de Flujo:** Precio subiendo pero Ratio cayendo (o negativo) = Agotamiento de compradores (o absorción de vendedores).  
+* **Detector de Divergencias:** El precio hace un nuevo máximo, pero el Ratio hace un máximo más bajo (Agotamiento de compradores).  
+* **Confirmación de Tendencia:** El precio sube y el Ratio se mantiene en zona positiva y creciente.  
+* **Sobre-extensión:** Un ratio cercano a +100 o -100 indica un flujo unidireccional extremo, posible clímax.  
 
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **9 / 10**
+🔟 **9 / 10 (IMPRESCINDIBLE)**
 
-✅ **Versatilidad:** Al permitir elegir entre "Velas" y "Delta" (`AskBid`), sirve tanto para análisis clásico (como Volume Oscillator) como para Order Flow moderno.  
-✅ **Suavizado Rico:** Ofrece 7 tipos de medias móviles para suavizar el ratio, permitiendo adaptarlo a cualquier estilo (LinReg para menos lag, SMA para clásico).  
-✅ **Código Limpio:** Estructura modular para los cálculos de medias.  
+✅ **Normalización:** Al oscilar entre -100 y +100, permite comparar la intensidad de hoy con la de ayer, independientemente del volumen total.  
+✅ **Versatilidad:** Sirve tanto para análisis de velas (`UpDown`) como de microestructura (`AskBid`).  
+✅ **Calidad de Código:** Implementa múltiples tipos de medias móviles de forma modular.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Delta Wave:** Usar modo `AskBid` con `SMA(3)`. Entrar cuando el histograma cruza 0 con fuerza.  
-* **Absorción:** Precio haciendo nuevos mínimos, pero Ratio `AskBid` subiendo (divergencia positiva) = Vendedores atrapados.  
+* **Delta Wave:** Usar modo `AskBid` con `LinReg(9)`. Entrar cuando el histograma cruza la línea cero con pendiente fuerte.  
+* **Absorción:** Precio rompiendo mínimos pero Ratio `AskBid` subiendo (divergencia positiva) = Vendedores atrapados.  
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **CalcMode**: `AskBidVolume`.  
-* **MovType**: `EMA` o `LinReg`.  
-* **Period**: `9` a `14`.  
+| Parámetro | Valor Recomendado | Razón |
+| :--- | :--- | :--- |
+| **Calc Mode** | `AskBidVolume` | Ver la verdad de la subasta. |
+| **Moving Type** | `LinReg` | Minimizar el retraso (lag). |
+| **Period** | `14` | Estándar de corto plazo. |
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* **Cálculo:** `100 * (Buy - Sell) / (Buy + Sell)`. Es un ratio normalizado de -100 a +100.
-* **Protección:** `if (Buy + Sell == 0) return 0;`. Correcto.
+* Fórmula: `100 * (Buy - Sell) / (Buy + Sell)`.
+* Maneja correctamente la división por cero (`Buy + Sell == 0`).
 
 ---
+
+### ❗ Incoherencias o aspectos mejorables detectados
+
+* **Ninguna.** Es sólido.
+
 ---
+
+### 🛠️ Propuestas de mejora
+
+* **Color Dinámico (P2):** Cambiar el color de la barra si el valor aumenta o disminuye respecto a la anterior (Slope coloring) para ver el momentum visualmente.
+
+---
+
+### 💎 Valor Reutilizable (Código Donante)
+
+* **Ninguno.** ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Es una herramienta excelente y flexible. Combina la simplicidad de un oscilador con la profundidad de los datos de Bid/Ask. Muy superior al volumen simple.
+Es el mejor oscilador de volumen disponible. La capacidad de elegir entre `UpDown` (Price Action) y `AskBid` (Order Flow) lo hace universal. La normalización porcentual es la clave que lo hace superior al Delta bruto para leer momentum.
 
-**Propuestas de Mejora:**
-* **Color Dinámico:** Opción para que el histograma cambie de color si el valor aumenta o disminuye respecto a la barra anterior (Slope color), no solo un color fijo.
+**Propuestas de Acción:**
+* **Conservar como CORE.**
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí.** Fundamental para leer la presión de compra/venta de un vistazo.
+**Sí.**
 
-**Acción:** **Conservar.**
+Para leer el pulso inmediato del mercado.
+
+**Acción:** **Conservar (Core).**

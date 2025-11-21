@@ -1,32 +1,31 @@
 ﻿---
 cs_file: VWAP.cs
-name: VWAP / TWAP
-category: Order Flow
+name: VWAP/TWAP
 group: Order Flow
 subgroup: Volume Profile
 score_current: 10/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuál es el precio medio ponderado por volumen (institucional) y sus desviaciones?
-gemini_summary: "El indicador más completo y profesional. Múltiples periodos, desviaciones, anclaje manual. Perfecto."
+recommended_action: Conservar (Core)
+description: ¿Cuál es el precio medio ponderado por volumen (institucional) y sus desviaciones estándar?
+gemini_summary: "El indicador más completo y profesional de la plataforma. Implementa VWAP (Volume Weighted Average Price) y TWAP con múltiples desviaciones estándar, reinicio por periodos (Semanal, Mensual) y la función crítica de 'Custom Start Point' (Anchored VWAP)."
 comparison_group: "Dynamic Profiles"
-competitor_notes: "El estándar de oro."
+competitor_notes: "El estándar de oro. Superior a cualquier media móvil simple."
 reusable_code: null
 file_state: Estable
 score_potential: 10/10
-effort: Alto
+effort: N/A
 action_priority: N/A
-analysis_date: 2025-11-18
+analysis_date: 2025-11-21
 official_code_date: 08/05/2025
 ---
 
-## 🟦 VWAP / TWAP (10/10)
+## 🏆 VWAP/TWAP (10/10)
 
 **Nombre del archivo:** [`VWAP.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/VWAP.cs)  
-**Nombre del indicador:** VWAP / TWAP  
+**Nombre del indicador:** VWAP/TWAP  
 **Web oficial:** [ATAS — VWAP / TWAP](https://help.atas.net/support/solutions/articles/72000602503)  
 **Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 8/05/2025  
+**Última revisión del código oficial:** 08/05/2025  
 
 > **La Pregunta Clave:** ¿Cuál es el precio medio ponderado por volumen (institucional) y sus desviaciones estándar?
 
@@ -36,71 +35,110 @@ official_code_date: 08/05/2025
 
 ### ⚙️ Parámetros configurables
 
-* **Type**: Periodo de reseteo (Diario, Semanal, Mensual, Custom).  
-* **StDev 1/2/3**: Multiplicadores para las bandas de desviación estándar.  
-* **Custom Start Point**: Permite fijar el inicio del VWAP a golpe de tecla (Anchored VWAP).  
-* **Mode**: VWAP (Volumen) o TWAP (Tiempo).  
+Este indicador es una suite completa de gestión de precio medio:
+
+#### 📊 Cálculo
+* **Type (Period):** Define cuándo se reinicia el cálculo.
+    * `Daily`: Reinicio por sesión (Estándar intradía).
+    * `Weekly/Monthly`: Para análisis de swing.
+    * `Custom`: Define horas específicas.
+* **Mode:**
+    * `VWAP`: Ponderado por Volumen (Estándar).
+    * `TWAP`: Ponderado por Tiempo (Usado en días de bajo volumen o para ejecución algorítmica).
+* **Volume Type:** `Total`, `Bid` o `Ask`.
+
+#### 📉 Bandas de Desviación (SD)
+* **StDev 1, 2, 3:** Multiplicadores para las bandas de desviación estándar (ej. 1.0, 2.0, 3.0).
+* Permite configurar colores y rellenos de fondo (`UpperBackground`) para crear zonas de valor visuales.
+
+#### ⚓ Anchored VWAP (Custom Start)
+* **Allow Custom Start Point:** Activa la función de anclaje manual.
+* **Teclas:** `F` (Fijar inicio), `G` (Borrar inicio). Permite anclar el VWAP a un evento (noticia, máximo/mínimo) en tiempo real.
 
 ---
 
 ### 🧭 Clasificación
-📂 Volume — El benchmark de ejecución institucional.
+**Grupo:** Order Flow  
+**Subgrupo:** Volume Profile  
+**Comparison Group:** "Dynamic Profiles"  
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* **Fair Value:** El VWAP es el precio "justo" de la sesión. Comprar por debajo es barato, vender por encima es caro (para instituciones).  
-* **Mean Reversion:** En las bandas extremas (SD 2 o 3), el precio tiende a revertir al VWAP.  
-* **Anchored VWAP:** Fijarlo en un mínimo/máximo importante para ver quién tiene el control desde ese evento.  
+* **Fair Value:** El VWAP es el "imán" de la sesión. Las instituciones lo usan para evaluar si compraron barato (bajo VWAP) o caro (sobre VWAP).  
+* **Mean Reversion:** El precio tiende a regresar al VWAP cuando se extiende a las bandas de 2SD o 3SD.  
+* **Trend Following:** Un precio que se mantiene consistentemente por encima del VWAP y la banda 1SD indica una tendencia alcista fuerte.  
 
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **10 / 10**
+🔟 **10 / 10 (IMPRESCINDIBLE)**
 
-✅ **Completo:** Tiene todo lo que un trader profesional necesita. No hace falta buscar plugins externos.  
-✅ **Anchored:** La función de anclaje manual (`StartKeyFilter`) es una característica premium en otras plataformas.  
-✅ **Visual:** Relleno de fondo entre bandas (`RangeDataSeries`) configurable.  
-✅ **TWAP:** Opción de Time Weighted Average Price para días de poco volumen.  
+✅ **Institucional:** Es el benchmark real del mercado, no un indicador lag.  
+✅ **Anchored VWAP:** La capacidad de anclarlo manualmente (`StartKeyFilter`) es una característica premium vital para el análisis contextual.  
+✅ **Completo:** Incluye TWAP y gestión de desviaciones estándar en un solo módulo robusto.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **VWAP Bounce:** El primer toque al VWAP después de una tendencia suele dar un rebote técnico.  
-* **Band Fade:** Vender ciegamente en la banda +3SD y buscar retorno a la +2SD.  
+* **VWAP Bounce:** El primer test del VWAP después de una tendencia extendida suele ofrecer un rebote técnico.  
+* **Band Fade:** Venta ciega en la banda +3SD con objetivo en la +1SD (Reversión a la media).  
+* **Anchored Defense:** Anclar el VWAP al inicio de un impulso fuerte; si el precio vuelve a tocarlo, suele defenderse.  
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **Type**: `Daily` (Para ver la sesión).  
-* **StDev**: `1`, `2`, `3`.  
-* **Colors**: VWAP (Rojo/Negro), Bandas 1 (Gris), Bandas 2 (Verde/Rojo).  
+| Parámetro | Valor Recomendado | Razón |
+| :--- | :--- | :--- |
+| **Type** | `Daily` | Visión de la sesión actual. |
+| **Mode** | `VWAP` | Ponderación real. |
+| **StDev 1** | `1.0` | Zona de Valor (68%). |
+| **StDev 2** | `2.0` | Zona de Extensión (95%). |
+| **StDev 3** | `3.0` | Zona de Clímax (99%). |
+| **Colors** | *Fondo suave* | Usar rellenos con alta transparencia. |
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* **Ingeniería:** Mantiene acumuladores de volumen y `Vol*Price` (`_totalVolToClose`, `_totalVolume`).  
-* **Varianza:** Calcula la varianza acumulada para las bandas de desviación estándar de forma correcta: `Sum(Vol * (Price - VWAP)^2) / TotalVol` (simplificado).  
-* **Interacción:** Usa filtros de teclas (`FilterKey`) para interactuar con el usuario en tiempo real.
+* **Ingeniería:** Mantiene acumuladores de `TotalVolume` y `TotalVolToClose` (Vol*Price).
+* **Varianza:** Calcula la desviación estándar acumulada correctamente usando la fórmula de varianza ponderada.
+* **Interacción:** Implementa `FilterKey` para la interacción teclado-ratón, lo cual es avanzado para un indicador estándar.
 
 ---
+
+### ❗ Incoherencias o aspectos mejorables detectados
+
+* **Ninguna.** Es un código de referencia.
+
+---
+
+### 🛠️ Propuestas de mejora
+
+* **Ninguna.** ---
+
+### 💎 Valor Reutilizable (Código Donante)
+
+* **Lógica Anchored:** El sistema de `StartKeyFilter` y `BarFromDate` es reutilizable para cualquier indicador que necesite un punto de inicio manual.
+
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Es el rey. Si solo pudieras usar un indicador, sería este. La implementación de ATAS es de las mejores del mercado retail, rivalizando con plataformas institucionales.
+Es el rey de los indicadores dinámicos. Si solo pudieras tener una línea en tu gráfico además del precio, debería ser el VWAP. La implementación de ATAS es de nivel profesional.
 
-**Propuestas de Mejora:**
-* Ninguna crítica. Es excelente.
+**Propuestas de Acción:**
+* **Conservar como CORE.**
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí.** Es la referencia del mercado.
+**Sí.**
 
-**Acción:** **Conservar.**
+Es la referencia de gravedad del mercado.
+
+**Acción:** **Conservar (Core).**
