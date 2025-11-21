@@ -1,22 +1,21 @@
 ---
 cs_file: CumulativeDelta.cs
 name: CVD - Cumulative Volume Delta
-category: Order Flow
 group: Order Flow
 subgroup: Delta
-score_current: 9/10
+score_current: 8/10
 version: Estable
-recommended_action: Conservar
+recommended_action: Conservar (Reserva)
 description: ¿Cuál es el delta acumulado desde el inicio de la sesión?
-gemini_summary: "Herramienta 'Core' (9/10). Detecta divergencias ('la guerra'). Función clave 'CustomSession'."
+gemini_summary: "El estándar fiable. Aunque es tácticamente inferior al ganador (MMP) por no tener filtros, posee una característica crítica que le falta al ganador: la gestión de 'CustomSession' (reinicio horario)."
 comparison_group: "Cumulative Delta"
-competitor_notes: "Reserva de MultiMarketPower."
-reusable_code: "Lógica CustomSession"
+competitor_notes: "Reserva de MultiMarketPower. Se mantiene por su lógica de sesión personalizada."
+reusable_code: "Lógica CustomSession (CheckStartBar)"
 file_state: Estable
 score_potential: 9/10
 effort: N/A
-action_priority: N/A
-analysis_date: 2025-11-17
+action_priority: P3
+analysis_date: 2025-11-21
 official_code_date: 13/11/2025
 ---
 
@@ -36,94 +35,90 @@ official_code_date: 13/11/2025
 
 ### ⚙️ Parámetros configurables
 
-* **Mode**: Tipo de visualización. `Candles` (Velas de Delta), `Bars` o `Line` (Línea simple).
-* **SessionCumDeltaMode**: Lógica de reinicio del acumulado.
-    * `DefaultSession`: Reinicia al cambio de día del servidor.
-    * `CustomSession`: Reinicia a una hora específica (Vital para scalping RTH).
-* **CustomSessionStart**: Hora de inicio para la sesión personalizada (ej. 09:30).
-* **Alerts**: Configuración de alertas si el delta de una vela individual excede un tamaño (`ChangeSize`).
+* **Mode:** Tipo de visualización (`Candles`, `Bars`, `Line`).  
+* **SessionCumDeltaMode:** Lógica de reinicio (`DefaultSession` o `CustomSession`).  
+* **CustomSessionStart:** Hora de reinicio personalizada (Vital para RTH).  
+* **Alerts:** Alertas por cambio de delta.  
 
 ---
 
 ### 🧭 Clasificación
-**Grupo:** Order Flow
-**Subgrupo:** Delta (Acumulado)
+**Grupo:** Order Flow  
+**Subgrupo:** Delta  
+**Comparison Group:** "Cumulative Delta"  
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* **Contexto General:** Ver "quién va ganando" la sesión global.
-* **Divergencias:** Detectar agotamiento en extremos.
-* **Segregación de Sesión (RTH):** Usar `CustomSession` para limpiar el volumen overnight.
+* **Contexto General:** Tendencia de fondo del flujo de órdenes.  
+* **Segregación RTH:** Ver el delta acumulado solo desde la apertura americana (usando `CustomSession`).  
 
 ---
 
 ### 📊 Nivel de relevancia
-8️⃣ **8 / 10 (RESERVA / DONANTE)**
+🔟 **8 / 10**
 
-✅ **Código Base Sólido:** Referencia oficial de ATAS.  
-✅ **Gestión de Sesión:** Único indicador que maneja correctamente el reinicio por hora personalizada.  
-⚠️ **Limitación:** No filtra por tamaño de orden.
+✅ **Fiabilidad:** Código base oficial y estable.  
+✅ **Gestión de Sesión:** Único indicador del grupo con reinicio horario personalizado.  
+⛔ **Simple:** No permite filtrar por tamaño de orden ("Peces Gordos" vs "Peces Chicos").  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Divergencia de Reversión:** Precio hace HH (Higher High), CVD hace LH (Lower High) -> Posible corto.
-* **Ruptura Confirmada:** Precio rompe resistencia y CVD rompe su resistencia con pendiente fuerte -> Largo confirmado.
+* **Divergencia General:** Precio HH vs CVD LH.  
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **Mode**: `Line` (Más limpio para ver divergencias rápidas).
-* **SessionCumDeltaMode**: `CustomSession`.
-* **CustomSessionStart**: `15:30` (Hora España para apertura NYSE) o `09:30` (Hora NY).
-* **Alerts**: `Desactivado` (Suelen generar ruido en m1).
+* **Mode:** `Line` (Limpieza).  
+* **SessionCumDeltaMode:** `CustomSession`.  
+* **CustomSessionStart:** `09:30` (Hora NY).  
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* El indicador acumula `candle.Delta` en una variable (`_cumDelta`) barra a barra.
-* La función `CheckStartBar(bar)` gestiona cuándo reiniciar el acumulador (`_cumDelta`) a cero, basándose en la configuración de `SessionCumDeltaMode`.
-* Los tres modos de visualización (Candles, Bars, Line) usan la misma data de `_cumDelta`, solo cambia cómo se dibuja.
-* La lógica de reinicio para `CustomSession` es correcta y usa el `InstrumentInfo.TimeZone` para convertir la hora UTC de la vela a la hora local del instrumento antes de comparar.
+* Acumula `candle.Delta`.  
+* Función clave: `CheckStartBar(bar)`. Gestiona el reinicio basándose en la hora del instrumento.  
+
+---
+
+### ❗ Incoherencias o aspectos mejorables detectados
+
+* **Ninguna.** Cumple su función básica perfectamente.  
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-Ninguna. El indicador cumple su función como respaldo sólido y fiable y no compensa invertir tiempo en él.
-
+* **Ninguna.** Su destino es donar su código de sesión al ganador.  
 
 ---
+
 ### 💎 Valor Reutilizable (Código Donante)
-Este indicador contiene lógica que **falta** en el indicador ganador (`MultiMarketPower`) y debería ser portada para crear el "Santo Grial" definitivo:
-1.  **Lógica `CustomSession`:**
-    * *Código:* Función `CheckStartBar(bar)` y parámetros `_customSessionStart`.
-    * *Por qué:* `MultiMarketPower` no permite reiniciar el cálculo a las 15:30 (apertura USA). Portar este código es prioridad **Alta**.
-2.  **Visualización `CandleDataSeries`:**
-    * *Código:* Implementación de velas OHLC para el Delta.
-    * *Por qué:* Ver la volatilidad *dentro* de la barra de delta institucional aportaría mucha más información que una simple línea.
+
+* **Lógica `CustomSession`:**
+    * Código: Método `CheckStartBar` y propiedad `CustomSessionStart`.
+    * Acción: **PORTAR A `MultiMarketPower` (Prioridad Alta).**
 
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Aunque `MultiMarketPower` ha ganado el torneo por su capacidad de filtrar "Peces Gordos", este indicador sigue siendo respetable.
+Es la "Línea Base". Si `MultiMarketPower` falla, este es el respaldo. Pero su verdadero valor hoy es su código de gestión de sesión, que es la pieza que le falta al ganador para ser perfecto.
 
-Es la "Línea Base". A veces, `MultiMarketPower` puede ser ruidoso si no se configura bien. El CVD estándar es la verdad simple: "Neto Compradores vs Neto Vendedores". Si tienes dudas con el MMP, miras este para confirmar la tendencia general.
-
-Sin embargo, para tomar la decisión final de entrada, siempre preferiré la granularidad del MMP.
+**Propuestas de Acción:**
+* **Conservar como Reserva y Donante de Código.**
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí, como respaldo.**
+**Sí.**
 
-Mantenlo en la recámara. Si tu MMP falla o se desconfigura, este es tu salvavidas.
+Como respaldo y referencia de sesión RTH.
 
-**Acción:** **Conservar (Secundario / Código Reutilizable).**
+**Acción:** **Conservar (Reserva).**

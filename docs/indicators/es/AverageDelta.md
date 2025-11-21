@@ -1,26 +1,25 @@
 ---
 cs_file: AverageDelta.cs
 name: Average Delta
-category: Order Flow
 group: Order Flow
 subgroup: Delta
-score_current: 5/10
+score_current: 3/10
 version: Estable
-recommended_action: Fusionar Lógica
+recommended_action: Descartar
 description: ¿Cuál es la presión agresiva promedio (Delta) durante las últimas X velas?
-gemini_summary: "Indicador 'Huérfano'. La idea de suavizar el delta con una SMA/EMA es válida para ver el régimen de fondo, pero no justifica un indicador separado."
+gemini_summary: "Funcionalidad básica (SMA/EMA del Delta) que no justifica un indicador independiente ocupando un panel propio. Delta Modif ya ofrece análisis contextual superior mediante desviación estándar."
 comparison_group: "Bar Delta"
-competitor_notes: "Su funcionalidad es una característica, no un producto completo."
-reusable_code: "Lógica de cálculo de SMA/EMA sobre valores puros de Delta"
+competitor_notes: "Inferior a Delta Modif. Su única utilidad (ver la tendencia del delta) debería ser una línea superpuesta en el indicador principal, no un panel aparte."
+reusable_code: "Lógica de cálculo de SMA/EMA sobre valores puros de Delta (para futura integración en Delta Modif)."
 file_state: Estable
 score_potential: 5/10
-effort: Medio
-action_priority: Medio
-analysis_date: 2025-11-17
+effort: Bajo
+action_priority: P3
+analysis_date: 2025-11-21
 official_code_date: 23/04/2025
 ---
 
-## 💡 Average Delta (5/10)
+## 💀 Average Delta (3/10)
 
 **Nombre del archivo:** [`AverageDelta.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/AverageDelta.cs)  
 **Nombre del indicador:** Average Delta  
@@ -36,79 +35,87 @@ official_code_date: 23/04/2025
 
 ### ⚙️ Parámetros configurables
 
-* **Period**: Número de barras para calcular la media (por defecto: `10`).
-* **CalcType**: Tipo de media móvil (`Sma` o `Ema`).
-* **PosColor / NegColor**: Colores del histograma.
+* **Period:** [Parameter] Número de barras para el cálculo de la media (por defecto 10).  
+* **CalcType:** [Display] Tipo de cálculo: `Sma` (Simple) o `Ema` (Exponencial).  
+* **PosColor / NegColor:** [Display] Colores del histograma.  
 
 ---
 
 ### 🧭 Clasificación
-**Grupo:** Order Flow
-**Subgrupo:** Delta (Por Barra)
+**Grupo:** Order Flow  
+**Subgrupo:** Delta  
+**Comparison Group:** "Bar Delta"  
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* **(Teórico)** Ver el "régimen" del mercado: ¿Estamos en modo compras sostenidas o ventas sostenidas?
-* **(Teórico)** Filtrar el ruido de velas individuales para ver la tendencia de fondo del delta.
+* **Filtro de Tendencia:** Suavizar el ruido vela a vela para ver si el flujo de órdenes dominante es comprador o vendedor.  
+* **Régimen de Mercado:** Identificar cambios en el comportamiento del delta a medio plazo.  
 
 ---
 
 ### 📊 Nivel de relevancia
-5️⃣ **5 / 10 (FEATURE)**
+🔟 **3 / 10**
 
-✅ **Claridad:** Elimina el ruido de los "latigazos" del delta vela a vela.  
-⛔ **Ineficiente:** Ocupa un panel entero solo para mostrar una media móvil. Esto es un desperdicio de espacio en pantalla.  
-⛔ **Lag:** Añade retraso a una señal que debería ser inmediata.
+✅ **Claridad:** Elimina el ruido de los picos de delta individuales.  
+⛔ **Ineficiente:** Ocupa un sub-panel completo para mostrar una sola línea/histograma.  
+⛔ **Lag:** Las medias móviles en datos de flujo de órdenes suelen ir muy retrasadas respecto a la acción del precio.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Filtro de Tendencia de Fondo:** Si AverageDelta > 0, solo buscar largos en retrocesos.
-* *Nota:* Esta estrategia se implementa mejor usando la SMA integrada en `CumulativeDelta` o `MarketPower`.
+* **Divergencia de Flujo:** Precio haciendo nuevos máximos mientras el Average Delta decrece (Agotamiento).  
 
 ---
 
-### ⚙️ Parametrización óptima para scalping
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **Period**: `5` (Para minimizar el lag).
-* **CalcType**: `Ema` (Más reactivo).
+* **No Recomendado.** Mejor usar el CVD (Cumulative Volume Delta) para ver tendencias de flujo acumulado.  
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* Calcula una media móvil (`SMA` o `EMA`) del **Delta puro** de cada vela (`candle.Delta`).
-* Utiliza las clases `SMA` y `EMA` del framework de ATAS.
-* El valor se visualiza como histograma.
-* **Defecto:** No incluye una línea de cero (`ShowZeroValue = false`), lo que dificulta la lectura visual.
+* Utiliza las clases `SMA` y `EMA` nativas de ATAS sobre `candle.Delta`.  
+* Visualización tipo Histograma.  
+* No tiene opción de línea cero explícita (`ShowZeroValue` está a `false` por defecto en la serie).  
+
+---
+
+### ❗ Incoherencias o aspectos mejorables detectados
+
+* **Diseño:** Debería ser una línea superpuesta (Overlay) sobre el histograma de Delta principal, no un indicador separado.  
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-* **Fusión (La mejora real):** No mejorar este archivo. Integrar su lógica (cálculo de SMA del Delta) como una opción de "Fondo de Color" en el indicador principal `DeltaModif` o `MultiMarketPower`.
+* **Fusión (P2):** Añadir una opción "Show Average Line" (SMA/EMA) dentro del indicador ganador `Delta Modif`.  
 
 ---
 
-### 💎 Valor Reutilizable
+### 💎 Valor Reutilizable (Código Donante)
 
-* **Lógica de Régimen:** Este cálculo es perfecto para crear una "Luz de Fondo" o un "Filtro de Color" en el indicador principal. Ej: Si `AverageDelta` > 0, pintar el fondo del gráfico de verde suave.
+* **Lógica de Suavizado:** La idea de tener una línea de media móvil sobre el histograma de Delta es útil para ver desviaciones rápidas respecto a la media. Esta lógica es candidata a ser absorbida por `Delta Modif`.  
 
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Es un indicador "Huérfano". La idea de suavizar el delta es válida, pero tener un indicador separado solo para esto es un diseño pobre.
+Como archivo independiente es prescindible. Ocupa espacio valioso en pantalla. Sin embargo, la **información** que provee (la media del delta) es útil si se presenta correctamente (superpuesta).
 
-En el trading moderno, el espacio en pantalla es oro. No puedes gastar un panel entero (sub-chart) para ver una media de 10 periodos. Esta información debería estar integrada como una ayuda visual en el panel principal o en el panel del CVD.
+**Propuestas de Acción:**
+* **Descartar** el archivo independiente.
+* **Anotar** la funcionalidad para futura fusión en `Delta Modif`.
+
+---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Como concepto, sí. Como indicador suelto, no.**
+**No.**
 
-Su lógica debe ser absorbida por los indicadores "Core".
+Demasiado espacio para poca información.
 
-**Acción:** **No usar (Pendiente de Fusión).**
+**Acción:** **Descartar.**

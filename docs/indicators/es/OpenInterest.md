@@ -1,23 +1,22 @@
 ---
 cs_file: OpenInterest.cs
 name: Open Interest
-category: Order Flow
 group: Order Flow
 subgroup: Open Interest
 score_current: 6/10
 version: Estable
 recommended_action: Conservar (Reserva / Donante)
 description: ¿Cuál es el Interés Abierto total (o su cambio neto) por barra o sesión?
-gemini_summary: "Indicador básico. Muestra el OI total sin desgloses. Útil solo como referencia de fondo o para alertas simples, pero superado en todo por el OI Analyzer."
+gemini_summary: "Indicador básico. Muestra el OI total sin desgloses. Su principal valor hoy día es su simplicidad y su sistema de alertas sonoras, del que carece el ganador OI Analyzer."
 comparison_group: "Open Interest Analysis"
-competitor_notes: "Muy inferior al OI Analyzer. Solo gana en simplicidad y menor consumo de recursos."
-reusable_code: "Sistema básico de Alertas por cambio de valor (ChangeSize)"
+competitor_notes: "Muy inferior al OI Analyzer en análisis, pero gana en utilidad pasiva (alertas)."
+reusable_code: "Sistema de Alertas por cambio de valor (ChangeSize)"
 file_state: Estable
 score_potential: 6/10
-effort: N/A
-action_priority: Bajo
-analysis_date: 2025-11-20
-official_code_date: 2025-04-23
+effort: Bajo
+action_priority: P3
+analysis_date: 2025-11-21
+official_code_date: 23/04/2025
 ---
 
 ## 🛡️ Open Interest (6/10)
@@ -26,7 +25,7 @@ official_code_date: 2025-04-23
 **Nombre del indicador:** Open Interest  
 **Web oficial:** [ATAS — Open Interest](https://help.atas.net/support/solutions/articles/72000602439)  
 **Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 23/04/2025
+**Última revisión del código oficial:** 23/04/2025  
 
 > **La Pregunta Clave:** ¿Cuál es el Interés Abierto total (o su cambio neto) por barra o sesión?
 
@@ -36,80 +35,88 @@ official_code_date: 2025-04-23
 
 ### ⚙️ Parámetros configurables
 
-* **Mode**:
-    * `ByBar`: Cambio neto en la vela actual.
-    * `Cumulative`: Valor total del OI (curva clásica).
-    * `Session`: Cambio desde el inicio de la sesión.
-* **Filter**: Umbral mínimo para colorear o resaltar la barra.
-* **Alerts**: Alerta sonora si el cambio supera `ChangeSize`.
+* **Mode:** `ByBar` (Cambio neto), `Cumulative` (Total), `Session`.  
+* **Filter:** Umbral visual para resaltar barras.  
+* **Alerts:** Configuración de alertas sonoras por cambio de tamaño (`ChangeSize`).  
 
 ---
 
 ### 🧭 Clasificación
-**Grupo:** Order Flow
-**Subgrupo:** Open Interest
+**Grupo:** Order Flow  
+**Subgrupo:** Open Interest  
+**Comparison Group:** "Open Interest Analysis"  
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* **Referencia General:** Monitorizar la salud del contrato (si sube o baja el interés general a largo plazo).
-* **Alertas:** Configurar una alarma para "ballenas" (cambios bruscos de OI en una sola vela).
+* **Referencia de Fondo:** Monitorizar la salud del contrato.  
+* **Alertas Pasivas:** Avisar de cambios bruscos ("Ballenas") sin mirar el gráfico.  
 
 ---
 
 ### 📊 Nivel de relevancia
-6️⃣ **6 / 10 (BÁSICO)**
+🔟 **6 / 10**
 
-✅ **Ligero:** Consume muy pocos recursos y es fácil de configurar.  
-✅ **Alertas:** Su sistema de alertas es simple y funcional.  
-⛔ **Ciego:** No distingue dirección. Un aumento de OI puede ser alcista (compras) o bajista (cortos). Este indicador no te lo dice, por lo que su utilidad táctica es limitada.
+✅ **Ligero:** Consumo mínimo.  
+✅ **Alertas:** Funcionalidad simple pero efectiva.  
+⛔ **Ciego:** No distingue dirección (Subida de OI ¿alcista o bajista?).  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Contexto de Sesión:** Si el OI acumulado cae durante todo el día, es un día de liquidación (evitar buscar tendencias largas, buscar reversiones).
+* **Aviso de Volatilidad:** Usar la alerta para volver a mirar el gráfico cuando entra volumen institucional.  
 
 ---
 
-### ⚙️ Parametrización óptima para scalping
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **Mode**: `ByBar` (Para ver el cambio inmediato).
-* **UseAlerts**: `True` (Configurar un umbral alto para que avise de actividad inusual).
+* **Mode:** `ByBar`.  
+* **Alerts:** `True` (Umbral alto).  
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* Código estándar y eficiente. Calcula `currentOpen - prevValue`.
-* Lógica simple de visualización mediante `CandleDataSeries`.
+* Código estándar.  
+* Visualización engañosa del filtro (pinta barras planas en lugar de ocultarlas).  
 
 ---
 
 ### ❗ Incoherencias o aspectos mejorables detectados
-* **Filtrado Visual Engañoso:** La lógica del filtro (`if (oiValue < Filter)...`) no oculta la vela, sino que la pinta plana (`Open=Close`). Esto puede crear "Dojis artificiales" en el gráfico que confunden visualmente. Debería pintar `0` o `Transparent` para ocultarla de verdad.
+
+* **Visualización:** Debería ocultar las barras filtradas, no pintarlas planas.  
 
 ---
 
 ### 🛠️ Propuestas de mejora
-* Ninguna. Es un indicador básico.
+
+* **Ninguna.** Su destino es donar sus alertas.  
 
 ---
 
 ### 💎 Valor Reutilizable (Código Donante)
-* **Sistema de Alertas (`ChangeSize`):** La implementación de la alerta basada en el cambio absoluto (`Math.Abs(this[bar]) >= _changeSize`) es un bloque de código muy limpio y reutilizable para añadir alertas sonoras a cualquier indicador que carezca de ellas.
+
+* **Sistema de Alertas:**
+    * Código: Lógica `ChangeSize` y reproducción de sonido.
+    * Acción: **PORTAR A `OIAnalyzer` (Prioridad Media).**
 
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Es el indicador "Vainilla" del grupo. Hace lo que dice la caja, ni más ni menos.
+Es el indicador "Vainilla". Útil solo por sus alertas.
 
-Para un scalper avanzado, se queda corto porque falta el desglose direccional que ofrece `OIAnalyzer`. Sin embargo, es perfecto para tener una visión periférica del mercado (Contexto) o para configurar alertas sonoras de actividad inusual sin cargar el gráfico.
+**Propuestas de Acción:**
+* **Conservar como Reserva y Donante.**
+
+---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Solo para alertas y contexto general.**
+**Limitado.**
+
+Solo para alertas.
 
 **Acción:** **Conservar (Reserva).**

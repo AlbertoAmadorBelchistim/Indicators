@@ -1,32 +1,31 @@
 ---
 cs_file: BalanceOI.cs
 name: On Balance Open Interest
-category: Order Flow
 group: Order Flow
 subgroup: Open Interest
 score_current: 7/10
 version: Estable
 recommended_action: Conservar (Reserva)
 description: ¿Está el compromiso acumulado del 'dinero inteligente' subiendo o bajando en relación al precio?
-gemini_summary: "Interesante oscilador de momentum para el OI. Su 'Modo Minimizado' actúa como una media móvil del flujo de dinero, útil para detectar divergencias rápidas, pero es una herramienta secundaria frente al Analyzer."
+gemini_summary: "Interesante oscilador de momentum para el OI. Su 'Modo Minimizado' actúa como una media móvil del flujo de dinero, útil para detectar divergencias rápidas de forma visual."
 comparison_group: "Open Interest Analysis"
-competitor_notes: "Complementa al OI Analyzer ofreciendo una visión de oscilador rápido (momentum), pero no da el detalle direccional."
-reusable_code: "Lógica de Suma Móvil (Rolling Sum) para crear osciladores a partir de datos acumulados."
+competitor_notes: "Complementa al OI Analyzer ofreciendo una visión de oscilador rápido (momentum), pero carece del detalle direccional profundo."
+reusable_code: "Lógica de Suma Móvil (Rolling Sum)"
 file_state: Estable
 score_potential: 8/10
 effort: Bajo
-action_priority: Bajo
-analysis_date: 2025-11-20
-official_code_date: 2025-04-23
+action_priority: P3
+analysis_date: 2025-11-21
+official_code_date: 23/04/2025
 ---
 
-## 🟦 On Balance Open Interest (7/10)
+## 🛡️ On Balance Open Interest (7/10)
 
 **Nombre del archivo:** [`BalanceOI.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/BalanceOI.cs)  
 **Nombre del indicador:** On Balance Open Interest  
 **Web oficial:** [ATAS — On Balance Open Interest](https://help.atas.net/support/solutions/articles/72000602438)  
 **Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 23/04/2025
+**Última revisión del código oficial:** 23/04/2025  
 
 > **La Pregunta Clave:** ¿Está el compromiso acumulado del 'dinero inteligente' subiendo o bajando en relación al precio?
 
@@ -36,81 +35,86 @@ official_code_date: 2025-04-23
 
 ### ⚙️ Parámetros configurables
 
-* **Minimized Mode**:
-    * `Enabled`: Activa el modo oscilador (suma móvil).
-    * `Value`: Periodo de la suma móvil (N barras). Por defecto `10`.
+* **Minimized Mode:**
+    * `Enabled`: Activa el modo oscilador (Rolling Sum).
+    * `Value`: Periodo de la ventana de suma (ej. 10 barras).
 
 ---
 
 ### 🧭 Clasificación
-**Grupo:** Order Flow
-**Subgrupo:** Open Interest
+**Grupo:** Order Flow  
+**Subgrupo:** Open Interest  
+**Comparison Group:** "Open Interest Analysis"  
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* **Divergencias Rápidas:** Precio hace nuevo máximo, pero el BalanceOI (momentum de dinero) hace un máximo menor.
-* **Confirmación de Tendencia:** El oscilador se mantiene consistentemente positivo (flujo de entrada) o negativo (flujo de salida).
+* **Divergencias Rápidas:** Precio haciendo nuevo máximo vs BalanceOI haciendo máximo menor (Agotamiento de flujo).  
+* **Confirmación de Impulso:** Ver "tirones" fuertes de entrada de dinero en el modo oscilador.  
 
 ---
 
 ### 📊 Nivel de relevancia
-7️⃣ **7 / 10 (TÁCTICO)**
+🔟 **7 / 10**
 
-✅ **Concepto Inteligente:** Aplica la lógica del OBV (On Balance Volume) al Open Interest.  
-✅ **Modo Minimizado:** Convierte datos acumulados en un oscilador reactivo, ideal para ver "tirones" de liquidez.  
-⛔ **Inferior al Analyzer:** No distingue si el movimiento es por compras o ventas, solo sigue la dirección del cierre de la vela, lo cual puede ser engañoso (falsos positivos).
+✅ **Agilidad:** Convierte datos acumulados pesados en un oscilador reactivo.  
+✅ **Concepto OBV:** Aplica la lógica clásica de On Balance Volume al OI.  
+⛔ **Inferior al Analyzer:** No distingue la dirección real de la agresión, solo usa el cierre de la vela (como el OBV tradicional), lo que puede dar falsos positivos.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Entrada en Retroceso:** En tendencia alcista, esperar a que el BalanceOI (modo minimizado) caiga cerca de cero y gire hacia arriba.
-* **Divergencia de Flujo:** Si el precio rompe un nivel pero el BalanceOI no acompaña, sospechar de una falsa ruptura.
+* **Entrada en Retroceso:** En tendencia, esperar a que el oscilador caiga a cero y gire.  
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **MinimizedMode**: `True` (Activado).
-* **Value**: `10` (Estándar) o `5` (Muy rápido).
+* **MinimizedMode:** `True` (Activado).  
+* **Value:** `10`.  
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* **Modo Normal:** Acumula `+OI` si el cierre de la vela es alcista y `-OI` si es bajista (Lógica OBV clásica).
-* **Modo Minimizado:** Calcula la suma neta de ese valor "signado" en las últimas N barras. Es matemáticamente un *Momentum de Flujo de OI*.
+* Implementa una "Suma Móvil" eficiente: `Current = Current + New - Old`.  
+* Defecto UI: No muestra línea cero por defecto en modo oscilador.  
 
 ---
 
 ### ❗ Incoherencias o aspectos mejorables detectados
-* **Falta de Referencia Visual:** En el "Modo Minimizado", el indicador oscila alrededor de cero, pero **no dibuja una línea de cero** por defecto (`ShowZeroValue = false`). Esto hace difícil ver a simple vista si el momentum es positivo o negativo sin añadir una línea manual.
-* **Naming Confuso:** El nombre del parámetro `MinimizedMode` es poco intuitivo. Debería llamarse `OscillatorMode` o `RollingSum`.
+
+* **Falta Línea Cero:** Dificulta la lectura rápida del cruce de momentum.  
 
 ---
 
 ### 🛠️ Propuestas de mejora
-* **Mejora Visual (P1):** Establecer `ShowZeroValue = true` por defecto cuando se activa el modo minimizado. Es un cambio de una línea de código que mejora la usabilidad un 100%.
+
+* **UI (P3):** Activar `ShowZeroValue = true` por defecto.  
 
 ---
 
 ### 💎 Valor Reutilizable (Código Donante)
-* **Lógica de "Rolling Sum":** El código implementa una forma eficiente de convertir cualquier dato acumulativo en un oscilador de momentum (`_renderSeries[bar] + ... - _oiSignedSeries[bar - Period]`). Esta lógica es exportable para crear osciladores de cualquier dato de Order Flow.
+
+* **Lógica Rolling Sum:** Útil para convertir cualquier acumulativo en oscilador.  
 
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Es una herramienta táctica interesante. No te da la "verdad profunda" del `OIAnalyzer` (el *porqué*), pero te da una señal visual muy rápida del *qué* (el impulso).
+Es una herramienta táctica válida. No te da la verdad profunda del `OIAnalyzer`, pero te da una señal visual rápida del impulso inmediato.
 
-Se queda con un 7/10 porque en scalping moderno preferimos la precisión del desglose direccional, pero como oscilador rápido para tener en una esquina es muy válido.
+**Propuestas de Acción:**
+* **Conservar como Reserva.**
+
+---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí, como apoyo.**
+**Sí.**
 
-Útil para confirmar la fuerza inmediata del movimiento sin saturar la vista con números.
+Como oscilador de apoyo.
 
-**Acción:** **Conservar (Reserva / Táctico).**
+**Acción:** **Conservar (Reserva).**
