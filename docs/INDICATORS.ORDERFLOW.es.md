@@ -116,21 +116,21 @@ _Eventos finos: Agotamiento (Exhaustion) y Absorción en extremos._
 | 8/10 | 🛠️ Reparar | [Exhaustion](indicators/es/Exhaustion.md) | ¿Está el precio mostrando agotamiento en los últimos N ticks de la vela? |
 
 ## 💎 Open Interest
-> *El compromiso. Dinero nuevo entrando vs cierre de posiciones.*
+> *El compromiso. Dinero nuevo vs cierres.*
 
 
-### ⚔️ Open Interest Analysis <small>⚠️ (Pendiente)</small>
+### ⚔️ Open Interest Analysis <small>✅ (Fase 2)</small>
 _Salud de la tendencia basada en la entrada/salida de contratos reales._
 
 | Score | Estado | Indicador | Descripción / Notas |
 | :---: | :--- | :--- | :--- |
-| 10/10 | ✅ Conservar (Indicador Core) | [OI Analyzer](indicators/es/OIAnalyzer.md) | ¿Cómo cambia el Interés Abierto (OI) filtrado por dirección (Buy/Sell) y visualizado en detalle? |
-| 7/10 | ✅ Conservar (Reserva) | [On Balance Open Interest](indicators/es/BalanceOI.md) | ¿Está el compromiso acumulado del 'dinero inteligente' subiendo o bajando en relación al precio? |
-| 6/10 | ✅ Conservar (Reserva / Donante) | [Open Interest](indicators/es/OpenInterest.md) | ¿Cuál es el Interés Abierto total (o su cambio neto) por barra o sesión? |
-| 3/10 | 🛠️ Reparar | [Herrick Payoff Index (HPI)](indicators/es/HerrickPayoff.md) | ¿Cuál es la fuerza del movimiento (Precio + Volumen + OI)? |
+| **10/10** | ✅ Conservar (Core) | [OI Analyzer](indicators/es/OIAnalyzer.md) | ¿Cómo cambia el Interés Abierto (OI) filtrado por dirección (Buy/Sell) y visualizado en detalle? |
+| **7/10** | ✅ Conservar (Reserva) | [On Balance Open Interest](indicators/es/BalanceOI.md) | ¿Está el compromiso acumulado del 'dinero inteligente' subiendo o bajando en relación al precio? |
+| **6/10** | ✅ Conservar (Reserva / Donante) | [Open Interest](indicators/es/OpenInterest.md) | ¿Cuál es el Interés Abierto total (o su cambio neto) por barra o sesión? |
+| **3/10** | 💀 Descartar | [Herrick Payoff Index (HPI)](indicators/es/HerrickPayoff.md) | ¿Cuál es la fuerza del movimiento combinando Precio, Volumen y OI? |
 
 ## 📊 Volume
-> *La gasolina. Cantidad total operada, perfiles y velocidad de cinta.*
+> *La gasolina. Cantidad total operada.*
 
 
 ### ⚔️ Classic Volume <small>✅ (Fase 2)</small>
@@ -141,14 +141,14 @@ _Indicadores clásicos de acumulación/distribución (A/D)._
 | **2/10** | 💀 Descartar | [Accumulation/Distribution (A/D)](indicators/es/AD.md) | ¿El flujo de volumen acumulado está confirmando la tendencia del precio? |
 | **1/10** | 💀 Descartar | [Accumulation / Distribution Flow](indicators/es/ADF.md) | ¿Cuál es la tendencia suavizada del flujo de volumen acumulado? |
 
-### ⚔️ Standard Volume <small>⚠️ (Pendiente)</small>
+### ⚔️ Standard Volume <small>✅ (Fase 2)</small>
 _Volumen total por barra y sus variantes visuales._
 
 | Score | Estado | Indicador | Descripción / Notas |
 | :---: | :--- | :--- | :--- |
-| 9/10 | ✅ Conservar | [Volume](indicators/es/Volume.md) | ¿Cuál es el volumen de actividad en cada vela? |
-| 8/10 | ✅ Conservar | [Volume On The Chart](indicators/es/VolumeOnChart.md) | Visualiza el volumen como un histograma de fondo superpuesto al precio. |
-| 6/10 | ✅ Conservar | [Cumulative Daily Volume](indicators/es/CumulativeDailyVolume.md) | ¿Cuál es el volumen total acumulado desde el inicio de la sesión? |
+| **9/10** | ✅ Conservar (Core) | [Volume](indicators/es/Volume.md) | ¿Cuál es el volumen de actividad en cada vela y cómo se colorea según el delta? |
+| **8/10** | ✅ Conservar (Reserva) | [Volume On The Chart](indicators/es/VolumeOnChart.md) | Visualiza el volumen como un histograma de fondo superpuesto al precio. |
+| **6/10** | ✅ Conservar (Reserva) | [Cumulative Daily Volume](indicators/es/CumulativeDailyVolume.md) | ¿Cuál es el volumen total acumulado desde el inicio de la sesión? |
 
 ### ⚔️ Tape Analysis <small>⚠️ (Pendiente)</small>
 _Lectura de Cinta (Time & Sales). Reconstrucción de órdenes._

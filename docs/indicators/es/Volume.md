@@ -1,26 +1,25 @@
 ---
 cs_file: Volume.cs
 name: Volume
-category: Order Flow
 group: Order Flow
 subgroup: Volume
 score_current: 9/10
 version: Stable
-recommended_action: Conservar
-description: ¿Cuál es el volumen de actividad en cada vela?
-gemini_summary: "Indicador de volumen definitivo. Completo, flexible (InputType) y visualmente rico (Etiquetas, Alertas)."
+recommended_action: Conservar (Core)
+description: ¿Cuál es el volumen de actividad en cada vela y cómo se colorea según el delta?
+gemini_summary: "El indicador de volumen definitivo. Es completo, flexible (permite ver Volume, Ticks, Bid o Ask) y visualmente rico, integrando alertas de volumen alto y reversión."
 comparison_group: "Standard Volume"
-competitor_notes: "El indicador base."
+competitor_notes: "La base sobre la que se construyen los demás. Insuperable en funcionalidad estándar."
 reusable_code: null
 file_state: Estable
 score_potential: 9/10
 effort: N/A
 action_priority: N/A
-analysis_date: 2025-11-18
-official_code_date: 2025-05-14
+analysis_date: 2025-11-21
+official_code_date: 14/05/2025
 ---
 
-## 🟦 Volume (9/10)
+## 🏆 Volume (9/10)
 
 **Nombre del archivo:** [`Volume.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/Volume.cs)  
 **Nombre del indicador:** Volume  
@@ -28,7 +27,7 @@ official_code_date: 2025-05-14
 **Compatibilidad:** ATAS versión estable y superiores.  
 **Última revisión del código oficial:** 14/05/2025  
 
-> **La Pregunta Clave:** ¿Cuál es el volumen de actividad (o ticks/bid/ask) en cada vela, y cómo se relaciona con el movimiento?
+> **La Pregunta Clave:** ¿Cuál es el volumen de actividad en cada vela y cómo se colorea según el delta?
 
 ![Volume](../../img/Volume.png)
 
@@ -36,70 +35,107 @@ official_code_date: 2025-05-14
 
 ### ⚙️ Parámetros configurables
 
-* **Input**: `Volume`, `Ticks`, `Asks`, `Bids`.  
-* **Filter**: Resaltar barras que superen X volumen.  
-* **Alerts**: Volumen alto y Reversión (Vela alcista con Delta negativo y viceversa).  
-* **Visuals**: Colores por Delta o por Vela. Línea de Máximo Volumen.  
-* **Labels**: Mostrar texto con el valor numérico en el gráfico.  
+Este indicador es altamente personalizable:
+
+#### 📊 Cálculo
+* **Type (Input):**
+    * `Volume`: Volumen total operado.
+    * `Ticks`: Número de operaciones (independiente del tamaño).
+    * `Asks`: Solo volumen de compra agresiva.
+    * `Bids`: Solo volumen de venta agresiva.
+
+#### 🧰 Filtros y Alertas
+* **Use Filter:** Resalta visualmente las barras que superan un volumen específico.
+* **Use Alerts:** Sonido cuando el volumen supera el filtro.
+* **Reverse Alert:** Alerta especial de divergencia (Vela Alcista con Delta Negativo o viceversa).
+
+#### 🎨 Visualización
+* **Delta Colored:** Colorea la barra según quién ganó la batalla interna (Delta), no según el cierre de la vela.
+* **Maximum Volume:** Muestra una línea con el volumen máximo histórico reciente.
+* **Volume Label:** Muestra el valor numérico encima de la barra (configurable en posición y color).
 
 ---
 
 ### 🧭 Clasificación
-📂 Volume — El indicador de actividad de mercado por excelencia.
+**Grupo:** Order Flow  
+**Subgrupo:** Volume  
+**Comparison Group:** "Standard Volume"  
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* **Confirmación:** Volumen alto confirma ruptura. Volumen bajo sugiere falta de interés.  
-* **Clímax:** Volumen ultra-alto en extremos indica parada y giro (Absorción).  
-* **Divergencia Delta:** Vela sube pero Delta es negativo (coloreado por Delta) → Venta limitadas absorbiendo compras mercado.  
+* **Confirmación de Ruptura:** Volumen alto + Vela de rango amplio = Ruptura válida.  
+* **Clímax / Parada:** Volumen ultra-alto en un nivel de soporte/resistencia indica absorción y posible giro.  
+* **Divergencia Delta:** Vela alcista pero barra de volumen roja (Delta negativo) = Absorción de compras por ventas limitadas (Señal de reversión).  
 
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **9 / 10**
+🔟 **9 / 10 (IMPRESCINDIBLE)**
 
-✅ **Todo en Uno:** No necesitas otro indicador de volumen.  
-✅ **Alertas Inteligentes:** La alerta de "Reversión" (Divergencia precio-delta) es una estrategia de trading en sí misma.  
-✅ **UX:** Etiquetas de texto integradas (`ShowVolume`) que se adaptan al zoom.  
+✅ **Versatilidad:** Un solo indicador cubre volumen, ticks y flujo direccional.  
+✅ **Alertas Inteligentes:** La alerta de "Reverse" es una estrategia de trading en sí misma.  
+✅ **Legibilidad:** El coloreado por Delta añade una capa de profundidad sin ensuciar el gráfico.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Volume Stopping:** Buscar la vela con mayor volumen de la sesión en un soporte. Si la siguiente vela es alcista, entrar.  
-* **Effort vs Result:** Mucho volumen (esfuerzo) y poco avance del precio (resultado) = Giro inminente.  
+* **Volume Stopping:** Buscar la vela con mayor volumen de la sesión en un soporte. Si la siguiente vela es alcista, entrar largo.  
+* **Esfuerzo sin Resultado:** Mucho volumen (esfuerzo) y poco avance del precio (resultado) = Giro inminente.  
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **Input**: `Volume`.  
-* **DeltaColored**: `True` (Vital para ver quién ganó la batalla interna).  
-* **Filter**: `2000` (o valor relevante para la sesión).  
+| Parámetro | Valor Recomendado | Razón |
+| :--- | :--- | :--- |
+| **Input** | `Volume` | Estándar para ES/MES. |
+| **Delta Colored** | `True` | Vital para ver la agresión real. |
+| **Filter** | `2000` (Ajustar) | Marcar solo velas institucionales. |
+| **Volume Label** | `False` | Desactivar para limpiar ruido en M1. |
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* **Código:** Muy completo. Gestiona renderizado de texto manual (`OnRender`) para optimizar rendimiento.
-* **Flexibilidad:** El `enum InputType` permite usarlo como contador de Ticks o indicador de Ask/Bid específico.
+* Código optimizado que gestiona el renderizado de texto manual (`OnRender`) para no penalizar el rendimiento.
+* La estructura `InputType` permite cambiar la fuente de datos dinámicamente sin recargar el indicador.
 
 ---
+
+### ❗ Incoherencias o aspectos mejorables detectados
+
+* **Ninguna.** Es un código de referencia.
+
+---
+
+### 🛠️ Propuestas de mejora
+
+* **Ninguna.** 
+
+---
+
+### 💎 Valor Reutilizable (Código Donante)
+
+* **Lógica de Renderizado de Texto:** El método `OnRender` es un buen ejemplo de cómo dibujar textos eficientes sobre barras en paneles inferiores.
+
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Es el estándar. La capacidad de colorear por Delta y las alertas de divergencia integradas lo elevan por encima de un simple histograma de volumen.
+Es el estándar por una razón. Combina la simplicidad del histograma de volumen con la profundidad del Order Flow (coloreado por Delta). No necesitas más para leer la actividad del mercado.
 
-**Propuestas de Mejora:**
-* Ninguna. Es la referencia.
+**Propuestas de Acción:**
+* **Conservar como CORE.**
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí.** El volumen es la gasolina del mercado. No se puede scalpear ciego al volumen.
+**Sí.**
 
-**Acción:** **Conservar.**
+El volumen es la gasolina. Sin él, no vas a ningún lado.
+
+**Acción:** **Conservar (Core).**
