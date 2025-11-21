@@ -252,24 +252,24 @@ public partial class ClusterSearch : Indicator
                         clusterSize = Math.Max(clusterSize, MinSize);
                     }
 
-                    l.Size = clusterSize;
-                });
-            }
-
-            _validVolumeLevels.RemoveWhere(level =>
-                CalcType switch
-                {
-                    CalcMode.Bid => level.Value.Bid,
-                    CalcMode.Ask => level.Value.Ask,
-                    CalcMode.Delta => level.Value.Delta,
-                    CalcMode.Volume or CalcMode.MaxVolume => level.Value.Volume,
-                    CalcMode.Tick => level.Value.Ticks,
-                    _ => 0
-                } < _autoFilterValue);
-        }
-        finally
-        {
-            OnChangeProperty(nameof(MinimumFilter));
+					l.Size = clusterSize;
+				});
+			}
+			
+			_validVolumeLevels.RemoveWhere(level =>
+				CalcType switch
+				{
+					CalcMode.Bid => level.Value.Bid,
+					CalcMode.Ask => level.Value.Ask,
+					CalcMode.Delta => level.Value.Delta,
+					CalcMode.Volume or CalcMode.MaxVolume => level.Value.Volume,
+					CalcMode.Tick => level.Value.Ticks,
+					_ => 0
+				} < _autoFilterValue);
+		}
+		finally
+		{
+			OnChangeProperty(nameof(MinimumFilter));
 
             _isFinishRecalculate = true;
         }
@@ -769,7 +769,22 @@ public partial class ClusterSearch : Indicator
             }
         }
 
-        return SaveLevel();
+		if (CalcType is CalcMode.MaxVolume)
+		{
+			for (var i = 0; i < _lastSeriesBar.Count; i++)
+			{
+				var level = _lastSeriesBar[i];
+				
+				if(level.MinimumPrice == price)
+					continue;
+
+				_validVolumeLevels.Remove(level.MinimumPrice);
+				_lastSeriesBar.RemoveAt(i);
+				i--;
+            }
+		}
+
+		return SaveLevel();
 
         bool SaveLevel()
         {
