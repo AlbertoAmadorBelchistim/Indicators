@@ -17,8 +17,8 @@ score_potential: 10/10
 effort: Medio
 action_priority: P2
 analysis_date: 2025-11-17
-official_code_date: 05/11/2025
-user_modification_date: 13/11/2025
+official_code_date: 17/11/2025
+user_modification_date: 21/11/2025
 ---
 
 ## 🟦 Account Info Display (7/10 | Potencial: 10/10)
@@ -29,8 +29,8 @@ user_modification_date: 13/11/2025
 **Nombre del indicador**: Account Info Display  
 **Web oficial**: [Atas - Account Info Display](https://help.atas.net/en/support/solutions/articles/72000648751-account-info-display)  
 **Compatibilidad:** ATAS versión latest y superiores (la modificada es compatible con versiones estables también).)  
-**Última revisión del código oficial:** 5/11/2025  
-**Última revisión del código modificado:** 13/11/2025  
+**Última revisión del código oficial:** 17/11/2025  
+**Última revisión del código modificado:** 21/11/2025  
 
 >**La Pregunta Clave:** ¿Cuál es el estado de mi cuenta (Balance, PnL, Margen) en tiempo real, sin tener que apartar la vista del gráfico?
 

@@ -20,13 +20,13 @@ _Visualización gráfica del libro de órdenes y profundidad (Depth of Market)._
 | 9/10 | ✅ Conservar | [Depth of Market](indicators/es/DOM.md) | ¿Cuál es la liquidez (libro de órdenes) actual, dibujada en el gráfico? |
 | 9/10 | ✅ Conservar | [DOM Heatmap (Manual)](indicators/es/DOMLevels.md) | ¿Cómo ha evolucionado la liquidez del libro de órdenes (Heatmap) a lo largo del tiempo? |
 
-### ⚔️ Liquidez vs Agresión <small>⚠️ (Pendiente)</small>
+### ⚔️ Liquidez vs Agresión <small>✅ (Fase 2)</small>
 _Comparativa de fuerza: Órdenes Limitadas (Muros) vs Órdenes a Mercado (Ataques)._
 
 | Score | Estado | Indicador | Descripción / Notas |
 | :---: | :--- | :--- | :--- |
-| 9/10 | ✅ Conservar | [DOM Power Modif](indicators/es/DomPower.md) | ¿Cuál es el desequilibrio neto (Bids vs Asks) en el libro de órdenes y su rango? |
-| 9/10 | ✅ Conservar | [DOM Strength Modif](indicators/es/DomStrengthModif.md) | ¿Cuál es la fuerza de la agresión (Trades) en relación con la liquidez pasiva (DOM)? |
+| **9/10** | ✅ Conservar (Core) | [DOM Power Modif](indicators/es/DomPower.md) | ¿Cuál es el desequilibrio neto (Bids vs Asks) en el libro de órdenes y su rango? |
+| **9/10** | ✅ Conservar (Core) | [DOM Strength Modif](indicators/es/DomStrengthModif.md) | ¿Cuál es la fuerza de la agresión (Trades) en relación con la liquidez pasiva (DOM)? |
 
 ### ⚔️ Liquidity Events <small>⚠️ (Pendiente)</small>
 _Detección de manipulación: Spoofing, Pulling (retirada) y Stacking (apilamiento)._

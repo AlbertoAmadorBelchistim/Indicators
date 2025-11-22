@@ -1,33 +1,32 @@
 ---
 cs_file: DomStrengthModif.cs
 name: DOM Strength Modif
-category: Order Flow
 group: Order Flow
 subgroup: DOM
 score_current: 9/10
 version: Estable
-recommended_action: Conservar
+recommended_action: Conservar (Core)
 description: ¿Cuál es la fuerza de la agresión (Trades) en relación con la liquidez pasiva (DOM)?
-gemini_summary: "Concepto 10/10 (Agresión vs Liquidez) que estaba roto en la versión original; esta 'Modif' corrige los bugs de cálculo y lo convierte en una herramienta Core."
+gemini_summary: "Concepto de 10/10 (Agresión vs Liquidez) rescatado de una implementación original rota. Esta versión 'Modif' corrige los bugs matemáticos y añade opciones de visualización limpia. Mide si la agresión está 'comiéndose' la liquidez o chocando contra un muro."
 comparison_group: "Liquidez vs Agresión"
-competitor_notes: "Superior a la versión oficial (DomStrength)."
+competitor_notes: "Complementario a Dom Power. Power mide la intención, Strength mide el impacto."
 reusable_code: null
 file_state: Estable
 score_potential: 10/10
 effort: N/A
 action_priority: N/A
-analysis_date: 2025-11-17
+analysis_date: 2025-11-21
 official_code_date: 23/04/2025
 ---
 
-## 🟦 DOM Strength Modif (9/10)
+## 🏆 DOM Strength Modif (9/10)
 
-**Nombre del archivo:** [`DomStrengthModif.cs`]([Tu enlace de GitHub])  
+**Nombre del archivo:** [`DomStrengthModif.cs`]([Link])  
 **Nombre del indicador:** DOM Strength Modif  
-**Web oficial (Base):** [ATAS — DOM Strength](https://help.atas.net/support/solutions/articles/72000602375)  
+**Web oficial base:** [ATAS — DOM Strength](https://help.atas.net/support/solutions/articles/72000602375)  
 **Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 23/04/2025  
-*(Versión modificada y mejorada por Alberto Amador Belchistim)*
+**Última revisión del código modificado:** 13/11/2025  
+*(Versión extendida y mejorada por Alberto Amador Belchistim)*
 
 > **La Pregunta Clave:** ¿Cuál es la fuerza de la agresión (Trades) en relación con la liquidez pasiva (DOM)?
 
@@ -37,82 +36,103 @@ official_code_date: 23/04/2025
 
 ### ⚙️ Parámetros configurables
 
-* **LevelDepth**: Número de niveles del DOM a considerar (por defecto: 10).
-* **Period**: Ventana de tiempo (barras) para acumular volumen de trades (por defecto: 5).
-* **Percent**: Valor base para normalizar los ratios (por defecto: 50).
-* **ShowDelta**: **(Mejora)** Mostrar o no las velas de delta superpuestas.
-* **Color20 / 50 / 80 / -20 / -50 / -80**: Colores para codificar visualmente los distintos rangos de fuerza.
+#### 📊 Filtros
+* **LevelDepth:** Niveles del DOM a comparar (ej. 10).
+* **Period:** Ventana de tiempo para acumular volumen de trades.
+* **Percent:** Base de normalización.
 
----
-
-### ✨ Mejoras (Modificación vs. Original)
-
-La versión oficial de `DomStrength.cs` tiene un **concepto de 10/10** (comparar agresión con liquidez), pero está **plagada de bugs de cálculo** que la hacen inútil.
-
-1.  **Corrección de Bugs Críticos:** Esta versión `Modif` corrige múltiples errores en la función `CalcCumulativeDepth()` del original:
-    * Arregla un error "off-by-one" (usaba `<=` en lugar de `<` en el bucle de `LevelDepth`).
-    * Arregla un bug donde se usaba `_mDepthAsk` (Asks) al comprobar el tamaño de `_mDepthBid` (Bids).
-    * Arregla un bug donde se sumaban Asks en lugar de Bids al calcular `_cumBids`.
-2.  **Mejora de QoL (`ShowDelta`):** La modificación añade el parámetro `ShowDelta`. Esto es crucial, ya que permite al trader *ocultar* las velas de delta del panel, dejando solo las barras de "fuerza" (arriba y abajo) para una lectura limpia.
+#### 🎨 Visualización
+* **ShowDelta:** **(Nuevo)** Opción para ocultar las velas de Delta y ver solo las barras de fuerza.
+* **Colors:** Semáforo de colores (Rojo, Naranja, Verde) según la intensidad de la fuerza.
 
 ---
 
 ### 🧭 Clasificación
-📂 OrderBook — Indicadores de desequilibrio entre profundidad (DOM) y ejecución (Trades).
+**Grupo:** Order Flow  
+**Subgrupo:** DOM  
+**Comparison Group:** "Liquidez vs Agresión"  
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* Medir la **fuerza relativa de compras y ventas activas (agresión)** respecto a la **liquidez pasiva (DOM)**.
-* Detectar **absorción** (mucha agresión vendedora pero la barra de fuerza de venta es débil, indicando muchos Bids).
-* Detectar **"barrido" de liquidez** (mucha agresión compradora y barra de fuerza de compra fuerte, indicando pocos Asks).
+* **Detector de Barrido:** Si hay mucha compra (Trades) y poca liquidez (Ask DOM), la barra de fuerza será Verde Oscuro. El precio subirá fácil (Vacuum).  
+* **Detector de Absorción:** Si hay mucha venta (Trades) pero mucha liquidez (Bid DOM), la barra de fuerza será Naranja o Roja clara. El precio no bajará (Muro).  
 
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **9 / 10**
+🔟 **9 / 10 (PROFESIONAL)**
 
-✅ **Concepto "Core":** Es una de las métricas de Order Flow más avanzadas. Compara *lo que pasó* (trades) con *lo que estaba esperando* (DOM).
-✅ **Corregido y Estable:** La versión `Modif` arregla los bugs críticos del original.
-✅ **Visualmente Intuitivo:** Las barras superior (compras) e inferior (ventas) con su código de color dan un resumen instantáneo de la batalla.
-⛔ **Consume Recursos:** Requiere `RequestForCumulativeTrades` y escucha el `MarketDepthChanged`, por lo que es un indicador pesado.
+✅ **Corrección de Bugs:** La versión original tenía errores graves de cálculo (sumaba Asks donde debía sumar Bids). Esta versión es matemáticamente correcta.  
+✅ **Ratio Impacto:** Es el único indicador que te dice "cuánto daño" está haciendo el volumen entrante al libro de órdenes.  
+✅ **Limpieza:** El parámetro `ShowDelta` permite usarlo como un panel dedicado sin duplicar información.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Filtro de Absorción:** Buscar una señal de compra (ej. `DeltaModif`) y confirmarla si la barra de *fuerza vendedora* (inferior) de `DomStrengthModif` es débil (ej. amarilla o naranja), lo que implica que los Bids están absorbiendo la venta.
-* **Confirmación de Breakout:** Una ruptura alcista tiene más probabilidad si la barra de *fuerza compradora* (superior) es fuerte (ej. verde oscuro), lo que implica que la agresión está "comiéndose" una liquidez de Asks delgada.
+* **Absorción en Soporte:** Precio en mínimos + Delta Rojo fuerte + DomStrength Venta Débil (Naranja) = Los vendedores están chocando contra un muro de Bids. Compra.  
+* **Breakout Fácil:** Precio rompe resistencia + DomStrength Compra Fuerte (Verde) = No hay Asks frenando la subida. Largo.  
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **LevelDepth**: `10` (para capturar la liquidez relevante).
-* **Period**: `1` (para analizar barra a barra, no acumulado).
-* **Percent**: `50` (estándar).
-* **ShowDelta**: `false` (para evitar duplicar el indicador `DeltaModif`).
+| Parámetro | Valor Recomendado | Razón |
+| :--- | :--- | :--- |
+| **LevelDepth** | `10` | Capturar la liquidez inmediata. |
+| **Period** | `1` | Análisis instantáneo. |
+| **ShowDelta** | `False` | Usar `DeltaModif` para ver el delta. |
 
 ---
+
+### ✨ Mejoras introducidas (Custom Modif)
+
+1.  **Corrección Matemática:** Arreglados los bucles de suma de liquidez que estaban invertidos en el original.
+2.  **QoL Visual:** Añadido interruptor para ocultar el histograma de Delta de fondo.
+
+---
+
+### 🧪 Notas de desarrollo
+
+* Compara `_buyVolume` (Trades) con `_cumAsks` (DOM).
+* Fórmula: `(BuyVol / CumAsks) * 100`.
+* Usa `RequestForCumulativeTrades` para inicializar datos históricos.
+
+---
+
+### ❗ Incoherencias o aspectos mejorables detectados
+
+* **Ninguna.** El código está saneado.
+
+---
+
+### 🛠️ Propuestas de mejora
+
+* **Ninguna.** 
+ 
+---
+
+### 💎 Valor Reutilizable (Código Donante)
+
+* **Lógica de Comparación:** La fórmula de ratio Agresión/Liquidez es exportable.
+
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-El indicador `DomStrength` original de ATAS es una joya conceptual arruinada por bugs de programación.
+Si `DomPower` es la intención, `DomStrength` es la realidad del choque. Es una herramienta táctica muy fina. Requiere práctica para interpretarla, pero una vez que entiendes que "Barra débil con mucho volumen = Absorción", es oro puro.
 
-Tu versión `DomStrengthModif` **rescata** este concepto. Al corregir los errores de cálculo en `CalcCumulativeDepth`, has hecho que el indicador sea fiable.
-
-Este indicador responde a una pregunta de nivel profesional: "Vale, hubo 1000 lotes de agresión vendedora... pero, ¿cuántos Bids había esperándolos?". Si había 5000 Bids (fuerza vendedora débil, barra naranja), es una señal de absorción alcista. Si solo había 200 Bids (fuerza vendedora extrema, barra roja), es una señal de pánico bajista.
-
-Es el complemento perfecto para `DeltaModif`. `DeltaModif` te dice "qué pasó", y `DomStrengthModif` te dice "cuál fue el contexto de liquidez cuando pasó".
+**Propuestas de Acción:**
+* **Conservar como CORE.**
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí. Es una herramienta de confirmación "Core" de nivel profesional.**
+**Sí.**
 
-Es un indicador avanzado que requiere entender la relación entre agresión y liquidez, pero una vez dominado, proporciona una ventaja que el Delta por sí solo no puede dar.
+Para validar si una ruptura tiene camino libre o no.
 
-**Acción:** **Conservar (Herramienta Principal).**
+**Acción:** **Conservar (Core).**

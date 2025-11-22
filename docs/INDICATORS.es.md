@@ -33,7 +33,7 @@ Utiliza los índices temáticos para ver comparativas detalladas o la lista A-Z 
 | [Account Info Display](indicators/es/AccountInfoDisplay.md) | Utility | 7/10 | Mejorar |
 | [Accumulation / Distribution Flow](indicators/es/ADF.md) | Order Flow | 1/10 | Descartar |
 | [Accumulation/Distribution (A/D)](indicators/es/AD.md) | Order Flow | 2/10 | Descartar |
-| [Active Volume](indicators/es/ActiveVolume.md) | Order Flow | 8/10 | Mejorar |
+| [Active Volume](indicators/es/ActiveVolume.md) | Order Flow | 9/10 | Conservar (Core) |
 | [Adaptive Big Trades](indicators/es/AdaptiveBigTrades.md) | Order Flow | 9/10 | Conservar |
 | [Adaptive Binary Wave](indicators/es/AdaptativeBinaryWaveMA.md) | Trend | 7/10 | Mejorar |
 | [Adaptive Moving Average](indicators/es/AMA.md) | Trend | 7/10 | Mejorar |
@@ -42,14 +42,14 @@ Utiliza los índices temáticos para ver comparativas detalladas o la lista A-Z 
 | [ADX](indicators/es/ADX.md) | Trend | 6/10 | Mejorar |
 | [ADXR](indicators/es/ADXR.md) | Trend | 3/10 | Descartar |
 | [Alligator](indicators/es/Alligator.md) | Trend | 6/10 | Conservar |
-| [Arms Ease of Movement](indicators/es/EMV.md) | Order Flow | 6.5/10 | Conservar |
+| [Arms Ease of Movement](indicators/es/EMV.md) | Order Flow | 6.5/10 | Conservar (Reserva) |
 | [Aroon Indicator](indicators/es/AroonIndicator.md) | Trend | 3/10 | Descartar |
 | [Aroon Oscillator](indicators/es/AroonOscillator.md) | Trend | 3/10 | Descartar |
-| [Ask/Bid Volume Difference Bars](indicators/es/AskBidBars.md) | Order Flow | 6.5/10 | Mejorar |
+| [Ask/Bid Volume Difference Bars](indicators/es/AskBidBars.md) | Order Flow | 6.5/10 | Conservar (Reserva) |
 | [ATR](indicators/es/ATR.md) | Trend | 8/10 | Mejorar |
 | [ATR Normalized](indicators/es/ATRN.md) | Trend | 3/10 | Descartar |
 | [Average Candle Range](indicators/es/ACR.md) | Trend | 4/10 | Descartar |
-| [Average Delta](indicators/es/AverageDelta.md) | Order Flow | 5/10 | Fusionar Lógica |
+| [Average Delta](indicators/es/AverageDelta.md) | Order Flow | 3/10 | Descartar |
 | [Average Price for Bar](indicators/es/AveragePriceBar.md) | Structure | 2/10 | Descartar |
 | [Awesome Oscillator](indicators/es/AO.md) | Oscillators | 2/10 | Descartar |
 | | | | |
@@ -61,10 +61,10 @@ Utiliza los índices temáticos para ver comparativas detalladas o la lista A-Z 
 | [Bar Numbering](indicators/es/BarNumbering.md) | Utility | 4/10 | Descartar |
 | [Bar Range](indicators/es/BarRange.md) | Trend | 5/10 | Descartar |
 | [Bar Timer](indicators/es/BarTimer.md) | Utility | 8/10 | Conservar |
-| [Bar's Volume Filter](indicators/es/BarVolumeFilter.md) | Order Flow | 7/10 | Mejorar |
+| [Bar's Volume Filter](indicators/es/BarVolumeFilter.md) | Order Flow | 7/10 | Conservar (Reserva) |
 | [Bars Pattern](indicators/es/BarsPattern.md) | Structure | 9/10 | Mejorar |
-| [Bid Ask](indicators/es/BidAsk.md) | Order Flow | 6.5/10 | Mejorar |
-| [Bid Ask Volume Ratio](indicators/es/BidAskVR.md) | Order Flow | 7/10 | Mejorar |
+| [Bid Ask](indicators/es/BidAsk.md) | Order Flow | 6.5/10 | Conservar (Reserva) |
+| [Bid Ask Volume Ratio](indicators/es/BidAskVR.md) | Order Flow | 8.5/10 | Conservar (Core) |
 | [Big Trades (Final Fix)](indicators/es/BigTrades.md) | Order Flow | 9/10 | Conservar |
 | [Bill Williams AC](indicators/es/ACBW.md) | Oscillators | 1/10 | Descartar |
 | [Bill Williams Moving Average](indicators/es/BWMA.md) | Trend | 5/10 | Descartar |
@@ -96,19 +96,19 @@ Utiliza los índices temáticos para ver comparativas detalladas o la lista A-Z 
 | [Coppock Curve](indicators/es/CoppockCurve.md) | Oscillators | 3/10 | Descartar |
 | [COT High/Low](indicators/es/CotHigh.md) | Order Flow | 2/10 | Descartar |
 | [Cumulative Adjusted Value](indicators/es/CAV.md) | Trend | 5/10 | Descartar |
-| [Cumulative Daily Volume](indicators/es/CumulativeDailyVolume.md) | Order Flow | 6/10 | Conservar |
+| [Cumulative Daily Volume](indicators/es/CumulativeDailyVolume.md) | Order Flow | 6/10 | Conservar (Reserva) |
 | [Current Price](indicators/es/CurrentPrice.md) | Utility | 3/10 | Descartar |
-| [CVD - Cumulative Volume Delta](indicators/es/CumulativeDelta.md) | Order Flow | 9/10 | Conservar |
-| [CVD pro / Market Power](indicators/es/MarketPower.md) | Order Flow | 6/10 | Reemplazar por MultiMarketPower |
-| [CVD pro(multi) / Multi Market Powers](indicators/es/MultiMarketPower.md) | Order Flow | 10/10 | Conservar |
+| [CVD - Cumulative Volume Delta](indicators/es/CumulativeDelta.md) | Order Flow | 8/10 | Conservar (Reserva) |
+| [CVD pro / Market Power](indicators/es/MarketPower.md) | Order Flow | 6/10 | Descartar |
+| [CVD pro(multi) / Multi Market Powers](indicators/es/MultiMarketPower.md) | Order Flow | 10/10 | Conservar (Core) |
 | | | | |
 | **<a id='d'>D</a>** | | | |
 | [Daily Change](indicators/es/DailyChange.md) | Structure | 6/10 | Conservar |
 | [Daily HighLow](indicators/es/DailyHighLow.md) | Structure | 6/10 | Reparar |
 | [Daily Lines Modif](indicators/es/DailyLinesModif.md) | Structure | 9/10 | Conservar |
 | [Delta Colored Candles](indicators/es/DeltaColoredCandles.md) | Order Flow | 3/10 | Descartar |
-| [Delta Modif](indicators/es/DeltaModif.md) | Order Flow | 10/10 | Conservar (Indicador Core) |
-| [Delta Strength](indicators/es/DeltaStrength.md) | Order Flow | 2/10 | Descartar / Revisar |
+| [Delta Modif](indicators/es/DeltaModif.md) | Order Flow | 10/10 | Conservar (Core) |
+| [Delta Strength](indicators/es/DeltaStrength.md) | Order Flow | 2/10 | Descartar |
 | [Delta Turnaround](indicators/es/DeltaTurnaround.md) | Order Flow | 4/10 | Descartar |
 | [Demand Index](indicators/es/Demand.md) | Oscillators | 2/10 | Descartar |
 | [DeMarker](indicators/es/DeMarker.md) | Oscillators | 2/10 | Reparar |
@@ -121,16 +121,16 @@ Utiliza los índices temáticos para ver comparativas detalladas o la lista A-Z 
 | [Directional Movement Oscillator](indicators/es/DmOscillator.md) | Trend | 3/10 | Descartar |
 | [Dispersion](indicators/es/Dispersion.md) | Trend | 1/10 | Descartar |
 | [DOM Heatmap (Manual)](indicators/es/DOMLevels.md) | Order Flow | 9/10 | Conservar |
-| [DOM Power Modif](indicators/es/DomPower.md) | Order Flow | 9/10 | Conservar |
-| [DOM Strength Modif](indicators/es/DomStrengthModif.md) | Order Flow | 9/10 | Conservar |
+| [DOM Power Modif](indicators/es/DomPower.md) | Order Flow | 9/10 | Conservar (Core) |
+| [DOM Strength Modif](indicators/es/DomStrengthModif.md) | Order Flow | 9/10 | Conservar (Core) |
 | [Donchian Channel](indicators/es/Donchian.md) | Structure | 8/10 | Conservar |
 | [Double Exponential Moving Average](indicators/es/DEMA.md) | Trend | 6/10 | Conservar |
 | [Double Stochastic](indicators/es/DoubleStochastic.md) | Oscillators | 7/10 | Conservar |
 | [Double Stochastic - Bressert](indicators/es/DoubleStochasticBressert.md) | Oscillators | 5/10 | Descartar |
 | [DT Oscillator](indicators/es/DtOscillator.md) | Oscillators | 7/10 | Conservar |
 | [DX (Directional Index)](indicators/es/DX.md) | Trend | 3/10 | Descartar |
-| [Dynamic Levels](indicators/es/DynamicLevels.md) | Order Flow | 9/10 | Conservar |
-| [Dynamic Levels Channel](indicators/es/DynamicLevelsChannel.md) | Order Flow | 9/10 | Conservar |
+| [Dynamic Levels](indicators/es/DynamicLevels.md) | Order Flow | 9/10 | Conservar (Core) |
+| [Dynamic Levels Channel](indicators/es/DynamicLevelsChannel.md) | Order Flow | 9/10 | Conservar (Core) |
 | [Dynamic Momentum Index](indicators/es/DMI.md) | Trend | 5/10 | Reparar |
 | | | | |
 | **<a id='e'>E</a>** | | | |
@@ -155,17 +155,17 @@ Utiliza los índices temáticos para ver comparativas detalladas o la lista A-Z 
 | **<a id='h'>H</a>** | | | |
 | [Heiken Ashi](indicators/es/HeikenAshi.md) | Structure | 6.5/10 | Conservar |
 | [Heiken Ashi Smoothed](indicators/es/HeikenAshiSmoothed.md) | Trend | 5/10 | Mejorar |
-| [Herrick Payoff Index (HPI)](indicators/es/HerrickPayoff.md) | Order Flow | 3/10 | Reparar |
+| [Herrick Payoff Index (HPI)](indicators/es/HerrickPayoff.md) | Order Flow | 3/10 | Descartar |
 | [Highest](indicators/es/Highest.md) | Structure | 6/10 | Descartar |
 | [Highest High / Lowest Low Over N Bars](indicators/es/HighLow.md) | Structure | 7/10 | Conservar |
 | [Historical Volatility Ratio](indicators/es/HVR.md) | Trend | 7/10 | Conservar |
-| [HRanges](indicators/es/HRanges.md) | Order Flow | 8.5/10 | Conservar |
+| [HRanges](indicators/es/HRanges.md) | Order Flow | 8/10 | Conservar (Core) |
 | [Hull Moving Average](indicators/es/HMA.md) | Trend | 8/10 | Conservar |
 | [Hurst Exponent](indicators/es/HurstExponent.md) | Trend | 8/10 | Conservar |
 | | | | |
 | **<a id='i'>I</a>** | | | |
 | [Ichimoku Kinko Hyo](indicators/es/Ichimoku.md) | Trend | 9/10 | Conservar |
-| [Imbalance Ratio](indicators/es/ImbalanceRatio.md) | Order Flow | 9/10 | Conservar |
+| [Imbalance Ratio](indicators/es/ImbalanceRatio.md) | Order Flow | 9/10 | Conservar (Core) |
 | [Inertia](indicators/es/Inertia.md) | Oscillators | 6.5/10 | Descartar |
 | [Inertia V2](indicators/es/Inertia2.md) | Oscillators | 7/10 | Conservar |
 | [Initial Balance Modif](indicators/es/InitialBalanceModif.md) | Structure | 9/10 | Conservar |
@@ -190,14 +190,14 @@ Utiliza los índices temáticos para ver comparativas detalladas o la lista A-Z 
 | | | | |
 | **<a id='m'>M</a>** | | | |
 | [MACD](indicators/es/MACD.md) | Oscillators | 8/10 | Mejorar |
-| [MACD - Volume Weighted](indicators/es/MacdVW.md) | Order Flow | 8/10 | Mejorar |
+| [MACD - Volume Weighted](indicators/es/MacdVW.md) | Order Flow | 8/10 | Conservar (Reserva) |
 | [MACD Bollinger Bands - Improved](indicators/es/MacdBbImproved.md) | Oscillators | 6/10 | Mejorar |
 | [MACD Bollinger Bands - Standard](indicators/es/MacdBbStandart.md) | Oscillators | 6/10 | Conservar |
 | [MACD Cloud](indicators/es/MacdCloud.md) | Trend | 7/10 | Conservar |
 | [MACD Leader](indicators/es/MacdLeader.md) | Oscillators | 7/10 | Conservar |
 | [Margin zones](indicators/es/MarginZones.md) | Structure | 3/10 | Reparar |
 | [Market Facilitation Index](indicators/es/MarketFacilitation.md) | Order Flow | 6/10 | Mejorar |
-| [Maximum Levels](indicators/es/MaxLevels.md) | Order Flow | 9/10 | Conservar |
+| [Maximum Levels](indicators/es/MaxLevels.md) | Order Flow | 8.5/10 | Conservar (Core) |
 | [McClellan Oscillator](indicators/es/McClellanOscillator.md) | Oscillators | 6/10 | Conservar |
 | [McClellan Summation Index](indicators/es/MSI.md) | Oscillators | 7/10 | Mejorar |
 | [Mean Deviation](indicators/es/MeanDeviation.md) | Trend | 5/10 | Mejorar |
@@ -214,13 +214,13 @@ Utiliza los índices temáticos para ver comparativas detalladas o la lista A-Z 
 | **<a id='o'>O</a>** | | | |
 | [OBV](indicators/es/OBV.md) | Oscillators | 7/10 | Mejorar |
 | [OHLC Plus Modif](indicators/es/OHLCPlus.md) | Structure | 10/10 | Conservar |
-| [OI Analyzer](indicators/es/OIAnalyzer.md) | Order Flow | 10/10 | Conservar (Indicador Core) |
+| [OI Analyzer](indicators/es/OIAnalyzer.md) | Order Flow | 10/10 | Conservar (Core) |
 | [On Balance Open Interest](indicators/es/BalanceOI.md) | Order Flow | 7/10 | Conservar (Reserva) |
-| [Open Interest](indicators/es/OpenInterest.md) | Order Flow | 6/10 | Conservar (Reserva / Donante) |
+| [Open Interest](indicators/es/OpenInterest.md) | Order Flow | 8/10 | Conservar (Reserva / Donante) |
 | [Open Line](indicators/es/OpenLine.md) | Structure | 8/10 | Conservar |
 | [Order Block](indicators/es/OrderBlock.md) | Structure | 9/10 | Conservar |
 | [Order Book Alerts](indicators/es/OrderBookAlerts.md) | Order Flow | 9/10 | Conservar |
-| [Order Flow Indicator](indicators/es/OrderFlow.md) | Order Flow | 9/10 | Conservar |
+| [Order Flow Indicator](indicators/es/OrderFlow.md) | Order Flow | 9/10 | Conservar (Reserva) |
 | [Order Flow Rhythm (Clean)](indicators/es/OrderFlowRythm.md) | Order Flow | 9/10 | Conservar |
 | [OSMA (Moving Average of Oscillator)](indicators/es/OSMA.md) | Oscillators | 7/10 | Mejorar |
 | [Outside Bar](indicators/es/OutsideBar.md) | Structure | 6/10 | Mejorar |
@@ -245,10 +245,10 @@ Utiliza los índices temáticos para ver comparativas detalladas o la lista A-Z 
 | [Rahul Mohindar Oscillator](indicators/es/RMO.md) | Oscillators | 7/10 | Conservar |
 | [Random Walk Index](indicators/es/RWI.md) | Oscillators | 5/10 | Mejorar |
 | [Rate of Change (ROC)](indicators/es/ROC.md) | Oscillators | 6/10 | Mejorar |
-| [Ratio](indicators/es/Ratio.md) | Order Flow | 9/10 | Conservar |
+| [Ratio](indicators/es/Ratio.md) | Order Flow | 9/10 | Conservar (Core) |
 | [Relative Momentum Index](indicators/es/RMI.md) | Oscillators | 7/10 | Conservar |
 | [Relative Vigor Index](indicators/es/RelativeVigorIndex.md) | Oscillators | 6/10 | Conservar |
-| [Relative Volume](indicators/es/RelativeVolume.md) | Order Flow | 7/10 | Mejorar |
+| [Relative Volume](indicators/es/RelativeVolume.md) | Order Flow | 7/10 | Conservar (Reserva) |
 | [Repulse](indicators/es/Repulse.md) | Oscillators | 6/10 | Descartar |
 | [Rollover Dates](indicators/es/RollOverDates.md) | Utility | 8/10 | Conservar |
 | [Round Numbers](indicators/es/RoundNr.md) | Structure | 7/10 | Conservar |
@@ -266,9 +266,9 @@ Utiliza los índices temáticos para ver comparativas detalladas o la lista A-Z 
 | [SMA (Simple Moving Average)](indicators/es/SMA.md) | Trend | 9/10 | Conservar |
 | [SMMA (Smoothed Moving Average)](indicators/es/SMMA.md) | Trend | 7/10 | Conservar |
 | [Speed of Tape](indicators/es/SpeedOfTape.md) | Order Flow | 8/10 | Conservar |
-| [Spread Volume](indicators/es/SpreadVolume.md) | Order Flow | 7/10 | Conservar |
+| [Spread Volume](indicators/es/SpreadVolume.md) | Order Flow | 7/10 | Conservar (Reserva) |
 | [Squeeze Momentum](indicators/es/SqueezeMomentum.md) | Trend | 9/10 | Conservar |
-| [Stacked Imbalance](indicators/es/StackedImbalance.md) | Order Flow | 8/10 | Conservar |
+| [Stacked Imbalance](indicators/es/StackedImbalance.md) | Order Flow | 8/10 | Conservar (Core) |
 | [Standard Deviation](indicators/es/StdDev.md) | Trend | 8/10 | Conservar |
 | [Standard Deviation Bands](indicators/es/StdDevBands.md) | Trend | 8/10 | Conservar |
 | [Standard Error Bands](indicators/es/StdErrBands.md) | Trend | 8/10 | Conservar |
@@ -284,9 +284,9 @@ Utiliza los índices temáticos para ver comparativas detalladas o la lista A-Z 
 | | | | |
 | **<a id='t'>T</a>** | | | |
 | [T3](indicators/es/T3.md) | Trend | 8/10 | Conservar |
-| [Tape Patterns](indicators/es/TapePattern.md) | Order Flow | 9/10 | Conservar |
+| [Tape Patterns](indicators/es/TapePattern.md) | Order Flow | 9/10 | Conservar (Core) |
 | [TD Sequential](indicators/es/TDSequential.md) | Trend | 8/10 | Conservar |
-| [Trade Volume Index](indicators/es/TVI.md) | Order Flow | 7/10 | Conservar |
+| [Trade Volume Index](indicators/es/TVI.md) | Order Flow | 7/10 | Conservar (Reserva) |
 | [Trades On Chart](indicators/es/TradesOnChart.md) | Utility | 9/10 | Conservar |
 | [Triangular Moving Average](indicators/es/TMA.md) | Trend | 7/10 | Conservar |
 | [Triple Exponential Moving Average](indicators/es/TEMA.md) | Trend | 8/10 | Conservar |
@@ -296,8 +296,8 @@ Utiliza los índices temáticos para ver comparativas detalladas o la lista A-Z 
 | | | | |
 | **<a id='u'>U</a>** | | | |
 | [Ultimate Oscillator](indicators/es/UltimateOscillator.md) | Oscillators | 7/10 | Conservar |
-| [Unfinished Auction](indicators/es/UnfinishedAuction.md) | Order Flow | 9/10 | Conservar |
-| [Up/Down Volume Ratio](indicators/es/UpDownVolumeRatio.md) | Order Flow | 9/10 | Conservar |
+| [Unfinished Auction](indicators/es/UnfinishedAuction.md) | Order Flow | 8.5/10 | Conservar (Core) |
+| [Up/Down Volume Ratio](indicators/es/UpDownVolumeRatio.md) | Order Flow | 9/10 | Conservar (Core) |
 | | | | |
 | **<a id='v'>V</a>** | | | |
 | [Vertical Grid](indicators/es/VerticalGrid.md) | Utility | 4/10 | Mejorar |
@@ -305,24 +305,24 @@ Utiliza los índices temáticos para ver comparativas detalladas o la lista A-Z 
 | [Volatility - Chaikins](indicators/es/VolatilityChaikins.md) | Trend | 7/10 | Conservar |
 | [Volatility - Historical](indicators/es/VolatilityHist.md) | Trend | 4/10 | Reparar |
 | [Volatility Trend](indicators/es/VolatilityTrend.md) | Trend | 8/10 | Conservar |
-| [Volume](indicators/es/Volume.md) | Order Flow | 9/10 | Conservar |
-| [Volume Bar Range Ratio](indicators/es/VBRR.md) | Order Flow | 7/10 | Conservar |
-| [Volume On The Chart](indicators/es/VolumeOnChart.md) | Order Flow | 8/10 | Conservar |
-| [Volume Per Trade](indicators/es/VolumePerTrade.md) | Order Flow | 8/10 | Conservar |
+| [Volume](indicators/es/Volume.md) | Order Flow | 9/10 | Conservar (Core) |
+| [Volume Bar Range Ratio](indicators/es/VBRR.md) | Order Flow | 7/10 | Conservar (Reserva) |
+| [Volume On The Chart](indicators/es/VolumeOnChart.md) | Order Flow | 8/10 | Conservar (Reserva) |
+| [Volume Per Trade](indicators/es/VolumePerTrade.md) | Order Flow | 9/10 | Conservar (Core) |
 | [Volume Zone Oscillator](indicators/es/VolumeZone.md) | Oscillators | 9/10 | Conservar |
-| [Volume-based Support & Resistance Zones](indicators/es/VolumeSupResZones.md) | Order Flow | 10/10 | Conservar |
+| [Volume-based Support & Resistance Zones](indicators/es/VolumeSupResZones.md) | Order Flow | 10/10 | Conservar (Core) |
 | [Vortex](indicators/es/Vortex.md) | Oscillators | 7/10 | Conservar |
 | [Voss Predictive Filter](indicators/es/VPF.md) | Trend | 8/10 | Conservar |
-| [VSA Better Volume](indicators/es/VsaBetterVolume.md) | Order Flow | 9/10 | Conservar |
-| [VSA – WSD Histogram](indicators/es/VsaWsd.md) | Order Flow | 8/10 | Conservar |
-| [VWAP / TWAP](indicators/es/VWAP.md) | Order Flow | 10/10 | Conservar |
+| [VSA Better Volume](indicators/es/VsaBetterVolume.md) | Order Flow | 9/10 | Conservar (Core) |
+| [VSA – WSD Histogram](indicators/es/VsaWsd.md) | Order Flow | 8/10 | Conservar (Reserva) |
+| [VWAP/TWAP](indicators/es/VWAP.md) | Order Flow | 10/10 | Conservar (Core) |
 | | | | |
 | **<a id='w'>W</a>** | | | |
 | [Watermark](indicators/es/Watermark.md) | Utility | 5/10 | Conservar |
 | [Wavetrend](indicators/es/Wavetrend.md) | Oscillators | 8/10 | Conservar |
 | [Weighted Average Oscillator](indicators/es/WAO.md) | Oscillators | 7/10 | Conservar |
 | [Weighted Moving Average](indicators/es/WMA.md) | Trend | 8/10 | Conservar |
-| [Weis Wave](indicators/es/WeissWave.md) | Order Flow | 8/10 | Conservar |
+| [Weis Wave](indicators/es/WeissWave.md) | Order Flow | 8/10 | Conservar (Reserva) |
 | [Welles Wilder's Moving Average](indicators/es/WWMA.md) | Trend | 7/10 | Conservar |
 | [Williams Accumulation / Distribution (WAD)](indicators/es/WAD.md) | Oscillators | 7/10 | Conservar |
 | [Williams' %R](indicators/es/WilliamsR.md) | Oscillators | 7/10 | Conservar |
