@@ -8,8 +8,8 @@
 		<UseWPF>true</UseWPF>
 		<LangVersion>latest</LangVersion>
 		<Platforms>AnyCPU</Platforms>
-		<AssemblyVersion>1.4.0.0</AssemblyVersion>
-		<FileVersion>1.4.0.0</FileVersion>
+		<AssemblyVersion>1.4.1.0</AssemblyVersion>
+		<FileVersion>1.4.1.0</FileVersion>
 
 		<!-- Canal por defecto si no se pasa /p:ATAS_CHANNEL=... -->
 		<ATAS_CHANNEL Condition="'$(ATAS_CHANNEL)' == ''">Default</ATAS_CHANNEL>
@@ -26,6 +26,7 @@
 
 	<ItemGroup Condition="'$(Configuration)' == 'Release'">
 		<Compile Remove="InitialBalanceModif.cs" />
+		<Compile Remove="OrderFlowRhythmClone.cs" />
 	</ItemGroup>
 
 	<!-- Canal DEFAULT (instalación normal) -->
@@ -34,6 +35,10 @@
 		<ATAS_BASE>C:\Program Files (x86)\ATAS Platform</ATAS_BASE>
 		<AssemblyName>IndicatorsLoloGroup_Alfa</AssemblyName>
 	</PropertyGroup>
+
+	<!-- <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+		<Compile Remove="OrderFlowRhythmClone.cs" />
+	</ItemGroup>-->
 
 	<ItemGroup>
 		<Compile Include="..\Technical\Extensions\CrossColorExtensions.cs">
