@@ -4,6 +4,7 @@ using ATAS.Indicators.Technical;
 using OFT.Attributes;
 using OFT.Rendering.Context;
 using OFT.Rendering.Settings;
+using OFT.Rendering.Tools;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +12,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Media;
-using static ATAS.Indicators.Technical.SpeedOfTape;
+
 using Color = System.Drawing.Color;
 using Pen = System.Drawing.Pen;
 
@@ -75,7 +76,6 @@ namespace MyIndicators
                 _autoFilter = value;
                 RecalculateValues();
             }
-
         }
         private bool _autoFilter = true;
 
@@ -127,7 +127,21 @@ namespace MyIndicators
         }
         private SpeedType _type = SpeedType.Ticks;
 
-        [Display(Name = "Highlight Color", GroupName = "Visualization", Order = 60)]
+        // --- NUEVO: Interruptor para las Barras Amarillas ---
+        [Display(Name = "Pintar Velas (Highlight)", GroupName = "Visualization", Order = 55, Description = "Pinta la vela del precio cuando se detecta alta velocidad.")]
+        public bool ShowPaintBars
+        {
+            get => _paintBars.Visible;
+            set
+            {
+                _paintBars.Visible = value;
+                // Al cambiar la visibilidad de una serie, ATAS suele refrescar solo.
+                // Si no lo hace, RedrawChart() fuerza el cambio visual.
+                RedrawChart();
+            }
+        }
+
+        [Display(Name = "Color de Highlight", GroupName = "Visualization", Order = 60)]
         public Color MaxSpeedColor
         {
             get => _alertColor;
@@ -138,19 +152,20 @@ namespace MyIndicators
             }
         }
 
-        [Display(Name = "Show Price Selection", GroupName = "Visualization", Order = 60)]
+        // --- RENOMBRADO: Interruptor para las Líneas ---
+        [Display(Name = "Dibujar Líneas de Señal", GroupName = "Visualization", Order = 65, Description = "Dibuja líneas horizontales en el gráfico de precios.")]
         public bool DrawLines
         {
             get => _drawLines;
             set
             {
                 _drawLines = value;
-                RedrawChart(); // <--- IMPORTANTE: Fuerza el repintado al marcar/desmarcar
+                RedrawChart(); // Fuerza el repintado al marcar/desmarcar
             }
         }
         private bool _drawLines = true;
 
-        [Display(Name = "Line Length (Bars)", GroupName = "Visualization", Order = 70)]
+        [Display(Name = "Longitud de Línea (Barras)", GroupName = "Visualization", Order = 70)]
         [Range(1, int.MaxValue)]
         public int LineLength
         {
@@ -163,21 +178,20 @@ namespace MyIndicators
         }
         private int _lineLength = 10;
 
-        [Display(Name = "Positive Pen", GroupName = "Visualization", Order = 80)]
+        [Display(Name = "Lápiz Positivo", GroupName = "Visualization", Order = 80)]
         public PenSettings PosPen
         {
             get => _posPen;
             set
             {
                 _posPen = value;
-                // Si el usuario cambia el objeto entero, nos resuscribimos
                 if (_posPen != null) _posPen.PropertyChanged += (s, e) => RedrawChart();
                 RedrawChart();
             }
         }
         private PenSettings _posPen = new PenSettings { Color = Colors.Green };
 
-        [Display(Name = "Negative Pen", GroupName = "Visualization", Order = 90)]
+        [Display(Name = "Lápiz Negativo", GroupName = "Visualization", Order = 90)]
         public PenSettings NegPen
         {
             get => _negPen;
@@ -206,6 +220,10 @@ namespace MyIndicators
 
         public SpeedOfTapeLab() : base(true)
         {
+            SubscribeToDrawingEvents(DrawingLayouts.Final);
+
+            EnableCustomDrawing = true;
+
             // Configuración de series
             _paintBars.IsHidden = true;
 
@@ -227,7 +245,7 @@ namespace MyIndicators
             DataSeries.Add(_paintBars);
 
             // Configuración por defecto
-            Panel = "NewPanel"; // Se dibuja en panel separado por defecto
+            Panel = IndicatorDataProvider.NewPanel;
 
             if (PosPen != null) PosPen.PropertyChanged += (sender, args) => RedrawChart();
             if (NegPen != null) NegPen.PropertyChanged += (sender, args) => RedrawChart();
@@ -277,8 +295,11 @@ namespace MyIndicators
             }
 
             // 2. Cálculo del Filtro (Threshold)
-            // ATAS original alimenta la SMA con el valor multiplicado por 1.5 para crear un "techo" alto
-            _smaFilter.Calculate(bar, accumulatedSpeed * 1.5m);
+            // Usamos Math.Abs para que el filtro mida la MAGNITUD, no la dirección.
+            // Esto evita que el filtro se vuelva negativo en el delta.
+            var filterInput = Math.Abs(accumulatedSpeed);
+
+            _smaFilter.Calculate(bar, filterInput * 1.5m);
 
             // Si no usamos AutoFilter, sobreescribimos el valor de la SMA con el fijo del usuario
             if (!AutoFilter)
@@ -289,15 +310,18 @@ namespace MyIndicators
             // Guardamos el valor actual para el histograma
             _renderSeries[bar] = accumulatedSpeed;
 
-            // 3. Comprobación de disparo (Trigger)
-            // Si la velocidad supera el umbral
+            // 3. Comprobación de disparo
             if (Math.Abs(accumulatedSpeed) > _thresholdSeries[bar])
             {
-                // Pintar histograma y vela
                 _renderSeries.Colors[bar] = _alertColor;
-                _paintBars[bar] = System.Windows.Media.Color.FromRgb(_alertColor.R, _alertColor.G, _alertColor.B);
 
-                // Guardar señal para dibujar línea
+                // Gestión de barras amarillas
+                if (ShowPaintBars)
+                    _paintBars[bar] = System.Windows.Media.Color.FromRgb(_alertColor.R, _alertColor.G, _alertColor.B);
+                else
+                    _paintBars[bar] = null;
+
+                // Gestión de señales
                 var signal = _signals.LastOrDefault(s => s.Bar == bar);
                 if (signal == null)
                 {
@@ -305,10 +329,12 @@ namespace MyIndicators
                     _signals.Add(signal);
                 }
 
-                signal.Price = (currentCandle.High + currentCandle.Low) / 2m; // Precio medio
+                // --- LÓGICA ORIGINAL EXACTA ---
+                // Se usa el punto medio de la vela.
+                signal.Price = (currentCandle.High + currentCandle.Low) / 2m;
                 signal.IsBullish = currentCandle.Delta >= 0;
 
-                // Alerta sonora (simple)
+                // Alertas
                 if (bar == CurrentBar - 1 && bar != _lastAlertBar)
                 {
                     AddAlert(AlertFile, InstrumentInfo.Instrument, $"Tape Speed Alert: {accumulatedSpeed:0.##}", Colors.Black, Colors.White);
@@ -317,39 +343,79 @@ namespace MyIndicators
             }
             else
             {
-                // Limpiar color si se recalcula y ya no cumple
                 _paintBars[bar] = null;
             }
+
+        }
+
+        private System.Drawing.Color ToDrawingColor(System.Windows.Media.Color mediaColor)
+        {
+            return System.Drawing.Color.FromArgb(mediaColor.A, mediaColor.R, mediaColor.G, mediaColor.B);
         }
 
         protected override void OnRender(RenderContext context, DrawingLayouts layout)
         {
-            // Verificaciones básicas
-            if (ChartInfo == null || ChartInfo.PriceChartContainer == null || !DrawLines) return;
+            // Solo capa Final para dibujar sobre el gráfico sin recortes
+            if (layout != DrawingLayouts.Final) return;
 
-            // Cacheamos la región del precio para verificar límites (igual que DeltaModif línea 507)
-            var priceRegion = ChartInfo.PriceChartContainer.Region;
+            if (ChartInfo == null || ChartInfo.PriceChartContainer == null) return;
 
-            foreach (var signal in _signals)
+            var priceContainer = ChartInfo.PriceChartContainer;
+            var signals = _signals.ToArray();
+
+            // Definir pinceles sólidos para los marcadores
+            var greenBrush = System.Drawing.Color.Lime;
+            var redBrush = System.Drawing.Color.Red;
+
+            // Distancia en píxeles desde la mecha hasta el marcador
+            int offset = 10;
+            // Tamaño del marcador
+            int size = 8;
+
+            foreach (var signal in signals)
             {
-                // 1. Visibilidad horizontal (Optimización estándar)
-                if (signal.Bar > LastVisibleBarNumber || signal.Bar + LineLength < FirstVisibleBarNumber)
+                // Optimización de visibilidad
+                if (signal.Bar > LastVisibleBarNumber || signal.Bar < FirstVisibleBarNumber)
                     continue;
 
-                // 2. Coordenadas X: El eje X es compartido, ChartInfo.GetXByBar es seguro
-                int xStart = ChartInfo.GetXByBar(signal.Bar);
-                int xEnd = Math.Min(ChartInfo.GetXByBar(signal.Bar + LineLength), ChartInfo.Region.Width);
+                // Recuperamos la vela real para saber sus extremos exactos
+                var candle = GetCandle(signal.Bar);
 
-                // 3. Coordenada Y: Calculada EXPLICITAMENTE sobre el contenedor de PRECIOS
-                // Usamos 'GetYByPrice' del PriceChartContainer, no del ChartInfo genérico.
-                int yPrice = ChartInfo.PriceChartContainer.GetYByPrice(signal.Price, false);
+                // Coordenada X (Centro de la vela)
+                int x = priceContainer.GetXByBar(signal.Bar, false);
 
-                // 4. Verificación de límites verticales (Igual que DeltaModif línea 514)
-                // Solo dibujamos si la línea cae dentro del área visible del precio
-                if (yPrice >= priceRegion.Top && yPrice <= priceRegion.Bottom)
+                // LÓGICA DE DIBUJO: MARCADORES EXTERNOS
+                // No dibujamos líneas de precio falso. Marcamos la zona de actividad.
+
+                if (signal.IsBullish)
                 {
-                    var pen = signal.IsBullish ? PosPen.RenderObject : NegPen.RenderObject;
-                    context.DrawLine(pen, xStart, yPrice, xEnd, yPrice);
+                    // SEÑAL ALCISTA (Delta +): Dibujar DEBAJO del Low
+                    // Esto indica que el impulso viene de abajo y el Low es soporte.
+                    int yLow = priceContainer.GetYByPrice(candle.Low, false);
+                    int yPos = yLow + offset; // + Y es hacia abajo en pantalla
+
+                    // Dibujar Triángulo apuntando hacia arriba (▲)
+                    System.Drawing.Point[] triangle = {
+                new System.Drawing.Point(x, yPos - size),       // Punta superior
+                new System.Drawing.Point(x - size, yPos + size), // Base izq
+                new System.Drawing.Point(x + size, yPos + size)  // Base der
+            };
+                    context.FillPolygon(greenBrush, triangle);
+                }
+                else
+                {
+                    // SEÑAL BAJISTA (Delta -): Dibujar ENCIMA del High
+                    // Esto indica que el impulso es bajista y el High es resistencia.
+                    int yHigh = priceContainer.GetYByPrice(candle.High, false);
+                    int yPos = yHigh - offset; // - Y es hacia arriba en pantalla
+
+                    // Dibujar Triángulo apuntando hacia abajo (▼)
+                    System.Drawing.Point[] triangle = {
+                new System.Drawing.Point(x, yPos + size),       // Punta inferior
+                new System.Drawing.Point(x - size, yPos - size), // Base izq
+                new System.Drawing.Point(x + size, yPos - size)  // Base der
+            };
+                    context.FillPolygon(redBrush, triangle);
                 }
             }
         }
