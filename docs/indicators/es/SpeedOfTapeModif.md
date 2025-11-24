@@ -1,6 +1,6 @@
 ---
-cs_file: SpeedOfTape.cs
-name: Speed of Tape
+cs_file: SpeedOfTapeModif.cs
+name: Speed of Tape Modif
 category: Order Flow
 group: Order Flow
 subgroup: Volume
@@ -17,19 +17,22 @@ score_potential: 9/10
 effort: Medio
 action_priority: P3
 analysis_date: 2025-11-18
-official_code_date: 23/04/2025
+official_code_date: Desconocida
 ---
 
-## 🟦 Speed of Tape (8/10)
+## 🟦 Speed of Tape Modif (8/10)
 
+**Nombre del archivo:** [`SpeedOfTapeModif.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/compile/myindicators/MyIndicators/SpeedOfTapeModif.cs)  
 **Nombre del indicador:** Speed of Tape  
 **Web oficial:** [ATAS — Speed of Tape](https://help.atas.net/support/solutions/articles/72000602472)  
 **Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 23/04/2025  
+**Última revisión del código oficial:** Desconocida  
+**Última revisión del código modificado:** 24/11/2025 (v 1.3.0) *(Versión basada en el resultado visual obtenido por el indicador oficial de ATAS y mejorada por Alberto Amador Belchistim)*  
+
 
 > **La Pregunta Clave:** ¿Se está acelerando el mercado ahora mismo (actividad HFT o institucional)?
 
-![SpeedOfTape](../../img/SpeedOfTape.png)
+![SpeedOfTapeModif](../../img/SpeedOfTapeModif.png)
 
 ---
 
@@ -76,6 +79,24 @@ official_code_date: 23/04/2025
 * **Sec**: `5` o `10` (Para detectar microráfagas).  
 * **Type**: `Ticks` (Mejor para ver actividad algorítmica) o `Volume` (Mejor para ver institucionales).  
 * **AutoFilter**: `True`.  
+
+---
+
+### ✨ Mejoras añadidas (Custom Modif v1.3.0)
+
+Esta versión soluciona problemas visuales críticos y mejora la precisión del filtro en modos Delta.
+
+#### 🔧 Correcciones Lógicas
+* **Filtro de Magnitud Absoluta:** Se ha corregido el cálculo del *threshold* en el modo `Delta`. Ahora se utiliza `Math.Abs(accumulatedSpeed)`, lo que permite detectar aceleraciones fuertes de venta (valores negativos) que antes alteraban el cálculo del filtro.
+
+#### 🎨 Mejoras Visuales (De "Líneas" a "Marcadores")
+* **Eliminación de Líneas Medias:** Se han eliminado las líneas horizontales que atravesaban la vela por el punto medio `(H+L)/2`, ya que generaban ruido visual y sugerían niveles de precio falsos.
+* **Nuevos Marcadores Externos:** Ahora se dibujan indicadores visuales **fuera** de la vela para no obstruir la acción del precio:
+    * **Aceleración Alcista:** Marcador debajo del mínimo (*Low*).
+    * **Aceleración Bajista:** Marcador encima del máximo (*High*).
+* **Personalización:**
+    * **Formas:** Selección entre Rombo, Círculo o Triángulo (útil para diferenciar de otros indicadores como DeltaModif).
+    * **Offset (Distancia):** Parámetro ajustable en píxeles para alejar el marcador de la vela y evitar solapamientos con otras señales.
 
 ---
 
