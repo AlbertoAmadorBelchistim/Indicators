@@ -55,15 +55,18 @@ namespace MyIndicators
         {
             VisualType = VisualMode.Histogram,
             ShowZeroValue = false,
-            UseMinimizedModeIfEnabled = true,
-            ResetAlertsOnNewBar = true
+            UseMinimizedModeIfEnabled = false, // Avoid "minimized" clipping
+            ResetAlertsOnNewBar = true,
+            ScaleIt = true                      // Let panel auto-scale on this series
         };
 
         private readonly ValueDataSeries _thresholdSeries = new("Filter Line")
         {
             VisualType = VisualMode.Line,
             Color = System.Drawing.Color.Aqua.Convert(),
-            Width = 2
+            Width = 2,
+            ScaleIt = true,
+            ShowZeroValue = false
         };
 
         // Panel Principal (Semáforo de Zonas)
@@ -229,6 +232,16 @@ namespace MyIndicators
             DataSeries.Add(_rangeSell);
             DataSeries.Add(_rangeNeutral);
 
+            // We do not want ranges to affect indicator panel scale
+            _rangeBuy.ScaleIt = false;
+            _rangeSell.ScaleIt = false;
+            _rangeNeutral.ScaleIt = false;
+
+            // We also hide them from default renderer – we draw them manually
+            _rangeBuy.Visible = false;
+            _rangeSell.Visible = false;
+            _rangeNeutral.Visible = false;
+
         }
 
         protected override void OnCalculate(int bar, decimal value)
@@ -260,83 +273,6 @@ namespace MyIndicators
         }
 
         #region Core Logic
-
-        private bool ProcessTick(DateTime time, decimal volume, int direction, decimal price, int barIndex)
-        {
-            // Reset de estado si cambiamos de barra
-            if (barIndex != _lastBar)
-            {
-                _lastBar = barIndex;
-                _currentBarMaxState = new SpeedState();
-
-                // Limpiar las zonas visuales de la nueva barra
-                _rangeBuy[barIndex].Upper = 0; _rangeBuy[barIndex].Lower = 0;
-                _rangeSell[barIndex].Upper = 0; _rangeSell[barIndex].Lower = 0;
-                _rangeNeutral[barIndex].Upper = 0; _rangeNeutral[barIndex].Lower = 0;
-            }
-
-            _tickQueue.Enqueue(new TickSnapshot { Time = time, Volume = volume, Direction = direction, Price = price });
-
-            var cutoff = time.AddSeconds(-TimeWindow);
-            while (_tickQueue.Count > 0 && _tickQueue.Peek().Time <= cutoff)
-                _tickQueue.Dequeue();
-
-            decimal winVol = 0;
-            decimal winDelta = 0;
-            decimal winBuys = 0;
-            decimal winSells = 0;
-            int winTicks = _tickQueue.Count;
-
-            decimal winHigh = decimal.MinValue;
-            decimal winLow = decimal.MaxValue;
-
-            foreach (var t in _tickQueue)
-            {
-                winVol += t.Volume;
-                var d = (t.Direction == 1 ? t.Volume : -t.Volume);
-                winDelta += d;
-
-                if (t.Direction == 1) winBuys += t.Volume;
-                else winSells += t.Volume;
-
-                // Rango de la ráfaga
-                if (t.Price > winHigh) winHigh = t.Price;
-                if (t.Price < winLow) winLow = t.Price;
-            }
-
-            if (winTicks == 0) { winHigh = price; winLow = price; }
-
-            decimal currentSpeed = 0;
-            decimal contextDelta = winDelta;
-
-            switch (DataType)
-            {
-                case SpeedType.Ticks: currentSpeed = winTicks; break; // Aquí contamos "Eventos de Cinta", no contratos. Como procesamos CumulativeTrades, cada llamada es 1 evento.
-                case SpeedType.Volume: currentSpeed = winVol; break;
-                case SpeedType.Delta: currentSpeed = Math.Abs(winDelta); break;
-                case SpeedType.Buys: currentSpeed = winBuys; contextDelta = winBuys; break;
-                case SpeedType.Sells: currentSpeed = winSells; contextDelta = -winSells; break;
-            }
-
-            // 4. High Water Mark
-            if (currentSpeed > _currentBarMaxState.Speed)
-            {
-                _currentBarMaxState = new SpeedState
-                {
-                    Speed = currentSpeed,
-                    Context = contextDelta,
-                    TotalVolume = winVol,
-                    HighRange = winHigh,
-                    LowRange = winLow
-                };
-
-                // Asignamos valor preliminar para que la SMA tenga datos
-                _renderSeries[barIndex] = currentSpeed;
-                return true;
-            }
-
-            return false;
-        }
 
         private void UpdateVisuals(int bar)
         {
@@ -763,64 +699,63 @@ namespace MyIndicators
 
         protected override void OnRender(RenderContext context, DrawingLayouts layout)
         {
-            if (layout != DrawingLayouts.Final) return;
-            if (ChartInfo == null || InstrumentInfo == null) return;
+            if (layout != DrawingLayouts.Final)
+                return;
+            if (ChartInfo == null || InstrumentInfo == null)
+                return;
 
-            // CORRECCIÓN 1: LIMITAR EL DIBUJO (CLIPPING)
-            // Esto obliga a que los rectángulos solo existan dentro del cuadro del gráfico de precios.
-            // Si salen de ahí (por arriba o abajo), se cortan y no manchan los ejes.
+            // Clip al gráfico de precio
             context.SetClip(ChartInfo.PriceChartContainer.Region);
 
             for (int bar = FirstVisibleBarNumber; bar <= LastVisibleBarNumber; bar++)
             {
-                // Pasamos las variables privadas de color (_buyColor, etc.)
                 DrawZone(context, bar, _rangeBuy, _buyColor);
                 DrawZone(context, bar, _rangeSell, _sellColor);
                 DrawZone(context, bar, _rangeNeutral, _neutralColor);
             }
 
-            // Restauramos el clip para no afectar a otros indicadores (buena práctica)
             context.ResetClip();
         }
 
+
         private void DrawZone(RenderContext context, int bar, RangeDataSeries series, System.Drawing.Color color)
         {
-            if (series[bar].Upper == 0) return;
+            // Safety
+            if (bar < 0 || bar >= CurrentBar)
+                return;
 
-            decimal highPrice = series[bar].Upper;
-            decimal lowPrice = series[bar].Lower;
+            var range = series[bar];
+
+            // Nada que pintar
+            if (range.Upper == 0m && range.Lower == 0m)
+                return;
+
+            var highPrice = range.Upper;
+            var lowPrice = range.Lower;
 
             if (highPrice == lowPrice)
                 highPrice += InstrumentInfo.TickSize;
 
-            int y1 = ChartInfo.GetYByPrice(highPrice, false);
-            int y2 = ChartInfo.GetYByPrice(lowPrice, false);
+            // Y exactos de precio
+            var y1 = ChartInfo.GetYByPrice(highPrice, true);
+            var y2 = ChartInfo.GetYByPrice(lowPrice, false);
 
-            int height = Math.Abs(y2 - y1);
-            if (height < 1) height = 1;
+            var top = Math.Min(y1, y2);
+            var height = Math.Abs(y2 - y1);
+            if (height < 1)
+                height = 1;
 
-            // --- CÁLCULO DE PRECISIÓN HORIZONTAL ---
+            // X exacto al inicio de la barra + ancho oficial de barra
+            var x = ChartInfo.GetXByBar(bar, true); // inicio de la vela
+            var width = (int)Math.Round((double)ChartInfo.PriceChartContainer.BarsWidth);
+            if (width < 1)
+                width = 1;
 
-            // 1. CORRECCIÓN: Añadimos (double) para convertir el decimal de ATAS
-            double preciseWidth = (double)ChartInfo.PriceChartContainer.BarsWidth;
+            var rect = new Rectangle(x, top, width, height);
 
-            // 2. Ancho redondeado
-            int width = (int)Math.Round(preciseWidth);
-            if (width < 1) width = 1;
-
-            // 3. Centro
-            int xCenter = ChartInfo.GetXByBar(bar, false);
-
-            // 4. Cálculo del borde izquierdo
-            int xLeft = (int)Math.Round(xCenter - (preciseWidth / 2.0));
-
-            // ----------------------------------------
-
-            var rect = new Rectangle(xLeft, Math.Min(y1, y2), width, height);
-
-            // Dibujamos
             var finalColor = System.Drawing.Color.FromArgb(150, color.R, color.G, color.B);
             context.FillRectangle(finalColor, rect);
         }
+
     }
 }
