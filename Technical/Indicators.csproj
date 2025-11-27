@@ -9,6 +9,7 @@
     <Platforms>AnyCPU;Cross</Platforms>
     <UseWPF>True</UseWPF>
     <TargetFramework>net8.0-windows</TargetFramework>
+	<GenerateDependencyFile>false</GenerateDependencyFile>
   </PropertyGroup>
 	
   <PropertyGroup Condition=" '$(Configuration)' == 'Publish' ">

@@ -46,18 +46,28 @@ namespace MyIndicators
             public decimal LowRange;
         }
 
+        // Estructura ligera para guardar datos de dibujo sin afectar al DataSeries
+        private struct ZoneDrawData
+        {
+            public decimal High;
+            public decimal Low;
+            public System.Drawing.Color Color;
+            public bool IsActive;
+        }
+
         #endregion
 
         #region Fields
 
         // Panel Inferior (Histograma)
+        // Nota: ScaleIt = true es correcto aquí porque solo contendrá valores pequeños (velocidad)
         private readonly ValueDataSeries _renderSeries = new("Speed Histogram")
         {
             VisualType = VisualMode.Histogram,
             ShowZeroValue = false,
-            UseMinimizedModeIfEnabled = false, // Avoid "minimized" clipping
+            UseMinimizedModeIfEnabled = false,
             ResetAlertsOnNewBar = true,
-            ScaleIt = true                      // Let panel auto-scale on this series
+            ScaleIt = true
         };
 
         private readonly ValueDataSeries _thresholdSeries = new("Filter Line")
@@ -69,32 +79,15 @@ namespace MyIndicators
             ShowZeroValue = false
         };
 
-        // Panel Principal (Semáforo de Zonas)
-        private readonly RangeDataSeries _rangeBuy = new("Zone Buy")
-        {
-            DrawAbovePrice = true,
-            RangeColor = System.Drawing.Color.FromArgb(100, 0, 255, 0).Convert(),
-            IsHidden = false
-        };
-
-        private readonly RangeDataSeries _rangeSell = new("Zone Sell")
-        {
-            DrawAbovePrice = true,
-            RangeColor = System.Drawing.Color.FromArgb(100, 255, 0, 0).Convert(),
-            IsHidden = false
-        };
-
-        private readonly RangeDataSeries _rangeNeutral = new("Zone Neutral")
-        {
-            DrawAbovePrice = true,
-            RangeColor = System.Drawing.Color.FromArgb(100, 128, 128, 128).Convert(),
-            IsHidden = false
-        };
+        // YA NO USAMOS RangeDataSeries EN EL DATASERIES PUBLICO
+        // Esto evita que el panel intente escalar hasta el precio (ej. 4000)
+        // Usaremos este Diccionario para guardar la info de dibujo
+        private Dictionary<int, ZoneDrawData> _zoneCache = new Dictionary<int, ZoneDrawData>();
 
         // Motor
         private readonly Queue<TickSnapshot> _tickQueue = new();
-        private readonly Queue<decimal> _historyMaxSpeeds = new(); // Cola para guardar los picos históricos
-        private decimal _currentThreshold = 100; // Valor actual del filtro
+        private readonly Queue<decimal> _historyMaxSpeeds = new();
+        private decimal _currentThreshold = 100;
 
         // Estado
         private int _lastBar = -1;
@@ -111,7 +104,6 @@ namespace MyIndicators
         private System.Drawing.Color _sellColor = System.Drawing.Color.Red;
         private System.Drawing.Color _neutralColor = System.Drawing.Color.Gray;
 
-        // Caché de historial para cambios rápidos de parámetros
         private List<CumulativeTrade> _cachedTrades = new List<CumulativeTrade>();
 
         #endregion
@@ -133,7 +125,6 @@ namespace MyIndicators
             set
             {
                 _dataType = value;
-                // Al cambiar el tipo, no necesitamos descargar datos, solo reprocesar lo que tenemos en memoria
                 if (_historyLoaded) RebuildHistoryFromCache();
                 RecalculateValues();
             }
@@ -152,11 +143,7 @@ namespace MyIndicators
         public int FilterPeriod
         {
             get => _filterPeriod;
-            set
-            {
-                _filterPeriod = value;
-                RecalculateValues();
-            }
+            set { _filterPeriod = value; RecalculateValues(); }
         }
 
         [Display(Name = "Manual Threshold", GroupName = "Filter", Order = 60)]
@@ -170,7 +157,7 @@ namespace MyIndicators
         public bool ShowPriceMarker
         {
             get => _showPriceMarker;
-            set { _showPriceMarker = value; RedrawChart(); } // Solo Redraw
+            set { _showPriceMarker = value; RedrawChart(); }
         }
         private bool _showPriceMarker = true;
 
@@ -178,7 +165,7 @@ namespace MyIndicators
         public bool UseSmartColors
         {
             get => _useSmartColors;
-            set { _useSmartColors = value; RedrawChart(); } // Solo Redraw
+            set { _useSmartColors = value; RedrawChart(); }
         }
         private bool _useSmartColors = true;
 
@@ -218,56 +205,33 @@ namespace MyIndicators
 
             Panel = IndicatorDataProvider.NewPanel;
 
-            // 2. OCULTAR LAS SERIES DE RANGO (Las usaremos solo para guardar datos)
-            _rangeBuy.IsHidden = true;
-            _rangeSell.IsHidden = true;
-            _rangeNeutral.IsHidden = true;
-
-            // Aseguramos que la serie del filtro sea visible en el panel inferior
-            DataSeries[0] = _renderSeries;
+            // SOLO añadimos las series que tienen valores de ESCALA correctos para este panel (Velocidad)
+            DataSeries.Add(_renderSeries);
             DataSeries.Add(_thresholdSeries);
 
-            // Añadimos las series ocultas para que guarden los valores internamente
-            DataSeries.Add(_rangeBuy);
-            DataSeries.Add(_rangeSell);
-            DataSeries.Add(_rangeNeutral);
-
-            // We do not want ranges to affect indicator panel scale
-            _rangeBuy.ScaleIt = false;
-            _rangeSell.ScaleIt = false;
-            _rangeNeutral.ScaleIt = false;
-
-            // We also hide them from default renderer – we draw them manually
-            _rangeBuy.Visible = false;
-            _rangeSell.Visible = false;
-            _rangeNeutral.Visible = false;
-
+            // Las series de rango NO se añaden a DataSeries para evitar romper el escalado.
         }
 
         protected override void OnCalculate(int bar, decimal value)
         {
-            // Gestión de estado inicial
-            if (bar == 0 && !_historyLoaded)
+            if (bar == 0)
             {
-                DataSeries.ForEach(x => x.Clear());
-                _tickQueue.Clear();
-                _lastBar = -1;
+                if (!_historyLoaded)
+                {
+                    DataSeries.ForEach(x => x.Clear());
+                    _tickQueue.Clear();
+                    _lastBar = -1;
+                }
+                // Limpiamos nuestro caché manual
+                _zoneCache.Clear();
             }
         }
 
         protected override void OnFinishRecalculate()
         {
-            // PROTECCIÓN 1: No pedir datos si no hay barras suficientes
             if (CurrentBar < 2) return;
-
             var startTime = GetCandle(0).Time;
-
-            // PROTECCIÓN 2: Pedir SOLO hasta la penúltima vela cerrada.
-            // Esto evita conflictos con los datos en tiempo real que entran por OnNewTrade.
-            // ClusterStatistic hace exactamente esto.
             var endTime = GetCandle(CurrentBar - 2).LastTime;
-
-            // Petición acotada en el tiempo
             var request = new CumulativeTradesRequest(startTime, endTime, 0, 0);
             RequestForCumulativeTrades(request);
         }
@@ -277,48 +241,50 @@ namespace MyIndicators
         private void UpdateVisuals(int bar)
         {
             var speed = _renderSeries[bar];
-
-            // 1. Filtro
-            // Usamos la variable pre-calculada o el manual
-            var threshold = UseAutoFilter
-                ? _currentThreshold
-                : ManualThreshold;
-
+            var threshold = UseAutoFilter ? _currentThreshold : ManualThreshold;
             _thresholdSeries[bar] = threshold;
 
-            // 2. Color
             var finalColor = CalculateSmartColor(_currentBarMaxState);
             _renderSeries.Colors[bar] = finalColor;
 
-            // 3. Semáforo de Zonas
-            _rangeBuy[bar].Upper = 0; _rangeBuy[bar].Lower = 0;
-            _rangeSell[bar].Upper = 0; _rangeSell[bar].Lower = 0;
-            _rangeNeutral[bar].Upper = 0; _rangeNeutral[bar].Lower = 0;
-
+            // Guardamos datos en el caché interno en lugar de en DataSeries
             if (ShowPriceMarker && speed > threshold)
             {
                 decimal totalVol = _currentBarMaxState.TotalVolume;
                 double efficiency = totalVol == 0 ? 0 : (double)(Math.Abs(_currentBarMaxState.Context) / totalVol);
                 bool isBuy = _currentBarMaxState.Context > 0;
 
+                System.Drawing.Color zoneColor;
+
                 if (UseSmartColors && efficiency < 0.3)
                 {
-                    _rangeNeutral[bar].Upper = _currentBarMaxState.HighRange;
-                    _rangeNeutral[bar].Lower = _currentBarMaxState.LowRange;
+                    zoneColor = _neutralColor;
                 }
                 else if (isBuy)
                 {
-                    _rangeBuy[bar].Upper = _currentBarMaxState.HighRange;
-                    _rangeBuy[bar].Lower = _currentBarMaxState.LowRange;
+                    zoneColor = _buyColor;
                 }
                 else
                 {
-                    _rangeSell[bar].Upper = _currentBarMaxState.HighRange;
-                    _rangeSell[bar].Lower = _currentBarMaxState.LowRange;
+                    zoneColor = _sellColor;
                 }
+
+                // Insertar o actualizar en caché
+                _zoneCache[bar] = new ZoneDrawData
+                {
+                    High = _currentBarMaxState.HighRange,
+                    Low = _currentBarMaxState.LowRange,
+                    Color = zoneColor,
+                    IsActive = true
+                };
+            }
+            else
+            {
+                // Si baja del umbral, nos aseguramos de borrar la zona si existía
+                if (_zoneCache.ContainsKey(bar))
+                    _zoneCache.Remove(bar);
             }
 
-            // 4. Alertas
             if (UseAlerts && bar == CurrentBar - 1 && speed > threshold && _lastAlertBar != bar)
             {
                 AddAlert(AlertFile, $"Speed Alert: {speed:0}");
@@ -342,11 +308,9 @@ namespace MyIndicators
         {
             if (ratio > 1) ratio = 1;
             if (ratio < 0) ratio = 0;
-
             var r = (int)(background.R + (foreground.R - background.R) * ratio);
             var g = (int)(background.G + (foreground.G - background.G) * ratio);
             var b = (int)(background.B + (foreground.B - background.B) * ratio);
-
             return System.Drawing.Color.FromArgb(r, g, b);
         }
 
@@ -356,10 +320,7 @@ namespace MyIndicators
 
         protected override void OnCumulativeTradesResponse(CumulativeTradesRequest request, IEnumerable<CumulativeTrade> cumulativeTrades)
         {
-            // 1. Guardamos en caché para el futuro
             _cachedTrades = cumulativeTrades?.ToList() ?? new List<CumulativeTrade>();
-
-            // 2. Procesamos
             RebuildHistoryFromCache();
         }
 
@@ -367,21 +328,17 @@ namespace MyIndicators
         {
             if (_cachedTrades.Count == 0) return;
 
-            // 1. Limpieza inicial
             _tickQueue.Clear();
             _historyMaxSpeeds.Clear();
-            _currentThreshold = 100; // Valor inicial por defecto
+            _currentThreshold = 100;
             _lastBar = -1;
             DataSeries.ForEach(x => x.Clear());
+            _zoneCache.Clear(); // Limpiar zonas
 
-            // 2. Proceso
             foreach (var trade in _cachedTrades)
             {
-                // Buscar a qué barra pertenece el trade
                 int tradeBar = -1;
                 int searchStart = _lastBar < 0 ? 0 : _lastBar;
-
-                // Búsqueda optimizada (asumiendo orden cronológico)
                 for (int i = searchStart; i < CurrentBar; i++)
                 {
                     var c = GetCandle(i);
@@ -394,93 +351,50 @@ namespace MyIndicators
 
                 if (tradeBar < 0) continue;
 
-                // -----------------------------------------------------------
-                // CAMBIO DE VELA: FINALIZAR ANTERIOR E INICIAR NUEVA
-                // -----------------------------------------------------------
                 if (tradeBar != _lastBar)
                 {
-                    // SI HABÍA UNA BARRA PREVIA, "CERRAMOS" SU VISUALIZACIÓN
                     if (_lastBar >= 0)
                     {
-                        // A) PINTAR LA LÍNEA DEL FILTRO (Threshold usado en esa barra)
                         _thresholdSeries[_lastBar] = _currentThreshold;
-
-                        // B) PINTAR EL COLOR DE LA BARRA (Histograma)
-                        // Usamos el estado final antes de borrarlo
                         _renderSeries.Colors[_lastBar] = CalculateSmartColor(_currentBarMaxState);
 
-                        // C) DIBUJAR LAS ZONAS DE PRECIO (Rectángulos)
-                        // Solo si superó el filtro que estaba vigente
+                        // Guardar zona en el cierre de la vela histórica
                         if (_currentBarMaxState.Speed > _currentThreshold && ShowPriceMarker)
                         {
-                            bool isBuy = _currentBarMaxState.Context > 0;
-                            decimal high = _currentBarMaxState.HighRange;
-                            decimal low = _currentBarMaxState.LowRange;
-
-                            // Lógica copiada de UpdateVisuals para zonas
-                            if (UseSmartColors && _currentBarMaxState.TotalVolume > 0 &&
-                                (Math.Abs(_currentBarMaxState.Context) / _currentBarMaxState.TotalVolume) < 0.3m)
-                            {
-                                _rangeNeutral[_lastBar].Upper = high;
-                                _rangeNeutral[_lastBar].Lower = low;
-                            }
-                            else if (isBuy)
-                            {
-                                _rangeBuy[_lastBar].Upper = high;
-                                _rangeBuy[_lastBar].Lower = low;
-                            }
-                            else
-                            {
-                                _rangeSell[_lastBar].Upper = high;
-                                _rangeSell[_lastBar].Lower = low;
-                            }
+                            SaveZoneToCache(_lastBar, _currentBarMaxState);
                         }
 
-                        // D) CALCULAR EL NUEVO PROMEDIO PARA EL FUTURO
-                        // Añadimos el pico de la barra cerrada a la historia
                         _historyMaxSpeeds.Enqueue(_currentBarMaxState.Speed);
-
                         while (_historyMaxSpeeds.Count > FilterPeriod)
                             _historyMaxSpeeds.Dequeue();
 
-                        // Recalculamos el umbral que se usará para la SIGUIENTE barra
                         if (_historyMaxSpeeds.Count > 0)
-                            _currentThreshold = _historyMaxSpeeds.Average();
+                            _currentThreshold = _historyMaxSpeeds.Average() * 1.5m;
                     }
 
-                    // RESET DE ESTADO (Ahora sí es seguro borrar)
                     _lastBar = tradeBar;
                     _currentBarMaxState = new SpeedState();
-
-                    // Asignamos el valor inicial visual de la nueva barra
                     _renderSeries[tradeBar] = 0;
-                    _thresholdSeries[tradeBar] = _currentThreshold; // Pintar inicio de línea
+                    _thresholdSeries[tradeBar] = _currentThreshold;
                 }
 
-                // -----------------------------------------------------------
-                // LÓGICA DE COLA (Sliding Window) - IGUAL QUE ANTES
-                // -----------------------------------------------------------
                 _tickQueue.Enqueue(new TickSnapshot
                 {
                     Time = trade.Time,
                     Volume = trade.Volume,
                     Direction = trade.Direction == TradeDirection.Buy ? 1 : -1,
-                    Price = trade.FirstPrice // FirstPrice es más seguro en histórico
+                    Price = trade.FirstPrice
                 });
 
                 var cutoff = trade.Time.AddSeconds(-TimeWindow);
                 while (_tickQueue.Count > 0 && _tickQueue.Peek().Time <= cutoff)
                     _tickQueue.Dequeue();
 
-                // -----------------------------------------------------------
-                // CÁLCULOS
-                // -----------------------------------------------------------
                 decimal winVol = 0;
                 decimal winDelta = 0;
                 decimal winBuys = 0;
                 decimal winSells = 0;
                 int winTicks = _tickQueue.Count;
-
                 decimal winHigh = decimal.MinValue;
                 decimal winLow = decimal.MaxValue;
 
@@ -490,7 +404,6 @@ namespace MyIndicators
                     var d = (t.Direction == 1 ? t.Volume : -t.Volume);
                     winDelta += d;
                     if (t.Direction == 1) winBuys += t.Volume; else winSells += t.Volume;
-
                     if (t.Price > winHigh) winHigh = t.Price;
                     if (t.Price < winLow) winLow = t.Price;
                 }
@@ -509,7 +422,6 @@ namespace MyIndicators
                     case SpeedType.Sells: currentSpeed = winSells; contextDelta = -winSells; break;
                 }
 
-                // High Water Mark
                 if (currentSpeed > _currentBarMaxState.Speed)
                 {
                     _currentBarMaxState = new SpeedState
@@ -521,59 +433,45 @@ namespace MyIndicators
                         LowRange = winLow
                     };
                 }
-
-                // Asignación continua para que la barra crezca visualmente si redibujamos
                 _renderSeries[tradeBar] = _currentBarMaxState.Speed;
             }
 
-            // 3. PINTAR LA ÚLTIMA BARRA PROCESADA
-            // (El bucle termina y la última barra queda sin "cerrar" visualmente en el bloque if)
             if (_lastBar >= 0)
             {
                 _thresholdSeries[_lastBar] = _currentThreshold;
                 _renderSeries.Colors[_lastBar] = CalculateSmartColor(_currentBarMaxState);
-
                 if (_currentBarMaxState.Speed > _currentThreshold && ShowPriceMarker)
-                {
-                    // Aplicar lógica de zonas una última vez para la barra actual/final
-                    bool isBuy = _currentBarMaxState.Context > 0;
-                    decimal high = _currentBarMaxState.HighRange;
-                    decimal low = _currentBarMaxState.LowRange;
-
-                    if (UseSmartColors && _currentBarMaxState.TotalVolume > 0 &&
-                       (Math.Abs(_currentBarMaxState.Context) / _currentBarMaxState.TotalVolume) < 0.3m)
-                    {
-                        _rangeNeutral[_lastBar].Upper = high; _rangeNeutral[_lastBar].Lower = low;
-                    }
-                    else if (isBuy)
-                    {
-                        _rangeBuy[_lastBar].Upper = high; _rangeBuy[_lastBar].Lower = low;
-                    }
-                    else
-                    {
-                        _rangeSell[_lastBar].Upper = high; _rangeSell[_lastBar].Lower = low;
-                    }
-                }
+                    SaveZoneToCache(_lastBar, _currentBarMaxState);
             }
-
-            // Forzamos repintado del chart completo
             RedrawChart();
         }
 
-        // Definimos la cola como variable de clase, pero la trataremos solo para RT
-        private readonly Queue<TickSnapshot> _rtWindow = new();
-        private int _rtBar = -1; // Control específico para RT
+        private void SaveZoneToCache(int bar, SpeedState state)
+        {
+            bool isBuy = state.Context > 0;
+            System.Drawing.Color c = isBuy ? _buyColor : _sellColor;
+
+            if (UseSmartColors && state.TotalVolume > 0 &&
+               (Math.Abs(state.Context) / state.TotalVolume) < 0.3m)
+            {
+                c = _neutralColor;
+            }
+            else if (isBuy) { c = _buyColor; }
+            else { c = _sellColor; }
+
+            _zoneCache[bar] = new ZoneDrawData
+            {
+                High = state.HighRange,
+                Low = state.LowRange,
+                Color = c,
+                IsActive = true
+            };
+        }
 
         protected override void OnNewTrade(MarketDataArg trade)
         {
             int bar = CurrentBar - 1;
             if (bar < 0) return;
-
-            // ------------------------------------------------------------------
-            // PASO 1: GESTIÓN DE DATOS (CONTINUA)
-            // ------------------------------------------------------------------
-            // Añadimos el dato siempre, sin importar si la vela es nueva o vieja.
-            // Usamos DateTime.UtcNow para que el RT sea fluido.
             var now = DateTime.UtcNow;
 
             _tickQueue.Enqueue(new TickSnapshot
@@ -584,57 +482,28 @@ namespace MyIndicators
                 Price = trade.Price
             });
 
-            // Limpiamos datos antiguos por TIEMPO.
-            // Esto asegura que la cola cruce fronteras de velas suavemente.
             var cutoff = now.AddSeconds(-TimeWindow);
             while (_tickQueue.Count > 0 && _tickQueue.Peek().Time <= cutoff)
-            {
                 _tickQueue.Dequeue();
-            }
 
-            // ------------------------------------------------------------------
-            // PASO 2: GESTIÓN DE CAMBIO DE VELA (RESET DE RÉCORD)
-            // ------------------------------------------------------------------
             if (bar != _lastBar)
             {
-                // A) LOGICA DE FILTRO (Hacer esto ANTES de resetear el estado)
-                // Si la barra anterior (_lastBar) era válida, guardamos su velocidad máxima en el historial
                 if (_lastBar >= 0)
                 {
                     _historyMaxSpeeds.Enqueue(_currentBarMaxState.Speed);
-
-                    // Mantenemos la cola del tamaño del periodo elegido
-                    while (_historyMaxSpeeds.Count > FilterPeriod)
-                        _historyMaxSpeeds.Dequeue();
-
-                    // Calculamos el nuevo promedio (Threshold)
-                    if (_historyMaxSpeeds.Count > 0)
-                        _currentThreshold = _historyMaxSpeeds.Average();
+                    while (_historyMaxSpeeds.Count > FilterPeriod) _historyMaxSpeeds.Dequeue();
+                    if (_historyMaxSpeeds.Count > 0) _currentThreshold = _historyMaxSpeeds.Average() * 1.5m;
                 }
-
-                // B) RESET DE VARIABLES
                 _lastBar = bar;
-
-                // Aquí está la clave: Reseteamos el "Campeón" de la vela a 0...
                 _currentBarMaxState = new SpeedState();
-
-                // Forzamos 0 visual al inicio (opcional, pero limpio)
                 _renderSeries[bar] = 0;
-
-                // ...PERO NO BORRAMOS _tickQueue. La velocidad actual se mantiene.
             }
 
-            // ------------------------------------------------------------------
-            // PASO 3: CÁLCULO DE LA VELOCIDAD ACTUAL
-            // ------------------------------------------------------------------
-            // Recorremos la cola para sumar valores (Volumen, Delta, etc.)
             decimal winVol = 0;
             decimal winDelta = 0;
             decimal winBuys = 0;
             decimal winSells = 0;
             int winTicks = _tickQueue.Count;
-
-            // Variables para el rango de precio de la ráfaga actual
             decimal winHigh = decimal.MinValue;
             decimal winLow = decimal.MaxValue;
 
@@ -643,18 +512,13 @@ namespace MyIndicators
                 winVol += t.Volume;
                 var d = (t.Direction == 1 ? t.Volume : -t.Volume);
                 winDelta += d;
-
-                if (t.Direction == 1) winBuys += t.Volume;
-                else winSells += t.Volume;
-
+                if (t.Direction == 1) winBuys += t.Volume; else winSells += t.Volume;
                 if (t.Price > winHigh) winHigh = t.Price;
                 if (t.Price < winLow) winLow = t.Price;
             }
 
-            // Protección por si la cola se vació (raro en RT activo, pero posible)
             if (winTicks == 0) { winHigh = trade.Price; winLow = trade.Price; }
 
-            // Elegimos qué métrica estamos midiendo
             decimal currentSpeed = 0;
             decimal contextDelta = winDelta;
 
@@ -667,11 +531,6 @@ namespace MyIndicators
                 case SpeedType.Sells: currentSpeed = winSells; contextDelta = -winSells; break;
             }
 
-            // ------------------------------------------------------------------
-            // PASO 4: HIGH WATER MARK (MÁXIMO DE LA VELA)
-            // ------------------------------------------------------------------
-            // Si acabamos de cambiar de vela (Paso 2), _currentBarMaxState.Speed es 0.
-            // Por tanto, la currentSpeed actual (ej. 300) será inmediatamente el nuevo máximo.
             if (currentSpeed > _currentBarMaxState.Speed)
             {
                 _currentBarMaxState = new SpeedState
@@ -684,78 +543,48 @@ namespace MyIndicators
                 };
             }
 
-            // ------------------------------------------------------------------
-            // PASO 5: ACTUALIZACIÓN VISUAL
-            // ------------------------------------------------------------------
-            // Asignamos siempre para que el indicador esté vivo
             _renderSeries[bar] = _currentBarMaxState.Speed;
-
-            // Recalculamos colores y filtros
             UpdateVisuals(bar);
-        
         }
 
         #endregion
 
         protected override void OnRender(RenderContext context, DrawingLayouts layout)
         {
-            if (layout != DrawingLayouts.Final)
-                return;
-            if (ChartInfo == null || InstrumentInfo == null)
+            if (layout != DrawingLayouts.Final || ChartInfo == null || InstrumentInfo == null)
                 return;
 
-            // Clip al gráfico de precio
             context.SetClip(ChartInfo.PriceChartContainer.Region);
 
             for (int bar = FirstVisibleBarNumber; bar <= LastVisibleBarNumber; bar++)
             {
-                DrawZone(context, bar, _rangeBuy, _buyColor);
-                DrawZone(context, bar, _rangeSell, _sellColor);
-                DrawZone(context, bar, _rangeNeutral, _neutralColor);
+                // Leemos directamente del caché interno
+                if (_zoneCache.TryGetValue(bar, out ZoneDrawData zone) && zone.IsActive)
+                {
+                    DrawZone(context, bar, zone.High, zone.Low, zone.Color);
+                }
             }
 
             context.ResetClip();
         }
 
-
-        private void DrawZone(RenderContext context, int bar, RangeDataSeries series, System.Drawing.Color color)
+        private void DrawZone(RenderContext context, int bar, decimal high, decimal low, System.Drawing.Color color)
         {
-            // Safety
-            if (bar < 0 || bar >= CurrentBar)
-                return;
+            if (high == low) high += InstrumentInfo.TickSize;
 
-            var range = series[bar];
-
-            // Nada que pintar
-            if (range.Upper == 0m && range.Lower == 0m)
-                return;
-
-            var highPrice = range.Upper;
-            var lowPrice = range.Lower;
-
-            if (highPrice == lowPrice)
-                highPrice += InstrumentInfo.TickSize;
-
-            // Y exactos de precio
-            var y1 = ChartInfo.GetYByPrice(highPrice, true);
-            var y2 = ChartInfo.GetYByPrice(lowPrice, false);
-
+            var y1 = ChartInfo.GetYByPrice(high, true);
+            var y2 = ChartInfo.GetYByPrice(low, false);
             var top = Math.Min(y1, y2);
             var height = Math.Abs(y2 - y1);
-            if (height < 1)
-                height = 1;
+            if (height < 1) height = 1;
 
-            // X exacto al inicio de la barra + ancho oficial de barra
-            var x = ChartInfo.GetXByBar(bar, true); // inicio de la vela
+            var x = ChartInfo.GetXByBar(bar, true);
             var width = (int)Math.Round((double)ChartInfo.PriceChartContainer.BarsWidth);
-            if (width < 1)
-                width = 1;
+            if (width < 1) width = 1;
 
             var rect = new Rectangle(x, top, width, height);
-
             var finalColor = System.Drawing.Color.FromArgb(150, color.R, color.G, color.B);
             context.FillRectangle(finalColor, rect);
         }
-
     }
 }
