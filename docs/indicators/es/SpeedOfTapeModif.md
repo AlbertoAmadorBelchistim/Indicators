@@ -1,88 +1,85 @@
 ---
-cs_file: SpeedOfTapeModif.cs
-name: Speed of Tape Modif
-category: Order Flow
+cs_file: SpeedOfTapeLab.cs
+name: Speed of Tape (Lab)
 group: Order Flow
 subgroup: Volume
-score_current: 8/10
-version: Stable
-recommended_action: Conservar
-description: ¿Cuál es la velocidad de ejecución (ritmo) del mercado?
-gemini_summary: "Herramienta táctica de alto valor. Algoritmo funcional aunque mejorable en rendimiento. Inferior visualmente a Rhythm."
+score_current: 6/10
+version: Lab (v1.5)
+recommended_action: Conservar (Reserva / Educativo)
+description: ¿Cuál es la velocidad de ejecución del mercado calculada por interpolación?
+gemini_summary: "Versión con filtro de delta matemáticamente corregida pero tácticamente insuficiente. Usa interpolación lineal para 'adivinar' la velocidad en ventanas de tiempo menores a la vela. Útil para análisis general, inútil para trigger HFT."
 comparison_group: "Tape Speed"
-competitor_notes: "Alternativa a Order Flow Rhythm."
-reusable_code: null
+competitor_notes: "Inferior a la V2. Mientras la V2 ve la realidad tick a tick, esta versión ve un promedio suavizado que oculta las ráfagas institucionales."
+reusable_code: "Algoritmo de interpolación lineal (Regla de 3) para ventanas de tiempo."
 file_state: Estable
-score_potential: 9/10
-effort: Medio
+score_potential: 6/10
+effort: Bajo
 action_priority: P3
-analysis_date: 2025-11-18
+analysis_date: 2025-11-28
 official_code_date: Desconocida
 ---
 
-## 🟦 Speed of Tape Modif (8/10)
+## 🧪 Speed of Tape (Lab) (6/10)
 
-**Nombre del archivo:** [`SpeedOfTapeModif.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/compile/myindicators/MyIndicators/SpeedOfTapeModif.cs)  
-**Nombre del indicador:** Speed of Tape  
-**Web oficial:** [ATAS — Speed of Tape](https://help.atas.net/support/solutions/articles/72000602472)  
+**Nombre del archivo:** [`SpeedOfTapeLab.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/compile/myindicators/MyIndicators/SpeedOfTapeLab.cs)  
+**Nombre del indicador:** Speed of Tape (Lab)  
+**Web oficial base:** [ATAS — Speed of Tape](https://help.atas.net/support/solutions/articles/72000602472)  
 **Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** Desconocida  
-**Última revisión del código modificado:** 24/11/2025 (v 1.3.0) *(Versión basada en el resultado visual obtenido por el indicador oficial de ATAS y mejorada por Alberto Amador Belchistim)*  
+**Última revisión del código modificado:** 23/11/2025  
 
+> **La Pregunta Clave:** ¿Se está acelerando el mercado (estimación basada en velas)?
 
-> **La Pregunta Clave:** ¿Se está acelerando el mercado ahora mismo (actividad HFT o institucional)?
-
-![SpeedOfTapeModif](../../img/SpeedOfTapeModif.png)
+![SpeedOfTapeLab](../../img/SpeedOfTapeLab.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-* **Sec**: Ventana de tiempo en segundos para medir la velocidad (ej. 15s).  
-* **Type**: Qué medir (Volumen, Ticks, Delta, Compras, Ventas).  
-* **Trades**: Umbral manual para alertas/color si `AutoFilter` está apagado.  
-* **AutoFilter**: Calcula un umbral dinámico basado en una SMA de la velocidad.  
-* **Visualization**: Colores para PaintBars y líneas de señal.  
+* **AutoFilter:** Activa el promedio móvil para el umbral.
+* **TimeWindowSec:** Ventana de tiempo a analizar (Se interpola si es menor que la vela).
+* **Calculation Type:** `Volume`, `Ticks`, `Buys`, `Sells`, `Delta`.
+* **Show PaintBars:** Pinta la vela si supera el umbral.
+* **Draw Signal Lines:** Dibuja marcadores triangulares.
 
 ---
 
 ### 🧭 Clasificación
-📂 VolumeOrderFlow — Indicador de frecuencia y velocidad de transacciones.
+**Grupo:** Order Flow  
+**Subgrupo:** Volume  
+**Comparison Group:** "Tape Speed"  
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* **Detección de Algoritmos:** Los HFT suelen disparar ráfagas de órdenes en milisegundos. Este indicador detecta esos picos.  
-* **Inicio de Impulso:** Un aumento repentino de la velocidad del tape suele preceder al movimiento del precio.  
+* **Comparativa Académica:** Útil para demostrar por qué NO se deben usar indicadores basados en velas para medir velocidad de alta frecuencia.
+* **Swing Trading:** En timeframes altos (ej. 1 Hora) donde la precisión del milisegundo no importa tanto, su lógica de promedio es aceptable.
 
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **8 / 10**
+🔟 **6 / 10 (NO APTO PARA SCALPING)**
 
-✅ **PaintBars:** Colorea la vela en tiempo real cuando la velocidad supera el promedio, señal visual muy rápida.  
-✅ **AutoFilter:** Se adapta a la volatilidad cambiante del mercado (apertura vs mediodía).  
-⛔ **Rendimiento:** El cálculo itera velas hacia atrás. En gráficos de ticks rápidos y ventanas de tiempo grandes, puede consumir CPU.  
+
+✅ **Ligereza:** Consume casi cero recursos al no pedir ticks al servidor.  
+⛔ **Falsedad de Datos (Interpolación):** Asume que el volumen se distribuye uniformemente. Si hubo una ráfaga de 1000 contratos en 1 segundo y luego nada en los siguientes 59 segundos (vela de 1 min), este indicador dirá que hubo una velocidad constante y baja de "16 contratos/segundo". **Diluye la señal crítica.** ⛔ **Ceguera HFT:** Incapaz de detectar "Icebergs" o algoritmos de ejecución rápida dentro de la vela.
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Momentum Scalp:** Si SpeedOfTape se dispara y el Delta es positivo → Comprar mercado.  
-* **Absorción:** Si SpeedOfTape es alto (muchos ticks) pero el precio no se mueve → Posible absorción/giro.  
+* **Ninguna.** No usar para tomar decisiones de entrada en gráficos de ticks o segundos.
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **Sec**: `5` o `10` (Para detectar microráfagas).  
-* **Type**: `Ticks` (Mejor para ver actividad algorítmica) o `Volume` (Mejor para ver institucionales).  
-* **AutoFilter**: `True`.  
+* **TimeWindowSec:** `60` o más. (Poner menos es engañarse a uno mismo, ya que solo interpola datos).
+* **AutoFilter:** `True`.
 
 ---
 
-### ✨ Mejoras añadidas (Custom Modif v1.3.0)
+### ✨ Mejoras añadidas (Lab v1.3.0)
 
 Esta versión soluciona problemas visuales críticos y mejora la precisión del filtro en modos Delta.
 
@@ -102,24 +99,33 @@ Esta versión soluciona problemas visuales críticos y mejora la precisión del 
 
 ### 🧪 Notas de desarrollo
 
-* **Bucle Crítico:** `while (j >= 0) ... ts.TotalSeconds < Sec`. Este bucle se ejecuta en cada tick. Si tienes un gráfico de 100 ticks y pones `Sec = 60`, el bucle iterará muchas veces. No es crítico hoy día, pero es un punto de presión.  
-* **Signals:** Almacena señales en una `ConcurrentBag`. Correcto para thread-safety.  
+* **El problema de la Regla de 3:** El código ejecuta: `accumulatedSpeed = accumulatedSpeed * (timeWindow / timeDiff)`.
+    * *Ejemplo Real:* Ventana de 5s en Vela de 60s con 1000 de volumen.
+    * *Resultado:* `1000 * (5/60) = 83.3`.
+    * *Realidad:* Quizás esos 1000 ocurrieron TODOS en esos 5 segundos. El indicador reporta 83, la realidad fue 1000. **Error del 91%.**
 
 ---
+
+### 🛠️ Propuestas de mejora
+
+* **Descontinuar:** No tiene sentido intentar mejorar este código. La arquitectura basada en velas es un callejón sin salida para este propósito. La mejora es migrar a **SpeedOfTapeModif V2**.
+
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Es uno de los mejores indicadores para "sentir" el mercado sin mirar el DOM. Cuando las barras se pintan de amarillo (por defecto), sabes que "algo está pasando" antes de que el precio se desplace.
+Es un indicador "placebo". Te da un número, te pinta un color, pero no te está contando la historia real de la cinta. En el trading profesional, una verdad a medias es una mentira completa.
+Solo tiene valor como **código de reserva** por si fallan los servidores de datos de ticks y necesitamos una métrica "sucia" de velocidad.
 
-**Propuestas de Mejora:**
-* **Optimización:** Mantener una suma rodante (sliding window) de volumen/ticks asociada a timestamps para evitar el bucle `while` en cada tick.
-* **Delta Alert:** Alerta específica si la velocidad sube Y el Delta es extremadamente positivo/negativo.
+**Propuestas de Acción:**
+* Mover a carpeta `Deprecated` o `Reserva`.
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí.** Indispensable para scalpers de Order Flow.
+**No.**
 
-**Acción:** **Conservar.**
+Para scalping necesitamos precisión quirúrgica. Este indicador opera con machete.
+
+**Acción:** **Conservar (Reserva / Educativo)**
