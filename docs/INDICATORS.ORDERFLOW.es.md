@@ -158,13 +158,14 @@ _Lectura de Cinta (Time & Sales). Reconstrucción de órdenes._
 | **9/10** | ✅ Conservar (Reserva) | [Order Flow Indicator](indicators/es/OrderFlow.md) | ¿Cómo se visualiza el flujo de órdenes (trades individuales) en el gráfico? |
 | **9/10** | ✅ Conservar (Core) | [Tape Patterns](indicators/es/TapePattern.md) | ¿Dónde están los bloques de órdenes grandes y patrones de ejecución específicos en la cinta? |
 
-### ⚔️ Tape Speed <small>⚠️ (Pendiente)</small>
+### ⚔️ Tape Speed <small>✅ (Fase 2)</small>
 _Ritmo del mercado. Detección de aceleraciones y frenazos en la cinta._
 
 | Score | Estado | Indicador | Descripción / Notas |
 | :---: | :--- | :--- | :--- |
-| 9/10 | ✅ Conservar | [Order Flow Rhythm (Clean)](indicators/es/OrderFlowRythm.md) | ¿Cuál es la velocidad de ejecución (ritmo) del mercado visualizada como mapa de calor? |
-| 8/10 | ✅ Conservar | [Speed of Tape](indicators/es/SpeedOfTape.md) | ¿Cuál es la velocidad de ejecución (ritmo) del mercado? |
+| **10/10** | ✅ Conservar (Core) | [Speed of Tape Modif V2](indicators/es/SpeedOfTapeModifV2.md) | ¿Cuál es la velocidad REAL de ejecución (HFT) independientemente de la duración de la vela? |
+| **7/10** | ✅ Conservar (Refactorizar Urgente) | [Order Flow Rhythm (Lab)](indicators/es/OrderFlowRythm.md) | ¿Cuál es la intensidad/ritmo del mercado visualizada como mapa de calor (Heatmap)? |
+| **6/10** | ✅ Conservar (Reserva / Educativo) | [Speed of Tape (Lab)](indicators/es/SpeedOfTapeLab.md) | ¿Cuál es la velocidad de ejecución del mercado calculada por interpolación? |
 
 ### ⚔️ VSA & Anomalies <small>✅ (Fase 2)</small>
 _Volume Spread Analysis. Velas climáticas, volumen de parada y anomalías._

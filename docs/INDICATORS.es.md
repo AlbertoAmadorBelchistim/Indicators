@@ -1,11 +1,6 @@
 # 🗂️ Índice Global de Indicadores
 
-Bienvenido al repositorio central. 
-El enfoque principal de análisis y las puntuaciones están **orientados al scalping en el S&P 500 (ES/MES).**
-
-**Nota Importante**: Las valoraciones, puntuaciones ("Score") y veredictos ("Veredicto") son **opiniones subjetivas** basadas en mi experiencia y el apoyo de herramientas de IA (como Gemini y ChatGPT).
-
-Utiliza los índices temáticos para ver comparativas detalladas o la lista A-Z para búsquedas rápidas.
+Bienvenido al repositorio central. Utiliza los índices temáticos para ver comparativas detalladas o la lista A-Z para búsquedas rápidas.
 
 ## 🎯 Índices Temáticos (Comparativas)
 | Grupo | Descripción | Enlace |
@@ -221,7 +216,7 @@ Utiliza los índices temáticos para ver comparativas detalladas o la lista A-Z 
 | [Order Block](indicators/es/OrderBlock.md) | Structure | 9/10 | Conservar |
 | [Order Book Alerts](indicators/es/OrderBookAlerts.md) | Order Flow | 9/10 | Conservar |
 | [Order Flow Indicator](indicators/es/OrderFlow.md) | Order Flow | 9/10 | Conservar (Reserva) |
-| [Order Flow Rhythm (Clean)](indicators/es/OrderFlowRythm.md) | Order Flow | 9/10 | Conservar |
+| [Order Flow Rhythm (Lab)](indicators/es/OrderFlowRythm.md) | Order Flow | 7/10 | Conservar (Refactorizar Urgente) |
 | [OSMA (Moving Average of Oscillator)](indicators/es/OSMA.md) | Oscillators | 7/10 | Mejorar |
 | [Outside Bar](indicators/es/OutsideBar.md) | Structure | 6/10 | Mejorar |
 | | | | |
@@ -265,7 +260,8 @@ Utiliza los índices temáticos para ver comparativas detalladas o la lista A-Z 
 | [Sine-Wave Weighted Moving Average](indicators/es/SWWMA.md) | Trend | 5/10 | Mejorar |
 | [SMA (Simple Moving Average)](indicators/es/SMA.md) | Trend | 9/10 | Conservar |
 | [SMMA (Smoothed Moving Average)](indicators/es/SMMA.md) | Trend | 7/10 | Conservar |
-| [Speed of Tape](indicators/es/SpeedOfTape.md) | Order Flow | 8/10 | Conservar |
+| [Speed of Tape (Lab)](indicators/es/SpeedOfTapeLab.md) | Order Flow | 6/10 | Conservar (Reserva / Educativo) |
+| [Speed of Tape Modif V2](indicators/es/SpeedOfTapeModifV2.md) | Order Flow | 10/10 | Conservar (Core) |
 | [Spread Volume](indicators/es/SpreadVolume.md) | Order Flow | 7/10 | Conservar (Reserva) |
 | [Squeeze Momentum](indicators/es/SqueezeMomentum.md) | Trend | 9/10 | Conservar |
 | [Stacked Imbalance](indicators/es/StackedImbalance.md) | Order Flow | 8/10 | Conservar (Core) |
