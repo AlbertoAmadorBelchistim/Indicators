@@ -69,13 +69,13 @@ public class LinRegChannel : Indicator
     private readonly ValueDataSeries _y2 = new("y2");
     private readonly ValueDataSeries _outOfChannel = new("outOfChannel");
 
-    private Pen _bullishPen = new(DefaultColors.Green) { Width = 2 };
-    private Pen _bearishPen = new(DefaultColors.Red) { Width = 2 };
-    private Pen _bullishDashPen = new(DefaultColors.Green) { Width = 2, DashStyle = DashStyle.Dash };
-    private Pen _bearishDashPen = new(DefaultColors.Red) { Width = 2, DashStyle = DashStyle.Dash };
-    private Pen _bullishFiboPen = new(DefaultColors.Green) { Width = 2, DashStyle = DashStyle.Dot };
-    private Pen _bearishFiboPen = new(DefaultColors.Red) { Width = 2, DashStyle = DashStyle.Dot };
-    private Pen _brokenPen = new(DefaultColors.Blue) { Width = 2, DashStyle = DashStyle.Dot };
+    private CrossPen _bullishPen = new(DefaultColors.Green) { Width = 2 };
+    private CrossPen _bearishPen = new(DefaultColors.Red) { Width = 2 };
+    private CrossPen _bullishDashPen = new(DefaultColors.Green) { Width = 2, DashStyle = DashStyle.Dash };
+    private CrossPen _bearishDashPen = new(DefaultColors.Red) { Width = 2, DashStyle = DashStyle.Dash };
+    private CrossPen _bullishFiboPen = new(DefaultColors.Green) { Width = 2, DashStyle = DashStyle.Dot };
+    private CrossPen _bearishFiboPen = new(DefaultColors.Red) { Width = 2, DashStyle = DashStyle.Dot };
+    private CrossPen _brokenPen = new(DefaultColors.Blue) { Width = 2, DashStyle = DashStyle.Dot };
     private PenSettings _arrowPen = new() { Color = DefaultColors.Black.Convert() };
 
     private Color _bullishColorTransparent;
@@ -607,7 +607,7 @@ public class LinRegChannel : Indicator
         _currDev[bar] = (decimal)Math.Sqrt((double)(dev / _realPeriod));
     }
 
-    private void SetLinRegLine(int bar, ref TrendLine line, decimal dev, Pen bullishPen, Pen bearishPen, bool isBrokenLine = false)
+    private void SetLinRegLine(int bar, ref TrendLine line, decimal dev, CrossPen bullishPen, CrossPen bearishPen, bool isBrokenLine = false)
     {
         var x1 = bar - _realPeriod + 1;
         var y1 = _y1[bar] + dev;
@@ -619,7 +619,7 @@ public class LinRegChannel : Indicator
 
     private decimal RoundToFraction(decimal value, decimal fraction) => Math.Round(value / fraction) * fraction;
 
-    private void SetFiboLine(int bar, ref TrendLine line, decimal fiboRatio, Pen bullishFiboPen, Pen bearishFiboPen)
+    private void SetFiboLine(int bar, ref TrendLine line, decimal fiboRatio, CrossPen bullishFiboPen, CrossPen bearishFiboPen)
     {
         var dev = _currDev[bar] * _deviation - _currDev[bar] * _deviation * 2 * fiboRatio;
         dev = RoundToFraction(dev, InstrumentInfo.TickSize);
@@ -631,7 +631,7 @@ public class LinRegChannel : Indicator
         SetTrendLine(ref line, x1, y1, x2, y2, pen);
     }
 
-    private void SetTrendLine(ref TrendLine line, int x1, decimal y1, int x2, decimal y2, Pen pen, bool isBrokenLine = false)
+    private void SetTrendLine(ref TrendLine line, int x1, decimal y1, int x2, decimal y2, CrossPen pen, bool isBrokenLine = false)
     {
         if (line is null)
         {

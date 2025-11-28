@@ -19,8 +19,8 @@ namespace ATAS.Indicators.Technical
 	{
 		#region Fields
 
-		private readonly Pen _askBidPen;
-		private readonly Pen _bidAskPen;
+		private readonly CrossPen _askBidPen;
+		private readonly CrossPen _bidAskPen;
 
 		private CrossColor _askBidImbalanceColor = DefaultColors.Green.Convert();
 		private CrossColor _bidAskImbalanceColor = DefaultColors.DarkRed.Convert();
@@ -179,8 +179,8 @@ namespace ATAS.Indicators.Technical
 		public StackedImbalance()
 			: base(true)
 		{
-			_askBidPen = new Pen(GetDrawingColor(_askBidImbalanceColor));
-			_bidAskPen = new Pen(GetDrawingColor(_bidAskImbalanceColor));
+			_askBidPen = new CrossPen(GetDrawingColor(_askBidImbalanceColor));
+			_bidAskPen = new CrossPen(GetDrawingColor(_bidAskImbalanceColor));
 
 			((ValueDataSeries)DataSeries[0]).VisualType = VisualMode.Hide;
 			DataSeries[0].IsHidden = true;

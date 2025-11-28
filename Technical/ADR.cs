@@ -45,7 +45,7 @@ namespace ATAS.Indicators.Technical
 
 		private float _fontSize;
 		private int _lastBar;
-		private Pen _linePen;
+		private CrossPen _linePen;
 
 		private LineTillTouch _lowerLine;
 
