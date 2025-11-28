@@ -107,12 +107,18 @@ Esta versión V2 cambia radicalmente el motor interno. Ya no depende de las vela
 * **Implementación de `CumulativeTrades`:** El indicador ahora solicita el historial de ticks reales al servidor para reconstruir el pasado con precisión de milisegundos.
 * **Sliding Window Queue:** Implementación de una estructura FIFO (`Queue`) para mantener una ventana de tiempo exacta.
 
+Comparativa de la versión oficial (arriba) frente a la V2 (abajo). Tienen la misma configuración, pero la oficial, al depender de velas, no detecta correctamente las velocidades máximas en cada vela.
+
+![SpeedOfTapeComparativa](../../img/SpeedOfTapeComparativa.png)
+
 ---
 
 ### ✨ Mejoras añadidas (Custom V2)
 
 * **Zone Caching:** Sistema para persistir los rectángulos de señal en el gráfico sin sobrecargar el procesador de renderizado.
 * **Smart Colors Logic:** Cálculo de ratio `Context / TotalVolume` para determinar la saturación del color.
+
+![SpeedOfTapeVelas](../../img/SpeedOfTapeModifV2velas.png)
 
 ---
 
