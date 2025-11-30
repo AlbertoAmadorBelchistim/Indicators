@@ -8,8 +8,10 @@
 		<UseWPF>true</UseWPF>
 		<LangVersion>latest</LangVersion>
 		<Platforms>AnyCPU</Platforms>
-		<AssemblyVersion>1.4.1.0</AssemblyVersion>
-		<FileVersion>1.4.1.0</FileVersion>
+		<AssemblyVersion>1.5.0.0</AssemblyVersion>
+		<FileVersion>1.5.0.0</FileVersion>
+
+		<InformationalVersion>1.5.0-stable (2025-11-29)</InformationalVersion>
 
 		<!-- Canal por defecto si no se pasa /p:ATAS_CHANNEL=... -->
 		<ATAS_CHANNEL Condition="'$(ATAS_CHANNEL)' == ''">Default</ATAS_CHANNEL>
