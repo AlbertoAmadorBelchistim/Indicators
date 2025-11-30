@@ -1,22 +1,35 @@
 ---
-cs_file: OrderFlowRhythmLab.cs
-name: Order Flow Rhythm (Lab)
-group: Order Flow
-subgroup: Volume
-score_current: 7/10
-version: Stable
-recommended_action: Conservar (Refactorizar Urgente)
-description: ¿Cuál es la intensidad/ritmo del mercado visualizada como mapa de calor (Heatmap)?
-gemini_summary: "Excelente visualización lastrada por un motor obsoleto. Pinta un mapa de calor muy útil, pero los datos subyacentes provienen de la lógica de velas, por lo que tiene 'lag' y ceguera ante ráfagas HFT reales."
-comparison_group: "Tape Speed"
-competitor_notes: "Visualmente superior a todo el grupo, pero mecánicamente inferior al SpeedOfTapeModif V2."
-reusable_code: "Motor de renderizado de Heatmap (GetHeatmapColor) y lógica de paletas."
-file_state: Estable (Lógica interna obsoleta)
-score_potential: 9.5/10
-effort: Medio
-action_priority: P2
-analysis_date: 2025-11-27
-user_modification_date: 2025-11-19
+# 1. IDENTIFICACIÓN
+cs_file:  OrderFlowRhythmLab.cs
+name:  Order Flow Rhythm (Lab)
+version:  Custom v1.0
+
+# 2. CLASIFICACIÓN
+group:  Order Flow
+subgroup:  Volume
+comparison_group:  "Tape Speed"
+
+# 3. VALORACIÓN (Score & Priority)
+score_current:  7/10
+score_potential:  9.5/10
+file_state:  Estable (Lógica obsoleta)
+effort:  Medio
+action_priority:  Alta  # Necesita inyección del motor V2
+system_priority:  P2    # Útil para contexto si se arregla
+
+# 4. DECISIÓN
+recommended_action:  Conservar (Refactorizar Urgente)
+
+# 5. ANÁLISIS
+description:  ¿Cuál es la intensidad/ritmo del mercado visualizada como mapa de calor (Heatmap)?
+gemini_summary:  "Excelente visualización lastrada por un motor obsoleto. Pinta un mapa de calor muy útil, pero los datos subyacentes provienen de la lógica de velas, por lo que tiene 'lag' y ceguera ante ráfagas HFT reales."
+competitor_notes:  "Visualmente superior a todo el grupo, pero mecánicamente inferior al SpeedOfTapeModif V2."
+reusable_code:  "Motor de renderizado de Heatmap (GetHeatmapColor) y lógica de paletas."
+
+# 6. METADATOS
+analysis_date:  2025-11-27
+official_code_date:  Unknown
+user_modification_date:  2025-11-23
 ---
 
 ## 🎨 Order Flow Rhythm (Lab) (7/10)

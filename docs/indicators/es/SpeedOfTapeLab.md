@@ -1,22 +1,35 @@
 ---
-cs_file: SpeedOfTapeLab.cs
-name: Speed of Tape (Lab)
-group: Order Flow
-subgroup: Volume
-score_current: 6/10
-version: Lab (v1.6)
-recommended_action: Conservar (Reserva / Educativo)
-description: ¿Cuál es la velocidad de ejecución del mercado calculada por interpolación?
-gemini_summary: "Versión 'Lab' con visualización geométrica mejorada (Marcadores vs Líneas) y cálculo de filtro de delta bien ejecutado. Matemáticamente sigue limitada por la interpolación de velas, lo que la hace ciega a ráfagas HFT reales, pero su interfaz es ahora limpia y moderna."
-comparison_group: "Tape Speed"
-competitor_notes: "Inferior a la V2. Mientras la V2 ve la realidad tick a tick, esta versión ve un promedio suavizado."
-reusable_code: "Sistema de renderizado de formas geométricas (DrawMarker) y lógica de interpolación lineal."
-file_state: Estable
-score_potential: 6/10
-effort: Bajo
-action_priority: P3
-analysis_date: 2025-11-28
-official_code_date: Desconocida
+# 1. IDENTIFICACIÓN
+cs_file:  SpeedOfTapeLab.cs
+name:  Speed of Tape (Lab)
+version:  Custom v1.6 (Lab)
+
+# 2. CLASIFICACIÓN
+group:  Order Flow
+subgroup:  Volume
+comparison_group:  "Tape Speed"
+
+# 3. VALORACIÓN (Score & Priority)
+score_current:  6/10
+score_potential:  6/10
+file_state:  Estable
+effort:  Bajo
+action_priority:  Baja  # No merece esfuerzo
+system_priority:  P3    # Reserva solo educativa
+
+# 4. DECISIÓN
+recommended_action:  Conservar (Reserva)
+
+# 5. ANÁLISIS
+description:  ¿Cuál es la velocidad de ejecución del mercado calculada por interpolación?
+gemini_summary:  "Versión 'Lab' con visualización geométrica mejorada pero matemáticamente limitada por la interpolación de velas. Ciega a ráfagas HFT reales."
+competitor_notes:  "Inferior a la V2. Mientras la V2 ve la realidad tick a tick, esta versión ve un promedio suavizado."
+reusable_code:  "Sistema de renderizado de formas geométricas (DrawMarker) y lógica de interpolación lineal."
+
+# 6. METADATOS
+analysis_date:  2025-11-28
+official_code_date:  Unknown
+user_modification_date:  2025-11-28
 ---
 
 ## 🧪 Speed of Tape (Lab) (6/10)

@@ -107,7 +107,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Delta Turnaround](indicators/es/DeltaTurnaround.md) | Order Flow | 4/10 | Descartar |
 | [Demand Index](indicators/es/Demand.md) | Oscillators | 2/10 | Descartar |
 | [DeMarker](indicators/es/DeMarker.md) | Oscillators | 2/10 | Reparar |
-| [Depth of Market](indicators/es/DOM.md) | Order Flow | 9/10 | Conservar |
+| [Depth Of Market](indicators/es/DOM.md) | Order Flow | 7/10 | Conservar (Reserva) |
 | [Detrended Oscillator - DiNapoli](indicators/es/DeTrendedDi.md) | Oscillators | 6/10 | Conservar |
 | [DeTrended Price Oscillator](indicators/es/DeTrended.md) | Oscillators | 3/10 | Descartar |
 | [DI+ (Directional Indicator Positivo)](indicators/es/DIPos.md) | Trend | 3/10 | Descartar |
@@ -115,7 +115,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Directional Movement Index](indicators/es/DmIndex.md) | Trend | 3/10 | Descartar |
 | [Directional Movement Oscillator](indicators/es/DmOscillator.md) | Trend | 3/10 | Descartar |
 | [Dispersion](indicators/es/Dispersion.md) | Trend | 1/10 | Descartar |
-| [DOM Heatmap (Manual)](indicators/es/DOMLevels.md) | Order Flow | 9/10 | Conservar |
+| [DOM Levels/Heatmap](indicators/es/DOMLevels.md) | Order Flow | 9/10 | Conservar (Core) |
 | [DOM Power Modif](indicators/es/DomPower.md) | Order Flow | 9/10 | Conservar (Core) |
 | [DOM Strength Modif](indicators/es/DomStrengthModif.md) | Order Flow | 9/10 | Conservar (Core) |
 | [Donchian Channel](indicators/es/Donchian.md) | Structure | 8/10 | Conservar |
@@ -193,6 +193,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Margin zones](indicators/es/MarginZones.md) | Structure | 3/10 | Reparar |
 | [Market Facilitation Index](indicators/es/MarketFacilitation.md) | Order Flow | 6/10 | Mejorar |
 | [Maximum Levels](indicators/es/MaxLevels.md) | Order Flow | 8.5/10 | Conservar (Core) |
+| [MBO DOM](indicators/es/MBODOM.md) | Order Flow | 10/10 | Conservar (Core) |
 | [McClellan Oscillator](indicators/es/McClellanOscillator.md) | Oscillators | 6/10 | Conservar |
 | [McClellan Summation Index](indicators/es/MSI.md) | Oscillators | 7/10 | Mejorar |
 | [Mean Deviation](indicators/es/MeanDeviation.md) | Trend | 5/10 | Mejorar |
@@ -216,7 +217,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Order Block](indicators/es/OrderBlock.md) | Structure | 9/10 | Conservar |
 | [Order Book Alerts](indicators/es/OrderBookAlerts.md) | Order Flow | 9/10 | Conservar |
 | [Order Flow Indicator](indicators/es/OrderFlow.md) | Order Flow | 9/10 | Conservar (Reserva) |
-| [Order Flow Rhythm (Lab)](indicators/es/OrderFlowRythm.md) | Order Flow | 7/10 | Conservar (Refactorizar Urgente) |
+| [Order Flow Rhythm (Lab)](indicators/es/OrderFlowRythmLab.md) | Order Flow | 7/10 | Conservar (Refactorizar Urgente) |
 | [OSMA (Moving Average of Oscillator)](indicators/es/OSMA.md) | Oscillators | 7/10 | Mejorar |
 | [Outside Bar](indicators/es/OutsideBar.md) | Structure | 6/10 | Mejorar |
 | | | | |
@@ -260,7 +261,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Sine-Wave Weighted Moving Average](indicators/es/SWWMA.md) | Trend | 5/10 | Mejorar |
 | [SMA (Simple Moving Average)](indicators/es/SMA.md) | Trend | 9/10 | Conservar |
 | [SMMA (Smoothed Moving Average)](indicators/es/SMMA.md) | Trend | 7/10 | Conservar |
-| [Speed of Tape (Lab)](indicators/es/SpeedOfTapeLab.md) | Order Flow | 6/10 | Conservar (Reserva / Educativo) |
+| [Speed of Tape (Lab)](indicators/es/SpeedOfTapeLab.md) | Order Flow | 6/10 | Conservar (Reserva) |
 | [Speed of Tape Modif V2](indicators/es/SpeedOfTapeModifV2.md) | Order Flow | 10/10 | Conservar (Core) |
 | [Spread Volume](indicators/es/SpreadVolume.md) | Order Flow | 7/10 | Conservar (Reserva) |
 | [Squeeze Momentum](indicators/es/SqueezeMomentum.md) | Trend | 9/10 | Conservar |

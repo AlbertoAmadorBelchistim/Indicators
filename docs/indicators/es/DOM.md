@@ -1,34 +1,45 @@
 ﻿---
-cs_file: DOM.cs
-name: Depth of Market
-category: Order Flow
-group: Order Flow
-subgroup: DOM
-score_current: 9/10
-version: Latest
-recommended_action: Conservar
-description: ¿Cuál es la liquidez (libro de órdenes) actual, dibujada en el gráfico?
-gemini_summary: "Herramienta 'Core' de Order Flow que visualiza el libro de órdenes (DOM) directamente en el gráfico. Esencial."
-comparison_group: "DOM Visuals"
-competitor_notes: "El estándar visual."
-reusable_code: null
-file_state: Estable
-score_potential: 9/10
-effort: N/A
-action_priority: N/A
-analysis_date: 2025-11-17
-official_code_date: 10/11/2025
+# 1. IDENTIFICACIÓN
+cs_file:  DOM.cs  
+name:  Depth Of Market  
+version:  ATAS Latest  
+
+# 2. CLASIFICACIÓN
+group:  Order Flow  
+subgroup:  DOM  
+comparison_group:  "DOM Visuals"  
+
+# 3. VALORACIÓN (Score & Priority)
+score_current:  7/10  
+score_potential:  7/10  
+file_state:  Estable  
+effort:  Bajo  
+action_priority:  Baja  
+system_priority:  P3  
+
+# 4. DECISIÓN
+recommended_action:  Conservar (Reserva)  
+
+# 5. ANÁLISIS
+description:  ¿Cuánta liquidez hay AHORA MISMO en cada nivel (agregado)?  
+gemini_summary:  "La herramienta básica. Funcional pero redundante si se usa MBO DOM, que incluye esta funcionalidad. Renderizado GDI+ estándar."  
+competitor_notes:  "Inferior al MBO DOM en detalle. Inferior a DomLevels en historia."  
+reusable_code:  null  
+
+# 6. METADATOS
+analysis_date:  2025-11-30  
+official_code_date:  2025-10-11  
 ---
 
-## 🟦 Depth of Market (DOM) (9/10)
+## 📊 Depth Of Market (7/10)
 
 **Nombre del archivo:** [`DOM.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/DOM.cs)  
-**Nombre del indicador:** Depth of Market  
+**Nombre del indicador:** Depth Of Market  
 **Web oficial:** [ATAS — Depth of Market](https://help.atas.net/support/solutions/articles/72000602367)  
 **Compatibilidad:** ATAS versión latest y superiores.  
-**Última revisión del código oficial:** 10/11/2025
+**Última revisión del código oficial:** 2025-10-11  
 
-> **La Pregunta Clave:** ¿Cuál es la liquidez (libro de órdenes) actual, dibujada en el gráfico?
+> **La Pregunta Clave:** ¿Cuánta liquidez hay AHORA MISMO en cada nivel de precio (agregado)?
 
 ![DOM](../../img/DOM.png)
 
@@ -36,89 +47,107 @@ official_code_date: 10/11/2025
 
 ### ⚙️ Parámetros configurables
 
-* **VisualMode**: Modo de visualización (`Common`, `Cumulative`, `Combined`).
-* **UseAutoSize / Width / RightToLeft / ProportionVolume**: Ajustes de escala y orientación.
-* **BidRows / AskRows / TextColor / Backgrounds**: Colores personalizables por tipo de nivel.
-* **FilterColors**: Filtros por volumen con color asignado.
-* **ShowCumulativeValues**: Mostrar volumen total acumulado.
-* **PriceLevelsHeight / Scale / UseScale / CustomScale**: Control visual de la escala y resolución de niveles.
+#### **Histogram Size (Dimensiones)**
+* **Visual Mode:** 
+    * `Common`: Barras de compra/venta separadas (estilo clásico).
+    * `Cumulative`: Barras de suma acumulada (para ver profundidad total).
+    * `Combined`: Superpone ambas vistas.
+* **Use Auto Size:** Ajusta el ancho de las barras automáticamente al máximo volumen visible.  
+* **Proportion Volume:** (Si AutoSize off) Define qué volumen representa el 100% del ancho.
+* **Width:** Ancho máximo de las barras en píxeles.
+* **Right To Left:** Cambia la dirección de las barras (de derecha a izquierda o viceversa).  
+
+#### **Levels Mode (Estilo)**
+* **Bid/Ask Rows & Backgrounds:** Colores para las barras y el fondo de cada nivel.  
+* **Filter Colors:** Lista de filtros. Permite asignar colores específicos (ej. amarillo brillante) a niveles que superen X volumen.  
+
+#### **Other Settings (Otros)**
+* **Show Cumulative Values:** Muestra el volumen total de bid y ask sumando el de todos los niveles.
+* **Price Levels Height:** Altura de cada nivel de precio en píxeles (0 = altura real).
 
 ---
 
 ### 🧭 Clasificación
-📂 OrderBook — Indicadores de profundidad de mercado (nivel 2).
+**Grupo:** Order Flow  
+**Subgrupo:** DOM  
+**Comparison Group:** "DOM Visuals"  
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* Visualizar el **libro de órdenes (bid/ask)** en el gráfico.
-* Detectar **niveles con gran liquidez** (muros) o desequilibrio de órdenes.
-* Evaluar volumen acumulado por nivel de precio (modo `Cumulative`).
-* Identificar zonas de absorción o *spoofing* mediante colores o filtros.
+* **Lectura Rápida:** Vistazo rápido a la liquidez lateral sin necesidad de interpretación compleja.  
+* **Respaldo:** Uso cuando el proveedor de datos no soporta MBO.  
+
 
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **9 / 10**
+7️⃣ **7 / 10**
 
-✅ **Herramienta "Core":** Ofrece lectura directa del DOM en el gráfico, indispensable para scalping de liquidez.  
-✅ Altamente personalizable con múltiples modos y escalas.  
-⛔ Complejo de configurar sin conocimiento previo.  
-⛔ Consume recursos si el DOM es muy profundo.
+✅ **Sencillez:** Fácil de leer, consumo mínimo de CPU.  
+⛔ **Redundancia:** El indicador `MBO DOM` muestra los mismos datos con mayor nivel de detalle.  
+⛔ **Ceguera:** No permite ver si un nivel de 500 lotes es 1 orden o 500 órdenes.  
+
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Detección de Muros (Liquidez):** Operar reversiones o absorciones en niveles con gran volumen en el DOM.
-* **Spoofing**: Detectar "muros" falsos que desaparecen justo antes de que el precio los toque.
-* **Confirmación de Ruptura**: Validar rupturas si la liquidez opuesta ("muro" de venta en una ruptura alcista) es retirada.
+* **Soporte/Resistencia Básico:** Identificación de muros de volumen agregado.  
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **VisualMode**: `Combined` o `Cumulative`.
-* **Width**: `150` (o al gusto).
-* **FilterColors**: Asignar colores a volúmenes significativos (ej. ≥ 300, 1000 lotes en ES).
-* **ShowCumulativeValues**: `true`.
-* **UseAutoSize**: `true`.
-* **Scale**: `20`.
+* **Visual Mode:** `Common` (Menos intrusivo).
+* **Width:** `100` (Estrecho, solo referencia).
+* **Filter Colors:** Añadir filtro > 300 lotes en color Amarillo.
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* Es un indicador de **renderizado puro** que lee el `MarketDepthInfo.GetMarketDepthSnapshot()` y lo dibuja en el panel de precios.
-* No *calcula* análisis, solo *visualiza* los datos del Nivel 2.
-* La lógica de `OnRender` maneja el dibujo de las barras, texto y colores según los filtros.
-* El modo `Cumulative` suma la liquidez desde el mejor Bid/Ask hacia afuera.
+* **Código Básico:** Utiliza `OnRender` estándar con bucles sobre `MarketDepthInfo.GetMarketDepthSnapshot()`.  
+* **Renderizado:** Dibuja rectángulos (`context.FillRectangle`) y texto para cada nivel de precio visible. No usa aceleración compleja.  
+
+
+---
+
+### ❗ Incoherencias o aspectos mejorables detectados
+
+* **Superposición:** En momentos de alta volatilidad, el redibujado puede tener ligero retraso visual respecto al precio real en el chart.  
+
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-* Añadir opción para **limitar la profundidad visualizada** (ej. "mostrar solo 10 niveles") para reducir el ruido visual y de CPU.
-* Añadir alertas si un nivel de X lotes aparece a Y ticks del precio.
+* **Ninguna:** Es un indicador legado.  
+
 
 ---
+
+### 💎 Valor Reutilizable (Código Donante)
+
+* **Null:** No aporta lógica que no tengamos mejor implementada en MBO DOM o DomLevels.  
+
+
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Esta no es una herramienta de "análisis", es la **visualización de los datos en bruto**. Para un scalper de Order Flow, es una de las tres herramientas fundamentales, junto con el *Footprint* (lo que se ejecutó) y el *Time & Sales* (cuándo se ejecutó).
+Un clásico fiable, pero obsoleto en un entorno de trading profesional con acceso a datos MBO. Guárdalo en la recámara por si cambias a un datafeed de menor calidad o necesitas una visualización simplificada.
 
-`DOM` te muestra la **intención pasiva** (órdenes límite) en el gráfico. Te permite ver dónde están los "muros" de liquidez que pueden frenar el precio (absorción) o dónde está el "vacío" de liquidez que puede causar un movimiento rápido.
-
-Tu puntuación de 9/10 es perfecta. Es una herramienta indispensable.
+**Propuestas de Acción:**
+* Mover a carpeta de "Reservas".
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí. Es una herramienta principal indispensable.**
+**Sí (Básico)**
 
-Permite al scalper leer la liquidez pasiva, identificar *icebergs* (órdenes grandes ocultas), y detectar *spoofing*.
+Útil, pero superado por sus competidores.
 
-**Acción:** **Conservar (Herramienta Principal).**
+**Acción:** **Conservar (Reserva)**

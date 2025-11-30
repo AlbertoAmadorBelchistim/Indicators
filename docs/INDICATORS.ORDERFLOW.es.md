@@ -12,13 +12,14 @@
 > *El terreno de juego. Órdenes limitadas (pendientes) y muros de liquidez.*
 
 
-### ⚔️ DOM Visuals <small>⚠️ (Pendiente)</small>
+### ⚔️ DOM Visuals <small>✅ (Fase 2)</small>
 _Visualización gráfica del libro de órdenes y profundidad (Depth of Market)._
 
 | Score | Estado | Indicador | Descripción / Notas |
 | :---: | :--- | :--- | :--- |
-| 9/10 | ✅ Conservar | [Depth of Market](indicators/es/DOM.md) | ¿Cuál es la liquidez (libro de órdenes) actual, dibujada en el gráfico? |
-| 9/10 | ✅ Conservar | [DOM Heatmap (Manual)](indicators/es/DOMLevels.md) | ¿Cómo ha evolucionado la liquidez del libro de órdenes (Heatmap) a lo largo del tiempo? |
+| **10/10** | ✅ Conservar (Core) | [MBO DOM](indicators/es/MBODOM.md) | ¿La muralla de liquidez es real (una institución) o son 500 traders retail? ¿Hay bloques grandes esperando (Icebergs)? |
+| **9/10** | ✅ Conservar (Core) | [DOM Levels/Heatmap](indicators/es/DOMLevels.md) | ¿Dónde ha estado la liquidez históricamente? ¿Es este nivel de soporte nuevo o lleva ahí todo el día? |
+| **7/10** | ✅ Conservar (Reserva) | [Depth Of Market](indicators/es/DOM.md) | ¿Cuánta liquidez hay AHORA MISMO en cada nivel (agregado)? |
 
 ### ⚔️ Liquidez vs Agresión <small>✅ (Fase 2)</small>
 _Comparativa de fuerza: Órdenes Limitadas (Muros) vs Órdenes a Mercado (Ataques)._
@@ -164,8 +165,8 @@ _Ritmo del mercado. Detección de aceleraciones y frenazos en la cinta._
 | Score | Estado | Indicador | Descripción / Notas |
 | :---: | :--- | :--- | :--- |
 | **10/10** | ✅ Conservar (Core) | [Speed of Tape Modif V2](indicators/es/SpeedOfTapeModifV2.md) | ¿Cuál es la velocidad REAL de ejecución (HFT) independientemente de la duración de la vela? |
-| **7/10** | ✅ Conservar (Refactorizar Urgente) | [Order Flow Rhythm (Lab)](indicators/es/OrderFlowRythm.md) | ¿Cuál es la intensidad/ritmo del mercado visualizada como mapa de calor (Heatmap)? |
-| **6/10** | ✅ Conservar (Reserva / Educativo) | [Speed of Tape (Lab)](indicators/es/SpeedOfTapeLab.md) | ¿Cuál es la velocidad de ejecución del mercado calculada por interpolación? |
+| **7/10** | ✅ Conservar (Refactorizar Urgente) | [Order Flow Rhythm (Lab)](indicators/es/OrderFlowRythmLab.md) | ¿Cuál es la intensidad/ritmo del mercado visualizada como mapa de calor (Heatmap)? |
+| **6/10** | ✅ Conservar (Reserva) | [Speed of Tape (Lab)](indicators/es/SpeedOfTapeLab.md) | ¿Cuál es la velocidad de ejecución del mercado calculada por interpolación? |
 
 ### ⚔️ VSA & Anomalies <small>✅ (Fase 2)</small>
 _Volume Spread Analysis. Velas climáticas, volumen de parada y anomalías._

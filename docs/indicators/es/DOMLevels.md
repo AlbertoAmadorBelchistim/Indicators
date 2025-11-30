@@ -1,95 +1,152 @@
 ﻿---
-cs_file: DOMLevels.cs
-name: DOM Heatmap (Manual)
-category: Order Flow
-group: Order Flow
-subgroup: DOM
-score_current: 9/10
-version: Estable
-recommended_action: Conservar
-description: ¿Cómo ha evolucionado la liquidez del libro de órdenes (Heatmap) a lo largo del tiempo?
-gemini_summary: "Generador de mapa de calor (Bookmap-style) dentro del gráfico. Gestión de memoria eficiente."
-comparison_group: "DOM Visuals"
-competitor_notes: "Único en su clase."
-reusable_code: null
-file_state: Estable
-score_potential: 10/10
-effort: Alto
-action_priority: N/A
-analysis_date: 2025-11-19
-user_modification_date: 2025-11-19
+# 1. IDENTIFICACIÓN
+cs_file:  DomLevels.cs  
+name:  DOM Levels/Heatmap  
+version:  ATAS Stable  
+
+# 2. CLASIFICACIÓN
+group:  Order Flow  
+subgroup:  DOM  
+comparison_group:  "DOM Visuals"  
+
+# 3. VALORACIÓN (Score & Priority)
+score_current:  9/10  
+score_potential:  9/10  
+file_state:  Estable  
+effort:  N/A  
+action_priority:  Nula  
+system_priority:  P1  
+
+# 4. DECISIÓN
+recommended_action:  Conservar (Core)  
+
+# 5. ANÁLISIS
+description:  ¿Dónde ha estado la liquidez históricamente? ¿Es este nivel de soporte nuevo o lleva ahí todo el día?  
+gemini_summary:  "El Tanque. Insuperable en rendimiento gráfico gracias a su motor nativo acelerado por hardware. Es la contraparte estratégica del MBO: ofrece el contexto histórico."  
+competitor_notes:  "Complemento del MBO. MBO domina el presente (Tactical), DomLevels domina el pasado (Strategic)."  
+reusable_code:  "DataCollector.cs (Lógica matemática de agregación)."  
+
+# 6. METADATOS
+analysis_date:  2025-11-30  
+official_code_date:  Desconocida  
 ---
 
-## 🟦 DOM Levels (9/10)
+## 🟦 DOM Levels/Heatmap (9/10)
 
-**Nombre del indicador:** Dom Heatmap Manual  
-**Web oficial:** [ATAS — DOM Levels](https://justscalpit.com/free-indicators-for-atas-platform/)  
+**Nombre del archivo:** `DomLevels.cs`  
+**Nombre del indicador:** DOM Levels/Heatmap  
+**Web oficial:** [ATAS Help - DomLevels](https://help.atas.net/support/solutions/articles/72000602241)  
 **Compatibilidad:** ATAS versión estable y superiores. **Requiere datos L2 (Market Depth).**  
 
 > **La Pregunta Clave:** ¿Cómo ha evolucionado la liquidez del libro de órdenes (Heatmap) a lo largo del tiempo en el gráfico?
 
 ![DOMLevels](../../img/DOMLevels.png)
 
+
 ---
 
 ### ⚙️ Parámetros configurables
 
-* **Colors**: Low/High Volume (Gradiente).
-* **Opacity**: Transparencia del mapa.
-* **Filters**: Volumen Mínimo y Volumen de Corte (Max).
+#### **HeatmapSettings (Motor Gráfico)**
+* **Heatmap Type:** Selecciona la paleta de colores (Térmico, Azul monocromo, etc.).  
+* **Upper Cutoff:** (%) Umbral de saturación. Define qué porcentaje del volumen máximo se pinta con el color más intenso.  
+* **Contrast:** (%) Ajuste gamma. Aumenta la diferencia visual entre niveles de volumen alto y medio.  
+* **Smoothing Mode:** `Auto` (calculado por zoom) o `Manual`. Define si los bloques se difuminan verticalmente para crear efecto "nube".  
+* **Smoothing:** (Si Manual) Intensidad del desenfoque vertical.  
+* **Pow Scale:** (Logarítmica) Acentúa visualmente los volúmenes bajos.  
+* **Extend DOM Levels:** El mapa de calor llega hasta la vela actual.
+* **Show inactive levels:** Muestra las últimas órdenes conocidas en niveles alejados del precio actual que no reciben actualizaciones del proveedor de datos.
+
+#### **Filters**
+* **Min Volume Filter:** Oculta completamente niveles con volumen inferior a X (limpieza de ruido).  
+* **Max Volume Filter:** Resalta en un color específico (ej. Rojo) los niveles que superan X volumen.  
+
+#### **HistorySaving**
+* **Days To Save:** Días de historial a mantener en caché de disco.  
+* **Bars Limit:** Límite de barras para renderizar en pantalla.  
+
 
 ---
 
 ### 🧭 Clasificación
-📂 OrderFlow — Visualización de liquidez histórica (Depth of Market History).
+**Grupo:** Order Flow  
+**Subgrupo:** DOM  
+**Comparison Group:** "DOM Visuals"  
+
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* **Bookmap Casero:** Permite ver si el precio se dirige hacia zonas de alta liquidez (imanes) o si la liquidez se retira (spoofing).
-* **Soportes Reales:** Las líneas brillantes horizontales indican órdenes pasivas esperando.
+* **Contexto de Mercado:** Ver zonas de liquidez históricas que actuaron como imán o rechazo.  
+* **Trailing Liquidity:** Detectar algoritmos que mueven la liquidez acompañando al precio (soporte dinámico).  
+
 
 ---
 
 ### 📊 Nivel de relevancia
 🔟 **9 / 10**
 
-✅ **Funcionalidad Premium:** Esta característica suele ser de pago en otras plataformas (Bookmap, Jigsaw). Aquí está integrada.  
-✅ **Gestión de Recursos:** Implementa limpieza de memoria (`Remove old keys`) y renderizado optimizado (`OnRender` con GDI).  
-⛔ **Limitación:** Solo muestra datos desde que se carga el indicador (no puede acceder al histórico del DOM pasado si ATAS no lo provee, que usualmente no lo hace para L2).
+✅ **Rendimiento:** Utiliza texturas GPU (`OFT.Rendering`).
+✅ **Persistencia:** Guarda datos históricos en disco mediante `BinaryWriter`.  
+⛔ **Caja Negra:** Lógica cerrada.  
+
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Trading hacia la liquidez:** El precio tiende a ir a buscar las zonas de color brillante (High Volume).
-* **Rechazo:** Si el precio toca una zona brillante y no la atraviesa, es un soporte fuerte.
+* **Reingreso a Rango:** Usar bordes de liquidez histórica como zonas de "fade".  
+* **Breakout Failure:** Confirmar falsas rupturas cuando chocan con liquidez histórica.  
+
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **Max Volume (Hot)**: `300` a `500` (Ajustar según volatilidad).
-* **Opacity**: `100` (Para ver las velas detrás).
+| Parámetro | Valor | Justificación |
+| :--- | :--- | :--- |
+| **Heatmap Type** | `RedToDarkToGreen` | Alto contraste visual térmico. |
+| **Contrast** | `30` | Resaltar "ballenas" sobre el ruido de fondo. |
+| **Auto Smoothing** | `True` | Visión orgánica de "zonas" en lugar de líneas pixeladas. |
+| **Min Volume Filter** | `5` | Limpiar ruido de 1-4 lotes. |
+| **Max Volume (Custom)** | `500` | Estandarizar la escala visual para ES. |
+
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* **Captura:** Usa `MarketDepthChanged` para llenar un diccionario `_heatmapData[bar][price]`.
-* **Render:** Dibuja rectángulos pixel a pixel. Interpola el color entre `LowColor` y `HighColor` basándose en el volumen.
-* **Truco:** Ajusta el ancho del rectángulo para cubrir el espacio entre velas (`BarSpacing`), creando un efecto continuo.
+* **Ingeniería Inversa:** El código decompilado revela que usa `HeatmapControl` (interno de ATAS) y gestiona una caché de disco propia en `C:\ATAS\UserData`.  
+* **Optimización:** La clase `DataCollector` usa diccionarios sincronizados para agregar volúmenes antes de enviarlos al motor gráfico, asegurando que el renderizado no se ralentice con millones de ticks.  
+
 
 ---
+
+### ❗ Incoherencias o aspectos mejorables detectados
+
+* **Caja negra:** No se puede recompilar fácilmente como indicador custom porque depende de DLLs con código cerrado (`ATAS.Indicators.Other`).  
+
+
+---
+
+### 🛠️ Propuestas de mejora
+
+* Ninguna viable a nivel de código dado que es un indicador nativo cerrado. Su mejora pasa por complementarlo con el MBO DOM.  
+
+
+---
+
+### 💎 Valor Reutilizable (Código Donante)
+
+* **`DataCollector.cs`:** La lógica matemática de agregación de volúmenes por precio y barra es extraíble y reutilizable para crear osciladores de liquidez o indicadores de presión de DOM sin parte gráfica.  
+
+
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Es técnicamente impresionante. Recrear un Heatmap dentro de un indicador custom demuestra dominio de la API de dibujo. Es una herramienta visual muy poderosa.
-
-**Propuestas de Mejora:**
-* **Panel Lateral:** Añadir un histograma del DOM actual a la derecha para ver la liquidez presente vs la histórica.
+Es insustituible como fondo de pantalla del trader. Su valor está en su motor gráfico propietario.
 
 ---
 
@@ -97,4 +154,4 @@ Es técnicamente impresionante. Recrear un Heatmap dentro de un indicador custom
 
 **Muy útil.** Ver la historia de la liquidez da contexto a los movimientos actuales.
 
-**Acción:** **Conservar.**
+**Acción:** **Conservar (Core)**
