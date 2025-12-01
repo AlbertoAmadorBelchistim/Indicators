@@ -407,7 +407,7 @@ namespace ATAS.Indicators.Technical
 
         private TimeSpan CurrentDifference()
 		{
-			var timeleft = MarketTime > _endTime 
+			var timeleft = (MarketTime - _endTime) > TimeSpan.FromMinutes(1) 
 				? _endTime - UtcTime.AddMinutes(-15)
 				: _endTime - MarketTime;
 

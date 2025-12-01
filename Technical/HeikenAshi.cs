@@ -55,7 +55,12 @@ namespace ATAS.Indicators.Technical
         #endregion
 
         #region Protected methods
-		
+
+        protected override void OnInitialize()
+        {
+	        _candles.DrawCandleBorder = true;
+        }
+
         protected override void OnApplyDefaultColors()
         {
 	        if (ChartInfo is null)
