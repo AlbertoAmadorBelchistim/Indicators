@@ -17,7 +17,7 @@
 
     [Category("Order Flow")]
     [DisplayName("DOM Pressure")]
-    [Description("Indicador Híbrido: Combina la presión pasiva (DOM Power) con la agresión real (Delta).")]
+    [Description("Indicador Híbrido: Combina la presión pasiva (DOM Power) con la agresión real (Delta). Incluye filtro inteligente de absorción.")]
     public class DomPressure : Indicator
     {
         #region Fields
@@ -64,6 +64,10 @@
         [Range(0, 1000)]
         public int DomDepthLimit { get; set; } = 20;
 
+        [Display(Name = "Absorption Threshold %", GroupName = "1. Calculation", Order = 20, Description = "Porcentaje mínimo de agresión respecto al muro para marcar absorción (Filtro de ruido).")]
+        [Range(1, 100)]
+        public int AbsorptionThreshold { get; set; } = 15;
+
         #endregion
 
         #region 2. Visuals
@@ -97,7 +101,7 @@
         [Display(Name = "Absorption Marker", GroupName = "3. Colors", Order = 90)]
         public DrawingColor AbsorptionColor { get; set; } = DrawingColor.Yellow;
 
-        [Display(Name = "Labels Color", GroupName = "3. Colors", Order = 100)]
+        [Display(Name = "Axis Color", GroupName = "3. Colors", Order = 100)]
         public DrawingColor AxisColor { get; set; } = DrawingColor.Gray;
 
         #endregion
@@ -297,11 +301,15 @@
                 DrawBarVisual(context, x, w, middleY, _strengthSeries[i], scaleStrength,
                               StrengthWidth, StrengthOpacity, true, out int strengthTipY);
 
-                // ABSORCIÓN
+                // LÓGICA DE ABSORCIÓN INTELIGENTE
                 decimal pVal = _powerSeries[i];
                 decimal sVal = _strengthSeries[i];
 
-                if (Math.Sign(pVal) != Math.Sign(sVal) && pVal != 0 && sVal != 0)
+                // Filtro de relevancia: La agresión debe ser al menos un X% del muro
+                decimal ratio = Math.Abs(pVal) == 0 ? 0 : Math.Abs(sVal) / Math.Abs(pVal);
+                decimal threshold = (decimal)AbsorptionThreshold / 100m;
+
+                if (Math.Sign(pVal) != Math.Sign(sVal) && ratio > threshold)
                 {
                     DrawAbsorptionMarker(context, x, w, strengthTipY);
                 }
