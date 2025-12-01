@@ -25,18 +25,17 @@ namespace MyIndicators
 
         private readonly ValueDataSeries _powerSeries = new("DomPower", "DOM Power (Passive)")
         {
-            // FIX COLOR: Usamos el tipo correcto para WPF
-            Color = System.Windows.Media.Colors.Transparent,
-            VisualType = VisualMode.Histogram,
-            ScaleIt = true,
+            Color = MediaColor.FromArgb(0, 0, 0, 0), // Transparente total
+            VisualType = VisualMode.Hide, // <--- CAMBIO: Oculto para que no pinte nada automático
+            ScaleIt = false, // <--- CAMBIO CRÍTICO: Evita que ATAS deforme la escala
             ShowZeroValue = false
         };
 
         private readonly ValueDataSeries _strengthSeries = new("DomStrength", "Trade Strength (Aggressive)")
         {
-            Color = System.Windows.Media.Colors.Transparent,
-            VisualType = VisualMode.Histogram,
-            ScaleIt = true,
+            Color = MediaColor.FromArgb(0, 0, 0, 0),
+            VisualType = VisualMode.Hide, // <--- CAMBIO
+            ScaleIt = false, // <--- CAMBIO CRÍTICO
             ShowZeroValue = false
         };
 
@@ -60,7 +59,7 @@ namespace MyIndicators
 
         [Display(Name = "DOM Depth Limit", GroupName = "1. Calculation", Order = 10, Description = "Niveles del DOM a sumar. 0 = Todo.")]
         [Range(0, 1000)]
-        public int DomDepthLimit { get; set; } = 0;
+        public int DomDepthLimit { get; set; } = 20;
 
         #endregion
 
@@ -107,6 +106,9 @@ namespace MyIndicators
 
             DataSeries[0] = _powerSeries;
             DataSeries.Add(_strengthSeries);
+
+            DataSeries[0].IsHidden = true;
+            DataSeries[1].IsHidden = true;
 
             EnableCustomDrawing = true;
             SubscribeToDrawingEvents(DrawingLayouts.Final);
@@ -220,84 +222,86 @@ namespace MyIndicators
         {
             if (ChartInfo == null || Container == null) return;
 
-            // 1. Calculamos el rango visible para Auto-Escala Manual
-            decimal maxAbsValue = 1; // Evitar div/0
+            // 1. COORDENADAS DEL PANEL (SISTEMA MANUAL)
+            // Container.Region nos da el rectángulo exacto de este indicador
+            int h = Container.Region.Height;
+            int y = Container.Region.Y;
+            int w = Container.Region.Width;
+
+            // El CERO siempre en el centro del panel
+            int middleY = y + (h / 2);
+
+            // 2. AUTO-ESCALA MANUAL
+            // Buscamos el valor más alto visible para que quepa en el panel
+            decimal maxVal = 1;
             for (int i = FirstVisibleBarNumber; i <= LastVisibleBarNumber; i++)
             {
-                maxAbsValue = Math.Max(maxAbsValue, Math.Abs(_powerSeries[i]));
-                maxAbsValue = Math.Max(maxAbsValue, Math.Abs(_strengthSeries[i]));
+                maxVal = Math.Max(maxVal, Math.Abs(_powerSeries[i]));
+                maxVal = Math.Max(maxVal, Math.Abs(_strengthSeries[i]));
             }
 
-            // 2. Definimos el centro y el factor de escala (Pixeles por Unidad de Volumen)
-            // Dejamos un margen del 5% arriba y abajo
-            float panelHeight = Container.Region.Height;
-            float zeroY = Container.Region.Y + (panelHeight / 2f);
-            float availableHeight = (panelHeight / 2f) * 0.95f;
-            float pixelsPerUnit = availableHeight / (float)maxAbsValue;
+            // Factor: (Altura media - Margen) / Valor Máximo
+            float scaleFactor = (h / 2f - 5) / (float)maxVal;
 
-            // 3. Dibujamos la línea cero
-            context.DrawLine(new RenderPen(DrawingColor.Gray), Container.Region.X, (int)zeroY, Container.Region.Right, (int)zeroY);
+            // 3. DIBUJAR LÍNEA CERO
+            context.DrawLine(new RenderPen(DrawingColor.Gray), 0, middleY, w, middleY);
 
-            // 4. Dibujamos las barras
+            // 4. BUCLE DE DIBUJO
             for (int i = FirstVisibleBarNumber; i <= LastVisibleBarNumber; i++)
             {
-                int x = ChartInfo.GetXByBar(i);
-                int w = (int)ChartInfo.PriceChartContainer.BarsWidth;
+                int barX = ChartInfo.GetXByBar(i);
+                int barW = (int)ChartInfo.PriceChartContainer.BarsWidth;
 
-                // POWER (Fondo)
-                decimal powerVal = _powerSeries[i];
-                DrawBarManual(context, x, w, zeroY, powerVal, pixelsPerUnit, PowerWidth, PowerOpacity, false);
+                // DIBUJAR POWER (Fondo)
+                DrawBarManual(context, barX, barW, middleY, _powerSeries[i], scaleFactor, PowerWidth, PowerOpacity, false);
 
-                // STRENGTH (Frente)
-                decimal strengthVal = _strengthSeries[i];
-                DrawBarManual(context, x, w, zeroY, strengthVal, pixelsPerUnit, StrengthWidth, StrengthOpacity, true);
+                // DIBUJAR STRENGTH (Frente)
+                DrawBarManual(context, barX, barW, middleY, _strengthSeries[i], scaleFactor, StrengthWidth, StrengthOpacity, true);
 
-                // ABSORPTION
-                if (Math.Sign(powerVal) != Math.Sign(strengthVal) && powerVal != 0 && strengthVal != 0)
+                // DIBUJAR ABSORCIÓN
+                if (Math.Sign(_powerSeries[i]) != Math.Sign(_strengthSeries[i])
+                    && _powerSeries[i] != 0 && _strengthSeries[i] != 0)
                 {
-                    DrawAbsorptionMarker(context, x, w, (int)zeroY);
+                    DrawAbsorptionMarker(context, barX, barW, middleY);
                 }
             }
         }
 
-        private void DrawBarManual(RenderContext ctx, int x, int w, float zeroY, decimal val, float scale, int widthPct, int alpha, bool isFront)
+        private void DrawBarManual(RenderContext ctx, int x, int w, int yZero, decimal val, float scale, int widthPct, int alpha, bool isFront)
         {
             if (val == 0) return;
 
-            float height = Math.Abs((float)val) * scale;
-            // Si es positivo, subimos (restamos Y). Si es negativo, bajamos (sumamos Y).
-            float topY = val > 0 ? (zeroY - height) : zeroY;
+            // Altura en píxeles = Valor * Escala
+            int heightPx = (int)(Math.Abs((float)val) * scale);
+            if (heightPx < 1) heightPx = 1;
+
+            // Si es positivo (>0), dibujamos hacia arriba (Y - altura)
+            // Si es negativo (<0), dibujamos hacia abajo (Y)
+            int yPos = val > 0 ? yZero - heightPx : yZero;
 
             int drawW = Math.Max(1, (w * widthPct) / 100);
             int drawX = x + (w - drawW) / 2;
 
-            // Asegurar rectángulo válido
-            if (height < 1) height = 1;
-
             DrawingColor c = val > 0 ? BuyColor : SellColor;
             DrawingColor finalColor = DrawingColor.FromArgb(alpha, c);
 
-            var rect = new Rectangle(drawX, (int)topY, drawW, (int)height);
+            var rect = new Rectangle(drawX, yPos, drawW, heightPx);
             ctx.FillRectangle(finalColor, rect);
 
             if (isFront)
-            {
                 ctx.DrawRectangle(new RenderPen(DrawingColor.FromArgb(150, DrawingColor.White)), rect);
-            }
         }
 
         private void DrawAbsorptionMarker(RenderContext ctx, int x, int w, int y0)
         {
-            int size = 5;
+            int size = 4;
             int centerX = x + w / 2;
-
             Point[] diamond = {
                 new Point(centerX, y0 - size),
                 new Point(centerX + size, y0),
                 new Point(centerX, y0 + size),
                 new Point(centerX - size, y0)
             };
-
             ctx.FillPolygon(AbsorptionColor, diamond);
         }
 
