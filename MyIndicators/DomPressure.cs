@@ -1,47 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Drawing;
-using System.Linq;
-using ATAS.Indicators;
-using ATAS.Indicators.Technical;
-using OFT.Attributes;
-using OFT.Rendering.Context;
-using OFT.Rendering.Tools;
-
-// Alias para evitar colisiones
-using DrawingColor = System.Drawing.Color;
-using MediaColor = System.Windows.Media.Color;
-
-namespace MyIndicators
+﻿namespace MyIndicators
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+    using System.Drawing;
+    using System.Linq;
+    using ATAS.Indicators;
+    using ATAS.Indicators.Technical;
+    using OFT.Attributes;
+    using OFT.Rendering.Context;
+    using OFT.Rendering.Tools;
+
+    using DrawingColor = System.Drawing.Color;
+    using MediaColor = System.Windows.Media.Color;
+
     [Category("Order Flow")]
     [DisplayName("DOM Pressure")]
-    [Description("Indicador Híbrido: Combina la presión pasiva (DOM Power) con la agresión real (Delta) para detectar absorción.")]
+    [Description("Indicador Híbrido: Combina la presión pasiva (DOM Power) con la agresión real (Delta).")]
     public class DomPressure : Indicator
     {
-        #region Series de Datos (UI y Escala)
+        #region Fields
 
         private readonly ValueDataSeries _powerSeries = new("DomPower", "DOM Power (Passive)")
         {
-            Color = MediaColor.FromArgb(0, 0, 0, 0), // Transparente total
-            VisualType = VisualMode.Hide, // <--- CAMBIO: Oculto para que no pinte nada automático
-            ScaleIt = false, // <--- CAMBIO CRÍTICO: Evita que ATAS deforme la escala
+            Color = MediaColor.FromArgb(0, 0, 0, 0),
+            VisualType = VisualMode.Hide,
+            ScaleIt = false,
             ShowZeroValue = false
         };
 
         private readonly ValueDataSeries _strengthSeries = new("DomStrength", "Trade Strength (Aggressive)")
         {
             Color = MediaColor.FromArgb(0, 0, 0, 0),
-            VisualType = VisualMode.Hide, // <--- CAMBIO
-            ScaleIt = false, // <--- CAMBIO CRÍTICO
+            VisualType = VisualMode.Hide,
+            ScaleIt = false,
             ShowZeroValue = false
         };
-
-        #endregion
-
-        #region Fields Internos
 
         private readonly SortedList<decimal, decimal> _mDepthAsk = new();
         private readonly SortedList<decimal, decimal> _mDepthBid = new();
@@ -51,13 +46,21 @@ namespace MyIndicators
         private decimal _barSellVolume;
         private int _lastBar = -1;
 
+        // Fuentes para etiquetas
+        private readonly RenderFont _axisFont = new("Arial", 8);
+        private readonly RenderStringFormat _axisFormat = new()
+        {
+            LineAlignment = StringAlignment.Center,
+            Alignment = StringAlignment.Far
+        };
+
         #endregion
 
-        #region Parámetros
+        #region Parameters
 
         #region 1. Calculation
 
-        [Display(Name = "DOM Depth Limit", GroupName = "1. Calculation", Order = 10, Description = "Niveles del DOM a sumar. 0 = Todo.")]
+        [Display(Name = "DOM Depth Limit", GroupName = "1. Calculation", Order = 10, Description = "Niveles por lado (Bid/Ask) a sumar. 20 = 20 Bid + 20 Ask.")]
         [Range(0, 1000)]
         public int DomDepthLimit { get; set; } = 20;
 
@@ -67,15 +70,15 @@ namespace MyIndicators
 
         [Display(Name = "Power Width %", GroupName = "2. Visuals", Order = 30)]
         [Range(10, 100)]
-        public int PowerWidth { get; set; } = 80;
+        public int PowerWidth { get; set; } = 95;
 
         [Display(Name = "Strength Width %", GroupName = "2. Visuals", Order = 40)]
         [Range(5, 90)]
-        public int StrengthWidth { get; set; } = 25;
+        public int StrengthWidth { get; set; } = 30;
 
         [Display(Name = "Power Opacity", GroupName = "2. Visuals", Order = 50)]
         [Range(10, 255)]
-        public int PowerOpacity { get; set; } = 100;
+        public int PowerOpacity { get; set; } = 60;
 
         [Display(Name = "Strength Opacity", GroupName = "2. Visuals", Order = 60)]
         [Range(10, 255)]
@@ -85,7 +88,6 @@ namespace MyIndicators
 
         #region 3. Colors
 
-        // Usamos DrawingColor para los parámetros de dibujo manual (GDI+)
         [Display(Name = "Buy Color", GroupName = "3. Colors", Order = 70)]
         public DrawingColor BuyColor { get; set; } = DrawingColor.LimeGreen;
 
@@ -94,6 +96,9 @@ namespace MyIndicators
 
         [Display(Name = "Absorption Marker", GroupName = "3. Colors", Order = 90)]
         public DrawingColor AbsorptionColor { get; set; } = DrawingColor.Yellow;
+
+        [Display(Name = "Labels Color", GroupName = "3. Colors", Order = 100)]
+        public DrawingColor AxisColor { get; set; } = DrawingColor.Gray;
 
         #endregion
 
@@ -107,8 +112,9 @@ namespace MyIndicators
             DataSeries[0] = _powerSeries;
             DataSeries.Add(_strengthSeries);
 
-            DataSeries[0].IsHidden = true;
-            DataSeries[1].IsHidden = true;
+            // Forzar ocultación en UI
+            _powerSeries.IsHidden = true;
+            _strengthSeries.IsHidden = true;
 
             EnableCustomDrawing = true;
             SubscribeToDrawingEvents(DrawingLayouts.Final);
@@ -143,6 +149,7 @@ namespace MyIndicators
         {
             ProcessDepthUpdate(depth);
             CalculateDomPower();
+            if (CurrentBar - 1 >= 0) RedrawChart();
         }
 
         protected override void OnNewTrade(MarketDataArg trade)
@@ -152,28 +159,56 @@ namespace MyIndicators
 
             decimal delta = _barBuyVolume - _barSellVolume;
             _strengthSeries[CurrentBar - 1] = delta;
+
+            RedrawChart();
         }
 
         protected override void OnCumulativeTradesResponse(CumulativeTradesRequest request, IEnumerable<CumulativeTrade> cumulativeTrades)
         {
+            // FIX HISTÓRICO: Resetear serie antes de rellenar para evitar duplicados
+            // Nota: No podemos limpiar _strengthSeries aquí fácilmente porque ATAS maneja el buffer,
+            // pero sobreescribiremos los valores.
+
             var trades = cumulativeTrades.ToList();
             if (trades.Count == 0) return;
 
-            int currentProcessingBar = 0;
+            // Diccionario temporal para acumular deltas por barra
+            var deltaPorBarra = new Dictionary<int, decimal>();
+
             foreach (var tradeBar in trades)
             {
-                while (currentProcessingBar < CurrentBar && GetCandle(currentProcessingBar).LastTime < tradeBar.Time)
-                    currentProcessingBar++;
+                // Buscar la barra exacta por tiempo (Más robusto)
+                // Usamos GetCandle(i).Time <= tradeBar.Time < GetCandle(i+1).Time
+                // Pero como CumulativeTrade ya agrupa por ticks, asumimos que pertenece a una vela.
+                // Método eficiente: Buscar índice por fecha
 
-                if (currentProcessingBar >= CurrentBar) break;
+                // Aproximación: Asumimos que tradeBar.Time coincide con el inicio de la vela o está dentro.
+                // ATAS suele devolver CumulativeTrades alineados si la petición es correcta.
+                // Si no, buscamos:
 
-                decimal delta = 0;
-                foreach (var tick in tradeBar.Ticks)
+                for (int i = 0; i < CurrentBar; i++)
                 {
-                    if (tick.Direction == TradeDirection.Buy) delta += tick.Volume;
-                    else if (tick.Direction == TradeDirection.Sell) delta -= tick.Volume;
+                    var candle = GetCandle(i);
+                    if (tradeBar.Time >= candle.Time && tradeBar.Time <= candle.LastTime)
+                    {
+                        decimal delta = 0;
+                        foreach (var tick in tradeBar.Ticks)
+                        {
+                            if (tick.Direction == TradeDirection.Buy) delta += tick.Volume;
+                            else if (tick.Direction == TradeDirection.Sell) delta -= tick.Volume;
+                        }
+
+                        if (!deltaPorBarra.ContainsKey(i)) deltaPorBarra[i] = 0;
+                        deltaPorBarra[i] += delta;
+                        break; // Trade asignado, siguiente
+                    }
                 }
-                _strengthSeries[currentProcessingBar] += delta;
+            }
+
+            // Volcar al DataSeries
+            foreach (var kvp in deltaPorBarra)
+            {
+                _strengthSeries[kvp.Key] = kvp.Value;
             }
         }
 
@@ -214,95 +249,120 @@ namespace MyIndicators
             _powerSeries[CurrentBar - 1] = bidsSum - asksSum;
         }
 
+        private string FormatK(decimal val) => Math.Abs(val) >= 1000 ? $"{val / 1000m:0.#}k" : $"{val:0}";
+
         #endregion
 
-        #region Rendering (FIX MANUAL SCALING)
+        #region Rendering (Escala Dual Independiente)
 
         protected override void OnRender(RenderContext context, DrawingLayouts layout)
         {
             if (ChartInfo == null || Container == null) return;
 
-            // 1. COORDENADAS DEL PANEL (SISTEMA MANUAL)
-            // Container.Region nos da el rectángulo exacto de este indicador
-            int h = Container.Region.Height;
-            int y = Container.Region.Y;
-            int w = Container.Region.Width;
+            Rectangle region = Container.Region;
+            int middleY = region.Y + (region.Height / 2);
 
-            // El CERO siempre en el centro del panel
-            int middleY = y + (h / 2);
+            context.DrawLine(new RenderPen(DrawingColor.FromArgb(50, AxisColor)), region.X, middleY, region.Right, middleY);
 
-            // 2. AUTO-ESCALA MANUAL
-            // Buscamos el valor más alto visible para que quepa en el panel
-            decimal maxVal = 1;
+            // 1. CALCULAR MÁXIMOS INDEPENDIENTES (Visible Range)
+            decimal maxPower = 1;
+            decimal maxStrength = 1;
+
             for (int i = FirstVisibleBarNumber; i <= LastVisibleBarNumber; i++)
             {
-                maxVal = Math.Max(maxVal, Math.Abs(_powerSeries[i]));
-                maxVal = Math.Max(maxVal, Math.Abs(_strengthSeries[i]));
+                maxPower = Math.Max(maxPower, Math.Abs(_powerSeries[i]));
+                maxStrength = Math.Max(maxStrength, Math.Abs(_strengthSeries[i]));
             }
 
-            // Factor: (Altura media - Margen) / Valor Máximo
-            float scaleFactor = (h / 2f - 5) / (float)maxVal;
+            // 2. FACTORES DE ESCALA INDEPENDIENTES
+            // Power usa el 95% de la altura (Fondo)
+            float heightPower = region.Height / 2f * 0.95f;
+            float scalePower = heightPower / (float)maxPower;
 
-            // 3. DIBUJAR LÍNEA CERO
-            context.DrawLine(new RenderPen(DrawingColor.Gray), 0, middleY, w, middleY);
+            // Strength usa el 80% de la altura (Para que se vea contenido pero grande)
+            float heightStrength = region.Height / 2f * 0.80f;
+            float scaleStrength = heightStrength / (float)maxStrength;
 
-            // 4. BUCLE DE DIBUJO
+            // 3. DIBUJAR
             for (int i = FirstVisibleBarNumber; i <= LastVisibleBarNumber; i++)
             {
-                int barX = ChartInfo.GetXByBar(i);
-                int barW = (int)ChartInfo.PriceChartContainer.BarsWidth;
+                int x = ChartInfo.GetXByBar(i);
+                int w = (int)ChartInfo.PriceChartContainer.BarsWidth;
 
-                // DIBUJAR POWER (Fondo)
-                DrawBarManual(context, barX, barW, middleY, _powerSeries[i], scaleFactor, PowerWidth, PowerOpacity, false);
+                // POWER (Fondo ancho)
+                DrawBarVisual(context, x, w, middleY, _powerSeries[i], scalePower,
+                              PowerWidth, PowerOpacity, false, out _);
 
-                // DIBUJAR STRENGTH (Frente)
-                DrawBarManual(context, barX, barW, middleY, _strengthSeries[i], scaleFactor, StrengthWidth, StrengthOpacity, true);
+                // STRENGTH (Frente estrecho y grande)
+                DrawBarVisual(context, x, w, middleY, _strengthSeries[i], scaleStrength,
+                              StrengthWidth, StrengthOpacity, true, out int strengthTipY);
 
-                // DIBUJAR ABSORCIÓN
-                if (Math.Sign(_powerSeries[i]) != Math.Sign(_strengthSeries[i])
-                    && _powerSeries[i] != 0 && _strengthSeries[i] != 0)
+                // ABSORCIÓN
+                decimal pVal = _powerSeries[i];
+                decimal sVal = _strengthSeries[i];
+
+                if (Math.Sign(pVal) != Math.Sign(sVal) && pVal != 0 && sVal != 0)
                 {
-                    DrawAbsorptionMarker(context, barX, barW, middleY);
+                    DrawAbsorptionMarker(context, x, w, strengthTipY);
                 }
             }
+
+            // 4. ETIQUETAS DE ESCALA (Arriba Derecha)
+            DrawLabels(context, region, maxPower, maxStrength);
         }
 
-        private void DrawBarManual(RenderContext ctx, int x, int w, int yZero, decimal val, float scale, int widthPct, int alpha, bool isFront)
+        private void DrawBarVisual(RenderContext ctx, int x, int w, int yZero, decimal val, float scale, int widthPct, int alpha, bool isFront, out int tipY)
         {
+            tipY = yZero;
             if (val == 0) return;
 
-            // Altura en píxeles = Valor * Escala
             int heightPx = (int)(Math.Abs((float)val) * scale);
             if (heightPx < 1) heightPx = 1;
 
-            // Si es positivo (>0), dibujamos hacia arriba (Y - altura)
-            // Si es negativo (<0), dibujamos hacia abajo (Y)
-            int yPos = val > 0 ? yZero - heightPx : yZero;
+            int rectY = val > 0 ? yZero - heightPx : yZero;
+            tipY = val > 0 ? rectY : rectY + heightPx;
 
             int drawW = Math.Max(1, (w * widthPct) / 100);
             int drawX = x + (w - drawW) / 2;
 
             DrawingColor c = val > 0 ? BuyColor : SellColor;
             DrawingColor finalColor = DrawingColor.FromArgb(alpha, c);
+            Rectangle rect = new Rectangle(drawX, rectY, drawW, heightPx);
 
-            var rect = new Rectangle(drawX, yPos, drawW, heightPx);
             ctx.FillRectangle(finalColor, rect);
 
             if (isFront)
-                ctx.DrawRectangle(new RenderPen(DrawingColor.FromArgb(150, DrawingColor.White)), rect);
+            {
+                ctx.DrawRectangle(new RenderPen(DrawingColor.Black), rect);
+            }
         }
 
-        private void DrawAbsorptionMarker(RenderContext ctx, int x, int w, int y0)
+        private void DrawAbsorptionMarker(RenderContext ctx, int x, int w, int yTip)
         {
             int size = 4;
             int centerX = x + w / 2;
+
             Point[] diamond = {
-                new Point(centerX, y0 - size),
-                new Point(centerX + size, y0),
-                new Point(centerX, y0 + size),
-                new Point(centerX - size, y0)
+                new Point(centerX, yTip - size),
+                new Point(centerX + size, yTip),
+                new Point(centerX, yTip + size),
+                new Point(centerX - size, yTip)
             };
+
             ctx.FillPolygon(AbsorptionColor, diamond);
+            ctx.DrawPolygon(new RenderPen(DrawingColor.Black), diamond);
+        }
+
+        private void DrawLabels(RenderContext ctx, Rectangle region, decimal maxP, decimal maxS)
+        {
+            // Dibuja los valores máximos de la escala actual para referencia
+            string text = $"DOM: {FormatK(maxP)}\nTRD: {FormatK(maxS)}";
+            var rect = new Rectangle(region.Right - 70, region.Y + 5, 65, 35);
+
+            // Fondo semitransparente para leer bien los números
+            //ctx.FillRectangle(DrawingColor.FromArgb(150, DrawingColor.Black), rect); // Opcional
+
+            ctx.DrawString(text, _axisFont, AxisColor, rect, _axisFormat);
         }
 
         #endregion
