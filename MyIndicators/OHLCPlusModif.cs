@@ -1272,7 +1272,7 @@ public class OHLCPlus : Indicator
 
 #else
 
-        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.PreviousWeek), GroupName = nameof(Strings.CurrentDay), Order = 65)]
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.PreviousWeek), Order = 65)]
 
 #endif
 
