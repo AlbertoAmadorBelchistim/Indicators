@@ -2,7 +2,7 @@
 # 1. IDENTIFICACIÓN
 cs_file:  MainIndicator.cs  
 name:  MBO DOM  
-version:  ATAS Stable  
+version:  ATAS Alfa  
 
 # 2. CLASIFICACIÓN
 group:  Order Flow  
@@ -14,7 +14,7 @@ score_current:  10/10
 score_potential:  10/10  
 file_state:  Estable  
 effort:  Bajo  
-action_priority:  Baja  
+action_priority:  Nula  
 system_priority:  P1  
 
 # 4. DECISIÓN
@@ -22,13 +22,13 @@ recommended_action:  Conservar (Core)
 
 # 5. ANÁLISIS
 description:  ¿La muralla de liquidez es real (una institución) o son 500 traders retail? ¿Hay bloques grandes esperando (Icebergs)?  
-gemini_summary:  "El Francotirador. Superior tecnológicamente al desglosar la liquidez agregada en sus componentes reales (órdenes individuales). Arquitectura robusta y thread-safe."  
-competitor_notes:  "Sustituye funcionalmente al DOM clásico y complementa al DomLevels (Histórico) con precisión milimétrica en tiempo real."  
+gemini_summary:  "El Francotirador. Es la herramienta de visualización de liquidez definitiva. Su superioridad tecnológica radica en desglosar la liquidez agregada en sus componentes reales (órdenes individuales/MBO). Permite distinguir la calidad del soporte/resistencia. Recientemente optimizado para reducir el consumo de CPU y memoria."  
+competitor_notes:  "Sustituye funcionalmente al DOM clásico y complementa al DomLevels con precisión milimétrica en tiempo real."  
 reusable_code:  "MboGridController.cs (Lógica completa de gestión MBO y renderizado de bloques)."  
 
 # 6. METADATOS
-analysis_date:  2025-11-30  
-official_code_date:  2025-08-25  
+analysis_date:  2025-12-02  
+official_code_date:  2025-12-02  
 ---
 
 ## 🧱 MBO DOM (10/10)
@@ -37,31 +37,28 @@ official_code_date:  2025-08-25
 **Nombre del indicador:** MBO DOM  
 **Web oficial:** [ATAS - MBO DOM](https://help.atas.net/support/solutions/articles/72000633231)  
 **Compatibilidad:** ATAS Estable (Requiere Datafeed con soporte MBO, ej. Rithmic).  
-**Última revisión del código oficial:** 2025-08-25  
+**Última revisión del código oficial:** 2025-12-02  
 
 > **La Pregunta Clave:** ¿La muralla de liquidez es real (una institución) o son 500 traders retail? ¿Hay bloques grandes esperando (Icebergs)?
 
 ![MBO_DOM](../../img/MBODOM.png)
 
-
 ---
 
 ### ⚙️ Parámetros configurables
 
-#### **Colors**
-* **Bids / Asks:** Define el color de los bloques individuales de compra y venta pasiva.  
-* **Text:** Color de los números (volumen y contadores) en el panel lateral.  
-
 #### **MBO Filters (Detección Institucional)**
-* **Color Filter (Order Size):** Umbral visual. Las órdenes individuales MAYORES a este valor se pintan con color sólido (institucional). Las menores se pintan solo con borde (retail/ruido).  
-* **Total Volume Filter (Min Block):** Filtro de ocultación. Los bloques individuales MENORES a este valor no se dibujan. Útil para limpiar la pantalla en mercados rápidos.  
+* **Color Filter (Order Size):** (Clave) Umbral de tamaño. Las órdenes individuales MAYORES a este valor se pintan con color sólido (Institucional). Las menores se pintan huecas o con borde (Retail/Ruido).
+* **Total Volume Filter (Min Block):** Filtro de visibilidad. Oculta bloques menores a X contratos para limpiar el ruido en mercados rápidos.
+
+#### **Visualización (Estilo)**
+* **Bids / Asks Colors:** Colores base para los bloques de compra y venta.
+* **Text Color:** Color de la numeración en el panel lateral.
 
 #### **Summary (Panel Lateral Agregado)**
-* **Show Volume:** Muestra la columna con la suma total de volumen en el nivel (equivale al DOM clásico).  
-* **Show Orders Count:** Muestra la columna con el número de órdenes activas por precio.  
-* **Row Order Volume:** (Filtro) Resalta el fondo de la celda si el volumen total supera este valor.  
-* **Row Order Count:** (Filtro) Resalta el fondo de la celda si el número de órdenes supera este valor.  
-
+* **Show Volume:** Activa la columna de volumen total por precio (DOM Clásico).
+* **Show Orders Count:** Activa el contador de órdenes activas por precio.
+* **Row Highlights:** Filtros visuales para resaltar celdas del panel lateral si superan cierto volumen o número de órdenes.
 
 ---
 
@@ -70,34 +67,30 @@ official_code_date:  2025-08-25
 **Subgrupo:** DOM  
 **Comparison Group:** "DOM Visuals"  
 
-
 ---
 
 ### 🧠 Uso más frecuente
 
-* **Caza de Icebergs:** Identificar órdenes que se rellenan pero no desaparecen de la visualización MBO.  
-* **Detección de Spoofing:** Visualizar grandes bloques que parpadean y se retiran ante la llegada del precio.  
-* **Análisis de Calidad:** Diferenciar soportes de "hormigón" (pocos bloques grandes) de soportes de "papel" (muchos pequeños).  
-
+* **Caza de Icebergs:** Identificar órdenes que se rellenan (ejecución) pero cuyo bloque MBO no desaparece o se recarga inmediatamente.  
+* **Detección de Spoofing:** Visualizar grandes bloques sólidos que aparecen y desaparecen ("parpadeo") sin ser tocados cuando el precio se acerca.  
+* **Calidad del Nivel:** Diferenciar soportes de "Hormigón" (pocos bloques grandes = Institucional) de soportes de "Papel" (muchos bloques pequeños = Retail).  
 
 ---
 
 ### 📊 Nivel de relevancia
 🔟 **10 / 10**
 
-✅ **Transparencia Total:** Elimina la opacidad de los datos agregados L2.  
-✅ **Rendimiento:** Usa `System.Timers` para desacoplar la recepción de datos del dibujado UI.  
-✅ **Híbrido:** Integra la vista lateral del DOM clásico, haciéndolo redundante.  
-⛔ **Requisito:** Inútil sin un datafeed de nivel profesional (MBO).  
-
+✅ **Transparencia Total:** Elimina la opacidad de los datos agregados L2. Ves la estructura real del mercado.  
+✅ **Rendimiento Extremo:** Optimizaciones recientes de caché y renderizado hacen que el impacto en FPS sea mínimo incluso en alta volatilidad.  
+✅ **Híbrido:** Integra la vista lateral del DOM clásico, haciendo innecesario tener dos DOMs abiertos.  
+⛔ **Requisito de Data:** Totalmente inútil sin un proveedor de datos MBO (Market by Order) como Rithmic.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Order Book Scalping:** Operativa en el spread basada en microestructura.  
-* **Reversión en Bloques:** Entradas defensivas apoyadas en bloques institucionales visibles.  
-
+* **Order Book Scalping:** Operativa dentro del spread (Market Making) basada en la microestructura.  
+* **Reversión en Bloques:** Colocar órdenes limitadas 1 tick por delante de un "Muro Institucional" visible.  
 
 ---
 
@@ -105,60 +98,59 @@ official_code_date:  2025-08-25
 
 | Parámetro | Valor | Justificación |
 | :--- | :--- | :--- |
-| **Color Filter** | `10` | En ES (S&P), órdenes >10 lotes suelen ser institucionales o algoritmos agresivos. Diferencia visual crítica. |
-| **Min Block Size** | `1` | Ver todo el detalle es preferible para detectar absorción fina. |
-| **Show Volume** | `True` | Referencia rápida agregada necesaria para el contexto. |
-| **Show Count** | `False` | Reduce carga cognitiva; en scalping rápido el número exacto de órdenes importa menos que el tamaño de los bloques. |
+| **Color Filter** | `10` | En el ES, órdenes >10 lotes suelen ser significativas. Ayuda a filtrar visualmente a los "sharks". |
+| **Min Block Size** | `1` | En scalping, ver incluso los bloques de 1 lote ayuda a detectar absorción fina ("hormiguitas"). |
+| **Show Volume** | `True` | Necesario para tener la referencia del total agregado de un vistazo. |
+| **Show Orders Count** | `False` | Información redundante para trading rápido. Reduce la carga cognitiva. |
 
+---
+
+### ✨ Mejoras introducidas (Oficial / Recientes)
+* **Smart Caching:** Se han añadido cachés para rangos de precios (`_pricesResultCache`, `_gridMinPrice`) y buffers reutilizables (`_pricesBuffer`) para evitar asignaciones de memoria constantes y reducir la presión del Garbage Collector.
+* **Renderizado Optimizado:** Los objetos gráficos (`RenderPen`) ahora se crean una sola vez al cambiar configuraciones, no en cada frame de dibujo.
+* **Intersection Logic:** El bucle de dibujo ahora calcula la intersección exacta entre el área visible del gráfico y los datos disponibles, evitando procesar miles de niveles de precio vacíos fuera de pantalla.
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* **Arquitectura MVC:** Separa limpiamente la UI (`MainIndicator`) de la lógica de datos (`MboGridController`).  
-* **Thread Safety:** Uso intensivo y correcto de `ConcurrentDictionary` y bloqueos (`lock`) para manejar el flujo de datos de alta frecuencia sin corromper la memoria.  
-* **Throttling UI:** Implementa un `System.Timers.Timer` para redibujar a intervalos fijos (1000ms por defecto en init, aunque ajustable) en lugar de a cada tick, evitando que ATAS se congele en noticias.  
-
+* **Arquitectura MVC:** Separa limpiamente la UI (`MainIndicator`) de la lógica de datos (`MboGridController`).
+* **Thread Safety:** Gestión robusta de la concurrencia con `ConcurrentDictionary` y `lock`, vital para no crashear en noticias.
+* **Throttling UI:** El refresco visual está limitado por un Timer (1000ms por defecto). Esto asegura estabilidad.
 
 ---
 
 ### ❗ Incoherencias o aspectos mejorables detectados
 
-* **Gestión de Memoria:** El diccionario `_mboHistory` crece indefinidamente. En sesiones de 24h con mucha volatilidad, podría consumir demasiada RAM ya que no hay un mecanismo de purga de órdenes antiguas o muy alejadas del precio.  
-* **Hardcoded Timer:** El intervalo de refresco está "quemado" en el código (`_timer.Interval = 1000` en `OnInitialize`). Para scalping puro, esto podría ser lento (1 FPS).  
-
+* **Refresco Fijo:** El Timer de 1000ms está "hardcoded". Sería ideal exponerlo como parámetro para usuarios con PCs potentes que quieran mayor fluidez (ej. 100ms).
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-* **Auto-Purge:** Implementar una rutina en el `MboGridController` para eliminar órdenes completadas o canceladas del diccionario histórico cada X minutos.  
-* **FPS Ajustable:** Exponer el intervalo del Timer como parámetro para permitir refresco más rápido (ej. 100ms) en máquinas potentes.  
-
+* **FPS Configurable:** Convertir el intervalo del Timer en un parámetro `RefreshRate` editable.
 
 ---
 
 ### 💎 Valor Reutilizable (Código Donante)
 
-* **`MboGridController.cs`:** Es una joya. Contiene toda la lógica para procesar feeds MBO de ATAS, gestionar IDs de órdenes y agrupar por precio. Reutilizable para crear estrategias automáticas que dependan del MBO.  
-
+* **`MboGridController.cs`:** Lógica completa de gestión de feeds MBO y las nuevas optimizaciones de caché espacial (Price Range Caching).
 
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Es la herramienta definitiva para el scalper moderno. Su superioridad técnica radica en que no "interpreta" los datos, sino que los "deconstruye". Ver un bloque de 100 lotes como un solo rectángulo sólido (Institución) vs 100 rectángulos pequeños (Retail) cambia totalmente la psicología de la entrada.
+Con las últimas actualizaciones, el equipo de ATAS ha abordado mi única queja previa: el rendimiento. Ahora el código es un ejemplo de buenas prácticas de renderizado en tiempo real. Es **sólido como una roca**.
 
 **Propuestas de Acción:**
-* Configurar como indicador principal en el template de Order Flow.
-* Valorar modificar el código para bajar el Timer a 200ms para mayor fluidez.
+* Usar sin dudarlo como visualizador principal.
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**SÍ**
+**SÍ (Crítico)**
 
-Imprescindible para trading de precisión.
+Es la herramienta más precisa que existe para leer la intención pasiva.
 
 **Acción:** **Conservar (Core)**
