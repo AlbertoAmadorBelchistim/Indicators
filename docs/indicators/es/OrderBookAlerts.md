@@ -1,30 +1,41 @@
 ﻿---
-cs_file: OrderBookAlerts.cs
-name: Order Book Alerts
-category: Order Flow
-group: Order Flow
-subgroup: DOM
-score_current: 9/10
-version: Stable
-recommended_action: Conservar
-description: ¿Dónde hay muros de liquidez en el DOM que superan un tamaño y persisten?
-gemini_summary: "Monitor de DOM eficaz. Alerta sobre niveles de liquidez grandes. Código eficiente."
-comparison_group: "Liquidity Events"
-competitor_notes: "Complementario a Heatmap."
-reusable_code: null
-file_state: Estable
-score_potential: 9/10
-effort: N/A
-action_priority: N/A
-analysis_date: 2025-11-18
-official_code_date: 08/05/2025
+# 1. IDENTIFICACIÓN
+cs_file:  OrderBookAlerts.cs  
+name:  Order Book Alerts  
+version:  ATAS Stable  
+
+# 2. CLASIFICACIÓN
+group:  Order Flow  
+subgroup:  DOM  
+comparison_group:  "DOM Dynamics"  
+
+# 3. VALORACIÓN (Score & Priority)
+score_current:  9/10  
+score_potential:  9/10  
+file_state:  Estable  
+effort:  N/A  
+action_priority:  Nula  
+system_priority:  P2  
+
+# 4. DECISIÓN
+recommended_action:  Conservar (Reserva)  
+
+# 5. ANÁLISIS
+description:  ¿Dónde hay muros de liquidez en el DOM que superan un cierto tamaño y persisten en el tiempo?  
+gemini_summary:  "Monitor pasivo de excelente utilidad. Su valor no es analítico, sino de vigilancia. Permite al trader desentenderse del DOM numérico y recibir avisos (sonoros/visuales) solo cuando aparece liquidez relevante y persistente cerca del precio."  
+competitor_notes:  "Complementario a DomDynamics. Este busca ESTADO (Nivel > X), DomDynamics busca CAMBIO (Delta > X)."  
+reusable_code:  null  
+
+# 6. METADATOS
+analysis_date:  2025-12-01  
+official_code_date:  2025-05-08  
 ---
 
-## 🟦 Order Book Alerts (9/10)
+## 🟦 [Order Book Alerts] (9/10)
 
 **Nombre del archivo:** [`OrderBookAlerts.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/OrderBookAlerts.cs)  
 **Nombre del indicador:** Order Book Alerts  
-**Web oficial:** [ATAS — Order Book Alerts](https://help.atas.net/support/solutions/articles/72000619055)  
+**Web oficial:** [ATAS Help](https://help.atas.net/support/solutions/articles/72000619055)  
 **Compatibilidad:** ATAS versión estable y superiores.  
 **Última revisión del código oficial:** 8/05/2025  
 
@@ -32,41 +43,43 @@ official_code_date: 08/05/2025
 
 ![OrderBookAlerts](../../img/OrderBookAlerts.png)
 
+
 ---
 
 ### ⚙️ Parámetros configurables
 
-* **Filter**: Volumen mínimo requerido para generar alerta (por defecto: 100)
-* **TimeFilter**: Tiempo mínimo en segundos que el nivel debe mantenerse (opcional)
-* **POMode**: Modo de offset desde el precio actual (`Percent` o `Ticks`)
-* **PriceOffset**: Desplazamiento desde el último precio (en %) o en ticks
-* **UseAlerts**: Activar alertas sonoras y visuales
-* **AlertFile**: Archivo de sonido a reproducir
-* **AlertForeColor / AlertBGColor**: Colores de texto y fondo de la alerta
-* **ShowOnChart**: Mostrar los niveles detectados sobre el gráfico
-* **CoolDownPeriod**: Tiempo mínimo entre alertas para un mismo nivel (segundos)
+* **Filter:** Volumen mínimo de la orden para activar la alerta.  
+* **TimeFilter:** Segundos que la orden debe permanecer activa (anti-spoofing básico, característica clave).  
+* **Price Offset:** Distancia máxima desde el precio actual para vigilar (Ticks o %).  
+* **CoolDown Period:** Tiempo de espera entre alertas repetidas.  
+* **Use Alerts / Alert File:** Configuración de sonido.  
+* **Show On Chart:** Dibuja una banda horizontal en el nivel detectado.  
+
 
 ---
 
 ### 🧭 Clasificación
-📂 OrderBook — Alertas dinámicas por profundidad de mercado (DOM)
+**Grupo:** Order Flow  
+**Subgrupo:** DOM  
+**Comparison Group:** "DOM Dynamics"  
+
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* Detectar **niveles relevantes en el libro de órdenes (DOM)**
-* Activar alertas al aparecer **volumen significativo cerca del precio**
-* Confirmar zonas de **absorción, spoofing o presión institucional**
+* **Radar de Liquidez:** Aviso sonoro cuando una "ballena" coloca una orden límite cerca del precio.  
+* **Zonas de Interés:** Marcar visualmente niveles donde hay interés institucional pasivo sin ensuciar el gráfico permanentemente.  
+
 
 ---
 
 ### 📊 Nivel de relevancia
 🔟 **9 / 10**
 
-✅ Alertas dinámicas por aparición de volumen fuera de lo común  
-✅ Visualización directa y configurable en el gráfico  
-⛔ Requiere buena calibración de filtros para evitar exceso de ruido
+✅ **Automatización:** Libera atención visual.  
+✅ **Filtro Temporal:** El `TimeFilter` filtra el parpadeo HFT que suele generar falsas alarmas en otros indicadores.  
+
 
 ---
 
@@ -96,7 +109,6 @@ official_code_date: 08/05/2025
 * Implementa lógica de `TimeFilter` (persistencia) y `CoolDownPeriod` (anti-spam)
 * Dibuja rectángulos en el gráfico (`OnRender`) en los niveles de precio detectados
 
----
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
