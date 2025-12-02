@@ -7,24 +7,24 @@ version:  Custom v3.6 (Net Flow)
 # 2. CLASIFICACIÓN
 group:  Order Flow  
 subgroup:  DOM  
-comparison_group:  "DOM Dynamics"  
+comparison_group:  "DOM Liquidity Flow"  
 
 # 3. VALORACIÓN (Score & Priority)
-score_current:  8/10  
+score_current:  9/10  
 score_potential:  9/10  
 file_state:  Estable  
 effort:  Bajo  
-action_priority:  Baja  
+action_priority:  Nula  
 system_priority:  P2  
 
 # 4. DECISIÓN
-recommended_action:  Conservar (Core Soporte)  
+recommended_action:  Conservar (Core)  
 
 # 5. ANÁLISIS
 description:  ¿Se está añadiendo (Stacking) o retirando (Pulling) liquidez neta del mercado en este instante?  
-gemini_summary:  "Detector de manipulación y flujo de liquidez. Calcula el cambio neto de órdenes limitadas tick a tick. Aunque a menudo correlaciona con el Delta, su valor reside en las divergencias (Spoofing): cuando la liquidez hace lo contrario que el precio. Visualización limpia de histograma único."  
-competitor_notes:  "Superior al 'Pulling & Stacking' original por claridad visual (1 barra vs 4) y lógica de flujo neto, aunque funcionalmente redundante en tendencias fuertes."  
-reusable_code:  "Lógica de Delta de DOM (Snapshot diferencial) y gestión de colores GDI+."  
+gemini_summary:  "Es la evolución simplificada del concepto Pulling & Stacking. En lugar de mostrar 4 histogramas confusos, calcula el Flujo Neto de Liquidez (Cambio en Bids - Cambio en Asks) y lo representa como una única vela japonesa. Esto permite leer la 'Presión del Libro' en milisegundos. Código optimizado y ligero."  
+competitor_notes:  "Supera a 'Pulling & Stacking Bars' en legibilidad operativa para Scalping rápido al sintetizar la información."  
+reusable_code:  "Lógica de Snapshot diferencial de MarketDepth."  
 
 # 6. METADATOS
 analysis_date:  2025-12-02  
@@ -32,66 +32,61 @@ official_code_date:  Unknown
 user_modification_date:  2025-12-02  
 ---
 
-## 🚀 DOM Dynamics (8/10)
+## 🚀 DOM Dynamics (9/10)
 
 **Nombre del archivo:** [`DomDynamics.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/compile/myindicators/MyIndicators/DomDynamics.cs)  
 **Nombre del indicador:** DOM Dynamics  
 **Web oficial:** N/A (Desarrollo Propio)  
-**Compatibilidad:** ATAS Estable.  
-**Última revisión del código modificado:** 2025-12-02  
+**Compatibilidad:** ATAS Stable.  
+**Última revisión del código custom:** 2025-12-02  
 
 > **La Pregunta Clave:** ¿Se está añadiendo (Stacking) o retirando (Pulling) liquidez neta del mercado en este instante?
 
 ![DomDynamics](../../img/DomDynamics.png)
-
 
 ---
 
 ### ⚙️ Parámetros configurables
 
 #### **Filters (Filtros de Ruido)**
-* **DOM Depth Limit:** (Default: 10) Niveles del libro a monitorizar desde el mejor precio. `10` es suficiente para ver la intención inmediata sin ruido lejano.  
-* **Min Change Filter:** (Default: 5) Ignora cambios de liquidez menores a X contratos. Vital para filtrar el "ruido HFT" de algoritmos que solo recolocan órdenes.  
+* **DOM Depth Limit:** (Default: 10) Define cuántos niveles de profundidad del libro (desde el Best Bid/Ask) se monitorizan[cite: 3].  
+    * *Nota:* Mantener bajo (5-10) para ver la intención inmediata que afecta al precio actual.
+* **Min Change Filter:** (Default: 0) Filtro de volumen mínimo para registrar un cambio[cite: 3].  
+    * *Uso:* Si se pone a 10, ignora cambios de 1-9 lotes (ruido de robots market makers).
 
-#### **Colors (Estilo)**
-* **Bullish Pressure Color:** Color para Stacking de Bids o Pulling de Asks (Facilita subida).  
-* **Bearish Pressure Color:** Color para Stacking de Asks o Pulling de Bids (Facilita bajada).  
-
+#### **Visualización**
+* **Candle Colors:** Configurable nativamente en ATAS (UpCandle/DownCandle). Representa el flujo neto positivo (Stacking Bids / Pulling Asks) o negativo (Stacking Asks / Pulling Bids)[cite: 3].
 
 ---
 
 ### 🧭 Clasificación
 **Grupo:** Order Flow  
 **Subgrupo:** DOM  
-**Comparison Group:** "DOM Dynamics"  
-
+**Comparison Group:** "DOM Liquidity Flow"  
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* **Detección de Spoofing (La Señal Única):** Un pico grande de color contrario al movimiento del precio, o un pico grande sin movimiento de precio (Bluff).  
-* **Alfombra Roja (Vacuum):** Ver una barra VERDE (Pulling Asks) justo antes de que el precio rompa una resistencia. Confirma que "han quitado el techo".  
-
+* **Confirmación de Ruptura (Breakout):** Si el precio rompe una resistencia y DomDynamics muestra una vela verde fuerte (Net Stacking), la ruptura tiene "gasolina" (soporte subiendo).  
+* **Detección de Spoofing (Divergencia):** Precio sube, pero DomDynamics muestra vela roja fuerte (Net Pulling). Significa que están retirando soporte o añadiendo resistencia oculta. Señal de reversión.  
 
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **8 / 10**
+🔟 **9 / 10**
 
-✅ **Información Exclusiva:** Muestra la "intención" (Limit Orders) en lugar de la "ejecución" (Market Orders).  
-✅ **Limpieza:** Reduce 4 variables a 1 vela neta legible.  
-⛔ **Redundancia Operativa:** En tendencias fuertes, el DomDynamics se ve casi idéntico al Delta, aportando poco valor extra.  
-⛔ **Limitación Técnica:** No distingue matemáticamente entre una orden cancelada y una ejecutada (ambas restan liquidez).  
-
+✅ **Síntesis Visual:** Convierte miles de datos del DOM en una sola vela fácil de leer[cite: 3].  
+✅ **Código Optimizado:** Usa `Dictionary` para snapshots y solo calcula diferenciales, carga de CPU mínima[cite: 3].  
+✅ **Escalado Automático:** Implementa `ScaleIt = true` en la serie, integrándose perfectamente en sub-paneles[cite: 3].  
+⛔ **Ambigüedad Operativa (Trade vs Cancel):** Una reducción de liquidez (vela roja) puede ser por retirada de órdenes (Pulling) o por ejecución de ventas (Trading). El indicador no distingue la causa, solo el efecto en el libro.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Contra-Tendencia:** Buscar divergencias donde el precio sube pero el DomDynamics es Rojo (Liquidez retirada o soporte muriendo).  
-* **Breakout Confirmation:** Confirmar que la ruptura viene acompañada de retirada de órdenes opuestas.  
-
+* **Scalping de Rebotes:** Entrar en un nivel clave solo si DomDynamics muestra "Stacking" a favor del rebote.  
+* **Gestión de Trade:** Cerrar si el flujo de liquidez se invierte drásticamente contra la posición.  
 
 ---
 
@@ -99,62 +94,59 @@ user_modification_date:  2025-12-02
 
 | Parámetro | Valor | Justificación |
 | :--- | :--- | :--- |
-| **Depth Limit** | `10` | Centrarse en la liquidez que afecta al precio YA. |
-| **Min Change Filter** | `10` | Filtrar el ruido de mantenimiento de mercado. |
-
+| **Depth Limit** | `10` | Monitorizar solo los 10 primeros niveles (la "zona de batalla"). Profundidades mayores suelen ser bluff. |
+| **Min Volume Filter** | `15` | Filtrar el "ruido de fondo" y algoritmos de mantenimiento. Solo queremos ver cambios institucionales significativos. |
+| **Panel** | `New Panel` | Usar en panel inferior para no ensuciar las velas de precio. |
 
 ---
 
 ### ✨ Mejoras introducidas (Custom)
-* **Lógica Neta:** Unificación de 4 flujos de datos en una sola vela.  
-* **Visualización Nativa:** Uso de `ValueDataSeries` para permitir escalado automático.  
-* **Corrección de Tipos:** Gestión correcta de conversión de colores WPF/GDI+.  
-
+* **Unificación de Flujo:** Se ha reescrito la lógica para calcular un `NetChange` único en lugar de 4 series separadas[cite: 3].
+* **Optimización de Memoria:** Uso de `CandleDataSeries` nativa de ATAS en lugar de dibujar histogramas manuales, mejorando el rendimiento de renderizado[cite: 3].
+* **Reset Intra-bar:** Lógica `_currentNetChange = 0` al cambiar de barra para asegurar que cada vela representa flujo fresco[cite: 3].
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* **Arquitectura:** Basada en eventos `MarketDepthChanged`. Calcula diferenciales contra snapshots locales (`_bidSnapshot`, `_askSnapshot`).  
-* **Rendimiento:** Muy ligero. No acumula histórico pesado, solo dibuja el estado actual.  
-
+* **Arquitectura:** Event-driven (`MarketDepthChanged`)[cite: 3].
+* **Estado:** El indicador mantiene un `_bidSnapshot` y `_askSnapshot` en memoria. Al llegar un evento, compara el volumen nuevo con el del snapshot para obtener el delta[cite: 3].
+* **Critical Path:** El cálculo se hace en cada tick del DOM. El código es eficiente, pero un `Depth Limit` muy alto (ej. 100) podría impactar en momentos de alta volatilidad.
 
 ---
 
 ### ❗ Incoherencias o aspectos mejorables detectados
 
-* **Ambigüedad:** Una barra roja puede ser "Venta Agresiva" (Trade) o "Retirada de Soporte" (Cancel). El indicador no lo sabe. El trader debe inferirlo mirando el Delta o el Precio.  
-
+* **Persistencia Histórica:** No funciona en backfill (histórico). Solo dibuja datos en tiempo real.
+* **Ambigüedad:** Como se mencionó, no separa Trades de Cancels. Para arreglar esto, habría que escuchar también el evento `OnNewTrade` y sumar el volumen ejecutado al cambio para neutralizarlo, aislando así solo los cambios pasivos. (Posible mejora futura compleja).
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-* Ninguna que justifique la complejidad. Intentar restar el Delta introduce problemas de sincronización.  
-
+* Añadir una **Alerta Sonora** si el flujo neto supera un umbral (ej. > 500 lotes en 1 segundo).
 
 ---
 
 ### 💎 Valor Reutilizable (Código Donante)
 
-* **Snapshot Diferencial:** La lógica para calcular cambios en el DOM tick a tick es reutilizable para cualquier algoritmo de HFT.  
-
+* La gestión de los diccionarios `_bidSnapshot` y `_askSnapshot` es perfecta para cualquier indicador que necesite calcular deltas de libro de órdenes[cite: 3].
 
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Es un "Detector de Mentiras". **El 80% del tiempo te dirá lo mismo que el Delta** (Ruido/Redundancia), pero en el 20% de los casos donde **diverge**, te da una señal de manipulación que el Delta no ve. Por eso se queda como **Soporte P2**, no como Core P1.
+DomDynamics es la herramienta que el scalper necesita: **Información compleja simplificada**. Mientras que `Pulling & Stacking Bars` te da los "datos crudos", este indicador te da la "conclusión". En el calor de la batalla (Scalping S&P 500), prefiero ver una vela verde grande (Presión Alcista) que tener que interpretar 4 barras de colores distintos.
 
 **Propuestas de Acción:**
-* Usar solo en setups específicos de manipulación.
+* Establecer como el indicador de Flujo de Liquidez predeterminado en el template.
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí (Específico)**
+**Sí**
 
-Útil para confirmar la "calidad" de una ruptura o soporte, no para gatillo de entrada.
+Proporciona una ventaja visual inmediata sobre la intención de las órdenes limitadas.
 
-**Acción:** **Conservar (Core Soporte)**
+**Acción:** **Conservar (Core)**

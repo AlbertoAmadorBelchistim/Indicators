@@ -7,7 +7,7 @@ version:  ATAS Stable
 # 2. CLASIFICACIÓN
 group:  Order Flow  
 subgroup:  DOM  
-comparison_group:  "DOM Dynamics"  
+comparison_group:  "DOM Liquidity Flow"  
 
 # 3. VALORACIÓN (Score & Priority)
 score_current:  9/10  
@@ -22,72 +22,65 @@ recommended_action:  Conservar (Reserva)
 
 # 5. ANÁLISIS
 description:  ¿Dónde hay muros de liquidez en el DOM que superan un cierto tamaño y persisten en el tiempo?  
-gemini_summary:  "Monitor pasivo de excelente utilidad. Su valor no es analítico, sino de vigilancia. Permite al trader desentenderse del DOM numérico y recibir avisos (sonoros/visuales) solo cuando aparece liquidez relevante y persistente cerca del precio."  
+gemini_summary:  "Monitor pasivo. Su valor no es analítico (flujo), sino de vigilancia (estado). Permite al trader desentenderse del DOM numérico y recibir avisos (sonoros/visuales) solo cuando aparece liquidez relevante y persistente (anti-spoofing) cerca del precio."  
 competitor_notes:  "Complementario a DomDynamics. Este busca ESTADO (Nivel > X), DomDynamics busca CAMBIO (Delta > X)."  
-reusable_code:  null  
+reusable_code:  "Lógica de `TimeFilter` para validar la persistencia de una orden."  
 
 # 6. METADATOS
-analysis_date:  2025-12-01  
+analysis_date:  2025-12-02  
 official_code_date:  2025-05-08  
 ---
 
-## 🟦 [Order Book Alerts] (9/10)
+## 🔔 Order Book Alerts (9/10)
 
 **Nombre del archivo:** [`OrderBookAlerts.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/OrderBookAlerts.cs)  
 **Nombre del indicador:** Order Book Alerts  
 **Web oficial:** [ATAS Help](https://help.atas.net/support/solutions/articles/72000619055)  
 **Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 8/05/2025  
+**Última revisión del código oficial:** 2025-05-08  
 
 > **La Pregunta Clave:** ¿Dónde hay muros de liquidez en el DOM que superan un cierto tamaño y persisten en el tiempo?
 
 ![OrderBookAlerts](../../img/OrderBookAlerts.png)
 
-
 ---
 
 ### ⚙️ Parámetros configurables
 
-* **Filter:** Volumen mínimo de la orden para activar la alerta.  
-* **TimeFilter:** Segundos que la orden debe permanecer activa (anti-spoofing básico, característica clave).  
-* **Price Offset:** Distancia máxima desde el precio actual para vigilar (Ticks o %).  
-* **CoolDown Period:** Tiempo de espera entre alertas repetidas.  
-* **Use Alerts / Alert File:** Configuración de sonido.  
-* **Show On Chart:** Dibuja una banda horizontal en el nivel detectado.  
-
+* **Filter:** Volumen mínimo de la orden para activar la alerta.
+* **TimeFilter:** Segundos que la orden debe permanecer activa sin desaparecer (Anti-Spoofing). Característica clave.
+* **Price Offset:** Distancia máxima desde el precio actual (Ticks o %) para monitorizar. Evita alertas de niveles irrelevantes lejanos.
+* **CoolDown Period:** Tiempo de espera entre alertas repetidas.
+* **Show On Chart:** Dibuja una banda horizontal visual en el nivel detectado.
 
 ---
 
 ### 🧭 Clasificación
 **Grupo:** Order Flow  
 **Subgrupo:** DOM  
-**Comparison Group:** "DOM Dynamics"  
-
+**Comparison Group:** "DOM Liquidity Flow"  
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* **Radar de Liquidez:** Aviso sonoro cuando una "ballena" coloca una orden límite cerca del precio.  
-* **Zonas de Interés:** Marcar visualmente niveles donde hay interés institucional pasivo sin ensuciar el gráfico permanentemente.  
-
+* **Radar de Liquidez:** Aviso sonoro cuando una "ballena" coloca una orden límite cerca del precio.
+* **Zonas de Interés:** Marcar visualmente niveles donde hay interés institucional pasivo sin ensuciar el gráfico permanentemente.
 
 ---
 
 ### 📊 Nivel de relevancia
 🔟 **9 / 10**
 
-✅ **Automatización:** Libera atención visual.  
-✅ **Filtro Temporal:** El `TimeFilter` filtra el parpadeo HFT que suele generar falsas alarmas en otros indicadores.  
-
+✅ **Automatización:** Libera atención visual del trader.  
+✅ **Filtro Temporal:** El `TimeFilter` es la joya de este indicador. Elimina el 90% de las señales falsas causadas por HFT (Spoofing) que solo "flashean" órdenes.  
+⛔ **Estático:** No te dice si están agrediendo el nivel, solo que el nivel *existe*.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Entrada por aparición de muro de órdenes** en zona de interés
-* **Confirmación de soporte/resistencia** con alerta visual + volumen
-* **Evitar trades en zonas con alta presión pasiva detectada**
+* **Fade the Wall:** Si aparece una alerta de gran liquidez en resistencia y el precio llega exhausto, buscar cortos (usando la liquidez como Stop Loss).  
 
 ---
 
@@ -104,26 +97,44 @@ official_code_date:  2025-05-08
 
 ### 🧪 Notas de desarrollo
 
-* Se suscribe a `MarketDepthChanged` para recibir actualizaciones del DOM
-* Mantiene una lista interna `_priceInfos` con los niveles detectados
-* Implementa lógica de `TimeFilter` (persistencia) y `CoolDownPeriod` (anti-spam)
-* Dibuja rectángulos en el gráfico (`OnRender`) en los niveles de precio detectados
+* Se suscribe a `MarketDepthChanged`.
+* Mantiene una lista interna `_priceInfos` con los niveles detectados y sus timestamps.
+* Es muy ligero porque filtra por precio (`PriceOffset`) antes de procesar lógica pesada.
+
+---
+
+### ❗ Incoherencias o aspectos mejorables detectados
+
+* Ninguno. Cumple su función de utilidad perfectamente.
+
+---
+
+### 🛠️ Propuestas de mejora
+
+* Ninguna requerida.
+
+---
+
+### 💎 Valor Reutilizable (Código Donante)
+
+* La implementación del `TimeFilter` (verificar `MarketTime - AppearanceTime`) es reusable para cualquier sistema de alertas que quiera evitar el ruido HFT.
 
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Es una herramienta excelente para traer la información del DOM al gráfico. Muchos scalpers no pueden mirar el DOM y el gráfico simultáneamente; este indicador resuelve eso alertando visualmente sobre la liquidez pasiva.
+Es una herramienta "set and forget". No la usas para analizar, la usas para que te avise. Es esencial en cualquier configuración profesional para no tener que estar mirando el DOM Ladder constantemente.
 
-El código es eficiente y maneja bien la alta frecuencia de actualizaciones del DOM. La función `TimeFilter` es crucial para filtrar el "spoofing" (órdenes falsas que aparecen y desaparecen rápidamente).
+**Propuestas de Acción:**
+* Configurar siempre con `TimeFilter = 1` segundo mínimo para evitar ruido.
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí.**
+**Sí**
 
-La liquidez pasiva actúa como un imán o como una barrera. Saber dónde está sin tener que abrir el DOM es una gran ventaja.
+Alerta de obstáculos inmediatos (Soportes/Resistencias dinámicos).
 
-**Acción:** **Conservar (Utilidad de DOM).**
+**Acción:** **Conservar (Reserva)**
 

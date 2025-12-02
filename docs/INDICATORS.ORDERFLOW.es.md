@@ -12,6 +12,14 @@
 > *El terreno de juego. Órdenes limitadas (pendientes) y muros de liquidez.*
 
 
+### ⚔️ DOM Liquidity Flow <small>✅ (Fase 2)</small>
+
+| Score | Estado | Indicador | Descripción / Notas |
+| :---: | :--- | :--- | :--- |
+| **9/10** | ✅ Conservar (Core) | [DOM Dynamics](indicators/es/DomDynamics.md) | ¿Se está añadiendo (Stacking) o retirando (Pulling) liquidez neta del mercado en este instante? |
+| **9/10** | ✅ Conservar (Reserva) | [Order Book Alerts](indicators/es/OrderBookAlerts.md) | ¿Dónde hay muros de liquidez en el DOM que superan un cierto tamaño y persisten en el tiempo? |
+| **8/10** | ✅ Conservar (Reserva) | [Pulling & Stacking Bars Lite](indicators/es/PullingStackingBars.md) | ¿Qué lado (Bid/Ask) está añadiendo (Stacking) o quitando (Pulling) órdenes y en qué magnitud exacta? |
+
 ### ⚔️ DOM Visuals <small>✅ (Fase 2)</small>
 _Visualización gráfica del libro de órdenes y profundidad (Depth of Market)._
 
@@ -26,16 +34,9 @@ _Comparativa de fuerza: Órdenes Limitadas (Muros) vs Órdenes a Mercado (Ataque
 
 | Score | Estado | Indicador | Descripción / Notas |
 | :---: | :--- | :--- | :--- |
-| **9/10** | ✅ Conservar (Core) | [DOM Power Modif](indicators/es/DomPower.md) | ¿Cuál es el desequilibrio neto (Bids vs Asks) en el libro de órdenes y su rango? |
-| **9/10** | ✅ Conservar (Core) | [DOM Strength Modif](indicators/es/DomStrengthModif.md) | ¿Cuál es la fuerza de la agresión (Trades) en relación con la liquidez pasiva (DOM)? |
-
-### ⚔️ Liquidity Events <small>⚠️ (Pendiente)</small>
-_Detección de manipulación: Spoofing, Pulling (retirada) y Stacking (apilamiento)._
-
-| Score | Estado | Indicador | Descripción / Notas |
-| :---: | :--- | :--- | :--- |
-| 10/10 | ✅ Conservar | [Pulling & Stacking Bars (Clean)](indicators/es/PullingStackingBars.md) | ¿Se está añadiendo (Stacking) o retirando (Pulling) liquidez del libro de órdenes? |
-| 9/10 | ✅ Conservar | [Order Book Alerts](indicators/es/OrderBookAlerts.md) | ¿Dónde hay muros de liquidez en el DOM que superan un tamaño y persisten? |
+| **10/10** | ✅ Conservar (Core) | [DOM Pressure](indicators/es/DomPressure.md) | ¿Está el mercado absorbiendo la agresión o dejándola pasar? Indicador híbrido que superpone la intención pasiva (DOM Power) con la agresión real (Trade Strength). |
+| **9/10** | 🔄 Fusionar (Integrado en DomPressure) | [DOM Power Modif](indicators/es/DomPowerModif.md) | ¿Cuál es el desequilibrio neto (Bids vs Asks) en el libro de órdenes y su rango de volatilidad? |
+| **9/10** | 🔄 Fusionar (Integrado en DomPressure) | [DOM Strength Modif](indicators/es/DomStrengthModif.md) | ¿Cuál es la fuerza de la agresión (Trades) en relación con la liquidez pasiva (DOM)? |
 
 ## 📉 Delta
 > *El pulso de la batalla. ¿Quién golpea el mercado a mercado (Market Orders)?*

@@ -115,9 +115,11 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Directional Movement Index](indicators/es/DmIndex.md) | Trend | 3/10 | Descartar |
 | [Directional Movement Oscillator](indicators/es/DmOscillator.md) | Trend | 3/10 | Descartar |
 | [Dispersion](indicators/es/Dispersion.md) | Trend | 1/10 | Descartar |
+| [DOM Dynamics](indicators/es/DomDynamics.md) | Order Flow | 9/10 | Conservar (Core) |
 | [DOM Levels/Heatmap](indicators/es/DOMLevels.md) | Order Flow | 9/10 | Conservar (Core) |
-| [DOM Power Modif](indicators/es/DomPower.md) | Order Flow | 9/10 | Conservar (Core) |
-| [DOM Strength Modif](indicators/es/DomStrengthModif.md) | Order Flow | 9/10 | Conservar (Core) |
+| [DOM Power Modif](indicators/es/DomPowerModif.md) | Order Flow | 9/10 | Fusionar (Integrado en DomPressure) |
+| [DOM Pressure](indicators/es/DomPressure.md) | Order Flow | 10/10 | Conservar (Core) |
+| [DOM Strength Modif](indicators/es/DomStrengthModif.md) | Order Flow | 9/10 | Fusionar (Integrado en DomPressure) |
 | [Donchian Channel](indicators/es/Donchian.md) | Structure | 8/10 | Conservar |
 | [Double Exponential Moving Average](indicators/es/DEMA.md) | Trend | 6/10 | Conservar |
 | [Double Stochastic](indicators/es/DoubleStochastic.md) | Oscillators | 7/10 | Conservar |
@@ -215,7 +217,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Open Interest](indicators/es/OpenInterest.md) | Order Flow | 8/10 | Conservar (Reserva / Donante) |
 | [Open Line](indicators/es/OpenLine.md) | Structure | 8/10 | Conservar |
 | [Order Block](indicators/es/OrderBlock.md) | Structure | 9/10 | Conservar |
-| [Order Book Alerts](indicators/es/OrderBookAlerts.md) | Order Flow | 9/10 | Conservar |
+| [Order Book Alerts](indicators/es/OrderBookAlerts.md) | Order Flow | 9/10 | Conservar (Reserva) |
 | [Order Flow Indicator](indicators/es/OrderFlow.md) | Order Flow | 9/10 | Conservar (Reserva) |
 | [Order Flow Rhythm (Lab)](indicators/es/OrderFlowRythmLab.md) | Order Flow | 7/10 | Conservar (Refactorizar Urgente) |
 | [OSMA (Moving Average of Oscillator)](indicators/es/OSMA.md) | Oscillators | 7/10 | Mejorar |
@@ -231,7 +233,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Preferred Stochastic - DiNapoli](indicators/es/StochasticDiNapoli.md) | Oscillators | 7/10 | Conservar |
 | [Price Momentum Oscillator](indicators/es/MomentumOscillator.md) | Oscillators | 7/10 | Mejorar |
 | [Price Volume Trend](indicators/es/VolumeTrend.md) | Oscillators | 8/10 | Conservar |
-| [Pulling & Stacking Bars (Clean)](indicators/es/PullingStackingBars.md) | Order Flow | 10/10 | Conservar |
+| [Pulling & Stacking Bars Lite](indicators/es/PullingStackingBars.md) | Order Flow | 8/10 | Conservar (Reserva) |
 | | | | |
 | **<a id='q'>Q</a>** | | | |
 | [Q Stick](indicators/es/QStick.md) | Structure | 6/10 | Descartar |
