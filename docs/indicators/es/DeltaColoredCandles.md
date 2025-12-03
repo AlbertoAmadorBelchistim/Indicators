@@ -1,22 +1,34 @@
 ---
-cs_file: DeltaColoredCandles.cs
-name: Delta Colored Candles
-group: Order Flow
-subgroup: Delta
-score_current: 3/10
-version: Estable
-recommended_action: Descartar
-description: ¿Cuál es la intensidad del momentum del delta en relación con un máximo fijo, visualizada en el color de las velas?
-gemini_summary: "Intento primitivo de visualización. Falla gravemente por depender de un parámetro 'MaxDelta' fijo que no se adapta a los cambios de volatilidad intradía, saturándose o quedándose 'ciego' según la hora."
-comparison_group: "Bar Delta"
-competitor_notes: "Delta Modif ofrece visualización en precio muy superior mediante 'Visual Signals' (triángulos) y coloreado por divergencia, usando umbrales dinámicos."
-reusable_code: null
-file_state: Estable (Lógica Obsoleta)
-score_potential: 3/10
-effort: Medio
-action_priority: P4
-analysis_date: 2025-11-21
-official_code_date: 23/04/2025
+# 1. IDENTIFICACIÓN
+cs_file:  DeltaColoredCandles.cs  
+name:  Delta Colored Candles  
+version:  ATAS Stable  
+
+# 2. CLASIFICACIÓN
+group:  Order Flow  
+subgroup:  Delta  
+comparison_group:  "Bar Delta Analysis"  
+
+# 3. VALORACIÓN (Score & Priority)
+score_current:  3/10  
+score_potential:  3/10  
+file_state:  Estable  
+effort:  Medio  
+action_priority:  P4  
+system_priority:  N/A  
+
+# 4. DECISIÓN
+recommended_action:  Descartar  
+
+# 5. ANÁLISIS
+description:  ¿Cuál es la intensidad del momentum del delta en relación con un máximo fijo, visualizada en el color de las velas?  
+gemini_summary:  "Intento primitivo de visualización. Falla gravemente por depender de un parámetro 'MaxDelta' fijo que no se adapta a los cambios de volatilidad intradía, saturándose o quedándose 'ciego' según la hora."  
+competitor_notes:  "Delta Modif ofrece visualización en precio muy superior y dinámica."  
+reusable_code:  null  
+
+# 6. METADATOS
+analysis_date:  2025-11-21  
+official_code_date:  2025-04-23  
 ---
 
 ## 💀 Delta Colored Candles (3/10)
@@ -31,6 +43,7 @@ official_code_date: 23/04/2025
 
 ![DeltaColoredCandles](../../img/DeltaColoredCandles.png)
 
+
 ---
 
 ### ⚙️ Parámetros configurables
@@ -44,22 +57,24 @@ official_code_date: 23/04/2025
 ### 🧭 Clasificación
 **Grupo:** Order Flow  
 **Subgrupo:** Delta  
-**Comparison Group:** "Bar Delta"  
+**Comparison Group:** "Bar Delta Analysis"  
+
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* **Mapa de Calor:** Intentar ver la "temperatura" del flujo de órdenes directamente en las velas de precio.  
+* **Heatmap en Precio:** Ver la temperatura del delta en las velas.  
+
 
 ---
 
 ### 📊 Nivel de relevancia
 🔟 **3 / 10**
 
-✅ **Concepto:** La idea de "Heatmap en Precio" es atractiva visualmente.  
-⛔ **Estático (Fallo Crítico):** Depende de `MaxDelta` fijo. Un valor de 600 satura en la apertura (todo brillante) y no muestra nada al mediodía (todo gris).  
-⛔ **Confuso:** Altera el color de la vela, dificultando la lectura OHLC estándar.  
+⛔ **Estático:** Depende de un valor fijo manual. Inviable para sesiones con volatilidad variable.  
+⛔ **Confuso:** Altera el color de la vela, dificultando la lectura de la acción del precio.  
+
 
 ---
 
@@ -87,31 +102,31 @@ official_code_date: 23/04/2025
 
 * **Falta de Normalización Dinámica:** No usa ATR ni Desviación Estándar. Es una fórmula lineal simple contra un número arbitrario.  
 
+
 ---
 
 ### 🛠️ Propuestas de mejora
 
-* **Ninguna.** El enfoque de pintar velas enteras suele ser inferior a poner marcadores discretos (triángulos, puntos) como hace `Delta Modif`.  
+* **Ninguna.** Descartar.  
+
 
 ---
 
 ### 💎 Valor Reutilizable (Código Donante)
 
-* **Ninguno.** La lógica de Heatmap es estándar y no aporta nada especial al ganador.  
-
+* **Ninguno.**
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
 Es un indicador obsoleto. En el trading algorítmico moderno, exigimos adaptabilidad. Una herramienta que me pide adivinar el "Delta Máximo" del día por adelantado no sirve.
 
-**Propuestas de Acción:**
-* **Descartar.**
+
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**No.**
+**No**
 
-**Acción:** **Descartar.**
+**Acción:** **Descartar**

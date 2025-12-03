@@ -1,22 +1,34 @@
 ---
-cs_file: DeltaStrength.cs
-name: Delta Strength
-group: Order Flow
-subgroup: Delta
-score_current: 2/10
-version: Estable
-recommended_action: Descartar
-description: ¿Qué velas cierran con un delta dentro de un rango porcentual específico respecto a su extremo?
-gemini_summary: "Conceptualmente roto. Su diseño de filtro 'pasa-banda' (ej. 90%-98%) excluye los valores del 100% (máxima agresión), ocultando paradójicamente la información más valiosa de Order Flow."
-comparison_group: "Bar Delta"
-competitor_notes: "Delta Modif realiza análisis de fuerza y absorción correctamente sin excluir extremos."
-reusable_code: null
-file_state: Estable (Lógica Defectuosa)
-score_potential: 2/10
-effort: Alto
-action_priority: P4
-analysis_date: 2025-11-21
-official_code_date: 23/04/2025
+# 1. IDENTIFICACIÓN
+cs_file:  DeltaStrength.cs  
+name:  Delta Strength  
+version:  ATAS Stable  
+
+# 2. CLASIFICACIÓN
+group:  Order Flow  
+subgroup:  Delta  
+comparison_group:  "Bar Delta Analysis"  
+
+# 3. VALORACIÓN (Score & Priority)
+score_current:  2/10  
+score_potential:  2/10  
+file_state:  Estable  
+effort:  Alto  
+action_priority:  P4  
+system_priority:  N/A  
+
+# 4. DECISIÓN
+recommended_action:  Descartar  
+
+# 5. ANÁLISIS
+description:  ¿Qué velas cierran con un delta dentro de un rango porcentual específico respecto a su extremo?  
+gemini_summary:  "Conceptualmente roto. Su diseño excluye los valores del 100% (máxima agresión), ocultando paradójicamente la información más valiosa de Order Flow."  
+competitor_notes:  "Delta Modif realiza análisis de fuerza y absorción correctamente sin excluir extremos."  
+reusable_code:  null  
+
+# 6. METADATOS
+analysis_date:  2025-12-03  
+official_code_date:  2025-04-23  
 ---
 
 ## ⛔ Delta Strength (2/10)
@@ -27,9 +39,10 @@ official_code_date: 23/04/2025
 **Compatibilidad:** ATAS versión estable y superiores.  
 **Última revisión del código oficial:** 23/04/2025  
 
-> **La Pregunta Clave:** ¿Qué velas cierran con un delta dentro de un rango porcentual específico respecto a su extremo (MaxDelta/MinDelta)?
+> **La Pregunta Clave:** ¿Qué velas cierran con un delta dentro de un rango porcentual específico respecto a su extremo?
 
 ![DeltaStrength](../../img/DeltaStrength.png)
+
 
 ---
 
@@ -44,7 +57,8 @@ official_code_date: 23/04/2025
 ### 🧭 Clasificación
 **Grupo:** Order Flow  
 **Subgrupo:** Delta  
-**Comparison Group:** "Bar Delta"  
+**Comparison Group:** "Bar Delta Analysis"  
+
 
 ---
 
@@ -52,13 +66,14 @@ official_code_date: 23/04/2025
 
 * **(Teórico)** Identificar velas que cierran "casi" en sus máximos de delta.  
 
+
 ---
 
 ### 📊 Nivel de relevancia
 🔟 **2 / 10**
 
-⛔ **Lógica Rota:** Excluye el 100%. Si una vela cierra con Delta = MaxDelta (convicción total), este indicador la oculta si MaxFilter < 100.  
-⛔ **Peligroso:** En Order Flow, los valores extremos son la señal, no el ruido a filtrar.  
+⛔ **Lógica Rota:** Si configuras 90-98%, ocultas las velas del 100% (las más fuertes). Absurdo.  
+
 
 ---
 
@@ -83,13 +98,15 @@ official_code_date: 23/04/2025
 
 ### ❗ Incoherencias o aspectos mejorables detectados
 
-* **Exclusión de Outliers:** El código trata los valores extremos como algo a evitar, cuando en Delta son lo que buscamos.  
+* **Exclusión de Outliers:** El código trata los valores extremos como ruido.  
+
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-* **Ninguna.**
+* **Ninguna.** Descartar.  
+
 
 ---
 
@@ -101,15 +118,12 @@ official_code_date: 23/04/2025
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Un "Falso Amigo". Su nombre sugiere medir fuerza, pero su matemática la oculta.
-
-**Propuestas de Acción:**
-* **Descartar.**
+Un "Falso Amigo".
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**No.**
+**No**
 
-**Acción:** **Descartar.**
+**Acción:** **Descartar**

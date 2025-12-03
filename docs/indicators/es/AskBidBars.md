@@ -1,25 +1,37 @@
 ---
-cs_file: AskBidBars.cs
-name: Ask/Bid Volume Difference Bars
-group: Order Flow
-subgroup: Delta
-score_current: 6.5/10
-version: Stable
-recommended_action: Conservar (Reserva)
-description: ¿Cuál fue el volumen agresivo neto (Delta) de esta vela y cuál fue el rango total de la lucha entre compradores y vendedores?
-gemini_summary: "Conceptualmente brillante: cuenta la 'historia completa' del Delta (Máximo, Mínimo y Neto) en una sola barra. Sin embargo, falla en la ejecución visual actual al carecer de una línea cero de referencia, lo que la hace inferior al ganador del grupo."
-comparison_group: "Bar Delta"
-competitor_notes: "Ofrece una visualización estructural (High/Low) que Delta Modif puede replicar, pero Ask/Bid Bars es más ligero. Se mantiene como alternativa 'Lite'."
-reusable_code: "Lógica de mapeo High=MaxDelta, Low=MinDelta para crear velas sintéticas."
-file_state: Estable (Con defecto de UI)
-score_potential: 8/10
-effort: Bajo
-action_priority: P3
-analysis_date: 2025-11-21
-official_code_date: 23/04/2025
+# 1. IDENTIFICACIÓN
+cs_file:  AskBidBars.cs  
+name:  Ask/Bid Volume Difference Bars  
+version:  ATAS Stable  
+
+# 2. CLASIFICACIÓN
+group:  Order Flow  
+subgroup:  Delta  
+comparison_group:  "Bar Delta Analysis"  
+
+# 3. VALORACIÓN (Score & Priority)
+score_current:  4/10  
+score_potential:  4/10  
+file_state:  Estable  
+effort:  N/A  
+action_priority:  P4  
+system_priority:  N/A  
+
+# 4. DECISIÓN
+recommended_action:  Descartar  
+
+# 5. ANÁLISIS
+description:  ¿Cuál fue el rango total (Max/Min) y el cierre neto del Delta en la vela?  
+gemini_summary:  "Aunque ofrece más información que un histograma simple (al mostrar MaxDelta y MinDelta), esta funcionalidad ya está totalmente absorbida por el indicador principal 'Delta Modif' en su modo 'Velas/High-Low'. Además, este indicador tiene un defecto visual (falta de línea cero) y no posee alertas. Su mantenimiento es redundante."  
+competitor_notes:  "Totalmente redundante frente a Delta Modif, que ofrece la misma visualización enriquecida con estadística y señales."  
+reusable_code:  null  
+
+# 6. METADATOS
+analysis_date:  2025-12-03  
+official_code_date:  2025-04-23  
 ---
 
-## 🛡️ Ask/Bid Volume Difference Bars (6.5/10)
+## 💀 Ask/Bid Volume Difference Bars (4/10)
 
 **Nombre del archivo:** [`AskBidBars.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/AskBidBars.cs)  
 **Nombre del indicador:** Ask/Bid Volume Difference Bars  
@@ -27,96 +39,98 @@ official_code_date: 23/04/2025
 **Compatibilidad:** ATAS versión estable y superiores.  
 **Última revisión del código oficial:** 23/04/2025  
 
-> **La Pregunta Clave:** ¿Cuál fue el volumen agresivo neto (Delta) de esta vela y cuál fue el rango total de la lucha entre compradores y vendedores?
+> **La Pregunta Clave:** ¿Cuál fue el rango total (Max/Min) y el cierre neto del Delta en la vela?
 
 ![AskBidBars](../../img/AskBidBars.png)
+
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-* **N/A:** El indicador no expone parámetros de configuración lógica en la interfaz (UI).  
-* *Nota: Los colores se gestionan directamente desde la configuración de la serie de datos (Candles).*
+* **Colors:** Hereda los colores de las velas del gráfico principal o se configuran en la serie.  
+* *Nota:* No tiene parámetros de configuración lógica expuestos.  
+
 
 ---
 
 ### 🧭 Clasificación
 **Grupo:** Order Flow  
 **Subgrupo:** Delta  
-**Comparison Group:** "Bar Delta"  
+**Comparison Group:** "Bar Delta Analysis"  
+
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* **Narrativa de la Vela (Storytelling):** Muestra el recorrido completo de la agresividad. Puedes ver hasta dónde empujaron los compradores (`High/MaxDelta`) y los vendedores (`Low/MinDelta`) antes de cerrar (`Close/Delta`).  
-* **Detección de Absorción:** Una vela con una mecha inferior muy larga (`MinDelta` muy negativo) que cierra positiva o cerca de cero indica que toda la venta agresiva fue absorbida.  
-* **Identificación de Agotamiento:** Velas con mechas largas por ambos lados pero con un cuerpo (Delta neto) muy pequeño.  
+* **Estructura del Delta:** Ver la volatilidad interna del flujo de órdenes (mechas del delta).  
+
 
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **6.5 / 10**
+🔟 **4 / 10**
 
-✅ **Riqueza de Información:** Condensa tres datos críticos (Delta Máximo, Mínimo y Neto) en un solo glifo visual.  
-✅ **Visualización de Volatilidad:** Permite ver si el Delta se movió de forma direccional o errática dentro de la vela.  
-⛔ **Fallo de UI (Crítico):** No dibuja una línea cero (`ShowZeroValue` no está explícito). Esto hace que las velas "floten" en el panel, dificultando la lectura rápida.  
-⛔ **Redundancia:** `Delta Modif` (Ganador) replica esta funcionalidad en modo "Candles" añadiendo alertas dinámicas.  
+⛔ **Redundante:** El indicador Core (`Delta Modif`) ya replica esta visualización (Modo Candles) con mayor calidad.  
+⛔ **Defecto Visual:** No pinta línea cero por defecto, dificultando la lectura rápida.  
+
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Reversión por Absorción:** En soporte, buscar vela con mecha inferior larga (Delta negativo) que cierra verde.  
-* **Confirmación de Breakout:** En rotura, buscar vela con cuerpo grande y sin mechas en contra.  
+* **Ninguna.** Usar Delta Modif en su lugar.  
+
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **Configuración Manual Requerida:** Dado que no tiene parámetros, es vital añadir manualmente una línea horizontal en el nivel `0` para tener referencia visual.  
+* **No Recomendado.** 
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* Utiliza una `CandleDataSeries` personalizada llamada `_renderSeries`.  
-* Mapeo: `High` = `MaxDelta`, `Low` = `MinDelta`, `Close` = `Delta`.  
+* Utiliza `CandleDataSeries` mapeando `High=MaxDelta` y `Low=MinDelta`.  
+
 
 ---
 
 ### ❗ Incoherencias o aspectos mejorables detectados
 
-* **Falta de Referencia Cero:** El código no incluye `ShowZeroValue = true`.  
-* **Gestión de Colores:** Hereda colores del gráfico principal, lo que puede confundir.  
+* **Falta de Línea Cero:** Debería forzar `ShowZeroValue = true` en la serie de datos para ser usable "out of the box".  
+
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-* **Mejora UI (P3):** Añadir línea cero fija en el código. Es sencillo, pero al ser un indicador de "Reserva", la prioridad es baja.  
+* **Ninguna.** Eliminación directa.  
+
 
 ---
 
 ### 💎 Valor Reutilizable (Código Donante)
 
-* **Lógica de Mapeo:** El concepto `High=Max` y `Low=Min` debe estar presente en el indicador Ganador.  
+* **Lógica de Mapeo:** El concepto `High=Max` y `Low=Min` ya se usa en Delta Modif.  
+
 
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Idea excelente con ejecución incompleta. Es superior a un histograma simple porque revela la **lucha** (rango), pero inferior al ganador `Delta Modif` porque carece de contexto estadístico y tiene un fallo visual (falta línea cero). Se queda como un buen suplente ligero.
+Idea excelente con ejecución incompleta y ahora redundante.
 
-**Propuestas de Acción:**
-* **Conservar como Reserva.** Si alguna vez se necesita una versión "Lite", se le debe aplicar el parche de la línea cero.
+
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí.**
+**No (Por redundancia)**
 
-Excelente detector de absorción visual.
+Su utilidad queda anulada al tener el `Delta Modif` configurado correctamente.
 
-**Acción:** **Conservar (Reserva).**
+**Acción:** **Descartar**

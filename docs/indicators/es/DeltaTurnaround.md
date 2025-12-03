@@ -1,22 +1,34 @@
 ---
-cs_file: DeltaTurnaround.cs
-name: Delta Turnaround
-group: Order Flow
-subgroup: Delta
-score_current: 4/10
-version: Latest
-recommended_action: Descartar
-description: ¿Se ha producido un patrón de giro de 3 velas confirmado por el delta?
-gemini_summary: "Demasiado rígido. Busca un patrón 'hard-coded' (A-A-B) que rara vez se da perfecto en mercados modernos. La detección de giros requiere análisis de contexto (Delta Modif), no secuencias fijas."
-comparison_group: "Bar Delta"
-competitor_notes: "Inferior a la lectura discrecional con Delta Modif o a la automatización flexible con BarsPattern."
-reusable_code: null
-file_state: Estable
-score_potential: 4/10
-effort: Bajo
-action_priority: P4
-analysis_date: 2025-11-21
-official_code_date: 31/07/2025
+# 1. IDENTIFICACIÓN
+cs_file:  DeltaTurnaround.cs  
+name:  Delta Turnaround  
+version:  ATAS Stable  
+
+# 2. CLASIFICACIÓN
+group:  Order Flow  
+subgroup:  Delta  
+comparison_group:  "Bar Delta Analysis"  
+
+# 3. VALORACIÓN (Score & Priority)
+score_current:  4/10  
+score_potential:  4/10  
+file_state:  Estable  
+effort:  Bajo  
+action_priority:  P4  
+system_priority:  N/A  
+
+# 4. DECISIÓN
+recommended_action:  Descartar  
+
+# 5. ANÁLISIS
+description:  ¿Se ha producido un patrón de giro de 3 velas confirmado por el delta?  
+gemini_summary:  "Demasiado rígido. Busca un patrón 'hard-coded' (A-A-B) que rara vez se da perfecto en mercados modernos. La detección de giros requiere análisis de contexto, no secuencias fijas."  
+competitor_notes:  "Inferior a la lectura discrecional con Delta Modif."  
+reusable_code:  null  
+
+# 6. METADATOS
+analysis_date:  2025-12-03  
+official_code_date:  2025-07-31  
 ---
 
 ## 💀 Delta Turnaround (4/10)
@@ -27,9 +39,10 @@ official_code_date: 31/07/2025
 **Compatibilidad:** ATAS versión estable y superiores.  
 **Última revisión del código oficial:** 31/07/2025  
 
-> **La Pregunta Clave:** ¿Se ha producido un patrón de giro de 3 velas (dos en una dirección, una en la opuesta) confirmado por el delta?
+> **La Pregunta Clave:** ¿Se ha producido un patrón de giro de 3 velas confirmado por el delta?
 
 ![DeltaTurnaround](../../img/DeltaTurnaround.png)
+
 
 ---
 
@@ -45,34 +58,35 @@ official_code_date: 31/07/2025
 ### 🧭 Clasificación
 **Grupo:** Order Flow  
 **Subgrupo:** Delta  
-**Comparison Group:** "Bar Delta"  
+**Comparison Group:** "Bar Delta Analysis"  
+
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* **Automatización de Patrones:** Intentar detectar giros en V de libro de texto.  
+* **Automatización de Patrones:** Intentar detectar giros en V exactos.  
+
 
 ---
 
 ### 📊 Nivel de relevancia
 🔟 **4 / 10**
 
-✅ **Concepto:** Validar giros de precio con divergencia de delta es correcto.  
-⛔ **Rígido (Hard-coded):** Busca una secuencia exacta de 3 velas. Cualquier variación (Doji intermedio, giro en 4 velas) rompe la señal.  
-⛔ **Caja Negra:** No puedes ajustar la sensibilidad.  
+⛔ **Rígido:** Busca una secuencia exacta de 3 velas. Cualquier variación rompe la señal.  
+
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Ninguna fiable.** Demasiados falsos negativos (giros reales que el indicador ignora).  
+* **No Recomendado.**
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **No Recomendado.** 
+* **No Recomendado.**
 
 ---
 
@@ -87,30 +101,30 @@ official_code_date: 31/07/2025
 
 * **Rigidez:** La lógica está "escrita en piedra" en el código.  
 
+
 ---
 
 ### 🛠️ Propuestas de mejora
 
 * **Ninguna.** Para patrones, usar `BarsPattern`. Para Delta, usar `Delta Modif`.  
 
+
 ---
 
 ### 💎 Valor Reutilizable (Código Donante)
 
-* **Ninguno.**  
+* **Ninguno.** 
+
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Es un script básico, útil quizás hace una década. Hoy en día, los patrones de giro son mucho más ruidosos y requieren herramientas que midan la presión acumulada, no la forma exacta de 3 velas.
-
-**Propuestas de Acción:**
-* **Descartar.**
+Script básico y obsoleto.
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**No.**
+**No**
 
-**Acción:** **Descartar.**
+**Acción:** **Descartar**
