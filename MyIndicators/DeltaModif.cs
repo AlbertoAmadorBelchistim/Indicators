@@ -1,6 +1,7 @@
 ﻿namespace MyIndicators;
 
 using ATAS.Indicators;
+using ATAS.Indicators.Technical;
 
 using OFT.Attributes;
 using OFT.Localization;
@@ -15,6 +16,7 @@ using System.Drawing;
 
 
 using Parameter = OFT.Attributes.ParameterAttribute;
+using FilterColor = ATAS.Indicators.FilterColor;
 
 [Category("Custom")]
 [DisplayName("Delta (Modif)")]
@@ -75,6 +77,25 @@ public class DeltaModif : Indicator
 
         [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Down))]
         Down
+    }
+
+    [Serializable]
+    public enum AverageMode
+    {
+        [Display(Name = "SMA")]
+        Sma = 0,
+        [Display(Name = "EMA")]
+        Ema = 1
+    }
+
+    public enum AverageColorMode
+    {
+        [Display(Name = "Fixed")]
+        Fixed,
+        [Display(Name = "By Slope")]
+        Slope,
+        [Display(Name = "By Zero Cross")]
+        ZeroCross
     }
 
     #endregion
@@ -240,7 +261,23 @@ public class DeltaModif : Indicator
     private const string UiGroupFixedThreshold = "Fixed Threshold";
     private const string UiGroupDynamicThreshold = "Dynamic Threshold";
 
-#endregion
+    // --- Average Delta Fields ---
+    private readonly ValueDataSeries _avgSeries = new("AverageSeries", "Average Delta")
+    {
+        VisualType = VisualMode.Hide, // Hidden by default
+        Color = Color.Cyan.Convert(),
+        Width = 2,
+        IgnoredByAlerts = true,
+        UseMinimizedModeIfEnabled = true
+    };
+
+    private readonly SMA _sma = new() { Period = 10 };
+    private readonly EMA _ema = new() { Period = 10 };
+
+    private Color _avgSlopeUpColor = Color.Cyan;
+    private Color _avgSlopeDownColor = Color.Magenta;
+
+    #endregion
 
     #region Fields (price signals)
 
@@ -278,21 +315,21 @@ public class DeltaModif : Indicator
     private void SetupThresholdPens()
     {
         // Solid majors
-        _upMajor.Color = CrossColor.FromArgb(255, 255, 165, 0);   // orange
-        _upMajor.Width = 2;
+        _upMajor.Color = CrossColor.FromArgb(255, 169, 169, 169); // DarkGray
+        _upMajor.Width = 1;
         _upMajor.LineDashStyle = LineDashStyle.Solid;
 
-        _dnMajor.Color = CrossColor.FromArgb(255, 128, 0, 128);   // purple
-        _dnMajor.Width = 2;
+        _dnMajor.Color = CrossColor.FromArgb(255, 169, 169, 169); // DarkGray
+        _dnMajor.Width = 1;
         _dnMajor.LineDashStyle = LineDashStyle.Solid;
 
         // Dotted minors
-        _upMinor.Color = CrossColor.FromArgb(255, 255, 215, 0);   // yellow
-        _upMinor.Width = 2;
+        _upMinor.Color = CrossColor.FromArgb(255, 105, 105, 105); // DimGray
+        _upMinor.Width = 1;
         _upMinor.LineDashStyle = LineDashStyle.Dot;
 
-        _dnMinor.Color = CrossColor.FromArgb(255, 30, 144, 255);  // dodger blue
-        _dnMinor.Width = 2;
+        _dnMinor.Color = CrossColor.FromArgb(255, 105, 105, 105); // DimGray
+        _dnMinor.Width = 1;
         _dnMinor.LineDashStyle = LineDashStyle.Dot;
 
         RebuildThresholdPens();
@@ -964,7 +1001,99 @@ public class DeltaModif : Indicator
 
     #endregion
 
-#endregion
+    #region Average Delta
+
+    [Display(Name = "Show Average", GroupName = "Average", Order = 400)]
+    public bool ShowAverage
+    {
+        get => _showAverage;
+        set
+        {
+            _showAverage = value;
+            _avgSeries.VisualType = value ? VisualMode.Line : VisualMode.Hide;
+            RaisePropertyChanged(nameof(ShowAverage));
+            RecalculateValues();
+        }
+    }
+    private bool _showAverage;
+
+    [Display(Name = "Period", GroupName = "Average", Order = 410)]
+    [Range(1, 1000)]
+    public int AveragePeriod
+    {
+        get => _sma.Period;
+        set
+        {
+            _sma.Period = value;
+            _ema.Period = value;
+            RecalculateValues();
+        }
+    }
+
+    [Display(Name = "Calculation Mode", GroupName = "Average", Order = 420)]
+    public AverageMode AvgMode
+    {
+        get => _avgMode;
+        set
+        {
+            _avgMode = value;
+            RecalculateValues();
+        }
+    }
+    private AverageMode _avgMode = AverageMode.Sma;
+
+    [Display(Name = "Color Mode", GroupName = "Average", Order = 425)]
+    public AverageColorMode AvgColorMode
+    {
+        get => _avgColorMode;
+        set
+        {
+            _avgColorMode = value;
+            RecalculateValues();
+        }
+    }
+    private AverageColorMode _avgColorMode = AverageColorMode.Fixed;
+
+    [Display(Name = "Base Color", GroupName = "Average", Order = 430)]
+    public CrossColor AverageColor
+    {
+        get => _avgSeries.Color;
+        set => _avgSeries.Color = value;
+    }
+
+    [Display(Name = "Slope Up Color", GroupName = "Average", Order = 431)]
+    public CrossColor AvgSlopeUpColor
+    {
+        get => _avgSlopeUpColor.Convert();
+        set
+        {
+            _avgSlopeUpColor = value.Convert(); // Convierte UI -> System.Drawing.Color
+            RecalculateValues();
+        }
+    }
+
+    [Display(Name = "Slope Down Color", GroupName = "Average", Order = 432)]
+    public CrossColor AvgSlopeDownColor
+    {
+        get => _avgSlopeDownColor.Convert();
+        set
+        {
+            _avgSlopeDownColor = value.Convert(); // Convierte UI -> System.Drawing.Color
+            RecalculateValues();
+        }
+    }
+
+    [Display(Name = "Width", GroupName = "Average", Order = 440)]
+    [Range(1, 10)]
+    public int AverageWidth
+    {
+        get => _avgSeries.Width;
+        set => _avgSeries.Width = value;
+    }
+
+    #endregion
+
+    #endregion
 
     #region ctor
 
@@ -977,7 +1106,7 @@ public class DeltaModif : Indicator
 
         Panel = IndicatorDataProvider.NewPanel;
         DataSeries[0] = _delta;
-
+        
         DataSeries.Insert(0, _diapasonHigh);
         DataSeries.Insert(1, _diapasonLow);
         DataSeries.Add(_candles);
@@ -999,6 +1128,10 @@ public class DeltaModif : Indicator
         DataSeries.Add(_upMinor);
         DataSeries.Add(_dnMinor);
         DataSeries.Add(_dnMajor);
+
+        // average delta
+        DataSeries.Add(_avgSeries);
+
         SetupThresholdPens();
         UpdateThresholdSeries(repaint: false);
 
@@ -1182,6 +1315,14 @@ public class DeltaModif : Indicator
         var absDelta = Math.Abs(deltaValue);
         var maxDelta = candle.MaxDelta;
         var minDelta = candle.MinDelta;
+
+        if (maxDelta == minDelta)
+        {
+            if (maxDelta > 0)
+                minDelta = 0;
+            else
+                maxDelta = 0;
+        }
 
         var isUnderFilter = absDelta < _filter;
 
@@ -1574,6 +1715,41 @@ public class DeltaModif : Indicator
                 : deltaValue < 0
                     ? _downColor
                     : _neutralColor;
+        }
+
+        // --- Average Delta Calculation & Coloring ---
+        var smaVal = _sma.Calculate(bar, deltaValue);
+        var emaVal = _ema.Calculate(bar, deltaValue);
+        var avgVal = (AvgMode == AverageMode.Sma) ? smaVal : emaVal;
+
+        if (ShowAverage)
+        {
+            _avgSeries[bar] = avgVal;
+
+            if (AvgColorMode == AverageColorMode.Fixed)
+            {
+                _avgSeries.Colors[bar] = _avgSeries.Color.Convert();
+            }
+            else if (AvgColorMode == AverageColorMode.ZeroCross)
+            {
+                _avgSeries.Colors[bar] = (avgVal >= 0) ? _avgSlopeUpColor : _avgSlopeDownColor;
+            }
+            else if (AvgColorMode == AverageColorMode.Slope)
+            {
+                if (bar > 0)
+                {
+                    var prevAvg = _avgSeries[bar - 1];
+                    _avgSeries.Colors[bar] = (avgVal >= prevAvg) ? _avgSlopeUpColor : _avgSlopeDownColor;
+                }
+                else
+                {
+                    _avgSeries.Colors[bar] = _avgSeries.Color.Convert();
+                }
+            }
+        }
+        else
+        {
+            _avgSeries[bar] = 0;
         }
     }
 
