@@ -89,11 +89,6 @@ namespace ATAS.Indicators.Technical
 
         #region Protected methods
 
-        protected override void OnInitialize()
-        {
-	        _smoothedCandles.DrawCandleBorder = true;
-        }
-
         protected override void OnApplyDefaultColors()
         {
 	        if (ChartInfo is null)
