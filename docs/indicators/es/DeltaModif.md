@@ -1,22 +1,35 @@
 ---
-cs_file: DeltaModif.cs
-name: Delta Modif
-group: Order Flow
-subgroup: Delta
-score_current: 10/10
-version: Custom (v1.3.0)
-recommended_action: Conservar (Core)
-description: ¿Qué barras muestran una agresión (Delta) extrema, divergencia o absorción, y cómo puedo ver esas señales directamente en el gráfico de precio?
-gemini_summary: "Herramienta táctica definitiva. Incorpora Umbrales Dinámicos (Z-Score) y señales visuales de divergencia/absorción directamente sobre las velas. Transforma el Delta de un dato pasivo a una señal activa de trading."
-comparison_group: "Bar Delta"
-competitor_notes: "Superior a todos. Absorbe la funcionalidad de 'Delta Colored Candles' y corrige los defectos lógicos de 'Delta Strength' y 'Turnaround'."
-reusable_code: "Algoritmo Welford (DynamicSigned), Lógica de Divergencia en Precio, Visual Signals."
-file_state: Estable
-score_potential: 10/10
-effort: N/A
-action_priority: N/A
-analysis_date: 2025-11-21
-official_code_date: 06/11/2025
+# 1. IDENTIFICACIÓN
+cs_file:  DeltaModif.cs
+name:  Delta Modif
+version:  Custom v1.4.0 (Final)
+
+# 2. CLASIFICACIÓN
+group:  Order Flow
+subgroup:  Delta
+comparison_group:  "Bar Delta Analysis"
+
+# 3. VALORACIÓN (Score & Priority)
+score_current:  10/10
+score_potential:  10/10
+file_state:  Estable
+effort:  N/A
+action_priority:  Nula
+system_priority:  P1
+
+# 4. DECISIÓN
+recommended_action:  Conservar (Core)
+
+# 5. ANÁLISIS
+description:  ¿Qué barras muestran una agresión (Delta) extrema, divergencia o absorción, y cómo se comporta el flujo respecto a su tendencia media?
+gemini_summary:  "Herramienta táctica definitiva. Integra en un solo panel: Histograma de Delta (con mechas), Umbrales Dinámicos (Z-Score), Media Móvil de tendencia (Slope-colored) y señales visuales de divergencia/absorción. Transforma el Delta de un dato pasivo a un sistema de trading activo y contextualizado."
+competitor_notes:  "Superior a todos. Absorbe la funcionalidad de 'Average Delta' y 'Delta Colored Candles', haciendo obsoletos al resto de indicadores de su grupo."
+reusable_code:  "Algoritmo Welford (DynamicSigned), Visual Signals, Slope-Coloring Logic."
+
+# 6. METADATOS
+analysis_date:  2025-12-04
+official_code_date:  2025-11-25
+user_modification_date:  2025-12-05
 ---
 
 ## 🏆 Delta Modif (10/10)
@@ -25,11 +38,11 @@ official_code_date: 06/11/2025
 **Nombre del indicador:** Delta Modif  
 **Web oficial base:** [ATAS — Delta](https://help.atas.net/en/support/solutions/articles/72000602362-delta)  
 **Compatibilidad:** ATAS Beta y superiores. Para compatibilidad con versiones anteriores, debe usarse la compilación "stable" de los indicadores.  
-**Última revisión del código base:** [`Delta.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/Delta.cs): 16/09/2025  
-**Última revisión del código modificado:** 06/11/2025 (v 1.3.0) *(Versión extendida y mejorada por Alberto Amador Belchistim sobre la beta oficial de ATAS)*  
+**Última revisión del código base:** [`Delta.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/Delta.cs): 25/11/2025  
+**Última revisión del código modificado:** 4/12/2025 (v 1.4.0) *(Versión extendida y mejorada por Alberto Amador Belchistim sobre la alfa oficial de ATAS)*  
 **Agradecimientos:** A **LoloTrader** y **Nick** por sus sugerencias e ideas.  
   
-> **La Pregunta Clave:** ¿Qué barras muestran una agresión (Delta) extrema, divergencia o absorción, y cómo puedo ver esas señales directamente en el gráfico de precio?
+> **La Pregunta Clave:** ¿Qué barras muestran una agresión (Delta) extrema, divergencia o absorción, y cómo se comporta el flujo respecto a su tendencia media?
 
 ![Delta](../../img/Delta.png)
 
@@ -133,10 +146,23 @@ Configura las alertas sonoras.
 
 ---
 
+#### **📈 Average Delta (Media Móvil Integrada)**
+* **Show Average**: Activa la línea de tendencia superpuesta.
+* **Period**: Longitud de la media (Default: 10).
+* **Mode**: `SMA` o `EMA`.
+* **Color Mode**:
+    * `Fixed`: Color único.
+    * `By Slope`: **(Recomendado)** Cambia de color según la pendiente. Cian (Subida) / Magenta (Bajada).
+    * `By Zero cross`: Cambia de color según si está por encima (Cian) o por debajo (Magenta) de cero.
+
+![Delta Media](../../img/DeltaMedia.png)
+
+---
+
 ### 🧭 Clasificación
-**Grupo:** Order Flow
-**Subgrupo:** Delta
-**Comparison Group:** "Bar Delta"
+**Grupo:** Order Flow  
+**Subgrupo:** Delta  
+**Comparison Group:** "Bar Delta Analysis"
 
 ---
 
@@ -145,6 +171,7 @@ Configura las alertas sonoras.
 * **Gatillo de Entrada (Trigger):** Confirmación visual inmediata (Triángulo en precio) en la vela de señal.
 * **Detección de Absorción:** Identificar velas que cierran en contra de su delta masivo (Color inverso o mecha larga en Delta).
 * **Filtro de Volatilidad:** Usando `DynamicSigned`, el indicador ignora el ruido y solo alerta en movimientos estadísticamente relevantes (picos de desviación estándar).
+* **Filtro de Tendencia (Slope):** Si la media es Magenta (bajista) y el precio sube, buscar cortos por agotamiento.
 
 ---
 
@@ -153,7 +180,7 @@ Configura las alertas sonoras.
 
 ✅ **Dinámico:** Se auto-ajusta a la volatilidad del día (RTH vs Overnight).  
 ✅ **Visual:** Permite operar mirando solo el precio gracias a los `Price Signals`.  
-✅ **Completo:** Integra divergencias y absorción en una sola herramienta.  
+✅ **Completo:** Integra divergencias, media y absorción en una sola herramienta.  
 
 ---
 
@@ -182,6 +209,9 @@ Configura las alertas sonoras.
 | **Price Signal Size** | `10` | Tamaño equilibrado. |
 | **Visual Level** | `Major` | Solo avisar en picos extremos estadísticos. |
 | **Audio At Bar Close** | `True` | Evitar falsas alarmas intra-vela. |
+| **Show Average** | `True` | Contexto de flujo inmediato. |
+| **Avg Mode / Period** | `EMA` / `10` | Estándar para ver el flujo de corto plazo. |
+| **Avg Color Mode** | `Slope` | Información visual rápida del momentum. |
 
 ---
 
@@ -198,6 +228,13 @@ Configura las alertas sonoras.
 
 ---
 
+### ✨ Mejoras introducidas (Versión Oficial Alfa)
+
+1.  Corrección en `OnCalculate` para manejar casos donde `MaxDelta == MinDelta` 
+    * En velas de un solo tick o muy bajo volumen se asignará correctamente el 0 al lado contrario para evitar errores de cálculo.
+
+---
+
 ### ✨ Mejoras añadidas (Custom Modif v1.3.0)
 
 1.  **Price Signals (Triángulos en Precio):**
@@ -208,6 +245,15 @@ Configura las alertas sonoras.
     * Usa datos de la vela cerrada anterior para proyectar el umbral actual.
 3.  **Threshold Lines:**
     * Visualización de las bandas `Major` y `Minor` directamente en el histograma.
+
+---
+
+### ✨ Mejoras añadidas (Custom Modif v1.4.0)
+
+* **Media Móvil Integrada:** Inclusión de SMA/EMA con lógica de color por pendiente (`Slope`) y cruce de cero (`Zero cross`)
+* **Limpieza Visual:**
+    * Thresholds ahora son grises y finos por defecto.
+    * Colores semánticos para la media (Cian/Magenta) que no compiten con las velas (Verde/Rojo).
 
 ---
 
