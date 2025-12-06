@@ -42,13 +42,12 @@ _Comparativa de fuerza: Órdenes Limitadas (Muros) vs Órdenes a Mercado (Ataque
 > *El pulso de la batalla. ¿Quién golpea el mercado a mercado (Market Orders)?*
 
 
-### ⚔️ Bar Delta <small>✅ (Fase 2)</small>
-_Delta neto por vela. ¿Quién ganó la batalla en esta barra?_
+### ⚔️ Bar Delta Analysis <small>✅ (Fase 2)</small>
 
 | Score | Estado | Indicador | Descripción / Notas |
 | :---: | :--- | :--- | :--- |
-| **10/10** | ✅ Conservar (Core) | [Delta Modif](indicators/es/DeltaModif.md) | ¿Qué barras muestran una agresión (Delta) extrema, divergencia o absorción, y cómo puedo ver esas señales directamente en el gráfico de precio? |
-| **6.5/10** | ✅ Conservar (Reserva) | [Ask/Bid Volume Difference Bars](indicators/es/AskBidBars.md) | ¿Cuál fue el volumen agresivo neto (Delta) de esta vela y cuál fue el rango total de la lucha entre compradores y vendedores? |
+| **10/10** | ✅ Conservar (Core) | [Delta Modif](indicators/es/DeltaModif.md) | ¿Qué barras muestran una agresión (Delta) extrema, divergencia o absorción, y cómo se comporta el flujo respecto a su tendencia media? |
+| **4/10** | 💀 Descartar | [Ask/Bid Volume Difference Bars](indicators/es/AskBidBars.md) | ¿Cuál fue el rango total (Max/Min) y el cierre neto del Delta en la vela? |
 | **4/10** | 💀 Descartar | [Delta Turnaround](indicators/es/DeltaTurnaround.md) | ¿Se ha producido un patrón de giro de 3 velas confirmado por el delta? |
 | **3/10** | 💀 Descartar | [Average Delta](indicators/es/AverageDelta.md) | ¿Cuál es la presión agresiva promedio (Delta) durante las últimas X velas? |
 | **3/10** | 💀 Descartar | [Delta Colored Candles](indicators/es/DeltaColoredCandles.md) | ¿Cuál es la intensidad del momentum del delta en relación con un máximo fijo, visualizada en el color de las velas? |

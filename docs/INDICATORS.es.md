@@ -40,7 +40,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Arms Ease of Movement](indicators/es/EMV.md) | Order Flow | 6.5/10 | Conservar (Reserva) |
 | [Aroon Indicator](indicators/es/AroonIndicator.md) | Trend | 3/10 | Descartar |
 | [Aroon Oscillator](indicators/es/AroonOscillator.md) | Trend | 3/10 | Descartar |
-| [Ask/Bid Volume Difference Bars](indicators/es/AskBidBars.md) | Order Flow | 6.5/10 | Conservar (Reserva) |
+| [Ask/Bid Volume Difference Bars](indicators/es/AskBidBars.md) | Order Flow | 4/10 | Descartar |
 | [ATR](indicators/es/ATR.md) | Trend | 8/10 | Mejorar |
 | [ATR Normalized](indicators/es/ATRN.md) | Trend | 3/10 | Descartar |
 | [Average Candle Range](indicators/es/ACR.md) | Trend | 4/10 | Descartar |

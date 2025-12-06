@@ -2,7 +2,7 @@
 # 1. IDENTIFICACIÓN
 cs_file:  SpeedOfTapeModifV2.cs
 name:  Speed of Tape Modif V2
-version:  Custom v2.0.0
+version:  Custom v2.1.0
 
 # 2. CLASIFICACIÓN
 group:  Order Flow
@@ -29,7 +29,7 @@ reusable_code:  "Lógica de 'Sliding Window' con Queue<TickSnapshot> y reconstru
 # 6. METADATOS
 analysis_date:  2025-11-27
 official_code_date:  Desconocido
-user_modification_date:  2025-11-27
+user_modification_date:  2025-12-5
 ---
 
 ## 🚀 Speed of Tape Modif V2 (10/10)
@@ -38,7 +38,7 @@ user_modification_date:  2025-11-27
 **Nombre del indicador:** Speed of Tape Modif V2  
 **Web oficial:** (indicador propio; documentación en este repositorio)
 **Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código modificado:** 27/11/2025 (v2.0.0)  
+**Última revisión del código modificado:** 5/12/2025 (v2.1.0)  
 
 > **La Pregunta Clave:** ¿Cuál es la velocidad REAL de ejecución (HFT) independientemente de la duración de la vela?
 
