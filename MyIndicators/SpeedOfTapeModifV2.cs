@@ -51,8 +51,11 @@ namespace MyIndicators
         {
             public decimal High;
             public decimal Low;
-            public System.Drawing.Color Color;
+
             public bool IsActive;
+
+            public bool IsBuy;       // ¿Era compra o venta?
+            public double Efficiency; // Ratio para el SmartColor (0.0 a 1.0)
         }
 
         #endregion
@@ -83,6 +86,7 @@ namespace MyIndicators
         // Esto evita que el panel intente escalar hasta el precio (ej. 4000)
         // Usaremos este Diccionario para guardar la info de dibujo
         private Dictionary<int, ZoneDrawData> _zoneCache = new Dictionary<int, ZoneDrawData>();
+        private readonly Dictionary<int, (bool IsBuy, double Efficiency)> _histogramColorCache = new();
 
         // Motor
         private readonly Queue<TickSnapshot> _tickQueue = new();
@@ -165,7 +169,12 @@ namespace MyIndicators
         public bool UseSmartColors
         {
             get => _useSmartColors;
-            set { _useSmartColors = value; RedrawChart(); }
+            set
+            {
+                _useSmartColors = value;
+                RepaintHistogram(); // Importante repintar aquí también
+                RedrawChart();
+            }
         }
         private bool _useSmartColors = true;
 
@@ -173,21 +182,36 @@ namespace MyIndicators
         public CrossColor BuyColor
         {
             get => _buyColor.Convert();
-            set { _buyColor = value.Convert(); RedrawChart(); }
+            set 
+            {
+                _buyColor = value.Convert();
+                RepaintHistogram(); 
+                RedrawChart(); 
+            }
         }
 
         [Display(Name = "Sell Color", GroupName = "Visuals", Order = 90)]
         public CrossColor SellColor
         {
             get => _sellColor.Convert();
-            set { _sellColor = value.Convert(); RedrawChart(); }
+            set
+            {
+                _sellColor = value.Convert();
+                RepaintHistogram();
+                RedrawChart();
+            }
         }
 
         [Display(Name = "Neutral Color", GroupName = "Visuals", Order = 100)]
         public CrossColor NeutralColor
         {
             get => _neutralColor.Convert();
-            set { _neutralColor = value.Convert(); RedrawChart(); }
+            set
+            {
+                _neutralColor = value.Convert();
+                RepaintHistogram();
+                RedrawChart();
+            }
         }
 
         [Display(Name = "Use Alerts", GroupName = "Alerts", Order = 110)]
@@ -246,6 +270,7 @@ namespace MyIndicators
 
             var finalColor = CalculateSmartColor(_currentBarMaxState);
             _renderSeries.Colors[bar] = finalColor;
+            UpdateHistogramColorCache(bar, _currentBarMaxState);
 
             // Guardamos datos en el caché interno en lugar de en DataSeries
             if (ShowPriceMarker && speed > threshold)
@@ -274,7 +299,6 @@ namespace MyIndicators
                 {
                     High = _currentBarMaxState.HighRange,
                     Low = _currentBarMaxState.LowRange,
-                    Color = zoneColor,
                     IsActive = true
                 };
             }
@@ -357,6 +381,7 @@ namespace MyIndicators
                     {
                         _thresholdSeries[_lastBar] = _currentThreshold;
                         _renderSeries.Colors[_lastBar] = CalculateSmartColor(_currentBarMaxState);
+                        UpdateHistogramColorCache(_lastBar, _currentBarMaxState);
 
                         // Guardar zona en el cierre de la vela histórica
                         if (_currentBarMaxState.Speed > _currentThreshold && ShowPriceMarker)
@@ -449,22 +474,20 @@ namespace MyIndicators
         private void SaveZoneToCache(int bar, SpeedState state)
         {
             bool isBuy = state.Context > 0;
-            System.Drawing.Color c = isBuy ? _buyColor : _sellColor;
+            double efficiency = 0;
 
-            if (UseSmartColors && state.TotalVolume > 0 &&
-               (Math.Abs(state.Context) / state.TotalVolume) < 0.3m)
+            if (state.TotalVolume > 0)
             {
-                c = _neutralColor;
+                efficiency = (double)(Math.Abs(state.Context) / state.TotalVolume);
             }
-            else if (isBuy) { c = _buyColor; }
-            else { c = _sellColor; }
 
             _zoneCache[bar] = new ZoneDrawData
             {
                 High = state.HighRange,
                 Low = state.LowRange,
-                Color = c,
-                IsActive = true
+                IsActive = true,
+                IsBuy = isBuy,
+                Efficiency = efficiency // Guardamos el ratio puro
             };
         }
 
@@ -556,12 +579,41 @@ namespace MyIndicators
 
             context.SetClip(ChartInfo.PriceChartContainer.Region);
 
+            // Pre-calcular colores base actuales para no hacerlo en cada barra
+            var currentBuyColor = _buyColor.Convert(); // Usamos los campos privados System.Drawing.Color que ya tienes
+            var currentSellColor = _sellColor.Convert(); // Ojo: asegúrate que _buyColor/_sellColor estén actualizados o usa las Propiedades convertidas
+
+            // TRUCO: Para asegurar que usamos el color del menú, usamos las PROPIEDADES públicas si es posible, 
+            // o nos aseguramos que las privadas se actualizan en el setter.
+            // Lo más seguro aquí es convertir desde las variables que alimentan la UI.
+
+            var baseBuy = BuyColor.Convert();   // Convierte CrossColor -> Drawing.Color
+            var baseSell = SellColor.Convert();
+            var baseNeutral = NeutralColor.Convert();
+
             for (int bar = FirstVisibleBarNumber; bar <= LastVisibleBarNumber; bar++)
             {
-                // Leemos directamente del caché interno
                 if (_zoneCache.TryGetValue(bar, out ZoneDrawData zone) && zone.IsActive)
                 {
-                    DrawZone(context, bar, zone.High, zone.Low, zone.Color);
+                    // LÓGICA DE COLOR EN TIEMPO REAL
+                    System.Drawing.Color drawColor;
+
+                    if (UseSmartColors && zone.Efficiency < 0.3)
+                    {
+                        drawColor = baseNeutral;
+                    }
+                    else
+                    {
+                        var targetColor = zone.IsBuy ? baseBuy : baseSell;
+
+                        if (UseSmartColors)
+                            drawColor = Blend(baseNeutral, targetColor, zone.Efficiency);
+                        else
+                            drawColor = targetColor;
+                    }
+
+                    // Dibujar
+                    DrawZone(context, bar, zone.High, zone.Low, drawColor);
                 }
             }
 
@@ -585,6 +637,46 @@ namespace MyIndicators
             var rect = new Rectangle(x, top, width, height);
             var finalColor = System.Drawing.Color.FromArgb(150, color.R, color.G, color.B);
             context.FillRectangle(finalColor, rect);
+        }
+
+        private void UpdateHistogramColorCache(int bar, SpeedState state)
+        {
+            bool isBuy = state.Context > 0;
+            double efficiency = 0;
+            if (state.TotalVolume > 0)
+                efficiency = (double)(Math.Abs(state.Context) / state.TotalVolume);
+
+            _histogramColorCache[bar] = (isBuy, efficiency);
+        }
+
+        private void RepaintHistogram()
+        {
+            var baseBuy = BuyColor.Convert();
+            var baseSell = SellColor.Convert();
+            var baseNeutral = NeutralColor.Convert();
+
+            foreach (var kvp in _histogramColorCache)
+            {
+                var bar = kvp.Key;
+                var info = kvp.Value;
+                System.Drawing.Color finalColor;
+
+                if (UseSmartColors && info.Efficiency < 0.3)
+                {
+                    finalColor = baseNeutral;
+                }
+                else
+                {
+                    var target = info.IsBuy ? baseBuy : baseSell;
+                    if (UseSmartColors)
+                        finalColor = Blend(baseNeutral, target, info.Efficiency);
+                    else
+                        finalColor = target;
+                }
+
+                // Actualizamos solo el color de la serie existente
+                _renderSeries.Colors[bar] = finalColor;
+            }
         }
     }
 }
