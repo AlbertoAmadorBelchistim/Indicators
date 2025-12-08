@@ -2,6 +2,7 @@
 using ATAS.Indicators.Drawing;
 using ATAS.Indicators.Technical;
 using OFT.Attributes;
+using OFT.Attributes.Editors;
 using OFT.Rendering.Context;
 using OFT.Rendering.Tools;
 using System;
@@ -20,40 +21,192 @@ namespace MyIndicators
     {
         #region Settings
 
-        [Display(GroupName = "Config", Name = "Target Volume", Order = 1)]
-        public int TargetVolume { get; set; } = 10000;
+        // Backing fields para detectar cambios y recalcular
+        private int _targetVolume = 10000;
+        private bool _showChartSignals = true;
+        private int _signalSize = 10;
 
+        private decimal _aggDeltaMin = 200;
+        private decimal _aggPercent = 12;
+        private decimal _domDeltaMin = 200;
+        private decimal _domWickTol = 5;
+        private decimal _divDeltaMin = 250;
+        private decimal _revExtremeMin = 200;
+        private decimal _revCloseMin = 50;
+        private decimal _neuMaxPercent = 1;
+        private decimal _neuStruggle = 300;
+
+        private decimal _maxScaleAbs = 3000m;
+        private decimal _scaleSoftFactor = 1.0m;
+
+        // Target volume (ya lo tienes así, lo dejo de referencia)
+        [Display(GroupName = "Config", Name = "Target Volume", Order = 1)]
+        [PostValueMode(PostValueModes.OnLostFocus)]
+        public int TargetVolume
+        {
+            get => _targetVolume;
+            set => SetProperty(ref _targetVolume, value, () =>
+            {
+                _historyLoaded = false;
+                RecalculateValues();
+            });
+        }
+
+        // Solo afecta al render (no requiere recálculo histórico)
         [Display(GroupName = "Config", Name = "Show Signals on Chart", Order = 2)]
-        public bool ShowChartSignals { get; set; } = true;
+        [PostValueMode(PostValueModes.OnLostFocus)]
+        public bool ShowChartSignals
+        {
+            get => _showChartSignals;
+            set => SetProperty(ref _showChartSignals, value, () => RedrawChart());
+        }
 
         [Display(GroupName = "Config", Name = "Signal Size", Order = 3)]
-        public int SignalSize { get; set; } = 10;
+        [PostValueMode(PostValueModes.OnLostFocus)]
+        public int SignalSize
+        {
+            get => _signalSize;
+            set => SetProperty(ref _signalSize, value, () => RedrawChart());
+        }
 
         // --- Logic Thresholds ---
+
         [Display(GroupName = "1. Aggressive", Name = "Min Delta", Order = 10)]
-        public decimal AggressiveDeltaMin { get; set; } = 200;
+        [PostValueMode(PostValueModes.OnLostFocus)]
+        public decimal AggressiveDeltaMin
+        {
+            get => _aggDeltaMin;
+            set => SetProperty(ref _aggDeltaMin, value, () =>
+            {
+                _historyLoaded = false;
+                RecalculateValues();
+            });
+        }
+
         [Display(GroupName = "1. Aggressive", Name = "Min %", Order = 11)]
-        public decimal AggressivePercent { get; set; } = 12;
+        [PostValueMode(PostValueModes.OnLostFocus)]
+        public decimal AggressivePercent
+        {
+            get => _aggPercent;
+            set => SetProperty(ref _aggPercent, value, () =>
+            {
+                _historyLoaded = false;
+                RecalculateValues();
+            });
+        }
 
         [Display(GroupName = "2. Dominance", Name = "Min Delta", Order = 20)]
-        public decimal DominanceDeltaMin { get; set; } = 200;
+        [PostValueMode(PostValueModes.OnLostFocus)]
+        public decimal DominanceDeltaMin
+        {
+            get => _domDeltaMin;
+            set => SetProperty(ref _domDeltaMin, value, () =>
+            {
+                _historyLoaded = false;
+                RecalculateValues();
+            });
+        }
+
         [Display(GroupName = "2. Dominance", Name = "Wick Tolerance", Order = 21)]
-        public decimal DominanceWickTol { get; set; } = 5;
+        [PostValueMode(PostValueModes.OnLostFocus)]
+        public decimal DominanceWickTol
+        {
+            get => _domWickTol;
+            set => SetProperty(ref _domWickTol, value, () =>
+            {
+                _historyLoaded = false;
+                RecalculateValues();
+            });
+        }
 
         [Display(GroupName = "3. Divergence", Name = "Min Delta", Order = 30)]
-        public decimal DivDeltaMin { get; set; } = 250;
+        [PostValueMode(PostValueModes.OnLostFocus)]
+        public decimal DivDeltaMin
+        {
+            get => _divDeltaMin;
+            set => SetProperty(ref _divDeltaMin, value, () =>
+            {
+                _historyLoaded = false;
+                RecalculateValues();
+            });
+        }
 
         [Display(GroupName = "4. Reversal", Name = "Extreme Min", Order = 40)]
-        public decimal RevExtremeMin { get; set; } = 200;
+        [PostValueMode(PostValueModes.OnLostFocus)]
+        public decimal RevExtremeMin
+        {
+            get => _revExtremeMin;
+            set => SetProperty(ref _revExtremeMin, value, () =>
+            {
+                _historyLoaded = false;
+                RecalculateValues();
+            });
+        }
+
         [Display(GroupName = "4. Reversal", Name = "Close Min (Opposite)", Order = 41)]
-        public decimal RevCloseMin { get; set; } = 50;
+        [PostValueMode(PostValueModes.OnLostFocus)]
+        public decimal RevCloseMin
+        {
+            get => _revCloseMin;
+            set => SetProperty(ref _revCloseMin, value, () =>
+            {
+                _historyLoaded = false;
+                RecalculateValues();
+            });
+        }
 
         [Display(GroupName = "5. Neutral", Name = "Max %", Order = 50)]
-        public decimal NeutralMaxPercent { get; set; } = 1;
+        [PostValueMode(PostValueModes.OnLostFocus)]
+        public decimal NeutralMaxPercent
+        {
+            get => _neuMaxPercent;
+            set => SetProperty(ref _neuMaxPercent, value, () =>
+            {
+                _historyLoaded = false;
+                RecalculateValues();
+            });
+        }
+
         [Display(GroupName = "5. Neutral", Name = "Struggle (Max/Min)", Order = 51)]
-        public decimal NeutralStruggle { get; set; } = 300;
+        [PostValueMode(PostValueModes.OnLostFocus)]
+        public decimal NeutralStruggle
+        {
+            get => _neuStruggle;
+            set => SetProperty(ref _neuStruggle, value, () =>
+            {
+                _historyLoaded = false;
+                RecalculateValues();
+            });
+        }
+
+        // --- Configuración de Escala ---
+
+        [Display(GroupName = "Config", Name = "Max scale abs", Order = 90)]
+        [PostValueMode(PostValueModes.OnLostFocus)]
+        public decimal MaxScaleAbs
+        {
+            get => _maxScaleAbs;
+            set => SetProperty(ref _maxScaleAbs, value, () =>
+            {
+                _historyLoaded = false;
+                RecalculateValues();
+            });
+        }
+
+        [Display(GroupName = "Config", Name = "Scale softness", Order = 91)]
+        [PostValueMode(PostValueModes.OnLostFocus)]
+        public decimal ScaleSoftFactor
+        {
+            get => _scaleSoftFactor;
+            set => SetProperty(ref _scaleSoftFactor, value, () =>
+            {
+                _historyLoaded = false;
+                RecalculateValues();
+            });
+        }
 
         #endregion
+
 
         #region Data Series
 
@@ -321,6 +474,7 @@ namespace MyIndicators
         {
             Panel = IndicatorDataProvider.NewPanel;
             DenyToChangePanel = true;
+            IgnoreHistoryScale = true;
 
             // 1. Ocultamos la serie por defecto
             //DataSeries[0].IsHidden = true;
@@ -367,6 +521,36 @@ namespace MyIndicators
                 _signalPriceCache.Clear();
                 return;
             }
+
+            // PROTECCIÓN DE ESCALA PROPORCIONAL
+            // Si no hay datos de escala, usamos el 10% del TargetVolume como mínimo
+            if (_scaleHigh[bar] == 0m && _scaleLow[bar] == 0m)
+            {
+                if (_historyLoaded && bar > 0)
+                {
+                    _scaleHigh[bar] = _scaleHigh[bar - 1];
+                    _scaleLow[bar] = _scaleLow[bar - 1];
+                }
+                else
+                {
+                    // Primer bar o vacío: Usamos el 10% del TargetVolume para abrir el panel
+                    decimal minScale = TargetVolume * 0.1m;
+                    _scaleHigh[bar] = minScale;
+                    _scaleLow[bar] = -minScale;
+                }
+            }
+        }
+
+        protected override void OnRecalculate()
+        {
+            // Este método se ejecuta cuando cambias cualquier [Parameter] en la UI.
+            // Aquí forzamos la recarga del histórico.
+            _historyLoaded = false;
+
+            // Limpiamos colas por seguridad
+            _tickQueue.Clear();
+            _currentQueueVolume = 0;
+            _currentQueueDelta = 0;
         }
 
         // Request historical ticks when calculation finishes (standard ATAS pattern for tick-based indicators)
@@ -374,9 +558,18 @@ namespace MyIndicators
         {
             if (_historyLoaded) return;
 
-            // Request trades for the visible range (plus buffer if needed)
-            var sessionStart = GetCandle(0).Time;
-            var sessionEnd = DateTime.UtcNow; // Or last candle time
+            // Si no hay velas, no podemos pedir historia aún
+            if (CurrentBar < 1)
+                return;
+
+            var firstCandle = GetCandle(0);
+            if (firstCandle == null)
+                return;
+
+            // Mejor usar la última vela real en vez de DateTime.UtcNow
+            var lastCandle = GetCandle(CurrentBar - 1);
+            var sessionStart = firstCandle.Time;
+            var sessionEnd = lastCandle?.LastTime ?? firstCandle.LastTime;
 
             // We request data to fill the history
             var request = new CumulativeTradesRequest(sessionStart, sessionEnd, 0, 0);
@@ -611,10 +804,27 @@ namespace MyIndicators
             candle.High = maxD;
             candle.Low = minD;
 
-            // 3. SOLUCIÓN ESCALA: Rellenar las líneas transparentes
-            // Esto asegura que el panel muestre toda la mecha
-            _scaleHigh[bar] = maxD;
-            _scaleLow[bar] = minD;
+            // 3. SOLUCIÓN ESCALA: usar amplitud simétrica alrededor de 0
+            // Tomamos el extremo mayor en valor absoluto dentro de la ventana
+            var rawAmp = Math.Max(Math.Abs(maxD), Math.Abs(minD));
+
+            // Aplicamos un “soft factor” para no irnos directamente al extremo
+            if (ScaleSoftFactor > 0 && ScaleSoftFactor < 1)
+                rawAmp *= ScaleSoftFactor;
+
+            // Límite duro para que una barra puntual no destruya la escala
+            var amp = Math.Min(rawAmp, MaxScaleAbs);
+
+            // NUEVO: Escala Mínima Dinámica = 10% del TargetVolume
+            decimal minScaleDynamic = TargetVolume * 0.1m;
+
+            // Seguridad: si no hay rango, dale un mínimo
+            if (amp <= minScaleDynamic)
+                amp = minScaleDynamic;
+
+            // La escala que ve ATAS es SIEMPRE [-amp, +amp]
+            _scaleHigh[bar] = amp;
+            _scaleLow[bar] = -amp;
 
             // 4. LIMPIEZA DE SERIES
             var empty = new ATAS.Indicators.Candle();
