@@ -1,22 +1,34 @@
 ﻿---
+# 1. IDENTIFICACIÓN
 cs_file: BidAsk.cs
 name: Bid Ask
+version: ATAS Stable
+
+# 2. CLASIFICACIÓN
 group: Order Flow
 subgroup: Delta
-score_current: 6.5/10
-version: Estable
-recommended_action: Conservar (Reserva)
-description: ¿Cuáles fueron los volúmenes brutos de agresión de compra (Ask) y de agresión de venta (Bid) en cada vela?
-gemini_summary: "Muestra la 'batalla' completa (Bid vs Ask) en bruto. Es información pura, pero visualmente más ruidosa y difícil de interpretar rápidamente que el ratio normalizado de su competidor."
 comparison_group: "Bar Delta Details"
-competitor_notes: "Inferior a BidAskVR para toma de decisiones rápida, ya que requiere interpretar dos barras en lugar de una señal sintetizada."
-reusable_code: null
+
+# 3. VALORACIÓN (Score & Priority)
+score_current: 6.5/10
+score_potential: 7.0/10
 file_state: Estable
-score_potential: 7/10
 effort: Bajo
-action_priority: P3
+action_priority: Nula
+system_priority: P3
+
+# 4. DECISIÓN
+recommended_action: Conservar (Reserva)
+
+# 5. ANÁLISIS
+description: ¿Cuáles fueron los volúmenes brutos de agresión de compra (Ask) y de agresión de venta (Bid) en cada vela?
+gemini_summary: "Muestra la 'batalla' completa en bruto (Bid vs Ask). Es información pura, transparente, pero visualmente ruidosa y difícil de interpretar en tiempo real comparado con un ratio sintetizado."
+competitor_notes: "Inferior a BidAskVR para toma de decisiones rápida, ya que requiere interpretar dos barras opuestas en lugar de una señal unificada."
+reusable_code: null
+
+# 6. METADATOS
 analysis_date: 2025-11-21
-official_code_date: 23/04/2025
+official_code_date: 2025-04-23
 ---
 
 ## 🛡️ Bid Ask (6.5/10)
@@ -25,7 +37,7 @@ official_code_date: 23/04/2025
 **Nombre del indicador:** Bid Ask  
 **Web oficial:** [ATAS — Bid Ask](https://help.atas.net/support/solutions/articles/72000602329)  
 **Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 23/04/2025  
+**Última revisión del código oficial:** 2025-04-23  
 
 > **La Pregunta Clave:** ¿Cuáles fueron los volúmenes brutos de agresión de compra (Ask) y de agresión de venta (Bid) en cada vela?
 
@@ -35,8 +47,10 @@ official_code_date: 23/04/2025
 
 ### ⚙️ Parámetros configurables
 
-* **N/A:** El indicador no tiene parámetros lógicos.  
-* *Nota: Los colores se heredan de la configuración de Footprint del gráfico.* ---
+* **Visualization:** Colores heredados de la configuración del gráfico (Footprint settings) o personalizables en el panel.
+* **No tiene parámetros de cálculo:** Muestra datos crudos (`candle.Ask`, `-candle.Bid`).
+
+---
 
 ### 🧭 Clasificación
 **Grupo:** Order Flow  
@@ -47,61 +61,63 @@ official_code_date: 23/04/2025
 
 ### 🧠 Uso más frecuente
 
-* **Análisis de Estructura:** Ver el volumen total de agresión por lado.  
-* **Comparativa Bruta:** Ver si una vela tuvo mucho volumen en ambos lados (lucha) o solo en uno.  
+* **Análisis de Estructura:** Evaluar el volumen total transaccionado por lado (compradores vs vendedores) sin filtros.  
+* **Diagnóstico Post-Sesión:** Útil para estudiar velas específicas donde hubo alto volumen pero poco movimiento de precio (absorción), viendo ambos lados del histograma grandes.  
 
 ---
 
 ### 📊 Nivel de relevancia
 🔟 **6.5 / 10**
 
-✅ **Transparencia:** Muestra el dato crudo sin procesar.  
-⛔ **Ruidoso:** Ver dos histogramas opuestos por barra requiere más carga cognitiva para interpretar el neto.  
-⛔ **No Configurable:** Sin filtros ni opciones.  
+✅ **Transparencia Total:** No hay fórmulas ocultas, es el dato puro del exchange.  
+⛔ **Carga Cognitiva:** Requiere comparar visualmente la altura de dos barras opuestas para estimar el neto.  
+⛔ **Sin Normalizar:** Difícil de leer cuando hay picos de volumen extremos que aplanan el resto del gráfico.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Análisis Post-Morten:** Útil para diseccionar qué pasó en una vela específica, más que para señales en tiempo real.  
+* **Análisis Forense:** Principalmente para revisión, no para ejecución en vivo.  
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **N/A.** ---
+* **N/A:** No requiere configuración lógica. Se recomienda usar colores discretos para no saturar el gráfico si se usa como fondo.
+
+---
 
 ### 🧪 Notas de desarrollo
 
-* Dibuja dos histogramas: `_asks` (positivo) y `_bids` (negativo, multiplicado por -1).  
-* Simple y directo.  
+* Implementación extremadamente simple: `_asks[bar] = candle.Ask` y `_bids[bar] = -candle.Bid`.
+* Rendimiento óptimo, coste computacional cercano a cero.
 
 ---
 
 ### ❗ Incoherencias o aspectos mejorables detectados
 
-* **Falta línea cero:** Aunque los histogramas parten de cero, una línea guía ayudaría.  
+* **Referencia Visual:** Al igual que su competidor, se beneficiaría de una línea cero marcada explícitamente, aunque la separación visual de los histogramas suele ser suficiente.
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-* **P3:** Añadir opción para mostrar el Delta Neto como una línea superpuesta para dar contexto.  
+* Ninguna crítica. Cumple su función de mostrar datos brutos.
 
 ---
 
 ### 💎 Valor Reutilizable (Código Donante)
 
-* **Ninguno.** Lógica básica de visualización.  
+* Ninguno relevante.
 
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Es una herramienta honesta pero básica. Para scalping, queremos información procesada (¿Quién gana?), no datos crudos que tenemos que sumar y restar mentalmente. `BidAskVR` hace ese trabajo por nosotros.
+Es una herramienta honesta, el "contador Geiger" del mercado. Sin embargo, en scalping, el cerebro humano es lento sumando y restando áreas visuales. Necesitamos indicadores que procesen esa información (como **BidAskVR** o **Delta**). Este indicador queda relegado a un rol de análisis profundo o backup.
 
 **Propuestas de Acción:**
-* **Conservar como Reserva.**
+* Mantener en la librería como herramienta de análisis base.
 
 ---
 
@@ -109,6 +125,6 @@ Es una herramienta honesta pero básica. Para scalping, queremos información pr
 
 **Moderadamente.**
 
-Bueno para análisis detallado, lento para ejecución.
+Bueno para entender el contexto de volumen total, pero ineficiente para generar señales de entrada/salida rápidas.
 
-**Acción:** **Conservar (Reserva).**
+**Acción:** **Conservar (Reserva)**

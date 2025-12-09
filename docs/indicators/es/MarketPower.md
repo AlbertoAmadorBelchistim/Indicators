@@ -1,31 +1,43 @@
 ---
+# 1. IDENTIFICACIÓN
 cs_file: MarketPower.cs
 name: CVD pro / Market Power
+version: ATAS Stable
+
+# 2. CLASIFICACIÓN
 group: Order Flow
 subgroup: Delta
-score_current: 6/10
-version: Estable
-recommended_action: Descartar
-description: ¿Cuál es el delta acumulado filtrado por tamaño de trade y su media móvil?
-gemini_summary: "Versión obsoleta de MultiMarketPower. Solo permite un filtro a la vez. MultiMarketPower hace lo mismo x5 y más eficiente. No tiene sentido mantenerlo."
 comparison_group: "Cumulative Delta"
+
+# 3. VALORACIÓN (Score & Priority)
+score_current: 6/10
+score_potential: 6/10
+file_state: Estable (Redundante)
+effort: N/A
+action_priority: Nula
+system_priority: NA
+
+# 4. DECISIÓN
+recommended_action: Descartar
+
+# 5. ANÁLISIS
+description: ¿Cuál es el delta acumulado filtrado por tamaño de trade y su media móvil?
+gemini_summary: "Versión obsoleta o simplificada de MultiMarketPower. Solo permite un filtro a la vez. Dado que MMP hace lo mismo x5 de forma eficiente, este indicador es redundante."
 competitor_notes: "Absorbido y superado por MultiMarketPower."
 reusable_code: "Lógica de SMA sobre CVD."
-file_state: Estable (Redundante)
-score_potential: 6/10
-effort: N/A
-action_priority: N/A
+
+# 6. METADATOS
 analysis_date: 2025-11-21
-official_code_date: 23/04/2025
+official_code_date: 2025-04-23
 ---
 
 ## 💀 CVD pro / Market Power (6/10)
 
 **Nombre del archivo:** [`MarketPower.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/MarketPower.cs)  
 **Nombre del indicador:** CVD pro / Market Power  
-**Web oficial:** [ATAS — CVD pro / Market Power](https://help.atas.net/support/solutions/articles/72000602424)  
+**Web oficial:** [ATAS — Market Power](https://help.atas.net/support/solutions/articles/72000602424)  
 **Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 23/04/2025  
+**Última revisión del código oficial:** 2025-04-23  
 
 > **La Pregunta Clave:** ¿Cuál es el delta acumulado filtrado por tamaño de trade y su media móvil?
 
@@ -35,22 +47,23 @@ official_code_date: 23/04/2025
 
 ### ⚙️ Parámetros configurables
 
-* **SmaPeriod:** [Parameter] Suavizado del CVD.  
-* **CumulativeTrades:** [Display] Modo acumulado o tick.  
-* **Min/Max Volume:** [Display] Un solo rango de filtro.  
+* **SmaPeriod:** Periodo de la media móvil aplicada al CVD.  
+* **CumulativeTrades:** Modo acumulado o tick.  
+* **Min/Max Volume:** Un solo rango de filtro de volumen.  
+* **ShowSma / ShowCumulative:** Opciones de visualización.  
 
 ---
 
 ### 🧭 Clasificación
 **Grupo:** Order Flow  
-**Subgrupo:** Delta
+**Subgrupo:** Delta  
 **Comparison Group:** "Cumulative Delta"  
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* **Histórico:** Filtrar delta institucional (antes de que existiera MMP).  
+* **Histórico:** Filtrar delta institucional antes de que existiera MMP.  
 
 ---
 
@@ -65,31 +78,33 @@ official_code_date: 23/04/2025
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Cruce de SMA:** Delta cruzando su media.  
+* **Ninguna recomendable.** (Usar MMP para esta función).  
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **No Recomendado.** ---
+* **N/A.** (Indicador descartado).  
+
+---
 
 ### 🧪 Notas de desarrollo
 
 * Código robusto con gestión de gaps (`ConcurrentQueue`).  
-* Implementación de SMA interna.  
+* Implementación de SMA interna que no existe en el indicador ganador.  
 
 ---
 
 ### ❗ Incoherencias o aspectos mejorables detectados
 
-* **Obsolescencia:** Ha sido superado por la evolución del software (MMP).  
+* **Obsolescencia:** Ha sido superado por la evolución del software (MultiMarketPower).  
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
 * **Ninguna.** 
-
+ 
 ---
 
 ### 💎 Valor Reutilizable (Código Donante)
@@ -100,11 +115,7 @@ official_code_date: 23/04/2025
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Fue un buen indicador. Ahora es un "padre" superado por su "hijo". No hay razón para usarlo teniendo MMP.
-
-**Propuestas de Acción:**
-* **Descartar.**
-* Anotar la idea de la SMA para futura mejora de MMP.
+Fue un buen indicador en su momento. Ahora es un "padre" superado por su "hijo". No hay razón operativa para mantenerlo instalado.
 
 ---
 
@@ -114,4 +125,4 @@ Fue un buen indicador. Ahora es un "padre" superado por su "hijo". No hay razón
 
 Ineficiente comparado con el ganador.
 
-**Acción:** **Descartar.**
+**Acción:** **Descartar**

@@ -1,44 +1,56 @@
 ---
+# 1. IDENTIFICACIÓN
 cs_file: CumulativeDelta.cs
 name: CVD - Cumulative Volume Delta
+version: ATAS Stable
+
+# 2. CLASIFICACIÓN
 group: Order Flow
 subgroup: Delta
-score_current: 8/10
-version: Estable
-recommended_action: Conservar (Reserva)
-description: ¿Cuál es el delta acumulado desde el inicio de la sesión?
-gemini_summary: "El estándar fiable. Aunque es tácticamente inferior al ganador (MMP) por no tener filtros, posee una característica crítica que le falta al ganador: la gestión de 'CustomSession' (reinicio horario)."
 comparison_group: "Cumulative Delta"
-competitor_notes: "Reserva de MultiMarketPower. Se mantiene por su lógica de sesión personalizada."
-reusable_code: "Lógica CustomSession (CheckStartBar)"
-file_state: Estable
+
+# 3. VALORACIÓN (Score & Priority)
+score_current: 8/10
 score_potential: 9/10
+file_state: Estable
 effort: N/A
-action_priority: P3
+action_priority: Nula
+system_priority: P2
+
+# 4. DECISIÓN
+recommended_action: Conservar (Reserva)
+
+# 5. ANÁLISIS
+description: ¿Cuál es el delta acumulado desde el inicio de la sesión (o desde una hora personalizada)?
+gemini_summary: "El estándar fiable. Aunque es tácticamente inferior al ganador (MMP) por no tener filtros de volumen, posee una característica crítica que le falta al ganador: la gestión de 'CustomSession' (reinicio horario)."
+competitor_notes: "Inferior a MultiMarketPower en análisis, pero superior en gestión de sesión (RTH vs ETH)."
+reusable_code: "El método 'CheckStartBar' y la lógica de 'CustomSessionStart' son vitales para portar a otros indicadores acumulativos."
+
+# 6. METADATOS
 analysis_date: 2025-11-21
-official_code_date: 13/11/2025
+official_code_date: 2025-11-13
 ---
 
 ## 🛡️ CVD - Cumulative Volume Delta (8/10)
 
 **Nombre del archivo:** [`CumulativeDelta.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/CumulativeDelta.cs)  
 **Nombre del indicador:** CVD - Cumulative Volume Delta  
-**Web oficial:** [ATAS — CVD - Cumulative Volume Delta](https://help.atas.net/support/solutions/articles/72000602360-cumulative-volume-delta)  
+**Web oficial:** [ATAS — Cumulative Volume Delta](https://help.atas.net/support/solutions/articles/72000602360)  
 **Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 13/11/2025  
+**Última revisión del código oficial:** 2025-11-13  
 
-> **La Pregunta Clave:** ¿Cuál es el delta acumulado (la agresión neta) desde el inicio de la sesión?
+> **La Pregunta Clave:** ¿Cuál es el delta acumulado desde el inicio de la sesión (o desde una hora personalizada)?
 
-![Cumulative Volume Delta](../../img/CumulativeDelta.png)
+![CumulativeDelta](../../img/CumulativeDelta.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-* **Mode:** Tipo de visualización (`Candles`, `Bars`, `Line`).  
-* **SessionCumDeltaMode:** Lógica de reinicio (`DefaultSession` o `CustomSession`).  
-* **CustomSessionStart:** Hora de reinicio personalizada (Vital para RTH).  
-* **Alerts:** Alertas por cambio de delta.  
+* **Mode:** Visualización (`Candles`, `Bars`, `Line`). Para scalping, `Line` es lo más limpio.
+* **SessionCumDeltaMode:** `DefaultSession` (todo el día) o `CustomSession` (horario específico).
+* **CustomSessionStart:** Hora de reinicio (ej. 15:30:00). Característica estrella.
+* **UseAlerts:** Alertas sonoras si el delta cambia bruscamente.
 
 ---
 
@@ -51,67 +63,61 @@ official_code_date: 13/11/2025
 
 ### 🧠 Uso más frecuente
 
-* **Contexto General:** Tendencia de fondo del flujo de órdenes.  
-* **Segregación RTH:** Ver el delta acumulado solo desde la apertura americana (usando `CustomSession`).  
+* **Contexto RTH:** Reiniciar el delta a las 15:30 para ver quién está ganando *hoy* en la sesión americana, ignorando la sesión nocturna (Overnight).
+* **Divergencias Simples:** Precio haciendo nuevos máximos, CVD fallando (sin entrar en detalles de filtros).
 
 ---
 
 ### 📊 Nivel de relevancia
 🔟 **8 / 10**
 
-✅ **Fiabilidad:** Código base oficial y estable.  
-✅ **Gestión de Sesión:** Único indicador del grupo con reinicio horario personalizado.  
-⛔ **Simple:** No permite filtrar por tamaño de orden ("Peces Gordos" vs "Peces Chicos").  
+✅ **Gestión de Sesión:** Único indicador del grupo con reinicio horario nativo.  
+✅ **Ligereza:** Carga computacional mínima.  
+⛔ **Ceguera:** Trata igual una orden de 1 contrato que una de 1000.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Divergencia General:** Precio HH vs CVD LH.  
+* **Apertura Americana:** Evaluar el sesgo direccional puro desde las 15:30.  
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **Mode:** `Line` (Limpieza).  
-* **SessionCumDeltaMode:** `CustomSession`.  
-* **CustomSessionStart:** `09:30` (Hora NY).  
+* **Visual:** `Line`.
+* **Session Mode:** `CustomSession` -> `09:30` (Hora del Exchange) o `15:30` (Hora Local).
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* Acumula `candle.Delta`.  
-* Función clave: `CheckStartBar(bar)`. Gestiona el reinicio basándose en la hora del instrumento.  
+* Código estable y bien mantenido por ATAS.
+* La lógica de `CheckStartBar` es robusta y maneja correctamente los cambios de día.
 
 ---
 
 ### ❗ Incoherencias o aspectos mejorables detectados
 
-* **Ninguna.** Cumple su función básica perfectamente.  
+* Ninguna. Es un indicador base sólido.
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-* **Ninguna.** Su destino es donar su código de sesión al ganador.  
+* Ninguna. Su rol es ser el backup fiable.
 
 ---
 
 ### 💎 Valor Reutilizable (Código Donante)
 
-* **Lógica `CustomSession`:**
-    * Código: Método `CheckStartBar` y propiedad `CustomSessionStart`.
-    * Acción: **PORTAR A `MultiMarketPower` (Prioridad Alta).**
+* **Lógica `CustomSession`:** Debe ser extraída e injertada en `MultiMarketPower` para crear el "Super Indicador" definitivo.
 
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Es la "Línea Base". Si `MultiMarketPower` falla, este es el respaldo. Pero su verdadero valor hoy es su código de gestión de sesión, que es la pieza que le falta al ganador para ser perfecto.
-
-**Propuestas de Acción:**
-* **Conservar como Reserva y Donante de Código.**
+Es el "Toyota Corolla" de los indicadores. No tiene lujos, pero arranca siempre. Lo mantenemos en la recámara por su capacidad de reiniciar la sesión, algo vital para separar el análisis del *Overnight* del *RTH*.
 
 ---
 
@@ -119,6 +125,6 @@ Es la "Línea Base". Si `MultiMarketPower` falla, este es el respaldo. Pero su v
 
 **Sí.**
 
-Como respaldo y referencia de sesión RTH.
+Específicamente para medir el sesgo de la sesión actual sin contaminación previa.
 
-**Acción:** **Conservar (Reserva).**
+**Acción:** **Conservar (Reserva)**

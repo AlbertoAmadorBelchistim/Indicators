@@ -1,22 +1,34 @@
 ﻿---
+# 1. IDENTIFICACIÓN
 cs_file: CotHigh.cs
 name: COT High/Low
+version: ATAS Stable
+
+# 2. CLASIFICACIÓN
 group: Order Flow
 subgroup: Delta
-score_current: 2/10
-version: Estable
-recommended_action: Descartar
-description: ¿Acumula el delta desde un nuevo máximo o mínimo?
-gemini_summary: "Concepto valioso ('Weis Wave' o 'Swing Delta') pero la implementación está rota. El modo 'Low' no funciona y el 'High' tiene lógica errónea. No usar."
 comparison_group: "Cumulative Delta"
+
+# 3. VALORACIÓN (Score & Priority)
+score_current: 2/10
+score_potential: 2/10
+file_state: Defectuoso
+effort: Bajo
+action_priority: Nula
+system_priority: NA
+
+# 4. DECISIÓN
+recommended_action: Descartar
+
+# 5. ANÁLISIS
+description: ¿Acumula el delta desde un nuevo máximo o mínimo?
+gemini_summary: "Intento fallido de Weis Wave. El código contiene errores lógicos graves en el reseteo de acumulados y manejo de modos. Proporciona datos falsos."
 competitor_notes: "Inferior a cualquier implementación correcta de Weis Wave."
 reusable_code: null
-file_state: Roto
-score_potential: 6/10
-effort: Bajo
-action_priority: N/A
+
+# 6. METADATOS
 analysis_date: 2025-11-21
-official_code_date: 23/04/2025
+official_code_date: 2025-04-23
 ---
 
 ## 💀 COT High/Low (2/10)
@@ -25,30 +37,31 @@ official_code_date: 23/04/2025
 **Nombre del indicador:** COT High/Low  
 **Web oficial:** [ATAS — COT High/Low](https://help.atas.net/support/solutions/articles/72000602603)  
 **Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 23/04/2025  
+**Última revisión del código oficial:** 2025-04-23  
 
-> **La Pregunta Clave:** ¿Cuál es el delta acumulado desde el último máximo/mínimo?
+> **La Pregunta Clave:** ¿Acumula el delta desde un nuevo máximo o mínimo?
 
-![COT High/Low](../../img/CotHigh.png)
+![CotHigh](../../img/CotHigh.png)
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-* **Mode:** High o Low.  
+* **Mode:** `High` (Reinicia en nuevos máximos) o `Low` (Reinicia en nuevos mínimos).  
+* **PosColor / NegColor:** Colores del histograma.  
 
 ---
 
 ### 🧭 Clasificación
 **Grupo:** Order Flow  
-**Subgrupo:** Delta 
+**Subgrupo:** Delta  
 **Comparison Group:** "Cumulative Delta"  
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* **(Teórico):** Ver la presión de compra/venta en las expansiones de rango.  
+* **(Teórico):** Intentar ver la presión de compra/venta en las expansiones de rango (Swing Delta).  
 
 ---
 
@@ -57,6 +70,7 @@ official_code_date: 23/04/2025
 
 ⛔ **ROTO:** El código del modo `Low` no existe lógicamente (nunca resetea).  
 ⛔ **ERROR:** El modo `High` resetea con condiciones de `Low`, lo cual es absurdo.  
+⛔ **Peligroso:** Da señales falsas de divergencia por mala acumulación.  
 
 ---
 
@@ -68,40 +82,39 @@ official_code_date: 23/04/2025
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **No usar.** 
+* **No usar.**
+ 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* Fallo lógico grave en `OnCalculate`: `if ((candle.High >= _extValue && Mode is CotMode.High) || (candle.Low >= _extValue && Mode is CotMode.High))`.  
-* Falta el bloque `else if (Mode is CotMode.Low)`.  
+* Fallo lógico grave en `OnCalculate`: La condición `if` mezcla `Mode.High` con `candle.Low` de forma incorrecta.  
+* Falta el bloque lógico para `Mode.Low`.  
 
 ---
 
 ### ❗ Incoherencias o aspectos mejorables detectados
 
-* **Todo el indicador requiere reescritura.** 
+* **Todo el indicador requiere reescritura.** No cumple su especificación básica.  
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-* **Ninguna.** Existen indicadores de ondas (Weis Wave) que hacen esto bien. No vale la pena arreglar este script básico.  
+* **Ninguna.** Existen indicadores de ondas (Weis Wave) mejores. No vale la pena arreglar este script.  
 
 ---
 
 ### 💎 Valor Reutilizable (Código Donante)
 
 * **Ninguno.** 
-
+ 
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Basura técnica. Una buena idea mal ejecutada y abandonada.
+Basura técnica. Una buena idea (Swing Delta) mal implementada y abandonada.
 
-**Propuestas de Acción:**
-* **Descartar.**
 
 ---
 
@@ -111,4 +124,4 @@ Basura técnica. Una buena idea mal ejecutada y abandonada.
 
 Peligroso por datos falsos.
 
-**Acción:** **Descartar.**
+**Acción:** **Descartar**

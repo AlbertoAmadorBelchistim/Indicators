@@ -1,33 +1,45 @@
 ---
+# 1. IDENTIFICACIÓN
 cs_file: MultiMarketPower.cs
 name: CVD pro(multi) / Multi Market Powers
+version: ATAS Stable
+
+# 2. CLASIFICACIÓN
 group: Order Flow
 subgroup: Delta
-score_current: 10/10
-version: Latest
-recommended_action: Conservar (Core)
-description: ¿Cómo se distribuye el delta acumulado entre 5 rangos de tamaño de orden diferentes (filtro institucional)?
-gemini_summary: "El Santo Grial del Delta Acumulado. Supera a todos los demás CVDs porque permite desglosar la agresión en 5 capas simultáneas (Retail vs Institucional) en un solo panel. Código robusto y optimizado."
 comparison_group: "Cumulative Delta"
-competitor_notes: "Vence a 'Market Power' y 'Cumulative Delta' por su capacidad de filtrado múltiple sin penalizar el rendimiento."
-reusable_code: null
-file_state: Estable
+
+# 3. VALORACIÓN (Score & Priority)
+score_current: 10/10
 score_potential: 10/10
+file_state: Estable
 effort: N/A
-action_priority: N/A
+action_priority: Nula
+system_priority: P1
+
+# 4. DECISIÓN
+recommended_action: Conservar (Core)
+
+# 5. ANÁLISIS
+description: ¿Cómo se distribuye el delta acumulado entre 5 rangos de tamaño de orden diferentes (filtro institucional) en tiempo real?
+gemini_summary: "El Santo Grial del Delta Acumulado. Supera a todos los demás CVDs porque permite desglosar la agresión en 5 capas simultáneas (Retail vs Institucional) en un solo panel. Su arquitectura de paso único lo hace extremadamente eficiente."
+competitor_notes: "Vence a 'Market Power' (solo 1 filtro) y 'Cumulative Delta' (sin filtros) por su capacidad de disección del flujo sin penalizar el rendimiento."
+reusable_code: "La arquitectura de bucle único para clasificar trades en buckets es un patrón de diseño excelente para cualquier indicador multifiltro."
+
+# 6. METADATOS
 analysis_date: 2025-11-21
-official_code_date: 14/08/2025
+official_code_date: 2025-08-14
 ---
 
 ## 🏆 CVD pro(multi) / Multi Market Powers (10/10)
 
 **Nombre del archivo:** [`MultiMarketPower.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/MultiMarketPower.cs)  
 **Nombre del indicador:** CVD pro(multi) / Multi Market Powers  
-**Web oficial:** [ATAS — CVD pro(multi) / Multi Market Powers](https://help.atas.net/support/solutions/articles/72000602434)  
+**Web oficial:** [ATAS — CVD pro(multi)](https://help.atas.net/support/solutions/articles/72000602434)  
 **Compatibilidad:** ATAS versión latest y superiores.  
-**Última revisión del código oficial:** 14/08/2025  
+**Última revisión del código oficial:** 2025-08-14  
 
-> **La Pregunta Clave:** ¿Cómo se distribuye el delta acumulado entre 5 rangos de tamaño de orden diferentes (filtro institucional)?
+> **La Pregunta Clave:** ¿Cómo se distribuye el delta acumulado entre 5 rangos de tamaño de orden diferentes (filtro institucional) en tiempo real?
 
 ![MultiMarketPower](../../img/MultiMarketPower.png)
 
@@ -35,116 +47,112 @@ official_code_date: 14/08/2025
 
 ### ⚙️ Parámetros configurables
 
-Este indicador permite configurar hasta 5 líneas de delta independientes simultáneas:
+Este indicador es una "navaja suiza" que permite configurar hasta 5 líneas de delta independientes.
 
-#### 📊 Configuración General
+#### 📊 Configuración General (Filters)
 * **CumulativeTrades:**
-    * `True`: Acumula el delta trade a trade (Visión de sesión completa).
-    * `False`: Reinicia el delta en cada vela (Modo tick a tick).
+    * `True`: Muestra la tendencia de toda la sesión (CVD clásico).
+    * `False`: Reinicia el cálculo en cada vela (Delta por vela desglosado).
 
-#### 🧰 Filtros (1 al 5)
-Cada filtro (`Filter1` a `Filter5`) tiene su propio grupo de configuración independiente:
-* **Enabled (UseFilterX):** Activa o desactiva el cálculo y visualización de esa línea.
-* **MinimumVolume:** Tamaño mínimo de la orden para ser incluida.
-* **MaximumVolume:** Tamaño máximo. *Nota: Si es `0`, se considera infinito.*
-* **Color / LineWidth:** Personalización visual de la línea.
-
-![Filtros](../../img/MMP_Filters.png)
+#### 🧰 Filtros de Volumen (Filter 1 - 5)
+Cada uno de los 5 filtros tiene su propia lógica independiente:
+* **Enabled (UseFilterX):** Activa/Desactiva el cálculo. (Recomendado: Desactivar los que no se usen para ahorrar ciclos CPU, aunque es muy eficiente).
+* **Minimum Volume:** El tamaño de orden mínimo para entrar en este "cubo".
+* **Maximum Volume:** El tamaño máximo. *Truco: Poner `0` significa "Sin límite" (infinito).*
+* **Visuals (Color/Width):** Personalización completa.
 
 ---
 
 ### 🧭 Clasificación
 **Grupo:** Order Flow  
-**Subgrupo:** Delta 
+**Subgrupo:** Delta  
 **Comparison Group:** "Cumulative Delta"  
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* **Desglose de Participantes:** Diferenciar visualmente si la subida del precio la están provocando los pequeños traders (retail, filtro 1) o los grandes bloques (institucional, filtro 5).  
-* **Divergencias Internas:** Identificar situaciones donde el delta retail compra (FOMO) mientras el delta institucional vende o se aplana (distribución).  
-* **Limpieza de Ruido:** Ocultar visualmente el Filtro 1 (<1 contrato) para ver la "verdadera" tendencia de la subasta.  
+* **Radiografía de Participantes:** Diferenciar si una ruptura es apoyada por "Ballenas" (Filtros 4-5) o es puro FOMO "Retail" (Filtro 1).  
+* **Divergencias de Calidad:** El precio sube, el CVD total sube, pero el CVD Institucional (Filtros grandes) baja. Señal de trampa alcista inminente.  
+* **Limpieza de Ruido:** Usar solo el Filtro 2 o 3 en adelante para ver la "verdadera" subasta, eliminando el ruido de los algos de alta frecuencia (HFT) de 1 contrato.  
 
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **10 / 10 (IMPRESCINDIBLE)**
+🔟 **10 / 10**
 
-✅ **Superioridad Técnica:** Consolida la función de 5 indicadores en uno solo sin penalizar el rendimiento.  
-✅ **Claridad Táctica:** Permite ver la "anatomía" de la vela desglosada por participantes en un solo vistazo.  
-✅ **Versatilidad:** Funciona tanto para scalping de micro-estructura (M1) como para análisis de sesión intradía.  
+✅ **Potencia de Fuego:** Consolida la función de 5 indicadores en uno solo.  
+✅ **Eficiencia:** Itera los datos una sola vez, clasificando cada trade en su categoría al vuelo.  
+✅ **Ventaja Competitiva:** Permite ver lo que la mayoría de traders retail no ven: la acción oculta de las órdenes grandes.  
+⛔ **Curva de Aprendizaje:** Requiere entender bien qué volumen se considera "grande" en cada instrumento (S&P 500 vs Nasdaq).  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Absorción Institucional:** Filtro 5 (Whales) plano o divergente bajista mientras el precio hace nuevos máximos (absorción de compras retail).  
-* **Validación de Rupturas:** Breakout válido solo si Filtros 4 y 5 acompañan con pendiente fuerte.  
-* **Giro por Agotamiento:** Todos los filtros alineados, pero Filtros 4-5 giran primero anticipando la reversión.  
+* **Absorción Institucional:** Precio rompiendo máximos + Filtro 5 (Whales) plano o bajando = **Reversal Short**.  
+* **Validación de Breakout:** Precio rompiendo nivel + Filtros 3, 4 y 5 con pendiente agresiva = **Long Continuation**.  
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-| Parámetro | Valor Recomendado | Razón |
-| :--- | :--- | :--- |
-| **CumulativeTrades** | `True` | Visión de tendencia de sesión. |
-| **Filtro 1 (Retail)** | Min `0` - Max `5` | Ruido y pequeños especuladores. |
-| **Filtro 2 (Small)** | Min `6` - Max `20` | Traders activos. |
-| **Filtro 3 (Medium)** | Min `21` - Max `50` | Locales / Pequeños fondos. |
-| **Filtro 4 (Large)** | Min `51` - Max `100` | Institucional táctico. |
-| **Filtro 5 (Whales)** | Min `101` - Max `0` | Institucional pesado / Bloques. |
+| Filtro | Rango (Contratos) | Visual (Color / Grosor) | Rol & Lógica |
+| :--- | :--- | :--- | :--- |
+| **CumulativeTrades** | `True` | N/A | Tendencia de Sesión. |
+| **Filtro 1** | Min `0` - Max `5` | **Gris / 1px** | **Ruido (Retail/HFT).** Fondo neutro, casi invisible. |
+| **Filtro 2** | Min `6` - Max `20` | **Cian / 2px** | **Peces Pequeños.** Color frío, actividad normal. |
+| **Filtro 3** | Min `21` - Max `50` | **Azul Real / 2px** | **Profesional Local.** Transición a relevante. |
+| **Filtro 4** | Min `51` - Max `100` | **Naranja / 3px** | **Institucional Táctico.** Alerta visual (Color cálido). |
+| **Filtro 5** | Min `101` - Max `0` | **Rojo o Magenta / 4px** | **Ballenas (Whales).** La "Línea de la Verdad". Máxima prioridad. |
 
 ---
 
-### ✨ Mejoras introducidas (Oficial/Base)
-
-* **Optimización de Rendimiento:** El código utiliza una arquitectura de paso único. Itera sobre la lista de trades una sola vez y asigna cada trade a sus "cubos" (filtros) correspondientes, en lugar de filtrar la lista 5 veces. Esto hace que sea extremadamente ligero incluso en mercados rápidos.
+### ✨ Mejoras introducidas (Oficial)
+* **Algoritmo Single-Pass:** El código oficial ya está altamente optimizado. No filtra la lista 5 veces, sino que recorre cada trade y pregunta `IsFiltered` para cada categoría, asignando los deltas en una sola pasada.
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* Mantiene 5 estados independientes (`_delta1` a `_delta5`).
-* Maneja correctamente la condición de infinito (`_maxVolume == 0`).
-* Solicita datos históricos (`CumulativeTradesRequest`) al cargar, permitiendo ver el CVD desde el inicio de la sesión sin necesidad de tener el gráfico abierto previamente.
+* **Arquitectura:** Usa `List<CumulativeTrade>` y eventos `OnNewTrade`.
+* **Manejo de Historia:** Solicita `CumulativeTradesRequest` al inicio para pintar el pasado sin necesidad de tener el chart abierto.
+* **Estabilidad:** Maneja correctamente la desconexión/conexión de datos (`_bigTradesIsReceived`).
 
 ---
 
 ### ❗ Incoherencias o aspectos mejorables detectados
 
-* **Falta Custom Session:** No tiene la opción de reiniciar el delta a una hora específica (ej. 15:30 para RTH), algo que sí tiene el indicador `CumulativeDelta`.
+* **Falta Custom Session:** A diferencia de su hermano menor (`CumulativeDelta`), este indicador no permite reiniciar el delta a una hora específica (ej. 15:30). Acumula desde la carga de datos o inicio de sesión del servidor.
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-* **Fusión (P2):** Portar la lógica de `CustomSession` desde el indicador `CumulativeDelta` para permitir reiniciar el acumulado en la apertura americana.
+* **P2 (Alta):** Implementar la lógica `CheckStartBar` del indicador `CumulativeDelta` para permitir reinicio en RTH.
 
 ---
 
 ### 💎 Valor Reutilizable (Código Donante)
 
-* **Arquitectura Multi-Filtro:** La estructura del bucle `CalculateTrade` es perfecta para cualquier indicador que necesite segregar volumen por tamaño.
+* **Estructura de Filtrado:** El patrón de 5 filtros configurables es el estándar de oro para cualquier indicador de volumen segmentado.
 
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Este indicador es el **Santo Grial** del análisis de Delta en ATAS.
-Mientras que otros indicadores te dicen *cuánto* se ha comprado, este te dice *quién* lo ha hecho. En el ecosistema actual del S&P 500, donde el volumen retail y el institucional a menudo van en direcciones opuestas, esta información es la ventaja estadística (Edge) definitiva.
+Es, posiblemente, **el indicador más valioso de todo el paquete ATAS** para un trader de Order Flow moderno. En mercados dominados por algoritmos, ver el "Delta Total" es ver una mentira promediada. Ver el "Delta por Capas" con `MultiMarketPower` es ver la realidad.
+Es un **Core P1** indiscutible.
 
 **Propuestas de Acción:**
-* **Conservar como CORE.**
-* Priorizar la implementación del reinicio de sesión RTH.
+* Planificar la fusión con la lógica de sesión personalizada.
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí.**
+**Sí. Imprescindible.**
 
-Sustituye a cualquier otro CVD.
+Es la base para filtrar falsas rupturas y detectar absorciones reales.
 
-**Acción:** **Conservar (Core).**
+**Acción:** **Conservar (Core)**

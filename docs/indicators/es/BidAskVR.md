@@ -1,22 +1,35 @@
 ﻿---
+# 1. IDENTIFICACIÓN
 cs_file: BidAskVR.cs
 name: Bid Ask Volume Ratio
+version: ATAS Stable
+
+# 2. CLASIFICACIÓN
 group: Order Flow
 subgroup: Delta
-score_current: 8.5/10
-version: Estable
-recommended_action: Conservar (Core)
-description: ¿Cuál es el desequilibrio normalizado del volumen agresivo y su momentum?
-gemini_summary: "Supera al desglose bruto al normalizar la batalla entre compradores y vendedores en un ratio porcentual. Su lógica de color de 4 vías es excelente para detectar divergencias de flujo."
 comparison_group: "Bar Delta Details"
-competitor_notes: "Superior a 'Bid Ask' porque contextualiza el volumen. Un desequilibrio del 80% es visible aquí, mientras que en volumen bruto podría perderse en una vela pequeña."
-reusable_code: null
+
+# 3. VALORACIÓN (Score & Priority)
+score_current: 8.5/10
+score_potential: 9.0/10
 file_state: Estable
-score_potential: 9/10
 effort: Bajo
-action_priority: P2
+action_priority: Baja
+system_priority: P2
+
+# 4. DECISIÓN
+recommended_action: Conservar (Core)
+
+# 5. ANÁLISIS
+description: ¿Cuál es el desequilibrio normalizado (de -100% a +100%) del volumen agresivo y su momentum?
+gemini_summary: "Supera al desglose bruto al normalizar la batalla entre compradores y vendedores en un ratio porcentual. Su lógica de color de 4 vías es excelente para detectar divergencias de flujo y agotamiento antes de que el precio gire."
+competitor_notes: "Superior a 'Bid Ask' porque contextualiza el volumen. Un desequilibrio del 80% es visible aquí, mientras que en volumen bruto podría perderse en una vela de rango estrecho."
+reusable_code: "La lógica de 4 colores (SetColor) basada en Valor vs Valor Previo es un patrón de diseño reusable para cualquier oscilador de momentum."
+
+# 6. METADATOS
 analysis_date: 2025-11-21
-official_code_date: 23/04/2025
+official_code_date: 2025-04-23
+user_modification_date: null
 ---
 
 ## 🏆 Bid Ask Volume Ratio (8.5/10)
@@ -25,9 +38,9 @@ official_code_date: 23/04/2025
 **Nombre del indicador:** Bid Ask Volume Ratio  
 **Web oficial:** [ATAS — Bid Ask Volume Ratio](https://help.atas.net/support/solutions/articles/72000602330)  
 **Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 23/04/2025  
+**Última revisión del código oficial:** 2025-04-23  
 
-> **La Pregunta Clave:** ¿Cuál es el desequilibrio normalizado (de -100% a +100%) del volumen agresivo, y cuál es el momentum (pendiente) de ese desequilibrio?
+> **La Pregunta Clave:** ¿Cuál es el desequilibrio normalizado (de -100% a +100%) del volumen agresivo y su momentum?
 
 ![BidAskVR](../../img/BidAskVR.png)
 
@@ -35,21 +48,21 @@ official_code_date: 23/04/2025
 
 ### ⚙️ Parámetros configurables
 
-Este indicador permite ajustar la sensibilidad del ratio y su suavizado:
+Este indicador permite ajustar la sensibilidad del ratio y su suavizado para filtrar el ruido del Order Flow:
 
-#### 📊 Cálculo y Suavizado
+#### 📊 Cálculo y Suavizado (Settings)
 * **Mode (CalcMode):**
-    * `AskBid`: Ratio Ask/Bid estándar.
+    * `AskBid`: Ratio estándar `(Ask - Bid) / Total`. Positivo indica compras.
     * `BidAsk`: Ratio invertido.
-* **Moving Type (MaType):** Tipo de media móvil para suavizar el ratio (`Ema`, `Sma`, `LinReg`, etc.).
-* **Period:** Número de barras para el cálculo de la media (Default: `10`).
+* **Moving Type (MaType):** Algoritmo de suavizado. Recomendado `Ema` para scalping.
+* **Period:** Ventana de cálculo de la media móvil (Default: `10`). A mayor periodo, menos ruido pero más lag.
 
-#### 🎨 Visualización (Lógica de 4 Colores)
-Controla los colores según el valor (+/-) y la pendiente (creciente/decreciente):
-* **Upper (UpperColor):** Valor positivo + Pendiente creciente (Fuerza).
-* **Up (UpColor):** Valor positivo + Pendiente decreciente (Agotamiento).
-* **Low (LowColor):** Valor negativo + Pendiente decreciente (Agotamiento).
-* **Lower (LowerColor):** Valor negativo + Pendiente creciente (Fuerza).
+#### 🎨 Visualización (Drawing)
+Controla la **Lógica de 4 Colores**, vital para leer el momentum del flujo:
+* **Upper (UpperColor):** Valor positivo y **creciendo** (Fuerza Compradora Acelerando).
+* **Up (UpColor):** Valor positivo pero **decreciendo** (Fuerza Compradora Agotándose).
+* **Low (LowColor):** Valor negativo pero **subiendo** hacia cero (Fuerza Vendedora Agotándose).
+* **Lower (LowerColor):** Valor negativo y **bajando** (Fuerza Vendedora Acelerando).
 
 ---
 
@@ -62,72 +75,74 @@ Controla los colores según el valor (+/-) y la pendiente (creciente/decreciente
 
 ### 🧠 Uso más frecuente
 
-* **Detector de Divergencias:** Ver cómo el precio sube mientras el ratio pasa de "Verde Brillante" (`Upper`) a "Verde Oscuro" (`Up`), indicando pérdida de momentum agresivo.  
-* **Contexto de Volatilidad:** Entender quién domina realmente la vela, independientemente de si el volumen total es alto o bajo.  
+* **Detector de Divergencias:** El precio hace un nuevo máximo, pero el BidAskVR muestra un color "oscuro" (`UpColor`), indicando que el desequilibrio comprador está perdiendo fuerza.  
+* **Confirmación de Ruptura:** En un breakout, buscamos colores "brillantes" (`Upper` o `Lower`) que confirmen entrada agresiva de volumen en la dirección de la ruptura.  
+* **Normalización de Volatilidad:** Permite evaluar la agresividad relativa incluso en horarios de bajo volumen (pre-market).  
 
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **7 / 10**
+🔟 **8.5 / 10**
 
-✅ **Normalización:** Convierte datos brutos en un porcentaje comparable (-100 a +100).  
-✅ **Momentum Visual:** Los 4 colores permiten leer la "aceleración" del desequilibrio sin mirar números.  
-⛔ **Fallo de UI:** `ShowZeroValue = false` por defecto, lo que hace que el oscilador "flote" sin referencia cero clara.  
+✅ **Normalización Inteligente:** Convierte datos brutos en un porcentaje comparable (-100 a +100), eliminando la distorsión del volumen absoluto.  
+✅ **Lectura de Momentum:** Los 4 colores permiten leer la "segunda derivada" (aceleración/desaceleración) del flujo sin mirar números.  
+⛔ **UI por Defecto:** `ShowZeroValue = false` hace que el histograma flote sin referencia clara en paneles comprimidos.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Reversión por Agotamiento:** Precio haciendo nuevo máximo + BidAskVR cambiando a color oscuro (Divergencia).  
-* **Confirmación de Ruptura:** Breakout con color brillante (Upper/Lower) indicando entrada masiva de agresión neta.  
+* **Reversión por Agotamiento:** Precio en extremo + BidAskVR cambiando de Brillante a Oscuro.  
+* **Pullback Continuación:** Durante un pullback, el BidAskVR se acerca a 0 pero no cruza, y vuelve a acelerar (cambio de Oscuro a Brillante).  
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-| Parámetro | Valor Recomendado | Razón |
+| Parámetro | Valor | Justificación |
 | :--- | :--- | :--- |
-| **Moving Type** | `Ema` | Mayor reactividad a la acción reciente. |
-| **Period** | `10` | Equilibrio entre ruido y señal. |
-| **Mode** | `AskBid` | Estándar (Positivo = Compras). |
-| **Colores** | *Alto Contraste* | Usar Verde Vivo/Oscuro y Rojo Vivo/Oscuro para distinguir fases. |
+| **Moving Type** | `Ema` | La Media Móvil Exponencial pondera más la acción reciente, vital para 1M. |
+| **Period** | `10` - `14` | `10` es reactivo para entradas rápidas; `14` filtra mejor falsos positivos. |
+| **Mode** | `AskBid` | Estándar intuitivo: Barras arriba = Compras. |
+| **Colores** | *High Contrast* | Usar Lima/Verde Oscuro y Rojo Vivo/Granate para distinguir fases de un vistazo. |
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* Calcula el ratio interno: `100 * (Ask - Bid) / (Ask + Bid)`.  
-* Aplica suavizado con la media móvil seleccionada.  
-* Compara `Value[0]` vs `Value[1]` para determinar el color (pendiente).  
+* **Cálculo:** `100 * (Ask - Bid) / (Ask + Bid)`. Esto normaliza el Delta respecto al Volumen Total.
+* **Inicialización:** Tiene una lógica manual `if (bar < period)` para los primeros compases, aunque las clases `EMA`, `SMA`, etc., de ATAS ya manejan esto. No es crítico pero es código legacy.
+* **Rendering:** Usa `VisualMode.Histogram`.
 
 ---
 
 ### ❗ Incoherencias o aspectos mejorables detectados
 
-* **Referencia Cero:** Falta la línea cero por defecto. Es vital en un oscilador que fluctúa entre positivo y negativo.  
-* **Código Redundante:** Tiene una lógica manual de "arranque" (`if bar < period`) que es innecesaria ya que las clases de medias móviles de ATAS manejan la inicialización internamente.  
+* **Falta Línea Cero:** El oscilador fluctúa entre positivo y negativo. La ausencia de una línea cero visual (`ShowZeroValue = true` o una `LineSeries` fija) dificulta la lectura rápida del cruce de equilibrio.
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-* **UI (P2):** Activar `ShowZeroValue = true` o añadir una `LineSeries` en 0.  
+* **Mejora UI (Baja):** Activar `ShowZeroValue = true` en el constructor o añadir una línea horizontal gris en el nivel 0.0.
 
 ---
 
 ### 💎 Valor Reutilizable (Código Donante)
 
-* **Lógica de 4 Colores:** Este patrón de coloreado (Valor > 0 y Subiendo vs Valor > 0 y Bajando) es muy útil y debería considerarse para `DeltaModif` u otros osciladores.  
+* **Lógica de Coloreado (SetColor):** El método `SetColor` es perfectamente exportable para añadir "Momentum Coloring" a cualquier otro oscilador (ej. RSI, CCI o Delta personalizado).
 
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Es el "Delta inteligente". Mientras que el Delta normal te grita números, este te cuenta la historia de la **calidad** del movimiento. Si el precio sube pero este indicador se pone "oscuro" (UpColor), sabes que la gasolina se está acabando antes de que el precio gire.
+Es el "Delta Inteligente". Mientras el Delta normal te da un número absoluto que varía salvajemente según la hora del día, el **Bid Ask Volume Ratio** te da la "calidad" de la subasta. Un Delta de +500 en la apertura es ruido; un Ratio de +80% es una declaración de intenciones, sea la hora que sea.
+
+La lógica de colores es su mayor fortaleza: te avisa del giro *antes* de que el histograma cruce cero.
 
 **Propuestas de Acción:**
-* **Conservar como Core del subgrupo "Details".**
-* Aplicar la pequeña mejora de la línea cero.
+* Mantener como indicador **Core** del subgrupo Delta Details.
+* Ajustar configuración por defecto para incluir la línea cero.
 
 ---
 
@@ -135,6 +150,6 @@ Es el "Delta inteligente". Mientras que el Delta normal te grita números, este 
 
 **Sí.**
 
-Excelente para confirmar la "salud" de una tendencia o ruptura.
+Esencial para filtrar falsas rupturas y detectar agotamientos en scalping de 1 minuto.
 
-**Acción:** **Conservar (Core).**
+**Acción:** **Conservar (Core)**
