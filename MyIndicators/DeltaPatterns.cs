@@ -21,28 +21,26 @@ namespace MyIndicators
     {
         #region Settings
 
-        // Backing fields para detectar cambios y recalcular
-        private int _targetVolume = 10000;
+        private int _targetVolume = 2500; // Ajustado para Scalping ES (S&P 500)
         private bool _showChartSignals = true;
         private int _signalSize = 10;
 
-        // Porcentajes (Basados en la lógica "200 de 2500 = 8%")
-        private decimal _aggPercent = 8.0m;         // Antes 200 (8%)
-        private decimal _aggClosePercent = 12.0m;   // % de cierre (ya era %)
-        private decimal _domPercent = 8.0m;         // Antes 200 (8%)
-        private decimal _domWickPercent = 0.2m;     // Antes 5 (0.2%)
-        private decimal _divPercent = 10.0m;        // Antes 250 (10%)
-        private decimal _revExtremePercent = 8.0m;  // Antes 200 (8%)
-        private decimal _revClosePercent = 2.0m;    // Antes 50 (2%)
-        private decimal _neuMaxPercent = 1.0m;      // Rango neutral
-        private decimal _neuStrugglePercent = 12.0m;// Antes 300 (12%)
+        // Porcentajes (Relativos al TargetVolume)
+        private decimal _aggPercent = 15.0m;        // Aggressive: Delta > 15% del Vol
+        private decimal _domPercent = 12.0m;        // Dominance: Delta > 12% del Vol...
+        private decimal _domWickPercent = 0.1m;     // ... y Mecha Contra < 0.1% (Control Total)
+        private decimal _divPercent = 10.0m;        // Divergencia
+        private decimal _revExtremePercent = 10.0m; // Reversal: Delta tocó extremo 10%...
+        private decimal _revClosePercent = 2.0m;    // ... y cerró invertido > 2%
+        private decimal _neuMaxPercent = 1.0m;      // Neutral: Cierre entre -1% y 1%
+        private decimal _neuStrugglePercent = 12.0m;// ... pero hubo lucha interna > 12%
 
         private decimal _maxScaleAbs = 5000m;
         private decimal _scaleSoftFactor = 1.0m;
 
         // --- Configuración Principal ---
 
-        [Display(GroupName = "Config", Name = "Target Volume", Order = 1, Description = "Volumen base para calcular los %")]
+        [Display(GroupName = "Config", Name = "Target Volume", Order = 1, Description = "Tamaño de la Ventana Rodante (Rolling Window)")]
         [PostValueMode(PostValueModes.OnLostFocus)]
         public int TargetVolume
         {
@@ -70,9 +68,9 @@ namespace MyIndicators
             set => SetProperty(ref _signalSize, value, () => RedrawChart());
         }
 
-        // --- Lógica en Porcentajes (Relativo al TargetVolume) ---
+        // --- Lógica de Patrones ---
 
-        [Display(GroupName = "1. Aggressive", Name = "Min Delta %", Order = 10, Description = "Delta mínimo como % del Target Volume")]
+        [Display(GroupName = "1. Aggressive", Name = "Min Delta %", Order = 10, Description = "Delta neto mínimo (% del Target)")]
         [PostValueMode(PostValueModes.OnLostFocus)]
         public decimal AggressivePercent
         {
@@ -83,20 +81,9 @@ namespace MyIndicators
                 RecalculateValues();
             });
         }
+        // NOTA: Eliminado AggressiveClosePercent por redundancia matemática en ventana fija.
 
-        [Display(GroupName = "1. Aggressive", Name = "Bar Close Delta %", Order = 11, Description = "% del volumen que debe tener el cuerpo")]
-        [PostValueMode(PostValueModes.OnLostFocus)]
-        public decimal AggressiveClosePercent
-        {
-            get => _aggClosePercent;
-            set => SetProperty(ref _aggClosePercent, value, () =>
-            {
-                _historyLoaded = false;
-                RecalculateValues();
-            });
-        }
-
-        [Display(GroupName = "2. Dominance", Name = "Min Delta %", Order = 20)]
+        [Display(GroupName = "2. Dominance", Name = "Min Delta %", Order = 20, Description = "Delta neto mínimo para considerar control")]
         [PostValueMode(PostValueModes.OnLostFocus)]
         public decimal DominancePercent
         {
@@ -108,7 +95,7 @@ namespace MyIndicators
             });
         }
 
-        [Display(GroupName = "2. Dominance", Name = "Wick Tolerance %", Order = 21)]
+        [Display(GroupName = "2. Dominance", Name = "Wick Tolerance %", Order = 21, Description = "Máximo delta contrario permitido (0 = Control Absoluto)")]
         [PostValueMode(PostValueModes.OnLostFocus)]
         public decimal DominanceWickPercent
         {
@@ -132,7 +119,7 @@ namespace MyIndicators
             });
         }
 
-        [Display(GroupName = "4. Reversal", Name = "Extreme Min %", Order = 40)]
+        [Display(GroupName = "4. Reversal", Name = "Extreme Min %", Order = 40, Description = "Delta máximo alcanzado antes del giro")]
         [PostValueMode(PostValueModes.OnLostFocus)]
         public decimal RevExtremePercent
         {
@@ -144,7 +131,7 @@ namespace MyIndicators
             });
         }
 
-        [Display(GroupName = "4. Reversal", Name = "Close Min % (Opposite)", Order = 41)]
+        [Display(GroupName = "4. Reversal", Name = "Close Min % (Opposite)", Order = 41, Description = "Delta de cierre en dirección contraria")]
         [PostValueMode(PostValueModes.OnLostFocus)]
         public decimal RevClosePercent
         {
@@ -156,7 +143,7 @@ namespace MyIndicators
             });
         }
 
-        [Display(GroupName = "5. Neutral", Name = "Max Close %", Order = 50)]
+        [Display(GroupName = "5. Neutral", Name = "Max Close %", Order = 50, Description = "Rango de cierre considerado 'Empate'")]
         [PostValueMode(PostValueModes.OnLostFocus)]
         public decimal NeutralMaxPercent
         {
@@ -168,7 +155,7 @@ namespace MyIndicators
             });
         }
 
-        [Display(GroupName = "5. Neutral", Name = "Struggle % (Max/Min)", Order = 51)]
+        [Display(GroupName = "5. Neutral", Name = "Struggle % (Max/Min)", Order = 51, Description = "Volatilidad interna mínima para confirmar 'Lucha'")]
         [PostValueMode(PostValueModes.OnLostFocus)]
         public decimal NeutralStrugglePercent
         {
@@ -208,7 +195,6 @@ namespace MyIndicators
 
         #endregion
 
-
         #region Data Series
 
         // 1. Aggressive
@@ -231,14 +217,12 @@ namespace MyIndicators
 
         private readonly CandleDataSeries _cNormal = new CandleDataSeries("Normal") { IsHidden = true, ShowCurrentValue = false };
 
-        // SOLUCIÓN ESCALA: Series de línea VISIBLES (para el motor) pero TRANSPARENTES (para el ojo)
-        // Esto obliga a ATAS a escalar el panel hasta estos valores.
         private readonly ValueDataSeries _scaleHigh = new ValueDataSeries("Scale High")
         {
             VisualType = VisualMode.Line,
-            Color = CrossColor.FromArgb(0, 0, 0, 0), // Transparente total
+            Color = CrossColor.FromArgb(0, 0, 0, 0),
             Width = 1,
-            IsHidden = false, // CRÍTICO: Tiene que ser false para que la escala funcione
+            IsHidden = false,
             ShowCurrentValue = false,
             ScaleIt = true
         };
@@ -246,20 +230,19 @@ namespace MyIndicators
         private readonly ValueDataSeries _scaleLow = new ValueDataSeries("Scale Low")
         {
             VisualType = VisualMode.Line,
-            Color = CrossColor.FromArgb(0, 0, 0, 0), // Transparente total
+            Color = CrossColor.FromArgb(0, 0, 0, 0),
             Width = 1,
             IsHidden = false,
             ShowCurrentValue = false,
             ScaleIt = true
         };
 
-        // Cache interno de señales
         private Dictionary<int, int> _signalTypeCache = new Dictionary<int, int>();
         private Dictionary<int, decimal> _signalPriceCache = new Dictionary<int, decimal>();
 
         #endregion
 
-        #region Color Fields (Backing Fields)
+        #region Color Fields
 
         // --- PALETA SEMÁNTICA (Por defecto: Lógica de Intensidad) ---
         // Compras: Gama Verde/Azul
@@ -277,6 +260,8 @@ namespace MyIndicators
         private CrossColor _semNeutral = System.Drawing.Color.Silver.Convert();      // Indecisión
         private CrossColor _semNormal = System.Drawing.Color.DimGray.Convert();      // Ruido de fondo
 
+
+        // Original Mode
         // 1) Sin Señal -> Gris
         private CrossColor _orgNormal = System.Drawing.Color.Gray.Convert();
 
@@ -301,7 +286,7 @@ namespace MyIndicators
         // 9) Neutral -> Amarilla
         private CrossColor _orgNeutral = System.Drawing.Color.Yellow.Convert();
 
-        private ColorScheme _colorMode = ColorScheme.Original;
+        private ColorScheme _colorMode = ColorScheme.Semantic; // Default to Semantic now
 
         #endregion
 
@@ -315,7 +300,6 @@ namespace MyIndicators
             get => _colorMode;
             set { _colorMode = value; UpdateSeriesColors(); RedrawChart(); }
         }
-
 
         // --- SEMÁNTICOS (9 Colores Configurables) ---
 
@@ -446,17 +430,17 @@ namespace MyIndicators
             set { _orgNormal = value; UpdateSeriesColors(); RedrawChart(); }
         }
 
-        #region Engine Variables (The Queue)
+        #region Engine Variables
 
         // Structure to hold individual ticks in memory
         private struct TickData
         {
             public decimal Price;
             public decimal Volume;
-            public int Direction; // 1 = Buy, -1 = Sell
+            public int Direction;
         }
 
-        private readonly Queue<TickData> _tickQueue = new Queue<TickData>(20000); // Pre-allocate capacity
+        private readonly Queue<TickData> _tickQueue = new Queue<TickData>(20000);
         private decimal _currentQueueVolume;
         private decimal _currentQueueDelta;
 
@@ -476,12 +460,6 @@ namespace MyIndicators
             Panel = IndicatorDataProvider.NewPanel;
             DenyToChangePanel = true;
             IgnoreHistoryScale = true;
-
-            // 1. Ocultamos la serie por defecto
-            //DataSeries[0].IsHidden = true;
-            //((ValueDataSeries)DataSeries[0]).VisualType = VisualMode.Hide;
-
-            // Limpiamos series por defecto
             DataSeries.Clear();
 
             // 1. Series de Escala (Transparentes)
@@ -558,16 +536,9 @@ namespace MyIndicators
         protected override void OnFinishRecalculate()
         {
             if (_historyLoaded) return;
-
-            // Si no hay velas, no podemos pedir historia aún
-            if (CurrentBar < 1)
-                return;
+            if (CurrentBar < 1) return;
 
             var firstCandle = GetCandle(0);
-            if (firstCandle == null)
-                return;
-
-            // Mejor usar la última vela real en vez de DateTime.UtcNow
             var lastCandle = GetCandle(CurrentBar - 1);
             var sessionStart = firstCandle.Time;
             var sessionEnd = lastCandle?.LastTime ?? firstCandle.LastTime;
@@ -624,7 +595,6 @@ namespace MyIndicators
         protected override void OnNewTrade(MarketDataArg trade)
         {
             if (!_historyLoaded) return;
-
             ProcessTick(trade.Volume, trade.Direction, trade.Price);
 
             // In real-time, we repaint the current bar with the latest state of the queue
@@ -665,9 +635,7 @@ namespace MyIndicators
                     _currentQueueDelta -= (oldTick.Volume * oldTick.Direction);
                 }
                 else
-                {
-                    break; // Cannot remove more without going under target
-                }
+                    break;
             }
         }
 
@@ -679,9 +647,8 @@ namespace MyIndicators
             // We iterate the queue to find Max/Min Delta Running Sum and Start/End Prices
 
             decimal runningDelta = 0;
-            decimal maxD = 0; // Max Delta reached DURING this 10k window
-            decimal minD = 0; // Min Delta reached DURING this 10k window
-
+            decimal maxD = 0;
+            decimal minD = 0;
             decimal startPrice = _tickQueue.Peek().Price;
             decimal endPrice = 0;
             decimal highPrice = decimal.MinValue;
@@ -692,7 +659,7 @@ namespace MyIndicators
                 // Price Stats
                 if (t.Price > highPrice) highPrice = t.Price;
                 if (t.Price < lowPrice) lowPrice = t.Price;
-                endPrice = t.Price; // The last one will be the end price
+                endPrice = t.Price;
 
                 // Delta Stats
                 decimal tickDelta = t.Volume * t.Direction;
@@ -729,7 +696,7 @@ namespace MyIndicators
             int signalType = 0;
             decimal signalPrice = 0;
 
-            // --- A. DIVERGENCE ---
+            // --- 1. DIVERGENCE (Top Priority) ---
             bool isDiv = false;
             if (absDelta > thDivMin)
             {
@@ -744,7 +711,7 @@ namespace MyIndicators
                 }
             }
 
-            // --- B. REVERSAL ---
+            // --- 2. REVERSAL ---
             if (!isDiv)
             {
                 if (maxD > thRevExt && delta < -thRevClose)
@@ -759,18 +726,26 @@ namespace MyIndicators
                 }
             }
 
-            // --- C. NEUTRAL ---
-            if (signalType == 0 && Math.Abs(deltaPercent) <= NeutralMaxPercent)
+            // --- 3. DOMINANCE (New Priority: Control Total) ---
+            if (signalType == 0 && absDelta > thDomMin)
             {
-                if (maxD > thNeuStruggle || minD < -thNeuStruggle)
+                // Buy Dominance: Delta+ y NUNCA hubo mecha negativa significativa (minD >= -wick)
+                if (delta > 0 && minD >= -thDomWick)
                 {
-                    signalType = 9;
-                    signalPrice = closePrice;
+                    signalType = 4; // Dom Buy
+                    signalPrice = lowPrice;
+                }
+                // Sell Dominance
+                else if (delta < 0 && maxD <= thDomWick)
+                {
+                    signalType = 5; // Dom Sell
+                    signalPrice = highPrice;
                 }
             }
 
-            // --- D. AGGRESSIVE ---
-            if (signalType == 0 && Math.Abs(deltaPercent) > AggressiveClosePercent && absDelta > thAggMin)
+            // --- 4. AGGRESSIVE (Standard Initiative) ---
+            // Simplificado: Solo miramos si el delta absoluto supera el umbral
+            if (signalType == 0 && absDelta > thAggMin)
             {
                 if (delta > 0)
                 {
@@ -784,27 +759,18 @@ namespace MyIndicators
                 }
             }
 
-            // --- E. DOMINANCE ---
-            if (signalType == 0 && absDelta > thDomMin)
+            // --- 5. NEUTRAL (Lucha) ---
+            if (signalType == 0 && Math.Abs(deltaPercent) <= NeutralMaxPercent)
             {
-                if (delta > 0 && minD >= -thDomWick)
+                if (maxD > thNeuStruggle || minD < -thNeuStruggle)
                 {
-                    signalType = 4; // Dom Buy
-                    signalPrice = lowPrice;
-                }
-                else if (delta < 0 && maxD <= thDomWick)
-                {
-                    signalType = 5; // Dom Sell
-                    signalPrice = highPrice;
+                    signalType = 9;
+                    signalPrice = closePrice;
                 }
             }
 
             // 2. CREAR LA VELA
-            var candle = new ATAS.Indicators.Candle();
-            candle.Open = 0;
-            candle.Close = delta;
-            candle.High = maxD;
-            candle.Low = minD;
+            var candle = new ATAS.Indicators.Candle { Open = 0, Close = delta, High = maxD, Low = minD };
 
             // 3. SOLUCIÓN ESCALA: usar amplitud simétrica alrededor de 0
             // Tomamos el extremo mayor en valor absoluto dentro de la ventana
@@ -816,15 +782,9 @@ namespace MyIndicators
 
             // Límite duro para que una barra puntual no destruya la escala
             var amp = Math.Min(rawAmp, MaxScaleAbs);
-
-            // NUEVO: Escala Mínima Dinámica = 10% del TargetVolume
             decimal minScaleDynamic = TargetVolume * 0.1m;
+            if (amp <= minScaleDynamic) amp = minScaleDynamic;
 
-            // Seguridad: si no hay rango, dale un mínimo
-            if (amp <= minScaleDynamic)
-                amp = minScaleDynamic;
-
-            // La escala que ve ATAS es SIEMPRE [-amp, +amp]
             _scaleHigh[bar] = amp;
             _scaleLow[bar] = -amp;
 
@@ -835,7 +795,7 @@ namespace MyIndicators
             _cDiv[bar] = empty;
             _cRevBuy[bar] = empty; _cRevSell[bar] = empty;
             _cNeu[bar] = empty;
-            _cNormal[bar] = empty; // Limpiamos normal también
+            _cNormal[bar] = empty;
 
             // 5. ASIGNACIÓN A LA SERIE CORRECTA
             if (signalType == 2) _cAggBuy[bar] = candle;
@@ -846,11 +806,7 @@ namespace MyIndicators
             else if (signalType == 7) _cRevBuy[bar] = candle;
             else if (signalType == 8) _cRevSell[bar] = candle;
             else if (signalType == 9) _cNeu[bar] = candle;
-            else
-            {
-                // Si signalType es 0 (Sin señal), va a la serie Normal
-                _cNormal[bar] = candle;
-            }
+            else _cNormal[bar] = candle;
 
             // 6. CACHÉ PARA CHART
             _signalTypeCache[bar] = signalType;
@@ -872,14 +828,14 @@ namespace MyIndicators
                     bool isSem = ColorMode == ColorScheme.Semantic;
 
                     // Cache local de colores (GDI)
-                    var cAggPos = (isSem ? SemAggPos : OrgAggPos).Convert();
-                    var cAggNeg = (isSem ? SemAggNeg : OrgAggNeg).Convert();
-                    var cDomPos = (isSem ? SemDomPos : OrgDomPos).Convert();
-                    var cDomNeg = (isSem ? SemDomNeg : OrgDomNeg).Convert();
-                    var cDiv = (isSem ? SemDiv : OrgDiv).Convert();
-                    var cRevPos = (isSem ? SemRevPos : OrgRevPos).Convert();
-                    var cRevNeg = (isSem ? SemRevNeg : OrgRevNeg).Convert();
-                    var cNeu = (isSem ? SemNeutral : OrgNeutral).Convert();
+                    var cAggPos = (isSem ? _semAggPos : _orgAggPos).Convert();
+                    var cAggNeg = (isSem ? _semAggNeg : _orgAggNeg).Convert();
+                    var cDomPos = (isSem ? _semDomPos : _orgDomPos).Convert();
+                    var cDomNeg = (isSem ? _semDomNeg : _orgDomNeg).Convert();
+                    var cDiv = (isSem ? _semDiv : _orgDiv).Convert();
+                    var cRevPos = (isSem ? _semRevPos : _orgRevPos).Convert();
+                    var cRevNeg = (isSem ? _semRevNeg : _orgRevNeg).Convert();
+                    var cNeu = (isSem ? _semNeutral : _orgNeutral).Convert();
 
                     for (int bar = FirstVisibleBarNumber; bar <= LastVisibleBarNumber; bar++)
                     {
@@ -916,7 +872,6 @@ namespace MyIndicators
         {
             var rect = new Rectangle(x - SignalSize / 2, y - SignalSize / 2, SignalSize, SignalSize);
             ctx.FillRectangle(c, rect);
-            // Optional: ctx.DrawRectangle(Color.Black, rect);
         }
 
         private void DrawDiamond(RenderContext ctx, int x, int y, Color c)
