@@ -459,7 +459,10 @@ namespace MyIndicators
         {
             Panel = IndicatorDataProvider.NewPanel;
             DenyToChangePanel = true;
+            #if RELEASE
+            #else
             IgnoreHistoryScale = true;
+            #endif
             DataSeries.Clear();
 
             // 1. Series de Escala (Transparentes)
@@ -484,7 +487,7 @@ namespace MyIndicators
             UpdateSeriesColors();
         }
 
-        #endregion
+#endregion
 
         protected override void OnCalculate(int bar, decimal value)
         {
