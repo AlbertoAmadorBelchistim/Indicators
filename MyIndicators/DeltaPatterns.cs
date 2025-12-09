@@ -26,21 +26,23 @@ namespace MyIndicators
         private bool _showChartSignals = true;
         private int _signalSize = 10;
 
-        private decimal _aggDeltaMin = 200;
-        private decimal _aggPercent = 12;
-        private decimal _domDeltaMin = 200;
-        private decimal _domWickTol = 5;
-        private decimal _divDeltaMin = 250;
-        private decimal _revExtremeMin = 200;
-        private decimal _revCloseMin = 50;
-        private decimal _neuMaxPercent = 1;
-        private decimal _neuStruggle = 300;
+        // Porcentajes (Basados en la lógica "200 de 2500 = 8%")
+        private decimal _aggPercent = 8.0m;         // Antes 200 (8%)
+        private decimal _aggClosePercent = 12.0m;   // % de cierre (ya era %)
+        private decimal _domPercent = 8.0m;         // Antes 200 (8%)
+        private decimal _domWickPercent = 0.2m;     // Antes 5 (0.2%)
+        private decimal _divPercent = 10.0m;        // Antes 250 (10%)
+        private decimal _revExtremePercent = 8.0m;  // Antes 200 (8%)
+        private decimal _revClosePercent = 2.0m;    // Antes 50 (2%)
+        private decimal _neuMaxPercent = 1.0m;      // Rango neutral
+        private decimal _neuStrugglePercent = 12.0m;// Antes 300 (12%)
 
-        private decimal _maxScaleAbs = 3000m;
+        private decimal _maxScaleAbs = 5000m;
         private decimal _scaleSoftFactor = 1.0m;
 
-        // Target volume (ya lo tienes así, lo dejo de referencia)
-        [Display(GroupName = "Config", Name = "Target Volume", Order = 1)]
+        // --- Configuración Principal ---
+
+        [Display(GroupName = "Config", Name = "Target Volume", Order = 1, Description = "Volumen base para calcular los %")]
         [PostValueMode(PostValueModes.OnLostFocus)]
         public int TargetVolume
         {
@@ -52,7 +54,6 @@ namespace MyIndicators
             });
         }
 
-        // Solo afecta al render (no requiere recálculo histórico)
         [Display(GroupName = "Config", Name = "Show Signals on Chart", Order = 2)]
         [PostValueMode(PostValueModes.OnLostFocus)]
         public bool ShowChartSignals
@@ -69,21 +70,9 @@ namespace MyIndicators
             set => SetProperty(ref _signalSize, value, () => RedrawChart());
         }
 
-        // --- Logic Thresholds ---
+        // --- Lógica en Porcentajes (Relativo al TargetVolume) ---
 
-        [Display(GroupName = "1. Aggressive", Name = "Min Delta", Order = 10)]
-        [PostValueMode(PostValueModes.OnLostFocus)]
-        public decimal AggressiveDeltaMin
-        {
-            get => _aggDeltaMin;
-            set => SetProperty(ref _aggDeltaMin, value, () =>
-            {
-                _historyLoaded = false;
-                RecalculateValues();
-            });
-        }
-
-        [Display(GroupName = "1. Aggressive", Name = "Min %", Order = 11)]
+        [Display(GroupName = "1. Aggressive", Name = "Min Delta %", Order = 10, Description = "Delta mínimo como % del Target Volume")]
         [PostValueMode(PostValueModes.OnLostFocus)]
         public decimal AggressivePercent
         {
@@ -95,67 +84,79 @@ namespace MyIndicators
             });
         }
 
-        [Display(GroupName = "2. Dominance", Name = "Min Delta", Order = 20)]
+        [Display(GroupName = "1. Aggressive", Name = "Bar Close Delta %", Order = 11, Description = "% del volumen que debe tener el cuerpo")]
         [PostValueMode(PostValueModes.OnLostFocus)]
-        public decimal DominanceDeltaMin
+        public decimal AggressiveClosePercent
         {
-            get => _domDeltaMin;
-            set => SetProperty(ref _domDeltaMin, value, () =>
+            get => _aggClosePercent;
+            set => SetProperty(ref _aggClosePercent, value, () =>
             {
                 _historyLoaded = false;
                 RecalculateValues();
             });
         }
 
-        [Display(GroupName = "2. Dominance", Name = "Wick Tolerance", Order = 21)]
+        [Display(GroupName = "2. Dominance", Name = "Min Delta %", Order = 20)]
         [PostValueMode(PostValueModes.OnLostFocus)]
-        public decimal DominanceWickTol
+        public decimal DominancePercent
         {
-            get => _domWickTol;
-            set => SetProperty(ref _domWickTol, value, () =>
+            get => _domPercent;
+            set => SetProperty(ref _domPercent, value, () =>
             {
                 _historyLoaded = false;
                 RecalculateValues();
             });
         }
 
-        [Display(GroupName = "3. Divergence", Name = "Min Delta", Order = 30)]
+        [Display(GroupName = "2. Dominance", Name = "Wick Tolerance %", Order = 21)]
         [PostValueMode(PostValueModes.OnLostFocus)]
-        public decimal DivDeltaMin
+        public decimal DominanceWickPercent
         {
-            get => _divDeltaMin;
-            set => SetProperty(ref _divDeltaMin, value, () =>
+            get => _domWickPercent;
+            set => SetProperty(ref _domWickPercent, value, () =>
             {
                 _historyLoaded = false;
                 RecalculateValues();
             });
         }
 
-        [Display(GroupName = "4. Reversal", Name = "Extreme Min", Order = 40)]
+        [Display(GroupName = "3. Divergence", Name = "Min Delta %", Order = 30)]
         [PostValueMode(PostValueModes.OnLostFocus)]
-        public decimal RevExtremeMin
+        public decimal DivPercent
         {
-            get => _revExtremeMin;
-            set => SetProperty(ref _revExtremeMin, value, () =>
+            get => _divPercent;
+            set => SetProperty(ref _divPercent, value, () =>
             {
                 _historyLoaded = false;
                 RecalculateValues();
             });
         }
 
-        [Display(GroupName = "4. Reversal", Name = "Close Min (Opposite)", Order = 41)]
+        [Display(GroupName = "4. Reversal", Name = "Extreme Min %", Order = 40)]
         [PostValueMode(PostValueModes.OnLostFocus)]
-        public decimal RevCloseMin
+        public decimal RevExtremePercent
         {
-            get => _revCloseMin;
-            set => SetProperty(ref _revCloseMin, value, () =>
+            get => _revExtremePercent;
+            set => SetProperty(ref _revExtremePercent, value, () =>
             {
                 _historyLoaded = false;
                 RecalculateValues();
             });
         }
 
-        [Display(GroupName = "5. Neutral", Name = "Max %", Order = 50)]
+        [Display(GroupName = "4. Reversal", Name = "Close Min % (Opposite)", Order = 41)]
+        [PostValueMode(PostValueModes.OnLostFocus)]
+        public decimal RevClosePercent
+        {
+            get => _revClosePercent;
+            set => SetProperty(ref _revClosePercent, value, () =>
+            {
+                _historyLoaded = false;
+                RecalculateValues();
+            });
+        }
+
+        [Display(GroupName = "5. Neutral", Name = "Max Close %", Order = 50)]
         [PostValueMode(PostValueModes.OnLostFocus)]
         public decimal NeutralMaxPercent
         {
@@ -167,12 +168,12 @@ namespace MyIndicators
             });
         }
 
-        [Display(GroupName = "5. Neutral", Name = "Struggle (Max/Min)", Order = 51)]
+        [Display(GroupName = "5. Neutral", Name = "Struggle % (Max/Min)", Order = 51)]
         [PostValueMode(PostValueModes.OnLostFocus)]
-        public decimal NeutralStruggle
+        public decimal NeutralStrugglePercent
         {
-            get => _neuStruggle;
-            set => SetProperty(ref _neuStruggle, value, () =>
+            get => _neuStrugglePercent;
+            set => SetProperty(ref _neuStrugglePercent, value, () =>
             {
                 _historyLoaded = false;
                 RecalculateValues();
@@ -709,23 +710,28 @@ namespace MyIndicators
         {
             if (vol == 0) return;
 
+            // --- CÁLCULO DINÁMICO DE UMBRALES ---
+            // Usamos las propiedades públicas (TargetVolume, AggressivePercent, etc.)
+            decimal baseVol = (decimal)TargetVolume;
+
+            decimal thAggMin = baseVol * (AggressivePercent / 100m);
+            decimal thDomMin = baseVol * (DominancePercent / 100m);
+            decimal thDomWick = baseVol * (DominanceWickPercent / 100m);
+            decimal thDivMin = baseVol * (DivPercent / 100m);
+            decimal thRevExt = baseVol * (RevExtremePercent / 100m);
+            decimal thRevClose = baseVol * (RevClosePercent / 100m);
+            decimal thNeuStruggle = baseVol * (NeutralStrugglePercent / 100m);
+
+            // Variables de estado
             decimal deltaPercent = (delta / vol) * 100m;
             decimal absDelta = Math.Abs(delta);
-
-            // 1. DETERMINAR EL TIPO DE SEÑAL (Lógica Pura)
-            // 0 = Nada
-            // 2/3 = Aggressive Buy/Sell
-            // 4/5 = Dominance Buy/Sell
-            // 6/-6 = Divergencia Buy/Sell
-            // 7/8 = Reversal Buy/Sell
-            // 9 = Neutral
 
             int signalType = 0;
             decimal signalPrice = 0;
 
             // --- A. DIVERGENCE ---
             bool isDiv = false;
-            if (absDelta > DivDeltaMin)
+            if (absDelta > thDivMin)
             {
                 bool priceUp = closePrice > openPrice;
                 bool deltaUp = delta > 0;
@@ -733,8 +739,7 @@ namespace MyIndicators
                 if (priceUp != deltaUp)
                 {
                     isDiv = true;
-                    signalType = deltaUp ? 6 : -6; // 6 = Delta+, Precio- (Sell Signal). -6 = Delta-, Precio+ (Buy Signal)
-                    // Nota: Visualmente la divergencia se suele marcar donde falla el precio
+                    signalType = deltaUp ? 6 : -6;
                     signalPrice = deltaUp ? highPrice : lowPrice;
                 }
             }
@@ -742,14 +747,12 @@ namespace MyIndicators
             // --- B. REVERSAL ---
             if (!isDiv)
             {
-                // Bearish Reversal: Mucha compra (MaxD) pero acabó negativo
-                if (maxD > RevExtremeMin && delta < -RevCloseMin)
+                if (maxD > thRevExt && delta < -thRevClose)
                 {
                     signalType = 8; // Sell
                     signalPrice = highPrice;
                 }
-                // Bullish Reversal: Mucha venta (MinD) pero acabó positivo
-                else if (minD < -RevExtremeMin && delta > RevCloseMin)
+                else if (minD < -thRevExt && delta > thRevClose)
                 {
                     signalType = 7; // Buy
                     signalPrice = lowPrice;
@@ -757,10 +760,9 @@ namespace MyIndicators
             }
 
             // --- C. NEUTRAL ---
-            // Solo si no tenemos señal fuerte previa
             if (signalType == 0 && Math.Abs(deltaPercent) <= NeutralMaxPercent)
             {
-                if (maxD > NeutralStruggle || minD < -NeutralStruggle)
+                if (maxD > thNeuStruggle || minD < -thNeuStruggle)
                 {
                     signalType = 9;
                     signalPrice = closePrice;
@@ -768,7 +770,7 @@ namespace MyIndicators
             }
 
             // --- D. AGGRESSIVE ---
-            if (signalType == 0 && Math.Abs(deltaPercent) > AggressivePercent && absDelta > AggressiveDeltaMin)
+            if (signalType == 0 && Math.Abs(deltaPercent) > AggressiveClosePercent && absDelta > thAggMin)
             {
                 if (delta > 0)
                 {
@@ -783,14 +785,14 @@ namespace MyIndicators
             }
 
             // --- E. DOMINANCE ---
-            if (signalType == 0 && absDelta > DominanceDeltaMin)
+            if (signalType == 0 && absDelta > thDomMin)
             {
-                if (delta > 0 && minD >= -DominanceWickTol)
+                if (delta > 0 && minD >= -thDomWick)
                 {
                     signalType = 4; // Dom Buy
                     signalPrice = lowPrice;
                 }
-                else if (delta < 0 && maxD <= DominanceWickTol)
+                else if (delta < 0 && maxD <= thDomWick)
                 {
                     signalType = 5; // Dom Sell
                     signalPrice = highPrice;
