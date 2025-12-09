@@ -47,6 +47,7 @@ _Comparativa de fuerza: Órdenes Limitadas (Muros) vs Órdenes a Mercado (Ataque
 | Score | Estado | Indicador | Descripción / Notas |
 | :---: | :--- | :--- | :--- |
 | **10/10** | ✅ Conservar (Core) | [Delta Modif](indicators/es/DeltaModif.md) | ¿Qué barras muestran una agresión (Delta) extrema, divergencia o absorción, y cómo se comporta el flujo respecto a su tendencia media? |
+| **9/10** | ✅ Conservar (Reserva) | [Delta Patterns](indicators/es/DeltaPatterns.md) | ¿Qué patrones de micro-estructura ocurren dentro de una ventana de volumen constante? |
 | **4/10** | 💀 Descartar | [Ask/Bid Volume Difference Bars](indicators/es/AskBidBars.md) | ¿Cuál fue el rango total (Max/Min) y el cierre neto del Delta en la vela? |
 | **4/10** | 💀 Descartar | [Delta Turnaround](indicators/es/DeltaTurnaround.md) | ¿Se ha producido un patrón de giro de 3 velas confirmado por el delta? |
 | **3/10** | 💀 Descartar | [Average Delta](indicators/es/AverageDelta.md) | ¿Cuál es la presión agresiva promedio (Delta) durante las últimas X velas? |
@@ -58,7 +59,7 @@ _Desglose intra-vela del Delta (Bid vs Ask) y ratios de fuerza._
 
 | Score | Estado | Indicador | Descripción / Notas |
 | :---: | :--- | :--- | :--- |
-| **8.5/10** | ✅ Conservar (Core) | [Bid Ask Volume Ratio](indicators/es/BidAskVR.md) | ¿Cuál es el desequilibrio normalizado del volumen agresivo y su momentum? |
+| **8.5/10** | ✅ Conservar (Core) | [Bid Ask Volume Ratio](indicators/es/BidAskVR.md) | ¿Cuál es el desequilibrio normalizado (de -100% a +100%) del volumen agresivo y su momentum? |
 | **6.5/10** | ✅ Conservar (Reserva) | [Bid Ask](indicators/es/BidAsk.md) | ¿Cuáles fueron los volúmenes brutos de agresión de compra (Ask) y de agresión de venta (Bid) en cada vela? |
 
 ### ⚔️ Cumulative Delta <small>✅ (Fase 2)</small>
@@ -66,8 +67,8 @@ _Tendencia de fondo. Acumulación de agresiones durante toda la sesión._
 
 | Score | Estado | Indicador | Descripción / Notas |
 | :---: | :--- | :--- | :--- |
-| **10/10** | ✅ Conservar (Core) | [CVD pro(multi) / Multi Market Powers](indicators/es/MultiMarketPower.md) | ¿Cómo se distribuye el delta acumulado entre 5 rangos de tamaño de orden diferentes (filtro institucional)? |
-| **8/10** | ✅ Conservar (Reserva) | [CVD - Cumulative Volume Delta](indicators/es/CumulativeDelta.md) | ¿Cuál es el delta acumulado desde el inicio de la sesión? |
+| **10/10** | ✅ Conservar (Core) | [CVD pro(multi) / Multi Market Powers](indicators/es/MultiMarketPower.md) | ¿Cómo se distribuye el delta acumulado entre 5 rangos de tamaño de orden diferentes (filtro institucional) en tiempo real? |
+| **8/10** | ✅ Conservar (Reserva) | [CVD - Cumulative Volume Delta](indicators/es/CumulativeDelta.md) | ¿Cuál es el delta acumulado desde el inicio de la sesión (o desde una hora personalizada)? |
 | **6/10** | 💀 Descartar | [CVD pro / Market Power](indicators/es/MarketPower.md) | ¿Cuál es el delta acumulado filtrado por tamaño de trade y su media móvil? |
 | **2/10** | 💀 Descartar | [COT High/Low](indicators/es/CotHigh.md) | ¿Acumula el delta desde un nuevo máximo o mínimo? |
 

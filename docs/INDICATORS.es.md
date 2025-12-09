@@ -103,6 +103,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Daily Lines Modif](indicators/es/DailyLinesModif.md) | Structure | 9/10 | Conservar |
 | [Delta Colored Candles](indicators/es/DeltaColoredCandles.md) | Order Flow | 3/10 | Descartar |
 | [Delta Modif](indicators/es/DeltaModif.md) | Order Flow | 10/10 | Conservar (Core) |
+| [Delta Patterns](indicators/es/DeltaPatterns.md) | Order Flow | 9/10 | Conservar (Reserva) |
 | [Delta Strength](indicators/es/DeltaStrength.md) | Order Flow | 2/10 | Descartar |
 | [Delta Turnaround](indicators/es/DeltaTurnaround.md) | Order Flow | 4/10 | Descartar |
 | [Demand Index](indicators/es/Demand.md) | Oscillators | 2/10 | Descartar |
