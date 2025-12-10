@@ -1,22 +1,34 @@
 ---
+# 1. IDENTIFICACIÓN
 cs_file: VolumeOnChart.cs
 name: Volume On The Chart
+version: ATAS Stable
+
+# 2. CLASIFICACIÓN
 group: Order Flow
 subgroup: Volume
-score_current: 8/10
-version: Stable
-recommended_action: Conservar (Reserva)
-description: Visualiza el volumen como un histograma de fondo superpuesto al precio.
-gemini_summary: "Versión optimizada para el espacio de trabajo. Dibuja el volumen en el fondo del gráfico de precios, eliminando la necesidad de un sub-panel dedicado. Ideal para portátiles o configuraciones multi-gráfico."
 comparison_group: "Standard Volume"
-competitor_notes: "Alternativa visual a 'Volume' para ahorrar espacio."
-reusable_code: null
-file_state: Estable
+
+# 3. VALORACIÓN (Score & Priority)
+score_current: 8/10
 score_potential: 9/10
+file_state: Estable
 effort: Bajo
-action_priority: N/A
-analysis_date: 2025-11-21
-official_code_date: 23/04/2025
+action_priority: Nula
+system_priority: P2
+
+# 4. DECISIÓN
+recommended_action: Conservar (Reserva)
+
+# 5. ANÁLISIS
+description: Visualiza el volumen como un histograma de fondo superpuesto al precio para ahorrar espacio.
+gemini_summary: "Versión optimizada para el espacio de trabajo. Dibuja el volumen en el fondo del gráfico de precios, eliminando la necesidad de un sub-panel dedicado. Ideal para portátiles o configuraciones multi-gráfico."
+competitor_notes: "Alternativa visual a 'Volume' para ahorrar espacio."
+reusable_code: "Lógica de escalado visual relativo al panel."
+
+# 6. METADATOS
+analysis_date: 2025-12-10
+official_code_date: 2025-04-23
 ---
 
 ## 🛡️ Volume On The Chart (8/10)
@@ -24,8 +36,8 @@ official_code_date: 23/04/2025
 **Nombre del archivo:** [`VolumeOnChart.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/VolumeOnChart.cs)  
 **Nombre del indicador:** Volume On The Chart  
 **Web oficial:** [ATAS — Volume On The Chart](https://help.atas.net/support/solutions/articles/72000619334)  
-**Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 23/04/2025  
+**Compatibilidad:** ATAS versión estable.  
+**Última revisión del código oficial:** 2025-04-23  
 
 > **La Pregunta Clave:** Visualiza el volumen como un histograma de fondo superpuesto al precio para ahorrar espacio.
 
@@ -35,9 +47,9 @@ official_code_date: 23/04/2025
 
 ### ⚙️ Parámetros configurables
 
-* **Height:** Porcentaje de altura del panel para el volumen máximo (ej. 15%).  
-* **Location:** Posición (`Up`, `Down`, `Middle`).  
-* **Heredados:** Mantiene filtros y alertas del indicador `Volume` base.  
+* **Height:** Porcentaje de altura del panel para el volumen máximo (ej. 15%).
+* **Location:** Posición (`Up`, `Down`, `Middle`).
+* **Heredados:** Mantiene filtros y alertas del indicador `Volume` base.
 
 ---
 
@@ -50,62 +62,66 @@ official_code_date: 23/04/2025
 
 ### 🧠 Uso más frecuente
 
-* **Pantallas Pequeñas:** Ganar espacio vertical eliminando paneles inferiores.  
-* **Correlación Visual:** Ver la relación Tamaño de Vela vs Volumen sin mover los ojos.  
+* **Optimización de Espacio:** Eliminar paneles inferiores para maximizar la visión de la acción del precio.
+* **Correlación Visual:** Evaluar "Esfuerzo (Volumen) vs Resultado (Rango de Vela)" de un vistazo rápido sin mover los ojos.
 
 ---
 
 ### 📊 Nivel de relevancia
 🔟 **8 / 10**
 
-✅ **Eficiencia:** Libera un 15-20% de pantalla.  
-✅ **Funcionalidad:** Al heredar de `Volume`, no pierde potencia (alertas, delta color).  
-✅ **Escalado:** Se auto-ajusta al volumen máximo visible.  
+✅ **Eficiencia:** Libera espacio valioso en la pantalla.  
+✅ **Potencia:** Al heredar de `Volume.cs`, mantiene todas las funciones avanzadas (Delta Color, Alertas).  
+✅ **Estética:** Se integra muy bien visualmente.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Igual que Volumen Estándar.** ---
+* **Las mismas que Volume Standard.**
+
+---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **Height:** `15` (Suficiente para ver picos sin tapar precio).  
-* **Location:** `Down`.  
+| Parámetro | Valor Recomendado | Justificación |
+| :--- | :--- | :--- |
+| **Height** | `15` | Suficiente para ver picos sin interferir con las velas. |
+| **Location** | `Down` | Base del gráfico. |
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* Hereda de `Volume` (`public class VolumeOnChart : Volume`), lo que es una excelente práctica de POO.
+* Hereda de `Volume`, lo que garantiza estabilidad y paridad de funciones.
 * Usa `context.FillRectangle` en el panel principal (`CandlesPanel`).
 
 ---
 
 ### ❗ Incoherencias o aspectos mejorables detectados
 
-* **Opacidad:** A veces los colores sólidos pueden tapar las velas si el volumen es muy alto. Se recomienda usar colores con transparencia (Alpha).
+* **Opacidad:** Los colores sólidos pueden a veces dificultar la visión de la mecha inferior de una vela si coinciden en posición.
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-* **P3:** Añadir transparencia por defecto a los colores.  
+* **Transparencia (Alpha):** Sería ideal añadir un control de opacidad (Alpha channel) a los colores para que siempre se vea el precio detrás.
 
 ---
 
 ### 💎 Valor Reutilizable (Código Donante)
 
-* **Lógica de Escalado Visual:** El cálculo de `maxHeight` relativo al panel es útil para cualquier indicador "On Chart".
+* **Escalado Visual:** El cálculo de `maxHeight` relativo al panel es útil para cualquier indicador que dibuje en el fondo.
 
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Es una gran solución de interfaz. Si tienes poco espacio, este es tu indicador. Si tienes monitores grandes, el panel separado es más limpio.
+Si operas en un portátil o te gusta tener muchos gráficos abiertos, este indicador es mejor que el estándar. Si tienes una pantalla 4K dedicada, el estándar es más limpio. Cuestión de gustos, pero técnicamente es impecable.
 
 **Propuestas de Acción:**
-* **Conservar como Reserva.**
+* **Conservar como Reserva** (Alternativa preferente para setups compactos).
 
 ---
 
@@ -113,6 +129,4 @@ Es una gran solución de interfaz. Si tienes poco espacio, este es tu indicador.
 
 **Sí.**
 
-Excelente para setups compactos.
-
-**Acción:** **Conservar (Reserva).**
+**Acción:** **Conservar (Reserva)**

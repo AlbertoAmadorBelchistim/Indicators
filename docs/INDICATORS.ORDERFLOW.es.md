@@ -1,7 +1,7 @@
 # 🔥 Master Index: Order Flow & Volumen
 
 ### 📊 Status Dashboard
-**Progreso de Auditoría:** `▓▓▓▓▓▓▓▓░░░░░░░░░░░░` **42%** (Fase 2 Completada)
+**Progreso de Auditoría:** `▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░` **50%** (Fase 2 Completada)
 
 | Total Indicadores | 🟢 Core (Ganadores) | 🟡 Reserva (Backup) | 💀 Descartados |
 | :---: | :---: | :---: | :---: |
@@ -149,22 +149,22 @@ _Salud de la tendencia basada en la entrada/salida de contratos reales._
 <a id='volume'></a>
 ## 📊 Volume
 
-### ⚔️ Classic Volume &nbsp;⚠️ <small>PENDIENTE</small>
+### ⚔️ Classic Volume &nbsp;✅ <small>FASE 2</small>
 _Indicadores clásicos de acumulación/distribución (A/D)._
 
 | Nota | Fase | Estado | Indicador | Pregunta Clave / Descripción |
 | :---: | :---: | :--- | :--- | :--- |
-| 2/10 | ⚠️ | 💀 Descartar | [Accumulation/Distribution (A/D)](indicators/es/AD.md) | <sub>¿El flujo de volumen acumulado está confirmando la tendencia del precio?</sub> |
-| 1/10 | ⚠️ | 💀 Descartar | [Accumulation / Distribution Flow](indicators/es/ADF.md) | <sub>¿Cuál es la tendencia suavizada del flujo de volumen acumulado?</sub> |
+| 2/10 | ✅ | 💀 Descartar | [Accumulation/Distribution (A/D)](indicators/es/AD.md) | <sub>¿El flujo de volumen acumulado (estimado por la forma de la vela) confirma la tendencia?</sub> |
+| 1/10 | ✅ | 💀 Descartar | [Accumulation / Distribution Flow](indicators/es/ADF.md) | <sub>¿Cuál es la tendencia suavizada del flujo de volumen acumulado?</sub> |
 
-### ⚔️ Standard Volume &nbsp;⚠️ <small>PENDIENTE</small>
+### ⚔️ Standard Volume &nbsp;✅ <small>FASE 2</small>
 _Volumen total por barra y sus variantes visuales._
 
 | Nota | Fase | Estado | Indicador | Pregunta Clave / Descripción |
 | :---: | :---: | :--- | :--- | :--- |
-| **9/10** | ⚠️ | 🟢 **CORE** | [Volume](indicators/es/Volume.md) | ¿Cuál es el volumen de actividad en cada vela y cómo se colorea según el delta? |
-| 8/10 | ⚠️ | 🟡 Reserva | [Volume On The Chart](indicators/es/VolumeOnChart.md) | Visualiza el volumen como un histograma de fondo superpuesto al precio. |
-| 6/10 | ⚠️ | 🟡 Reserva | [Cumulative Daily Volume](indicators/es/CumulativeDailyVolume.md) | ¿Cuál es el volumen total acumulado desde el inicio de la sesión? |
+| **9/10** | ✅ | 🟢 **CORE** | [Volume](indicators/es/Volume.md) | ¿Cuál es el volumen de actividad en cada vela y cómo se colorea según el delta? |
+| 8/10 | ✅ | 🟡 Reserva | [Volume On The Chart](indicators/es/VolumeOnChart.md) | Visualiza el volumen como un histograma de fondo superpuesto al precio para ahorrar esp... |
+| 6/10 | ✅ | 🟡 Reserva | [Cumulative Daily Volume](indicators/es/CumulativeDailyVolume.md) | ¿Cuál es el volumen total acumulado desde el inicio de la sesión? |
 
 ### ⚔️ Tape Analysis &nbsp;⚠️ <small>PENDIENTE</small>
 _Lectura de Cinta (Time & Sales). Reconstrucción de órdenes._
