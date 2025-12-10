@@ -1,31 +1,43 @@
 ---
+# 1. IDENTIFICACIÓN
 cs_file: OIAnalyzer.cs
 name: OI Analyzer
+version: ATAS Stable
+
+# 2. CLASIFICACIÓN
 group: Order Flow
 subgroup: Open Interest
-score_current: 10/10
-version: Estable
-recommended_action: Conservar (Core)
-description: ¿Cómo cambia el Interés Abierto (OI) filtrado por dirección (Buy/Sell) y visualizado en detalle?
-gemini_summary: "La herramienta definitiva de OI Estructural. Desglosa el OI por dirección de agresión, revelando la intención real (apertura de largos vs cierre de cortos). Es el Rey del Análisis de OI."
 comparison_group: "Open Interest Analysis"
-competitor_notes: "Superior en profundidad a todos. Complementario a 'BalanceOI' (momentum) y 'OpenInterest' (alertas)."
-reusable_code: null
-file_state: Estable
+
+# 3. VALORACIÓN (Score & Priority)
+score_current: 2/10
 score_potential: 10/10
+file_state: Estable
 effort: N/A
-action_priority: N/A
+action_priority: Nula
+system_priority: NA
+
+# 4. DECISIÓN
+recommended_action: Conservar (Reserva - Activos Crypto)
+
+# 5. ANÁLISIS
+description: ¿Cómo cambia el Interés Abierto (OI) filtrado por dirección (Buy/Sell) y visualizado en detalle?
+gemini_summary: "El código es una obra maestra del Order Flow, capaz de desglosar agresiones de OI. SIN EMBARGO, para S&P 500 (CME) es inútil intradía debido a la falta de datos tick-by-tick en Rithmic/CQG. Es vital conservarlo para futuros usos en Crypto."
+competitor_notes: "Superior a todos, pero sufre la misma limitación de datos que el resto."
+reusable_code: "Lógica de desglose trade-by-trade de OI."
+
+# 6. METADATOS
 analysis_date: 2025-11-21
-official_code_date: 23/04/2025
+official_code_date: 2025-04-23
 ---
 
-## 🏆 OI Analyzer (10/10)
+## 🏆 OI Analyzer (2/10 en ES / 10/10 en Crypto)
 
 **Nombre del archivo:** [`OIAnalyzer.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/OIAnalyzer.cs)  
 **Nombre del indicador:** OI Analyzer  
 **Web oficial:** [ATAS — OI Analyzer](https://help.atas.net/support/solutions/articles/72000602437)  
-**Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 23/04/2025  
+**Compatibilidad:** ATAS versión estable.  
+**Última revisión del código oficial:** 2025-04-23  
 
 > **La Pregunta Clave:** ¿Cómo cambia el Interés Abierto (OI) filtrado por dirección (Buy/Sell) y visualizado en detalle?
 
@@ -33,24 +45,21 @@ official_code_date: 23/04/2025
 
 ---
 
+### ⚠️ ADVERTENCIA DE DATOS (S&P 500)
+**Este indicador requiere datos de Open Interest Tick-by-Tick.** El feed de **CME (Rithmic/CQG)** para futuros como el ES (S&P 500) **NO provee este dato intradía**. El indicador mostrará una línea plana o datos erróneos durante la sesión.  
+*Solo es funcional en mercados Crypto o feeds específicos que soporten OI streaming.*
+
+---
+
 ### ⚙️ Parámetros configurables
 
-Este indicador ofrece un desglose profundo del OI con opciones avanzadas de visualización:
-
-#### 📊 Cálculo
-* **Mode (OiMode):**
-    * `Buys`: Muestra el OI generado por agresiones de compra (Ask).
-    * `Sells`: Muestra el OI generado por agresiones de venta (Bid).
+* **Mode (OiMode):** `Buys` (OI por agresiones de compra), `Sells` (OI por agresiones de venta).
 * **Calculation Mode:**
-    * `CumulativeTrades`: Acumula el valor a lo largo de la sesión (Visión de tendencia).
-    * `SeparatedTrades`: Muestra el cambio neto por barra (Delta de OI).
-* **Cumulative Mode:** (Checkbox) Alternativa rápida para activar el modo acumulativo.
-* **Clusters Mode:** Muestra los valores numéricos exactos sobre el gráfico principal (Estilo Footprint), ideal para ver niveles exactos de absorción/creación de contratos.
-
-#### 🎨 Visualización
-* **Custom Diapason:** Permite fijar una escala estática (Rango Min/Max) para comparar días diferentes con la misma referencia visual.
-* **Grid Step:** Configura la cuadrícula de fondo para facilitar la lectura de niveles.
-* **Colors:** Personalización completa de colores alcistas/bajistas y textos.
+    * `CumulativeTrades`: Tendencia acumulada de la sesión.
+    * `SeparatedTrades`: Cambio neto por barra.
+* **Cumulative Mode:** Checkbox rápido para activar acumulación.
+* **Clusters Mode:** Pinta los valores numéricos sobre las velas (Estilo Footprint).
+* **Visualización:** `Custom Diapason` (Escala fija), `Grid Step` (Cuadrícula), `Colors`.
 
 ---
 
@@ -63,82 +72,74 @@ Este indicador ofrece un desglose profundo del OI con opciones avanzadas de visu
 
 ### 🧠 Uso más frecuente
 
-* **Desglose de Intención:** Diferenciar si una subida de precio es por **dinero nuevo** (`Buy OI` subiendo = Largos agresivos) o por **cierre de cortos** (`Sell OI` bajando = Short Covering).  
-* **Detección de Stops:** Movimiento rápido contra tendencia + Caída brusca de OI = Ejecución de Stops (Cierre forzoso).  
-* **Lectura de Precisión:** Usar el `ClustersMode` para ver exactamente cuántos contratos se han abierto/cerrado en una vela clave.  
+* **Crypto Scalping:** Detectar Longs/Shorts agresivos en tiempo real.
+* **Futuros (EOD):** Análisis diario de estructura (Solo cierre de sesión).
 
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **10 / 10 (IMPRESCINDIBLE)**
+🔟 **2 / 10 (Contexto S&P 500)**
 
-✅ **Información Única:** Es el único indicador que te dice la *dirección* del flujo de dinero. Saber si subimos por compras o por cierre de cortos cambia totalmente la estrategia.  
-✅ **Visualización Pro:** El modo `ClustersMode` integra el dato en el precio, ahorrando espacio en pantalla.  
-✅ **Versatilidad:** Funciona tanto para análisis de tendencia (Cumulative) como para ver el impacto inmediato (Separated).  
+✅ **Código Perfecto:** La lógica interna es impecable.  
+⛔ **Sin Datos:** Rithmic no alimenta este motor en el S&P 500.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Validación de Ruptura (Breakout):** Breakout alcista + Aumento fuerte de `Buy OI` = Ruptura genuina con iniciativa.  
-* **Trampa de Valor:** Precio subiendo pero `Buy OI` plano o bajando = Falta de interés comprador real (posible giro).  
+* **N/A en S&P 500.** (Requiere Crypto).
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-| Parámetro | Valor Recomendado | Razón |
+| Parámetro | Valor Recomendado | Justificación |
 | :--- | :--- | :--- |
-| **Calculation Mode** | `CumulativeTrades` | Ver la tendencia del día. |
-| **Mode** | *Doble Instancia* | Cargar dos veces: uno `Buys` (Verde) y uno `Sells` (Rojo) en el mismo panel. |
-| **Clusters Mode** | `False` | Desactivado para visión general, activar solo para análisis fino. |
-| **Grid Step** | `Auto` | Ajustar según volatilidad del activo. |
+| **Calculation Mode** | `CumulativeTrades` | Único modo con mínima utilidad EOD. |
+| **Clusters Mode** | `False` | No habrá datos intradía para mostrar. |
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* Solicita datos históricos especiales (`CumulativeTradesRequest`) para reconstruir el OI trade a trade con precisión.
-* Asigna el cambio de OI (`dOi`) a compra o venta basándose en la dirección del agresor (`tick.Direction`).
-* Renderizado personalizado eficiente en `OnRender` para el modo Clusters y Grid.
+* Usa `CumulativeTradesRequest` para reconstruir el historial.
+* Depende críticamente de `tick.OpenInterest`, campo que viene vacío o estático en feeds CME intradía.
 
 ---
 
 ### ❗ Incoherencias o aspectos mejorables detectados
 
-* **Solapamiento Visual:** En modo Clusters, los textos pueden solaparse si hay muchas barras juntas.
-* **Doble Carga:** Requiere cargar el indicador dos veces para ver ambos lados del mercado simultáneamente.
+* **Dependencia de Datos:** No avisa al usuario si el feed no soporta OI. Debería mostrar un "Data Not Available".
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-* **Fusión (P2):** Crear un modo "Dual Line" que pinte ambas líneas (Buy y Sell) en una sola instancia del indicador.
-* **Alertas (P2):** Incorporar el sistema de alertas sonoras de `OpenInterest`.
+* **UI:** Agregar una advertencia visual si se detecta que el OI no cambia en X barras ("Posible falta de datos del proveedor").
 
 ---
 
 ### 💎 Valor Reutilizable (Código Donante)
 
-* **Algoritmo de Desglose:** La lógica que separa el OI por dirección del agresor es el núcleo de su valor y es exportable.
+* **Algoritmo Core:** La distinción `Direction == Buy` vs `Sell` aplicada al Delta del OI es reutilizable para otros indicadores de flujo.
 
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Es el "microscopio" del Order Flow.
-Saber que el OI ha subido 500 contratos es útil. Saber que esos 500 contratos fueron **compras agresivas** (y no ventas pasivas) es la ventaja que te da este indicador. Es la diferencia entre operar a ciegas y operar con visión de rayos X.
+Es un **Ferrari sin gasolina**. El coche es increíble (el código), pero en las carreteras del CME (S&P 500) no hay gasolina (Datos OI) para moverlo.
 
 **Propuestas de Acción:**
-* **Conservar como CORE.**
+* **Hibernar:** Mantener en la librería "Core" pero desactivado para el workspace de ES.
+* **Etiquetar:** Marcar claramente como "Crypto Only".
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí.**
+**No (En S&P 500).**
 
-Fundamental para validar la calidad de cualquier movimiento.
+Por falta de datos del proveedor.
 
-**Acción:** **Conservar (Core).**).**
+**Acción:** **Conservar (Reserva - Activos Crypto)**
 

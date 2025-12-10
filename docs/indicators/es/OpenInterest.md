@@ -1,31 +1,43 @@
 ---
+# 1. IDENTIFICACIÓN
 cs_file: OpenInterest.cs
 name: Open Interest
+version: ATAS Stable
+
+# 2. CLASIFICACIÓN
 group: Order Flow
 subgroup: Open Interest
-score_current: 8/10
-version: Estable
-recommended_action: Conservar (Reserva / Donante)
-description: ¿Cuál es el Interés Abierto total (o su cambio neto) por barra o sesión?
-gemini_summary: "Indicador básico. Muestra el OI total sin desgloses. Su principal valor hoy día es su simplicidad y su sistema de alertas sonoras, del que carece el ganador OI Analyzer."
 comparison_group: "Open Interest Analysis"
-competitor_notes: "Muy inferior al OI Analyzer en análisis, pero gana en utilidad pasiva (alertas)."
-reusable_code: "Sistema de Alertas por cambio de valor (ChangeSize)"
-file_state: Estable
+
+# 3. VALORACIÓN (Score & Priority)
+score_current: 4/10
 score_potential: 8/10
+file_state: Estable
 effort: Bajo
-action_priority: P3
+action_priority: Baja
+system_priority: P3
+
+# 4. DECISIÓN
+recommended_action: Conservar (Reserva)
+
+# 5. ANÁLISIS
+description: ¿Cuál es el Interés Abierto total (o su cambio neto) por barra o sesión?
+gemini_summary: "Indicador básico. En S&P 500 solo sirve para ver el nivel macro de OI día tras día, no para scalping. Su sistema de alertas es útil si alguna vez llega un dato de 'block trade' que actualice el OI, pero es raro."
+competitor_notes: "Versión simplificada del Analyzer."
+reusable_code: "Sistema de Alertas por cambio de valor (ChangeSize)."
+
+# 6. METADATOS
 analysis_date: 2025-11-21
-official_code_date: 23/04/2025
+official_code_date: 2025-04-23
 ---
 
-## 🛡️ Open Interest (8/10)
+## 🛡️ Open Interest (4/10)
 
 **Nombre del archivo:** [`OpenInterest.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/OpenInterest.cs)  
 **Nombre del indicador:** Open Interest  
 **Web oficial:** [ATAS — Open Interest](https://help.atas.net/support/solutions/articles/72000602439)  
-**Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 23/04/2025  
+**Compatibilidad:** ATAS versión estable.  
+**Última revisión del código oficial:** 2025-04-23  
 
 > **La Pregunta Clave:** ¿Cuál es el Interés Abierto total (o su cambio neto) por barra o sesión?
 
@@ -35,9 +47,9 @@ official_code_date: 23/04/2025
 
 ### ⚙️ Parámetros configurables
 
-* **Mode:** `ByBar` (Cambio neto), `Cumulative` (Total), `Session`.  
-* **Filter:** Umbral visual para resaltar barras.  
-* **Alerts:** Configuración de alertas sonoras por cambio de tamaño (`ChangeSize`).  
+* **Mode:** `ByBar`, `Cumulative` (Total), `Session`.
+* **Filter:** Umbral visual.
+* **Alerts:** Sonido si el OI cambia más de X contratos.
 
 ---
 
@@ -50,73 +62,71 @@ official_code_date: 23/04/2025
 
 ### 🧠 Uso más frecuente
 
-* **Referencia de Fondo:** Monitorizar la salud del contrato.  
-* **Alertas Pasivas:** Avisar de cambios bruscos ("Ballenas") sin mirar el gráfico.  
+* **Contexto Macro:** Ver si el interés en el contrato sube o baja respecto a ayer.
 
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **6 / 10**
+🔟 **4 / 10**
 
-✅ **Ligero:** Consumo mínimo.  
-✅ **Alertas:** Funcionalidad simple pero efectiva.  
-⛔ **Ciego:** No distingue dirección (Subida de OI ¿alcista o bajista?).  
+✅ **Alertas:** El código de alertas es limpio y reutilizable.  
+⛔ **Datos Estáticos:** En S&P 500 será una línea recta intradía.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Aviso de Volatilidad:** Usar la alerta para volver a mirar el gráfico cuando entra volumen institucional.  
+* **Ninguna intradía.** Solo análisis pre-mercado.
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **Mode:** `ByBar`.  
-* **Alerts:** `True` (Umbral alto).  
+*(No aplicable para scalping. Configuración para análisis diario)*
+
+| Parámetro | Valor Recomendado | Justificación |
+| :--- | :--- | :--- |
+| **Mode** | `Cumulative` | Ver el total de contratos abiertos. |
+| **Alerts** | `False` | No sonarán por falta de datos. |
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* Código estándar.  
-* Visualización engañosa del filtro (pinta barras planas en lugar de ocultarlas).  
+* Código estándar y robusto.
+* Visualización `ByBar` depende de cambios tick-by-tick que no existen en CME.
 
 ---
 
 ### ❗ Incoherencias o aspectos mejorables detectados
 
-* **Visualización:** Debería ocultar las barras filtradas, no pintarlas planas.  
+* Visualización de barras filtradas (las pinta planas en vez de ocultarlas).
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-* **Ninguna.** Su destino es donar sus alertas.  
+* Ninguna.
 
 ---
 
 ### 💎 Valor Reutilizable (Código Donante)
 
-* **Sistema de Alertas:**
-    * Código: Lógica `ChangeSize` y reproducción de sonido.
-    * Acción: **PORTAR A `OIAnalyzer` (Prioridad Media).**
+* **Sistema de Alertas:** Extraer la lógica `ChangeSize` para otros indicadores de volumen.
 
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Es el indicador "Vainilla". Útil solo por sus alertas.
+Guárdalo como referencia. Es útil tener el dato del "Open Interest Total" en un gráfico diario (D1) para saber la salud del contrato de futuros (Rollover, vencimientos, etc.), pero quítalo de tus gráficas de 1 minuto.
 
 **Propuestas de Acción:**
-* **Conservar como Reserva y Donante.**
+* **Conservar** para workspaces de análisis D1.
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Limitado.**
+**No.**
 
-Solo para alertas.
-
-**Acción:** **Conservar (Reserva).**
+**Acción:** **Conservar (Reserva)**

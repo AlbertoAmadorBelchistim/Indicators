@@ -1,31 +1,43 @@
 ---
+# 1. IDENTIFICACIÓN
 cs_file: HerrickPayoff.cs
 name: Herrick Payoff Index (HPI)
+version: ATAS Stable
+
+# 2. CLASIFICACIÓN
 group: Order Flow
 subgroup: Open Interest
-score_current: 3/10
-version: Estable
-recommended_action: Descartar
-description: ¿Cuál es la fuerza del movimiento combinando Precio, Volumen y OI?
-gemini_summary: "Indicador roto. El concepto es bueno (fuerza combinada), pero la implementación matemática de la fórmula de 'suavizado' es errónea y produce datos no fiables."
 comparison_group: "Open Interest Analysis"
-competitor_notes: "Inferior e inestable comparado con cualquier otro analista de OI."
+
+# 3. VALORACIÓN (Score & Priority)
+score_current: 0/10
+score_potential: 2/10
+file_state: Defectuoso
+effort: N/A
+action_priority: Nula
+system_priority: NA
+
+# 4. DECISIÓN
+recommended_action: Descartar
+
+# 5. ANÁLISIS
+description: ¿Cuál es la fuerza del movimiento combinando Precio, Volumen y OI?
+gemini_summary: "Indicador inservible. Matemáticamente incorrecto en su implementación de suavizado y dependiente de un dato (OI intradía) que no existe en el feed de S&P 500."
+competitor_notes: "Inferior a todo."
 reusable_code: null
-file_state: Roto
-score_potential: 8/10
-effort: Medio
-action_priority: N/A
+
+# 6. METADATOS
 analysis_date: 2025-11-21
-official_code_date: 23/04/2025
+official_code_date: 2025-04-23
 ---
 
-## 💀 Herrick Payoff Index (HPI) (3/10)
+## 💀 Herrick Payoff Index (HPI) (0/10)
 
 **Nombre del archivo:** [`HerrickPayoff.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/HerrickPayoff.cs)  
 **Nombre del indicador:** Herrick Payoff Index  
 **Web oficial:** [ATAS — Herrick Payoff Index](https://help.atas.net/support/solutions/articles/72000602286)  
-**Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 23/04/2025  
+**Compatibilidad:** ATAS versión estable.  
+**Última revisión del código oficial:** 2025-04-23  
 
 > **La Pregunta Clave:** ¿Cuál es la fuerza del movimiento combinando Precio, Volumen y OI? (Implementación Rota)
 
@@ -35,8 +47,7 @@ official_code_date: 23/04/2025
 
 ### ⚙️ Parámetros configurables
 
-* **Divisor:** Escala.  
-* **Smooth:** (Nombre incorrecto) Multiplicador de diferencias.  
+* Divisor, Smooth.
 
 ---
 
@@ -49,60 +60,59 @@ official_code_date: 23/04/2025
 
 ### 🧠 Uso más frecuente
 
-* **(Teórico):** Fuerza real del movimiento.  
+* Ninguno confiable.
 
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **3 / 10**
+🔟 **0 / 10**
 
-⛔ **ROTO:** La fórmula de suavizado no es una media móvil, es una acumulación de diferencias que genera ruido.  
-⛔ **Inestable:** Manejo deficiente de `OI=0`.  
+⛔ **Doble Fallo:** Código roto + Falta de datos.
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Ninguna.** Datos falsos.  
+* **Ninguna.**
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **No usar.** 
+* **Eliminar.**
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* Error crítico en fórmula: `_renderSeries[bar] = lastValue + _smooth * (diff)`. Esto no es suavizado.  
+* Error en la fórmula de suavizado acumulativo.
 
 ---
 
 ### ❗ Incoherencias o aspectos mejorables detectados
 
-* **Matemática Incorrecta.** 
+* Todo el cálculo es sospechoso.
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-* **Ninguna.** No vale la pena reescribirlo.  
+* Borrar.
 
 ---
 
 ### 💎 Valor Reutilizable (Código Donante)
 
-* **Ninguno.** 
+* Ninguno.
 
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Un intento fallido de implementar un clásico.
+No gastes ni un segundo más en esto.
 
 **Propuestas de Acción:**
-* **Descartar.**
+* **Eliminar del proyecto.**
 
 ---
 
@@ -110,4 +120,4 @@ Un intento fallido de implementar un clásico.
 
 **No.**
 
-**Acción:** **Descartar.**
+**Acción:** **Descartar**

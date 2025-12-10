@@ -153,7 +153,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | **<a id='h'>H</a>** | | | |
 | [Heiken Ashi](indicators/es/HeikenAshi.md) | Structure | 6.5/10 | Conservar |
 | [Heiken Ashi Smoothed](indicators/es/HeikenAshiSmoothed.md) | Trend | 5/10 | Mejorar |
-| [Herrick Payoff Index (HPI)](indicators/es/HerrickPayoff.md) | Order Flow | 3/10 | Descartar |
+| [Herrick Payoff Index (HPI)](indicators/es/HerrickPayoff.md) | Order Flow | 0/10 | Descartar |
 | [Highest](indicators/es/Highest.md) | Structure | 6/10 | Descartar |
 | [Highest High / Lowest Low Over N Bars](indicators/es/HighLow.md) | Structure | 7/10 | Conservar |
 | [Historical Volatility Ratio](indicators/es/HVR.md) | Trend | 7/10 | Conservar |
@@ -213,9 +213,9 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | **<a id='o'>O</a>** | | | |
 | [OBV](indicators/es/OBV.md) | Oscillators | 7/10 | Mejorar |
 | [OHLC Plus Modif](indicators/es/OHLCPlus.md) | Structure | 10/10 | Conservar |
-| [OI Analyzer](indicators/es/OIAnalyzer.md) | Order Flow | 10/10 | Conservar (Core) |
-| [On Balance Open Interest](indicators/es/BalanceOI.md) | Order Flow | 7/10 | Conservar (Reserva) |
-| [Open Interest](indicators/es/OpenInterest.md) | Order Flow | 8/10 | Conservar (Reserva / Donante) |
+| [OI Analyzer](indicators/es/OIAnalyzer.md) | Order Flow | 2/10 | Conservar (Reserva - Activos Crypto) |
+| [On Balance Open Interest](indicators/es/BalanceOI.md) | Order Flow | 1/10 | Conservar (Reserva) |
+| [Open Interest](indicators/es/OpenInterest.md) | Order Flow | 4/10 | Conservar (Reserva) |
 | [Open Line](indicators/es/OpenLine.md) | Structure | 8/10 | Conservar |
 | [Order Block](indicators/es/OrderBlock.md) | Structure | 9/10 | Conservar |
 | [Order Book Alerts](indicators/es/OrderBookAlerts.md) | Order Flow | 9/10 | Conservar (Reserva) |
