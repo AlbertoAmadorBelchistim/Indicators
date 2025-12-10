@@ -18,7 +18,7 @@ action_priority:  Nula  # El código funciona bien, no requiere cambios.
 system_priority:  N/A   # Desactivado del sistema activo (Sustituido).
 
 # 4. DECISIÓN
-recommended_action:  Fusionar (Integrado en DomPressure)
+recommended_action:  Descartar (Fusionado en DomPressure)
 
 # 5. ANÁLISIS
 description:  ¿Cuál es el desequilibrio neto (Bids vs Asks) en el libro de órdenes y su rango de volatilidad?
@@ -167,4 +167,4 @@ Fue un paso necesario en la evolución del sistema. Un indicador técnicamente e
 
 Su funcionalidad es crítica, pero su implementación independiente ha sido superada.
 
-**Acción:** **Fusionar (Integrado en DomPressure)**
+**Acción:** **Descartar (Fusionado en DomPressure)**

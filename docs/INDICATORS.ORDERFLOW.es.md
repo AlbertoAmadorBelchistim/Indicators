@@ -5,7 +5,7 @@
 
 | Total Indicadores | 🟢 Core (Ganadores) | 🟡 Reserva (Backup) | 💀 Descartados |
 | :---: | :---: | :---: | :---: |
-| **68** | **24** | **22** | 10 |
+| **68** | **24** | **22** | 12 |
 
 [🔙 Volver al Índice General](INDICATORS.es.md)
 
@@ -44,8 +44,8 @@ _Comparativa de fuerza: Órdenes Limitadas (Muros) vs Órdenes a Mercado (Ataque
 | Nota | Fase | Estado | Indicador | Pregunta Clave / Descripción |
 | :---: | :---: | :--- | :--- | :--- |
 | **10/10** | ✅ | 🟢 **CORE** | [DOM Pressure](indicators/es/DomPressure.md) | ¿Está el mercado absorbiendo la agresión o dejándola pasar? Indicador híbrido que super... |
-| 9/10 | ✅ | 🔄 Fusionar | [DOM Power Modif](indicators/es/DomPowerModif.md) | ¿Cuál es el desequilibrio neto (Bids vs Asks) en el libro de órdenes y su rango de vola... |
-| 9/10 | ✅ | 🔄 Fusionar | [DOM Strength Modif](indicators/es/DomStrengthModif.md) | ¿Cuál es la fuerza de la agresión (Trades) en relación con la liquidez pasiva (DOM)? |
+| 9/10 | ✅ | 💀 Descartar | [DOM Power Modif](indicators/es/DomPowerModif.md) | <sub>¿Cuál es el desequilibrio neto (Bids vs Asks) en el libro de órdenes y su rango de vola...</sub> |
+| 9/10 | ✅ | 💀 Descartar | [DOM Strength Modif](indicators/es/DomStrengthModif.md) | <sub>¿Cuál es la fuerza de la agresión (Trades) en relación con la liquidez pasiva (DOM)?</sub> |
 
 <br>
 

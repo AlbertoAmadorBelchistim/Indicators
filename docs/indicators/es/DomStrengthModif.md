@@ -18,7 +18,7 @@ action_priority:  Nula  # El código funciona bien, no requiere cambios.
 system_priority:  N/A   # Desactivado del sistema activo (Sustituido).
 
 # 4. DECISIÓN
-recommended_action:  Fusionar (Integrado en DomPressure)
+recommended_action:  Descartar (Fusionado en DomPressure)
 
 # 5. ANÁLISIS
 description:  ¿Cuál es la fuerza de la agresión (Trades) en relación con la liquidez pasiva (DOM)?
@@ -163,4 +163,4 @@ Fue crucial arreglar su matemática para entender su potencial, pero su visualiz
 
 Su funcionalidad es crítica, pero su implementación independiente ha sido superada.
 
-**Acción:** **Fusionar (Integrado en DomPressure)**
+**Acción:** **Descartar (Fusionado en DomPressure)**
