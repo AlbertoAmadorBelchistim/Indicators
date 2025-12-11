@@ -118,9 +118,9 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Dispersion](indicators/es/Dispersion.md) | Trend | 1/10 | Descartar |
 | [DOM Dynamics](indicators/es/DomDynamics.md) | Order Flow | 9/10 | Conservar (Core) |
 | [DOM Levels/Heatmap](indicators/es/DOMLevels.md) | Order Flow | 9/10 | Conservar (Core) |
-| [DOM Power Modif](indicators/es/DomPowerModif.md) | Order Flow | 9/10 | Fusionar (Integrado en DomPressure) |
+| [DOM Power Modif](indicators/es/DomPowerModif.md) | Order Flow | 9/10 | Descartar (Fusionado en DomPressure) |
 | [DOM Pressure](indicators/es/DomPressure.md) | Order Flow | 10/10 | Conservar (Core) |
-| [DOM Strength Modif](indicators/es/DomStrengthModif.md) | Order Flow | 9/10 | Fusionar (Integrado en DomPressure) |
+| [DOM Strength Modif](indicators/es/DomStrengthModif.md) | Order Flow | 9/10 | Descartar (Fusionado en DomPressure) |
 | [Donchian Channel](indicators/es/Donchian.md) | Structure | 8/10 | Conservar |
 | [Double Exponential Moving Average](indicators/es/DEMA.md) | Trend | 6/10 | Conservar |
 | [Double Stochastic](indicators/es/DoubleStochastic.md) | Oscillators | 7/10 | Conservar |
@@ -219,7 +219,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Open Line](indicators/es/OpenLine.md) | Structure | 8/10 | Conservar |
 | [Order Block](indicators/es/OrderBlock.md) | Structure | 9/10 | Conservar |
 | [Order Book Alerts](indicators/es/OrderBookAlerts.md) | Order Flow | 9/10 | Conservar (Reserva) |
-| [Order Flow Indicator](indicators/es/OrderFlow.md) | Order Flow | 9/10 | Conservar (Reserva) |
+| [Order Flow Indicator](indicators/es/OrderFlow.md) | Order Flow | 7.5/10 | Conservar (Reserva) |
 | [Order Flow Rhythm (Lab)](indicators/es/OrderFlowRythmLab.md) | Order Flow | 7/10 | Conservar (Refactorizar Urgente) |
 | [OSMA (Moving Average of Oscillator)](indicators/es/OSMA.md) | Oscillators | 7/10 | Mejorar |
 | [Outside Bar](indicators/es/OutsideBar.md) | Structure | 6/10 | Mejorar |
