@@ -181,7 +181,7 @@ public class MarginZones : Indicator
             {
                 case nameof(value.Value):
                     _200Line.Color = value.Value;
-                    _200Rectangle.Brush = new SolidBrush(value.Value.Convert());
+                    _200Rectangle.Brush = new CrossSolidBrush(value.Value.Convert());
                     break;
                 case nameof(value.Enabled):
                     _200Line.VisualType = value.Enabled ? VisualMode.OnlyValueOnAxis : VisualMode.Hide;
@@ -203,7 +203,7 @@ public class MarginZones : Indicator
             {
                 case nameof(value.Value):
                     _150Line.Color = value.Value;
-                    _150Rectangle.Brush = new SolidBrush(value.Value.Convert());
+                    _150Rectangle.Brush = new CrossSolidBrush(value.Value.Convert());
                     break;
                 case nameof(value.Enabled):
                     _150Line.VisualType = value.Enabled ? VisualMode.OnlyValueOnAxis : VisualMode.Hide;
@@ -225,7 +225,7 @@ public class MarginZones : Indicator
             {
                 case nameof(value.Value):
                     _100Line.Color = value.Value;
-                    _100Rectangle.Brush = new SolidBrush(value.Value.Convert());
+                    _100Rectangle.Brush = new CrossSolidBrush(value.Value.Convert());
                     break;
                 case nameof(value.Enabled):
                     _100Line.VisualType = value.Enabled ? VisualMode.OnlyValueOnAxis : VisualMode.Hide;
@@ -247,7 +247,7 @@ public class MarginZones : Indicator
             {
                 case nameof(value.Value):
                     _75Line.Color = value.Value;
-                    _75Rectangle.Brush = new SolidBrush(value.Value.Convert());
+                    _75Rectangle.Brush = new CrossSolidBrush(value.Value.Convert());
                     break;
                 case nameof(value.Enabled):
                     _75Line.VisualType = value.Enabled ? VisualMode.OnlyValueOnAxis : VisualMode.Hide;
@@ -269,7 +269,7 @@ public class MarginZones : Indicator
             {
                 case nameof(value.Value):
                     _50Line.Color = value.Value;
-                    _50Rectangle.Brush = new SolidBrush(value.Value.Convert());
+                    _50Rectangle.Brush = new CrossSolidBrush(value.Value.Convert());
                     break;
                 case nameof(value.Enabled):
                     _50Line.VisualType = value.Enabled ? VisualMode.OnlyValueOnAxis : VisualMode.Hide;
@@ -291,7 +291,7 @@ public class MarginZones : Indicator
             {
                 case nameof(value.Value):
                     _25Line.Color = value.Value;
-                    _25Rectangle.Brush = new SolidBrush(value.Value.Convert());
+                    _25Rectangle.Brush = new CrossSolidBrush(value.Value.Convert());
                     break;
                 case nameof(value.Enabled):
                     _25Line.VisualType = value.Enabled ? VisualMode.OnlyValueOnAxis : VisualMode.Hide;
