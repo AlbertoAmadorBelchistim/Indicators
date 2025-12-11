@@ -1,31 +1,43 @@
 ﻿---
+# 1. IDENTIFICACIÓN
 cs_file: BarVolumeFilter.cs
 name: Bar's Volume Filter
+version: ATAS Stable
+
+# 2. CLASIFICACIÓN
 group: Order Flow
 subgroup: Volume
-score_current: 7/10
-version: Stable
-recommended_action: Conservar (Reserva)
-description: ¿Qué velas de este gráfico cumplen mi criterio específico de Volumen, Delta o Ticks?
-gemini_summary: "Herramienta de utilidad pura. No analiza, solo filtra. Su valor reside en limpiar el gráfico visualmente, resaltando solo las velas 'relevantes' (Alto Volumen/Delta) y ocultando el ruido, especialmente útil con su filtro horario RTH."
 comparison_group: "VSA & Anomalies"
-competitor_notes: "Complementario. Funciona bien junto a Better Volume para destacar extremos."
+
+# 3. VALORACIÓN (Score & Priority)
+score_current: 3/10
+score_potential: 4/10
+file_state: Estable (Funcionalidad Limitada)
+effort: N/A
+action_priority: Nula
+system_priority: NA
+
+# 4. DECISIÓN
+recommended_action: Descartar
+
+# 5. ANÁLISIS
+description: ¿Qué velas de este gráfico cumplen mi criterio específico de Volumen, Delta o Ticks?
+gemini_summary: "Herramienta de filtrado visual demasiado básica. Solo permite aplicar una condición lógica a la vez (ej. Volumen > X), obligando a cargar múltiples instancias para análisis complejos. Además, su filtro horario es problemático en gráficos no temporales (Ticks, Range). Superado totalmente por 'VSA Better Volume' o la coloración nativa del indicador de Volumen."
+competitor_notes: "Inferior y redundante."
 reusable_code: null
-file_state: Estable
-score_potential: 9/10
-effort: Medio
-action_priority: P2
-analysis_date: 2025-11-17
-official_code_date: 23/04/2025
+
+# 6. METADATOS
+analysis_date: 2025-12-11
+official_code_date: 2025-04-23
 ---
 
-## 🛡️ Bar's Volume Filter (7/10)
+## 💀 Bar's Volume Filter (3/10)
 
 **Nombre del archivo:** [`BarVolumeFilter.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/BarVolumeFilter.cs)  
 **Nombre del indicador:** Bar's Volume Filter  
 **Web oficial:** [ATAS — Bar's Volume Filter](https://help.atas.net/support/solutions/articles/72000602326)  
-**Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 23/04/2025  
+**Compatibilidad:** ATAS versión estable.  
+**Última revisión del código oficial:** 2025-04-23  
 
 > **La Pregunta Clave:** ¿Qué velas de este gráfico cumplen mi criterio específico de Volumen, Delta o Ticks?
 
@@ -35,10 +47,9 @@ official_code_date: 23/04/2025
 
 ### ⚙️ Parámetros configurables
 
-* **Type:** Criterio de filtro (`Volume`, `Ticks`, `Delta`, `Bid`, `Ask`).  
-* **Min/Max Filter:** Rango de valores aceptados.  
-* **TimeFilter:** Horario activo (Inicio/Fin).  
-* **Color:** Color de resaltado.  
+* **Type:** Criterio único (`Volume`, `Ticks`, `Delta`).
+* **Min/Max Filter:** Umbral simple.
+* **TimeFilter:** Filtro horario rígido.
 
 ---
 
@@ -51,70 +62,66 @@ official_code_date: 23/04/2025
 
 ### 🧠 Uso más frecuente
 
-* **Limpieza de Ruido:** Dejar en gris las velas de bajo volumen y colorear solo las institucionales.  
-* **Foco RTH:** Usar el filtro horario para ignorar la sesión asiática.  
+* **(Limitado):** Resaltar velas con volumen extremo manual.
 
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **7 / 10**
+🔟 **3 / 10**
 
-✅ **Utilidad:** Simple pero efectiva para reducir la carga cognitiva.  
-✅ **Configurable:** Permite crear "lentes" personalizadas (ej. solo ver velas con Delta > 500).  
-⛔ **Pasivo:** No genera señales, solo resalta.  
+⛔ **Mono-Criterio:** Solo permite una regla de color. Si quieres ver velas de alto volumen en amarillo y velas de alto delta en rojo, necesitas poner el indicador dos veces. Ineficiente.  
+⛔ **Incompatible:** El filtro horario (`TimeFilter`) no tiene lógica robusta para gráficos no temporales (Ticks, Range), donde las velas no respetan límites de minutos.  
+⛔ **Redundante:** El indicador *Volume* estándar ya tiene alertas y colores por Delta. El *VSA Better Volume* ya colorea por anomalías. Este indicador sobra.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Ignición:** Buscar velas coloreadas (alto volumen) al inicio de un movimiento.  
+* **Ninguna.** Usar herramientas más avanzadas.
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **Type:** `Volume`.  
-* **MinFilter:** `1500`.  
-* **TimeFilter:** `15:30 - 22:00` (RTH).  
+* **Eliminar.**
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* Usa `PaintbarsDataSeries`.  
-* Lógica simple de comparación.  
+* Código simple (`if volume > min then color`). No hay lógica avanzada.
 
 ---
 
 ### ❗ Incoherencias o aspectos mejorables detectados
 
-* **Defaults:** El `MaxFilter` activado por defecto en 100 es confuso.  
+* UX pobre. Obliga a apilar indicadores.
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-* **P2:** Añadir alertas sonoras cuando se detecta una vela filtrada.  
+* Ninguna.
 
 ---
 
 ### 💎 Valor Reutilizable (Código Donante)
 
-* **Ninguno.** ---
+* Ninguno.
+
+---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Es el "marcador fluorescente" del trader. No te dice qué leer, pero te subraya lo importante.
+Es un indicador "muleta". Si tu plataforma no tuviera otra forma de colorear velas, serviría. Pero ATAS tiene herramientas mucho mejores.
 
-**Propuestas de Acción:**
-* **Conservar como Reserva.**
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí.**
+**No.**
 
-Para focalizar la atención.
+Demasiado básico.
 
-**Acción:** **Conservar (Reserva).**
+**Acción:** **Descartar**

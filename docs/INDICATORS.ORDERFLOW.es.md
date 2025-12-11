@@ -1,11 +1,11 @@
 # 🔥 Master Index: Order Flow & Volumen
 
 ### 📊 Status Dashboard
-**Progreso de Auditoría:** `▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░` **52%** (Fase 2 Completada)
+**Progreso de Auditoría:** `▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░` **59%** (Fase 2 Completada)
 
 | Total Indicadores | 🟢 Core (Ganadores) | 🟡 Reserva (Backup) | 💀 Descartados |
 | :---: | :---: | :---: | :---: |
-| **68** | **24** | **22** | 12 |
+| **67** | **24** | **19** | 14 |
 
 [🔙 Volver al Índice General](INDICATORS.es.md)
 
@@ -183,16 +183,15 @@ _Ritmo del mercado. Detección de aceleraciones y frenazos en la cinta._
 | 6/10 | ✅ | 🟡 Reserva | [Speed of Tape (Lab)](indicators/es/SpeedOfTapeLab.md) | ¿Cuál es la velocidad de ejecución del mercado calculada por interpolación? |
 | 7/10 | ✅ | Conservar (Refactorizar Urgente) | [Order Flow Rhythm (Lab)](indicators/es/OrderFlowRythmLab.md) | ¿Cuál es la intensidad/ritmo del mercado visualizada como mapa de calor (Heatmap)? |
 
-### ⚔️ VSA & Anomalies &nbsp;⚠️ <small>PENDIENTE</small>
+### ⚔️ VSA & Anomalies &nbsp;✅ <small>FASE 2</small>
 _Volume Spread Analysis. Velas climáticas, volumen de parada y anomalías._
 
 | Nota | Fase | Estado | Indicador | Pregunta Clave / Descripción |
 | :---: | :---: | :--- | :--- | :--- |
-| **9/10** | ⚠️ | 🟢 **CORE** | [VSA Better Volume](indicators/es/VsaBetterVolume.md) | ¿Qué nos dice el volumen sobre la intención profesional (Clímax, Churn, Trampa)? |
-| 8/10 | ⚠️ | 🟡 Reserva | [VSA – WSD Histogram](indicators/es/VsaWsd.md) | ¿Cómo se distribuye la estructura de la vela (mechas vs cuerpo) y el volumen relativo? |
-| 7/10 | ⚠️ | 🟡 Reserva | [Bar's Volume Filter](indicators/es/BarVolumeFilter.md) | ¿Qué velas de este gráfico cumplen mi criterio específico de Volumen, Delta o Ticks? |
-| 7/10 | ⚠️ | 🟡 Reserva | [Relative Volume](indicators/es/RelativeVolume.md) | ¿Es el volumen actual anómalamente alto o bajo comparado con el promedio histórico para esta misma hora? |
-| 7/10 | ⚠️ | 🟡 Reserva | [Spread Volume](indicators/es/SpreadVolume.md) | ¿Quién está agrediendo más dentro del spread actual? |
+| **9/10** | ✅ | 🟢 **CORE** | [VSA Better Volume](indicators/es/VsaBetterVolume.md) | ¿Qué nos dice el volumen sobre la intención profesional (Clímax, Churn, Trampa)? |
+| 5/10 | ✅ | 🟡 Reserva | [Relative Volume](indicators/es/RelativeVolume.md) | ¿Es el volumen actual anómalamente alto comparado con el promedio histórico para esta misma hora? |
+| 4/10 | ✅ | 💀 Descartar | [Spread Volume](indicators/es/SpreadVolume.md) | <sub>¿Quién está agrediendo más dentro del spread actual?</sub> |
+| 3/10 | ✅ | 💀 Descartar | [Bar's Volume Filter](indicators/es/BarVolumeFilter.md) | <sub>¿Qué velas de este gráfico cumplen mi criterio específico de Volumen, Delta o Ticks?</sub> |
 
 ### ⚔️ Volume Efficiency &nbsp;⚠️ <small>PENDIENTE</small>
 _Esfuerzo vs Resultado. ¿Cuánto mueve el precio cada unidad de volumen?_

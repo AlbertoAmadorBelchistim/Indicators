@@ -56,7 +56,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Bar Numbering](indicators/es/BarNumbering.md) | Utility | 4/10 | Descartar |
 | [Bar Range](indicators/es/BarRange.md) | Trend | 5/10 | Descartar |
 | [Bar Timer](indicators/es/BarTimer.md) | Utility | 8/10 | Conservar |
-| [Bar's Volume Filter](indicators/es/BarVolumeFilter.md) | Order Flow | 7/10 | Conservar (Reserva) |
+| [Bar's Volume Filter](indicators/es/BarVolumeFilter.md) | Order Flow | 3/10 | Descartar |
 | [Bars Pattern](indicators/es/BarsPattern.md) | Structure | 9/10 | Mejorar |
 | [Bid Ask](indicators/es/BidAsk.md) | Order Flow | 6.5/10 | Conservar (Reserva) |
 | [Bid Ask Volume Ratio](indicators/es/BidAskVR.md) | Order Flow | 8.5/10 | Conservar (Core) |
@@ -247,7 +247,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Ratio](indicators/es/Ratio.md) | Order Flow | 9/10 | Conservar (Core) |
 | [Relative Momentum Index](indicators/es/RMI.md) | Oscillators | 7/10 | Conservar |
 | [Relative Vigor Index](indicators/es/RelativeVigorIndex.md) | Oscillators | 6/10 | Conservar |
-| [Relative Volume](indicators/es/RelativeVolume.md) | Order Flow | 7/10 | Conservar (Reserva) |
+| [Relative Volume](indicators/es/RelativeVolume.md) | Order Flow | 5/10 | Conservar (Reserva) |
 | [Repulse](indicators/es/Repulse.md) | Oscillators | 6/10 | Descartar |
 | [Rollover Dates](indicators/es/RollOverDates.md) | Utility | 8/10 | Conservar |
 | [Round Numbers](indicators/es/RoundNr.md) | Structure | 7/10 | Conservar |
@@ -266,7 +266,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [SMMA (Smoothed Moving Average)](indicators/es/SMMA.md) | Trend | 7/10 | Conservar |
 | [Speed of Tape (Lab)](indicators/es/SpeedOfTapeLab.md) | Order Flow | 6/10 | Conservar (Reserva) |
 | [Speed of Tape Modif V2](indicators/es/SpeedOfTapeModifV2.md) | Order Flow | 10/10 | Conservar (Core) |
-| [Spread Volume](indicators/es/SpreadVolume.md) | Order Flow | 7/10 | Conservar (Reserva) |
+| [Spread Volume](indicators/es/SpreadVolume.md) | Order Flow | 4/10 | Descartar |
 | [Squeeze Momentum](indicators/es/SqueezeMomentum.md) | Trend | 9/10 | Conservar |
 | [Stacked Imbalance](indicators/es/StackedImbalance.md) | Order Flow | 8/10 | Conservar (Core) |
 | [Standard Deviation](indicators/es/StdDev.md) | Trend | 8/10 | Conservar |
@@ -314,7 +314,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Vortex](indicators/es/Vortex.md) | Oscillators | 7/10 | Conservar |
 | [Voss Predictive Filter](indicators/es/VPF.md) | Trend | 8/10 | Conservar |
 | [VSA Better Volume](indicators/es/VsaBetterVolume.md) | Order Flow | 9/10 | Conservar (Core) |
-| [VSA – WSD Histogram](indicators/es/VsaWsd.md) | Order Flow | 8/10 | Conservar (Reserva) |
+| [VSA – WSD Histogram](indicators/es/VsaWsd.md) | Structure | 2/10 | Descartar |
 | [VWAP/TWAP](indicators/es/VWAP.md) | Order Flow | 10/10 | Conservar (Core) |
 | | | | |
 | **<a id='w'>W</a>** | | | |

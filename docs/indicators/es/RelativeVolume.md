@@ -1,33 +1,45 @@
 ﻿---
+# 1. IDENTIFICACIÓN
 cs_file: RelativeVolume.cs
 name: Relative Volume
+version: ATAS Stable
+
+# 2. CLASIFICACIÓN
 group: Order Flow
 subgroup: Volume
-score_current: 7/10
-version: Stable
-recommended_action: Conservar (Reserva)
-description: ¿Es el volumen actual anómalamente alto o bajo comparado con el promedio histórico para esta misma hora?
-gemini_summary: "El contexto temporal. Compara el volumen de ahora con el volumen de 'ayer a esta hora'. Vital para no confundir volumen alto de apertura con volumen alto real."
 comparison_group: "VSA & Anomalies"
-competitor_notes: "Único. Aporta el contexto 'Time-of-Day' que le falta al Better Volume."
-reusable_code: "Lógica de promedio por hora (Dictionary<TimeSpan, AvgBar>)"
-file_state: Mejorable
-score_potential: 8/10
-effort: Bajo
-action_priority: P3
-analysis_date: 2025-11-21
-official_code_date: 23/04/2025
+
+# 3. VALORACIÓN (Score & Priority)
+score_current: 5/10
+score_potential: 6/10
+file_state: Estable
+effort: N/A
+action_priority: Nula
+system_priority: P3
+
+# 4. DECISIÓN
+recommended_action: Conservar (Reserva)
+
+# 5. ANÁLISIS
+description: ¿Es el volumen actual anómalamente alto comparado con el promedio histórico para esta misma hora?
+gemini_summary: "Indicador de contexto estacional intradía. Compara el volumen actual con el promedio de esa misma hora en los últimos N días. Útil para filtrar la volatilidad natural de la apertura/cierre en gráficos de tiempo, pero INÚTIL en gráficos no temporales (Ticks, Volumen, Renko) o para scalping de flujo puro."
+competitor_notes: "Único en su enfoque temporal, pero limitado por el tipo de gráfico."
+reusable_code: "Lógica de diccionario temporal."
+
+# 6. METADATOS
+analysis_date: 2025-12-11
+official_code_date: 2025-04-23
 ---
 
-## 🛡️ Relative Volume (7/10)
+## 🛡️ Relative Volume (5/10)
 
 **Nombre del archivo:** [`RelativeVolume.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/RelativeVolume.cs)  
 **Nombre del indicador:** Relative Volume  
 **Web oficial:** [ATAS — Relative Volume](https://help.atas.net/support/solutions/articles/72000602457)  
-**Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 23/04/2025  
+**Compatibilidad:** ATAS versión estable.  
+**Última revisión del código oficial:** 2025-04-23  
 
-> **La Pregunta Clave:** ¿Es el volumen actual anómalamente alto o bajo comparado con el promedio histórico para esta misma hora?
+> **La Pregunta Clave:** ¿Es el volumen actual anómalamente alto comparado con el promedio histórico para esta misma hora?
 
 ![RelativeVolume](../../img/RelativeVolume.png)
 
@@ -35,8 +47,7 @@ official_code_date: 23/04/2025
 
 ### ⚙️ Parámetros configurables
 
-* **LookBack:** Número de días atrás para calcular el promedio (Default: 20).  
-* **DeltaColored:** Opción para colorear por delta.  
+* **LookBack:** Días atrás para calcular el promedio de la "hora exacta".
 
 ---
 
@@ -49,70 +60,63 @@ official_code_date: 23/04/2025
 
 ### 🧠 Uso más frecuente
 
-* **Normalización:** Saber si 5000 contratos a las 16:00 es mucho (RVOL > 1.5) o normal (RVOL = 1.0).  
-* **Filtro de Ruptura:** Exigir RVOL > 1.5 para validar un breakout.  
+* **Swing Intradía:** Saber si el volumen de las 11:30 es relevante o es el silencio habitual.
 
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **7 / 10**
+🔟 **5 / 10**
 
-✅ **Contexto Temporal:** Resuelve el problema de la estacionalidad intradía (la "U" de volumen).  
-⛔ **Limitación:** Solo funciona en gráficos de tiempo (TimeFrame). En Renko o Range falla.  
+✅ **Contexto Horario:** Normaliza la curva de actividad diaria.  
+⛔ **Limitación Crítica:** No funciona correctamente en gráficos que no sean de tiempo (Ticks, Range, Renko), ya que la lógica de "comparar horas" se rompe.  
+⛔ **Lento:** No sirve para gatillo de entrada.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **News Trading:** Ver si el volumen tras una noticia es realmente excepcional.  
+* **Ninguna directa.** Solo contexto.
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **LookBack:** `20` (Un mes de trading aprox).  
+* **No usar** si operas con gráficos de Ticks o Volumen constante.
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* Usa un `Dictionary<TimeSpan, AvgBar>` para guardar el historial de cada minuto del día.  
-* **Defecto:** Pequeño lag en la actualización del promedio del día en curso.  
+* Código dependiente de `TimeOfDay`.
 
 ---
 
 ### ❗ Incoherencias o aspectos mejorables detectados
 
-* **TimeFrame:** No avisa si se usa en un gráfico no soportado (ej. Tick).  
+* Debería desactivarse o avisar en gráficos no temporales.
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-* **P3:** Añadir aviso visual si `ChartType` no es TimeFrame.  
+* Ninguna.
 
 ---
 
 ### 💎 Valor Reutilizable (Código Donante)
 
-* **Lógica RVOL:** El uso del Diccionario por `TimeOfDay` es exportable a cualquier indicador que necesite estacionalidad.  
+* Ninguno.
 
 ---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Esencial para entender si el mercado está "caliente" o "frío" ajustado a la hora. 2000 contratos a las 3 AM es una locura; a las 9:30 AM es silencio. Este indicador te dice la diferencia.
-
-**Propuestas de Acción:**
-* **Conservar como Reserva.**
+Es útil si operas M5 o M15 y quieres filtrar el ruido de la apertura. Para scalping puro, es prescindible.
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí.**
+**Poco.**
 
-Para filtrar falsas rupturas en horas muertas.
-
-**Acción:** **Conservar (Reserva).**
-
+**Acción:** **Conservar (Reserva)**

@@ -1,33 +1,45 @@
 ﻿---
+# 1. IDENTIFICACIÓN
 cs_file: SpreadVolume.cs
 name: Spread Volume
+version: ATAS Stable
+
+# 2. CLASIFICACIÓN
 group: Order Flow
 subgroup: Volume
-score_current: 7/10
-version: Stable
-recommended_action: Conservar (Reserva)
-description: ¿Quién está agrediendo más dentro del spread actual?
-gemini_summary: "Microscopio de agresión. Dibuja rectángulos de volumen Bid/Ask flotando en el gráfico. Excelente para ver absorción en tiempo real, aunque puede ensuciar el gráfico."
 comparison_group: "VSA & Anomalies"
-competitor_notes: "Único. Compite visualmente con el Footprint pero es más ligero."
-reusable_code: null
+
+# 3. VALORACIÓN (Score & Priority)
+score_current: 4/10
+score_potential: 4/10
 file_state: Estable
-score_potential: 8/10
-effort: Medio
-action_priority: P3
-analysis_date: 2025-11-18
-official_code_date: 20/10/2025
+effort: N/A
+action_priority: Nula
+system_priority: NA
+
+# 4. DECISIÓN
+recommended_action: Descartar
+
+# 5. ANÁLISIS
+description: ¿Quién está agrediendo más dentro del spread actual?
+gemini_summary: "Intento de visualizar la agresión Bid/Ask mediante histogramas flotantes junto a la vela. En mercados rápidos (S&P 500) genera ruido visual masivo, tapando la acción del precio. Su función es realizada de forma mucho más ordenada, profesional y legible por cualquier gráfico de Footprint (Cluster)."
+competitor_notes: "Totalmente superado por el Footprint."
+reusable_code: null
+
+# 6. METADATOS
+analysis_date: 2025-12-11
+official_code_date: 2025-10-20
 ---
 
-## 🛡️ Spread Volume (7/10)
+## 💀 Spread Volume (4/10)
 
 **Nombre del archivo:** [`SpreadVolume.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/SpreadVolume.cs)  
 **Nombre del indicador:** Spread Volume  
 **Web oficial:** [ATAS — Spread Volume](https://help.atas.net/support/solutions/articles/72000602630)  
-**Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 20/10/2025  
+**Compatibilidad:** ATAS versión estable.  
+**Última revisión del código oficial:** 2025-10-20  
 
-> **La Pregunta Clave:** ¿Quién está agrediendo más dentro del spread actual, los compradores (Ask) o los vendedores (Bid)?
+> **La Pregunta Clave:** ¿Quién está agrediendo más dentro del spread actual?
 
 ![SpreadVolume](../../img/SpreadVolume.png)
 
@@ -35,7 +47,7 @@ official_code_date: 20/10/2025
 
 ### ⚙️ Parámetros configurables
 
-* **Visuals:** Ancho, Espaciado, Offset, Colores.  
+* **Visuals:** Ancho, Offset, Colores.
 
 ---
 
@@ -48,68 +60,66 @@ official_code_date: 20/10/2025
 
 ### 🧠 Uso más frecuente
 
-* **Absorción en Vivo:** Ver crecer una barra roja (Ventas) en un soporte que no se rompe.  
-* **Tick Scalping:** Operar el desequilibrio inmediato del spread.  
+* **(Obsoleto):** Intentar ver el flujo interno de la vela sin usar un gráfico de Clusters.
 
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **7 / 10**
+🔟 **4 / 10**
 
-✅ **Detalle:** Muestra la "pelea" dentro de la vela actual.  
-✅ **Eficiente:** Limpia datos viejos automáticamente para ahorrar memoria.  
-⛔ **Ruido:** Puede tapar el precio si no se configura bien.  
+⛔ **Ruido Crítico:** Dibuja rectángulos sólidos sobre el gráfico de precios. En volatilidad alta, tapa las velas y dificulta la lectura del Price Action.  
+⛔ **Redundancia:** El gráfico de Footprint (Bid/Ask Ladder) organiza estos mismos datos en celdas numéricas o mapas de calor ordenados, haciendo este indicador innecesario.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Rejection:** Gran volumen en un lado del spread sin movimiento de precio -> Contraataque.  
+* **Ninguna.** Usar Footprint.
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **Width:** `15`.  
-* **Offset:** `50`.  
+* **Eliminar.**
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* Construye su base de datos en memoria (`_prints`) escuchando `OnCumulativeTrade`.  
-* Renderizado manual.  
+* El código renderiza manualmente rectángulos (`FillRectangle`) basados en una lista en memoria de los últimos trades. Funciona, pero la UX es pobre.
 
 ---
 
 ### ❗ Incoherencias o aspectos mejorables detectados
 
-* **Ninguna.** ---
+* Visualización invasiva.
+
+---
 
 ### 🛠️ Propuestas de mejora
 
-* **Filtro (P3):** Ocultar barras pequeñas para ver solo grandes agresiones.  
+* Ninguna.
 
 ---
 
 ### 💎 Valor Reutilizable (Código Donante)
 
-* **Ninguno.** ---
+* Ninguno.
+
+---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Es una herramienta de nicho para scalpers muy rápidos. Si operas mirando el DOM, esto te da una referencia visual en el chart.
+Es una herramienta "sucia". Si quieres ver dentro de la vela, usa la herramienta diseñada para ello (Footprint). No pintes cajas flotantes encima de tus velas.
 
-**Propuestas de Acción:**
-* **Conservar como Reserva.**
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí.**
+**No.**
 
-Para ver la agresión tick a tick.
+Ensucia la visión.
 
-**Acción:** **Conservar (Reserva).**
+**Acción:** **Descartar**
 

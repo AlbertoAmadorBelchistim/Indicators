@@ -1,33 +1,45 @@
 ﻿---
+# 1. IDENTIFICACIÓN
 cs_file: VsaWsd.cs
 name: VSA – WSD Histogram
-group: Order Flow
-subgroup: Volume
-score_current: 8/10
-version: Stable
-recommended_action: Conservar (Reserva)
-description: ¿Cómo se distribuye la estructura de la vela (mechas vs cuerpo) y el volumen relativo?
-gemini_summary: "Deconstruye la vela en histogramas de mechas y cuerpo. Es una herramienta analítica única para cuantificar la estructura de la vela ('Price Action Cuantitativo')."
-comparison_group: "VSA & Anomalies"
-competitor_notes: "Único. Complementa al Better Volume dando detalle de la forma de la vela."
+version: ATAS Stable
+
+# 2. CLASIFICACIÓN
+group: Structure
+subgroup: Candle Analysis
+comparison_group: "Candle Structure"
+
+# 3. VALORACIÓN (Score & Priority)
+score_current: 2/10
+score_potential: 2/10
+file_state: Estable (Conceptualmente Engañoso)
+effort: N/A
+action_priority: Nula
+system_priority: NA
+
+# 4. DECISIÓN
+recommended_action: Descartar
+
+# 5. ANÁLISIS
+description: ¿Cómo se desglosa el rango de la vela (cuerpo vs mechas) comparado con su volatilidad promedio?
+gemini_summary: "Falso indicador VSA. Tras auditoría de código, se confirma que NO utiliza datos de volumen real. La línea amarilla ('AvgVolume') es en realidad un ATR (Promedio de Rango) y los histogramas miden ticks de movimiento. Es una herramienta de Price Action pura mal etiquetada que induce a error al trader."
+competitor_notes: "Inferior a un ATR estándar o a la lectura de velas japonesa."
 reusable_code: null
-file_state: Estable
-score_potential: 8/10
-effort: Bajo
-action_priority: P3
-analysis_date: 2025-11-21
-official_code_date: 08/05/2025
+
+# 6. METADATOS
+analysis_date: 2025-12-11
+official_code_date: 2025-05-08
 ---
 
-## 🛡️ VSA – WSD Histogram (8/10)
+## 💀 VSA – WSD Histogram (2/10)
 
 **Nombre del archivo:** [`VsaWsd.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/VsaWsd.cs)  
 **Nombre del indicador:** VSA – WSD Histogram  
 **Web oficial:** [ATAS — VSA – WSD Histogram](https://help.atas.net/support/solutions/articles/72000602501)  
-**Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 08/05/2025  
+**Compatibilidad:** ATAS versión estable.  
+**Última revisión del código oficial:** 2025-05-08  
 
-> **La Pregunta Clave:** ¿Cómo se distribuye la estructura de la vela (mechas vs cuerpo) y el volumen relativo?
+> **La Pregunta Clave:** ¿Cómo se desglosa el rango de la vela (cuerpo vs mechas) comparado con su volatilidad promedio?
 
 ![VsaWsd](../../img/VsaWsd.png)
 
@@ -35,78 +47,83 @@ official_code_date: 08/05/2025
 
 ### ⚙️ Parámetros configurables
 
-* **Period:** Media móvil de volumen.  
-* **Visuals:** Colores para mechas (Upper/Lower Wick) y cuerpo (HighLow).  
+* **Period:** Periodo de la media móvil. **Atención:** No es una media de volumen, sino una media del Rango (ATR).
+* **Visuals:** Colores para mechas y cuerpo.
 
 ---
 
 ### 🧭 Clasificación
-**Grupo:** Order Flow  
-**Subgrupo:** Volume  
-**Comparison Group:** "VSA & Anomalies"  
+**Grupo:** Structure  
+**Subgrupo:** Candle Analysis  
+**Comparison Group:** "Candle Structure"  
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* **Análisis de Rechazo:** Cuantificar visualmente el tamaño de la mecha de rechazo en un histograma.  
-* **Contracción (WSD):** Detectar velas de rango estrecho (puntos de señal) que indican "No Supply" o "No Demand".  
+* **(Erróneo):** Intentar leer volumen con él.
+* **(Real):** Medir la volatilidad. Ver si la vela actual es más grande o pequeña que el promedio de las últimas X velas.
 
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **8 / 10**
+🔟 **2 / 10**
 
-✅ **Desglose:** Separa visualmente la "intención" (cuerpo) del "rechazo" (mecha).  
-✅ **Señales:** Marca puntos cuando hay contracción de rango (`HighLow < Prev`), clave en VSA.  
-⛔ **Nombre:** "WSD" (Weakness/Strength Detection) es poco intuitivo.  
+⛔ **Engañoso:** El código asigna el valor `(High - Low)` a una variable llamada `volume`, lo que confunde totalmente su propósito. Es un indicador de Rango disfrazado.  
+⛔ **Sin Volumen:** Los puntos de señal (WSD) se calculan exclusivamente comparando si el rango se contrae (`HighLow < Prev`), ignorando la actividad real de contratación.  
+⛔ **Redundante:** Desglosa la vela en partes (mecha arriba, abajo, cuerpo), información que ya es evidente en el gráfico principal.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **No Demand:** Vela alcista, rango estrecho (punto generado), volumen bajo + mecha superior grande -> Señal de venta.  
+* **Ninguna.** Usarlo creyendo que analiza volumen es peligroso.
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **Period:** `100` (Media estable de fondo).  
+* **Eliminar.**
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* Calcula el tamaño de mechas y cuerpo en ticks.  
+* **Hallazgo Crítico:** En la línea 128, el código hace `var volume = (candle.High - candle.Low) / _tickSize;`. Esto confirma que **ignora el volumen real** y usa el rango en ticks para todos los cálculos posteriores, incluida la línea promedio.
+* * Calcula el tamaño de mechas y cuerpo en ticks.  
 * Genera señales (`_dotsBuy`, `_dotsSell`) basadas en la contracción del rango.  
 
 ---
 
 ### ❗ Incoherencias o aspectos mejorables detectados
 
-* **Ninguna.** ---
+* **Naming:** Debería llamarse "Candle Range Breakdown" o "Detailed ATR". Llamarlo "VSA" (Volume Spread Analysis) es técnicamente incorrecto al carecer de componente de Volumen.
+
+---
 
 ### 🛠️ Propuestas de mejora
 
-* **Ninguna.** ---
+* Ninguna.
+
+---
 
 ### 💎 Valor Reutilizable (Código Donante)
 
-* **Ninguno.** ---
+* Ninguno.
+
+---
 
 ### ✍️ La opinión de Gemini sobre el Indicador
 
-Es una herramienta para el purista del Price Action. Si te importa el tamaño exacto de la mecha, este indicador te lo pone en un gráfico fácil de leer.
+Al no usar volumen real, no sirve para Order Flow ni VSA. Es solo una regla para medir velas.
 
-**Propuestas de Acción:**
-* **Conservar como Reserva.**
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí.**
+**No.**
 
-Ayuda a calificar la calidad de la vela.
+Información falsa (dice ser volumen, es rango).
 
-**Acción:** **Conservar (Reserva).**
+**Acción:** **Descartar**
