@@ -18,9 +18,9 @@ using Pen = OFT.Rendering.Tools.RenderPen;
 
 [HelpLink("https://help.atas.net/support/solutions/articles/72000633119")]
 [Category(IndicatorCategories.Trading)]
-[DisplayName("Trades On Chart Modif v4")]
-[Display(Description = "Shows historical and recent trades. Use 'Manual Time Offset' to align trades.")]
-public class TradesOnChartModifV4 : Indicator
+[DisplayName("Trades On Chart Modif v5")]
+[Display(Description = "Shows historical and recent trades correctly sorted.")]
+public class TradesOnChartModifV5 : Indicator
 {
     #region Nested Types
 
@@ -86,7 +86,8 @@ public class TradesOnChartModifV4 : Indicator
     private bool _historyLoaded;
     private int _historyTradesCount;
     private int _recentTradesCount;
-    private int _processedMyTradesCount = 0;
+
+    // Eliminado _processedMyTradesCount porque ahora reprocesamos todo ordenado
 
     #endregion
 
@@ -150,7 +151,7 @@ public class TradesOnChartModifV4 : Indicator
 
     #region ctor
 
-    public TradesOnChartModifV4() : base(true)
+    public TradesOnChartModifV5() : base(true)
     {
         DenyToChangePanel = true;
         DataSeries[0].IsHidden = true;
@@ -204,7 +205,7 @@ public class TradesOnChartModifV4 : Indicator
         _tradesHistorical.Clear();
         _tradesSynthetic.Clear();
         _openLots.Clear();
-        _processedMyTradesCount = 0;
+        _recentTradesCount = 0;
 
         if (CurrentBar > 0 && TradingManager?.Portfolio != null && TradingManager?.Security != null)
         {
@@ -222,7 +223,6 @@ public class TradesOnChartModifV4 : Indicator
             RedrawChart();
         }
 
-        // Polling constante
         if (bar == CurrentBar - 1)
         {
             CheckForNewRealtimeTrades();
@@ -365,12 +365,14 @@ public class TradesOnChartModifV4 : Indicator
 
         if (isOpen)
         {
+            // Triángulo apunta al precio (Entrada)
             p1 = point;
             p2 = new Point(point.X - shift, point.Y + (shift * 2 * dir));
             p3 = new Point(point.X + shift, point.Y + (shift * 2 * dir));
         }
         else
         {
+            // Triángulo apunta al precio (Salida) - Invertido respecto al open para visualización clara
             p1 = point;
             p2 = new Point(point.X - shift, point.Y - (shift * 2 * dir));
             p3 = new Point(point.X + shift, point.Y - (shift * 2 * dir));
@@ -445,7 +447,6 @@ public class TradesOnChartModifV4 : Indicator
 
     #region Private Methods & Helpers
 
-    // CORRECCIÓN CLAVE: Usamos el Offset manual
     private DateTime ToChartTime(DateTime tradeTime)
     {
         return tradeTime.AddHours(ManualTimeOffset);
@@ -455,9 +456,6 @@ public class TradesOnChartModifV4 : Indicator
     {
         if (CurrentBar <= 0) return -1;
         if (time <= GetCandle(0).Time) return 0;
-
-        // Si el tiempo está en el futuro, devolvemos la última barra
-        // Esto es lo que causaba la "pila" cuando el offset era incorrecto
         if (time >= GetCandle(CurrentBar - 1).Time) return CurrentBar - 1;
 
         int left = 0, right = CurrentBar - 1;
@@ -510,8 +508,7 @@ public class TradesOnChartModifV4 : Indicator
 
     private void DrawDebugOverlay(RenderContext context)
     {
-        // Debug con info del offset
-        var text = $"V4: Hist={_historyTradesCount} | RealTime={_recentTradesCount} | Synth={_tradesSynthetic.Count} | TimeOffset={ManualTimeOffset}h";
+        var text = $"V5: Hist={_historyTradesCount} | RealTime(Count)={_recentTradesCount} | Synth={_tradesSynthetic.Count} | TimeOffset={ManualTimeOffset}h";
         var rect = new Rectangle(10, 10, 400, 25);
         context.FillRectangle(Color.FromArgb(150, 0, 0, 0), rect);
         context.DrawString(text, _font, Color.White, rect, new RenderStringFormat { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center });
@@ -540,33 +537,37 @@ public class TradesOnChartModifV4 : Indicator
     private readonly List<OpenLot> _openLots = new();
     private readonly List<TradeObjSynthetic> _tradesSynthetic = new();
 
+    // ESTA ES LA FUNCIÓN CORREGIDA
     private void CheckForNewRealtimeTrades()
     {
         if (TradingManager?.MyTrades == null) return;
+
+        // 1. Obtener la lista cruda
         var allMyTrades = TradingManager.MyTrades.ToList();
 
-        if (allMyTrades.Count > _processedMyTradesCount)
+        // Si la cantidad de trades ha cambiado (nuevo trade detectado)
+        if (allMyTrades.Count != _recentTradesCount)
         {
-            if (allMyTrades.Count < _processedMyTradesCount)
-            {
-                _processedMyTradesCount = 0;
-                _openLots.Clear();
-                _tradesSynthetic.Clear();
-            }
+            // 2. ORDENAR CRONOLÓGICAMENTE (Fix para Shorts)
+            // Es vital ordenar por Time. Si la API devuelve el cierre antes que la apertura, el FIFO falla.
+            var sortedTrades = allMyTrades.OrderBy(t => t.Time).ToList();
 
-            for (int i = _processedMyTradesCount; i < allMyTrades.Count; i++)
+            // 3. Reiniciar motor y reprocesar TODO con el orden correcto
+            // No podemos hacer incremental porque el orden importa
+            _openLots.Clear();
+            _tradesSynthetic.Clear();
+
+            foreach (var mt in sortedTrades)
             {
-                var mt = allMyTrades[i];
                 if (TradingManager.Portfolio != null && TradingManager.Security != null &&
                     mt.AccountID == TradingManager.Portfolio.AccountID &&
                     mt.Security.Code == TradingManager.Security.Code)
                 {
                     ProcessSingleMyTrade(mt);
-                    _recentTradesCount++;
                 }
             }
 
-            _processedMyTradesCount = allMyTrades.Count;
+            _recentTradesCount = allMyTrades.Count;
             RedrawChart();
         }
     }
@@ -624,7 +625,7 @@ public class TradesOnChartModifV4 : Indicator
             CloseBar = closeBar,
             OpenPrice = openLot.Price,
             ClosePrice = closePrice,
-            Direction = openLot.Dir,
+            Direction = openLot.Dir, // Ahora tomará la dirección correcta porque el OpenLot se procesó primero
             Volume = volume,
             OpenTime = openLot.Time,
             CloseTime = closeTime,
