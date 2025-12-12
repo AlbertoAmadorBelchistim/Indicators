@@ -1,45 +1,48 @@
 ---
 # 1. IDENTIFICACIÓN
-cs_file: MultiMarketPower.cs
-name: CVD pro(multi) / Multi Market Powers
-version: ATAS Stable
+cs_file: MultiMarketPowerModif.cs  
+name: CVD pro(multi) / Multi Market Powers (Modif)  
+version: Custom v1.1  
 
 # 2. CLASIFICACIÓN
-group: Order Flow
-subgroup: Delta
-comparison_group: "Cumulative Delta"
+group: Order Flow  
+subgroup: Delta  
+comparison_group: "Cumulative Delta"  
 
 # 3. VALORACIÓN (Score & Priority)
-score_current: 10/10
-score_potential: 10/10
-file_state: Estable
-effort: N/A
-action_priority: Nula
-system_priority: P1
+score_current: 10/10  
+score_potential: 10/10  
+file_state: Estable  
+effort: Medio  
+action_priority: Baja  
+system_priority: P1  
 
 # 4. DECISIÓN
-recommended_action: Conservar (Core)
+recommended_action: Conservar (Core)  
 
 # 5. ANÁLISIS
-description: ¿Cómo se distribuye el delta acumulado entre 5 rangos de tamaño de orden diferentes (filtro institucional) en tiempo real?
-gemini_summary: "El Santo Grial del Delta Acumulado. Supera a todos los demás CVDs porque permite desglosar la agresión en 5 capas simultáneas (Retail vs Institucional) en un solo panel. Su arquitectura de paso único lo hace extremadamente eficiente."
-competitor_notes: "Vence a 'Market Power' (solo 1 filtro) y 'Cumulative Delta' (sin filtros) por su capacidad de disección del flujo sin penalizar el rendimiento."
-reusable_code: "La arquitectura de bucle único para clasificar trades en buckets es un patrón de diseño excelente para cualquier indicador multifiltro."
+description: ¿Cómo se distribuye el delta acumulado separando participantes por tamaño de orden y sesión, permitiendo identificar Smart Money real frente a ruido y retail?  
+gemini_summary: "La versión modificada de MultiMarketPower convierte un gran indicador en una herramienta definitiva de Order Flow. Añade lectura sintética de Smart Money, control de sesiones y una parametrización profesional orientada a scalping institucional."  
+competitor_notes: "Supera claramente al Cumulative Delta clásico y a la versión oficial de MultiMarketPower al introducir sesiones históricas, Spread Smart Money y un preset operativo realista para ES."  
+reusable_code: "Lógica de segmentación por volumen + detección de inicio de sesión reutilizable en cualquier indicador de flujo acumulado."  
 
 # 6. METADATOS
-analysis_date: 2025-11-21
-official_code_date: 2025-08-14
+analysis_date: 2025-12-12  
+official_code_date: 2025-08-14  
+user_modification_date: 2025-12-12  
 ---
 
-## 🏆 CVD pro(multi) / Multi Market Powers (10/10)
+## 🏆 CVD pro(multi) / Multi Market Powers — Modif (10/10)
 
-**Nombre del archivo:** [`MultiMarketPower.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/MultiMarketPower.cs)  
-**Nombre del indicador:** CVD pro(multi) / Multi Market Powers  
-**Web oficial:** [ATAS — CVD pro(multi)](https://help.atas.net/support/solutions/articles/72000602434)  
-**Compatibilidad:** ATAS versión latest y superiores.  
-**Última revisión del código oficial:** 2025-08-14  
+**Nombre del archivo:** [`MultiMarketPowerModif.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/compile/myindicators/MyIndicators/MultiMarketPowerModif.cs)  
+**Nombre del indicador:** CVD pro(multi) / Multi Market Powers (Modif)  
+**Web oficial base:** [ATAS — CVD pro(multi)](https://help.atas.net/support/solutions/articles/72000602434) 
+**Compatibilidad:** ATAS latest / alpha / beta.  
+**Última revisión del código base:** [`MultiMarketPower.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/MultiMarketPower.cs): 2025-08-14  
+**Última revisión del código modificado:** 2025-12-12  
 
-> **La Pregunta Clave:** ¿Cómo se distribuye el delta acumulado entre 5 rangos de tamaño de orden diferentes (filtro institucional) en tiempo real?
+> **La Pregunta Clave:**  
+> ¿Quién está moviendo realmente el mercado (retail, profesional o ballenas) y cómo cambia su agresión a lo largo de la sesión?
 
 ![MultiMarketPower](../../img/MultiMarketPower.png)
 
@@ -47,12 +50,22 @@ official_code_date: 2025-08-14
 
 ### ⚙️ Parámetros configurables
 
-Este indicador es una "navaja suiza" que permite configurar hasta 5 líneas de delta independientes.
+#### 🧭 General
+- **View Mode**
+  - `Lines`: Muestra los 5 CVD segmentados por tamaño de orden.
+  - `SmartMoneySpread`: Histograma sintético (Smart Money – Dumb Money).
+- **Spread Positive / Negative Color**
+  - Colores configurables para el histograma de Spread.
 
-#### 📊 Configuración General (Filters)
-* **CumulativeTrades:**
-    * `True`: Muestra la tendencia de toda la sesión (CVD clásico).
-    * `False`: Reinicia el cálculo en cada vela (Delta por vela desglosado).
+#### 🕒 Session
+- **Session Mode**
+  - `None`: Acumulación continua.
+  - `Default Session`: Reinicio por sesión oficial del instrumento.
+  - `Custom Session`: Reinicio a una hora definida (ej. RTH 09:30).
+- **Custom Session Start**
+  - Hora exacta de reinicio del delta.
+- **Sessions Back**
+  - Número de sesiones históricas a reconstruir.
 
 #### 🧰 Filtros de Volumen (Filter 1 - 5)
 Cada uno de los 5 filtros tiene su propia lógica independiente:
@@ -72,39 +85,46 @@ Cada uno de los 5 filtros tiene su propia lógica independiente:
 
 ### 🧠 Uso más frecuente
 
-* **Radiografía de Participantes:** Diferenciar si una ruptura es apoyada por "Ballenas" (Filtros 4-5) o es puro FOMO "Retail" (Filtro 1).  
-* **Divergencias de Calidad:** El precio sube, el CVD total sube, pero el CVD Institucional (Filtros grandes) baja. Señal de trampa alcista inminente.  
-* **Limpieza de Ruido:** Usar solo el Filtro 2 o 3 en adelante para ver la "verdadera" subasta, eliminando el ruido de los algos de alta frecuencia (HFT) de 1 contrato.  
+- **Identificación de Participantes:** Diferenciar ruido, retail, profesional e institucional real.  
+- **Validación de Rupturas:** Breakouts confirmados solo si Smart Money acompaña.  
+- **Absorciones:** Precio avanza pero el Spread Smart Money diverge.  
+- **Contexto de Sesión:** Comparar comportamiento institucional entre sesiones consecutivas.  
 
 ---
 
 ### 📊 Nivel de relevancia
 🔟 **10 / 10**
 
-✅ **Potencia de Fuego:** Consolida la función de 5 indicadores en uno solo.  
-✅ **Eficiencia:** Itera los datos una sola vez, clasificando cada trade en su categoría al vuelo.  
-✅ **Ventaja Competitiva:** Permite ver lo que la mayoría de traders retail no ven: la acción oculta de las órdenes grandes.  
-⛔ **Curva de Aprendizaje:** Requiere entender bien qué volumen se considera "grande" en cada instrumento (S&P 500 vs Nasdaq).  
+✅ Segmentación institucional real por tamaño de orden.  
+✅ Lectura sintética del flujo mediante Smart Money Spread.  
+✅ Control total de sesiones (histórico + realtime).  
+⛔ Requiere comprensión de Order Flow avanzado.  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Absorción Institucional:** Precio rompiendo máximos + Filtro 5 (Whales) plano o bajando = **Reversal Short**.  
-* **Validación de Breakout:** Precio rompiendo nivel + Filtros 3, 4 y 5 con pendiente agresiva = **Long Continuation**.  
+- **Fake Breakout:** Ruptura sin apoyo del Spread Smart Money.  
+- **Continuation Trades:** Precio + Filtros 4–5 + Spread positivo creciente.  
+- **Reversals en niveles:** Ballenas (Filtro 5) contra dirección del movimiento.  
 
 ---
 
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
+### ⚙️ Parametrización óptima por defecto (Scalping ES 1M / 2500V)
 
-| Filtro | Rango (Contratos) | Visual (Color / Grosor) | Rol & Lógica |
-| :--- | :--- | :--- | :--- |
-| **CumulativeTrades** | `True` | N/A | Tendencia de Sesión. |
-| **Filtro 1** | Min `0` - Max `5` | **Gris / 1px** | **Ruido (Retail/HFT).** Fondo neutro, casi invisible. |
-| **Filtro 2** | Min `6` - Max `20` | **Cian / 2px** | **Peces Pequeños.** Color frío, actividad normal. |
-| **Filtro 3** | Min `21` - Max `50` | **Azul Real / 2px** | **Profesional Local.** Transición a relevante. |
-| **Filtro 4** | Min `51` - Max `100` | **Naranja / 3px** | **Institucional Táctico.** Alerta visual (Color cálido). |
-| **Filtro 5** | Min `101` - Max `0` | **Rojo o Magenta / 4px** | **Ballenas (Whales).** La "Línea de la Verdad". Máxima prioridad. |
+| Filtro | Rango contratos | Visual | Rol operativo |
+|------|-----------------|--------|---------------|
+| F1 | 0 – 5 | Gris / 1px | Ruido / HFT |
+| F2 | 6 – 20 | Cian / 2px | Retail |
+| F3 | 21 – 50 | Azul Real / 2px | Profesional local |
+| F4 | 51 – 100 | Naranja / 3px | Institucional táctico |
+| F5 | ≥ 101 | Magenta / 4px | Ballenas reales |
+
+- **CumulativeTrades:** `True`  
+- **View Mode por defecto:** `SmartMoneySpread`  
+- **Session Mode:** `Default Session`  
+- **SessionsBack:** `1`  
+
 
 ---
 
@@ -113,46 +133,66 @@ Cada uno de los 5 filtros tiene su propia lógica independiente:
 
 ---
 
+### ✨ Mejoras introducidas (Modif)
+
+- **Smart Money Spread**
+  - Histograma sintético: (Filtros 4 + 5) – (Filtros 1 + 2).
+- **Sesiones Históricas**
+  - Reconstrucción multi-sesión mediante request por rango temporal.
+- **Sesión Custom**
+  - Reinicio exacto del delta a hora definida (RTH).
+- **Preset Profesional ES**
+  - Rangos y visual optimizados para scalping institucional en S&P 500.
+- **Correcciones de estabilidad**
+  - Fix de indexado de colores en histórico.
+  - Cursor correcto en reconstrucción tick-based.
+  - Manejo seguro de replay realtime tras histórico.
+
+---
+
 ### 🧪 Notas de desarrollo
 
-* **Arquitectura:** Usa `List<CumulativeTrade>` y eventos `OnNewTrade`.
-* **Manejo de Historia:** Solicita `CumulativeTradesRequest` al inicio para pintar el pasado sin necesidad de tener el chart abierto.
-* **Estabilidad:** Maneja correctamente la desconexión/conexión de datos (`_bigTradesIsReceived`).
+- Arquitectura híbrida (`CumulativeTrade` + `MarketDataArg`).
+- Reconstrucción histórica determinista y reproducible.
+- Separación clara entre lógica de sesión, cálculo y visualización.
+- Compatible con replay y carga tardía de datos.
 
 ---
 
 ### ❗ Incoherencias o aspectos mejorables detectados
 
-* **Falta Custom Session:** A diferencia de su hermano menor (`CumulativeDelta`), este indicador no permite reiniciar el delta a una hora específica (ej. 15:30). Acumula desde la carga de datos o inicio de sesión del servidor.
+* **Ninguna.**  
+  Las limitaciones históricas del indicador (reinicio de sesión fijo, falta de sesiones previas y acumulación dependiente de la carga inicial) han sido resueltas en la versión custom actual.
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-* **P2 (Alta):** Implementar la lógica `CheckStartBar` del indicador `CumulativeDelta` para permitir reinicio en RTH.
+* **P3 (Opcional):** Añadir presets automáticos por instrumento (ES / NQ / RTY) para ajustar rangos de volumen y visualización sin modificar defaults manualmente.
 
 ---
 
 ### 💎 Valor Reutilizable (Código Donante)
 
-* **Estructura de Filtrado:** El patrón de 5 filtros configurables es el estándar de oro para cualquier indicador de volumen segmentado.
+- Segmentación por buckets de volumen.
+- Lógica genérica de sesión (Default / Custom / Back).
+- Patrón de Spread sintético institucional.
 
 ---
 
-### ✍️ La opinión de Gemini sobre el Indicador
+### ✍️ La opinión de ChatGPT
 
-Es, posiblemente, **el indicador más valioso de todo el paquete ATAS** para un trader de Order Flow moderno. En mercados dominados por algoritmos, ver el "Delta Total" es ver una mentira promediada. Ver el "Delta por Capas" con `MultiMarketPower` es ver la realidad.
-Es un **Core P1** indiscutible.
+Esta versión convierte **MultiMarketPower** en un **indicador de nivel profesional real**.  
+No solo muestra delta: **explica quién está detrás del movimiento y cuándo cambia el régimen de participación**.
 
-**Propuestas de Acción:**
-* Planificar la fusión con la lógica de sesión personalizada.
+Es un **Core P1 absoluto** para cualquier sistema serio de scalping con Order Flow.
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí. Imprescindible.**
+**Sí. Esencial.**
 
-Es la base para filtrar falsas rupturas y detectar absorciones reales.
+Permite filtrar ruido, detectar absorciones y operar únicamente cuando el Smart Money confirma.
 
-**Acción:** **Conservar (Core)**
+**Acción:** **Conservar (Core)**  

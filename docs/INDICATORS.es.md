@@ -95,7 +95,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Current Price](indicators/es/CurrentPrice.md) | Utility | 3/10 | Descartar |
 | [CVD - Cumulative Volume Delta](indicators/es/CumulativeDelta.md) | Order Flow | 8/10 | Conservar (Reserva) |
 | [CVD pro / Market Power](indicators/es/MarketPower.md) | Order Flow | 6/10 | Descartar |
-| [CVD pro(multi) / Multi Market Powers](indicators/es/MultiMarketPower.md) | Order Flow | 10/10 | Conservar (Core) |
+| [CVD pro(multi) / Multi Market Powers (Modif)](indicators/es/MultiMarketPower.md) | Order Flow | 10/10 | Conservar (Core) |
 | | | | |
 | **<a id='d'>D</a>** | | | |
 | [Daily Change](indicators/es/DailyChange.md) | Structure | 6/10 | Conservar |

@@ -78,7 +78,7 @@ _Tendencia de fondo. Acumulación de agresiones durante toda la sesión._
 
 | Nota | Fase | Estado | Indicador | Pregunta Clave / Descripción |
 | :---: | :---: | :--- | :--- | :--- |
-| **10/10** | ✅ | 🟢 **CORE** | [CVD pro(multi) / Multi Market Powers](indicators/es/MultiMarketPower.md) | ¿Cómo se distribuye el delta acumulado entre 5 rangos de tamaño de orden diferentes (filtro institucional) en tiempo real? |
+| **10/10** | ✅ | 🟢 **CORE** | [CVD pro(multi) / Multi Market Powers (Modif)](indicators/es/MultiMarketPower.md) | ¿Cómo se distribuye el delta acumulado separando participantes por tamaño de orden y sesión, permitiendo identificar Smart Money real frente a ruido y retail? |
 | 8/10 | ✅ | 🟡 Reserva | [CVD - Cumulative Volume Delta](indicators/es/CumulativeDelta.md) | ¿Cuál es el delta acumulado desde el inicio de la sesión (o desde una hora personalizada)? |
 | 6/10 | ✅ | 💀 Descartar | [CVD pro / Market Power](indicators/es/MarketPower.md) | <sub>¿Cuál es el delta acumulado filtrado por tamaño de trade y su media móvil?</sub> |
 | 2/10 | ✅ | 💀 Descartar | [COT High/Low](indicators/es/CotHigh.md) | <sub>¿Acumula el delta desde un nuevo máximo o mínimo?</sub> |
