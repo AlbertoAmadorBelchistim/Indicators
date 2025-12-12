@@ -18,9 +18,9 @@ using Pen = OFT.Rendering.Tools.RenderPen;
 
 [HelpLink("https://help.atas.net/support/solutions/articles/72000633119")]
 [Category(IndicatorCategories.Trading)]
-[DisplayName("Trades On Chart Modif v5")]
-[Display(Description = "Shows historical and recent trades correctly sorted.")]
-public class TradesOnChartModifV5 : Indicator
+[DisplayName("Trades On Chart Modif v6")]
+[Display(Description = "Visual update: Fixed labels near candles, distinct arrows.")]
+public class TradesOnChartModifV6 : Indicator
 {
     #region Nested Types
 
@@ -30,7 +30,7 @@ public class TradesOnChartModifV5 : Indicator
         internal decimal OpenPrice { get; set; }
         internal int CloseBar { get; set; }
         internal decimal ClosePrice { get; set; }
-        internal OrderDirections Direction { get; set; }
+        internal OrderDirections Direction { get; set; } // Dirección GLOBAL del trade
         internal decimal PnL { get; set; }
         internal decimal PnLTicks { get; set; }
         internal DateTime OpenTime { get; set; }
@@ -57,16 +57,17 @@ public class TradesOnChartModifV5 : Indicator
     public enum LabelDisplayMode
     {
         [Display(Name = "Hide")] Hide,
-        [Display(Name = "Short")] Short,
-        [Display(Name = "Full")] Full
+        [Display(Name = "Result Only")] Short,
+        [Display(Name = "Full Info")] Full
     }
 
     #endregion
 
     #region Fields
 
-    private RenderFont _font = new RenderFont("Arial", 10F, FontStyle.Regular, GraphicsUnit.Point, 204);
-    private RenderFont _labelFont = new RenderFont("Arial", 8F, FontStyle.Regular, GraphicsUnit.Point, 204);
+    // FUENTES MÁS GRANDES Y CLARAS
+    private RenderFont _fontTooltip = new RenderFont("Arial", 10F, FontStyle.Regular, GraphicsUnit.Point, 204);
+    private RenderFont _labelFont = new RenderFont("Consolas", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
 
     private readonly List<TradeObj> _tradesHistorical = new();
     private readonly List<TradeObj> _tooltipTrades = new();
@@ -79,22 +80,27 @@ public class TradesOnChartModifV5 : Indicator
     private Color _lossColor;
     private float _lineWidth = 2f;
     private DashStyle _lineStyle = DashStyle.Dash;
-    private readonly List<Rectangle> _labelsAbove = new();
-    private readonly List<Rectangle> _labelsBelow = new();
-    private Pen _borderPen = new Pen(Color.Black, 1);
+
+    // Pen para el borde de las etiquetas
+    private Pen _borderPen = new Pen(Color.FromArgb(200, 0, 0, 0), 1);
 
     private bool _historyLoaded;
     private int _historyTradesCount;
     private int _recentTradesCount;
 
-    // Eliminado _processedMyTradesCount porque ahora reprocesamos todo ordenado
-
     #endregion
 
     #region Properties
 
-    [Display(Name = "Manual Time Offset (Hours)", GroupName = "Visualization", Description = "Adjust this if trades appear in wrong place. Example: -1, 0, 1, 5...")]
+    [Display(Name = "Manual Time Offset (Hours)", GroupName = "Visualization")]
     public int ManualTimeOffset { get; set; } = 0;
+
+    [Display(Name = "Label Mode", GroupName = "Visualization")]
+    public LabelDisplayMode LabelDisplay { get; set; } = LabelDisplayMode.Short;
+
+    [Display(Name = "Label Distance (Pixels)", GroupName = "Visualization", Description = "Distance from candle wick")]
+    [Range(5, 100)]
+    public int LabelDistance { get; set; } = 20;
 
     [Display(Name = "Show Lines", GroupName = "Visualization")]
     public bool ShowLine { get; set; } = true;
@@ -102,38 +108,35 @@ public class TradesOnChartModifV5 : Indicator
     [Display(Name = "Show Tooltip", GroupName = "Visualization")]
     public bool ShowTooltip { get; set; } = true;
 
-    [Display(Name = "Label Display", GroupName = "Visualization")]
-    public LabelDisplayMode LabelDisplay { get; set; } = LabelDisplayMode.Hide;
-
-    [Display(Name = "Buy Color", GroupName = "Visualization")]
+    [Display(Name = "Buy Color", GroupName = "Colors")]
     public Color BuyColor
     {
         get => _buyColor;
         set { _buyColor = value; _buyPen = GetNewPen(_buyColor, _lineWidth, _lineStyle); }
     }
 
-    [Display(Name = "Sell Color", GroupName = "Visualization")]
+    [Display(Name = "Sell Color", GroupName = "Colors")]
     public Color SellColor
     {
         get => _sellColor;
         set { _sellColor = value; _sellPen = GetNewPen(_sellColor, _lineWidth, _lineStyle); }
     }
 
-    [Display(Name = "Profit Color", GroupName = "Visualization")]
+    [Display(Name = "Profit Color", GroupName = "Colors")]
     public Color ProfitColor { get => _profitColor; set => _profitColor = value; }
 
-    [Display(Name = "Loss Color", GroupName = "Visualization")]
+    [Display(Name = "Loss Color", GroupName = "Colors")]
     public Color LossColor { get => _lossColor; set => _lossColor = value; }
 
     [Range(1, 20)]
-    [Display(Name = "Line Width", GroupName = "Visualization")]
+    [Display(Name = "Line Width", GroupName = "Visual Style")]
     public float LineWidth
     {
         get => _lineWidth;
         set { _lineWidth = value; _buyPen = GetNewPen(_buyColor, _lineWidth, _lineStyle); _sellPen = GetNewPen(_sellColor, _lineWidth, _lineStyle); }
     }
 
-    [Display(Name = "Dash Style", GroupName = "Visualization")]
+    [Display(Name = "Dash Style", GroupName = "Visual Style")]
     public DashStyle LineStyle
     {
         get => _lineStyle;
@@ -141,17 +144,17 @@ public class TradesOnChartModifV5 : Indicator
     }
 
     [Range(1, 10)]
-    [Display(Name = "Marker Size", GroupName = "Visualization")]
-    public int MarkerSize { get; set; } = 4;
+    [Display(Name = "Marker Size", GroupName = "Visual Style")]
+    public int MarkerSize { get; set; } = 6; // Ligeramente más grandes por defecto
 
-    [Display(Name = "Debug Overlay", GroupName = "Visualization")]
+    [Display(Name = "Debug Overlay", GroupName = "System")]
     public bool ShowDebug { get; set; } = true;
 
     #endregion
 
     #region ctor
 
-    public TradesOnChartModifV5() : base(true)
+    public TradesOnChartModifV6() : base(true)
     {
         DenyToChangePanel = true;
         DataSeries[0].IsHidden = true;
@@ -188,10 +191,10 @@ public class TradesOnChartModifV5 : Indicator
 
     protected override void OnApplyDefaultColors()
     {
-        BuyColor = Color.FromArgb(255, 0, 180, 0);
-        SellColor = Color.FromArgb(255, 200, 0, 0);
-        ProfitColor = Color.FromArgb(255, 100, 200, 100);
-        LossColor = Color.FromArgb(255, 200, 100, 100);
+        BuyColor = Color.FromArgb(255, 0, 200, 0);       // Verde brillante
+        SellColor = Color.FromArgb(255, 220, 0, 0);     // Rojo brillante
+        ProfitColor = Color.FromArgb(255, 34, 139, 34); // ForestGreen
+        LossColor = Color.FromArgb(255, 178, 34, 34);   // Firebrick
     }
 
     private void TradingManager_SecurityChanged(Security obj) => OnRecalculate();
@@ -234,14 +237,13 @@ public class TradesOnChartModifV5 : Indicator
     protected override void OnRender(RenderContext context, DrawingLayouts layout)
     {
         if (ShowDebug) DrawDebugOverlay(context);
-
         if (ChartInfo is null) return;
 
-        // Histórico
+        // Render Histórico
         foreach (var trade in _tradesHistorical)
-            RenderSingleTrade(context, trade.OpenBar, trade.OpenPrice, trade.CloseBar, trade.ClosePrice, trade.Direction, trade);
+            RenderSingleTrade(context, trade);
 
-        // Sintético (RealTime)
+        // Render Sintético (RealTime)
         foreach (var synth in _tradesSynthetic)
         {
             decimal tickCost = 0;
@@ -262,183 +264,213 @@ public class TradesOnChartModifV5 : Indicator
                 PnLTicks = synth.PnLTicks,
                 PnL = synth.PnLTicks * tickCost
             };
-            RenderSingleTrade(context, synth.OpenBar, synth.OpenPrice, synth.CloseBar, synth.ClosePrice, synth.Direction, tempObj);
+            RenderSingleTrade(context, tempObj);
         }
 
         DrawTooltips(context);
     }
 
-    private void RenderSingleTrade(RenderContext context, int openBar, decimal openPrice, int closeBar, decimal closePrice, OrderDirections dir, TradeObj tradeDataForLabel)
+    private void RenderSingleTrade(RenderContext context, TradeObj trade)
     {
-        if (closeBar < FirstVisibleBarNumber - 1 && openBar < FirstVisibleBarNumber - 1) return;
-        if (openBar > LastVisibleBarNumber + 1) return;
+        // Verificar visibilidad
+        if (trade.CloseBar < FirstVisibleBarNumber - 1 && trade.OpenBar < FirstVisibleBarNumber - 1) return;
+        if (trade.OpenBar > LastVisibleBarNumber + 1) return;
 
-        var x1 = ChartInfo.GetXByBar(openBar, false);
-        var y1 = ChartInfo.GetYByPrice(openPrice, false);
-        var x2 = ChartInfo.GetXByBar(closeBar, false);
-        var y2 = ChartInfo.GetYByPrice(closePrice, false);
-        var pen = GetPenByDirection(dir);
+        var x1 = ChartInfo.GetXByBar(trade.OpenBar, false);
+        var y1 = ChartInfo.GetYByPrice(trade.OpenPrice, false);
+        var x2 = ChartInfo.GetXByBar(trade.CloseBar, false);
+        var y2 = ChartInfo.GetYByPrice(trade.ClosePrice, false);
+
+        // Línea de conexión: Color basado en el resultado (Ganancia/Pérdida) o Dirección
+        // Usaremos la dirección del trade para la línea para mantener coherencia
+        var pen = trade.Direction == OrderDirections.Buy ? _buyPen : _sellPen;
 
         if (ShowLine) context.DrawLine(pen, x1, y1, x2, y2);
 
-        var mo1 = DrawMarker(context, new Point(x1, y1), dir, true);
-        var mo2 = DrawMarker(context, new Point(x2, y2), dir, false);
+        // --- DIBUJAR MARCADORES (Lógica de flechas mejorada) ---
+        // Entrada (Open): Si es Buy -> Flecha Arriba. Si es Sell -> Flecha Abajo.
+        var mo1 = DrawMarker(context, new Point(x1, y1), trade.Direction, true);
 
+        // Salida (Close): La acción opuesta. 
+        // Si el trade era Buy, la salida es una Venta (Flecha Abajo).
+        // Si el trade era Sell, la salida es una Compra (Flecha Arriba).
+        var exitAction = trade.Direction == OrderDirections.Buy ? OrderDirections.Sell : OrderDirections.Buy;
+        var mo2 = DrawMarker(context, new Point(x2, y2), exitAction, false);
+
+        // --- ETIQUETAS MEJORADAS ---
         bool moLabel = false;
-        if (LabelDisplay != LabelDisplayMode.Hide && closeBar >= 0)
+        if (LabelDisplay != LabelDisplayMode.Hide && trade.CloseBar >= FirstVisibleBarNumber && trade.CloseBar <= LastVisibleBarNumber)
         {
-            var candle = GetCandle(closeBar);
-            var isAbove = dir == OrderDirections.Buy;
-            var (labelRect, labelHover) = DrawTradeLabel(context, tradeDataForLabel, closeBar, candle, isAbove);
+            var candle = GetCandle(trade.CloseBar);
+
+            // Decidir posición: Arriba del High o Abajo del Low
+            // Si el trade fue Long, cerramos vendiendo (flecha roja abajo), la etiqueta se ve mejor ARRIBA.
+            // Si el trade fue Short, cerramos comprando (flecha verde arriba), la etiqueta se ve mejor ABAJO.
+            // O simplemente: Si Ganancia -> Verde, Si Pérdida -> Rojo.
+
+            // Lógica simple: Poner etiqueta donde moleste menos.
+            // Normalmente encima del High para Longs, debajo del Low para Shorts.
+            bool placeAbove = trade.Direction == OrderDirections.Buy;
+
+            var (labelRect, labelHover) = DrawFixedLabel(context, trade, trade.CloseBar, candle, placeAbove);
             moLabel = labelHover;
-            if (isAbove) _labelsAbove.Add(labelRect); else _labelsBelow.Add(labelRect);
         }
 
-        if (ShowTooltip && (mo1 || mo2 || moLabel)) _tooltipTrades.Add(tradeDataForLabel);
+        if (ShowTooltip && (mo1 || mo2 || moLabel)) _tooltipTrades.Add(trade);
+    }
+
+    // --- NUEVO MÉTODO PARA ETIQUETAS FIJAS ---
+    private (Rectangle Rect, bool MouseOver) DrawFixedLabel(RenderContext context, TradeObj trade, int bar, IndicatorCandle candle, bool isAbove)
+    {
+        // 1. Contenido del texto
+        string textContent = "";
+        string pnlString = trade.PnL != 0
+            ? $"{trade.PnL:N2} ({trade.PnLTicks}t)"
+            : $"{trade.PnLTicks} ticks";
+
+        if (LabelDisplay == LabelDisplayMode.Full)
+        {
+            var dirStr = trade.Direction == OrderDirections.Buy ? "LONG" : "SHORT";
+            var entry = ChartInfo.GetPriceString(trade.OpenPrice);
+            var exit = ChartInfo.GetPriceString(trade.ClosePrice);
+            var time = trade.CloseTime.ToString("HH:mm");
+
+            // Formato multilínea
+            textContent = $"{dirStr} {trade.Volume}\n{entry} -> {exit}\n{pnlString}";
+        }
+        else // Short Mode
+        {
+            textContent = pnlString;
+        }
+
+        // 2. Medir y posicionar
+        var textSize = context.MeasureString(textContent, _labelFont);
+        int padding = 4;
+        int width = textSize.Width + (padding * 2);
+        int height = textSize.Height + (padding * 2);
+
+        int centerX = ChartInfo.GetXByBar(bar, false);
+        int yPos;
+
+        // Usamos el High/Low de la vela para anclar, no el precio del trade.
+        // Esto evita que la etiqueta tape la vela.
+        if (isAbove)
+        {
+            int candleHighY = ChartInfo.GetYByPrice(candle.High, false);
+            yPos = candleHighY - LabelDistance - height;
+        }
+        else
+        {
+            int candleLowY = ChartInfo.GetYByPrice(candle.Low, false);
+            yPos = candleLowY + LabelDistance;
+        }
+
+        var rect = new Rectangle(centerX - (width / 2), yPos, width, height);
+
+        // 3. Colores
+        // Fondo: Verde si PnL positivo, Rojo si negativo.
+        Color bgColor = trade.PnLTicks >= 0 ? _profitColor : _lossColor;
+        // Hacemos el fondo un poco sólido para tapar la rejilla
+        Color bgSolid = Color.FromArgb(240, bgColor.R, bgColor.G, bgColor.B);
+
+        // 4. Dibujar
+        context.FillRectangle(bgSolid, rect);
+        context.DrawRectangle(_borderPen, rect);
+
+        // Texto centrado
+        var format = new RenderStringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
+        context.DrawString(textContent, _labelFont, Color.White, rect, format);
+
+        // Conector opcional (pequeña línea desde la etiqueta a la vela)
+        if (isAbove)
+            context.DrawLine(_borderPen, centerX, rect.Bottom, centerX, rect.Bottom + (LabelDistance / 2));
+        else
+            context.DrawLine(_borderPen, centerX, rect.Top, centerX, rect.Top - (LabelDistance / 2));
+
+        return (rect, rect.Contains(MouseLocationInfo.LastPosition));
+    }
+
+    private bool DrawMarker(RenderContext context, Point point, OrderDirections action, bool isEntry)
+    {
+        var shift = MarkerSize * 2; // Tamaño del marcador
+        Point p1, p2, p3;
+
+        // LÓGICA VISUAL:
+        // Compra (Buy) = Flecha hacia ARRIBA (triángulo base abajo, punta arriba)
+        // Venta (Sell) = Flecha hacia ABAJO (triángulo base arriba, punta abajo)
+
+        bool pointUp = action == OrderDirections.Buy;
+
+        if (pointUp)
+        {
+            // Punta arriba (Price location), Base abajo
+            p1 = point;
+            p2 = new Point(point.X - shift, point.Y + (shift * 2));
+            p3 = new Point(point.X + shift, point.Y + (shift * 2));
+        }
+        else
+        {
+            // Punta abajo (Price location), Base arriba
+            p1 = point;
+            p2 = new Point(point.X - shift, point.Y - (shift * 2));
+            p3 = new Point(point.X + shift, point.Y - (shift * 2));
+        }
+
+        // Color de la flecha: Verde para compras, Rojo para ventas (Independiente del PnL)
+        Color arrowColor = action == OrderDirections.Buy ? _buyColor : _sellColor;
+
+        // Si es salida, podemos oscurecerlo un poco o cambiar el borde, pero el color base ayuda a identificar la acción.
+        // Opcional: Si es salida, usar el color del PnL? 
+        // Para simplicidad didáctica: Acción pura. Verde=Compré, Rojo=Vendí.
+
+        var points = new Point[] { p1, p2, p3 };
+        context.FillPolygon(arrowColor, points);
+        context.DrawPolygon(_borderPen, points);
+
+        return IsPointInTriangle(MouseLocationInfo.LastPosition, p1, p2, p3);
     }
 
     private void DrawTooltips(RenderContext context)
     {
         if (!_tooltipTrades.Any()) return;
-        var y = MouseLocationInfo.LastPosition.Y + 15;
-        var x = MouseLocationInfo.LastPosition.X + 15;
+        var y = MouseLocationInfo.LastPosition.Y + 20;
+        var x = MouseLocationInfo.LastPosition.X + 20;
+
         foreach (var trade in _tooltipTrades)
         {
-            DrawTooltip(context, trade, x, ref y);
+            // Usamos el render original del tooltip pero con la fuente nueva
+            DrawTooltipBox(context, trade, x, ref y);
             y += 5;
         }
         _tooltipTrades.Clear();
-        _labelsAbove.Clear();
-        _labelsBelow.Clear();
     }
 
-    private void DrawTooltip(RenderContext context, TradeObj trade, int x, ref int y)
+    private void DrawTooltipBox(RenderContext context, TradeObj trade, int x, ref int y)
     {
-        var directionColor = trade.Direction == OrderDirections.Buy ? _buyColor : _sellColor;
-        var resultColor = trade.PnLTicks >= 0 ? _profitColor : _lossColor;
-        var cornerRadius = 3;
+        // Tooltip flotante (solo al pasar el ratón)
+        var bg = Color.FromArgb(230, 40, 40, 40); // Gris oscuro casi negro
+        var fg = Color.White;
 
-        var direction = trade.Direction == OrderDirections.Buy ? "Long" : "Short";
         var openTime = ToChartTime(trade.OpenTime);
         var closeTime = ToChartTime(trade.CloseTime);
+        var dirStr = trade.Direction == OrderDirections.Buy ? "LONG" : "SHORT";
 
-        var topText = $"{direction} {trade.Volume} {trade.Security}{Environment.NewLine}{Environment.NewLine}" +
-                      $"Entry\t:  {ChartInfo.GetPriceString(trade.OpenPrice)}  {openTime:dd MMM HH:mm:ss}{Environment.NewLine}" +
-                      $"Exit\t:  {ChartInfo.GetPriceString(trade.ClosePrice)}  {closeTime:dd MMM HH:mm:ss}";
+        var text = $"{dirStr} {trade.Volume} | {trade.Security}\n" +
+                   $"In: {ChartInfo.GetPriceString(trade.OpenPrice)} @ {openTime:HH:mm:ss}\n" +
+                   $"Out: {ChartInfo.GetPriceString(trade.ClosePrice)} @ {closeTime:HH:mm:ss}\n" +
+                   $"PnL: {trade.PnL:N2} ({trade.PnLTicks} pts)";
 
-        string bottomText;
-        if (trade.PnL != 0)
-            bottomText = $"Result:  {(trade.PnL > 0 ? "+" : "")}{trade.PnL:N2}  ({trade.PnLTicks} ticks)";
-        else
-            bottomText = $"Result:  {trade.PnLTicks} ticks";
+        var size = context.MeasureString(text, _fontTooltip);
+        var rect = new Rectangle(x, y, size.Width + 10, size.Height + 10);
 
-        var topSize = context.MeasureString(topText, _font);
-        var bottomSize = context.MeasureString(bottomText, _font);
+        // Ajuste si se sale de pantalla
+        if (rect.Right > ChartInfo.PriceChartContainer.Region.Width) rect.X -= (rect.Width + 40);
 
-        var padding = 10;
-        var width = (int)Math.Max(topSize.Width, bottomSize.Width) + padding * 2;
-        var topHeight = (int)topSize.Height + padding * 2;
-        var bottomHeight = (int)bottomSize.Height + padding * 2;
+        context.FillRectangle(bg, rect);
+        context.DrawRectangle(new Pen(Color.Gray, 1), rect);
+        context.DrawString(text, _fontTooltip, fg, new Rectangle(rect.X + 5, rect.Y + 5, rect.Width, rect.Height));
 
-        if (x + width > ChartInfo.PriceChartContainer.Region.Width)
-            x -= width + 30;
-
-        var topRect = new Rectangle(x, y, width, topHeight + cornerRadius * 2);
-        var bottomRect = new Rectangle(x, y + topHeight, width, bottomHeight);
-
-        context.FillRectangle(directionColor, topRect, cornerRadius);
-        context.FillRectangle(resultColor, bottomRect, cornerRadius);
-        context.FillRectangle(resultColor, new Rectangle(x, y + topHeight, width, cornerRadius * 2));
-
-        var textFormat = new RenderStringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Near };
-        context.DrawString(topText, _font, Color.White, new Rectangle(x + padding, y + padding, width - padding * 2, topHeight - padding * 2), textFormat);
-        context.DrawString(bottomText, _font, Color.White, new Rectangle(x + padding, y + topHeight + padding, width - padding * 2, bottomHeight - padding * 2), textFormat);
-
-        y += topHeight + bottomHeight;
-    }
-
-    private bool DrawMarker(RenderContext context, Point point, OrderDirections direction, bool isOpen)
-    {
-        var shift = MarkerSize * 3;
-        var dir = direction == OrderDirections.Buy ? 1 : -1;
-        Point p1, p2, p3;
-
-        if (isOpen)
-        {
-            // Triángulo apunta al precio (Entrada)
-            p1 = point;
-            p2 = new Point(point.X - shift, point.Y + (shift * 2 * dir));
-            p3 = new Point(point.X + shift, point.Y + (shift * 2 * dir));
-        }
-        else
-        {
-            // Triángulo apunta al precio (Salida) - Invertido respecto al open para visualización clara
-            p1 = point;
-            p2 = new Point(point.X - shift, point.Y - (shift * 2 * dir));
-            p3 = new Point(point.X + shift, point.Y - (shift * 2 * dir));
-        }
-
-        var color = GetMarkerColor(direction, isOpen);
-        var points = new Point[] { p1, p2, p3 };
-        context.FillPolygon(color, points);
-        context.DrawPolygon(_borderPen, points);
-        return IsPointInTriangle(MouseLocationInfo.LastPosition, p1, p2, p3);
-    }
-
-    private (Rectangle Rect, bool MouseOver) DrawTradeLabel(RenderContext context, TradeObj trade, int bar, IndicatorCandle candle, bool isAbove)
-    {
-        var direction = trade.Direction == OrderDirections.Buy ? "L" : "S";
-        var pnlSign = trade.PnLTicks > 0 ? "+" : "";
-
-        string leftText = $"{direction} {trade.Volume}";
-        string rightText = $" {pnlSign}{trade.PnLTicks}t";
-
-        if (LabelDisplay == LabelDisplayMode.Full)
-        {
-            var entryPrice = ChartInfo.GetPriceString(trade.OpenPrice);
-            var exitPrice = ChartInfo.GetPriceString(trade.ClosePrice);
-            leftText += $" | {entryPrice}->{exitPrice}";
-        }
-
-        var leftSize = context.MeasureString(leftText, _labelFont);
-        var rightSize = context.MeasureString(rightText, _labelFont);
-        var padding = 2;
-        var leftWidth = leftSize.Width + padding * 2;
-        var rightWidth = rightSize.Width + padding * 2;
-        var rectWidth = leftWidth + rightWidth;
-        var rectHeight = Math.Max(leftSize.Height, rightSize.Height) + padding;
-
-        var candleX = ChartInfo.GetXByBar(bar, false);
-        var labelX = candleX - rectWidth / 2;
-        var markerOffset = MarkerSize * 6;
-        var baseY = isAbove
-            ? ChartInfo.GetYByPrice(candle.High, false) - markerOffset - rectHeight
-            : ChartInfo.GetYByPrice(candle.Low, false) + markerOffset;
-
-        var testRect = new Rectangle(labelX, baseY, rectWidth, rectHeight);
-
-        var allLabels = _labelsAbove.Concat(_labelsBelow).ToList();
-        int attempts = 0;
-        while (allLabels.Any(r => r.IntersectsWith(testRect)) && attempts < 10)
-        {
-            var intersecting = allLabels.Where(r => r.IntersectsWith(testRect)).ToList();
-            if (isAbove) testRect.Y = intersecting.Min(r => r.Y) - rectHeight - 2;
-            else testRect.Y = intersecting.Max(r => r.Bottom) + 2;
-            attempts++;
-        }
-
-        var directionColor = trade.Direction == OrderDirections.Buy ? _buyColor : _sellColor;
-        var resultColor = trade.PnLTicks >= 0 ? _profitColor : _lossColor;
-
-        context.FillRectangle(directionColor, new Rectangle(testRect.X, testRect.Y, leftWidth, testRect.Height));
-        context.FillRectangle(resultColor, new Rectangle(testRect.X + leftWidth, testRect.Y, rightWidth, testRect.Height));
-        context.DrawRectangle(_borderPen, testRect);
-
-        var centerFormat = new RenderStringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
-        context.DrawString(leftText, _labelFont, Color.White, new Rectangle(testRect.X, testRect.Y, leftWidth, testRect.Height), centerFormat);
-        context.DrawString(rightText, _labelFont, Color.White, new Rectangle(testRect.X + leftWidth, testRect.Y, rightWidth, testRect.Height), centerFormat);
-
-        return (testRect, testRect.Contains(MouseLocationInfo.LastPosition));
+        y += rect.Height;
     }
 
     #endregion
@@ -500,23 +532,21 @@ public class TradesOnChartModifV5 : Indicator
         _tradesHistorical.Add(new TradeObj(trade) { OpenBar = enterBar, CloseBar = exitBar });
     }
 
-    private Color GetMarkerColor(OrderDirections direction, bool isOpen) => direction == OrderDirections.Buy ? _buyColor : _sellColor;
-    private Pen GetPenByDirection(OrderDirections directions) => directions == OrderDirections.Buy ? _buyPen : _sellPen;
     private Pen GetNewPen(Color color, float lineWidth, DashStyle lineStyle) => new Pen(color, lineWidth) { DashStyle = lineStyle };
     private bool IsPointInTriangle(Point p, Point p0, Point p1, Point p2) => Math.Abs(TriangleArea(p0, p1, p2) - (TriangleArea(p, p0, p1) + TriangleArea(p, p1, p2) + TriangleArea(p, p2, p0))) < 1.0;
     private double TriangleArea(Point p0, Point p1, Point p2) => Math.Abs((p0.X * (p1.Y - p2.Y) + p1.X * (p2.Y - p0.Y) + p2.X * (p0.Y - p1.Y)) / 2.0);
 
     private void DrawDebugOverlay(RenderContext context)
     {
-        var text = $"V5: Hist={_historyTradesCount} | RealTime(Count)={_recentTradesCount} | Synth={_tradesSynthetic.Count} | TimeOffset={ManualTimeOffset}h";
-        var rect = new Rectangle(10, 10, 400, 25);
-        context.FillRectangle(Color.FromArgb(150, 0, 0, 0), rect);
-        context.DrawString(text, _font, Color.White, rect, new RenderStringFormat { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center });
+        var text = $"V6: Hist={_historyTradesCount} | RealTime={_recentTradesCount} | Offset={ManualTimeOffset}h";
+        var rect = new Rectangle(10, 10, 250, 20);
+        context.FillRectangle(Color.FromArgb(100, 0, 0, 0), rect);
+        context.DrawString(text, _fontTooltip, Color.White, rect, new RenderStringFormat { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center });
     }
 
     #endregion
 
-    #region MYTRADE MATCHING ENGINE (FIFO)
+    #region MYTRADE MATCHING ENGINE (FIFO - Corrected)
 
     private class OpenLot
     {
@@ -537,23 +567,14 @@ public class TradesOnChartModifV5 : Indicator
     private readonly List<OpenLot> _openLots = new();
     private readonly List<TradeObjSynthetic> _tradesSynthetic = new();
 
-    // ESTA ES LA FUNCIÓN CORREGIDA
     private void CheckForNewRealtimeTrades()
     {
         if (TradingManager?.MyTrades == null) return;
-
-        // 1. Obtener la lista cruda
         var allMyTrades = TradingManager.MyTrades.ToList();
 
-        // Si la cantidad de trades ha cambiado (nuevo trade detectado)
         if (allMyTrades.Count != _recentTradesCount)
         {
-            // 2. ORDENAR CRONOLÓGICAMENTE (Fix para Shorts)
-            // Es vital ordenar por Time. Si la API devuelve el cierre antes que la apertura, el FIFO falla.
             var sortedTrades = allMyTrades.OrderBy(t => t.Time).ToList();
-
-            // 3. Reiniciar motor y reprocesar TODO con el orden correcto
-            // No podemos hacer incremental porque el orden importa
             _openLots.Clear();
             _tradesSynthetic.Clear();
 
@@ -566,7 +587,6 @@ public class TradesOnChartModifV5 : Indicator
                     ProcessSingleMyTrade(mt);
                 }
             }
-
             _recentTradesCount = allMyTrades.Count;
             RedrawChart();
         }
@@ -603,9 +623,7 @@ public class TradesOnChartModifV5 : Indicator
         }
 
         if (volumeToClose > 0.00001m)
-        {
             _openLots.Add(new OpenLot { Dir = dir, Price = price, Time = time, RemainingVolume = volumeToClose });
-        }
     }
 
     private void CreateSyntheticTrade(OpenLot openLot, decimal closePrice, DateTime closeTime, decimal volume)
@@ -625,7 +643,7 @@ public class TradesOnChartModifV5 : Indicator
             CloseBar = closeBar,
             OpenPrice = openLot.Price,
             ClosePrice = closePrice,
-            Direction = openLot.Dir, // Ahora tomará la dirección correcta porque el OpenLot se procesó primero
+            Direction = openLot.Dir,
             Volume = volume,
             OpenTime = openLot.Time,
             CloseTime = closeTime,
