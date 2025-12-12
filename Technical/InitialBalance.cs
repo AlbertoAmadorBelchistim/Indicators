@@ -12,7 +12,7 @@ using OFT.Attributes;
 using OFT.Localization;
 using OFT.Rendering.Settings;
 
-using Pen = System.Drawing.Pen;
+using Pen = CrossPen;
 
 [DisplayName("Initial Balance")]
 [Category(IndicatorCategories.VolumeOrderFlow)]
