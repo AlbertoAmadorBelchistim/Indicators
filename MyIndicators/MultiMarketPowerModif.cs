@@ -74,6 +74,15 @@ public class MultiMarketPowerModif : Indicator
         ShowZeroValue = true // Importante para ver el eje 0
     };
 
+    // Añadimos la serie para la linea de señal
+    private readonly ValueDataSeries _signalSeries = new("SignalSeries", "SMA Signal")
+    {
+        Color = CrossColor.FromArgb(255, 255, 255, 255), // Blanco por defecto
+        Width = 2,
+        VisualType = VisualMode.Line,
+        IsHidden = false
+    };
+
     public enum ViewMode { Lines, SmartMoneySpread }
     private ViewMode _viewMode = ViewMode.SmartMoneySpread;
     public enum SessionMode
@@ -135,6 +144,17 @@ public class MultiMarketPowerModif : Indicator
     private CrossColor _spreadPositiveColor = CrossColor.FromArgb(255, 0, 255, 0); // Lime
     private CrossColor _spreadNegativeColor = CrossColor.FromArgb(255, 255, 0, 0); // Red
 
+    // Campos para la lógica de colores y SMA
+    private int _signalPeriod = 14;
+    private bool _showSignalLine = true;
+    private bool _use4ColorSystem = true;
+
+    // Definición de los 4 colores
+    private CrossColor _colorPosUp = CrossColor.FromArgb(255, 0, 255, 0);      // Lime (Alcista Fuerte)
+    private CrossColor _colorPosDn = CrossColor.FromArgb(255, 0, 100, 0);    // DarkGreen (Corrección en zona +)
+    private CrossColor _colorNegUp = CrossColor.FromArgb(255, 139, 0, 0);    // DarkRed (Recuperación en zona -)
+    private CrossColor _colorNegDn = CrossColor.FromArgb(255, 255, 0, 0);    // Red (Bajista Fuerte)
+
     #endregion
 
     #region Properties
@@ -149,20 +169,6 @@ public class MultiMarketPowerModif : Indicator
             UpdateVisibility();
             RecalculateValues();
         }
-    }
-
-    [Display(GroupName = "General", Name = "Spread Positive Color", Order = 6)]
-    public CrossColor SpreadPositiveColor
-    {
-        get => _spreadPositiveColor;
-        set { _spreadPositiveColor = value; RedrawChart(); }
-    }
-
-    [Display(GroupName = "General", Name = "Spread Negative Color", Order = 7)]
-    public CrossColor SpreadNegativeColor
-    {
-        get => _spreadNegativeColor;
-        set { _spreadNegativeColor = value; RedrawChart(); }
     }
 
     [Display(GroupName = "Session", Name = "Session Mode", Order = 10)]
@@ -187,6 +193,77 @@ public class MultiMarketPowerModif : Indicator
         set { _sessionsBack = value; RecalculateValues(); }
     }
 
+    [Display(GroupName = "Visuals", Name = "Use 4-Color System", Order = 100, Description = "If true, uses slope colors. If false, uses simple Zero Line colors.")]
+    public bool Use4ColorSystem
+    {
+        get => _use4ColorSystem;
+        set { _use4ColorSystem = value; RecalculateValues(); }
+    }
+
+    [Display(GroupName = "Visuals", Name = "Show Signal Line (SMA)", Order = 110)]
+    public bool ShowSignalLine
+    {
+        get => _showSignalLine;
+        set
+        {
+            _showSignalLine = value;
+            UpdateVisibility(); // Importante llamar a esto para ocultar/mostrar sin recalcular todo
+        }
+    }
+
+    [Display(GroupName = "Visuals", Name = "Signal Period", Order = 120)]
+    [Range(1, 200)]
+    public int SignalPeriod
+    {
+        get => _signalPeriod;
+        set { _signalPeriod = value; RecalculateValues(); }
+    }
+
+    // COLORES - Sistema 4 Colores
+    [Display(GroupName = "Visuals", Name = "Color: Pos / SMA Up", Order = 130)]
+    public CrossColor ColorPosRising
+    {
+        get => _colorPosUp;
+        set { _colorPosUp = value; RedrawChart(); }
+    }
+
+    [Display(GroupName = "Visuals", Name = "Color: Pos / SMA Down (Correction)", Order = 140)]
+    public CrossColor ColorPosFalling
+    {
+        get => _colorPosDn;
+        set { _colorPosDn = value; RedrawChart(); }
+    }
+
+    [Display(GroupName = "Visuals", Name = "Color: Neg / SMA Up (Recovery)", Order = 150)]
+    public CrossColor ColorNegRising
+    {
+        get => _colorNegUp;
+        set { _colorNegUp = value; RedrawChart(); }
+    }
+
+    [Display(GroupName = "Visuals", Name = "Color: Neg / SMA Down", Order = 160)]
+    public CrossColor ColorNegFalling
+    {
+        get => _colorNegDn;
+        set { _colorNegDn = value; RedrawChart(); }
+    }
+
+    // COLORES - Sistema Simple (Legacy)
+    [Display(GroupName = "Visuals", Name = "Simple Positive Color", Order = 170, Description = "Used only if 4-Color System is disabled")]
+    public CrossColor SpreadPositiveColor
+    {
+        get => _spreadPositiveColor;
+        set { _spreadPositiveColor = value; RedrawChart(); }
+    }
+
+    [Display(GroupName = "Visuals", Name = "Simple Negative Color", Order = 180, Description = "Used only if 4-Color System is disabled")]
+    public CrossColor SpreadNegativeColor
+    {
+        get => _spreadNegativeColor;
+        set { _spreadNegativeColor = value; RedrawChart(); }
+    }
+
+        
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.CumulativeTrades), GroupName = nameof(Strings.Filters), Description = nameof(Strings.CumulativeTradesModeDescription), Order = 90)]
     [PostValueMode(PostValueModes.Delayed, DelayMilliseconds = 500)]
     public bool CumulativeTrades
@@ -476,6 +553,7 @@ public class MultiMarketPowerModif : Indicator
         DataSeries.Add(_filter5Series);
 
         DataSeries.Add(_spreadSeries);
+        DataSeries.Add(_signalSeries);
 
         UpdateVisibility();
     }
@@ -706,7 +784,7 @@ public class MultiMarketPowerModif : Indicator
         var spread = smartMoney - dumbMoney;
 
         _spreadSeries[CurrentBar - 1] = spread;
-        _spreadSeries.Colors[CurrentBar - 1] = spread >= 0 ? SpreadPositiveColor.Convert() : SpreadNegativeColor.Convert();
+        UpdateVisualsWithSMA(CurrentBar - 1, spread);
 
         RaiseBarValueChanged(CurrentBar - 1);
         _lastTrade = trade.MemberwiseClone();
@@ -822,7 +900,7 @@ public class MultiMarketPowerModif : Indicator
         var spread = smartMoney - dumbMoney;
 
         _spreadSeries[barIndex] = spread;
-        _spreadSeries.Colors[barIndex] = spread >= 0 ? SpreadPositiveColor.Convert() : SpreadNegativeColor.Convert();
+        UpdateVisualsWithSMA(barIndex, spread);
 
         RaiseBarValueChanged(barIndex);
     }
@@ -858,7 +936,7 @@ public class MultiMarketPowerModif : Indicator
         var spread = smartMoney - dumbMoney;
 
         _spreadSeries[CurrentBar - 1] = spread;
-        _spreadSeries.Colors[CurrentBar - 1] = spread >= 0 ? SpreadPositiveColor.Convert() : SpreadNegativeColor.Convert();
+        UpdateVisualsWithSMA(CurrentBar - 1, spread);
     }
 
     private bool IsFiltered(decimal minFilter, decimal maxFilter, decimal volume)
@@ -946,7 +1024,7 @@ public class MultiMarketPowerModif : Indicator
         var spread = smartMoney - dumbMoney;
 
         _spreadSeries[bar] = spread;
-        _spreadSeries.Colors[bar] = spread >= 0 ? SpreadPositiveColor.Convert() : SpreadNegativeColor.Convert();
+        UpdateVisualsWithSMA(bar, spread);
 
         RaiseBarValueChanged(bar);
         _lastBar = bar;
@@ -963,6 +1041,8 @@ public class MultiMarketPowerModif : Indicator
             _filter4Series.VisualType = VisualMode.Hide;
             _filter5Series.VisualType = VisualMode.Hide;
             _spreadSeries.VisualType = VisualMode.Histogram;
+
+            _signalSeries.VisualType = _showSignalLine ? VisualMode.Line : VisualMode.Hide;
         }
         else
         {
@@ -973,6 +1053,7 @@ public class MultiMarketPowerModif : Indicator
             _filter4Series.VisualType = _useFilter4 ? VisualMode.Line : VisualMode.Hide;
             _filter5Series.VisualType = _useFilter5 ? VisualMode.Line : VisualMode.Hide;
             _spreadSeries.VisualType = VisualMode.Hide;
+            _signalSeries.VisualType = VisualMode.Hide;
         }
     }
 
@@ -1064,6 +1145,54 @@ public class MultiMarketPowerModif : Indicator
 
         _trades.Clear();
         _ticks.Clear();
+    }
+
+    private void UpdateVisualsWithSMA(int bar, decimal currentSpread)
+    {
+        // 1. Calcular la SMA (Media Simple) del Spread
+        decimal smaValue = currentSpread; // Valor por defecto si no hay historia suficiente
+
+        if (bar >= _signalPeriod - 1)
+        {
+            decimal sum = 0;
+            for (int i = 0; i < _signalPeriod; i++)
+            {
+                sum += _spreadSeries[bar - i];
+            }
+            smaValue = sum / _signalPeriod;
+        }
+
+        _signalSeries[bar] = smaValue;
+
+        // 2. Determinar el Color
+        if (!_use4ColorSystem)
+        {
+            // Lógica antigua simple (Zero Line)
+            _spreadSeries.Colors[bar] = currentSpread >= 0 ? SpreadPositiveColor.Convert() : SpreadNegativeColor.Convert();
+            return;
+        }
+
+        // Lógica de 4 Colores basada en Pendiente de la SMA
+        // Comparamos la SMA actual con la SMA anterior para ver la tendencia real suavizada
+        decimal prevSma = (bar > 0) ? _signalSeries[bar - 1] : smaValue;
+        bool isSmaRising = smaValue >= prevSma;
+
+        CrossColor finalColor;
+
+        if (currentSpread >= 0)
+        {
+            // Zona Positiva
+            finalColor = isSmaRising ? _colorPosUp : _colorPosDn;
+        }
+        else
+        {
+            // Zona Negativa
+            // Si la SMA sube en zona negativa, es una recuperación (Pullback), usamos Rojo Oscuro/Granate
+            // Si la SMA baja en zona negativa, es tendencia fuerte, usamos Rojo Vivo
+            finalColor = isSmaRising ? _colorNegUp : _colorNegDn;
+        }
+
+        _spreadSeries.Colors[bar] = finalColor.Convert();
     }
 
 
