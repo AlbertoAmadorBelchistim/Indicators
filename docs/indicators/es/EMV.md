@@ -1,111 +1,159 @@
 ---
-cs_file: EMV.cs
-name: Arms Ease of Movement
-group: Order Flow
-subgroup: Volume
-score_current: 6.5/10
-version: Stable
-recommended_action: Conservar (Reserva)
-description: ¿Es el movimiento del precio eficiente en relación con su volumen y rango?
-gemini_summary: "Un clásico del análisis técnico. Suaviza la relación volumen/precio para mostrar la tendencia de la 'facilidad' del movimiento. Útil para contexto, lento para scalping."
-comparison_group: "Volume Efficiency"
-competitor_notes: "Versión suavizada y más compleja del VBRR."
-reusable_code: null
-file_state: Estable
-score_potential: 6.5/10
-effort: N/A
-action_priority: N/A
-analysis_date: 2025-11-21
-official_code_date: 23/04/2025
+# 1. IDENTIFICACIÓN  
+cs_file: EMV.cs  
+name: Arms Ease of Movement  
+version: ATAS Stable/Latest  
+
+# 2. CLASIFICACIÓN  
+group: Order Flow  
+subgroup: Volume  
+comparison_group: "Volume Efficiency"  
+
+# 3. VALORACIÓN (Score & Priority)  
+score_current: 6/10  
+score_potential: 7/10  
+file_state: Estable  
+effort: Bajo  
+action_priority: Baja  
+system_priority: P3  
+
+# 4. DECISIÓN  
+recommended_action: Conservar (Reserva)  
+
+# 5. ANÁLISIS  
+description: ¿Qué “facilidad” tiene el precio para desplazarse al ajustar el movimiento del punto medio por la fricción volumen/rango?  
+gemini_summary: "Indicador clásico suavizado. Útil para contexto y divergencias, pero introduce lag: menos apto para decisión táctica en M1."  
+competitor_notes: "Pierde frente a VPT y VBRR en scalping porque mezcla varios componentes y se interpreta más lento. Puede ser útil en M5/M15 como contexto de régimen."  
+reusable_code: null  
+
+# 6. METADATOS  
+analysis_date: 2025-12-12  
+official_code_date: 2025-04-23  
 ---
 
-## 🛡️ Arms Ease of Movement (6.5/10)
+## 🟨 Arms Ease of Movement (6/10)  
 
 **Nombre del archivo:** [`EMV.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/EMV.cs)  
 **Nombre del indicador:** Arms Ease of Movement  
 **Web oficial:** [ATAS — Arms Ease of Movement](https://help.atas.net/support/solutions/articles/72000602315)  
-**Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 23/04/2025  
+**Compatibilidad:** ATAS Stable/Latest.  
+**Última revisión del código oficial:** 2025-04-23  
 
-> **La Pregunta Clave:** ¿Es el movimiento del precio eficiente en relación con su volumen y rango?
+> **La Pregunta Clave:** ¿Qué “facilidad” tiene el precio para desplazarse al ajustar el movimiento del punto medio por la fricción volumen/rango?  
 
-![EMV](../../img/EMV.png)
+![EMV](../../img/EMV.png)  
 
----
+  
 
-### ⚙️ Parámetros configurables
+---  
 
-* **Period:** Suavizado (Default 9).  
-* **MaType:** Tipo de media móvil.  
+### ⚙️ Parámetros configurables  
 
----
+**Settings**  
+- **MovingType (MaType):** tipo de media (EMA, SMA, WMA, SMMA, regresión lineal). 
+- **Period:** periodo de suavizado (default 9).
 
-### 🧭 Clasificación
+  
+
+---  
+
+### 🧭 Clasificación  
 **Grupo:** Order Flow  
 **Subgrupo:** Volume  
 **Comparison Group:** "Volume Efficiency"  
 
----
+  
 
-### 🧠 Uso más frecuente
+---  
 
-* **Confirmación de Tendencia:** Si el EMV sube, el precio sube con "facilidad" (poco volumen resistiendo).  
-* **Divergencia:** Precio sube pero EMV baja -> El avance se está volviendo costoso (difícil).  
+### 🧠 Uso más frecuente  
 
----
+- **Contexto de tendencia:** EMV alto sugiere desplazamiento “fácil” (menos fricción).  
+- **Divergencias:** precio avanza pero EMV cae = avance “caro” (posible agotamiento).  
 
-### 📊 Nivel de relevancia
-🔟 **6.5 / 10**
+  
 
-✅ **Estabilidad:** Al estar suavizado, da menos señales falsas que el VBRR.  
-⛔ **Lag:** La media móvil introduce retraso.  
+---  
 
----
+### 📊 Nivel de relevancia  
+🔟 **6 / 10**  
 
-### 🎯 Estrategias de scalping donde se aplica
+✅ Más estable que métricas sin suavizado.  
+✅ Útil para lectura de contexto (especialmente en marcos mayores).  
+⛔ Lag intrínseco: en M1 suele llegar tarde para gatillo de entrada.  
 
-* **Swing Trading Intradía:** Más útil en M5/M15 que en M1.  
+  
 
----
+---  
 
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
+### 🎯 Estrategias de scalping donde se aplica  
 
-* **Period:** `5` (Para reducir el lag).  
+- **Filtro de régimen (no trigger):** evitar operar continuaciones si el EMV indica fricción creciente.  
+- **Mejor en M5/M15:** como capa de contexto para decisiones en M1.  
 
----
+  
 
-### 🧪 Notas de desarrollo
+---  
 
-* Fórmula compleja que involucra el "MidPoint Move" y el "Box Ratio".  
-* Código sólido.  
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
 
----
+| Parámetro | Valor recomendado | Justificación |  
+|---|---:|---|  
+| Period | 5 | Reduce lag (a costa de más ruido). |  
+| MovingType | EMA | Respuesta más rápida que SMA/WMA en práctica. |  
 
-### ❗ Incoherencias o aspectos mejorables detectados
+  
 
-* **Ninguna.** ---
+---  
 
-### 🛠️ Propuestas de mejora
+### 🧪 Notas de desarrollo  
 
-* **Ninguna.** ---
+- Calcula: movimiento del punto medio entre velas / (volumen dividido por rango).
+- Suaviza el EMV con una media seleccionable.
+- Observación de maintainability: `_renderSeries` se nombra `"ADXR"` (probable arrastre), convendría renombrar a `"EMV"` por claridad.
 
-### 💎 Valor Reutilizable (Código Donante)
+  
 
-* **Ninguno.** ---
+---  
 
-### ✍️ La opinión de Gemini sobre el Indicador
+### ❗ Incoherencias o aspectos mejorables detectados  
 
-Es una herramienta de "vuelo por instrumentos". Te dice si el mercado planea suave o si el motor está sufriendo.
+- **Naming/UI:** etiqueta `"ADXR"` puede confundir en panel/leyenda. 
 
-**Propuestas de Acción:**
-* **Conservar como Reserva.**
+  
 
----
+---  
 
-### 📈 Veredicto: ¿Es útil para Scalping?
+### 🛠️ Propuestas de mejora  
 
-**Limitado.**
+- **P3 (Baja):** renombrar `_renderSeries` a `"EMV"` (solo UI/claridad).  
+- **P2 (Media, creativo):** modo “Scalping”: exponer una versión *unsmoothed* adicional (o periodo mínimo) para usarlo como detector de cambio de régimen intradía.  
+- **P2 (Media):** normalización por sesión (z-score) para que sea comparable entre sesiones con volatilidad distinta.  
 
-Mejor para ver el fondo.
+  
 
-**Acción:** **Conservar (Reserva).**
+---  
+
+### 💎 Valor Reutilizable (Código Donante)  
+
+- **Selección dinámica de medias** (patrón de switch + recalculo) si te interesa reutilizarlo en otros indicadores multi-MA. 
+
+  
+
+---  
+
+### ✍️ La opinión de ChatGPT sobre el Indicador  
+
+En un sistema de scalping para ES (S&P 500), EMV no debería ser “botón de disparo”. Donde sí puede brillar es como **capa de contexto**: régimen de fricción, confirmación de agotamiento, o filtro para evitar perseguir movimientos cuando el mercado deja de moverse “con facilidad”. Si decides mantenerlo, lo haría como reserva y lo usaría en M5/M15, no como señal primaria en M1.  
+
+  
+
+---  
+
+### 📈 Veredicto: ¿Es útil para Scalping?  
+
+**Limitado.**  
+
+Útil como contexto/filtro; no recomendado como trigger principal en M1.  
+
+**Acción:** **Conservar (Reserva)** 

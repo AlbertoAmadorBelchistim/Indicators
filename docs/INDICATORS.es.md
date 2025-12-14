@@ -37,7 +37,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [ADX](indicators/es/ADX.md) | Trend | 6/10 | Mejorar |
 | [ADXR](indicators/es/ADXR.md) | Trend | 3/10 | Descartar |
 | [Alligator](indicators/es/Alligator.md) | Trend | 6/10 | Conservar |
-| [Arms Ease of Movement](indicators/es/EMV.md) | Order Flow | 6.5/10 | Conservar (Reserva) |
+| [Arms Ease of Movement](indicators/es/EMV.md) | Order Flow | 6/10 | Conservar (Reserva) |
 | [Aroon Indicator](indicators/es/AroonIndicator.md) | Trend | 3/10 | Descartar |
 | [Aroon Oscillator](indicators/es/AroonOscillator.md) | Trend | 3/10 | Descartar |
 | [Ask/Bid Volume Difference Bars](indicators/es/AskBidBars.md) | Order Flow | 4/10 | Descartar |
@@ -194,7 +194,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [MACD Cloud](indicators/es/MacdCloud.md) | Trend | 7/10 | Conservar |
 | [MACD Leader](indicators/es/MacdLeader.md) | Oscillators | 7/10 | Conservar |
 | [Margin zones](indicators/es/MarginZones.md) | Structure | 3/10 | Reparar |
-| [Market Facilitation Index](indicators/es/MarketFacilitation.md) | Order Flow | 6/10 | Mejorar |
+| [Market Facilitation Index](indicators/es/MarketFacilitation.md) | Order Flow | 5.5/10 | Descartar |
 | [Maximum Levels](indicators/es/MaxLevels.md) | Order Flow | 8.5/10 | Conservar (Core) |
 | [MBO DOM](indicators/es/MBODOM.md) | Order Flow | 10/10 | Conservar (Core) |
 | [McClellan Oscillator](indicators/es/McClellanOscillator.md) | Oscillators | 6/10 | Conservar |
@@ -308,7 +308,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Volume](indicators/es/Volume.md) | Order Flow | 9/10 | Conservar (Core) |
 | [Volume Bar Range Ratio](indicators/es/VBRR.md) | Order Flow | 7/10 | Conservar (Reserva) |
 | [Volume On The Chart](indicators/es/VolumeOnChart.md) | Order Flow | 8/10 | Conservar (Reserva) |
-| [Volume Per Trade](indicators/es/VolumePerTrade.md) | Order Flow | 9/10 | Conservar (Core) |
+| [Volume Per Trade](indicators/es/VolumePerTrade.md) | Order Flow | 8.5/10 | Conservar (Core) |
 | [Volume Zone Oscillator](indicators/es/VolumeZone.md) | Oscillators | 9/10 | Conservar |
 | [Volume-based Support & Resistance Zones](indicators/es/VolumeSupResZones.md) | Order Flow | 10/10 | Conservar (Core) |
 | [Vortex](indicators/es/Vortex.md) | Oscillators | 7/10 | Conservar |

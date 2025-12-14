@@ -1,11 +1,11 @@
 # 🔥 Master Index: Order Flow & Volumen
 
 ### 📊 Status Dashboard
-**Progreso de Auditoría:** `▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░` **59%** (Fase 2 Completada)
+**Progreso de Auditoría:** `▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░` **65%** (Fase 2 Completada)
 
 | Total Indicadores | 🟢 Core (Ganadores) | 🟡 Reserva (Backup) | 💀 Descartados |
 | :---: | :---: | :---: | :---: |
-| **67** | **24** | **19** | 14 |
+| **67** | **24** | **19** | 15 |
 
 [🔙 Volver al Índice General](INDICATORS.es.md)
 
@@ -78,7 +78,7 @@ _Tendencia de fondo. Acumulación de agresiones durante toda la sesión._
 
 | Nota | Fase | Estado | Indicador | Pregunta Clave / Descripción |
 | :---: | :---: | :--- | :--- | :--- |
-| **10/10** | ✅ | 🟢 **CORE** | [CVD pro(multi) / Multi Market Powers (Modif)](indicators/es/MultiMarketPower.md) | ¿Cómo se distribuye el delta acumulado separando participantes por tamaño de orden y sesión, permitiendo identificar Smart Money real frente a ruido y retail? |
+| **10/10** | ✅ | 🟢 **CORE** | [CVD pro(multi) / Multi Market Powers (Modif)](indicators/es/MultiMarketPower.md) | ¿Está el Smart Money empujando ahora mismo o estamos ante una corrección pasiva dentro de una tendencia acumulada masiva? |
 | 8/10 | ✅ | 🟡 Reserva | [CVD - Cumulative Volume Delta](indicators/es/CumulativeDelta.md) | ¿Cuál es el delta acumulado desde el inicio de la sesión (o desde una hora personalizada)? |
 | 6/10 | ✅ | 💀 Descartar | [CVD pro / Market Power](indicators/es/MarketPower.md) | <sub>¿Cuál es el delta acumulado filtrado por tamaño de trade y su media móvil?</sub> |
 | 2/10 | ✅ | 💀 Descartar | [COT High/Low](indicators/es/CotHigh.md) | <sub>¿Acumula el delta desde un nuevo máximo o mínimo?</sub> |
@@ -193,15 +193,15 @@ _Volume Spread Analysis. Velas climáticas, volumen de parada y anomalías._
 | 4/10 | ✅ | 💀 Descartar | [Spread Volume](indicators/es/SpreadVolume.md) | <sub>¿Quién está agrediendo más dentro del spread actual?</sub> |
 | 3/10 | ✅ | 💀 Descartar | [Bar's Volume Filter](indicators/es/BarVolumeFilter.md) | <sub>¿Qué velas de este gráfico cumplen mi criterio específico de Volumen, Delta o Ticks?</sub> |
 
-### ⚔️ Volume Efficiency &nbsp;⚠️ <small>PENDIENTE</small>
+### ⚔️ Volume Efficiency &nbsp;✅ <small>FASE 2</small>
 _Esfuerzo vs Resultado. ¿Cuánto mueve el precio cada unidad de volumen?_
 
 | Nota | Fase | Estado | Indicador | Pregunta Clave / Descripción |
 | :---: | :---: | :--- | :--- | :--- |
-| **9/10** | ⚠️ | 🟢 **CORE** | [Volume Per Trade](indicators/es/VolumePerTrade.md) | ¿Cuál es el tamaño promedio de las órdenes ejecutadas en cada vela? |
-| 7/10 | ⚠️ | 🟡 Reserva | [Volume Bar Range Ratio](indicators/es/VBRR.md) | ¿Cuánto volumen es necesario para mover el precio 1 tick (Eficiencia)? |
-| 6.5/10 | ⚠️ | 🟡 Reserva | [Arms Ease of Movement](indicators/es/EMV.md) | ¿Es el movimiento del precio eficiente en relación con su volumen y rango? |
-| 6/10 | ⚠️ | Mejorar | [Market Facilitation Index](indicators/es/MarketFacilitation.md) | ¿Cuál es la eficiencia del mercado (MFI) para mover el precio en relación con el volumen? |
+| **8.5/10** | ✅ | 🟢 **CORE** | [Volume Per Trade](indicators/es/VolumePerTrade.md) | ¿Cuál es el tamaño medio de la ejecución por trade en cada vela (proxy de participación institucional vs flujo fragmentado)? |
+| 7/10 | ✅ | 🟡 Reserva | [Volume Bar Range Ratio](indicators/es/VBRR.md) | ¿Cuánto volumen “cuesta” mover el precio (volumen por unidad de rango) en cada vela? |
+| 6/10 | ✅ | 🟡 Reserva | [Arms Ease of Movement](indicators/es/EMV.md) | ¿Qué “facilidad” tiene el precio para desplazarse al ajustar el movimiento del punto medio por la fricción volumen/rango? |
+| 5.5/10 | ✅ | 💀 Descartar | [Market Facilitation Index](indicators/es/MarketFacilitation.md) | <sub>¿Cuánta “facilidad” tiene el mercado para mover el precio por unidad de volumen (rango por volumen) en cada vela?</sub> |
 
 ### ⚔️ Volume Oscillators &nbsp;⚠️ <small>PENDIENTE</small>
 _Olas y flujos de volumen oscilante (Weiss Wave, TVI)._
