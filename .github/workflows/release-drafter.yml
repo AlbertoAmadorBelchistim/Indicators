@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - publish # El robot trabaja cada vez que subes algo a publish
+      # 👇 AÑADE ESTAS DOS LÍNEAS EXACTAS:
+  workflow_dispatch:
 
 permissions:
   contents: read
