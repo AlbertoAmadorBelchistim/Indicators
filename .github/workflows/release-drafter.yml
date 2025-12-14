@@ -3,7 +3,7 @@ name: Release Drafter
 on:
   push:
     branches:
-      - publish # El robot trabaja cada vez que subes algo a publish
+      - publish_stable_MyIndicators # El robot trabaja cada vez que subes algo a publish
       # 👇 AÑADE ESTAS DOS LÍNEAS EXACTAS:
   workflow_dispatch:
 
