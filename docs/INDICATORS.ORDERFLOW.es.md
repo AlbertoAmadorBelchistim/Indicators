@@ -5,7 +5,7 @@
 
 | Total Indicadores | 🟢 Core (Ganadores) | 🟡 Reserva (Backup) | 💀 Descartados |
 | :---: | :---: | :---: | :---: |
-| **67** | **24** | **19** | 15 |
+| **67** | **25** | **18** | 15 |
 
 [🔙 Volver al Índice General](INDICATORS.es.md)
 
@@ -157,6 +157,13 @@ _Indicadores clásicos de acumulación/distribución (A/D)._
 | 2/10 | ✅ | 💀 Descartar | [Accumulation/Distribution (A/D)](indicators/es/AD.md) | <sub>¿El flujo de volumen acumulado (estimado por la forma de la vela) confirma la tendencia?</sub> |
 | 1/10 | ✅ | 💀 Descartar | [Accumulation / Distribution Flow](indicators/es/ADF.md) | <sub>¿Cuál es la tendencia suavizada del flujo de volumen acumulado?</sub> |
 
+### ⚔️ Execution Quality &nbsp;✅ <small>FASE 2</small>
+_Estructura de ejecución: fragmentación vs bloques (tamaño medio por trade y calidad del tape)._
+
+| Nota | Fase | Estado | Indicador | Pregunta Clave / Descripción |
+| :---: | :---: | :--- | :--- | :--- |
+| **8.5/10** | ✅ | 🟢 **CORE** | [Volume Per Trade](indicators/es/VolumePerTrade.md) | ¿Cuál es el tamaño medio de la ejecución por trade en cada vela (proxy de participación institucional vs flujo fragmentado)? |
+
 ### ⚔️ Standard Volume &nbsp;✅ <small>FASE 2</small>
 _Volumen total por barra y sus variantes visuales._
 
@@ -198,8 +205,7 @@ _Esfuerzo vs Resultado. ¿Cuánto mueve el precio cada unidad de volumen?_
 
 | Nota | Fase | Estado | Indicador | Pregunta Clave / Descripción |
 | :---: | :---: | :--- | :--- | :--- |
-| **8.5/10** | ✅ | 🟢 **CORE** | [Volume Per Trade](indicators/es/VolumePerTrade.md) | ¿Cuál es el tamaño medio de la ejecución por trade en cada vela (proxy de participación institucional vs flujo fragmentado)? |
-| 7/10 | ✅ | 🟡 Reserva | [Volume Bar Range Ratio](indicators/es/VBRR.md) | ¿Cuánto volumen “cuesta” mover el precio (volumen por unidad de rango) en cada vela? |
+| **7.5/10** | ✅ | 🟢 **CORE** | [Volume Bar Range Ratio](indicators/es/VBRR.md) | ¿Cuánto volumen “cuesta” mover el precio (volumen por unidad de rango) en cada vela? |
 | 6/10 | ✅ | 🟡 Reserva | [Arms Ease of Movement](indicators/es/EMV.md) | ¿Qué “facilidad” tiene el precio para desplazarse al ajustar el movimiento del punto medio por la fricción volumen/rango? |
 | 5.5/10 | ✅ | 💀 Descartar | [Market Facilitation Index](indicators/es/MarketFacilitation.md) | <sub>¿Cuánta “facilidad” tiene el mercado para mover el precio por unidad de volumen (rango por volumen) en cada vela?</sub> |
 

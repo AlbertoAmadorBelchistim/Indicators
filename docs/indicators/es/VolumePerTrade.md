@@ -7,7 +7,7 @@ version: ATAS Stable/Latest
 # 2. CLASIFICACIÓN  
 group: Order Flow  
 subgroup: Volume  
-comparison_group: "Volume Efficiency"  
+comparison_group: "Execution Quality"  
 
 # 3. VALORACIÓN (Score & Priority)  
 score_current: 8.5/10  
@@ -59,7 +59,7 @@ official_code_date: 2025-04-23
 ### 🧭 Clasificación  
 **Grupo:** Order Flow  
 **Subgrupo:** Volume  
-**Comparison Group:** "Volume Efficiency"  
+**Comparison Group:** "Execution Quality"  
 
   
 

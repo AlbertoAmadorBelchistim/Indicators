@@ -10,15 +10,15 @@ subgroup: Volume
 comparison_group: "Volume Efficiency"  
 
 # 3. VALORACIÓN (Score & Priority)  
-score_current: 7/10  
+score_current: 7.5/10  
 score_potential: 8/10  
 file_state: Estable  
 effort: Bajo  
 action_priority: Baja  
-system_priority: P3  
+system_priority: P2  
 
 # 4. DECISIÓN  
-recommended_action: Conservar (Reserva)  
+recommended_action: Conservar (Core)
 
 # 5. ANÁLISIS  
 description: ¿Cuánto volumen “cuesta” mover el precio (volumen por unidad de rango) en cada vela?  
@@ -31,7 +31,7 @@ analysis_date: 2025-12-12
 official_code_date: 2025-04-23  
 ---
 
-## 🟧 Volume Bar Range Ratio (7/10)  
+## 🟧 Volume Bar Range Ratio (7.5/10)
 
 **Nombre del archivo:** [`VBRR.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/VBRR.cs)  
 **Nombre del indicador:** Volume Bar Range Ratio  
@@ -74,7 +74,7 @@ official_code_date: 2025-04-23
 ---  
 
 ### 📊 Nivel de relevancia  
-🔟 **7 / 10**  
+🔟 **7.5 / 10**  
 
 ✅ Bueno para detectar “esfuerzo sin resultado” (absorción).  
 ✅ Cálculo barato.  
@@ -152,4 +152,4 @@ Es un **buen reserva** para leer microestructura en zonas clave, pero no lo pond
 
 Útil como detector de absorción/vacío, mejor como confirmación contextual.  
 
-**Acción:** **Conservar (Reserva)**  
+**Acción:** **Conservar (Core	)**  
