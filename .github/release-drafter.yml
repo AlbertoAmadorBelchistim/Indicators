@@ -1,24 +1,57 @@
-name-template: 'Semana $NEXT_MINOR_VERSION'
+# Configuración de Nombres de Versión
+name-template: 'v$NEXT_MINOR_VERSION'
 tag-template: 'v$NEXT_MINOR_VERSION'
 
-template: |
-  ## 📝 Resumen de Cambios
-  $CHANGES
-
-categories:
-  - title: '🚀 Actualizaciones de Indicadores (Descargar DLL)'
+# Lógica matemática para calcular versiones (1.7 -> 1.8 ó 1.7.1)
+version-resolver:
+  major:
+    labels:
+      - 'major'
+      - 'breaking'
+  minor:
     labels:
       - 'feature'
+      - 'feat'
+      - 'enhancement'
+  patch:
+    labels:
+      - 'fix'
       - 'bug'
+      - 'docs'
+      - 'documentation'
+      - 'chore'
+  default: patch
+
+# LA PLANTILLA (Con hueco reservado)
+template: |
+  ## 📝 Weekly Summary
+  ---
+
+  ## 🚀 Detailed Changelog
+  $CHANGES
+
+# Categorías en Inglés
+categories:
+  - title: '🌟 New Features & Indicators (DLL)'
+    labels:
+      - 'feature'
+      - 'feat'
       - 'code'
-  - title: '📚 Progreso de Auditoría y Documentación'
+  - title: '🐛 Bug Fixes'
+    labels:
+      - 'fix'
+      - 'bug'
+  - title: '📚 Documentation, Audit & Media'
     labels:
       - 'documentation'
+      - 'docs'
       - 'audit'
-    collapse-after: 10
+    collapse-after: 15
 
+# Formato de cada línea de cambio
 change-template: '- $TITLE @$AUTHOR'
 
+# Robot clasificador automático
 autolabeler:
   - label: 'documentation'
     files:
