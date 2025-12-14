@@ -1,0 +1,29 @@
+name-template: 'Semana $NEXT_MINOR_VERSION'
+tag-template: 'v$NEXT_MINOR_VERSION'
+categories:
+  - title: '🚀 Actualizaciones de Indicadores (Descargar DLL)'
+    labels:
+      - 'feature'
+      - 'bug'
+      - 'code'
+  - title: '📚 Progreso de Auditoría y Documentación'
+    labels:
+      - 'documentation'
+      - 'audit'
+    collapse-after: 10 # Si hay muchos, los colapsa para no molestar
+
+change-template: '- $TITLE @$AUTHOR'
+
+# AQUÍ ESTÁ LA MAGIA: Clasificación automática basada en tus archivos
+autolabeler:
+  - label: 'documentation'
+    files:
+      - 'docs/**/*.md'        # Detecta cambios en textos Markdown
+      - '*.md'                # Detecta cambios en README, INSTALLATION, etc.
+      - 'docs/img/**/*'       # ✅ NUEVO: Detecta cualquier imagen
+      - 'docs/videos/**/*'    # ✅ NUEVO: Detecta cualquier video
+
+  - label: 'code'
+    files:
+      - 'MyIndicators/*.cs'
+      - '**/*.dll'
