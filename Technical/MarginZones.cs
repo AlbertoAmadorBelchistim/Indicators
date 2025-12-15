@@ -14,7 +14,6 @@ using OFT.Localization;
 using OFT.Rendering.Context;
 using OFT.Rendering.Tools;
 
-using Brushes = CrossBrushes;
 using Color = System.Drawing.Color;
 using FilterColor2 = Indicators.FilterColor;
 
