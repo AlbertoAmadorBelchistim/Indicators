@@ -1,117 +1,162 @@
 ﻿---
-cs_file: MacdVW.cs
-name: MACD - Volume Weighted
-group: Order Flow
-subgroup: Volume
-score_current: 8/10
-version: Stable
-recommended_action: Conservar (Reserva)
-description: ¿Cuál es la convergencia entre dos medias ponderadas por volumen (VWMAs)?
-gemini_summary: "La evolución lógica del MACD. Al ponderar el precio por el volumen, filtra los movimientos con poca participación y da más peso a los movimientos institucionales. Si usas MACD, usa este."
-comparison_group: "Volume Oscillators"
-competitor_notes: "La versión 'Pro' del MACD estándar."
-reusable_code: null
-file_state: Estable
-score_potential: 9/10
-effort: Bajo
-action_priority: P3
-analysis_date: 2025-11-21
-official_code_date: 23/04/2025
----
+# 1. IDENTIFICACIÓN  
+cs_file: MacdVW.cs  
+name: MACD - Volume Weighted  
+version: ATAS Stable/Latest  
 
-## 🛡️ MACD - Volume Weighted (8/10)
+# 2. CLASIFICACIÓN  
+group: Order Flow  
+subgroup: Volume  
+comparison_group: "Volume Oscillators"  
+
+# 3. VALORACIÓN (Score & Priority)  
+score_current: 7.5/10  
+score_potential: 9/10  
+file_state: Estable  
+effort: Bajo  
+action_priority: Baja  
+system_priority: P3  
+
+# 4. DECISIÓN  
+recommended_action: Conservar (Reserva)  
+
+# 5. ANÁLISIS  
+description: ¿Cuál es la convergencia entre dos medias ponderadas por volumen y su señal suavizada para filtrar tendencia con participación?  
+gemini_summary: "MACD basado en VWMA: pondera el precio por volumen, mejora el MACD clásico en calidad de señal, pero mantiene lag. Más útil como confirmador tendencial que como herramienta de entrada en M1."  
+competitor_notes: "Mejor construcción que TVI y más 'tendencial' que Weis Wave, pero aporta menos valor marginal que el CORE (ratio normalizado) en scalping puro."  
+reusable_code: null  
+
+# 6. METADATOS  
+analysis_date: 2025-12-15  
+official_code_date: 2025-04-23  
+
+  
+
+---  
+
+## 🛡️ MACD - Volume Weighted (7.5/10)  
 
 **Nombre del archivo:** [`MacdVW.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/MacdVW.cs)  
 **Nombre del indicador:** MACD - Volume Weighted  
 **Web oficial:** [ATAS — MACD - Volume Weighted](https://help.atas.net/support/solutions/articles/72000602231)  
-**Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 23/04/2025  
+**Compatibilidad:** ATAS Stable/Latest.  
+**Última revisión del código oficial:** 2025-04-23  
 
-> **La Pregunta Clave:** ¿Cuál es la convergencia entre dos medias ponderadas por volumen (VWMAs)?
+> **La Pregunta Clave:** ¿Cuál es la convergencia entre dos medias ponderadas por volumen y su señal suavizada para filtrar tendencia con participación?  
 
-![MacdVW](../../img/MacdVW.png)
+![MacdVW](../../img/MacdVW.png)  
 
----
+  
 
-### ⚙️ Parámetros configurables
+---  
 
-* **Period:** Signal EMA (Default 9).  
-* **Short/Long Period:** Periodos de las VWMAs (Default 12/26).  
+### ⚙️ Parámetros configurables  
 
----
+- **Period:** periodo de la señal EMA (default 9).   
+- **Short Period:** ventana corta de VWMA (default 12).   
+- **Long Period:** ventana larga de VWMA (default 26).   
 
-### 🧭 Clasificación
+  
+
+---  
+
+### 🧭 Clasificación  
 **Grupo:** Order Flow  
 **Subgrupo:** Volume  
 **Comparison Group:** "Volume Oscillators"  
 
----
+  
 
-### 🧠 Uso más frecuente
+---  
 
-* **Cruce de Línea Cero:** Cambio de tendencia confirmado por volumen.  
-* **Divergencia MACD:** Señal de reversión más fiable que en el MACD estándar porque incluye el factor volumen.  
+### 🧠 Uso más frecuente  
 
----
+* Confirmación de tendencia: mantener sesgo mientras `MACD_VW` permanezca del lado del trade y la señal acompañe.  
+* Divergencias (con cautela): menor frecuencia pero más “filtradas” que MACD clásico por el peso del volumen.   
 
-### 📊 Nivel de relevancia
-🔟 **8 / 10**
+  
 
-✅ **Filtrado:** Ignora movimientos de precio manipulados con poco volumen.  
-✅ **Robustez:** Código con protecciones contra división por cero.  
-⛔ **Visualización:** El histograma es monocromático.  
+---  
 
----
+### 📊 Nivel de relevancia  
+🔟 **7.5 / 10**  
 
-### 🎯 Estrategias de scalping donde se aplica
+✅ Filtra movimientos de baja participación al ponderar por volumen.  
+✅ Implementación segura: guard ante sumas de volumen cero.  
+⛔ Sigue siendo un MACD: lag inevitable y menor utilidad como trigger en M1 puro.  
 
-* **Trend Following:** Mantener posición mientras MACD-VW > 0.  
+  
 
----
+---  
 
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
+### 🎯 Estrategias de scalping donde se aplica  
 
-* **Short:** `8`.  
-* **Long:** `21`.  
+* **Trend-following intradía:** usarlo como filtro (solo longs si `MACD_VW > 0`).  
+* **Pullback continuation:** entrada por precio/OF, confirmación por MACD_VW recuperando el lado correcto.  
 
----
+  
 
-### 🧪 Notas de desarrollo
+---  
 
-* Calcula `Sum(Price * Volume) / Sum(Volume)` (VWMA).  
-* Resta VWMA Corta - VWMA Larga.  
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
 
----
+| Parámetro | Valor recomendado | Justificación |  
+|---|---:|---|  
+| Short Period | 8 | Reduce lag y se adapta a M1. |  
+| Long Period | 21 | Estructura tendencial corta sin “sobre-suavizar”.|  
+| Period | 9 | Señal estándar suficientemente estable.|  
 
-### ❗ Incoherencias o aspectos mejorables detectados
+  
 
-* **Estética:** Le falta color dinámico al histograma.  
+---  
 
----
+### 🧪 Notas de desarrollo  
 
-### 🛠️ Propuestas de mejora
+* Construye dos VWMAs como `Sum(Price * Volume) / Sum(Volume)` en ventana corta y larga; la diferencia es el MACD.  
+* La señal es una EMA del MACD calculada con `Period`.  
+* En `OnRecalculate` limpia series internas (`_vol`, `_valVol`) y data series.  
 
-* **P3:** Colorear histograma (Verde si sube, Rojo si baja).  
+  
 
----
+---  
 
-### 💎 Valor Reutilizable (Código Donante)
+### ❗ Incoherencias o aspectos mejorables detectados  
 
-* **Ninguno.** ---
+* Visual: histograma monocromático (no impacta cálculo, sí lectura rápida).  
 
-### ✍️ La opinión de Gemini sobre el Indicador
+  
 
-Es una mejora técnica sólida. No reinventa la rueda, pero la hace rodar mejor.
+---  
 
-**Propuestas de Acción:**
-* **Conservar como Reserva.**
+### 🛠️ Propuestas de mejora  
 
----
+* **P3 (Baja):** coloreado por pendiente (sube/baja) o por signo (positivo/negativo) para lectura instantánea.  
 
-### 📈 Veredicto: ¿Es útil para Scalping?
+  
 
-**Sí.**
+---  
 
-Mejor que el MACD normal.
+### 💎 Valor Reutilizable (Código Donante)  
 
-**Acción:** **Conservar (Reserva).**
+* Patrón de cálculo VWMA mediante series auxiliares `_valVol` y `_vol` (útil para otros indicadores volume-weighted).  
+
+  
+
+---  
+
+### ✍️ La opinión de ChatGPT sobre el Indicador  
+
+Es una mejora real sobre el MACD clásico, pero en un set de scalping basado en Order Flow su rol natural es **filtro tendencial**, no trigger. Si tu pantalla ya está “ocupada” por métricas más directas (delta/ratio/tape speed), este se convierte en una reserva valiosa para días de tendencia clara o para traders que prefieren confirmaciones clásicas.  
+
+  
+
+---  
+
+### 📈 Veredicto: ¿Es útil para Scalping?  
+
+**Sí, como filtro (Reserva).**  
+
+Aporta confirmación tendencial ponderada por volumen, pero no sustituye herramientas de ejecución.  
+
+**Acción:** **Conservar (Reserva)**  
+

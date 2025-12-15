@@ -1,11 +1,11 @@
 # 🔥 Master Index: Order Flow & Volumen
 
 ### 📊 Status Dashboard
-**Progreso de Auditoría:** `▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░` **65%** (Fase 2 Completada)
+**Progreso de Auditoría:** `▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░` **71%** (Fase 2 Completada)
 
 | Total Indicadores | 🟢 Core (Ganadores) | 🟡 Reserva (Backup) | 💀 Descartados |
 | :---: | :---: | :---: | :---: |
-| **67** | **25** | **18** | 15 |
+| **67** | **25** | **17** | 16 |
 
 [🔙 Volver al Índice General](INDICATORS.es.md)
 
@@ -209,15 +209,15 @@ _Esfuerzo vs Resultado. ¿Cuánto mueve el precio cada unidad de volumen?_
 | 6/10 | ✅ | 🟡 Reserva | [Arms Ease of Movement](indicators/es/EMV.md) | ¿Qué “facilidad” tiene el precio para desplazarse al ajustar el movimiento del punto medio por la fricción volumen/rango? |
 | 5.5/10 | ✅ | 💀 Descartar | [Market Facilitation Index](indicators/es/MarketFacilitation.md) | <sub>¿Cuánta “facilidad” tiene el mercado para mover el precio por unidad de volumen (rango por volumen) en cada vela?</sub> |
 
-### ⚔️ Volume Oscillators &nbsp;⚠️ <small>PENDIENTE</small>
+### ⚔️ Volume Oscillators &nbsp;✅ <small>FASE 2</small>
 _Olas y flujos de volumen oscilante (Weiss Wave, TVI)._
 
 | Nota | Fase | Estado | Indicador | Pregunta Clave / Descripción |
 | :---: | :---: | :--- | :--- | :--- |
-| **9/10** | ⚠️ | 🟢 **CORE** | [Up/Down Volume Ratio](indicators/es/UpDownVolumeRatio.md) | ¿Quién controla el flujo de volumen (compradores o vendedores) y con qué intensidad relativa? |
-| 8/10 | ⚠️ | 🟡 Reserva | [MACD - Volume Weighted](indicators/es/MacdVW.md) | ¿Cuál es la convergencia entre dos medias ponderadas por volumen (VWMAs)? |
-| 8/10 | ⚠️ | 🟡 Reserva | [Weis Wave](indicators/es/WeissWave.md) | ¿Quanto volumen acumulado (esfuerzo) hay en la onda de precio actual? |
-| 7/10 | ⚠️ | 🟡 Reserva | [Trade Volume Index](indicators/es/TVI.md) | ¿Se está acumulando o distribuyendo el volumen basándose en la dirección del tick? |
+| **9/10** | ✅ | 🟢 **CORE** | [Up/Down Volume Ratio](indicators/es/UpDownVolumeRatio.md) | ¿Quién controla el flujo de volumen (compradores o vendedores) y con qué intensidad relativa? |
+| 7.5/10 | ✅ | 🟡 Reserva | [MACD - Volume Weighted](indicators/es/MacdVW.md) | ¿Cuál es la convergencia entre dos medias ponderadas por volumen y su señal suavizada para filtrar tendencia con participación? |
+| 7.5/10 | ✅ | 🟡 Reserva | [Weis Wave](indicators/es/WeissWave.md) | ¿Cuánto volumen acumulado (esfuerzo) hay en la onda de precio actual? |
+| 4.5/10 | ✅ | 💀 Descartar | [Trade Volume Index](indicators/es/TVI.md) | <sub>¿Se está acumulando o distribuyendo el volumen asignándolo tick a tick según la dirección del precio respecto al tick size?</sub> |
 
 <br>
 

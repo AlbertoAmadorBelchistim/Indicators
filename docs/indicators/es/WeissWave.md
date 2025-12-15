@@ -1,115 +1,162 @@
 ﻿---
-cs_file: WeissWave.cs
-name: Weis Wave
-group: Order Flow
-subgroup: Volume
-score_current: 8/10
-version: Stable
-recommended_action: Conservar (Reserva)
-description: ¿Quanto volumen acumulado (esfuerzo) hay en la onda de precio actual?
-gemini_summary: "El indicador estructural por excelencia. Acumula el volumen de velas consecutivas en la misma dirección, creando 'ondas' de presión. Esencial para el análisis Wyckoff."
-comparison_group: "Volume Oscillators"
-competitor_notes: "Único. No es un oscilador matemático, es un acumulador estructural."
-reusable_code: null
-file_state: Estable
-score_potential: 9/10
-effort: Bajo
-action_priority: P3
-analysis_date: 2025-11-21
-official_code_date: 23/04/2025
----
+# 1. IDENTIFICACIÓN  
+cs_file: WeissWave.cs  
+name: Weis Wave  
+version: ATAS Stable/Latest  
 
-## 🛡️ Weis Wave (8/10)
+# 2. CLASIFICACIÓN  
+group: Order Flow  
+subgroup: Volume  
+comparison_group: "Volume Oscillators"  
+
+# 3. VALORACIÓN (Score & Priority)  
+score_current: 7.5/10  
+score_potential: 9/10  
+file_state: Estable  
+effort: Bajo  
+action_priority: Baja  
+system_priority: P3  
+
+# 4. DECISIÓN  
+recommended_action: Conservar (Reserva)  
+
+# 5. ANÁLISIS  
+description: ¿Cuánto volumen acumulado (esfuerzo) hay en la onda de precio actual?  
+gemini_summary: "Acumulador estructural de volumen por tramos direccionales (ondas). Excelente para contexto Wyckoff/VSA, pero en M1 puede ser sensible: una vela contraria rompe la onda."  
+competitor_notes: "No compite como oscilador puro; aporta lectura de estructura (ondas) que complementa al CORE. Pierde como herramienta principal de timing por sensibilidad al color de vela."  
+reusable_code: null  
+
+# 6. METADATOS  
+analysis_date: 2025-12-15  
+official_code_date: 2025-04-23  
+
+  
+
+---  
+
+## 🛡️ Weis Wave (7.5/10)  
 
 **Nombre del archivo:** [`WeissWave.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/WeissWave.cs)  
 **Nombre del indicador:** Weis Wave  
 **Web oficial:** [ATAS — Weis Wave](https://help.atas.net/support/solutions/articles/72000602507)  
-**Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 23/04/2025  
+**Compatibilidad:** ATAS Stable/Latest.  
+**Última revisión del código oficial:** 2025-04-23  
 
-> **La Pregunta Clave:** ¿Cuánto volumen acumulado (esfuerzo) hay en la onda de precio actual?
+> **La Pregunta Clave:** ¿Cuánto volumen acumulado (esfuerzo) hay en la onda de precio actual?  
 
-![WeissWave](../../img/WeissWave.png)
+![WeissWave](../../img/WeissWave.png)  
 
----
+  
 
-### ⚙️ Parámetros configurables
+---  
 
-* **Filter:** Umbral para resaltar ondas gigantes.  
-* **Colors:** Up/Down.  
+### ⚙️ Parámetros configurables  
 
----
+- **Filter:** umbral numérico para colorear “ondas grandes” con `FilterColor`.   
+- **PosColor / NegColor:** colores de onda alcista/bajista.   
+- **FilterColor:** color cuando `WaveVolume > Filter`.   
 
-### 🧭 Clasificación
+  
+
+---  
+
+### 🧭 Clasificación  
 **Grupo:** Order Flow  
 **Subgrupo:** Volume  
 **Comparison Group:** "Volume Oscillators"  
 
----
+  
 
-### 🧠 Uso más frecuente
+---  
 
-* **Ley de Esfuerzo vs Resultado:** Onda de volumen masiva (Esfuerzo) con poco avance de precio (Resultado) = Absorción/Giro.  
-* **Secado (No Supply):** Retroceso bajista con onda de volumen minúscula = Falta de vendedores.  
+### 🧠 Uso más frecuente  
 
----
+* Contexto Wyckoff/VSA: **esfuerzo vs resultado** por ondas, no por velas sueltas.  
+* Detectar **wave failure**: una onda de esfuerzo menor que la previa en un nuevo extremo sugiere agotamiento.  
 
-### 📊 Nivel de relevancia
-🔟 **8 / 10**
+  
 
-✅ **Visión Macro:** Ayuda a ver el mercado en movimientos, no en velas sueltas.  
-⛔ **Sensible:** Esta versión cambia de onda con una sola vela de color contrario. Sería mejor si usara un ZigZag de precio.  
+---  
 
----
+### 📊 Nivel de relevancia  
+🔟 **7.5 / 10**  
 
-### 🎯 Estrategias de scalping donde se aplica
+✅ Aporta lectura estructural de “esfuerzo” acumulado por tramo.   
+✅ Muy útil como complemento a delta/ratio cuando buscas divergencias de contexto.  
+⛔ Sensible en M1: una sola vela contraria rompe onda (ruido).   
 
-* **Wave Failure:** Precio hace nuevo mínimo, pero la onda de volumen bajista es mucho menor que la anterior.  
+  
 
----
+---  
 
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
+### 🎯 Estrategias de scalping donde se aplica  
 
-* **Filter:** `5000` (Para destacar clímax).  
+* **Divergencia estructural:** precio hace nuevo extremo, pero la onda asociada (esfuerzo) es significativamente menor.  
+* **Absorción contextual:** ondas de alto esfuerzo con poco avance neto de precio.  
 
----
+  
 
-### 🧪 Notas de desarrollo
+---  
 
-* Lógica simple: `Sign(Close - Open)`.  
-* Acumula volumen mientras el signo se mantenga.  
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
 
----
+| Parámetro | Valor recomendado | Justificación |  
+|---|---:|---|  
+| Filter | 5000 | Resalta solo clímax/ondas relevantes; reduce ruido visual. |  
+| PosColor / NegColor | Default | Ajuste visual, no afecta cálculo. |  
+| FilterColor | Default | Ajuste visual, no afecta cálculo. |  
 
-### ❗ Incoherencias o aspectos mejorables detectados
+  
 
-* **Ruido:** Una vela Doji o de color contrario rompe la onda.  
+---  
 
----
+### 🧪 Notas de desarrollo  
 
-### 🛠️ Propuestas de mejora
+* La onda se mantiene mientras el signo de `(Open - Close)` coincida con el de la vela previa; si cambia, reinicia y toma el volumen de la vela actual.  
+* El coloreado usa `Open < Close` para Up/Down, más un filtro por umbral. 
 
-* **P3 (ZigZag):** Integrar lógica de ZigZag (cambio mínimo de ticks) para definir las ondas de forma más robusta.  
+  
 
----
+---  
 
-### 💎 Valor Reutilizable (Código Donante)
+### ❗ Incoherencias o aspectos mejorables detectados  
 
-* **Ninguno.** ---
+* En mercados laterales (M1), dojis/cambios pequeños de color fragmentan ondas y degradan la señal. 
 
-### ✍️ La opinión de Gemini sobre el Indicador
+  
 
-Es fundamental para entender la estructura. No te da la entrada exacta, te da el contexto del ciclo.
+---  
 
-**Propuestas de Acción:**
-* **Conservar como Reserva.**
+### 🛠️ Propuestas de mejora  
 
----
+* **P2 (Media):** definir ondas con lógica tipo ZigZag (cambio mínimo de ticks) o umbral de desplazamiento, para robustez en intradía.  
+* **P3 (Baja):** opción de “merge” de dojis (no romper onda si rango o cuerpo < umbral).  
 
-### 📈 Veredicto: ¿Es útil para Scalping?
+  
 
-**Sí.**
+---  
 
-Para ver divergencias estructurales.
+### 💎 Valor Reutilizable (Código Donante)  
 
-**Acción:** **Conservar (Reserva).**
+* Patrón simple de acumulación por tramos y recoloreado por filtro (útil para prototipos rápidos).  
+
+  
+
+---  
+
+### ✍️ La opinión de ChatGPT sobre el Indicador  
+
+Como herramienta de **estructura**, es muy buena; como herramienta de **timing** en M1, es ruidosa tal y como está implementada. En tu sistema la mantendría como reserva de contexto (especialmente si trabajas Wyckoff/VSA), y solo consideraría elevarla si se refactoriza la definición de onda (ZigZag/umbral).  
+
+  
+
+---  
+
+### 📈 Veredicto: ¿Es útil para Scalping?  
+
+**Sí, pero como contexto (Reserva).**  
+
+Aporta divergencias estructurales, no una señal de entrada directa.  
+
+**Acción:** **Conservar (Reserva)**  
+

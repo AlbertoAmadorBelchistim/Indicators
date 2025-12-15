@@ -188,7 +188,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | | | | |
 | **<a id='m'>M</a>** | | | |
 | [MACD](indicators/es/MACD.md) | Oscillators | 8/10 | Mejorar |
-| [MACD - Volume Weighted](indicators/es/MacdVW.md) | Order Flow | 8/10 | Conservar (Reserva) |
+| [MACD - Volume Weighted](indicators/es/MacdVW.md) | Order Flow | 7.5/10 | Conservar (Reserva) |
 | [MACD Bollinger Bands - Improved](indicators/es/MacdBbImproved.md) | Oscillators | 6/10 | Mejorar |
 | [MACD Bollinger Bands - Standard](indicators/es/MacdBbStandart.md) | Oscillators | 6/10 | Conservar |
 | [MACD Cloud](indicators/es/MacdCloud.md) | Trend | 7/10 | Conservar |
@@ -286,7 +286,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [T3](indicators/es/T3.md) | Trend | 8/10 | Conservar |
 | [Tape Patterns](indicators/es/TapePattern.md) | Order Flow | 9/10 | Conservar (Core) |
 | [TD Sequential](indicators/es/TDSequential.md) | Trend | 8/10 | Conservar |
-| [Trade Volume Index](indicators/es/TVI.md) | Order Flow | 7/10 | Conservar (Reserva) |
+| [Trade Volume Index](indicators/es/TVI.md) | Order Flow | 4.5/10 | Descartar |
 | [Trades On Chart](indicators/es/TradesOnChart.md) | Utility | 9/10 | Conservar |
 | [Triangular Moving Average](indicators/es/TMA.md) | Trend | 7/10 | Conservar |
 | [Triple Exponential Moving Average](indicators/es/TEMA.md) | Trend | 8/10 | Conservar |
@@ -306,7 +306,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Volatility - Historical](indicators/es/VolatilityHist.md) | Trend | 4/10 | Reparar |
 | [Volatility Trend](indicators/es/VolatilityTrend.md) | Trend | 8/10 | Conservar |
 | [Volume](indicators/es/Volume.md) | Order Flow | 9/10 | Conservar (Core) |
-| [Volume Bar Range Ratio](indicators/es/VBRR.md) | Order Flow | 7/10 | Conservar (Reserva) |
+| [Volume Bar Range Ratio](indicators/es/VBRR.md) | Order Flow | 7.5/10 | Conservar (Core) |
 | [Volume On The Chart](indicators/es/VolumeOnChart.md) | Order Flow | 8/10 | Conservar (Reserva) |
 | [Volume Per Trade](indicators/es/VolumePerTrade.md) | Order Flow | 8.5/10 | Conservar (Core) |
 | [Volume Zone Oscillator](indicators/es/VolumeZone.md) | Oscillators | 9/10 | Conservar |
@@ -322,7 +322,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Wavetrend](indicators/es/Wavetrend.md) | Oscillators | 8/10 | Conservar |
 | [Weighted Average Oscillator](indicators/es/WAO.md) | Oscillators | 7/10 | Conservar |
 | [Weighted Moving Average](indicators/es/WMA.md) | Trend | 8/10 | Conservar |
-| [Weis Wave](indicators/es/WeissWave.md) | Order Flow | 8/10 | Conservar (Reserva) |
+| [Weis Wave](indicators/es/WeissWave.md) | Order Flow | 7.5/10 | Conservar (Reserva) |
 | [Welles Wilder's Moving Average](indicators/es/WWMA.md) | Trend | 7/10 | Conservar |
 | [Williams Accumulation / Distribution (WAD)](indicators/es/WAD.md) | Oscillators | 7/10 | Conservar |
 | [Williams' %R](indicators/es/WilliamsR.md) | Oscillators | 7/10 | Conservar |
