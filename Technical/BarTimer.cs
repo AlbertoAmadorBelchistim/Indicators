@@ -90,7 +90,7 @@ namespace ATAS.Indicators.Technical
 		private bool _isUnsupportedTimeFrame;
 		private int _lastBar;
 		private int _lastBeforeAlert;
-		private int _lastSecond = -1;
+		private int _lastEndTimeBar = -1;
 		private bool _offsetIsSet;
 		private Color _textColor;
 		private Location _timeLocation;
@@ -220,9 +220,9 @@ namespace ATAS.Indicators.Technical
 		
 		protected override void OnCalculate(int bar, decimal value)
 		{
+			/*
 			var frameType = ChartInfo.ChartType;
-			var candle = GetCandle(bar);
-
+			
 			if (bar == 0)
 			{
 				_lastBeforeAlert = -1;
@@ -235,12 +235,12 @@ namespace ATAS.Indicators.Technical
 				    && frameType != "Volume"
 				    && frameType != "TimeFrame")
 					_isUnsupportedTimeFrame = true;
-				
-				_lastBar = CurrentBar - 1;
 
+				_lastBar = CurrentBar - 1;
+				
 				return;
 			}
-
+			*/
 			if (bar != CurrentBar - 1)
 				return;
 
@@ -256,11 +256,32 @@ namespace ATAS.Indicators.Technical
 	            return;
             }
 
-            if (frameType is "Seconds" or "TimeFrame")
+            if (ChartInfo.ChartType is "Seconds" or "TimeFrame" && _lastEndTimeBar != bar && _offsetIsSet)
+            {
+	            var candle = GetCandle(bar);
                 _endTime = candle.Time.AddSeconds(_barLength);
+	            _lastEndTimeBar = bar;
+            }
 
             _lastBar = bar;
-		}
+        }
+		
+		protected override void OnFinishRecalculate()
+		{
+			var frameType = ChartInfo.ChartType;
+            _lastBeforeAlert = -1;
+			_customOffset = 0;
+			_offsetIsSet = false;
+			_barLength = CalculateBarLength();
+
+			if (frameType != "Seconds"
+			    && frameType != "Tick"
+			    && frameType != "Volume"
+			    && frameType != "TimeFrame")
+				_isUnsupportedTimeFrame = true;
+
+			_lastBar = CurrentBar - 1;
+        }
 
 		protected override void OnRender(RenderContext context, DrawingLayouts layout)
 		{
@@ -406,10 +427,8 @@ namespace ATAS.Indicators.Technical
         }
 
         private TimeSpan CurrentDifference()
-		{
-			var timeleft = (MarketTime - _endTime) > TimeSpan.FromMinutes(1) 
-				? _endTime - UtcTime.AddMinutes(-15)
-				: _endTime - MarketTime;
+        {
+	        var timeleft = _endTime - MarketTime;
 
 			// when the bar is done but no new candles arrived
 			if (timeleft <= TimeSpan.Zero)
