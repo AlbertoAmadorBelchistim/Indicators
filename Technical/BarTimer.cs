@@ -96,6 +96,7 @@ namespace ATAS.Indicators.Technical
 		private Location _timeLocation;
 		private CrossColor _textBeforeColor = DefaultColors.Red.Convert();
 		private CrossColor _areaBeforeColor = DefaultColors.Yellow.Convert();
+		private bool _delayedChart;
 
 		#endregion
 
@@ -217,37 +218,23 @@ namespace ATAS.Indicators.Technical
 		#endregion
 
 		#region Protected methods
-		
+
 		protected override void OnCalculate(int bar, decimal value)
 		{
-			/*
-			var frameType = ChartInfo.ChartType;
-			
-			if (bar == 0)
-			{
-				_lastBeforeAlert = -1;
-				_customOffset = 0;
-				_offsetIsSet = false;
-				_barLength = CalculateBarLength();
-
-				if (frameType != "Seconds"
-				    && frameType != "Tick"
-				    && frameType != "Volume"
-				    && frameType != "TimeFrame")
-					_isUnsupportedTimeFrame = true;
-
-				_lastBar = CurrentBar - 1;
-				
-				return;
-			}
-			*/
 			if (bar != CurrentBar - 1)
 				return;
 
-			if (!_offsetIsSet && _lastBar == bar)
-				_offsetIsSet = true;
+			var candle = GetCandle(bar);
 
-            if (UseAlert && _lastBar != bar && bar == CurrentBar - 1 && _offsetIsSet)
+            if (!_offsetIsSet && _lastBar == bar)
+			{
+				_offsetIsSet = true;
+				var time = candle.LastTime;
+
+				_delayedChart = (MarketTime - time).Minutes >= 10;
+			}
+
+			if (UseAlert && _lastBar != bar && bar == CurrentBar - 1 && _offsetIsSet)
 	            AddAlert(AlertFile, InstrumentInfo.Instrument, "New bar", AlertBackgroundColor, AlertTextColor);
 
             if (_isUnsupportedTimeFrame)
@@ -258,8 +245,7 @@ namespace ATAS.Indicators.Technical
 
             if (ChartInfo.ChartType is "Seconds" or "TimeFrame" && _lastEndTimeBar != bar && _offsetIsSet)
             {
-	            var candle = GetCandle(bar);
-                _endTime = candle.Time.AddSeconds(_barLength);
+	            _endTime = candle.Time.AddSeconds(_barLength);
 	            _lastEndTimeBar = bar;
             }
 
@@ -428,13 +414,15 @@ namespace ATAS.Indicators.Technical
 
         private TimeSpan CurrentDifference()
         {
-	        var timeleft = _endTime - MarketTime;
+	        var timeLeft = _delayedChart 
+		        ? _endTime - MarketTime.AddMinutes(-15)
+                : _endTime - MarketTime;
 
 			// when the bar is done but no new candles arrived
-			if (timeleft <= TimeSpan.Zero)
-				timeleft += TimeSpan.FromSeconds(_barLength);
+			if (timeLeft <= TimeSpan.Zero)
+				timeLeft += TimeSpan.FromSeconds(_barLength);
 
-			return timeleft;
+			return timeLeft;
 		}
 
 		private int CalculateBarLength()
