@@ -10,6 +10,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
+using System.IO;
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Security.Cryptography;
 
 /// <summary>
 /// Displays account information on the chart including account ID, balance, blocked margin, available balance, and PnL.
@@ -61,7 +66,68 @@ public class AccountInfoDisplay : Indicator
         public decimal MaxTrailingDrawdown { get; set; }
         public TrailingInitMode InitializationMode { get; set; }
         public decimal ManualStopEquity { get; set; }
+
+        // Phase 4: EOD engine (per-account)
+        public TrailingPeakUpdateMode PeakUpdateMode { get; set; }
+        public TimeSpan EodTimeLocal { get; set; }
+
+        // Marker to ensure we capture EOD only once per local day
+        public DateTime LastEodCaptureDate { get; set; } // Date component only
+
+        // Reset policy (per-account)
+        public bool EnableMonthlyReset { get; set; }
+        public int MonthlyResetDay { get; set; }   // 1..31 (validaremos)
+
+        // Reset markers (per-account)
+        public int LastMonthlyResetKey { get; set; } // yyyymm, e.g. 202512
     }
+
+    #region Persistence DTO
+
+    private sealed class PersistedRootV1
+    {
+        public int SchemaVersion { get; set; } = _schemaVersion;
+        public string UpdatedAtUtc { get; set; } = DateTime.UtcNow.ToString("O");
+
+        // Key: accountKey (AccountID or fallback)
+        public Dictionary<string, PersistedAccountV1> Accounts { get; set; } = new();
+    }
+
+    private sealed class PersistedAccountV1
+    {
+        public PersistedConfigV1 Config { get; set; } = new();
+        public PersistedRuntimeV1 Runtime { get; set; } = new();
+    }
+
+    private sealed class PersistedConfigV1
+    {
+        public bool EnableTrailingDrawdown { get; set; }
+        public decimal MaxTrailingDrawdown { get; set; }
+        public int InitializationMode { get; set; }            // enum as int
+        public decimal ManualStopEquity { get; set; }
+
+        public int PeakUpdateMode { get; set; }                // enum as int
+        public string EodTimeLocal { get; set; }               // "HH:mm:ss"
+
+        public bool EnableMonthlyReset { get; set; }
+        public int MonthlyResetDay { get; set; }
+    }
+
+    private sealed class PersistedRuntimeV1
+    {
+        public bool IsInitialized { get; set; }
+        public decimal StartEquity { get; set; }
+        public decimal PeakEquity { get; set; }
+        public decimal MaxOpenPnL { get; set; }
+
+        public string InitializedAtUtc { get; set; }           // "O"
+        public string LastEodCaptureDate { get; set; }         // "yyyy-MM-dd" (date only)
+
+        public int LastMonthlyResetKey { get; set; }           // yyyymm
+    }
+
+    #endregion
+
     #endregion
 
     #region Fields
@@ -86,6 +152,43 @@ public class AccountInfoDisplay : Indicator
     private bool _defaultEnableTrailingDrawdown = true;
     private TrailingInitMode _defaultInitializationMode = TrailingInitMode.AutoFromCurrentEquity;
     private decimal _defaultManualStopEquity = 0m;
+
+    private TrailingPeakUpdateMode _defaultPeakUpdateMode = TrailingPeakUpdateMode.Realtime;
+
+    // Bulenox default: 17:00 CT (user can change depending on local timezone)
+    private TimeSpan _defaultEodTimeLocal = new(17, 0, 0);
+
+    private bool _defaultEnableMonthlyReset = true;
+    private int _defaultMonthlyResetDay = 1;
+
+    #endregion
+
+    #region Persistence
+
+    private const int _schemaVersion = 1;
+    private const string _stateFileName = "AccountInfoDisplay.states.v1.json";
+
+    private string _stateFilePath;
+
+    private PersistedRootV1 _persistedRoot;
+
+    // Dirty + throttle
+    private bool _isDirty;
+    private DateTime _lastSaveUtc = DateTime.MinValue;
+    private readonly TimeSpan _minSaveInterval = TimeSpan.FromSeconds(10);
+
+    // Fingerprint to skip redundant disk writes
+    private string _lastSavedHash = string.Empty;
+
+    // Json options
+    private static readonly JsonSerializerOptions _jsonOptions = new()
+    {
+        WriteIndented = true,
+        AllowTrailingCommas = true,
+        ReadCommentHandling = JsonCommentHandling.Skip,
+        PropertyNameCaseInsensitive = true,
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+    };
 
     #endregion
 
@@ -224,6 +327,7 @@ public class AccountInfoDisplay : Indicator
             if (state != null)
                 state.EnableTrailingDrawdown = value;
 
+            TouchActiveAccountAndScheduleSave(force: false);
             RedrawChart();
         }
     }
@@ -249,6 +353,7 @@ public class AccountInfoDisplay : Indicator
             if (state != null)
                 state.MaxTrailingDrawdown = value;
 
+            TouchActiveAccountAndScheduleSave(force: false);
             RedrawChart();
         }
     }
@@ -270,6 +375,7 @@ public class AccountInfoDisplay : Indicator
             if (state != null)
                 state.InitializationMode = value;
 
+            TouchActiveAccountAndScheduleSave(force: false);
             RedrawChart();
         }
     }
@@ -292,6 +398,7 @@ public class AccountInfoDisplay : Indicator
             if (state != null)
                 state.ManualStopEquity = value;
 
+            TouchActiveAccountAndScheduleSave(force: false);
             RedrawChart();
         }
     }
@@ -316,6 +423,119 @@ public class AccountInfoDisplay : Indicator
     }
 
     private bool _reinitializeNow;
+
+    public enum TrailingPeakUpdateMode
+    {
+        Realtime = 0, // classic trailing: peak updates whenever equity makes a new high
+        EndOfDay = 1  // EOD: peak updates only once per day at EOD time
+    }
+
+    [Display(
+    Name = "Peak Update Mode",
+    Description = "Controls when Peak Equity is allowed to update. Realtime updates continuously; EndOfDay updates only once per day at the configured EOD time.",
+    GroupName = "Funding / Trailing DD",
+    Order = 15
+)]
+    public TrailingPeakUpdateMode DefaultPeakUpdateMode
+    {
+        get => _defaultPeakUpdateMode;
+        set
+        {
+            _defaultPeakUpdateMode = value;
+
+            var state = TryGetActiveState();
+            if (state != null)
+            {
+                state.PeakUpdateMode = value;
+                state.LastEodCaptureDate = default; // allow EOD capture immediately if applicable
+            }
+
+            TouchActiveAccountAndScheduleSave(force: false);
+            RedrawChart();
+        }
+    }
+
+    [Display(
+        Name = "EOD Time (Local)",
+        Description = "End-of-day time used when Peak Update Mode is EndOfDay. Uses the PC local clock (DateTime.Now). Default 17:00 (Bulenox CT).",
+        GroupName = "Funding / Trailing DD",
+        Order = 16
+    )]
+    public TimeSpan DefaultEodTimeLocal
+    {
+        get => _defaultEodTimeLocal;
+        set
+        {
+            // Defensive clamp: keep it within a day range
+            if (value < TimeSpan.Zero)
+                value = TimeSpan.Zero;
+            if (value >= TimeSpan.FromDays(1))
+                value = TimeSpan.FromDays(1) - TimeSpan.FromSeconds(1);
+
+            _defaultEodTimeLocal = value;
+
+            var state = TryGetActiveState();
+            if (state != null)
+            { 
+                state.EodTimeLocal = value; 
+                state.LastEodCaptureDate = default; 
+            }
+
+            TouchActiveAccountAndScheduleSave(force: false);
+            RedrawChart();
+        }
+    }
+
+    #endregion
+
+    #region Trailing Reset Settings
+
+    // ---------- Monthly reset ----------
+
+    [Display(
+        Name = "Enable Monthly Reset",
+        Description = "Resets trailing drawdown at a fixed day of each month (per account).",
+        GroupName = "Funding / Trailing DD",
+        Order = 20
+    )]
+    public bool DefaultEnableMonthlyReset
+    {
+        get => _defaultEnableMonthlyReset;
+        set
+        {
+            _defaultEnableMonthlyReset = value;
+
+            var state = TryGetActiveState();
+            if (state != null)
+                state.EnableMonthlyReset = value;
+
+            TouchActiveAccountAndScheduleSave(force: false);
+            RedrawChart();
+        }
+    }
+
+    [Display(
+        Name = "Monthly Reset Day",
+        Description = "Day of month when trailing drawdown resets (1û31). If the month has fewer days, last day is used.",
+        GroupName = "Funding / Trailing DD",
+        Order = 21
+    )]
+    [Range(1, 31)]
+    public int DefaultMonthlyResetDay
+    {
+        get => _defaultMonthlyResetDay;
+        set
+        {
+            _defaultMonthlyResetDay = value;
+
+            var state = TryGetActiveState();
+            if (state != null)
+                state.MonthlyResetDay = value;
+
+            TouchActiveAccountAndScheduleSave(force: false);
+            RedrawChart();
+        }
+    }
 
     #endregion
 
@@ -362,15 +582,50 @@ public class AccountInfoDisplay : Indicator
 			TradingManager.PortfolioSelected += OnPortfolioSelected;
 			_currentPortfolio = TradingManager.Portfolio;
 		}
-	}
 
-	protected override void OnDispose()
+        InitPersistencePath();
+        LoadStateFromDisk();
+
+        // Ensure active portfolio state is created, then apply persisted data if present
+        var portfolio = _currentPortfolio ?? TradingManager?.Portfolio;
+        if (portfolio != null)
+        {
+            _activeAccountKey = GetAccountKey(portfolio);
+
+            // Create state with defaults
+            var state = GetOrCreateTrailingState(_activeAccountKey);
+
+            // Apply persisted data (if any)
+            ApplyLoadedStateToAccount(_activeAccountKey);
+
+            // Sync UI from loaded state (so UI shows per-account values)
+            SyncUiFromState(state);
+
+            RedrawChart();
+        }
+
+    }
+
+    protected override void OnDispose()
 	{
 		if (TradingManager != null)
 		{
 			TradingManager.PortfolioSelected -= OnPortfolioSelected;
 		}
-	}
+
+        try
+        {
+            if (!string.IsNullOrEmpty(_activeAccountKey))
+            {
+                PersistAccountToMemory(_activeAccountKey);
+                SaveIfNeeded(force: true);
+            }
+        }
+        catch
+        {
+            // ignore
+        }
+    }
 
 	protected override void OnCalculate(int bar, decimal value)
 	{
@@ -391,9 +646,12 @@ public class AccountInfoDisplay : Indicator
 
         // Phase 2: equity and trailing DD state
         var equity = portfolio.Balance + portfolio.OpenPnL;
+        var nowLocal = DateTime.Now;
+
+        MaybeResetForSchedule(state, portfolio, equity, nowLocal);
 
         InitializeTrailingState(state, portfolio, equity);
-        UpdateTrailingState(state, portfolio, equity);
+        UpdateTrailingState(state, portfolio, equity, nowLocal);
 
         var rows = BuildRows(state, portfolio, equity); // updated signature
         if (rows == null || rows.Count == 0)
@@ -436,6 +694,10 @@ public class AccountInfoDisplay : Indicator
         );
 
         DrawColoredRows(context, rows, textRect, portfolio, maxLabelWidth);
+
+        // Throttled autosave (only if dirty)
+        if (_isDirty)
+            SaveIfNeeded(force: false);
     }
 
     #endregion
@@ -444,10 +706,25 @@ public class AccountInfoDisplay : Indicator
 
     private void OnPortfolioSelected(Portfolio portfolio)
     {
+        // 1) Persist previous account (upsert + save)
+        if (!string.IsNullOrEmpty(_activeAccountKey))
+        {
+            PersistAccountToMemory(_activeAccountKey);
+            MarkDirty();
+            SaveIfNeeded(force: true);
+        }
+
+        // 2) Switch
         _currentPortfolio = portfolio;
         _activeAccountKey = GetAccountKey(portfolio);
 
+        // 3) Ensure state exists
         var state = GetOrCreateTrailingState(_activeAccountKey);
+
+        // 4) Load persisted data for new account if present
+        ApplyLoadedStateToAccount(_activeAccountKey);
+
+        // 5) Sync UI from the per-account state
         SyncUiFromState(state);
 
         RedrawChart();
@@ -586,6 +863,7 @@ public class AccountInfoDisplay : Indicator
         state.PeakEquity = 0m;
         state.MaxOpenPnL = 0m;
         state.InitializedAtUtc = default;
+        state.LastEodCaptureDate = default;
 
         _reinitializeNow = false;
     }
@@ -629,16 +907,25 @@ public class AccountInfoDisplay : Indicator
         _reinitializeNow = false;
     }
 
-    private void UpdateTrailingState(TrailingDdState state, Portfolio portfolio, decimal equity)
+    private void UpdateTrailingState(TrailingDdState state, Portfolio portfolio, decimal equity, DateTime nowLocal)
     {
         if (!state.EnableTrailingDrawdown || !state.IsInitialized)
             return;
 
-        if (equity > state.PeakEquity)
-            state.PeakEquity = equity;
-
+        // Max OpenPnL is always realtime (it is informational and useful regardless of EOD).
         if (portfolio.OpenPnL > state.MaxOpenPnL)
             state.MaxOpenPnL = portfolio.OpenPnL;
+
+        if (state.PeakUpdateMode == TrailingPeakUpdateMode.Realtime)
+        {
+            if (equity > state.PeakEquity)
+                state.PeakEquity = equity;
+
+            return;
+        }
+
+        // EOD mode
+        MaybeCaptureEodPeak(state, equity, nowLocal);
     }
 
     #endregion
@@ -665,7 +952,13 @@ public class AccountInfoDisplay : Indicator
             EnableTrailingDrawdown = DefaultEnableTrailingDrawdown,
             MaxTrailingDrawdown = DefaultMaxTrailingDrawdown,
             InitializationMode = DefaultInitializationMode,
-            ManualStopEquity = DefaultManualStopEquity
+            ManualStopEquity = DefaultManualStopEquity,
+
+            PeakUpdateMode = DefaultPeakUpdateMode,
+            EodTimeLocal = DefaultEodTimeLocal,
+            LastEodCaptureDate = default,
+            EnableMonthlyReset = DefaultEnableMonthlyReset,
+            MonthlyResetDay = DefaultMonthlyResetDay
         };
 
         _trailingStatesByAccount[accountKey] = state;
@@ -678,6 +971,12 @@ public class AccountInfoDisplay : Indicator
         _defaultInitializationMode = state.InitializationMode;
         _defaultManualStopEquity = state.ManualStopEquity;
         _defaultEnableTrailingDrawdown = state.EnableTrailingDrawdown;
+
+        _defaultPeakUpdateMode = state.PeakUpdateMode;
+        _defaultEodTimeLocal = state.EodTimeLocal;
+
+        _defaultEnableMonthlyReset = state.EnableMonthlyReset;
+        _defaultMonthlyResetDay = state.MonthlyResetDay;
     }
 
     private TrailingDdState TryGetActiveState()
@@ -690,7 +989,367 @@ public class AccountInfoDisplay : Indicator
             : null;
     }
 
+    private void MaybeResetForSchedule(TrailingDdState state, Portfolio portfolio, decimal equity, DateTime nowLocal)
+    {
+        if (state == null || portfolio == null)
+            return;
+
+        // ---------------------------------------------------------------------
+        // 1) Monthly reset (per account)
+        // Resets the whole trailing state once per month when Day >= MonthlyResetDay.
+        // If MonthlyResetDay exceeds the days in the month, the last day is used.
+        // ---------------------------------------------------------------------
+        if (state.EnableMonthlyReset)
+        {
+            var daysInMonth = DateTime.DaysInMonth(nowLocal.Year, nowLocal.Month);
+
+            // Defensive clamp (state.MonthlyResetDay is UI-ranged, but keep it safe)
+            var requestedDay = state.MonthlyResetDay;
+            if (requestedDay < 1) requestedDay = 1;
+
+            var effectiveResetDay = requestedDay > daysInMonth ? daysInMonth : requestedDay;
+
+            var monthKey = (nowLocal.Year * 100) + nowLocal.Month; // yyyymm
+
+            // If we're past the reset day and we haven't reset this month yet -> reset now.
+            if (nowLocal.Day >= effectiveResetDay && state.LastMonthlyResetKey != monthKey)
+            {
+                // Mark that we've reset this month (avoid multiple resets)
+                state.LastMonthlyResetKey = monthKey;
+
+                // Full reset for the new "monthly period"
+                ResetActiveAccountState(state);
+
+                // Persist the reset (throttled)
+                TouchMonthlyResetAndScheduleSave(GetAccountKey(portfolio), force: false);
+
+                // Ensure we don't immediately re-init again due to a pending UI pulse
+                _reinitializeNow = false;
+            }
+        }
+    }
+
+    private void MaybeCaptureEodPeak(TrailingDdState state, decimal equity, DateTime nowLocal)
+    {
+        // EOD capture happens at most once per local day, after EOD time.
+        var today = nowLocal.Date;
+
+        // If already captured for today, do nothing.
+        if (state.LastEodCaptureDate.Date == today)
+            return;
+
+        // Determine today's EOD timestamp in local time.
+        var eod = today.Add(state.EodTimeLocal);
+
+        // Only capture after EOD time.
+        if (nowLocal < eod)
+            return;
+
+        // Capture rule: peak updates only if equity makes a new high at EOD snapshot.
+        if (equity > state.PeakEquity)
+            state.PeakEquity = equity;
+
+        state.LastEodCaptureDate = today;
+
+        // Defensive: do not let a pending UI pulse override the EOD snapshot.
+        _reinitializeNow = false;
+    }
+
     #endregion
+
+    #region Persistence helpers
+
+    private void InitPersistencePath()
+    {
+        // %AppData%\Roaming\ATAS\JSON\AccountInfoDisplay.states.v1.json
+        var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        var baseDir = Path.Combine(appData, "ATAS", "JSON");
+
+        Directory.CreateDirectory(baseDir);
+
+        _stateFilePath = Path.Combine(baseDir, _stateFileName);
+    }
+
+    private void LoadStateFromDisk()
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(_stateFilePath))
+                InitPersistencePath();
+
+            if (!File.Exists(_stateFilePath))
+            {
+                _persistedRoot = new PersistedRootV1();
+                return;
+            }
+
+            var json = File.ReadAllText(_stateFilePath, Encoding.UTF8);
+            if (string.IsNullOrWhiteSpace(json))
+            {
+                _persistedRoot = new PersistedRootV1();
+                return;
+            }
+
+            var loaded = JsonSerializer.Deserialize<PersistedRootV1>(json, _jsonOptions);
+            if (loaded == null)
+            {
+                _persistedRoot = new PersistedRootV1();
+                return;
+            }
+
+            // Basic schema guard (v1 only for now)
+            if (loaded.SchemaVersion != _schemaVersion)
+            {
+                // For now: re-init, or you can implement migrations later.
+                _persistedRoot = new PersistedRootV1();
+                return;
+            }
+
+            loaded.Accounts ??= new Dictionary<string, PersistedAccountV1>();
+            _persistedRoot = loaded;
+
+            // Seed fingerprint to avoid immediate rewrite
+            _lastSavedHash = ComputeSha256(json);
+            _isDirty = false;
+        }
+        catch
+        {
+            // Fail-safe: never break indicator rendering due to IO/JSON issues.
+            _persistedRoot = new PersistedRootV1();
+        }
+    }
+
+    private void ApplyLoadedStateToAccount(string accountKey)
+    {
+        if (string.IsNullOrEmpty(accountKey))
+            return;
+
+        if (_persistedRoot?.Accounts == null)
+            return;
+
+        if (!_persistedRoot.Accounts.TryGetValue(accountKey, out var persisted))
+            return;
+
+        if (!_trailingStatesByAccount.TryGetValue(accountKey, out var state))
+            return;
+
+        var cfg = persisted.Config ?? new PersistedConfigV1();
+        var rt = persisted.Runtime ?? new PersistedRuntimeV1();
+
+        // --- Config ---
+        state.EnableTrailingDrawdown = cfg.EnableTrailingDrawdown;
+        state.MaxTrailingDrawdown = cfg.MaxTrailingDrawdown;
+        state.InitializationMode = (TrailingInitMode)cfg.InitializationMode;
+        state.ManualStopEquity = cfg.ManualStopEquity;
+
+        state.PeakUpdateMode = (TrailingPeakUpdateMode)cfg.PeakUpdateMode;
+        state.EodTimeLocal = ParseTimeSpanOrDefault(cfg.EodTimeLocal, state.EodTimeLocal);
+
+        state.EnableMonthlyReset = cfg.EnableMonthlyReset;
+        state.MonthlyResetDay = cfg.MonthlyResetDay;
+
+        // --- Runtime ---
+        state.IsInitialized = rt.IsInitialized;
+        state.StartEquity = rt.StartEquity;
+        state.PeakEquity = rt.PeakEquity;
+        state.MaxOpenPnL = rt.MaxOpenPnL;
+
+        state.InitializedAtUtc = ParseDateTimeOrDefault(rt.InitializedAtUtc, default);
+        state.LastEodCaptureDate = ParseDateOrDefault(rt.LastEodCaptureDate, default);
+
+        state.LastMonthlyResetKey = rt.LastMonthlyResetKey;
+
+        // IMPORTANT: loading should not mark dirty.
+    }
+
+    private void PersistAccountToMemory(string accountKey)
+    {
+        if (string.IsNullOrEmpty(accountKey))
+            return;
+
+        if (_persistedRoot == null)
+            _persistedRoot = new PersistedRootV1();
+
+        _persistedRoot.Accounts ??= new Dictionary<string, PersistedAccountV1>();
+
+        if (!_trailingStatesByAccount.TryGetValue(accountKey, out var state))
+            return;
+
+        if (!_persistedRoot.Accounts.TryGetValue(accountKey, out var persisted))
+        {
+            persisted = new PersistedAccountV1();
+            _persistedRoot.Accounts[accountKey] = persisted;
+        }
+
+        persisted.Config ??= new PersistedConfigV1();
+        persisted.Runtime ??= new PersistedRuntimeV1();
+
+        // --- Config ---
+        persisted.Config.EnableTrailingDrawdown = state.EnableTrailingDrawdown;
+        persisted.Config.MaxTrailingDrawdown = state.MaxTrailingDrawdown;
+        persisted.Config.InitializationMode = (int)state.InitializationMode;
+        persisted.Config.ManualStopEquity = state.ManualStopEquity;
+
+        persisted.Config.PeakUpdateMode = (int)state.PeakUpdateMode;
+        persisted.Config.EodTimeLocal = FormatTimeSpan(state.EodTimeLocal);
+
+        persisted.Config.EnableMonthlyReset = state.EnableMonthlyReset;
+        persisted.Config.MonthlyResetDay = state.MonthlyResetDay;
+
+        // --- Runtime ---
+        persisted.Runtime.IsInitialized = state.IsInitialized;
+        persisted.Runtime.StartEquity = state.StartEquity;
+        persisted.Runtime.PeakEquity = state.PeakEquity;
+        persisted.Runtime.MaxOpenPnL = state.MaxOpenPnL;
+
+        persisted.Runtime.InitializedAtUtc = state.InitializedAtUtc == default
+            ? null
+            : state.InitializedAtUtc.ToString("O");
+
+        persisted.Runtime.LastEodCaptureDate = state.LastEodCaptureDate == default
+            ? null
+            : state.LastEodCaptureDate.Date.ToString("yyyy-MM-dd");
+
+        persisted.Runtime.LastMonthlyResetKey = state.LastMonthlyResetKey;
+
+        _persistedRoot.UpdatedAtUtc = DateTime.UtcNow.ToString("O");
+    }
+
+    private void SaveIfNeeded(bool force)
+    {
+        if (_persistedRoot == null)
+            return;
+
+        if (string.IsNullOrEmpty(_stateFilePath))
+            InitPersistencePath();
+
+        if (!force)
+        {
+            if (!_isDirty)
+                return;
+
+            var nowUtc = DateTime.UtcNow;
+            if (nowUtc - _lastSaveUtc < _minSaveInterval)
+                return;
+        }
+
+        try
+        {
+            var json = JsonSerializer.Serialize(_persistedRoot, _jsonOptions);
+            var hash = ComputeSha256(json);
+
+            // Skip disk write if content identical
+            if (!force && string.Equals(hash, _lastSavedHash, StringComparison.Ordinal))
+            {
+                _isDirty = false;
+                return;
+            }
+
+            // Atomic-ish write: write temp then replace
+            var tmp = _stateFilePath + ".tmp";
+            File.WriteAllText(tmp, json, Encoding.UTF8);
+
+            if (File.Exists(_stateFilePath))
+            {
+                // Replace destination atomically; no need to delete first
+                File.Replace(tmp, _stateFilePath, null);
+            }
+
+            else
+
+            {
+                // First-time save
+                File.Move(tmp, _stateFilePath);
+            }
+
+            _lastSavedHash = hash;
+            _lastSaveUtc = DateTime.UtcNow;
+            _isDirty = false;
+        }
+        catch
+        {
+            // Never break indicator due to IO errors.
+            // Keep dirty true so we can retry later.
+            _isDirty = true;
+        }
+    }
+
+    private void MarkDirty()
+    {
+        _isDirty = true;
+    }
+
+    private static string ComputeSha256(string text)
+    {
+        if (text == null)
+            return string.Empty;
+
+        using var sha = SHA256.Create();
+        var bytes = Encoding.UTF8.GetBytes(text);
+        var hash = sha.ComputeHash(bytes);
+        return Convert.ToHexString(hash);
+    }
+
+    private static TimeSpan ParseTimeSpanOrDefault(string value, TimeSpan fallback)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return fallback;
+
+        return TimeSpan.TryParse(value, out var ts) ? ts : fallback;
+    }
+
+    private static string FormatTimeSpan(TimeSpan value)
+    {
+        // HH:mm:ss (safe, stable)
+        var h = (int)value.TotalHours;
+        var m = value.Minutes;
+        var s = value.Seconds;
+        return $"{h:00}:{m:00}:{s:00}";
+    }
+
+    private static DateTime ParseDateTimeOrDefault(string value, DateTime fallback)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return fallback;
+
+        return DateTime.TryParse(value, null, System.Globalization.DateTimeStyles.RoundtripKind, out var dt)
+            ? dt
+            : fallback;
+    }
+
+    private static DateTime ParseDateOrDefault(string value, DateTime fallback)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return fallback;
+
+        return DateTime.TryParseExact(value, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out var dt)
+            ? dt.Date
+            : fallback;
+    }
+
+    private void TouchActiveAccountAndScheduleSave(bool force = false)
+    {
+        if (string.IsNullOrEmpty(_activeAccountKey))
+            return;
+
+        PersistAccountToMemory(_activeAccountKey);
+        MarkDirty();
+        SaveIfNeeded(force);
+    }
+
+    private void TouchMonthlyResetAndScheduleSave(string accountKey, bool force = false)
+    {
+        if (string.IsNullOrEmpty(accountKey))
+            return;
+
+        PersistAccountToMemory(accountKey);
+        MarkDirty();
+        SaveIfNeeded(force);
+    }
+
+
+    #endregion
+
 
     #endregion
 }
