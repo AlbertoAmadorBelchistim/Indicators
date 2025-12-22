@@ -1,0 +1,135 @@
+﻿name: Draft release notes from commits (publish + compile)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - publish_stable_MyIndicators
+
+permissions:
+  contents: write
+
+jobs:
+  draft_release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout publish branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch compile branch
+        run: |
+          git fetch origin compile/myindicators:refs/remotes/origin/compile/myindicators --tags
+
+      - name: Build release notes
+        id: gen
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          PUBLISH_BRANCH="publish_stable_MyIndicators"
+          COMPILE_REF="origin/compile/myindicators"
+          POINTER_FILE=".release/last_compile_sha.txt"
+
+          # Ensure pointer exists
+          if [ ! -f "${POINTER_FILE}" ]; then
+            mkdir -p "$(dirname "${POINTER_FILE}")"
+            git rev-parse "${COMPILE_REF}" > "${POINTER_FILE}"
+          fi
+
+          LAST_COMPILE_SHA="$(cat "${POINTER_FILE}" | tr -d '[:space:]')"
+          CURRENT_COMPILE_SHA="$(git rev-parse "${COMPILE_REF}")"
+
+          # Latest publish tag (optional). If you don't tag, it will use "all history" on publish.
+          LAST_TAG="$(git describe --tags --match "v*" --abbrev=0 2>/dev/null || true)"
+
+          if [ -z "${LAST_TAG}" ]; then
+            PUBLISH_RANGE="HEAD~200..HEAD"   # safety: last 200 commits if no tags
+          else
+            PUBLISH_RANGE="${LAST_TAG}..HEAD"
+          fi
+
+          # Compile range by pointer (robust)
+          if git merge-base --is-ancestor "${LAST_COMPILE_SHA}" "${COMPILE_REF}" 2>/dev/null; then
+            COMPILE_RANGE="${LAST_COMPILE_SHA}..${COMPILE_REF}"
+          else
+            COMPILE_RANGE="${COMPILE_REF}~50..${COMPILE_REF}"  # fallback if history changed
+          fi
+
+          PUBLISH_COMMITS="$(git log ${PUBLISH_RANGE} --no-merges --pretty=format:'%s|%h|%an' || true)"
+          COMPILE_COMMITS="$(git log ${COMPILE_RANGE} --no-merges --pretty=format:'%s|%h|%an' || true)"
+
+          if [ -z "${PUBLISH_COMMITS}" ] && [ -z "${COMPILE_COMMITS}" ]; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # ---- PUBLIC NOTES (publish) ----
+          PUB_DOCS="$(echo "${PUBLISH_COMMITS}" | awk -F'|' '$1 ~ /^docs: / {print "- " $1 " (" $2 ") @" $3}')"
+          PUB_FIX="$( echo "${PUBLISH_COMMITS}" | awk -F'|' '$1 ~ /^fix: /  {print "- " $1 " (" $2 ") @" $3}')"
+          PUB_FEAT="$(echo "${PUBLISH_COMMITS}" | awk -F'|' '$1 ~ /^feat: / {print "- " $1 " (" $2 ") @" $3}')"
+          PUB_CHORE="$(echo "${PUBLISH_COMMITS}" | awk -F'|' '$1 ~ /^chore: / {print "- " $1 " (" $2 ") @" $3}')"
+          PUB_OTHER="$(echo "${PUBLISH_COMMITS}" | awk -F'|' '$1 !~ /^(docs|fix|feat|chore): / && $1 != "" {print "- " $1 " (" $2 ") @" $3}')"
+
+          # ---- TECH APPENDIX (compile) ----
+          # Reduce noise: keep only feat/fix by default
+          TECH_FEAT="$(echo "${COMPILE_COMMITS}" | awk -F'|' '$1 ~ /^feat: / {print "- " $1 " (" $2 ")"}')"
+          TECH_FIX="$( echo "${COMPILE_COMMITS}" | awk -F'|' '$1 ~ /^fix: /  {print "- " $1 " (" $2 ")"}')"
+          TECH_OTHER="$(echo "${COMPILE_COMMITS}" | awk -F'|' '$1 !~ /^(feat|fix): / && $1 != "" {print "- " $1 " (" $2 ")"}')"
+
+          NOTES="## 📝 Weekly Summary
+          - Publish: ${PUBLISH_BRANCH}
+          - Compile: compile/myindicators
+          - Publish range: ${LAST_TAG:-<no tag>}..HEAD
+          - Compile range: ${LAST_COMPILE_SHA:0:7}..${CURRENT_COMPILE_SHA:0:7}
+
+          ## 📣 Public changelog (docs / binaries)
+          "
+
+          if [ -n "${PUB_FEAT}" ]; then NOTES="${NOTES}\n### 🌟 Highlights\n${PUB_FEAT}\n"; fi
+          if [ -n "${PUB_FIX}"  ]; then NOTES="${NOTES}\n### 🐛 Fixes\n${PUB_FIX}\n"; fi
+          if [ -n "${PUB_DOCS}" ]; then NOTES="${NOTES}\n### 📚 Documentation\n${PUB_DOCS}\n"; fi
+          if [ -n "${PUB_CHORE}"]; then NOTES="${NOTES}\n### 🧹 Maintenance\n${PUB_CHORE}\n"; fi
+          if [ -n "${PUB_OTHER}"]; then NOTES="${NOTES}\n### 📦 Other\n${PUB_OTHER}\n"; fi
+
+          NOTES="${NOTES}
+
+          ## 🔧 Technical appendix (compile/myindicators)
+          <details>
+          <summary>Show technical commit log</summary>
+
+          ### Features
+          ${TECH_FEAT:-_No feature commits in this range._}
+
+          ### Fixes
+          ${TECH_FIX:-_No fix commits in this range._}
+
+          ### Other (optional)
+          ${TECH_OTHER:-_No other commits (or filtered out)._}
+
+          </details>
+          "
+
+          # Use a stable draft tag to avoid creating many tags
+          TAG_NAME="vNEXT"
+
+          echo "has_changes=true" >> $GITHUB_OUTPUT
+          echo "tag_name=${TAG_NAME}" >> $GITHUB_OUTPUT
+
+          {
+            echo "notes<<'EOF'"
+            echo -e "${NOTES}"
+            echo "EOF"
+          } >> $GITHUB_OUTPUT
+
+      - name: Create/Update draft release
+        if: steps.gen.outputs.has_changes == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.gen.outputs.tag_name }}
+          name: ${{ steps.gen.outputs.tag_name }}
+          body: ${{ steps.gen.outputs.notes }}
+          draft: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
