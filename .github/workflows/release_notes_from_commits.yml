@@ -79,37 +79,67 @@ jobs:
           TECH_OTHER="$(echo "${COMPILE_COMMITS}" | awk -F'|' '$1 !~ /^(feat|fix): / && $1 != "" {print "- " $1 " (" $2 ")"}')"
 
           NOTES="## 📝 Weekly Summary
-          - Publish: ${PUBLISH_BRANCH}
-          - Compile: compile/myindicators
-          - Publish range: ${LAST_TAG:-<no tag>}..HEAD
-          - Compile range: ${LAST_COMPILE_SHA:0:7}..${CURRENT_COMPILE_SHA:0:7}
+            - Publish: ${PUBLISH_BRANCH}
+            - Compile: compile/myindicators
+            - Publish range: ${LAST_TAG:-<no tag>}..HEAD
+            - Compile range: ${LAST_COMPILE_SHA:0:7}..${CURRENT_COMPILE_SHA:0:7}
 
-          ## 📣 Public changelog (docs / binaries)
-          "
+            ## 📣 Public changelog (docs / binaries)
+            "
 
-          if [ -n "${PUB_FEAT}" ]; then NOTES="${NOTES}\n### 🌟 Highlights\n${PUB_FEAT}\n"; fi
-          if [ -n "${PUB_FIX}"  ]; then NOTES="${NOTES}\n### 🐛 Fixes\n${PUB_FIX}\n"; fi
-          if [ -n "${PUB_DOCS}" ]; then NOTES="${NOTES}\n### 📚 Documentation\n${PUB_DOCS}\n"; fi
-          if [ -n "${PUB_CHORE}"]; then NOTES="${NOTES}\n### 🧹 Maintenance\n${PUB_CHORE}\n"; fi
-          if [ -n "${PUB_OTHER}"]; then NOTES="${NOTES}\n### 📦 Other\n${PUB_OTHER}\n"; fi
+            if [ -n "${PUB_FEAT}" ]; then
+              NOTES="${NOTES}
+            ### 🌟 Highlights
+            ${PUB_FEAT}
+            "
+            fi
 
-          NOTES="${NOTES}
+            if [ -n "${PUB_FIX}" ]; then
+              NOTES="${NOTES}
+            ### 🐛 Fixes
+            ${PUB_FIX}
+            "
+            fi
 
-          ## 🔧 Technical appendix (compile/myindicators)
-          <details>
-          <summary>Show technical commit log</summary>
+            if [ -n "${PUB_DOCS}" ]; then
+              NOTES="${NOTES}
+            ### 📚 Documentation
+            ${PUB_DOCS}
+            "
+            fi
 
-          ### Features
-          ${TECH_FEAT:-_No feature commits in this range._}
+            if [ -n "${PUB_CHORE}" ]; then
+              NOTES="${NOTES}
+            ### 🧹 Maintenance
+            ${PUB_CHORE}
+            "
+            fi
 
-          ### Fixes
-          ${TECH_FIX:-_No fix commits in this range._}
+            if [ -n "${PUB_OTHER}" ]; then
+              NOTES="${NOTES}
+            ### 📦 Other
+            ${PUB_OTHER}
+            "
+            fi
 
-          ### Other (optional)
-          ${TECH_OTHER:-_No other commits (or filtered out)._}
+            NOTES="${NOTES}
 
-          </details>
-          "
+            ## 🔧 Technical appendix (compile/myindicators)
+            <details>
+            <summary>Show technical commit log</summary>
+
+            ### Features
+            ${TECH_FEAT:-_No feature commits in this range._}
+
+            ### Fixes
+            ${TECH_FIX:-_No fix commits in this range._}
+
+            ### Other (optional)
+            ${TECH_OTHER:-_No other commits (or filtered out)._}
+
+            </details>
+            "
+
 
           # Use a stable draft tag to avoid creating many tags
           TAG_NAME="vNEXT"
