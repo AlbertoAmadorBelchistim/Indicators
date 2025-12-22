@@ -1,102 +1,197 @@
 ﻿---
-cs_file: TradesOnChart.cs
-name: Trades On Chart
-category: Utility
-group: Utility
-subgroup: Account
-score_current: 9/10
-version: Stable
-recommended_action: Conservar
-description: ¿Dónde ejecuté mis operaciones pasadas y cuál fue el resultado?
-gemini_summary: "Excelente herramienta de post-análisis. Dibuja trades del historial con PnL."
-comparison_group: "Account Tools"
-competitor_notes: "Sin competencia."
-reusable_code: null
-file_state: Estable
-score_potential: 9/10
-effort: Medio
-action_priority: N/A
-analysis_date: 2025-11-18
-official_code_date: 13/11/2025
+# 1. IDENTIFICACIÓN
+cs_file: TradesOnChartModif.cs  
+name: Trades On Chart Modif  
+version: Custom v1.0  
+
+# 2. CLASIFICACIÓN
+group: Visualization  
+subgroup: Trade Review  
+comparison_group: "Account Tools"  
+
+# 3. VALORACIÓN (Score & Priority)
+score_current: 9/10  
+score_potential: 10/10  
+file_state: Estable  
+effort: Alto  
+action_priority: Baja  
+system_priority: P1  
+
+# 4. DECISIÓN
+recommended_action: Conservar (Core)  
+
+# 5. ANÁLISIS
+description: ¿Cómo se ejecutaron mis operaciones exactamente sobre el gráfico y cómo puedo analizarlas visualmente sin contaminar el precio?  
+gemini_summary: "Versión profesional y definitiva del indicador de auditoría de trades. Mejora radicalmente la legibilidad, estabilidad y escalabilidad del original."  
+competitor_notes: "No tiene competencia directa; supera ampliamente al TradesOnChart oficial en UX y rendimiento."  
+reusable_code: "Motor de colocación de etiquetas, colisión acotada, cacheo de velas por tiempo."  
+
+# 6. METADATOS
+analysis_date: 2025-12-21  
+official_code_date: 2025-11-13  
+user_modification_date: 2025-12-21  
 ---
 
-## 🟦 Trades On Chart (9/10)
+## 🟦 Trades On Chart Modif (9/10)
 
-**Nombre del archivo:** [`TradesOnChart.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/TradesOnChart.cs)  
-**Nombre del indicador:** Trades On Chart  
-**Web oficial:** [ATAS — Trades On Chart](https://help.atas.net/support/solutions/articles/72000633119)  
-**Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 13/11/2025  
+**Nombre del archivo:** [`TradesOnChartModif.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/compile/myindicators/MyIndicators/TradesOnChartModif.cs)  
+**Nombre del indicador:** Trades On Chart Modif  
+**Web oficial base:** [ATAS — Trades On Chart](https://help.atas.net/support/solutions/articles/72000633119)  
+**Compatibilidad:** ATAS Stable / Alpha  
+**Última revisión del código base** [`TradesOnChart.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/TradesOnChart.cs): 2025-11-13  
+**Última revisión del código modificado:** 2025-12-21  
 
-> **La Pregunta Clave:** ¿Dónde ejecuté mis operaciones pasadas y cuál fue el resultado (PnL) visualmente?
+> **La Pregunta Clave:**  
+> ¿Cómo se ejecutaron exactamente mis trades sobre el gráfico y cómo puedo analizarlos visualmente con precisión profesional y sin degradar el rendimiento?
 
 ![TradesOnChart](../../img/TradesOnChart.png)
-
 ---
 
 ### ⚙️ Parámetros configurables
 
-* **ShowLine / ShowTooltip**: Mostrar líneas de conexión y etiquetas de texto.  
-* **Colores**: Compra, Venta, Profit, Loss.  
-* **Estilos**: Grosor, tipo de línea, tamaño de marcador.  
-* **LabelDisplay**: Modo de etiqueta (Oculto, Corto, Completo).  
+#### 🔹 Visualization — General
+- **ShowLine**: Dibuja la línea entre entrada y salida.  
+- **ShowTooltip**: Tooltip detallado al pasar el ratón.  
+- **LabelDisplay**:  
+  - `Hide` — Sin etiquetas  
+  - `Short` — Dirección + volumen + PnL  
+  - `Extended` — Entrada → Salida + PnL  
+  - `Full` — Card persistente tipo v9 (nuevo)
+
+#### 🔹 Visualization — Label Placement (Custom)
+- **Label X Anchor**:  
+  - `CloseBar` — Ancla la etiqueta en la vela de salida  
+  - `Midpoint` — Centro temporal del trade (solo multibar)  
+
+- **Label Y Reference**:  
+  - `OperationRange` — Usa min/max de todo el trade  
+  - `LocalWindow` — Usa ventana local alrededor del anchor  
+
+- **Label Local Window**:  
+  - Número de velas ± alrededor del anchor (0–10)
+
+#### 🔹 Visualization — Estilo
+- **BuyColor / SellColor**  
+- **ProfitColor / LossColor**  
+- **LineWidth / LineStyle**  
+- **MarkerSize**
 
 ---
 
 ### 🧭 Clasificación
-📂 Visualization — Herramienta de auditoría y revisión de trading.
+**Grupo:** Visualization  
+**Subgrupo:** Trade Review  
+**Comparison Group:** "Account Tools"  
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* **Review Diario:** Al terminar la sesión, revisar si las entradas cumplieron las reglas.  
-* **Journaling:** Tomar capturas de pantalla con este indicador activo para el diario de trading.  
+* Auditoría post-sesión de entradas y salidas  
+* Detección de errores de timing (early exit / late entry)  
+* Análisis MAE / MFE visual  
+* Validación disciplinaria frente a reglas del sistema  
 
 ---
 
 ### 📊 Nivel de relevancia
 🔟 **9 / 10**
 
-✅ **Didáctico:** Ver tus errores pintados en el gráfico es la mejor forma de aprender.  
-✅ **Interactividad:** Detecta el ratón (`DrawTooltip`) para mostrar detalles solo cuando se necesita, manteniendo el gráfico limpio.  
-✅ **Integración:** Se conecta automáticamente al portfolio seleccionado en ATAS.  
+✅ UX muy superior al indicador oficial  
+✅ Escala bien con decenas de operaciones  
+✅ Motor de render optimizado (sin LINQ, sin bucles abiertos)  
+⛔ No genera señales (correcto por diseño)  
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Análisis de MAE/MFE:** Visualmente puedes ver si tu stop (línea roja) estaba demasiado cerca o si saliste demasiado pronto (línea verde corta).  
+* Revisión de ejecuciones en **Order Flow / DOM scalping**  
+* Validación de trades en rupturas y absorciones  
+* Post-análisis para journaling profesional  
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **ShowLine**: `True`.  
-* **LabelDisplay**: `Short` (Para no tapar las velas).  
+| Parámetro              | Valor recomendado | Justificación |
+|-----------------------|------------------|---------------|
+| LabelDisplay           | Full              | Máxima información contextual |
+| Label X Anchor         | Midpoint          | Centra trades multibar |
+| Label Y Reference      | LocalWindow       | Evita etiquetas alejadas |
+| Label Local Window     | 3                 | Equilibrio precisión / limpieza |
+| ShowLine               | True              | Contexto de ejecución |
+| ShowTooltip            | True              | Detalle bajo demanda |
+
+---
+
+### ✨ Mejoras introducidas (Oficial/Base)
+
+* Visualización básica de trades con líneas y etiquetas  
+* Tooltip contextual al pasar el ratón  
+* Conexión automática con cuenta y activo  
+
+---
+
+### ✨ Mejoras añadidas (Custom)
+
+* Nuevo **modo Full (card persistente)**  
+* Separación clara entre `Extended` y `Full`  
+* Sistema de **anclaje horizontal configurable**  
+* Sistema de **referencia vertical configurable**  
+* Ventana local de cálculo para evitar alejamiento visual  
+* Motor de colisiones **acotado y determinista**  
+* Cacheo de tiempos de velas (búsqueda O(log N))  
+* Manejo robusto de trades en tiempo real y cierre diferido  
+* Eliminación de asignaciones y LINQ en `OnRender`  
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* **Eventos:** Se suscribe a `TradingStatisticsProvider.Realtime.HistoryMyTrades.Added`. Esto asegura que los trades aparecen en tiempo real.
-* **Render:** Dibuja todo en capa final (`DrawingLayouts.Final`).
-* **Lógica de Labels:** Tiene un algoritmo de detección de colisiones (`IntersectsWith`) para evitar que las etiquetas se solapen. Muy sofisticado.
+* Render en `DrawingLayouts.Final`  
+* Sincronización robusta con `HistoryMyTrades` (Realtime / Replay / Statistics)  
+* Reintentos acotados tras `PositionFlat`  
+* Separación estricta entre lógica de datos y layout  
+* Preparado para gráficos temporales y no temporales  
 
 ---
+
+### ❗ Incoherencias o aspectos mejorables detectados
+
+* Exportación de datos aún no implementada  
+* Snapshot de otros indicadores no soportado por API pública ATAS  
+
 ---
 
-### ✍️ La opinión de Gemini sobre el Indicador
+### 🛠️ Propuestas de mejora
 
-Es una herramienta de calidad profesional. El esfuerzo puesto en que las etiquetas no se solapen y en los tooltips interactivos demuestra un gran cuidado por la UX.
+* Exportación manual a CSV (PR independiente)  
+* Sistema opt-in de snapshot mediante interfaz común  
+* Modo compacto automático en alta densidad  
 
-**Propuestas de Mejora:**
-* Ninguna. Es excelente.
+---
+
+### 💎 Valor Reutilizable (Código Donante)
+
+* Motor de colisiones acotado  
+* Cache de velas por tiempo  
+* Arquitectura de sincronización diferida  
+* Patrón seguro de render sin GC  
+
+---
+
+### ✍️ La opinión de ChatGPT sobre el Indicador
+
+Este indicador representa un **estándar profesional de auditoría visual**.  
+No intenta “decir qué operar”, sino **mostrar la verdad completa de cómo se operó**, con una UX limpia y rendimiento impecable. Es exactamente lo que un trader discrecional avanzado necesita.
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí (Post-Trade).** No te da señales, pero te ayuda a mejorar tu ejecución.
+**Sí (imprescindible para post-trade).**
 
-**Acción:** **Conservar.**
+Permite mejorar ejecución, disciplina y consistencia sin contaminar la operativa en tiempo real.
+
+**Acción:** **Conservar (Core)**  
