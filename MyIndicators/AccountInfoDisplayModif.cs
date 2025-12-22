@@ -1223,7 +1223,7 @@ public class AccountInfoDisplay : Indicator
     [Display(GroupName = "Daily Rails", Name = "Caution Trades Threshold (%)",
     Description = "Suggested CAUTION when TradesToday reaches this percentage of Max Trades Per Day. Example: 0.75 = 75%.",
     Order = 210)]
-    [Range(typeof(decimal), "0.01", "1.00")]
+    [Range(typeof(decimal), "0,01", "1,00")]
     [PostValueMode(PostValueModes.OnLostFocus)]
     public decimal CautionTradesPct
     {
@@ -1243,7 +1243,7 @@ public class AccountInfoDisplay : Indicator
     [Display(GroupName = "Daily Rails", Name = "Caution Remaining Daily Loss (%)",
         Description = "Suggested CAUTION when Remaining Daily Loss falls below this percentage of the Daily Loss Limit. Example: 0.20 = 20%.",
         Order = 211)]
-    [Range(typeof(decimal), "0.01", "1.00")]
+    [Range(typeof(decimal), "0,01", "1,00")]
     [PostValueMode(PostValueModes.OnLostFocus)]
     public decimal CautionRemainingDailyLossPct
     {
@@ -1301,7 +1301,7 @@ public class AccountInfoDisplay : Indicator
     [Display(GroupName = "Daily Rails", Name = "Consistency CAUTION (%)",
         Description = "Suggested CAUTION if Realized PnL Today reaches this percentage of the payout objective. Example: 0.30 = 30%. Must be <= Consistency STOP.",
         Order = 214)]
-    [Range(typeof(decimal), "0.01", "1.00")]
+    [Range(typeof(decimal), "0,01", "1,00")]
     [PostValueMode(PostValueModes.OnLostFocus)]
     public decimal ConsistencyCautionPct
     {
@@ -1323,7 +1323,7 @@ public class AccountInfoDisplay : Indicator
     [Display(GroupName = "Daily Rails", Name = "Consistency STOP (%)",
         Description = "Suggested STOP if Realized PnL Today reaches this percentage of the payout objective. Example: 0.39 = 39%. Must be >= Consistency CAUTION.",
         Order = 215)]
-    [Range(typeof(decimal), "0.01", "1.00")]
+    [Range(typeof(decimal), "0,01", "1,00")]
     [PostValueMode(PostValueModes.OnLostFocus)]
     public decimal ConsistencyStopPct
     {
@@ -1363,7 +1363,7 @@ public class AccountInfoDisplay : Indicator
     [Display(GroupName = "Daily Rails", Name = "Giveback Threshold (% of Profit Cap)",
         Description = "If Daily Profit Cap is enabled, use this percentage as the giveback threshold. Example: 0.30 = 30%.",
         Order = 217)]
-    [Range(typeof(decimal), "0.01", "1.00")]
+    [Range(typeof(decimal), "0,01", "1,00")]
     [PostValueMode(PostValueModes.OnLostFocus)]
     public decimal GivebackPctOfProfitCap
     {

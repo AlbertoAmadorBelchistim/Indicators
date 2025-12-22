@@ -156,7 +156,12 @@ public class TradesOnChartModif : Indicator
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDescription), GroupName = nameof(Strings.Visualization))]
     public bool ShowTooltip { get; set; } = true;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LabelDisplay), Description = nameof(Strings.LabelDisplayDescription), GroupName = nameof(Strings.Visualization))]
+    #if RELEASE
+    [Display(Name = "Label Display", Description = "How trade labels are shown on the chart.", GroupName = nameof(Strings.Visualization))]
+    #else
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LabelDisplay),
+    Description = nameof(Strings.LabelDisplayDescription), GroupName = nameof(Strings.Visualization))]
+    #endif
     public LabelDisplayMode LabelDisplay { get; set; } = LabelDisplayMode.Hide;
 
     [Display(Name = "Label X anchor", GroupName = nameof(Strings.Visualization), Description = "Anchor labels horizontally at close bar or at the midpoint (multi-bar trades).")]
@@ -280,7 +285,12 @@ public class TradesOnChartModif : Indicator
         }
         else
         {
+            #if RELEASE
+            // Stable build: 'Statistics' is not available. Use 'Replay' as the fallback snapshot container.
+            var hist = TradingStatisticsProvider?.Replay?.HistoryMyTrades;
+            #else
             var hist = TradingStatisticsProvider?.Statistics?.HistoryMyTrades;
+            #endif
             if (hist != null)
             {
                 hist.Added -= OnTradeAdded;
@@ -890,6 +900,28 @@ public class TradesOnChartModif : Indicator
 
         try
         {
+        #if RELEASE
+            var stats = await TradingStatisticsProvider.LoadHistoryAsync(
+                from,
+                to,
+                new[] { acc },
+                new[] { sec }
+            );
+
+            if (token != _historyLoadToken)
+                return;
+
+            var providerTrades = stats?.HistoryMyTrades;
+            if (providerTrades == null)
+                return;
+
+            var filtered = providerTrades
+                .Where(t =>
+                    string.Equals(t.AccountID, acc, StringComparison.InvariantCultureIgnoreCase) &&
+                    t.Security.SecurityId.Equals(sec, StringComparison.InvariantCultureIgnoreCase))
+                .ToList();
+
+        #else
             TradingStatisticsProvider.From = from;
             TradingStatisticsProvider.To = to;
             TradingStatisticsProvider.Accounts = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase) { acc };
@@ -897,9 +929,9 @@ public class TradesOnChartModif : Indicator
 
             // LoadHistoryAsync is obsolete in this build; we keep it scoped here because it is required to
             // force provider refresh for the chart time range using the current recommended statistics source.
-            #pragma warning disable CS0618
+        #pragma warning disable CS0618
             var stats = await TradingStatisticsProvider.LoadHistoryAsync(from, to, new[] { acc }, new[] { sec });
-            #pragma warning restore CS0618
+        #pragma warning restore CS0618
 
             if (token != _historyLoadToken)
             {
@@ -914,7 +946,7 @@ public class TradesOnChartModif : Indicator
                     string.Equals(t.AccountID, acc, StringComparison.InvariantCultureIgnoreCase) &&
                     t.Security.SecurityId.Equals(sec, StringComparison.InvariantCultureIgnoreCase))
                 .ToList();
-
+        #endif
             if (filtered.Count == 0)
             {
                 return;
@@ -1143,8 +1175,13 @@ public class TradesOnChartModif : Indicator
         }
 
         // Prefer realtime history snapshot if available, else fallback to Statistics.
+    #if RELEASE
         var src = TradingStatisticsProvider?.Realtime?.HistoryMyTrades
-                  ?? TradingStatisticsProvider?.Statistics?.HistoryMyTrades;
+                  ?? TradingStatisticsProvider?.Replay?.HistoryMyTrades;
+    #else
+        var src = TradingStatisticsProvider?.Realtime?.HistoryMyTrades
+          ?? TradingStatisticsProvider?.Statistics?.HistoryMyTrades;
+    #endif
 
         if (src == null)
         {
@@ -1460,5 +1497,5 @@ public class TradesOnChartModif : Indicator
 
 
 
-    #endregion
+#endregion
 }
