@@ -378,14 +378,8 @@ public class Volume : Indicator
 	{
 		var candle = GetCandle(bar);
 
-		var val = Input switch
-		{
-			InputType.Ticks => candle.Ticks,
-			InputType.Asks => candle.Ask,
-			InputType.Bids => candle.Bid,
-			_ => candle.Volume
-		};
-		_renderSeries[bar] = val;
+        var val = GetInputValue(candle);
+        _renderSeries[bar] = val;
 
 		if (bar == CurrentBar - 1)
 		{
@@ -405,9 +399,10 @@ public class Volume : Indicator
 			}
 		}
 
-		HighestVol.Calculate(bar, candle.Volume);
+		// Keep max-volume consistent with selected Input.
+		HighestVol.Calculate(bar, val);
 
-		if (_useFilter && val > _filter)
+		if (UseFilter && val > _filter)
 		{
 			_renderSeries.Colors[bar] = _filterColor;
 			return;
@@ -433,10 +428,21 @@ public class Volume : Indicator
 		}
 	}
 
-	#endregion
+    #endregion
 
-	#region Private methods
+    #region Private methods
 
+    private decimal GetInputValue(IndicatorCandle candle)
+	{
+		return Input switch
+		{
+			InputType.Ticks => candle.Ticks,
+			InputType.Asks => candle.Ask,
+			InputType.Bids => candle.Bid,
+			_ => candle.Volume
+		};
+	}
+	
 	private int GetMinWidth(RenderContext context, int startBar, int endBar)
 	{
 		var maxLength = 0;
