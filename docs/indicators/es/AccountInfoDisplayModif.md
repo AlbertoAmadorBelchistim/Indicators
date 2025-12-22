@@ -1,4 +1,4 @@
-﻿---
+---
 # 1. IDENTIFICACIÓN  
 cs_file: AccountInfoDisplayModif.cs  
 name: Account Info Display Modif  
