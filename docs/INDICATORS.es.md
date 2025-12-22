@@ -25,7 +25,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | **<a id='a'>A</a>** | | | |
 | [Absorption](indicators/es/Absorption.md) | Order Flow | 10/10 | Conservar |
 | [AC DC Histogram](indicators/es/ACDC.md) | Oscillators | 2/10 | Descartar |
-| [Account Info Display](indicators/es/AccountInfoDisplay.md) | Utility | 7/10 | Mejorar |
+| [Account Info Display Modif](indicators/es/AccountInfoDisplayModif.md) | Risk Management | 9/10 | Conservar (Core) |
 | [Accumulation / Distribution Flow](indicators/es/ADF.md) | Order Flow | 1/10 | Descartar |
 | [Accumulation/Distribution (A/D)](indicators/es/AD.md) | Order Flow | 2/10 | Descartar |
 | [Active Volume](indicators/es/ActiveVolume.md) | Order Flow | 9/10 | Conservar (Core) |
@@ -287,7 +287,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Tape Patterns](indicators/es/TapePattern.md) | Order Flow | 9/10 | Conservar (Core) |
 | [TD Sequential](indicators/es/TDSequential.md) | Trend | 8/10 | Conservar |
 | [Trade Volume Index](indicators/es/TVI.md) | Order Flow | 4.5/10 | Descartar |
-| [Trades On Chart](indicators/es/TradesOnChart.md) | Utility | 9/10 | Conservar |
+| [Trades On Chart Modif](indicators/es/TradesOnChart.md) | Visualization | 9/10 | Conservar (Core) |
 | [Triangular Moving Average](indicators/es/TMA.md) | Trend | 7/10 | Conservar |
 | [Triple Exponential Moving Average](indicators/es/TEMA.md) | Trend | 8/10 | Conservar |
 | [TRIX](indicators/es/TRIX.md) | Oscillators | 7/10 | Conservar |
@@ -305,7 +305,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Volatility - Chaikins](indicators/es/VolatilityChaikins.md) | Trend | 7/10 | Conservar |
 | [Volatility - Historical](indicators/es/VolatilityHist.md) | Trend | 4/10 | Reparar |
 | [Volatility Trend](indicators/es/VolatilityTrend.md) | Trend | 8/10 | Conservar |
-| [Volume](indicators/es/Volume.md) | Order Flow | 9/10 | Conservar (Core) |
+| [Volume](indicators/es/VolumeModif.md) | Order Flow | 9.5/10 | Conservar (Core) |
 | [Volume Bar Range Ratio](indicators/es/VBRR.md) | Order Flow | 7.5/10 | Conservar (Core) |
 | [Volume On The Chart](indicators/es/VolumeOnChart.md) | Order Flow | 8/10 | Conservar (Reserva) |
 | [Volume Per Trade](indicators/es/VolumePerTrade.md) | Order Flow | 8.5/10 | Conservar (Core) |

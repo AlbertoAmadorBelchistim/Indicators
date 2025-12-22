@@ -169,7 +169,7 @@ _Volumen total por barra y sus variantes visuales._
 
 | Nota | Fase | Estado | Indicador | Pregunta Clave / Descripción |
 | :---: | :---: | :--- | :--- | :--- |
-| **9/10** | ✅ | 🟢 **CORE** | [Volume](indicators/es/Volume.md) | ¿Cuál es el volumen de actividad en cada vela y cómo se colorea según el delta? |
+| **9.5/10** | ✅ | 🟢 **CORE** | [Volume](indicators/es/VolumeModif.md) | ¿Cuál es el volumen real y estadísticamente relevante en cada vela según la métrica seleccionada? |
 | 8/10 | ✅ | 🟡 Reserva | [Volume On The Chart](indicators/es/VolumeOnChart.md) | Visualiza el volumen como un histograma de fondo superpuesto al precio para ahorrar espacio. |
 | 6/10 | ✅ | 🟡 Reserva | [Cumulative Daily Volume](indicators/es/CumulativeDailyVolume.md) | ¿Cuál es el volumen total acumulado desde el inicio de la sesión? |
 
