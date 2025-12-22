@@ -34,11 +34,11 @@ user_modification_date: 2025-12-22
 
 ## 🏆 Volume Modif (9.5/10)
 
-**Nombre del archivo:** [`Volume.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/Volume.cs)  
+**Nombre del archivo:** [`VolumeModif.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/compile/myindicators/MyIndicators/VolumeModif.cs)  
 **Nombre del indicador:** Volume  
-**Web oficial:** [ATAS — Volume](https://help.atas.net/support/solutions/articles/72000602498)  
+**Web oficial base:** [ATAS — Volume](https://help.atas.net/support/solutions/articles/72000602498)  
 **Compatibilidad:** ATAS versión estable.  
-**Última revisión del código oficial:** 2025-05-14  
+**Última revisión del código base** [`Volume.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/Volume.cs): 2025-05-14  
 **Última revisión del código modificado:** 2025-12-22  
 
 > **La Pregunta Clave:** ¿Cuál es el volumen real y estadísticamente relevante en cada vela según la métrica seleccionada?
