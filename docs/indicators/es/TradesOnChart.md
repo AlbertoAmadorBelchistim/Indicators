@@ -1,4 +1,4 @@
-﻿---
+---
 # 1. IDENTIFICACIÓN
 cs_file: TradesOnChartModif.cs  
 name: Trades On Chart Modif  
