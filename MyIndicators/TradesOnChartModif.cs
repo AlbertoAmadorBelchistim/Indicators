@@ -1,26 +1,25 @@
 ﻿namespace ATAS.Indicators.Technical;
 
+using ATAS.DataFeedsCore;
+using OFT.Attributes;
+using OFT.Localization;
+using OFT.Rendering.Context;
+using OFT.Rendering.Tools;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Linq;
-using ATAS.DataFeedsCore;
-using OFT.Attributes;
-using OFT.Localization;
-using OFT.Rendering.Context;
-using OFT.Rendering.Tools;
-
 using Color = System.Drawing.Color;
 using DashStyle = System.Drawing.Drawing2D.DashStyle;
 using Pen = OFT.Rendering.Tools.RenderPen;
 
 [HelpLink("https://help.atas.net/support/solutions/articles/72000633119")]
 [Category(IndicatorCategories.Trading)]
-[DisplayName("Trades On Chart Modif v9")]
-[Display(Description = "Fixes clipping by manual line drawing and strict collision detection.")]
-public class TradesOnChartModifV9 : Indicator
+[DisplayName("Trades On Chart Modif")]
+[Display(ResourceType = typeof(Strings), Description = nameof(Strings.TradesOnChartDescription))]
+public class TradesOnChartModif : Indicator
 {
     #region Nested Types
 
@@ -31,132 +30,215 @@ public class TradesOnChartModifV9 : Indicator
         internal int CloseBar { get; set; }
         internal decimal ClosePrice { get; set; }
         internal OrderDirections Direction { get; set; }
-        internal decimal PnL { get; set; }
-        internal decimal PnLTicks { get; set; }
-        internal DateTime OpenTime { get; set; }
-        internal DateTime CloseTime { get; set; }
+		internal decimal PnL { get; set; }
+		internal decimal PnLTicks { get; set; }
+		internal DateTime OpenTime { get; set; }
+		internal DateTime CloseTime { get; set; }
         internal decimal Volume { get; set; }
         internal string Security { get; set; }
 
-        public TradeObj(HistoryMyTrade trade)
-        {
-            OpenPrice = trade.OpenPrice;
-            ClosePrice = trade.ClosePrice;
-            Direction = trade.OpenVolume > 0 ? OrderDirections.Buy : OrderDirections.Sell;
-            PnL = trade.PnL;
-            PnLTicks = trade.TicksPnL;
-            OpenTime = trade.OpenTime;
-            CloseTime = trade.CloseTime;
-            Volume = Math.Abs(trade.OpenVolume);
-            Security = trade.Security.Code;
-        }
 
-        public TradeObj() { }
+		public TradeObj(HistoryMyTrade trade)
+		{
+			OpenPrice = trade.OpenPrice;
+			ClosePrice = trade.ClosePrice;
+			Direction = trade.OpenVolume > 0 ? OrderDirections.Buy : OrderDirections.Sell;
+			PnL = trade.PnL;
+			PnLTicks = trade.TicksPnL;
+			OpenTime = trade.OpenTime;
+			CloseTime = trade.CloseTime;
+			Volume = Math.Abs(trade.OpenVolume);
+			Security = trade.Security.Code;
+		}
     }
 
     public enum LabelDisplayMode
     {
-        [Display(Name = "Hide")] Hide,
-        [Display(Name = "Result Only")] Short,
-        [Display(Name = "Full Details")] Full
+        [Display(Name = "Hide")]
+        Hide,
+        [Display(Name = "Short")]
+        Short,
+        [Display(Name = "Extended")]
+        Extended,
+        [Display(Name = "Full")]
+        Full
     }
+
+    public enum LabelHorizontalAnchor
+    {
+        [Display(Name = "Close bar")]
+        CloseBar,
+
+        [Display(Name = "Midpoint (multi-bar)")]
+        Midpoint
+    }
+
+    public enum LabelVerticalReference
+    {
+        [Display(Name = "Operation range (min/max)")]
+        OperationRange,
+
+        [Display(Name = "Local window (┬▒N) around anchor")]
+        LocalWindow
+    }
+
 
     #endregion
 
     #region Fields
 
-    // Fuentes ajustadas
-    private RenderFont _fontHeader = new RenderFont("Arial", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
-    private RenderFont _fontBody = new RenderFont("Consolas", 8F, FontStyle.Regular, GraphicsUnit.Point, 204);
-
-    private readonly List<TradeObj> _tradesHistorical = new();
-    private readonly List<TradeObj> _tooltipTrades = new();
-
-    // Lista GLOBAL para el frame actual para evitar superposiciones
-    private readonly List<Rectangle> _frameRectangles = new();
-
+    private RenderFont _font = new RenderFont("Arial", 10F, FontStyle.Regular, GraphicsUnit.Point, 204);
+    private RenderFont _labelFont = new RenderFont("Arial", 8F, FontStyle.Regular, GraphicsUnit.Point, 204);
+    private RenderStringFormat _stringFormat = new RenderStringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center };
+    private readonly List<TradeObj> _trades = new();
+    private readonly object _tradesSync = new();
     private Pen _buyPen;
     private Pen _sellPen;
+    private Pen _labelBorderPen;
+    private Pen _labelConnectorPen;
     private Color _buyColor;
     private Color _sellColor;
     private Color _profitColor;
     private Color _lossColor;
     private float _lineWidth = 2f;
     private DashStyle _lineStyle = DashStyle.Dash;
+    private readonly List<Rectangle> _labelsAbove = new();
+    private readonly List<Rectangle> _labelsBelow = new();
+    private volatile int _historyLoadToken;
+    private bool _isHistoryLoading;
+    // Keep a persistent dedupe set per context; do NOT clear on every recalc.
+    private readonly HashSet<string> _seenTradeKeys = new(StringComparer.InvariantCultureIgnoreCase);
+    // Request signature caching.
+    private readonly object _requestSync = new();
+    private string _lastReqAcc;
+    private string _lastReqSec;
+    private DateTime _lastReqFrom;
+    private DateTime _lastReqTo;
+    // Context signature for "current" chart stats.
+    private string _ctxAcc;
+    private string _ctxSec;
 
-    private Pen _borderPen = new Pen(Color.FromArgb(100, 0, 0, 0), 1);
+    // Fast lookup to update already drawn trades when they become complete (Changed event)
+    private readonly Dictionary<long, TradeObj> _tradeById = new();
 
-    private bool _historyLoaded;
-    private int _historyTradesCount;
-    private int _recentTradesCount;
+    // Pending actions executed on OnCalculate (avoid UI-thread issues / race timing)
+    private volatile bool _pendingSyncClosedTrades;
+    private string _pendingSyncReason;
+    private volatile bool _pendingRedraw;
+
+    // Deferred sync retry (no timers). We retry until the provider snapshot actually includes the closed trade.
+    private int _pendingSyncRetriesLeft;
+    private DateTime _lastSnapshotMaxCloseTime = DateTime.MinValue;
+
+    private bool _subscriptionsAttached;
+
+    // Pending history reload executed on OnCalculate
+    private volatile bool _pendingHistoryReload;
+    private string _pendingHistoryReason;
+
+    // Candle time cache to avoid O(N) scans in GetBarByTime.
+    // Built on demand and reused until CurrentBar changes.
+    private DateTime[] _candleTimesCache = Array.Empty<DateTime>();
+    private int _candleTimesCacheSize;
+
+    // Render buffers (avoid per-frame allocations).
+    private readonly List<TradeObj> _tooltipTradesBuffer = new();
+    private readonly List<(TradeObj Trade, Rectangle Rect)> _tooltipRectsBuffer = new();
+    private readonly List<(TradeObj Trade, bool MouseOverMarker1, bool MouseOverMarker2)> _tradeInfoBuffer = new();
 
     #endregion
 
     #region Properties
 
-    [Display(Name = "Manual Time Offset (Hours)", GroupName = "Visualization")]
-    public int ManualTimeOffset { get; set; } = 0;
-
-    [Display(Name = "Label Mode", GroupName = "Visualization")]
-    public LabelDisplayMode LabelDisplay { get; set; } = LabelDisplayMode.Short;
-
-    [Display(Name = "Label Distance (Pixels)", GroupName = "Visualization")]
-    [Range(5, 100)]
-    public int LabelDistance { get; set; } = 30;
-
-    [Display(Name = "Show Lines", GroupName = "Visualization")]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowLines), GroupName = nameof(Strings.Visualization))]
     public bool ShowLine { get; set; } = true;
 
-    [Display(Name = "Show Tooltip", GroupName = "Visualization")]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDescription), GroupName = nameof(Strings.Visualization))]
     public bool ShowTooltip { get; set; } = true;
 
-    [Display(Name = "Buy Color", GroupName = "Colors")]
-    public Color BuyColor
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LabelDisplay), Description = nameof(Strings.LabelDisplayDescription), GroupName = nameof(Strings.Visualization))]
+    public LabelDisplayMode LabelDisplay { get; set; } = LabelDisplayMode.Hide;
+
+    [Display(Name = "Label X anchor", GroupName = nameof(Strings.Visualization), Description = "Anchor labels horizontally at close bar or at the midpoint (multi-bar trades).")]
+    public LabelHorizontalAnchor LabelXAnchor { get; set; } = LabelHorizontalAnchor.CloseBar;
+
+    [Display(Name = "Label Y reference", GroupName = nameof(Strings.Visualization), Description = "Compute the candle range from the whole trade period or from a local window around the anchor.")]
+    public LabelVerticalReference LabelYReference { get; set; } = LabelVerticalReference.LocalWindow;
+
+    [Range(0, 10)]
+    [Display(Name = "Label local window", GroupName = nameof(Strings.Visualization), Description = "Number of bars to look back/forward around the anchor when Y reference is Local window.")]
+    public int LabelLocalWindow { get; set; } = 0;
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BuyColor), GroupName = nameof(Strings.Visualization))]
+    public Color BuyColor 
     {
         get => _buyColor;
-        set { _buyColor = value; _buyPen = GetNewPen(_buyColor, _lineWidth, _lineStyle); }
+        set
+        {
+            _buyColor = value;
+            _buyPen = GetNewPen(_buyColor, _lineWidth, _lineStyle);
+        }
     }
 
-    [Display(Name = "Sell Color", GroupName = "Colors")]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.SellColor), GroupName = nameof(Strings.Visualization))]
     public Color SellColor
     {
         get => _sellColor;
-        set { _sellColor = value; _sellPen = GetNewPen(_sellColor, _lineWidth, _lineStyle); }
+        set
+        {
+            _sellColor = value;
+            _sellPen = GetNewPen(_sellColor, _lineWidth, _lineStyle);
+        }
     }
 
-    [Display(Name = "Profit Color", GroupName = "Colors")]
-    public Color ProfitColor { get => _profitColor; set => _profitColor = value; }
+    [Display(ResourceType = typeof(Strings), Name = "Profit Color", GroupName = nameof(Strings.Visualization), Description = "Color for profitable trades result section")]
+    public Color ProfitColor
+    {
+        get => _profitColor;
+        set => _profitColor = value;
+    }
 
-    [Display(Name = "Loss Color", GroupName = "Colors")]
-    public Color LossColor { get => _lossColor; set => _lossColor = value; }
+    [Display(ResourceType = typeof(Strings), Name = "Loss Color", GroupName = nameof(Strings.Visualization), Description = "Color for losing trades result section")]
+    public Color LossColor
+    {
+        get => _lossColor;
+        set => _lossColor = value;
+    }
 
     [Range(1, 20)]
-    [Display(Name = "Line Width", GroupName = "Visual Style")]
-    public float LineWidth
-    {
-        get => _lineWidth;
-        set { _lineWidth = value; _buyPen = GetNewPen(_buyColor, _lineWidth, _lineStyle); _sellPen = GetNewPen(_sellColor, _lineWidth, _lineStyle); }
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LineWidth), GroupName = nameof(Strings.Visualization))]
+    public float LineWidth 
+    { 
+        get => _lineWidth; 
+        set
+        {
+            _lineWidth = value;
+            _buyPen = GetNewPen(_buyColor, _lineWidth, _lineStyle);
+            _sellPen = GetNewPen(_sellColor, _lineWidth, _lineStyle);
+        }
     }
 
-    [Display(Name = "Dash Style", GroupName = "Visual Style")]
-    public DashStyle LineStyle
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.DashStyle), GroupName = nameof(Strings.Visualization))]
+    public DashStyle LineStyle 
     {
         get => _lineStyle;
-        set { _lineStyle = value; _buyPen = GetNewPen(_buyColor, _lineWidth, _lineStyle); _sellPen = GetNewPen(_sellColor, _lineWidth, _lineStyle); }
+        set
+        {
+            _lineStyle = value;
+            _buyPen = GetNewPen(_buyColor, _lineWidth, _lineStyle);
+            _sellPen = GetNewPen(_sellColor, _lineWidth, _lineStyle);
+        }
     }
 
     [Range(1, 10)]
-    [Display(Name = "Marker Size", GroupName = "Visual Style")]
-    public int MarkerSize { get; set; } = 6;
-
-    [Display(Name = "Debug Overlay", GroupName = "System")]
-    public bool ShowDebug { get; set; } = true;
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Size), GroupName = nameof(Strings.Visualization))]
+    public int MarkerSize { get; set; } = 2;
 
     #endregion
 
     #region ctor
 
-    public TradesOnChartModifV9() : base(true)
+    public TradesOnChartModif() : base(true)
     {
         DenyToChangePanel = true;
         DataSeries[0].IsHidden = true;
@@ -172,534 +254,1211 @@ public class TradesOnChartModifV9 : Indicator
 
     protected override void OnInitialize()
     {
-        TradingStatisticsProvider.Realtime.HistoryMyTrades.Added += OnHistoryTradeAdded;
-        TradingManager.PortfolioSelected += TradingManager_PortfolioChanged;
-        TradingManager.SecuritySelected += TradingManager_SecurityChanged;
 
-        OnApplyDefaultColors();
+        if (_subscriptionsAttached)
+        {
+            return;
+        }
+
+        _subscriptionsAttached = true;
+
+        TradingManager.PortfolioSelected += TradingManager_PortfolioSelected;
+        TradingManager.PositionChanged += TradingManager_PositionChanged;
+
         OnRecalculate();
     }
 
     protected override void OnDispose()
     {
-        TradingStatisticsProvider.Realtime.HistoryMyTrades.Added -= OnHistoryTradeAdded;
-        if (TradingManager != null)
+        var rtHist = TradingStatisticsProvider?.Realtime?.HistoryMyTrades;
+        if (rtHist != null)
         {
-            TradingManager.PortfolioSelected -= TradingManager_PortfolioChanged;
-            TradingManager.SecuritySelected -= TradingManager_SecurityChanged;
+            rtHist.Added -= OnTradeAdded;
+            rtHist.Changed -= OnTradeChanged;
+            rtHist.Removed -= OnTradeRemoved;
+            rtHist.Cleared -= OnTradesCleared;
         }
+        else
+        {
+            var hist = TradingStatisticsProvider?.Statistics?.HistoryMyTrades;
+            if (hist != null)
+            {
+                hist.Added -= OnTradeAdded;
+                hist.Changed -= OnTradeChanged;
+                hist.Removed -= OnTradeRemoved;
+                hist.Cleared -= OnTradesCleared;
+            }
+        }
+
+        TradingManager.PortfolioSelected -= TradingManager_PortfolioSelected;
+        TradingManager.PositionChanged -= TradingManager_PositionChanged;
+
+        _subscriptionsAttached = false;
         base.OnDispose();
+    }
+
+    private void TradingManager_PortfolioSelected(Portfolio obj)
+    {
+        OnRecalculate();
     }
 
     protected override void OnApplyDefaultColors()
     {
-        BuyColor = Color.FromArgb(255, 0, 180, 0);
-        SellColor = Color.FromArgb(255, 200, 0, 0);
-        ProfitColor = Color.FromArgb(255, 34, 139, 34);
-        LossColor = Color.FromArgb(255, 178, 34, 34);
-    }
+        if (ChartInfo is null) return;
 
-    private void TradingManager_SecurityChanged(Security obj) => OnRecalculate();
-    private void TradingManager_PortfolioChanged(Portfolio obj) => OnRecalculate();
+        BuyColor = Color.FromArgb(0xFF, 0x2C, 0x4F, 0x3A);
+        SellColor = Color.FromArgb(0xFF, 0x64, 0x27, 0x33);
+        ProfitColor = Color.FromArgb(0xFF, 0x16, 0x7A, 0x3B);
+        LossColor = Color.FromArgb(0xFF, 0xB0, 0x49, 0x4F);
+    }
 
     protected override void OnRecalculate()
     {
+        var acc = TradingManager?.Portfolio?.AccountID;
+        var sec = TradingManager?.Security?.SecurityId;
+
+
         _buyPen = GetNewPen(_buyColor, _lineWidth, _lineStyle);
         _sellPen = GetNewPen(_sellColor, _lineWidth, _lineStyle);
+        _labelBorderPen ??= new Pen(Color.FromArgb(180, 255, 255, 255), 1f);
+        _labelConnectorPen ??= new Pen(Color.FromArgb(180, 255, 255, 255), 1f);
 
-        _tradesHistorical.Clear();
-        _tradesSynthetic.Clear();
-        _openLots.Clear();
-        _recentTradesCount = 0;
-
-        if (CurrentBar > 0 && TradingManager?.Portfolio != null && TradingManager?.Security != null)
+        // If we are already loading, do not start another load.
+        if (_isHistoryLoading)
         {
-            AddHistoryMyTradesSnapshot();
-            CheckForNewRealtimeTrades();
+            return;
         }
+
+        // Only reset caches when context changed (account/security).
+        var ctxChanged =
+            !string.Equals(_ctxAcc, acc, StringComparison.InvariantCultureIgnoreCase) ||
+            !string.Equals(_ctxSec, sec, StringComparison.InvariantCultureIgnoreCase);
+
+        if (ctxChanged)
+        {
+            _ctxAcc = acc;
+            _ctxSec = sec;
+
+            lock (_tradesSync)
+            {
+                _trades.Clear();
+                _seenTradeKeys.Clear();
+                _candleTimesCache = Array.Empty<DateTime>();
+                _candleTimesCacheSize = 0;
+            }
+        }
+
+        RequestHistoryForChartRange();
     }
+
 
     protected override void OnCalculate(int bar, decimal value)
     {
-        if (!_historyLoaded && bar == CurrentBar - 1)
+        if (_pendingHistoryReload)
         {
-            _historyLoaded = true;
-            OnRecalculate();
-            RedrawChart();
+            var reason = _pendingHistoryReason ?? "Unknown";
+            _pendingHistoryReload = false;
+            _pendingHistoryReason = null;
+
+            RequestHistoryForChartRange();
         }
 
-        if (bar == CurrentBar - 1)
+        // Execute deferred sync/redraw inside the indicator lifecycle (no timers).
+        if (_pendingSyncClosedTrades)
         {
-            CheckForNewRealtimeTrades();
+            var reason = _pendingSyncReason ?? "Unknown";
+
+            var beforeMaxClose = _lastSnapshotMaxCloseTime;
+
+            SyncClosedTradesFromHistorySnapshot(reason);
+
+            // If provider snapshot did not advance yet, keep retrying on next OnCalculate (bounded, no timers).
+            if (_lastSnapshotMaxCloseTime <= beforeMaxClose && _pendingSyncRetriesLeft > 0)
+            {
+                _pendingSyncRetriesLeft--;
+                _pendingSyncClosedTrades = true; // keep pending
+                _pendingRedraw = true;
+            }
+            else
+            {
+                _pendingSyncClosedTrades = false;
+                _pendingSyncReason = null;
+                _pendingSyncRetriesLeft = 0;
+            }
+        }
+
+        if (_pendingRedraw)
+        {
+            _pendingRedraw = false;
+            RedrawChart();
         }
     }
+
 
     #region Rendering
 
     protected override void OnRender(RenderContext context, DrawingLayouts layout)
     {
-        if (ShowDebug) DrawDebugOverlay(context);
         if (ChartInfo is null) return;
 
-        // IMPORTANTE: Limpiar la lista de rectángulos al inicio de cada frame
-        _frameRectangles.Clear();
+        DrawTrades(context);
+    }
 
-        foreach (var trade in _tradesHistorical)
-            RenderSingleTrade(context, trade);
+    private void DrawTrades(RenderContext context)
+    {
+        var tooltipTrades = _tooltipTradesBuffer;
+        tooltipTrades.Clear();
 
-        foreach (var synth in _tradesSynthetic)
+        var tradeInfo = _tradeInfoBuffer;
+        tradeInfo.Clear();
+        _labelsAbove.Clear();
+        _labelsBelow.Clear();
+
+        TradeObj[] tradesSnapshot;
+        lock (_tradesSync)
+            tradesSnapshot = _trades.ToArray();
+
+        foreach (var trade in tradesSnapshot)
         {
-            decimal tickCost = 0;
-            if (TradingManager?.Security != null)
-                tickCost = TradingManager.Security.TickCost;
+	        if (trade.OpenBar > LastVisibleBarNumber || trade.CloseBar < FirstVisibleBarNumber)
+                continue;
 
-            var tempObj = new TradeObj
+            var x1 = ChartInfo.GetXByBar(trade.OpenBar, false);
+            var y1 = ChartInfo.GetYByPrice(trade.OpenPrice, false);
+            var x2 = ChartInfo.GetXByBar(trade.CloseBar, false);
+            var y2 = ChartInfo.GetYByPrice(trade.ClosePrice, false);
+            var pen = GetPenByDirection(trade.Direction);
+
+            if(ShowLine)
+				context.DrawLine(pen, x1, y1, x2, y2);
+
+            var mouseOver = DrawMarker(context, new Point(x1, y1), trade.Direction, true);
+            var mouseOver2 = DrawMarker(context, new Point(x2, y2), trade.Direction, false);
+
+            tradeInfo.Add((trade, mouseOver, mouseOver2));
+        }
+
+        foreach (var (trade, mouseOver, mouseOver2) in tradeInfo)
+        {
+            var mouseOverLabel = false;
+
+            if (LabelDisplay != LabelDisplayMode.Hide)
             {
-                OpenBar = synth.OpenBar,
-                CloseBar = synth.CloseBar,
-                OpenPrice = synth.OpenPrice,
-                ClosePrice = synth.ClosePrice,
-                Direction = synth.Direction,
-                Volume = synth.Volume,
-                OpenTime = synth.OpenTime,
-                CloseTime = synth.CloseTime,
-                Security = TradingManager?.Security?.Code ?? "",
-                PnLTicks = synth.PnLTicks,
-                PnL = synth.PnLTicks * tickCost
-            };
-            RenderSingleTrade(context, tempObj);
+                var anchorBar = GetLabelAnchorBar(trade);
+                var candle = GetCandle(anchorBar);
+                if (candle is null)
+                    continue;
+
+                var isAbove = trade.Direction == OrderDirections.Buy;
+
+                var (labelRect, labelHover) = DrawTradeLabel(context, trade, anchorBar, candle, isAbove);
+                mouseOverLabel = labelHover;
+
+                if (isAbove)
+                    _labelsAbove.Add(labelRect);
+                else
+                    _labelsBelow.Add(labelRect);
+            }
+
+            if (ShowTooltip && (mouseOver || mouseOver2 || mouseOverLabel))
+            {
+                tooltipTrades.Add(trade);
+            }
         }
 
-        DrawTooltips(context);
-    }
-
-    private void RenderSingleTrade(RenderContext context, TradeObj trade)
-    {
-        if (trade.CloseBar < FirstVisibleBarNumber - 1 && trade.OpenBar < FirstVisibleBarNumber - 1) return;
-        if (trade.OpenBar > LastVisibleBarNumber + 1) return;
-
-        var x1 = ChartInfo.GetXByBar(trade.OpenBar, false);
-        var y1 = ChartInfo.GetYByPrice(trade.OpenPrice, false);
-        var x2 = ChartInfo.GetXByBar(trade.CloseBar, false);
-        var y2 = ChartInfo.GetYByPrice(trade.ClosePrice, false);
-
-        var pen = trade.Direction == OrderDirections.Buy ? _buyPen : _sellPen;
-
-        if (ShowLine) context.DrawLine(pen, x1, y1, x2, y2);
-
-        var mo1 = DrawMarker(context, new Point(x1, y1), trade.Direction, true);
-        var exitAction = trade.Direction == OrderDirections.Buy ? OrderDirections.Sell : OrderDirections.Buy;
-        var mo2 = DrawMarker(context, new Point(x2, y2), exitAction, false);
-
-        bool moLabel = false;
-
-        // Dibujado de etiquetas mejorado
-        if (LabelDisplay != LabelDisplayMode.Hide && trade.CloseBar >= FirstVisibleBarNumber && trade.CloseBar <= LastVisibleBarNumber)
+        if (tooltipTrades.Count > 0)
         {
-            var candle = GetCandle(trade.CloseBar);
-            // Colocar arriba para longs, abajo para shorts (para no tapar la vela)
-            bool placeAbove = trade.Direction == OrderDirections.Buy;
+		    var y = MouseLocationInfo.LastPosition.Y;
 
-            var (labelRect, labelHover) = DrawStackingLabel(context, trade, trade.CloseBar, candle, placeAbove);
-            moLabel = labelHover;
+            foreach (var trade in tooltipTrades)
+		    {
+			    DrawTooltip(context, trade, MouseLocationInfo.LastPosition.X, ref y);
+			    y += 5;
+		    }
         }
-
-        if (ShowTooltip && (mo1 || mo2 || moLabel)) _tooltipTrades.Add(trade);
     }
 
-    // --- NUEVO MÉTODO CON DIBUJADO LÍNEA POR LÍNEA Y COLISIÓN ESTRICTA ---
-    private (Rectangle Rect, bool MouseOver) DrawStackingLabel(RenderContext context, TradeObj trade, int bar, IndicatorCandle candle, bool isAbove)
+    private void DrawTooltip(RenderContext context, TradeObj trade, int x, ref int y)
     {
-        // 1. Preparar Líneas de Texto
-        List<string> lines = new List<string>();
-        string header = "";
+        var directionColor = trade.Direction == OrderDirections.Buy ? _buyColor : _sellColor;
+        var resultColor = trade.PnL > 0 ? _profitColor : _lossColor;
+        var cornerRadius = 3;
 
-        // Determinar colores
-        Color headerBg = trade.Direction == OrderDirections.Buy ? _buyColor : _sellColor;
-        Color bodyBg = Color.FromArgb(220, 40, 40, 40); // Fondo oscuro semitransparente
-        Color footerBg = trade.PnLTicks >= 0 ? _profitColor : _lossColor;
+        var direction = trade.Direction == OrderDirections.Buy ? "Long" : "Short";
+        var openTime = trade.OpenTime.AddHours(InstrumentInfo.TimeZone);
+        var closeTime = trade.CloseTime.AddHours(InstrumentInfo.TimeZone);
 
+        var topText = $"{direction} {trade.Volume} {trade.Security}{Environment.NewLine}{Environment.NewLine}" +
+                      $"Entry\t:  {ChartInfo.GetPriceString(trade.OpenPrice)}  {openTime:dd MMM HH:mm:ss}{Environment.NewLine}" +
+                      $"Exit\t:  {ChartInfo.GetPriceString(trade.ClosePrice)}  {closeTime:dd MMM HH:mm:ss}";
+
+        var bottomText = $"Result:  {(trade.PnL > 0 ? "+" : "")}{trade.PnL}  ({trade.PnLTicks} ticks)";
+
+        var topSize = context.MeasureString(topText, _font);
+        var bottomSize = context.MeasureString(bottomText, _font);
+
+        var padding = 10;
+        var width = (int)Math.Max(topSize.Width, bottomSize.Width) + padding * 2;
+        var topHeight = (int)topSize.Height + padding * 2;
+        var bottomHeight = (int)bottomSize.Height + padding * 2;
+
+        var topRect = new Rectangle(x, y, width, topHeight + cornerRadius * 2);
+        var bottomRect = new Rectangle(x, y + topHeight, width, bottomHeight);
+
+        context.FillRectangle(directionColor, topRect, cornerRadius);
+        context.FillRectangle(resultColor, bottomRect, cornerRadius);
+
+        var overlapCover = new Rectangle(x, y + topHeight, width, cornerRadius * 2);
+        context.FillRectangle(resultColor, overlapCover);
+
+        var topTextRect = new Rectangle(x + padding, y + padding, width - padding * 2, topHeight - padding * 2);
+        var bottomTextRect = new Rectangle(x + padding, y + topHeight + padding, width - padding * 2, bottomHeight - padding * 2);
+
+        var textFormat = new RenderStringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Near };
+
+        context.DrawString(topText, _font, Color.White, topTextRect, textFormat);
+        context.DrawString(bottomText, _font, Color.White, bottomTextRect, textFormat);
+
+        y += topHeight + bottomHeight;
+    }
+
+    private bool DrawMarker(RenderContext context, Point point, OrderDirections direction, bool isOpen)
+    {
+        var shift = MarkerSize * 4;
+        var dir = direction == OrderDirections.Buy ? 1 : -1;
+        var y2 = isOpen ? (point.Y + shift * dir) : (point.Y + shift * (-dir));
+        var point2 = new Point(point.X - shift, y2);
+        var point3 = new Point(point2.X + shift * 2, point2.Y);
+        var color = GetMarkerColor(direction, isOpen);
+
+        var points = new Point[] { point, point2, point3 };
+
+        context.FillPolygon(color, points);
+
+        context.DrawPolygon(ChartInfo.ColorsStore.Grid, points);
+
+        if (IsPointInTriangle(MouseLocationInfo.LastPosition, point, point2, point3))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    private (Rectangle Rect, bool MouseOver) DrawTradeLabel(RenderContext context, TradeObj trade, int bar, IndicatorCandle candle, bool isAbove)
+    {
         if (LabelDisplay == LabelDisplayMode.Full)
+            return DrawTradeLabelFullCard(context, trade, bar, candle, isAbove);
+
+        var direction = trade.Direction == OrderDirections.Buy ? "L" : "S";
+        var pnlSign = trade.PnL > 0 ? "+" : "";
+
+        string leftText, rightText;
+
+        if (LabelDisplay == LabelDisplayMode.Extended)
         {
-            var dirStr = trade.Direction == OrderDirections.Buy ? "LONG" : "SHORT";
-            var openTime = ToChartTime(trade.OpenTime);
-            var closeTime = ToChartTime(trade.CloseTime);
-
-            header = $"{dirStr} {trade.Volume} | {trade.Security}";
-            lines.Add($"In : {ChartInfo.GetPriceString(trade.OpenPrice)} @ {openTime:HH:mm:ss}");
-            lines.Add($"Out: {ChartInfo.GetPriceString(trade.ClosePrice)} @ {closeTime:HH:mm:ss}");
-
-            string pnl = trade.PnL != 0 ? $"{trade.PnL:N2} ({trade.PnLTicks}t)" : $"{trade.PnLTicks}t";
-            lines.Add($"PnL: {pnl}");
-        }
-        else // Short Mode
-        {
-            string pnl = trade.PnL != 0 ? $"{trade.PnL:N2} ({trade.PnLTicks}t)" : $"{trade.PnLTicks}t";
-            header = pnl;
-            // En modo short usamos el color de resultado para el header
-            headerBg = trade.PnLTicks >= 0 ? _profitColor : _lossColor;
-        }
-
-        // 2. Calcular Dimensiones
-        int paddingH = 5;
-        int paddingV = 3;
-        int lineHeight = (int)context.MeasureString("0", _fontBody).Height;
-        int headerHeight = (int)context.MeasureString(header, _fontHeader).Height + (paddingV * 2);
-
-        // Ancho máximo
-        int maxWidth = (int)context.MeasureString(header, _fontHeader).Width;
-        foreach (var line in lines)
-        {
-            int w = (int)context.MeasureString(line, _fontBody).Width;
-            if (w > maxWidth) maxWidth = w;
-        }
-        maxWidth += (paddingH * 2);
-
-        // Altura total
-        int totalBodyHeight = lines.Count > 0 ? (lines.Count * lineHeight) + (paddingV * 2) : 0;
-        int totalHeight = headerHeight + totalBodyHeight;
-
-        // 3. Posicionamiento Inicial y Colisiones
-        int centerX = ChartInfo.GetXByBar(bar, false);
-        int startY;
-
-        if (isAbove)
-        {
-            int candleY = ChartInfo.GetYByPrice(candle.High, false);
-            startY = candleY - LabelDistance - totalHeight;
+            var entryPrice = ChartInfo.GetPriceString(trade.OpenPrice);
+            var exitPrice = ChartInfo.GetPriceString(trade.ClosePrice);
+            leftText = $"{direction} {trade.Volume} | {entryPrice}ÔåÆ{exitPrice}";
+            rightText = $" {pnlSign}{trade.PnL} ({trade.PnLTicks}t)";
         }
         else
         {
-            int candleY = ChartInfo.GetYByPrice(candle.Low, false);
-            startY = candleY + LabelDistance;
+            leftText = $"{direction} {trade.Volume}";
+            rightText = $" {pnlSign}{trade.PnL} ({trade.PnLTicks}t)";
         }
 
-        Rectangle finalRect = new Rectangle(centerX - (maxWidth / 2), startY, maxWidth, totalHeight);
+        var leftSize = context.MeasureString(leftText, _labelFont);
+        var rightSize = context.MeasureString(rightText, _labelFont);
 
-        // Bucle de anti-colisión
-        bool collision = true;
+        var padding = 3;
+        var leftWidth = leftSize.Width + padding;
+        var rightWidth = rightSize.Width + padding;
+        var rectWidth = leftWidth + rightWidth;
+        var rectHeight = Math.Max(leftSize.Height, rightSize.Height) + padding * 2;
+
+        var candleX = ChartInfo.GetXByBar(bar, false);
+        // Center the label rect over the anchor bar.
+        var labelX = candleX - (int)(rectWidth / 2f);
+
+        var markerOffset = MarkerSize * 4;
+
+        // Compute exclusion band based on UI option (operation range vs local window around anchor).
+        var (bandFrom, bandTo, _) = GetLabelBandBars(trade, bar);
+
+        decimal bandLow, bandHigh;
+
+        if (!TryGetMinMaxForBars(bandFrom, bandTo, out bandLow, out bandHigh))
+        {
+            // Fallback: use the anchor candle only.
+            bandLow = candle.Low;
+            bandHigh = candle.High;
+        }
+
+        var baseY = isAbove
+            ? ChartInfo.GetYByPrice(bandHigh, false) - markerOffset - rectHeight
+            : ChartInfo.GetYByPrice(bandLow, false) + markerOffset;
+
+        var spacing = 3;
+        var stepSize = rectHeight + spacing;
+
+        var yPosition = baseY;
+        var testRect = new Rectangle(labelX, yPosition, rectWidth, rectHeight);
+
+        // PERFORMANCE: Avoid building/iterating over all labels.
+        // We only need to test against the most recent labels in each lane because we draw left->right by bar.
+        const int maxCheckPerSide = 64;   // tuneable: 32/64 are usually enough
+        const int maxRelocateAttempts = 6; // bound the cost on UI thread
+
         int attempts = 0;
 
-        while (collision && attempts < 20)
+        while (attempts < maxRelocateAttempts)
         {
-            collision = false;
-            foreach (var other in _frameRectangles)
-            {
-                if (finalRect.IntersectsWith(other))
-                {
-                    collision = true;
-                    // Desplazar agresivamente
-                    if (isAbove)
-                        finalRect.Y = other.Top - totalHeight - 2; // Apilar hacia arriba
-                    else
-                        finalRect.Y = other.Bottom + 2; // Apilar hacia abajo
+            attempts++;
 
-                    break; // Reiniciar comprobación con nueva posición
+            bool intersects = false;
+
+            // Check last N labels above
+            for (int i = _labelsAbove.Count - 1, checkedCount = 0; i >= 0 && checkedCount < maxCheckPerSide; i--, checkedCount++)
+            {
+                if (_labelsAbove[i].IntersectsWith(testRect))
+                {
+                    intersects = true;
+                    if (isAbove)
+                    {
+                        // Move further up above the intersecting label
+                        yPosition = _labelsAbove[i].Y - stepSize;
+                    }
+                    else
+                    {
+                        // If we are placing below but intersect with above labels, push down
+                        yPosition = _labelsAbove[i].Bottom + spacing;
+                    }
+
+                    testRect = new Rectangle(labelX, yPosition, rectWidth, rectHeight);
+                    break;
                 }
             }
-            attempts++;
+
+            if (intersects)
+                continue;
+
+            // Check last N labels below
+            for (int i = _labelsBelow.Count - 1, checkedCount = 0; i >= 0 && checkedCount < maxCheckPerSide; i--, checkedCount++)
+            {
+                if (_labelsBelow[i].IntersectsWith(testRect))
+                {
+                    intersects = true;
+                    if (isAbove)
+                    {
+                        // If we are placing above but intersect with below labels, push up
+                        yPosition = _labelsBelow[i].Y - stepSize;
+                    }
+                    else
+                    {
+                        // Move further down below the intersecting label
+                        yPosition = _labelsBelow[i].Bottom + spacing;
+                    }
+
+                    testRect = new Rectangle(labelX, yPosition, rectWidth, rectHeight);
+                    break;
+                }
+            }
+
+            if (!intersects)
+                break;
         }
 
-        // Guardar este rectángulo para las siguientes etiquetas
-        _frameRectangles.Add(finalRect);
 
-        // 4. DIBUJADO MANUAL LÍNEA POR LÍNEA (Evita el recorte)
+        var directionColor = trade.Direction == OrderDirections.Buy ? _buyColor : _sellColor;
+        var resultColor = trade.PnL > 0 ? _profitColor : _lossColor;
+        var cornerRadius = 3;
 
-        // A. Header
-        Rectangle headerRect = new Rectangle(finalRect.X, finalRect.Y, finalRect.Width, headerHeight);
-        context.FillRectangle(headerBg, headerRect);
-        context.DrawRectangle(_borderPen, headerRect);
+        var leftSectionRect = new Rectangle(testRect.X, testRect.Y, leftWidth + cornerRadius * 2, testRect.Height);
+        context.FillRectangle(directionColor, leftSectionRect, cornerRadius);
 
-        var sfHeader = new RenderStringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
-        context.DrawString(header, _fontHeader, Color.White, headerRect, sfHeader);
+        var rightSectionRect = new Rectangle(testRect.X + leftWidth, testRect.Y, rightWidth, testRect.Height);
+        context.FillRectangle(resultColor, rightSectionRect, cornerRadius);
 
-        // B. Body (Si hay líneas)
-        if (lines.Count > 0)
+        var overlapCover = new Rectangle(testRect.X + leftWidth, testRect.Y, cornerRadius * 2, testRect.Height);
+        context.FillRectangle(resultColor, overlapCover);
+
+        var leftTextRect = new Rectangle(testRect.X + padding, testRect.Y + padding, leftWidth - padding, testRect.Height - padding * 2);
+        var rightTextRect = new Rectangle(testRect.X + leftWidth, testRect.Y + padding, rightWidth - padding, testRect.Height - padding * 2);
+
+        var leftFormat = new RenderStringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center };
+        var rightFormat = new RenderStringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
+
+        context.DrawString(leftText, _labelFont, Color.White, leftTextRect, leftFormat);
+        context.DrawString(rightText, _labelFont, Color.White, rightTextRect, rightFormat);
+
+        var mouseOver = testRect.Contains(MouseLocationInfo.LastPosition);
+
+        return (testRect, mouseOver);
+    }
+
+    #endregion
+
+    #endregion
+
+    #region Private Methods
+    private void OnTradeAdded(HistoryMyTrade trade)
+    {
+        if (_isHistoryLoading)
         {
-            Rectangle bodyRect = new Rectangle(finalRect.X, finalRect.Y + headerHeight, finalRect.Width, totalBodyHeight);
-            context.FillRectangle(bodyBg, bodyRect);
-            context.DrawRectangle(_borderPen, bodyRect);
+            return;
+        }
 
-            int currentY = bodyRect.Y + paddingV;
-            var sfBody = new RenderStringFormat { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Near };
+        if (TradingManager?.Portfolio == null || TradingManager?.Security == null)
+            return;
 
-            foreach (var line in lines)
+        if (!string.Equals(trade.AccountID, TradingManager.Portfolio.AccountID, StringComparison.InvariantCultureIgnoreCase))
+        {
+            return;
+        }
+
+        if (!trade.Security.SecurityId.Equals(TradingManager.Security.SecurityId, StringComparison.InvariantCultureIgnoreCase))
+        {
+            return;
+        }
+
+        var key = GetTradeKey(trade);
+
+        lock (_tradesSync)
+        {
+            if (!_seenTradeKeys.Add(key))
             {
-                // Dibujamos cada línea explícitamente en su coordenada Y
-                // Esto garantiza que no se corte nada
-                Rectangle lineRect = new Rectangle(bodyRect.X + paddingH, currentY, bodyRect.Width - (paddingH * 2), lineHeight);
-
-                // Color especial para la última línea (PnL) si queremos
-                Color textColor = Color.White;
-                if (line.StartsWith("PnL"))
-                    textColor = trade.PnLTicks >= 0 ? Color.LightGreen : Color.Salmon;
-
-                context.DrawString(line, _fontBody, textColor, lineRect, sfBody);
-                currentY += lineHeight;
+                return;
             }
         }
 
-        // Conector Visual
-        if (isAbove)
+        if (!trade.IsComplete)
         {
-            int candleY = ChartInfo.GetYByPrice(candle.High, false);
-            if (finalRect.Bottom < candleY)
-                context.DrawLine(_borderPen, centerX, finalRect.Bottom, centerX, candleY);
-        }
-        else
-        {
-            int candleY = ChartInfo.GetYByPrice(candle.Low, false);
-            if (finalRect.Top > candleY)
-                context.DrawLine(_borderPen, centerX, finalRect.Top, centerX, candleY);
+            return;
         }
 
-        return (finalRect, finalRect.Contains(MouseLocationInfo.LastPosition));
+        CreateTradePairNoDedupe(trade);
+
+        _pendingRedraw = true;
     }
 
-    private bool DrawMarker(RenderContext context, Point point, OrderDirections action, bool isEntry)
+
+
+    private static int GetBarByTime(DateTime[] candleTimes, DateTime time)
     {
-        var shift = MarkerSize * 2;
-        Point p1, p2, p3;
-        bool pointUp = action == OrderDirections.Buy;
+        var last = candleTimes.Length - 1;
+        if (last <= 0)
+            return 0;
 
-        if (pointUp)
+        if (candleTimes[0] >= time)
+            return 0;
+
+        if (candleTimes[last] <= time)
+            return last;
+
+        var lo = 0;
+        var hi = last;
+        var result = 0;
+
+        while (lo <= hi)
         {
-            p1 = point;
-            p2 = new Point(point.X - shift, point.Y + (shift * 2));
-            p3 = new Point(point.X + shift, point.Y + (shift * 2));
-        }
-        else
-        {
-            p1 = point;
-            p2 = new Point(point.X - shift, point.Y - (shift * 2));
-            p3 = new Point(point.X + shift, point.Y - (shift * 2));
+            var mid = lo + ((hi - lo) >> 1);
+            if (candleTimes[mid] <= time)
+            {
+                result = mid;
+                lo = mid + 1;
+            }
+            else
+            {
+                hi = mid - 1;
+            }
         }
 
-        Color arrowColor = action == OrderDirections.Buy ? _buyColor : _sellColor;
-        var points = new Point[] { p1, p2, p3 };
-        context.FillPolygon(arrowColor, points);
-        context.DrawPolygon(_borderPen, points);
-
-        return IsPointInTriangle(MouseLocationInfo.LastPosition, p1, p2, p3);
+        return result;
     }
 
-    private void DrawTooltips(RenderContext context)
+    private int GetBarByTime(DateTime time)
     {
-        if (!_tooltipTrades.Any()) return;
-        var y = MouseLocationInfo.LastPosition.Y + 20;
-        var x = MouseLocationInfo.LastPosition.X + 20;
+        var candleTimes = EnsureCandleTimesCache();
+        if (candleTimes.Length == 0)
+            return -1;
 
-        foreach (var trade in _tooltipTrades)
-        {
-            DrawTooltipBox(context, trade, x, ref y);
-            y += 5;
-        }
-        _tooltipTrades.Clear();
+        // If candle times are in chart timezone and trade times are in another,
+        // normalize here if needed (keep as-is for now since your real-time works).
+        return GetBarByTime(candleTimes, time);
     }
 
-    private void DrawTooltipBox(RenderContext context, TradeObj trade, int x, ref int y)
+    private bool IsPointInTriangle(Point p, Point p0, Point p1, Point p2)
     {
-        var bg = Color.FromArgb(230, 40, 40, 40);
-        var fg = Color.White;
+	    double area = TriangleArea(p0, p1, p2);
+	    double area1 = TriangleArea(p, p0, p1);
+	    double area2 = TriangleArea(p, p1, p2);
+	    double area3 = TriangleArea(p, p2, p0);
 
-        var openTime = ToChartTime(trade.OpenTime);
-        var closeTime = ToChartTime(trade.CloseTime);
+	    return Math.Abs(area - (area1 + area2 + area3)) < 0.001;
+    }
+
+    private double TriangleArea(Point p0, Point p1, Point p2)
+    {
+	    return Math.Abs((p0.X * (p1.Y - p2.Y) + p1.X * (p2.Y - p0.Y) + p2.X * (p0.Y - p1.Y)) / 2.0);
+    }
+
+    private Color GetMarkerColor(OrderDirections direction, bool isOpen)
+    {
+        return direction switch
+        {
+            OrderDirections.Buy => isOpen ? _buyColor : _sellColor,
+            OrderDirections.Sell => isOpen ? _sellColor : _buyColor,
+            _ => Color.Transparent
+        };
+    }
+
+    private Pen GetPenByDirection(OrderDirections directions)
+    {
+        return directions switch
+        {
+            OrderDirections.Buy => _buyPen,
+            _ => _sellPen,
+        };
+    }
+
+    private Pen GetNewPen(Color color, float lineWidth, DashStyle lineStyle)
+    {
+        return new Pen(color, lineWidth) { DashStyle = lineStyle };
+    }
+
+    private bool TryGetChartTimeRange(out DateTime from, out DateTime to)
+    {
+        from = default;
+        to = default;
+
+        if (CurrentBar <= 0)
+            return false;
+
+        var first = GetCandle(0);
+        var last = GetCandle(CurrentBar - 1);
+
+        // Defensive: candles can be null on some initialization phases
+        if (first == null || last == null)
+            return false;
+
+        from = first.Time;
+        to = last.Time;
+
+        // Ensure valid range
+        if (to < from)
+            (from, to) = (to, from);
+
+        return true;
+    }
+
+    private async void RequestHistoryForChartRange()
+    {
+        if (TradingManager?.Portfolio == null || TradingManager?.Security == null)
+            return;
+
+        if (!TryGetChartTimeRange(out var from, out var to))
+            return;
+
+        var acc = TradingManager.Portfolio.AccountID;
+        var sec = TradingManager.Security.SecurityId;
+
+        // Normalize to seconds to avoid micro-deltas spamming requests.
+        from = TruncateToSeconds(from);
+        to = TruncateToSeconds(to);
+
+        // 1) Signature guard FIRST (no token/flags touched).
+        lock (_requestSync)
+        {
+            if (string.Equals(_lastReqAcc, acc, StringComparison.InvariantCultureIgnoreCase) &&
+                string.Equals(_lastReqSec, sec, StringComparison.InvariantCultureIgnoreCase) &&
+                _lastReqFrom == from &&
+                _lastReqTo == to)
+            {
+                return;
+            }
+
+            _lastReqAcc = acc;
+            _lastReqSec = sec;
+            _lastReqFrom = from;
+            _lastReqTo = to;
+        }
+
+        // 2) Now we can mark a real load attempt.
+        var token = ++_historyLoadToken;
+        _isHistoryLoading = true;
+
+        try
+        {
+            TradingStatisticsProvider.From = from;
+            TradingStatisticsProvider.To = to;
+            TradingStatisticsProvider.Accounts = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase) { acc };
+            TradingStatisticsProvider.Securities = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase) { sec };
+
+            // LoadHistoryAsync is obsolete in this build; we keep it scoped here because it is required to
+            // force provider refresh for the chart time range using the current recommended statistics source.
+            #pragma warning disable CS0618
+            var stats = await TradingStatisticsProvider.LoadHistoryAsync(from, to, new[] { acc }, new[] { sec });
+            #pragma warning restore CS0618
+
+            if (token != _historyLoadToken)
+            {
+                return;
+            }
+
+            // Take a filtered snapshot FIRST. If it's empty, do NOT wipe existing drawn trades.
+            // This prevents a race where LoadHistoryAsync completes but provider snapshot is not yet populated.
+            var providerTrades = TradingStatisticsProvider.Statistics.HistoryMyTrades;
+            var filtered = providerTrades
+                .Where(t =>
+                    string.Equals(t.AccountID, acc, StringComparison.InvariantCultureIgnoreCase) &&
+                    t.Security.SecurityId.Equals(sec, StringComparison.InvariantCultureIgnoreCase))
+                .ToList();
+
+            if (filtered.Count == 0)
+            {
+                return;
+            }
+
+            lock (_tradesSync)
+            {
+                _trades.Clear();
+                // _seenTradeKeys is kept to prevent duplicates across reloads.
+            }
+
+            int total = 0, matchedRaw = 0, matchedUnique = 0, duplicates = 0, created = 0;
+            var snapshotKeys = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
+            foreach (var t in filtered)
+            {
+                total++;
+                matchedRaw++;
+
+                var key = GetTradeKey(t);
+
+                if (!snapshotKeys.Add(key))
+                {
+                    duplicates++;
+                    continue;
+                }
+
+                matchedUnique++;
+
+                bool isNewKey;
+                lock (_tradesSync)
+                    isNewKey = _seenTradeKeys.Add(key);
+
+                var before = _trades.Count;
+
+                CreateTradePairNoDedupe(t);
+
+                if (_trades.Count > before)
+                    created++;
+            }
+
+            RedrawChart();
+
+        }
+        finally
+        {
+            if (token == _historyLoadToken)
+                _isHistoryLoading = false;
+        }
+    }
+
+
+    private string GetTradeKey(HistoryMyTrade trade)
+    {
+        // Prefer the unique trade id when available (long in this build).
+        if (trade.Id != 0)
+            return trade.Id.ToString();
+
+        // Fallback: deterministic composite key (stringify everything)
+        return string.Join("|", new[]
+        {
+        trade.AccountID ?? string.Empty,
+        trade.Security?.SecurityId ?? string.Empty,
+        trade.OpenTime.Ticks.ToString(),
+        trade.CloseTime.Ticks.ToString(),
+        trade.OpenPrice.ToString(),
+        trade.ClosePrice.ToString(),
+        trade.OpenVolume.ToString(),
+        trade.CloseVolume.ToString(),
+        trade.PnL.ToString(),
+        trade.TicksPnL.ToString()
+    });
+    }
+
+    private static DateTime TruncateToSeconds(DateTime dt)
+    {
+        var ticks = dt.Ticks - (dt.Ticks % TimeSpan.TicksPerSecond);
+        return new DateTime(ticks, dt.Kind);
+    }
+
+    private void CreateTradePairNoDedupe(HistoryMyTrade trade)
+    {
+        var enterBar = GetBarByTime(trade.OpenTime);
+        if (enterBar < 0)
+        {
+            return;
+        }
+
+        var exitBar = GetBarByTime(trade.CloseTime);
+        if (exitBar < 0)
+        {
+            exitBar = enterBar;
+        }
+
+        var tradeObj = new TradeObj(trade)
+        {
+            OpenBar = enterBar,
+            CloseBar = exitBar,
+        };
+
+        lock (_tradesSync)
+        {
+            _trades.Add(tradeObj);
+
+            // Index by Id if available for in-place updates on Changed
+            if (trade.Id != 0)
+                _tradeById[trade.Id] = tradeObj;
+        }
+    }
+
+    private void OnTradeChanged(HistoryMyTrade trade)
+    {
+        if (_isHistoryLoading)
+            return;
+
+        if (TradingManager?.Portfolio == null || TradingManager?.Security == null)
+            return;
+
+        if (!string.Equals(trade.AccountID, TradingManager.Portfolio.AccountID, StringComparison.InvariantCultureIgnoreCase))
+            return;
+
+        if (!trade.Security.SecurityId.Equals(TradingManager.Security.SecurityId, StringComparison.InvariantCultureIgnoreCase))
+            return;
+
+        if (!trade.IsComplete)
+            return;
+
+        bool updated = false;
+
+        lock (_tradesSync)
+        {
+            if (trade.Id != 0 && _tradeById.TryGetValue(trade.Id, out var existing))
+            {
+                existing.ClosePrice = trade.ClosePrice;
+                existing.CloseTime = trade.CloseTime;
+                existing.PnL = trade.PnL;
+                existing.PnLTicks = trade.TicksPnL;
+                existing.CloseBar = Math.Max(GetBarByTime(trade.CloseTime), existing.OpenBar);
+                updated = true;
+            }
+        }
+
+        if (!updated)
+            CreateTradePairNoDedupe(trade);
+
+        _pendingRedraw = true;
+    }
+
+
+    private void OnTradeRemoved(HistoryMyTrade trade)
+    {
+
+        if (trade.Id == 0)
+            return;
+
+        lock (_tradesSync)
+        {
+            if (_tradeById.Remove(trade.Id, out var obj))
+                _trades.Remove(obj);
+        }
+
+        _pendingRedraw = true;
+    }
+
+    private void OnTradesCleared()
+    {
+
+        lock (_tradesSync)
+        {
+            _trades.Clear();
+            _tradeById.Clear();
+            // Note: we intentionally do NOT clear _seenTradeKeys here because it is managed per context.
+            // If we wanted a "cleared" event to allow a full rebuild from scratch, we could clear it,
+            // but we are not doing that in this version to avoid duplicate churn.
+        }
+
+        _pendingRedraw = true;
+    }
+
+    private void TradingManager_PositionChanged(Position pos)
+    {
+        if (pos == null)
+            return;
+
+        if (TradingManager?.Portfolio == null || TradingManager?.Security == null)
+            return;
+
+        if (!string.Equals(pos.AccountID, TradingManager.Portfolio.AccountID, StringComparison.InvariantCultureIgnoreCase))
+            return;
+
+        if (!pos.Security.SecurityId.Equals(TradingManager.Security.SecurityId, StringComparison.InvariantCultureIgnoreCase))
+            return;
+
+        // We only care about closures (position flat). This is the earliest reliable signal.
+        if (pos.Volume != 0)
+            return;
+
+        // Force next history request to NOT be skipped by the "same signature" guard.
+        // We only invalidate the "to" component; "from" remains untouched.
+        lock (_requestSync)
+        {
+            _lastReqTo = DateTime.MinValue;
+        }
+
+        // IMPORTANT: when position becomes flat, refresh provider range (To) so current candle is included
+        _pendingHistoryReload = true;
+        _pendingHistoryReason = "PositionFlat";
+        _pendingRedraw = true;
+
+        // Defer: HistoryMyTrades may not be updated yet at this instant.
+        _pendingSyncClosedTrades = true;
+        _pendingSyncReason = "PositionFlat";
+        // Retry budget: enough to catch provider lag but bounded to avoid endless work.
+        _pendingSyncRetriesLeft = 30;
+
+        _pendingRedraw = true;
+    }
+
+
+
+    private void SyncClosedTradesFromHistorySnapshot(string reason)
+    {
+        if (_isHistoryLoading)
+        {
+            return;
+        }
+
+        // Prefer realtime history snapshot if available, else fallback to Statistics.
+        var src = TradingStatisticsProvider?.Realtime?.HistoryMyTrades
+                  ?? TradingStatisticsProvider?.Statistics?.HistoryMyTrades;
+
+        if (src == null)
+        {
+            return;
+        }
+
+        int total = 0;
+        int accepted = 0;
+        int updated = 0;
+        var snapshotKeys = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+        DateTime snapshotMaxClose = DateTime.MinValue;
+
+        // Iterate snapshot and add only completed trades for current context.
+        foreach (var t in src)
+        {
+            total++;
+
+            if (!t.IsComplete)
+                continue;
+
+            if (!string.Equals(t.AccountID, TradingManager.Portfolio.AccountID, StringComparison.InvariantCultureIgnoreCase))
+                continue;
+
+            if (!t.Security.SecurityId.Equals(TradingManager.Security.SecurityId, StringComparison.InvariantCultureIgnoreCase))
+                continue;
+
+            var key = GetTradeKey(t);
+            if (!snapshotKeys.Add(key))
+                continue;
+
+            if (t.CloseTime > snapshotMaxClose)
+                snapshotMaxClose = t.CloseTime;
+
+            bool wasUpdated = false;
+
+            lock (_tradesSync)
+            {
+                // Update in-place if we already have it indexed.
+                if (t.Id != 0 && _tradeById.TryGetValue(t.Id, out var existing))
+                {
+                    existing.ClosePrice = t.ClosePrice;
+                    existing.CloseTime = t.CloseTime;
+                    existing.PnL = t.PnL;
+                    existing.PnLTicks = t.TicksPnL;
+                    existing.CloseBar = Math.Max(GetBarByTime(t.CloseTime), existing.OpenBar);
+
+                    wasUpdated = true;
+                }
+            }
+
+            if (wasUpdated)
+            {
+                updated++;
+                continue;
+            }
+
+            bool isNewKey;
+            lock (_tradesSync)
+                isNewKey = _seenTradeKeys.Add(key);
+
+            if (!isNewKey)
+                continue;
+
+            CreateTradePairNoDedupe(t);
+            accepted++;
+        }
+
+        if (accepted > 0 || updated > 0)
+            RedrawChart();
+
+        if (snapshotMaxClose > DateTime.MinValue)
+            _lastSnapshotMaxCloseTime = snapshotMaxClose;
+    }
+
+    private DateTime[] EnsureCandleTimesCache()
+    {
+        var size = CurrentBar; // number of candles currently loaded
+        if (size <= 0)
+            return Array.Empty<DateTime>();
+
+        // Rebuild only if the number of loaded candles changed
+        if (_candleTimesCache.Length == size && _candleTimesCacheSize == size)
+            return _candleTimesCache;
+
+        var times = new DateTime[size];
+        for (int i = 0; i < size; i++)
+        {
+            var c = GetCandle(i);
+            times[i] = c?.Time ?? default;
+        }
+
+        _candleTimesCache = times;
+        _candleTimesCacheSize = size;
+        return _candleTimesCache;
+    }
+
+    private int GetLabelAnchorBar(TradeObj trade)
+    {
+        if (LabelXAnchor == LabelHorizontalAnchor.Midpoint && trade.CloseBar > trade.OpenBar)
+            return (trade.OpenBar + trade.CloseBar) >> 1;
+
+        return trade.CloseBar;
+    }
+
+    private (int FromBar, int ToBar, bool IsProvisional) GetLabelBandBars(TradeObj trade, int anchorBar)
+    {
+        // Use the full trade span.
+        if (LabelYReference == LabelVerticalReference.OperationRange && trade.CloseBar >= trade.OpenBar)
+            return (trade.OpenBar, trade.CloseBar, false);
+
+        // Use a local window around the anchor bar.
+        var w = Math.Max(0, LabelLocalWindow);
+
+        var from = Math.Max(0, anchorBar - w);
+        var lastBar = Math.Max(0, CurrentBar - 1);
+        var to = Math.Min(lastBar, anchorBar + w);
+
+        // Provisional if we couldn't include the intended "future" window.
+        var provisional = (anchorBar + w) > to;
+
+        return (from, to, provisional);
+    }
+
+    private bool TryGetMinMaxForBars(int fromBar, int toBar, out decimal minLow, out decimal maxHigh)
+    {
+        minLow = 0m;
+        maxHigh = 0m;
+
+        if (CurrentBar <= 0)
+            return false;
+
+        if (fromBar < 0 || toBar < 0)
+            return false;
+
+        if (toBar < fromBar)
+            (fromBar, toBar) = (toBar, fromBar);
+
+        bool found = false;
+
+        for (int i = fromBar; i <= toBar; i++)
+        {
+            var c = GetCandle(i);
+            if (c is null)
+                continue;
+
+            if (!found)
+            {
+                minLow = c.Low;
+                maxHigh = c.High;
+                found = true;
+                continue;
+            }
+
+            if (c.Low < minLow)
+                minLow = c.Low;
+
+            if (c.High > maxHigh)
+                maxHigh = c.High;
+        }
+
+        return found;
+    }
+
+    private DateTime ToChartTime(DateTime time) => time.AddHours(InstrumentInfo.TimeZone);
+
+    private (Rectangle Rect, bool MouseOver) DrawTradeLabelFullCard(RenderContext context, TradeObj trade, int bar, IndicatorCandle candle, bool isAbove)
+    {
+        // Visual design based on TradesOnChartModif "v9" card.
+        var headerBg = trade.Direction == OrderDirections.Buy ? _buyColor : _sellColor;
+        var bodyBg = Color.FromArgb(220, 40, 40, 40);
+
+        // PnL color (simple, readable).
+        var pnlColor = trade.PnLTicks >= 0 ? Color.LightGreen : Color.Salmon;
+
         var dirStr = trade.Direction == OrderDirections.Buy ? "LONG" : "SHORT";
 
-        var text = $"{dirStr} {trade.Volume} | {trade.Security}\n" +
-                   $"In : {ChartInfo.GetPriceString(trade.OpenPrice)} @ {openTime:HH:mm:ss}\n" +
-                   $"Out: {ChartInfo.GetPriceString(trade.ClosePrice)} @ {closeTime:HH:mm:ss}\n" +
-                   $"PnL: {trade.PnL:N2} ({trade.PnLTicks} pts)";
+        // Time (chart timezone).
+        var openTime = ToChartTime(trade.OpenTime);
+        var closeTime = ToChartTime(trade.CloseTime);
 
-        var size = context.MeasureString(text, _fontHeader);
-        var rect = new Rectangle(x, y, size.Width + 10, size.Height + 10);
+        // Header and lines.
+        var header = $"{dirStr} {trade.Volume} | {trade.Security}";
+        var line1 = $"In : {ChartInfo.GetPriceString(trade.OpenPrice)} @ {openTime:HH:mm:ss}";
+        var line2 = $"Out: {ChartInfo.GetPriceString(trade.ClosePrice)} @ {closeTime:HH:mm:ss}";
 
-        if (rect.Right > ChartInfo.PriceChartContainer.Region.Width) rect.X -= (rect.Width + 40);
+        var pnlText = trade.PnL != 0 ? $"{trade.PnL:N2} ({trade.PnLTicks}t)" : $"{trade.PnLTicks}t";
+        var line3 = $"PnL: {pnlText}";
 
-        context.FillRectangle(bg, rect);
-        context.DrawRectangle(new Pen(Color.Gray, 1), rect);
-        context.DrawString(text, _fontHeader, fg, new Rectangle(rect.X + 5, rect.Y + 5, rect.Width, rect.Height));
+        // Layout constants (keep simple & stable).
+        const int paddingH = 6;
+        const int paddingV = 4;
+        const int spacingY = 2;
 
-        y += rect.Height;
-    }
+        // Measure widths (avoid allocations; MeasureString is still relatively expensive but acceptable bounded).
+        var headerSize = context.MeasureString(header, _font);
+        var hLine = (int)context.MeasureString("0", _labelFont).Height;
 
-    #endregion
+        var w1 = context.MeasureString(line1, _labelFont).Width;
+        var w2 = context.MeasureString(line2, _labelFont).Width;
+        var w3 = context.MeasureString(line3, _labelFont).Width;
 
-    #endregion
+        var cardWidth = (int)Math.Max(headerSize.Width, Math.Max(w1, Math.Max(w2, w3))) + paddingH * 2;
+        var headerHeight = (int)headerSize.Height + paddingV * 2;
 
-    #region Private Methods & Helpers
+        var bodyHeight = (hLine * 3) + paddingV * 2 + (spacingY * 2);
+        var cardHeight = headerHeight + bodyHeight;
 
-    private DateTime ToChartTime(DateTime tradeTime)
-    {
-        return tradeTime.AddHours(ManualTimeOffset);
-    }
+        // Compute band for Y reference (operation vs local window) - same policy as other label types.
+        var markerOffset = MarkerSize * 4;
+        var (bandFrom, bandTo, _) = GetLabelBandBars(trade, bar);
 
-    private int GetBarByDate(DateTime time)
-    {
-        if (CurrentBar <= 0) return -1;
-        if (time <= GetCandle(0).Time) return 0;
-        if (time >= GetCandle(CurrentBar - 1).Time) return CurrentBar - 1;
-
-        int left = 0, right = CurrentBar - 1;
-        while (left <= right)
+        decimal bandLow, bandHigh;
+        if (!TryGetMinMaxForBars(bandFrom, bandTo, out bandLow, out bandHigh))
         {
-            int mid = left + (right - left) / 2;
-            var midTime = GetCandle(mid).Time;
-            if (midTime == time) return mid;
-            if (midTime < time) left = mid + 1;
-            else right = mid - 1;
+            bandLow = candle.Low;
+            bandHigh = candle.High;
         }
-        return Math.Max(0, right);
-    }
 
-    private void AddHistoryMyTradesSnapshot()
-    {
-        if (TradingManager?.Portfolio == null || TradingManager?.Security == null) return;
-        var trades = TradingStatisticsProvider.Realtime.HistoryMyTrades
-            .Where(t => t.AccountID == TradingManager.Portfolio.AccountID && t.Security.Code == TradingManager.Security.Code);
+        // Anchor X at the chosen bar (already computed by caller).
+        var centerX = ChartInfo.GetXByBar(bar, false);
+        var startY = isAbove
+            ? ChartInfo.GetYByPrice(bandHigh, false) - markerOffset - cardHeight
+            : ChartInfo.GetYByPrice(bandLow, false) + markerOffset;
 
-        foreach (var trade in trades) CreateHistoricalTradeObj(trade);
-        _historyTradesCount = _tradesHistorical.Count;
-    }
+        // Prepare rect centered on the bar.
+        var rect = new Rectangle(centerX - (cardWidth / 2), startY, cardWidth, cardHeight);
 
-    private void OnHistoryTradeAdded(HistoryMyTrade trade)
-    {
-        if (TradingManager?.Portfolio == null || TradingManager?.Security == null) return;
-        if (trade.AccountID == TradingManager.Portfolio.AccountID && trade.Security.Code == TradingManager.Security.Code)
+        // Collision resolution (bounded), reusing the existing engine pattern.
+        // IMPORTANT: no LINQ, no unbounded loops.
+        const int maxCheckPerSide = 64;
+        const int maxRelocateAttempts = 6;
+
+        var stepSize = cardHeight + 3; // lane step
+
+        for (int attempt = 0; attempt < maxRelocateAttempts; attempt++)
         {
-            CreateHistoricalTradeObj(trade);
-            _historyTradesCount++;
-            RedrawChart();
-        }
-    }
+            bool intersects = false;
 
-    private void CreateHistoricalTradeObj(HistoryMyTrade trade)
-    {
-        var enterBar = GetBarByDate(ToChartTime(trade.OpenTime));
-        var exitBar = GetBarByDate(ToChartTime(trade.CloseTime));
-        if (enterBar < 0) return;
-        if (exitBar < 0) exitBar = enterBar;
-        _tradesHistorical.Add(new TradeObj(trade) { OpenBar = enterBar, CloseBar = exitBar });
-    }
-
-    private Pen GetNewPen(Color color, float lineWidth, DashStyle lineStyle) => new Pen(color, lineWidth) { DashStyle = lineStyle };
-    private bool IsPointInTriangle(Point p, Point p0, Point p1, Point p2) => Math.Abs(TriangleArea(p0, p1, p2) - (TriangleArea(p, p0, p1) + TriangleArea(p, p1, p2) + TriangleArea(p, p2, p0))) < 1.0;
-    private double TriangleArea(Point p0, Point p1, Point p2) => Math.Abs((p0.X * (p1.Y - p2.Y) + p1.X * (p2.Y - p0.Y) + p2.X * (p0.Y - p1.Y)) / 2.0);
-
-    private void DrawDebugOverlay(RenderContext context)
-    {
-        var text = $"V9: Hist={_historyTradesCount} | RealTime={_recentTradesCount} | Offset={ManualTimeOffset}h";
-        var rect = new Rectangle(10, 10, 250, 20);
-        context.FillRectangle(Color.FromArgb(100, 0, 0, 0), rect);
-        context.DrawString(text, _fontHeader, Color.White, rect, new RenderStringFormat { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center });
-    }
-
-    #endregion
-
-    #region MYTRADE MATCHING ENGINE (FIFO)
-
-    private class OpenLot
-    {
-        public OrderDirections Dir;
-        public decimal Price;
-        public DateTime Time;
-        public decimal RemainingVolume;
-    }
-
-    private class TradeObjSynthetic
-    {
-        public int OpenBar, CloseBar;
-        public decimal OpenPrice, ClosePrice, Volume, PnLTicks;
-        public DateTime OpenTime, CloseTime;
-        public OrderDirections Direction;
-    }
-
-    private readonly List<OpenLot> _openLots = new();
-    private readonly List<TradeObjSynthetic> _tradesSynthetic = new();
-
-    private void CheckForNewRealtimeTrades()
-    {
-        if (TradingManager?.MyTrades == null) return;
-        var allMyTrades = TradingManager.MyTrades.ToList();
-
-        if (allMyTrades.Count != _recentTradesCount)
-        {
-            var sortedTrades = allMyTrades.OrderBy(t => t.Time).ToList();
-            _openLots.Clear();
-            _tradesSynthetic.Clear();
-
-            foreach (var mt in sortedTrades)
+            // Check against above list (tail window).
+            for (int i = _labelsAbove.Count - 1, checkedCount = 0; i >= 0 && checkedCount < maxCheckPerSide; i--, checkedCount++)
             {
-                if (TradingManager.Portfolio != null && TradingManager.Security != null &&
-                    mt.AccountID == TradingManager.Portfolio.AccountID &&
-                    mt.Security.Code == TradingManager.Security.Code)
+                if (_labelsAbove[i].IntersectsWith(rect))
                 {
-                    ProcessSingleMyTrade(mt);
+                    intersects = true;
+                    var newY = isAbove ? (_labelsAbove[i].Y - stepSize) : (_labelsAbove[i].Bottom + 3);
+                    rect = new Rectangle(rect.X, newY, rect.Width, rect.Height);
+                    break;
                 }
             }
-            _recentTradesCount = allMyTrades.Count;
-            RedrawChart();
-        }
-    }
 
-    private void ProcessSingleMyTrade(MyTrade mt)
-    {
-        var dir = mt.OrderDirection;
-        var vol = Math.Abs(mt.Volume);
-        var price = mt.Price;
-        var time = mt.Time;
+            if (intersects)
+                continue;
 
-        if (vol <= 0) return;
-
-        OrderDirections oppositeDir = dir == OrderDirections.Buy ? OrderDirections.Sell : OrderDirections.Buy;
-        decimal volumeToClose = vol;
-
-        for (int i = 0; i < _openLots.Count && volumeToClose > 0; i++)
-        {
-            var lot = _openLots[i];
-            if (lot.Dir != oppositeDir) continue;
-
-            decimal matchedVol = Math.Min(lot.RemainingVolume, volumeToClose);
-            CreateSyntheticTrade(lot, price, time, matchedVol);
-
-            lot.RemainingVolume -= matchedVol;
-            volumeToClose -= matchedVol;
-
-            if (lot.RemainingVolume <= 0.00001m)
+            // Check against below list (tail window).
+            for (int i = _labelsBelow.Count - 1, checkedCount = 0; i >= 0 && checkedCount < maxCheckPerSide; i--, checkedCount++)
             {
-                _openLots.RemoveAt(i);
-                i--;
+                if (_labelsBelow[i].IntersectsWith(rect))
+                {
+                    intersects = true;
+                    var newY = isAbove ? (_labelsBelow[i].Y - stepSize) : (_labelsBelow[i].Bottom + 3);
+                    rect = new Rectangle(rect.X, newY, rect.Width, rect.Height);
+                    break;
+                }
             }
+
+            if (!intersects)
+                break;
         }
 
-        if (volumeToClose > 0.00001m)
-            _openLots.Add(new OpenLot { Dir = dir, Price = price, Time = time, RemainingVolume = volumeToClose });
-    }
+        // Draw card.
+        var headerRect = new Rectangle(rect.X, rect.Y, rect.Width, headerHeight);
+        var bodyRect = new Rectangle(rect.X, rect.Y + headerHeight, rect.Width, bodyHeight);
 
-    private void CreateSyntheticTrade(OpenLot openLot, decimal closePrice, DateTime closeTime, decimal volume)
-    {
-        var chartOpenTime = ToChartTime(openLot.Time);
-        var chartCloseTime = ToChartTime(closeTime);
-        var openBar = GetBarByDate(chartOpenTime);
-        var closeBar = GetBarByDate(chartCloseTime);
+        context.FillRectangle(headerBg, headerRect);
+        context.DrawRectangle(_labelBorderPen, headerRect);
 
-        decimal sign = openLot.Dir == OrderDirections.Buy ? 1 : -1;
-        decimal tickSize = InstrumentInfo.TickSize == 0 ? 1 : InstrumentInfo.TickSize;
-        decimal pnlTicks = (closePrice - openLot.Price) * sign / tickSize;
+        var sfHeader = new RenderStringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
+        context.DrawString(header, _font, Color.White, headerRect, sfHeader);
 
-        _tradesSynthetic.Add(new TradeObjSynthetic
+        context.FillRectangle(bodyBg, bodyRect);
+        context.DrawRectangle(_labelBorderPen, bodyRect);
+
+        int y = bodyRect.Y + paddingV;
+        var sfBody = new RenderStringFormat { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Near };
+
+        var r1 = new Rectangle(bodyRect.X + paddingH, y, bodyRect.Width - paddingH * 2, hLine);
+        context.DrawString(line1, _labelFont, Color.White, r1, sfBody);
+        y += hLine + spacingY;
+
+        var r2 = new Rectangle(bodyRect.X + paddingH, y, bodyRect.Width - paddingH * 2, hLine);
+        context.DrawString(line2, _labelFont, Color.White, r2, sfBody);
+        y += hLine + spacingY;
+
+        var r3 = new Rectangle(bodyRect.X + paddingH, y, bodyRect.Width - paddingH * 2, hLine);
+        context.DrawString(line3, _labelFont, pnlColor, r3, sfBody);
+
+        // Optional connector line to the band edge (improves readability).
+        var bandY = isAbove ? ChartInfo.GetYByPrice(bandHigh, false) : ChartInfo.GetYByPrice(bandLow, false);
+
+        if (isAbove)
         {
-            OpenBar = openBar,
-            CloseBar = closeBar,
-            OpenPrice = openLot.Price,
-            ClosePrice = closePrice,
-            Direction = openLot.Dir,
-            Volume = volume,
-            OpenTime = openLot.Time,
-            CloseTime = closeTime,
-            PnLTicks = pnlTicks
-        });
+            if (rect.Bottom < bandY)
+                context.DrawLine(_labelConnectorPen, centerX, rect.Bottom, centerX, bandY);
+        }
+        else
+        {
+            if (rect.Top > bandY)
+                context.DrawLine(_labelConnectorPen, centerX, rect.Top, centerX, bandY);
+        }
+
+        return (rect, rect.Contains(MouseLocationInfo.LastPosition));
     }
+
+
 
     #endregion
 }
