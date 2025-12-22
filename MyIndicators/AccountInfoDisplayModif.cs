@@ -422,8 +422,12 @@ public class AccountInfoDisplay : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.PositiveColor),
-        Description = nameof(Strings.PositiveColorDescription), GroupName = nameof(Strings.Visualization), Order = 12)]
+#if RELEASE
+    [Display(Name = "Positive Color", Description = "Color used for positive values.", GroupName = "Visualization", Order = 12)]
+#else
+[Display(ResourceType = typeof(Strings), Name = nameof(Strings.PositiveColor),
+    Description = nameof(Strings.PositiveColorDescription), GroupName = nameof(Strings.Visualization), Order = 12)]
+#endif
     public CrossColor PositiveColor
     {
         get => _positiveColor.Convert();
@@ -435,8 +439,13 @@ public class AccountInfoDisplay : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.NegativeColor),
-        Description = nameof(Strings.NegativeColorDescription), GroupName = nameof(Strings.Visualization), Order = 13)]
+
+#if RELEASE
+    [Display(Name = "Negative Color", Description = "Color used for negative values.", GroupName = "Visualization", Order = 13)]
+#else
+[Display(ResourceType = typeof(Strings), Name = nameof(Strings.NegativeColor),
+    Description = nameof(Strings.NegativeColorDescription), GroupName = nameof(Strings.Visualization), Order = 13)]
+#endif
     public CrossColor NegativeColor
     {
         get => _negativeColor.Convert();
@@ -498,69 +507,139 @@ public class AccountInfoDisplay : Indicator
     // Layout (Panel placement)
     // ==============================
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.HorizontalPosition),
+#if RELEASE
+    [Display(Name = "Horizontal Position", Description = "Panel horizontal alignment on the chart.", GroupName = "Layout", Order = 20)]
+#else
+[Display(ResourceType = typeof(Strings), Name = nameof(Strings.HorizontalPosition),
         Description = "Panel horizontal alignment on the chart.", GroupName = nameof(Strings.LayoutGroup), Order = 20)]
+#endif
     public HorizontalAlignment HorizontalPosition { get; set; } = HorizontalAlignment.Left;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VerticalPosition),
+
+#if RELEASE
+    [Display(Name = "Vertical Position", Description = "Panel vertical alignment on the chart.", GroupName = "Layout", Order = 21)]
+#else
+[Display(ResourceType = typeof(Strings), Name = nameof(Strings.VerticalPosition),
         Description = "Panel vertical alignment on the chart.", GroupName = nameof(Strings.LayoutGroup), Order = 21)]
+#endif
     public VerticalAlignment VerticalPosition { get; set; } = VerticalAlignment.Bottom;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.OffsetX),
-        Description = nameof(Strings.OffsetXDescription), GroupName = nameof(Strings.LayoutGroup), Order = 22)]
+
+#if RELEASE
+    [Display(Name = "Offset X", Description = "Horizontal offset from panel anchor.", GroupName = "Layout", Order = 22)]
+#else
+[Display(ResourceType = typeof(Strings), Name = nameof(Strings.OffsetX),
+    Description = nameof(Strings.OffsetXDescription), GroupName = nameof(Strings.LayoutGroup), Order = 22)]
+#endif
     [Range(0, 1000)]
     public int OffsetX { get; set; } = 20;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.OffsetY),
-        Description = nameof(Strings.OffsetYDescription), GroupName = nameof(Strings.LayoutGroup), Order = 23)]
+
+#if RELEASE
+    [Display(Name = "Offset Y", Description = "Vertical offset from panel anchor.", GroupName = "Layout", Order = 23)]
+#else
+[Display(ResourceType = typeof(Strings), Name = nameof(Strings.OffsetY),
+    Description = nameof(Strings.OffsetYDescription), GroupName = nameof(Strings.LayoutGroup), Order = 23)]
+#endif
     [Range(0, 1000)]
     public int OffsetY { get; set; } = 20;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ColumnSpacing),
-        Description = nameof(Strings.ColumnSpacingDescription), GroupName = nameof(Strings.LayoutGroup), Order = 24)]
+
+#if RELEASE
+    [Display(Name = "Column Spacing", Description = "Spacing between label and value columns.", GroupName = "Layout", Order = 24)]
+#else
+[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ColumnSpacing),
+    Description = nameof(Strings.ColumnSpacingDescription), GroupName = nameof(Strings.LayoutGroup), Order = 24)]
+#endif
     [Range(5, 50)]
     public int ColumnSpacing { get; set; } = 15;
+
 
     // ==============================
     // Rows (Core upstream toggles)
     // Keep as-is for upstream compatibility
     // ==============================
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowAccountId),
-        Description = nameof(Strings.ShowAccountIdDescription), GroupName = nameof(Strings.Settings), Order = 30)]
+#if RELEASE
+    [Display(Name = "Show Account ID", Description = "Show account identifier.", GroupName = "Settings", Order = 30)]
+#else
+[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowAccountId),
+    Description = nameof(Strings.ShowAccountIdDescription), GroupName = nameof(Strings.Settings), Order = 30)]
+#endif
     public bool ShowAccountId { get; set; } = true;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowCurrency),
-        Description = nameof(Strings.ShowCurrencyDescription), GroupName = nameof(Strings.Settings), Order = 31)]
+
+#if RELEASE
+    [Display(Name = "Show Currency", Description = "Show account currency.", GroupName = "Settings", Order = 31)]
+#else
+[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowCurrency),
+    Description = nameof(Strings.ShowCurrencyDescription), GroupName = nameof(Strings.Settings), Order = 31)]
+#endif
     public bool ShowCurrency { get; set; } = true;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowBalance),
-        Description = nameof(Strings.ShowBalanceDescription), GroupName = nameof(Strings.Settings), Order = 32)]
+
+#if RELEASE
+    [Display(Name = "Show Balance", Description = "Show account balance.", GroupName = "Settings", Order = 32)]
+#else
+[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowBalance),
+    Description = nameof(Strings.ShowBalanceDescription), GroupName = nameof(Strings.Settings), Order = 32)]
+#endif
     public bool ShowBalance { get; set; } = true;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowAvailableBalance),
-        Description = nameof(Strings.ShowAvailableBalanceDescription), GroupName = nameof(Strings.Settings), Order = 33)]
+
+#if RELEASE
+    [Display(Name = "Show Available Balance", Description = "Show available balance.", GroupName = "Settings", Order = 33)]
+#else
+[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowAvailableBalance),
+    Description = nameof(Strings.ShowAvailableBalanceDescription), GroupName = nameof(Strings.Settings), Order = 33)]
+#endif
     public bool ShowAvailableBalance { get; set; } = true;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowBlockedMargin),
-        Description = nameof(Strings.ShowBlockedMarginDescription), GroupName = nameof(Strings.Settings), Order = 34)]
+
+#if RELEASE
+    [Display(Name = "Show Blocked Margin", Description = "Show blocked margin.", GroupName = "Settings", Order = 34)]
+#else
+[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowBlockedMargin),
+    Description = nameof(Strings.ShowBlockedMarginDescription), GroupName = nameof(Strings.Settings), Order = 34)]
+#endif
     public bool ShowMargin { get; set; } = false;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowLeverage),
-        Description = nameof(Strings.ShowLeverageDescription), GroupName = nameof(Strings.Settings), Order = 35)]
+
+#if RELEASE
+    [Display(Name = "Show Leverage", Description = "Show account leverage.", GroupName = "Settings", Order = 35)]
+#else
+[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowLeverage),
+    Description = nameof(Strings.ShowLeverageDescription), GroupName = nameof(Strings.Settings), Order = 35)]
+#endif
     public bool ShowLeverage { get; set; } = true;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowOpenPnL),
-        Description = nameof(Strings.ShowOpenPnLDescription), GroupName = nameof(Strings.Settings), Order = 36)]
+
+#if RELEASE
+    [Display(Name = "Show Open PnL", Description = "Show open profit and loss.", GroupName = "Settings", Order = 36)]
+#else
+[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowOpenPnL),
+    Description = nameof(Strings.ShowOpenPnLDescription), GroupName = nameof(Strings.Settings), Order = 36)]
+#endif
     public bool ShowOpenPnL { get; set; } = true;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowClosedPnL),
-        Description = nameof(Strings.ShowClosedPnLDescription), GroupName = nameof(Strings.Settings), Order = 37)]
+
+#if RELEASE
+    [Display(Name = "Show Closed PnL", Description = "Show closed profit and loss.", GroupName = "Settings", Order = 37)]
+#else
+[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowClosedPnL),
+    Description = nameof(Strings.ShowClosedPnLDescription), GroupName = nameof(Strings.Settings), Order = 37)]
+#endif
     public bool ShowClosedPnL { get; set; } = true;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowTotalPnL),
-        Description = nameof(Strings.ShowTotalPnLDescription), GroupName = nameof(Strings.Settings), Order = 38)]
+
+#if RELEASE
+    [Display(Name = "Show Total PnL", Description = "Show total profit and loss.", GroupName = "Settings", Order = 38)]
+#else
+[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowTotalPnL),
+    Description = nameof(Strings.ShowTotalPnLDescription), GroupName = nameof(Strings.Settings), Order = 38)]
+#endif
     public bool ShowTotalPnL { get; set; } = false;
+
 
     // ==============================
     // Rows (New granular toggles — literal strings)
