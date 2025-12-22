@@ -118,10 +118,10 @@ jobs:
           echo "tag_name=${TAG_NAME}" >> $GITHUB_OUTPUT
 
           {
-            echo "notes<<'EOF'"
-            echo -e "${NOTES}"
-            echo "EOF"
-          } >> $GITHUB_OUTPUT
+              echo "notes<<EOF"
+              printf "%s\n" "$NOTES"
+              echo "EOF"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Create/Update draft release
         if: steps.gen.outputs.has_changes == 'true'
