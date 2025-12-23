@@ -20,7 +20,7 @@ system_priority: P1
 recommended_action: Conservar (Core)  
 
 # 5. ANÁLISIS  
-description: Highlights unusually large trades relative to the current volume distribution, adapting dynamically to intraday liquidity conditions.  
+description: ¿Dónde están las operaciones grandes en términos relativos a la liquidez actual, sin necesidad de definir umbrales fijos?  
 gemini_summary: "CORE por señal adaptativa: define qué es un trade grande de forma relativa al régimen de volumen, reduciendo el sesgo y la recalibración manual frente a filtros fijos."  
 competitor_notes: "Supera a Big Trades (filtro fijo) en robustez intradía. Su rol definitivo frente a otros indicadores Footprint se confirmará tras cerrar la auditoría completa del grupo."  
 reusable_code: null  

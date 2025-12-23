@@ -93,7 +93,7 @@ _Detector de Ballenas. Filtros de grandes bloques y órdenes institucionales._
 
 | Nota | Fase | Estado | Indicador | Pregunta Clave / Descripción |
 | :---: | :---: | :--- | :--- | :--- |
-| **9/10** | ✅ | 🟢 **CORE** | [Adaptive Big Trades](indicators/es/AdaptiveBigTrades.md) | Highlights unusually large trades relative to the current volume distribution, adapting dynamically to intraday liquidity conditions. |
+| **9/10** | ✅ | 🟢 **CORE** | [Adaptive Big Trades](indicators/es/AdaptiveBigTrades.md) | ¿Dónde están las operaciones grandes en términos relativos a la liquidez actual, sin necesidad de definir umbrales fijos? |
 | 8/10 | ✅ | 🟡 Reserva | [Big Trades](indicators/es/BigTrades.md) | ¿Dónde aparecen operaciones grandes definidas por un umbral absoluto configurable? |
 
 ### ⚔️ Cluster Analysis &nbsp;⚠️ <small>PENDIENTE</small>
