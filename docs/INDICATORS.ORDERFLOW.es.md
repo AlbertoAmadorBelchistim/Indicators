@@ -1,11 +1,11 @@
 # 🔥 Master Index: Order Flow & Volumen
 
 ### 📊 Status Dashboard
-**Progreso de Auditoría:** `▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░` **71%** (Fase 2 Completada)
+**Progreso de Auditoría:** `▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░` **74%** (Fase 2 Completada)
 
 | Total Indicadores | 🟢 Core (Ganadores) | 🟡 Reserva (Backup) | 💀 Descartados |
 | :---: | :---: | :---: | :---: |
-| **67** | **25** | **17** | 16 |
+| **67** | **26** | **18** | 16 |
 
 [🔙 Volver al Índice General](INDICATORS.es.md)
 
@@ -88,13 +88,13 @@ _Tendencia de fondo. Acumulación de agresiones durante toda la sesión._
 <a id='footprint'></a>
 ## 👣 Footprint
 
-### ⚔️ Big Trades Analysis &nbsp;⚠️ <small>PENDIENTE</small>
+### ⚔️ Big Trades Analysis &nbsp;✅ <small>FASE 2</small>
 _Detector de Ballenas. Filtros de grandes bloques y órdenes institucionales._
 
 | Nota | Fase | Estado | Indicador | Pregunta Clave / Descripción |
 | :---: | :---: | :--- | :--- | :--- |
-| 9/10 | ⚠️ | Conservar | [Adaptive Big Trades](indicators/es/AdaptiveBigTrades.md) | ¿Dónde están las operaciones grandes relativas a la liquidez actual (sin configurar filtros fijos)? |
-| 9/10 | ⚠️ | Conservar | [Big Trades (Final Fix)](indicators/es/BigTrades.md) | ¿Dónde están entrando los agresores institucionales (bloques grandes)? |
+| **9/10** | ✅ | 🟢 **CORE** | [Adaptive Big Trades](indicators/es/AdaptiveBigTrades.md) | Highlights unusually large trades relative to the current volume distribution, adapting dynamically to intraday liquidity conditions. |
+| 8/10 | ✅ | 🟡 Reserva | [Big Trades](indicators/es/BigTrades.md) | ¿Dónde aparecen operaciones grandes definidas por un umbral absoluto configurable? |
 
 ### ⚔️ Cluster Analysis &nbsp;⚠️ <small>PENDIENTE</small>
 _Estructura interna. Dónde se negoció el volumen dentro de la vela._

@@ -29,7 +29,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Accumulation / Distribution Flow](indicators/es/ADF.md) | Order Flow | 1/10 | Descartar |
 | [Accumulation/Distribution (A/D)](indicators/es/AD.md) | Order Flow | 2/10 | Descartar |
 | [Active Volume](indicators/es/ActiveVolume.md) | Order Flow | 9/10 | Conservar (Core) |
-| [Adaptive Big Trades](indicators/es/AdaptiveBigTrades.md) | Order Flow | 9/10 | Conservar |
+| [Adaptive Big Trades](indicators/es/AdaptiveBigTrades.md) | Order Flow | 9/10 | Conservar (Core) |
 | [Adaptive Binary Wave](indicators/es/AdaptativeBinaryWaveMA.md) | Trend | 7/10 | Mejorar |
 | [Adaptive Moving Average](indicators/es/AMA.md) | Trend | 7/10 | Mejorar |
 | [Adaptive RSI Moving Average](indicators/es/AdaptativeRSIAverage.md) | Trend | 4/10 | Descartar |
@@ -60,7 +60,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Bars Pattern](indicators/es/BarsPattern.md) | Structure | 9/10 | Mejorar |
 | [Bid Ask](indicators/es/BidAsk.md) | Order Flow | 6.5/10 | Conservar (Reserva) |
 | [Bid Ask Volume Ratio](indicators/es/BidAskVR.md) | Order Flow | 8.5/10 | Conservar (Core) |
-| [Big Trades (Final Fix)](indicators/es/BigTrades.md) | Order Flow | 9/10 | Conservar |
+| [Big Trades](indicators/es/BigTrades.md) | Order Flow | 8/10 | Conservar (Reserva) |
 | [Bill Williams AC](indicators/es/ACBW.md) | Oscillators | 1/10 | Descartar |
 | [Bill Williams Moving Average](indicators/es/BWMA.md) | Trend | 5/10 | Descartar |
 | [Bionic Candle (Clean)](indicators/es/BionicCandle.md) | Structure | 8/10 | Conservar |
