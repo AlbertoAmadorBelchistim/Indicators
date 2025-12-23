@@ -72,6 +72,7 @@ user_modification_date: 2025-11-19
 
 * **Percentile**: `0.90` (Top 10% para ver solo lo relevante).
 * **Size**: `30` px.
+- Elementos del oficial **intencionadamente no replicados aún**:
 
 ---
 
