@@ -1,11 +1,11 @@
 # 🔥 Master Index: Order Flow & Volumen
 
 ### 📊 Status Dashboard
-**Progreso de Auditoría:** `▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░` **74%** (Fase 2 Completada)
+**Progreso de Auditoría:** `▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░` **79%** (Fase 2 Completada)
 
 | Total Indicadores | 🟢 Core (Ganadores) | 🟡 Reserva (Backup) | 💀 Descartados |
 | :---: | :---: | :---: | :---: |
-| **67** | **26** | **18** | 16 |
+| **67** | **27** | **20** | 16 |
 
 [🔙 Volver al Índice General](INDICATORS.es.md)
 
@@ -96,14 +96,14 @@ _Detector de Ballenas. Filtros de grandes bloques y órdenes institucionales._
 | **9/10** | ✅ | 🟢 **CORE** | [Adaptive Big Trades](indicators/es/AdaptiveBigTrades.md) | ¿Dónde están las operaciones grandes en términos relativos a la liquidez actual, sin necesidad de definir umbrales fijos? |
 | 8/10 | ✅ | 🟡 Reserva | [Big Trades](indicators/es/BigTrades.md) | ¿Dónde aparecen operaciones grandes definidas por un umbral absoluto configurable? |
 
-### ⚔️ Cluster Analysis &nbsp;⚠️ <small>PENDIENTE</small>
+### ⚔️ Cluster Analysis &nbsp;✅ <small>FASE 2</small>
 _Estructura interna. Dónde se negoció el volumen dentro de la vela._
 
 | Nota | Fase | Estado | Indicador | Pregunta Clave / Descripción |
 | :---: | :---: | :--- | :--- | :--- |
-| 10/10 | ⚠️ | Conservar | [Absorption](indicators/es/Absorption.md) | ¿En qué niveles de precio se frenó el mercado a pesar de una gran agresión de volumen? |
-| 10/10 | ⚠️ | Conservar | [Cluster Search Modif](indicators/es/ClusterSearchModif.md) | ¿Qué clústeres de precio específicos cumplen TODOS mis criterios de filtro? |
-| 10/10 | ⚠️ | Conservar | [Cluster Statistic Modif](indicators/es/ClusterStatisticModif.md) | ¿Cuál es el 'dashboard' estadístico completo de cada vela? |
+| **10/10** | ✅ | 🟢 **CORE** | [Cluster Search Modif](indicators/es/ClusterSearchModif.md) | ¿Qué clústeres de precio específicos cumplen TODOS mis criterios de filtro (volumen, delta, localización e imbalances) para señalar un setup operable? |
+| 9/10 | ✅ | 🟡 Reserva | [Cluster Statistic Modif](indicators/es/ClusterStatisticModif.md) | ¿Cuál es el dashboard estadístico completo de cada vela (volumen, delta, velocidad e imbalances) para validar si el movimiento es ignición, absorción o agotamiento? |
+| 7/10 | ✅ | 🟡 Reserva | [Absorption Modif](indicators/es/AbsorptionModif.md) | ¿Qué niveles de precio muestran desequilibrio diagonal (Bid vs Ask del nivel adyacente) con stacking suficiente para convertirse en niveles persistentes hasta toque? |
 
 ### ⚔️ Cluster Structure &nbsp;⚠️ <small>PENDIENTE</small>
 _Patrones de forma dentro del Footprint (P, b, D profiles)._

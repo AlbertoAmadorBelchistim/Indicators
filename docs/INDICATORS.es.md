@@ -23,7 +23,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [1 Divided by Price](indicators/es/DividedByPrice.md) | Utility | 1/10 | Descartar |
 | | | | |
 | **<a id='a'>A</a>** | | | |
-| [Absorption](indicators/es/Absorption.md) | Order Flow | 10/10 | Conservar |
+| [Absorption Modif](indicators/es/AbsorptionModif.md) | Order Flow | 7/10 | Conservar (Reserva) |
 | [AC DC Histogram](indicators/es/ACDC.md) | Oscillators | 2/10 | Descartar |
 | [Account Info Display Modif](indicators/es/AccountInfoDisplayModif.md) | Risk Management | 9/10 | Conservar (Core) |
 | [Accumulation / Distribution Flow](indicators/es/ADF.md) | Order Flow | 1/10 | Descartar |
@@ -83,8 +83,8 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Chande Momentum Oscillators](indicators/es/ChandeMomentum.md) | Oscillators | 5/10 | Mejorar |
 | [Clear Method Swing Line](indicators/es/CMS.md) | Structure | 8/10 | Conservar |
 | [Cluster Constructor Lite](indicators/es/ClusterConstructorLite.md) | Order Flow | 8/10 | Conservar |
-| [Cluster Search Modif](indicators/es/ClusterSearchModif.md) | Order Flow | 10/10 | Conservar |
-| [Cluster Statistic Modif](indicators/es/ClusterStatisticModif.md) | Order Flow | 10/10 | Conservar |
+| [Cluster Search Modif](indicators/es/ClusterSearchModif.md) | Order Flow | 10/10 | Conservar (Core) |
+| [Cluster Statistic Modif](indicators/es/ClusterStatisticModif.md) | Order Flow | 9/10 | Conservar (Reserva) |
 | [Color Bar HH/LL](indicators/es/ColorBarHighLow.md) | Structure | 3/10 | Descartar |
 | [Color Bar Open/Close](indicators/es/ColorBarOpenClose.md) | Structure | 1/10 | Descartar |
 | [Connie Brown Composite Index](indicators/es/CBI.md) | Oscillators | 5/10 | Descartar |

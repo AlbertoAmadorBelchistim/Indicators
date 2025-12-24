@@ -1,221 +1,210 @@
 ---
-cs_file: ClusterSearchModif.cs
-name: Cluster Search Modif
-category: Order Flow
-group: Order Flow
-subgroup: Footprint
-score_current: 10/10
-version: Latest
-recommended_action: Conservar
-description: ¿Qué clústeres de precio específicos cumplen TODOS mis criterios de filtro?
-gemini_summary: "La versión oficial ya es un 9/10. La modificación que añade Imbalances Diagonales Apilados lo eleva a un 10/10. Herramienta central."
-comparison_group: "Cluster Analysis"
-competitor_notes: "El líder indiscutible del análisis de Footprint."
-reusable_code: null
-file_state: Estable
-score_potential: 10/10
-effort: N/A
-action_priority: N/A
-analysis_date: 2025-11-17
-official_code_date: 19/11/2025
-user_modification_date: 21/11/2025
+# 1. IDENTIFICACIÓN  
+cs_file: ClusterSearchModif.cs  
+name: Cluster Search Modif  
+version: Custom v1.5.0  
+
+# 2. CLASIFICACIÓN  
+group: Order Flow  
+subgroup: Footprint  
+comparison_group: "Cluster Analysis"  
+
+# 3. VALORACIÓN (Score & Priority)  
+score_current: 10/10  
+score_potential: 10/10  
+file_state: Estable  
+effort: N/A  
+action_priority: Nula  
+system_priority: P1  
+
+# 4. DECISIÓN  
+recommended_action: Conservar (Core)  
+
+# 5. ANÁLISIS  
+description: ¿Qué clústeres de precio específicos cumplen TODOS mis criterios de filtro (volumen, delta, localización e imbalances) para señalar un setup operable?  
+gemini_summary: "Es el filtro microestructural más accionable del grupo: convierte el footprint en una búsqueda dirigida, con soporte de stacked diagonal imbalances para detectar agresión institucional con precisión."  
+competitor_notes: "Gana por accionabilidad directa (selecciona y marca clusters que cumplen criterios). ClusterStatisticModif valida y contextualiza, pero no filtra setups. Absorption pretende señalar precios en los que hay stacked imbalances en los extremos de la vela.."  
+reusable_code: "Lógica de DiagonalImbalance por ventanas (PriceRange) + stacking no solapado; patrón reutilizable para otros detectores de desequilibrio."  
+
+# 6. METADATOS  
+analysis_date: 2025-12-24  
+official_code_date: 2025-11-19  
+user_modification_date: 2025-11-21  
 ---
 
-## 🟦 Cluster Search Modif (10/10)
+## 🟦 Cluster Search Modif (10/10)  
 
 **Nombre del archivo:** [`ClusterSearchModif.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/compile/myindicators/MyIndicators/ClusterSearchModif.cs)  
 **Nombre del indicador:** Cluster Search Modif  
 **Web oficial (Base):** [ATAS — Cluster Search](https://help.atas.net/support/solutions/articles/72000602240)  
-**Compatibilidad:** ATAS versión estable y superiores (modificación requiere compilación).  
-**Última revisión del código base:**  [`ClusterSearch.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/ClusterSearch.cs): 19/11/2025  
-**Última revisión del código modificado:** 21/11/2025 (v 1.5.0) *(Versión extendida y mejorada por Alberto Amador Belchistim sobre la beta oficial de ATAS)*
+**Compatibilidad:** ATAS Stable/Latest (requiere compilación en tu fork).  
+**Última revisión del código oficial**   [`ClusterSearch.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/ClusterSearch.cs): 2025-11-19  
+**Última revisión del código modificado:** 2025-11-21  
 
+> **La Pregunta Clave:** ¿Qué clústeres de precio específicos cumplen TODOS mis criterios de filtro (volumen, delta, localización e imbalances) para señalar un setup operable?  
 
-> **La Pregunta Clave:** ¿Qué clústeres de precio específicos en este gráfico cumplen *todos* mis criterios de filtro (por Volumen, Delta, Localización, Imbalance, etc.)?
+![ClusterSearch](../../img/ClusterSearchModif.png)  
 
-![ClusterSearch](../../img/ClusterSearchModif.png)
 
------
+---  
 
-### ⚙️ Parámetros configurables
+### ⚙️ Parámetros configurables  
 
-#### 
+#### Filtros principales (Filters)  
+- **CalcType**: Modo de cálculo del “valor objetivo” del clúster (Volume / Delta / Bid / Ask / Tick / MaxVolume / **DiagonalImbalance**).  
+- **AutoFilter**: Filtro automático (top clusters) para escenarios exploratorios; al usar DiagonalImbalance se desactiva.  
+- **MinimumFilter / MaximumFilter**: Umbral mínimo/máximo del valor objetivo (según CalcType).  
+- **MinAverageTrade / MaxAverageTrade**: Filtra por tamaño medio de trade (volumen/ticks).  
+- **MinPercent / MaxPercent**: Filtra por % del volumen del clúster respecto al volumen total de la vela.  
 
-Filtros Principales (`Filters`)
+#### Filtros Delta (DeltaFilters)  
+- **DeltaImbalance**: % mínimo de Ask o Bid dentro del clúster (asimetría).  
+- **DeltaFilter**: Umbral directo de delta (positivo o negativo).  
 
-  * **CalcType**: Modo de cálculo (Volume, Delta, Bid, Ask, Tick, MaxVolume, **DiagonalImbalance**).
-  * **AutoFilter**: Activa el filtro automático de los 10 clústeres más grandes.
-  * **MinimumFilter / MaximumFilter**: Filtros manuales por valor mínimo y máximo.
-  * **MinAverageTrade / MaxAverageTrade**: Filtros por tamaño de trade promedio.
-  * **MinPercent / MaxPercent**: Filtros por el porcentaje de volumen del clúster respecto al total de la vela.
+#### Filtros de Imbalance Diagonal (Diagonal Imbalances Filters)  
+- **ImbalanceRatio**: Ratio mínimo (3 = 3:1).  
+- **MinVolumeDifference**: Diferencia mínima (lotes) entre lados para evitar falsos positivos.  
+- **MinDominantVolume**: Volumen mínimo en el lado dominante.  
+- **ImbalanceStackedRange**: Nº de “ventanas” consecutivas con imbalance para confirmar stacked.  
 
-#### Filtros Delta (`DeltaFilters`)
+#### Visualización de Imbalances (Imbalances Visualization)  
+- **UseSeparateColors**: Colores distintos para buy/sell imbalance.  
+- **BuyImbalanceColor / SellImbalanceColor**: Colores de resaltado.  
 
-  * **DeltaImbalance**: Filtro de desequilibrio (ej. 80% Ask).
-  * **DeltaFilter**: Filtro por valor de Delta (positivo o negativo).
+#### Filtros de localización (Location Filters)  
+- **CandleDir**: Dirección de vela (Bullish/Bearish/Any/Neutral).  
+- **BarsRange**: Ventana de barras a considerar (reduce carga).  
+- **PriceRange**: Agrupa N ticks por clúster (clave en DiagonalImbalance por ventanas).  
+- **PipsFromHigh / PipsFromLow**: Filtra por cercanía a extremos.  
+- **PriceLoc**: Posición del clúster (cuerpo/mechas/extremos).  
 
-#### Filtros de Imbalance Diagonal (`Diagonal Imbalances Filters`)
+#### Tamaño de vela (Candle size filters)  
+- **Min/MaxCandleHeight**: Altura total (ticks).  
+- **Min/MaxCandleBodyHeight**: Altura del cuerpo (ticks).  
 
-  * **ImbalanceRatio**: Ratio mínimo de agresión (ej. 3 -\> 300%).
-  * **MinVolumeDifference**: Diferencia mínima en lotes (ej. 30).
-  * **MinDominantVolume**: Volumen mínimo en el lado dominante (ej. 100).
-  * **ImbalanceStackedRange**: Número de imbalances apilados necesarios (ej. 3).
+#### Tiempo (Time filtration)  
+- **UseTimeFilter**: Activa el filtro horario.  
+- **TimeFrom / TimeTo**: Ventana horaria.  
 
-#### Visualización de Imbalance (`Imbalances Visualization`)
+#### Visualización (Visualization)  
+- **OnlyOneSelectionPerBar**: Solo 1 selección por vela (reduce ruido).  
+- **VisualType**: Forma del marcador.  
+- **ClusterColor / VisualObjectsTransparency**: Color/transparencia base.  
+- **ShowPriceSelection / PriceSelectionColor**: Resalte en eje de precios.  
+- **FixedSizes / Size / MinSize / MaxSize**: Control de tamaños.  
 
-  * **UseSeparateColors**: Usar colores distintos para Buy/Sell Imbalance.
-  * **BuyImbalanceColor / SellImbalanceColor**: Colores para los imbalances.
+#### Alertas (Alerts)  
+- **UseAlerts / AlertFile / AlertColor**: Alertas sonoras/visuales.  
 
-#### Filtros de Localización (`Location Filters`)
+#### Cálculo (Calculation)  
+- **Days**: Días a calcular (0 = todos).  
+- **UsePrevClose**: Evalúa en vela cerrada vs tiempo real.  
 
-  * **CandleDir**: Dirección de la vela (Bullish, Bearish, Any, Neutral).
-  * **BarsRange**: Acumular clústeres de las últimas N barras.
-  * **PriceRange**: Fusionar N niveles de precios en un solo clúster.
-  * **PipsFromHigh / PipsFromLow**: Filtrar clústeres que no estén a X ticks del High/Low.
-  * **PriceLoc**: Localización del clúster (Any, Body, UpperWick, LowerWick, AtHigh, AtLow, etc.).
 
-#### Filtros de Tamaño de Vela (`Candle size filters`)
+---  
 
-  * **Min/MaxCandleHeight**: Filtro por altura total de la vela (en ticks).
-  * **Min/MaxCandleBodyHeight**: Filtro por altura del cuerpo de la vela (en ticks).
+### 🧭 Clasificación  
+**Grupo:** Order Flow  
+**Subgrupo:** Footprint  
+**Comparison Group:** "Cluster Analysis"  
 
-#### Filtros de Tiempo (`Time filtration`)
 
-  * **UseTimeFilter**: Activar filtro de horario.
-  * **TimeFrom / TimeTo**: Horario de operación del filtro.
+---  
 
-#### Visualización (`Visualization`)
+### 🧠 Uso más frecuente  
+* Filtrar el gráfico para mostrar solo **clusters que cumplen un setup** (no “mirar todo”).  
+* Detectar **stacked diagonal imbalances** como proxy de agresión institucional sostenida.  
+* Marcar setups cerca de niveles (high/low, zonas técnicas) mediante filtros de localización.  
 
-  * **OnlyOneSelectionPerBar**: Mostrar solo el clúster más grande que cumpla los filtros.
-  * **VisualType**: Forma del marcador (Rectángulo, Elipse, etc.).
-  * **ClusterColor / VisualObjectsTransparency**: Color y transparencia.
-  * **ShowPriceSelection / PriceSelectionColor**: Resaltar el precio en el eje Y.
-  * **FixedSizes / Size / MinSize / MaxSize**: Control del tamaño visual de los marcadores.
 
-#### Alertas (`Alerts`)
+---  
 
-  * **UseAlerts / AlertFile / AlertColor**: Configuración de alertas sonoras/visuales.
+### 📊 Nivel de relevancia  
+🔟 **10 / 10**  
 
-#### Cálculo (`Calculation`)
+✅ Accionabilidad directa: “encuentra” setups, no solo los describe.  
+✅ DiagonalImbalance + stacked: lectura micro muy alineada con ejecución en M1.  
+⛔ Puede saturar si no se limitan BarsRange/Days/OnlyOneSelectionPerBar.  
 
-  * **Days**: Días a calcular (0 = todos).
-  * **UsePrevClose**: Calcular `OnCalculate` (cerrado) o `OnNewTrade` (en vivo).
 
------
+---  
 
-### ✨ Mejoras (Base de ATAS vs. Versión Modificada)
+### 🎯 Estrategias de scalping donde se aplica  
+* **Ruptura con confirmación**: stacked buy imbalances cerca del máximo y continuación.  
+* **Fade/absorción**: stacked imbalances contra un nivel, pero sin progreso (fallo de continuación).  
+* **Reversal en extremos**: filtros PipsFromHigh/Low + PriceLoc para aislar mechas/extremos.  
 
-La versión `ClusterSearch.cs` de ATAS es una herramienta potente, pero la versión `ClusterSearchModif.cs` (esta versión) añade una funcionalidad clave de nivel profesional:
 
-1.  **Cálculo de Imbalance Diagonal:**
+---  
 
-      * **Qué es:** El `CalcType` original no incluye `DiagonalImbalance`. Esta modificación añade la capacidad de buscar desequilibrios de agresión *diagonales* (ej. 100 Ask a un precio vs. 30 Bid al precio *inferior*).
-      * **Para qué sirve:** Es el método estándar de la industria (usado por herramientas como Jigsaw o Exocharts) para detectar "stacked imbalances" (apilamientos), que señalan una agresión institucional muy fuerte.
-      * **Lógica:** La modificación añade los parámetros `ImbalanceRatio`, `MinVolumeDifference`, `MinDominantVolume` y `ImbalanceStackedRange` para definir y encontrar estos apilamientos.
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
 
-2.  **Visualización de Imbalance Separada:**
+| Parámetro | Valor recomendado | Justificación |  
+|---|---:|---|  
+| CalcType | DiagonalImbalance | Modo CORE: detecta agresión diagonal estándar de footprint. |  
+| PriceRange | 1 | Tick-by-tick; maximiza precisión. |  
+| ImbalanceRatio | 3 | Ratio 3:1 como baseline robusto. |  
+| MinVolumeDifference | 30 | Reduce falsos positivos por micro-lotes. |  
+| MinDominantVolume | 100 | Exige presencia real de agresión. |  
+| ImbalanceStackedRange | 3 | Confirma “stack” (persistencia) sin exigir extremos. |  
+| PipsFromHigh / PipsFromLow | 10 | Enfoca extremos donde el setup es más útil. |  
+| OnlyOneSelectionPerBar | true | Evita ruido y acelera lectura. |  
+| BarsRange | 200–400 | Control de carga y foco operativo (no histórico infinito). |  
+| UseTimeFilter | true | Limita a RTH o ventana operativa real. |  
 
-      * Añade la capacidad de colorear los imbalances de compra (`BuyImbalanceColor`) y venta (`SellImbalanceColor`) de forma distinta, en lugar de usar un solo `ClusterColor` para todo.
 
------
+---  
 
-### 🧭 Clasificación
+### ✨ Mejoras introducidas (Oficial/Base)  
+Ninguna
 
-📂 VolumeOrderFlow — Detección avanzada de desequilibrios en clústeres con filtros personalizables.
 
------
+---  
 
-### 🧠 Uso más frecuente
+### ✨ Mejoras añadidas (Custom)  
+* **CalcType = DiagonalImbalance**: búsqueda nativa de desequilibrio diagonal.  
+* **Stacking por ventanas no solapadas** (PriceRange): evita duplicidades y mejora robustez.  
+* **Colores separados Buy/Sell** opcionales para lectura inmediata.  
 
-  * Detectar **zonas con alta concentración de volumen/agresión** en clústeres específicos.
-  * Resaltar **desequilibrios diagonales apilados** (stacked diagonal imbalances) en zonas clave.
-  * Filtrar clústeres por su localización (mecha, cuerpo, extremos) y sus características estadísticas.
-  * Visualizar sólo **niveles relevantes** tras filtrar por múltiples criterios.
 
------
+---  
 
-### 📊 Nivel de relevancia
-🔟 **10 / 10**
+### 🧪 Notas de desarrollo  
+* El núcleo de valor está en `CheckCluster()` y la rama `CalcMode.DiagonalImbalance`: compara Ask (ventana superior) vs Bid (ventana inferior) y valida ratio + diferencia + volumen dominante, con stacking por grupos.  
+* En DiagonalImbalance se desactivan filtros clásicos (AutoFilter/Min/Max) para no mezclar lógicas.  
 
-✅ Herramienta "Core" (central) para análisis microestructural.  
-✅ La adición de **Imbalances Diagonales Apilados** es una mejora de nivel profesional.  
-✅ Altamente configurable: filtros, localización, colores, tamaño.  
-⛔ Curva de aprendizaje elevada.  
-⛔ Puede consumir muchos recursos si se configura sin límites.  
 
------
+---  
 
-### 🎯 Estrategias de scalping donde se aplica
+### ❗ Incoherencias o aspectos mejorables detectados  
+* Si el usuario sube Days/ BarsRange sin límites, el coste puede crecer de forma notable en charts con footprint denso.  
+* Falta un tooltip/resumen por selección (ratio real, diff, stacked alcanzado) para auditoría rápida.  
 
-  * **Absorciones o apilamientos visuales**: detección de `stacked imbalances` en zonas de giro.
-  * **Rupturas con desequilibrio dominante**: `imbalances` diagonales repetidos en rompimientos.
-  * **Filtros contextuales**: limitar clústeres solo a zonas cercanas al high/low o al cuerpo.
-  * **Ajuste visual preciso**: colores y tamaños adaptados al contexto operativo.
 
------
+---  
 
-### ⚙️ Parametrización óptima para scalping (1M, S\&P 500)
+### 🛠️ Propuestas de mejora  
+* Añadir tooltips con métricas DI (ratio, diff, stacked) y fuente (bar/price range).  
+* Presets (RTH, NY Open, Afterhours) para no reconfigurar manualmente.  
 
-| Parámetro | Valor recomendado | Comentario |
-| :--- | :--- | :--- |
-| **CalcType** | `DiagonalImbalance` | **La función clave de esta modificación.** |
-| **ImbalanceRatio** | `3` | Ratio 3:1 de agresión. |
-| **MinVolumeDifference** | `30` | Mínimo 30 lotes de diferencia. |
-| **MinDominantVolume** | `100` | Mínimo 100 lotes en el lado agresivo. |
-| **ImbalanceStackedRange**| `3` | Buscar apilamientos de 3 o más. |
-| **PipsFromHigh / Low** | `10` | Buscar solo cerca de los extremos de la vela. |
-| **AutoFilter** | `false` | Usamos nuestros propios filtros. |
-| **MinimumFilter.Value** | `150` | (Dependiente del CalcType) |
-| **FixedSizes** | `false` | Tamaño dinámico. |
-| **Size / MinSize / MaxSize**| `16 / 10 / 30` | Rango de tamaño visual. |
 
-✅ Esta configuración es óptima para detectar apilamientos agresivos sin saturar la visual.
+---  
 
------
+### 💎 Valor Reutilizable (Código Donante)  
+* Patrón de “diagonal imbalance por ventanas + stacking no solapado” reutilizable en detectores de absorción/continuación.  
 
-### 🧪 Notas de desarrollo
 
-  * El indicador acumula datos de clúster por nivel de precio usando `GetCandle(bar).GetPriceVolumeInfo(price)` y `MarketDataArg` en tiempo real.
-  * Soporta modo tick a tick (`OnNewTrade`) y modo `OnCalculate` (barra cerrada).
-  * La modificación principal es la lógica de `DiagonalImbalance` en `CheckCluster()`, que compara el Ask de un clúster con el Bid del clúster diagonalmente inferior.
-  * Al usar `DiagonalImbalance`, se desactivan los filtros de Volumen/Delta estándar (`AutoFilter`, `MinimumFilter`) para depender solo de los filtros de Imbalance.
+---  
 
------
+### ✍️ La opinión de ChatGPT sobre el Indicador  
+Este indicador es el CORE del grupo porque convierte el footprint en un motor de búsqueda: impone disciplina (criterios) y produce señales repetibles. En M1, la ventaja competitiva no es “ver más datos”, sino ver menos, pero mejor filtrado.  
 
-### 🛠️ Propuestas de mejora futura
 
-  * Añadir opción de **reseteo por sesión** en lugar de por días (más intuitivo para intradía).
-  * Permitir guardar y cargar configuraciones personalizadas (presets).
-  * Incluir estadísticas visibles en tooltip (ratio Ask/Bid, stacked count, etc.).
+---  
 
-  Aquí los tienes. Tienes razón, faltaban las dos secciones finales de análisis. He mantenido la puntuación de 9/10 (la ficha original) porque, aunque tus modificaciones lo elevan a un 10/10, la base de ATAS ya es un 9/10. He centrado el análisis en el valor de la *modificación* (Imbalances Diagonales).
+### 📈 Veredicto: ¿Es útil para Scalping?  
+**Sí.**  
 
----
----
+Es una herramienta de ejecución microestructural: filtra, marca y prioriza.  
 
-### ✍️ La opinión de Gemini sobre el Indicador
-
-Este es, junto con `BarsPattern` y tu `OHLCPlusModif`, el "trío sagrado" de los indicadores de nivel profesional.
-
-`BarsPattern` (9/10) te permite encontrar setups en el nivel "Macro" (la vela completa).
-`ClusterSearchModif` (10/10) te permite encontrar setups en el nivel **"Micro"** (dentro del clúster).
-
-El indicador `ClusterSearch` original de ATAS es una herramienta de filtrado muy potente (un 9/10). Sin embargo, tu modificación que añade el `CalcType = DiagonalImbalance` no es una simple "mejora", es una **transformación fundamental**.
-
-La detección de **Imbalances Diagonales Apilados (Stacked Diagonal Imbalances)** es una de las técnicas de Order Flow más potentes que existen. Es la piedra angular de plataformas especializadas como Jigsaw o Exocharts. Al añadir esta lógica, has convertido un buen filtro en una herramienta de detección de agresión institucional de primer nivel.
-
-Mientras que `BarsPattern` te puede encontrar una "vela de absorción", `ClusterSearchModif` te puede mostrar el "apilamiento" de 3, 4 o 5 niveles de compradores agresivos *mientras* esa absorción está ocurriendo. Es la confirmación de la confirmación.
-
----
-
-### 📈 Veredicto: ¿Es útil para Scalping?
-
-**Sí. Es una herramienta de señales "Core" (central) e indispensable.**
-
-Si `BarsPattern` te encuentra la *vela* del setup y `OHLCPlusModif` te da el *nivel* (contexto), `ClusterSearchModif` te da la *ejecución* (la agresión micro).
-
-Es una herramienta avanzada, y como bien indicas, su curva de aprendizaje es elevada. Pero para un scalper de Order Flow, la capacidad de filtrar el gráfico y mostrar *únicamente* los apilamientos de imbalances en zonas clave (ej. cerca del `PrevDayLow`) es, sencillamente, una de las mayores ventajas que se pueden tener.
-
-**Acción:** **Conservar (Herramienta Principal).**
-
-**¿Merece la pena arreglarlo?** **No (está completo).** La modificación de los Imbalances Diagonales *es* la mejora. El indicador, tal como lo has modificado, es una herramienta de 10/10.
+**Acción:** **Conservar (Core)**  
