@@ -1,73 +1,123 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <RootNamespace>ATAS.Indicators.Technical</RootNamespace>
-    <AssemblyName>ATAS.Indicators.Technical</AssemblyName>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <LangVersion>latest</LangVersion>
-    <SignAssembly>true</SignAssembly>
-    <Configurations>Debug;Release;Publish</Configurations>
-    <Platforms>AnyCPU;Cross</Platforms>
-    <UseWPF>True</UseWPF>
-    <TargetFramework>net8.0-windows</TargetFramework>
-	<GenerateDependencyFile>false</GenerateDependencyFile>
-  </PropertyGroup>
-	
-  <PropertyGroup Condition=" '$(Configuration)' == 'Publish' ">
-    <Optimize Condition=" '$(Optimize)' == '' ">true</Optimize>
-  </PropertyGroup>
 
-  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk.WindowsDesktop" Condition=" '$(Platform)' != 'Cross' " />
-  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk.WindowsDesktop" Condition=" '$(Platform)' != 'Cross' " />
+	<PropertyGroup>
+		<RootNamespace>ATAS.Indicators.Technical</RootNamespace>
+		<AssemblyName>ATAS.Indicators.Technical</AssemblyName>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<LangVersion>latest</LangVersion>
 
+		<Configurations>Debug;Release;Publish</Configurations>
+		<Platforms>AnyCPU;Cross</Platforms>
+
+		<!-- Default: build against installed ATAS assemblies -->
+		<ATAS_FLAVOR Condition="'$(ATAS_FLAVOR)'==''">Alpha</ATAS_FLAVOR>
+		<ATAS_INSTALL_DIR Condition="'$(ATAS_INSTALL_DIR)'=='' and '$(ATAS_FLAVOR)'=='Stable'">C:\Program Files (x86)\ATAS Platform stable</ATAS_INSTALL_DIR>
+		<ATAS_INSTALL_DIR Condition="'$(ATAS_INSTALL_DIR)'=='' and '$(ATAS_FLAVOR)'=='Alpha'">C:\Program Files (x86)\ATAS Platform</ATAS_INSTALL_DIR>
+
+		<!-- Common for plugin builds -->
+		<GenerateDependencyFile>false</GenerateDependencyFile>
+
+		<!-- Signing: only if a key is provided -->
+		<SignAssembly Condition=" '$(ATAS_SNK)' != '' ">true</SignAssembly>
+		<AssemblyOriginatorKeyFile Condition=" '$(ATAS_SNK)' != '' ">$(ATAS_SNK)</AssemblyOriginatorKeyFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(Platform)' == 'Cross' ">
+		<UseWPF>false</UseWPF>
+		<DefineConstants>$(DefineConstants);CROSS_PLATFORM</DefineConstants>
+		<TargetFramework>net10.0</TargetFramework>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(Platform)' != 'Cross' ">
+		<UseWPF>true</UseWPF>
+		<TargetFramework>net10.0-windows</TargetFramework>
+		<NoWarn>$(NoWarn);CA1416</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(Configuration)' == 'Publish' ">
+		<Optimize Condition=" '$(Optimize)' == '' ">true</Optimize>
+	</PropertyGroup>
+
+	<!-- References (installed assemblies) -->
 	<ItemGroup>
-		<Reference Include="Newtonsoft.Json">
-			<HintPath>C:\Program Files (x86)\ATAS Platform\Newtonsoft.Json.dll</HintPath>
-		</Reference>
-		<Reference Include="OFT.Attributes">
-			<HintPath>C:\Program Files (x86)\ATAS Platform\OFT.Attributes.dll</HintPath>
-		</Reference>
-		<Reference Include="OFT.Editors">
-			<HintPath>C:\Program Files (x86)\ATAS Platform\OFT.Editors.dll</HintPath>
-		</Reference>
-
 		<Reference Include="ATAS.DataFeedsCore">
-			<HintPath>C:\Program Files (x86)\ATAS Platform\ATAS.DataFeedsCore.dll</HintPath>
+			<HintPath>$(ATAS_INSTALL_DIR)\ATAS.DataFeedsCore.dll</HintPath>
+			<Private>false</Private>
 		</Reference>
+
 		<Reference Include="ATAS.Indicators">
-			<HintPath>C:\Program Files (x86)\ATAS Platform\ATAS.Indicators.dll</HintPath>
+			<HintPath>$(ATAS_INSTALL_DIR)\ATAS.Indicators.dll</HintPath>
+			<Private>false</Private>
 		</Reference>
-		<Reference Include="OFT.Rendering">
-			<HintPath>C:\Program Files (x86)\ATAS Platform\OFT.Rendering.dll</HintPath>
+
+		<Reference Include="OFT.Attributes">
+			<HintPath>$(ATAS_INSTALL_DIR)\OFT.Attributes.dll</HintPath>
+			<Private>false</Private>
 		</Reference>
-		<Reference Include="Utils.Common">
-			<HintPath>C:\Program Files (x86)\ATAS Platform\Utils.Common.dll</HintPath>
-		</Reference>
-		<Reference Include="Utils.Windows">
-			<HintPath>C:\Program Files (x86)\ATAS Platform\Utils.Windows.dll</HintPath>
-		</Reference>
+
 		<Reference Include="OFT.Localization">
-			<HintPath>C:\Program Files (x86)\ATAS Platform\OFT.Localization.dll</HintPath>
+			<HintPath>$(ATAS_INSTALL_DIR)\OFT.Localization.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+
+		<Reference Include="OFT.Rendering">
+			<HintPath>$(ATAS_INSTALL_DIR)\OFT.Rendering.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+
+		<Reference Include="Utils.Common">
+			<HintPath>$(ATAS_INSTALL_DIR)\Utils.Common.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+
+		<Reference Include="Utils.Windows" Condition=" '$(Platform)' != 'Cross' ">
+			<HintPath>$(ATAS_INSTALL_DIR)\Utils.Windows.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+
+		<Reference Include="OFT.Editors" Condition=" '$(Platform)' != 'Cross' ">
+			<HintPath>$(ATAS_INSTALL_DIR)\OFT.Editors.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+
+		<!-- Newtonsoft from host -->
+		<Reference Include="Newtonsoft.Json">
+			<HintPath>$(ATAS_INSTALL_DIR)\Newtonsoft.Json.dll</HintPath>
+			<Private>false</Private>
 		</Reference>
 	</ItemGroup>
+
+	<!-- Resources -->
 	<ItemGroup>
-		<PackageReference Include="System.Drawing.Common" Version="8.0.0" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<Compile Update="Properties\Resources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
 	</ItemGroup>
-  <ItemGroup Condition=" '$(Platform)' != 'Cross' ">
-	  <Compile Remove="**\*.Common.cs" />
-	  <None Include="**\*.Common.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<!-- File exclusions -->
+	<ItemGroup Condition=" '$(Platform)' == 'Cross' ">
+		<Compile Remove="**\*.Windows.cs" />
+		<None Include="**\*.Windows.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+
+		<Compile Remove="**\*.xaml.cs" />
+		<None Include="**\*.xaml.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+
+		<Compile Remove="**\*.xaml" />
+		<None Include="**\*.xaml" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(Platform)' != 'Cross' ">
+		<Compile Remove="**\*.Common.cs" />
+		<None Include="**\*.Common.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+	</ItemGroup>
+
 </Project>
