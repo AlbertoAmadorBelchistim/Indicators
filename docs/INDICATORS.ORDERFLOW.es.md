@@ -1,11 +1,11 @@
 # 🔥 Master Index: Order Flow & Volumen
 
 ### 📊 Status Dashboard
-**Progreso de Auditoría:** `▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░` **79%** (Fase 2 Completada)
+**Progreso de Auditoría:** `▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░` **81%** (Fase 2 Completada)
 
 | Total Indicadores | 🟢 Core (Ganadores) | 🟡 Reserva (Backup) | 💀 Descartados |
 | :---: | :---: | :---: | :---: |
-| **67** | **27** | **20** | 16 |
+| **66** | **27** | **20** | 17 |
 
 [🔙 Volver al Índice General](INDICATORS.es.md)
 
@@ -104,14 +104,7 @@ _Estructura interna. Dónde se negoció el volumen dentro de la vela._
 | **10/10** | ✅ | 🟢 **CORE** | [Cluster Search Modif](indicators/es/ClusterSearchModif.md) | ¿Qué clústeres de precio específicos cumplen TODOS mis criterios de filtro (volumen, delta, localización e imbalances) para señalar un setup operable? |
 | 9/10 | ✅ | 🟡 Reserva | [Cluster Statistic Modif](indicators/es/ClusterStatisticModif.md) | ¿Cuál es el dashboard estadístico completo de cada vela (volumen, delta, velocidad e imbalances) para validar si el movimiento es ignición, absorción o agotamiento? |
 | 7/10 | ✅ | 🟡 Reserva | [Absorption Modif](indicators/es/AbsorptionModif.md) | ¿Qué niveles de precio muestran desequilibrio diagonal (Bid vs Ask del nivel adyacente) con stacking suficiente para convertirse en niveles persistentes hasta toque? |
-
-### ⚔️ Cluster Structure &nbsp;⚠️ <small>PENDIENTE</small>
-_Patrones de forma dentro del Footprint (P, b, D profiles)._
-
-| Nota | Fase | Estado | Indicador | Pregunta Clave / Descripción |
-| :---: | :---: | :--- | :--- | :--- |
-| 10/10 | ⚠️ | Conservar | [ZigZag Pro](indicators/es/Zigzag.md) | ¿Qué dicen las métricas acumuladas (Delta/Volumen) de cada onda de precio? |
-| 8/10 | ⚠️ | Conservar | [Cluster Constructor Lite](indicators/es/ClusterConstructorLite.md) | ¿Existen patrones anómalos de volumen dentro de la estructura de la vela? |
+| 4/10 | ✅ | 💀 Descartar | [Cluster Constructor Lite](indicators/es/ClusterConstructorLite.md) | <sub>¿Aparece en esta vela un patrón intrabar muy específico de doble máximo exacto de volumen (Double Max Volume) y cómo se distribuye dentro de la vela?</sub> |
 
 ### ⚔️ Imbalance Analysis &nbsp;⚠️ <small>PENDIENTE</small>
 _Desequilibrios diagonales agresivos (Aggressive Buying/Selling Imbalances)._

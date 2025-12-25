@@ -1,101 +1,169 @@
-﻿---
-cs_file: ClusterConstructorLite.cs
-name: Cluster Constructor Lite
-category: Order Flow
-group: Order Flow
-subgroup: Footprint
-score_current: 8/10
-version: Estable
-recommended_action: Conservar
-description: ¿Existen patrones anómalos de volumen dentro de la estructura de la vela?
-gemini_summary: "Detector de patrones de clúster específicos (Double Max Volume). Útil para situaciones de bloqueo."
-comparison_group: "Cluster Structure"
-competitor_notes: "Complementario a Cluster Search."
-reusable_code: null
-file_state: Estable
-score_potential: 8/10
-effort: Bajo
-action_priority: N/A
-analysis_date: 2025-11-19
-user_modification_date: 2025-11-19
----
+﻿
 
-## 🟦 Cluster Constructor Lite (8/10)
+---
+# 1. IDENTIFICACIÓN  
+cs_file: ClusterConstructorLiteLab.cs  
+name: Cluster Constructor Lite
+version: Custom v0.1 (Lab)  
+
+# 2. CLASIFICACIÓN  
+group: Order Flow  
+subgroup: Footprint  
+comparison_group: "Cluster Analysis"  
+
+# 3. VALORACIÓN (Score & Priority)  
+score_current: 4/10  
+score_potential: 7/10  
+file_state: Estable  
+effort: Medio  
+action_priority: Nula  
+system_priority: NA  
+
+# 4. DECISIÓN  
+recommended_action: Descartar  
+
+# 5. ANÁLISIS  
+description: ¿Aparece en esta vela un patrón intrabar muy específico de doble máximo exacto de volumen (Double Max Volume) y cómo se distribuye dentro de la vela?  
+gemini_summary: "Detecta exclusivamente patrones de doble máximo exacto de volumen intrabar, pero carece de filtros contextuales y de accionabilidad directa."  
+competitor_notes: "Pierde claramente frente a ClusterSearchModif (selector CORE) y ClusterStatisticModif (validador estadístico). Su detección es extremadamente restrictiva y no integra delta, velocidad ni imbalances, quedando como herramienta de laboratorio."  
+reusable_code: "Implementación exacta de detección de rachas consecutivas de volumen máximo (==2) y lógica de clearing intrabar con alerta en cierre de vela."  
+
+# 6. METADATOS  
+analysis_date: 2025-12-25  
+official_code_date: Unknown  
+user_modification_date: 2025-12-25  
+---  
+
+## 🟦 Cluster Constructor Lite (4/10)  
 
 **Nombre del indicador:** Cluster Constructor Lite  
-**Web oficial:** [Justscalpit — Cluster Constructor Lite](https://justscalpit.com/free-indicators-for-atas-platform/)  
-**Compatibilidad:** ATAS versión estable y superiores.  
+**Web oficial:** [JustScalpit — Cluster Constructor Lite](https://justscalpit.com/free-indicators-for-atas-platform/)  
+**Compatibilidad:** ATAS Stable/Latest  
+**Última revisión del código oficial:** Unknown  
 
+> **La Pregunta Clave:** ¿Aparece en esta vela un patrón intrabar muy específico de doble máximo exacto de volumen (Double Max Volume) y cómo se distribuye dentro de la vela?  
 
-> **La Pregunta Clave:** ¿Existen patrones anómalos de volumen (ej. doble núcleo) dentro de la estructura de la vela?
+![Imagen](../../img/ClusterConstructorLite.png)  
 
-![ClusterConstructorLite](../../img/ClusterConstructorLite.png) 
 
 ---
 
-### ⚙️ Parámetros configurables
+### ⚙️ Parámetros configurables  
 
-* **Search Pattern**: `Double Max` (Busca velas con dos niveles de volumen idéntico/máximo).
-* **Region**: `FullCandle` o `WicksOnly` (Solo en mechas).
-* **Position**: `Nearby` (pegados) o `Separate`.
-* **Filters**: Volumen Mín/Máx.
+#### Filters  
+- **Search Pattern (SearchDoubleMax)**: Activa la detección estricta de patrón *Double Max Volume*.  
+- **Region (Search Area)**:  
+  - `FullCandle`: Evalúa toda la vela.  
+  - `WicksOnly`: Limita la detección a las mechas.  
+- **Position (Cluster Position)**:  
+  - `All`: Dos niveles máximos en cualquier posición.  
+  - `Nearby`: Exactamente dos niveles consecutivos (racha == 2).  
+  - `Separate`: Dos niveles máximos no consecutivos.  
+- **Min Volume / Max Volume**: Filtros de volumen absoluto del clúster máximo.  
 
----
+#### Visuals  
+- **Signal Color**: Color de la vela cuando se detecta el patrón.  
 
-### 🧭 Clasificación
-📂 OrderFlow — Análisis de estructura interna de la vela (Footprint Pattern).
+#### Alerts  
+- **Use Alerts**: Activa alerta sonora al cierre de la vela válida.  
+- **Alert File**: Archivo de sonido asociado.  
 
----
-
-### 🧠 Uso más frecuente
-
-* **Velas de Indecisión/Bloqueo:** Una vela con dos nodos de alto volumen separados suele indicar una lucha intensa y un rango que será defendido.
-* **Double Distribution:** En perfiles de mercado, esto indica dos zonas de valor en poco tiempo.
-
----
-
-### 📊 Nivel de relevancia
-🔟 **8 / 10**
-
-✅ **Especificidad:** Detecta un patrón muy concreto que el ojo humano pasa por alto en el footprint rápido.  
-✅ **Visualización Simple:** Pinta la vela de color (`PaintbarsDataSeries`), sin llenar el gráfico de símbolos.  
-⛔ **Nicho:** El patrón "Double Max" (dos niveles con exactamente el mismo volumen máximo) es estadísticamente raro si no se usa un rango de tolerancia, aunque el código busca `p.Volume == maxVol`.
 
 ---
 
-### 🎯 Estrategias de scalping donde se aplica
+### 🧭 Clasificación  
+**Grupo:** Order Flow  
+**Subgrupo:** Footprint  
+**Comparison Group:** "Cluster Analysis"  
 
-* **Rango de Re-acumulación:** Estas velas suelen marcar el centro de una micro-consolidación. Operar la ruptura de esta vela.
-
----
-
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
-
-* **Region**: `FullCandle`.
-* **Min Volume**: `500`.
 
 ---
 
-### 🧪 Notas de desarrollo
+### 🧠 Uso más frecuente  
 
-* **Lógica:** `levels.Where(p => p.Volume == maxVol)`.
-* **Crítica Técnica:** La condición de igualdad estricta (`==`) hace que el patrón sea muy restrictivo. Sería mejor buscar "Dos picos de volumen significativos" aunque no sean idénticos.
-* **UX:** Alerta sonora incluida.
+* **Investigación de micro-patrones intrabar** en footprint.  
+* **Auditoría visual** de velas con doble nodo exacto de volumen máximo.  
+* Validar hipótesis estadísticas sobre **bloqueos o indecisión extrema** en una vela aislada.  
 
----
----
-
-### ✍️ La opinión de Gemini sobre el Indicador
-
-Es una herramienta interesante para traders de Footprint. La versión "Clean" es ligera y no impacta el rendimiento.
-
-**Propuestas de Mejora:**
-* **Tolerancia:** Cambiar la lógica de "Igualdad exacta" a "Dentro del 90% del MaxVol" para detectar patrones de doble distribución más frecuentes.
 
 ---
 
-### 📈 Veredicto: ¿Es útil para Scalping?
+### 📊 Nivel de relevancia  
+🔟 **4 / 10**  
 
-**Sí.** Como señal de alerta de "Lucha en curso".
+⛔ Patrón extremadamente restrictivo (igualdad exacta de volumen).  
+⛔ Sin delta, velocidad, imbalances ni filtros contextuales.  
+⛔ No genera setups operables por sí solo.  
 
-**Acción:** **Conservar.**
+
+---
+
+### 🎯 Estrategias de scalping donde se aplica  
+
+* **Ninguna directa.**  
+Este indicador **no debe usarse como generador de entradas**. Su rol es exclusivamente analítico o experimental.  
+
+
+---
+
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
+
+| Parámetro | Valor | Justificación |  
+|---|---:|---|  
+| Region | FullCandle | Mayor probabilidad estadística del patrón. |  
+| Position | Nearby | Aísla el caso más “estructural” (dos nodos contiguos). |  
+| Min Volume | 500–1000 | Evita dobles máximos irrelevantes. |  
+| Use Alerts | False | Evita ruido operativo; solo para estudio. |  
+
+
+---
+
+### 🧪 Notas de desarrollo  
+
+* La detección exige **exactamente dos niveles consecutivos con volumen máximo** (`maxStreak == 2`).  
+* Incluye lógica de **clearing intrabar** y disparo de alerta **solo al cierre de vela**.  
+
+
+---
+
+### ❗ Incoherencias o aspectos mejorables detectados  
+
+* El patrón “Double Max exacto” es estadísticamente poco frecuente en mercados líquidos.  
+* Carece de tolerancia relativa (% del maxVol), lo que reduce severamente su aplicabilidad.  
+
+
+---
+
+### 🛠️ Propuestas de mejora  
+
+* Crear un **nuevo indicador independiente** (no este) con:  
+  - tolerancia relativa (≥ X% del maxVol),  
+  - integración de delta o velocidad,  
+  - filtros de localización coherentes con ClusterSearchModif.  
+
+
+---
+
+### 💎 Valor Reutilizable (Código Donante)  
+
+* Algoritmo de detección de **rachas consecutivas exactas** por nivel de precio.  
+* Patrón de gestión de estado intrabar y alerta diferida al cierre.  
+
+
+---
+
+### ✍️ La opinión de Gemini sobre el Indicador  
+
+ClusterConstructorLite no tiene cabida como herramienta operativa dentro de un sistema moderno de Order Flow. Su valor está en el aprendizaje, la auditoría y la validación de hipótesis, no en la ejecución.  
+
+
+---
+
+### 📈 Veredicto: ¿Es útil para Scalping?  
+
+**No.**
+
+El indicador no aporta edge operativo frente a los CORE del grupo (*ClusterSearchModif* y *ClusterStatisticModif*).  
+Su patrón es demasiado restrictivo y no se integra en el flujo real de ejecución.
+
+**Acción:** **Descartar**
