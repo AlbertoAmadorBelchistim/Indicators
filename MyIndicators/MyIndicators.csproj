@@ -34,6 +34,7 @@
 	<ItemGroup>
 		<!-- Exclude experimental LAB indicators from the default build -->
 		<Compile Remove="**\Lab\**\*.cs" />
+		<None Include="**\Lab\**\*.cs" />
 	</ItemGroup>
 
 	<!-- Canal DEFAULT (instalación normal) -->
