@@ -31,6 +31,11 @@
 		<Compile Remove="OrderFlowRhythmClone.cs" />
 	</ItemGroup>
 
+	<ItemGroup>
+		<!-- Exclude experimental LAB indicators from the default build -->
+		<Compile Remove="**\Lab\**\*.cs" />
+	</ItemGroup>
+
 	<!-- Canal DEFAULT (instalación normal) -->
 	<PropertyGroup Condition="'$(Configuration)' == 'Debug'">
 		<DefineConstants>$(DefineConstants);ATAS_DEFAULT</DefineConstants>

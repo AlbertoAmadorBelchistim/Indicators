@@ -7,7 +7,7 @@ using System.Drawing;
 using System.Windows.Media;
 using Color = System.Drawing.Color;
 
-namespace MyIndicators
+namespace MyIndicators.Lab
 {
     internal class ClusterInfo
     {

@@ -1,4 +1,4 @@
-﻿namespace MyIndicators;
+﻿namespace MyIndicators.Lab;
 
 using ATAS.Indicators;
 using OFT.Attributes;
