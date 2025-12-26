@@ -1,4 +1,4 @@
-﻿---
+---
 
 # 1. IDENTIFICACIÓN  
 cs_file: UnfinishedAuction.cs  
