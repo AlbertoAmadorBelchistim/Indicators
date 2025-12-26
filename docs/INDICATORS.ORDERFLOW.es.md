@@ -1,11 +1,11 @@
 # 🔥 Master Index: Order Flow & Volumen
 
 ### 📊 Status Dashboard
-**Progreso de Auditoría:** `▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░` **81%** (Fase 2 Completada)
+**Progreso de Auditoría:** `▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░` **84%** (Fase 2 Completada)
 
 | Total Indicadores | 🟢 Core (Ganadores) | 🟡 Reserva (Backup) | 💀 Descartados |
 | :---: | :---: | :---: | :---: |
-| **66** | **27** | **20** | 17 |
+| **66** | **26** | **21** | 17 |
 
 [🔙 Volver al Índice General](INDICATORS.es.md)
 
@@ -106,13 +106,13 @@ _Estructura interna. Dónde se negoció el volumen dentro de la vela._
 | 7/10 | ✅ | 🟡 Reserva | [Absorption Modif](indicators/es/AbsorptionModif.md) | ¿Qué niveles de precio muestran desequilibrio diagonal (Bid vs Ask del nivel adyacente) con stacking suficiente para convertirse en niveles persistentes hasta toque? |
 | 4/10 | ✅ | 💀 Descartar | [Cluster Constructor Lite](indicators/es/ClusterConstructorLite.md) | <sub>¿Aparece en esta vela un patrón intrabar muy específico de doble máximo exacto de volumen (Double Max Volume) y cómo se distribuye dentro de la vela?</sub> |
 
-### ⚔️ Imbalance Analysis &nbsp;⚠️ <small>PENDIENTE</small>
+### ⚔️ Imbalance Analysis &nbsp;✅ <small>FASE 2</small>
 _Desequilibrios diagonales agresivos (Aggressive Buying/Selling Imbalances)._
 
 | Nota | Fase | Estado | Indicador | Pregunta Clave / Descripción |
 | :---: | :---: | :--- | :--- | :--- |
-| **9/10** | ⚠️ | 🟢 **CORE** | [Imbalance Ratio](indicators/es/ImbalanceRatio.md) | ¿Dónde se están produciendo desequilibrios diagonales de Ask vs. Bid en el clúster? |
-| **8/10** | ⚠️ | 🟢 **CORE** | [Stacked Imbalance](indicators/es/StackedImbalance.md) | ¿Dónde existen zonas de desequilibrio agresivo apiladas que actúan como soporte? |
+| **9/10** | ✅ | 🟢 **CORE** | [Imbalance Ratio](indicators/es/ImbalanceRatio.md) | ¿Dónde aparecen desequilibrios diagonales (Ask vs Bid / Bid vs Ask) que superan un ratio mínimo y un filtro de volumen? |
+| 7/10 | ✅ | 🟡 Reserva | [Stacked Imbalance](indicators/es/StackedImbalance.md) | ¿En qué niveles aparecen secuencias consecutivas de desequilibrios (stacked) y cómo se proyectan como soporte/resistencia hasta el re-test? |
 
 ### ⚔️ Microstructure &nbsp;⚠️ <small>PENDIENTE</small>
 _Eventos finos: Agotamiento (Exhaustion) y Absorción en extremos._

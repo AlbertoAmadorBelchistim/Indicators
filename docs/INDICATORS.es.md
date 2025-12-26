@@ -268,7 +268,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Speed of Tape Modif V2](indicators/es/SpeedOfTapeModifV2.md) | Order Flow | 10/10 | Conservar (Core) |
 | [Spread Volume](indicators/es/SpreadVolume.md) | Order Flow | 4/10 | Descartar |
 | [Squeeze Momentum](indicators/es/SqueezeMomentum.md) | Trend | 9/10 | Conservar |
-| [Stacked Imbalance](indicators/es/StackedImbalance.md) | Order Flow | 8/10 | Conservar (Core) |
+| [Stacked Imbalance](indicators/es/StackedImbalance.md) | Order Flow | 7/10 | Conservar (Reserva) |
 | [Standard Deviation](indicators/es/StdDev.md) | Trend | 8/10 | Conservar |
 | [Standard Deviation Bands](indicators/es/StdDevBands.md) | Trend | 8/10 | Conservar |
 | [Standard Error Bands](indicators/es/StdErrBands.md) | Trend | 8/10 | Conservar |
