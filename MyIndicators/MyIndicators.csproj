@@ -1,23 +1,38 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0-windows</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+		<TargetFramework>net10.0-windows</TargetFramework>
 		<UseWPF>true</UseWPF>
+
 		<LangVersion>latest</LangVersion>
-		<Platforms>AnyCPU</Platforms>
-		<AssemblyVersion>1.8.0.0</AssemblyVersion>
-		<FileVersion>1.8.0.0</FileVersion>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
 
-		<InformationalVersion>1.8.0-stable (2025-12-22)</InformationalVersion>
-
-		<!-- Canal por defecto si no se pasa /p:ATAS_CHANNEL=... -->
-		<ATAS_CHANNEL Condition="'$(ATAS_CHANNEL)' == ''">Default</ATAS_CHANNEL>
+		<!-- Alinea plataformas/configs con upstream -->
 		<Configurations>Debug;Release</Configurations>
+		<Platforms>AnyCPU;Cross</Platforms>
+
+		<!-- Versión del compilado -->
+		<AssemblyVersion>2.0.0.0</AssemblyVersion>
+		<FileVersion>2.0.0.0</FileVersion>
+		<InformationalVersion>2.0.0-stable (2025-12-25)</InformationalVersion>
+
+		<!-- Opcional -->
+		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
 	</PropertyGroup>
 
+	<!-- Alinea plataformas con upstream -->
+	<PropertyGroup Condition=" '$(Platform)' == 'Cross' ">
+		<UseWPF>false</UseWPF>
+		<DefineConstants>$(DefineConstants);CROSS_PLATFORM</DefineConstants>
+		<TargetFramework>net10.0</TargetFramework>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(Platform)' != 'Cross' ">
+		<UseWPF>true</UseWPF>
+		<TargetFramework>net10.0-windows</TargetFramework>
+		<NoWarn>$(NoWarn);CA1416</NoWarn>
+	</PropertyGroup>
 
 	<!-- Canal STABLE -->
 	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
@@ -43,10 +58,6 @@
 		<ATAS_BASE>C:\Program Files (x86)\ATAS Platform</ATAS_BASE>
 		<AssemblyName>IndicatorsLoloGroup_Alfa</AssemblyName>
 	</PropertyGroup>
-
-	<!-- <ItemGroup Condition="'$(Configuration)' == 'Debug'">
-		<Compile Remove="OrderFlowRhythmClone.cs" />
-	</ItemGroup>-->
 
 	<ItemGroup>
 		<Compile Include="..\Technical\Extensions\CrossColorExtensions.cs">
@@ -89,6 +100,9 @@
 		<Reference Include="ATAS.DataFeedsCore">
 			<HintPath>$(ATAS_BASE)\ATAS.DataFeedsCore.dll</HintPath>
 		</Reference>
+		<Reference Include="DevExpress.Data.v25.2">
+		  <HintPath>..\..\..\..\..\..\Program Files (x86)\ATAS Platform\DevExpress.Data.v25.2.dll</HintPath>
+		</Reference>
 		<Reference Include="OFT.Attributes">
 			<HintPath>$(ATAS_BASE)\OFT.Attributes.dll</HintPath>
 		</Reference>
@@ -110,11 +124,6 @@
 		<Reference Include="Newtonsoft.Json">
 			<HintPath>$(ATAS_BASE)\Newtonsoft.Json.dll</HintPath>
 		</Reference>
-	</ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="System.Drawing.Common" Version="8.0.0" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(Platform)' != 'Cross' ">
