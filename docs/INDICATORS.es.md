@@ -220,7 +220,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Order Block](indicators/es/OrderBlock.md) | Structure | 9/10 | Conservar |
 | [Order Book Alerts](indicators/es/OrderBookAlerts.md) | Order Flow | 9/10 | Conservar (Reserva) |
 | [Order Flow Indicator](indicators/es/OrderFlow.md) | Order Flow | 7.5/10 | Conservar (Reserva) |
-| [Order Flow Rhythm (Lab)](indicators/es/OrderFlowRythmLab.md) | Order Flow | 7/10 | Conservar (Refactorizar Urgente) |
+| [Order Flow Rhythm (Lab)](indicators/es/OrderFlowRythmLab.md) | Order Flow | 7/10 | Conservar (Reserva) |
 | [OSMA (Moving Average of Oscillator)](indicators/es/OSMA.md) | Oscillators | 7/10 | Mejorar |
 | [Outside Bar](indicators/es/OutsideBar.md) | Structure | 6/10 | Mejorar |
 | | | | |

@@ -1,133 +1,129 @@
 ---
-# 1. IDENTIFICACIÓN
-cs_file:  OrderFlowRhythmLab.cs
-name:  Order Flow Rhythm (Lab)
-version:  Custom v1.0
 
-# 2. CLASIFICACIÓN
-group:  Order Flow
-subgroup:  Volume
-comparison_group:  "Tape Speed"
+# 1. IDENTIFICACIÓN  
+cs_file: OrderFlowRhythmLab.cs  
+name: Order Flow Rhythm (Lab)  
+version: Custom v1.0  
 
-# 3. VALORACIÓN (Score & Priority)
-score_current:  7/10
-score_potential:  9.5/10
-file_state:  Estable (Lógica obsoleta)
-effort:  Medio
-action_priority:  Alta  # Necesita inyección del motor V2
-system_priority:  P2    # Útil para contexto si se arregla
+# 2. CLASIFICACIÓN  
+group: Order Flow  
+subgroup: Volume  
+comparison_group: "Tape Speed"  
 
-# 4. DECISIÓN
-recommended_action:  Conservar (Refactorizar Urgente)
+# 3. VALORACIÓN (Score & Priority)  
+score_current: 7/10  
+score_potential: 9.5/10  
+file_state: Estable (Motor experimental)  
+effort: Medio  
+action_priority: Baja  
+system_priority: P3  
 
-# 5. ANÁLISIS
-description:  ¿Cuál es la intensidad/ritmo del mercado visualizada como mapa de calor (Heatmap)?
-gemini_summary:  "Excelente visualización lastrada por un motor obsoleto. Pinta un mapa de calor muy útil, pero los datos subyacentes provienen de la lógica de velas, por lo que tiene 'lag' y ceguera ante ráfagas HFT reales."
-competitor_notes:  "Visualmente superior a todo el grupo, pero mecánicamente inferior al SpeedOfTapeModif V2."
-reusable_code:  "Motor de renderizado de Heatmap (GetHeatmapColor) y lógica de paletas."
+# 4. DECISIÓN  
+recommended_action: Conservar (Reserva)  
 
-# 6. METADATOS
-analysis_date:  2025-11-27
-official_code_date:  Unknown
-user_modification_date:  2025-11-23
+# 5. ANÁLISIS  
+description: ¿Cuál es el ritmo e intensidad del flujo de órdenes visualizado como un mapa de calor temporal?  
+gemini_summary: "Indicador visual de alto valor cognitivo con un motor de datos no tick-real. Excelente para contexto, insuficiente para timing operativo."  
+competitor_notes: "Visualmente superior a cualquier competidor del grupo, pero mecánicamente inferior a SpeedOfTapeModif V2 al depender de lógica basada en velas."  
+reusable_code: "Motor de renderizado heatmap, sistema de paletas cacheadas y normalización visual."  
+
+# 6. METADATOS  
+analysis_date: 2025-12-26  
+official_code_date: Unknown  
+user_modification_date: 2025-11-23  
+
 ---
 
-## 🎨 Order Flow Rhythm (Lab) (7/10)
+## 🎨 Order Flow Rhythm (Lab) (7/10)  
 
 **Nombre del archivo:** [`OrderFlowRhythmLab.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/compile/myindicators/MyIndicators/OrderFlowRhythmLab.cs)  
 **Nombre del indicador:** Order Flow Rhythm (Lab)  
 **Web oficial:** [ATAS — Order Flow Rhythm](https://help.atas.net/support/solutions/articles/72000610718)  
-**Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** Desconocida  
-**Última revisión del código modificado:** 23/11/2025 (v 1.0) *(Versión basada en el resultado visual obtenido por el indicador oficial de ATAS para hacer pruebas)*  
+**Compatibilidad:** ATAS Stable/Latest.  
+**Última revisión del código oficial:** Unknown  
+**Última revisión del código modificado:** 2025-11-23  
 
-
-> **La Pregunta Clave:** ¿Cuál es la intensidad/ritmo del mercado visualizada como mapa de calor (Heatmap)?
+> **La Pregunta Clave:** ¿Cuál es el ritmo e intensidad del flujo de órdenes visualizado como un mapa de calor temporal?  
 
 ![OrderFlowRhythm](../../img/OrderFlowRhythm.png)
 
 ---
 
-### ⚙️ Parámetros configurables
+### ⚙️ Parámetros configurables  
 
-#### 🧠 Engine Core
-* **Display Mode:** `Volume` / `BidAsk` (Split compras/ventas).
-* **Period (Seconds/Bars):** Ventana de suavizado. *CRÍTICO: Este parámetro alimenta una instancia estándar de SpeedOfTape, por lo que sufre de imprecisión si el periodo es menor a la duración de la vela.*
-
-#### 🎨 Visuals
-* **Heatmap Palette:** `ColdToHot`, `RedToGreen`, `Grayscale`.
-* **Upper Cutoff %:** Filtro de ruido visual.
-* **Contrast:** Ajuste Gamma.
+- **Display Mode:** `Volume` / `BidAsk`.  
+- **Period (Seconds/Bars):** Ventana de suavizado basada en lógica de vela.  
+- **Heatmap Palette:** `ColdToHot`, `RedToGreen`, `Grayscale`.  
+- **Upper Cutoff %:** Recorte de extremos para reducir saturación visual.  
+- **Contrast:** Ajuste gamma de contraste del heatmap.  
 
 ---
 
-### 🧭 Clasificación
+### 🧭 Clasificación  
 **Grupo:** Order Flow  
 **Subgrupo:** Volume  
 **Comparison Group:** "Tape Speed"  
 
 ---
 
-### 🧠 Uso más frecuente
+### 🧠 Uso más frecuente  
 
-* **Identificación de Contexto (No Trigger):** Útil para ver "zonas" de actividad, pero no para gatillo de entrada debido al retraso del motor subyacente.
-* **Detección de Absorción Pasiva:** Ver bloques de color sostenidos sin movimiento de precio.
-
----
-
-### 📊 Nivel de relevancia
-🔟 **7 / 10 (Penalizado por Motor)**
-
-✅ **Visualización Cognitiva:** El mejor formato para entender la velocidad sin leer números.  
-✅ **Código Limpio:** La parte de renderizado (`OnRender`) está bien estructurada y optimizada.  
-⛔ **Motor Defectuoso:** Instancia `private readonly SpeedOfTape`. Esto significa que **NO usa ticks reales**, sino la lógica de velas/interpolación.  
-⛔ **Falsos Positivos/Negativos:** En movimientos rápidos (HFT), el mapa de calor mostrará una "mancha" suave en lugar del "pico" real, diluyendo la información crítica.
+* Lectura de **estado general del mercado** (activo vs muerto).  
+* Contexto visual previo a aplicar triggers reales con otras herramientas.  
 
 ---
 
-### 🎯 Estrategias de scalping donde se aplica
+### 📊 Nivel de relevancia  
+🔟 **7 / 10**  
 
-* **Solo Contexto:** Confirmación visual de que el mercado está "vivo" antes de buscar entradas con otras herramientas. **No usar para timing.**
-
----
-
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
-
-* **Period:** `60` (Menos de 60 es inútil por la limitación de la vela).
-* **Mode:** `BidAsk`.
+✅ Visualización excepcional del ritmo del mercado.  
+✅ Código de render muy optimizado y reutilizable.  
+⛔ Motor de datos no tick-real, con lag estructural.  
 
 ---
 
-### 🧪 Notas de desarrollo
+### 🎯 Estrategias de scalping donde se aplica  
 
-* El indicador es un "wrapper" visual. Toda la lógica matemática se delega en: `_speedVol = new SpeedOfTape()`.
-* Si la clase `SpeedOfTape` referenciada es la nativa de ATAS, el indicador es ciego a lo que ocurre *dentro* de la vela actual hasta que esta se desarrolla. Además el resultado es una interpolación.
-
----
-
-### 🛠️ Propuestas de mejora (CRÍTICAS)
-
-* **Refactorización P1 (Urgente):** Sustituir las instancias de `SpeedOfTape` por la lógica de **`CumulativeTrades` + `Queue`** desarrollada en `SpeedOfTapeModifV2`.
-* **Objetivo:** Crear un "Order Flow Rhythm V2" que pinte el mapa de calor basándose en la velocidad real de los ticks. Eso elevaría la nota a 9.5/10.
+* **Solo contexto:** nunca como señal de entrada directa.  
 
 ---
 
-### ✍️ La opinión de Gemini sobre el Indicador
+### 🧪 Notas de desarrollo  
 
-Es un "Ferrari con motor de cortacésped".
-Visualmente es la herramienta que todo scalper quiere: un mapa de calor fluido del flujo de órdenes.
-Técnicamente es engañoso: lo que ves en el mapa es una versión suavizada y promediada de la realidad, no la realidad tick a tick.
-
-**Propuestas de Acción:**
-* **Conservar el código visual** (es muy valioso).
-* **Marcar como "Requiere Update"** para inyectarle el motor del V2.
+* El indicador delega todo el cálculo en instancias estándar de `SpeedOfTape`.  
+* Esto implica interpolación por vela y pérdida de precisión en ráfagas HFT.  
 
 ---
 
-### 📈 Veredicto: ¿Es útil para Scalping?
+### ❗ Incoherencias o aspectos mejorables detectados  
 
-**Parcialmente.**
+* El nombre puede inducir a pensar en lectura tick-real cuando no lo es.  
 
-Sirve para ver si el mercado está "muerto" o "activo", pero **miente** sobre la intensidad instantánea de las rupturas HFT debido a su motor de cálculo.
+---
 
-**Acción:** **Conservar (Refactorizar Urgente)**
+### 🛠️ Propuestas de mejora  
+
+* Sustituir `SpeedOfTape` por motor basado en `CumulativeTrades + Queue`.  
+* Crear una versión futura **Order Flow Rhythm V2** reutilizando solo el motor visual.  
+
+---
+
+### 💎 Valor Reutilizable (Código Donante)  
+
+* Sistema completo de heatmap optimizado y desacoplado del motor de datos.  
+
+---
+
+### ✍️ La opinión de ChatGPT sobre el Indicador  
+
+Order Flow Rhythm (Lab) es una herramienta visual brillante que debe ser tratada con honestidad: muestra *sensaciones* de mercado, no la realidad tick a tick. Como reserva contextual es muy válida; como trigger sería peligrosa.  
+
+---
+
+### 📈 Veredicto: ¿Es útil para Scalping?  
+
+**Sí, como contexto.**  
+
+No debe usarse nunca para timing directo.  
+
+**Acción:** **Conservar (Reserva)**  

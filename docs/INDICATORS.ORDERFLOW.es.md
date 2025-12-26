@@ -5,7 +5,7 @@
 
 | Total Indicadores | 🟢 Core (Ganadores) | 🟡 Reserva (Backup) | 💀 Descartados |
 | :---: | :---: | :---: | :---: |
-| **65** | **22** | **25** | 17 |
+| **65** | **22** | **26** | 17 |
 
 [🔙 Volver al Índice General](INDICATORS.es.md)
 
@@ -187,8 +187,8 @@ _Ritmo del mercado. Detección de aceleraciones y frenazos en la cinta._
 | Nota | Fase | Estado | Indicador | Pregunta Clave / Descripción |
 | :---: | :---: | :--- | :--- | :--- |
 | **10/10** | ✅ | 🟢 **CORE** | [Speed of Tape Modif V2](indicators/es/SpeedOfTapeModifV2.md) | ¿Cuál es la velocidad REAL de ejecución (HFT) independientemente de la duración de la vela? |
+| 7/10 | ✅ | 🟡 Reserva | [Order Flow Rhythm (Lab)](indicators/es/OrderFlowRythmLab.md) | ¿Cuál es el ritmo e intensidad del flujo de órdenes visualizado como un mapa de calor temporal? |
 | 6/10 | ✅ | 🟡 Reserva | [Speed of Tape (Lab)](indicators/es/SpeedOfTapeLab.md) | ¿Cuál es la velocidad de ejecución del mercado calculada por interpolación? |
-| 7/10 | ✅ | Conservar (Refactorizar Urgente) | [Order Flow Rhythm (Lab)](indicators/es/OrderFlowRythmLab.md) | ¿Cuál es la intensidad/ritmo del mercado visualizada como mapa de calor (Heatmap)? |
 
 ### ⚔️ VSA & Anomalies &nbsp;✅ <small>FASE 2</small>
 _Volume Spread Analysis. Velas climáticas, volumen de parada y anomalías._
