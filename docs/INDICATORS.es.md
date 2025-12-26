@@ -6,6 +6,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | Grupo | Descripción | Enlace |
 | :--- | :--- | :---: |
 | **Order Flow & Volumen** | Tablas de combate y análisis detallado. | [📘 Ver Comparativa](INDICATORS.ORDERFLOW.es.md) |
+| **Estructura (Market Structure)** | Tablas de combate y análisis detallado. | [📘 Ver Comparativa](INDICATORS.STRUCTURE.es.md) |
 | **Tendencia (Trend)** | Tablas de combate y análisis detallado. | [🚧 En construcción](INDICATORS.TREND.es.md) |
 | **Osciladores** | Tablas de combate y análisis detallado. | [🚧 En construcción](INDICATORS.OSCILLATORS.es.md) |
 | **Volatilidad** | Tablas de combate y análisis detallado. | [🚧 En construcción](INDICATORS.VOLATILITY.es.md) |
@@ -73,7 +74,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Bollinger Squeeze 3](indicators/es/BollingerSqeezeV3.md) | Trend | 6/10 | Descartar |
 | | | | |
 | **<a id='c'>C</a>** | | | |
-| [Camarilla Pivots](indicators/es/CamarillaPivots.md) | Structure | 8/10 | Mejorar |
+| [Camarilla Pivots](indicators/es/CamarillaPivots.md) | Market Structure | 8/10 | Conservar (Reserva) |
 | [Candle Statistics](indicators/es/CandleStatistics.md) | Utility | 8/10 | Mejorar |
 | [CCI](indicators/es/CCI.md) | Oscillators | 7/10 | Mejorar |
 | [Chaikin Money Flow](indicators/es/CMF.md) | Oscillators | 2/10 | Descartar |
@@ -180,7 +181,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Kurtosis](indicators/es/Kurtosis.md) | Trend | 5/10 | Conservar |
 | | | | |
 | **<a id='l'>L</a>** | | | |
-| [LevelsLolo](indicators/es/LevelsLolo.md) | Structure | 9/10 | Conservar |
+| [LevelsLolo](indicators/es/LevelsLolo.md) | Market Structure | 9/10 | Conservar (Core) |
 | [Linear Regression](indicators/es/LinearReg.md) | Trend | 5/10 | Mejorar |
 | [Linear Regression Channel](indicators/es/LinRegChannel.md) | Trend | 3/10 | Reparar |
 | [Linear Regression Slope](indicators/es/LinRegSlope.md) | Trend | 1/10 | Reparar |
@@ -207,7 +208,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Moving Average Difference](indicators/es/MaDifference.md) | Trend | 6/10 | Mejorar |
 | [Moving Average Envelope](indicators/es/MaEnvelope.md) | Trend | 5/10 | Conservar |
 | [Moving Median](indicators/es/MMed.md) | Trend | 6/10 | Mejorar |
-| [Murrey Math](indicators/es/MurrayMath.md) | Structure | 8/10 | Conservar |
+| [Murrey Math](indicators/es/MurreyMath.md) | Structure | 8/10 | Conservar |
 | [Mutual Fund Bars](indicators/es/MutualFundBars.md) | Structure | 4/10 | Conservar |
 | | | | |
 | **<a id='o'>O</a>** | | | |
@@ -228,7 +229,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Parabolic SAR](indicators/es/ParabolicSAR.md) | Trend | 8/10 | Mejorar |
 | [Percentage Price Oscillator](indicators/es/PercentagePrice.md) | Oscillators | 7/10 | Mejorar |
 | [Pin Bar Pro (Final Fix)](indicators/es/PinBarPro.md) | Structure | 9/10 | Conservar |
-| [Pivots modif](indicators/es/Pivots.md) | Structure | 8/10 | Conservar |
+| [Pivots](indicators/es/Pivots.md) | Market Structure | 8/10 | Conservar (Reserva) |
 | [Polarized Fractal Efficiency](indicators/es/PolarizedFractal.md) | Trend | 7/10 | Conservar |
 | [Positive/Negative Volume Index](indicators/es/VolumeIndex.md) | Oscillators | 8/10 | Conservar |
 | [Preferred Stochastic - DiNapoli](indicators/es/StochasticDiNapoli.md) | Oscillators | 7/10 | Conservar |
@@ -250,7 +251,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Relative Volume](indicators/es/RelativeVolume.md) | Order Flow | 5/10 | Conservar (Reserva) |
 | [Repulse](indicators/es/Repulse.md) | Oscillators | 6/10 | Descartar |
 | [Rollover Dates](indicators/es/RollOverDates.md) | Utility | 8/10 | Conservar |
-| [Round Numbers](indicators/es/RoundNr.md) | Structure | 7/10 | Conservar |
+| [Round Numbers](indicators/es/RoundNr.md) | Market Structure | 7/10 | Conservar (Reserva) |
 | [RSI (Relative Strength Index)](indicators/es/RSI.md) | Oscillators | 8/10 | Conservar |
 | [RT Indicator (Clean)](indicators/es/RTIndicator.md) | Trend | 8/10 | Conservar |
 | [RVI V1 (Relative Vigor Index)](indicators/es/RVI.md) | Oscillators | 4/10 | Mejorar |

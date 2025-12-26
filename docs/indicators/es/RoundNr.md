@@ -1,106 +1,140 @@
 ﻿---
-cs_file: RoundNr.cs
-name: Round Numbers
-category: Structure
-group: Structure
-subgroup: Static Levels
-score_current: 7/10
-version: Stable
-recommended_action: Conservar
-description: ¿Dónde están los niveles de precio psicológicos (números redondos)?
-gemini_summary: "Visualizador eficiente de niveles psicológicos. Código estable y limpio."
-comparison_group: "Grid Levels"
-competitor_notes: "Sin competencia."
-reusable_code: null
-file_state: Estable
-score_potential: 8/10
-effort: Bajo
-action_priority: N/A
-analysis_date: 2025-11-18
-official_code_date: 23/04/2025
+
+# 1. IDENTIFICACIÓN  
+cs_file: RoundNr.cs  
+name: Round Numbers  
+version: ATAS Stable/Latest  
+
+# 2. CLASIFICACIÓN  
+group: Market Structure  
+subgroup: Structural Levels  
+comparison_group: "Structural Levels"  
+
+# 3. VALORACIÓN (Score & Priority)  
+score_current: 7/10  
+score_potential: 7/10  
+file_state: Estable  
+effort: N/A  
+action_priority: Nula  
+system_priority: P3  
+
+# 4. DECISIÓN  
+recommended_action: Conservar (Reserva)  
+
+# 5. ANÁLISIS  
+description: ¿Dónde están los niveles psicológicos (grid) más probables para reacción del precio, y cómo los represento con un step fijo en ticks?  
+gemini_summary: "Indicador baseline muy ligero. No jerarquiza ni contextualiza, pero aporta referencias psicológicas útiles para entradas/salidas y gestión."  
+competitor_notes: "No compite con Pivots/Camarilla/Murrey en cálculo, sino en simplicidad. Pierde el torneo porque no aporta estructura contextual, pero se conserva como fondo operativo."  
+reusable_code: null  
+
+# 6. METADATOS  
+analysis_date: 2025-12-26  
+official_code_date: 2025-04-23  
+
 ---
 
-## 🟦 Round Numbers (7/10)
+## 🧱 Round Numbers (7/10)  
 
 **Nombre del archivo:** [`RoundNr.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/RoundNr.cs)  
 **Nombre del indicador:** Round Numbers  
 **Web oficial:** [ATAS — Round Numbers](https://help.atas.net/support/solutions/articles/72000602459)  
-**Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 23/04/2025  
+**Compatibilidad:** ATAS Stable/Latest.  
+**Última revisión del código oficial:** 2025-04-23  
 
-> **La Pregunta Clave:** ¿Dónde están los niveles de precio psicológicos (números redondos) en el gráfico?
+> **La Pregunta Clave:** ¿Dónde están los niveles psicológicos (grid) más probables para reacción del precio, y cómo los represento con un step fijo en ticks?  
 
-![RoundNr](../../img/RoundNr.png)
+![RoundNr](../../img/Roundnumbers.png)
 
----
-
-### ⚙️ Parámetros configurables
-
-* **Step**: Distancia en ticks entre líneas (ej. 100 ticks).
-* **Pen**: Configuración de la línea (Color, grosor).
 
 ---
 
-### 🧭 Clasificación
-📂 Level — Indicador de niveles estáticos horizontales basados en precio.
+### ⚙️ Parámetros configurables  
+- **Step**: Tamaño del escalón en ticks (distancia entre niveles).  
+- **Pen**: Estilo visual de los niveles (color/grosor).  
+
 
 ---
 
-### 🧠 Uso más frecuente
+### 🧭 Clasificación  
+**Grupo:** Market Structure  
+**Subgrupo:** Structural Levels  
+**Comparison Group:** "Structural Levels"  
 
-* **Soportes/Resistencias Psicológicos:** Los humanos y algoritmos tienden a poner órdenes en números terminados en 00 o 50.
-* **Grid Visual:** Ayuda a medir distancias visualmente sin usar la herramienta de regla.
-
----
-
-### 📊 Nivel de relevancia
-🔟 **7 / 10**
-
-✅ Muy ligero (renderizado puro, sin cálculos históricos).  
-✅ Útil para limpiar el gráfico de grids predeterminados y usar uno personalizado.  
-⛔ **Opciones limitadas:** No permite desactivar las etiquetas de texto independientemente de las líneas.  
-⛔ **Cálculo de Módulo:** `lowLines % 1 == 0` es técnicamente arriesgado con decimales, aunque suele funcionar.  
 
 ---
 
-### 🎯 Estrategias de scalping donde se aplica
+### 🧠 Uso más frecuente  
+* Referencias psicológicas para TP/SL y “micro-gestión” en ES.  
+* Medir distancias rápidas sin herramientas adicionales (grid).  
+* Filtrar zonas: detectar cuándo el precio está “entre niveles” sin estructura cercana.  
 
-* **Magnet Trading:** El precio suele ser atraído a los números redondos. Scalping hacia el nivel 00.
-* **Rebote en Nivel:** Esperar absorción en el Order Flow justo en el número redondo.
-
----
-
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
-
-* **Step**: `40` (En ES, 1 punto = 4 ticks. 40 ticks = 10 puntos). Niveles cada 10 puntos son clave en el S&P 500.
-* **Color**: Gris muy claro, para que sea fondo y no señal.
 
 ---
 
-### 🧪 Notas de desarrollo
+### 📊 Nivel de relevancia  
+🔟 **7 / 10**  
 
-* **Render-Only:** Sobrescribe `OnRender` y deja `OnCalculate` vacío. Este es el patrón de diseño correcto para indicadores puramente visuales.
-* **Lógica de Dibujo:** Calcula dinámicamente qué líneas son visibles en la ventana (`ChartInfo.Region`) para no dibujar líneas fuera de pantalla. Eficiente.
-* **Detección de Espacio:** Verifica si hay espacio vertical (`isFreeSpace`) antes de dibujar el texto para evitar solapamientos. Buen detalle.
+✅ Extremadamente ligero y limpio; coste computacional mínimo.  
+✅ Útil como referencia psicológica universal (00/50, etc. según step).  
+⛔ No aporta jerarquía ni contexto: requiere capa adicional para decisión.  
 
----
----
-
-### ✍️ La opinión de Gemini sobre el Indicador
-
-Cumple su función con eficiencia. Es el tipo de indicador "invisible" que mejora la calidad de vida del trader sin molestar. La lógica de renderizado es inteligente al dibujar solo lo visible.
-
-**Propuestas de Mejora:**
-* **Toggle de Texto:** Añadir `bool ShowText` para permitir líneas limpias sin números.
-* **Estilos de Línea:** Permitir definir diferentes estilos para niveles "Mayores" (ej. cada 1000 ticks) y "Menores" (ej. cada 100 ticks).
 
 ---
 
-### 📈 Veredicto: ¿Es útil para Scalping?
+### 🎯 Estrategias de scalping donde se aplica  
+* **Gestión**: TP en el siguiente round level; SL detrás del round anterior.  
+* **Confluencia**: si coincide con nivel estructural (pivots, gamma, etc.), aumenta importancia.  
 
-**Sí.**
 
-El scalping es precisión. Saber dónde está el "doble cero" (00) de un vistazo ayuda a colocar Take Profits racionales.
+---
 
-**Acción:** **Mejorar (Añadir opciones de visibilidad de texto).**
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
+
+| Parámetro | Valor recomendado | Justificación |  
+| --- | --- | --- |  
+| Step | 40 ticks (10 puntos) o 20 ticks (5 puntos) | Ajusta a tu estilo: 10p para mapa limpio; 5p para micro-gestión. |  
+| Pen | Gris tenue, grosor bajo | Debe ser fondo, no señal dominante. |  
+
+
+---
+
+### 🧪 Notas de desarrollo  
+* Indicador puramente visual: recorre el rango visible y dibuja niveles equiespaciados.  
+* Riesgo principal: clutter si Step es demasiado pequeño para el rango intradía.  
+
+
+---
+
+### ❗ Incoherencias o aspectos mejorables detectados  
+* Falta potencial opción “Hide Text” (petición típica): si dibuja texto redundante, puede saturar.  
+
+
+---
+
+### 🛠️ Propuestas de mejora  
+* Opción para ocultar etiquetas (si existen) y dejar solo líneas.  
+* Preset ES: Step 40 ticks con atenuación automática por zoom.  
+
+
+---
+
+### 💎 Valor Reutilizable (Código Donante)  
+* N/A  
+
+
+---
+
+### ✍️ La opinión de ChatGPT sobre el Indicador  
+Round Numbers es una reserva P3 sensata: aporta una base psicológica útil con coste nulo, pero no debe confundirse con estructura “informativa”. Su valor real aparece cuando se usa como confluencia con niveles de mayor jerarquía.  
+
+
+---
+
+### 📈 Veredicto: ¿Es útil para Scalping?  
+**Sí**  
+
+Como capa de fondo para gestión y confluencias; no como generador de señales.  
+
+**Acción:** **Conservar (Reserva)**  
+
 
