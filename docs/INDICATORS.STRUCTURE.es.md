@@ -1,11 +1,11 @@
 # 🧱 Master Index: Market Structure (Estructura)
 
 ### 📊 Status Dashboard
-**Progreso de Auditoría:** `▓▓▓░░░░░░░░░░░░░░░░░` **18%** (Fase 2 Completada)
+**Progreso de Auditoría:** `▓▓▓▓░░░░░░░░░░░░░░░░` **21%** (Fase 2 Completada)
 
 | Total Indicadores | 🟢 Core (Ganadores) | 🟡 Reserva (Backup) | 💀 Descartados |
 | :---: | :---: | :---: | :---: |
-| **38** | **2** | **4** | 7 |
+| **38** | **2** | **5** | 7 |
 
 [🔙 Volver al Índice General](INDICATORS.es.md)
 
@@ -88,7 +88,6 @@
 | Nota | Fase | Estado | Indicador | Pregunta Clave / Descripción |
 | :---: | :---: | :--- | :--- | :--- |
 | 8.5/10 | ⚠️ | Conservar | [Gaps](indicators/es/Gaps.md) | ¿Dónde están los huecos de precio (Gaps) que superan una desviación mínima? |
-| 8/10 | ⚠️ | Conservar | [Murrey Math](indicators/es/MurreyMath.md) | ¿Cuáles son los niveles de soporte y resistencia armónicos basados en Murrey Math? |
 
 ### ⚔️ Channel Breakout &nbsp;⚠️ <small>PENDIENTE</small>
 
@@ -146,6 +145,7 @@ _Niveles estructurales horizontales: mapas de soporte/resistencia objetivos._
 | :---: | :---: | :--- | :--- | :--- |
 | **9/10** | ✅ | 🟢 **CORE** | [LevelsLolo](indicators/es/LevelsLolo.md) | ¿Dónde están los niveles externos clave (jerarquizados) y cómo los proyecto en el chart sin ruido para planificar entradas/salidas? |
 | 8/10 | ✅ | 🟡 Reserva | [Camarilla Pivots](indicators/es/CamarillaPivots.md) | ¿Cuáles son los niveles Camarilla (reversión/ruptura) que definen extremos y pivotes intradía para estructurar un plan de trading? |
+| 8/10 | ✅ | 🟡 Reserva | [Murrey Math](indicators/es/MurreyMath.md) | ¿Cuáles son los niveles Murrey (0/8–8/8 y derivados) que estructuran soportes/resistencias armónicos para planificar el mapa del día? |
 | 8/10 | ✅ | 🟡 Reserva | [Pivots](indicators/es/Pivots.md) | ¿Cuáles son los pivots y niveles derivados (S/R) relevantes del periodo seleccionado para mapear soportes/resistencias probables? |
 | 7/10 | ✅ | 🟡 Reserva | [Round Numbers](indicators/es/RoundNr.md) | ¿Dónde están los niveles psicológicos (grid) más probables para reacción del precio, y cómo los represento con un step fijo en ticks? |
 
