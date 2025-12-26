@@ -128,7 +128,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [DT Oscillator](indicators/es/DtOscillator.md) | Oscillators | 7/10 | Conservar |
 | [DX (Directional Index)](indicators/es/DX.md) | Trend | 3/10 | Descartar |
 | [Dynamic Levels](indicators/es/DynamicLevels.md) | Order Flow | 9/10 | Conservar (Core) |
-| [Dynamic Levels Channel](indicators/es/DynamicLevelsChannel.md) | Order Flow | 9/10 | Conservar (Core) |
+| [Dynamic Levels Channel](indicators/es/DynamicLevelsChannel.md) | Order Flow | 8.5/10 | Conservar (Reserva) |
 | [Dynamic Momentum Index](indicators/es/DMI.md) | Trend | 5/10 | Reparar |
 | | | | |
 | **<a id='e'>E</a>** | | | |
@@ -157,7 +157,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Highest](indicators/es/Highest.md) | Structure | 6/10 | Descartar |
 | [Highest High / Lowest Low Over N Bars](indicators/es/HighLow.md) | Structure | 7/10 | Conservar |
 | [Historical Volatility Ratio](indicators/es/HVR.md) | Trend | 7/10 | Conservar |
-| [HRanges](indicators/es/HRanges.md) | Order Flow | 8/10 | Conservar (Core) |
+| [HRanges](indicators/es/HRanges.md) | Order Flow | 8/10 | Conservar (Reserva) |
 | [Hull Moving Average](indicators/es/HMA.md) | Trend | 8/10 | Conservar |
 | [Hurst Exponent](indicators/es/HurstExponent.md) | Trend | 8/10 | Conservar |
 | | | | |
@@ -195,7 +195,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [MACD Leader](indicators/es/MacdLeader.md) | Oscillators | 7/10 | Conservar |
 | [Margin zones](indicators/es/MarginZones.md) | Structure | 3/10 | Reparar |
 | [Market Facilitation Index](indicators/es/MarketFacilitation.md) | Order Flow | 5.5/10 | Descartar |
-| [Maximum Levels](indicators/es/MaxLevels.md) | Order Flow | 8.5/10 | Conservar (Core) |
+| [Maximum Levels](indicators/es/MaxLevels.md) | Order Flow | 8.5/10 | Conservar (Reserva) |
 | [MBO DOM](indicators/es/MBODOM.md) | Order Flow | 10/10 | Conservar (Core) |
 | [McClellan Oscillator](indicators/es/McClellanOscillator.md) | Oscillators | 6/10 | Conservar |
 | [McClellan Summation Index](indicators/es/MSI.md) | Oscillators | 7/10 | Mejorar |
@@ -309,13 +309,13 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Volume Bar Range Ratio](indicators/es/VBRR.md) | Order Flow | 7.5/10 | Conservar (Core) |
 | [Volume On The Chart](indicators/es/VolumeOnChart.md) | Order Flow | 8/10 | Conservar (Reserva) |
 | [Volume Per Trade](indicators/es/VolumePerTrade.md) | Order Flow | 8.5/10 | Conservar (Core) |
+| [Volume Support & Resistance Zones](indicators/es/VolumeSupResZones.md) | Market Structure | 7/10 | Conservar (Reserva) |
 | [Volume Zone Oscillator](indicators/es/VolumeZone.md) | Oscillators | 9/10 | Conservar |
-| [Volume-based Support & Resistance Zones](indicators/es/VolumeSupResZones.md) | Order Flow | 10/10 | Conservar (Core) |
 | [Vortex](indicators/es/Vortex.md) | Oscillators | 7/10 | Conservar |
 | [Voss Predictive Filter](indicators/es/VPF.md) | Trend | 8/10 | Conservar |
 | [VSA Better Volume](indicators/es/VsaBetterVolume.md) | Order Flow | 9/10 | Conservar (Core) |
 | [VSA – WSD Histogram](indicators/es/VsaWsd.md) | Structure | 2/10 | Descartar |
-| [VWAP/TWAP](indicators/es/VWAP.md) | Order Flow | 10/10 | Conservar (Core) |
+| [VWAP / TWAP](indicators/es/VWAP.md) | Order Flow | 10/10 | Conservar (Core) |
 | | | | |
 | **<a id='w'>W</a>** | | | |
 | [Watermark](indicators/es/Watermark.md) | Utility | 5/10 | Conservar |

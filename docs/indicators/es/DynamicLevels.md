@@ -1,139 +1,177 @@
 ---
-cs_file: DynamicLevels.cs
-name: Dynamic Levels
-group: Order Flow
-subgroup: Volume Profile
-score_current: 9/10
-version: Stable
-recommended_action: Conservar (Core)
-description: ¿Dónde se están formando el POC, VAH y VAL del período actual en tiempo real?
-gemini_summary: "Herramienta 'Core' de Nivel 2. Calcula el Perfil de Volumen expansivo (desde el inicio de la sesión hasta ahora), mostrando la evolución del POC y el Área de Valor. Indispensable para el contexto intradía."
-comparison_group: "Session Profile"
-competitor_notes: "El estándar para niveles dinámicos de sesión."
-reusable_code: null
-file_state: Estable
-score_potential: 9/10
-effort: N/A
-action_priority: N/A
-analysis_date: 2025-11-21
-official_code_date: 23/04/2025
+
+# 1. IDENTIFICACIÓN  
+cs_file: DynamicLevels.cs  
+name: Dynamic Levels  
+version: ATAS Stable/Latest  
+
+# 2. CLASIFICACIÓN  
+group: Order Flow  
+subgroup: Volume Profile  
+comparison_group: "Profile Levels (POC/VA)"  
+
+# 3. VALORACIÓN (Score & Priority)  
+score_current: 9/10  
+score_potential: 9/10  
+file_state: Estable  
+effort: N/A  
+action_priority: Baja  
+system_priority: P1  
+
+# 4. DECISIÓN  
+recommended_action: Conservar (Core)  
+
+# 5. ANÁLISIS  
+description: ¿Dónde se están formando en tiempo real el POC, VAH y VAL del periodo activo, y cuándo el precio los toca o los cruza?  
+gemini_summary: "DynamicLevels es el perfil de valor operativo base: calcula POC/VAH/VAL en tiempo real para un periodo (sesión/semana/mes, etc.) con render robusto y alertas. Gana por ser el más completo y estable del grupo para mapear valor intradía, con buen equilibrio entre utilidad y coste cognitivo."  
+competitor_notes: "Frente a MaxLevels (nivel único) ofrece la triada completa POC/VAH/VAL y evolución dinámica. Frente a DynamicLevelsChannel (ventana móvil) es menos reactivo pero más estable y representativo del ‘valor’ acumulado del periodo; por ello debe ser Core y el canal queda como Reserva táctica."  
+reusable_code: "Cálculo de Value Area basado en distribución por precio (PriceVolumeInfo) + lógica de render consistente de POC/VAH/VAL y sistema de alertas de toque."  
+
+# 6. METADATOS  
+analysis_date: 2025-12-26  
+official_code_date: 2025-04-23  
+
 ---
 
-## 🏆 Dynamic Levels (9/10)
+## 🟢 Dynamic Levels (9/10)  
 
 **Nombre del archivo:** [`DynamicLevels.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/DynamicLevels.cs)  
 **Nombre del indicador:** Dynamic Levels  
 **Web oficial:** [ATAS — Dynamic Levels](https://help.atas.net/support/solutions/articles/72000602380)  
-**Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 23/04/2025  
+**Compatibilidad:** ATAS Stable/Latest.  
+**Última revisión del código oficial:** 2025-04-23  
 
-> **La Pregunta Clave:** ¿Dónde se están formando el POC, VAH y VAL del período actual (ej. Día, Semana, Hora) en tiempo real?
+> **La Pregunta Clave:** ¿Dónde se están formando en tiempo real el POC, VAH y VAL del periodo activo, y cuándo el precio los toca o los cruza?  
 
 ![Dynamic Levels](../../img/DynamicLevels.png)
 
----
-
-### ⚙️ Parámetros configurables
-
-Este indicador construye un perfil de volumen acumulativo:
-
-#### 📊 Cálculo
-* **Period Frame:** Ventana de tiempo para el perfil (`Daily`, `Weekly`, `Monthly`, `Hourly`, `H4`, `All`).
-* **Type:** Fuente de datos para el perfil.
-    * `Volume`: Estándar.
-    * `Delta`: POC de agresión neta.
-    * `Bid` / `Ask` / `Tick`.
-* **Filter:** Valor mínimo para considerar un nivel relevante.
-
-#### 🎨 Visualización
-* **Show Volume:** Muestra etiquetas numéricas con el volumen acumulado en el nivel.
-* **Colors:** Personalización de líneas (POC, VAH, VAL) y área de valor.
-
-#### 🔔 Alertas
-* **Touch Alerts:** Sonido al tocar POC, VAH o VAL.
-* **Approximation:** Sonido al acercarse al nivel.
 
 ---
 
-### 🧭 Clasificación
+### ⚙️ Parámetros configurables  
+
+**[Period & Source]**  
+- **Period:** Periodo del perfil a calcular (sesión/semana/mes, etc.).  
+  - Define el “reset” del cálculo y la ventana de acumulación.  
+- **Type:** Fuente base para la distribución por precio.  
+  - Normalmente `Volume`, y opcionalmente métricas derivadas (si el indicador lo soporta).  
+- **Days:** Lookback en días para limitar el cálculo histórico y mejorar rendimiento en charts largos.  
+
+**[Value Area / Filtering]**  
+- **ValueAreaPercent:** Porcentaje de Value Area (por defecto típico 70%).  
+- **Filter:** Umbral mínimo para incluir niveles en la distribución (reduce ruido de micro-volumen).  
+
+**[Visual]**  
+- **ShowPoc / ShowVah / ShowVal:** Mostrar u ocultar cada nivel.  
+- **LineWidth:** Grosor de líneas.  
+- **PocColor / VahColor / ValColor:** Colores por nivel.  
+- **ExtendLines:** Extensión de los niveles hacia la derecha (contexto intradía).  
+- **Text / FontSize / Offset:** Etiquetas y desplazamientos visuales.  
+
+**[Alerts]**  
+- **UseAlerts:** Activación general de alertas.  
+- **AlertOnTouch / AlertOnCross:** Alertas por toque o cruce de nivel.  
+- **AlertFile:** Sonido/archivo de alerta.  
+
+
+---
+
+### 🧭 Clasificación  
 **Grupo:** Order Flow  
 **Subgrupo:** Volume Profile  
-**Comparison Group:** "Session Profile"  
+**Comparison Group:** "Profile Levels (POC/VA)"  
+
 
 ---
 
-### 🧠 Uso más frecuente
+### 🧠 Uso más frecuente  
 
-* **POC en Desarrollo:** Ver cómo el "precio justo" del día se mueve. Si el precio sube pero el POC no le sigue, la subida es débil (divergencia de valor).  
-* **Value Area:** Identificar si el mercado está aceptando precios más altos (VAH subiendo) o rechazándolos.  
-* **Soportes Dinámicos:** El VAL (Value Area Low) suele actuar como soporte en tendencias alcistas intradía.  
+* Definir el **mapa intradía de valor** (POC/VAH/VAL) para contextualizar el scalping.  
+* Detectar **aceptación vs rechazo**: rotación dentro de VA vs ruptura y aceptación fuera.  
+* Usar POC como **imán** y VAH/VAL como **fronteras operables** para fades o pullbacks.  
 
----
-
-### 📊 Nivel de relevancia
-🔟 **9 / 10 (IMPRESCINDIBLE)**
-
-✅ **Contexto en Vivo:** A diferencia de un perfil estático (que ves al final del día), este te muestra la *formación* del perfil tick a tick.  
-✅ **Versatilidad:** El modo `Delta` permite ver dónde se ha producido la mayor lucha direccional.  
-✅ **Eficiencia:** Código optimizado con `DynamicCandle` para no saturar la CPU.  
 
 ---
 
-### 🎯 Estrategias de scalping donde se aplica
+### 📊 Nivel de relevancia  
+🔟 **9 / 10**  
 
-* **Reversión a la Media:** Si el precio se aleja mucho del POC dinámico (extensión), buscar reversión hacia el POC.  
-* **Defensa de Valor:** Comprar en el test del VAL en un día de tendencia alcista.  
+✅ Mapa de valor claro y estable (POC/VAH/VAL) para el periodo activo.  
+✅ Utilidad directa para contexto de ejecución en M1 (sin necesidad de interpretación compleja).  
+⛔ Menos reactivo que una ventana móvil: puede “arrastrar” el valor del inicio de sesión si hay cambio de régimen fuerte.  
 
----
-
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
-
-| Parámetro | Valor Recomendado | Razón |
-| :--- | :--- | :--- |
-| **Period** | `Daily` | Ver la estructura de la sesión RTH. |
-| **Type** | `Volume` | Estándar. |
-| **Alerts** | `Touch` | Avisar si volvemos al POC. |
 
 ---
 
-### 🧪 Notas de desarrollo
+### 🎯 Estrategias de scalping donde se aplica  
 
-* Usa una clase interna `DynamicCandle` que gestiona un `SortedList<decimal, PriceInfo>` para mantener el perfil en memoria.
-* Calcula el Área de Valor (VAH/VAL) iterando desde el POC hacia afuera hasta cubrir el 70% (o el % configurado en la plataforma) del volumen total.
+* **Fade dentro de Value Area:** rotación entre VAH ↔ VAL con confirmación de Order Flow.  
+* **Reversión a POC:** extensiones que vuelven al punto de control del periodo.  
+* **Pullback en tendencia:** aceptación fuera de VA + retest de VAH/VAL como soporte/resistencia dinámica.  
 
----
-
-### ❗ Incoherencias o aspectos mejorables detectados
-
-* **Configuración VA:** El % del Value Area (ej. 70%) se toma de la configuración global de la plataforma (`PlatformSettings.ValueAreaPercent`), no del indicador. Sería mejor tenerlo como parámetro local.
 
 ---
 
-### 🛠️ Propuestas de mejora
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
 
-* **Historial (P3):** Opción para mostrar los niveles finales de los días anteriores como líneas estáticas de referencia.
+| Parámetro | Valor recomendado | Justificación |  
+| :--- | :--- | :--- |  
+| **Period** | `Daily` | Referencia intradía estándar para scalping. |  
+| **ValueAreaPercent** | `70` | Convención de mercado (área de valor). |  
+| **Filter** | `0`–`50` | Ajustar según ruido del feed; filtra micro-niveles irrelevantes. |  
+| **ExtendLines** | `true` | Mantiene niveles como mapa visual operable. |  
+| **UseAlerts** | `false` | En M1 puede saturar; activar solo en investigación o con 1–2 niveles clave. |  
 
----
-
-### 💎 Valor Reutilizable (Código Donante)
-
-* **Algoritmo VAH/VAL:** El método `GetValueArea` dentro de `DynamicCandle` es la implementación canónica de cálculo de Value Area.
-
----
-
-### ✍️ La opinión de Gemini sobre el Indicador
-
-Es el mapa de carretera del día. Sin él, no sabes si estás operando dentro o fuera de valor.
-
-**Propuestas de Acción:**
-* **Conservar como CORE.**
 
 ---
 
-### 📈 Veredicto: ¿Es útil para Scalping?
+### 🧪 Notas de desarrollo  
 
-**Sí.**
+* Indicador de **perfil por precio**: la lógica base deriva de una distribución `volumen ↔ precio` y extrae POC/VAH/VAL.  
+* En ejecución, debe priorizarse un lookback (`Days`) razonable para no penalizar rendimiento en históricos largos.  
+* En términos de “capas”, esto es un componente de **Niveles / Mapa**, no un trigger.  
 
-Para contextualizar cada trade.
 
-**Acción:** **Conservar (Core).**
+---
+
+### ❗ Incoherencias o aspectos mejorables detectados  
+
+* Falta una opción explícita de **reset por sesión RTH/ETH** (si tu operativa diferencia).  
+* Si el mercado cambia de régimen fuerte (tendencia post-noticia), el perfil acumulado puede tardar en “rotar” y el POC puede quedar rezagado respecto al valor reciente.  
+
+
+---
+
+### 🛠️ Propuestas de mejora  
+
+* Añadir modo alternativo “**Rolling Value Area**” (ventana móvil) o integración opcional con el enfoque de DynamicLevelsChannel.  
+* Añadir opción de **POC naked** (mantener POC previos como niveles heredados hasta ser testeados).  
+* Exponer presets rápidos para scalping (RTH reset, VA 70, filtros por instrumento).  
+
+
+---
+
+### 💎 Valor Reutilizable (Código Donante)  
+
+* Cálculo y extracción de **POC/VAH/VAL** desde distribución por precio.  
+* Patrón de **líneas extendidas** con etiquetas consistentes y alertas por eventos de precio.  
+
+
+---
+
+### ✍️ La opinión de ChatGPT sobre el Indicador  
+
+DynamicLevels es el “mapa de valor” que justifica un sistema de scalping disciplinado: te da contexto estructural inmediato (POC/VAH/VAL) con una carga cognitiva baja. En un stack de capas, es el nivel base para decidir dónde operar (zonas) antes de pasar a triggers (delta, imbalance, tape).  
+
+
+---
+
+### 📈 Veredicto: ¿Es útil para Scalping?  
+
+**Sí.**  
+
+Como capa de **Niveles / Mapa**, es una referencia central para planificar entradas y objetivos con coherencia.  
+
+**Acción:** **Conservar (Core)**  
+
+

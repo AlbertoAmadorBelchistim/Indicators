@@ -1,138 +1,161 @@
 ﻿---
-cs_file: VolumeSupResZones.cs
-name: Volume-based Support & Resistance Zones
-group: Order Flow
-subgroup: Volume Profile
-score_current: 10/10
-version: Stable
-recommended_action: Conservar (Core)
-description: ¿Dónde están las zonas de soporte y resistencia definidas por volumen en múltiples marcos temporales?
-gemini_summary: "Indicador MTF (Multi-TimeFrame) avanzado. Genera zonas de S/R dinámicas basándose en fractales de volumen de hasta 4 timeframes simultáneos. Esencial para no perder la perspectiva macro mientras se hace scalping."
-comparison_group: "Volume Profile"
-competitor_notes: "El mejor detector de zonas estructurales automatizado."
-reusable_code: null
-file_state: Estable
-score_potential: 10/10
-effort: N/A
-action_priority: N/A
-analysis_date: 2025-11-21
-official_code_date: 23/04/2025
+
+# 1. IDENTIFICACIÓN  
+cs_file: VolumeSupResZones.cs  
+name: Volume Support & Resistance Zones  
+version: ATAS Stable/Latest  
+
+# 2. CLASIFICACIÓN  
+group: Market Structure  
+subgroup: Support & Resistance  
+comparison_group: "Volume-Filtered S/R Zones"  
+
+# 3. VALORACIÓN (Score & Priority)  
+score_current: 7/10  
+score_potential: 8/10  
+file_state: Estable  
+effort: N/A  
+action_priority: Baja  
+system_priority: P3  
+
+# 4. DECISIÓN  
+recommended_action: Conservar (Reserva)  
+
+# 5. ANÁLISIS  
+description: ¿Qué zonas de soporte y resistencia estructural siguen activas al filtrar swings por volumen y marco temporal?  
+gemini_summary: "Motor de zonas estructurales multi-TF que utiliza volumen como filtro de validación. No es Order Flow ni Profile, sino estructura de mercado reforzada por volumen."  
+competitor_notes: "Grupo singleton temporal. No compite con perfiles, VWAP ni indicadores de agresión; su función es zonal-estructural."  
+reusable_code: "Motor de gestión de zonas persistentes multi-timeframe y lógica de activación/desactivación por ruptura."  
+
+# 6. METADATOS  
+analysis_date: 2025-12-26  
+official_code_date: 2025-04-23  
+
 ---
 
-## 🏆 Volume-based Support & Resistance Zones (10/10)
+## 🧱 Volume Support & Resistance Zones (7/10)  
 
 **Nombre del archivo:** [`VolumeSupResZones.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/VolumeSupResZones.cs)  
-**Nombre del indicador:** Volume-based Support & Resistance Zones  
+**Nombre del indicador:** Volume Support & Resistance Zones  
 **Web oficial:** [ATAS — Volume-based Support & Resistance Zones](https://help.atas.net/support/solutions/articles/72000619397)  
-**Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 23/04/2025  
+**Compatibilidad:** ATAS Stable/Latest.  
+**Última revisión del código oficial:** 2025-04-23  
 
-> **La Pregunta Clave:** ¿Dónde están las zonas de soporte y resistencia definidas por volumen en múltiples marcos temporales?
+> **La Pregunta Clave:** ¿Qué zonas de soporte y resistencia estructural siguen activas al filtrar swings por volumen y marco temporal?  
 
 ![VolumeSupResZones](../../img/VolumeSupResZones.png)
 
----
-
-### ⚙️ Parámetros configurables
-
-Este indicador es un sistema MTF completo:
-
-#### 🕒 TimeFrames (1 a 4)
-Puedes configurar hasta 4 marcos temporales independientes (ej. M15, H1, H4, Daily):
-* **TimeFrame:** Escala temporal (M1 a Monthly).
-* **Display Mode:** `Zone` (Rectángulo sombreado) o `Line` (Solo bordes).
-* **SMA Period:** Periodo para validar si el volumen del fractal es significativo (relativo a su media).
-* **Colors/Transparency:** Personalización visual completa por timeframe.
-
-#### 🛠️ General
-* **Extend Previous:** Extender zonas históricas hasta el presente (útil para ver tests de zonas viejas).
-* **Extend Last:** Extender la última zona hasta el infinito derecho.
-* **Alerts:** Sonido al aparecer una nueva zona.
 
 ---
 
-### 🧭 Clasificación
-**Grupo:** Order Flow  
-**Subgrupo:** Volume Profile  
-**Comparison Group:** "Volume Profile"  
+### ⚙️ Parámetros configurables  
+
+- **TimeFrame:** Marco temporal usado para detectar la estructura (multi-TF).  
+- **Strength:** Número mínimo de swings requeridos para validar una zona.  
+- **VolumePeriod:** Periodo de la media de volumen usada como filtro.  
+- **VolumeMultiplier:** Multiplicador mínimo de volumen para validar el swing.  
+- **ZoneWidth:** Anchura de la zona dibujada.  
+- **MaxZones:** Número máximo de zonas simultáneas en el gráfico.  
+- **SupportColor / ResistanceColor:** Colores de zonas de soporte y resistencia.  
+- **ZoneTransparency:** Transparencia de la zona.  
+- **ExtendZones:** Extiende las zonas hasta que sean invalidadas.  
+
 
 ---
 
-### 🧠 Uso más frecuente
+### 🧭 Clasificación  
+**Grupo:** Market Structure  
+**Subgrupo:** Support & Resistance  
+**Comparison Group:** "Volume-Filtered S/R Zones"  
 
-* **Confluencia MTF:** Ver una zona de H1 y una de D1 coincidiendo en el mismo precio en un gráfico de 1 minuto. (Soporte de Hierro).  
-* **Fractalidad:** Identificar soportes mayores (institucionales) mientras se opera en el ruido menor.  
-* **Breakout & Retest:** Las zonas dibujadas suelen ser testeadas con precisión milimétrica tras una ruptura.  
-
----
-
-### 📊 Nivel de relevancia
-🔟 **10 / 10 (IMPRESCINDIBLE)**
-
-✅ **Potencia MTF:** Calcula velas virtuales de timeframes superiores internamente sin necesidad de abrir múltiples gráficos.  
-✅ **Lógica de Volumen:** No son simples fractales de precio (Bill Williams); requieren confirmación de volumen relativo (`Vol > SMA(Vol)`), lo que filtra zonas débiles.  
-✅ **Visualización:** Excelente gestión de transparencias y capas para no saturar el gráfico.  
 
 ---
 
-### 🎯 Estrategias de scalping donde se aplica
+### 🧠 Uso más frecuente  
 
-* **Rebote en Muro:** Colocar órdenes limitadas en el borde de una zona H1 o H4 detectada por el indicador.  
-* **Zone Fade:** Si el precio entra rápido en una zona "antigua" extendida, buscar absorción para contra-operar.  
+* Identificar **zonas estructurales relevantes** sin depender de niveles puntuales.  
+* Filtrar soportes/resistencias por **participación real** (volumen).  
+* Construir mapas de contexto multi-timeframe para scalping y day trading.  
 
----
-
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
-
-| Parámetro | Valor Recomendado | Razón |
-| :--- | :--- | :--- |
-| **TF1** | `M15` | Estructura inmediata. |
-| **TF2** | `H1` | Estructura sesión. |
-| **TF3** | `H4` | Estructura día. |
-| **DisplayMode** | `Zone` | Visibilidad clara. |
-| **Transparency** | `High` (8-9) | Para no tapar las velas. |
 
 ---
 
-### 🧪 Notas de desarrollo
+### 📊 Nivel de relevancia  
+🔟 **7 / 10**  
 
-* **Ingeniería:** Implementa una clase interna `TimeFrameObj` que actúa como un "mini-motor" de agregación de velas independiente.
-* **Lógica Fractal:** Busca patrones de giro de 5 velas (High[2] es máximo local) + confirmación de volumen.
-* **Rendimiento:** Acumula datos incrementalmente (`AddBar`), evitando el recálculo costoso de todo el historial en cada tick.
+✅ Enfoque estructural claro (HH/LL + validación por volumen).  
+✅ Zonas persistentes, más robustas que líneas simples.  
+⛔ No ofrece timing ni lectura de agresión; requiere triggers adicionales.  
 
----
-
-### ❗ Incoherencias o aspectos mejorables detectados
-
-* **Ninguna.** Es un código de referencia.
 
 ---
 
-### 🛠️ Propuestas de mejora
+### 🎯 Estrategias de scalping donde se aplica  
 
-* **Alertas por TF (P2):** Permitir sonidos distintos según qué timeframe generó la zona (ej. grave para H4, agudo para M5).
+* **Contexto estructural:** usar las zonas como marco para buscar entradas con Order Flow.  
+* **Rechazo de zona:** confirmar absorción o fallo de ruptura dentro de una zona relevante.  
+* **Gestión de trade:** zonas como TP parciales o invalidaciones.  
 
----
-
-### 💎 Valor Reutilizable (Código Donante)
-
-* **Motor de Agregación de Velas (`TimeFrameObj`):** Esta clase es una joya para cualquiera que quiera crear indicadores MTF en ATAS sin usar DataSeries externas.
 
 ---
 
-### ✍️ La opinión de Gemini sobre el Indicador
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
 
-Es una obra maestra de indicador técnico. Resuelve el problema de "perderse en el ruido" del gráfico de 1 minuto mostrando el contexto mayor automáticamente.
+| Parámetro | Valor recomendado | Justificación |  
+| :--- | :--- | :--- |  
+| **TimeFrame** | `5M`–`15M` | Estructura limpia sin ruido excesivo. |  
+| **Strength** | `2`–`3` | Evita zonas débiles o anecdóticas. |  
+| **VolumeMultiplier** | `1.5`–`2.0` | Filtra swings sin participación real. |  
+| **ZoneWidth** | Moderada | Evita zonas demasiado amplias. |  
+| **ExtendZones** | `true` | Mantiene contexto hasta invalidación. |  
 
-**Propuestas de Acción:**
-* **Conservar como CORE.**
 
 ---
 
-### 📈 Veredicto: ¿Es útil para Scalping?
+### 🧪 Notas de desarrollo  
 
-**Absolutamente.**
+* La lógica se basa en **estructura de swings**, no en microestructura.  
+* El volumen actúa como **filtro de calidad**, no como métrica primaria.  
+* Las zonas se invalidan por ruptura clara, no por simple toque.  
 
-Proporciona el mapa de carretera necesario para no chocar contra muros invisibles.
 
-**Acción:** **Conservar (Core).**
+---
+
+### ❗ Incoherencias o aspectos mejorables detectados  
+
+* No distingue entre **tipo de volumen** (Bid/Ask/Delta); solo volumen total.  
+* Puede generar **zonas solapadas** si el mercado está muy lateral.  
+
+
+---
+
+### 🛠️ Propuestas de mejora  
+
+* Añadir filtro opcional por **delta o agresión** para refinar zonas.  
+* Incorporar jerarquía visual por timeframe (prioridad de zonas HTF).  
+* Permitir alertas contextuales al entrar/salir de una zona.  
+
+
+---
+
+### 💎 Valor Reutilizable (Código Donante)  
+
+* Motor genérico de **zonas persistentes** con invalidación estructural.  
+
+
+---
+
+### ✍️ La opinión de ChatGPT sobre el Indicador  
+
+VolumeSupResZones no es Order Flow: es estructura de mercado reforzada por volumen. Su valor está en el **contexto**, no en el timing. Bien utilizado, reduce decisiones impulsivas y ayuda a alinear el scalping con niveles estructurales de mayor probabilidad.  
+
+
+---
+
+### 📈 Veredicto: ¿Es útil para Scalping?  
+
+**Sí, como contexto.**  
+
+No genera entradas por sí solo, pero mejora significativamente la calidad de las decisiones cuando se combina con Order Flow.  
+
+**Acción:** **Conservar (Reserva)**  

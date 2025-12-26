@@ -1,11 +1,11 @@
 # 🔥 Master Index: Order Flow & Volumen
 
 ### 📊 Status Dashboard
-**Progreso de Auditoría:** `▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░` **87%** (Fase 2 Completada)
+**Progreso de Auditoría:** `▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓` **100%** (Fase 2 Completada)
 
 | Total Indicadores | 🟢 Core (Ganadores) | 🟡 Reserva (Backup) | 💀 Descartados |
 | :---: | :---: | :---: | :---: |
-| **66** | **26** | **22** | 17 |
+| **65** | **22** | **25** | 17 |
 
 [🔙 Volver al Índice General](INDICATORS.es.md)
 
@@ -87,6 +87,13 @@ _Tendencia de fondo. Acumulación de agresiones durante toda la sesión._
 
 <a id='footprint'></a>
 ## 👣 Footprint
+
+### ⚔️ Auction Extremes &nbsp;✅ <small>FASE 2</small>
+_Extremos de subasta (auction theory): unfinished auctions/excess y niveles de reparación (repair targets)._
+
+| Nota | Fase | Estado | Indicador | Pregunta Clave / Descripción |
+| :---: | :---: | :--- | :--- | :--- |
+| **8.5/10** | ✅ | 🟢 **CORE** | [Unfinished Auction](indicators/es/UnfinishedAuction.md) | ¿Hay una subasta inacabada en el máximo/mínimo (volumen en el tick extremo) que deje un nivel pendiente de “cierre”? |
 
 ### ⚔️ Big Trades Analysis &nbsp;✅ <small>FASE 2</small>
 _Detector de Ballenas. Filtros de grandes bloques y órdenes institucionales._
@@ -193,6 +200,13 @@ _Volume Spread Analysis. Velas climáticas, volumen de parada y anomalías._
 | 4/10 | ✅ | 💀 Descartar | [Spread Volume](indicators/es/SpreadVolume.md) | <sub>¿Quién está agrediendo más dentro del spread actual?</sub> |
 | 3/10 | ✅ | 💀 Descartar | [Bar's Volume Filter](indicators/es/BarVolumeFilter.md) | <sub>¿Qué velas de este gráfico cumplen mi criterio específico de Volumen, Delta o Ticks?</sub> |
 
+### ⚔️ VWAP & Benchmarks &nbsp;✅ <small>FASE 2</small>
+_Referencias de precio ponderadas (VWAP/TWAP) y benchmarks equivalentes (incluye variantes ancladas)._
+
+| Nota | Fase | Estado | Indicador | Pregunta Clave / Descripción |
+| :---: | :---: | :--- | :--- | :--- |
+| **10/10** | ✅ | 🟢 **CORE** | [VWAP / TWAP](indicators/es/VWAP.md) | ¿Cuál es el precio medio ponderado por volumen (benchmark institucional) y sus desviaciones relevantes durante un periodo definido o anclado? |
+
 ### ⚔️ Volume Efficiency &nbsp;✅ <small>FASE 2</small>
 _Esfuerzo vs Resultado. ¿Cuánto mueve el precio cada unidad de volumen?_
 
@@ -217,28 +231,19 @@ _Olas y flujos de volumen oscilante (Weiss Wave, TVI)._
 <a id='volume-profile'></a>
 ## 📂 Volume Profile
 
-### ⚔️ Dynamic Profiles &nbsp;⚠️ <small>PENDIENTE</small>
-_Perfiles móviles que se adaptan al precio (VWAP, Canales dinámicos)._
+### ⚔️ Profile Levels (POC/VA) &nbsp;✅ <small>FASE 2</small>
+_Niveles clave del perfil (POC, VAH, VAL) por periodo/sesión y sus variantes operables._
 
 | Nota | Fase | Estado | Indicador | Pregunta Clave / Descripción |
 | :---: | :---: | :--- | :--- | :--- |
-| **10/10** | ⚠️ | 🟢 **CORE** | [VWAP/TWAP](indicators/es/VWAP.md) | ¿Cuál es el precio medio ponderado por volumen (institucional) y sus desviaciones estándar? |
-| **9/10** | ⚠️ | 🟢 **CORE** | [Dynamic Levels Channel](indicators/es/DynamicLevelsChannel.md) | ¿Dónde se están formando el POC, VAH y VAL de las últimas N barras (un perfil móvil)? |
+| **9/10** | ✅ | 🟢 **CORE** | [Dynamic Levels](indicators/es/DynamicLevels.md) | ¿Dónde se están formando en tiempo real el POC, VAH y VAL del periodo activo, y cuándo el precio los toca o los cruza? |
+| 8.5/10 | ✅ | 🟡 Reserva | [Dynamic Levels Channel](indicators/es/DynamicLevelsChannel.md) | ¿Dónde se sitúan el POC, VAH y VAL del valor reciente calculado sobre una ventana móvil de volumen? |
+| 8.5/10 | ✅ | 🟡 Reserva | [Maximum Levels](indicators/es/MaxLevels.md) | ¿En qué nivel de precio se concentró el máximo volumen (o delta) de un periodo cerrado y cómo actúa ese nivel como referencia estructural? |
 
-### ⚔️ Session Profile &nbsp;⚠️ <small>PENDIENTE</small>
-_Perfil de Volumen fijo por sesión (TPO, Market Profile, VPOC)._
-
-| Nota | Fase | Estado | Indicador | Pregunta Clave / Descripción |
-| :---: | :---: | :--- | :--- | :--- |
-| **9/10** | ⚠️ | 🟢 **CORE** | [Dynamic Levels](indicators/es/DynamicLevels.md) | ¿Dónde se están formando el POC, VAH y VAL del período actual en tiempo real? |
-| **8.5/10** | ⚠️ | 🟢 **CORE** | [Maximum Levels](indicators/es/MaxLevels.md) | ¿En qué nivel de precio se produjo el máximo Volumen (o Bid, Ask, Delta) para el período seleccionado? |
-| **8.5/10** | ⚠️ | 🟢 **CORE** | [Unfinished Auction](indicators/es/UnfinishedAuction.md) | ¿Quedaron órdenes pendientes en los extremos de la vela que el precio debe volver a visitar? |
-
-### ⚔️ Volume Profile &nbsp;⚠️ <small>PENDIENTE</small>
-_Perfiles de volumen estáticos y zonas de alto valor._
+### ⚔️ Volume Nodes & Accumulation (VAP) &nbsp;✅ <small>FASE 2</small>
+_Herramientas VAP (volumen en precio): nodos/POC proxies y acumulaciones relevantes por nivel._
 
 | Nota | Fase | Estado | Indicador | Pregunta Clave / Descripción |
 | :---: | :---: | :--- | :--- | :--- |
-| **10/10** | ⚠️ | 🟢 **CORE** | [Volume-based Support & Resistance Zones](indicators/es/VolumeSupResZones.md) | ¿Dónde están las zonas de soporte y resistencia definidas por volumen en múltiples marcos temporales? |
-| **9/10** | ⚠️ | 🟢 **CORE** | [Active Volume](indicators/es/ActiveVolume.md) | Filtrando ruido, ¿dónde está el volumen significativo y agresivo? |
-| **8/10** | ⚠️ | 🟢 **CORE** | [HRanges](indicators/es/HRanges.md) | ¿Dónde se están formando rangos (consolidaciones) y cuál es el POC interno? |
+| **9/10** | ✅ | 🟢 **CORE** | [Active Volume](indicators/es/ActiveVolume.md) | ¿En qué niveles de precio se está concentrando volumen agresivo significativo, filtrando el ruido minorista? |
+| 8/10 | ✅ | 🟡 Reserva | [HRanges](indicators/es/HRanges.md) | ¿Dónde se están formando zonas de equilibrio y cuál es el nodo de mayor volumen interno del rango? |

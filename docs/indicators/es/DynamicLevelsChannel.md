@@ -1,140 +1,155 @@
 ﻿---
-cs_file: DynamicLevelsChannel.cs
-name: Dynamic Levels Channel
-group: Order Flow
-subgroup: Volume Profile
-score_current: 9/10
-version: Stable
-recommended_action: Conservar (Core)
-description: ¿Dónde se están formando el POC, VAH y VAL de las últimas N barras (un perfil móvil)?
-gemini_summary: "Herramienta 'Core' de Perfil Móvil. Calcula un Volume Profile dinámico sobre una ventana deslizante (ej. últimos 30 mins). Esencial para ver la migración del valor a corto plazo."
-comparison_group: "Dynamic Profiles"
-competitor_notes: "Único. Complementa al VWAP (Acumulado) ofreciendo una visión de 'Ventana Móvil'."
-reusable_code: null
-file_state: Estable
-score_potential: 9/10
-effort: N/A
-action_priority: N/A
-analysis_date: 2025-11-21
-official_code_date: 23/04/2025
+
+# 1. IDENTIFICACIÓN  
+cs_file: DynamicLevelsChannel.cs  
+name: Dynamic Levels Channel  
+version: ATAS Stable/Latest  
+
+# 2. CLASIFICACIÓN  
+group: Order Flow  
+subgroup: Volume Profile  
+comparison_group: "Profile Levels (POC/VA)"  
+
+# 3. VALORACIÓN (Score & Priority)  
+score_current: 8.5/10  
+score_potential: 9/10  
+file_state: Estable  
+effort: N/A  
+action_priority: Baja  
+system_priority: P2  
+
+# 4. DECISIÓN  
+recommended_action: Conservar (Reserva)  
+
+# 5. ANÁLISIS  
+description: ¿Dónde se sitúan el POC, VAH y VAL del valor reciente calculado sobre una ventana móvil de volumen?  
+gemini_summary: "Perfil de valor dinámico basado en ventana móvil. Aporta mayor reactividad que el perfil acumulado, a costa de estabilidad estructural. Útil como complemento táctico."  
+competitor_notes: "Frente a DynamicLevels (Core), es más sensible a cambios recientes pero menos representativo del valor institucional acumulado. Frente a MaxLevels, aporta VAH/VAL dinámicos en lugar de un único nivel estático."  
+reusable_code: "Lógica de perfil móvil con buffer de barras y recálculo continuo de POC/VAH/VAL."  
+
+# 6. METADATOS  
+analysis_date: 2025-12-26  
+official_code_date: 2025-04-23  
+
 ---
 
-## 🏆 Dynamic Levels Channel (9/10)
+## 🟡 Dynamic Levels Channel (8.5/10)  
 
 **Nombre del archivo:** [`DynamicLevelsChannel.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/DynamicLevelsChannel.cs)  
 **Nombre del indicador:** Dynamic Levels Channel  
 **Web oficial:** [ATAS — Dynamic Levels Channel](https://help.atas.net/support/solutions/articles/72000602381)  
-**Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 23/04/2025  
+**Compatibilidad:** ATAS Stable/Latest.  
+**Última revisión del código oficial:** 2025-04-23  
 
-> **La Pregunta Clave:** ¿Dónde se están formando el POC, VAH y VAL de las últimas N barras (un perfil móvil)?
+> **La Pregunta Clave:** ¿Dónde se sitúan el POC, VAH y VAL del valor reciente calculado sobre una ventana móvil de volumen?  
 
 ![Dynamic Levels Channel](../../img/DynamicLevelsChannel.png)
 
----
-
-### ⚙️ Parámetros configurables
-
-Este indicador crea un canal dinámico basado en el perfil de volumen reciente:
-
-#### 📊 Cálculo
-* **Period:** Tamaño de la ventana móvil (ej. 40 barras). El perfil se calcula *solo* con estas barras.
-* **Calc Mode:**
-    * `Volume`: Perfil de volumen estándar.
-    * `Delta` / `PosDelta` / `NegDelta`: Perfiles avanzados basados en Order Flow.
-* **Days:** Días de historial a cargar.
-
-#### 🎨 Visualización
-* **Area Color:** Relleno del Value Area (70%).
-* **Lines:** POC, VAL, VAH (Colores y grosores).
-* **Signals:** Flechas de compra/venta cuando el precio interactúa con los bordes del canal.
-
-#### 🔔 Alertas
-* **Poc Touch:** Alerta al tocar el POC móvil.
-* **Approximation:** Alerta al acercarse.
 
 ---
 
-### 🧭 Clasificación
+### ⚙️ Parámetros configurables  
+
+- **Period:** Número de barras que forman la ventana móvil del perfil.  
+- **CalcMode:** Fuente del cálculo (Volume, Delta, Bid, Ask).  
+- **Days:** Límite de días históricos a procesar.  
+- **Filter:** Filtro mínimo de volumen para incluir niveles.  
+- **ShowPOC / ShowVAH / ShowVAL:** Activación individual de niveles.  
+- **Colors / LineWidth:** Ajustes visuales de líneas y etiquetas.  
+
+
+---
+
+### 🧭 Clasificación  
 **Grupo:** Order Flow  
 **Subgrupo:** Volume Profile  
-**Comparison Group:** "Dynamic Profiles"  
+**Comparison Group:** "Profile Levels (POC/VA)"  
+
 
 ---
 
-### 🧠 Uso más frecuente
+### 🧠 Uso más frecuente  
 
-* **Rolling Value:** Ver si el valor (POC) está subiendo o bajando *ahora mismo*, independientemente de lo que hizo el mercado hace 2 horas.  
-* **Soporte Dinámico:** El VAL (Value Area Low) de un canal móvil alcista actúa como soporte dinámico para la tendencia inmediata.  
-* **Divergencia de Valor:** El precio hace un nuevo máximo, pero el POC móvil no logra subir (debilidad).  
+* Detectar **cambios rápidos de valor** tras noticias o rupturas.  
+* Complementar el perfil acumulado cuando el mercado rota con velocidad.  
+* Identificar micro-zonas de aceptación recientes dentro de una sesión activa.  
 
----
-
-### 📊 Nivel de relevancia
-🔟 **9 / 10 (CORE TÁCTICO)**
-
-✅ **Agilidad:** A diferencia del VWAP (que se vuelve lento al final del día por el peso acumulado), este indicador mantiene la misma reactividad siempre.  
-✅ **Versatilidad:** El modo `Delta` permite crear un canal de "Sentimiento" muy potente.  
-✅ **Señales:** Incluye lógica de reversión en bordes.  
 
 ---
 
-### 🎯 Estrategias de scalping donde se aplica
+### 📊 Nivel de relevancia  
+🔟 **8.5 / 10**  
 
-* **Trend Pullback:** En tendencia alcista, comprar cuando el precio toca el VAL (borde inferior) del canal móvil.  
-* **Reversión:** Si el precio rompe el canal y el POC no le sigue, buscar el fallo.  
+✅ Mayor reactividad que el perfil acumulado clásico.  
+✅ Mantiene la lógica POC/VAH/VAL en entornos dinámicos.  
+⛔ Menor estabilidad estructural: puede generar ruido en laterales.  
 
----
-
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
-
-| Parámetro | Valor Recomendado | Razón |
-| :--- | :--- | :--- |
-| **Period** | `40` - `60` | Ventana de ~1 hora de contexto. |
-| **Calc Mode** | `Volume` | Estándar. |
-| **Area Color** | *Transparente* | Marcar solo el canal. |
 
 ---
 
-### 🧪 Notas de desarrollo
+### 🎯 Estrategias de scalping donde se aplica  
 
-* **Algoritmo:** Mantiene una lista de `VolumeInfo` de las últimas N velas.
-* En cada tick, añade la nueva data y *remueve* la data de la vela que sale de la ventana (`RemoveAll(x => x.Bar == bar - Period)`). Esto es computacionalmente intensivo pero necesario para un perfil móvil exacto.
-* Calcula el Value Area (70%) dinámicamente en cada barra.
+* **Scalping reactivo:** entradas rápidas hacia POC móvil tras impulsos.  
+* **Confirmación de rotación:** alineación del valor móvil con ruptura reciente.  
 
----
-
-### ❗ Incoherencias o aspectos mejorables detectados
-
-* **Ninguna.** Funciona como debe.
 
 ---
 
-### 🛠️ Propuestas de mejora
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
 
-* **Suavizado (P3):** El POC puede saltar bruscamente. Una opción de suavizado visual ayudaría.
+| Parámetro | Valor recomendado | Justificación |  
+| :--- | :--- | :--- |  
+| **Period** | `50`–`150` | Ventana suficientemente sensible sin exceso de ruido. |  
+| **CalcMode** | `Volume` | Estándar institucional para definir valor. |  
+| **Filter** | `0`–`50` | Ajustar según liquidez del instrumento. |  
+| **Days** | `2`–`5` | Evita sobrecarga histórica innecesaria. |  
 
----
-
-### 💎 Valor Reutilizable (Código Donante)
-
-* **Lógica de Ventana Deslizante:** El manejo de la lista `_priceInfo` para añadir/quitar datos es un buen ejemplo de buffer circular para perfiles.
-
----
-
-### ✍️ La opinión de Gemini sobre el Indicador
-
-Es el complemento perfecto al VWAP. El VWAP te dice la tendencia del día; el Dynamic Channel te dice la tendencia de la hora.
-
-**Propuestas de Acción:**
-* **Conservar como CORE.**
 
 ---
 
-### 📈 Veredicto: ¿Es útil para Scalping?
+### 🧪 Notas de desarrollo  
 
-**Sí.**
+* El perfil se recalcula continuamente sobre una **ventana deslizante**.  
+* Más costoso computacionalmente que DynamicLevels, pero aceptable en M1.  
+* Indicador claramente de **contexto táctico**, no de estructura principal.  
 
-Te mantiene en el lado correcto del valor inmediato.
 
-**Acción:** **Conservar (Core).**
+---
+
+### ❗ Incoherencias o aspectos mejorables detectados  
+
+* Puede duplicar información si se usa simultáneamente con DynamicLevels sin una regla clara de prioridad.  
+
+
+---
+
+### 🛠️ Propuestas de mejora  
+
+* Añadir preset “**Post-news / High Volatility**” con ventana más corta.  
+* Opción para fijar (“freeze”) el valor móvil tras ruptura validada.  
+
+
+---
+
+### 💎 Valor Reutilizable (Código Donante)  
+
+* Implementación de **perfil móvil por precio** reutilizable para otros indicadores reactivos.  
+
+
+---
+
+### ✍️ La opinión de ChatGPT sobre el Indicador  
+
+DynamicLevelsChannel es un perfil de valor **táctico**, pensado para mercados que cambian de régimen rápido. No sustituye al perfil acumulado, pero aporta una lectura adelantada del valor reciente cuando el mercado deja atrás el equilibrio previo.  
+
+
+---
+
+### 📈 Veredicto: ¿Es útil para Scalping?  
+
+**Sí, como complemento.**  
+
+Debe usarse con reglas claras de prioridad frente al perfil acumulado para evitar sobreinterpretación.  
+
+**Acción:** **Conservar (Reserva)**  
+

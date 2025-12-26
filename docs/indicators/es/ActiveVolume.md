@@ -1,144 +1,159 @@
 ---
-cs_file: ActiveVolume.cs
-name: Active Volume
-group: Order Flow
-subgroup: Volume Profile
-score_current: 9/10
-version: Custom (v1.3.0)
-recommended_action: Conservar (Core)
-description: Filtrando ruido, ¿dónde está el volumen significativo y agresivo?
-gemini_summary: "Herramienta 'Core' de Order Flow. Es un perfil de volumen filtrado por tamaño de orden. Permite ver la acumulación de agresión institucional en niveles de precio específicos, limpiando el ruido de los pequeños traders."
-comparison_group: "Volume Profile"
-competitor_notes: "Complementario a perfiles estándar. Se centra en la CALIDAD del volumen, no en la cantidad total."
-reusable_code: null
-file_state: Estable
-score_potential: 9/10
-effort: Medio
-action_priority: P1
-analysis_date: 2025-11-21
-official_code_date: 13/11/2025
----
+# 1. IDENTIFICACIÓN  
+cs_file: ActiveVolume.cs  
+name: Active Volume  
+version: Custom v1.3  
 
-## 🏆 Active Volume (9/10)
+# 2. CLASIFICACIÓN  
+group: Order Flow  
+subgroup: Volume Profile  
+comparison_group: "Volume Nodes & Accumulation (VAP)"  
+
+# 3. VALORACIÓN (Score & Priority)  
+score_current: 9/10  
+score_potential: 9/10  
+file_state: Estable  
+effort: Medio  
+action_priority: Baja  
+system_priority: P1  
+
+# 4. DECISIÓN  
+recommended_action: Conservar (Core)  
+
+# 5. ANÁLISIS  
+description: ¿En qué niveles de precio se está concentrando volumen agresivo significativo, filtrando el ruido minorista?  
+gemini_summary: "Indicador Core de perfil de volumen filtrado. Aporta una lectura institucional clara al identificar acumulaciones reales de agresión Bid/Ask por precio."  
+competitor_notes: "Frente a perfiles clásicos (VAP estándar), aporta calidad del volumen y direccionalidad, no solo cantidad."  
+reusable_code: "Lógica de acumulación por precio con filtrado y renderizado manual de perfil."  
+
+# 6. METADATOS  
+analysis_date: 2025-12-26  
+official_code_date: 2024-12-03  
+user_modification_date: 2025-11-13  
+---  
+
+## 🏆 Active Volume (9/10)  
 
 **Nombre del archivo:**  [`ActiveVolume.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/ActiveVolume.cs)  
 **Versión modificada:** [`ActiveVolume.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/compile/myindicators/MyIndicators/ActiveVolume.cs)  
 **Nombre del indicador:** Active Volume  
 **Web oficial:** [ATAS — Active Volume](https://help.atas.net/ru-RU/support/solutions/articles/72000608343-active-volume)  
-**Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 3/12/2024  
-**Última revisión del código modificado:** 13/11/2025  
+**Compatibilidad:** ATAS Stable / Alpha  
+**Última revisión del código oficial:** 2024-12-03  
+**Última revisión del código modificado:** 2025-11-13  
 
-> **La Pregunta Clave:** Filtrando todas las pequeñas operaciones de 'ruido', ¿dónde está apareciendo realmente el volumen significativo y agresivo de compra y venta en la escala de precios?
+> **La Pregunta Clave:**  
+> ¿Dónde están actuando los participantes agresivos relevantes cuando se filtra todo el ruido de micro-trades?  
 
 ![Active Volume](../../img/ActiveVolume.png)
 
----
+---  
 
-### ⚙️ Parámetros configurables
+### ⚙️ Parámetros configurables  
 
-Este indicador filtra y acumula trades para crear un perfil de "Calidad":
+**Settings**  
+- **Filter:** Volumen mínimo del trade para ser contabilizado.  
+- **RowWidth:** Ancho de cada fila de la tabla.  
+- **ShowBid / ShowAsk / ShowVolume:** Mostrar columnas Bid, Ask y Total.  
+- **Offset:** Desplazamiento horizontal de la tabla.  
+- **DateFrom:** Fecha desde la que se inicia la acumulación.  
+- **DigitsAfterComma:** Precisión decimal mostrada.  
 
-#### 📊 Filtros
-* **Filter:** Volumen mínimo del trade para ser contabilizado (ej. 50 lotes). Todo lo menor se ignora.
-* **DateFrom:** Fecha de inicio de la acumulación.
+**Profile**  
+- **Mode:** BidAsk / Bid / Ask.  
+- **ProfileWidth:** Ancho del perfil horizontal.  
+- **ProfileOffset:** Offset del perfil respecto al precio.  
+- **ProfileFillColor / BidProfileValueColor / AskProfileValueColor:** Colores del perfil.  
 
-#### 🎨 Visualización
-* **Mode:** `BidAsk` (Doble perfil), `Bid` o `Ask`.
-* **Table:** Muestra una tabla numérica con los valores acumulados por precio.
-* **Profile:** Dibuja el histograma visual en el lateral.
-* **Colores:** Personalización de Bid/Ask y fondos.
+---  
 
----
-
-### 🧭 Clasificación
+### 🧭 Clasificación  
 **Grupo:** Order Flow  
 **Subgrupo:** Volume Profile  
-**Comparison Group:** "Volume Profile"  
+**Comparison Group:** "Volume Nodes & Accumulation (VAP)"  
 
----
+---  
 
-### 🧠 Uso más frecuente
+### 🧠 Uso más frecuente  
 
-* **Mapa de Ballenas:** Ver dónde han acumulado posiciones los grandes jugadores (filtrando por tamaño).  
-* **Niveles de Defensa:** Si ves una gran acumulación de `Bid` (Ventas) en un nivel que no baja, es absorción institucional.  
-* **Validación de Ruptura:** Una ruptura debe dejar atrás un nodo de alto volumen agresivo (`Ask` fuerte) para ser válida.  
+- Identificar **zonas de absorción institucional**.  
+- Localizar **nodos de volumen agresivo dominante**.  
+- Confirmar rupturas reales vs falsas rupturas.  
 
----
+---  
 
-### 📊 Nivel de relevancia
-🔟 **9 / 10 (IMPRESCINDIBLE)**
+### 📊 Nivel de relevancia  
+🔟 **9 / 10**  
 
-✅ **Filtrado Real:** A diferencia del Volume Profile normal, este ignora el ruido. Solo ves lo que importa.  
-✅ **Desglose Bid/Ask:** Permite ver quién fue el agresor en cada nivel de precio.  
-✅ **Precisión:** Acumula tick a tick, no es una estimación.  
+✅ Filtrado efectivo del ruido minorista.  
+✅ Lectura clara Bid / Ask por nivel.  
+⛔ Requiere espacio visual y buena configuración.  
 
----
+---  
 
-### 🎯 Estrategias de scalping donde se aplica
+### 🎯 Estrategias de scalping donde se aplica  
 
-* **Absorción Visual:** Ask elevado + Precio no rompe resistencia = Venta.  
-* **Soporte Institucional:** Buscar el nivel con mayor volumen filtrado del día y usarlo como soporte para rebotar.  
+- Absorciones en resistencia/soporte.  
+- Pullbacks hacia nodos de volumen agresivo.  
+- Confirmación de continuación tras ruptura.  
 
----
+---  
 
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
 
-| Parámetro | Valor Recomendado | Razón |
-| :--- | :--- | :--- |
-| **Filter** | `50` - `100` | Filtrar todo el ruido retail y HFT menor. |
-| **Mode** | `BidAsk` | Ver ambos lados de la agresión. |
-| **Show Table** | `True` | Ver los números exactos es vital. |
-| **Digits** | `0` | Limpiar decimales innecesarios. |
+| Parámetro | Valor | Justificación |  
+|---------|------|---------------|  
+| Filter | 50–100 | Elimina micro-trades irrelevantes |  
+| Mode | BidAsk | Permite lectura completa de agresión |  
+| ProfileWidth | 30 | Buen balance visibilidad / espacio |  
+| DigitsAfterComma | 0–1 | Limpieza visual |  
 
----
+---  
 
-### ✨ Mejoras añadidas (Custom)
+### ✨ Mejoras añadidas (Custom)  
 
-* **Optimizaciones de UI:** Mejoras en la visualización de la tabla y redondeo de cifras.
+- Ajustes de visualización y redondeo.  
+- Mejor organización de tabla y perfil.  
 
----
+---  
 
-### 🧪 Notas de desarrollo
+### 🧪 Notas de desarrollo  
 
-* Utiliza `CumulativeTradesRequest` para obtener datos históricos filtrados.
-* Mantiene diccionarios `_bidValues` y `_askValues` en memoria para acceso rápido por precio.
-* Renderizado manual de la tabla y el perfil en `OnRender`.
+- Uso intensivo de `CumulativeTrade`.  
+- Diccionarios por precio con locking explícito.  
+- Renderizado manual optimizado en `OnRender`.  
 
----
+---  
 
-### ❗ Incoherencias o aspectos mejorables detectados
+### ❗ Incoherencias o aspectos mejorables detectados  
 
-* **Reset Diario:** Actualmente requiere cambiar la fecha manualmente o usar lógica de sesión. Sería ideal un "Auto-Reset Daily".
+- Falta **reset automático por sesión**.  
 
----
+---  
 
-### 🛠️ Propuestas de mejora
+### 🛠️ Propuestas de mejora  
 
-* **Auto-Reset (P2):** Opción para reiniciar automáticamente al inicio de la sesión RTH.
-* **Delta Mode (P1):** Añadir modo para ver el Delta Neto por precio (Ask - Bid) en lugar de los dos valores separados.
+- Reset por sesión RTH configurable.  
+- Modo Delta Neto por nivel (Bid–Ask).  
 
----
+---  
 
-### 💎 Valor Reutilizable (Código Donante)
+### 💎 Valor Reutilizable (Código Donante)  
 
-* **Lógica de Perfilado Manual:** El código de dibujo de la tabla y el histograma es muy limpio y reutilizable.
+- Arquitectura de perfil horizontal custom.  
 
----
+---  
 
-### ✍️ La opinión de Gemini sobre el Indicador
+### ✍️ La opinión de ChatGPT sobre el Indicador  
 
-Es el complemento perfecto al `Volume Profile` estándar. El perfil estándar te dice "aquí se negoció mucho". Este indicador te dice "aquí negociaron LOS GRANDES". Esa distinción es oro.
+Es uno de los mejores ejemplos de cómo un perfil de volumen deja de ser descriptivo y pasa a ser **operativo**. Fundamental en cualquier sistema serio de scalping con Order Flow.  
 
-**Propuestas de Acción:**
-* **Conservar como CORE.**
+---  
 
----
+### 📈 Veredicto: ¿Es útil para Scalping?  
 
-### 📈 Veredicto: ¿Es útil para Scalping?
+**Sí.**  
 
-**Sí.**
+Especialmente para leer absorciones y validar niveles relevantes.  
 
-Para identificar dónde están posicionados los jugadores grandes.
-
-**Acción:** **Conservar (Core).**
+**Acción:** **Conservar (Core)**  
