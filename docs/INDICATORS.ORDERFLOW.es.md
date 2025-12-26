@@ -1,11 +1,11 @@
 # 🔥 Master Index: Order Flow & Volumen
 
 ### 📊 Status Dashboard
-**Progreso de Auditoría:** `▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░` **84%** (Fase 2 Completada)
+**Progreso de Auditoría:** `▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░` **87%** (Fase 2 Completada)
 
 | Total Indicadores | 🟢 Core (Ganadores) | 🟡 Reserva (Backup) | 💀 Descartados |
 | :---: | :---: | :---: | :---: |
-| **66** | **26** | **21** | 17 |
+| **66** | **26** | **22** | 17 |
 
 [🔙 Volver al Índice General](INDICATORS.es.md)
 
@@ -114,13 +114,13 @@ _Desequilibrios diagonales agresivos (Aggressive Buying/Selling Imbalances)._
 | **9/10** | ✅ | 🟢 **CORE** | [Imbalance Ratio](indicators/es/ImbalanceRatio.md) | ¿Dónde aparecen desequilibrios diagonales (Ask vs Bid / Bid vs Ask) que superan un ratio mínimo y un filtro de volumen? |
 | 7/10 | ✅ | 🟡 Reserva | [Stacked Imbalance](indicators/es/StackedImbalance.md) | ¿En qué niveles aparecen secuencias consecutivas de desequilibrios (stacked) y cómo se proyectan como soporte/resistencia hasta el re-test? |
 
-### ⚔️ Microstructure &nbsp;⚠️ <small>PENDIENTE</small>
+### ⚔️ Microstructure &nbsp;✅ <small>FASE 2</small>
 _Eventos finos: Agotamiento (Exhaustion) y Absorción en extremos._
 
 | Nota | Fase | Estado | Indicador | Pregunta Clave / Descripción |
 | :---: | :---: | :--- | :--- | :--- |
-| **9/10** | ⚠️ | 🟢 **CORE** | [Ratio](indicators/es/Ratio.md) | ¿Cuál es el ratio de absorción/agresión (Bid vs Ask) en el extremo de la vela? |
-| 8/10 | ⚠️ | 🛠️ Reparar | [Exhaustion](indicators/es/Exhaustion.md) | ¿Está el precio mostrando agotamiento en los últimos N ticks de la vela? |
+| **9/10** | ✅ | 🟢 **CORE** | [Ratio](indicators/es/Ratio.md) | ¿Cuál es el ratio de absorción/agresión (Bid vs Ask) en el extremo de la vela? |
+| 8/10 | ✅ | 🟡 Reserva | [Exhaustion](indicators/es/Exhaustion.md) | ¿Está el precio mostrando agotamiento (desaceleración de Bid/Ask/Volumen) en los extremos de la vela en los últimos N niveles? |
 
 <br>
 

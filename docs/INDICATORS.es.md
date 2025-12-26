@@ -135,7 +135,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Elder Ray](indicators/es/ElderRay.md) | Oscillators | 6.5/10 | Mejorar |
 | [EMA](indicators/es/EMA.md) | Trend | 9/10 | Conservar |
 | [Ergodic](indicators/es/Ergodic.md) | Oscillators | 4/10 | Reparar |
-| [Exhaustion](indicators/es/Exhaustion.md) | Order Flow | 8/10 | Reparar |
+| [Exhaustion](indicators/es/Exhaustion.md) | Order Flow | 8/10 | Conservar (Reserva) |
 | [External Chart](indicators/es/ExternalCharts.md) | Utility | 7.5/10 | Conservar |
 | | | | |
 | **<a id='f'>F</a>** | | | |
