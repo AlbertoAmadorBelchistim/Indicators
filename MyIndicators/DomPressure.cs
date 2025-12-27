@@ -13,7 +13,6 @@
     using OFT.Rendering.Tools;
 
     using DrawingColor = System.Drawing.Color;
-    using MediaColor = System.Windows.Media.Color;
 
     [Category("Order Flow")]
     [DisplayName("DOM Pressure")]
@@ -24,7 +23,7 @@
 
         private readonly ValueDataSeries _powerSeries = new("DomPower", "DOM Power (Passive)")
         {
-            Color = MediaColor.FromArgb(0, 0, 0, 0),
+            Color = CrossColor.FromArgb(0, 0, 0, 0),
             VisualType = VisualMode.Hide,
             ScaleIt = false,
             ShowZeroValue = false
@@ -32,7 +31,7 @@
 
         private readonly ValueDataSeries _strengthSeries = new("DomStrength", "Trade Strength (Aggressive)")
         {
-            Color = MediaColor.FromArgb(0, 0, 0, 0),
+            Color = CrossColor.FromArgb(0, 0, 0, 0),
             VisualType = VisualMode.Hide,
             ScaleIt = false,
             ShowZeroValue = false

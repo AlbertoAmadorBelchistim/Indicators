@@ -13,7 +13,7 @@ using OFT.Localization;
 using OFT.Rendering.Settings;
 using ATAS.Indicators;
 
-using Pen = System.Drawing.Pen;
+using Pen = CrossPen;
 using OFT.Rendering.Context;
 using OFT.Rendering.Tools;
 using Parameter = OFT.Attributes.ParameterAttribute;
@@ -193,7 +193,7 @@ public class InitialBalance : Indicator
 	private decimal _minValue = decimal.MaxValue;
 	private int _period = 60;
 	private PeriodType _periodMode = PeriodType.Minutes;
-	private DrawingRectangle _rectangle = new(0, 0, 0, 0, Pens.Gray, new SolidBrush(DefaultColors.Yellow));
+	private DrawingRectangle _rectangle = new(0, 0, 0, 0, CrossPens.Gray, new SolidBrush(DefaultColors.Yellow));
 	private bool _showOpenRange = true;
 	private TimeSpan _startDate = new(9, 0, 0);
 	private int _targetBar;

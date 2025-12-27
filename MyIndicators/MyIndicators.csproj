@@ -76,8 +76,13 @@
 		<Compile Include="..\Technical\Extensions\CrossColorExtensions.cs">
 			<Link>Extensions\CrossColorExtensions.cs</Link>
 		</Compile>
-		<Compile Include="..\Technical\Extensions\CrossColorExtensions.Windows.cs">
+		<Compile Include="..\Technical\Extensions\CrossColorExtensions.Windows.cs"
+         Condition=" '$(Platform)' != 'Cross' AND '$(Configuration)' != 'ATAS_X' ">
 			<Link>Extensions\CrossColorExtensions.Windows.cs</Link>
+		</Compile>
+		<Compile Include="..\Technical\Extensions\CrossColorExtensions.Common.cs"
+         Condition=" '$(Platform)' == 'Cross' OR '$(Configuration)' == 'ATAS_X' ">
+			<Link>Extensions\CrossColorExtensions.Common.cs</Link>
 		</Compile>
 		<Compile Include="..\Technical\GlobalUsings.cs" Link="GlobalUsings.cs" />
 	</ItemGroup>
@@ -113,9 +118,6 @@
 		<Reference Include="ATAS.DataFeedsCore">
 			<HintPath>$(ATAS_BASE)\ATAS.DataFeedsCore.dll</HintPath>
 		</Reference>
-		<Reference Include="DevExpress.Data.v25.2">
-		  <HintPath>..\..\..\..\..\..\Program Files (x86)\ATAS Platform\DevExpress.Data.v25.2.dll</HintPath>
-		</Reference>
 		<Reference Include="OFT.Attributes">
 			<HintPath>$(ATAS_BASE)\OFT.Attributes.dll</HintPath>
 		</Reference>
@@ -127,6 +129,9 @@
 		</Reference>
 		<Reference Include="OFT.Rendering">
 			<HintPath>$(ATAS_BASE)\OFT.Rendering.dll</HintPath>
+		</Reference>
+		<Reference Include="System.Drawing.Common">
+			<HintPath>$(ATAS_BASE)\System.Drawing.Common.dll</HintPath>
 		</Reference>
 		<Reference Include="Utils.Common">
 			<HintPath>$(ATAS_BASE)\Utils.Common.dll</HintPath>
@@ -167,9 +172,20 @@
 		<None Include="..\Technical\Editors\**\*.xaml.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
 	</ItemGroup>
 
-	<ItemGroup Condition=" '$(Platform)' != 'Cross' ">
+	<ItemGroup Condition="'$(Configuration)' == 'Debug'">
+		<Reference Include="DevExpress.Data.v25.2">
+			<HintPath>$(ATAS_BASE)\DevExpress.Data.v25.2.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(Platform)' != 'Cross' AND '$(Configuration)' != 'ATAS_X'">
 		<Compile Remove="**\*.Common.cs" />
 		<None Include="**\*.Common.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(Platform)' == 'Cross' OR '$(Configuration)' == 'ATAS_X'">
+		<Compile Remove="**\*.Windows.cs" />
+		<None Include="**\*.Windows.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
 	</ItemGroup>
 
 </Project>

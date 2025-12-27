@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
-    using System.Windows.Media;
     using ATAS.Indicators;
     using ATAS.Indicators.Technical;
     using OFT.Attributes;
@@ -19,8 +18,8 @@
         // Usamos CandleDataSeries nativa
         private readonly CandleDataSeries _flowCandles = new("LiquidityFlow", "DOM Flow Candles")
         {
-            UpCandleColor = Colors.LimeGreen,
-            DownCandleColor = Colors.Red,
+            UpCandleColor = CrossColors.LimeGreen,
+            DownCandleColor = CrossColors.Red,
             IsHidden = false, // Visible en la lista
             ScaleIt = true    // Escala automática perfecta
         };
