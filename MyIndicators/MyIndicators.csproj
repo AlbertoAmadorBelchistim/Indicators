@@ -9,7 +9,8 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 
 		<!-- Alinea plataformas/configs con upstream -->
-		<Configurations>Debug;Release</Configurations>
+		<!-- Add a third configuration for ATAS X -->
+		<Configurations>Debug;Release;ATAS_X</Configurations>
 		<Platforms>AnyCPU;Cross</Platforms>
 
 		<!-- Versión del compilado -->
@@ -43,13 +44,6 @@
 
 	<ItemGroup Condition="'$(Configuration)' == 'Release'">
 		<Compile Remove="InitialBalanceModif.cs" />
-		<Compile Remove="OrderFlowRhythmClone.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<!-- Exclude experimental LAB indicators from the default build -->
-		<Compile Remove="**\Lab\**\*.cs" />
-		<None Include="**\Lab\**\*.cs" />
 	</ItemGroup>
 
 	<!-- Canal DEFAULT (instalación normal) -->
@@ -58,6 +52,25 @@
 		<ATAS_BASE>C:\Program Files (x86)\ATAS Platform</ATAS_BASE>
 		<AssemblyName>IndicatorsLoloGroup_Alfa</AssemblyName>
 	</PropertyGroup>
+
+	<!-- ATAS X channel -->
+	<PropertyGroup Condition="'$(Configuration)' == 'ATAS_X'">
+		<UseWPF>false</UseWPF>
+		<TargetFramework>net10.0</TargetFramework>
+
+		<DefineConstants>$(DefineConstants);ATAS_X;CROSS_PLATFORM</DefineConstants>
+		<ATAS_BASE>C:\Program Files\ATAS X</ATAS_BASE>
+		<AssemblyName>IndicatorsLoloGroup_X</AssemblyName>
+
+		<!-- Optional: distinguish informational version -->
+		<InformationalVersion>2.0.0-atasx (2025-12-27)</InformationalVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- Exclude experimental LAB indicators from the default build -->
+		<Compile Remove="**\Lab\**\*.cs" />
+		<None Include="**\Lab\**\*.cs" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<Compile Include="..\Technical\Extensions\CrossColorExtensions.cs">
@@ -124,6 +137,34 @@
 		<Reference Include="Newtonsoft.Json">
 			<HintPath>$(ATAS_BASE)\Newtonsoft.Json.dll</HintPath>
 		</Reference>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(Configuration)' == 'ATAS_X'">
+		<Reference Include="Avalonia.Base">
+			<HintPath>$(ATAS_BASE)\Avalonia.Base.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+
+		<Reference Include="Avalonia">
+			<HintPath>$(ATAS_BASE)\Avalonia.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+
+		<!-- Same philosophy as upstream Cross build -->
+		<Compile Remove="**\*.Windows.cs" />
+		<None Include="**\*.Windows.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+
+		<Compile Remove="**\*.xaml.cs" />
+		<None Include="**\*.xaml.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+
+		<Compile Remove="**\*.xaml" />
+		<None Include="**\*.xaml" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+
+		<!-- Hard-stop: remove any WPF editor folder you might still be including -->
+		<Compile Remove="..\Technical\Editors\**\*.cs" />
+		<Compile Remove="..\Technical\Editors\**\*.xaml.cs" />
+		<None Include="..\Technical\Editors\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+		<None Include="..\Technical\Editors\**\*.xaml.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(Platform)' != 'Cross' ">

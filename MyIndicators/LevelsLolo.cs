@@ -11,7 +11,6 @@
     using System.Globalization;
     using System.Linq;
     using System.Text.RegularExpressions;
-    using System.Windows.Media;
 
     [Category("Custom")]
     [DisplayName("LevelsLolo")]
@@ -28,17 +27,17 @@
         // CO  = price magnet (amber)     | ZG  = regime context (neutral gray)
         // 0DTE halo accent (cyan) is used as a secondary overlay stroke in OnRender.
 
-        private PenSettings _penPutWall = new PenSettings { Color = Color.FromRgb(0, 255, 128), Width = 2 }; // PW  #00FF80
-        private PenSettings _penCallWall = new PenSettings { Color = Color.FromRgb(255, 64, 64), Width = 2 }; // CW  #FF4040
-        private PenSettings _penVolTrigger = new PenSettings { Color = Color.FromRgb(255, 215, 0), Width = 3 }; // VT  #FFD700
-        private PenSettings _penLargeGamma = new PenSettings { Color = Color.FromRgb(255, 136, 0), Width = 2 }; // LG  #FF8800
-        private PenSettings _penCombo = new PenSettings { Color = Color.FromRgb(255, 192, 77), Width = 1 }; // CO  #FFC04D
-        private PenSettings _penZeroGamma = new PenSettings { Color = Color.FromRgb(170, 170, 170), Width = 1 }; // ZG  #AAAAAA
-        private PenSettings _penOther = new PenSettings { Color = Color.FromRgb(160, 160, 160), Width = 1 }; // Fallback gray
+        private PenSettings _penPutWall = new PenSettings { Color = CrossColor.FromArgb(255, 0, 255, 128), Width = 2 }; // PW  #00FF80
+        private PenSettings _penCallWall = new PenSettings { Color = CrossColor.FromArgb(255, 255, 64, 64), Width = 2 }; // CW  #FF4040
+        private PenSettings _penVolTrigger = new PenSettings { Color = CrossColor.FromArgb(255, 255, 215, 0), Width = 3 }; // VT  #FFD700
+        private PenSettings _penLargeGamma = new PenSettings { Color = CrossColor.FromArgb(255, 255, 136, 0), Width = 2 }; // LG  #FF8800
+        private PenSettings _penCombo = new PenSettings { Color = CrossColor.FromArgb(255, 255, 192, 77), Width = 1 }; // CO  #FFC04D
+        private PenSettings _penZeroGamma = new PenSettings { Color = CrossColor.FromArgb(255, 170, 170, 170), Width = 1 }; // ZG  #AAAAAA
+        private PenSettings _penOther = new PenSettings { Color = CrossColor.FromArgb(255, 160, 160, 160), Width = 1 }; // Fallback gray
 
         // 0DTE halo accent (secondary overlay stroke). Use as:
         // context.DrawLine(_pen0DTEHalo.RenderObject, firstX, y, rightX, y) BEFORE the main dashed line.
-        private PenSettings _pen0DTEHalo = new PenSettings { Color = Color.FromArgb(120, 0, 255, 255), Width = 1 }; // cyan glow (#00FFFF, alpha ~120)
+        private PenSettings _pen0DTEHalo = new PenSettings { Color = CrossColor.FromArgb(120, 0, 255, 255), Width = 1 }; // cyan glow (#00FFFF, alpha ~120)
 
 
         // Price -> merged labels at that price
@@ -514,7 +513,7 @@
 
                 // Build effective pen color with tier alpha (keep RGB from base)
                 var bc = basePen.Color;
-                var effColor = Color.FromArgb(alpha, bc.R, bc.G, bc.B);
+                var effColor = CrossColor.FromArgb(alpha, bc.R, bc.G, bc.B);
 
                 var effPen = new PenSettings
                 {
@@ -529,7 +528,7 @@
                     var halo = new PenSettings
                     {
                         // Rojo brillante con alpha configurable
-                        Color = Color.FromArgb((byte)Math.Clamp(HaloAlpha, 0, 255), 255, 64, 64), // #FF4040 con alpha
+                        Color = CrossColor.FromArgb((byte)Math.Clamp(HaloAlpha, 0, 255), 255, 64, 64), // #FF4040 con alpha
                         Width = Math.Max(1, width + HaloExtraWidth),
                         LineDashStyle = LineDashStyle.Solid
                     };
@@ -550,7 +549,7 @@
                 {
                     var accent = new PenSettings
                     {
-                        Color = Color.FromArgb(220, 255, 64, 64), // brighter red
+                        Color = CrossColor.FromArgb(220, 255, 64, 64), // brighter red
                         Width = 1,
                         LineDashStyle = LineDashStyle.Dot
                     };

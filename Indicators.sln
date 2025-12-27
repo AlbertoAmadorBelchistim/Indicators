@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyIndicators", "MyIndicator
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		ATAS_X|Any CPU = ATAS_X|Any CPU
+		ATAS_X|Cross = ATAS_X|Cross
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Cross = Debug|Cross
 		Publish|Any CPU = Publish|Any CPU
@@ -17,6 +19,10 @@ Global
 		Release|Cross = Release|Cross
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.ATAS_X|Any CPU.ActiveCfg = Release|Any CPU
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.ATAS_X|Any CPU.Build.0 = Release|Any CPU
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.ATAS_X|Cross.ActiveCfg = Release|Cross
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.ATAS_X|Cross.Build.0 = Release|Cross
 		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Debug|Cross.ActiveCfg = Debug|Cross
@@ -29,6 +35,9 @@ Global
 		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Release|Cross.ActiveCfg = Release|Cross
 		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Release|Cross.Build.0 = Release|Cross
+		{CE74E863-5DF4-49C4-B0FF-E97C7B8D8414}.ATAS_X|Any CPU.ActiveCfg = ATAS_X|Any CPU
+		{CE74E863-5DF4-49C4-B0FF-E97C7B8D8414}.ATAS_X|Cross.ActiveCfg = ATAS_X|Cross
+		{CE74E863-5DF4-49C4-B0FF-E97C7B8D8414}.ATAS_X|Cross.Build.0 = ATAS_X|Cross
 		{CE74E863-5DF4-49C4-B0FF-E97C7B8D8414}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CE74E863-5DF4-49C4-B0FF-E97C7B8D8414}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE74E863-5DF4-49C4-B0FF-E97C7B8D8414}.Debug|Cross.ActiveCfg = Debug|Cross
@@ -37,8 +46,8 @@ Global
 		{CE74E863-5DF4-49C4-B0FF-E97C7B8D8414}.Publish|Any CPU.Build.0 = Publish|Any CPU
 		{CE74E863-5DF4-49C4-B0FF-E97C7B8D8414}.Publish|Cross.ActiveCfg = Publish|Cross
 		{CE74E863-5DF4-49C4-B0FF-E97C7B8D8414}.Publish|Cross.Build.0 = Publish|Cross
-		{CE74E863-5DF4-49C4-B0FF-E97C7B8D8414}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{CE74E863-5DF4-49C4-B0FF-E97C7B8D8414}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{CE74E863-5DF4-49C4-B0FF-E97C7B8D8414}.Release|Any CPU.ActiveCfg = ATAS_X|Any CPU
+		{CE74E863-5DF4-49C4-B0FF-E97C7B8D8414}.Release|Any CPU.Build.0 = ATAS_X|Any CPU
 		{CE74E863-5DF4-49C4-B0FF-E97C7B8D8414}.Release|Cross.ActiveCfg = Release|Cross
 		{CE74E863-5DF4-49C4-B0FF-E97C7B8D8414}.Release|Cross.Build.0 = Release|Cross
 	EndGlobalSection
