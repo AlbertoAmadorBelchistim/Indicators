@@ -2,8 +2,8 @@
 cs_file: Gaps.cs
 name: Gaps
 category: Structure
-group: Structure
-subgroup: Static Levels
+group: Market Structure  
+subgroup: Auction / Inefficiency Structure  
 score_current: 8.5/10
 version: Estable
 recommended_action: Conservar

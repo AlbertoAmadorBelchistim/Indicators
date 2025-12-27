@@ -2,8 +2,8 @@
 cs_file: OrderBlock.cs
 name: Order Block
 category: Structure
-group: Structure
-subgroup: Price Action
+group: Market Structure  
+subgroup: Auction / Inefficiency Structure  
 score_current: 9/10
 version: Stable
 recommended_action: Conservar

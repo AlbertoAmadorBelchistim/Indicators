@@ -1,8 +1,8 @@
 ---
 cs_file: OutsideBar.cs
 name: Outside Bar
-category: Structure
-group: Structure
+category: Price Action
+group: Price Action
 subgroup: Price Action
 score_current: 6/10
 version: Stable

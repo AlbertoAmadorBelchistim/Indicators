@@ -5,7 +5,7 @@ name: VSA – WSD Histogram
 version: ATAS Stable
 
 # 2. CLASIFICACIÓN
-group: Structure
+group: Price Action
 subgroup: Candle Analysis
 comparison_group: "Candle Structure"
 

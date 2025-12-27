@@ -1,8 +1,8 @@
 ﻿---
 cs_file: BarDifference.cs
 name: Bar Difference
-category: Structure
-group: Structure
+category: Price Action
+group: Price Action
 subgroup: Price Action
 score_current: 3/10
 version: Estable

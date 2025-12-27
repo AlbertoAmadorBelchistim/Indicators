@@ -2,8 +2,8 @@
 cs_file: GreatestSwing.cs
 name: Greatest Swing Value
 category: Structure
-group: Structure
-subgroup: Static Levels
+group: Market Structure  
+subgroup: Swing-Derived Structure  
 score_current: 7/10
 version: Estable
 recommended_action: Conservar

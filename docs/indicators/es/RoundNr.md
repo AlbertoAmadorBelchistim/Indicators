@@ -7,8 +7,8 @@ version: ATAS Stable/Latest
 
 # 2. CLASIFICACIÓN  
 group: Market Structure  
-subgroup: Structural Levels  
-comparison_group: "Structural Levels"  
+subgroup: Geometric / Grid Structure  
+comparison_group: "Geometric / Grid Structure"  
 
 # 3. VALORACIÓN (Score & Priority)  
 score_current: 7/10  
@@ -22,26 +22,26 @@ system_priority: P3
 recommended_action: Conservar (Reserva)  
 
 # 5. ANÁLISIS  
-description: ¿Dónde están los niveles psicológicos (grid) más probables para reacción del precio, y cómo los represento con un step fijo en ticks?  
-gemini_summary: "Indicador baseline muy ligero. No jerarquiza ni contextualiza, pero aporta referencias psicológicas útiles para entradas/salidas y gestión."  
-competitor_notes: "No compite con Pivots/Camarilla/Murrey en cálculo, sino en simplicidad. Pierde el torneo porque no aporta estructura contextual, pero se conserva como fondo operativo."  
+description: ¿Dónde están los niveles psicológicos equiespaciados (round numbers) para apoyar gestión y confluencia en el intradía?  
+gemini_summary: "Indicador de coste mínimo que añade una malla psicológica simple. Aporta valor como fondo de gestión, pero no tiene jerarquía ni contexto propio."  
+competitor_notes: "En el torneo Geometric / Grid Structure, Round Numbers es el más simple y barato. Pierde frente a Murrey en estructura, pero gana en coste cognitivo. Se conserva como reserva P3 para gestión y medición, sin aspiración CORE."  
 reusable_code: null  
 
 # 6. METADATOS  
-analysis_date: 2025-12-26  
+analysis_date: 2025-12-27  
 official_code_date: 2025-04-23  
 
 ---
 
-## 🧱 Round Numbers (7/10)  
+## 🔢 Round Numbers (7/10)  
 
 **Nombre del archivo:** [`RoundNr.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/RoundNr.cs)  
 **Nombre del indicador:** Round Numbers  
 **Web oficial:** [ATAS — Round Numbers](https://help.atas.net/support/solutions/articles/72000602459)  
-**Compatibilidad:** ATAS Stable/Latest.  
+**Compatibilidad:** ATAS Stable/Latest  
 **Última revisión del código oficial:** 2025-04-23  
 
-> **La Pregunta Clave:** ¿Dónde están los niveles psicológicos (grid) más probables para reacción del precio, y cómo los represento con un step fijo en ticks?  
+> **La Pregunta Clave:** ¿Dónde están los niveles psicológicos equiespaciados (round numbers) para apoyar gestión y confluencia en el intradía?  
 
 ![RoundNr](../../img/Roundnumbers.png)
 
@@ -49,24 +49,24 @@ official_code_date: 2025-04-23
 ---
 
 ### ⚙️ Parámetros configurables  
-- **Step**: Tamaño del escalón en ticks (distancia entre niveles).  
-- **Pen**: Estilo visual de los niveles (color/grosor).  
+- **Step**: Distancia entre niveles (en ticks).  
+- **Pen**: Color y grosor de las líneas.  
 
 
 ---
 
 ### 🧭 Clasificación  
 **Grupo:** Market Structure  
-**Subgrupo:** Structural Levels  
-**Comparison Group:** "Structural Levels"  
+**Subgrupo:** Geometric / Grid Structure  
+**Comparison Group:** "Geometric / Grid Structure"  
 
 
 ---
 
 ### 🧠 Uso más frecuente  
-* Referencias psicológicas para TP/SL y “micro-gestión” en ES.  
-* Medir distancias rápidas sin herramientas adicionales (grid).  
-* Filtrar zonas: detectar cuándo el precio está “entre niveles” sin estructura cercana.  
+* Fondo de gestión: TP/SL por escalones psicológicos.  
+* Medición rápida de distancias (aproximación visual) en el chart.  
+* Confluencia: refuerzo cuando coincide con niveles exógenos o de sesión.  
 
 
 ---
@@ -74,16 +74,16 @@ official_code_date: 2025-04-23
 ### 📊 Nivel de relevancia  
 🔟 **7 / 10**  
 
-✅ Extremadamente ligero y limpio; coste computacional mínimo.  
-✅ Útil como referencia psicológica universal (00/50, etc. según step).  
-⛔ No aporta jerarquía ni contexto: requiere capa adicional para decisión.  
+✅ Coste computacional mínimo y visual limpio si el step está bien elegido.  
+✅ Referencia psicológica universal (niveles “redondos”).  
+⛔ No aporta jerarquía ni contexto; puede inducir exceso de líneas si el step es pequeño.  
 
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica  
-* **Gestión**: TP en el siguiente round level; SL detrás del round anterior.  
-* **Confluencia**: si coincide con nivel estructural (pivots, gamma, etc.), aumenta importancia.  
+* Gestión por escalones: TP en el siguiente round; SL detrás del round previo.  
+* Confluencia: priorizar reacción si coincide con nivel exógeno o de sesión.  
 
 
 ---
@@ -92,28 +92,27 @@ official_code_date: 2025-04-23
 
 | Parámetro | Valor recomendado | Justificación |  
 | --- | --- | --- |  
-| Step | 40 ticks (10 puntos) o 20 ticks (5 puntos) | Ajusta a tu estilo: 10p para mapa limpio; 5p para micro-gestión. |  
-| Pen | Gris tenue, grosor bajo | Debe ser fondo, no señal dominante. |  
+| Step | 20–40 ticks | Grid suficientemente espaciado para evitar clutter en M1. |  
+| Pen | Fino y tenue | Debe ser referencia de fondo, no señal dominante. |  
 
 
 ---
 
 ### 🧪 Notas de desarrollo  
-* Indicador puramente visual: recorre el rango visible y dibuja niveles equiespaciados.  
-* Riesgo principal: clutter si Step es demasiado pequeño para el rango intradía.  
+* El riesgo principal es el ajuste de Step: demasiado pequeño produce ruido visual y sesgo de “ver niveles en todas partes”.  
 
 
 ---
 
 ### ❗ Incoherencias o aspectos mejorables detectados  
-* Falta potencial opción “Hide Text” (petición típica): si dibuja texto redundante, puede saturar.  
+* Falta un preset “ES M1” que sugiera steps típicos y estilo tenue para evitar sobrecarga.  
 
 
 ---
 
 ### 🛠️ Propuestas de mejora  
-* Opción para ocultar etiquetas (si existen) y dejar solo líneas.  
-* Preset ES: Step 40 ticks con atenuación automática por zoom.  
+* Añadir presets por instrumento (ES/NQ) y por escala (M1/M5).  
+* Opción para resaltar solo múltiplos mayores (por ejemplo, cada 4 niveles) con jerarquía visual.  
 
 
 ---
@@ -125,16 +124,18 @@ official_code_date: 2025-04-23
 ---
 
 ### ✍️ La opinión de ChatGPT sobre el Indicador  
-Round Numbers es una reserva P3 sensata: aporta una base psicológica útil con coste nulo, pero no debe confundirse con estructura “informativa”. Su valor real aparece cuando se usa como confluencia con niveles de mayor jerarquía.  
+Round Numbers es una reserva de bajo coste y bajo riesgo cuando se usa como fondo. No debe competir con niveles exógenos ni de sesión; su valor real es ayudar a gestionar y medir sin saturar el proceso de decisión.  
 
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?  
+
 **Sí**  
 
-Como capa de fondo para gestión y confluencias; no como generador de señales.  
+Útil como capa auxiliar de gestión y confluencia, con Step suficientemente grande para no contaminar M1.  
 
 **Acción:** **Conservar (Reserva)**  
+
 
 

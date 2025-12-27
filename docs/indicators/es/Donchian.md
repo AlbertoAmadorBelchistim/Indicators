@@ -2,8 +2,8 @@
 cs_file: Donchian.cs
 name: Donchian Channel
 category: Structure
-group: Structure
-subgroup: Static Levels
+group: Market Structure  
+subgroup: Extremes & Range Structure  
 score_current: 8/10
 version: Estable
 recommended_action: Conservar

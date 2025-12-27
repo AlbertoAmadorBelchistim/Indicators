@@ -1,8 +1,8 @@
 ---
 cs_file: ColorBarHighLow.cs
 name: Color Bar HH/LL
-category: Structure
-group: Structure
+category: Price Action
+group: Price Action
 subgroup: Price Action
 score_current: 3/10
 version: Estable

@@ -1,8 +1,8 @@
 ---
 cs_file: InsideEqualsBar.cs
 name: Inside Bar
-category: Structure
-group: Structure
+category: Price Action
+group: Price Action
 subgroup: Price Action
 score_current: 7.5/10
 version: Estable

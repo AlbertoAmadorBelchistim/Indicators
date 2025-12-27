@@ -2,8 +2,8 @@
 cs_file: CMS.cs
 name: Clear Method Swing Line
 category: Structure
-group: Structure
-subgroup: Price Action
+group: Market Structure  
+subgroup: Swing-Derived Structure  
 score_current: 8/10
 version: Estable
 recommended_action: Conservar

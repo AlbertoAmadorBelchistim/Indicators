@@ -7,8 +7,8 @@ version: ATAS Stable/Latest
 
 # 2. CLASIFICACIÓN  
 group: Market Structure  
-subgroup: Support & Resistance  
-comparison_group: "Volume-Filtered S/R Zones"  
+subgroup: Volume-Derived Structure  
+comparison_group: "Volume-Derived Structure"  
 
 # 3. VALORACIÓN (Score & Priority)  
 score_current: 7/10  

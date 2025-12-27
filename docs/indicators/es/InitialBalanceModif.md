@@ -2,8 +2,8 @@
 cs_file: InitialBalanceModif.cs
 name: Initial Balance Modif
 category: Structure
-group: Structure
-subgroup: Static Levels
+group: Market Structure
+subgroup: Session & Time-Based Structure
 score_current: 9/10
 version: Latest
 recommended_action: Conservar

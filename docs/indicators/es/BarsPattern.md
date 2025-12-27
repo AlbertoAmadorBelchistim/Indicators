@@ -1,8 +1,8 @@
 ﻿---
 cs_file: BarsPattern.cs
 name: Bars Pattern
-category: Structure
-group: Structure
+category: Price Action
+group: Price Action
 subgroup: Price Action
 score_current: 9/10
 version: Estable

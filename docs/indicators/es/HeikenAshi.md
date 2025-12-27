@@ -1,8 +1,8 @@
 ---
 cs_file: HeikenAshi.cs
 name: Heiken Ashi
-category: Structure
-group: Structure
+category: Price Action
+group: Price Action
 subgroup: Price Action
 score_current: 6.5/10
 version: Estable

@@ -2,8 +2,8 @@
 cs_file: SwingHighLow.cs
 name: Swing High and Low
 category: Structure
-group: Structure
-subgroup: Static Levels
+group: Market Structure  
+subgroup: Swing-Derived Structure  
 score_current: 8/10
 version: Stable
 recommended_action: Conservar

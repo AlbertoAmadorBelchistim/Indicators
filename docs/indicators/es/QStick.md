@@ -1,8 +1,8 @@
 ---
 cs_file: QStick.cs
 name: Q Stick
-category: Structure
-group: Structure
+category: Price Action
+group: Price Action
 subgroup: Price Action
 score_current: 6/10
 version: Stable

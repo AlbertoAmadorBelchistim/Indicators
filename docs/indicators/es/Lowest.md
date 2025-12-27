@@ -2,8 +2,8 @@
 cs_file: Lowest.cs
 name: Lowest
 category: Structure
-group: Structure
-subgroup: Static Levels
+group: Market Structure  
+subgroup: Extremes & Range Structure  
 score_current: 6/10
 version: Estable
 recommended_action: Conservar

@@ -2,8 +2,8 @@
 cs_file: OHLCPlusModif.cs
 name: OHLC Plus Modif
 category: Structure
-group: Structure
-subgroup: Static Levels
+group: Market Structure
+subgroup: Session & Time-Based Structure
 score_current: 10/10
 version: Custom (Modif)
 recommended_action: Conservar

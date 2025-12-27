@@ -1,8 +1,8 @@
 ---
 cs_file: MutualFundBars.cs
 name: Mutual Fund Bars
-category: Structure
-group: Structure
+category: Price Action
+group: Price Action
 subgroup: Price Action
 score_current: 4/10
 version: Stable

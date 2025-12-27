@@ -1,15 +1,13 @@
-﻿
-
----
+﻿---
 # 1. IDENTIFICACIÓN  
 cs_file: Zigzag.cs  
 name: ZigZag Pro  
 version: ATAS Stable/Latest  
 
 # 2. CLASIFICACIÓN  
-group: Structure  
-subgroup: Price Action  
-comparison_group: "Market Structure (TEMP)"  
+group: Market Structure  
+subgroup: Swing-Derived Structure  
+comparison_group: "Swing-Derived Structure"  
 
 # 3. VALORACIÓN (Score & Priority)  
 score_current: 10/10  
@@ -59,9 +57,9 @@ official_code_date: 2025-04-23
 ---
 
 ### 🧭 Clasificación  
-**Grupo:** Structure  
-**Subgrupo:** Price Action  
-**Comparison Group:** "Market Structure (TEMP)"  
+**Grupo:** Market Structure  
+**Subgrupo:** Swing-Derived Structure  
+**Comparison Group:** "Swing-Derived Structure"  
 
 
 ---

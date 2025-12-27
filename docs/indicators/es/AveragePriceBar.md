@@ -1,8 +1,8 @@
 ﻿---
 cs_file: AveragePriceBar.cs
 name: Average Price for Bar
-category: Structure
-group: Structure
+category: Price Action
+group: Price Action
 subgroup: Price Action
 score_current: 2/10
 version: Estable

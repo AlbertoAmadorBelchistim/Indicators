@@ -2,8 +2,8 @@
 cs_file: Fractals.cs
 name: Fractals
 category: Structure
-group: Structure
-subgroup: Price Action
+group: Market Structure  
+subgroup: Swing-Derived Structure  
 score_current: 7.5/10
 version: Estable
 recommended_action: Conservar

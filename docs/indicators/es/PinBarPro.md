@@ -1,8 +1,8 @@
 ---
 cs_file: PinBarPro.cs
 name: Pin Bar Pro (Final Fix)
-category: Structure
-group: Structure
+category: Price Action
+group: Price Action
 subgroup: Price Action
 score_current: 9/10
 version: Stable

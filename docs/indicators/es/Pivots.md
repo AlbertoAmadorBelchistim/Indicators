@@ -7,8 +7,8 @@ version: ATAS Stable/Latest
 
 # 2. CLASIFICACIÓN  
 group: Market Structure  
-subgroup: Structural Levels  
-comparison_group: "Structural Levels"  
+subgroup: Session-Derived Reference Levels  
+comparison_group: "Session-Derived Reference Levels"  
 
 # 3. VALORACIÓN (Score & Priority)  
 score_current: 8/10  
@@ -22,26 +22,26 @@ system_priority: P2
 recommended_action: Conservar (Reserva)  
 
 # 5. ANÁLISIS  
-description: ¿Cuáles son los pivots y niveles derivados (S/R) relevantes del periodo seleccionado para mapear soportes/resistencias probables?  
-gemini_summary: "Mapa clásico de niveles ampliamente observado. Muy útil como estructura base, pero con riesgo de saturación y baja selectividad sin filtro adicional."  
-competitor_notes: "Frente a Camarilla, Pivots es más estándar; frente a LevelsLolo carece de jerarquía externa y priorización; frente a Murrey es menos 'framework', más utilitario; frente a Round Numbers aporta más estructura formal."  
+description: ¿Cuáles son los pivots y niveles derivados (S/R) relevantes del periodo seleccionado para mapear soportes y resistencias probables de la sesión?  
+gemini_summary: "Indicador de referencia clásico y ampliamente observado. Útil como mapa contextual base, pero sin jerarquía ni filtrado interno; su valor depende del uso disciplinado junto a Order Flow."  
+competitor_notes: "Frente a Camarilla es más simple y estable, con menor ruido visual. Ninguno gana el torneo: ambos son niveles derivados del precio sin causalidad externa, por lo que quedan como reservas P2."  
 reusable_code: null  
 
 # 6. METADATOS  
-analysis_date: 2025-12-26  
+analysis_date: 2025-12-27  
 official_code_date: 2025-04-23  
 
 ---
 
-## 🧱 Pivots (8/10)  
+## 🧭 Pivots (8/10)  
 
 **Nombre del archivo:** [`PivotsModif.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/Pivots.cs)  
 **Nombre del indicador:** Pivots  
 **Web oficial:** [ATAS — Pivots modif](https://help.atas.net/support/solutions/articles/72000602446)  
-**Compatibilidad:** ATAS Stable/Latest.  
+**Compatibilidad:** ATAS Stable/Latest  
 **Última revisión del código oficial:** 2025-04-23  
 
-> **La Pregunta Clave:** ¿Cuáles son los pivots y niveles derivados (S/R) relevantes del periodo seleccionado para mapear soportes/resistencias probables?  
+> **La Pregunta Clave:** ¿Cuáles son los pivots y niveles derivados (S/R) relevantes del periodo seleccionado para mapear soportes y resistencias probables de la sesión?  
 
 ![PivotsModif](../../img/PivotsModif.png)
 
@@ -49,28 +49,27 @@ official_code_date: 2025-04-23
 ---
 
 ### ⚙️ Parámetros configurables  
-- **(Periodo / Range)**: Selección del marco para cálculo (diario/semanal/mensual, según implementación).  
-- **RenderPeriodsFilter**: Número de periodos a dibujar (controla ruido visual).  
-- **UseCustomSession**: Activar sesión personalizada (RTH) para cálculos consistentes con futuros USA.  
-- **SessionBegin / SessionEnd**: Ventana horaria de sesión si se usa modo custom.  
-- **(Estilos por nivel)**: Colores/estilos para PP, S1–S3, R1–R3 (según series).  
-- **(Texto / ubicación)**: Mostrar etiquetas y ubicación de texto (si aplica).  
+- **Periodo / Range**: Marco temporal usado para el cálculo (diario, semanal, etc.).  
+- **UseCustomSession**: Fuerza sesión personalizada (RTH) para futuros USA.  
+- **SessionBegin / SessionEnd**: Ventana horaria usada en modo sesión custom.  
+- **RenderPeriodsFilter**: Número de periodos históricos a dibujar.  
+- **Estilos por nivel**: Colores y estilos para PP, S/R principales y secundarios.  
 
 
 ---
 
 ### 🧭 Clasificación  
 **Grupo:** Market Structure  
-**Subgrupo:** Structural Levels  
-**Comparison Group:** "Structural Levels"  
+**Subgrupo:** Session-Derived Reference Levels  
+**Comparison Group:** "Session-Derived Reference Levels"  
 
 
 ---
 
 ### 🧠 Uso más frecuente  
-* Definir **zonas de referencia** (PP, R1/R2, S1/S2) para plan de sesión.  
-* Identificar “targets naturales” en días de rango y mean-reversion.  
-* Combinar con Order Flow para validar rechazos/rupturas en S/R.  
+- Mapa base de **contexto intradía** (PP, S1/R1 como referencias).  
+- Definición de **targets naturales** en días de rango.  
+- Validación de **rechazos o rupturas** solo tras confirmación de Order Flow.  
 
 
 ---
@@ -78,17 +77,17 @@ official_code_date: 2025-04-23
 ### 📊 Nivel de relevancia  
 🔟 **8 / 10**  
 
-✅ Nivelado clásico y ampliamente observado (valor de consenso).  
-✅ Muy útil como mapa de contexto con mínimo coste computacional.  
-⛔ Puede generar exceso de niveles y sesgo visual si no se filtra.  
+✅ Amplio consenso de mercado (muchos traders lo observan).  
+✅ Coste computacional y visual bajo si se filtra correctamente.  
+⛔ Puede inducir sobreoperativa si se interpreta como señal y no como mapa.  
 
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica  
-* **Reversión en niveles**: buscar absorción/agotamiento en S1/R1.  
-* **Break & retest**: ruptura de PP y retesteo con confirmación por delta/footprint.  
-* **Targets de salida**: usar pivots como TP parciales.  
+- **Fade en niveles** con absorción confirmada.  
+- **Break & retest** del PP con validación de delta/volumen.  
+- **Gestión de salidas** usando pivots como objetivos parciales.  
 
 
 ---
@@ -97,30 +96,28 @@ official_code_date: 2025-04-23
 
 | Parámetro | Valor recomendado | Justificación |  
 | --- | --- | --- |  
-| UseCustomSession | Activado (RTH) | Alinea niveles con sesión relevante de ES. |  
-| SessionBegin / SessionEnd | RTH | Evita mezclar overnight si tu sistema es RTH-centric. |  
-| RenderPeriodsFilter | 1–3 | Reduce clutter (solo hoy + 1–2 históricos). |  
-| Etiquetas | Minimal | Menos ruido visual; el nivel es lo importante. |  
+| UseCustomSession | Activado (RTH) | Alinea niveles con la sesión relevante del ES. |  
+| RenderPeriodsFilter | 1–2 | Reduce clutter en M1. |  
+| Estilos | Minimal | El nivel es referencia, no señal. |  
 
 
 ---
 
 ### 🧪 Notas de desarrollo  
-* Cálculo ligero; el riesgo principal es la coherencia de sesión (RTH/ETH).  
-* Prioridad: estabilidad y claridad visual por encima de “feature creep”.  
+- Indicador ligero; la principal fuente de error es la **coherencia de sesión** (RTH vs ETH).  
 
 
 ---
 
 ### ❗ Incoherencias o aspectos mejorables detectados  
-* Sin un filtro explícito de relevancia, el trader puede sobreinterpretar niveles secundarios.  
+- Falta de jerarquía interna entre niveles principales y secundarios.  
 
 
 ---
 
 ### 🛠️ Propuestas de mejora  
-* Preset “RTH ES scalping”: sesión + filtro + estilos ya optimizados.  
-* Opción de atenuar niveles secundarios (alpha/line width).  
+- Preset específico “ES RTH Scalping”.  
+- Atenuar niveles secundarios mediante alpha o grosor.  
 
 
 ---
@@ -132,16 +129,16 @@ official_code_date: 2025-04-23
 ---
 
 ### ✍️ La opinión de ChatGPT sobre el Indicador  
-Pivots es una estructura clásica con valor de consenso. No gana el torneo porque no jerarquiza ni integra fuentes externas, pero es una reserva P2 sólida para mapas de sesión y objetivos naturales.  
+Pivots cumple bien su función como estructura convencional de consenso. No debe liderar el mapa del sistema, pero sí puede complementar la lectura cuando se usa con disciplina y confirmación de Order Flow.  
 
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?  
-**Sí**  
 
-Especialmente como mapa de contexto y targets, siempre que se combine con confirmación por Order Flow para evitar entradas “por fe”.  
+**Sí**, como **reserva contextual**, nunca como señal directa.  
 
 **Acción:** **Conservar (Reserva)**  
+
 
 

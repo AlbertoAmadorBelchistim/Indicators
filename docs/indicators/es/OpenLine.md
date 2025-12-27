@@ -2,8 +2,8 @@
 cs_file: OpenLine.cs
 name: Open Line
 category: Structure
-group: Structure
-subgroup: Static Levels
+group: Market Structure
+subgroup: Session & Time-Based Structure
 score_current: 8/10
 version: Stable
 recommended_action: Conservar

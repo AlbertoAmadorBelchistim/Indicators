@@ -7,8 +7,8 @@ version: ATAS Stable/Latest
 
 # 2. CLASIFICACIÓN  
 group: Market Structure  
-subgroup: Structural Levels  
-comparison_group: "Structural Levels"  
+subgroup: Session-Derived Reference Levels  
+comparison_group: "Session-Derived Reference Levels"  
 
 # 3. VALORACIÓN (Score & Priority)  
 score_current: 8/10  
@@ -22,54 +22,54 @@ system_priority: P2
 recommended_action: Conservar (Reserva)  
 
 # 5. ANÁLISIS  
-description: ¿Cuáles son los niveles Camarilla (reversión/ruptura) que definen extremos y pivotes intradía para estructurar un plan de trading?  
-gemini_summary: "Estructura táctica más accionable que pivots clásicos. Reserva P2 excelente; subiría a 9/10 si el indicador está libre de bugs visuales/cálculo y se optimiza el filtrado."  
-competitor_notes: "Comparte dominio con Pivots, pero Camarilla es más 'táctico' (niveles de reversión/ruptura). No supera a LevelsLolo porque no integra jerarquía externa ni prioriza por importancia contextual."  
+description: ¿Cuáles son los niveles Camarilla que definen zonas de reversión y ruptura intradía para estructurar escenarios tácticos de trading?  
+gemini_summary: "Mapa intradía más táctico que los pivots clásicos, útil para diferenciar días de rango frente a días de expansión. Su mayor granularidad aumenta el riesgo de clutter en M1."  
+competitor_notes: "Más específico que Pivots en extremos, pero también más ruidoso. Ninguno alcanza nivel CORE; Camarilla queda como reserva P2 para escenarios concretos."  
 reusable_code: null  
 
 # 6. METADATOS  
-analysis_date: 2025-12-26  
+analysis_date: 2025-12-27  
 official_code_date: 2025-04-23  
 
 ---
 
-## 🧱 Camarilla Pivots (8/10)  
+## 🧭 Camarilla Pivots (8/10)  
 
 **Nombre del archivo:** [`CamarillaPivots.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/CamarillaPivots.cs)  
 **Nombre del indicador:** Camarilla Pivots  
 **Web oficial:** [ATAS — Camarilla Pivots](https://help.atas.net/support/solutions/articles/72000602341)  
-**Compatibilidad:** ATAS Stable/Latest.  
+**Compatibilidad:** ATAS Stable/Latest  
 **Última revisión del código oficial:** 2025-04-23  
 
-> **La Pregunta Clave:** ¿Cuáles son los niveles Camarilla (reversión/ruptura) que definen extremos y pivotes intradía para estructurar un plan de trading?  
+> **La Pregunta Clave:** ¿Cuáles son los niveles Camarilla que definen zonas de reversión y ruptura intradía para estructurar escenarios tácticos de trading?  
 
-![CamarillaPivots](../../img/CamarillaPivots.png) 
+![CamarillaPivots](../../img/CamarillaPivots.png)
 
 
 ---
 
 ### ⚙️ Parámetros configurables  
-- **PivotColor**: Color de líneas pivote.  
-- **UpperColor**: Color de niveles superiores (resistencias).  
-- **LowerColor**: Color de niveles inferiores (soportes).  
-- **BetweenColor**: Color para niveles intermedios (si aplica).  
-- **HighLowColor**: Color para high/low de referencia (si aplica).  
+- **PivotColor**: Color del pivote central.  
+- **UpperColor**: Color de niveles superiores (H).  
+- **LowerColor**: Color de niveles inferiores (L).  
+- **BetweenColor**: Color de niveles intermedios.  
+- **HighLowColor**: Color común para niveles extremos.  
 
 
 ---
 
 ### 🧭 Clasificación  
 **Grupo:** Market Structure  
-**Subgrupo:** Structural Levels  
-**Comparison Group:** "Structural Levels"  
+**Subgrupo:** Session-Derived Reference Levels  
+**Comparison Group:** "Session-Derived Reference Levels"  
 
 
 ---
 
 ### 🧠 Uso más frecuente  
-* Identificar niveles de **reversión** intradía (zonas donde el mercado suele reaccionar).  
-* Definir niveles de **ruptura** (expansión) para días de tendencia.  
-* Planificar objetivos y stops con una estructura predefinida.  
+- Identificación de **zonas de reversión** en días laterales.  
+- Definición de **niveles de ruptura** en días de expansión.  
+- Planificación de escenarios A/B según comportamiento en H3/L3.  
 
 
 ---
@@ -77,17 +77,17 @@ official_code_date: 2025-04-23
 ### 📊 Nivel de relevancia  
 🔟 **8 / 10**  
 
-✅ Más accionable que pivots clásicos para setups intradía.  
-✅ Buen mapa de extremos y zonas de decisión repetibles.  
-⛔ Sin filtro adicional puede añadir niveles excesivos (depende de estilo).  
+✅ Más táctico que pivots clásicos para intradía.  
+✅ Útil para clasificar tipo de día (rango vs tendencia).  
+⛔ Genera más niveles y exige mayor filtrado visual en M1.  
 
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica  
-* **Fade en extremos**: buscar agotamiento/absorción cerca de niveles clave.  
-* **Breakout estructurado**: confirmar ruptura con Order Flow y usar niveles como targets.  
-* **Mean reversion**: retorno a zona central tras excursión a extremos.  
+- **Fade de extremos** (H4/H5 – L4/L5) con absorción confirmada.  
+- **Breakout estructurado** en H3/L3 con Order Flow.  
+- **Mean reversion** hacia zona central tras excursión extrema.  
 
 
 ---
@@ -96,29 +96,29 @@ official_code_date: 2025-04-23
 
 | Parámetro | Valor recomendado | Justificación |  
 | --- | --- | --- |  
-| UpperColor / LowerColor | Contraste medio | Diferenciar extremos sin “gritar” más que el precio. |  
-| PivotColor | Neutro | El pivote central debe ser referencia, no señal. |  
-| HighLowColor | Suave | Evita saturar con líneas redundantes. |  
+| Upper/LowerColor | Contraste medio | Evita sobrecargar el gráfico. |  
+| BetweenColor | Suave | Niveles intermedios no deben dominar. |  
+| Grosor | Fino | Reduce ruido visual en M1. |  
 
 
 ---
 
 ### 🧪 Notas de desarrollo  
-* Indicador predominantemente de render; coste bajo.  
-* Valor práctico alto cuando se combina con confirmación de Order Flow en el nivel.  
+- Cálculo determinista por sesión; coste computacional bajo.  
+- El principal riesgo es el **exceso de niveles** si se usa sin criterio.  
 
 
 ---
 
 ### ❗ Incoherencias o aspectos mejorables detectados  
-* Si hay discrepancias de cálculo por sesión, el indicador pierde credibilidad (prioridad: coherencia).  
+- Falta de preset específico para scalping M1 (RTH).  
 
 
 ---
 
 ### 🛠️ Propuestas de mejora  
-* Presets por instrumento (ES/NQ) para estilos/filtrado.  
-* Opción “solo niveles principales” para reducir ruido en M1.  
+- Opción “solo H3/H4/L3/L4”.  
+- Presets por instrumento y tipo de día.  
 
 
 ---
@@ -130,14 +130,14 @@ official_code_date: 2025-04-23
 ---
 
 ### ✍️ La opinión de ChatGPT sobre el Indicador  
-Camarilla es un mapa táctico excelente para intradía. En un sistema serio, funciona como estructura P2: define zonas y deja que el Order Flow decida el timing. No gana frente a LevelsLolo por falta de jerarquía externa y priorización contextual.  
+Camarilla es una estructura táctica útil, pero exigente. Funciona bien como complemento situacional, no como mapa base permanente del sistema.  
 
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?  
-**Sí**  
 
-Especialmente si tu operativa distingue “días de rango” vs “días de tendencia” y usa Camarilla como mapa previo.  
+**Sí**, en **escenarios concretos** y con confirmación de Order Flow.  
 
 **Acción:** **Conservar (Reserva)**  
+

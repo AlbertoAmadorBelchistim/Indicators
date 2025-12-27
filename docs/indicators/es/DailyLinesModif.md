@@ -2,8 +2,8 @@
 cs_file: DailyLinesModif.cs
 name: Daily Lines Modif
 category: Structure
-group: Structure
-subgroup: Static Levels
+group: Market Structure
+subgroup: Session & Time-Based Structure
 score_current: 9/10
 version: Custom (v1.2.0)
 recommended_action: Conservar

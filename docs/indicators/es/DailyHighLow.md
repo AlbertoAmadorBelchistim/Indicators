@@ -2,8 +2,8 @@
 cs_file: DailyHighLow.cs
 name: Daily HighLow
 category: Structure
-group: Structure
-subgroup: Static Levels
+group: Market Structure
+subgroup: Session & Time-Based Structure
 score_current: 6/10
 version: Estable
 recommended_action: Reparar

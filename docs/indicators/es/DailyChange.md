@@ -1,8 +1,8 @@
 ﻿---
 cs_file: DailyChange.cs
 name: Daily Change
-category: Structure
-group: Structure
+category: Market Context
+group: Market Context
 subgroup: Static Levels
 score_current: 6/10
 version: Estable
