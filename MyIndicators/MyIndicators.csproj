@@ -14,9 +14,9 @@
 		<Platforms>AnyCPU;Cross</Platforms>
 
 		<!-- Versión del compilado -->
-		<AssemblyVersion>2.0.0.0</AssemblyVersion>
-		<FileVersion>2.0.0.0</FileVersion>
-		<InformationalVersion>2.0.0-stable (2025-12-25)</InformationalVersion>
+		<AssemblyVersion>3.0.0.0</AssemblyVersion>
+		<FileVersion>3.0.0.0</FileVersion>
+		<InformationalVersion>3.0.0-stable (2025-12-27)</InformationalVersion>
 
 		<!-- Opcional -->
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
