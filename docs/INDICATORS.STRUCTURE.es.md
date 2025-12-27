@@ -1,11 +1,11 @@
 # 🧱 Master Index: Market Structure (Estructura)
 
 ### 📊 Status Dashboard
-**Progreso de Auditoría:** `▓▓▓▓▓░░░░░░░░░░░░░░░` **29%** (Fase 2 Completada)
+**Progreso de Auditoría:** `▓▓▓▓▓▓░░░░░░░░░░░░░░` **33%** (Fase 2 Completada)
 
 | Total Indicadores | 🟢 Core (Ganadores) | 🟡 Reserva (Backup) | 💀 Descartados |
 | :---: | :---: | :---: | :---: |
-| **24** | **2** | **5** | 1 |
+| **24** | **2** | **5** | 2 |
 
 [🔙 Volver al Índice General](INDICATORS.es.md)
 
@@ -53,8 +53,8 @@ _Niveles derivados de la sesión previa (pivots/camarilla y referencias convenci
 
 | Nota | Fase | Estado | Indicador | Pregunta Clave / Descripción |
 | :---: | :---: | :--- | :--- | :--- |
-| 8/10 | ✅ | 🟡 Reserva | [Camarilla Pivots](indicators/es/CamarillaPivots.md) | ¿Cuáles son los niveles Camarilla (reversión/ruptura) que definen extremos y pivotes intradía para estructurar un plan de trading? |
-| 8/10 | ✅ | 🟡 Reserva | [Pivots](indicators/es/Pivots.md) | ¿Cuáles son los pivots y niveles derivados (S/R) relevantes del periodo seleccionado para mapear soportes/resistencias probables? |
+| 8/10 | ✅ | 🟡 Reserva | [Camarilla Pivots](indicators/es/CamarillaPivots.md) | ¿Cuáles son los niveles Camarilla que definen zonas de reversión y ruptura intradía para estructurar escenarios tácticos de trading? |
+| 8/10 | ✅ | 🟡 Reserva | [Pivots](indicators/es/Pivots.md) | ¿Cuáles son los pivots y niveles derivados (S/R) relevantes del periodo seleccionado para mapear soportes y resistencias probables de la sesión? |
 
 <br>
 
@@ -62,13 +62,13 @@ _Niveles derivados de la sesión previa (pivots/camarilla y referencias convenci
 ## 📐 Geometric / Grid Structure
 _Particiones geométricas y grids (Murrey, round numbers, margin zones)._
 
-### ⚔️ Geometric / Grid Structure &nbsp;⚠️ <small>PENDIENTE</small>
+### ⚔️ Geometric / Grid Structure &nbsp;✅ <small>FASE 2</small>
 
 | Nota | Fase | Estado | Indicador | Pregunta Clave / Descripción |
 | :---: | :---: | :--- | :--- | :--- |
-| 8/10 | ✅ | 🟡 Reserva | [Murrey Math](indicators/es/MurreyMath.md) | ¿Cuáles son los niveles Murrey (0/8–8/8 y derivados) que estructuran soportes/resistencias armónicos para planificar el mapa del día? |
-| 7/10 | ✅ | 🟡 Reserva | [Round Numbers](indicators/es/RoundNr.md) | ¿Dónde están los niveles psicológicos (grid) más probables para reacción del precio, y cómo los represento con un step fijo en ticks? |
-| 3/10 | ⚠️ | 🛠️ Reparar | [Margin zones](indicators/es/MarginZones.md) | ¿Dónde están los niveles de margen clave calculados desde el extremo? |
+| 8/10 | ✅ | 🟡 Reserva | [Murrey Math](indicators/es/MurreyMath.md) | ¿Qué niveles armónicos Murrey (0/8–8/8 y extensiones) estructuran el espacio de precios para planificar reversiones o targets en rango? |
+| 7/10 | ✅ | 🟡 Reserva | [Round Numbers](indicators/es/RoundNr.md) | ¿Dónde están los niveles psicológicos equiespaciados (round numbers) para apoyar gestión y confluencia en el intradía? |
+| 3/10 | ✅ | 💀 Descartar | [Margin Zones](indicators/es/MarginZones.md) | <sub>¿Dónde están las zonas de “margen” calculadas como bandas equidistantes desde un precio base para identificar posibles áreas de presión financiera?</sub> |
 
 <br>
 
