@@ -1,131 +1,162 @@
 ﻿---
-cs_file: CMS.cs
-name: Clear Method Swing Line
-category: Structure
+
+# 1. IDENTIFICACIÓN  
+cs_file: CMS.cs  
+name: Clear Method Swing Line  
+version: ATAS Stable/Latest  
+
+# 2. CLASIFICACIÓN  
 group: Market Structure  
 subgroup: Swing-Derived Structure  
-score_current: 8/10
-version: Estable
-recommended_action: Conservar
-description: ¿Cuál es la estructura de mercado (swing highs/lows) objetiva y actual?
-gemini_summary: "Herramienta de contexto de primer nivel. Define la estructura de mercado (BOS/CHoCH) de forma objetiva."
-comparison_group: "Swing Analysis"
-competitor_notes: "Superior a ZigZag estándar por su objetividad."
-reusable_code: null
-file_state: Estable
-score_potential: 8/10
-effort: N/A
-action_priority: N/A
-analysis_date: 2025-11-17
-official_code_date: 23/04/2025
+comparison_group: "Swing-Derived Structure"  
+
+# 3. VALORACIÓN (Score & Priority)  
+score_current: 8/10  
+score_potential: 8/10  
+file_state: Estable  
+effort: N/A  
+action_priority: Nula  
+system_priority: P2  
+
+# 4. DECISIÓN  
+recommended_action: Conservar (Reserva)  
+
+# 5. ANÁLISIS  
+description: ¿Cuál es el sesgo estructural actual del swing (alcista/bajista) y cuál es el último nivel de invalidación asociado?  
+gemini_summary: "Línea de swing objetiva sin parámetros: excelente para definir sesgo (solo largos/solo cortos) y nivel de invalidación. No genera niveles horizontales ni cuantifica ondas, por eso queda como soporte P2 frente a COREs especializados."  
+competitor_notes: "Complementa a Fractals/Zigzag: CMS da sesgo y nivel dinámico, mientras los otros dan niveles horizontales o métricas por tramo. No es redundante, pero tampoco reemplaza a un mapa de niveles."  
+reusable_code: "SplitLines() para transiciones limpias de series; patrón de series internas tipo hh/hl/lh/ll."  
+
+# 6. METADATOS  
+analysis_date: 2025-12-28  
+official_code_date: 2025-04-23  
+
+
+
+
 ---
 
 ## 🟦 Clear Method Swing Line (8/10)
 
-**Nombre del archivo:** [`CMS.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/CMS.cs)   
+**Nombre del archivo:** [`CMS.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/CMS.cs)  
 **Nombre del indicador:** Clear Method Swing Line  
 **Web oficial:** [ATAS — Clear Method Swing Line ](https://help.atas.net/support/solutions/articles/72000602257)  
-**Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 23/04/2025
+**Compatibilidad:** ATAS Stable/Latest.  
+**Última revisión del código oficial:** 2025-04-23  
 
-> **La Pregunta Clave:** ¿Cuál es la estructura de mercado (swing highs/lows) objetiva y actual, sin subjetividad?
+> **La Pregunta Clave:** ¿Cuál es el sesgo estructural actual del swing (alcista/bajista) y cuál es el último nivel de invalidación asociado?  
 
 ![CMS](../../img/CMS.png)  
+
 
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-Este indicador **no tiene parámetros configurables** desde la UI.
+* Este indicador no expone parámetros en UI.  
+
+
 
 ---
 
 ### 🧭 Clasificación
-📂 Trend — Indicadores de estructura de mercado y cambios de tendencia
+**Grupo:** Market Structure  
+**Subgrupo:** Swing-Derived Structure  
+**Comparison Group:** "Swing-Derived Structure"  
+
+
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* Identificar y seguir los **puntos de swing (mínimos y máximos relevantes)**
-* Confirmar cambios de dirección con lógica **objetiva de estructura de mercado**
-* Visualizar zonas de **transición entre tendencia alcista y bajista**
+* Definir sesgo: operar solo en dirección de la línea activa (up/down).  
+* Usar la línea como nivel dinámico de invalidación estructural.  
+* Identificar transiciones de fase (cambios de línea) como cambio de carácter.  
+
+
 
 ---
 
 ### 📊 Nivel de relevancia
 🔟 **8 / 10**
 
-✅ **Objetividad Pura:** Dibuja la estructura del mercado sin ningún parámetro de entrada, eliminando la subjetividad.  
-✅ **Claridad Visual:** Excelente para leer la estructura de máximos y mínimos (HH, HL, LH, LL) de forma limpia.  
-✅ Útil para estrategias basadas en swing highs / lows y patrones tipo Wyckoff.  
-⛔ **Caja Negra:** El código es complejo y no es personalizable desde la interfaz.  
-⛔ No tiene integración directa con volumen ni momentum.
+✅ Objetividad total (sin parámetros) y lectura de sesgo muy clara.  
+✅ Útil como “filtro” para evitar operar contra estructura.  
+⛔ Caja negra y no configurable; difícil ajustar sensibilidad.  
+⛔ No genera niveles horizontales persistentes ni métricas por tramo.  
+
+
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Swing Reversal (CHoCH):** Buscar una entrada en la primera vela *después* de que la línea CMS cambie de dirección (ej. de magenta a cian).
-* **Trend Continuation (BOS):** Seguir el movimiento (ej. largos) mientras la línea CMS se mantenga alcista (cian), usando el nivel de la línea como un "último mínimo" o invalidación.
-* **Breakout Confirmed**: Operar rompimientos solo cuando CMS cambia de nivel.
+* **Filtro direccional**: solo setups largos si swing alcista y viceversa.  
+* **Cambio de carácter**: cuando cambia la línea, reducir agresividad o cambiar plan.  
+* **Invalidación**: usar el nivel de la línea como referencia de stop estructural.  
+
+
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* No requiere configuración.
-* Recomendable usar junto con otros indicadores de validación (volumen, delta) para confirmar los giros de estructura.
+* No requiere configuración.  
+* Recomendación operativa: usarlo como filtro, no como gatillo único.  
 
-✅ Ideal para detectar microcambios de estructura en intradía.  
-✅ Se adapta automáticamente a la dinámica del precio.
+
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* Calcula internamente una estructura jerárquica de máximos/mínimos (`hh`, `hl`, `ll`, `lh`) para detectar swings válidos.
-* Usa series auxiliares intermedias (`_hh1`, `_hh2`, `_hh3`, etc.) para validar condiciones multibarra.
-* La lógica de cambio se basa en el estado de `_us` (up swing: 1 o 0).
-* Dibuja dos líneas:
-    * `_upSeries` (color cyan): mantiene swing alcista (dibujando el último Higher Low).
-    * `_downSeries` (color magenta): mantiene swing bajista (dibujando el último Lower High).
-* La función `SplitLines()` gestiona las transiciones limpias entre fases.
+* Usa múltiples series internas (`hh/hl/lh/ll` y variantes) para consolidar estados y validar swing.  
+* Dibuja dos series (up/down) y corta líneas con `SplitLines()` para evitar uniones visuales incorrectas.  
+
+
+
+---
+
+### ❗ Incoherencias o aspectos mejorables detectados
+
+* No se detectan bugs evidentes; la principal limitación es la falta de controles de sensibilidad.  
+
+
 
 ---
 
 ### 🛠️ Propuestas de mejora
 
-* Añadir parámetros de configuración para controlar la **sensibilidad o profundidad** de swing.
-* Posibilidad de integrar **filtros de volumen o delta** para validar rupturas de estructura.
-* Incluir etiquetas en los puntos de cambio (ej. “BOS”, “CHoCH”).
+* Etiquetas opcionales (BOS / CHoCH) en los puntos de transición, sin alterar la lógica base.  
+* Opción de “modo sensible / modo conservador” si el framework lo permite, manteniendo la objetividad como principio.  
+
+
 
 ---
+
+### 💎 Valor Reutilizable (Código Donante)
+
+* `SplitLines()` para transiciones limpias entre series (patrón reutilizable en indicadores de línea estructural).  
+
+
+
 ---
 
-### ✍️ La opinión de Gemini sobre el Indicador (El Análisis Correcto)
+### ✍️ La opinión de ChatGPT sobre el Indicador
 
-Este es un indicador de "mapa" de alta calidad. Su principal fortaleza, y la razón por la que es tan útil para el scalping, es su **total objetividad**.
+CMS es una herramienta de contexto potente para M1: define el sesgo y un nivel de invalidación sin necesidad de parametrización. En un sistema serio esto vale mucho, pero su rol natural es “filtro de régimen” (P2) más que “mapa de niveles” o “análisis cuantitativo de ondas” (P1).  
 
-La mayoría de los indicadores de "swing" (como los fractales o los ZigZags) dependen de un parámetro de "período" (ej. 5 barras a cada lado), lo que los hace subjetivos y propensos al sobreajuste (curve-fitting).
 
-El `CMS` no. Su lógica interna define la estructura basándose puramente en la acción del precio (qué constituye un máximo o mínimo y qué lo rompe). No se puede configurar, y eso es una **ventaja**. Te obliga a ver lo que el precio *está* haciendo, no lo que *quieres* ver.
-
-Para un scalper, esto es oro: te da una línea clara en la arena. Por encima de la línea cian, el micro-swing es alcista. Por debajo de la magenta, es bajista. Es el "mapa" de tendencia perfecto.
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí. Es una herramienta de contexto (mapa) de primer nivel.**
+**Sí**  
 
-No te da entradas, pero te dice *en qué dirección* debes buscarlas. Es la herramienta perfecta para definir el "Trend" en un gráfico de 1M.
+Como filtro de sesgo e invalidación estructural.  
 
-* Si la línea es cian, solo buscas largos. El nivel de la línea es tu invalidación.
-* Si la línea es magenta, solo buscas cortos. El nivel de la línea es tu invalidación.
-* Cuando la línea cambia de color, eso es un "Cambio de Carácter" (CHoCH) objetivo.
+**Acción:** **Conservar (Reserva)**  
 
-**Acción:** **Conservar (Herramienta de Contexto).**
-
-**¿Merece la pena arreglarlo?** **No (está completo).** Sus "propuestas de mejora" (como añadirle parámetros) en realidad destruirían su principal fortaleza: la objetividad. Es mejor dejarlo como está y usar `DeltaModif` o `ClusterSearchModif` por separado para la *confirmación*.

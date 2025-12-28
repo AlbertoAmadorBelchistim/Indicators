@@ -82,7 +82,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Chaikin Oscillator](indicators/es/ChaikinOscillator.md) | Oscillators | 3/10 | Descartar |
 | [Chande Forecast Oscillator](indicators/es/CFO.md) | Oscillators | 4/10 | Descartar |
 | [Chande Momentum Oscillators](indicators/es/ChandeMomentum.md) | Oscillators | 5/10 | Mejorar |
-| [Clear Method Swing Line](indicators/es/CMS.md) | Market Structure | 8/10 | Conservar |
+| [Clear Method Swing Line](indicators/es/CMS.md) | Market Structure | 8/10 | Conservar (Reserva) |
 | [Cluster Constructor Lite](indicators/es/ClusterConstructorLite.md) | Order Flow | 4/10 | Descartar |
 | [Cluster Search Modif](indicators/es/ClusterSearchModif.md) | Order Flow | 10/10 | Conservar (Core) |
 | [Cluster Statistic Modif](indicators/es/ClusterStatisticModif.md) | Order Flow | 9/10 | Conservar (Reserva) |
@@ -143,12 +143,12 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Fair Value Gap](indicators/es/FairValueGap.md) | Market Structure | 9/10 | Conservar |
 | [Fisher Transform](indicators/es/FisherTransform.md) | Oscillators | 6.5/10 | Conservar |
 | [Force Index](indicators/es/ForceIndex.md) | Oscillators | 7/10 | Conservar |
-| [Fractals](indicators/es/Fractals.md) | Market Structure | 7.5/10 | Conservar |
+| [Fractals](indicators/es/Fractals.md) | Market Structure | 9/10 | Conservar (Core) |
 | [Full Contract Value](indicators/es/FCV.md) | Utility | 2/10 | Descartar |
 | | | | |
 | **<a id='g'>G</a>** | | | |
 | [Gaps](indicators/es/Gaps.md) | Market Structure | 8.5/10 | Conservar |
-| [Greatest Swing Value](indicators/es/GreatestSwing.md) | Market Structure | 7/10 | Conservar |
+| [Greatest Swing Value](indicators/es/GreatestSwing.md) | Volatility | 5/10 | Fusionar |
 | [Guppy Multiple Moving Average](indicators/es/GMMA.md) | Trend | 8.5/10 | Conservar |
 | | | | |
 | **<a id='h'>H</a>** | | | |
@@ -280,7 +280,7 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | [Stochastic RSI](indicators/es/StochasticRsi.md) | Oscillators | 6/10 | Mejorar |
 | [Study Angle](indicators/es/Angle.md) | Oscillators | 2/10 | Descartar |
 | [Super Trend](indicators/es/SuperTrend.md) | Trend | 9/10 | Conservar |
-| [Swing High and Low](indicators/es/SwingHighLow.md) | Market Structure | 8/10 | Conservar |
+| [Swing High and Low](indicators/es/SwingHighLow.md) | Market Structure | 7/10 | Conservar (Reserva) |
 | [Synthetic VIX](indicators/es/SyntheticVix.md) | Trend | 8/10 | Conservar |
 | | | | |
 | **<a id='t'>T</a>** | | | |
@@ -333,4 +333,4 @@ Bienvenido al repositorio central. Utiliza los índices temáticos para ver comp
 | **<a id='z'>Z</a>** | | | |
 | [Z-Score](indicators/es/ZScore.md) | Utility | 8/10 | Conservar |
 | [Zero Lag Exponential Moving Average](indicators/es/ZLEMA.md) | Trend | 8/10 | Conservar |
-| [ZigZag Pro](indicators/es/Zigzag.md) | Market Structure | 10/10 | Conservar (Core) |
+| [ZigZag pro](indicators/es/Zigzag.md) | Market Structure | 9/10 | Conservar (Core) |

@@ -1,11 +1,11 @@
 # 🧱 Master Index: Market Structure (Estructura)
 
 ### 📊 Status Dashboard
-**Progreso de Auditoría:** `▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░` **50%** (Fase 2 Completada)
+**Progreso de Auditoría:** `▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░` **65%** (Fase 2 Completada)
 
 | Total Indicadores | 🟢 Core (Ganadores) | 🟡 Reserva (Backup) | 💀 Descartados |
 | :---: | :---: | :---: | :---: |
-| **24** | **3** | **8** | 1 |
+| **23** | **4** | **10** | 1 |
 
 [🔙 Volver al Índice General](INDICATORS.es.md)
 
@@ -76,15 +76,14 @@ _Particiones geométricas y grids (Murrey, round numbers, margin zones)._
 ## 🪝 Swing-Derived Structure
 _Estructura por swings/pivotes confirmados (zigzag, fractales, swing HL)._
 
-### ⚔️ Swing-Derived Structure &nbsp;⚠️ <small>PENDIENTE</small>
+### ⚔️ Swing-Derived Structure &nbsp;✅ <small>FASE 2</small>
 
 | Nota | Fase | Estado | Indicador | Pregunta Clave / Descripción |
 | :---: | :---: | :--- | :--- | :--- |
-| **10/10** | ✅ | 🟢 **CORE** | [ZigZag Pro](indicators/es/Zigzag.md) | ¿Qué revelan las métricas acumuladas (Delta, Volumen, Ticks, Tiempo) de cada onda de precio sobre la estructura real del mercado y el equilibrio esfuerzo–resultado? |
-| 8/10 | ⚠️ | Conservar | [Clear Method Swing Line](indicators/es/CMS.md) | ¿Cuál es la estructura de mercado (swing highs/lows) objetiva y actual? |
-| 8/10 | ⚠️ | Conservar | [Swing High and Low](indicators/es/SwingHighLow.md) | ¿Cuáles son los puntos de giro (máximos/mínimos locales) confirmados? |
-| 7.5/10 | ⚠️ | Conservar | [Fractals](indicators/es/Fractals.md) | ¿Dónde están los máximos y mínimos fractales (swing) de 5 barras? |
-| 7/10 | ⚠️ | Conservar | [Greatest Swing Value](indicators/es/GreatestSwing.md) | ¿Dónde están los niveles S/R dinámicos, proyectados desde el Open actual? |
+| **9/10** | ✅ | 🟢 **CORE** | [Fractals](indicators/es/Fractals.md) | ¿Dónde están los pivotes fractales (5 barras) y qué niveles horizontales de soporte/resistencia quedan activos hasta su mitigación? |
+| **9/10** | ✅ | 🟢 **CORE** | [ZigZag pro](indicators/es/Zigzag.md) | ¿Qué métricas acumuladas (Delta, Volumen, Ticks, Tiempo, Barras) describe cada onda confirmada del precio para evaluar esfuerzo–resultado y agotamiento estructural? |
+| 8/10 | ✅ | 🟡 Reserva | [Clear Method Swing Line](indicators/es/CMS.md) | ¿Cuál es el sesgo estructural actual del swing (alcista/bajista) y cuál es el último nivel de invalidación asociado? |
+| 7/10 | ✅ | 🟡 Reserva | [Swing High and Low](indicators/es/SwingHighLow.md) | ¿Cuáles son los puntos de giro confirmados (swing highs/lows) con un periodo configurable y alertas opcionales? |
 
 <br>
 

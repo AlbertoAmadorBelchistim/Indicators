@@ -1,7 +1,8 @@
 ﻿---
+
 # 1. IDENTIFICACIÓN  
 cs_file: Zigzag.cs  
-name: ZigZag Pro  
+name: ZigZag pro  
 version: ATAS Stable/Latest  
 
 # 2. CLASIFICACIÓN  
@@ -10,128 +11,177 @@ subgroup: Swing-Derived Structure
 comparison_group: "Swing-Derived Structure"  
 
 # 3. VALORACIÓN (Score & Priority)  
-score_current: 10/10  
+score_current: 9/10  
 score_potential: 10/10  
 file_state: Estable  
-effort: N/A  
-action_priority: Nula  
+effort: Bajo  
+action_priority: Media  
 system_priority: P1  
 
 # 4. DECISIÓN  
 recommended_action: Conservar (Core)  
 
 # 5. ANÁLISIS  
-description: ¿Qué revelan las métricas acumuladas (Delta, Volumen, Ticks, Tiempo) de cada onda de precio sobre la estructura real del mercado y el equilibrio esfuerzo–resultado?  
-gemini_summary: "Analizador estructural de ondas de precio con métricas acumuladas. Convierte la estructura del mercado en información cuantificable y accionable, combinando Price Action con Order Flow por tramo."  
-competitor_notes: "No compite con indicadores de clúster o footprint. Su función es estructural: definir ondas, comparar impulsos vs correcciones y detectar agotamiento mediante métricas acumuladas."  
-reusable_code: "Gestión de estado de ondas + acumuladores por tramo (delta, volumen, ticks, tiempo) y renderizado contextual de etiquetas."  
+description: ¿Qué métricas acumuladas (Delta, Volumen, Ticks, Tiempo, Barras) describe cada onda confirmada del precio para evaluar esfuerzo–resultado y agotamiento estructural?  
+gemini_summary: "Indicador estructural de ondas con métricas por tramo (delta/volumen/ticks/tiempo/barras) y etiquetas en gráfico. Es el puente entre estructura y Order Flow; requiere revisar un detalle de lógica inicial de tendencia (posible condición errónea) para máxima coherencia."  
+competitor_notes: "Gana por transformar swings en información cuantificable por onda. Fractals gana por niveles S/R automáticos; ambos son CORE por preguntas distintas. CMS aporta sesgo de estructura pero no cuantifica tramos. SwingHighLow marca pivotes confirmados pero es más redundante. GreatestSwing es más proyección de volatilidad que estructura."  
+reusable_code: "Gestión de estado de ondas + acumuladores por tramo y renderizado de etiquetas; patrón DaysLookBack basado en sesiones."  
 
 # 6. METADATOS  
-analysis_date: 2025-12-25  
+analysis_date: 2025-12-28  
 official_code_date: 2025-04-23  
----  
 
-## 🟦 ZigZag Pro (10/10)  
+
+
+
+---
+
+## 🟦 ZigZag pro (9/10)
 
 **Nombre del archivo:** [`Zigzag.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/Zigzag.cs)  
-**Nombre del indicador:** ZigZag Pro  
+**Nombre del indicador:** ZigZag pro  
 **Web oficial:** [ATAS — ZigZag Pro](https://help.atas.net/support/solutions/articles/72000602632)  
 **Compatibilidad:** ATAS Stable/Latest.  
 **Última revisión del código oficial:** 2025-04-23  
 
-> **La Pregunta Clave:** ¿Qué revelan las métricas acumuladas de cada onda de precio sobre la estructura del mercado y la relación esfuerzo–resultado?
+> **La Pregunta Clave:** ¿Qué métricas acumuladas (Delta, Volumen, Ticks, Tiempo, Barras) describe cada onda confirmada del precio para evaluar esfuerzo–resultado y agotamiento estructural?  
 
 ![Zigzag](../../img/Zigzag.png)
 
 
----
-
-### ⚙️ Parámetros configurables  
-
-- **Mode**: `Ticks`, `Percentage`, `Absolute` — método de confirmación del giro de onda.  
-- **Percentage / Value**: Umbral de reversión necesario para confirmar una nueva onda.  
-- **Labels**: Mostrar **Delta**, **Volume**, **Ticks**, **Time**, **Bars** por onda.  
-- **Visuals**: Colores, tamaño del texto y desplazamientos de etiquetas.  
-
 
 ---
 
-### 🧭 Clasificación  
+### ⚙️ Parámetros configurables
+
+**[Calculation / DaysLookBack]**  
+- **Days**: Número de sesiones hacia atrás a considerar para iniciar el cálculo. Reduce carga y evita “histórico infinito”.  
+
+**[Calculation Settings / Swing Confirmation]**  
+- **CalcMode**: Método de confirmación del giro: `Relative` (porcentaje), `Absolute` (precio), `Ticks` (ticks).  
+- **Percentage**: Umbral de reversión requerido para confirmar nueva onda (interpreta “Percentage” como valor genérico según `CalcMode`).  
+- **IgnoreWicks**: Si está activo, usa `max(Open,Close)` / `min(Open,Close)` para construir ondas sin mechas (estructura más “limpia”).  
+
+**[Text Settings / Label Content]**  
+- **ShowDelta / ShowVolume / ShowTicks / ShowBars**: Activa métricas en etiqueta de onda.  
+- **ShowTime**: `None`, `Days`, `Exact` para duración de la onda.  
+- **TextColor / TextSize**: Estilo de etiquetas.  
+- **VerticalOffset**: Offset vertical (en ticks) para separar el texto del precio.  
+
+
+
+---
+
+### 🧭 Clasificación
 **Grupo:** Market Structure  
 **Subgrupo:** Swing-Derived Structure  
 **Comparison Group:** "Swing-Derived Structure"  
 
 
----
-
-### 🧠 Uso más frecuente  
-
-* **Estructura de mercado:** Identificar HH / HL / LH / LL de forma objetiva.  
-* **Wyckoff – Esfuerzo vs Resultado:** Comparar volumen y delta entre ondas impulsivas y correctivas.  
-* **Agotamiento:** Nuevo máximo de precio con menor delta o volumen acumulado por onda.  
-* **Contexto para ejecución:** Definir sesgo estructural antes de usar Order Flow micro.  
-
 
 ---
 
-### 📊 Nivel de relevancia  
-🔟 **10 / 10**  
+### 🧠 Uso más frecuente
 
-✅ Traduce la estructura del mercado en métricas cuantificables.  
-✅ Permite leer divergencias estructurales imposibles de detectar vela a vela.  
-✅ Altamente configurable y estable en cualquier activo.  
-⛔ El último tramo repinta hasta confirmación del giro (comportamiento inherente al ZigZag).  
+* Medir **esfuerzo–resultado** por tramo (Wyckoff): volumen/delta por onda vs desplazamiento real.  
+* Detectar **agotamiento**: nuevas extensiones de precio con menor delta/volumen acumulado.  
+* Comparar **impulsos vs correcciones** de forma cuantitativa (no subjetiva).  
+* Contextualizar ejecución Order Flow: operar micro-señales solo a favor de la estructura dominante.  
+
 
 
 ---
 
-### 🎯 Estrategias de scalping donde se aplica  
+### 📊 Nivel de relevancia
+🔟 **9 / 10**
 
-* **Wave Exhaustion:** Onda alcista con volumen alto pero delta débil o negativo → posible absorción.  
-* **1-2-3 / Change of Character:** Uso del ZigZag para confirmar cambio estructural sin subjetividad.  
-* **Pullbacks estructurales:** Correcciones con poco esfuerzo frente a impulsos dominantes.  
+✅ Estructura + métricas por onda: convierte swings en decisiones medibles.  
+✅ Etiquetas directas en gráfico: altísimo valor informacional por pixel.  
+⛔ El último tramo repinta hasta confirmación (comportamiento inherente al ZigZag).  
+⛔ Detectado un posible detalle de lógica en el arranque de tendencia bajista que conviene revisar.  
 
-
----
-
-### ⚙️ Parametrización óptima para scalping (1M, S&P 500)  
-
-- **Mode:** `Ticks`  
-- **Value:** `12` (≈ 3 puntos ES) o `20` según volatilidad.  
-- **Labels:** Delta + Volume activados.  
 
 
 ---
 
-### 🧪 Notas de desarrollo  
+### 🎯 Estrategias de scalping donde se aplica
 
-* Mantiene el estado de la tendencia mediante `_direction`.  
-* Una onda se cierra solo cuando el precio retrocede más que `requiredChange`.  
-* En el cierre de cada onda se calculan y fijan sus acumulados (delta, volumen, ticks, tiempo).  
-* El último tramo **siempre repinta** hasta confirmación: es comportamiento correcto, no un bug.  
+* **Wave Exhaustion**: onda a favor con menor delta/volumen que la anterior → probabilidad de rotación.  
+* **Change of Character**: cambio de secuencia HH/HL a LH/LL confirmado por métrica (no solo precio).  
+* **Pullback quality**: correcciones con poco esfuerzo frente a impulsos dominantes.  
 
-
----
-
-### 💎 Valor Reutilizable (Código Donante)  
-
-* Patrón de acumulación por tramo (ondas).  
-* Renderizado contextual de métricas estructurales directamente en el gráfico.  
 
 
 ---
 
-### ✍️ La opinión de Gemini sobre el Indicador  
+### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-ZigZag Pro es un **indicador estructural CORE**. Su valor no está en predecir entradas, sino en convertir el Price Action en información cuantificable. Es el puente natural entre estructura y Order Flow, y debe vivir fuera de cualquier grupo de “Cluster” o “Statistics”.  
+| Parámetro | Valor recomendado | Impacto | Justificación operativa |
+|---|---:|---|---|
+| CalcMode | Ticks | Timing | Control fino de confirmación, estable intradía. |
+| Percentage | 12–20 | Sensibilidad | 12 (≈ 3 puntos ES) para estructura “corta”; 20 para filtrar ruido en alta volatilidad. |
+| IgnoreWicks | true | Calidad estructura | Reduce “barridos” por mecha; mejora lectura HH/HL. |
+| Days | 5–20 | Rendimiento | Limita histórico y mantiene contexto relevante. |
+| ShowDelta | true | Decisión | Divergencias estructurales de agresión por onda. |
+| ShowVolume | true | Decisión | Esfuerzo acumulado por tramo. |
+| ShowTicks / ShowBars | opcional | Diagnóstico | Útil para comparar eficiencia del movimiento. |
+| ShowTime | Exact | Diagnóstico | Duración como proxy de absorción/rotación. |  
+
 
 
 ---
 
-### 📈 Veredicto: ¿Es útil para Scalping?  
+### 🧪 Notas de desarrollo
 
-**Sí.**  
+* Mantiene estado con `_direction`, `_lastHighBar`, `_lastLowBar` y confirma giros por `requiredChange`.  
+* Acumula por onda `Volume`, `Delta`, `Ticks`, `Bars` y `Duration`, y los renderiza como etiqueta en el extremo confirmado.  
+* Implementa recorte por sesiones vía `Days` calculando `_targetBar` con `IsNewSession()`, lo cual mejora rendimiento.  
 
-Es el **microscopio de la estructura de mercado** sobre el que se apoyan el resto de herramientas.  
+
+
+---
+
+### ❗ Incoherencias o aspectos mejorables detectados
+
+* Posible bug lógico en detección inicial de tendencia bajista cuando `_direction == 0`: condición compara `candleHigh` con `candleZeroLow`, lo cual parece asimétrico respecto al caso alcista y puede retrasar el seteo de `_direction = -1`.  
+  - Recomendación: revisar esa condición para coherencia (probable comparación contra `candleZeroHigh`).  
+
+
+
+---
+
+### 🛠️ Propuestas de mejora
+
+* Revisar y corregir condición inicial de downtrend para asegurar coherencia del primer tramo.  
+* Añadir opción de mostrar HH/HL/LH/LL explícitos (etiquetas mínimas) sin saturar el gráfico.  
+* Permitir selección de qué acumuladores se calculan para reducir coste si solo interesa delta/volumen.  
+
+
+
+---
+
+### 💎 Valor Reutilizable (Código Donante)
+
+* Patrón de acumulación por tramo y renderizado de métricas estructurales en gráfico.  
+* Lógica de recorte por sesiones (Days lookback) para indicadores costosos.  
+
+
+
+---
+
+### ✍️ La opinión de ChatGPT sobre el Indicador
+
+Es un CORE real porque hace algo que el ojo humano no puede cuantificar de forma consistente: convierte cada onda confirmada en un “paquete de información” (esfuerzo, duración, tamaño, agresión). Para scalping en M1, esto eleva el contexto estructural y evita operar micro-señales contra un tramo dominante o en agotamiento evidente. Corrigiendo el detalle del arranque de downtrend, el indicador queda prácticamente redondo.  
+
+
+
+---
+
+### 📈 Veredicto: ¿Es útil para Scalping?
+
+**Sí**  
+
+Es un núcleo de contexto estructural cuantitativo, complementario a niveles y Order Flow.  
 
 **Acción:** **Conservar (Core)**  
+

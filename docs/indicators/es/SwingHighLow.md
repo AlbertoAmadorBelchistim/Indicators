@@ -1,99 +1,165 @@
 ﻿---
-cs_file: SwingHighLow.cs
-name: Swing High and Low
-category: Structure
+
+# 1. IDENTIFICACIÓN  
+cs_file: SwingHighLow.cs  
+name: Swing High and Low  
+version: ATAS Stable/Latest  
+
+# 2. CLASIFICACIÓN  
 group: Market Structure  
 subgroup: Swing-Derived Structure  
-score_current: 8/10
-version: Stable
-recommended_action: Conservar
-description: ¿Cuáles son los puntos de giro (máximos/mínimos locales) confirmados?
-gemini_summary: "Detector de fractales/pivotes. Correctamente implementado con lag retrospectivo (necesario para confirmación)."
-comparison_group: "Swing Levels"
-competitor_notes: "Alternativa a Fractals."
-reusable_code: null
-file_state: Estable
-score_potential: 8/10
-effort: Bajo
-action_priority: N/A
-analysis_date: 2025-11-18
-official_code_date: 23/04/2025
+comparison_group: "Swing-Derived Structure"  
+
+# 3. VALORACIÓN (Score & Priority)  
+score_current: 7/10  
+score_potential: 7/10  
+file_state: Estable  
+effort: Bajo  
+action_priority: Nula  
+system_priority: P3  
+
+# 4. DECISIÓN  
+recommended_action: Conservar (Reserva)  
+
+# 5. ANÁLISIS  
+description: ¿Cuáles son los puntos de giro confirmados (swing highs/lows) con un periodo configurable y alertas opcionales?  
+gemini_summary: "Detector de swings confirmado con lag (correcto por diseño) y alertas. Es útil, pero queda por detrás de Fractals+ShowLine como generador de niveles operables persistentes."  
+competitor_notes: "Más configurable que Fractals (Period e igualdad), pero no traza líneas. Aporta alertas, por eso se mantiene como reserva."  
+reusable_code: "Uso de Highest/Lowest internos para validación de pivotes y patrón de alertas con deduplicación por barra."  
+
+# 6. METADATOS  
+analysis_date: 2025-12-28  
+official_code_date: 2025-04-23  
+
+
+
+
 ---
 
-## 🟦 Swing High and Low (8/10)
+## 🟦 Swing High and Low (7/10)
 
 **Nombre del archivo:** [`SwingHighLow.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/SwingHighLow.cs)  
 **Nombre del indicador:** Swing High and Low  
 **Web oficial:** [ATAS — Swing High and Low](https://help.atas.net/support/solutions/articles/72000602483)  
-**Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 23/04/2025  
+**Compatibilidad:** ATAS Stable/Latest.  
+**Última revisión del código oficial:** 2025-04-23  
 
-> **La Pregunta Clave:** ¿Cuáles son los puntos de giro (máximos/mínimos locales) confirmados en la estructura del mercado?
+> **La Pregunta Clave:** ¿Cuáles son los puntos de giro confirmados (swing highs/lows) con un periodo configurable y alertas opcionales?  
 
 ![SwingHighLow](../../img/SwingHighLow.png)
+
+
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-* **Period**: Número de barras a izquierda y derecha requeridas para confirmar un swing (Fuerza del fractal).  
-* **IncludeEqual**: Si máximos iguales cuentan como swing.  
+* **Period**: Profundidad del swing (barras a cada lado para confirmación).  
+* **IncludeEqual**: Considera máximos/mínimos iguales como swing.  
+* **UseAlerts**: Activar alertas al confirmarse swing.  
+* **AlertFile**: Sonido de alerta.  
+* **FontColor / BackgroundColor**: Estilo visual de la alerta.  
+
+
 
 ---
 
 ### 🧭 Clasificación
-📂 Momentum — Análisis de Estructura de Mercado (Price Action).
+**Grupo:** Market Structure  
+**Subgrupo:** Swing-Derived Structure  
+**Comparison Group:** "Swing-Derived Structure"  
+
+
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* **Estructura HH/HL:** Identificar visualmente si estamos haciendo Altos Más Altos (Tendencia Alcista) o Bajos Más Bajos.  
-* **Colocación de Stops:** El Swing Low anterior es el lugar técnico más seguro para un Stop Loss.  
+* Marcar pivotes confirmados para BOS/CHOCH manual.  
+* Alertas cuando se confirma swing (útil en multitarea).  
+* Identificación de últimos swings para stops/invalidación.  
+
+
 
 ---
 
 ### 📊 Nivel de relevancia
-🔟 **8 / 10**
+🔟 **7 / 10**
 
-✅ **Automatización:** Marca automáticamente lo que el ojo entrenado busca.  
-✅ **Alertas Retrospectivas:** La alerta salta cuando el patrón se *confirma* (N barras después), no en tiempo real (lo cual sería repintado). Es honesto.  
-⛔ **Lag:** Inherente al diseño. Un Swing High de periodo 5 solo se confirma 5 barras después.  
+✅ Pivote confirmado (no “señal fantasma”), lag honesto.  
+✅ Incluye alertas y opción de igualdad, práctico.  
+⛔ No genera líneas de nivel; menos accionable que Fractals+ShowLine.  
+⛔ Puede sentirse redundante si ya trabajas con fractales como niveles.  
+
+
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Breakout de Estructura (BOS):** Marcar una línea horizontal en el último Swing High y entrar cuando se rompe.  
-* **Stop Hunting:** Entrar en contra cuando el precio rompe un Swing Low por pocos ticks y recupera (Liquidaciones).  
+* **BOS**: trazar manualmente el último swing confirmado y operar ruptura.  
+* **Stops técnicos**: swing low/high como invalidación estructural.  
+
+
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **Period**: `5` (Fractal clásico de Williams) o `3` (Más agresivo).
+| Parámetro | Valor recomendado | Justificación |
+|---|---:|---|
+| Period | 3–5 | 3 agresivo; 5 más estándar y filtra ruido. |
+| IncludeEqual | true | Evita perder pivotes por igualdad en rangos. |
+| UseAlerts | opcional | Útil si no puedes mirar continuamente. |  
+
+
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* **Lógica:** `_highest.DataSeries[0][bar - Period]` vs `calcCandle.High`. Compara el máximo central con los vecinos.
-* **Visualización:** Dibuja flechas (`VisualMode.DownArrow`) en el pasado (`calcBar`).
+* Usa indicadores internos `Highest` y `Lowest` sobre high/low para validar pivotes.  
+* Dibuja flechas en `calcBar = bar - Period` y alerta solo cuando barra actual es la última (`bar == CurrentBar - 1`).  
+* Deduplica alertas con `_lastHighAlert` / `_lastLowAlert`.  
+
+
 
 ---
+
+### ❗ Incoherencias o aspectos mejorables detectados
+
+* Ninguna crítica; el lag es inherente a confirmar swing.  
+
+
+
 ---
 
-### ✍️ La opinión de Gemini sobre el Indicador
+### 🛠️ Propuestas de mejora
 
-Es fundamental para Price Action. Ayuda a objetivar la estructura del mercado, eliminando la subjetividad de "¿es esto un máximo relevante?".
+* Opción de dibujar líneas horizontales desde el swing hasta mitigación (lo acercaría a Fractals+ShowLine).  
 
-**Propuestas de Mejora:**
-* **Líneas Horizontales:** Opción para dibujar líneas horizontales automáticas desde los últimos Swings (Soporte/Resistencia).
+
+
+---
+
+### 💎 Valor Reutilizable (Código Donante)
+
+* Patrón de alertas con deduplicación por barra y parámetros de estilo.  
+
+
+
+---
+
+### ✍️ La opinión de ChatGPT sobre el Indicador
+
+Buen detector de pivotes confirmados con alertas, pero si tu objetivo principal es un mapa de niveles operables, Fractals con líneas hasta mitigación es superior. Aun así, se justifica como reserva porque aporta alertas y configuración de sensibilidad.  
+
+
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí.** Para definir estructura y stops.
+**Sí (como reserva)**  
 
-**Acción:** **Conservar.**
+**Acción:** **Conservar (Reserva)**  
