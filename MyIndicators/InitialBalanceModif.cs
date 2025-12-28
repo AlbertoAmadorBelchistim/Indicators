@@ -11,12 +11,12 @@ using ATAS.Indicators.Drawing;
 using OFT.Attributes;
 using OFT.Localization;
 using OFT.Rendering.Settings;
+using OFT.Rendering.Tools;
+using OFT.Rendering.Context;
 using ATAS.Indicators;
 
+
 using Pen = CrossPen;
-using OFT.Rendering.Context;
-using OFT.Rendering.Tools;
-using Parameter = OFT.Attributes.ParameterAttribute;
 
 [DisplayName("Initial Balance Modif")]
 [Category(IndicatorCategories.VolumeOrderFlow)]
@@ -193,7 +193,7 @@ public class InitialBalance : Indicator
 	private decimal _minValue = decimal.MaxValue;
 	private int _period = 60;
 	private PeriodType _periodMode = PeriodType.Minutes;
-	private DrawingRectangle _rectangle = new(0, 0, 0, 0, CrossPens.Gray, new SolidBrush(DefaultColors.Yellow));
+	private DrawingRectangle _rectangle = new(0, 0, 0, 0, CrossPens.Gray, new CrossSolidBrush(DefaultColors.Yellow));
 	private bool _showOpenRange = true;
 	private TimeSpan _startDate = new(9, 0, 0);
 	private int _targetBar;
@@ -597,7 +597,7 @@ public class InitialBalance : Indicator
 			_targetBar = 0;
 			_isStarted = false;
 
-			if (_days <= 0)
+            if (_days <= 0)
 				return;
 
 			var days = 0;
@@ -624,52 +624,52 @@ public class InitialBalance : Indicator
 
 		var time = candle.Time.AddHours(InstrumentInfo.TimeZone).TimeOfDay;
 		var lastTime = candle.LastTime.AddHours(InstrumentInfo.TimeZone).TimeOfDay;
-
-		if (CustomSessionStart)
+		
+        if (CustomSessionStart)
 		{
 			bool inSession;
 
-			if (StartDate < EndDate)
+            if (StartDate < EndDate)
 				inSession = (time >= StartDate || lastTime >= StartDate) && time < EndDate;
 			else if (StartDate > EndDate)
 			{
 				inSession = ((time >= StartDate || lastTime >= StartDate) && time > EndDate)
 						 || ((time <= EndDate || lastTime <= EndDate) && time < EndDate);
-			}
+            }
 			else
 				inSession = true;
 
-			if (!inSession)
+            if (!inSession)
 			{
 				_isStarted = false;
 
-				// Remember the last in-session bar (set only once)
-				if (_lastSessionEndBar < 0)
-					_lastSessionEndBar = Math.Max(0, bar - 1);
+                // Remember the last in-session bar (set only once)
+                if (_lastSessionEndBar < 0)
+                    _lastSessionEndBar = Math.Max(0, bar - 1);
 
-				foreach (var dataSeries in DataSeries)
+                foreach (var dataSeries in DataSeries)
 					if (dataSeries is ValueDataSeries series)
 						series.SetPointOfEndLine(bar - 1);
-				return;
+                return;
 			}
 		}
 
-		var candleFullDateTime = candle.Time.AddHours(InstrumentInfo.TimeZone);
+        var candleFullDateTime = candle.Time.AddHours(InstrumentInfo.TimeZone);
 		var isStart = false;
 		var isEnd = false;
 
-		if (!_isStarted)
+        if (!_isStarted)
 		{
 			isStart = _customSessionStart
 				   ? bar != 0 && (time >= StartDate || lastTime >= StartDate) && (GetPrevDateTime(bar).TimeOfDay < StartDate || GetPrevDateTime(bar).Date < candleFullDateTime.Date)
 				   : IsNewSession(bar);
-		}
+        }
 
-		if (_isStarted)
+        if (_isStarted)
 		{
 			isEnd = (PeriodMode is PeriodType.Minutes && candleFullDateTime >= _endTime && GetPrevDateTime(bar) < _endTime)
 				 || (PeriodMode is PeriodType.Bars && bar - _lastStartBar >= Period);
-		}
+        }           
 
 		if (isStart)
 		{
@@ -689,21 +689,21 @@ public class InitialBalance : Indicator
 			_highLowIsSet = false;
 			_lastStartBar = bar;
 			_endTime = candleFullDateTime.AddMinutes(_period);
-			_isStarted = true;
-			_lastIbEndBar = -1;
-			_lastSessionEndBar = -1;  // <ù reset anchor for labels
+            _isStarted = true;
+            _lastIbEndBar = -1;
+            _lastSessionEndBar = -1;  // <ù reset anchor for labels
 
-			foreach (var dataSeries in DataSeries)
-				if (dataSeries is ValueDataSeries series)
-					series.SetPointOfEndLine(bar - 1);
+            foreach (var dataSeries in DataSeries)
+                if (dataSeries is ValueDataSeries series)
+                    series.SetPointOfEndLine(bar - 1);
 
-			if (ShowOpenRange)
+            if (ShowOpenRange)
 			{
-				var pen = new Pen(ConvertColor(_borderColor))
+				var pen = new CrossPen(ConvertColor(_borderColor))
 				{
 					Width = _borderWidth
 				};
-				var brush = new SolidBrush(ConvertColor(_fillColor));
+				var brush = new CrossSolidBrush(ConvertColor(_fillColor));
 
 				_rectangle = new DrawingRectangle(bar, decimal.Zero, bar, decimal.Zero, pen, brush);
 
@@ -715,103 +715,102 @@ public class InitialBalance : Indicator
 		}
 		else if (isEnd)
 		{
-			// Compute final values
-			var finalDiff = _ibMax - _ibMin;
-			var finalMid = (_minValue + _maxValue) / 2m;
-			var finalIbm = (_ibMin + _ibMax) / 2m;
+            // Compute final values
+            var finalDiff = _ibMax - _ibMin;
+            var finalMid = (_minValue + _maxValue) / 2m;
+            var finalIbm = (_ibMin + _ibMax) / 2m;
 
-			// Snapshot last session
-			_lastIbEndBar = bar;
-			_sIBH = _ibMax; _sIBL = _ibMin; _sIBM = finalIbm; _sMID = finalMid;
-			_sIBHX1 = _ibMax + finalDiff * _x1;
-			_sIBHX2 = _ibMax + finalDiff * _x2;
-			_sIBHX3 = _ibMax + finalDiff * _x3;
-			_sIBLX1 = _ibMin - finalDiff * _x1;
-			_sIBLX2 = _ibMin - finalDiff * _x2;
-			_sIBLX3 = _ibMin - finalDiff * _x3;
+            // Snapshot last session
+            _lastIbEndBar = bar;
+            _sIBH = _ibMax; _sIBL = _ibMin; _sIBM = finalIbm; _sMID = finalMid;
+            _sIBHX1 = _ibMax + finalDiff * _x1;
+            _sIBHX2 = _ibMax + finalDiff * _x2;
+            _sIBHX3 = _ibMax + finalDiff * _x3;
+            _sIBLX1 = _ibMin - finalDiff * _x1;
+            _sIBLX2 = _ibMin - finalDiff * _x2;
+            _sIBLX3 = _ibMin - finalDiff * _x3;
 
-			_calculate = _isStarted = false;
+            _calculate = _isStarted = false;
 
-			if (!ShowDuringFormation)
-			{
-				// cut any possible connection up to the IB end bar 
-				foreach (var ds in DataSeries)
-					if (ds is ValueDataSeries vs)
-						vs.SetPointOfEndLine(_lastIbEndBar);
+            if (!ShowDuringFormation)
+            {
+                // cut any possible connection up to the IB end bar 
+                foreach (var ds in DataSeries)
+                    if (ds is ValueDataSeries vs)
+                        vs.SetPointOfEndLine(_lastIbEndBar);
 			}
 
-			if (_calculate)
-			{
-				if (candle.High > _maxValue)
-				{
-					_highLowIsSet = true;
-					_ibMax = _maxValue = candle.High;
-				}
-
-				if (candle.Low < _minValue)
-				{
-					_highLowIsSet = true;
-					_ibMin = _minValue = candle.Low;
-				}
-
-				if (ShowOpenRange)
-				{
-					_rectangle.SecondBar = bar;
-					_rectangle.FirstPrice = _ibMax;
-					_rectangle.SecondPrice = _ibMin;
-				}
-			}
-
+		if (_calculate)
+		{
 			if (candle.High > _maxValue)
-				_maxValue = candle.High;
+			{
+				_highLowIsSet = true;
+				_ibMax = _maxValue = candle.High;
+			}
 
 			if (candle.Low < _minValue)
-				_minValue = candle.Low;
-
-			if (!_highLowIsSet)
-				return;
-
-			// ADD: only show current session while forming if allowed;
-			// otherwise, start at the IB end bar (no retrospective)
-			bool canShowThisBar =
-				ShowDuringFormation
-				|| (!ShowDuringFormation && _lastIbEndBar >= 0 && bar >= _lastIbEndBar);
-
-			if (!canShowThisBar)
 			{
-				// hide current-session lines during formation without writing zeros
-				foreach (var ds in DataSeries)
-					if (ds is ValueDataSeries vs)
-						vs.SetPointOfEndLine(Math.Max(0, _lastStartBar - 1));
-
-				return;
+				_highLowIsSet = true;
+				_ibMin = _minValue = candle.Low;
 			}
 
-			_mid[bar] = mid = (_minValue + _maxValue) / 2m;
-			_ibh[bar] = _ibMax;
-			_ibl[bar] = _ibMin;
-			_ibmValue = _ibm[bar] = (_ibMin + _ibMax) / 2m;
-			var diff = _ibMax - _ibMin;
-
-			ibhx1 = _ibhx1[bar] = _ibMax + diff * _x1;
-			ibhx2 = _ibhx2[bar] = _ibMax + diff * _x2;
-			ibhx3 = _ibhx3[bar] = _ibMax + diff * _x3;
-			iblx1 = _iblx1[bar] = _ibMin - diff * _x1;
-			iblx2 = _iblx2[bar] = _ibMin - diff * _x2;
-			iblx3 = _iblx3[bar] = _ibMin - diff * _x3;
-
-			_ibhx32[bar].Upper = ibhx3;
-			_ibhx32[bar].Lower = _ibhx21[bar].Upper = ibhx2;
-			_ibhx21[bar].Lower = _ibhx1h[bar].Upper = ibhx1;
-			_ibhx1h[bar].Lower = _ibHm[bar].Upper = _ibh[bar];
-			_ibHm[bar].Lower = _ibMl[bar].Upper = _ibm[bar];
-			_ibMl[bar].Lower = _ibl1[bar].Upper = _ibl[bar];
-			_ibl1[bar].Lower = _iblx12[bar].Upper = iblx1;
-			_iblx12[bar].Lower = _iblx23[bar].Upper = iblx2;
-			_iblx23[bar].Lower = iblx3;
-
+			if (ShowOpenRange)
+			{
+				_rectangle.SecondBar = bar;
+				_rectangle.FirstPrice = _ibMax;
+				_rectangle.SecondPrice = _ibMin;
+			}
 		}
-	}
+
+		if (candle.High > _maxValue)
+			_maxValue = candle.High;
+
+		if (candle.Low < _minValue)
+			_minValue = candle.Low;
+
+		if (!_highLowIsSet)
+			return;
+
+        // ADD: only show current session while forming if allowed;
+        // otherwise, start at the IB end bar (no retrospective)
+        bool canShowThisBar =
+            ShowDuringFormation
+            || (!ShowDuringFormation && _lastIbEndBar >= 0 && bar >= _lastIbEndBar);
+
+        if (!canShowThisBar)
+        {
+            // hide current-session lines during formation without writing zeros
+            foreach (var ds in DataSeries)
+                if (ds is ValueDataSeries vs)
+                    vs.SetPointOfEndLine(Math.Max(0, _lastStartBar - 1));
+
+            return;
+        }
+
+        _mid[bar] = mid = (_minValue + _maxValue) / 2m;
+		_ibh[bar] = _ibMax;
+		_ibl[bar] = _ibMin;
+		_ibmValue = _ibm[bar] = (_ibMin + _ibMax) / 2m;
+		var diff = _ibMax - _ibMin;
+
+		ibhx1 = _ibhx1[bar] = _ibMax + diff * _x1;
+		ibhx2 = _ibhx2[bar] = _ibMax + diff * _x2;
+		ibhx3 = _ibhx3[bar] = _ibMax + diff * _x3;
+		iblx1 = _iblx1[bar] = _ibMin - diff * _x1;
+		iblx2 = _iblx2[bar] = _ibMin - diff * _x2;
+		iblx3 = _iblx3[bar] = _ibMin - diff * _x3;
+
+		_ibhx32[bar].Upper = ibhx3;
+		_ibhx32[bar].Lower = _ibhx21[bar].Upper = ibhx2;
+		_ibhx21[bar].Lower = _ibhx1h[bar].Upper = ibhx1;
+		_ibhx1h[bar].Lower = _ibHm[bar].Upper = _ibh[bar];
+		_ibHm[bar].Lower = _ibMl[bar].Upper = _ibm[bar];
+		_ibMl[bar].Lower = _ibl1[bar].Upper = _ibl[bar];
+		_ibl1[bar].Lower = _iblx12[bar].Upper = iblx1;
+		_iblx12[bar].Lower = _iblx23[bar].Upper = iblx2;
+		_iblx23[bar].Lower = iblx3;
+
+    }
 
     /// <summary>
     /// Renders a single set of IB labels for the most recent session.
