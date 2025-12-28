@@ -29,7 +29,7 @@ reusable_code: null
 
 # 6. METADATOS  
 analysis_date: 2025-12-27  
-official_code_date: 2025-04-23  
+official_code_date: 2025-12-15  
 
 ---
 
@@ -39,7 +39,7 @@ official_code_date: 2025-04-23
 **Nombre del indicador:** Margin Zones  
 **Web oficial:** [ATAS — Margin Zones](https://help.atas.net/support/solutions/articles/72000602421)  
 **Compatibilidad:** ATAS Stable/Latest  
-**Última revisión del código oficial:** 2025-04-23   
+**Última revisión del código oficial:** 2025-12-15   
 
 > **La Pregunta Clave:** ¿Dónde están las zonas de “margen” calculadas como bandas equidistantes desde un precio base para identificar posibles áreas de presión financiera?  
 

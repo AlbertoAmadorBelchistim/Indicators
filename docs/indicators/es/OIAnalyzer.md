@@ -27,8 +27,8 @@ competitor_notes: "Superior a todos, pero sufre la misma limitación de datos qu
 reusable_code: "Lógica de desglose trade-by-trade de OI."
 
 # 6. METADATOS
-analysis_date: 2025-11-21
-official_code_date: 2025-04-23
+analysis_date: 2025-12-28
+official_code_date: 2025-12-16
 ---
 
 ## 🏆 OI Analyzer (2/10 en ES / 10/10 en Crypto)
@@ -37,7 +37,7 @@ official_code_date: 2025-04-23
 **Nombre del indicador:** OI Analyzer  
 **Web oficial:** [ATAS — OI Analyzer](https://help.atas.net/support/solutions/articles/72000602437)  
 **Compatibilidad:** ATAS versión estable.  
-**Última revisión del código oficial:** 2025-04-23  
+**Última revisión del código oficial:** 2025-12-16  
 
 > **La Pregunta Clave:** ¿Cómo cambia el Interés Abierto (OI) filtrado por dirección (Buy/Sell) y visualizado en detalle?
 
@@ -59,7 +59,11 @@ official_code_date: 2025-04-23
     * `SeparatedTrades`: Cambio neto por barra.
 * **Cumulative Mode:** Checkbox rápido para activar acumulación.
 * **Clusters Mode:** Pinta los valores numéricos sobre las velas (Estilo Footprint).
-* **Visualización:** `Custom Diapason` (Escala fija), `Grid Step` (Cuadrícula), `Colors`.
+* **Visualización:**
+  * `Custom Diapason`: Escala fija personalizada.
+  * `Grid Step`: Separación de la cuadrícula.
+  * `Up Color / Down Color`: Color de velas alcistas y bajistas.
+  * `Border Color`: Color del borde de las velas (parámetro independiente).
 
 ---
 
@@ -105,11 +109,17 @@ official_code_date: 2025-04-23
 * Usa `CumulativeTradesRequest` para reconstruir el historial.
 * Depende críticamente de `tick.OpenInterest`, campo que viene vacío o estático en feeds CME intradía.
 
+Mejoras en versión alfa (2025-12-16):
+* Mejora de UI: separación explícita de `BorderColor` respecto a `DownColor` (bugfix visual).
+* Render: clipping seguro del valor del eje mediante región dedicada (`try/finally`).
+* Grid: redibujado con espaciado mínimo configurable para evitar saturación visual.
+
 ---
 
 ### ❗ Incoherencias o aspectos mejorables detectados
 
 * **Dependencia de Datos:** No avisa al usuario si el feed no soporta OI. Debería mostrar un "Data Not Available".
+* **UI menor:** el tooltip de `BorderColor` reutiliza la descripción de color alcista (detalle cosmético).
 
 ---
 

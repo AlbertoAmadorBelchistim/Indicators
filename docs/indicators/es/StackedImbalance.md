@@ -28,7 +28,7 @@ reusable_code: "Uso de HorizontalLinesTillTouch + LineTillTouch para proyectar n
 
 # 6. METADATOS  
 analysis_date: 2025-12-26  
-official_code_date: 2025-04-23  
+official_code_date: 2025-12-15  
 ---  
 
 ## 🥈 Stacked Imbalance (7/10)  
@@ -37,7 +37,7 @@ official_code_date: 2025-04-23
 **Nombre del indicador:** Stacked Imbalance  
 **Web oficial:** [ATAS — Stacked Imbalance](https://help.atas.net/support/solutions/articles/72000602474)  
 **Compatibilidad:** ATAS Stable/Latest.  
-**Última revisión del código oficial:** 2025-04-23  
+**Última revisión del código oficial:** 2025-12-15  
 
 > **La Pregunta Clave:** ¿En qué niveles aparecen secuencias consecutivas de desequilibrios (stacked) y cómo se proyectan como soporte/resistencia hasta el re-test?  
 

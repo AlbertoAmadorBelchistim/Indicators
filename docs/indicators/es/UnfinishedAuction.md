@@ -29,7 +29,7 @@ reusable_code: "Patrón LineTillTouch + HorizontalLinesTillTouch para dibujar ni
 
 # 6. METADATOS  
 analysis_date: 2025-12-26  
-official_code_date: 2025-05-08  
+official_code_date: 2025-12-15  
 
 ---
 
@@ -39,7 +39,7 @@ official_code_date: 2025-05-08
 **Nombre del indicador:** Unfinished Auction  
 **Web oficial:** [ATAS — Unfinished Auction](https://help.atas.net/support/solutions/articles/72000602495)  
 **Compatibilidad:** ATAS Stable/Latest.  
-**Última revisión del código oficial:** 2025-05-08  
+**Última revisión del código oficial:** 2025-12-15  
 
 > **La Pregunta Clave:** ¿Hay una subasta inacabada en el máximo/mínimo (volumen en el tick extremo) que deje un nivel pendiente de “cierre”?  
 

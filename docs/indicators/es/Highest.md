@@ -1,23 +1,39 @@
 ---
-cs_file: Highest.cs
-name: Highest
-category: Structure
+
+# 1. IDENTIFICACIÓN  
+cs_file: Highest.cs  
+name: Highest  
+version: ATAS Stable/Latest  
+
+# 2. CLASIFICACIÓN  
 group: Market Structure  
 subgroup: Extremes & Range Structure  
-score_current: 6/10
-version: Estable
-recommended_action: Descartar
-description: ¿Cuál es el valor más alto del cierre de las últimas N barras?
-gemini_summary: "Redundante. Menos útil que el indicador 'HighLow' (Donchian Channel)."
-comparison_group: "Price Extremes"
-competitor_notes: "Inferior a Donchian."
-reusable_code: null
-file_state: Estable
-score_potential: 6/10
-effort: N/A
-action_priority: N/A
-analysis_date: 2025-11-17
-official_code_date: 23/04/2025
+comparison_group: "Extremes & Range Structure"  
+
+# 3. VALORACIÓN (Score & Priority)  
+score_current: 6/10  
+score_potential: 7/10  
+file_state: Estable  
+effort: N/A  
+action_priority: Nula  
+system_priority: P3  
+
+# 4. DECISIÓN  
+recommended_action: Conservar (Reserva)  
+
+# 5. ANÁLISIS  
+description: ¿Cuál es el valor máximo de la serie de entrada (Source) en las últimas N barras?  
+gemini_summary: "Rolling max genérico sobre SourceDataSeries: menos útil como canal, pero valioso como bloque para extremos sobre cualquier fuente (precio, delta, etc.)."  
+competitor_notes: "Pierde como herramienta principal de rango frente a Donchian/HighLow. Gana valor cuando se usa sobre fuentes no-High/Low (porque Donchian/HighLow están orientados a extremos de precio)."  
+reusable_code: "Implementación mínima y segura de rolling max con control de ventana (start/count) para evitar out-of-range."  
+
+# 6. METADATOS  
+analysis_date: 2025-12-28  
+official_code_date: 2025-04-23  
+
+
+
+
 ---
 
 ## 🟦 Highest (6/10)
@@ -25,82 +41,117 @@ official_code_date: 23/04/2025
 **Nombre del archivo:** [`Highest.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/Highest.cs)  
 **Nombre del indicador:** Highest  
 **Web oficial:** [ATAS — Highest](https://help.atas.net/support/solutions/articles/72000602627)  
-**Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 23/04/2025
+**Compatibilidad:** ATAS Stable/Latest.  
+**Última revisión del código oficial:** 2025-04-23  
 
-> **La Pregunta Clave:** ¿Cuál es el valor más alto del "Source" (por defecto, el Cierre) de las últimas N barras?
+> **La Pregunta Clave:** ¿Cuál es el valor máximo de la serie de entrada (Source) en las últimas N barras?  
 
 ![Highest](../../img/Highest.png)
+
+
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-* **Period**: Número de barras usadas para buscar el valor máximo (por defecto: 10)
+* **Period**: Número de barras usadas para buscar el máximo (por defecto: 10).  
+
+
 
 ---
 
 ### 🧭 Clasificación
-📂 Levels — Indicadores que marcan extremos locales o históricos
+**Grupo:** Market Structure  
+**Subgrupo:** Extremes & Range Structure  
+**Comparison Group:** "Extremes & Range Structure"  
+
+
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* Marcar el **punto más alto** dentro de una ventana móvil (basado en `SourceDataSeries`, usualmente `Close`)
-* Detectar **niveles de resistencia dinámica**
+* Marcar el máximo reciente de una serie (por defecto el Close, pero puede ser otra fuente seleccionable en la UI).  
+* Construir reglas tipo “breakout del máximo de N” sobre fuentes no estándar.  
+
+
 
 ---
 
 ### 📊 Nivel de relevancia
 🔟 **6 / 10**
 
-✅ Ligero y preciso en su cálculo.  
-⛔ **Redundante:** Es funcionalmente inferior al indicador `HighLow` (7/10), que traza tanto el máximo (`High`) como el mínimo (`Low`), proporcionando el canal completo.  
-⛔ Menos útil: Los traders de breakout suelen preferir el "Highest High" (que traza `HighLow`) en lugar del "Highest Close" (que traza este).
+✅ Muy ligero y estable.  
+✅ Útil como bloque genérico (rolling max sobre Source).  
+⛔ Como herramienta de rango/estructura, queda por detrás de un canal completo (Donchian/HighLow).  
+
+
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Breakout alcista**: entrada si el precio supera el valor de Highest
-* **Zona de rechazo**: actuar si el precio toca el nivel y aparece absorción
+* **Breakout del máximo de N** sobre la serie elegida.  
+* **Filtro de contexto**: “no buscar largos si no supera el máximo de N”.  
+
+
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **Period**: `20`
-* *Recomendación: Usar el indicador `HighLow` (7/10) en su lugar.*
+| Parámetro | Valor recomendado | Justificación |
+|---|---:|---|
+| Period | 10–20 | 10 para micro-rupturas; 20 para contexto de rango más estable. |  
+
+
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* El cálculo recorre `SourceDataSeries` (por defecto `Close`) desde `bar - Period + 1` hasta `bar`.
-* Se usa `Math.Max` para encontrar el mayor valor dentro de esa ventana.
-* El resultado se plotea como una sola línea (`this[bar] = max`).
-* El `.md` sugiere que no se puede cambiar la fuente a `High`, `Delta`, etc. Esto es **incorrecto**. Al ser un indicador que opera sobre `SourceDataSeries`, el usuario *puede* cambiar la fuente de entrada a `High`, `Low`, `Delta`, etc., desde la UI de ATAS.
+* Ventana definida con `start` y `count` para evitar errores en barras iniciales.  
+* Complejidad O(Period) por barra; adecuada para Period típico.  
+* Opera sobre `SourceDataSeries`, lo que aumenta su reutilidad frente a canales fijos a High/Low.  
+
+
 
 ---
+
+### ❗ Incoherencias o aspectos mejorables detectados
+
+* Ninguna técnica evidente; la limitación es de “producto” (solo una banda, no un canal).  
+
+
+
 ---
 
-### ✍️ La opinión de Gemini sobre el Indicador
+### 🛠️ Propuestas de mejora
 
-Este es un indicador `Estable` pero **Redundante**.
+* Si se quisiera convertirlo en herramienta principal: añadir la banda inferior (Lowest) y opcional midline; en la práctica eso ya es Donchian/HighLow.  
 
-Calcula y traza el valor más alto del `SourceDataSeries` (que por defecto es el `Close`) en las últimas N barras.
 
-El problema es que ATAS ya proporciona el indicador `HighLow` (7/10), que es el Canal Donchian/Price Channel. `HighLow` traza el *Highest High* y el *Lowest Low*, que es lo que el 99% de los traders de breakout buscan.
 
-Este indicador (`Highest`) solo traza el *Highest Close* y no traza el mínimo. Por lo tanto, es menos funcional y redundante.
+---
+
+### 💎 Valor Reutilizable (Código Donante)
+
+* Patrón de rolling max seguro y mínimo (start/count + loop) reutilizable para otras series.  
+
+
+
+---
+
+### ✍️ La opinión de ChatGPT sobre el Indicador
+
+No es un ganador de rango, pero sí un buen “utility indicator”. En un sistema, los extremos sobre fuentes no estándar (delta, volumen, ratios) pueden aportar señales de contexto que un canal de precio no cubre. Mantenerlo como reserva tiene sentido.  
+
+
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Poco.**
+**Sí (como utilidad / reserva)**  
 
-Es técnicamente estable, pero es una herramienta inferior al indicador `HighLow`, que proporciona más información (el canal completo) y usa los datos correctos (High/Low) para el análisis de breakout.
-
-**Acción:** **Descartar (Redundante).**
+**Acción:** **Conservar (Reserva)**  

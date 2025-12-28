@@ -28,7 +28,7 @@ reusable_code: "Sistema de Alertas por cambio de valor (ChangeSize)."
 
 # 6. METADATOS
 analysis_date: 2025-11-21
-official_code_date: 2025-04-23
+official_code_date: 2025-07-28
 ---
 
 ## 🛡️ Open Interest (4/10)
@@ -37,7 +37,7 @@ official_code_date: 2025-04-23
 **Nombre del indicador:** Open Interest  
 **Web oficial:** [ATAS — Open Interest](https://help.atas.net/support/solutions/articles/72000602439)  
 **Compatibilidad:** ATAS versión estable.  
-**Última revisión del código oficial:** 2025-04-23  
+**Última revisión del código oficial:** 2025-07-28  
 
 > **La Pregunta Clave:** ¿Cuál es el Interés Abierto total (o su cambio neto) por barra o sesión?
 

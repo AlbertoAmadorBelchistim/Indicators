@@ -1,11 +1,11 @@
 # 🧱 Master Index: Market Structure (Estructura)
 
 ### 📊 Status Dashboard
-**Progreso de Auditoría:** `▓▓▓▓▓▓░░░░░░░░░░░░░░` **33%** (Fase 2 Completada)
+**Progreso de Auditoría:** `▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░` **50%** (Fase 2 Completada)
 
 | Total Indicadores | 🟢 Core (Ganadores) | 🟡 Reserva (Backup) | 💀 Descartados |
 | :---: | :---: | :---: | :---: |
-| **24** | **2** | **5** | 2 |
+| **24** | **3** | **8** | 1 |
 
 [🔙 Volver al Índice General](INDICATORS.es.md)
 
@@ -92,14 +92,14 @@ _Estructura por swings/pivotes confirmados (zigzag, fractales, swing HL)._
 ## 📊 Extremes & Range Structure
 _Extremos y rangos por ventana (Donchian, HH/LL, Highest/Lowest)._
 
-### ⚔️ Extremes & Range Structure &nbsp;⚠️ <small>PENDIENTE</small>
+### ⚔️ Extremes & Range Structure &nbsp;✅ <small>FASE 2</small>
 
 | Nota | Fase | Estado | Indicador | Pregunta Clave / Descripción |
 | :---: | :---: | :--- | :--- | :--- |
-| 6/10 | ⚠️ | 💀 Descartar | [Highest](indicators/es/Highest.md) | <sub>¿Cuál es el valor más alto del cierre de las últimas N barras?</sub> |
-| 8/10 | ⚠️ | Conservar | [Donchian Channel](indicators/es/Donchian.md) | ¿Cuál es el rango de precio (máximo y mínimo) de las últimas N barras? |
-| 7/10 | ⚠️ | Conservar | [Highest High / Lowest Low Over N Bars](indicators/es/HighLow.md) | ¿Cuál es el rango de precio (máximo y mínimo) de las últimas N barras? |
-| 6/10 | ⚠️ | Conservar | [Lowest](indicators/es/Lowest.md) | ¿Cuál es el valor más bajo (mínimo) en las últimas N barras? |
+| **8/10** | ✅ | 🟢 **CORE** | [Donchian Channel](indicators/es/Donchian.md) | ¿Cuál es el rango (máximo y mínimo) de las últimas N barras y cuál es su punto medio (equilibrio)? |
+| 7/10 | ✅ | 🟡 Reserva | [Highest High/Lowest Low Over N Bars](indicators/es/HighLow.md) | ¿Cuál es el máximo High y el mínimo Low de las últimas N barras? |
+| 6/10 | ✅ | 🟡 Reserva | [Highest](indicators/es/Highest.md) | ¿Cuál es el valor máximo de la serie de entrada (Source) en las últimas N barras? |
+| 6/10 | ✅ | 🟡 Reserva | [Lowest](indicators/es/Lowest.md) | ¿Cuál es el valor mínimo de la serie de entrada (Source) en las últimas N barras? |
 
 <br>
 

@@ -1,107 +1,158 @@
 ---
-cs_file: HighLow.cs
-name: Highest High / Lowest Low Over N Bars
-category: Structure
+
+# 1. IDENTIFICACIÓN  
+cs_file: HighLow.cs  
+name: Highest High/Lowest Low Over N Bars  
+version: ATAS Stable/Latest  
+
+# 2. CLASIFICACIÓN  
 group: Market Structure  
 subgroup: Extremes & Range Structure  
-score_current: 7/10
-version: Estable
-recommended_action: Conservar
-description: ¿Cuál es el rango de precio (máximo y mínimo) de las últimas N barras?
-gemini_summary: "Implementación 'Core' del Canal Donchian. Estable y útil."
-comparison_group: "Channel Breakout"
-competitor_notes: "Duplicado de Donchian Channel (misma lógica)."
-reusable_code: null
-file_state: Estable
-score_potential: 7/10
-effort: N/A
-action_priority: N/A
-analysis_date: 2025-11-17
-official_code_date: 23/04/2025
+comparison_group: "Extremes & Range Structure"  
+
+# 3. VALORACIÓN (Score & Priority)  
+score_current: 7/10  
+score_potential: 7/10  
+file_state: Estable  
+effort: N/A  
+action_priority: Nula  
+system_priority: P3  
+
+# 4. DECISIÓN  
+recommended_action: Conservar (Reserva)  
+
+# 5. ANÁLISIS  
+description: ¿Cuál es el máximo High y el mínimo Low de las últimas N barras?  
+gemini_summary: "Canal de extremos eficiente y muy simple. Es un backup válido, pero pierde frente a Donchian por no incluir midline opcional ni robustez ante High/Low=0."  
+competitor_notes: "Es funcionalmente redundante con Donchian (mismo objetivo de canal). Se mantiene como reserva por su simplicidad y por usar MAX/MIN sobre series internas."  
+reusable_code: "Uso de MAX/MIN sobre ValueDataSeries como patrón rápido para rolling extremes."  
+
+# 6. METADATOS  
+analysis_date: 2025-12-28  
+official_code_date: 2025-04-23  
+
+
+
+
 ---
 
-## 🟦 Highest High / Lowest Low Over N Bars (7/10)
+## 🟦 Highest High/Lowest Low Over N Bars (7/10)
 
 **Nombre del archivo:** [`HighLow.cs`](https://github.com/AlbertoAmadorBelchistim/Indicators/blob/Develop/Technical/HighLow.cs)  
-**Nombre del indicador:** Highest High / Lowest Low Over N Bars  
+**Nombre del indicador:** Highest High/Lowest Low Over N Bars  
 **Web oficial:** [ATAS — Highest High / Lowest Low Over N Bars](https://help.atas.net/support/solutions/articles/72000602244)  
-**Compatibilidad:** ATAS versión estable y superiores.  
-**Última revisión del código oficial:** 23/04/2025
+**Compatibilidad:** ATAS Stable/Latest.  
+**Última revisión del código oficial:** 2025-04-23  
 
-> **La Pregunta Clave:** ¿Cuál es el rango de precio (máximo más alto y mínimo más bajo) de las últimas N barras?
+> **La Pregunta Clave:** ¿Cuál es el máximo High y el mínimo Low de las últimas N barras?  
 
 ![Highest High / Lowest Low Over N Bars](../../img/HighLow.png)
+
+
 
 ---
 
 ### ⚙️ Parámetros configurables
 
-* **Period**: Número de barras para calcular el máximo y mínimo (por defecto: 15)
+* **Period**: Número de barras para calcular el máximo y el mínimo (por defecto: 15).  
+
+
 
 ---
 
 ### 🧭 Clasificación
-📂 Levels — Indicadores de extremos móviles (canales dinámicos)
+**Grupo:** Market Structure  
+**Subgrupo:** Extremes & Range Structure  
+**Comparison Group:** "Extremes & Range Structure"  
+
+
 
 ---
 
 ### 🧠 Uso más frecuente
 
-* Identificar el **rango dinámico** de precios (Canal Donchian)
-* Marcar niveles de **soporte y resistencia dinámicos**
-* Utilizar como base para breakout, reversión o trailing
+* Definir canal superior/inferior del rango reciente (breakouts y fail breaks).  
+* Soportes/resistencias dinámicos de corto plazo.  
+
+
 
 ---
 
 ### 📊 Nivel de relevancia
 🔟 **7 / 10**
 
-✅ **Herramienta "Core" de Niveles**: Es el Canal Donchian/Price Channel estándar.  
-✅ Fácil de interpretar visualmente.  
-✅ Sirve como base para múltiples estrategias técnicas.  
-⛔ No considera volumen ni momentum.  
+✅ Simple, legible y eficiente (rolling MAX/MIN).  
+✅ Buen backup “mínimo viable” para canal de rango.  
+⛔ Redundante con Donchian, que ofrece midline y mayor robustez de datos.  
+
+
 
 ---
 
 ### 🎯 Estrategias de scalping donde se aplica
 
-* **Breakout por canal**: entrada si el precio supera el máximo/mínimo del periodo
-* **Falso Breakout (Reversión)**: Vender si el precio toca el canal superior y es rechazado.
-* **Trailing stop estructural**: usar el mínimo como trailing dinámico en largos
+* **Breakout por canal**: ruptura del máximo/mínimo del periodo.  
+* **Trailing estructural**: usar el mínimo como stop dinámico en largos (y viceversa).  
+
+
 
 ---
 
 ### ⚙️ Parametrización óptima para scalping (1M, S&P 500)
 
-* **Period**: `15` a `20`
-* Combinar con Delta o DOM Strength para validar la agresión en extremos
+| Parámetro | Valor recomendado | Justificación |
+|---|---:|---|
+| Period | 15–20 | Mantiene equilibrio entre sensibilidad y ruido en M1. |  
+
+
 
 ---
 
 ### 🧪 Notas de desarrollo
 
-* El indicador almacena los High y Low de cada vela en series internas (`_highSeries`, `_lowSeries`).
-* Utiliza las funciones optimizadas `_highSeries.MAX(_period, bar)` y `_lowSeries.MIN(_period, bar)` para calcular los extremos de la ventana.
-* Dibuja dos líneas (`_maxSeries` y `_minSeries`) que representan el canal.
-* Está diseñado específicamente para `High` y `Low`; no está pensado para ser configurable a `Close` (para eso existe `Highest.cs`).
+* Calcula `High/Low` por barra y aplica `MAX/MIN` sobre series internas.  
+* Muy buen perfil de rendimiento y mínima complejidad.  
+* No aporta midline ni control de visualización adicional.  
+
+
 
 ---
+
+### ❗ Incoherencias o aspectos mejorables detectados
+
+* No hay errores evidentes; la limitación es funcional (menos features que Donchian).  
+
+
+
 ---
 
-### ✍️ La opinión de Gemini sobre el Indicador
+### 🛠️ Propuestas de mejora
 
-Esta es una herramienta "Core" de niveles. Es la implementación estándar y robusta del canal de precios (a menudo llamado Canal Donchian). Dibuja el máximo más alto y el mínimo más bajo de las últimas N barras.
+* Si se quisiera competir con Donchian: añadir midline opcional y/o fallback defensivo para feeds incompletos.  
 
-El `.md` original menciona que "no permite elegir el tipo de precio". Esto no es una incoherencia, sino la *definición* del indicador. Se llama "Highest **High** / Lowest **Low**". Su propósito es trazar los extremos del precio (las mechas), que es lo que la mayoría de los traders de breakout buscan.
 
-Es estable, ligero y hace exactamente lo que promete.
+
+---
+
+### 💎 Valor Reutilizable (Código Donante)
+
+* Patrón rápido: `ValueDataSeries.MAX(period, bar)` y `MIN(period, bar)` aplicado a series internas.  
+
+
+
+---
+
+### ✍️ La opinión de ChatGPT sobre el Indicador
+
+Es un canal de rango válido, pero en un sistema real de scalping interesa minimizar redundancias. Donchian cubre el mismo caso de uso y añade midline (decisiones de rotación) y robustez.  
+Aun así, mantenerlo como “reserva” tiene sentido por su simplicidad y por si quieres una versión sin extras en layouts muy cargados.  
+
+
 
 ---
 
 ### 📈 Veredicto: ¿Es útil para Scalping?
 
-**Sí. Es una herramienta de contexto "Core".**
+**Sí (como reserva)**  
 
-Define el "campo de juego" inmediato. Es fundamental para estrategias de ruptura (breakout) y de reversión en los extremos del rango.
-
-**Acción:** **Conservar (Herramienta de Contexto).**
+**Acción:** **Conservar (Reserva)**  
