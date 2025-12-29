@@ -46,8 +46,8 @@ Global
 		{CE74E863-5DF4-49C4-B0FF-E97C7B8D8414}.Publish|Any CPU.Build.0 = Publish|Any CPU
 		{CE74E863-5DF4-49C4-B0FF-E97C7B8D8414}.Publish|Cross.ActiveCfg = Publish|Cross
 		{CE74E863-5DF4-49C4-B0FF-E97C7B8D8414}.Publish|Cross.Build.0 = Publish|Cross
-		{CE74E863-5DF4-49C4-B0FF-E97C7B8D8414}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CE74E863-5DF4-49C4-B0FF-E97C7B8D8414}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE74E863-5DF4-49C4-B0FF-E97C7B8D8414}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE74E863-5DF4-49C4-B0FF-E97C7B8D8414}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{CE74E863-5DF4-49C4-B0FF-E97C7B8D8414}.Release|Cross.ActiveCfg = Release|Cross
 		{CE74E863-5DF4-49C4-B0FF-E97C7B8D8414}.Release|Cross.Build.0 = Release|Cross
 	EndGlobalSection

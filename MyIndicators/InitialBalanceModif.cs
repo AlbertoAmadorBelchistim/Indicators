@@ -14,6 +14,7 @@ using OFT.Rendering.Settings;
 using OFT.Rendering.Tools;
 using OFT.Rendering.Context;
 using ATAS.Indicators;
+using Parameter = OFT.Attributes.ParameterAttribute;
 
 using Pen = CrossPen;
 
