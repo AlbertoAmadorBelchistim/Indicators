@@ -15,14 +15,13 @@ using OFT.Rendering.Tools;
 using OFT.Rendering.Context;
 using ATAS.Indicators;
 
-
 using Pen = CrossPen;
 
 [DisplayName("Initial Balance Modif")]
 [Category(IndicatorCategories.VolumeOrderFlow)]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.InitialBalanceIndDescription))]
 [HelpLink("https://help.atas.net/support/solutions/articles/72000602294")]
-public class InitialBalance : Indicator
+public class InitialBalanceModif : Indicator
 {
 	#region Nested types
 
@@ -177,7 +176,6 @@ public class InitialBalance : Indicator
 	private bool _calculate;
 	private bool _customSessionStart;
 	private int _days = 20;
-    private TimeSpan _endDate;
 	private DateTime _endTime = DateTime.MaxValue;
 	private CrossColor _fillColor = DefaultColors.Yellow.Convert();
 	private bool _highLowIsSet;
@@ -195,8 +193,9 @@ public class InitialBalance : Indicator
 	private PeriodType _periodMode = PeriodType.Minutes;
 	private DrawingRectangle _rectangle = new(0, 0, 0, 0, CrossPens.Gray, new CrossSolidBrush(DefaultColors.Yellow));
 	private bool _showOpenRange = true;
-	private TimeSpan _startDate = new(9, 0, 0);
-	private int _targetBar;
+	private TimeSpan _startDate = new(9, 30, 0);
+    private TimeSpan _endDate = new(16, 0, 0);
+    private int _targetBar;
 	private decimal _x1 = 1m;
 	private decimal _x2 = 2m;
 	private decimal _x3 = 3m;
@@ -220,6 +219,7 @@ public class InitialBalance : Indicator
     private int _lastSessionEndBar = -1;
 
     private bool _showDuringFormation = true;
+	private bool _formationHiddenApplied = false;
 
     #endregion
 
@@ -397,18 +397,22 @@ public class InitialBalance : Indicator
         get => _fontSize;
         set
         {
+            if (Math.Abs(_fontSize - value) < 0.01f)
+                return;
+
             _fontSize = value;
             _font = new RenderFont("Arial", _fontSize);
-            RecalculateValues();
+			RedrawChart();
         }
     }
+
+    private LabelPosition _labelPosition = LabelPosition.Bar;
 
     [Display(Name = "Label Position",
     GroupName = nameof(Strings.Show),
     Description = "Where to draw labels for IB levels",
     Order = 136)]
-    private LabelPosition _labelPosition = LabelPosition.Bar;
-    public LabelPosition LabelPosition
+	public LabelPosition LabelPosition
     {
         get => _labelPosition;
         set
@@ -456,8 +460,9 @@ public class InitialBalance : Indicator
             _showDuringFormation = value;
 
             // IMPORTANT: refresh both calculation (series/ranges) and drawing (labels/lines)
-            RedrawChart();
             RecalculateValues();
+            RedrawChart();
+
         }
     }
 
@@ -529,7 +534,7 @@ public class InitialBalance : Indicator
 	
     #region ctor
 
-    public InitialBalance()
+    public InitialBalanceModif()
 		: base(true)
 	{
 		DenyToChangePanel = true;
@@ -597,7 +602,7 @@ public class InitialBalance : Indicator
 			_targetBar = 0;
 			_isStarted = false;
 
-            if (_days <= 0)
+			if (_days <= 0)
 				return;
 
 			var days = 0;
@@ -624,52 +629,55 @@ public class InitialBalance : Indicator
 
 		var time = candle.Time.AddHours(InstrumentInfo.TimeZone).TimeOfDay;
 		var lastTime = candle.LastTime.AddHours(InstrumentInfo.TimeZone).TimeOfDay;
-		
-        if (CustomSessionStart)
+
+		if (CustomSessionStart)
 		{
 			bool inSession;
 
-            if (StartDate < EndDate)
-				inSession = (time >= StartDate || lastTime >= StartDate) && time < EndDate;
+			if (StartDate < EndDate)
+				inSession = (time >= StartDate || lastTime >= StartDate) && (time < EndDate || lastTime < EndDate);
 			else if (StartDate > EndDate)
 			{
-				inSession = ((time >= StartDate || lastTime >= StartDate) && time > EndDate)
-						 || ((time <= EndDate || lastTime <= EndDate) && time < EndDate);
-            }
+				inSession = ((time >= StartDate || lastTime >= StartDate) && (time > EndDate || lastTime > EndDate))
+						 || ((time <= EndDate || lastTime <= EndDate) && (time < EndDate || lastTime < EndDate));
+			}
 			else
 				inSession = true;
 
-            if (!inSession)
+			if (!inSession)
 			{
 				_isStarted = false;
 
-                // Remember the last in-session bar (set only once)
-                if (_lastSessionEndBar < 0)
+				// Remember the last in-session bar (set only once)
+				if (_lastSessionEndBar < 0)
+                {
                     _lastSessionEndBar = Math.Max(0, bar - 1);
 
-                foreach (var dataSeries in DataSeries)
-					if (dataSeries is ValueDataSeries series)
-						series.SetPointOfEndLine(bar - 1);
+                    foreach (var dataSeries in DataSeries)
+                        if (dataSeries is ValueDataSeries series)
+                            series.SetPointOfEndLine(_lastSessionEndBar);
+                }
+
                 return;
 			}
 		}
 
-        var candleFullDateTime = candle.Time.AddHours(InstrumentInfo.TimeZone);
+		var candleFullDateTime = candle.Time.AddHours(InstrumentInfo.TimeZone);
 		var isStart = false;
 		var isEnd = false;
 
-        if (!_isStarted)
+		if (!_isStarted)
 		{
 			isStart = _customSessionStart
 				   ? bar != 0 && (time >= StartDate || lastTime >= StartDate) && (GetPrevDateTime(bar).TimeOfDay < StartDate || GetPrevDateTime(bar).Date < candleFullDateTime.Date)
 				   : IsNewSession(bar);
-        }
+		}
 
-        if (_isStarted)
+		if (_isStarted)
 		{
 			isEnd = (PeriodMode is PeriodType.Minutes && candleFullDateTime >= _endTime && GetPrevDateTime(bar) < _endTime)
 				 || (PeriodMode is PeriodType.Bars && bar - _lastStartBar >= Period);
-        }           
+		}
 
 		if (isStart)
 		{
@@ -689,15 +697,16 @@ public class InitialBalance : Indicator
 			_highLowIsSet = false;
 			_lastStartBar = bar;
 			_endTime = candleFullDateTime.AddMinutes(_period);
-            _isStarted = true;
-            _lastIbEndBar = -1;
-            _lastSessionEndBar = -1;  // <ù reset anchor for labels
+			_isStarted = true;
+			_lastIbEndBar = -1;
+			_lastSessionEndBar = -1;  // <ù reset anchor for labels
+            _formationHiddenApplied = false;
 
             foreach (var dataSeries in DataSeries)
-                if (dataSeries is ValueDataSeries series)
-                    series.SetPointOfEndLine(bar - 1);
+				if (dataSeries is ValueDataSeries series)
+					series.SetPointOfEndLine(bar - 1);
 
-            if (ShowOpenRange)
+			if (ShowOpenRange)
 			{
 				var pen = new CrossPen(ConvertColor(_borderColor))
 				{
@@ -715,30 +724,23 @@ public class InitialBalance : Indicator
 		}
 		else if (isEnd)
 		{
-            // Compute final values
-            var finalDiff = _ibMax - _ibMin;
-            var finalMid = (_minValue + _maxValue) / 2m;
-            var finalIbm = (_ibMin + _ibMax) / 2m;
+			// Compute final values
+			var finalDiff = _ibMax - _ibMin;
+			var finalMid = (_minValue + _maxValue) / 2m;
+			var finalIbm = (_ibMin + _ibMax) / 2m;
 
             // Snapshot last session
-            _lastIbEndBar = bar;
+            _lastIbEndBar = Math.Max(_lastStartBar, bar - 1);
             _sIBH = _ibMax; _sIBL = _ibMin; _sIBM = finalIbm; _sMID = finalMid;
-            _sIBHX1 = _ibMax + finalDiff * _x1;
-            _sIBHX2 = _ibMax + finalDiff * _x2;
-            _sIBHX3 = _ibMax + finalDiff * _x3;
-            _sIBLX1 = _ibMin - finalDiff * _x1;
-            _sIBLX2 = _ibMin - finalDiff * _x2;
-            _sIBLX3 = _ibMin - finalDiff * _x3;
+			_sIBHX1 = _ibMax + finalDiff * _x1;
+			_sIBHX2 = _ibMax + finalDiff * _x2;
+			_sIBHX3 = _ibMax + finalDiff * _x3;
+			_sIBLX1 = _ibMin - finalDiff * _x1;
+			_sIBLX2 = _ibMin - finalDiff * _x2;
+			_sIBLX3 = _ibMin - finalDiff * _x3;
 
-            _calculate = _isStarted = false;
-
-            if (!ShowDuringFormation)
-            {
-                // cut any possible connection up to the IB end bar 
-                foreach (var ds in DataSeries)
-                    if (ds is ValueDataSeries vs)
-                        vs.SetPointOfEndLine(_lastIbEndBar);
-			}
+			_calculate = _isStarted = false;
+		}
 
 		if (_calculate)
 		{
@@ -771,23 +773,27 @@ public class InitialBalance : Indicator
 		if (!_highLowIsSet)
 			return;
 
-        // ADD: only show current session while forming if allowed;
-        // otherwise, start at the IB end bar (no retrospective)
-        bool canShowThisBar =
-            ShowDuringFormation
-            || (!ShowDuringFormation && _lastIbEndBar >= 0 && bar >= _lastIbEndBar);
+		// ADD: only show current session while forming if allowed;
+		// otherwise, start at the IB end bar (no retrospective)
+		bool canShowThisBar =
+			ShowDuringFormation
+			|| (!ShowDuringFormation && _lastIbEndBar >= 0 && bar >= _lastIbEndBar);
 
-        if (!canShowThisBar)
-        {
+		if (!canShowThisBar)
+		{
             // hide current-session lines during formation without writing zeros
-            foreach (var ds in DataSeries)
-                if (ds is ValueDataSeries vs)
-                    vs.SetPointOfEndLine(Math.Max(0, _lastStartBar - 1));
+            if (!_formationHiddenApplied)
+            {
+                foreach (var ds in DataSeries)
+                    if (ds is ValueDataSeries vs)
+                        vs.SetPointOfEndLine(Math.Max(0, _lastStartBar - 1));
 
+                _formationHiddenApplied = true;
+            }
             return;
-        }
+		}
 
-        _mid[bar] = mid = (_minValue + _maxValue) / 2m;
+		_mid[bar] = mid = (_minValue + _maxValue) / 2m;
 		_ibh[bar] = _ibMax;
 		_ibl[bar] = _ibMin;
 		_ibmValue = _ibm[bar] = (_ibMin + _ibMax) / 2m;
@@ -810,12 +816,12 @@ public class InitialBalance : Indicator
 		_iblx12[bar].Lower = _iblx23[bar].Upper = iblx2;
 		_iblx23[bar].Lower = iblx3;
 
-    }
+	}
 
     /// <summary>
     /// Renders a single set of IB labels for the most recent session.
     /// It does not draw historical session labels and does not modify any ValueDataSeries.
-	//// Labels rendering - freeze at the last in-session bar only for CUSTOM sessions.
+	/// Labels rendering - freeze at the last in-session bar only for CUSTOM sessions.
 	/// For auto sessions, labels always follow the chosen LabelPosition.
     /// </summary>
     protected override void OnRender(RenderContext context, DrawingLayouts layout)
@@ -823,7 +829,6 @@ public class InitialBalance : Indicator
         if (LabelPosition == LabelPosition.None || ChartInfo is null)
             return;
 
-        var chartWidth = ChartInfo.PriceChartContainer.Region.Width;
         var endBar = Math.Max(0, CurrentBar - 1);
 
         // Hide labels/lines for the CURRENT SESSION while IB is forming, if the user disabled it.
@@ -890,12 +895,13 @@ public class InitialBalance : Indicator
         else
         {
             // Live (or auto sessions): honor the chosen LabelPosition
+            var region = ChartInfo.PriceChartContainer.Region;
             switch (LabelPosition)
             {
-                case LabelPosition.Right:
-                    x = chartWidth - 5; alignRight = true; break;
+				case LabelPosition.Right:
+                    x = region.Right - 5; alignRight = true; break;
                 case LabelPosition.Left:
-                    x = 5; alignRight = false; break;
+                    x = region.X + 5; alignRight = false; break;
                 case LabelPosition.Bar:
                 default:
                     var xBar = ChartInfo.GetXByBar(endBar);
@@ -903,6 +909,8 @@ public class InitialBalance : Indicator
                     x = xBar + barWidth + 5; alignRight = false; break;
             }
         }
+
+        var labelEdgeX = alignRight ? x + 2 : x - 2;
 
         // After drawing labels (reuse `ibWindowFinished`, `endBar`, `items`, etc.)
         if (OverlayLineType != LineType.None)
@@ -912,21 +920,21 @@ public class InitialBalance : Indicator
             var xSeriesEnd = ChartInfo.GetXByBar(seriesEndBarForAnchor);
 
             // 2) Decide label anchor X based on LabelPosition (same as labels)
-            var chartLeft = 0;
-            var chartRight = ChartInfo.PriceChartContainer.Region.Width;
+            var region = ChartInfo.PriceChartContainer.Region;
+            var chartLeft = region.X;
+            var chartRight = region.Right;
 
             int xAnchor;
 			if (afterCustomSession)
 			{
-				// Freeze like Bar position (same X you calculaste para las etiquetas)
-				xAnchor = xSeriesEnd + 4; // peque±o padding
-			}
+                xAnchor = labelEdgeX;
+            }
 			else
 			{
 				switch (LabelPosition)
 				{
-					case LabelPosition.Right: xAnchor = chartRight - 5; break;
-					case LabelPosition.Left: xAnchor = 5; break;
+					case LabelPosition.Right: xAnchor = labelEdgeX; break;
+					case LabelPosition.Left: xAnchor = labelEdgeX; break;
 					case LabelPosition.Bar:
 					default:
 						xAnchor = xSeriesEnd + 4; // small padding right after the series end
@@ -934,14 +942,18 @@ public class InitialBalance : Indicator
 				}
 			}
 
+            if (LabelPosition == LabelPosition.Left && OverlayLineType != LineType.Full)
+                xAnchor = xSeriesEnd + 4;
+
             // 3) Helper to draw one horizontal connector (or full line)
             void DrawOverlayLine(ValueDataSeries s, decimal price)
             {
                 if (price == 0m || price == decimal.MinValue || price == decimal.MaxValue)
                     return;
 
+                var region = ChartInfo.PriceChartContainer.Region;
                 var y = ChartInfo.GetYByPrice(price, false);
-                if (y < 0 || y > ChartInfo.PriceChartContainer.Region.Height)
+                if (y < region.Y || y > region.Bottom)
                     return;
 
                 var pen = new PenSettings
@@ -979,8 +991,9 @@ public class InitialBalance : Indicator
             if (price == 0m || price == decimal.MinValue || price == decimal.MaxValue)
                 continue;
 
+            var region = ChartInfo.PriceChartContainer.Region;
             var y = ChartInfo.GetYByPrice(price, false);
-            if (y < 0 || y > ChartInfo.PriceChartContainer.Region.Height)
+            if (y < region.Y || y > region.Bottom)
                 continue;
 
             DrawTextLabel(context, label, x, y, series, alignRight);
