@@ -42,10 +42,6 @@
 		<AssemblyName>IndicatorsLoloGroup_Stable</AssemblyName>
 	</PropertyGroup>
 
-	<ItemGroup Condition="'$(Configuration)' == 'Release'">
-		<Compile Remove="InitialBalanceModif.cs" />
-	</ItemGroup>
-
 	<!-- Canal DEFAULT (instalación normal) -->
 	<PropertyGroup Condition="'$(Configuration)' == 'Debug'">
 		<DefineConstants>$(DefineConstants);ATAS_DEFAULT</DefineConstants>
