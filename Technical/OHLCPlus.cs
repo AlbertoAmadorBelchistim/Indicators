@@ -1080,15 +1080,24 @@ public class OHLCPlus : Indicator
         RedrawChart();
     }
 
+    private static readonly FixedProfilePeriods[] _allPeriods =
+{
+    FixedProfilePeriods.CurrentDay,
+    FixedProfilePeriods.LastDay,
+    FixedProfilePeriods.CurrentWeek,
+    FixedProfilePeriods.LastWeek,
+    FixedProfilePeriods.CurrentMonth,
+    FixedProfilePeriods.LastMonth,
+    FixedProfilePeriods.Contract
+};
+
     private void RequestProfiles()
     {
-        if (_needDay) RequestProfileForPeriod(FixedProfilePeriods.CurrentDay);
-        if (_needPrevDay) RequestProfileForPeriod(FixedProfilePeriods.LastDay);
-        if (_needWeek) RequestProfileForPeriod(FixedProfilePeriods.CurrentWeek);
-        if (_needPrevWeek) RequestProfileForPeriod(FixedProfilePeriods.LastWeek);
-        if (_needMonth) RequestProfileForPeriod(FixedProfilePeriods.CurrentMonth);
-        if (_needPrevMonth) RequestProfileForPeriod(FixedProfilePeriods.LastMonth);
-        if (_needContract) RequestProfileForPeriod(FixedProfilePeriods.Contract);
+        foreach (var period in _allPeriods)
+        {
+            if (IsNeeded(period))
+                RequestProfileForPeriod(period);
+        }
     }
 
     private void RequestProfileForPeriod(FixedProfilePeriods period, bool force = true)
