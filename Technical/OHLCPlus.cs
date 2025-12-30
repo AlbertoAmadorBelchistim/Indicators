@@ -1427,6 +1427,26 @@ public class OHLCPlus : Indicator
         }
     }
 
+    private IEnumerable<LevelSettings> EnumerateLevelsForPeriod(FixedProfilePeriods period)
+    {
+        foreach (var (ls, p) in EnumerateAllLevelSettingsWithPeriods())
+        {
+            if (p == period)
+                yield return ls;
+        }
+    }
+
+    private static bool AnyEnabled(IEnumerable<LevelSettings> levels)
+    {
+        foreach (var ls in levels)
+        {
+            if (ls.Enabled)
+                return true;
+        }
+
+        return false;
+    }
+
     private void TrySubscribe(LevelSettings? ls, FixedProfilePeriods period)
     {
         if (ls is null) return;
