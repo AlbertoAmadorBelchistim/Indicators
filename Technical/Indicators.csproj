@@ -6,20 +6,13 @@
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<LangVersion>latest</LangVersion>
 
-		<Configurations>Debug;Release;Publish</Configurations>
+		<Configurations>ATAS_X;Alpha;Beta;Latest;Stable</Configurations>
 		<Platforms>AnyCPU;Cross</Platforms>
 
-		<!-- Default: build against installed ATAS assemblies -->
-		<ATAS_FLAVOR Condition="'$(ATAS_FLAVOR)'==''">Alpha</ATAS_FLAVOR>
-		<ATAS_INSTALL_DIR Condition="'$(ATAS_INSTALL_DIR)'=='' and '$(ATAS_FLAVOR)'=='Stable'">C:\Program Files (x86)\ATAS Platform stable</ATAS_INSTALL_DIR>
-		<ATAS_INSTALL_DIR Condition="'$(ATAS_INSTALL_DIR)'=='' and '$(ATAS_FLAVOR)'=='Alpha'">C:\Program Files (x86)\ATAS Platform</ATAS_INSTALL_DIR>
+	</PropertyGroup>
 
-		<!-- Common for plugin builds -->
-		<GenerateDependencyFile>false</GenerateDependencyFile>
-
-		<!-- Signing: only if a key is provided -->
-		<SignAssembly Condition=" '$(ATAS_SNK)' != '' ">true</SignAssembly>
-		<AssemblyOriginatorKeyFile Condition=" '$(ATAS_SNK)' != '' ">$(ATAS_SNK)</AssemblyOriginatorKeyFile>
+	<PropertyGroup>
+		<IntermediateOutputPath>obj\$(Configuration)\$(Platform)\</IntermediateOutputPath>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Platform)' == 'Cross' ">
@@ -34,77 +27,93 @@
 		<NoWarn>$(NoWarn);CA1416</NoWarn>
 	</PropertyGroup>
 
-	<PropertyGroup Condition=" '$(Configuration)' == 'Publish' ">
+	<PropertyGroup Condition=" '$(Configuration)' == 'Alpha' ">
 		<Optimize Condition=" '$(Optimize)' == '' ">true</Optimize>
 	</PropertyGroup>
 
-	<!-- References (installed assemblies) -->
-	<ItemGroup>
-		<Reference Include="ATAS.DataFeedsCore">
-			<HintPath>$(ATAS_INSTALL_DIR)\ATAS.DataFeedsCore.dll</HintPath>
-			<Private>false</Private>
-		</Reference>
+	<!-- Canal STABLE -->
+	<PropertyGroup Condition="'$(Configuration)' == 'Stable'">
+		<DefineConstants>$(DefineConstants);ATAS_STABLE</DefineConstants>
+		<ATAS_BASE>C:\Program Files (x86)\ATAS Platform stable</ATAS_BASE>
+		<AssemblyName>Indicators_Stable</AssemblyName>
+	</PropertyGroup>
 
+	<!-- Canal Alfa (instalación normal) -->
+	<PropertyGroup Condition="'$(Configuration)' == 'Alpha'">
+		<DefineConstants>$(DefineConstants);ATAS_ALPHA</DefineConstants>
+		<ATAS_BASE>C:\Program Files (x86)\ATAS Platform</ATAS_BASE>
+		<AssemblyName>Indicators_Alfa</AssemblyName>
+	</PropertyGroup>
+
+	<!-- Canal ATAS X -->
+	<PropertyGroup Condition="'$(Configuration)' == 'ATAS_X'">
+		<UseWPF>false</UseWPF>
+		<TargetFramework>net10.0</TargetFramework>
+		<DefineConstants>$(DefineConstants);ATAS_X;CROSS_PLATFORM</DefineConstants>
+		<ATAS_BASE>C:\Program Files\ATAS X</ATAS_BASE>
+		<AssemblyName>Indicators_X</AssemblyName>
+	</PropertyGroup>
+
+	<!-- Canal Beta-->
+	<PropertyGroup Condition="'$(Configuration)' == 'Beta'">
+		<DefineConstants>$(DefineConstants);ATAS_BETA</DefineConstants>
+		<ATAS_BASE>C:\Program Files (x86)\ATAS Platform beta</ATAS_BASE>
+		<AssemblyName>Indicators_Beta</AssemblyName>
+	</PropertyGroup>
+
+	<!-- Canal Latest-->
+	<PropertyGroup Condition="'$(Configuration)' == 'Latest'">
+		<DefineConstants>$(DefineConstants);ATAS_LATEST</DefineConstants>
+		<ATAS_BASE>C:\Program Files (x86)\ATAS Platform latest</ATAS_BASE>
+		<AssemblyName>Indicators_Latest</AssemblyName>
+	</PropertyGroup>
+
+	<!-- Referencias: UNIFICADAS a $(ATAS_BASE) -->
+	<ItemGroup>
 		<Reference Include="ATAS.Indicators">
-			<HintPath>$(ATAS_INSTALL_DIR)\ATAS.Indicators.dll</HintPath>
-			<Private>false</Private>
+			<HintPath>$(ATAS_BASE)\ATAS.Indicators.dll</HintPath>
 		</Reference>
-
+		<Reference Include="ATAS.DataFeedsCore">
+			<HintPath>$(ATAS_BASE)\ATAS.DataFeedsCore.dll</HintPath>
+		</Reference>
 		<Reference Include="OFT.Attributes">
-			<HintPath>$(ATAS_INSTALL_DIR)\OFT.Attributes.dll</HintPath>
-			<Private>false</Private>
+			<HintPath>$(ATAS_BASE)\OFT.Attributes.dll</HintPath>
 		</Reference>
-
+		<Reference Include="OFT.Editors">
+			<HintPath>$(ATAS_BASE)\OFT.Editors.dll</HintPath>
+		</Reference>
 		<Reference Include="OFT.Localization">
-			<HintPath>$(ATAS_INSTALL_DIR)\OFT.Localization.dll</HintPath>
-			<Private>false</Private>
+			<HintPath>$(ATAS_BASE)\OFT.Localization.dll</HintPath>
 		</Reference>
-
 		<Reference Include="OFT.Rendering">
-			<HintPath>$(ATAS_INSTALL_DIR)\OFT.Rendering.dll</HintPath>
-			<Private>false</Private>
+			<HintPath>$(ATAS_BASE)\OFT.Rendering.dll</HintPath>
 		</Reference>
-
+		<Reference Include="System.Drawing.Common">
+			<HintPath>$(ATAS_BASE)\System.Drawing.Common.dll</HintPath>
+		</Reference>
 		<Reference Include="Utils.Common">
-			<HintPath>$(ATAS_INSTALL_DIR)\Utils.Common.dll</HintPath>
-			<Private>false</Private>
+			<HintPath>$(ATAS_BASE)\Utils.Common.dll</HintPath>
 		</Reference>
-
-		<Reference Include="Utils.Windows" Condition=" '$(Platform)' != 'Cross' ">
-			<HintPath>$(ATAS_INSTALL_DIR)\Utils.Windows.dll</HintPath>
-			<Private>false</Private>
+		<Reference Include="Utils.Windows">
+			<HintPath>$(ATAS_BASE)\Utils.Windows.dll</HintPath>
 		</Reference>
-
-		<Reference Include="OFT.Editors" Condition=" '$(Platform)' != 'Cross' ">
-			<HintPath>$(ATAS_INSTALL_DIR)\OFT.Editors.dll</HintPath>
-			<Private>false</Private>
-		</Reference>
-
-		<!-- Newtonsoft from host -->
 		<Reference Include="Newtonsoft.Json">
-			<HintPath>$(ATAS_INSTALL_DIR)\Newtonsoft.Json.dll</HintPath>
-			<Private>false</Private>
+			<HintPath>$(ATAS_BASE)\Newtonsoft.Json.dll</HintPath>
 		</Reference>
 	</ItemGroup>
 
-	<!-- Resources -->
-	<ItemGroup>
-		<Compile Update="Properties\Resources.Designer.cs">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>Resources.resx</DependentUpon>
-		</Compile>
-	</ItemGroup>
+	<ItemGroup Condition="'$(Configuration)' == 'ATAS_X'">
+		<Reference Include="Avalonia.Base">
+			<HintPath>$(ATAS_BASE)\Avalonia.Base.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
 
-	<ItemGroup>
-		<EmbeddedResource Update="Properties\Resources.resx">
-			<Generator>PublicResXFileCodeGenerator</Generator>
-			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
-		</EmbeddedResource>
-	</ItemGroup>
+		<Reference Include="Avalonia">
+			<HintPath>$(ATAS_BASE)\Avalonia.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
 
-	<!-- File exclusions -->
-	<ItemGroup Condition=" '$(Platform)' == 'Cross' ">
+		<!-- Same philosophy as upstream Cross build -->
 		<Compile Remove="**\*.Windows.cs" />
 		<None Include="**\*.Windows.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
 
@@ -113,11 +122,23 @@
 
 		<Compile Remove="**\*.xaml" />
 		<None Include="**\*.xaml" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+
 	</ItemGroup>
 
-	<ItemGroup Condition=" '$(Platform)' != 'Cross' ">
+	<ItemGroup Condition="'$(Configuration)' == 'Alpha'">
+		<Reference Include="DevExpress.Data.v25.2">
+			<HintPath>$(ATAS_BASE)\DevExpress.Data.v25.2.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(Platform)' != 'Cross' AND '$(Configuration)' != 'ATAS_X'">
 		<Compile Remove="**\*.Common.cs" />
 		<None Include="**\*.Common.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(Platform)' == 'Cross' OR '$(Configuration)' == 'ATAS_X'">
+		<Compile Remove="**\*.Windows.cs" />
+		<None Include="**\*.Windows.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
 	</ItemGroup>
 
 </Project>
