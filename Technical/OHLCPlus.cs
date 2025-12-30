@@ -1080,15 +1080,24 @@ public class OHLCPlus : Indicator
         RedrawChart();
     }
 
+    private static readonly FixedProfilePeriods[] _allPeriods =
+{
+    FixedProfilePeriods.CurrentDay,
+    FixedProfilePeriods.LastDay,
+    FixedProfilePeriods.CurrentWeek,
+    FixedProfilePeriods.LastWeek,
+    FixedProfilePeriods.CurrentMonth,
+    FixedProfilePeriods.LastMonth,
+    FixedProfilePeriods.Contract
+};
+
     private void RequestProfiles()
     {
-        if (_needDay) RequestProfileForPeriod(FixedProfilePeriods.CurrentDay);
-        if (_needPrevDay) RequestProfileForPeriod(FixedProfilePeriods.LastDay);
-        if (_needWeek) RequestProfileForPeriod(FixedProfilePeriods.CurrentWeek);
-        if (_needPrevWeek) RequestProfileForPeriod(FixedProfilePeriods.LastWeek);
-        if (_needMonth) RequestProfileForPeriod(FixedProfilePeriods.CurrentMonth);
-        if (_needPrevMonth) RequestProfileForPeriod(FixedProfilePeriods.LastMonth);
-        if (_needContract) RequestProfileForPeriod(FixedProfilePeriods.Contract);
+        foreach (var period in _allPeriods)
+        {
+            if (IsNeeded(period))
+                RequestProfileForPeriod(period);
+        }
     }
 
     private void RequestProfileForPeriod(FixedProfilePeriods period, bool force = true)
@@ -1104,13 +1113,13 @@ public class OHLCPlus : Indicator
 
     private void RecalcAllNeeds()
     {
-        _needDay = NeedsDayData();
-        _needPrevDay = NeedsPrevDayData();
-        _needWeek = NeedsWeekData();
-        _needPrevWeek = NeedsPrevWeekData();
-        _needMonth = NeedsMonthData();
-        _needPrevMonth = NeedsPrevMonthData();
-        _needContract = NeedsContractData();
+        _needDay = NeedsData(FixedProfilePeriods.CurrentDay);
+        _needPrevDay = NeedsData(FixedProfilePeriods.LastDay);
+        _needWeek = NeedsData(FixedProfilePeriods.CurrentWeek);
+        _needPrevWeek = NeedsData(FixedProfilePeriods.LastWeek);
+        _needMonth = NeedsData(FixedProfilePeriods.CurrentMonth);
+        _needPrevMonth = NeedsData(FixedProfilePeriods.LastMonth);
+        _needContract = NeedsData(FixedProfilePeriods.Contract);
     }
 
     private void RecalcNeedFor(FixedProfilePeriods period)
@@ -1118,70 +1127,31 @@ public class OHLCPlus : Indicator
         switch (period)
         {
             case FixedProfilePeriods.CurrentDay:
-                _needDay = NeedsDayData();
+                _needDay = NeedsData(FixedProfilePeriods.CurrentDay);
                 break;
             case FixedProfilePeriods.LastDay:
-                _needPrevDay = NeedsPrevDayData();
+                _needPrevDay = NeedsData(FixedProfilePeriods.LastDay);
                 break;
             case FixedProfilePeriods.CurrentWeek:
-                _needWeek = NeedsWeekData();
+                _needWeek = NeedsData(FixedProfilePeriods.CurrentWeek);
                 break;
             case FixedProfilePeriods.LastWeek:
-                _needPrevWeek = NeedsPrevWeekData();
+                _needPrevWeek = NeedsData(FixedProfilePeriods.LastWeek);
                 break;
             case FixedProfilePeriods.CurrentMonth:
-                _needMonth = NeedsMonthData();
+                _needMonth = NeedsData(FixedProfilePeriods.CurrentMonth);
                 break;
             case FixedProfilePeriods.LastMonth:
-                _needPrevMonth = NeedsPrevMonthData();
+                _needPrevMonth = NeedsData(FixedProfilePeriods.LastMonth);
                 break;
             case FixedProfilePeriods.Contract:
-                _needContract = NeedsContractData();
+                _needContract = NeedsData(FixedProfilePeriods.Contract);
                 break;
         }
     }
 
-    private bool NeedsDayData()
-    {
-        return DayOpenLevel.Enabled || DayHighLevel.Enabled || DayLowLevel.Enabled || DayCloseLevel.Enabled ||
-               DayEquilibriumLevel.Enabled || DayPOCLevel.Enabled || DayVWAPLevel.Enabled || DayVAHLevel.Enabled || DayVALLevel.Enabled;
-    }
-
-    private bool NeedsPrevDayData()
-    {
-        return PrevDayOpenLevel.Enabled || PrevDayHighLevel.Enabled || PrevDayLowLevel.Enabled || PrevDayCloseLevel.Enabled ||
-               PrevDayEquilibriumLevel.Enabled || PrevDayPOCLevel.Enabled || PrevDayVWAPLevel.Enabled || PrevDayVAHLevel.Enabled || PrevDayVALLevel.Enabled;
-    }
-
-    private bool NeedsWeekData()
-    {
-        return WeekOpenLevel.Enabled || WeekHighLevel.Enabled || WeekLowLevel.Enabled || WeekCloseLevel.Enabled ||
-               WeekEquilibriumLevel.Enabled || WeekPOCLevel.Enabled || WeekVWAPLevel.Enabled || WeekVAHLevel.Enabled || WeekVALLevel.Enabled;
-    }
-
-    private bool NeedsPrevWeekData()
-    {
-        return PrevWeekOpenLevel.Enabled || PrevWeekHighLevel.Enabled || PrevWeekLowLevel.Enabled || PrevWeekCloseLevel.Enabled ||
-               PrevWeekEquilibriumLevel.Enabled || PrevWeekPOCLevel.Enabled || PrevWeekVWAPLevel.Enabled || PrevWeekVAHLevel.Enabled || PrevWeekVALLevel.Enabled;
-    }
-
-    private bool NeedsMonthData()
-    {
-        return MonthOpenLevel.Enabled || MonthHighLevel.Enabled || MonthLowLevel.Enabled || MonthCloseLevel.Enabled ||
-               MonthEquilibriumLevel.Enabled || MonthPOCLevel.Enabled || MonthVWAPLevel.Enabled || MonthVAHLevel.Enabled || MonthVALLevel.Enabled;
-    }
-
-    private bool NeedsPrevMonthData()
-    {
-        return PrevMonthOpenLevel.Enabled || PrevMonthHighLevel.Enabled || PrevMonthLowLevel.Enabled || PrevMonthCloseLevel.Enabled ||
-               PrevMonthEquilibriumLevel.Enabled || PrevMonthPOCLevel.Enabled || PrevMonthVWAPLevel.Enabled || PrevMonthVAHLevel.Enabled || PrevMonthVALLevel.Enabled;
-    }
-
-    private bool NeedsContractData()
-    {
-        return ContractOpenLevel.Enabled || ContractHighLevel.Enabled || ContractLowLevel.Enabled || ContractCloseLevel.Enabled ||
-               ContractEquilibriumLevel.Enabled || ContractPOCLevel.Enabled || ContractVWAPLevel.Enabled || ContractVAHLevel.Enabled || ContractVALLevel.Enabled;
-    }
+    private bool NeedsData(FixedProfilePeriods period)
+    => AnyEnabled(EnumerateLevelsForPeriod(period));
 
     private void UpdateLevels(FixedProfilePeriods period, IndicatorCandle candle)
     {
@@ -1425,6 +1395,26 @@ public class OHLCPlus : Indicator
             if (pi.GetValue(this) is LevelSettings ls && TryParsePeriodFromPropertyName(pi.Name, out var period))
                 yield return (ls, period);
         }
+    }
+
+    private IEnumerable<LevelSettings> EnumerateLevelsForPeriod(FixedProfilePeriods period)
+    {
+        foreach (var (ls, p) in EnumerateAllLevelSettingsWithPeriods())
+        {
+            if (p == period)
+                yield return ls;
+        }
+    }
+
+    private static bool AnyEnabled(IEnumerable<LevelSettings> levels)
+    {
+        foreach (var ls in levels)
+        {
+            if (ls.Enabled)
+                return true;
+        }
+
+        return false;
     }
 
     private void TrySubscribe(LevelSettings? ls, FixedProfilePeriods period)
