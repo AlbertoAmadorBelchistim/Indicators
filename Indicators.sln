@@ -23,8 +23,8 @@ Global
 		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Publish|Any CPU.Build.0 = Publish|Any CPU
 		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Publish|Cross.ActiveCfg = Publish|Cross
 		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Publish|Cross.Build.0 = Publish|Cross
-		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Release|Any CPU.ActiveCfg = Stable|Any CPU
-		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Release|Any CPU.Build.0 = Stable|Any CPU
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Release|Any CPU.ActiveCfg = Alpha|Any CPU
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Release|Any CPU.Build.0 = Alpha|Any CPU
 		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Release|Cross.ActiveCfg = Release|Cross
 		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Release|Cross.Build.0 = Release|Cross
 	EndGlobalSection

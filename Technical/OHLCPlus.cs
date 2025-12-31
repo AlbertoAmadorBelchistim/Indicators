@@ -87,7 +87,7 @@ public class LevelSettings : NotifiableObject
     private LabelPosition _labelPosition;
 
     #endregion
-      
+
     #region Properties
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled))]
@@ -249,6 +249,42 @@ public class OHLCPlus : Indicator
     private bool _needContract;
 
     private bool _allLevelsVisible = true;
+
+    //Label override
+    private string _labelTemplate = "{prefix}{level}";
+
+    // Level suffixes (level-level)
+    private string _openLabel = "Open";
+    private string _highLabel = "High";
+    private string _lowLabel = "Low";
+    private string _closeLabel = "Close";
+    private string _equilibriumLabel = "EQ";
+    private string _pocLabel = "POC";
+    private string _vwapLabel = "VWAP";
+    private string _vahLabel = "VAH";
+    private string _valLabel = "VAL";
+
+    private static readonly string[] _knownLevelSuffixes =
+{
+    "Close",
+    "Open",
+    "High",
+    "Low",
+    "VWAP",
+    "POC",
+    "VAH",
+    "VAL",
+    "EQ"
+};
+
+    // Label prefixes (period-level)
+    private string _dayPrefix = "D";
+    private string _prevDayPrefix = "PD";
+    private string _weekPrefix = "W";
+    private string _prevWeekPrefix = "PW";
+    private string _monthPrefix = "M";
+    private string _prevMonthPrefix = "PM";
+    private string _contractPrefix = "C";
 
     #endregion
 
@@ -1380,7 +1416,132 @@ public class OHLCPlus : Indicator
 
     #endregion
 
-#endregion
+    #region Labels
+    // --- Labels group ---
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.LabelTemplate), Order = 10)]
+    public string LabelTemplate
+    {
+        get => _labelTemplate;
+        set => _labelTemplate = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.BarOpen), Order = 20)]
+    public string OpenLabel
+    {
+        get => _openLabel;
+        set => _openLabel = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.BarHigh), Order = 30)]
+    public string HighLabel
+    {
+        get => _highLabel;
+        set => _highLabel = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.BarLow), Order = 40)]
+    public string LowLabel
+    {
+        get => _lowLabel;
+        set => _lowLabel = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.BarClose), Order = 50)]
+    public string CloseLabel
+    {
+        get => _closeLabel;
+        set => _closeLabel = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.Equilibrium), Order = 60)]
+    public string EquilibriumLabel
+    {
+        get => _equilibriumLabel;
+        set => _equilibriumLabel = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.POC), Order = 70)]
+    public string PocLabel
+    {
+        get => _pocLabel;
+        set => _pocLabel = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.VWAP), Order = 80)]
+    public string VwapLabel
+    {
+        get => _vwapLabel;
+        set => _vwapLabel = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.VAH), Order = 90)]
+    public string VahLabel
+    {
+        get => _vahLabel;
+        set => _vahLabel = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.VAL), Order = 100)]
+    public string ValLabel
+    {
+        get => _valLabel;
+        set => _valLabel = value;
+    }
+
+    // --- Prefixes group ---
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Prefixes), Name = nameof(Resources.CurrentDay), Order = 10)]
+    public string DayPrefix
+    {
+        get => _dayPrefix;
+        set => _dayPrefix = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Prefixes), Name = nameof(Resources.PreviousDay), Order = 20)]
+    public string PrevDayPrefix
+    {
+        get => _prevDayPrefix;
+        set => _prevDayPrefix = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Prefixes), Name = nameof(Resources.CurrentWeek), Order = 30)]
+    public string WeekPrefix
+    {
+        get => _weekPrefix;
+        set => _weekPrefix = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Prefixes), Name = nameof(Resources.PreviousWeek), Order = 40)]
+    public string PrevWeekPrefix
+    {
+        get => _prevWeekPrefix;
+        set => _prevWeekPrefix = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Prefixes), Name = nameof(Resources.CurrentMonth), Order = 50)]
+    public string MonthPrefix
+    {
+        get => _monthPrefix;
+        set => _monthPrefix = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Prefixes), Name = nameof(Resources.PreviousMonth), Order = 60)]
+    public string PrevMonthPrefix
+    {
+        get => _prevMonthPrefix;
+        set => _prevMonthPrefix = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Prefixes), Name = nameof(Resources.Contract), Order = 70)]
+    public string ContractPrefix
+    {
+        get => _contractPrefix;
+        set => _contractPrefix = value;
+    }
+
+
+    #endregion
+
+    #endregion
 
     #region Constructor
 
@@ -1479,6 +1640,71 @@ public class OHLCPlus : Indicator
         _allLevelsVisible = !_allLevelsVisible;
         RedrawChart();
     }
+
+    #region label overrides
+    private string BuildLabelText(string prefix, string levelStorageKey)
+    {
+        var (_, suffix) = SplitKey(levelStorageKey);
+
+        var displayPrefix = prefix ?? string.Empty;
+
+        var levelText = ResolveLevelText(suffix);
+
+        var result = LabelTemplate
+            .Replace("{prefix}", displayPrefix, StringComparison.Ordinal)
+            .Replace("{level}", levelText ?? string.Empty, StringComparison.Ordinal);
+
+        return string.IsNullOrWhiteSpace(result) ? levelText : result;
+    }
+
+    private static (string Prefix, string Suffix) SplitKey(string key)
+    {
+        if (string.IsNullOrWhiteSpace(key))
+            return (string.Empty, string.Empty);
+
+        foreach (var suffix in _knownLevelSuffixes)
+        {
+            if (key.EndsWith(suffix, StringComparison.OrdinalIgnoreCase))
+            {
+                var prefix = key.Substring(0, key.Length - suffix.Length);
+                return (prefix, suffix);
+            }
+        }
+
+        return (key, string.Empty);
+    }
+
+    private string ResolveLevelText(string suffix)
+    {
+        return suffix.ToUpperInvariant() switch
+        {
+            "OPEN" => OpenLabel,
+            "HIGH" => HighLabel,
+            "LOW" => LowLabel,
+            "CLOSE" => CloseLabel,
+            "EQ" => EquilibriumLabel,
+            "POC" => PocLabel,
+            "VWAP" => VwapLabel,
+            "VAH" => VahLabel,
+            "VAL" => ValLabel,
+            _ => suffix
+        };
+    }
+
+    private string GetDisplayPrefix(FixedProfilePeriods period) => period switch
+    {
+        FixedProfilePeriods.CurrentDay => DayPrefix,
+        FixedProfilePeriods.LastDay => PrevDayPrefix,
+        FixedProfilePeriods.CurrentWeek => WeekPrefix,
+        FixedProfilePeriods.LastWeek => PrevWeekPrefix,
+        FixedProfilePeriods.CurrentMonth => MonthPrefix,
+        FixedProfilePeriods.LastMonth => PrevMonthPrefix,
+        FixedProfilePeriods.Contract => ContractPrefix,
+        _ => DayPrefix
+    };
+
+    #endregion
+
 
     #region OnCalculate
 
@@ -1635,7 +1861,7 @@ public class OHLCPlus : Indicator
         _ => FixedProfilePeriods.CurrentDay
     };
 
-    private void RenderLevel(RenderContext context, string levelKey, LevelSettings levelSettings)
+    private void RenderLevel(RenderContext context, string prefix, string levelKey, LevelSettings levelSettings)
     {
         if (!_allLevelsVisible || !levelSettings.Enabled || !_levels.TryGetValue(levelKey, out var level) || !level.IsValid)
             return;
@@ -1658,6 +1884,11 @@ public class OHLCPlus : Indicator
         // Get pen from LevelSettings
         var renderPen = levelSettings.RenderPen;
 
+        // Build label text
+        var period = PeriodFromPrefix(prefix);          // prefix is already canonical: d/p/w/pw/m/pm/c
+        var displayPrefix = GetDisplayPrefix(period);
+        var labelText = BuildLabelText(displayPrefix, levelKey);
+
         // Draw line first (if LineType != None)
         switch (levelSettings.LineType)
         {
@@ -1666,7 +1897,6 @@ public class OHLCPlus : Indicator
                 if (levelSettings.LabelPosition == LabelPosition.Bar)
                 {
                     // Calculate actual label width for better positioning
-                    var labelText = level.Label;
                     var labelSize = context.MeasureString(labelText, _font);
                     var labelStartX = currentBarRightX + 5;
                     var lineStartX = labelStartX + labelSize.Width + 4; // 4px padding
@@ -1697,15 +1927,15 @@ public class OHLCPlus : Indicator
         {
             case LabelPosition.Bar:
                 var barLabelX = currentBarRightX + 5;
-                DrawTextLabel(context, level.Label, barLabelX, y, renderPen, false);
+                DrawTextLabel(context, labelText, barLabelX, y, renderPen, false);
                 break;
             case LabelPosition.Right:
                 var rightLabelX = chartWidth - 5;
-                DrawTextLabel(context, level.Label, rightLabelX, y, renderPen, true);
+                DrawTextLabel(context, labelText, rightLabelX, y, renderPen, true);
                 break;
             case LabelPosition.Left:
                 var leftLabelX = 5;
-                DrawTextLabel(context, level.Label, leftLabelX, y, renderPen, false);
+                DrawTextLabel(context, labelText, leftLabelX, y, renderPen, false);
                 break;
             case LabelPosition.None:
                 // No text label to draw
@@ -1770,15 +2000,15 @@ public class OHLCPlus : Indicator
         var keys = _keys[PeriodFromPrefix(prefix)];
         // 0 Open, 1 High, 2 Low, 3 Close, 4 EQ, 5 POC, 6 VWAP, 7 VAH, 8 VAL
 
-        RenderLevel(context, keys[0], openLevel);
-        RenderLevel(context, keys[1], highLevel);
-        RenderLevel(context, keys[2], lowLevel);
-        RenderLevel(context, keys[3], closeLevel);
-        RenderLevel(context, keys[4], eqLevel);
-        RenderLevel(context, keys[5], pocLevel);
-        RenderLevel(context, keys[6], vwapLevel);
-        RenderLevel(context, keys[7], vahLevel);
-        RenderLevel(context, keys[8], valLevel);
+        RenderLevel(context, prefix, keys[0], openLevel);
+        RenderLevel(context, prefix, keys[1], highLevel);
+        RenderLevel(context, prefix, keys[2], lowLevel);
+        RenderLevel(context, prefix, keys[3], closeLevel);
+        RenderLevel(context, prefix, keys[4], eqLevel);
+        RenderLevel(context, prefix, keys[5], pocLevel);
+        RenderLevel(context, prefix, keys[6], vwapLevel);
+        RenderLevel(context, prefix, keys[7], vahLevel);
+        RenderLevel(context, prefix, keys[8], valLevel);
     }
 
     #endregion
