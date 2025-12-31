@@ -252,6 +252,8 @@ public class OHLCPlus : Indicator
 
     //Label override
     private string _labelTemplate = "{PREFIX}{LEVEL}";
+
+    // Level suffixes (level-level)
     private string _openLabel = "Open";
     private string _highLabel = "High";
     private string _lowLabel = "Low";
@@ -274,6 +276,15 @@ public class OHLCPlus : Indicator
     "VAL",
     "EQ"
 };
+
+    // Label prefixes (period-level)
+    private string _dayPrefix = "D";
+    private string _prevDayPrefix = "PD";
+    private string _weekPrefix = "W";
+    private string _prevWeekPrefix = "PW";
+    private string _monthPrefix = "M";
+    private string _prevMonthPrefix = "PM";
+    private string _contractPrefix = "C";
 
     #endregion
 
@@ -1475,6 +1486,56 @@ public class OHLCPlus : Indicator
         get => _valLabel;
         set => _valLabel = value;
     }
+
+    [Display(Name = "Day prefix", GroupName = "Labels")]
+    public string DayPrefix
+    {
+        get => _dayPrefix;
+        set => _dayPrefix = value;
+    }
+
+    [Display(Name = "Prev day prefix", GroupName = "Labels")]
+    public string PrevDayPrefix
+    {
+        get => _prevDayPrefix;
+        set => _prevDayPrefix = value;
+    }
+
+    [Display(Name = "Week prefix", GroupName = "Labels")]
+    public string WeekPrefix
+    {
+        get => _weekPrefix;
+        set => _weekPrefix = value;
+    }
+
+    [Display(Name = "Prev week prefix", GroupName = "Labels")]
+    public string PrevWeekPrefix
+    {
+        get => _prevWeekPrefix;
+        set => _prevWeekPrefix = value;
+    }
+
+    [Display(Name = "Month prefix", GroupName = "Labels")]
+    public string MonthPrefix
+    {
+        get => _monthPrefix;
+        set => _monthPrefix = value;
+    }
+
+    [Display(Name = "Prev month prefix", GroupName = "Labels")]
+    public string PrevMonthPrefix
+    {
+        get => _prevMonthPrefix;
+        set => _prevMonthPrefix = value;
+    }
+
+    [Display(Name = "Contract prefix", GroupName = "Labels")]
+    public string ContractPrefix
+    {
+        get => _contractPrefix;
+        set => _contractPrefix = value;
+    }
+
     #endregion
 
     #endregion
@@ -1626,6 +1687,19 @@ public class OHLCPlus : Indicator
             _ => suffix
         };
     }
+
+    private string GetDisplayPrefix(FixedProfilePeriods period) => period switch
+    {
+        FixedProfilePeriods.CurrentDay => DayPrefix,
+        FixedProfilePeriods.LastDay => PrevDayPrefix,
+        FixedProfilePeriods.CurrentWeek => WeekPrefix,
+        FixedProfilePeriods.LastWeek => PrevWeekPrefix,
+        FixedProfilePeriods.CurrentMonth => MonthPrefix,
+        FixedProfilePeriods.LastMonth => PrevMonthPrefix,
+        FixedProfilePeriods.Contract => ContractPrefix,
+        _ => DayPrefix
+    };
+
     #endregion
 
 
@@ -1808,7 +1882,9 @@ public class OHLCPlus : Indicator
         var renderPen = levelSettings.RenderPen;
 
         // Build label text
-        var labelText = BuildLabelText(prefix, levelKey);
+        var period = PeriodFromPrefix(prefix);          // prefix is already canonical: d/p/w/pw/m/pm/c
+        var displayPrefix = GetDisplayPrefix(period);
+        var labelText = BuildLabelText(displayPrefix, levelKey);
 
         // Draw line first (if LineType != None)
         switch (levelSettings.LineType)
