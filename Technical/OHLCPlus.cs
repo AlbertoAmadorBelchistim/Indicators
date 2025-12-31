@@ -262,6 +262,19 @@ public class OHLCPlus : Indicator
     private string _vahLabel = "VAH";
     private string _valLabel = "VAL";
 
+    private static readonly string[] _knownLevelSuffixes =
+{
+    "Close",
+    "Open",
+    "High",
+    "Low",
+    "VWAP",
+    "POC",
+    "VAH",
+    "VAL",
+    "EQ"
+};
+
     #endregion
 
     #region Properties
@@ -1564,50 +1577,56 @@ public class OHLCPlus : Indicator
         RedrawChart();
     }
 
-    private string GetLevelName(string levelKey)
+    #region label overrides
+    private string BuildLabelText(string prefix, string levelKey)
     {
-        // levelKey examples: dOpen, pPOC, wVAH, pwEQ, etc.
-        if (levelKey.EndsWith("Open", StringComparison.OrdinalIgnoreCase))
-            return OpenLabel;
+        var (_, suffix) = SplitKey(levelKey);
 
-        if (levelKey.EndsWith("High", StringComparison.OrdinalIgnoreCase))
-            return HighLabel;
+        var displayPrefix = prefix ?? string.Empty;
 
-        if (levelKey.EndsWith("Low", StringComparison.OrdinalIgnoreCase))
-            return LowLabel;
-
-        if (levelKey.EndsWith("Close", StringComparison.OrdinalIgnoreCase))
-            return CloseLabel;
-
-        if (levelKey.EndsWith("EQ", StringComparison.OrdinalIgnoreCase))
-            return EquilibriumLabel;
-
-        if (levelKey.EndsWith("POC", StringComparison.OrdinalIgnoreCase))
-            return PocLabel;
-
-        if (levelKey.EndsWith("VWAP", StringComparison.OrdinalIgnoreCase))
-            return VwapLabel;
-
-        if (levelKey.EndsWith("VAH", StringComparison.OrdinalIgnoreCase))
-            return VahLabel;
-
-        if (levelKey.EndsWith("VAL", StringComparison.OrdinalIgnoreCase))
-            return ValLabel;
-
-        return levelKey;
-    }
-
-    private string BuildLabelText(string prefix, string levelName)
-    {
-        var safePrefix = prefix ?? string.Empty;
-        var safeLevel = levelName ?? string.Empty;
+        var levelText = ResolveLevelText(suffix);
 
         var result = LabelTemplate
-            .Replace("{PREFIX}", safePrefix, StringComparison.Ordinal)
-            .Replace("{LEVEL}", safeLevel, StringComparison.Ordinal);
+            .Replace("{PREFIX}", displayPrefix, StringComparison.Ordinal)
+            .Replace("{LEVEL}", levelText ?? string.Empty, StringComparison.Ordinal);
 
-        return string.IsNullOrWhiteSpace(result) ? safeLevel : result;
+        return string.IsNullOrWhiteSpace(result) ? levelText : result;
     }
+
+    private static (string Prefix, string Suffix) SplitKey(string key)
+    {
+        if (string.IsNullOrWhiteSpace(key))
+            return (string.Empty, string.Empty);
+
+        foreach (var suffix in _knownLevelSuffixes)
+        {
+            if (key.EndsWith(suffix, StringComparison.OrdinalIgnoreCase))
+            {
+                var prefix = key.Substring(0, key.Length - suffix.Length);
+                return (prefix, suffix);
+            }
+        }
+
+        return (key, string.Empty);
+    }
+
+    private string ResolveLevelText(string suffix)
+    {
+        return suffix.ToUpperInvariant() switch
+        {
+            "OPEN" => OpenLabel,
+            "HIGH" => HighLabel,
+            "LOW" => LowLabel,
+            "CLOSE" => CloseLabel,
+            "EQ" => EquilibriumLabel,
+            "POC" => PocLabel,
+            "VWAP" => VwapLabel,
+            "VAH" => VahLabel,
+            "VAL" => ValLabel,
+            _ => suffix
+        };
+    }
+    #endregion
 
 
     #region OnCalculate
@@ -1789,8 +1808,7 @@ public class OHLCPlus : Indicator
         var renderPen = levelSettings.RenderPen;
 
         // Build label text
-        var levelName = GetLevelName(levelKey);
-        var labelText = BuildLabelText(prefix, levelName);
+        var labelText = BuildLabelText(prefix, levelKey);
 
         // Draw line first (if LineType != None)
         switch (levelSettings.LineType)
