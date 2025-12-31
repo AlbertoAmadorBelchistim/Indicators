@@ -228,7 +228,7 @@ public class OHLCPlus : Indicator
     private bool _allLevelsVisible = true;
 
     //Label override
-    private string _labelTemplate = "{PREFIX}{LEVEL}";
+    private string _labelTemplate = "{prefix}{level}";
 
     // Level suffixes (level-level)
     private string _openLabel = "Open";
@@ -1218,17 +1218,17 @@ public class OHLCPlus : Indicator
     }
 
     #region label overrides
-    private string BuildLabelText(string prefix, string levelKey)
+    private string BuildLabelText(string prefix, string levelStorageKey)
     {
-        var (_, suffix) = SplitKey(levelKey);
+        var (_, suffix) = SplitKey(levelStorageKey);
 
         var displayPrefix = prefix ?? string.Empty;
 
         var levelText = ResolveLevelText(suffix);
 
         var result = LabelTemplate
-            .Replace("{PREFIX}", displayPrefix, StringComparison.Ordinal)
-            .Replace("{LEVEL}", levelText ?? string.Empty, StringComparison.Ordinal);
+            .Replace("{prefix}", displayPrefix, StringComparison.Ordinal)
+            .Replace("{level}", levelText ?? string.Empty, StringComparison.Ordinal);
 
         return string.IsNullOrWhiteSpace(result) ? levelText : result;
     }
