@@ -1145,28 +1145,47 @@ public class OHLCPlus : Indicator
 
     private string GetLevelName(string levelKey)
     {
-        // Keep this mapping aligned with OHLCPlusModif for easy porting.
-        // levelKey examples: "d:Open", "p:POC", etc. (depends on existing key scheme)
-        if (levelKey.Contains("Open", StringComparison.OrdinalIgnoreCase))
+        // levelKey examples: dOpen, pPOC, wVAH, pwEQ, etc.
+        if (levelKey.EndsWith("Open", StringComparison.OrdinalIgnoreCase))
             return OpenLabel;
-        if (levelKey.Contains("High", StringComparison.OrdinalIgnoreCase))
+
+        if (levelKey.EndsWith("High", StringComparison.OrdinalIgnoreCase))
             return HighLabel;
-        if (levelKey.Contains("Low", StringComparison.OrdinalIgnoreCase))
+
+        if (levelKey.EndsWith("Low", StringComparison.OrdinalIgnoreCase))
             return LowLabel;
-        if (levelKey.Contains("Close", StringComparison.OrdinalIgnoreCase))
+
+        if (levelKey.EndsWith("Close", StringComparison.OrdinalIgnoreCase))
             return CloseLabel;
-        if (levelKey.Contains("Equilibrium", StringComparison.OrdinalIgnoreCase) || levelKey.EndsWith(":EQ", StringComparison.OrdinalIgnoreCase))
+
+        if (levelKey.EndsWith("EQ", StringComparison.OrdinalIgnoreCase))
             return EquilibriumLabel;
-        if (levelKey.Contains("POC", StringComparison.OrdinalIgnoreCase))
+
+        if (levelKey.EndsWith("POC", StringComparison.OrdinalIgnoreCase))
             return PocLabel;
-        if (levelKey.Contains("VWAP", StringComparison.OrdinalIgnoreCase))
+
+        if (levelKey.EndsWith("VWAP", StringComparison.OrdinalIgnoreCase))
             return VwapLabel;
-        if (levelKey.Contains("VAH", StringComparison.OrdinalIgnoreCase))
+
+        if (levelKey.EndsWith("VAH", StringComparison.OrdinalIgnoreCase))
             return VahLabel;
-        if (levelKey.Contains("VAL", StringComparison.OrdinalIgnoreCase))
+
+        if (levelKey.EndsWith("VAL", StringComparison.OrdinalIgnoreCase))
             return ValLabel;
 
-        return string.Empty;
+        return levelKey;
+    }
+
+    private string BuildLabelText(string prefix, string levelName)
+    {
+        var safePrefix = prefix ?? string.Empty;
+        var safeLevel = levelName ?? string.Empty;
+
+        var result = LabelTemplate
+            .Replace("{PREFIX}", safePrefix, StringComparison.Ordinal)
+            .Replace("{LEVEL}", safeLevel, StringComparison.Ordinal);
+
+        return string.IsNullOrWhiteSpace(result) ? safeLevel : result;
     }
 
 
@@ -1355,7 +1374,7 @@ public class OHLCPlus : Indicator
         _ => FixedProfilePeriods.CurrentDay
     };
 
-    private void RenderLevel(RenderContext context, string levelKey, LevelSettings levelSettings)
+    private void RenderLevel(RenderContext context, string prefix, string levelKey, LevelSettings levelSettings)
     {
         if (!_allLevelsVisible || !levelSettings.Enabled || !_levels.TryGetValue(levelKey, out var level) || !level.IsValid)
             return;
@@ -1378,6 +1397,10 @@ public class OHLCPlus : Indicator
         // Get pen from LevelSettings
         var renderPen = levelSettings.RenderPen;
 
+        // Build label text
+        var levelName = GetLevelName(levelKey);
+        var labelText = BuildLabelText(prefix, levelName);
+
         // Draw line first (if LineType != None)
         switch (levelSettings.LineType)
         {
@@ -1386,7 +1409,6 @@ public class OHLCPlus : Indicator
                 if (levelSettings.LabelPosition == LabelPosition.Bar)
                 {
                     // Calculate actual label width for better positioning
-                    var labelText = level.Label;
                     var labelSize = context.MeasureString(labelText, _font);
                     var labelStartX = currentBarRightX + 5;
                     var lineStartX = labelStartX + labelSize.Width + 4; // 4px padding
@@ -1417,15 +1439,15 @@ public class OHLCPlus : Indicator
         {
             case LabelPosition.Bar:
                 var barLabelX = currentBarRightX + 5;
-                DrawTextLabel(context, level.Label, barLabelX, y, renderPen, false);
+                DrawTextLabel(context, labelText, barLabelX, y, renderPen, false);
                 break;
             case LabelPosition.Right:
                 var rightLabelX = chartWidth - 5;
-                DrawTextLabel(context, level.Label, rightLabelX, y, renderPen, true);
+                DrawTextLabel(context, labelText, rightLabelX, y, renderPen, true);
                 break;
             case LabelPosition.Left:
                 var leftLabelX = 5;
-                DrawTextLabel(context, level.Label, leftLabelX, y, renderPen, false);
+                DrawTextLabel(context, labelText, leftLabelX, y, renderPen, false);
                 break;
             case LabelPosition.None:
                 // No text label to draw
@@ -1490,15 +1512,15 @@ public class OHLCPlus : Indicator
         var keys = _keys[PeriodFromPrefix(prefix)];
         // 0 Open, 1 High, 2 Low, 3 Close, 4 EQ, 5 POC, 6 VWAP, 7 VAH, 8 VAL
 
-        RenderLevel(context, keys[0], openLevel);
-        RenderLevel(context, keys[1], highLevel);
-        RenderLevel(context, keys[2], lowLevel);
-        RenderLevel(context, keys[3], closeLevel);
-        RenderLevel(context, keys[4], eqLevel);
-        RenderLevel(context, keys[5], pocLevel);
-        RenderLevel(context, keys[6], vwapLevel);
-        RenderLevel(context, keys[7], vahLevel);
-        RenderLevel(context, keys[8], valLevel);
+        RenderLevel(context, prefix, keys[0], openLevel);
+        RenderLevel(context, prefix, keys[1], highLevel);
+        RenderLevel(context, prefix, keys[2], lowLevel);
+        RenderLevel(context, prefix, keys[3], closeLevel);
+        RenderLevel(context, prefix, keys[4], eqLevel);
+        RenderLevel(context, prefix, keys[5], pocLevel);
+        RenderLevel(context, prefix, keys[6], vwapLevel);
+        RenderLevel(context, prefix, keys[7], vahLevel);
+        RenderLevel(context, prefix, keys[8], valLevel);
     }
 
     #endregion
