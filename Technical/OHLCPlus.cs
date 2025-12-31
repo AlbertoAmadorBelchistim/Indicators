@@ -212,7 +212,8 @@ public class OHLCPlus : Indicator
             int lineX2,
             int lineY,
             int priority,
-            int sequence)
+            int sequence,
+            bool isBar)
         {
             Text = text;
             XAnchor = xAnchor;
@@ -227,6 +228,7 @@ public class OHLCPlus : Indicator
 
             Priority = priority;
             Sequence = sequence;
+            IsBar = isBar;
         }
 
         public string Text { get; }
@@ -245,6 +247,8 @@ public class OHLCPlus : Indicator
         public int Priority { get; }
 
         public int Sequence { get; }
+
+        public bool IsBar { get; }
     }
 
 
@@ -1941,7 +1945,7 @@ public class OHLCPlus : Indicator
 
         // Check if price is visible on chart
         var region = ChartInfo.PriceChartContainer.Region;
-        if (y < region.Top || y > region.Bottom)
+        if (y < region.Top || y >= region.Bottom)
             return;
 
         var chartWidth = ChartInfo.PriceChartContainer.Region.Width;
@@ -1963,12 +1967,12 @@ public class OHLCPlus : Indicator
         // Precompute line endpoints (used for immediate draw or deferred draw)
         var x1 = levelSettings.LineType switch
         {
-            LineType.Full => 0,
+            LineType.Full => region.Left,
             LineType.Bar => currentBarRightX,
-            _ => 0
+            _ => region.Left
         };
 
-        var x2 = chartWidth;
+        var x2 = region.Right;
 
         // Draw line immediately only when there is no label (keeps current behavior stable)
         if (!hasTextLabel)
@@ -2001,12 +2005,12 @@ public class OHLCPlus : Indicator
             switch (levelSettings.LabelPosition)
             {
                 case LabelPosition.Right:
-                    xAnchor = chartWidth - 5;
+                    xAnchor = region.Right - 5;
                     alignRight = true;
                     break;
 
                 case LabelPosition.Left:
-                    xAnchor = 5;
+                    xAnchor = region.Left + 5;
                     alignRight = false;
                     break;
 
@@ -2022,6 +2026,7 @@ public class OHLCPlus : Indicator
             var idxInPeriod = Array.IndexOf(_keys[period], levelKey);
             if (idxInPeriod < 0) idxInPeriod = 99;
             var priority = ((int)period * 100) + idxInPeriod;
+            var isBarLabel = levelSettings.LabelPosition == LabelPosition.Bar;
 
             _labelQueue.Add(new LabelDrawRequest(
                 text: labelText,
@@ -2029,7 +2034,6 @@ public class OHLCPlus : Indicator
                 yAnchor: y,
                 borderPen: renderPen,
                 alignRight: alignRight,
-                sequence: _labelQueue.Count,
 
                 // Deferred line: we skipped drawing it when hasTextLabel == true,
                 // so FlushLabelQueue must draw it with cropping against the final label rect.
@@ -2038,7 +2042,9 @@ public class OHLCPlus : Indicator
                 lineX2: x2,
                 lineY: y,
 
-                priority: priority
+                priority: priority,
+                sequence: _labelQueue.Count,
+                isBar: isBarLabel
             ));
         }
 
@@ -2126,34 +2132,128 @@ public class OHLCPlus : Indicator
             return cmp != 0 ? cmp : a.Sequence.CompareTo(b.Sequence);
         });
 
+        var placed = new List<(LabelDrawRequest Req, Rectangle Rect, Size Size)>(_labelQueue.Count);
+
         foreach (var req in _labelQueue)
         {
-            // Measure once
             var size = context.MeasureString(req.Text, _font);
-
-            // Build the ideal rect
-            var rect = BuildLabelRect(req.XAnchor, req.YAnchor, size, req.AlignRight);
-
-            // Resolve collisions: horizontal corridor first, vertical fallback if needed
+            var rect = BuildLabelRect(req.XAnchor, req.YAnchor, size, req.AlignRight, req.IsBar);
             rect = ResolveLabelPlacement(req, rect);
 
-            // Draw label (background + border + text)
-            DrawTextLabelAtRect(context, req, rect, size);
-
-            // Mark occupied
+            placed.Add((req, rect, size));
             _occupiedLabelRects.Add(rect);
+        }
 
-            // Draw deferred line (if needed), clipped around the label rect
-            if (req.LineType != LineType.None)
-                DrawDeferredLineClipped(context, req, rect);
+        foreach (var item in placed)
+            DrawTextLabelAtRect(context, item.Req, item.Rect, item.Size);
+
+        foreach (var item in placed)
+        {
+            if (item.Req.LineType != LineType.None)
+                DrawDeferredLineClippedAgainstAll(context, item.Req, item.Rect, _occupiedLabelRects);
         }
     }
 
-    private Rectangle BuildLabelRect(int xAnchor, int yAnchor, Size size, bool alignRight)
+    private void DrawDeferredLineClippedAgainstAll(
+    RenderContext context,
+    LabelDrawRequest req,
+    Rectangle ownRect,
+    List<Rectangle> allRects)
+    {
+        var x1 = req.LineX1;
+        var x2 = req.LineX2;
+        var y = req.LineY;
+
+        // For Bar lines, trim the start so the line doesn't "stick out" under the label.
+        // We prefer trimming the line rather than moving the label rect.
+        if (req.LineType == LineType.Bar)
+        {
+            // Ensure the line starts at (or after) the label's left edge (minus padding),
+            // removing the small "stub" between the bar edge and the label.
+            var startTrim = ownRect.Left - (_labelPadding + 1);
+
+            if (startTrim > x1)
+                x1 = startTrim;
+        }
+
+        if (x2 <= x1)
+            return;
+
+        // Safety padding: include pen width + 1px to avoid “overpassing” artifacts
+        var pad = _labelPadding + 1;
+
+        // Collect “holes” on the line caused by labels
+        var holes = new List<(int L, int R)>(8);
+
+        for (var i = 0; i < allRects.Count; i++)
+        {
+            var r = allRects[i];
+
+            // Does this label cover the line y?
+            if (y < r.Top || y >= r.Bottom)
+                continue;
+
+            var l = r.Left - pad;
+            var rr = r.Right + pad;
+
+            // Intersect with line span
+            if (rr <= x1 || l >= x2)
+                continue;
+
+            holes.Add((Math.Max(x1, l), Math.Min(x2, rr)));
+        }
+
+        if (holes.Count == 0)
+        {
+            context.DrawLine(req.BorderPen, x1, y, x2, y);
+            return;
+        }
+
+        // Merge overlapping holes
+        holes.Sort((a, b) => a.L.CompareTo(b.L));
+
+        var merged = new List<(int L, int R)>(holes.Count);
+        var cur = holes[0];
+
+        for (var i = 1; i < holes.Count; i++)
+        {
+            var h = holes[i];
+            if (h.L <= cur.R)
+                cur = (cur.L, Math.Max(cur.R, h.R));
+            else
+            {
+                merged.Add(cur);
+                cur = h;
+            }
+        }
+        merged.Add(cur);
+
+        // Draw remaining segments between holes
+        var start = x1;
+
+        foreach (var h in merged)
+        {
+            if (h.L > start)
+                context.DrawLine(req.BorderPen, start, y, h.L, y);
+
+            start = Math.Max(start, h.R);
+        }
+
+        if (start < x2)
+            context.DrawLine(req.BorderPen, start, y, x2, y);
+    }
+
+
+    private Rectangle BuildLabelRect(int xAnchor, int yAnchor, Size size, bool alignRight, bool isBar)
     {
         var rectX = alignRight ? xAnchor - size.Width : xAnchor;
+
+        // Keep the “nice border breathing room” for Left/Right,
+        // but do not shift Bar labels to the left (it looks misaligned with the line start).
+        var leftPad = isBar ? 0 : 2;
+
         return new Rectangle(
-            rectX - 2,
+            rectX - leftPad,
             yAnchor - size.Height / 2 - 1,
             size.Width + 4,
             size.Height + 2);
@@ -2258,39 +2358,6 @@ public class OHLCPlus : Indicator
 
         return rect;
     }
-
-    private void DrawDeferredLineClipped(RenderContext context, LabelDrawRequest req, Rectangle labelRect)
-    {
-        // Respect original linetype behavior
-        if (req.LineType == LineType.None)
-            return;
-
-        var x1 = req.LineX1;
-        var x2 = req.LineX2;
-        var y = req.LineY;
-
-        // Add padding so the line doesn't touch the label border
-        var clipLeft = labelRect.Left - _labelPadding;
-        var clipRight = labelRect.Right + _labelPadding;
-
-        // If the label doesn't overlap the line span, draw full span
-        if (clipRight <= x1 || clipLeft >= x2)
-        {
-            context.DrawLine(req.BorderPen, x1, y, x2, y);
-            return;
-        }
-
-        // Left segment
-        if (clipLeft > x1)
-            context.DrawLine(req.BorderPen, x1, y, clipLeft, y);
-
-        // Right segment
-        if (clipRight < x2)
-            context.DrawLine(req.BorderPen, clipRight, y, x2, y);
-    }
-
-
-
 
     #endregion
 
