@@ -1417,124 +1417,127 @@ public class OHLCPlus : Indicator
     #endregion
 
     #region Labels
-    [Display(Name = "Label template", GroupName = "Labels")]
+    // --- Labels group ---
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.LabelTemplate), Order = 10)]
     public string LabelTemplate
     {
         get => _labelTemplate;
         set => _labelTemplate = value;
     }
 
-    [Display(Name = "Open label", GroupName = "Labels")]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.BarOpen), Order = 20)]
     public string OpenLabel
     {
         get => _openLabel;
         set => _openLabel = value;
     }
 
-    [Display(Name = "High label", GroupName = "Labels")]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.BarHigh), Order = 30)]
     public string HighLabel
     {
         get => _highLabel;
         set => _highLabel = value;
     }
 
-    [Display(Name = "Low label", GroupName = "Labels")]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.BarLow), Order = 40)]
     public string LowLabel
     {
         get => _lowLabel;
         set => _lowLabel = value;
     }
 
-    [Display(Name = "Close label", GroupName = "Labels")]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.BarClose), Order = 50)]
     public string CloseLabel
     {
         get => _closeLabel;
         set => _closeLabel = value;
     }
 
-    [Display(Name = "Equilibrium label", GroupName = "Labels")]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.Equilibrium), Order = 60)]
     public string EquilibriumLabel
     {
         get => _equilibriumLabel;
         set => _equilibriumLabel = value;
     }
 
-    [Display(Name = "POC label", GroupName = "Labels")]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.POC), Order = 70)]
     public string PocLabel
     {
         get => _pocLabel;
         set => _pocLabel = value;
     }
 
-    [Display(Name = "VWAP label", GroupName = "Labels")]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.VWAP), Order = 80)]
     public string VwapLabel
     {
         get => _vwapLabel;
         set => _vwapLabel = value;
     }
 
-    [Display(Name = "VAH label", GroupName = "Labels")]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.VAH), Order = 90)]
     public string VahLabel
     {
         get => _vahLabel;
         set => _vahLabel = value;
     }
 
-    [Display(Name = "VAL label", GroupName = "Labels")]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.VAL), Order = 100)]
     public string ValLabel
     {
         get => _valLabel;
         set => _valLabel = value;
     }
 
-    [Display(Name = "Day prefix", GroupName = "Labels")]
+    // --- Prefixes group ---
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Prefixes), Name = nameof(Resources.CurrentDay), Order = 10)]
     public string DayPrefix
     {
         get => _dayPrefix;
         set => _dayPrefix = value;
     }
 
-    [Display(Name = "Prev day prefix", GroupName = "Labels")]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Prefixes), Name = nameof(Resources.PreviousDay), Order = 20)]
     public string PrevDayPrefix
     {
         get => _prevDayPrefix;
         set => _prevDayPrefix = value;
     }
 
-    [Display(Name = "Week prefix", GroupName = "Labels")]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Prefixes), Name = nameof(Resources.CurrentWeek), Order = 30)]
     public string WeekPrefix
     {
         get => _weekPrefix;
         set => _weekPrefix = value;
     }
 
-    [Display(Name = "Prev week prefix", GroupName = "Labels")]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Prefixes), Name = nameof(Resources.PreviousWeek), Order = 40)]
     public string PrevWeekPrefix
     {
         get => _prevWeekPrefix;
         set => _prevWeekPrefix = value;
     }
 
-    [Display(Name = "Month prefix", GroupName = "Labels")]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Prefixes), Name = nameof(Resources.CurrentMonth), Order = 50)]
     public string MonthPrefix
     {
         get => _monthPrefix;
         set => _monthPrefix = value;
     }
 
-    [Display(Name = "Prev month prefix", GroupName = "Labels")]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Prefixes), Name = nameof(Resources.PreviousMonth), Order = 60)]
     public string PrevMonthPrefix
     {
         get => _prevMonthPrefix;
         set => _prevMonthPrefix = value;
     }
 
-    [Display(Name = "Contract prefix", GroupName = "Labels")]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Prefixes), Name = nameof(Resources.Contract), Order = 70)]
     public string ContractPrefix
     {
         get => _contractPrefix;
         set => _contractPrefix = value;
     }
+
 
     #endregion
 
