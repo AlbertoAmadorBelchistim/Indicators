@@ -293,6 +293,13 @@ public class OHLCPlus : Indicator
     private const int _labelProbeStep = 2;
     private const int _labelProbeMaxSteps = 30;
 
+    private const int _labelHProbeStep = 10;
+    private const int _labelHMaxShift = 120;
+
+    // Vertical fallback (used only if X corridor is full)
+    private const int _labelVProbeStep = 8;
+    private const int _labelVProbeMaxSteps = 24;
+
     private int _lastBar = -1;
     private bool _candleRequested;
 
@@ -1931,11 +1938,12 @@ public class OHLCPlus : Indicator
             return;
 
         var y = ChartInfo.GetYByPrice(level.Price, false);
-        
+
         // Check if price is visible on chart
-        if (y < 0 || y > ChartInfo.PriceChartContainer.Region.Height)
+        var region = ChartInfo.PriceChartContainer.Region;
+        if (y < region.Top || y > region.Bottom)
             return;
-            
+
         var chartWidth = ChartInfo.PriceChartContainer.Region.Width;
         var currentBarX = ChartInfo.GetXByBar(CurrentBar - 1);
         var barWidth = (int)ChartInfo.PriceChartContainer.BarsWidth;
@@ -2004,7 +2012,7 @@ public class OHLCPlus : Indicator
 
                 case LabelPosition.Bar:
                 default:
-                    xAnchor = currentBarRightX + 5;
+                    xAnchor = currentBarRightX + 8;
                     alignRight = false;
                     break;
             }
@@ -2126,8 +2134,8 @@ public class OHLCPlus : Indicator
             // Build the ideal rect
             var rect = BuildLabelRect(req.XAnchor, req.YAnchor, size, req.AlignRight);
 
-            // Try to resolve collisions by probing Y
-            rect = ResolveLabelCollisions(rect);
+            // Resolve collisions: horizontal corridor first, vertical fallback if needed
+            rect = ResolveLabelPlacement(req, rect);
 
             // Draw label (background + border + text)
             DrawTextLabelAtRect(context, req, rect, size);
@@ -2151,38 +2159,84 @@ public class OHLCPlus : Indicator
             size.Height + 2);
     }
 
-    private Rectangle ResolveLabelCollisions(Rectangle rect)
+    private Rectangle ResolveLabelPlacement(LabelDrawRequest req, Rectangle desired)
     {
-        // Clamp Y within visible chart region (best-effort)
         var container = ChartInfo.PriceChartContainer.Region;
 
-        // Early accept
-        if (!IntersectsAny(rect))
-            return ClampToContainer(rect, container);
+        // First try: desired position (ideal)
+        desired = ClampToContainer(desired, container);
+        if (!IntersectsAny(desired))
+            return desired;
 
-        // Probe up/down around the original Y, alternating
-        var original = rect;
+        // Horizontal corridor bounds depend on label alignment/anchor and chart width
+        var sizeW = desired.Width;
+        int minX, maxX, dir;
+        var safeLeft = container.Left + 4;
+        var safeRight = container.Right - 4;
 
-        for (var step = 1; step <= _labelProbeMaxSteps; step++)
+        if (req.AlignRight)
         {
-            var delta = step * _labelProbeStep;
+            // Right anchored: push left
+            var rightEdge = req.XAnchor;
+            maxX = rightEdge - sizeW;                 // closest to axis
+            minX = maxX - _labelHMaxShift;            // allow shift left
+            dir = -1;
+        }
+        else
+        {
+            // Left / Bar: push right
+            minX = desired.X;
+            maxX = minX + _labelHMaxShift;
+            dir = +1;
+        }
+
+        // Clamp corridor within container
+        minX = Math.Max(safeLeft, minX);
+        maxX = Math.Min(safeRight - sizeW, maxX);
+        if (minX > maxX) minX = maxX;
+
+        // Probe horizontally
+        for (var step = 1; step * _labelHProbeStep <= _labelHMaxShift; step++)
+        {
+            var dx = step * _labelHProbeStep * dir;
+
+            var probe = desired;
+            probe.X = Clamp(probe.X + dx, minX, maxX);
+
+            if (!IntersectsAny(probe))
+                return probe;
+        }
+
+        // Fallback: vertical probing around the original Y (keep X = best effort)
+        var original = desired;
+
+        for (var step = 1; step <= _labelVProbeMaxSteps; step++)
+        {
+            var dy = step * _labelVProbeStep;
 
             var up = original;
-            up.Y -= delta;
-            up = ClampToContainer(up, container);
+            up.Y = ClampToContainerY(up.Y - dy, up.Height, container);
             if (!IntersectsAny(up))
                 return up;
 
             var down = original;
-            down.Y += delta;
-            down = ClampToContainer(down, container);
+            down.Y = ClampToContainerY(down.Y + dy, down.Height, container);
             if (!IntersectsAny(down))
                 return down;
         }
 
-        // If no placement found, return clamped original (last resort)
-        return ClampToContainer(original, container);
+        return original;
     }
+
+    private static int Clamp(int value, int min, int max) => value < min ? min : (value > max ? max : value);
+
+    private static int ClampToContainerY(int y, int h, Rectangle container)
+    {
+        if (y < container.Top) return container.Top;
+        if (y + h > container.Bottom) return container.Bottom - h;
+        return y;
+    }
+
 
     private bool IntersectsAny(Rectangle rect)
     {
