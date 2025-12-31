@@ -72,7 +72,7 @@ public class LevelSettings : NotifiableObject
     private LabelPosition _labelPosition;
 
     #endregion
-      
+
     #region Properties
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled))]
@@ -226,6 +226,18 @@ public class OHLCPlus : Indicator
     private bool _needContract;
 
     private bool _allLevelsVisible = true;
+
+    //Label override
+    private string _labelTemplate = "{PREFIX}{LEVEL}";
+    private string _openLabel = "Open";
+    private string _highLabel = "High";
+    private string _lowLabel = "Low";
+    private string _closeLabel = "Close";
+    private string _equilibriumLabel = "EQ";
+    private string _pocLabel = "POC";
+    private string _vwapLabel = "VWAP";
+    private string _vahLabel = "VAH";
+    private string _valLabel = "VAL";
 
     #endregion
 
@@ -959,6 +971,78 @@ public class OHLCPlus : Indicator
 
     #endregion
 
+    #region Labels
+    [Display(Name = "Label template", GroupName = "Labels")]
+    public string LabelTemplate
+    {
+        get => _labelTemplate;
+        set => _labelTemplate = value;
+    }
+
+    [Display(Name = "Open label", GroupName = "Labels")]
+    public string OpenLabel
+    {
+        get => _openLabel;
+        set => _openLabel = value;
+    }
+
+    [Display(Name = "High label", GroupName = "Labels")]
+    public string HighLabel
+    {
+        get => _highLabel;
+        set => _highLabel = value;
+    }
+
+    [Display(Name = "Low label", GroupName = "Labels")]
+    public string LowLabel
+    {
+        get => _lowLabel;
+        set => _lowLabel = value;
+    }
+
+    [Display(Name = "Close label", GroupName = "Labels")]
+    public string CloseLabel
+    {
+        get => _closeLabel;
+        set => _closeLabel = value;
+    }
+
+    [Display(Name = "Equilibrium label", GroupName = "Labels")]
+    public string EquilibriumLabel
+    {
+        get => _equilibriumLabel;
+        set => _equilibriumLabel = value;
+    }
+
+    [Display(Name = "POC label", GroupName = "Labels")]
+    public string PocLabel
+    {
+        get => _pocLabel;
+        set => _pocLabel = value;
+    }
+
+    [Display(Name = "VWAP label", GroupName = "Labels")]
+    public string VwapLabel
+    {
+        get => _vwapLabel;
+        set => _vwapLabel = value;
+    }
+
+    [Display(Name = "VAH label", GroupName = "Labels")]
+    public string VahLabel
+    {
+        get => _vahLabel;
+        set => _vahLabel = value;
+    }
+
+    [Display(Name = "VAL label", GroupName = "Labels")]
+    public string ValLabel
+    {
+        get => _valLabel;
+        set => _valLabel = value;
+    }
+    #endregion
+
     #endregion
 
     #region Constructor
@@ -1058,6 +1142,33 @@ public class OHLCPlus : Indicator
         _allLevelsVisible = !_allLevelsVisible;
         RedrawChart();
     }
+
+    private string GetLevelName(string levelKey)
+    {
+        // Keep this mapping aligned with OHLCPlusModif for easy porting.
+        // levelKey examples: "d:Open", "p:POC", etc. (depends on existing key scheme)
+        if (levelKey.Contains("Open", StringComparison.OrdinalIgnoreCase))
+            return OpenLabel;
+        if (levelKey.Contains("High", StringComparison.OrdinalIgnoreCase))
+            return HighLabel;
+        if (levelKey.Contains("Low", StringComparison.OrdinalIgnoreCase))
+            return LowLabel;
+        if (levelKey.Contains("Close", StringComparison.OrdinalIgnoreCase))
+            return CloseLabel;
+        if (levelKey.Contains("Equilibrium", StringComparison.OrdinalIgnoreCase) || levelKey.EndsWith(":EQ", StringComparison.OrdinalIgnoreCase))
+            return EquilibriumLabel;
+        if (levelKey.Contains("POC", StringComparison.OrdinalIgnoreCase))
+            return PocLabel;
+        if (levelKey.Contains("VWAP", StringComparison.OrdinalIgnoreCase))
+            return VwapLabel;
+        if (levelKey.Contains("VAH", StringComparison.OrdinalIgnoreCase))
+            return VahLabel;
+        if (levelKey.Contains("VAL", StringComparison.OrdinalIgnoreCase))
+            return ValLabel;
+
+        return string.Empty;
+    }
+
 
     #region OnCalculate
 
