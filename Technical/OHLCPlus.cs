@@ -176,6 +176,55 @@ public class OHLCPlus : Indicator
         public int GetHashCode(object obj) => RuntimeHelpers.GetHashCode(obj);
     }
 
+    private readonly struct LabelDrawRequest
+    {
+        public LabelDrawRequest(
+            string text,
+            int xAnchor,
+            int yAnchor,
+            RenderPen borderPen,
+            bool alignRight,
+            LineType lineType,
+            int lineX1,
+            int lineX2,
+            int lineY,
+            int priority,
+            int sequence)
+        {
+            Text = text;
+            XAnchor = xAnchor;
+            YAnchor = yAnchor;
+            BorderPen = borderPen;
+            AlignRight = alignRight;
+
+            LineType = lineType;
+            LineX1 = lineX1;
+            LineX2 = lineX2;
+            LineY = lineY;
+
+            Priority = priority;
+            Sequence = sequence;
+        }
+
+        public string Text { get; }
+        public int XAnchor { get; }
+        public int YAnchor { get; }
+        public RenderPen BorderPen { get; }
+        public bool AlignRight { get; }
+
+        // Deferred line info (only used if LineType != None)
+        public LineType LineType { get; }
+        public int LineX1 { get; }
+        public int LineX2 { get; }
+        public int LineY { get; }
+
+        // Lower = drawn first (more “important” in pq01 = preserve current order)
+        public int Priority { get; }
+
+        public int Sequence { get; }
+    }
+
+
     #endregion
 
     #region Fields
@@ -213,6 +262,13 @@ public class OHLCPlus : Indicator
         Trimming = StringTrimming.EllipsisCharacter,
         FormatFlags = StringFormatFlags.NoWrap
     };
+
+    // --- Label layout (per-frame) ---
+    private readonly List<LabelDrawRequest> _labelQueue = new(128);
+    private readonly List<Rectangle> _occupiedLabelRects = new(128);
+    private const int _labelPadding = 4;
+    private const int _labelProbeStep = 2;
+    private const int _labelProbeMaxSteps = 30;
 
     private int _lastBar = -1;
     private bool _candleRequested;
@@ -1197,6 +1253,8 @@ public class OHLCPlus : Indicator
         if (ChartInfo is null || InstrumentInfo is null)
             return;
 
+        BeginLabelLayoutFrame();
+
         // Render all levels in groups for better organization
         RenderLevelGroup(context, "d", DayOpenLevel, DayHighLevel, DayLowLevel, DayCloseLevel, DayEquilibriumLevel, DayPOCLevel, DayVWAPLevel, DayVAHLevel, DayVALLevel);
         RenderLevelGroup(context, "p", PrevDayOpenLevel, PrevDayHighLevel, PrevDayLowLevel, PrevDayCloseLevel, PrevDayEquilibriumLevel, PrevDayPOCLevel, PrevDayVWAPLevel, PrevDayVAHLevel, PrevDayVALLevel);
@@ -1205,6 +1263,8 @@ public class OHLCPlus : Indicator
         RenderLevelGroup(context, "m", MonthOpenLevel, MonthHighLevel, MonthLowLevel, MonthCloseLevel, MonthEquilibriumLevel, MonthPOCLevel, MonthVWAPLevel, MonthVAHLevel, MonthVALLevel);
         RenderLevelGroup(context, "pm", PrevMonthOpenLevel, PrevMonthHighLevel, PrevMonthLowLevel, PrevMonthCloseLevel, PrevMonthEquilibriumLevel, PrevMonthPOCLevel, PrevMonthVWAPLevel, PrevMonthVAHLevel, PrevMonthVALLevel);
         RenderLevelGroup(context, "c", ContractOpenLevel, ContractHighLevel, ContractLowLevel, ContractCloseLevel, ContractEquilibriumLevel, ContractPOCLevel, ContractVWAPLevel, ContractVAHLevel, ContractVALLevel);
+
+        FlushLabelQueue(context);
     }
 
     #endregion
@@ -1495,31 +1555,33 @@ public class OHLCPlus : Indicator
         var displayPrefix = GetDisplayPrefix(period);
         var labelText = BuildLabelText(displayPrefix, levelKey);
 
-        // Draw line first (if LineType != None)
-        switch (levelSettings.LineType)
+        // Decide if we should defer line drawing (only when we have a text label)
+        var hasTextLabel = levelSettings.LabelPosition != LabelPosition.None;
+
+        // Precompute line endpoints (used for immediate draw or deferred draw)
+        var x1 = levelSettings.LineType switch
         {
-            case LineType.Bar:
-                // If label is at bar position, start line after the label to avoid overlap
-                if (levelSettings.LabelPosition == LabelPosition.Bar)
-                {
-                    // Calculate actual label width for better positioning
-                    var labelSize = context.MeasureString(labelText, _font);
-                    var labelStartX = currentBarRightX + 5;
-                    var lineStartX = labelStartX + labelSize.Width + 4; // 4px padding
-                    context.DrawLine(renderPen, lineStartX, y, chartWidth, y);
-                }
-                else
-                {
-                    // Normal bar line from right edge of bar to price axis
-                    context.DrawLine(renderPen, currentBarRightX, y, chartWidth, y);
-                }
-                break;
-            case LineType.Full:
-                context.DrawLine(renderPen, 0, y, chartWidth, y);
-                break;
-            case LineType.None:
-                // No line to draw
-                break;
+            LineType.Full => 0,
+            LineType.Bar => currentBarRightX,
+            _ => 0
+        };
+
+        var x2 = chartWidth;
+
+        // Draw line immediately only when there is no label (keeps current behavior stable)
+        if (!hasTextLabel)
+        {
+            switch (levelSettings.LineType)
+            {
+                case LineType.Bar:
+                    context.DrawLine(renderPen, x1, y, x2, y);
+                    break;
+                case LineType.Full:
+                    context.DrawLine(renderPen, x1, y, x2, y);
+                    break;
+                case LineType.None:
+                    break;
+            }
         }
 
         // Draw price label (if ShowPrice == true)
@@ -1528,25 +1590,56 @@ public class OHLCPlus : Indicator
             DrawPriceLabel(context, level.Price, y, renderPen, levelSettings);
         }
 
-        // Draw text label (if LabelPosition != None)
-        switch (levelSettings.LabelPosition)
+        // Enqueue text label (collision-safe draw happens in FlushLabelQueue)
+        if (hasTextLabel)
         {
-            case LabelPosition.Bar:
-                var barLabelX = currentBarRightX + 5;
-                DrawTextLabel(context, labelText, barLabelX, y, renderPen, false);
-                break;
-            case LabelPosition.Right:
-                var rightLabelX = chartWidth - 5;
-                DrawTextLabel(context, labelText, rightLabelX, y, renderPen, true);
-                break;
-            case LabelPosition.Left:
-                var leftLabelX = 5;
-                DrawTextLabel(context, labelText, leftLabelX, y, renderPen, false);
-                break;
-            case LabelPosition.None:
-                // No text label to draw
-                break;
+            int xAnchor;
+            bool alignRight;
+
+            switch (levelSettings.LabelPosition)
+            {
+                case LabelPosition.Right:
+                    xAnchor = chartWidth - 5;
+                    alignRight = true;
+                    break;
+
+                case LabelPosition.Left:
+                    xAnchor = 5;
+                    alignRight = false;
+                    break;
+
+                case LabelPosition.Bar:
+                default:
+                    xAnchor = currentBarRightX + 5;
+                    alignRight = false;
+                    break;
+            }
+
+            // Stable priority: keep deterministic ordering across frames and enable/disable toggles.
+            // Lower = more important (draw earlier).
+            var idxInPeriod = Array.IndexOf(_keys[period], levelKey);
+            if (idxInPeriod < 0) idxInPeriod = 99;
+            var priority = ((int)period * 100) + idxInPeriod;
+
+            _labelQueue.Add(new LabelDrawRequest(
+                text: labelText,
+                xAnchor: xAnchor,
+                yAnchor: y,
+                borderPen: renderPen,
+                alignRight: alignRight,
+                sequence: _labelQueue.Count,
+
+                // Deferred line: we skipped drawing it when hasTextLabel == true,
+                // so FlushLabelQueue must draw it with cropping against the final label rect.
+                lineType: levelSettings.LineType,
+                lineX1: x1,
+                lineX2: x2,
+                lineY: y,
+
+                priority: priority
+            ));
         }
+
     }
 
     private void DrawPriceLabel(RenderContext context, decimal price, int y, RenderPen pen, LevelSettings levelSettings)
@@ -1579,25 +1672,21 @@ public class OHLCPlus : Indicator
         }
     }
 
-    private void DrawTextLabel(RenderContext context, string text, int x, int y, RenderPen pen, bool alignRight)
+    private void DrawTextLabelAtRect(RenderContext context, LabelDrawRequest req, Rectangle rect, Size size)
     {
-        var size = context.MeasureString(text, _font);
         var backgroundColor = ChartInfo.ColorsStore.BaseBackgroundColor;
         var textColor = GetContrastingColor(backgroundColor.Convert());
 
-        // Calculate rectangle position based on alignment
-        var rectX = alignRight ? x - size.Width : x;
-        var rect = new Rectangle(rectX - 2, y - size.Height / 2 - 1, size.Width + 4, size.Height + 2);
-
         // Draw background with border
         context.FillRectangle(backgroundColor, rect);
-        context.DrawRectangle(pen, rect);
+        context.DrawRectangle(req.BorderPen, rect);
 
-        // Draw text
-        var textRect = new Rectangle(rectX, y - size.Height / 2, size.Width, size.Height);
-        var format = alignRight ? _stringRightFormat : _stringLeftFormat;
-        context.DrawString(text, _font, textColor.Convert(), textRect, format);
+        // Text rect inside the padded rect
+        var textRect = new Rectangle(rect.X + 2, rect.Y + 1, size.Width, size.Height);
+        var format = req.AlignRight ? _stringRightFormat : _stringLeftFormat;
+        context.DrawString(req.Text, _font, textColor, textRect, format);
     }
+
 
     private void RenderLevelGroup(RenderContext context, string prefix,
       LevelSettings openLevel, LevelSettings highLevel, LevelSettings lowLevel, LevelSettings closeLevel,
@@ -1616,6 +1705,144 @@ public class OHLCPlus : Indicator
         RenderLevel(context, prefix, keys[7], vahLevel);
         RenderLevel(context, prefix, keys[8], valLevel);
     }
+
+    private void BeginLabelLayoutFrame()
+    {
+        _labelQueue.Clear();
+        _occupiedLabelRects.Clear();
+    }
+
+    private void FlushLabelQueue(RenderContext context)
+    {
+        if (_labelQueue.Count == 0)
+            return;
+
+        // Stable order: priority then insertion order (keeps behavior predictable in pq01)
+        _labelQueue.Sort(static (a, b) =>
+        {
+            var cmp = a.Priority.CompareTo(b.Priority);
+            return cmp != 0 ? cmp : a.Sequence.CompareTo(b.Sequence);
+        });
+
+        foreach (var req in _labelQueue)
+        {
+            // Measure once
+            var size = context.MeasureString(req.Text, _font);
+
+            // Build the ideal rect
+            var rect = BuildLabelRect(req.XAnchor, req.YAnchor, size, req.AlignRight);
+
+            // Try to resolve collisions by probing Y
+            rect = ResolveLabelCollisions(rect);
+
+            // Draw label (background + border + text)
+            DrawTextLabelAtRect(context, req, rect, size);
+
+            // Mark occupied
+            _occupiedLabelRects.Add(rect);
+
+            // Draw deferred line (if needed), clipped around the label rect
+            if (req.LineType != LineType.None)
+                DrawDeferredLineClipped(context, req, rect);
+        }
+    }
+
+    private Rectangle BuildLabelRect(int xAnchor, int yAnchor, Size size, bool alignRight)
+    {
+        var rectX = alignRight ? xAnchor - size.Width : xAnchor;
+        return new Rectangle(
+            rectX - 2,
+            yAnchor - size.Height / 2 - 1,
+            size.Width + 4,
+            size.Height + 2);
+    }
+
+    private Rectangle ResolveLabelCollisions(Rectangle rect)
+    {
+        // Clamp Y within visible chart region (best-effort)
+        var container = ChartInfo.PriceChartContainer.Region;
+
+        // Early accept
+        if (!IntersectsAny(rect))
+            return ClampToContainer(rect, container);
+
+        // Probe up/down around the original Y, alternating
+        var original = rect;
+
+        for (var step = 1; step <= _labelProbeMaxSteps; step++)
+        {
+            var delta = step * _labelProbeStep;
+
+            var up = original;
+            up.Y -= delta;
+            up = ClampToContainer(up, container);
+            if (!IntersectsAny(up))
+                return up;
+
+            var down = original;
+            down.Y += delta;
+            down = ClampToContainer(down, container);
+            if (!IntersectsAny(down))
+                return down;
+        }
+
+        // If no placement found, return clamped original (last resort)
+        return ClampToContainer(original, container);
+    }
+
+    private bool IntersectsAny(Rectangle rect)
+    {
+        for (var i = 0; i < _occupiedLabelRects.Count; i++)
+        {
+            if (rect.IntersectsWith(_occupiedLabelRects[i]))
+                return true;
+        }
+        return false;
+    }
+
+    private static Rectangle ClampToContainer(Rectangle rect, Rectangle container)
+    {
+        if (rect.Top < container.Top)
+            rect.Y = container.Top;
+
+        if (rect.Bottom > container.Bottom)
+            rect.Y = container.Bottom - rect.Height;
+
+        return rect;
+    }
+
+    private void DrawDeferredLineClipped(RenderContext context, LabelDrawRequest req, Rectangle labelRect)
+    {
+        // Respect original linetype behavior
+        if (req.LineType == LineType.None)
+            return;
+
+        var x1 = req.LineX1;
+        var x2 = req.LineX2;
+        var y = req.LineY;
+
+        // Add padding so the line doesn't touch the label border
+        var clipLeft = labelRect.Left - _labelPadding;
+        var clipRight = labelRect.Right + _labelPadding;
+
+        // If the label doesn't overlap the line span, draw full span
+        if (clipRight <= x1 || clipLeft >= x2)
+        {
+            context.DrawLine(req.BorderPen, x1, y, x2, y);
+            return;
+        }
+
+        // Left segment
+        if (clipLeft > x1)
+            context.DrawLine(req.BorderPen, x1, y, clipLeft, y);
+
+        // Right segment
+        if (clipRight < x2)
+            context.DrawLine(req.BorderPen, clipRight, y, x2, y);
+    }
+
+
+
 
     #endregion
 
