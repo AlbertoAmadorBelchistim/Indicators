@@ -251,6 +251,111 @@ public class OHLCPlus : Indicator
         public bool IsBar { get; }
     }
 
+    #region Visual Semantic (pq02)
+
+    private enum VisualSemanticMode
+    {
+        Legacy = 0,
+        RuleSet = 1
+    }
+
+    private enum LevelType
+    {
+        Unknown = 0,
+        Open,
+        High,
+        Low,
+        Close,
+        EQ,
+        POC,
+        VWAP,
+        VAH,
+        VAL
+    }
+
+    [Flags]
+    private enum SemanticFamily
+    {
+        None = 0,
+        Reference = 1 << 0,  // e.g., Open/Close (optional)
+        Extreme = 1 << 1,  // High/Low (optional)
+        ValueArea = 1 << 2,  // POC/VAH/VAL/VWAP/EQ (optional)
+        Custom = 1 << 3
+    }
+
+    private readonly struct LevelDescriptor
+    {
+        public LevelDescriptor(LevelType type, FixedProfilePeriods period, SemanticFamily family)
+        {
+            Type = type;
+            Period = period;
+            Family = family;
+        }
+
+        public LevelType Type { get; }
+        public FixedProfilePeriods Period { get; }
+        public SemanticFamily Family { get; }
+    }
+
+    private sealed class VisualStyleDelta
+    {
+        public CrossColor? Color { get; init; }
+        public int? Width { get; init; }
+        public LineDashStyle? Dash { get; init; }
+        public byte? Opacity { get; init; } // optional; can be ignored initially
+    }
+
+    private readonly struct ResolvedVisualSemantic
+    {
+        public ResolvedVisualSemantic(VisualStyleDelta style, int semanticWeight)
+        {
+            Style = style;
+            SemanticWeight = semanticWeight;
+        }
+
+        public VisualStyleDelta Style { get; }
+        public int SemanticWeight { get; } // used for pq01 tie-breaking later
+    }
+
+    #region Mapping
+
+    private static readonly Dictionary<string, LevelType> _suffixToLevelType = new(StringComparer.OrdinalIgnoreCase)
+    {
+        ["o"] = LevelType.Open,
+        ["h"] = LevelType.High,
+        ["l"] = LevelType.Low,
+        ["c"] = LevelType.Close,
+        ["eq"] = LevelType.EQ,
+        ["poc"] = LevelType.POC,
+        ["vwap"] = LevelType.VWAP,
+        ["vah"] = LevelType.VAH,
+        ["val"] = LevelType.VAL
+    };
+
+    private static LevelType LevelTypeFromSuffix(string suffix)
+    {
+        if (string.IsNullOrWhiteSpace(suffix))
+            return LevelType.Unknown;
+
+        return _suffixToLevelType.TryGetValue(suffix, out var t)
+            ? t
+            : LevelType.Unknown;
+    }
+
+    // Family is OPTIONAL and user-driven later.
+    // For pq02.1 we keep a conservative default classification.
+    private static SemanticFamily DefaultFamily(LevelType t) => t switch
+    {
+        LevelType.Open or LevelType.Close or LevelType.EQ => SemanticFamily.Reference,
+        LevelType.High or LevelType.Low => SemanticFamily.Extreme,
+        LevelType.POC or LevelType.VAH or LevelType.VAL or LevelType.VWAP => SemanticFamily.ValueArea,
+        _ => SemanticFamily.None
+    };
+
+    #endregion
+
+    #endregion
+
 
     #endregion
 
@@ -352,6 +457,20 @@ public class OHLCPlus : Indicator
     private string _monthPrefix = "M";
     private string _prevMonthPrefix = "PM";
     private string _contractPrefix = "C";
+
+    #region Visual Semantic - Resolver (disabled by default)
+
+    private VisualSemanticMode _visualSemanticMode = VisualSemanticMode.Legacy;
+
+    // Placeholder for later: will come from UI in pq02.2
+    private ResolvedVisualSemantic ResolveVisualSemantic(LevelDescriptor d, LevelSettings baseSettings)
+    {
+        // pq02.1: do not change visuals or priority.
+        // Return empty delta and zero semantic weight.
+        return new ResolvedVisualSemantic(style: new VisualStyleDelta(), semanticWeight: 0);
+    }
+
+    #endregion
 
     #endregion
 
@@ -2060,10 +2179,17 @@ public class OHLCPlus : Indicator
             if (idxInPeriod < 0) idxInPeriod = 99;
             var (_, suffix) = SplitKey(levelKey);
 
+            var levelType = LevelTypeFromSuffix(suffix);
+            var descriptor = new LevelDescriptor(levelType, period, DefaultFamily(levelType));
+
+            var sem = _visualSemanticMode == VisualSemanticMode.Legacy
+                ? default
+                : ResolveVisualSemantic(descriptor, levelSettings);
+
             // Priority composition:
             // 1) period bucket (stable)
-            // 2) semantic importance (dominant inside period)
-            // 3) deterministic tie-breaker inside semantic bucket
+            // 2) level weight (pq01 semantic ordering within period)
+            // 3) deterministic tie-breaker inside period
             var priority = (ResolvePeriodWeight(period) * 1000) + (ResolveLevelWeight(suffix) * 10) + idxInPeriod;
             var isBarLabel = levelSettings.LabelPosition == LabelPosition.Bar;
 
