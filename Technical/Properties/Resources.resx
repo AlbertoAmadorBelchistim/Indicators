@@ -2630,4 +2630,8 @@
     <value>Contract</value>
     <comment>OHLCPlus</comment>
   </data>
+  <data name="Visibility" xml:space="preserve">
+    <value>Visibility</value>
+    <comment>OHLCPlus</comment>
+  </data>
 </root>
