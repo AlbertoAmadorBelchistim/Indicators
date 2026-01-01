@@ -179,4 +179,6 @@
     <value>पिछला महीना</value>
   </data><data name="Contract" xml:space="preserve">
     <value>अनुबंध</value>
+  </data><data name="Visibility" xml:space="preserve">
+    <value>दृश्यता</value>
   </data></root>
