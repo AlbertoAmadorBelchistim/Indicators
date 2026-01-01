@@ -179,4 +179,6 @@
     <value>Mes anterior</value>
   </data><data name="Contract" xml:space="preserve">
     <value>Contrato</value>
+  </data><data name="Visibility" xml:space="preserve">
+    <value>Visibilidad</value>
   </data></root>

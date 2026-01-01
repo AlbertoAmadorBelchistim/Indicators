@@ -182,4 +182,6 @@
     <value>Vorheriger Monat</value>
   </data><data name="Contract" xml:space="preserve">
     <value>Kontrakt</value>
+  </data><data name="Visibility" xml:space="preserve">
+    <value>Visibility</value>
   </data></root>
