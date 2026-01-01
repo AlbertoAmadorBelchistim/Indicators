@@ -2025,7 +2025,13 @@ public class OHLCPlus : Indicator
             // Lower = more important (draw earlier).
             var idxInPeriod = Array.IndexOf(_keys[period], levelKey);
             if (idxInPeriod < 0) idxInPeriod = 99;
-            var priority = ((int)period * 100) + idxInPeriod;
+            var (_, suffix) = SplitKey(levelKey);
+
+            // Priority composition:
+            // 1) period bucket (stable)
+            // 2) semantic importance (dominant inside period)
+            // 3) deterministic tie-breaker inside semantic bucket
+            var priority = (ResolvePeriodWeight(period) * 1000) + (ResolveLevelWeight(suffix) * 10) + idxInPeriod;
             var isBarLabel = levelSettings.LabelPosition == LabelPosition.Bar;
 
             _labelQueue.Add(new LabelDrawRequest(
@@ -2358,6 +2364,48 @@ public class OHLCPlus : Indicator
 
         return rect;
     }
+
+    // Semantic priority: lower number = higher importance (draw first, wins collisions).
+    private static int ResolveLevelWeight(string suffix)
+    {
+        if (string.IsNullOrWhiteSpace(suffix))
+            return 99;
+
+        // Key levels first, then OHLC, then secondary (EQ).
+        return suffix.ToUpperInvariant() switch
+        {
+            "POC" => 0,
+            "VWAP" => 1,
+            "VAH" => 2,
+            "VAL" => 3,
+
+
+            "HIGH" => 4,
+            "LOW" => 5,
+            "OPEN" => 6,
+            "CLOSE" => 7,
+
+            "EQ" => 8,
+
+            _ => 50
+        };
+    }
+
+    private static int ResolvePeriodWeight(FixedProfilePeriods period)
+    {
+        return period switch
+        {
+            FixedProfilePeriods.CurrentDay => 0,
+            FixedProfilePeriods.LastDay => 10,
+            FixedProfilePeriods.CurrentWeek => 20,
+            FixedProfilePeriods.LastWeek => 30,
+            FixedProfilePeriods.CurrentMonth => 40,
+            FixedProfilePeriods.LastMonth => 50,
+            FixedProfilePeriods.Contract => 60,
+            _ => 100
+        };
+    }
+
 
     #endregion
 
