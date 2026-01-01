@@ -179,4 +179,6 @@
     <value>上月</value>
   </data><data name="Contract" xml:space="preserve">
     <value>合约</value>
+  </data><data name="Visibility" xml:space="preserve">
+    <value>是否显示</value>
   </data></root>
