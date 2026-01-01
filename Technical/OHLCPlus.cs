@@ -1679,8 +1679,8 @@ public class OHLCPlus : Indicator
     protected override void OnFixedProfilesResponse(IndicatorCandle fixedProfileScaled, IndicatorCandle fixedProfileOriginScale, FixedProfilePeriods period)
     {
         _profileCandles[period] = fixedProfileOriginScale;
-        UpdateLevels(period, fixedProfileOriginScale);
-        RedrawChart();
+        if (UpdateLevels(period, fixedProfileOriginScale))
+            RedrawChart();
     }
 
     protected override void OnRender(RenderContext context, DrawingLayouts layout)
@@ -1781,21 +1781,32 @@ public class OHLCPlus : Indicator
 
     private void UpdateAllNeededLevelsFromCache()
     {
-        void UpdateIf(FixedProfilePeriods p)
+        var dirty = false;
+
+        bool UpdateIf(FixedProfilePeriods p)
         {
-            if (IsNeeded(p) && _profileCandles.TryGetValue(p, out var candle) && candle is not null)
-                UpdateLevels(p, candle);
+            if (!IsNeeded(p))
+                return false;
+
+            if (!_profileCandles.TryGetValue(p, out var candle))
+                return false;
+
+            if (candle is null)
+                return false;
+
+            return UpdateLevels(p, candle);
         }
 
-        UpdateIf(FixedProfilePeriods.CurrentDay);
-        UpdateIf(FixedProfilePeriods.LastDay);
-        UpdateIf(FixedProfilePeriods.CurrentWeek);
-        UpdateIf(FixedProfilePeriods.LastWeek);
-        UpdateIf(FixedProfilePeriods.CurrentMonth);
-        UpdateIf(FixedProfilePeriods.LastMonth);
-        UpdateIf(FixedProfilePeriods.Contract);
+        dirty |= UpdateIf(FixedProfilePeriods.CurrentDay);
+        dirty |= UpdateIf(FixedProfilePeriods.LastDay);
+        dirty |= UpdateIf(FixedProfilePeriods.CurrentWeek);
+        dirty |= UpdateIf(FixedProfilePeriods.LastWeek);
+        dirty |= UpdateIf(FixedProfilePeriods.CurrentMonth);
+        dirty |= UpdateIf(FixedProfilePeriods.LastMonth);
+        dirty |= UpdateIf(FixedProfilePeriods.Contract);
 
-        RedrawChart();
+        if (dirty)
+            RedrawChart();
     }
 
     private static readonly FixedProfilePeriods[] _allPeriods =
@@ -1871,26 +1882,28 @@ public class OHLCPlus : Indicator
     private bool NeedsData(FixedProfilePeriods period)
     => AnyEnabled(EnumerateLevelsForPeriod(period));
 
-    private void UpdateLevels(FixedProfilePeriods period, IndicatorCandle candle)
+    private bool UpdateLevels(FixedProfilePeriods period, IndicatorCandle candle)
     {
-        if (candle == null) return;
+        if (candle == null) 
+            return false;
 
+        var dirty = false;
         var keys = _keys[period];
 
         // OHLC + EQ
-        UpdateLevel(keys[0], candle.Open);                          // Open
-        UpdateLevel(keys[1], candle.High);                          // High
-        UpdateLevel(keys[2], candle.Low);                           // Low
-        UpdateLevel(keys[3], candle.Close);                         // Close
-        UpdateLevel(keys[4], (candle.High + candle.Low) / 2);       // EQ
+        dirty |= UpdateLevel(keys[0], candle.Open);                          // Open
+        dirty |= UpdateLevel(keys[1], candle.High);                          // High
+        dirty |= UpdateLevel(keys[2], candle.Low);                           // Low
+        dirty |= UpdateLevel(keys[3], candle.Close);                         // Close
+        dirty |= UpdateLevel(keys[4], (candle.High + candle.Low) / 2);       // EQ
 
         // POC
         if (candle.MaxVolumePriceInfo != null && candle.MaxVolumePriceInfo.Price > 0)
-            UpdateLevel(keys[5], candle.MaxVolumePriceInfo.Price);
+            dirty |= UpdateLevel(keys[5], candle.MaxVolumePriceInfo.Price);
 
         // VWAP
         if (candle.VWAP > 0)
-            UpdateLevel(keys[6], candle.VWAP);
+            dirty |= UpdateLevel(keys[6], candle.VWAP);
 
         // VAH/VAL
         if (candle.ValueArea != null &&
@@ -1898,21 +1911,41 @@ public class OHLCPlus : Indicator
             candle.ValueArea.ValueAreaLow > 0 &&
             candle.ValueArea.ValueAreaHigh >= candle.ValueArea.ValueAreaLow)
         {
-            UpdateLevel(keys[7], candle.ValueArea.ValueAreaHigh);
-            UpdateLevel(keys[8], candle.ValueArea.ValueAreaLow);
+            dirty |= UpdateLevel(keys[7], candle.ValueArea.ValueAreaHigh);
+            dirty |= UpdateLevel(keys[8], candle.ValueArea.ValueAreaLow);
         }
+
+        return dirty;
     }
 
-    private void UpdateLevel(string key, decimal price)
+    private bool UpdateLevel(string key, decimal price)
     {
+        // Get previous state if it exists
         if (!_levels.TryGetValue(key, out var ld))
         {
+            // New level -> always dirty
             ld = new LevelData { Label = key };
             _levels[key] = ld;
+
+            ld.Price = price;
+            ld.IsValid = true;
+            return true;
         }
 
+        // Capture previous values
+        var prevPrice = ld.Price;
+        var prevValid = ld.IsValid;
+
+        // Apply new values
         ld.Price = price;
         ld.IsValid = true;
+
+        // Detect meaningful change
+        // NOTE: price is decimal, so exact compare is safe here
+        var priceChanged = prevPrice != ld.Price;
+        var validChanged = prevValid != ld.IsValid;
+
+        return priceChanged || validChanged;
     }
 
     #endregion
@@ -2361,6 +2394,12 @@ public class OHLCPlus : Indicator
 
         if (rect.Bottom > container.Bottom)
             rect.Y = container.Bottom - rect.Height;
+
+        if (rect.Left < container.Left)
+            rect.X = container.Left;
+
+        if (rect.Right > container.Right)
+            rect.X = container.Right - rect.Width;
 
         return rect;
     }
