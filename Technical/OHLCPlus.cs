@@ -361,7 +361,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentDay), Name = nameof(Resources.BarOpen), Order = 10)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentDay), Name = nameof(Resources.BarOpen), Order = 10)]
 
 #else
 
@@ -382,7 +382,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentDay), Name = nameof(Resources.BarHigh), Order = 20)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentDay), Name = nameof(Resources.BarHigh), Order = 20)]
 
 #else
 
@@ -400,7 +400,7 @@ public class OHLCPlus : Indicator
     );
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentDay), Name = nameof(Resources.BarLow), Order = 30)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentDay), Name = nameof(Resources.BarLow), Order = 30)]
 
 #else
 
@@ -419,7 +419,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentDay), Name = nameof(Resources.BarClose), Order = 40)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentDay), Name = nameof(Resources.BarClose), Order = 40)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = nameof(Strings.BarClose), Order = 40)]
@@ -436,7 +436,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentDay), Name = nameof(Resources.Equilibrium), Order = 50)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentDay), Name = nameof(Resources.Equilibrium), Order = 50)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = nameof(Strings.Equilibrium), Order = 50)]
@@ -452,7 +452,7 @@ public class OHLCPlus : Indicator
     );
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentDay), Name = nameof(Resources.POC), Order = 60)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentDay), Name = nameof(Resources.POC), Order = 60)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = nameof(Strings.POC), Order = 60)]
@@ -469,7 +469,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentDay), Name = nameof(Resources.VWAP), Order = 65)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentDay), Name = nameof(Resources.VWAP), Order = 65)]
 #else
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.CurrentDay), Order = 65)]
@@ -486,7 +486,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentDay), Name = nameof(Resources.VAH), Order = 70)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentDay), Name = nameof(Resources.VAH), Order = 70)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = nameof(Strings.VAH), Order = 70)]
@@ -504,7 +504,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentDay), Name = nameof(Resources.VAL), Order = 80)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentDay), Name = nameof(Resources.VAL), Order = 80)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = nameof(Strings.VAL), Order = 80)]
@@ -525,7 +525,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousDay), Name = nameof(Resources.BarOpen), Order = 10)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousDay), Name = nameof(Resources.BarOpen), Order = 10)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.BarOpen), Order = 10)]
@@ -542,7 +542,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousDay), Name = nameof(Resources.BarHigh), Order = 20)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousDay), Name = nameof(Resources.BarHigh), Order = 20)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.BarHigh), Order = 20)]
@@ -559,7 +559,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousDay), Name = nameof(Resources.BarLow), Order = 30)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousDay), Name = nameof(Resources.BarLow), Order = 30)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.BarLow), Order = 30)]
@@ -576,7 +576,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousDay), Name = nameof(Resources.BarClose), Order = 40)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousDay), Name = nameof(Resources.BarClose), Order = 40)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.BarClose), Order = 40)]
@@ -593,7 +593,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousDay), Name = nameof(Resources.Equilibrium), Order = 50)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousDay), Name = nameof(Resources.Equilibrium), Order = 50)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.Equilibrium), Order = 50)]
@@ -610,7 +610,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousDay), Name = nameof(Resources.POC), Order = 60)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousDay), Name = nameof(Resources.POC), Order = 60)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.POC), Order = 60)]
@@ -627,7 +627,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousDay), Name = nameof(Resources.VWAP), Order = 65)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousDay), Name = nameof(Resources.VWAP), Order = 65)]
 #else
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.PreviousDay), Order = 65)]
@@ -644,7 +644,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousDay), Name = nameof(Resources.VAH), Order = 70)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousDay), Name = nameof(Resources.VAH), Order = 70)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.VAH), Order = 70)]
@@ -661,7 +661,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousDay), Name = nameof(Resources.VAL), Order = 80)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousDay), Name = nameof(Resources.VAL), Order = 80)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.VAL), Order = 80)]
@@ -682,7 +682,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Resources.BarOpen), Order = 10)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentWeek), Name = nameof(Resources.BarOpen), Order = 10)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.BarOpen), Order = 10)]
@@ -699,7 +699,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Resources.BarHigh), Order = 20)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentWeek), Name = nameof(Resources.BarHigh), Order = 20)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.BarHigh), Order = 20)]
@@ -716,7 +716,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Resources.BarLow), Order = 30)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentWeek), Name = nameof(Resources.BarLow), Order = 30)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.BarLow), Order = 30)]
@@ -733,7 +733,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Resources.BarClose), Order = 40)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentWeek), Name = nameof(Resources.BarClose), Order = 40)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.BarClose), Order = 40)]
@@ -750,7 +750,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Resources.Equilibrium), Order = 50)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentWeek), Name = nameof(Resources.Equilibrium), Order = 50)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.Equilibrium), Order = 50)]
@@ -767,7 +767,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Resources.POC), Order = 60)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentWeek), Name = nameof(Resources.POC), Order = 60)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.POC), Order = 60)]
@@ -784,7 +784,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Resources.VWAP), Order = 65)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentWeek), Name = nameof(Resources.VWAP), Order = 65)]
 #else
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.CurrentWeek), Order = 65)]
@@ -802,7 +802,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Resources.VAH), Order = 70)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentWeek), Name = nameof(Resources.VAH), Order = 70)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.VAH), Order = 70)]
@@ -819,7 +819,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Resources.VAL), Order = 80)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentWeek), Name = nameof(Resources.VAL), Order = 80)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.VAL), Order = 80)]
@@ -840,7 +840,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Resources.BarOpen), Order = 10)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousWeek), Name = nameof(Resources.BarOpen), Order = 10)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.BarOpen), Order = 10)]
@@ -857,7 +857,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Resources.BarHigh), Order = 20)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousWeek), Name = nameof(Resources.BarHigh), Order = 20)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.BarHigh), Order = 20)]
@@ -874,7 +874,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Resources.BarLow), Order = 30)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousWeek), Name = nameof(Resources.BarLow), Order = 30)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.BarLow), Order = 30)]
@@ -891,7 +891,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Resources.BarClose), Order = 40)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousWeek), Name = nameof(Resources.BarClose), Order = 40)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.BarClose), Order = 40)]
@@ -908,7 +908,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Resources.Equilibrium), Order = 50)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousWeek), Name = nameof(Resources.Equilibrium), Order = 50)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.Equilibrium), Order = 50)]
@@ -925,7 +925,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Resources.POC), Order = 60)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousWeek), Name = nameof(Resources.POC), Order = 60)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.POC), Order = 60)]
@@ -942,7 +942,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Resources.VWAP), Order = 65)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousWeek), Name = nameof(Resources.VWAP), Order = 65)]
 #else
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.PreviousWeek), Order = 65)]
@@ -959,7 +959,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Resources.VAH), Order = 70)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousWeek), Name = nameof(Resources.VAH), Order = 70)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.VAH), Order = 70)]
@@ -976,7 +976,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Resources.VAL), Order = 80)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousWeek), Name = nameof(Resources.VAL), Order = 80)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.VAL), Order = 80)]
@@ -997,7 +997,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Resources.BarOpen), Order = 10)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentMonth), Name = nameof(Resources.BarOpen), Order = 10)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.BarOpen), Order = 10)]
@@ -1014,7 +1014,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Resources.BarHigh), Order = 20)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentMonth), Name = nameof(Resources.BarHigh), Order = 20)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.BarHigh), Order = 20)]
@@ -1031,7 +1031,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Resources.BarLow), Order = 30)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentMonth), Name = nameof(Resources.BarLow), Order = 30)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.BarLow), Order = 30)]
@@ -1048,7 +1048,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Resources.BarClose), Order = 40)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentMonth), Name = nameof(Resources.BarClose), Order = 40)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.BarClose), Order = 40)]
@@ -1065,7 +1065,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Resources.Equilibrium), Order = 50)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentMonth), Name = nameof(Resources.Equilibrium), Order = 50)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.Equilibrium), Order = 50)]
@@ -1082,7 +1082,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Resources.POC), Order = 60)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentMonth), Name = nameof(Resources.POC), Order = 60)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.POC), Order = 60)]
@@ -1099,7 +1099,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Resources.VWAP), Order = 65)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentMonth), Name = nameof(Resources.VWAP), Order = 65)]
 #else
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.CurrentMonth), Order = 65)]
@@ -1116,7 +1116,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Resources.VAH), Order = 70)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentMonth), Name = nameof(Resources.VAH), Order = 70)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.VAH), Order = 70)]
@@ -1133,7 +1133,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Resources.VAL), Order = 80)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentMonth), Name = nameof(Resources.VAL), Order = 80)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.VAL), Order = 80)]
@@ -1154,7 +1154,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Resources.BarOpen), Order = 10)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousMonth), Name = nameof(Resources.BarOpen), Order = 10)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.BarOpen), Order = 10)]
@@ -1171,7 +1171,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Resources.BarHigh), Order = 20)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousMonth), Name = nameof(Resources.BarHigh), Order = 20)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.BarHigh), Order = 20)]
@@ -1188,7 +1188,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Resources.BarLow), Order = 30)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousMonth), Name = nameof(Resources.BarLow), Order = 30)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.BarLow), Order = 30)]
@@ -1205,7 +1205,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Resources.BarClose), Order = 40)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousMonth), Name = nameof(Resources.BarClose), Order = 40)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.BarClose), Order = 40)]
@@ -1222,7 +1222,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Resources.Equilibrium), Order = 50)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousMonth), Name = nameof(Resources.Equilibrium), Order = 50)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.Equilibrium), Order = 50)]
@@ -1239,7 +1239,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Resources.POC), Order = 60)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousMonth), Name = nameof(Resources.POC), Order = 60)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.POC), Order = 60)]
@@ -1256,7 +1256,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Resources.VWAP), Order = 65)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousMonth), Name = nameof(Resources.VWAP), Order = 65)]
 #else
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.PreviousMonth), Order = 65)]
@@ -1273,7 +1273,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Resources.VAH), Order = 70)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousMonth), Name = nameof(Resources.VAH), Order = 70)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.VAH), Order = 70)]
@@ -1290,7 +1290,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Resources.VAL), Order = 80)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousMonth), Name = nameof(Resources.VAL), Order = 80)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.VAL), Order = 80)]
@@ -1311,7 +1311,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.Contract), Name = nameof(Resources.BarOpen), Order = 10)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Contract), Name = nameof(Resources.BarOpen), Order = 10)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.BarOpen), Order = 10)]
@@ -1328,7 +1328,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.Contract), Name = nameof(Resources.BarHigh), Order = 20)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Contract), Name = nameof(Resources.BarHigh), Order = 20)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.BarHigh), Order = 20)]
@@ -1345,7 +1345,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.Contract), Name = nameof(Resources.BarLow), Order = 30)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Contract), Name = nameof(Resources.BarLow), Order = 30)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.BarLow), Order = 30)]
@@ -1362,7 +1362,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.Contract), Name = nameof(Resources.BarClose), Order = 40)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Contract), Name = nameof(Resources.BarClose), Order = 40)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.BarClose), Order = 40)]
@@ -1379,7 +1379,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.Contract), Name = nameof(Resources.Equilibrium), Order = 50)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Contract), Name = nameof(Resources.Equilibrium), Order = 50)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.Equilibrium), Order = 50)]
@@ -1396,7 +1396,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.Contract), Name = nameof(Resources.POC), Order = 60)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Contract), Name = nameof(Resources.POC), Order = 60)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.POC), Order = 60)]
@@ -1413,7 +1413,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.Contract), Name = nameof(Resources.VWAP), Order = 65)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Contract), Name = nameof(Resources.VWAP), Order = 65)]
 #else
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.Contract), Order = 65)]
@@ -1430,7 +1430,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.Contract), Name = nameof(Resources.VAH), Order = 70)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Contract), Name = nameof(Resources.VAH), Order = 70)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.VAH), Order = 70)]
@@ -1447,7 +1447,7 @@ public class OHLCPlus : Indicator
 
 #if STABLE
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.Contract), Name = nameof(Resources.VAL), Order = 80)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Contract), Name = nameof(Resources.VAL), Order = 80)]
 #else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.VAL), Order = 80)]
@@ -1475,7 +1475,7 @@ public class OHLCPlus : Indicator
 #else
 [Display(
     ResourceType = typeof(Resources),
-    GroupName = nameof(Strings.Visibility),
+    GroupName = nameof(Resources.Visibility),
     Name = nameof(Resources.ToggleLevelsVisibilityHotKey),
     Order = 1000)]
 #endif

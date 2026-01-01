@@ -2492,4 +2492,6 @@
   </data>
 <data name="Contract" xml:space="preserve">
     <value>Контракт</value>
+  </data><data name="Visibility" xml:space="preserve">
+    <value>Видимость</value>
   </data></root>
