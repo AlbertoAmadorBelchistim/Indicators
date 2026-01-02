@@ -117,6 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CurrentDay" xml:space="preserve">
+    <value>当天</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>本月</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>本周</value>
+  </data>
+  <data name="PreviousDay" xml:space="preserve">
+    <value>昨天</value>
+  </data>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>上月</value>
+  </data>
+  <data name="PreviousWeek" xml:space="preserve">
+    <value>上周</value>
+  </data>
   <data name="ToggleLevelsVisibilityHotKey" xml:space="preserve">
     <value>切换所有级别的可见性</value>
   </data>
@@ -165,20 +183,13 @@
   <data name="Prefixes" xml:space="preserve">
     <value>前缀</value>
   </data>
-<data name="CurrentDay" xml:space="preserve">
-    <value>当天</value>
-  </data><data name="PreviousDay" xml:space="preserve">
-    <value>昨天</value>
-  </data><data name="CurrentWeek" xml:space="preserve">
-    <value>本周</value>
-  </data><data name="PreviousWeek" xml:space="preserve">
-    <value>上周</value>
-  </data><data name="CurrentMonth" xml:space="preserve">
-    <value>本月</value>
-  </data><data name="PreviousMonth" xml:space="preserve">
-    <value>上月</value>
-  </data><data name="Contract" xml:space="preserve">
+  <data name="Contract" xml:space="preserve">
     <value>合约</value>
-  </data><data name="Visibility" xml:space="preserve">
+  </data>
+  <data name="Visibility" xml:space="preserve">
     <value>是否显示</value>
-  </data></root>
+  </data>
+  <data name="OverrideLabel" xml:space="preserve">
+    <value>覆盖标签（可选）</value>
+  </data>
+</root>
