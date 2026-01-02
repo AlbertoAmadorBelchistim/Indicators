@@ -1966,17 +1966,21 @@ public class OHLCPlus : Indicator
     #region label overrides
     private string BuildLabelText(string prefix, string levelStorageKey, LevelSettings levelSettings)
     {
-        var (_, suffix) = SplitKey(levelStorageKey);
+        // If the user overrides the label for this specific level, it should override everything.
+        if (!string.IsNullOrWhiteSpace(levelSettings?.OverrideLabel))
+            return levelSettings.OverrideLabel;
 
-        var displayPrefix = prefix ?? string.Empty;
+        var (displayPrefix, suffix) = SplitKey(levelStorageKey);
 
-        var levelText = !string.IsNullOrWhiteSpace(levelSettings?.OverrideLabel)
-            ? levelSettings.OverrideLabel
-            : ResolveLevelText(suffix);
+        // Prefer the provided prefix (period prefix), otherwise use the parsed one
+        var effectivePrefix = prefix ?? displayPrefix ?? string.Empty;
 
-        var result = LabelTemplate
-            .Replace("{prefix}", displayPrefix, StringComparison.Ordinal)
-            .Replace("{level}", levelText ?? string.Empty, StringComparison.Ordinal);
+        var levelText = ResolveLevelText(suffix);
+
+        var template = string.IsNullOrEmpty(LabelTemplate) ? "{prefix}{level}" : LabelTemplate;
+
+        var result = template.Replace("{prefix}", effectivePrefix, StringComparison.Ordinal)
+                             .Replace("{level}", levelText ?? string.Empty, StringComparison.Ordinal);
 
         return string.IsNullOrWhiteSpace(result) ? levelText : result;
     }
