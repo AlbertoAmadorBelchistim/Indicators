@@ -2433,6 +2433,45 @@
   <data name="FilterEmptyMsg" xml:space="preserve">
     <value>Фильтр пуст</value>
   </data>
+  <data name="ToggleLevelsVisibilityHotKey" xml:space="preserve">
+    <value>Переключить видимость всех уровней</value>
+  </data>
+  <data name="OHLCPlusDescription" xml:space="preserve">
+    <value>Расширенный индикатор ценовых уровней, показывающий OHLC, равновесие, POC и Value Area для нескольких периодов</value>
+  </data>
+  <data name="TillBar" xml:space="preserve">
+    <value>До бара</value>
+  </data>
+  <data name="FullWidth" xml:space="preserve">
+    <value>На всю ширину</value>
+  </data>
+  <data name="BarOpen" xml:space="preserve">
+    <value>Открытие</value>
+  </data>
+  <data name="BarHigh" xml:space="preserve">
+    <value>Максимум</value>
+  </data>
+  <data name="BarLow" xml:space="preserve">
+    <value>Минимум</value>
+  </data>
+  <data name="BarClose" xml:space="preserve">
+    <value>Закрытие</value>
+  </data>
+  <data name="Equilibrium" xml:space="preserve">
+    <value>Середина</value>
+  </data>
+  <data name="POC" xml:space="preserve">
+    <value>POC</value>
+  </data>
+  <data name="VWAP" xml:space="preserve">
+    <value>VWAP</value>
+  </data>
+  <data name="VAH" xml:space="preserve">
+    <value>VAH</value>
+  </data>
+  <data name="VAL" xml:space="preserve">
+    <value>VAL</value>
+  </data>
   <data name="Misc" xml:space="preserve">
     <value>Разное</value>
   </data>
@@ -2442,30 +2481,15 @@
   <data name="Show Fibonacci" xml:space="preserve">
     <value>Показать уровни Фибоначчи</value>
   </data>
-<data name="TillBar" xml:space="preserve">
-    <value>До бара</value>
-  </data><data name="FullWidth" xml:space="preserve">
-    <value>На всю ширину</value>
-  </data><data name="BarOpen" xml:space="preserve">
-    <value>Открытие</value>
-  </data><data name="BarHigh" xml:space="preserve">
-    <value>Максимум</value>
-  </data><data name="BarLow" xml:space="preserve">
-    <value>Минимум</value>
-  </data><data name="BarClose" xml:space="preserve">
-    <value>Закрытие</value>
-  </data><data name="Equilibrium" xml:space="preserve">
-    <value>Середина</value>
-  </data><data name="POC" xml:space="preserve">
-    <value>POC</value>
-  </data><data name="VWAP" xml:space="preserve">
-    <value>VWAP</value>
-  </data><data name="VAH" xml:space="preserve">
-    <value>VAH</value>
-  </data><data name="VAL" xml:space="preserve">
-    <value>VAL</value>
-  </data><data name="OHLCPlusDescription" xml:space="preserve">
-    <value>Расширенный индикатор ценовых уровней, показывающий OHLC, равновесие, POC и Value Area для нескольких периодов</value>
-  </data><data name="ToggleLevelsVisibilityHotKey" xml:space="preserve">
-    <value>Переключить видимость всех уровней</value>
+  <data name="Labels" xml:space="preserve">
+    <value>Метки</value>
+  </data>
+  <data name="LabelTemplate" xml:space="preserve">
+    <value>Шаблон</value>
+  </data>
+  <data name="Prefixes" xml:space="preserve">
+    <value>Префиксы</value>
+  </data>
+<data name="Contract" xml:space="preserve">
+    <value>Контракт</value>
   </data></root>
