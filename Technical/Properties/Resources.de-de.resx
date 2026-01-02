@@ -117,6 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CurrentDay" xml:space="preserve">
+    <value>Aktueller Tag</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Aktuelles Monat</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Aktuelle Woche</value>
+  </data>
+  <data name="PreviousDay" xml:space="preserve">
+    <value>Vorheriger Tag</value>
+  </data>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>Vorheriger Monat</value>
+  </data>
+  <data name="PreviousWeek" xml:space="preserve">
+    <value>Letzte Woche</value>
+  </data>
   <data name="DaysLookBackDescription" xml:space="preserve">
     <value>"Days look back" bezieht sich auf die Anzahl der zurückliegenden Tage, die bei der Berechnung eines Indikators berücksichtigt werden.</value>
   </data>
@@ -168,20 +186,13 @@
   <data name="Prefixes" xml:space="preserve">
     <value>Präfixe</value>
   </data>
-<data name="CurrentDay" xml:space="preserve">
-    <value>Aktueller Tag</value>
-  </data><data name="PreviousDay" xml:space="preserve">
-    <value>Vorheriger Tag</value>
-  </data><data name="CurrentWeek" xml:space="preserve">
-    <value>Aktuelle Woche</value>
-  </data><data name="PreviousWeek" xml:space="preserve">
-    <value>Letzte Woche</value>
-  </data><data name="CurrentMonth" xml:space="preserve">
-    <value>Aktuelles Monat</value>
-  </data><data name="PreviousMonth" xml:space="preserve">
-    <value>Vorheriger Monat</value>
-  </data><data name="Contract" xml:space="preserve">
+  <data name="Contract" xml:space="preserve">
     <value>Kontrakt</value>
-  </data><data name="Visibility" xml:space="preserve">
+  </data>
+  <data name="Visibility" xml:space="preserve">
     <value>Visibility</value>
-  </data></root>
+  </data>
+  <data name="OverrideLabel" xml:space="preserve">
+    <value>Beschriftung überschreiben (optional)</value>
+  </data>
+</root>

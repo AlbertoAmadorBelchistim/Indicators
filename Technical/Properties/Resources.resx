@@ -2634,4 +2634,8 @@
     <value>Visibility</value>
     <comment>OHLCPlus</comment>
   </data>
+  <data name="OverrideLabel" xml:space="preserve">
+    <value>Override label (optional)</value>
+    <comment>OHLCPlus</comment>
+  </data>
 </root>

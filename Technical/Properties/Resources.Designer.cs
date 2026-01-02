@@ -4003,6 +4003,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Override label (optional).
+        /// </summary>
+        public static string OverrideLabel {
+            get {
+                return ResourceManager.GetString("OverrideLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Oversold.
         /// </summary>
         public static string Oversold {
