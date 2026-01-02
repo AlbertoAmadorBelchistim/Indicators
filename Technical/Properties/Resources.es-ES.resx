@@ -117,13 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DaysLookBackDescription" xml:space="preserve">
-    <value>"Days look back" bezieht sich auf die Anzahl der zurückliegenden Tage, die bei der Berechnung eines Indikators berücksichtigt werden.</value>
+  <data name="ToggleLevelsVisibilityHotKey" xml:space="preserve">
+    <value>Alternar visibilidad de todos los niveles</value>
+  </data>
+  <data name="OHLCPlusDescription" xml:space="preserve">
+    <value>Indicador extendido de niveles de precios que muestra OHLC, Equilibrio, POC y Value Area para múltiples períodos</value>
   </data>
 <data name="TillBar" xml:space="preserve">
-    <value>Bis zur Bar</value>
+    <value>Hasta el bar</value>
   </data><data name="FullWidth" xml:space="preserve">
-    <value>Volle Breite</value>
+    <value>Ancho completo</value>
   </data><data name="BarOpen" xml:space="preserve">
     <value>Open</value>
   </data><data name="BarHigh" xml:space="preserve">
@@ -133,7 +136,7 @@
   </data><data name="BarClose" xml:space="preserve">
     <value>Close</value>
   </data><data name="Equilibrium" xml:space="preserve">
-    <value>Equilibrium</value>
+    <value>Equilibrio</value>
   </data><data name="POC" xml:space="preserve">
     <value>POC</value>
   </data><data name="VWAP" xml:space="preserve">
@@ -142,8 +145,4 @@
     <value>VAH</value>
   </data><data name="VAL" xml:space="preserve">
     <value>VAL</value>
-  </data><data name="OHLCPlusDescription" xml:space="preserve">
-    <value>Erweiterte Preis-Level-Anzeige mit OHLC-, Gleichgewichts-, POC- und Value-Area-Levels für mehrere Zeiträume</value>
-  </data><data name="ToggleLevelsVisibilityHotKey" xml:space="preserve">
-    <value>Sichtbarkeit aller Ebenen umschalten</value>
   </data></root>
