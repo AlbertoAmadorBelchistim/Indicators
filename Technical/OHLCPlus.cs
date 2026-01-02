@@ -1,5 +1,6 @@
 namespace ATAS.Indicators.Technical;
 
+using ATAS.Indicators.Technical.Properties;
 using OFT.Localization;
 using OFT.Rendering.Context;
 using OFT.Rendering.Settings;
@@ -32,10 +33,12 @@ public enum LineType
 {
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.None))]
     None = 0,
-    
+
+
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.TillBar))]
     Bar = 1,
-    
+
+
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.FullWidth))]
     Full = 2
 }
@@ -165,7 +168,9 @@ public class LevelSettings : NotifiableObject
 
 [DisplayName("OHLC Plus")]
 [Category(IndicatorCategories.VolumeOrderFlow)]
+
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.OHLCPlusDescription))]
+
 public class OHLCPlus : Indicator
 {
     #region Nested types
@@ -463,7 +468,11 @@ public class OHLCPlus : Indicator
 
     #region Day Settings
 
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = nameof(Strings.BarOpen), Order = 10)]
+
+
+
     public LevelSettings DayOpenLevel { get; set; } = new(
         enabled: true,
         color: System.Drawing.Color.Orange.Convert(),
@@ -474,7 +483,9 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = nameof(Strings.BarHigh), Order = 20)]
+
     public LevelSettings DayHighLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Green.Convert(),
@@ -486,6 +497,7 @@ public class OHLCPlus : Indicator
     );
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = nameof(Strings.BarLow), Order = 30)]
+
     public LevelSettings DayLowLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Red.Convert(),
@@ -495,6 +507,7 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = nameof(Strings.BarClose), Order = 40)]
     public LevelSettings DayCloseLevel { get; set; } = new(
@@ -506,6 +519,7 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = nameof(Strings.Equilibrium), Order = 50)]
     public LevelSettings DayEquilibriumLevel { get; set; } = new(
@@ -529,6 +543,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.CurrentDay), Order = 65)]
     public LevelSettings DayVWAPLevel { get; set; } = new(
         enabled: false,
@@ -540,7 +555,9 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = nameof(Strings.VAH), Order = 70)]
+
     public LevelSettings DayVAHLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Purple.Convert(),
@@ -550,6 +567,7 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = nameof(Strings.VAL), Order = 80)]
     public LevelSettings DayVALLevel { get; set; } = new(
@@ -566,6 +584,7 @@ public class OHLCPlus : Indicator
 
     #region Prev.Day Settings
 
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.BarOpen), Order = 10)]
     public LevelSettings PrevDayOpenLevel { get; set; } = new(
         enabled: false,
@@ -576,6 +595,7 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.BarHigh), Order = 20)]
     public LevelSettings PrevDayHighLevel { get; set; } = new(
@@ -588,6 +608,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.BarLow), Order = 30)]
     public LevelSettings PrevDayLowLevel { get; set; } = new(
         enabled: false,
@@ -598,6 +619,7 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.BarClose), Order = 40)]
     public LevelSettings PrevDayCloseLevel { get; set; } = new(
@@ -610,6 +632,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.Equilibrium), Order = 50)]
     public LevelSettings PrevDayEquilibriumLevel { get; set; } = new(
         enabled: false,
@@ -620,6 +643,7 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.POC), Order = 60)]
     public LevelSettings PrevDayPOCLevel { get; set; } = new(
@@ -632,6 +656,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.PreviousDay), Order = 65)]
     public LevelSettings PrevDayVWAPLevel { get; set; } = new(
         enabled: false,
@@ -643,6 +668,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.VAH), Order = 70)]
     public LevelSettings PrevDayVAHLevel { get; set; } = new(
         enabled: false,
@@ -653,6 +679,7 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.VAL), Order = 80)]
     public LevelSettings PrevDayVALLevel { get; set; } = new(
@@ -669,6 +696,7 @@ public class OHLCPlus : Indicator
 
     #region Week Settings
 
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.BarOpen), Order = 10)]
     public LevelSettings WeekOpenLevel { get; set; } = new(
         enabled: false,
@@ -679,6 +707,7 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.BarHigh), Order = 20)]
     public LevelSettings WeekHighLevel { get; set; } = new(
@@ -691,6 +720,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.BarLow), Order = 30)]
     public LevelSettings WeekLowLevel { get; set; } = new(
         enabled: false,
@@ -701,6 +731,7 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.BarClose), Order = 40)]
     public LevelSettings WeekCloseLevel { get; set; } = new(
@@ -713,6 +744,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.Equilibrium), Order = 50)]
     public LevelSettings WeekEquilibriumLevel { get; set; } = new(
         enabled: false,
@@ -723,6 +755,7 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.POC), Order = 60)]
     public LevelSettings WeekPOCLevel { get; set; } = new(
@@ -735,7 +768,9 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.CurrentWeek), Order = 65)]
+
     public LevelSettings WeekVWAPLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.SteelBlue.Convert(),
@@ -745,6 +780,7 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.VAH), Order = 70)]
     public LevelSettings WeekVAHLevel { get; set; } = new(
@@ -756,6 +792,7 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.VAL), Order = 80)]
     public LevelSettings WeekVALLevel { get; set; } = new(
@@ -772,6 +809,7 @@ public class OHLCPlus : Indicator
 
     #region Prev.Week Settings
 
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.BarOpen), Order = 10)]
     public LevelSettings PrevWeekOpenLevel { get; set; } = new(
         enabled: false,
@@ -782,6 +820,7 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.BarHigh), Order = 20)]
     public LevelSettings PrevWeekHighLevel { get; set; } = new(
@@ -794,6 +833,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.BarLow), Order = 30)]
     public LevelSettings PrevWeekLowLevel { get; set; } = new(
         enabled: false,
@@ -804,6 +844,7 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.BarClose), Order = 40)]
     public LevelSettings PrevWeekCloseLevel { get; set; } = new(
@@ -816,6 +857,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.Equilibrium), Order = 50)]
     public LevelSettings PrevWeekEquilibriumLevel { get; set; } = new(
         enabled: false,
@@ -826,6 +868,7 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.POC), Order = 60)]
     public LevelSettings PrevWeekPOCLevel { get; set; } = new(
@@ -838,6 +881,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.PreviousWeek), Order = 65)]
     public LevelSettings PrevWeekVWAPLevel { get; set; } = new(
         enabled: false,
@@ -849,6 +893,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.VAH), Order = 70)]
     public LevelSettings PrevWeekVAHLevel { get; set; } = new(
         enabled: false,
@@ -859,6 +904,7 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.VAL), Order = 80)]
     public LevelSettings PrevWeekVALLevel { get; set; } = new(
@@ -875,6 +921,7 @@ public class OHLCPlus : Indicator
 
     #region Month Settings
 
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.BarOpen), Order = 10)]
     public LevelSettings MonthOpenLevel { get; set; } = new(
         enabled: false,
@@ -885,6 +932,7 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.BarHigh), Order = 20)]
     public LevelSettings MonthHighLevel { get; set; } = new(
@@ -897,6 +945,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.BarLow), Order = 30)]
     public LevelSettings MonthLowLevel { get; set; } = new(
         enabled: false,
@@ -907,6 +956,7 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.BarClose), Order = 40)]
     public LevelSettings MonthCloseLevel { get; set; } = new(
@@ -919,6 +969,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.Equilibrium), Order = 50)]
     public LevelSettings MonthEquilibriumLevel { get; set; } = new(
         enabled: false,
@@ -929,6 +980,7 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.POC), Order = 60)]
     public LevelSettings MonthPOCLevel { get; set; } = new(
@@ -941,6 +993,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.CurrentMonth), Order = 65)]
     public LevelSettings MonthVWAPLevel { get; set; } = new(
         enabled: false,
@@ -952,6 +1005,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.VAH), Order = 70)]
     public LevelSettings MonthVAHLevel { get; set; } = new(
         enabled: false,
@@ -962,6 +1016,7 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.VAL), Order = 80)]
     public LevelSettings MonthVALLevel { get; set; } = new(
@@ -978,6 +1033,7 @@ public class OHLCPlus : Indicator
 
     #region Prev.Month Settings
 
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.BarOpen), Order = 10)]
     public LevelSettings PrevMonthOpenLevel { get; set; } = new(
         enabled: false,
@@ -988,6 +1044,7 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.BarHigh), Order = 20)]
     public LevelSettings PrevMonthHighLevel { get; set; } = new(
@@ -1000,6 +1057,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.BarLow), Order = 30)]
     public LevelSettings PrevMonthLowLevel { get; set; } = new(
         enabled: false,
@@ -1010,6 +1068,7 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.BarClose), Order = 40)]
     public LevelSettings PrevMonthCloseLevel { get; set; } = new(
@@ -1022,6 +1081,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.Equilibrium), Order = 50)]
     public LevelSettings PrevMonthEquilibriumLevel { get; set; } = new(
         enabled: false,
@@ -1032,6 +1092,7 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.POC), Order = 60)]
     public LevelSettings PrevMonthPOCLevel { get; set; } = new(
@@ -1044,6 +1105,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.PreviousMonth), Order = 65)]
     public LevelSettings PrevMonthVWAPLevel { get; set; } = new(
         enabled: false,
@@ -1055,6 +1117,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.VAH), Order = 70)]
     public LevelSettings PrevMonthVAHLevel { get; set; } = new(
         enabled: false,
@@ -1065,6 +1128,7 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.VAL), Order = 80)]
     public LevelSettings PrevMonthVALLevel { get; set; } = new(
@@ -1081,6 +1145,7 @@ public class OHLCPlus : Indicator
 
     #region Contract Settings
 
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.BarOpen), Order = 10)]
     public LevelSettings ContractOpenLevel { get; set; } = new(
         enabled: false,
@@ -1091,6 +1156,7 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.BarHigh), Order = 20)]
     public LevelSettings ContractHighLevel { get; set; } = new(
@@ -1103,6 +1169,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.BarLow), Order = 30)]
     public LevelSettings ContractLowLevel { get; set; } = new(
         enabled: false,
@@ -1113,6 +1180,7 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.BarClose), Order = 40)]
     public LevelSettings ContractCloseLevel { get; set; } = new(
@@ -1125,6 +1193,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.Equilibrium), Order = 50)]
     public LevelSettings ContractEquilibriumLevel { get; set; } = new(
         enabled: false,
@@ -1135,6 +1204,7 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.POC), Order = 60)]
     public LevelSettings ContractPOCLevel { get; set; } = new(
@@ -1147,6 +1217,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.Contract), Order = 65)]
     public LevelSettings ContractVWAPLevel { get; set; } = new(
         enabled: false,
@@ -1158,6 +1229,7 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.VAH), Order = 70)]
     public LevelSettings ContractVAHLevel { get; set; } = new(
         enabled: false,
@@ -1168,6 +1240,7 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.VAL), Order = 80)]
     public LevelSettings ContractVALLevel { get; set; } = new(
@@ -1189,132 +1262,7 @@ public class OHLCPlus : Indicator
 
     #endregion
 
-    #region Labels
-    // --- Labels group ---
-    [Display(GroupName = "Labels", Name = "Template", Order = 10)]
-    public string LabelTemplate
-    {
-        get => _labelTemplate;
-        set => _labelTemplate = value;
-    }
-
-    [Display(GroupName = "Labels", Name = "Open", Order = 20)]
-    public string OpenLabel
-    {
-        get => _openLabel;
-        set => _openLabel = value;
-    }
-
-    [Display(GroupName = "Labels", Name = "High", Order = 30)]
-    public string HighLabel
-    {
-        get => _highLabel;
-        set => _highLabel = value;
-    }
-
-    [Display(GroupName = "Labels", Name = "Low", Order = 40)]
-    public string LowLabel
-    {
-        get => _lowLabel;
-        set => _lowLabel = value;
-    }
-
-    [Display(GroupName = "Labels", Name = "Close", Order = 50)]
-    public string CloseLabel
-    {
-        get => _closeLabel;
-        set => _closeLabel = value;
-    }
-
-    [Display(GroupName = "Labels", Name = "Equilibrium", Order = 60)]
-    public string EquilibriumLabel
-    {
-        get => _equilibriumLabel;
-        set => _equilibriumLabel = value;
-    }
-
-    [Display(GroupName = "Labels", Name = "POC", Order = 70)]
-    public string PocLabel
-    {
-        get => _pocLabel;
-        set => _pocLabel = value;
-    }
-
-    [Display(GroupName = "Labels", Name = "VWAP", Order = 80)]
-    public string VwapLabel
-    {
-        get => _vwapLabel;
-        set => _vwapLabel = value;
-    }
-
-    [Display(GroupName = "Labels", Name = "VAH", Order = 90)]
-    public string VahLabel
-    {
-        get => _vahLabel;
-        set => _vahLabel = value;
-    }
-
-    [Display(GroupName = "Labels", Name = "VAL", Order = 100)]
-    public string ValLabel
-    {
-        get => _valLabel;
-        set => _valLabel = value;
-    }
-
-    // --- Prefixes group ---
-    [Display(ResourceType = typeof(Strings), GroupName = "Prefixes", Name = nameof(Strings.CurrentDay), Order = 10)]
-    public string DayPrefix
-    {
-        get => _dayPrefix;
-        set => _dayPrefix = value;
-    }
-
-    [Display(ResourceType = typeof(Strings), GroupName = "Prefixes", Name = nameof(Strings.PreviousDay), Order = 20)]
-    public string PrevDayPrefix
-    {
-        get => _prevDayPrefix;
-        set => _prevDayPrefix = value;
-    }
-
-    [Display(ResourceType = typeof(Strings), GroupName = "Prefixes", Name = nameof(Strings.CurrentWeek), Order = 30)]
-    public string WeekPrefix
-    {
-        get => _weekPrefix;
-        set => _weekPrefix = value;
-    }
-
-    [Display(ResourceType = typeof(Strings), GroupName = "Prefixes", Name = nameof(Strings.PreviousWeek), Order = 40)]
-    public string PrevWeekPrefix
-    {
-        get => _prevWeekPrefix;
-        set => _prevWeekPrefix = value;
-    }
-
-    [Display(ResourceType = typeof(Strings), GroupName = "Prefixes", Name = nameof(Strings.CurrentMonth), Order = 50)]
-    public string MonthPrefix
-    {
-        get => _monthPrefix;
-        set => _monthPrefix = value;
-    }
-
-    [Display(ResourceType = typeof(Strings), GroupName = "Prefixes", Name = nameof(Strings.PreviousMonth), Order = 60)]
-    public string PrevMonthPrefix
-    {
-        get => _prevMonthPrefix;
-        set => _prevMonthPrefix = value;
-    }
-
-    [Display(GroupName = "Prefixes", Name = "Contract", Order = 70)]
-    public string ContractPrefix
-    {
-        get => _contractPrefix;
-        set => _contractPrefix = value;
-    }
-
-
-    #endregion
-
-    #endregion
+#endregion
 
     #region Constructor
 
