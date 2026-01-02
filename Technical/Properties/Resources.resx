@@ -2614,4 +2614,20 @@
     <value>VAL</value>
     <comment>OHLCPlus</comment>
   </data>
+  <data name="Labels" xml:space="preserve">
+    <value>Labels</value>
+    <comment>OHLCPLus</comment>
+  </data>
+  <data name="LabelTemplate" xml:space="preserve">
+    <value>Template</value>
+    <comment>OHLCPLus</comment>
+  </data>
+  <data name="Prefixes" xml:space="preserve">
+    <value>Prefixes</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="Contract" xml:space="preserve">
+    <value>Contract</value>
+    <comment>OHLCPlus</comment>
+  </data>
 </root>
