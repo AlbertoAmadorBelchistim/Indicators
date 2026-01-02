@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -2561,5 +2561,57 @@
   </data>
   <data name="FilterEmptyMsg" xml:space="preserve">
     <value>Filter is empty</value>
+  </data>
+  <data name="ToggleLevelsVisibilityHotKey" xml:space="preserve">
+    <value>Toggle all levels visibility</value>
+    <comment>OHLCPLus</comment>
+  </data>
+  <data name="OHLCPlusDescription" xml:space="preserve">
+    <value>Extended price levels indicator showing OHLC, Equilibrium, POC and Value Area levels for</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="TillBar" xml:space="preserve">
+    <value>Till Bar</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="FullWidth" xml:space="preserve">
+    <value>Full width</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="BarOpen" xml:space="preserve">
+    <value>Open</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="BarHigh" xml:space="preserve">
+    <value>High</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="BarLow" xml:space="preserve">
+    <value>Low</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="BarClose" xml:space="preserve">
+    <value>Close</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="Equilibrium" xml:space="preserve">
+    <value>Equilibrium</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="POC" xml:space="preserve">
+    <value>POC</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="VWAP" xml:space="preserve">
+    <value>VWAP</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="VAH" xml:space="preserve">
+    <value>VAH</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="VAL" xml:space="preserve">
+    <value>VAL</value>
+    <comment>OHLCPlus</comment>
   </data>
 </root>
