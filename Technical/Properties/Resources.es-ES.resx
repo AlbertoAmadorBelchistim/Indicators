@@ -123,26 +123,60 @@
   <data name="OHLCPlusDescription" xml:space="preserve">
     <value>Indicador extendido de niveles de precios que muestra OHLC, Equilibrio, POC y Value Area para múltiples períodos</value>
   </data>
-<data name="TillBar" xml:space="preserve">
+  <data name="TillBar" xml:space="preserve">
     <value>Hasta el bar</value>
-  </data><data name="FullWidth" xml:space="preserve">
+  </data>
+  <data name="FullWidth" xml:space="preserve">
     <value>Ancho completo</value>
-  </data><data name="BarOpen" xml:space="preserve">
+  </data>
+  <data name="BarOpen" xml:space="preserve">
     <value>Open</value>
-  </data><data name="BarHigh" xml:space="preserve">
+  </data>
+  <data name="BarHigh" xml:space="preserve">
     <value>High</value>
-  </data><data name="BarLow" xml:space="preserve">
+  </data>
+  <data name="BarLow" xml:space="preserve">
     <value>Low</value>
-  </data><data name="BarClose" xml:space="preserve">
+  </data>
+  <data name="BarClose" xml:space="preserve">
     <value>Close</value>
-  </data><data name="Equilibrium" xml:space="preserve">
+  </data>
+  <data name="Equilibrium" xml:space="preserve">
     <value>Equilibrio</value>
-  </data><data name="POC" xml:space="preserve">
+  </data>
+  <data name="POC" xml:space="preserve">
     <value>POC</value>
-  </data><data name="VWAP" xml:space="preserve">
+  </data>
+  <data name="VWAP" xml:space="preserve">
     <value>VWAP</value>
-  </data><data name="VAH" xml:space="preserve">
+  </data>
+  <data name="VAH" xml:space="preserve">
     <value>VAH</value>
-  </data><data name="VAL" xml:space="preserve">
+  </data>
+  <data name="VAL" xml:space="preserve">
     <value>VAL</value>
+  </data>
+  <data name="Labels" xml:space="preserve">
+    <value>Etiquetas</value>
+  </data>
+  <data name="LabelTemplate" xml:space="preserve">
+    <value>Plantilla</value>
+  </data>
+  <data name="Prefixes" xml:space="preserve">
+    <value>Prefijos</value>
+  </data>
+<data name="CurrentDay" xml:space="preserve">
+    <value>Día actual</value>
+  </data><data name="PreviousDay" xml:space="preserve">
+    <value>Día anterior</value>
+  </data><data name="CurrentWeek" xml:space="preserve">
+    <value>Semana actual</value>
+  </data><data name="PreviousWeek" xml:space="preserve">
+    <value>Semana anterior</value>
+  </data><data name="CurrentMonth" xml:space="preserve">
+    <value>Mes actual</value>
+  </data><data name="PreviousMonth" xml:space="preserve">
+    <value>Mes anterior</value>
+  </data><data name="Contract" xml:space="preserve">
+    <value>Contrato</value>
   </data></root>
