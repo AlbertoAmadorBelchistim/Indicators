@@ -85,6 +85,7 @@ public class LevelSettings : NotifiableObject
     private int _width;
     private LineDashStyle _lineStyle;
     private LabelPosition _labelPosition;
+    private string _overrideLabel = string.Empty;
 
     #endregion
 
@@ -138,6 +139,13 @@ public class LevelSettings : NotifiableObject
     {
         get => _labelPosition;
         set => SetField(ref _labelPosition, value);
+    }
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.OverrideLabel))]
+    public string OverrideLabel
+    {
+        get => _overrideLabel;
+        set => SetField(ref _overrideLabel, value);
     }
 
     [Browsable(false)]
@@ -1956,13 +1964,15 @@ public class OHLCPlus : Indicator
     }
 
     #region label overrides
-    private string BuildLabelText(string prefix, string levelStorageKey)
+    private string BuildLabelText(string prefix, string levelStorageKey, LevelSettings levelSettings)
     {
         var (_, suffix) = SplitKey(levelStorageKey);
 
         var displayPrefix = prefix ?? string.Empty;
 
-        var levelText = ResolveLevelText(suffix);
+        var levelText = !string.IsNullOrWhiteSpace(levelSettings?.OverrideLabel)
+            ? levelSettings.OverrideLabel
+            : ResolveLevelText(suffix);
 
         var result = LabelTemplate
             .Replace("{prefix}", displayPrefix, StringComparison.Ordinal)
@@ -2254,7 +2264,7 @@ public class OHLCPlus : Indicator
 
         // Build label text
         var displayPrefix = GetDisplayPrefix(period);
-        var labelText = BuildLabelText(displayPrefix, levelKey);
+        var labelText = BuildLabelText(displayPrefix, levelKey, levelSettings);
 
         // Decide if we should defer line drawing (only when we have a text label)
         var hasTextLabel = levelSettings.LabelPosition != LabelPosition.None;
