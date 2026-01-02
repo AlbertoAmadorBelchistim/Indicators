@@ -117,6 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CurrentDay" xml:space="preserve">
+    <value>Jour actuel</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Mois courant</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Semaine actuelle</value>
+  </data>
+  <data name="PreviousDay" xml:space="preserve">
+    <value>Dernier jour</value>
+  </data>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>Dernier mois</value>
+  </data>
+  <data name="PreviousWeek" xml:space="preserve">
+    <value>La semaine dernière</value>
+  </data>
   <data name="ToggleLevelsVisibilityHotKey" xml:space="preserve">
     <value>Basculer la visibilité de tous les niveaux</value>
   </data>
@@ -165,20 +183,13 @@
   <data name="Prefixes" xml:space="preserve">
     <value>Préfixes</value>
   </data>
-<data name="CurrentDay" xml:space="preserve">
-    <value>Jour actuel</value>
-  </data><data name="PreviousDay" xml:space="preserve">
-    <value>Dernier jour</value>
-  </data><data name="CurrentWeek" xml:space="preserve">
-    <value>Semaine actuelle</value>
-  </data><data name="PreviousWeek" xml:space="preserve">
-    <value>La semaine dernière</value>
-  </data><data name="CurrentMonth" xml:space="preserve">
-    <value>Mois courant</value>
-  </data><data name="PreviousMonth" xml:space="preserve">
-    <value>Dernier mois</value>
-  </data><data name="Contract" xml:space="preserve">
+  <data name="Contract" xml:space="preserve">
     <value>Contrat</value>
-  </data><data name="Visibility" xml:space="preserve">
+  </data>
+  <data name="Visibility" xml:space="preserve">
     <value>Visibilité</value>
-  </data></root>
+  </data>
+  <data name="OverrideLabel" xml:space="preserve">
+    <value>Remplacer l’étiquette (facultatif)</value>
+  </data>
+</root>
