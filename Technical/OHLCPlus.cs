@@ -243,10 +243,16 @@ public class OHLCPlus : Indicator
 
     #region Visual Semantic (pq02)
 
-    private enum VisualSemanticMode
+    public enum VisualSemanticMode
     {
         Legacy = 0,
         RuleSet = 1
+    }
+
+    public enum VisualSemanticPresetKind
+    {
+        ByPeriod = 0,
+        ByLevelType = 1
     }
 
     private enum LevelType
@@ -452,7 +458,7 @@ public class OHLCPlus : Indicator
 
     private VisualSemanticMode _visualSemanticMode = VisualSemanticMode.Legacy;
 
-    // Placeholder for later: will come from UI in pq02.2
+    private VisualSemanticPresetKind _visualSemanticPreset = VisualSemanticPresetKind.ByPeriod;
     private ResolvedVisualSemantic ResolveVisualSemantic(LevelDescriptor d, LevelSettings baseSettings)
     {
         // pq02.1: do not change visuals or priority.
@@ -460,11 +466,42 @@ public class OHLCPlus : Indicator
         return new ResolvedVisualSemantic(style: new VisualStyleDelta(), semanticWeight: 0);
     }
 
+    private bool _visualRuleSetDirty = true;
     #endregion
 
     #endregion
 
     #region Properties
+
+    [Display(GroupName = "Visual Semantic (pq02)", Name = "Mode", Order = 1)]
+    public VisualSemanticMode VisualSemantic
+    {
+        get => _visualSemanticMode;
+        set
+        {
+            if (_visualSemanticMode == value)
+                return;
+
+            _visualSemanticMode = value;
+            RedrawChart();
+        }
+    }
+
+    [Display(GroupName = "Visual Semantic (pq02)", Name = "Preset", Order = 2)]
+    public VisualSemanticPresetKind VisualSemanticPreset
+    {
+        get => _visualSemanticPreset;
+        set
+        {
+            if (_visualSemanticPreset == value)
+                return;
+
+            _visualSemanticPreset = value;
+            _visualRuleSetDirty = true;
+            RedrawChart();
+        }
+    }
+
 
     #region Day Settings
 
@@ -1262,7 +1299,188 @@ public class OHLCPlus : Indicator
 
     #endregion
 
-#endregion
+    #region Labels
+    // --- Labels group ---
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.LabelTemplate), Order = 10)]
+    public string LabelTemplate
+    {
+        get => _labelTemplate;
+        set => _labelTemplate = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.BarOpen), Order = 20)]
+    public string OpenLabel
+    {
+        get => _openLabel;
+        set => _openLabel = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.BarHigh), Order = 30)]
+    public string HighLabel
+    {
+        get => _highLabel;
+        set => _highLabel = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.BarLow), Order = 40)]
+    public string LowLabel
+    {
+        get => _lowLabel;
+        set => _lowLabel = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.BarClose), Order = 50)]
+    public string CloseLabel
+    {
+        get => _closeLabel;
+        set => _closeLabel = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.Equilibrium), Order = 60)]
+    public string EquilibriumLabel
+    {
+        get => _equilibriumLabel;
+        set => _equilibriumLabel = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.POC), Order = 70)]
+    public string PocLabel
+    {
+        get => _pocLabel;
+        set => _pocLabel = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.VWAP), Order = 80)]
+    public string VwapLabel
+    {
+        get => _vwapLabel;
+        set => _vwapLabel = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.VAH), Order = 90)]
+    public string VahLabel
+    {
+        get => _vahLabel;
+        set => _vahLabel = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Labels), Name = nameof(Resources.VAL), Order = 100)]
+    public string ValLabel
+    {
+        get => _valLabel;
+        set => _valLabel = value;
+    }
+
+    // --- Prefixes group ---
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Prefixes), Name = nameof(Resources.CurrentDay), Order = 10)]
+    public string DayPrefix
+    {
+        get => _dayPrefix;
+        set => _dayPrefix = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Prefixes), Name = nameof(Resources.PreviousDay), Order = 20)]
+    public string PrevDayPrefix
+    {
+        get => _prevDayPrefix;
+        set => _prevDayPrefix = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Prefixes), Name = nameof(Resources.CurrentWeek), Order = 30)]
+    public string WeekPrefix
+    {
+        get => _weekPrefix;
+        set => _weekPrefix = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Prefixes), Name = nameof(Resources.PreviousWeek), Order = 40)]
+    public string PrevWeekPrefix
+    {
+        get => _prevWeekPrefix;
+        set => _prevWeekPrefix = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Prefixes), Name = nameof(Resources.CurrentMonth), Order = 50)]
+    public string MonthPrefix
+    {
+        get => _monthPrefix;
+        set => _monthPrefix = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Prefixes), Name = nameof(Resources.PreviousMonth), Order = 60)]
+    public string PrevMonthPrefix
+    {
+        get => _prevMonthPrefix;
+        set => _prevMonthPrefix = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.Prefixes), Name = nameof(Resources.Contract), Order = 70)]
+    public string ContractPrefix
+    {
+        get => _contractPrefix;
+        set => _contractPrefix = value;
+    }
+
+
+    #endregion
+
+    #region Visual Semantic Palettes (pq02)
+
+    // Period palette (ByPeriod)
+    [Display(GroupName = "Visual Semantic (pq02) - Period Palette", Name = "Current Day", Order = 10)]
+    public CrossColor PeriodColorCurrentDay { get; set; } = CrossColors.WhiteSmoke;
+
+    [Display(GroupName = "Visual Semantic (pq02) - Period Palette", Name = "Previous Day", Order = 20)]
+    public CrossColor PeriodColorPreviousDay { get; set; } = CrossColors.DarkGray;
+
+    [Display(GroupName = "Visual Semantic (pq02) - Period Palette", Name = "Current Week", Order = 30)]
+    public CrossColor PeriodColorCurrentWeek { get; set; } = CrossColors.DeepSkyBlue;
+
+    [Display(GroupName = "Visual Semantic (pq02) - Period Palette", Name = "Previous Week", Order = 40)]
+    public CrossColor PeriodColorPreviousWeek { get; set; } = CrossColors.SteelBlue;
+
+    [Display(GroupName = "Visual Semantic (pq02) - Period Palette", Name = "Current Month", Order = 50)]
+    public CrossColor PeriodColorCurrentMonth { get; set; } = CrossColors.MediumSeaGreen;
+
+    [Display(GroupName = "Visual Semantic (pq02) - Period Palette", Name = "Previous Month", Order = 60)]
+    public CrossColor PeriodColorPreviousMonth { get; set; } = CrossColors.DarkOliveGreen;
+
+    [Display(GroupName = "Visual Semantic (pq02) - Period Palette", Name = "Contract", Order = 70)]
+    public CrossColor PeriodColorContract { get; set; } = CrossColors.SaddleBrown;
+
+
+    // Level-type palette (ByLevelType)
+    [Display(GroupName = "Visual Semantic (pq02) - Level Palette", Name = "Open", Order = 10)]
+    public CrossColor LevelColorOpen { get; set; } = CrossColors.DarkOrange;
+
+    [Display(GroupName = "Visual Semantic (pq02) - Level Palette", Name = "High", Order = 20)]
+    public CrossColor LevelColorHigh { get; set; } = CrossColors.ForestGreen;
+
+    [Display(GroupName = "Visual Semantic (pq02) - Level Palette", Name = "Low", Order = 30)]
+    public CrossColor LevelColorLow { get; set; } = CrossColors.Firebrick;
+
+    [Display(GroupName = "Visual Semantic (pq02) - Level Palette", Name = "Close", Order = 40)]
+    public CrossColor LevelColorClose { get; set; } = CrossColors.DimGray;
+
+    [Display(GroupName = "Visual Semantic (pq02) - Level Palette", Name = "EQ", Order = 50)]
+    public CrossColor LevelColorEQ { get; set; } = CrossColors.Gray;
+
+    [Display(GroupName = "Visual Semantic (pq02) - Level Palette", Name = "POC", Order = 60)]
+    public CrossColor LevelColorPOC { get; set; } = CrossColors.Goldenrod;
+
+    [Display(GroupName = "Visual Semantic (pq02) - Level Palette", Name = "VWAP", Order = 70)]
+    public CrossColor LevelColorVWAP { get; set; } = CrossColors.DodgerBlue;
+
+    [Display(GroupName = "Visual Semantic (pq02) - Level Palette", Name = "VAH", Order = 80)]
+    public CrossColor LevelColorVAH { get; set; } = CrossColors.Teal;
+
+    [Display(GroupName = "Visual Semantic (pq02) - Level Palette", Name = "VAL", Order = 90)]
+    public CrossColor LevelColorVAL { get; set; } = CrossColors.Teal;
+
+    #endregion
+
+
+    #endregion
 
     #region Constructor
 
