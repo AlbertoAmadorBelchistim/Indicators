@@ -1,5 +1,6 @@
 namespace ATAS.Indicators.Technical;
 
+using ATAS.Indicators.Technical.Properties;
 using OFT.Localization;
 using OFT.Rendering.Context;
 using OFT.Rendering.Settings;
@@ -32,11 +33,25 @@ public enum LineType
 {
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.None))]
     None = 0,
-    
+
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.TillBar))]
+
+#else
+
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.TillBar))]
+#endif
     Bar = 1,
-    
+
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.FullWidth))]
+
+#else
+
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.FullWidth))]
+#endif
     Full = 2
 }
 
@@ -157,7 +172,15 @@ public class LevelSettings : NotifiableObject
 
 [DisplayName("OHLC Plus")]
 [Category(IndicatorCategories.VolumeOrderFlow)]
+#if STABLE
+
+[Display(ResourceType = typeof(Resources), Description = nameof(Resources.OHLCPlusDescription))]
+
+#else
+
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.OHLCPlusDescription))]
+
+#endif
 public class OHLCPlus : Indicator
 {
     #region Nested types
@@ -233,7 +256,17 @@ public class OHLCPlus : Indicator
 
     #region Day Settings
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentDay), Name = nameof(Resources.BarOpen), Order = 10)]
+
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = nameof(Strings.BarOpen), Order = 10)]
+
+#endif
+
+
     public LevelSettings DayOpenLevel { get; set; } = new(
         enabled: true,
         color: System.Drawing.Color.Orange.Convert(),
@@ -244,7 +277,15 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentDay), Name = nameof(Resources.BarHigh), Order = 20)]
+
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = nameof(Strings.BarHigh), Order = 20)]
+
+#endif
     public LevelSettings DayHighLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Green.Convert(),
@@ -254,8 +295,15 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentDay), Name = nameof(Resources.BarLow), Order = 30)]
+
+#else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = nameof(Strings.BarLow), Order = 30)]
+
+#endif
     public LevelSettings DayLowLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Red.Convert(),
@@ -266,7 +314,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentDay), Name = nameof(Resources.BarClose), Order = 40)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = nameof(Strings.BarClose), Order = 40)]
+#endif
     public LevelSettings DayCloseLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Gray.Convert(),
@@ -277,7 +331,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentDay), Name = nameof(Resources.Equilibrium), Order = 50)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = nameof(Strings.Equilibrium), Order = 50)]
+#endif
     public LevelSettings DayEquilibriumLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Yellow.Convert(),
@@ -287,8 +347,13 @@ public class OHLCPlus : Indicator
         labelPosition: LabelPosition.Bar,
         lineType: LineType.Bar
     );
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentDay), Name = nameof(Resources.POC), Order = 60)]
+#else
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = nameof(Strings.POC), Order = 60)]
+#endif
     public LevelSettings DayPOCLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Orange.Convert(),
@@ -299,7 +364,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentDay), Name = nameof(Resources.VWAP), Order = 65)]
+#else
+
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.CurrentDay), Order = 65)]
+#endif
     public LevelSettings DayVWAPLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.SteelBlue.Convert(),
@@ -310,7 +381,14 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentDay), Name = nameof(Resources.VAH), Order = 70)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = nameof(Strings.VAH), Order = 70)]
+#endif
+
     public LevelSettings DayVAHLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Purple.Convert(),
@@ -321,7 +399,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentDay), Name = nameof(Resources.VAL), Order = 80)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = nameof(Strings.VAL), Order = 80)]
+#endif
     public LevelSettings DayVALLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Purple.Convert(),
@@ -336,7 +420,13 @@ public class OHLCPlus : Indicator
 
     #region Prev.Day Settings
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousDay), Name = nameof(Resources.BarOpen), Order = 10)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.BarOpen), Order = 10)]
+#endif
     public LevelSettings PrevDayOpenLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Orange.Convert(),
@@ -347,7 +437,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousDay), Name = nameof(Resources.BarHigh), Order = 20)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.BarHigh), Order = 20)]
+#endif
     public LevelSettings PrevDayHighLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Green.Convert(),
@@ -358,7 +454,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousDay), Name = nameof(Resources.BarLow), Order = 30)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.BarLow), Order = 30)]
+#endif
     public LevelSettings PrevDayLowLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Red.Convert(),
@@ -369,7 +471,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousDay), Name = nameof(Resources.BarClose), Order = 40)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.BarClose), Order = 40)]
+#endif
     public LevelSettings PrevDayCloseLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Gray.Convert(),
@@ -380,7 +488,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousDay), Name = nameof(Resources.Equilibrium), Order = 50)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.Equilibrium), Order = 50)]
+#endif
     public LevelSettings PrevDayEquilibriumLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Yellow.Convert(),
@@ -391,7 +505,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousDay), Name = nameof(Resources.POC), Order = 60)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.POC), Order = 60)]
+#endif
     public LevelSettings PrevDayPOCLevel { get; set; } = new(
         enabled: true,
         color: System.Drawing.Color.Orange.Convert(),
@@ -402,7 +522,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousDay), Name = nameof(Resources.VWAP), Order = 65)]
+#else
+
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.PreviousDay), Order = 65)]
+#endif
     public LevelSettings PrevDayVWAPLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.SteelBlue.Convert(),
@@ -413,7 +539,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousDay), Name = nameof(Resources.VAH), Order = 70)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.VAH), Order = 70)]
+#endif
     public LevelSettings PrevDayVAHLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Purple.Convert(),
@@ -424,7 +556,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousDay), Name = nameof(Resources.VAL), Order = 80)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = nameof(Strings.VAL), Order = 80)]
+#endif
     public LevelSettings PrevDayVALLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Purple.Convert(),
@@ -439,7 +577,13 @@ public class OHLCPlus : Indicator
 
     #region Week Settings
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Resources.BarOpen), Order = 10)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.BarOpen), Order = 10)]
+#endif
     public LevelSettings WeekOpenLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Orange.Convert(),
@@ -450,7 +594,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Resources.BarHigh), Order = 20)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.BarHigh), Order = 20)]
+#endif
     public LevelSettings WeekHighLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Green.Convert(),
@@ -461,7 +611,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Resources.BarLow), Order = 30)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.BarLow), Order = 30)]
+#endif
     public LevelSettings WeekLowLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Red.Convert(),
@@ -472,7 +628,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Resources.BarClose), Order = 40)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.BarClose), Order = 40)]
+#endif
     public LevelSettings WeekCloseLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Gray.Convert(),
@@ -483,7 +645,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Resources.Equilibrium), Order = 50)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.Equilibrium), Order = 50)]
+#endif
     public LevelSettings WeekEquilibriumLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Yellow.Convert(),
@@ -494,7 +662,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Resources.POC), Order = 60)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.POC), Order = 60)]
+#endif
     public LevelSettings WeekPOCLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Orange.Convert(),
@@ -505,7 +679,14 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Resources.VWAP), Order = 65)]
+#else
+
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.CurrentWeek), Order = 65)]
+#endif
+
     public LevelSettings WeekVWAPLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.SteelBlue.Convert(),
@@ -516,7 +697,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Resources.VAH), Order = 70)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.VAH), Order = 70)]
+#endif
     public LevelSettings WeekVAHLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Purple.Convert(),
@@ -527,7 +714,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Resources.VAL), Order = 80)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = nameof(Strings.VAL), Order = 80)]
+#endif
     public LevelSettings WeekVALLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Purple.Convert(),
@@ -542,7 +735,13 @@ public class OHLCPlus : Indicator
 
     #region Prev.Week Settings
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Resources.BarOpen), Order = 10)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.BarOpen), Order = 10)]
+#endif
     public LevelSettings PrevWeekOpenLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Orange.Convert(),
@@ -553,7 +752,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Resources.BarHigh), Order = 20)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.BarHigh), Order = 20)]
+#endif
     public LevelSettings PrevWeekHighLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Green.Convert(),
@@ -564,7 +769,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Resources.BarLow), Order = 30)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.BarLow), Order = 30)]
+#endif
     public LevelSettings PrevWeekLowLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Red.Convert(),
@@ -575,7 +786,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Resources.BarClose), Order = 40)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.BarClose), Order = 40)]
+#endif
     public LevelSettings PrevWeekCloseLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Gray.Convert(),
@@ -586,7 +803,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Resources.Equilibrium), Order = 50)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.Equilibrium), Order = 50)]
+#endif
     public LevelSettings PrevWeekEquilibriumLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Yellow.Convert(),
@@ -597,7 +820,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Resources.POC), Order = 60)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.POC), Order = 60)]
+#endif
     public LevelSettings PrevWeekPOCLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Orange.Convert(),
@@ -608,7 +837,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Resources.VWAP), Order = 65)]
+#else
+
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.PreviousWeek), Order = 65)]
+#endif
     public LevelSettings PrevWeekVWAPLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.SteelBlue.Convert(),
@@ -619,7 +854,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Resources.VAH), Order = 70)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.VAH), Order = 70)]
+#endif
     public LevelSettings PrevWeekVAHLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Purple.Convert(),
@@ -630,7 +871,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Resources.VAL), Order = 80)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = nameof(Strings.VAL), Order = 80)]
+#endif
     public LevelSettings PrevWeekVALLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Purple.Convert(),
@@ -645,7 +892,13 @@ public class OHLCPlus : Indicator
 
     #region Month Settings
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Resources.BarOpen), Order = 10)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.BarOpen), Order = 10)]
+#endif
     public LevelSettings MonthOpenLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Orange.Convert(),
@@ -656,7 +909,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Resources.BarHigh), Order = 20)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.BarHigh), Order = 20)]
+#endif
     public LevelSettings MonthHighLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Green.Convert(),
@@ -667,7 +926,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Resources.BarLow), Order = 30)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.BarLow), Order = 30)]
+#endif
     public LevelSettings MonthLowLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Red.Convert(),
@@ -678,7 +943,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Resources.BarClose), Order = 40)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.BarClose), Order = 40)]
+#endif
     public LevelSettings MonthCloseLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Gray.Convert(),
@@ -689,7 +960,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Resources.Equilibrium), Order = 50)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.Equilibrium), Order = 50)]
+#endif
     public LevelSettings MonthEquilibriumLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Yellow.Convert(),
@@ -700,7 +977,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Resources.POC), Order = 60)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.POC), Order = 60)]
+#endif
     public LevelSettings MonthPOCLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Orange.Convert(),
@@ -711,7 +994,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Resources.VWAP), Order = 65)]
+#else
+
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.CurrentMonth), Order = 65)]
+#endif
     public LevelSettings MonthVWAPLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.SteelBlue.Convert(),
@@ -722,7 +1011,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Resources.VAH), Order = 70)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.VAH), Order = 70)]
+#endif
     public LevelSettings MonthVAHLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Purple.Convert(),
@@ -733,7 +1028,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Resources.VAL), Order = 80)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = nameof(Strings.VAL), Order = 80)]
+#endif
     public LevelSettings MonthVALLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Purple.Convert(),
@@ -748,7 +1049,13 @@ public class OHLCPlus : Indicator
 
     #region Prev.Month Settings
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Resources.BarOpen), Order = 10)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.BarOpen), Order = 10)]
+#endif
     public LevelSettings PrevMonthOpenLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Orange.Convert(),
@@ -759,7 +1066,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Resources.BarHigh), Order = 20)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.BarHigh), Order = 20)]
+#endif
     public LevelSettings PrevMonthHighLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Green.Convert(),
@@ -770,7 +1083,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Resources.BarLow), Order = 30)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.BarLow), Order = 30)]
+#endif
     public LevelSettings PrevMonthLowLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Red.Convert(),
@@ -781,7 +1100,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Resources.BarClose), Order = 40)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.BarClose), Order = 40)]
+#endif
     public LevelSettings PrevMonthCloseLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Gray.Convert(),
@@ -792,7 +1117,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Resources.Equilibrium), Order = 50)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.Equilibrium), Order = 50)]
+#endif
     public LevelSettings PrevMonthEquilibriumLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Yellow.Convert(),
@@ -803,7 +1134,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Resources.POC), Order = 60)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.POC), Order = 60)]
+#endif
     public LevelSettings PrevMonthPOCLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Orange.Convert(),
@@ -814,7 +1151,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Resources.VWAP), Order = 65)]
+#else
+
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.PreviousMonth), Order = 65)]
+#endif
     public LevelSettings PrevMonthVWAPLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.SteelBlue.Convert(),
@@ -825,7 +1168,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Resources.VAH), Order = 70)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.VAH), Order = 70)]
+#endif
     public LevelSettings PrevMonthVAHLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Purple.Convert(),
@@ -836,7 +1185,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Resources.VAL), Order = 80)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = nameof(Strings.VAL), Order = 80)]
+#endif
     public LevelSettings PrevMonthVALLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Purple.Convert(),
@@ -851,7 +1206,13 @@ public class OHLCPlus : Indicator
 
     #region Contract Settings
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.Contract), Name = nameof(Resources.BarOpen), Order = 10)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.BarOpen), Order = 10)]
+#endif
     public LevelSettings ContractOpenLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Orange.Convert(),
@@ -862,7 +1223,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.Contract), Name = nameof(Resources.BarHigh), Order = 20)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.BarHigh), Order = 20)]
+#endif
     public LevelSettings ContractHighLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Green.Convert(),
@@ -873,7 +1240,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.Contract), Name = nameof(Resources.BarLow), Order = 30)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.BarLow), Order = 30)]
+#endif
     public LevelSettings ContractLowLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Red.Convert(),
@@ -884,7 +1257,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.Contract), Name = nameof(Resources.BarClose), Order = 40)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.BarClose), Order = 40)]
+#endif
     public LevelSettings ContractCloseLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Gray.Convert(),
@@ -895,7 +1274,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.Contract), Name = nameof(Resources.Equilibrium), Order = 50)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.Equilibrium), Order = 50)]
+#endif
     public LevelSettings ContractEquilibriumLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Yellow.Convert(),
@@ -906,7 +1291,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.Contract), Name = nameof(Resources.POC), Order = 60)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.POC), Order = 60)]
+#endif
     public LevelSettings ContractPOCLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Orange.Convert(),
@@ -917,7 +1308,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.Contract), Name = nameof(Resources.VWAP), Order = 65)]
+#else
+
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAP), GroupName = nameof(Strings.Contract), Order = 65)]
+#endif
     public LevelSettings ContractVWAPLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.SteelBlue.Convert(),
@@ -928,7 +1325,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.Contract), Name = nameof(Resources.VAH), Order = 70)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.VAH), Order = 70)]
+#endif
     public LevelSettings ContractVAHLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Purple.Convert(),
@@ -939,7 +1342,13 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
+#if STABLE
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Strings.Contract), Name = nameof(Resources.VAL), Order = 80)]
+#else
+
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Contract), Name = nameof(Strings.VAL), Order = 80)]
+#endif
     public LevelSettings ContractVALLevel { get; set; } = new(
         enabled: false,
         color: System.Drawing.Color.Purple.Convert(),
@@ -954,12 +1363,24 @@ public class OHLCPlus : Indicator
 
     #region Visibility Settings
 
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Visibility), Name = nameof(Strings.ToggleLevelsVisibilityHotKey), Order = 1000)]
+#if ATAS_ALPHA || ATAS_X
+    [Display(
+        ResourceType = typeof(Strings),
+        GroupName = nameof(Strings.Visibility),
+        Name = nameof(Strings.ToggleLevelsVisibilityHotKey),
+        Order = 1000)]
+#else
+[Display(
+    ResourceType = typeof(Resources),
+    GroupName = nameof(Strings.Visibility),
+    Name = nameof(Resources.ToggleLevelsVisibilityHotKey),
+    Order = 1000)]
+#endif
     public CrossKey[] ToggleVisibilityHotKey { get; set; } = { CrossKey.Q };
 
     #endregion
 
-    #endregion
+#endregion
 
     #region Constructor
 
