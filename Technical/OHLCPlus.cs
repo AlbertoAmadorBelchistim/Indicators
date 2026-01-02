@@ -354,16 +354,17 @@ public class OHLCPlus : Indicator
 
     private static readonly Dictionary<string, LevelType> _suffixToLevelType = new(StringComparer.OrdinalIgnoreCase)
     {
-        ["o"] = LevelType.Open,
-        ["h"] = LevelType.High,
-        ["l"] = LevelType.Low,
-        ["c"] = LevelType.Close,
-        ["eq"] = LevelType.EQ,
-        ["poc"] = LevelType.POC,
-        ["vwap"] = LevelType.VWAP,
-        ["vah"] = LevelType.VAH,
-        ["val"] = LevelType.VAL
+        ["Open"] = LevelType.Open,
+        ["High"] = LevelType.High,
+        ["Low"] = LevelType.Low,
+        ["Close"] = LevelType.Close,
+        ["EQ"] = LevelType.EQ,
+        ["POC"] = LevelType.POC,
+        ["VWAP"] = LevelType.VWAP,
+        ["VAH"] = LevelType.VAH,
+        ["VAL"] = LevelType.VAL
     };
+
 
     private static LevelType LevelTypeFromSuffix(string suffix)
     {
@@ -388,6 +389,7 @@ public class OHLCPlus : Indicator
     #endregion
 
     #endregion
+
 
 
     #endregion
@@ -500,6 +502,12 @@ public class OHLCPlus : Indicator
     // Cache (rebuild only when preset changes)
     private VisualRuleSet _visualRuleSet = VisualRuleSet.Empty;
     private bool _visualRuleSetDirty = true;
+
+    // Legacy mode intentionally bypasses pq02 semantics and relies exclusively
+    // on per-level LevelSettings (upstream-compatible behavior).
+    private static readonly VisualStyleDelta _emptyVisualStyle = new();
+    private static readonly ResolvedVisualSemantic _emptySemantic = new(_emptyVisualStyle, semanticWeight: 0);
+
     #endregion
 
     #endregion
@@ -2221,11 +2229,30 @@ public class OHLCPlus : Indicator
         var barWidth = (int)ChartInfo.PriceChartContainer.BarsWidth;
         var currentBarRightX = currentBarX + barWidth;
 
-        // Get pen from LevelSettings
-        var renderPen = levelSettings.RenderPen;
+        // Get pen from semantic
+        var period = PeriodFromPrefix(prefix);          // already canonical: d/p/w/pw/m/pm/c
+        var (_, suffix) = SplitKey(levelKey);
+
+        var levelType = LevelTypeFromSuffix(suffix);
+        var descriptor = new LevelDescriptor(levelType, period, DefaultFamily(levelType));
+
+        var sem = _visualSemanticMode == VisualSemanticMode.RuleSet
+            ? ResolveVisualSemantic(descriptor, levelSettings)
+            : _emptySemantic;
+
+        // Apply semantic style delta (pq02.2: color/width/dash only; no priority changes yet)
+        var effColor = sem.Style.Color ?? levelSettings.Color;
+        var effWidth = sem.Style.Width ?? levelSettings.Width;
+        var effDash = sem.Style.Dash ?? levelSettings.LineStyle;
+
+        var renderPen = new PenSettings
+        {
+            Color = effColor,
+            Width = effWidth,
+            LineDashStyle = effDash
+        }.RenderObject;
 
         // Build label text
-        var period = PeriodFromPrefix(prefix);          // prefix is already canonical: d/p/w/pw/m/pm/c
         var displayPrefix = GetDisplayPrefix(period);
         var labelText = BuildLabelText(displayPrefix, levelKey);
 
@@ -2261,7 +2288,7 @@ public class OHLCPlus : Indicator
         // Draw price label (if ShowPrice == true)
         if (levelSettings.ShowPrice)
         {
-            DrawPriceLabel(context, level.Price, y, renderPen, levelSettings);
+            DrawPriceLabel(context, level.Price, y, renderPen, levelSettings, effColor);
         }
 
         // Enqueue text label (collision-safe draw happens in FlushLabelQueue)
@@ -2293,14 +2320,7 @@ public class OHLCPlus : Indicator
             // Lower = more important (draw earlier).
             var idxInPeriod = Array.IndexOf(_keys[period], levelKey);
             if (idxInPeriod < 0) idxInPeriod = 99;
-            var (_, suffix) = SplitKey(levelKey);
 
-            var levelType = LevelTypeFromSuffix(suffix);
-            var descriptor = new LevelDescriptor(levelType, period, DefaultFamily(levelType));
-
-            var sem = _visualSemanticMode == VisualSemanticMode.Legacy
-                ? default
-                : ResolveVisualSemantic(descriptor, levelSettings);
 
             // Priority composition:
             // 1) period bucket (stable)
@@ -2331,12 +2351,12 @@ public class OHLCPlus : Indicator
 
     }
 
-    private void DrawPriceLabel(RenderContext context, decimal price, int y, RenderPen pen, LevelSettings levelSettings)
+    private void DrawPriceLabel(RenderContext context, decimal price, int y, RenderPen pen, LevelSettings levelSettings, CrossColor effectiveColor)
     {
         var priceText = string.Format(ChartInfo.StringFormat, price);
-        
+
         // Calculate contrasting text color based on background color
-        var backgroundColor = levelSettings.Color;
+        var backgroundColor = effectiveColor;
         var textColor = GetContrastingColor(backgroundColor);
         
         this.DrawLabelOnPriceAxis(context, priceText, y, _axisFont, backgroundColor.Convert(), textColor.Convert());
@@ -2711,6 +2731,7 @@ public class OHLCPlus : Indicator
 
         return new ResolvedVisualSemantic(new VisualStyleDelta(), weight);
     }
+
     private void EnsureVisualRuleSet()
     {
         if (!_visualRuleSetDirty)
