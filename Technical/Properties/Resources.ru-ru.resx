@@ -2472,15 +2472,6 @@
   <data name="VAL" xml:space="preserve">
     <value>VAL</value>
   </data>
-  <data name="Misc" xml:space="preserve">
-    <value>Разное</value>
-  </data>
-  <data name="Bearish" xml:space="preserve">
-    <value>Медвежье</value>
-  </data>
-  <data name="Show Fibonacci" xml:space="preserve">
-    <value>Показать уровни Фибоначчи</value>
-  </data>
   <data name="Labels" xml:space="preserve">
     <value>Метки</value>
   </data>
@@ -2490,8 +2481,22 @@
   <data name="Prefixes" xml:space="preserve">
     <value>Префиксы</value>
   </data>
-<data name="Contract" xml:space="preserve">
+  <data name="Contract" xml:space="preserve">
     <value>Контракт</value>
-  </data><data name="Visibility" xml:space="preserve">
+  </data>
+  <data name="Visibility" xml:space="preserve">
     <value>Видимость</value>
-  </data></root>
+  </data>
+  <data name="Misc" xml:space="preserve">
+    <value>Разное</value>
+  </data>
+  <data name="Bearish" xml:space="preserve">
+    <value>Медвежье</value>
+  </data>
+  <data name="Show Fibonacci" xml:space="preserve">
+    <value>Показать уровни Фибоначчи</value>
+  </data>
+  <data name="OverrideLabel" xml:space="preserve">
+    <value>Переопределить метку (необязательно)</value>
+  </data>
+</root>
