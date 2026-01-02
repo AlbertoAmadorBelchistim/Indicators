@@ -1249,6 +1249,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Contract.
+        /// </summary>
+        public static string Contract {
+            get {
+                return ResourceManager.GetString("Contract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Cool down period (seconds).
         /// </summary>
         public static string CoolDownPeriod {
@@ -2797,6 +2806,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Labels.
+        /// </summary>
+        public static string Labels {
+            get {
+                return ResourceManager.GetString("Labels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Template.
+        /// </summary>
+        public static string LabelTemplate {
+            get {
+                return ResourceManager.GetString("LabelTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Last Bar.
         /// </summary>
         public static string LastBar {
@@ -4242,6 +4269,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string Predict {
             get {
                 return ResourceManager.GetString("Predict", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Prefixes.
+        /// </summary>
+        public static string Prefixes {
+            get {
+                return ResourceManager.GetString("Prefixes", resourceCulture);
             }
         }
         
