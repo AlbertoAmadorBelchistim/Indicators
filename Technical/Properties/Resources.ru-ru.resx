@@ -333,14 +333,8 @@
   <data name="Bullish" xml:space="preserve">
     <value>Бычье</value>
   </data>
-  <data name="DeltaType" xml:space="preserve">
-    <value>Тип Дельты</value>
-  </data>
-  <data name="Negative" xml:space="preserve">
-    <value>Отрицательная</value>
-  </data>
-  <data name="Positive" xml:space="preserve">
-    <value>Положительная</value>
+  <data name="UseAlerts" xml:space="preserve">
+    <value>Использовать Алерты</value>
   </data>
   <data name="AutoFilterPeriod" xml:space="preserve">
     <value>Период Автофильтра</value>
@@ -492,11 +486,23 @@
   <data name="Cumulative" xml:space="preserve">
     <value>Накопительно</value>
   </data>
+  <data name="DeltaType" xml:space="preserve">
+    <value>Тип Дельты</value>
+  </data>
+  <data name="Negative" xml:space="preserve">
+    <value>Отрицательная</value>
+  </data>
+  <data name="Positive" xml:space="preserve">
+    <value>Положительная</value>
+  </data>
   <data name="Session" xml:space="preserve">
     <value>Сессия</value>
   </data>
   <data name="PaintBars" xml:space="preserve">
     <value>Раскрашивать Бары</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Настройки</value>
   </data>
   <data name="Bars" xml:space="preserve">
     <value>Бары</value>
@@ -544,8 +550,16 @@
     <value>Период</value>
     <comment>RelativeVolume</comment>
   </data>
-  <data name="RenderPeriods" xml:space="preserve">
-    <value>Отображаемое Количество Периодов</value>
+  <data name="FrameMultiplier" xml:space="preserve">
+    <value>Кратность Блока</value>
+    <comment>MurrayMath</comment>
+  </data>
+  <data name="FrameSize" xml:space="preserve">
+    <value>Размер Блока</value>
+    <comment>MurrayMath</comment>
+  </data>
+  <data name="IgnoreWicks" xml:space="preserve">
+    <value>Не Учитывать Тени Свечей</value>
   </data>
   <data name="Overbought" xml:space="preserve">
     <value>Перекупленность</value>
@@ -554,6 +568,12 @@
   <data name="Oversold" xml:space="preserve">
     <value>Перепроданность</value>
     <comment>MFI</comment>
+  </data>
+  <data name="EfficiencyRatioPeriod" xml:space="preserve">
+    <value>Период Эффективного Соотношения</value>
+  </data>
+  <data name="RenderPeriods" xml:space="preserve">
+    <value>Отображаемое Количество Периодов</value>
   </data>
   <data name="HighSession" xml:space="preserve">
     <value>Максимум Сессии</value>
@@ -701,12 +721,12 @@
     <value>Задержка</value>
     <comment>QQE</comment>
   </data>
-  <data name="BBMultFactor" xml:space="preserve">
-    <value>Bollinger Bands Множитель</value>
-    <comment>SqueezeMomentum</comment>
-  </data>
   <data name="BBPeriod" xml:space="preserve">
     <value>Bollinger Bands Период</value>
+    <comment>SqueezeMomentum</comment>
+  </data>
+  <data name="BBMultFactor" xml:space="preserve">
+    <value>Bollinger Bands Множитель</value>
     <comment>SqueezeMomentum</comment>
   </data>
   <data name="KCMultFactor" xml:space="preserve">
@@ -803,17 +823,6 @@
   <data name="CustomSessionStart" xml:space="preserve">
     <value>Произвольное Время Начала Сессии</value>
   </data>
-  <data name="FrameMultiplier" xml:space="preserve">
-    <value>Кратность Блока</value>
-    <comment>MurrayMath</comment>
-  </data>
-  <data name="FrameSize" xml:space="preserve">
-    <value>Размер Блока</value>
-    <comment>MurrayMath</comment>
-  </data>
-  <data name="IgnoreWicks" xml:space="preserve">
-    <value>Не Учитывать Тени Свечей</value>
-  </data>
   <data name="OffsetY" xml:space="preserve">
     <value>Смещение По Оси Y</value>
     <comment>OpenLine</comment>
@@ -847,9 +856,6 @@
   </data>
   <data name="Down" xml:space="preserve">
     <value>Вниз</value>
-  </data>
-  <data name="EfficiencyRatioPeriod" xml:space="preserve">
-    <value>Период Эффективного Соотношения</value>
   </data>
   <data name="InstrumentParameters" xml:space="preserve">
     <value>Параметры Инструмента</value>
@@ -897,17 +903,41 @@
     <value>Длина Зоны (Дни)</value>
     <comment>MarginZones</comment>
   </data>
+  <data name="AreaTransparency" xml:space="preserve">
+    <value>Прозрачность Фона</value>
+    <comment>ExternalCharts</comment>
+  </data>
+  <data name="BearlishColor" xml:space="preserve">
+    <value>Направление Вниз</value>
+    <comment>ExternalCharts</comment>
+  </data>
   <data name="BorderColor" xml:space="preserve">
     <value>Цвет Границы</value>
   </data>
   <data name="BorderWidth" xml:space="preserve">
     <value>Ширина Границы</value>
   </data>
+  <data name="BullishColor" xml:space="preserve">
+    <value>Направление Вверх</value>
+    <comment>ExternalCharts</comment>
+  </data>
+  <data name="DashStyle" xml:space="preserve">
+    <value>Стиль</value>
+    <comment>ExternalCharts</comment>
+  </data>
+  <data name="ExternalPeriod" xml:space="preserve">
+    <value>Внешний Период</value>
+    <comment>ExternalCharts</comment>
+  </data>
   <data name="FillColor" xml:space="preserve">
     <value>Цвет Заливки</value>
   </data>
   <data name="Grid" xml:space="preserve">
     <value>Сетка</value>
+  </data>
+  <data name="GridStyle" xml:space="preserve">
+    <value>Стиль Сетки</value>
+    <comment>ExternalCharts</comment>
   </data>
   <data name="Multiplier1" xml:space="preserve">
     <value>Множитель 1</value>
@@ -925,42 +955,15 @@
     <value>Диапазон Открытия</value>
     <comment>InitialBalance</comment>
   </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Настройки</value>
+  <data name="ShowAsCandle" xml:space="preserve">
+    <value>Отображать В Виде Свечей</value>
+    <comment>ExternalCharts</comment>
   </data>
   <data name="ShowAverage" xml:space="preserve">
     <value>Отображать Скользящую Среднюю</value>
   </data>
   <data name="ShowGrid" xml:space="preserve">
     <value>Отображать Сетку</value>
-  </data>
-  <data name="AreaTransparency" xml:space="preserve">
-    <value>Прозрачность Фона</value>
-    <comment>ExternalCharts</comment>
-  </data>
-  <data name="BearlishColor" xml:space="preserve">
-    <value>Направление Вниз</value>
-    <comment>ExternalCharts</comment>
-  </data>
-  <data name="BullishColor" xml:space="preserve">
-    <value>Направление Вверх</value>
-    <comment>ExternalCharts</comment>
-  </data>
-  <data name="ExternalPeriod" xml:space="preserve">
-    <value>Внешний Период</value>
-    <comment>ExternalCharts</comment>
-  </data>
-  <data name="GridStyle" xml:space="preserve">
-    <value>Стиль Сетки</value>
-    <comment>ExternalCharts</comment>
-  </data>
-  <data name="ShowAsCandle" xml:space="preserve">
-    <value>Отображать В Виде Свечей</value>
-    <comment>ExternalCharts</comment>
-  </data>
-  <data name="DashStyle" xml:space="preserve">
-    <value>Стиль</value>
-    <comment>ExternalCharts</comment>
   </data>
   <data name="AskColor" xml:space="preserve">
     <value>Цвет Асков</value>
@@ -1022,12 +1025,12 @@
     <value>Отображать Объем/Секунды</value>
     <comment>ClusterStatistics</comment>
   </data>
-  <data name="Strings" xml:space="preserve">
-    <value>Строчки</value>
-    <comment>ClusterStatistics</comment>
-  </data>
   <data name="VolumeColor" xml:space="preserve">
     <value>Объем</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="Strings" xml:space="preserve">
+    <value>Строчки</value>
     <comment>ClusterStatistics</comment>
   </data>
   <data name="DoNotShowAboveChart" xml:space="preserve">
@@ -1101,9 +1104,6 @@
   <data name="H6" xml:space="preserve">
     <value>6 Часов</value>
     <comment>ExternalCharts</comment>
-  </data>
-  <data name="Misc" xml:space="preserve">
-    <value>Разное</value>
   </data>
   <data name="AtHigh" xml:space="preserve">
     <value>Максимум Свечи</value>
@@ -1213,16 +1213,13 @@
     <value>Цвет Сетки</value>
     <comment>ClusterStatistics</comment>
   </data>
-  <data name="HeaderBackground" xml:space="preserve">
-    <value>Цвет Заголовков</value>
-    <comment>ClusterStatistic</comment>
-  </data>
   <data name="Border" xml:space="preserve">
     <value>Границы</value>
     <comment>OrderFlow</comment>
   </data>
-  <data name="UseAlerts" xml:space="preserve">
-    <value>Использовать Алерты</value>
+  <data name="HeaderBackground" xml:space="preserve">
+    <value>Цвет Заголовков</value>
+    <comment>ClusterStatistic</comment>
   </data>
   <data name="VisibleProportion" xml:space="preserve">
     <value>Отображать По Градиенту</value>
@@ -2002,11 +1999,11 @@
   <data name="SingalAlert" xml:space="preserve">
     <value>Сигнальный Алерт</value>
   </data>
-  <data name="DownAlert" xml:space="preserve">
-    <value>Нижний Алерт</value>
-  </data>
   <data name="UpAlert" xml:space="preserve">
     <value>Верхний Алерт</value>
+  </data>
+  <data name="DownAlert" xml:space="preserve">
+    <value>Нижний Алерт</value>
   </data>
   <data name="CenterAlign" xml:space="preserve">
     <value>Отображать По Центру</value>
@@ -2208,10 +2205,6 @@
   <data name="VolumeLabelDescription" xml:space="preserve">
     <value>Отображает значение объемов на каждом баре(значения видны только при растянутых по горизонтали барах)</value>
   </data>
-  <data name="BuyOvershootColor" xml:space="preserve">
-    <value>Цвет Покупки С Превышением </value>
-    <comment>TDSequential</comment>
-  </data>
   <data name="BuyOvershoot1Color" xml:space="preserve">
     <value>Цвет Покупки С Превышением 1</value>
     <comment>TDSequential</comment>
@@ -2222,6 +2215,10 @@
   </data>
   <data name="BuyOvershoot3Color" xml:space="preserve">
     <value>Цвет Покупки С Превышением 3</value>
+    <comment>TDSequential</comment>
+  </data>
+  <data name="BuyOvershootColor" xml:space="preserve">
+    <value>Цвет Покупки С Превышением </value>
     <comment>TDSequential</comment>
   </data>
   <data name="HighlightSignalBars" xml:space="preserve">
@@ -2255,12 +2252,6 @@
   <data name="SupportLevel" xml:space="preserve">
     <value>Уровень Поддержки</value>
   </data>
-  <data name="Bearish" xml:space="preserve">
-    <value>Медвежье</value>
-  </data>
-  <data name="WWMA" xml:space="preserve">
-    <value>Скользящая Средняя Уэллса Вилдерса</value>
-  </data>
   <data name="AskBidVolume" xml:space="preserve">
     <value>Объем Покупок Или Продаж</value>
     <comment>Up/Down Volume Ratio</comment>
@@ -2271,6 +2262,9 @@
   <data name="UpDownVolume" xml:space="preserve">
     <value>Объем Бычьей Или Медвежьей Свечи</value>
     <comment>Up/Down Volume Ratio</comment>
+  </data>
+  <data name="WWMA" xml:space="preserve">
+    <value>Скользящая Средняя Уэллса Вилдерса</value>
   </data>
   <data name="HLAverage" xml:space="preserve">
     <value>HL Среднее Значение</value>
@@ -2321,9 +2315,6 @@
   </data>
   <data name="ExtendLines" xml:space="preserve">
     <value>Продлить линии</value>
-  </data>
-  <data name="Show Fibonacci" xml:space="preserve">
-    <value>Показать уровни Фибоначчи</value>
   </data>
   <data name="ShowBrokenChannel" xml:space="preserve">
     <value>Показать пробитый канал</value>
@@ -2442,4 +2433,39 @@
   <data name="FilterEmptyMsg" xml:space="preserve">
     <value>Фильтр пуст</value>
   </data>
-</root>
+  <data name="Misc" xml:space="preserve">
+    <value>Разное</value>
+  </data>
+  <data name="Bearish" xml:space="preserve">
+    <value>Медвежье</value>
+  </data>
+  <data name="Show Fibonacci" xml:space="preserve">
+    <value>Показать уровни Фибоначчи</value>
+  </data>
+<data name="TillBar" xml:space="preserve">
+    <value>До бара</value>
+  </data><data name="FullWidth" xml:space="preserve">
+    <value>На всю ширину</value>
+  </data><data name="BarOpen" xml:space="preserve">
+    <value>Открытие</value>
+  </data><data name="BarHigh" xml:space="preserve">
+    <value>Максимум</value>
+  </data><data name="BarLow" xml:space="preserve">
+    <value>Минимум</value>
+  </data><data name="BarClose" xml:space="preserve">
+    <value>Закрытие</value>
+  </data><data name="Equilibrium" xml:space="preserve">
+    <value>Середина</value>
+  </data><data name="POC" xml:space="preserve">
+    <value>POC</value>
+  </data><data name="VWAP" xml:space="preserve">
+    <value>VWAP</value>
+  </data><data name="VAH" xml:space="preserve">
+    <value>VAH</value>
+  </data><data name="VAL" xml:space="preserve">
+    <value>VAL</value>
+  </data><data name="OHLCPlusDescription" xml:space="preserve">
+    <value>Расширенный индикатор ценовых уровней, показывающий OHLC, равновесие, POC и Value Area для нескольких периодов</value>
+  </data><data name="ToggleLevelsVisibilityHotKey" xml:space="preserve">
+    <value>Переключить видимость всех уровней</value>
+  </data></root>
