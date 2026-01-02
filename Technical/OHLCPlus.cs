@@ -220,7 +220,7 @@ public class OHLCPlus : Indicator
         public int LineX2 { get; }
         public int LineY { get; }
 
-        // Lower = drawn first (more “important” in pq01 = preserve current order)
+        // Lower = drawn first (more ï¿½importantï¿½ in pq01 = preserve current order)
         public int Priority { get; }
 
         public int Sequence { get; }
@@ -1063,124 +1063,127 @@ public class OHLCPlus : Indicator
     #endregion
 
     #region Labels
-    [Display(Name = "Label template", GroupName = "Labels")]
+    // --- Labels group ---
+    [Display(GroupName = "Labels", Name = "Template", Order = 10)]
     public string LabelTemplate
     {
         get => _labelTemplate;
         set => _labelTemplate = value;
     }
 
-    [Display(Name = "Open label", GroupName = "Labels")]
+    [Display(GroupName = "Labels", Name = "Open", Order = 20)]
     public string OpenLabel
     {
         get => _openLabel;
         set => _openLabel = value;
     }
 
-    [Display(Name = "High label", GroupName = "Labels")]
+    [Display(GroupName = "Labels", Name = "High", Order = 30)]
     public string HighLabel
     {
         get => _highLabel;
         set => _highLabel = value;
     }
 
-    [Display(Name = "Low label", GroupName = "Labels")]
+    [Display(GroupName = "Labels", Name = "Low", Order = 40)]
     public string LowLabel
     {
         get => _lowLabel;
         set => _lowLabel = value;
     }
 
-    [Display(Name = "Close label", GroupName = "Labels")]
+    [Display(GroupName = "Labels", Name = "Close", Order = 50)]
     public string CloseLabel
     {
         get => _closeLabel;
         set => _closeLabel = value;
     }
 
-    [Display(Name = "Equilibrium label", GroupName = "Labels")]
+    [Display(GroupName = "Labels", Name = "Equilibrium", Order = 60)]
     public string EquilibriumLabel
     {
         get => _equilibriumLabel;
         set => _equilibriumLabel = value;
     }
 
-    [Display(Name = "POC label", GroupName = "Labels")]
+    [Display(GroupName = "Labels", Name = "POC", Order = 70)]
     public string PocLabel
     {
         get => _pocLabel;
         set => _pocLabel = value;
     }
 
-    [Display(Name = "VWAP label", GroupName = "Labels")]
+    [Display(GroupName = "Labels", Name = "VWAP", Order = 80)]
     public string VwapLabel
     {
         get => _vwapLabel;
         set => _vwapLabel = value;
     }
 
-    [Display(Name = "VAH label", GroupName = "Labels")]
+    [Display(GroupName = "Labels", Name = "VAH", Order = 90)]
     public string VahLabel
     {
         get => _vahLabel;
         set => _vahLabel = value;
     }
 
-    [Display(Name = "VAL label", GroupName = "Labels")]
+    [Display(GroupName = "Labels", Name = "VAL", Order = 100)]
     public string ValLabel
     {
         get => _valLabel;
         set => _valLabel = value;
     }
 
-    [Display(Name = "Day prefix", GroupName = "Labels")]
+    // --- Prefixes group ---
+    [Display(ResourceType = typeof(Strings), GroupName = "Prefixes", Name = nameof(Strings.CurrentDay), Order = 10)]
     public string DayPrefix
     {
         get => _dayPrefix;
         set => _dayPrefix = value;
     }
 
-    [Display(Name = "Prev day prefix", GroupName = "Labels")]
+    [Display(ResourceType = typeof(Strings), GroupName = "Prefixes", Name = nameof(Strings.PreviousDay), Order = 20)]
     public string PrevDayPrefix
     {
         get => _prevDayPrefix;
         set => _prevDayPrefix = value;
     }
 
-    [Display(Name = "Week prefix", GroupName = "Labels")]
+    [Display(ResourceType = typeof(Strings), GroupName = "Prefixes", Name = nameof(Strings.CurrentWeek), Order = 30)]
     public string WeekPrefix
     {
         get => _weekPrefix;
         set => _weekPrefix = value;
     }
 
-    [Display(Name = "Prev week prefix", GroupName = "Labels")]
+    [Display(ResourceType = typeof(Strings), GroupName = "Prefixes", Name = nameof(Strings.PreviousWeek), Order = 40)]
     public string PrevWeekPrefix
     {
         get => _prevWeekPrefix;
         set => _prevWeekPrefix = value;
     }
 
-    [Display(Name = "Month prefix", GroupName = "Labels")]
+    [Display(ResourceType = typeof(Strings), GroupName = "Prefixes", Name = nameof(Strings.CurrentMonth), Order = 50)]
     public string MonthPrefix
     {
         get => _monthPrefix;
         set => _monthPrefix = value;
     }
 
-    [Display(Name = "Prev month prefix", GroupName = "Labels")]
+    [Display(ResourceType = typeof(Strings), GroupName = "Prefixes", Name = nameof(Strings.PreviousMonth), Order = 60)]
     public string PrevMonthPrefix
     {
         get => _prevMonthPrefix;
         set => _prevMonthPrefix = value;
     }
 
-    [Display(Name = "Contract prefix", GroupName = "Labels")]
+    [Display(GroupName = "Prefixes", Name = "Contract", Order = 70)]
     public string ContractPrefix
     {
         get => _contractPrefix;
         set => _contractPrefix = value;
     }
+
 
     #endregion
 
@@ -1785,10 +1788,10 @@ public class OHLCPlus : Indicator
         if (x2 <= x1)
             return;
 
-        // Safety padding: include pen width + 1px to avoid “overpassing” artifacts
+        // Safety padding: include pen width + 1px to avoid ï¿½overpassingï¿½ artifacts
         var pad = _labelPadding + 1;
 
-        // Collect “holes” on the line caused by labels
+        // Collect ï¿½holesï¿½ on the line caused by labels
         var holes = new List<(int L, int R)>(8);
 
         for (var i = 0; i < allRects.Count; i++)
@@ -1854,7 +1857,7 @@ public class OHLCPlus : Indicator
     {
         var rectX = alignRight ? xAnchor - size.Width : xAnchor;
 
-        // Keep the “nice border breathing room” for Left/Right,
+        // Keep the ï¿½nice border breathing roomï¿½ for Left/Right,
         // but do not shift Bar labels to the left (it looks misaligned with the line start).
         var leftPad = isBar ? 0 : 2;
 
