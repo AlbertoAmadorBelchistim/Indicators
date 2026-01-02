@@ -313,6 +313,33 @@ public class OHLCPlus : Indicator
         public int SemanticWeight { get; } // used for pq01 tie-breaking later
     }
 
+    private readonly struct VisualRule
+    {
+        public VisualRule(FixedProfilePeriods? period, LevelType? levelType, VisualStyleDelta style)
+        {
+            Period = period;
+            LevelType = levelType;
+            Style = style;
+        }
+
+        public FixedProfilePeriods? Period { get; }
+        public LevelType? LevelType { get; }
+        public VisualStyleDelta Style { get; }
+    }
+
+    private sealed class VisualRuleSet
+    {
+        public static readonly VisualRuleSet Empty = new([]);
+
+        public VisualRuleSet(List<VisualRule> rules)
+        {
+            Rules = rules;
+        }
+
+        public List<VisualRule> Rules { get; }
+    }
+
+
     #region Mapping
 
     private static readonly Dictionary<string, LevelType> _suffixToLevelType = new(StringComparer.OrdinalIgnoreCase)
@@ -459,13 +486,9 @@ public class OHLCPlus : Indicator
     private VisualSemanticMode _visualSemanticMode = VisualSemanticMode.Legacy;
 
     private VisualSemanticPresetKind _visualSemanticPreset = VisualSemanticPresetKind.ByPeriod;
-    private ResolvedVisualSemantic ResolveVisualSemantic(LevelDescriptor d, LevelSettings baseSettings)
-    {
-        // pq02.1: do not change visuals or priority.
-        // Return empty delta and zero semantic weight.
-        return new ResolvedVisualSemantic(style: new VisualStyleDelta(), semanticWeight: 0);
-    }
 
+    // Cache (rebuild only when preset changes)
+    private VisualRuleSet _visualRuleSet = VisualRuleSet.Empty;
     private bool _visualRuleSetDirty = true;
     #endregion
 
@@ -2352,6 +2375,228 @@ public class OHLCPlus : Indicator
             _ => 100
         };
     }
+
+    private ResolvedVisualSemantic ResolveVisualSemantic(LevelDescriptor d, LevelSettings baseSettings)
+    {
+        EnsureVisualRuleSet();
+
+        // No semantic priority yet in pq02.2
+        const int weight = 0;
+
+        if (_visualRuleSet.Rules.Count == 0)
+            return new ResolvedVisualSemantic(new VisualStyleDelta(), weight);
+
+        // First match wins (rules are already ordered by preset builder).
+        foreach (var r in _visualRuleSet.Rules)
+        {
+            if (r.Period.HasValue && r.Period.Value != d.Period)
+                continue;
+
+            if (r.LevelType.HasValue && r.LevelType.Value != d.Type)
+                continue;
+
+            return new ResolvedVisualSemantic(r.Style, weight);
+        }
+
+        return new ResolvedVisualSemantic(new VisualStyleDelta(), weight);
+    }
+    private void EnsureVisualRuleSet()
+    {
+        if (!_visualRuleSetDirty)
+            return;
+
+        _visualRuleSet = _visualSemanticPreset switch
+        {
+            VisualSemanticPresetKind.ByPeriod => BuildRuleSetByPeriod(),
+            VisualSemanticPresetKind.ByLevelType => BuildRuleSetByLevelType(),
+            _ => VisualRuleSet.Empty
+        };
+
+        _visualRuleSetDirty = false;
+    }
+
+    private CrossColor GetPeriodPaletteColor(FixedProfilePeriods period) => period switch
+    {
+        FixedProfilePeriods.CurrentDay => PeriodColorCurrentDay,
+        FixedProfilePeriods.LastDay => PeriodColorPreviousDay,
+        FixedProfilePeriods.CurrentWeek => PeriodColorCurrentWeek,
+        FixedProfilePeriods.LastWeek => PeriodColorPreviousWeek,
+        FixedProfilePeriods.CurrentMonth => PeriodColorCurrentMonth,
+        FixedProfilePeriods.LastMonth => PeriodColorPreviousMonth,
+        FixedProfilePeriods.Contract => PeriodColorContract,
+        _ => PeriodColorCurrentDay
+    };
+
+    private CrossColor GetLevelPaletteColor(LevelType levelType) => levelType switch
+    {
+        LevelType.Open => LevelColorOpen,
+        LevelType.High => LevelColorHigh,
+        LevelType.Low => LevelColorLow,
+        LevelType.Close => LevelColorClose,
+        LevelType.EQ => LevelColorEQ,
+        LevelType.POC => LevelColorPOC,
+        LevelType.VWAP => LevelColorVWAP,
+        LevelType.VAH => LevelColorVAH,
+        LevelType.VAL => LevelColorVAL,
+        _ => LevelColorOpen
+    };
+
+
+    private VisualRuleSet BuildRuleSetByPeriod()
+        {
+            // Period semantics: temporal hierarchy (today > prev day > week > month > contract).
+            // Color comes from the period palette; width/dash encodes "age" for fast reading.
+            var rules = new List<VisualRule>
+            {
+                new (FixedProfilePeriods.CurrentDay, null,
+                    new VisualStyleDelta
+                    {
+                        Color = GetPeriodPaletteColor(FixedProfilePeriods.CurrentDay),
+                        Width = 2,
+                        Dash = LineDashStyle.Solid
+                    }),
+
+                new (FixedProfilePeriods.LastDay, null,
+                    new VisualStyleDelta
+                    {
+                        Color = GetPeriodPaletteColor(FixedProfilePeriods.LastDay),
+                        Width = 1,
+                        Dash = LineDashStyle.Solid
+                    }),
+
+                new(FixedProfilePeriods.CurrentWeek, null,
+                new VisualStyleDelta
+                    {
+                    Color = GetPeriodPaletteColor(FixedProfilePeriods.CurrentWeek),
+                    Width = 1,
+                    Dash = LineDashStyle.Dash
+                    }),
+
+                new(FixedProfilePeriods.LastWeek, null,
+                new VisualStyleDelta
+                    {
+                    Color = GetPeriodPaletteColor(FixedProfilePeriods.LastWeek),
+                    Width = 1,
+                    Dash = LineDashStyle.Dot
+                    }),
+
+                new(FixedProfilePeriods.CurrentMonth, null,
+                new VisualStyleDelta
+                    {
+                    Color = GetPeriodPaletteColor(FixedProfilePeriods.CurrentMonth),
+                    Width = 1,
+                    Dash = LineDashStyle.DashDot
+                    }),
+
+                new(FixedProfilePeriods.LastMonth, null,
+                new VisualStyleDelta
+                    {
+                    Color = GetPeriodPaletteColor(FixedProfilePeriods.LastMonth),
+                    Width = 1,
+                    Dash = LineDashStyle.DashDot
+                    }),
+
+                new(FixedProfilePeriods.Contract, null,
+                new VisualStyleDelta
+                    {
+                    Color = GetPeriodPaletteColor(FixedProfilePeriods.Contract),
+                    Width = 1,
+                    Dash = LineDashStyle.Dot
+                    })
+            };
+
+            return new VisualRuleSet(rules);
+        }
+
+
+    private VisualRuleSet BuildRuleSetByLevelType()
+    {
+        // Level hierarchy for intraday scalping:
+        // Anchors dominate (POC/VWAP), Value Area is secondary (VAH/VAL), extremes are simple (High/Low),
+        // session references are tertiary (Open/Close/EQ).
+        var rules = new List<VisualRule>
+    {
+        // Anchors
+        new(null, LevelType.POC,
+            new VisualStyleDelta
+            {
+                Color = GetLevelPaletteColor(LevelType.POC),
+                Width = 3,
+                Dash = LineDashStyle.Solid
+            }),
+
+        new(null, LevelType.VWAP,
+            new VisualStyleDelta
+            {
+                Color = GetLevelPaletteColor(LevelType.VWAP),
+                Width = 2,
+                Dash = LineDashStyle.Solid
+            }),
+
+        // Value Area (dotted to avoid competing with anchors)
+        new(null, LevelType.VAH,
+            new VisualStyleDelta
+            {
+                Color = GetLevelPaletteColor(LevelType.VAH),
+                Width = 1,
+                Dash = LineDashStyle.Dot
+            }),
+
+        new(null, LevelType.VAL,
+            new VisualStyleDelta
+            {
+                Color = GetLevelPaletteColor(LevelType.VAL),
+                Width = 1,
+                Dash = LineDashStyle.Dot
+            }),
+
+        // Extremes (solid, thin)
+        new(null, LevelType.High,
+            new VisualStyleDelta
+            {
+                Color = GetLevelPaletteColor(LevelType.High),
+                Width = 1,
+                Dash = LineDashStyle.Solid
+            }),
+
+        new(null, LevelType.Low,
+            new VisualStyleDelta
+            {
+                Color = GetLevelPaletteColor(LevelType.Low),
+                Width = 1,
+                Dash = LineDashStyle.Solid
+            }),
+
+        // Session references (dashed, subtle)
+        new(null, LevelType.Open,
+            new VisualStyleDelta
+            {
+                Color = GetLevelPaletteColor(LevelType.Open),
+                Width = 1,
+                Dash = LineDashStyle.Dash
+            }),
+
+        new(null, LevelType.Close,
+            new VisualStyleDelta
+            {
+                Color = GetLevelPaletteColor(LevelType.Close),
+                Width = 1,
+                Dash = LineDashStyle.Dash
+            }),
+
+        // Equilibrium (informational)
+        new(null, LevelType.EQ,
+            new VisualStyleDelta
+            {
+                Color = GetLevelPaletteColor(LevelType.EQ),
+                Width = 1,
+                Dash = LineDashStyle.Dash
+            })
+    };
+
+        return new VisualRuleSet(rules);
+    }
+
 
 
     #endregion
