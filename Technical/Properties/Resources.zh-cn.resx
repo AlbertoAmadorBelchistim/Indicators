@@ -243,4 +243,28 @@
   <data name="VisualMode_Ruleset_Description" xml:space="preserve">
     <value>由语义规则和调色板驱动的可视化方式。</value>
   </data>
+  <data name="HVN_Group" xml:space="preserve">
+    <value>HVN</value>
+  </data>
+  <data name="HVN_Enable" xml:space="preserve">
+    <value>启用 HVN</value>
+  </data>
+  <data name="HVN_Color" xml:space="preserve">
+    <value>HVN 颜色</value>
+  </data>
+  <data name="HVN_ThresholdPct" xml:space="preserve">
+    <value>HVN 阈值（POC 成交量的百分比）</value>
+  </data>
+  <data name="HVN_GapToleranceTicks" xml:space="preserve">
+    <value>间隙容忍（tick）</value>
+  </data>
+  <data name="HVN_OcclusionTicks" xml:space="preserve">
+    <value>遮挡（tick）</value>
+  </data>
+  <data name="HVN_ThresholdPct_Description" xml:space="preserve">
+    <value>价格层级成为 HVN 区域所需的最小成交量（占 POC 成交量的百分比）。</value>
+  </data>
+  <data name="HVN_GapToleranceTicks_Description" xml:space="preserve">
+    <value>允许 HVN 区域内存在小的间隙（tick），以合并相邻的高成交量价位。</value>
+  </data>
 </root>
