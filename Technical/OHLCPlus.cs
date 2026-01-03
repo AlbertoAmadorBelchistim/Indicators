@@ -801,11 +801,11 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = "Enable HVN", Order = 90)]
-    public bool PreviousDayHVNEnabled { get; set; } = false;
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousDay), Name = nameof(Resources.HVN_Enable), Order = 90)]
+    public bool PrevDayHVNEnabled { get; set; } = false;
 
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = "HVN color", Order = 95)]
-    public CrossColor PreviousDayHVNColor { get; set; } = Color.FromArgb(55, 120, 120, 120).Convert(); // semi-transparent
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousDay), Name = nameof(Resources.HVN_Color), Order = 95)]
+    public CrossColor PrevDayHVNColor { get; set; } = Color.FromArgb(55, 120, 120, 120).Convert(); // semi-transparent
 
     #endregion
 
@@ -920,11 +920,11 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = "Enable HVN", Order = 90)]
-    public bool CurrentWeekHVNEnabled { get; set; } = false;
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentWeek), Name = nameof(Resources.HVN_Enable), Order = 90)]
+    public bool WeekHVNEnabled { get; set; } = false;
 
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = "HVN color", Order = 95)]
-    public CrossColor CurrentWeekHVNColor { get; set; } = Color.FromArgb(55, 0, 191, 255).Convert(); // semi-transparent
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentWeek), Name = nameof(Resources.HVN_Color), Order = 95)]
+    public CrossColor WeekHVNColor { get; set; } = Color.FromArgb(55, 0, 191, 255).Convert(); // semi-transparent
 
     #endregion
 
@@ -1038,11 +1038,11 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = "Enable HVN", Order = 90)]
-    public bool PreviousWeekHVNEnabled { get; set; } = false;
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousWeek), Name = nameof(Resources.HVN_Enable), Order = 90)]
+    public bool PrevWeekHVNEnabled { get; set; } = false;
 
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = "HVN color", Order = 95)]
-    public CrossColor PreviousWeekHVNColor { get; set; } = Color.FromArgb(45, 70, 130, 180).Convert(); // semi-transparent
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousWeek), Name = nameof(Resources.HVN_Color), Order = 95)]
+    public CrossColor PrevWeekHVNColor { get; set; } = Color.FromArgb(45, 70, 130, 180).Convert(); // semi-transparent
 
     #endregion
 
@@ -1156,11 +1156,11 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = "Enable HVN", Order = 90)]
-    public bool CurrentMonthHVNEnabled { get; set; } = false;
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentMonth), Name = nameof(Resources.HVN_Enable), Order = 90)]
+    public bool MonthHVNEnabled { get; set; } = false;
 
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = "HVN color", Order = 95)]
-    public CrossColor CurrentMonthHVNColor { get; set; } = Color.FromArgb(45, 60, 179, 113).Convert(); // semi-transparent
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentMonth), Name = nameof(Resources.HVN_Color), Order = 95)]
+    public CrossColor MonthHVNColor { get; set; } = Color.FromArgb(45, 60, 179, 113).Convert(); // semi-transparent
 
     #endregion
 
@@ -1274,11 +1274,11 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = "Enable HVN", Order = 90)]
-    public bool PreviousMonthHVNEnabled { get; set; } = false;
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousMonth), Name = nameof(Resources.HVN_Enable), Order = 90)]
+    public bool PrevMonthHVNEnabled { get; set; } = false;
 
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = "HVN color", Order = 95)]
-    public CrossColor PreviousMonthHVNColor { get; set; } = Color.FromArgb(45, 85, 107, 47).Convert(); // semi-transparent
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousMonth), Name = nameof(Resources.HVN_Color), Order = 95)]
+    public CrossColor PrevMonthHVNColor { get; set; } = Color.FromArgb(45, 85, 107, 47).Convert(); // semi-transparent
 
     #endregion
 
@@ -1672,8 +1672,11 @@ public class OHLCPlus : Indicator
     protected override void OnFixedProfilesResponse(IndicatorCandle fixedProfileScaled, IndicatorCandle fixedProfileOriginScale, FixedProfilePeriods period)
     {
         _profileCandles[period] = fixedProfileOriginScale;
-        UpdateHVNs(period, fixedProfileOriginScale);
-        if (UpdateLevels(period, fixedProfileOriginScale))
+
+        var levelsChanged = UpdateLevels(period, fixedProfileOriginScale);
+        var hvnChanged = UpdateHVNs(period, fixedProfileOriginScale); // make UpdateHVNs return bool
+
+        if (levelsChanged || hvnChanged)
             RedrawChart();
     }
 
@@ -1683,6 +1686,9 @@ public class OHLCPlus : Indicator
             return;
 
         BeginLabelLayoutFrame();
+
+        // HVN overlay should be rendered as background (below levels/labels)
+        RenderAllHVNsWithPriority(context);
 
         // Render all levels in groups for better organization
         RenderLevelGroup(context, "d", DayOpenLevel, DayHighLevel, DayLowLevel, DayCloseLevel, DayEquilibriumLevel, DayPOCLevel, DayVWAPLevel, DayVAHLevel, DayVALLevel);
@@ -1978,10 +1984,10 @@ public class OHLCPlus : Indicator
         return priceChanged || validChanged;
     }
 
-    private void UpdateHVNs(FixedProfilePeriods period, IndicatorCandle candle)
+    private bool UpdateHVNs(FixedProfilePeriods period, IndicatorCandle candle)
     {
         if (InstrumentInfo?.TickSize is null || InstrumentInfo.TickSize <= 0m)
-            return;
+            return false;
 
         if (!_hvnBands.TryGetValue(period, out var bands))
         {
@@ -1995,17 +2001,17 @@ public class OHLCPlus : Indicator
 
         var poc = candle.MaxVolumePriceInfo;
         if (poc == null || poc.Volume <= 0)
-            return;
+            return false;
 
         var cutoff = poc.Volume * (HVNThresholdPct / 100m);
 
         var levelsEnum = candle.GetAllPriceLevels();
         if (levelsEnum == null)
-            return;
+            return false;
 
         var levels = levelsEnum.OrderBy(l => l.Price).ToList();
         if (levels.Count == 0)
-            return;
+            return false;
 
         var tick = InstrumentInfo.TickSize;
 
@@ -2073,6 +2079,8 @@ public class OHLCPlus : Indicator
 
         if (runStart != null && lastPriceInRun >= runStart.Value)
             bands.Add(new HVNBand { Low = runStart.Value, High = lastPriceInRun });
+
+        return true;
     }
 
 
@@ -2815,6 +2823,216 @@ public class OHLCPlus : Indicator
 
         return new VisualRuleSet(rules);
     }
+
+    #region HVN / LVN
+
+    private void RenderAllHVNsWithPriority(RenderContext context)
+    {
+        if (ChartInfo is null || InstrumentInfo is null)
+            return;
+
+        var region = ChartInfo.PriceChartContainer.Region;
+        if (region.Width <= 0 || region.Height <= 0)
+            return;
+
+        if (InstrumentInfo.TickSize <= 0m)
+            return;
+
+        var tick = InstrumentInfo.TickSize;
+        var buffer = HVNOcclusionTicks > 0 ? HVNOcclusionTicks * tick : 0m;
+
+        // Claimed ranges in PRICE space (expanded with occlusion buffer)
+        var claimed = new List<(decimal Low, decimal High)>(64);
+
+        foreach (var period in _hvnPriorityOrder)
+        {
+            if (!IsHvnEnabled(period))
+                continue;
+
+            if (!_hvnBands.TryGetValue(period, out var bands) || bands is null || bands.Count == 0)
+                continue;
+
+            var fillColor = GetHvnColor(period);
+            var borderPen = new PenSettings
+            {
+                Color = fillColor,
+                Width = 1,
+                LineDashStyle = LineDashStyle.Solid
+            }.RenderObject;
+
+            // Render each band with occlusion handling
+            foreach (var b in bands)
+            {
+                var low = Math.Min(b.Low, b.High);
+                var high = Math.Max(b.Low, b.High);
+
+                // Subtract already claimed ranges (with buffer)
+                var visibleSegments = SubtractClaimedRanges(low, high, claimed, buffer);
+                if (visibleSegments.Count == 0)
+                    continue;
+
+                foreach (var seg in visibleSegments)
+                    RenderHvnBandSegment(context, region, seg.Low, seg.High, fillColor, borderPen);
+
+                // Mark this band as claimed (expanded by buffer)
+                var cLow = low - buffer;
+                var cHigh = high + buffer;
+                AddClaimedRange(claimed, cLow, cHigh);
+            }
+        }
+    }
+
+    private void RenderHvnBandSegment(
+    RenderContext context,
+    Rectangle region,
+    decimal low,
+    decimal high,
+    CrossColor fillColor,
+    RenderPen borderPen)
+    {
+        // Convert PRICE -> Y
+        var y1 = ChartInfo.GetYByPrice(high, false);
+        var y2 = ChartInfo.GetYByPrice(low, false);
+
+        var top = Math.Min(y1, y2);
+        var bottom = Math.Max(y1, y2);
+
+        // Clip to visible region
+        if (bottom < region.Top || top > region.Bottom)
+            return;
+
+        var clippedTop = Math.Max(top, region.Top);
+        var clippedBottom = Math.Min(bottom, region.Bottom);
+
+        // Ensure at least 1 px height
+        var height = Math.Max(1, clippedBottom - clippedTop);
+
+        var rect = new Rectangle(region.Left, clippedTop, region.Width, height);
+
+        var c = System.Drawing.Color.FromArgb(fillColor.A, fillColor.R, fillColor.G, fillColor.B);
+        context.FillRectangle(c, rect);
+        context.DrawRectangle(borderPen, rect);
+    }
+
+
+    private List<(decimal Low, decimal High)> SubtractClaimedRanges(
+        decimal low,
+        decimal high,
+        List<(decimal Low, decimal High)> claimed,
+        decimal buffer)
+    {
+        // Work list initially contains the full band
+        var result = new List<(decimal Low, decimal High)>(4) { (low, high) };
+        if (claimed.Count == 0)
+            return result;
+
+        // Subtract each claimed (expanded) range from current segments
+        for (int i = 0; i < claimed.Count; i++)
+        {
+            var c = claimed[i];
+            var cLow = c.Low;
+            var cHigh = c.High;
+
+            var next = new List<(decimal Low, decimal High)>(result.Count);
+
+            for (int j = 0; j < result.Count; j++)
+            {
+                var seg = result[j];
+                var sLow = seg.Low;
+                var sHigh = seg.High;
+
+                // No overlap
+                if (sHigh < cLow || sLow > cHigh)
+                {
+                    next.Add(seg);
+                    continue;
+                }
+
+                // Left remainder
+                if (sLow < cLow)
+                    next.Add((sLow, cLow));
+
+                // Right remainder
+                if (sHigh > cHigh)
+                    next.Add((cHigh, sHigh));
+            }
+
+            result = next;
+            if (result.Count == 0)
+                break;
+        }
+
+        // Normalize & remove degenerate segments
+        for (int k = result.Count - 1; k >= 0; k--)
+        {
+            var seg = result[k];
+            var a = Math.Min(seg.Low, seg.High);
+            var b = Math.Max(seg.Low, seg.High);
+            if (b <= a)
+                result.RemoveAt(k);
+            else
+                result[k] = (a, b);
+        }
+
+        return result;
+    }
+
+    private void AddClaimedRange(List<(decimal Low, decimal High)> claimed, decimal low, decimal high)
+    {
+        if (high <= low)
+            return;
+
+        // Simple merge into claimed list (kept compact; order not required)
+        for (int i = 0; i < claimed.Count; i++)
+        {
+            var c = claimed[i];
+
+            // Overlap or touch: merge
+            if (!(high < c.Low || low > c.High))
+            {
+                var nLow = Math.Min(low, c.Low);
+                var nHigh = Math.Max(high, c.High);
+                claimed[i] = (nLow, nHigh);
+                return;
+            }
+        }
+
+        claimed.Add((low, high));
+    }
+
+    private bool IsHvnEnabled(FixedProfilePeriods period)
+    {
+        // TODO: adapt to your exact property names
+        return period switch
+        {
+            FixedProfilePeriods.CurrentDay => DayHVNEnabled,
+            FixedProfilePeriods.LastDay => PrevDayHVNEnabled,
+            FixedProfilePeriods.CurrentWeek => WeekHVNEnabled,
+            FixedProfilePeriods.LastWeek => PrevWeekHVNEnabled,
+            FixedProfilePeriods.CurrentMonth => MonthHVNEnabled,
+            FixedProfilePeriods.LastMonth => PrevMonthHVNEnabled,
+            FixedProfilePeriods.Contract => ContractHVNEnabled,
+            _ => false
+        };
+    }
+
+    private CrossColor GetHvnColor(FixedProfilePeriods period)
+    {
+        // TODO: adapt to your exact property names
+        return period switch
+        {
+            FixedProfilePeriods.CurrentDay => DayHVNColor,
+            FixedProfilePeriods.LastDay => PrevDayHVNColor,
+            FixedProfilePeriods.CurrentWeek => WeekHVNColor,
+            FixedProfilePeriods.LastWeek => PrevWeekHVNColor,
+            FixedProfilePeriods.CurrentMonth => MonthHVNColor,
+            FixedProfilePeriods.LastMonth => PrevMonthHVNColor,
+            FixedProfilePeriods.Contract => ContractHVNColor,
+            _ => System.Drawing.Color.Transparent.Convert()
+        };
+    }
+
+    #endregion
 
 
 
