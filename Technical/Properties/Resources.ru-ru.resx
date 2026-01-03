@@ -2511,15 +2511,6 @@
   <data name="VisualSemanticPreset" xml:space="preserve">
     <value>Пресет</value>
   </data>
-  <data name="Misc" xml:space="preserve">
-    <value>Разное</value>
-  </data>
-  <data name="Bearish" xml:space="preserve">
-    <value>Медвежье</value>
-  </data>
-  <data name="Show Fibonacci" xml:space="preserve">
-    <value>Показать уровни Фибоначчи</value>
-  </data>
   <data name="OverrideWidthInSchemes" xml:space="preserve">
     <value>Переопределить толщину в схемах</value>
   </data>
@@ -2531,5 +2522,32 @@
   </data>
   <data name="OverrideStyleInSchemesDescription" xml:space="preserve">
     <value>Если включено, этот уровень будет использовать свой собственный стиль линии, даже когда активны визуально-семантические схемы.</value>
+  </data>
+  <data name="Misc" xml:space="preserve">
+    <value>Разное</value>
+  </data>
+  <data name="Bearish" xml:space="preserve">
+    <value>Медвежье</value>
+  </data>
+  <data name="Show Fibonacci" xml:space="preserve">
+    <value>Показать уровни Фибоначчи</value>
+  </data>
+  <data name="VisualSemantic_LevelPalette" xml:space="preserve">
+    <value>Визуальная семантика — палитра уровней</value>
+  </data>
+  <data name="VisualSemantic_PeriodPalette" xml:space="preserve">
+    <value>Визуальная семантика — палитра периодов</value>
+  </data>
+  <data name="VisualMode_Legacy" xml:space="preserve">
+    <value>Классический</value>
+  </data>
+  <data name="VisualMode_Ruleset" xml:space="preserve">
+    <value>Набор правил</value>
+  </data>
+  <data name="VisualMode_Legacy_Description" xml:space="preserve">
+    <value>Классическая визуализация без семантических правил.</value>
+  </data>
+  <data name="VisualMode_Ruleset_Description" xml:space="preserve">
+    <value>Визуализация, управляемая семантическими правилами и палитрами.</value>
   </data>
 </root>
