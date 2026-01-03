@@ -1989,6 +1989,18 @@ public class OHLCPlus : Indicator
         if (InstrumentInfo?.TickSize is null || InstrumentInfo.TickSize <= 0m)
             return false;
 
+        // If HVN is disabled for this period, clear cached bands (if any) and skip work.
+        if (!IsHvnEnabled(period))
+        {
+            if (_hvnBands.TryGetValue(period, out var cached) && cached.Count > 0)
+            {
+                cached.Clear();
+                return true; // state changed -> redraw
+            }
+
+            return false;
+        }
+
         if (!_hvnBands.TryGetValue(period, out var bands))
         {
             bands = new List<HVNBand>();
@@ -2909,8 +2921,7 @@ public class OHLCPlus : Indicator
 
         var rect = new Rectangle(region.Left, clippedTop, region.Width, height);
 
-        var c = System.Drawing.Color.FromArgb(fillColor.A, fillColor.R, fillColor.G, fillColor.B);
-        context.FillRectangle(c, rect);
+        context.FillRectangle(ToDrawingColor(fillColor), rect);
         context.DrawRectangle(borderPen, rect);
     }
 
@@ -3002,7 +3013,6 @@ public class OHLCPlus : Indicator
 
     private bool IsHvnEnabled(FixedProfilePeriods period)
     {
-        // TODO: adapt to your exact property names
         return period switch
         {
             FixedProfilePeriods.CurrentDay => DayHVNEnabled,
@@ -3018,7 +3028,6 @@ public class OHLCPlus : Indicator
 
     private CrossColor GetHvnColor(FixedProfilePeriods period)
     {
-        // TODO: adapt to your exact property names
         return period switch
         {
             FixedProfilePeriods.CurrentDay => DayHVNColor,
@@ -3031,6 +3040,9 @@ public class OHLCPlus : Indicator
             _ => System.Drawing.Color.Transparent.Convert()
         };
     }
+
+    private static System.Drawing.Color ToDrawingColor(System.Windows.Media.Color c)
+    => System.Drawing.Color.FromArgb(c.A, c.R, c.G, c.B);
 
     #endregion
 
