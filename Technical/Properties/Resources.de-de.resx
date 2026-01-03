@@ -195,4 +195,10 @@
   <data name="OverrideLabel" xml:space="preserve">
     <value>Beschriftung überschreiben (optional)</value>
   </data>
+  <data name="OverrideColorInSchemes" xml:space="preserve">
+    <value>Farbe in Schemata überschreiben</value>
+  </data>
+  <data name="OverrideColorInSchemesDescription" xml:space="preserve">
+    <value>Wenn aktiviert, verwendet diese Linie ihre eigene Farbe, auch wenn visuelle semantische Schemata aktiv sind.</value>
+  </data>
 </root>
