@@ -280,7 +280,10 @@ public class OHLCPlus : Indicator
 
     public enum VisualSemanticPresetKind
     {
+        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ByPeriod))]
         ByPeriod = 0,
+
+        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ByLevelType))]
         ByLevelType = 1
     }
 
@@ -533,7 +536,7 @@ public class OHLCPlus : Indicator
 
     #region Properties
 
-    [Display(GroupName = "Visual Semantic (pq02)", Name = "Mode", Order = 1)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.VisualSemantic), Name = nameof(Resources.VisualSemanticMode), Order = 1)]
     public VisualSemanticMode VisualSemantic
     {
         get => _visualSemanticMode;
@@ -547,7 +550,7 @@ public class OHLCPlus : Indicator
         }
     }
 
-    [Display(GroupName = "Visual Semantic (pq02)", Name = "Preset", Order = 2)]
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.VisualSemantic), Name = nameof(Resources.VisualSemanticPreset), Order = 2)]
     public VisualSemanticPresetKind VisualSemanticPreset
     {
         get => _visualSemanticPreset;
