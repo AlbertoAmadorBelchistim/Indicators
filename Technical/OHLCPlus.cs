@@ -75,8 +75,6 @@ public class LevelSettings : NotifiableObject
     private LabelPosition _labelPosition;
     private string _overrideLabel = string.Empty;
     private bool _overrideColorInSchemes;
-    private bool _overrideWidthInSchemes;
-    private bool _overrideStyleInSchemes;
 
     #endregion
 
@@ -146,20 +144,6 @@ public class LevelSettings : NotifiableObject
         set => SetField(ref _overrideColorInSchemes, value);
     }
 
-    [Display(Name = "Override width in schemes", Description = "If enabled, this level will use its own line width even when visual semantic schemes are active.")]
-    public bool OverrideWidthInSchemes
-    {
-        get => _overrideWidthInSchemes;
-        set => SetField(ref _overrideWidthInSchemes, value);
-    }
-
-    [Display(Name = "Override line style in schemes", Description = "If enabled, this level will use its own line style even when visual semantic schemes are active.")]
-    public bool OverrideStyleInSchemes
-    {
-        get => _overrideStyleInSchemes;
-        set => SetField(ref _overrideStyleInSchemes, value);
-    }
-
     [Browsable(false)]
     public RenderPen RenderPen => new PenSettings { Color = Color, Width = Width, LineDashStyle = LineStyle }.RenderObject;
 
@@ -175,7 +159,8 @@ public class LevelSettings : NotifiableObject
         LineDashStyle lineStyle = LineDashStyle.Solid,
         bool showPrice = true,
         LabelPosition labelPosition = LabelPosition.Bar,
-        LineType lineType = LineType.Bar
+        LineType lineType = LineType.Bar,
+        bool overrideColorInSchemes = false
     )
     {
         Enabled = enabled;
@@ -185,6 +170,7 @@ public class LevelSettings : NotifiableObject
         ShowPrice = showPrice;
         LabelPosition = labelPosition;
         LineType = lineType;
+        OverrideColorInSchemes = overrideColorInSchemes;
     }
 
     #endregion
@@ -1966,18 +1952,11 @@ public class OHLCPlus : Indicator
             : _emptySemantic;
 
         // Apply semantic style delta (pq02.2: color/width/dash only; no priority changes yet)
-        // Precedence: per-line override > semantic matrix > base LevelSettings
         var effColor = levelSettings.OverrideColorInSchemes
             ? levelSettings.Color
             : (sem.Style.Color ?? levelSettings.Color);
-
-        var effWidth = levelSettings.OverrideWidthInSchemes
-            ? levelSettings.Width
-            : (sem.Style.Width ?? levelSettings.Width);
-
-        var effDash = levelSettings.OverrideStyleInSchemes
-            ? levelSettings.LineStyle
-            : (sem.Style.Dash ?? levelSettings.LineStyle);
+        var effWidth = sem.Style.Width ?? levelSettings.Width;
+        var effDash = sem.Style.Dash ?? levelSettings.LineStyle;
 
         var renderPen = new PenSettings
         {
@@ -2737,9 +2716,7 @@ public class OHLCPlus : Indicator
             || e.PropertyName == nameof(LevelSettings.Width)
             || e.PropertyName == nameof(LevelSettings.LabelPosition)
             || e.PropertyName == nameof(LevelSettings.ShowPrice)
-            || e.PropertyName == nameof(LevelSettings.OverrideLabel)
-            || e.PropertyName == nameof(LevelSettings.OverrideWidthInSchemes)
-            || e.PropertyName == nameof(LevelSettings.OverrideStyleInSchemes))
+            || e.PropertyName == nameof(LevelSettings.OverrideLabel))
         {
             RedrawChart();
         }
