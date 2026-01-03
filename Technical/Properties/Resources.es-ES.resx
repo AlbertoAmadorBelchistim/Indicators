@@ -225,4 +225,22 @@
   <data name="OverrideStyleInSchemesDescription" xml:space="preserve">
     <value>Si está activado, este nivel usará su propio estilo de línea incluso cuando los esquemas semánticos visuales estén activos.</value>
   </data>
+  <data name="VisualSemantic_LevelPalette" xml:space="preserve">
+    <value>Semántica visual – Paleta por nivel</value>
+  </data>
+  <data name="VisualSemantic_PeriodPalette" xml:space="preserve">
+    <value>Semántica visual – Paleta por período</value>
+  </data>
+  <data name="VisualMode_Legacy" xml:space="preserve">
+    <value>Clásico</value>
+  </data>
+  <data name="VisualMode_Ruleset" xml:space="preserve">
+    <value>Conjunto de reglas</value>
+  </data>
+  <data name="VisualMode_Legacy_Description" xml:space="preserve">
+    <value>Visualización clásica sin reglas semánticas.</value>
+  </data>
+  <data name="VisualMode_Ruleset_Description" xml:space="preserve">
+    <value>Visualización gobernada por reglas y paletas semánticas.</value>
+  </data>
 </root>

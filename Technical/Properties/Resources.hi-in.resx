@@ -225,4 +225,22 @@
   <data name="OverrideStyleInSchemesDescription" xml:space="preserve">
     <value>सक्रिय होने पर, यह स्तर विज़ुअल सेमांटिक स्कीम सक्रिय होने पर भी अपनी स्वयं की लाइन शैली का उपयोग करेगा।</value>
   </data>
+  <data name="VisualSemantic_LevelPalette" xml:space="preserve">
+    <value>दृश्य अर्थवत्ता – स्तर पैलेट</value>
+  </data>
+  <data name="VisualSemantic_PeriodPalette" xml:space="preserve">
+    <value>दृश्य अर्थवत्ता – अवधि की रंग-सूची</value>
+  </data>
+  <data name="VisualMode_Legacy" xml:space="preserve">
+    <value>क्लासिक</value>
+  </data>
+  <data name="VisualMode_Ruleset" xml:space="preserve">
+    <value>नियम-समूह</value>
+  </data>
+  <data name="VisualMode_Legacy_Description" xml:space="preserve">
+    <value>सेमांटिक नियमों के बिना पारंपरिक दृश्यकरण।</value>
+  </data>
+  <data name="VisualMode_Ruleset_Description" xml:space="preserve">
+    <value>सेमांटिक नियमों और पैलेट्स द्वारा नियंत्रित दृश्यकरण।</value>
+  </data>
 </root>

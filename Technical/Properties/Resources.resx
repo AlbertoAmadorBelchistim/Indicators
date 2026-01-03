@@ -2682,4 +2682,28 @@
     <value>If enabled, this level will use its own line style even when visual semantic schemes are active.</value>
     <comment>OHLCPlus</comment>
   </data>
+  <data name="VisualSemantic_LevelPalette" xml:space="preserve">
+    <value>Visual Semantic – Level Palette</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="VisualSemantic_PeriodPalette" xml:space="preserve">
+    <value>Visual Semantic – Period Palette</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="VisualMode_Legacy" xml:space="preserve">
+    <value>Legacy</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="VisualMode_Ruleset" xml:space="preserve">
+    <value>Ruleset</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="VisualMode_Legacy_Description" xml:space="preserve">
+    <value>Classic visualization without semantic rules.</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="VisualMode_Ruleset_Description" xml:space="preserve">
+    <value>Visualization driven by semantic rules and palettes.</value>
+    <comment>OHLCPlus</comment>
+  </data>
 </root>
