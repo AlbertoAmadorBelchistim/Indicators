@@ -2666,4 +2666,20 @@
     <value>Preset</value>
     <comment>OHLCPlus</comment>
   </data>
+  <data name="OverrideWidthInSchemes" xml:space="preserve">
+    <value>Override width in schemes</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="OverrideWidthInSchemesDescription" xml:space="preserve">
+    <value>If enabled, this level will use its own line width even when visual semantic schemes are active.</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="OverrideStyleInSchemes" xml:space="preserve">
+    <value>Override line style in schemes</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="OverrideStyleInSchemesDescription" xml:space="preserve">
+    <value>If enabled, this level will use its own line style even when visual semantic schemes are active.</value>
+    <comment>OHLCPlus</comment>
+  </data>
 </root>

@@ -4048,6 +4048,42 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Override line style in schemes.
+        /// </summary>
+        public static string OverrideStyleInSchemes {
+            get {
+                return ResourceManager.GetString("OverrideStyleInSchemes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a If enabled, this level will use its own line style even when visual semantic schemes are active..
+        /// </summary>
+        public static string OverrideStyleInSchemesDescription {
+            get {
+                return ResourceManager.GetString("OverrideStyleInSchemesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Override width in schemes.
+        /// </summary>
+        public static string OverrideWidthInSchemes {
+            get {
+                return ResourceManager.GetString("OverrideWidthInSchemes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a If enabled, this level will use its own line width even when visual semantic schemes are active..
+        /// </summary>
+        public static string OverrideWidthInSchemesDescription {
+            get {
+                return ResourceManager.GetString("OverrideWidthInSchemesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Oversold.
         /// </summary>
         public static string Oversold {
