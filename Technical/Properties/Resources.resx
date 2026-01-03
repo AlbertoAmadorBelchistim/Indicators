@@ -2706,4 +2706,40 @@
     <value>Visualization driven by semantic rules and palettes.</value>
     <comment>OHLCPlus</comment>
   </data>
+  <data name="HVN_Group" xml:space="preserve">
+    <value>HVN</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="HVN_Enable" xml:space="preserve">
+    <value>Enable HVN</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="HVN_Color" xml:space="preserve">
+    <value>HVN color</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="HVN_ThresholdPct" xml:space="preserve">
+    <value>HVN threshold (% of POC volume)</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="HVN_GapToleranceTicks" xml:space="preserve">
+    <value>Gap tolerance (ticks)</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="HVN_OcclusionTicks" xml:space="preserve">
+    <value>Occlusion (ticks)</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="HVN_ThresholdPct_Description" xml:space="preserve">
+    <value>Minimum volume (as % of POC volume) required for a price level to be part of an HVN band.</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="HVN_GapToleranceTicks_Description" xml:space="preserve">
+    <value>Allows small gaps (in ticks) inside an HVN band to keep nearby high-volume levels grouped.</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="HVN_OcclusionTicks_Description" xml:space="preserve">
+    <value>Minimum vertical distance (in ticks) required between HVN bands of different periods to avoid visual overlap.</value>
+    <comment>OHLCPlus</comment>
+  </data>
 </root>
