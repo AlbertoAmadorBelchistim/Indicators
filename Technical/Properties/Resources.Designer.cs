@@ -6217,6 +6217,42 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Legacy.
+        /// </summary>
+        public static string VisualMode_Legacy {
+            get {
+                return ResourceManager.GetString("VisualMode_Legacy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Classic visualization without semantic rules..
+        /// </summary>
+        public static string VisualMode_Legacy_Description {
+            get {
+                return ResourceManager.GetString("VisualMode_Legacy_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Ruleset.
+        /// </summary>
+        public static string VisualMode_Ruleset {
+            get {
+                return ResourceManager.GetString("VisualMode_Ruleset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Visualization driven by semantic rules and palettes..
+        /// </summary>
+        public static string VisualMode_Ruleset_Description {
+            get {
+                return ResourceManager.GetString("VisualMode_Ruleset_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Visual Objects Transparency.
         /// </summary>
         public static string VisualObjectsTransparency {
@@ -6231,6 +6267,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string VisualSemantic {
             get {
                 return ResourceManager.GetString("VisualSemantic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Visual Semantic – Level Palette.
+        /// </summary>
+        public static string VisualSemantic_LevelPalette {
+            get {
+                return ResourceManager.GetString("VisualSemantic_LevelPalette", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Visual Semantic – Period Palette.
+        /// </summary>
+        public static string VisualSemantic_PeriodPalette {
+            get {
+                return ResourceManager.GetString("VisualSemantic_PeriodPalette", resourceCulture);
             }
         }
         

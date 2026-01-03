@@ -225,4 +225,22 @@
   <data name="OverrideStyleInSchemesDescription" xml:space="preserve">
     <value>启用后，即使视觉语义方案处于活动状态，该级别也将使用其自身的线型。</value>
   </data>
+  <data name="VisualSemantic_LevelPalette" xml:space="preserve">
+    <value>视觉语义 – 价格层级调色板</value>
+  </data>
+  <data name="VisualSemantic_PeriodPalette" xml:space="preserve">
+    <value>视觉语义 – 周期调色板</value>
+  </data>
+  <data name="VisualMode_Legacy" xml:space="preserve">
+    <value>传统模式</value>
+  </data>
+  <data name="VisualMode_Ruleset" xml:space="preserve">
+    <value>规则集</value>
+  </data>
+  <data name="VisualMode_Legacy_Description" xml:space="preserve">
+    <value>不使用语义规则的经典可视化方式。</value>
+  </data>
+  <data name="VisualMode_Ruleset_Description" xml:space="preserve">
+    <value>由语义规则和调色板驱动的可视化方式。</value>
+  </data>
 </root>
