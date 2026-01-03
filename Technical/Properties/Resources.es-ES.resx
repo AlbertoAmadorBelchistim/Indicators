@@ -213,4 +213,16 @@
   <data name="VisualSemanticPreset" xml:space="preserve">
     <value>Preset</value>
   </data>
+  <data name="OverrideWidthInSchemes" xml:space="preserve">
+    <value>Sobrescribir grosor en esquemas</value>
+  </data>
+  <data name="OverrideWidthInSchemesDescription" xml:space="preserve">
+    <value>Si está activado, este nivel usará su propio grosor de línea incluso cuando los esquemas semánticos visuales estén activos.</value>
+  </data>
+  <data name="OverrideStyleInSchemes" xml:space="preserve">
+    <value>Sobrescribir estilo de línea en esquemas</value>
+  </data>
+  <data name="OverrideStyleInSchemesDescription" xml:space="preserve">
+    <value>Si está activado, este nivel usará su propio estilo de línea incluso cuando los esquemas semánticos visuales estén activos.</value>
+  </data>
 </root>

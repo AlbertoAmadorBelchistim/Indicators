@@ -213,4 +213,16 @@
   <data name="VisualSemanticPreset" xml:space="preserve">
     <value>预设</value>
   </data>
+  <data name="OverrideWidthInSchemes" xml:space="preserve">
+    <value>在方案中覆盖线宽</value>
+  </data>
+  <data name="OverrideWidthInSchemesDescription" xml:space="preserve">
+    <value>启用后，即使视觉语义方案处于活动状态，该级别也将使用其自身的线宽。</value>
+  </data>
+  <data name="OverrideStyleInSchemes" xml:space="preserve">
+    <value>在方案中覆盖线型</value>
+  </data>
+  <data name="OverrideStyleInSchemesDescription" xml:space="preserve">
+    <value>启用后，即使视觉语义方案处于活动状态，该级别也将使用其自身的线型。</value>
+  </data>
 </root>
