@@ -198,4 +198,19 @@
   <data name="OverrideColorInSchemesDescription" xml:space="preserve">
     <value>启用后，即使视觉语义方案处于激活状态，该线条也将使用其自身的颜色。</value>
   </data>
+  <data name="ByPeriod" xml:space="preserve">
+    <value>按周期</value>
+  </data>
+  <data name="ByLevelType" xml:space="preserve">
+    <value>按水平类型</value>
+  </data>
+  <data name="VisualSemantic" xml:space="preserve">
+    <value>视觉语义</value>
+  </data>
+  <data name="VisualSemanticMode" xml:space="preserve">
+    <value>模式</value>
+  </data>
+  <data name="VisualSemanticPreset" xml:space="preserve">
+    <value>预设</value>
+  </data>
 </root>

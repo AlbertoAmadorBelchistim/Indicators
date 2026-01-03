@@ -198,4 +198,19 @@
   <data name="OverrideColorInSchemesDescription" xml:space="preserve">
     <value>सक्रिय होने पर, यह रेखा विज़ुअल सेमांटिक स्कीम सक्रिय होने पर भी अपना स्वयं का रंग उपयोग करेगी।</value>
   </data>
+  <data name="ByPeriod" xml:space="preserve">
+    <value>अवधि के अनुसार</value>
+  </data>
+  <data name="ByLevelType" xml:space="preserve">
+    <value>स्तर प्रकार के अनुसार</value>
+  </data>
+  <data name="VisualSemantic" xml:space="preserve">
+    <value>दृश्य सिमैंटिक</value>
+  </data>
+  <data name="VisualSemanticMode" xml:space="preserve">
+    <value>मोड</value>
+  </data>
+  <data name="VisualSemanticPreset" xml:space="preserve">
+    <value>प्रीसेट</value>
+  </data>
 </root>
