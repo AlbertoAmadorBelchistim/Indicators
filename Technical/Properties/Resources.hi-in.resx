@@ -213,4 +213,16 @@
   <data name="VisualSemanticPreset" xml:space="preserve">
     <value>प्रीसेट</value>
   </data>
+  <data name="OverrideWidthInSchemes" xml:space="preserve">
+    <value>स्कीम में चौड़ाई ओवरराइड करें</value>
+  </data>
+  <data name="OverrideWidthInSchemesDescription" xml:space="preserve">
+    <value>सक्रिय होने पर, यह स्तर विज़ुअल सेमांटिक स्कीम सक्रिय होने पर भी अपनी स्वयं की लाइन चौड़ाई का उपयोग करेगा।</value>
+  </data>
+  <data name="OverrideStyleInSchemes" xml:space="preserve">
+    <value>स्कीम में लाइन शैली ओवरराइड करें</value>
+  </data>
+  <data name="OverrideStyleInSchemesDescription" xml:space="preserve">
+    <value>सक्रिय होने पर, यह स्तर विज़ुअल सेमांटिक स्कीम सक्रिय होने पर भी अपनी स्वयं की लाइन शैली का उपयोग करेगा।</value>
+  </data>
 </root>

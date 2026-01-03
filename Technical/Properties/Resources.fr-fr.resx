@@ -213,4 +213,16 @@
   <data name="VisualSemanticPreset" xml:space="preserve">
     <value>Preset</value>
   </data>
+  <data name="OverrideWidthInSchemes" xml:space="preserve">
+    <value>Forcer l’épaisseur dans les schémas</value>
+  </data>
+  <data name="OverrideWidthInSchemesDescription" xml:space="preserve">
+    <value>Si activé, ce niveau utilisera sa propre épaisseur de ligne même lorsque les schémas sémantiques visuels sont actifs.</value>
+  </data>
+  <data name="OverrideStyleInSchemes" xml:space="preserve">
+    <value>Forcer le style de ligne dans les schémas</value>
+  </data>
+  <data name="OverrideStyleInSchemesDescription" xml:space="preserve">
+    <value>Si activé, ce niveau utilisera son propre style de ligne même lorsque les schémas sémantiques visuels sont actifs.</value>
+  </data>
 </root>

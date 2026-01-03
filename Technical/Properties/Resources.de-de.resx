@@ -216,4 +216,16 @@
   <data name="VisualSemanticPreset" xml:space="preserve">
     <value>Preset</value>
   </data>
+  <data name="OverrideWidthInSchemes" xml:space="preserve">
+    <value>Linienstärke in Schemas überschreiben</value>
+  </data>
+  <data name="OverrideWidthInSchemesDescription" xml:space="preserve">
+    <value>Wenn aktiviert, verwendet dieses Niveau seine eigene Linienstärke, auch wenn visuelle semantische Schemata aktiv sind.</value>
+  </data>
+  <data name="OverrideStyleInSchemes" xml:space="preserve">
+    <value>Linienstil in Schemas überschreiben</value>
+  </data>
+  <data name="OverrideStyleInSchemesDescription" xml:space="preserve">
+    <value>Wenn aktiviert, verwendet dieses Niveau seinen eigenen Linienstil, auch wenn visuelle semantische Schemata aktiv sind.</value>
+  </data>
 </root>
