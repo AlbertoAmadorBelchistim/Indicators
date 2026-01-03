@@ -192,4 +192,10 @@
   <data name="OverrideLabel" xml:space="preserve">
     <value>Remplacer l’étiquette (facultatif)</value>
   </data>
+  <data name="OverrideColorInSchemes" xml:space="preserve">
+    <value>Remplacer la couleur dans les schémas</value>
+  </data>
+  <data name="OverrideColorInSchemesDescription" xml:space="preserve">
+    <value>Si activé, cette ligne utilisera sa propre couleur même lorsque les schémas sémantiques visuels sont actifs.</value>
+  </data>
 </root>

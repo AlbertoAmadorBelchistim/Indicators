@@ -192,4 +192,10 @@
   <data name="OverrideLabel" xml:space="preserve">
     <value>Sobrescribir etiqueta (opcional)</value>
   </data>
+  <data name="OverrideColorInSchemes" xml:space="preserve">
+    <value>Sobrescribir color en esquemas</value>
+  </data>
+  <data name="OverrideColorInSchemesDescription" xml:space="preserve">
+    <value>Si está activado, esta línea usará su propio color incluso cuando los esquemas semánticos visuales estén activos.</value>
+  </data>
 </root>
