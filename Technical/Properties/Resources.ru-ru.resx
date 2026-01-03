@@ -2550,4 +2550,31 @@
   <data name="VisualMode_Ruleset_Description" xml:space="preserve">
     <value>Визуализация, управляемая семантическими правилами и палитрами.</value>
   </data>
+  <data name="HVN_Group" xml:space="preserve">
+    <value>HVN</value>
+  </data>
+  <data name="HVN_Enable" xml:space="preserve">
+    <value>Включить HVN</value>
+  </data>
+  <data name="HVN_Color" xml:space="preserve">
+    <value>Цвет HVN</value>
+  </data>
+  <data name="HVN_ThresholdPct" xml:space="preserve">
+    <value>Порог HVN (% от объёма POC)</value>
+  </data>
+  <data name="HVN_GapToleranceTicks" xml:space="preserve">
+    <value>Допуск разрыва (тики)</value>
+  </data>
+  <data name="HVN_OcclusionTicks" xml:space="preserve">
+    <value>Окклюзия (тики)</value>
+  </data>
+  <data name="HVN_ThresholdPct_Description" xml:space="preserve">
+    <value>Минимальный объём (в % от объёма POC), необходимый для включения уровня цены в зону HVN.</value>
+  </data>
+  <data name="HVN_GapToleranceTicks_Description" xml:space="preserve">
+    <value>Позволяет небольшие разрывы (в тиках) внутри зоны HVN для объединения близких уровней с высоким объёмом.</value>
+  </data>
+  <data name="HVN_OcclusionTicks_Description" xml:space="preserve">
+    <value>Минимальное вертикальное расстояние (в тиках) между зонами HVN разных периодов для предотвращения визуального перекрытия.</value>
+  </data>
 </root>

@@ -243,4 +243,31 @@
   <data name="VisualMode_Ruleset_Description" xml:space="preserve">
     <value>Visualisation pilotée par des règles et des palettes sémantiques.</value>
   </data>
+  <data name="HVN_Group" xml:space="preserve">
+    <value>HVN</value>
+  </data>
+  <data name="HVN_Enable" xml:space="preserve">
+    <value>Activer HVN</value>
+  </data>
+  <data name="HVN_Color" xml:space="preserve">
+    <value>Couleur HVN</value>
+  </data>
+  <data name="HVN_ThresholdPct" xml:space="preserve">
+    <value>Seuil HVN (% du volume du POC)</value>
+  </data>
+  <data name="HVN_GapToleranceTicks" xml:space="preserve">
+    <value>Tolérance d’écart (ticks)</value>
+  </data>
+  <data name="HVN_OcclusionTicks" xml:space="preserve">
+    <value>Occlusion (ticks)</value>
+  </data>
+  <data name="HVN_ThresholdPct_Description" xml:space="preserve">
+    <value>Volume minimum (en % du volume du POC) requis pour qu’un niveau de prix fasse partie d’une zone HVN.</value>
+  </data>
+  <data name="HVN_GapToleranceTicks_Description" xml:space="preserve">
+    <value>Autorise de petits écarts (en ticks) à l’intérieur d’une zone HVN afin de regrouper des niveaux à fort volume proches.</value>
+  </data>
+  <data name="HVN_OcclusionTicks_Description" xml:space="preserve">
+    <value>Distance verticale minimale (en ticks) requise entre les zones HVN de différentes périodes afin d’éviter les chevauchements visuels.</value>
+  </data>
 </root>
