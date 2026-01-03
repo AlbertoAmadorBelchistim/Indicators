@@ -86,6 +86,7 @@ public class LevelSettings : NotifiableObject
     private LineDashStyle _lineStyle;
     private LabelPosition _labelPosition;
     private string _overrideLabel = string.Empty;
+    private bool _overrideColorInSchemes;
 
     #endregion
 
@@ -148,6 +149,14 @@ public class LevelSettings : NotifiableObject
         set => SetField(ref _overrideLabel, value);
     }
 
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.OverrideColorInSchemes),
+        Description = nameof(Resources.OverrideColorInSchemesDescription))]
+    public bool OverrideColorInSchemes
+    {
+        get => _overrideColorInSchemes;
+        set => SetField(ref _overrideColorInSchemes, value);
+    }
+
     [Browsable(false)]
     public RenderPen RenderPen => new PenSettings { Color = Color, Width = Width, LineDashStyle = LineStyle }.RenderObject;
 
@@ -163,7 +172,8 @@ public class LevelSettings : NotifiableObject
         LineDashStyle lineStyle = LineDashStyle.Solid,
         bool showPrice = true,
         LabelPosition labelPosition = LabelPosition.Bar,
-        LineType lineType = LineType.Bar
+        LineType lineType = LineType.Bar,
+        bool overrideColorInSchemes = false
     )
     {
         Enabled = enabled;
@@ -173,6 +183,7 @@ public class LevelSettings : NotifiableObject
         ShowPrice = showPrice;
         LabelPosition = labelPosition;
         LineType = lineType;
+        OverrideColorInSchemes = overrideColorInSchemes;
     }
 
     #endregion
@@ -2255,7 +2266,9 @@ public class OHLCPlus : Indicator
             : _emptySemantic;
 
         // Apply semantic style delta (pq02.2: color/width/dash only; no priority changes yet)
-        var effColor = sem.Style.Color ?? levelSettings.Color;
+        var effColor = levelSettings.OverrideColorInSchemes
+            ? levelSettings.Color
+            : (sem.Style.Color ?? levelSettings.Color);
         var effWidth = sem.Style.Width ?? levelSettings.Width;
         var effDash = sem.Style.Dash ?? levelSettings.LineStyle;
 
@@ -3029,6 +3042,17 @@ public class OHLCPlus : Indicator
                 else
                     RedrawChart();
             }
+        }
+
+        if (e.PropertyName == nameof(LevelSettings.Color)
+            || e.PropertyName == nameof(LevelSettings.OverrideColorInSchemes)
+            || e.PropertyName == nameof(LevelSettings.LineStyle)
+            || e.PropertyName == nameof(LevelSettings.Width)
+            || e.PropertyName == nameof(LevelSettings.LabelPosition)
+            || e.PropertyName == nameof(LevelSettings.ShowPrice)
+            || e.PropertyName == nameof(LevelSettings.OverrideLabel))
+        {
+            RedrawChart();
         }
     }
 
