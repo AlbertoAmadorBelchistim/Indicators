@@ -952,6 +952,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a By level type.
+        /// </summary>
+        public static string ByLevelType {
+            get {
+                return ResourceManager.GetString("ByLevelType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a By period.
+        /// </summary>
+        public static string ByPeriod {
+            get {
+                return ResourceManager.GetString("ByPeriod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Calculation.
         /// </summary>
         public static string Calculation {
@@ -6168,6 +6186,33 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string VisualObjectsTransparency {
             get {
                 return ResourceManager.GetString("VisualObjectsTransparency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Visual semantic.
+        /// </summary>
+        public static string VisualSemantic {
+            get {
+                return ResourceManager.GetString("VisualSemantic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Mode.
+        /// </summary>
+        public static string VisualSemanticMode {
+            get {
+                return ResourceManager.GetString("VisualSemanticMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Preset.
+        /// </summary>
+        public static string VisualSemanticPreset {
+            get {
+                return ResourceManager.GetString("VisualSemanticPreset", resourceCulture);
             }
         }
         
