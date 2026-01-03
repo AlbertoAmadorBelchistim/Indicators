@@ -2505,4 +2505,19 @@
   <data name="OverrideColorInSchemesDescription" xml:space="preserve">
     <value>Если включено, эта линия будет использовать свой собственный цвет, даже когда активны визуальные семантические схемы.</value>
   </data>
+  <data name="ByPeriod" xml:space="preserve">
+    <value>По периоду</value>
+  </data>
+  <data name="ByLevelType" xml:space="preserve">
+    <value>По типу уровня</value>
+  </data>
+  <data name="VisualSemantic" xml:space="preserve">
+    <value>Визуальная семантика</value>
+  </data>
+  <data name="VisualSemanticMode" xml:space="preserve">
+    <value>Режим</value>
+  </data>
+  <data name="VisualSemanticPreset" xml:space="preserve">
+    <value>Пресет</value>
+  </data>
 </root>

@@ -2646,4 +2646,24 @@
     <value>If enabled, this line will use its own Color even when visual semantic schemes are active.</value>
     <comment>OHLCPlus</comment>
   </data>
+  <data name="ByPeriod" xml:space="preserve">
+    <value>By period</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="ByLevelType" xml:space="preserve">
+    <value>By level type</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="VisualSemantic" xml:space="preserve">
+    <value>Visual semantic</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="VisualSemanticMode" xml:space="preserve">
+    <value>Mode</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="VisualSemanticPreset" xml:space="preserve">
+    <value>Preset</value>
+    <comment>OHLCPlus</comment>
+  </data>
 </root>
