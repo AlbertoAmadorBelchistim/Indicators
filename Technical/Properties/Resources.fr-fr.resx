@@ -198,4 +198,19 @@
   <data name="OverrideColorInSchemesDescription" xml:space="preserve">
     <value>Si activé, cette ligne utilisera sa propre couleur même lorsque les schémas sémantiques visuels sont actifs.</value>
   </data>
+  <data name="ByPeriod" xml:space="preserve">
+    <value>Par période</value>
+  </data>
+  <data name="ByLevelType" xml:space="preserve">
+    <value>Par type de niveau</value>
+  </data>
+  <data name="VisualSemantic" xml:space="preserve">
+    <value>Sémantique visuelle</value>
+  </data>
+  <data name="VisualSemanticMode" xml:space="preserve">
+    <value>Mode</value>
+  </data>
+  <data name="VisualSemanticPreset" xml:space="preserve">
+    <value>Preset</value>
+  </data>
 </root>
