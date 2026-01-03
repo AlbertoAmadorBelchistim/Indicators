@@ -245,7 +245,9 @@ public class OHLCPlus : Indicator
 
     public enum VisualSemanticMode
     {
+        [Display(Name = "Legacy", Description = "Classic visualization without semantic rules.")]
         Legacy = 0,
+        [Display(Name = "Ruleset", Description = "Visualization driven by semantic rules and palettes.")]
         RuleSet = 1
     }
 
@@ -1461,55 +1463,55 @@ public class OHLCPlus : Indicator
     #region Visual Semantic Palettes (pq02)
 
     // Period palette (ByPeriod)
-    [Display(GroupName = "Visual Semantic (pq02) - Period Palette", Name = "Current Day", Order = 10)]
-    public CrossColor PeriodColorCurrentDay { get; set; } = CrossColors.WhiteSmoke;
+    [Display(ResourceType = typeof(Strings), GroupName = "Visual Semantic – Period Palette", Name = nameof(Strings.CurrentDay), Order = 10)]
+    public CrossColor PeriodColorCurrentDay { get; set; } = System.Drawing.Color.WhiteSmoke.Convert();
 
-    [Display(GroupName = "Visual Semantic (pq02) - Period Palette", Name = "Previous Day", Order = 20)]
-    public CrossColor PeriodColorPreviousDay { get; set; } = CrossColors.DarkGray;
+    [Display(ResourceType = typeof(Strings), GroupName = "Visual Semantic – Period Palette", Name = nameof(Strings.PreviousDay), Order = 20)]
+    public CrossColor PeriodColorPreviousDay { get; set; } = System.Drawing.Color.DarkGray.Convert();
 
-    [Display(GroupName = "Visual Semantic (pq02) - Period Palette", Name = "Current Week", Order = 30)]
-    public CrossColor PeriodColorCurrentWeek { get; set; } = CrossColors.DeepSkyBlue;
+    [Display(ResourceType = typeof(Strings), GroupName = "Visual Semantic – Period Palette", Name = nameof(Strings.CurrentWeek), Order = 30)]
+    public CrossColor PeriodColorCurrentWeek { get; set; } = System.Drawing.Color.DeepSkyBlue.Convert();
 
-    [Display(GroupName = "Visual Semantic (pq02) - Period Palette", Name = "Previous Week", Order = 40)]
-    public CrossColor PeriodColorPreviousWeek { get; set; } = CrossColors.SteelBlue;
+    [Display(ResourceType = typeof(Strings), GroupName = "Visual Semantic – Period Palette", Name = nameof(Strings.PreviousWeek), Order = 40)]
+    public CrossColor PeriodColorPreviousWeek { get; set; } = System.Drawing.Color.SteelBlue.Convert();
 
-    [Display(GroupName = "Visual Semantic (pq02) - Period Palette", Name = "Current Month", Order = 50)]
-    public CrossColor PeriodColorCurrentMonth { get; set; } = CrossColors.MediumSeaGreen;
+    [Display(ResourceType = typeof(Strings), GroupName = "Visual Semantic – Period Palette", Name = nameof(Strings.CurrentMonth), Order = 50)]
+    public CrossColor PeriodColorCurrentMonth { get; set; } = System.Drawing.Color.MediumSeaGreen.Convert();
 
-    [Display(GroupName = "Visual Semantic (pq02) - Period Palette", Name = "Previous Month", Order = 60)]
-    public CrossColor PeriodColorPreviousMonth { get; set; } = CrossColors.DarkOliveGreen;
+    [Display(ResourceType = typeof(Strings), GroupName = "Visual Semantic – Period Palette", Name = nameof(Strings.PreviousMonth), Order = 60)]
+    public CrossColor PeriodColorPreviousMonth { get; set; } = System.Drawing.Color.DarkOliveGreen.Convert();
 
-    [Display(GroupName = "Visual Semantic (pq02) - Period Palette", Name = "Contract", Order = 70)]
-    public CrossColor PeriodColorContract { get; set; } = CrossColors.SaddleBrown;
+    [Display(GroupName = "Visual Semantic – Period Palette", Name = "Contract", Order = 70)]
+    public CrossColor PeriodColorContract { get; set; } = System.Drawing.Color.SaddleBrown.Convert();
 
 
     // Level-type palette (ByLevelType)
-    [Display(GroupName = "Visual Semantic (pq02) - Level Palette", Name = "Open", Order = 10)]
-    public CrossColor LevelColorOpen { get; set; } = CrossColors.DarkOrange;
+    [Display(GroupName = "Visual Semantic – Level Palette", Name = "Open", Order = 10)]
+    public CrossColor LevelColorOpen { get; set; } = System.Drawing.Color.DarkOrange.Convert();
 
-    [Display(GroupName = "Visual Semantic (pq02) - Level Palette", Name = "High", Order = 20)]
-    public CrossColor LevelColorHigh { get; set; } = CrossColors.ForestGreen;
+    [Display(GroupName = "Visual Semantic – Level Palette", Name = "High", Order = 20)]
+    public CrossColor LevelColorHigh { get; set; } = System.Drawing.Color.ForestGreen.Convert();
 
-    [Display(GroupName = "Visual Semantic (pq02) - Level Palette", Name = "Low", Order = 30)]
-    public CrossColor LevelColorLow { get; set; } = CrossColors.Firebrick;
+    [Display(GroupName = "Visual Semantic – Level Palette", Name = "Low", Order = 30)]
+    public CrossColor LevelColorLow { get; set; } = System.Drawing.Color.Firebrick.Convert();
 
-    [Display(GroupName = "Visual Semantic (pq02) - Level Palette", Name = "Close", Order = 40)]
-    public CrossColor LevelColorClose { get; set; } = CrossColors.DimGray;
+    [Display(GroupName = "Visual Semantic – Level Palette", Name = "Close", Order = 40)]
+    public CrossColor LevelColorClose { get; set; } = System.Drawing.Color.DimGray.Convert();
 
-    [Display(GroupName = "Visual Semantic (pq02) - Level Palette", Name = "EQ", Order = 50)]
-    public CrossColor LevelColorEQ { get; set; } = CrossColors.Gray;
+    [Display(GroupName = "Visual Semantic – Level Palette", Name = "Equilibrium", Order = 50)]
+    public CrossColor LevelColorEQ { get; set; } = System.Drawing.Color.Gray.Convert();
 
-    [Display(GroupName = "Visual Semantic (pq02) - Level Palette", Name = "POC", Order = 60)]
-    public CrossColor LevelColorPOC { get; set; } = CrossColors.Goldenrod;
+    [Display(GroupName = "Visual Semantic – Level Palette", Name = "POC", Order = 60)]
+    public CrossColor LevelColorPOC { get; set; } = System.Drawing.Color.Goldenrod.Convert();
 
-    [Display(GroupName = "Visual Semantic (pq02) - Level Palette", Name = "VWAP", Order = 70)]
-    public CrossColor LevelColorVWAP { get; set; } = CrossColors.DodgerBlue;
+    [Display(GroupName = "Visual Semantic – Level Palette", Name = "VWAP", Order = 70)]
+    public CrossColor LevelColorVWAP { get; set; } = System.Drawing.Color.DodgerBlue.Convert();
 
-    [Display(GroupName = "Visual Semantic (pq02) - Level Palette", Name = "VAH", Order = 80)]
-    public CrossColor LevelColorVAH { get; set; } = CrossColors.Teal;
+    [Display(GroupName = "Visual Semantic – Level Palette", Name = "VAH", Order = 80)]
+    public CrossColor LevelColorVAH { get; set; } = System.Drawing.Color.Teal.Convert();
 
-    [Display(GroupName = "Visual Semantic (pq02) - Level Palette", Name = "VAL", Order = 90)]
-    public CrossColor LevelColorVAL { get; set; } = CrossColors.Teal;
+    [Display(GroupName = "Visual Semantic – Level Palette", Name = "VAL", Order = 90)]
+    public CrossColor LevelColorVAL { get; set; } = System.Drawing.Color.Teal.Convert();
 
     #endregion
 
