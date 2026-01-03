@@ -2490,15 +2490,6 @@
   <data name="OverrideLabel" xml:space="preserve">
     <value>Переопределить метку (необязательно)</value>
   </data>
-  <data name="Misc" xml:space="preserve">
-    <value>Разное</value>
-  </data>
-  <data name="Bearish" xml:space="preserve">
-    <value>Медвежье</value>
-  </data>
-  <data name="Show Fibonacci" xml:space="preserve">
-    <value>Показать уровни Фибоначчи</value>
-  </data>
   <data name="OverrideColorInSchemes" xml:space="preserve">
     <value>Переопределить цвет в схемах</value>
   </data>
@@ -2519,5 +2510,26 @@
   </data>
   <data name="VisualSemanticPreset" xml:space="preserve">
     <value>Пресет</value>
+  </data>
+  <data name="Misc" xml:space="preserve">
+    <value>Разное</value>
+  </data>
+  <data name="Bearish" xml:space="preserve">
+    <value>Медвежье</value>
+  </data>
+  <data name="Show Fibonacci" xml:space="preserve">
+    <value>Показать уровни Фибоначчи</value>
+  </data>
+  <data name="OverrideWidthInSchemes" xml:space="preserve">
+    <value>Переопределить толщину в схемах</value>
+  </data>
+  <data name="OverrideWidthInSchemesDescription" xml:space="preserve">
+    <value>Если включено, этот уровень будет использовать свою собственную толщину линии, даже когда активны визуально-семантические схемы.</value>
+  </data>
+  <data name="OverrideStyleInSchemes" xml:space="preserve">
+    <value>Переопределить стиль линии в схемах</value>
+  </data>
+  <data name="OverrideStyleInSchemesDescription" xml:space="preserve">
+    <value>Если включено, этот уровень будет использовать свой собственный стиль линии, даже когда активны визуально-семантические схемы.</value>
   </data>
 </root>
