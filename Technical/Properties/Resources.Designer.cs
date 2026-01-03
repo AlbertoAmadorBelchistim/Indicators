@@ -2590,6 +2590,87 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a HVN color.
+        /// </summary>
+        public static string HVN_Color {
+            get {
+                return ResourceManager.GetString("HVN_Color", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Enable HVN.
+        /// </summary>
+        public static string HVN_Enable {
+            get {
+                return ResourceManager.GetString("HVN_Enable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Gap tolerance (ticks).
+        /// </summary>
+        public static string HVN_GapToleranceTicks {
+            get {
+                return ResourceManager.GetString("HVN_GapToleranceTicks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Allows small gaps (in ticks) inside an HVN band to keep nearby high-volume levels grouped..
+        /// </summary>
+        public static string HVN_GapToleranceTicks_Description {
+            get {
+                return ResourceManager.GetString("HVN_GapToleranceTicks_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a HVN.
+        /// </summary>
+        public static string HVN_Group {
+            get {
+                return ResourceManager.GetString("HVN_Group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Occlusion (ticks).
+        /// </summary>
+        public static string HVN_OcclusionTicks {
+            get {
+                return ResourceManager.GetString("HVN_OcclusionTicks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Minimum vertical distance (in ticks) required between HVN bands of different periods to avoid visual overlap..
+        /// </summary>
+        public static string HVN_OcclusionTicks_Description {
+            get {
+                return ResourceManager.GetString("HVN_OcclusionTicks_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a HVN threshold (% of POC volume).
+        /// </summary>
+        public static string HVN_ThresholdPct {
+            get {
+                return ResourceManager.GetString("HVN_ThresholdPct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Minimum volume (as % of POC volume) required for a price level to be part of an HVN band..
+        /// </summary>
+        public static string HVN_ThresholdPct_Description {
+            get {
+                return ResourceManager.GetString("HVN_ThresholdPct_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a IBH-IBM.
         /// </summary>
         public static string IBHM {
