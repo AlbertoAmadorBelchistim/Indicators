@@ -2638,4 +2638,12 @@
     <value>Override label (optional)</value>
     <comment>OHLCPlus</comment>
   </data>
+  <data name="OverrideColorInSchemes" xml:space="preserve">
+    <value>Override color in schemes</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="OverrideColorInSchemesDescription" xml:space="preserve">
+    <value>If enabled, this line will use its own Color even when visual semantic schemes are active.</value>
+    <comment>OHLCPlus</comment>
+  </data>
 </root>

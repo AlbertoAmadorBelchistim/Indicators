@@ -192,4 +192,10 @@
   <data name="OverrideLabel" xml:space="preserve">
     <value>लेबल ओवरराइड करें (वैकल्पिक)</value>
   </data>
+  <data name="OverrideColorInSchemes" xml:space="preserve">
+    <value>स्कीम में रंग ओवरराइड करें</value>
+  </data>
+  <data name="OverrideColorInSchemesDescription" xml:space="preserve">
+    <value>सक्रिय होने पर, यह रेखा विज़ुअल सेमांटिक स्कीम सक्रिय होने पर भी अपना स्वयं का रंग उपयोग करेगी।</value>
+  </data>
 </root>

@@ -192,4 +192,10 @@
   <data name="OverrideLabel" xml:space="preserve">
     <value>覆盖标签（可选）</value>
   </data>
+  <data name="OverrideColorInSchemes" xml:space="preserve">
+    <value>在配色方案中覆盖颜色</value>
+  </data>
+  <data name="OverrideColorInSchemesDescription" xml:space="preserve">
+    <value>启用后，即使视觉语义方案处于激活状态，该线条也将使用其自身的颜色。</value>
+  </data>
 </root>

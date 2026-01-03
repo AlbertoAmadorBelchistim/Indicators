@@ -4003,6 +4003,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Override color in schemes.
+        /// </summary>
+        public static string OverrideColorInSchemes {
+            get {
+                return ResourceManager.GetString("OverrideColorInSchemes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a If enabled, this line will use its own Color even when visual semantic schemes are active..
+        /// </summary>
+        public static string OverrideColorInSchemesDescription {
+            get {
+                return ResourceManager.GetString("OverrideColorInSchemesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Override label (optional).
         /// </summary>
         public static string OverrideLabel {
