@@ -553,7 +553,7 @@ public class OHLCPlus : Indicator
     #endregion
 
     #region HVN / LVN
-    private readonly Dictionary<FixedProfilePeriods, List<HVNBand>> _hvnBands = new();
+    private readonly Dictionary<FixedProfilePeriods, List<Band>> _hvnBands = new();
     private readonly FixedProfilePeriods[] _hvnPriorityOrder =
     {
     FixedProfilePeriods.CurrentDay,
@@ -565,7 +565,7 @@ public class OHLCPlus : Indicator
     FixedProfilePeriods.Contract
     };
 
-    private sealed class HVNBand
+    private sealed class Band
     {
         public decimal Low { get; init; }
         public decimal High { get; init; }
@@ -2340,7 +2340,7 @@ public class OHLCPlus : Indicator
 
         if (!_hvnBands.TryGetValue(period, out var bands))
         {
-            bands = new List<HVNBand>();
+            bands = new List<Band>();
             _hvnBands[period] = bands;
         }
         else
@@ -2393,7 +2393,7 @@ public class OHLCPlus : Indicator
 
             if (!contiguous)
             {
-                bands.Add(new HVNBand { Low = runStart.Value, High = lastPriceInRun });
+                bands.Add(new Band { Low = runStart.Value, High = lastPriceInRun });
                 runStart = null;
 
                 if (isHigh)
@@ -2420,14 +2420,14 @@ public class OHLCPlus : Indicator
                 }
                 else
                 {
-                    bands.Add(new HVNBand { Low = runStart.Value, High = lastPriceInRun });
+                    bands.Add(new Band { Low = runStart.Value, High = lastPriceInRun });
                     runStart = null;
                 }
             }
         }
 
         if (runStart != null && lastPriceInRun >= runStart.Value)
-            bands.Add(new HVNBand { Low = runStart.Value, High = lastPriceInRun });
+            bands.Add(new Band { Low = runStart.Value, High = lastPriceInRun });
 
         return true;
     }
@@ -3228,7 +3228,7 @@ public class OHLCPlus : Indicator
                     continue;
 
                 foreach (var seg in visibleSegments)
-                    RenderHvnBandSegment(context, region, seg.Low, seg.High, fillColor, borderPen);
+                    RenderBandSegment(context, region, seg.Low, seg.High, fillColor, borderPen);
 
                 // Mark this band as claimed (expanded by buffer)
                 var cLow = low - buffer;
@@ -3238,7 +3238,7 @@ public class OHLCPlus : Indicator
         }
     }
 
-    private void RenderHvnBandSegment(
+    private void RenderBandSegment(
     RenderContext context,
     Rectangle region,
     decimal low,
