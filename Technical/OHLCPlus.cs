@@ -2504,8 +2504,9 @@ public class OHLCPlus : Indicator
 
         BeginLabelLayoutFrame();
 
-        // HVN overlay should be rendered as background (below levels/labels)
+        // HVN and LVN overlay should be rendered as background (below levels/labels)
         RenderAllHVNsWithPriority(context);
+        RenderAllLVNsWithPriority(context);
 
         // Render all levels in groups for better organization
         RenderLevelGroup(context, "d", DayOpenLevel, DayHighLevel, DayLowLevel, DayCloseLevel, DayEquilibriumLevel, DayPOCLevel, DayVWAPLevel, DayVAHLevel, DayVALLevel);
@@ -3861,6 +3862,62 @@ public class OHLCPlus : Indicator
         }
     }
 
+    private void RenderAllLVNsWithPriority(RenderContext context)
+    {
+        if (ChartInfo is null || InstrumentInfo is null)
+            return;
+
+        var region = ChartInfo.PriceChartContainer.Region;
+        if (region.Width <= 0 || region.Height <= 0)
+            return;
+
+        if (InstrumentInfo.TickSize <= 0m)
+            return;
+
+        var tick = InstrumentInfo.TickSize;
+        var lvnBuffer = LVNOcclusionTicks > 0 ? LVNOcclusionTicks * tick : 0m;
+
+        // Claimed ranges start with ALL rendered HVN bands (cut-by-HVN)
+        var claimed = new List<(decimal Low, decimal High)>(128);
+
+        SeedClaimedRangesFromHVN(claimed, tick);
+
+        foreach (var period in _hvnPriorityOrder)
+        {
+            if (!IsLvnEnabled(period))
+                continue;
+
+            if (!_lvnBands.TryGetValue(period, out var bands) || bands is null || bands.Count == 0)
+                continue;
+
+            var fillColor = GetLvnColor(period);
+
+            var borderPen = new PenSettings
+            {
+                Color = fillColor,
+                Width = 1,
+                LineDashStyle = LineDashStyle.Dot
+            }.RenderObject;
+
+            foreach (var b in bands)
+            {
+                var low = Math.Min(b.Low, b.High);
+                var high = Math.Max(b.Low, b.High);
+
+                // Subtract already claimed ranges (including HVN + previous LVN with buffer)
+                var visibleSegments = SubtractClaimedRanges(low, high, claimed, lvnBuffer);
+                if (visibleSegments.Count == 0)
+                    continue;
+
+                foreach (var seg in visibleSegments)
+                    RenderBandSegment(context, region, seg.Low, seg.High, fillColor, borderPen);
+
+                // Mark this LVN segment as claimed (expanded by LVN buffer)
+                AddClaimedRange(claimed, low - lvnBuffer, high + lvnBuffer);
+            }
+        }
+    }
+
     private void RenderBandSegment(
     RenderContext context,
     Rectangle region,
@@ -3976,6 +4033,28 @@ public class OHLCPlus : Indicator
         }
 
         claimed.Add((low, high));
+    }
+    private void SeedClaimedRangesFromHVN(List<(decimal Low, decimal High)> claimed, decimal tick)
+    {
+        // Use HVN occlusion buffer (so LVN does not bleed into HVN zones)
+        var hvnBuffer = HVNOcclusionTicks > 0 ? HVNOcclusionTicks * tick : 0m;
+
+        foreach (var period in _hvnPriorityOrder)
+        {
+            if (!IsHvnEnabled(period))
+                continue;
+
+            if (!_hvnBands.TryGetValue(period, out var bands) || bands is null || bands.Count == 0)
+                continue;
+
+            foreach (var b in bands)
+            {
+                var low = Math.Min(b.Low, b.High);
+                var high = Math.Max(b.Low, b.High);
+
+                AddClaimedRange(claimed, low - hvnBuffer, high + hvnBuffer);
+            }
+        }
     }
 
     private bool IsHvnEnabled(FixedProfilePeriods period)
