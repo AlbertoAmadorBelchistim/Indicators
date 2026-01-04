@@ -250,7 +250,7 @@
     <value>Activar HVN</value>
   </data>
   <data name="HVN_Color" xml:space="preserve">
-    <value>Color de HVN</value>
+    <value>Color HVN</value>
   </data>
   <data name="HVN_ThresholdPct" xml:space="preserve">
     <value>Umbral HVN (%)</value>
@@ -292,9 +292,9 @@
     <value>Distancia vertical mínima (en ticks) requerida entre bandas LVN de distintos períodos para evitar solapamientos visuales.</value>
   </data>
   <data name="LVN_Enabled" xml:space="preserve">
-    <value>Color LVN</value>
+    <value>Activar LVN</value>
   </data>
   <data name="LVN_Color" xml:space="preserve">
-    <value>Activar LVN</value>
+    <value>Color LVN</value>
   </data>
 </root>

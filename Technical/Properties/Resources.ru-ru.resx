@@ -2599,9 +2599,9 @@
     <value>Минимальное вертикальное расстояние (в тиках), необходимое между зонами LVN разных периодов для предотвращения визуального перекрытия.</value>
   </data>
   <data name="LVN_Enabled" xml:space="preserve">
-    <value>Цвет LVN</value>
+    <value>Включить LVN</value>
   </data>
   <data name="LVN_Color" xml:space="preserve">
-    <value>Включить LVN</value>
+    <value>Цвет LVN</value>
   </data>
 </root>
