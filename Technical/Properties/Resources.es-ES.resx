@@ -297,4 +297,16 @@
   <data name="LVN_Color" xml:space="preserve">
     <value>Color LVN</value>
   </data>
+  <data name="LVN_MinPocVol" xml:space="preserve">
+    <value>Volumen mínimo del POC para LVN</value>
+  </data>
+  <data name="LVN_MinPocVol_Description" xml:space="preserve">
+    <value>No calcula las bandas LVN hasta que el volumen del POC del perfil alcance este valor. Evita ruido LVN al inicio del período.</value>
+  </data>
+  <data name="LVN_TailFilterMinTicks" xml:space="preserve">
+    <value>Filtro de colas (ticks)</value>
+  </data>
+  <data name="LVN_TailFilterMinTicks_Description" xml:space="preserve">
+    <value>Excluye las zonas de cola de bajo volumen cercanas al máximo y mínimo del perfil de la detección de LVN.</value>
+  </data>
 </root>
