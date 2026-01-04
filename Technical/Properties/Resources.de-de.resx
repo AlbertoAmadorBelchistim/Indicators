@@ -249,14 +249,14 @@
   <data name="HVN_Group" xml:space="preserve">
     <value>HVN</value>
   </data>
-  <data name="HVN_Enable" xml:space="preserve">
+  <data name="HVN_Enabled" xml:space="preserve">
     <value>HVN aktivieren</value>
   </data>
   <data name="HVN_Color" xml:space="preserve">
     <value>HVN-Farbe</value>
   </data>
   <data name="HVN_ThresholdPct" xml:space="preserve">
-    <value>HVN-Schwelle (% des POC-Volumens)</value>
+    <value>HVN-Schwelle (%)</value>
   </data>
   <data name="HVN_GapToleranceTicks" xml:space="preserve">
     <value>Lückentoleranz (Ticks)</value>
@@ -265,12 +265,33 @@
     <value>Überdeckung (Ticks)</value>
   </data>
   <data name="HVN_ThresholdPct_Description" xml:space="preserve">
-    <value>Mindestvolumen (in % des POC-Volumens), damit ein Preisniveau Teil einer HVN-Zone ist.</value>
+    <value>Ein Preisniveau gilt als HVN, wenn sein Volumen gleich oder größer als dieser Prozentsatz des POC-Volumens des Profils ist.</value>
   </data>
   <data name="HVN_GapToleranceTicks_Description" xml:space="preserve">
     <value>Erlaubt kleine Lücken (in Ticks) innerhalb einer HVN-Zone, um nahe Hochvolumenlevel zusammenzufassen.</value>
   </data>
   <data name="HVN_OcclusionTicks_Description" xml:space="preserve">
     <value>Minimaler vertikaler Abstand (in Ticks) zwischen HVN-Zonen verschiedener Perioden, um visuelle Überlagerungen zu vermeiden.</value>
+  </data>
+  <data name="LVN_Group" xml:space="preserve">
+    <value>LVN</value>
+  </data>
+  <data name="LVN_ThresholdPct" xml:space="preserve">
+    <value>LVN-Schwelle (%)</value>
+  </data>
+  <data name="LVN_ThresholdPct_Description" xml:space="preserve">
+    <value>Ein Preisniveau gilt als LVN, wenn sein Volumen unter diesem Prozentsatz des POC-Volumens des Profils liegt.</value>
+  </data>
+  <data name="LVN_GapToleranceTicks" xml:space="preserve">
+    <value>Lückentoleranz (Ticks)</value>
+  </data>
+  <data name="LVN_GapToleranceTicks_Description" xml:space="preserve">
+    <value>Erlaubt kleine Lücken (in Ticks) innerhalb eines LVN-Bands, um nahegelegene Niedrigvolumen-Niveaus zu gruppieren.</value>
+  </data>
+  <data name="LVN_OcclusionTicks" xml:space="preserve">
+    <value>Überdeckung (Ticks)</value>
+  </data>
+  <data name="LVN_OcclusionTicks_Description" xml:space="preserve">
+    <value>Minimaler vertikaler Abstand (in Ticks), der zwischen LVN-Bändern unterschiedlicher Perioden erforderlich ist, um visuelle Überlagerungen zu vermeiden.</value>
   </data>
 </root>
