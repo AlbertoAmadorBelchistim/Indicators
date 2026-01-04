@@ -517,7 +517,7 @@ public class OHLCPlus : Indicator
 
     #region HVN / LVN
     private readonly Dictionary<FixedProfilePeriods, List<Band>> _hvnBands = new();
-    private readonly FixedProfilePeriods[] _hvnPriorityOrder =
+    private readonly FixedProfilePeriods[] _vnPriorityOrder =
     {
     FixedProfilePeriods.CurrentDay,
     FixedProfilePeriods.LastDay,
@@ -567,13 +567,22 @@ public class OHLCPlus : Indicator
     private CrossColor _prevMonthHVNColor = Color.FromArgb(45, 85, 107, 47).Convert();
     private CrossColor _contractHVNColor = Color.FromArgb(45, 85, 107, 47).Convert();
 
-    private CrossColor _dayLVNColor = Color.FromArgb(45, 180, 220, 255).Convert();
-    private CrossColor _prevDayLVNColor = Color.FromArgb(45, 180, 220, 255).Convert();
-    private CrossColor _weekLVNColor = Color.FromArgb(45, 180, 220, 255).Convert();
-    private CrossColor _prevWeekLVNColor = Color.FromArgb(45, 180, 220, 255).Convert();
-    private CrossColor _monthLVNColor = Color.FromArgb(45, 180, 220, 255).Convert();
-    private CrossColor _prevMonthLVNColor = Color.FromArgb(45, 180, 220, 255).Convert();
-    private CrossColor _contractLVNColor = Color.FromArgb(45, 180, 220, 255).Convert();
+    private CrossColor _dayLVNColor = Color.FromArgb(18, 245, 245, 245).Convert();
+    private CrossColor _prevDayLVNColor = Color.FromArgb(16, 120, 120, 120).Convert();
+    private CrossColor _weekLVNColor = Color.FromArgb(18, 0, 191, 255).Convert();
+    private CrossColor _prevWeekLVNColor = Color.FromArgb(14, 70, 130, 180).Convert();
+    private CrossColor _monthLVNColor = Color.FromArgb(14, 60, 179, 113).Convert();
+    private CrossColor _prevMonthLVNColor = Color.FromArgb(12, 85, 107, 47).Convert();
+    private CrossColor _contractLVNColor = Color.FromArgb(12, 85, 107, 47).Convert();
+
+    // LVN: very transparent fill + emphasized borders
+    private int _lvnFillAlphaOverride = -1;     // -1 = use LVN color alpha; otherwise force this alpha (0..255)
+    private int _lvnBorderAlpha = 130;          // border opacity (higher = more visible)
+    private int _lvnBorderWidth = 2;       // emphasized boundaries
+
+    // HVN: keep as-is or slightly emphasize
+    private int _hvnBorderAlpha = 80;
+    private int _hvnBorderWidth = 1;
 
     // HVN calculation parameters (you already declared these fields but you are NOT using them)
     private decimal _hvnThresholdPct = 60m;
@@ -3441,7 +3450,7 @@ public class OHLCPlus : Indicator
         // Claimed ranges in PRICE space (expanded with occlusion buffer)
         var claimed = new List<(decimal Low, decimal High)>(64);
 
-        foreach (var period in _hvnPriorityOrder)
+        foreach (var period in _vnPriorityOrder)
         {
             if (!IsHvnEnabled(period))
                 continue;
@@ -3450,10 +3459,15 @@ public class OHLCPlus : Indicator
                 continue;
 
             var fillColor = GetHvnColor(period);
+            // HVN borders: keep styling but ensure they remain visible even with low-alpha fills.
+            var borderColor = Color.FromArgb(
+                Math.Min(255, Math.Max(0, _hvnBorderAlpha)),
+                fillColor.R, fillColor.G, fillColor.B).Convert();
+
             var borderPen = new PenSettings
             {
-                Color = fillColor,
-                Width = 1,
+                Color = borderColor,
+                Width = _hvnBorderWidth,
                 LineDashStyle = LineDashStyle.Solid
             }.RenderObject;
 
@@ -3499,7 +3513,7 @@ public class OHLCPlus : Indicator
 
         SeedClaimedRangesFromHVN(claimed, tick);
 
-        foreach (var period in _hvnPriorityOrder)
+        foreach (var period in _vnPriorityOrder)
         {
             if (!IsLvnEnabled(period))
                 continue;
@@ -3509,10 +3523,19 @@ public class OHLCPlus : Indicator
 
             var fillColor = GetLvnColor(period);
 
+            // LVN fill can be ultra-transparent; allow overriding alpha to keep bands visible while emphasizing borders.
+            if (_lvnFillAlphaOverride >= 0 && _lvnFillAlphaOverride <= 255)
+                fillColor = Color.FromArgb(_lvnFillAlphaOverride, fillColor.R, fillColor.G, fillColor.B).Convert();
+
+            // LVN borders: more visible than fill (alpha/width overrides).
+            var borderColor = Color.FromArgb(
+                Math.Min(255, Math.Max(0, _lvnBorderAlpha)),
+                fillColor.R, fillColor.G, fillColor.B).Convert();
+
             var borderPen = new PenSettings
             {
-                Color = fillColor,
-                Width = 1,
+                Color = borderColor,
+                Width = _lvnBorderWidth,
                 LineDashStyle = LineDashStyle.Dot
             }.RenderObject;
 
@@ -3656,7 +3679,7 @@ public class OHLCPlus : Indicator
         // Use HVN occlusion buffer (so LVN does not bleed into HVN zones)
         var hvnBuffer = HVNOcclusionTicks > 0 ? HVNOcclusionTicks * tick : 0m;
 
-        foreach (var period in _hvnPriorityOrder)
+        foreach (var period in _vnPriorityOrder)
         {
             if (!IsHvnEnabled(period))
                 continue;
@@ -3734,8 +3757,10 @@ public class OHLCPlus : Indicator
         };
     }
 
-    private static System.Drawing.Color ToDrawingColor(System.Windows.Media.Color c)
-    => System.Drawing.Color.FromArgb(c.A, c.R, c.G, c.B);
+    private static Color ToDrawingColor(CrossColor cc)
+    {
+        return Color.FromArgb(cc.A, cc.R, cc.G, cc.B);
+    }
 
     #endregion
 
