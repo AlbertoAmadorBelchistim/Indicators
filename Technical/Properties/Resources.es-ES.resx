@@ -291,4 +291,10 @@
   <data name="LVN_OcclusionTicks_Description" xml:space="preserve">
     <value>Distancia vertical mínima (en ticks) requerida entre bandas LVN de distintos períodos para evitar solapamientos visuales.</value>
   </data>
+  <data name="LVN_Enabled" xml:space="preserve">
+    <value>Color LVN</value>
+  </data>
+  <data name="LVN_Color" xml:space="preserve">
+    <value>Activar LVN</value>
+  </data>
 </root>

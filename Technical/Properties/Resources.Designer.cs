@@ -3211,6 +3211,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a LVN color.
+        /// </summary>
+        public static string LVN_Color {
+            get {
+                return ResourceManager.GetString("LVN_Color", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Enable LVN.
+        /// </summary>
+        public static string LVN_Enabled {
+            get {
+                return ResourceManager.GetString("LVN_Enabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Gap tolerance (ticks).
         /// </summary>
         public static string LVN_GapToleranceTicks {
