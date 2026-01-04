@@ -2523,15 +2523,6 @@
   <data name="OverrideStyleInSchemesDescription" xml:space="preserve">
     <value>Если включено, этот уровень будет использовать свой собственный стиль линии, даже когда активны визуально-семантические схемы.</value>
   </data>
-  <data name="Misc" xml:space="preserve">
-    <value>Разное</value>
-  </data>
-  <data name="Bearish" xml:space="preserve">
-    <value>Медвежье</value>
-  </data>
-  <data name="Show Fibonacci" xml:space="preserve">
-    <value>Показать уровни Фибоначчи</value>
-  </data>
   <data name="VisualSemantic_LevelPalette" xml:space="preserve">
     <value>Визуальная семантика — палитра уровней</value>
   </data>
@@ -2553,14 +2544,14 @@
   <data name="HVN_Group" xml:space="preserve">
     <value>HVN</value>
   </data>
-  <data name="HVN_Enable" xml:space="preserve">
+  <data name="HVN_Enabled" xml:space="preserve">
     <value>Включить HVN</value>
   </data>
   <data name="HVN_Color" xml:space="preserve">
     <value>Цвет HVN</value>
   </data>
   <data name="HVN_ThresholdPct" xml:space="preserve">
-    <value>Порог HVN (% от объёма POC)</value>
+    <value>Порог HVN (%)</value>
   </data>
   <data name="HVN_GapToleranceTicks" xml:space="preserve">
     <value>Допуск разрыва (тики)</value>
@@ -2569,12 +2560,42 @@
     <value>Окклюзия (тики)</value>
   </data>
   <data name="HVN_ThresholdPct_Description" xml:space="preserve">
-    <value>Минимальный объём (в % от объёма POC), необходимый для включения уровня цены в зону HVN.</value>
+    <value>Уровень цены считается HVN, если его объём равен или превышает этот процент от объёма POC профиля.</value>
   </data>
   <data name="HVN_GapToleranceTicks_Description" xml:space="preserve">
     <value>Позволяет небольшие разрывы (в тиках) внутри зоны HVN для объединения близких уровней с высоким объёмом.</value>
   </data>
   <data name="HVN_OcclusionTicks_Description" xml:space="preserve">
     <value>Минимальное вертикальное расстояние (в тиках) между зонами HVN разных периодов для предотвращения визуального перекрытия.</value>
+  </data>
+  <data name="Misc" xml:space="preserve">
+    <value>Разное</value>
+  </data>
+  <data name="Bearish" xml:space="preserve">
+    <value>Медвежье</value>
+  </data>
+  <data name="Show Fibonacci" xml:space="preserve">
+    <value>Показать уровни Фибоначчи</value>
+  </data>
+  <data name="LVN_Group" xml:space="preserve">
+    <value>LVN</value>
+  </data>
+  <data name="LVN_ThresholdPct" xml:space="preserve">
+    <value>Порог LVN (%)</value>
+  </data>
+  <data name="LVN_ThresholdPct_Description" xml:space="preserve">
+    <value>Уровень цены считается LVN, если его объём ниже этого процента от объёма POC профиля.</value>
+  </data>
+  <data name="LVN_GapToleranceTicks" xml:space="preserve">
+    <value>Допуск разрыва (тики)</value>
+  </data>
+  <data name="LVN_GapToleranceTicks_Description" xml:space="preserve">
+    <value>Позволяет небольшие разрывы (в тиках) внутри зоны LVN для объединения близких уровней с низким объёмом.</value>
+  </data>
+  <data name="LVN_OcclusionTicks" xml:space="preserve">
+    <value>Окклюзия (тики)</value>
+  </data>
+  <data name="LVN_OcclusionTicks_Description" xml:space="preserve">
+    <value>Минимальное вертикальное расстояние (в тиках), необходимое между зонами LVN разных периодов для предотвращения визуального перекрытия.</value>
   </data>
 </root>

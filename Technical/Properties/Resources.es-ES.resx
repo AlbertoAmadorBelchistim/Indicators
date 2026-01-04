@@ -246,14 +246,14 @@
   <data name="HVN_Group" xml:space="preserve">
     <value>HVN</value>
   </data>
-  <data name="HVN_Enable" xml:space="preserve">
+  <data name="HVN_Enabled" xml:space="preserve">
     <value>Activar HVN</value>
   </data>
   <data name="HVN_Color" xml:space="preserve">
     <value>Color de HVN</value>
   </data>
   <data name="HVN_ThresholdPct" xml:space="preserve">
-    <value>Umbral HVN (% del volumen del POC)</value>
+    <value>Umbral HVN (%)</value>
   </data>
   <data name="HVN_GapToleranceTicks" xml:space="preserve">
     <value>Tolerancia de huecos (ticks)</value>
@@ -262,12 +262,33 @@
     <value>Oclusión (ticks)</value>
   </data>
   <data name="HVN_ThresholdPct_Description" xml:space="preserve">
-    <value>Volumen mínimo (como % del volumen del POC) necesario para que un nivel de precio forme parte de una banda HVN.</value>
+    <value>Un nivel de precio se considera HVN cuando su volumen es igual o superior a este porcentaje del volumen del POC del perfil.</value>
   </data>
   <data name="HVN_GapToleranceTicks_Description" xml:space="preserve">
     <value>Permite pequeños huecos (en ticks) dentro de una banda HVN para agrupar niveles de alto volumen cercanos.</value>
   </data>
   <data name="HVN_OcclusionTicks_Description" xml:space="preserve">
     <value>Distancia vertical mínima (en ticks) requerida entre bandas HVN de distintos períodos para evitar solapamientos visuales.</value>
+  </data>
+  <data name="LVN_Group" xml:space="preserve">
+    <value>LVN</value>
+  </data>
+  <data name="LVN_ThresholdPct" xml:space="preserve">
+    <value>Umbral LVN (%)</value>
+  </data>
+  <data name="LVN_ThresholdPct_Description" xml:space="preserve">
+    <value>Un nivel de precio se considera LVN cuando su volumen está por debajo de este porcentaje del volumen del POC del perfil.</value>
+  </data>
+  <data name="LVN_GapToleranceTicks" xml:space="preserve">
+    <value>Tolerancia de huecos (ticks)</value>
+  </data>
+  <data name="LVN_GapToleranceTicks_Description" xml:space="preserve">
+    <value>Permite pequeños huecos (en ticks) dentro de una banda LVN para agrupar niveles cercanos de bajo volumen.</value>
+  </data>
+  <data name="LVN_OcclusionTicks" xml:space="preserve">
+    <value>Oclusión (ticks)</value>
+  </data>
+  <data name="LVN_OcclusionTicks_Description" xml:space="preserve">
+    <value>Distancia vertical mínima (en ticks) requerida entre bandas LVN de distintos períodos para evitar solapamientos visuales.</value>
   </data>
 </root>
