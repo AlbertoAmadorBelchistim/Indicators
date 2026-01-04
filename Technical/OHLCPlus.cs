@@ -2441,32 +2441,35 @@ public class OHLCPlus : Indicator
             return false;
         }
 
-        int oldCount;
+        if (candle == null)
+            return false;
+
+        int oldHash;
         if (!_hvnBands.TryGetValue(period, out var bands))
         {
             bands = new List<Band>();
             _hvnBands[period] = bands;
-            oldCount = 0;
+            oldHash = 0;
         }
         else
         {
-            oldCount = bands.Count;
+            oldHash = ComputeBandsHash(bands);
             bands.Clear();
         }
 
         var poc = candle.MaxVolumePriceInfo;
         if (poc == null || poc.Volume <= 0)
-            return oldCount > 0;
+            return oldHash != 0;
 
         var cutoff = poc.Volume * (HVNThresholdPct / 100m);
 
         var levelsEnum = candle.GetAllPriceLevels();
         if (levelsEnum == null)
-            return false;
+            return oldHash != 0;
 
         var levels = levelsEnum.OrderBy(l => l.Price).ToList();
         if (levels.Count == 0)
-            return false;
+            return oldHash != 0;
 
         var tick = InstrumentInfo.TickSize;
 
@@ -2535,7 +2538,8 @@ public class OHLCPlus : Indicator
         if (runStart != null && lastPriceInRun >= runStart.Value)
             bands.Add(new Band { Low = runStart.Value, High = lastPriceInRun });
 
-        return true;
+        var newHash = ComputeBandsHash(bands);
+        return newHash != oldHash;
     }
 
     private bool UpdateLVNs(FixedProfilePeriods period, IndicatorCandle candle)
@@ -2558,44 +2562,37 @@ public class OHLCPlus : Indicator
         if (candle == null)
             return false;
 
+        int oldHash;
+
         if (!_lvnBands.TryGetValue(period, out var bands))
         {
             bands = new List<Band>();
             _lvnBands[period] = bands;
+            oldHash = 0;
         }
-
-        // Snapshot old to detect change cheaply
-        var oldCount = bands.Count;
-        Band oldFirst = oldCount > 0 ? bands[0] : null;
-        Band oldLast = oldCount > 0 ? bands[oldCount - 1] : null;
-
-        bands.Clear();
+        else
+        {
+            oldHash = ComputeBandsHash(bands);
+            bands.Clear();
+        }
 
         var poc = candle.MaxVolumePriceInfo;
         if (poc == null || poc.Volume <= 0)
-            return oldCount > 0; // cleared
+            return oldHash != 0;
 
         // LVN needs a "mature" profile; otherwise it will label almost the whole range as a void.
         if (poc.Volume < MinPocVolForLVN)
-        {
-            if (bands.Count > 0)
-            {
-                bands.Clear();
-                return true;
-            }
-
-            return false;
-        }
+            return oldHash != 0;
 
         var cutoff = poc.Volume * (LVNThresholdPct / 100m);
 
         var levelsEnum = candle.GetAllPriceLevels();
         if (levelsEnum == null)
-            return oldCount > 0; // cleared
+            return oldHash != 0; // cleared
 
         var levels = levelsEnum.OrderBy(l => l.Price).ToList();
         if (levels.Count == 0)
-            return oldCount > 0; // cleared
+            return oldHash != 0; // cleared
 
         var tick = InstrumentInfo.TickSize;
 
@@ -2669,24 +2666,11 @@ public class OHLCPlus : Indicator
         if (runStart != null && lastPriceInRun >= runStart.Value)
             bands.Add(new Band { Low = runStart.Value, High = lastPriceInRun });
 
-        // Change detection (cheap, avoids heavy comparisons)
-        if (oldCount != bands.Count)
-            return true;
-
-        if (bands.Count == 0)
-            return false;
-
-        var newFirst = bands[0];
-        var newLast = bands[bands.Count - 1];
-
-        if (oldFirst == null || oldLast == null)
-            return true;
-
-        return oldFirst.Low != newFirst.Low
-            || oldFirst.High != newFirst.High
-            || oldLast.Low != newLast.Low
-            || oldLast.High != newLast.High;
+        // Change detection (cheap, consistent across all exit paths)
+        var newHash = ComputeBandsHash(bands);
+        return newHash != oldHash;
     }
+
 
 
 
@@ -3760,6 +3744,24 @@ public class OHLCPlus : Indicator
     private static Color ToDrawingColor(CrossColor cc)
     {
         return Color.FromArgb(cc.A, cc.R, cc.G, cc.B);
+    }
+
+    private static int ComputeBandsHash(List<Band> bands)
+    {
+        unchecked
+        {
+            int h = 17;
+            h = (h * 31) + bands.Count;
+
+            for (int i = 0; i < bands.Count; i++)
+            {
+                // decimal.GetHashCode() is stable within the process and cheap enough here.
+                h = (h * 31) + bands[i].Low.GetHashCode();
+                h = (h * 31) + bands[i].High.GetHashCode();
+            }
+
+            return h;
+        }
     }
 
     #endregion
