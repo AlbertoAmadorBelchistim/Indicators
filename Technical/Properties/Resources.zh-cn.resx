@@ -297,4 +297,16 @@
   <data name="LVN_Color" xml:space="preserve">
     <value>LVN 颜色</value>
   </data>
+  <data name="LVN_MinPocVol" xml:space="preserve">
+    <value>LVN 的最小 POC 成交量</value>
+  </data>
+  <data name="LVN_MinPocVol_Description" xml:space="preserve">
+    <value>在档案的 POC 成交量达到该值之前不计算 LVN 区域。可避免周期初期的 LVN 噪音。</value>
+  </data>
+  <data name="LVN_TailFilterMinTicks" xml:space="preserve">
+    <value>尾部过滤（tick）</value>
+  </data>
+  <data name="LVN_TailFilterMinTicks_Description" xml:space="preserve">
+    <value>从 LVN 识别中排除接近档案最高价和最低价的低成交量尾部区域。</value>
+  </data>
 </root>

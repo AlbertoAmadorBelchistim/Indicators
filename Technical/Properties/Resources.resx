@@ -2778,4 +2778,20 @@
     <value>LVN color</value>
     <comment>OHLCPlus</comment>
   </data>
+  <data name="LVN_MinPocVol" xml:space="preserve">
+    <value>Min POC volume for LVN</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="LVN_MinPocVol_Description" xml:space="preserve">
+    <value>Do not compute LVN bands until the profile POC volume reaches this value. Prevents LVN noise early in the period.</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="LVN_TailFilterMinTicks" xml:space="preserve">
+    <value>Tail filter (ticks)</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="LVN_TailFilterMinTicks_Description" xml:space="preserve">
+    <value>Excludes low-volume tail areas near the high and low of the profile from LVN detection.</value>
+    <comment>OHLCPlus</comment>
+  </data>
 </root>
