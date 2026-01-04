@@ -291,4 +291,10 @@
   <data name="LVN_OcclusionTicks_Description" xml:space="preserve">
     <value>विभिन्न अवधियों के LVN बैंड्स के बीच दृश्य ओवरलैप से बचने के लिए आवश्यक न्यूनतम ऊर्ध्व दूरी (टिक में)।</value>
   </data>
+  <data name="LVN_Enabled" xml:space="preserve">
+    <value>LVN रंग</value>
+  </data>
+  <data name="LVN_Color" xml:space="preserve">
+    <value>LVN सक्षम करें</value>
+  </data>
 </root>

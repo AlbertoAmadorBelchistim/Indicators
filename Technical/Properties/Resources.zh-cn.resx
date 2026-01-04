@@ -291,4 +291,10 @@
   <data name="LVN_OcclusionTicks_Description" xml:space="preserve">
     <value>为避免不同周期的 LVN 区域发生视觉重叠而设置的最小垂直距离（以 tick 为单位）。</value>
   </data>
+  <data name="LVN_Enabled" xml:space="preserve">
+    <value>LVN 颜色</value>
+  </data>
+  <data name="LVN_Color" xml:space="preserve">
+    <value>启用 LVN</value>
+  </data>
 </root>
