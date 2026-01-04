@@ -1733,8 +1733,9 @@ public class OHLCPlus : Indicator
 
         var levelsChanged = UpdateLevels(period, fixedProfileOriginScale);
         var hvnChanged = UpdateHVNs(period, fixedProfileOriginScale); // make UpdateHVNs return bool
+        var lvnChanged = UpdateLVNs(period, fixedProfileOriginScale);
 
-        if (levelsChanged || hvnChanged)
+        if (levelsChanged || hvnChanged || lvnChanged)
             RedrawChart();
     }
 
@@ -2152,6 +2153,141 @@ public class OHLCPlus : Indicator
 
         return true;
     }
+
+    private bool UpdateLVNs(FixedProfilePeriods period, IndicatorCandle candle)
+    {
+        if (InstrumentInfo?.TickSize is null || InstrumentInfo.TickSize <= 0m)
+            return false;
+
+        // If LVN is disabled for this period, clear cached bands (if any) and skip work.
+        if (!IsLvnEnabled(period))
+        {
+            if (_lvnBands.TryGetValue(period, out var cached) && cached.Count > 0)
+            {
+                cached.Clear();
+                return true; // state changed -> redraw
+            }
+
+            return false;
+        }
+
+        if (candle == null)
+            return false;
+
+        if (!_lvnBands.TryGetValue(period, out var bands))
+        {
+            bands = new List<Band>();
+            _lvnBands[period] = bands;
+        }
+
+        // Snapshot old to detect change cheaply
+        var oldCount = bands.Count;
+        Band oldFirst = oldCount > 0 ? bands[0] : null;
+        Band oldLast = oldCount > 0 ? bands[oldCount - 1] : null;
+
+        bands.Clear();
+
+        var poc = candle.MaxVolumePriceInfo;
+        if (poc == null || poc.Volume <= 0)
+            return oldCount > 0; // cleared
+
+        var cutoff = poc.Volume * (LVNThresholdPct / 100m);
+
+        var levelsEnum = candle.GetAllPriceLevels();
+        if (levelsEnum == null)
+            return oldCount > 0; // cleared
+
+        var levels = levelsEnum.OrderBy(l => l.Price).ToList();
+        if (levels.Count == 0)
+            return oldCount > 0; // cleared
+
+        var tick = InstrumentInfo.TickSize;
+
+        decimal? runStart = null;
+        decimal lastPriceInRun = 0m;
+        int gapLeft = 0;
+
+        bool IsNextTick(decimal prev, decimal next)
+            => Math.Abs(next - prev) <= tick * 1.0000001m;
+
+        for (int i = 0; i < levels.Count; i++)
+        {
+            var p = levels[i].Price;
+            var v = (decimal)levels[i].Volume;
+
+            // LVN condition: low-volume levels (below cutoff)
+            bool isLow = v < cutoff;
+
+            if (runStart == null)
+            {
+                if (!isLow)
+                    continue;
+
+                runStart = p;
+                lastPriceInRun = p;
+                gapLeft = LVNGapToleranceTicks;
+                continue;
+            }
+
+            bool contiguous = IsNextTick(lastPriceInRun, p);
+
+            if (!contiguous)
+            {
+                bands.Add(new Band { Low = runStart.Value, High = lastPriceInRun });
+                runStart = null;
+
+                if (isLow)
+                {
+                    runStart = p;
+                    lastPriceInRun = p;
+                    gapLeft = LVNGapToleranceTicks;
+                }
+
+                continue;
+            }
+
+            if (isLow)
+            {
+                lastPriceInRun = p;
+                gapLeft = LVNGapToleranceTicks;
+            }
+            else
+            {
+                if (gapLeft > 0)
+                {
+                    gapLeft--;
+                    lastPriceInRun = p;
+                }
+                else
+                {
+                    bands.Add(new Band { Low = runStart.Value, High = lastPriceInRun });
+                    runStart = null;
+                }
+            }
+        }
+
+        if (runStart != null && lastPriceInRun >= runStart.Value)
+            bands.Add(new Band { Low = runStart.Value, High = lastPriceInRun });
+
+        // Change detection (cheap, avoids heavy comparisons)
+        if (oldCount != bands.Count)
+            return true;
+
+        if (bands.Count == 0)
+            return false;
+
+        var newFirst = bands[0];
+        var newLast = bands[bands.Count - 1];
+
+        if (oldFirst == null || oldLast == null)
+            return true;
+
+        return oldFirst.Low != newFirst.Low
+            || oldFirst.High != newFirst.High
+            || oldLast.Low != newLast.Low
+            || oldLast.High != newLast.High;
+    }
+
 
 
     #endregion
