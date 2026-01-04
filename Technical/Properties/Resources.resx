@@ -2710,7 +2710,7 @@
     <value>HVN</value>
     <comment>OHLCPlus</comment>
   </data>
-  <data name="HVN_Enable" xml:space="preserve">
+  <data name="HVN_Enabled" xml:space="preserve">
     <value>Enable HVN</value>
     <comment>OHLCPlus</comment>
   </data>
@@ -2719,7 +2719,7 @@
     <comment>OHLCPlus</comment>
   </data>
   <data name="HVN_ThresholdPct" xml:space="preserve">
-    <value>HVN threshold (% of POC volume)</value>
+    <value>HVN threshold (%)</value>
     <comment>OHLCPlus</comment>
   </data>
   <data name="HVN_GapToleranceTicks" xml:space="preserve">
@@ -2731,7 +2731,7 @@
     <comment>OHLCPlus</comment>
   </data>
   <data name="HVN_ThresholdPct_Description" xml:space="preserve">
-    <value>Minimum volume (as % of POC volume) required for a price level to be part of an HVN band.</value>
+    <value>A price level is considered HVN when its volume is at or above this percentage of the profile POC volume.</value>
     <comment>OHLCPlus</comment>
   </data>
   <data name="HVN_GapToleranceTicks_Description" xml:space="preserve">
@@ -2740,6 +2740,34 @@
   </data>
   <data name="HVN_OcclusionTicks_Description" xml:space="preserve">
     <value>Minimum vertical distance (in ticks) required between HVN bands of different periods to avoid visual overlap.</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="LVN_Group" xml:space="preserve">
+    <value>LVN</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="LVN_ThresholdPct" xml:space="preserve">
+    <value>LVN Threshold (%)</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="LVN_ThresholdPct_Description" xml:space="preserve">
+    <value>A price level is considered LVN when its volume is below this percentage of the profile POC volume.</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="LVN_GapToleranceTicks" xml:space="preserve">
+    <value>Gap tolerance (ticks)</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="LVN_GapToleranceTicks_Description" xml:space="preserve">
+    <value>Allows small gaps (in ticks) inside an LVN band to keep nearby low-volume levels grouped.</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="LVN_OcclusionTicks" xml:space="preserve">
+    <value>Occlusion (ticks)</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="LVN_OcclusionTicks_Description" xml:space="preserve">
+    <value>Minimum vertical distance (in ticks) required between LVN bands of different periods to avoid visual overlap.</value>
     <comment>OHLCPlus</comment>
   </data>
 </root>
