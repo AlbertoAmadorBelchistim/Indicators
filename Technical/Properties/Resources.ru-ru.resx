@@ -2604,4 +2604,16 @@
   <data name="LVN_Color" xml:space="preserve">
     <value>Цвет LVN</value>
   </data>
+  <data name="LVN_MinPocVol" xml:space="preserve">
+    <value>Минимальный объём POC для LVN</value>
+  </data>
+  <data name="LVN_MinPocVol_Description" xml:space="preserve">
+    <value>LVN-зоны не вычисляются, пока объём POC профиля не достигнет этого значения. Предотвращает LVN-шум в начале периода.</value>
+  </data>
+  <data name="LVN_TailFilterMinTicks" xml:space="preserve">
+    <value>Фильтр хвостов (тики)</value>
+  </data>
+  <data name="LVN_TailFilterMinTicks_Description" xml:space="preserve">
+    <value>Исключает зоны хвостов с низким объёмом вблизи максимума и минимума профиля из определения LVN.</value>
+  </data>
 </root>
