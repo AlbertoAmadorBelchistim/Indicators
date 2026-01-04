@@ -533,6 +533,8 @@ public class OHLCPlus : Indicator
         public decimal Low { get; init; }
         public decimal High { get; init; }
     }
+
+    private readonly Dictionary<FixedProfilePeriods, List<Band>> _lvnBands = new();
     #endregion
 
     #endregion
@@ -689,6 +691,12 @@ public class OHLCPlus : Indicator
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = "HVN color", Order = 95)]
     public CrossColor DayHVNColor { get; set; } = Color.FromArgb(50, 245, 245, 245).Convert(); // semi-transparent
 
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = "Enable LVN", Order = 96)]
+    public bool DayLVNEnabled { get; set; } = false;
+
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentDay), Name = "LVN color", Order = 97)]
+    public CrossColor DayLVNColor { get; set; } = Color.FromArgb(45, 180, 220, 255).Convert();
+
     #endregion
 
     #region Prev.Day Settings
@@ -801,11 +809,17 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousDay), Name = nameof(Resources.HVN_Enable), Order = 90)]
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = "Enable HVN", Order = 90)]
     public bool PrevDayHVNEnabled { get; set; } = false;
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousDay), Name = nameof(Resources.HVN_Color), Order = 95)]
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = "HVN color", Order = 95)]
     public CrossColor PrevDayHVNColor { get; set; } = Color.FromArgb(55, 120, 120, 120).Convert(); // semi-transparent
+
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = "Enable LVN", Order = 96)]
+    public bool PrevDayLVNEnabled { get; set; } = false;
+
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousDay), Name = "LVN color", Order = 97)]
+    public CrossColor PrevDayLVNColor { get; set; } = Color.FromArgb(45, 180, 220, 255).Convert();
 
     #endregion
 
@@ -920,11 +934,17 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentWeek), Name = nameof(Resources.HVN_Enable), Order = 90)]
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = "Enable HVN", Order = 90)]
     public bool WeekHVNEnabled { get; set; } = false;
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentWeek), Name = nameof(Resources.HVN_Color), Order = 95)]
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = "HVN color", Order = 95)]
     public CrossColor WeekHVNColor { get; set; } = Color.FromArgb(55, 0, 191, 255).Convert(); // semi-transparent
+
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = "Enable LVN", Order = 96)]
+    public bool WeekLVNEnabled { get; set; } = false;
+
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentWeek), Name = "LVN color", Order = 97)]
+    public CrossColor WeekLVNColor { get; set; } = Color.FromArgb(45, 180, 220, 255).Convert();
 
     #endregion
 
@@ -1038,11 +1058,17 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousWeek), Name = nameof(Resources.HVN_Enable), Order = 90)]
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = "Enable HVN", Order = 90)]
     public bool PrevWeekHVNEnabled { get; set; } = false;
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousWeek), Name = nameof(Resources.HVN_Color), Order = 95)]
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = "HVN color", Order = 95)]
     public CrossColor PrevWeekHVNColor { get; set; } = Color.FromArgb(45, 70, 130, 180).Convert(); // semi-transparent
+
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = "Enable LVN", Order = 96)]
+    public bool PrevWeekLVNEnabled { get; set; } = false;
+
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousWeek), Name = "LVN color", Order = 97)]
+    public CrossColor PrevWeekLVNColor { get; set; } = Color.FromArgb(45, 180, 220, 255).Convert();
 
     #endregion
 
@@ -1156,11 +1182,17 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentMonth), Name = nameof(Resources.HVN_Enable), Order = 90)]
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = "Enable HVN", Order = 90)]
     public bool MonthHVNEnabled { get; set; } = false;
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentMonth), Name = nameof(Resources.HVN_Color), Order = 95)]
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = "HVN color", Order = 95)]
     public CrossColor MonthHVNColor { get; set; } = Color.FromArgb(45, 60, 179, 113).Convert(); // semi-transparent
+
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = "Enable LVN", Order = 96)]
+    public bool MonthLVNEnabled { get; set; } = false;
+
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.CurrentMonth), Name = "LVN color", Order = 97)]
+    public CrossColor MonthLVNColor { get; set; } = Color.FromArgb(45, 180, 220, 255).Convert();
 
     #endregion
 
@@ -1274,11 +1306,17 @@ public class OHLCPlus : Indicator
         lineType: LineType.Bar
     );
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousMonth), Name = nameof(Resources.HVN_Enable), Order = 90)]
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = "Enable HVN", Order = 90)]
     public bool PrevMonthHVNEnabled { get; set; } = false;
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousMonth), Name = nameof(Resources.HVN_Color), Order = 95)]
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = "HVN color", Order = 95)]
     public CrossColor PrevMonthHVNColor { get; set; } = Color.FromArgb(45, 85, 107, 47).Convert(); // semi-transparent
+
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = "Enable LVN", Order = 96)]
+    public bool PrevMonthLVNEnabled { get; set; } = false;
+
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.PreviousMonth), Name = "LVN color", Order = 97)]
+    public CrossColor PrevMonthLVNColor { get; set; } = Color.FromArgb(45, 180, 220, 255).Convert();
 
     #endregion
 
@@ -1398,6 +1436,13 @@ public class OHLCPlus : Indicator
     [Display(GroupName = "Contract", Name = "HVN color", Order = 95)]
     public CrossColor ContractHVNColor { get; set; } = Color.FromArgb(45, 85, 107, 47).Convert(); // semi-transparent
 
+    [Display(GroupName = "Contract", Name = "Enable LVN", Order = 96)]
+    public bool ContractLVNEnabled { get; set; } = false;
+
+    [Display(GroupName = "Contract", Name = "LVN color", Order = 97)]
+    public CrossColor ContractLVNColor { get; set; } = Color.FromArgb(45, 180, 220, 255).Convert();
+
+
     #endregion
 
     #region HVN
@@ -1410,6 +1455,19 @@ public class OHLCPlus : Indicator
 
     [Display(GroupName = "HVN", Name = "Occlusion (ticks)", Description = "Minimum vertical distance (in ticks) required between HVN bands of different periods to avoid visual overlap.", Order = 30)]
     public int HVNOcclusionTicks { get; set; } = 2;
+
+    #endregion
+
+    #region LVN
+
+    [Display(GroupName = "LVN", Name = "LVN Threshold (%)", Description = "A price level is considered LVN when its volume is below this percentage of the profile POC volume.", Order = 10)]
+    public decimal LVNThresholdPct { get; set; } = 20m;
+
+    [Display(GroupName = "LVN", Name = "Gap tolerance (ticks)", Description = "Allows small gaps (in ticks) inside an LVN band to keep nearby low-volume levels grouped.", Order = 20)]
+    public int LVNGapToleranceTicks { get; set; } = 1;
+
+    [Display(GroupName = "LVN", Name = "Occlusion (ticks)", Description = "Minimum vertical distance (in ticks) required between LVN bands of different periods to avoid visual overlap.", Order = 30)]
+    public int LVNOcclusionTicks { get; set; } = 2;
 
     #endregion
 
@@ -3038,6 +3096,36 @@ public class OHLCPlus : Indicator
             FixedProfilePeriods.LastMonth => PrevMonthHVNColor,
             FixedProfilePeriods.Contract => ContractHVNColor,
             _ => System.Drawing.Color.Transparent.Convert()
+        };
+    }
+
+    private bool IsLvnEnabled(FixedProfilePeriods period)
+    {
+        return period switch
+        {
+            FixedProfilePeriods.CurrentDay => DayLVNEnabled,
+            FixedProfilePeriods.LastDay => PrevDayLVNEnabled,
+            FixedProfilePeriods.CurrentWeek => WeekLVNEnabled,
+            FixedProfilePeriods.LastWeek => PrevWeekLVNEnabled,
+            FixedProfilePeriods.CurrentMonth => MonthLVNEnabled,
+            FixedProfilePeriods.LastMonth => PrevMonthLVNEnabled,
+            FixedProfilePeriods.Contract => ContractLVNEnabled,
+            _ => false
+        };
+    }
+
+    private CrossColor GetLvnColor(FixedProfilePeriods period)
+    {
+        return period switch
+        {
+            FixedProfilePeriods.CurrentDay => DayLVNColor,
+            FixedProfilePeriods.LastDay => PrevDayLVNColor,
+            FixedProfilePeriods.CurrentWeek => WeekLVNColor,
+            FixedProfilePeriods.LastWeek => PrevWeekLVNColor,
+            FixedProfilePeriods.CurrentMonth => MonthLVNColor,
+            FixedProfilePeriods.LastMonth => PrevMonthLVNColor,
+            FixedProfilePeriods.Contract => ContractLVNColor,
+            _ => Color.Transparent.Convert()
         };
     }
 
