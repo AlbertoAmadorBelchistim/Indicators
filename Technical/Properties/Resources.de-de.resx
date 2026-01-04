@@ -300,4 +300,16 @@
   <data name="LVN_Color" xml:space="preserve">
     <value>LVN-Farbe</value>
   </data>
+  <data name="LVN_MinPocVol" xml:space="preserve">
+    <value>Minimales POC-Volumen für LVN</value>
+  </data>
+  <data name="LVN_MinPocVol_Description" xml:space="preserve">
+    <value>LVN-Bänder werden erst berechnet, wenn das POC-Volumen des Profils diesen Wert erreicht. Verhindert LVN-Rauschen zu Beginn der Periode.</value>
+  </data>
+  <data name="LVN_TailFilterMinTicks" xml:space="preserve">
+    <value>Tail-Filter (Ticks)</value>
+  </data>
+  <data name="LVN_TailFilterMinTicks_Description" xml:space="preserve">
+    <value>Schließt volumenarme Tail-Bereiche nahe dem Hoch und Tief des Profils von der LVN-Erkennung aus.</value>
+  </data>
 </root>
