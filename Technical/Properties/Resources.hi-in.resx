@@ -246,14 +246,14 @@
   <data name="HVN_Group" xml:space="preserve">
     <value>HVN</value>
   </data>
-  <data name="HVN_Enable" xml:space="preserve">
+  <data name="HVN_Enabled" xml:space="preserve">
     <value>HVN सक्षम करें</value>
   </data>
   <data name="HVN_Color" xml:space="preserve">
     <value>HVN रंग</value>
   </data>
   <data name="HVN_ThresholdPct" xml:space="preserve">
-    <value>HVN सीमा (POC वॉल्यूम का %)</value>
+    <value>HVN सीमा (%)</value>
   </data>
   <data name="HVN_GapToleranceTicks" xml:space="preserve">
     <value>गैप सहनशीलता (टिक)</value>
@@ -262,12 +262,33 @@
     <value>ओक्लूज़न (टिक)</value>
   </data>
   <data name="HVN_ThresholdPct_Description" xml:space="preserve">
-    <value>किसी मूल्य स्तर को HVN बैंड का हिस्सा बनने के लिए आवश्यक न्यूनतम वॉल्यूम (POC वॉल्यूम का %)।</value>
+    <value>किसी मूल्य स्तर को HVN माना जाता है जब उसका वॉल्यूम प्रोफ़ाइल के POC वॉल्यूम के इस प्रतिशत के बराबर या उससे अधिक होता है।</value>
   </data>
   <data name="HVN_GapToleranceTicks_Description" xml:space="preserve">
     <value>HVN बैंड के भीतर छोटे गैप (टिक में) की अनुमति देता है ताकि पास-पास के उच्च वॉल्यूम स्तरों को एक साथ रखा जा सके।</value>
   </data>
   <data name="HVN_OcclusionTicks_Description" xml:space="preserve">
     <value>विभिन्न अवधियों की HVN बैंड्स के बीच आवश्यक न्यूनतम ऊर्ध्व दूरी (टिक में) ताकि दृश्य ओवरलैप से बचा जा सके।</value>
+  </data>
+  <data name="LVN_Group" xml:space="preserve">
+    <value>LVN</value>
+  </data>
+  <data name="LVN_ThresholdPct" xml:space="preserve">
+    <value>LVN थ्रेशोल्ड (%)</value>
+  </data>
+  <data name="LVN_ThresholdPct_Description" xml:space="preserve">
+    <value>किसी मूल्य स्तर को LVN माना जाता है जब उसका वॉल्यूम प्रोफ़ाइल के POC वॉल्यूम के इस प्रतिशत से कम होता है।</value>
+  </data>
+  <data name="LVN_GapToleranceTicks" xml:space="preserve">
+    <value>गैप टॉलरेंस (टिक)</value>
+  </data>
+  <data name="LVN_GapToleranceTicks_Description" xml:space="preserve">
+    <value>LVN बैंड के भीतर छोटे गैप (टिक में) की अनुमति देता है ताकि पास के कम वॉल्यूम स्तरों को एक साथ रखा जा सके।</value>
+  </data>
+  <data name="LVN_OcclusionTicks" xml:space="preserve">
+    <value>ओक्लूज़न (टिक)</value>
+  </data>
+  <data name="LVN_OcclusionTicks_Description" xml:space="preserve">
+    <value>विभिन्न अवधियों के LVN बैंड्स के बीच दृश्य ओवरलैप से बचने के लिए आवश्यक न्यूनतम ऊर्ध्व दूरी (टिक में)।</value>
   </data>
 </root>
