@@ -297,4 +297,16 @@
   <data name="LVN_Color" xml:space="preserve">
     <value>LVN रंग</value>
   </data>
+  <data name="LVN_MinPocVol" xml:space="preserve">
+    <value>LVN के लिए न्यूनतम POC वॉल्यूम</value>
+  </data>
+  <data name="LVN_MinPocVol_Description" xml:space="preserve">
+    <value>जब तक प्रोफ़ाइल का POC वॉल्यूम इस मान तक नहीं पहुँचता, LVN बैंड की गणना नहीं की जाती। अवधि की शुरुआत में LVN शोर से बचाता है।</value>
+  </data>
+  <data name="LVN_TailFilterMinTicks" xml:space="preserve">
+    <value>टेल फ़िल्टर (टिक)</value>
+  </data>
+  <data name="LVN_TailFilterMinTicks_Description" xml:space="preserve">
+    <value>प्रोफ़ाइल के उच्च और निम्न स्तरों के पास मौजूद कम वॉल्यूम वाले टेल क्षेत्रों को LVN पहचान से बाहर रखता है।</value>
+  </data>
 </root>

@@ -3256,6 +3256,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Min POC volume for LVN.
+        /// </summary>
+        public static string LVN_MinPocVol {
+            get {
+                return ResourceManager.GetString("LVN_MinPocVol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Do not compute LVN bands until the profile POC volume reaches this value. Prevents LVN noise early in the period..
+        /// </summary>
+        public static string LVN_MinPocVol_Description {
+            get {
+                return ResourceManager.GetString("LVN_MinPocVol_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Occlusion (ticks).
         /// </summary>
         public static string LVN_OcclusionTicks {
@@ -3270,6 +3288,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string LVN_OcclusionTicks_Description {
             get {
                 return ResourceManager.GetString("LVN_OcclusionTicks_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Tail filter (ticks).
+        /// </summary>
+        public static string LVN_TailFilterMinTicks {
+            get {
+                return ResourceManager.GetString("LVN_TailFilterMinTicks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Excludes low-volume tail areas near the high and low of the profile from LVN detection..
+        /// </summary>
+        public static string LVN_TailFilterMinTicks_Description {
+            get {
+                return ResourceManager.GetString("LVN_TailFilterMinTicks_Description", resourceCulture);
             }
         }
         
