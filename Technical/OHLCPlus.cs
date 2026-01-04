@@ -2617,7 +2617,11 @@ public class OHLCPlus : Indicator
             if (candle is null)
                 return false;
 
-            return UpdateLevels(p, candle);
+            var changed = false;
+            changed |= UpdateLevels(p, candle);
+            changed |= UpdateHVNs(p, candle);
+            changed |= UpdateLVNs(p, candle);
+            return changed;
         }
 
         dirty |= UpdateIf(FixedProfilePeriods.CurrentDay);
@@ -2674,6 +2678,19 @@ public class OHLCPlus : Indicator
         _needContract = NeedsData(FixedProfilePeriods.Contract);
     }
 
+    private void RefreshData()
+    {
+        RecalcAllNeeds();
+
+        // Request profiles for periods that are now needed
+        RequestProfiles();
+
+        // If we already have cached profiles, recompute immediately
+        UpdateAllNeededLevelsFromCache();
+
+        RedrawChart();
+    }
+
     private void RecalcNeedFor(FixedProfilePeriods period)
     {
         switch (period)
@@ -2703,7 +2720,9 @@ public class OHLCPlus : Indicator
     }
 
     private bool NeedsData(FixedProfilePeriods period)
-    => AnyEnabled(EnumerateLevelsForPeriod(period));
+    => AnyEnabled(EnumerateLevelsForPeriod(period))
+       || IsHvnEnabled(period)
+       || IsLvnEnabled(period);
 
     private bool UpdateLevels(FixedProfilePeriods period, IndicatorCandle candle)
     {
@@ -2788,19 +2807,22 @@ public class OHLCPlus : Indicator
             return false;
         }
 
+        int oldCount;
         if (!_hvnBands.TryGetValue(period, out var bands))
         {
             bands = new List<Band>();
             _hvnBands[period] = bands;
+            oldCount = 0;
         }
         else
         {
+            oldCount = bands.Count;
             bands.Clear();
         }
 
         var poc = candle.MaxVolumePriceInfo;
         if (poc == null || poc.Volume <= 0)
-            return false;
+            return oldCount > 0;
 
         var cutoff = poc.Volume * (HVNThresholdPct / 100m);
 
@@ -2919,6 +2941,18 @@ public class OHLCPlus : Indicator
         if (poc == null || poc.Volume <= 0)
             return oldCount > 0; // cleared
 
+        // LVN needs a "mature" profile; otherwise it will label almost the whole range as a void.
+        if (poc.Volume < MinPocVolForLVN)
+        {
+            if (bands.Count > 0)
+            {
+                bands.Clear();
+                return true;
+            }
+
+            return false;
+        }
+
         var cutoff = poc.Volume * (LVNThresholdPct / 100m);
 
         var levelsEnum = candle.GetAllPriceLevels();
@@ -2938,13 +2972,17 @@ public class OHLCPlus : Indicator
         bool IsNextTick(decimal prev, decimal next)
             => Math.Abs(next - prev) <= tick * 1.0000001m;
 
+        var tailFilterAmount = LVNTailFilterMinTicks * tick;
+        var highLimit = candle.High - tailFilterAmount;
+        var lowLimit = candle.Low + tailFilterAmount;
+
         for (int i = 0; i < levels.Count; i++)
         {
             var p = levels[i].Price;
             var v = (decimal)levels[i].Volume;
 
             // LVN condition: low-volume levels (below cutoff)
-            bool isLow = v < cutoff;
+            bool isLow = (v < cutoff) && (p < highLimit) && (p > lowLimit);
 
             if (runStart == null)
             {
