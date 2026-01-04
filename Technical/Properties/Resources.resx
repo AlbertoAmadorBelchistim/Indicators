@@ -2770,4 +2770,12 @@
     <value>Minimum vertical distance (in ticks) required between LVN bands of different periods to avoid visual overlap.</value>
     <comment>OHLCPlus</comment>
   </data>
+  <data name="LVN_Enabled" xml:space="preserve">
+    <value>Enable LVN</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="LVN_Color" xml:space="preserve">
+    <value>LVN color</value>
+    <comment>OHLCPlus</comment>
+  </data>
 </root>
