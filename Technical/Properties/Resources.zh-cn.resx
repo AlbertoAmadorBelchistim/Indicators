@@ -246,14 +246,14 @@
   <data name="HVN_Group" xml:space="preserve">
     <value>HVN</value>
   </data>
-  <data name="HVN_Enable" xml:space="preserve">
+  <data name="HVN_Enabled" xml:space="preserve">
     <value>启用 HVN</value>
   </data>
   <data name="HVN_Color" xml:space="preserve">
     <value>HVN 颜色</value>
   </data>
   <data name="HVN_ThresholdPct" xml:space="preserve">
-    <value>HVN 阈值（POC 成交量的百分比）</value>
+    <value>HVN 阈值（%）</value>
   </data>
   <data name="HVN_GapToleranceTicks" xml:space="preserve">
     <value>间隙容忍（tick）</value>
@@ -262,9 +262,33 @@
     <value>遮挡（tick）</value>
   </data>
   <data name="HVN_ThresholdPct_Description" xml:space="preserve">
-    <value>价格层级成为 HVN 区域所需的最小成交量（占 POC 成交量的百分比）。</value>
+    <value>当某一价格层级的成交量等于或高于该档案 POC 成交量的此百分比时，该价格层级被视为 HVN。</value>
   </data>
   <data name="HVN_GapToleranceTicks_Description" xml:space="preserve">
     <value>允许 HVN 区域内存在小的间隙（tick），以合并相邻的高成交量价位。</value>
+  </data>
+  <data name="HVN_OcclusionTicks_Description" xml:space="preserve">
+    <value>不同周期的 HVN 区域之间为避免视觉重叠所需的最小垂直距离（以 tick 为单位）</value>
+  </data>
+  <data name="LVN_Group" xml:space="preserve">
+    <value>LVN</value>
+  </data>
+  <data name="LVN_ThresholdPct" xml:space="preserve">
+    <value>LVN 阈值 (%)</value>
+  </data>
+  <data name="LVN_ThresholdPct_Description" xml:space="preserve">
+    <value>当某一价格层级的成交量低于该档案 POC 成交量的此百分比时，该价格层级被视为 LVN。</value>
+  </data>
+  <data name="LVN_GapToleranceTicks" xml:space="preserve">
+    <value>间隙容差（tick）</value>
+  </data>
+  <data name="LVN_GapToleranceTicks_Description" xml:space="preserve">
+    <value>允许 LVN 区域内部存在小的间隙（tick），以将相邻的低成交量价位合并在一起。</value>
+  </data>
+  <data name="LVN_OcclusionTicks" xml:space="preserve">
+    <value>遮挡（tick）</value>
+  </data>
+  <data name="LVN_OcclusionTicks_Description" xml:space="preserve">
+    <value>为避免不同周期的 LVN 区域发生视觉重叠而设置的最小垂直距离（以 tick 为单位）。</value>
   </data>
 </root>

@@ -2601,9 +2601,9 @@ namespace ATAS.Indicators.Technical.Properties {
         /// <summary>
         ///   Busca una cadena traducida similar a Enable HVN.
         /// </summary>
-        public static string HVN_Enable {
+        public static string HVN_Enabled {
             get {
-                return ResourceManager.GetString("HVN_Enable", resourceCulture);
+                return ResourceManager.GetString("HVN_Enabled", resourceCulture);
             }
         }
         
@@ -2653,7 +2653,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a HVN threshold (% of POC volume).
+        ///   Busca una cadena traducida similar a HVN threshold (%).
         /// </summary>
         public static string HVN_ThresholdPct {
             get {
@@ -2662,7 +2662,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Minimum volume (as % of POC volume) required for a price level to be part of an HVN band..
+        ///   Busca una cadena traducida similar a A price level is considered HVN when its volume is at or above this percentage of the profile POC volume..
         /// </summary>
         public static string HVN_ThresholdPct_Description {
             get {
@@ -3207,6 +3207,69 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string LowSession {
             get {
                 return ResourceManager.GetString("LowSession", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Gap tolerance (ticks).
+        /// </summary>
+        public static string LVN_GapToleranceTicks {
+            get {
+                return ResourceManager.GetString("LVN_GapToleranceTicks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Allows small gaps (in ticks) inside an LVN band to keep nearby low-volume levels grouped..
+        /// </summary>
+        public static string LVN_GapToleranceTicks_Description {
+            get {
+                return ResourceManager.GetString("LVN_GapToleranceTicks_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a LVN.
+        /// </summary>
+        public static string LVN_Group {
+            get {
+                return ResourceManager.GetString("LVN_Group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Occlusion (ticks).
+        /// </summary>
+        public static string LVN_OcclusionTicks {
+            get {
+                return ResourceManager.GetString("LVN_OcclusionTicks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Minimum vertical distance (in ticks) required between LVN bands of different periods to avoid visual overlap..
+        /// </summary>
+        public static string LVN_OcclusionTicks_Description {
+            get {
+                return ResourceManager.GetString("LVN_OcclusionTicks_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a LVN Threshold (%).
+        /// </summary>
+        public static string LVN_ThresholdPct {
+            get {
+                return ResourceManager.GetString("LVN_ThresholdPct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a A price level is considered LVN when its volume is below this percentage of the profile POC volume..
+        /// </summary>
+        public static string LVN_ThresholdPct_Description {
+            get {
+                return ResourceManager.GetString("LVN_ThresholdPct_Description", resourceCulture);
             }
         }
         
