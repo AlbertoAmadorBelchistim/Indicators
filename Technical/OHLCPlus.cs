@@ -596,6 +596,7 @@ public class OHLCPlus : Indicator
 
     private decimal _minPocVolForLVN = 500m;
     private int _lvnTailFilterMinTicks = 3;
+    private int _lvnTailFilterRangePct = 10;
 
     #endregion
 
@@ -1869,6 +1870,21 @@ public class OHLCPlus : Indicator
         }
     }
 
+    [Display(GroupName = "LVN", Name = "Tail Filter (% of Range)", Description = "Excludes low-volume tail areas near the high and low of the profile from LVN detection, using a percentage of the profile range. (0 = disabled).", Order = 60)]
+    [Range(0, 50)]
+    public int LVNTailFilterRangePct
+    {
+        get => _lvnTailFilterRangePct;
+        set
+        {
+            if (_lvnTailFilterRangePct == value)
+                return;
+
+            _lvnTailFilterRangePct = value;
+            RefreshData();
+        }
+    }
+
     #endregion
 
     #region Visibility Settings
@@ -2603,7 +2619,21 @@ public class OHLCPlus : Indicator
         bool IsNextTick(decimal prev, decimal next)
             => Math.Abs(next - prev) <= tick * 1.0000001m;
 
-        var tailFilterAmount = LVNTailFilterMinTicks * tick;
+        // Hybrid tail filter: max(min ticks, % of current range)
+        var range = candle.High - candle.Low;
+        var rangeTicks = range > 0m ? range / tick : 0m;
+
+        int pctTicks = 0;
+        if (LVNTailFilterRangePct > 0 && rangeTicks > 0m)
+        {
+            // Use Ceiling so the filter doesn't collapse to 0 on small ranges.
+            var raw = (double)rangeTicks * (LVNTailFilterRangePct / 100.0);
+            pctTicks = (int)Math.Ceiling(raw);
+        }
+
+        var tailTicks = Math.Max(LVNTailFilterMinTicks, pctTicks);
+        var tailFilterAmount = tailTicks * tick;
+
         var highLimit = candle.High - tailFilterAmount;
         var lowLimit = candle.Low + tailFilterAmount;
 
