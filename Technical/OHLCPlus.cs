@@ -635,6 +635,9 @@ public class OHLCPlus : Indicator
     private int _lvnTailFilterMinTicks = 3;
     private int _lvnTailFilterRangePct = 10;
 
+    // Cached ordered price levels per period (performance)
+    private readonly Dictionary<FixedProfilePeriods, IReadOnlyList<dynamic>> _orderedLevelsCache = new();
+
     #endregion
 
     #endregion
@@ -2630,6 +2633,10 @@ public class OHLCPlus : Indicator
 
     private void UpdateAllNeededLevelsFromCache()
     {
+        // PERF: clear ordered levels cache once per update cycle
+        // Cache is reused across HVN/LVN calculations within this cycle only.
+        _orderedLevelsCache.Clear();
+
         var dirty = false;
 
         bool UpdateIf(FixedProfilePeriods p)
@@ -2816,6 +2823,28 @@ public class OHLCPlus : Indicator
         return priceChanged || validChanged;
     }
 
+    private IReadOnlyList<dynamic> GetOrderedLevels(FixedProfilePeriods period, IndicatorCandle candle)
+    {
+        if (candle == null)
+            return null;
+
+        if (_orderedLevelsCache.TryGetValue(period, out var cached))
+            return cached;
+
+        var levelsEnum = candle.GetAllPriceLevels();
+        if (levelsEnum == null)
+            return null;
+
+        // Order once and cache for this update cycle
+        var levels = levelsEnum
+            .OrderBy(l => l.Price)
+            .Cast<dynamic>()
+            .ToList();
+
+        _orderedLevelsCache[period] = levels;
+        return levels;
+    }
+
     private bool UpdateHVNs(FixedProfilePeriods period, IndicatorCandle candle)
     {
         if (InstrumentInfo?.TickSize is null || InstrumentInfo.TickSize <= 0m)
@@ -2855,12 +2884,8 @@ public class OHLCPlus : Indicator
 
         var cutoff = poc.Volume * (HVNThresholdPct / 100m);
 
-        var levelsEnum = candle.GetAllPriceLevels();
-        if (levelsEnum == null)
-            return oldHash != 0;
-
-        var levels = levelsEnum.OrderBy(l => l.Price).ToList();
-        if (levels.Count == 0)
+        var levels = GetOrderedLevels(period, candle);
+        if (levels == null || levels.Count == 0)
             return oldHash != 0;
 
         var tick = InstrumentInfo.TickSize;
@@ -2978,13 +3003,9 @@ public class OHLCPlus : Indicator
 
         var cutoff = poc.Volume * (LVNThresholdPct / 100m);
 
-        var levelsEnum = candle.GetAllPriceLevels();
-        if (levelsEnum == null)
-            return oldHash != 0; // cleared
-
-        var levels = levelsEnum.OrderBy(l => l.Price).ToList();
-        if (levels.Count == 0)
-            return oldHash != 0; // cleared
+        var levels = GetOrderedLevels(period, candle);
+        if (levels == null || levels.Count == 0)
+            return oldHash != 0;
 
         var tick = InstrumentInfo.TickSize;
 
