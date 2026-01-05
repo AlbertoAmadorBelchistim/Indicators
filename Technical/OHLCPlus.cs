@@ -599,7 +599,19 @@ public class OHLCPlus : Indicator
     private int _lvnTailFilterRangePct = 10;
 
     // Cached ordered price levels per period (performance)
-    private readonly Dictionary<FixedProfilePeriods, IReadOnlyList<dynamic>> _orderedLevelsCache = new();
+    private readonly Dictionary<FixedProfilePeriods, List<PriceLevel>> _orderedLevelsCache = new();
+
+    private readonly struct PriceLevel
+    {
+        public PriceLevel(decimal price, decimal volume)
+        {
+            Price = price;
+            Volume = volume;
+        }
+
+        public decimal Price { get; }
+        public decimal Volume { get; }
+    }
 
     #endregion
 
@@ -2151,7 +2163,7 @@ public class OHLCPlus : Indicator
         _profileCandles[period] = fixedProfileOriginScale;
 
         var levelsChanged = UpdateLevels(period, fixedProfileOriginScale);
-        var hvnChanged = UpdateHVNs(period, fixedProfileOriginScale); // make UpdateHVNs return bool
+        var hvnChanged = UpdateHVNs(period, fixedProfileOriginScale);
         var lvnChanged = UpdateLVNs(period, fixedProfileOriginScale);
 
         if (levelsChanged || hvnChanged || lvnChanged)
@@ -2447,7 +2459,7 @@ public class OHLCPlus : Indicator
         return priceChanged || validChanged;
     }
 
-    private IReadOnlyList<dynamic> GetOrderedLevels(FixedProfilePeriods period, IndicatorCandle candle)
+    private List<PriceLevel> GetOrderedLevels(FixedProfilePeriods period, IndicatorCandle candle)
     {
         if (candle == null)
             return null;
@@ -2459,11 +2471,12 @@ public class OHLCPlus : Indicator
         if (levelsEnum == null)
             return null;
 
-        // Order once and cache for this update cycle
-        var levels = levelsEnum
-            .OrderBy(l => l.Price)
-            .Cast<dynamic>()
-            .ToList();
+        var levels = new List<PriceLevel>(256);
+
+        foreach (var l in levelsEnum)
+            levels.Add(new PriceLevel(l.Price, (decimal)l.Volume));
+
+        levels.Sort((a, b) => a.Price.CompareTo(b.Price));
 
         _orderedLevelsCache[period] = levels;
         return levels;
