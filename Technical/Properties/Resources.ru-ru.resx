@@ -2616,4 +2616,10 @@
   <data name="LVN_TailFilterMinTicks_Description" xml:space="preserve">
     <value>Исключает зоны хвостов с низким объёмом вблизи максимума и минимума профиля из определения LVN.</value>
   </data>
+  <data name="LVN_TailFilterRangePct" xml:space="preserve">
+    <value>Фильтр хвостов (% диапазона)</value>
+  </data>
+  <data name="LVN_TailFilterRangePct_Description" xml:space="preserve">
+    <value>Исключает хвостовые зоны с низким объёмом возле максимума и минимума профиля при обнаружении LVN, используя процент диапазона профиля. (0 = отключено).</value>
+  </data>
 </root>
