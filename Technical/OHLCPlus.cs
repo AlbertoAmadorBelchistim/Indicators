@@ -2701,15 +2701,13 @@ public class OHLCPlus : Indicator
         }
     }
 
-    private void RequestProfileForPeriod(FixedProfilePeriods period, bool force = true)
+    private bool RequestProfileForPeriod(FixedProfilePeriods period, bool force = true)
     {
         if (!force && _profileCandles.TryGetValue(period, out var candle) && candle is not null)
-        {
-            RedrawChart();
-            return;
-        }
+            return false;
 
         GetFixedProfile(new FixedProfileRequest(period));
+        return true;
     }
 
     private void RecalcAllNeeds()
@@ -4295,9 +4293,17 @@ public class OHLCPlus : Indicator
                 RecalcNeedFor(period);
 
                 if (ls.Enabled && IsNeeded(period))
-                    RequestProfileForPeriod(period, force: false);
+                {
+                    var requested = RequestProfileForPeriod(period, force: false);
+
+                    // If we reused cached data (no request), we still need to repaint to show the newly enabled level.
+                    if (!requested)
+                        RedrawChart();
+                }
                 else
+                {
                     RedrawChart();
+                }
             }
         }
 
