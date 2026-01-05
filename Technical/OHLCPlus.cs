@@ -584,7 +584,7 @@ public class OHLCPlus : Indicator
     private int _hvnBorderAlpha = 80;
     private int _hvnBorderWidth = 1;
 
-    // HVN calculation parameters (you already declared these fields but you are NOT using them)
+    // HVN calculation parameters
     private decimal _hvnThresholdPct = 60m;
     private int _hvnGapToleranceTicks = 1;
     private int _hvnOcclusionTicks = 2;
