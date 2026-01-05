@@ -312,4 +312,10 @@
   <data name="LVN_TailFilterMinTicks_Description" xml:space="preserve">
     <value>Schließt volumenarme Tail-Bereiche nahe dem Hoch und Tief des Profils von der LVN-Erkennung aus.</value>
   </data>
+  <data name="LVN_TailFilterRangePct" xml:space="preserve">
+    <value>Tail-Filter (% der Spanne)</value>
+  </data>
+  <data name="LVN_TailFilterRangePct_Description" xml:space="preserve">
+    <value>Schließt volumenarme Randbereiche nahe dem Hoch und Tief des Profils von der LVN-Erkennung aus, basierend auf einem Prozentsatz der Profilspanne. (0 = deaktiviert).</value>
+  </data>
 </root>

@@ -2794,4 +2794,12 @@
     <value>Excludes low-volume tail areas near the high and low of the profile from LVN detection.</value>
     <comment>OHLCPlus</comment>
   </data>
+  <data name="LVN_TailFilterRangePct" xml:space="preserve">
+    <value>Tail Filter (% of Range)</value>
+    <comment>OHLCPlus</comment>
+  </data>
+  <data name="LVN_TailFilterRangePct_Description" xml:space="preserve">
+    <value>Excludes low-volume tail areas near the high and low of the profile from LVN detection, using a percentage of the profile range. (0 = disabled).</value>
+    <comment>OHLCPlus</comment>
+  </data>
 </root>

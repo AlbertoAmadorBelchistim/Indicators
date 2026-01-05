@@ -309,4 +309,10 @@
   <data name="LVN_TailFilterMinTicks_Description" xml:space="preserve">
     <value>Excluye las zonas de cola de bajo volumen cercanas al máximo y mínimo del perfil de la detección de LVN.</value>
   </data>
+  <data name="LVN_TailFilterRangePct" xml:space="preserve">
+    <value>Filtro de colas  (% del rango)</value>
+  </data>
+  <data name="LVN_TailFilterRangePct_Description" xml:space="preserve">
+    <value>Excluye las colas de bajo volumen cercanas al máximo y mínimo del perfil en la detección de LVN, usando un porcentaje del rango del perfil. (0 = desactivado).</value>
+  </data>
 </root>
