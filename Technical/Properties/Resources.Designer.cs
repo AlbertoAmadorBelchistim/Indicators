@@ -3310,6 +3310,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Tail Filter (% of Range).
+        /// </summary>
+        public static string LVN_TailFilterRangePct {
+            get {
+                return ResourceManager.GetString("LVN_TailFilterRangePct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Excludes low-volume tail areas near the high and low of the profile from LVN detection, using a percentage of the profile range. (0 = disabled)..
+        /// </summary>
+        public static string LVN_TailFilterRangePct_Description {
+            get {
+                return ResourceManager.GetString("LVN_TailFilterRangePct_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a LVN Threshold (%).
         /// </summary>
         public static string LVN_ThresholdPct {
