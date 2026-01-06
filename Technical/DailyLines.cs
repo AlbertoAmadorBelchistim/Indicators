@@ -98,6 +98,17 @@ public class DailyLines : Indicator
             Current = new SessionRange();
             Previous = new SessionRange();
         }
+
+        public void RollToNext(IndicatorCandle candle, int bar)
+        {
+            if (Current.OpenBar >= 0)
+            {
+                Current.IsFinished = true;
+                Previous = Current;
+            }
+
+            Current = new SessionRange(candle, bar);
+        }
     }
 
     [Serializable]
@@ -453,79 +464,31 @@ public class DailyLines : Indicator
 		return true;
 	}
 
-	protected override void OnCalculate(int bar, decimal value)
-	{
-		var candle = GetCandle(bar);
-
-        // Commit 1: keep calculation behavior equivalent to previous single-state.
-        // We store it in Day bucket temporarily; commit 2 will calculate all buckets.
-        var state = _states[PeriodBucket.Day];
+    protected override void OnCalculate(int bar, decimal value)
+    {
+        var candle = GetCandle(bar);
 
         if (base.IsNewSession(bar))
-			_lastDefaultSession = bar;
+            _lastDefaultSession = bar;
 
-		if (bar != state.Current.OpenBar)
-		{
-			var isNewPeriod = IsNewPeriod(bar);
+        // Compute all buckets every bar; rendering decides what to show.
+        var isNewDay = IsNewSession(bar);
+        var isNewWeek = IsNewWeek(bar);
+        var isNewMonth = IsNewMonth(bar);
 
-			if (isNewPeriod)
-			{
-				if (state.Current.OpenBar >= 0)
-				{
-                    state.Current.IsFinished = true;
-					state.Previous = state.Current;
-				}
+        // Day bucket respects CustomSession filtering (same behavior as before for day periods).
+        UpdateBucket(PeriodBucket.Day, candle, bar, isNewDay, applyCustomSessionFilter: true);
 
-				state.Current = new SessionRange(candle, bar);
-            }
-			else
-			{
-				if (Period is PeriodType.CurrentDay or PeriodType.PreviousDay)
-				{
-                    if (InsideSession(bar))
-					{
-						state.Current.IncCandle(candle, bar);
-					}
-					else 
-					{
-						if (state.Current.OpenBar >= 0)
-							state.Current.IsFinished = true;
-					}
-				}
-				else
-				{
-					if (state.Current.OpenBar >= 0)
-						state.Current.IncCandle(candle, bar);
-				}
-			}
-		}
-		else
-		{
-			if (Period is PeriodType.CurrentDay or PeriodType.PreviousDay)
-			{
-				if (InsideSession(bar))
-				{
-					state.Current.IncCandle(candle, bar);
-				}
-				else
-				{
-					if (state.Current.OpenBar >= 0)
-						state.Current.IsFinished = true;
-				}
-			}
-			else
-			{
-				if (state.Current.OpenBar >= 0)
-					state.Current.IncCandle(candle, bar);
-			}
-		}
+        // Week/Month buckets always include full period data (same behavior as before).
+        UpdateBucket(PeriodBucket.Week, candle, bar, isNewWeek, applyCustomSessionFilter: false);
+        UpdateBucket(PeriodBucket.Month, candle, bar, isNewMonth, applyCustomSessionFilter: false);
     }
 
-	#endregion
+    #endregion
 
-	#region Private methods
+    #region Private methods
 
-	private bool InsideSession(int bar)
+    private bool InsideSession(int bar)
 	{
 		if (!CustomSession)
 			return true;
@@ -552,7 +515,35 @@ public class DailyLines : Indicator
 			startTime <= sessionEnd || endTime <= sessionEnd;
 	}
 
-	private bool IsNewPeriod(int bar)
+    private void UpdateBucket(PeriodBucket bucket, IndicatorCandle candle, int bar, bool isNewBucketPeriod, bool applyCustomSessionFilter)
+    {
+        var state = _states[bucket];
+
+        if (isNewBucketPeriod)
+        {
+            state.RollToNext(candle, bar);
+            return;
+        }
+
+        // Avoid double-processing opening bar.
+        if (bar == state.Current.OpenBar)
+            return;
+
+        if (applyCustomSessionFilter)
+        {
+            if (InsideSession(bar))
+                state.Current.IncCandle(candle, bar);
+            else if (state.Current.OpenBar >= 0)
+                state.Current.IsFinished = true;
+
+            return;
+        }
+
+        if (state.Current.OpenBar >= 0)
+            state.Current.IncCandle(candle, bar);
+    }
+
+    private bool IsNewPeriod(int bar)
 	{
 		return Period switch
 		{
