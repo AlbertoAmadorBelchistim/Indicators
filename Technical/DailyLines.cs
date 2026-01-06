@@ -245,6 +245,7 @@ public class DailyLines : Indicator
         {
             _customSession = value;
             FilterStartTime.Enabled = FilterEndTime.Enabled = _customSession;
+            RebuildTemplates();
             RecalculateValues();
         }
     }
@@ -400,7 +401,7 @@ public class DailyLines : Indicator
             return;
 
         var bucket = GetBucket(Period);
-        var state = GetPrimaryState(bucket);
+        var state = _states[(int)SessionTemplateId.Primary, (int)bucket];
 
         var isCurrent = Period is PeriodType.CurrentDay or PeriodType.CurrenWeek or PeriodType.CurrentMonth;
 
@@ -495,7 +496,7 @@ public class DailyLines : Indicator
 		if (isNew)
 			_newWeekWait = true;
 
-		if (!InsideSession(bar) || !_newWeekWait)
+		if (!InsidePrimarySession(bar) || !_newWeekWait)
 			return false;
 
 		_newWeekWait = false;
@@ -509,53 +510,65 @@ public class DailyLines : Indicator
         if (base.IsNewSession(bar))
             _lastDefaultSession = bar;
 
-        // Compute all buckets every bar; rendering decides what to show.
         var isNewDay = IsNewSession(bar);
         var isNewWeek = IsNewWeek(bar);
         var isNewMonth = IsNewMonth(bar);
 
-        // Day bucket respects CustomSession filtering (same behavior as before for day periods).
-        UpdateBucket(PeriodBucket.Day, candle, bar, isNewDay, applyCustomSessionFilter: true);
+        // Primary
+        UpdateBucket(SessionTemplateId.Primary, PeriodBucket.Day, candle, bar, isNewDay, _primaryTemplate);
+        UpdateBucket(SessionTemplateId.Primary, PeriodBucket.Week, candle, bar, isNewWeek, _primaryTemplate);
+        UpdateBucket(SessionTemplateId.Primary, PeriodBucket.Month, candle, bar, isNewMonth, _primaryTemplate);
 
-        // Week/Month buckets always include full period data (same behavior as before).
-        UpdateBucket(PeriodBucket.Week, candle, bar, isNewWeek, applyCustomSessionFilter: false);
-        UpdateBucket(PeriodBucket.Month, candle, bar, isNewMonth, applyCustomSessionFilter: false);
+        // Secondary (plumbing only)
+        if (_secondaryTemplate.Enabled)
+        {
+            UpdateBucket(SessionTemplateId.Secondary, PeriodBucket.Day, candle, bar, isNewDay, _secondaryTemplate);
+            UpdateBucket(SessionTemplateId.Secondary, PeriodBucket.Week, candle, bar, isNewWeek, _secondaryTemplate);
+            UpdateBucket(SessionTemplateId.Secondary, PeriodBucket.Month, candle, bar, isNewMonth, _secondaryTemplate);
+        }
     }
+
 
     #endregion
 
     #region Private methods
 
-    private bool InsideSession(int bar)
-	{
-		if (!CustomSession)
-			return true;
-
-		if (FilterStartTime.Value == FilterEndTime.Value)
-			return true;
-
-		var candle = GetCandle(bar);
-
-		var sessionStart = FilterStartTime.Value;
-		var sessionEnd = FilterEndTime.Value;
-
-		var startTime = candle.Time.AddHours(InstrumentInfo.TimeZone).TimeOfDay;
-		var endTime = candle.LastTime.AddHours(InstrumentInfo.TimeZone).TimeOfDay;
-
-		if (sessionStart < sessionEnd)
-		{
-			return (startTime >= sessionStart && startTime <= sessionEnd) ||
-				(endTime >= sessionStart && endTime <= sessionEnd) ||
-				(startTime <= sessionStart && endTime >= sessionEnd);
-		}
-
-		return startTime >= sessionStart || endTime >= sessionStart ||
-			startTime <= sessionEnd || endTime <= sessionEnd;
-	}
-
-    private void UpdateBucket(PeriodBucket bucket, IndicatorCandle candle, int bar, bool isNewBucketPeriod, bool applyCustomSessionFilter)
+    private bool InsidePrimarySession(int bar)
     {
-        var state = GetPrimaryState(bucket);
+        var candle = GetCandle(bar);
+        return _primaryTemplate.ApplyCustomSessionFilter
+            ? InsideSessionCore(candle, _primaryTemplate.Start, _primaryTemplate.End)
+            : true;
+    }
+
+    private bool InsideSession(IndicatorCandle candle, TimeSpan start, TimeSpan end)
+    {
+        return InsideSessionCore(candle, start, end);
+    }
+
+    private bool InsideSessionCore(IndicatorCandle candle, TimeSpan sessionStart, TimeSpan sessionEnd)
+    {
+        // Preserve upstream semantics.
+        if (sessionStart == sessionEnd)
+            return true;
+
+        var startTime = candle.Time.AddHours(InstrumentInfo.TimeZone).TimeOfDay;
+        var endTime = candle.LastTime.AddHours(InstrumentInfo.TimeZone).TimeOfDay;
+
+        if (sessionStart < sessionEnd)
+        {
+            return (startTime >= sessionStart && startTime <= sessionEnd) ||
+                (endTime >= sessionStart && endTime <= sessionEnd) ||
+                (startTime <= sessionStart && endTime >= sessionEnd);
+        }
+
+        return startTime >= sessionStart || endTime >= sessionStart ||
+            startTime <= sessionEnd || endTime <= sessionEnd;
+    }
+
+    private void UpdateBucket(SessionTemplateId templateId, PeriodBucket bucket, IndicatorCandle candle, int bar, bool isNewBucketPeriod, SessionTemplate template)
+    {
+        var state = _states[(int)templateId, (int)bucket];
 
         if (isNewBucketPeriod)
         {
@@ -563,13 +576,12 @@ public class DailyLines : Indicator
             return;
         }
 
-        // Avoid double-processing opening bar.
         if (bar == state.Current.OpenBar)
             return;
 
-        if (applyCustomSessionFilter)
+        if (bucket == PeriodBucket.Day && template.ApplyCustomSessionFilter)
         {
-            if (InsideSession(bar))
+            if (InsideSession(candle, template.Start, template.End))
                 state.Current.IncCandle(candle, bar);
             else if (state.Current.OpenBar >= 0)
                 state.Current.IsFinished = true;
@@ -609,13 +621,6 @@ public class DailyLines : Indicator
             end: FilterEndTime.Value,
             applyCustomSessionFilter: CustomSession);
     }
-
-    private SessionState GetPrimaryState(PeriodBucket bucket)
-    {
-        return _states[(int)SessionTemplateId.Primary, (int)bucket];
-    }
-
-
 
     private void OnFilterPropertyChanged(object sender, PropertyChangedEventArgs e)
 	{
