@@ -1,20 +1,18 @@
 namespace ATAS.Indicators.Technical;
 
-using System;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Drawing;
-using System.Globalization;
-using System.Reflection;
-
 using ATAS.Indicators.Drawing;
-
 using OFT.Attributes;
 using OFT.Localization;
 using OFT.Rendering.Context;
 using OFT.Rendering.Settings;
 using OFT.Rendering.Tools;
-
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Drawing;
+using System.Globalization;
+using System.Reflection;
 using Color = System.Drawing.Color;
 
 [DisplayName("Daily Lines")]
@@ -90,7 +88,19 @@ public class DailyLines : Indicator
 		}
 	}
 
-	[Serializable]
+    private sealed class SessionState
+    {
+        public SessionRange Current { get; set; } = new();
+        public SessionRange Previous { get; set; } = new();
+
+        public void Reset()
+        {
+            Current = new SessionRange();
+            Previous = new SessionRange();
+        }
+    }
+
+    [Serializable]
 	[Obfuscation(Feature = "renaming", ApplyToMembers = true, Exclude = true)]
 	public enum PeriodType
 	{
@@ -113,11 +123,26 @@ public class DailyLines : Indicator
 		PreviousMonth
 	}
 
-	#endregion
+    private enum PeriodBucket
+    {
+        Day,
+        Week,
+        Month
+    }
 
-	#region Fields
+    // Calculation state per bucket; rendering chooses which bucket and which range (current/previous).
+    private readonly Dictionary<PeriodBucket, SessionState> _states = new()
+	{
+		{ PeriodBucket.Day, new SessionState() },
+		{ PeriodBucket.Week, new SessionState() },
+		{ PeriodBucket.Month, new SessionState() }
+	};
 
-	private readonly RenderFont _axisFont = new("Arial", 9);
+    #endregion
+
+    #region Fields
+
+    private readonly RenderFont _axisFont = new("Arial", 9);
 	private readonly FontSetting _fontSetting = new("Arial", 9);
 
 	[Browsable(false)]
@@ -133,18 +158,16 @@ public class DailyLines : Indicator
 	private bool _drawOverChart;
 	private bool _newWeekWait;
 	private PeriodType _per = PeriodType.PreviousDay;
-	private SessionRange _prevSessionRange;
-	private SessionRange _sessionRange;
 	private bool _showText = true;
 	private int _lastDefaultSession;
 
 	#endregion
 
-	#region Properties
+    #region Properties
 
-	#region Calculation
+    #region Calculation
 
-	[Browsable(false)]
+    [Browsable(false)]
 	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Calculation), Name = nameof(Strings.DaysLookBack), Order = int.MaxValue,
 		Description = nameof(Strings.DaysLookBackDescription))]
 	[Range(1, 1000)]
@@ -330,17 +353,20 @@ public class DailyLines : Indicator
 		if (ChartInfo is null)
 			return;
 
-		var isCurrent = Period is PeriodType.CurrentDay or PeriodType.CurrenWeek or PeriodType.CurrentMonth;
+        var bucket = GetBucket(Period);
+        var state = _states[bucket];
 
-		if (isCurrent && _lastDefaultSession > _sessionRange.OpenBar && _sessionRange.IsFinished)
+        var isCurrent = Period is PeriodType.CurrentDay or PeriodType.CurrenWeek or PeriodType.CurrentMonth;
+
+		if (isCurrent && _lastDefaultSession > state.Current.OpenBar && state.Current.IsFinished)
 		{
 			DrawMessage(context);
 			return;
 		}
 
-		var range = isCurrent || (Period is PeriodType.PreviousDay && _sessionRange.OpenBar <= _lastDefaultSession && CustomSession)
-			? _sessionRange
-			: _prevSessionRange;
+		var range = isCurrent || (Period is PeriodType.PreviousDay && state.Current.OpenBar <= _lastDefaultSession && CustomSession)
+			? state.Current
+            : state.Previous;
 
 		var periodStr = Period switch
 		{
@@ -371,9 +397,9 @@ public class DailyLines : Indicator
 
 	protected override void OnRecalculate()
 	{
-		_prevSessionRange = new SessionRange();
-		_sessionRange = new SessionRange();
-	}
+        foreach (var state in _states.Values)
+            state.Reset();
+    }
 
 	protected new bool IsNewSession(int bar)
 	{
@@ -431,22 +457,26 @@ public class DailyLines : Indicator
 	{
 		var candle = GetCandle(bar);
 
-		if (base.IsNewSession(bar))
+        // Commit 1: keep calculation behavior equivalent to previous single-state.
+        // We store it in Day bucket temporarily; commit 2 will calculate all buckets.
+        var state = _states[PeriodBucket.Day];
+
+        if (base.IsNewSession(bar))
 			_lastDefaultSession = bar;
 
-		if (bar != _sessionRange.OpenBar)
+		if (bar != state.Current.OpenBar)
 		{
 			var isNewPeriod = IsNewPeriod(bar);
 
 			if (isNewPeriod)
 			{
-				if (_sessionRange.OpenBar >= 0)
+				if (state.Current.OpenBar >= 0)
 				{
-					_sessionRange.IsFinished = true;
-					_prevSessionRange = _sessionRange;
+                    state.Current.IsFinished = true;
+					state.Previous = state.Current;
 				}
 
-				_sessionRange = new SessionRange(candle, bar);
+				state.Current = new SessionRange(candle, bar);
             }
 			else
 			{
@@ -454,18 +484,18 @@ public class DailyLines : Indicator
 				{
                     if (InsideSession(bar))
 					{
-						_sessionRange.IncCandle(candle, bar);
+						state.Current.IncCandle(candle, bar);
 					}
 					else 
 					{
-						if (_sessionRange.OpenBar >= 0)
-							_sessionRange.IsFinished = true;
+						if (state.Current.OpenBar >= 0)
+							state.Current.IsFinished = true;
 					}
 				}
 				else
 				{
-					if (_sessionRange.OpenBar >= 0)
-						_sessionRange.IncCandle(candle, bar);
+					if (state.Current.OpenBar >= 0)
+						state.Current.IncCandle(candle, bar);
 				}
 			}
 		}
@@ -475,18 +505,18 @@ public class DailyLines : Indicator
 			{
 				if (InsideSession(bar))
 				{
-					_sessionRange.IncCandle(candle, bar);
+					state.Current.IncCandle(candle, bar);
 				}
 				else
 				{
-					if (_sessionRange.OpenBar >= 0)
-						_sessionRange.IsFinished = true;
+					if (state.Current.OpenBar >= 0)
+						state.Current.IsFinished = true;
 				}
 			}
 			else
 			{
-				if (_sessionRange.OpenBar >= 0)
-					_sessionRange.IncCandle(candle, bar);
+				if (state.Current.OpenBar >= 0)
+					state.Current.IncCandle(candle, bar);
 			}
 		}
     }
@@ -533,7 +563,19 @@ public class DailyLines : Indicator
 		};
 	}
 
-	private void OnFilterPropertyChanged(object sender, PropertyChangedEventArgs e)
+    private static PeriodBucket GetBucket(PeriodType period)
+    {
+        return period switch
+        {
+            PeriodType.CurrentDay or PeriodType.PreviousDay => PeriodBucket.Day,
+            PeriodType.CurrenWeek or PeriodType.PreviousWeek => PeriodBucket.Week,
+            PeriodType.CurrentMonth or PeriodType.PreviousMonth => PeriodBucket.Month,
+            _ => PeriodBucket.Day
+        };
+    }
+
+
+    private void OnFilterPropertyChanged(object sender, PropertyChangedEventArgs e)
 	{
 		if (e.PropertyName != "Value")
 			return;
