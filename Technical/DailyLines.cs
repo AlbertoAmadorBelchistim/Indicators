@@ -355,58 +355,58 @@ public class DailyLines : Indicator
 		TextSize.Value = _fontSetting.Size;
 	}
 
-	#endregion
+    #endregion
 
-	#region Protected methods
+    #region Protected methods
 
-	protected override void OnRender(RenderContext context, DrawingLayouts layout)
-	{
-		if (ChartInfo is null)
-			return;
+    protected override void OnRender(RenderContext context, DrawingLayouts layout)
+    {
+        if (ChartInfo is null)
+            return;
 
         var bucket = GetBucket(Period);
         var state = _states[bucket];
 
         var isCurrent = Period is PeriodType.CurrentDay or PeriodType.CurrenWeek or PeriodType.CurrentMonth;
 
-		if (isCurrent && _lastDefaultSession > state.Current.OpenBar && state.Current.IsFinished)
-		{
-			DrawMessage(context);
-			return;
-		}
+        if (isCurrent && _lastDefaultSession > state.Current.OpenBar && state.Current.IsFinished)
+        {
+            DrawMessage(context);
+            return;
+        }
 
-		var range = isCurrent || (Period is PeriodType.PreviousDay && state.Current.OpenBar <= _lastDefaultSession && CustomSession)
-			? state.Current
+        var range = isCurrent || (Period is PeriodType.PreviousDay && state.Current.OpenBar <= _lastDefaultSession && CustomSession)
+            ? state.Current
             : state.Previous;
 
-		var periodStr = Period switch
-		{
-			PeriodType.CurrentDay => "Curr. Day",
-			PeriodType.PreviousDay => "Prev. Day",
-			PeriodType.CurrenWeek => "Curr. Week",
-			PeriodType.PreviousWeek => "Prev. Week",
-			PeriodType.CurrentMonth => "Curr. Month",
-			PeriodType.PreviousMonth => "Prev. Month",
-			_ => throw new ArgumentOutOfRangeException()
-		};
+        var periodStr = Period switch
+        {
+            PeriodType.CurrentDay => "Curr. Day",
+            PeriodType.PreviousDay => "Prev. Day",
+            PeriodType.CurrenWeek => "Curr. Week",
+            PeriodType.PreviousWeek => "Prev. Week",
+            PeriodType.CurrentMonth => "Curr. Month",
+            PeriodType.PreviousMonth => "Prev. Month",
+            _ => throw new ArgumentOutOfRangeException()
+        };
 
-		var high = ChartInfo.PriceChartContainer.High;
-		var low = ChartInfo.PriceChartContainer.Low;
+        var high = ChartInfo.PriceChartContainer.High;
+        var low = ChartInfo.PriceChartContainer.Low;
 
-		if (range.OpenPrice >= low && range.OpenPrice <= high)
-			DrawLevel(context, OpenPen, range.OpenBar, range.OpenPrice, OpenText, "Open", periodStr);
+        if (range.OpenPrice >= low && range.OpenPrice <= high)
+            DrawLevel(context, OpenPen, range.OpenBar, range.OpenPrice, OpenText, "Open", periodStr);
 
-		if (range.HighPrice >= low && range.HighPrice <= high)
-			DrawLevel(context, HighPen, range.HighBar, range.HighPrice, HighText, "High", periodStr);
+        if (range.HighPrice >= low && range.HighPrice <= high)
+            DrawLevel(context, HighPen, range.HighBar, range.HighPrice, HighText, "High", periodStr);
 
-		if (range.LowPrice >= low && range.LowPrice <= high)
-			DrawLevel(context, LowPen, range.LowBar, range.LowPrice, LowText, "Low", periodStr);
+        if (range.LowPrice >= low && range.LowPrice <= high)
+            DrawLevel(context, LowPen, range.LowBar, range.LowPrice, LowText, "Low", periodStr);
 
-		if (range.IsFinished && range.ClosePrice >= low && range.ClosePrice <= high)
-			DrawLevel(context, ClosePen, range.CloseBar, range.ClosePrice, CloseText, "Close", periodStr);
-	}
+        if (range.IsFinished && range.ClosePrice >= low && range.ClosePrice <= high)
+            DrawLevel(context, ClosePen, range.CloseBar, range.ClosePrice, CloseText, "Close", periodStr);
+    }
 
-	protected override void OnRecalculate()
+    protected override void OnRecalculate()
 	{
         foreach (var state in _states.Values)
             state.Reset();
@@ -542,17 +542,6 @@ public class DailyLines : Indicator
         if (state.Current.OpenBar >= 0)
             state.Current.IncCandle(candle, bar);
     }
-
-    private bool IsNewPeriod(int bar)
-	{
-		return Period switch
-		{
-			PeriodType.CurrentDay or PeriodType.PreviousDay => IsNewSession(bar),
-			PeriodType.CurrenWeek or PeriodType.PreviousWeek => IsNewWeek(bar),
-			PeriodType.CurrentMonth or PeriodType.PreviousMonth => IsNewMonth(bar),
-			_ => false
-		};
-	}
 
     private static PeriodBucket GetBucket(PeriodType period)
     {
