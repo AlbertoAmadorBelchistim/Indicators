@@ -1,6 +1,7 @@
 namespace ATAS.Indicators.Technical;
 
 using ATAS.Indicators.Drawing;
+using ATAS.Indicators.Technical.Properties;
 using OFT.Attributes;
 using OFT.Localization;
 using OFT.Rendering.Context;
@@ -221,11 +222,11 @@ public class DailyLines : Indicator
 
     #endregion
 
-	#region Filters
+	#region Session
 
     [Parameter]
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Period), GroupName = nameof(Strings.Filters),
-        Description = nameof(Strings.PeriodDescription), Order = 110)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Period), GroupName = nameof(Resources.Session),
+        Description = nameof(Resources.PeriodDescription), Order = 110)]
     public PeriodType Period
     {
         get => _per;
@@ -236,8 +237,8 @@ public class DailyLines : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.CustomSession), GroupName = nameof(Strings.Filters),
-        Description = nameof(Strings.IsCustomSessionDescription), Order = 120)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.CustomSession), GroupName = nameof(Resources.Session),
+        Description = nameof(Resources.IsCustomSessionDescription), Order = 120)]
     public bool CustomSession
     {
         get => _customSession;
@@ -250,8 +251,8 @@ public class DailyLines : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.SessionBegin), GroupName = nameof(Strings.Filters),
-        Description = nameof(Strings.SessionBeginDescription), Order = 120)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.SessionBegin), GroupName = nameof(Resources.Session),
+        Description = nameof(Resources.SessionBeginDescription), Order = 120)]
     public FilterTimeSpan FilterStartTime { get; set; } = new(false);
 
     [Browsable(false)]
@@ -261,8 +262,8 @@ public class DailyLines : Indicator
         set => FilterStartTime.Value = value;
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.SessionEnd), GroupName = nameof(Strings.Filters),
-        Description = nameof(Strings.SessionEndDescription), Order = 120)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.SessionEnd), GroupName = nameof(Resources.Session),
+        Description = nameof(Resources.SessionEndDescription), Order = 120)]
     public FilterTimeSpan FilterEndTime { get; set; } = new(false);
 
     [Browsable(false)]
@@ -270,6 +271,17 @@ public class DailyLines : Indicator
     {
         get => FilterEndTime.Value;
         set => FilterEndTime.Value = value;
+    }
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.TradingDayStart), GroupName = nameof(Resources.Session), 
+        Description = nameof(Resources.TradingDayStartDescription), Order = 121)]
+    public FilterTimeSpan TradingDayStart { get; set; } = new(false) { Value = new TimeSpan(18, 0, 0) };
+
+    [Browsable(false)]
+    public TimeSpan DayStartTime
+    {
+        get => TradingDayStart.Value;
+        set => TradingDayStart.Value = value;
     }
 
     #endregion
@@ -375,7 +387,8 @@ public class DailyLines : Indicator
 		DataSeries[0].IsHidden = true;
 		((ValueDataSeries)DataSeries[0]).VisualType = VisualMode.Hide;
 
-		FilterStartTime.PropertyChanged += OnFilterPropertyChanged;
+        TradingDayStart.PropertyChanged += OnFilterPropertyChanged;
+        FilterStartTime.PropertyChanged += OnFilterPropertyChanged;
 		FilterEndTime.PropertyChanged += OnFilterPropertyChanged;
 		TextSize.PropertyChanged += OnFilterPropertyChanged;
 
