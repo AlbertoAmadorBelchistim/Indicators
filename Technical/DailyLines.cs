@@ -189,14 +189,15 @@ public class DailyLines : Indicator
 	private PeriodType _per = PeriodType.PreviousDay;
 	private bool _showText = true;
 	private int _lastDefaultSession;
+    private DateTime _lastTradingDayKey = DateTime.MinValue;
 
     private const int TemplateCount = 2;
     private const int BucketCount = 3;
 
     private readonly SessionState[,] _states = new SessionState[TemplateCount, BucketCount];
 
-    // Templates resolved from current properties (Primary uses existing settings).
-    // Secondary is disabled by default (PR-ready plumbing only).
+    // Templates resolved from current properties.
+    // Primary uses the current session settings; Secondary derives ETH as the complement of RTH.
     private SessionTemplate _primaryTemplate;
     private SessionTemplate _secondaryTemplate;
 
@@ -456,15 +457,44 @@ public class DailyLines : Indicator
     }
 
     protected override void OnRecalculate()
-	{
+    {
         for (var t = 0; t < TemplateCount; t++)
         {
             for (var b = 0; b < BucketCount; b++)
                 _states[t, b].Reset();
         }
+
+        _lastTradingDayKey = DateTime.MinValue;
     }
 
-	protected new bool IsNewSession(int bar)
+    private DateTime GetLocalTime(IndicatorCandle candle)
+    {
+        // Keep consistency with existing session logic.
+        return candle.Time.AddHours(InstrumentInfo.TimeZone);
+    }
+
+    private DateTime GetTradingDayKey(IndicatorCandle candle, TimeSpan dayStart)
+    {
+        var localTime = GetLocalTime(candle);
+        var tod = localTime.TimeOfDay;
+
+        // Before anchor => previous trading day.
+        return tod < dayStart ? localTime.Date.AddDays(-1) : localTime.Date;
+    }
+
+    private bool IsNewTradingDay(IndicatorCandle candle)
+    {
+        var key = GetTradingDayKey(candle, DayStartTime);
+
+        if (key == _lastTradingDayKey)
+            return false;
+
+        _lastTradingDayKey = key;
+        return true;
+    }
+
+
+    protected new bool IsNewSession(int bar)
 	{
 		if (!CustomSession)
 			return base.IsNewSession(bar);
@@ -523,7 +553,7 @@ public class DailyLines : Indicator
         if (base.IsNewSession(bar))
             _lastDefaultSession = bar;
 
-        var isNewDay = IsNewSession(bar);
+        var isNewDay = IsNewTradingDay(candle);
         var isNewWeek = IsNewWeek(bar);
         var isNewMonth = IsNewMonth(bar);
 
@@ -532,7 +562,7 @@ public class DailyLines : Indicator
         UpdateBucket(SessionTemplateId.Primary, PeriodBucket.Week, candle, bar, isNewWeek, _primaryTemplate);
         UpdateBucket(SessionTemplateId.Primary, PeriodBucket.Month, candle, bar, isNewMonth, _primaryTemplate);
 
-        // Secondary (plumbing only)
+        // Secondary
         if (_secondaryTemplate.Enabled)
         {
             UpdateBucket(SessionTemplateId.Secondary, PeriodBucket.Day, candle, bar, isNewDay, _secondaryTemplate);
@@ -617,46 +647,47 @@ public class DailyLines : Indicator
         };
     }
 
-    private void RebuildTemplates()
+    void RebuildTemplates()
     {
-        // Primary template mirrors current indicator settings.
+        // Primary mirrors current indicator settings (RTH when CustomSession is enabled).
         _primaryTemplate = new SessionTemplate(
             enabled: true,
             start: FilterStartTime.Value,
             end: FilterEndTime.Value,
             applyCustomSessionFilter: CustomSession);
 
-        // Secondary template is PR-ready plumbing: disabled by default.
-        // Modif-only branch will expose UI and enable it.
+        // Secondary derives ETH as the complement of RTH (wraps midnight).
+        // Enabled only when CustomSession is on, otherwise ETH definition is undefined.
         _secondaryTemplate = new SessionTemplate(
-            enabled: false,
-            start: FilterStartTime.Value,
-            end: FilterEndTime.Value,
-            applyCustomSessionFilter: CustomSession);
+            enabled: CustomSession,
+            start: FilterEndTime.Value,
+            end: FilterStartTime.Value,
+            applyCustomSessionFilter: true);
     }
 
     private void OnFilterPropertyChanged(object sender, PropertyChangedEventArgs e)
-	{
-		if (e.PropertyName != "Value")
-			return;
+    {
+        if (e.PropertyName != "Value")
+            return;
 
-		if (sender.Equals(FilterStartTime))
-		{
-			RecalculateValues();
-			RedrawChart();
-		}
-		else if (sender.Equals(FilterEndTime))
-		{
-			RecalculateValues();
-			RedrawChart();
-		}
-		else if (sender.Equals(TextSize))
-			_fontSetting.Size = TextSize.Value;
+        if (sender.Equals(FilterStartTime) || sender.Equals(FilterEndTime) || sender.Equals(TradingDayStart))
+        {
+            RebuildTemplates();
+            RecalculateValues();
+            RedrawChart();
+            return;
+        }
 
-        RebuildTemplates();
+        if (sender.Equals(TextSize))
+        {
+            _fontSetting.Size = TextSize.Value;
+            RedrawChart();
+            return;
+        }
     }
 
-	private void DrawString(RenderContext context, RenderFont font, string renderText, int yPrice, Color color)
+
+    private void DrawString(RenderContext context, RenderFont font, string renderText, int yPrice, Color color)
 	{
 		var textSize = context.MeasureString(renderText, font);
 		context.DrawString(renderText, font, color, Container.Region.Right - textSize.Width - 5, yPrice - textSize.Height);
