@@ -134,20 +134,37 @@ public class DailyLines : Indicator
 		PreviousMonth
 	}
 
-    private enum PeriodBucket
+    private enum SessionTemplateId
     {
-        Day,
-        Week,
-        Month
+        Primary = 0,
+        Secondary = 1
     }
 
-    // Calculation state per bucket; rendering chooses which bucket and which range (current/previous).
-    private readonly Dictionary<PeriodBucket, SessionState> _states = new()
-	{
-		{ PeriodBucket.Day, new SessionState() },
-		{ PeriodBucket.Week, new SessionState() },
-		{ PeriodBucket.Month, new SessionState() }
-	};
+    private enum PeriodBucket
+    {
+        Day = 0,
+        Week = 1,
+        Month = 2
+    }
+
+
+    private readonly struct SessionTemplate
+    {
+        public SessionTemplate(bool enabled, TimeSpan start, TimeSpan end, bool applyCustomSessionFilter)
+        {
+            Enabled = enabled;
+            Start = start;
+            End = end;
+            ApplyCustomSessionFilter = applyCustomSessionFilter;
+        }
+
+        public bool Enabled { get; }
+        public TimeSpan Start { get; }
+        public TimeSpan End { get; }
+
+        // For day bucket we apply session filter; for week/month we don't.
+        public bool ApplyCustomSessionFilter { get; }
+    }
 
     #endregion
 
@@ -172,7 +189,17 @@ public class DailyLines : Indicator
 	private bool _showText = true;
 	private int _lastDefaultSession;
 
-	#endregion
+    private const int TemplateCount = 2;
+    private const int BucketCount = 3;
+
+    private readonly SessionState[,] _states = new SessionState[TemplateCount, BucketCount];
+
+    // Templates resolved from current properties (Primary uses existing settings).
+    // Secondary is disabled by default (PR-ready plumbing only).
+    private SessionTemplate _primaryTemplate;
+    private SessionTemplate _secondaryTemplate;
+
+    #endregion
 
     #region Properties
 
@@ -353,7 +380,15 @@ public class DailyLines : Indicator
 
 		TextSize.Enabled = ShowText;
 		TextSize.Value = _fontSetting.Size;
-	}
+
+        for (var t = 0; t < TemplateCount; t++)
+        {
+            for (var b = 0; b < BucketCount; b++)
+                _states[t, b] = new SessionState();
+        }
+
+        RebuildTemplates();
+    }
 
     #endregion
 
@@ -365,7 +400,7 @@ public class DailyLines : Indicator
             return;
 
         var bucket = GetBucket(Period);
-        var state = _states[bucket];
+        var state = GetPrimaryState(bucket);
 
         var isCurrent = Period is PeriodType.CurrentDay or PeriodType.CurrenWeek or PeriodType.CurrentMonth;
 
@@ -408,8 +443,11 @@ public class DailyLines : Indicator
 
     protected override void OnRecalculate()
 	{
-        foreach (var state in _states.Values)
-            state.Reset();
+        for (var t = 0; t < TemplateCount; t++)
+        {
+            for (var b = 0; b < BucketCount; b++)
+                _states[t, b].Reset();
+        }
     }
 
 	protected new bool IsNewSession(int bar)
@@ -517,7 +555,7 @@ public class DailyLines : Indicator
 
     private void UpdateBucket(PeriodBucket bucket, IndicatorCandle candle, int bar, bool isNewBucketPeriod, bool applyCustomSessionFilter)
     {
-        var state = _states[bucket];
+        var state = GetPrimaryState(bucket);
 
         if (isNewBucketPeriod)
         {
@@ -554,6 +592,30 @@ public class DailyLines : Indicator
         };
     }
 
+    private void RebuildTemplates()
+    {
+        // Primary template mirrors current indicator settings.
+        _primaryTemplate = new SessionTemplate(
+            enabled: true,
+            start: FilterStartTime.Value,
+            end: FilterEndTime.Value,
+            applyCustomSessionFilter: CustomSession);
+
+        // Secondary template is PR-ready plumbing: disabled by default.
+        // Modif-only branch will expose UI and enable it.
+        _secondaryTemplate = new SessionTemplate(
+            enabled: false,
+            start: FilterStartTime.Value,
+            end: FilterEndTime.Value,
+            applyCustomSessionFilter: CustomSession);
+    }
+
+    private SessionState GetPrimaryState(PeriodBucket bucket)
+    {
+        return _states[(int)SessionTemplateId.Primary, (int)bucket];
+    }
+
+
 
     private void OnFilterPropertyChanged(object sender, PropertyChangedEventArgs e)
 	{
@@ -572,7 +634,9 @@ public class DailyLines : Indicator
 		}
 		else if (sender.Equals(TextSize))
 			_fontSetting.Size = TextSize.Value;
-	}
+
+        RebuildTemplates();
+    }
 
 	private void DrawString(RenderContext context, RenderFont font, string renderText, int yPrice, Color color)
 	{
