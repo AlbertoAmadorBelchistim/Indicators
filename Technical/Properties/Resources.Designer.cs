@@ -2851,6 +2851,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a If enabled, allows the use of a custom session, otherwise the default session..
+        /// </summary>
+        public static string IsCustomSessionDescription {
+            get {
+                return ResourceManager.GetString("IsCustomSessionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Jaw Alligator.
         /// </summary>
         public static string JawAlligator {
@@ -4453,6 +4462,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Specifies the quantity of recent candles to include in the calculations..
+        /// </summary>
+        public static string PeriodDescription {
+            get {
+                return ResourceManager.GetString("PeriodDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Period %K.
         /// </summary>
         public static string PeriodK {
@@ -5011,6 +5029,16 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Defines the start date of data recording.
+        ///The indicator loads volume data not more than 5 days..
+        /// </summary>
+        public static string SessionBeginDescription {
+            get {
+                return ResourceManager.GetString("SessionBeginDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Session Delta Mode.
         /// </summary>
         public static string SessionDeltaMode {
@@ -5025,6 +5053,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string SessionEnd {
             get {
                 return ResourceManager.GetString("SessionEnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Defines the end date of data recording..
+        /// </summary>
+        public static string SessionEndDescription {
+            get {
+                return ResourceManager.GetString("SessionEndDescription", resourceCulture);
             }
         }
         
@@ -6123,6 +6160,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string TradesFilter {
             get {
                 return ResourceManager.GetString("TradesFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Trading Day Start.
+        /// </summary>
+        public static string TradingDayStart {
+            get {
+                return ResourceManager.GetString("TradingDayStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Defines the start time of the trading day used to group sessions and calculate daily levels..
+        /// </summary>
+        public static string TradingDayStartDescription {
+            get {
+                return ResourceManager.GetString("TradingDayStartDescription", resourceCulture);
             }
         }
         

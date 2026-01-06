@@ -315,4 +315,29 @@
   <data name="LVN_TailFilterRangePct_Description" xml:space="preserve">
     <value>प्रोफ़ाइल के उच्च और निम्न स्तरों के पास कम-वॉल्यूम वाले टेल क्षेत्रों को LVN पहचान से बाहर करता है, प्रोफ़ाइल रेंज के प्रतिशत का उपयोग करते हुए। (0 = अक्षम)।</value>
   </data>
-</root>
+  <data name="TradingDayStart" xml:space="preserve">
+    <value>ट्रेडिंग दिवस की शुरुआत</value>
+  </data>
+  <data name="TradingDayStartDescription" xml:space="preserve">
+    <value>ट्रेडिंग दिवस की प्रारंभिक समय को परिभाषित करता है, जिसका उपयोग सत्रों को समूहित करने और दैनिक स्तरों की गणना के लिए किया जाता है।
+फ्यूचर्स बाज़ारों में यह आमतौर पर ETH ओपन (जैसे 18:00) होता है।</value>
+  </data>
+<data name="Session" xml:space="preserve">
+    <value>सत्र</value>
+  </data><data name="Period" xml:space="preserve">
+    <value>अवधि</value>
+  </data><data name="PeriodDescription" xml:space="preserve">
+    <value>गणना में शामिल होने वाली हाल की मोमबत्तियों की मात्रा को निर्धारित करता है।</value>
+  </data><data name="CustomSession" xml:space="preserve">
+    <value>अनुकूलित सत्र</value>
+  </data><data name="IsCustomSessionDescription" xml:space="preserve">
+    <value>यदि सक्षम है, तो एक कस्टम सत्र का उपयोग करने की अनुमति देता है, अन्यथा डिफ़ॉल्ट सत्र का उपयोग किया जाएगा।</value>
+  </data><data name="SessionBegin" xml:space="preserve">
+    <value>सत्र शुरू</value>
+  </data><data name="SessionBeginDescription" xml:space="preserve">
+    <value>डेटा रिकॉर्डिंग की शुरुआत तिथि को परिभाषित करता है।</value>
+  </data><data name="SessionEnd" xml:space="preserve">
+    <value>सत्र समाप्ति</value>
+  </data><data name="SessionEndDescription" xml:space="preserve">
+    <value>डेटा रिकॉर्डिंग की समाप्ति तिथि को परिभाषित करता है।</value>
+  </data></root>

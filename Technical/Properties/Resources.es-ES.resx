@@ -315,4 +315,29 @@
   <data name="LVN_TailFilterRangePct_Description" xml:space="preserve">
     <value>Excluye las colas de bajo volumen cercanas al máximo y mínimo del perfil en la detección de LVN, usando un porcentaje del rango del perfil. (0 = desactivado).</value>
   </data>
-</root>
+  <data name="TradingDayStart" xml:space="preserve">
+    <value>Inicio del día de trading</value>
+  </data>
+  <data name="TradingDayStartDescription" xml:space="preserve">
+    <value>Define la hora de inicio del día de trading utilizada para agrupar sesiones y calcular niveles diarios.
+En futuros, normalmente coincide con la apertura del ETH (por ejemplo, 18:00).</value>
+  </data>
+<data name="Session" xml:space="preserve">
+    <value>Sesión</value>
+  </data><data name="Period" xml:space="preserve">
+    <value>Período</value>
+  </data><data name="PeriodDescription" xml:space="preserve">
+    <value>Especifica la cantidad de velas recientes para incluir en los cálculos.</value>
+  </data><data name="CustomSession" xml:space="preserve">
+    <value>Sesión personalizada</value>
+  </data><data name="IsCustomSessionDescription" xml:space="preserve">
+    <value>Si está habilitado, permite el uso de una sesión personalizada, de lo contrario se utilizará la sesión predeterminada.</value>
+  </data><data name="SessionBegin" xml:space="preserve">
+    <value>Inicio de sesión</value>
+  </data><data name="SessionBeginDescription" xml:space="preserve">
+    <value>Define la fecha de inicio de la grabación de datos.</value>
+  </data><data name="SessionEnd" xml:space="preserve">
+    <value>Fin de sesión</value>
+  </data><data name="SessionEndDescription" xml:space="preserve">
+    <value>Define la fecha de finalización de la grabación de datos.</value>
+  </data></root>

@@ -318,4 +318,29 @@
   <data name="LVN_TailFilterRangePct_Description" xml:space="preserve">
     <value>Schließt volumenarme Randbereiche nahe dem Hoch und Tief des Profils von der LVN-Erkennung aus, basierend auf einem Prozentsatz der Profilspanne. (0 = deaktiviert).</value>
   </data>
-</root>
+  <data name="TradingDayStart" xml:space="preserve">
+    <value>Beginn des Handelstages</value>
+  </data>
+  <data name="TradingDayStartDescription" xml:space="preserve">
+    <value>Legt die Startzeit des Handelstages fest, die zur Gruppierung von Sitzungen und zur Berechnung täglicher Levels verwendet wird.
+In Futures-Märkten entspricht dies in der Regel der ETH-Eröffnung (z. B. 18:00).</value>
+  </data>
+<data name="Session" xml:space="preserve">
+    <value>Sitzung</value>
+  </data><data name="Period" xml:space="preserve">
+    <value>Periode</value>
+  </data><data name="PeriodDescription" xml:space="preserve">
+    <value>Legt die Anzahl der letzten Kerzen fest, die in die Berechnungen einbezogen werden sollen.</value>
+  </data><data name="CustomSession" xml:space="preserve">
+    <value>Benutzerdefinierte Sitzung</value>
+  </data><data name="IsCustomSessionDescription" xml:space="preserve">
+    <value>Wenn aktiviert, ermöglicht die Verwendung einer benutzerdefinierten Sitzung, andernfalls wird die Standardsitzung verwendet.</value>
+  </data><data name="SessionBegin" xml:space="preserve">
+    <value>Sitzungsbeginn</value>
+  </data><data name="SessionBeginDescription" xml:space="preserve">
+    <value>Definiert das Startdatum der Datenaufzeichnung.</value>
+  </data><data name="SessionEnd" xml:space="preserve">
+    <value>Session end</value>
+  </data><data name="SessionEndDescription" xml:space="preserve">
+    <value>Definiert das Enddatum der Datenaufzeichnung.</value>
+  </data></root>

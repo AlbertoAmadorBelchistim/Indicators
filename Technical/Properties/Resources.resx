@@ -2802,4 +2802,26 @@
     <value>Excludes low-volume tail areas near the high and low of the profile from LVN detection, using a percentage of the profile range. (0 = disabled).</value>
     <comment>OHLCPlus</comment>
   </data>
+  <data name="TradingDayStart" xml:space="preserve">
+    <value>Trading Day Start</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="TradingDayStartDescription" xml:space="preserve">
+    <value>Defines the start time of the trading day used to group sessions and calculate daily levels.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PeriodDescription" xml:space="preserve">
+    <value>Specifies the quantity of recent candles to include in the calculations.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="IsCustomSessionDescription" xml:space="preserve">
+    <value>If enabled, allows the use of a custom session, otherwise the default session.</value>
+  </data>
+  <data name="SessionBeginDescription" xml:space="preserve">
+    <value>Defines the start date of data recording.
+The indicator loads volume data not more than 5 days.</value>
+  </data>
+  <data name="SessionEndDescription" xml:space="preserve">
+    <value>Defines the end date of data recording.</value>
+  </data>
 </root>

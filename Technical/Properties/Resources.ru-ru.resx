@@ -2568,15 +2568,6 @@
   <data name="HVN_OcclusionTicks_Description" xml:space="preserve">
     <value>Минимальное вертикальное расстояние (в тиках) между зонами HVN разных периодов для предотвращения визуального перекрытия.</value>
   </data>
-  <data name="Misc" xml:space="preserve">
-    <value>Разное</value>
-  </data>
-  <data name="Bearish" xml:space="preserve">
-    <value>Медвежье</value>
-  </data>
-  <data name="Show Fibonacci" xml:space="preserve">
-    <value>Показать уровни Фибоначчи</value>
-  </data>
   <data name="LVN_Group" xml:space="preserve">
     <value>LVN</value>
   </data>
@@ -2622,4 +2613,29 @@
   <data name="LVN_TailFilterRangePct_Description" xml:space="preserve">
     <value>Исключает хвостовые зоны с низким объёмом возле максимума и минимума профиля при обнаружении LVN, используя процент диапазона профиля. (0 = отключено).</value>
   </data>
-</root>
+  <data name="Misc" xml:space="preserve">
+    <value>Разное</value>
+  </data>
+  <data name="Bearish" xml:space="preserve">
+    <value>Медвежье</value>
+  </data>
+  <data name="Show Fibonacci" xml:space="preserve">
+    <value>Показать уровни Фибоначчи</value>
+  </data>
+  <data name="TradingDayStart" xml:space="preserve">
+    <value>Начало торгового дня</value>
+  </data>
+  <data name="TradingDayStartDescription" xml:space="preserve">
+    <value>Определяет время начала торгового дня, используемое для группировки сессий и расчёта дневных уровней.
+На фьючерсных рынках обычно соответствует открытию ETH (например, 18:00).</value>
+  </data>
+<data name="PeriodDescription" xml:space="preserve">
+    <value>Определяет количество последних свечей, включаемых в расчеты.</value>
+  </data><data name="IsCustomSessionDescription" xml:space="preserve">
+    <value>Если включено, позволяет использовать пользовательскую сессию, в противном случае будет использоваться сессия по умолчанию.</value>
+  </data><data name="SessionBeginDescription" xml:space="preserve">
+    <value>Определяет начальную дату записи данных.
+Индикатор может загрузить данные объемов не более 5 дней.</value>
+  </data><data name="SessionEndDescription" xml:space="preserve">
+    <value>Определяет конечную дату записи данных.</value>
+  </data></root>

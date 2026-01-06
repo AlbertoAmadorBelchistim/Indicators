@@ -315,4 +315,29 @@
   <data name="LVN_TailFilterRangePct_Description" xml:space="preserve">
     <value>使用轮廓范围的百分比，将靠近轮廓高点和低点的低成交量尾部区域从 LVN 检测中排除。（0 = 禁用）</value>
   </data>
-</root>
+  <data name="TradingDayStart" xml:space="preserve">
+    <value>交易日开始时间</value>
+  </data>
+  <data name="TradingDayStartDescription" xml:space="preserve">
+    <value>定义用于分组交易时段并计算日内关键价位的交易日开始时间。
+在期货市场中，通常对应于 ETH 的开盘时间（例如 18:00）。</value>
+  </data>
+<data name="Session" xml:space="preserve">
+    <value>会话</value>
+  </data><data name="Period" xml:space="preserve">
+    <value>时期 </value>
+  </data><data name="PeriodDescription" xml:space="preserve">
+    <value>指定要包括在计算中的最近蜡烛的数量。</value>
+  </data><data name="CustomSession" xml:space="preserve">
+    <value>自定义会话</value>
+  </data><data name="IsCustomSessionDescription" xml:space="preserve">
+    <value>如果启用，允许使用自定义会话，否则将使用默认会话。</value>
+  </data><data name="SessionBegin" xml:space="preserve">
+    <value>会话开始</value>
+  </data><data name="SessionBeginDescription" xml:space="preserve">
+    <value>定义数据记录的开始日期。</value>
+  </data><data name="SessionEnd" xml:space="preserve">
+    <value>收盘</value>
+  </data><data name="SessionEndDescription" xml:space="preserve">
+    <value>定义数据记录的结束日期。</value>
+  </data></root>

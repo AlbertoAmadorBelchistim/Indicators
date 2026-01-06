@@ -315,4 +315,29 @@
   <data name="LVN_TailFilterRangePct_Description" xml:space="preserve">
     <value>Exclut les zones de faible volume proches du plus haut et du plus bas du profil de la détection des LVN, en utilisant un pourcentage de la plage du profil. (0 = désactivé).</value>
   </data>
-</root>
+  <data name="TradingDayStart" xml:space="preserve">
+    <value>Début de la journée de trading</value>
+  </data>
+  <data name="TradingDayStartDescription" xml:space="preserve">
+    <value>Définit l’heure de début de la journée de trading utilisée pour regrouper les sessions et calculer les niveaux journaliers.
+Sur les marchés à terme, cela correspond généralement à l’ouverture de l’ETH (par exemple 18:00).</value>
+  </data>
+<data name="Session" xml:space="preserve">
+    <value>Session</value>
+  </data><data name="Period" xml:space="preserve">
+    <value>Période</value>
+  </data><data name="PeriodDescription" xml:space="preserve">
+    <value>Spécifie la quantité de bougies récentes à inclure dans les calculs.</value>
+  </data><data name="CustomSession" xml:space="preserve">
+    <value>Session personnalisée</value>
+  </data><data name="IsCustomSessionDescription" xml:space="preserve">
+    <value>Si activé, permet l'utilisation d'une session personnalisée, sinon la session par défaut sera utilisée.</value>
+  </data><data name="SessionBegin" xml:space="preserve">
+    <value>Début de session</value>
+  </data><data name="SessionBeginDescription" xml:space="preserve">
+    <value>Définit la date de début de l'enregistrement des données.</value>
+  </data><data name="SessionEnd" xml:space="preserve">
+    <value>Fin de session</value>
+  </data><data name="SessionEndDescription" xml:space="preserve">
+    <value>Définit la date de fin de l'enregistrement des données.</value>
+  </data></root>
