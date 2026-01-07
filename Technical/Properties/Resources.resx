@@ -2824,4 +2824,60 @@ The indicator loads volume data not more than 5 days.</value>
   <data name="SessionEndDescription" xml:space="preserve">
     <value>Defines the end date of data recording.</value>
   </data>
+  <data name="DisplayScopes" xml:space="preserve">
+    <value>Display scopes</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="HistoryDepth" xml:space="preserve">
+    <value>History depth</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayLevels" xml:space="preserve">
+    <value>Day levels</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="WeekLevels" xml:space="preserve">
+    <value>Week levels</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="MonthLevels" xml:space="preserve">
+    <value>Month levels</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="RthLevels" xml:space="preserve">
+    <value>RTH levels</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="EthLevels" xml:space="preserve">
+    <value>ETH levels</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DisplayScopesDescription" xml:space="preserve">
+    <value>Select which timeframes and session zones are rendered simultaneously.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="HistoryDepthDescription" xml:space="preserve">
+    <value>Number of historical periods to show. Currently supports up to 2 (Today and Yesterday).</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayLevelsDescription" xml:space="preserve">
+    <value>Select which levels (Open/High/Low/Close) to draw for daily ranges.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="WeekLevelsDescription" xml:space="preserve">
+    <value>Select which levels (Open/High/Low/Close) to draw for weekly ranges.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="MonthLevelsDescription" xml:space="preserve">
+    <value>Select which levels (Open/High/Low/Close) to draw for monthly ranges.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="RthLevelsDescription" xml:space="preserve">
+    <value>Select which levels to draw for the RTH session.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="EthLevelsDescription" xml:space="preserve">
+    <value>Select which levels to draw for the ETH session (complement of RTH).</value>
+    <comment>DailyLines</comment>
+  </data>
 </root>

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Period" xml:space="preserve">
+    <value>时期 </value>
+  </data>
   <data name="CurrentDay" xml:space="preserve">
     <value>当天</value>
   </data>
@@ -134,6 +137,18 @@
   </data>
   <data name="PreviousWeek" xml:space="preserve">
     <value>上周</value>
+  </data>
+  <data name="Session" xml:space="preserve">
+    <value>会话</value>
+  </data>
+  <data name="SessionBegin" xml:space="preserve">
+    <value>会话开始</value>
+  </data>
+  <data name="SessionEnd" xml:space="preserve">
+    <value>收盘</value>
+  </data>
+  <data name="CustomSession" xml:space="preserve">
+    <value>自定义会话</value>
   </data>
   <data name="ToggleLevelsVisibilityHotKey" xml:space="preserve">
     <value>切换所有级别的可见性</value>
@@ -322,22 +337,58 @@
     <value>定义用于分组交易时段并计算日内关键价位的交易日开始时间。
 在期货市场中，通常对应于 ETH 的开盘时间（例如 18:00）。</value>
   </data>
-<data name="Session" xml:space="preserve">
-    <value>会话</value>
-  </data><data name="Period" xml:space="preserve">
-    <value>时期 </value>
-  </data><data name="PeriodDescription" xml:space="preserve">
+  <data name="PeriodDescription" xml:space="preserve">
     <value>指定要包括在计算中的最近蜡烛的数量。</value>
-  </data><data name="CustomSession" xml:space="preserve">
-    <value>自定义会话</value>
-  </data><data name="IsCustomSessionDescription" xml:space="preserve">
+  </data>
+  <data name="IsCustomSessionDescription" xml:space="preserve">
     <value>如果启用，允许使用自定义会话，否则将使用默认会话。</value>
-  </data><data name="SessionBegin" xml:space="preserve">
-    <value>会话开始</value>
-  </data><data name="SessionBeginDescription" xml:space="preserve">
+  </data>
+  <data name="SessionBeginDescription" xml:space="preserve">
     <value>定义数据记录的开始日期。</value>
-  </data><data name="SessionEnd" xml:space="preserve">
-    <value>收盘</value>
-  </data><data name="SessionEndDescription" xml:space="preserve">
+  </data>
+  <data name="SessionEndDescription" xml:space="preserve">
     <value>定义数据记录的结束日期。</value>
-  </data></root>
+  </data>
+  <data name="DisplayScopes" xml:space="preserve">
+    <value>显示范围</value>
+  </data>
+  <data name="HistoryDepth" xml:space="preserve">
+    <value>历史深度</value>
+  </data>
+  <data name="DayLevels" xml:space="preserve">
+    <value>日内水平</value>
+  </data>
+  <data name="WeekLevels" xml:space="preserve">
+    <value>周水平</value>
+  </data>
+  <data name="MonthLevels" xml:space="preserve">
+    <value>月水平</value>
+  </data>
+  <data name="RthLevels" xml:space="preserve">
+    <value>RTH 水平</value>
+  </data>
+  <data name="EthLevels" xml:space="preserve">
+    <value>ETH 水平</value>
+  </data>
+  <data name="DisplayScopesDescription" xml:space="preserve">
+    <value>选择要同时显示的周期与会话区域。</value>
+  </data>
+  <data name="HistoryDepthDescription" xml:space="preserve">
+    <value>显示的历史周期数量。目前最多支持 2（今天和昨天）。</value>
+  </data>
+  <data name="DayLevelsDescription" xml:space="preserve">
+    <value>选择日范围要绘制的级别（开/高/低/收）。</value>
+  </data>
+  <data name="WeekLevelsDescription" xml:space="preserve">
+    <value>选择周范围要绘制的级别（开/高/低/收）。</value>
+  </data>
+  <data name="MonthLevelsDescription" xml:space="preserve">
+    <value>选择月范围要绘制的级别（开/高/低/收）。</value>
+  </data>
+  <data name="RthLevelsDescription" xml:space="preserve">
+    <value>选择 RTH 会话要绘制的级别。</value>
+  </data>
+  <data name="EthLevelsDescription" xml:space="preserve">
+    <value>选择 ETH 会话（RTH 的补集）要绘制的级别。</value>
+  </data>
+</root>

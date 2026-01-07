@@ -1465,6 +1465,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Day levels.
+        /// </summary>
+        public static string DayLevels {
+            get {
+                return ResourceManager.GetString("DayLevels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Select which levels (Open/High/Low/Close) to draw for daily ranges..
+        /// </summary>
+        public static string DayLevelsDescription {
+            get {
+                return ResourceManager.GetString("DayLevelsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Days.
         /// </summary>
         public static string Days {
@@ -1717,6 +1735,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Display scopes.
+        /// </summary>
+        public static string DisplayScopes {
+            get {
+                return ResourceManager.GetString("DisplayScopes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Select which timeframes and session zones are rendered simultaneously..
+        /// </summary>
+        public static string DisplayScopesDescription {
+            get {
+                return ResourceManager.GetString("DisplayScopesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Divisor.
         /// </summary>
         public static string Divisor {
@@ -1938,6 +1974,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string Estimator {
             get {
                 return ResourceManager.GetString("Estimator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a ETH levels.
+        /// </summary>
+        public static string EthLevels {
+            get {
+                return ResourceManager.GetString("EthLevels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Select which levels to draw for the ETH session (complement of RTH)..
+        /// </summary>
+        public static string EthLevelsDescription {
+            get {
+                return ResourceManager.GetString("EthLevelsDescription", resourceCulture);
             }
         }
         
@@ -2541,6 +2595,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string HistogramSize {
             get {
                 return ResourceManager.GetString("HistogramSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a History depth.
+        /// </summary>
+        public static string HistoryDepth {
+            get {
+                return ResourceManager.GetString("HistoryDepth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Number of historical periods to show. Currently supports up to 2 (Today and Yesterday)..
+        /// </summary>
+        public static string HistoryDepthDescription {
+            get {
+                return ResourceManager.GetString("HistoryDepthDescription", resourceCulture);
             }
         }
         
@@ -3922,6 +3994,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Month levels.
+        /// </summary>
+        public static string MonthLevels {
+            get {
+                return ResourceManager.GetString("MonthLevels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Select which levels (Open/High/Low/Close) to draw for monthly ranges..
+        /// </summary>
+        public static string MonthLevelsDescription {
+            get {
+                return ResourceManager.GetString("MonthLevelsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Monthly.
         /// </summary>
         public static string Monthly {
@@ -4881,6 +4971,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string RSI {
             get {
                 return ResourceManager.GetString("RSI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a RTH levels.
+        /// </summary>
+        public static string RthLevels {
+            get {
+                return ResourceManager.GetString("RthLevels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Select which levels to draw for the RTH session..
+        /// </summary>
+        public static string RthLevelsDescription {
+            get {
+                return ResourceManager.GetString("RthLevelsDescription", resourceCulture);
             }
         }
         
@@ -6700,6 +6808,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string WeakSeriesColor {
             get {
                 return ResourceManager.GetString("WeakSeriesColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Week levels.
+        /// </summary>
+        public static string WeekLevels {
+            get {
+                return ResourceManager.GetString("WeekLevels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Select which levels (Open/High/Low/Close) to draw for weekly ranges..
+        /// </summary>
+        public static string WeekLevelsDescription {
+            get {
+                return ResourceManager.GetString("WeekLevelsDescription", resourceCulture);
             }
         }
         
