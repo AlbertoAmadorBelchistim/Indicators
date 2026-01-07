@@ -148,6 +148,29 @@ public class DailyLines : Indicator
         Month = 2
     }
 
+    [Flags]
+    public enum DisplayScopes
+    {
+        None = 0,
+
+        Day = 1 << 0,
+        Week = 1 << 1,
+        Month = 1 << 2,
+
+        Rth = 1 << 3,
+        Eth = 1 << 4
+    }
+
+    [Flags]
+    public enum LevelMask
+    {
+        None = 0,
+        Open = 1 << 0,
+        High = 1 << 1,
+        Low = 1 << 2,
+        Close = 1 << 3,
+        All = Open | High | Low | Close
+    }
 
     private readonly struct SessionTemplate
     {
@@ -284,6 +307,45 @@ public class DailyLines : Indicator
         get => TradingDayStart.Value;
         set => TradingDayStart.Value = value;
     }
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.DisplayScopes), GroupName = nameof(Resources.Session),
+        Description = nameof(Resources.DisplayScopesDescription), Order = 200)]
+    public DisplayScopes Scopes { get; set; } = DisplayScopes.Day | DisplayScopes.Rth | DisplayScopes.Eth;
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.HistoryDepth), GroupName = nameof(Resources.Session),
+        Description = nameof(Resources.HistoryDepthDescription), Order = 201)]
+    public int HistoryDepth
+    {
+        get => _historyDepth;
+        set
+        {
+            var v = Math.Max(1, Math.Min(2, value)); // 5.3 supports up to 2 (Current/Previous)
+            if (_historyDepth == v) return;
+            _historyDepth = v;
+            RecalculateValues();
+        }
+    }
+    private int _historyDepth = 2;
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.DayLevels), GroupName = nameof(Resources.Session),
+        Description = nameof(Resources.DayLevelsDescription), Order = 210)]
+    public LevelMask DayLevels { get; set; } = LevelMask.All;
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.WeekLevels), GroupName = nameof(Resources.Session),
+        Description = nameof(Resources.WeekLevelsDescription), Order = 211)]
+    public LevelMask WeekLevels { get; set; } = LevelMask.All;
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.MonthLevels), GroupName = nameof(Resources.Session),
+        Description = nameof(Resources.MonthLevelsDescription), Order = 212)]
+    public LevelMask MonthLevels { get; set; } = LevelMask.All;
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.RthLevels), GroupName = nameof(Resources.Session),
+        Description = nameof(Resources.RthLevelsDescription), Order = 213)]
+    public LevelMask RthLevels { get; set; } = LevelMask.All;
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.EthLevels), GroupName = nameof(Resources.Session), 
+        Description = nameof(Resources.EthLevelsDescription), Order = 214)]
+    public LevelMask EthLevels { get; set; } = LevelMask.All;
 
     #endregion
 
