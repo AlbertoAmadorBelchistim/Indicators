@@ -839,8 +839,14 @@ public class Volume : Indicator
     // Detect session start to reset Welford (daily, time-of-day anchored)
     private bool IsSessionStart(int bar)
     {
-        if (bar == 0) return true;
+        if (bar == 0)
+            return true;
 
+        // Full24h: use ATAS built-in session boundary (e.g., futures rollover)
+        if (_sessionMode == SessionWindowMode.Full24h)
+            return base.IsNewSession(bar);
+
+        // RTH: reset when we enter the RTH window (time-of-day anchored)
         var prevUtc = GetCandle(bar - 1).Time;
         var currUtc = GetCandle(bar).Time;
 
@@ -848,17 +854,21 @@ public class Volume : Indicator
         var currIn = InSession(currUtc);
 
         // Start when we enter session from outside
-        if (!prevIn && currIn) return true;
+        if (!prevIn && currIn)
+            return true;
 
         // Day change while still in window: re-anchor at first session bar of the new day
         if (currIn && prevUtc.Date != currUtc.Date)
         {
             var tLocal = currUtc.AddHours(InstrumentInfo.TimeZone).TimeOfDay;
-            if (tLocal >= _rthStart && tLocal <= _rthEnd) return true;
+            if (tLocal >= _rthStart && tLocal <= _rthEnd)
+                return true;
         }
 
         return false;
     }
+
+
 
 
 
