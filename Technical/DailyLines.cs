@@ -158,7 +158,8 @@ public class DailyLines : Indicator
         Month = 1 << 2,
 
         Rth = 1 << 3,
-        Eth = 1 << 4
+        Eth = 1 << 4,
+        FullDay = 1 << 5
     }
 
     [Flags]
@@ -476,6 +477,18 @@ public class DailyLines : Indicator
         if (ChartInfo is null)
             return;
 
+        // Backward-compatible path: behaves like upstream selection.
+        if (Scopes == DisplayScopes.None)
+        {
+            RenderSinglePeriod(context);
+            return;
+        }
+
+        RenderScopes(context);
+    }
+
+    private void RenderSinglePeriod(RenderContext context)
+    {
         var bucket = GetBucket(Period);
         var state = _states[(int)SessionTemplateId.Primary, (int)bucket];
 
@@ -502,21 +515,129 @@ public class DailyLines : Indicator
             _ => throw new ArgumentOutOfRangeException()
         };
 
+        DrawRange(context, range, periodStr, LevelMask.All, zoneLabel: "RTH");
+    }
+
+    private void RenderScopes(RenderContext context)
+    {
+        // Message is only relevant when user asked for ETH but custom session is off.
+        // Keep message behavior conservative to not block rendering.
+        if ((Scopes.HasFlag(DisplayScopes.Eth) && !CustomSession) ||
+            (Scopes.HasFlag(DisplayScopes.Eth) && !_secondaryTemplate.Enabled))
+        {
+            // Optional: you can show a clearer message later.
+            // For now keep existing message semantics.
+        }
+
+        if (Scopes.HasFlag(DisplayScopes.Day))
+            RenderScopeBucket(context, PeriodBucket.Day, DayLevels);
+
+        if (Scopes.HasFlag(DisplayScopes.Week))
+            RenderScopeBucket(context, PeriodBucket.Week, WeekLevels);
+
+        if (Scopes.HasFlag(DisplayScopes.Month))
+            RenderScopeBucket(context, PeriodBucket.Month, MonthLevels);
+    }
+
+    private void RenderScopeBucket(RenderContext context, PeriodBucket bucket, LevelMask bucketMask)
+    {
+        if (bucket == PeriodBucket.Day)
+        {
+            if (Scopes.HasFlag(DisplayScopes.Rth))
+                RenderTemplateBucket(context, SessionTemplateId.Primary, bucket, bucketMask & RthLevels, zoneLabel: "RTH");
+
+            if (Scopes.HasFlag(DisplayScopes.Eth) && _secondaryTemplate.Enabled)
+                RenderTemplateBucket(context, SessionTemplateId.Secondary, bucket, bucketMask & EthLevels, zoneLabel: "ETH");
+
+            // Full-Day (optional in 5.3; see below)
+            if (Scopes.HasFlag(DisplayScopes.FullDay))
+            {
+                var mask = bucketMask; // Full-Day uses DayLevels only (or add FullDayLevels later)
+                                       // FullDay requires merged range (RTH+ETH) and will be implemented in a dedicated commit.
+
+            }
+
+            return;
+        }
+
+        // Week / Month: ignore RTH/ETH flags
+        RenderTemplateBucket(context, SessionTemplateId.Primary, bucket, bucketMask, zoneLabel: "HTF");
+    }
+
+    private void RenderTemplateBucket(RenderContext context, SessionTemplateId templateId, PeriodBucket bucket, LevelMask mask, string zoneLabel)
+    {
+        if (mask == LevelMask.None)
+            return;
+
+        var state = _states[(int)templateId, (int)bucket];
+
+        // Current
+        RenderRangeInstance(context, state.Current, bucket, mask, zoneLabel, offsetLabel: GetOffsetLabel(bucket, isPrevious: false));
+
+        // Previous
+        if (HistoryDepth >= 2)
+            RenderRangeInstance(context, state.Previous, bucket, mask, zoneLabel, offsetLabel: GetOffsetLabel(bucket, isPrevious: true));
+    }
+
+    private static string GetOffsetLabel(PeriodBucket bucket, bool isPrevious)
+    {
+        return bucket switch
+        {
+            PeriodBucket.Day => isPrevious ? "Y" : "T",   // Yesterday / Today (trading day)
+            PeriodBucket.Week => isPrevious ? "PW" : "CW", // Previous Week / Current Week
+            PeriodBucket.Month => isPrevious ? "PM" : "CM", // Previous Month / Current Month
+            _ => isPrevious ? "P" : "C"
+        };
+    }
+
+
+
+    private void RenderRangeInstance(RenderContext context, SessionRange range, PeriodBucket bucket, LevelMask mask, string zoneLabel, string offsetLabel)
+    {
+        if (range is null || range.OpenBar < 0)
+            return;
+
+        var bucketLabel = bucket switch
+        {
+            PeriodBucket.Day => "D",
+            PeriodBucket.Week => "W",
+            PeriodBucket.Month => "M",
+            _ => "P"
+        };
+
+        // Day: "RTH D T" / "ETH D Y"
+        // Week/Month: "W CW" / "M PM" (no session zone)
+        var suffix = bucket == PeriodBucket.Day
+            ? $"{zoneLabel} {bucketLabel} {offsetLabel}"
+            : $"{bucketLabel} {offsetLabel}";
+
+        DrawRange(context, range, suffix, mask, zoneLabel);
+    }
+
+
+    private void DrawRange(RenderContext context, SessionRange range, string suffix, LevelMask mask, string zoneLabel)
+    {
         var high = ChartInfo.PriceChartContainer.High;
         var low = ChartInfo.PriceChartContainer.Low;
 
-        if (range.OpenPrice >= low && range.OpenPrice <= high)
-            DrawLevel(context, OpenPen, range.OpenBar, range.OpenPrice, OpenText, "Open", periodStr);
+        // ETH special naming (optional)
+        var highName = zoneLabel == "ETH" ? "ONH" : "High";
+        var lowName = zoneLabel == "ETH" ? "ONL" : "Low";
 
-        if (range.HighPrice >= low && range.HighPrice <= high)
-            DrawLevel(context, HighPen, range.HighBar, range.HighPrice, HighText, "High", periodStr);
+        if (mask.HasFlag(LevelMask.Open) && range.OpenPrice >= low && range.OpenPrice <= high)
+            DrawLevel(context, OpenPen, range.OpenBar, range.OpenPrice, OpenText, "Open", suffix);
 
-        if (range.LowPrice >= low && range.LowPrice <= high)
-            DrawLevel(context, LowPen, range.LowBar, range.LowPrice, LowText, "Low", periodStr);
+        if (mask.HasFlag(LevelMask.High) && range.HighPrice >= low && range.HighPrice <= high)
+            DrawLevel(context, HighPen, range.HighBar, range.HighPrice, HighText, highName, suffix);
 
-        if (range.IsFinished && range.ClosePrice >= low && range.ClosePrice <= high)
-            DrawLevel(context, ClosePen, range.CloseBar, range.ClosePrice, CloseText, "Close", periodStr);
+        if (mask.HasFlag(LevelMask.Low) && range.LowPrice >= low && range.LowPrice <= high)
+            DrawLevel(context, LowPen, range.LowBar, range.LowPrice, LowText, lowName, suffix);
+
+        if (mask.HasFlag(LevelMask.Close) && range.IsFinished && range.ClosePrice >= low && range.ClosePrice <= high)
+            DrawLevel(context, ClosePen, range.CloseBar, range.ClosePrice, CloseText, "Close", suffix);
     }
+
+
 
     protected override void OnRecalculate()
     {
@@ -628,8 +749,7 @@ public class DailyLines : Indicator
         if (_secondaryTemplate.Enabled)
         {
             UpdateBucket(SessionTemplateId.Secondary, PeriodBucket.Day, candle, bar, isNewDay, _secondaryTemplate);
-            UpdateBucket(SessionTemplateId.Secondary, PeriodBucket.Week, candle, bar, isNewWeek, _secondaryTemplate);
-            UpdateBucket(SessionTemplateId.Secondary, PeriodBucket.Month, candle, bar, isNewMonth, _secondaryTemplate);
+            // Skip week/month: ETH semantics are daily-only
         }
     }
 
