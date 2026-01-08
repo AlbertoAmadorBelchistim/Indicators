@@ -7,6 +7,7 @@ using OFT.Rendering.Context;
 using OFT.Rendering.Settings;
 using OFT.Rendering.Tools;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
@@ -46,11 +47,57 @@ public class Volume : Indicator
 		Down
 	}
 
-	#endregion
+    // ===================== Thresholds (Fixed / Dynamic-Welford) =====================
 
-	#region Fields
+    public enum ThresholdSource
+    {
+        Fixed = 0,
+        DynamicWelford = 1
+    }
 
-	private bool _deltaColored;
+    // Session window for dynamic thresholds (time-of-day anchored)
+    public enum SessionWindowMode
+    {
+        RTH,
+        Full24h
+    }
+
+    private struct WelfordAcc
+    {
+        public int Count;
+        public decimal Mean;
+        public decimal M2;
+
+        public void Add(decimal x)
+        {
+            Count++;
+            var delta = x - Mean;
+            Mean += delta / Count;
+            var delta2 = x - Mean;
+            M2 += delta * delta2;
+        }
+
+        public decimal Std()
+        {
+            if (Count <= 1) return 0m;
+            var var = M2 / (Count - 1);
+            return (decimal)Math.Sqrt((double)var);
+        }
+
+        public void Reset()
+        {
+            Count = 0;
+            Mean = 0m;
+            M2 = 0m;
+        }
+    }
+
+
+    #endregion
+
+    #region Fields
+
+    private bool _deltaColored;
 	private decimal _filter;
 	private Color _filterColor = Color.LightBlue;
 	private InputType _input = InputType.Volume;
@@ -105,6 +152,7 @@ public class Volume : Indicator
 
     private const string UiGroupThresholds = "Thresholds";
     private const string UiGroupFixedThreshold = "Fixed Threshold";
+    private const string UiGroupDynamicThreshold = "Dynamic Threshold";
 
     private readonly ValueDataSeries _thrMajor = new("VolThrMajor", "Volume Threshold Major")
     {
@@ -125,6 +173,27 @@ public class Volume : Indicator
     private bool _showThresholdLines = true;
     private decimal _fixedMinorLevel = 1000m;
     private decimal _fixedMajorLevel = 2000m;
+
+    // Dynamic thresholds state (Welford)
+    private int _samplesForMeanStd = 20;   // gate like DeltaModif
+    private bool _dynReady;
+    private decimal _dynMinor;             // mean
+    private decimal _dynMajor;             // mean + k*std
+    private int _lastBarFed = -1;
+
+    private readonly List<bool> _readyByBar = new();
+
+    private WelfordAcc _acc;
+
+    // Session window helpers
+    private SessionWindowMode _sessionMode = SessionWindowMode.RTH;
+    private TimeSpan _rthStart = new(9, 30, 0);
+    private TimeSpan _rthEnd = new(16, 0, 0);
+
+    private decimal _stdMultiplier = 1.0m;
+
+    // Threshold mode
+    private ThresholdSource _thresholds = ThresholdSource.Fixed;
 
     #endregion
 
@@ -246,6 +315,94 @@ public class Volume : Indicator
             RedrawChart();
         }
     }
+
+    [DisplayName("Threshold source")]
+    [Display(GroupName = UiGroupThresholds, Description = "Select fixed or Welford dynamic thresholds", Order = 510)]
+    public ThresholdSource Thresholds
+    {
+        get => _thresholds;
+        set
+        {
+            if (_thresholds == value) return;
+            _thresholds = value;
+            RecalculateValues();
+            RedrawChart();
+        }
+    }
+
+    [DisplayName("Session Window Mode")]
+    [Display(GroupName = UiGroupDynamicThreshold, Description = "Session window used to reset Welford thresholds", Order = 540)]
+    public SessionWindowMode SessionMode
+    {
+        get => _sessionMode;
+        set
+        {
+            if (_sessionMode == value) return;
+            _sessionMode = value;
+            RecalculateValues();
+            RedrawChart();
+        }
+    }
+
+    [DisplayName("RTH Start (HH:mm)")]
+    [Display(GroupName = UiGroupDynamicThreshold, Order = 550)]
+    public TimeSpan RthStart
+    {
+        get => _rthStart;
+        set
+        {
+            _rthStart = value;
+            RecalculateValues();
+            RedrawChart();
+        }
+    }
+
+    [DisplayName("RTH End (HH:mm)")]
+    [Display(GroupName = UiGroupDynamicThreshold, Order = 560)]
+    public TimeSpan RthEnd
+    {
+        get => _rthEnd;
+        set
+        {
+            _rthEnd = value;
+            RecalculateValues();
+            RedrawChart();
+        }
+    }
+
+    [DisplayName("Samples for mean/std")]
+    [Display(GroupName = UiGroupDynamicThreshold, Description = "Minimum samples required before dynamic thresholds become active", Order = 570)]
+    [Range(1, 10000)]
+    public int SamplesForMeanStd
+    {
+        get => _samplesForMeanStd;
+        set
+        {
+            if (value < 1) value = 1;
+            if (_samplesForMeanStd == value) return;
+            _samplesForMeanStd = value;
+            RecalculateValues();
+            RedrawChart();
+        }
+    }
+
+    [DisplayName("Std Multiplier (k)")]
+    [Display(GroupName = UiGroupDynamicThreshold, Description = "Major = mean + k*std, Minor = mean", Order = 580)]
+    [Range(typeof(decimal), "0", "10")]
+    [DisplayFormat(DataFormatString = "F2")]
+    public decimal StdMultiplier
+    {
+        get => _stdMultiplier;
+        set
+        {
+            if (value < 0) value = 0;
+            if (_stdMultiplier == value) return;
+            _stdMultiplier = value;
+            RecalculateValues();
+            RedrawChart();
+        }
+    }
+
 
     #endregion
 
@@ -468,38 +625,85 @@ public class Volume : Indicator
         var val = GetInputValue(candle);
         _renderSeries[bar] = val;
 
-        // ===================== Fixed threshold lines =====================
-        if (_showThresholdLines)
+        if (bar == 0)
         {
-            _thrMinor[bar] = _fixedMinorLevel;
-            _thrMajor[bar] = _fixedMajorLevel;
+            ResetDynamicState();
         }
-        else
+
+        // ===================== Thresholds (Fixed / Dynamic-Welford) =====================
+
+        // Session anchor reset (only meaningful for dynamic)
+        if (Thresholds == ThresholdSource.DynamicWelford && IsSessionStart(bar))
         {
-            // Prevent connecting segments across disabled regions
+            ResetDynamicState();
             CutThresholdsAt(bar - 1);
         }
 
-        if (bar == CurrentBar - 1)
-		{
-			if (UseVolumeAlerts && _lastVolumeAlert != bar && val >= _filter && _filter != 0)
-			{
-				AddAlert(AlertVolumeFile, $"Candle volume: {val}");
-				_lastVolumeAlert = bar;
-			}
+        var inside = InSession(candle.Time);
 
-			if (UseReverseAlerts && _lastReverseAlert != bar)
-			{
-				if ((candle.Delta < 0 && candle.Close > candle.Open) || (candle.Delta > 0 && candle.Close < candle.Open))
-				{
-					AddAlert(AlertReverseFile, $"Candle volume: {val} (Reverse alert)");
-					_lastReverseAlert = bar;
-				}
-			}
-		}
+        // Readiness is based on PREVIOUS state (no look-ahead)
+        _dynReady = _acc.Count >= _samplesForMeanStd;
+        EnsureReadyListSize(bar);
+        _readyByBar[bar] = inside && _dynReady;
 
-		// Keep max-volume consistent with selected Input.
-		HighestVol.Calculate(bar, val);
+        // Compute dynamic thresholds FROM PREVIOUS state (state up to bar-1)
+        _dynMinor = 0m;
+        _dynMajor = 0m;
+
+        if (Thresholds == ThresholdSource.DynamicWelford && inside && _dynReady)
+        {
+            var m = _acc.Mean;
+            var s = _acc.Std();
+            var k = _stdMultiplier;
+
+            _dynMinor = m;
+            _dynMajor = m + k * s;
+
+            _thrMinor[bar] = _dynMinor;
+            _thrMajor[bar] = _dynMajor;
+        }
+        else if (Thresholds == ThresholdSource.DynamicWelford)
+        {
+            // Avoid connecting line segments through gaps / not-ready regions
+            CutThresholdsAt(bar - 1);
+        }
+
+        // Fixed thresholds always present when enabled
+        if (ShowThresholdLines)
+        {
+            if (Thresholds == ThresholdSource.Fixed)
+            {
+                _thrMinor[bar] = _fixedMinorLevel;
+                _thrMajor[bar] = _fixedMajorLevel;
+            }
+        }
+        else
+        {
+            CutThresholdsAt(bar - 1);
+        }
+
+        // Feed Welford AFTER writing (no look-ahead): feed bar-1 once
+        var barToFeed = bar - 1;
+
+        if (Thresholds == ThresholdSource.DynamicWelford && barToFeed >= 0 && _lastBarFed != barToFeed)
+        {
+            var prevCandle = GetCandle(barToFeed);
+
+            if (InSession(prevCandle.Time))
+            {
+                // Sample: use the SAME input metric as histogram
+                var prevVal = GetInputValue(prevCandle);
+
+                if (prevVal >= 0)
+                    _acc.Add(prevVal);
+            }
+
+            _lastBarFed = barToFeed;
+        }
+
+
+        // Keep max-volume consistent with selected Input.
+        HighestVol.Calculate(bar, val);
 
 		if (UseFilter && val > _filter)
 		{
@@ -604,6 +808,58 @@ public class Volume : Indicator
         _thrMinor.Width = 1;
         _thrMinor.LineDashStyle = LineDashStyle.Dot;
     }
+
+    private void EnsureReadyListSize(int bar)
+    {
+        while (_readyByBar.Count <= bar)
+            _readyByBar.Add(false);
+    }
+
+    private void ResetDynamicState()
+    {
+        _acc.Reset();
+        _readyByBar.Clear();
+        _dynReady = false;
+        _dynMinor = 0m;
+        _dynMajor = 0m;
+        _lastBarFed = -1;
+    }
+
+    // Returns true if bar timestamp (adjusted to instrument TZ) is inside the session window
+    private bool InSession(DateTime exchangeTimeUtc)
+    {
+        if (_sessionMode == SessionWindowMode.Full24h)
+            return true;
+
+        // exchange UTC + instrument TZ offset -> local TOD
+        var tLocal = exchangeTimeUtc.AddHours(InstrumentInfo.TimeZone).TimeOfDay;
+        return tLocal >= _rthStart && tLocal <= _rthEnd;
+    }
+
+    // Detect session start to reset Welford (daily, time-of-day anchored)
+    private bool IsSessionStart(int bar)
+    {
+        if (bar == 0) return true;
+
+        var prevUtc = GetCandle(bar - 1).Time;
+        var currUtc = GetCandle(bar).Time;
+
+        var prevIn = InSession(prevUtc);
+        var currIn = InSession(currUtc);
+
+        // Start when we enter session from outside
+        if (!prevIn && currIn) return true;
+
+        // Day change while still in window: re-anchor at first session bar of the new day
+        if (currIn && prevUtc.Date != currUtc.Date)
+        {
+            var tLocal = currUtc.AddHours(InstrumentInfo.TimeZone).TimeOfDay;
+            if (tLocal >= _rthStart && tLocal <= _rthEnd) return true;
+        }
+
+        return false;
+    }
+
 
 
     #endregion
