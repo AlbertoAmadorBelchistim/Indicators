@@ -1807,6 +1807,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Dynamic Threshold.
+        /// </summary>
+        public static string DynamicThresholdGroup {
+            get {
+                return ResourceManager.GetString("DynamicThresholdGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Efficiency Ratio Period.
         /// </summary>
         public static string EfficiencyRatioPeriod {
@@ -2149,11 +2158,56 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Fixed major.
+        /// </summary>
+        public static string FixedMajorLevel {
+            get {
+                return ResourceManager.GetString("FixedMajorLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fixed major threshold value..
+        /// </summary>
+        public static string FixedMajorLevelDescription {
+            get {
+                return ResourceManager.GetString("FixedMajorLevelDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fixed minor.
+        /// </summary>
+        public static string FixedMinorLevel {
+            get {
+                return ResourceManager.GetString("FixedMinorLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fixed minor threshold value..
+        /// </summary>
+        public static string FixedMinorLevelDescription {
+            get {
+                return ResourceManager.GetString("FixedMinorLevelDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Fixed Sizes.
         /// </summary>
         public static string FixedSizes {
             get {
                 return ResourceManager.GetString("FixedSizes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fixed Threshold.
+        /// </summary>
+        public static string FixedThresholdGroup {
+            get {
+                return ResourceManager.GetString("FixedThresholdGroup", resourceCulture);
             }
         }
         
@@ -4867,11 +4921,65 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a RTH end.
+        /// </summary>
+        public static string RthEnd {
+            get {
+                return ResourceManager.GetString("RthEnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a End time of Regular Trading Hours (exchange time)..
+        /// </summary>
+        public static string RthEndDescription {
+            get {
+                return ResourceManager.GetString("RthEndDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a RTH start.
+        /// </summary>
+        public static string RthStart {
+            get {
+                return ResourceManager.GetString("RthStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Start time of Regular Trading Hours (exchange time)..
+        /// </summary>
+        public static string RthStartDescription {
+            get {
+                return ResourceManager.GetString("RthStartDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Relative Vigor Index.
         /// </summary>
         public static string RVI {
             get {
                 return ResourceManager.GetString("RVI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Samples for mean/std.
+        /// </summary>
+        public static string SamplesForMeanStd {
+            get {
+                return ResourceManager.GetString("SamplesForMeanStd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Minimum samples required before dynamic thresholds become active..
+        /// </summary>
+        public static string SamplesForMeanStdDescription {
+            get {
+                return ResourceManager.GetString("SamplesForMeanStdDescription", resourceCulture);
             }
         }
         
@@ -5034,6 +5142,42 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string SessionTime {
             get {
                 return ResourceManager.GetString("SessionTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Session window.
+        /// </summary>
+        public static string SessionWindowMode {
+            get {
+                return ResourceManager.GetString("SessionWindowMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Session window used to reset dynamic thresholds..
+        /// </summary>
+        public static string SessionWindowModeDescription {
+            get {
+                return ResourceManager.GetString("SessionWindowModeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Full 24h.
+        /// </summary>
+        public static string SessionWindowModeFull24h {
+            get {
+                return ResourceManager.GetString("SessionWindowModeFull24h", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a RTH.
+        /// </summary>
+        public static string SessionWindowModeRth {
+            get {
+                return ResourceManager.GetString("SessionWindowModeRth", resourceCulture);
             }
         }
         
@@ -5416,6 +5560,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Show threshold lines.
+        /// </summary>
+        public static string ShowThresholdLines {
+            get {
+                return ResourceManager.GetString("ShowThresholdLines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show horizontal threshold lines in the Volume panel..
+        /// </summary>
+        public static string ShowThresholdLinesDescription {
+            get {
+                return ResourceManager.GetString("ShowThresholdLinesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Show Ticks.
         /// </summary>
         public static string ShowTicks {
@@ -5722,6 +5884,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Std multiplier.
+        /// </summary>
+        public static string StdMultiplier {
+            get {
+                return ResourceManager.GetString("StdMultiplier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Major = mean + k·std. Minor = mean..
+        /// </summary>
+        public static string StdMultiplierDescription {
+            get {
+                return ResourceManager.GetString("StdMultiplierDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Step.
         /// </summary>
         public static string Step {
@@ -5880,6 +6060,51 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string ThirdFormula {
             get {
                 return ResourceManager.GetString("ThirdFormula", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Thresholds.
+        /// </summary>
+        public static string ThresholdsGroup {
+            get {
+                return ResourceManager.GetString("ThresholdsGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Threshold source.
+        /// </summary>
+        public static string ThresholdSource {
+            get {
+                return ResourceManager.GetString("ThresholdSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Select fixed thresholds or dynamic Welford thresholds..
+        /// </summary>
+        public static string ThresholdSourceDescription {
+            get {
+                return ResourceManager.GetString("ThresholdSourceDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Dynamic (Welford).
+        /// </summary>
+        public static string ThresholdSourceDynamicWelford {
+            get {
+                return ResourceManager.GetString("ThresholdSourceDynamicWelford", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fixed.
+        /// </summary>
+        public static string ThresholdSourceFixed {
+            get {
+                return ResourceManager.GetString("ThresholdSourceFixed", resourceCulture);
             }
         }
         
@@ -6573,6 +6798,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string VolumeLabelDescription {
             get {
                 return ResourceManager.GetString("VolumeLabelDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Volume threshold (major).
+        /// </summary>
+        public static string VolumeThresholdMajor {
+            get {
+                return ResourceManager.GetString("VolumeThresholdMajor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Volume threshold (minor).
+        /// </summary>
+        public static string VolumeThresholdMinor {
+            get {
+                return ResourceManager.GetString("VolumeThresholdMinor", resourceCulture);
             }
         }
         

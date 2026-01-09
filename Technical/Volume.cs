@@ -1,6 +1,7 @@
 namespace ATAS.Indicators.Technical;
 
 using ATAS.Indicators.Drawing;
+using ATAS.Indicators.Technical.Properties;
 using OFT.Attributes;
 using OFT.Localization;
 using OFT.Rendering.Context;
@@ -12,6 +13,8 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using Color = System.Drawing.Color;
+
+
 
 [Category(IndicatorCategories.VolumeOrderFlow)]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.VolumeIndDescription))]
@@ -51,14 +54,20 @@ public class Volume : Indicator
 
 	public enum ThresholdSource
 	{
+		[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ThresholdSourceFixed))]
 		Fixed = 0,
+
+		[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ThresholdSourceDynamicWelford))]
 		DynamicWelford = 1
 	}
 
 	// Session window for dynamic thresholds (time-of-day anchored)
 	public enum SessionWindowMode
 	{
+		[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SessionWindowModeRth))]
 		RTH,
+
+		[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SessionWindowModeFull24h))]
 		Full24h
 	}
 
@@ -150,11 +159,7 @@ public class Volume : Indicator
 
 	// ===================== Thresholds (Fixed) =====================
 
-	private const string UiGroupThresholds = "Thresholds";
-	private const string UiGroupFixedThreshold = "Fixed Threshold";
-	private const string UiGroupDynamicThreshold = "Dynamic Threshold";
-
-	private readonly ValueDataSeries _thrMajor = new("VolThrMajor", "Volume Threshold Major")
+	private readonly ValueDataSeries _thrMajor = new("VolThrMajor", Resources.VolumeThresholdMajor)
 	{
 		VisualType = VisualMode.Line,
 		ShowCurrentValue = false,
@@ -162,7 +167,7 @@ public class Volume : Indicator
 		IgnoredByAlerts = true
 	};
 
-	private readonly ValueDataSeries _thrMinor = new("VolThrMinor", "Volume Threshold Minor")
+	private readonly ValueDataSeries _thrMinor = new("VolThrMinor", Resources.VolumeThresholdMinor)
 	{
 		VisualType = VisualMode.Line,
 		ShowCurrentValue = false,
@@ -264,8 +269,12 @@ public class Volume : Indicator
 
 	#region Thresholds
 
-	[DisplayName("Show Threshold lines")]
-	[Display(GroupName = UiGroupThresholds, Description = "Show horizontal threshold lines in the Volume panel", Order = 500)]
+	[Display(
+		ResourceType = typeof(Resources),
+		Name = nameof(Resources.ShowThresholdLines),
+		GroupName = nameof(Resources.ThresholdsGroup),
+		Description = nameof(Resources.ShowThresholdLinesDescription),
+		Order = 500)]
 	public bool ShowThresholdLines
 	{
 		get => _showThresholdLines;
@@ -280,8 +289,12 @@ public class Volume : Indicator
 		}
 	}
 
-	[DisplayName("Fixed minor")]
-	[Display(GroupName = UiGroupFixedThreshold, Description = "Fixed minor threshold", Order = 520)]
+	[Display(
+		ResourceType = typeof(Resources),
+		Name = nameof(Resources.FixedMinorLevel),
+		GroupName = nameof(Resources.FixedThresholdGroup),
+		Description = nameof(Resources.FixedMinorLevelDescription),
+		Order = 520)]
 	[Range(0, int.MaxValue)]
 	[DisplayFormat(DataFormatString = "F0")]
 	public decimal FixedMinorLevel
@@ -298,8 +311,12 @@ public class Volume : Indicator
 		}
 	}
 
-	[DisplayName("Fixed major")]
-	[Display(GroupName = UiGroupFixedThreshold, Description = "Fixed major threshold", Order = 530)]
+	[Display(
+		ResourceType = typeof(Resources),
+		Name = nameof(Resources.FixedMajorLevel),
+		GroupName = nameof(Resources.FixedThresholdGroup),
+		Description = nameof(Resources.FixedMajorLevelDescription),
+		Order = 530)]
 	[Range(0, int.MaxValue)]
 	[DisplayFormat(DataFormatString = "F0")]
 	public decimal FixedMajorLevel
@@ -316,8 +333,12 @@ public class Volume : Indicator
 		}
 	}
 
-	[DisplayName("Threshold source")]
-	[Display(GroupName = UiGroupThresholds, Description = "Select fixed or Welford dynamic thresholds", Order = 510)]
+	[Display(
+		ResourceType = typeof(Resources),
+		Name = nameof(Resources.ThresholdSource),
+		GroupName = nameof(Resources.ThresholdsGroup),
+		Description = nameof(Resources.ThresholdSourceDescription),
+		Order = 510)]
 	public ThresholdSource Thresholds
 	{
 		get => _thresholds;
@@ -330,8 +351,12 @@ public class Volume : Indicator
 		}
 	}
 
-	[DisplayName("Session Window Mode")]
-	[Display(GroupName = UiGroupDynamicThreshold, Description = "Session window used to reset Welford thresholds", Order = 540)]
+	[Display(
+		ResourceType = typeof(Resources),
+		Name = nameof(Resources.SessionWindowMode),
+		GroupName = nameof(Resources.DynamicThresholdGroup),
+		Description = nameof(Resources.SessionWindowModeDescription),
+		Order = 540)]
 	public SessionWindowMode SessionMode
 	{
 		get => _sessionMode;
@@ -344,8 +369,12 @@ public class Volume : Indicator
 		}
 	}
 
-	[DisplayName("RTH Start (HH:mm)")]
-	[Display(GroupName = UiGroupDynamicThreshold, Order = 550)]
+	[Display(
+		ResourceType = typeof(Resources),
+		Name = nameof(Resources.RthStart),
+		GroupName = nameof(Resources.DynamicThresholdGroup),
+		Description = nameof(Resources.RthStartDescription),
+		Order = 550)]
 	public TimeSpan RthStart
 	{
 		get => _rthStart;
@@ -357,8 +386,12 @@ public class Volume : Indicator
 		}
 	}
 
-	[DisplayName("RTH End (HH:mm)")]
-	[Display(GroupName = UiGroupDynamicThreshold, Order = 560)]
+	[Display(
+		ResourceType = typeof(Resources),
+		Name = nameof(Resources.RthEnd),
+		GroupName = nameof(Resources.DynamicThresholdGroup),
+		Description = nameof(Resources.RthEndDescription),
+		Order = 560)]
 	public TimeSpan RthEnd
 	{
 		get => _rthEnd;
@@ -370,8 +403,12 @@ public class Volume : Indicator
 		}
 	}
 
-	[DisplayName("Samples for mean/std")]
-	[Display(GroupName = UiGroupDynamicThreshold, Description = "Minimum samples required before dynamic thresholds become active", Order = 570)]
+	[Display(
+		ResourceType = typeof(Resources),
+		Name = nameof(Resources.SamplesForMeanStd),
+		GroupName = nameof(Resources.DynamicThresholdGroup),
+		Description = nameof(Resources.SamplesForMeanStdDescription),
+		Order = 570)]
 	[Range(1, 10000)]
 	public int SamplesForMeanStd
 	{
@@ -386,8 +423,12 @@ public class Volume : Indicator
 		}
 	}
 
-	[DisplayName("Std Multiplier (k)")]
-	[Display(GroupName = UiGroupDynamicThreshold, Description = "Major = mean + k*std, Minor = mean", Order = 580)]
+	[Display(
+		ResourceType = typeof(Resources),
+		Name = nameof(Resources.StdMultiplier),
+		GroupName = nameof(Resources.DynamicThresholdGroup),
+		Description = nameof(Resources.StdMultiplierDescription),
+		Order = 580)]
 	[Range(typeof(decimal), "0", "10")]
 	[DisplayFormat(DataFormatString = "F2")]
 	public decimal StdMultiplier

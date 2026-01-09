@@ -2568,15 +2568,6 @@
   <data name="HVN_OcclusionTicks_Description" xml:space="preserve">
     <value>Минимальное вертикальное расстояние (в тиках) между зонами HVN разных периодов для предотвращения визуального перекрытия.</value>
   </data>
-  <data name="Misc" xml:space="preserve">
-    <value>Разное</value>
-  </data>
-  <data name="Bearish" xml:space="preserve">
-    <value>Медвежье</value>
-  </data>
-  <data name="Show Fibonacci" xml:space="preserve">
-    <value>Показать уровни Фибоначчи</value>
-  </data>
   <data name="LVN_Group" xml:space="preserve">
     <value>LVN</value>
   </data>
@@ -2621,5 +2612,95 @@
   </data>
   <data name="LVN_TailFilterRangePct_Description" xml:space="preserve">
     <value>Исключает хвостовые зоны с низким объёмом возле максимума и минимума профиля при обнаружении LVN, используя процент диапазона профиля. (0 = отключено).</value>
+  </data>
+  <data name="Misc" xml:space="preserve">
+    <value>Разное</value>
+  </data>
+  <data name="Bearish" xml:space="preserve">
+    <value>Медвежье</value>
+  </data>
+  <data name="Show Fibonacci" xml:space="preserve">
+    <value>Показать уровни Фибоначчи</value>
+  </data>
+  <data name="ThresholdsGroup" xml:space="preserve">
+    <value>Пороги</value>
+  </data>
+  <data name="FixedThresholdGroup" xml:space="preserve">
+    <value>Фиксированный порог</value>
+  </data>
+  <data name="DynamicThresholdGroup" xml:space="preserve">
+    <value>Динамический порог</value>
+  </data>
+  <data name="ShowThresholdLines" xml:space="preserve">
+    <value>Показывать линии порогов</value>
+  </data>
+  <data name="ShowThresholdLinesDescription" xml:space="preserve">
+    <value>Показывает горизонтальные линии порогов на панели объёма.</value>
+  </data>
+  <data name="FixedMinorLevel" xml:space="preserve">
+    <value>Фикс. малый</value>
+  </data>
+  <data name="FixedMinorLevelDescription" xml:space="preserve">
+    <value>Значение фиксированного малого порога.</value>
+  </data>
+  <data name="FixedMajorLevel" xml:space="preserve">
+    <value>Фикс. большой</value>
+  </data>
+  <data name="FixedMajorLevelDescription" xml:space="preserve">
+    <value>Значение фиксированного большого порога.</value>
+  </data>
+  <data name="ThresholdSource" xml:space="preserve">
+    <value>Источник порога</value>
+  </data>
+  <data name="ThresholdSourceDescription" xml:space="preserve">
+    <value>Выбор фиксированных или динамических порогов (Welford).</value>
+  </data>
+  <data name="SessionWindowMode" xml:space="preserve">
+    <value>Окно сессии</value>
+  </data>
+  <data name="SessionWindowModeDescription" xml:space="preserve">
+    <value>Окно сессии для сброса динамических порогов.</value>
+  </data>
+  <data name="RthStart" xml:space="preserve">
+    <value>Начало RTH</value>
+  </data>
+  <data name="RthStartDescription" xml:space="preserve">
+    <value>नियमित ट्रेडिंग घंटों का प्रारंभ समय (एक्सचेंज समय)।</value>
+  </data>
+  <data name="RthEnd" xml:space="preserve">
+    <value>Окончание RTH</value>
+  </data>
+  <data name="RthEndDescription" xml:space="preserve">
+    <value>Время окончания регулярной торговой сессии (время биржи).</value>
+  </data>
+  <data name="SamplesForMeanStd" xml:space="preserve">
+    <value>Выборки для средн./Std</value>
+  </data>
+  <data name="SamplesForMeanStdDescription" xml:space="preserve">
+    <value>Минимальное число выборок до активации динамических порогов.</value>
+  </data>
+  <data name="StdMultiplier" xml:space="preserve">
+    <value>Множитель Std</value>
+  </data>
+  <data name="StdMultiplierDescription" xml:space="preserve">
+    <value>Большой = среднее + k·Std. Малый = среднее.</value>
+  </data>
+  <data name="ThresholdSourceFixed" xml:space="preserve">
+    <value>Фиксированный</value>
+  </data>
+  <data name="ThresholdSourceDynamicWelford" xml:space="preserve">
+    <value>Динамический (Welford)</value>
+  </data>
+  <data name="SessionWindowModeRth" xml:space="preserve">
+    <value>RTH</value>
+  </data>
+  <data name="SessionWindowModeFull24h" xml:space="preserve">
+    <value>Полные 24 часа</value>
+  </data>
+  <data name="VolumeThresholdMajor" xml:space="preserve">
+    <value>成交量阈值（主要）</value>
+  </data>
+  <data name="VolumeThresholdMinor" xml:space="preserve">
+    <value>Порог объёма (вторичный)</value>
   </data>
 </root>
