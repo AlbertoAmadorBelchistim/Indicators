@@ -666,19 +666,19 @@ public class Volume : Indicator
 		var val = GetInputValue(candle);
 		_renderSeries[bar] = val;
 
-		if (bar == 0)
-		{
-			ResetDynamicState();
-		}
 
-		// ===================== Thresholds (Fixed / Dynamic-Welford) =====================
+        // ===================== Thresholds (Fixed / Dynamic-Welford) =====================
 
-		// Session anchor reset (only meaningful for dynamic)
-		if (Thresholds == ThresholdSource.DynamicWelford && IsSessionStart(bar))
-		{
-			ResetDynamicState();
-			CutThresholdsAt(bar - 1);
-		}
+        if (bar == 0)
+        {
+            ResetDynamicState();
+        }
+        // Session anchor reset (only meaningful for dynamic)
+        else if (Thresholds == ThresholdSource.DynamicWelford && IsSessionStart(bar))
+        {
+            ResetDynamicState();
+            CutThresholdsAt(bar - 1);
+        }
 
 		var inside = InSession(candle.Time);
 
@@ -908,10 +908,6 @@ public class Volume : Indicator
 
 		return false;
 	}
-
-
-
-
 
 	#endregion
 }
