@@ -2802,4 +2802,112 @@
     <value>Excludes low-volume tail areas near the high and low of the profile from LVN detection, using a percentage of the profile range. (0 = disabled).</value>
     <comment>OHLCPlus</comment>
   </data>
+  <data name="ThresholdsGroup" xml:space="preserve">
+    <value>Thresholds</value>
+    <comment>Volume</comment>
+  </data>
+  <data name="FixedThresholdGroup" xml:space="preserve">
+    <value>Fixed Threshold</value>
+    <comment>Volume</comment>
+  </data>
+  <data name="DynamicThresholdGroup" xml:space="preserve">
+    <value>Dynamic Threshold</value>
+    <comment>Volume</comment>
+  </data>
+  <data name="ShowThresholdLines" xml:space="preserve">
+    <value>Show threshold lines</value>
+    <comment>Volume</comment>
+  </data>
+  <data name="ShowThresholdLinesDescription" xml:space="preserve">
+    <value>Show horizontal threshold lines in the Volume panel.</value>
+    <comment>Volume</comment>
+  </data>
+  <data name="FixedMinorLevel" xml:space="preserve">
+    <value>Fixed minor</value>
+    <comment>Volume</comment>
+  </data>
+  <data name="FixedMinorLevelDescription" xml:space="preserve">
+    <value>Fixed minor threshold value.</value>
+    <comment>Volume</comment>
+  </data>
+  <data name="FixedMajorLevel" xml:space="preserve">
+    <value>Fixed major</value>
+    <comment>Volume</comment>
+  </data>
+  <data name="FixedMajorLevelDescription" xml:space="preserve">
+    <value>Fixed major threshold value.</value>
+    <comment>Volume</comment>
+  </data>
+  <data name="ThresholdSource" xml:space="preserve">
+    <value>Threshold source</value>
+    <comment>Volume</comment>
+  </data>
+  <data name="ThresholdSourceDescription" xml:space="preserve">
+    <value>Select fixed thresholds or dynamic Welford thresholds.</value>
+    <comment>Volume</comment>
+  </data>
+  <data name="SessionWindowMode" xml:space="preserve">
+    <value>Session window</value>
+    <comment>Volume</comment>
+  </data>
+  <data name="SessionWindowModeDescription" xml:space="preserve">
+    <value>Session window used to reset dynamic thresholds.</value>
+    <comment>Volume</comment>
+  </data>
+  <data name="RthStart" xml:space="preserve">
+    <value>RTH start</value>
+    <comment>Volume</comment>
+  </data>
+  <data name="RthStartDescription" xml:space="preserve">
+    <value>Start time of Regular Trading Hours (exchange time).</value>
+    <comment>Volume</comment>
+  </data>
+  <data name="RthEnd" xml:space="preserve">
+    <value>RTH end</value>
+    <comment>Volume</comment>
+  </data>
+  <data name="RthEndDescription" xml:space="preserve">
+    <value>End time of Regular Trading Hours (exchange time).</value>
+    <comment>Volume</comment>
+  </data>
+  <data name="SamplesForMeanStd" xml:space="preserve">
+    <value>Samples for mean/std</value>
+    <comment>Volume</comment>
+  </data>
+  <data name="SamplesForMeanStdDescription" xml:space="preserve">
+    <value>Minimum samples required before dynamic thresholds become active.</value>
+    <comment>Volume</comment>
+  </data>
+  <data name="StdMultiplier" xml:space="preserve">
+    <value>Std multiplier</value>
+    <comment>Volume</comment>
+  </data>
+  <data name="StdMultiplierDescription" xml:space="preserve">
+    <value>Major = mean + k·std. Minor = mean.</value>
+    <comment>Volume</comment>
+  </data>
+  <data name="ThresholdSourceFixed" xml:space="preserve">
+    <value>Fixed</value>
+    <comment>Volume</comment>
+  </data>
+  <data name="ThresholdSourceDynamicWelford" xml:space="preserve">
+    <value>Dynamic (Welford)</value>
+    <comment>Volume</comment>
+  </data>
+  <data name="SessionWindowModeRth" xml:space="preserve">
+    <value>RTH</value>
+    <comment>Volume</comment>
+  </data>
+  <data name="SessionWindowModeFull24h" xml:space="preserve">
+    <value>Full 24h</value>
+    <comment>Volume</comment>
+  </data>
+  <data name="VolumeThresholdMajor" xml:space="preserve">
+    <value>Volume threshold (major)</value>
+    <comment>Volume</comment>
+  </data>
+  <data name="VolumeThresholdMinor" xml:space="preserve">
+    <value>Volume threshold (minor)</value>
+    <comment>Volume</comment>
+  </data>
 </root>

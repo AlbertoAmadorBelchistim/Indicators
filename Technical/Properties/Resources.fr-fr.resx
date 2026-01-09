@@ -315,4 +315,85 @@
   <data name="LVN_TailFilterRangePct_Description" xml:space="preserve">
     <value>Exclut les zones de faible volume proches du plus haut et du plus bas du profil de la détection des LVN, en utilisant un pourcentage de la plage du profil. (0 = désactivé).</value>
   </data>
+  <data name="ThresholdsGroup" xml:space="preserve">
+    <value>Seuils</value>
+  </data>
+  <data name="FixedThresholdGroup" xml:space="preserve">
+    <value>Seuil fixe</value>
+  </data>
+  <data name="DynamicThresholdGroup" xml:space="preserve">
+    <value>Seuil dynamique</value>
+  </data>
+  <data name="ShowThresholdLines" xml:space="preserve">
+    <value>Afficher les lignes de seuil</value>
+  </data>
+  <data name="ShowThresholdLinesDescription" xml:space="preserve">
+    <value>Affiche des lignes horizontales de seuil dans le panneau Volume.</value>
+  </data>
+  <data name="FixedMinorLevel" xml:space="preserve">
+    <value>Fixe mineur</value>
+  </data>
+  <data name="FixedMinorLevelDescription" xml:space="preserve">
+    <value>Valeur du seuil fixe mineur.</value>
+  </data>
+  <data name="FixedMajorLevel" xml:space="preserve">
+    <value>Fixe majeur</value>
+  </data>
+  <data name="FixedMajorLevelDescription" xml:space="preserve">
+    <value>Valeur du seuil fixe majeur.</value>
+  </data>
+  <data name="ThresholdSource" xml:space="preserve">
+    <value>Source du seuil</value>
+  </data>
+  <data name="ThresholdSourceDescription" xml:space="preserve">
+    <value>Sélectionne des seuils fixes ou dynamiques (Welford).</value>
+  </data>
+  <data name="SessionWindowMode" xml:space="preserve">
+    <value>Fenêtre de session</value>
+  </data>
+  <data name="SessionWindowModeDescription" xml:space="preserve">
+    <value>Fenêtre de session utilisée pour réinitialiser les seuils dynamiques.</value>
+  </data>
+  <data name="RthStart" xml:space="preserve">
+    <value>Début RTH</value>
+  </data>
+  <data name="RthStartDescription" xml:space="preserve">
+    <value>Heure de début des heures de négociation régulières (heure de la place).</value>
+  </data>
+  <data name="RthEnd" xml:space="preserve">
+    <value>Fin RTH</value>
+  </data>
+  <data name="RthEndDescription" xml:space="preserve">
+    <value>Heure de fin des heures de négociation régulières (heure de la place).</value>
+  </data>
+  <data name="SamplesForMeanStd" xml:space="preserve">
+    <value>Échantillons pour moyenne/écart-type</value>
+  </data>
+  <data name="SamplesForMeanStdDescription" xml:space="preserve">
+    <value>Nombre minimal d’échantillons requis avant l’activation des seuils dynamiques.</value>
+  </data>
+  <data name="StdMultiplier" xml:space="preserve">
+    <value>Multiplicateur d’écart-type</value>
+  </data>
+  <data name="StdMultiplierDescription" xml:space="preserve">
+    <value>Majeur = moyenne + k·écart-type. Mineur = moyenne.</value>
+  </data>
+  <data name="ThresholdSourceFixed" xml:space="preserve">
+    <value>Fixe</value>
+  </data>
+  <data name="ThresholdSourceDynamicWelford" xml:space="preserve">
+    <value>Dynamique (Welford)</value>
+  </data>
+  <data name="SessionWindowModeRth" xml:space="preserve">
+    <value>RTH</value>
+  </data>
+  <data name="SessionWindowModeFull24h" xml:space="preserve">
+    <value>24 h</value>
+  </data>
+  <data name="VolumeThresholdMajor" xml:space="preserve">
+    <value>Seuil de volume (majeur)</value>
+  </data>
+  <data name="VolumeThresholdMinor" xml:space="preserve">
+    <value>Seuil de volume (mineur)</value>
+  </data>
 </root>
