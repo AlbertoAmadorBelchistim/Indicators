@@ -318,4 +318,85 @@
   <data name="LVN_TailFilterRangePct_Description" xml:space="preserve">
     <value>Schließt volumenarme Randbereiche nahe dem Hoch und Tief des Profils von der LVN-Erkennung aus, basierend auf einem Prozentsatz der Profilspanne. (0 = deaktiviert).</value>
   </data>
+  <data name="ThresholdsGroup" xml:space="preserve">
+    <value>Schwellenwerte</value>
+  </data>
+  <data name="FixedThresholdGroup" xml:space="preserve">
+    <value>Fester Schwellenwert</value>
+  </data>
+  <data name="DynamicThresholdGroup" xml:space="preserve">
+    <value>Dynamischer Schwellenwert</value>
+  </data>
+  <data name="ShowThresholdLines" xml:space="preserve">
+    <value>Schwellenlinien anzeigen</value>
+  </data>
+  <data name="ShowThresholdLinesDescription" xml:space="preserve">
+    <value>Zeigt horizontale Schwellenlinien im Volumen-Panel an.</value>
+  </data>
+  <data name="FixedMinorLevel" xml:space="preserve">
+    <value>Fest (klein)</value>
+  </data>
+  <data name="FixedMinorLevelDescription" xml:space="preserve">
+    <value>Wert des festen kleinen Schwellenwerts.</value>
+  </data>
+  <data name="FixedMajorLevel" xml:space="preserve">
+    <value>Fest (groß)</value>
+  </data>
+  <data name="FixedMajorLevelDescription" xml:space="preserve">
+    <value>Wert des festen großen Schwellenwerts.</value>
+  </data>
+  <data name="ThresholdSource" xml:space="preserve">
+    <value>Schwellenquelle</value>
+  </data>
+  <data name="ThresholdSourceDescription" xml:space="preserve">
+    <value>Wählt feste oder dynamische Schwellenwerte (Welford).</value>
+  </data>
+  <data name="SessionWindowMode" xml:space="preserve">
+    <value>Fenêtre de session</value>
+  </data>
+  <data name="SessionWindowModeDescription" xml:space="preserve">
+    <value>Sitzungsfenster zum Zurücksetzen dynamischer Schwellenwerte.</value>
+  </data>
+  <data name="RthStart" xml:space="preserve">
+    <value>RTH-Start</value>
+  </data>
+  <data name="RthStartDescription" xml:space="preserve">
+    <value>Startzeit der regulären Handelszeiten (Börsenzeit).</value>
+  </data>
+  <data name="RthEnd" xml:space="preserve">
+    <value>RTH-Ende</value>
+  </data>
+  <data name="RthEndDescription" xml:space="preserve">
+    <value>Endzeit der regulären Handelszeiten (Börsenzeit).</value>
+  </data>
+  <data name="SamplesForMeanStd" xml:space="preserve">
+    <value>Stichproben für Mittelwert/Std</value>
+  </data>
+  <data name="SamplesForMeanStdDescription" xml:space="preserve">
+    <value>Minimale Anzahl an Stichproben, bevor dynamische Schwellenwerte aktiv werden.</value>
+  </data>
+  <data name="StdMultiplier" xml:space="preserve">
+    <value>Std-Multiplikator</value>
+  </data>
+  <data name="StdMultiplierDescription" xml:space="preserve">
+    <value>Groß = Mittelwert + k·Std. Klein = Mittelwert.</value>
+  </data>
+  <data name="ThresholdSourceFixed" xml:space="preserve">
+    <value>Fest</value>
+  </data>
+  <data name="ThresholdSourceDynamicWelford" xml:space="preserve">
+    <value>Dynamisch (Welford)</value>
+  </data>
+  <data name="SessionWindowModeRth" xml:space="preserve">
+    <value>RTH</value>
+  </data>
+  <data name="SessionWindowModeFull24h" xml:space="preserve">
+    <value>24 Std.</value>
+  </data>
+  <data name="VolumeThresholdMajor" xml:space="preserve">
+    <value>Volumenschwelle (groß)</value>
+  </data>
+  <data name="VolumeThresholdMinor" xml:space="preserve">
+    <value>Volumenschwelle (klein)</value>
+  </data>
 </root>
