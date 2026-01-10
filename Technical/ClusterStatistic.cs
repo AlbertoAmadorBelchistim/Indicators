@@ -69,7 +69,10 @@ public class ClusterStatistic : Indicator
 			Add(DataType.Height, new RenderInfo(13));
 			Add(DataType.Time, new RenderInfo(14));
 			Add(DataType.Duration, new RenderInfo(15));
-		}
+            Add(DataType.DeltaSecond, new RenderInfo(16));
+            Add(DataType.PeakVolPerSec, new RenderInfo(17));
+            Add(DataType.PeakDeltaPerSec, new RenderInfo(18));
+        }
 
 		#endregion
 
@@ -167,7 +170,13 @@ public class ClusterStatistic : Indicator
 		public decimal MaxHeight { get; set; }
 
 		public decimal MaxVolumeSec { get; set; }
-	}
+
+        public decimal MaxDeltaSec { get; set; }
+
+		public decimal MaxPeakVolPerSec { get; set; }
+
+        public decimal MaxPeakDeltaPerSec { get; set; }
+    }
 
 	public enum DataType
 	{
@@ -187,7 +196,9 @@ public class ClusterStatistic : Indicator
 		Height,
 		Time,
 		Duration,
-		None
+		PeakVolPerSec,
+		PeakDeltaPerSec,
+        None
 	}
 
 	public enum SessionMode
@@ -235,7 +246,10 @@ public class ClusterStatistic : Indicator
 	};
 
 	private readonly ValueDataSeries _volPerSecond = new("VolPerSecond");
-	private bool _atHeader;
+    private readonly ValueDataSeries _deltaPerSecond = new("DeltaPerSecond");
+	private readonly ValueDataSeries _peakVolPerSec = new("PeakVolPerSec");
+    private readonly ValueDataSeries _peakDeltaPerSec = new("PeakDeltaPerSec");
+    private bool _atHeader;
 
 	private bool _atPanel;
 
@@ -469,8 +483,36 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.ShowSessionVolume), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowSessionVolumeDescription), Order = 191, ResourceType = typeof(Strings))]
+	[DisplayName("Delta/sec")]
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 195)]
+	public bool ShowDeltaPerSecond
+	{
+		get => _showDeltaPerSecond;
+		set
+		{
+			_showDeltaPerSecond = value;
+			RowsOrder.SetEnabled(DataType.DeltaSecond, value);
+		}
+	}
+
+    [DisplayName("Max Vol/sec (peak)")]
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 198)]
+    public bool ShowPeakVolPerSec
+    {
+        get => RowsOrder.TryGetValue(DataType.PeakVolPerSec, out var ri) && ri.Enabled;
+        set => RowsOrder.SetEnabled(DataType.PeakVolPerSec, value);
+    }
+
+    [DisplayName("Delta at Max vol/sec")]
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 199)]
+    public bool ShowPeakDeltaPerSec
+    {
+        get => RowsOrder.TryGetValue(DataType.PeakDeltaPerSec, out var ri) && ri.Enabled;
+        set => RowsOrder.SetEnabled(DataType.PeakDeltaPerSec, value);
+    }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowSessionVolume), GroupName = nameof(Strings.Rows),
+        Description = nameof(Strings.ShowSessionVolumeDescription), Order = 191)]
     public bool ShowSessionVolume
     {
         get => _showSessionVolume;
@@ -1649,7 +1691,9 @@ public class ClusterStatistic : Indicator
 
 			DataType.Volume or DataType.VolumeSecond or DataType.SessionVolume or
 				DataType.Trades or DataType.Height or DataType.Time or DataType.Duration => Blend(VolumeColor, BackGroundColor, rate),
-			DataType.MaxDelta => Blend(candle.MaxDelta > 0 ?  AskColor : BidColor, BackGroundColor, rate),
+            DataType.PeakVolPerSec => Blend(VolumeColor, BackGroundColor, rate),
+            DataType.PeakDeltaPerSec => Blend(_peakDeltaPerSec[bar] >= 0 ? AskColor : BidColor, BackGroundColor, rate),
+            DataType.MaxDelta => Blend(candle.MaxDelta > 0 ?  AskColor : BidColor, BackGroundColor, rate),
 			DataType.MinDelta => Blend(candle.MinDelta > 0 ?  AskColor : BidColor, BackGroundColor, rate),
             DataType.SessionDeltaVolume => Blend(_cDeltaPerVol[bar] > 0 ? AskColor : BidColor, BackGroundColor, rate),
 			DataType.SessionDelta => Blend(_cDelta[bar] > 0 ? AskColor : BidColor, BackGroundColor, rate),
@@ -1673,8 +1717,11 @@ public class ClusterStatistic : Indicator
 			DataType.MinDelta => GetRate(Math.Abs(candle.MinDelta), maxValues.MaxMinDelta),
 			DataType.DeltaChange => GetRate(Math.Abs(_deltaChange[bar]), maxValues.MaxDeltaChange),
 			DataType.Volume => GetRate(candle.Volume, maxValues.MaxVolume),
-			DataType.VolumeSecond => GetRate(_volPerSecond[bar], maxValues.MaxVolumeSec),
-			DataType.SessionVolume => GetRate(_cVolume[bar], maxValues.CumVolume),
+            DataType.DeltaSecond => GetRate(Math.Abs(_deltaPerSecond[bar]), maxValues.MaxDeltaSec),
+            DataType.VolumeSecond => GetRate(_volPerSecond[bar], maxValues.MaxVolumeSec),
+            DataType.PeakVolPerSec => GetRate(_peakVolPerSec[bar], maxValues.MaxPeakVolPerSec),
+            DataType.PeakDeltaPerSec => GetRate(Math.Abs(_peakDeltaPerSec[bar]), maxValues.MaxPeakDeltaPerSec),
+            DataType.SessionVolume => GetRate(_cVolume[bar], maxValues.CumVolume),
 			DataType.Trades => GetRate(candle.Ticks, maxValues.MaxTicks),
 			DataType.Height => GetRate(_candleHeights[bar], maxValues.MaxHeight),
 			DataType.Time => GetRate(_cVolume[bar], maxValues.CumVolume),
@@ -1688,7 +1735,10 @@ public class ClusterStatistic : Indicator
 	private MaxValues CreateMaxValues()
 	{
 		decimal maxVolumeSec;
-		var maxDelta = 0m;
+        var maxDeltaSec = 0m;
+        var maxPeakVolPerSec = 0m;
+        var maxPeakDeltaPerSec = 0m;
+        var maxDelta = 0m;
 		var maxAsk = 0m;
 		var maxBid = 0m;
 		var maxMaxDelta = 0m;
@@ -1717,6 +1767,9 @@ public class ClusterStatistic : Indicator
 				maxMaxDelta = Math.Max(Math.Abs(candle.MaxDelta), maxMaxDelta);
 				maxMinDelta = Math.Max(Math.Abs(candle.MinDelta), maxMinDelta);
 				maxSessionDelta = Math.Max(Math.Abs(_cDelta[i]), maxSessionDelta);
+                maxDeltaSec = Math.Max(Math.Abs(_deltaPerSecond[i]), maxDeltaSec);
+                maxPeakVolPerSec = Math.Max(_peakVolPerSec[i], maxPeakVolPerSec);
+                maxPeakDeltaPerSec = Math.Max(Math.Abs(_peakDeltaPerSec[i]), maxPeakDeltaPerSec);
 
 				if (candle.Volume is not 0)
 					maxDeltaPerVolume = Math.Max(Math.Abs(100 * candle.Delta / candle.Volume), maxDeltaPerVolume);
@@ -1753,7 +1806,9 @@ public class ClusterStatistic : Indicator
 			maxDeltaChange = _maxDeltaChange;
 			maxHeight = _maxHeight;
 			maxVolumeSec = _volPerSecond.MAX(CurrentBar - 1, CurrentBar - 1);
-		}
+            maxPeakVolPerSec = _peakVolPerSec.MAX(CurrentBar - 1, CurrentBar - 1);
+            maxPeakDeltaPerSec = _peakDeltaPerSec.MAX(CurrentBar - 1, CurrentBar - 1);
+        }
 
 		return new MaxValues
 		{
@@ -1796,7 +1851,10 @@ public class ClusterStatistic : Indicator
 			DataType.Height => _candleHeights[bar].ToString(CultureInfo.InvariantCulture),
 			DataType.Time => candle.Time.AddHours(InstrumentInfo.TimeZone).ToString("HH:mm:ss"),
 			DataType.Duration => ((int)(candle.LastTime - candle.Time).TotalSeconds).ToString(),
-			DataType.None => string.Empty,
+            DataType.DeltaSecond => ChartInfo.TryGetMinimizedVolumeString(_deltaPerSecond[bar]),
+            DataType.PeakVolPerSec => ChartInfo.TryGetMinimizedVolumeString(_peakVolPerSec[bar]),
+            DataType.PeakDeltaPerSec => ChartInfo.TryGetMinimizedVolumeString(_peakDeltaPerSec[bar]),
+            DataType.None => string.Empty,
 			_ => throw new ArgumentOutOfRangeException()
 		};
 	}
@@ -1882,7 +1940,10 @@ public class ClusterStatistic : Indicator
 			DataType.Height => "Height",
 			DataType.Time => "Time",
 			DataType.Duration => "Duration",
-			DataType.None => string.Empty,
+            DataType.DeltaSecond => "Delta/sec",
+            DataType.PeakVolPerSec => "Max Vol/sec",
+            DataType.PeakDeltaPerSec => "Delta at Max vol/sec",
+            DataType.None => string.Empty,
 
 			_ => throw new ArgumentOutOfRangeException()
 		};
