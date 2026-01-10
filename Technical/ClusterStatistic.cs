@@ -1,17 +1,13 @@
-namespace ATAS.Indicators.Technical;
-
+using ATAS.DataFeedsCore;
+using ATAS.Indicators;
+using DevExpress.XtraEditors.Filtering;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Drawing;
-using System.Globalization;
-using System.Linq;
+using System.Xml.Linq;
+
+namespace ATAS.Indicators.Technical;
 
 using ATAS.Indicators.Drawing;
 using ATAS.Indicators.Technical.Extensions;
-using ATAS.Indicators.Technical.Properties;
-
 using OFT.Attributes;
 using OFT.Localization;
 using OFT.Rendering;
@@ -19,9 +15,14 @@ using OFT.Rendering.Context;
 using OFT.Rendering.Control;
 using OFT.Rendering.Settings;
 using OFT.Rendering.Tools;
-
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Drawing;
+using System.Globalization;
+using System.Linq;
 using Utils.Common.Logging;
-
 using Color = CrossColor;
 
 [DisplayName("Cluster Statistic")]
@@ -251,7 +252,37 @@ public class ClusterStatistic : Indicator
     private readonly ValueDataSeries _deltaPerSecond = new("DeltaPerSecond");
 	private readonly ValueDataSeries _peakVolPerSec = new("PeakVolPerSec");
     private readonly ValueDataSeries _peakDeltaPerSec = new("PeakDeltaPerSec");
-    private bool _atHeader;
+
+	// --- SoT core state (historical cumulative trades) ---
+    private List<CumulativeTrade> _allCumulativeTrades;
+
+    // --- SoT params (backing fields) ---
+    private int _sotTimeWindowSec = 5;
+    private int _sotMinVolume = 150;
+
+    // --- Sliding window sample for RT computed in OnCalculate ---
+    private sealed class Sample
+    {
+        public DateTime T;
+        public decimal Vol;   // incremental volume since last sample
+        public decimal Delta; // incremental delta since last sample
+    }
+
+    private readonly Queue<Sample> _win = new(); // RT rolling window across bars
+    private decimal _winVol = 0m;
+    private decimal _winDelta = 0m;
+
+    private int _rtBar = -1;            // last observed live bar index
+    private decimal _prevCumVol = 0m;   // candle.Volume seen on previous tick
+    private decimal _prevCumDelta = 0m; // candle.Delta seen on previous tick
+
+    private decimal _rtPeakVolPerSec = 0m;
+    private decimal _rtPeakDeltaPerSec = 0m;
+
+    private bool _seededLiveSoT = false;
+    private bool _hasSoTSampleThisBar = false;
+
+	private bool _atHeader;
 
 	private bool _atPanel;
 
@@ -573,6 +604,42 @@ public class ClusterStatistic : Indicator
         {
             _showDuration = value;
             RowsOrder.SetEnabled(DataType.Duration, value);
+        }
+    }
+
+    #endregion
+
+	#region Max vol/sec settings
+
+    [Display(Name = "Time Window (sec)", GroupName = "Max vol/sec", Order = 201)]
+    [Range(1, 600)]
+    public int SotTimeWindowSec
+    {
+        get => _sotTimeWindowSec;
+        set
+        {
+            var v = Math.Max(1, Math.Min(600, value));
+            if (_sotTimeWindowSec == v)
+                return;
+
+            _sotTimeWindowSec = v;
+            OnSoTParamsChanged();
+        }
+    }
+
+	[Display(Name = "Min Volume per Window", GroupName = "Max vol/sec", Order = 202)]
+	[Range(1, 100000)]
+    public int SotMinVolume
+    {
+		get => _sotMinVolume;
+		set
+        {
+			var v = Math.Max(1, Math.Min(100000, value));
+            if (_sotMinVolume == v)
+				return;
+        
+			_sotMinVolume = v;
+			OnSoTParamsChanged();
         }
     }
 
@@ -1314,44 +1381,107 @@ public class ClusterStatistic : Indicator
 				}
 			}
 
-			// Trades Alert (exceeding)
-			if (UseTradesAlert && _lastTradesAlert != bar)
-			{
-				if (_lastTradesValue < TradesAlertValue && candle.Ticks >= TradesAlertValue)
-				{
-					AddAlert(TradesAlertFile, $"Cluster statistic trades alert: {candle.Ticks}");
-					_lastTradesAlert = bar;
-				}
-			}
+            // Trades Alert (exceeding)
+            if (UseTradesAlert && _lastTradesAlert != bar)
+            {
+                if (_lastTradesValue < TradesAlertValue && candle.Ticks >= TradesAlertValue)
+                {
+                    AddAlert(TradesAlertFile, $"Cluster statistic trades alert: {candle.Ticks}");
+                    _lastTradesAlert = bar;
+                }
+            }
 
-			// Height Alert (exceeding)
-			if (UseHeightAlert && _lastHeightAlert != bar)
-			{
-				var height = _candleHeights[bar];
-				if (_lastHeightValue < HeightAlertValue && height >= HeightAlertValue)
-				{
-					AddAlert(HeightAlertFile, $"Cluster statistic height alert: {height}");
-					_lastHeightAlert = bar;
-				}
-			}
-		}
+            // Height Alert (exceeding)
+            if (UseHeightAlert && _lastHeightAlert != bar)
+            {
+                var height = _candleHeights[bar];
+                if (_lastHeightValue < HeightAlertValue && height >= HeightAlertValue)
+                {
+                    AddAlert(HeightAlertFile, $"Cluster statistic height alert: {height}");
+                    _lastHeightAlert = bar;
+                }
+            }
+        }
 
-		// Update last values for next comparison
-		_lastAskValue = candle.Ask;
-		_lastBidValue = candle.Bid;
-		_lastDeltaValue = candle.Delta;
-		_lastDeltaPerVolumeValue = _deltaPerVol[bar];
-		_lastSessionDeltaValue = _cDelta[bar];
-		_lastSessionDeltaPerVolumeValue = _cDeltaPerVol[bar];
-		_lastMaxDeltaValue = candle.MaxDelta;
-		_lastMinDeltaValue = candle.MinDelta;
-		_lastDeltaChangeValue = _deltaChange[bar];
-        _lastVolumeValue = candle.Volume;
-		_lastVolumePerSecondValue = _volPerSecond[bar];
-		_lastSessionVolumeValue = _cVolume[bar];
-		_lastTradesValue = candle.Ticks;
-		_lastHeightValue = _candleHeights[bar];
-		_lastBar = bar;
+        // --- SoT realtime peak computation (live bar only) ---
+        if (bar == CurrentBar - 1)
+        {
+            if (_rtBar != bar)
+            {
+                _rtBar = bar;
+                _prevCumVol = 0m;
+                _prevCumDelta = 0m;
+                _rtPeakVolPerSec = 0m;
+                _rtPeakDeltaPerSec = 0m;
+                _hasSoTSampleThisBar = false;
+                _seededLiveSoT = false;
+            }
+
+            if (!_seededLiveSoT && _allCumulativeTrades != null && _allCumulativeTrades.Count > 0)
+                SeedLiveWindowFromHistory();
+
+            var now = candle.LastTime;
+            var incVol = candle.Volume - _prevCumVol;
+            var incDelta = candle.Delta - _prevCumDelta;
+
+            if (incVol > 0)
+            {
+                _win.Enqueue(new Sample
+                {
+                    T = now,
+                    Vol = incVol,
+                    Delta = incDelta
+                });
+
+                _winVol += incVol;
+                _winDelta += incDelta;
+                _hasSoTSampleThisBar = true;
+
+                var cutoff = now.AddSeconds(-SotTimeWindowSec);
+                while (_win.Count > 0 && _win.Peek().T <= cutoff)
+                {
+                    var old = _win.Dequeue();
+                    _winVol -= old.Vol;
+                    _winDelta -= old.Delta;
+                }
+
+                if (_winVol >= SotMinVolume)
+                {
+                    var vps = _winVol / SotTimeWindowSec;
+                    var dps = _winDelta / SotTimeWindowSec;
+
+                    if (vps > _rtPeakVolPerSec)
+                    {
+                        _rtPeakVolPerSec = vps;
+                        _rtPeakDeltaPerSec = dps;
+                    }
+                }
+            }
+
+            _prevCumVol = candle.Volume;
+            _prevCumDelta = candle.Delta;
+
+            _peakVolPerSec[bar] = Math.Round(_rtPeakVolPerSec, 0);
+            _peakDeltaPerSec[bar] = Math.Round(_rtPeakDeltaPerSec, 0);
+        }
+
+
+            // Update last values for next comparison
+            _lastAskValue = candle.Ask;
+            _lastBidValue = candle.Bid;
+            _lastDeltaValue = candle.Delta;
+            _lastDeltaPerVolumeValue = _deltaPerVol[bar];
+            _lastSessionDeltaValue = _cDelta[bar];
+            _lastSessionDeltaPerVolumeValue = _cDeltaPerVol[bar];
+            _lastMaxDeltaValue = candle.MaxDelta;
+            _lastMinDeltaValue = candle.MinDelta;
+			_lastDeltaChangeValue = _deltaChange[bar];
+			_lastVolumeValue = candle.Volume;
+            _lastVolumePerSecondValue = _volPerSecond[bar];
+            _lastSessionVolumeValue = _cVolume[bar];
+            _lastTradesValue = candle.Ticks;
+            _lastHeightValue = _candleHeights[bar];
+            _lastBar = bar;
 	}
 
 	protected override void OnRender(RenderContext context, DrawingLayouts layout)
@@ -1576,7 +1706,35 @@ public class ClusterStatistic : Indicator
 			context.SetTextRenderingHint(RenderTextRenderingHint.AntiAlias);
 			context.SetClip(bounds);
 		}
-	}
+    }
+
+
+    protected override void OnFinishRecalculate()
+    {
+        // Reset RT sliding-window state after a full rebuild
+        ResetSoTRuntimeState();
+        _seededLiveSoT = false;
+        _hasSoTSampleThisBar = false;
+
+        if (CurrentBar <= 0)
+            return;
+
+        // Request historical cumulative trades for the loaded range (closed bars)
+        var startTime = GetCandle(0).Time;
+        var endTime = GetCandle(Math.Max(CurrentBar - 2, 0)).LastTime;
+
+        var request = new CumulativeTradesRequest(startTime, endTime, 0, 0);
+        RequestForCumulativeTrades(request);
+    }
+
+    protected override void OnCumulativeTradesResponse(CumulativeTradesRequest request, IEnumerable<CumulativeTrade> cumulativeTrades)
+    {
+        _allCumulativeTrades = cumulativeTrades?.ToList() ?? new List<CumulativeTrade>();
+        RebuildHistoricalSoT();
+        SeedLiveWindowFromHistory();
+        RedrawChart();
+    }
+
 
 	#endregion
 
@@ -1981,7 +2139,191 @@ public class ClusterStatistic : Indicator
 		var g = (byte)(color.G + (backColor.G - color.G) * (1 - amount * 0.01m));
 		var b = (byte)(color.B + (backColor.B - color.B) * (1 - amount * 0.01m));
 		return System.Drawing.Color.FromArgb(_bgAlpha, r, g, b);
-	}
+    }
+    private void ResetSoTRuntimeState()
+    {
+        _win.Clear();
+        _winVol = 0m;
+        _winDelta = 0m;
+
+        _rtBar = -1;
+        _prevCumVol = 0m;
+        _prevCumDelta = 0m;
+
+        _rtPeakVolPerSec = 0m;
+        _rtPeakDeltaPerSec = 0m;
+    }
+
+    private void OnSoTParamsChanged()
+    {
+        ResetSoTRuntimeState();
+        _seededLiveSoT = false;
+        _hasSoTSampleThisBar = false;
+
+        if (CurrentBar > 0)
+        {
+            for (int i = 0; i <= CurrentBar - 1; i++)
+            {
+                _peakVolPerSec[i] = 0m;
+                _peakDeltaPerSec[i] = 0m;
+            }
+        }
+
+        if (_allCumulativeTrades != null && _allCumulativeTrades.Count > 0)
+        {
+			RebuildHistoricalSoT();
+			SeedLiveWindowFromHistory();
+			RedrawChart();
+            return;
+        }
+
+        if (CurrentBar > 0)
+        {
+			try
+			{
+				var startTime = GetCandle(0).Time;
+				var endTime = GetCandle(CurrentBar - 1).LastTime;
+				var req = new CumulativeTradesRequest(startTime, endTime, 0, 0);
+				RequestForCumulativeTrades(req);
+            }
+            catch
+            {
+				// Candles not ready yet; next full recalc will request history.
+            }
+        }
+    
+		RedrawChart();
+    }
+
+    private void RebuildHistoricalSoT()
+    {
+        if (_allCumulativeTrades == null || _allCumulativeTrades.Count == 0 || CurrentBar <= 0)
+            return;
+
+        var lastClosedBar = CurrentBar - 2;
+        if (lastClosedBar < 0)
+            return;
+
+        for (var i = 0; i <= lastClosedBar; i++)
+        {
+            _peakVolPerSec[i] = 0m;
+            _peakDeltaPerSec[i] = 0m;
+        }
+
+        var queue = new Queue<CumulativeTrade>();
+        var winVol = 0m;
+        var winDelta = 0m;
+
+        var tradeIndex = 0;
+
+        for (var bar = 0; bar <= lastClosedBar; bar++)
+        {
+            var candle = GetCandle(bar);
+            var barStart = candle.Time;
+            var barEnd = candle.LastTime;
+
+            var peakVolPerSec = 0m;
+            var peakDeltaPerSec = 0m;
+
+            while (tradeIndex < _allCumulativeTrades.Count &&
+                   _allCumulativeTrades[tradeIndex].Time < barStart)
+                tradeIndex++;
+
+            var j = tradeIndex;
+
+            while (j < _allCumulativeTrades.Count &&
+                   _allCumulativeTrades[j].Time <= barEnd)
+            {
+                var trade = _allCumulativeTrades[j++];
+                queue.Enqueue(trade);
+
+                winVol += trade.Volume;
+                winDelta += trade.Direction == TradeDirection.Buy
+                    ? trade.Volume
+                    : -trade.Volume;
+
+                var cutoff = trade.Time.AddSeconds(-SotTimeWindowSec);
+                while (queue.Count > 0 && queue.Peek().Time <= cutoff)
+                {
+                    var old = queue.Dequeue();
+                    winVol -= old.Volume;
+                    winDelta -= old.Direction == TradeDirection.Buy
+                        ? old.Volume
+                        : -old.Volume;
+                }
+
+                if (winVol >= SotMinVolume)
+                {
+                    var vps = winVol / SotTimeWindowSec;
+                    var dps = winDelta / SotTimeWindowSec;
+
+                    if (vps > peakVolPerSec)
+                    {
+                        peakVolPerSec = vps;
+                        peakDeltaPerSec = dps;
+                    }
+                }
+            }
+
+            _peakVolPerSec[bar] = Math.Round(peakVolPerSec, 0);
+            _peakDeltaPerSec[bar] = Math.Round(peakDeltaPerSec, 0);
+        }
+    }
+
+    private void SeedLiveWindowFromHistory()
+    {
+        if (CurrentBar <= 0 || _allCumulativeTrades == null || _allCumulativeTrades.Count == 0)
+            return;
+
+        var liveBar = CurrentBar - 1;
+        if (liveBar < 0)
+            return;
+
+        var candle = GetCandle(liveBar);
+        var now = candle.LastTime;
+        var cutoff = now.AddSeconds(-SotTimeWindowSec);
+
+        _win.Clear();
+        _winVol = 0m;
+        _winDelta = 0m;
+        _rtPeakVolPerSec = 0m;
+        _rtPeakDeltaPerSec = 0m;
+
+        for (var i = _allCumulativeTrades.Count - 1; i >= 0; i--)
+        {
+            var trade = _allCumulativeTrades[i];
+            if (trade.Time <= cutoff)
+                break;
+
+            if (trade.Time <= now)
+            {
+                var delta = trade.Direction == TradeDirection.Buy
+                    ? trade.Volume
+                    : -trade.Volume;
+
+                _win.Enqueue(new Sample
+                {
+                    T = trade.Time,
+                    Vol = trade.Volume,
+                    Delta = delta
+                });
+
+                _winVol += trade.Volume;
+                _winDelta += delta;
+            }
+        }
+
+        while (_win.Count > 0 && _win.Peek().T <= cutoff)
+        {
+            var old = _win.Dequeue();
+            _winVol -= old.Vol;
+            _winDelta -= old.Delta;
+        }
+
+        _seededLiveSoT = true;
+    }
+
+
 
 	private bool CheckStartBar(int bar)
 	{
