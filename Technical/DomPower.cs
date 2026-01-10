@@ -66,18 +66,30 @@ public class DomPower : Indicator
 	public Filter LevelDepth
 	{
 		get => _levelDepth;
-		set
-		{
-			_levelDepth = value;
-			DataSeries.ForEach(x => x.Clear());
-		}
-	}
+        set
+        {
+            if (!ReferenceEquals(_levelDepth, value))
+            {
+                if (_levelDepth != null)
+                    _levelDepth.PropertyChanged -= DepthFilterChanged;
 
-	#endregion
+                _levelDepth = value;
 
-	#region ctor
+                if (_levelDepth != null)
+                    _levelDepth.PropertyChanged += DepthFilterChanged;
+            }
 
-	public DomPower()
+            ClearSeriesAndState();
+            RedrawChart();
+        }
+
+    }
+
+    #endregion
+
+    #region ctor
+
+    public DomPower()
 		: base(true)
 	{
 		Panel = IndicatorDataProvider.NewPanel;
@@ -230,9 +242,18 @@ public class DomPower : Indicator
 
 	private void DepthFilterChanged(object sender, PropertyChangedEventArgs e)
 	{
-		DataSeries.ForEach(x => x.Clear());
-		RedrawChart();
-	}
+        ClearSeriesAndState();
+        RedrawChart();
+    }
 
-	#endregion
+    // Clears series and resets basic internal tracking to avoid artifacts on filter changes.
+    private void ClearSeriesAndState()
+    {
+        DataSeries.ForEach(x => x.Clear());
+        _lastCalculatedBar = System.Math.Max(0, CurrentBar - 1);
+        _lastBar = -1;
+        _isLastDeltaCalc = false;
+    }
+
+    #endregion
 }
