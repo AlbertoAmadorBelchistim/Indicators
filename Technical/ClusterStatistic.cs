@@ -2288,6 +2288,8 @@ public class ClusterStatistic : Indicator
         _rtPeakVolPerSec = 0m;
         _rtPeakDeltaPerSec = 0m;
 
+        var chunk = new List<CumulativeTrade>();
+
         for (var i = _allCumulativeTrades.Count - 1; i >= 0; i--)
         {
             var trade = _allCumulativeTrades[i];
@@ -2295,6 +2297,12 @@ public class ClusterStatistic : Indicator
                 break;
 
             if (trade.Time <= now)
+                chunk.Add(trade);
+        }
+
+        chunk.Reverse();
+
+        foreach (var trade in chunk)
             {
                 var delta = trade.Direction == TradeDirection.Buy
                     ? trade.Volume
@@ -2310,7 +2318,6 @@ public class ClusterStatistic : Indicator
                 _winVol += trade.Volume;
                 _winDelta += delta;
             }
-        }
 
         while (_win.Count > 0 && _win.Peek().T <= cutoff)
         {
