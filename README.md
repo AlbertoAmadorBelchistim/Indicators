@@ -34,6 +34,12 @@ If these tools help improve your trading or save you analysis time, consider sup
 
 <a href="https://www.buymeacoffee.com/AlbertoA" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px !important;" ></a>
 
+## 🛠️ Development & Code Review
+
+For developers reviewing the code and technical decisions, see the documentation in the development branch:
+- `prready/main`: source of truth (upstream patches + custom indicators)
+- CONTRIBUTING.md, ARCHITECTURE.md, docs/decisions/
+
 ---
 
 <a name="-versión-en-español"></a>
@@ -65,6 +71,12 @@ Todo el contenido educativo y visual se encuentra organizado en la carpeta `docs
 El desarrollo, mantenimiento y documentación de estos indicadores requiere muchas horas. Si estas herramientas te ayudan, considera apoyar el proyecto.
 
 <a href="https://www.buymeacoffee.com/AlbertoA" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+
+## 🛠️ Desarrollo y Revisión de Código
+
+Para desarrolladores que quieran revisar el código y las decisiones técnicas, consulta la documentación en la rama de desarrollo:
+- `prready/main`: source of truth (parches a upstream + indicadores propios)
+- CONTRIBUTING.md, ARCHITECTURE.md, docs/decisions/
 
 ---
 
