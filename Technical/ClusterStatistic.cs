@@ -351,6 +351,8 @@ public class ClusterStatistic : Indicator
 	private int _lastNetImbalanceAlertBar = -1;   // bar index for which alert was already evaluated/fired
 	private int _prevNetImbalanceLive;           // previous observed net (live bar only)
 	private bool _hasPrevNetImbalanceLive;       // whether _prevNetImbalanceLive is valid (live bar only)
+	private bool _prevClosedNetOutside;
+	private bool _hasPrevClosedNetOutside;
 
 
 	private RenderPen _linePen = new(System.Drawing.Color.Transparent);
@@ -1487,12 +1489,14 @@ public class ClusterStatistic : Indicator
 
 					var prevInside = Math.Abs(prev) < thr;
 					var curOutside = Math.Abs(cur) >= thr;
+					var wasOutside = _hasPrevClosedNetOutside && _prevClosedNetOutside;
 
-					// "Crossing" semantics:
-					// - first bar: allow direct trigger if outside
-					// - otherwise: trigger only when moving from inside -> outside
-					if (curOutside && (alertBar == 0 || prevInside))
+					// Fire only on crossing: inside -> outside
+					if (curOutside && !wasOutside)
 						AddAlert(NetImbalanceAlertFile, $"ClusterStatistic Net Imbalance alert: {cur} (thr={thr})");
+
+					_prevClosedNetOutside = curOutside;
+					_hasPrevClosedNetOutside = true;
 
 					_lastNetImbalanceAlertBar = alertBar;
 				}
