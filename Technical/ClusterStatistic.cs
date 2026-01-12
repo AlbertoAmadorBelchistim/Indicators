@@ -75,6 +75,9 @@ public class ClusterStatistic : Indicator
             Add(DataType.PeakVolPerSec, new RenderInfo(17));
             Add(DataType.PeakDeltaPerSec, new RenderInfo(18));
             Add(DataType.PeakDeltaPerVol, new RenderInfo(19));
+            Add(DataType.BuyImbalance, new RenderInfo(20));
+            Add(DataType.SellImbalance, new RenderInfo(21));
+            Add(DataType.NetImbalance, new RenderInfo(22));
         }
 
 		#endregion
@@ -180,6 +183,9 @@ public class ClusterStatistic : Indicator
 
         public decimal MaxPeakDeltaPerSec { get; set; }
         public decimal MaxPeakDeltaPerVol { get; set; }
+        public int MaxBuyImb { get; set; }
+        public int MaxSellImb { get; set; }
+        public int MaxNetImb { get; set; }
     }
 
 	public enum DataType
@@ -204,6 +210,9 @@ public class ClusterStatistic : Indicator
 		PeakVolPerSec,
 		PeakDeltaPerSec,
         PeakDeltaPerVol,
+        BuyImbalance,
+        SellImbalance,
+        NetImbalance,
         None
 	}
 
@@ -258,8 +267,11 @@ public class ClusterStatistic : Indicator
     private readonly ValueDataSeries _peakDeltaPerVol = new("Delta/Vol at Max vol/sec");
     private readonly ValueDataSeries _peakVolAuto = new("MaxVol/sec AutoThr");
     private readonly ValueDataSeries _peakDeltaAuto = new("Delta@MaxVol AutoThr");
+    private readonly ValueDataSeries _buyImbalance = new("BuyImbalance");
+    private readonly ValueDataSeries _sellImbalance = new("SellImbalance");
+    private readonly ValueDataSeries _netImbalance = new("NetImbalance");
 
-	// --- SoT core state (historical cumulative trades) ---
+    // --- SoT core state (historical cumulative trades) ---
     private List<CumulativeTrade> _allCumulativeTrades;
 
     // --- SoT params (backing fields) ---
@@ -630,9 +642,34 @@ public class ClusterStatistic : Indicator
         set => RowsOrder.SetEnabled(DataType.PeakDeltaPerVol, value);
     }
 
+    [DisplayName("Buy Imbalances")]
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 201)]
+    public bool ShowBuyImbalance
+    {
+        get => RowsOrder.TryGetValue(DataType.BuyImbalance, out var ri) && ri.Enabled;
+        set => RowsOrder.SetEnabled(DataType.BuyImbalance, value);
+    }
+
+    [DisplayName("Sell Imbalances")]
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 202)]
+    public bool ShowSellImbalance
+    {
+        get => RowsOrder.TryGetValue(DataType.SellImbalance, out var ri) && ri.Enabled;
+        set => RowsOrder.SetEnabled(DataType.SellImbalance, value);
+    }
+
+    [DisplayName("Net Imbalances")]
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 203)]
+    public bool ShowNetImbalance
+    {
+        get => RowsOrder.TryGetValue(DataType.NetImbalance, out var ri) && ri.Enabled;
+        set => RowsOrder.SetEnabled(DataType.NetImbalance, value);
+    }
+
+
     #endregion
 
-	#region Max vol/sec settings
+    #region Max vol/sec settings
 
     [Display(Name = "Time Window (sec)", GroupName = "Max vol/sec", Order = 201)]
     [Range(1, 600)]
@@ -711,6 +748,22 @@ public class ClusterStatistic : Indicator
             RebuildHistoricalSoT();
         }
     }
+
+    #endregion
+
+    #region Imbalance settings
+
+    [Display(Name = "Imbalance Threshold (%)", GroupName = "Imbalance", Order = 300)]
+    [Range(101, 999)]
+    public int ImbalanceThreshold { get; set; } = 300;
+
+    [Display(Name = "Min dominant volume", GroupName = "Imbalance", Order = 310)]
+    [Range(1, 100000)]
+    public int ImbalanceMinDominantVolume { get; set; } = 30;
+
+    [Display(Name = "Min volume difference", GroupName = "Imbalance", Order = 320)]
+    [Range(0, 100000)]
+    public int ImbalanceMinDifference { get; set; } = 30;
 
     #endregion
 
@@ -1544,6 +1597,54 @@ public class ClusterStatistic : Indicator
                 : (_peakDeltaPerSec[bar] / _peakVolPerSec[bar]);
         }
 
+        // --- Basic footprint imbalances (Buy/Sell/Net) ---
+        // Buy imbalance: Ask(upper) vs Bid(lower)
+        // Sell imbalance: Bid(lower) vs Ask(upper)
+        int buy = 0, sell = 0;
+
+        decimal ratio = ImbalanceThreshold / 100m;
+        int minDom = ImbalanceMinDominantVolume;
+        int minDiff = ImbalanceMinDifference;
+
+        for (decimal price = candle.High; price >= candle.Low + InstrumentInfo.TickSize; price -= InstrumentInfo.TickSize)
+        {
+            var upper = candle.GetPriceVolumeInfo(price);
+            var lower = candle.GetPriceVolumeInfo(price - InstrumentInfo.TickSize);
+            if (upper == null || lower == null)
+                continue;
+
+            var upperAsk = upper.Ask;
+            var lowerBid = lower.Bid;
+
+            // BUY: upper ask dominates lower bid
+            if (lowerBid > 0m)
+            {
+                if (upperAsk / lowerBid >= ratio &&
+                    upperAsk >= minDom &&
+                    upperAsk - lowerBid >= minDiff)
+                {
+                    buy++;
+                    continue;
+                }
+            }
+
+            // SELL: lower bid dominates upper ask
+            if (upperAsk > 0m)
+            {
+                if (lowerBid / upperAsk >= ratio &&
+                    lowerBid >= minDom &&
+                    lowerBid - upperAsk >= minDiff)
+                {
+                    sell++;
+                }
+            }
+        }
+
+        _buyImbalance[bar] = buy;
+        _sellImbalance[bar] = sell;
+        _netImbalance[bar] = buy - sell;
+
+
 
             // Update last values for next comparison
             _lastAskValue = candle.Ask;
@@ -1944,7 +2045,10 @@ public class ClusterStatistic : Indicator
 			DataType.MinDelta => Blend(candle.MinDelta > 0 ?  AskColor : BidColor, BackGroundColor, rate),
             DataType.SessionDeltaVolume => Blend(_cDeltaPerVol[bar] > 0 ? AskColor : BidColor, BackGroundColor, rate),
 			DataType.SessionDelta => Blend(_cDelta[bar] > 0 ? AskColor : BidColor, BackGroundColor, rate),
-			DataType.DeltaChange => GetDeltaChangeBrush(bar, rate),
+            DataType.DeltaChange => GetDeltaChangeBrush(bar, rate),
+            DataType.BuyImbalance => Blend(AskColor, BackGroundColor, rate),
+            DataType.SellImbalance => Blend(BidColor, BackGroundColor, rate),
+            DataType.NetImbalance => Blend(_netImbalance[bar] >= 0 ? AskColor : BidColor, BackGroundColor, rate),
 			DataType.None => System.Drawing.Color.Transparent,
 			_ => throw new ArgumentOutOfRangeException()
 		};
@@ -2003,7 +2107,10 @@ public class ClusterStatistic : Indicator
 			DataType.Height => GetRate(_candleHeights[bar], maxValues.MaxHeight),
 			DataType.Time => GetRate(_cVolume[bar], maxValues.CumVolume),
 			DataType.Duration => GetRate(_candleDurations[bar], maxValues.MaxDuration),
-			DataType.None => 0,
+            DataType.BuyImbalance => GetRate(_buyImbalance[bar], maxValues.MaxBuyImb),
+            DataType.SellImbalance => GetRate(_sellImbalance[bar], maxValues.MaxSellImb),
+            DataType.NetImbalance => GetRate(Math.Abs(_netImbalance[bar]), maxValues.MaxNetImb),
+            DataType.None => 0,
 
 			_ => throw new ArgumentOutOfRangeException()
 		};
@@ -2033,6 +2140,9 @@ public class ClusterStatistic : Indicator
         var maxPeakVolPerSec = 0m;
         var maxPeakDeltaPerSec = 0m;
         var maxPeakDeltaPerVol = 0m;
+        var maxBuy = 0;
+        var maxSell = 0;
+        var maxNet = 0;
 
         if (VisibleProportion)
         {
@@ -2057,6 +2167,10 @@ public class ClusterStatistic : Indicator
                 maxPeakVolPerSec = Math.Max(maxPeakVolPerSec, Math.Abs(_peakVolPerSec[i]));
                 maxPeakDeltaPerSec = Math.Max(maxPeakDeltaPerSec, Math.Abs(_peakDeltaPerSec[i]));
                 maxPeakDeltaPerVol = Math.Max(maxPeakDeltaPerVol, Math.Abs(_peakDeltaPerVol[i]));
+
+                maxBuy = Math.Max(maxBuy, (int)_buyImbalance[i]);
+                maxSell = Math.Max(maxSell, (int)_sellImbalance[i]);
+                maxNet = Math.Max(maxNet, (int)Math.Abs(_netImbalance[i]));
 
                 if (candle.Volume != 0)
                     maxDeltaPerVolume = Math.Max(Math.Abs(100m * candle.Delta / candle.Volume), maxDeltaPerVolume);
@@ -2098,6 +2212,10 @@ public class ClusterStatistic : Indicator
             maxPeakDeltaPerVol = _peakDeltaPerVol.MAX(CurrentBar - 1, CurrentBar - 1);
         }
 
+        if (maxBuy == 0) maxBuy = 1;
+        if (maxSell == 0) maxSell = 1;
+        if (maxNet == 0) maxNet = 1;
+
         return new MaxValues
         {
             MaxAsk = maxAsk,
@@ -2119,7 +2237,10 @@ public class ClusterStatistic : Indicator
             MaxDeltaSec = maxDeltaSec,
             MaxPeakVolPerSec = maxPeakVolPerSec,
             MaxPeakDeltaPerSec = maxPeakDeltaPerSec,
-            MaxPeakDeltaPerVol = maxPeakDeltaPerVol
+            MaxPeakDeltaPerVol = maxPeakDeltaPerVol,
+            MaxBuyImb = maxBuy,
+            MaxSellImb = maxSell,
+            MaxNetImb = maxNet,
         };
     }
 
@@ -2147,6 +2268,9 @@ public class ClusterStatistic : Indicator
             DataType.PeakVolPerSec => ChartInfo.TryGetMinimizedVolumeString(_peakVolPerSec[bar]),
             DataType.PeakDeltaPerSec => ChartInfo.TryGetMinimizedVolumeString(_peakDeltaPerSec[bar]),
             DataType.PeakDeltaPerVol => FormatRatio(_peakDeltaPerVol[bar], _ratiosAsPercent),
+            DataType.BuyImbalance => _buyImbalance[bar].ToString(CultureInfo.InvariantCulture),
+            DataType.SellImbalance => _sellImbalance[bar].ToString(CultureInfo.InvariantCulture),
+            DataType.NetImbalance => _netImbalance[bar].ToString("+#;-#;0", CultureInfo.InvariantCulture),
             DataType.None => string.Empty,
 			_ => throw new ArgumentOutOfRangeException()
 		};
@@ -2237,6 +2361,9 @@ public class ClusterStatistic : Indicator
             DataType.PeakVolPerSec => "Max Vol/sec",
             DataType.PeakDeltaPerSec => "Delta at Max vol/sec",
             DataType.PeakDeltaPerVol => _ratiosAsPercent ? "Delta/Vol Max vol/sec (%)" : "Delta/Vol Max vol/sec",
+            DataType.BuyImbalance => "Buy Imb",
+            DataType.SellImbalance => "Sell Imb",
+            DataType.NetImbalance => "Net Imb",
             DataType.None => string.Empty,
 
 			_ => throw new ArgumentOutOfRangeException()
