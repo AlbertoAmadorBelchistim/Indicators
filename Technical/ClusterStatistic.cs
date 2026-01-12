@@ -2228,7 +2228,16 @@ public class ClusterStatistic : Indicator
 		};
 	}
 
-	private decimal GetRate(decimal value, decimal maximumValue)
+    private static string FormatRatio(decimal ratio, bool asPercent)
+    {
+        // ratio is expected to be a true ratio (e.g., delta/volume), not already multiplied by 100.
+        if (asPercent)
+            return (ratio * 100m).ToString("+#0.00;-#0.00;0.00", CultureInfo.InvariantCulture) + "%";
+
+        return ratio.ToString("+#0.0000;-#0.0000;0.0000", CultureInfo.InvariantCulture);
+    }
+
+    private decimal GetRate(decimal value, decimal maximumValue)
 	{
 		if (maximumValue == 0)
 			return 10;
