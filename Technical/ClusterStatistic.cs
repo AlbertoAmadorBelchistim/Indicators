@@ -309,6 +309,11 @@ public class ClusterStatistic : Indicator
 
 	private int _headerWidth = 130;
 
+	// --- Outline pens (high-rate highlighting) ---
+	private readonly RenderPen _outlinePenLight = new(System.Drawing.Color.White, 1);
+	private readonly RenderPen _outlinePenDark = new(System.Drawing.Color.Black, 1);
+
+
 	private int _height = 15;
 
 	private int _lastBar = -1;
@@ -398,239 +403,338 @@ public class ClusterStatistic : Indicator
 	
     #region Rows
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.ShowAsk), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowAsksDescription), Order = 110, ResourceType = typeof(Strings))]
-    public bool ShowAsk
-    {
-        get => _showAsk;
-        set
-        {
-            _showAsk = value;
-            RowsOrder.SetEnabled(DataType.Ask, value);
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowAsk), GroupName = nameof(Strings.Rows),
+		Description = nameof(Strings.ShowAsksDescription), Order = 110)]
+	public bool ShowAsk
+	{
+		get => _showAsk;
+		set
+		{
+			_showAsk = value;
+			RowsOrder.SetEnabled(DataType.Ask, value);
+            _layoutChanged = true;
         }
-    }
+	}
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.ShowBid), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowBidsDescription), Order = 110, ResourceType = typeof(Strings))]
-    public bool ShowBid
-    {
-        get => _showBid;
-        set
-        {
-            _showBid = value;
-            RowsOrder.SetEnabled(DataType.Bid, value);
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowBid), GroupName = nameof(Strings.Rows),
+		Description = nameof(Strings.ShowBidsDescription), Order = 110)]
+	public bool ShowBid
+	{
+		get => _showBid;
+		set
+		{
+			_showBid = value;
+			RowsOrder.SetEnabled(DataType.Bid, value);
+            _layoutChanged = true;
         }
-    }
+	}
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.ShowDelta), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowDeltaDescription), Order = 120, ResourceType = typeof(Strings))]
-    public bool ShowDelta
-    {
-        get => _showDelta;
-        set
-        {
-            _showDelta = value;
-            RowsOrder.SetEnabled(DataType.Delta, value);
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDelta), GroupName = nameof(Strings.Rows),
+		Description = nameof(Strings.ShowDeltaDescription), Order = 120)]
+	public bool ShowDelta
+	{
+		get => _showDelta;
+		set
+		{
+			_showDelta = value;
+			RowsOrder.SetEnabled(DataType.Delta, value);
+            _layoutChanged = true;
         }
-    }
+	}
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.ShowDeltaPerVolume), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowDeltaPerVolumeDescription), Order = 130, ResourceType = typeof(Strings))]
-    public bool ShowDeltaPerVolume
-    {
-        get => _showDeltaPerVolume;
-        set
-        {
-            _showDeltaPerVolume = value;
-            RowsOrder.SetEnabled(DataType.DeltaVolume, value);
-        }
-    }
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDeltaPerVolume), GroupName = nameof(Strings.Rows),
+		Description = nameof(Strings.ShowDeltaPerVolumeDescription), Order = 130)]
+	public bool ShowDeltaPerVolume
+	{
+		get => _showDeltaPerVolume;
+		set
+		{
+			_showDeltaPerVolume = value;
+			RowsOrder.SetEnabled(DataType.DeltaVolume, value);
+            _layoutChanged = true;
+		}
+	}
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.ShowSessionDelta), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowSessionDeltaDescription), Order = 140, ResourceType = typeof(Strings))]
-    public bool ShowSessionDelta
-    {
-        get => _showSessionDelta;
-        set
-        {
-            _showSessionDelta = value;
-            RowsOrder.SetEnabled(DataType.SessionDelta, value);
-        }
-    }
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowSessionDelta), GroupName = nameof(Strings.Rows),
+		Description = nameof(Strings.ShowSessionDeltaDescription), Order = 140)]
+	public bool ShowSessionDelta
+	{
+		get => _showSessionDelta;
+		set
+		{
+			_showSessionDelta = value;
+			RowsOrder.SetEnabled(DataType.SessionDelta, value);
+            _layoutChanged = true;
+		}
+	}
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.ShowSessionDeltaPerVolume), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowSessionDeltaPerVolumeDescription), Order = 150, ResourceType = typeof(Strings))]
-    public bool ShowSessionDeltaPerVolume
-    {
-        get => _showSessionDeltaPerVolume;
-        set
-        {
-            _showSessionDeltaPerVolume = value;
-            RowsOrder.SetEnabled(DataType.SessionDeltaVolume, value);
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowSessionDeltaPerVolume), GroupName = nameof(Strings.Rows),
+		Description = nameof(Strings.ShowSessionDeltaPerVolumeDescription), Order = 150)]
+	public bool ShowSessionDeltaPerVolume
+	{
+		get => _showSessionDeltaPerVolume;
+		set
+		{
+			_showSessionDeltaPerVolume = value;
+			RowsOrder.SetEnabled(DataType.SessionDeltaVolume, value);
+            _layoutChanged = true;
+		}
+	}
 
-            if (value)
-                _headerWidth = 180;
-        }
-    }
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowMaximumDelta), GroupName = nameof(Strings.Rows),
+		Description = nameof(Strings.ShowMaximumDeltaDescription), Order = 160)]
+	public bool ShowMaximumDelta
+	{
+		get => _showMaximumDelta;
+		set
+		{
+			_showMaximumDelta = value;
+			RowsOrder.SetEnabled(DataType.MaxDelta, value);
+            _layoutChanged = true;
+		}
+	}
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.ShowMaximumDelta), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowMaximumDeltaDescription), Order = 160, ResourceType = typeof(Strings))]
-    public bool ShowMaximumDelta
-    {
-        get => _showMaximumDelta;
-        set
-        {
-            _showMaximumDelta = value;
-            RowsOrder.SetEnabled(DataType.MaxDelta, value);
-        }
-    }
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowMinimumDelta), GroupName = nameof(Strings.Rows),
+		Description = nameof(Strings.ShowMinimumDeltaDescription), Order = 170)]
+	public bool ShowMinimumDelta
+	{
+		get => _showMinimumDelta;
+		set
+		{
+			_showMinimumDelta = value;
+			RowsOrder.SetEnabled(DataType.MinDelta, value);
+            _layoutChanged = true;
+		}
+	}
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.ShowMinimumDelta), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowMinimumDeltaDescription), Order = 170, ResourceType = typeof(Strings))]
-    public bool ShowMinimumDelta
-    {
-        get => _showMinimumDelta;
-        set
-        {
-            _showMinimumDelta = value;
-            RowsOrder.SetEnabled(DataType.MinDelta, value);
-        }
-    }
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDeltaChange), GroupName = nameof(Strings.Rows),
+		Description = nameof(Strings.ShowDeltaChangeDescription), Order = 175)]
+	public bool ShowDeltaChange
+	{
+		get => _showDeltaChange;
+		set
+		{
+			_showDeltaChange = value;
+			RowsOrder.SetEnabled(DataType.DeltaChange, value);
+            _layoutChanged = true;
+		}
+	}
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.ShowDeltaChange), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowDeltaChangeDescription), Order = 175, ResourceType = typeof(Strings))]
-    public bool ShowDeltaChange
-    {
-        get => _showDeltaChange;
-        set
-        {
-            _showDeltaChange = value;
-            RowsOrder.SetEnabled(DataType.DeltaChange, value);
-        }
-    }
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowVolume), GroupName = nameof(Strings.Rows),
+		Description = nameof(Strings.ShowVolumesDescription), Order = 180)]
+	public bool ShowVolume
+	{
+		get => _showVolume;
+		set
+		{
+			_showVolume = value;
+			RowsOrder.SetEnabled(DataType.Volume, value);
+            _layoutChanged = true;
+		}
+	}
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.ShowVolume), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowVolumesDescription), Order = 180, ResourceType = typeof(Strings))]
-    public bool ShowVolume
-    {
-        get => _showVolume;
-        set
-        {
-            _showVolume = value;
-            RowsOrder.SetEnabled(DataType.Volume, value);
-        }
-    }
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowVolumePerSecond), GroupName = nameof(Strings.Rows),
+		Description = nameof(Strings.ShowVolumePerSecondDescription), Order = 190)]
+	public bool ShowVolumePerSecond
+	{
+		get => _showVolumePerSecond;
+		set
+		{
+			_showVolumePerSecond = value;
+			RowsOrder.SetEnabled(DataType.VolumeSecond, value);
+            _layoutChanged = true;
+		}
+	}
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.ShowVolumePerSecond), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowVolumePerSecondDescription), Order = 190, ResourceType = typeof(Strings))]
-    public bool ShowVolumePerSecond
-    {
-        get => _showVolumePerSecond;
-        set
-        {
-            _showVolumePerSecond = value;
-            RowsOrder.SetEnabled(DataType.VolumeSecond, value);
-        }
-    }
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowSessionVolume), GroupName = nameof(Strings.Rows),
+		Description = nameof(Strings.ShowSessionVolumeDescription), Order = 191)]
+	public bool ShowSessionVolume
+	{
+		get => _showSessionVolume;
+		set
+		{
+			_showSessionVolume = value;
+			RowsOrder.SetEnabled(DataType.SessionVolume, value);
+            _layoutChanged = true;
+		}
+	}
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowSessionVolume), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowSessionVolumeDescription), Order = 191)]
-    public bool ShowSessionVolume
-    {
-        get => _showSessionVolume;
-        set
-        {
-            _showSessionVolume = value;
-            RowsOrder.SetEnabled(DataType.SessionVolume, value);
-        }
-    }
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowTradesCount), GroupName = nameof(Strings.Rows),
+		Description = nameof(Strings.ShowTradesCountDescription), Order = 192)]
+	public bool ShowTicks
+	{
+		get => _showTicks;
+		set
+		{
+			_showTicks = value;
+			RowsOrder.SetEnabled(DataType.Trades, value);
+            _layoutChanged = true;
+		}
+	}
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.ShowTradesCount), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowTradesCountDescription), Order = 192, ResourceType = typeof(Strings))]
-    public bool ShowTicks
-    {
-        get => _showTicks;
-        set
-        {
-            _showTicks = value;
-            RowsOrder.SetEnabled(DataType.Trades, value);
-        }
-    }
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowHeight), GroupName = nameof(Strings.Rows),
+		Description = nameof(Strings.ShowCandleHeightDescription), Order = 193)]
+	public bool ShowHighLow
+	{
+		get => _showHighLow;
+		set
+		{
+			_showHighLow = value;
+			RowsOrder.SetEnabled(DataType.Height, value);
+            _layoutChanged = true;
+		}
+	}
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.ShowHeight), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowCandleHeightDescription), Order = 193, ResourceType = typeof(Strings))]
-    public bool ShowHighLow
-    {
-        get => _showHighLow;
-        set
-        {
-            _showHighLow = value;
-            RowsOrder.SetEnabled(DataType.Height, value);
-        }
-    }
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowTime), GroupName = nameof(Strings.Rows),
+		Description = nameof(Strings.ShowCandleTimeDescription), Order = 194)]
+	public bool ShowTime
+	{
+		get => _showTime;
+		set
+		{
+			_showTime = value;
+			RowsOrder.SetEnabled(DataType.Time, value);
+            _layoutChanged = true;
+		}
+	}
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.ShowTime), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowCandleTimeDescription), Order = 194, ResourceType = typeof(Strings))]
-    public bool ShowTime
-    {
-        get => _showTime;
-        set
-        {
-            _showTime = value;
-            RowsOrder.SetEnabled(DataType.Time, value);
-        }
-    }
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDuration), GroupName = nameof(Strings.Rows),
+		Description = nameof(Strings.ShowCandleDurationDescription), Order = 196)]
+	public bool ShowDuration
+	{
+		get => _showDuration;
+		set
+		{
+			_showDuration = value;
+			RowsOrder.SetEnabled(DataType.Duration, value);
+            _layoutChanged = true;
+		}
+	}
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.ShowDuration), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowCandleDurationDescription), Order = 196, ResourceType = typeof(Strings))]
-    public bool ShowDuration
-    {
-        get => _showDuration;
-        set
-        {
-            _showDuration = value;
-            RowsOrder.SetEnabled(DataType.Duration, value);
-        }
-    }
+	[DisplayName("Delta/sec")]
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows),
+	 Description = "Show Delta per second", Order = 197)]
+	public bool ShowDeltaPerSecond
+	{
+		get => _showDeltaPerSecond;
+		set
+		{
+			_showDeltaPerSecond = value;
+			RowsOrder.SetEnabled(DataType.DeltaSecond, value);
+            _layoutChanged = true;
+		}
+	}
 
-    [DisplayName("Delta/sec")]
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows),
-     Description = "Show Delta per second", Order = 197)]
-    public bool ShowDeltaPerSecond
-    {
-        get => _showDeltaPerSecond;
-        set
-        {
-            _showDeltaPerSecond = value;
-            RowsOrder.SetEnabled(DataType.DeltaSecond, value);
-        }
-    }
+	[DisplayName("Max Vol/sec (peak)")]
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 198)]
+	public bool ShowPeakVolPerSec
+	{
+		get => RowsOrder.TryGetValue(DataType.PeakVolPerSec, out var ri) && ri.Enabled;
+		set
+		{
+			RowsOrder.SetEnabled(DataType.PeakVolPerSec, value);
+            _layoutChanged = true;
+		}
+	}
 
-    [DisplayName("Max Vol/sec (peak)")]
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 198)]
-    public bool ShowPeakVolPerSec
-    {
-        get => RowsOrder.TryGetValue(DataType.PeakVolPerSec, out var ri) && ri.Enabled;
-        set => RowsOrder.SetEnabled(DataType.PeakVolPerSec, value);
-    }
+	[DisplayName("Delta at Max vol/sec")]
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 199)]
+	public bool ShowPeakDeltaPerSec
+	{
+		get => RowsOrder.TryGetValue(DataType.PeakDeltaPerSec, out var ri) && ri.Enabled;
+		set
+		{
+			RowsOrder.SetEnabled(DataType.PeakDeltaPerSec, value);
+            _layoutChanged = true;
+		}
+	}
 
-    [DisplayName("Delta at Max vol/sec")]
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 199)]
-    public bool ShowPeakDeltaPerSec
-    {
-        get => RowsOrder.TryGetValue(DataType.PeakDeltaPerSec, out var ri) && ri.Enabled;
-        set => RowsOrder.SetEnabled(DataType.PeakDeltaPerSec, value);
-    }
+	[DisplayName("Delta/Vol at Max vol/sec")]
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 200)]
+	public bool ShowPeakDeltaPerVol
+	{
+		get => RowsOrder.TryGetValue(DataType.PeakDeltaPerVol, out var ri) && ri.Enabled;
+		set
+		{
+			RowsOrder.SetEnabled(DataType.PeakDeltaPerVol, value);
+            _layoutChanged = true;
+		}
+	}
 
-    [DisplayName("Delta/Vol at Max vol/sec")]
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 200)]
-    public bool ShowPeakDeltaPerVol
-    {
-        get => RowsOrder.TryGetValue(DataType.PeakDeltaPerVol, out var ri) && ri.Enabled;
-        set => RowsOrder.SetEnabled(DataType.PeakDeltaPerVol, value);
-    }
+	[DisplayName("Buy Imbalances")]
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 201)]
+	public bool ShowBuyImbalance
+	{
+		get => RowsOrder.TryGetValue(DataType.BuyImbalance, out var ri) && ri.Enabled;
+		set
+		{
+			RowsOrder.SetEnabled(DataType.BuyImbalance, value);
+            _layoutChanged = true;
+		}
+	}
 
-    #endregion
+	[DisplayName("Sell Imbalances")]
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 202)]
+	public bool ShowSellImbalance
+	{
+		get => RowsOrder.TryGetValue(DataType.SellImbalance, out var ri) && ri.Enabled;
+		set
+		{
+			RowsOrder.SetEnabled(DataType.SellImbalance, value);
+            _layoutChanged = true;
+		}
+	}
+
+	[DisplayName("Net Imbalances")]
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 203)]
+	public bool ShowNetImbalance
+	{
+		get => RowsOrder.TryGetValue(DataType.NetImbalance, out var ri) && ri.Enabled;
+		set
+		{
+			RowsOrder.SetEnabled(DataType.NetImbalance, value);
+            _layoutChanged = true;
+		}
+	}
+
+	[DisplayName("Stacked Buy Imbalances")]
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 204)]
+	public bool ShowStackedBuyImbalance
+	{
+		get => RowsOrder.TryGetValue(DataType.StackedBuyImbalance, out var ri) && ri.Enabled;
+		set
+		{
+			RowsOrder.SetEnabled(DataType.StackedBuyImbalance, value);
+            _layoutChanged = true;
+		}
+	}
+
+	[DisplayName("Stacked Sell Imbalances")]
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 205)]
+	public bool ShowStackedSellImbalance
+	{
+		get => RowsOrder.TryGetValue(DataType.StackedSellImbalance, out var ri) && ri.Enabled;
+		set
+		{
+			RowsOrder.SetEnabled(DataType.StackedSellImbalance, value);
+            _layoutChanged = true;
+		}
+	}
+
+	[DisplayName("Stacked Net Imbalances")]
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 206)]
+	public bool ShowStackedNetImbalance
+	{
+		get => RowsOrder.TryGetValue(DataType.StackedNetImbalance, out var ri) && ri.Enabled;
+		set
+		{
+			RowsOrder.SetEnabled(DataType.StackedNetImbalance, value);
+            _layoutChanged = true;
+		}
+	}
+
+
+	#endregion
 
 	#region Max vol/sec settings
 
@@ -778,13 +882,20 @@ public class ClusterStatistic : Indicator
     [Display(Name = nameof(Strings.VisibleProportion), GroupName = nameof(Strings.Visualization), Description = nameof(Strings.VisibleProportionDescription), Order = 220, ResourceType = typeof(Strings))]
     public bool VisibleProportion { get; set; }
 
-    [DisplayName("Ratio as percent")]
-    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Visualization), Order = 229)]
-    public bool RatiosAsPercent
-    {
-        get => _ratiosAsPercent;
-        set => _ratiosAsPercent = value;
-    }
+	[DisplayName("Ratio as percent")]
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Visualization), Order = 229)]
+	public bool RatiosAsPercent
+	{
+		get => _ratiosAsPercent;
+		set
+		{
+			if (_ratiosAsPercent == value)
+				return;
+
+			_ratiosAsPercent = value;
+            _layoutChanged = true; // headers change when toggling percent mode
+		}
+	}
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Volume), GroupName = nameof(Strings.Visualization),
         Description = nameof(Strings.VolumeColorDescription), Order = 230)]
@@ -1594,7 +1705,19 @@ public class ClusterStatistic : Indicator
 				}
 			}
 
-			_headerWidth = maxWidth + 10;
+            // Also consider pressed row header (during drag)
+            if (_pressedString is not DataType.None)
+            {
+                var size = context.MeasureString(GetHeader(_pressedString), Font.RenderObject);
+
+                if (size.Width > maxWidth)
+                {
+                    maxWidth = size.Width;
+                    _fontHeight = size.Height; // keep height consistent with current font
+                }
+            }
+
+            _headerWidth = maxWidth + 10;
 			_layoutChanged = false;
 		}
 
@@ -1695,7 +1818,8 @@ public class ClusterStatistic : Indicator
 								X = descRect.X + _headerOffset
 							};
 
-							context.DrawString(text, Font.RenderObject, _textColor, textRect, _stringLeftFormat);
+							var headerTextColor = GetContrastTextColor(_headerBackground);
+							context.DrawString(text, Font.RenderObject, headerTextColor, textRect, _stringLeftFormat);
 						}
 
 						if (type == _pressedString)
@@ -1917,6 +2041,14 @@ public class ClusterStatistic : Indicator
 
 		context.FillRectangle(bgBrush, rect);
 
+		// High-rate outline for better pop
+		if (rate >= 90m && ShouldOutline(type))
+		{
+			var outlineColor = GetContrastTextColor(bgBrush);
+			var pen = outlineColor == System.Drawing.Color.White ? _outlinePenLight : _outlinePenDark;
+			context.DrawRectangle(pen, rect);
+		}
+
 		if (showValues)
 		{
 			var text = GetValueText(type, candle, bar);
@@ -1926,8 +2058,10 @@ public class ClusterStatistic : Indicator
 				X = rect.X + _headerOffset
 			};
 
-			context.DrawString(text, Font.RenderObject, _textColor, textRect, _stringLeftFormat);
+			var valueTextColor = GetContrastTextColor(bgBrush);
+			context.DrawString(text, Font.RenderObject, valueTextColor, textRect, _stringLeftFormat);
 		}
+
 	}
 
 	private System.Drawing.Color GetBrush(DataType type, IndicatorCandle candle, int bar, decimal rate)
@@ -2275,12 +2409,51 @@ public class ClusterStatistic : Indicator
 		var g = (byte)(color.G + (backColor.G - color.G) * (1 - amount * 0.01m));
 		var b = (byte)(color.B + (backColor.B - color.B) * (1 - amount * 0.01m));
 		return System.Drawing.Color.FromArgb(_bgAlpha, r, g, b);
-    }
-    private void ResetSoTRuntimeState()
-    {
-        _win.Clear();
-        _winVol = 0m;
-        _winDelta = 0m;
+	}
+
+	private static System.Drawing.Color GetContrastTextColor(System.Drawing.Color bg)
+	{
+		// Simple luminance-based contrast (sRGB-ish).
+		// Returns either white or black for maximum readability.
+		var r = bg.R / 255.0;
+		var g = bg.G / 255.0;
+		var b = bg.B / 255.0;
+
+		// Perceived luminance
+		var luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+
+		return luminance < 0.5 ? System.Drawing.Color.White : System.Drawing.Color.Black;
+	}
+
+	private static bool ShouldOutline(DataType type)
+	{
+		// Outline only for "signal" rows to reduce visual noise.
+		return type switch
+		{
+			DataType.Delta or
+			DataType.DeltaVolume or
+			DataType.DeltaSecond or
+			DataType.Volume or
+			DataType.VolumeSecond or
+			DataType.PeakVolPerSec or
+			DataType.PeakDeltaPerSec or
+			DataType.PeakDeltaPerVol or
+			DataType.BuyImbalance or
+			DataType.SellImbalance or
+			DataType.NetImbalance or
+			DataType.StackedBuyImbalance or
+			DataType.StackedSellImbalance or
+			DataType.StackedNetImbalance => true,
+
+			_ => false
+		};
+	}
+
+	private void ResetSoTRuntimeState()
+	{
+		_win.Clear();
+		_winVol = 0m;
+		_winDelta = 0m;
 
         _rtBar = -1;
         _prevCumVol = 0m;
