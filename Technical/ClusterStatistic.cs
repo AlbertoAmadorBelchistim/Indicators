@@ -423,6 +423,9 @@ public class ClusterStatistic : Indicator
     private System.Drawing.Color _textColor;
     private int _fontHeight;
 
+    // --- Imbalances rebuild control (only when enabled/params changed) ---
+    private bool _imbalancesDirty;
+
     [Browsable(false)]
 	public RenderOrder RowsOrder = new();
 
@@ -597,9 +600,13 @@ public class ClusterStatistic : Indicator
 		get => RowsOrder.TryGetValue(DataType.BuyImbalance, out var ri) && ri.Enabled;
 		set
 		{
+			var wasEnabled = RowsOrder.TryGetValue(DataType.BuyImbalance, out var ri) && ri.Enabled;
 			RowsOrder.SetEnabled(DataType.BuyImbalance, value);
+			if (!wasEnabled && value)
+				MarkImbalancesDirty();
+
             _layoutChanged = true;
-		}
+        }
 	}
 
 	[DisplayName("Sell Imbalances")]
@@ -609,9 +616,13 @@ public class ClusterStatistic : Indicator
 		get => RowsOrder.TryGetValue(DataType.SellImbalance, out var ri) && ri.Enabled;
 		set
 		{
+			var wasEnabled = RowsOrder.TryGetValue(DataType.SellImbalance, out var ri) && ri.Enabled;
 			RowsOrder.SetEnabled(DataType.SellImbalance, value);
+			if (!wasEnabled && value)
+				MarkImbalancesDirty();
+
             _layoutChanged = true;
-		}
+        }
 	}
 
 	[DisplayName("Net Imbalances")]
@@ -621,8 +632,12 @@ public class ClusterStatistic : Indicator
 		get => RowsOrder.TryGetValue(DataType.NetImbalance, out var ri) && ri.Enabled;
 		set
 		{
+			var wasEnabled = RowsOrder.TryGetValue(DataType.NetImbalance, out var ri) && ri.Enabled;
 			RowsOrder.SetEnabled(DataType.NetImbalance, value);
-            _layoutChanged = true;
+			if (!wasEnabled && value)
+				MarkImbalancesDirty();
+
+			_layoutChanged = true;
 		}
 	}
 
@@ -633,8 +648,12 @@ public class ClusterStatistic : Indicator
 		get => RowsOrder.TryGetValue(DataType.StackedBuyImbalance, out var ri) && ri.Enabled;
 		set
 		{
+			var wasEnabled = RowsOrder.TryGetValue(DataType.StackedBuyImbalance, out var ri) && ri.Enabled;
 			RowsOrder.SetEnabled(DataType.StackedBuyImbalance, value);
-            _layoutChanged = true;
+			if (!wasEnabled && value)
+				MarkImbalancesDirty();
+
+			_layoutChanged = true;
 		}
 	}
 
@@ -645,8 +664,12 @@ public class ClusterStatistic : Indicator
 		get => RowsOrder.TryGetValue(DataType.StackedSellImbalance, out var ri) && ri.Enabled;
 		set
 		{
+			var wasEnabled = RowsOrder.TryGetValue(DataType.StackedSellImbalance, out var ri) && ri.Enabled;
 			RowsOrder.SetEnabled(DataType.StackedSellImbalance, value);
-            _layoutChanged = true;
+			if (!wasEnabled && value)
+				MarkImbalancesDirty();
+
+			_layoutChanged = true;
 		}
 	}
 
@@ -657,8 +680,12 @@ public class ClusterStatistic : Indicator
 		get => RowsOrder.TryGetValue(DataType.StackedNetImbalance, out var ri) && ri.Enabled;
 		set
 		{
+			var wasEnabled = RowsOrder.TryGetValue(DataType.StackedNetImbalance, out var ri) && ri.Enabled;
 			RowsOrder.SetEnabled(DataType.StackedNetImbalance, value);
-            _layoutChanged = true;
+			if (!wasEnabled && value)
+				MarkImbalancesDirty();
+
+			_layoutChanged = true;
 		}
 	}
 
@@ -916,21 +943,75 @@ public class ClusterStatistic : Indicator
 	// Imbalance settings (2000–2090)
 	// ============================================================
 
+	private int _imbalanceThreshold = 300;
+
 	[Display(Name = "Imbalance Threshold (%)", GroupName = "Imbalance", Order = 2000)]
 	[Range(101, 999)]
-	public int ImbalanceThreshold { get; set; } = 300;
+	public int ImbalanceThreshold
+	{
+		get => _imbalanceThreshold;
+		set
+		{
+			if (_imbalanceThreshold == value)
+				return;
+
+			_imbalanceThreshold = value;
+			MarkImbalancesDirty();
+		}
+	}
+
+	private int _imbalanceMinDominantVolume = 30;
 
 	[Display(Name = "Min dominant volume", GroupName = "Imbalance", Order = 2010)]
 	[Range(1, 100000)]
-	public int ImbalanceMinDominantVolume { get; set; } = 30;
+	public int ImbalanceMinDominantVolume
+	{
+		get => _imbalanceMinDominantVolume;
+		set
+		{
+			if (_imbalanceMinDominantVolume == value)
+				return;
+
+			_imbalanceMinDominantVolume = value;
+			MarkImbalancesDirty();
+		}
+	}
+
+	private int _imbalanceMinDifference = 30;
 
 	[Display(Name = "Min volume difference", GroupName = "Imbalance", Order = 2020)]
 	[Range(0, 100000)]
-	public int ImbalanceMinDifference { get; set; } = 30;
+	public int ImbalanceMinDifference
+	{
+		get => _imbalanceMinDifference;
+		set
+		{
+			if (_imbalanceMinDifference == value)
+				return;
+
+			_imbalanceMinDifference = value;
+			MarkImbalancesDirty();
+		}
+	}
+
+
+	private int _stackedImbalanceMinLevels = 3;
 
 	[Display(Name = "Stacked Min Levels", GroupName = "Imbalance", Order = 2030)]
 	[Range(2, 20)]
-	public int StackedImbalanceMinLevels { get; set; } = 3;
+	public int StackedImbalanceMinLevels
+	{
+		get => _stackedImbalanceMinLevels;
+		set
+		{
+			if (_stackedImbalanceMinLevels == value)
+				return;
+
+			_stackedImbalanceMinLevels = value;
+			MarkImbalancesDirty();
+		}
+	}
+
 
 	#endregion
 
@@ -1295,8 +1376,24 @@ public class ClusterStatistic : Indicator
 
     #region Net Imbalance alert
 
+	private bool _useNetImbalanceAlert;
+
 	[Display(Name = "Enabled", GroupName = "Net Imbalance Alert", Order = 3000)]
-	public bool UseNetImbalanceAlert { get; set; }
+	public bool UseNetImbalanceAlert
+	{
+		get => _useNetImbalanceAlert;
+		set
+		{
+			if (_useNetImbalanceAlert == value)
+				return;
+
+			_useNetImbalanceAlert = value;
+
+			if (value)
+				MarkImbalancesDirty();
+		}
+	}
+
 
 	[Display(Name = "Threshold (abs)", GroupName = "Net Imbalance Alert", Order = 3010)]
 	[Range(1, 100000)]
@@ -1431,6 +1528,12 @@ public class ClusterStatistic : Indicator
 	protected override void OnCalculate(int bar, decimal value)
 	{
 		var candle = GetCandle(bar);
+
+		if (_imbalancesDirty && bar == CurrentBar - 1)
+		{
+			RebuildHistoricalImbalances();
+			_imbalancesDirty = false;
+		}
 
 		var candleSeconds = Convert.ToDecimal((candle.LastTime - candle.Time).TotalSeconds);
 
@@ -1769,81 +1872,38 @@ public class ClusterStatistic : Indicator
 		// --- Basic footprint imbalances (Buy/Sell/Net) + stacked ---
 		int buy = 0, sell = 0;
 		int stackedBuy = 0, stackedSell = 0;
-		int buyStreak = 0, sellStreak = 0;
 
-		decimal ratio = ImbalanceThreshold / 100m;
-		int minDom = ImbalanceMinDominantVolume;
-		int minDiff = ImbalanceMinDifference;
-		int stackedMin = Math.Max(2, StackedImbalanceMinLevels);
+		var useImbalanceRows =
+			RowsOrder.TryGetValue(DataType.BuyImbalance, out var buyRi) && buyRi.Enabled ||
+			RowsOrder.TryGetValue(DataType.SellImbalance, out var sellRi) && sellRi.Enabled ||
+			RowsOrder.TryGetValue(DataType.NetImbalance, out var netRi) && netRi.Enabled ||
+			RowsOrder.TryGetValue(DataType.StackedBuyImbalance, out var sbRi) && sbRi.Enabled ||
+			RowsOrder.TryGetValue(DataType.StackedSellImbalance, out var ssRi) && ssRi.Enabled ||
+			RowsOrder.TryGetValue(DataType.StackedNetImbalance, out var snRi) && snRi.Enabled;
 
-		for (decimal price = candle.High; price >= candle.Low + InstrumentInfo.TickSize; price -= InstrumentInfo.TickSize)
+		var skipImbalanceCompute = !useImbalanceRows && !UseNetImbalanceAlert;
+
+		if (skipImbalanceCompute)
 		{
-			var upper = candle.GetPriceVolumeInfo(price);
-			var lower = candle.GetPriceVolumeInfo(price - InstrumentInfo.TickSize);
-			if (upper == null || lower == null)
-				continue;
-
-			var upperAsk = upper.Ask;
-			var lowerBid = lower.Bid;
-
-			bool isBuy = false;
-			bool isSell = false;
-
-			// BUY: upper ask dominates lower bid
-			if (lowerBid > 0m)
-			{
-				if (upperAsk / lowerBid >= ratio &&
-					upperAsk >= minDom &&
-					upperAsk - lowerBid >= minDiff)
-				{
-					isBuy = true;
-				}
-			}
-
-			// SELL: lower bid dominates upper ask (only if not buy at same level)
-			if (!isBuy && upperAsk > 0m)
-			{
-				if (lowerBid / upperAsk >= ratio &&
-					lowerBid >= minDom &&
-					lowerBid - upperAsk >= minDiff)
-				{
-					isSell = true;
-				}
-			}
-
-			if (isBuy)
-			{
-				buy++;
-				buyStreak++;
-				sellStreak = 0;
-
-				if (buyStreak >= stackedMin)
-					stackedBuy++;
-			}
-			else if (isSell)
-			{
-				sell++;
-				sellStreak++;
-				buyStreak = 0;
-
-				if (sellStreak >= stackedMin)
-					stackedSell++;
-			}
-			else
-			{
-				buyStreak = 0;
-				sellStreak = 0;
-			}
+			_buyImbalance[bar] = 0;
+			_sellImbalance[bar] = 0;
+			_netImbalance[bar] = 0;
+			_stackedBuyImbalance[bar] = 0;
+			_stackedSellImbalance[bar] = 0;
+			_stackedNetImbalance[bar] = 0;
 		}
+		else
+		{
+			ComputeImbalances(candle, out buy, out sell, out stackedBuy, out stackedSell);
 
-		_buyImbalance[bar] = buy;
-		_sellImbalance[bar] = sell;
-		_netImbalance[bar] = buy - sell;
+			_buyImbalance[bar] = buy;
+			_sellImbalance[bar] = sell;
+			_netImbalance[bar] = buy - sell;
 
-		_stackedBuyImbalance[bar] = stackedBuy;
-		_stackedSellImbalance[bar] = stackedSell;
-		_stackedNetImbalance[bar] = stackedBuy - stackedSell;
-
+			_stackedBuyImbalance[bar] = stackedBuy;
+			_stackedSellImbalance[bar] = stackedSell;
+			_stackedNetImbalance[bar] = stackedBuy - stackedSell;
+		}
 
 		// --- Optional Net Imbalance alert (threshold crossing, no spam) ---
 		if (UseNetImbalanceAlert && bar == CurrentBar - 1)
@@ -1859,7 +1919,6 @@ public class ClusterStatistic : Indicator
 					var cur = (int)_netImbalance[alertBar];
 					var prev = alertBar > 0 ? (int)_netImbalance[alertBar - 1] : 0;
 
-					var prevInside = Math.Abs(prev) < thr;
 					var curOutside = Math.Abs(cur) >= thr;
 					var wasOutside = _hasPrevClosedNetOutside && _prevClosedNetOutside;
 
@@ -2947,6 +3006,112 @@ public class ClusterStatistic : Indicator
 		_prevCumVol = candle.Volume;
 		_prevCumDelta = candle.Delta;
 	}
+
+	private void MarkImbalancesDirty()
+	{
+		_imbalancesDirty = true;
+	}
+
+	private void ComputeImbalances(IndicatorCandle candle, out int buy, out int sell, out int stackedBuy, out int stackedSell)
+	{
+		buy = 0;
+		sell = 0;
+		stackedBuy = 0;
+		stackedSell = 0;
+
+		int buyStreak = 0;
+		int sellStreak = 0;
+
+		decimal ratio = ImbalanceThreshold / 100m;
+		int minDom = ImbalanceMinDominantVolume;
+		int minDiff = ImbalanceMinDifference;
+		int stackedMin = Math.Max(2, StackedImbalanceMinLevels);
+
+		for (decimal price = candle.High; price >= candle.Low + InstrumentInfo.TickSize; price -= InstrumentInfo.TickSize)
+		{
+			var upper = candle.GetPriceVolumeInfo(price);
+			var lower = candle.GetPriceVolumeInfo(price - InstrumentInfo.TickSize);
+
+			if (upper == null || lower == null)
+				continue;
+
+			var upperAsk = upper.Ask;
+			var lowerBid = lower.Bid;
+
+			bool isBuy = false;
+			bool isSell = false;
+
+			// BUY: upper ask dominates lower bid
+			if (lowerBid > 0m)
+			{
+				if (upperAsk / lowerBid >= ratio &&
+					upperAsk >= minDom &&
+					upperAsk - lowerBid >= minDiff)
+				{
+					isBuy = true;
+				}
+			}
+
+			// SELL: lower bid dominates upper ask (only if not buy at same level)
+			if (!isBuy && upperAsk > 0m)
+			{
+				if (lowerBid / upperAsk >= ratio &&
+					lowerBid >= minDom &&
+					lowerBid - upperAsk >= minDiff)
+				{
+					isSell = true;
+				}
+			}
+
+			if (isBuy)
+			{
+				buy++;
+				buyStreak++;
+				sellStreak = 0;
+
+				if (buyStreak >= stackedMin)
+					stackedBuy++;
+			}
+			else if (isSell)
+			{
+				sell++;
+				sellStreak++;
+				buyStreak = 0;
+
+				if (sellStreak >= stackedMin)
+					stackedSell++;
+			}
+			else
+			{
+				buyStreak = 0;
+				sellStreak = 0;
+			}
+		}
+	}
+
+	private void RebuildHistoricalImbalances()
+	{
+		if (CurrentBar <= 0)
+			return;
+
+		for (int i = 0; i < CurrentBar; i++)
+		{
+			var c = GetCandle(i);
+			if (c == null)
+				continue;
+
+			ComputeImbalances(c, out var buy, out var sell, out var stackedBuy, out var stackedSell);
+
+			_buyImbalance[i] = buy;
+			_sellImbalance[i] = sell;
+			_netImbalance[i] = buy - sell;
+
+			_stackedBuyImbalance[i] = stackedBuy;
+			_stackedSellImbalance[i] = stackedSell;
+			_stackedNetImbalance[i] = stackedBuy - stackedSell;
+		}
+	}
+
 
 	#endregion
 
