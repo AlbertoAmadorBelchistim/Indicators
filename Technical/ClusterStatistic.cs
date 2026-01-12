@@ -322,6 +322,11 @@ public class ClusterStatistic : Indicator
 
 	private int _headerWidth = 130;
 
+	// --- Outline pens (high-rate highlighting) ---
+	private readonly RenderPen _outlinePenLight = new(System.Drawing.Color.White, 1);
+	private readonly RenderPen _outlinePenDark = new(System.Drawing.Color.Black, 1);
+
+
 	private int _height = 15;
 
 	private int _lastBar = -1;
@@ -400,7 +405,8 @@ public class ClusterStatistic : Indicator
 		{
 			_showAsk = value;
 			RowsOrder.SetEnabled(DataType.Ask, value);
-		}
+            _layoutChanged = true;
+        }
 	}
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowBid), GroupName = nameof(Strings.Rows),
@@ -412,7 +418,8 @@ public class ClusterStatistic : Indicator
 		{
 			_showBid = value;
 			RowsOrder.SetEnabled(DataType.Bid, value);
-		}
+            _layoutChanged = true;
+        }
 	}
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDelta), GroupName = nameof(Strings.Rows),
@@ -424,7 +431,8 @@ public class ClusterStatistic : Indicator
 		{
 			_showDelta = value;
 			RowsOrder.SetEnabled(DataType.Delta, value);
-		}
+            _layoutChanged = true;
+        }
 	}
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDeltaPerVolume), GroupName = nameof(Strings.Rows),
@@ -436,6 +444,7 @@ public class ClusterStatistic : Indicator
 		{
 			_showDeltaPerVolume = value;
 			RowsOrder.SetEnabled(DataType.DeltaVolume, value);
+            _layoutChanged = true;
 		}
 	}
 
@@ -448,6 +457,7 @@ public class ClusterStatistic : Indicator
 		{
 			_showSessionDelta = value;
 			RowsOrder.SetEnabled(DataType.SessionDelta, value);
+            _layoutChanged = true;
 		}
 	}
 
@@ -460,9 +470,7 @@ public class ClusterStatistic : Indicator
 		{
 			_showSessionDeltaPerVolume = value;
 			RowsOrder.SetEnabled(DataType.SessionDeltaVolume, value);
-
-			if (value)
-				_headerWidth = 180;
+            _layoutChanged = true;
 		}
 	}
 
@@ -475,6 +483,7 @@ public class ClusterStatistic : Indicator
 		{
 			_showMaximumDelta = value;
 			RowsOrder.SetEnabled(DataType.MaxDelta, value);
+            _layoutChanged = true;
 		}
 	}
 
@@ -487,6 +496,7 @@ public class ClusterStatistic : Indicator
 		{
 			_showMinimumDelta = value;
 			RowsOrder.SetEnabled(DataType.MinDelta, value);
+            _layoutChanged = true;
 		}
 	}
 
@@ -499,6 +509,7 @@ public class ClusterStatistic : Indicator
 		{
 			_showDeltaChange = value;
 			RowsOrder.SetEnabled(DataType.DeltaChange, value);
+            _layoutChanged = true;
 		}
 	}
 
@@ -511,6 +522,7 @@ public class ClusterStatistic : Indicator
 		{
 			_showVolume = value;
 			RowsOrder.SetEnabled(DataType.Volume, value);
+            _layoutChanged = true;
 		}
 	}
 
@@ -523,6 +535,7 @@ public class ClusterStatistic : Indicator
 		{
 			_showVolumePerSecond = value;
 			RowsOrder.SetEnabled(DataType.VolumeSecond, value);
+            _layoutChanged = true;
 		}
 	}
 
@@ -535,6 +548,7 @@ public class ClusterStatistic : Indicator
 		{
 			_showSessionVolume = value;
 			RowsOrder.SetEnabled(DataType.SessionVolume, value);
+            _layoutChanged = true;
 		}
 	}
 
@@ -547,6 +561,7 @@ public class ClusterStatistic : Indicator
 		{
 			_showTicks = value;
 			RowsOrder.SetEnabled(DataType.Trades, value);
+            _layoutChanged = true;
 		}
 	}
 
@@ -559,6 +574,7 @@ public class ClusterStatistic : Indicator
 		{
 			_showHighLow = value;
 			RowsOrder.SetEnabled(DataType.Height, value);
+            _layoutChanged = true;
 		}
 	}
 
@@ -571,6 +587,7 @@ public class ClusterStatistic : Indicator
 		{
 			_showTime = value;
 			RowsOrder.SetEnabled(DataType.Time, value);
+            _layoutChanged = true;
 		}
 	}
 
@@ -583,6 +600,7 @@ public class ClusterStatistic : Indicator
 		{
 			_showDuration = value;
 			RowsOrder.SetEnabled(DataType.Duration, value);
+            _layoutChanged = true;
 		}
 	}
 
@@ -596,6 +614,7 @@ public class ClusterStatistic : Indicator
 		{
 			_showDeltaPerSecond = value;
 			RowsOrder.SetEnabled(DataType.DeltaSecond, value);
+            _layoutChanged = true;
 		}
 	}
 
@@ -604,7 +623,11 @@ public class ClusterStatistic : Indicator
 	public bool ShowPeakVolPerSec
 	{
 		get => RowsOrder.TryGetValue(DataType.PeakVolPerSec, out var ri) && ri.Enabled;
-		set => RowsOrder.SetEnabled(DataType.PeakVolPerSec, value);
+		set
+		{
+			RowsOrder.SetEnabled(DataType.PeakVolPerSec, value);
+            _layoutChanged = true;
+		}
 	}
 
 	[DisplayName("Delta at Max vol/sec")]
@@ -612,7 +635,11 @@ public class ClusterStatistic : Indicator
 	public bool ShowPeakDeltaPerSec
 	{
 		get => RowsOrder.TryGetValue(DataType.PeakDeltaPerSec, out var ri) && ri.Enabled;
-		set => RowsOrder.SetEnabled(DataType.PeakDeltaPerSec, value);
+		set
+		{
+			RowsOrder.SetEnabled(DataType.PeakDeltaPerSec, value);
+            _layoutChanged = true;
+		}
 	}
 
 	[DisplayName("Delta/Vol at Max vol/sec")]
@@ -620,7 +647,11 @@ public class ClusterStatistic : Indicator
 	public bool ShowPeakDeltaPerVol
 	{
 		get => RowsOrder.TryGetValue(DataType.PeakDeltaPerVol, out var ri) && ri.Enabled;
-		set => RowsOrder.SetEnabled(DataType.PeakDeltaPerVol, value);
+		set
+		{
+			RowsOrder.SetEnabled(DataType.PeakDeltaPerVol, value);
+            _layoutChanged = true;
+		}
 	}
 
 	[DisplayName("Buy Imbalances")]
@@ -628,7 +659,11 @@ public class ClusterStatistic : Indicator
 	public bool ShowBuyImbalance
 	{
 		get => RowsOrder.TryGetValue(DataType.BuyImbalance, out var ri) && ri.Enabled;
-		set => RowsOrder.SetEnabled(DataType.BuyImbalance, value);
+		set
+		{
+			RowsOrder.SetEnabled(DataType.BuyImbalance, value);
+            _layoutChanged = true;
+		}
 	}
 
 	[DisplayName("Sell Imbalances")]
@@ -636,7 +671,11 @@ public class ClusterStatistic : Indicator
 	public bool ShowSellImbalance
 	{
 		get => RowsOrder.TryGetValue(DataType.SellImbalance, out var ri) && ri.Enabled;
-		set => RowsOrder.SetEnabled(DataType.SellImbalance, value);
+		set
+		{
+			RowsOrder.SetEnabled(DataType.SellImbalance, value);
+            _layoutChanged = true;
+		}
 	}
 
 	[DisplayName("Net Imbalances")]
@@ -644,7 +683,11 @@ public class ClusterStatistic : Indicator
 	public bool ShowNetImbalance
 	{
 		get => RowsOrder.TryGetValue(DataType.NetImbalance, out var ri) && ri.Enabled;
-		set => RowsOrder.SetEnabled(DataType.NetImbalance, value);
+		set
+		{
+			RowsOrder.SetEnabled(DataType.NetImbalance, value);
+            _layoutChanged = true;
+		}
 	}
 
 	[DisplayName("Stacked Buy Imbalances")]
@@ -652,7 +695,11 @@ public class ClusterStatistic : Indicator
 	public bool ShowStackedBuyImbalance
 	{
 		get => RowsOrder.TryGetValue(DataType.StackedBuyImbalance, out var ri) && ri.Enabled;
-		set => RowsOrder.SetEnabled(DataType.StackedBuyImbalance, value);
+		set
+		{
+			RowsOrder.SetEnabled(DataType.StackedBuyImbalance, value);
+            _layoutChanged = true;
+		}
 	}
 
 	[DisplayName("Stacked Sell Imbalances")]
@@ -660,7 +707,11 @@ public class ClusterStatistic : Indicator
 	public bool ShowStackedSellImbalance
 	{
 		get => RowsOrder.TryGetValue(DataType.StackedSellImbalance, out var ri) && ri.Enabled;
-		set => RowsOrder.SetEnabled(DataType.StackedSellImbalance, value);
+		set
+		{
+			RowsOrder.SetEnabled(DataType.StackedSellImbalance, value);
+            _layoutChanged = true;
+		}
 	}
 
 	[DisplayName("Stacked Net Imbalances")]
@@ -668,7 +719,11 @@ public class ClusterStatistic : Indicator
 	public bool ShowStackedNetImbalance
 	{
 		get => RowsOrder.TryGetValue(DataType.StackedNetImbalance, out var ri) && ri.Enabled;
-		set => RowsOrder.SetEnabled(DataType.StackedNetImbalance, value);
+		set
+		{
+			RowsOrder.SetEnabled(DataType.StackedNetImbalance, value);
+            _layoutChanged = true;
+		}
 	}
 
 
@@ -816,7 +871,14 @@ public class ClusterStatistic : Indicator
 	public bool RatiosAsPercent
 	{
 		get => _ratiosAsPercent;
-		set => _ratiosAsPercent = value;
+		set
+		{
+			if (_ratiosAsPercent == value)
+				return;
+
+			_ratiosAsPercent = value;
+            _layoutChanged = true; // headers change when toggling percent mode
+		}
 	}
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Volume), GroupName = nameof(Strings.Visualization),
@@ -1401,7 +1463,19 @@ public class ClusterStatistic : Indicator
 				}
 			}
 
-			_headerWidth = maxWidth + 10;
+            // Also consider pressed row header (during drag)
+            if (_pressedString is not DataType.None)
+            {
+                var size = context.MeasureString(GetHeader(_pressedString), Font.RenderObject);
+
+                if (size.Width > maxWidth)
+                {
+                    maxWidth = size.Width;
+                    _fontHeight = size.Height; // keep height consistent with current font
+                }
+            }
+
+            _headerWidth = maxWidth + 10;
 			_layoutChanged = false;
 		}
 
@@ -1502,7 +1576,8 @@ public class ClusterStatistic : Indicator
 								X = descRect.X + _headerOffset
 							};
 
-							context.DrawString(text, Font.RenderObject, _textColor, textRect, _stringLeftFormat);
+							var headerTextColor = GetContrastTextColor(_headerBackground);
+							context.DrawString(text, Font.RenderObject, headerTextColor, textRect, _stringLeftFormat);
 						}
 
 						if (type == _pressedString)
@@ -1724,6 +1799,14 @@ public class ClusterStatistic : Indicator
 
 		context.FillRectangle(bgBrush, rect);
 
+		// High-rate outline for better pop
+		if (rate >= 90m && ShouldOutline(type))
+		{
+			var outlineColor = GetContrastTextColor(bgBrush);
+			var pen = outlineColor == System.Drawing.Color.White ? _outlinePenLight : _outlinePenDark;
+			context.DrawRectangle(pen, rect);
+		}
+
 		if (showValues)
 		{
 			var text = GetValueText(type, candle, bar);
@@ -1733,8 +1816,10 @@ public class ClusterStatistic : Indicator
 				X = rect.X + _headerOffset
 			};
 
-			context.DrawString(text, Font.RenderObject, _textColor, textRect, _stringLeftFormat);
+			var valueTextColor = GetContrastTextColor(bgBrush);
+			context.DrawString(text, Font.RenderObject, valueTextColor, textRect, _stringLeftFormat);
 		}
+
 	}
 
 	private System.Drawing.Color GetBrush(DataType type, IndicatorCandle candle, int bar, decimal rate)
@@ -2141,6 +2226,45 @@ public class ClusterStatistic : Indicator
 		var b = (byte)(color.B + (backColor.B - color.B) * (1 - amount * 0.01m));
 		return System.Drawing.Color.FromArgb(_bgAlpha, r, g, b);
 	}
+
+	private static System.Drawing.Color GetContrastTextColor(System.Drawing.Color bg)
+	{
+		// Simple luminance-based contrast (sRGB-ish).
+		// Returns either white or black for maximum readability.
+		var r = bg.R / 255.0;
+		var g = bg.G / 255.0;
+		var b = bg.B / 255.0;
+
+		// Perceived luminance
+		var luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+
+		return luminance < 0.5 ? System.Drawing.Color.White : System.Drawing.Color.Black;
+	}
+
+	private static bool ShouldOutline(DataType type)
+	{
+		// Outline only for "signal" rows to reduce visual noise.
+		return type switch
+		{
+			DataType.Delta or
+			DataType.DeltaVolume or
+			DataType.DeltaSecond or
+			DataType.Volume or
+			DataType.VolumeSecond or
+			DataType.PeakVolPerSec or
+			DataType.PeakDeltaPerSec or
+			DataType.PeakDeltaPerVol or
+			DataType.BuyImbalance or
+			DataType.SellImbalance or
+			DataType.NetImbalance or
+			DataType.StackedBuyImbalance or
+			DataType.StackedSellImbalance or
+			DataType.StackedNetImbalance => true,
+
+			_ => false
+		};
+	}
+
 	private void ResetSoTRuntimeState()
 	{
 		_win.Clear();
