@@ -55,33 +55,45 @@ public class ClusterStatistic : Indicator
 
 		public RenderOrder()
 		{
-			Add(DataType.Ask, new RenderInfo(0));
-			Add(DataType.Bid, new RenderInfo(1));
-			Add(DataType.Delta, new RenderInfo(2));
-			Add(DataType.DeltaVolume, new RenderInfo(3));
-			Add(DataType.SessionDelta, new RenderInfo(4));
-			Add(DataType.SessionDeltaVolume, new RenderInfo(5));
-			Add(DataType.MaxDelta, new RenderInfo(6));
-			Add(DataType.MinDelta, new RenderInfo(7));
-			Add(DataType.DeltaChange, new RenderInfo(8));
-			Add(DataType.Volume, new RenderInfo(9));
-			Add(DataType.VolumeSecond, new RenderInfo(10));
-			Add(DataType.SessionVolume, new RenderInfo(11));
-			Add(DataType.Trades, new RenderInfo(12));
-			Add(DataType.Height, new RenderInfo(13));
-			Add(DataType.Time, new RenderInfo(14));
-			Add(DataType.Duration, new RenderInfo(15));
-			Add(DataType.DeltaSecond, new RenderInfo(16));
-			Add(DataType.PeakVolPerSec, new RenderInfo(17));
-			Add(DataType.PeakDeltaPerSec, new RenderInfo(18));
-			Add(DataType.PeakDeltaPerVol, new RenderInfo(19));
-			Add(DataType.BuyImbalance, new RenderInfo(20));
-			Add(DataType.SellImbalance, new RenderInfo(21));
-			Add(DataType.NetImbalance, new RenderInfo(22));
-			Add(DataType.StackedBuyImbalance, new RenderInfo(23));
-			Add(DataType.StackedSellImbalance, new RenderInfo(24));
-			Add(DataType.StackedNetImbalance, new RenderInfo(25));
+			// 1) Pace / activity
+			Add(DataType.VolumeSecond, new RenderInfo(0));
+			Add(DataType.DeltaSecond, new RenderInfo(1));
+			Add(DataType.PeakVolPerSec, new RenderInfo(2));
+			Add(DataType.PeakDeltaPerSec, new RenderInfo(3));
+			Add(DataType.PeakDeltaPerVol, new RenderInfo(4));
+
+			// 2) Directional pressure (incl. extremes)
+			Add(DataType.Delta, new RenderInfo(5));
+			Add(DataType.DeltaVolume, new RenderInfo(6));
+			Add(DataType.DeltaChange, new RenderInfo(7));
+			Add(DataType.MaxDelta, new RenderInfo(8));
+			Add(DataType.MinDelta, new RenderInfo(9));
+
+			// 3) Imbalances
+			Add(DataType.BuyImbalance, new RenderInfo(10));
+			Add(DataType.SellImbalance, new RenderInfo(11));
+			Add(DataType.NetImbalance, new RenderInfo(12));
+			Add(DataType.StackedBuyImbalance, new RenderInfo(13));
+			Add(DataType.StackedSellImbalance, new RenderInfo(14));
+			Add(DataType.StackedNetImbalance, new RenderInfo(15));
+
+			// 4) Candle context
+			Add(DataType.Volume, new RenderInfo(16));
+			Add(DataType.Trades, new RenderInfo(17));
+			Add(DataType.Height, new RenderInfo(18));
+			Add(DataType.Duration, new RenderInfo(19));
+			Add(DataType.Time, new RenderInfo(20));
+
+			// 5) Session context
+			Add(DataType.SessionVolume, new RenderInfo(21));
+			Add(DataType.SessionDelta, new RenderInfo(22));
+			Add(DataType.SessionDeltaVolume, new RenderInfo(23));
+
+			// 6) Raw prints (least useful under pressure)
+			Add(DataType.Ask, new RenderInfo(24));
+			Add(DataType.Bid, new RenderInfo(25));
 		}
+
 
 		#endregion
 
