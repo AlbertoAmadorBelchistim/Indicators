@@ -380,6 +380,7 @@ public class ClusterStatistic : Indicator
 	private bool _showVolume;
 	private bool _showVolumePerSecond;
     private bool _showDeltaPerSecond;
+    private bool _ratiosAsPercent = true;
 
     private System.Drawing.Color _textColor;
     private int _fontHeight;
@@ -775,6 +776,14 @@ public class ClusterStatistic : Indicator
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VisibleProportion), GroupName = nameof(Strings.Visualization),
         Description = nameof(Strings.VisibleProportionDescription), Order = 220)]
     public bool VisibleProportion { get; set; }
+
+    [DisplayName("Ratio as percent")]
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Visualization), Order = 229)]
+    public bool RatiosAsPercent
+    {
+        get => _ratiosAsPercent;
+        set => _ratiosAsPercent = value;
+    }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Volume), GroupName = nameof(Strings.Visualization),
         Description = nameof(Strings.VolumeColorDescription), Order = 230)]
@@ -2121,10 +2130,10 @@ public class ClusterStatistic : Indicator
 			DataType.Ask => ChartInfo.TryGetMinimizedVolumeString(candle.Ask),
 			DataType.Bid => ChartInfo.TryGetMinimizedVolumeString(candle.Bid),
 			DataType.Delta => ChartInfo.TryGetMinimizedVolumeString(candle.Delta),
-			DataType.DeltaVolume => _deltaPerVol[bar].ToString("F") + "%",
-			DataType.SessionDelta => ChartInfo.TryGetMinimizedVolumeString(_cDelta[bar]),
-			DataType.SessionDeltaVolume => _cDeltaPerVol[bar].ToString("F") + "%",
-			DataType.MaxDelta => ChartInfo.TryGetMinimizedVolumeString(candle.MaxDelta),
+            DataType.DeltaVolume => FormatRatio(_deltaPerVol[bar] / 100m, _ratiosAsPercent),
+            DataType.SessionDelta => ChartInfo.TryGetMinimizedVolumeString(_cDelta[bar]),
+            DataType.SessionDeltaVolume => FormatRatio(_cDeltaPerVol[bar] / 100m, _ratiosAsPercent),
+            DataType.MaxDelta => ChartInfo.TryGetMinimizedVolumeString(candle.MaxDelta),
 			DataType.MinDelta => ChartInfo.TryGetMinimizedVolumeString(candle.MinDelta),
 			DataType.DeltaChange => ChartInfo.TryGetMinimizedVolumeString(_deltaChange[bar]),
 			DataType.Volume => ChartInfo.TryGetMinimizedVolumeString(candle.Volume),
@@ -2137,7 +2146,7 @@ public class ClusterStatistic : Indicator
             DataType.DeltaSecond => ChartInfo.TryGetMinimizedVolumeString(_deltaPerSecond[bar]),
             DataType.PeakVolPerSec => ChartInfo.TryGetMinimizedVolumeString(_peakVolPerSec[bar]),
             DataType.PeakDeltaPerSec => ChartInfo.TryGetMinimizedVolumeString(_peakDeltaPerSec[bar]),
-            DataType.PeakDeltaPerVol => _peakDeltaPerVol[bar].ToString("+#0.00;-#0.00;0.00", CultureInfo.InvariantCulture),
+            DataType.PeakDeltaPerVol => FormatRatio(_peakDeltaPerVol[bar], _ratiosAsPercent),
             DataType.None => string.Empty,
 			_ => throw new ArgumentOutOfRangeException()
 		};
@@ -2211,10 +2220,10 @@ public class ClusterStatistic : Indicator
 			DataType.Ask => "Ask",
 			DataType.Bid => "Bid",
 			DataType.Delta => "Delta",
-			DataType.DeltaVolume => "Delta/Volume",
-			DataType.SessionDelta => "Session Delta",
-			DataType.SessionDeltaVolume => "Session Delta/Volume",
-			DataType.MaxDelta => "Max.Delta",
+            DataType.DeltaVolume => _ratiosAsPercent ? "Delta/Volume (%)" : "Delta/Volume",
+            DataType.SessionDelta => "Session Delta",
+            DataType.SessionDeltaVolume => _ratiosAsPercent ? "Session Delta/Volume (%)" : "Session Delta/Volume",
+            DataType.MaxDelta => "Max.Delta",
 			DataType.MinDelta => "Min.Delta",
 			DataType.DeltaChange => "Delta Change",
 			DataType.Volume => "Volume",
@@ -2227,7 +2236,7 @@ public class ClusterStatistic : Indicator
             DataType.DeltaSecond => "Delta/sec",
             DataType.PeakVolPerSec => "Max Vol/sec",
             DataType.PeakDeltaPerSec => "Delta at Max vol/sec",
-            DataType.PeakDeltaPerVol => "Delta/Vol Max vol/sec",
+            DataType.PeakDeltaPerVol => _ratiosAsPercent ? "Delta/Vol Max vol/sec (%)" : "Delta/Vol Max vol/sec",
             DataType.None => string.Empty,
 
 			_ => throw new ArgumentOutOfRangeException()
