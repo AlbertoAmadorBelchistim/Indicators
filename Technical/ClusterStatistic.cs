@@ -353,7 +353,13 @@ public class ClusterStatistic : Indicator
 	private int _lastHeightAlert;
 	private decimal _lastHeightValue;
 
-	private RenderPen _linePen = new(System.Drawing.Color.Transparent);
+    // --- Net Imbalance alert state (no spam; threshold crossing) ---
+    private int _lastNetImbalanceAlertBar = -1;   // bar index for which alert was already evaluated/fired
+    private int _prevNetImbalanceLive;           // previous observed net (live bar only)
+    private bool _hasPrevNetImbalanceLive;       // whether _prevNetImbalanceLive is valid (live bar only)
+
+
+    private RenderPen _linePen = new(System.Drawing.Color.Transparent);
 	private decimal _maxAsk;
 	private decimal _maxBid;
 	private decimal _maxDelta;
@@ -1129,8 +1135,27 @@ public class ClusterStatistic : Indicator
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.HeightAlert),
         Description = nameof(Strings.AlertFileDescription), Order = 1720)]
     public string HeightAlertFile { get; set; } = "alert1";
+    #endregion
+
+    #region Net Imbalance alert
+
+    [Display(Name = "Enabled", GroupName = "Net Imbalance Alert", Order = 600)]
+    public bool UseNetImbalanceAlert { get; set; }
+
+    [Display(Name = "Threshold (abs)", GroupName = "Net Imbalance Alert", Order = 610)]
+    [Range(1, 100000)]
+    public int NetImbalanceAlertValue { get; set; } = 6;
+
+    [Display(Name = "Use closed candle", GroupName = "Net Imbalance Alert", Order = 620)]
+    public bool UseClosedCandleForNetImbalanceAlert { get; set; }
+
+    [Display(Name = "Alert File", GroupName = "Net Imbalance Alert", Order = 630)]
+    public string NetImbalanceAlertFile { get; set; } = "alert1";
+
+
 
     #endregion
+
 
     #endregion
 
@@ -1369,9 +1394,14 @@ public class ClusterStatistic : Indicator
 			_lastTradesValue = 0m;
 			_lastHeightValue = 0m;
 
-			// Session values are cumulative and should not be reset to 0 on new bar,
-			// otherwise alerts would falsely trigger due to "crossing" from 0
-		}
+            // Session values are cumulative and should not be reset to 0 on new bar,
+            // otherwise alerts would falsely trigger due to "crossing" from 0
+
+            // Reset live net-imbalance crossing state on new bar
+            _hasPrevNetImbalanceLive = false;
+            _prevNetImbalanceLive = 0;
+            _lastNetImbalanceAlertBar = -1;
+        }
 
 		if (bar == CurrentBar - 1)
 		{
@@ -1643,6 +1673,53 @@ public class ClusterStatistic : Indicator
         _buyImbalance[bar] = buy;
         _sellImbalance[bar] = sell;
         _netImbalance[bar] = buy - sell;
+
+        // --- Optional Net Imbalance alert (threshold crossing, no spam) ---
+        if (UseNetImbalanceAlert && bar == CurrentBar - 1)
+        {
+            var thr = Math.Max(1, NetImbalanceAlertValue);
+
+            if (UseClosedCandleForNetImbalanceAlert)
+            {
+                // Evaluate the last CLOSED bar once (on the first tick of the new live bar)
+                var alertBar = bar - 1;
+                if (alertBar >= 0 && _lastNetImbalanceAlertBar != alertBar)
+                {
+                    var cur = (int)_netImbalance[alertBar];
+                    var prev = alertBar > 0 ? (int)_netImbalance[alertBar - 1] : 0;
+
+                    var prevInside = Math.Abs(prev) < thr;
+                    var curOutside = Math.Abs(cur) >= thr;
+
+                    // "Crossing" semantics:
+                    // - first bar: allow direct trigger if outside
+                    // - otherwise: trigger only when moving from inside -> outside
+                    if (curOutside && (alertBar == 0 || prevInside))
+                        AddAlert(NetImbalanceAlertFile, $"ClusterStatistic Net Imbalance alert: {cur} (thr={thr})");
+
+                    _lastNetImbalanceAlertBar = alertBar;
+                }
+            }
+            else
+            {
+                // Live bar: crossing detection within the bar; fire at most once per bar
+                var cur = (int)_netImbalance[bar];
+                var prev = _hasPrevNetImbalanceLive ? _prevNetImbalanceLive : 0;
+
+                var prevInside = Math.Abs(prev) < thr;
+                var curOutside = Math.Abs(cur) >= thr;
+
+                if (curOutside && prevInside && _lastNetImbalanceAlertBar != bar)
+                {
+                    AddAlert(NetImbalanceAlertFile, $"ClusterStatistic Net Imbalance alert: {cur} (thr={thr})");
+                    _lastNetImbalanceAlertBar = bar;
+                }
+
+                _prevNetImbalanceLive = cur;
+                _hasPrevNetImbalanceLive = true;
+            }
+        }
+
 
 
 
