@@ -1994,7 +1994,7 @@ public class ClusterStatistic : Indicator
 		// --- Basic footprint imbalances (Buy/Sell/Net) ---
 		// Buy imbalance: Ask(upper) vs Bid(lower)
 		// Sell imbalance: Bid(lower) vs Ask(upper)
-		// --- Basic footprint imbalances (Buy/Sell/Net) + stacked ---
+
 		int buy = 0, sell = 0;
 		int stackedBuy = 0, stackedSell = 0;
 
@@ -2658,8 +2658,8 @@ public class ClusterStatistic : Indicator
 
 			maxBuy = (int)_buyImbalance.MAX(last, 0);
 			maxSell = (int)_sellImbalance.MAX(last, 0);
-            maxNet = (int)Math.Abs(_netImbalance.MAX(last, 0));
-            maxStackedBuy = (int)_stackedBuyImbalance.MAX(last, 0);
+			maxNet = (int)Math.Abs(_netImbalance.MAX(last, 0));
+			maxStackedBuy = (int)_stackedBuyImbalance.MAX(last, 0);
 			maxStackedSell = (int)_stackedSellImbalance.MAX(last, 0);
 			maxStackedNet = (int)Math.Abs(_stackedNetImbalance.MAX(last, 0));
 
@@ -3231,23 +3231,23 @@ public class ClusterStatistic : Indicator
 		}
 	}
 
-    private void RebuildHistoricalImbalances()
-    {
-        if (CurrentBar <= 0)
-            return;
+	private void RebuildHistoricalImbalances()
+	{
+		if (CurrentBar <= 0)
+			return;
 
-        for (var i = 0; i < CurrentBar; i++)
-        {
-            var c = GetCandle(i);
-            if (c == null)
-                continue;
+		for (var i = 0; i < CurrentBar; i++)
+		{
+			var c = GetCandle(i);
+			if (c == null)
+				continue;
 
-            ComputeImbalances(c, out var buy, out var sell, out var stackedBuy, out var stackedSell);
-            WriteImbalanceSeries(i, buy, sell, stackedBuy, stackedSell);
-        }
-    }
+			ComputeImbalances(c, out var buy, out var sell, out var stackedBuy, out var stackedSell);
+			WriteImbalanceSeries(i, buy, sell, stackedBuy, stackedSell);
+		}
+	}
 
-    private bool AreImbalanceRowsEnabled()
+	private bool AreImbalanceRowsEnabled()
 	{
 		return
 			(RowsOrder.TryGetValue(DataType.BuyImbalance, out var buyRi) && buyRi.Enabled) ||
