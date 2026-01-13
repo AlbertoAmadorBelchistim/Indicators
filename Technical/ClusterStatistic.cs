@@ -1869,6 +1869,8 @@ public class ClusterStatistic : Indicator
             if (_rtBar != bar)
             {
                 _rtBar = bar;
+
+                ResetSoTRuntimeState();
                 _prevCumVol = 0m;
                 _prevCumDelta = 0m;
                 _rtPeakVolPerSec = 0m;
