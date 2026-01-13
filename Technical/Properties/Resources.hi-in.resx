@@ -396,4 +396,124 @@
   <data name="VolumeThresholdMinor" xml:space="preserve">
     <value>वॉल्यूम थ्रेशोल्ड (माइनर)</value>
   </data>
-</root>
+    <data name="ShowDeltaPerSecond" xml:space="preserve">
+    <value>डेल्टा/सेकंड</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowDeltaPerSecondDescription" xml:space="preserve">
+    <value>प्रति सेकंड डेल्टा दिखाएँ</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowPeakVolPerSec" xml:space="preserve">
+    <value>अधिकतम वॉल्यूम/सेकंड (पीक)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowPeakDeltaPerSec" xml:space="preserve">
+    <value>अधिकतम वॉल्यूम/सेकंड पर डेल्टा</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowPeakDeltaPerVol" xml:space="preserve">
+    <value>अधिकतम वॉल्यूम/सेकंड पर डेल्टा/वॉल्यूम</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowBuyImbalances" xml:space="preserve">
+    <value>खरीद असंतुलन</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowSellImbalances" xml:space="preserve">
+    <value>बिक्री असंतुलन</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowNetImbalances" xml:space="preserve">
+    <value>नेट असंतुलन</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowStackedBuyImbalances" xml:space="preserve">
+    <value>स्टैक्ड खरीद असंतुलन</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowStackedSellImbalances" xml:space="preserve">
+    <value>स्टैक्ड बिक्री असंतुलन</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowStackedNetImbalances" xml:space="preserve">
+    <value>स्टैक्ड नेट असंतुलन</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="MaxVolPerSecGroup" xml:space="preserve">
+    <value>अधिकतम वॉल्यूम/सेकंड</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ImbalanceGroup" xml:space="preserve">
+    <value>असंतुलन</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="NetImbalanceAlertGroup" xml:space="preserve">
+    <value>नेट असंतुलन अलर्ट</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SotTimeWindowSecName" xml:space="preserve">
+    <value>समय विंडो (सेकंड)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SotMinVolumeName" xml:space="preserve">
+    <value>प्रति विंडो न्यूनतम वॉल्यूम</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SotUseAutoFilterName" xml:space="preserve">
+    <value>स्वचालित फ़िल्टर उपयोग करें</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SotAutoFilterPeriodName" xml:space="preserve">
+    <value>स्वचालित फ़िल्टर अवधि</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SotAutoFilterUseEmaName" xml:space="preserve">
+    <value>स्वचालित फ़िल्टर = EMA (बंद=SMA)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ImbalanceThresholdPercentName" xml:space="preserve">
+    <value>असंतुलन सीमा (%)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ImbalanceMinDominantVolumeName" xml:space="preserve">
+    <value>न्यूनतम प्रमुख वॉल्यूम</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ImbalanceMinDifferenceName" xml:space="preserve">
+    <value>न्यूनतम वॉल्यूम अंतर</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="StackedImbalanceMinLevelsName" xml:space="preserve">
+    <value>न्यूनतम स्टैक्ड स्तर</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RatiosAsPercent" xml:space="preserve">
+    <value>अनुपात प्रतिशत के रूप में</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="NetImbalanceAlertThresholdAbs" xml:space="preserve">
+    <value>सीमा (abs)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="NetImbalanceAlertUseClosedCandle" xml:space="preserve">
+    <value>बंद कैंडल उपयोग करें</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertDeltaTemplate" xml:space="preserve">
+    <value>ClusterStatistic डेल्टा अलर्ट: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertVolumeTemplate" xml:space="preserve">
+    <value>ClusterStatistic वॉल्यूम अलर्ट: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertNetImbalanceTemplate" xml:space="preserve">
+    <value>ClusterStatistic नेट असंतुलन अलर्ट: {0} (सीमा={1})</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+<data name="Rows" xml:space="preserve">
+    <value>पंक्तियाँ</value>
+  </data><data name="LabelFillColorDescription" xml:space="preserve">
+    <value>लेबल के पृष्ठभूमि का रंग सेट करता है।</value>
+  </data></root>
