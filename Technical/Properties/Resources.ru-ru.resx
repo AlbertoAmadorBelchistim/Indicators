@@ -2703,7 +2703,7 @@
     <comment>ClusterStatistics</comment>
   </data>
   <data name="ShowPeakVolPerSec" xml:space="preserve">
-    <value>Макс. объём/с (пик)</value>
+    <value>Макс. объём/с</value>
     <comment>ClusterStatistics</comment>
   </data>
   <data name="ShowPeakDeltaPerSec" xml:space="preserve">
@@ -2759,17 +2759,17 @@
     <comment>ClusterStatistics</comment>
   </data>
   <data name="SotUseAutoFilterName" xml:space="preserve">
-    <value>Использовать автофильтр</value>
-    <comment>ClusterStatistics</comment>
-  </data>
-  <data name="SotAutoFilterPeriodName" xml:space="preserve">
-    <value>Период автофильтра</value>
-    <comment>ClusterStatistics</comment>
-  </data>
-  <data name="SotAutoFilterUseEmaName" xml:space="preserve">
-    <value>Автофильтр = EMA (выкл=SMA)</value>
-    <comment>ClusterStatistics</comment>
-  </data>
+  <value>Исп. фильтр</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SotAutoFilterPeriodName" xml:space="preserve">
+  <value>Период фильтра</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SotAutoFilterUseEmaName" xml:space="preserve">
+  <value>EMA (off=SMA)</value>
+  <comment>ClusterStatistics</comment>
+</data>
   <data name="ImbalanceThresholdPercentName" xml:space="preserve">
     <value>Порог дисбаланса (%)</value>
     <comment>ClusterStatistics</comment>
@@ -2825,4 +2825,16 @@
   <data name="Show Fibonacci" xml:space="preserve">
     <value>Показать уровни Фибоначчи</value>
   </data>
+  <data name="SessionDelta" xml:space="preserve">
+  <value>Сессионная дельта</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SessionDeltaVolume" xml:space="preserve">
+  <value>Дельта/объём сессии</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SessionDeltaVolumePercent" xml:space="preserve">
+  <value>Дельта/объём сессии (%)</value>
+  <comment>ClusterStatistics</comment>
+</data>
 </root>

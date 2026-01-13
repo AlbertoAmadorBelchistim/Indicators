@@ -441,7 +441,7 @@
     <comment>ClusterStatistics</comment>
   </data>
   <data name="ShowPeakVolPerSec" xml:space="preserve">
-    <value>Vol max/s (pic)</value>
+    <value>Vol max/s</value>
     <comment>ClusterStatistics</comment>
   </data>
   <data name="ShowPeakDeltaPerSec" xml:space="preserve">
@@ -497,17 +497,17 @@
     <comment>ClusterStatistics</comment>
   </data>
   <data name="SotUseAutoFilterName" xml:space="preserve">
-    <value>Utiliser le filtre automatique</value>
-    <comment>ClusterStatistics</comment>
-  </data>
-  <data name="SotAutoFilterPeriodName" xml:space="preserve">
-    <value>Période du filtre automatique</value>
-    <comment>ClusterStatistics</comment>
-  </data>
-  <data name="SotAutoFilterUseEmaName" xml:space="preserve">
-    <value>Filtre automatique = EMA (désactivé=SMA)</value>
-    <comment>ClusterStatistics</comment>
-  </data>
+  <value>Utiliser filtre</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SotAutoFilterPeriodName" xml:space="preserve">
+  <value>Période du filtre</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SotAutoFilterUseEmaName" xml:space="preserve">
+  <value>EMA (off=SMA)</value>
+  <comment>ClusterStatistics</comment>
+</data>
   <data name="ImbalanceThresholdPercentName" xml:space="preserve">
     <value>Seuil de déséquilibre (%)</value>
     <comment>ClusterStatistics</comment>
@@ -554,4 +554,19 @@
   <data name="LabelFillColorDescription" xml:space="preserve">
     <value>Définit la couleur de fond de l'étiquette.</value>
   </data>
+<data name="Visualization" xml:space="preserve">
+    <value>Visualisation</value>
+  </data>
+  <data name="SessionDelta" xml:space="preserve">
+  <value>Delta de session</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SessionDeltaVolume" xml:space="preserve">
+  <value>Delta/volume de session</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SessionDeltaVolumePercent" xml:space="preserve">
+  <value>Delta/volume de session (%)</value>
+  <comment>ClusterStatistics</comment>
+</data>
 </root>
