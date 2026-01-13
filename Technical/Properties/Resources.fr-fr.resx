@@ -132,6 +132,9 @@
   <data name="Delta" xml:space="preserve">
     <value>Delta</value>
   </data>
+  <data name="ShowVolume" xml:space="preserve">
+    <value>Volume</value>
+  </data>
   <data name="Time" xml:space="preserve">
     <value>Heure</value>
   </data>
@@ -159,14 +162,86 @@
   <data name="Height" xml:space="preserve">
     <value>Hauteur</value>
   </data>
+  <data name="Visualization" xml:space="preserve">
+    <value>Visualisation</value>
+  </data>
   <data name="Trades" xml:space="preserve">
     <value>Transactions</value>
+  </data>
+  <data name="AskColor" xml:space="preserve">
+    <value>Couleur de Ask</value>
+  </data>
+  <data name="BidColor" xml:space="preserve">
+    <value>Couleur de Bid</value>
+  </data>
+  <data name="HideRowsDescription" xml:space="preserve">
+    <value>Masquer les en-têtes</value>
+  </data>
+  <data name="ShowAsk" xml:space="preserve">
+    <value>Afficher des asks</value>
+  </data>
+  <data name="ShowBid" xml:space="preserve">
+    <value>Afficher des bids</value>
+  </data>
+  <data name="ShowDelta" xml:space="preserve">
+    <value>Le delta</value>
+  </data>
+  <data name="ShowDeltaPerVolume" xml:space="preserve">
+    <value>Afficher le delta/volume</value>
+  </data>
+  <data name="ShowDuration" xml:space="preserve">
+    <value>Afficher la durée, sec</value>
+  </data>
+  <data name="ShowMaximumDelta" xml:space="preserve">
+    <value>Le delta maximum</value>
+  </data>
+  <data name="ShowMinimumDelta" xml:space="preserve">
+    <value>Le delta minimal</value>
+  </data>
+  <data name="ShowSessionDelta" xml:space="preserve">
+    <value>Delta de session</value>
+  </data>
+  <data name="ShowSessionDeltaPerVolume" xml:space="preserve">
+    <value>Le delta/volume de session</value>
+  </data>
+  <data name="ShowSessionVolume" xml:space="preserve">
+    <value>Le volume de session</value>
+  </data>
+  <data name="ShowTime" xml:space="preserve">
+    <value>Heure</value>
+  </data>
+  <data name="ShowVolumePerSecond" xml:space="preserve">
+    <value>Le volume/seconde</value>
+  </data>
+  <data name="VolumeColor" xml:space="preserve">
+    <value>Couleur de volume</value>
+  </data>
+  <data name="GridColor" xml:space="preserve">
+    <value>Couleur de la grille</value>
+  </data>
+  <data name="HeaderBackground" xml:space="preserve">
+    <value>Fond de l'en-tête</value>
+  </data>
+  <data name="VisibleProportion" xml:space="preserve">
+    <value>Afficher par gradient</value>
   </data>
   <data name="Enabled" xml:space="preserve">
     <value>Activé</value>
   </data>
+  <data name="ShowDeltaChange" xml:space="preserve">
+    <value>Le changement de delta</value>
+  </data>
   <data name="Transparency" xml:space="preserve">
     <value>Transparence</value>
+  </data>
+  <data name="ShortValues" xml:space="preserve">
+    <value>Afficher des valeurs abrégées</value>
+  </data>
+  <data name="ShowTradesCount" xml:space="preserve">
+    <value>Le nombre de transactions</value>
+  </data>
+  <data name="ShowHeight" xml:space="preserve">
+    <value>La hauteur</value>
   </data>
   <data name="Rows" xml:space="preserve">
     <value>Lignes</value>
@@ -497,17 +572,17 @@
     <comment>ClusterStatistics</comment>
   </data>
   <data name="SotUseAutoFilterName" xml:space="preserve">
-  <value>Utiliser filtre</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="SotAutoFilterPeriodName" xml:space="preserve">
-  <value>Période du filtre</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="SotAutoFilterUseEmaName" xml:space="preserve">
-  <value>EMA (off=SMA)</value>
-  <comment>ClusterStatistics</comment>
-</data>
+    <value>Utiliser filtre</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SotAutoFilterPeriodName" xml:space="preserve">
+    <value>Période du filtre</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SotAutoFilterUseEmaName" xml:space="preserve">
+    <value>EMA (off=SMA)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
   <data name="ImbalanceThresholdPercentName" xml:space="preserve">
     <value>Seuil de déséquilibre (%)</value>
     <comment>ClusterStatistics</comment>
@@ -548,25 +623,169 @@
     <value>Alerte déséquilibre net ClusterStatistic : {0} (seuil={1})</value>
     <comment>ClusterStatistics</comment>
   </data>
+  <data name="SessionDelta" xml:space="preserve">
+    <value>Delta de session</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SessionDeltaVolume" xml:space="preserve">
+    <value>Delta/volume de session</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SessionDeltaVolumePercent" xml:space="preserve">
+    <value>Delta/volume de session (%)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Durée</value>
+  </data>
   <data name="NetStkShort" xml:space="preserve">
     <value>Net Stk.</value>
   </data>
   <data name="LabelFillColorDescription" xml:space="preserve">
     <value>Définit la couleur de fond de l'étiquette.</value>
   </data>
-<data name="Visualization" xml:space="preserve">
-    <value>Visualisation</value>
+  <data name="RowsPaceGroup" xml:space="preserve">
+    <value>Rythme / Activité</value>
+    <comment>ClusterStatistics</comment>
   </data>
-  <data name="SessionDelta" xml:space="preserve">
-  <value>Delta de session</value>
+  <data name="RowsPressureGroup" xml:space="preserve">
+    <value>Pression directionnelle</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsImbalanceRowsGroup" xml:space="preserve">
+    <value>Déséquilibres</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsCandleContextGroup" xml:space="preserve">
+    <value>Contexte de la bougie</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsSessionContextGroup" xml:space="preserve">
+    <value>Contexte de session</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsRawPrintsGroup" xml:space="preserve">
+    <value>Impressions brutes</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowVolumePerSecondDescription" xml:space="preserve">
+    <value>Détermine s'il faut afficher des informations sur le volume par seconde.</value>
+  </data>
+  <data name="ShowDeltaDescription" xml:space="preserve">
+    <value>Détermine si les informations sur le delta doivent être affichées.</value>
+  </data>
+  <data name="ShowDeltaPerVolumeDescription" xml:space="preserve">
+    <value>Détermine si les informations sur le delta par volume doivent être affichées.</value>
+  </data>
+  <data name="ShowDeltaChangeDescription" xml:space="preserve">
+    <value>Détermine s'il faut afficher des informations sur la différence entre le delta de la bougie actuelle et le delta de la précédente.</value>
+  </data>
+  <data name="ShowMaximumDeltaDescription" xml:space="preserve">
+    <value>Détermine s'il faut afficher des informations sur le delta maximum.</value>
+  </data>
+  <data name="ShowMinimumDeltaDescription" xml:space="preserve">
+    <value>Détermine si les informations sur le delta minimum doivent être affichées.</value>
+  </data>
+  <data name="ShowVolumesDescription" xml:space="preserve">
+    <value>Détermine s'il faut afficher des informations sur les volumes.</value>
+  </data>
+  <data name="ShowTradesCountDescription" xml:space="preserve">
+    <value>Détermine s'il faut afficher des informations sur le nombre de transactions.</value>
+  </data>
+  <data name="ShowCandleHeightDescription" xml:space="preserve">
+    <value>Détermine s'il faut afficher des informations sur la hauteur de la bougie (en devise).</value>
+  </data>
+  <data name="ShowCandleDurationDescription" xml:space="preserve">
+    <value>Détermine si les informations sur la durée de la bougie doivent être affichées.</value>
+  </data>
+  <data name="ShowCandleTimeDescription" xml:space="preserve">
+    <value>Détermine s'il faut afficher des informations sur l'heure de début de la bougie.</value>
+  </data>
+  <data name="ShowSessionVolumeDescription" xml:space="preserve">
+    <value>Détermine s'il faut afficher les informations de volume cumulatif dans une session.</value>
+  </data>
+  <data name="ShowSessionDeltaDescription" xml:space="preserve">
+    <value>Détermine s'il faut afficher des informations sur la différence de session.</value>
+  </data>
+  <data name="ShowSessionDeltaPerVolumeDescription" xml:space="preserve">
+    <value>Détermine s'il faut afficher des informations sur la delta de session par volume.</value>
+  </data>
+  <data name="ShowAsksDescription" xml:space="preserve">
+    <value>Détermine s'il faut afficher des informations sur le volume des offres.</value>
+  </data>
+  <data name="ShowBidsDescription" xml:space="preserve">
+    <value>Détermine s'il faut afficher des informations sur les volumes d'offres.</value>
+  </data>
+  <data name="BuyImbShort" xml:space="preserve">
+  <value>Déséqu. Ach</value>
   <comment>ClusterStatistics</comment>
 </data>
-<data name="SessionDeltaVolume" xml:space="preserve">
-  <value>Delta/volume de session</value>
+<data name="SellImbShort" xml:space="preserve">
+  <value>Déséqu. Vte</value>
   <comment>ClusterStatistics</comment>
 </data>
-<data name="SessionDeltaVolumePercent" xml:space="preserve">
-  <value>Delta/volume de session (%)</value>
+<data name="NetImbShort" xml:space="preserve">
+  <value>Déséqu. Net</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="BuyStkShort" xml:space="preserve">
+  <value>Empil. Ach</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SellStkShort" xml:space="preserve">
+  <value>Empil. Vte</value>
+  <comment>ClusterStatistics</comment>
+</data>
+
+<data name="DeltaChange" xml:space="preserve">
+  <value>Var. delta</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="DeltaSecond" xml:space="preserve">
+  <value>Delta/s</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="DeltaVolume" xml:space="preserve">
+  <value>Delta/Vol</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="DeltaVolumePercent" xml:space="preserve">
+  <value>Delta/Vol (%)</value>
+  <comment>ClusterStatistics</comment>
+</data>
+
+<data name="MaxDelta" xml:space="preserve">
+  <value>Delta max.</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="MinDelta" xml:space="preserve">
+  <value>Delta min.</value>
+  <comment>ClusterStatistics</comment>
+</data>
+
+<data name="VolumeSecond" xml:space="preserve">
+  <value>Vol./s</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SessionVolume" xml:space="preserve">
+  <value>Vol. session</value>
+  <comment>ClusterStatistics</comment>
+</data>
+
+<data name="PeakVolPerSec" xml:space="preserve">
+  <value>Vol max/s</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="PeakDeltaPerSec" xml:space="preserve">
+  <value>Delta @ Vol max/s</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="PeakDeltaPerVol" xml:space="preserve">
+  <value>Delta/Vol @ Vol max/s</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="PeakDeltaPerVolPercent" xml:space="preserve">
+  <value>Delta/Vol @ Vol max/s (%)</value>
   <comment>ClusterStatistics</comment>
 </data>
 </root>
