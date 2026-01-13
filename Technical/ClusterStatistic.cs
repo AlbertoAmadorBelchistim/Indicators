@@ -2645,16 +2645,18 @@ public class ClusterStatistic : Indicator
 			maxDeltaChange = _maxDeltaChange;
 			maxDeltaSec = _maxDeltaSec;
 			maxHeight = _maxHeight;
-			maxVolumeSec = _volPerSecond.MAX(CurrentBar - 1, CurrentBar - 1);
-			maxPeakVolPerSec = _peakVolPerSec.MAX(CurrentBar - 1, CurrentBar - 1);
-			maxPeakDeltaPerSec = _peakDeltaPerSec.MAX(CurrentBar - 1, CurrentBar - 1);
-			maxPeakDeltaPerVol = _peakDeltaPerVol.MAX(CurrentBar - 1, CurrentBar - 1);
-			maxBuy = (int)_buyImbalance.MAX(CurrentBar - 1, CurrentBar - 1);
-			maxSell = (int)_sellImbalance.MAX(CurrentBar - 1, CurrentBar - 1);
-			maxNet = (int)_netImbalance.MAX(CurrentBar - 1, CurrentBar - 1);
-			maxStackedBuy = (int)_stackedBuyImbalance.MAX(CurrentBar - 1, CurrentBar - 1);
-			maxStackedSell = (int)_stackedSellImbalance.MAX(CurrentBar - 1, CurrentBar - 1);
-			maxStackedNet = (int)Math.Abs(_stackedNetImbalance.MAX(CurrentBar - 1, CurrentBar - 1));
+			var last = CurrentBar - 1;
+			maxVolumeSec = _volPerSecond.MAX(last, 0);
+			maxPeakVolPerSec = _peakVolPerSec.MAX(last, 0);
+			maxPeakDeltaPerSec = _peakDeltaPerSec.MAX(last, 0);
+			maxPeakDeltaPerVol = _peakDeltaPerVol.MAX(last, 0);
+
+			maxBuy = (int)_buyImbalance.MAX(last, 0);
+			maxSell = (int)_sellImbalance.MAX(last, 0);
+			maxNet = (int)_netImbalance.MAX(last, 0);
+			maxStackedBuy = (int)_stackedBuyImbalance.MAX(last, 0);
+			maxStackedSell = (int)_stackedSellImbalance.MAX(last, 0);
+			maxStackedNet = (int)Math.Abs(_stackedNetImbalance.MAX(last, 0));
 
 		}
 
