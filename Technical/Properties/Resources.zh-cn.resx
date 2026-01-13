@@ -441,7 +441,7 @@
     <comment>ClusterStatistics</comment>
   </data>
   <data name="ShowPeakVolPerSec" xml:space="preserve">
-    <value>最大成交量/秒（峰值）</value>
+    <value>最大成交量/秒</value>
     <comment>ClusterStatistics</comment>
   </data>
   <data name="ShowPeakDeltaPerSec" xml:space="preserve">
@@ -497,17 +497,17 @@
     <comment>ClusterStatistics</comment>
   </data>
   <data name="SotUseAutoFilterName" xml:space="preserve">
-    <value>使用自动过滤</value>
-    <comment>ClusterStatistics</comment>
-  </data>
-  <data name="SotAutoFilterPeriodName" xml:space="preserve">
-    <value>自动过滤周期</value>
-    <comment>ClusterStatistics</comment>
-  </data>
-  <data name="SotAutoFilterUseEmaName" xml:space="preserve">
-    <value>自动过滤 = EMA（关闭=SMA）</value>
-    <comment>ClusterStatistics</comment>
-  </data>
+  <value>使用过滤</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SotAutoFilterPeriodName" xml:space="preserve">
+  <value>过滤周期</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SotAutoFilterUseEmaName" xml:space="preserve">
+  <value>EMA（关=SMA）</value>
+  <comment>ClusterStatistics</comment>
+</data>
   <data name="ImbalanceThresholdPercentName" xml:space="preserve">
     <value>失衡阈值 (%)</value>
     <comment>ClusterStatistics</comment>
@@ -554,4 +554,19 @@
   <data name="LabelFillColorDescription" xml:space="preserve">
     <value>设置标签的背景颜色。</value>
   </data>
+<data name="Visualization" xml:space="preserve">
+    <value>视觉化</value>
+  </data>
+  <data name="SessionDelta" xml:space="preserve">
+  <value>会话 Delta</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SessionDeltaVolume" xml:space="preserve">
+  <value>会话 Delta/成交量</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SessionDeltaVolumePercent" xml:space="preserve">
+  <value>会话 Delta/成交量 (%)</value>
+  <comment>ClusterStatistics</comment>
+</data>
 </root>

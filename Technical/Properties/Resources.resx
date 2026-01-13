@@ -2919,7 +2919,7 @@
     <comment>ClusterStatistics</comment>
   </data>
   <data name="ShowPeakVolPerSec" xml:space="preserve">
-    <value>Max Vol/sec (peak)</value>
+    <value>Max Vol/sec</value>
     <comment>ClusterStatistics</comment>
   </data>
   <data name="ShowPeakDeltaPerSec" xml:space="preserve">
@@ -2974,18 +2974,18 @@
     <value>Min Volume per Window</value>
     <comment>ClusterStatistics</comment>
   </data>
-  <data name="SotUseAutoFilterName" xml:space="preserve">
-    <value>Use Auto Filter</value>
-    <comment>ClusterStatistics</comment>
-  </data>
-  <data name="SotAutoFilterPeriodName" xml:space="preserve">
-    <value>Auto Filter Period</value>
-    <comment>ClusterStatistics</comment>
-  </data>
-  <data name="SotAutoFilterUseEmaName" xml:space="preserve">
-    <value>Auto Filter = EMA (off=SMA)</value>
-    <comment>ClusterStatistics</comment>
-  </data>
+<data name="SotUseAutoFilterName" xml:space="preserve">
+  <value>Use filter</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SotAutoFilterPeriodName" xml:space="preserve">
+  <value>Filter period</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SotAutoFilterUseEmaName" xml:space="preserve">
+  <value>EMA (off=SMA)</value>
+  <comment>ClusterStatistics</comment>
+</data>
   <data name="ImbalanceThresholdPercentName" xml:space="preserve">
     <value>Imbalance Threshold (%)</value>
     <comment>ClusterStatistics</comment>

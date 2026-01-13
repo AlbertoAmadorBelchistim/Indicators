@@ -441,7 +441,7 @@
     <comment>ClusterStatistics</comment>
   </data>
   <data name="ShowPeakVolPerSec" xml:space="preserve">
-    <value>Vol máx/seg (pico)</value>
+    <value>Vol máx/seg</value>
     <comment>ClusterStatistics</comment>
   </data>
   <data name="ShowPeakDeltaPerSec" xml:space="preserve">
@@ -496,18 +496,18 @@
     <value>Volumen mínimo por ventana</value>
     <comment>ClusterStatistics</comment>
   </data>
-  <data name="SotUseAutoFilterName" xml:space="preserve">
-    <value>Usar filtro automático</value>
-    <comment>ClusterStatistics</comment>
-  </data>
-  <data name="SotAutoFilterPeriodName" xml:space="preserve">
-    <value>Periodo del filtro automático</value>
-    <comment>ClusterStatistics</comment>
-  </data>
-  <data name="SotAutoFilterUseEmaName" xml:space="preserve">
-    <value>Filtro automático = EMA (desactivado=SMA)</value>
-    <comment>ClusterStatistics</comment>
-  </data>
+<data name="SotUseAutoFilterName" xml:space="preserve">
+  <value>Usar filtro</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SotAutoFilterPeriodName" xml:space="preserve">
+  <value>Periodo del filtro</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SotAutoFilterUseEmaName" xml:space="preserve">
+  <value>EMA (off=SMA)</value>
+  <comment>ClusterStatistics</comment>
+</data>
   <data name="ImbalanceThresholdPercentName" xml:space="preserve">
     <value>Umbral de desequilibrio (%)</value>
     <comment>ClusterStatistics</comment>
@@ -554,4 +554,19 @@
   <data name="LabelFillColorDescription" xml:space="preserve">
     <value>Establece el color de fondo de la etiqueta.</value>
   </data>
+<data name="Visualization" xml:space="preserve">
+    <value>Visualización</value>
+  </data>
+  <data name="SessionDelta" xml:space="preserve">
+  <value>Delta de sesión</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SessionDeltaVolume" xml:space="preserve">
+  <value>Delta/volumen de sesión</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SessionDeltaVolumePercent" xml:space="preserve">
+  <value>Delta/volumen de sesión (%)</value>
+  <comment>ClusterStatistics</comment>
+</data>
 </root>
