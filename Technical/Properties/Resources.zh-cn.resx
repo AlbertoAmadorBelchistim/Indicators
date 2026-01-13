@@ -243,6 +243,9 @@
   <data name="ShowHeight" xml:space="preserve">
     <value>高度</value>
   </data>
+  <data name="DeltaAlert" xml:space="preserve">
+    <value>Delta 警报</value>
+  </data>
   <data name="Rows" xml:space="preserve">
     <value>行数</value>
   </data>
@@ -623,6 +626,14 @@
     <value>ClusterStatistic 净失衡警报：{0}（阈值={1}）</value>
     <comment>ClusterStatistics</comment>
   </data>
+  <data name="DeltaVolume" xml:space="preserve">
+    <value>Delta/成交量</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="DeltaVolumePercent" xml:space="preserve">
+    <value>Delta/成交量(%)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
   <data name="SessionDelta" xml:space="preserve">
     <value>会话 Delta</value>
     <comment>ClusterStatistics</comment>
@@ -635,8 +646,68 @@
     <value>会话 Delta/成交量 (%)</value>
     <comment>ClusterStatistics</comment>
   </data>
+  <data name="MaxDelta" xml:space="preserve">
+    <value>最大Delta</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="MinDelta" xml:space="preserve">
+    <value>最小Delta</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="DeltaChange" xml:space="preserve">
+    <value>Delta变化</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="VolumeSecond" xml:space="preserve">
+    <value>成交量/秒</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SessionVolume" xml:space="preserve">
+    <value>会话成交量</value>
+    <comment>ClusterStatistics</comment>
+  </data>
   <data name="Duration" xml:space="preserve">
     <value>持续时间</value>
+  </data>
+  <data name="DeltaSecond" xml:space="preserve">
+    <value>Delta/秒</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="PeakVolPerSec" xml:space="preserve">
+    <value>最大成交量/秒</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="PeakDeltaPerSec" xml:space="preserve">
+    <value>最大成交量/秒时Delta</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="PeakDeltaPerVol" xml:space="preserve">
+    <value>最大成交量/秒时Delta/量</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="PeakDeltaPerVolPercent" xml:space="preserve">
+    <value>最大成交量/秒时Delta/量(%)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="BuyImbShort" xml:space="preserve">
+    <value>买方失衡</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SellImbShort" xml:space="preserve">
+    <value>卖方失衡</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="NetImbShort" xml:space="preserve">
+    <value>净失衡</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="BuyStkShort" xml:space="preserve">
+    <value>买方叠加</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SellStkShort" xml:space="preserve">
+    <value>卖方叠加</value>
+    <comment>ClusterStatistics</comment>
   </data>
   <data name="NetStkShort" xml:space="preserve">
     <value>Net Stk.</value>
@@ -716,76 +787,13 @@
   <data name="ShowBidsDescription" xml:space="preserve">
     <value>确定是否显示竞标量信息。</value>
   </data>
-  <data name="BuyImbShort" xml:space="preserve">
-  <value>买方失衡</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="SellImbShort" xml:space="preserve">
-  <value>卖方失衡</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="NetImbShort" xml:space="preserve">
-  <value>净失衡</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="BuyStkShort" xml:space="preserve">
-  <value>买方叠加</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="SellStkShort" xml:space="preserve">
-  <value>卖方叠加</value>
-  <comment>ClusterStatistics</comment>
-</data>
-
-<data name="DeltaChange" xml:space="preserve">
-  <value>Delta变化</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="DeltaSecond" xml:space="preserve">
-  <value>Delta/秒</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="DeltaVolume" xml:space="preserve">
-  <value>Delta/成交量</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="DeltaVolumePercent" xml:space="preserve">
-  <value>Delta/成交量(%)</value>
-  <comment>ClusterStatistics</comment>
-</data>
-
-<data name="MaxDelta" xml:space="preserve">
-  <value>最大Delta</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="MinDelta" xml:space="preserve">
-  <value>最小Delta</value>
-  <comment>ClusterStatistics</comment>
-</data>
-
-<data name="VolumeSecond" xml:space="preserve">
-  <value>成交量/秒</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="SessionVolume" xml:space="preserve">
-  <value>会话成交量</value>
-  <comment>ClusterStatistics</comment>
-</data>
-
-<data name="PeakVolPerSec" xml:space="preserve">
-  <value>最大成交量/秒</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="PeakDeltaPerSec" xml:space="preserve">
-  <value>最大成交量/秒时Delta</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="PeakDeltaPerVol" xml:space="preserve">
-  <value>最大成交量/秒时Delta/量</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="PeakDeltaPerVolPercent" xml:space="preserve">
-  <value>最大成交量/秒时Delta/量(%)</value>
-  <comment>ClusterStatistics</comment>
-</data>
+  <data name="UseAlertDescription" xml:space="preserve">
+    <value>此设置可用于特定条件或事件的警报通知，这些条件或事件由指示器定义。激活后，指示器将发送警报。</value>
+  </data>
+  <data name="AlertFilterDescription" xml:space="preserve">
+    <value>设置警报触发的值。</value>
+  </data>
+  <data name="AlertFileDescription" xml:space="preserve">
+    <value>AlertFileDescription参数允许用户为ATAS平台中的警报声设置自定义音频文件的名称。用户可以选择一个WAV文件，在满足警报条件时播放。所选的WAV文件应位于C:\Program Files (x86)\ATAS Platform\Sounds文件夹中。</value>
+  </data>
 </root>

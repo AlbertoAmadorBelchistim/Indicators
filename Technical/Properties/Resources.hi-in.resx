@@ -243,6 +243,9 @@
   <data name="ShowHeight" xml:space="preserve">
     <value>ऊचाई दिखाएं</value>
   </data>
+  <data name="DeltaAlert" xml:space="preserve">
+    <value>डेल्टा चेतावनी</value>
+  </data>
   <data name="Rows" xml:space="preserve">
     <value>पंक्तियाँ</value>
   </data>
@@ -623,6 +626,14 @@
     <value>ClusterStatistic नेट असंतुलन अलर्ट: {0} (सीमा={1})</value>
     <comment>ClusterStatistics</comment>
   </data>
+  <data name="DeltaVolume" xml:space="preserve">
+    <value>डेल्टा/वॉल</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="DeltaVolumePercent" xml:space="preserve">
+    <value>डेल्टा/वॉल (%)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
   <data name="SessionDelta" xml:space="preserve">
     <value>सेशन डेल्टा</value>
     <comment>ClusterStatistics</comment>
@@ -635,8 +646,68 @@
     <value>सेशन डेल्टा/वॉल्यूम (%)</value>
     <comment>ClusterStatistics</comment>
   </data>
+  <data name="MaxDelta" xml:space="preserve">
+    <value>अधिकतम डेल्टा</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="MinDelta" xml:space="preserve">
+    <value>न्यूनतम डेल्टा</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="DeltaChange" xml:space="preserve">
+    <value>डेल्टा परिवर्तन</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="VolumeSecond" xml:space="preserve">
+    <value>वॉल/सेक</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SessionVolume" xml:space="preserve">
+    <value>सेशन वॉल्यूम</value>
+    <comment>ClusterStatistics</comment>
+  </data>
   <data name="Duration" xml:space="preserve">
     <value>अवधि</value>
+  </data>
+  <data name="DeltaSecond" xml:space="preserve">
+    <value>डेल्टा/सेक</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="PeakVolPerSec" xml:space="preserve">
+    <value>अधिकतम वॉल/सेक</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="PeakDeltaPerSec" xml:space="preserve">
+    <value>डेल्टा @ अधिकतम वॉल/सेक</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="PeakDeltaPerVol" xml:space="preserve">
+    <value>डेल्टा/वॉल @ अधिकतम वॉल/सेक</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="PeakDeltaPerVolPercent" xml:space="preserve">
+    <value>डेल्टा/वॉल @ अधिकतम वॉल/सेक (%)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="BuyImbShort" xml:space="preserve">
+    <value>खरीद असं.</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SellImbShort" xml:space="preserve">
+    <value>बिक्री असं.</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="NetImbShort" xml:space="preserve">
+    <value>शुद्ध असं.</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="BuyStkShort" xml:space="preserve">
+    <value>खरीद स्टैक</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SellStkShort" xml:space="preserve">
+    <value>बिक्री स्टैक</value>
+    <comment>ClusterStatistics</comment>
   </data>
   <data name="NetStkShort" xml:space="preserve">
     <value>नेट Stk.</value>
@@ -716,76 +787,13 @@
   <data name="ShowBidsDescription" xml:space="preserve">
     <value>निर्धारित करता है कि बोली वॉल्यूम की जानकारी प्रदर्शित करनी चाहिए या नहीं।</value>
   </data>
-  <data name="BuyImbShort" xml:space="preserve">
-  <value>खरीद असं.</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="SellImbShort" xml:space="preserve">
-  <value>बिक्री असं.</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="NetImbShort" xml:space="preserve">
-  <value>शुद्ध असं.</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="BuyStkShort" xml:space="preserve">
-  <value>खरीद स्टैक</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="SellStkShort" xml:space="preserve">
-  <value>बिक्री स्टैक</value>
-  <comment>ClusterStatistics</comment>
-</data>
-
-<data name="DeltaChange" xml:space="preserve">
-  <value>डेल्टा परिवर्तन</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="DeltaSecond" xml:space="preserve">
-  <value>डेल्टा/सेक</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="DeltaVolume" xml:space="preserve">
-  <value>डेल्टा/वॉल</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="DeltaVolumePercent" xml:space="preserve">
-  <value>डेल्टा/वॉल (%)</value>
-  <comment>ClusterStatistics</comment>
-</data>
-
-<data name="MaxDelta" xml:space="preserve">
-  <value>अधिकतम डेल्टा</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="MinDelta" xml:space="preserve">
-  <value>न्यूनतम डेल्टा</value>
-  <comment>ClusterStatistics</comment>
-</data>
-
-<data name="VolumeSecond" xml:space="preserve">
-  <value>वॉल/सेक</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="SessionVolume" xml:space="preserve">
-  <value>सेशन वॉल्यूम</value>
-  <comment>ClusterStatistics</comment>
-</data>
-
-<data name="PeakVolPerSec" xml:space="preserve">
-  <value>अधिकतम वॉल/सेक</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="PeakDeltaPerSec" xml:space="preserve">
-  <value>डेल्टा @ अधिकतम वॉल/सेक</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="PeakDeltaPerVol" xml:space="preserve">
-  <value>डेल्टा/वॉल @ अधिकतम वॉल/सेक</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="PeakDeltaPerVolPercent" xml:space="preserve">
-  <value>डेल्टा/वॉल @ अधिकतम वॉल/सेक (%)</value>
-  <comment>ClusterStatistics</comment>
-</data>
+  <data name="UseAlertDescription" xml:space="preserve">
+    <value>यह सेटिंग इंडिकेटर द्वारा परिभाषित विशेष स्थितियों या घटनाओं के लिए चेतावनी सूचनाएँ सक्षम करती है। सक्रिय करने पर, इंडिकेटर एक चेतावनी भेजेगा।</value>
+  </data>
+  <data name="AlertFilterDescription" xml:space="preserve">
+    <value>अलर्ट को ट्रिगर होने वाले मूल्य को सेट करता है।</value>
+  </data>
+  <data name="AlertFileDescription" xml:space="preserve">
+    <value>अलर्टफाइलडिस्क्रिप्शन पैरामीटर उपयोगकर्ताओं को एटीएस प्लेटफार्म में अलर्ट ध्वनियों के लिए एक कस्टम ऑडियो फ़ाइल का नाम सेट करने की सुविधा प्रदान करता है। उपयोगकर्ता WAV फ़ाइल का चयन कर सकते हैं, जो जब एक अलर्ट स्थिति पूरी होती है, बजाया जाएगा। चुनी गई WAV फ़ाइल को C:\Program Files (x86)\ATAS Platform\Sounds नामक फ़ोल्डर में स्थित होना चाहिए।</value>
+  </data>
 </root>
