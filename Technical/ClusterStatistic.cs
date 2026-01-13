@@ -409,26 +409,26 @@ public class ClusterStatistic : Indicator
 
 	private int StrCount => RowsOrder.AvailableStrings.Count;
 
-    #region Rows
+	#region Rows
 
-    // ============================================================
-    // Rows (scalper-first order)
-    // 1100–1190 Pace / Activity
-    // 1200–1290 Directional Pressure
-    // 1300–1390 Imbalances
-    // 1500–1590 Candle Context
-    // 1600–1690 Session Context
-    // 1700–1790 Raw Prints
-    // ============================================================
+	// ============================================================
+	// Rows (scalper-first order)
+	// 1100–1190 Pace / Activity
+	// 1200–1290 Directional Pressure
+	// 1300–1390 Imbalances
+	// 1500–1590 Candle Context
+	// 1600–1690 Session Context
+	// 1700–1790 Raw Prints
+	// ============================================================
 
-    // ----------------------------
-    // Pace / Activity (1100–1190)
-    // ----------------------------
+	// ----------------------------
+	// Pace / Activity (1100–1190)
+	// ----------------------------
 
-    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowVolumePerSecond),
-        GroupName = nameof(Resources.RowsPaceGroup),
-        Description = nameof(Resources.ShowVolumePerSecondDescription), Order = 1100)]
-    public bool ShowVolumePerSecond
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowVolumePerSecond),
+		GroupName = nameof(Resources.RowsPaceGroup),
+		Description = nameof(Resources.ShowVolumePerSecondDescription), Order = 1100)]
+	public bool ShowVolumePerSecond
 	{
 		get => _showVolumePerSecond;
 		set
@@ -489,9 +489,9 @@ public class ClusterStatistic : Indicator
 		}
 	}
 
-    // ----------------------------
-    // Directional Pressure (1200–1290)
-    // ----------------------------
+	// ----------------------------
+	// Directional Pressure (1200–1290)
+	// ----------------------------
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowDelta),
         GroupName = nameof(Resources.RowsPressureGroup),
@@ -564,13 +564,13 @@ public class ClusterStatistic : Indicator
     }
 
 
-    // ----------------------------
-    // Imbalances (1300–1390)
-    // ----------------------------
+	// ----------------------------
+	// Imbalances (1300–1390)
+	// ----------------------------
 
-    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowBuyImbalances),
-        GroupName = nameof(Resources.RowsImbalanceRowsGroup), Order = 1300)]
-    public bool ShowBuyImbalance
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowBuyImbalances),
+		GroupName = nameof(Resources.RowsImbalanceRowsGroup), Order = 1300)]
+	public bool ShowBuyImbalance
 	{
 		get => RowsOrder.TryGetValue(DataType.BuyImbalance, out var ri) && ri.Enabled;
 		set
@@ -584,9 +584,9 @@ public class ClusterStatistic : Indicator
         }
 	}
 
-    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowSellImbalances),
-        GroupName = nameof(Resources.RowsImbalanceRowsGroup), Order = 1310)]
-    public bool ShowSellImbalance
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowSellImbalances),
+		GroupName = nameof(Resources.RowsImbalanceRowsGroup), Order = 1310)]
+	public bool ShowSellImbalance
 	{
 		get => RowsOrder.TryGetValue(DataType.SellImbalance, out var ri) && ri.Enabled;
 		set
@@ -600,9 +600,9 @@ public class ClusterStatistic : Indicator
         }
 	}
 
-    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowNetImbalances),
-        GroupName = nameof(Resources.RowsImbalanceRowsGroup), Order = 1320)]
-    public bool ShowNetImbalance
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowNetImbalances),
+		GroupName = nameof(Resources.RowsImbalanceRowsGroup), Order = 1320)]
+	public bool ShowNetImbalance
 	{
 		get => RowsOrder.TryGetValue(DataType.NetImbalance, out var ri) && ri.Enabled;
 		set
@@ -616,9 +616,9 @@ public class ClusterStatistic : Indicator
 		}
 	}
 
-    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowStackedBuyImbalances),
-        GroupName = nameof(Resources.RowsImbalanceRowsGroup), Order = 1330)]
-    public bool ShowStackedBuyImbalance
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowStackedBuyImbalances),
+		GroupName = nameof(Resources.RowsImbalanceRowsGroup), Order = 1330)]
+	public bool ShowStackedBuyImbalance
 	{
 		get => RowsOrder.TryGetValue(DataType.StackedBuyImbalance, out var ri) && ri.Enabled;
 		set
@@ -632,9 +632,9 @@ public class ClusterStatistic : Indicator
 		}
 	}
 
-    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowStackedSellImbalances),
-        GroupName = nameof(Resources.RowsImbalanceRowsGroup), Order = 1340)]
-    public bool ShowStackedSellImbalance
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowStackedSellImbalances),
+		GroupName = nameof(Resources.RowsImbalanceRowsGroup), Order = 1340)]
+	public bool ShowStackedSellImbalance
 	{
 		get => RowsOrder.TryGetValue(DataType.StackedSellImbalance, out var ri) && ri.Enabled;
 		set
@@ -648,9 +648,9 @@ public class ClusterStatistic : Indicator
 		}
 	}
 
-    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowStackedNetImbalances),
-        GroupName = nameof(Resources.RowsImbalanceRowsGroup), Order = 1350)]
-    public bool ShowStackedNetImbalance
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowStackedNetImbalances),
+		GroupName = nameof(Resources.RowsImbalanceRowsGroup), Order = 1350)]
+	public bool ShowStackedNetImbalance
 	{
 		get => RowsOrder.TryGetValue(DataType.StackedNetImbalance, out var ri) && ri.Enabled;
 		set
@@ -664,9 +664,9 @@ public class ClusterStatistic : Indicator
 		}
 	}
 
-    // ----------------------------
-    // Candle Context (1500–1590)
-    // ----------------------------
+	// ----------------------------
+	// Candle Context (1500–1590)
+	// ----------------------------
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowVolume),
     GroupName = nameof(Resources.RowsCandleContextGroup),
@@ -739,9 +739,9 @@ public class ClusterStatistic : Indicator
     }
 
 
-    // ----------------------------
-    // Session Context (1600–1690)
-    // ----------------------------
+	// ----------------------------
+	// Session Context (1600–1690)
+	// ----------------------------
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowSessionVolume),
     GroupName = nameof(Resources.RowsSessionContextGroup),
@@ -786,9 +786,9 @@ public class ClusterStatistic : Indicator
     }
 
 
-    // ----------------------------
-    // Raw Prints (1700–1790)
-    // ----------------------------
+	// ----------------------------
+	// Raw Prints (1700–1790)
+	// ----------------------------
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowAsk),
         GroupName = nameof(Resources.RowsRawPrintsGroup),
@@ -820,19 +820,19 @@ public class ClusterStatistic : Indicator
 
 
 
-    #endregion
+	#endregion
 
-    #region Max vol/sec settings
+	#region Max vol/sec settings
 
-    // ============================================================
-    // Max vol/sec (SoT) settings (9000–9090)
-    // ============================================================
+	// ============================================================
+	// Max vol/sec (SoT) settings (1800–1840)
+	// ============================================================
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.SotTimeWindowSecName),
-        GroupName = nameof(Resources.MaxVolPerSecGroup),
-        Order = 1800)]
-    [Range(1, 600)]
+	[Display(ResourceType = typeof(Resources),
+		Name = nameof(Resources.SotTimeWindowSecName),
+		GroupName = nameof(Resources.MaxVolPerSecGroup),
+		Order = 1800)]
+	[Range(1, 600)]
 	public int SotTimeWindowSec
 	{
 		get => _sotTimeWindowSec;
@@ -847,11 +847,11 @@ public class ClusterStatistic : Indicator
 		}
 	}
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.SotMinVolumeName),
-        GroupName = nameof(Resources.MaxVolPerSecGroup),
-        Order = 1810)]
-    [Range(1, 100000)]
+	[Display(ResourceType = typeof(Resources),
+		Name = nameof(Resources.SotMinVolumeName),
+		GroupName = nameof(Resources.MaxVolPerSecGroup),
+		Order = 1810)]
+	[Range(1, 100000)]
 	public int SotMinVolume
 	{
 		get => _sotMinVolume;
@@ -868,11 +868,11 @@ public class ClusterStatistic : Indicator
 
 	private bool _sotUseAutoFilter = true;
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.SotUseAutoFilterName),
-        GroupName = nameof(Resources.MaxVolPerSecGroup),
-        Order = 1820)]
-    public bool SotUseAutoFilter
+	[Display(ResourceType = typeof(Resources),
+		Name = nameof(Resources.SotUseAutoFilterName),
+		GroupName = nameof(Resources.MaxVolPerSecGroup),
+		Order = 1820)]
+	public bool SotUseAutoFilter
 	{
 		get => _sotUseAutoFilter;
 		set
@@ -888,11 +888,11 @@ public class ClusterStatistic : Indicator
 
 	private int _sotAutoFilterPeriod = 3;
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.SotAutoFilterPeriodName),
-        GroupName = nameof(Resources.MaxVolPerSecGroup),
-        Order = 1830)]
-    [Range(1, 200)]
+	[Display(ResourceType = typeof(Resources),
+		Name = nameof(Resources.SotAutoFilterPeriodName),
+		GroupName = nameof(Resources.MaxVolPerSecGroup),
+		Order = 1830)]
+	[Range(1, 200)]
 	public int SotAutoFilterPeriod
 	{
 		get => _sotAutoFilterPeriod;
@@ -910,11 +910,11 @@ public class ClusterStatistic : Indicator
 
 	private bool _sotAutoFilterUseEma = true;
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.SotAutoFilterUseEmaName),
-        GroupName = nameof(Resources.MaxVolPerSecGroup),
-        Order = 1840)]
-    public bool SotAutoFilterUseEma
+	[Display(ResourceType = typeof(Resources),
+		Name = nameof(Resources.SotAutoFilterUseEmaName),
+		GroupName = nameof(Resources.MaxVolPerSecGroup),
+		Order = 1840)]
+	public bool SotAutoFilterUseEma
 	{
 		get => _sotAutoFilterUseEma;
 		set
@@ -933,16 +933,16 @@ public class ClusterStatistic : Indicator
 	#region Imbalance settings
 
 	// ============================================================
-	// Imbalance settings (2000–2090)
+	// Imbalance settings (1900–1930)
 	// ============================================================
 
 	private int _imbalanceThreshold = 300;
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.ImbalanceThresholdPercentName),
-        GroupName = nameof(Resources.ImbalanceGroup),
-        Order = 1900)]
-    [Range(101, 999)]
+	[Display(ResourceType = typeof(Resources),
+		Name = nameof(Resources.ImbalanceThresholdPercentName),
+		GroupName = nameof(Resources.ImbalanceGroup),
+		Order = 1900)]
+	[Range(101, 999)]
 	public int ImbalanceThreshold
 	{
 		get => _imbalanceThreshold;
@@ -958,11 +958,11 @@ public class ClusterStatistic : Indicator
 
 	private int _imbalanceMinDominantVolume = 30;
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.ImbalanceMinDominantVolumeName),
-        GroupName = nameof(Resources.ImbalanceGroup),
-        Order = 1910)]
-    [Range(1, 100000)]
+	[Display(ResourceType = typeof(Resources),
+		Name = nameof(Resources.ImbalanceMinDominantVolumeName),
+		GroupName = nameof(Resources.ImbalanceGroup),
+		Order = 1910)]
+	[Range(1, 100000)]
 	public int ImbalanceMinDominantVolume
 	{
 		get => _imbalanceMinDominantVolume;
@@ -978,11 +978,11 @@ public class ClusterStatistic : Indicator
 
 	private int _imbalanceMinDifference = 30;
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.ImbalanceMinDifferenceName),
-        GroupName = nameof(Resources.ImbalanceGroup),
-        Order = 1920)]
-    [Range(0, 100000)]
+	[Display(ResourceType = typeof(Resources),
+		Name = nameof(Resources.ImbalanceMinDifferenceName),
+		GroupName = nameof(Resources.ImbalanceGroup),
+		Order = 1920)]
+	[Range(0, 100000)]
 	public int ImbalanceMinDifference
 	{
 		get => _imbalanceMinDifference;
@@ -999,11 +999,11 @@ public class ClusterStatistic : Indicator
 
 	private int _stackedImbalanceMinLevels = 3;
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.StackedImbalanceMinLevelsName),
-        GroupName = nameof(Resources.ImbalanceGroup),
-        Order = 1930)]
-    [Range(2, 20)]
+	[Display(ResourceType = typeof(Resources),
+		Name = nameof(Resources.StackedImbalanceMinLevelsName),
+		GroupName = nameof(Resources.ImbalanceGroup),
+		Order = 1930)]
+	[Range(2, 20)]
 	public int StackedImbalanceMinLevels
 	{
 		get => _stackedImbalanceMinLevels;
@@ -1058,11 +1058,11 @@ public class ClusterStatistic : Indicator
 		Description = nameof(Strings.VisibleProportionDescription), Order = 6030)]
 	public bool VisibleProportion { get; set; }
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.RatiosAsPercent),
-        GroupName = nameof(Resources.Visualization),
-        Order = 6040)]
-    public bool RatiosAsPercent
+	[Display(ResourceType = typeof(Resources),
+		Name = nameof(Resources.RatiosAsPercent),
+		GroupName = nameof(Resources.Visualization),
+		Order = 6040)]
+	public bool RatiosAsPercent
 	{
 		get => _ratiosAsPercent;
 		set
@@ -1164,42 +1164,42 @@ public class ClusterStatistic : Indicator
 		Description = nameof(Strings.AlertFileDescription), Order = 4020)]
 	public string VolumeAlertFile { get; set; } = "alert1";
 
-    #endregion
+	#endregion
 
-    #region Delta alert
+	#region Delta alert
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.Enabled),
-        GroupName = nameof(Resources.DeltaAlert),
-        Description = nameof(Resources.UseAlertDescription),
-        Order = 5000)]
-    public bool UseDeltaAlert { get; set; }
+	[Display(ResourceType = typeof(Resources),
+		Name = nameof(Resources.Enabled),
+		GroupName = nameof(Resources.DeltaAlert),
+		Description = nameof(Resources.UseAlertDescription),
+		Order = 5000)]
+	public bool UseDeltaAlert { get; set; }
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.Filter),
-        GroupName = nameof(Resources.DeltaAlert),
-        Description = nameof(Resources.AlertFilterDescription),
-        Order = 5010)]
-    public decimal DeltaAlertValue { get; set; }
+	[Display(ResourceType = typeof(Resources),
+		Name = nameof(Resources.Filter),
+		GroupName = nameof(Resources.DeltaAlert),
+		Description = nameof(Resources.AlertFilterDescription),
+		Order = 5010)]
+	public decimal DeltaAlertValue { get; set; }
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.AlertFile),
-        GroupName = nameof(Resources.DeltaAlert),
-        Description = nameof(Resources.AlertFileDescription),
-        Order = 5020)]
-    public string DeltaAlertFile { get; set; } = "alert1";
+	[Display(ResourceType = typeof(Resources),
+		Name = nameof(Resources.AlertFile),
+		GroupName = nameof(Resources.DeltaAlert),
+		Description = nameof(Resources.AlertFileDescription),
+		Order = 5020)]
+	public string DeltaAlertFile { get; set; } = "alert1";
 
-    #endregion
+	#endregion
 
-    #region Net Imbalance alert
+	#region Net Imbalance alert
 
-    private bool _useNetImbalanceAlert;
+	private bool _useNetImbalanceAlert;
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.Enabled),
-        GroupName = nameof(Resources.NetImbalanceAlertGroup),
-        Order = 3000)]
-    public bool UseNetImbalanceAlert
+	[Display(ResourceType = typeof(Resources),
+		Name = nameof(Resources.Enabled),
+		GroupName = nameof(Resources.NetImbalanceAlertGroup),
+		Order = 3000)]
+	public bool UseNetImbalanceAlert
 	{
 		get => _useNetImbalanceAlert;
 		set
@@ -1215,24 +1215,24 @@ public class ClusterStatistic : Indicator
 	}
 
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.NetImbalanceAlertThresholdAbs),
-        GroupName = nameof(Resources.NetImbalanceAlertGroup),
-        Order = 3010)]
-    [Range(1, 100000)]
+	[Display(ResourceType = typeof(Resources),
+		Name = nameof(Resources.NetImbalanceAlertThresholdAbs),
+		GroupName = nameof(Resources.NetImbalanceAlertGroup),
+		Order = 3010)]
+	[Range(1, 100000)]
 	public int NetImbalanceAlertValue { get; set; } = 6;
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.NetImbalanceAlertUseClosedCandle),
-        GroupName = nameof(Resources.NetImbalanceAlertGroup),
-        Order = 3020)]
-    public bool UseClosedCandleForNetImbalanceAlert { get; set; }
+	[Display(ResourceType = typeof(Resources),
+		Name = nameof(Resources.NetImbalanceAlertUseClosedCandle),
+		GroupName = nameof(Resources.NetImbalanceAlertGroup),
+		Order = 3020)]
+	public bool UseClosedCandleForNetImbalanceAlert { get; set; }
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.AlertFile),
-        GroupName = nameof(Resources.NetImbalanceAlertGroup),
-        Order = 3030)]
-    public string NetImbalanceAlertFile { get; set; } = "alert1";
+	[Display(ResourceType = typeof(Resources),
+		Name = nameof(Resources.AlertFile),
+		GroupName = nameof(Resources.NetImbalanceAlertGroup),
+		Order = 3030)]
+	public string NetImbalanceAlertFile { get; set; } = "alert1";
 
 	#endregion
 
@@ -1363,10 +1363,10 @@ public class ClusterStatistic : Indicator
 		{
 			if (ShouldComputeImbalances())
 			{
-			RebuildHistoricalImbalances();
-			_imbalancesDirty = false;
+				RebuildHistoricalImbalances();
+				_imbalancesDirty = false;
 				RedrawChart();
-		}
+			}
 			else
 			{
 				// Nothing uses imbalances right now.
@@ -1476,8 +1476,8 @@ public class ClusterStatistic : Indicator
 				if ((_lastDeltaValue < DeltaAlertValue && candle.Delta >= DeltaAlertValue)
 					|| (_lastDeltaValue > DeltaAlertValue && candle.Delta <= DeltaAlertValue))
 				{
-                    AddAlert(DeltaAlertFile, string.Format(Resources.AlertDeltaTemplate, candle.Delta));
-                    _lastDeltaAlert = bar;
+					AddAlert(DeltaAlertFile, string.Format(Resources.AlertDeltaTemplate, candle.Delta));
+					_lastDeltaAlert = bar;
 				}
 			}
 
@@ -1485,8 +1485,8 @@ public class ClusterStatistic : Indicator
 			{
 				if (_lastVolumeValue < VolumeAlertValue && candle.Volume >= VolumeAlertValue)
 				{
-                    AddAlert(VolumeAlertFile, string.Format(Resources.AlertVolumeTemplate, candle.Volume));
-                    _lastVolumeAlert = bar;
+					AddAlert(VolumeAlertFile, string.Format(Resources.AlertVolumeTemplate, candle.Volume));
+					_lastVolumeAlert = bar;
 				}
 			}
 		}
@@ -1591,7 +1591,7 @@ public class ClusterStatistic : Indicator
 
 					// Fire only on crossing: inside -> outside
 					if (curOutside && !prevOutside)
-                        AddAlert(NetImbalanceAlertFile, string.Format(Resources.AlertNetImbalanceTemplate, cur, thr));
+						AddAlert(NetImbalanceAlertFile, string.Format(Resources.AlertNetImbalanceTemplate, cur, thr));
 
 					_lastNetImbalanceAlertBar = alertBar;
 				}
@@ -1607,8 +1607,8 @@ public class ClusterStatistic : Indicator
 
 				if (curOutside && prevInside && _lastNetImbalanceAlertBar != bar)
 				{
-                    AddAlert(NetImbalanceAlertFile, string.Format(Resources.AlertNetImbalanceTemplate, cur, thr));
-                    _lastNetImbalanceAlertBar = bar;
+					AddAlert(NetImbalanceAlertFile, string.Format(Resources.AlertNetImbalanceTemplate, cur, thr));
+					_lastNetImbalanceAlertBar = bar;
 				}
 
 				_prevNetImbalanceLive = cur;
@@ -2359,57 +2359,57 @@ public class ClusterStatistic : Indicator
             DataType.Bid => Resources.Bid,
             DataType.Delta => Resources.Delta,
 
-            DataType.DeltaVolume => _ratiosAsPercent
-                ? Resources.DeltaVolumePercent
-                : Resources.DeltaVolume,
+			DataType.DeltaVolume => _ratiosAsPercent
+				? Resources.DeltaVolumePercent
+				: Resources.DeltaVolume,
 
-            DataType.SessionDelta => Resources.SessionDelta,
+			DataType.SessionDelta => Resources.SessionDelta,
 
-            DataType.SessionDeltaVolume => _ratiosAsPercent
-                ? Resources.SessionDeltaVolumePercent
-                : Resources.SessionDeltaVolume,
+			DataType.SessionDeltaVolume => _ratiosAsPercent
+				? Resources.SessionDeltaVolumePercent
+				: Resources.SessionDeltaVolume,
 
-            DataType.MaxDelta => Resources.MaxDelta,
-            DataType.MinDelta => Resources.MinDelta,
-            DataType.DeltaChange => Resources.DeltaChange,
+			DataType.MaxDelta => Resources.MaxDelta,
+			DataType.MinDelta => Resources.MinDelta,
+			DataType.DeltaChange => Resources.DeltaChange,
 
-            DataType.Volume => Resources.Volume,
+			DataType.Volume => Resources.Volume,
 
-            DataType.VolumeSecond => Resources.VolumeSecond,
+			DataType.VolumeSecond => Resources.VolumeSecond,
 
-            DataType.SessionVolume => Resources.SessionVolume,
+			DataType.SessionVolume => Resources.SessionVolume,
 
-            DataType.Trades => Resources.Trades,
-            DataType.Height => Resources.Height,
-            DataType.Time => Resources.Time,
+			DataType.Trades => Resources.Trades,
+			DataType.Height => Resources.Height,
+			DataType.Time => Resources.Time,
 
-            DataType.Duration => Resources.Duration,
+			DataType.Duration => Resources.Duration,
 
-            DataType.DeltaSecond => Resources.DeltaSecond,
+			DataType.DeltaSecond => Resources.DeltaSecond,
 
-            DataType.PeakVolPerSec => Resources.PeakVolPerSec,
-            DataType.PeakDeltaPerSec => Resources.PeakDeltaPerSec,
+			DataType.PeakVolPerSec => Resources.PeakVolPerSec,
+			DataType.PeakDeltaPerSec => Resources.PeakDeltaPerSec,
 
-            DataType.PeakDeltaPerVol => _ratiosAsPercent
-                ? Resources.PeakDeltaPerVolPercent
-                : Resources.PeakDeltaPerVol,
+			DataType.PeakDeltaPerVol => _ratiosAsPercent
+				? Resources.PeakDeltaPerVolPercent
+				: Resources.PeakDeltaPerVol,
 
-            DataType.BuyImbalance => Resources.BuyImbShort,
-            DataType.SellImbalance => Resources.SellImbShort,
-            DataType.NetImbalance => Resources.NetImbShort,
+			DataType.BuyImbalance => Resources.BuyImbShort,
+			DataType.SellImbalance => Resources.SellImbShort,
+			DataType.NetImbalance => Resources.NetImbShort,
 
-            DataType.StackedBuyImbalance => Resources.BuyStkShort,
-            DataType.StackedSellImbalance => Resources.SellStkShort,
-            DataType.StackedNetImbalance => Resources.NetStkShort,
+			DataType.StackedBuyImbalance => Resources.BuyStkShort,
+			DataType.StackedSellImbalance => Resources.SellStkShort,
+			DataType.StackedNetImbalance => Resources.NetStkShort,
 
-            DataType.None => string.Empty,
+			DataType.None => string.Empty,
 
-            _ => string.Empty
-        };
-    }
+			_ => string.Empty
+		};
+	}
 
 
-    private static string FormatRatio(decimal ratio, bool asPercent)
+	private static string FormatRatio(decimal ratio, bool asPercent)
 	{
 		// ratio is expected to be a true ratio (e.g., delta/volume), not already multiplied by 100.
 		if (asPercent)
@@ -2682,31 +2682,31 @@ public class ClusterStatistic : Indicator
 		_prevCumDelta = candle.Delta;
 	}
 
-    private void MarkImbalancesDirty()
-    {
-        _imbalancesDirty = true;
+	private void MarkImbalancesDirty()
+	{
+		_imbalancesDirty = true;
 
-        // If we already have bars loaded, rebuild immediately so UI updates without waiting for a tick.
-        if (CurrentBar <= 0)
-            return;
+		// If we already have bars loaded, rebuild immediately so UI updates without waiting for a tick.
+		if (CurrentBar <= 0)
+			return;
 
 		if (!ShouldComputeImbalances())
-            return;
+			return;
 
-        try
-        {
-            RebuildHistoricalImbalances();
-            _imbalancesDirty = false;
-            RedrawChart();
-        }
-        catch
-        {
-            // Candles may not be ready yet (e.g., during init). Keep dirty and rebuild on next OnCalculate tick.
-        }
-    }
+		try
+		{
+			RebuildHistoricalImbalances();
+			_imbalancesDirty = false;
+			RedrawChart();
+		}
+		catch
+		{
+			// Candles may not be ready yet (e.g., during init). Keep dirty and rebuild on next OnCalculate tick.
+		}
+	}
 
 
-    private void ComputeImbalances(IndicatorCandle candle, out int buy, out int sell, out int stackedBuy, out int stackedSell)
+	private void ComputeImbalances(IndicatorCandle candle, out int buy, out int sell, out int stackedBuy, out int stackedSell)
 	{
 		buy = 0;
 		sell = 0;
