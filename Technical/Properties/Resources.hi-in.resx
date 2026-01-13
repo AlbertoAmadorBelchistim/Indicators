@@ -132,6 +132,9 @@
   <data name="Delta" xml:space="preserve">
     <value>डेल्टा</value>
   </data>
+  <data name="ShowVolume" xml:space="preserve">
+    <value>वॉल्यूम दिखाएं</value>
+  </data>
   <data name="Time" xml:space="preserve">
     <value>समय</value>
   </data>
@@ -159,14 +162,86 @@
   <data name="Height" xml:space="preserve">
     <value>ऊचाई</value>
   </data>
+  <data name="Visualization" xml:space="preserve">
+    <value>दृश्यीकरण</value>
+  </data>
   <data name="Trades" xml:space="preserve">
     <value>व्यापार</value>
+  </data>
+  <data name="AskColor" xml:space="preserve">
+    <value>पूछें रंग</value>
+  </data>
+  <data name="BidColor" xml:space="preserve">
+    <value>बिड रंग</value>
+  </data>
+  <data name="HideRowsDescription" xml:space="preserve">
+    <value>शीर्षक छिपाएँ</value>
+  </data>
+  <data name="ShowAsk" xml:space="preserve">
+    <value>दिखाएं आस्क</value>
+  </data>
+  <data name="ShowBid" xml:space="preserve">
+    <value>बिड दिखाएं</value>
+  </data>
+  <data name="ShowDelta" xml:space="preserve">
+    <value>डेल्टा दिखाएं</value>
+  </data>
+  <data name="ShowDeltaPerVolume" xml:space="preserve">
+    <value>डेल्टा/वॉल्यूम दिखाएं</value>
+  </data>
+  <data name="ShowDuration" xml:space="preserve">
+    <value>दिखाएँ की अवधि, सेकंड</value>
+  </data>
+  <data name="ShowMaximumDelta" xml:space="preserve">
+    <value>अधिकतम डेल्टा दिखाएं</value>
+  </data>
+  <data name="ShowMinimumDelta" xml:space="preserve">
+    <value>न्यूनतम डेल्टा दिखाएं</value>
+  </data>
+  <data name="ShowSessionDelta" xml:space="preserve">
+    <value>सत्र डेल्टा दिखाएं</value>
+  </data>
+  <data name="ShowSessionDeltaPerVolume" xml:space="preserve">
+    <value>सत्र डेल्टा/वॉल्यूम दिखाएं</value>
+  </data>
+  <data name="ShowSessionVolume" xml:space="preserve">
+    <value>सत्र आयाम दिखाएं</value>
+  </data>
+  <data name="ShowTime" xml:space="preserve">
+    <value>समय</value>
+  </data>
+  <data name="ShowVolumePerSecond" xml:space="preserve">
+    <value>प्रति सेकंड वॉल्यूम दिखाएं</value>
+  </data>
+  <data name="VolumeColor" xml:space="preserve">
+    <value>वॉल्यूम रंग</value>
+  </data>
+  <data name="GridColor" xml:space="preserve">
+    <value>ग्रिड स्टाइल</value>
+  </data>
+  <data name="HeaderBackground" xml:space="preserve">
+    <value>हेडर का पृष्ठभूमि</value>
+  </data>
+  <data name="VisibleProportion" xml:space="preserve">
+    <value>चार्ट के दिखाई देने वाले हिस्से के अनुपात द्वारा</value>
   </data>
   <data name="Enabled" xml:space="preserve">
     <value>सक्षम</value>
   </data>
+  <data name="ShowDeltaChange" xml:space="preserve">
+    <value>डेल्टा परिवर्तन दिखाएं</value>
+  </data>
   <data name="Transparency" xml:space="preserve">
     <value>पारदर्शिता</value>
+  </data>
+  <data name="ShortValues" xml:space="preserve">
+    <value>संक्षिप्त मान दिखाएं</value>
+  </data>
+  <data name="ShowTradesCount" xml:space="preserve">
+    <value>व्यापारों की संख्या दिखाएं</value>
+  </data>
+  <data name="ShowHeight" xml:space="preserve">
+    <value>ऊचाई दिखाएं</value>
   </data>
   <data name="Rows" xml:space="preserve">
     <value>पंक्तियाँ</value>
@@ -497,17 +572,17 @@
     <comment>ClusterStatistics</comment>
   </data>
   <data name="SotUseAutoFilterName" xml:space="preserve">
-  <value>फ़िल्टर उपयोग करें</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="SotAutoFilterPeriodName" xml:space="preserve">
-  <value>फ़िल्टर अवधि</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="SotAutoFilterUseEmaName" xml:space="preserve">
-  <value>EMA (off=SMA)</value>
-  <comment>ClusterStatistics</comment>
-</data>
+    <value>फ़िल्टर उपयोग करें</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SotAutoFilterPeriodName" xml:space="preserve">
+    <value>फ़िल्टर अवधि</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SotAutoFilterUseEmaName" xml:space="preserve">
+    <value>EMA (off=SMA)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
   <data name="ImbalanceThresholdPercentName" xml:space="preserve">
     <value>असंतुलन सीमा (%)</value>
     <comment>ClusterStatistics</comment>
@@ -548,25 +623,169 @@
     <value>ClusterStatistic नेट असंतुलन अलर्ट: {0} (सीमा={1})</value>
     <comment>ClusterStatistics</comment>
   </data>
+  <data name="SessionDelta" xml:space="preserve">
+    <value>सेशन डेल्टा</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SessionDeltaVolume" xml:space="preserve">
+    <value>सेशन डेल्टा/वॉल्यूम</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SessionDeltaVolumePercent" xml:space="preserve">
+    <value>सेशन डेल्टा/वॉल्यूम (%)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>अवधि</value>
+  </data>
   <data name="NetStkShort" xml:space="preserve">
     <value>नेट Stk.</value>
   </data>
   <data name="LabelFillColorDescription" xml:space="preserve">
     <value>लेबल के पृष्ठभूमि का रंग सेट करता है।</value>
   </data>
-<data name="Visualization" xml:space="preserve">
-    <value>दृश्यीकरण</value>
+  <data name="RowsPaceGroup" xml:space="preserve">
+    <value>गति / गतिविधि</value>
+    <comment>ClusterStatistics</comment>
   </data>
-  <data name="SessionDelta" xml:space="preserve">
-  <value>सेशन डेल्टा</value>
+  <data name="RowsPressureGroup" xml:space="preserve">
+    <value>दिशात्मक दबाव</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsImbalanceRowsGroup" xml:space="preserve">
+    <value>असंतुलन</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsCandleContextGroup" xml:space="preserve">
+    <value>कैंडल संदर्भ</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsSessionContextGroup" xml:space="preserve">
+    <value>सेशन संदर्भ</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsRawPrintsGroup" xml:space="preserve">
+    <value>कच्चे प्रिंट</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowVolumePerSecondDescription" xml:space="preserve">
+    <value>निर्धारित करता है कि प्रति सेकंड आयतन के बारे में जानकारी दिखानी चाहिए या नहीं।</value>
+  </data>
+  <data name="ShowDeltaDescription" xml:space="preserve">
+    <value>निर्धारित करता है कि डेल्टा के बारे में जानकारी प्रदर्शित की जानी चाहिए या नहीं।</value>
+  </data>
+  <data name="ShowDeltaPerVolumeDescription" xml:space="preserve">
+    <value>निर्धारित करता है कि क्या वॉल्यूम प्रति डेल्टा की जानकारी प्रदर्शित की जानी चाहिए।</value>
+  </data>
+  <data name="ShowDeltaChangeDescription" xml:space="preserve">
+    <value>यह निर्धारित करता है कि वर्तमान मोमबत्ती और पिछले एक के बीच डेल्टा के अंतर की जानकारी प्रदर्शित करना चाहिए या नहीं।</value>
+  </data>
+  <data name="ShowMaximumDeltaDescription" xml:space="preserve">
+    <value>निर्धारित करता है कि क्या अधिकतम डेल्टा के बारे में जानकारी दिखानी चाहिए।</value>
+  </data>
+  <data name="ShowMinimumDeltaDescription" xml:space="preserve">
+    <value>न्यूनतम डेल्टा के बारे में जानकारी प्रदर्शित करना चाहिए या नहीं यह निर्धारित करता है।</value>
+  </data>
+  <data name="ShowVolumesDescription" xml:space="preserve">
+    <value>यह निर्धारित करता है कि आवाजों के बारे में जानकारी प्रदर्शित करनी चाहिए या नहीं।</value>
+  </data>
+  <data name="ShowTradesCountDescription" xml:space="preserve">
+    <value>निर्धारित करता है कि क्या व्यापारों की संख्या की जानकारी प्रदर्शित करनी चाहिए।</value>
+  </data>
+  <data name="ShowCandleHeightDescription" xml:space="preserve">
+    <value>निर्धारित करता है कि क्या मोमबत्ती की ऊँचाई के बारे में जानकारी (मुद्रा में) प्रदर्शित करनी चाहिए।</value>
+  </data>
+  <data name="ShowCandleDurationDescription" xml:space="preserve">
+    <value>निर्धारित करता है कि मोमबत्ती के समय अवधि के बारे में जानकारी प्रदर्शित की जानी चाहिए या नहीं।</value>
+  </data>
+  <data name="ShowCandleTimeDescription" xml:space="preserve">
+    <value>निर्धारित करता है कि मोमबत्ती के प्रारंभ समय के बारे में जानकारी प्रदर्शित की जानी चाहिए या नहीं।</value>
+  </data>
+  <data name="ShowSessionVolumeDescription" xml:space="preserve">
+    <value>यह निर्धारित करता है कि क्या सत्र में संचयी वॉल्यूम सूचना प्रदर्शित करनी चाहिए।</value>
+  </data>
+  <data name="ShowSessionDeltaDescription" xml:space="preserve">
+    <value>यह निर्धारित करता है कि सत्र डेल्टा के बारे में जानकारी प्रदर्शित करनी चाहिए या नहीं।</value>
+  </data>
+  <data name="ShowSessionDeltaPerVolumeDescription" xml:space="preserve">
+    <value>यह निर्धारित करता है कि क्या वॉल्यूम प्रति सत्र डेल्टा की जानकारी प्रदर्शित करनी चाहिए।</value>
+  </data>
+  <data name="ShowAsksDescription" xml:space="preserve">
+    <value>निर्धारित करता है कि बोली वॉल्यूम की जानकारी प्रदर्शित करनी चाहिए या नहीं।</value>
+  </data>
+  <data name="ShowBidsDescription" xml:space="preserve">
+    <value>निर्धारित करता है कि बोली वॉल्यूम की जानकारी प्रदर्शित करनी चाहिए या नहीं।</value>
+  </data>
+  <data name="BuyImbShort" xml:space="preserve">
+  <value>खरीद असं.</value>
   <comment>ClusterStatistics</comment>
 </data>
-<data name="SessionDeltaVolume" xml:space="preserve">
-  <value>सेशन डेल्टा/वॉल्यूम</value>
+<data name="SellImbShort" xml:space="preserve">
+  <value>बिक्री असं.</value>
   <comment>ClusterStatistics</comment>
 </data>
-<data name="SessionDeltaVolumePercent" xml:space="preserve">
-  <value>सेशन डेल्टा/वॉल्यूम (%)</value>
+<data name="NetImbShort" xml:space="preserve">
+  <value>शुद्ध असं.</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="BuyStkShort" xml:space="preserve">
+  <value>खरीद स्टैक</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SellStkShort" xml:space="preserve">
+  <value>बिक्री स्टैक</value>
+  <comment>ClusterStatistics</comment>
+</data>
+
+<data name="DeltaChange" xml:space="preserve">
+  <value>डेल्टा परिवर्तन</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="DeltaSecond" xml:space="preserve">
+  <value>डेल्टा/सेक</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="DeltaVolume" xml:space="preserve">
+  <value>डेल्टा/वॉल</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="DeltaVolumePercent" xml:space="preserve">
+  <value>डेल्टा/वॉल (%)</value>
+  <comment>ClusterStatistics</comment>
+</data>
+
+<data name="MaxDelta" xml:space="preserve">
+  <value>अधिकतम डेल्टा</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="MinDelta" xml:space="preserve">
+  <value>न्यूनतम डेल्टा</value>
+  <comment>ClusterStatistics</comment>
+</data>
+
+<data name="VolumeSecond" xml:space="preserve">
+  <value>वॉल/सेक</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SessionVolume" xml:space="preserve">
+  <value>सेशन वॉल्यूम</value>
+  <comment>ClusterStatistics</comment>
+</data>
+
+<data name="PeakVolPerSec" xml:space="preserve">
+  <value>अधिकतम वॉल/सेक</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="PeakDeltaPerSec" xml:space="preserve">
+  <value>डेल्टा @ अधिकतम वॉल/सेक</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="PeakDeltaPerVol" xml:space="preserve">
+  <value>डेल्टा/वॉल @ अधिकतम वॉल/सेक</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="PeakDeltaPerVolPercent" xml:space="preserve">
+  <value>डेल्टा/वॉल @ अधिकतम वॉल/सेक (%)</value>
   <comment>ClusterStatistics</comment>
 </data>
 </root>

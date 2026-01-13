@@ -1033,10 +1033,6 @@
     <value>Volume Color</value>
     <comment>ClusterStatistics</comment>
   </data>
-  <data name="Strings" xml:space="preserve">
-    <value>Strings</value>
-    <comment>ClusterStatistics</comment>
-  </data>
   <data name="DoNotShowAboveChart" xml:space="preserve">
     <value>Do Not Show Above Chart</value>
     <comment>OrderFlow</comment>
@@ -2974,18 +2970,18 @@
     <value>Min Volume per Window</value>
     <comment>ClusterStatistics</comment>
   </data>
-<data name="SotUseAutoFilterName" xml:space="preserve">
-  <value>Use filter</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="SotAutoFilterPeriodName" xml:space="preserve">
-  <value>Filter period</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="SotAutoFilterUseEmaName" xml:space="preserve">
-  <value>EMA (off=SMA)</value>
-  <comment>ClusterStatistics</comment>
-</data>
+  <data name="SotUseAutoFilterName" xml:space="preserve">
+    <value>Use filter</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SotAutoFilterPeriodName" xml:space="preserve">
+    <value>Filter period</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SotAutoFilterUseEmaName" xml:space="preserve">
+    <value>EMA (off=SMA)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
   <data name="ImbalanceThresholdPercentName" xml:space="preserve">
     <value>Imbalance Threshold (%)</value>
     <comment>ClusterStatistics</comment>
@@ -3116,5 +3112,77 @@
   </data>
   <data name="LabelFillColorDescription" xml:space="preserve">
     <value>Sets the background color of the label.</value>
+  </data>
+  <data name="RowsPaceGroup" xml:space="preserve">
+    <value>Pace / Activity</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsPressureGroup" xml:space="preserve">
+    <value>Directional Pressure</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsImbalanceRowsGroup" xml:space="preserve">
+    <value>Imbalances</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsCandleContextGroup" xml:space="preserve">
+    <value>Candle Context</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsSessionContextGroup" xml:space="preserve">
+    <value>Session Context</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsRawPrintsGroup" xml:space="preserve">
+    <value>Raw Prints</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowVolumePerSecondDescription" xml:space="preserve">
+    <value>Determines whether to display information about volume per second.</value>
+  </data>
+  <data name="ShowDeltaDescription" xml:space="preserve">
+    <value>Determines whether to display information about delta.</value>
+  </data>
+  <data name="ShowDeltaPerVolumeDescription" xml:space="preserve">
+    <value>Determines whether to display information about delta per volume.</value>
+  </data>
+  <data name="ShowDeltaChangeDescription" xml:space="preserve">
+    <value>Determines whether to display information about the difference between the delta of the current candle and the delta of the previous one.</value>
+  </data>
+  <data name="ShowMaximumDeltaDescription" xml:space="preserve">
+    <value>Determines whether to display information about maximum delta.</value>
+  </data>
+  <data name="ShowMinimumDeltaDescription" xml:space="preserve">
+    <value>Determines whether to display information about minimum delta.</value>
+  </data>
+  <data name="ShowVolumesDescription" xml:space="preserve">
+    <value>Determines whether to display volume information.</value>
+  </data>
+  <data name="ShowTradesCountDescription" xml:space="preserve">
+    <value>Determines whether to display information about the number of trades.</value>
+  </data>
+  <data name="ShowCandleHeightDescription" xml:space="preserve">
+    <value>Determines whether to display information about the height of the candle (in currency).</value>
+  </data>
+  <data name="ShowCandleDurationDescription" xml:space="preserve">
+    <value>Determines whether to display information about the time duration of the candle.</value>
+  </data>
+  <data name="ShowCandleTimeDescription" xml:space="preserve">
+    <value>Determines whether to display information about the start time of the candle.</value>
+  </data>
+  <data name="ShowSessionVolumeDescription" xml:space="preserve">
+    <value>Determines whether to display cumulative volume information within a session.</value>
+  </data>
+  <data name="ShowSessionDeltaDescription" xml:space="preserve">
+    <value>Determines whether to display information about session delta.</value>
+  </data>
+  <data name="ShowSessionDeltaPerVolumeDescription" xml:space="preserve">
+    <value>Determines whether to display information about session delta per volume.</value>
+  </data>
+  <data name="ShowAsksDescription" xml:space="preserve">
+    <value>Determines whether to display information about ask volumes.</value>
+  </data>
+  <data name="ShowBidsDescription" xml:space="preserve">
+    <value>Determines whether to display information about bid volumes.</value>
   </data>
 </root>

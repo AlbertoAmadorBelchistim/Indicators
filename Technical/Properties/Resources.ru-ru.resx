@@ -1029,10 +1029,6 @@
     <value>Объем</value>
     <comment>ClusterStatistics</comment>
   </data>
-  <data name="Strings" xml:space="preserve">
-    <value>Строчки</value>
-    <comment>ClusterStatistics</comment>
-  </data>
   <data name="DoNotShowAboveChart" xml:space="preserve">
     <value>Не Отображать Над Графиком</value>
     <comment>OrderFlow</comment>
@@ -2759,17 +2755,17 @@
     <comment>ClusterStatistics</comment>
   </data>
   <data name="SotUseAutoFilterName" xml:space="preserve">
-  <value>Исп. фильтр</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="SotAutoFilterPeriodName" xml:space="preserve">
-  <value>Период фильтра</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="SotAutoFilterUseEmaName" xml:space="preserve">
-  <value>EMA (off=SMA)</value>
-  <comment>ClusterStatistics</comment>
-</data>
+    <value>Исп. фильтр</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SotAutoFilterPeriodName" xml:space="preserve">
+    <value>Период фильтра</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SotAutoFilterUseEmaName" xml:space="preserve">
+    <value>EMA (off=SMA)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
   <data name="ImbalanceThresholdPercentName" xml:space="preserve">
     <value>Порог дисбаланса (%)</value>
     <comment>ClusterStatistics</comment>
@@ -2810,11 +2806,50 @@
     <value>Алерт чистого дисбаланса ClusterStatistic: {0} (порог={1})</value>
     <comment>ClusterStatistics</comment>
   </data>
+  <data name="SessionDelta" xml:space="preserve">
+    <value>Сессионная дельта</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SessionDeltaVolume" xml:space="preserve">
+    <value>Дельта/объём сессии</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SessionDeltaVolumePercent" xml:space="preserve">
+    <value>Дельта/объём сессии (%)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Длительность</value>
+  </data>
   <data name="NetStkShort" xml:space="preserve">
     <value>Net Stk.</value>
   </data>
   <data name="LabelFillColorDescription" xml:space="preserve">
     <value>Устанавливает цвет фона метки.</value>
+  </data>
+  <data name="RowsPaceGroup" xml:space="preserve">
+    <value>Темп / Активность</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsPressureGroup" xml:space="preserve">
+    <value>Направленное давление</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsImbalanceRowsGroup" xml:space="preserve">
+    <value>Дисбалансы</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsCandleContextGroup" xml:space="preserve">
+    <value>Контекст свечи</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsSessionContextGroup" xml:space="preserve">
+    <value>Контекст сессии</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsRawPrintsGroup" xml:space="preserve">
+    <value>Сырые принты</value>
+    <comment>ClusterStatistics</comment>
   </data>
   <data name="Misc" xml:space="preserve">
     <value>Разное</value>
@@ -2825,16 +2860,124 @@
   <data name="Show Fibonacci" xml:space="preserve">
     <value>Показать уровни Фибоначчи</value>
   </data>
-  <data name="SessionDelta" xml:space="preserve">
-  <value>Сессионная дельта</value>
+  <data name="ShowVolumePerSecondDescription" xml:space="preserve">
+    <value>Определяет, следует ли отображать информацию об объеме в секунду.</value>
+  </data>
+  <data name="ShowDeltaDescription" xml:space="preserve">
+    <value>Определяет, следует ли отображать информацию о дельте.</value>
+  </data>
+  <data name="ShowDeltaPerVolumeDescription" xml:space="preserve">
+    <value>Определяет, следует ли отображать информацию о дельте относительно объема (процентное соотношение).</value>
+  </data>
+  <data name="ShowDeltaChangeDescription" xml:space="preserve">
+    <value>Определяет, следует ли отображать информацию о разнице между дельтой текущей свечи и дельтой предыдущей.</value>
+  </data>
+  <data name="ShowMaximumDeltaDescription" xml:space="preserve">
+    <value>Определяет, следует ли отображать информацию о максимальной дельте.</value>
+  </data>
+  <data name="ShowMinimumDeltaDescription" xml:space="preserve">
+    <value>Определяет, следует ли отображать информацию о минимальной дельте.</value>
+  </data>
+  <data name="ShowVolumesDescription" xml:space="preserve">
+    <value>Определяет, следует ли отображать информацию об объемах.</value>
+  </data>
+  <data name="ShowTradesCountDescription" xml:space="preserve">
+    <value>Определяет, следует ли отображать информацию о количестве сделок.</value>
+  </data>
+  <data name="ShowCandleHeightDescription" xml:space="preserve">
+    <value>Определяет, следует ли отображать информацию о высоте свечи (в валюте).</value>
+  </data>
+  <data name="ShowCandleDurationDescription" xml:space="preserve">
+    <value>Определяет, должна ли отображаться информация о длительности свечи.</value>
+  </data>
+  <data name="ShowCandleTimeDescription" xml:space="preserve">
+    <value>Определяет, следует ли отображать информацию о времени начала свечи.</value>
+  </data>
+  <data name="ShowSessionVolumeDescription" xml:space="preserve">
+    <value>Определяет, следует ли отображать накопленную информацию об объеме в течение сессии.</value>
+  </data>
+  <data name="ShowSessionDeltaDescription" xml:space="preserve">
+    <value>Определяет, следует ли отображать информацию о сессионной дельте.</value>
+  </data>
+  <data name="ShowSessionDeltaPerVolumeDescription" xml:space="preserve">
+    <value>Определяет, следует ли отображать информацию о дельте сессии по объему.</value>
+  </data>
+  <data name="ShowAsksDescription" xml:space="preserve">
+    <value>Определяет, отображать ли информацию об объемах ask.</value>
+  </data>
+  <data name="ShowBidsDescription" xml:space="preserve">
+    <value>Определяет, следует ли отображать информацию об объемах bid.</value>
+  </data>
+  <data name="BuyImbShort" xml:space="preserve">
+  <value>Пок. дисб</value>
   <comment>ClusterStatistics</comment>
 </data>
-<data name="SessionDeltaVolume" xml:space="preserve">
-  <value>Дельта/объём сессии</value>
+<data name="SellImbShort" xml:space="preserve">
+  <value>Прод. дисб</value>
   <comment>ClusterStatistics</comment>
 </data>
-<data name="SessionDeltaVolumePercent" xml:space="preserve">
-  <value>Дельта/объём сессии (%)</value>
+<data name="NetImbShort" xml:space="preserve">
+  <value>Нетто дисб</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="BuyStkShort" xml:space="preserve">
+  <value>Пок. стек</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SellStkShort" xml:space="preserve">
+  <value>Прод. стек</value>
+  <comment>ClusterStatistics</comment>
+</data>
+
+<data name="DeltaChange" xml:space="preserve">
+  <value>Изм. дельты</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="DeltaSecond" xml:space="preserve">
+  <value>Дельта/с</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="DeltaVolume" xml:space="preserve">
+  <value>Дельта/Объём</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="DeltaVolumePercent" xml:space="preserve">
+  <value>Дельта/Объём (%)</value>
+  <comment>ClusterStatistics</comment>
+</data>
+
+<data name="MaxDelta" xml:space="preserve">
+  <value>Макс. дельта</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="MinDelta" xml:space="preserve">
+  <value>Мин. дельта</value>
+  <comment>ClusterStatistics</comment>
+</data>
+
+<data name="VolumeSecond" xml:space="preserve">
+  <value>Объём/с</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SessionVolume" xml:space="preserve">
+  <value>Объём сессии</value>
+  <comment>ClusterStatistics</comment>
+</data>
+
+<data name="PeakVolPerSec" xml:space="preserve">
+  <value>Макс. объём/с</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="PeakDeltaPerSec" xml:space="preserve">
+  <value>Дельта @ макс. объём/с</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="PeakDeltaPerVol" xml:space="preserve">
+  <value>Дельта/Объём @ макс. объём/с</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="PeakDeltaPerVolPercent" xml:space="preserve">
+  <value>Дельта/Объём @ макс. объём/с (%)</value>
   <comment>ClusterStatistics</comment>
 </data>
 </root>
