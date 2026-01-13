@@ -45,6 +45,7 @@ public class ClusterStatistic : Indicator
 		#region Fields
 
 		public readonly SortedRows AvailableStrings = new();
+		public Action OnChanged;
 
 		#endregion
 
@@ -115,6 +116,8 @@ public class ClusterStatistic : Indicator
 
 				AvailableStrings.Add(info.Order, type);
 			}
+
+			OnChanged?.Invoke();
 		}
 
 		#endregion
@@ -227,7 +230,8 @@ public class ClusterStatistic : Indicator
 	private int _bgTransparency = 10;
 	private bool _centerAlign;
 	private decimal _cumVolume;
-	private bool _fontChanged;
+	private FontSetting _font;
+	private bool _layoutChanged = true;
 	private System.Drawing.Color _headerBackground = System.Drawing.Color.FromArgb(0xFF, 84, 84, 84);
 
 	private int _headerWidth = 130;
@@ -278,7 +282,7 @@ public class ClusterStatistic : Indicator
 	private bool _showVolume;
 	private bool _showVolumePerSecond;
 	private System.Drawing.Color _textColor;
-	private string _tipText;
+	private int _fontHeight;
 
 	[Browsable(false)]
 	public RenderOrder RowsOrder = new();
@@ -548,7 +552,11 @@ public class ClusterStatistic : Indicator
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Font), GroupName = nameof(Strings.Text),
         Description = nameof(Strings.FontSettingDescription), Order = 310)]
-    public FontSetting Font { get; set; } = new("Arial", 9);
+    public FontSetting Font
+    {
+        get => _font;
+        set => SetTrackedProperty(ref _font, value, OnFontPropertyChanged);
+    }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.CenterAlign), GroupName = nameof(Strings.Text),
         Description = nameof(Strings.CenterAlignDescription), Order = 320)]
@@ -623,12 +631,15 @@ public class ClusterStatistic : Indicator
 		DenyToChangePanel = true;
 		Panel = IndicatorDataProvider.NewPanel;
 		EnableCustomDrawing = true;
+		RowsOrder.OnChanged = () => _layoutChanged = true;
 		ShowDelta = ShowSessionDelta = ShowVolume = true;
 		SubscribeToDrawingEvents(DrawingLayouts.LatestBar | DrawingLayouts.Historical | DrawingLayouts.Final);
 
 		DataSeries[0].IsHidden = true;
 		((ValueDataSeries)DataSeries[0]).VisualType = VisualMode.Hide;
 		ShowDescription = false;
+
+		Font = new FontSetting("Arial", 9);
 	}
 
 	#endregion
@@ -853,19 +864,31 @@ public class ClusterStatistic : Indicator
 		if (StrCount is 0)
 			return;
 
-		if (_fontChanged)
-		{
-			var str = "Session Delta/Volume";
-			var width = context.MeasureString(str, Font.RenderObject).Width;
-			_headerWidth = width + 10;
-			_fontChanged = false;
-		}
-
 		var bounds = context.ClipBounds;
 
 		_height = Container.Region.Height / StrCount;
+
+		if (_layoutChanged)
+		{
+			var maxWidth = 0;
+
+			foreach (var type in RowsOrder.AvailableStrings.Values)
+			{
+				var size = context.MeasureString(GetHeader(type), Font.RenderObject);
+
+				if (size.Width > maxWidth)
+				{
+					maxWidth = size.Width;
+					_fontHeight = size.Height;
+				}
+			}
+
+			_headerWidth = maxWidth + 10;
+			_layoutChanged = false;
+		}
+
 		var fullBarsWidth = (int)(ChartInfo.PriceChartContainer.BarsWidth + ChartInfo.PriceChartContainer.BarSpacing);
-		var showHeadersText = context.MeasureString("1", Font.RenderObject).Height * 0.9 <= _height;
+		var showHeadersText = _fontHeight * 0.9 <= _height;
 		var showValues = fullBarsWidth >= 30 && showHeadersText;
 
 		try
@@ -911,7 +934,6 @@ public class ClusterStatistic : Indicator
 					var candle = GetCandle(bar);
 
 					DrawBarValues(context, maxValues, candle, x, ref y1, ref selectionY, fullBarsWidth, showValues, overPixels, bar);
-					overPixels = Container.Region.Height % StrCount;
 				}
 			}
 
@@ -1378,17 +1400,17 @@ public class ClusterStatistic : Indicator
 		RowsOrder.AvailableStrings.SkipIdx = idx;
 	}
 
+	private void OnFontPropertyChanged(string propertyName)
+	{
+		_layoutChanged = true;
+	}
+
 	private System.Drawing.Color GetDeltaChangeBrush(IndicatorCandle candle, int j, decimal rate)
 	{
 		var prevCandle = GetCandle(Math.Max(j - 1, 0));
 		var change = candle.Delta - prevCandle.Delta;
 		var rectColor = change > 0 ? AskColor : BidColor;
 		return Blend(rectColor, BackGroundColor, rate);
-	}
-
-	private void FontChanged(object sender, PropertyChangedEventArgs e)
-	{
-		_fontChanged = true;
 	}
 
 	private string GetHeader(DataType type)
