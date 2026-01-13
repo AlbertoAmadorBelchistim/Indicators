@@ -132,6 +132,9 @@
   <data name="Delta" xml:space="preserve">
     <value>Delta</value>
   </data>
+  <data name="ShowVolume" xml:space="preserve">
+    <value>成交量</value>
+  </data>
   <data name="Time" xml:space="preserve">
     <value>时间</value>
   </data>
@@ -159,14 +162,86 @@
   <data name="Height" xml:space="preserve">
     <value>高度</value>
   </data>
+  <data name="Visualization" xml:space="preserve">
+    <value>视觉化</value>
+  </data>
   <data name="Trades" xml:space="preserve">
     <value>交易</value>
+  </data>
+  <data name="AskColor" xml:space="preserve">
+    <value>Ask 颜色</value>
+  </data>
+  <data name="BidColor" xml:space="preserve">
+    <value>Bid 颜色</value>
+  </data>
+  <data name="HideRowsDescription" xml:space="preserve">
+    <value>隐藏标题</value>
+  </data>
+  <data name="ShowAsk" xml:space="preserve">
+    <value>显示 Asks</value>
+  </data>
+  <data name="ShowBid" xml:space="preserve">
+    <value>显示 Bids</value>
+  </data>
+  <data name="ShowDelta" xml:space="preserve">
+    <value>差额</value>
+  </data>
+  <data name="ShowDeltaPerVolume" xml:space="preserve">
+    <value>显示 Delta/Volume</value>
+  </data>
+  <data name="ShowDuration" xml:space="preserve">
+    <value>显示持续时间，秒</value>
+  </data>
+  <data name="ShowMaximumDelta" xml:space="preserve">
+    <value>最大差值</value>
+  </data>
+  <data name="ShowMinimumDelta" xml:space="preserve">
+    <value>最小差值</value>
+  </data>
+  <data name="ShowSessionDelta" xml:space="preserve">
+    <value>会话差值</value>
+  </data>
+  <data name="ShowSessionDeltaPerVolume" xml:space="preserve">
+    <value>会话差值/成交量</value>
+  </data>
+  <data name="ShowSessionVolume" xml:space="preserve">
+    <value>会话交易量</value>
+  </data>
+  <data name="ShowTime" xml:space="preserve">
+    <value>时间</value>
+  </data>
+  <data name="ShowVolumePerSecond" xml:space="preserve">
+    <value>交易量/秒</value>
+  </data>
+  <data name="VolumeColor" xml:space="preserve">
+    <value>交易量颜色</value>
+  </data>
+  <data name="GridColor" xml:space="preserve">
+    <value>网格样式</value>
+  </data>
+  <data name="HeaderBackground" xml:space="preserve">
+    <value>标题背景颜色</value>
+  </data>
+  <data name="VisibleProportion" xml:space="preserve">
+    <value>图表可见部分比例</value>
   </data>
   <data name="Enabled" xml:space="preserve">
     <value>启用</value>
   </data>
+  <data name="ShowDeltaChange" xml:space="preserve">
+    <value>差额变化</value>
+  </data>
   <data name="Transparency" xml:space="preserve">
     <value>透明度</value>
+  </data>
+  <data name="ShortValues" xml:space="preserve">
+    <value>显示缩写值</value>
+  </data>
+  <data name="ShowTradesCount" xml:space="preserve">
+    <value>交易数量</value>
+  </data>
+  <data name="ShowHeight" xml:space="preserve">
+    <value>高度</value>
   </data>
   <data name="Rows" xml:space="preserve">
     <value>行数</value>
@@ -497,17 +572,17 @@
     <comment>ClusterStatistics</comment>
   </data>
   <data name="SotUseAutoFilterName" xml:space="preserve">
-  <value>使用过滤</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="SotAutoFilterPeriodName" xml:space="preserve">
-  <value>过滤周期</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="SotAutoFilterUseEmaName" xml:space="preserve">
-  <value>EMA（关=SMA）</value>
-  <comment>ClusterStatistics</comment>
-</data>
+    <value>使用过滤</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SotAutoFilterPeriodName" xml:space="preserve">
+    <value>过滤周期</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SotAutoFilterUseEmaName" xml:space="preserve">
+    <value>EMA（关=SMA）</value>
+    <comment>ClusterStatistics</comment>
+  </data>
   <data name="ImbalanceThresholdPercentName" xml:space="preserve">
     <value>失衡阈值 (%)</value>
     <comment>ClusterStatistics</comment>
@@ -548,25 +623,169 @@
     <value>ClusterStatistic 净失衡警报：{0}（阈值={1}）</value>
     <comment>ClusterStatistics</comment>
   </data>
+  <data name="SessionDelta" xml:space="preserve">
+    <value>会话 Delta</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SessionDeltaVolume" xml:space="preserve">
+    <value>会话 Delta/成交量</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SessionDeltaVolumePercent" xml:space="preserve">
+    <value>会话 Delta/成交量 (%)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>持续时间</value>
+  </data>
   <data name="NetStkShort" xml:space="preserve">
     <value>Net Stk.</value>
   </data>
   <data name="LabelFillColorDescription" xml:space="preserve">
     <value>设置标签的背景颜色。</value>
   </data>
-<data name="Visualization" xml:space="preserve">
-    <value>视觉化</value>
+  <data name="RowsPaceGroup" xml:space="preserve">
+    <value>节奏 / 活动</value>
+    <comment>ClusterStatistics</comment>
   </data>
-  <data name="SessionDelta" xml:space="preserve">
-  <value>会话 Delta</value>
+  <data name="RowsPressureGroup" xml:space="preserve">
+    <value>方向性压力</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsImbalanceRowsGroup" xml:space="preserve">
+    <value>失衡</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsCandleContextGroup" xml:space="preserve">
+    <value>K线背景</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsSessionContextGroup" xml:space="preserve">
+    <value>会话背景</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsRawPrintsGroup" xml:space="preserve">
+    <value>原始成交</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowVolumePerSecondDescription" xml:space="preserve">
+    <value>确定是否显示每秒的成交量信息。</value>
+  </data>
+  <data name="ShowDeltaDescription" xml:space="preserve">
+    <value>确定是否显示有关增量的信息。</value>
+  </data>
+  <data name="ShowDeltaPerVolumeDescription" xml:space="preserve">
+    <value>确定是否应显示每个成交量的增量信息。</value>
+  </data>
+  <data name="ShowDeltaChangeDescription" xml:space="preserve">
+    <value>确定是否显示当前蜡烛的增量与上一个蜡烛的增量之间的差异信息。</value>
+  </data>
+  <data name="ShowMaximumDeltaDescription" xml:space="preserve">
+    <value>确定是否显示有关最大增量的信息。</value>
+  </data>
+  <data name="ShowMinimumDeltaDescription" xml:space="preserve">
+    <value>确定是否显示有关最小增量的信息。</value>
+  </data>
+  <data name="ShowVolumesDescription" xml:space="preserve">
+    <value>确定是否显示有关成交量的信息。</value>
+  </data>
+  <data name="ShowTradesCountDescription" xml:space="preserve">
+    <value>确定是否显示交易数量的信息。</value>
+  </data>
+  <data name="ShowCandleHeightDescription" xml:space="preserve">
+    <value>确定是否显示蜡烛的高度信息（以货币计）。</value>
+  </data>
+  <data name="ShowCandleDurationDescription" xml:space="preserve">
+    <value>确定是否应显示蜡烛的时间持续信息。</value>
+  </data>
+  <data name="ShowCandleTimeDescription" xml:space="preserve">
+    <value>确定是否显示蜡烛开始时间的信息。</value>
+  </data>
+  <data name="ShowSessionVolumeDescription" xml:space="preserve">
+    <value>确定是否在会话中显示累积成交量信息。</value>
+  </data>
+  <data name="ShowSessionDeltaDescription" xml:space="preserve">
+    <value>确定是否显示有关会话差异的信息。</value>
+  </data>
+  <data name="ShowSessionDeltaPerVolumeDescription" xml:space="preserve">
+    <value>确定是否显示有关每个成交量的会话增量的信息。</value>
+  </data>
+  <data name="ShowAsksDescription" xml:space="preserve">
+    <value>确定是否显示询价量信息。</value>
+  </data>
+  <data name="ShowBidsDescription" xml:space="preserve">
+    <value>确定是否显示竞标量信息。</value>
+  </data>
+  <data name="BuyImbShort" xml:space="preserve">
+  <value>买方失衡</value>
   <comment>ClusterStatistics</comment>
 </data>
-<data name="SessionDeltaVolume" xml:space="preserve">
-  <value>会话 Delta/成交量</value>
+<data name="SellImbShort" xml:space="preserve">
+  <value>卖方失衡</value>
   <comment>ClusterStatistics</comment>
 </data>
-<data name="SessionDeltaVolumePercent" xml:space="preserve">
-  <value>会话 Delta/成交量 (%)</value>
+<data name="NetImbShort" xml:space="preserve">
+  <value>净失衡</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="BuyStkShort" xml:space="preserve">
+  <value>买方叠加</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SellStkShort" xml:space="preserve">
+  <value>卖方叠加</value>
+  <comment>ClusterStatistics</comment>
+</data>
+
+<data name="DeltaChange" xml:space="preserve">
+  <value>Delta变化</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="DeltaSecond" xml:space="preserve">
+  <value>Delta/秒</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="DeltaVolume" xml:space="preserve">
+  <value>Delta/成交量</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="DeltaVolumePercent" xml:space="preserve">
+  <value>Delta/成交量(%)</value>
+  <comment>ClusterStatistics</comment>
+</data>
+
+<data name="MaxDelta" xml:space="preserve">
+  <value>最大Delta</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="MinDelta" xml:space="preserve">
+  <value>最小Delta</value>
+  <comment>ClusterStatistics</comment>
+</data>
+
+<data name="VolumeSecond" xml:space="preserve">
+  <value>成交量/秒</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SessionVolume" xml:space="preserve">
+  <value>会话成交量</value>
+  <comment>ClusterStatistics</comment>
+</data>
+
+<data name="PeakVolPerSec" xml:space="preserve">
+  <value>最大成交量/秒</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="PeakDeltaPerSec" xml:space="preserve">
+  <value>最大成交量/秒时Delta</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="PeakDeltaPerVol" xml:space="preserve">
+  <value>最大成交量/秒时Delta/量</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="PeakDeltaPerVolPercent" xml:space="preserve">
+  <value>最大成交量/秒时Delta/量(%)</value>
   <comment>ClusterStatistics</comment>
 </data>
 </root>

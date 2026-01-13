@@ -5155,6 +5155,60 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Candle Context.
+        /// </summary>
+        public static string RowsCandleContextGroup {
+            get {
+                return ResourceManager.GetString("RowsCandleContextGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Imbalances.
+        /// </summary>
+        public static string RowsImbalanceRowsGroup {
+            get {
+                return ResourceManager.GetString("RowsImbalanceRowsGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Pace / Activity.
+        /// </summary>
+        public static string RowsPaceGroup {
+            get {
+                return ResourceManager.GetString("RowsPaceGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Directional Pressure.
+        /// </summary>
+        public static string RowsPressureGroup {
+            get {
+                return ResourceManager.GetString("RowsPressureGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Raw Prints.
+        /// </summary>
+        public static string RowsRawPrintsGroup {
+            get {
+                return ResourceManager.GetString("RowsRawPrintsGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Session Context.
+        /// </summary>
+        public static string RowsSessionContextGroup {
+            get {
+                return ResourceManager.GetString("RowsSessionContextGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Row Width.
         /// </summary>
         public static string RowWidth {
@@ -5578,6 +5632,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Determines whether to display information about ask volumes..
+        /// </summary>
+        public static string ShowAsksDescription {
+            get {
+                return ResourceManager.GetString("ShowAsksDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Show Average.
         /// </summary>
         public static string ShowAverage {
@@ -5605,6 +5668,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Determines whether to display information about bid volumes..
+        /// </summary>
+        public static string ShowBidsDescription {
+            get {
+                return ResourceManager.GetString("ShowBidsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Show Bot Block.
         /// </summary>
         public static string ShowBotBlock {
@@ -5628,6 +5700,33 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string ShowBuyImbalances {
             get {
                 return ResourceManager.GetString("ShowBuyImbalances", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Determines whether to display information about the time duration of the candle..
+        /// </summary>
+        public static string ShowCandleDurationDescription {
+            get {
+                return ResourceManager.GetString("ShowCandleDurationDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Determines whether to display information about the height of the candle (in currency)..
+        /// </summary>
+        public static string ShowCandleHeightDescription {
+            get {
+                return ResourceManager.GetString("ShowCandleHeightDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Determines whether to display information about the start time of the candle..
+        /// </summary>
+        public static string ShowCandleTimeDescription {
+            get {
+                return ResourceManager.GetString("ShowCandleTimeDescription", resourceCulture);
             }
         }
         
@@ -5677,6 +5776,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Determines whether to display information about the difference between the delta of the current candle and the delta of the previous one..
+        /// </summary>
+        public static string ShowDeltaChangeDescription {
+            get {
+                return ResourceManager.GetString("ShowDeltaChangeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Determines whether to display information about delta..
+        /// </summary>
+        public static string ShowDeltaDescription {
+            get {
+                return ResourceManager.GetString("ShowDeltaDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Delta/sec.
         /// </summary>
         public static string ShowDeltaPerSecond {
@@ -5700,6 +5817,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string ShowDeltaPerVolume {
             get {
                 return ResourceManager.GetString("ShowDeltaPerVolume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Determines whether to display information about delta per volume..
+        /// </summary>
+        public static string ShowDeltaPerVolumeDescription {
+            get {
+                return ResourceManager.GetString("ShowDeltaPerVolumeDescription", resourceCulture);
             }
         }
         
@@ -5803,11 +5929,29 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Determines whether to display information about maximum delta..
+        /// </summary>
+        public static string ShowMaximumDeltaDescription {
+            get {
+                return ResourceManager.GetString("ShowMaximumDeltaDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Show Minimum Delta.
         /// </summary>
         public static string ShowMinimumDelta {
             get {
                 return ResourceManager.GetString("ShowMinimumDelta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Determines whether to display information about minimum delta..
+        /// </summary>
+        public static string ShowMinimumDeltaDescription {
+            get {
+                return ResourceManager.GetString("ShowMinimumDeltaDescription", resourceCulture);
             }
         }
         
@@ -5848,7 +5992,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Max Vol/sec (peak).
+        ///   Busca una cadena traducida similar a Max Vol/sec.
         /// </summary>
         public static string ShowPeakVolPerSec {
             get {
@@ -5893,6 +6037,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Determines whether to display information about session delta..
+        /// </summary>
+        public static string ShowSessionDeltaDescription {
+            get {
+                return ResourceManager.GetString("ShowSessionDeltaDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Show Session Delta/Volume.
         /// </summary>
         public static string ShowSessionDeltaPerVolume {
@@ -5902,11 +6055,29 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Determines whether to display information about session delta per volume..
+        /// </summary>
+        public static string ShowSessionDeltaPerVolumeDescription {
+            get {
+                return ResourceManager.GetString("ShowSessionDeltaPerVolumeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Show Session Volume.
         /// </summary>
         public static string ShowSessionVolume {
             get {
                 return ResourceManager.GetString("ShowSessionVolume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Determines whether to display cumulative volume information within a session..
+        /// </summary>
+        public static string ShowSessionVolumeDescription {
+            get {
+                return ResourceManager.GetString("ShowSessionVolumeDescription", resourceCulture);
             }
         }
         
@@ -6028,6 +6199,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Determines whether to display information about the number of trades..
+        /// </summary>
+        public static string ShowTradesCountDescription {
+            get {
+                return ResourceManager.GetString("ShowTradesCountDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Show Volume.
         /// </summary>
         public static string ShowVolume {
@@ -6042,6 +6222,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string ShowVolumePerSecond {
             get {
                 return ResourceManager.GetString("ShowVolumePerSecond", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Determines whether to display information about volume per second..
+        /// </summary>
+        public static string ShowVolumePerSecondDescription {
+            get {
+                return ResourceManager.GetString("ShowVolumePerSecondDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Determines whether to display volume information..
+        /// </summary>
+        public static string ShowVolumesDescription {
+            get {
+                return ResourceManager.GetString("ShowVolumesDescription", resourceCulture);
             }
         }
         
@@ -6226,7 +6424,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Auto Filter Period.
+        ///   Busca una cadena traducida similar a Filter period.
         /// </summary>
         public static string SotAutoFilterPeriodName {
             get {
@@ -6235,7 +6433,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Auto Filter = EMA (off=SMA).
+        ///   Busca una cadena traducida similar a EMA (off=SMA).
         /// </summary>
         public static string SotAutoFilterUseEmaName {
             get {
@@ -6262,7 +6460,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Use Auto Filter.
+        ///   Busca una cadena traducida similar a Use filter.
         /// </summary>
         public static string SotUseAutoFilterName {
             get {
@@ -6375,15 +6573,6 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string Stochastic {
             get {
                 return ResourceManager.GetString("Stochastic", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Strings.
-        /// </summary>
-        public static string Strings {
-            get {
-                return ResourceManager.GetString("Strings", resourceCulture);
             }
         }
         
