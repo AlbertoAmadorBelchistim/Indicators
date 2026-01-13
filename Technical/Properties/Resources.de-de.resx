@@ -607,4 +607,26 @@
     <value>Zeilen</value>
   </data><data name="LabelFillColorDescription" xml:space="preserve">
     <value>Setzt die Hintergrundfarbe des Labels.</value>
+  </data><data name="Enabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data><data name="AlertFile" xml:space="preserve">
+    <value>Alarm Datei</value>
+  </data><data name="Ask" xml:space="preserve">
+    <value>Ask</value>
+  </data><data name="Bid" xml:space="preserve">
+    <value>Bids</value>
+  </data><data name="Delta" xml:space="preserve">
+    <value>Delta</value>
+  </data><data name="Volume" xml:space="preserve">
+    <value>Volumen</value>
+  </data><data name="Trades" xml:space="preserve">
+    <value>Trades</value>
+  </data><data name="Height" xml:space="preserve">
+    <value>Height</value>
+  </data><data name="Time" xml:space="preserve">
+    <value>Zeit</value>
+  </data><data name="Transparency" xml:space="preserve">
+    <value>Transparenz</value>
+  </data><data name="BackGround" xml:space="preserve">
+    <value>Hintergrund</value>
   </data></root>

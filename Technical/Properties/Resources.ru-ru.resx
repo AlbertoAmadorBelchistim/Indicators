@@ -2613,15 +2613,6 @@
   <data name="LVN_TailFilterRangePct_Description" xml:space="preserve">
     <value>Исключает хвостовые зоны с низким объёмом возле максимума и минимума профиля при обнаружении LVN, используя процент диапазона профиля. (0 = отключено).</value>
   </data>
-  <data name="Misc" xml:space="preserve">
-    <value>Разное</value>
-  </data>
-  <data name="Bearish" xml:space="preserve">
-    <value>Медвежье</value>
-  </data>
-  <data name="Show Fibonacci" xml:space="preserve">
-    <value>Показать уровни Фибоначчи</value>
-  </data>
   <data name="ThresholdsGroup" xml:space="preserve">
     <value>Пороги</value>
   </data>
@@ -2703,7 +2694,7 @@
   <data name="VolumeThresholdMinor" xml:space="preserve">
     <value>Порог объёма (вторичный)</value>
   </data>
-    <data name="ShowDeltaPerSecond" xml:space="preserve">
+  <data name="ShowDeltaPerSecond" xml:space="preserve">
     <value>Дельта/с</value>
     <comment>ClusterStatistics</comment>
   </data>
@@ -2819,6 +2810,19 @@
     <value>Алерт чистого дисбаланса ClusterStatistic: {0} (порог={1})</value>
     <comment>ClusterStatistics</comment>
   </data>
-<data name="LabelFillColorDescription" xml:space="preserve">
+  <data name="NetStkShort" xml:space="preserve">
+    <value>Net Stk.</value>
+  </data>
+  <data name="LabelFillColorDescription" xml:space="preserve">
     <value>Устанавливает цвет фона метки.</value>
-  </data></root>
+  </data>
+  <data name="Misc" xml:space="preserve">
+    <value>Разное</value>
+  </data>
+  <data name="Bearish" xml:space="preserve">
+    <value>Медвежье</value>
+  </data>
+  <data name="Show Fibonacci" xml:space="preserve">
+    <value>Показать уровни Фибоначчи</value>
+  </data>
+</root>
