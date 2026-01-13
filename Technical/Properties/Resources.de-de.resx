@@ -246,6 +246,9 @@
   <data name="DaysLookBackDescription" xml:space="preserve">
     <value>"Days look back" bezieht sich auf die Anzahl der zurückliegenden Tage, die bei der Berechnung eines Indikators berücksichtigt werden.</value>
   </data>
+  <data name="DeltaAlert" xml:space="preserve">
+    <value>Delta-Alarm</value>
+  </data>
   <data name="Rows" xml:space="preserve">
     <value>Zeilen</value>
   </data>
@@ -788,5 +791,14 @@
   </data>
   <data name="ShowBidsDescription" xml:space="preserve">
     <value>Bestimmt, ob Informationen zu Angebotsvolumina angezeigt werden sollen.</value>
+  </data>
+  <data name="UseAlertDescription" xml:space="preserve">
+    <value>Diese Einstellung ermöglicht Benachrichtigungen über spezifische Bedingungen oder Ereignisse, die vom Indikator definiert sind. Bei Aktivierung sendet der Indikator eine Benachrichtigung.</value>
+  </data>
+  <data name="AlertFilterDescription" xml:space="preserve">
+    <value>Legt den Wert fest, bei dem der Alarm ausgelöst wird.</value>
+  </data>
+  <data name="AlertFileDescription" xml:space="preserve">
+    <value>Der Parameter AlertFileDescription ermöglicht es Benutzern, den Namen einer benutzerdefinierten Audiodatei für Alarmtöne in der ATAS-Plattform festzulegen. Benutzer können eine WAV-Datei auswählen, die abgespielt wird, wenn eine Alarmbedingung erfüllt ist. Die ausgewählte WAV-Datei sollte im Ordner C:\Program Files (x86)\ATAS Platform\Sounds liegen.</value>
   </data>
 </root>

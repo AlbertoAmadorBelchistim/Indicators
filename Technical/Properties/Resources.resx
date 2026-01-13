@@ -3185,4 +3185,10 @@
   <data name="ShowBidsDescription" xml:space="preserve">
     <value>Determines whether to display information about bid volumes.</value>
   </data>
-</root>
+<data name="UseAlertDescription" xml:space="preserve">
+    <value>This setting enables alert notifications for specific conditions or events as defined by the indicator. When activated, the indicator will send an alert.</value>
+  </data><data name="AlertFilterDescription" xml:space="preserve">
+    <value>Sets the value at which the alert is triggered.</value>
+  </data><data name="AlertFileDescription" xml:space="preserve">
+    <value>This parameter allows users to specify the name of a custom audio file for alert sounds. Users can select a WAV file that will be played whenever an alert condition is triggered. The chosen WAV file should be located in the folder C:\Program Files (x86)\ATAS Platform\Sounds.</value>
+  </data></root>

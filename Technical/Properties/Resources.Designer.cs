@@ -160,11 +160,29 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a This parameter allows users to specify the name of a custom audio file for alert sounds. Users can select a WAV file that will be played whenever an alert condition is triggered. The chosen WAV file should be located in the folder C:\Program Files (x86)\ATAS Platform\Sounds..
+        /// </summary>
+        public static string AlertFileDescription {
+            get {
+                return ResourceManager.GetString("AlertFileDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Alert Filter.
         /// </summary>
         public static string AlertFilter {
             get {
                 return ResourceManager.GetString("AlertFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Sets the value at which the alert is triggered..
+        /// </summary>
+        public static string AlertFilterDescription {
+            get {
+                return ResourceManager.GetString("AlertFilterDescription", resourceCulture);
             }
         }
         
@@ -7131,6 +7149,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string UseAbsValue {
             get {
                 return ResourceManager.GetString("UseAbsValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a This setting enables alert notifications for specific conditions or events as defined by the indicator. When activated, the indicator will send an alert..
+        /// </summary>
+        public static string UseAlertDescription {
+            get {
+                return ResourceManager.GetString("UseAlertDescription", resourceCulture);
             }
         }
         
