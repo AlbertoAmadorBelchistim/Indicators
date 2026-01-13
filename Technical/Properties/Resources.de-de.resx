@@ -629,4 +629,6 @@
     <value>Transparenz</value>
   </data><data name="BackGround" xml:space="preserve">
     <value>Hintergrund</value>
+  </data><data name="Visualization" xml:space="preserve">
+    <value>Visualization</value>
   </data></root>
