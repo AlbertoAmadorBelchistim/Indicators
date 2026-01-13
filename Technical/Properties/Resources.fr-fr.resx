@@ -243,6 +243,9 @@
   <data name="ShowHeight" xml:space="preserve">
     <value>La hauteur</value>
   </data>
+  <data name="DeltaAlert" xml:space="preserve">
+    <value>Alerte de delta</value>
+  </data>
   <data name="Rows" xml:space="preserve">
     <value>Lignes</value>
   </data>
@@ -623,6 +626,14 @@
     <value>Alerte déséquilibre net ClusterStatistic : {0} (seuil={1})</value>
     <comment>ClusterStatistics</comment>
   </data>
+  <data name="DeltaVolume" xml:space="preserve">
+    <value>Delta/Vol</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="DeltaVolumePercent" xml:space="preserve">
+    <value>Delta/Vol (%)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
   <data name="SessionDelta" xml:space="preserve">
     <value>Delta de session</value>
     <comment>ClusterStatistics</comment>
@@ -635,8 +646,68 @@
     <value>Delta/volume de session (%)</value>
     <comment>ClusterStatistics</comment>
   </data>
+  <data name="MaxDelta" xml:space="preserve">
+    <value>Delta max.</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="MinDelta" xml:space="preserve">
+    <value>Delta min.</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="DeltaChange" xml:space="preserve">
+    <value>Var. delta</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="VolumeSecond" xml:space="preserve">
+    <value>Vol./s</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SessionVolume" xml:space="preserve">
+    <value>Vol. session</value>
+    <comment>ClusterStatistics</comment>
+  </data>
   <data name="Duration" xml:space="preserve">
     <value>Durée</value>
+  </data>
+  <data name="DeltaSecond" xml:space="preserve">
+    <value>Delta/s</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="PeakVolPerSec" xml:space="preserve">
+    <value>Vol max/s</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="PeakDeltaPerSec" xml:space="preserve">
+    <value>Delta @ Vol max/s</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="PeakDeltaPerVol" xml:space="preserve">
+    <value>Delta/Vol @ Vol max/s</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="PeakDeltaPerVolPercent" xml:space="preserve">
+    <value>Delta/Vol @ Vol max/s (%)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="BuyImbShort" xml:space="preserve">
+    <value>Déséqu. Ach</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SellImbShort" xml:space="preserve">
+    <value>Déséqu. Vte</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="NetImbShort" xml:space="preserve">
+    <value>Déséqu. Net</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="BuyStkShort" xml:space="preserve">
+    <value>Empil. Ach</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SellStkShort" xml:space="preserve">
+    <value>Empil. Vte</value>
+    <comment>ClusterStatistics</comment>
   </data>
   <data name="NetStkShort" xml:space="preserve">
     <value>Net Stk.</value>
@@ -716,76 +787,13 @@
   <data name="ShowBidsDescription" xml:space="preserve">
     <value>Détermine s'il faut afficher des informations sur les volumes d'offres.</value>
   </data>
-  <data name="BuyImbShort" xml:space="preserve">
-  <value>Déséqu. Ach</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="SellImbShort" xml:space="preserve">
-  <value>Déséqu. Vte</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="NetImbShort" xml:space="preserve">
-  <value>Déséqu. Net</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="BuyStkShort" xml:space="preserve">
-  <value>Empil. Ach</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="SellStkShort" xml:space="preserve">
-  <value>Empil. Vte</value>
-  <comment>ClusterStatistics</comment>
-</data>
-
-<data name="DeltaChange" xml:space="preserve">
-  <value>Var. delta</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="DeltaSecond" xml:space="preserve">
-  <value>Delta/s</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="DeltaVolume" xml:space="preserve">
-  <value>Delta/Vol</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="DeltaVolumePercent" xml:space="preserve">
-  <value>Delta/Vol (%)</value>
-  <comment>ClusterStatistics</comment>
-</data>
-
-<data name="MaxDelta" xml:space="preserve">
-  <value>Delta max.</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="MinDelta" xml:space="preserve">
-  <value>Delta min.</value>
-  <comment>ClusterStatistics</comment>
-</data>
-
-<data name="VolumeSecond" xml:space="preserve">
-  <value>Vol./s</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="SessionVolume" xml:space="preserve">
-  <value>Vol. session</value>
-  <comment>ClusterStatistics</comment>
-</data>
-
-<data name="PeakVolPerSec" xml:space="preserve">
-  <value>Vol max/s</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="PeakDeltaPerSec" xml:space="preserve">
-  <value>Delta @ Vol max/s</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="PeakDeltaPerVol" xml:space="preserve">
-  <value>Delta/Vol @ Vol max/s</value>
-  <comment>ClusterStatistics</comment>
-</data>
-<data name="PeakDeltaPerVolPercent" xml:space="preserve">
-  <value>Delta/Vol @ Vol max/s (%)</value>
-  <comment>ClusterStatistics</comment>
-</data>
+  <data name="UseAlertDescription" xml:space="preserve">
+    <value>Ce paramètre permet des notifications d'alerte pour des conditions ou événements spécifiques définis par l'indicateur. Lorsqu'il est activé, l'indicateur enverra une alerte.</value>
+  </data>
+  <data name="AlertFilterDescription" xml:space="preserve">
+    <value>Définit la valeur à laquelle l'alerte est déclenchée.</value>
+  </data>
+  <data name="AlertFileDescription" xml:space="preserve">
+    <value>Le paramètre AlertFileDescription permet aux utilisateurs de spécifier le nom d'un fichier audio personnalisé pour les sons d'alerte dans la plateforme ATAS. Les utilisateurs peuvent sélectionner un fichier WAV qui sera joué lorsque une condition d'alerte est remplie. Le fichier WAV choisi doit être situé dans le dossier C:\Program Files (x86)\ATAS Platform\Sounds.</value>
+  </data>
 </root>
