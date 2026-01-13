@@ -117,6 +117,30 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Ask" xml:space="preserve">
+    <value>Ask</value>
+  </data>
+  <data name="Bid" xml:space="preserve">
+    <value>Bids</value>
+  </data>
+  <data name="AlertFile" xml:space="preserve">
+    <value>Alarm Datei</value>
+  </data>
+  <data name="BackGround" xml:space="preserve">
+    <value>Hintergrund</value>
+  </data>
+  <data name="Delta" xml:space="preserve">
+    <value>Delta</value>
+  </data>
+  <data name="ShowVolume" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Zeit</value>
+  </data>
+  <data name="Volume" xml:space="preserve">
+    <value>Volumen</value>
+  </data>
   <data name="CurrentDay" xml:space="preserve">
     <value>Aktueller Tag</value>
   </data>
@@ -135,8 +159,95 @@
   <data name="PreviousWeek" xml:space="preserve">
     <value>Letzte Woche</value>
   </data>
+  <data name="Height" xml:space="preserve">
+    <value>Height</value>
+  </data>
+  <data name="Visualization" xml:space="preserve">
+    <value>Visualization</value>
+  </data>
+  <data name="Trades" xml:space="preserve">
+    <value>Trades</value>
+  </data>
+  <data name="AskColor" xml:space="preserve">
+    <value>Ask Farbe</value>
+  </data>
+  <data name="BidColor" xml:space="preserve">
+    <value>Bid Farbe</value>
+  </data>
+  <data name="HideRowsDescription" xml:space="preserve">
+    <value>Kopfzeilen ausblenden</value>
+  </data>
+  <data name="ShowAsk" xml:space="preserve">
+    <value>Asks anzeigen</value>
+  </data>
+  <data name="ShowBid" xml:space="preserve">
+    <value>Bids anzeigen</value>
+  </data>
+  <data name="ShowDelta" xml:space="preserve">
+    <value>Delta</value>
+  </data>
+  <data name="ShowDeltaPerVolume" xml:space="preserve">
+    <value>Delta/Volume anzeigen</value>
+  </data>
+  <data name="ShowDuration" xml:space="preserve">
+    <value>Anzeigedauer, Sek.</value>
+  </data>
+  <data name="ShowMaximumDelta" xml:space="preserve">
+    <value>Maximale delta</value>
+  </data>
+  <data name="ShowMinimumDelta" xml:space="preserve">
+    <value>Minimale delta</value>
+  </data>
+  <data name="ShowSessionDelta" xml:space="preserve">
+    <value>Session delta</value>
+  </data>
+  <data name="ShowSessionDeltaPerVolume" xml:space="preserve">
+    <value>Sitzungs-Delta/Volume</value>
+  </data>
+  <data name="ShowSessionVolume" xml:space="preserve">
+    <value>Session volume</value>
+  </data>
+  <data name="ShowTime" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="ShowVolumePerSecond" xml:space="preserve">
+    <value>Volume/second</value>
+  </data>
+  <data name="VolumeColor" xml:space="preserve">
+    <value>Volumenfarbe</value>
+  </data>
+  <data name="GridColor" xml:space="preserve">
+    <value>Rasterstil</value>
+  </data>
+  <data name="HeaderBackground" xml:space="preserve">
+    <value>Kopfhintergrund</value>
+  </data>
+  <data name="VisibleProportion" xml:space="preserve">
+    <value>Anteil nach sichtbarem Teil des Diagramms</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="ShowDeltaChange" xml:space="preserve">
+    <value>Delta-Änderung</value>
+  </data>
+  <data name="Transparency" xml:space="preserve">
+    <value>Transparenz</value>
+  </data>
+  <data name="ShortValues" xml:space="preserve">
+    <value>Kurzwerte anzeigen</value>
+  </data>
+  <data name="ShowTradesCount" xml:space="preserve">
+    <value>Anzahl der trades</value>
+  </data>
+  <data name="ShowHeight" xml:space="preserve">
+    <value>Höhe</value>
+  </data>
   <data name="DaysLookBackDescription" xml:space="preserve">
     <value>"Days look back" bezieht sich auf die Anzahl der zurückliegenden Tage, die bei der Berechnung eines Indikators berücksichtigt werden.</value>
+  </data>
+  <data name="Rows" xml:space="preserve">
+    <value>Zeilen</value>
   </data>
   <data name="ToggleLevelsVisibilityHotKey" xml:space="preserve">
     <value>Sichtbarkeit aller Ebenen umschalten</value>
@@ -399,7 +510,7 @@
   <data name="VolumeThresholdMinor" xml:space="preserve">
     <value>Volumenschwelle (klein)</value>
   </data>
-    <data name="ShowDeltaPerSecond" xml:space="preserve">
+  <data name="ShowDeltaPerSecond" xml:space="preserve">
     <value>Delta/s</value>
     <comment>ClusterStatistics</comment>
   </data>
@@ -603,32 +714,79 @@
     <value>Netto Stk.</value>
     <comment>ClusterStatistics</comment>
   </data>
-<data name="Rows" xml:space="preserve">
-    <value>Zeilen</value>
-  </data><data name="LabelFillColorDescription" xml:space="preserve">
+  <data name="LabelFillColorDescription" xml:space="preserve">
     <value>Setzt die Hintergrundfarbe des Labels.</value>
-  </data><data name="Enabled" xml:space="preserve">
-    <value>Enabled</value>
-  </data><data name="AlertFile" xml:space="preserve">
-    <value>Alarm Datei</value>
-  </data><data name="Ask" xml:space="preserve">
-    <value>Ask</value>
-  </data><data name="Bid" xml:space="preserve">
-    <value>Bids</value>
-  </data><data name="Delta" xml:space="preserve">
-    <value>Delta</value>
-  </data><data name="Volume" xml:space="preserve">
-    <value>Volumen</value>
-  </data><data name="Trades" xml:space="preserve">
-    <value>Trades</value>
-  </data><data name="Height" xml:space="preserve">
-    <value>Height</value>
-  </data><data name="Time" xml:space="preserve">
-    <value>Zeit</value>
-  </data><data name="Transparency" xml:space="preserve">
-    <value>Transparenz</value>
-  </data><data name="BackGround" xml:space="preserve">
-    <value>Hintergrund</value>
-  </data><data name="Visualization" xml:space="preserve">
-    <value>Visualization</value>
-  </data></root>
+  </data>
+  <data name="RowsPaceGroup" xml:space="preserve">
+    <value>Tempo / Aktivität</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsPressureGroup" xml:space="preserve">
+    <value>Richtungsdruck</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsImbalanceRowsGroup" xml:space="preserve">
+    <value>Ungleichgewichte</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsCandleContextGroup" xml:space="preserve">
+    <value>Kerzenkontext</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsSessionContextGroup" xml:space="preserve">
+    <value>Sitzungskontext</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsRawPrintsGroup" xml:space="preserve">
+    <value>Rohprints</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowVolumePerSecondDescription" xml:space="preserve">
+    <value>Bestimmt, ob Informationen zum Volumen pro Sekunde angezeigt werden sollen.</value>
+  </data>
+  <data name="ShowDeltaDescription" xml:space="preserve">
+    <value>Bestimmt, ob Informationen zur Delta angezeigt werden sollen.</value>
+  </data>
+  <data name="ShowDeltaPerVolumeDescription" xml:space="preserve">
+    <value>Bestimmt, ob Informationen zur Delta pro Volumen angezeigt werden sollen.</value>
+  </data>
+  <data name="ShowDeltaChangeDescription" xml:space="preserve">
+    <value>Bestimmt, ob Informationen über den Unterschied zwischen der Delta der aktuellen Kerze und der Delta der vorherigen angezeigt werden sollen.</value>
+  </data>
+  <data name="ShowMaximumDeltaDescription" xml:space="preserve">
+    <value>Bestimmt, ob Informationen zum maximalen Delta angezeigt werden sollen.</value>
+  </data>
+  <data name="ShowMinimumDeltaDescription" xml:space="preserve">
+    <value>Bestimmt, ob Informationen zum Mindestdelta angezeigt werden sollen.</value>
+  </data>
+  <data name="ShowVolumesDescription" xml:space="preserve">
+    <value>Bestimmt, ob Informationen zu Volumina angezeigt werden sollen.</value>
+  </data>
+  <data name="ShowTradesCountDescription" xml:space="preserve">
+    <value>Legt fest, ob Informationen zur Anzahl der Trades angezeigt werden sollen.</value>
+  </data>
+  <data name="ShowCandleHeightDescription" xml:space="preserve">
+    <value>Bestimmt, ob Informationen zur Höhe der Kerze (in Währung) angezeigt werden sollen.</value>
+  </data>
+  <data name="ShowCandleDurationDescription" xml:space="preserve">
+    <value>Bestimmt, ob Informationen zur Zeitdauer der Kerze angezeigt werden sollen.</value>
+  </data>
+  <data name="ShowCandleTimeDescription" xml:space="preserve">
+    <value>Bestimmt, ob Informationen zum Startzeitpunkt der Kerze angezeigt werden sollen.</value>
+  </data>
+  <data name="ShowSessionVolumeDescription" xml:space="preserve">
+    <value>Bestimmt, ob kumulierte Volumeninformationen innerhalb einer Sitzung angezeigt werden sollen.</value>
+  </data>
+  <data name="ShowSessionDeltaDescription" xml:space="preserve">
+    <value>Bestimmt, ob Informationen zur Sitzungsdifferenz angezeigt werden sollen.</value>
+  </data>
+  <data name="ShowSessionDeltaPerVolumeDescription" xml:space="preserve">
+    <value>Bestimmt, ob Informationen zur Sitzungsdifferenz pro Volumen angezeigt werden sollen.</value>
+  </data>
+  <data name="ShowAsksDescription" xml:space="preserve">
+    <value>Bestimmt, ob Informationen zu Angebotsvolumen angezeigt werden sollen.</value>
+  </data>
+  <data name="ShowBidsDescription" xml:space="preserve">
+    <value>Bestimmt, ob Informationen zu Angebotsvolumina angezeigt werden sollen.</value>
+  </data>
+</root>
