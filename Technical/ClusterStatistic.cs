@@ -1604,10 +1604,20 @@ public class ClusterStatistic : Indicator
 	{
 		var candle = GetCandle(bar);
 
+		// Fallback rebuild (e.g., init phase where immediate rebuild failed).
 		if (_imbalancesDirty && bar == CurrentBar - 1)
 		{
+			if (ShouldComputeImbalances())
+			{
 			RebuildHistoricalImbalances();
 			_imbalancesDirty = false;
+				RedrawChart();
+		}
+			else
+			{
+				// Nothing uses imbalances right now.
+				_imbalancesDirty = false;
+			}
 		}
 
 		var candleSeconds = Convert.ToDecimal((candle.LastTime - candle.Time).TotalSeconds);
@@ -1967,37 +1977,16 @@ public class ClusterStatistic : Indicator
 		int buy = 0, sell = 0;
 		int stackedBuy = 0, stackedSell = 0;
 
-		var useImbalanceRows =
-			RowsOrder.TryGetValue(DataType.BuyImbalance, out var buyRi) && buyRi.Enabled ||
-			RowsOrder.TryGetValue(DataType.SellImbalance, out var sellRi) && sellRi.Enabled ||
-			RowsOrder.TryGetValue(DataType.NetImbalance, out var netRi) && netRi.Enabled ||
-			RowsOrder.TryGetValue(DataType.StackedBuyImbalance, out var sbRi) && sbRi.Enabled ||
-			RowsOrder.TryGetValue(DataType.StackedSellImbalance, out var ssRi) && ssRi.Enabled ||
-			RowsOrder.TryGetValue(DataType.StackedNetImbalance, out var snRi) && snRi.Enabled;
-
-		var skipImbalanceCompute = !useImbalanceRows && !UseNetImbalanceAlert;
-
-		if (skipImbalanceCompute)
+		if (!ShouldComputeImbalances())
 		{
-			_buyImbalance[bar] = 0;
-			_sellImbalance[bar] = 0;
-			_netImbalance[bar] = 0;
-			_stackedBuyImbalance[bar] = 0;
-			_stackedSellImbalance[bar] = 0;
-			_stackedNetImbalance[bar] = 0;
+			ClearImbalanceSeries(bar);
 		}
 		else
 		{
 			ComputeImbalances(candle, out buy, out sell, out stackedBuy, out stackedSell);
-
-			_buyImbalance[bar] = buy;
-			_sellImbalance[bar] = sell;
-			_netImbalance[bar] = buy - sell;
-
-			_stackedBuyImbalance[bar] = stackedBuy;
-			_stackedSellImbalance[bar] = stackedSell;
-			_stackedNetImbalance[bar] = stackedBuy - stackedSell;
+			WriteImbalanceSeries(bar, buy, sell, stackedBuy, stackedSell);
 		}
+
 
 		// --- Optional Net Imbalance alert (threshold crossing, no spam) ---
 		if (UseNetImbalanceAlert && bar == CurrentBar - 1)
@@ -3089,16 +3078,7 @@ public class ClusterStatistic : Indicator
         if (CurrentBar <= 0)
             return;
 
-        // Avoid rebuilding if nothing will use the values (rows disabled AND alert disabled).
-        var useImbalanceRows =
-            (RowsOrder.TryGetValue(DataType.BuyImbalance, out var buyRi) && buyRi.Enabled) ||
-            (RowsOrder.TryGetValue(DataType.SellImbalance, out var sellRi) && sellRi.Enabled) ||
-            (RowsOrder.TryGetValue(DataType.NetImbalance, out var netRi) && netRi.Enabled) ||
-            (RowsOrder.TryGetValue(DataType.StackedBuyImbalance, out var sbRi) && sbRi.Enabled) ||
-            (RowsOrder.TryGetValue(DataType.StackedSellImbalance, out var ssRi) && ssRi.Enabled) ||
-            (RowsOrder.TryGetValue(DataType.StackedNetImbalance, out var snRi) && snRi.Enabled);
-
-        if (!useImbalanceRows && !UseNetImbalanceAlert)
+		if (!ShouldComputeImbalances())
             return;
 
         try
@@ -3213,6 +3193,45 @@ public class ClusterStatistic : Indicator
 			_stackedNetImbalance[i] = stackedBuy - stackedSell;
 		}
 	}
+
+	private bool AreImbalanceRowsEnabled()
+	{
+		return
+			(RowsOrder.TryGetValue(DataType.BuyImbalance, out var buyRi) && buyRi.Enabled) ||
+			(RowsOrder.TryGetValue(DataType.SellImbalance, out var sellRi) && sellRi.Enabled) ||
+			(RowsOrder.TryGetValue(DataType.NetImbalance, out var netRi) && netRi.Enabled) ||
+			(RowsOrder.TryGetValue(DataType.StackedBuyImbalance, out var sbRi) && sbRi.Enabled) ||
+			(RowsOrder.TryGetValue(DataType.StackedSellImbalance, out var ssRi) && ssRi.Enabled) ||
+			(RowsOrder.TryGetValue(DataType.StackedNetImbalance, out var snRi) && snRi.Enabled);
+	}
+
+	private bool ShouldComputeImbalances()
+	{
+		// Compute if any imbalance row is visible OR net-imbalance alert is enabled.
+		return AreImbalanceRowsEnabled() || UseNetImbalanceAlert;
+	}
+
+	private void ClearImbalanceSeries(int bar)
+	{
+		_buyImbalance[bar] = 0;
+		_sellImbalance[bar] = 0;
+		_netImbalance[bar] = 0;
+		_stackedBuyImbalance[bar] = 0;
+		_stackedSellImbalance[bar] = 0;
+		_stackedNetImbalance[bar] = 0;
+	}
+
+	private void WriteImbalanceSeries(int bar, int buy, int sell, int stackedBuy, int stackedSell)
+	{
+		_buyImbalance[bar] = buy;
+		_sellImbalance[bar] = sell;
+		_netImbalance[bar] = buy - sell;
+
+		_stackedBuyImbalance[bar] = stackedBuy;
+		_stackedSellImbalance[bar] = stackedSell;
+		_stackedNetImbalance[bar] = stackedBuy - stackedSell;
+	}
+
 
 
 	#endregion
