@@ -710,26 +710,21 @@ public class ClusterStatistic : Indicator
 
 	protected override void OnApplyDefaultColors()
 	{
-		if (ChartInfo is null)
-			return;
-
-		BidColor = ChartInfo.ColorsStore.FootprintBidColor.Convert();
-		BidColor = CrossColorExtensions.FromRgb(BidColor.R, BidColor.G, BidColor.B);
-
-		AskColor = ChartInfo.ColorsStore.FootprintAskColor.Convert();
-		AskColor = CrossColorExtensions.FromRgb(AskColor.R, AskColor.G, AskColor.B);
-
-		VolumeColor = ChartInfo.ColorsStore.PaneSeparators.Color.Convert();
-		VolumeColor = CrossColorExtensions.FromRgb(VolumeColor.R, VolumeColor.G, VolumeColor.B);
-
-		GridColor = ChartInfo.ColorsStore.Grid.Color.Convert();
-		GridColor = CrossColorExtensions.FromRgb(GridColor.R, GridColor.G, GridColor.B);
-
 		HeaderBackground = DefaultColors.Gray.Convert();
 		TextColor = CrossColors.White;
 
-		BackGroundColor = ChartInfo.ColorsStore.BaseBackgroundColor.Convert();
-		BackGroundColor = Color.FromArgb(128, BackGroundColor.R, BackGroundColor.G, BackGroundColor.B);
+		if (ChartInfo is null)
+			return;
+
+		static Color WithoutAlpha(Color c) => CrossColorExtensions.FromRgb(c.R, c.G, c.B);
+
+		BidColor = WithoutAlpha(ChartInfo.ColorsStore.FootprintBidColor.Convert());
+		AskColor = WithoutAlpha(ChartInfo.ColorsStore.FootprintAskColor.Convert());
+		VolumeColor = WithoutAlpha(ChartInfo.ColorsStore.PaneSeparators.Color.Convert());
+		GridColor = WithoutAlpha(ChartInfo.ColorsStore.Grid.Color.Convert());
+
+		var bg = ChartInfo.ColorsStore.BaseBackgroundColor;
+		BackGroundColor = Color.FromArgb(128, bg.R, bg.G, bg.B);
 	}
 
 	protected override void OnCalculate(int bar, decimal value)
