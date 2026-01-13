@@ -3066,12 +3066,40 @@ public class ClusterStatistic : Indicator
 		_prevCumDelta = candle.Delta;
 	}
 
-	private void MarkImbalancesDirty()
-	{
-		_imbalancesDirty = true;
-	}
+    private void MarkImbalancesDirty()
+    {
+        _imbalancesDirty = true;
 
-	private void ComputeImbalances(IndicatorCandle candle, out int buy, out int sell, out int stackedBuy, out int stackedSell)
+        // If we already have bars loaded, rebuild immediately so UI updates without waiting for a tick.
+        if (CurrentBar <= 0)
+            return;
+
+        // Avoid rebuilding if nothing will use the values (rows disabled AND alert disabled).
+        var useImbalanceRows =
+            (RowsOrder.TryGetValue(DataType.BuyImbalance, out var buyRi) && buyRi.Enabled) ||
+            (RowsOrder.TryGetValue(DataType.SellImbalance, out var sellRi) && sellRi.Enabled) ||
+            (RowsOrder.TryGetValue(DataType.NetImbalance, out var netRi) && netRi.Enabled) ||
+            (RowsOrder.TryGetValue(DataType.StackedBuyImbalance, out var sbRi) && sbRi.Enabled) ||
+            (RowsOrder.TryGetValue(DataType.StackedSellImbalance, out var ssRi) && ssRi.Enabled) ||
+            (RowsOrder.TryGetValue(DataType.StackedNetImbalance, out var snRi) && snRi.Enabled);
+
+        if (!useImbalanceRows && !UseNetImbalanceAlert)
+            return;
+
+        try
+        {
+            RebuildHistoricalImbalances();
+            _imbalancesDirty = false;
+            RedrawChart();
+        }
+        catch
+        {
+            // Candles may not be ready yet (e.g., during init). Keep dirty and rebuild on next OnCalculate tick.
+        }
+    }
+
+
+    private void ComputeImbalances(IndicatorCandle candle, out int buy, out int sell, out int stackedBuy, out int stackedSell)
 	{
 		buy = 0;
 		sell = 0;
