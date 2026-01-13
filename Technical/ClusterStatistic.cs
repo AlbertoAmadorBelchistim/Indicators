@@ -3170,30 +3170,23 @@ public class ClusterStatistic : Indicator
 		}
 	}
 
-	private void RebuildHistoricalImbalances()
-	{
-		if (CurrentBar <= 0)
-			return;
+    private void RebuildHistoricalImbalances()
+    {
+        if (CurrentBar <= 0)
+            return;
 
-		for (int i = 0; i < CurrentBar; i++)
-		{
-			var c = GetCandle(i);
-			if (c == null)
-				continue;
+        for (var i = 0; i < CurrentBar; i++)
+        {
+            var c = GetCandle(i);
+            if (c == null)
+                continue;
 
-			ComputeImbalances(c, out var buy, out var sell, out var stackedBuy, out var stackedSell);
+            ComputeImbalances(c, out var buy, out var sell, out var stackedBuy, out var stackedSell);
+            WriteImbalanceSeries(i, buy, sell, stackedBuy, stackedSell);
+        }
+    }
 
-			_buyImbalance[i] = buy;
-			_sellImbalance[i] = sell;
-			_netImbalance[i] = buy - sell;
-
-			_stackedBuyImbalance[i] = stackedBuy;
-			_stackedSellImbalance[i] = stackedSell;
-			_stackedNetImbalance[i] = stackedBuy - stackedSell;
-		}
-	}
-
-	private bool AreImbalanceRowsEnabled()
+    private bool AreImbalanceRowsEnabled()
 	{
 		return
 			(RowsOrder.TryGetValue(DataType.BuyImbalance, out var buyRi) && buyRi.Enabled) ||
