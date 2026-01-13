@@ -441,7 +441,7 @@
     <comment>ClusterStatistics</comment>
   </data>
   <data name="ShowPeakVolPerSec" xml:space="preserve">
-    <value>अधिकतम वॉल्यूम/सेकंड (पीक)</value>
+    <value>अधिकतम वॉल्यूम/सेकंड</value>
     <comment>ClusterStatistics</comment>
   </data>
   <data name="ShowPeakDeltaPerSec" xml:space="preserve">
@@ -497,17 +497,17 @@
     <comment>ClusterStatistics</comment>
   </data>
   <data name="SotUseAutoFilterName" xml:space="preserve">
-    <value>स्वचालित फ़िल्टर उपयोग करें</value>
-    <comment>ClusterStatistics</comment>
-  </data>
-  <data name="SotAutoFilterPeriodName" xml:space="preserve">
-    <value>स्वचालित फ़िल्टर अवधि</value>
-    <comment>ClusterStatistics</comment>
-  </data>
-  <data name="SotAutoFilterUseEmaName" xml:space="preserve">
-    <value>स्वचालित फ़िल्टर = EMA (बंद=SMA)</value>
-    <comment>ClusterStatistics</comment>
-  </data>
+  <value>फ़िल्टर उपयोग करें</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SotAutoFilterPeriodName" xml:space="preserve">
+  <value>फ़िल्टर अवधि</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SotAutoFilterUseEmaName" xml:space="preserve">
+  <value>EMA (off=SMA)</value>
+  <comment>ClusterStatistics</comment>
+</data>
   <data name="ImbalanceThresholdPercentName" xml:space="preserve">
     <value>असंतुलन सीमा (%)</value>
     <comment>ClusterStatistics</comment>
@@ -554,4 +554,19 @@
   <data name="LabelFillColorDescription" xml:space="preserve">
     <value>लेबल के पृष्ठभूमि का रंग सेट करता है।</value>
   </data>
+<data name="Visualization" xml:space="preserve">
+    <value>दृश्यीकरण</value>
+  </data>
+  <data name="SessionDelta" xml:space="preserve">
+  <value>सेशन डेल्टा</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SessionDeltaVolume" xml:space="preserve">
+  <value>सेशन डेल्टा/वॉल्यूम</value>
+  <comment>ClusterStatistics</comment>
+</data>
+<data name="SessionDeltaVolumePercent" xml:space="preserve">
+  <value>सेशन डेल्टा/वॉल्यूम (%)</value>
+  <comment>ClusterStatistics</comment>
+</data>
 </root>
