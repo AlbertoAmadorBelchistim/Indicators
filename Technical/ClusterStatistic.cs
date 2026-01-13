@@ -2598,8 +2598,8 @@ public class ClusterStatistic : Indicator
 
 			maxBuy = (int)_buyImbalance.MAX(last, 0);
 			maxSell = (int)_sellImbalance.MAX(last, 0);
-			maxNet = (int)_netImbalance.MAX(last, 0);
-			maxStackedBuy = (int)_stackedBuyImbalance.MAX(last, 0);
+            maxNet = (int)Math.Abs(_netImbalance.MAX(last, 0));
+            maxStackedBuy = (int)_stackedBuyImbalance.MAX(last, 0);
 			maxStackedSell = (int)_stackedSellImbalance.MAX(last, 0);
 			maxStackedNet = (int)Math.Abs(_stackedNetImbalance.MAX(last, 0));
 
