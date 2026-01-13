@@ -142,6 +142,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Cluster statistic delta alert: {0}.
+        /// </summary>
+        public static string AlertDeltaTemplate {
+            get {
+                return ResourceManager.GetString("AlertDeltaTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Alert File.
         /// </summary>
         public static string AlertFile {
@@ -156,6 +165,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string AlertFilter {
             get {
                 return ResourceManager.GetString("AlertFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a ClusterStatistics Net Imbalance alert: {0} (thr={1}).
+        /// </summary>
+        public static string AlertNetImbalanceTemplate {
+            get {
+                return ResourceManager.GetString("AlertNetImbalanceTemplate", resourceCulture);
             }
         }
         
@@ -183,6 +201,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string Alerts {
             get {
                 return ResourceManager.GetString("Alerts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Cluster statistic volume alert: {0}.
+        /// </summary>
+        public static string AlertVolumeTemplate {
+            get {
+                return ResourceManager.GetString("AlertVolumeTemplate", resourceCulture);
             }
         }
         
@@ -880,6 +907,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Buy Imb.
+        /// </summary>
+        public static string BuyImbShort {
+            get {
+                return ResourceManager.GetString("BuyImbShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Buy Overshoot 1 Color.
         /// </summary>
         public static string BuyOvershoot1Color {
@@ -930,6 +966,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string BuySellPower {
             get {
                 return ResourceManager.GetString("BuySellPower", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Buy Stk..
+        /// </summary>
+        public static string BuyStkShort {
+            get {
+                return ResourceManager.GetString("BuyStkShort", resourceCulture);
             }
         }
         
@@ -1537,6 +1582,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Delta Change.
+        /// </summary>
+        public static string DeltaChange {
+            get {
+                return ResourceManager.GetString("DeltaChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Delta Coloring.
         /// </summary>
         public static string DeltaColored {
@@ -1591,11 +1645,38 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Delta/sec.
+        /// </summary>
+        public static string DeltaSecond {
+            get {
+                return ResourceManager.GetString("DeltaSecond", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Delta Type.
         /// </summary>
         public static string DeltaType {
             get {
                 return ResourceManager.GetString("DeltaType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Delta/Volume.
+        /// </summary>
+        public static string DeltaVolume {
+            get {
+                return ResourceManager.GetString("DeltaVolume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Delta/Volume (%).
+        /// </summary>
+        public static string DeltaVolumePercent {
+            get {
+                return ResourceManager.GetString("DeltaVolumePercent", resourceCulture);
             }
         }
         
@@ -1794,6 +1875,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string Drawing {
             get {
                 return ResourceManager.GetString("Drawing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Duration.
+        /// </summary>
+        public static string Duration {
+            get {
+                return ResourceManager.GetString("Duration", resourceCulture);
             }
         }
         
@@ -2824,6 +2914,33 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Imbalance.
+        /// </summary>
+        public static string ImbalanceGroup {
+            get {
+                return ResourceManager.GetString("ImbalanceGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Min volume difference.
+        /// </summary>
+        public static string ImbalanceMinDifferenceName {
+            get {
+                return ResourceManager.GetString("ImbalanceMinDifferenceName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Min dominant volume.
+        /// </summary>
+        public static string ImbalanceMinDominantVolumeName {
+            get {
+                return ResourceManager.GetString("ImbalanceMinDominantVolumeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Imbalance Range.
         /// </summary>
         public static string ImbalanceRange {
@@ -2838,6 +2955,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string ImbalanceRatio {
             get {
                 return ResourceManager.GetString("ImbalanceRatio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Imbalance Threshold (%).
+        /// </summary>
+        public static string ImbalanceThresholdPercentName {
+            get {
+                return ResourceManager.GetString("ImbalanceThresholdPercentName", resourceCulture);
             }
         }
         
@@ -2946,6 +3072,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string Label {
             get {
                 return ResourceManager.GetString("Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Sets the background color of the label..
+        /// </summary>
+        public static string LabelFillColorDescription {
+            get {
+                return ResourceManager.GetString("LabelFillColorDescription", resourceCulture);
             }
         }
         
@@ -3463,6 +3598,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Max.Delta.
+        /// </summary>
+        public static string MaxDelta {
+            get {
+                return ResourceManager.GetString("MaxDelta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Maximal Dynamic Period.
         /// </summary>
         public static string MaxDynamicPeriod {
@@ -3661,6 +3805,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Max vol/sec.
+        /// </summary>
+        public static string MaxVolPerSecGroup {
+            get {
+                return ResourceManager.GetString("MaxVolPerSecGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Mean Deviation.
         /// </summary>
         public static string MeanDeviation {
@@ -3738,6 +3891,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string MinCumulativeVolume {
             get {
                 return ResourceManager.GetString("MinCumulativeVolume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Min.Delta.
+        /// </summary>
+        public static string MinDelta {
+            get {
+                return ResourceManager.GetString("MinDelta", resourceCulture);
             }
         }
         
@@ -4053,6 +4215,51 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string NegativeDelta {
             get {
                 return ResourceManager.GetString("NegativeDelta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Net Imbalance Alert.
+        /// </summary>
+        public static string NetImbalanceAlertGroup {
+            get {
+                return ResourceManager.GetString("NetImbalanceAlertGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Threshold (abs).
+        /// </summary>
+        public static string NetImbalanceAlertThresholdAbs {
+            get {
+                return ResourceManager.GetString("NetImbalanceAlertThresholdAbs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Use closed candle.
+        /// </summary>
+        public static string NetImbalanceAlertUseClosedCandle {
+            get {
+                return ResourceManager.GetString("NetImbalanceAlertUseClosedCandle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Net Imb.
+        /// </summary>
+        public static string NetImbShort {
+            get {
+                return ResourceManager.GetString("NetImbShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Net Stk..
+        /// </summary>
+        public static string NetStkShort {
+            get {
+                return ResourceManager.GetString("NetStkShort", resourceCulture);
             }
         }
         
@@ -4435,6 +4642,42 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Delta at Max vol/sec.
+        /// </summary>
+        public static string PeakDeltaPerSec {
+            get {
+                return ResourceManager.GetString("PeakDeltaPerSec", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Delta/Vol Max vol/sec.
+        /// </summary>
+        public static string PeakDeltaPerVol {
+            get {
+                return ResourceManager.GetString("PeakDeltaPerVol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Delta/Vol Max vol/sec (%).
+        /// </summary>
+        public static string PeakDeltaPerVolPercent {
+            get {
+                return ResourceManager.GetString("PeakDeltaPerVolPercent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Max Vol/sec.
+        /// </summary>
+        public static string PeakVolPerSec {
+            get {
+                return ResourceManager.GetString("PeakVolPerSec", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Percent.
         /// </summary>
         public static string Percent {
@@ -4777,6 +5020,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Ratio as percent.
+        /// </summary>
+        public static string RatiosAsPercent {
+            get {
+                return ResourceManager.GetString("RatiosAsPercent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Rectangles.
         /// </summary>
         public static string Rectangles {
@@ -5047,6 +5299,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Sell Imb.
+        /// </summary>
+        public static string SellImbShort {
+            get {
+                return ResourceManager.GetString("SellImbShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Sell Overshoot 1 Color.
         /// </summary>
         public static string SellOvershoot1Color {
@@ -5092,6 +5353,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Sell Stk..
+        /// </summary>
+        public static string SellStkShort {
+            get {
+                return ResourceManager.GetString("SellStkShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Separated Trades.
         /// </summary>
         public static string SeparatedTrades {
@@ -5119,11 +5389,38 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Session Delta.
+        /// </summary>
+        public static string SessionDelta {
+            get {
+                return ResourceManager.GetString("SessionDelta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Session Delta Mode.
         /// </summary>
         public static string SessionDeltaMode {
             get {
                 return ResourceManager.GetString("SessionDeltaMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Session Delta/Volume.
+        /// </summary>
+        public static string SessionDeltaVolume {
+            get {
+                return ResourceManager.GetString("SessionDeltaVolume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Session Delta/Volume (%).
+        /// </summary>
+        public static string SessionDeltaVolumePercent {
+            get {
+                return ResourceManager.GetString("SessionDeltaVolumePercent", resourceCulture);
             }
         }
         
@@ -5142,6 +5439,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string SessionTime {
             get {
                 return ResourceManager.GetString("SessionTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Session Volume.
+        /// </summary>
+        public static string SessionVolume {
+            get {
+                return ResourceManager.GetString("SessionVolume", resourceCulture);
             }
         }
         
@@ -5317,6 +5623,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Buy Imbalances.
+        /// </summary>
+        public static string ShowBuyImbalances {
+            get {
+                return ResourceManager.GetString("ShowBuyImbalances", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Show Cumulative.
         /// </summary>
         public static string ShowCumulative {
@@ -5358,6 +5673,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string ShowDeltaChange {
             get {
                 return ResourceManager.GetString("ShowDeltaChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Delta/sec.
+        /// </summary>
+        public static string ShowDeltaPerSecond {
+            get {
+                return ResourceManager.GetString("ShowDeltaPerSecond", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show Delta per second.
+        /// </summary>
+        public static string ShowDeltaPerSecondDescription {
+            get {
+                return ResourceManager.GetString("ShowDeltaPerSecondDescription", resourceCulture);
             }
         }
         
@@ -5479,11 +5812,47 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Net Imbalances.
+        /// </summary>
+        public static string ShowNetImbalances {
+            get {
+                return ResourceManager.GetString("ShowNetImbalances", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Show on chart.
         /// </summary>
         public static string ShowOnChart {
             get {
                 return ResourceManager.GetString("ShowOnChart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Delta at Max vol/sec.
+        /// </summary>
+        public static string ShowPeakDeltaPerSec {
+            get {
+                return ResourceManager.GetString("ShowPeakDeltaPerSec", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Delta/Vol at Max vol/sec.
+        /// </summary>
+        public static string ShowPeakDeltaPerVol {
+            get {
+                return ResourceManager.GetString("ShowPeakDeltaPerVol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Max Vol/sec (peak).
+        /// </summary>
+        public static string ShowPeakVolPerSec {
+            get {
+                return ResourceManager.GetString("ShowPeakVolPerSec", resourceCulture);
             }
         }
         
@@ -5502,6 +5871,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string ShowPriceSelection {
             get {
                 return ResourceManager.GetString("ShowPriceSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Sell Imbalances.
+        /// </summary>
+        public static string ShowSellImbalances {
+            get {
+                return ResourceManager.GetString("ShowSellImbalances", resourceCulture);
             }
         }
         
@@ -5556,6 +5934,33 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string ShowSmallTrades {
             get {
                 return ResourceManager.GetString("ShowSmallTrades", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Stacked Buy Imbalances.
+        /// </summary>
+        public static string ShowStackedBuyImbalances {
+            get {
+                return ResourceManager.GetString("ShowStackedBuyImbalances", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Stacked Net Imbalances.
+        /// </summary>
+        public static string ShowStackedNetImbalances {
+            get {
+                return ResourceManager.GetString("ShowStackedNetImbalances", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Stacked Sell Imbalances.
+        /// </summary>
+        public static string ShowStackedSellImbalances {
+            get {
+                return ResourceManager.GetString("ShowStackedSellImbalances", resourceCulture);
             }
         }
         
@@ -5821,6 +6226,51 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Auto Filter Period.
+        /// </summary>
+        public static string SotAutoFilterPeriodName {
+            get {
+                return ResourceManager.GetString("SotAutoFilterPeriodName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Auto Filter = EMA (off=SMA).
+        /// </summary>
+        public static string SotAutoFilterUseEmaName {
+            get {
+                return ResourceManager.GetString("SotAutoFilterUseEmaName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Min Volume per Window.
+        /// </summary>
+        public static string SotMinVolumeName {
+            get {
+                return ResourceManager.GetString("SotMinVolumeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Time Window (sec).
+        /// </summary>
+        public static string SotTimeWindowSecName {
+            get {
+                return ResourceManager.GetString("SotTimeWindowSecName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Use Auto Filter.
+        /// </summary>
+        public static string SotUseAutoFilterName {
+            get {
+                return ResourceManager.GetString("SotUseAutoFilterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Spacing.
         /// </summary>
         public static string Spacing {
@@ -5844,6 +6294,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string SRLevels {
             get {
                 return ResourceManager.GetString("SRLevels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Stacked Min Levels.
+        /// </summary>
+        public static string StackedImbalanceMinLevelsName {
+            get {
+                return ResourceManager.GetString("StackedImbalanceMinLevelsName", resourceCulture);
             }
         }
         
@@ -6798,6 +7257,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string VolumeLabelDescription {
             get {
                 return ResourceManager.GetString("VolumeLabelDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Volume/sec.
+        /// </summary>
+        public static string VolumeSecond {
+            get {
+                return ResourceManager.GetString("VolumeSecond", resourceCulture);
             }
         }
         

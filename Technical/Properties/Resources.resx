@@ -2910,7 +2910,7 @@
     <value>Volume threshold (minor)</value>
     <comment>Volume</comment>
   </data>
-    <data name="ShowDeltaPerSecond" xml:space="preserve">
+  <data name="ShowDeltaPerSecond" xml:space="preserve">
     <value>Delta/sec</value>
     <comment>ClusterStatistics</comment>
   </data>
@@ -3109,5 +3109,12 @@
   <data name="SellStkShort" xml:space="preserve">
     <value>Sell Stk.</value>
     <comment>ClusterStatistics</comment>
+  </data>
+  <data name="NetStkShort" xml:space="preserve">
+    <value>Net Stk.</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="LabelFillColorDescription" xml:space="preserve">
+    <value>Sets the background color of the label.</value>
   </data>
 </root>
