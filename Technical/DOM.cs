@@ -702,8 +702,9 @@ public class DOM : Indicator
 			}
 			else
 			{
-				if (_mDepth.Remove(depth.Price))
-					UpdateCounters(depth.DataType, -1);
+				// Don't trust depth.DataType when volume=0, use stored type instead
+				if (_mDepth.TryGetValue(depth.Price, out var existing) && _mDepth.Remove(depth.Price))
+					UpdateCounters(existing.DataType, -1);
 			}
 
             if (_mDepth.Count == 0)
