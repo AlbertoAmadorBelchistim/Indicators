@@ -1466,7 +1466,6 @@ public class ClusterStatistic : Indicator
 			// Reset live net-imbalance crossing state on new bar
 			_hasPrevNetImbalanceLive = false;
 			_prevNetImbalanceLive = 0;
-			_lastNetImbalanceAlertBar = -1;
 		}
 
 		if (bar == CurrentBar - 1)
