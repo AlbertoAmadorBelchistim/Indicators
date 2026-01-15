@@ -643,24 +643,38 @@ public class MultiMarketPower : Indicator
 
 		var candleTrades = new List<MarketDataArg>();
 
-		for (var bar = searchIdx; bar < trades.Count; bar++)
+		for (var idx = searchIdx; idx < trades.Count; idx++)
 		{
-			var trade = trades[bar];
-			searchIdx = bar;
-            
+			var trade = trades[idx];
+
+			// Skip non-directional trades.
+			// We still advance the cursor to avoid re-scanning them for each bar.
 			if (trade.Direction is TradeDirection.Between)
+			{
+				searchIdx = idx;
 				continue;
+			}
 
+			// If trade is after this candle, stop here and keep cursor at the first non-consumed index.
 			if (trade.Time > candle.LastTime)
+			{
+				searchIdx = idx;
 				break;
+			}
 
+			// If trade is before this candle, advance cursor and keep scanning.
 			if (trade.Time < candle.Time)
+			{
+				searchIdx = idx;
 				continue;
+			}
 
+			// Trade belongs to this candle.
 			candleTrades.Add(trade);
+			searchIdx = idx;
 		}
 
-        foreach (var tick in candleTrades)
+		foreach (var tick in candleTrades)
 		{
 			var deltaVolume = tick.Volume * (tick.Direction is TradeDirection.Buy ? 1 : -1);
 
