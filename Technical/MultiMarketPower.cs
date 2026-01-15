@@ -836,9 +836,6 @@ public class MultiMarketPower : Indicator
                 
 				for (var i = _sessionBegin; i <= CurrentBar - 1; i++)
 					CalculateBarTrades(trades, i, ref searchIdx);
-
-				foreach (var trade in _trades)
-					CalculateTrade(trade, false, false);
 			}
 			else
 			{
@@ -849,9 +846,6 @@ public class MultiMarketPower : Indicator
 
 				for (var i = _sessionBegin; i <= CurrentBar - 1; i++)
 					CalculateBarTicks(ticks, i, ref searchIdx);
-
-				foreach (var tick in _ticks)
-					CalculateTick(tick);
 			}
 
 			RedrawChart();
