@@ -835,8 +835,10 @@ public class MultiMarketPower : Indicator
 		var dumbMoney = _delta1 + _delta2;
 		var spread = smartMoney - dumbMoney;
 
+		var bar = CurrentBar - 1;
+		var prevSpread = _spreadSeries[bar];
 		_spreadSeries[CurrentBar - 1] = spread;
-		UpdateSpreadVisuals(CurrentBar - 1);
+		UpdateSpreadVisuals(bar, isNewBar: newBar, isUpdate: isUpdate && !newBar, previousSpread: prevSpread);
 
 		RaiseBarValueChanged(CurrentBar - 1);
 		_lastTrade = trade.MemberwiseClone();
@@ -955,7 +957,7 @@ public class MultiMarketPower : Indicator
 		var spread = smartMoney - dumbMoney;
 
 		_spreadSeries[i] = spread;
-		UpdateSpreadVisuals(i);
+		UpdateSpreadVisuals(i, true, isUpdate: false, previousSpread: 0m);
 
 		RaiseBarValueChanged(i);
 	}
@@ -994,7 +996,7 @@ public class MultiMarketPower : Indicator
 		var spread = smartMoney - dumbMoney;
 
 		_spreadSeries[CurrentBar - 1] = spread;
-		UpdateSpreadVisuals(CurrentBar - 1);
+		UpdateSpreadVisuals(CurrentBar - 1, true, isUpdate: false, previousSpread: 0m);
 	}
 
 	private bool IsFiltered(decimal minFilter, decimal maxFilter, decimal volume)
@@ -1084,7 +1086,7 @@ public class MultiMarketPower : Indicator
 		var spread = smartMoney - dumbMoney;
 
 		_spreadSeries[bar] = spread;
-		UpdateSpreadVisuals(bar);
+		UpdateSpreadVisuals(bar, true, isUpdate: false, previousSpread: 0m);
 
 		RaiseBarValueChanged(bar);
 		_lastBar = bar;
@@ -1191,25 +1193,33 @@ public class MultiMarketPower : Indicator
 		}
 	}
 
-	private void UpdateSpreadVisuals(int bar)
+	private void UpdateSpreadVisuals(int bar, bool isNewBar, bool isUpdate, decimal previousSpread)
 	{
 		if (bar < 0)
 			return;
 
 		var period = Math.Max(2, _signalPeriod);
 
-		// Add current spread to rolling sum
-		_signalSum += _spreadSeries[bar];
-		_signalCount++;
-
-		// Remove value that falls out of the window
-		if (_signalCount > period)
+		// Update rolling sum
+		if (isNewBar)
 		{
-			var removeIndex = bar - period;
-			if (removeIndex >= 0)
-				_signalSum -= _spreadSeries[removeIndex];
+			_signalSum += _spreadSeries[bar];
+			_signalCount++;
 
-			_signalCount = period;
+			if (_signalCount > period)
+			{
+				var removeIndex = bar - period;
+				if (removeIndex >= 0)
+					_signalSum -= _spreadSeries[removeIndex];
+
+				_signalCount = period;
+			}
+		}
+		else if (isUpdate && _signalCount > 0)
+		{
+			// Same bar updated: replace its contribution in the rolling sum.
+			_signalSum -= previousSpread;
+			_signalSum += _spreadSeries[bar];
 		}
 
 		var sma = _signalCount > 0 ? _signalSum / _signalCount : 0m;
