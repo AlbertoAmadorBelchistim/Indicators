@@ -130,6 +130,7 @@ public class MultiMarketPower : Indicator
 
 	private int _requestId;
 	private int _sessionBegin;
+	private DateTime _historyEndTime;
 
 	private List<MarketDataArg> _ticks = new();
 	private List<CumulativeTrade> _trades = new();
@@ -665,6 +666,8 @@ public class MultiMarketPower : Indicator
 		var lastFullyFormedBar = Math.Max(0, CurrentBar - 2);
 		var endTime = GetCandle(lastFullyFormedBar).LastTime;
 
+		_historyEndTime = endTime;
+
 		var request = new CumulativeTradesRequest(startTime, endTime, 0, 0);
 		_requestId = request.RequestId;
 		_pendingRealtimeReplay = true;
@@ -1015,10 +1018,6 @@ public class MultiMarketPower : Indicator
 		var dumbMoney = _delta1 + _delta2;
 		var spread = smartMoney - dumbMoney;
 
-<<<<<<< HEAD
-		_spreadSeries[CurrentBar - 1] = spread;
-		UpdateSpreadVisuals(CurrentBar - 1, true, isUpdate: false, previousSpread: 0m);
-=======
 		_spreadSeries[bar] = spread;
 
 		// Ticks update the same bar most of the time
@@ -1030,7 +1029,6 @@ public class MultiMarketPower : Indicator
 		);
 
 		RaiseBarValueChanged(bar);
->>>>>>> ecc82c12 (fix(multimarketpower): avoid treating every tick as new bar for signal SMA)
 	}
 
 	private bool IsFiltered(decimal minFilter, decimal maxFilter, decimal volume)
@@ -1226,7 +1224,12 @@ public class MultiMarketPower : Indicator
 		if (!CumulativeTrades && _ticks.Count > 0)
 		{
 			foreach (var tick in _ticks)
+			{
+				if (tick.Time <= _historyEndTime)
+					continue;
+
 				CalculateTick(tick);
+			}
 
 			_ticks.Clear();
 		}
@@ -1234,7 +1237,12 @@ public class MultiMarketPower : Indicator
 		if (CumulativeTrades && _trades.Count > 0)
 		{
 			foreach (var trade in _trades)
+			{
+				if (trade.Time <= _historyEndTime)
+					continue;
+
 				CalculateTrade(trade, isUpdate: false, newBar: false);
+			}
 
 			_trades.Clear();
 		}
