@@ -94,6 +94,7 @@ public class MultiMarketPower : Indicator
 		UseMinimizedModeIfEnabled = true
 	};
 
+
 	private bool _pendingRealtimeReplay;
 	private bool _bigTradesIsReceived;
 	private bool _cumulativeTrades = true;
@@ -652,6 +653,7 @@ public class MultiMarketPower : Indicator
 
 		var request = new CumulativeTradesRequest(startTime, endTime, 0, 0);
 		_requestId = request.RequestId;
+		_pendingRealtimeReplay = true;
 		RequestForCumulativeTrades(request);
 
 		UpdateVisibility();
@@ -666,6 +668,12 @@ public class MultiMarketPower : Indicator
 		var trades = cumulativeTrades.ToList();
 		
 		CalculateHistory(trades);
+
+		if (_pendingRealtimeReplay)
+		{
+			ReplayBufferedRealtimeAfterHistory();
+			_pendingRealtimeReplay = false;
+		}
 
 		_bigTradesIsReceived = true;
 	}
@@ -734,6 +742,7 @@ public class MultiMarketPower : Indicator
 
 	private void ClearValues()
 	{
+		_pendingRealtimeReplay = false;
 		_bigTradesIsReceived = false;
 		DataSeries.ForEach(x => x.Clear());
 		_delta1 = _delta2 = _delta3 = _delta4 = _delta5 = 0;
@@ -951,6 +960,7 @@ public class MultiMarketPower : Indicator
 		if (IsSessionStart(bar))
 			ResetSessionState(bar);
 
+
 		var deltaVolume = tick.Volume * (tick.Direction is TradeDirection.Buy ? 1 : -1);
 
 		if (IsFiltered(MinVolume1, MaxVolume1, tick.Volume))
@@ -1091,27 +1101,27 @@ public class MultiMarketPower : Indicator
 		_filter5Series.VisualType = filterVisual;
 	}
 
-    private bool IsSessionStart(int bar)
-    {
-        if (bar <= 0)
-            return true;
+	private bool IsSessionStart(int bar)
+	{
+		if (bar <= 0)
+			return true;
 
-        if (_sessionMode == SessionMode.DefaultSession)
-            return IsNewSession(bar);
+		if (_sessionMode == SessionMode.DefaultSession)
+			return IsNewSession(bar);
 
-        var candle = GetCandle(bar);
-        var prev = GetCandle(bar - 1);
+		var candle = GetCandle(bar);
+		var prev = GetCandle(bar - 1);
 
-        var boundary = _customSessionStart;
+		var boundary = _customSessionStart;
 
-        // Interpret boundary in the same time basis as candle.Time.
-        var wasBefore = prev.Time.TimeOfDay < boundary;
-        var isAfterOrEqual = candle.Time.TimeOfDay >= boundary;
+		// Interpret boundary in the same time basis as candle.Time.
+		var wasBefore = prev.Time.TimeOfDay < boundary;
+		var isAfterOrEqual = candle.Time.TimeOfDay >= boundary;
 
-        return wasBefore && isAfterOrEqual;
-    }
+		return wasBefore && isAfterOrEqual;
+	}
 
-    private int FindSessionBeginBar()
+	private int FindSessionBeginBar()
 	{
 		var lastBar = Math.Max(0, CurrentBar - 1);
 		var begin = lastBar;
@@ -1217,6 +1227,7 @@ public class MultiMarketPower : Indicator
 
 		_spreadSeries.Colors[bar] = finalColor.Convert();
 	}
+
 
 	#endregion
 }
