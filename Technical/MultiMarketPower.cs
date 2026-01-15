@@ -1123,16 +1123,18 @@ public class MultiMarketPower : Indicator
 		if (_sessionMode == SessionMode.DefaultSession)
 			return IsNewSession(bar);
 
+		// Custom session start normalized to instrument timezone
 		var candle = GetCandle(bar);
 		var prev = GetCandle(bar - 1);
 
+		var tzOffset = InstrumentInfo?.TimeZone ?? 0;
+
+		var candleTime = candle.Time.AddHours(tzOffset).TimeOfDay;
+		var prevTime = prev.Time.AddHours(tzOffset).TimeOfDay;
+
 		var boundary = _customSessionStart;
 
-		// Interpret boundary in the same time basis as candle.Time.
-		var wasBefore = prev.Time.TimeOfDay < boundary;
-		var isAfterOrEqual = candle.Time.TimeOfDay >= boundary;
-
-		return wasBefore && isAfterOrEqual;
+		return prevTime < boundary && candleTime >= boundary;
 	}
 
 	private int FindSessionBeginBar()
