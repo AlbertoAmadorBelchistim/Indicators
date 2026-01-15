@@ -122,6 +122,7 @@ public class MultiMarketPower : Indicator
 
 	private int _requestId;
 	private int _sessionBegin;
+	private DateTime _historyEndTime;
 
 	private List<MarketDataArg> _ticks = new();
 	private List<CumulativeTrade> _trades = new();
@@ -643,7 +644,15 @@ public class MultiMarketPower : Indicator
 		_currentSessionBegin = _sessionBegin;
 		_lastBar = CurrentBar - 1;
 
-		var request = new CumulativeTradesRequest(GetCandle(_sessionBegin).Time);
+		var startTime = GetCandle(_sessionBegin).Time;
+
+		// Use the last fully formed bar time window to avoid "moving end" issues.
+		var lastFullyFormedBar = Math.Max(0, CurrentBar - 2);
+		var endTime = GetCandle(lastFullyFormedBar).LastTime;
+
+		_historyEndTime = endTime;
+
+		var request = new CumulativeTradesRequest(startTime, endTime, 0, 0);
 		_requestId = request.RequestId;
 		RequestForCumulativeTrades(request);
 
@@ -1092,7 +1101,7 @@ public class MultiMarketPower : Indicator
         return wasBefore && isAfterOrEqual;
     }
 
-    private int FindSessionBeginBar()
+	private int FindSessionBeginBar()
 	{
 		var lastBar = Math.Max(0, CurrentBar - 1);
 		var begin = lastBar;
@@ -1145,7 +1154,12 @@ public class MultiMarketPower : Indicator
 		if (!CumulativeTrades && _ticks.Count > 0)
 		{
 			foreach (var tick in _ticks)
+			{
+				if (tick.Time <= _historyEndTime)
+					continue;
+
 				CalculateTick(tick);
+			}
 
 			_ticks.Clear();
 		}
@@ -1153,7 +1167,12 @@ public class MultiMarketPower : Indicator
 		if (CumulativeTrades && _trades.Count > 0)
 		{
 			foreach (var trade in _trades)
+			{
+				if (trade.Time <= _historyEndTime)
+					continue;
+
 				CalculateTrade(trade, isUpdate: false, newBar: false);
+			}
 
 			_trades.Clear();
 		}
