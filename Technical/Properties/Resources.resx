@@ -3191,4 +3191,57 @@
     <value>Sets the value at which the alert is triggered.</value>
   </data><data name="AlertFileDescription" xml:space="preserve">
     <value>This parameter allows users to specify the name of a custom audio file for alert sounds. Users can select a WAV file that will be played whenever an alert condition is triggered. The chosen WAV file should be located in the folder C:\Program Files (x86)\ATAS Platform\Sounds.</value>
-  </data></root>
+  </data>
+  <data name="ViewMode" xml:space="preserve">
+  <value>View Mode</value>
+  <comment>UI</comment>
+</data>
+<data name="SessionMode" xml:space="preserve">
+  <value>Session Mode</value>
+  <comment>UI</comment>
+</data>
+<data name="SessionsBack" xml:space="preserve">
+  <value>Sessions Back</value>
+  <comment>UI</comment>
+</data>
+<data name="Use4ColorSystem" xml:space="preserve">
+  <value>Use 4-Color System</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="Use4ColorSystemDescription" xml:space="preserve">
+  <value>If true, uses slope-based colors. If false, uses simple zero-line colors.</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="ShowSignalLine" xml:space="preserve">
+  <value>Show Signal Line (SMA)</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="SimplePositiveColor" xml:space="preserve">
+  <value>Simple Positive Color</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="SimpleNegativeColor" xml:space="preserve">
+  <value>Simple Negative Color</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="SimpleColorDescription" xml:space="preserve">
+  <value>Used only when the 4-Color System is disabled.</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="ColorPosSmaUp" xml:space="preserve">
+  <value>Color: Positive / SMA Rising</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="ColorPosSmaDown" xml:space="preserve">
+  <value>Color: Positive / SMA Falling (Correction)</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="ColorNegSmaUp" xml:space="preserve">
+  <value>Color: Negative / SMA Rising (Recovery)</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="ColorNegSmaDown" xml:space="preserve">
+  <value>Color: Negative / SMA Falling</value>
+  <comment>MultiMarketPower</comment>
+</data>
+</root>

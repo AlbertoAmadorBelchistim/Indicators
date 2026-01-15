@@ -801,4 +801,65 @@
   <data name="AlertFileDescription" xml:space="preserve">
     <value>Der Parameter AlertFileDescription ermöglicht es Benutzern, den Namen einer benutzerdefinierten Audiodatei für Alarmtöne in der ATAS-Plattform festzulegen. Benutzer können eine WAV-Datei auswählen, die abgespielt wird, wenn eine Alarmbedingung erfüllt ist. Die ausgewählte WAV-Datei sollte im Ordner C:\Program Files (x86)\ATAS Platform\Sounds liegen.</value>
   </data>
+<data name="General" xml:space="preserve">
+    <value>Allgemein</value>
+  </data><data name="Session" xml:space="preserve">
+    <value>Sitzung</value>
+  </data><data name="CustomSessionStart" xml:space="preserve">
+    <value>Benutzerdefinierter Sitzungsbeginn</value>
+  </data><data name="SignalPeriod" xml:space="preserve">
+    <value>Signalperiode</value>
+  </data>
+  <data name="ViewMode" xml:space="preserve">
+  <value>Ansichtsmodus</value>
+  <comment>UI</comment>
+</data>
+<data name="SessionMode" xml:space="preserve">
+  <value>Sessionmodus</value>
+  <comment>UI</comment>
+</data>
+<data name="SessionsBack" xml:space="preserve">
+  <value>Sessions zurück</value>
+  <comment>UI</comment>
+</data>
+<data name="Use4ColorSystem" xml:space="preserve">
+  <value>4-Farben-System verwenden</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="Use4ColorSystemDescription" xml:space="preserve">
+  <value>Wenn aktiv, werden Farben nach der Steigung verwendet. Andernfalls einfache Farben nach der Null-Linie.</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="ShowSignalLine" xml:space="preserve">
+  <value>Signallinie anzeigen (SMA)</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="SimplePositiveColor" xml:space="preserve">
+  <value>Einfacher positiver Farbton</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="SimpleNegativeColor" xml:space="preserve">
+  <value>Einfacher negativer Farbton</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="SimpleColorDescription" xml:space="preserve">
+  <value>Wird nur verwendet, wenn das 4-Farben-System deaktiviert ist.</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="ColorPosSmaUp" xml:space="preserve">
+  <value>Farbe: Positiv / SMA steigt</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="ColorPosSmaDown" xml:space="preserve">
+  <value>Farbe: Positiv / SMA fällt (Korrektur)</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="ColorNegSmaUp" xml:space="preserve">
+  <value>Farbe: Negativ / SMA steigt (Erholung)</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="ColorNegSmaDown" xml:space="preserve">
+  <value>Farbe: Negativ / SMA fällt</value>
+  <comment>MultiMarketPower</comment>
+</data>
 </root>
