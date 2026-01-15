@@ -63,7 +63,15 @@ public class MultiMarketPower : Indicator
 		UseMinimizedModeIfEnabled = true
 	};
 
-	private bool _bigTradesIsReceived;
+    private readonly ValueDataSeries _spreadSeries = new("SpreadSeries", "Smart Money Spread")
+    {
+        VisualType = VisualMode.Histogram,
+        Width = 3,
+        UseMinimizedModeIfEnabled = true,
+        ShowZeroValue = true // important: keep zero-axis visible for histogram interpretation
+    };
+
+    private bool _bigTradesIsReceived;
 	private bool _cumulativeTrades = true;
 	private decimal _delta1;
 	private decimal _delta2;
@@ -392,13 +400,15 @@ public class MultiMarketPower : Indicator
 		DataSeries.Add(_filter3Series);
 		DataSeries.Add(_filter4Series);
 		DataSeries.Add(_filter5Series);
-	}
 
-	#endregion
+        DataSeries.Add(_spreadSeries);
+    }
 
-	#region Protected methods
-	
-	protected override void OnCalculate(int bar, decimal value)
+    #endregion
+
+    #region Protected methods
+
+    protected override void OnCalculate(int bar, decimal value)
 	{
 		if (!_bigTradesIsReceived || bar != CurrentBar - 1)
 			return;
@@ -601,7 +611,13 @@ public class MultiMarketPower : Indicator
 		_filter4Series[CurrentBar - 1] = _delta4;
 		_filter5Series[CurrentBar - 1] = _delta5;
 
-		RaiseBarValueChanged(CurrentBar - 1);
+        var smartMoney = _delta4 + _delta5;
+        var dumbMoney = _delta1 + _delta2;
+        var spread = smartMoney - dumbMoney;
+
+        _spreadSeries[CurrentBar - 1] = spread;
+
+        RaiseBarValueChanged(CurrentBar - 1);
 		_lastTrade = trade.MemberwiseClone();
 	}
 
@@ -709,7 +725,14 @@ public class MultiMarketPower : Indicator
 		_filter4Series[i] = _delta4;
 		_filter5Series[i] = _delta5;
 
-		RaiseBarValueChanged(i);
+        // Smart Money (4+5) - Dumb Money (1+2)
+        var smartMoney = _delta4 + _delta5;
+        var dumbMoney = _delta1 + _delta2;
+        var spread = smartMoney - dumbMoney;
+
+        _spreadSeries[i] = spread;
+
+        RaiseBarValueChanged(i);
 	}
 
 	private void CalculateTick(MarketDataArg tick)
@@ -736,7 +759,13 @@ public class MultiMarketPower : Indicator
 		_filter3Series[^1] = _delta3;
 		_filter4Series[^1] = _delta4;
 		_filter5Series[^1] = _delta5;
-	}
+
+        var smartMoney = _delta4 + _delta5;
+        var dumbMoney = _delta1 + _delta2;
+        var spread = smartMoney - dumbMoney;
+
+        _spreadSeries[CurrentBar - 1] = spread;
+    }
 
 	private bool IsFiltered(decimal minFilter, decimal maxFilter, decimal volume)
 	{
@@ -817,7 +846,13 @@ public class MultiMarketPower : Indicator
 
 		_filter5Series[bar] = _delta5;
 
-		RaiseBarValueChanged(bar);
+        var smartMoney = _delta4 + _delta5;
+        var dumbMoney = _delta1 + _delta2;
+        var spread = smartMoney - dumbMoney;
+
+        _spreadSeries[bar] = spread;
+
+        RaiseBarValueChanged(bar);
 		_lastBar = bar;
 	}
 
