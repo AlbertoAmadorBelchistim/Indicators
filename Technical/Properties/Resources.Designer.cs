@@ -1285,6 +1285,42 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Color: Negative / SMA Falling.
+        /// </summary>
+        public static string ColorNegSmaDown {
+            get {
+                return ResourceManager.GetString("ColorNegSmaDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Color: Negative / SMA Rising (Recovery).
+        /// </summary>
+        public static string ColorNegSmaUp {
+            get {
+                return ResourceManager.GetString("ColorNegSmaUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Color: Positive / SMA Falling (Correction).
+        /// </summary>
+        public static string ColorPosSmaDown {
+            get {
+                return ResourceManager.GetString("ColorPosSmaDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Color: Positive / SMA Rising.
+        /// </summary>
+        public static string ColorPosSmaUp {
+            get {
+                return ResourceManager.GetString("ColorPosSmaUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Colors.
         /// </summary>
         public static string Colors {
@@ -5506,6 +5542,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Session Mode.
+        /// </summary>
+        public static string SessionMode {
+            get {
+                return ResourceManager.GetString("SessionMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Sessions Back.
+        /// </summary>
+        public static string SessionsBack {
+            get {
+                return ResourceManager.GetString("SessionsBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Session Time.
         /// </summary>
         public static string SessionTime {
@@ -6100,6 +6154,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Show Signal Line (SMA).
+        /// </summary>
+        public static string ShowSignalLine {
+            get {
+                return ResourceManager.GetString("ShowSignalLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Show Signal Numbers.
         /// </summary>
         public static string ShowSignalNumbers {
@@ -6276,6 +6339,33 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string SignalPeriod {
             get {
                 return ResourceManager.GetString("SignalPeriod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Used only when the 4-Color System is disabled..
+        /// </summary>
+        public static string SimpleColorDescription {
+            get {
+                return ResourceManager.GetString("SimpleColorDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Simple Negative Color.
+        /// </summary>
+        public static string SimpleNegativeColor {
+            get {
+                return ResourceManager.GetString("SimpleNegativeColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Simple Positive Color.
+        /// </summary>
+        public static string SimplePositiveColor {
+            get {
+                return ResourceManager.GetString("SimplePositiveColor", resourceCulture);
             }
         }
         
@@ -7144,6 +7234,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Use 4-Color System.
+        /// </summary>
+        public static string Use4ColorSystem {
+            get {
+                return ResourceManager.GetString("Use4ColorSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a If true, uses slope-based colors. If false, uses simple zero-line colors..
+        /// </summary>
+        public static string Use4ColorSystemDescription {
+            get {
+                return ResourceManager.GetString("Use4ColorSystemDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Use ABS Value.
         /// </summary>
         public static string UseAbsValue {
@@ -7293,6 +7401,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string VerticalOffset {
             get {
                 return ResourceManager.GetString("VerticalOffset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a View Mode.
+        /// </summary>
+        public static string ViewMode {
+            get {
+                return ResourceManager.GetString("ViewMode", resourceCulture);
             }
         }
         
