@@ -153,6 +153,9 @@ public class MultiMarketPower : Indicator
 	private CrossColor _colorNegSmaUp = CrossColors.DodgerBlue;
 	private CrossColor _colorNegSmaDown = CrossColors.IndianRed;
 
+	private decimal _signalSum;
+	private int _signalCount;
+
 
 	#endregion
 
@@ -727,6 +730,8 @@ public class MultiMarketPower : Indicator
 		_bigTradesIsReceived = false;
 		DataSeries.ForEach(x => x.Clear());
 		_delta1 = _delta2 = _delta3 = _delta4 = _delta5 = 0;
+		_signalSum = 0;
+		_signalCount = 0;
 	}
 
 	private void CalculateTrade(CumulativeTrade trade, bool isUpdate, bool newBar)
@@ -1128,6 +1133,10 @@ public class MultiMarketPower : Indicator
 		_filter4Series[bar] = 0;
 		_filter5Series[bar] = 0;
 		_spreadSeries[bar] = 0;
+
+		_signalSum = 0;
+		_signalCount = 0;
+		_signalSeries[bar] = 0;
 	}
 
 	private void ReplayBufferedRealtimeAfterHistory()
@@ -1152,31 +1161,36 @@ public class MultiMarketPower : Indicator
 
 	private void UpdateSpreadVisuals(int bar)
 	{
-		// Signal is derived from the spread series, so ensure bar is valid.
 		if (bar < 0)
 			return;
 
-		// Compute SMA on spread series (simple implementation).
-		// Clamp start to _currentSessionBegin so the SMA doesn't bleed across session resets.
 		var period = Math.Max(2, _signalPeriod);
-		var start = Math.Max(_currentSessionBegin, bar - period + 1);
 
-		decimal sum = 0;
-		var count = 0;
+		// Add current spread to rolling sum
+		_signalSum += _spreadSeries[bar];
+		_signalCount++;
 
-		for (var i = start; i <= bar; i++)
+		// Remove value that falls out of the window
+		if (_signalCount > period)
 		{
-			sum += _spreadSeries[i];
-			count++;
+			var removeIndex = bar - period;
+			if (removeIndex >= 0)
+				_signalSum -= _spreadSeries[removeIndex];
+
+			_signalCount = period;
 		}
 
-		var sma = count > 0 ? sum / count : 0m;
+		var sma = _signalCount > 0 ? _signalSum / _signalCount : 0m;
 		_signalSeries[bar] = sma;
 
-		// Color logic: either simple (sign) or 4-color (sign + SMA slope).
+		// ---- Coloring logic (NO CAMBIOS FUNCIONALES) ----
+
 		if (!_use4ColorSystem)
 		{
-			var simple = _spreadSeries[bar] >= 0 ? _simplePositiveColor : _simpleNegativeColor;
+			var simple = _spreadSeries[bar] >= 0
+				? _simplePositiveColor
+				: _simpleNegativeColor;
+
 			_spreadSeries.Colors[bar] = simple.Convert();
 			return;
 		}
