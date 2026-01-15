@@ -1097,13 +1097,22 @@ public class MultiMarketPower : Indicator
 		_spreadSeries.VisualType = showSpread ? VisualMode.Histogram : VisualMode.Hide;
 		_signalSeries.VisualType = (showSpread && _showSignalLine) ? VisualMode.Line : VisualMode.Hide;
 
-		var filterVisual = showSpread ? VisualMode.Hide : VisualMode.Line;
+		if (showSpread)
+		{
+			_filter1Series.VisualType = VisualMode.Hide;
+			_filter2Series.VisualType = VisualMode.Hide;
+			_filter3Series.VisualType = VisualMode.Hide;
+			_filter4Series.VisualType = VisualMode.Hide;
+			_filter5Series.VisualType = VisualMode.Hide;
+			return;
+		}
 
-		_filter1Series.VisualType = filterVisual;
-		_filter2Series.VisualType = filterVisual;
-		_filter3Series.VisualType = filterVisual;
-		_filter4Series.VisualType = filterVisual;
-		_filter5Series.VisualType = filterVisual;
+		// Filters view: respect per-filter toggles
+		_filter1Series.VisualType = _useFilter1 ? VisualMode.Line : VisualMode.Hide;
+		_filter2Series.VisualType = _useFilter2 ? VisualMode.Line : VisualMode.Hide;
+		_filter3Series.VisualType = _useFilter3 ? VisualMode.Line : VisualMode.Hide;
+		_filter4Series.VisualType = _useFilter4 ? VisualMode.Line : VisualMode.Hide;
+		_filter5Series.VisualType = _useFilter5 ? VisualMode.Line : VisualMode.Hide;
 	}
 
 	private bool IsSessionStart(int bar)
