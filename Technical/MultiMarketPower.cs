@@ -170,6 +170,11 @@ public class MultiMarketPower : Indicator
 			_viewMode = value;
 			UpdateVisibility();
 
+			if (_viewMode == ViewMode.SmartMoneySpread)
+				RecalculateValues();
+			else
+				RedrawChart();
+
 			// Ensure the chart refreshes without forcing a full recalculation.
 			if (CurrentBar > 0)
 				RaiseBarValueChanged(CurrentBar - 1);
