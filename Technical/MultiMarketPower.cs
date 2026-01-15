@@ -499,6 +499,9 @@ public class MultiMarketPower : Indicator
 		if (!_bigTradesIsReceived || bar != CurrentBar - 1)
 			return;
 
+		if (bar == 0)
+			return;
+
 		DataSeries.ForEach(ds =>
 		{
 			if (ds is ValueDataSeries vds && vds[bar] is 0)
