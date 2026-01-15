@@ -20,6 +20,21 @@ using Utils.Common;
 [HelpLink("https://help.atas.net/support/solutions/articles/72000602434")]
 public class MultiMarketPower : Indicator
 {
+	#region Nested types
+	public enum ViewMode
+	{
+		Filters,
+		SmartMoneySpread
+	}
+
+	public enum SessionMode
+	{
+		DefaultSession,
+		CustomSession
+	}
+
+	#endregion
+
 	#region Fields
 
 	private readonly ValueDataSeries _filter1Series = new("Filter1Series", "Filter1")
@@ -110,13 +125,11 @@ public class MultiMarketPower : Indicator
 	private bool _useFilter4 = true;
 	private bool _useFilter5 = true;
 
-	public enum ViewMode
-	{
-		Filters,
-		SmartMoneySpread
-	}
-
 	private ViewMode _viewMode = ViewMode.Filters;
+
+	private SessionMode _sessionMode = SessionMode.DefaultSession;
+	private TimeSpan _customSessionStart = new(15, 30, 0);
+	private int _sessionsBack = 1;
 
 	#endregion
 
@@ -137,6 +150,49 @@ public class MultiMarketPower : Indicator
 			// Ensure the chart refreshes without forcing a full recalculation.
 			if (CurrentBar > 0)
 				RaiseBarValueChanged(CurrentBar - 1);
+		}
+	}
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SessionMode), GroupName = nameof(Resources.Session), Order = 20)]
+	public SessionMode SessionPowerMode
+	{
+		get => _sessionMode;
+		set
+		{
+			if (_sessionMode == value)
+				return;
+
+			_sessionMode = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.CustomSessionStart), GroupName = nameof(Resources.Session), Order = 30)]
+	public TimeSpan CustomSessionStart
+	{
+		get => _customSessionStart;
+		set
+		{
+			if (_customSessionStart == value)
+				return;
+
+			_customSessionStart = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SessionsBack), GroupName = nameof(Resources.Session), Order = 40)]
+	[Range(1, 30)]
+	public int SessionsBack
+	{
+		get => _sessionsBack;
+		set
+		{
+			if (_sessionsBack == value)
+				return;
+
+			_sessionsBack = value;
+			RecalculateValues();
 		}
 	}
 
@@ -455,18 +511,8 @@ public class MultiMarketPower : Indicator
 
 		_ticks.Clear();
 		_trades.Clear();
-		var totalBars = CurrentBar - 1;
-		_sessionBegin = totalBars;
-		_lastBar = totalBars;
-
-		for (var i = totalBars; i >= 0; i--)
-		{
-			if (!IsNewSession(i))
-				continue;
-
-			_sessionBegin = i;
-			break;
-		}
+		_sessionBegin = FindSessionBeginBar();
+		_lastBar = CurrentBar - 1;
 
 		var startTime = GetCandle(_sessionBegin).Time;
 
@@ -692,6 +738,9 @@ public class MultiMarketPower : Indicator
 
 	private void CalculateBarTicks(List<MarketDataArg> trades, int i, ref int searchIdx)
 	{
+		if (IsSessionStart(i))
+			ResetSessionState(i);
+
 		var candle = GetCandle(i);
 
 		var candleTrades = new List<MarketDataArg>();
@@ -765,7 +814,11 @@ public class MultiMarketPower : Indicator
 
 	private void CalculateTick(MarketDataArg tick)
 	{
-		var deltaVolume = tick.Volume * (tick.Direction is TradeDirection.Buy ? 1 : -1);
+        var bar = CurrentBar - 1;
+        if (IsSessionStart(bar))
+            ResetSessionState(bar);
+
+        var deltaVolume = tick.Volume * (tick.Direction is TradeDirection.Buy ? 1 : -1);
 
 		if (IsFiltered(MinVolume1, MaxVolume1, tick.Volume))
 			_delta1 += deltaVolume;
@@ -802,6 +855,9 @@ public class MultiMarketPower : Indicator
 
 	private void CalculateBarTrades(List<CumulativeTrade> trades, int bar, ref int searchIdx, bool realTime = false, bool newBar = false)
 	{
+		if (IsSessionStart(bar))
+			ResetSessionState(bar);
+
 		if (CumulativeTrades && realTime && !newBar)
 		{
 			_delta1 -= _lastDelta1;
@@ -897,6 +953,67 @@ public class MultiMarketPower : Indicator
 		_filter3Series.VisualType = filterVisual;
 		_filter4Series.VisualType = filterVisual;
 		_filter5Series.VisualType = filterVisual;
+	}
+
+    private bool IsSessionStart(int bar)
+    {
+        if (bar <= 0)
+            return true;
+
+        if (_sessionMode == SessionMode.DefaultSession)
+            return IsNewSession(bar);
+
+        var candle = GetCandle(bar);
+        var prev = GetCandle(bar - 1);
+
+        var boundary = _customSessionStart;
+
+        // Interpret boundary in the same time basis as candle.Time.
+        var wasBefore = prev.Time.TimeOfDay < boundary;
+        var isAfterOrEqual = candle.Time.TimeOfDay >= boundary;
+
+        return wasBefore && isAfterOrEqual;
+    }
+
+    private int FindSessionBeginBar()
+	{
+		var lastBar = Math.Max(0, CurrentBar - 1);
+		var begin = lastBar;
+
+		var sessionsToFind = Math.Max(1, _sessionsBack);
+		var found = 0;
+
+		for (var i = lastBar; i >= 0; i--)
+		{
+			if (!IsSessionStart(i))
+				continue;
+
+			found++;
+
+			if (found >= sessionsToFind)
+			{
+				begin = i;
+				break;
+			}
+		}
+
+		return begin;
+	}
+
+	private void ResetSessionState(int bar)
+	{
+		_delta1 = 0;
+		_delta2 = 0;
+		_delta3 = 0;
+		_delta4 = 0;
+		_delta5 = 0;
+
+		_filter1Series[bar] = 0;
+		_filter2Series[bar] = 0;
+		_filter3Series[bar] = 0;
+		_filter4Series[bar] = 0;
+		_filter5Series[bar] = 0;
+		_spreadSeries[bar] = 0;
 	}
 
 	#endregion
