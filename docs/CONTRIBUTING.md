@@ -69,7 +69,7 @@ Every commit must leave the codebase in a **functional and compilable state**.
 
 Rules:
 - No intermediate broken states.
-- No partial refactors that require a later commit to “fix” them.
+- No partial refactors that require a later commit to ï¿½fixï¿½ them.
 - Feature development must be split into **functional steps**, not conceptual placeholders.
 
 At any commit:
@@ -139,3 +139,17 @@ If a change:
 it must be **explicitly stated** in the commit message or accompanying documentation.
 
 Silence is not acceptable for impactful decisions.
+
+---
+
+## Rebase workflow
+
+All rebases of long-lived branches (e.g. prready/main) must be performed using:
+
+    tools/rebase-with-retag.ps1
+
+This script:
+- creates a snapshot branch before rebasing
+- rebases onto the selected upstream branch
+- re-tags internal tags consistently
+- prevents accidental loss of tag references
