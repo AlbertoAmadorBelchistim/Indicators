@@ -796,4 +796,65 @@
   <data name="AlertFileDescription" xml:space="preserve">
     <value>अलर्टफाइलडिस्क्रिप्शन पैरामीटर उपयोगकर्ताओं को एटीएस प्लेटफार्म में अलर्ट ध्वनियों के लिए एक कस्टम ऑडियो फ़ाइल का नाम सेट करने की सुविधा प्रदान करता है। उपयोगकर्ता WAV फ़ाइल का चयन कर सकते हैं, जो जब एक अलर्ट स्थिति पूरी होती है, बजाया जाएगा। चुनी गई WAV फ़ाइल को C:\Program Files (x86)\ATAS Platform\Sounds नामक फ़ोल्डर में स्थित होना चाहिए।</value>
   </data>
+<data name="General" xml:space="preserve">
+    <value>सामान्य</value>
+  </data><data name="Session" xml:space="preserve">
+    <value>सत्र</value>
+  </data><data name="CustomSessionStart" xml:space="preserve">
+    <value>कस्टम सत्र प्रारंभ</value>
+  </data><data name="SignalPeriod" xml:space="preserve">
+    <value>सिग्नल अवधि</value>
+  </data>
+  <data name="ViewMode" xml:space="preserve">
+  <value>दृश्य मोड</value>
+  <comment>UI</comment>
+</data>
+<data name="SessionMode" xml:space="preserve">
+  <value>सत्र मोड</value>
+  <comment>UI</comment>
+</data>
+<data name="SessionsBack" xml:space="preserve">
+  <value>पिछले सत्र</value>
+  <comment>UI</comment>
+</data>
+<data name="Use4ColorSystem" xml:space="preserve">
+  <value>4-रंग प्रणाली उपयोग करें</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="Use4ColorSystemDescription" xml:space="preserve">
+  <value>यदि सक्रिय है, ढलान के अनुसार रंग उपयोग होते हैं। अन्यथा, शून्य-रेखा के सरल रंग उपयोग होते हैं।</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="ShowSignalLine" xml:space="preserve">
+  <value>सिग्नल लाइन दिखाएँ (SMA)</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="SimplePositiveColor" xml:space="preserve">
+  <value>सरल सकारात्मक रंग</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="SimpleNegativeColor" xml:space="preserve">
+  <value>सरल नकारात्मक रंग</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="SimpleColorDescription" xml:space="preserve">
+  <value>केवल तब उपयोग होता है जब 4-रंग प्रणाली अक्षम हो।</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="ColorPosSmaUp" xml:space="preserve">
+  <value>रंग: सकारात्मक / SMA ऊपर</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="ColorPosSmaDown" xml:space="preserve">
+  <value>रंग: सकारात्मक / SMA नीचे (सुधार)</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="ColorNegSmaUp" xml:space="preserve">
+  <value>रंग: नकारात्मक / SMA ऊपर (रिकवरी)</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="ColorNegSmaDown" xml:space="preserve">
+  <value>रंग: नकारात्मक / SMA नीचे</value>
+  <comment>MultiMarketPower</comment>
+</data>
 </root>

@@ -796,4 +796,65 @@
   <data name="AlertFileDescription" xml:space="preserve">
     <value>AlertFileDescription参数允许用户为ATAS平台中的警报声设置自定义音频文件的名称。用户可以选择一个WAV文件，在满足警报条件时播放。所选的WAV文件应位于C:\Program Files (x86)\ATAS Platform\Sounds文件夹中。</value>
   </data>
+<data name="General" xml:space="preserve">
+    <value>常规</value>
+  </data><data name="Session" xml:space="preserve">
+    <value>会话</value>
+  </data><data name="CustomSessionStart" xml:space="preserve">
+    <value>自定义会话开始</value>
+  </data><data name="SignalPeriod" xml:space="preserve">
+    <value>信号周期</value>
+  </data>
+  <data name="ViewMode" xml:space="preserve">
+  <value>视图模式</value>
+  <comment>UI</comment>
+</data>
+<data name="SessionMode" xml:space="preserve">
+  <value>时段模式</value>
+  <comment>UI</comment>
+</data>
+<data name="SessionsBack" xml:space="preserve">
+  <value>回溯时段数</value>
+  <comment>UI</comment>
+</data>
+<data name="Use4ColorSystem" xml:space="preserve">
+  <value>使用四颜色系统</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="Use4ColorSystemDescription" xml:space="preserve">
+  <value>开启后按斜率着色；关闭则按零线使用简单颜色。</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="ShowSignalLine" xml:space="preserve">
+  <value>显示信号线（SMA）</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="SimplePositiveColor" xml:space="preserve">
+  <value>简单正值颜色</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="SimpleNegativeColor" xml:space="preserve">
+  <value>简单负值颜色</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="SimpleColorDescription" xml:space="preserve">
+  <value>仅在禁用四颜色系统时使用。</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="ColorPosSmaUp" xml:space="preserve">
+  <value>颜色：正 / SMA 上升</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="ColorPosSmaDown" xml:space="preserve">
+  <value>颜色：正 / SMA 下降（回调）</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="ColorNegSmaUp" xml:space="preserve">
+  <value>颜色：负 / SMA 上升（修复）</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="ColorNegSmaDown" xml:space="preserve">
+  <value>颜色：负 / SMA 下降</value>
+  <comment>MultiMarketPower</comment>
+</data>
 </root>
