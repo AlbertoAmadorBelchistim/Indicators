@@ -87,6 +87,14 @@ public class MultiMarketPower : Indicator
 		ShowZeroValue = true // important: keep zero-axis visible for histogram interpretation
 	};
 
+	private readonly ValueDataSeries _signalSeries = new("SignalSeries", "Signal (SMA)")
+	{
+		VisualType = VisualMode.Line,
+		Width = 2,
+		UseMinimizedModeIfEnabled = true
+	};
+
+	private bool _pendingRealtimeReplay;
 	private bool _bigTradesIsReceived;
 	private bool _cumulativeTrades = true;
 	private decimal _delta1;
@@ -130,12 +138,28 @@ public class MultiMarketPower : Indicator
 	private SessionMode _sessionMode = SessionMode.DefaultSession;
 	private TimeSpan _customSessionStart = new(15, 30, 0);
 	private int _sessionsBack = 1;
+	private int _currentSessionBegin;
+
+	private bool _use4ColorSystem;
+	private bool _showSignalLine = true;
+	private int _signalPeriod = 14;
+
+	// Simple (zero-line) colors
+	private CrossColor _simplePositiveColor = CrossColors.LimeGreen;
+	private CrossColor _simpleNegativeColor = CrossColors.IndianRed;
+
+	// 4-color system
+	private CrossColor _colorPosSmaUp = CrossColors.LimeGreen;
+	private CrossColor _colorPosSmaDown = CrossColors.Gold;
+	private CrossColor _colorNegSmaUp = CrossColors.DodgerBlue;
+	private CrossColor _colorNegSmaDown = CrossColors.IndianRed;
+
 
 	#endregion
 
 	#region Properties
 
-	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ViewMode), GroupName = nameof(Resources.Visualization), Order = 10)]
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ViewMode), GroupName = nameof(Resources.Visualization), Order = 1010)]
 	public ViewMode Mode
 	{
 		get => _viewMode;
@@ -153,7 +177,7 @@ public class MultiMarketPower : Indicator
 		}
 	}
 
-	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SessionMode), GroupName = nameof(Resources.Session), Order = 20)]
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SessionMode), GroupName = nameof(Resources.Session), Order = 1110)]
 	public SessionMode SessionPowerMode
 	{
 		get => _sessionMode;
@@ -167,7 +191,7 @@ public class MultiMarketPower : Indicator
 		}
 	}
 
-	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.CustomSessionStart), GroupName = nameof(Resources.Session), Order = 30)]
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.CustomSessionStart), GroupName = nameof(Resources.Session), Order = 1120)]
 	public TimeSpan CustomSessionStart
 	{
 		get => _customSessionStart;
@@ -181,7 +205,7 @@ public class MultiMarketPower : Indicator
 		}
 	}
 
-	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SessionsBack), GroupName = nameof(Resources.Session), Order = 40)]
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SessionsBack), GroupName = nameof(Resources.Session), Order = 1130)]
 	[Range(1, 30)]
 	public int SessionsBack
 	{
@@ -194,6 +218,107 @@ public class MultiMarketPower : Indicator
 			_sessionsBack = value;
 			RecalculateValues();
 		}
+	}
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.Use4ColorSystem), Description = nameof(Resources.Use4ColorSystemDescription), GroupName = nameof(Resources.Visualization), Order = 1020)]
+	public bool Use4ColorSystem
+	{
+		get => _use4ColorSystem;
+		set
+		{
+			if (_use4ColorSystem == value)
+				return;
+
+			_use4ColorSystem = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowSignalLine), GroupName = nameof(Resources.Visualization), Order = 1030)]
+	public bool ShowSignalLine
+	{
+		get => _showSignalLine;
+		set
+		{
+			if (_showSignalLine == value)
+				return;
+
+			_showSignalLine = value;
+			UpdateVisibility();
+			if (CurrentBar > 0)
+				RaiseBarValueChanged(CurrentBar - 1);
+		}
+	}
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SignalPeriod), GroupName = nameof(Resources.Visualization), Order = 1040)]
+	[Range(2, 500)]
+	public int SignalPeriod
+	{
+		get => _signalPeriod;
+		set
+		{
+			if (_signalPeriod == value)
+				return;
+
+			_signalPeriod = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SimplePositiveColor), Description = nameof(Resources.SimpleColorDescription), GroupName = nameof(Resources.Visualization), Order = 1050)]
+	public CrossColor SimplePositiveColor
+	{
+		get => _simplePositiveColor;
+		set
+		{
+			if (_simplePositiveColor == value)
+				return;
+
+			_simplePositiveColor = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SimpleNegativeColor), Description = nameof(Resources.SimpleColorDescription), GroupName = nameof(Resources.Visualization), Order = 1060)]
+	public CrossColor SimpleNegativeColor
+	{
+		get => _simpleNegativeColor;
+		set
+		{
+			if (_simpleNegativeColor == value)
+				return;
+
+			_simpleNegativeColor = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ColorPosSmaUp), GroupName = nameof(Resources.Visualization), Order = 1070)]
+	public CrossColor ColorPosSmaUp
+	{
+		get => _colorPosSmaUp;
+		set { if (_colorPosSmaUp != value) { _colorPosSmaUp = value; RecalculateValues(); } }
+	}
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ColorPosSmaDown), GroupName = nameof(Resources.Visualization), Order = 1080)]
+	public CrossColor ColorPosSmaDown
+	{
+		get => _colorPosSmaDown;
+		set { if (_colorPosSmaDown != value) { _colorPosSmaDown = value; RecalculateValues(); } }
+	}
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ColorNegSmaUp), GroupName = nameof(Resources.Visualization), Order = 1090)]
+	public CrossColor ColorNegSmaUp
+	{
+		get => _colorNegSmaUp;
+		set { if (_colorNegSmaUp != value) { _colorNegSmaUp = value; RecalculateValues(); } }
+	}
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ColorNegSmaDown), GroupName = nameof(Resources.Visualization), Order = 1100)]
+	public CrossColor ColorNegSmaDown
+	{
+		get => _colorNegSmaDown;
+		set { if (_colorNegSmaDown != value) { _colorNegSmaDown = value; RecalculateValues(); } }
 	}
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.CumulativeTrades), GroupName = nameof(Strings.Filters), Description = nameof(Strings.CumulativeTradesModeDescription), Order = 90)]
@@ -485,6 +610,7 @@ public class MultiMarketPower : Indicator
 		DataSeries.Add(_filter5Series);
 
 		DataSeries.Add(_spreadSeries);
+		DataSeries.Add(_signalSeries);
 
 		UpdateVisibility();
 	}
@@ -515,6 +641,7 @@ public class MultiMarketPower : Indicator
 		_ticks.Clear();
 		_trades.Clear();
 		_sessionBegin = FindSessionBeginBar();
+		_currentSessionBegin = _sessionBegin;
 		_lastBar = CurrentBar - 1;
 
 		var startTime = GetCandle(_sessionBegin).Time;
@@ -693,6 +820,7 @@ public class MultiMarketPower : Indicator
 		var spread = smartMoney - dumbMoney;
 
 		_spreadSeries[CurrentBar - 1] = spread;
+		UpdateSpreadVisuals(CurrentBar - 1);
 
 		RaiseBarValueChanged(CurrentBar - 1);
 		_lastTrade = trade.MemberwiseClone();
@@ -811,6 +939,7 @@ public class MultiMarketPower : Indicator
 		var spread = smartMoney - dumbMoney;
 
 		_spreadSeries[i] = spread;
+		UpdateSpreadVisuals(i);
 
 		RaiseBarValueChanged(i);
 	}
@@ -850,6 +979,7 @@ public class MultiMarketPower : Indicator
 		var spread = smartMoney - dumbMoney;
 
 		_spreadSeries[CurrentBar - 1] = spread;
+		UpdateSpreadVisuals(CurrentBar - 1);
 	}
 
 	private bool IsFiltered(decimal minFilter, decimal maxFilter, decimal volume)
@@ -939,6 +1069,7 @@ public class MultiMarketPower : Indicator
 		var spread = smartMoney - dumbMoney;
 
 		_spreadSeries[bar] = spread;
+		UpdateSpreadVisuals(bar);
 
 		RaiseBarValueChanged(bar);
 		_lastBar = bar;
@@ -949,6 +1080,7 @@ public class MultiMarketPower : Indicator
 		var showSpread = _viewMode == ViewMode.SmartMoneySpread;
 
 		_spreadSeries.VisualType = showSpread ? VisualMode.Histogram : VisualMode.Hide;
+		_signalSeries.VisualType = (showSpread && _showSignalLine) ? VisualMode.Line : VisualMode.Hide;
 
 		var filterVisual = showSpread ? VisualMode.Hide : VisualMode.Line;
 
@@ -1006,6 +1138,8 @@ public class MultiMarketPower : Indicator
 
 	private void ResetSessionState(int bar)
 	{
+		_currentSessionBegin = bar;
+
 		_delta1 = 0;
 		_delta2 = 0;
 		_delta3 = 0;
@@ -1018,6 +1152,70 @@ public class MultiMarketPower : Indicator
 		_filter4Series[bar] = 0;
 		_filter5Series[bar] = 0;
 		_spreadSeries[bar] = 0;
+	}
+
+	private void ReplayBufferedRealtimeAfterHistory()
+	{
+		// Replay must not mutate buffers while iterating.
+		if (!CumulativeTrades && _ticks.Count > 0)
+		{
+			foreach (var tick in _ticks)
+				CalculateTick(tick);
+
+			_ticks.Clear();
+		}
+
+		if (CumulativeTrades && _trades.Count > 0)
+		{
+			foreach (var trade in _trades)
+				CalculateTrade(trade, isUpdate: false, newBar: false);
+
+			_trades.Clear();
+		}
+	}
+
+	private void UpdateSpreadVisuals(int bar)
+	{
+		// Signal is derived from the spread series, so ensure bar is valid.
+		if (bar < 0)
+			return;
+
+		// Compute SMA on spread series (simple implementation).
+		// Clamp start to _currentSessionBegin so the SMA doesn't bleed across session resets.
+		var period = Math.Max(2, _signalPeriod);
+		var start = Math.Max(_currentSessionBegin, bar - period + 1);
+
+		decimal sum = 0;
+		var count = 0;
+
+		for (var i = start; i <= bar; i++)
+		{
+			sum += _spreadSeries[i];
+			count++;
+		}
+
+		var sma = count > 0 ? sum / count : 0m;
+		_signalSeries[bar] = sma;
+
+		// Color logic: either simple (sign) or 4-color (sign + SMA slope).
+		if (!_use4ColorSystem)
+		{
+			var simple = _spreadSeries[bar] >= 0 ? _simplePositiveColor : _simpleNegativeColor;
+			_spreadSeries.Colors[bar] = simple.Convert();
+			return;
+		}
+
+		var prevSma = bar > 0 ? _signalSeries[bar - 1] : sma;
+		var smaRising = sma >= prevSma;
+
+		CrossColor finalColor;
+
+		if (_spreadSeries[bar] >= 0)
+			finalColor = smaRising ? _colorPosSmaUp : _colorPosSmaDown;
+		else
+			finalColor = smaRising ? _colorNegSmaUp : _colorNegSmaDown;
+
+		_spreadSeries.Colors[bar] = finalColor.Convert();
 	}
 
 	#endregion
