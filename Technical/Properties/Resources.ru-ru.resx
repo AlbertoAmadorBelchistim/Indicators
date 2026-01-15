@@ -2988,4 +2988,56 @@
   <data name="AlertFileDescription" xml:space="preserve">
     <value>Этот параметр позволяет пользователям указать название пользовательского звукового файла для звуков оповещения в платформе ATAS. Пользователи могут выбрать файл WAV, который будет воспроизводиться, когда условие оповещения будет выполнено. Выбранный файл WAV должен быть расположен в папке C:\Program Files (x86)\ATAS Platform\Sounds.</value>
   </data>
+  <data name="ViewMode" xml:space="preserve">
+  <value>Режим отображения</value>
+  <comment>UI</comment>
+</data>
+<data name="SessionMode" xml:space="preserve">
+  <value>Режим сессии</value>
+  <comment>UI</comment>
+</data>
+<data name="SessionsBack" xml:space="preserve">
+  <value>Сессий назад</value>
+  <comment>UI</comment>
+</data>
+<data name="Use4ColorSystem" xml:space="preserve">
+  <value>Использовать 4-цветную схему</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="Use4ColorSystemDescription" xml:space="preserve">
+  <value>Если включено, используются цвета по наклону. Иначе — простые цвета по нулевой линии.</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="ShowSignalLine" xml:space="preserve">
+  <value>Показать сигнальную линию (SMA)</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="SimplePositiveColor" xml:space="preserve">
+  <value>Простой положительный цвет</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="SimpleNegativeColor" xml:space="preserve">
+  <value>Простой отрицательный цвет</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="SimpleColorDescription" xml:space="preserve">
+  <value>Используется только когда 4-цветная схема отключена.</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="ColorPosSmaUp" xml:space="preserve">
+  <value>Цвет: Плюс / SMA растёт</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="ColorPosSmaDown" xml:space="preserve">
+  <value>Цвет: Плюс / SMA падает (коррекция)</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="ColorNegSmaUp" xml:space="preserve">
+  <value>Цвет: Минус / SMA растёт (восстановление)</value>
+  <comment>MultiMarketPower</comment>
+</data>
+<data name="ColorNegSmaDown" xml:space="preserve">
+  <value>Цвет: Минус / SMA падает</value>
+  <comment>MultiMarketPower</comment>
+</data>
 </root>
