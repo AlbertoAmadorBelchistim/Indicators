@@ -1052,4 +1052,20 @@
   <data name="DeltaLabelGroup" xml:space="preserve">
     <value>Delta-Beschriftung</value>
   </data>
-</root>
+<data name="Show" xml:space="preserve">
+    <value>Anzeigen</value>
+  </data><data name="VolumeLabelDescription" xml:space="preserve">
+    <value>Lautstärkebeschriftung und -beschreibung (im Clustermodus)</value>
+  </data><data name="LabelTextColorDescription" xml:space="preserve">
+    <value>Legt die Farbe des Beschriftungstextes fest.</value>
+  </data><data name="Color" xml:space="preserve">
+    <value>Farbe</value>
+  </data><data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data><data name="LabelLocationDescription" xml:space="preserve">
+    <value>Legt den Anzeigeort des Labels fest.</value>
+  </data><data name="Font" xml:space="preserve">
+    <value>Schrift</value>
+  </data><data name="FontSettingDescription" xml:space="preserve">
+    <value>Beschreibt verschiedene Einstellungen für die Schriftart.</value>
+  </data></root>

@@ -1047,4 +1047,20 @@
   <data name="DeltaLabelGroup" xml:space="preserve">
     <value>Etiqueta de delta</value>
   </data>
-</root>
+<data name="Show" xml:space="preserve">
+    <value>Mostrar</value>
+  </data><data name="VolumeLabelDescription" xml:space="preserve">
+    <value>Etiqueta y descripción de volumen (en modo clúster)</value>
+  </data><data name="LabelTextColorDescription" xml:space="preserve">
+    <value>Establece el color del texto de la etiqueta.</value>
+  </data><data name="Color" xml:space="preserve">
+    <value>Color</value>
+  </data><data name="Location" xml:space="preserve">
+    <value>Ubicación</value>
+  </data><data name="LabelLocationDescription" xml:space="preserve">
+    <value>Especifica la ubicación de visualización de la etiqueta.</value>
+  </data><data name="Font" xml:space="preserve">
+    <value>Tipo de letra</value>
+  </data><data name="FontSettingDescription" xml:space="preserve">
+    <value>Describe varias configuraciones para la fuente.</value>
+  </data></root>
