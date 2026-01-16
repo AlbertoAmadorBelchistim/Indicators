@@ -1447,31 +1447,101 @@ public class Delta : Indicator
 	protected override void OnCalculate(int bar, decimal value)
 	{
 		if (bar == 0)
-		{
-			DataSeries.ForEach(x => x.Clear());
-			_upSeries.Clear();
-			_downSeries.Clear();
-			_divergenceBars.Clear();
-		}
+			ResetStateOnFirstBar();
 
-		// Always clear per bar to avoid stale markers ("ghosts")
-		_priceSignalUp[bar] = 0m;
-		_priceSignalDown[bar] = 0m;
+		ClearPriceSignals(bar);
 
 		var candle = GetCandle(bar);
+
 		var deltaValue = candle.Delta;
 		var absDelta = Math.Abs(deltaValue);
 		var maxDelta = candle.MaxDelta;
 		var minDelta = candle.MinDelta;
 
+		NormalizeDiapason(ref maxDelta, ref minDelta);
+
+		if (ApplyFilters(ref deltaValue, ref absDelta, ref maxDelta, ref minDelta, candle))
+		{
+			// filtered to zero inside ApplyFilters
+		}
+
+		WriteMainSeries(bar, candle, deltaValue, absDelta, maxDelta, minDelta);
+
+		var hasDivergence = UpdateDivergence(bar, candle, deltaValue);
+		UpdateDivergenceCandles(bar, candle, deltaValue, hasDivergence);
+
+		UpdateDeltaColors(bar, deltaValue, hasDivergence);
+
+		SyncPrevDeltaOnNewBar(bar, deltaValue);
+
+		ProcessLegacyAlerts(bar, deltaValue);
+
+		UpdateVisualSignals(bar, candle, deltaValue);
+
+		UpdateAudioAlerts(bar, deltaValue);
+
+		// Update _prevDeltaValue ONCE at the end (used by edge/cross logic)
+		_prevDeltaValue = deltaValue;
+
+		UpdateThresholdLines(bar, candle);
+
+		UpdateAverage(bar, deltaValue);
+
+		UpdateAbsorption(bar, absDelta, deltaValue);
+
+		UpdateCurrentValues(bar, absDelta, deltaValue);
+	}
+
+
+	#endregion
+
+	#region Private methods
+
+	#region OnCalculate helpers (no behavior change)
+
+	private void ResetStateOnFirstBar()
+	{
+		DataSeries.ForEach(x => x.Clear());
+		_upSeries.Clear();
+		_downSeries.Clear();
+		_divergenceBars.Clear();
+
+		// Keep auxiliary state consistent with recalculations
+		_posReadyByBar.Clear();
+		_negReadyByBar.Clear();
+		ResetDynamicState();
+
+		_smaWindow.Clear();
+		_smaSum = 0m;
+		_emaInitialized = false;
+		_emaValue = 0m;
+	}
+
+	private void ClearPriceSignals(int bar)
+	{
+		// Always clear per bar to avoid stale markers ("ghosts")
+		_priceSignalUp[bar] = 0m;
+		_priceSignalDown[bar] = 0m;
+	}
+
+	private static void NormalizeDiapason(ref decimal maxDelta, ref decimal minDelta)
+	{
 		if (maxDelta == minDelta)
 		{
-			if(maxDelta > 0)
+			if (maxDelta > 0)
 				minDelta = 0;
 			else
 				maxDelta = 0;
 		}
+	}
 
+	private bool ApplyFilters(
+		ref decimal deltaValue,
+		ref decimal absDelta,
+		ref decimal maxDelta,
+		ref decimal minDelta,
+		IndicatorCandle candle)
+	{
 		var isUnderFilter = absDelta < _filter;
 
 		if (_barDirection == BarDirection.Bullish)
@@ -1491,19 +1561,30 @@ public class Delta : Indicator
 		if (_deltaType == DeltaType.Positive && deltaValue < 0)
 			isUnderFilter = true;
 
-		if (isUnderFilter)
-		{
-			deltaValue = 0;
-			absDelta = 0;
-			minDelta = maxDelta = 0;
-		}
+		if (!isUnderFilter)
+			return false;
 
+		deltaValue = 0;
+		absDelta = 0;
+		minDelta = maxDelta = 0;
+		return true;
+	}
+
+	private void WriteMainSeries(
+		int bar,
+		IndicatorCandle candle,
+		decimal deltaValue,
+		decimal absDelta,
+		decimal maxDelta,
+		decimal minDelta)
+	{
 		_delta[bar] = MinimizedMode ? absDelta : deltaValue;
 
 		if (MinimizedMode)
 		{
 			var high = Math.Abs(maxDelta);
 			var low = Math.Abs(minDelta);
+
 			_diapasonLow[bar] = Math.Min(Math.Min(high, low), absDelta);
 			_diapasonHigh[bar] = Math.Max(high, low);
 
@@ -1536,7 +1617,10 @@ public class Delta : Indicator
 			_candles[bar].High = maxDelta;
 			_candles[bar].Low = minDelta;
 		}
+	}
 
+	private bool UpdateDivergence(int bar, IndicatorCandle candle, decimal deltaValue)
+	{
 		var hasDivergence = false;
 
 		if (MinimizedMode)
@@ -1577,7 +1661,11 @@ public class Delta : Indicator
 		}
 
 		_divergenceBars[bar] = hasDivergence;
+		return hasDivergence;
+	}
 
+	private void UpdateDivergenceCandles(int bar, IndicatorCandle candle, decimal deltaValue, bool hasDivergence)
+	{
 		if (hasDivergence && DivergenceBarsFilter != null && DivergenceBarsFilter.Enabled &&
 			(_mode == DeltaVisualMode.Candles || _mode == DeltaVisualMode.Bars))
 		{
@@ -1605,7 +1693,10 @@ public class Delta : Indicator
 			_divergenceCandles[bar] = new Candle();
 			_divergenceDownCandles[bar] = new Candle();
 		}
+	}
 
+	private void UpdateDeltaColors(int bar, decimal deltaValue, bool hasDivergence)
+	{
 		_delta.Colors[bar] = deltaValue > 0 ? _upColor : _downColor;
 
 		if (DivergenceBarsFilter != null && DivergenceBarsFilter.Enabled &&
@@ -1617,13 +1708,19 @@ public class Delta : Indicator
 				_delta.Colors[bar] = divergenceColor;
 			}
 		}
+	}
 
+	private void SyncPrevDeltaOnNewBar(int bar, decimal deltaValue)
+	{
 		if (_lastBar != bar)
 		{
 			_prevDeltaValue = deltaValue;
 			_lastBar = bar;
 		}
+	}
 
+	private void ProcessLegacyAlerts(int bar, decimal deltaValue)
+	{
 		if (UpAlert.Enabled && CurrentBar - 1 == bar && _lastBarAlert != bar)
 		{
 			var alertValue = UpAlert.Value;
@@ -1646,8 +1743,10 @@ public class Delta : Indicator
 				AddAlert(AlertFile, InstrumentInfo.Instrument, $"Delta reached {negativeAlertValue} filter", AlertBGColor, AlertForeColor);
 			}
 		}
+	}
 
-		// --- Visual signals (price panel): fixed threshold selection per side ---
+	private void UpdateVisualSignals(int bar, IndicatorCandle candle, decimal deltaValue)
+	{
 		// --- Visual signals (price panel): threshold selection per side ---
 		if (_visualEnabled && InstrumentInfo is not null)
 		{
@@ -1663,7 +1762,10 @@ public class Delta : Indicator
 			if (deltaValue <= dnTh)
 				_priceSignalDown[bar] = candle.Low - offset;
 		}
+	}
 
+	private void UpdateAudioAlerts(int bar, decimal deltaValue)
+	{
 		// --- Audio alerts (edge or bar-close confirmation) ---
 		if (_audioEnabled && InstrumentInfo is not null)
 		{
@@ -1706,13 +1808,11 @@ public class Delta : Indicator
 				}
 			}
 		}
+	}
 
-		// Update _prevDeltaValue ONCE at the end (used by edge/cross logic)
-		_prevDeltaValue = deltaValue;
-
-
+	private void UpdateThresholdLines(int bar, IndicatorCandle candle)
+	{
 		// --- Threshold lines (Fixed / DynamicWelford, session-anchored, no look-ahead) ---
-
 		if (Thresholds == ThresholdSource.DynamicWelford && IsSessionStart(bar))
 		{
 			// Reset accumulators AND cut all threshold polylines at the bar before the start
@@ -1734,10 +1834,6 @@ public class Delta : Indicator
 		else // DynamicWelford
 		{
 			EnsureReadyCapacity(bar);
-
-			// ===================== DYNAMIC (NO LOOK-AHEAD) =====================
-			// 1) For bar 'b', compute thresholds FROM STATE UP TO b-1
-			// 2) Then, feed current bar extremes to Welford AFTER thresholds are decided
 
 			if (inside)
 			{
@@ -1803,22 +1899,17 @@ public class Delta : Indicator
 				CutAllThresholdsAt(bar - 1);
 			}
 		}
+	}
 
+	private void UpdateAverage(int bar, decimal deltaValue)
+	{
 		// --- Average delta (SMA/EMA) ---
-		if (bar == 0)
-		{
-			_smaWindow.Clear();
-			_smaSum = 0m;
-			_emaInitialized = false;
-			_emaValue = 0m;
-		}
-
 		if (_showAverage)
 		{
 			var sample = deltaValue; // signed, already filtered (no repaint semantics)
 
-			decimal smaVal = 0m;
-			decimal emaVal = 0m;
+			decimal smaVal;
+			decimal emaVal;
 
 			// SMA
 			_smaWindow.Enqueue(sample);
@@ -1872,9 +1963,10 @@ public class Delta : Indicator
 		{
 			_avgSeries[bar] = 0m;
 		}
+	}
 
-
-
+	private void UpdateAbsorption(int bar, decimal absDelta, decimal deltaValue)
+	{
 		if (Absorption.Enabled)
 		{
 			decimal deltaOpen, deltaClose, deltaHigh, deltaLow;
@@ -1936,7 +2028,10 @@ public class Delta : Indicator
 		}
 		else
 			_absorptionCandles[bar] = new Candle();
+	}
 
+	private void UpdateCurrentValues(int bar, decimal absDelta, decimal deltaValue)
+	{
 		if (!ShowCurrentValues)
 			return;
 
@@ -1950,9 +2045,6 @@ public class Delta : Indicator
 	}
 
 	#endregion
-
-	#region Private methods
-
 
 	private int GetMinWidth(RenderContext context, int startBar, int endBar)
 	{
