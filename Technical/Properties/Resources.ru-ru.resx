@@ -3048,4 +3048,153 @@
   <value>Спред Smart Money</value>
   <comment>MultiMarketPower</comment>
 </data>
+  <data name="UpperMajorLevel" xml:space="preserve">
+    <value>Верхний major</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="UpperMajorLevelDescription" xml:space="preserve">
+    <value>Верхний major-порог.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="UpperMinorLevel" xml:space="preserve">
+    <value>Верхний minor</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="UpperMinorLevelDescription" xml:space="preserve">
+    <value>Верхний minor-порог.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="LowerMinorLevel" xml:space="preserve">
+    <value>Нижний minor</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="LowerMinorLevelDescription" xml:space="preserve">
+    <value>Нижний minor-порог.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="LowerMajorLevel" xml:space="preserve">
+    <value>Нижний major</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="LowerMajorLevelDescription" xml:space="preserve">
+    <value>Нижний major-порог.</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="PriceSignalOffsetTicksDescription" xml:space="preserve">
+    <value>Вертикальный offset в тиках.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="PriceSignalSizeDescription" xml:space="preserve">
+    <value>Размер маркера (px).</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="PriceSignalUpColor" xml:space="preserve">
+    <value>Цвет вверх</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="PriceSignalUpColorDescription" xml:space="preserve">
+    <value>Цвет бычьих маркеров.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="PriceSignalDownColor" xml:space="preserve">
+    <value>Цвет вниз</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="PriceSignalDownColorDescription" xml:space="preserve">
+    <value>Цвет медвежьих маркеров.</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="ShowVisualAlerts" xml:space="preserve">
+    <value>Визуальные алерты</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="ShowVisualAlertsDescription" xml:space="preserve">
+    <value>Показывать маркеры на цене.</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="VisualUpThresholds" xml:space="preserve">
+    <value>Визуал + уровень</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="VisualUpThresholdsDescription" xml:space="preserve">
+    <value>Уровень для бычьих визуалов.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="VisualDownThresholds" xml:space="preserve">
+    <value>Визуал - уровень</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="VisualDownThresholdsDescription" xml:space="preserve">
+    <value>Уровень для медвежьих визуалов.</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="AudioAlerts" xml:space="preserve">
+    <value>Аудио алерты</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="AudioAlertsDescription" xml:space="preserve">
+    <value>Звук при пересечении порогов.</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="AudioUpThresholds" xml:space="preserve">
+    <value>Аудио + уровень</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="AudioUpThresholdsDescription" xml:space="preserve">
+    <value>Уровень для бычьего аудио.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="AudioDownThresholds" xml:space="preserve">
+    <value>Аудио - уровень</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="AudioDownThresholdsDescription" xml:space="preserve">
+    <value>Уровень для медвежьего аудио.</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="AudioAtBarCloseOnly" xml:space="preserve">
+    <value>Аудио на close</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="AudioAtBarCloseOnlyDescription" xml:space="preserve">
+    <value>Только после закрытия бара.</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="ColorMode" xml:space="preserve">
+    <value>Режим цвета</value>
+    <comment>UI</comment>
+  </data>
+  <data name="BaseColor" xml:space="preserve">
+    <value>Базовый цвет</value>
+    <comment>UI</comment>
+  </data>
+  <data name="SlopeUpColor" xml:space="preserve">
+    <value>Цвет наклона вверх</value>
+    <comment>UI</comment>
+  </data>
+  <data name="SlopeDownColor" xml:space="preserve">
+    <value>Цвет наклона вниз</value>
+    <comment>UI</comment>
+  </data>
+  <data name="Fixed" xml:space="preserve">
+    <value>Фиксированный</value>
+    <comment>UI</comment>
+  </data>
+  <data name="ZeroCross" xml:space="preserve">
+    <value>Пересечение нуля</value>
+    <comment>UI</comment>
+  </data>
+  <data name="Slope" xml:space="preserve">
+    <value>Наклон</value>
+    <comment>UI</comment>
+  </data>
+
 </root>
