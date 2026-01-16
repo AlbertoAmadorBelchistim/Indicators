@@ -1047,4 +1047,20 @@
   <data name="DeltaLabelGroup" xml:space="preserve">
     <value>डेल्टा लेबल</value>
   </data>
-</root>
+<data name="Show" xml:space="preserve">
+    <value>दिखाएं</value>
+  </data><data name="VolumeLabelDescription" xml:space="preserve">
+    <value>वॉल्यूम लेबल और विवरण</value>
+  </data><data name="LabelTextColorDescription" xml:space="preserve">
+    <value>लेबल पाठ का रंग सेट करता है।</value>
+  </data><data name="Color" xml:space="preserve">
+    <value>रंग</value>
+  </data><data name="Location" xml:space="preserve">
+    <value>स्थान</value>
+  </data><data name="LabelLocationDescription" xml:space="preserve">
+    <value>लेबल के प्रदर्शन स्थान को निर्धारित करता है।</value>
+  </data><data name="Font" xml:space="preserve">
+    <value>फ़ॉन्ट</value>
+  </data><data name="FontSettingDescription" xml:space="preserve">
+    <value>फॉन्ट के लिए विभिन्न सेटिंग्स का वर्णन करता है।</value>
+  </data></root>

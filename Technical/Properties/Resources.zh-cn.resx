@@ -1047,4 +1047,20 @@
   <data name="DeltaLabelGroup" xml:space="preserve">
     <value>Delta 标签</value>
   </data>
-</root>
+<data name="Show" xml:space="preserve">
+    <value>显示</value>
+  </data><data name="VolumeLabelDescription" xml:space="preserve">
+    <value>交易量标签和描述</value>
+  </data><data name="LabelTextColorDescription" xml:space="preserve">
+    <value>设置标签文本的颜色。</value>
+  </data><data name="Color" xml:space="preserve">
+    <value>颜色</value>
+  </data><data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data><data name="LabelLocationDescription" xml:space="preserve">
+    <value>指定标签的显示位置。</value>
+  </data><data name="Font" xml:space="preserve">
+    <value>字体</value>
+  </data><data name="FontSettingDescription" xml:space="preserve">
+    <value>描述了字体的各种设置。</value>
+  </data></root>

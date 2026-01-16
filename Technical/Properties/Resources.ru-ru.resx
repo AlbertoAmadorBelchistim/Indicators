@@ -3194,4 +3194,10 @@
   <data name="DeltaLabelGroup" xml:space="preserve">
     <value>Метка дельты</value>
   </data>
-</root>
+<data name="LabelTextColorDescription" xml:space="preserve">
+    <value>Устанавливает цвет текста метки.</value>
+  </data><data name="LabelLocationDescription" xml:space="preserve">
+    <value>Определяет местоположение отображения метки.</value>
+  </data><data name="FontSettingDescription" xml:space="preserve">
+    <value>Описывает различные настройки шрифта.</value>
+  </data></root>
