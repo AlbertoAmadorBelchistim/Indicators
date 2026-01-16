@@ -862,4 +862,17 @@
   <value>Farbe: Negativ / SMA fällt</value>
   <comment>MultiMarketPower</comment>
 </data>
+<data name="Filters" xml:space="preserve">
+    <value>Filter</value>
+  </data><data name="CustomSession" xml:space="preserve">
+    <value>Benutzerdefinierte Sitzung</value>
+  </data>
+  <data name="DefaultSession" xml:space="preserve">
+  <value>Standard-Session</value>
+  <comment>UI</comment>
+</data>
+<data name="SmartMoneySpread" xml:space="preserve">
+  <value>Smart-Money-Spread</value>
+  <comment>MultiMarketPower</comment>
+</data>
 </root>
