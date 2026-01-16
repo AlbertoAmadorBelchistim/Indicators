@@ -172,7 +172,7 @@ public class MultiMarketPower : Indicator
 
 	#region Properties
 
-	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ViewMode), GroupName = nameof(Resources.Visualization), Order = 1010)]
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ViewMode), GroupName = nameof(Resources.General), Order = 5)]
 	public ViewMode Mode
 	{
 		get => _viewMode;
@@ -195,7 +195,7 @@ public class MultiMarketPower : Indicator
 		}
 	}
 
-	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SessionMode), GroupName = nameof(Resources.Session), Order = 1110)]
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SessionMode), GroupName = nameof(Resources.Session), Order = 10)]
 	public SessionMode SessionPowerMode
 	{
 		get => _sessionMode;
@@ -209,7 +209,7 @@ public class MultiMarketPower : Indicator
 		}
 	}
 
-	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.CustomSessionStart), GroupName = nameof(Resources.Session), Order = 1120)]
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.CustomSessionStart), GroupName = nameof(Resources.Session), Order = 20)]
 	public TimeSpan CustomSessionStart
 	{
 		get => _customSessionStart;
@@ -223,7 +223,7 @@ public class MultiMarketPower : Indicator
 		}
 	}
 
-	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SessionsBack), GroupName = nameof(Resources.Session), Order = 1130)]
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SessionsBack), GroupName = nameof(Resources.Session), Order = 30)]
 	[Range(1, 30)]
 	public int SessionsBack
 	{
@@ -238,7 +238,7 @@ public class MultiMarketPower : Indicator
 		}
 	}
 
-	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.Use4ColorSystem), Description = nameof(Resources.Use4ColorSystemDescription), GroupName = nameof(Resources.Visualization), Order = 1020)]
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.Use4ColorSystem), Description = nameof(Resources.Use4ColorSystemDescription), GroupName = nameof(Resources.SmartMoneySpread), Order = 1020)]
 	public bool Use4ColorSystem
 	{
 		get => _use4ColorSystem;
@@ -252,7 +252,7 @@ public class MultiMarketPower : Indicator
 		}
 	}
 
-	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowSignalLine), GroupName = nameof(Resources.Visualization), Order = 1030)]
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowSignalLine), GroupName = nameof(Resources.SmartMoneySpread), Order = 1030)]
 	public bool ShowSignalLine
 	{
 		get => _showSignalLine;
@@ -268,7 +268,7 @@ public class MultiMarketPower : Indicator
 		}
 	}
 
-	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SignalPeriod), GroupName = nameof(Resources.Visualization), Order = 1040)]
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SignalPeriod), GroupName = nameof(Resources.SmartMoneySpread), Order = 1040)]
 	[Range(2, 500)]
 	public int SignalPeriod
 	{
@@ -283,7 +283,7 @@ public class MultiMarketPower : Indicator
 		}
 	}
 
-	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SimplePositiveColor), Description = nameof(Resources.SimpleColorDescription), GroupName = nameof(Resources.Visualization), Order = 1050)]
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SimplePositiveColor), Description = nameof(Resources.SimpleColorDescription), GroupName = nameof(Resources.SmartMoneySpread), Order = 1050)]
 	public CrossColor SimplePositiveColor
 	{
 		get => _simplePositiveColor;
@@ -297,7 +297,7 @@ public class MultiMarketPower : Indicator
 		}
 	}
 
-	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SimpleNegativeColor), Description = nameof(Resources.SimpleColorDescription), GroupName = nameof(Resources.Visualization), Order = 1060)]
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SimpleNegativeColor), Description = nameof(Resources.SimpleColorDescription), GroupName = nameof(Resources.SmartMoneySpread), Order = 1060)]
 	public CrossColor SimpleNegativeColor
 	{
 		get => _simpleNegativeColor;
@@ -311,28 +311,28 @@ public class MultiMarketPower : Indicator
 		}
 	}
 
-	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ColorPosSmaUp), GroupName = nameof(Resources.Visualization), Order = 1070)]
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ColorPosSmaUp), GroupName = nameof(Resources.SmartMoneySpread), Order = 1070)]
 	public CrossColor ColorPosSmaUp
 	{
 		get => _colorPosSmaUp;
 		set { if (_colorPosSmaUp != value) { _colorPosSmaUp = value; RecalculateValues(); } }
 	}
 
-	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ColorPosSmaDown), GroupName = nameof(Resources.Visualization), Order = 1080)]
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ColorPosSmaDown), GroupName = nameof(Resources.SmartMoneySpread), Order = 1080)]
 	public CrossColor ColorPosSmaDown
 	{
 		get => _colorPosSmaDown;
 		set { if (_colorPosSmaDown != value) { _colorPosSmaDown = value; RecalculateValues(); } }
 	}
 
-	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ColorNegSmaUp), GroupName = nameof(Resources.Visualization), Order = 1090)]
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ColorNegSmaUp), GroupName = nameof(Resources.SmartMoneySpread), Order = 1090)]
 	public CrossColor ColorNegSmaUp
 	{
 		get => _colorNegSmaUp;
 		set { if (_colorNegSmaUp != value) { _colorNegSmaUp = value; RecalculateValues(); } }
 	}
 
-	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ColorNegSmaDown), GroupName = nameof(Resources.Visualization), Order = 1100)]
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ColorNegSmaDown), GroupName = nameof(Resources.SmartMoneySpread), Order = 1100)]
 	public CrossColor ColorNegSmaDown
 	{
 		get => _colorNegSmaDown;
