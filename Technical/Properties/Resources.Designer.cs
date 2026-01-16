@@ -1798,6 +1798,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Delta label.
+        /// </summary>
+        public static string DeltaLabelGroup {
+            get {
+                return ResourceManager.GetString("DeltaLabelGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Delta/sec.
         /// </summary>
         public static string DeltaSecond {
@@ -2050,7 +2059,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Dynamic Threshold.
+        ///   Busca una cadena traducida similar a Dynamic thresholds.
         /// </summary>
         public static string DynamicThresholdGroup {
             get {
@@ -2455,7 +2464,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Fixed Threshold.
+        ///   Busca una cadena traducida similar a Fixed thresholds.
         /// </summary>
         public static string FixedThresholdGroup {
             get {
@@ -5182,6 +5191,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Price signals.
+        /// </summary>
+        public static string PriceSignalsGroup {
+            get {
+                return ResourceManager.GetString("PriceSignalsGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Marker size in pixels..
         /// </summary>
         public static string PriceSignalSizeDescription {
@@ -7072,7 +7090,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Thresholds.
+        ///   Busca una cadena traducida similar a Threshold usage.
         /// </summary>
         public static string ThresholdsGroup {
             get {

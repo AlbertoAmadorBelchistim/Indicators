@@ -2613,13 +2613,13 @@
     <value>Исключает хвостовые зоны с низким объёмом возле максимума и минимума профиля при обнаружении LVN, используя процент диапазона профиля. (0 = отключено).</value>
   </data>
   <data name="ThresholdsGroup" xml:space="preserve">
-    <value>Пороги</value>
+    <value>Использование порогов</value>
   </data>
   <data name="FixedThresholdGroup" xml:space="preserve">
-    <value>Фиксированный порог</value>
+    <value>Фиксированные пороги</value>
   </data>
   <data name="DynamicThresholdGroup" xml:space="preserve">
-    <value>Динамический порог</value>
+    <value>Динамические пороги</value>
   </data>
   <data name="ShowThresholdLines" xml:space="preserve">
     <value>Показывать линии порогов</value>
@@ -2922,15 +2922,6 @@
     <value>Сырые принты</value>
     <comment>ClusterStatistics</comment>
   </data>
-  <data name="Misc" xml:space="preserve">
-    <value>Разное</value>
-  </data>
-  <data name="Bearish" xml:space="preserve">
-    <value>Медвежье</value>
-  </data>
-  <data name="Show Fibonacci" xml:space="preserve">
-    <value>Показать уровни Фибоначчи</value>
-  </data>
   <data name="ShowVolumePerSecondDescription" xml:space="preserve">
     <value>Определяет, следует ли отображать информацию об объеме в секунду.</value>
   </data>
@@ -2989,65 +2980,65 @@
     <value>Этот параметр позволяет пользователям указать название пользовательского звукового файла для звуков оповещения в платформе ATAS. Пользователи могут выбрать файл WAV, который будет воспроизводиться, когда условие оповещения будет выполнено. Выбранный файл WAV должен быть расположен в папке C:\Program Files (x86)\ATAS Platform\Sounds.</value>
   </data>
   <data name="ViewMode" xml:space="preserve">
-  <value>Режим отображения</value>
-  <comment>UI</comment>
-</data>
-<data name="SessionMode" xml:space="preserve">
-  <value>Режим сессии</value>
-  <comment>UI</comment>
-</data>
-<data name="SessionsBack" xml:space="preserve">
-  <value>Сессий назад</value>
-  <comment>UI</comment>
-</data>
-<data name="Use4ColorSystem" xml:space="preserve">
-  <value>Использовать 4-цветную схему</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="Use4ColorSystemDescription" xml:space="preserve">
-  <value>Если включено, используются цвета по наклону. Иначе — простые цвета по нулевой линии.</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="ShowSignalLine" xml:space="preserve">
-  <value>Показать сигнальную линию (SMA)</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="SimplePositiveColor" xml:space="preserve">
-  <value>Простой положительный цвет</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="SimpleNegativeColor" xml:space="preserve">
-  <value>Простой отрицательный цвет</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="SimpleColorDescription" xml:space="preserve">
-  <value>Используется только когда 4-цветная схема отключена.</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="ColorPosSmaUp" xml:space="preserve">
-  <value>Цвет: Плюс / SMA растёт</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="ColorPosSmaDown" xml:space="preserve">
-  <value>Цвет: Плюс / SMA падает (коррекция)</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="ColorNegSmaUp" xml:space="preserve">
-  <value>Цвет: Минус / SMA растёт (восстановление)</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="ColorNegSmaDown" xml:space="preserve">
-  <value>Цвет: Минус / SMA падает</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="DefaultSession" xml:space="preserve">
-  <value>Сессия по умолчанию</value>
-  <comment>UI</comment>
-</data>
-<data name="SmartMoneySpread" xml:space="preserve">
-  <value>Спред Smart Money</value>
-  <comment>MultiMarketPower</comment>
-</data>
+    <value>Режим отображения</value>
+    <comment>UI</comment>
+  </data>
+  <data name="SessionMode" xml:space="preserve">
+    <value>Режим сессии</value>
+    <comment>UI</comment>
+  </data>
+  <data name="SessionsBack" xml:space="preserve">
+    <value>Сессий назад</value>
+    <comment>UI</comment>
+  </data>
+  <data name="Use4ColorSystem" xml:space="preserve">
+    <value>Использовать 4-цветную схему</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="Use4ColorSystemDescription" xml:space="preserve">
+    <value>Если включено, используются цвета по наклону. Иначе — простые цвета по нулевой линии.</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="ShowSignalLine" xml:space="preserve">
+    <value>Показать сигнальную линию (SMA)</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="SimplePositiveColor" xml:space="preserve">
+    <value>Простой положительный цвет</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="SimpleNegativeColor" xml:space="preserve">
+    <value>Простой отрицательный цвет</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="SimpleColorDescription" xml:space="preserve">
+    <value>Используется только когда 4-цветная схема отключена.</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="ColorPosSmaUp" xml:space="preserve">
+    <value>Цвет: Плюс / SMA растёт</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="ColorPosSmaDown" xml:space="preserve">
+    <value>Цвет: Плюс / SMA падает (коррекция)</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="ColorNegSmaUp" xml:space="preserve">
+    <value>Цвет: Минус / SMA растёт (восстановление)</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="ColorNegSmaDown" xml:space="preserve">
+    <value>Цвет: Минус / SMA падает</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="DefaultSession" xml:space="preserve">
+    <value>Сессия по умолчанию</value>
+    <comment>UI</comment>
+  </data>
+  <data name="SmartMoneySpread" xml:space="preserve">
+    <value>Спред Smart Money</value>
+    <comment>MultiMarketPower</comment>
+  </data>
   <data name="UpperMajorLevel" xml:space="preserve">
     <value>Верхний major</value>
     <comment>Delta</comment>
@@ -3080,7 +3071,6 @@
     <value>Нижний major-порог.</value>
     <comment>Delta</comment>
   </data>
-
   <data name="PriceSignalOffsetTicksDescription" xml:space="preserve">
     <value>Вертикальный offset в тиках.</value>
     <comment>Delta</comment>
@@ -3089,7 +3079,6 @@
     <value>Размер маркера (px).</value>
     <comment>Delta</comment>
   </data>
-
   <data name="PriceSignalUpColor" xml:space="preserve">
     <value>Цвет вверх</value>
     <comment>Delta</comment>
@@ -3106,7 +3095,6 @@
     <value>Цвет медвежьих маркеров.</value>
     <comment>Delta</comment>
   </data>
-
   <data name="ShowVisualAlerts" xml:space="preserve">
     <value>Визуальные алерты</value>
     <comment>Delta</comment>
@@ -3115,7 +3103,6 @@
     <value>Показывать маркеры на цене.</value>
     <comment>Delta</comment>
   </data>
-
   <data name="VisualUpThresholds" xml:space="preserve">
     <value>Визуал + уровень</value>
     <comment>Delta</comment>
@@ -3132,7 +3119,6 @@
     <value>Уровень для медвежьих визуалов.</value>
     <comment>Delta</comment>
   </data>
-
   <data name="AudioAlerts" xml:space="preserve">
     <value>Аудио алерты</value>
     <comment>Delta</comment>
@@ -3141,7 +3127,6 @@
     <value>Звук при пересечении порогов.</value>
     <comment>Delta</comment>
   </data>
-
   <data name="AudioUpThresholds" xml:space="preserve">
     <value>Аудио + уровень</value>
     <comment>Delta</comment>
@@ -3158,7 +3143,6 @@
     <value>Уровень для медвежьего аудио.</value>
     <comment>Delta</comment>
   </data>
-
   <data name="AudioAtBarCloseOnly" xml:space="preserve">
     <value>Аудио на close</value>
     <comment>Delta</comment>
@@ -3167,7 +3151,6 @@
     <value>Только после закрытия бара.</value>
     <comment>Delta</comment>
   </data>
-
   <data name="ColorMode" xml:space="preserve">
     <value>Режим цвета</value>
     <comment>UI</comment>
@@ -3196,5 +3179,19 @@
     <value>Наклон</value>
     <comment>UI</comment>
   </data>
-
+  <data name="Misc" xml:space="preserve">
+    <value>Разное</value>
+  </data>
+  <data name="Bearish" xml:space="preserve">
+    <value>Медвежье</value>
+  </data>
+  <data name="Show Fibonacci" xml:space="preserve">
+    <value>Показать уровни Фибоначчи</value>
+  </data>
+  <data name="PriceSignalsGroup" xml:space="preserve">
+    <value>Сигналы на цене</value>
+  </data>
+  <data name="DeltaLabelGroup" xml:space="preserve">
+    <value>Метка дельты</value>
+  </data>
 </root>

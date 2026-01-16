@@ -117,20 +117,41 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="EMA" xml:space="preserve">
+    <value>गणनीय चलती औसत</value>
+  </data>
+  <data name="Period" xml:space="preserve">
+    <value>अवधि</value>
+  </data>
+  <data name="SMA" xml:space="preserve">
+    <value>सांघटिक औसत</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>चौड़ाई</value>
+  </data>
   <data name="Ask" xml:space="preserve">
     <value>पूछें</value>
   </data>
   <data name="Bid" xml:space="preserve">
     <value>बिड</value>
   </data>
+  <data name="Filters" xml:space="preserve">
+    <value>फ़िल्टर</value>
+  </data>
   <data name="AlertFile" xml:space="preserve">
     <value>अलर्ट फ़ाइल</value>
+  </data>
+  <data name="Alerts" xml:space="preserve">
+    <value>चेतावनियाँ</value>
   </data>
   <data name="BackGround" xml:space="preserve">
     <value>पृष्ठभूमि</value>
   </data>
   <data name="Delta" xml:space="preserve">
     <value>डेल्टा</value>
+  </data>
+  <data name="FontColor" xml:space="preserve">
+    <value>फ़ॉन्ट रंग</value>
   </data>
   <data name="ShowVolume" xml:space="preserve">
     <value>वॉल्यूम दिखाएं</value>
@@ -140,6 +161,9 @@
   </data>
   <data name="Volume" xml:space="preserve">
     <value>आयाम</value>
+  </data>
+  <data name="CalculationMode" xml:space="preserve">
+    <value>गणना मोड</value>
   </data>
   <data name="CurrentDay" xml:space="preserve">
     <value>वर्तमान दिन</value>
@@ -165,8 +189,20 @@
   <data name="Visualization" xml:space="preserve">
     <value>दृश्यीकरण</value>
   </data>
+  <data name="Session" xml:space="preserve">
+    <value>सत्र</value>
+  </data>
+  <data name="SignalPeriod" xml:space="preserve">
+    <value>सिग्नल अवधि</value>
+  </data>
   <data name="Trades" xml:space="preserve">
     <value>व्यापार</value>
+  </data>
+  <data name="CustomSessionStart" xml:space="preserve">
+    <value>कस्टम सत्र प्रारंभ</value>
+  </data>
+  <data name="ShowAverage" xml:space="preserve">
+    <value>औसत दिखाएं</value>
   </data>
   <data name="AskColor" xml:space="preserve">
     <value>पूछें रंग</value>
@@ -237,17 +273,26 @@
   <data name="ShortValues" xml:space="preserve">
     <value>संक्षिप्त मान दिखाएं</value>
   </data>
+  <data name="CustomSession" xml:space="preserve">
+    <value>अनुकूलित सत्र</value>
+  </data>
   <data name="ShowTradesCount" xml:space="preserve">
     <value>व्यापारों की संख्या दिखाएं</value>
   </data>
   <data name="ShowHeight" xml:space="preserve">
     <value>ऊचाई दिखाएं</value>
   </data>
+  <data name="Average" xml:space="preserve">
+    <value>औसत</value>
+  </data>
   <data name="DeltaAlert" xml:space="preserve">
     <value>डेल्टा चेतावनी</value>
   </data>
   <data name="Rows" xml:space="preserve">
     <value>पंक्तियाँ</value>
+  </data>
+  <data name="General" xml:space="preserve">
+    <value>सामान्य</value>
   </data>
   <data name="ToggleLevelsVisibilityHotKey" xml:space="preserve">
     <value>सभी स्तरों की दृश्यता टॉगल करें</value>
@@ -430,13 +475,13 @@
     <value>प्रोफ़ाइल के उच्च और निम्न स्तरों के पास कम-वॉल्यूम वाले टेल क्षेत्रों को LVN पहचान से बाहर करता है, प्रोफ़ाइल रेंज के प्रतिशत का उपयोग करते हुए। (0 = अक्षम)।</value>
   </data>
   <data name="ThresholdsGroup" xml:space="preserve">
-    <value>थ्रेशोल्ड</value>
+    <value>थ्रेशहोल्ड का उपयोग</value>
   </data>
   <data name="FixedThresholdGroup" xml:space="preserve">
-    <value>स्थिर थ्रेशोल्ड</value>
+    <value>स्थिर थ्रेशहोल्ड</value>
   </data>
   <data name="DynamicThresholdGroup" xml:space="preserve">
-    <value>गतिशील थ्रेशोल्ड</value>
+    <value>गतिशील थ्रेशहोल्ड</value>
   </data>
   <data name="ShowThresholdLines" xml:space="preserve">
     <value>थ्रेशोल्ड लाइन्स दिखाएँ</value>
@@ -796,100 +841,67 @@
   <data name="AlertFileDescription" xml:space="preserve">
     <value>अलर्टफाइलडिस्क्रिप्शन पैरामीटर उपयोगकर्ताओं को एटीएस प्लेटफार्म में अलर्ट ध्वनियों के लिए एक कस्टम ऑडियो फ़ाइल का नाम सेट करने की सुविधा प्रदान करता है। उपयोगकर्ता WAV फ़ाइल का चयन कर सकते हैं, जो जब एक अलर्ट स्थिति पूरी होती है, बजाया जाएगा। चुनी गई WAV फ़ाइल को C:\Program Files (x86)\ATAS Platform\Sounds नामक फ़ोल्डर में स्थित होना चाहिए।</value>
   </data>
-<data name="General" xml:space="preserve">
-    <value>सामान्य</value>
-  </data><data name="Session" xml:space="preserve">
-    <value>सत्र</value>
-  </data><data name="CustomSessionStart" xml:space="preserve">
-    <value>कस्टम सत्र प्रारंभ</value>
-  </data><data name="SignalPeriod" xml:space="preserve">
-    <value>सिग्नल अवधि</value>
-  </data>
   <data name="ViewMode" xml:space="preserve">
-  <value>दृश्य मोड</value>
-  <comment>UI</comment>
-</data>
-<data name="SessionMode" xml:space="preserve">
-  <value>सत्र मोड</value>
-  <comment>UI</comment>
-</data>
-<data name="SessionsBack" xml:space="preserve">
-  <value>पिछले सत्र</value>
-  <comment>UI</comment>
-</data>
-<data name="Use4ColorSystem" xml:space="preserve">
-  <value>4-रंग प्रणाली उपयोग करें</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="Use4ColorSystemDescription" xml:space="preserve">
-  <value>यदि सक्रिय है, ढलान के अनुसार रंग उपयोग होते हैं। अन्यथा, शून्य-रेखा के सरल रंग उपयोग होते हैं।</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="ShowSignalLine" xml:space="preserve">
-  <value>सिग्नल लाइन दिखाएँ (SMA)</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="SimplePositiveColor" xml:space="preserve">
-  <value>सरल सकारात्मक रंग</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="SimpleNegativeColor" xml:space="preserve">
-  <value>सरल नकारात्मक रंग</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="SimpleColorDescription" xml:space="preserve">
-  <value>केवल तब उपयोग होता है जब 4-रंग प्रणाली अक्षम हो।</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="ColorPosSmaUp" xml:space="preserve">
-  <value>रंग: सकारात्मक / SMA ऊपर</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="ColorPosSmaDown" xml:space="preserve">
-  <value>रंग: सकारात्मक / SMA नीचे (सुधार)</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="ColorNegSmaUp" xml:space="preserve">
-  <value>रंग: नकारात्मक / SMA ऊपर (रिकवरी)</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="ColorNegSmaDown" xml:space="preserve">
-  <value>रंग: नकारात्मक / SMA नीचे</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="Filters" xml:space="preserve">
-    <value>फ़िल्टर</value>
-  </data><data name="CustomSession" xml:space="preserve">
-    <value>अनुकूलित सत्र</value>
+    <value>दृश्य मोड</value>
+    <comment>UI</comment>
+  </data>
+  <data name="SessionMode" xml:space="preserve">
+    <value>सत्र मोड</value>
+    <comment>UI</comment>
+  </data>
+  <data name="SessionsBack" xml:space="preserve">
+    <value>पिछले सत्र</value>
+    <comment>UI</comment>
+  </data>
+  <data name="Use4ColorSystem" xml:space="preserve">
+    <value>4-रंग प्रणाली उपयोग करें</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="Use4ColorSystemDescription" xml:space="preserve">
+    <value>यदि सक्रिय है, ढलान के अनुसार रंग उपयोग होते हैं। अन्यथा, शून्य-रेखा के सरल रंग उपयोग होते हैं।</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="ShowSignalLine" xml:space="preserve">
+    <value>सिग्नल लाइन दिखाएँ (SMA)</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="SimplePositiveColor" xml:space="preserve">
+    <value>सरल सकारात्मक रंग</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="SimpleNegativeColor" xml:space="preserve">
+    <value>सरल नकारात्मक रंग</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="SimpleColorDescription" xml:space="preserve">
+    <value>केवल तब उपयोग होता है जब 4-रंग प्रणाली अक्षम हो।</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="ColorPosSmaUp" xml:space="preserve">
+    <value>रंग: सकारात्मक / SMA ऊपर</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="ColorPosSmaDown" xml:space="preserve">
+    <value>रंग: सकारात्मक / SMA नीचे (सुधार)</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="ColorNegSmaUp" xml:space="preserve">
+    <value>रंग: नकारात्मक / SMA ऊपर (रिकवरी)</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="ColorNegSmaDown" xml:space="preserve">
+    <value>रंग: नकारात्मक / SMA नीचे</value>
+    <comment>MultiMarketPower</comment>
   </data>
   <data name="DefaultSession" xml:space="preserve">
-  <value>डिफ़ॉल्ट सत्र</value>
-  <comment>UI</comment>
-</data>
-<data name="SmartMoneySpread" xml:space="preserve">
-  <value>स्मार्ट मनी स्प्रेड</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="Alerts" xml:space="preserve">
-    <value>चेतावनियाँ</value>
-  </data><data name="FontColor" xml:space="preserve">
-    <value>फ़ॉन्ट रंग</value>
-  </data><data name="Average" xml:space="preserve">
-    <value>औसत</value>
-  </data><data name="ShowAverage" xml:space="preserve">
-    <value>औसत दिखाएं</value>
-  </data><data name="Period" xml:space="preserve">
-    <value>अवधि</value>
-  </data><data name="CalculationMode" xml:space="preserve">
-    <value>गणना मोड</value>
-  </data><data name="Width" xml:space="preserve">
-    <value>चौड़ाई</value>
-  </data><data name="SMA" xml:space="preserve">
-    <value>सांघटिक औसत</value>
-  </data><data name="EMA" xml:space="preserve">
-    <value>गणनीय चलती औसत</value>
+    <value>डिफ़ॉल्ट सत्र</value>
+    <comment>UI</comment>
   </data>
-    <data name="UpperMajorLevel" xml:space="preserve">
+  <data name="SmartMoneySpread" xml:space="preserve">
+    <value>स्मार्ट मनी स्प्रेड</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="UpperMajorLevel" xml:space="preserve">
     <value>ऊपरी मेजर</value>
     <comment>Delta</comment>
   </data>
@@ -921,7 +933,6 @@
     <value>निचला मेजर थ्रेशहोल्ड.</value>
     <comment>Delta</comment>
   </data>
-
   <data name="PriceSignalOffsetTicksDescription" xml:space="preserve">
     <value>वर्टिकल ऑफसेट (टिक्स).</value>
     <comment>Delta</comment>
@@ -930,7 +941,6 @@
     <value>मार्कर आकार (px).</value>
     <comment>Delta</comment>
   </data>
-
   <data name="PriceSignalUpColor" xml:space="preserve">
     <value>अप रंग</value>
     <comment>Delta</comment>
@@ -947,7 +957,6 @@
     <value>बेयरिश मार्कर का रंग.</value>
     <comment>Delta</comment>
   </data>
-
   <data name="ShowVisualAlerts" xml:space="preserve">
     <value>विज़ुअल अलर्ट</value>
     <comment>Delta</comment>
@@ -956,7 +965,6 @@
     <value>प्राइस पर मार्कर दिखाएँ.</value>
     <comment>Delta</comment>
   </data>
-
   <data name="VisualUpThresholds" xml:space="preserve">
     <value>विज़ुअल + लेवल</value>
     <comment>Delta</comment>
@@ -973,7 +981,6 @@
     <value>बेयरिश विज़ुअल के लिए लेवल.</value>
     <comment>Delta</comment>
   </data>
-
   <data name="AudioAlerts" xml:space="preserve">
     <value>ऑडियो अलर्ट</value>
     <comment>Delta</comment>
@@ -982,7 +989,6 @@
     <value>थ्रेशहोल्ड क्रॉस पर साउंड.</value>
     <comment>Delta</comment>
   </data>
-
   <data name="AudioUpThresholds" xml:space="preserve">
     <value>ऑडियो + लेवल</value>
     <comment>Delta</comment>
@@ -999,7 +1005,6 @@
     <value>बेयरिश ऑडियो के लिए लेवल.</value>
     <comment>Delta</comment>
   </data>
-
   <data name="AudioAtBarCloseOnly" xml:space="preserve">
     <value>केवल क्लोज़ पर</value>
     <comment>Delta</comment>
@@ -1008,7 +1013,6 @@
     <value>सिर्फ बार क्लोज़ के बाद.</value>
     <comment>Delta</comment>
   </data>
-
   <data name="ColorMode" xml:space="preserve">
     <value>कलर मोड</value>
     <comment>UI</comment>
@@ -1036,5 +1040,11 @@
   <data name="Slope" xml:space="preserve">
     <value>स्लोप</value>
     <comment>UI</comment>
+  </data>
+  <data name="PriceSignalsGroup" xml:space="preserve">
+    <value>मूल्य संकेत</value>
+  </data>
+  <data name="DeltaLabelGroup" xml:space="preserve">
+    <value>डेल्टा लेबल</value>
   </data>
 </root>
