@@ -879,4 +879,171 @@
     <value>Smart-Money-Spread</value>
     <comment>MultiMarketPower</comment>
   </data>
+<data name="Alerts" xml:space="preserve">
+    <value>Alarme</value>
+  </data><data name="FontColor" xml:space="preserve">
+    <value>Schriftfarbe</value>
+  </data><data name="Average" xml:space="preserve">
+    <value>Durchschnitt</value>
+  </data><data name="ShowAverage" xml:space="preserve">
+    <value>Durchschnitt anzeigen</value>
+  </data><data name="Period" xml:space="preserve">
+    <value>Periode</value>
+  </data><data name="CalculationMode" xml:space="preserve">
+    <value>Berechnungsmodus</value>
+  </data><data name="Width" xml:space="preserve">
+    <value>Breite</value>
+  </data><data name="SMA" xml:space="preserve">
+    <value>Gleitender Durchschnitt</value>
+  </data><data name="EMA" xml:space="preserve">
+    <value>Exponentieller gleitender Durchschnitt</value>
+  </data>
+    <data name="UpperMajorLevel" xml:space="preserve">
+    <value>Oberes Major</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="UpperMajorLevelDescription" xml:space="preserve">
+    <value>Oberer Major-Schwellenwert.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="UpperMinorLevel" xml:space="preserve">
+    <value>Oberes Minor</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="UpperMinorLevelDescription" xml:space="preserve">
+    <value>Oberer Minor-Schwellenwert.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="LowerMinorLevel" xml:space="preserve">
+    <value>Unteres Minor</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="LowerMinorLevelDescription" xml:space="preserve">
+    <value>Unterer Minor-Schwellenwert.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="LowerMajorLevel" xml:space="preserve">
+    <value>Unteres Major</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="LowerMajorLevelDescription" xml:space="preserve">
+    <value>Unterer Major-Schwellenwert.</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="PriceSignalOffsetTicksDescription" xml:space="preserve">
+    <value>Vertikaler Offset in Ticks.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="PriceSignalSizeDescription" xml:space="preserve">
+    <value>Markergröße in Pixeln.</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="PriceSignalUpColor" xml:space="preserve">
+    <value>Farbe bullisch</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="PriceSignalUpColorDescription" xml:space="preserve">
+    <value>Farbe bullischer Marker.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="PriceSignalDownColor" xml:space="preserve">
+    <value>Farbe bärisch</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="PriceSignalDownColorDescription" xml:space="preserve">
+    <value>Farbe bärischer Marker.</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="ShowVisualAlerts" xml:space="preserve">
+    <value>Visuelle Alarme</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="ShowVisualAlertsDescription" xml:space="preserve">
+    <value>Marker im Preis anzeigen.</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="VisualUpThresholds" xml:space="preserve">
+    <value>Visuell + Level</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="VisualUpThresholdsDescription" xml:space="preserve">
+    <value>Level für bullische Visuals.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="VisualDownThresholds" xml:space="preserve">
+    <value>Visuell - Level</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="VisualDownThresholdsDescription" xml:space="preserve">
+    <value>Level für bärische Visuals.</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="AudioAlerts" xml:space="preserve">
+    <value>Audio-Alarme</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="AudioAlertsDescription" xml:space="preserve">
+    <value>Ton bei Schwellenkreuzung.</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="AudioUpThresholds" xml:space="preserve">
+    <value>Audio + Level</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="AudioUpThresholdsDescription" xml:space="preserve">
+    <value>Level für bullisches Audio.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="AudioDownThresholds" xml:space="preserve">
+    <value>Audio - Level</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="AudioDownThresholdsDescription" xml:space="preserve">
+    <value>Level für bärisches Audio.</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="AudioAtBarCloseOnly" xml:space="preserve">
+    <value>Audio nur Close</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="AudioAtBarCloseOnlyDescription" xml:space="preserve">
+    <value>Audio erst nach Kerzenschluss.</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="ColorMode" xml:space="preserve">
+    <value>Farbmodus</value>
+    <comment>UI</comment>
+  </data>
+  <data name="BaseColor" xml:space="preserve">
+    <value>Basisfarbe</value>
+    <comment>UI</comment>
+  </data>
+  <data name="SlopeUpColor" xml:space="preserve">
+    <value>Steigung + Farbe</value>
+    <comment>UI</comment>
+  </data>
+  <data name="SlopeDownColor" xml:space="preserve">
+    <value>Steigung - Farbe</value>
+    <comment>UI</comment>
+  </data>
+  <data name="Fixed" xml:space="preserve">
+    <value>Fix</value>
+    <comment>UI</comment>
+  </data>
+  <data name="ZeroCross" xml:space="preserve">
+    <value>Nullkreuz</value>
+    <comment>UI</comment>
+  </data>
+  <data name="Slope" xml:space="preserve">
+    <value>Steigung</value>
+    <comment>UI</comment>
+  </data>
 </root>

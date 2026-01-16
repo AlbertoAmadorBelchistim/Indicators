@@ -870,4 +870,171 @@
   <value>聪明资金价差</value>
   <comment>MultiMarketPower</comment>
 </data>
+<data name="Alerts" xml:space="preserve">
+    <value>警报</value>
+  </data><data name="FontColor" xml:space="preserve">
+    <value>字体颜色</value>
+  </data><data name="Average" xml:space="preserve">
+    <value>平均值</value>
+  </data><data name="ShowAverage" xml:space="preserve">
+    <value>显示平均值</value>
+  </data><data name="Period" xml:space="preserve">
+    <value>时期 </value>
+  </data><data name="CalculationMode" xml:space="preserve">
+    <value>计算模式</value>
+  </data><data name="Width" xml:space="preserve">
+    <value>宽度</value>
+  </data><data name="SMA" xml:space="preserve">
+    <value>移动平均线</value>
+  </data><data name="EMA" xml:space="preserve">
+    <value>EMA</value>
+  </data>
+    <data name="UpperMajorLevel" xml:space="preserve">
+    <value>上主要</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="UpperMajorLevelDescription" xml:space="preserve">
+    <value>上方主要阈值。</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="UpperMinorLevel" xml:space="preserve">
+    <value>上次要</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="UpperMinorLevelDescription" xml:space="preserve">
+    <value>上方次要阈值。</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="LowerMinorLevel" xml:space="preserve">
+    <value>下次要</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="LowerMinorLevelDescription" xml:space="preserve">
+    <value>下方次要阈值。</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="LowerMajorLevel" xml:space="preserve">
+    <value>下主要</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="LowerMajorLevelDescription" xml:space="preserve">
+    <value>下方主要阈值。</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="PriceSignalOffsetTicksDescription" xml:space="preserve">
+    <value>价格标记的垂直偏移(跳)。</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="PriceSignalSizeDescription" xml:space="preserve">
+    <value>标记大小(像素)。</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="PriceSignalUpColor" xml:space="preserve">
+    <value>上涨颜色</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="PriceSignalUpColorDescription" xml:space="preserve">
+    <value>看涨价格标记颜色。</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="PriceSignalDownColor" xml:space="preserve">
+    <value>下跌颜色</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="PriceSignalDownColorDescription" xml:space="preserve">
+    <value>看跌价格标记颜色。</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="ShowVisualAlerts" xml:space="preserve">
+    <value>可视警报</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="ShowVisualAlertsDescription" xml:space="preserve">
+    <value>在价格图上显示阈值标记。</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="VisualUpThresholds" xml:space="preserve">
+    <value>可视 + 级别</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="VisualUpThresholdsDescription" xml:space="preserve">
+    <value>用于看涨可视警报的级别。</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="VisualDownThresholds" xml:space="preserve">
+    <value>可视 - 级别</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="VisualDownThresholdsDescription" xml:space="preserve">
+    <value>用于看跌可视警报的级别。</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="AudioAlerts" xml:space="preserve">
+    <value>声音警报</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="AudioAlertsDescription" xml:space="preserve">
+    <value>阈值突破时播放声音。</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="AudioUpThresholds" xml:space="preserve">
+    <value>音频 + 级别</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="AudioUpThresholdsDescription" xml:space="preserve">
+    <value>用于看涨声音警报的级别。</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="AudioDownThresholds" xml:space="preserve">
+    <value>音频 - 级别</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="AudioDownThresholdsDescription" xml:space="preserve">
+    <value>用于看跌声音警报的级别。</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="AudioAtBarCloseOnly" xml:space="preserve">
+    <value>仅收盘触发</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="AudioAtBarCloseOnlyDescription" xml:space="preserve">
+    <value>仅在K线收盘后触发声音。</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="ColorMode" xml:space="preserve">
+    <value>颜色模式</value>
+    <comment>UI</comment>
+  </data>
+  <data name="BaseColor" xml:space="preserve">
+    <value>基础颜色</value>
+    <comment>UI</comment>
+  </data>
+  <data name="SlopeUpColor" xml:space="preserve">
+    <value>上升斜率颜色</value>
+    <comment>UI</comment>
+  </data>
+  <data name="SlopeDownColor" xml:space="preserve">
+    <value>下降斜率颜色</value>
+    <comment>UI</comment>
+  </data>
+  <data name="Fixed" xml:space="preserve">
+    <value>固定</value>
+    <comment>UI</comment>
+  </data>
+  <data name="ZeroCross" xml:space="preserve">
+    <value>零轴穿越</value>
+    <comment>UI</comment>
+  </data>
+  <data name="Slope" xml:space="preserve">
+    <value>斜率</value>
+    <comment>UI</comment>
+  </data>
 </root>

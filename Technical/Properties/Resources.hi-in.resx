@@ -870,4 +870,171 @@
   <value>स्मार्ट मनी स्प्रेड</value>
   <comment>MultiMarketPower</comment>
 </data>
+<data name="Alerts" xml:space="preserve">
+    <value>चेतावनियाँ</value>
+  </data><data name="FontColor" xml:space="preserve">
+    <value>फ़ॉन्ट रंग</value>
+  </data><data name="Average" xml:space="preserve">
+    <value>औसत</value>
+  </data><data name="ShowAverage" xml:space="preserve">
+    <value>औसत दिखाएं</value>
+  </data><data name="Period" xml:space="preserve">
+    <value>अवधि</value>
+  </data><data name="CalculationMode" xml:space="preserve">
+    <value>गणना मोड</value>
+  </data><data name="Width" xml:space="preserve">
+    <value>चौड़ाई</value>
+  </data><data name="SMA" xml:space="preserve">
+    <value>सांघटिक औसत</value>
+  </data><data name="EMA" xml:space="preserve">
+    <value>गणनीय चलती औसत</value>
+  </data>
+    <data name="UpperMajorLevel" xml:space="preserve">
+    <value>ऊपरी मेजर</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="UpperMajorLevelDescription" xml:space="preserve">
+    <value>ऊपरी मेजर थ्रेशहोल्ड.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="UpperMinorLevel" xml:space="preserve">
+    <value>ऊपरी माइनर</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="UpperMinorLevelDescription" xml:space="preserve">
+    <value>ऊपरी माइनर थ्रेशहोल्ड.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="LowerMinorLevel" xml:space="preserve">
+    <value>निचला माइनर</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="LowerMinorLevelDescription" xml:space="preserve">
+    <value>निचला माइनर थ्रेशहोल्ड.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="LowerMajorLevel" xml:space="preserve">
+    <value>निचला मेजर</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="LowerMajorLevelDescription" xml:space="preserve">
+    <value>निचला मेजर थ्रेशहोल्ड.</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="PriceSignalOffsetTicksDescription" xml:space="preserve">
+    <value>वर्टिकल ऑफसेट (टिक्स).</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="PriceSignalSizeDescription" xml:space="preserve">
+    <value>मार्कर आकार (px).</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="PriceSignalUpColor" xml:space="preserve">
+    <value>अप रंग</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="PriceSignalUpColorDescription" xml:space="preserve">
+    <value>बुलिश मार्कर का रंग.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="PriceSignalDownColor" xml:space="preserve">
+    <value>डाउन रंग</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="PriceSignalDownColorDescription" xml:space="preserve">
+    <value>बेयरिश मार्कर का रंग.</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="ShowVisualAlerts" xml:space="preserve">
+    <value>विज़ुअल अलर्ट</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="ShowVisualAlertsDescription" xml:space="preserve">
+    <value>प्राइस पर मार्कर दिखाएँ.</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="VisualUpThresholds" xml:space="preserve">
+    <value>विज़ुअल + लेवल</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="VisualUpThresholdsDescription" xml:space="preserve">
+    <value>बुलिश विज़ुअल के लिए लेवल.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="VisualDownThresholds" xml:space="preserve">
+    <value>विज़ुअल - लेवल</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="VisualDownThresholdsDescription" xml:space="preserve">
+    <value>बेयरिश विज़ुअल के लिए लेवल.</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="AudioAlerts" xml:space="preserve">
+    <value>ऑडियो अलर्ट</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="AudioAlertsDescription" xml:space="preserve">
+    <value>थ्रेशहोल्ड क्रॉस पर साउंड.</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="AudioUpThresholds" xml:space="preserve">
+    <value>ऑडियो + लेवल</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="AudioUpThresholdsDescription" xml:space="preserve">
+    <value>बुलिश ऑडियो के लिए लेवल.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="AudioDownThresholds" xml:space="preserve">
+    <value>ऑडियो - लेवल</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="AudioDownThresholdsDescription" xml:space="preserve">
+    <value>बेयरिश ऑडियो के लिए लेवल.</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="AudioAtBarCloseOnly" xml:space="preserve">
+    <value>केवल क्लोज़ पर</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="AudioAtBarCloseOnlyDescription" xml:space="preserve">
+    <value>सिर्फ बार क्लोज़ के बाद.</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="ColorMode" xml:space="preserve">
+    <value>कलर मोड</value>
+    <comment>UI</comment>
+  </data>
+  <data name="BaseColor" xml:space="preserve">
+    <value>बेस रंग</value>
+    <comment>UI</comment>
+  </data>
+  <data name="SlopeUpColor" xml:space="preserve">
+    <value>स्लोप अप रंग</value>
+    <comment>UI</comment>
+  </data>
+  <data name="SlopeDownColor" xml:space="preserve">
+    <value>स्लोप डाउन रंग</value>
+    <comment>UI</comment>
+  </data>
+  <data name="Fixed" xml:space="preserve">
+    <value>स्थिर</value>
+    <comment>UI</comment>
+  </data>
+  <data name="ZeroCross" xml:space="preserve">
+    <value>ज़ीरो क्रॉस</value>
+    <comment>UI</comment>
+  </data>
+  <data name="Slope" xml:space="preserve">
+    <value>स्लोप</value>
+    <comment>UI</comment>
+  </data>
 </root>
