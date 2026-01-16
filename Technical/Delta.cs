@@ -1,5 +1,7 @@
 namespace ATAS.Indicators.Technical;
 
+using ATAS.Indicators.Technical.Properties;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -203,6 +205,75 @@ public class Delta : Indicator
 		UseMinimizedModeIfEnabled = true,
 		IgnoredByAlerts = true
 	};
+
+    #region Fields (fixed threshold lines)
+
+    private readonly ValueDataSeries _upMajor = new("UpMajor", "Up Major")
+    {
+        VisualType = VisualMode.Hide,
+        IsHidden = true,
+        ShowCurrentValue = false,
+        UseMinimizedModeIfEnabled = true,
+        IgnoredByAlerts = true,
+
+        // Default style (Major = solid)
+        Color = CrossColor.FromArgb(255, 169, 169, 169), // DarkGray
+        Width = 1,
+        LineDashStyle = LineDashStyle.Solid
+    };
+
+    private readonly ValueDataSeries _upMinor = new("UpMinor", "Up Minor")
+    {
+        VisualType = VisualMode.Hide,
+        IsHidden = true,
+        ShowCurrentValue = false,
+        UseMinimizedModeIfEnabled = true,
+        IgnoredByAlerts = true,
+
+        // Default style (Minor = dotted)
+        Color = CrossColor.FromArgb(255, 105, 105, 105), // DimGray
+        Width = 1,
+        LineDashStyle = LineDashStyle.Dot
+    };
+
+    private readonly ValueDataSeries _dnMinor = new("DnMinor", "Down Minor")
+    {
+        VisualType = VisualMode.Hide,
+        IsHidden = true,
+        ShowCurrentValue = false,
+        UseMinimizedModeIfEnabled = true,
+        IgnoredByAlerts = true,
+
+        // Default style (Minor = dotted)
+        Color = CrossColor.FromArgb(255, 105, 105, 105), // DimGray
+        Width = 1,
+        LineDashStyle = LineDashStyle.Dot
+    };
+
+    private readonly ValueDataSeries _dnMajor = new("DnMajor", "Down Major")
+    {
+        VisualType = VisualMode.Hide,
+        IsHidden = true,
+        ShowCurrentValue = false,
+        UseMinimizedModeIfEnabled = true,
+        IgnoredByAlerts = true,
+
+        // Default style (Major = solid)
+        Color = CrossColor.FromArgb(255, 169, 169, 169), // DarkGray
+        Width = 1,
+        LineDashStyle = LineDashStyle.Solid
+    };
+
+    private bool _showThresholdLines = true;
+
+    // Defaults
+    private int _upMajorLevel = 300;
+    private int _upMinorLevel = 200;
+    private int _downMinorLevel = -200;
+    private int _downMajorLevel = -300;
+
+    #endregion
+
 
     #endregion
 
@@ -414,6 +485,95 @@ public class Delta : Indicator
 
     #endregion
 
+    #region Threshold lines (fixed)
+
+    [Display(Name = "Show threshold lines", Description = "Show horizontal threshold lines in the Delta panel.",
+        GroupName = "Thresholds", Order = 145)]
+	[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+    public bool ShowThresholdLines
+    {
+        get => _showThresholdLines;
+        set
+        {
+            if (_showThresholdLines == value)
+                return;
+
+            _showThresholdLines = value;
+
+            UpdateThresholdLinesVisibility(repaint: true);
+        }
+    }
+
+    [Display(Name = "Fixed major", Description = "Fixed major threshold value.",
+        GroupName = "Fixed Threshold", Order = 150)]
+    [Range(0, int.MaxValue)]
+	[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+    public int UpMajorLevel
+    {
+        get => _upMajorLevel;
+        set
+        {
+            if (_upMajorLevel == value)
+                return;
+
+            _upMajorLevel = value;
+            RecalculateValues();
+        }
+    }
+
+    [Display(Name = "Fixed minor", Description = "Fixed minor threshold value.",
+        GroupName = "Fixed Threshold", Order = 160)]
+    [Range(0, int.MaxValue)]
+	[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+    public int UpMinorLevel
+    {
+        get => _upMinorLevel;
+        set
+        {
+            if (_upMinorLevel == value)
+                return;
+
+            _upMinorLevel = value;
+            RecalculateValues();
+        }
+    }
+
+    [Display(Name = "Fixed minor", Description = "Fixed minor threshold value.",
+        GroupName = "Fixed Threshold", Order = 170)]
+    [Range(int.MinValue, 0)]
+	[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+    public int DownMinorLevel
+    {
+        get => _downMinorLevel;
+        set
+        {
+            if (_downMinorLevel == value)
+                return;
+
+            _downMinorLevel = value;
+            RecalculateValues();
+        }
+    }
+
+    [Display(Name = "Fixed major", Description = "Fixed major threshold value.",
+        GroupName = "Fixed Threshold", Order = 180)]
+    [Range(int.MinValue, 0)]
+	[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+    public int DownMajorLevel
+    {
+        get => _downMajorLevel;
+        set
+        {
+            if (_downMajorLevel == value)
+                return;
+
+            _downMajorLevel = value;
+            RecalculateValues();
+        }
+    }
+
+    #endregion
+
     #region Absorption
 
     private readonly CandleDataSeries _absorptionCandles = new("AbsorptionDotsCandles", "Absorption Dots")
@@ -591,7 +751,15 @@ public class Delta : Indicator
 
 		DataSeries.Add(_absorptionCandles);
 
-		UpAlert.PropertyChanged += (sender, e) => _lastBarAlert = 0;
+        // fixed threshold lines
+        DataSeries.Add(_upMajor);
+        DataSeries.Add(_upMinor);
+        DataSeries.Add(_dnMinor);
+        DataSeries.Add(_dnMajor);
+
+        UpdateThresholdLinesVisibility(repaint: false);
+
+        UpAlert.PropertyChanged += (sender, e) => _lastBarAlert = 0;
 		DownAlert.PropertyChanged += (sender, e) => _lastBarNegativeAlert = 0;
 		_divergenceBarsFilter.PropertyChanged += OnDivergenceFilterChanged;
 		_absorption.PropertyChanged += OnAbsorptionFilterChanged;
@@ -909,7 +1077,13 @@ public class Delta : Indicator
 
 		_prevDeltaValue = deltaValue;
 
-		if (Absorption.Enabled)
+        // --- Fixed threshold lines (panel) ---
+        _upMajor[bar] = _upMajorLevel;
+        _upMinor[bar] = _upMinorLevel;
+        _dnMinor[bar] = _downMinorLevel;
+        _dnMajor[bar] = _downMajorLevel;
+
+        if (Absorption.Enabled)
 		{
 			decimal deltaOpen, deltaClose, deltaHigh, deltaLow;
 
@@ -1019,11 +1193,24 @@ public class Delta : Indicator
 		return context.MeasureString(sampleStr, Font.RenderObject).Width;
 	}
 
-	#endregion
+    private void UpdateThresholdLinesVisibility(bool repaint)
+    {
+        var vis = _showThresholdLines ? VisualMode.Line : VisualMode.Hide;
 
-	#region Event handlers
+        _upMajor.VisualType = vis;
+        _upMinor.VisualType = vis;
+        _dnMinor.VisualType = vis;
+        _dnMajor.VisualType = vis;
 
-	private void OnDivergenceFilterChanged(object sender, PropertyChangedEventArgs e)
+        if (repaint)
+            RedrawChart();
+    }
+
+    #endregion
+
+    #region Event handlers
+
+    private void OnDivergenceFilterChanged(object sender, PropertyChangedEventArgs e)
 	{
 		if (e.PropertyName == nameof(Indicators.FilterColor.Enabled))
 			ApplyDivergenceColorsToCurrentMode();
