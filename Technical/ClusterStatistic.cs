@@ -239,10 +239,34 @@ public class ClusterStatistic : Indicator
 	private int _height = 15;
 
 	private int _lastBar = -1;
+	private int _lastAskAlert;
+	private decimal _lastAskValue;
+	private int _lastBidAlert;
+	private decimal _lastBidValue;
 	private int _lastDeltaAlert;
 	private decimal _lastDeltaValue;
+	private int _lastDeltaPerVolumeAlert;
+	private decimal _lastDeltaPerVolumeValue;
+	private int _lastSessionDeltaAlert;
+	private decimal _lastSessionDeltaValue;
+	private int _lastSessionDeltaPerVolumeAlert;
+	private decimal _lastSessionDeltaPerVolumeValue;
+	private int _lastMaxDeltaAlert;
+	private decimal _lastMaxDeltaValue;
+	private int _lastMinDeltaAlert;
+	private decimal _lastMinDeltaValue;
+	private int _lastDeltaChangeAlert;
+	private decimal _lastDeltaChangeValue;
 	private int _lastVolumeAlert;
 	private decimal _lastVolumeValue;
+	private int _lastVolumePerSecondAlert;
+	private decimal _lastVolumePerSecondValue;
+	private int _lastSessionVolumeAlert;
+	private decimal _lastSessionVolumeValue;
+	private int _lastTradesAlert;
+	private decimal _lastTradesValue;
+	private int _lastHeightAlert;
+	private decimal _lastHeightValue;
 
 	private RenderPen _linePen = new(System.Drawing.Color.Transparent);
 	private decimal _maxAsk;
@@ -621,6 +645,206 @@ public class ClusterStatistic : Indicator
 
     #endregion
 
+    #region Ask Alert
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.AskAlert),
+        Description = nameof(Strings.UseAlertDescription), Order = 600)]
+    public bool UseAskAlert { get; set; }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.AskAlert),
+        Description = nameof(Strings.AlertFilterDescription), Order = 610)]
+    [Range(0, int.MaxValue)]
+    public decimal AskAlertValue { get; set; }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.AskAlert),
+        Description = nameof(Strings.AlertFileDescription), Order = 620)]
+    public string AskAlertFile { get; set; } = "alert1";
+
+    #endregion
+
+    #region Bid Alert
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.BidAlert),
+        Description = nameof(Strings.UseAlertDescription), Order = 700)]
+    public bool UseBidAlert { get; set; }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.BidAlert),
+        Description = nameof(Strings.AlertFilterDescription), Order = 710)]
+    [Range(0, int.MaxValue)]
+    public decimal BidAlertValue { get; set; }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.BidAlert),
+        Description = nameof(Strings.AlertFileDescription), Order = 720)]
+    public string BidAlertFile { get; set; } = "alert1";
+
+    #endregion
+
+    #region Delta Per Volume Alert
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.DeltaPerVolumeAlert),
+        Description = nameof(Strings.UseAlertDescription), Order = 800)]
+    public bool UseDeltaPerVolumeAlert { get; set; }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.DeltaPerVolumeAlert),
+        Description = nameof(Strings.AlertFilterDescription), Order = 810)]
+    [Range(0, 100)]
+    public decimal DeltaPerVolumeAlertValue { get; set; }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.DeltaPerVolumeAlert),
+        Description = nameof(Strings.AlertFileDescription), Order = 820)]
+    public string DeltaPerVolumeAlertFile { get; set; } = "alert1";
+
+    #endregion
+
+    #region Session Delta Alert
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.SessionDeltaAlert),
+        Description = nameof(Strings.UseAlertDescription), Order = 900)]
+    public bool UseSessionDeltaAlert { get; set; }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.SessionDeltaAlert),
+        Description = nameof(Strings.AlertFilterDescription), Order = 910)]
+    public decimal SessionDeltaAlertValue { get; set; }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.SessionDeltaAlert),
+        Description = nameof(Strings.AlertFileDescription), Order = 920)]
+    public string SessionDeltaAlertFile { get; set; } = "alert1";
+
+    #endregion
+
+    #region Session Delta Per Volume Alert
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.SessionDeltaPerVolumeAlert),
+        Description = nameof(Strings.UseAlertDescription), Order = 1000)]
+    public bool UseSessionDeltaPerVolumeAlert { get; set; }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.SessionDeltaPerVolumeAlert),
+        Description = nameof(Strings.AlertFilterDescription), Order = 1010)]
+    [Range(0, 100)]
+    public decimal SessionDeltaPerVolumeAlertValue { get; set; }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.SessionDeltaPerVolumeAlert),
+        Description = nameof(Strings.AlertFileDescription), Order = 1020)]
+    public string SessionDeltaPerVolumeAlertFile { get; set; } = "alert1";
+
+    #endregion
+
+    #region Max Delta Alert
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.MaxDeltaAlert),
+        Description = nameof(Strings.UseAlertDescription), Order = 1100)]
+    public bool UseMaxDeltaAlert { get; set; }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.MaxDeltaAlert),
+        Description = nameof(Strings.AlertFilterDescription), Order = 1110)]
+    public decimal MaxDeltaAlertValue { get; set; }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.MaxDeltaAlert),
+        Description = nameof(Strings.AlertFileDescription), Order = 1120)]
+    public string MaxDeltaAlertFile { get; set; } = "alert1";
+
+    #endregion
+
+    #region Min Delta Alert
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.MinDeltaAlert),
+        Description = nameof(Strings.UseAlertDescription), Order = 1200)]
+    public bool UseMinDeltaAlert { get; set; }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.MinDeltaAlert),
+        Description = nameof(Strings.AlertFilterDescription), Order = 1210)]
+    public decimal MinDeltaAlertValue { get; set; }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.MinDeltaAlert),
+        Description = nameof(Strings.AlertFileDescription), Order = 1220)]
+    public string MinDeltaAlertFile { get; set; } = "alert1";
+
+    #endregion
+
+    #region Delta Change Alert
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.DeltaChangeAlert),
+        Description = nameof(Strings.UseAlertDescription), Order = 1300)]
+    public bool UseDeltaChangeAlert { get; set; }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.DeltaChangeAlert),
+        Description = nameof(Strings.AlertFilterDescription), Order = 1310)]
+    public decimal DeltaChangeAlertValue { get; set; }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.DeltaChangeAlert),
+        Description = nameof(Strings.AlertFileDescription), Order = 1320)]
+    public string DeltaChangeAlertFile { get; set; } = "alert1";
+
+    #endregion
+
+    #region Volume Per Second Alert
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.VolumePerSecondAlert),
+        Description = nameof(Strings.UseAlertDescription), Order = 1400)]
+    public bool UseVolumePerSecondAlert { get; set; }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.VolumePerSecondAlert),
+        Description = nameof(Strings.AlertFilterDescription), Order = 1410)]
+    [Range(0, int.MaxValue)]
+    public decimal VolumePerSecondAlertValue { get; set; }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.VolumePerSecondAlert),
+        Description = nameof(Strings.AlertFileDescription), Order = 1420)]
+    public string VolumePerSecondAlertFile { get; set; } = "alert1";
+
+    #endregion
+
+    #region Session Volume Alert
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.SessionVolumeAlert),
+        Description = nameof(Strings.UseAlertDescription), Order = 1500)]
+    public bool UseSessionVolumeAlert { get; set; }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.SessionVolumeAlert),
+        Description = nameof(Strings.AlertFilterDescription), Order = 1510)]
+    [Range(0, int.MaxValue)]
+    public decimal SessionVolumeAlertValue { get; set; }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.SessionVolumeAlert),
+        Description = nameof(Strings.AlertFileDescription), Order = 1520)]
+    public string SessionVolumeAlertFile { get; set; } = "alert1";
+
+    #endregion
+
+    #region Trades Alert
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.TradesAlert),
+        Description = nameof(Strings.UseAlertDescription), Order = 1600)]
+    public bool UseTradesAlert { get; set; }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.TradesAlert),
+        Description = nameof(Strings.AlertFilterDescription), Order = 1610)]
+    [Range(0, int.MaxValue)]
+    public decimal TradesAlertValue { get; set; }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.TradesAlert),
+        Description = nameof(Strings.AlertFileDescription), Order = 1620)]
+    public string TradesAlertFile { get; set; } = "alert1";
+
+    #endregion
+
+    #region Height Alert
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.HeightAlert),
+        Description = nameof(Strings.UseAlertDescription), Order = 1700)]
+    public bool UseHeightAlert { get; set; }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.HeightAlert),
+        Description = nameof(Strings.AlertFilterDescription), Order = 1710)]
+    [Range(0, int.MaxValue)]
+    public decimal HeightAlertValue { get; set; }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.HeightAlert),
+        Description = nameof(Strings.AlertFileDescription), Order = 1720)]
+    public string HeightAlertFile { get; set; } = "alert1";
+
+    #endregion
+
     #endregion
 
     #region ctor
@@ -824,10 +1048,48 @@ public class ClusterStatistic : Indicator
 		_maxSessionDeltaPerVolume = Math.Max(Math.Abs(_cDeltaPerVol[bar]), _maxSessionDeltaPerVolume);
 
 		if (_lastBar != bar)
-			_lastVolumeValue = _lastDeltaValue = 0m;
+		{
+			_lastAskValue = 0m;
+			_lastBidValue = 0m;
+			_lastDeltaValue = 0m;
+			_lastDeltaPerVolumeValue = 0m;
+			_lastSessionDeltaValue = 0m;
+			_lastSessionDeltaPerVolumeValue = 0m;
+			_lastMaxDeltaValue = 0m;
+			_lastMinDeltaValue = 0m;
+			_lastDeltaChangeValue = 0m;
+			_lastVolumeValue = 0m;
+			_lastVolumePerSecondValue = 0m;
+			_lastSessionVolumeValue = 0m;
+			_lastTradesValue = 0m;
+			_lastHeightValue = 0m;
+		}
+
+		var deltaChange = candle.Delta - prevCandle.Delta;
 
 		if (bar == CurrentBar - 1)
 		{
+			// Ask Alert (exceeding)
+			if (UseAskAlert && _lastAskAlert != bar)
+			{
+				if (_lastAskValue < AskAlertValue && candle.Ask >= AskAlertValue)
+				{
+					AddAlert(AskAlertFile, $"Cluster statistic ask alert: {candle.Ask}");
+					_lastAskAlert = bar;
+				}
+			}
+
+			// Bid Alert (exceeding)
+			if (UseBidAlert && _lastBidAlert != bar)
+			{
+				if (_lastBidValue < BidAlertValue && candle.Bid >= BidAlertValue)
+				{
+					AddAlert(BidAlertFile, $"Cluster statistic bid alert: {candle.Bid}");
+					_lastBidAlert = bar;
+				}
+			}
+
+			// Delta Alert (crossing)
 			if (UseDeltaAlert && _lastDeltaAlert != bar)
 			{
 				if ((_lastDeltaValue < DeltaAlertValue && candle.Delta >= DeltaAlertValue)
@@ -838,6 +1100,76 @@ public class ClusterStatistic : Indicator
 				}
 			}
 
+			// Delta Per Volume Alert (crossing)
+			if (UseDeltaPerVolumeAlert && _lastDeltaPerVolumeAlert != bar)
+			{
+				var deltaPerVol = _deltaPerVol[bar];
+				if ((_lastDeltaPerVolumeValue < DeltaPerVolumeAlertValue && deltaPerVol >= DeltaPerVolumeAlertValue)
+				    || (_lastDeltaPerVolumeValue > DeltaPerVolumeAlertValue && deltaPerVol <= DeltaPerVolumeAlertValue))
+				{
+					AddAlert(DeltaPerVolumeAlertFile, $"Cluster statistic delta/volume alert: {deltaPerVol:F2}%");
+					_lastDeltaPerVolumeAlert = bar;
+				}
+			}
+
+			// Session Delta Alert (crossing)
+			if (UseSessionDeltaAlert && _lastSessionDeltaAlert != bar)
+			{
+				var sessionDelta = _cDelta[bar];
+				if ((_lastSessionDeltaValue < SessionDeltaAlertValue && sessionDelta >= SessionDeltaAlertValue)
+				    || (_lastSessionDeltaValue > SessionDeltaAlertValue && sessionDelta <= SessionDeltaAlertValue))
+				{
+					AddAlert(SessionDeltaAlertFile, $"Cluster statistic session delta alert: {sessionDelta}");
+					_lastSessionDeltaAlert = bar;
+				}
+			}
+
+			// Session Delta Per Volume Alert (crossing)
+			if (UseSessionDeltaPerVolumeAlert && _lastSessionDeltaPerVolumeAlert != bar)
+			{
+				var sessionDeltaPerVol = _cDeltaPerVol[bar];
+				if ((_lastSessionDeltaPerVolumeValue < SessionDeltaPerVolumeAlertValue && sessionDeltaPerVol >= SessionDeltaPerVolumeAlertValue)
+				    || (_lastSessionDeltaPerVolumeValue > SessionDeltaPerVolumeAlertValue && sessionDeltaPerVol <= SessionDeltaPerVolumeAlertValue))
+				{
+					AddAlert(SessionDeltaPerVolumeAlertFile, $"Cluster statistic session delta/volume alert: {sessionDeltaPerVol:F2}%");
+					_lastSessionDeltaPerVolumeAlert = bar;
+				}
+			}
+
+			// Max Delta Alert (crossing)
+			if (UseMaxDeltaAlert && _lastMaxDeltaAlert != bar)
+			{
+				if ((_lastMaxDeltaValue < MaxDeltaAlertValue && candle.MaxDelta >= MaxDeltaAlertValue)
+				    || (_lastMaxDeltaValue > MaxDeltaAlertValue && candle.MaxDelta <= MaxDeltaAlertValue))
+				{
+					AddAlert(MaxDeltaAlertFile, $"Cluster statistic max delta alert: {candle.MaxDelta}");
+					_lastMaxDeltaAlert = bar;
+				}
+			}
+
+			// Min Delta Alert (crossing)
+			if (UseMinDeltaAlert && _lastMinDeltaAlert != bar)
+			{
+				if ((_lastMinDeltaValue < MinDeltaAlertValue && candle.MinDelta >= MinDeltaAlertValue)
+				    || (_lastMinDeltaValue > MinDeltaAlertValue && candle.MinDelta <= MinDeltaAlertValue))
+				{
+					AddAlert(MinDeltaAlertFile, $"Cluster statistic min delta alert: {candle.MinDelta}");
+					_lastMinDeltaAlert = bar;
+				}
+			}
+
+			// Delta Change Alert (crossing)
+			if (UseDeltaChangeAlert && _lastDeltaChangeAlert != bar)
+			{
+				if ((_lastDeltaChangeValue < DeltaChangeAlertValue && deltaChange >= DeltaChangeAlertValue)
+				    || (_lastDeltaChangeValue > DeltaChangeAlertValue && deltaChange <= DeltaChangeAlertValue))
+				{
+					AddAlert(DeltaChangeAlertFile, $"Cluster statistic delta change alert: {deltaChange}");
+					_lastDeltaChangeAlert = bar;
+				}
+			}
+
+			// Volume Alert (exceeding)
 			if (UseVolumeAlert && _lastVolumeAlert != bar)
 			{
 				if (_lastVolumeValue < VolumeAlertValue && candle.Volume >= VolumeAlertValue)
@@ -846,10 +1178,66 @@ public class ClusterStatistic : Indicator
 					_lastVolumeAlert = bar;
 				}
 			}
+
+			// Volume Per Second Alert (exceeding)
+			if (UseVolumePerSecondAlert && _lastVolumePerSecondAlert != bar)
+			{
+				var volPerSec = _volPerSecond[bar];
+				if (_lastVolumePerSecondValue < VolumePerSecondAlertValue && volPerSec >= VolumePerSecondAlertValue)
+				{
+					AddAlert(VolumePerSecondAlertFile, $"Cluster statistic volume/sec alert: {volPerSec:F2}");
+					_lastVolumePerSecondAlert = bar;
+				}
+			}
+
+			// Session Volume Alert (exceeding)
+			if (UseSessionVolumeAlert && _lastSessionVolumeAlert != bar)
+			{
+				var sessionVol = _cVolume[bar];
+				if (_lastSessionVolumeValue < SessionVolumeAlertValue && sessionVol >= SessionVolumeAlertValue)
+				{
+					AddAlert(SessionVolumeAlertFile, $"Cluster statistic session volume alert: {sessionVol}");
+					_lastSessionVolumeAlert = bar;
+				}
+			}
+
+			// Trades Alert (exceeding)
+			if (UseTradesAlert && _lastTradesAlert != bar)
+			{
+				if (_lastTradesValue < TradesAlertValue && candle.Ticks >= TradesAlertValue)
+				{
+					AddAlert(TradesAlertFile, $"Cluster statistic trades alert: {candle.Ticks}");
+					_lastTradesAlert = bar;
+				}
+			}
+
+			// Height Alert (exceeding)
+			if (UseHeightAlert && _lastHeightAlert != bar)
+			{
+				var height = _candleHeights[bar];
+				if (_lastHeightValue < HeightAlertValue && height >= HeightAlertValue)
+				{
+					AddAlert(HeightAlertFile, $"Cluster statistic height alert: {height}");
+					_lastHeightAlert = bar;
+				}
+			}
 		}
 
-		_lastVolumeValue = candle.Volume;
+		// Update last values for next comparison
+		_lastAskValue = candle.Ask;
+		_lastBidValue = candle.Bid;
 		_lastDeltaValue = candle.Delta;
+		_lastDeltaPerVolumeValue = _deltaPerVol[bar];
+		_lastSessionDeltaValue = _cDelta[bar];
+		_lastSessionDeltaPerVolumeValue = _cDeltaPerVol[bar];
+		_lastMaxDeltaValue = candle.MaxDelta;
+		_lastMinDeltaValue = candle.MinDelta;
+		_lastDeltaChangeValue = deltaChange;
+		_lastVolumeValue = candle.Volume;
+		_lastVolumePerSecondValue = _volPerSecond[bar];
+		_lastSessionVolumeValue = _cVolume[bar];
+		_lastTradesValue = candle.Ticks;
+		_lastHeightValue = _candleHeights[bar];
 		_lastBar = bar;
 	}
 
