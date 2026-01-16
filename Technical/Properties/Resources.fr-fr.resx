@@ -874,4 +874,171 @@
     <value>Spread Smart Money</value>
     <comment>MultiMarketPower</comment>
   </data>
+<data name="Alerts" xml:space="preserve">
+    <value>Alertes</value>
+  </data><data name="FontColor" xml:space="preserve">
+    <value>Couleur du texte</value>
+  </data><data name="Average" xml:space="preserve">
+    <value>Moyenne</value>
+  </data><data name="ShowAverage" xml:space="preserve">
+    <value>Afficher la moyenne mobile</value>
+  </data><data name="Period" xml:space="preserve">
+    <value>Période</value>
+  </data><data name="CalculationMode" xml:space="preserve">
+    <value>Mode de calcul</value>
+  </data><data name="Width" xml:space="preserve">
+    <value>Largeur</value>
+  </data><data name="SMA" xml:space="preserve">
+    <value>Moyenne mobile</value>
+  </data><data name="EMA" xml:space="preserve">
+    <value>Moyenne mobile exponentielle</value>
+  </data>
+    <data name="UpperMajorLevel" xml:space="preserve">
+    <value>Majeur haut</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="UpperMajorLevelDescription" xml:space="preserve">
+    <value>Seuil majeur supérieur.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="UpperMinorLevel" xml:space="preserve">
+    <value>Mineur haut</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="UpperMinorLevelDescription" xml:space="preserve">
+    <value>Seuil mineur supérieur.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="LowerMinorLevel" xml:space="preserve">
+    <value>Mineur bas</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="LowerMinorLevelDescription" xml:space="preserve">
+    <value>Seuil mineur inférieur.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="LowerMajorLevel" xml:space="preserve">
+    <value>Majeur bas</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="LowerMajorLevelDescription" xml:space="preserve">
+    <value>Seuil majeur inférieur.</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="PriceSignalOffsetTicksDescription" xml:space="preserve">
+    <value>Décalage vertical en ticks.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="PriceSignalSizeDescription" xml:space="preserve">
+    <value>Taille du marqueur (px).</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="PriceSignalUpColor" xml:space="preserve">
+    <value>Couleur haussière</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="PriceSignalUpColorDescription" xml:space="preserve">
+    <value>Couleur des marqueurs haussiers.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="PriceSignalDownColor" xml:space="preserve">
+    <value>Couleur baissière</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="PriceSignalDownColorDescription" xml:space="preserve">
+    <value>Couleur des marqueurs baissiers.</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="ShowVisualAlerts" xml:space="preserve">
+    <value>Alertes visuelles</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="ShowVisualAlertsDescription" xml:space="preserve">
+    <value>Affiche des marqueurs sur le prix.</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="VisualUpThresholds" xml:space="preserve">
+    <value>Niveau visuel +</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="VisualUpThresholdsDescription" xml:space="preserve">
+    <value>Niveau pour visuels haussiers.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="VisualDownThresholds" xml:space="preserve">
+    <value>Niveau visuel -</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="VisualDownThresholdsDescription" xml:space="preserve">
+    <value>Niveau pour visuels baissiers.</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="AudioAlerts" xml:space="preserve">
+    <value>Alertes audio</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="AudioAlertsDescription" xml:space="preserve">
+    <value>Son lors du franchissement des seuils.</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="AudioUpThresholds" xml:space="preserve">
+    <value>Niveau audio +</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="AudioUpThresholdsDescription" xml:space="preserve">
+    <value>Niveau pour audio haussier.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="AudioDownThresholds" xml:space="preserve">
+    <value>Niveau audio -</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="AudioDownThresholdsDescription" xml:space="preserve">
+    <value>Niveau pour audio baissier.</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="AudioAtBarCloseOnly" xml:space="preserve">
+    <value>Audio à la clôture</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="AudioAtBarCloseOnlyDescription" xml:space="preserve">
+    <value>Audio seulement après clôture.</value>
+    <comment>Delta</comment>
+  </data>
+
+  <data name="ColorMode" xml:space="preserve">
+    <value>Mode couleur</value>
+    <comment>UI</comment>
+  </data>
+  <data name="BaseColor" xml:space="preserve">
+    <value>Couleur de base</value>
+    <comment>UI</comment>
+  </data>
+  <data name="SlopeUpColor" xml:space="preserve">
+    <value>Couleur pente +</value>
+    <comment>UI</comment>
+  </data>
+  <data name="SlopeDownColor" xml:space="preserve">
+    <value>Couleur pente -</value>
+    <comment>UI</comment>
+  </data>
+  <data name="Fixed" xml:space="preserve">
+    <value>Fixe</value>
+    <comment>UI</comment>
+  </data>
+  <data name="ZeroCross" xml:space="preserve">
+    <value>Passage zéro</value>
+    <comment>UI</comment>
+  </data>
+  <data name="Slope" xml:space="preserve">
+    <value>Pente</value>
+    <comment>UI</comment>
+  </data>
 </root>

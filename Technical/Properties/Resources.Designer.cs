@@ -421,6 +421,78 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Audio alerts.
+        /// </summary>
+        public static string AudioAlerts {
+            get {
+                return ResourceManager.GetString("AudioAlerts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Play sound when thresholds are crossed..
+        /// </summary>
+        public static string AudioAlertsDescription {
+            get {
+                return ResourceManager.GetString("AudioAlertsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Audio at bar close.
+        /// </summary>
+        public static string AudioAtBarCloseOnly {
+            get {
+                return ResourceManager.GetString("AudioAtBarCloseOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Trigger audio alerts only after the bar closes..
+        /// </summary>
+        public static string AudioAtBarCloseOnlyDescription {
+            get {
+                return ResourceManager.GetString("AudioAtBarCloseOnlyDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Audio down level.
+        /// </summary>
+        public static string AudioDownThresholds {
+            get {
+                return ResourceManager.GetString("AudioDownThresholds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Threshold level used for bearish audio alerts..
+        /// </summary>
+        public static string AudioDownThresholdsDescription {
+            get {
+                return ResourceManager.GetString("AudioDownThresholdsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Audio up level.
+        /// </summary>
+        public static string AudioUpThresholds {
+            get {
+                return ResourceManager.GetString("AudioUpThresholds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Threshold level used for bullish audio alerts..
+        /// </summary>
+        public static string AudioUpThresholdsDescription {
+            get {
+                return ResourceManager.GetString("AudioUpThresholdsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Author.
         /// </summary>
         public static string Author {
@@ -615,6 +687,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string BarsRangeDescription {
             get {
                 return ResourceManager.GetString("BarsRangeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Base color.
+        /// </summary>
+        public static string BaseColor {
+            get {
+                return ResourceManager.GetString("BaseColor", resourceCulture);
             }
         }
         
@@ -1281,6 +1362,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string ColorMinus80 {
             get {
                 return ResourceManager.GetString("ColorMinus80", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Color mode.
+        /// </summary>
+        public static string ColorMode {
+            get {
+                return ResourceManager.GetString("ColorMode", resourceCulture);
             }
         }
         
@@ -2307,6 +2397,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string FirstLine {
             get {
                 return ResourceManager.GetString("FirstLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fixed.
+        /// </summary>
+        public static string Fixed {
+            get {
+                return ResourceManager.GetString("Fixed", resourceCulture);
             }
         }
         
@@ -3387,6 +3486,42 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string LowerFill2 {
             get {
                 return ResourceManager.GetString("LowerFill2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Lower major.
+        /// </summary>
+        public static string LowerMajorLevel {
+            get {
+                return ResourceManager.GetString("LowerMajorLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Lower major threshold..
+        /// </summary>
+        public static string LowerMajorLevelDescription {
+            get {
+                return ResourceManager.GetString("LowerMajorLevelDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Lower minor.
+        /// </summary>
+        public static string LowerMinorLevel {
+            get {
+                return ResourceManager.GetString("LowerMinorLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Lower minor threshold..
+        /// </summary>
+        public static string LowerMinorLevelDescription {
+            get {
+                return ResourceManager.GetString("LowerMinorLevelDescription", resourceCulture);
             }
         }
         
@@ -5020,6 +5155,60 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Down marker color.
+        /// </summary>
+        public static string PriceSignalDownColor {
+            get {
+                return ResourceManager.GetString("PriceSignalDownColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Color of bearish price markers..
+        /// </summary>
+        public static string PriceSignalDownColorDescription {
+            get {
+                return ResourceManager.GetString("PriceSignalDownColorDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Vertical offset for price markers, in ticks..
+        /// </summary>
+        public static string PriceSignalOffsetTicksDescription {
+            get {
+                return ResourceManager.GetString("PriceSignalOffsetTicksDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Marker size in pixels..
+        /// </summary>
+        public static string PriceSignalSizeDescription {
+            get {
+                return ResourceManager.GetString("PriceSignalSizeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Up marker color.
+        /// </summary>
+        public static string PriceSignalUpColor {
+            get {
+                return ResourceManager.GetString("PriceSignalUpColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Color of bullish price markers..
+        /// </summary>
+        public static string PriceSignalUpColorDescription {
+            get {
+                return ResourceManager.GetString("PriceSignalUpColorDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Print Line For X Bars.
         /// </summary>
         public static string PrintLineForXBars {
@@ -6298,6 +6487,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Visual alerts.
+        /// </summary>
+        public static string ShowVisualAlerts {
+            get {
+                return ResourceManager.GetString("ShowVisualAlerts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show threshold markers on the price chart..
+        /// </summary>
+        public static string ShowVisualAlertsDescription {
+            get {
+                return ResourceManager.GetString("ShowVisualAlertsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Show Volume.
         /// </summary>
         public static string ShowVolume {
@@ -6411,6 +6618,33 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string Size {
             get {
                 return ResourceManager.GetString("Size", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Slope.
+        /// </summary>
+        public static string Slope {
+            get {
+                return ResourceManager.GetString("Slope", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Slope down color.
+        /// </summary>
+        public static string SlopeDownColor {
+            get {
+                return ResourceManager.GetString("SlopeDownColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Slope up color.
+        /// </summary>
+        public static string SlopeUpColor {
+            get {
+                return ResourceManager.GetString("SlopeUpColor", resourceCulture);
             }
         }
         
@@ -7216,6 +7450,42 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Upper major.
+        /// </summary>
+        public static string UpperMajorLevel {
+            get {
+                return ResourceManager.GetString("UpperMajorLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Upper major threshold..
+        /// </summary>
+        public static string UpperMajorLevelDescription {
+            get {
+                return ResourceManager.GetString("UpperMajorLevelDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Upper minor.
+        /// </summary>
+        public static string UpperMinorLevel {
+            get {
+                return ResourceManager.GetString("UpperMinorLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Upper minor threshold..
+        /// </summary>
+        public static string UpperMinorLevelDescription {
+            get {
+                return ResourceManager.GetString("UpperMinorLevelDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Upper Deviation 1.
         /// </summary>
         public static string UpperStd1 {
@@ -7450,6 +7720,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Visual down level.
+        /// </summary>
+        public static string VisualDownThresholds {
+            get {
+                return ResourceManager.GetString("VisualDownThresholds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Threshold level used for bearish visual alerts..
+        /// </summary>
+        public static string VisualDownThresholdsDescription {
+            get {
+                return ResourceManager.GetString("VisualDownThresholdsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Visualization.
         /// </summary>
         public static string Visualization {
@@ -7554,6 +7842,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string VisualSemanticPreset {
             get {
                 return ResourceManager.GetString("VisualSemanticPreset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Visual up level.
+        /// </summary>
+        public static string VisualUpThresholds {
+            get {
+                return ResourceManager.GetString("VisualUpThresholds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Threshold level used for bullish visual alerts..
+        /// </summary>
+        public static string VisualUpThresholdsDescription {
+            get {
+                return ResourceManager.GetString("VisualUpThresholdsDescription", resourceCulture);
             }
         }
         
@@ -7743,6 +8049,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string WWMA {
             get {
                 return ResourceManager.GetString("WWMA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Zero cross.
+        /// </summary>
+        public static string ZeroCross {
+            get {
+                return ResourceManager.GetString("ZeroCross", resourceCulture);
             }
         }
         
