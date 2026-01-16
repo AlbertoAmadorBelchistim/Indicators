@@ -371,6 +371,19 @@ public class Delta : Indicator
 
 	#endregion
 
+	#region Fields (audio alerts)
+
+	private bool _audioEnabled = false;
+	private bool _audioAtBarCloseOnly = true;
+
+	private ThresholdLevel _audioUpLevel = ThresholdLevel.Major;
+	private ThresholdLevel _audioDownLevel = ThresholdLevel.Major;
+
+	private int _lastBarAudioUpAlert;
+	private int _lastBarAudioDownAlert;
+
+	#endregion
+
 	#endregion
 
 	#region Properties
@@ -945,6 +958,69 @@ public class Delta : Indicator
 
 	#region Alerts
 
+	#region Audio alerts
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.AudioAlerts), Description = nameof(Resources.AudioAlertsDescription),
+		GroupName = nameof(Resources.Alerts), Order = 301)]
+	public bool AudioEnabled
+	{
+		get => _audioEnabled;
+		set
+		{
+			if (_audioEnabled == value)
+				return;
+
+			_audioEnabled = value;
+			RedrawChart();
+		}
+	}
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.AudioUpThresholds), Description = nameof(Resources.AudioUpThresholdsDescription),
+		GroupName = nameof(Resources.Alerts), Order = 302)]
+	public ThresholdLevel AudioUpLevel
+	{
+		get => _audioUpLevel;
+		set
+		{
+			if (_audioUpLevel == value)
+				return;
+
+			_audioUpLevel = value;
+			RedrawChart();
+		}
+	}
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.AudioDownThresholds), Description = nameof(Resources.AudioDownThresholdsDescription),
+		GroupName = nameof(Resources.Alerts), Order = 303)]
+	public ThresholdLevel AudioDownLevel
+	{
+		get => _audioDownLevel;
+		set
+		{
+			if (_audioDownLevel == value)
+				return;
+
+			_audioDownLevel = value;
+			RedrawChart();
+		}
+	}
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.AudioAtBarCloseOnly), Description = nameof(Resources.AudioAtBarCloseOnlyDescription),
+		GroupName = nameof(Resources.Alerts), Order = 304)]
+	public bool AudioAtBarCloseOnly
+	{
+		get => _audioAtBarCloseOnly;
+		set
+		{
+			if (_audioAtBarCloseOnly == value)
+				return;
+
+			_audioAtBarCloseOnly = value;
+		}
+	}
+
+	#endregion
+
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.UpAlert), GroupName = nameof(Strings.Alerts),
 		Description = nameof(Strings.UpAlertFileFilterDescription), Order = 300)]
 	[Range(0, int.MaxValue)]
@@ -1416,7 +1492,52 @@ public class Delta : Indicator
 				_priceSignalDown[bar] = candle.Low - offset;
 		}
 
+		// --- Audio alerts (edge or bar-close confirmation) ---
+		if (_audioEnabled && InstrumentInfo is not null)
+		{
+			var audioUpTh = PickUpThreshold(bar, _audioUpLevel);
+			var audioDownTh = PickDownThreshold(bar, _audioDownLevel);
+
+			// Case 1: Instant audio (intra-bar cross)
+			if (!_audioAtBarCloseOnly)
+			{
+				if (_prevDeltaValue < audioUpTh && deltaValue >= audioUpTh && _lastBarAudioUpAlert != bar)
+				{
+					_lastBarAudioUpAlert = bar;
+					TryAddAudioAlert($"Delta >= {audioUpTh} (UP)");
+				}
+
+				if (_prevDeltaValue > audioDownTh && deltaValue <= audioDownTh && _lastBarAudioDownAlert != bar)
+				{
+					_lastBarAudioDownAlert = bar;
+					TryAddAudioAlert($"Delta <= {audioDownTh} (DOWN)");
+				}
+			}
+			// Case 2: Audio only at confirmed bar close
+			else
+			{
+				// Run when we are calculating the previous bar (already closed)
+				if (bar == CurrentBar - 2)
+				{
+					var prevBarDelta = _delta[bar];
+
+					if (prevBarDelta >= audioUpTh && _lastBarAudioUpAlert != bar)
+					{
+						_lastBarAudioUpAlert = bar;
+						TryAddAudioAlert($"Delta CLOSE >= {audioUpTh} (UP)");
+					}
+					else if (prevBarDelta <= audioDownTh && _lastBarAudioDownAlert != bar)
+					{
+						_lastBarAudioDownAlert = bar;
+						TryAddAudioAlert($"Delta CLOSE <= {audioDownTh} (DOWN)");
+					}
+				}
+			}
+		}
+
+		// Update _prevDeltaValue ONCE at the end (used by edge/cross logic)
 		_prevDeltaValue = deltaValue;
+
 
 		// --- Threshold lines (Fixed / DynamicWelford, session-anchored, no look-ahead) ---
 
@@ -1666,6 +1787,22 @@ public class Delta : Indicator
 
 		return (level == ThresholdLevel.Major) ? _dnMajor[bar] : _dnMinor[bar];
 	}
+
+	private void TryAddAudioAlert(string message)
+	{
+		try
+		{
+			// Reuse the existing alert sound channel configured by AlertFile.
+			// If InstrumentInfo is null (shouldn't happen here), fall back to a safe label.
+			var symbol = InstrumentInfo?.Instrument ?? "Delta";
+			AddAlert(AlertFile, symbol, message, AlertBGColor, AlertForeColor);
+		}
+		catch
+		{
+			// Intentionally swallow: alert infrastructure must not break indicator calculation.
+		}
+	}
+
 
 
 	#region Dynamic threshold private methods
