@@ -84,6 +84,26 @@ public class Delta : Indicator
 		Minor = 1
 	}
 
+	[Serializable]
+	public enum ThresholdSource
+	{
+		[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ThresholdSourceFixed))]
+		Fixed = 0,
+
+		[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ThresholdSourceDynamicWelford))]
+		DynamicWelford = 1
+	}
+
+	[Serializable]
+	public enum SessionWindowMode
+	{
+		[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SessionWindowModeFull24h))]
+		Full24h = 0,
+
+		[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SessionWindowModeRth))]
+		RTH = 1
+	}
+
 
 	#endregion
 
@@ -281,6 +301,44 @@ public class Delta : Indicator
 	private int _downMajorLevel = -300;
 
 	#endregion
+
+	#region Fields (dynamic thresholds)
+
+	// Gate: how many useful samples are needed to compute mean/std reliably (Welford)
+	private int _samplesForMeanStd = 1;
+
+	// Per-side readiness flags (updated each bar)
+	private bool _posReady;
+	private bool _negReady;
+
+	// Readiness by bar (needed by pickers to avoid repaint / out-of-session triggers)
+	private readonly List<bool> _posReadyByBar = new();
+	private readonly List<bool> _negReadyByBar = new();
+
+	// Welford accumulators (positive extremes and negative magnitude extremes)
+	private int _posN;
+	private decimal _posMean;
+	private decimal _posM2;
+
+	private int _negN;
+	private decimal _negMean;
+	private decimal _negM2;
+
+	// Last computed dynamic thresholds (cached for the current bar)
+	private decimal _dynPosMinor, _dynPosMajor;
+	private decimal _dynNegMinor, _dynNegMajor;
+
+	// Session config
+	private SessionWindowMode _sessionMode = SessionWindowMode.RTH;
+	private TimeSpan _rthStart = new(9, 30, 0);
+	private TimeSpan _rthEnd = new(16, 0, 0);
+	private decimal _stdMultiplier = 1.0m;
+
+	// Threshold source
+	private ThresholdSource _thresholds = ThresholdSource.Fixed;
+
+	#endregion
+
 
 	#region Fields (price signals)
 
@@ -512,6 +570,108 @@ public class Delta : Indicator
 	}
 
 	#endregion
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ThresholdSource), Description = nameof(Resources.ThresholdSourceDescription),
+	GroupName = nameof(Resources.ThresholdsGroup), Order = 140)]
+	public ThresholdSource Thresholds
+	{
+		get => _thresholds;
+		set
+		{
+			if (_thresholds == value)
+				return;
+
+			_thresholds = value;
+			RecalculateValues();
+			RedrawChart();
+		}
+	}
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SessionWindowMode), Description = nameof(Resources.SessionWindowModeDescription),
+		GroupName = nameof(Resources.DynamicThresholdGroup), Order = 141)]
+	public SessionWindowMode SessionMode
+	{
+		get => _sessionMode;
+		set
+		{
+			if (_sessionMode == value)
+				return;
+
+			_sessionMode = value;
+			RecalculateValues();
+			RedrawChart();
+		}
+	}
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.RthStart), Description = nameof(Resources.RthStartDescription),
+		GroupName = nameof(Resources.DynamicThresholdGroup), Order = 142)]
+	public TimeSpan RthStart
+	{
+		get => _rthStart;
+		set
+		{
+			if (_rthStart == value)
+				return;
+
+			_rthStart = value;
+			RecalculateValues();
+			RedrawChart();
+		}
+	}
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.RthEnd), Description = nameof(Resources.RthEndDescription),
+		GroupName = nameof(Resources.DynamicThresholdGroup), Order = 143)]
+	public TimeSpan RthEnd
+	{
+		get => _rthEnd;
+		set
+		{
+			if (_rthEnd == value)
+				return;
+
+			_rthEnd = value;
+			RecalculateValues();
+			RedrawChart();
+		}
+	}
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.StdMultiplier), Description = nameof(Resources.StdMultiplierDescription),
+		GroupName = nameof(Resources.DynamicThresholdGroup), Order = 144)]
+	[Range(typeof(decimal), "0", "10")]
+	[DisplayFormat(DataFormatString = "F2")]
+	public decimal StdMultiplier
+	{
+		get => _stdMultiplier;
+		set
+		{
+			if (value < 0) value = 0;
+			if (_stdMultiplier == value)
+				return;
+
+			_stdMultiplier = value;
+			RecalculateValues();
+			RedrawChart();
+		}
+	}
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SamplesForMeanStd), Description = nameof(Resources.SamplesForMeanStdDescription),
+		GroupName = nameof(Resources.DynamicThresholdGroup), Order = 145)]
+	[Range(1, 5000)]
+	public int SamplesForMeanStd
+	{
+		get => _samplesForMeanStd;
+		set
+		{
+			if (value < 1) value = 1;
+			if (_samplesForMeanStd == value)
+				return;
+
+			_samplesForMeanStd = value;
+			RecalculateValues();
+			RedrawChart();
+		}
+	}
+
 
 	#region Threshold lines (fixed)
 
@@ -1240,10 +1400,11 @@ public class Delta : Indicator
 		}
 
 		// --- Visual signals (price panel): fixed threshold selection per side ---
+		// --- Visual signals (price panel): threshold selection per side ---
 		if (_visualEnabled && InstrumentInfo is not null)
 		{
-			var upTh = PickUpThreshold();
-			var dnTh = PickDownThreshold();
+			var upTh = PickUpThreshold(bar, _visualUpLevel);
+			var dnTh = PickDownThreshold(bar, _visualDownLevel);
 
 			var offset = _priceSignalOffsetTicks * InstrumentInfo.TickSize;
 
@@ -1257,11 +1418,99 @@ public class Delta : Indicator
 
 		_prevDeltaValue = deltaValue;
 
-		// --- Fixed threshold lines (panel) ---
-		_upMajor[bar] = _upMajorLevel;
-		_upMinor[bar] = _upMinorLevel;
-		_dnMinor[bar] = _downMinorLevel;
-		_dnMajor[bar] = _downMajorLevel;
+		// --- Threshold lines (Fixed / DynamicWelford, session-anchored, no look-ahead) ---
+
+		if (Thresholds == ThresholdSource.DynamicWelford && IsSessionStart(bar))
+		{
+			// Reset accumulators AND cut all threshold polylines at the bar before the start
+			ResetDynamicState();
+			CutAllThresholdsAt(bar - 1);
+		}
+
+		var inside = (Thresholds == ThresholdSource.DynamicWelford)
+			? InSession(candle.Time)
+			: true;
+
+		if (Thresholds == ThresholdSource.Fixed)
+		{
+			_upMajor[bar] = _upMajorLevel;
+			_upMinor[bar] = _upMinorLevel;
+			_dnMinor[bar] = _downMinorLevel;
+			_dnMajor[bar] = _downMajorLevel;
+		}
+		else // DynamicWelford
+		{
+			EnsureReadyCapacity(bar);
+
+			// ===================== DYNAMIC (NO LOOK-AHEAD) =====================
+			// 1) For bar 'b', compute thresholds FROM STATE UP TO b-1
+			// 2) Then, feed current bar extremes to Welford AFTER thresholds are decided
+
+			if (inside)
+			{
+				// POS side thresholds from previous state
+				if (_posN >= SamplesForMeanStd)
+				{
+					var m = _posMean;
+					var s = WelfordStd(_posN, _posM2);
+					var k = StdMultiplier;
+
+					_dynPosMinor = m;         // mean
+					_dynPosMajor = m + k * s; // mean + k*std
+					_posReady = true;
+				}
+				else
+				{
+					_dynPosMinor = _dynPosMajor = 0;
+					_posReady = false;
+				}
+
+				// NEG side thresholds from previous state (signed negatives based on magnitude stats)
+				if (_negN >= SamplesForMeanStd)
+				{
+					var mAbs = _negMean;
+					var sAbs = WelfordStd(_negN, _negM2);
+					var k = StdMultiplier;
+
+					_dynNegMinor = -mAbs;              // -mean
+					_dynNegMajor = -(mAbs + k * sAbs); // -(mean + k*std)
+					_negReady = true;
+				}
+				else
+				{
+					_dynNegMinor = _dynNegMajor = 0;
+					_negReady = false;
+				}
+
+				_posReadyByBar[bar] = _posReady;
+				_negReadyByBar[bar] = _negReady;
+
+				// Write series values for this bar (used by pickers/history)
+				_upMinor[bar] = _dynPosMinor;
+				_upMajor[bar] = _dynPosMajor;
+				_dnMinor[bar] = _dynNegMinor;
+				_dnMajor[bar] = _dynNegMajor;
+
+				// Now feed current bar extremes (AFTER thresholds were computed)
+				if (TryGetPositiveExtremeSample(GetCandle(bar), out var posSample))
+					WelfordPush(ref _posN, ref _posMean, ref _posM2, posSample);
+
+				if (TryGetNegativeMagnitudeExtremeSample(GetCandle(bar), out var negAbsSample))
+					WelfordPush(ref _negN, ref _negMean, ref _negM2, negAbsSample);
+
+				// Hide portions of the polyline until readiness is achieved
+				if (!_posReady) CutUpThresholdsAt(bar - 1);
+				if (!_negReady) CutDownThresholdsAt(bar - 1);
+			}
+			else
+			{
+				// Outside session: cut the four lines and skip writing values this bar
+				_posReadyByBar[bar] = false;
+				_negReadyByBar[bar] = false;
+				CutAllThresholdsAt(bar - 1);
+			}
+		}
+
 
 		if (Absorption.Enabled)
 		{
@@ -1386,21 +1635,166 @@ public class Delta : Indicator
 			RedrawChart();
 	}
 
-	private int PickUpThreshold()
+	private decimal PickUpThreshold(int bar, ThresholdLevel level)
 	{
-		return _visualUpLevel == ThresholdLevel.Major
-			? _upMajorLevel
-			: _upMinorLevel;
+		var t = GetCandle(bar).Time;
+
+		if (Thresholds == ThresholdSource.DynamicWelford && !InSession(t))
+			return decimal.MaxValue; // disable outside session
+
+		if (Thresholds == ThresholdSource.Fixed)
+			return (level == ThresholdLevel.Major) ? UpMajorLevel : UpMinorLevel;
+
+		if (bar < 0 || bar >= _posReadyByBar.Count || !_posReadyByBar[bar])
+			return decimal.MaxValue;
+
+		return (level == ThresholdLevel.Major) ? _upMajor[bar] : _upMinor[bar];
 	}
 
-	private int PickDownThreshold()
+	private decimal PickDownThreshold(int bar, ThresholdLevel level)
 	{
-		return _visualDownLevel == ThresholdLevel.Major
-			? _downMajorLevel
-			: _downMinorLevel;
+		var t = GetCandle(bar).Time;
+
+		if (Thresholds == ThresholdSource.DynamicWelford && !InSession(t))
+			return decimal.MinValue; // disable outside session
+
+		if (Thresholds == ThresholdSource.Fixed)
+			return (level == ThresholdLevel.Major) ? DownMajorLevel : DownMinorLevel;
+
+		if (bar < 0 || bar >= _negReadyByBar.Count || !_negReadyByBar[bar])
+			return decimal.MinValue;
+
+		return (level == ThresholdLevel.Major) ? _dnMajor[bar] : _dnMinor[bar];
+	}
+
+
+	#region Dynamic threshold private methods
+
+	private static bool TryGetPositiveExtremeSample(IndicatorCandle candle, out decimal sample)
+	{
+		var x = candle.MaxDelta;
+		if (x > 0) { sample = x; return true; }
+
+		sample = 0;
+		return false;
+	}
+
+	private static bool TryGetNegativeMagnitudeExtremeSample(IndicatorCandle candle, out decimal sampleAbs)
+	{
+		var x = candle.MinDelta;
+		if (x < 0) { sampleAbs = Math.Abs(x); return true; }
+
+		sampleAbs = 0;
+		return false;
+	}
+
+	private void EnsureReadyCapacity(int bar)
+	{
+		while (_posReadyByBar.Count <= bar) _posReadyByBar.Add(false);
+		while (_negReadyByBar.Count <= bar) _negReadyByBar.Add(false);
+	}
+
+	private void ResetDynamicState()
+	{
+		_posN = 0;
+		_posMean = 0;
+		_posM2 = 0;
+
+		_negN = 0;
+		_negMean = 0;
+		_negM2 = 0;
+
+		_posReady = false;
+		_negReady = false;
+
+		_dynPosMinor = _dynPosMajor = 0;
+		_dynNegMinor = _dynNegMajor = 0;
+	}
+
+	// Returns true if bar timestamp (adjusted to instrument TZ) is inside the session window
+	private bool InSession(DateTime exchangeTimeUtc)
+	{
+		if (SessionMode == SessionWindowMode.Full24h)
+			return true;
+
+		// Same idea as Initial Balance: candle.Time is exchange UTC and we shift by InstrumentInfo.TimeZone
+		var tLocal = exchangeTimeUtc.AddHours(InstrumentInfo.TimeZone).TimeOfDay;
+		return tLocal >= RthStart && tLocal <= RthEnd;
+	}
+
+	// Detects the first bar inside a new session to reset accumulators
+	private bool IsSessionStart(int bar)
+	{
+		if (bar == 0)
+			return true;
+
+		var prevUtc = GetCandle(bar - 1).Time;
+		var currUtc = GetCandle(bar).Time;
+
+		var prevIn = InSession(prevUtc);
+		var currIn = InSession(currUtc);
+
+		// Start when we enter the session window from outside
+		if (!prevIn && currIn)
+			return true;
+
+		// Day change while still in window: re-anchor at first RTH bar of the new day
+		if (currIn && prevUtc.Date != currUtc.Date)
+		{
+			var tLocal = currUtc.AddHours(InstrumentInfo.TimeZone).TimeOfDay;
+			if (tLocal >= RthStart && tLocal <= RthEnd)
+				return true;
+		}
+
+		return false;
+	}
+
+	private void CutAllThresholdsAt(int bar /* inclusive end */)
+	{
+		var b = Math.Max(0, bar);
+		_upMajor.SetPointOfEndLine(b);
+		_upMinor.SetPointOfEndLine(b);
+		_dnMinor.SetPointOfEndLine(b);
+		_dnMajor.SetPointOfEndLine(b);
+	}
+
+	private void CutUpThresholdsAt(int bar)
+	{
+		var b = Math.Max(0, bar);
+		_upMajor.SetPointOfEndLine(b);
+		_upMinor.SetPointOfEndLine(b);
+	}
+
+	private void CutDownThresholdsAt(int bar)
+	{
+		var b = Math.Max(0, bar);
+		_dnMajor.SetPointOfEndLine(b);
+		_dnMinor.SetPointOfEndLine(b);
+	}
+
+	private static void WelfordPush(ref int n, ref decimal mean, ref decimal m2, decimal x)
+	{
+		n++;
+		var delta = x - mean;
+		mean += delta / n;
+		var delta2 = x - mean;
+		m2 += delta * delta2;
+	}
+
+	private static decimal WelfordStd(int n, decimal m2)
+	{
+		if (n <= 1)
+			return 0;
+
+		// sample std (n-1)
+		var variance = m2 / (n - 1);
+		return (decimal)Math.Sqrt((double)variance);
 	}
 
 	#endregion
+
+	#endregion
+
 
 	#region Event handlers
 
