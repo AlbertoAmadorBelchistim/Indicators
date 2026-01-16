@@ -117,20 +117,41 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="EMA" xml:space="preserve">
+    <value>EMA</value>
+  </data>
+  <data name="Period" xml:space="preserve">
+    <value>时期 </value>
+  </data>
+  <data name="SMA" xml:space="preserve">
+    <value>移动平均线</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>宽度</value>
+  </data>
   <data name="Ask" xml:space="preserve">
     <value>Ask</value>
   </data>
   <data name="Bid" xml:space="preserve">
     <value>买盘</value>
   </data>
+  <data name="Filters" xml:space="preserve">
+    <value>过滤</value>
+  </data>
   <data name="AlertFile" xml:space="preserve">
     <value>警报文件</value>
+  </data>
+  <data name="Alerts" xml:space="preserve">
+    <value>警报</value>
   </data>
   <data name="BackGround" xml:space="preserve">
     <value>背景颜色</value>
   </data>
   <data name="Delta" xml:space="preserve">
     <value>Delta</value>
+  </data>
+  <data name="FontColor" xml:space="preserve">
+    <value>字体颜色</value>
   </data>
   <data name="ShowVolume" xml:space="preserve">
     <value>成交量</value>
@@ -140,6 +161,9 @@
   </data>
   <data name="Volume" xml:space="preserve">
     <value>交易量</value>
+  </data>
+  <data name="CalculationMode" xml:space="preserve">
+    <value>计算模式</value>
   </data>
   <data name="CurrentDay" xml:space="preserve">
     <value>当天</value>
@@ -165,8 +189,20 @@
   <data name="Visualization" xml:space="preserve">
     <value>视觉化</value>
   </data>
+  <data name="Session" xml:space="preserve">
+    <value>会话</value>
+  </data>
+  <data name="SignalPeriod" xml:space="preserve">
+    <value>信号周期</value>
+  </data>
   <data name="Trades" xml:space="preserve">
     <value>交易</value>
+  </data>
+  <data name="CustomSessionStart" xml:space="preserve">
+    <value>自定义会话开始</value>
+  </data>
+  <data name="ShowAverage" xml:space="preserve">
+    <value>显示平均值</value>
   </data>
   <data name="AskColor" xml:space="preserve">
     <value>Ask 颜色</value>
@@ -237,17 +273,26 @@
   <data name="ShortValues" xml:space="preserve">
     <value>显示缩写值</value>
   </data>
+  <data name="CustomSession" xml:space="preserve">
+    <value>自定义会话</value>
+  </data>
   <data name="ShowTradesCount" xml:space="preserve">
     <value>交易数量</value>
   </data>
   <data name="ShowHeight" xml:space="preserve">
     <value>高度</value>
   </data>
+  <data name="Average" xml:space="preserve">
+    <value>平均值</value>
+  </data>
   <data name="DeltaAlert" xml:space="preserve">
     <value>Delta 警报</value>
   </data>
   <data name="Rows" xml:space="preserve">
     <value>行数</value>
+  </data>
+  <data name="General" xml:space="preserve">
+    <value>常规</value>
   </data>
   <data name="ToggleLevelsVisibilityHotKey" xml:space="preserve">
     <value>切换所有级别的可见性</value>
@@ -430,7 +475,7 @@
     <value>使用轮廓范围的百分比，将靠近轮廓高点和低点的低成交量尾部区域从 LVN 检测中排除。（0 = 禁用）</value>
   </data>
   <data name="ThresholdsGroup" xml:space="preserve">
-    <value>阈值</value>
+    <value>阈值使用</value>
   </data>
   <data name="FixedThresholdGroup" xml:space="preserve">
     <value>固定阈值</value>
@@ -796,100 +841,67 @@
   <data name="AlertFileDescription" xml:space="preserve">
     <value>AlertFileDescription参数允许用户为ATAS平台中的警报声设置自定义音频文件的名称。用户可以选择一个WAV文件，在满足警报条件时播放。所选的WAV文件应位于C:\Program Files (x86)\ATAS Platform\Sounds文件夹中。</value>
   </data>
-<data name="General" xml:space="preserve">
-    <value>常规</value>
-  </data><data name="Session" xml:space="preserve">
-    <value>会话</value>
-  </data><data name="CustomSessionStart" xml:space="preserve">
-    <value>自定义会话开始</value>
-  </data><data name="SignalPeriod" xml:space="preserve">
-    <value>信号周期</value>
-  </data>
   <data name="ViewMode" xml:space="preserve">
-  <value>视图模式</value>
-  <comment>UI</comment>
-</data>
-<data name="SessionMode" xml:space="preserve">
-  <value>时段模式</value>
-  <comment>UI</comment>
-</data>
-<data name="SessionsBack" xml:space="preserve">
-  <value>回溯时段数</value>
-  <comment>UI</comment>
-</data>
-<data name="Use4ColorSystem" xml:space="preserve">
-  <value>使用四颜色系统</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="Use4ColorSystemDescription" xml:space="preserve">
-  <value>开启后按斜率着色；关闭则按零线使用简单颜色。</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="ShowSignalLine" xml:space="preserve">
-  <value>显示信号线（SMA）</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="SimplePositiveColor" xml:space="preserve">
-  <value>简单正值颜色</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="SimpleNegativeColor" xml:space="preserve">
-  <value>简单负值颜色</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="SimpleColorDescription" xml:space="preserve">
-  <value>仅在禁用四颜色系统时使用。</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="ColorPosSmaUp" xml:space="preserve">
-  <value>颜色：正 / SMA 上升</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="ColorPosSmaDown" xml:space="preserve">
-  <value>颜色：正 / SMA 下降（回调）</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="ColorNegSmaUp" xml:space="preserve">
-  <value>颜色：负 / SMA 上升（修复）</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="ColorNegSmaDown" xml:space="preserve">
-  <value>颜色：负 / SMA 下降</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="Filters" xml:space="preserve">
-    <value>过滤</value>
-  </data><data name="CustomSession" xml:space="preserve">
-    <value>自定义会话</value>
+    <value>视图模式</value>
+    <comment>UI</comment>
+  </data>
+  <data name="SessionMode" xml:space="preserve">
+    <value>时段模式</value>
+    <comment>UI</comment>
+  </data>
+  <data name="SessionsBack" xml:space="preserve">
+    <value>回溯时段数</value>
+    <comment>UI</comment>
+  </data>
+  <data name="Use4ColorSystem" xml:space="preserve">
+    <value>使用四颜色系统</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="Use4ColorSystemDescription" xml:space="preserve">
+    <value>开启后按斜率着色；关闭则按零线使用简单颜色。</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="ShowSignalLine" xml:space="preserve">
+    <value>显示信号线（SMA）</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="SimplePositiveColor" xml:space="preserve">
+    <value>简单正值颜色</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="SimpleNegativeColor" xml:space="preserve">
+    <value>简单负值颜色</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="SimpleColorDescription" xml:space="preserve">
+    <value>仅在禁用四颜色系统时使用。</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="ColorPosSmaUp" xml:space="preserve">
+    <value>颜色：正 / SMA 上升</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="ColorPosSmaDown" xml:space="preserve">
+    <value>颜色：正 / SMA 下降（回调）</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="ColorNegSmaUp" xml:space="preserve">
+    <value>颜色：负 / SMA 上升（修复）</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="ColorNegSmaDown" xml:space="preserve">
+    <value>颜色：负 / SMA 下降</value>
+    <comment>MultiMarketPower</comment>
   </data>
   <data name="DefaultSession" xml:space="preserve">
-  <value>默认时段</value>
-  <comment>UI</comment>
-</data>
-<data name="SmartMoneySpread" xml:space="preserve">
-  <value>聪明资金价差</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="Alerts" xml:space="preserve">
-    <value>警报</value>
-  </data><data name="FontColor" xml:space="preserve">
-    <value>字体颜色</value>
-  </data><data name="Average" xml:space="preserve">
-    <value>平均值</value>
-  </data><data name="ShowAverage" xml:space="preserve">
-    <value>显示平均值</value>
-  </data><data name="Period" xml:space="preserve">
-    <value>时期 </value>
-  </data><data name="CalculationMode" xml:space="preserve">
-    <value>计算模式</value>
-  </data><data name="Width" xml:space="preserve">
-    <value>宽度</value>
-  </data><data name="SMA" xml:space="preserve">
-    <value>移动平均线</value>
-  </data><data name="EMA" xml:space="preserve">
-    <value>EMA</value>
+    <value>默认时段</value>
+    <comment>UI</comment>
   </data>
-    <data name="UpperMajorLevel" xml:space="preserve">
+  <data name="SmartMoneySpread" xml:space="preserve">
+    <value>聪明资金价差</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="UpperMajorLevel" xml:space="preserve">
     <value>上主要</value>
     <comment>Delta</comment>
   </data>
@@ -921,7 +933,6 @@
     <value>下方主要阈值。</value>
     <comment>Delta</comment>
   </data>
-
   <data name="PriceSignalOffsetTicksDescription" xml:space="preserve">
     <value>价格标记的垂直偏移(跳)。</value>
     <comment>Delta</comment>
@@ -930,7 +941,6 @@
     <value>标记大小(像素)。</value>
     <comment>Delta</comment>
   </data>
-
   <data name="PriceSignalUpColor" xml:space="preserve">
     <value>上涨颜色</value>
     <comment>Delta</comment>
@@ -947,7 +957,6 @@
     <value>看跌价格标记颜色。</value>
     <comment>Delta</comment>
   </data>
-
   <data name="ShowVisualAlerts" xml:space="preserve">
     <value>可视警报</value>
     <comment>Delta</comment>
@@ -956,7 +965,6 @@
     <value>在价格图上显示阈值标记。</value>
     <comment>Delta</comment>
   </data>
-
   <data name="VisualUpThresholds" xml:space="preserve">
     <value>可视 + 级别</value>
     <comment>Delta</comment>
@@ -973,7 +981,6 @@
     <value>用于看跌可视警报的级别。</value>
     <comment>Delta</comment>
   </data>
-
   <data name="AudioAlerts" xml:space="preserve">
     <value>声音警报</value>
     <comment>Delta</comment>
@@ -982,7 +989,6 @@
     <value>阈值突破时播放声音。</value>
     <comment>Delta</comment>
   </data>
-
   <data name="AudioUpThresholds" xml:space="preserve">
     <value>音频 + 级别</value>
     <comment>Delta</comment>
@@ -999,7 +1005,6 @@
     <value>用于看跌声音警报的级别。</value>
     <comment>Delta</comment>
   </data>
-
   <data name="AudioAtBarCloseOnly" xml:space="preserve">
     <value>仅收盘触发</value>
     <comment>Delta</comment>
@@ -1008,7 +1013,6 @@
     <value>仅在K线收盘后触发声音。</value>
     <comment>Delta</comment>
   </data>
-
   <data name="ColorMode" xml:space="preserve">
     <value>颜色模式</value>
     <comment>UI</comment>
@@ -1036,5 +1040,11 @@
   <data name="Slope" xml:space="preserve">
     <value>斜率</value>
     <comment>UI</comment>
+  </data>
+  <data name="PriceSignalsGroup" xml:space="preserve">
+    <value>价格信号</value>
+  </data>
+  <data name="DeltaLabelGroup" xml:space="preserve">
+    <value>Delta 标签</value>
   </data>
 </root>

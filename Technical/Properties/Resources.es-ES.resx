@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="EMA" xml:space="preserve">
+    <value>Media móvil exponencial</value>
+  </data>
+  <data name="Period" xml:space="preserve">
+    <value>Período</value>
+  </data>
+  <data name="SMA" xml:space="preserve">
+    <value>Media móvil</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Ancho</value>
+  </data>
   <data name="Ask" xml:space="preserve">
     <value>Ask</value>
   </data>
@@ -129,11 +141,17 @@
   <data name="AlertFile" xml:space="preserve">
     <value>Archivo de alarma</value>
   </data>
+  <data name="Alerts" xml:space="preserve">
+    <value>Alarmas</value>
+  </data>
   <data name="BackGround" xml:space="preserve">
     <value>Fondo</value>
   </data>
   <data name="Delta" xml:space="preserve">
     <value>Delta</value>
+  </data>
+  <data name="FontColor" xml:space="preserve">
+    <value>Color de texto</value>
   </data>
   <data name="ShowVolume" xml:space="preserve">
     <value>Volumen</value>
@@ -143,6 +161,9 @@
   </data>
   <data name="Volume" xml:space="preserve">
     <value>Volumen</value>
+  </data>
+  <data name="CalculationMode" xml:space="preserve">
+    <value>Tipo de cálculo</value>
   </data>
   <data name="CurrentDay" xml:space="preserve">
     <value>Día actual</value>
@@ -179,6 +200,9 @@
   </data>
   <data name="CustomSessionStart" xml:space="preserve">
     <value>Inicio sesión personalizada</value>
+  </data>
+  <data name="ShowAverage" xml:space="preserve">
+    <value>Mostrar media móvil</value>
   </data>
   <data name="AskColor" xml:space="preserve">
     <value>Color de ask</value>
@@ -257,6 +281,9 @@
   </data>
   <data name="ShowHeight" xml:space="preserve">
     <value>Altura</value>
+  </data>
+  <data name="Average" xml:space="preserve">
+    <value>Promedio</value>
   </data>
   <data name="DeltaAlert" xml:space="preserve">
     <value>Alerta de delta</value>
@@ -448,13 +475,13 @@
     <value>Excluye las colas de bajo volumen cercanas al máximo y mínimo del perfil en la detección de LVN, usando un porcentaje del rango del perfil. (0 = desactivado).</value>
   </data>
   <data name="ThresholdsGroup" xml:space="preserve">
-    <value>Umbrales</value>
+    <value>Uso de umbrales</value>
   </data>
   <data name="FixedThresholdGroup" xml:space="preserve">
-    <value>Umbral fijo</value>
+    <value>Umbrales fijos</value>
   </data>
   <data name="DynamicThresholdGroup" xml:space="preserve">
-    <value>Umbral dinámico</value>
+    <value>Umbrales dinámicos</value>
   </data>
   <data name="ShowThresholdLines" xml:space="preserve">
     <value>Mostrar líneas de umbral</value>
@@ -874,26 +901,7 @@
     <value>Spread de Smart Money</value>
     <comment>MultiMarketPower</comment>
   </data>
-<data name="Alerts" xml:space="preserve">
-    <value>Alarmas</value>
-  </data><data name="FontColor" xml:space="preserve">
-    <value>Color de texto</value>
-  </data><data name="Average" xml:space="preserve">
-    <value>Promedio</value>
-  </data><data name="ShowAverage" xml:space="preserve">
-    <value>Mostrar media móvil</value>
-  </data><data name="Period" xml:space="preserve">
-    <value>Período</value>
-  </data><data name="CalculationMode" xml:space="preserve">
-    <value>Tipo de cálculo</value>
-  </data><data name="Width" xml:space="preserve">
-    <value>Ancho</value>
-  </data><data name="SMA" xml:space="preserve">
-    <value>Media móvil</value>
-  </data><data name="EMA" xml:space="preserve">
-    <value>Media móvil exponencial</value>
-  </data>
-    <data name="UpperMajorLevel" xml:space="preserve">
+  <data name="UpperMajorLevel" xml:space="preserve">
     <value>Mayor sup.</value>
     <comment>Delta</comment>
   </data>
@@ -925,7 +933,6 @@
     <value>Umbral mayor inferior.</value>
     <comment>Delta</comment>
   </data>
-
   <data name="PriceSignalOffsetTicksDescription" xml:space="preserve">
     <value>Offset vertical en ticks.</value>
     <comment>Delta</comment>
@@ -934,7 +941,6 @@
     <value>Tamaño del marcador (px).</value>
     <comment>Delta</comment>
   </data>
-
   <data name="PriceSignalUpColor" xml:space="preserve">
     <value>Color alcista</value>
     <comment>Delta</comment>
@@ -951,7 +957,6 @@
     <value>Color de marcadores bajistas.</value>
     <comment>Delta</comment>
   </data>
-
   <data name="ShowVisualAlerts" xml:space="preserve">
     <value>Alertas visuales</value>
     <comment>Delta</comment>
@@ -960,7 +965,6 @@
     <value>Muestra marcadores en precio.</value>
     <comment>Delta</comment>
   </data>
-
   <data name="VisualUpThresholds" xml:space="preserve">
     <value>Nivel visual +</value>
     <comment>Delta</comment>
@@ -977,7 +981,6 @@
     <value>Nivel para visuales bajistas.</value>
     <comment>Delta</comment>
   </data>
-
   <data name="AudioAlerts" xml:space="preserve">
     <value>Alertas audio</value>
     <comment>Delta</comment>
@@ -986,7 +989,6 @@
     <value>Sonido al cruzar umbrales.</value>
     <comment>Delta</comment>
   </data>
-
   <data name="AudioUpThresholds" xml:space="preserve">
     <value>Nivel audio +</value>
     <comment>Delta</comment>
@@ -1003,7 +1005,6 @@
     <value>Nivel para audio bajista.</value>
     <comment>Delta</comment>
   </data>
-
   <data name="AudioAtBarCloseOnly" xml:space="preserve">
     <value>Audio al cierre</value>
     <comment>Delta</comment>
@@ -1012,7 +1013,6 @@
     <value>Audio solo tras cerrar la vela.</value>
     <comment>Delta</comment>
   </data>
-
   <data name="ColorMode" xml:space="preserve">
     <value>Modo color</value>
     <comment>UI</comment>
@@ -1040,5 +1040,11 @@
   <data name="Slope" xml:space="preserve">
     <value>Pendiente</value>
     <comment>UI</comment>
+  </data>
+  <data name="PriceSignalsGroup" xml:space="preserve">
+    <value>Señales en precio</value>
+  </data>
+  <data name="DeltaLabelGroup" xml:space="preserve">
+    <value>Etiqueta de delta</value>
   </data>
 </root>

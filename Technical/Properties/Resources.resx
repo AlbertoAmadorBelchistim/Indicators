@@ -2803,15 +2803,15 @@
     <comment>OHLCPlus</comment>
   </data>
   <data name="ThresholdsGroup" xml:space="preserve">
-    <value>Thresholds</value>
+    <value>Threshold usage</value>
     <comment>Volume</comment>
   </data>
   <data name="FixedThresholdGroup" xml:space="preserve">
-    <value>Fixed Threshold</value>
+    <value>Fixed thresholds</value>
     <comment>Volume</comment>
   </data>
   <data name="DynamicThresholdGroup" xml:space="preserve">
-    <value>Dynamic Threshold</value>
+    <value>Dynamic thresholds</value>
     <comment>Volume</comment>
   </data>
   <data name="ShowThresholdLines" xml:space="preserve">
@@ -3258,7 +3258,7 @@
     <value>Smart Money Spread</value>
     <comment>MultiMarketPower</comment>
   </data>
-    <data name="UpperMajorLevel" xml:space="preserve">
+  <data name="UpperMajorLevel" xml:space="preserve">
     <value>Upper major</value>
     <comment>Delta</comment>
   </data>
@@ -3290,7 +3290,6 @@
     <value>Lower major threshold.</value>
     <comment>Delta</comment>
   </data>
-
   <data name="PriceSignalOffsetTicksDescription" xml:space="preserve">
     <value>Vertical offset for price markers, in ticks.</value>
     <comment>Delta</comment>
@@ -3299,7 +3298,6 @@
     <value>Marker size in pixels.</value>
     <comment>Delta</comment>
   </data>
-
   <data name="PriceSignalUpColor" xml:space="preserve">
     <value>Up marker color</value>
     <comment>Delta</comment>
@@ -3316,7 +3314,6 @@
     <value>Color of bearish price markers.</value>
     <comment>Delta</comment>
   </data>
-
   <data name="ShowVisualAlerts" xml:space="preserve">
     <value>Visual alerts</value>
     <comment>Delta</comment>
@@ -3325,7 +3322,6 @@
     <value>Show threshold markers on the price chart.</value>
     <comment>Delta</comment>
   </data>
-
   <data name="VisualUpThresholds" xml:space="preserve">
     <value>Visual up level</value>
     <comment>Delta</comment>
@@ -3401,5 +3397,13 @@
   <data name="Slope" xml:space="preserve">
     <value>Slope</value>
     <comment>UI</comment>
+  </data>
+  <data name="PriceSignalsGroup" xml:space="preserve">
+    <value>Price signals</value>
+    <comment>UI</comment>
+  </data>
+  <data name="DeltaLabelGroup" xml:space="preserve">
+    <value>Delta label</value>
+    <comment>Delta</comment>
   </data>
 </root>
