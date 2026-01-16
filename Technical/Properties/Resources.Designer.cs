@@ -1609,6 +1609,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Default Session.
+        /// </summary>
+        public static string DefaultSession {
+            get {
+                return ResourceManager.GetString("DefaultSession", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Delete Starting Point.
         /// </summary>
         public static string DeleteStartPoint {
@@ -6510,6 +6519,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string SMAPeriod4 {
             get {
                 return ResourceManager.GetString("SMAPeriod4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Smart Money Spread.
+        /// </summary>
+        public static string SmartMoneySpread {
+            get {
+                return ResourceManager.GetString("SmartMoneySpread", resourceCulture);
             }
         }
         
