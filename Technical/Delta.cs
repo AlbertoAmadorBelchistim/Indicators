@@ -1368,6 +1368,11 @@ public class Delta : Indicator
 			var priceRc = ChartInfo.PriceChartContainer.Region;
 			var half = _priceSignalSize / 2;
 
+			// Clamp drawing area so triangles are fully visible inside the region.
+			// We clamp the triangle "center" so its vertices don't exceed bounds.
+			var yMin = priceRc.Top + half;
+			var yMax = priceRc.Bottom - half;
+
 			for (var i = FirstVisibleBarNumber; i <= LastVisibleBarNumber; i++)
 			{
 				var x = ChartInfo.PriceChartContainer.GetXByBar(i, false);
@@ -1377,13 +1382,12 @@ public class Delta : Indicator
 				if (upPrice > 0)
 				{
 					var yPx = ChartInfo.PriceChartContainer.GetYByPrice(upPrice, false);
-					if (yPx >= priceRc.Top && yPx <= priceRc.Bottom)
-					{
-						var p1 = new Point(x, yPx - half);
-						var p2 = new Point(x - half, yPx + half);
-						var p3 = new Point(x + half, yPx + half);
-						context.FillPolygon(_priceSignalUpColor, new[] { p1, p2, p3 });
-					}
+					yPx = ClampInt(yPx, yMin, yMax);
+
+					var p1 = new Point(x, yPx - half);
+					var p2 = new Point(x - half, yPx + half);
+					var p3 = new Point(x + half, yPx + half);
+					context.FillPolygon(_priceSignalUpColor, new[] { p1, p2, p3 });
 				}
 
 				// Down triangle
@@ -1391,13 +1395,12 @@ public class Delta : Indicator
 				if (dnPrice > 0)
 				{
 					var yPx = ChartInfo.PriceChartContainer.GetYByPrice(dnPrice, false);
-					if (yPx >= priceRc.Top && yPx <= priceRc.Bottom)
-					{
-						var p1 = new Point(x, yPx + half);
-						var p2 = new Point(x - half, yPx - half);
-						var p3 = new Point(x + half, yPx - half);
-						context.FillPolygon(_priceSignalDownColor, new[] { p1, p2, p3 });
-					}
+					yPx = ClampInt(yPx, yMin, yMax);
+
+					var p1 = new Point(x, yPx + half);
+					var p2 = new Point(x - half, yPx - half);
+					var p3 = new Point(x + half, yPx - half);
+					context.FillPolygon(_priceSignalDownColor, new[] { p1, p2, p3 });
 				}
 			}
 		}
@@ -2046,6 +2049,12 @@ public class Delta : Indicator
 
 	#endregion
 
+	private static int ClampInt(int value, int min, int max)
+	{
+		if (value < min) return min;
+		if (value > max) return max;
+		return value;
+	}
 	private int GetMinWidth(RenderContext context, int startBar, int endBar)
 	{
 		var maxLength = 0;
