@@ -857,4 +857,17 @@
   <value>颜色：负 / SMA 下降</value>
   <comment>MultiMarketPower</comment>
 </data>
+<data name="Filters" xml:space="preserve">
+    <value>过滤</value>
+  </data><data name="CustomSession" xml:space="preserve">
+    <value>自定义会话</value>
+  </data>
+  <data name="DefaultSession" xml:space="preserve">
+  <value>默认时段</value>
+  <comment>UI</comment>
+</data>
+<data name="SmartMoneySpread" xml:space="preserve">
+  <value>聪明资金价差</value>
+  <comment>MultiMarketPower</comment>
+</data>
 </root>
