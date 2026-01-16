@@ -2509,6 +2509,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Specifies various settings for the font..
+        /// </summary>
+        public static string FontSettingDescription {
+            get {
+                return ResourceManager.GetString("FontSettingDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Font Size.
         /// </summary>
         public static string FontSize {
@@ -3265,6 +3274,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Specifies the display location of the label..
+        /// </summary>
+        public static string LabelLocationDescription {
+            get {
+                return ResourceManager.GetString("LabelLocationDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Labels.
         /// </summary>
         public static string Labels {
@@ -3279,6 +3297,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string LabelTemplate {
             get {
                 return ResourceManager.GetString("LabelTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Sets the color of the label text..
+        /// </summary>
+        public static string LabelTextColorDescription {
+            get {
+                return ResourceManager.GetString("LabelTextColorDescription", resourceCulture);
             }
         }
         
