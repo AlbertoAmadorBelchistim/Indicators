@@ -47,7 +47,7 @@ public class MultiMarketPower : Indicator
 	{
         Color = CrossColor.FromArgb(255, 128, 128, 128), // Gray
 		Width = 1,
-		IsHidden = true,
+        IsHidden = true,
 		ShowZeroValue = false,
 		UseMinimizedModeIfEnabled = true
 	};
@@ -56,7 +56,7 @@ public class MultiMarketPower : Indicator
 	{
         Color = CrossColor.FromArgb(255, 0, 255, 255), // Cyan
 		Width = 2,
-		IsHidden = true,
+        IsHidden = true,
 		ShowZeroValue = false,
 		UseMinimizedModeIfEnabled = true
 	};
@@ -65,7 +65,7 @@ public class MultiMarketPower : Indicator
 	{
         Color = CrossColor.FromArgb(255, 65, 105, 225), // RoyalBlue
 		Width = 2,
-		IsHidden = true,
+        IsHidden = true,
 		ShowZeroValue = false,
 		UseMinimizedModeIfEnabled = true
 	};
@@ -74,7 +74,7 @@ public class MultiMarketPower : Indicator
 	{
         Color = CrossColor.FromArgb(255, 255, 165, 0), // Orange
 		Width = 3,
-		IsHidden = true,
+        IsHidden = true,
 		ShowZeroValue = false,
 		UseMinimizedModeIfEnabled = true
 	};
@@ -83,7 +83,7 @@ public class MultiMarketPower : Indicator
 	{
         Color = CrossColor.FromArgb(255, 178, 34, 34),
 		Width = 4,
-		IsHidden = true,
+        IsHidden = true,
 		ShowZeroValue = false,
 		UseMinimizedModeIfEnabled = true
 	};
@@ -98,7 +98,8 @@ public class MultiMarketPower : Indicator
 
 	private readonly ValueDataSeries _signalSeries = new("SignalSeries", "Signal (SMA)")
 	{
-		VisualType = VisualMode.Line,
+        Color = CrossColor.FromArgb(255, 255, 255, 255),
+        VisualType = VisualMode.Line,
 		Width = 2,
 		UseMinimizedModeIfEnabled = true
 	};
@@ -156,16 +157,16 @@ public class MultiMarketPower : Indicator
 	private int _signalPeriod = 14;
 
 	// Simple (zero-line) colors
-	private CrossColor _simplePositiveColor = CrossColors.LimeGreen;
-	private CrossColor _simpleNegativeColor = CrossColors.IndianRed;
+	private CrossColor _simplePositiveColor = CrossColors.Lime;
+	private CrossColor _simpleNegativeColor = CrossColors.Red;
 
 	// 4-color system
-	private CrossColor _colorPosSmaUp = CrossColors.LimeGreen;
-	private CrossColor _colorPosSmaDown = CrossColors.Gold;
-	private CrossColor _colorNegSmaUp = CrossColors.DodgerBlue;
-	private CrossColor _colorNegSmaDown = CrossColors.IndianRed;
+	private CrossColor _colorPosSmaUp = CrossColor.FromArgb(255, 0, 200, 0);
+    private CrossColor _colorPosSmaDown = CrossColor.FromArgb(255, 255, 215, 0);
+    private CrossColor _colorNegSmaUp = CrossColor.FromArgb(255, 65, 105, 225);
+    private CrossColor _colorNegSmaDown = CrossColor.FromArgb(255, 220, 20, 60);
 
-	private decimal _signalSum;
+    private decimal _signalSum;
 	private int _signalCount;
 
 
