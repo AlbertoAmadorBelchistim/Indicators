@@ -45,7 +45,8 @@ public class MultiMarketPower : Indicator
 
 	private readonly ValueDataSeries _filter1Series = new("Filter1Series", "Filter1")
 	{
-		Color = CrossColor.FromArgb(255, 135, 206, 235),
+        Color = CrossColor.FromArgb(255, 128, 128, 128), // Gray
+		Width = 1,
 		IsHidden = true,
 		ShowZeroValue = false,
 		UseMinimizedModeIfEnabled = true
@@ -53,7 +54,8 @@ public class MultiMarketPower : Indicator
 
 	private readonly ValueDataSeries _filter2Series = new("Filter2Series", "Filter2")
 	{
-		Color = DefaultColors.Red.Convert(),
+        Color = CrossColor.FromArgb(255, 0, 255, 255), // Cyan
+		Width = 2,
 		IsHidden = true,
 		ShowZeroValue = false,
 		UseMinimizedModeIfEnabled = true
@@ -61,7 +63,8 @@ public class MultiMarketPower : Indicator
 
 	private readonly ValueDataSeries _filter3Series = new("Filter3Series", "Filter3")
 	{
-		Color = DefaultColors.Green.Convert(),
+        Color = CrossColor.FromArgb(255, 65, 105, 225), // RoyalBlue
+		Width = 2,
 		IsHidden = true,
 		ShowZeroValue = false,
 		UseMinimizedModeIfEnabled = true
@@ -69,8 +72,8 @@ public class MultiMarketPower : Indicator
 
 	private readonly ValueDataSeries _filter4Series = new("Filter4Series", "Filter4")
 	{
-		Color = CrossColor.FromArgb(255, 128, 128, 128),
-		Width = 2,
+        Color = CrossColor.FromArgb(255, 255, 165, 0), // Orange
+		Width = 3,
 		IsHidden = true,
 		ShowZeroValue = false,
 		UseMinimizedModeIfEnabled = true
@@ -78,8 +81,8 @@ public class MultiMarketPower : Indicator
 
 	private readonly ValueDataSeries _filter5Series = new("Filter5Series", "Filter5")
 	{
-		Color = CrossColor.FromArgb(255, 205, 92, 92),
-		Width = 2,
+        Color = CrossColor.FromArgb(255, 178, 34, 34),
+		Width = 4,
 		IsHidden = true,
 		ShowZeroValue = false,
 		UseMinimizedModeIfEnabled = true
