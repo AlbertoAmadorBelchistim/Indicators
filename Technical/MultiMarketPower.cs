@@ -23,13 +23,19 @@ public class MultiMarketPower : Indicator
 	#region Nested types
 	public enum ViewMode
 	{
+		[Display(ResourceType = typeof(Resources), Name = nameof(Resources.Filters))]
 		Filters,
+
+		[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SmartMoneySpread))]
 		SmartMoneySpread
 	}
 
 	public enum SessionMode
 	{
+		[Display(ResourceType = typeof(Resources), Name = nameof(Resources.DefaultSession))]
 		DefaultSession,
+
+		[Display(ResourceType = typeof(Resources), Name = nameof(Resources.CustomSession))]
 		CustomSession
 	}
 
