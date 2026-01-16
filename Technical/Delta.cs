@@ -104,6 +104,27 @@ public class Delta : Indicator
 		RTH = 1
 	}
 
+	[Serializable]
+	public enum AverageMode
+	{
+		[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SMA))]
+		Sma = 0,
+		[Display(ResourceType = typeof(Resources), Name = nameof(Resources.EMA))]
+		Ema = 1
+	}
+
+	[Serializable]
+	public enum AverageColorMode
+	{
+		[Display(ResourceType = typeof(Resources), Name = nameof(Resources.Fixed))]
+		Fixed = 0,
+		[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ZeroCross))]
+		ZeroCross = 1,
+		[Display(ResourceType = typeof(Resources), Name = nameof(Resources.Slope))]
+		Slope = 2
+	}
+
+
 
 	#endregion
 
@@ -381,6 +402,32 @@ public class Delta : Indicator
 
 	private int _lastBarAudioUpAlert;
 	private int _lastBarAudioDownAlert;
+
+	#endregion
+
+	#region Fields (average delta)
+
+	private readonly ValueDataSeries _avgSeries = new("AverageDelta", "Average")
+	{
+		VisualType = VisualMode.Hide,
+		Width = 2,
+		Color = CrossColor.FromArgb(255, 60, 120, 240),
+		ShowCurrentValue = false
+	};
+
+	private bool _showAverage;
+	private int _averagePeriod = 20;
+	private AverageMode _avgMode = AverageMode.Sma;
+	private AverageColorMode _avgColorMode = AverageColorMode.Fixed;
+
+	private Color _avgSlopeUpColor = Color.Green;
+	private Color _avgSlopeDownColor = Color.Red;
+
+	private readonly Queue<decimal> _smaWindow = new();
+	private decimal _smaSum;
+
+	private decimal _emaValue;
+	private bool _emaInitialized;
 
 	#endregion
 
@@ -1077,6 +1124,130 @@ public class Delta : Indicator
 
 	#endregion
 
+	#region Average Delta
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowAverage),
+		GroupName = nameof(Resources.Average), Order = 400)]
+	public bool ShowAverage
+	{
+		get => _showAverage;
+		set
+		{
+			if (_showAverage == value)
+				return;
+
+			_showAverage = value;
+			_avgSeries.VisualType = value ? VisualMode.Line : VisualMode.Hide;
+			RecalculateValues();
+			RedrawChart();
+		}
+	}
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.AveragePeriod),
+		GroupName = nameof(Resources.Average), Order = 410)]
+	[Range(1, 1000)]
+	public int AveragePeriod
+	{
+		get => _averagePeriod;
+		set
+		{
+			if (value < 1) value = 1;
+			if (_averagePeriod == value)
+				return;
+
+			_averagePeriod = value;
+			RecalculateValues();
+			RedrawChart();
+		}
+	}
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.CalculationMode),
+		GroupName = nameof(Resources.Average), Order = 420)]
+	public AverageMode AvgMode
+	{
+		get => _avgMode;
+		set
+		{
+			if (_avgMode == value)
+				return;
+
+			_avgMode = value;
+			RecalculateValues();
+			RedrawChart();
+		}
+	}
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ColorMode),
+		GroupName = nameof(Resources.Average), Order = 425)]
+	public AverageColorMode AvgColorMode
+	{
+		get => _avgColorMode;
+		set
+		{
+			if (_avgColorMode == value)
+				return;
+
+			_avgColorMode = value;
+			RecalculateValues();
+			RedrawChart();
+		}
+	}
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.BaseColor),
+		GroupName = nameof(Resources.Average), Order = 430)]
+	public CrossColor AverageColor
+	{
+		get => _avgSeries.Color;
+		set
+		{
+			_avgSeries.Color = value;
+			RedrawChart();
+		}
+	}
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SlopeUpColor),
+		GroupName = nameof(Resources.Average), Order = 431)]
+	public CrossColor AvgSlopeUpColor
+	{
+		get => _avgSlopeUpColor.Convert();
+		set
+		{
+			_avgSlopeUpColor = value.Convert();
+			RedrawChart();
+		}
+	}
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SlopeDownColor),
+		GroupName = nameof(Resources.Average), Order = 432)]
+	public CrossColor AvgSlopeDownColor
+	{
+		get => _avgSlopeDownColor.Convert();
+		set
+		{
+			_avgSlopeDownColor = value.Convert();
+			RedrawChart();
+		}
+	}
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.Width),
+		GroupName = nameof(Resources.Average), Order = 440)]
+	[Range(1, 10)]
+	public int AverageWidth
+	{
+		get => _avgSeries.Width;
+		set
+		{
+			if (_avgSeries.Width == value)
+				return;
+
+			_avgSeries.Width = value;
+			RedrawChart();
+		}
+	}
+
+	#endregion
+
+
 	#endregion
 
 	#region ctor
@@ -1090,6 +1261,7 @@ public class Delta : Indicator
 
 		Panel = IndicatorDataProvider.NewPanel;
 		DataSeries[0] = _delta;
+		DataSeries.Add(_avgSeries);
 
 		DataSeries.Insert(0, _diapasonHigh);
 		DataSeries.Insert(1, _diapasonLow);
@@ -1631,6 +1803,76 @@ public class Delta : Indicator
 				CutAllThresholdsAt(bar - 1);
 			}
 		}
+
+		// --- Average delta (SMA/EMA) ---
+		if (bar == 0)
+		{
+			_smaWindow.Clear();
+			_smaSum = 0m;
+			_emaInitialized = false;
+			_emaValue = 0m;
+		}
+
+		if (_showAverage)
+		{
+			var sample = deltaValue; // signed, already filtered (no repaint semantics)
+
+			decimal smaVal = 0m;
+			decimal emaVal = 0m;
+
+			// SMA
+			_smaWindow.Enqueue(sample);
+			_smaSum += sample;
+
+			while (_smaWindow.Count > _averagePeriod)
+				_smaSum -= _smaWindow.Dequeue();
+
+			smaVal = _smaSum / Math.Max(1, _smaWindow.Count);
+
+			// EMA
+			if (!_emaInitialized)
+			{
+				_emaValue = sample;
+				_emaInitialized = true;
+			}
+			else
+			{
+				var k = 2m / (_averagePeriod + 1m);
+				_emaValue = (sample - _emaValue) * k + _emaValue;
+			}
+
+			emaVal = _emaValue;
+
+			var avgVal = (_avgMode == AverageMode.Sma) ? smaVal : emaVal;
+
+			_avgSeries[bar] = avgVal;
+
+			if (_avgColorMode == AverageColorMode.Fixed)
+			{
+				_avgSeries.Colors[bar] = _avgSeries.Color.Convert();
+			}
+			else if (_avgColorMode == AverageColorMode.ZeroCross)
+			{
+				_avgSeries.Colors[bar] = (avgVal >= 0m) ? _avgSlopeUpColor : _avgSlopeDownColor;
+			}
+			else // Slope
+			{
+				if (bar > 0)
+				{
+					var prevAvg = _avgSeries[bar - 1];
+					_avgSeries.Colors[bar] = (avgVal >= prevAvg) ? _avgSlopeUpColor : _avgSlopeDownColor;
+				}
+				else
+				{
+					_avgSeries.Colors[bar] = _avgSeries.Color.Convert();
+				}
+			}
+		}
+		else
+		{
+			_avgSeries[bar] = 0m;
+		}
+
 
 
 		if (Absorption.Enabled)
