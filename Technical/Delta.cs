@@ -77,6 +77,14 @@ public class Delta : Indicator
 		Down
 	}
 
+	[Serializable]
+	public enum ThresholdLevel
+	{
+		Major = 0,
+		Minor = 1
+	}
+
+
 	#endregion
 
 	#region Fields
@@ -299,6 +307,9 @@ public class Delta : Indicator
 	private int _priceSignalSize = 10;
 	private Color _priceSignalUpColor = Color.Lime;
 	private Color _priceSignalDownColor = Color.Fuchsia;
+
+	private ThresholdLevel _visualUpLevel = ThresholdLevel.Major;
+	private ThresholdLevel _visualDownLevel = ThresholdLevel.Major;
 
 	#endregion
 
@@ -667,6 +678,37 @@ public class Delta : Indicator
 	#endregion
 
 	#region Visual alerts (price panel)
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.VisualUpThresholds), Description = nameof(Resources.VisualUpThresholdsDescription),
+	GroupName = nameof(Resources.Alerts), Order = 293)]
+	public ThresholdLevel VisualUpLevel
+	{
+		get => _visualUpLevel;
+		set
+		{
+			if (_visualUpLevel == value)
+				return;
+
+			_visualUpLevel = value;
+			RedrawChart();
+		}
+	}
+
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.VisualDownThresholds), Description = nameof(Resources.VisualDownThresholdsDescription),
+		GroupName = nameof(Resources.Alerts), Order = 294)]
+	public ThresholdLevel VisualDownLevel
+	{
+		get => _visualDownLevel;
+		set
+		{
+			if (_visualDownLevel == value)
+				return;
+
+			_visualDownLevel = value;
+			RedrawChart();
+		}
+	}
+
 
 	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowVisualAlerts), Description = nameof(Resources.ShowVisualAlertsDescription), 
 		GroupName = nameof(Resources.Alerts), Order = 295)]
@@ -1180,12 +1222,6 @@ public class Delta : Indicator
 
 			if ((deltaValue >= alertValue && _prevDeltaValue < alertValue) || (deltaValue <= alertValue && _prevDeltaValue > alertValue))
 			{
-				if (_visualEnabled)
-				{
-					var offset = _priceSignalOffsetTicks * InstrumentInfo.TickSize;
-					_priceSignalUp[bar] = candle.Low - offset;
-				}
-
 				_lastBarAlert = bar;
 				AddAlert(AlertFile, InstrumentInfo.Instrument, $"Delta reached {alertValue} filter", AlertBGColor, AlertForeColor);
 			}
@@ -1198,14 +1234,25 @@ public class Delta : Indicator
 			if ((deltaValue >= negativeAlertValue && _prevDeltaValue < negativeAlertValue) ||
 				(deltaValue <= negativeAlertValue && _prevDeltaValue > negativeAlertValue))
 			{
-				if (_visualEnabled)
-				{
-					var offset = _priceSignalOffsetTicks * InstrumentInfo.TickSize;
-					_priceSignalDown[bar] = candle.High + offset;
-				}
 				_lastBarNegativeAlert = bar;
 				AddAlert(AlertFile, InstrumentInfo.Instrument, $"Delta reached {negativeAlertValue} filter", AlertBGColor, AlertForeColor);
 			}
+		}
+
+		// --- Visual signals (price panel): fixed threshold selection per side ---
+		if (_visualEnabled && InstrumentInfo is not null)
+		{
+			var upTh = PickUpThreshold();
+			var dnTh = PickDownThreshold();
+
+			var offset = _priceSignalOffsetTicks * InstrumentInfo.TickSize;
+
+			// Match DeltaModif semantics: up marker above High, down marker below Low.
+			if (deltaValue >= upTh)
+				_priceSignalUp[bar] = candle.High + offset;
+
+			if (deltaValue <= dnTh)
+				_priceSignalDown[bar] = candle.Low - offset;
 		}
 
 		_prevDeltaValue = deltaValue;
@@ -1337,6 +1384,20 @@ public class Delta : Indicator
 
 		if (repaint)
 			RedrawChart();
+	}
+
+	private int PickUpThreshold()
+	{
+		return _visualUpLevel == ThresholdLevel.Major
+			? _upMajorLevel
+			: _upMinorLevel;
+	}
+
+	private int PickDownThreshold()
+	{
+		return _visualDownLevel == ThresholdLevel.Major
+			? _downMajorLevel
+			: _downMinorLevel;
 	}
 
 	#endregion
