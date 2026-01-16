@@ -1,4 +1,4 @@
-# Architecture — ATAS Indicators Repository
+# Architecture ï¿½ ATAS Indicators Repository
 
 This document defines the **architectural principles and recurring patterns**
 used across this repository for developing and modifying ATAS indicators.
@@ -200,3 +200,10 @@ Localization changes must not be mixed with:
 - calculation logic,
 - rendering refactors,
 - or architectural changes.
+
+## Architecture Decision Records (ADR)
+
+Non-trivial technical or UX decisions MUST be documented using an ADR.
+
+See:
+docs/decisions/ADR-TEMPLATE.md
