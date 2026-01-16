@@ -828,6 +828,7 @@
   </data>
   <data name="CustomSessionStart" xml:space="preserve">
     <value>Custom Session Start</value>
+    <comment>UI</comment>
   </data>
   <data name="OffsetY" xml:space="preserve">
     <value>Y Offset</value>
@@ -2460,6 +2461,7 @@
   </data>
   <data name="General" xml:space="preserve">
     <value>General</value>
+    <comment>UI</comment>
   </data>
   <data name="LabelLocation" xml:space="preserve">
     <value>Label Location</value>
@@ -3233,27 +3235,27 @@
     <comment>MultiMarketPower</comment>
   </data>
   <data name="ColorPosSmaUp" xml:space="preserve">
-    <value>Color: Positive / SMA Rising</value>
+    <value>Positive · SMA ↑</value>
     <comment>MultiMarketPower</comment>
   </data>
   <data name="ColorPosSmaDown" xml:space="preserve">
-    <value>Color: Positive / SMA Falling (Correction)</value>
+    <value>Positive · SMA ↓</value>
     <comment>MultiMarketPower</comment>
   </data>
   <data name="ColorNegSmaUp" xml:space="preserve">
-    <value>Color: Negative / SMA Rising (Recovery)</value>
+    <value>Negative · SMA ↑</value>
     <comment>MultiMarketPower</comment>
   </data>
   <data name="ColorNegSmaDown" xml:space="preserve">
-    <value>Color: Negative / SMA Falling</value>
+    <value>Negative · SMA ↓</value>
     <comment>MultiMarketPower</comment>
   </data>
   <data name="DefaultSession" xml:space="preserve">
-  <value>Default Session</value>
-  <comment>UI</comment>
-</data>
-<data name="SmartMoneySpread" xml:space="preserve">
-  <value>Smart Money Spread</value>
-  <comment>MultiMarketPower</comment>
-</data>
+    <value>Default Session</value>
+    <comment>UI</comment>
+  </data>
+  <data name="SmartMoneySpread" xml:space="preserve">
+    <value>Smart Money Spread</value>
+    <comment>MultiMarketPower</comment>
+  </data>
 </root>

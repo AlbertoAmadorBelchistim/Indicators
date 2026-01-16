@@ -1285,7 +1285,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Color: Negative / SMA Falling.
+        ///   Busca una cadena traducida similar a Negative · SMA ↓.
         /// </summary>
         public static string ColorNegSmaDown {
             get {
@@ -1294,7 +1294,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Color: Negative / SMA Rising (Recovery).
+        ///   Busca una cadena traducida similar a Negative · SMA ↑.
         /// </summary>
         public static string ColorNegSmaUp {
             get {
@@ -1303,7 +1303,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Color: Positive / SMA Falling (Correction).
+        ///   Busca una cadena traducida similar a Positive · SMA ↓.
         /// </summary>
         public static string ColorPosSmaDown {
             get {
@@ -1312,7 +1312,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Color: Positive / SMA Rising.
+        ///   Busca una cadena traducida similar a Positive · SMA ↑.
         /// </summary>
         public static string ColorPosSmaUp {
             get {

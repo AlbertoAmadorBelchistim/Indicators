@@ -123,6 +123,9 @@
   <data name="Bid" xml:space="preserve">
     <value>Bids</value>
   </data>
+  <data name="Filters" xml:space="preserve">
+    <value>Filtros</value>
+  </data>
   <data name="AlertFile" xml:space="preserve">
     <value>Archivo de alarma</value>
   </data>
@@ -165,8 +168,17 @@
   <data name="Visualization" xml:space="preserve">
     <value>Visualización</value>
   </data>
+  <data name="Session" xml:space="preserve">
+    <value>Sesión</value>
+  </data>
+  <data name="SignalPeriod" xml:space="preserve">
+    <value>Período de señal</value>
+  </data>
   <data name="Trades" xml:space="preserve">
     <value>Trades</value>
+  </data>
+  <data name="CustomSessionStart" xml:space="preserve">
+    <value>Inicio sesión personalizada</value>
   </data>
   <data name="AskColor" xml:space="preserve">
     <value>Color de ask</value>
@@ -237,6 +249,9 @@
   <data name="ShortValues" xml:space="preserve">
     <value>Mostrar valores abreviados</value>
   </data>
+  <data name="CustomSession" xml:space="preserve">
+    <value>Sesión personalizada</value>
+  </data>
   <data name="ShowTradesCount" xml:space="preserve">
     <value>Cantidad de operaciones</value>
   </data>
@@ -248,6 +263,9 @@
   </data>
   <data name="Rows" xml:space="preserve">
     <value>Filas</value>
+  </data>
+  <data name="General" xml:space="preserve">
+    <value>General</value>
   </data>
   <data name="ToggleLevelsVisibilityHotKey" xml:space="preserve">
     <value>Alternar visibilidad de todos los niveles</value>
@@ -796,78 +814,64 @@
   <data name="AlertFileDescription" xml:space="preserve">
     <value>El parámetro AlertFileDescription permite a los usuarios especificar el nombre de un archivo de audio personalizado para los sonidos de alerta en la plataforma ATAS. Los usuarios pueden seleccionar un archivo WAV que se reproducirá cuando se cumpla una condición de alerta. El archivo WAV elegido debe estar ubicado en la carpeta C:\Program Files (x86)\ATAS Platform\Sounds.</value>
   </data>
-<data name="General" xml:space="preserve">
-    <value>General</value>
-  </data><data name="Session" xml:space="preserve">
-    <value>Sesión</value>
-  </data><data name="CustomSessionStart" xml:space="preserve">
-    <value>Hora de inicio de sesión propia</value>
-  </data><data name="SignalPeriod" xml:space="preserve">
-    <value>Período de señal</value>
-  </data>
   <data name="ViewMode" xml:space="preserve">
-  <value>Modo de vista</value>
-  <comment>UI</comment>
-</data>
-<data name="SessionMode" xml:space="preserve">
-  <value>Modo de sesión</value>
-  <comment>UI</comment>
-</data>
-<data name="SessionsBack" xml:space="preserve">
-  <value>Sesiones atrás</value>
-  <comment>UI</comment>
-</data>
-<data name="Use4ColorSystem" xml:space="preserve">
-  <value>Usar sistema de 4 colores</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="Use4ColorSystemDescription" xml:space="preserve">
-  <value>Si está activado, usa colores según la pendiente. Si no, usa colores simples por la línea cero.</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="ShowSignalLine" xml:space="preserve">
-  <value>Mostrar línea de señal (SMA)</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="SimplePositiveColor" xml:space="preserve">
-  <value>Color positivo simple</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="SimpleNegativeColor" xml:space="preserve">
-  <value>Color negativo simple</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="SimpleColorDescription" xml:space="preserve">
-  <value>Se usa solo cuando el sistema de 4 colores está desactivado.</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="ColorPosSmaUp" xml:space="preserve">
-  <value>Color: Positivo / SMA subiendo</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="ColorPosSmaDown" xml:space="preserve">
-  <value>Color: Positivo / SMA bajando (corrección)</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="ColorNegSmaUp" xml:space="preserve">
-  <value>Color: Negativo / SMA subiendo (recuperación)</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="ColorNegSmaDown" xml:space="preserve">
-  <value>Color: Negativo / SMA bajando</value>
-  <comment>MultiMarketPower</comment>
-</data>
-<data name="Filters" xml:space="preserve">
-    <value>Filtros</value>
-  </data><data name="CustomSession" xml:space="preserve">
-    <value>Sesión personalizada</value>
+    <value>Modo de vista</value>
+    <comment>UI</comment>
+  </data>
+  <data name="SessionMode" xml:space="preserve">
+    <value>Modo de sesión</value>
+    <comment>UI</comment>
+  </data>
+  <data name="SessionsBack" xml:space="preserve">
+    <value>Sesiones atrás</value>
+    <comment>UI</comment>
+  </data>
+  <data name="Use4ColorSystem" xml:space="preserve">
+    <value>Usar sistema de 4 colores</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="Use4ColorSystemDescription" xml:space="preserve">
+    <value>Si está activado, usa colores según la pendiente. Si no, usa colores simples por la línea cero.</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="ShowSignalLine" xml:space="preserve">
+    <value>Mostrar línea de señal (SMA)</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="SimplePositiveColor" xml:space="preserve">
+    <value>Positivo (simple)</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="SimpleNegativeColor" xml:space="preserve">
+    <value>Negativo (simple)</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="SimpleColorDescription" xml:space="preserve">
+    <value>Se usa solo cuando el sistema de 4 colores está desactivado.</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="ColorPosSmaUp" xml:space="preserve">
+    <value>Positivo · SMA ↑</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="ColorPosSmaDown" xml:space="preserve">
+    <value>Positivo · SMA ↓</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="ColorNegSmaUp" xml:space="preserve">
+    <value>Negativo · SMA ↑</value>
+    <comment>MultiMarketPower</comment>
+  </data>
+  <data name="ColorNegSmaDown" xml:space="preserve">
+    <value>Negativo · SMA ↓</value>
+    <comment>MultiMarketPower</comment>
   </data>
   <data name="DefaultSession" xml:space="preserve">
-  <value>Sesión predeterminada</value>
-  <comment>UI</comment>
-</data>
-<data name="SmartMoneySpread" xml:space="preserve">
-  <value>Spread de Smart Money</value>
-  <comment>MultiMarketPower</comment>
-</data>
+    <value>Sesión predeterminada</value>
+    <comment>UI</comment>
+  </data>
+  <data name="SmartMoneySpread" xml:space="preserve">
+    <value>Spread de Smart Money</value>
+    <comment>MultiMarketPower</comment>
+  </data>
 </root>
