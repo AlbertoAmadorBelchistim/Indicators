@@ -179,31 +179,57 @@ presentation concern, not a logic driver.
 
 - Indicator logic must never depend on language or culture.
 - All functional semantics must be invariant across locales.
-- The neutral resource value is mandatory and acts as the authoritative fallback.
+- The neutral resource value (`Resources.resx`) is mandatory and acts as the authoritative fallback (SoT).
 
 ### Resource coverage
 
-- Additional languages are provided on a best-effort basis.
+- Additional languages are provided on a best-effort basis, but:
+  - Any **new** key introduced in `Resources.resx` **MUST** be added to all satellite `.resx` files shipped by this repository.
 - Missing translations must not affect:
   - calculation,
   - rendering,
   - or indicator behavior.
-- Resource completeness is not required for architectural correctness.
+- Resource completeness for *existing* keys is not required for architectural correctness, but PRs introducing new UI strings must not ship partial coverage.
 
-### Naming and structure
+### Naming, reuse, and structure
 
-- Resource keys must be stable and descriptive.
+- Prefer reusing existing keys when the meaning matches **exactly**.
+  - If a reused key is missing in some satellite `.resx`, the PR **MUST**:
+    - list the incomplete keys explicitly, and
+    - provide the missing translations.
+- Create new keys only when reuse would change meaning, cause ambiguity, or degrade UX clarity.
+- Resource keys must be stable, descriptive, and follow the existing naming style (PascalCase).
+  - Use `...Description` suffix for tooltip/description strings.
+  - **Do NOT** include indicator names in resource key names (keys are repository-wide and reusable).
 - Technical identifiers (class names, enums, internal fields) must not be localized.
 - UI-facing strings must be isolated in resource files.
+
+### Comments and traceability
+
+- Every `<data>` entry **MUST** include a `<comment>` node:
+  - Use the indicator name where the key is used (e.g., `Delta`, `ClusterStatistic`).
+  - If the key is generic and intended for reuse, use an orientative comment (e.g., `UI`).
+
+### UX constraints (scalping-oriented)
+
+- Resource values must be short, scannable, and interpretable quickly under pressure.
+- Avoid long phrases in names shown in settings panels; prefer compact labels with unambiguous meaning.
+
+### Change isolation (auditability)
 
 Localization changes must not be mixed with:
 - calculation logic,
 - rendering refactors,
 - or architectural changes.
 
-## Architecture Decision Records (ADR)
+If a feature requires both localization and logic:
+- do localization first (resources only),
+- then implement the feature in separate commits.
+
+## 9. Architecture Decision Records (ADR)
 
 Non-trivial technical or UX decisions MUST be documented using an ADR.
 
 See:
 docs/decisions/ADR-TEMPLATE.md
+
