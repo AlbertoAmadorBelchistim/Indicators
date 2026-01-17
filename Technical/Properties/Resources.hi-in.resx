@@ -124,7 +124,10 @@
     <value>अवधि</value>
   </data>
   <data name="SMA" xml:space="preserve">
-    <value>सांघटिक औसत</value>
+    <value>सरल गतिमान औसत (SMA)</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>रंग</value>
   </data>
   <data name="Width" xml:space="preserve">
     <value>चौड़ाई</value>
@@ -183,14 +186,23 @@
   <data name="PreviousWeek" xml:space="preserve">
     <value>पिछले सप्ताह</value>
   </data>
+  <data name="Show" xml:space="preserve">
+    <value>दिखाएं</value>
+  </data>
   <data name="Height" xml:space="preserve">
     <value>ऊचाई</value>
+  </data>
+  <data name="Font" xml:space="preserve">
+    <value>फ़ॉन्ट</value>
   </data>
   <data name="Visualization" xml:space="preserve">
     <value>दृश्यीकरण</value>
   </data>
   <data name="Session" xml:space="preserve">
     <value>सत्र</value>
+  </data>
+  <data name="AveragePeriod" xml:space="preserve">
+    <value>अवधि</value>
   </data>
   <data name="SignalPeriod" xml:space="preserve">
     <value>सिग्नल अवधि</value>
@@ -202,7 +214,7 @@
     <value>कस्टम सत्र प्रारंभ</value>
   </data>
   <data name="ShowAverage" xml:space="preserve">
-    <value>औसत दिखाएं</value>
+    <value>औसत दिखाएँ</value>
   </data>
   <data name="AskColor" xml:space="preserve">
     <value>पूछें रंग</value>
@@ -252,6 +264,9 @@
   <data name="VolumeColor" xml:space="preserve">
     <value>वॉल्यूम रंग</value>
   </data>
+  <data name="Location" xml:space="preserve">
+    <value>स्थान</value>
+  </data>
   <data name="GridColor" xml:space="preserve">
     <value>ग्रिड स्टाइल</value>
   </data>
@@ -260,6 +275,9 @@
   </data>
   <data name="VisibleProportion" xml:space="preserve">
     <value>चार्ट के दिखाई देने वाले हिस्से के अनुपात द्वारा</value>
+  </data>
+  <data name="LineWidth" xml:space="preserve">
+    <value>लाइन की चौड़ाई</value>
   </data>
   <data name="Enabled" xml:space="preserve">
     <value>सक्षम</value>
@@ -290,6 +308,9 @@
   </data>
   <data name="Rows" xml:space="preserve">
     <value>पंक्तियाँ</value>
+  </data>
+  <data name="VolumeLabelDescription" xml:space="preserve">
+    <value>वॉल्यूम लेबल और विवरण</value>
   </data>
   <data name="General" xml:space="preserve">
     <value>सामान्य</value>
@@ -1047,20 +1068,13 @@
   <data name="DeltaLabelGroup" xml:space="preserve">
     <value>डेल्टा लेबल</value>
   </data>
-<data name="Show" xml:space="preserve">
-    <value>दिखाएं</value>
-  </data><data name="VolumeLabelDescription" xml:space="preserve">
-    <value>वॉल्यूम लेबल और विवरण</value>
-  </data><data name="LabelTextColorDescription" xml:space="preserve">
+  <data name="LabelTextColorDescription" xml:space="preserve">
     <value>लेबल पाठ का रंग सेट करता है।</value>
-  </data><data name="Color" xml:space="preserve">
-    <value>रंग</value>
-  </data><data name="Location" xml:space="preserve">
-    <value>स्थान</value>
-  </data><data name="LabelLocationDescription" xml:space="preserve">
+  </data>
+  <data name="LabelLocationDescription" xml:space="preserve">
     <value>लेबल के प्रदर्शन स्थान को निर्धारित करता है।</value>
-  </data><data name="Font" xml:space="preserve">
-    <value>फ़ॉन्ट</value>
-  </data><data name="FontSettingDescription" xml:space="preserve">
+  </data>
+  <data name="FontSettingDescription" xml:space="preserve">
     <value>फॉन्ट के लिए विभिन्न सेटिंग्स का वर्णन करता है।</value>
-  </data></root>
+  </data>
+</root>
