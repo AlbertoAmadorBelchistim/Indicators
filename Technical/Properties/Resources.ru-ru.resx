@@ -175,7 +175,7 @@
     <value>Индекс Относительной Энергии</value>
   </data>
   <data name="SMA" xml:space="preserve">
-    <value>Простая Скользящая Средняя (SMA)</value>
+    <value>Простая скользящая средняя (SMA)</value>
   </data>
   <data name="SMMA" xml:space="preserve">
     <value>Сглаженная Скользящая Средняя (SMMA)</value>
@@ -523,7 +523,7 @@
     <value>Цвет</value>
   </data>
   <data name="AveragePeriod" xml:space="preserve">
-    <value>Период Сглаживания</value>
+    <value>Период</value>
   </data>
   <data name="EndTime" xml:space="preserve">
     <value>Конечное Время</value>
@@ -960,7 +960,7 @@
     <comment>ExternalCharts</comment>
   </data>
   <data name="ShowAverage" xml:space="preserve">
-    <value>Отображать Скользящую Среднюю</value>
+    <value>Показать среднее</value>
   </data>
   <data name="ShowGrid" xml:space="preserve">
     <value>Отображать Сетку</value>
@@ -3179,6 +3179,21 @@
     <value>Наклон</value>
     <comment>UI</comment>
   </data>
+  <data name="PriceSignalsGroup" xml:space="preserve">
+    <value>Сигналы на цене</value>
+  </data>
+  <data name="DeltaLabelGroup" xml:space="preserve">
+    <value>Метка дельты</value>
+  </data>
+  <data name="LabelTextColorDescription" xml:space="preserve">
+    <value>Устанавливает цвет текста метки.</value>
+  </data>
+  <data name="LabelLocationDescription" xml:space="preserve">
+    <value>Определяет местоположение отображения метки.</value>
+  </data>
+  <data name="FontSettingDescription" xml:space="preserve">
+    <value>Описывает различные настройки шрифта.</value>
+  </data>
   <data name="Misc" xml:space="preserve">
     <value>Разное</value>
   </data>
@@ -3188,16 +3203,4 @@
   <data name="Show Fibonacci" xml:space="preserve">
     <value>Показать уровни Фибоначчи</value>
   </data>
-  <data name="PriceSignalsGroup" xml:space="preserve">
-    <value>Сигналы на цене</value>
-  </data>
-  <data name="DeltaLabelGroup" xml:space="preserve">
-    <value>Метка дельты</value>
-  </data>
-<data name="LabelTextColorDescription" xml:space="preserve">
-    <value>Устанавливает цвет текста метки.</value>
-  </data><data name="LabelLocationDescription" xml:space="preserve">
-    <value>Определяет местоположение отображения метки.</value>
-  </data><data name="FontSettingDescription" xml:space="preserve">
-    <value>Описывает различные настройки шрифта.</value>
-  </data></root>
+</root>

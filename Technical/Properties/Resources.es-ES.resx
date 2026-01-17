@@ -124,7 +124,10 @@
     <value>Período</value>
   </data>
   <data name="SMA" xml:space="preserve">
-    <value>Media móvil</value>
+    <value>Media móvil simple (SMA)</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Color</value>
   </data>
   <data name="Width" xml:space="preserve">
     <value>Ancho</value>
@@ -183,14 +186,23 @@
   <data name="PreviousWeek" xml:space="preserve">
     <value>Semana anterior</value>
   </data>
+  <data name="Show" xml:space="preserve">
+    <value>Mostrar</value>
+  </data>
   <data name="Height" xml:space="preserve">
     <value>Altura</value>
+  </data>
+  <data name="Font" xml:space="preserve">
+    <value>Tipo de letra</value>
   </data>
   <data name="Visualization" xml:space="preserve">
     <value>Visualización</value>
   </data>
   <data name="Session" xml:space="preserve">
     <value>Sesión</value>
+  </data>
+  <data name="AveragePeriod" xml:space="preserve">
+    <value>Período</value>
   </data>
   <data name="SignalPeriod" xml:space="preserve">
     <value>Período de señal</value>
@@ -202,7 +214,7 @@
     <value>Inicio sesión personalizada</value>
   </data>
   <data name="ShowAverage" xml:space="preserve">
-    <value>Mostrar media móvil</value>
+    <value>Mostrar media</value>
   </data>
   <data name="AskColor" xml:space="preserve">
     <value>Color de ask</value>
@@ -252,6 +264,9 @@
   <data name="VolumeColor" xml:space="preserve">
     <value>Color de volumen</value>
   </data>
+  <data name="Location" xml:space="preserve">
+    <value>Ubicación</value>
+  </data>
   <data name="GridColor" xml:space="preserve">
     <value>Color de cuadricula</value>
   </data>
@@ -260,6 +275,9 @@
   </data>
   <data name="VisibleProportion" xml:space="preserve">
     <value>Mostrar por degradado</value>
+  </data>
+  <data name="LineWidth" xml:space="preserve">
+    <value>Anchura de línea</value>
   </data>
   <data name="Enabled" xml:space="preserve">
     <value>Habilitado</value>
@@ -290,6 +308,9 @@
   </data>
   <data name="Rows" xml:space="preserve">
     <value>Filas</value>
+  </data>
+  <data name="VolumeLabelDescription" xml:space="preserve">
+    <value>Etiqueta y descripción de volumen (en modo clúster)</value>
   </data>
   <data name="General" xml:space="preserve">
     <value>General</value>
@@ -1047,20 +1068,13 @@
   <data name="DeltaLabelGroup" xml:space="preserve">
     <value>Etiqueta de delta</value>
   </data>
-<data name="Show" xml:space="preserve">
-    <value>Mostrar</value>
-  </data><data name="VolumeLabelDescription" xml:space="preserve">
-    <value>Etiqueta y descripción de volumen (en modo clúster)</value>
-  </data><data name="LabelTextColorDescription" xml:space="preserve">
+  <data name="LabelTextColorDescription" xml:space="preserve">
     <value>Establece el color del texto de la etiqueta.</value>
-  </data><data name="Color" xml:space="preserve">
-    <value>Color</value>
-  </data><data name="Location" xml:space="preserve">
-    <value>Ubicación</value>
-  </data><data name="LabelLocationDescription" xml:space="preserve">
+  </data>
+  <data name="LabelLocationDescription" xml:space="preserve">
     <value>Especifica la ubicación de visualización de la etiqueta.</value>
-  </data><data name="Font" xml:space="preserve">
-    <value>Tipo de letra</value>
-  </data><data name="FontSettingDescription" xml:space="preserve">
+  </data>
+  <data name="FontSettingDescription" xml:space="preserve">
     <value>Describe varias configuraciones para la fuente.</value>
-  </data></root>
+  </data>
+</root>

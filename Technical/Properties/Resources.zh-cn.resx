@@ -124,7 +124,10 @@
     <value>时期 </value>
   </data>
   <data name="SMA" xml:space="preserve">
-    <value>移动平均线</value>
+    <value>简单移动平均线（SMA）</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>颜色</value>
   </data>
   <data name="Width" xml:space="preserve">
     <value>宽度</value>
@@ -183,14 +186,23 @@
   <data name="PreviousWeek" xml:space="preserve">
     <value>上周</value>
   </data>
+  <data name="Show" xml:space="preserve">
+    <value>显示</value>
+  </data>
   <data name="Height" xml:space="preserve">
     <value>高度</value>
+  </data>
+  <data name="Font" xml:space="preserve">
+    <value>字体</value>
   </data>
   <data name="Visualization" xml:space="preserve">
     <value>视觉化</value>
   </data>
   <data name="Session" xml:space="preserve">
     <value>会话</value>
+  </data>
+  <data name="AveragePeriod" xml:space="preserve">
+    <value>周期</value>
   </data>
   <data name="SignalPeriod" xml:space="preserve">
     <value>信号周期</value>
@@ -202,7 +214,7 @@
     <value>自定义会话开始</value>
   </data>
   <data name="ShowAverage" xml:space="preserve">
-    <value>显示平均值</value>
+    <value>显示均值</value>
   </data>
   <data name="AskColor" xml:space="preserve">
     <value>Ask 颜色</value>
@@ -252,6 +264,9 @@
   <data name="VolumeColor" xml:space="preserve">
     <value>交易量颜色</value>
   </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
   <data name="GridColor" xml:space="preserve">
     <value>网格样式</value>
   </data>
@@ -260,6 +275,9 @@
   </data>
   <data name="VisibleProportion" xml:space="preserve">
     <value>图表可见部分比例</value>
+  </data>
+  <data name="LineWidth" xml:space="preserve">
+    <value>线条宽度</value>
   </data>
   <data name="Enabled" xml:space="preserve">
     <value>启用</value>
@@ -290,6 +308,9 @@
   </data>
   <data name="Rows" xml:space="preserve">
     <value>行数</value>
+  </data>
+  <data name="VolumeLabelDescription" xml:space="preserve">
+    <value>交易量标签和描述</value>
   </data>
   <data name="General" xml:space="preserve">
     <value>常规</value>
@@ -1047,20 +1068,13 @@
   <data name="DeltaLabelGroup" xml:space="preserve">
     <value>Delta 标签</value>
   </data>
-<data name="Show" xml:space="preserve">
-    <value>显示</value>
-  </data><data name="VolumeLabelDescription" xml:space="preserve">
-    <value>交易量标签和描述</value>
-  </data><data name="LabelTextColorDescription" xml:space="preserve">
+  <data name="LabelTextColorDescription" xml:space="preserve">
     <value>设置标签文本的颜色。</value>
-  </data><data name="Color" xml:space="preserve">
-    <value>颜色</value>
-  </data><data name="Location" xml:space="preserve">
-    <value>Location</value>
-  </data><data name="LabelLocationDescription" xml:space="preserve">
+  </data>
+  <data name="LabelLocationDescription" xml:space="preserve">
     <value>指定标签的显示位置。</value>
-  </data><data name="Font" xml:space="preserve">
-    <value>字体</value>
-  </data><data name="FontSettingDescription" xml:space="preserve">
+  </data>
+  <data name="FontSettingDescription" xml:space="preserve">
     <value>描述了字体的各种设置。</value>
-  </data></root>
+  </data>
+</root>
