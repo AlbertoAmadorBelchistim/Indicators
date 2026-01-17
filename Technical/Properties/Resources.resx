@@ -176,6 +176,7 @@
   </data>
   <data name="SMA" xml:space="preserve">
     <value>Simple Moving Average (SMA)</value>
+    <comment>UI</comment>
   </data>
   <data name="SMMA" xml:space="preserve">
     <value>Smoothed Moving Average (SMMA)</value>
@@ -524,7 +525,8 @@
     <value>Area Color</value>
   </data>
   <data name="AveragePeriod" xml:space="preserve">
-    <value>Average Period</value>
+    <value>Period</value>
+    <comment>UI</comment>
   </data>
   <data name="EndTime" xml:space="preserve">
     <value>End Time</value>
@@ -967,6 +969,7 @@
   </data>
   <data name="ShowAverage" xml:space="preserve">
     <value>Show Average</value>
+    <comment>UI</comment>
   </data>
   <data name="ShowGrid" xml:space="preserve">
     <value>Show Grid</value>
@@ -3406,10 +3409,13 @@
     <value>Delta label</value>
     <comment>Delta</comment>
   </data>
-<data name="LabelTextColorDescription" xml:space="preserve">
+  <data name="LabelTextColorDescription" xml:space="preserve">
     <value>Sets the color of the label text.</value>
-  </data><data name="LabelLocationDescription" xml:space="preserve">
+  </data>
+  <data name="LabelLocationDescription" xml:space="preserve">
     <value>Specifies the display location of the label.</value>
-  </data><data name="FontSettingDescription" xml:space="preserve">
+  </data>
+  <data name="FontSettingDescription" xml:space="preserve">
     <value>Specifies various settings for the font.</value>
-  </data></root>
+  </data>
+</root>
