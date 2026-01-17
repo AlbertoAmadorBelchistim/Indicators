@@ -186,7 +186,7 @@ public class Delta : Indicator
 
 	private readonly CandleDataSeries _divergenceCandles = new("DivergenceCandles", "Divergence candles")
 	{
-		IsHidden = false,
+		IsHidden = true,
 		ShowCurrentValue = false,
 		UseMinimizedModeIfEnabled = true,
 		Visible = false,
@@ -195,7 +195,7 @@ public class Delta : Indicator
 
 	private readonly CandleDataSeries _divergenceDownCandles = new("DivergenceDownCandles", "Divergence down candles")
 	{
-		IsHidden = false,
+		IsHidden = true,
 		ShowCurrentValue = false,
 		UseMinimizedModeIfEnabled = true,
 		Visible = false,
@@ -412,7 +412,8 @@ public class Delta : Indicator
 		VisualType = VisualMode.Hide,
 		Width = 2,
 		Color = CrossColor.FromArgb(255, 60, 120, 240),
-		ShowCurrentValue = false
+		ShowCurrentValue = false,
+		IsHidden = true
 	};
 
 	private bool _showAverage;
@@ -1255,6 +1256,7 @@ public class Delta : Indicator
 	public Delta()
 		: base(true)
 	{
+        DenyToChangePanel = true;
 		EnableCustomDrawing = true;
 		SubscribeToDrawingEvents(DrawingLayouts.Final);
 		FontColor = Color.Blue.Convert();
