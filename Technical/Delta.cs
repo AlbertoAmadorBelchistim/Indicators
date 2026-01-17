@@ -491,7 +491,7 @@ public class Delta : Indicator
 	}
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.MinimizedMode), GroupName = nameof(Strings.Visualization),
-		Description = nameof(Strings.HistogramMinimizedModeDescription), Order = 20)]
+		Description = nameof(Strings.HistogramMinimizedModeDescription), Order = 30)]
 
 	public bool MinimizedMode
 	{
@@ -506,7 +506,7 @@ public class Delta : Indicator
 	}
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowCurrentValue), GroupName = nameof(Strings.Visualization),
-		Description = nameof(Strings.ShowCurrentValueDescription), Order = 30)]
+		Description = nameof(Strings.ShowCurrentValueDescription), Order = 20)]
 	public bool ShowCurrentValues
 	{
 		get => _showCurrentValues;
@@ -1144,7 +1144,7 @@ public class Delta : Indicator
 	}
 
 	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.AveragePeriod),
-		GroupName = nameof(Resources.Average), Order = 210)]
+		GroupName = nameof(Resources.Average), Order = 220)]
 	[Range(1, 1000)]
 	public int AveragePeriod
 	{
@@ -1162,7 +1162,7 @@ public class Delta : Indicator
 	}
 
 	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.CalculationMode),
-		GroupName = nameof(Resources.Average), Order = 220)]
+		GroupName = nameof(Resources.Average), Order = 210)]
 	public AverageMode AvgMode
 	{
 		get => _avgMode;
@@ -1178,7 +1178,7 @@ public class Delta : Indicator
 	}
 
 	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ColorMode),
-		GroupName = nameof(Resources.Average), Order = 225)]
+		GroupName = nameof(Resources.Average), Order = 230)]
 	public AverageColorMode AvgColorMode
 	{
 		get => _avgColorMode;
@@ -1194,7 +1194,7 @@ public class Delta : Indicator
 	}
 
 	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.BaseColor),
-		GroupName = nameof(Resources.Average), Order = 230)]
+		GroupName = nameof(Resources.Average), Order = 231)]
 	public CrossColor AverageColor
 	{
 		get => _avgSeries.Color;
@@ -1206,7 +1206,7 @@ public class Delta : Indicator
 	}
 
 	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SlopeUpColor),
-		GroupName = nameof(Resources.Average), Order = 231)]
+		GroupName = nameof(Resources.Average), Order = 232)]
 	public CrossColor AvgSlopeUpColor
 	{
 		get => _avgSlopeUpColor.Convert();
@@ -1218,7 +1218,7 @@ public class Delta : Indicator
 	}
 
 	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SlopeDownColor),
-		GroupName = nameof(Resources.Average), Order = 232)]
+		GroupName = nameof(Resources.Average), Order = 233)]
 	public CrossColor AvgSlopeDownColor
 	{
 		get => _avgSlopeDownColor.Convert();
@@ -1229,8 +1229,8 @@ public class Delta : Indicator
 		}
 	}
 
-	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.Width),
-		GroupName = nameof(Resources.Average), Order = 240)]
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.LineWidth),
+		GroupName = nameof(Resources.Average), Order = 225)]
 	[Range(1, 10)]
 	public int AverageWidth
 	{
