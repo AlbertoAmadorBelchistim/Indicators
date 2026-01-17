@@ -124,7 +124,10 @@
     <value>Periode</value>
   </data>
   <data name="SMA" xml:space="preserve">
-    <value>Gleitender Durchschnitt</value>
+    <value>Einfacher gleitender Durchschnitt (SMA)</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Farbe</value>
   </data>
   <data name="Width" xml:space="preserve">
     <value>Breite</value>
@@ -183,14 +186,23 @@
   <data name="PreviousWeek" xml:space="preserve">
     <value>Letzte Woche</value>
   </data>
+  <data name="Show" xml:space="preserve">
+    <value>Anzeigen</value>
+  </data>
   <data name="Height" xml:space="preserve">
     <value>Height</value>
+  </data>
+  <data name="Font" xml:space="preserve">
+    <value>Schrift</value>
   </data>
   <data name="Visualization" xml:space="preserve">
     <value>Visualization</value>
   </data>
   <data name="Session" xml:space="preserve">
     <value>Sitzung</value>
+  </data>
+  <data name="AveragePeriod" xml:space="preserve">
+    <value>Periode</value>
   </data>
   <data name="SignalPeriod" xml:space="preserve">
     <value>Signalperiode</value>
@@ -252,6 +264,9 @@
   <data name="VolumeColor" xml:space="preserve">
     <value>Volumenfarbe</value>
   </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
   <data name="GridColor" xml:space="preserve">
     <value>Rasterstil</value>
   </data>
@@ -260,6 +275,9 @@
   </data>
   <data name="VisibleProportion" xml:space="preserve">
     <value>Anteil nach sichtbarem Teil des Diagramms</value>
+  </data>
+  <data name="LineWidth" xml:space="preserve">
+    <value>Line width</value>
   </data>
   <data name="Enabled" xml:space="preserve">
     <value>Enabled</value>
@@ -293,6 +311,9 @@
   </data>
   <data name="Rows" xml:space="preserve">
     <value>Zeilen</value>
+  </data>
+  <data name="VolumeLabelDescription" xml:space="preserve">
+    <value>Lautstärkebeschriftung und -beschreibung (im Clustermodus)</value>
   </data>
   <data name="General" xml:space="preserve">
     <value>Allgemein</value>
@@ -1052,20 +1073,13 @@
   <data name="DeltaLabelGroup" xml:space="preserve">
     <value>Delta-Beschriftung</value>
   </data>
-<data name="Show" xml:space="preserve">
-    <value>Anzeigen</value>
-  </data><data name="VolumeLabelDescription" xml:space="preserve">
-    <value>Lautstärkebeschriftung und -beschreibung (im Clustermodus)</value>
-  </data><data name="LabelTextColorDescription" xml:space="preserve">
+  <data name="LabelTextColorDescription" xml:space="preserve">
     <value>Legt die Farbe des Beschriftungstextes fest.</value>
-  </data><data name="Color" xml:space="preserve">
-    <value>Farbe</value>
-  </data><data name="Location" xml:space="preserve">
-    <value>Location</value>
-  </data><data name="LabelLocationDescription" xml:space="preserve">
+  </data>
+  <data name="LabelLocationDescription" xml:space="preserve">
     <value>Legt den Anzeigeort des Labels fest.</value>
-  </data><data name="Font" xml:space="preserve">
-    <value>Schrift</value>
-  </data><data name="FontSettingDescription" xml:space="preserve">
+  </data>
+  <data name="FontSettingDescription" xml:space="preserve">
     <value>Beschreibt verschiedene Einstellungen für die Schriftart.</value>
-  </data></root>
+  </data>
+</root>

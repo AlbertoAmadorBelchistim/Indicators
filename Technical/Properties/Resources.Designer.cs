@@ -547,7 +547,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Average Period.
+        ///   Busca una cadena traducida similar a Period.
         /// </summary>
         public static string AveragePeriod {
             get {
