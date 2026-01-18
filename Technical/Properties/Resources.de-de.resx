@@ -1102,4 +1102,6 @@
     <value>Hebt Divergenzbalken im Delta-Panel hervor, wenn Kerzenrichtung und Delta entgegengesetzt sind.</value>
     <comment>Delta</comment>
   </data>
-</root>
+<data name="Divergence" xml:space="preserve">
+    <value>Divergence</value>
+  </data></root>
