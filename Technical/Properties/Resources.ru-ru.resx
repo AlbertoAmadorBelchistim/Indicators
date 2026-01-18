@@ -3220,4 +3220,6 @@
     <value>Выделяет бары дивергенции в панели Delta, когда направление свечи и дельта противоположны.</value>
     <comment>Delta</comment>
   </data>
-</root>
+<data name="Divergence" xml:space="preserve">
+    <value>Дивергенция</value>
+  </data></root>
