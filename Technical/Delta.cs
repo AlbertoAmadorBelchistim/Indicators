@@ -80,8 +80,10 @@ public class Delta : Indicator
 	[Serializable]
 	public enum ThresholdLevel
 	{
-		Major = 0,
-		Minor = 1
+        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ThresholdLevelMajor))]
+        Major = 0,
+        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ThresholdLevelMinor))]
+        Minor = 1
 	}
 
 	[Serializable]
@@ -1067,16 +1069,16 @@ public class Delta : Indicator
 		}
 	}
 
-	#endregion
+    #endregion
 
     [Browsable(false)]
-	[Range(0, int.MaxValue)]
+    [Range(0, int.MaxValue)]
 	[DisplayFormat(DataFormatString = "F0")]
 	public Filter UpAlert { get; set; } = new()
 	{ Enabled = false, Value = 0 };
 
     [Browsable(false)]
-	[Range(int.MinValue, 0)]
+    [Range(int.MinValue, 0)]
 	[DisplayFormat(DataFormatString = "F0")]
 	public Filter DownAlert { get; set; } = new()
 	{ Enabled = false, Value = 0 };
@@ -1728,7 +1730,7 @@ public class Delta : Indicator
         // Keep settings for backward compatibility, but do not execute legacy triggers.
         return;
 
-		if (UpAlert.Enabled && CurrentBar - 1 == bar && _lastBarAlert != bar)
+        if (UpAlert.Enabled && CurrentBar - 1 == bar && _lastBarAlert != bar)
 		{
 			var alertValue = UpAlert.Value;
 
