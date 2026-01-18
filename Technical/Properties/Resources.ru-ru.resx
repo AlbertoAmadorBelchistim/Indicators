@@ -3096,7 +3096,7 @@
     <comment>Delta</comment>
   </data>
   <data name="ShowVisualAlerts" xml:space="preserve">
-    <value>Визуальные алерты</value>
+    <value>Показать маркеры</value>
     <comment>Delta</comment>
   </data>
   <data name="ShowVisualAlertsDescription" xml:space="preserve">
@@ -3104,7 +3104,7 @@
     <comment>Delta</comment>
   </data>
   <data name="VisualUpThresholds" xml:space="preserve">
-    <value>Визуал + уровень</value>
+    <value>Визуальный порог +</value>
     <comment>Delta</comment>
   </data>
   <data name="VisualUpThresholdsDescription" xml:space="preserve">
@@ -3112,7 +3112,7 @@
     <comment>Delta</comment>
   </data>
   <data name="VisualDownThresholds" xml:space="preserve">
-    <value>Визуал - уровень</value>
+    <value>Визуальный порог -</value>
     <comment>Delta</comment>
   </data>
   <data name="VisualDownThresholdsDescription" xml:space="preserve">
@@ -3120,7 +3120,7 @@
     <comment>Delta</comment>
   </data>
   <data name="AudioAlerts" xml:space="preserve">
-    <value>Аудио алерты</value>
+    <value>Использовать аудио-оповещения</value>
     <comment>Delta</comment>
   </data>
   <data name="AudioAlertsDescription" xml:space="preserve">
@@ -3128,7 +3128,7 @@
     <comment>Delta</comment>
   </data>
   <data name="AudioUpThresholds" xml:space="preserve">
-    <value>Аудио + уровень</value>
+    <value>Аудио-порог +</value>
     <comment>Delta</comment>
   </data>
   <data name="AudioUpThresholdsDescription" xml:space="preserve">
@@ -3136,7 +3136,7 @@
     <comment>Delta</comment>
   </data>
   <data name="AudioDownThresholds" xml:space="preserve">
-    <value>Аудио - уровень</value>
+    <value>Аудио-порог -</value>
     <comment>Delta</comment>
   </data>
   <data name="AudioDownThresholdsDescription" xml:space="preserve">
@@ -3194,20 +3194,8 @@
   <data name="FontSettingDescription" xml:space="preserve">
     <value>Описывает различные настройки шрифта.</value>
   </data>
-  <data name="Misc" xml:space="preserve">
-    <value>Разное</value>
-  </data>
-  <data name="Bearish" xml:space="preserve">
-    <value>Медвежье</value>
-  </data>
-  <data name="Show Fibonacci" xml:space="preserve">
-    <value>Показать уровни Фибоначчи</value>
-  </data>
   <data name="DivergenceBars" xml:space="preserve">
     <value>Дивергенция на гистограмме</value>
-  </data>
-  <data name="BarDirVsDeltaDivergenceDescription" xml:space="preserve">
-    <value>Определяет, следует ли отображать расхождение, которое происходит, когда направление бара и значение дельты противоположны: в случае бычьего бара дельта отрицательная, а в случае медвежьего бара дельта положительная.</value>
   </data>
   <data name="DivergenceDots" xml:space="preserve">
     <value>Дивергенция на цене</value>
@@ -3220,40 +3208,63 @@
     <value>Выделяет бары дивергенции в панели Delta, когда направление свечи и дельта противоположны.</value>
     <comment>Delta</comment>
   </data>
-<data name="Divergence" xml:space="preserve">
+  <data name="Divergence" xml:space="preserve">
     <value>Дивергенция</value>
   </data>
+  <data name="BarDirVsDeltaDivergenceDescription" xml:space="preserve">
+    <value>Определяет, следует ли отображать расхождение, которое происходит, когда направление бара и значение дельты противоположны: в случае бычьего бара дельта отрицательная, а в случае медвежьего бара дельта положительная.</value>
+  </data>
+  <data name="Misc" xml:space="preserve">
+    <value>Разное</value>
+  </data>
+  <data name="Bearish" xml:space="preserve">
+    <value>Медвежье</value>
+  </data>
+  <data name="Show Fibonacci" xml:space="preserve">
+    <value>Показать уровни Фибоначчи</value>
+  </data>
   <data name="FixedPosMajorLevel" xml:space="preserve">
-  <value>Фикс. + major</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedPosMinorLevel" xml:space="preserve">
-  <value>Фикс. + minor</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedNegMinorLevel" xml:space="preserve">
-  <value>Фикс. - minor</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedNegMajorLevel" xml:space="preserve">
-  <value>Фикс. - major</value>
-  <comment>Delta</comment>
-</data>
-
-<data name="FixedPosMajorLevelDescription" xml:space="preserve">
-  <value>Верхний порог для положительной дельты.</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedPosMinorLevelDescription" xml:space="preserve">
-  <value>Нижний порог для положительной дельты.</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedNegMinorLevelDescription" xml:space="preserve">
-  <value>Нижний (по модулю) порог для отрицательной дельты.</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedNegMajorLevelDescription" xml:space="preserve">
-  <value>Верхний (по модулю) порог для отрицательной дельты.</value>
-  <comment>Delta</comment>
-</data>
+    <value>Фикс. + major</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedPosMinorLevel" xml:space="preserve">
+    <value>Фикс. + minor</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedNegMinorLevel" xml:space="preserve">
+    <value>Фикс. - minor</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedNegMajorLevel" xml:space="preserve">
+    <value>Фикс. - major</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedPosMajorLevelDescription" xml:space="preserve">
+    <value>Верхний порог для положительной дельты.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedPosMinorLevelDescription" xml:space="preserve">
+    <value>Нижний порог для положительной дельты.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedNegMinorLevelDescription" xml:space="preserve">
+    <value>Нижний (по модулю) порог для отрицательной дельты.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedNegMajorLevelDescription" xml:space="preserve">
+    <value>Верхний (по модулю) порог для отрицательной дельты.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="UpAlertFileFilterDescription" xml:space="preserve">
+    <value>При активации срабатывает предупреждение при обнаружении восходящего сигнала с использованием указанного имени звукового файла.</value>
+  </data>
+  <data name="DownAlertFileFilterDescription" xml:space="preserve">
+    <value>При активации сигнала вниз, используется указанное имя звукового файла для срабатывания предупреждения.</value>
+  </data>
+  <data name="ThresholdLevelMajor" xml:space="preserve">
+    <value>Major</value>
+  </data>
+  <data name="ThresholdLevelMinor" xml:space="preserve">
+    <value>Minor</value>
+  </data>
 </root>
