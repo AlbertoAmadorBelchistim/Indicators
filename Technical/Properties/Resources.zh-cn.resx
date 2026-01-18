@@ -1097,4 +1097,6 @@
     <value>当K线方向与Delta相反时，在Delta面板中高亮显示背离柱。</value>
     <comment>Delta</comment>
   </data>
-</root>
+<data name="Divergence" xml:space="preserve">
+    <value>发散</value>
+  </data></root>

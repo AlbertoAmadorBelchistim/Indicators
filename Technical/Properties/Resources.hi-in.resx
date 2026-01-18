@@ -1097,4 +1097,6 @@
     <value>जब कैंडल की दिशा और डेल्टा विपरीत हों, तब डेल्टा पैनल में डाइवर्जेंस बार को हाइलाइट करता है।</value>
     <comment>Delta</comment>
   </data>
-</root>
+<data name="Divergence" xml:space="preserve">
+    <value>विभाजन</value>
+  </data></root>

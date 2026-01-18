@@ -3435,4 +3435,12 @@
     <value>Highlights divergence bars in the Delta panel when bar direction and delta are opposite.</value>
     <comment>Delta</comment>
   </data>
+  <data name="Divergence" xml:space="preserve">
+    <value>Divergence</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="BarDirVsDeltaDivergenceDescription" xml:space="preserve">
+    <value>Determines whether to display divergence, which occurs when the direction of the bar and the delta value are opposite: in the case of a bullish bar, the delta is negative, and in the case of a bearish bar, the delta is positive.</value>
+    <comment>Delta</comment>
+  </data>
 </root>
