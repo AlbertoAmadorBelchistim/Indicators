@@ -195,8 +195,14 @@
   <data name="Height" xml:space="preserve">
     <value>高度</value>
   </data>
+  <data name="Size" xml:space="preserve">
+    <value>尺寸</value>
+  </data>
   <data name="Font" xml:space="preserve">
     <value>字体</value>
+  </data>
+  <data name="VerticalOffset" xml:space="preserve">
+    <value>垂直偏差</value>
   </data>
   <data name="Visualization" xml:space="preserve">
     <value>视觉化</value>
@@ -302,6 +308,12 @@
   </data>
   <data name="ShowHeight" xml:space="preserve">
     <value>高度</value>
+  </data>
+  <data name="UpAlert" xml:space="preserve">
+    <value>UpAlert</value>
+  </data>
+  <data name="DownAlert" xml:space="preserve">
+    <value>Down alert</value>
   </data>
   <data name="Average" xml:space="preserve">
     <value>平均值</value>
@@ -982,7 +994,7 @@
     <comment>Delta</comment>
   </data>
   <data name="ShowVisualAlerts" xml:space="preserve">
-    <value>可视警报</value>
+    <value>显示标记</value>
     <comment>Delta</comment>
   </data>
   <data name="ShowVisualAlertsDescription" xml:space="preserve">
@@ -990,7 +1002,7 @@
     <comment>Delta</comment>
   </data>
   <data name="VisualUpThresholds" xml:space="preserve">
-    <value>可视 + 级别</value>
+    <value>可视阈值 +</value>
     <comment>Delta</comment>
   </data>
   <data name="VisualUpThresholdsDescription" xml:space="preserve">
@@ -998,7 +1010,7 @@
     <comment>Delta</comment>
   </data>
   <data name="VisualDownThresholds" xml:space="preserve">
-    <value>可视 - 级别</value>
+    <value>可视阈值 -</value>
     <comment>Delta</comment>
   </data>
   <data name="VisualDownThresholdsDescription" xml:space="preserve">
@@ -1006,7 +1018,7 @@
     <comment>Delta</comment>
   </data>
   <data name="AudioAlerts" xml:space="preserve">
-    <value>声音警报</value>
+    <value>使用声音警报</value>
     <comment>Delta</comment>
   </data>
   <data name="AudioAlertsDescription" xml:space="preserve">
@@ -1014,7 +1026,7 @@
     <comment>Delta</comment>
   </data>
   <data name="AudioUpThresholds" xml:space="preserve">
-    <value>音频 + 级别</value>
+    <value>音频阈值 +</value>
     <comment>Delta</comment>
   </data>
   <data name="AudioUpThresholdsDescription" xml:space="preserve">
@@ -1022,7 +1034,7 @@
     <comment>Delta</comment>
   </data>
   <data name="AudioDownThresholds" xml:space="preserve">
-    <value>音频 - 级别</value>
+    <value>音频阈值 -</value>
     <comment>Delta</comment>
   </data>
   <data name="AudioDownThresholdsDescription" xml:space="preserve">
@@ -1083,9 +1095,6 @@
   <data name="DivergenceBars" xml:space="preserve">
     <value>直方图背离</value>
   </data>
-  <data name="BarDirVsDeltaDivergenceDescription" xml:space="preserve">
-    <value>确定是否显示背离，当柱的方向和增量值相反时发生背离：在牛市柱的情况下，增量为负，而在熊市柱的情况下，增量为正。</value>
-  </data>
   <data name="DivergenceDots" xml:space="preserve">
     <value>价格背离</value>
   </data>
@@ -1097,40 +1106,54 @@
     <value>当K线方向与Delta相反时，在Delta面板中高亮显示背离柱。</value>
     <comment>Delta</comment>
   </data>
-<data name="Divergence" xml:space="preserve">
+  <data name="Divergence" xml:space="preserve">
     <value>发散</value>
   </data>
+  <data name="BarDirVsDeltaDivergenceDescription" xml:space="preserve">
+    <value>确定是否显示背离，当柱的方向和增量值相反时发生背离：在牛市柱的情况下，增量为负，而在熊市柱的情况下，增量为正。</value>
+  </data>
   <data name="FixedPosMajorLevel" xml:space="preserve">
-  <value>固定 + major</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedPosMinorLevel" xml:space="preserve">
-  <value>固定 + minor</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedNegMinorLevel" xml:space="preserve">
-  <value>固定 - minor</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedNegMajorLevel" xml:space="preserve">
-  <value>固定 - major</value>
-  <comment>Delta</comment>
-</data>
-
-<data name="FixedPosMajorLevelDescription" xml:space="preserve">
-  <value>正Delta的上阈值。</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedPosMinorLevelDescription" xml:space="preserve">
-  <value>正Delta的下阈值。</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedNegMinorLevelDescription" xml:space="preserve">
-  <value>负Delta的下阈值（按绝对值）。</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedNegMajorLevelDescription" xml:space="preserve">
-  <value>负Delta的上阈值（按绝对值）。</value>
-  <comment>Delta</comment>
-</data>
+    <value>固定 + major</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedPosMinorLevel" xml:space="preserve">
+    <value>固定 + minor</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedNegMinorLevel" xml:space="preserve">
+    <value>固定 - minor</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedNegMajorLevel" xml:space="preserve">
+    <value>固定 - major</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedPosMajorLevelDescription" xml:space="preserve">
+    <value>正Delta的上阈值。</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedPosMinorLevelDescription" xml:space="preserve">
+    <value>正Delta的下阈值。</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedNegMinorLevelDescription" xml:space="preserve">
+    <value>负Delta的下阈值（按绝对值）。</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedNegMajorLevelDescription" xml:space="preserve">
+    <value>负Delta的上阈值（按绝对值）。</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="UpAlertFileFilterDescription" xml:space="preserve">
+    <value>激活后，当检测到上升信号时，使用指定的声音文件名称触发警报。</value>
+  </data>
+  <data name="DownAlertFileFilterDescription" xml:space="preserve">
+    <value>激活后，在下游信号存在时，使用指定的声音文件名称触发警报。</value>
+  </data>
+  <data name="ThresholdLevelMajor" xml:space="preserve">
+    <value>Major</value>
+  </data>
+  <data name="ThresholdLevelMinor" xml:space="preserve">
+    <value>Minor</value>
+  </data>
 </root>
