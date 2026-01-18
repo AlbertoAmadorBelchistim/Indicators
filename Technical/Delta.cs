@@ -605,11 +605,12 @@ public class Delta : Indicator
 
 	private Indicators.FilterColor _divergenceBarsFilter = new(true) { Enabled = false, Value = CrossColor.FromArgb(255, 255, 165, 0) };
 
-	[Display(ResourceType = typeof(Strings), Name = "DivergenceDots", GroupName = nameof(Strings.Divergence),
-		Description = nameof(Strings.BarDirVsDeltaDivergenceDescription), Order = 300)]
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.DivergenceDots), GroupName = nameof(Resources.Divergence),
+		Description = nameof(Resources.DivergenceDotsDescription), Order = 300)]
 	public bool ShowDivergence { get; set; }
 
-	[Display(ResourceType = typeof(Strings), Name = "DivergenceBars", GroupName = nameof(Strings.Divergence), Order = 310)]
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.DivergenceBars), GroupName = nameof(Resources.Divergence), 
+		Description = nameof(Resources.DivergenceBarsDescription), Order = 310)]
 	public Indicators.FilterColor DivergenceBarsFilter
 	{
 		get => _divergenceBarsFilter;
