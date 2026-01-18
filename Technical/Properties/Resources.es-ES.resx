@@ -1099,4 +1099,38 @@
   </data>
 <data name="Divergence" xml:space="preserve">
     <value>Divergencia</value>
-  </data></root>
+  </data>
+  <data name="FixedPosMajorLevel" xml:space="preserve">
+  <value>Fijo + mayor</value>
+  <comment>Delta</comment>
+</data>
+<data name="FixedPosMinorLevel" xml:space="preserve">
+  <value>Fijo + menor</value>
+  <comment>Delta</comment>
+</data>
+<data name="FixedNegMinorLevel" xml:space="preserve">
+  <value>Fijo − menor</value>
+  <comment>Delta</comment>
+</data>
+<data name="FixedNegMajorLevel" xml:space="preserve">
+  <value>Fijo − mayor</value>
+  <comment>Delta</comment>
+</data>
+
+<data name="FixedPosMajorLevelDescription" xml:space="preserve">
+  <value>Umbral superior para delta positivo.</value>
+  <comment>Delta</comment>
+</data>
+<data name="FixedPosMinorLevelDescription" xml:space="preserve">
+  <value>Umbral inferior para delta positivo.</value>
+  <comment>Delta</comment>
+</data>
+<data name="FixedNegMinorLevelDescription" xml:space="preserve">
+  <value>Umbral inferior (en magnitud) para delta negativo.</value>
+  <comment>Delta</comment>
+</data>
+<data name="FixedNegMajorLevelDescription" xml:space="preserve">
+  <value>Umbral superior (en magnitud) para delta negativo.</value>
+  <comment>Delta</comment>
+</data>
+</root>

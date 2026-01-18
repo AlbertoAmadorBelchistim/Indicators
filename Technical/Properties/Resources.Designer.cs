@@ -2509,6 +2509,78 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Fixed - major.
+        /// </summary>
+        public static string FixedNegMajorLevel {
+            get {
+                return ResourceManager.GetString("FixedNegMajorLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Upper (in magnitude) threshold for negative delta..
+        /// </summary>
+        public static string FixedNegMajorLevelDescription {
+            get {
+                return ResourceManager.GetString("FixedNegMajorLevelDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fixed - minor.
+        /// </summary>
+        public static string FixedNegMinorLevel {
+            get {
+                return ResourceManager.GetString("FixedNegMinorLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Lower (in magnitude) threshold for negative delta..
+        /// </summary>
+        public static string FixedNegMinorLevelDescription {
+            get {
+                return ResourceManager.GetString("FixedNegMinorLevelDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fixed + major.
+        /// </summary>
+        public static string FixedPosMajorLevel {
+            get {
+                return ResourceManager.GetString("FixedPosMajorLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Upper threshold for positive delta..
+        /// </summary>
+        public static string FixedPosMajorLevelDescription {
+            get {
+                return ResourceManager.GetString("FixedPosMajorLevelDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fixed + minor.
+        /// </summary>
+        public static string FixedPosMinorLevel {
+            get {
+                return ResourceManager.GetString("FixedPosMinorLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Lower threshold for positive delta..
+        /// </summary>
+        public static string FixedPosMinorLevelDescription {
+            get {
+                return ResourceManager.GetString("FixedPosMinorLevelDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Fixed Sizes.
         /// </summary>
         public static string FixedSizes {
