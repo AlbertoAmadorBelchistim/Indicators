@@ -195,8 +195,14 @@
   <data name="Height" xml:space="preserve">
     <value>Hauteur</value>
   </data>
+  <data name="Size" xml:space="preserve">
+    <value>Taille</value>
+  </data>
   <data name="Font" xml:space="preserve">
     <value>Police de caractère</value>
+  </data>
+  <data name="VerticalOffset" xml:space="preserve">
+    <value>Décalage vertical</value>
   </data>
   <data name="Visualization" xml:space="preserve">
     <value>Visualisation</value>
@@ -302,6 +308,12 @@
   </data>
   <data name="ShowHeight" xml:space="preserve">
     <value>La hauteur</value>
+  </data>
+  <data name="UpAlert" xml:space="preserve">
+    <value>UpAlert</value>
+  </data>
+  <data name="DownAlert" xml:space="preserve">
+    <value>Alerte de panne</value>
   </data>
   <data name="Average" xml:space="preserve">
     <value>Moyenne</value>
@@ -982,7 +994,7 @@
     <comment>Delta</comment>
   </data>
   <data name="ShowVisualAlerts" xml:space="preserve">
-    <value>Alertes visuelles</value>
+    <value>Afficher les marqueurs</value>
     <comment>Delta</comment>
   </data>
   <data name="ShowVisualAlertsDescription" xml:space="preserve">
@@ -990,7 +1002,7 @@
     <comment>Delta</comment>
   </data>
   <data name="VisualUpThresholds" xml:space="preserve">
-    <value>Niveau visuel +</value>
+    <value>Seuil visuel +</value>
     <comment>Delta</comment>
   </data>
   <data name="VisualUpThresholdsDescription" xml:space="preserve">
@@ -998,7 +1010,7 @@
     <comment>Delta</comment>
   </data>
   <data name="VisualDownThresholds" xml:space="preserve">
-    <value>Niveau visuel -</value>
+    <value>Seuil visuel -</value>
     <comment>Delta</comment>
   </data>
   <data name="VisualDownThresholdsDescription" xml:space="preserve">
@@ -1006,7 +1018,7 @@
     <comment>Delta</comment>
   </data>
   <data name="AudioAlerts" xml:space="preserve">
-    <value>Alertes audio</value>
+    <value>Utiliser des alertes audio</value>
     <comment>Delta</comment>
   </data>
   <data name="AudioAlertsDescription" xml:space="preserve">
@@ -1014,7 +1026,7 @@
     <comment>Delta</comment>
   </data>
   <data name="AudioUpThresholds" xml:space="preserve">
-    <value>Niveau audio +</value>
+    <value>Seuil audio +</value>
     <comment>Delta</comment>
   </data>
   <data name="AudioUpThresholdsDescription" xml:space="preserve">
@@ -1022,7 +1034,7 @@
     <comment>Delta</comment>
   </data>
   <data name="AudioDownThresholds" xml:space="preserve">
-    <value>Niveau audio -</value>
+    <value>Seuil audio -</value>
     <comment>Delta</comment>
   </data>
   <data name="AudioDownThresholdsDescription" xml:space="preserve">
@@ -1083,9 +1095,6 @@
   <data name="DivergenceBars" xml:space="preserve">
     <value>Divergence sur l’histogramme</value>
   </data>
-  <data name="BarDirVsDeltaDivergenceDescription" xml:space="preserve">
-    <value>Détermine s'il faut afficher la divergence, qui se produit lorsque la direction de la barre et la valeur delta sont opposées : dans le cas d'une barre haussière, le delta est négatif, et dans le cas d'une barre baissière, le delta est positif.</value>
-  </data>
   <data name="DivergenceDots" xml:space="preserve">
     <value>Divergence sur le prix</value>
   </data>
@@ -1097,40 +1106,54 @@
     <value>Met en évidence les barres de divergence dans le panneau Delta lorsque la direction de la bougie et le delta sont opposés.</value>
     <comment>Delta</comment>
   </data>
-<data name="Divergence" xml:space="preserve">
+  <data name="Divergence" xml:space="preserve">
     <value>Divergence</value>
   </data>
+  <data name="BarDirVsDeltaDivergenceDescription" xml:space="preserve">
+    <value>Détermine s'il faut afficher la divergence, qui se produit lorsque la direction de la barre et la valeur delta sont opposées : dans le cas d'une barre haussière, le delta est négatif, et dans le cas d'une barre baissière, le delta est positif.</value>
+  </data>
   <data name="FixedPosMajorLevel" xml:space="preserve">
-  <value>Fixe + majeur</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedPosMinorLevel" xml:space="preserve">
-  <value>Fixe + mineur</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedNegMinorLevel" xml:space="preserve">
-  <value>Fixe - mineur</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedNegMajorLevel" xml:space="preserve">
-  <value>Fixe - majeur</value>
-  <comment>Delta</comment>
-</data>
-
-<data name="FixedPosMajorLevelDescription" xml:space="preserve">
-  <value>Seuil supérieur pour le delta positif.</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedPosMinorLevelDescription" xml:space="preserve">
-  <value>Seuil inférieur pour le delta positif.</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedNegMinorLevelDescription" xml:space="preserve">
-  <value>Seuil inférieur (en valeur absolue) pour le delta négatif.</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedNegMajorLevelDescription" xml:space="preserve">
-  <value>Seuil supérieur (en valeur absolue) pour le delta négatif.</value>
-  <comment>Delta</comment>
-</data>
+    <value>Fixe + majeur</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedPosMinorLevel" xml:space="preserve">
+    <value>Fixe + mineur</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedNegMinorLevel" xml:space="preserve">
+    <value>Fixe - mineur</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedNegMajorLevel" xml:space="preserve">
+    <value>Fixe - majeur</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedPosMajorLevelDescription" xml:space="preserve">
+    <value>Seuil supérieur pour le delta positif.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedPosMinorLevelDescription" xml:space="preserve">
+    <value>Seuil inférieur pour le delta positif.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedNegMinorLevelDescription" xml:space="preserve">
+    <value>Seuil inférieur (en valeur absolue) pour le delta négatif.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedNegMajorLevelDescription" xml:space="preserve">
+    <value>Seuil supérieur (en valeur absolue) pour le delta négatif.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="UpAlertFileFilterDescription" xml:space="preserve">
+    <value>Lorsqu'il est activé, une alerte est déclenchée lorsqu'un signal ascendant est détecté, en utilisant le nom du fichier sonore spécifié.</value>
+  </data>
+  <data name="DownAlertFileFilterDescription" xml:space="preserve">
+    <value>Lorsqu'il est activé, une alerte est déclenchée en présence d'un signal aval, en utilisant le nom du fichier sonore spécifié.</value>
+  </data>
+  <data name="ThresholdLevelMajor" xml:space="preserve">
+    <value>Majeur</value>
+  </data>
+  <data name="ThresholdLevelMinor" xml:space="preserve">
+    <value>Mineur</value>
+  </data>
 </root>

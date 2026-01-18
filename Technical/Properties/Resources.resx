@@ -433,6 +433,7 @@
   </data>
   <data name="Size" xml:space="preserve">
     <value>Size</value>
+    <comment>UI</comment>
   </data>
   <data name="BottomLeft" xml:space="preserve">
     <value>Bottom - Left</value>
@@ -469,6 +470,7 @@
   </data>
   <data name="VerticalOffset" xml:space="preserve">
     <value>Vertical Offset</value>
+    <comment>Delta</comment>
   </data>
   <data name="Visualization" xml:space="preserve">
     <value>Visualization</value>
@@ -3319,7 +3321,7 @@
     <comment>Delta</comment>
   </data>
   <data name="ShowVisualAlerts" xml:space="preserve">
-    <value>Visual alerts</value>
+    <value>Show markers</value>
     <comment>Delta</comment>
   </data>
   <data name="ShowVisualAlertsDescription" xml:space="preserve">
@@ -3327,7 +3329,7 @@
     <comment>Delta</comment>
   </data>
   <data name="VisualUpThresholds" xml:space="preserve">
-    <value>Visual up level</value>
+    <value>Visual threshold +</value>
     <comment>Delta</comment>
   </data>
   <data name="VisualUpThresholdsDescription" xml:space="preserve">
@@ -3335,7 +3337,7 @@
     <comment>Delta</comment>
   </data>
   <data name="VisualDownThresholds" xml:space="preserve">
-    <value>Visual down level</value>
+    <value>Visual threshold -</value>
     <comment>Delta</comment>
   </data>
   <data name="VisualDownThresholdsDescription" xml:space="preserve">
@@ -3343,7 +3345,7 @@
     <comment>Delta</comment>
   </data>
   <data name="AudioAlerts" xml:space="preserve">
-    <value>Audio alerts</value>
+    <value>Use audio alerts</value>
     <comment>Delta</comment>
   </data>
   <data name="AudioAlertsDescription" xml:space="preserve">
@@ -3351,7 +3353,7 @@
     <comment>Delta</comment>
   </data>
   <data name="AudioUpThresholds" xml:space="preserve">
-    <value>Audio up level</value>
+    <value>Audio threshold +</value>
     <comment>Delta</comment>
   </data>
   <data name="AudioUpThresholdsDescription" xml:space="preserve">
@@ -3359,7 +3361,7 @@
     <comment>Delta</comment>
   </data>
   <data name="AudioDownThresholds" xml:space="preserve">
-    <value>Audio down level</value>
+    <value>Audio threshold -</value>
     <comment>Delta</comment>
   </data>
   <data name="AudioDownThresholdsDescription" xml:space="preserve">
@@ -3444,36 +3446,49 @@
     <comment>Delta</comment>
   </data>
   <data name="FixedPosMajorLevel" xml:space="preserve">
-  <value>Fixed + major</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedPosMinorLevel" xml:space="preserve">
-  <value>Fixed + minor</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedNegMinorLevel" xml:space="preserve">
-  <value>Fixed - minor</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedNegMajorLevel" xml:space="preserve">
-  <value>Fixed - major</value>
-  <comment>Delta</comment>
-</data>
-
-<data name="FixedPosMajorLevelDescription" xml:space="preserve">
-  <value>Upper threshold for positive delta.</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedPosMinorLevelDescription" xml:space="preserve">
-  <value>Lower threshold for positive delta.</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedNegMinorLevelDescription" xml:space="preserve">
-  <value>Lower (in magnitude) threshold for negative delta.</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedNegMajorLevelDescription" xml:space="preserve">
-  <value>Upper (in magnitude) threshold for negative delta.</value>
-  <comment>Delta</comment>
-</data>
+    <value>Fixed + major</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedPosMinorLevel" xml:space="preserve">
+    <value>Fixed + minor</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedNegMinorLevel" xml:space="preserve">
+    <value>Fixed - minor</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedNegMajorLevel" xml:space="preserve">
+    <value>Fixed - major</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedPosMajorLevelDescription" xml:space="preserve">
+    <value>Upper threshold for positive delta.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedPosMinorLevelDescription" xml:space="preserve">
+    <value>Lower threshold for positive delta.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedNegMinorLevelDescription" xml:space="preserve">
+    <value>Lower (in magnitude) threshold for negative delta.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedNegMajorLevelDescription" xml:space="preserve">
+    <value>Upper (in magnitude) threshold for negative delta.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="UpAlertFileFilterDescription" xml:space="preserve">
+    <value>When activated, an alert is triggered in the presence of a ascending signal, utilizing the specified sound file name.</value>
+  </data>
+  <data name="DownAlertFileFilterDescription" xml:space="preserve">
+    <value>When activated, an alert is triggered in the presence of a downstream signal, utilizing the specified sound file name.</value>
+  </data>
+  <data name="ThresholdLevelMajor" xml:space="preserve">
+    <value>Major</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="ThresholdLevelMinor" xml:space="preserve">
+    <value>Minor</value>
+    <comment>Delta</comment>
+  </data>
 </root>
