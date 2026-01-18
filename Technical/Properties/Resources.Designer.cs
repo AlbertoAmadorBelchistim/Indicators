@@ -421,7 +421,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Audio alerts.
+        ///   Busca una cadena traducida similar a Use audio alerts.
         /// </summary>
         public static string AudioAlerts {
             get {
@@ -457,7 +457,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Audio down level.
+        ///   Busca una cadena traducida similar a Audio threshold -.
         /// </summary>
         public static string AudioDownThresholds {
             get {
@@ -475,7 +475,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Audio up level.
+        ///   Busca una cadena traducida similar a Audio threshold +.
         /// </summary>
         public static string AudioUpThresholds {
             get {
@@ -2082,6 +2082,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string DownAlert {
             get {
                 return ResourceManager.GetString("DownAlert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a When activated, an alert is triggered in the presence of a downstream signal, utilizing the specified sound file name..
+        /// </summary>
+        public static string DownAlertFileFilterDescription {
+            get {
+                return ResourceManager.GetString("DownAlertFileFilterDescription", resourceCulture);
             }
         }
         
@@ -6658,7 +6667,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Visual alerts.
+        ///   Busca una cadena traducida similar a Show markers.
         /// </summary>
         public static string ShowVisualAlerts {
             get {
@@ -7243,6 +7252,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Major.
+        /// </summary>
+        public static string ThresholdLevelMajor {
+            get {
+                return ResourceManager.GetString("ThresholdLevelMajor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Minor.
+        /// </summary>
+        public static string ThresholdLevelMinor {
+            get {
+                return ResourceManager.GetString("ThresholdLevelMinor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Threshold usage.
         /// </summary>
         public static string ThresholdsGroup {
@@ -7585,6 +7612,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a When activated, an alert is triggered in the presence of a ascending signal, utilizing the specified sound file name..
+        /// </summary>
+        public static string UpAlertFileFilterDescription {
+            get {
+                return ResourceManager.GetString("UpAlertFileFilterDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Up/Down Candle Volume.
         /// </summary>
         public static string UpDownVolume {
@@ -7891,7 +7927,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Visual down level.
+        ///   Busca una cadena traducida similar a Visual threshold -.
         /// </summary>
         public static string VisualDownThresholds {
             get {
@@ -8017,7 +8053,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Visual up level.
+        ///   Busca una cadena traducida similar a Visual threshold +.
         /// </summary>
         public static string VisualUpThresholds {
             get {

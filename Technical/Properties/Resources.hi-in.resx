@@ -195,8 +195,14 @@
   <data name="Height" xml:space="preserve">
     <value>ऊचाई</value>
   </data>
+  <data name="Size" xml:space="preserve">
+    <value>आकार</value>
+  </data>
   <data name="Font" xml:space="preserve">
     <value>फ़ॉन्ट</value>
+  </data>
+  <data name="VerticalOffset" xml:space="preserve">
+    <value>ऊर्ध्वाधिकरण</value>
   </data>
   <data name="Visualization" xml:space="preserve">
     <value>दृश्यीकरण</value>
@@ -302,6 +308,12 @@
   </data>
   <data name="ShowHeight" xml:space="preserve">
     <value>ऊचाई दिखाएं</value>
+  </data>
+  <data name="UpAlert" xml:space="preserve">
+    <value>UpAlert</value>
+  </data>
+  <data name="DownAlert" xml:space="preserve">
+    <value>खराबी चेतावनी</value>
   </data>
   <data name="Average" xml:space="preserve">
     <value>औसत</value>
@@ -982,7 +994,7 @@
     <comment>Delta</comment>
   </data>
   <data name="ShowVisualAlerts" xml:space="preserve">
-    <value>विज़ुअल अलर्ट</value>
+    <value>मार्कर दिखाएँ</value>
     <comment>Delta</comment>
   </data>
   <data name="ShowVisualAlertsDescription" xml:space="preserve">
@@ -990,7 +1002,7 @@
     <comment>Delta</comment>
   </data>
   <data name="VisualUpThresholds" xml:space="preserve">
-    <value>विज़ुअल + लेवल</value>
+    <value>विज़ुअल थ्रेशोल्ड +</value>
     <comment>Delta</comment>
   </data>
   <data name="VisualUpThresholdsDescription" xml:space="preserve">
@@ -998,7 +1010,7 @@
     <comment>Delta</comment>
   </data>
   <data name="VisualDownThresholds" xml:space="preserve">
-    <value>विज़ुअल - लेवल</value>
+    <value>विज़ुअल थ्रेशोल्ड -</value>
     <comment>Delta</comment>
   </data>
   <data name="VisualDownThresholdsDescription" xml:space="preserve">
@@ -1006,7 +1018,7 @@
     <comment>Delta</comment>
   </data>
   <data name="AudioAlerts" xml:space="preserve">
-    <value>ऑडियो अलर्ट</value>
+    <value>ऑडियो अलर्ट उपयोग करें</value>
     <comment>Delta</comment>
   </data>
   <data name="AudioAlertsDescription" xml:space="preserve">
@@ -1014,7 +1026,7 @@
     <comment>Delta</comment>
   </data>
   <data name="AudioUpThresholds" xml:space="preserve">
-    <value>ऑडियो + लेवल</value>
+    <value>ऑडियो थ्रेशोल्ड +</value>
     <comment>Delta</comment>
   </data>
   <data name="AudioUpThresholdsDescription" xml:space="preserve">
@@ -1022,7 +1034,7 @@
     <comment>Delta</comment>
   </data>
   <data name="AudioDownThresholds" xml:space="preserve">
-    <value>ऑडियो - लेवल</value>
+    <value>ऑडियो थ्रेशोल्ड -</value>
     <comment>Delta</comment>
   </data>
   <data name="AudioDownThresholdsDescription" xml:space="preserve">
@@ -1083,9 +1095,6 @@
   <data name="DivergenceBars" xml:space="preserve">
     <value>हिस्टोग्राम में डाइवर्जेंस</value>
   </data>
-  <data name="BarDirVsDeltaDivergenceDescription" xml:space="preserve">
-    <value>निर्धारित करता है कि क्या विचलन प्रदर्शित करना चाहिए, जो बार की दिशा और डेल्टा मान के विपरीत होने पर होता है: बुलिश बार के मामले में, डेल्टा नकारात्मक होता है, और बियरिश बार के मामले में, डेल्टा सकारात्मक होता है।</value>
-  </data>
   <data name="DivergenceDots" xml:space="preserve">
     <value>कीमत पर डाइवर्जेंस</value>
   </data>
@@ -1097,40 +1106,54 @@
     <value>जब कैंडल की दिशा और डेल्टा विपरीत हों, तब डेल्टा पैनल में डाइवर्जेंस बार को हाइलाइट करता है।</value>
     <comment>Delta</comment>
   </data>
-<data name="Divergence" xml:space="preserve">
+  <data name="Divergence" xml:space="preserve">
     <value>विभाजन</value>
   </data>
+  <data name="BarDirVsDeltaDivergenceDescription" xml:space="preserve">
+    <value>निर्धारित करता है कि क्या विचलन प्रदर्शित करना चाहिए, जो बार की दिशा और डेल्टा मान के विपरीत होने पर होता है: बुलिश बार के मामले में, डेल्टा नकारात्मक होता है, और बियरिश बार के मामले में, डेल्टा सकारात्मक होता है।</value>
+  </data>
   <data name="FixedPosMajorLevel" xml:space="preserve">
-  <value>Fixed + major</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedPosMinorLevel" xml:space="preserve">
-  <value>Fixed + minor</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedNegMinorLevel" xml:space="preserve">
-  <value>Fixed - minor</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedNegMajorLevel" xml:space="preserve">
-  <value>Fixed - major</value>
-  <comment>Delta</comment>
-</data>
-
-<data name="FixedPosMajorLevelDescription" xml:space="preserve">
-  <value>पॉजिटिव डेल्टा के लिए ऊपरी थ्रेशोल्ड।</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedPosMinorLevelDescription" xml:space="preserve">
-  <value>पॉजिटिव डेल्टा के लिए निचला थ्रेशोल्ड।</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedNegMinorLevelDescription" xml:space="preserve">
-  <value>नेगेटिव डेल्टा के लिए निचला (परिमाण में) थ्रेशोल्ड।</value>
-  <comment>Delta</comment>
-</data>
-<data name="FixedNegMajorLevelDescription" xml:space="preserve">
-  <value>नेगेटिव डेल्टा के लिए ऊपरी (परिमाण में) थ्रेशोल्ड।</value>
-  <comment>Delta</comment>
-</data>
+    <value>Fixed + major</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedPosMinorLevel" xml:space="preserve">
+    <value>Fixed + minor</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedNegMinorLevel" xml:space="preserve">
+    <value>Fixed - minor</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedNegMajorLevel" xml:space="preserve">
+    <value>Fixed - major</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedPosMajorLevelDescription" xml:space="preserve">
+    <value>पॉजिटिव डेल्टा के लिए ऊपरी थ्रेशोल्ड।</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedPosMinorLevelDescription" xml:space="preserve">
+    <value>पॉजिटिव डेल्टा के लिए निचला थ्रेशोल्ड।</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedNegMinorLevelDescription" xml:space="preserve">
+    <value>नेगेटिव डेल्टा के लिए निचला (परिमाण में) थ्रेशोल्ड।</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="FixedNegMajorLevelDescription" xml:space="preserve">
+    <value>नेगेटिव डेल्टा के लिए ऊपरी (परिमाण में) थ्रेशोल्ड।</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="UpAlertFileFilterDescription" xml:space="preserve">
+    <value>सक्रिय करने पर, एक उच्चारित संकेत की उपस्थिति में चेतावनी को ट्रिगर किया जाता है, निर्दिष्ट ध्वनि फ़ाइल का उपयोग करके।</value>
+  </data>
+  <data name="DownAlertFileFilterDescription" xml:space="preserve">
+    <value>सक्रिय करने पर, एक निर्दिष्ट ध्वनि फ़ाइल के उपयोग से नीचे के संकेत की मौजूदगी में एक चेतावनी को संचालित किया जाता है।</value>
+  </data>
+  <data name="ThresholdLevelMajor" xml:space="preserve">
+    <value>Major</value>
+  </data>
+  <data name="ThresholdLevelMinor" xml:space="preserve">
+    <value>Minor</value>
+  </data>
 </root>
