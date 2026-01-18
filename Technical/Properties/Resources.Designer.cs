@@ -619,6 +619,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Determines whether to display divergence, which occurs when the direction of the bar and the delta value are opposite: in the case of a bullish bar, the delta is negative, and in the case of a bearish bar, the delta is positive..
+        /// </summary>
+        public static string BarDirVsDeltaDivergenceDescription {
+            get {
+                return ResourceManager.GetString("BarDirVsDeltaDivergenceDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a High.
         /// </summary>
         public static string BarHigh {
@@ -1956,6 +1965,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string DisplayMode {
             get {
                 return ResourceManager.GetString("DisplayMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Divergence.
+        /// </summary>
+        public static string Divergence {
+            get {
+                return ResourceManager.GetString("Divergence", resourceCulture);
             }
         }
         

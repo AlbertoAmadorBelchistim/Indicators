@@ -1097,4 +1097,6 @@
     <value>Met en évidence les barres de divergence dans le panneau Delta lorsque la direction de la bougie et le delta sont opposés.</value>
     <comment>Delta</comment>
   </data>
-</root>
+<data name="Divergence" xml:space="preserve">
+    <value>Divergence</value>
+  </data></root>
