@@ -165,6 +165,9 @@
   <data name="Volume" xml:space="preserve">
     <value>आयाम</value>
   </data>
+  <data name="BarsDirection" xml:space="preserve">
+    <value>बार की दिशा</value>
+  </data>
   <data name="CalculationMode" xml:space="preserve">
     <value>गणना मोड</value>
   </data>
@@ -1076,5 +1079,22 @@
   </data>
   <data name="FontSettingDescription" xml:space="preserve">
     <value>फॉन्ट के लिए विभिन्न सेटिंग्स का वर्णन करता है।</value>
+  </data>
+  <data name="DivergenceBars" xml:space="preserve">
+    <value>हिस्टोग्राम में डाइवर्जेंस</value>
+  </data>
+  <data name="BarDirVsDeltaDivergenceDescription" xml:space="preserve">
+    <value>निर्धारित करता है कि क्या विचलन प्रदर्शित करना चाहिए, जो बार की दिशा और डेल्टा मान के विपरीत होने पर होता है: बुलिश बार के मामले में, डेल्टा नकारात्मक होता है, और बियरिश बार के मामले में, डेल्टा सकारात्मक होता है।</value>
+  </data>
+  <data name="DivergenceDots" xml:space="preserve">
+    <value>कीमत पर डाइवर्जेंस</value>
+  </data>
+  <data name="DivergenceDotsDescription" xml:space="preserve">
+    <value>जब कैंडल की दिशा और डेल्टा विपरीत हों, तब कीमत पर डाइवर्जेंस मार्कर दिखाता है।</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="DivergenceBarsDescription" xml:space="preserve">
+    <value>जब कैंडल की दिशा और डेल्टा विपरीत हों, तब डेल्टा पैनल में डाइवर्जेंस बार को हाइलाइट करता है।</value>
+    <comment>Delta</comment>
   </data>
 </root>

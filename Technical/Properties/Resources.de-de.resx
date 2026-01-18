@@ -165,6 +165,9 @@
   <data name="Volume" xml:space="preserve">
     <value>Volumen</value>
   </data>
+  <data name="BarsDirection" xml:space="preserve">
+    <value>Balkenrichtung</value>
+  </data>
   <data name="CalculationMode" xml:space="preserve">
     <value>Berechnungsmodus</value>
   </data>
@@ -1081,5 +1084,22 @@
   </data>
   <data name="FontSettingDescription" xml:space="preserve">
     <value>Beschreibt verschiedene Einstellungen für die Schriftart.</value>
+  </data>
+  <data name="DivergenceBars" xml:space="preserve">
+    <value>Divergenz im Histogramm</value>
+  </data>
+  <data name="BarDirVsDeltaDivergenceDescription" xml:space="preserve">
+    <value>Bestimmt, ob eine Divergenz angezeigt werden soll, die auftritt, wenn die Richtung der Leiste und der Delta-Wert entgegengesetzt sind: im Falle einer bullischen Leiste ist das Delta negativ und im Falle einer bärischen Leiste ist das Delta positiv.</value>
+  </data>
+  <data name="DivergenceDots" xml:space="preserve">
+    <value>Divergenz im Preis</value>
+  </data>
+  <data name="DivergenceDotsDescription" xml:space="preserve">
+    <value>Zeigt Divergenzmarkierungen im Preisdiagramm an, wenn Kerzenrichtung und Delta entgegengesetzt sind.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="DivergenceBarsDescription" xml:space="preserve">
+    <value>Hebt Divergenzbalken im Delta-Panel hervor, wenn Kerzenrichtung und Delta entgegengesetzt sind.</value>
+    <comment>Delta</comment>
   </data>
 </root>

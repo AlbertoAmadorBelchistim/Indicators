@@ -1960,6 +1960,42 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Divergence in histogram.
+        /// </summary>
+        public static string DivergenceBars {
+            get {
+                return ResourceManager.GetString("DivergenceBars", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Highlights divergence bars in the Delta panel when bar direction and delta are opposite..
+        /// </summary>
+        public static string DivergenceBarsDescription {
+            get {
+                return ResourceManager.GetString("DivergenceBarsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Divergence on price.
+        /// </summary>
+        public static string DivergenceDots {
+            get {
+                return ResourceManager.GetString("DivergenceDots", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Shows divergence markers on the price chart when bar direction and delta are opposite..
+        /// </summary>
+        public static string DivergenceDotsDescription {
+            get {
+                return ResourceManager.GetString("DivergenceDotsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Divisor.
         /// </summary>
         public static string Divisor {
