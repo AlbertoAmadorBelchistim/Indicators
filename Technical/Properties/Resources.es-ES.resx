@@ -165,6 +165,9 @@
   <data name="Volume" xml:space="preserve">
     <value>Volumen</value>
   </data>
+  <data name="BarsDirection" xml:space="preserve">
+    <value>Dirección de la vela</value>
+  </data>
   <data name="CalculationMode" xml:space="preserve">
     <value>Tipo de cálculo</value>
   </data>
@@ -1076,5 +1079,22 @@
   </data>
   <data name="FontSettingDescription" xml:space="preserve">
     <value>Describe varias configuraciones para la fuente.</value>
+  </data>
+  <data name="DivergenceBars" xml:space="preserve">
+    <value>Divergencia en histograma</value>
+  </data>
+  <data name="BarDirVsDeltaDivergenceDescription" xml:space="preserve">
+    <value>Determina si se debe mostrar la divergencia, que ocurre cuando la dirección de la barra y el valor delta son opuestos: en el caso de una barra alcista, el delta es negativo y en el caso de una barra bajista, el delta es positivo.</value>
+  </data>
+  <data name="DivergenceDots" xml:space="preserve">
+    <value>Divergencia en precio</value>
+  </data>
+  <data name="DivergenceDotsDescription" xml:space="preserve">
+    <value>Muestra marcadores de divergencia en el precio cuando la dirección de la vela y el delta son opuestos.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="DivergenceBarsDescription" xml:space="preserve">
+    <value>Resalta barras de divergencia en el panel Delta cuando la dirección de la vela y el delta son opuestos.</value>
+    <comment>Delta</comment>
   </data>
 </root>
