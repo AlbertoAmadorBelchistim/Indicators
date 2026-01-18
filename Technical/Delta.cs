@@ -1069,15 +1069,13 @@ public class Delta : Indicator
 
 	#endregion
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.UpAlert), GroupName = nameof(Strings.Alerts),
-		Description = nameof(Strings.UpAlertFileFilterDescription), Order = 840)]
+    [Browsable(false)]
 	[Range(0, int.MaxValue)]
 	[DisplayFormat(DataFormatString = "F0")]
 	public Filter UpAlert { get; set; } = new()
 	{ Enabled = false, Value = 0 };
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.DownAlert), GroupName = nameof(Strings.Alerts),
-		Description = nameof(Strings.DownAlertFileFilterDescription), Order = 850)]
+    [Browsable(false)]
 	[Range(int.MinValue, 0)]
 	[DisplayFormat(DataFormatString = "F0")]
 	public Filter DownAlert { get; set; } = new()
@@ -1726,6 +1724,10 @@ public class Delta : Indicator
 
 	private void ProcessLegacyAlerts(int bar, decimal deltaValue)
 	{
+        // Legacy alerts are deprecated and hidden from UI.
+        // Keep settings for backward compatibility, but do not execute legacy triggers.
+        return;
+
 		if (UpAlert.Enabled && CurrentBar - 1 == bar && _lastBarAlert != bar)
 		{
 			var alertValue = UpAlert.Value;
