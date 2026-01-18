@@ -165,6 +165,9 @@
   <data name="Volume" xml:space="preserve">
     <value>Volume</value>
   </data>
+  <data name="BarsDirection" xml:space="preserve">
+    <value>Direction des bougies</value>
+  </data>
   <data name="CalculationMode" xml:space="preserve">
     <value>Mode de calcul</value>
   </data>
@@ -1076,5 +1079,22 @@
   </data>
   <data name="FontSettingDescription" xml:space="preserve">
     <value>Décrit divers paramètres pour la police de caractères.</value>
+  </data>
+  <data name="DivergenceBars" xml:space="preserve">
+    <value>Divergence sur l’histogramme</value>
+  </data>
+  <data name="BarDirVsDeltaDivergenceDescription" xml:space="preserve">
+    <value>Détermine s'il faut afficher la divergence, qui se produit lorsque la direction de la barre et la valeur delta sont opposées : dans le cas d'une barre haussière, le delta est négatif, et dans le cas d'une barre baissière, le delta est positif.</value>
+  </data>
+  <data name="DivergenceDots" xml:space="preserve">
+    <value>Divergence sur le prix</value>
+  </data>
+  <data name="DivergenceDotsDescription" xml:space="preserve">
+    <value>Affiche des marqueurs de divergence sur le prix lorsque la direction de la bougie et le delta sont opposés.</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="DivergenceBarsDescription" xml:space="preserve">
+    <value>Met en évidence les barres de divergence dans le panneau Delta lorsque la direction de la bougie et le delta sont opposés.</value>
+    <comment>Delta</comment>
   </data>
 </root>
