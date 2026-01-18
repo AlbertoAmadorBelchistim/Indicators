@@ -753,7 +753,7 @@ public class Delta : Indicator
 		}
 	}
 
-	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.FixedMajorLevel), Description = nameof(Resources.FixedMajorLevelDescription),
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.FixedPosMajorLevel), Description = nameof(Resources.FixedPosMajorLevelDescription),
 		GroupName = nameof(Resources.FixedThresholdGroup), Order = 520)]
 	[Range(0, int.MaxValue)]
 	public int UpMajorLevel
@@ -769,7 +769,7 @@ public class Delta : Indicator
 		}
 	}
 
-	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.FixedMinorLevel), Description = nameof(Resources.FixedMinorLevelDescription),
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.FixedPosMinorLevel), Description = nameof(Resources.FixedPosMinorLevelDescription),
 		GroupName = nameof(Resources.FixedThresholdGroup), Order = 530)]
 	[Range(0, int.MaxValue)]
 	public int UpMinorLevel
@@ -785,7 +785,7 @@ public class Delta : Indicator
 		}
 	}
 
-	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.FixedMinorLevel), Description = nameof(Resources.FixedMinorLevelDescription),
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.FixedNegMinorLevel), Description = nameof(Resources.FixedNegMinorLevelDescription),
 		GroupName = nameof(Resources.FixedThresholdGroup), Order = 540)]
 	[Range(int.MinValue, 0)]
 	public int DownMinorLevel
@@ -801,7 +801,7 @@ public class Delta : Indicator
 		}
 	}
 
-	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.FixedMajorLevel), Description = nameof(Resources.FixedMajorLevelDescription),
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.FixedNegMajorLevel), Description = nameof(Resources.FixedNegMajorLevelDescription),
 		GroupName = nameof(Resources.FixedThresholdGroup), Order = 550)]
 	[Range(int.MinValue, 0)]
 	public int DownMajorLevel
