@@ -222,6 +222,12 @@
   <data name="CustomSessionStart" xml:space="preserve">
     <value>Benutzerdefinierter Sitzungsbeginn</value>
   </data>
+  <data name="BearlishColor" xml:space="preserve">
+    <value>Bärische Farbe</value>
+  </data>
+  <data name="BullishColor" xml:space="preserve">
+    <value>Aufwärtsrichtung</value>
+  </data>
   <data name="ShowAverage" xml:space="preserve">
     <value>Durchschnitt anzeigen</value>
   </data>
@@ -291,6 +297,9 @@
   <data name="Enabled" xml:space="preserve">
     <value>Enabled</value>
   </data>
+  <data name="Drawing" xml:space="preserve">
+    <value>Zeichnung</value>
+  </data>
   <data name="ShowDeltaChange" xml:space="preserve">
     <value>Delta-Änderung</value>
   </data>
@@ -314,6 +323,9 @@
   </data>
   <data name="DownAlert" xml:space="preserve">
     <value>Ausfallwarnung</value>
+  </data>
+  <data name="NeutralBorderColor" xml:space="preserve">
+    <value>Rahmenfarbe</value>
   </data>
   <data name="Average" xml:space="preserve">
     <value>Durchschnitt</value>
@@ -1161,4 +1173,22 @@
   <data name="ThresholdLevelMinor" xml:space="preserve">
     <value>Minor</value>
   </data>
+  <data name="PositiveValueColorDescription" xml:space="preserve">
+    <value>Zeigt die Farbe eines Elements mit einem positiven Wert an.</value>
+  </data>
+  <data name="NegativeValueColorDescription" xml:space="preserve">
+    <value>Zeigt die Farbe eines Elements mit einem negativen Wert an.</value>
+  </data>
+  <data name="NeutralValueDescription" xml:space="preserve">
+    <value>Stellt die Farbe dar, die für neutrale Werte verwendet wird</value>
+  </data>
+  <data name="DeltaPositiveColor" xml:space="preserve">
+  <value>Positive Farbe</value>
+  <comment>Delta</comment>
+</data>
+<data name="DeltaNegativeColor" xml:space="preserve">
+  <value>Negative Farbe</value>
+  <comment>Delta</comment>
+</data>
+
 </root>

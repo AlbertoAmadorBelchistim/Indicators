@@ -1816,6 +1816,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Negative color.
+        /// </summary>
+        public static string DeltaNegativeColor {
+            get {
+                return ResourceManager.GetString("DeltaNegativeColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Positive color.
+        /// </summary>
+        public static string DeltaPositiveColor {
+            get {
+                return ResourceManager.GetString("DeltaPositiveColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Delta/sec.
         /// </summary>
         public static string DeltaSecond {
@@ -4588,6 +4606,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Displays the color of an element with a negative value..
+        /// </summary>
+        public static string NegativeValueColorDescription {
+            get {
+                return ResourceManager.GetString("NegativeValueColorDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Net Imbalance Alert.
         /// </summary>
         public static string NetImbalanceAlertGroup {
@@ -4642,7 +4669,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Neutral/Border Color.
+        ///   Busca una cadena traducida similar a Border Color.
         /// </summary>
         public static string NeutralBorderColor {
             get {
@@ -4665,6 +4692,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string NeutralRatio {
             get {
                 return ResourceManager.GetString("NeutralRatio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Represents the color used for neutral values.
+        /// </summary>
+        public static string NeutralValueDescription {
+            get {
+                return ResourceManager.GetString("NeutralValueDescription", resourceCulture);
             }
         }
         
@@ -5223,6 +5259,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string PositiveDelta {
             get {
                 return ResourceManager.GetString("PositiveDelta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Displays the color of an element with a positive value..
+        /// </summary>
+        public static string PositiveValueColorDescription {
+            get {
+                return ResourceManager.GetString("PositiveValueColorDescription", resourceCulture);
             }
         }
         

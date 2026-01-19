@@ -2141,7 +2141,7 @@
     <value>Upper Deviation 3</value>
   </data>
   <data name="NeutralBorderColor" xml:space="preserve">
-    <value>Neutral/Border Color</value>
+    <value>Border Color</value>
     <comment>Delta</comment>
   </data>
   <data name="Combined" xml:space="preserve">
@@ -3491,4 +3491,22 @@
     <value>Minor</value>
     <comment>Delta</comment>
   </data>
+  <data name="PositiveValueColorDescription" xml:space="preserve">
+    <value>Displays the color of an element with a positive value.</value>
+  </data>
+  <data name="NegativeValueColorDescription" xml:space="preserve">
+    <value>Displays the color of an element with a negative value.</value>
+  </data>
+  <data name="NeutralValueDescription" xml:space="preserve">
+    <value>Represents the color used for neutral values</value>
+  </data>
+  <data name="DeltaPositiveColor" xml:space="preserve">
+  <value>Positive color</value>
+  <comment>Delta</comment>
+</data>
+<data name="DeltaNegativeColor" xml:space="preserve">
+  <value>Negative color</value>
+  <comment>Delta</comment>
+</data>
+
 </root>
