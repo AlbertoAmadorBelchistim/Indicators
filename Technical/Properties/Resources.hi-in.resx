@@ -222,6 +222,12 @@
   <data name="CustomSessionStart" xml:space="preserve">
     <value>कस्टम सत्र प्रारंभ</value>
   </data>
+  <data name="BearlishColor" xml:space="preserve">
+    <value>बियरलिश रंग</value>
+  </data>
+  <data name="BullishColor" xml:space="preserve">
+    <value>ऊपरी रंग</value>
+  </data>
   <data name="ShowAverage" xml:space="preserve">
     <value>औसत दिखाएँ</value>
   </data>
@@ -291,6 +297,9 @@
   <data name="Enabled" xml:space="preserve">
     <value>सक्षम</value>
   </data>
+  <data name="Drawing" xml:space="preserve">
+    <value>ड्राइंग</value>
+  </data>
   <data name="ShowDeltaChange" xml:space="preserve">
     <value>डेल्टा परिवर्तन दिखाएं</value>
   </data>
@@ -314,6 +323,9 @@
   </data>
   <data name="DownAlert" xml:space="preserve">
     <value>खराबी चेतावनी</value>
+  </data>
+  <data name="NeutralBorderColor" xml:space="preserve">
+    <value>सीमा का रंग</value>
   </data>
   <data name="Average" xml:space="preserve">
     <value>औसत</value>
@@ -1156,4 +1168,22 @@
   <data name="ThresholdLevelMinor" xml:space="preserve">
     <value>Minor</value>
   </data>
+  <data name="PositiveValueColorDescription" xml:space="preserve">
+    <value>सकारात्मक मूल्य वाले तत्व का रंग प्रदर्शित करता है।</value>
+  </data>
+  <data name="NegativeValueColorDescription" xml:space="preserve">
+    <value>नकारात्मक मूल्य वाले तत्व का रंग प्रदर्शित करता है।</value>
+  </data>
+  <data name="NeutralValueDescription" xml:space="preserve">
+    <value>मध्यस्थ मूल्यों के लिए उपयोग किए जाने वाले रंग को प्रस्तुत करता है</value>
+  </data>
+  <data name="DeltaPositiveColor" xml:space="preserve">
+  <value>Positive color</value>
+  <comment>Delta</comment>
+</data>
+<data name="DeltaNegativeColor" xml:space="preserve">
+  <value>Negative color</value>
+  <comment>Delta</comment>
+</data>
+
 </root>

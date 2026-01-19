@@ -222,6 +222,12 @@
   <data name="CustomSessionStart" xml:space="preserve">
     <value>自定义会话开始</value>
   </data>
+  <data name="BearlishColor" xml:space="preserve">
+    <value>看跌颜色</value>
+  </data>
+  <data name="BullishColor" xml:space="preserve">
+    <value>看涨颜色</value>
+  </data>
   <data name="ShowAverage" xml:space="preserve">
     <value>显示均值</value>
   </data>
@@ -291,6 +297,9 @@
   <data name="Enabled" xml:space="preserve">
     <value>启用</value>
   </data>
+  <data name="Drawing" xml:space="preserve">
+    <value>绘图</value>
+  </data>
   <data name="ShowDeltaChange" xml:space="preserve">
     <value>差额变化</value>
   </data>
@@ -314,6 +323,9 @@
   </data>
   <data name="DownAlert" xml:space="preserve">
     <value>Down alert</value>
+  </data>
+  <data name="NeutralBorderColor" xml:space="preserve">
+    <value>边框颜色</value>
   </data>
   <data name="Average" xml:space="preserve">
     <value>平均值</value>
@@ -1156,4 +1168,21 @@
   <data name="ThresholdLevelMinor" xml:space="preserve">
     <value>Minor</value>
   </data>
+  <data name="PositiveValueColorDescription" xml:space="preserve">
+    <value>显示具有正值的元素的颜色。</value>
+  </data>
+  <data name="NegativeValueColorDescription" xml:space="preserve">
+    <value>显示具有负值的元素的颜色。</value>
+  </data>
+  <data name="NeutralValueDescription" xml:space="preserve">
+    <value>表示用于中性值的颜色</value>
+  </data>
+  <data name="DeltaPositiveColor" xml:space="preserve">
+  <value>正值颜色</value>
+  <comment>Delta</comment>
+</data>
+<data name="DeltaNegativeColor" xml:space="preserve">
+  <value>负值颜色</value>
+  <comment>Delta</comment>
+</data>
 </root>
