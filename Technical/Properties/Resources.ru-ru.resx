@@ -2080,7 +2080,7 @@
     <value>Верхнее Отклонение 3</value>
   </data>
   <data name="NeutralBorderColor" xml:space="preserve">
-    <value>Нейтральный Цвет Границы</value>
+    <value>Цвет границы</value>
     <comment>Delta</comment>
   </data>
   <data name="Combined" xml:space="preserve">
@@ -3214,15 +3214,6 @@
   <data name="BarDirVsDeltaDivergenceDescription" xml:space="preserve">
     <value>Определяет, следует ли отображать расхождение, которое происходит, когда направление бара и значение дельты противоположны: в случае бычьего бара дельта отрицательная, а в случае медвежьего бара дельта положительная.</value>
   </data>
-  <data name="Misc" xml:space="preserve">
-    <value>Разное</value>
-  </data>
-  <data name="Bearish" xml:space="preserve">
-    <value>Медвежье</value>
-  </data>
-  <data name="Show Fibonacci" xml:space="preserve">
-    <value>Показать уровни Фибоначчи</value>
-  </data>
   <data name="FixedPosMajorLevel" xml:space="preserve">
     <value>Фикс. + major</value>
     <comment>Delta</comment>
@@ -3267,4 +3258,31 @@
   <data name="ThresholdLevelMinor" xml:space="preserve">
     <value>Minor</value>
   </data>
+  <data name="PositiveValueColorDescription" xml:space="preserve">
+    <value>Отображает цвет элемента с положительным значением.</value>
+  </data>
+  <data name="NegativeValueColorDescription" xml:space="preserve">
+    <value>Отображает цвет элемента с отрицательным значением.</value>
+  </data>
+  <data name="NeutralValueDescription" xml:space="preserve">
+    <value>Представляет цвет, используемый для нейтральных значений</value>
+  </data>
+  <data name="Misc" xml:space="preserve">
+    <value>Разное</value>
+  </data>
+  <data name="Bearish" xml:space="preserve">
+    <value>Медвежье</value>
+  </data>
+  <data name="Show Fibonacci" xml:space="preserve">
+    <value>Показать уровни Фибоначчи</value>
+  </data>
+  <data name="DeltaPositiveColor" xml:space="preserve">
+  <value>Цвет положительного значения</value>
+  <comment>Delta</comment>
+</data>
+<data name="DeltaNegativeColor" xml:space="preserve">
+  <value>Цвет отрицательного значения</value>
+  <comment>Delta</comment>
+</data>
+
 </root>
