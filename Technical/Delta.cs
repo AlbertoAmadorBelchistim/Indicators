@@ -519,8 +519,8 @@ public class Delta : Indicator
 		}
 	}
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.BullishColor), GroupName = nameof(Strings.Drawing),
-		Description = nameof(Strings.PositiveValueColorDescription), Order = 1000)]
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.DeltaPositiveColor), GroupName = nameof(Resources.Drawing),
+		Description = nameof(Resources.PositiveValueColorDescription), Order = 1000)]
 	public CrossColor UpColor
 	{
 		get => _upColor.Convert();
@@ -532,8 +532,8 @@ public class Delta : Indicator
 		}
 	}
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.BearlishColor), GroupName = nameof(Strings.Drawing),
-		Description = nameof(Strings.NegativeValueColorDescription), Order = 1010)]
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.DeltaNegativeColor), GroupName = nameof(Resources.Drawing),
+		Description = nameof(Resources.NegativeValueColorDescription), Order = 1010)]
 	public CrossColor DownColor
 	{
 		get => _downColor.Convert();
@@ -546,8 +546,8 @@ public class Delta : Indicator
 		}
 	}
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.NeutralBorderColor), GroupName = nameof(Strings.Drawing),
-		Description = nameof(Strings.NeutralValueDescription), Order = 1020)]
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.NeutralBorderColor), GroupName = nameof(Resources.Drawing),
+		Description = nameof(Resources.NeutralValueDescription), Order = 1020)]
 	public CrossColor NeutralColor
 	{
 		get => _neutralColor.Convert();
