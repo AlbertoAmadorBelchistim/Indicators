@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
+using System.Text.RegularExpressions;
 using System.Text;
 using Utils.Common.Logging;
 
@@ -680,6 +682,82 @@ namespace ATAS.Indicators.Technical
         #endregion
 
         #region Private methods
+
+        private const string _loloSourceId = "LoloText";
+
+        private static readonly Regex _numberOnly = new Regex(@"^\s*\d+(\.\d+)?\s*$",
+            RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+        // e.g.: "CO44", "LG1 0DTE", "VT 0DTE", "Zero Gamma", "CW", "PW"
+        private static readonly Regex _labelPattern = new Regex(
+            @"^\s*(?<name>[A-Za-z ]+?)(?<rank>\d{1,3})?(?<suffix>\s+0DTE)?\s*$",
+            RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+        private static bool TryParseDecimal(string s, out decimal value)
+        {
+            if (decimal.TryParse(s, NumberStyles.Any, CultureInfo.InvariantCulture, out value))
+                return true;
+
+            if (decimal.TryParse(s, NumberStyles.Any, CultureInfo.CurrentCulture, out value))
+                return true;
+
+            return false;
+        }
+
+        private static string NormalizeInvisible(string s)
+        {
+            if (string.IsNullOrEmpty(s))
+                return string.Empty;
+
+            // Remove Unicode "Format" chars (e.g. zero-width joiners), then trim.
+            var arr = s.ToCharArray();
+            var res = new char[arr.Length];
+            var count = 0;
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                var cat = CharUnicodeInfo.GetUnicodeCategory(arr[i]);
+                if (cat != UnicodeCategory.Format)
+                    res[count++] = arr[i];
+            }
+
+            return new string(res, 0, count).Trim();
+        }
+
+        private static LevelCategory MapCategory(string name)
+        {
+            var u = (name ?? string.Empty).ToUpperInvariant().Replace("  ", " ").Trim();
+
+            if (u == "CO" || u == "COMBO") return LevelCategory.Combo;
+            if (u == "LG" || u == "LARGE GAMMA" || u == "LARGEGAMMA") return LevelCategory.LargeGamma;
+            if (u == "VT" || u == "VOLATILITY TRIGGER" || u == "VOLATILITYTRIGGER") return LevelCategory.VolTrigger;
+            if (u == "CW" || u == "CALL WALL" || u == "CALLWALL") return LevelCategory.CallWall;
+            if (u == "PW" || u == "PUT WALL" || u == "PUTWALL") return LevelCategory.PutWall;
+            if (u == "ZG" || u == "ZERO GAMMA" || u == "ZEROGAMMA") return LevelCategory.ZeroGamma;
+
+            return LevelCategory.Other;
+        }
+
+        private static string FormatDisplayLabel(LevelCategory category, int rank, bool is0Dte, string rawName)
+        {
+            // Keep labels compact, aligned with legacy LevelsLolo behavior.
+            string baseName = category switch
+            {
+                LevelCategory.Combo => "CO",
+                LevelCategory.LargeGamma => "LG",
+                LevelCategory.VolTrigger => "VT",
+                LevelCategory.CallWall => "CW",
+                LevelCategory.PutWall => "PW",
+                LevelCategory.ZeroGamma => "ZG",
+                _ => (rawName ?? string.Empty).ToUpperInvariant().Trim()
+            };
+
+            string rankTxt = rank > 0 ? rank.ToString(CultureInfo.InvariantCulture) : string.Empty;
+            string suffix = is0Dte ? " 0DTE" : string.Empty;
+
+            return (baseName + rankTxt + suffix).Trim();
+        }
+
         private void RedrawChart()
         {
             // RecalculateValues triggers a render refresh in ATAS indicators.
@@ -748,17 +826,111 @@ namespace ATAS.Indicators.Technical
 
         private static ParseResult ParseLoloText(string raw)
         {
-            // TODO (next): implement legacy grammar:
-            // - optional "$TICKER:" prefix
-            // - comma-separated tokens
-            // - '&' label join before price
-            // - rank optional
-            // - 0DTE optional suffix
-            // - aliases (Zero Gamma -> ZG)
-            //
-            // Return ParsedEntry[] + warnings[] for invalid tokens.
+            var warnings = new List<string>(8);
+            var entries = new List<ParsedEntry>(64);
 
-            return new ParseResult(Array.Empty<ParsedEntry>(), new[] { "Parser not implemented yet." });
+            var text = NormalizeInvisible(raw);
+            if (string.IsNullOrWhiteSpace(text))
+                return new ParseResult(
+                    Array.Empty<ParsedEntry>(),
+                    Array.Empty<string>());
+
+            // Optional prefix like "$SP:" (or any "$TICKER:")
+            int colon = text.IndexOf(':');
+            if (colon >= 0 && colon + 1 < text.Length)
+                text = text.Substring(colon + 1);
+
+            var tokens = text.Split(',');
+            var cleaned = new List<string>(tokens.Length);
+
+            for (int i = 0; i < tokens.Length; i++)
+            {
+                var t = NormalizeInvisible(tokens[i]);
+                if (!string.IsNullOrEmpty(t))
+                    cleaned.Add(t);
+            }
+
+            if (cleaned.Count == 0)
+                return new ParseResult(
+                    Array.Empty<ParsedEntry>(),
+                    Array.Empty<string>());
+
+            var pending = new List<LevelLabel>(8);
+
+            for (int i = 0; i < cleaned.Count; i++)
+            {
+                var token = cleaned[i];
+
+                // Split by '&' (multiple labels before one price)
+                var parts = token.Split('&');
+
+                bool isSingleNumber = (parts.Length == 1) && _numberOnly.IsMatch(parts[0]);
+
+                if (isSingleNumber)
+                {
+                    // Price token
+                    if (pending.Count == 0)
+                        continue;
+
+                    if (!TryParseDecimal(parts[0], out var price))
+                    {
+                        warnings.Add($"Invalid price token '{parts[0]}' (ignored).");
+                        continue;
+                    }
+
+                    entries.Add(new ParsedEntry(price, pending.ToArray(), _loloSourceId));
+                    pending.Clear();
+                    continue;
+                }
+
+                // Label token(s)
+                for (int p = 0; p < parts.Length; p++)
+                {
+                    var part = NormalizeInvisible(parts[p]);
+                    if (string.IsNullOrEmpty(part))
+                        continue;
+
+                    var m = _labelPattern.Match(part);
+                    if (!m.Success)
+                    {
+                        warnings.Add($"Unrecognized label '{part}' (ignored).");
+                        continue;
+                    }
+
+                    var rawName = NormalizeInvisible(m.Groups["name"].Value);
+
+                    // Normalize "Zero Gamma" to "ZG" to reduce label clutter
+                    if (string.Equals(rawName, "Zero Gamma", StringComparison.OrdinalIgnoreCase))
+                        rawName = "ZG";
+
+                    int rank = 0;
+                    if (m.Groups["rank"].Success &&
+                        int.TryParse(m.Groups["rank"].Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var r))
+                    {
+                        rank = r;
+                    }
+
+                    bool is0dte = m.Groups["suffix"].Success;
+
+                    var cat = MapCategory(rawName);
+
+                    var display = FormatDisplayLabel(cat, rank, is0dte, rawName);
+
+                    pending.Add(new LevelLabel(
+                        category: cat,
+                        rank: rank,
+                        is0Dte: is0dte,
+                        rawLabel: part,
+                        displayLabel: display));
+                }
+            }
+
+            // NOTE: If input ends with labels and no price, we intentionally ignore pending labels (legacy behavior).
+            // We do not warn to avoid noise for partial pastes.
+
+            return new ParseResult(
+                entries.Count == 0 ? Array.Empty<ParsedEntry>() : entries.ToArray(),
+                warnings.Count == 0 ? Array.Empty<string>() : warnings.ToArray());
         }
 
 
