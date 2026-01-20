@@ -15,6 +15,25 @@ namespace ATAS.Indicators.Technical
     [DisplayName("GammaLevels")]
     public sealed class GammaLevels : Indicator
     {
+        #region Nested types: model
+
+        public enum LabelSide
+        {
+            [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Left))]
+            Left = 0,
+
+            [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Right))]
+            Right = 1
+        }
+
+        #endregion
+
+        #region Nested types: sources
+
+        #endregion
+
+        #region Fields
+
         // -----------------------------
         // Rendering (shell only)
         // -----------------------------
@@ -34,6 +53,48 @@ namespace ATAS.Indicators.Technical
         // -----------------------------
         private bool _enableLoloText = true;
         private string _loloTextRaw = string.Empty;
+
+        // -----------------------------
+        // UI: Visibility
+        // -----------------------------
+        private bool _onlyVisiblePriceRange = true;
+        private bool _lastBarOnly = false;
+
+        // -----------------------------
+        // UI: Labels
+        // -----------------------------
+        private LabelSide _labelAlignment = LabelSide.Right;
+        private int _offsetX = 6;
+        private int _offsetY = 0;
+
+        // -----------------------------
+        // UI: Lines / Tiers (shell only - used later)
+        // -----------------------------
+        private int _thickMaxRank = 3;
+        private int _mediumMaxRank = 10;
+
+        private int _thickLineWidth = 3;
+        private int _mediumLineWidth = 2;
+        private int _thinLineWidth = 1;
+
+        private int _thickLineTransparency = 0;
+        private int _mediumLineTransparency = 40;
+        private int _thinLineTransparency = 70;
+
+        // -----------------------------
+        // UI: 0DTE Halo (shell only)
+        // -----------------------------
+        private bool _show0DteHalo = true;
+        private int _haloWidth = 6;
+        private int _haloTransparency = 60;
+        private bool _dash0Dte = true;
+
+        #endregion
+
+        #region Properties: Sources (LoloText)
+        // -----------------------------
+        // UI: Source - LoloText
+        // -----------------------------
 
         [Display(ResourceType = typeof(Resources),
             Name = nameof(Resources.Enabled),
@@ -96,13 +157,11 @@ namespace ATAS.Indicators.Technical
                 RecalculateValues();
             }
         }
-
+        #endregion
         // -----------------------------
         // UI: Visibility
         // -----------------------------
-        private bool _onlyVisiblePriceRange = true;
-        private bool _lastBarOnly = false;
-
+        #region Properties: Visibility
         [Display(ResourceType = typeof(Resources),
             Name = nameof(Resources.OnlyVisiblePriceRange),
             GroupName = nameof(Resources.Visibility),
@@ -140,23 +199,8 @@ namespace ATAS.Indicators.Technical
                 RedrawChart();
             }
         }
-
-        // -----------------------------
-        // UI: Labels
-        // -----------------------------
-        public enum LabelSide
-        {
-            [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Left))]
-            Left = 0,
-
-            [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Right))]
-            Right = 1
-        }
-
-        private LabelSide _labelAlignment = LabelSide.Right;
-        private int _offsetX = 6;
-        private int _offsetY = 0;
-
+        #endregion
+        #region Properties: Labels
         [Display(ResourceType = typeof(Resources),
             Name = nameof(Resources.LabelAlignment),
             GroupName = nameof(Resources.Labels),
@@ -211,21 +255,11 @@ namespace ATAS.Indicators.Technical
                 RedrawChart();
             }
         }
-
+        #endregion
         // -----------------------------
         // UI: Lines / Tiers (shell only - used later)
         // -----------------------------
-        private int _thickMaxRank = 3;
-        private int _mediumMaxRank = 10;
-
-        private int _thickLineWidth = 3;
-        private int _mediumLineWidth = 2;
-        private int _thinLineWidth = 1;
-
-        private int _thickLineTransparency = 0;
-        private int _mediumLineTransparency = 40;
-        private int _thinLineTransparency = 70;
-
+        #region Properties: Tiers
         [Display(ResourceType = typeof(Resources),
             Name = nameof(Resources.ThickMaxRank),
             GroupName = nameof(Resources.Tiers),
@@ -379,15 +413,11 @@ namespace ATAS.Indicators.Technical
                 RedrawChart();
             }
         }
-
+        #endregion
         // -----------------------------
         // UI: 0DTE Halo (shell only)
         // -----------------------------
-        private bool _show0DteHalo = true;
-        private int _haloWidth = 6;
-        private int _haloTransparency = 60;
-        private bool _dash0Dte = true;
-
+        #region Properties: 0DTE halo
         [Display(ResourceType = typeof(Resources),
             Name = nameof(Resources.Show0DteHalo),
             GroupName = nameof(Resources.Halo),
@@ -465,10 +495,11 @@ namespace ATAS.Indicators.Technical
                 RedrawChart();
             }
         }
-
+        #endregion
         // -----------------------------
         // Lifecycle
         // -----------------------------
+        #region Ctor
         public GammaLevels()
         {
             EnableCustomDrawing = true;
@@ -477,7 +508,9 @@ namespace ATAS.Indicators.Technical
             // Keep a simple default font; will be finalized when text rendering is implemented.
             _font = new RenderFont("Arial", 12);
         }
+        #endregion
 
+        #region Overrides
         protected override void OnCalculate(int bar, decimal value)
         {
             // Shell: no calculations yet.
@@ -495,12 +528,15 @@ namespace ATAS.Indicators.Technical
 
             // Future commits will draw levels here.
         }
+        #endregion
 
+        #region Private methods
         private void RedrawChart()
         {
             // RecalculateValues triggers a render refresh in ATAS indicators.
             // Use it for visual-only changes too to keep behavior consistent.
             RecalculateValues();
         }
+        #endregion
     }
 }
