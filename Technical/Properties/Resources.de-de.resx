@@ -1191,4 +1191,8 @@
   <comment>Delta</comment>
 </data>
 
-</root>
+<data name="Absorption" xml:space="preserve">
+    <value>Absorption</value>
+  </data><data name="AbsorptionThresholdDesc" xml:space="preserve">
+    <value>Mindestabstand zwischen dem Schlusskurs und den Delta-Extremen zur Berücksichtigung von Absorption</value>
+  </data></root>

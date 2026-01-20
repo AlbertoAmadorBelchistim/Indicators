@@ -1185,4 +1185,8 @@
   <value>负值颜色</value>
   <comment>Delta</comment>
 </data>
-</root>
+<data name="Absorption" xml:space="preserve">
+    <value>吸收</value>
+  </data><data name="AbsorptionThresholdDesc" xml:space="preserve">
+    <value>考虑吸收的收盘价与德尔塔极值之间的最小距离</value>
+  </data></root>

@@ -1186,4 +1186,8 @@
   <comment>Delta</comment>
 </data>
 
-</root>
+<data name="Absorption" xml:space="preserve">
+    <value>Absorption</value>
+  </data><data name="AbsorptionThresholdDesc" xml:space="preserve">
+    <value>Distance minimale entre la clôture et les extrêmes delta pour considérer l'absorption</value>
+  </data></root>

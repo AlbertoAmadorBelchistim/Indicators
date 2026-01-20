@@ -1186,4 +1186,8 @@
   <comment>Delta</comment>
 </data>
 
-</root>
+<data name="Absorption" xml:space="preserve">
+    <value>अवशोषण</value>
+  </data><data name="AbsorptionThresholdDesc" xml:space="preserve">
+    <value>निकटता और डेल्टा चरम के बीच की न्यूनतम दूरी को अवशोषण पर विचार करने के लिए</value>
+  </data></root>
