@@ -1190,4 +1190,116 @@
     <value>अवशोषण</value>
   </data><data name="AbsorptionThresholdDesc" xml:space="preserve">
     <value>निकटता और डेल्टा चरम के बीच की न्यूनतम दूरी को अवशोषण पर विचार करने के लिए</value>
-  </data></root>
+  </data>
+    <data name="AlertPaceVolPerSecGroup" xml:space="preserve">
+    <value>गति / गतिविधि - वॉल्यूम/सेकंड अलर्ट</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertPressureDeltaGroup" xml:space="preserve">
+    <value>दिशात्मक दबाव - डेल्टा अलर्ट</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertPressureDeltaPerVolGroup" xml:space="preserve">
+    <value>दिशात्मक दबाव - डेल्टा/वॉल्यूम अलर्ट</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertPressureDeltaChangeGroup" xml:space="preserve">
+    <value>दिशात्मक दबाव - डेल्टा बदलाव अलर्ट</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertPressureMaxDeltaGroup" xml:space="preserve">
+    <value>दिशात्मक दबाव - अधिकतम डेल्टा अलर्ट</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertPressureMinDeltaGroup" xml:space="preserve">
+    <value>दिशात्मक दबाव - न्यूनतम डेल्टा अलर्ट</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertImbalanceNetGroup" xml:space="preserve">
+    <value>असंतुलन - नेट असंतुलन अलर्ट</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertCandleVolumeGroup" xml:space="preserve">
+    <value>कैंडल संदर्भ - वॉल्यूम अलर्ट</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertCandleTradesGroup" xml:space="preserve">
+    <value>कैंडल संदर्भ - ट्रेड्स अलर्ट</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertCandleHeightGroup" xml:space="preserve">
+    <value>कैंडल संदर्भ - ऊंचाई अलर्ट</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertSessionVolumeGroup" xml:space="preserve">
+    <value>सेशन संदर्भ - सेशन वॉल्यूम अलर्ट</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertSessionDeltaGroup" xml:space="preserve">
+    <value>सेशन संदर्भ - सेशन डेल्टा अलर्ट</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertSessionDeltaPerVolGroup" xml:space="preserve">
+    <value>सेशन संदर्भ - सेशन डेल्टा/वॉल्यूम अलर्ट</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertPrintsAskGroup" xml:space="preserve">
+    <value>कच्चे प्रिंट - आस्क अलर्ट</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertPrintsBidGroup" xml:space="preserve">
+    <value>कच्चे प्रिंट - बिड अलर्ट</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+<data name="Filter" xml:space="preserve">
+    <value>फ़िल्टर</value>
+  </data>
+    <data name="AlertAskTemplate" xml:space="preserve">
+    <value>Ask अलर्ट - Cluster Statistic: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertBidTemplate" xml:space="preserve">
+    <value>Bid अलर्ट - Cluster Statistic: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertDeltaPerVolumeTemplate" xml:space="preserve">
+    <value>डेल्टा/वॉल्यूम अलर्ट - Cluster Statistic: {0:F2}%</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertSessionDeltaTemplate" xml:space="preserve">
+    <value>सेशन डेल्टा अलर्ट - Cluster Statistic: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertSessionDeltaPerVolumeTemplate" xml:space="preserve">
+    <value>सेशन डेल्टा/वॉल्यूम अलर्ट - Cluster Statistic: {0:F2}%</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertMaxDeltaTemplate" xml:space="preserve">
+    <value>अधिकतम डेल्टा अलर्ट - Cluster Statistic: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertMinDeltaTemplate" xml:space="preserve">
+    <value>न्यूनतम डेल्टा अलर्ट - Cluster Statistic: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertDeltaChangeTemplate" xml:space="preserve">
+    <value>डेल्टा बदलाव अलर्ट - Cluster Statistic: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertVolumePerSecondTemplate" xml:space="preserve">
+    <value>वॉल्यूम/सेकंड अलर्ट - Cluster Statistic: {0:F2}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertSessionVolumeTemplate" xml:space="preserve">
+    <value>सेशन वॉल्यूम अलर्ट - Cluster Statistic: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertTradesTemplate" xml:space="preserve">
+    <value>ट्रेड्स अलर्ट - Cluster Statistic: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertHeightTemplate" xml:space="preserve">
+    <value>ऊंचाई अलर्ट - Cluster Statistic: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+</root>

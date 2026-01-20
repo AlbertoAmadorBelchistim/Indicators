@@ -1189,4 +1189,67 @@
     <value>吸收</value>
   </data><data name="AbsorptionThresholdDesc" xml:space="preserve">
     <value>考虑吸收的收盘价与德尔塔极值之间的最小距离</value>
+  </data>
+    <data name="AlertPaceVolPerSecGroup" xml:space="preserve">
+    <value>节奏 / 活动 - 交易量/秒警报</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertPressureDeltaGroup" xml:space="preserve">
+    <value>方向性压力 - Delta警报</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertPressureDeltaPerVolGroup" xml:space="preserve">
+    <value>方向性压力 - Delta/交易量警报</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertPressureDeltaChangeGroup" xml:space="preserve">
+    <value>方向性压力 - Delta变化警报</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertPressureMaxDeltaGroup" xml:space="preserve">
+    <value>方向性压力 - 最大Delta警报</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertPressureMinDeltaGroup" xml:space="preserve">
+    <value>方向性压力 - 最小Delta警报</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertImbalanceNetGroup" xml:space="preserve">
+    <value>失衡 - 净失衡警报</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertCandleVolumeGroup" xml:space="preserve">
+    <value>K线背景 - 交易量警报</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertCandleTradesGroup" xml:space="preserve">
+    <value>K线背景 - 成交次数警报</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertCandleHeightGroup" xml:space="preserve">
+    <value>K线背景 - 高度警报</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertSessionVolumeGroup" xml:space="preserve">
+    <value>会话背景 - 会话交易量警报</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertSessionDeltaGroup" xml:space="preserve">
+    <value>会话背景 - 会话Delta警报</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertSessionDeltaPerVolGroup" xml:space="preserve">
+    <value>会话背景 - 会话Delta/交易量警报</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertPrintsAskGroup" xml:space="preserve">
+    <value>原始成交 - Ask警报</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertPrintsBidGroup" xml:space="preserve">
+    <value>原始成交 - Bid警报</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+<data name="Filter" xml:space="preserve">
+    <value>过滤</value>
   </data></root>

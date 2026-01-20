@@ -3289,4 +3289,113 @@
     <value>Поглощение</value>
   </data><data name="AbsorptionThresholdDesc" xml:space="preserve">
     <value>Минимальное расстояние между закрытием и экстремумами дельты для учета поглощения</value>
-  </data></root>
+  </data>
+    <data name="AlertPaceVolPerSecGroup" xml:space="preserve">
+    <value>Темп / Активность - Алерт Объем/сек</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertPressureDeltaGroup" xml:space="preserve">
+    <value>Направленное давление - Алерт Дельта</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertPressureDeltaPerVolGroup" xml:space="preserve">
+    <value>Направленное давление - Алерт Дельта/Объем</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertPressureDeltaChangeGroup" xml:space="preserve">
+    <value>Направленное давление - Алерт Изменение дельты</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertPressureMaxDeltaGroup" xml:space="preserve">
+    <value>Направленное давление - Алерт Макс. дельта</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertPressureMinDeltaGroup" xml:space="preserve">
+    <value>Направленное давление - Алерт Мин. дельта</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertImbalanceNetGroup" xml:space="preserve">
+    <value>Дисбалансы - Алерт чистого дисбаланса</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertCandleVolumeGroup" xml:space="preserve">
+    <value>Контекст свечи - Алерт Объем</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertCandleTradesGroup" xml:space="preserve">
+    <value>Контекст свечи - Алерт Кол-во сделок</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertCandleHeightGroup" xml:space="preserve">
+    <value>Контекст свечи - Алерт Высота</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertSessionVolumeGroup" xml:space="preserve">
+    <value>Контекст сессии - Алерт Объем сессии</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertSessionDeltaGroup" xml:space="preserve">
+    <value>Контекст сессии - Алерт Дельта сессии</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertSessionDeltaPerVolGroup" xml:space="preserve">
+    <value>Контекст сессии - Алерт Дельта/Объем сессии</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertPrintsAskGroup" xml:space="preserve">
+    <value>Сырые принты - Алерт Ask</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertPrintsBidGroup" xml:space="preserve">
+    <value>Сырые принты - Алерт Bid</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+    <data name="AlertAskTemplate" xml:space="preserve">
+    <value>Алерт Ask (офера) - Cluster Statistic: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertBidTemplate" xml:space="preserve">
+    <value>Алерт Bid (продажа) - Cluster Statistic: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertDeltaPerVolumeTemplate" xml:space="preserve">
+    <value>Алерт Дельта/Объем - Cluster Statistic: {0:F2}%</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertSessionDeltaTemplate" xml:space="preserve">
+    <value>Алерт Дельта сессии - Cluster Statistic: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertSessionDeltaPerVolumeTemplate" xml:space="preserve">
+    <value>Алерт Дельта/Объем сессии - Cluster Statistic: {0:F2}%</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertMaxDeltaTemplate" xml:space="preserve">
+    <value>Алерт Макс. дельта - Cluster Statistic: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertMinDeltaTemplate" xml:space="preserve">
+    <value>Алерт Мин. дельта - Cluster Statistic: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertDeltaChangeTemplate" xml:space="preserve">
+    <value>Алерт Изменение дельты - Cluster Statistic: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertVolumePerSecondTemplate" xml:space="preserve">
+    <value>Алерт Объем/сек - Cluster Statistic: {0:F2}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertSessionVolumeTemplate" xml:space="preserve">
+    <value>Алерт Объем сессии - Cluster Statistic: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertTradesTemplate" xml:space="preserve">
+    <value>Алерт Сделки - Cluster Statistic: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertHeightTemplate" xml:space="preserve">
+    <value>Алерт Высота - Cluster Statistic: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+</root>

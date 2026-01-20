@@ -1195,4 +1195,116 @@
     <value>Absorption</value>
   </data><data name="AbsorptionThresholdDesc" xml:space="preserve">
     <value>Mindestabstand zwischen dem Schlusskurs und den Delta-Extremen zur Berücksichtigung von Absorption</value>
-  </data></root>
+  </data>
+    <data name="AlertPaceVolPerSecGroup" xml:space="preserve">
+    <value>Tempo / Aktivität - Volumen/s Alarm</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertPressureDeltaGroup" xml:space="preserve">
+    <value>Richtungsdruck - Delta Alarm</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertPressureDeltaPerVolGroup" xml:space="preserve">
+    <value>Richtungsdruck - Delta/Volumen Alarm</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertPressureDeltaChangeGroup" xml:space="preserve">
+    <value>Richtungsdruck - Delta-Änderung Alarm</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertPressureMaxDeltaGroup" xml:space="preserve">
+    <value>Richtungsdruck - Max-Delta Alarm</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertPressureMinDeltaGroup" xml:space="preserve">
+    <value>Richtungsdruck - Min-Delta Alarm</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertImbalanceNetGroup" xml:space="preserve">
+    <value>Ungleichgewichte - Netto-Ungleichgewicht-Alarm</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertCandleVolumeGroup" xml:space="preserve">
+    <value>Kerzenkontext - Volumen Alarm</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertCandleTradesGroup" xml:space="preserve">
+    <value>Kerzenkontext - Trades Alarm</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertCandleHeightGroup" xml:space="preserve">
+    <value>Kerzenkontext - Höhe Alarm</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertSessionVolumeGroup" xml:space="preserve">
+    <value>Sitzungskontext - Sitzungsvolumen Alarm</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertSessionDeltaGroup" xml:space="preserve">
+    <value>Sitzungskontext - Sitzungsdelta Alarm</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertSessionDeltaPerVolGroup" xml:space="preserve">
+    <value>Sitzungskontext - Sitzungsdelta/Volumen Alarm</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertPrintsAskGroup" xml:space="preserve">
+    <value>Rohprints - Ask Alarm</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertPrintsBidGroup" xml:space="preserve">
+    <value>Rohprints - Bid Alarm</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+<data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+    <data name="AlertAskTemplate" xml:space="preserve">
+    <value>Ask-Alarm (Angebot) - Cluster Statistic: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertBidTemplate" xml:space="preserve">
+    <value>Bid-Alarm (Verkauf) - Cluster Statistic: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertDeltaPerVolumeTemplate" xml:space="preserve">
+    <value>Delta/Volumen-Alarm - Cluster Statistic: {0:F2}%</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertSessionDeltaTemplate" xml:space="preserve">
+    <value>Sitzungs-Delta-Alarm - Cluster Statistic: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertSessionDeltaPerVolumeTemplate" xml:space="preserve">
+    <value>Sitzungs-Delta/Volumen-Alarm - Cluster Statistic: {0:F2}%</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertMaxDeltaTemplate" xml:space="preserve">
+    <value>Max-Delta-Alarm - Cluster Statistic: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertMinDeltaTemplate" xml:space="preserve">
+    <value>Min-Delta-Alarm - Cluster Statistic: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertDeltaChangeTemplate" xml:space="preserve">
+    <value>Delta-Änderung-Alarm - Cluster Statistic: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertVolumePerSecondTemplate" xml:space="preserve">
+    <value>Volumen/s-Alarm - Cluster Statistic: {0:F2}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertSessionVolumeTemplate" xml:space="preserve">
+    <value>Sitzungsvolumen-Alarm - Cluster Statistic: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertTradesTemplate" xml:space="preserve">
+    <value>Trades-Alarm - Cluster Statistic: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertHeightTemplate" xml:space="preserve">
+    <value>Höhen-Alarm - Cluster Statistic: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+</root>
