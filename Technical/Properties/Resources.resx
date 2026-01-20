@@ -3501,12 +3501,19 @@
     <value>Represents the color used for neutral values</value>
   </data>
   <data name="DeltaPositiveColor" xml:space="preserve">
-  <value>Positive color</value>
-  <comment>Delta</comment>
-</data>
-<data name="DeltaNegativeColor" xml:space="preserve">
-  <value>Negative color</value>
-  <comment>Delta</comment>
-</data>
-
+    <value>Positive color</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="DeltaNegativeColor" xml:space="preserve">
+    <value>Negative color</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="Absorption" xml:space="preserve">
+    <value>Absorption</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="AbsorptionThresholdDesc" xml:space="preserve">
+    <value>Minimum distance between the close and the delta extremes to consider absorption</value>
+    <comment>Delta</comment>
+  </data>
 </root>
