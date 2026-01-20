@@ -1302,4 +1302,48 @@
     <value>ऊंचाई अलर्ट - Cluster Statistic: {0}</value>
     <comment>ClusterStatistics</comment>
   </data>
+<data name="Text" xml:space="preserve">
+    <value>टेक्स्ट</value>
+  </data><data name="OffsetX" xml:space="preserve">
+    <value>ऑफसेटएक्स</value>
+  </data><data name="OffsetY" xml:space="preserve">
+    <value>य धुरी के लिए ऑफसेट</value>
+  </data><data name="FontSize" xml:space="preserve">
+    <value>फ़ॉन्ट आकार</value>
+  </data><data name="Left" xml:space="preserve">
+    <value>बाएं</value>
+  </data><data name="Right" xml:space="preserve">
+    <value>दाएं</value>
+  </data>
+  <data name="LoloText" xml:space="preserve"><value>Lolo टेक्स्ट</value><comment>GammaLevels</comment></data>
+<data name="LoloTextDesc" xml:space="preserve"><value>Lolo फ़ॉर्मेट में लेवल्स पेस्ट करें (कॉमा से टोकन, '&amp;' से लेबल, वैकल्पिक '$TICKER:' प्रीफ़िक्स)।</value><comment>GammaLevels</comment></data>
+<data name="Clear" xml:space="preserve"><value>साफ़ करें</value><comment>UI</comment></data>
+<data name="ClearDesc" xml:space="preserve"><value>वर्तमान इनपुट टेक्स्ट साफ़ करता है।</value><comment>UI</comment></data>
+<data name="OnlyVisiblePriceRange" xml:space="preserve"><value>केवल दृश्य प्राइस रेंज</value><comment>UI</comment></data>
+<data name="OnlyVisiblePriceRangeDesc" xml:space="preserve"><value>केवल वर्तमान दृश्य प्राइस रेंज के भीतर लेवल्स दिखाएँ।</value><comment>UI</comment></data>
+<data name="LastBarOnly" xml:space="preserve"><value>केवल अंतिम बार</value><comment>UI</comment></data>
+<data name="LastBarOnlyDesc" xml:space="preserve"><value>पूरे चार्ट के बजाय केवल अंतिम बार के पास लेवल्स दिखाएँ।</value><comment>UI</comment></data>
+<data name="LabelAlignment" xml:space="preserve"><value>लेबल संरेखण</value><comment>UI</comment></data>
+<data name="LabelAlignmentDesc" xml:space="preserve"><value>लेबल बाएँ या दाएँ दिखाना नियंत्रित करता है।</value><comment>UI</comment></data>
+<data name="Lines" xml:space="preserve"><value>रेखाएँ</value><comment>GammaLevels</comment></data>
+<data name="Tiers" xml:space="preserve"><value>स्तर</value><comment>GammaLevels</comment></data>
+<data name="ThickMaxRank" xml:space="preserve"><value>अधिकतम रैंक (मोटी)</value><comment>GammaLevels</comment></data>
+<data name="ThickMaxRankDesc" xml:space="preserve"><value>इस मान तक के रैंक मोटे स्तर का उपयोग करते हैं।</value><comment>GammaLevels</comment></data>
+<data name="MediumMaxRank" xml:space="preserve"><value>अधिकतम रैंक (मध्यम)</value><comment>GammaLevels</comment></data>
+<data name="MediumMaxRankDesc" xml:space="preserve"><value>इस मान तक के रैंक मध्यम स्तर का उपयोग करते हैं। इससे ऊपर पतला स्तर उपयोग होता है।</value><comment>GammaLevels</comment></data>
+<data name="ThickLineWidth" xml:space="preserve"><value>लाइन चौड़ाई (मोटी)</value><comment>GammaLevels</comment></data>
+<data name="MediumLineWidth" xml:space="preserve"><value>लाइन चौड़ाई (मध्यम)</value><comment>GammaLevels</comment></data>
+<data name="ThinLineWidth" xml:space="preserve"><value>लाइन चौड़ाई (पतली)</value><comment>GammaLevels</comment></data>
+<data name="ThickLineTransparency" xml:space="preserve"><value>लाइन पारदर्शिता (मोटी)</value><comment>GammaLevels</comment></data>
+<data name="MediumLineTransparency" xml:space="preserve"><value>लाइन पारदर्शिता (मध्यम)</value><comment>GammaLevels</comment></data>
+<data name="ThinLineTransparency" xml:space="preserve"><value>लाइन पारदर्शिता (पतली)</value><comment>GammaLevels</comment></data>
+<data name="Halo" xml:space="preserve"><value>0DTE हैलो</value><comment>GammaLevels</comment></data>
+<data name="Show0DteHalo" xml:space="preserve"><value>0DTE हैलो दिखाएँ</value><comment>GammaLevels</comment></data>
+<data name="Show0DteHaloDesc" xml:space="preserve"><value>Legacy लाल हैलो स्टाइल के साथ 0DTE लेवल्स हाइलाइट करता है।</value><comment>GammaLevels</comment></data>
+<data name="HaloWidth" xml:space="preserve"><value>हैलो चौड़ाई</value><comment>GammaLevels</comment></data>
+<data name="HaloWidthDesc" xml:space="preserve"><value>0DTE लेवल्स के पीछे बनने वाली हैलो लाइन की चौड़ाई।</value><comment>GammaLevels</comment></data>
+<data name="HaloTransparency" xml:space="preserve"><value>हैलो पारदर्शिता</value><comment>GammaLevels</comment></data>
+<data name="HaloTransparencyDesc" xml:space="preserve"><value>0DTE हैलो की पारदर्शिता।</value><comment>GammaLevels</comment></data>
+<data name="Dash0Dte" xml:space="preserve"><value>0DTE डैश्ड लाइन</value><comment>GammaLevels</comment></data>
+<data name="Dash0DteDesc" xml:space="preserve"><value>0DTE मुख्य लाइन को डैश्ड बनाता है (legacy व्यवहार)।</value><comment>GammaLevels</comment></data>
 </root>

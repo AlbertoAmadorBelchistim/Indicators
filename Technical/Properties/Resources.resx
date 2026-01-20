@@ -192,9 +192,11 @@
   </data>
   <data name="Color" xml:space="preserve">
     <value>Color</value>
+    <comment>UI</comment>
   </data>
   <data name="Width" xml:space="preserve">
     <value>Width</value>
+    <comment>UI</comment>
   </data>
   <data name="Mode" xml:space="preserve">
     <value>Mode</value>
@@ -207,6 +209,7 @@
   </data>
   <data name="Text" xml:space="preserve">
     <value>Text</value>
+    <comment>UI</comment>
   </data>
   <data name="Colors" xml:space="preserve">
     <value>Colors</value>
@@ -292,6 +295,7 @@
   </data>
   <data name="FontColor" xml:space="preserve">
     <value>Font Color</value>
+    <comment>UI</comment>
   </data>
   <data name="Hourly" xml:space="preserve">
     <value>Hourly</value>
@@ -386,11 +390,11 @@
   </data>
   <data name="Left" xml:space="preserve">
     <value>Left</value>
-    <comment>Pivots</comment>
+    <comment>UI</comment>
   </data>
   <data name="Right" xml:space="preserve">
     <value>Right</value>
-    <comment>Pivots</comment>
+    <comment>UI</comment>
   </data>
   <data name="Show" xml:space="preserve">
     <value>Show</value>
@@ -412,6 +416,7 @@
   </data>
   <data name="FontSize" xml:space="preserve">
     <value>Font Size</value>
+    <comment>UI</comment>
   </data>
   <data name="Height" xml:space="preserve">
     <value>Height</value>
@@ -449,6 +454,7 @@
   </data>
   <data name="Font" xml:space="preserve">
     <value>Font</value>
+    <comment>UI</comment>
   </data>
   <data name="HorizontalOffset" xml:space="preserve">
     <value>Horizontal Offset</value>
@@ -837,7 +843,7 @@
   </data>
   <data name="OffsetY" xml:space="preserve">
     <value>Y Offset</value>
-    <comment>OpenLine</comment>
+    <comment>UI</comment>
   </data>
   <data name="OpenLine" xml:space="preserve">
     <value>Open Line</value>
@@ -1255,6 +1261,7 @@
   </data>
   <data name="OffsetX" xml:space="preserve">
     <value>X Offset</value>
+    <comment>UI</comment>
   </data>
   <data name="TimeSettings" xml:space="preserve">
     <value>Time Settings</value>
@@ -1486,7 +1493,7 @@
   </data>
   <data name="Enabled" xml:space="preserve">
     <value>Enabled</value>
-    <comment>MuliMarketPower</comment>
+    <comment>UI</comment>
   </data>
   <data name="Filter1" xml:space="preserve">
     <value>Filter №1</value>
@@ -1855,6 +1862,7 @@
   </data>
   <data name="Transparency" xml:space="preserve">
     <value>Transparency</value>
+    <comment>UI</comment>
   </data>
   <data name="LogoFilePathDescription" xml:space="preserve">
     <value>Image Files (*.bmp, *.gif, *.jpeg, *.jpg, *.png, *.tiff)</value>
@@ -2622,7 +2630,7 @@
   </data>
   <data name="Labels" xml:space="preserve">
     <value>Labels</value>
-    <comment>OHLCPLus</comment>
+    <comment>UI</comment>
   </data>
   <data name="LabelTemplate" xml:space="preserve">
     <value>Template</value>
@@ -2638,7 +2646,7 @@
   </data>
   <data name="Visibility" xml:space="preserve">
     <value>Visibility</value>
-    <comment>OHLCPlus</comment>
+    <comment>UI</comment>
   </data>
   <data name="OverrideLabel" xml:space="preserve">
     <value>Override label (optional)</value>
@@ -3516,7 +3524,7 @@
     <value>Minimum distance between the close and the delta extremes to consider absorption</value>
     <comment>Delta</comment>
   </data>
-    <data name="AlertPaceVolPerSecGroup" xml:space="preserve">
+  <data name="AlertPaceVolPerSecGroup" xml:space="preserve">
     <value>Pace / Activity - Volume/sec alert</value>
     <comment>ClusterStatistics</comment>
   </data>
@@ -3576,7 +3584,7 @@
     <value>Raw Prints - Bid alert</value>
     <comment>ClusterStatistics</comment>
   </data>
-    <data name="AlertAskTemplate" xml:space="preserve">
+  <data name="AlertAskTemplate" xml:space="preserve">
     <value>Cluster statistic ask alert: {0}</value>
     <comment>ClusterStatistics</comment>
   </data>
@@ -3623,5 +3631,129 @@
   <data name="AlertHeightTemplate" xml:space="preserve">
     <value>Cluster statistic height alert: {0}</value>
     <comment>ClusterStatistics</comment>
+  </data>
+  <data name="LoloText" xml:space="preserve">
+    <value>Lolo Text</value>
+    <comment>GammaLevels</comment>
+  </data>
+<data name="LoloTextDesc" xml:space="preserve">
+  <value>Paste levels in the legacy Lolo format (tokens separated by commas, labels joined with '&amp;', optional '$TICKER:' prefix).</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="Clear" xml:space="preserve">
+    <value>Clear</value>
+    <comment>UI</comment>
+  </data>
+  <data name="ClearDesc" xml:space="preserve">
+    <value>Clears the current input text.</value>
+    <comment>UI</comment>
+  </data>
+  <data name="OnlyVisiblePriceRange" xml:space="preserve">
+    <value>Only visible price range</value>
+    <comment>UI</comment>
+  </data>
+  <data name="OnlyVisiblePriceRangeDesc" xml:space="preserve">
+    <value>Draw only levels within the currently visible price range.</value>
+    <comment>UI</comment>
+  </data>
+  <data name="LastBarOnly" xml:space="preserve">
+    <value>Last bar only</value>
+    <comment>UI</comment>
+  </data>
+  <data name="LastBarOnlyDesc" xml:space="preserve">
+    <value>Draw levels only near the last bar instead of across the whole chart.</value>
+    <comment>UI</comment>
+  </data>
+  <data name="LabelAlignment" xml:space="preserve">
+    <value>Label alignment</value>
+    <comment>UI</comment>
+  </data>
+  <data name="LabelAlignmentDesc" xml:space="preserve">
+    <value>Controls whether labels are drawn on the left or right side.</value>
+    <comment>UI</comment>
+  </data>
+  <data name="Lines" xml:space="preserve">
+    <value>Lines</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Tiers" xml:space="preserve">
+    <value>Tiers</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="ThickMaxRank" xml:space="preserve">
+    <value>Thick max rank</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="ThickMaxRankDesc" xml:space="preserve">
+    <value>Ranks up to this value use the thick tier.</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MediumMaxRank" xml:space="preserve">
+    <value>Medium max rank</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MediumMaxRankDesc" xml:space="preserve">
+    <value>Ranks up to this value use the medium tier. Higher ranks use the thin tier.</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="ThickLineWidth" xml:space="preserve">
+    <value>Thick line width</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MediumLineWidth" xml:space="preserve">
+    <value>Medium line width</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="ThinLineWidth" xml:space="preserve">
+    <value>Thin line width</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="ThickLineTransparency" xml:space="preserve">
+    <value>Thick line transparency</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MediumLineTransparency" xml:space="preserve">
+    <value>Medium line transparency</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="ThinLineTransparency" xml:space="preserve">
+    <value>Thin line transparency</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Halo" xml:space="preserve">
+    <value>0DTE halo</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Show0DteHalo" xml:space="preserve">
+    <value>Show 0DTE halo</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Show0DteHaloDesc" xml:space="preserve">
+    <value>Highlights 0DTE levels using the legacy red halo style.</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="HaloWidth" xml:space="preserve">
+    <value>Halo width</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="HaloWidthDesc" xml:space="preserve">
+    <value>Width of the halo line drawn behind 0DTE levels.</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="HaloTransparency" xml:space="preserve">
+    <value>Halo transparency</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="HaloTransparencyDesc" xml:space="preserve">
+    <value>Transparency of the 0DTE halo.</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Dash0Dte" xml:space="preserve">
+    <value>Dashed 0DTE line</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Dash0DteDesc" xml:space="preserve">
+    <value>Draws the main 0DTE level line as dashed (legacy behavior).</value>
+    <comment>GammaLevels</comment>
   </data>
 </root>
