@@ -151,11 +151,74 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Cluster statistic ask alert: {0}.
+        /// </summary>
+        public static string AlertAskTemplate {
+            get {
+                return ResourceManager.GetString("AlertAskTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Alert Before New Candle.
         /// </summary>
         public static string AlertBeforeCandle {
             get {
                 return ResourceManager.GetString("AlertBeforeCandle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Cluster statistic bid alert: {0}.
+        /// </summary>
+        public static string AlertBidTemplate {
+            get {
+                return ResourceManager.GetString("AlertBidTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Candle Context - Height alert.
+        /// </summary>
+        public static string AlertCandleHeightGroup {
+            get {
+                return ResourceManager.GetString("AlertCandleHeightGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Candle Context - Trades alert.
+        /// </summary>
+        public static string AlertCandleTradesGroup {
+            get {
+                return ResourceManager.GetString("AlertCandleTradesGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Candle Context - Volume alert.
+        /// </summary>
+        public static string AlertCandleVolumeGroup {
+            get {
+                return ResourceManager.GetString("AlertCandleVolumeGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Cluster statistic delta change alert: {0}.
+        /// </summary>
+        public static string AlertDeltaChangeTemplate {
+            get {
+                return ResourceManager.GetString("AlertDeltaChangeTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Cluster statistic delta/volume alert: {0:F2}%.
+        /// </summary>
+        public static string AlertDeltaPerVolumeTemplate {
+            get {
+                return ResourceManager.GetString("AlertDeltaPerVolumeTemplate", resourceCulture);
             }
         }
         
@@ -205,6 +268,42 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Cluster statistic height alert: {0}.
+        /// </summary>
+        public static string AlertHeightTemplate {
+            get {
+                return ResourceManager.GetString("AlertHeightTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Imbalances - Net imbalance alert.
+        /// </summary>
+        public static string AlertImbalanceNetGroup {
+            get {
+                return ResourceManager.GetString("AlertImbalanceNetGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Cluster statistic max delta alert: {0}.
+        /// </summary>
+        public static string AlertMaxDeltaTemplate {
+            get {
+                return ResourceManager.GetString("AlertMaxDeltaTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Cluster statistic min delta alert: {0}.
+        /// </summary>
+        public static string AlertMinDeltaTemplate {
+            get {
+                return ResourceManager.GetString("AlertMinDeltaTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a ClusterStatistics Net Imbalance alert: {0} (thr={1}).
         /// </summary>
         public static string AlertNetImbalanceTemplate {
@@ -223,6 +322,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Pace / Activity - Volume/sec alert.
+        /// </summary>
+        public static string AlertPaceVolPerSecGroup {
+            get {
+                return ResourceManager.GetString("AlertPaceVolPerSecGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Only One Alert Per Bar.
         /// </summary>
         public static string AlertPerBar {
@@ -232,11 +340,146 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Directional Pressure - Delta change alert.
+        /// </summary>
+        public static string AlertPressureDeltaChangeGroup {
+            get {
+                return ResourceManager.GetString("AlertPressureDeltaChangeGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Directional Pressure - Delta alert.
+        /// </summary>
+        public static string AlertPressureDeltaGroup {
+            get {
+                return ResourceManager.GetString("AlertPressureDeltaGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Directional Pressure - Delta/Volume alert.
+        /// </summary>
+        public static string AlertPressureDeltaPerVolGroup {
+            get {
+                return ResourceManager.GetString("AlertPressureDeltaPerVolGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Directional Pressure - Max delta alert.
+        /// </summary>
+        public static string AlertPressureMaxDeltaGroup {
+            get {
+                return ResourceManager.GetString("AlertPressureMaxDeltaGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Directional Pressure - Min delta alert.
+        /// </summary>
+        public static string AlertPressureMinDeltaGroup {
+            get {
+                return ResourceManager.GetString("AlertPressureMinDeltaGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Raw Prints - Ask alert.
+        /// </summary>
+        public static string AlertPrintsAskGroup {
+            get {
+                return ResourceManager.GetString("AlertPrintsAskGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Raw Prints - Bid alert.
+        /// </summary>
+        public static string AlertPrintsBidGroup {
+            get {
+                return ResourceManager.GetString("AlertPrintsBidGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Alerts.
         /// </summary>
         public static string Alerts {
             get {
                 return ResourceManager.GetString("Alerts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Session Context - Session delta alert.
+        /// </summary>
+        public static string AlertSessionDeltaGroup {
+            get {
+                return ResourceManager.GetString("AlertSessionDeltaGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Session Context - Session delta/Volume alert.
+        /// </summary>
+        public static string AlertSessionDeltaPerVolGroup {
+            get {
+                return ResourceManager.GetString("AlertSessionDeltaPerVolGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Cluster statistic session delta/volume alert: {0:F2}%.
+        /// </summary>
+        public static string AlertSessionDeltaPerVolumeTemplate {
+            get {
+                return ResourceManager.GetString("AlertSessionDeltaPerVolumeTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Cluster statistic session delta alert: {0}.
+        /// </summary>
+        public static string AlertSessionDeltaTemplate {
+            get {
+                return ResourceManager.GetString("AlertSessionDeltaTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Session Context - Session volume alert.
+        /// </summary>
+        public static string AlertSessionVolumeGroup {
+            get {
+                return ResourceManager.GetString("AlertSessionVolumeGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Cluster statistic session volume alert: {0}.
+        /// </summary>
+        public static string AlertSessionVolumeTemplate {
+            get {
+                return ResourceManager.GetString("AlertSessionVolumeTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Cluster statistic trades alert: {0}.
+        /// </summary>
+        public static string AlertTradesTemplate {
+            get {
+                return ResourceManager.GetString("AlertTradesTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Cluster statistic volume/sec alert: {0:F2}.
+        /// </summary>
+        public static string AlertVolumePerSecondTemplate {
+            get {
+                return ResourceManager.GetString("AlertVolumePerSecondTemplate", resourceCulture);
             }
         }
         
