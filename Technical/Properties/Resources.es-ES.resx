@@ -1302,4 +1302,58 @@
     <value>Alerta de altura en Cluster Statistic: {0}</value>
     <comment>ClusterStatistics</comment>
   </data>
+<data name="Text" xml:space="preserve">
+    <value>Texto</value>
+  </data><data name="OffsetX" xml:space="preserve">
+    <value>Desplazamiento por el eje X</value>
+  </data><data name="OffsetY" xml:space="preserve">
+    <value>Desplazamiento por el eje Y</value>
+  </data><data name="FontSize" xml:space="preserve">
+    <value>Tamaño de tipo de letra</value>
+  </data><data name="Left" xml:space="preserve">
+    <value>Izquierda</value>
+  </data><data name="Right" xml:space="preserve">
+    <value>A la derecha</value>
+  </data>
+  <data name="LoloText" xml:space="preserve"><value>Texto Lolo</value><comment>GammaLevels</comment></data>
+  <data name="LoloTextDesc" xml:space="preserve"><value>Pega niveles en el formato de Lolo (tokens separados por comas, etiquetas unidas con '&amp;', prefijo opcional '$TICKER:').</value><comment>GammaLevels</comment></data>
+  <data name="Clear" xml:space="preserve"><value>Limpiar</value><comment>UI</comment></data>
+  <data name="ClearDesc" xml:space="preserve"><value>Borra el texto de entrada actual.</value><comment>UI</comment></data>
+
+  <data name="OnlyVisiblePriceRange" xml:space="preserve"><value>Solo rango de precio visible</value><comment>UI</comment></data>
+  <data name="OnlyVisiblePriceRangeDesc" xml:space="preserve"><value>Dibuja solo los niveles dentro del rango de precio visible actualmente.</value><comment>UI</comment></data>
+
+  <data name="LastBarOnly" xml:space="preserve"><value>Solo última barra</value><comment>UI</comment></data>
+  <data name="LastBarOnlyDesc" xml:space="preserve"><value>Dibuja los niveles solo cerca de la última barra en lugar de a lo ancho de todo el gráfico.</value><comment>UI</comment></data>
+
+  <data name="LabelAlignment" xml:space="preserve"><value>Alineación de etiqueta</value><comment>UI</comment></data>
+  <data name="LabelAlignmentDesc" xml:space="preserve"><value>Controla si las etiquetas se dibujan a la izquierda o a la derecha.</value><comment>UI</comment></data>
+
+  <data name="Lines" xml:space="preserve"><value>Líneas</value><comment>GammaLevels</comment></data>
+  <data name="Tiers" xml:space="preserve"><value>Niveles</value><comment>GammaLevels</comment></data>
+
+  <data name="ThickMaxRank" xml:space="preserve"><value>Rango máx. grueso</value><comment>GammaLevels</comment></data>
+  <data name="ThickMaxRankDesc" xml:space="preserve"><value>Los rangos hasta este valor usan el nivel grueso.</value><comment>GammaLevels</comment></data>
+
+  <data name="MediumMaxRank" xml:space="preserve"><value>Rango máx. medio</value><comment>GammaLevels</comment></data>
+  <data name="MediumMaxRankDesc" xml:space="preserve"><value>Los rangos hasta este valor usan el nivel medio. Rangos mayores usan el nivel fino.</value><comment>GammaLevels</comment></data>
+
+  <data name="ThickLineWidth" xml:space="preserve"><value>Grosor de línea gruesa</value><comment>GammaLevels</comment></data>
+  <data name="MediumLineWidth" xml:space="preserve"><value>Grosor de línea media</value><comment>GammaLevels</comment></data>
+  <data name="ThinLineWidth" xml:space="preserve"><value>Grosor de línea fina</value><comment>GammaLevels</comment></data>
+
+  <data name="ThickLineTransparency" xml:space="preserve"><value>Transparencia línea gruesa</value><comment>GammaLevels</comment></data>
+  <data name="MediumLineTransparency" xml:space="preserve"><value>Transparencia línea media</value><comment>GammaLevels</comment></data>
+  <data name="ThinLineTransparency" xml:space="preserve"><value>Transparencia línea fina</value><comment>GammaLevels</comment></data>
+
+  <data name="Halo" xml:space="preserve"><value>Halo 0DTE</value><comment>GammaLevels</comment></data>
+  <data name="Show0DteHalo" xml:space="preserve"><value>Mostrar halo 0DTE</value><comment>GammaLevels</comment></data>
+  <data name="Show0DteHaloDesc" xml:space="preserve"><value>Resalta niveles 0DTE usando el estilo legacy de halo rojo.</value><comment>GammaLevels</comment></data>
+  <data name="HaloWidth" xml:space="preserve"><value>Grosor del halo</value><comment>GammaLevels</comment></data>
+  <data name="HaloWidthDesc" xml:space="preserve"><value>Ancho de la línea del halo dibujada detrás de los niveles 0DTE.</value><comment>GammaLevels</comment></data>
+  <data name="HaloTransparency" xml:space="preserve"><value>Transparencia del halo</value><comment>GammaLevels</comment></data>
+  <data name="HaloTransparencyDesc" xml:space="preserve"><value>Transparencia del halo 0DTE.</value><comment>GammaLevels</comment></data>
+
+  <data name="Dash0Dte" xml:space="preserve"><value>Línea 0DTE discontinua</value><comment>GammaLevels</comment></data>
+  <data name="Dash0DteDesc" xml:space="preserve"><value>Dibuja la línea principal del nivel 0DTE como discontinua (comportamiento legacy).</value><comment>GammaLevels</comment></data>
 </root>

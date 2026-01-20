@@ -1510,6 +1510,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Clear.
+        /// </summary>
+        public static string Clear {
+            get {
+                return ResourceManager.GetString("Clear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Clears the current input text..
+        /// </summary>
+        public static string ClearDesc {
+            get {
+                return ResourceManager.GetString("ClearDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Close.
         /// </summary>
         public static string Close {
@@ -1902,6 +1920,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string Daily {
             get {
                 return ResourceManager.GetString("Daily", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Dashed 0DTE line.
+        /// </summary>
+        public static string Dash0Dte {
+            get {
+                return ResourceManager.GetString("Dash0Dte", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Draws the main 0DTE level line as dashed (legacy behavior)..
+        /// </summary>
+        public static string Dash0DteDesc {
+            get {
+                return ResourceManager.GetString("Dash0DteDesc", resourceCulture);
             }
         }
         
@@ -3058,6 +3094,51 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a 0DTE halo.
+        /// </summary>
+        public static string Halo {
+            get {
+                return ResourceManager.GetString("Halo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Halo transparency.
+        /// </summary>
+        public static string HaloTransparency {
+            get {
+                return ResourceManager.GetString("HaloTransparency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Transparency of the 0DTE halo..
+        /// </summary>
+        public static string HaloTransparencyDesc {
+            get {
+                return ResourceManager.GetString("HaloTransparencyDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Halo width.
+        /// </summary>
+        public static string HaloWidth {
+            get {
+                return ResourceManager.GetString("HaloWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Width of the halo line drawn behind 0DTE levels..
+        /// </summary>
+        public static string HaloWidthDesc {
+            get {
+                return ResourceManager.GetString("HaloWidthDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Headers Background.
         /// </summary>
         public static string HeaderBackground {
@@ -3670,6 +3751,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Label alignment.
+        /// </summary>
+        public static string LabelAlignment {
+            get {
+                return ResourceManager.GetString("LabelAlignment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Controls whether labels are drawn on the left or right side..
+        /// </summary>
+        public static string LabelAlignmentDesc {
+            get {
+                return ResourceManager.GetString("LabelAlignmentDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Sets the background color of the label..
         /// </summary>
         public static string LabelFillColorDescription {
@@ -3733,6 +3832,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Last bar only.
+        /// </summary>
+        public static string LastBarOnly {
+            get {
+                return ResourceManager.GetString("LastBarOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Draw levels only near the last bar instead of across the whole chart..
+        /// </summary>
+        public static string LastBarOnlyDesc {
+            get {
+                return ResourceManager.GetString("LastBarOnlyDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Left.
         /// </summary>
         public static string Left {
@@ -3792,6 +3909,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string LinearReg {
             get {
                 return ResourceManager.GetString("LinearReg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Lines.
+        /// </summary>
+        public static string Lines {
+            get {
+                return ResourceManager.GetString("Lines", resourceCulture);
             }
         }
         
@@ -3873,6 +3999,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string LogoLocation {
             get {
                 return ResourceManager.GetString("LogoLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Lolo Text.
+        /// </summary>
+        public static string LoloText {
+            get {
+                return ResourceManager.GetString("LoloText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Paste levels in the legacy Lolo format (tokens separated by commas, labels joined with &apos;&amp;&apos;, optional &apos;$TICKER:&apos; prefix)..
+        /// </summary>
+        public static string LoloTextDesc {
+            get {
+                return ResourceManager.GetString("LoloTextDesc", resourceCulture);
             }
         }
         
@@ -4471,6 +4615,42 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Medium line transparency.
+        /// </summary>
+        public static string MediumLineTransparency {
+            get {
+                return ResourceManager.GetString("MediumLineTransparency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Medium line width.
+        /// </summary>
+        public static string MediumLineWidth {
+            get {
+                return ResourceManager.GetString("MediumLineWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Medium max rank.
+        /// </summary>
+        public static string MediumMaxRank {
+            get {
+                return ResourceManager.GetString("MediumMaxRank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Ranks up to this value use the medium tier. Higher ranks use the thin tier..
+        /// </summary>
+        public static string MediumMaxRankDesc {
+            get {
+                return ResourceManager.GetString("MediumMaxRankDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Middle.
         /// </summary>
         public static string Middle {
@@ -5052,6 +5232,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string OnlyOneSelectionPerBar {
             get {
                 return ResourceManager.GetString("OnlyOneSelectionPerBar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Only visible price range.
+        /// </summary>
+        public static string OnlyVisiblePriceRange {
+            get {
+                return ResourceManager.GetString("OnlyVisiblePriceRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Draw only levels within the currently visible price range..
+        /// </summary>
+        public static string OnlyVisiblePriceRangeDesc {
+            get {
+                return ResourceManager.GetString("OnlyVisiblePriceRangeDesc", resourceCulture);
             }
         }
         
@@ -6352,6 +6550,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Show 0DTE halo.
+        /// </summary>
+        public static string Show0DteHalo {
+            get {
+                return ResourceManager.GetString("Show0DteHalo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Highlights 0DTE levels using the legacy red halo style..
+        /// </summary>
+        public static string Show0DteHaloDesc {
+            get {
+                return ResourceManager.GetString("Show0DteHaloDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Show Above Chart.
         /// </summary>
         public static string ShowAboveChart {
@@ -7540,6 +7756,60 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Thick line transparency.
+        /// </summary>
+        public static string ThickLineTransparency {
+            get {
+                return ResourceManager.GetString("ThickLineTransparency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Thick line width.
+        /// </summary>
+        public static string ThickLineWidth {
+            get {
+                return ResourceManager.GetString("ThickLineWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Thick max rank.
+        /// </summary>
+        public static string ThickMaxRank {
+            get {
+                return ResourceManager.GetString("ThickMaxRank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Ranks up to this value use the thick tier..
+        /// </summary>
+        public static string ThickMaxRankDesc {
+            get {
+                return ResourceManager.GetString("ThickMaxRankDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Thin line transparency.
+        /// </summary>
+        public static string ThinLineTransparency {
+            get {
+                return ResourceManager.GetString("ThinLineTransparency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Thin line width.
+        /// </summary>
+        public static string ThinLineWidth {
+            get {
+                return ResourceManager.GetString("ThinLineWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Third Dev..
         /// </summary>
         public static string ThirdDev {
@@ -7635,6 +7905,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string Ticks {
             get {
                 return ResourceManager.GetString("Ticks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Tiers.
+        /// </summary>
+        public static string Tiers {
+            get {
+                return ResourceManager.GetString("Tiers", resourceCulture);
             }
         }
         

@@ -3398,4 +3398,36 @@
     <value>Алерт Высота - Cluster Statistic: {0}</value>
     <comment>ClusterStatistics</comment>
   </data>
+  <data name="LoloText" xml:space="preserve"><value>Текст Lolo</value><comment>GammaLevels</comment></data>
+<data name="LoloTextDesc" xml:space="preserve"><value>Вставьте уровни в формате Lolo (токены через запятую, метки через '&amp;', необязательный префикс '$TICKER:').</value><comment>GammaLevels</comment></data>
+<data name="Clear" xml:space="preserve"><value>Очистить</value><comment>UI</comment></data>
+<data name="ClearDesc" xml:space="preserve"><value>Очищает текущий входной текст.</value><comment>UI</comment></data>
+<data name="OnlyVisiblePriceRange" xml:space="preserve"><value>Только видимый диапазон цен</value><comment>UI</comment></data>
+<data name="OnlyVisiblePriceRangeDesc" xml:space="preserve"><value>Рисует уровни только в текущем видимом диапазоне цен.</value><comment>UI</comment></data>
+<data name="LastBarOnly" xml:space="preserve"><value>Только последний бар</value><comment>UI</comment></data>
+<data name="LastBarOnlyDesc" xml:space="preserve"><value>Рисует уровни только рядом с последним баром, а не по всей ширине графика.</value><comment>UI</comment></data>
+<data name="LabelAlignment" xml:space="preserve"><value>Выравнивание меток</value><comment>UI</comment></data>
+<data name="LabelAlignmentDesc" xml:space="preserve"><value>Определяет, рисовать метки слева или справа.</value><comment>UI</comment></data>
+<data name="Lines" xml:space="preserve"><value>Линии</value><comment>GammaLevels</comment></data>
+<data name="Tiers" xml:space="preserve"><value>Уровни</value><comment>GammaLevels</comment></data>
+<data name="ThickMaxRank" xml:space="preserve"><value>Макс. ранг (толстый)</value><comment>GammaLevels</comment></data>
+<data name="ThickMaxRankDesc" xml:space="preserve"><value>Ранги до этого значения используют толстый уровень.</value><comment>GammaLevels</comment></data>
+<data name="MediumMaxRank" xml:space="preserve"><value>Макс. ранг (средний)</value><comment>GammaLevels</comment></data>
+<data name="MediumMaxRankDesc" xml:space="preserve"><value>Ранги до этого значения используют средний уровень. Более высокие ранги используют тонкий уровень.</value><comment>GammaLevels</comment></data>
+<data name="ThickLineWidth" xml:space="preserve"><value>Толщина линии (толстая)</value><comment>GammaLevels</comment></data>
+<data name="MediumLineWidth" xml:space="preserve"><value>Толщина линии (средняя)</value><comment>GammaLevels</comment></data>
+<data name="ThinLineWidth" xml:space="preserve"><value>Толщина линии (тонкая)</value><comment>GammaLevels</comment></data>
+<data name="ThickLineTransparency" xml:space="preserve"><value>Прозрачность линии (толстая)</value><comment>GammaLevels</comment></data>
+<data name="MediumLineTransparency" xml:space="preserve"><value>Прозрачность линии (средняя)</value><comment>GammaLevels</comment></data>
+<data name="ThinLineTransparency" xml:space="preserve"><value>Прозрачность линии (тонкая)</value><comment>GammaLevels</comment></data>
+<data name="Halo" xml:space="preserve"><value>Halo 0DTE</value><comment>GammaLevels</comment></data>
+<data name="Show0DteHalo" xml:space="preserve"><value>Показывать halo 0DTE</value><comment>GammaLevels</comment></data>
+<data name="Show0DteHaloDesc" xml:space="preserve"><value>Подсвечивает уровни 0DTE в legacy-стиле красного halo.</value><comment>GammaLevels</comment></data>
+<data name="HaloWidth" xml:space="preserve"><value>Ширина halo</value><comment>GammaLevels</comment></data>
+<data name="HaloWidthDesc" xml:space="preserve"><value>Ширина линии halo, рисуемой позади уровней 0DTE.</value><comment>GammaLevels</comment></data>
+<data name="HaloTransparency" xml:space="preserve"><value>Прозрачность halo</value><comment>GammaLevels</comment></data>
+<data name="HaloTransparencyDesc" xml:space="preserve"><value>Прозрачность halo 0DTE.</value><comment>GammaLevels</comment></data>
+<data name="Dash0Dte" xml:space="preserve"><value>Пунктирная линия 0DTE</value><comment>GammaLevels</comment></data>
+<data name="Dash0DteDesc" xml:space="preserve"><value>Рисует основную линию 0DTE пунктиром (legacy-поведение).</value><comment>GammaLevels</comment></data>
+
 </root>

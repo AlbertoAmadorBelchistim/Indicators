@@ -1252,4 +1252,48 @@
   </data>
 <data name="Filter" xml:space="preserve">
     <value>过滤</value>
-  </data></root>
+  </data><data name="Text" xml:space="preserve">
+    <value>文本</value>
+  </data><data name="OffsetX" xml:space="preserve">
+    <value>X 轴位移</value>
+  </data><data name="OffsetY" xml:space="preserve">
+    <value>Y 轴位移</value>
+  </data><data name="FontSize" xml:space="preserve">
+    <value>字体大小</value>
+  </data><data name="Left" xml:space="preserve">
+    <value>左</value>
+  </data><data name="Right" xml:space="preserve">
+    <value>右</value>
+  </data>
+  <data name="LoloText" xml:space="preserve"><value>Lolo 文本</value><comment>GammaLevels</comment></data>
+<data name="LoloTextDesc" xml:space="preserve"><value>粘贴 Lolo 格式的水平（逗号分隔 token，'&amp;' 连接标签，可选 '$TICKER:' 前缀）。</value><comment>GammaLevels</comment></data>
+<data name="Clear" xml:space="preserve"><value>清除</value><comment>UI</comment></data>
+<data name="ClearDesc" xml:space="preserve"><value>清除当前输入文本。</value><comment>UI</comment></data>
+<data name="OnlyVisiblePriceRange" xml:space="preserve"><value>仅可见价格范围</value><comment>UI</comment></data>
+<data name="OnlyVisiblePriceRangeDesc" xml:space="preserve"><value>仅绘制当前可见价格范围内的水平。</value><comment>UI</comment></data>
+<data name="LastBarOnly" xml:space="preserve"><value>仅最后一根K线</value><comment>UI</comment></data>
+<data name="LastBarOnlyDesc" xml:space="preserve"><value>仅在最后一根K线附近绘制水平，而不是贯穿整个图表。</value><comment>UI</comment></data>
+<data name="LabelAlignment" xml:space="preserve"><value>标签对齐</value><comment>UI</comment></data>
+<data name="LabelAlignmentDesc" xml:space="preserve"><value>控制标签绘制在左侧还是右侧。</value><comment>UI</comment></data>
+<data name="Lines" xml:space="preserve"><value>线条</value><comment>GammaLevels</comment></data>
+<data name="Tiers" xml:space="preserve"><value>层级</value><comment>GammaLevels</comment></data>
+<data name="ThickMaxRank" xml:space="preserve"><value>粗线最大等级</value><comment>GammaLevels</comment></data>
+<data name="ThickMaxRankDesc" xml:space="preserve"><value>等级不大于该值时使用粗线层级。</value><comment>GammaLevels</comment></data>
+<data name="MediumMaxRank" xml:space="preserve"><value>中线最大等级</value><comment>GammaLevels</comment></data>
+<data name="MediumMaxRankDesc" xml:space="preserve"><value>等级不大于该值时使用中线层级，更高等级使用细线层级。</value><comment>GammaLevels</comment></data>
+<data name="ThickLineWidth" xml:space="preserve"><value>粗线宽度</value><comment>GammaLevels</comment></data>
+<data name="MediumLineWidth" xml:space="preserve"><value>中线宽度</value><comment>GammaLevels</comment></data>
+<data name="ThinLineWidth" xml:space="preserve"><value>细线宽度</value><comment>GammaLevels</comment></data>
+<data name="ThickLineTransparency" xml:space="preserve"><value>粗线透明度</value><comment>GammaLevels</comment></data>
+<data name="MediumLineTransparency" xml:space="preserve"><value>中线透明度</value><comment>GammaLevels</comment></data>
+<data name="ThinLineTransparency" xml:space="preserve"><value>细线透明度</value><comment>GammaLevels</comment></data>
+<data name="Halo" xml:space="preserve"><value>0DTE 光晕</value><comment>GammaLevels</comment></data>
+<data name="Show0DteHalo" xml:space="preserve"><value>显示 0DTE 光晕</value><comment>GammaLevels</comment></data>
+<data name="Show0DteHaloDesc" xml:space="preserve"><value>使用 legacy 红色光晕样式高亮 0DTE 水平。</value><comment>GammaLevels</comment></data>
+<data name="HaloWidth" xml:space="preserve"><value>光晕宽度</value><comment>GammaLevels</comment></data>
+<data name="HaloWidthDesc" xml:space="preserve"><value>绘制在 0DTE 水平后方的光晕线宽度。</value><comment>GammaLevels</comment></data>
+<data name="HaloTransparency" xml:space="preserve"><value>光晕透明度</value><comment>GammaLevels</comment></data>
+<data name="HaloTransparencyDesc" xml:space="preserve"><value>0DTE 光晕的透明度。</value><comment>GammaLevels</comment></data>
+<data name="Dash0Dte" xml:space="preserve"><value>0DTE 虚线</value><comment>GammaLevels</comment></data>
+<data name="Dash0DteDesc" xml:space="preserve"><value>将 0DTE 主水平线绘制为虚线（legacy 行为）。</value><comment>GammaLevels</comment></data>
+</root>
