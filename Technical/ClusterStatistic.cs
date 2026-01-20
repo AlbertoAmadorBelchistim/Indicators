@@ -4,10 +4,9 @@ using System;
 using System.Xml.Linq;
 
 namespace ATAS.Indicators.Technical;
-using ATAS.Indicators.Technical.Properties;
-
 using ATAS.Indicators.Drawing;
 using ATAS.Indicators.Technical.Extensions;
+using ATAS.Indicators.Technical.Properties;
 using OFT.Attributes;
 using OFT.Localization;
 using OFT.Rendering;
@@ -23,6 +22,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using Utils.Common.Logging;
+using static ATAS.Indicators.Technical.OpenLine;
 using Color = CrossColor;
 
 [DisplayName("Cluster Statistic")]
@@ -1211,25 +1211,31 @@ public class ClusterStatistic : Indicator
 		Description = nameof(Strings.HideHeadersDescription), Order = 8010)]
 	public bool HideRowsDescription { get; set; }
 
-	#endregion
+    #endregion
 
-	#region Volume Alert
+    #region Volume Alert
 
-	// ============================================================
-	// Alerts (4000–4090 Volume, 5000–5090 Delta, 3000–3090 Net Imbalance)
-	// ============================================================
+    // ============================================================
+    // Alerts:
+	// 2000–2090 Pace / Activity
+	// 2100–2190 Directional Pressure
+	// 2200–2290 Imbalances
+	//2400–2490 Candle Context
+	//2500–2590 Session Context
+	//2600–2690 Raw Prints
+    // ============================================================
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.VolumeAlert),
-		Description = nameof(Strings.UseAlertDescription), Order = 4000)]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.VolumeAlert),
+		Description = nameof(Strings.UseAlertDescription), Order = 2400)]
 	public bool UseVolumeAlert { get; set; }
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.VolumeAlert),
-		Description = nameof(Strings.AlertFilterDescription), Order = 4010)]
+		Description = nameof(Strings.AlertFilterDescription), Order = 2410)]
 	[Range(0, int.MaxValue)]
 	public decimal VolumeAlertValue { get; set; }
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.VolumeAlert),
-		Description = nameof(Strings.AlertFileDescription), Order = 4020)]
+		Description = nameof(Strings.AlertFileDescription), Order = 2420)]
 	public string VolumeAlertFile { get; set; } = "alert1";
 
 	#endregion
@@ -1240,21 +1246,21 @@ public class ClusterStatistic : Indicator
 		Name = nameof(Resources.Enabled),
 		GroupName = nameof(Resources.DeltaAlert),
 		Description = nameof(Resources.UseAlertDescription),
-		Order = 5000)]
+		Order = 2190)]
 	public bool UseDeltaAlert { get; set; }
 
 	[Display(ResourceType = typeof(Resources),
 		Name = nameof(Resources.Filter),
 		GroupName = nameof(Resources.DeltaAlert),
 		Description = nameof(Resources.AlertFilterDescription),
-		Order = 5010)]
+		Order = 2200)]
 	public decimal DeltaAlertValue { get; set; }
 
 	[Display(ResourceType = typeof(Resources),
 		Name = nameof(Resources.AlertFile),
 		GroupName = nameof(Resources.DeltaAlert),
 		Description = nameof(Resources.AlertFileDescription),
-		Order = 5020)]
+		Order = 2210)]
 	public string DeltaAlertFile { get; set; } = "alert1";
 
     #endregion
@@ -1262,16 +1268,16 @@ public class ClusterStatistic : Indicator
     #region Ask Alert
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.AskAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 600)]
+        Description = nameof(Strings.UseAlertDescription), Order = 2600)]
     public bool UseAskAlert { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.AskAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 610)]
+        Description = nameof(Strings.AlertFilterDescription), Order = 2610)]
     [Range(0, int.MaxValue)]
     public decimal AskAlertValue { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.AskAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 620)]
+        Description = nameof(Strings.AlertFileDescription), Order = 2620)]
     public string AskAlertFile { get; set; } = "alert1";
 
     #endregion
@@ -1279,16 +1285,16 @@ public class ClusterStatistic : Indicator
     #region Bid Alert
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.BidAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 700)]
+        Description = nameof(Strings.UseAlertDescription), Order = 2630)]
     public bool UseBidAlert { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.BidAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 710)]
+        Description = nameof(Strings.AlertFilterDescription), Order = 2640)]
     [Range(0, int.MaxValue)]
     public decimal BidAlertValue { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.BidAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 720)]
+        Description = nameof(Strings.AlertFileDescription), Order = 2650)]
     public string BidAlertFile { get; set; } = "alert1";
 
     #endregion
@@ -1296,16 +1302,16 @@ public class ClusterStatistic : Indicator
     #region Delta Per Volume Alert
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.DeltaPerVolumeAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 800)]
+        Description = nameof(Strings.UseAlertDescription), Order = 2490)]
     public bool UseDeltaPerVolumeAlert { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.DeltaPerVolumeAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 810)]
+        Description = nameof(Strings.AlertFilterDescription), Order = 2500)]
     [Range(0, 100)]
     public decimal DeltaPerVolumeAlertValue { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.DeltaPerVolumeAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 820)]
+        Description = nameof(Strings.AlertFileDescription), Order = 2510)]
     public string DeltaPerVolumeAlertFile { get; set; } = "alert1";
 
     #endregion
@@ -1313,15 +1319,15 @@ public class ClusterStatistic : Indicator
     #region Session Delta Alert
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.SessionDeltaAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 900)]
+        Description = nameof(Strings.UseAlertDescription), Order = 2530)]
     public bool UseSessionDeltaAlert { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.SessionDeltaAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 910)]
+        Description = nameof(Strings.AlertFilterDescription), Order = 2540)]
     public decimal SessionDeltaAlertValue { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.SessionDeltaAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 920)]
+        Description = nameof(Strings.AlertFileDescription), Order = 2550)]
     public string SessionDeltaAlertFile { get; set; } = "alert1";
 
     #endregion
@@ -1329,15 +1335,15 @@ public class ClusterStatistic : Indicator
     #region Session Delta Per Volume Alert
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.SessionDeltaPerVolumeAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 1000)]
+        Description = nameof(Strings.UseAlertDescription), Order = 2560)]
     public bool UseSessionDeltaPerVolumeAlert { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.SessionDeltaPerVolumeAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 1010)]
+        Description = nameof(Strings.AlertFilterDescription), Order = 2570)]
     public decimal SessionDeltaPerVolumeAlertValue { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.SessionDeltaPerVolumeAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 1020)]
+        Description = nameof(Strings.AlertFileDescription), Order = 2580)]
     public string SessionDeltaPerVolumeAlertFile { get; set; } = "alert1";
 
     #endregion
@@ -1345,15 +1351,15 @@ public class ClusterStatistic : Indicator
     #region Max Delta Alert
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.MaxDeltaAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 1100)]
+        Description = nameof(Strings.UseAlertDescription), Order = 2130)]
     public bool UseMaxDeltaAlert { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.MaxDeltaAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 1110)]
+        Description = nameof(Strings.AlertFilterDescription), Order = 2140)]
     public decimal MaxDeltaAlertValue { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.MaxDeltaAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 1120)]
+        Description = nameof(Strings.AlertFileDescription), Order = 2150)]
     public string MaxDeltaAlertFile { get; set; } = "alert1";
 
     #endregion
@@ -1361,15 +1367,15 @@ public class ClusterStatistic : Indicator
     #region Min Delta Alert
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.MinDeltaAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 1200)]
+        Description = nameof(Strings.UseAlertDescription), Order = 2160)]
     public bool UseMinDeltaAlert { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.MinDeltaAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 1210)]
+        Description = nameof(Strings.AlertFilterDescription), Order = 2170)]
     public decimal MinDeltaAlertValue { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.MinDeltaAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 1220)]
+        Description = nameof(Strings.AlertFileDescription), Order = 2180)]
     public string MinDeltaAlertFile { get; set; } = "alert1";
 
     #endregion
@@ -1377,15 +1383,15 @@ public class ClusterStatistic : Indicator
     #region Delta Change Alert
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.DeltaChangeAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 1300)]
+        Description = nameof(Strings.UseAlertDescription), Order = 2100)]
     public bool UseDeltaChangeAlert { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.DeltaChangeAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 1310)]
+        Description = nameof(Strings.AlertFilterDescription), Order = 2110)]
     public decimal DeltaChangeAlertValue { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.DeltaChangeAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 1320)]
+        Description = nameof(Strings.AlertFileDescription), Order = 2120)]
     public string DeltaChangeAlertFile { get; set; } = "alert1";
 
     #endregion
@@ -1393,16 +1399,16 @@ public class ClusterStatistic : Indicator
     #region Volume Per Second Alert
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.VolumePerSecondAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 1400)]
+        Description = nameof(Strings.UseAlertDescription), Order = 2000)]
     public bool UseVolumePerSecondAlert { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.VolumePerSecondAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 1410)]
+        Description = nameof(Strings.AlertFilterDescription), Order = 2010)]
     [Range(0, int.MaxValue)]
     public decimal VolumePerSecondAlertValue { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.VolumePerSecondAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 1420)]
+        Description = nameof(Strings.AlertFileDescription), Order = 2020)]
     public string VolumePerSecondAlertFile { get; set; } = "alert1";
 
     #endregion
@@ -1410,16 +1416,16 @@ public class ClusterStatistic : Indicator
     #region Session Volume Alert
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.SessionVolumeAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 1500)]
+        Description = nameof(Strings.UseAlertDescription), Order = 2500)]
     public bool UseSessionVolumeAlert { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.SessionVolumeAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 1510)]
+        Description = nameof(Strings.AlertFilterDescription), Order = 2510)]
     [Range(0, int.MaxValue)]
     public decimal SessionVolumeAlertValue { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.SessionVolumeAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 1520)]
+        Description = nameof(Strings.AlertFileDescription), Order = 2520)]
     public string SessionVolumeAlertFile { get; set; } = "alert1";
 
     #endregion
@@ -1427,16 +1433,16 @@ public class ClusterStatistic : Indicator
     #region Trades Alert
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.TradesAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 1600)]
+        Description = nameof(Strings.UseAlertDescription), Order = 2430)]
     public bool UseTradesAlert { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.TradesAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 1610)]
+        Description = nameof(Strings.AlertFilterDescription), Order = 2440)]
     [Range(0, int.MaxValue)]
     public decimal TradesAlertValue { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.TradesAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 1620)]
+        Description = nameof(Strings.AlertFileDescription), Order = 2450)]
     public string TradesAlertFile { get; set; } = "alert1";
 
     #endregion
@@ -1444,16 +1450,16 @@ public class ClusterStatistic : Indicator
     #region Height Alert
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.HeightAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 1700)]
+        Description = nameof(Strings.UseAlertDescription), Order = 2460)]
     public bool UseHeightAlert { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.HeightAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 1710)]
+        Description = nameof(Strings.AlertFilterDescription), Order = 2470)]
     [Range(0, int.MaxValue)]
     public decimal HeightAlertValue { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.HeightAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 1720)]
+        Description = nameof(Strings.AlertFileDescription), Order = 2480)]
     public string HeightAlertFile { get; set; } = "alert1";
     #endregion
 
@@ -1464,7 +1470,7 @@ public class ClusterStatistic : Indicator
 	[Display(ResourceType = typeof(Resources),
 		Name = nameof(Resources.Enabled),
 		GroupName = nameof(Resources.NetImbalanceAlertGroup),
-		Order = 3000)]
+		Order = 2200)]
 	public bool UseNetImbalanceAlert
 	{
 		get => _useNetImbalanceAlert;
@@ -1484,20 +1490,20 @@ public class ClusterStatistic : Indicator
 	[Display(ResourceType = typeof(Resources),
 		Name = nameof(Resources.NetImbalanceAlertThresholdAbs),
 		GroupName = nameof(Resources.NetImbalanceAlertGroup),
-		Order = 3010)]
+		Order = 2210)]
 	[Range(1, 100000)]
 	public int NetImbalanceAlertValue { get; set; } = 6;
 
 	[Display(ResourceType = typeof(Resources),
 		Name = nameof(Resources.NetImbalanceAlertUseClosedCandle),
 		GroupName = nameof(Resources.NetImbalanceAlertGroup),
-		Order = 3020)]
+		Order = 2220)]
 	public bool UseClosedCandleForNetImbalanceAlert { get; set; }
 
 	[Display(ResourceType = typeof(Resources),
 		Name = nameof(Resources.AlertFile),
 		GroupName = nameof(Resources.NetImbalanceAlertGroup),
-		Order = 3030)]
+		Order = 2230)]
 	public string NetImbalanceAlertFile { get; set; } = "alert1";
 
 	#endregion
