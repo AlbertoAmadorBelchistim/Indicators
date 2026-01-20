@@ -3285,4 +3285,8 @@
   <comment>Delta</comment>
 </data>
 
-</root>
+<data name="Absorption" xml:space="preserve">
+    <value>Поглощение</value>
+  </data><data name="AbsorptionThresholdDesc" xml:space="preserve">
+    <value>Минимальное расстояние между закрытием и экстремумами дельты для учета поглощения</value>
+  </data></root>
