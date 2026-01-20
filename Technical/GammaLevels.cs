@@ -17,6 +17,24 @@ namespace ATAS.Indicators.Technical
     {
         #region Nested types: model
 
+        internal enum LevelCategory
+        {
+            VolTrigger = 0,   // VT
+            LargeGamma = 1,   // LG
+            PutWall = 2,      // PW
+            CallWall = 3,     // CW
+            Combo = 4,        // CO
+            ZeroGamma = 5,    // ZG / Zero Gamma
+            Other = 6
+        }
+
+        internal enum LineTier
+        {
+            Thick = 0,
+            Medium = 1,
+            Thin = 2
+        }
+
         public enum LabelSide
         {
             [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Left))]
@@ -26,9 +44,107 @@ namespace ATAS.Indicators.Technical
             Right = 1
         }
 
+        internal readonly struct LevelLabel
+        {
+            public readonly LevelCategory Category;
+            public readonly int Rank;
+            public readonly bool Is0Dte;
+            public readonly string RawLabel;
+            public readonly string DisplayLabel;
+
+            public LevelLabel(LevelCategory category, int rank, bool is0Dte, string rawLabel, string displayLabel)
+            {
+                Category = category;
+                Rank = rank;
+                Is0Dte = is0Dte;
+                RawLabel = rawLabel ?? string.Empty;
+                DisplayLabel = displayLabel ?? string.Empty;
+            }
+        }
+
+        internal readonly struct ParsedEntry
+        {
+            public readonly decimal Price;
+            public readonly LevelLabel[] Labels;
+            public readonly string SourceId;
+
+            public ParsedEntry(decimal price, LevelLabel[] labels, string sourceId)
+            {
+                Price = price;
+                Labels = labels ?? Array.Empty<LevelLabel>();
+                SourceId = sourceId ?? string.Empty;
+            }
+        }
+
+        internal readonly struct Level
+        {
+            public readonly decimal Price;
+            public readonly LevelLabel[] Labels;
+            public readonly LevelLabel Winner;
+            public readonly string DisplayText;
+
+            public Level(decimal price, LevelLabel[] labels, LevelLabel winner, string displayText)
+            {
+                Price = price;
+                Labels = labels ?? Array.Empty<LevelLabel>();
+                Winner = winner;
+                DisplayText = displayText ?? string.Empty;
+            }
+        }
+
+        internal readonly struct LevelRenderItem
+        {
+            public readonly decimal Price;
+            public readonly string Text;
+
+            public readonly LevelCategory Category;
+            public readonly bool Is0Dte;
+
+            public readonly LineTier Tier;
+            public readonly int LineWidth;
+            public readonly int Transparency; // 0..100 (UI semantics)
+            public readonly bool Dash;
+            public readonly bool DrawHalo;
+
+            public LevelRenderItem(
+                decimal price,
+                string text,
+                LevelCategory category,
+                bool is0Dte,
+                LineTier tier,
+                int lineWidth,
+                int transparency,
+                bool dash,
+                bool drawHalo)
+            {
+                Price = price;
+                Text = text ?? string.Empty;
+                Category = category;
+                Is0Dte = is0Dte;
+                Tier = tier;
+                LineWidth = lineWidth;
+                Transparency = transparency;
+                Dash = dash;
+                DrawHalo = drawHalo;
+            }
+        }
+
         #endregion
 
         #region Nested types: sources
+
+        internal interface ILevelsSource
+        {
+            // A stable id for logging/tracing (e.g., "LoloText", "Api", "File", ...).
+            string SourceId { get; }
+
+            // Whether the source contributes entries.
+            bool IsEnabled { get; }
+
+            // Fetch entries produced by the source. Parsing warnings should be returned so the indicator can log them
+            // with throttling (to avoid spamming the platform log).
+            bool TryGetEntries(out ParsedEntry[] entries, out string[] warnings);
+        }
 
         #endregion
 
@@ -537,6 +653,21 @@ namespace ATAS.Indicators.Technical
             // Use it for visual-only changes too to keep behavior consistent.
             RecalculateValues();
         }
+        private static int GetCategoryPriority(LevelCategory category)
+        {
+            // Lower value = higher priority.
+            return category switch
+            {
+                LevelCategory.VolTrigger => 0, // VT
+                LevelCategory.LargeGamma => 1, // LG
+                LevelCategory.PutWall => 2,    // PW
+                LevelCategory.CallWall => 2,   // CW (same tier as PW)
+                LevelCategory.Combo => 3,      // CO
+                LevelCategory.ZeroGamma => 4,  // ZG
+                _ => 5
+            };
+        }
+
         #endregion
     }
 }
