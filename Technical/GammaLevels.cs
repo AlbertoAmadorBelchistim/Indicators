@@ -4,10 +4,11 @@ using OFT.Rendering.Context;
 using OFT.Rendering.Settings;
 using OFT.Rendering.Tools;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
 using System.Text;
+using Utils.Common.Logging;
 
 namespace ATAS.Indicators.Technical
 {
@@ -148,6 +149,22 @@ namespace ATAS.Indicators.Technical
 
         #endregion
 
+        #region Nested types: parsing
+
+        internal readonly struct ParseResult
+        {
+            public readonly ParsedEntry[] Entries;
+            public readonly string[] Warnings;
+
+            public ParseResult(ParsedEntry[] entries, string[] warnings)
+            {
+                Entries = entries ?? Array.Empty<ParsedEntry>();
+                Warnings = warnings ?? Array.Empty<string>();
+            }
+        }
+
+        #endregion
+
         #region Fields
 
         // -----------------------------
@@ -163,6 +180,20 @@ namespace ATAS.Indicators.Technical
         // -----------------------------
         private bool _dataDirty = true;
         private bool _visualDirty = true;
+
+        // -----------------------------
+        // Logging throttle
+        // -----------------------------
+        private const int _maxWarningsPerUpdate = 10;
+        private const long _warningThrottleMs = 800;
+
+        private int _lastInputHash;
+        private long _lastWarningLogMs;
+
+        // -----------------------------
+        // Runtime: parsed entries (sources output)
+        // -----------------------------
+        private ParsedEntry[] _parsedEntries = Array.Empty<ParsedEntry>();
 
         // -----------------------------
         // UI: Source - LoloText
@@ -629,6 +660,8 @@ namespace ATAS.Indicators.Technical
         #region Overrides
         protected override void OnCalculate(int bar, decimal value)
         {
+            RebuildParsedEntriesIfNeeded();
+
             // Shell: no calculations yet.
             // Future commits will parse sources and rebuild render packets when _dataDirty/_visualDirty.
         }
@@ -667,6 +700,67 @@ namespace ATAS.Indicators.Technical
                 _ => 5
             };
         }
+
+        private void RebuildParsedEntriesIfNeeded()
+        {
+            if (!_dataDirty)
+                return;
+
+            _dataDirty = false;
+
+            // If source disabled or empty, clear.
+            if (!EnableLoloText || string.IsNullOrWhiteSpace(LoloTextRaw))
+            {
+                _parsedEntries = Array.Empty<ParsedEntry>();
+                return;
+            }
+
+            var result = ParseLoloText(LoloTextRaw);
+
+            _parsedEntries = result.Entries;
+
+            LogParseWarningsIfNeeded(result.Warnings, LoloTextRaw);
+        }
+
+        private void LogParseWarningsIfNeeded(string[] warnings, string input)
+        {
+            if (warnings == null || warnings.Length == 0)
+                return;
+
+            var nowMs = Environment.TickCount64;
+            var hash = input.GetHashCode();
+
+            // Avoid repeated spam: only log for new input, or if enough time has passed.
+            if (hash == _lastInputHash && (nowMs - _lastWarningLogMs) < _warningThrottleMs)
+                return;
+
+            _lastInputHash = hash;
+            _lastWarningLogMs = nowMs;
+
+            var count = Math.Min(warnings.Length, _maxWarningsPerUpdate);
+
+            for (int i = 0; i < count; i++)
+                this.LogWarn($"[GammaLevels] {warnings[i]}");
+
+            if (warnings.Length > count)
+                this.LogWarn($"[GammaLevels] ... {warnings.Length - count} more warning(s).");
+        }
+
+        private static ParseResult ParseLoloText(string raw)
+        {
+            // TODO (next): implement legacy grammar:
+            // - optional "$TICKER:" prefix
+            // - comma-separated tokens
+            // - '&' label join before price
+            // - rank optional
+            // - 0DTE optional suffix
+            // - aliases (Zero Gamma -> ZG)
+            //
+            // Return ParsedEntry[] + warnings[] for invalid tokens.
+
+            return new ParseResult(Array.Empty<ParsedEntry>(), new[] { "Parser not implemented yet." });
+        }
+
 
         #endregion
     }
