@@ -1778,8 +1778,8 @@ public class ClusterStatistic : Indicator
 			{
 				if (_lastAskValue < AskAlertValue && candle.Ask >= AskAlertValue)
 				{
-					AddAlert(AskAlertFile, $"Cluster statistic ask alert: {candle.Ask}");
-					_lastAskAlert = bar;
+                    AddAlert(AskAlertFile, string.Format(Resources.AlertAskTemplate, candle.Ask));
+                    _lastAskAlert = bar;
 				}
 			}
 
@@ -1788,8 +1788,8 @@ public class ClusterStatistic : Indicator
 			{
 				if (_lastBidValue < BidAlertValue && candle.Bid >= BidAlertValue)
 				{
-					AddAlert(BidAlertFile, $"Cluster statistic bid alert: {candle.Bid}");
-					_lastBidAlert = bar;
+                    AddAlert(BidAlertFile, string.Format(Resources.AlertBidTemplate, candle.Bid));
+                    _lastBidAlert = bar;
 				}
 			}
 
@@ -1811,8 +1811,8 @@ public class ClusterStatistic : Indicator
 				if ((_lastDeltaPerVolumeValue < DeltaPerVolumeAlertValue && deltaPerVol >= DeltaPerVolumeAlertValue)
 				    || (_lastDeltaPerVolumeValue > DeltaPerVolumeAlertValue && deltaPerVol <= DeltaPerVolumeAlertValue))
 				{
-					AddAlert(DeltaPerVolumeAlertFile, $"Cluster statistic delta/volume alert: {deltaPerVol:F2}%");
-					_lastDeltaPerVolumeAlert = bar;
+                    AddAlert(DeltaPerVolumeAlertFile, string.Format(Resources.AlertDeltaPerVolumeTemplate, deltaPerVol));
+                    _lastDeltaPerVolumeAlert = bar;
 				}
 			}
 
@@ -1823,8 +1823,8 @@ public class ClusterStatistic : Indicator
 				if ((_lastSessionDeltaValue < SessionDeltaAlertValue && sessionDelta >= SessionDeltaAlertValue)
 				    || (_lastSessionDeltaValue > SessionDeltaAlertValue && sessionDelta <= SessionDeltaAlertValue))
 				{
-					AddAlert(SessionDeltaAlertFile, $"Cluster statistic session delta alert: {sessionDelta}");
-					_lastSessionDeltaAlert = bar;
+                    AddAlert(SessionDeltaAlertFile, string.Format(Resources.AlertSessionDeltaTemplate, sessionDelta));
+                    _lastSessionDeltaAlert = bar;
 				}
 			}
 
@@ -1835,8 +1835,8 @@ public class ClusterStatistic : Indicator
 				if ((_lastSessionDeltaPerVolumeValue < SessionDeltaPerVolumeAlertValue && sessionDeltaPerVol >= SessionDeltaPerVolumeAlertValue)
 				    || (_lastSessionDeltaPerVolumeValue > SessionDeltaPerVolumeAlertValue && sessionDeltaPerVol <= SessionDeltaPerVolumeAlertValue))
 				{
-					AddAlert(SessionDeltaPerVolumeAlertFile, $"Cluster statistic session delta/volume alert: {sessionDeltaPerVol:F2}%");
-					_lastSessionDeltaPerVolumeAlert = bar;
+                    AddAlert(SessionDeltaPerVolumeAlertFile, string.Format(Resources.AlertSessionDeltaPerVolumeTemplate, sessionDeltaPerVol));
+                    _lastSessionDeltaPerVolumeAlert = bar;
 				}
 			}
 
@@ -1846,8 +1846,8 @@ public class ClusterStatistic : Indicator
 				if ((_lastMaxDeltaValue < MaxDeltaAlertValue && candle.MaxDelta >= MaxDeltaAlertValue)
 				    || (_lastMaxDeltaValue > MaxDeltaAlertValue && candle.MaxDelta <= MaxDeltaAlertValue))
 				{
-					AddAlert(MaxDeltaAlertFile, $"Cluster statistic max delta alert: {candle.MaxDelta}");
-					_lastMaxDeltaAlert = bar;
+                    AddAlert(MaxDeltaAlertFile, string.Format(Resources.AlertMaxDeltaTemplate, candle.MaxDelta));
+                    _lastMaxDeltaAlert = bar;
 				}
 			}
 
@@ -1857,8 +1857,8 @@ public class ClusterStatistic : Indicator
 				if ((_lastMinDeltaValue < MinDeltaAlertValue && candle.MinDelta >= MinDeltaAlertValue)
 				    || (_lastMinDeltaValue > MinDeltaAlertValue && candle.MinDelta <= MinDeltaAlertValue))
 				{
-					AddAlert(MinDeltaAlertFile, $"Cluster statistic min delta alert: {candle.MinDelta}");
-					_lastMinDeltaAlert = bar;
+                    AddAlert(MinDeltaAlertFile, string.Format(Resources.AlertMinDeltaTemplate, candle.MinDelta));
+                    _lastMinDeltaAlert = bar;
 				}
 			}
 
@@ -1871,8 +1871,8 @@ public class ClusterStatistic : Indicator
                 if ((_lastDeltaChangeValue < DeltaChangeAlertValue && deltaChange >= DeltaChangeAlertValue)
 				    || (_lastDeltaChangeValue > DeltaChangeAlertValue && deltaChange <= DeltaChangeAlertValue))
 				{
-					AddAlert(DeltaChangeAlertFile, $"Cluster statistic delta change alert: {deltaChange}");
-					_lastDeltaChangeAlert = bar;
+                    AddAlert(DeltaChangeAlertFile, string.Format(Resources.AlertDeltaChangeTemplate, deltaChange));
+                    _lastDeltaChangeAlert = bar;
 				}
 			}
 
@@ -1892,8 +1892,8 @@ public class ClusterStatistic : Indicator
 				var volPerSec = _volPerSecond[bar];
 				if (_lastVolumePerSecondValue < VolumePerSecondAlertValue && volPerSec >= VolumePerSecondAlertValue)
 				{
-					AddAlert(VolumePerSecondAlertFile, $"Cluster statistic volume/sec alert: {volPerSec:F2}");
-					_lastVolumePerSecondAlert = bar;
+                    AddAlert(VolumePerSecondAlertFile, string.Format(Resources.AlertVolumePerSecondTemplate, volPerSec));
+                    _lastVolumePerSecondAlert = bar;
 				}
 			}
 
@@ -1903,8 +1903,8 @@ public class ClusterStatistic : Indicator
 				var sessionVol = _cVolume[bar];
 				if (_lastSessionVolumeValue < SessionVolumeAlertValue && sessionVol >= SessionVolumeAlertValue)
 				{
-					AddAlert(SessionVolumeAlertFile, $"Cluster statistic session volume alert: {sessionVol}");
-					_lastSessionVolumeAlert = bar;
+                    AddAlert(SessionVolumeAlertFile, string.Format(Resources.AlertSessionVolumeTemplate, sessionVol));
+                    _lastSessionVolumeAlert = bar;
 				}
 			}
 
@@ -1913,7 +1913,7 @@ public class ClusterStatistic : Indicator
             {
                 if (_lastTradesValue < TradesAlertValue && candle.Ticks >= TradesAlertValue)
                 {
-                    AddAlert(TradesAlertFile, $"Cluster statistic trades alert: {candle.Ticks}");
+                    AddAlert(TradesAlertFile, string.Format(Resources.AlertTradesTemplate, candle.Ticks));
                     _lastTradesAlert = bar;
                 }
             }
@@ -1924,7 +1924,7 @@ public class ClusterStatistic : Indicator
                 var height = _candleHeights[bar];
                 if (_lastHeightValue < HeightAlertValue && height >= HeightAlertValue)
                 {
-                    AddAlert(HeightAlertFile, $"Cluster statistic height alert: {height}");
+                    AddAlert(HeightAlertFile, string.Format(Resources.AlertHeightTemplate, height));
                     _lastHeightAlert = bar;
                 }
             }
