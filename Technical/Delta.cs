@@ -192,8 +192,11 @@ public class Delta : Indicator
 		ShowCurrentValue = false,
 		UseMinimizedModeIfEnabled = true,
 		Visible = false,
+		#if STABLE
+		#else
 		DrawCandleBorder = false
-	};
+		#endif
+    };
 
 	private readonly CandleDataSeries _divergenceDownCandles = new("DivergenceDownCandles", "Divergence down candles")
 	{
@@ -201,8 +204,11 @@ public class Delta : Indicator
 		ShowCurrentValue = false,
 		UseMinimizedModeIfEnabled = true,
 		Visible = false,
+		#if STABLE
+		#else
 		DrawCandleBorder = false
-	};
+		#endif
+    };
 
 	private readonly CandleDataSeries _downCandles = new("DownCandles", "Delta candles")
 	{
@@ -434,7 +440,7 @@ public class Delta : Indicator
 
 	#endregion
 
-	#endregion
+#endregion
 
 	#region Properties
 
@@ -836,9 +842,13 @@ public class Delta : Indicator
 	private int _absorptionThreshold = 250;
 
 	private FilterInt _absorption = new(true) { Enabled = false, Value = 250 };
-
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Absorption), GroupName = nameof(Strings.Absorption),
-		Description = "AbsorptionThresholdDesc", Order = 400)]
+	#if STABLE
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Absorption), GroupName = nameof(Resources.Absorption),
+    Description = nameof(Resources.AbsorptionThresholdDesc), Order = 400)]
+	#else
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Absorption), GroupName = nameof(Strings.Absorption),
+		Description = nameof(Strings.AbsorptionThresholdDesc), Order = 400)]
+	#endif
 	[Range(0, int.MaxValue)]
 	public FilterInt Absorption
 	{
@@ -875,7 +885,7 @@ public class Delta : Indicator
 		set => Absorption.Value = value;
 	}
 
-	#endregion
+#endregion
 
 	#region Volume
 
@@ -1069,7 +1079,7 @@ public class Delta : Indicator
 		}
 	}
 
-    #endregion
+	#endregion
 
     [Browsable(false)]
     [Range(0, int.MaxValue)]
@@ -1249,7 +1259,7 @@ public class Delta : Indicator
 	#endregion
 
 
-	#endregion
+#endregion
 
 	#region ctor
 
