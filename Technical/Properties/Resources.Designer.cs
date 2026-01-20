@@ -70,6 +70,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Absorption.
+        /// </summary>
+        public static string Absorption {
+            get {
+                return ResourceManager.GetString("Absorption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Minimum distance between the close and the delta extremes to consider absorption.
+        /// </summary>
+        public static string AbsorptionThresholdDesc {
+            get {
+                return ResourceManager.GetString("AbsorptionThresholdDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Acceleration Max.
         /// </summary>
         public static string AccelMax {
