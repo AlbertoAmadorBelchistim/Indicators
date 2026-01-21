@@ -978,6 +978,10 @@ namespace ATAS.Indicators.Technical
 
                 int catIdx = (int)winner.Category;
 
+                // Defensive guard: enum values can be sparse (e.g., Other=100). Keep render safe even if cache is smaller for any reason.
+                if (_linePens == null || catIdx < 0 || catIdx >= _linePens.GetLength(0))
+                    catIdx = (int)LevelCategory.Other;
+
                 // 0DTE halo pass (draw BEFORE main line) — fixed red halo, legacy-like
                 if (winner.Is0Dte && Show0DteHalo)
                 {
@@ -1757,8 +1761,8 @@ namespace ATAS.Indicators.Technical
             // Build cache arrays if needed
             if (_linePens == null)
             {
-                int catCount = Enum.GetValues(typeof(LevelCategory)).Length;
-                _linePens = new PenSettings[catCount, 3, 2];
+                int maxCat = GetMaxLevelCategoryValue();
+                _linePens = new PenSettings[maxCat + 1, 3, 2];
             }
 
             if (_haloPens == null)
@@ -1959,6 +1963,22 @@ namespace ATAS.Indicators.Technical
 
             // Invalidate cached measurements because they depend on font size.
             _textSizeCache.Clear();
+        }
+
+        private static int GetMaxLevelCategoryValue()
+        {
+            // Avoid LINQ allocations; keep this deterministic and cheap.
+            int max = 0;
+
+            var values = (LevelCategory[])Enum.GetValues(typeof(LevelCategory));
+            for (int i = 0; i < values.Length; i++)
+            {
+                int v = (int)values[i];
+                if (v > max)
+                    max = v;
+            }
+
+            return max;
         }
 
         #endregion
