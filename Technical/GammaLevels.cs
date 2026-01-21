@@ -183,6 +183,27 @@ namespace ATAS.Indicators.Technical
             }
         }
 
+        private sealed class MenthorQTextSource : ILevelsSource
+        {
+            private readonly GammaLevels _owner;
+
+            public MenthorQTextSource(GammaLevels owner)
+            {
+                _owner = owner ?? throw new ArgumentNullException(nameof(owner));
+            }
+
+            public string SourceId => "MenthorQText";
+
+            public bool IsEnabled => _owner.EnableMenthorQText;
+
+            public bool TryGetEntries(out ParsedEntry[] entries, out string[] warnings)
+            {
+                // Parser will be implemented in a later commit.
+                entries = Array.Empty<ParsedEntry>();
+                warnings = Array.Empty<string>();
+                return true;
+            }
+        }
 
         #endregion
 
@@ -276,6 +297,13 @@ namespace ATAS.Indicators.Technical
         // -----------------------------
         private bool _enableLoloText = true;
         private string _loloTextRaw = string.Empty;
+
+        // -----------------------------
+        // UI: MenthorQ text source
+        // -----------------------------
+        private bool _enableMenthorQText;
+        private string _menthorQTextRaw = string.Empty;
+        private decimal _menthorQOffset;
 
         // -----------------------------
         // UI: Visibility
@@ -382,6 +410,92 @@ namespace ATAS.Indicators.Technical
                 RaisePropertyChanged(nameof(LoloTextRaw));
                 _textSizeCache.Clear();
 
+                _dataDirty = true;
+                RecalculateValues();
+            }
+        }
+        #endregion
+
+        #region Properties: Sources (MenthorQText)
+        [Display(ResourceType = typeof(Resources),
+    Name = nameof(Resources.MenthorQText),
+    GroupName = nameof(Resources.MenthorQText),
+    Description = nameof(Resources.MenthorQTextDesc),
+    Order = 40)]
+        public bool EnableMenthorQText
+        {
+            get => _enableMenthorQText;
+            set
+            {
+                if (_enableMenthorQText == value)
+                    return;
+
+                _enableMenthorQText = value;
+                _dataDirty = true;
+                RecalculateValues();
+            }
+        }
+
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Text),
+            GroupName = nameof(Resources.MenthorQText),
+            Description = nameof(Resources.MenthorQTextDesc),
+            Order = 50)]
+        public string MenthorQTextRaw
+        {
+            get => _menthorQTextRaw;
+            set
+            {
+                value ??= string.Empty;
+
+                if (_menthorQTextRaw == value)
+                    return;
+
+                _menthorQTextRaw = value;
+                _dataDirty = true;
+                RecalculateValues();
+            }
+        }
+
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Clear),
+            GroupName = nameof(Resources.MenthorQText),
+            Description = nameof(Resources.ClearDesc),
+            Order = 60)]
+        public bool ClearMenthorQTextNow
+        {
+            get => false;
+            set
+            {
+                if (!value)
+                    return;
+
+                if (_menthorQTextRaw.Length == 0)
+                    return;
+
+                _menthorQTextRaw = string.Empty;
+                RaisePropertyChanged(nameof(MenthorQTextRaw));
+                _textSizeCache.Clear();
+
+                _dataDirty = true;
+                RecalculateValues();
+            }
+        }
+
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.MenthorQOffset),
+            GroupName = nameof(Resources.MenthorQText),
+            Description = nameof(Resources.MenthorQOffsetDesc),
+            Order = 70)]
+        public decimal MenthorQOffset
+        {
+            get => _menthorQOffset;
+            set
+            {
+                if (_menthorQOffset == value)
+                    return;
+
+                _menthorQOffset = value;
                 _dataDirty = true;
                 RecalculateValues();
             }
@@ -1435,6 +1549,7 @@ namespace ATAS.Indicators.Technical
 
             _sources.Clear();
             _sources.Add(new LoloTextSource(this));
+            _sources.Add(new MenthorQTextSource(this));
         }
 
         private void CollectEntriesFromSources()
@@ -1474,10 +1589,10 @@ namespace ATAS.Indicators.Technical
 
             _collectedEntries = entries.Count == 0 ? Array.Empty<ParsedEntry>() : entries.ToArray();
 
-            // Reuse existing throttled logger with a stable "input fingerprint".
-            // For now we log against LoloTextRaw only; next commit we’ll compute a combined fingerprint.
-            // (This keeps this commit minimal.)
-            LogParseWarningsIfNeeded(warnings.Count == 0 ? Array.Empty<string>() : warnings.ToArray(), LoloTextRaw);
+            var warningsKey = $"{LoloTextRaw}\n---\n{MenthorQTextRaw}";
+            LogParseWarningsIfNeeded(
+                warnings.Count == 0 ? Array.Empty<string>() : warnings.ToArray(),
+                warningsKey);
         }
 
         private void RebuildFont()
