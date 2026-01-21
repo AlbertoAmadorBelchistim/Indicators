@@ -240,6 +240,14 @@ namespace ATAS.Indicators.Technical
         private readonly PenSettings _penCombo = new PenSettings { Color = CrossColor.FromArgb(255, 255, 192, 77), Width = 1 };     // CO #FFC04D
         private readonly PenSettings _penZeroGamma = new PenSettings { Color = CrossColor.FromArgb(255, 170, 170, 170), Width = 1 }; // ZG #AAAAAA
 
+        // Optional overlay: thin dotted accent ON TOP for high-priority 0DTE LG/PW/CW.
+        private readonly PenSettings _pen0DteAccent = new PenSettings
+        {
+            Color = CrossColor.FromArgb(220, 255, 64, 64), // brighter red
+            Width = 1,
+            LineDashStyle = LineDashStyle.Dot
+        };
+
         // MenthorQ palette (defaults)
         // Notes:
         // - DayMax/DayMin use resistance/support semantics (red/green) for fast scanning.
@@ -955,6 +963,10 @@ namespace ATAS.Indicators.Technical
 
                 var pen = _linePens[catIdx, tierIdx, dashIdx];
                 context.DrawLine(pen.RenderObject, firstX, y, rightX, y);
+
+                // Optional thin dotted accent ON TOP for high-priority 0DTE LG/PW/CW (legacy behavior).
+                if (ShouldDraw0DteAccent(winner))
+                    context.DrawLine(_pen0DteAccent.RenderObject, firstX, y, rightX, y);
 
                 // Draw label (commit 9)
                 var text = level.DisplayText;
@@ -1942,6 +1954,21 @@ namespace ATAS.Indicators.Technical
 
             // Invalidate cached measurements because they depend on font size.
             _textSizeCache.Clear();
+        }
+
+        private bool ShouldDraw0DteAccent(LevelLabel winner)
+        {
+            // Legacy rule: 0DTE + (LG/PW/CW) + rank <= ThickMaxRank.
+            // Rank==0 is considered strongest (also used by MenthorQ mappings).
+            if (!winner.Is0Dte)
+                return false;
+
+            if (winner.Category != LevelCategory.LargeGamma &&
+                winner.Category != LevelCategory.PutWall &&
+                winner.Category != LevelCategory.CallWall)
+                return false;
+
+            return winner.Rank <= ThickMaxRank;
         }
 
         #endregion
