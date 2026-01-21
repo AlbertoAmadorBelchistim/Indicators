@@ -3433,4 +3433,23 @@
   <value>Размер шрифта меток.</value>
   <comment>UI</comment>
 </data>
+<data name="MenthorQText" xml:space="preserve">
+  <value>Текст MenthorQ</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="MenthorQTextDesc" xml:space="preserve">
+  <value>Вставьте уровни MenthorQ (пары метка/цена, разделённые запятыми, необязательный префикс '$TICKER:').</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="MenthorQOffset" xml:space="preserve">
+  <value>Смещение</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="MenthorQOffsetDesc" xml:space="preserve">
+  <value>Ценовое смещение для уровней MenthorQ (для выравнивания ES1! и SPX). Может быть положительным или отрицательным.</value>
+  <comment>GammaLevels</comment>
+</data>
 </root>

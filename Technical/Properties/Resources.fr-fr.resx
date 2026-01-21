@@ -1350,4 +1350,23 @@
   <value>Taille de police des libellés.</value>
   <comment>UI</comment>
 </data>
+<data name="MenthorQText" xml:space="preserve">
+  <value>Texte MenthorQ</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="MenthorQTextDesc" xml:space="preserve">
+  <value>Collez les niveaux MenthorQ (paires libellé/prix séparées par des virgules, préfixe '$TICKER:' optionnel).</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="MenthorQOffset" xml:space="preserve">
+  <value>Décalage</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="MenthorQOffsetDesc" xml:space="preserve">
+  <value>Décalage de prix appliqué aux niveaux MenthorQ (pour aligner ES1! vs SPX). Peut être positif ou négatif.</value>
+  <comment>GammaLevels</comment>
+</data>
 </root>

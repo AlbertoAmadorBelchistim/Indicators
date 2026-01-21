@@ -1360,4 +1360,23 @@
   <value>Tamaño de fuente de las etiquetas.</value>
   <comment>UI</comment>
 </data>
+<data name="MenthorQText" xml:space="preserve">
+  <value>Texto MenthorQ</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="MenthorQTextDesc" xml:space="preserve">
+  <value>Pega niveles de MenthorQ (pares etiqueta/precio separados por comas, prefijo '$TICKER:' opcional).</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="MenthorQOffset" xml:space="preserve">
+  <value>Offset</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="MenthorQOffsetDesc" xml:space="preserve">
+  <value>Offset de precio aplicado a los niveles de MenthorQ (para alinear ES1! vs SPX). Puede ser positivo o negativo.</value>
+  <comment>GammaLevels</comment>
+</data>
 </root>
