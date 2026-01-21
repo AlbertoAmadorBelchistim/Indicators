@@ -276,6 +276,20 @@ namespace ATAS.Indicators.Technical
         private readonly PenSettings _penLargeGamma = new PenSettings { Color = CrossColor.FromArgb(255, 255, 136, 0), Width = 2 }; // LG #FF8800
         private readonly PenSettings _penCombo = new PenSettings { Color = CrossColor.FromArgb(255, 255, 192, 77), Width = 1 };     // CO #FFC04D
         private readonly PenSettings _penZeroGamma = new PenSettings { Color = CrossColor.FromArgb(255, 170, 170, 170), Width = 1 }; // ZG #AAAAAA
+
+        // MenthorQ palette (defaults)
+        // Notes:
+        // - DayMax/DayMin use resistance/support semantics (red/green) for fast scanning.
+        // - Bands are informational -> cooler hue, thinner by default.
+        // - RiskTrigger is distinct (purple) to avoid confusion with CW/PW/LG/VT.
+        // - BlindLevel uses a neutral blue (visibility without implying support/resistance).
+        private readonly PenSettings _penBlindLevel = new PenSettings { Color = CrossColor.FromArgb(255, 90, 165, 255), Width = 1 };   // BL #5AA5FF
+        private readonly PenSettings _penDayMin = new PenSettings { Color = CrossColor.FromArgb(255, 80, 200, 120), Width = 1 };       // 1D Min #50C878
+        private readonly PenSettings _penDayMax = new PenSettings { Color = CrossColor.FromArgb(255, 235, 90, 90), Width = 1 };         // 1D Max #EB5A5A
+        private readonly PenSettings _penRiskTrigger = new PenSettings { Color = CrossColor.FromArgb(255, 175, 110, 255), Width = 1 };  // RT #AF6EFF
+        private readonly PenSettings _penLowerBand = new PenSettings { Color = CrossColor.FromArgb(255, 70, 200, 210), Width = 1 };     // LB #46C8D2
+        private readonly PenSettings _penUpperBand = new PenSettings { Color = CrossColor.FromArgb(255, 70, 200, 210), Width = 1 };     // UB #46C8D2
+
         private readonly PenSettings _penOther = new PenSettings { Color = CrossColor.FromArgb(255, 160, 160, 160), Width = 1 };     // Other
 
         // -----------------------------
@@ -1856,6 +1870,15 @@ namespace ATAS.Indicators.Technical
                 LevelCategory.CallWall => _penCallWall,
                 LevelCategory.PutWall => _penPutWall,
                 LevelCategory.ZeroGamma => _penZeroGamma,
+
+                // MenthorQ palette
+                LevelCategory.BlindLevel => _penBlindLevel,
+                LevelCategory.DayMin => _penDayMin,
+                LevelCategory.DayMax => _penDayMax,
+                LevelCategory.RiskTrigger => _penRiskTrigger,
+                LevelCategory.LowerBand => _penLowerBand,
+                LevelCategory.UpperBand => _penUpperBand,
+
                 _ => _penOther
             };
         }
