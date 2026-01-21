@@ -3429,5 +3429,8 @@
 <data name="HaloTransparencyDesc" xml:space="preserve"><value>Прозрачность halo 0DTE.</value><comment>GammaLevels</comment></data>
 <data name="Dash0Dte" xml:space="preserve"><value>Пунктирная линия 0DTE</value><comment>GammaLevels</comment></data>
 <data name="Dash0DteDesc" xml:space="preserve"><value>Рисует основную линию 0DTE пунктиром (legacy-поведение).</value><comment>GammaLevels</comment></data>
-
+<data name="FontSizeDescription" xml:space="preserve">
+  <value>Размер шрифта меток.</value>
+  <comment>UI</comment>
+</data>
 </root>

@@ -1356,4 +1356,8 @@
 
   <data name="Dash0Dte" xml:space="preserve"><value>Línea 0DTE discontinua</value><comment>GammaLevels</comment></data>
   <data name="Dash0DteDesc" xml:space="preserve"><value>Dibuja la línea principal del nivel 0DTE como discontinua (comportamiento legacy).</value><comment>GammaLevels</comment></data>
+<data name="FontSizeDescription" xml:space="preserve">
+  <value>Tamaño de fuente de las etiquetas.</value>
+  <comment>UI</comment>
+</data>
 </root>

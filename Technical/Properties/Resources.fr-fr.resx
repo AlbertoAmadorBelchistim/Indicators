@@ -1346,4 +1346,8 @@
 <data name="HaloTransparencyDesc" xml:space="preserve"><value>Transparence du halo 0DTE.</value><comment>GammaLevels</comment></data>
 <data name="Dash0Dte" xml:space="preserve"><value>Ligne 0DTE en pointillés</value><comment>GammaLevels</comment></data>
 <data name="Dash0DteDesc" xml:space="preserve"><value>Dessine la ligne principale 0DTE en pointillés (comportement legacy).</value><comment>GammaLevels</comment></data>
+<data name="FontSizeDescription" xml:space="preserve">
+  <value>Taille de police des libellés.</value>
+  <comment>UI</comment>
+</data>
 </root>

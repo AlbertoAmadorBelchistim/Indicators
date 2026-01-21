@@ -2977,6 +2977,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Label font size..
+        /// </summary>
+        public static string FontSizeDescription {
+            get {
+                return ResourceManager.GetString("FontSizeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Frame Multiplier.
         /// </summary>
         public static string FrameMultiplier {

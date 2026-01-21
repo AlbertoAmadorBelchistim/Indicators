@@ -1296,4 +1296,8 @@
 <data name="HaloTransparencyDesc" xml:space="preserve"><value>0DTE 光晕的透明度。</value><comment>GammaLevels</comment></data>
 <data name="Dash0Dte" xml:space="preserve"><value>0DTE 虚线</value><comment>GammaLevels</comment></data>
 <data name="Dash0DteDesc" xml:space="preserve"><value>将 0DTE 主水平线绘制为虚线（legacy 行为）。</value><comment>GammaLevels</comment></data>
+<data name="FontSizeDescription" xml:space="preserve">
+  <value>标签字体大小。</value>
+  <comment>UI</comment>
+</data>
 </root>
