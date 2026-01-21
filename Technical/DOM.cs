@@ -18,6 +18,7 @@ using OFT.Rendering;
 using OFT.Rendering.Context;
 using OFT.Rendering.Helpers;
 using OFT.Rendering.Tools;
+using ATAS.DataFeedsCore.Dom;
 using Utils.Common.Logging;
 
 using Color = System.Drawing.Color;
@@ -110,14 +111,14 @@ public class DOM : Indicator
 
 	private VolumeInfo _maxVolume = new();
 	private SortedDictionary<decimal, MarketDataArg> _asks = new();
-	private SortedDictionary<decimal, MarketDataArg> _bids = new();
+	private SortedDictionary<decimal, MarketDataArg> _bids = new(PriceComparer.Descending);
 	private decimal _minPrice = decimal.MaxValue;
 
 	// Cached min/max with lazy invalidation
-	private decimal _cachedMinAsk = decimal.MaxValue;
-	private decimal _cachedMaxBid = decimal.MinValue;
-	private bool _minAskValid;
-	private bool _maxBidValid;
+	private decimal? _cachedMinAsk;
+	private decimal? _cachedMaxAsk;
+	private decimal? _cachedMaxBid;
+	private decimal? _cachedMinBid;
 
 	private int _priceLevelsHeight;
 	private int _lastRenderedHeight;
@@ -128,11 +129,7 @@ public class DOM : Indicator
 	private string _cachedFontFamily;
 	private float _cachedMaxFontSize;
 
-	private decimal _cachedMaxVisibleVolume;
-	private decimal _cachedMaxVisibleVolumePrice;
-	private decimal _cachedMinPrice;
-	private decimal _cachedMaxPrice;
-	private bool _maxVisibleVolumeCacheValid;
+	private (decimal Volume, decimal VolumePrice, decimal MinPrice, decimal MaxPrice)? _visibleVolumeCache;
 
 	private List<FilterColor> _sortedFilters = new();
 	private Color _textColor;
@@ -151,13 +148,8 @@ public class DOM : Indicator
 			if (_asks.Count == 0)
 				return decimal.MaxValue;
 
-			if (!_minAskValid)
-			{
-				_cachedMinAsk = _asks.Keys.First();
-				_minAskValid = true;
-			}
-
-			return _cachedMinAsk;
+			_cachedMinAsk ??= _asks.Keys.First();
+			return _cachedMinAsk.Value;
 		}
 	}
 
@@ -168,18 +160,37 @@ public class DOM : Indicator
 			if (_bids.Count == 0)
 				return decimal.MinValue;
 
-			if (!_maxBidValid)
-			{
-				_cachedMaxBid = _bids.Keys.Last();
-				_maxBidValid = true;
-			}
-
-			return _cachedMaxBid;
+			_cachedMaxBid ??= _bids.Keys.First();
+			return _cachedMaxBid.Value;
 		}
 	}
 
-	private decimal MinDepthPrice => _bids.Count > 0 ? _bids.Keys.First() : (_asks.Count > 0 ? _asks.Keys.First() : 0);
-	private decimal MaxDepthPrice => _asks.Count > 0 ? _asks.Keys.Last() : (_bids.Count > 0 ? _bids.Keys.Last() : 0);
+	private decimal MinBid
+	{
+		get
+		{
+			if (_bids.Count == 0)
+				return decimal.MaxValue;
+
+			_cachedMinBid ??= _bids.Keys.Last();
+			return _cachedMinBid.Value;
+		}
+	}
+
+	private decimal MaxAsk
+	{
+		get
+		{
+			if (_asks.Count == 0)
+				return decimal.MinValue;
+
+			_cachedMaxAsk ??= _asks.Keys.Last();
+			return _cachedMaxAsk.Value;
+		}
+	}
+
+	private decimal MinDepthPrice => _bids.Count > 0 ? MinBid : (_asks.Count > 0 ? MinAsk : 0);
+	private decimal MaxDepthPrice => _asks.Count > 0 ? MaxAsk : (_bids.Count > 0 ? MaxBid : 0);
 	private int TotalDepthCount => _asks.Count + _bids.Count;
 
 	#endregion
@@ -363,12 +374,11 @@ public class DOM : Indicator
 			{
 				_cumulativeAsk = new SortedList<decimal, decimal>();
 				_cumulativeBid = new SortedList<decimal, decimal>();
-				_maxVisibleVolumeCacheValid = false;
+				_visibleVolumeCache = null;
 
 				_asks = new SortedDictionary<decimal, MarketDataArg>();
-				_bids = new SortedDictionary<decimal, MarketDataArg>();
-				_minAskValid = false;
-				_maxBidValid = false;
+				_bids = new SortedDictionary<decimal, MarketDataArg>(PriceComparer.Descending);
+				_cachedMinAsk = _cachedMaxAsk = _cachedMaxBid = _cachedMinBid = null;
 
 				DataSeries.ForEach(x => x.Clear());
 
@@ -420,7 +430,7 @@ public class DOM : Indicator
 
 					sum = 0m;
 
-					foreach (var (price, level) in _bids.Reverse())
+					foreach (var (price, level) in _bids)
 					{
 						sum += level.Volume;
 						_cumulativeBid[price] = sum;
@@ -482,7 +492,7 @@ public class DOM : Indicator
 		if (CurrentBar <= 0)
 			return;
 
-		// UI расчёты - не требуют lock
+		// UI calculations - don't require lock
 		var height = (int)Math.Floor(chartInfo.PriceChartContainer.PriceRowHeight) - 1;
 
 		if (PriceLevelsHeight != 0)
@@ -514,7 +524,7 @@ public class DOM : Indicator
 
 		var currentPriceY = chartInfo.GetYByPrice(currentPrice);
 
-		// Один lock на всю работу с данными
+		// Single lock for all data operations
 		lock (_locker)
 		{
 			if (TotalDepthCount == 0)
@@ -708,7 +718,7 @@ public class DOM : Indicator
 
 	protected override void OnBestBidAskChanged(MarketDataArg depth)
 	{
-		// MinAsk и MaxBid теперь вычисляются автоматически с ленивой инвалидацией
+		// MinAsk and MaxBid are now calculated automatically with lazy invalidation
 		RedrawChart(_emptyRedrawArg);
 	}
 
@@ -725,22 +735,22 @@ public class DOM : Indicator
 
 			if (depth.Volume != 0)
 			{
-				// Обновляем кэш min/max при добавлении
+				// Update min/max cache when adding
 				if (isAsk)
 				{
 					if (depth.Price < _cachedMinAsk)
-					{
 						_cachedMinAsk = depth.Price;
-						_minAskValid = true;
-					}
+
+					if (depth.Price > _cachedMaxAsk)
+						_cachedMaxAsk = depth.Price;
 				}
 				else
 				{
 					if (depth.Price > _cachedMaxBid)
-					{
 						_cachedMaxBid = depth.Price;
-						_maxBidValid = true;
-					}
+
+					if (depth.Price < _cachedMinBid)
+						_cachedMinBid = depth.Price;
 				}
 
 				list[depth.Price] = depth;
@@ -756,11 +766,23 @@ public class DOM : Indicator
 			}
 			else
 			{
-				// Инвалидируем кэш при удалении текущего min/max
-				if (isAsk && depth.Price == _cachedMinAsk)
-					_minAskValid = false;
-				else if (!isAsk && depth.Price == _cachedMaxBid)
-					_maxBidValid = false;
+				// Invalidate cache when removing current min/max
+				if (isAsk)
+				{
+					if (depth.Price == _cachedMinAsk)
+						_cachedMinAsk = null;
+
+					if (depth.Price == _cachedMaxAsk)
+						_cachedMaxAsk = null;
+				}
+				else
+				{
+					if (depth.Price == _cachedMaxBid)
+						_cachedMaxBid = null;
+
+					if (depth.Price == _cachedMinBid)
+						_cachedMinBid = null;
+				}
 
 				list.Remove(depth.Price);
 			}
@@ -1077,20 +1099,13 @@ public class DOM : Indicator
 	private void ResetColors()
 	{
 		_filteredColors.Clear();
+		ApplyFilters(_asks.Values);
+		ApplyFilters(_bids.Values);
+	}
 
-		foreach (var arg in _asks.Values)
-		{
-			foreach (var filterColor in _sortedFilters)
-			{
-				if (arg.Volume < filterColor.Value)
-					continue;
-
-				_filteredColors[arg.Price] = filterColor.Color;
-				break;
-			}
-		}
-
-		foreach (var arg in _bids.Values)
+	private void ApplyFilters(IEnumerable<MarketDataArg> depths)
+	{
+		foreach (var arg in depths)
 		{
 			foreach (var filterColor in _sortedFilters)
 			{
@@ -1260,8 +1275,8 @@ public class DOM : Indicator
 
 	private decimal GetMaxVisibleVolume(decimal minPrice, decimal maxPrice)
 	{
-		if (_maxVisibleVolumeCacheValid && _cachedMinPrice == minPrice && _cachedMaxPrice == maxPrice)
-			return _cachedMaxVisibleVolume;
+		if (_visibleVolumeCache is { } cache && cache.MinPrice == minPrice && cache.MaxPrice == maxPrice)
+			return cache.Volume;
 
 		var maxVolume = 0m;
 		var maxVolumePrice = 0m;
@@ -1296,32 +1311,27 @@ public class DOM : Indicator
 			}
 		}
 
-		_cachedMaxVisibleVolume = maxVolume;
-		_cachedMaxVisibleVolumePrice = maxVolumePrice;
-		_cachedMinPrice = minPrice;
-		_cachedMaxPrice = maxPrice;
-		_maxVisibleVolumeCacheValid = true;
+		_visibleVolumeCache = (maxVolume, maxVolumePrice, minPrice, maxPrice);
 
 		return maxVolume;
 	}
 
 	private void InvalidateMaxVisibleVolumeCache(decimal price, decimal newVolume)
 	{
-		if (!_maxVisibleVolumeCacheValid)
+		if (_visibleVolumeCache is not { } cache)
 			return;
 
-		if (price < _cachedMinPrice || price > _cachedMaxPrice)
+		if (price < cache.MinPrice || price > cache.MaxPrice)
 			return;
 
-		if (newVolume > _cachedMaxVisibleVolume)
+		if (newVolume > cache.Volume)
 		{
-			_cachedMaxVisibleVolume = newVolume;
-			_cachedMaxVisibleVolumePrice = price;
+			_visibleVolumeCache = (newVolume, price, cache.MinPrice, cache.MaxPrice);
 			return;
 		}
 
-		if (price == _cachedMaxVisibleVolumePrice)
-			_maxVisibleVolumeCacheValid = false;
+		if (price == cache.VolumePrice)
+			_visibleVolumeCache = null;
 	}
 
 	private int GetLevelWidth(decimal curVolume, decimal levelWidthKoeff)
