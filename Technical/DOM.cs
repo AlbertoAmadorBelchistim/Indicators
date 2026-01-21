@@ -111,7 +111,7 @@ public class DOM : Indicator
 
 	private VolumeInfo _maxVolume = new();
 	private SortedDictionary<decimal, MarketDataArg> _asks = new();
-	private SortedDictionary<decimal, MarketDataArg> _bids = new(PriceComparer.Descending);
+	private SortedDictionary<decimal, MarketDataArg> _bids = new();
 	private decimal _minPrice = decimal.MaxValue;
 
 	// Cached min/max with lazy invalidation
@@ -160,7 +160,7 @@ public class DOM : Indicator
 			if (_bids.Count == 0)
 				return decimal.MinValue;
 
-			_cachedMaxBid ??= _bids.Keys.First();
+			_cachedMaxBid ??= _bids.Keys.Last();
 			return _cachedMaxBid.Value;
 		}
 	}
@@ -172,7 +172,7 @@ public class DOM : Indicator
 			if (_bids.Count == 0)
 				return decimal.MaxValue;
 
-			_cachedMinBid ??= _bids.Keys.Last();
+			_cachedMinBid ??= _bids.Keys.First();
 			return _cachedMinBid.Value;
 		}
 	}
@@ -377,7 +377,7 @@ public class DOM : Indicator
 				_visibleVolumeCache = null;
 
 				_asks = new SortedDictionary<decimal, MarketDataArg>();
-				_bids = new SortedDictionary<decimal, MarketDataArg>(PriceComparer.Descending);
+				_bids = new SortedDictionary<decimal, MarketDataArg>();
 				_cachedMinAsk = _cachedMaxAsk = _cachedMaxBid = _cachedMinBid = null;
 
 				DataSeries.ForEach(x => x.Clear());
@@ -430,7 +430,8 @@ public class DOM : Indicator
 
 					sum = 0m;
 
-					foreach (var (price, level) in _bids)
+					// Accumulate from best bid (highest price) down
+					foreach (var (price, level) in _bids.Reverse())
 					{
 						sum += level.Volume;
 						_cumulativeBid[price] = sum;
@@ -474,13 +475,12 @@ public class DOM : Indicator
 			}
 		}
 
-		// _bids is sorted descending (high to low)
 		foreach (var (price, depth) in _bids)
 		{
-			if (price > maxPrice)
+			if (price < minPrice)
 				continue;
 
-			if (price < minPrice)
+			if (price > maxPrice)
 				break;
 
 			if (depth.Volume > maxVolume)
