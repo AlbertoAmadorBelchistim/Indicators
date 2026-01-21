@@ -1016,7 +1016,94 @@ namespace ATAS.Indicators.Technical
 
         #endregion
 
-        #region Private methods
+        #region Private methods: logging
+
+        private void LogParseWarningsIfNeeded(string[] warnings, string input)
+        {
+            if (warnings == null || warnings.Length == 0)
+                return;
+
+            var nowMs = Environment.TickCount64;
+
+            // Avoid repeated spam: only log for new input, or if enough time has passed.
+            if (string.Equals(input, _lastWarningsKey, StringComparison.Ordinal) &&
+                (nowMs - _lastWarningLogMs) < _warningThrottleMs)
+                return;
+
+            _lastWarningsKey = input;
+            _lastWarningLogMs = nowMs;
+
+            var count = Math.Min(warnings.Length, _maxWarningsPerUpdate);
+
+            for (int i = 0; i < count; i++)
+                this.LogWarn($"[GammaLevels] {warnings[i]}");
+
+            if (warnings.Length > count)
+                this.LogWarn($"[GammaLevels] ... {warnings.Length - count} more warning(s).");
+        }
+
+        #endregion
+
+        #region Private methods: sources
+
+        private void EnsureSources()
+        {
+            if (_sourcesInitialized)
+                return;
+
+            _sourcesInitialized = true;
+
+            _sources.Clear();
+            _sources.Add(new LoloTextSource(this));
+            _sources.Add(new MenthorQTextSource(this));
+        }
+
+        private void CollectEntriesFromSources()
+        {
+            EnsureSources();
+
+            // Fast path: no enabled sources or no data
+            // We'll build into lists and then materialize arrays once.
+            var entries = new List<ParsedEntry>(128);
+            var warnings = new List<string>(16);
+
+            for (int i = 0; i < _sources.Count; i++)
+            {
+                var src = _sources[i];
+                if (src == null || !src.IsEnabled)
+                    continue;
+
+                if (!src.TryGetEntries(out var srcEntries, out var srcWarnings))
+                    continue;
+
+                if (srcEntries != null && srcEntries.Length > 0)
+                    entries.AddRange(srcEntries);
+
+                if (srcWarnings != null && srcWarnings.Length > 0)
+                {
+                    // Prefix warnings with the source id for clarity.
+                    for (int w = 0; w < srcWarnings.Length; w++)
+                    {
+                        var msg = srcWarnings[w];
+                        if (string.IsNullOrWhiteSpace(msg))
+                            continue;
+
+                        warnings.Add($"[{src.SourceId}] {msg}");
+                    }
+                }
+            }
+
+            _collectedEntries = entries.Count == 0 ? Array.Empty<ParsedEntry>() : entries.ToArray();
+
+            var warningsKey = $"{LoloTextRaw}\n---\n{MenthorQTextRaw}";
+            LogParseWarningsIfNeeded(
+                warnings.Count == 0 ? Array.Empty<string>() : warnings.ToArray(),
+                warningsKey);
+        }
+
+        #endregion
+
+        #region Private methods: parsing (common)
 
         private const string _loloSourceId = "LoloText";
 
@@ -1059,6 +1146,10 @@ namespace ATAS.Indicators.Technical
             return new string(res, 0, count).Trim();
         }
 
+        #endregion
+
+        #region Private methods: parsing (LoloText)
+
         private static LevelCategory MapCategory(string name)
         {
             var u = (name ?? string.Empty).ToUpperInvariant().Replace("  ", " ").Trim();
@@ -1091,246 +1182,6 @@ namespace ATAS.Indicators.Technical
             string suffix = is0Dte ? " 0DTE" : string.Empty;
 
             return (baseName + rankTxt + suffix).Trim();
-        }
-
-        private void RedrawChart()
-        {
-            // RecalculateValues triggers a render refresh in ATAS indicators.
-            // Use it for visual-only changes too to keep behavior consistent.
-            RecalculateValues();
-        }
-        private static int GetCategoryPriority(LevelCategory category)
-        {
-            // Lower number = higher priority.
-            // Priority (as agreed):
-            // Volatility Trigger > PutWall/CallWall > Blind Levels > DayMin/DayMax
-            // > Zero Gamma > LargeGamma > Combo > RiskTrigger > Bands > Other
-            return category switch
-            {
-                LevelCategory.VolTrigger => 0,
-
-                LevelCategory.PutWall => 10,
-                LevelCategory.CallWall => 11,
-
-                LevelCategory.BlindLevel => 20,
-
-                LevelCategory.DayMin => 30,
-                LevelCategory.DayMax => 31,
-
-                LevelCategory.ZeroGamma => 40,
-
-                LevelCategory.LargeGamma => 50,
-
-                LevelCategory.Combo => 60,
-
-                LevelCategory.RiskTrigger => 70,
-
-                LevelCategory.LowerBand => 80,
-                LevelCategory.UpperBand => 81,
-
-                _ => 1000
-            };
-        }
-
-
-        private static Level[] BuildLevels(ParsedEntry[] entries)
-        {
-            if (entries == null || entries.Length == 0)
-                return Array.Empty<Level>();
-
-            // Key: price, Value: merged labels
-            var map = new System.Collections.Generic.Dictionary<decimal, System.Collections.Generic.List<LevelLabel>>(entries.Length);
-
-            for (int i = 0; i < entries.Length; i++)
-            {
-                var e = entries[i];
-                if (e.Labels == null || e.Labels.Length == 0)
-                    continue;
-
-                if (!map.TryGetValue(e.Price, out var list))
-                {
-                    list = new System.Collections.Generic.List<LevelLabel>(e.Labels.Length);
-                    map.Add(e.Price, list);
-                }
-
-                for (int j = 0; j < e.Labels.Length; j++)
-                    list.Add(e.Labels[j]);
-            }
-
-            if (map.Count == 0)
-                return Array.Empty<Level>();
-
-            var levels = new Level[map.Count];
-            int k = 0;
-
-            foreach (var kvp in map)
-            {
-                var price = kvp.Key;
-                var labels = kvp.Value;
-
-                var labelsArray = labels.Count == 0 ? Array.Empty<LevelLabel>() : labels.ToArray();
-                var winner = SelectWinner(labelsArray);
-                var display = BuildDisplayText(labelsArray);
-
-                levels[k++] = new Level(price, labelsArray, winner, display);
-            }
-
-            Array.Sort(levels, (a, b) => a.Price.CompareTo(b.Price));
-            return levels;
-        }
-
-        private static LevelLabel SelectWinner(LevelLabel[] labels)
-        {
-            // Assumption: labels.Length > 0
-            var best = labels[0];
-
-            for (int i = 1; i < labels.Length; i++)
-            {
-                var cur = labels[i];
-
-                // 1) lower rank wins
-                if (cur.Rank < best.Rank)
-                {
-                    best = cur;
-                    continue;
-                }
-
-                if (cur.Rank > best.Rank)
-                    continue;
-
-                // 2) tie-breaker: category priority (VT > LG > PW/CW > CO > ZG > Other)
-                var pCur = GetCategoryPriority(cur.Category);
-                var pBest = GetCategoryPriority(best.Category);
-
-                if (pCur < pBest)
-                {
-                    best = cur;
-                    continue;
-                }
-
-                if (pCur > pBest)
-                    continue;
-
-                // 3) deterministic tie-breaker: prefer 0DTE
-                if (cur.Is0Dte && !best.Is0Dte)
-                {
-                    best = cur;
-                    continue;
-                }
-
-                // 4) final tie-breaker: lexical DisplayLabel to make output stable
-                if (string.Compare(cur.DisplayLabel, best.DisplayLabel, StringComparison.Ordinal) < 0)
-                    best = cur;
-            }
-
-            return best;
-        }
-
-        private static string BuildDisplayText(LevelLabel[] labels)
-        {
-            if (labels == null || labels.Length == 0)
-                return string.Empty;
-
-            // Keep a stable order: by rank, then category priority, then 0DTE first, then label.
-            Array.Sort(labels, (a, b) =>
-            {
-                var c = a.Rank.CompareTo(b.Rank);
-                if (c != 0) return c;
-
-                c = GetCategoryPriority(a.Category).CompareTo(GetCategoryPriority(b.Category));
-                if (c != 0) return c;
-
-                // 0DTE first
-                c = b.Is0Dte.CompareTo(a.Is0Dte);
-                if (c != 0) return c;
-
-                return string.Compare(a.DisplayLabel, b.DisplayLabel, StringComparison.Ordinal);
-            });
-
-            // Join unique display labels (avoid duplicates)
-            var sb = new StringBuilder(64);
-
-            string last = null;
-
-            for (int i = 0; i < labels.Length; i++)
-            {
-                var t = labels[i].DisplayLabel;
-                if (string.IsNullOrWhiteSpace(t))
-                    continue;
-
-                if (string.Equals(t, last, StringComparison.Ordinal))
-                    continue;
-
-                if (sb.Length > 0)
-                    sb.Append(" & ");
-
-                sb.Append(t);
-                last = t;
-            }
-
-            return sb.ToString();
-        }
-
-        private void RebuildParsedEntriesIfNeeded()
-        {
-            if (!_dataDirty)
-                return;
-
-            _dataDirty = false;
-
-            try
-            {
-                CollectEntriesFromSources();
-
-                _parsedEntries = _collectedEntries;
-
-                if (_parsedEntries.Length == 0)
-                {
-                    _levels = Array.Empty<Level>();
-                    _visualDirty = true;
-                    _textSizeCache.Clear();
-                    return;
-                }
-
-                _levels = BuildLevels(_parsedEntries);
-                _visualDirty = true;
-                _textSizeCache.Clear();
-            }
-            catch (Exception ex)
-            {
-                this.LogError("[GammaLevels] Unexpected error while collecting/parsing sources.", ex);
-
-                _parsedEntries = Array.Empty<ParsedEntry>();
-                _collectedEntries = Array.Empty<ParsedEntry>();
-                _levels = Array.Empty<Level>();
-                _visualDirty = true;
-                _textSizeCache.Clear();
-            }
-        }
-
-
-        private void LogParseWarningsIfNeeded(string[] warnings, string input)
-        {
-            if (warnings == null || warnings.Length == 0)
-                return;
-
-            var nowMs = Environment.TickCount64;
-
-            // Avoid repeated spam: only log for new input, or if enough time has passed.
-            if (string.Equals(input, _lastWarningsKey, StringComparison.Ordinal) &&
-                (nowMs - _lastWarningLogMs) < _warningThrottleMs)
-                return;
-
-            _lastWarningsKey = input;
-            _lastWarningLogMs = nowMs;
-
-            var count = Math.Min(warnings.Length, _maxWarningsPerUpdate);
-
-            for (int i = 0; i < count; i++)
-                this.LogWarn($"[GammaLevels] {warnings[i]}");
-
-            if (warnings.Length > count)
-                this.LogWarn($"[GammaLevels] ... {warnings.Length - count} more warning(s).");
         }
 
         private static ParseResult ParseLoloText(string raw)
@@ -1441,6 +1292,10 @@ namespace ATAS.Indicators.Technical
                 entries.Count == 0 ? Array.Empty<ParsedEntry>() : entries.ToArray(),
                 warnings.Count == 0 ? Array.Empty<string>() : warnings.ToArray());
         }
+
+        #endregion
+
+        #region Private methods: parsing (MenthorQText)
 
         private static ParseResult ParseMenthorQText(string raw, decimal offset)
         {
@@ -1617,14 +1472,6 @@ namespace ATAS.Indicators.Technical
             return false;
         }
 
-        private static bool TryParseDecimalInvariant(string s, out decimal value)
-        {
-            return decimal.TryParse(
-                s,
-                System.Globalization.NumberStyles.Float,
-                System.Globalization.CultureInfo.InvariantCulture,
-                out value);
-        }
 
         private static string NormalizeWhitespace(string s)
         {
@@ -1735,6 +1582,230 @@ namespace ATAS.Indicators.Technical
             bandType = prefix;
             mmdd = rest.Substring(0, 5);
             return true;
+        }
+
+        #endregion
+
+        #region Private methods: engine
+
+        private static int GetCategoryPriority(LevelCategory category)
+        {
+            // Lower number = higher priority.
+            // Priority (as agreed):
+            // Volatility Trigger > PutWall/CallWall > Blind Levels > DayMin/DayMax
+            // > Zero Gamma > LargeGamma > Combo > RiskTrigger > Bands > Other
+            return category switch
+            {
+                LevelCategory.VolTrigger => 0,
+
+                LevelCategory.PutWall => 10,
+                LevelCategory.CallWall => 11,
+
+                LevelCategory.BlindLevel => 20,
+
+                LevelCategory.DayMin => 30,
+                LevelCategory.DayMax => 31,
+
+                LevelCategory.ZeroGamma => 40,
+
+                LevelCategory.LargeGamma => 50,
+
+                LevelCategory.Combo => 60,
+
+                LevelCategory.RiskTrigger => 70,
+
+                LevelCategory.LowerBand => 80,
+                LevelCategory.UpperBand => 81,
+
+                _ => 1000
+            };
+        }
+
+        
+        private static Level[] BuildLevels(ParsedEntry[] entries)
+        {
+            if (entries == null || entries.Length == 0)
+                return Array.Empty<Level>();
+
+            // Key: price, Value: merged labels
+            var map = new System.Collections.Generic.Dictionary<decimal, System.Collections.Generic.List<LevelLabel>>(entries.Length);
+
+            for (int i = 0; i < entries.Length; i++)
+            {
+                var e = entries[i];
+                if (e.Labels == null || e.Labels.Length == 0)
+                    continue;
+
+                if (!map.TryGetValue(e.Price, out var list))
+                {
+                    list = new System.Collections.Generic.List<LevelLabel>(e.Labels.Length);
+                    map.Add(e.Price, list);
+                }
+
+                for (int j = 0; j < e.Labels.Length; j++)
+                    list.Add(e.Labels[j]);
+            }
+
+            if (map.Count == 0)
+                return Array.Empty<Level>();
+
+            var levels = new Level[map.Count];
+            int k = 0;
+
+            foreach (var kvp in map)
+            {
+                var price = kvp.Key;
+                var labels = kvp.Value;
+
+                var labelsArray = labels.Count == 0 ? Array.Empty<LevelLabel>() : labels.ToArray();
+                var winner = SelectWinner(labelsArray);
+                var display = BuildDisplayText(labelsArray);
+
+                levels[k++] = new Level(price, labelsArray, winner, display);
+            }
+
+            Array.Sort(levels, (a, b) => a.Price.CompareTo(b.Price));
+            return levels;
+        }
+
+        private static LevelLabel SelectWinner(LevelLabel[] labels)
+        {
+            // Assumption: labels.Length > 0
+            var best = labels[0];
+
+            for (int i = 1; i < labels.Length; i++)
+            {
+                var cur = labels[i];
+
+                // 1) lower rank wins
+                if (cur.Rank < best.Rank)
+                {
+                    best = cur;
+                    continue;
+                }
+
+                if (cur.Rank > best.Rank)
+                    continue;
+
+                // 2) tie-breaker: category priority (VT > LG > PW/CW > CO > ZG > Other)
+                var pCur = GetCategoryPriority(cur.Category);
+                var pBest = GetCategoryPriority(best.Category);
+
+                if (pCur < pBest)
+                {
+                    best = cur;
+                    continue;
+                }
+
+                if (pCur > pBest)
+                    continue;
+
+                // 3) deterministic tie-breaker: prefer 0DTE
+                if (cur.Is0Dte && !best.Is0Dte)
+                {
+                    best = cur;
+                    continue;
+                }
+
+                // 4) final tie-breaker: lexical DisplayLabel to make output stable
+                if (string.Compare(cur.DisplayLabel, best.DisplayLabel, StringComparison.Ordinal) < 0)
+                    best = cur;
+            }
+
+            return best;
+        }
+
+        private static string BuildDisplayText(LevelLabel[] labels)
+        {
+            if (labels == null || labels.Length == 0)
+                return string.Empty;
+
+            // Keep a stable order: by rank, then category priority, then 0DTE first, then label.
+            Array.Sort(labels, (a, b) =>
+            {
+                var c = a.Rank.CompareTo(b.Rank);
+                if (c != 0) return c;
+
+                c = GetCategoryPriority(a.Category).CompareTo(GetCategoryPriority(b.Category));
+                if (c != 0) return c;
+
+                // 0DTE first
+                c = b.Is0Dte.CompareTo(a.Is0Dte);
+                if (c != 0) return c;
+
+                return string.Compare(a.DisplayLabel, b.DisplayLabel, StringComparison.Ordinal);
+            });
+
+            // Join unique display labels (avoid duplicates)
+            var sb = new StringBuilder(64);
+
+            string last = null;
+
+            for (int i = 0; i < labels.Length; i++)
+            {
+                var t = labels[i].DisplayLabel;
+                if (string.IsNullOrWhiteSpace(t))
+                    continue;
+
+                if (string.Equals(t, last, StringComparison.Ordinal))
+                    continue;
+
+                if (sb.Length > 0)
+                    sb.Append(" & ");
+
+                sb.Append(t);
+                last = t;
+            }
+
+            return sb.ToString();
+        }
+
+        private void RebuildParsedEntriesIfNeeded()
+        {
+            if (!_dataDirty)
+                return;
+
+            _dataDirty = false;
+
+            try
+            {
+                CollectEntriesFromSources();
+
+                _parsedEntries = _collectedEntries;
+
+                if (_parsedEntries.Length == 0)
+                {
+                    _levels = Array.Empty<Level>();
+                    _visualDirty = true;
+                    _textSizeCache.Clear();
+                    return;
+                }
+
+                _levels = BuildLevels(_parsedEntries);
+                _visualDirty = true;
+                _textSizeCache.Clear();
+            }
+            catch (Exception ex)
+            {
+                this.LogError("[GammaLevels] Unexpected error while collecting/parsing sources.", ex);
+
+                _parsedEntries = Array.Empty<ParsedEntry>();
+                _collectedEntries = Array.Empty<ParsedEntry>();
+                _levels = Array.Empty<Level>();
+                _visualDirty = true;
+                _textSizeCache.Clear();
+            }
+        }
+
+        #endregion
+
+        #region Private methods: rendering
+
+        private void RedrawChart()
+        {
+            // RecalculateValues triggers a render refresh in ATAS indicators.
+            // Use it for visual-only changes too to keep behavior consistent.
+            RecalculateValues();
         }
 
         private LineTier GetTierForWinner(LevelLabel winner)
@@ -1901,61 +1972,6 @@ namespace ATAS.Indicators.Technical
             return size;
         }
 
-        private void EnsureSources()
-        {
-            if (_sourcesInitialized)
-                return;
-
-            _sourcesInitialized = true;
-
-            _sources.Clear();
-            _sources.Add(new LoloTextSource(this));
-            _sources.Add(new MenthorQTextSource(this));
-        }
-
-        private void CollectEntriesFromSources()
-        {
-            EnsureSources();
-
-            // Fast path: no enabled sources or no data
-            // We'll build into lists and then materialize arrays once.
-            var entries = new List<ParsedEntry>(128);
-            var warnings = new List<string>(16);
-
-            for (int i = 0; i < _sources.Count; i++)
-            {
-                var src = _sources[i];
-                if (src == null || !src.IsEnabled)
-                    continue;
-
-                if (!src.TryGetEntries(out var srcEntries, out var srcWarnings))
-                    continue;
-
-                if (srcEntries != null && srcEntries.Length > 0)
-                    entries.AddRange(srcEntries);
-
-                if (srcWarnings != null && srcWarnings.Length > 0)
-                {
-                    // Prefix warnings with the source id for clarity.
-                    for (int w = 0; w < srcWarnings.Length; w++)
-                    {
-                        var msg = srcWarnings[w];
-                        if (string.IsNullOrWhiteSpace(msg))
-                            continue;
-
-                        warnings.Add($"[{src.SourceId}] {msg}");
-                    }
-                }
-            }
-
-            _collectedEntries = entries.Count == 0 ? Array.Empty<ParsedEntry>() : entries.ToArray();
-
-            var warningsKey = $"{LoloTextRaw}\n---\n{MenthorQTextRaw}";
-            LogParseWarningsIfNeeded(
-                warnings.Count == 0 ? Array.Empty<string>() : warnings.ToArray(),
-                warningsKey);
-        }
-
         private void RebuildFont()
         {
             // Rebuild font when size changes (text metrics depend on it).
@@ -1964,6 +1980,10 @@ namespace ATAS.Indicators.Technical
             // Invalidate cached measurements because they depend on font size.
             _textSizeCache.Clear();
         }
+
+        #endregion
+
+        #region Private methods: misc
 
         private static int GetMaxLevelCategoryValue()
         {
@@ -1979,6 +1999,15 @@ namespace ATAS.Indicators.Technical
             }
 
             return max;
+        }
+
+        private static bool TryParseDecimalInvariant(string s, out decimal value)
+        {
+            return decimal.TryParse(
+                s,
+                System.Globalization.NumberStyles.Float,
+                System.Globalization.CultureInfo.InvariantCulture,
+                out value);
         }
 
         #endregion
