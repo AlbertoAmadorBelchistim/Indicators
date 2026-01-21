@@ -180,6 +180,11 @@ namespace ATAS.Indicators.Technical
         // The actual drawing will be implemented in later commits.
 
         // -----------------------------
+        // Text measurement cache (avoid MeasureString per-frame)
+        // -----------------------------
+        private readonly Dictionary<string, (int W, int H)> _textSizeCache = new Dictionary<string, (int W, int H)>(StringComparer.Ordinal);
+
+        // -----------------------------
         // Base pens by category (legacy-like defaults)
         // -----------------------------
         private readonly PenSettings _penPutWall = new PenSettings { Color = CrossColor.FromArgb(255, 0, 255, 128), Width = 2 };   // PW #00FF80
@@ -759,6 +764,25 @@ namespace ATAS.Indicators.Technical
 
                 var pen = _linePens[catIdx, tierIdx, dashIdx];
                 context.DrawLine(pen.RenderObject, firstX, y, rightX, y);
+
+                // Draw label (commit 9)
+                var text = level.DisplayText;
+                if (!string.IsNullOrWhiteSpace(text))
+                {
+                    var (tw, th) = GetTextSizeCached(context, text);
+
+                    // Position: prefer above line; if clipped, draw below
+                    int textY = y - th - OffsetY;
+                    if (textY < topY)
+                        textY = y + OffsetY;
+
+                    int textX = LabelAlignment == LabelSide.Right
+                        ? (rightX - tw - OffsetX)
+                        : (Container.Region.Left + OffsetX);
+
+                    // Use same effective color as the line (already includes tier transparency)
+                    context.DrawString(text, _font, pen.RenderObject.Color, textX, textY);
+                }
             }
         }
 
@@ -1013,6 +1037,7 @@ namespace ATAS.Indicators.Technical
                 _parsedEntries = Array.Empty<ParsedEntry>();
                 _levels = Array.Empty<Level>();
                 _visualDirty = true;
+                _textSizeCache.Clear();
                 return;
             }
 
@@ -1024,6 +1049,7 @@ namespace ATAS.Indicators.Technical
 
             _levels = BuildLevels(_parsedEntries);
             _visualDirty = true;
+            _textSizeCache.Clear();
         }
 
         private void LogParseWarningsIfNeeded(string[] warnings, string input)
@@ -1298,6 +1324,20 @@ namespace ATAS.Indicators.Technical
                 LevelCategory.ZeroGamma => _penZeroGamma,
                 _ => _penOther
             };
+        }
+
+        private (int W, int H) GetTextSizeCached(RenderContext context, string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return (0, 0);
+
+            if (_textSizeCache.TryGetValue(text, out var size))
+                return size;
+
+            var s = context.MeasureString(text, _font);
+            size = ((int)s.Width, (int)s.Height);
+            _textSizeCache[text] = size;
+            return size;
         }
 
         #endregion
