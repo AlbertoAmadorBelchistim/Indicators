@@ -198,6 +198,11 @@ namespace ATAS.Indicators.Technical
         private ParsedEntry[] _parsedEntries = Array.Empty<ParsedEntry>();
 
         // -----------------------------
+        // Runtime: engine output
+        // -----------------------------
+        private Level[] _levels = Array.Empty<Level>();
+
+        // -----------------------------
         // UI: Source - LoloText
         // -----------------------------
         private bool _enableLoloText = true;
@@ -779,6 +784,144 @@ namespace ATAS.Indicators.Technical
             };
         }
 
+        private static Level[] BuildLevels(ParsedEntry[] entries)
+        {
+            if (entries == null || entries.Length == 0)
+                return Array.Empty<Level>();
+
+            // Key: price, Value: merged labels
+            var map = new System.Collections.Generic.Dictionary<decimal, System.Collections.Generic.List<LevelLabel>>(entries.Length);
+
+            for (int i = 0; i < entries.Length; i++)
+            {
+                var e = entries[i];
+                if (e.Labels == null || e.Labels.Length == 0)
+                    continue;
+
+                if (!map.TryGetValue(e.Price, out var list))
+                {
+                    list = new System.Collections.Generic.List<LevelLabel>(e.Labels.Length);
+                    map.Add(e.Price, list);
+                }
+
+                for (int j = 0; j < e.Labels.Length; j++)
+                    list.Add(e.Labels[j]);
+            }
+
+            if (map.Count == 0)
+                return Array.Empty<Level>();
+
+            var levels = new Level[map.Count];
+            int k = 0;
+
+            foreach (var kvp in map)
+            {
+                var price = kvp.Key;
+                var labels = kvp.Value;
+
+                var labelsArray = labels.Count == 0 ? Array.Empty<LevelLabel>() : labels.ToArray();
+                var winner = SelectWinner(labelsArray);
+                var display = BuildDisplayText(labelsArray);
+
+                levels[k++] = new Level(price, labelsArray, winner, display);
+            }
+
+            Array.Sort(levels, (a, b) => a.Price.CompareTo(b.Price));
+            return levels;
+        }
+
+        private static LevelLabel SelectWinner(LevelLabel[] labels)
+        {
+            // Assumption: labels.Length > 0
+            var best = labels[0];
+
+            for (int i = 1; i < labels.Length; i++)
+            {
+                var cur = labels[i];
+
+                // 1) lower rank wins
+                if (cur.Rank < best.Rank)
+                {
+                    best = cur;
+                    continue;
+                }
+
+                if (cur.Rank > best.Rank)
+                    continue;
+
+                // 2) tie-breaker: category priority (VT > LG > PW/CW > CO > ZG > Other)
+                var pCur = GetCategoryPriority(cur.Category);
+                var pBest = GetCategoryPriority(best.Category);
+
+                if (pCur < pBest)
+                {
+                    best = cur;
+                    continue;
+                }
+
+                if (pCur > pBest)
+                    continue;
+
+                // 3) deterministic tie-breaker: prefer 0DTE
+                if (cur.Is0Dte && !best.Is0Dte)
+                {
+                    best = cur;
+                    continue;
+                }
+
+                // 4) final tie-breaker: lexical DisplayLabel to make output stable
+                if (string.Compare(cur.DisplayLabel, best.DisplayLabel, StringComparison.Ordinal) < 0)
+                    best = cur;
+            }
+
+            return best;
+        }
+
+        private static string BuildDisplayText(LevelLabel[] labels)
+        {
+            if (labels == null || labels.Length == 0)
+                return string.Empty;
+
+            // Keep a stable order: by rank, then category priority, then 0DTE first, then label.
+            Array.Sort(labels, (a, b) =>
+            {
+                var c = a.Rank.CompareTo(b.Rank);
+                if (c != 0) return c;
+
+                c = GetCategoryPriority(a.Category).CompareTo(GetCategoryPriority(b.Category));
+                if (c != 0) return c;
+
+                // 0DTE first
+                c = b.Is0Dte.CompareTo(a.Is0Dte);
+                if (c != 0) return c;
+
+                return string.Compare(a.DisplayLabel, b.DisplayLabel, StringComparison.Ordinal);
+            });
+
+            // Join unique display labels (avoid duplicates)
+            var sb = new StringBuilder(64);
+
+            string last = null;
+
+            for (int i = 0; i < labels.Length; i++)
+            {
+                var t = labels[i].DisplayLabel;
+                if (string.IsNullOrWhiteSpace(t))
+                    continue;
+
+                if (string.Equals(t, last, StringComparison.Ordinal))
+                    continue;
+
+                if (sb.Length > 0)
+                    sb.Append(" & ");
+
+                sb.Append(t);
+                last = t;
+            }
+
+            return sb.ToString();
+        }
+
         private void RebuildParsedEntriesIfNeeded()
         {
             if (!_dataDirty)
@@ -790,6 +933,8 @@ namespace ATAS.Indicators.Technical
             if (!EnableLoloText || string.IsNullOrWhiteSpace(LoloTextRaw))
             {
                 _parsedEntries = Array.Empty<ParsedEntry>();
+                _levels = Array.Empty<Level>();
+                _visualDirty = true;
                 return;
             }
 
@@ -798,6 +943,9 @@ namespace ATAS.Indicators.Technical
             _parsedEntries = result.Entries;
 
             LogParseWarningsIfNeeded(result.Warnings, LoloTextRaw);
+
+            _levels = BuildLevels(_parsedEntries);
+            _visualDirty = true;
         }
 
         private void LogParseWarningsIfNeeded(string[] warnings, string input)
