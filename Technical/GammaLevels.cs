@@ -151,6 +151,39 @@ namespace ATAS.Indicators.Technical
             bool TryGetEntries(out ParsedEntry[] entries, out string[] warnings);
         }
 
+        private sealed class LoloTextSource : ILevelsSource
+        {
+            private readonly GammaLevels _owner;
+
+            public LoloTextSource(GammaLevels owner)
+            {
+                _owner = owner ?? throw new ArgumentNullException(nameof(owner));
+            }
+
+            public string SourceId => "LoloText";
+
+            public bool IsEnabled => _owner.EnableLoloText;
+
+            public bool TryGetEntries(out ParsedEntry[] entries, out string[] warnings)
+            {
+                var raw = _owner.LoloTextRaw;
+
+                if (!IsEnabled || string.IsNullOrWhiteSpace(raw))
+                {
+                    entries = Array.Empty<ParsedEntry>();
+                    warnings = Array.Empty<string>();
+                    return true;
+                }
+
+                var result = ParseLoloText(raw);
+
+                entries = result.Entries;
+                warnings = result.Warnings;
+                return true;
+            }
+        }
+
+
         #endregion
 
         #region Nested types: parsing
@@ -170,6 +203,15 @@ namespace ATAS.Indicators.Technical
         #endregion
 
         #region Fields
+
+        // -----------------------------
+        // Sources
+        // -----------------------------
+        private readonly List<ILevelsSource> _sources = new List<ILevelsSource>(2);
+        private bool _sourcesInitialized;
+
+        // Collector output (union of sources)
+        private ParsedEntry[] _collectedEntries = Array.Empty<ParsedEntry>();
 
         // -----------------------------
         // Rendering (shell only)
@@ -1036,26 +1078,36 @@ namespace ATAS.Indicators.Technical
 
             _dataDirty = false;
 
-            // If source disabled or empty, clear.
-            if (!EnableLoloText || string.IsNullOrWhiteSpace(LoloTextRaw))
+            try
             {
+                CollectEntriesFromSources();
+
+                _parsedEntries = _collectedEntries;
+
+                if (_parsedEntries.Length == 0)
+                {
+                    _levels = Array.Empty<Level>();
+                    _visualDirty = true;
+                    _textSizeCache.Clear();
+                    return;
+                }
+
+                _levels = BuildLevels(_parsedEntries);
+                _visualDirty = true;
+                _textSizeCache.Clear();
+            }
+            catch (Exception ex)
+            {
+                this.LogError("[GammaLevels] Unexpected error while collecting/parsing sources.", ex);
+
                 _parsedEntries = Array.Empty<ParsedEntry>();
+                _collectedEntries = Array.Empty<ParsedEntry>();
                 _levels = Array.Empty<Level>();
                 _visualDirty = true;
                 _textSizeCache.Clear();
-                return;
             }
-
-            var result = ParseLoloText(LoloTextRaw);
-
-            _parsedEntries = result.Entries;
-
-            LogParseWarningsIfNeeded(result.Warnings, LoloTextRaw);
-
-            _levels = BuildLevels(_parsedEntries);
-            _visualDirty = true;
-            _textSizeCache.Clear();
         }
+
 
         private void LogParseWarningsIfNeeded(string[] warnings, string input)
         {
@@ -1344,6 +1396,61 @@ namespace ATAS.Indicators.Technical
             _textSizeCache[text] = size;
             return size;
         }
+
+        private void EnsureSources()
+        {
+            if (_sourcesInitialized)
+                return;
+
+            _sourcesInitialized = true;
+
+            _sources.Clear();
+            _sources.Add(new LoloTextSource(this));
+        }
+
+        private void CollectEntriesFromSources()
+        {
+            EnsureSources();
+
+            // Fast path: no enabled sources or no data
+            // We'll build into lists and then materialize arrays once.
+            var entries = new List<ParsedEntry>(128);
+            var warnings = new List<string>(16);
+
+            for (int i = 0; i < _sources.Count; i++)
+            {
+                var src = _sources[i];
+                if (src == null || !src.IsEnabled)
+                    continue;
+
+                if (!src.TryGetEntries(out var srcEntries, out var srcWarnings))
+                    continue;
+
+                if (srcEntries != null && srcEntries.Length > 0)
+                    entries.AddRange(srcEntries);
+
+                if (srcWarnings != null && srcWarnings.Length > 0)
+                {
+                    // Prefix warnings with the source id for clarity.
+                    for (int w = 0; w < srcWarnings.Length; w++)
+                    {
+                        var msg = srcWarnings[w];
+                        if (string.IsNullOrWhiteSpace(msg))
+                            continue;
+
+                        warnings.Add($"[{src.SourceId}] {msg}");
+                    }
+                }
+            }
+
+            _collectedEntries = entries.Count == 0 ? Array.Empty<ParsedEntry>() : entries.ToArray();
+
+            // Reuse existing throttled logger with a stable "input fingerprint".
+            // For now we log against LoloTextRaw only; next commit we’ll compute a combined fingerprint.
+            // (This keeps this commit minimal.)
+            LogParseWarningsIfNeeded(warnings.Count == 0 ? Array.Empty<string>() : warnings.ToArray(), LoloTextRaw);
+        }
+
 
         #endregion
     }
