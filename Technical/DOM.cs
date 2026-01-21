@@ -474,7 +474,7 @@ public class DOM : Indicator
 			}
 		}
 
-		// _bids sorted descending (high to low)
+		// _bids is sorted descending (high to low)
 		foreach (var (price, depth) in _bids)
 		{
 			if (price > maxPrice)
@@ -1012,7 +1012,7 @@ public class DOM : Indicator
 
 		_cumulativeHistogram.Draw(context, true);
 
-		if (VisualMode is Mode.Cumulative)
+		if (VisualMode is Mode.Cumulative && _fontHeight >= _minFontHeight)
 		{
 			foreach (var (price, volume) in _cumulativeBid)
 				DrawText(context, price, volume);
@@ -1024,9 +1024,6 @@ public class DOM : Indicator
 
 	private void DrawText(RenderContext context, decimal price, decimal volume)
 	{
-		if (_fontHeight < _minFontHeight)
-			return;
-
 		var y = ChartInfo.GetYByPrice(price);
 		var renderText = ChartInfo.TryGetMinimizedVolumeString(volume, price);
 		var textWidth = context.MeasureString(renderText, _font).Width + 5;
