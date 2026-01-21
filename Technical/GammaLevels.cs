@@ -258,7 +258,7 @@ namespace ATAS.Indicators.Technical
         private const int _maxWarningsPerUpdate = 10;
         private const long _warningThrottleMs = 800;
 
-        private int _lastInputHash;
+        private string _lastWarningsKey;
         private long _lastWarningLogMs;
 
         // -----------------------------
@@ -1144,13 +1144,13 @@ namespace ATAS.Indicators.Technical
                 return;
 
             var nowMs = Environment.TickCount64;
-            var hash = input.GetHashCode();
 
             // Avoid repeated spam: only log for new input, or if enough time has passed.
-            if (hash == _lastInputHash && (nowMs - _lastWarningLogMs) < _warningThrottleMs)
+            if (string.Equals(input, _lastWarningsKey, StringComparison.Ordinal) &&
+                (nowMs - _lastWarningLogMs) < _warningThrottleMs)
                 return;
 
-            _lastInputHash = hash;
+            _lastWarningsKey = input;
             _lastWarningLogMs = nowMs;
 
             var count = Math.Min(warnings.Length, _maxWarningsPerUpdate);
@@ -1485,6 +1485,8 @@ namespace ATAS.Indicators.Technical
             // Rebuild font when size changes (text metrics depend on it).
             _font = new RenderFont("Arial", _fontSize);
 
+            // Invalidate cached measurements because they depend on font size.
+            _textSizeCache.Clear();
         }
 
         #endregion
