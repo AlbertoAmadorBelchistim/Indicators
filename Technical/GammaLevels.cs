@@ -289,6 +289,7 @@ namespace ATAS.Indicators.Technical
         private LabelSide _labelAlignment = LabelSide.Right;
         private int _offsetX = 6;
         private int _offsetY = 0;
+        private int _fontSize = 12;
 
         // -----------------------------
         // UI: Lines / Tiers (shell only - used later)
@@ -483,6 +484,30 @@ namespace ATAS.Indicators.Technical
                 RedrawChart();
             }
         }
+
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.FontSize),
+            GroupName = nameof(Resources.Labels),
+            Description = nameof(Resources.FontSizeDescription),
+            Order = 230)]
+        [Range(6, 48)]
+        public int FontSize
+        {
+            get => _fontSize;
+            set
+            {
+                if (_fontSize == value)
+                    return;
+
+                _fontSize = value;
+
+                RebuildFont();
+
+                _visualDirty = true;
+                RedrawChart();
+            }
+        }
+
         #endregion
         // -----------------------------
         // UI: Lines / Tiers (shell only - used later)
@@ -733,8 +758,7 @@ namespace ATAS.Indicators.Technical
             EnableCustomDrawing = true;
             SubscribeToDrawingEvents(DrawingLayouts.Final);
 
-            // Keep a simple default font; will be finalized when text rendering is implemented.
-            _font = new RenderFont("Arial", 12);
+            _font = new RenderFont("Arial", _fontSize);
         }
         #endregion
 
@@ -1456,6 +1480,12 @@ namespace ATAS.Indicators.Technical
             LogParseWarningsIfNeeded(warnings.Count == 0 ? Array.Empty<string>() : warnings.ToArray(), LoloTextRaw);
         }
 
+        private void RebuildFont()
+        {
+            // Rebuild font when size changes (text metrics depend on it).
+            _font = new RenderFont("Arial", _fontSize);
+
+        }
 
         #endregion
     }
