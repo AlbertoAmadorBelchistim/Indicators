@@ -411,7 +411,7 @@ public class DOM : Indicator
 				_maxPrice = Math.Min(MaxDepthPrice, maxBid * 1.3m);
 				_minPrice = Math.Max(MinDepthPrice, maxBid * 0.7m);
 
-				var maxLevel = GetMaxVolumeLevel();
+				var maxLevel = FindMaxVolume();
 				_maxVolume = new VolumeInfo
 				{
 					Price = maxLevel.Price,
@@ -454,23 +454,43 @@ public class DOM : Indicator
 		}
 	}
 
-	private MarketDataArg GetMaxVolumeLevel()
+	private (decimal Price, decimal Volume) FindMaxVolume(decimal? minPrice = null, decimal? maxPrice = null)
 	{
-		MarketDataArg max = null;
+		var maxVolume = 0m;
+		var maxVolumePrice = 0m;
 
-		foreach (var level in _asks.Values)
+		foreach (var (price, depth) in _asks)
 		{
-			if (max == null || level.Volume > max.Volume)
-				max = level;
+			if (price < minPrice)
+				continue;
+
+			if (price > maxPrice)
+				break;
+
+			if (depth.Volume > maxVolume)
+			{
+				maxVolume = depth.Volume;
+				maxVolumePrice = price;
+			}
 		}
 
-		foreach (var level in _bids.Values)
+		// _bids sorted descending (high to low)
+		foreach (var (price, depth) in _bids)
 		{
-			if (max == null || level.Volume > max.Volume)
-				max = level;
+			if (price > maxPrice)
+				continue;
+
+			if (price < minPrice)
+				break;
+
+			if (depth.Volume > maxVolume)
+			{
+				maxVolume = depth.Volume;
+				maxVolumePrice = price;
+			}
 		}
 
-		return max ?? new MarketDataArg { Price = 0, Volume = 0 };
+		return (maxVolumePrice, maxVolume);
 	}
 
 	protected override void OnRender(RenderContext context, DrawingLayouts layout)
@@ -800,15 +820,12 @@ public class DOM : Indicator
 
 			if (UseScale || isCumulative)
 			{
-				var maxDepthPrice = MaxDepthPrice;
-				var minDepthPrice = MinDepthPrice;
-
 				if (depth.Price >= _maxPrice || depth.Volume == 0)
 				{
 					if (depth.Price >= _maxPrice && depth.Volume != 0)
 						_maxPrice = depth.Price;
 					else if (depth.Price >= _maxPrice && depth.Volume == 0)
-						_maxPrice = maxDepthPrice;
+						_maxPrice = MaxDepthPrice;
 
 					if (UseScale)
 						_upScale[CurrentBar - 1] = _maxPrice + InstrumentInfo.TickSize * (_scale + 3);
@@ -819,7 +836,7 @@ public class DOM : Indicator
 					if (depth.Price <= _minPrice && depth.Volume != 0)
 						_minPrice = depth.Price;
 					else if (depth.Price <= _minPrice && depth.Volume == 0)
-						_minPrice = minDepthPrice;
+						_minPrice = MinDepthPrice;
 
 					if (UseScale)
 						_downScale[CurrentBar - 1] = _minPrice - InstrumentInfo.TickSize * (_scale + 3);
@@ -832,7 +849,7 @@ public class DOM : Indicator
 					_maxVolume.Volume = depth.Volume;
 				else
 				{
-					var maxLevel = GetMaxVolumeLevel();
+					var maxLevel = FindMaxVolume();
 					_maxVolume.Price = maxLevel.Price;
 					_maxVolume.Volume = maxLevel.Volume;
 				}
@@ -1278,38 +1295,7 @@ public class DOM : Indicator
 		if (_visibleVolumeCache is { } cache && cache.MinPrice == minPrice && cache.MaxPrice == maxPrice)
 			return cache.Volume;
 
-		var maxVolume = 0m;
-		var maxVolumePrice = 0m;
-
-		foreach (var (price, depth) in _asks)
-		{
-			if (price < minPrice)
-				continue;
-
-			if (price > maxPrice)
-				break;
-
-			if (depth.Volume > maxVolume)
-			{
-				maxVolume = depth.Volume;
-				maxVolumePrice = price;
-			}
-		}
-
-		foreach (var (price, depth) in _bids)
-		{
-			if (price < minPrice)
-				continue;
-
-			if (price > maxPrice)
-				break;
-
-			if (depth.Volume > maxVolume)
-			{
-				maxVolume = depth.Volume;
-				maxVolumePrice = price;
-			}
-		}
+		var (maxVolumePrice, maxVolume) = FindMaxVolume(minPrice, maxPrice);
 
 		_visibleVolumeCache = (maxVolume, maxVolumePrice, minPrice, maxPrice);
 
