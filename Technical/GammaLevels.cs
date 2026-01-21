@@ -376,6 +376,11 @@ namespace ATAS.Indicators.Technical
                     return;
 
                 _loloTextRaw = string.Empty;
+
+                // Ensure UI textbox refreshes immediately (legacy LevelsLolo behavior).
+                RaisePropertyChanged(nameof(LoloTextRaw));
+                _textSizeCache.Clear();
+
                 _dataDirty = true;
                 RecalculateValues();
             }
