@@ -24,14 +24,24 @@ namespace ATAS.Indicators.Technical
 
         internal enum LevelCategory
         {
-            VolTrigger = 0,   // VT
-            LargeGamma = 1,   // LG
-            PutWall = 2,      // PW
-            CallWall = 3,     // CW
-            Combo = 4,        // CO
-            ZeroGamma = 5,    // ZG / Zero Gamma
-            Other = 6
+            Combo = 0,
+            LargeGamma = 1,
+            VolTrigger = 2,
+            CallWall = 3,
+            PutWall = 4,
+            ZeroGamma = 5,
+
+            // MenthorQ-specific categories
+            BlindLevel = 6,
+            DayMin = 7,
+            DayMax = 8,
+            RiskTrigger = 9,
+            LowerBand = 10,
+            UpperBand = 11,
+
+            Other = 100
         }
+
 
         internal enum LineTier
         {
@@ -1063,18 +1073,37 @@ namespace ATAS.Indicators.Technical
         }
         private static int GetCategoryPriority(LevelCategory category)
         {
-            // Lower value = higher priority.
+            // Lower number = higher priority.
+            // Priority (as agreed):
+            // Volatility Trigger > PutWall/CallWall > Blind Levels > DayMin/DayMax
+            // > Zero Gamma > LargeGamma > Combo > RiskTrigger > Bands > Other
             return category switch
             {
-                LevelCategory.VolTrigger => 0, // VT
-                LevelCategory.LargeGamma => 1, // LG
-                LevelCategory.PutWall => 2,    // PW
-                LevelCategory.CallWall => 2,   // CW (same tier as PW)
-                LevelCategory.Combo => 3,      // CO
-                LevelCategory.ZeroGamma => 4,  // ZG
-                _ => 5
+                LevelCategory.VolTrigger => 0,
+
+                LevelCategory.PutWall => 10,
+                LevelCategory.CallWall => 11,
+
+                LevelCategory.BlindLevel => 20,
+
+                LevelCategory.DayMin => 30,
+                LevelCategory.DayMax => 31,
+
+                LevelCategory.ZeroGamma => 40,
+
+                LevelCategory.LargeGamma => 50,
+
+                LevelCategory.Combo => 60,
+
+                LevelCategory.RiskTrigger => 70,
+
+                LevelCategory.LowerBand => 80,
+                LevelCategory.UpperBand => 81,
+
+                _ => 1000
             };
         }
+
 
         private static Level[] BuildLevels(ParsedEntry[] entries)
         {
