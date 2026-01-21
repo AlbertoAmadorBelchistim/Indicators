@@ -4660,6 +4660,42 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Offset.
+        /// </summary>
+        public static string MenthorQOffset {
+            get {
+                return ResourceManager.GetString("MenthorQOffset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Price offset applied to MenthorQ levels (use to align ES1! vs SPX). Can be positive or negative..
+        /// </summary>
+        public static string MenthorQOffsetDesc {
+            get {
+                return ResourceManager.GetString("MenthorQOffsetDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a MenthorQ Text.
+        /// </summary>
+        public static string MenthorQText {
+            get {
+                return ResourceManager.GetString("MenthorQText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Paste MenthorQ levels (label/price pairs separated by commas, optional &apos;$TICKER:&apos; prefix)..
+        /// </summary>
+        public static string MenthorQTextDesc {
+            get {
+                return ResourceManager.GetString("MenthorQTextDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Middle.
         /// </summary>
         public static string Middle {

@@ -1300,4 +1300,23 @@
   <value>标签字体大小。</value>
   <comment>UI</comment>
 </data>
+<data name="MenthorQText" xml:space="preserve">
+  <value>MenthorQ 文本</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="MenthorQTextDesc" xml:space="preserve">
+  <value>粘贴 MenthorQ 水平（以逗号分隔的“标签/价格”对，可选“$TICKER:”前缀）。</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="MenthorQOffset" xml:space="preserve">
+  <value>偏移</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="MenthorQOffsetDesc" xml:space="preserve">
+  <value>应用于 MenthorQ 水平的价格偏移（用于对齐 ES1! 与 SPX）。可为正或负。</value>
+  <comment>GammaLevels</comment>
+</data>
 </root>

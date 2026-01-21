@@ -1350,4 +1350,23 @@
   <value>लेबल फ़ॉन्ट का आकार।</value>
   <comment>UI</comment>
 </data>
+<data name="MenthorQText" xml:space="preserve">
+  <value>MenthorQ टेक्स्ट</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="MenthorQTextDesc" xml:space="preserve">
+  <value>MenthorQ स्तर पेस्ट करें (कॉमा से अलग किए गए लेबल/प्राइस जोड़े, वैकल्पिक '$TICKER:' प्रीफ़िक्स)।</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="MenthorQOffset" xml:space="preserve">
+  <value>ऑफ़सेट</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="MenthorQOffsetDesc" xml:space="preserve">
+  <value>MenthorQ स्तरों पर लागू मूल्य ऑफ़सेट (ES1! बनाम SPX संरेखण के लिए)। यह धनात्मक या ऋणात्मक हो सकता है।</value>
+  <comment>GammaLevels</comment>
+</data>
 </root>
