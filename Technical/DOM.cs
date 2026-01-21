@@ -105,7 +105,7 @@ public class DOM : Indicator
 	private RenderFont _font = new("Arial", _fontSize); 
 	private RenderFont _cumulativeFont = new("Arial", 9);
 
-    private object _locker = new();
+    private readonly object _locker = new();
 
 	private decimal _maxPrice = decimal.MinValue;
 
@@ -1024,29 +1024,19 @@ public class DOM : Indicator
 
 	private void DrawText(RenderContext context, decimal price, decimal volume)
 	{
-		var form = RightToLeft ? _stringRightFormat : _stringLeftFormat;
+		if (_fontHeight < _minFontHeight)
+			return;
 
 		var y = ChartInfo.GetYByPrice(price);
-		var renderText = ChartInfo.TryGetMinimizedVolumeString(volume,price);
+		var renderText = ChartInfo.TryGetMinimizedVolumeString(volume, price);
 		var textWidth = context.MeasureString(renderText, _font).Width + 5;
+		var rowHeight = (int)ChartInfo.PriceChartContainer.PriceRowHeight;
 
-		var textRect = new Rectangle(new Point(ChartInfo.Region.Width - textWidth, y),
-			new Size(textWidth, (int)ChartInfo.PriceChartContainer.PriceRowHeight));
+		var textRect = RightToLeft
+			? new Rectangle(ChartInfo.Region.Width - textWidth, y, textWidth, rowHeight)
+			: new Rectangle(ChartInfo.Region.Width - Width, y, textWidth, rowHeight);
 
-		if (!RightToLeft)
-		{
-			textRect = new Rectangle(new Point(ChartInfo.Region.Width - Width, y),
-				new Size(textWidth, (int)ChartInfo.PriceChartContainer.PriceRowHeight));
-		}
-
-		if (_fontHeight >= _minFontHeight)
-		{
-			context.DrawString(renderText,
-				_font,
-				_textColor,
-				textRect,
-				form);
-		}
+		context.DrawString(renderText, _font, _textColor, textRect, RightToLeft ? _stringRightFormat : _stringLeftFormat);
 	}
 
 	private void DrawBackGround(RenderContext context, int priceY)
