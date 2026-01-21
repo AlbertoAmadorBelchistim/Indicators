@@ -703,7 +703,7 @@ namespace ATAS.Indicators.Technical
 
         protected override void OnRender(RenderContext context, DrawingLayouts layout)
         {
-            if (ChartInfo is not { PriceChartContainer.BarsWidth: > 2 })
+            if (ChartInfo is null)
                 return;
 
             if (LastVisibleBarNumber > CurrentBar - 1)
@@ -733,10 +733,15 @@ namespace ATAS.Indicators.Technical
                     continue;
 
                 int y = ChartExtensions.GetYByPrice(chart, level.Price, false);
+                
+                // Defensive guard: some builds return extreme values when price is far outside visible scale.
+                if (y <= -1000000 || y >= 1000000)
+                    continue;
 
                 if (OnlyVisiblePriceRange)
                 {
-                    if (y < topY || y > botY)
+                    int margin = 20; // px
+                    if (y < topY - margin || y > botY + margin)
                         continue;
                 }
 
