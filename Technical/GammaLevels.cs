@@ -208,9 +208,19 @@ namespace ATAS.Indicators.Technical
 
             public bool TryGetEntries(out ParsedEntry[] entries, out string[] warnings)
             {
-                // Parser will be implemented in a later commit.
-                entries = Array.Empty<ParsedEntry>();
-                warnings = Array.Empty<string>();
+                var raw = _owner.MenthorQTextRaw;
+
+                if (!IsEnabled || string.IsNullOrWhiteSpace(raw))
+                {
+                    entries = Array.Empty<ParsedEntry>();
+                    warnings = Array.Empty<string>();
+                    return true;
+                }
+
+                var result = ParseMenthorQText(raw, _owner.MenthorQOffset);
+
+                entries = result.Entries;
+                warnings = result.Warnings;
                 return true;
             }
         }
@@ -1412,6 +1422,301 @@ namespace ATAS.Indicators.Technical
             return new ParseResult(
                 entries.Count == 0 ? Array.Empty<ParsedEntry>() : entries.ToArray(),
                 warnings.Count == 0 ? Array.Empty<string>() : warnings.ToArray());
+        }
+
+        private static ParseResult ParseMenthorQText(string raw, decimal offset)
+        {
+            if (string.IsNullOrWhiteSpace(raw))
+                return new ParseResult(Array.Empty<ParsedEntry>(), Array.Empty<string>());
+
+            raw = raw.Trim();
+
+            // Optional prefix: "$TICKER:"
+            // We don't strictly need the ticker for MVP, but we parse it for logging/debug.
+            string ticker = string.Empty;
+            var colon = raw.IndexOf(':');
+            if (colon > 0 && raw[0] == '$')
+            {
+                ticker = raw.Substring(1, colon - 1).Trim();
+                raw = raw.Substring(colon + 1);
+            }
+
+            var parts = raw.Split(',');
+            if (parts.Length < 2)
+                return new ParseResult(Array.Empty<ParsedEntry>(), new[] { "Expected comma-separated label/price pairs." });
+
+            var warnings = new List<string>(8);
+            var entries = new List<ParsedEntry>(parts.Length / 2);
+
+            // Parse as label/price pairs: (0,1), (2,3), ...
+            for (int i = 0; i + 1 < parts.Length; i += 2)
+            {
+                var labelRaw = (parts[i] ?? string.Empty).Trim();
+                var priceRaw = (parts[i + 1] ?? string.Empty).Trim();
+
+                if (labelRaw.Length == 0)
+                {
+                    warnings.Add($"Empty label at pair index {i / 2 + 1}.");
+                    continue;
+                }
+
+                if (!TryParseDecimalInvariant(priceRaw, out var price))
+                {
+                    warnings.Add($"Invalid price '{priceRaw}' for label '{labelRaw}'.");
+                    continue;
+                }
+
+                price += offset;
+
+                if (!TryMapMenthorQLabel(labelRaw, out var mapped))
+                {
+                    // Unknown label: keep it as Other, but still plot it (user pasted something new).
+                    mapped = new MenthorQMappedLabel(
+                        displayLabel: NormalizeWhitespace(labelRaw),
+                        category: LevelCategory.Other,
+                        rank: 999,
+                        is0Dte: Contains0Dte(labelRaw));
+                }
+
+                // Build a single-label entry at this price.
+                var sourceId = string.IsNullOrEmpty(ticker) ? "MenthorQText" : $"MenthorQText:{ticker}";
+                var lvlLabel = new LevelLabel(
+                    mapped.Category,
+                    mapped.Rank,
+                    mapped.Is0Dte,
+                    rawLabel: labelRaw,
+                    displayLabel: mapped.DisplayLabel);
+
+                entries.Add(new ParsedEntry(price, new[] { lvlLabel }, sourceId));
+            }
+
+            if (entries.Count == 0 && warnings.Count == 0)
+                warnings.Add("No valid label/price pairs found.");
+
+            return new ParseResult(
+                entries.Count == 0 ? Array.Empty<ParsedEntry>() : entries.ToArray(),
+                warnings.Count == 0 ? Array.Empty<string>() : warnings.ToArray());
+        }
+
+        private readonly struct MenthorQMappedLabel
+        {
+            public MenthorQMappedLabel(string displayLabel, LevelCategory category, int rank, bool is0Dte)
+            {
+                DisplayLabel = displayLabel;
+                Category = category;
+                Rank = rank;
+                Is0Dte = is0Dte;
+            }
+
+            public string DisplayLabel { get; }
+            public LevelCategory Category { get; }
+            public int Rank { get; }
+            public bool Is0Dte { get; }
+        }
+
+        private static bool TryMapMenthorQLabel(string labelRaw, out MenthorQMappedLabel mapped)
+        {
+            mapped = default;
+
+            var s = NormalizeWhitespace(labelRaw);
+            if (s.Length == 0)
+                return false;
+
+            bool is0Dte = Contains0Dte(s);
+
+            // Strip trailing "0DTE" for display normalization if present.
+            var sNo0 = Remove0DteSuffix(s);
+
+            // Exact common labels
+            if (EqualsIgnoreCase(sNo0, "Call Resistance"))
+            {
+                mapped = new MenthorQMappedLabel("CW" + (is0Dte ? " 0DTE" : string.Empty), LevelCategory.CallWall, 0, is0Dte);
+                return true;
+            }
+
+            if (EqualsIgnoreCase(sNo0, "Put Support"))
+            {
+                mapped = new MenthorQMappedLabel("PW" + (is0Dte ? " 0DTE" : string.Empty), LevelCategory.PutWall, 0, is0Dte);
+                return true;
+            }
+
+            if (EqualsIgnoreCase(sNo0, "HVL"))
+            {
+                mapped = new MenthorQMappedLabel("VT" + (is0Dte ? " 0DTE" : string.Empty), LevelCategory.VolTrigger, 0, is0Dte);
+                return true;
+            }
+
+            if (EqualsIgnoreCase(sNo0, "Gamma Wall"))
+            {
+                // Strongest LargeGamma -> rank 0
+                mapped = new MenthorQMappedLabel("LG0" + (is0Dte ? " 0DTE" : string.Empty), LevelCategory.LargeGamma, 0, is0Dte);
+                return true;
+            }
+
+            if (EqualsIgnoreCase(sNo0, "1D Min"))
+            {
+                mapped = new MenthorQMappedLabel("1D Min", LevelCategory.DayMin, 0, is0Dte);
+                return true;
+            }
+
+            if (EqualsIgnoreCase(sNo0, "1D Max"))
+            {
+                mapped = new MenthorQMappedLabel("1D Max", LevelCategory.DayMax, 0, is0Dte);
+                return true;
+            }
+
+            // Patterns:
+            // - "GEX 1" .. "GEX 10"
+            // - "BL 1" .. "BL 10"
+            // - "LB 01-13", "RT 01-14", "UB 01-20"
+            if (TryParsePrefixNumber(sNo0, "GEX", out var gexN))
+            {
+                // Smaller number = stronger
+                mapped = new MenthorQMappedLabel($"LG{gexN}" + (is0Dte ? " 0DTE" : string.Empty), LevelCategory.LargeGamma, gexN, is0Dte);
+                return true;
+            }
+
+            if (TryParsePrefixNumber(sNo0, "BL", out var blN))
+            {
+                mapped = new MenthorQMappedLabel($"BL {blN}" + (is0Dte ? " 0DTE" : string.Empty), LevelCategory.BlindLevel, blN, is0Dte);
+                return true;
+            }
+
+            if (TryParseBandOrTrigger(sNo0, out var bandType, out var mmdd))
+            {
+                var cat = bandType switch
+                {
+                    "LB" => LevelCategory.LowerBand,
+                    "UB" => LevelCategory.UpperBand,
+                    "RT" => LevelCategory.RiskTrigger,
+                    _ => LevelCategory.Other
+                };
+
+                mapped = new MenthorQMappedLabel($"{bandType} {mmdd}" + (is0Dte ? " 0DTE" : string.Empty), cat, 0, is0Dte);
+                return true;
+            }
+
+            return false;
+        }
+
+        private static bool TryParseDecimalInvariant(string s, out decimal value)
+        {
+            return decimal.TryParse(
+                s,
+                System.Globalization.NumberStyles.Float,
+                System.Globalization.CultureInfo.InvariantCulture,
+                out value);
+        }
+
+        private static string NormalizeWhitespace(string s)
+        {
+            if (s == null)
+                return string.Empty;
+
+            s = s.Trim();
+            if (s.Length == 0)
+                return string.Empty;
+
+            // Collapse multiple spaces to single space.
+            var sb = new System.Text.StringBuilder(s.Length);
+            bool prevSpace = false;
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                char ch = s[i];
+                if (char.IsWhiteSpace(ch))
+                {
+                    if (!prevSpace)
+                        sb.Append(' ');
+                    prevSpace = true;
+                }
+                else
+                {
+                    sb.Append(ch);
+                    prevSpace = false;
+                }
+            }
+
+            return sb.ToString();
+        }
+
+        private static bool Contains0Dte(string s)
+        {
+            return s.IndexOf("0DTE", StringComparison.OrdinalIgnoreCase) >= 0;
+        }
+
+        private static string Remove0DteSuffix(string s)
+        {
+            // Remove trailing "... 0DTE" if present (case-insensitive).
+            // Keep internal "0DTE" occurrences (rare).
+            var idx = s.LastIndexOf("0DTE", StringComparison.OrdinalIgnoreCase);
+            if (idx < 0)
+                return s;
+
+            // Only treat as suffix if after it there's only whitespace.
+            for (int i = idx + 4; i < s.Length; i++)
+            {
+                if (!char.IsWhiteSpace(s[i]))
+                    return s;
+            }
+
+            var before = s.Substring(0, idx).TrimEnd();
+            return before;
+        }
+
+        private static bool EqualsIgnoreCase(string a, string b)
+        {
+            return string.Equals(a, b, StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static bool TryParsePrefixNumber(string s, string prefix, out int n)
+        {
+            n = 0;
+
+            // Accept "PREFIX 1" or "PREFIX    1"
+            if (!s.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+                return false;
+
+            var rest = s.Substring(prefix.Length).TrimStart();
+            if (rest.Length == 0)
+                return false;
+
+            // If rest starts with '-' it's not a number we want.
+            int i = 0;
+            while (i < rest.Length && char.IsDigit(rest[i]))
+                i++;
+
+            if (i == 0)
+                return false;
+
+            return int.TryParse(rest.Substring(0, i), NumberStyles.Integer, CultureInfo.InvariantCulture, out n);
+        }
+
+        private static bool TryParseBandOrTrigger(string s, out string bandType, out string mmdd)
+        {
+            bandType = null;
+            mmdd = null;
+
+            // Expect: "LB 01-13" / "RT 01-14" / "UB 01-20"
+            if (s.Length < 3)
+                return false;
+
+            var prefix = s.Substring(0, 2).ToUpperInvariant();
+            if (prefix != "LB" && prefix != "RT" && prefix != "UB")
+                return false;
+
+            var rest = s.Substring(2).TrimStart();
+            if (rest.Length < 5)
+                return false;
+
+            // Very lightweight validation: NN-NN
+            // We keep as label string; no date parsing in MVP.
+            if (!char.IsDigit(rest[0]) || !char.IsDigit(rest[1]) || rest[2] != '-' || !char.IsDigit(rest[3]) || !char.IsDigit(rest[4]))
+                return false;
+
+            bandType = prefix;
+            mmdd = rest.Substring(0, 5);
+            return true;
         }
 
         private LineTier GetTierForWinner(LevelLabel winner)
