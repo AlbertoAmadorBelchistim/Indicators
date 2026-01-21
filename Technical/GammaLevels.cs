@@ -107,43 +107,6 @@ namespace ATAS.Indicators.Technical
             }
         }
 
-        internal readonly struct LevelRenderItem
-        {
-            public readonly decimal Price;
-            public readonly string Text;
-
-            public readonly LevelCategory Category;
-            public readonly bool Is0Dte;
-
-            public readonly LineTier Tier;
-            public readonly int LineWidth;
-            public readonly int Transparency; // 0..100 (UI semantics)
-            public readonly bool Dash;
-            public readonly bool DrawHalo;
-
-            public LevelRenderItem(
-                decimal price,
-                string text,
-                LevelCategory category,
-                bool is0Dte,
-                LineTier tier,
-                int lineWidth,
-                int transparency,
-                bool dash,
-                bool drawHalo)
-            {
-                Price = price;
-                Text = text ?? string.Empty;
-                Category = category;
-                Is0Dte = is0Dte;
-                Tier = tier;
-                LineWidth = lineWidth;
-                Transparency = transparency;
-                Dash = dash;
-                DrawHalo = drawHalo;
-            }
-        }
-
         #endregion
 
         #region Nested types: sources
