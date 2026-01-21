@@ -12,6 +12,8 @@ using System.Text.RegularExpressions;
 using System.Text;
 using Utils.Common.Logging;
 
+using ChartExtensions = ATAS.Indicators.Extensions;
+
 namespace ATAS.Indicators.Technical
 {
     [Category("Custom")]
@@ -176,6 +178,26 @@ namespace ATAS.Indicators.Technical
 
         // NOTE: Keep halo behavior aligned with legacy LevelsLolo (red halo style).
         // The actual drawing will be implemented in later commits.
+
+        // -----------------------------
+        // Base pens by category (legacy-like defaults)
+        // -----------------------------
+        private readonly PenSettings _penPutWall = new PenSettings { Color = CrossColor.FromArgb(255, 0, 255, 128), Width = 2 };   // PW #00FF80
+        private readonly PenSettings _penCallWall = new PenSettings { Color = CrossColor.FromArgb(255, 255, 64, 64), Width = 2 };  // CW #FF4040
+        private readonly PenSettings _penVolTrigger = new PenSettings { Color = CrossColor.FromArgb(255, 255, 215, 0), Width = 3 }; // VT #FFD700
+        private readonly PenSettings _penLargeGamma = new PenSettings { Color = CrossColor.FromArgb(255, 255, 136, 0), Width = 2 }; // LG #FF8800
+        private readonly PenSettings _penCombo = new PenSettings { Color = CrossColor.FromArgb(255, 255, 192, 77), Width = 1 };     // CO #FFC04D
+        private readonly PenSettings _penZeroGamma = new PenSettings { Color = CrossColor.FromArgb(255, 170, 170, 170), Width = 1 }; // ZG #AAAAAA
+        private readonly PenSettings _penOther = new PenSettings { Color = CrossColor.FromArgb(255, 160, 160, 160), Width = 1 };     // Other
+
+        // -----------------------------
+        // Render cache (no allocations in OnRender)
+        // -----------------------------
+        // [category, tier, dash(0=solid,1=dash)]
+        private PenSettings[,,] _linePens;
+
+        // [tier] halo pen (solid)
+        private PenSettings[] _haloPens;
 
         // -----------------------------
         // Dirty flags
@@ -668,6 +690,7 @@ namespace ATAS.Indicators.Technical
         protected override void OnCalculate(int bar, decimal value)
         {
             RebuildParsedEntriesIfNeeded();
+            RebuildRenderCacheIfNeeded();
 
             // Shell: no calculations yet.
             // Future commits will parse sources and rebuild render packets when _dataDirty/_visualDirty.
@@ -675,15 +698,70 @@ namespace ATAS.Indicators.Technical
 
         protected override void OnRender(RenderContext context, DrawingLayouts layout)
         {
-            // Shell: do nothing yet, but keep safe early-exits aligned with legacy indicator patterns.
             if (ChartInfo is not { PriceChartContainer.BarsWidth: > 2 })
                 return;
 
             if (LastVisibleBarNumber > CurrentBar - 1)
                 return;
 
-            // Future commits will draw levels here.
+            if (_levels == null || _levels.Length == 0)
+                return;
+
+            // Ensure cache exists even if chart render happens before a calculate pass.
+            RebuildRenderCacheIfNeeded();
+
+            var chart = ChartInfo;
+
+            int firstX = ChartExtensions.GetXByBar(chart, FirstVisibleBarNumber, false);
+            int lastX = ChartExtensions.GetXByBar(chart, LastVisibleBarNumber, false);
+            int rightX = LastBarOnly ? lastX : Container.Region.Right;
+
+            int topY = Container.Region.Top;
+            int botY = Container.Region.Bottom;
+
+            for (int i = 0; i < _levels.Length; i++)
+            {
+                var level = _levels[i];
+
+                // Defensive: should not happen if engine is correct, but keep render safe.
+                if (level.Labels == null || level.Labels.Length == 0)
+                    continue;
+
+                int y = ChartExtensions.GetYByPrice(chart, level.Price, false);
+
+                if (OnlyVisiblePriceRange)
+                {
+                    if (y < topY || y > botY)
+                        continue;
+                }
+
+                var winner = level.Winner;
+
+                var tier = GetTierForWinner(winner);
+                int tierIdx = (int)tier;
+
+                // ZeroGamma is informational: always thin tier visuals (legacy behavior).
+                if (winner.Category == LevelCategory.ZeroGamma)
+                    tierIdx = (int)LineTier.Thin;
+
+                bool dash = winner.Is0Dte && Dash0Dte;
+                int dashIdx = dash ? 1 : 0;
+
+                int catIdx = (int)winner.Category;
+
+                // 0DTE halo pass (draw BEFORE main line) — fixed red halo, legacy-like
+                if (winner.Is0Dte && Show0DteHalo)
+                {
+                    var haloPen = _haloPens[tierIdx];
+                    if (haloPen != null)
+                        context.DrawLine(haloPen.RenderObject, firstX, y, rightX, y);
+                }
+
+                var pen = _linePens[catIdx, tierIdx, dashIdx];
+                context.DrawLine(pen.RenderObject, firstX, y, rightX, y);
+            }
         }
+
         #endregion
 
         #region Private methods
@@ -1081,6 +1159,146 @@ namespace ATAS.Indicators.Technical
                 warnings.Count == 0 ? Array.Empty<string>() : warnings.ToArray());
         }
 
+        private LineTier GetTierForWinner(LevelLabel winner)
+        {
+            // Rank 0 or missing behaves as "best" (thick) in legacy.
+            int r = winner.Rank <= 0 ? 0 : winner.Rank;
+
+            if (r == 0 || r <= ThickMaxRank)
+                return LineTier.Thick;
+
+            if (r <= MediumMaxRank)
+                return LineTier.Medium;
+
+            return LineTier.Thin;
+        }
+
+        private void RebuildRenderCacheIfNeeded()
+        {
+            if (!_visualDirty && _linePens != null && _haloPens != null)
+                return;
+
+            _visualDirty = false;
+
+            // Build cache arrays if needed
+            if (_linePens == null)
+            {
+                int catCount = Enum.GetValues(typeof(LevelCategory)).Length;
+                _linePens = new PenSettings[catCount, 3, 2];
+            }
+
+            if (_haloPens == null)
+                _haloPens = new PenSettings[3];
+
+            // Tier params
+            int wThick = Math.Clamp(ThickLineWidth, 1, 20);
+            int wMed = Math.Clamp(MediumLineWidth, 1, 20);
+            int wThin = Math.Clamp(ThinLineWidth, 1, 20);
+
+            byte aThick = TransparencyToAlpha(ThickLineTransparency);
+            byte aMed = TransparencyToAlpha(MediumLineTransparency);
+            byte aThin = TransparencyToAlpha(ThinLineTransparency);
+
+            // Halo params (legacy-like): fixed red, width = baseWidth + HaloWidth (extra)
+            int haloExtra = Math.Clamp(HaloWidth, 0, 50);
+            byte haloA = TransparencyToAlpha(HaloTransparency);
+
+            // Build pens per category/tier/dash
+            int catCount2 = _linePens.GetLength(0);
+
+            for (int c = 0; c < catCount2; c++)
+            {
+                var basePen = GetBasePen((LevelCategory)c);
+                var bc = basePen.Color;
+
+                for (int tier = 0; tier < 3; tier++)
+                {
+                    int width = tier switch
+                    {
+                        0 => wThick,
+                        1 => wMed,
+                        _ => wThin
+                    };
+
+                    byte alpha = tier switch
+                    {
+                        0 => aThick,
+                        1 => aMed,
+                        _ => aThin
+                    };
+
+                    // ZeroGamma override (always thin)
+                    if ((LevelCategory)c == LevelCategory.ZeroGamma)
+                    {
+                        width = wThin;
+                        alpha = aThin;
+                    }
+
+                    var effColor = CrossColor.FromArgb(alpha, bc.R, bc.G, bc.B);
+
+                    // solid
+                    _linePens[c, tier, 0] = new PenSettings
+                    {
+                        Color = effColor,
+                        Width = width,
+                        LineDashStyle = LineDashStyle.Solid
+                    };
+
+                    // dash (only used for 0DTE when Dash0Dte == true)
+                    _linePens[c, tier, 1] = new PenSettings
+                    {
+                        Color = effColor,
+                        Width = width,
+                        LineDashStyle = LineDashStyle.Dash
+                    };
+                }
+            }
+
+            // Halo pens per tier (solid, fixed red)
+            // Note: if Show0DteHalo is false, we still build cache; it's cheap and avoids branching complexity.
+            _haloPens[0] = new PenSettings
+            {
+                Color = CrossColor.FromArgb(haloA, 255, 64, 64),
+                Width = Math.Max(1, wThick + haloExtra),
+                LineDashStyle = LineDashStyle.Solid
+            };
+
+            _haloPens[1] = new PenSettings
+            {
+                Color = CrossColor.FromArgb(haloA, 255, 64, 64),
+                Width = Math.Max(1, wMed + haloExtra),
+                LineDashStyle = LineDashStyle.Solid
+            };
+
+            _haloPens[2] = new PenSettings
+            {
+                Color = CrossColor.FromArgb(haloA, 255, 64, 64),
+                Width = Math.Max(1, wThin + haloExtra),
+                LineDashStyle = LineDashStyle.Solid
+            };
+        }
+
+        private static byte TransparencyToAlpha(int transparency0To100)
+        {
+            // UI is "transparency" (0 = opaque, 100 = fully transparent).
+            int t = Math.Clamp(transparency0To100, 0, 100);
+            int a = (255 * (100 - t)) / 100;
+            return (byte)Math.Clamp(a, 0, 255);
+        }
+
+        private PenSettings GetBasePen(LevelCategory c)
+        {
+            return c switch
+            {
+                LevelCategory.Combo => _penCombo,
+                LevelCategory.LargeGamma => _penLargeGamma,
+                LevelCategory.VolTrigger => _penVolTrigger,
+                LevelCategory.CallWall => _penCallWall,
+                LevelCategory.PutWall => _penPutWall,
+                LevelCategory.ZeroGamma => _penZeroGamma,
+                _ => _penOther
+            };
+        }
 
         #endregion
     }
