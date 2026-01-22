@@ -1466,4 +1466,49 @@
     <value>在此粘贴已按期货合约给出的水平（例如 ES 或 NQ）。指标会直接使用这些水平，不会应用任何 Offset。</value>
     <comment>GammaLevels</comment>
   </data>
+  <data name="SourceTruth" xml:space="preserve">
+  <value>来源优先级</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="SourceTruthDesc" xml:space="preserve">
+  <value>当同一水平概念在多个来源中以不同价格出现时，用于确定哪个来源具有优先级。</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_Default" xml:space="preserve">
+  <value>默认</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_DefaultDesc" xml:space="preserve">
+  <value>优先使用 Lolo 水平，其次是 MenthorQ Futures，再其次是 MenthorQ Index。</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="SourceTruth_PreferLolo" xml:space="preserve">
+  <value>优先 Lolo</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_PreferLoloDesc" xml:space="preserve">
+  <value>当出现冲突时，始终优先使用 Lolo 提供的水平。</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="SourceTruth_PreferMenthorQFutures" xml:space="preserve">
+  <value>优先 MenthorQ（期货）</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_PreferMenthorQFuturesDesc" xml:space="preserve">
+  <value>当出现冲突时，MenthorQ Futures 水平优先于 Lolo 和 MenthorQ Index。</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="SourceTruth_PreferMenthorQIndex" xml:space="preserve">
+  <value>优先 MenthorQ（指数）</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_PreferMenthorQIndexDesc" xml:space="preserve">
+  <value>当出现冲突时，MenthorQ Index 水平优先于 Lolo 和 MenthorQ Futures。</value>
+  <comment>GammaLevels</comment>
+</data>
+
 </root>

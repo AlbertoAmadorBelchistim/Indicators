@@ -7873,6 +7873,96 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Source priority.
+        /// </summary>
+        public static string SourceTruth {
+            get {
+                return ResourceManager.GetString("SourceTruth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Default.
+        /// </summary>
+        public static string SourceTruth_Default {
+            get {
+                return ResourceManager.GetString("SourceTruth_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Lolo levels take precedence, followed by MenthorQ Futures and MenthorQ Index..
+        /// </summary>
+        public static string SourceTruth_DefaultDesc {
+            get {
+                return ResourceManager.GetString("SourceTruth_DefaultDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Prefer Lolo.
+        /// </summary>
+        public static string SourceTruth_PreferLolo {
+            get {
+                return ResourceManager.GetString("SourceTruth_PreferLolo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Lolo levels are always preferred over other sources when conflicts occur..
+        /// </summary>
+        public static string SourceTruth_PreferLoloDesc {
+            get {
+                return ResourceManager.GetString("SourceTruth_PreferLoloDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Prefer MenthorQ (Futures).
+        /// </summary>
+        public static string SourceTruth_PreferMenthorQFutures {
+            get {
+                return ResourceManager.GetString("SourceTruth_PreferMenthorQFutures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a MenthorQ Futures levels are preferred over Lolo and MenthorQ Index when conflicts occur..
+        /// </summary>
+        public static string SourceTruth_PreferMenthorQFuturesDesc {
+            get {
+                return ResourceManager.GetString("SourceTruth_PreferMenthorQFuturesDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Prefer MenthorQ (Index).
+        /// </summary>
+        public static string SourceTruth_PreferMenthorQIndex {
+            get {
+                return ResourceManager.GetString("SourceTruth_PreferMenthorQIndex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a MenthorQ Index levels are preferred over Lolo and MenthorQ Futures when conflicts occur..
+        /// </summary>
+        public static string SourceTruth_PreferMenthorQIndexDesc {
+            get {
+                return ResourceManager.GetString("SourceTruth_PreferMenthorQIndexDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Defines which source takes precedence when the same level concept appears at different prices across multiple sources..
+        /// </summary>
+        public static string SourceTruthDesc {
+            get {
+                return ResourceManager.GetString("SourceTruthDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Spacing.
         /// </summary>
         public static string Spacing {
