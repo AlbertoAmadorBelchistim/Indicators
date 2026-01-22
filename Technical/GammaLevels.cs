@@ -171,22 +171,55 @@ namespace ATAS.Indicators.Technical
 
             public bool TryGetEntries(out ParsedEntry[] entries, out string[] warnings)
             {
-                var raw = _owner.MenthorQTextRaw;
+                var rawIndex = _owner.MenthorQIndexTextRaw;
+                var rawFut = _owner.MenthorQFuturesTextRaw;
 
-                if (!IsEnabled || string.IsNullOrWhiteSpace(raw))
+                if (!IsEnabled || (string.IsNullOrWhiteSpace(rawIndex) && string.IsNullOrWhiteSpace(rawFut)))
                 {
                     entries = Array.Empty<ParsedEntry>();
                     warnings = Array.Empty<string>();
                     return true;
                 }
 
-                var result = ParseMenthorQText(raw, _owner.MenthorQOffset);
+                var allEntries = new List<ParsedEntry>(64);
+                var allWarnings = new List<string>(16);
 
-                entries = result.Entries;
-                warnings = result.Warnings;
+                if (!string.IsNullOrWhiteSpace(rawIndex))
+                {
+                    var r = ParseMenthorQText(
+                        rawIndex,
+                        _owner.MenthorQOffset,
+                        applyOffset: true,
+                        sourceIdBase: "MenthorQ:Index");
+
+                    if (r.Entries.Length > 0)
+                        allEntries.AddRange(r.Entries);
+
+                    if (r.Warnings.Length > 0)
+                        allWarnings.AddRange(r.Warnings);
+                }
+
+                if (!string.IsNullOrWhiteSpace(rawFut))
+                {
+                    var r = ParseMenthorQText(
+                        rawFut,
+                        _owner.MenthorQOffset,
+                        applyOffset: false,
+                        sourceIdBase: "MenthorQ:Futures");
+
+                    if (r.Entries.Length > 0)
+                        allEntries.AddRange(r.Entries);
+
+                    if (r.Warnings.Length > 0)
+                        allWarnings.AddRange(r.Warnings);
+                }
+
+                entries = allEntries.Count == 0 ? Array.Empty<ParsedEntry>() : allEntries.ToArray();
+                warnings = allWarnings.Count == 0 ? Array.Empty<string>() : allWarnings.ToArray();
                 return true;
             }
         }
+
 
         #endregion
 
@@ -307,7 +340,8 @@ namespace ATAS.Indicators.Technical
         // UI: MenthorQ text source
         // -----------------------------
         private bool _enableMenthorQText;
-        private string _menthorQTextRaw = string.Empty;
+        private string _menthorQIndexTextRaw = string.Empty;
+        private string _menthorQFuturesTextRaw = string.Empty;
         private decimal _menthorQOffset;
 
         // -----------------------------
@@ -422,11 +456,12 @@ namespace ATAS.Indicators.Technical
         #endregion
 
         #region Properties: Sources (MenthorQText)
+
         [Display(ResourceType = typeof(Resources),
-    Name = nameof(Resources.MenthorQText),
-    GroupName = nameof(Resources.MenthorQText),
-    Description = nameof(Resources.MenthorQTextDesc),
-    Order = 40)]
+            Name = nameof(Resources.Enabled),
+            GroupName = nameof(Resources.MenthorQText),
+            Description = nameof(Resources.MenthorQTextDesc),
+            Order = 40)]
         public bool EnableMenthorQText
         {
             get => _enableMenthorQText;
@@ -442,21 +477,42 @@ namespace ATAS.Indicators.Technical
         }
 
         [Display(ResourceType = typeof(Resources),
-            Name = nameof(Resources.Text),
+            Name = nameof(Resources.MenthorQIndexText),
             GroupName = nameof(Resources.MenthorQText),
-            Description = nameof(Resources.MenthorQTextDesc),
+            Description = nameof(Resources.MenthorQIndexTextDesc),
             Order = 50)]
-        public string MenthorQTextRaw
+        public string MenthorQIndexTextRaw
         {
-            get => _menthorQTextRaw;
+            get => _menthorQIndexTextRaw;
             set
             {
                 value ??= string.Empty;
 
-                if (_menthorQTextRaw == value)
+                if (_menthorQIndexTextRaw == value)
                     return;
 
-                _menthorQTextRaw = value;
+                _menthorQIndexTextRaw = value;
+                _dataDirty = true;
+                RecalculateValues();
+            }
+        }
+
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.MenthorQFuturesText),
+            GroupName = nameof(Resources.MenthorQText),
+            Description = nameof(Resources.MenthorQFuturesTextDesc),
+            Order = 60)]
+        public string MenthorQFuturesTextRaw
+        {
+            get => _menthorQFuturesTextRaw;
+            set
+            {
+                value ??= string.Empty;
+
+                if (_menthorQFuturesTextRaw == value)
+                    return;
+
+                _menthorQFuturesTextRaw = value;
                 _dataDirty = true;
                 RecalculateValues();
             }
@@ -466,7 +522,7 @@ namespace ATAS.Indicators.Technical
             Name = nameof(Resources.Clear),
             GroupName = nameof(Resources.MenthorQText),
             Description = nameof(Resources.ClearDesc),
-            Order = 60)]
+            Order = 70)]
         public bool ClearMenthorQTextNow
         {
             get => false;
@@ -475,11 +531,15 @@ namespace ATAS.Indicators.Technical
                 if (!value)
                     return;
 
-                if (_menthorQTextRaw.Length == 0)
+                if (_menthorQIndexTextRaw.Length == 0 && _menthorQFuturesTextRaw.Length == 0)
                     return;
 
-                _menthorQTextRaw = string.Empty;
-                RaisePropertyChanged(nameof(MenthorQTextRaw));
+                _menthorQIndexTextRaw = string.Empty;
+                _menthorQFuturesTextRaw = string.Empty;
+
+                RaisePropertyChanged(nameof(MenthorQIndexTextRaw));
+                RaisePropertyChanged(nameof(MenthorQFuturesTextRaw));
+
                 _textSizeCache.Clear();
 
                 _dataDirty = true;
@@ -491,7 +551,7 @@ namespace ATAS.Indicators.Technical
             Name = nameof(Resources.MenthorQOffset),
             GroupName = nameof(Resources.MenthorQText),
             Description = nameof(Resources.MenthorQOffsetDesc),
-            Order = 70)]
+            Order = 80)]
         public decimal MenthorQOffset
         {
             get => _menthorQOffset;
@@ -505,7 +565,9 @@ namespace ATAS.Indicators.Technical
                 RecalculateValues();
             }
         }
+
         #endregion
+
         // -----------------------------
         // UI: Visibility
         // -----------------------------
@@ -1229,7 +1291,7 @@ namespace ATAS.Indicators.Technical
 
             _collectedEntries = entries.Count == 0 ? Array.Empty<ParsedEntry>() : entries.ToArray();
 
-            var warningsKey = $"{LoloTextRaw}\n---\n{MenthorQTextRaw}";
+            var warningsKey = $"{LoloTextRaw}\n---\n{MenthorQIndexTextRaw}\n---\n{MenthorQFuturesTextRaw}";
             LogParseWarningsIfNeeded(
                 warnings.Count == 0 ? Array.Empty<string>() : warnings.ToArray(),
                 warningsKey);
@@ -1431,7 +1493,7 @@ namespace ATAS.Indicators.Technical
 
         #region Private methods: parsing (MenthorQText)
 
-        private static ParseResult ParseMenthorQText(string raw, decimal offset)
+        private static ParseResult ParseMenthorQText(string raw, decimal offset, bool applyOffset, string sourceIdBase)
         {
             if (string.IsNullOrWhiteSpace(raw))
                 return new ParseResult(Array.Empty<ParsedEntry>(), Array.Empty<string>());
@@ -1473,7 +1535,8 @@ namespace ATAS.Indicators.Technical
                     continue;
                 }
 
-                price += offset;
+                if (applyOffset)
+                    price += offset;
 
                 if (!TryMapMenthorQLabel(labelRaw, out var mapped))
                 {
@@ -1486,7 +1549,9 @@ namespace ATAS.Indicators.Technical
                 }
 
                 // Build a single-label entry at this price.
-                var sourceId = string.IsNullOrEmpty(ticker) ? "MenthorQText" : $"MenthorQText:{ticker}";
+                var sourceId = string.IsNullOrEmpty(ticker)
+                    ? (sourceIdBase ?? "MenthorQ")
+                    : $"{(sourceIdBase ?? "MenthorQ")}:{ticker}";
                 var lvlLabel = new LevelLabel(
                     mapped.Category,
                     mapped.Rank,
