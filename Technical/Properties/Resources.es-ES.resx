@@ -1379,4 +1379,134 @@
   <value>Offset de precio aplicado a los niveles de MenthorQ (para alinear ES1! vs SPX). Puede ser positivo o negativo.</value>
   <comment>GammaLevels</comment>
 </data>
+  <data name="Pens" xml:space="preserve">
+    <value>Estilos</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenCombo" xml:space="preserve">
+    <value>Combo (CO)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenComboDesc" xml:space="preserve">
+    <value>Estilo de línea para niveles Combo (CO).</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenLargeGamma" xml:space="preserve">
+    <value>Large Gamma (LG / GEX)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenLargeGammaDesc" xml:space="preserve">
+    <value>Estilo de línea para Large Gamma (LG / GEX n). Niveles gamma principales.</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenVolTrigger" xml:space="preserve">
+    <value>Volatility Trigger (VT / HVL)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenVolTriggerDesc" xml:space="preserve">
+    <value>Estilo de línea para Volatility Trigger (VT / HVL). Nivel de volatilidad “forward-looking”.</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenCallWall" xml:space="preserve">
+    <value>Call Wall (CW)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenCallWallDesc" xml:space="preserve">
+    <value>Estilo de línea para Call Wall (CW). Resistencia basada en posicionamiento de opciones.</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenPutWall" xml:space="preserve">
+    <value>Put Wall (PW)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenPutWallDesc" xml:space="preserve">
+    <value>Estilo de línea para Put Wall (PW). Soporte basado en posicionamiento de opciones.</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenZeroGamma" xml:space="preserve">
+    <value>Zero Gamma (ZG)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenZeroGammaDesc" xml:space="preserve">
+    <value>Estilo de línea para Zero Gamma (ZG). Nivel de referencia gamma.</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenBlindLevel" xml:space="preserve">
+    <value>Blind Spots (MenthorQ) (BL)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenBlindLevelDesc" xml:space="preserve">
+    <value>Estilo de línea para Blind Spots (BL n). Zonas predictivas de reacción (no S/R clásico): combinan posicionamiento de opciones, momentum y correlación cross-asset. Úsalas como confluencia, gestión de riesgo y zonas objetivo.</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenDayMin" xml:space="preserve">
+    <value>Expected Move 1D Min (MenthorQ)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenDayMinDesc" xml:space="preserve">
+    <value>Estilo de línea para “1D Min”. Límite inferior del rango esperado intradía (expected move 1D) calculado con volatilidad y opciones. Puede actuar como zona de reversión/target y referencia de stops.</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenDayMax" xml:space="preserve">
+    <value>Expected Move 1D Max (MenthorQ)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenDayMaxDesc" xml:space="preserve">
+    <value>Estilo de línea para “1D Max”. Límite superior del rango esperado intradía (expected move 1D) calculado con volatilidad y opciones. Roturas fuera del rango suelen asociarse a movimientos expansivos.</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenRiskTrigger" xml:space="preserve">
+    <value>Swing Model Risk Trigger (MenthorQ) (RT)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenRiskTriggerDesc" xml:space="preserve">
+    <value>Estilo de línea para Risk Trigger (RT) del Swing Model (5D/20D). Nivel pivote/inflection donde puede cambiar el momentum; útil para definir riesgo, timing de entradas y objetivos.</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenLowerBand" xml:space="preserve">
+    <value>Swing Model Lower Band (MenthorQ) (LB)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenLowerBandDesc" xml:space="preserve">
+    <value>Estilo de línea para Lower Band (LB) del Swing Model (5D/20D). Banda inferior del rango esperado a varios días; suele funcionar como zona de soporte/entrada en pullback (sesgo bullish).</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenUpperBand" xml:space="preserve">
+    <value>Swing Model Upper Band (MenthorQ) (UB)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenUpperBandDesc" xml:space="preserve">
+    <value>Estilo de línea para Upper Band (UB) del Swing Model (5D/20D). Banda superior del rango esperado a varios días; suele funcionar como zona de resistencia/toma de profit o fade (sesgo bearish).</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenOther" xml:space="preserve">
+    <value>Otros / No mapeado</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenOtherDesc" xml:space="preserve">
+    <value>Estilo por defecto para etiquetas desconocidas o sin mapping (fallback).</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="Pen0DteAccent" xml:space="preserve">
+    <value>0DTE Accent (overlay)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Pen0DteAccentDesc" xml:space="preserve">
+    <value>Overlay punteado fino para 0DTE de alta prioridad (LG/PW/CW) hasta ThickMaxRank.</value>
+    <comment>GammaLevels</comment>
+  </data>
 </root>

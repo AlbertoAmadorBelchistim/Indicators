@@ -5587,6 +5587,267 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a 0DTE Accent (overlay).
+        /// </summary>
+        public static string Pen0DteAccent {
+            get {
+                return ResourceManager.GetString("Pen0DteAccent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Thin dotted overlay for high-priority 0DTE levels (LG/PW/CW) up to ThickMaxRank..
+        /// </summary>
+        public static string Pen0DteAccentDesc {
+            get {
+                return ResourceManager.GetString("Pen0DteAccentDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Blind Spots (MenthorQ) (BL).
+        /// </summary>
+        public static string PenBlindLevel {
+            get {
+                return ResourceManager.GetString("PenBlindLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Line style for Blind Spots (BL n). Predictive reaction zones (not classic S/R): built from options positioning, momentum and cross-asset correlation. Use for confluence, risk and targets..
+        /// </summary>
+        public static string PenBlindLevelDesc {
+            get {
+                return ResourceManager.GetString("PenBlindLevelDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Call Wall (CW).
+        /// </summary>
+        public static string PenCallWall {
+            get {
+                return ResourceManager.GetString("PenCallWall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Line style for Call Wall (CW). Options-positioning based resistance..
+        /// </summary>
+        public static string PenCallWallDesc {
+            get {
+                return ResourceManager.GetString("PenCallWallDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Combo (CO).
+        /// </summary>
+        public static string PenCombo {
+            get {
+                return ResourceManager.GetString("PenCombo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Line style for Combo levels (CO)..
+        /// </summary>
+        public static string PenComboDesc {
+            get {
+                return ResourceManager.GetString("PenComboDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Expected Move 1D Max (MenthorQ).
+        /// </summary>
+        public static string PenDayMax {
+            get {
+                return ResourceManager.GetString("PenDayMax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Line style for “1D Max”. Upper bound of the 1D expected move range (options + forward-looking volatility). Breaks outside the range often expand volatility..
+        /// </summary>
+        public static string PenDayMaxDesc {
+            get {
+                return ResourceManager.GetString("PenDayMaxDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Expected Move 1D Min (MenthorQ).
+        /// </summary>
+        public static string PenDayMin {
+            get {
+                return ResourceManager.GetString("PenDayMin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Line style for “1D Min”. Lower bound of the 1D expected move range (options + forward-looking volatility). Can act as reversal/target zone and stop reference..
+        /// </summary>
+        public static string PenDayMinDesc {
+            get {
+                return ResourceManager.GetString("PenDayMinDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Large Gamma (LG / GEX).
+        /// </summary>
+        public static string PenLargeGamma {
+            get {
+                return ResourceManager.GetString("PenLargeGamma", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Line style for Large Gamma (LG / GEX n). Primary gamma levels..
+        /// </summary>
+        public static string PenLargeGammaDesc {
+            get {
+                return ResourceManager.GetString("PenLargeGammaDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Swing Model Lower Band (MenthorQ) (LB).
+        /// </summary>
+        public static string PenLowerBand {
+            get {
+                return ResourceManager.GetString("PenLowerBand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Line style for Swing Model Lower Band (LB) (5D/20D). Lower bound of multi-day expected range; often acts as support/pullback entry (bullish bias)..
+        /// </summary>
+        public static string PenLowerBandDesc {
+            get {
+                return ResourceManager.GetString("PenLowerBandDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Other / Unmapped.
+        /// </summary>
+        public static string PenOther {
+            get {
+                return ResourceManager.GetString("PenOther", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fallback line style for unknown or unmapped labels..
+        /// </summary>
+        public static string PenOtherDesc {
+            get {
+                return ResourceManager.GetString("PenOtherDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Put Wall (PW).
+        /// </summary>
+        public static string PenPutWall {
+            get {
+                return ResourceManager.GetString("PenPutWall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Line style for Put Wall (PW). Options-positioning based support..
+        /// </summary>
+        public static string PenPutWallDesc {
+            get {
+                return ResourceManager.GetString("PenPutWallDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Swing Model Risk Trigger (MenthorQ) (RT).
+        /// </summary>
+        public static string PenRiskTrigger {
+            get {
+                return ResourceManager.GetString("PenRiskTrigger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Line style for Swing Model Risk Trigger (RT) (5D/20D). Pivot/inflection where momentum may flip; useful for risk, timing and targets..
+        /// </summary>
+        public static string PenRiskTriggerDesc {
+            get {
+                return ResourceManager.GetString("PenRiskTriggerDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Styles.
+        /// </summary>
+        public static string Pens {
+            get {
+                return ResourceManager.GetString("Pens", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Swing Model Upper Band (MenthorQ) (UB).
+        /// </summary>
+        public static string PenUpperBand {
+            get {
+                return ResourceManager.GetString("PenUpperBand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Line style for Swing Model Upper Band (UB) (5D/20D). Upper bound of multi-day expected range; often acts as resistance/TP or fade zone (bearish bias)..
+        /// </summary>
+        public static string PenUpperBandDesc {
+            get {
+                return ResourceManager.GetString("PenUpperBandDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Volatility Trigger (VT / HVL).
+        /// </summary>
+        public static string PenVolTrigger {
+            get {
+                return ResourceManager.GetString("PenVolTrigger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Line style for Volatility Trigger (VT / HVL). Forward-looking volatility level..
+        /// </summary>
+        public static string PenVolTriggerDesc {
+            get {
+                return ResourceManager.GetString("PenVolTriggerDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Zero Gamma (ZG).
+        /// </summary>
+        public static string PenZeroGamma {
+            get {
+                return ResourceManager.GetString("PenZeroGamma", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Line style for Zero Gamma (ZG). Gamma reference level..
+        /// </summary>
+        public static string PenZeroGammaDesc {
+            get {
+                return ResourceManager.GetString("PenZeroGammaDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Percent.
         /// </summary>
         public static string Percent {

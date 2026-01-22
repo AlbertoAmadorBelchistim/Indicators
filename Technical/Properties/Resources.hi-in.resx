@@ -1369,4 +1369,136 @@
   <value>MenthorQ स्तरों पर लागू मूल्य ऑफ़सेट (ES1! बनाम SPX संरेखण के लिए)। यह धनात्मक या ऋणात्मक हो सकता है।</value>
   <comment>GammaLevels</comment>
 </data>
+    <data name="Pens" xml:space="preserve">
+    <value>शैली</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenCombo" xml:space="preserve">
+    <value>Combo (CO)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenComboDesc" xml:space="preserve">
+    <value>Combo (CO) स्तरों के लिए रेखा की शैली।</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenLargeGamma" xml:space="preserve">
+    <value>Large Gamma (LG / GEX)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenLargeGammaDesc" xml:space="preserve">
+    <value>Large Gamma (LG / GEX n) स्तरों के लिए रेखा की शैली। ये प्रमुख गामा स्तर होते हैं।</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenVolTrigger" xml:space="preserve">
+    <value>Volatility Trigger (VT / HVL)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenVolTriggerDesc" xml:space="preserve">
+    <value>Volatility Trigger (VT / HVL) स्तरों के लिए रेखा की शैली। यह भविष्य उन्मुख अस्थिरता पर आधारित स्तर है।</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenCallWall" xml:space="preserve">
+    <value>Call Wall (CW)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenCallWallDesc" xml:space="preserve">
+    <value>Call Wall (CW) के लिए रेखा की शैली। यह विकल्प बाजार की स्थिति पर आधारित प्रतिरोध स्तर दर्शाता है।</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenPutWall" xml:space="preserve">
+    <value>Put Wall (PW)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenPutWallDesc" xml:space="preserve">
+    <value>Put Wall (PW) के लिए रेखा की शैली। यह विकल्प बाजार की स्थिति पर आधारित समर्थन स्तर दर्शाता है।</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenZeroGamma" xml:space="preserve">
+    <value>Zero Gamma (ZG)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenZeroGammaDesc" xml:space="preserve">
+    <value>Zero Gamma (ZG) संदर्भ स्तर के लिए रेखा की शैली।</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenBlindLevel" xml:space="preserve">
+    <value>Blind Spots (MenthorQ) (BL)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenBlindLevelDesc" xml:space="preserve">
+    <value>Blind Spots (BL n) के लिए रेखा की शैली। ये पूर्वानुमानात्मक प्रतिक्रिया क्षेत्र होते हैं, जो विकल्प स्थिति, मूल्य गति और विभिन्न परिसंपत्तियों के आपसी संबंधों पर आधारित होते हैं। इन्हें पुष्टि, जोखिम प्रबंधन और लक्ष्य निर्धारण के लिए उपयोग किया जा सकता है।</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenDayMin" xml:space="preserve">
+    <value>Expected Move 1D Min (MenthorQ)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenDayMinDesc" xml:space="preserve">
+    <value>Expected Move 1D Min के लिए रेखा की शैली। यह दिन के भीतर अपेक्षित मूल्य सीमा की निचली सीमा दर्शाता है, जो विकल्प डेटा और अस्थिरता पर आधारित होती है।</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenDayMax" xml:space="preserve">
+    <value>Expected Move 1D Max (MenthorQ)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenDayMaxDesc" xml:space="preserve">
+    <value>Expected Move 1D Max के लिए रेखा की शैली। यह दिन के भीतर अपेक्षित मूल्य सीमा की ऊपरी सीमा दर्शाता है; इसके बाहर जाने पर अक्सर तेज़ मूल्य विस्तार देखा जाता है।</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenRiskTrigger" xml:space="preserve">
+    <value>Swing Model Risk Trigger (MenthorQ) (RT)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenRiskTriggerDesc" xml:space="preserve">
+    <value>Swing Model (5D/20D) का Risk Trigger (RT)। यह एक महत्वपूर्ण स्तर है जहाँ मूल्य गति की दिशा बदल सकती है और जोखिम व प्रविष्टि समय निर्धारित किया जाता है।</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenLowerBand" xml:space="preserve">
+    <value>Swing Model Lower Band (MenthorQ) (LB)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenLowerBandDesc" xml:space="preserve">
+    <value>Swing Model की निचली सीमा (LB)। यह कई दिनों की अपेक्षित मूल्य सीमा की निचली रेखा होती है और सामान्यतः समर्थन क्षेत्र के रूप में कार्य करती है।</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenUpperBand" xml:space="preserve">
+    <value>Swing Model Upper Band (MenthorQ) (UB)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenUpperBandDesc" xml:space="preserve">
+    <value>Swing Model की ऊपरी सीमा (UB)। यह कई दिनों की अपेक्षित मूल्य सीमा की ऊपरी रेखा होती है और सामान्यतः प्रतिरोध या लाभ लेने के क्षेत्र को दर्शाती है।</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenOther" xml:space="preserve">
+    <value>अन्य / अपरिभाषित</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenOtherDesc" xml:space="preserve">
+    <value>अज्ञात या मानचित्रण न किए गए लेबल के लिए डिफ़ॉल्ट शैली।</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="Pen0DteAccent" xml:space="preserve">
+    <value>0DTE Accent (overlay)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Pen0DteAccentDesc" xml:space="preserve">
+    <value>उच्च प्राथमिकता वाले 0DTE स्तरों (LG/PW/CW) के लिए पतली बिंदुवत ओवरले रेखा, ThickMaxRank तक।</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+
 </root>
