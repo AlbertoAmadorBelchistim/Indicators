@@ -233,15 +233,15 @@ namespace ATAS.Indicators.Technical
         // -----------------------------
         // Base pens by category (legacy-like defaults)
         // -----------------------------
-        private readonly PenSettings _penPutWall = new PenSettings { Color = CrossColor.FromArgb(255, 0, 255, 128), Width = 2 };   // PW #00FF80
-        private readonly PenSettings _penCallWall = new PenSettings { Color = CrossColor.FromArgb(255, 255, 64, 64), Width = 2 };  // CW #FF4040
-        private readonly PenSettings _penVolTrigger = new PenSettings { Color = CrossColor.FromArgb(255, 255, 215, 0), Width = 3 }; // VT #FFD700
-        private readonly PenSettings _penLargeGamma = new PenSettings { Color = CrossColor.FromArgb(255, 255, 136, 0), Width = 2 }; // LG #FF8800
-        private readonly PenSettings _penCombo = new PenSettings { Color = CrossColor.FromArgb(255, 255, 192, 77), Width = 1 };     // CO #FFC04D
-        private readonly PenSettings _penZeroGamma = new PenSettings { Color = CrossColor.FromArgb(255, 170, 170, 170), Width = 1 }; // ZG #AAAAAA
+        private PenSettings _penPutWall = new PenSettings { Color = CrossColor.FromArgb(255, 0, 255, 128), Width = 2 };   // PW #00FF80
+        private PenSettings _penCallWall = new PenSettings { Color = CrossColor.FromArgb(255, 255, 64, 64), Width = 2 };  // CW #FF4040
+        private PenSettings _penVolTrigger = new PenSettings { Color = CrossColor.FromArgb(255, 255, 215, 0), Width = 3 }; // VT #FFD700
+        private PenSettings _penLargeGamma = new PenSettings { Color = CrossColor.FromArgb(255, 255, 136, 0), Width = 2 }; // LG #FF8800
+        private PenSettings _penCombo = new PenSettings { Color = CrossColor.FromArgb(255, 255, 192, 77), Width = 1 };     // CO #FFC04D
+        private PenSettings _penZeroGamma = new PenSettings { Color = CrossColor.FromArgb(255, 170, 170, 170), Width = 1 }; // ZG #AAAAAA
 
         // Optional overlay: thin dotted accent ON TOP for high-priority 0DTE LG/PW/CW.
-        private readonly PenSettings _pen0DteAccent = new PenSettings
+        private PenSettings _pen0DteAccent = new PenSettings
         {
             Color = CrossColor.FromArgb(220, 255, 64, 64), // brighter red
             Width = 1,
@@ -254,14 +254,14 @@ namespace ATAS.Indicators.Technical
         // - Bands are informational -> cooler hue, thinner by default.
         // - RiskTrigger is distinct (purple) to avoid confusion with CW/PW/LG/VT.
         // - BlindLevel uses a neutral blue (visibility without implying support/resistance).
-        private readonly PenSettings _penBlindLevel = new PenSettings { Color = CrossColor.FromArgb(255, 90, 165, 255), Width = 1 };   // BL #5AA5FF
-        private readonly PenSettings _penDayMin = new PenSettings { Color = CrossColor.FromArgb(255, 80, 200, 120), Width = 1 };       // 1D Min #50C878
-        private readonly PenSettings _penDayMax = new PenSettings { Color = CrossColor.FromArgb(255, 235, 90, 90), Width = 1 };         // 1D Max #EB5A5A
-        private readonly PenSettings _penRiskTrigger = new PenSettings { Color = CrossColor.FromArgb(255, 175, 110, 255), Width = 1 };  // RT #AF6EFF
-        private readonly PenSettings _penLowerBand = new PenSettings { Color = CrossColor.FromArgb(255, 70, 200, 210), Width = 1 };     // LB #46C8D2
-        private readonly PenSettings _penUpperBand = new PenSettings { Color = CrossColor.FromArgb(255, 70, 200, 210), Width = 1 };     // UB #46C8D2
+        private PenSettings _penBlindLevel = new PenSettings { Color = CrossColor.FromArgb(255, 90, 165, 255), Width = 1 };   // BL #5AA5FF
+        private PenSettings _penDayMin = new PenSettings { Color = CrossColor.FromArgb(255, 80, 200, 120), Width = 1 };       // 1D Min #50C878
+        private PenSettings _penDayMax = new PenSettings { Color = CrossColor.FromArgb(255, 235, 90, 90), Width = 1 };         // 1D Max #EB5A5A
+        private PenSettings _penRiskTrigger = new PenSettings { Color = CrossColor.FromArgb(255, 175, 110, 255), Width = 1 };  // RT #AF6EFF
+        private PenSettings _penLowerBand = new PenSettings { Color = CrossColor.FromArgb(255, 70, 200, 210), Width = 1 };     // LB #46C8D2
+        private PenSettings _penUpperBand = new PenSettings { Color = CrossColor.FromArgb(255, 70, 200, 210), Width = 1 };     // UB #46C8D2
 
-        private readonly PenSettings _penOther = new PenSettings { Color = CrossColor.FromArgb(255, 160, 160, 160), Width = 1 };     // Other
+        private PenSettings _penOther = new PenSettings { Color = CrossColor.FromArgb(255, 160, 160, 160), Width = 1 };     // Other
 
         // -----------------------------
         // Render cache (no allocations in OnRender)
@@ -868,6 +868,165 @@ namespace ATAS.Indicators.Technical
             }
         }
         #endregion
+
+        #region Properties: Pens
+
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.PenCombo),
+            Description = nameof(Resources.PenComboDesc),
+            GroupName = nameof(Resources.Pens),
+            Order = 500)]
+        public PenSettings PenCombo
+        {
+            get => _penCombo;
+            set => SetPen(ref _penCombo, value);
+        }
+
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.PenLargeGamma),
+            Description = nameof(Resources.PenLargeGammaDesc),
+            GroupName = nameof(Resources.Pens),
+            Order = 510)]
+        public PenSettings PenLargeGamma
+        {
+            get => _penLargeGamma;
+            set => SetPen(ref _penLargeGamma, value);
+        }
+
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.PenVolTrigger),
+            Description = nameof(Resources.PenVolTriggerDesc),
+            GroupName = nameof(Resources.Pens),
+            Order = 520)]
+        public PenSettings PenVolTrigger
+        {
+            get => _penVolTrigger;
+            set => SetPen(ref _penVolTrigger, value);
+        }
+
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.PenCallWall),
+            Description = nameof(Resources.PenCallWallDesc),
+            GroupName = nameof(Resources.Pens),
+            Order = 530)]
+        public PenSettings PenCallWall
+        {
+            get => _penCallWall;
+            set => SetPen(ref _penCallWall, value);
+        }
+
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.PenPutWall),
+            Description = nameof(Resources.PenPutWallDesc),
+            GroupName = nameof(Resources.Pens),
+            Order = 540)]
+        public PenSettings PenPutWall
+        {
+            get => _penPutWall;
+            set => SetPen(ref _penPutWall, value);
+        }
+
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.PenZeroGamma),
+            Description = nameof(Resources.PenZeroGammaDesc),
+            GroupName = nameof(Resources.Pens),
+            Order = 550)]
+        public PenSettings PenZeroGamma
+        {
+            get => _penZeroGamma;
+            set => SetPen(ref _penZeroGamma, value);
+        }
+
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.PenBlindLevel),
+            Description = nameof(Resources.PenBlindLevelDesc),
+            GroupName = nameof(Resources.Pens),
+            Order = 560)]
+        public PenSettings PenBlindLevel
+        {
+            get => _penBlindLevel;
+            set => SetPen(ref _penBlindLevel, value);
+        }
+
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.PenDayMin),
+            Description = nameof(Resources.PenDayMinDesc),
+            GroupName = nameof(Resources.Pens),
+            Order = 570)]
+        public PenSettings PenDayMin
+        {
+            get => _penDayMin;
+            set => SetPen(ref _penDayMin, value);
+        }
+
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.PenDayMax),
+            Description = nameof(Resources.PenDayMaxDesc),
+            GroupName = nameof(Resources.Pens),
+            Order = 580)]
+        public PenSettings PenDayMax
+        {
+            get => _penDayMax;
+            set => SetPen(ref _penDayMax, value);
+        }
+
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.PenRiskTrigger),
+            Description = nameof(Resources.PenRiskTriggerDesc),
+            GroupName = nameof(Resources.Pens),
+            Order = 590)]
+        public PenSettings PenRiskTrigger
+        {
+            get => _penRiskTrigger;
+            set => SetPen(ref _penRiskTrigger, value);
+        }
+
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.PenLowerBand),
+            Description = nameof(Resources.PenLowerBandDesc),
+            GroupName = nameof(Resources.Pens),
+            Order = 600)]
+        public PenSettings PenLowerBand
+        {
+            get => _penLowerBand;
+            set => SetPen(ref _penLowerBand, value);
+        }
+
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.PenUpperBand),
+            Description = nameof(Resources.PenUpperBandDesc),
+            GroupName = nameof(Resources.Pens),
+            Order = 610)]
+        public PenSettings PenUpperBand
+        {
+            get => _penUpperBand;
+            set => SetPen(ref _penUpperBand, value);
+        }
+
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.PenOther),
+            Description = nameof(Resources.PenOtherDesc),
+            GroupName = nameof(Resources.Pens),
+            Order = 620)]
+        public PenSettings PenOther
+        {
+            get => _penOther;
+            set => SetPen(ref _penOther, value);
+        }
+
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.Pen0DteAccent),
+            Description = nameof(Resources.Pen0DteAccentDesc),
+            GroupName = nameof(Resources.Pens),
+            Order = 630)]
+        public PenSettings Pen0DteAccent
+        {
+            get => _pen0DteAccent;
+            set => SetPen(ref _pen0DteAccent, value);
+        }
+
+        #endregion
+
         // -----------------------------
         // Lifecycle
         // -----------------------------
@@ -1969,6 +2128,32 @@ namespace ATAS.Indicators.Technical
                 return false;
 
             return winner.Rank <= ThickMaxRank;
+        }
+
+        private static bool ArePensEqual(PenSettings a, PenSettings b)
+        {
+            if (ReferenceEquals(a, b))
+                return true;
+
+            if (a is null || b is null)
+                return false;
+
+            return a.Color.Equals(b.Color)
+                && a.Width == b.Width
+                && a.LineDashStyle == b.LineDashStyle;
+        }
+
+        private void SetPen(ref PenSettings field, PenSettings value)
+        {
+            value ??= new PenSettings();
+
+            if (ArePensEqual(field, value))
+                return;
+
+            field = value;
+
+            _visualDirty = true;
+            RedrawChart();
         }
 
         #endregion
