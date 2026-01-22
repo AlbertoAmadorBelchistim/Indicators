@@ -1504,5 +1504,21 @@
     <value>Dünnes gepunktetes Overlay für prioritäre 0DTE-Level (LG/PW/CW) bis ThickMaxRank.</value>
     <comment>GammaLevels</comment>
   </data>
+  <data name="MenthorQIndexText" xml:space="preserve">
+    <value>Text (Index)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MenthorQIndexTextDesc" xml:space="preserve">
+    <value>Fügen Sie hier Levels ein, die sich auf einen Index beziehen (z. B. SPX, NDX oder QQQ). Der Indikator konvertiert sie automatisch auf den Future, indem der konfigurierte Offset angewendet wird.</value>
+    <comment>GammaLevels</comment>
+  </data>
 
+  <data name="MenthorQFuturesText" xml:space="preserve">
+    <value>Text (Future)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MenthorQFuturesTextDesc" xml:space="preserve">
+    <value>Fügen Sie hier Levels ein, die bereits im Future angegeben sind (z. B. ES oder NQ). Der Indikator verwendet sie direkt, ohne einen Offset anzuwenden.</value>
+    <comment>GammaLevels</comment>
+  </data>
 </root>

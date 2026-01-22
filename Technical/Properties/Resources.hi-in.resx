@@ -1499,6 +1499,21 @@
     <value>उच्च प्राथमिकता वाले 0DTE स्तरों (LG/PW/CW) के लिए पतली बिंदुवत ओवरले रेखा, ThickMaxRank तक।</value>
     <comment>GammaLevels</comment>
   </data>
+  <data name="MenthorQIndexText" xml:space="preserve">
+    <value>पाठ (सूचकांक)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MenthorQIndexTextDesc" xml:space="preserve">
+    <value>यहाँ सूचकांक (जैसे SPX, NDX या QQQ) के आधार पर दिए गए स्तर चिपकाएँ। संकेतक कॉन्फ़िगर किए गए Offset को लागू करके इन्हें स्वतः फ्यूचर में परिवर्तित कर देता है।</value>
+    <comment>GammaLevels</comment>
+  </data>
 
-
+  <data name="MenthorQFuturesText" xml:space="preserve">
+    <value>पाठ (फ्यूचर)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MenthorQFuturesTextDesc" xml:space="preserve">
+    <value>यहाँ वे स्तर चिपकाएँ जो पहले से फ्यूचर (जैसे ES या NQ) में दिए गए हों। संकेतक इन्हें सीधे उपयोग करता है और कोई Offset लागू नहीं करता।</value>
+    <comment>GammaLevels</comment>
+  </data>
 </root>

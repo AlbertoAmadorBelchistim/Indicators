@@ -3582,5 +3582,21 @@
     <value>Тонкий пунктирный overlay для приоритетных 0DTE (LG/PW/CW) до ThickMaxRank.</value>
     <comment>GammaLevels</comment>
   </data>
+  <data name="MenthorQIndexText" xml:space="preserve">
+    <value>Текст (Индекс)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MenthorQIndexTextDesc" xml:space="preserve">
+    <value>Вставьте уровни, привязанные к индексу (например SPX, NDX или QQQ). Индикатор автоматически конвертирует их в фьючерс, применяя заданный Offset.</value>
+    <comment>GammaLevels</comment>
+  </data>
 
+  <data name="MenthorQFuturesText" xml:space="preserve">
+    <value>Текст (Фьючерс)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MenthorQFuturesTextDesc" xml:space="preserve">
+    <value>Вставьте уровни, уже указанные для фьючерса (например ES или NQ). Индикатор использует их напрямую, без применения Offset.</value>
+    <comment>GammaLevels</comment>
+  </data>
 </root>
