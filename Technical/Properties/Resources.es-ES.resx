@@ -1509,4 +1509,21 @@
     <value>Overlay punteado fino para 0DTE de alta prioridad (LG/PW/CW) hasta ThickMaxRank.</value>
     <comment>GammaLevels</comment>
   </data>
+    <data name="MenthorQIndexText" xml:space="preserve">
+    <value>Texto (Índice)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MenthorQIndexTextDesc" xml:space="preserve">
+    <value>Pega aquí niveles referidos a un índice (por ejemplo SPX, NDX o QQQ). El indicador los convierte automáticamente al futuro aplicando el Offset configurado.</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="MenthorQFuturesText" xml:space="preserve">
+    <value>Texto (Futuro)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MenthorQFuturesTextDesc" xml:space="preserve">
+    <value>Pega aquí niveles ya expresados en el futuro (por ejemplo ES o NQ). El indicador los usa directamente, sin aplicar ningún Offset.</value>
+    <comment>GammaLevels</comment>
+  </data>
 </root>

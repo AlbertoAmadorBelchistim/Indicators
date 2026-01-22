@@ -4660,6 +4660,42 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Text (Futures).
+        /// </summary>
+        public static string MenthorQFuturesText {
+            get {
+                return ResourceManager.GetString("MenthorQFuturesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Paste levels already expressed in the futures contract (e.g., ES or NQ). The indicator uses them directly, without applying any Offset..
+        /// </summary>
+        public static string MenthorQFuturesTextDesc {
+            get {
+                return ResourceManager.GetString("MenthorQFuturesTextDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Text (Index).
+        /// </summary>
+        public static string MenthorQIndexText {
+            get {
+                return ResourceManager.GetString("MenthorQIndexText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Paste levels referenced to an index (e.g., SPX, NDX or QQQ). The indicator converts them to the futures contract by applying the configured Offset..
+        /// </summary>
+        public static string MenthorQIndexTextDesc {
+            get {
+                return ResourceManager.GetString("MenthorQIndexTextDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Offset.
         /// </summary>
         public static string MenthorQOffset {
