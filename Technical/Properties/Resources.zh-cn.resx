@@ -1319,4 +1319,136 @@
   <value>应用于 MenthorQ 水平的价格偏移（用于对齐 ES1! 与 SPX）。可为正或负。</value>
   <comment>GammaLevels</comment>
 </data>
+    <data name="Pens" xml:space="preserve">
+    <value>样式</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenCombo" xml:space="preserve">
+    <value>Combo (CO)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenComboDesc" xml:space="preserve">
+    <value>用于 Combo（CO）水平的线条样式。</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenLargeGamma" xml:space="preserve">
+    <value>Large Gamma (LG / GEX)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenLargeGammaDesc" xml:space="preserve">
+    <value>用于 Large Gamma（LG / GEX n）的线条样式。这些是主要的 Gamma 关键水平。</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenVolTrigger" xml:space="preserve">
+    <value>Volatility Trigger (VT / HVL)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenVolTriggerDesc" xml:space="preserve">
+    <value>用于 Volatility Trigger（VT / HVL）的线条样式。该水平基于对未来波动性的预测。</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenCallWall" xml:space="preserve">
+    <value>Call Wall (CW)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenCallWallDesc" xml:space="preserve">
+    <value>用于 Call Wall（CW）的线条样式。该水平代表基于期权持仓的阻力区域。</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenPutWall" xml:space="preserve">
+    <value>Put Wall (PW)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenPutWallDesc" xml:space="preserve">
+    <value>用于 Put Wall（PW）的线条样式。该水平代表基于期权持仓的支撑区域。</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenZeroGamma" xml:space="preserve">
+    <value>Zero Gamma (ZG)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenZeroGammaDesc" xml:space="preserve">
+    <value>用于 Zero Gamma（ZG）参考水平的线条样式。</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenBlindLevel" xml:space="preserve">
+    <value>Blind Spots (MenthorQ) (BL)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenBlindLevelDesc" xml:space="preserve">
+    <value>用于 Blind Spots（BL n）的线条样式。这些是预测性的价格反应区域，并非传统支撑或阻力，基于期权持仓、价格动量以及跨资产相关性构建。</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenDayMin" xml:space="preserve">
+    <value>Expected Move 1D Min (MenthorQ)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenDayMinDesc" xml:space="preserve">
+    <value>用于 Expected Move 1D Min 的线条样式。表示基于期权和波动率计算的日内预期价格区间下限。</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenDayMax" xml:space="preserve">
+    <value>Expected Move 1D Max (MenthorQ)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenDayMaxDesc" xml:space="preserve">
+    <value>用于 Expected Move 1D Max 的线条样式。表示基于期权和波动率计算的日内预期价格区间上限，突破该范围通常伴随剧烈行情。</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenRiskTrigger" xml:space="preserve">
+    <value>Swing Model Risk Trigger (MenthorQ) (RT)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenRiskTriggerDesc" xml:space="preserve">
+    <value>Swing Model（5D/20D）的 Risk Trigger（RT）。这是价格动量可能发生变化的关键拐点，用于风险控制和入场时机判断。</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenLowerBand" xml:space="preserve">
+    <value>Swing Model Lower Band (MenthorQ) (LB)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenLowerBandDesc" xml:space="preserve">
+    <value>Swing Model 的下轨（LB），代表多日预期价格区间的下边界，通常作为支撑或回调做多区域。</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenUpperBand" xml:space="preserve">
+    <value>Swing Model Upper Band (MenthorQ) (UB)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenUpperBandDesc" xml:space="preserve">
+    <value>Swing Model 的上轨（UB），代表多日预期价格区间的上边界，通常作为阻力、止盈或反转区域。</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenOther" xml:space="preserve">
+    <value>其他 / 未映射</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenOtherDesc" xml:space="preserve">
+    <value>用于未知或未映射标签的默认样式。</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="Pen0DteAccent" xml:space="preserve">
+    <value>0DTE Accent (overlay)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Pen0DteAccentDesc" xml:space="preserve">
+    <value>用于高优先级 0DTE 水平（LG/PW/CW，至 ThickMaxRank）的细点状叠加线。</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+
 </root>

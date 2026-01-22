@@ -3452,4 +3452,135 @@
   <value>Ценовое смещение для уровней MenthorQ (для выравнивания ES1! и SPX). Может быть положительным или отрицательным.</value>
   <comment>GammaLevels</comment>
 </data>
+  <data name="Pens" xml:space="preserve">
+    <value>Стили</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenCombo" xml:space="preserve">
+    <value>Combo (CO)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenComboDesc" xml:space="preserve">
+    <value>Стиль линии для уровней Combo (CO).</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenLargeGamma" xml:space="preserve">
+    <value>Large Gamma (LG / GEX)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenLargeGammaDesc" xml:space="preserve">
+    <value>Стиль линии для Large Gamma (LG / GEX n). Основные gamma уровни.</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenVolTrigger" xml:space="preserve">
+    <value>Volatility Trigger (VT / HVL)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenVolTriggerDesc" xml:space="preserve">
+    <value>Стиль линии для Volatility Trigger (VT / HVL). “Forward-looking” уровень волатильности.</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenCallWall" xml:space="preserve">
+    <value>Call Wall (CW)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenCallWallDesc" xml:space="preserve">
+    <value>Стиль линии для Call Wall (CW). Сопротивление на основе позиционирования опционов.</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenPutWall" xml:space="preserve">
+    <value>Put Wall (PW)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenPutWallDesc" xml:space="preserve">
+    <value>Стиль линии для Put Wall (PW). Поддержка на основе позиционирования опционов.</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenZeroGamma" xml:space="preserve">
+    <value>Zero Gamma (ZG)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenZeroGammaDesc" xml:space="preserve">
+    <value>Стиль линии для Zero Gamma (ZG). Опорный gamma уровень.</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenBlindLevel" xml:space="preserve">
+    <value>Blind Spots (MenthorQ) (BL)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenBlindLevelDesc" xml:space="preserve">
+    <value>Стиль линии для Blind Spots (BL n). Прогнозные зоны реакции (не классические S/R): опционы, momentum и cross-asset корреляция. Для конfluency, риска и целей.</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenDayMin" xml:space="preserve">
+    <value>Expected Move 1D Min (MenthorQ)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenDayMinDesc" xml:space="preserve">
+    <value>Стиль линии для “1D Min”. Нижняя граница intraday expected move (1D), на основе опционов и forward-looking волатильности. Может быть зоной разворота/целью и ориентиром для стопов.</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenDayMax" xml:space="preserve">
+    <value>Expected Move 1D Max (MenthorQ)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenDayMaxDesc" xml:space="preserve">
+    <value>Стиль линии для “1D Max”. Верхняя граница intraday expected move (1D), на основе опционов и forward-looking волатильности. Выход за диапазон часто сопровождается расширением волатильности.</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenRiskTrigger" xml:space="preserve">
+    <value>Swing Model Risk Trigger (MenthorQ) (RT)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenRiskTriggerDesc" xml:space="preserve">
+    <value>Стиль линии для Risk Trigger (RT) Swing Model (5D/20D). Pivot/inflection, где momentum может развернуться; полезно для риска, тайминга и целей.</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenLowerBand" xml:space="preserve">
+    <value>Swing Model Lower Band (MenthorQ) (LB)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenLowerBandDesc" xml:space="preserve">
+    <value>Стиль линии для Lower Band (LB) Swing Model (5D/20D). Нижняя граница multi-day диапазона; часто support/pullback entry (bullish bias).</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenUpperBand" xml:space="preserve">
+    <value>Swing Model Upper Band (MenthorQ) (UB)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenUpperBandDesc" xml:space="preserve">
+    <value>Стиль линии для Upper Band (UB) Swing Model (5D/20D). Верхняя граница multi-day диапазона; часто сопротивление/TP или fade зона (bearish bias).</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="PenOther" xml:space="preserve">
+    <value>Другое / Не сопоставлено</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="PenOtherDesc" xml:space="preserve">
+    <value>Fallback стиль линии для неизвестных или не сопоставленных меток.</value>
+    <comment>GammaLevels</comment>
+  </data>
+
+  <data name="Pen0DteAccent" xml:space="preserve">
+    <value>0DTE Accent (overlay)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Pen0DteAccentDesc" xml:space="preserve">
+    <value>Тонкий пунктирный overlay для приоритетных 0DTE (LG/PW/CW) до ThickMaxRank.</value>
+    <comment>GammaLevels</comment>
+  </data>
+
 </root>
