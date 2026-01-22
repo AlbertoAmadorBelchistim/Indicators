@@ -107,6 +107,81 @@ namespace ATAS.Indicators.Technical
             }
         }
 
+        private static int GetSourcePriority(string sourceId)
+        {
+            if (string.IsNullOrEmpty(sourceId))
+                return 100;
+
+            // Most trusted: explicit Lolo source (user-provided / primary workflow).
+            if (sourceId.StartsWith("Lolo", StringComparison.OrdinalIgnoreCase))
+                return 0;
+
+            // MenthorQ split: futures text is more "direct" than converted index text.
+            if (sourceId.StartsWith("MenthorQ:Futures", StringComparison.OrdinalIgnoreCase))
+                return 10;
+
+            if (sourceId.StartsWith("MenthorQ:Index", StringComparison.OrdinalIgnoreCase))
+                return 20;
+
+            // Backward/legacy prefixes (just in case older SourceId formats still exist).
+            if (sourceId.StartsWith("MenthorQText:Futures", StringComparison.OrdinalIgnoreCase))
+                return 10;
+
+            if (sourceId.StartsWith("MenthorQText:Index", StringComparison.OrdinalIgnoreCase))
+                return 20;
+
+            if (sourceId.StartsWith("MenthorQ", StringComparison.OrdinalIgnoreCase))
+                return 30;
+
+            return 100;
+        }
+
+        private readonly struct ConceptKey : IEquatable<ConceptKey>
+        {
+            public readonly LevelCategory Category;
+            public readonly int Rank;
+            public readonly bool Is0Dte;
+
+            public ConceptKey(LevelCategory category, int rank, bool is0Dte)
+            {
+                Category = category;
+                Rank = rank;
+                Is0Dte = is0Dte;
+            }
+
+            public bool Equals(ConceptKey other) =>
+                Category == other.Category && Rank == other.Rank && Is0Dte == other.Is0Dte;
+
+            public override bool Equals(object obj) =>
+                obj is ConceptKey other && Equals(other);
+
+            public override int GetHashCode()
+            {
+                unchecked
+                {
+                    int h = 17;
+                    h = (h * 31) + (int)Category;
+                    h = (h * 31) + Rank;
+                    h = (h * 31) + (Is0Dte ? 1 : 0);
+                    return h;
+                }
+            }
+        }
+
+        private readonly struct ConceptPick
+        {
+            public readonly decimal Price;
+            public readonly LevelLabel Label;
+            public readonly int SourcePriority;
+
+            public ConceptPick(decimal price, LevelLabel label, int sourcePriority)
+            {
+                Price = price;
+                Label = label;
+                SourcePriority = sourcePriority;
+            }
+        }
+
         #endregion
 
         #region Nested types: sources
@@ -1144,7 +1219,7 @@ namespace ATAS.Indicators.Technical
                     continue;
 
                 int y = ChartExtensions.GetYByPrice(chart, level.Price, false);
-                
+
                 // Defensive guard: some builds return extreme values when price is far outside visible scale.
                 if (y <= -1000000 || y >= 1000000)
                     continue;
@@ -1820,33 +1895,62 @@ namespace ATAS.Indicators.Technical
             };
         }
 
-        
+
         private static Level[] BuildLevels(ParsedEntry[] entries)
         {
             if (entries == null || entries.Length == 0)
                 return Array.Empty<Level>();
 
-            // Key: price, Value: merged labels
-            var map = new System.Collections.Generic.Dictionary<decimal, System.Collections.Generic.List<LevelLabel>>(entries.Length);
+            // "Concept" = same semantic level across sources.
+            // Canonical identity: (Category, Rank, Is0Dte).
+            var bestByConcept = new Dictionary<ConceptKey, ConceptPick>(256);
 
             for (int i = 0; i < entries.Length; i++)
             {
                 var e = entries[i];
-                if (e.Labels == null || e.Labels.Length == 0)
+                var labels = e.Labels;
+
+                if (labels == null || labels.Length == 0)
                     continue;
 
-                if (!map.TryGetValue(e.Price, out var list))
-                {
-                    list = new System.Collections.Generic.List<LevelLabel>(e.Labels.Length);
-                    map.Add(e.Price, list);
-                }
+                var srcPrio = GetSourcePriority(e.SourceId);
 
-                for (int j = 0; j < e.Labels.Length; j++)
-                    list.Add(e.Labels[j]);
+                for (int j = 0; j < labels.Length; j++)
+                {
+                    var lbl = labels[j];
+                    var key = new ConceptKey(lbl.Category, lbl.Rank, lbl.Is0Dte);
+
+                    if (!bestByConcept.TryGetValue(key, out var pick))
+                    {
+                        bestByConcept.Add(key, new ConceptPick(e.Price, lbl, srcPrio));
+                        continue;
+                    }
+
+                    // Same concept already exists: prefer higher-priority source (lower number).
+                    if (srcPrio < pick.SourcePriority)
+                        bestByConcept[key] = new ConceptPick(e.Price, lbl, srcPrio);
+                }
             }
 
-            if (map.Count == 0)
+            if (bestByConcept.Count == 0)
                 return Array.Empty<Level>();
+
+            // Rebuild levels by price using chosen concept picks.
+            var map = new Dictionary<decimal, List<LevelLabel>>(bestByConcept.Count);
+
+            foreach (var kv in bestByConcept)
+            {
+                var price = kv.Value.Price;
+                var lbl = kv.Value.Label;
+
+                if (!map.TryGetValue(price, out var list))
+                {
+                    list = new List<LevelLabel>(8);
+                    map.Add(price, list);
+                }
+
+                list.Add(lbl);
+            }
 
             var levels = new Level[map.Count];
             int k = 0;
@@ -1854,9 +1958,9 @@ namespace ATAS.Indicators.Technical
             foreach (var kvp in map)
             {
                 var price = kvp.Key;
-                var labels = kvp.Value;
+                var labelsList = kvp.Value;
 
-                var labelsArray = labels.Count == 0 ? Array.Empty<LevelLabel>() : labels.ToArray();
+                var labelsArray = labelsList.Count == 0 ? Array.Empty<LevelLabel>() : labelsList.ToArray();
                 var winner = SelectWinner(labelsArray);
                 var display = BuildDisplayText(labelsArray);
 
