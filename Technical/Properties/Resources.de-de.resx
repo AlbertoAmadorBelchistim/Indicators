@@ -1521,4 +1521,49 @@
     <value>Fügen Sie hier Levels ein, die bereits im Future angegeben sind (z. B. ES oder NQ). Der Indikator verwendet sie direkt, ohne einen Offset anzuwenden.</value>
     <comment>GammaLevels</comment>
   </data>
+  <data name="SourceTruth" xml:space="preserve">
+  <value>Quellenpriorität</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="SourceTruthDesc" xml:space="preserve">
+  <value>Legt fest, welche Quelle Vorrang hat, wenn dasselbe Level-Konzept in mehreren Quellen zu unterschiedlichen Preisen erscheint.</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_Default" xml:space="preserve">
+  <value>Standard</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_DefaultDesc" xml:space="preserve">
+  <value>Lolo-Level haben Vorrang, gefolgt von MenthorQ Futures und MenthorQ Index.</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="SourceTruth_PreferLolo" xml:space="preserve">
+  <value>Lolo priorisieren</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_PreferLoloDesc" xml:space="preserve">
+  <value>Lolo-Level werden bei Konflikten immer gegenüber anderen Quellen bevorzugt.</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="SourceTruth_PreferMenthorQFutures" xml:space="preserve">
+  <value>MenthorQ (Futures) priorisieren</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_PreferMenthorQFuturesDesc" xml:space="preserve">
+  <value>MenthorQ-Futures-Level haben bei Konflikten Vorrang vor Lolo und MenthorQ Index.</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="SourceTruth_PreferMenthorQIndex" xml:space="preserve">
+  <value>MenthorQ (Index) priorisieren</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_PreferMenthorQIndexDesc" xml:space="preserve">
+  <value>MenthorQ-Index-Level haben bei Konflikten Vorrang vor Lolo und MenthorQ Futures.</value>
+  <comment>GammaLevels</comment>
+</data>
+
 </root>

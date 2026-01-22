@@ -1526,4 +1526,49 @@
     <value>Pega aquí niveles ya expresados en el futuro (por ejemplo ES o NQ). El indicador los usa directamente, sin aplicar ningún Offset.</value>
     <comment>GammaLevels</comment>
   </data>
+  <data name="SourceTruth" xml:space="preserve">
+  <value>Prioridad de fuente</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="SourceTruthDesc" xml:space="preserve">
+  <value>Define qué fuente prevalece cuando el mismo concepto de nivel aparece a precios distintos en varias fuentes.</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_Default" xml:space="preserve">
+  <value>Por defecto</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_DefaultDesc" xml:space="preserve">
+  <value>Los niveles de Lolo tienen prioridad, seguidos de MenthorQ Futuro y MenthorQ Índice.</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="SourceTruth_PreferLolo" xml:space="preserve">
+  <value>Priorizar Lolo</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_PreferLoloDesc" xml:space="preserve">
+  <value>Los niveles de Lolo prevalecen siempre sobre el resto de fuentes cuando hay conflictos.</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="SourceTruth_PreferMenthorQFutures" xml:space="preserve">
+  <value>Priorizar MenthorQ (Futuro)</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_PreferMenthorQFuturesDesc" xml:space="preserve">
+  <value>Los niveles de MenthorQ Futuro prevalecen sobre Lolo y MenthorQ Índice cuando hay conflictos.</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="SourceTruth_PreferMenthorQIndex" xml:space="preserve">
+  <value>Priorizar MenthorQ (Índice)</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_PreferMenthorQIndexDesc" xml:space="preserve">
+  <value>Los niveles de MenthorQ Índice prevalecen sobre Lolo y MenthorQ Futuro cuando hay conflictos.</value>
+  <comment>GammaLevels</comment>
+</data>
+
 </root>

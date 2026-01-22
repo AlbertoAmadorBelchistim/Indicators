@@ -3599,4 +3599,49 @@
     <value>Вставьте уровни, уже указанные для фьючерса (например ES или NQ). Индикатор использует их напрямую, без применения Offset.</value>
     <comment>GammaLevels</comment>
   </data>
+  <data name="SourceTruth" xml:space="preserve">
+  <value>Приоритет источника</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="SourceTruthDesc" xml:space="preserve">
+  <value>Определяет, какой источник имеет приоритет, если один и тот же концепт уровня появляется по разным ценам в нескольких источниках.</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_Default" xml:space="preserve">
+  <value>По умолчанию</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_DefaultDesc" xml:space="preserve">
+  <value>Уровни Lolo имеют приоритет, затем MenthorQ Futures и MenthorQ Index.</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="SourceTruth_PreferLolo" xml:space="preserve">
+  <value>Отдавать приоритет Lolo</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_PreferLoloDesc" xml:space="preserve">
+  <value>Уровни Lolo всегда имеют приоритет над другими источниками при конфликтах.</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="SourceTruth_PreferMenthorQFutures" xml:space="preserve">
+  <value>Отдавать приоритет MenthorQ (Фьючерсы)</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_PreferMenthorQFuturesDesc" xml:space="preserve">
+  <value>Уровни MenthorQ Futures имеют приоритет над Lolo и MenthorQ Index при конфликтах.</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="SourceTruth_PreferMenthorQIndex" xml:space="preserve">
+  <value>Отдавать приоритет MenthorQ (Индекс)</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_PreferMenthorQIndexDesc" xml:space="preserve">
+  <value>Уровни MenthorQ Index имеют приоритет над Lolo и MenthorQ Futures при конфликтах.</value>
+  <comment>GammaLevels</comment>
+</data>
+
 </root>

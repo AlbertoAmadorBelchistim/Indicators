@@ -1516,4 +1516,49 @@
     <value>यहाँ वे स्तर चिपकाएँ जो पहले से फ्यूचर (जैसे ES या NQ) में दिए गए हों। संकेतक इन्हें सीधे उपयोग करता है और कोई Offset लागू नहीं करता।</value>
     <comment>GammaLevels</comment>
   </data>
+  <data name="SourceTruth" xml:space="preserve">
+  <value>स्रोत प्राथमिकता</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="SourceTruthDesc" xml:space="preserve">
+  <value>यह निर्धारित करता है कि जब एक ही स्तर की अवधारणा अलग-अलग स्रोतों में विभिन्न कीमतों पर दिखाई दे, तो किस स्रोत को प्राथमिकता दी जाए।</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_Default" xml:space="preserve">
+  <value>डिफ़ॉल्ट</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_DefaultDesc" xml:space="preserve">
+  <value>पहले Lolo स्तरों को प्राथमिकता दी जाती है, उसके बाद MenthorQ Futures और फिर MenthorQ Index।</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="SourceTruth_PreferLolo" xml:space="preserve">
+  <value>Lolo को प्राथमिकता दें</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_PreferLoloDesc" xml:space="preserve">
+  <value>संघर्ष की स्थिति में Lolo स्तरों को हमेशा अन्य स्रोतों पर प्राथमिकता दी जाती है।</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="SourceTruth_PreferMenthorQFutures" xml:space="preserve">
+  <value>MenthorQ (Futures) को प्राथमिकता दें</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_PreferMenthorQFuturesDesc" xml:space="preserve">
+  <value>संघर्ष की स्थिति में MenthorQ Futures स्तरों को Lolo और MenthorQ Index पर प्राथमिकता दी जाती है।</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="SourceTruth_PreferMenthorQIndex" xml:space="preserve">
+  <value>MenthorQ (Index) को प्राथमिकता दें</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_PreferMenthorQIndexDesc" xml:space="preserve">
+  <value>संघर्ष की स्थिति में MenthorQ Index स्तरों को Lolo और MenthorQ Futures पर प्राथमिकता दी जाती है।</value>
+  <comment>GammaLevels</comment>
+</data>
+
 </root>

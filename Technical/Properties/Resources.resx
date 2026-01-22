@@ -3926,4 +3926,49 @@
     <value>Paste levels already expressed in the futures contract (e.g., ES or NQ). The indicator uses them directly, without applying any Offset.</value>
     <comment>GammaLevels</comment>
   </data>
+  <data name="SourceTruth" xml:space="preserve">
+  <value>Source priority</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="SourceTruthDesc" xml:space="preserve">
+  <value>Defines which source takes precedence when the same level concept appears at different prices across multiple sources.</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_Default" xml:space="preserve">
+  <value>Default</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_DefaultDesc" xml:space="preserve">
+  <value>Lolo levels take precedence, followed by MenthorQ Futures and MenthorQ Index.</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="SourceTruth_PreferLolo" xml:space="preserve">
+  <value>Prefer Lolo</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_PreferLoloDesc" xml:space="preserve">
+  <value>Lolo levels are always preferred over other sources when conflicts occur.</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="SourceTruth_PreferMenthorQFutures" xml:space="preserve">
+  <value>Prefer MenthorQ (Futures)</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_PreferMenthorQFuturesDesc" xml:space="preserve">
+  <value>MenthorQ Futures levels are preferred over Lolo and MenthorQ Index when conflicts occur.</value>
+  <comment>GammaLevels</comment>
+</data>
+
+<data name="SourceTruth_PreferMenthorQIndex" xml:space="preserve">
+  <value>Prefer MenthorQ (Index)</value>
+  <comment>GammaLevels</comment>
+</data>
+<data name="SourceTruth_PreferMenthorQIndexDesc" xml:space="preserve">
+  <value>MenthorQ Index levels are preferred over Lolo and MenthorQ Futures when conflicts occur.</value>
+  <comment>GammaLevels</comment>
+</data>
+
 </root>
