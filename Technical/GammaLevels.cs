@@ -59,6 +59,29 @@ namespace ATAS.Indicators.Technical
             Right = 1
         }
 
+        public enum SourceTruthPreset
+        {
+            [Display(ResourceType = typeof(Resources),
+                Name = nameof(Resources.SourceTruth_Default),
+                Description = nameof(Resources.SourceTruth_DefaultDesc))]
+            Default = 0,
+
+            [Display(ResourceType = typeof(Resources),
+                Name = nameof(Resources.SourceTruth_PreferLolo),
+                Description = nameof(Resources.SourceTruth_PreferLoloDesc))]
+            PreferLolo = 1,
+
+            [Display(ResourceType = typeof(Resources),
+                Name = nameof(Resources.SourceTruth_PreferMenthorQFutures),
+                Description = nameof(Resources.SourceTruth_PreferMenthorQFuturesDesc))]
+            PreferMenthorQFutures = 2,
+
+            [Display(ResourceType = typeof(Resources),
+                Name = nameof(Resources.SourceTruth_PreferMenthorQIndex),
+                Description = nameof(Resources.SourceTruth_PreferMenthorQIndexDesc))]
+            PreferMenthorQIndex = 3
+        }
+
         internal readonly struct LevelLabel
         {
             public readonly LevelCategory Category;
@@ -107,33 +130,60 @@ namespace ATAS.Indicators.Technical
             }
         }
 
-        private static int GetSourcePriority(string sourceId)
+        private static int GetSourcePriority(string sourceId, SourceTruthPreset preset)
         {
             if (string.IsNullOrEmpty(sourceId))
                 return 100;
 
-            // Most trusted: explicit Lolo source (user-provided / primary workflow).
+            // Base ordering (lower = higher priority)
+            int lolo = 0;
+            int mqFut = 10;
+            int mqIdx = 20;
+            int other = 100;
+
+            switch (preset)
+            {
+                case SourceTruthPreset.PreferLolo:
+                    lolo = 0;
+                    mqFut = 10;
+                    mqIdx = 20;
+                    break;
+
+                case SourceTruthPreset.PreferMenthorQFutures:
+                    mqFut = 0;
+                    lolo = 10;
+                    mqIdx = 20;
+                    break;
+
+                case SourceTruthPreset.PreferMenthorQIndex:
+                    mqIdx = 0;
+                    lolo = 10;
+                    mqFut = 20;
+                    break;
+
+                default:
+                    // Default: Lolo > MenthorQ Futures > MenthorQ Index
+                    lolo = 0;
+                    mqFut = 10;
+                    mqIdx = 20;
+                    break;
+            }
+
             if (sourceId.StartsWith("Lolo", StringComparison.OrdinalIgnoreCase))
-                return 0;
+                return lolo;
 
-            // MenthorQ split: futures text is more "direct" than converted index text.
-            if (sourceId.StartsWith("MenthorQ:Futures", StringComparison.OrdinalIgnoreCase))
-                return 10;
+            if (sourceId.StartsWith("MenthorQ:Futures", StringComparison.OrdinalIgnoreCase) ||
+                sourceId.StartsWith("MenthorQText:Futures", StringComparison.OrdinalIgnoreCase))
+                return mqFut;
 
-            if (sourceId.StartsWith("MenthorQ:Index", StringComparison.OrdinalIgnoreCase))
-                return 20;
-
-            // Backward/legacy prefixes (just in case older SourceId formats still exist).
-            if (sourceId.StartsWith("MenthorQText:Futures", StringComparison.OrdinalIgnoreCase))
-                return 10;
-
-            if (sourceId.StartsWith("MenthorQText:Index", StringComparison.OrdinalIgnoreCase))
-                return 20;
+            if (sourceId.StartsWith("MenthorQ:Index", StringComparison.OrdinalIgnoreCase) ||
+                sourceId.StartsWith("MenthorQText:Index", StringComparison.OrdinalIgnoreCase))
+                return mqIdx;
 
             if (sourceId.StartsWith("MenthorQ", StringComparison.OrdinalIgnoreCase))
-                return 30;
+                return Math.Min(mqFut, mqIdx) + 5;
 
-            return 100;
+            return other;
         }
 
         private readonly struct ConceptKey : IEquatable<ConceptKey>
@@ -426,6 +476,11 @@ namespace ATAS.Indicators.Technical
         private bool _lastBarOnly = false;
 
         // -----------------------------
+        // UI: Source truth (conflict resolution)
+        // -----------------------------
+        private SourceTruthPreset _sourceTruthPreset = SourceTruthPreset.Default;
+
+        // -----------------------------
         // UI: Labels
         // -----------------------------
         private LabelSide _labelAlignment = LabelSide.Right;
@@ -647,11 +702,31 @@ namespace ATAS.Indicators.Technical
         // UI: Visibility
         // -----------------------------
         #region Properties: Visibility
+
+        [Display(ResourceType = typeof(Resources),
+            Name = nameof(Resources.SourceTruth),
+            Description = nameof(Resources.SourceTruthDesc),
+            GroupName = nameof(Resources.Visibility),
+            Order = 100)]
+        public SourceTruthPreset SourceTruth
+        {
+            get => _sourceTruthPreset;
+            set
+            {
+                if (_sourceTruthPreset == value)
+                    return;
+
+                _sourceTruthPreset = value;
+                _dataDirty = true;
+                RecalculateValues();
+            }
+        }
+
         [Display(ResourceType = typeof(Resources),
             Name = nameof(Resources.OnlyVisiblePriceRange),
             GroupName = nameof(Resources.Visibility),
             Description = nameof(Resources.OnlyVisiblePriceRangeDesc),
-            Order = 100)]
+            Order = 110)]
         public bool OnlyVisiblePriceRange
         {
             get => _onlyVisiblePriceRange;
@@ -670,7 +745,7 @@ namespace ATAS.Indicators.Technical
             Name = nameof(Resources.LastBarOnly),
             GroupName = nameof(Resources.Visibility),
             Description = nameof(Resources.LastBarOnlyDesc),
-            Order = 110)]
+            Order = 120)]
         public bool LastBarOnly
         {
             get => _lastBarOnly;
@@ -1896,7 +1971,7 @@ namespace ATAS.Indicators.Technical
         }
 
 
-        private static Level[] BuildLevels(ParsedEntry[] entries)
+        private static Level[] BuildLevels(ParsedEntry[] entries, SourceTruthPreset sourceTruth)
         {
             if (entries == null || entries.Length == 0)
                 return Array.Empty<Level>();
@@ -1913,7 +1988,7 @@ namespace ATAS.Indicators.Technical
                 if (labels == null || labels.Length == 0)
                     continue;
 
-                var srcPrio = GetSourcePriority(e.SourceId);
+                var srcPrio = GetSourcePriority(e.SourceId, sourceTruth);
 
                 for (int j = 0; j < labels.Length; j++)
                 {
@@ -2084,7 +2159,7 @@ namespace ATAS.Indicators.Technical
                     return;
                 }
 
-                _levels = BuildLevels(_parsedEntries);
+                _levels = BuildLevels(_parsedEntries, _sourceTruthPreset);
                 _visualDirty = true;
                 _textSizeCache.Clear();
             }
