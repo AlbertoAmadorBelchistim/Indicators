@@ -190,6 +190,18 @@ public class ClusterStatistic : Indicator
 		None
 	}
 
+	public enum SessionMode
+	{
+		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.None))]
+		None,
+
+		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Default))]
+		DefaultSession,
+
+		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.CustomSession))]
+		CustomSession
+	}
+
 	#endregion
 
 	#region Static and constants
@@ -211,6 +223,7 @@ public class ClusterStatistic : Indicator
 	private readonly ValueDataSeries _cDelta = new("cDelta");
 	private readonly ValueDataSeries _cDeltaPerVol = new("DeltaPerVol");
 	private readonly ValueDataSeries _cVolume = new("cVolume");
+	private readonly ValueDataSeries _deltaChange = new("deltaChange");
 	private readonly ValueDataSeries _deltaPerVol = new("BarDeltaPerVol");
 
 	private readonly RenderStringFormat _stringLeftFormat = new()
@@ -307,9 +320,11 @@ public class ClusterStatistic : Indicator
 	private bool _showVolumePerSecond;
 	private System.Drawing.Color _textColor;
 	private int _fontHeight;
+	private SessionMode _sessionMode = SessionMode.DefaultSession;
 
 	[Browsable(false)]
 	public RenderOrder RowsOrder = new();
+    private FilterTimeSpan _customSessionStart;
 
     #endregion
 
@@ -512,6 +527,35 @@ public class ClusterStatistic : Indicator
             _showDuration = value;
             RowsOrder.SetEnabled(DataType.Duration, value);
         }
+    }
+
+    #endregion
+
+    #region Session
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.SessionDeltaMode), GroupName = nameof(Strings.Session),
+        Description = nameof(Strings.SessionModeDescription), Order = 100)]
+    public SessionMode SessionCumMode
+    {
+        get => _sessionMode;
+        set
+        {
+            _sessionMode = value;
+            CustomSessionStart.Enabled = value == SessionMode.CustomSession;
+            RecalculateValues();
+        }
+    }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.CustomSessionStart), GroupName = nameof(Strings.Session),
+        Description = nameof(Strings.CustomSessionStartDescription), Order = 110)]
+    public FilterTimeSpan CustomSessionStart
+	{
+		get => _customSessionStart;
+		set => SetTrackedProperty(ref _customSessionStart, value, propName =>
+		{
+			if (propName == nameof(FilterTimeSpan.Value) && _sessionMode == SessionMode.CustomSession)
+				RecalculateValues();
+		});
     }
 
     #endregion
@@ -720,7 +764,6 @@ public class ClusterStatistic : Indicator
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.SessionDeltaPerVolumeAlert),
         Description = nameof(Strings.AlertFilterDescription), Order = 1010)]
-    [Range(0, 100)]
     public decimal SessionDeltaPerVolumeAlertValue { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.SessionDeltaPerVolumeAlert),
@@ -864,7 +907,8 @@ public class ClusterStatistic : Indicator
 		ShowDescription = false;
 
 		Font = new FontSetting("Arial", 9);
-	}
+		CustomSessionStart = new(false);
+    }
 
 	#endregion
 
@@ -975,21 +1019,32 @@ public class ClusterStatistic : Indicator
 
 		if (bar == 0)
 		{
-			_cumVolume = 0;
-			_maxVolume = 0;
-			_maxDelta = 0;
-			_maxMaxDelta = 0;
-			_maxMinDelta = 0;
-			_maxDeltaChange = 0;
-			_minDelta = decimal.MaxValue;
-			_maxHeight = 0;
-			_maxTicks = 0;
-			_maxDuration = 0;
-			_maxSessionDelta = 0;
-			_maxDeltaPerVolume = 0;
-			_maxSessionDeltaPerVolume = 0;
-			_maxBid = _maxAsk = 0;
+			_cVolume[bar] = _cumVolume = candle.Volume;
 			_cDelta[bar] = candle.Delta;
+			_deltaPerVol[bar] = candle.Volume is 0
+				? 0
+				: Math.Abs(candle.Delta * 100m / candle.Volume);
+			_cDeltaPerVol[bar] = candle.Volume is 0
+				? 0
+				: candle.Delta * 100m / candle.Volume;
+			_deltaChange[bar] = 0; // No previous candle
+			_candleHeights[bar] = candle.High - candle.Low;
+			_candleDurations[bar] = (int)(candle.LastTime - candle.Time).TotalSeconds;
+
+			_maxVolume = candle.Volume;
+			_maxDelta = Math.Abs(candle.Delta);
+			_maxMaxDelta = Math.Abs(candle.MaxDelta);
+			_maxMinDelta = Math.Abs(candle.MinDelta);
+			_maxDeltaChange = 0;
+			_minDelta = candle.MinDelta;
+			_maxHeight = _candleHeights[bar];
+			_maxTicks = candle.Ticks;
+			_maxDuration = _candleDurations[bar];
+			_maxSessionDelta = Math.Abs(candle.Delta);
+			_maxDeltaPerVolume = _deltaPerVol[bar];
+			_maxSessionDeltaPerVolume = Math.Abs(_cDeltaPerVol[bar]);
+			_maxAsk = candle.Ask;
+			_maxBid = candle.Bid;
 			return;
 		}
 
@@ -999,23 +1054,33 @@ public class ClusterStatistic : Indicator
 
 		var prevCandle = GetCandle(bar - 1);
 
-		if (IsNewSession(bar))
+		if (CheckStartBar(bar))
 		{
 			_cVolume[bar] = _cumVolume = candle.Volume;
 			_cDelta[bar] = candle.Delta;
+			_deltaChange[bar] = 0; // No previous candle in this session
+			_maxSessionDelta = 0;
+			_maxSessionDeltaPerVolume = 0;
+
+			// Reset last session values to avoid false alerts when new session starts
+			_lastSessionDeltaValue = 0m;
+			_lastSessionDeltaPerVolumeValue = 0m;
+			_lastSessionVolumeValue = 0m;
+			_lastDeltaChangeValue = 0m;
 		}
 		else
 		{
 			_cumVolume = _cVolume[bar] = _cVolume[bar - 1] + candle.Volume;
 			_cDelta[bar] = _cDelta[bar - 1] + candle.Delta;
+			_deltaChange[bar] = candle.Delta - prevCandle.Delta;
 		}
 
 		_maxSessionDelta = Math.Max(Math.Abs(_cDelta[bar]), _maxSessionDelta);
 
 		_maxAsk = Math.Max(candle.Ask, _maxAsk);
-		_maxBid = Math.Max(candle.Ask, _maxBid);
+		_maxBid = Math.Max(candle.Bid, _maxBid);
 
-		_maxDeltaChange = Math.Max(Math.Abs(candle.Delta - prevCandle.Delta), _maxDeltaChange);
+		_maxDeltaChange = Math.Max(Math.Abs(_deltaChange[bar]), _maxDeltaChange);
 
 		_maxDelta = Math.Max(Math.Abs(candle.Delta), _maxDelta);
 
@@ -1026,9 +1091,8 @@ public class ClusterStatistic : Indicator
 
 		_minDelta = Math.Min(candle.MinDelta, _minDelta);
 
-		_maxDeltaPerVolume = candle.Volume is 0
-			? 0
-			: Math.Max(Math.Abs(100 * candle.Delta / candle.Volume), _minDelta);
+		if (candle.Volume is not 0)
+			_maxDeltaPerVolume = Math.Max(Math.Abs(100 * candle.Delta / candle.Volume), _maxDeltaPerVolume);
 
 		var candleHeight = candle.High - candle.Low;
 		_maxHeight = Math.Max(candleHeight, _maxHeight);
@@ -1039,11 +1103,8 @@ public class ClusterStatistic : Indicator
 		_candleDurations[bar] = (int)(candle.LastTime - candle.Time).TotalSeconds;
 		_maxDuration = Math.Max(_candleDurations[bar], _maxDuration);
 
-		if (Math.Abs(_cVolume[bar] - 0) > 0.000001m)
-			_cDeltaPerVol[bar] = _cDelta[bar] * 
-				(_cVolume[bar] is 0 
-					? _cDelta[bar] 
-					: 100.0m / _cVolume[bar]);
+		if (_cVolume[bar] is not 0)
+			_cDeltaPerVol[bar] = _cDelta[bar] * 100.0m / _cVolume[bar];
 
 		_maxSessionDeltaPerVolume = Math.Max(Math.Abs(_cDeltaPerVol[bar]), _maxSessionDeltaPerVolume);
 
@@ -1053,19 +1114,17 @@ public class ClusterStatistic : Indicator
 			_lastBidValue = 0m;
 			_lastDeltaValue = 0m;
 			_lastDeltaPerVolumeValue = 0m;
-			_lastSessionDeltaValue = 0m;
-			_lastSessionDeltaPerVolumeValue = 0m;
 			_lastMaxDeltaValue = 0m;
 			_lastMinDeltaValue = 0m;
 			_lastDeltaChangeValue = 0m;
 			_lastVolumeValue = 0m;
 			_lastVolumePerSecondValue = 0m;
-			_lastSessionVolumeValue = 0m;
 			_lastTradesValue = 0m;
 			_lastHeightValue = 0m;
-		}
 
-		var deltaChange = candle.Delta - prevCandle.Delta;
+			// Session values are cumulative and should not be reset to 0 on new bar,
+			// otherwise alerts would falsely trigger due to "crossing" from 0
+		}
 
 		if (bar == CurrentBar - 1)
 		{
@@ -1161,7 +1220,10 @@ public class ClusterStatistic : Indicator
 			// Delta Change Alert (crossing)
 			if (UseDeltaChangeAlert && _lastDeltaChangeAlert != bar)
 			{
-				if ((_lastDeltaChangeValue < DeltaChangeAlertValue && deltaChange >= DeltaChangeAlertValue)
+
+                var deltaChange = _deltaChange[bar];
+
+                if ((_lastDeltaChangeValue < DeltaChangeAlertValue && deltaChange >= DeltaChangeAlertValue)
 				    || (_lastDeltaChangeValue > DeltaChangeAlertValue && deltaChange <= DeltaChangeAlertValue))
 				{
 					AddAlert(DeltaChangeAlertFile, $"Cluster statistic delta change alert: {deltaChange}");
@@ -1232,8 +1294,8 @@ public class ClusterStatistic : Indicator
 		_lastSessionDeltaPerVolumeValue = _cDeltaPerVol[bar];
 		_lastMaxDeltaValue = candle.MaxDelta;
 		_lastMinDeltaValue = candle.MinDelta;
-		_lastDeltaChangeValue = deltaChange;
-		_lastVolumeValue = candle.Volume;
+		_lastDeltaChangeValue = _deltaChange[bar];
+        _lastVolumeValue = candle.Volume;
 		_lastVolumePerSecondValue = _volPerSecond[bar];
 		_lastSessionVolumeValue = _cVolume[bar];
 		_lastTradesValue = candle.Ticks;
@@ -1590,7 +1652,7 @@ public class ClusterStatistic : Indicator
 			DataType.MinDelta => Blend(candle.MinDelta > 0 ?  AskColor : BidColor, BackGroundColor, rate),
             DataType.SessionDeltaVolume => Blend(_cDeltaPerVol[bar] > 0 ? AskColor : BidColor, BackGroundColor, rate),
 			DataType.SessionDelta => Blend(_cDelta[bar] > 0 ? AskColor : BidColor, BackGroundColor, rate),
-			DataType.DeltaChange => GetDeltaChangeBrush(candle, bar, rate),
+			DataType.DeltaChange => GetDeltaChangeBrush(bar, rate),
 			DataType.None => System.Drawing.Color.Transparent,
 			_ => throw new ArgumentOutOfRangeException()
 		};
@@ -1608,7 +1670,7 @@ public class ClusterStatistic : Indicator
 			DataType.SessionDeltaVolume => GetRate(Math.Abs(_cDeltaPerVol[bar]), maxValues.MaxSessionDeltaPerVolume),
 			DataType.MaxDelta => GetRate(Math.Abs(candle.MaxDelta), maxValues.MaxMaxDelta),
 			DataType.MinDelta => GetRate(Math.Abs(candle.MinDelta), maxValues.MaxMinDelta),
-			DataType.DeltaChange => GetRate(Math.Abs(candle.Delta - GetCandle(Math.Max(bar - 1, 0)).Delta), maxValues.MaxDeltaChange),
+			DataType.DeltaChange => GetRate(Math.Abs(_deltaChange[bar]), maxValues.MaxDeltaChange),
 			DataType.Volume => GetRate(candle.Volume, maxValues.MaxVolume),
 			DataType.VolumeSecond => GetRate(_volPerSecond[bar], maxValues.MaxVolumeSec),
 			DataType.SessionVolume => GetRate(_cVolume[bar], maxValues.CumVolume),
@@ -1664,8 +1726,7 @@ public class ClusterStatistic : Indicator
 				if (i == 0)
 					continue;
 
-				var prevCandle = GetCandle(i - 1);
-				maxDeltaChange = Math.Max(Math.Abs(candle.Delta - prevCandle.Delta), maxDeltaChange);
+				maxDeltaChange = Math.Max(Math.Abs(_deltaChange[i]), maxDeltaChange);
 				maxHeight = Math.Max(candle.High - candle.Low, maxHeight);
 				maxTicks = Math.Max(candle.Ticks, maxTicks);
 				maxDuration = Math.Max(_candleDurations[i], maxDuration);
@@ -1726,7 +1787,7 @@ public class ClusterStatistic : Indicator
 			DataType.SessionDeltaVolume => _cDeltaPerVol[bar].ToString("F") + "%",
 			DataType.MaxDelta => ChartInfo.TryGetMinimizedVolumeString(candle.MaxDelta),
 			DataType.MinDelta => ChartInfo.TryGetMinimizedVolumeString(candle.MinDelta),
-			DataType.DeltaChange => ChartInfo.TryGetMinimizedVolumeString(candle.Delta - GetCandle(Math.Max(bar - 1, 0)).Delta),
+			DataType.DeltaChange => ChartInfo.TryGetMinimizedVolumeString(_deltaChange[bar]),
 			DataType.Volume => ChartInfo.TryGetMinimizedVolumeString(candle.Volume),
 			DataType.VolumeSecond => ChartInfo.TryGetMinimizedVolumeString(_volPerSecond[bar]),
 			DataType.SessionVolume => ChartInfo.TryGetMinimizedVolumeString(_cVolume[bar]),
@@ -1793,10 +1854,9 @@ public class ClusterStatistic : Indicator
 		_layoutChanged = true;
 	}
 
-	private System.Drawing.Color GetDeltaChangeBrush(IndicatorCandle candle, int j, decimal rate)
+	private System.Drawing.Color GetDeltaChangeBrush(int bar, decimal rate)
 	{
-		var prevCandle = GetCandle(Math.Max(j - 1, 0));
-		var change = candle.Delta - prevCandle.Delta;
+		var change = _deltaChange[bar];
 		var rectColor = change > 0 ? AskColor : BidColor;
 		return Blend(rectColor, BackGroundColor, rate);
 	}
@@ -1849,6 +1909,28 @@ public class ClusterStatistic : Indicator
 		var g = (byte)(color.G + (backColor.G - color.G) * (1 - amount * 0.01m));
 		var b = (byte)(color.B + (backColor.B - color.B) * (1 - amount * 0.01m));
 		return System.Drawing.Color.FromArgb(_bgAlpha, r, g, b);
+	}
+
+	private bool CheckStartBar(int bar)
+	{
+		switch (_sessionMode)
+		{
+			case SessionMode.None:
+				return bar == 0;
+			case SessionMode.DefaultSession:
+				return IsNewSession(bar);
+			case SessionMode.CustomSession:
+				if (bar == 0)
+					return true;
+
+				var candle = GetCandle(bar);
+				var prevCandle = GetCandle(bar - 1);
+
+				return prevCandle.Time.AddHours(InstrumentInfo.TimeZone).TimeOfDay < CustomSessionStart.Value
+					&& candle.Time.AddHours(InstrumentInfo.TimeZone).TimeOfDay >= CustomSessionStart.Value;
+			default:
+				return false;
+		}
 	}
 
 	#endregion
