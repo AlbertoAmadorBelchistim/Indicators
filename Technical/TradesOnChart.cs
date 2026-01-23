@@ -1,5 +1,6 @@
 namespace ATAS.Indicators.Technical;
 
+using ATAS.Indicators.Technical.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -57,11 +58,11 @@ public class TradesOnChart : Indicator
 
     public enum LabelDisplayMode
     {
-        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Hide))]
+        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.LabelDisplayModeHide))]
         Hide,
-        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Short))]
+        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.LabelDisplayModeShort))]
         Short,
-        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Full))]
+        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.LabelDisplayModeFull))]
         Full
     }
 
@@ -121,14 +122,22 @@ public class TradesOnChart : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ProfitColor), Description = nameof(Resources.ProfitTradeResultColorDescription), GroupName = nameof(Resources.Visualization))]
+    [Display(
+		ResourceType = typeof(Resources),
+		Name = nameof(Resources.ProfitColor),
+		Description = nameof(Resources.ProfitColorDescription),
+		GroupName = nameof(Strings.Visualization))]
     public Color ProfitColor
     {
         get => _profitColor;
         set => _profitColor = value;
     }
 
-    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.LossColor), Description = nameof(Resources.LossTradeResultColorDescription), GroupName = nameof(Resources.Visualization))]
+    [Display(
+		ResourceType = typeof(Resources),
+		Name = nameof(Resources.LossColor),
+		Description = nameof(Resources.LossColorDescription),
+		GroupName = nameof(Strings.Visualization))]
     public Color LossColor
     {
         get => _lossColor;
