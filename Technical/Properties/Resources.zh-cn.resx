@@ -1510,5 +1510,83 @@
   <value>当出现冲突时，MenthorQ Index 水平优先于 Lolo 和 MenthorQ Futures。</value>
   <comment>GammaLevels</comment>
 </data>
+<data name="ProfitColor" xml:space="preserve">
+  <value>盈利颜色</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="ProfitColorDescription" xml:space="preserve">
+  <value>用于显示盈利交易的颜色。</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="LossColor" xml:space="preserve">
+  <value>亏损颜色</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="LossColorDescription" xml:space="preserve">
+  <value>用于显示亏损交易的颜色。</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="LabelDisplayModeHide" xml:space="preserve">
+  <value>隐藏</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="LabelDisplayModeShort" xml:space="preserve">
+  <value>简要</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="LabelDisplayModeFull" xml:space="preserve">
+  <value>完整</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="LabelDisplayModeCard" xml:space="preserve">
+  <value>卡片</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="TradeDirectionLong" xml:space="preserve">
+  <value>多头</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="TradeDirectionShort" xml:space="preserve">
+  <value>空头</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="TradeEntry" xml:space="preserve">
+  <value>入场</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="TradeExit" xml:space="preserve">
+  <value>出场</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="TradeResult" xml:space="preserve">
+  <value>结果</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="TradePnL" xml:space="preserve">
+  <value>PnL</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="TradeIn" xml:space="preserve">
+  <value>进</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="TradeOut" xml:space="preserve">
+  <value>出</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="TradeTicks" xml:space="preserve">
+  <value>跳</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="TradeTicksShort" xml:space="preserve">
+  <value>t</value>
+  <comment>TradesOnChart</comment>
+</data>
 
 </root>

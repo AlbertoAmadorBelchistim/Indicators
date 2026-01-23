@@ -1570,5 +1570,82 @@
   <value>Los niveles de MenthorQ Índice prevalecen sobre Lolo y MenthorQ Futuro cuando hay conflictos.</value>
   <comment>GammaLevels</comment>
 </data>
+<data name="ProfitColor" xml:space="preserve">
+  <value>Color de beneficio</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="ProfitColorDescription" xml:space="preserve">
+  <value>Color utilizado para mostrar operaciones con beneficio.</value>
+  <comment>TradesOnChart</comment>
+</data>
 
+<data name="LossColor" xml:space="preserve">
+  <value>Color de pérdida</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="LossColorDescription" xml:space="preserve">
+  <value>Color utilizado para mostrar operaciones con pérdida.</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="LabelDisplayModeHide" xml:space="preserve">
+  <value>Ocultar</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="LabelDisplayModeShort" xml:space="preserve">
+  <value>Corto</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="LabelDisplayModeFull" xml:space="preserve">
+  <value>Completo</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="LabelDisplayModeCard" xml:space="preserve">
+  <value>Tarjeta</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="TradeDirectionLong" xml:space="preserve">
+  <value>Largo</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="TradeDirectionShort" xml:space="preserve">
+  <value>Corto</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="TradeEntry" xml:space="preserve">
+  <value>Entrada</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="TradeExit" xml:space="preserve">
+  <value>Salida</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="TradeResult" xml:space="preserve">
+  <value>Resultado</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="TradePnL" xml:space="preserve">
+  <value>PnL</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="TradeIn" xml:space="preserve">
+  <value>Ent.</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="TradeOut" xml:space="preserve">
+  <value>Sal.</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="TradeTicks" xml:space="preserve">
+  <value>ticks</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="TradeTicksShort" xml:space="preserve">
+  <value>t</value>
+  <comment>TradesOnChart</comment>
+</data>
 </root>
