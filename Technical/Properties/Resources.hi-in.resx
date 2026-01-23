@@ -1560,5 +1560,83 @@
   <value>संघर्ष की स्थिति में MenthorQ Index स्तरों को Lolo और MenthorQ Futures पर प्राथमिकता दी जाती है।</value>
   <comment>GammaLevels</comment>
 </data>
+<data name="ProfitColor" xml:space="preserve">
+  <value>लाभ रंग</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="ProfitColorDescription" xml:space="preserve">
+  <value>लाभ वाले ट्रेड दिखाने के लिए उपयोग किया गया रंग।</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="LossColor" xml:space="preserve">
+  <value>हानि रंग</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="LossColorDescription" xml:space="preserve">
+  <value>हानि वाले ट्रेड दिखाने के लिए उपयोग किया गया रंग।</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="LabelDisplayModeHide" xml:space="preserve">
+  <value>छुपाएँ</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="LabelDisplayModeShort" xml:space="preserve">
+  <value>संक्षिप्त</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="LabelDisplayModeFull" xml:space="preserve">
+  <value>पूर्ण</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="LabelDisplayModeCard" xml:space="preserve">
+  <value>कार्ड</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="TradeDirectionLong" xml:space="preserve">
+  <value>लॉन्ग</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="TradeDirectionShort" xml:space="preserve">
+  <value>शॉर्ट</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="TradeEntry" xml:space="preserve">
+  <value>प्रवेश</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="TradeExit" xml:space="preserve">
+  <value>निकास</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="TradeResult" xml:space="preserve">
+  <value>परिणाम</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="TradePnL" xml:space="preserve">
+  <value>PnL</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="TradeIn" xml:space="preserve">
+  <value>इन</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="TradeOut" xml:space="preserve">
+  <value>आउट</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="TradeTicks" xml:space="preserve">
+  <value>टिक</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="TradeTicksShort" xml:space="preserve">
+  <value>t</value>
+  <comment>TradesOnChart</comment>
+</data>
 
 </root>

@@ -3778,6 +3778,42 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Card.
+        /// </summary>
+        public static string LabelDisplayModeCard {
+            get {
+                return ResourceManager.GetString("LabelDisplayModeCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Full.
+        /// </summary>
+        public static string LabelDisplayModeFull {
+            get {
+                return ResourceManager.GetString("LabelDisplayModeFull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Hide.
+        /// </summary>
+        public static string LabelDisplayModeHide {
+            get {
+                return ResourceManager.GetString("LabelDisplayModeHide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Short.
+        /// </summary>
+        public static string LabelDisplayModeShort {
+            get {
+                return ResourceManager.GetString("LabelDisplayModeShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Sets the background color of the label..
         /// </summary>
         public static string LabelFillColorDescription {
@@ -4044,6 +4080,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string LookBack {
             get {
                 return ResourceManager.GetString("LookBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Loss color.
+        /// </summary>
+        public static string LossColor {
+            get {
+                return ResourceManager.GetString("LossColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Color used to display losing trades..
+        /// </summary>
+        public static string LossColorDescription {
+            get {
+                return ResourceManager.GetString("LossColorDescription", resourceCulture);
             }
         }
         
@@ -6249,6 +6303,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string Profile {
             get {
                 return ResourceManager.GetString("Profile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Profit color.
+        /// </summary>
+        public static string ProfitColor {
+            get {
+                return ResourceManager.GetString("ProfitColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Color used to display profitable trades..
+        /// </summary>
+        public static string ProfitColorDescription {
+            get {
+                return ResourceManager.GetString("ProfitColorDescription", resourceCulture);
             }
         }
         
@@ -8557,6 +8629,78 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Long.
+        /// </summary>
+        public static string TradeDirectionLong {
+            get {
+                return ResourceManager.GetString("TradeDirectionLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Short.
+        /// </summary>
+        public static string TradeDirectionShort {
+            get {
+                return ResourceManager.GetString("TradeDirectionShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Entry.
+        /// </summary>
+        public static string TradeEntry {
+            get {
+                return ResourceManager.GetString("TradeEntry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Exit.
+        /// </summary>
+        public static string TradeExit {
+            get {
+                return ResourceManager.GetString("TradeExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a In.
+        /// </summary>
+        public static string TradeIn {
+            get {
+                return ResourceManager.GetString("TradeIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Out.
+        /// </summary>
+        public static string TradeOut {
+            get {
+                return ResourceManager.GetString("TradeOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a PnL.
+        /// </summary>
+        public static string TradePnL {
+            get {
+                return ResourceManager.GetString("TradePnL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Result.
+        /// </summary>
+        public static string TradeResult {
+            get {
+                return ResourceManager.GetString("TradeResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Trades.
         /// </summary>
         public static string Trades {
@@ -8571,6 +8715,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string TradesFilter {
             get {
                 return ResourceManager.GetString("TradesFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a ticks.
+        /// </summary>
+        public static string TradeTicks {
+            get {
+                return ResourceManager.GetString("TradeTicks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a t.
+        /// </summary>
+        public static string TradeTicksShort {
+            get {
+                return ResourceManager.GetString("TradeTicksShort", resourceCulture);
             }
         }
         
