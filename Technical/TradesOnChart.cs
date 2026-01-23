@@ -57,11 +57,11 @@ public class TradesOnChart : Indicator
     public enum LabelDisplayMode
     {
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.LabelDisplayModeHide))]
-        Hide,
+        Hide = 0,
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.LabelDisplayModeShort))]
-        Short,
+        Short = 1,
         [Display(ResourceType = typeof(Resources), Name = nameof(Resources.LabelDisplayModeFull))]
-        Full
+        Full = 2
     }
 
     #endregion
