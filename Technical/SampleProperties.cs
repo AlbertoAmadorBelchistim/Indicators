@@ -17,19 +17,29 @@
 
 	using static System.Environment;
 
-    [DisplayName("Properties")]
+#if ALPHA
+	[DisplayName("Properties")]
 	[Category(IndicatorCategories.Samples)]
 	public class SampleProperties : Indicator
-	{
-		#region Private fields
+#else
+	[DisplayName("Properties")]
+	[Category(IndicatorCategories.Samples)]
+	public class SampleProperties : Indicator, IPropertiesEditorOwner
+#endif
+    {
+        #region Private fields
 
-		private const string _managedCategoryCategoryName = "ManagedCategory";
+        private const string _managedCategoryCategoryName = "ManagedCategory";
 
 		private bool _activateProperties;
 		private bool _categoryManager;
-		private bool _propertyManager;
+#if ALPHA
+#else
+		private IPropertiesEditor _propertiesEditor;
+#endif
+        private bool _propertyManager;
 
-		#endregion
+#endregion
 
 		#region Properties
 
@@ -183,25 +193,34 @@
 		public bool CategoryManager
 		{
 			get => _categoryManager;
+#if ALPHA
 			set => SetProperty(ref _categoryManager, value, () => PropertiesEditor?.SetIsExpandedCategory(_managedCategoryCategoryName, value));
-		}
+#else
+			set => SetProperty(ref _categoryManager, value, () => _propertiesEditor?.SetIsExpandedCategory(_managedCategoryCategoryName, value));
 
-		[Display(Name = "Property", GroupName = "Management")]
+#endif
+        }
+
+        [Display(Name = "Property", GroupName = "Management")]
 		public bool PropertyManager
 		{
 			get => _propertyManager;
+#if ALPHA
 			set => SetProperty(ref _propertyManager, value, () => PropertiesEditor?.SetIsExpandedProperty(nameof(ExpandableProperty), value));
-		}
+#else
+			set => SetProperty(ref _propertyManager, value, () => _propertiesEditor?.SetIsExpandedProperty(nameof(ExpandableProperty), value));
+#endif
+        }
 
-		[Display(Name = "Managed Property 1", GroupName = _managedCategoryCategoryName)]
+        [Display(Name = "Managed Property 1", GroupName = _managedCategoryCategoryName)]
 		public int ManagedProperty1 { get; set; }
 
 		[Display(Name = "Managed Property 2", GroupName = _managedCategoryCategoryName)]
 		public int ManagetProperty2 { get; set; }
 
-		#endregion
+#endregion
 
-        #region ctor
+		#region ctor
 
         public SampleProperties()
 			: base(true)
@@ -300,9 +319,13 @@
 
 		#endregion
 
+#if ALPHA
+
 		#region Overrides of BaseIndicator
 
-		protected override void OnPropertiesEditorChanged(IPropertiesEditor? oldValue, IPropertiesEditor? newValue)
+
+
+        protected override void OnPropertiesEditorChanged(IPropertiesEditor? oldValue, IPropertiesEditor? newValue)
 		{
 			newValue?.BeginInit();
 
@@ -313,8 +336,40 @@
 		}
 
 		#endregion
-	}
-	
+#else
+		#region Implementation of IPropertiesEditorOwner
+		[Browsable(false)]
+		IPropertiesEditor IPropertiesEditorOwner.PropertiesEditor
+		{
+			get => _propertiesEditor;
+			set
+			{
+				if (_propertiesEditor == value)
+					return;
+
+				var oldValue = _propertiesEditor;
+				_propertiesEditor = value;
+
+				PropertiesEditorOnChanged(oldValue, value);
+			}
+		}
+
+		private void PropertiesEditorOnChanged(IPropertiesEditor oldValue, IPropertiesEditor newValue)
+		{
+			// Parameters may be null depending on editor lifecycle.
+			newValue?.BeginInit();
+
+			newValue?.SetIsExpandedCategory(_managedCategoryCategoryName, CategoryManager);
+			newValue?.SetIsExpandedProperty(nameof(ExpandableProperty), PropertyManager);
+
+			newValue?.EndInit();
+		}
+
+		#endregion
+#endif
+
+    }
+
     [Editor(typeof(SampleEditor), typeof(SampleEditor))]
     public class CustomClass
     {
