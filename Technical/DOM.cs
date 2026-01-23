@@ -336,7 +336,10 @@ public class DOM : Indicator
 		DataSeries[0] = _upScale;
 		DataSeries.Add(_downScale);
 
+#if ALPHA
 		IgnoreHistoryScale = true;
+#else
+#endif
 		EnableCustomDrawing = true;
 		SubscribeToDrawingEvents(DrawingLayouts.Final);
 
@@ -356,7 +359,7 @@ public class DOM : Indicator
 		FilterColors.CollectionChanged += FiltersChanged;
 	}
 
-	#endregion
+#endregion
 
 	#region Protected methods
 
