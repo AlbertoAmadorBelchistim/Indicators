@@ -1648,4 +1648,13 @@
   <value>t</value>
   <comment>TradesOnChart</comment>
 </data>
+<data name="LabelDistance" xml:space="preserve">
+  <value>Distancia de etiqueta (px)</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="LabelDistanceDescription" xml:space="preserve">
+  <value>Espaciado vertical adicional entre marcadores de trade y etiquetas (píxeles).</value>
+  <comment>TradesOnChart</comment>
+</data>
+
 </root>
