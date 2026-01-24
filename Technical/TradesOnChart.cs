@@ -437,8 +437,10 @@ public class TradesOnChart : Indicator
 		var resultColor = trade.PnL > 0 ? _profitColor : _lossColor;
 		var cornerRadius = 3;
 
-		var direction = trade.Direction == OrderDirections.Buy ? "Long" : "Short";
-		var openTime = trade.OpenTime.AddHours(InstrumentInfo.TimeZone);
+        var direction = trade.Direction == OrderDirections.Buy
+            ? Resources.TradeDirectionLong
+            : Resources.TradeDirectionShort;
+        var openTime = trade.OpenTime.AddHours(InstrumentInfo.TimeZone);
 		var closeTime = trade.CloseTime.AddHours(InstrumentInfo.TimeZone);
 
         _tooltipSb.Clear();
@@ -450,13 +452,13 @@ public class TradesOnChart : Indicator
         _tooltipSb.Append(Environment.NewLine);
         _tooltipSb.Append(Environment.NewLine);
 
-        _tooltipSb.Append("Entry\t:  ");
+        _tooltipSb.Append(Resources.TradeEntry + "\t:  ");
         _tooltipSb.Append(ChartInfo.GetPriceString(trade.OpenPrice));
         _tooltipSb.Append("  ");
         _tooltipSb.Append(openTime.ToString("dd MMM HH:mm:ss"));
         _tooltipSb.Append(Environment.NewLine);
 
-        _tooltipSb.Append("Exit\t:  ");
+        _tooltipSb.Append(Resources.TradeExit + "\t:  ");
         _tooltipSb.Append(ChartInfo.GetPriceString(trade.ClosePrice));
         _tooltipSb.Append("  ");
         _tooltipSb.Append(closeTime.ToString("dd MMM HH:mm:ss"));
@@ -464,13 +466,13 @@ public class TradesOnChart : Indicator
         var topText = _tooltipSb.ToString();
 
         _tooltipSb.Clear();
-        _tooltipSb.Append("Result:  ");
+        _tooltipSb.Append(Resources.TradeResult + ":  ");
         if (trade.PnL > 0)
             _tooltipSb.Append('+');
         _tooltipSb.Append(trade.PnL);
         _tooltipSb.Append("  (");
         _tooltipSb.Append(trade.PnLTicks);
-        _tooltipSb.Append(" ticks)");
+        _tooltipSb.Append(" " + Resources.TradeTicks + ")");
 
         var bottomText = _tooltipSb.ToString();
 
