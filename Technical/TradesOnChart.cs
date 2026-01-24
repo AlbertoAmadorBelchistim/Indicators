@@ -670,19 +670,44 @@ public class TradesOnChart : Indicator
     }
 
     private int GetBarByTime(DateTime time)
-	{
-		for (int i = CurrentBar - 1; i >= 0; i--) 
-		{
-			var candle = GetCandle(i);
+    {
+        // Binary search for the last bar whose candle time is <= requested time.
+        // This is hot-path for history rebuild and realtime updates.
+        var lo = 0;
+        var hi = CurrentBar - 1;
 
-			if (candle.Time <= time)
-				return i;
-		}
+        if (hi < 0)
+            return -1;
 
-		return -1;
-	}
+        // Quick rejects / fast paths.
+        if (GetCandle(lo).Time > time)
+            return -1;
 
-	private bool IsPointInTriangle(Point p, Point p0, Point p1, Point p2)
+        if (GetCandle(hi).Time <= time)
+            return hi;
+
+        var result = -1;
+
+        while (lo <= hi)
+        {
+            var mid = lo + ((hi - lo) / 2);
+            var midTime = GetCandle(mid).Time;
+
+            if (midTime <= time)
+            {
+                result = mid;
+                lo = mid + 1;
+            }
+            else
+            {
+                hi = mid - 1;
+            }
+        }
+
+        return result;
+    }
+
+    private bool IsPointInTriangle(Point p, Point p0, Point p1, Point p2)
 	{
 		double area = TriangleArea(p0, p1, p2);
 		double area1 = TriangleArea(p, p0, p1);
