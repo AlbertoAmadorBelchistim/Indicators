@@ -145,6 +145,7 @@ public class TradesOnChart : Indicator
     private readonly RenderStringFormat _labelRightFormat = new() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
     private readonly StringBuilder _tooltipSb = new(256);
     private readonly StringBuilder _labelSb = new(128);
+    private bool _subscriptionsAttached;
 
     #endregion
 
@@ -246,19 +247,53 @@ public class TradesOnChart : Indicator
 		EnableCustomDrawing = true;
 	}
 
-	#endregion
+    #endregion
 
-	#region Protected Methods
+    #region Protected Methods
 
-	protected override void OnInitialize()
-	{
-		TradingStatisticsProvider.Realtime.HistoryMyTrades.Added += OnTradeAdded;
-		TradingManager.PortfolioSelected += TradingManager_PortfolioSelected;
+    private void AttachSubscriptions()
+    {
+        if (_subscriptionsAttached)
+            return;
 
-		OnRecalculate();
-	}
+        // Defensive: runtime objects may be null during early init.
+        if (TradingStatisticsProvider?.Realtime?.HistoryMyTrades != null)
+            TradingStatisticsProvider.Realtime.HistoryMyTrades.Added += OnTradeAdded;
 
-	private void TradingManager_PortfolioSelected(Portfolio obj)
+        if (TradingManager != null)
+            TradingManager.PortfolioSelected += TradingManager_PortfolioSelected;
+
+        _subscriptionsAttached = true;
+    }
+
+    private void DetachSubscriptions()
+    {
+        if (!_subscriptionsAttached)
+            return;
+
+        // Defensive: runtime objects may already be disposed/null.
+        if (TradingStatisticsProvider?.Realtime?.HistoryMyTrades != null)
+            TradingStatisticsProvider.Realtime.HistoryMyTrades.Added -= OnTradeAdded;
+
+        if (TradingManager != null)
+            TradingManager.PortfolioSelected -= TradingManager_PortfolioSelected;
+
+        _subscriptionsAttached = false;
+    }
+
+    protected override void OnInitialize()
+    {
+        AttachSubscriptions();
+        OnRecalculate();
+    }
+
+    protected override void OnDispose()
+    {
+        DetachSubscriptions();
+        base.OnDispose();
+    }
+
+    private void TradingManager_PortfolioSelected(Portfolio obj)
 	{
 		OnRecalculate();
 	}
