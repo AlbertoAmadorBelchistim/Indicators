@@ -138,6 +138,9 @@ public class TradesOnChart : Indicator
     private readonly List<Rectangle> _labelCollisionRects = new();
     private const int _maxLabelCollisionIterations = 25;
     private const int _labelCollisionTailScan = 64;
+    private readonly List<TradeObj> _tooltipTrades = new();
+    private readonly List<(TradeObj Trade, bool MouseOverMarker1, bool MouseOverMarker2)> _tradeInfoBuffer = new();
+    private readonly RenderStringFormat _tooltipTextFormat = new() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Near };
 
     private ITradingStatistics? _statistics;
 
@@ -345,9 +348,9 @@ public class TradesOnChart : Indicator
 		if (tradesSnapshot.Length == 0)
 			return;
 
-		List<TradeObj> tooltipTrades = new();
-		List<(TradeObj Trade, bool MouseOverMarker1, bool MouseOverMarker2)> tradeInfo = new();
-		_labelsAbove.Clear();
+        _tooltipTrades.Clear();
+        _tradeInfoBuffer.Clear();
+        _labelsAbove.Clear();
 		_labelsBelow.Clear();
         _labelCollisionRects.Clear();
 
@@ -368,10 +371,10 @@ public class TradesOnChart : Indicator
 			var mouseOver = DrawMarker(context, new Point(x1, y1), trade.Direction, true);
 			var mouseOver2 = DrawMarker(context, new Point(x2, y2), trade.Direction, false);
 
-			tradeInfo.Add((trade, mouseOver, mouseOver2));
+            _tradeInfoBuffer.Add((trade, mouseOver, mouseOver2));
 		}
 
-		foreach (var (trade, mouseOver, mouseOver2) in tradeInfo)
+		foreach (var (trade, mouseOver, mouseOver2) in _tradeInfoBuffer)
 		{
 			var mouseOverLabel = false;
 
@@ -393,15 +396,15 @@ public class TradesOnChart : Indicator
 
 			if (ShowTooltip && (mouseOver || mouseOver2 || mouseOverLabel))
 			{
-				tooltipTrades.Add(trade);
+                _tooltipTrades.Add(trade);
 			}
 		}
 
-		if (tooltipTrades.Any())
+		if (_tooltipTrades.Count > 0)
 		{
 			var y = MouseLocationInfo.LastPosition.Y;
 
-			foreach (var trade in tooltipTrades)
+			foreach (var trade in _tooltipTrades)
 			{
 				DrawTooltip(context, trade, MouseLocationInfo.LastPosition.X, ref y);
 				y += 5;
@@ -445,12 +448,10 @@ public class TradesOnChart : Indicator
 		var topTextRect = new Rectangle(x + padding, y + padding, width - padding * 2, topHeight - padding * 2);
 		var bottomTextRect = new Rectangle(x + padding, y + topHeight + padding, width - padding * 2, bottomHeight - padding * 2);
 
-		var textFormat = new RenderStringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Near };
+        context.DrawString(topText, _font, Color.White, topTextRect, _tooltipTextFormat);
+        context.DrawString(bottomText, _font, Color.White, bottomTextRect, _tooltipTextFormat);
 
-		context.DrawString(topText, _font, Color.White, topTextRect, textFormat);
-		context.DrawString(bottomText, _font, Color.White, bottomTextRect, textFormat);
-
-		y += topHeight + bottomHeight;
+        y += topHeight + bottomHeight;
 	}
 
 	private bool DrawMarker(RenderContext context, Point point, OrderDirections direction, bool isOpen)
