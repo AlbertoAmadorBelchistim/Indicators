@@ -737,6 +737,13 @@ public class TradesOnChart : Indicator
 
         var testRect = new Rectangle(x, y, width, height);
 
+        // Anchor point on price (marker position)
+        var anchorY = isAbove
+            ? ChartInfo.GetYByPrice(candle.High, false)
+            : ChartInfo.GetYByPrice(candle.Low, false);
+
+        var anchorX = ChartInfo.GetXByBar(trade.CloseBar, false);
+
         // Collision resolution (reuse existing policy)
         var stepSize = height + 2;
         var iter = 0;
@@ -762,6 +769,14 @@ public class TradesOnChart : Indicator
                 ? new Rectangle(testRect.X, testRect.Y - stepSize, testRect.Width, testRect.Height)
                 : new Rectangle(testRect.X, testRect.Y + stepSize, testRect.Width, testRect.Height);
         }
+
+        // Draw connector line from marker to card
+        var x1 = anchorX;
+        var y1 = anchorY;
+        var x2 = anchorX;
+        var y2 = isAbove ? testRect.Bottom : testRect.Top;
+
+        context.DrawLine(_cardBorderPen, x1, y1, x2, y2);
 
         // Draw background
         var bgColor = trade.PnL >= 0 ? _profitColor : _lossColor;
