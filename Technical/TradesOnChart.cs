@@ -553,17 +553,8 @@ public class TradesOnChart : Indicator
 		return false;
 	}
 
-	private (Rectangle Rect, bool MouseOver) DrawTradeLabel(RenderContext context, TradeObj trade, int bar, IndicatorCandle candle, bool isAbove)
-	{
-
-        if (candle is null)
-            return (Rectangle.Empty, false);
-
-        var direction = trade.Direction == OrderDirections.Buy ? "L" : "S";
-		var pnlSign = trade.PnL > 0 ? "+" : "";
-
-        string leftText, rightText;
-
+    private void BuildLabelTexts(TradeObj trade, string direction, string pnlSign, out string leftText, out string rightText)
+    {
         if (LabelDisplay == LabelDisplayMode.Full)
         {
             var entryPrice = ChartInfo.GetPriceString(trade.OpenPrice);
@@ -605,6 +596,18 @@ public class TradesOnChart : Indicator
             _labelSb.Append("t)");
             rightText = _labelSb.ToString();
         }
+    }
+
+    private (Rectangle Rect, bool MouseOver) DrawTradeLabel(RenderContext context, TradeObj trade, int bar, IndicatorCandle candle, bool isAbove)
+	{
+
+        if (candle is null)
+            return (Rectangle.Empty, false);
+
+        var direction = trade.Direction == OrderDirections.Buy ? "L" : "S";
+		var pnlSign = trade.PnL > 0 ? "+" : "";
+
+        BuildLabelTexts(trade, direction, pnlSign, out var leftText, out var rightText);
 
         var leftSize = context.MeasureString(leftText, _labelFont);
 		var rightSize = context.MeasureString(rightText, _labelFont);
