@@ -1646,5 +1646,24 @@
   <value>ट्रेड मार्कर और लेबल के बीच अतिरिक्त ऊर्ध्वाधर दूरी (पिक्सेल)।</value>
   <comment>TradesOnChart</comment>
 </data>
+<data name="LabelXAnchor" xml:space="preserve">
+  <value>लेबल क्षैतिज एंकर</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="LabelXAnchorDescription" xml:space="preserve">
+  <value>ट्रेड लेबल को रखने के लिए उपयोग की जाने वाली क्षैतिज संदर्भ स्थिति।</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="LabelXAnchorCloseBar" xml:space="preserve">
+  <value>क्लोज़ बार</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="LabelXAnchorMidpoint" xml:space="preserve">
+  <value>ट्रेड का मध्य बिंदु</value>
+  <comment>TradesOnChart</comment>
+</data>
 
 </root>

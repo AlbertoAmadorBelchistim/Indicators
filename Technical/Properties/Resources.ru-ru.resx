@@ -3729,5 +3729,24 @@
   <value>Дополнительный вертикальный отступ между маркерами сделок и метками (в пикселях).</value>
   <comment>TradesOnChart</comment>
 </data>
+<data name="LabelXAnchor" xml:space="preserve">
+  <value>Горизонтальная привязка метки</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="LabelXAnchorDescription" xml:space="preserve">
+  <value>Определяет горизонтальную точку отсчёта для позиционирования меток сделок.</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="LabelXAnchorCloseBar" xml:space="preserve">
+  <value>Бар закрытия</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="LabelXAnchorMidpoint" xml:space="preserve">
+  <value>Середина сделки</value>
+  <comment>TradesOnChart</comment>
+</data>
 
 </root>

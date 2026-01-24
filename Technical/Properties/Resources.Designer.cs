@@ -3886,6 +3886,42 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Label horizontal anchor.
+        /// </summary>
+        public static string LabelXAnchor {
+            get {
+                return ResourceManager.GetString("LabelXAnchor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Close bar.
+        /// </summary>
+        public static string LabelXAnchorCloseBar {
+            get {
+                return ResourceManager.GetString("LabelXAnchorCloseBar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Defines the horizontal reference used to position trade labels..
+        /// </summary>
+        public static string LabelXAnchorDescription {
+            get {
+                return ResourceManager.GetString("LabelXAnchorDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Trade midpoint.
+        /// </summary>
+        public static string LabelXAnchorMidpoint {
+            get {
+                return ResourceManager.GetString("LabelXAnchorMidpoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Last Bar.
         /// </summary>
         public static string LastBar {

@@ -4056,6 +4056,24 @@
   <value>Additional vertical spacing between trade markers and labels (pixels).</value>
   <comment>TradesOnChart</comment>
 </data>
+<data name="LabelXAnchor" xml:space="preserve">
+  <value>Label horizontal anchor</value>
+  <comment>TradesOnChart</comment>
+</data>
 
+<data name="LabelXAnchorDescription" xml:space="preserve">
+  <value>Defines the horizontal reference used to position trade labels.</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="LabelXAnchorCloseBar" xml:space="preserve">
+  <value>Close bar</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="LabelXAnchorMidpoint" xml:space="preserve">
+  <value>Trade midpoint</value>
+  <comment>TradesOnChart</comment>
+</data>
 
 </root>

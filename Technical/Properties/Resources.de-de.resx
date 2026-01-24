@@ -1651,5 +1651,24 @@
   <value>Zusätzlicher vertikaler Abstand zwischen Trade-Markern und Labels (Pixel).</value>
   <comment>TradesOnChart</comment>
 </data>
+<data name="LabelXAnchor" xml:space="preserve">
+  <value>Horizontaler Label-Anker</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="LabelXAnchorDescription" xml:space="preserve">
+  <value>Definiert die horizontale Referenz zur Positionierung von Trade-Labels.</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="LabelXAnchorCloseBar" xml:space="preserve">
+  <value>Schlussbalken</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="LabelXAnchorMidpoint" xml:space="preserve">
+  <value>Trade-Mittelpunkt</value>
+  <comment>TradesOnChart</comment>
+</data>
 
 </root>
