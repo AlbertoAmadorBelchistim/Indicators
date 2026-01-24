@@ -63,7 +63,9 @@ public class TradesOnChart : Indicator
         [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Short))]
         Short = 1,
         [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Full))]
-        Full = 2
+        Full = 2,
+        [Display(Name = "Card")]
+        Card = 3
     }
 
     private readonly struct TradeKey : IEquatable<TradeKey>
