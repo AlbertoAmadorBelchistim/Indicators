@@ -135,12 +135,15 @@ public class TradesOnChart : Indicator
 	private DashStyle _lineStyle = DashStyle.Dash;
 	private readonly List<Rectangle> _labelsAbove = new();
 	private readonly List<Rectangle> _labelsBelow = new();
+    private readonly List<Rectangle> _labelCollisionRects = new();
+    private const int _maxLabelCollisionIterations = 25;
+    private const int _labelCollisionTailScan = 64;
 
     private ITradingStatistics? _statistics;
 
     #endregion
 
-	#region Properties
+    #region Properties
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowLines), Description = nameof(Strings.IsNeedShowLinesDescription), GroupName = nameof(Strings.Visualization))]
     public bool ShowLine { get; set; } = true;
@@ -323,8 +326,9 @@ public class TradesOnChart : Indicator
 		List<(TradeObj Trade, bool MouseOverMarker1, bool MouseOverMarker2)> tradeInfo = new();
 		_labelsAbove.Clear();
 		_labelsBelow.Clear();
+        _labelCollisionRects.Clear();
 
-		foreach (var trade in tradesSnapshot)
+        foreach (var trade in tradesSnapshot)
 		{
 			if (trade.OpenBar > LastVisibleBarNumber || trade.CloseBar < FirstVisibleBarNumber)
 				continue;
@@ -356,7 +360,9 @@ public class TradesOnChart : Indicator
 				var (labelRect, labelHover) = DrawTradeLabel(context, trade, trade.CloseBar, candle, isAbove);
 				mouseOverLabel = labelHover;
 
-				if (isAbove)
+                _labelCollisionRects.Add(labelRect);
+
+                if (isAbove)
 					_labelsAbove.Add(labelRect);
 				else
 					_labelsBelow.Add(labelRect);
@@ -489,31 +495,43 @@ public class TradesOnChart : Indicator
 		var stepSize = rectHeight + spacing;
 		var yPosition = baseY;
 
-		var testRect = new Rectangle(labelX, yPosition, rectWidth, rectHeight);
-		var allLabels = _labelsAbove.Concat(_labelsBelow).ToList();
+        var testRect = new Rectangle(labelX, yPosition, rectWidth, rectHeight);
 
-		while (allLabels.Any(r => r.IntersectsWith(testRect)))
-		{
-			var intersecting = allLabels.Where(r => r.IntersectsWith(testRect)).ToList();
+        // Collision resolution (hot-path): avoid LINQ and bound the work.
+        var iter = 0;
 
-			if (intersecting.Any())
-			{
-				if (isAbove)
-				{
-					var topmost = intersecting.Min(r => r.Y);
-					yPosition = topmost - stepSize;
-				}
-				else
-				{
-					var bottommost = intersecting.Max(r => r.Bottom);
-					yPosition = bottommost + spacing;
-				}
+        while (iter++ < _maxLabelCollisionIterations)
+        {
+            var hasCollision = false;
 
-				testRect = new Rectangle(labelX, yPosition, rectWidth, rectHeight);
-			}
-		}
+            // Scan only the tail of recently placed rectangles (most likely collisions).
+            var start = Math.Max(0, _labelCollisionRects.Count - _labelCollisionTailScan);
 
-		var directionColor = trade.Direction == OrderDirections.Buy ? _buyColor : _sellColor;
+            for (var i = start; i < _labelCollisionRects.Count; i++)
+            {
+                if (_labelCollisionRects[i].IntersectsWith(testRect))
+                {
+                    hasCollision = true;
+                    break;
+                }
+            }
+
+            if (!hasCollision)
+                break;
+
+            // Move vertically away from the band depending on placement.
+            if (isAbove)
+            {
+                testRect = new Rectangle(testRect.X, testRect.Y - stepSize, testRect.Width, testRect.Height);
+            }
+            else
+            {
+                testRect = new Rectangle(testRect.X, testRect.Y + stepSize, testRect.Width, testRect.Height);
+            }
+        }
+
+
+        var directionColor = trade.Direction == OrderDirections.Buy ? _buyColor : _sellColor;
 		var resultColor = trade.PnL > 0 ? _profitColor : _lossColor;
 		var cornerRadius = 3;
 
