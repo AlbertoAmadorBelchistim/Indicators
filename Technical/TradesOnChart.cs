@@ -68,6 +68,15 @@ public class TradesOnChart : Indicator
         Card = 3
     }
 
+    public enum LabelHorizontalAnchor
+    {
+        [Display(Name = "Close bar")]
+        CloseBar = 0,
+
+        [Display(Name = "Trade midpoint")]
+        Midpoint = 1
+    }
+
     private readonly struct TradeKey : IEquatable<TradeKey>
     {
         public readonly DateTime OpenTime;
@@ -174,6 +183,9 @@ public class TradesOnChart : Indicator
         get => _labelDistance;
         set => _labelDistance = Math.Max(0, value);
     }
+
+    [Display(Name = "Label centering", Description = "Defines the horizontal reference used to position trade labels.", GroupName = nameof(Strings.Visualization))]
+    public LabelHorizontalAnchor LabelXAnchor { get; set; } = LabelHorizontalAnchor.CloseBar;
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BuyColor), Description = nameof(Strings.BuyTradeLineColorDescription), GroupName = nameof(Strings.Visualization))]
     public Color BuyColor
@@ -411,15 +423,16 @@ public class TradesOnChart : Indicator
 
 			if (LabelDisplay != LabelDisplayMode.Hide)
 			{
-				var candle = GetCandle(trade.CloseBar);
+                var anchorBar = GetLabelAnchorBar(trade);
+                var candle = GetCandle(trade.CloseBar);
 
                 if (candle is null)
                     continue;
 
                 var isAbove = trade.Direction == OrderDirections.Buy;
 
-				var (labelRect, labelHover) = DrawTradeLabel(context, trade, trade.CloseBar, candle, isAbove);
-				mouseOverLabel = labelHover;
+                var (labelRect, labelHover) = DrawTradeLabel(context, trade, anchorBar, candle, isAbove);
+                mouseOverLabel = labelHover;
 
                 _labelCollisionRects.Add(labelRect);
 
@@ -624,7 +637,7 @@ public class TradesOnChart : Indicator
 		var pnlSign = trade.PnL > 0 ? "+" : "";
 
         if (LabelDisplay == LabelDisplayMode.Card)
-            return DrawTradeCardLabel(context, trade, candle, isAbove, direction, pnlSign);
+            return DrawTradeCardLabel(context, trade, bar, candle, isAbove, direction, pnlSign);
 
         BuildLabelTexts(trade, direction, pnlSign, out var leftText, out var rightText);
 
@@ -637,9 +650,10 @@ public class TradesOnChart : Indicator
 		var rectWidth = leftWidth + rightWidth;
 		var rectHeight = Math.Max(leftSize.Height, rightSize.Height) + padding * 2;
 
-		var candleX = ChartInfo.GetXByBar(bar, false);
-		var barWidth = (int)ChartInfo.PriceChartContainer.BarsWidth;
-		var labelX = candleX - barWidth / 2;
+        var candleX = ChartInfo.GetXByBar(bar, false);
+
+        // Center the label rect over the anchor bar using the actual rect width.
+        var labelX = candleX - (int)(rectWidth / 2f);
 
         var markerOffset = (MarkerSize * 4) + LabelDistance;
         var baseY = isAbove
@@ -711,12 +725,13 @@ public class TradesOnChart : Indicator
 	}
 
     private (Rectangle Rect, bool MouseOver) DrawTradeCardLabel(
-    RenderContext context,
-    TradeObj trade,
-    IndicatorCandle candle,
-    bool isAbove,
-    string direction,
-    string pnlSign)
+        RenderContext context,
+        TradeObj trade,
+        int bar,
+        IndicatorCandle candle,
+        bool isAbove,
+        string direction,
+        string pnlSign)
     {
         // Build lines
         BuildCardLabelLines(trade, direction, pnlSign, out var line1, out var line2, out var line3);
@@ -738,7 +753,7 @@ public class TradesOnChart : Indicator
         var height = paddingY * 2 + (lineHeight * 3) + (lineGap * 2);
 
         // Position (same anchor concept as DrawTradeLabel)
-        var centerX = ChartInfo.GetXByBar(trade.CloseBar, false);
+        var centerX = ChartInfo.GetXByBar(bar, false);
         var x = centerX - (width / 2);
         var markerOffset = (MarkerSize * 4) + LabelDistance;
 
@@ -755,7 +770,7 @@ public class TradesOnChart : Indicator
             ? ChartInfo.GetYByPrice(candle.High, false)
             : ChartInfo.GetYByPrice(candle.Low, false);
 
-        var anchorX = ChartInfo.GetXByBar(trade.CloseBar, false);
+        var anchorX = ChartInfo.GetXByBar(bar, false);
 
         // Collision resolution (reuse existing policy)
         var stepSize = height + 2;
@@ -1042,5 +1057,14 @@ public class TradesOnChart : Indicator
 		return new Pen(color, lineWidth) { DashStyle = lineStyle };
 	}
 
-	#endregion
+    private int GetLabelAnchorBar(TradeObj trade)
+    {
+        if (LabelXAnchor == LabelHorizontalAnchor.Midpoint && trade.CloseBar > trade.OpenBar)
+            return (trade.OpenBar + trade.CloseBar) >> 1;
+
+        return trade.CloseBar;
+    }
+
+
+    #endregion
 }
