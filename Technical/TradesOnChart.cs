@@ -130,7 +130,8 @@ public class TradesOnChart : Indicator
     private readonly HashSet<TradeKey> _tradeKeys = new();
     private Pen _buyPen;
 	private Pen _sellPen;
-	private Color _buyColor;
+    private readonly Pen _cardBorderPen = new Pen(Color.FromArgb(100, 0, 0, 0), 1);
+    private Color _buyColor;
 	private Color _sellColor;
 	private Color _profitColor;
 	private Color _lossColor;
@@ -598,6 +599,35 @@ public class TradesOnChart : Indicator
         }
     }
 
+    private void BuildCardLabelLines(TradeObj trade, string direction, string pnlSign, out string line1, out string line2, out string line3)
+    {
+        // Line 1: direction + volume (same semantics as non-Full leftText)
+        _labelSb.Clear();
+        _labelSb.Append(direction);
+        _labelSb.Append(' ');
+        _labelSb.Append(trade.Volume);
+        line1 = _labelSb.ToString();
+
+        // Line 2: entry -> exit (prices only)
+        var entryPrice = ChartInfo.GetPriceString(trade.OpenPrice);
+        var exitPrice = ChartInfo.GetPriceString(trade.ClosePrice);
+
+        _labelSb.Clear();
+        _labelSb.Append(entryPrice);
+        _labelSb.Append('→');
+        _labelSb.Append(exitPrice);
+        line2 = _labelSb.ToString();
+
+        // Line 3: PnL + ticks (same semantics as rightText, without leading space)
+        _labelSb.Clear();
+        _labelSb.Append(pnlSign);
+        _labelSb.Append(trade.PnL);
+        _labelSb.Append(" (");
+        _labelSb.Append(trade.PnLTicks);
+        _labelSb.Append("t)");
+        line3 = _labelSb.ToString();
+    }
+
     private (Rectangle Rect, bool MouseOver) DrawTradeLabel(RenderContext context, TradeObj trade, int bar, IndicatorCandle candle, bool isAbove)
 	{
 
@@ -606,6 +636,9 @@ public class TradesOnChart : Indicator
 
         var direction = trade.Direction == OrderDirections.Buy ? "L" : "S";
 		var pnlSign = trade.PnL > 0 ? "+" : "";
+
+        if (LabelDisplay == LabelDisplayMode.Card)
+            return DrawTradeCardLabel(context, trade, candle, isAbove, direction, pnlSign);
 
         BuildLabelTexts(trade, direction, pnlSign, out var leftText, out var rightText);
 
@@ -691,13 +724,105 @@ public class TradesOnChart : Indicator
 		return (testRect, mouseOver);
 	}
 
-	#endregion
+    private (Rectangle Rect, bool MouseOver) DrawTradeCardLabel(
+    RenderContext context,
+    TradeObj trade,
+    IndicatorCandle candle,
+    bool isAbove,
+    string direction,
+    string pnlSign)
+    {
+        // Build lines
+        BuildCardLabelLines(trade, direction, pnlSign, out var line1, out var line2, out var line3);
 
-	#endregion
+        // Measure
+        var s1 = context.MeasureString(line1, _labelFont);
+        var s2 = context.MeasureString(line2, _labelFont);
+        var s3 = context.MeasureString(line3, _labelFont);
 
-	#region Private Methods
+        var paddingX = 6;
+        var paddingY = 4;
+        var lineGap = 2;
 
-	private void AddHistoryMyTrade()
+        var maxTextWidth = Math.Max(s1.Width, Math.Max(s2.Width, s3.Width));
+        var maxTextHeight = Math.Max(s1.Height, Math.Max(s2.Height, s3.Height));
+
+        var width = (int)maxTextWidth + (paddingX * 2);
+        var lineHeight = (int)maxTextHeight;
+        var height = paddingY * 2 + (lineHeight * 3) + (lineGap * 2);
+
+        // Position (same anchor concept as DrawTradeLabel)
+        var centerX = ChartInfo.GetXByBar(trade.CloseBar, false);
+        var x = centerX - (width / 2);
+        var markerOffset = (MarkerSize * 4) + LabelDistance;
+
+        var baseY = isAbove
+            ? ChartInfo.GetYByPrice(candle.High, false) - markerOffset - height
+            : ChartInfo.GetYByPrice(candle.Low, false) + markerOffset;
+
+        var y = baseY;
+
+        var testRect = new Rectangle(x, y, width, height);
+
+        // Collision resolution (reuse existing policy)
+        var stepSize = height + 2;
+        var iter = 0;
+
+        while (iter++ < _maxLabelCollisionIterations)
+        {
+            var hasCollision = false;
+            var start = Math.Max(0, _labelCollisionRects.Count - _labelCollisionTailScan);
+
+            for (var i = start; i < _labelCollisionRects.Count; i++)
+            {
+                if (_labelCollisionRects[i].IntersectsWith(testRect))
+                {
+                    hasCollision = true;
+                    break;
+                }
+            }
+
+            if (!hasCollision)
+                break;
+
+            testRect = isAbove
+                ? new Rectangle(testRect.X, testRect.Y - stepSize, testRect.Width, testRect.Height)
+                : new Rectangle(testRect.X, testRect.Y + stepSize, testRect.Width, testRect.Height);
+        }
+
+        // Draw background
+        var bgColor = trade.PnL >= 0 ? _profitColor : _lossColor;
+        context.FillRectangle(bgColor, testRect);
+
+        // Border (optional, consistent with your label drawing)
+        context.DrawRectangle(_cardBorderPen, testRect);
+
+        // Text rects
+        var textX = testRect.X + paddingX;
+        var textY = testRect.Y + paddingY;
+
+        var r1 = new Rectangle(textX, textY, testRect.Width - paddingX * 2, lineHeight);
+        var r2 = new Rectangle(textX, textY + lineHeight + lineGap, testRect.Width - paddingX * 2, lineHeight);
+        var r3 = new Rectangle(textX, textY + (lineHeight + lineGap) * 2, testRect.Width - paddingX * 2, lineHeight);
+
+        // Draw text (left aligned, avoid clipping)
+        context.DrawString(line1, _labelFont, Color.White, r1, _labelLeftFormat);
+        context.DrawString(line2, _labelFont, Color.White, r2, _labelLeftFormat);
+        context.DrawString(line3, _labelFont, Color.White, r3, _labelLeftFormat);
+
+        // Mouse hover: treat the whole card as hover target
+        var mouseOver = testRect.Contains(MouseLocationInfo.LastPosition);
+
+        return (testRect, mouseOver);
+    }
+
+    #endregion
+
+    #endregion
+
+    #region Private Methods
+
+    private void AddHistoryMyTrade()
 	{
 		if (TradingManager?.Portfolio == null|| TradingManager?.Security == null)
 			return;
