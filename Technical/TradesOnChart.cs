@@ -65,16 +65,67 @@ public class TradesOnChart : Indicator
 		Full = 2
 	}
 
-	#endregion
+    private readonly struct TradeKey : IEquatable<TradeKey>
+    {
+        public readonly DateTime OpenTime;
+        public readonly DateTime CloseTime;
+        public readonly decimal OpenPrice;
+        public readonly decimal ClosePrice;
+        public readonly decimal Volume;
+        public readonly OrderDirections Direction;
+        public readonly string Security;
 
-	#region Fields
+        public TradeKey(DateTime openTime, DateTime closeTime, decimal openPrice, decimal closePrice, decimal volume, OrderDirections direction, string security)
+        {
+            OpenTime = openTime;
+            CloseTime = closeTime;
+            OpenPrice = openPrice;
+            ClosePrice = closePrice;
+            Volume = volume;
+            Direction = direction;
+            Security = security ?? string.Empty;
+        }
 
-	private RenderFont _font = new RenderFont("Arial", 10F, FontStyle.Regular, GraphicsUnit.Point, 204);
+        public bool Equals(TradeKey other)
+        {
+            return OpenTime == other.OpenTime
+                && CloseTime == other.CloseTime
+                && OpenPrice == other.OpenPrice
+                && ClosePrice == other.ClosePrice
+                && Volume == other.Volume
+                && Direction == other.Direction
+                && string.Equals(Security, other.Security, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        public override bool Equals(object obj) => obj is TradeKey other && Equals(other);
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hash = OpenTime.GetHashCode();
+                hash = (hash * 397) ^ CloseTime.GetHashCode();
+                hash = (hash * 397) ^ OpenPrice.GetHashCode();
+                hash = (hash * 397) ^ ClosePrice.GetHashCode();
+                hash = (hash * 397) ^ Volume.GetHashCode();
+                hash = (hash * 397) ^ (int)Direction;
+                hash = (hash * 397) ^ StringComparer.InvariantCultureIgnoreCase.GetHashCode(Security ?? string.Empty);
+                return hash;
+            }
+        }
+    }
+
+    #endregion
+
+    #region Fields
+
+    private RenderFont _font = new RenderFont("Arial", 10F, FontStyle.Regular, GraphicsUnit.Point, 204);
 	private RenderFont _labelFont = new RenderFont("Arial", 8F, FontStyle.Regular, GraphicsUnit.Point, 204);
 	private RenderStringFormat _stringFormat = new RenderStringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center };
 	private readonly List<TradeObj> _trades = new();
 	private readonly object _tradesSync = new();
-	private Pen _buyPen;
+    private readonly HashSet<TradeKey> _tradeKeys = new();
+    private Pen _buyPen;
 	private Pen _sellPen;
 	private Color _buyColor;
 	private Color _sellColor;
@@ -235,7 +286,8 @@ public class TradesOnChart : Indicator
 		lock (_tradesSync)
 		{
 			_trades.Clear();
-		}
+            _tradeKeys.Clear();
+        }
 
 		AddHistoryMyTrade();
 	}
@@ -564,24 +616,48 @@ public class TradesOnChart : Indicator
 		}
 	}
 
-	private TradeObj CreateTradePair(HistoryMyTrade trade)
-	{
-		var enterBar = GetBarByTime(trade.OpenTime);
+    private TradeObj CreateTradePair(HistoryMyTrade trade)
+    {
+        // Map open/close time to bars (best-effort).
+        var enterBar = GetBarByTime(trade.OpenTime);
+        if (enterBar < 0)
+            return null;
 
-		if (enterBar < 0) return null;
+        var exitBar = GetBarByTime(trade.CloseTime);
 
-		var exitBar = GetBarByTime(trade.CloseTime);
+        // If we can't map the close time (e.g., chart not loaded that far),
+        // keep the trade stable by snapping to the entry bar.
+        if (exitBar < 0)
+            exitBar = enterBar;
 
-		var tradeObj = new TradeObj(trade)
-		{
-			OpenBar = enterBar,
-			CloseBar = exitBar,
-		};
+        var temp = new TradeObj(trade)
+        {
+            OpenBar = enterBar,
+            CloseBar = exitBar,
+        };
 
-		return tradeObj;
-	}
+        // Deduplicate across history reloads and realtime events.
+        // We key by semantic trade identity, not by bar mapping.
+        var key = new TradeKey(
+            temp.OpenTime,
+            temp.CloseTime,
+            temp.OpenPrice,
+            temp.ClosePrice,
+            temp.Volume,
+            temp.Direction,
+            temp.Security
+        );
 
-	private int GetBarByTime(DateTime time)
+        lock (_tradesSync)
+        {
+            if (!_tradeKeys.Add(key))
+                return null;
+        }
+
+        return temp;
+    }
+
+    private int GetBarByTime(DateTime time)
 	{
 		for (int i = CurrentBar - 1; i >= 0; i--) 
 		{
