@@ -597,24 +597,54 @@ public class TradesOnChart : Indicator
 		}
 	}
 
-	private void OnTradeAdded(HistoryMyTrade trade)
-	{
-		if (TradingManager?.Portfolio == null || TradingManager?.Security == null)
-			return;
+    private static bool IsTradeClosed(HistoryMyTrade trade)
+    {
+        // Best-effort closure check.
+        // We avoid showing partially populated trades that may arrive via realtime events.
+        if (trade is null)
+            return false;
 
-		if (trade.AccountID == TradingManager.Portfolio.AccountID && trade.Security.Instrument == TradingManager.Security.Instrument)
-		{
-			var tradeObj = CreateTradePair(trade);
-			if (tradeObj == null)
-				return;
+        if (trade.CloseTime == default)
+            return false;
 
-			lock (_tradesSync)
-			{
-				_trades.Add(tradeObj);
-			}
+        // Some feeds may temporarily duplicate OpenTime/CloseTime during transitions.
+        if (trade.CloseTime <= trade.OpenTime)
+            return false;
 
-		}
-	}
+        // ClosePrice usually becomes valid only when the trade is finalized.
+        if (trade.ClosePrice == 0)
+            return false;
+
+        return true;
+    }
+
+    private void OnTradeAdded(HistoryMyTrade trade)
+    {
+        if (TradingManager?.Portfolio == null || TradingManager?.Security == null)
+            return;
+
+        if (trade.AccountID != TradingManager.Portfolio.AccountID)
+            return;
+
+        if (trade.Security.Instrument != TradingManager.Security.Instrument)
+            return;
+
+        // Ensure we only draw finalized trades.
+        if (!IsTradeClosed(trade))
+            return;
+
+        var tradeObj = CreateTradePair(trade);
+        if (tradeObj == null)
+            return;
+
+        lock (_tradesSync)
+        {
+            _trades.Add(tradeObj);
+        }
+
+        // Draw ASAP (do not wait for a full recalculation cycle).
+        RedrawChart();
+    }
 
     private TradeObj CreateTradePair(HistoryMyTrade trade)
     {
