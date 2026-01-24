@@ -1646,5 +1646,24 @@
   <value>Espacement vertical supplémentaire entre les marqueurs de trade et les libellés (pixels).</value>
   <comment>TradesOnChart</comment>
 </data>
+<data name="LabelXAnchor" xml:space="preserve">
+  <value>Ancrage horizontal du libellé</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="LabelXAnchorDescription" xml:space="preserve">
+  <value>Définit la référence horizontale utilisée pour positionner les libellés des trades.</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="LabelXAnchorCloseBar" xml:space="preserve">
+  <value>Barre de clôture</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="LabelXAnchorMidpoint" xml:space="preserve">
+  <value>Point médian du trade</value>
+  <comment>TradesOnChart</comment>
+</data>
 
 </root>

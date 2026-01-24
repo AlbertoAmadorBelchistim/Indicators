@@ -1596,5 +1596,24 @@
   <value>交易标记与标签之间的额外垂直间距（像素）。</value>
   <comment>TradesOnChart</comment>
 </data>
+<data name="LabelXAnchor" xml:space="preserve">
+  <value>标签水平锚点</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="LabelXAnchorDescription" xml:space="preserve">
+  <value>定义用于定位交易标签的水平参考位置。</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="LabelXAnchorCloseBar" xml:space="preserve">
+  <value>收盘柱</value>
+  <comment>TradesOnChart</comment>
+</data>
+
+<data name="LabelXAnchorMidpoint" xml:space="preserve">
+  <value>交易中点</value>
+  <comment>TradesOnChart</comment>
+</data>
 
 </root>
