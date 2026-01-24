@@ -13,6 +13,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Linq;
+using System.Text;
 using static ATAS.Indicators.Technical.TradesOnChart;
 using Color = System.Drawing.Color;
 using DashStyle = System.Drawing.Drawing2D.DashStyle;
@@ -141,6 +142,10 @@ public class TradesOnChart : Indicator
     private readonly List<TradeObj> _tooltipTrades = new();
     private readonly List<(TradeObj Trade, bool MouseOverMarker1, bool MouseOverMarker2)> _tradeInfoBuffer = new();
     private readonly RenderStringFormat _tooltipTextFormat = new() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Near };
+    private readonly RenderStringFormat _labelLeftFormat = new() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center };
+    private readonly RenderStringFormat _labelRightFormat = new() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
+    private readonly StringBuilder _tooltipSb = new(256);
+    private readonly StringBuilder _labelSb = new(128);
 
     private ITradingStatistics? _statistics;
 
@@ -422,13 +427,41 @@ public class TradesOnChart : Indicator
 		var openTime = trade.OpenTime.AddHours(InstrumentInfo.TimeZone);
 		var closeTime = trade.CloseTime.AddHours(InstrumentInfo.TimeZone);
 
-		var topText = $"{direction} {trade.Volume} {trade.Security}{Environment.NewLine}{Environment.NewLine}" +
-					  $"Entry\t:  {ChartInfo.GetPriceString(trade.OpenPrice)}  {openTime:dd MMM HH:mm:ss}{Environment.NewLine}" +
-					  $"Exit\t:  {ChartInfo.GetPriceString(trade.ClosePrice)}  {closeTime:dd MMM HH:mm:ss}";
+        _tooltipSb.Clear();
+        _tooltipSb.Append(direction);
+        _tooltipSb.Append(' ');
+        _tooltipSb.Append(trade.Volume);
+        _tooltipSb.Append(' ');
+        _tooltipSb.Append(trade.Security);
+        _tooltipSb.Append(Environment.NewLine);
+        _tooltipSb.Append(Environment.NewLine);
 
-		var bottomText = $"Result:  {(trade.PnL > 0 ? "+" : "")}{trade.PnL}  ({trade.PnLTicks} ticks)";
+        _tooltipSb.Append("Entry\t:  ");
+        _tooltipSb.Append(ChartInfo.GetPriceString(trade.OpenPrice));
+        _tooltipSb.Append("  ");
+        _tooltipSb.Append(openTime.ToString("dd MMM HH:mm:ss"));
+        _tooltipSb.Append(Environment.NewLine);
 
-		var topSize = context.MeasureString(topText, _font);
+        _tooltipSb.Append("Exit\t:  ");
+        _tooltipSb.Append(ChartInfo.GetPriceString(trade.ClosePrice));
+        _tooltipSb.Append("  ");
+        _tooltipSb.Append(closeTime.ToString("dd MMM HH:mm:ss"));
+
+        var topText = _tooltipSb.ToString();
+
+        _tooltipSb.Clear();
+        _tooltipSb.Append("Result:  ");
+        if (trade.PnL > 0)
+            _tooltipSb.Append('+');
+        _tooltipSb.Append(trade.PnL);
+        _tooltipSb.Append("  (");
+        _tooltipSb.Append(trade.PnLTicks);
+        _tooltipSb.Append(" ticks)");
+
+        var bottomText = _tooltipSb.ToString();
+
+
+        var topSize = context.MeasureString(topText, _font);
 		var bottomSize = context.MeasureString(bottomText, _font);
 
 		var padding = 10;
@@ -482,22 +515,51 @@ public class TradesOnChart : Indicator
 		var direction = trade.Direction == OrderDirections.Buy ? "L" : "S";
 		var pnlSign = trade.PnL > 0 ? "+" : "";
 
-		string leftText, rightText;
+        string leftText, rightText;
 
-		if (LabelDisplay == LabelDisplayMode.Full)
-		{
-			var entryPrice = ChartInfo.GetPriceString(trade.OpenPrice);
-			var exitPrice = ChartInfo.GetPriceString(trade.ClosePrice);
-			leftText = $"{direction} {trade.Volume} | {entryPrice}→{exitPrice}";
-			rightText = $" {pnlSign}{trade.PnL} ({trade.PnLTicks}t)";
-		}
-		else
-		{
-			leftText = $"{direction} {trade.Volume}";
-			rightText = $" {pnlSign}{trade.PnL} ({trade.PnLTicks}t)";
-		}
+        if (LabelDisplay == LabelDisplayMode.Full)
+        {
+            var entryPrice = ChartInfo.GetPriceString(trade.OpenPrice);
+            var exitPrice = ChartInfo.GetPriceString(trade.ClosePrice);
 
-		var leftSize = context.MeasureString(leftText, _labelFont);
+            _labelSb.Clear();
+            _labelSb.Append(direction);
+            _labelSb.Append(' ');
+            _labelSb.Append(trade.Volume);
+            _labelSb.Append(" | ");
+            _labelSb.Append(entryPrice);
+            _labelSb.Append('→');
+            _labelSb.Append(exitPrice);
+            leftText = _labelSb.ToString();
+
+            _labelSb.Clear();
+            _labelSb.Append(' ');
+            _labelSb.Append(pnlSign);
+            _labelSb.Append(trade.PnL);
+            _labelSb.Append(" (");
+            _labelSb.Append(trade.PnLTicks);
+            _labelSb.Append("t)");
+            rightText = _labelSb.ToString();
+        }
+        else
+        {
+            _labelSb.Clear();
+            _labelSb.Append(direction);
+            _labelSb.Append(' ');
+            _labelSb.Append(trade.Volume);
+            leftText = _labelSb.ToString();
+
+            _labelSb.Clear();
+            _labelSb.Append(' ');
+            _labelSb.Append(pnlSign);
+            _labelSb.Append(trade.PnL);
+            _labelSb.Append(" (");
+            _labelSb.Append(trade.PnLTicks);
+            _labelSb.Append("t)");
+            rightText = _labelSb.ToString();
+        }
+
+        var leftSize = context.MeasureString(leftText, _labelFont);
 		var rightSize = context.MeasureString(rightText, _labelFont);
 
 		var padding = 3;
@@ -571,13 +633,10 @@ public class TradesOnChart : Indicator
 		var leftTextRect = new Rectangle(testRect.X + padding, testRect.Y + padding, leftWidth - padding, testRect.Height - padding * 2);
 		var rightTextRect = new Rectangle(testRect.X + leftWidth, testRect.Y + padding, rightWidth - padding, testRect.Height - padding * 2);
 
-		var leftFormat = new RenderStringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center };
-		var rightFormat = new RenderStringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
+        context.DrawString(leftText, _labelFont, Color.White, leftTextRect, _labelLeftFormat);
+        context.DrawString(rightText, _labelFont, Color.White, rightTextRect, _labelRightFormat);
 
-		context.DrawString(leftText, _labelFont, Color.White, leftTextRect, leftFormat);
-		context.DrawString(rightText, _labelFont, Color.White, rightTextRect, rightFormat);
-
-		var mouseOver = testRect.Contains(MouseLocationInfo.LastPosition);
+        var mouseOver = testRect.Contains(MouseLocationInfo.LastPosition);
 
 		return (testRect, mouseOver);
 	}
