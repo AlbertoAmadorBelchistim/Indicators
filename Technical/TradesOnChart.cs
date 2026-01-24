@@ -386,7 +386,11 @@ public class TradesOnChart : Indicator
 			if (LabelDisplay != LabelDisplayMode.Hide)
 			{
 				var candle = GetCandle(trade.CloseBar);
-				var isAbove = trade.Direction == OrderDirections.Buy;
+
+                if (candle is null)
+                    continue;
+
+                var isAbove = trade.Direction == OrderDirections.Buy;
 
 				var (labelRect, labelHover) = DrawTradeLabel(context, trade, trade.CloseBar, candle, isAbove);
 				mouseOverLabel = labelHover;
@@ -512,7 +516,11 @@ public class TradesOnChart : Indicator
 
 	private (Rectangle Rect, bool MouseOver) DrawTradeLabel(RenderContext context, TradeObj trade, int bar, IndicatorCandle candle, bool isAbove)
 	{
-		var direction = trade.Direction == OrderDirections.Buy ? "L" : "S";
+
+        if (candle is null)
+            return (Rectangle.Empty, false);
+
+        var direction = trade.Direction == OrderDirections.Buy ? "L" : "S";
 		var pnlSign = trade.PnL > 0 ? "+" : "";
 
         string leftText, rightText;
