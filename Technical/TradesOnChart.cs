@@ -452,8 +452,8 @@ public class TradesOnChart : Indicator
 		var resultColor = trade.PnL > 0 ? _profitColor : _lossColor;
 		var cornerRadius = 3;
 
-		var direction = trade.Direction == OrderDirections.Buy ? "Long" : "Short";
-		var openTime = trade.OpenTime.AddHours(InstrumentInfo.TimeZone);
+        var direction = trade.Direction == OrderDirections.Buy ? "Long" : "Short";
+        var openTime = trade.OpenTime.AddHours(InstrumentInfo.TimeZone);
 		var closeTime = trade.CloseTime.AddHours(InstrumentInfo.TimeZone);
 
         _tooltipSb.Clear();
