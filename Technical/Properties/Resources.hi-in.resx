@@ -1638,5 +1638,13 @@
   <value>t</value>
   <comment>TradesOnChart</comment>
 </data>
+<data name="LabelDistance" xml:space="preserve">
+  <value>लेबल दूरी (px)</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="LabelDistanceDescription" xml:space="preserve">
+  <value>ट्रेड मार्कर और लेबल के बीच अतिरिक्त ऊर्ध्वाधर दूरी (पिक्सेल)।</value>
+  <comment>TradesOnChart</comment>
+</data>
 
 </root>

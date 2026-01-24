@@ -1588,5 +1588,13 @@
   <value>t</value>
   <comment>TradesOnChart</comment>
 </data>
+<data name="LabelDistance" xml:space="preserve">
+  <value>标签距离（px）</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="LabelDistanceDescription" xml:space="preserve">
+  <value>交易标记与标签之间的额外垂直间距（像素）。</value>
+  <comment>TradesOnChart</comment>
+</data>
 
 </root>

@@ -3814,6 +3814,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Label distance (px).
+        /// </summary>
+        public static string LabelDistance {
+            get {
+                return ResourceManager.GetString("LabelDistance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Additional vertical spacing between trade markers and labels (pixels)..
+        /// </summary>
+        public static string LabelDistanceDescription {
+            get {
+                return ResourceManager.GetString("LabelDistanceDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Sets the background color of the label..
         /// </summary>
         public static string LabelFillColorDescription {

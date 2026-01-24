@@ -3721,5 +3721,13 @@
   <value>т</value>
   <comment>TradesOnChart</comment>
 </data>
+<data name="LabelDistance" xml:space="preserve">
+  <value>Расстояние метки (px)</value>
+  <comment>TradesOnChart</comment>
+</data>
+<data name="LabelDistanceDescription" xml:space="preserve">
+  <value>Дополнительный вертикальный отступ между маркерами сделок и метками (в пикселях).</value>
+  <comment>TradesOnChart</comment>
+</data>
 
 </root>
