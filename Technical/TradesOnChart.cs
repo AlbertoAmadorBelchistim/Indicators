@@ -522,13 +522,37 @@ public class TradesOnChart : Indicator
 		if (TradingManager?.Portfolio == null|| TradingManager?.Security == null)
 			return;
 
-	    var allTrades = _statistics?
-            .HistoryMyTrades
-		    .Where(t => 
-                t.AccountID == TradingManager.Portfolio.AccountID && 
-                t.Security.SecurityId.Equals(TradingManager.Security.SecurityId, StringComparison.InvariantCultureIgnoreCase)) ?? [];
+        // Limit history processing to the currently visible chart range.
+        // This reduces CPU usage and visual clutter on large accounts / long sessions.
+        DateTime fromTime;
+        DateTime toTime;
 
-		var newTrades = new List<TradeObj>();
+        try
+        {
+            var firstBar = Math.Max(0, FirstVisibleBarNumber);
+            var lastBar = Math.Max(firstBar, LastVisibleBarNumber);
+
+            fromTime = GetCandle(firstBar).Time;
+            toTime = GetCandle(lastBar).Time;
+        }
+        catch
+        {
+            // Fallback: if candles are not available (rare during initialization), do not filter by time.
+            fromTime = DateTime.MinValue;
+            toTime = DateTime.MaxValue;
+        }
+
+        var allTrades = _statistics?
+            .HistoryMyTrades
+            .Where(t =>
+                t.AccountID == TradingManager.Portfolio.AccountID &&
+                t.Security.SecurityId.Equals(TradingManager.Security.SecurityId, StringComparison.InvariantCultureIgnoreCase) &&
+                t.CloseTime >= fromTime &&
+                t.OpenTime <= toTime
+                ) ?? [];
+
+        var newTrades = new List<TradeObj>();
+
 
 		foreach (var trade in allTrades)
 		{
