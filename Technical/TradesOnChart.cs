@@ -146,6 +146,7 @@ public class TradesOnChart : Indicator
     private readonly RenderStringFormat _labelRightFormat = new() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
     private readonly StringBuilder _tooltipSb = new(256);
     private readonly StringBuilder _labelSb = new(128);
+    private bool _subscriptionsAttached;
 
     private ITradingStatistics? _statistics;
 
@@ -249,42 +250,50 @@ public class TradesOnChart : Indicator
 		EnableCustomDrawing = true;
 	}
 
-	#endregion
+    #endregion
 
-	#region Protected Methods
+    #region Protected Methods
 
-    protected override void OnDispose()
+    private void AttachSubscriptions()
     {
-        #if ATAS_STABLE
-        TradingManager.PortfolioSelected -= TradingManager_PortfolioSelected;
-        #else
-        TradingStatisticsProvider.StatisticsRebuilt -= OnRecalculate;
-        TradingStatisticsProvider.FilteredStatisticsSourceChanged -= OnTradingStatisticsProviderSourceChanged;
-        TradingManager.PortfolioSelected -= TradingManager_PortfolioSelected;
-        #endif
+        if (_subscriptionsAttached)
+            return;
 
-        _statistics?.HistoryMyTrades.Added -= OnTradeAdded;
+        if (TradingManager != null)
+            TradingManager.PortfolioSelected += TradingManager_PortfolioSelected;
+
+        if (TradingStatisticsProvider != null)
+        {
+            TradingStatisticsProvider.StatisticsReloaded += OnRecalculate;
+            TradingStatisticsProvider.SourceChanged += OnTradingStatisticsProviderSourceChanged;
+
+            if (TradingStatisticsProvider.Statistics is { } stat)
+                OnTradingStatisticsProviderSourceChanged(stat);
+        }
+
+        _subscriptionsAttached = true;
     }
 
-    protected override void OnInitialize()
+    private void DetachSubscriptions()
     {
-        #if ATAS_STABLE
-        TradingManager.PortfolioSelected += TradingManager_PortfolioSelected;
+        if (!_subscriptionsAttached)
+            return;
 
-        if (TradingStatisticsProvider.Realtime is { } rtStat)
-            OnTradingStatisticsProviderSourceChanged(rtStat);
-        else if (TradingStatisticsProvider.Replay is { } replayStat)
-            OnTradingStatisticsProviderSourceChanged(replayStat);
-        else
-            OnRecalculate();
-        #else
-        TradingStatisticsProvider.StatisticsRebuilt += OnRecalculate;
-        TradingStatisticsProvider.RawStatisticsSourceChanged += OnTradingStatisticsProviderSourceChanged;
-        TradingManager.PortfolioSelected += TradingManager_PortfolioSelected;
+        if (TradingStatisticsProvider != null)
+        {
+            TradingStatisticsProvider.StatisticsReloaded -= OnRecalculate;
+            TradingStatisticsProvider.SourceChanged -= OnTradingStatisticsProviderSourceChanged;
+        }
 
-        if (TradingStatisticsProvider.RawStatistics is { } stat)
-            OnTradingStatisticsProviderSourceChanged(stat);
-        #endif
+        if (_statistics != null)
+            _statistics.HistoryMyTrades.Added -= OnTradeAdded;
+
+        _statistics = null;
+
+        if (TradingManager != null)
+            TradingManager.PortfolioSelected -= TradingManager_PortfolioSelected;
+
+        _subscriptionsAttached = false;
     }
 
     private void OnTradingStatisticsProviderSourceChanged(ITradingStatistics stat)
@@ -298,7 +307,20 @@ public class TradesOnChart : Indicator
         OnRecalculate();
     }
 
-	private void TradingManager_PortfolioSelected(Portfolio obj)
+    protected override void OnInitialize()
+    {
+        AttachSubscriptions();
+        OnRecalculate();
+    }
+
+
+    protected override void OnDispose()
+    {
+        DetachSubscriptions();
+        base.OnDispose();
+    }
+
+    private void TradingManager_PortfolioSelected(Portfolio obj)
 	{
 		OnRecalculate();
 	}
