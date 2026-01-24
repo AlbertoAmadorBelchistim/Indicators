@@ -147,6 +147,7 @@ public class TradesOnChart : Indicator
     private readonly StringBuilder _tooltipSb = new(256);
     private readonly StringBuilder _labelSb = new(128);
     private bool _subscriptionsAttached;
+    private int _labelDistance = 10;
 
     private ITradingStatistics? _statistics;
 
@@ -162,6 +163,14 @@ public class TradesOnChart : Indicator
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.LabelDisplay), Description = nameof(Strings.LabelDisplayDescription), GroupName = nameof(Strings.Visualization))]
 	public LabelDisplayMode LabelDisplay { get; set; } = LabelDisplayMode.Hide;
+
+    [Range(0, 200)]
+    [Display(Name = "Label distance", Description = "Vertical spacing between trade markers and labels (px).", GroupName = nameof(Strings.Visualization))]
+    public int LabelDistance
+    {
+        get => _labelDistance;
+        set => _labelDistance = Math.Max(0, value);
+    }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BuyColor), Description = nameof(Strings.BuyTradeLineColorDescription), GroupName = nameof(Strings.Visualization))]
     public Color BuyColor
@@ -228,11 +237,11 @@ public class TradesOnChart : Indicator
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Size), Description = nameof(Strings.SizeDescription), GroupName = nameof(Strings.Visualization))]
     public int MarkerSize { get; set; } = 2;
 
-	#endregion
+    #endregion
 
-	#region ctor
+    #region ctor
 
-	public TradesOnChart() : base(true)
+    public TradesOnChart() : base(true)
 	{
 		DenyToChangePanel = true;
 		DataSeries[0].IsHidden = true;
@@ -594,12 +603,12 @@ public class TradesOnChart : Indicator
 		var barWidth = (int)ChartInfo.PriceChartContainer.BarsWidth;
 		var labelX = candleX - barWidth / 2;
 
-		var markerOffset = MarkerSize * 4;
-		var baseY = isAbove
-			? ChartInfo.GetYByPrice(candle.High, false) - markerOffset - rectHeight
-			: ChartInfo.GetYByPrice(candle.Low, false) + markerOffset;
+        var markerOffset = (MarkerSize * 4) + LabelDistance;
+        var baseY = isAbove
+            ? ChartInfo.GetYByPrice(candle.High, false) - markerOffset - rectHeight
+            : ChartInfo.GetYByPrice(candle.Low, false) + markerOffset;
 
-		var spacing = 3;
+        var spacing = 3;
 		var stepSize = rectHeight + spacing;
 		var yPosition = baseY;
 
