@@ -434,38 +434,40 @@ public class TradesOnChart : Indicator
             _tradeInfoBuffer.Add((trade, mouseOver, mouseOver2));
 		}
 
-		foreach (var (trade, mouseOver, mouseOver2) in _tradeInfoBuffer)
-		{
-			var mouseOverLabel = false;
+        foreach (var (trade, mouseOver, mouseOver2) in _tradeInfoBuffer)
+        {
+            var mouseOverLabel = false;
 
-			if (LabelDisplay != LabelDisplayMode.Hide)
-			{
-                var anchorBar = GetLabelAnchorBar(trade);
+            if (LabelDisplay != LabelDisplayMode.Hide)
+            {
                 var candle = GetCandle(trade.CloseBar);
 
-                if (candle is null)
-                    continue;
+                if (candle is not null)
+                {
+                    var isAbove = trade.Direction == OrderDirections.Buy;
 
-                var isAbove = trade.Direction == OrderDirections.Buy;
+                    // X anchor is always resolved in pixels (CloseBar or visual midpoint)
+                    var anchorX = GetLabelAnchorX(trade);
 
-                var (labelRect, labelHover) = DrawTradeLabel(context, trade, anchorBar, candle, isAbove);
-                mouseOverLabel = labelHover;
+                    var (labelRect, labelHover) =
+                        DrawTradeLabel(context, trade, anchorX, candle, isAbove);
 
-                _labelCollisionRects.Add(labelRect);
+                    mouseOverLabel = labelHover;
 
-                if (isAbove)
-					_labelsAbove.Add(labelRect);
-				else
-					_labelsBelow.Add(labelRect);
-			}
+                    _labelCollisionRects.Add(labelRect);
 
-			if (ShowTooltip && (mouseOver || mouseOver2 || mouseOverLabel))
-			{
+                    if (isAbove)
+                        _labelsAbove.Add(labelRect);
+                    else
+                        _labelsBelow.Add(labelRect);
+                }
+            }
+
+            if (ShowTooltip && (mouseOver || mouseOver2 || mouseOverLabel))
                 _tooltipTrades.Add(trade);
-			}
-		}
+        }
 
-		if (_tooltipTrades.Count > 0)
+        if (_tooltipTrades.Count > 0)
 		{
 			var y = MouseLocationInfo.LastPosition.Y;
 
@@ -646,8 +648,8 @@ public class TradesOnChart : Indicator
         line3 = _labelSb.ToString();
     }
 
-    private (Rectangle Rect, bool MouseOver) DrawTradeLabel(RenderContext context, TradeObj trade, int bar, IndicatorCandle candle, bool isAbove)
-	{
+    private (Rectangle Rect, bool MouseOver) DrawTradeLabel(RenderContext context, TradeObj trade, int anchorX, IndicatorCandle candle, bool isAbove)
+    {
 
         if (candle is null)
             return (Rectangle.Empty, false);
@@ -656,7 +658,7 @@ public class TradesOnChart : Indicator
 		var pnlSign = trade.PnL > 0 ? "+" : "";
 
         if (LabelDisplay == LabelDisplayMode.Card)
-            return DrawTradeCardLabel(context, trade, bar, candle, isAbove, direction, pnlSign);
+            return DrawTradeCardLabel(context, trade, anchorX, candle, isAbove, direction, pnlSign);
 
         BuildLabelTexts(trade, direction, pnlSign, out var leftText, out var rightText);
 
@@ -669,10 +671,7 @@ public class TradesOnChart : Indicator
 		var rectWidth = leftWidth + rightWidth;
 		var rectHeight = Math.Max(leftSize.Height, rightSize.Height) + padding * 2;
 
-        var candleX = ChartInfo.GetXByBar(bar, false);
-
-        // Center the label rect over the anchor bar using the actual rect width.
-        var labelX = candleX - (int)(rectWidth / 2f);
+        var labelX = anchorX - (int)(rectWidth / 2f);
 
         var markerOffset = (MarkerSize * 4) + LabelDistance;
         var baseY = isAbove
@@ -744,13 +743,13 @@ public class TradesOnChart : Indicator
 	}
 
     private (Rectangle Rect, bool MouseOver) DrawTradeCardLabel(
-        RenderContext context,
-        TradeObj trade,
-        int bar,
-        IndicatorCandle candle,
-        bool isAbove,
-        string direction,
-        string pnlSign)
+    RenderContext context,
+    TradeObj trade,
+    int anchorX,
+    IndicatorCandle candle,
+    bool isAbove,
+    string direction,
+    string pnlSign)
     {
         // Build lines
         BuildCardLabelLines(trade, direction, pnlSign, out var line1, out var line2, out var line3);
@@ -772,8 +771,7 @@ public class TradesOnChart : Indicator
         var height = paddingY * 2 + (lineHeight * 3) + (lineGap * 2);
 
         // Position (same anchor concept as DrawTradeLabel)
-        var centerX = ChartInfo.GetXByBar(bar, false);
-        var x = centerX - (width / 2);
+        var x = anchorX - (width / 2);
         var markerOffset = (MarkerSize * 4) + LabelDistance;
 
         var baseY = isAbove
@@ -788,8 +786,6 @@ public class TradesOnChart : Indicator
         var anchorY = isAbove
             ? ChartInfo.GetYByPrice(candle.High, false)
             : ChartInfo.GetYByPrice(candle.Low, false);
-
-        var anchorX = ChartInfo.GetXByBar(bar, false);
 
         // Collision resolution (reuse existing policy)
         var stepSize = height + 2;
@@ -817,7 +813,7 @@ public class TradesOnChart : Indicator
                 : new Rectangle(testRect.X, testRect.Y + stepSize, testRect.Width, testRect.Height);
         }
 
-        // Draw connector line from marker to card
+        // Draw connector line from marker to card (same X anchor as label/card)
         var x1 = anchorX;
         var y1 = anchorY;
         var x2 = anchorX;
@@ -829,7 +825,7 @@ public class TradesOnChart : Indicator
         var bgColor = trade.PnL >= 0 ? _profitColor : _lossColor;
         context.FillRectangle(bgColor, testRect);
 
-        // Border (optional, consistent with your label drawing)
+        // Border
         context.DrawRectangle(_cardBorderPen, testRect);
 
         // Text rects
@@ -1077,14 +1073,22 @@ public class TradesOnChart : Indicator
 		return new Pen(color, lineWidth) { DashStyle = lineStyle };
 	}
 
-    private int GetLabelAnchorBar(TradeObj trade)
+    private int GetLabelAnchorX(TradeObj trade)
     {
-        if (LabelXAnchor == LabelHorizontalAnchor.Midpoint && trade.CloseBar > trade.OpenBar)
-            return (trade.OpenBar + trade.CloseBar) >> 1;
+        if (ChartInfo is null)
+            return 0;
 
-        return trade.CloseBar;
+        if (LabelXAnchor == LabelHorizontalAnchor.Midpoint)
+        {
+            var x1 = ChartInfo.GetXByBar(trade.OpenBar, false);
+            var x2 = ChartInfo.GetXByBar(trade.CloseBar, false);
+
+            return (int)(((long)x1 + (long)x2) / 2L);
+        }
+
+        // Default: CloseBar
+        return ChartInfo.GetXByBar(trade.CloseBar, false);
     }
-
 
     #endregion
 }
