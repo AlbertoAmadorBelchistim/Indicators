@@ -139,7 +139,7 @@ public class TradesOnChart : Indicator
     private readonly HashSet<TradeKey> _tradeKeys = new();
     private Pen _buyPen;
 	private Pen _sellPen;
-    private readonly Pen _cardBorderPen = new Pen(Color.FromArgb(100, 0, 0, 0), 1);
+    private readonly Pen _cardBorderPen = new Pen(Color.FromArgb(200, 255, 255, 255), 1.5f);
     private Color _buyColor;
 	private Color _sellColor;
 	private Color _profitColor;
@@ -600,33 +600,71 @@ public class TradesOnChart : Indicator
         }
     }
 
-    private void BuildCardLabelLines(TradeObj trade, string direction, string pnlSign, out string line1, out string line2, out string line3)
+    private void BuildCardLabelLines(TradeObj trade, out string header, out string body, out string footer, out bool isProfit)
     {
-        // Line 1: direction + volume (same semantics as non-Full leftText)
+        // Direction text (prefer explicit words for fast reading)
+        var directionText = trade.Direction == OrderDirections.Buy
+            ? Resources.TradeDirectionLong
+            : Resources.TradeDirectionShort;
+
+        // Header: "LONG 0.001 BTCUSDT"
         _labelSb.Clear();
-        _labelSb.Append(direction);
+        _labelSb.Append(directionText);
         _labelSb.Append(' ');
         _labelSb.Append(trade.Volume);
-        line1 = _labelSb.ToString();
 
-        // Line 2: entry -> exit (prices only)
-        var entryPrice = ChartInfo.GetPriceString(trade.OpenPrice);
-        var exitPrice = ChartInfo.GetPriceString(trade.ClosePrice);
+        if (!string.IsNullOrWhiteSpace(trade.Security))
+        {
+            _labelSb.Append(" | ");
+            _labelSb.Append(trade.Security);
+        }
+
+        header = _labelSb.ToString();
+
+        // Body: Entry/Exit + times (same as tooltip, but compact)
+        var openTime = trade.OpenTime.AddHours(InstrumentInfo.TimeZone);
+        var closeTime = trade.CloseTime.AddHours(InstrumentInfo.TimeZone);
 
         _labelSb.Clear();
-        _labelSb.Append(entryPrice);
-        _labelSb.Append('→');
-        _labelSb.Append(exitPrice);
-        line2 = _labelSb.ToString();
+        _labelSb.Append(Resources.TradeEntry);
+        _labelSb.Append(": ");
+        _labelSb.Append(ChartInfo.GetPriceString(trade.OpenPrice));
+        _labelSb.Append(" @ ");
+        _labelSb.Append(openTime.ToString("HH:mm:ss"));
 
-        // Line 3: PnL + ticks (same semantics as rightText, without leading space)
+        _labelSb.Append(Environment.NewLine);
+
+        _labelSb.Append(Resources.TradeExit);
+        _labelSb.Append(": ");
+        _labelSb.Append(ChartInfo.GetPriceString(trade.ClosePrice));
+        _labelSb.Append(" @ ");
+        _labelSb.Append(closeTime.ToString("HH:mm:ss"));
+
+        body = _labelSb.ToString();
+
+        // Footer: "Result: -0.0001 (-1 ticks)" (no background color; text color indicates sign)
+        isProfit = trade.PnL >= 0;
+
         _labelSb.Clear();
-        _labelSb.Append(pnlSign);
+        _labelSb.Append(Resources.TradeResult);
+        _labelSb.Append(": ");
+
+        if (trade.PnL > 0)
+            _labelSb.Append('+');
+
         _labelSb.Append(trade.PnL);
-        _labelSb.Append(" (");
+
+        _labelSb.Append("  (");
+
+        if (trade.PnLTicks > 0)
+            _labelSb.Append('+');
+
         _labelSb.Append(trade.PnLTicks);
-        _labelSb.Append("t)");
-        line3 = _labelSb.ToString();
+        _labelSb.Append(' ');
+        _labelSb.Append(Resources.TradeTicks);
+        _labelSb.Append(')');
+
+        footer = _labelSb.ToString();
     }
 
     private (Rectangle Rect, bool MouseOver) DrawTradeLabel(RenderContext context, TradeObj trade, int anchorX, IndicatorCandle candle, bool isAbove)
@@ -635,11 +673,14 @@ public class TradesOnChart : Indicator
         if (candle is null)
             return (Rectangle.Empty, false);
 
-        var direction = trade.Direction == OrderDirections.Buy ? "L" : "S";
-		var pnlSign = trade.PnL > 0 ? "+" : "";
+        var direction = trade.Direction == OrderDirections.Buy
+            ? Resources.TradeDirectionLong
+            : Resources.TradeDirectionShort;
+
+        var pnlSign = trade.PnL > 0 ? "+" : "";
 
         if (LabelDisplay == LabelDisplayMode.Card)
-            return DrawTradeCardLabel(context, trade, anchorX, candle, isAbove, direction, pnlSign);
+            return DrawTradeCardLabel(context, trade, anchorX, candle, isAbove);
 
         BuildLabelTexts(trade, direction, pnlSign, out var leftText, out var rightText);
 
@@ -728,30 +769,29 @@ public class TradesOnChart : Indicator
     TradeObj trade,
     int anchorX,
     IndicatorCandle candle,
-    bool isAbove,
-    string direction,
-    string pnlSign)
+    bool isAbove)
     {
-        // Build lines
-        BuildCardLabelLines(trade, direction, pnlSign, out var line1, out var line2, out var line3);
+        BuildCardLabelLines(trade, out var headerText, out var bodyText, out var footerText, out var isProfit);
 
-        // Measure
-        var s1 = context.MeasureString(line1, _labelFont);
-        var s2 = context.MeasureString(line2, _labelFont);
-        var s3 = context.MeasureString(line3, _labelFont);
+        // Measure blocks
+        var headerSize = context.MeasureString(headerText, _labelFont);
+        var bodySize = context.MeasureString(bodyText, _labelFont);
+        var footerSize = context.MeasureString(footerText, _labelFont);
 
-        var paddingX = 6;
-        var paddingY = 4;
-        var lineGap = 2;
+        var paddingX = 7;
+        var paddingY = 6;
+        var blockGap = 4;
 
-        var maxTextWidth = Math.Max(s1.Width, Math.Max(s2.Width, s3.Width));
-        var maxTextHeight = Math.Max(s1.Height, Math.Max(s2.Height, s3.Height));
-
+        var maxTextWidth = Math.Max(headerSize.Width, Math.Max(bodySize.Width, footerSize.Width));
         var width = (int)maxTextWidth + (paddingX * 2);
-        var lineHeight = (int)maxTextHeight;
-        var height = paddingY * 2 + (lineHeight * 3) + (lineGap * 2);
 
-        // Position (same anchor concept as DrawTradeLabel)
+        var headerHeight = (int)headerSize.Height + (paddingY * 2);
+        var bodyHeight = (int)bodySize.Height + (paddingY * 2);
+        var footerHeight = (int)footerSize.Height + (paddingY * 2);
+
+        var height = headerHeight + blockGap + bodyHeight + blockGap + footerHeight;
+
+        // Position
         var x = anchorX - (width / 2);
         var markerOffset = (MarkerSize * 4) + LabelDistance;
 
@@ -759,16 +799,14 @@ public class TradesOnChart : Indicator
             ? ChartInfo.GetYByPrice(candle.High, false) - markerOffset - height
             : ChartInfo.GetYByPrice(candle.Low, false) + markerOffset;
 
-        var y = baseY;
-
-        var testRect = new Rectangle(x, y, width, height);
+        var testRect = new Rectangle(x, baseY, width, height);
 
         // Anchor point on price (marker position)
         var anchorY = isAbove
             ? ChartInfo.GetYByPrice(candle.High, false)
             : ChartInfo.GetYByPrice(candle.Low, false);
 
-        // Collision resolution (reuse existing policy)
+        // Collision resolution
         var stepSize = height + 2;
         var iter = 0;
 
@@ -794,37 +832,48 @@ public class TradesOnChart : Indicator
                 : new Rectangle(testRect.X, testRect.Y + stepSize, testRect.Width, testRect.Height);
         }
 
-        // Draw connector line from marker to card (same X anchor as label/card)
-        var x1 = anchorX;
-        var y1 = anchorY;
-        var x2 = anchorX;
-        var y2 = isAbove ? testRect.Bottom : testRect.Top;
+        // Connector
+        context.DrawLine(_cardBorderPen, anchorX, anchorY, anchorX, isAbove ? testRect.Bottom : testRect.Top);
 
-        context.DrawLine(_cardBorderPen, x1, y1, x2, y2);
+        // Colors
+        var directionColor = trade.Direction == OrderDirections.Buy ? _buyColor : _sellColor;
+        var pnlTextColor = isProfit ? _profitColor : _lossColor;
 
-        // Draw background
-        var bgColor = trade.PnL >= 0 ? _profitColor : _lossColor;
-        context.FillRectangle(bgColor, testRect);
+        // Split rects
+        var headerRect = new Rectangle(testRect.X, testRect.Y, testRect.Width, headerHeight);
+        var bodyRect = new Rectangle(testRect.X, headerRect.Bottom + blockGap, testRect.Width, bodyHeight);
+        var footerRect = new Rectangle(testRect.X, bodyRect.Bottom + blockGap, testRect.Width, footerHeight);
+
+        // Backgrounds:
+        // - Header: direction color (strong cue)
+        // - Body: neutral dark
+        // - Footer: neutral dark (keep structure stable); PnL shown by text color
+        context.FillRectangle(directionColor, headerRect);
+        context.FillRectangle(Color.FromArgb(60, 0, 0, 0), bodyRect);
+        context.FillRectangle(Color.FromArgb(60, 0, 0, 0), footerRect);
 
         // Border
         context.DrawRectangle(_cardBorderPen, testRect);
 
+        // Separators
+        context.DrawLine(_cardBorderPen, testRect.Left, headerRect.Bottom + (blockGap / 2), testRect.Right, headerRect.Bottom + (blockGap / 2));
+        context.DrawLine(_cardBorderPen, testRect.Left, bodyRect.Bottom + (blockGap / 2), testRect.Right, bodyRect.Bottom + (blockGap / 2));
+
         // Text rects
-        var textX = testRect.X + paddingX;
-        var textY = testRect.Y + paddingY;
+        var headerTextRect = new Rectangle(headerRect.X + paddingX, headerRect.Y + paddingY, headerRect.Width - paddingX * 2, headerRect.Height - paddingY * 2);
+        var bodyTextRect = new Rectangle(bodyRect.X + paddingX, bodyRect.Y + paddingY, bodyRect.Width - paddingX * 2, bodyRect.Height - paddingY * 2);
+        var footerTextRect = new Rectangle(footerRect.X + paddingX, footerRect.Y + paddingY, footerRect.Width - paddingX * 2, footerRect.Height - paddingY * 2);
 
-        var r1 = new Rectangle(textX, textY, testRect.Width - paddingX * 2, lineHeight);
-        var r2 = new Rectangle(textX, textY + lineHeight + lineGap, testRect.Width - paddingX * 2, lineHeight);
-        var r3 = new Rectangle(textX, textY + (lineHeight + lineGap) * 2, testRect.Width - paddingX * 2, lineHeight);
+        // Draw text
+        context.DrawString(headerText, _labelFont, Color.White, headerTextRect, _labelRightFormat);     // centered
+        context.DrawString(bodyText, _labelFont, Color.White, bodyTextRect, _labelLeftFormat);         // left
+        // Subtle outline for contrast on busy charts
+        var shadowRect = new Rectangle(footerTextRect.X + 1, footerTextRect.Y + 1, footerTextRect.Width, footerTextRect.Height);
+        context.DrawString(footerText, _labelFont, Color.FromArgb(180, 0, 0, 0), shadowRect, _labelRightFormat);
 
-        // Draw text (left aligned, avoid clipping)
-        context.DrawString(line1, _labelFont, Color.White, r1, _labelLeftFormat);
-        context.DrawString(line2, _labelFont, Color.White, r2, _labelLeftFormat);
-        context.DrawString(line3, _labelFont, Color.White, r3, _labelLeftFormat);
+        context.DrawString(footerText, _labelFont, pnlTextColor, footerTextRect, _labelRightFormat);
 
-        // Mouse hover: treat the whole card as hover target
         var mouseOver = testRect.Contains(MouseLocationInfo.LastPosition);
-
         return (testRect, mouseOver);
     }
 
