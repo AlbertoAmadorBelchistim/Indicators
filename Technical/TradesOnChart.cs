@@ -167,21 +167,32 @@ public class TradesOnChart : Indicator
 
     #region Properties
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowLines), GroupName = nameof(Strings.Visualization))]
-	public bool ShowLine { get; set; } = true;
+    [Display(
+    ResourceType = typeof(Resources),
+    Name = nameof(Resources.TradeLine),
+    Description = nameof(Resources.TradeLineDescription),
+    GroupName = nameof(Resources.LinesAndMarkers),
+    Order = 60)]
+    public bool ShowLine { get; set; } = true;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDescription), GroupName = nameof(Strings.Visualization))]
-	public bool ShowTooltip { get; set; } = true;
+    [Display(
+    ResourceType = typeof(Resources),
+    Name = nameof(Resources.TradeDetails),
+    Description = nameof(Resources.TradeDetailsDescription),
+    GroupName = nameof(Resources.DetailsGroup),
+    Order = 120)]
+    public bool ShowTooltip { get; set; } = true;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.LabelDisplay), Description = nameof(Strings.LabelDisplayDescription), GroupName = nameof(Strings.Visualization))]
-	public LabelDisplayMode LabelDisplay { get; set; } = LabelDisplayMode.Hide;
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.LabelMode), Description = nameof(Resources.LabelModeDescription), GroupName = nameof(Resources.Labels), Order = 10)]
+    public LabelDisplayMode LabelDisplay { get; set; } = LabelDisplayMode.Hide;
 
     [Range(0, 200)]
     [Display(
     ResourceType = typeof(Resources),
     Name = nameof(Resources.LabelDistance),
     Description = nameof(Resources.LabelDistanceDescription),
-    GroupName = nameof(Strings.Visualization))]
+    GroupName = nameof(Resources.Labels),
+    Order = 30)]
     public int LabelDistance
     {
         get => _labelDistance;
@@ -192,12 +203,17 @@ public class TradesOnChart : Indicator
     ResourceType = typeof(Resources),
     Name = nameof(Resources.LabelXAnchor),
     Description = nameof(Resources.LabelXAnchorDescription),
-    GroupName = nameof(Strings.Visualization))]
+    GroupName = nameof(Resources.Labels),
+    Order = 20)]
     public LabelHorizontalAnchor LabelXAnchor { get; set; } = LabelHorizontalAnchor.CloseBar;
 
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BuyColor), GroupName = nameof(Strings.Visualization))]
-	public Color BuyColor 
+    [Display(
+    ResourceType = typeof(Resources),
+    Name = nameof(Resources.TradeBuyColor),
+    GroupName = nameof(Resources.LinesAndMarkers),
+    Order = 100)]
+    public Color BuyColor 
 	{
 		get => _buyColor;
 		set
@@ -207,8 +223,12 @@ public class TradesOnChart : Indicator
 		}
 	}
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.SellColor), GroupName = nameof(Strings.Visualization))]
-	public Color SellColor
+    [Display(
+    ResourceType = typeof(Resources),
+    Name = nameof(Resources.TradeSellColor),
+    GroupName = nameof(Resources.LinesAndMarkers),
+    Order = 110)]
+    public Color SellColor
 	{
 		get => _sellColor;
 		set
@@ -218,31 +238,37 @@ public class TradesOnChart : Indicator
 		}
 	}
 
-	[Display(
-		ResourceType = typeof(Resources),
-		Name = nameof(Resources.ProfitColor),
-		Description = nameof(Resources.ProfitColorDescription),
-		GroupName = nameof(Strings.Visualization))]
-	public Color ProfitColor
+    [Display(
+    ResourceType = typeof(Resources),
+    Name = nameof(Resources.ProfitColor),
+    Description = nameof(Resources.ProfitColorDescription),
+    GroupName = nameof(Resources.Labels),
+    Order = 40)]
+    public Color ProfitColor
 	{
 		get => _profitColor;
 		set => _profitColor = value;
 	}
 
-	[Display(
-		ResourceType = typeof(Resources),
-		Name = nameof(Resources.LossColor),
-		Description = nameof(Resources.LossColorDescription),
-		GroupName = nameof(Strings.Visualization))]
-	public Color LossColor
+    [Display(
+    ResourceType = typeof(Resources),
+    Name = nameof(Resources.LossColor),
+    Description = nameof(Resources.LossColorDescription),
+    GroupName = nameof(Resources.Labels),
+    Order = 50)]
+    public Color LossColor
 	{
 		get => _lossColor;
 		set => _lossColor = value;
 	}
 
 	[Range(1, 20)]
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.LineWidth), GroupName = nameof(Strings.Visualization))]
-	public float LineWidth 
+    [Display(
+    ResourceType = typeof(Resources),
+    Name = nameof(Resources.LineWidth),
+    GroupName = nameof(Resources.LinesAndMarkers),
+    Order = 70)]
+    public float LineWidth 
 	{ 
 		get => _lineWidth; 
 		set
@@ -253,8 +279,12 @@ public class TradesOnChart : Indicator
 		}
 	}
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.DashStyle), GroupName = nameof(Strings.Visualization))]
-	public DashStyle LineStyle 
+    [Display(
+    ResourceType = typeof(Resources),
+    Name = nameof(Resources.DashStyle),
+    GroupName = nameof(Resources.LinesAndMarkers),
+    Order = 80)]
+    public DashStyle LineStyle 
 	{
 		get => _lineStyle;
 		set
@@ -266,8 +296,13 @@ public class TradesOnChart : Indicator
 	}
 
 	[Range(1, 10)]
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Size), GroupName = nameof(Strings.Visualization))]
-	public int MarkerSize { get; set; } = 2;
+    [Display(
+    ResourceType = typeof(Resources),
+    Name = nameof(Resources.MarkerSize),
+    Description = nameof(Resources.MarkerSizeDescription),
+    GroupName = nameof(Resources.LinesAndMarkers),
+    Order = 90)]
+    public int MarkerSize { get; set; } = 2;
 
     #endregion
 
