@@ -167,27 +167,27 @@ public class TradesOnChart : Indicator
 
     #region Properties
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowLines), Description = nameof(Strings.IsNeedShowLinesDescription), GroupName = nameof(Strings.Visualization))]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowLines), GroupName = "Lines and markers", Order = 60)]
     public bool ShowLine { get; set; } = true;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDescription), Description = nameof(Strings.ShowTradeTooltipDescription), GroupName = nameof(Strings.Visualization))]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDescription), GroupName = "Details", Order = 120)]
     public bool ShowTooltip { get; set; } = true;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.LabelDisplay), Description = nameof(Strings.LabelDisplayDescription), GroupName = nameof(Strings.Visualization))]
-	public LabelDisplayMode LabelDisplay { get; set; } = LabelDisplayMode.Hide;
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LabelDisplay), GroupName = "Labels", Order = 10)]
+    public LabelDisplayMode LabelDisplay { get; set; } = LabelDisplayMode.Hide;
 
     [Range(0, 200)]
-    [Display(Name = "Label distance", Description = "Vertical spacing between trade markers and labels (px).", GroupName = nameof(Strings.Visualization))]
+    [Display(Name = "Label distance", Description = "Vertical spacing between trade markers and labels (px).", GroupName = "Labels", Order = 30)]
     public int LabelDistance
     {
         get => _labelDistance;
         set => _labelDistance = Math.Max(0, value);
     }
 
-    [Display(Name = "Label centering", Description = "Defines the horizontal reference used to position trade labels.", GroupName = nameof(Strings.Visualization))]
+    [Display(Name = "Label centering", Description = "Defines the horizontal reference used to position trade labels.", GroupName = "Labels", Order = 20)]
     public LabelHorizontalAnchor LabelXAnchor { get; set; } = LabelHorizontalAnchor.CloseBar;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BuyColor), Description = nameof(Strings.BuyTradeLineColorDescription), GroupName = nameof(Strings.Visualization))]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BuyColor), GroupName = "Lines and markers", Order = 100)]
     public Color BuyColor
     {
         get => _buyColor;
@@ -198,7 +198,7 @@ public class TradesOnChart : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.SellColor), Description = nameof(Strings.SellTradeLineColorDescription), GroupName = nameof(Strings.Visualization))]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.SellColor), GroupName = "Lines and markers", Order = 110)]
     public Color SellColor
     {
         get => _sellColor;
@@ -209,14 +209,14 @@ public class TradesOnChart : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ProfitColor), Description = nameof(Strings.ProfitTradeResultColorDescription), GroupName = nameof(Strings.Visualization))]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ProfitColor), GroupName = "Labels", Order = 40)]
     public Color ProfitColor
     {
         get => _profitColor;
         set => _profitColor = value;
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LossColor), Description = nameof(Strings.LossTradeResultColorDescription), GroupName = nameof(Strings.Visualization))]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LossColor), GroupName = "Labels", Order = 50)]
     public Color LossColor
     {
         get => _lossColor;
@@ -224,7 +224,7 @@ public class TradesOnChart : Indicator
     }
 
     [Range(1, 20)]
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LineWidth), Description = nameof(Strings.LineWidthDescription), GroupName = nameof(Strings.Visualization))]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LineWidth), GroupName = "Lines and markers", Order = 70)]
     public float LineWidth
     {
         get => _lineWidth;
@@ -236,7 +236,7 @@ public class TradesOnChart : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.DashStyle), Description = nameof(Strings.LineDashStyleDescription), GroupName = nameof(Strings.Visualization))]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.DashStyle), GroupName = "Lines and markers", Order = 80)]
     public DashStyle LineStyle
     {
         get => _lineStyle;
@@ -249,7 +249,7 @@ public class TradesOnChart : Indicator
     }
 
     [Range(1, 10)]
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Size), Description = nameof(Strings.SizeDescription), GroupName = nameof(Strings.Visualization))]
+    [Display(Name = "Marker size", Description = "Size of entry/exit markers.", GroupName = "Lines and markers", Order = 90)]
     public int MarkerSize { get; set; } = 2;
 
     #endregion
