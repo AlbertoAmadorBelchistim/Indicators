@@ -2203,6 +2203,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Details.
+        /// </summary>
+        public static string DetailsGroup {
+            get {
+                return ResourceManager.GetString("DetailsGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Deviation.
         /// </summary>
         public static string Deviation {
@@ -3778,6 +3787,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Label Display.
+        /// </summary>
+        public static string LabelDisplay {
+            get {
+                return ResourceManager.GetString("LabelDisplay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Card.
         /// </summary>
         public static string LabelDisplayModeCard {
@@ -3814,7 +3832,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Label distance (px).
+        ///   Busca una cadena traducida similar a Label distance.
         /// </summary>
         public static string LabelDistance {
             get {
@@ -3823,7 +3841,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Additional vertical spacing between trade markers and labels (pixels)..
+        ///   Busca una cadena traducida similar a Vertical spacing between trade markers and labels (px)..
         /// </summary>
         public static string LabelDistanceDescription {
             get {
@@ -3859,6 +3877,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Label mode.
+        /// </summary>
+        public static string LabelMode {
+            get {
+                return ResourceManager.GetString("LabelMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Selects how trade labels are displayed..
+        /// </summary>
+        public static string LabelModeDescription {
+            get {
+                return ResourceManager.GetString("LabelModeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Labels.
         /// </summary>
         public static string Labels {
@@ -3886,7 +3922,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Label horizontal anchor.
+        ///   Busca una cadena traducida similar a Label centering.
         /// </summary>
         public static string LabelXAnchor {
             get {
@@ -4017,6 +4053,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string Lines {
             get {
                 return ResourceManager.GetString("Lines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Lines and markers.
+        /// </summary>
+        public static string LinesAndMarkers {
+            get {
+                return ResourceManager.GetString("LinesAndMarkers", resourceCulture);
             }
         }
         
@@ -4485,6 +4530,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string Margin {
             get {
                 return ResourceManager.GetString("Margin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Marker size.
+        /// </summary>
+        public static string MarkerSize {
+            get {
+                return ResourceManager.GetString("MarkerSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Size of entry/exit markers..
+        /// </summary>
+        public static string MarkerSizeDescription {
+            get {
+                return ResourceManager.GetString("MarkerSizeDescription", resourceCulture);
             }
         }
         
@@ -7270,6 +7333,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Show description.
+        /// </summary>
+        public static string ShowDescription {
+            get {
+                return ResourceManager.GetString("ShowDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Show Divergence.
         /// </summary>
         public static string ShowDivergence {
@@ -8683,6 +8755,33 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Buy color.
+        /// </summary>
+        public static string TradeBuyColor {
+            get {
+                return ResourceManager.GetString("TradeBuyColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Details.
+        /// </summary>
+        public static string TradeDetails {
+            get {
+                return ResourceManager.GetString("TradeDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Shows trade details when hovering markers or labels..
+        /// </summary>
+        public static string TradeDetailsDescription {
+            get {
+                return ResourceManager.GetString("TradeDetailsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Long.
         /// </summary>
         public static string TradeDirectionLong {
@@ -8728,6 +8827,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Trade line.
+        /// </summary>
+        public static string TradeLine {
+            get {
+                return ResourceManager.GetString("TradeLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Draws a line connecting entry and exit markers..
+        /// </summary>
+        public static string TradeLineDescription {
+            get {
+                return ResourceManager.GetString("TradeLineDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Out.
         /// </summary>
         public static string TradeOut {
@@ -8760,6 +8877,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string Trades {
             get {
                 return ResourceManager.GetString("Trades", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Sell color.
+        /// </summary>
+        public static string TradeSellColor {
+            get {
+                return ResourceManager.GetString("TradeSellColor", resourceCulture);
             }
         }
         

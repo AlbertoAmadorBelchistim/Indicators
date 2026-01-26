@@ -1638,24 +1638,6 @@
   <value>t</value>
   <comment>TradesOnChart</comment>
 </data>
-<data name="LabelDistance" xml:space="preserve">
-  <value>लेबल दूरी (px)</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="LabelDistanceDescription" xml:space="preserve">
-  <value>ट्रेड मार्कर और लेबल के बीच अतिरिक्त ऊर्ध्वाधर दूरी (पिक्सेल)।</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="LabelXAnchor" xml:space="preserve">
-  <value>लेबल क्षैतिज एंकर</value>
-  <comment>TradesOnChart</comment>
-</data>
-
-<data name="LabelXAnchorDescription" xml:space="preserve">
-  <value>ट्रेड लेबल को रखने के लिए उपयोग की जाने वाली क्षैतिज संदर्भ स्थिति।</value>
-  <comment>TradesOnChart</comment>
-</data>
-
 <data name="LabelXAnchorCloseBar" xml:space="preserve">
   <value>क्लोज़ बार</value>
   <comment>TradesOnChart</comment>
@@ -1666,4 +1648,87 @@
   <comment>TradesOnChart</comment>
 </data>
 
-</root>
+<data name="ShowLines" xml:space="preserve">
+    <value>लाइन दिखाएं</value>
+  </data><data name="ShowDescription" xml:space="preserve">
+    <value>विवरण दिखाएं</value>
+  </data><data name="LabelDisplay" xml:space="preserve">
+    <value>Label Display</value>
+  </data><data name="BuyColor" xml:space="preserve">
+    <value>खरीद रंग</value>
+  </data><data name="SellColor" xml:space="preserve">
+    <value>विक्रय रंग</value>
+  </data><data name="DashStyle" xml:space="preserve">
+    <value>लाइन स्टाइल</value>
+  </data>
+    <data name="LinesAndMarkers" xml:space="preserve">
+    <value>लाइन्स और मार्कर</value>
+    <comment>UI</comment>
+  </data>
+  <data name="DetailsGroup" xml:space="preserve">
+    <value>विवरण</value>
+    <comment>UI</comment>
+  </data>
+
+  <data name="LabelMode" xml:space="preserve">
+    <value>लेबल मोड</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="LabelModeDescription" xml:space="preserve">
+    <value>ट्रेड लेबल कैसे दिखें, चुनें।</value>
+    <comment>TradesOnChart</comment>
+  </data>
+
+  <data name="TradeLine" xml:space="preserve">
+    <value>ट्रेड लाइन</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeLineDescription" xml:space="preserve">
+    <value>एंट्री और एग्ज़िट मार्करों को जोड़ने वाली लाइन दिखाता है।</value>
+    <comment>TradesOnChart</comment>
+  </data>
+
+  <data name="TradeDetails" xml:space="preserve">
+    <value>विवरण</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeDetailsDescription" xml:space="preserve">
+    <value>मार्कर या लेबल पर होवर करने पर ट्रेड विवरण दिखाता है।</value>
+    <comment>TradesOnChart</comment>
+  </data>
+
+  <data name="TradeBuyColor" xml:space="preserve">
+    <value>खरीद रंग</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeSellColor" xml:space="preserve">
+    <value>बिक्री रंग</value>
+    <comment>TradesOnChart</comment>
+  </data>
+
+  <data name="MarkerSize" xml:space="preserve">
+    <value>मार्कर आकार</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="MarkerSizeDescription" xml:space="preserve">
+    <value>एंट्री/एग्ज़िट मार्करों का आकार।</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="LabelDistance" xml:space="preserve">
+    <value>लेबल दूरी</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="LabelDistanceDescription" xml:space="preserve">
+    <value>मार्कर और लेबल के बीच ऊर्ध्वाधर दूरी (px)।</value>
+    <comment>TradesOnChart</comment>
+  </data>
+
+  <data name="LabelXAnchor" xml:space="preserve">
+    <value>लेबल केंद्र</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="LabelXAnchorDescription" xml:space="preserve">
+    <value>ट्रेड पर लेबल को केंद्रित करने हेतु क्षैतिज संदर्भ।</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  </root>

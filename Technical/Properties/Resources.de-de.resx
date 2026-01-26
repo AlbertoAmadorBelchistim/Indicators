@@ -1643,24 +1643,6 @@
   <value>t</value>
   <comment>TradesOnChart</comment>
 </data>
-<data name="LabelDistance" xml:space="preserve">
-  <value>Label-Abstand (px)</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="LabelDistanceDescription" xml:space="preserve">
-  <value>Zusätzlicher vertikaler Abstand zwischen Trade-Markern und Labels (Pixel).</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="LabelXAnchor" xml:space="preserve">
-  <value>Horizontaler Label-Anker</value>
-  <comment>TradesOnChart</comment>
-</data>
-
-<data name="LabelXAnchorDescription" xml:space="preserve">
-  <value>Definiert die horizontale Referenz zur Positionierung von Trade-Labels.</value>
-  <comment>TradesOnChart</comment>
-</data>
-
 <data name="LabelXAnchorCloseBar" xml:space="preserve">
   <value>Schlussbalken</value>
   <comment>TradesOnChart</comment>
@@ -1671,4 +1653,87 @@
   <comment>TradesOnChart</comment>
 </data>
 
-</root>
+<data name="ShowLines" xml:space="preserve">
+    <value>Zeilen anzeigen</value>
+  </data><data name="ShowDescription" xml:space="preserve">
+    <value>Show description</value>
+  </data><data name="LabelDisplay" xml:space="preserve">
+    <value>Label Display</value>
+  </data><data name="BuyColor" xml:space="preserve">
+    <value>Buy Color</value>
+  </data><data name="SellColor" xml:space="preserve">
+    <value>Sell Color</value>
+  </data><data name="DashStyle" xml:space="preserve">
+    <value>Line Style</value>
+  </data>
+    <data name="LinesAndMarkers" xml:space="preserve">
+    <value>Linien und Marker</value>
+    <comment>UI</comment>
+  </data>
+  <data name="DetailsGroup" xml:space="preserve">
+    <value>Details</value>
+    <comment>UI</comment>
+  </data>
+
+  <data name="LabelMode" xml:space="preserve">
+    <value>Label-Modus</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="LabelModeDescription" xml:space="preserve">
+    <value>Legt fest, wie Trade-Labels angezeigt werden.</value>
+    <comment>TradesOnChart</comment>
+  </data>
+
+  <data name="TradeLine" xml:space="preserve">
+    <value>Trade-Linie</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeLineDescription" xml:space="preserve">
+    <value>Zeichnet eine Linie zwischen Ein- und Ausstiegsmarkern.</value>
+    <comment>TradesOnChart</comment>
+  </data>
+
+  <data name="TradeDetails" xml:space="preserve">
+    <value>Details</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeDetailsDescription" xml:space="preserve">
+    <value>Zeigt Trade-Details beim Überfahren von Markern oder Labels.</value>
+    <comment>TradesOnChart</comment>
+  </data>
+
+  <data name="TradeBuyColor" xml:space="preserve">
+    <value>Kauf-Farbe</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeSellColor" xml:space="preserve">
+    <value>Verkauf-Farbe</value>
+    <comment>TradesOnChart</comment>
+  </data>
+
+  <data name="MarkerSize" xml:space="preserve">
+    <value>Markergröße</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="MarkerSizeDescription" xml:space="preserve">
+    <value>Größe der Ein-/Ausstiegsmarker.</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="LabelDistance" xml:space="preserve">
+    <value>Label-Abstand</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="LabelDistanceDescription" xml:space="preserve">
+    <value>Vertikaler Abstand zwischen Markern und Label (px).</value>
+    <comment>TradesOnChart</comment>
+  </data>
+
+  <data name="LabelXAnchor" xml:space="preserve">
+    <value>Label-Zentrierung</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="LabelXAnchorDescription" xml:space="preserve">
+    <value>Horizontale Referenz zum Zentrieren des Labels über dem Trade.</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  </root>
