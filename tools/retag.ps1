@@ -13,7 +13,8 @@ This script does not modify remote tags unless explicitly pushed.
 param(
     [string]$OldRef = "backup/prready-main-pre-rebase",
     [string]$NewRef = "prready/main",
-    [string]$Upstream = "upstream/Develop"
+    [string]$Upstream = "upstream/Develop",
+    [switch]$SkipFetch
 )
 
 # Ensure we run from the repository root regardless of invocation location
@@ -23,7 +24,11 @@ if (-not $RepoRoot) {
 }
 Set-Location $RepoRoot
 
-git fetch --all --tags --prune | Out-Null
+if (-not $SkipFetch) {
+    git fetch upstream --prune | Out-Null
+    git fetch origin --prune | Out-Null
+    # IMPORTANT: do not fetch tags here; the wrapper sync step handles tags explicitly
+}
 
 # New base for scanning only "own" commits
 $baseNew = (git merge-base $NewRef $Upstream).Trim()
