@@ -240,10 +240,10 @@ public class ClusterStatistic : Indicator
 
 	public enum SessionMode
 	{
-		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.None))]
+		[Display(ResourceType = typeof(Resources), Name = nameof(Resources.SessionModeNone))]
 		None,
 
-		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Default))]
+		[Display(ResourceType = typeof(Resources), Name = nameof(Resources.DefaultSession))]
 		DefaultSession,
 
 		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.CustomSession))]
@@ -1061,8 +1061,8 @@ public class ClusterStatistic : Indicator
 
     #region Session
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.SessionDeltaMode), GroupName = nameof(Strings.Session),
-        Description = nameof(Strings.SessionModeDescription), Order = 100)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.SessionMode), GroupName = nameof(Resources.Session),
+        Description = nameof(Resources.SessionCumModeDescription), Order = 100)]
     public SessionMode SessionCumMode
     {
         get => _sessionMode;
@@ -1074,8 +1074,8 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.CustomSessionStart), GroupName = nameof(Strings.Session),
-        Description = nameof(Strings.CustomSessionStartDescription), Order = 110)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.CustomSessionStart), GroupName = nameof(Resources.Session),
+        Description = nameof(Resources.CustomSessionStartDescription), Order = 110)]
     public FilterTimeSpan CustomSessionStart
 	{
 		get => _customSessionStart;
