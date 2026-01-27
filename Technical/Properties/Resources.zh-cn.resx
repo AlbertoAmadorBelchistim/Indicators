@@ -138,7 +138,13 @@
   <data name="Bid" xml:space="preserve">
     <value>买盘</value>
   </data>
+  <data name="Text" xml:space="preserve">
+    <value>文本</value>
+  </data>
   <data name="Filters" xml:space="preserve">
+    <value>过滤</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
     <value>过滤</value>
   </data>
   <data name="AlertFile" xml:space="preserve">
@@ -189,8 +195,17 @@
   <data name="PreviousWeek" xml:space="preserve">
     <value>上周</value>
   </data>
+  <data name="Left" xml:space="preserve">
+    <value>左</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>右</value>
+  </data>
   <data name="Show" xml:space="preserve">
     <value>显示</value>
+  </data>
+  <data name="FontSize" xml:space="preserve">
+    <value>字体大小</value>
   </data>
   <data name="Height" xml:space="preserve">
     <value>高度</value>
@@ -219,14 +234,26 @@
   <data name="Trades" xml:space="preserve">
     <value>交易</value>
   </data>
+  <data name="BuyColor" xml:space="preserve">
+    <value>Buy 颜色</value>
+  </data>
+  <data name="SellColor" xml:space="preserve">
+    <value>Sell 颜色</value>
+  </data>
   <data name="CustomSessionStart" xml:space="preserve">
     <value>自定义会话开始</value>
+  </data>
+  <data name="OffsetY" xml:space="preserve">
+    <value>Y 轴位移</value>
   </data>
   <data name="BearlishColor" xml:space="preserve">
     <value>看跌颜色</value>
   </data>
   <data name="BullishColor" xml:space="preserve">
     <value>看涨颜色</value>
+  </data>
+  <data name="DashStyle" xml:space="preserve">
+    <value>线条样式</value>
   </data>
   <data name="ShowAverage" xml:space="preserve">
     <value>显示均值</value>
@@ -291,8 +318,14 @@
   <data name="VisibleProportion" xml:space="preserve">
     <value>图表可见部分比例</value>
   </data>
+  <data name="OffsetX" xml:space="preserve">
+    <value>X 轴位移</value>
+  </data>
   <data name="LineWidth" xml:space="preserve">
     <value>线条宽度</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>无</value>
   </data>
   <data name="Enabled" xml:space="preserve">
     <value>启用</value>
@@ -341,6 +374,9 @@
   </data>
   <data name="General" xml:space="preserve">
     <value>常规</value>
+  </data>
+  <data name="ShowLines" xml:space="preserve">
+    <value>显示行</value>
   </data>
   <data name="ToggleLevelsVisibilityHotKey" xml:space="preserve">
     <value>切换所有级别的可见性</value>
@@ -1178,19 +1214,20 @@
     <value>表示用于中性值的颜色</value>
   </data>
   <data name="DeltaPositiveColor" xml:space="preserve">
-  <value>正值颜色</value>
-  <comment>Delta</comment>
-</data>
-<data name="DeltaNegativeColor" xml:space="preserve">
-  <value>负值颜色</value>
-  <comment>Delta</comment>
-</data>
-<data name="Absorption" xml:space="preserve">
+    <value>正值颜色</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="DeltaNegativeColor" xml:space="preserve">
+    <value>负值颜色</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="Absorption" xml:space="preserve">
     <value>吸收</value>
-  </data><data name="AbsorptionThresholdDesc" xml:space="preserve">
+  </data>
+  <data name="AbsorptionThresholdDesc" xml:space="preserve">
     <value>考虑吸收的收盘价与德尔塔极值之间的最小距离</value>
   </data>
-    <data name="AlertPaceVolPerSecGroup" xml:space="preserve">
+  <data name="AlertPaceVolPerSecGroup" xml:space="preserve">
     <value>节奏 / 活动 - 交易量/秒警报</value>
     <comment>ClusterStatistics</comment>
   </data>
@@ -1250,80 +1287,154 @@
     <value>原始成交 - Bid警报</value>
     <comment>ClusterStatistics</comment>
   </data>
-<data name="Filter" xml:space="preserve">
-    <value>过滤</value>
-  </data><data name="Text" xml:space="preserve">
-    <value>文本</value>
-  </data><data name="OffsetX" xml:space="preserve">
-    <value>X 轴位移</value>
-  </data><data name="OffsetY" xml:space="preserve">
-    <value>Y 轴位移</value>
-  </data><data name="FontSize" xml:space="preserve">
-    <value>字体大小</value>
-  </data><data name="Left" xml:space="preserve">
-    <value>左</value>
-  </data><data name="Right" xml:space="preserve">
-    <value>右</value>
+  <data name="LoloText" xml:space="preserve">
+    <value>Lolo 文本</value>
+    <comment>GammaLevels</comment>
   </data>
-  <data name="LoloText" xml:space="preserve"><value>Lolo 文本</value><comment>GammaLevels</comment></data>
-<data name="LoloTextDesc" xml:space="preserve"><value>粘贴 Lolo 格式的水平（逗号分隔 token，'&amp;' 连接标签，可选 '$TICKER:' 前缀）。</value><comment>GammaLevels</comment></data>
-<data name="Clear" xml:space="preserve"><value>清除</value><comment>UI</comment></data>
-<data name="ClearDesc" xml:space="preserve"><value>清除当前输入文本。</value><comment>UI</comment></data>
-<data name="OnlyVisiblePriceRange" xml:space="preserve"><value>仅可见价格范围</value><comment>UI</comment></data>
-<data name="OnlyVisiblePriceRangeDesc" xml:space="preserve"><value>仅绘制当前可见价格范围内的水平。</value><comment>UI</comment></data>
-<data name="LastBarOnly" xml:space="preserve"><value>仅最后一根K线</value><comment>UI</comment></data>
-<data name="LastBarOnlyDesc" xml:space="preserve"><value>仅在最后一根K线附近绘制水平，而不是贯穿整个图表。</value><comment>UI</comment></data>
-<data name="LabelAlignment" xml:space="preserve"><value>标签对齐</value><comment>UI</comment></data>
-<data name="LabelAlignmentDesc" xml:space="preserve"><value>控制标签绘制在左侧还是右侧。</value><comment>UI</comment></data>
-<data name="Lines" xml:space="preserve"><value>线条</value><comment>GammaLevels</comment></data>
-<data name="Tiers" xml:space="preserve"><value>层级</value><comment>GammaLevels</comment></data>
-<data name="ThickMaxRank" xml:space="preserve"><value>粗线最大等级</value><comment>GammaLevels</comment></data>
-<data name="ThickMaxRankDesc" xml:space="preserve"><value>等级不大于该值时使用粗线层级。</value><comment>GammaLevels</comment></data>
-<data name="MediumMaxRank" xml:space="preserve"><value>中线最大等级</value><comment>GammaLevels</comment></data>
-<data name="MediumMaxRankDesc" xml:space="preserve"><value>等级不大于该值时使用中线层级，更高等级使用细线层级。</value><comment>GammaLevels</comment></data>
-<data name="ThickLineWidth" xml:space="preserve"><value>粗线宽度</value><comment>GammaLevels</comment></data>
-<data name="MediumLineWidth" xml:space="preserve"><value>中线宽度</value><comment>GammaLevels</comment></data>
-<data name="ThinLineWidth" xml:space="preserve"><value>细线宽度</value><comment>GammaLevels</comment></data>
-<data name="ThickLineTransparency" xml:space="preserve"><value>粗线透明度</value><comment>GammaLevels</comment></data>
-<data name="MediumLineTransparency" xml:space="preserve"><value>中线透明度</value><comment>GammaLevels</comment></data>
-<data name="ThinLineTransparency" xml:space="preserve"><value>细线透明度</value><comment>GammaLevels</comment></data>
-<data name="Halo" xml:space="preserve"><value>0DTE 光晕</value><comment>GammaLevels</comment></data>
-<data name="Show0DteHalo" xml:space="preserve"><value>显示 0DTE 光晕</value><comment>GammaLevels</comment></data>
-<data name="Show0DteHaloDesc" xml:space="preserve"><value>使用 legacy 红色光晕样式高亮 0DTE 水平。</value><comment>GammaLevels</comment></data>
-<data name="HaloWidth" xml:space="preserve"><value>光晕宽度</value><comment>GammaLevels</comment></data>
-<data name="HaloWidthDesc" xml:space="preserve"><value>绘制在 0DTE 水平后方的光晕线宽度。</value><comment>GammaLevels</comment></data>
-<data name="HaloTransparency" xml:space="preserve"><value>光晕透明度</value><comment>GammaLevels</comment></data>
-<data name="HaloTransparencyDesc" xml:space="preserve"><value>0DTE 光晕的透明度。</value><comment>GammaLevels</comment></data>
-<data name="Dash0Dte" xml:space="preserve"><value>0DTE 虚线</value><comment>GammaLevels</comment></data>
-<data name="Dash0DteDesc" xml:space="preserve"><value>将 0DTE 主水平线绘制为虚线（legacy 行为）。</value><comment>GammaLevels</comment></data>
-<data name="FontSizeDescription" xml:space="preserve">
-  <value>标签字体大小。</value>
-  <comment>UI</comment>
-</data>
-<data name="MenthorQText" xml:space="preserve">
-  <value>MenthorQ 文本</value>
-  <comment>GammaLevels</comment>
-</data>
-
-<data name="MenthorQTextDesc" xml:space="preserve">
-  <value>粘贴 MenthorQ 水平（以逗号分隔的“标签/价格”对，可选“$TICKER:”前缀）。</value>
-  <comment>GammaLevels</comment>
-</data>
-
-<data name="MenthorQOffset" xml:space="preserve">
-  <value>偏移</value>
-  <comment>GammaLevels</comment>
-</data>
-
-<data name="MenthorQOffsetDesc" xml:space="preserve">
-  <value>应用于 MenthorQ 水平的价格偏移（用于对齐 ES1! 与 SPX）。可为正或负。</value>
-  <comment>GammaLevels</comment>
-</data>
-    <data name="Pens" xml:space="preserve">
+  <data name="LoloTextDesc" xml:space="preserve">
+    <value>粘贴 Lolo 格式的水平（逗号分隔 token，'&amp;' 连接标签，可选 '$TICKER:' 前缀）。</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>清除</value>
+    <comment>UI</comment>
+  </data>
+  <data name="ClearDesc" xml:space="preserve">
+    <value>清除当前输入文本。</value>
+    <comment>UI</comment>
+  </data>
+  <data name="OnlyVisiblePriceRange" xml:space="preserve">
+    <value>仅可见价格范围</value>
+    <comment>UI</comment>
+  </data>
+  <data name="OnlyVisiblePriceRangeDesc" xml:space="preserve">
+    <value>仅绘制当前可见价格范围内的水平。</value>
+    <comment>UI</comment>
+  </data>
+  <data name="LastBarOnly" xml:space="preserve">
+    <value>仅最后一根K线</value>
+    <comment>UI</comment>
+  </data>
+  <data name="LastBarOnlyDesc" xml:space="preserve">
+    <value>仅在最后一根K线附近绘制水平，而不是贯穿整个图表。</value>
+    <comment>UI</comment>
+  </data>
+  <data name="LabelAlignment" xml:space="preserve">
+    <value>标签对齐</value>
+    <comment>UI</comment>
+  </data>
+  <data name="LabelAlignmentDesc" xml:space="preserve">
+    <value>控制标签绘制在左侧还是右侧。</value>
+    <comment>UI</comment>
+  </data>
+  <data name="Lines" xml:space="preserve">
+    <value>线条</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Tiers" xml:space="preserve">
+    <value>层级</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="ThickMaxRank" xml:space="preserve">
+    <value>粗线最大等级</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="ThickMaxRankDesc" xml:space="preserve">
+    <value>等级不大于该值时使用粗线层级。</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MediumMaxRank" xml:space="preserve">
+    <value>中线最大等级</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MediumMaxRankDesc" xml:space="preserve">
+    <value>等级不大于该值时使用中线层级，更高等级使用细线层级。</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="ThickLineWidth" xml:space="preserve">
+    <value>粗线宽度</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MediumLineWidth" xml:space="preserve">
+    <value>中线宽度</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="ThinLineWidth" xml:space="preserve">
+    <value>细线宽度</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="ThickLineTransparency" xml:space="preserve">
+    <value>粗线透明度</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MediumLineTransparency" xml:space="preserve">
+    <value>中线透明度</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="ThinLineTransparency" xml:space="preserve">
+    <value>细线透明度</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Halo" xml:space="preserve">
+    <value>0DTE 光晕</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Show0DteHalo" xml:space="preserve">
+    <value>显示 0DTE 光晕</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Show0DteHaloDesc" xml:space="preserve">
+    <value>使用 legacy 红色光晕样式高亮 0DTE 水平。</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="HaloWidth" xml:space="preserve">
+    <value>光晕宽度</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="HaloWidthDesc" xml:space="preserve">
+    <value>绘制在 0DTE 水平后方的光晕线宽度。</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="HaloTransparency" xml:space="preserve">
+    <value>光晕透明度</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="HaloTransparencyDesc" xml:space="preserve">
+    <value>0DTE 光晕的透明度。</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Dash0Dte" xml:space="preserve">
+    <value>0DTE 虚线</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Dash0DteDesc" xml:space="preserve">
+    <value>将 0DTE 主水平线绘制为虚线（legacy 行为）。</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="FontSizeDescription" xml:space="preserve">
+    <value>标签字体大小。</value>
+    <comment>UI</comment>
+  </data>
+  <data name="MenthorQText" xml:space="preserve">
+    <value>MenthorQ 文本</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MenthorQTextDesc" xml:space="preserve">
+    <value>粘贴 MenthorQ 水平（以逗号分隔的“标签/价格”对，可选“$TICKER:”前缀）。</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MenthorQOffset" xml:space="preserve">
+    <value>偏移</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MenthorQOffsetDesc" xml:space="preserve">
+    <value>应用于 MenthorQ 水平的价格偏移（用于对齐 ES1! 与 SPX）。可为正或负。</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Pens" xml:space="preserve">
     <value>样式</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenCombo" xml:space="preserve">
     <value>Combo (CO)</value>
     <comment>GammaLevels</comment>
@@ -1332,7 +1443,6 @@
     <value>用于 Combo（CO）水平的线条样式。</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenLargeGamma" xml:space="preserve">
     <value>Large Gamma (LG / GEX)</value>
     <comment>GammaLevels</comment>
@@ -1341,7 +1451,6 @@
     <value>用于 Large Gamma（LG / GEX n）的线条样式。这些是主要的 Gamma 关键水平。</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenVolTrigger" xml:space="preserve">
     <value>Volatility Trigger (VT / HVL)</value>
     <comment>GammaLevels</comment>
@@ -1350,7 +1459,6 @@
     <value>用于 Volatility Trigger（VT / HVL）的线条样式。该水平基于对未来波动性的预测。</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenCallWall" xml:space="preserve">
     <value>Call Wall (CW)</value>
     <comment>GammaLevels</comment>
@@ -1359,7 +1467,6 @@
     <value>用于 Call Wall（CW）的线条样式。该水平代表基于期权持仓的阻力区域。</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenPutWall" xml:space="preserve">
     <value>Put Wall (PW)</value>
     <comment>GammaLevels</comment>
@@ -1368,7 +1475,6 @@
     <value>用于 Put Wall（PW）的线条样式。该水平代表基于期权持仓的支撑区域。</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenZeroGamma" xml:space="preserve">
     <value>Zero Gamma (ZG)</value>
     <comment>GammaLevels</comment>
@@ -1377,7 +1483,6 @@
     <value>用于 Zero Gamma（ZG）参考水平的线条样式。</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenBlindLevel" xml:space="preserve">
     <value>Blind Spots (MenthorQ) (BL)</value>
     <comment>GammaLevels</comment>
@@ -1386,7 +1491,6 @@
     <value>用于 Blind Spots（BL n）的线条样式。这些是预测性的价格反应区域，并非传统支撑或阻力，基于期权持仓、价格动量以及跨资产相关性构建。</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenDayMin" xml:space="preserve">
     <value>Expected Move 1D Min (MenthorQ)</value>
     <comment>GammaLevels</comment>
@@ -1395,7 +1499,6 @@
     <value>用于 Expected Move 1D Min 的线条样式。表示基于期权和波动率计算的日内预期价格区间下限。</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenDayMax" xml:space="preserve">
     <value>Expected Move 1D Max (MenthorQ)</value>
     <comment>GammaLevels</comment>
@@ -1404,7 +1507,6 @@
     <value>用于 Expected Move 1D Max 的线条样式。表示基于期权和波动率计算的日内预期价格区间上限，突破该范围通常伴随剧烈行情。</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenRiskTrigger" xml:space="preserve">
     <value>Swing Model Risk Trigger (MenthorQ) (RT)</value>
     <comment>GammaLevels</comment>
@@ -1413,7 +1515,6 @@
     <value>Swing Model（5D/20D）的 Risk Trigger（RT）。这是价格动量可能发生变化的关键拐点，用于风险控制和入场时机判断。</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenLowerBand" xml:space="preserve">
     <value>Swing Model Lower Band (MenthorQ) (LB)</value>
     <comment>GammaLevels</comment>
@@ -1422,7 +1523,6 @@
     <value>Swing Model 的下轨（LB），代表多日预期价格区间的下边界，通常作为支撑或回调做多区域。</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenUpperBand" xml:space="preserve">
     <value>Swing Model Upper Band (MenthorQ) (UB)</value>
     <comment>GammaLevels</comment>
@@ -1431,7 +1531,6 @@
     <value>Swing Model 的上轨（UB），代表多日预期价格区间的上边界，通常作为阻力、止盈或反转区域。</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenOther" xml:space="preserve">
     <value>其他 / 未映射</value>
     <comment>GammaLevels</comment>
@@ -1440,7 +1539,6 @@
     <value>用于未知或未映射标签的默认样式。</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="Pen0DteAccent" xml:space="preserve">
     <value>0DTE Accent (overlay)</value>
     <comment>GammaLevels</comment>
@@ -1457,7 +1555,6 @@
     <value>在此粘贴以指数为基准的水平（例如 SPX、NDX 或 QQQ）。指标会自动应用已配置的 Offset，将其转换为期货合约对应的水平。</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="MenthorQFuturesText" xml:space="preserve">
     <value>文本（期货）</value>
     <comment>GammaLevels</comment>
@@ -1467,201 +1564,115 @@
     <comment>GammaLevels</comment>
   </data>
   <data name="SourceTruth" xml:space="preserve">
-  <value>来源优先级</value>
-  <comment>GammaLevels</comment>
-</data>
-
-<data name="SourceTruthDesc" xml:space="preserve">
-  <value>当同一水平概念在多个来源中以不同价格出现时，用于确定哪个来源具有优先级。</value>
-  <comment>GammaLevels</comment>
-</data>
-<data name="SourceTruth_Default" xml:space="preserve">
-  <value>默认</value>
-  <comment>GammaLevels</comment>
-</data>
-<data name="SourceTruth_DefaultDesc" xml:space="preserve">
-  <value>优先使用 Lolo 水平，其次是 MenthorQ Futures，再其次是 MenthorQ Index。</value>
-  <comment>GammaLevels</comment>
-</data>
-
-<data name="SourceTruth_PreferLolo" xml:space="preserve">
-  <value>优先 Lolo</value>
-  <comment>GammaLevels</comment>
-</data>
-<data name="SourceTruth_PreferLoloDesc" xml:space="preserve">
-  <value>当出现冲突时，始终优先使用 Lolo 提供的水平。</value>
-  <comment>GammaLevels</comment>
-</data>
-
-<data name="SourceTruth_PreferMenthorQFutures" xml:space="preserve">
-  <value>优先 MenthorQ（期货）</value>
-  <comment>GammaLevels</comment>
-</data>
-<data name="SourceTruth_PreferMenthorQFuturesDesc" xml:space="preserve">
-  <value>当出现冲突时，MenthorQ Futures 水平优先于 Lolo 和 MenthorQ Index。</value>
-  <comment>GammaLevels</comment>
-</data>
-
-<data name="SourceTruth_PreferMenthorQIndex" xml:space="preserve">
-  <value>优先 MenthorQ（指数）</value>
-  <comment>GammaLevels</comment>
-</data>
-<data name="SourceTruth_PreferMenthorQIndexDesc" xml:space="preserve">
-  <value>当出现冲突时，MenthorQ Index 水平优先于 Lolo 和 MenthorQ Futures。</value>
-  <comment>GammaLevels</comment>
-</data>
-<data name="ProfitColor" xml:space="preserve">
-  <value>盈利颜色</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="ProfitColorDescription" xml:space="preserve">
-  <value>用于显示盈利交易的颜色。</value>
-  <comment>TradesOnChart</comment>
-</data>
-
-<data name="LossColor" xml:space="preserve">
-  <value>亏损颜色</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="LossColorDescription" xml:space="preserve">
-  <value>用于显示亏损交易的颜色。</value>
-  <comment>TradesOnChart</comment>
-</data>
-
-<data name="LabelDisplayModeHide" xml:space="preserve">
-  <value>隐藏</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="LabelDisplayModeShort" xml:space="preserve">
-  <value>简要</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="LabelDisplayModeFull" xml:space="preserve">
-  <value>完整</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="LabelDisplayModeCard" xml:space="preserve">
-  <value>卡片</value>
-  <comment>TradesOnChart</comment>
-</data>
-
-<data name="TradeDirectionLong" xml:space="preserve">
-  <value>多头</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="TradeDirectionShort" xml:space="preserve">
-  <value>空头</value>
-  <comment>TradesOnChart</comment>
-</data>
-
-<data name="TradeEntry" xml:space="preserve">
-  <value>入场</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="TradeExit" xml:space="preserve">
-  <value>出场</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="TradeResult" xml:space="preserve">
-  <value>结果</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="TradePnL" xml:space="preserve">
-  <value>PnL</value>
-  <comment>TradesOnChart</comment>
-</data>
-
-<data name="TradeIn" xml:space="preserve">
-  <value>进</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="TradeOut" xml:space="preserve">
-  <value>出</value>
-  <comment>TradesOnChart</comment>
-</data>
-
-<data name="TradeTicks" xml:space="preserve">
-  <value>跳</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="TradeTicksShort" xml:space="preserve">
-  <value>t</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="LabelXAnchorCloseBar" xml:space="preserve">
-  <value>收盘柱</value>
-  <comment>TradesOnChart</comment>
-</data>
-
-<data name="LabelXAnchorMidpoint" xml:space="preserve">
-  <value>交易中点</value>
-  <comment>TradesOnChart</comment>
-</data>
-
-<data name="ShowLines" xml:space="preserve">
-    <value>显示行</value>
-  </data><data name="ShowDescription" xml:space="preserve">
-    <value>显示描述</value>
-  </data><data name="LabelDisplay" xml:space="preserve">
-    <value>Label Display</value>
-  </data><data name="BuyColor" xml:space="preserve">
-    <value>Buy 颜色</value>
-  </data><data name="SellColor" xml:space="preserve">
-    <value>Sell 颜色</value>
-  </data><data name="DashStyle" xml:space="preserve">
-    <value>线条样式</value>
+    <value>来源优先级</value>
+    <comment>GammaLevels</comment>
   </data>
-    <data name="LinesAndMarkers" xml:space="preserve">
-    <value>线条与标记</value>
-    <comment>UI</comment>
+  <data name="SourceTruthDesc" xml:space="preserve">
+    <value>当同一水平概念在多个来源中以不同价格出现时，用于确定哪个来源具有优先级。</value>
+    <comment>GammaLevels</comment>
   </data>
-  <data name="DetailsGroup" xml:space="preserve">
-    <value>详情</value>
-    <comment>UI</comment>
+  <data name="SourceTruth_Default" xml:space="preserve">
+    <value>默认</value>
+    <comment>GammaLevels</comment>
   </data>
-
-  <data name="LabelMode" xml:space="preserve">
-    <value>标签模式</value>
+  <data name="SourceTruth_DefaultDesc" xml:space="preserve">
+    <value>优先使用 Lolo 水平，其次是 MenthorQ Futures，再其次是 MenthorQ Index。</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="SourceTruth_PreferLolo" xml:space="preserve">
+    <value>优先 Lolo</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="SourceTruth_PreferLoloDesc" xml:space="preserve">
+    <value>当出现冲突时，始终优先使用 Lolo 提供的水平。</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="SourceTruth_PreferMenthorQFutures" xml:space="preserve">
+    <value>优先 MenthorQ（期货）</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="SourceTruth_PreferMenthorQFuturesDesc" xml:space="preserve">
+    <value>当出现冲突时，MenthorQ Futures 水平优先于 Lolo 和 MenthorQ Index。</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="SourceTruth_PreferMenthorQIndex" xml:space="preserve">
+    <value>优先 MenthorQ（指数）</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="SourceTruth_PreferMenthorQIndexDesc" xml:space="preserve">
+    <value>当出现冲突时，MenthorQ Index 水平优先于 Lolo 和 MenthorQ Futures。</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="ProfitColor" xml:space="preserve">
+    <value>盈利颜色</value>
     <comment>TradesOnChart</comment>
   </data>
-  <data name="LabelModeDescription" xml:space="preserve">
-    <value>选择交易标签的显示方式。</value>
+  <data name="ProfitColorDescription" xml:space="preserve">
+    <value>用于显示盈利交易的颜色。</value>
     <comment>TradesOnChart</comment>
   </data>
-
-  <data name="TradeLine" xml:space="preserve">
-    <value>交易连线</value>
+  <data name="LossColor" xml:space="preserve">
+    <value>亏损颜色</value>
     <comment>TradesOnChart</comment>
   </data>
-  <data name="TradeLineDescription" xml:space="preserve">
-    <value>绘制连接入场与出场标记的线条。</value>
+  <data name="LossColorDescription" xml:space="preserve">
+    <value>用于显示亏损交易的颜色。</value>
     <comment>TradesOnChart</comment>
   </data>
-
-  <data name="TradeDetails" xml:space="preserve">
-    <value>详情</value>
+  <data name="LabelDisplayModeHide" xml:space="preserve">
+    <value>隐藏</value>
     <comment>TradesOnChart</comment>
   </data>
-  <data name="TradeDetailsDescription" xml:space="preserve">
-    <value>鼠标悬停在标记或标签上时显示交易详情。</value>
+  <data name="LabelDisplayModeShort" xml:space="preserve">
+    <value>简要</value>
     <comment>TradesOnChart</comment>
   </data>
-
-  <data name="TradeBuyColor" xml:space="preserve">
-    <value>买入颜色</value>
+  <data name="LabelDisplayModeFull" xml:space="preserve">
+    <value>完整</value>
     <comment>TradesOnChart</comment>
   </data>
-  <data name="TradeSellColor" xml:space="preserve">
-    <value>卖出颜色</value>
+  <data name="LabelDisplayModeCard" xml:space="preserve">
+    <value>卡片</value>
     <comment>TradesOnChart</comment>
   </data>
-
-  <data name="MarkerSize" xml:space="preserve">
-    <value>标记大小</value>
+  <data name="TradeDirectionLong" xml:space="preserve">
+    <value>多头</value>
     <comment>TradesOnChart</comment>
   </data>
-  <data name="MarkerSizeDescription" xml:space="preserve">
-    <value>入场/出场标记的大小。</value>
+  <data name="TradeDirectionShort" xml:space="preserve">
+    <value>空头</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeEntry" xml:space="preserve">
+    <value>入场</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeExit" xml:space="preserve">
+    <value>出场</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeResult" xml:space="preserve">
+    <value>结果</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradePnL" xml:space="preserve">
+    <value>PnL</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeIn" xml:space="preserve">
+    <value>进</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeOut" xml:space="preserve">
+    <value>出</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeTicks" xml:space="preserve">
+    <value>跳</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeTicksShort" xml:space="preserve">
+    <value>t</value>
     <comment>TradesOnChart</comment>
   </data>
   <data name="LabelDistance" xml:space="preserve">
@@ -1672,7 +1683,6 @@
     <value>标记与标签之间的垂直间距（像素）。</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LabelXAnchor" xml:space="preserve">
     <value>标签居中</value>
     <comment>TradesOnChart</comment>
@@ -1681,4 +1691,78 @@
     <value>用于将标签在交易上方水平居中的参考点。</value>
     <comment>TradesOnChart</comment>
   </data>
-  </root>
+  <data name="LabelXAnchorCloseBar" xml:space="preserve">
+    <value>收盘柱</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="LabelXAnchorMidpoint" xml:space="preserve">
+    <value>交易中点</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="ShowDescription" xml:space="preserve">
+    <value>显示描述</value>
+  </data>
+  <data name="LabelDisplay" xml:space="preserve">
+    <value>Label Display</value>
+  </data>
+  <data name="LinesAndMarkers" xml:space="preserve">
+    <value>线条与标记</value>
+    <comment>UI</comment>
+  </data>
+  <data name="DetailsGroup" xml:space="preserve">
+    <value>详情</value>
+    <comment>UI</comment>
+  </data>
+  <data name="LabelMode" xml:space="preserve">
+    <value>标签模式</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="LabelModeDescription" xml:space="preserve">
+    <value>选择交易标签的显示方式。</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeLine" xml:space="preserve">
+    <value>交易连线</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeLineDescription" xml:space="preserve">
+    <value>绘制连接入场与出场标记的线条。</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeDetails" xml:space="preserve">
+    <value>详情</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeDetailsDescription" xml:space="preserve">
+    <value>鼠标悬停在标记或标签上时显示交易详情。</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeBuyColor" xml:space="preserve">
+    <value>买入颜色</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeSellColor" xml:space="preserve">
+    <value>卖出颜色</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="MarkerSize" xml:space="preserve">
+    <value>标记大小</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="MarkerSizeDescription" xml:space="preserve">
+    <value>入场/出场标记的大小。</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="CustomSessionStartDescription" xml:space="preserve">
+    <value>指定自定义会话的开始</value>
+  </data>
+  <data name="SessionModeDescription" xml:space="preserve">
+    <value>表示会话模式之一。</value>
+  </data>
+  <data name="SessionModeNone" xml:space="preserve">
+    <value>连续（不按会话）</value>
+  </data>
+  <data name="SessionCumModeDescription" xml:space="preserve">
+    <value>控制何时重置会话累计值（会话成交量/会话Delta/会话Delta/成交量），并在新会话开始时重置 Delta Change。</value>
+  </data>
+</root>

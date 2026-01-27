@@ -4050,7 +4050,7 @@
   <data name="LabelDisplay" xml:space="preserve">
     <value>Label Display</value>
   </data>
-    <data name="LinesAndMarkers" xml:space="preserve">
+  <data name="LinesAndMarkers" xml:space="preserve">
     <value>Lines and markers</value>
     <comment>UI</comment>
   </data>
@@ -4058,7 +4058,6 @@
     <value>Details</value>
     <comment>UI</comment>
   </data>
-
   <data name="LabelMode" xml:space="preserve">
     <value>Label mode</value>
     <comment>TradesOnChart</comment>
@@ -4067,7 +4066,6 @@
     <value>Selects how trade labels are displayed.</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeLine" xml:space="preserve">
     <value>Trade line</value>
     <comment>TradesOnChart</comment>
@@ -4076,7 +4074,6 @@
     <value>Draws a line connecting entry and exit markers.</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeDetails" xml:space="preserve">
     <value>Details</value>
     <comment>TradesOnChart</comment>
@@ -4085,7 +4082,6 @@
     <value>Shows trade details when hovering markers or labels.</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeBuyColor" xml:space="preserve">
     <value>Buy color</value>
     <comment>TradesOnChart</comment>
@@ -4094,7 +4090,6 @@
     <value>Sell color</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="MarkerSize" xml:space="preserve">
     <value>Marker size</value>
     <comment>TradesOnChart</comment>
@@ -4102,5 +4097,20 @@
   <data name="MarkerSizeDescription" xml:space="preserve">
     <value>Size of entry/exit markers.</value>
     <comment>TradesOnChart</comment>
+  </data>
+  <data name="CustomSessionStartDescription" xml:space="preserve">
+    <value>Specifies the start of the custom session</value>
+    <comment>UI</comment>
+  </data>
+  <data name="SessionModeDescription" xml:space="preserve">
+    <value>Enables or disables session-based delta calculation mode.</value>
+  </data>
+  <data name="SessionModeNone" xml:space="preserve">
+    <value>Continuous (no sessions)</value>
+    <comment>ClusterStatistic</comment>
+  </data>
+  <data name="SessionCumModeDescription" xml:space="preserve">
+    <value>Controls when session cumulative values are reset (Session Volume/Delta/Delta per Volume) and resets Delta Change at the start of a new session.</value>
+    <comment>ClusterStatistic</comment>
   </data>
 </root>
