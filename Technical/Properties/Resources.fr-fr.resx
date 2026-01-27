@@ -138,8 +138,14 @@
   <data name="Bid" xml:space="preserve">
     <value>Bids</value>
   </data>
+  <data name="Text" xml:space="preserve">
+    <value>Texte</value>
+  </data>
   <data name="Filters" xml:space="preserve">
     <value>Filtres</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filtre</value>
   </data>
   <data name="AlertFile" xml:space="preserve">
     <value>Fichier d'alerte</value>
@@ -189,8 +195,17 @@
   <data name="PreviousWeek" xml:space="preserve">
     <value>La semaine dernière</value>
   </data>
+  <data name="Left" xml:space="preserve">
+    <value>À gauche</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>A droite</value>
+  </data>
   <data name="Show" xml:space="preserve">
     <value>Afficher</value>
+  </data>
+  <data name="FontSize" xml:space="preserve">
+    <value>Taille de police</value>
   </data>
   <data name="Height" xml:space="preserve">
     <value>Hauteur</value>
@@ -219,14 +234,26 @@
   <data name="Trades" xml:space="preserve">
     <value>Transactions</value>
   </data>
+  <data name="BuyColor" xml:space="preserve">
+    <value>Couleur de Acheter</value>
+  </data>
+  <data name="SellColor" xml:space="preserve">
+    <value>Couleur de vente</value>
+  </data>
   <data name="CustomSessionStart" xml:space="preserve">
     <value>Heure de début de la session personnalisée</value>
+  </data>
+  <data name="OffsetY" xml:space="preserve">
+    <value>Décalage Y</value>
   </data>
   <data name="BearlishColor" xml:space="preserve">
     <value>Couleur baissière</value>
   </data>
   <data name="BullishColor" xml:space="preserve">
     <value>Couleur de la bougie haussière</value>
+  </data>
+  <data name="DashStyle" xml:space="preserve">
+    <value>Style</value>
   </data>
   <data name="ShowAverage" xml:space="preserve">
     <value>Afficher la moyenne</value>
@@ -291,8 +318,14 @@
   <data name="VisibleProportion" xml:space="preserve">
     <value>Afficher par gradient</value>
   </data>
+  <data name="OffsetX" xml:space="preserve">
+    <value>Décalage X</value>
+  </data>
   <data name="LineWidth" xml:space="preserve">
     <value>Largeur de ligne</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Aucun</value>
   </data>
   <data name="Enabled" xml:space="preserve">
     <value>Activé</value>
@@ -341,6 +374,9 @@
   </data>
   <data name="General" xml:space="preserve">
     <value>Général</value>
+  </data>
+  <data name="ShowLines" xml:space="preserve">
+    <value>Afficher les lignes</value>
   </data>
   <data name="ToggleLevelsVisibilityHotKey" xml:space="preserve">
     <value>Basculer la visibilité de tous les niveaux</value>
@@ -1178,20 +1214,20 @@
     <value>Représente la couleur utilisée pour les valeurs neutres</value>
   </data>
   <data name="DeltaPositiveColor" xml:space="preserve">
-  <value>Couleur positive</value>
-  <comment>Delta</comment>
-</data>
-<data name="DeltaNegativeColor" xml:space="preserve">
-  <value>Couleur négative</value>
-  <comment>Delta</comment>
-</data>
-
-<data name="Absorption" xml:space="preserve">
+    <value>Couleur positive</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="DeltaNegativeColor" xml:space="preserve">
+    <value>Couleur négative</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="Absorption" xml:space="preserve">
     <value>Absorption</value>
-  </data><data name="AbsorptionThresholdDesc" xml:space="preserve">
+  </data>
+  <data name="AbsorptionThresholdDesc" xml:space="preserve">
     <value>Distance minimale entre la clôture et les extrêmes delta pour considérer l'absorption</value>
   </data>
-    <data name="AlertPaceVolPerSecGroup" xml:space="preserve">
+  <data name="AlertPaceVolPerSecGroup" xml:space="preserve">
     <value>Rythme / Activité - Alerte volume/s</value>
     <comment>ClusterStatistics</comment>
   </data>
@@ -1251,10 +1287,7 @@
     <value>Impressions brutes - Alerte demande</value>
     <comment>ClusterStatistics</comment>
   </data>
-<data name="Filter" xml:space="preserve">
-    <value>Filtre</value>
-  </data>
-    <data name="AlertAskTemplate" xml:space="preserve">
+  <data name="AlertAskTemplate" xml:space="preserve">
     <value>Alerte ask (offre) - Cluster Statistic : {0}</value>
     <comment>ClusterStatistics</comment>
   </data>
@@ -1302,78 +1335,154 @@
     <value>Alerte hauteur - Cluster Statistic : {0}</value>
     <comment>ClusterStatistics</comment>
   </data>
-<data name="Text" xml:space="preserve">
-    <value>Texte</value>
-  </data><data name="OffsetX" xml:space="preserve">
-    <value>Décalage X</value>
-  </data><data name="OffsetY" xml:space="preserve">
-    <value>Décalage Y</value>
-  </data><data name="FontSize" xml:space="preserve">
-    <value>Taille de police</value>
-  </data><data name="Left" xml:space="preserve">
-    <value>À gauche</value>
-  </data><data name="Right" xml:space="preserve">
-    <value>A droite</value>
+  <data name="LoloText" xml:space="preserve">
+    <value>Texte Lolo</value>
+    <comment>GammaLevels</comment>
   </data>
-  <data name="LoloText" xml:space="preserve"><value>Texte Lolo</value><comment>GammaLevels</comment></data>
-<data name="LoloTextDesc" xml:space="preserve"><value>Collez des niveaux au format Lolo (jetons séparés par des virgules, libellés joints par '&amp;', préfixe optionnel '$TICKER:').</value><comment>GammaLevels</comment></data>
-<data name="Clear" xml:space="preserve"><value>Effacer</value><comment>UI</comment></data>
-<data name="ClearDesc" xml:space="preserve"><value>Efface le texte d'entrée actuel.</value><comment>UI</comment></data>
-<data name="OnlyVisiblePriceRange" xml:space="preserve"><value>Plage de prix visible uniquement</value><comment>UI</comment></data>
-<data name="OnlyVisiblePriceRangeDesc" xml:space="preserve"><value>Affiche uniquement les niveaux dans la plage de prix visible.</value><comment>UI</comment></data>
-<data name="LastBarOnly" xml:space="preserve"><value>Dernière barre uniquement</value><comment>UI</comment></data>
-<data name="LastBarOnlyDesc" xml:space="preserve"><value>Affiche les niveaux uniquement près de la dernière barre au lieu de toute la largeur du graphique.</value><comment>UI</comment></data>
-<data name="LabelAlignment" xml:space="preserve"><value>Alignement du libellé</value><comment>UI</comment></data>
-<data name="LabelAlignmentDesc" xml:space="preserve"><value>Définit si les libellés sont affichés à gauche ou à droite.</value><comment>UI</comment></data>
-<data name="Lines" xml:space="preserve"><value>Lignes</value><comment>GammaLevels</comment></data>
-<data name="Tiers" xml:space="preserve"><value>Niveaux</value><comment>GammaLevels</comment></data>
-<data name="ThickMaxRank" xml:space="preserve"><value>Rang max épais</value><comment>GammaLevels</comment></data>
-<data name="ThickMaxRankDesc" xml:space="preserve"><value>Les rangs jusqu'à cette valeur utilisent le niveau épais.</value><comment>GammaLevels</comment></data>
-<data name="MediumMaxRank" xml:space="preserve"><value>Rang max moyen</value><comment>GammaLevels</comment></data>
-<data name="MediumMaxRankDesc" xml:space="preserve"><value>Les rangs jusqu'à cette valeur utilisent le niveau moyen. Au-delà, le niveau fin est utilisé.</value><comment>GammaLevels</comment></data>
-<data name="ThickLineWidth" xml:space="preserve"><value>Largeur ligne épaisse</value><comment>GammaLevels</comment></data>
-<data name="MediumLineWidth" xml:space="preserve"><value>Largeur ligne moyenne</value><comment>GammaLevels</comment></data>
-<data name="ThinLineWidth" xml:space="preserve"><value>Largeur ligne fine</value><comment>GammaLevels</comment></data>
-<data name="ThickLineTransparency" xml:space="preserve"><value>Transparence ligne épaisse</value><comment>GammaLevels</comment></data>
-<data name="MediumLineTransparency" xml:space="preserve"><value>Transparence ligne moyenne</value><comment>GammaLevels</comment></data>
-<data name="ThinLineTransparency" xml:space="preserve"><value>Transparence ligne fine</value><comment>GammaLevels</comment></data>
-<data name="Halo" xml:space="preserve"><value>Halo 0DTE</value><comment>GammaLevels</comment></data>
-<data name="Show0DteHalo" xml:space="preserve"><value>Afficher le halo 0DTE</value><comment>GammaLevels</comment></data>
-<data name="Show0DteHaloDesc" xml:space="preserve"><value>Met en évidence les niveaux 0DTE avec le style legacy de halo rouge.</value><comment>GammaLevels</comment></data>
-<data name="HaloWidth" xml:space="preserve"><value>Largeur du halo</value><comment>GammaLevels</comment></data>
-<data name="HaloWidthDesc" xml:space="preserve"><value>Largeur de la ligne de halo dessinée derrière les niveaux 0DTE.</value><comment>GammaLevels</comment></data>
-<data name="HaloTransparency" xml:space="preserve"><value>Transparence du halo</value><comment>GammaLevels</comment></data>
-<data name="HaloTransparencyDesc" xml:space="preserve"><value>Transparence du halo 0DTE.</value><comment>GammaLevels</comment></data>
-<data name="Dash0Dte" xml:space="preserve"><value>Ligne 0DTE en pointillés</value><comment>GammaLevels</comment></data>
-<data name="Dash0DteDesc" xml:space="preserve"><value>Dessine la ligne principale 0DTE en pointillés (comportement legacy).</value><comment>GammaLevels</comment></data>
-<data name="FontSizeDescription" xml:space="preserve">
-  <value>Taille de police des libellés.</value>
-  <comment>UI</comment>
-</data>
-<data name="MenthorQText" xml:space="preserve">
-  <value>Texte MenthorQ</value>
-  <comment>GammaLevels</comment>
-</data>
-
-<data name="MenthorQTextDesc" xml:space="preserve">
-  <value>Collez les niveaux MenthorQ (paires libellé/prix séparées par des virgules, préfixe '$TICKER:' optionnel).</value>
-  <comment>GammaLevels</comment>
-</data>
-
-<data name="MenthorQOffset" xml:space="preserve">
-  <value>Décalage</value>
-  <comment>GammaLevels</comment>
-</data>
-
-<data name="MenthorQOffsetDesc" xml:space="preserve">
-  <value>Décalage de prix appliqué aux niveaux MenthorQ (pour aligner ES1! vs SPX). Peut être positif ou négatif.</value>
-  <comment>GammaLevels</comment>
-</data>
+  <data name="LoloTextDesc" xml:space="preserve">
+    <value>Collez des niveaux au format Lolo (jetons séparés par des virgules, libellés joints par '&amp;', préfixe optionnel '$TICKER:').</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Effacer</value>
+    <comment>UI</comment>
+  </data>
+  <data name="ClearDesc" xml:space="preserve">
+    <value>Efface le texte d'entrée actuel.</value>
+    <comment>UI</comment>
+  </data>
+  <data name="OnlyVisiblePriceRange" xml:space="preserve">
+    <value>Plage de prix visible uniquement</value>
+    <comment>UI</comment>
+  </data>
+  <data name="OnlyVisiblePriceRangeDesc" xml:space="preserve">
+    <value>Affiche uniquement les niveaux dans la plage de prix visible.</value>
+    <comment>UI</comment>
+  </data>
+  <data name="LastBarOnly" xml:space="preserve">
+    <value>Dernière barre uniquement</value>
+    <comment>UI</comment>
+  </data>
+  <data name="LastBarOnlyDesc" xml:space="preserve">
+    <value>Affiche les niveaux uniquement près de la dernière barre au lieu de toute la largeur du graphique.</value>
+    <comment>UI</comment>
+  </data>
+  <data name="LabelAlignment" xml:space="preserve">
+    <value>Alignement du libellé</value>
+    <comment>UI</comment>
+  </data>
+  <data name="LabelAlignmentDesc" xml:space="preserve">
+    <value>Définit si les libellés sont affichés à gauche ou à droite.</value>
+    <comment>UI</comment>
+  </data>
+  <data name="Lines" xml:space="preserve">
+    <value>Lignes</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Tiers" xml:space="preserve">
+    <value>Niveaux</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="ThickMaxRank" xml:space="preserve">
+    <value>Rang max épais</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="ThickMaxRankDesc" xml:space="preserve">
+    <value>Les rangs jusqu'à cette valeur utilisent le niveau épais.</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MediumMaxRank" xml:space="preserve">
+    <value>Rang max moyen</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MediumMaxRankDesc" xml:space="preserve">
+    <value>Les rangs jusqu'à cette valeur utilisent le niveau moyen. Au-delà, le niveau fin est utilisé.</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="ThickLineWidth" xml:space="preserve">
+    <value>Largeur ligne épaisse</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MediumLineWidth" xml:space="preserve">
+    <value>Largeur ligne moyenne</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="ThinLineWidth" xml:space="preserve">
+    <value>Largeur ligne fine</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="ThickLineTransparency" xml:space="preserve">
+    <value>Transparence ligne épaisse</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MediumLineTransparency" xml:space="preserve">
+    <value>Transparence ligne moyenne</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="ThinLineTransparency" xml:space="preserve">
+    <value>Transparence ligne fine</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Halo" xml:space="preserve">
+    <value>Halo 0DTE</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Show0DteHalo" xml:space="preserve">
+    <value>Afficher le halo 0DTE</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Show0DteHaloDesc" xml:space="preserve">
+    <value>Met en évidence les niveaux 0DTE avec le style legacy de halo rouge.</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="HaloWidth" xml:space="preserve">
+    <value>Largeur du halo</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="HaloWidthDesc" xml:space="preserve">
+    <value>Largeur de la ligne de halo dessinée derrière les niveaux 0DTE.</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="HaloTransparency" xml:space="preserve">
+    <value>Transparence du halo</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="HaloTransparencyDesc" xml:space="preserve">
+    <value>Transparence du halo 0DTE.</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Dash0Dte" xml:space="preserve">
+    <value>Ligne 0DTE en pointillés</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Dash0DteDesc" xml:space="preserve">
+    <value>Dessine la ligne principale 0DTE en pointillés (comportement legacy).</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="FontSizeDescription" xml:space="preserve">
+    <value>Taille de police des libellés.</value>
+    <comment>UI</comment>
+  </data>
+  <data name="MenthorQText" xml:space="preserve">
+    <value>Texte MenthorQ</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MenthorQTextDesc" xml:space="preserve">
+    <value>Collez les niveaux MenthorQ (paires libellé/prix séparées par des virgules, préfixe '$TICKER:' optionnel).</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MenthorQOffset" xml:space="preserve">
+    <value>Décalage</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MenthorQOffsetDesc" xml:space="preserve">
+    <value>Décalage de prix appliqué aux niveaux MenthorQ (pour aligner ES1! vs SPX). Peut être positif ou négatif.</value>
+    <comment>GammaLevels</comment>
+  </data>
   <data name="Pens" xml:space="preserve">
     <value>Styles</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenCombo" xml:space="preserve">
     <value>Combo (CO)</value>
     <comment>GammaLevels</comment>
@@ -1382,7 +1491,6 @@
     <value>Style de ligne pour les niveaux Combo (CO).</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenLargeGamma" xml:space="preserve">
     <value>Large Gamma (LG / GEX)</value>
     <comment>GammaLevels</comment>
@@ -1391,7 +1499,6 @@
     <value>Style de ligne pour Large Gamma (LG / GEX n). Niveaux gamma principaux.</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenVolTrigger" xml:space="preserve">
     <value>Volatility Trigger (VT / HVL)</value>
     <comment>GammaLevels</comment>
@@ -1400,7 +1507,6 @@
     <value>Style de ligne pour Volatility Trigger (VT / HVL). Niveau de volatilité “forward-looking”.</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenCallWall" xml:space="preserve">
     <value>Call Wall (CW)</value>
     <comment>GammaLevels</comment>
@@ -1409,7 +1515,6 @@
     <value>Style de ligne pour Call Wall (CW). Résistance basée sur le positionnement options.</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenPutWall" xml:space="preserve">
     <value>Put Wall (PW)</value>
     <comment>GammaLevels</comment>
@@ -1418,7 +1523,6 @@
     <value>Style de ligne pour Put Wall (PW). Support basé sur le positionnement options.</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenZeroGamma" xml:space="preserve">
     <value>Zero Gamma (ZG)</value>
     <comment>GammaLevels</comment>
@@ -1427,7 +1531,6 @@
     <value>Style de ligne pour Zero Gamma (ZG). Niveau de référence gamma.</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenBlindLevel" xml:space="preserve">
     <value>Blind Spots (MenthorQ) (BL)</value>
     <comment>GammaLevels</comment>
@@ -1436,7 +1539,6 @@
     <value>Style de ligne pour Blind Spots (BL n). Zones de réaction prédictives (pas S/R classique) : options positioning, momentum et corrélation cross-asset. À utiliser pour confluence, risque et targets.</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenDayMin" xml:space="preserve">
     <value>Expected Move 1D Min (MenthorQ)</value>
     <comment>GammaLevels</comment>
@@ -1445,7 +1547,6 @@
     <value>Style de ligne pour “1D Min”. Borne basse du range intraday attendu (expected move 1D) basé options + volatilité forward-looking. Peut servir de zone de reversal/target et repère de stops.</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenDayMax" xml:space="preserve">
     <value>Expected Move 1D Max (MenthorQ)</value>
     <comment>GammaLevels</comment>
@@ -1454,7 +1555,6 @@
     <value>Style de ligne pour “1D Max”. Borne haute du range intraday attendu (expected move 1D) basé options + volatilité forward-looking. Les breaks hors range s’accompagnent souvent d’une expansion de volatilité.</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenRiskTrigger" xml:space="preserve">
     <value>Swing Model Risk Trigger (MenthorQ) (RT)</value>
     <comment>GammaLevels</comment>
@@ -1463,7 +1563,6 @@
     <value>Style de ligne pour Risk Trigger (RT) du Swing Model (5D/20D). Niveau pivot/inflection où le momentum peut basculer ; utile pour le risque, le timing et les objectifs.</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenLowerBand" xml:space="preserve">
     <value>Swing Model Lower Band (MenthorQ) (LB)</value>
     <comment>GammaLevels</comment>
@@ -1472,7 +1571,6 @@
     <value>Style de ligne pour Lower Band (LB) du Swing Model (5D/20D). Borne basse du range multi-jours ; souvent zone de support/entrée pullback (biais bullish).</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenUpperBand" xml:space="preserve">
     <value>Swing Model Upper Band (MenthorQ) (UB)</value>
     <comment>GammaLevels</comment>
@@ -1481,7 +1579,6 @@
     <value>Style de ligne pour Upper Band (UB) du Swing Model (5D/20D). Borne haute du range multi-jours ; souvent zone de résistance/TP ou fade (biais bearish).</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenOther" xml:space="preserve">
     <value>Autres / Non mappé</value>
     <comment>GammaLevels</comment>
@@ -1490,7 +1587,6 @@
     <value>Style par défaut pour les labels inconnus ou non mappés (fallback).</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="Pen0DteAccent" xml:space="preserve">
     <value>0DTE Accent (overlay)</value>
     <comment>GammaLevels</comment>
@@ -1507,7 +1603,6 @@
     <value>Collez ici des niveaux référencés à un indice (par ex. SPX, NDX ou QQQ). L’indicateur les convertit automatiquement en futures en appliquant l’Offset configuré.</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="MenthorQFuturesText" xml:space="preserve">
     <value>Texte (Futures)</value>
     <comment>GammaLevels</comment>
@@ -1517,201 +1612,115 @@
     <comment>GammaLevels</comment>
   </data>
   <data name="SourceTruth" xml:space="preserve">
-  <value>Priorité de la source</value>
-  <comment>GammaLevels</comment>
-</data>
-
-<data name="SourceTruthDesc" xml:space="preserve">
-  <value>Définit quelle source prévaut lorsque le même concept de niveau apparaît à des prix différents selon les sources.</value>
-  <comment>GammaLevels</comment>
-</data>
-<data name="SourceTruth_Default" xml:space="preserve">
-  <value>Par défaut</value>
-  <comment>GammaLevels</comment>
-</data>
-<data name="SourceTruth_DefaultDesc" xml:space="preserve">
-  <value>Les niveaux Lolo ont la priorité, suivis des niveaux MenthorQ Futures puis MenthorQ Indice.</value>
-  <comment>GammaLevels</comment>
-</data>
-
-<data name="SourceTruth_PreferLolo" xml:space="preserve">
-  <value>Prioriser Lolo</value>
-  <comment>GammaLevels</comment>
-</data>
-<data name="SourceTruth_PreferLoloDesc" xml:space="preserve">
-  <value>Les niveaux Lolo sont toujours prioritaires par rapport aux autres sources en cas de conflit.</value>
-  <comment>GammaLevels</comment>
-</data>
-
-<data name="SourceTruth_PreferMenthorQFutures" xml:space="preserve">
-  <value>Prioriser MenthorQ (Futures)</value>
-  <comment>GammaLevels</comment>
-</data>
-<data name="SourceTruth_PreferMenthorQFuturesDesc" xml:space="preserve">
-  <value>Les niveaux MenthorQ Futures sont prioritaires par rapport à Lolo et MenthorQ Indice en cas de conflit.</value>
-  <comment>GammaLevels</comment>
-</data>
-
-<data name="SourceTruth_PreferMenthorQIndex" xml:space="preserve">
-  <value>Prioriser MenthorQ (Indice)</value>
-  <comment>GammaLevels</comment>
-</data>
-<data name="SourceTruth_PreferMenthorQIndexDesc" xml:space="preserve">
-  <value>Les niveaux MenthorQ Indice sont prioritaires par rapport à Lolo et MenthorQ Futures en cas de conflit.</value>
-  <comment>GammaLevels</comment>
-</data>
-<data name="ProfitColor" xml:space="preserve">
-  <value>Couleur du profit</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="ProfitColorDescription" xml:space="preserve">
-  <value>Couleur utilisée pour afficher les trades gagnants.</value>
-  <comment>TradesOnChart</comment>
-</data>
-
-<data name="LossColor" xml:space="preserve">
-  <value>Couleur de perte</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="LossColorDescription" xml:space="preserve">
-  <value>Couleur utilisée pour afficher les trades perdants.</value>
-  <comment>TradesOnChart</comment>
-</data>
-
-<data name="LabelDisplayModeHide" xml:space="preserve">
-  <value>Masquer</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="LabelDisplayModeShort" xml:space="preserve">
-  <value>Court</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="LabelDisplayModeFull" xml:space="preserve">
-  <value>Complet</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="LabelDisplayModeCard" xml:space="preserve">
-  <value>Carte</value>
-  <comment>TradesOnChart</comment>
-</data>
-
-<data name="TradeDirectionLong" xml:space="preserve">
-  <value>Long</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="TradeDirectionShort" xml:space="preserve">
-  <value>Short</value>
-  <comment>TradesOnChart</comment>
-</data>
-
-<data name="TradeEntry" xml:space="preserve">
-  <value>Entrée</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="TradeExit" xml:space="preserve">
-  <value>Sortie</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="TradeResult" xml:space="preserve">
-  <value>Résultat</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="TradePnL" xml:space="preserve">
-  <value>PnL</value>
-  <comment>TradesOnChart</comment>
-</data>
-
-<data name="TradeIn" xml:space="preserve">
-  <value>Entr.</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="TradeOut" xml:space="preserve">
-  <value>Sort.</value>
-  <comment>TradesOnChart</comment>
-</data>
-
-<data name="TradeTicks" xml:space="preserve">
-  <value>ticks</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="TradeTicksShort" xml:space="preserve">
-  <value>t</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="LabelXAnchorCloseBar" xml:space="preserve">
-  <value>Barre de clôture</value>
-  <comment>TradesOnChart</comment>
-</data>
-
-<data name="LabelXAnchorMidpoint" xml:space="preserve">
-  <value>Point médian du trade</value>
-  <comment>TradesOnChart</comment>
-</data>
-
-<data name="ShowLines" xml:space="preserve">
-    <value>Afficher les lignes</value>
-  </data><data name="ShowDescription" xml:space="preserve">
-    <value>Afficher la description</value>
-  </data><data name="LabelDisplay" xml:space="preserve">
-    <value>Label Display</value>
-  </data><data name="BuyColor" xml:space="preserve">
-    <value>Couleur de Acheter</value>
-  </data><data name="SellColor" xml:space="preserve">
-    <value>Couleur de vente</value>
-  </data><data name="DashStyle" xml:space="preserve">
-    <value>Style</value>
+    <value>Priorité de la source</value>
+    <comment>GammaLevels</comment>
   </data>
-    <data name="LinesAndMarkers" xml:space="preserve">
-    <value>Lignes et marqueurs</value>
-    <comment>UI</comment>
+  <data name="SourceTruthDesc" xml:space="preserve">
+    <value>Définit quelle source prévaut lorsque le même concept de niveau apparaît à des prix différents selon les sources.</value>
+    <comment>GammaLevels</comment>
   </data>
-  <data name="DetailsGroup" xml:space="preserve">
-    <value>Détails</value>
-    <comment>UI</comment>
+  <data name="SourceTruth_Default" xml:space="preserve">
+    <value>Par défaut</value>
+    <comment>GammaLevels</comment>
   </data>
-
-  <data name="LabelMode" xml:space="preserve">
-    <value>Mode étiquette</value>
+  <data name="SourceTruth_DefaultDesc" xml:space="preserve">
+    <value>Les niveaux Lolo ont la priorité, suivis des niveaux MenthorQ Futures puis MenthorQ Indice.</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="SourceTruth_PreferLolo" xml:space="preserve">
+    <value>Prioriser Lolo</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="SourceTruth_PreferLoloDesc" xml:space="preserve">
+    <value>Les niveaux Lolo sont toujours prioritaires par rapport aux autres sources en cas de conflit.</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="SourceTruth_PreferMenthorQFutures" xml:space="preserve">
+    <value>Prioriser MenthorQ (Futures)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="SourceTruth_PreferMenthorQFuturesDesc" xml:space="preserve">
+    <value>Les niveaux MenthorQ Futures sont prioritaires par rapport à Lolo et MenthorQ Indice en cas de conflit.</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="SourceTruth_PreferMenthorQIndex" xml:space="preserve">
+    <value>Prioriser MenthorQ (Indice)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="SourceTruth_PreferMenthorQIndexDesc" xml:space="preserve">
+    <value>Les niveaux MenthorQ Indice sont prioritaires par rapport à Lolo et MenthorQ Futures en cas de conflit.</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="ProfitColor" xml:space="preserve">
+    <value>Couleur du profit</value>
     <comment>TradesOnChart</comment>
   </data>
-  <data name="LabelModeDescription" xml:space="preserve">
-    <value>Choisit la façon d’afficher les étiquettes du trade.</value>
+  <data name="ProfitColorDescription" xml:space="preserve">
+    <value>Couleur utilisée pour afficher les trades gagnants.</value>
     <comment>TradesOnChart</comment>
   </data>
-
-  <data name="TradeLine" xml:space="preserve">
-    <value>Ligne du trade</value>
+  <data name="LossColor" xml:space="preserve">
+    <value>Couleur de perte</value>
     <comment>TradesOnChart</comment>
   </data>
-  <data name="TradeLineDescription" xml:space="preserve">
-    <value>Trace une ligne reliant les marqueurs d’entrée et de sortie.</value>
+  <data name="LossColorDescription" xml:space="preserve">
+    <value>Couleur utilisée pour afficher les trades perdants.</value>
     <comment>TradesOnChart</comment>
   </data>
-
-  <data name="TradeDetails" xml:space="preserve">
-    <value>Détails</value>
+  <data name="LabelDisplayModeHide" xml:space="preserve">
+    <value>Masquer</value>
     <comment>TradesOnChart</comment>
   </data>
-  <data name="TradeDetailsDescription" xml:space="preserve">
-    <value>Affiche les détails au survol des marqueurs ou des étiquettes.</value>
+  <data name="LabelDisplayModeShort" xml:space="preserve">
+    <value>Court</value>
     <comment>TradesOnChart</comment>
   </data>
-
-  <data name="TradeBuyColor" xml:space="preserve">
-    <value>Couleur achat</value>
+  <data name="LabelDisplayModeFull" xml:space="preserve">
+    <value>Complet</value>
     <comment>TradesOnChart</comment>
   </data>
-  <data name="TradeSellColor" xml:space="preserve">
-    <value>Couleur vente</value>
+  <data name="LabelDisplayModeCard" xml:space="preserve">
+    <value>Carte</value>
     <comment>TradesOnChart</comment>
   </data>
-
-  <data name="MarkerSize" xml:space="preserve">
-    <value>Taille marqueur</value>
+  <data name="TradeDirectionLong" xml:space="preserve">
+    <value>Long</value>
     <comment>TradesOnChart</comment>
   </data>
-  <data name="MarkerSizeDescription" xml:space="preserve">
-    <value>Taille des marqueurs d’entrée/sortie.</value>
+  <data name="TradeDirectionShort" xml:space="preserve">
+    <value>Short</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeEntry" xml:space="preserve">
+    <value>Entrée</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeExit" xml:space="preserve">
+    <value>Sortie</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeResult" xml:space="preserve">
+    <value>Résultat</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradePnL" xml:space="preserve">
+    <value>PnL</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeIn" xml:space="preserve">
+    <value>Entr.</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeOut" xml:space="preserve">
+    <value>Sort.</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeTicks" xml:space="preserve">
+    <value>ticks</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeTicksShort" xml:space="preserve">
+    <value>t</value>
     <comment>TradesOnChart</comment>
   </data>
   <data name="LabelDistance" xml:space="preserve">
@@ -1722,7 +1731,6 @@
     <value>Espacement vertical entre marqueurs et étiquette (px).</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LabelXAnchor" xml:space="preserve">
     <value>Centrage étiquette</value>
     <comment>TradesOnChart</comment>
@@ -1730,4 +1738,79 @@
   <data name="LabelXAnchorDescription" xml:space="preserve">
     <value>Référence horizontale pour centrer l’étiquette sur le trade.</value>
     <comment>TradesOnChart</comment>
-  </data></root>
+  </data>
+  <data name="LabelXAnchorCloseBar" xml:space="preserve">
+    <value>Barre de clôture</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="LabelXAnchorMidpoint" xml:space="preserve">
+    <value>Point médian du trade</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="ShowDescription" xml:space="preserve">
+    <value>Afficher la description</value>
+  </data>
+  <data name="LabelDisplay" xml:space="preserve">
+    <value>Label Display</value>
+  </data>
+  <data name="LinesAndMarkers" xml:space="preserve">
+    <value>Lignes et marqueurs</value>
+    <comment>UI</comment>
+  </data>
+  <data name="DetailsGroup" xml:space="preserve">
+    <value>Détails</value>
+    <comment>UI</comment>
+  </data>
+  <data name="LabelMode" xml:space="preserve">
+    <value>Mode étiquette</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="LabelModeDescription" xml:space="preserve">
+    <value>Choisit la façon d’afficher les étiquettes du trade.</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeLine" xml:space="preserve">
+    <value>Ligne du trade</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeLineDescription" xml:space="preserve">
+    <value>Trace une ligne reliant les marqueurs d’entrée et de sortie.</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeDetails" xml:space="preserve">
+    <value>Détails</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeDetailsDescription" xml:space="preserve">
+    <value>Affiche les détails au survol des marqueurs ou des étiquettes.</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeBuyColor" xml:space="preserve">
+    <value>Couleur achat</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeSellColor" xml:space="preserve">
+    <value>Couleur vente</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="MarkerSize" xml:space="preserve">
+    <value>Taille marqueur</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="MarkerSizeDescription" xml:space="preserve">
+    <value>Taille des marqueurs d’entrée/sortie.</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="CustomSessionStartDescription" xml:space="preserve">
+    <value>Spécifie le début de la session personnalisée</value>
+  </data>
+  <data name="SessionModeDescription" xml:space="preserve">
+    <value>Représente l'un des modes de session.</value>
+  </data>
+  <data name="SessionModeNone" xml:space="preserve">
+    <value>Continu (sans sessions)</value>
+  </data>
+  <data name="SessionCumModeDescription" xml:space="preserve">
+    <value>Définit quand les cumuls de session (Volume/Delta/Delta par Volume) sont réinitialisés et remet le Delta Change à zéro au début d’une nouvelle session.</value>
+  </data>
+</root>

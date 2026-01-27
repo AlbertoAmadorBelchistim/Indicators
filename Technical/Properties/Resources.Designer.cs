@@ -1897,6 +1897,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Specifies the start of the custom session.
+        /// </summary>
+        public static string CustomSessionStartDescription {
+            get {
+                return ResourceManager.GetString("CustomSessionStartDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Custom Current Time Timezone.
         /// </summary>
         public static string CustomTimeZone {
@@ -6910,6 +6919,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Controls when session cumulative values are reset (Session Volume/Delta/Delta per Volume) and resets Delta Change at the start of a new session..
+        /// </summary>
+        public static string SessionCumModeDescription {
+            get {
+                return ResourceManager.GetString("SessionCumModeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Session Delta.
         /// </summary>
         public static string SessionDelta {
@@ -6960,6 +6978,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string SessionMode {
             get {
                 return ResourceManager.GetString("SessionMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Enables or disables session-based delta calculation mode..
+        /// </summary>
+        public static string SessionModeDescription {
+            get {
+                return ResourceManager.GetString("SessionModeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Continuous (no sessions).
+        /// </summary>
+        public static string SessionModeNone {
+            get {
+                return ResourceManager.GetString("SessionModeNone", resourceCulture);
             }
         }
         

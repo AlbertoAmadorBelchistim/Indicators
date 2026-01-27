@@ -3267,30 +3267,21 @@
   <data name="NeutralValueDescription" xml:space="preserve">
     <value>Представляет цвет, используемый для нейтральных значений</value>
   </data>
-  <data name="Misc" xml:space="preserve">
-    <value>Разное</value>
-  </data>
-  <data name="Bearish" xml:space="preserve">
-    <value>Медвежье</value>
-  </data>
-  <data name="Show Fibonacci" xml:space="preserve">
-    <value>Показать уровни Фибоначчи</value>
-  </data>
   <data name="DeltaPositiveColor" xml:space="preserve">
-  <value>Цвет положительного значения</value>
-  <comment>Delta</comment>
-</data>
-<data name="DeltaNegativeColor" xml:space="preserve">
-  <value>Цвет отрицательного значения</value>
-  <comment>Delta</comment>
-</data>
-
-<data name="Absorption" xml:space="preserve">
+    <value>Цвет положительного значения</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="DeltaNegativeColor" xml:space="preserve">
+    <value>Цвет отрицательного значения</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="Absorption" xml:space="preserve">
     <value>Поглощение</value>
-  </data><data name="AbsorptionThresholdDesc" xml:space="preserve">
+  </data>
+  <data name="AbsorptionThresholdDesc" xml:space="preserve">
     <value>Минимальное расстояние между закрытием и экстремумами дельты для учета поглощения</value>
   </data>
-    <data name="AlertPaceVolPerSecGroup" xml:space="preserve">
+  <data name="AlertPaceVolPerSecGroup" xml:space="preserve">
     <value>Темп / Активность - Алерт Объем/сек</value>
     <comment>ClusterStatistics</comment>
   </data>
@@ -3350,7 +3341,7 @@
     <value>Сырые принты - Алерт Bid</value>
     <comment>ClusterStatistics</comment>
   </data>
-    <data name="AlertAskTemplate" xml:space="preserve">
+  <data name="AlertAskTemplate" xml:space="preserve">
     <value>Алерт Ask (офера) - Cluster Statistic: {0}</value>
     <comment>ClusterStatistics</comment>
   </data>
@@ -3398,65 +3389,154 @@
     <value>Алерт Высота - Cluster Statistic: {0}</value>
     <comment>ClusterStatistics</comment>
   </data>
-  <data name="LoloText" xml:space="preserve"><value>Текст Lolo</value><comment>GammaLevels</comment></data>
-<data name="LoloTextDesc" xml:space="preserve"><value>Вставьте уровни в формате Lolo (токены через запятую, метки через '&amp;', необязательный префикс '$TICKER:').</value><comment>GammaLevels</comment></data>
-<data name="Clear" xml:space="preserve"><value>Очистить</value><comment>UI</comment></data>
-<data name="ClearDesc" xml:space="preserve"><value>Очищает текущий входной текст.</value><comment>UI</comment></data>
-<data name="OnlyVisiblePriceRange" xml:space="preserve"><value>Только видимый диапазон цен</value><comment>UI</comment></data>
-<data name="OnlyVisiblePriceRangeDesc" xml:space="preserve"><value>Рисует уровни только в текущем видимом диапазоне цен.</value><comment>UI</comment></data>
-<data name="LastBarOnly" xml:space="preserve"><value>Только последний бар</value><comment>UI</comment></data>
-<data name="LastBarOnlyDesc" xml:space="preserve"><value>Рисует уровни только рядом с последним баром, а не по всей ширине графика.</value><comment>UI</comment></data>
-<data name="LabelAlignment" xml:space="preserve"><value>Выравнивание меток</value><comment>UI</comment></data>
-<data name="LabelAlignmentDesc" xml:space="preserve"><value>Определяет, рисовать метки слева или справа.</value><comment>UI</comment></data>
-<data name="Lines" xml:space="preserve"><value>Линии</value><comment>GammaLevels</comment></data>
-<data name="Tiers" xml:space="preserve"><value>Уровни</value><comment>GammaLevels</comment></data>
-<data name="ThickMaxRank" xml:space="preserve"><value>Макс. ранг (толстый)</value><comment>GammaLevels</comment></data>
-<data name="ThickMaxRankDesc" xml:space="preserve"><value>Ранги до этого значения используют толстый уровень.</value><comment>GammaLevels</comment></data>
-<data name="MediumMaxRank" xml:space="preserve"><value>Макс. ранг (средний)</value><comment>GammaLevels</comment></data>
-<data name="MediumMaxRankDesc" xml:space="preserve"><value>Ранги до этого значения используют средний уровень. Более высокие ранги используют тонкий уровень.</value><comment>GammaLevels</comment></data>
-<data name="ThickLineWidth" xml:space="preserve"><value>Толщина линии (толстая)</value><comment>GammaLevels</comment></data>
-<data name="MediumLineWidth" xml:space="preserve"><value>Толщина линии (средняя)</value><comment>GammaLevels</comment></data>
-<data name="ThinLineWidth" xml:space="preserve"><value>Толщина линии (тонкая)</value><comment>GammaLevels</comment></data>
-<data name="ThickLineTransparency" xml:space="preserve"><value>Прозрачность линии (толстая)</value><comment>GammaLevels</comment></data>
-<data name="MediumLineTransparency" xml:space="preserve"><value>Прозрачность линии (средняя)</value><comment>GammaLevels</comment></data>
-<data name="ThinLineTransparency" xml:space="preserve"><value>Прозрачность линии (тонкая)</value><comment>GammaLevels</comment></data>
-<data name="Halo" xml:space="preserve"><value>Halo 0DTE</value><comment>GammaLevels</comment></data>
-<data name="Show0DteHalo" xml:space="preserve"><value>Показывать halo 0DTE</value><comment>GammaLevels</comment></data>
-<data name="Show0DteHaloDesc" xml:space="preserve"><value>Подсвечивает уровни 0DTE в legacy-стиле красного halo.</value><comment>GammaLevels</comment></data>
-<data name="HaloWidth" xml:space="preserve"><value>Ширина halo</value><comment>GammaLevels</comment></data>
-<data name="HaloWidthDesc" xml:space="preserve"><value>Ширина линии halo, рисуемой позади уровней 0DTE.</value><comment>GammaLevels</comment></data>
-<data name="HaloTransparency" xml:space="preserve"><value>Прозрачность halo</value><comment>GammaLevels</comment></data>
-<data name="HaloTransparencyDesc" xml:space="preserve"><value>Прозрачность halo 0DTE.</value><comment>GammaLevels</comment></data>
-<data name="Dash0Dte" xml:space="preserve"><value>Пунктирная линия 0DTE</value><comment>GammaLevels</comment></data>
-<data name="Dash0DteDesc" xml:space="preserve"><value>Рисует основную линию 0DTE пунктиром (legacy-поведение).</value><comment>GammaLevels</comment></data>
-<data name="FontSizeDescription" xml:space="preserve">
-  <value>Размер шрифта меток.</value>
-  <comment>UI</comment>
-</data>
-<data name="MenthorQText" xml:space="preserve">
-  <value>Текст MenthorQ</value>
-  <comment>GammaLevels</comment>
-</data>
-
-<data name="MenthorQTextDesc" xml:space="preserve">
-  <value>Вставьте уровни MenthorQ (пары метка/цена, разделённые запятыми, необязательный префикс '$TICKER:').</value>
-  <comment>GammaLevels</comment>
-</data>
-
-<data name="MenthorQOffset" xml:space="preserve">
-  <value>Смещение</value>
-  <comment>GammaLevels</comment>
-</data>
-
-<data name="MenthorQOffsetDesc" xml:space="preserve">
-  <value>Ценовое смещение для уровней MenthorQ (для выравнивания ES1! и SPX). Может быть положительным или отрицательным.</value>
-  <comment>GammaLevels</comment>
-</data>
+  <data name="LoloText" xml:space="preserve">
+    <value>Текст Lolo</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="LoloTextDesc" xml:space="preserve">
+    <value>Вставьте уровни в формате Lolo (токены через запятую, метки через '&amp;', необязательный префикс '$TICKER:').</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Очистить</value>
+    <comment>UI</comment>
+  </data>
+  <data name="ClearDesc" xml:space="preserve">
+    <value>Очищает текущий входной текст.</value>
+    <comment>UI</comment>
+  </data>
+  <data name="OnlyVisiblePriceRange" xml:space="preserve">
+    <value>Только видимый диапазон цен</value>
+    <comment>UI</comment>
+  </data>
+  <data name="OnlyVisiblePriceRangeDesc" xml:space="preserve">
+    <value>Рисует уровни только в текущем видимом диапазоне цен.</value>
+    <comment>UI</comment>
+  </data>
+  <data name="LastBarOnly" xml:space="preserve">
+    <value>Только последний бар</value>
+    <comment>UI</comment>
+  </data>
+  <data name="LastBarOnlyDesc" xml:space="preserve">
+    <value>Рисует уровни только рядом с последним баром, а не по всей ширине графика.</value>
+    <comment>UI</comment>
+  </data>
+  <data name="LabelAlignment" xml:space="preserve">
+    <value>Выравнивание меток</value>
+    <comment>UI</comment>
+  </data>
+  <data name="LabelAlignmentDesc" xml:space="preserve">
+    <value>Определяет, рисовать метки слева или справа.</value>
+    <comment>UI</comment>
+  </data>
+  <data name="Lines" xml:space="preserve">
+    <value>Линии</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Tiers" xml:space="preserve">
+    <value>Уровни</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="ThickMaxRank" xml:space="preserve">
+    <value>Макс. ранг (толстый)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="ThickMaxRankDesc" xml:space="preserve">
+    <value>Ранги до этого значения используют толстый уровень.</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MediumMaxRank" xml:space="preserve">
+    <value>Макс. ранг (средний)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MediumMaxRankDesc" xml:space="preserve">
+    <value>Ранги до этого значения используют средний уровень. Более высокие ранги используют тонкий уровень.</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="ThickLineWidth" xml:space="preserve">
+    <value>Толщина линии (толстая)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MediumLineWidth" xml:space="preserve">
+    <value>Толщина линии (средняя)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="ThinLineWidth" xml:space="preserve">
+    <value>Толщина линии (тонкая)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="ThickLineTransparency" xml:space="preserve">
+    <value>Прозрачность линии (толстая)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MediumLineTransparency" xml:space="preserve">
+    <value>Прозрачность линии (средняя)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="ThinLineTransparency" xml:space="preserve">
+    <value>Прозрачность линии (тонкая)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Halo" xml:space="preserve">
+    <value>Halo 0DTE</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Show0DteHalo" xml:space="preserve">
+    <value>Показывать halo 0DTE</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Show0DteHaloDesc" xml:space="preserve">
+    <value>Подсвечивает уровни 0DTE в legacy-стиле красного halo.</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="HaloWidth" xml:space="preserve">
+    <value>Ширина halo</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="HaloWidthDesc" xml:space="preserve">
+    <value>Ширина линии halo, рисуемой позади уровней 0DTE.</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="HaloTransparency" xml:space="preserve">
+    <value>Прозрачность halo</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="HaloTransparencyDesc" xml:space="preserve">
+    <value>Прозрачность halo 0DTE.</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Dash0Dte" xml:space="preserve">
+    <value>Пунктирная линия 0DTE</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="Dash0DteDesc" xml:space="preserve">
+    <value>Рисует основную линию 0DTE пунктиром (legacy-поведение).</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="FontSizeDescription" xml:space="preserve">
+    <value>Размер шрифта меток.</value>
+    <comment>UI</comment>
+  </data>
+  <data name="MenthorQText" xml:space="preserve">
+    <value>Текст MenthorQ</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MenthorQTextDesc" xml:space="preserve">
+    <value>Вставьте уровни MenthorQ (пары метка/цена, разделённые запятыми, необязательный префикс '$TICKER:').</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MenthorQOffset" xml:space="preserve">
+    <value>Смещение</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="MenthorQOffsetDesc" xml:space="preserve">
+    <value>Ценовое смещение для уровней MenthorQ (для выравнивания ES1! и SPX). Может быть положительным или отрицательным.</value>
+    <comment>GammaLevels</comment>
+  </data>
   <data name="Pens" xml:space="preserve">
     <value>Стили</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenCombo" xml:space="preserve">
     <value>Combo (CO)</value>
     <comment>GammaLevels</comment>
@@ -3465,7 +3545,6 @@
     <value>Стиль линии для уровней Combo (CO).</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenLargeGamma" xml:space="preserve">
     <value>Large Gamma (LG / GEX)</value>
     <comment>GammaLevels</comment>
@@ -3474,7 +3553,6 @@
     <value>Стиль линии для Large Gamma (LG / GEX n). Основные gamma уровни.</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenVolTrigger" xml:space="preserve">
     <value>Volatility Trigger (VT / HVL)</value>
     <comment>GammaLevels</comment>
@@ -3483,7 +3561,6 @@
     <value>Стиль линии для Volatility Trigger (VT / HVL). “Forward-looking” уровень волатильности.</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenCallWall" xml:space="preserve">
     <value>Call Wall (CW)</value>
     <comment>GammaLevels</comment>
@@ -3492,7 +3569,6 @@
     <value>Стиль линии для Call Wall (CW). Сопротивление на основе позиционирования опционов.</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenPutWall" xml:space="preserve">
     <value>Put Wall (PW)</value>
     <comment>GammaLevels</comment>
@@ -3501,7 +3577,6 @@
     <value>Стиль линии для Put Wall (PW). Поддержка на основе позиционирования опционов.</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenZeroGamma" xml:space="preserve">
     <value>Zero Gamma (ZG)</value>
     <comment>GammaLevels</comment>
@@ -3510,7 +3585,6 @@
     <value>Стиль линии для Zero Gamma (ZG). Опорный gamma уровень.</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenBlindLevel" xml:space="preserve">
     <value>Blind Spots (MenthorQ) (BL)</value>
     <comment>GammaLevels</comment>
@@ -3519,7 +3593,6 @@
     <value>Стиль линии для Blind Spots (BL n). Прогнозные зоны реакции (не классические S/R): опционы, momentum и cross-asset корреляция. Для конfluency, риска и целей.</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenDayMin" xml:space="preserve">
     <value>Expected Move 1D Min (MenthorQ)</value>
     <comment>GammaLevels</comment>
@@ -3528,7 +3601,6 @@
     <value>Стиль линии для “1D Min”. Нижняя граница intraday expected move (1D), на основе опционов и forward-looking волатильности. Может быть зоной разворота/целью и ориентиром для стопов.</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenDayMax" xml:space="preserve">
     <value>Expected Move 1D Max (MenthorQ)</value>
     <comment>GammaLevels</comment>
@@ -3537,7 +3609,6 @@
     <value>Стиль линии для “1D Max”. Верхняя граница intraday expected move (1D), на основе опционов и forward-looking волатильности. Выход за диапазон часто сопровождается расширением волатильности.</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenRiskTrigger" xml:space="preserve">
     <value>Swing Model Risk Trigger (MenthorQ) (RT)</value>
     <comment>GammaLevels</comment>
@@ -3546,7 +3617,6 @@
     <value>Стиль линии для Risk Trigger (RT) Swing Model (5D/20D). Pivot/inflection, где momentum может развернуться; полезно для риска, тайминга и целей.</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenLowerBand" xml:space="preserve">
     <value>Swing Model Lower Band (MenthorQ) (LB)</value>
     <comment>GammaLevels</comment>
@@ -3555,7 +3625,6 @@
     <value>Стиль линии для Lower Band (LB) Swing Model (5D/20D). Нижняя граница multi-day диапазона; часто support/pullback entry (bullish bias).</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenUpperBand" xml:space="preserve">
     <value>Swing Model Upper Band (MenthorQ) (UB)</value>
     <comment>GammaLevels</comment>
@@ -3564,7 +3633,6 @@
     <value>Стиль линии для Upper Band (UB) Swing Model (5D/20D). Верхняя граница multi-day диапазона; часто сопротивление/TP или fade зона (bearish bias).</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="PenOther" xml:space="preserve">
     <value>Другое / Не сопоставлено</value>
     <comment>GammaLevels</comment>
@@ -3573,7 +3641,6 @@
     <value>Fallback стиль линии для неизвестных или не сопоставленных меток.</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="Pen0DteAccent" xml:space="preserve">
     <value>0DTE Accent (overlay)</value>
     <comment>GammaLevels</comment>
@@ -3590,7 +3657,6 @@
     <value>Вставьте уровни, привязанные к индексу (например SPX, NDX или QQQ). Индикатор автоматически конвертирует их в фьючерс, применяя заданный Offset.</value>
     <comment>GammaLevels</comment>
   </data>
-
   <data name="MenthorQFuturesText" xml:space="preserve">
     <value>Текст (Фьючерс)</value>
     <comment>GammaLevels</comment>
@@ -3600,193 +3666,115 @@
     <comment>GammaLevels</comment>
   </data>
   <data name="SourceTruth" xml:space="preserve">
-  <value>Приоритет источника</value>
-  <comment>GammaLevels</comment>
-</data>
-
-<data name="SourceTruthDesc" xml:space="preserve">
-  <value>Определяет, какой источник имеет приоритет, если один и тот же концепт уровня появляется по разным ценам в нескольких источниках.</value>
-  <comment>GammaLevels</comment>
-</data>
-<data name="SourceTruth_Default" xml:space="preserve">
-  <value>По умолчанию</value>
-  <comment>GammaLevels</comment>
-</data>
-<data name="SourceTruth_DefaultDesc" xml:space="preserve">
-  <value>Уровни Lolo имеют приоритет, затем MenthorQ Futures и MenthorQ Index.</value>
-  <comment>GammaLevels</comment>
-</data>
-
-<data name="SourceTruth_PreferLolo" xml:space="preserve">
-  <value>Отдавать приоритет Lolo</value>
-  <comment>GammaLevels</comment>
-</data>
-<data name="SourceTruth_PreferLoloDesc" xml:space="preserve">
-  <value>Уровни Lolo всегда имеют приоритет над другими источниками при конфликтах.</value>
-  <comment>GammaLevels</comment>
-</data>
-
-<data name="SourceTruth_PreferMenthorQFutures" xml:space="preserve">
-  <value>Отдавать приоритет MenthorQ (Фьючерсы)</value>
-  <comment>GammaLevels</comment>
-</data>
-<data name="SourceTruth_PreferMenthorQFuturesDesc" xml:space="preserve">
-  <value>Уровни MenthorQ Futures имеют приоритет над Lolo и MenthorQ Index при конфликтах.</value>
-  <comment>GammaLevels</comment>
-</data>
-
-<data name="SourceTruth_PreferMenthorQIndex" xml:space="preserve">
-  <value>Отдавать приоритет MenthorQ (Индекс)</value>
-  <comment>GammaLevels</comment>
-</data>
-<data name="SourceTruth_PreferMenthorQIndexDesc" xml:space="preserve">
-  <value>Уровни MenthorQ Index имеют приоритет над Lolo и MenthorQ Futures при конфликтах.</value>
-  <comment>GammaLevels</comment>
-</data>
-<data name="ProfitColor" xml:space="preserve">
-  <value>Цвет прибыли</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="ProfitColorDescription" xml:space="preserve">
-  <value>Цвет для отображения прибыльных сделок.</value>
-  <comment>TradesOnChart</comment>
-</data>
-
-<data name="LossColor" xml:space="preserve">
-  <value>Цвет убытка</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="LossColorDescription" xml:space="preserve">
-  <value>Цвет для отображения убыточных сделок.</value>
-  <comment>TradesOnChart</comment>
-</data>
-
-<data name="LabelDisplayModeHide" xml:space="preserve">
-  <value>Скрыть</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="LabelDisplayModeShort" xml:space="preserve">
-  <value>Кратко</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="LabelDisplayModeFull" xml:space="preserve">
-  <value>Полный</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="LabelDisplayModeCard" xml:space="preserve">
-  <value>Карточка</value>
-  <comment>TradesOnChart</comment>
-</data>
-
-<data name="TradeDirectionLong" xml:space="preserve">
-  <value>Лонг</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="TradeDirectionShort" xml:space="preserve">
-  <value>Шорт</value>
-  <comment>TradesOnChart</comment>
-</data>
-
-<data name="TradeEntry" xml:space="preserve">
-  <value>Вход</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="TradeExit" xml:space="preserve">
-  <value>Выход</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="TradeResult" xml:space="preserve">
-  <value>Результат</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="TradePnL" xml:space="preserve">
-  <value>PnL</value>
-  <comment>TradesOnChart</comment>
-</data>
-
-<data name="TradeIn" xml:space="preserve">
-  <value>Вх.</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="TradeOut" xml:space="preserve">
-  <value>Вых.</value>
-  <comment>TradesOnChart</comment>
-</data>
-
-<data name="TradeTicks" xml:space="preserve">
-  <value>тики</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="TradeTicksShort" xml:space="preserve">
-  <value>т</value>
-  <comment>TradesOnChart</comment>
-</data>
-<data name="LabelXAnchorCloseBar" xml:space="preserve">
-  <value>Бар закрытия</value>
-  <comment>TradesOnChart</comment>
-</data>
-
-<data name="LabelXAnchorMidpoint" xml:space="preserve">
-  <value>Середина сделки</value>
-  <comment>TradesOnChart</comment>
-</data>
-
-<data name="ShowDescription" xml:space="preserve">
-    <value>Отображать описание</value>
-  </data><data name="LabelDisplay" xml:space="preserve">
-    <value>Отображение меток</value>
+    <value>Приоритет источника</value>
+    <comment>GammaLevels</comment>
   </data>
-    <data name="LinesAndMarkers" xml:space="preserve">
-    <value>Линии и маркеры</value>
-    <comment>UI</comment>
+  <data name="SourceTruthDesc" xml:space="preserve">
+    <value>Определяет, какой источник имеет приоритет, если один и тот же концепт уровня появляется по разным ценам в нескольких источниках.</value>
+    <comment>GammaLevels</comment>
   </data>
-  <data name="DetailsGroup" xml:space="preserve">
-    <value>Детали</value>
-    <comment>UI</comment>
+  <data name="SourceTruth_Default" xml:space="preserve">
+    <value>По умолчанию</value>
+    <comment>GammaLevels</comment>
   </data>
-
-  <data name="LabelMode" xml:space="preserve">
-    <value>Режим метки</value>
+  <data name="SourceTruth_DefaultDesc" xml:space="preserve">
+    <value>Уровни Lolo имеют приоритет, затем MenthorQ Futures и MenthorQ Index.</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="SourceTruth_PreferLolo" xml:space="preserve">
+    <value>Отдавать приоритет Lolo</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="SourceTruth_PreferLoloDesc" xml:space="preserve">
+    <value>Уровни Lolo всегда имеют приоритет над другими источниками при конфликтах.</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="SourceTruth_PreferMenthorQFutures" xml:space="preserve">
+    <value>Отдавать приоритет MenthorQ (Фьючерсы)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="SourceTruth_PreferMenthorQFuturesDesc" xml:space="preserve">
+    <value>Уровни MenthorQ Futures имеют приоритет над Lolo и MenthorQ Index при конфликтах.</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="SourceTruth_PreferMenthorQIndex" xml:space="preserve">
+    <value>Отдавать приоритет MenthorQ (Индекс)</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="SourceTruth_PreferMenthorQIndexDesc" xml:space="preserve">
+    <value>Уровни MenthorQ Index имеют приоритет над Lolo и MenthorQ Futures при конфликтах.</value>
+    <comment>GammaLevels</comment>
+  </data>
+  <data name="ProfitColor" xml:space="preserve">
+    <value>Цвет прибыли</value>
     <comment>TradesOnChart</comment>
   </data>
-  <data name="LabelModeDescription" xml:space="preserve">
-    <value>Выбор способа отображения меток сделки.</value>
+  <data name="ProfitColorDescription" xml:space="preserve">
+    <value>Цвет для отображения прибыльных сделок.</value>
     <comment>TradesOnChart</comment>
   </data>
-
-  <data name="TradeLine" xml:space="preserve">
-    <value>Линия сделки</value>
+  <data name="LossColor" xml:space="preserve">
+    <value>Цвет убытка</value>
     <comment>TradesOnChart</comment>
   </data>
-  <data name="TradeLineDescription" xml:space="preserve">
-    <value>Рисует линию, соединяющую маркеры входа и выхода.</value>
+  <data name="LossColorDescription" xml:space="preserve">
+    <value>Цвет для отображения убыточных сделок.</value>
     <comment>TradesOnChart</comment>
   </data>
-
-  <data name="TradeDetails" xml:space="preserve">
-    <value>Детали</value>
+  <data name="LabelDisplayModeHide" xml:space="preserve">
+    <value>Скрыть</value>
     <comment>TradesOnChart</comment>
   </data>
-  <data name="TradeDetailsDescription" xml:space="preserve">
-    <value>Показывает детали сделки при наведении на маркеры или метки.</value>
+  <data name="LabelDisplayModeShort" xml:space="preserve">
+    <value>Кратко</value>
     <comment>TradesOnChart</comment>
   </data>
-
-  <data name="TradeBuyColor" xml:space="preserve">
-    <value>Цвет покупки</value>
+  <data name="LabelDisplayModeFull" xml:space="preserve">
+    <value>Полный</value>
     <comment>TradesOnChart</comment>
   </data>
-  <data name="TradeSellColor" xml:space="preserve">
-    <value>Цвет продажи</value>
+  <data name="LabelDisplayModeCard" xml:space="preserve">
+    <value>Карточка</value>
     <comment>TradesOnChart</comment>
   </data>
-
-  <data name="MarkerSize" xml:space="preserve">
-    <value>Размер маркера</value>
+  <data name="TradeDirectionLong" xml:space="preserve">
+    <value>Лонг</value>
     <comment>TradesOnChart</comment>
   </data>
-  <data name="MarkerSizeDescription" xml:space="preserve">
-    <value>Размер маркеров входа/выхода.</value>
+  <data name="TradeDirectionShort" xml:space="preserve">
+    <value>Шорт</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeEntry" xml:space="preserve">
+    <value>Вход</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeExit" xml:space="preserve">
+    <value>Выход</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeResult" xml:space="preserve">
+    <value>Результат</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradePnL" xml:space="preserve">
+    <value>PnL</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeIn" xml:space="preserve">
+    <value>Вх.</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeOut" xml:space="preserve">
+    <value>Вых.</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeTicks" xml:space="preserve">
+    <value>тики</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeTicksShort" xml:space="preserve">
+    <value>т</value>
     <comment>TradesOnChart</comment>
   </data>
   <data name="LabelDistance" xml:space="preserve">
@@ -3797,7 +3785,6 @@
     <value>Вертикальный отступ между маркерами и меткой (px).</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LabelXAnchor" xml:space="preserve">
     <value>Центровка метки</value>
     <comment>TradesOnChart</comment>
@@ -3806,4 +3793,87 @@
     <value>Горизонтальная опора для центрирования метки над сделкой.</value>
     <comment>TradesOnChart</comment>
   </data>
-  </root>
+  <data name="LabelXAnchorCloseBar" xml:space="preserve">
+    <value>Бар закрытия</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="LabelXAnchorMidpoint" xml:space="preserve">
+    <value>Середина сделки</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="ShowDescription" xml:space="preserve">
+    <value>Отображать описание</value>
+  </data>
+  <data name="LabelDisplay" xml:space="preserve">
+    <value>Отображение меток</value>
+  </data>
+  <data name="LinesAndMarkers" xml:space="preserve">
+    <value>Линии и маркеры</value>
+    <comment>UI</comment>
+  </data>
+  <data name="DetailsGroup" xml:space="preserve">
+    <value>Детали</value>
+    <comment>UI</comment>
+  </data>
+  <data name="LabelMode" xml:space="preserve">
+    <value>Режим метки</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="LabelModeDescription" xml:space="preserve">
+    <value>Выбор способа отображения меток сделки.</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeLine" xml:space="preserve">
+    <value>Линия сделки</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeLineDescription" xml:space="preserve">
+    <value>Рисует линию, соединяющую маркеры входа и выхода.</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeDetails" xml:space="preserve">
+    <value>Детали</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeDetailsDescription" xml:space="preserve">
+    <value>Показывает детали сделки при наведении на маркеры или метки.</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeBuyColor" xml:space="preserve">
+    <value>Цвет покупки</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="TradeSellColor" xml:space="preserve">
+    <value>Цвет продажи</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="MarkerSize" xml:space="preserve">
+    <value>Размер маркера</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="MarkerSizeDescription" xml:space="preserve">
+    <value>Размер маркеров входа/выхода.</value>
+    <comment>TradesOnChart</comment>
+  </data>
+  <data name="Misc" xml:space="preserve">
+    <value>Разное</value>
+  </data>
+  <data name="Bearish" xml:space="preserve">
+    <value>Медвежье</value>
+  </data>
+  <data name="Show Fibonacci" xml:space="preserve">
+    <value>Показать уровни Фибоначчи</value>
+  </data>
+  <data name="CustomSessionStartDescription" xml:space="preserve">
+    <value>Указывает начало пользовательской сессии</value>
+  </data>
+  <data name="SessionModeDescription" xml:space="preserve">
+    <value>Включает или выключает режим расчета дельты по сессиям.</value>
+  </data>
+  <data name="SessionModeNone" xml:space="preserve">
+    <value>Непрерывно (без сессий)</value>
+  </data>
+  <data name="SessionCumModeDescription" xml:space="preserve">
+    <value>Определяет, когда сбрасываются накопительные значения сессии (Объём/Дельта/Дельта на объём), и сбрасывает Delta Change в начале новой сессии.</value>
+  </data>
+</root>
