@@ -17,7 +17,7 @@ Set-Location $RepoRoot
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
-function Exec-Git([string[]]$Args) {
+function Exec-Git{
 & git @Args
 if ($LASTEXITCODE -ne 0) {
 throw "git $($Args -join ' ') failed with exit code $LASTEXITCODE"
