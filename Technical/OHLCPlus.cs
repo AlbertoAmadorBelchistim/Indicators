@@ -1362,7 +1362,7 @@ public class OHLCPlus : Indicator
         var rect = new Rectangle(rectX - 2, y - size.Height / 2 - 1, size.Width + 4, size.Height + 2);
         
         // Draw background with border
-        var backgroundColor = ChartInfo.ColorsStore.BaseBackgroundColor;
+        var backgroundColor = ChartInfo.ColorsStore.MouseBackground;
         context.FillRectangle(backgroundColor, rect);
         context.DrawRectangle(pen, rect);
         
