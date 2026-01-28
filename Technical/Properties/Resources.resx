@@ -4114,86 +4114,127 @@
     <comment>ClusterStatistic</comment>
   </data>
   <data name="FundingTrailingDd" xml:space="preserve">
-  <value>Funding / Trailing DD</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="EnableTrailingDrawdown" xml:space="preserve">
-  <value>Enable Trailing Drawdown</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="EnableTrailingDrawdownDescription" xml:space="preserve">
-  <value>Enable trailing drawdown tracking based on peak equity.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="MaxTrailingDrawdown" xml:space="preserve">
-  <value>Max Trailing Drawdown</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="MaxTrailingDrawdownDescription" xml:space="preserve">
-  <value>Maximum allowed trailing drawdown from peak equity (absolute currency amount).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="TrailingInitializationMode" xml:space="preserve">
-  <value>Initialization Mode</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="TrailingInitializationModeDescription" xml:space="preserve">
-  <value>Defines how Start/Peak equity are initialized (manual stop equity or current equity).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="TrailingManualStopEquity" xml:space="preserve">
-  <value>Manual Stop Equity</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="TrailingManualStopEquityDescription" xml:space="preserve">
-  <value>Bootstrap stop equity for funded accounts. Used only when Initialization Mode is ManualStopEquity.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ReinitializeNow" xml:space="preserve">
-  <value>Reinitialize Now</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ReinitializeNowDescription" xml:space="preserve">
-  <value>Forces trailing drawdown state re-initialization on next render.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="TrailingPeakUpdateMode" xml:space="preserve">
-  <value>Peak Update Mode</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="TrailingPeakUpdateModeDescription" xml:space="preserve">
-  <value>Realtime updates Peak Equity continuously; EndOfDay updates Peak Equity only once per day at the configured EOD time.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="TrailingEodTimeLocal" xml:space="preserve">
-  <value>EOD Time (Local)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="TrailingEodTimeLocalDescription" xml:space="preserve">
-  <value>End-of-day time used when Peak Update Mode is EndOfDay. Captures Peak Equity once per day after this time.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="EnableMonthlyReset" xml:space="preserve">
-  <value>Enable Monthly Reset</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="EnableMonthlyResetDescription" xml:space="preserve">
-  <value>Resets trailing drawdown state on a fixed day of each month (per account).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="MonthlyResetDay" xml:space="preserve">
-  <value>Monthly Reset Day</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="MonthlyResetDayDescription" xml:space="preserve">
-  <value>Day of month when trailing drawdown resets (1–31). If the day exceeds month length, the last day is used.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
+    <value>Funding / Trailing DD</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableTrailingDrawdown" xml:space="preserve">
+    <value>Enable Trailing Drawdown</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableTrailingDrawdownDescription" xml:space="preserve">
+    <value>Enable trailing drawdown tracking based on peak equity.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="MaxTrailingDrawdown" xml:space="preserve">
+    <value>Max Trailing Drawdown</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="MaxTrailingDrawdownDescription" xml:space="preserve">
+    <value>Maximum allowed trailing drawdown from peak equity (absolute currency amount).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="TrailingInitializationMode" xml:space="preserve">
+    <value>Initialization Mode</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="TrailingInitializationModeDescription" xml:space="preserve">
+    <value>Defines how Start/Peak equity are initialized (manual stop equity or current equity).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="TrailingManualStopEquity" xml:space="preserve">
+    <value>Manual Stop Equity</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="TrailingManualStopEquityDescription" xml:space="preserve">
+    <value>Bootstrap stop equity for funded accounts. Used only when Initialization Mode is ManualStopEquity.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ReinitializeNow" xml:space="preserve">
+    <value>Reinitialize Now</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ReinitializeNowDescription" xml:space="preserve">
+    <value>Forces trailing drawdown state re-initialization on next render.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="TrailingPeakUpdateMode" xml:space="preserve">
+    <value>Peak Update Mode</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="TrailingPeakUpdateModeDescription" xml:space="preserve">
+    <value>Realtime updates Peak Equity continuously; EndOfDay updates Peak Equity only once per day at the configured EOD time.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="TrailingEodTimeLocal" xml:space="preserve">
+    <value>EOD Time (Local)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="TrailingEodTimeLocalDescription" xml:space="preserve">
+    <value>End-of-day time used when Peak Update Mode is EndOfDay. Captures Peak Equity once per day after this time.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableMonthlyReset" xml:space="preserve">
+    <value>Enable Monthly Reset</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableMonthlyResetDescription" xml:space="preserve">
+    <value>Resets trailing drawdown state on a fixed day of each month (per account).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="MonthlyResetDay" xml:space="preserve">
+    <value>Monthly Reset Day</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="MonthlyResetDayDescription" xml:space="preserve">
+    <value>Day of month when trailing drawdown resets (1–31). If the day exceeds month length, the last day is used.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowAccount" xml:space="preserve">
+    <value>Account</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowBalance" xml:space="preserve">
+    <value>Balance</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowOpenPnL" xml:space="preserve">
+    <value>Open PnL</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowTrailingStartEquity" xml:space="preserve">
+    <value>Trailing Start Equity</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowTrailingPeakEquity" xml:space="preserve">
+    <value>Trailing Peak Equity</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowTrailingStopEquity" xml:space="preserve">
+    <value>Trailing Stop Equity</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowCurrency" xml:space="preserve">
+    <value>Currency</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowAvailable" xml:space="preserve">
+    <value>Available</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowBlockedMargin" xml:space="preserve">
+    <value>Blocked Margin</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowLeverage" xml:space="preserve">
+    <value>Leverage</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowClosedPnL" xml:space="preserve">
+    <value>Closed PnL</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowTotalPnL" xml:space="preserve">
+    <value>Total PnL</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
 </root>

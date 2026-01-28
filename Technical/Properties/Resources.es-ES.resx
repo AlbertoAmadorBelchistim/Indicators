@@ -1814,86 +1814,127 @@
     <value>Controla cuándo se reinician los acumulados de sesión (Volumen/Delta/Delta por Volumen) y reinicia el Delta Change al inicio de una nueva sesión.</value>
   </data>
   <data name="FundingTrailingDd" xml:space="preserve">
-  <value>Funding / Drawdown dinámico</value>
+    <value>Funding / Drawdown dinámico</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableTrailingDrawdown" xml:space="preserve">
+    <value>Activar drawdown dinámico</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableTrailingDrawdownDescription" xml:space="preserve">
+    <value>Activa el seguimiento del drawdown dinámico basado en el equity máximo alcanzado.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="MaxTrailingDrawdown" xml:space="preserve">
+    <value>Drawdown dinámico máximo</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="MaxTrailingDrawdownDescription" xml:space="preserve">
+    <value>Máximo drawdown dinámico permitido desde el equity máximo (importe absoluto).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="TrailingInitializationMode" xml:space="preserve">
+    <value>Modo de inicialización</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="TrailingInitializationModeDescription" xml:space="preserve">
+    <value>Define cómo se inicializan el equity inicial y máximo (equity actual o stop manual).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="TrailingManualStopEquity" xml:space="preserve">
+    <value>Equity de stop manual</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="TrailingManualStopEquityDescription" xml:space="preserve">
+    <value>Inicializa el stop equity para cuentas financiadas. Solo se usa cuando el modo es Stop Manual.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ReinitializeNow" xml:space="preserve">
+    <value>Reinicializar ahora</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ReinitializeNowDescription" xml:space="preserve">
+    <value>Fuerza la reinicialización del estado de drawdown dinámico en el siguiente render.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="TrailingPeakUpdateMode" xml:space="preserve">
+    <value>Modo de actualización del pico</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="TrailingPeakUpdateModeDescription" xml:space="preserve">
+    <value>Realtime actualiza el equity máximo continuamente; Fin de día actualiza el equity máximo solo una vez al día tras la hora configurada.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="TrailingEodTimeLocal" xml:space="preserve">
+    <value>Hora fin de día (local)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="TrailingEodTimeLocalDescription" xml:space="preserve">
+    <value>Hora de fin de día usada cuando el modo es Fin de día. Captura el equity máximo una vez al día tras esta hora.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableMonthlyReset" xml:space="preserve">
+    <value>Activar reinicio mensual</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableMonthlyResetDescription" xml:space="preserve">
+    <value>Reinicia el estado del drawdown dinámico en un día fijo de cada mes (por cuenta).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="MonthlyResetDay" xml:space="preserve">
+    <value>Día de reinicio mensual</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="MonthlyResetDayDescription" xml:space="preserve">
+    <value>Día del mes en el que se reinicia el drawdown dinámico (1–31). Si el día excede el mes, se usa el último día.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowAccount" xml:space="preserve">
+    <value>Cuenta</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowBalance" xml:space="preserve">
+    <value>Balance</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowOpenPnL" xml:space="preserve">
+    <value>PnL Abierto</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowTrailingStartEquity" xml:space="preserve">
+    <value>Equity inicial (Trailing)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowTrailingPeakEquity" xml:space="preserve">
+    <value>Equity máximo (Trailing)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowTrailingStopEquity" xml:space="preserve">
+    <value>Equity stop (Trailing)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+	<data name="RowCurrency" xml:space="preserve">
+  <value>Divisa</value>
   <comment>AccountInfoDisplay</comment>
 </data>
-
-<data name="EnableTrailingDrawdown" xml:space="preserve">
-  <value>Activar drawdown dinámico</value>
+	<data name="RowAvailable" xml:space="preserve">
+  <value>Disponible</value>
   <comment>AccountInfoDisplay</comment>
 </data>
-<data name="EnableTrailingDrawdownDescription" xml:space="preserve">
-  <value>Activa el seguimiento del drawdown dinámico basado en el equity máximo alcanzado.</value>
+	<data name="RowBlockedMargin" xml:space="preserve">
+  <value>Margen bloqueado</value>
   <comment>AccountInfoDisplay</comment>
 </data>
-
-<data name="MaxTrailingDrawdown" xml:space="preserve">
-  <value>Drawdown dinámico máximo</value>
+	<data name="RowLeverage" xml:space="preserve">
+  <value>Apalancamiento</value>
   <comment>AccountInfoDisplay</comment>
 </data>
-<data name="MaxTrailingDrawdownDescription" xml:space="preserve">
-  <value>Máximo drawdown dinámico permitido desde el equity máximo (importe absoluto).</value>
+	<data name="RowClosedPnL" xml:space="preserve">
+  <value>PnL Cerrado</value>
   <comment>AccountInfoDisplay</comment>
 </data>
-
-<data name="TrailingInitializationMode" xml:space="preserve">
-  <value>Modo de inicialización</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="TrailingInitializationModeDescription" xml:space="preserve">
-  <value>Define cómo se inicializan el equity inicial y máximo (equity actual o stop manual).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="TrailingManualStopEquity" xml:space="preserve">
-  <value>Equity de stop manual</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="TrailingManualStopEquityDescription" xml:space="preserve">
-  <value>Inicializa el stop equity para cuentas financiadas. Solo se usa cuando el modo es Stop Manual.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ReinitializeNow" xml:space="preserve">
-  <value>Reinicializar ahora</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ReinitializeNowDescription" xml:space="preserve">
-  <value>Fuerza la reinicialización del estado de drawdown dinámico en el siguiente render.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="TrailingPeakUpdateMode" xml:space="preserve">
-  <value>Modo de actualización del pico</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="TrailingPeakUpdateModeDescription" xml:space="preserve">
-  <value>Realtime actualiza el equity máximo continuamente; Fin de día actualiza el equity máximo solo una vez al día tras la hora configurada.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="TrailingEodTimeLocal" xml:space="preserve">
-  <value>Hora fin de día (local)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="TrailingEodTimeLocalDescription" xml:space="preserve">
-  <value>Hora de fin de día usada cuando el modo es Fin de día. Captura el equity máximo una vez al día tras esta hora.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="EnableMonthlyReset" xml:space="preserve">
-  <value>Activar reinicio mensual</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="EnableMonthlyResetDescription" xml:space="preserve">
-  <value>Reinicia el estado del drawdown dinámico en un día fijo de cada mes (por cuenta).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="MonthlyResetDay" xml:space="preserve">
-  <value>Día de reinicio mensual</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="MonthlyResetDayDescription" xml:space="preserve">
-  <value>Día del mes en el que se reinicia el drawdown dinámico (1–31). Si el día excede el mes, se usa el último día.</value>
+	<data name="RowTotalPnL" xml:space="preserve">
+  <value>PnL Total</value>
   <comment>AccountInfoDisplay</comment>
 </data>
 </root>
