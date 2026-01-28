@@ -2554,6 +2554,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Enable Monthly Reset.
+        /// </summary>
+        public static string EnableMonthlyReset {
+            get {
+                return ResourceManager.GetString("EnableMonthlyReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Resets trailing drawdown state on a fixed day of each month (per account)..
+        /// </summary>
+        public static string EnableMonthlyResetDescription {
+            get {
+                return ResourceManager.GetString("EnableMonthlyResetDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Enable Trailing Drawdown.
         /// </summary>
         public static string EnableTrailingDrawdown {
@@ -5268,6 +5286,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string Monthly {
             get {
                 return ResourceManager.GetString("Monthly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Monthly Reset Day.
+        /// </summary>
+        public static string MonthlyResetDay {
+            get {
+                return ResourceManager.GetString("MonthlyResetDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Day of month when trailing drawdown resets (1–31). If the day exceeds month length, the last day is used..
+        /// </summary>
+        public static string MonthlyResetDayDescription {
+            get {
+                return ResourceManager.GetString("MonthlyResetDayDescription", resourceCulture);
             }
         }
         

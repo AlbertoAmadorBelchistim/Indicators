@@ -1879,4 +1879,21 @@
   <value>EndOfDay मोड में उपयोग होने वाला दिन-अंत समय। इस समय के बाद दिन में एक बार Peak Equity कैप्चर करता है।</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="EnableMonthlyReset" xml:space="preserve">
+  <value>मासिक रीसेट सक्षम करें</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnableMonthlyResetDescription" xml:space="preserve">
+  <value>हर महीने एक निश्चित दिन पर डायनामिक ड्रॉडाउन स्थिति रीसेट करता है (प्रति अकाउंट)।</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="MonthlyResetDay" xml:space="preserve">
+  <value>मासिक रीसेट दिन</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="MonthlyResetDayDescription" xml:space="preserve">
+  <value>महीने का वह दिन जब रीसेट होता है (1–31)। यदि दिन महीने की अवधि से बड़ा हो, तो अंतिम दिन उपयोग होता है।</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 </root>

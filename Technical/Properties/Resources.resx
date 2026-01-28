@@ -4179,4 +4179,21 @@
   <value>End-of-day time used when Peak Update Mode is EndOfDay. Captures Peak Equity once per day after this time.</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="EnableMonthlyReset" xml:space="preserve">
+  <value>Enable Monthly Reset</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnableMonthlyResetDescription" xml:space="preserve">
+  <value>Resets trailing drawdown state on a fixed day of each month (per account).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="MonthlyResetDay" xml:space="preserve">
+  <value>Monthly Reset Day</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="MonthlyResetDayDescription" xml:space="preserve">
+  <value>Day of month when trailing drawdown resets (1–31). If the day exceeds month length, the last day is used.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 </root>

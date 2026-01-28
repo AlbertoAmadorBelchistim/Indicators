@@ -1831,4 +1831,21 @@
   <value>EndOfDay 模式使用的日终时间。在该时间之后每天捕获一次峰值权益。</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="EnableMonthlyReset" xml:space="preserve">
+  <value>启用每月重置</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnableMonthlyResetDescription" xml:space="preserve">
+  <value>在每月固定日期重置动态回撤状态（按账户）。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="MonthlyResetDay" xml:space="preserve">
+  <value>每月重置日</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="MonthlyResetDayDescription" xml:space="preserve">
+  <value>执行重置的月份日期（1–31）。若该日超出当月天数，则使用当月最后一天。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 </root>
