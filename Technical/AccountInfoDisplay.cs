@@ -49,6 +49,8 @@ public class AccountInfoDisplay : Indicator
         public decimal StopEquity;
         public DateTime LastEodPeakCaptureDate;
         public int LastMonthlyResetKey;
+        public bool WasBreachedBeforeSession;
+        public int LastSessionKey;
 
         public void Reset()
         {
@@ -58,6 +60,8 @@ public class AccountInfoDisplay : Indicator
             StopEquity = 0m;
             LastEodPeakCaptureDate = DateTime.MinValue;
             LastMonthlyResetKey = 0;
+            WasBreachedBeforeSession = false;
+            LastSessionKey = 0;
         }
     }
     #endregion
@@ -626,7 +630,23 @@ public class AccountInfoDisplay : Indicator
 
         var state = GetTrailingState();
 
-        MaybeResetMonthlyTrailing(state, DateTime.Now);
+        // Session-start processing (boundary is TrailingEodTimeLocal)
+        var sessionKey = GetSessionKey();
+        var isSessionStart = IsSessionBoundaryCrossed() && sessionKey != 0 && state.LastSessionKey != sessionKey;
+
+
+        if (isSessionStart)
+        {
+            state.LastSessionKey = sessionKey;
+
+
+            // If we're already below stop at session start, the breach is considered pre-session.
+            if (state.IsInitialized && currentEquity <= state.StopEquity)
+                state.WasBreachedBeforeSession = true;
+
+
+            MaybeResetMonthlyTrailingAtSessionStart(state, DateTime.Now);
+        }
 
         if (!state.IsInitialized)
         {
@@ -687,14 +707,18 @@ public class AccountInfoDisplay : Indicator
         return DateTime.DaysInMonth(year, month);
     }
 
-    private void MaybeResetMonthlyTrailing(TrailingDrawdownState state, DateTime nowLocal)
+    private void MaybeResetMonthlyTrailingAtSessionStart(TrailingDrawdownState state, DateTime nowLocal)
     {
         if (!EnableMonthlyReset || MonthlyResetDay <= 0)
             return;
 
+        // Monthly reset is allowed only if the breach already existed before session start.
+        if (!state.WasBreachedBeforeSession)
+            return;
+
         int year = nowLocal.Year;
         int month = nowLocal.Month;
-        int resetDay = Math.Min(MonthlyResetDay, GetLastDayOfMonth(year, month));
+        int resetDay = Math.Min(MonthlyResetDay, DateTime.DaysInMonth(year, month));
 
         if (nowLocal.Day != resetDay)
             return;
@@ -705,6 +729,61 @@ public class AccountInfoDisplay : Indicator
 
         state.Reset();
         state.LastMonthlyResetKey = resetKey;
+
+        // After a successful reset, clear the pre-session breach flag.
+        state.WasBreachedBeforeSession = false;
+    }
+
+    private bool TryGetLastTwoCandles(out IndicatorCandle prev, out IndicatorCandle cur)
+    {
+        prev = null;
+        cur = null;
+
+        if (CurrentBar < 2)
+            return false;
+
+        cur = GetCandle(CurrentBar - 1);
+        prev = GetCandle(CurrentBar - 2);
+
+        return cur != null && prev != null;
+    }
+
+    private TimeSpan GetLocalTimeOfDay(DateTime time)
+    {
+        // Same approach used in ClusterStatistic: InstrumentInfo.TimeZone as hours offset.
+        return time.AddHours(InstrumentInfo.TimeZone).TimeOfDay;
+    }
+
+    private DateTime GetLocalDate(DateTime time)
+    {
+        return time.AddHours(InstrumentInfo.TimeZone).Date;
+    }
+
+    private bool IsSessionBoundaryCrossed()
+    {
+        if (!TryGetLastTwoCandles(out var prev, out var cur))
+            return false;
+
+        var boundary = TrailingEodTimeLocal;
+
+        var prevTod = GetLocalTimeOfDay(prev.Time);
+        var curTod = GetLocalTimeOfDay(cur.Time);
+
+        return prevTod < boundary && curTod >= boundary;
+    }
+
+    private int GetSessionKey()
+    {
+        // Deterministic session key based on chart candle time (not DateTime.Now)
+        if (CurrentBar < 1)
+            return 0;
+
+        var cur = GetCandle(CurrentBar - 1);
+        if (cur == null)
+            return 0;
+
+        var localDate = GetLocalDate(cur.Time);
+        return localDate.Year * 10000 + localDate.Month * 100 + localDate.Day;
     }
 
     #endregion
