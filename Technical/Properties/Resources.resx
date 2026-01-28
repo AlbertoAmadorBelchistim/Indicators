@@ -4113,4 +4113,53 @@
     <value>Controls when session cumulative values are reset (Session Volume/Delta/Delta per Volume) and resets Delta Change at the start of a new session.</value>
     <comment>ClusterStatistic</comment>
   </data>
+  <data name="FundingTrailingDd" xml:space="preserve">
+  <value>Funding / Trailing DD</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="EnableTrailingDrawdown" xml:space="preserve">
+  <value>Enable Trailing Drawdown</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnableTrailingDrawdownDescription" xml:space="preserve">
+  <value>Enable trailing drawdown tracking based on peak equity.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="MaxTrailingDrawdown" xml:space="preserve">
+  <value>Max Trailing Drawdown</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="MaxTrailingDrawdownDescription" xml:space="preserve">
+  <value>Maximum allowed trailing drawdown from peak equity (absolute currency amount).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="TrailingInitializationMode" xml:space="preserve">
+  <value>Initialization Mode</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="TrailingInitializationModeDescription" xml:space="preserve">
+  <value>Defines how Start/Peak equity are initialized (manual stop equity or current equity).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="TrailingManualStopEquity" xml:space="preserve">
+  <value>Manual Stop Equity</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="TrailingManualStopEquityDescription" xml:space="preserve">
+  <value>Bootstrap stop equity for funded accounts. Used only when Initialization Mode is ManualStopEquity.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ReinitializeNow" xml:space="preserve">
+  <value>Reinitialize Now</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ReinitializeNowDescription" xml:space="preserve">
+  <value>Forces trailing drawdown state re-initialization on next render.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 </root>

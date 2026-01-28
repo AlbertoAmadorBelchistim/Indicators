@@ -2554,6 +2554,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Enable Trailing Drawdown.
+        /// </summary>
+        public static string EnableTrailingDrawdown {
+            get {
+                return ResourceManager.GetString("EnableTrailingDrawdown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Enable trailing drawdown tracking based on peak equity..
+        /// </summary>
+        public static string EnableTrailingDrawdownDescription {
+            get {
+                return ResourceManager.GetString("EnableTrailingDrawdownDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a End Time.
         /// </summary>
         public static string EndTime {
@@ -3027,6 +3045,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string FullWidth {
             get {
                 return ResourceManager.GetString("FullWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Funding / Trailing DD.
+        /// </summary>
+        public static string FundingTrailingDd {
+            get {
+                return ResourceManager.GetString("FundingTrailingDd", resourceCulture);
             }
         }
         
@@ -4755,6 +4782,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string MaxPrintVolume {
             get {
                 return ResourceManager.GetString("MaxPrintVolume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Max Trailing Drawdown.
+        /// </summary>
+        public static string MaxTrailingDrawdown {
+            get {
+                return ResourceManager.GetString("MaxTrailingDrawdown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Maximum allowed trailing drawdown from peak equity (absolute currency amount)..
+        /// </summary>
+        public static string MaxTrailingDrawdownDescription {
+            get {
+                return ResourceManager.GetString("MaxTrailingDrawdownDescription", resourceCulture);
             }
         }
         
@@ -6510,6 +6555,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string Rectangles {
             get {
                 return ResourceManager.GetString("Rectangles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Reinitialize Now.
+        /// </summary>
+        public static string ReinitializeNow {
+            get {
+                return ResourceManager.GetString("ReinitializeNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Forces trailing drawdown state re-initialization on next render..
+        /// </summary>
+        public static string ReinitializeNowDescription {
+            get {
+                return ResourceManager.GetString("ReinitializeNowDescription", resourceCulture);
             }
         }
         
@@ -8949,6 +9012,42 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string TradeTicksShort {
             get {
                 return ResourceManager.GetString("TradeTicksShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Initialization Mode.
+        /// </summary>
+        public static string TrailingInitializationMode {
+            get {
+                return ResourceManager.GetString("TrailingInitializationMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Defines how Start/Peak equity are initialized (manual stop equity or current equity)..
+        /// </summary>
+        public static string TrailingInitializationModeDescription {
+            get {
+                return ResourceManager.GetString("TrailingInitializationModeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Manual Stop Equity.
+        /// </summary>
+        public static string TrailingManualStopEquity {
+            get {
+                return ResourceManager.GetString("TrailingManualStopEquity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Bootstrap stop equity for funded accounts. Used only when Initialization Mode is ManualStopEquity..
+        /// </summary>
+        public static string TrailingManualStopEquityDescription {
+            get {
+                return ResourceManager.GetString("TrailingManualStopEquityDescription", resourceCulture);
             }
         }
         

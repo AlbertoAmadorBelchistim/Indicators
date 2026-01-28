@@ -1813,4 +1813,53 @@
   <data name="SessionCumModeDescription" xml:space="preserve">
     <value>यह निर्धारित करता है कि सत्र के संचयी मान (Volume/Delta/Delta per Volume) कब रीसेट हों और नई सत्र की शुरुआत पर Delta Change को रीसेट करता है।</value>
   </data>
+  <data name="FundingTrailingDd" xml:space="preserve">
+  <value>Funding / डायनामिक ड्रॉडाउन</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="EnableTrailingDrawdown" xml:space="preserve">
+  <value>डायनामिक ड्रॉडाउन सक्षम करें</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnableTrailingDrawdownDescription" xml:space="preserve">
+  <value>पीक इक्विटी के आधार पर डायनामिक ड्रॉडाउन ट्रैकिंग सक्षम करता है।</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="MaxTrailingDrawdown" xml:space="preserve">
+  <value>अधिकतम डायनामिक ड्रॉडाउन</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="MaxTrailingDrawdownDescription" xml:space="preserve">
+  <value>पीक इक्विटी से अधिकतम अनुमत डायनामिक ड्रॉडाउन (पूर्ण राशि)।</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="TrailingInitializationMode" xml:space="preserve">
+  <value>इनिशियलाइज़ेशन मोड</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="TrailingInitializationModeDescription" xml:space="preserve">
+  <value>यह निर्धारित करता है कि प्रारंभिक और पीक इक्विटी कैसे इनिशियलाइज़ की जाती है (वर्तमान या मैनुअल स्टॉप)।</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="TrailingManualStopEquity" xml:space="preserve">
+  <value>मैनुअल स्टॉप इक्विटी</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="TrailingManualStopEquityDescription" xml:space="preserve">
+  <value>फंडेड खातों के लिए स्टॉप इक्विटी इनिशियलाइज़ करता है। केवल मैनुअल मोड में उपयोग किया जाता है।</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ReinitializeNow" xml:space="preserve">
+  <value>अभी पुनः इनिशियलाइज़ करें</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ReinitializeNowDescription" xml:space="preserve">
+  <value>अगले रेंडर पर डायनामिक ड्रॉडाउन स्थिति को पुनः इनिशियलाइज़ करता है।</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 </root>

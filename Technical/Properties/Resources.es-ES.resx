@@ -1813,4 +1813,53 @@
   <data name="SessionCumModeDescription" xml:space="preserve">
     <value>Controla cuándo se reinician los acumulados de sesión (Volumen/Delta/Delta por Volumen) y reinicia el Delta Change al inicio de una nueva sesión.</value>
   </data>
+  <data name="FundingTrailingDd" xml:space="preserve">
+  <value>Funding / Drawdown dinámico</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="EnableTrailingDrawdown" xml:space="preserve">
+  <value>Activar drawdown dinámico</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnableTrailingDrawdownDescription" xml:space="preserve">
+  <value>Activa el seguimiento del drawdown dinámico basado en el equity máximo alcanzado.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="MaxTrailingDrawdown" xml:space="preserve">
+  <value>Drawdown dinámico máximo</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="MaxTrailingDrawdownDescription" xml:space="preserve">
+  <value>Máximo drawdown dinámico permitido desde el equity máximo (importe absoluto).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="TrailingInitializationMode" xml:space="preserve">
+  <value>Modo de inicialización</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="TrailingInitializationModeDescription" xml:space="preserve">
+  <value>Define cómo se inicializan el equity inicial y máximo (equity actual o stop manual).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="TrailingManualStopEquity" xml:space="preserve">
+  <value>Equity de stop manual</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="TrailingManualStopEquityDescription" xml:space="preserve">
+  <value>Inicializa el stop equity para cuentas financiadas. Solo se usa cuando el modo es Stop Manual.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ReinitializeNow" xml:space="preserve">
+  <value>Reinicializar ahora</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ReinitializeNowDescription" xml:space="preserve">
+  <value>Fuerza la reinicialización del estado de drawdown dinámico en el siguiente render.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 </root>

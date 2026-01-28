@@ -1765,4 +1765,53 @@
   <data name="SessionCumModeDescription" xml:space="preserve">
     <value>控制何时重置会话累计值（会话成交量/会话Delta/会话Delta/成交量），并在新会话开始时重置 Delta Change。</value>
   </data>
+  <data name="FundingTrailingDd" xml:space="preserve">
+  <value>资金 / 动态回撤</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="EnableTrailingDrawdown" xml:space="preserve">
+  <value>启用动态回撤</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnableTrailingDrawdownDescription" xml:space="preserve">
+  <value>基于账户峰值权益启用动态回撤跟踪。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="MaxTrailingDrawdown" xml:space="preserve">
+  <value>最大动态回撤</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="MaxTrailingDrawdownDescription" xml:space="preserve">
+  <value>从峰值权益计算的最大允许动态回撤（绝对金额）。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="TrailingInitializationMode" xml:space="preserve">
+  <value>初始化模式</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="TrailingInitializationModeDescription" xml:space="preserve">
+  <value>定义初始和峰值权益的初始化方式（当前权益或手动止损）。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="TrailingManualStopEquity" xml:space="preserve">
+  <value>手动止损权益</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="TrailingManualStopEquityDescription" xml:space="preserve">
+  <value>为资金账户初始化止损权益。仅在手动模式下使用。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ReinitializeNow" xml:space="preserve">
+  <value>立即重新初始化</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ReinitializeNowDescription" xml:space="preserve">
+  <value>在下一次渲染时强制重新初始化动态回撤状态。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 </root>
