@@ -6721,6 +6721,78 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Account.
+        /// </summary>
+        public static string RowAccount {
+            get {
+                return ResourceManager.GetString("RowAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Available.
+        /// </summary>
+        public static string RowAvailable {
+            get {
+                return ResourceManager.GetString("RowAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Balance.
+        /// </summary>
+        public static string RowBalance {
+            get {
+                return ResourceManager.GetString("RowBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Blocked Margin.
+        /// </summary>
+        public static string RowBlockedMargin {
+            get {
+                return ResourceManager.GetString("RowBlockedMargin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Closed PnL.
+        /// </summary>
+        public static string RowClosedPnL {
+            get {
+                return ResourceManager.GetString("RowClosedPnL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Currency.
+        /// </summary>
+        public static string RowCurrency {
+            get {
+                return ResourceManager.GetString("RowCurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Leverage.
+        /// </summary>
+        public static string RowLeverage {
+            get {
+                return ResourceManager.GetString("RowLeverage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Open PnL.
+        /// </summary>
+        public static string RowOpenPnL {
+            get {
+                return ResourceManager.GetString("RowOpenPnL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Rows.
         /// </summary>
         public static string Rows {
@@ -6780,6 +6852,42 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string RowsSessionContextGroup {
             get {
                 return ResourceManager.GetString("RowsSessionContextGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Total PnL.
+        /// </summary>
+        public static string RowTotalPnL {
+            get {
+                return ResourceManager.GetString("RowTotalPnL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Trailing Peak Equity.
+        /// </summary>
+        public static string RowTrailingPeakEquity {
+            get {
+                return ResourceManager.GetString("RowTrailingPeakEquity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Trailing Start Equity.
+        /// </summary>
+        public static string RowTrailingStartEquity {
+            get {
+                return ResourceManager.GetString("RowTrailingStartEquity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Trailing Stop Equity.
+        /// </summary>
+        public static string RowTrailingStopEquity {
+            get {
+                return ResourceManager.GetString("RowTrailingStopEquity", resourceCulture);
             }
         }
         
