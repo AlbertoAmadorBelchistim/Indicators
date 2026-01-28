@@ -1,6 +1,7 @@
 namespace ATAS.Indicators.Technical;
 
 using ATAS.DataFeedsCore;
+using ATAS.Indicators.Technical.Properties;
 using OFT.Attributes;
 using OFT.Localization;
 using OFT.Rendering.Context;
@@ -38,6 +39,22 @@ public class AccountInfoDisplay : Indicator
             ValueColorOverride = valueColorOverride;
         }
     }
+
+    private sealed class TrailingDrawdownState
+    {
+        public bool IsInitialized;
+        public decimal StartEquity;
+        public decimal PeakEquity;
+        public decimal StopEquity;
+
+        public void Reset()
+        {
+            IsInitialized = false;
+            StartEquity = 0m;
+            PeakEquity = 0m;
+            StopEquity = 0m;
+        }
+    }
     #endregion
 
     #region Fields
@@ -56,11 +73,13 @@ public class AccountInfoDisplay : Indicator
 
 	private Portfolio _currentPortfolio;
 
-	#endregion
+    private readonly Dictionary<string, TrailingDrawdownState> _trailingStatesByAccount = new();
 
-	#region Properties
+    #endregion
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.BackGround),
+    #region Properties
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BackGround),
 		Description = nameof(Strings.LabelFillColorDescription), GroupName = nameof(Strings.Visualization))]
 	public CrossColor BackgroundColor
 	{
@@ -168,11 +187,51 @@ public class AccountInfoDisplay : Indicator
 	[Range(5, 50)]
 	public int ColumnSpacing { get; set; } = 15;
 
-	#endregion
+    [Display(
+    ResourceType = typeof(Resources),
+    Name = nameof(Resources.EnableTrailingDrawdown),
+    Description = nameof(Resources.EnableTrailingDrawdownDescription),
+    GroupName = nameof(Resources.FundingTrailingDd),
+    Order = 10)]
+    public bool EnableTrailingDrawdown { get; set; }
 
-	#region Enums
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.MaxTrailingDrawdown),
+        Description = nameof(Resources.MaxTrailingDrawdownDescription),
+        GroupName = nameof(Resources.FundingTrailingDd),
+        Order = 20)]
+    public decimal MaxTrailingDrawdown { get; set; }
 
-	public enum HorizontalAlignment
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.TrailingInitializationMode),
+        Description = nameof(Resources.TrailingInitializationModeDescription),
+        GroupName = nameof(Resources.FundingTrailingDd),
+        Order = 30)]
+    public TrailingInitializationMode TrailingInitMode { get; set; }
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.TrailingManualStopEquity),
+        Description = nameof(Resources.TrailingManualStopEquityDescription),
+        GroupName = nameof(Resources.FundingTrailingDd),
+        Order = 40)]
+    public decimal TrailingManualStopEquity { get; set; }
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.ReinitializeNow),
+        Description = nameof(Resources.ReinitializeNowDescription),
+        GroupName = nameof(Resources.FundingTrailingDd),
+        Order = 50)]
+    public bool ReinitializeNow { get; set; }
+
+    #endregion
+
+    #region Enums
+
+    public enum HorizontalAlignment
 	{
 		Left,
 		Center,
@@ -186,11 +245,17 @@ public class AccountInfoDisplay : Indicator
 		Bottom
 	}
 
-	#endregion
+    public enum TrailingInitializationMode
+    {
+        CurrentEquity,
+        ManualStopEquity
+    }
 
-	#region ctor
+    #endregion
 
-	public AccountInfoDisplay()
+    #region ctor
+
+    public AccountInfoDisplay()
 		: base(true)
 	{
 		DenyToChangePanel = true;
@@ -198,7 +263,12 @@ public class AccountInfoDisplay : Indicator
 		SubscribeToDrawingEvents(DrawingLayouts.Final);
 		DataSeries[0].IsHidden = true;
 		((ValueDataSeries)DataSeries[0]).VisualType = VisualMode.Hide;
-	}
+
+        EnableTrailingDrawdown = false;
+        MaxTrailingDrawdown = 0m;
+        TrailingInitMode = TrailingInitializationMode.CurrentEquity;
+        TrailingManualStopEquity = 0m;
+    }
 
 	#endregion
 
@@ -235,6 +305,9 @@ public class AccountInfoDisplay : Indicator
         var portfolio = _currentPortfolio ?? TradingManager?.Portfolio;
         if (portfolio == null)
             return;
+
+        var equity = portfolio.Balance + portfolio.OpenPnL;
+        UpdateTrailingDrawdown(equity);
 
         // Build structured rows (Phase 0 replacement)
         var rows = BuildRows(portfolio);
@@ -427,5 +500,65 @@ public class AccountInfoDisplay : Indicator
 		};
 	}
 
-	#endregion
+    //Trailing DD core
+
+    private string GetAccountKey()
+    {
+        var portfolio = _currentPortfolio ?? TradingManager?.Portfolio;
+        return portfolio?.AccountID ?? "UNKNOWN_ACCOUNT";
+    }
+
+    private TrailingDrawdownState GetTrailingState()
+    {
+        var key = GetAccountKey();
+
+        if (!_trailingStatesByAccount.TryGetValue(key, out var state))
+        {
+            state = new TrailingDrawdownState();
+            _trailingStatesByAccount[key] = state;
+        }
+
+        return state;
+    }
+
+    private void InitializeTrailingState(TrailingDrawdownState state, decimal currentEquity)
+    {
+        state.IsInitialized = true;
+
+        if (TrailingInitMode == TrailingInitializationMode.ManualStopEquity && TrailingManualStopEquity > 0m)
+        {
+            state.StopEquity = TrailingManualStopEquity;
+            state.PeakEquity = state.StopEquity + MaxTrailingDrawdown;
+            state.StartEquity = state.PeakEquity;
+        }
+        else
+        {
+            state.StartEquity = currentEquity;
+            state.PeakEquity = currentEquity;
+            state.StopEquity = currentEquity - MaxTrailingDrawdown;
+        }
+    }
+
+    private void UpdateTrailingDrawdown(decimal currentEquity)
+    {
+        if (!EnableTrailingDrawdown || MaxTrailingDrawdown <= 0m)
+            return;
+
+        var state = GetTrailingState();
+
+        if (!state.IsInitialized)
+        {
+            InitializeTrailingState(state, currentEquity);
+            return;
+        }
+
+        // Update peak equity
+        if (currentEquity > state.PeakEquity)
+        {
+            state.PeakEquity = currentEquity;
+            state.StopEquity = state.PeakEquity - MaxTrailingDrawdown;
+        }
+    }
+
+    #endregion
 }
