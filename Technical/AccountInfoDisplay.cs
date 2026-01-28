@@ -13,6 +13,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.Json;
 
 /// <summary>
 /// Displays account information on the chart including account ID, balance, blocked margin, available balance, and PnL.
@@ -115,6 +118,12 @@ public class AccountInfoDisplay : Indicator
     private string _persistencePath;
     private PersistedRootV1 _persisted; // in-memory loaded snapshot
     private readonly HashSet<string> _loadedAccounts = new();
+    private bool _persistenceDirty;
+    private string _lastSavedSha256;
+    private DateTime _lastSaveAttemptUtc = DateTime.MinValue;
+
+    // Tuneable: prevents excessive disk IO on frequent peak updates.
+    private static readonly TimeSpan _saveThrottle = TimeSpan.FromSeconds(2);
 
     #endregion
 
@@ -449,6 +458,8 @@ public class AccountInfoDisplay : Indicator
         );
 
         DrawColoredRows(context, rows, textRect, portfolio, maxLabelWidth);
+
+        SavePersistenceIfNeeded();
     }
 
     #endregion
@@ -653,6 +664,10 @@ public class AccountInfoDisplay : Indicator
             state.PeakEquity = currentEquity;
             state.StopEquity = currentEquity - MaxTrailingDrawdown;
         }
+
+        var accountKey = GetAccountKey();
+        PersistTrailingStateToMemory(accountKey);
+        MarkPersistenceDirty();
     }
 
     private void UpdateTrailingDrawdown(decimal currentEquity)
@@ -703,6 +718,10 @@ public class AccountInfoDisplay : Indicator
             {
                 state.PeakEquity = currentEquity;
                 state.StopEquity = state.PeakEquity - MaxTrailingDrawdown;
+
+                var accountKey = GetAccountKey();
+                PersistTrailingStateToMemory(accountKey);
+                MarkPersistenceDirty();
             }
         }
         else
@@ -719,6 +738,10 @@ public class AccountInfoDisplay : Indicator
     {
         var state = GetTrailingState();
         state.Reset();
+        var accountKey = GetAccountKey();
+        PersistTrailingStateToMemory(accountKey);
+        MarkPersistenceDirty();
+        SavePersistenceIfNeeded(force: true);
     }
 
     private bool ShouldCaptureEodPeak(TrailingDrawdownState state, DateTime nowLocal)
@@ -742,6 +765,10 @@ public class AccountInfoDisplay : Indicator
         state.PeakEquity = currentEquity;
         state.StopEquity = state.PeakEquity - MaxTrailingDrawdown;
         state.LastEodPeakCaptureDate = nowLocal.Date;
+        var accountKey = GetAccountKey();
+        PersistTrailingStateToMemory(accountKey);
+        MarkPersistenceDirty();
+        SavePersistenceIfNeeded(force: true);
     }
 
     private static int GetLastDayOfMonth(int year, int month)
@@ -771,6 +798,10 @@ public class AccountInfoDisplay : Indicator
 
         state.Reset();
         state.LastMonthlyResetKey = resetKey;
+        var accountKey = GetAccountKey();
+        PersistTrailingStateToMemory(accountKey);
+        MarkPersistenceDirty();
+        SavePersistenceIfNeeded(force: true);
     }
 
     private bool TryGetLastTwoCandles(out IndicatorCandle prev, out IndicatorCandle cur)
@@ -890,6 +921,112 @@ public class AccountInfoDisplay : Indicator
 
         state.WasBreachedBeforeSession = t.WasBreachedBeforeSession;
         state.LastSessionKey = t.LastSessionKey;
+    }
+
+    private static string ComputeSha256(string text)
+    {
+        var bytes = Encoding.UTF8.GetBytes(text);
+        using var sha = SHA256.Create();
+        var hash = sha.ComputeHash(bytes);
+        return Convert.ToHexString(hash);
+    }
+
+    private static void WriteAllTextAtomic(string path, string content)
+    {
+        var dir = Path.GetDirectoryName(path);
+        if (!string.IsNullOrEmpty(dir))
+            Directory.CreateDirectory(dir);
+
+        var tmp = path + ".tmp";
+
+        File.WriteAllText(tmp, content, Encoding.UTF8);
+
+        if (File.Exists(path))
+        {
+            // Atomic replace if possible (Windows)
+            File.Replace(tmp, path, destinationBackupFileName: null, ignoreMetadataErrors: true);
+        }
+        else
+        {
+            File.Move(tmp, path);
+        }
+    }
+
+    private void PersistTrailingStateToMemory(string accountKey)
+    {
+        if (_persisted == null)
+            LoadPersistenceSafe();
+
+        if (!_persisted.Accounts.TryGetValue(accountKey, out var acc))
+        {
+            acc = new PersistedAccountV1();
+            _persisted.Accounts[accountKey] = acc;
+        }
+
+        var state = GetTrailingState();
+        var t = acc.Trailing;
+
+        t.IsInitialized = state.IsInitialized;
+        t.StartEquity = state.StartEquity;
+        t.PeakEquity = state.PeakEquity;
+        t.StopEquity = state.StopEquity;
+
+        t.LastEodPeakCaptureDate = state.LastEodPeakCaptureDate;
+        t.LastMonthlyResetKey = state.LastMonthlyResetKey;
+
+        t.WasBreachedBeforeSession = state.WasBreachedBeforeSession;
+        t.LastSessionKey = state.LastSessionKey;
+    }
+
+    private void MarkPersistenceDirty()
+    {
+        _persistenceDirty = true;
+    }
+
+    private void SavePersistenceIfNeeded(bool force = false)
+    {
+        if (_persisted == null)
+            return;
+
+        if (!force)
+        {
+            if (!_persistenceDirty)
+                return;
+
+            var nowUtc = DateTime.UtcNow;
+            if (nowUtc - _lastSaveAttemptUtc < _saveThrottle)
+                return;
+
+            _lastSaveAttemptUtc = nowUtc;
+        }
+
+        try
+        {
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+
+            var json = JsonSerializer.Serialize(_persisted, options);
+            var sha = ComputeSha256(json);
+
+            if (!force && sha == _lastSavedSha256)
+            {
+                _persistenceDirty = false;
+                return;
+            }
+
+            var path = GetPersistencePath();
+            WriteAllTextAtomic(path, json);
+
+            _lastSavedSha256 = sha;
+            _persistenceDirty = false;
+        }
+        catch
+        {
+            // Fail-safe: never break indicator render on persistence issues.
+            // Keep dirty flag true so we can retry later.
+        }
     }
 
     #endregion
