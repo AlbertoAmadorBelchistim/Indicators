@@ -47,6 +47,7 @@ public class AccountInfoDisplay : Indicator
         public decimal StartEquity;
         public decimal PeakEquity;
         public decimal StopEquity;
+        public DateTime LastEodPeakCaptureDate;
 
         public void Reset()
         {
@@ -54,6 +55,7 @@ public class AccountInfoDisplay : Indicator
             StartEquity = 0m;
             PeakEquity = 0m;
             StopEquity = 0m;
+            LastEodPeakCaptureDate = DateTime.MinValue;
         }
     }
     #endregion
@@ -228,6 +230,22 @@ public class AccountInfoDisplay : Indicator
         Order = 50)]
     public bool ReinitializeNow { get; set; }
 
+    [Display(
+    ResourceType = typeof(Resources),
+    Name = nameof(Resources.TrailingPeakUpdateMode),
+    Description = nameof(Resources.TrailingPeakUpdateModeDescription),
+    GroupName = nameof(Resources.FundingTrailingDd),
+    Order = 60)]
+    public TrailingPeakUpdateMode PeakUpdateMode { get; set; }
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.TrailingEodTimeLocal),
+        Description = nameof(Resources.TrailingEodTimeLocalDescription),
+        GroupName = nameof(Resources.FundingTrailingDd),
+        Order = 70)]
+    public TimeSpan TrailingEodTimeLocal { get; set; }
+
     #endregion
 
     #region Enums
@@ -252,6 +270,12 @@ public class AccountInfoDisplay : Indicator
         ManualStopEquity
     }
 
+    public enum TrailingPeakUpdateMode
+    {
+        Realtime,
+        EndOfDay
+    }
+
     #endregion
 
     #region ctor
@@ -269,6 +293,8 @@ public class AccountInfoDisplay : Indicator
         MaxTrailingDrawdown = 0m;
         TrailingInitMode = TrailingInitializationMode.CurrentEquity;
         TrailingManualStopEquity = 0m;
+        PeakUpdateMode = TrailingPeakUpdateMode.Realtime;
+        TrailingEodTimeLocal = new TimeSpan(17, 0, 0); // sensible default
     }
 
 	#endregion
@@ -587,10 +613,21 @@ public class AccountInfoDisplay : Indicator
         }
 
         // Update peak equity
-        if (currentEquity > state.PeakEquity)
+        if (PeakUpdateMode == TrailingPeakUpdateMode.Realtime)
         {
-            state.PeakEquity = currentEquity;
-            state.StopEquity = state.PeakEquity - MaxTrailingDrawdown;
+            if (currentEquity > state.PeakEquity)
+            {
+                state.PeakEquity = currentEquity;
+                state.StopEquity = state.PeakEquity - MaxTrailingDrawdown;
+            }
+        }
+        else
+        {
+            var nowLocal = DateTime.Now;
+            if (ShouldCaptureEodPeak(state, nowLocal))
+            {
+                CaptureEodPeak(state, currentEquity, nowLocal);
+            }
         }
     }
 
@@ -598,6 +635,29 @@ public class AccountInfoDisplay : Indicator
     {
         var state = GetTrailingState();
         state.Reset();
+    }
+
+    private bool ShouldCaptureEodPeak(TrailingDrawdownState state, DateTime nowLocal)
+    {
+        if (PeakUpdateMode != TrailingPeakUpdateMode.EndOfDay)
+            return false;
+
+        // Already captured today
+        if (state.LastEodPeakCaptureDate.Date == nowLocal.Date)
+            return false;
+
+        // Only after configured EOD time
+        if (nowLocal.TimeOfDay < TrailingEodTimeLocal)
+            return false;
+
+        return true;
+    }
+
+    private void CaptureEodPeak(TrailingDrawdownState state, decimal currentEquity, DateTime nowLocal)
+    {
+        state.PeakEquity = currentEquity;
+        state.StopEquity = state.PeakEquity - MaxTrailingDrawdown;
+        state.LastEodPeakCaptureDate = nowLocal.Date;
     }
 
     #endregion
