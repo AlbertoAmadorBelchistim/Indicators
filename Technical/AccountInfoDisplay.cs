@@ -541,6 +541,16 @@ public class AccountInfoDisplay : Indicator
 
     private void UpdateTrailingDrawdown(decimal currentEquity)
     {
+
+        // Button-like behavior: consume trigger and reset state
+        if (ReinitializeNow)
+        {
+            ResetTrailingState();
+            ReinitializeNow = false;
+            RedrawChart();
+             return;
+        }
+
         if (!EnableTrailingDrawdown || MaxTrailingDrawdown <= 0m)
             return;
 
@@ -558,6 +568,12 @@ public class AccountInfoDisplay : Indicator
             state.PeakEquity = currentEquity;
             state.StopEquity = state.PeakEquity - MaxTrailingDrawdown;
         }
+    }
+
+    private void ResetTrailingState()
+    {
+        var state = GetTrailingState();
+        state.Reset();
     }
 
     #endregion
