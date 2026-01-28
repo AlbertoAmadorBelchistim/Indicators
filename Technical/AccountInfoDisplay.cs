@@ -48,6 +48,7 @@ public class AccountInfoDisplay : Indicator
         public decimal PeakEquity;
         public decimal StopEquity;
         public DateTime LastEodPeakCaptureDate;
+        public int LastMonthlyResetKey;
 
         public void Reset()
         {
@@ -56,6 +57,7 @@ public class AccountInfoDisplay : Indicator
             PeakEquity = 0m;
             StopEquity = 0m;
             LastEodPeakCaptureDate = DateTime.MinValue;
+            LastMonthlyResetKey = 0;
         }
     }
     #endregion
@@ -246,6 +248,22 @@ public class AccountInfoDisplay : Indicator
         Order = 70)]
     public TimeSpan TrailingEodTimeLocal { get; set; }
 
+    [Display(
+    ResourceType = typeof(Resources),
+    Name = nameof(Resources.EnableMonthlyReset),
+    Description = nameof(Resources.EnableMonthlyResetDescription),
+    GroupName = nameof(Resources.FundingTrailingDd),
+    Order = 80)]
+    public bool EnableMonthlyReset { get; set; }
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.MonthlyResetDay),
+        Description = nameof(Resources.MonthlyResetDayDescription),
+        GroupName = nameof(Resources.FundingTrailingDd),
+        Order = 90)]
+    public int MonthlyResetDay { get; set; }
+
     #endregion
 
     #region Enums
@@ -295,6 +313,8 @@ public class AccountInfoDisplay : Indicator
         TrailingManualStopEquity = 0m;
         PeakUpdateMode = TrailingPeakUpdateMode.Realtime;
         TrailingEodTimeLocal = new TimeSpan(17, 0, 0); // sensible default
+        EnableMonthlyReset = false;
+        MonthlyResetDay = 1;
     }
 
 	#endregion
@@ -606,6 +626,8 @@ public class AccountInfoDisplay : Indicator
 
         var state = GetTrailingState();
 
+        MaybeResetMonthlyTrailing(state, DateTime.Now);
+
         if (!state.IsInitialized)
         {
             InitializeTrailingState(state, currentEquity);
@@ -658,6 +680,31 @@ public class AccountInfoDisplay : Indicator
         state.PeakEquity = currentEquity;
         state.StopEquity = state.PeakEquity - MaxTrailingDrawdown;
         state.LastEodPeakCaptureDate = nowLocal.Date;
+    }
+
+    private static int GetLastDayOfMonth(int year, int month)
+    {
+        return DateTime.DaysInMonth(year, month);
+    }
+
+    private void MaybeResetMonthlyTrailing(TrailingDrawdownState state, DateTime nowLocal)
+    {
+        if (!EnableMonthlyReset || MonthlyResetDay <= 0)
+            return;
+
+        int year = nowLocal.Year;
+        int month = nowLocal.Month;
+        int resetDay = Math.Min(MonthlyResetDay, GetLastDayOfMonth(year, month));
+
+        if (nowLocal.Day != resetDay)
+            return;
+
+        int resetKey = year * 100 + month;
+        if (state.LastMonthlyResetKey == resetKey)
+            return;
+
+        state.Reset();
+        state.LastMonthlyResetKey = resetKey;
     }
 
     #endregion
