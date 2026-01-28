@@ -521,50 +521,50 @@ public class AccountInfoDisplay : Indicator
 
         if (ShowAccountId)
             rows.Add(new DisplayRow(
-                "Account",
+                Resources.RowAccount,
                 portfolio.AccountID
             ));
 
         if (ShowCurrency && portfolio.Currency.HasValue)
             rows.Add(new DisplayRow(
-                "Currency",
+                Resources.RowCurrency,
                 portfolio.Currency.Value.ToString()
             ));
 
         if (ShowBalance)
             rows.Add(new DisplayRow(
-                "Balance",
+                Resources.RowBalance,
                 FormatCurrency(portfolio.Balance)
             ));
 
         if (ShowAvailableBalance && portfolio.BalanceAvailable.HasValue)
             rows.Add(new DisplayRow(
-                "Available",
+                Resources.RowAvailable,
                 FormatCurrency(portfolio.BalanceAvailable.Value)
             ));
 
         if (ShowMargin)
             rows.Add(new DisplayRow(
-                "Blocked Margin",
+                Resources.RowBlockedMargin,
                 FormatCurrency(portfolio.BlockedMargin)
             ));
 
         if (ShowLeverage && portfolio.Leverage != 1)
             rows.Add(new DisplayRow(
-                "Leverage",
+                Resources.RowLeverage,
                 $"{portfolio.Leverage:F2}x"
             ));
 
         if (ShowOpenPnL)
             rows.Add(new DisplayRow(
-                "Open PnL",
+                Resources.RowOpenPnL,
                 FormatCurrency(portfolio.OpenPnL),
                 numericValue: portfolio.OpenPnL
             ));
 
         if (ShowClosedPnL)
             rows.Add(new DisplayRow(
-                "Closed PnL",
+                Resources.RowClosedPnL,
                 FormatCurrency(portfolio.ClosedPnL),
                 numericValue: portfolio.ClosedPnL
             ));
@@ -574,7 +574,7 @@ public class AccountInfoDisplay : Indicator
             var totalPnL = portfolio.ClosedPnL + portfolio.OpenPnL;
 
             rows.Add(new DisplayRow(
-                "Total PnL",
+                Resources.RowTotalPnL,
                 FormatCurrency(totalPnL),
                 numericValue: totalPnL
             ));
@@ -583,17 +583,17 @@ public class AccountInfoDisplay : Indicator
         if (trailingState != null && trailingState.IsInitialized)
         {
             rows.Add(new DisplayRow(
-                label: "Trailing Start Equity",
+                label: Resources.RowTrailingStartEquity,
                 valueText: trailingState.StartEquity.ToString(CultureInfo.CurrentCulture),
                 numericValue: trailingState.StartEquity));
 
             rows.Add(new DisplayRow(
-                label: "Trailing Peak Equity",
+                label: Resources.RowTrailingPeakEquity,
                 valueText: trailingState.PeakEquity.ToString(CultureInfo.CurrentCulture),
                 numericValue: trailingState.PeakEquity));
 
             rows.Add(new DisplayRow(
-                label: "Trailing Stop Equity",
+                label: Resources.RowTrailingStopEquity,
                 valueText: trailingState.StopEquity.ToString(CultureInfo.CurrentCulture),
                 numericValue: trailingState.StopEquity));
         }
