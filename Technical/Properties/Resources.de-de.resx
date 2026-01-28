@@ -1942,4 +1942,26 @@
   <value>Gesamt-PnL</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+  <data name="DailyRails" xml:space="preserve">
+    <value>Tägliche Rails</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="DailyResetMode" xml:space="preserve">
+    <value>Täglicher Reset-Modus</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyResetModeDescription" xml:space="preserve">
+    <value>Legt fest, wann tägliche Metriken und Rails zurückgesetzt werden. NewYork1700 nutzt einen Cut um 17:00 (Chart-Lokalzeit); LocalCustomTime nutzt die unten konfigurierte lokale Zeit.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="DailyResetTimeLocal" xml:space="preserve">
+    <value>Tägliche Reset-Zeit (lokal)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyResetTimeLocalDescription" xml:space="preserve">
+    <value>Lokale Reset-Zeit, nur verwendet wenn der tägliche Reset-Modus LocalCustomTime ist.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
 </root>

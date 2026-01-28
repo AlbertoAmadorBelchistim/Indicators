@@ -1933,6 +1933,51 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Daily Rails.
+        /// </summary>
+        public static string DailyRails {
+            get {
+                return ResourceManager.GetString("DailyRails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Daily Reset Mode.
+        /// </summary>
+        public static string DailyResetMode {
+            get {
+                return ResourceManager.GetString("DailyResetMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Defines when daily session metrics and rails reset. NewYork1700 uses a 17:00 session cut (chart local time); LocalCustomTime uses the local time configured below..
+        /// </summary>
+        public static string DailyResetModeDescription {
+            get {
+                return ResourceManager.GetString("DailyResetModeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Daily Reset Time (Local).
+        /// </summary>
+        public static string DailyResetTimeLocal {
+            get {
+                return ResourceManager.GetString("DailyResetTimeLocal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Local reset time used only when Daily Reset Mode is LocalCustomTime..
+        /// </summary>
+        public static string DailyResetTimeLocalDescription {
+            get {
+                return ResourceManager.GetString("DailyResetTimeLocalDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Dashed 0DTE line.
         /// </summary>
         public static string Dash0Dte {

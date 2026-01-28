@@ -4000,4 +4000,26 @@
   <value>Общий PnL</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+  <data name="DailyRails" xml:space="preserve">
+    <value>Дневные рельсы</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="DailyResetMode" xml:space="preserve">
+    <value>Режим дневного сброса</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyResetModeDescription" xml:space="preserve">
+    <value>Определяет, когда сбрасываются дневные метрики и рельсы. NewYork1700 использует отсечку в 17:00 (локальное время графика); LocalCustomTime использует локальное время, заданное ниже.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="DailyResetTimeLocal" xml:space="preserve">
+    <value>Время дневного сброса (локальное)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyResetTimeLocalDescription" xml:space="preserve">
+    <value>Локальное время сброса, используется только когда режим дневного сброса — LocalCustomTime.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
 </root>
