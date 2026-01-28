@@ -1814,4 +1814,21 @@
   <value>在下一次渲染时强制重新初始化动态回撤状态。</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="TrailingPeakUpdateMode" xml:space="preserve">
+  <value>峰值更新模式</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="TrailingPeakUpdateModeDescription" xml:space="preserve">
+  <value>Realtime 持续更新峰值权益；EndOfDay 在配置的日终时间之后每天仅更新一次峰值权益。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="TrailingEodTimeLocal" xml:space="preserve">
+  <value>日终时间（本地）</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="TrailingEodTimeLocalDescription" xml:space="preserve">
+  <value>EndOfDay 模式使用的日终时间。在该时间之后每天捕获一次峰值权益。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 </root>

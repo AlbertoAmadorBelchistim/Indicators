@@ -1862,4 +1862,21 @@
   <value>अगले रेंडर पर डायनामिक ड्रॉडाउन स्थिति को पुनः इनिशियलाइज़ करता है।</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="TrailingPeakUpdateMode" xml:space="preserve">
+  <value>पीक अपडेट मोड</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="TrailingPeakUpdateModeDescription" xml:space="preserve">
+  <value>Realtime लगातार Peak Equity अपडेट करता है; EndOfDay कॉन्फ़िगर की गई EOD समय के बाद दिन में केवल एक बार Peak Equity अपडेट करता है।</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="TrailingEodTimeLocal" xml:space="preserve">
+  <value>EOD समय (लोकल)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="TrailingEodTimeLocalDescription" xml:space="preserve">
+  <value>EndOfDay मोड में उपयोग होने वाला दिन-अंत समय। इस समय के बाद दिन में एक बार Peak Equity कैप्चर करता है।</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 </root>

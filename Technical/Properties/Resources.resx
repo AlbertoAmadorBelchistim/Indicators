@@ -4162,4 +4162,21 @@
   <value>Forces trailing drawdown state re-initialization on next render.</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="TrailingPeakUpdateMode" xml:space="preserve">
+  <value>Peak Update Mode</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="TrailingPeakUpdateModeDescription" xml:space="preserve">
+  <value>Realtime updates Peak Equity continuously; EndOfDay updates Peak Equity only once per day at the configured EOD time.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="TrailingEodTimeLocal" xml:space="preserve">
+  <value>EOD Time (Local)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="TrailingEodTimeLocalDescription" xml:space="preserve">
+  <value>End-of-day time used when Peak Update Mode is EndOfDay. Captures Peak Equity once per day after this time.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 </root>

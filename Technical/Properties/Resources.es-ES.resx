@@ -1862,4 +1862,21 @@
   <value>Fuerza la reinicialización del estado de drawdown dinámico en el siguiente render.</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="TrailingPeakUpdateMode" xml:space="preserve">
+  <value>Modo de actualización del pico</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="TrailingPeakUpdateModeDescription" xml:space="preserve">
+  <value>Realtime actualiza el equity máximo continuamente; Fin de día actualiza el equity máximo solo una vez al día tras la hora configurada.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="TrailingEodTimeLocal" xml:space="preserve">
+  <value>Hora fin de día (local)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="TrailingEodTimeLocalDescription" xml:space="preserve">
+  <value>Hora de fin de día usada cuando el modo es Fin de día. Captura el equity máximo una vez al día tras esta hora.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 </root>

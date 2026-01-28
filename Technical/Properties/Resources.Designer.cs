@@ -9016,6 +9016,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a EOD Time (Local).
+        /// </summary>
+        public static string TrailingEodTimeLocal {
+            get {
+                return ResourceManager.GetString("TrailingEodTimeLocal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a End-of-day time used when Peak Update Mode is EndOfDay. Captures Peak Equity once per day after this time..
+        /// </summary>
+        public static string TrailingEodTimeLocalDescription {
+            get {
+                return ResourceManager.GetString("TrailingEodTimeLocalDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Initialization Mode.
         /// </summary>
         public static string TrailingInitializationMode {
@@ -9048,6 +9066,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string TrailingManualStopEquityDescription {
             get {
                 return ResourceManager.GetString("TrailingManualStopEquityDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Peak Update Mode.
+        /// </summary>
+        public static string TrailingPeakUpdateMode {
+            get {
+                return ResourceManager.GetString("TrailingPeakUpdateMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Realtime updates Peak Equity continuously; EndOfDay updates Peak Equity only once per day at the configured EOD time..
+        /// </summary>
+        public static string TrailingPeakUpdateModeDescription {
+            get {
+                return ResourceManager.GetString("TrailingPeakUpdateModeDescription", resourceCulture);
             }
         }
         
