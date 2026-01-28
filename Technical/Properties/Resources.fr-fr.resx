@@ -1879,4 +1879,21 @@
   <value>Heure de fin de journée utilisée en mode Fin de journée. Capture l’equity max une fois par jour après cette heure.</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="EnableMonthlyReset" xml:space="preserve">
+  <value>Activer la réinitialisation mensuelle</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnableMonthlyResetDescription" xml:space="preserve">
+  <value>Réinitialise l’état du drawdown dynamique à une date fixe chaque mois (par compte).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="MonthlyResetDay" xml:space="preserve">
+  <value>Jour de réinitialisation mensuelle</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="MonthlyResetDayDescription" xml:space="preserve">
+  <value>Jour du mois où la réinitialisation a lieu (1–31). Si le jour dépasse la durée du mois, le dernier jour est utilisé.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 </root>

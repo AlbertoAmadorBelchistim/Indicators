@@ -1884,4 +1884,21 @@
   <value>End-of-Day-Zeit für EndOfDay-Modus. Erfasst Peak-Equity einmal pro Tag nach dieser Zeit.</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="EnableMonthlyReset" xml:space="preserve">
+  <value>Monatliches Zurücksetzen aktivieren</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnableMonthlyResetDescription" xml:space="preserve">
+  <value>Setzt den dynamischen Drawdown-Zustand an einem festen Tag jeden Monats zurück (pro Konto).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="MonthlyResetDay" xml:space="preserve">
+  <value>Tag für monatliches Zurücksetzen</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="MonthlyResetDayDescription" xml:space="preserve">
+  <value>Tag des Monats, an dem zurückgesetzt wird (1–31). Wenn der Tag den Monat überschreitet, wird der letzte Tag verwendet.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 </root>

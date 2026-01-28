@@ -3942,4 +3942,21 @@
   <value>Время конца дня для режима Конец дня. Фиксирует пиковое equity один раз в день после этого времени.</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="EnableMonthlyReset" xml:space="preserve">
+  <value>Включить ежемесячный сброс</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnableMonthlyResetDescription" xml:space="preserve">
+  <value>Сбрасывает состояние динамического дроудауна в фиксированный день каждого месяца (по счету).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="MonthlyResetDay" xml:space="preserve">
+  <value>День ежемесячного сброса</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="MonthlyResetDayDescription" xml:space="preserve">
+  <value>День месяца, когда выполняется сброс (1–31). Если день превышает длину месяца, используется последний день.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 </root>
