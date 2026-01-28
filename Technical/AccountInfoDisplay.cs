@@ -27,6 +27,8 @@ using System.Text.Json;
 public class AccountInfoDisplay : Indicator
 {
     #region class
+
+    #region class - UI rows
     private sealed class DisplayRow
     {
         public string Label { get; }
@@ -44,6 +46,10 @@ public class AccountInfoDisplay : Indicator
             ValueColorOverride = valueColorOverride;
         }
     }
+
+    #endregion
+
+    #region class - Trailing DD state
 
     private sealed class TrailingDrawdownState
     {
@@ -69,6 +75,10 @@ public class AccountInfoDisplay : Indicator
         }
     }
 
+    #endregion
+
+    #region class - Persistence DTOs
+
     private sealed class PersistedRootV1
     {
         public int SchemaVersion { get; set; }
@@ -93,9 +103,14 @@ public class AccountInfoDisplay : Indicator
         public bool WasBreachedBeforeSession { get; set; }
         public int LastSessionKey { get; set; }
     }
+
+    #endregion
+
     #endregion
 
     #region Fields
+
+    #region Fields - Visualization
 
     private Color _backgroundColor = Color.FromArgb(200, 20, 25, 35);
 	private Color _textColor = Color.FromArgb(220, 220, 220);
@@ -109,9 +124,21 @@ public class AccountInfoDisplay : Indicator
 		Alignment = StringAlignment.Near
 	};
 
-	private Portfolio _currentPortfolio;
+    #endregion
+
+    #region Fields - Portfolio
+
+    private Portfolio _currentPortfolio;
+
+    #endregion
+
+    #region Fields - Trailing DD runtime
 
     private readonly Dictionary<string, TrailingDrawdownState> _trailingStatesByAccount = new();
+
+    #endregion
+
+    #region Fields - Persistence
 
     private const int _persistenceSchemaVersion = 1;
     private const string _persistenceFileName = "AccountInfoDisplay.states.v1.json";
@@ -124,6 +151,8 @@ public class AccountInfoDisplay : Indicator
 
     // Tuneable: prevents excessive disk IO on frequent peak updates.
     private static readonly TimeSpan _saveThrottle = TimeSpan.FromSeconds(2);
+
+    #endregion
 
     #endregion
 
@@ -466,11 +495,17 @@ public class AccountInfoDisplay : Indicator
 
     #region Private Methods
 
+    #region Private Methods - Portfolio selection
+
     private void OnPortfolioSelected(Portfolio portfolio)
 	{
 		_currentPortfolio = portfolio;
 		RedrawChart();
 	}
+
+    #endregion
+
+    #region Private Methods - UI rows (render model)
 
     private List<DisplayRow> BuildRows(Portfolio portfolio)
     {
@@ -600,7 +635,11 @@ public class AccountInfoDisplay : Indicator
         }
     }
 
-	private string FormatCurrency(decimal value)
+    #endregion
+
+    #region Private Methods - Layout helpers
+
+    private string FormatCurrency(decimal value)
 	{
 		return value.ToString("N2");
 	}
@@ -627,7 +666,9 @@ public class AccountInfoDisplay : Indicator
 		};
 	}
 
-    //Trailing DD core
+    #endregion
+
+    #region Private Methods - Trailing DD (account + state)
 
     private string GetAccountKey()
     {
@@ -647,6 +688,10 @@ public class AccountInfoDisplay : Indicator
 
         return state;
     }
+
+    #endregion
+
+    #region Private Methods - Trailing DD (core)
 
     private void InitializeTrailingState(TrailingDrawdownState state, decimal currentEquity)
     {
@@ -744,6 +789,10 @@ public class AccountInfoDisplay : Indicator
         SavePersistenceIfNeeded(force: true);
     }
 
+    #endregion
+
+    #region Private Methods - Trailing DD (EOD peak)
+
     private bool ShouldCaptureEodPeak(TrailingDrawdownState state, DateTime nowLocal)
     {
         if (PeakUpdateMode != TrailingPeakUpdateMode.EndOfDay)
@@ -771,10 +820,9 @@ public class AccountInfoDisplay : Indicator
         SavePersistenceIfNeeded(force: true);
     }
 
-    private static int GetLastDayOfMonth(int year, int month)
-    {
-        return DateTime.DaysInMonth(year, month);
-    }
+    #endregion
+
+    #region Private Methods - Trailing DD (monthly reset)
 
     private void MaybeResetMonthlyTrailingAtSessionStart(TrailingDrawdownState state, DateTime nowLocal)
     {
@@ -803,6 +851,12 @@ public class AccountInfoDisplay : Indicator
         MarkPersistenceDirty();
         SavePersistenceIfNeeded(force: true);
     }
+
+    #endregion
+
+
+    #region Private Methods - Trailing DD (session helpers)
+
 
     private bool TryGetLastTwoCandles(out IndicatorCandle prev, out IndicatorCandle cur)
     {
@@ -856,7 +910,9 @@ public class AccountInfoDisplay : Indicator
         return localDate.Year * 10000 + localDate.Month * 100 + localDate.Day;
     }
 
-    //Persistence methods
+    #endregion
+
+    #region Private Methods - Persistence (path + load/apply)
     private string GetPersistencePath()
     {
         if (!string.IsNullOrEmpty(_persistencePath))
@@ -922,6 +978,10 @@ public class AccountInfoDisplay : Indicator
         state.WasBreachedBeforeSession = t.WasBreachedBeforeSession;
         state.LastSessionKey = t.LastSessionKey;
     }
+
+    #endregion
+
+    #region Private Methods - Persistence (atomic save)
 
     private static string ComputeSha256(string text)
     {
@@ -1028,6 +1088,8 @@ public class AccountInfoDisplay : Indicator
             // Keep dirty flag true so we can retry later.
         }
     }
+
+    #endregion
 
     #endregion
 }
