@@ -3925,4 +3925,21 @@
   <value>Принудительно переинициализирует состояние динамического дроудауна при следующем рендере.</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="TrailingPeakUpdateMode" xml:space="preserve">
+  <value>Режим обновления пика</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="TrailingPeakUpdateModeDescription" xml:space="preserve">
+  <value>Realtime обновляет пиковое equity постоянно; Конец дня обновляет пиковое equity один раз в день после заданного времени.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="TrailingEodTimeLocal" xml:space="preserve">
+  <value>Время конца дня (локальное)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="TrailingEodTimeLocalDescription" xml:space="preserve">
+  <value>Время конца дня для режима Конец дня. Фиксирует пиковое equity один раз в день после этого времени.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 </root>

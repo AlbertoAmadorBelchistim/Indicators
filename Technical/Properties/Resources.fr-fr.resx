@@ -1862,4 +1862,21 @@
   <value>Force la réinitialisation de l’état du drawdown dynamique lors du prochain rendu.</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="TrailingPeakUpdateMode" xml:space="preserve">
+  <value>Mode de mise à jour du pic</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="TrailingPeakUpdateModeDescription" xml:space="preserve">
+  <value>Realtime met à jour l’equity max en continu ; Fin de journée met à jour l’equity max une fois par jour après l’heure configurée.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="TrailingEodTimeLocal" xml:space="preserve">
+  <value>Heure fin de journée (locale)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="TrailingEodTimeLocalDescription" xml:space="preserve">
+  <value>Heure de fin de journée utilisée en mode Fin de journée. Capture l’equity max une fois par jour après cette heure.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 </root>

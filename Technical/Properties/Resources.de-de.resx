@@ -1867,4 +1867,21 @@
   <value>Erzwingt die Neuinitialisierung des dynamischen Drawdown-Zustands beim nächsten Rendern.</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="TrailingPeakUpdateMode" xml:space="preserve">
+  <value>Peak-Update-Modus</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="TrailingPeakUpdateModeDescription" xml:space="preserve">
+  <value>Realtime aktualisiert das Peak-Equity fortlaufend; EndOfDay aktualisiert Peak-Equity nur einmal pro Tag nach der konfigurierten EOD-Zeit.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="TrailingEodTimeLocal" xml:space="preserve">
+  <value>EOD-Zeit (lokal)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="TrailingEodTimeLocalDescription" xml:space="preserve">
+  <value>End-of-Day-Zeit für EndOfDay-Modus. Erfasst Peak-Equity einmal pro Tag nach dieser Zeit.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 </root>
