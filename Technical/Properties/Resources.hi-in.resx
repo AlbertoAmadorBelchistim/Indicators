@@ -1937,4 +1937,26 @@
   <value>Total PnL</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+  <data name="DailyRails" xml:space="preserve">
+    <value>डेली रेल्स</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="DailyResetMode" xml:space="preserve">
+    <value>डेली रीसेट मोड</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyResetModeDescription" xml:space="preserve">
+    <value>यह निर्धारित करता है कि दैनिक मेट्रिक्स और रेल्स कब रीसेट हों। NewYork1700 17:00 (चार्ट लोकल समय) कट का उपयोग करता है; LocalCustomTime नीचे कॉन्फ़िगर किए गए लोकल समय का उपयोग करता है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="DailyResetTimeLocal" xml:space="preserve">
+    <value>डेली रीसेट टाइम (लोकल)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyResetTimeLocalDescription" xml:space="preserve">
+    <value>लोकल रीसेट समय, केवल तब उपयोग होता है जब डेली रीसेट मोड LocalCustomTime हो।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
 </root>

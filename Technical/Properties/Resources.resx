@@ -4237,4 +4237,26 @@
     <value>Total PnL</value>
     <comment>AccountInfoDisplay</comment>
   </data>
+    <data name="DailyRails" xml:space="preserve">
+    <value>Daily Rails</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="DailyResetMode" xml:space="preserve">
+    <value>Daily Reset Mode</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyResetModeDescription" xml:space="preserve">
+    <value>Defines when daily session metrics and rails reset. NewYork1700 uses a 17:00 session cut (chart local time); LocalCustomTime uses the local time configured below.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="DailyResetTimeLocal" xml:space="preserve">
+    <value>Daily Reset Time (Local)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyResetTimeLocalDescription" xml:space="preserve">
+    <value>Local reset time used only when Daily Reset Mode is LocalCustomTime.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
 </root>

@@ -1889,4 +1889,26 @@
   <value>总盈亏</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+  <data name="DailyRails" xml:space="preserve">
+    <value>日内护栏</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="DailyResetMode" xml:space="preserve">
+    <value>日内重置模式</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyResetModeDescription" xml:space="preserve">
+    <value>定义日内指标与护栏的重置时点。NewYork1700 使用 17:00（图表本地时间）的切换；LocalCustomTime 使用下方配置的本地时间。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="DailyResetTimeLocal" xml:space="preserve">
+    <value>日内重置时间（本地）</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyResetTimeLocalDescription" xml:space="preserve">
+    <value>仅当日内重置模式为 LocalCustomTime 时使用的本地重置时间。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
 </root>

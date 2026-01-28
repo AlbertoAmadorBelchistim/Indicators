@@ -1937,4 +1937,26 @@
   <value>PnL Total</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+  <data name="DailyRails" xml:space="preserve">
+    <value>Rieles diarios</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="DailyResetMode" xml:space="preserve">
+    <value>Modo de reset diario</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyResetModeDescription" xml:space="preserve">
+    <value>Define cuándo se resetean las métricas y rieles diarios. NewYork1700 usa un corte a las 17:00 (hora local del gráfico); LocalCustomTime usa la hora local configurada abajo.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="DailyResetTimeLocal" xml:space="preserve">
+    <value>Hora de reset diario (local)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyResetTimeLocalDescription" xml:space="preserve">
+    <value>Hora de reset local usada solo cuando el Modo de reset diario es LocalCustomTime.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
 </root>
