@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
+using System.Globalization;
 
 /// <summary>
 /// Displays account information on the chart including account ID, balance, blocked margin, available balance, and PnL.
@@ -372,8 +373,13 @@ public class AccountInfoDisplay : Indicator
     {
         var rows = new List<DisplayRow>();
 
+        TrailingDrawdownState trailingState = null;
+
         if (portfolio == null)
             return rows;
+
+        if (EnableTrailingDrawdown && MaxTrailingDrawdown > 0m)
+            trailingState = GetTrailingState();
 
         if (ShowAccountId)
             rows.Add(new DisplayRow(
@@ -434,6 +440,24 @@ public class AccountInfoDisplay : Indicator
                 FormatCurrency(totalPnL),
                 numericValue: totalPnL
             ));
+        }
+
+        if (trailingState != null && trailingState.IsInitialized)
+        {
+            rows.Add(new DisplayRow(
+                label: "Trailing Start Equity",
+                valueText: trailingState.StartEquity.ToString(CultureInfo.CurrentCulture),
+                numericValue: trailingState.StartEquity));
+
+            rows.Add(new DisplayRow(
+                label: "Trailing Peak Equity",
+                valueText: trailingState.PeakEquity.ToString(CultureInfo.CurrentCulture),
+                numericValue: trailingState.PeakEquity));
+
+            rows.Add(new DisplayRow(
+                label: "Trailing Stop Equity",
+                valueText: trailingState.StopEquity.ToString(CultureInfo.CurrentCulture),
+                numericValue: trailingState.StopEquity));
         }
 
         return rows;
