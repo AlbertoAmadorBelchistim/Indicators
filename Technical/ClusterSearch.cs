@@ -129,13 +129,24 @@ public partial class ClusterSearch : Indicator
 			break;
 		}
 
-		if (_lastBar != curBar - i)
+		var targetBar = curBar - i;
+
+		// Handle multiple bars created at once (e.g., Renko gap-filling)
+		if (_lastBar != targetBar)
 		{
-			OnNewBar(curBar - i);
-			_lastBar = curBar - i;
+			// Process all skipped bars (for Renko charts that create multiple bars from single trade)
+			var startBar = Math.Max(_lastBar + 1, _targetBar);
+
+			for (var bar = startBar; bar <= targetBar; bar++)
+			{
+				OnNewBar(bar);
+				CalculateBar(bar);
+			}
+
+			_lastBar = targetBar;
 		}
 
-		CalculateTick(curBar - i, trade);
+		CalculateTick(targetBar, trade);
 		_lastPrice = trade.Price;
 	}
 
