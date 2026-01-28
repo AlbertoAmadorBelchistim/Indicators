@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 
 /// <summary>
 /// Displays account information on the chart including account ID, balance, blocked margin, available balance, and PnL.
@@ -64,6 +65,31 @@ public class AccountInfoDisplay : Indicator
             LastSessionKey = 0;
         }
     }
+
+    private sealed class PersistedRootV1
+    {
+        public int SchemaVersion { get; set; }
+        public Dictionary<string, PersistedAccountV1> Accounts { get; set; } = new();
+    }
+
+    private sealed class PersistedAccountV1
+    {
+        public PersistedTrailingDdV1 Trailing { get; set; } = new();
+    }
+
+    private sealed class PersistedTrailingDdV1
+    {
+        public bool IsInitialized { get; set; }
+        public decimal StartEquity { get; set; }
+        public decimal PeakEquity { get; set; }
+        public decimal StopEquity { get; set; }
+
+        public DateTime LastEodPeakCaptureDate { get; set; }
+        public int LastMonthlyResetKey { get; set; }
+
+        public bool WasBreachedBeforeSession { get; set; }
+        public int LastSessionKey { get; set; }
+    }
     #endregion
 
     #region Fields
@@ -83,6 +109,12 @@ public class AccountInfoDisplay : Indicator
 	private Portfolio _currentPortfolio;
 
     private readonly Dictionary<string, TrailingDrawdownState> _trailingStatesByAccount = new();
+
+    private const int _persistenceSchemaVersion = 1;
+    private const string _persistenceFileName = "AccountInfoDisplay.states.v1.json";
+    private string _persistencePath;
+    private PersistedRootV1 _persisted; // in-memory loaded snapshot
+    private readonly HashSet<string> _loadedAccounts = new();
 
     #endregion
 
@@ -356,6 +388,16 @@ public class AccountInfoDisplay : Indicator
         var portfolio = _currentPortfolio ?? TradingManager?.Portfolio;
         if (portfolio == null)
             return;
+
+        if (_persisted == null)
+            LoadPersistenceSafe();
+
+        var accountKey = GetAccountKey();
+        if (!_loadedAccounts.Contains(accountKey))
+        {
+            ApplyLoadedTrailingStateIfAny(accountKey);
+            _loadedAccounts.Add(accountKey);
+        }
 
         var equity = portfolio.Balance + portfolio.OpenPnL;
         UpdateTrailingDrawdown(equity);
@@ -729,9 +771,6 @@ public class AccountInfoDisplay : Indicator
 
         state.Reset();
         state.LastMonthlyResetKey = resetKey;
-
-        // After a successful reset, clear the pre-session breach flag.
-        state.WasBreachedBeforeSession = false;
     }
 
     private bool TryGetLastTwoCandles(out IndicatorCandle prev, out IndicatorCandle cur)
@@ -784,6 +823,73 @@ public class AccountInfoDisplay : Indicator
 
         var localDate = GetLocalDate(cur.Time);
         return localDate.Year * 10000 + localDate.Month * 100 + localDate.Day;
+    }
+
+    //Persistence methods
+    private string GetPersistencePath()
+    {
+        if (!string.IsNullOrEmpty(_persistencePath))
+            return _persistencePath;
+
+        var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        var dir = Path.Combine(appData, "ATAS", "JSON");
+        Directory.CreateDirectory(dir);
+
+        _persistencePath = Path.Combine(dir, _persistenceFileName);
+        return _persistencePath;
+    }
+
+    private void LoadPersistenceSafe()
+    {
+        try
+        {
+            var path = GetPersistencePath();
+
+            if (!File.Exists(path))
+            {
+                _persisted = new PersistedRootV1 { SchemaVersion = _persistenceSchemaVersion };
+                return;
+            }
+
+            var json = File.ReadAllText(path);
+            var loaded = System.Text.Json.JsonSerializer.Deserialize<PersistedRootV1>(json);
+
+            if (loaded == null || loaded.SchemaVersion != _persistenceSchemaVersion)
+            {
+                _persisted = new PersistedRootV1 { SchemaVersion = _persistenceSchemaVersion };
+                return;
+            }
+
+            _persisted = loaded;
+        }
+        catch
+        {
+            // Fail-safe: never break indicator render on persistence issues.
+            _persisted = new PersistedRootV1 { SchemaVersion = _persistenceSchemaVersion };
+        }
+    }
+
+    private void ApplyLoadedTrailingStateIfAny(string accountKey)
+    {
+        if (_persisted == null)
+            return;
+
+        if (!_persisted.Accounts.TryGetValue(accountKey, out var acc))
+            return;
+
+        var t = acc.Trailing;
+        var state = GetTrailingState();
+
+        state.IsInitialized = t.IsInitialized;
+        state.StartEquity = t.StartEquity;
+        state.PeakEquity = t.PeakEquity;
+        state.StopEquity = t.StopEquity;
+
+        state.LastEodPeakCaptureDate = t.LastEodPeakCaptureDate;
+        state.LastMonthlyResetKey = t.LastMonthlyResetKey;
+
+        state.WasBreachedBeforeSession = t.WasBreachedBeforeSession;
+        state.LastSessionKey = t.LastSessionKey;
     }
 
     #endregion
