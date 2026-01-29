@@ -1053,6 +1053,10 @@ public class AccountInfoDisplay : Indicator
         return localDate.Year * 10000 + localDate.Month * 100 + localDate.Day;
     }
 
+    #endregion
+
+    #region Private Methods - Daily Rails (session metrics)
+
     private DailyRailsState GetDailyRailsState(string accountKey)
     {
         var key = accountKey ?? string.Empty;
@@ -1109,8 +1113,6 @@ public class AccountInfoDisplay : Indicator
 
         return localDate.Year * 10000 + localDate.Month * 100 + localDate.Day;
     }
-
-    #endregion
 
     private void UpdateDailySessionMetricsFromTradeEvents(DailyRailsState state, Portfolio portfolio)
     {
@@ -1172,6 +1174,8 @@ public class AccountInfoDisplay : Indicator
 
         return pos.IsInPosition && pos.Volume != 0m;
     }
+
+    #endregion
 
     #region Private Methods - Persistence (path + load/apply)
     private string GetPersistencePath()
