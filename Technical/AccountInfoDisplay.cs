@@ -287,10 +287,39 @@ public class AccountInfoDisplay : Indicator
 		Description = nameof(Strings.ShowTotalPnLDescription), GroupName = nameof(Strings.Settings))]
 	public bool ShowTotalPnL { get; set; } = false;
 
-    // Session metrics rows (Phase D)
+    [Display(
+    ResourceType = typeof(Resources),
+    Name = nameof(Resources.ShowTradesTodayRow),
+    Description = nameof(Resources.ShowTradesTodayRowDescription),
+    GroupName = nameof(Resources.DailyRails),
+    Order = 200)]
     public bool ShowTradesTodayRow { get; set; } = true;
+
+
+    [Display(
+    ResourceType = typeof(Resources),
+    Name = nameof(Resources.ShowWinsLossesTodayRow),
+    Description = nameof(Resources.ShowWinsLossesTodayRowDescription),
+    GroupName = nameof(Resources.DailyRails),
+    Order = 210)]
     public bool ShowWinsLossesTodayRow { get; set; } = true;
+
+
+    [Display(
+    ResourceType = typeof(Resources),
+    Name = nameof(Resources.ShowCurrentStreakRow),
+    Description = nameof(Resources.ShowCurrentStreakRowDescription),
+    GroupName = nameof(Resources.DailyRails),
+    Order = 220)]
     public bool ShowCurrentStreakRow { get; set; } = true;
+
+
+    [Display(
+    ResourceType = typeof(Resources),
+    Name = nameof(Resources.ShowRealizedPnlTodayRow),
+    Description = nameof(Resources.ShowRealizedPnlTodayRowDescription),
+    GroupName = nameof(Resources.DailyRails),
+    Order = 230)]
     public bool ShowRealizedPnlTodayRow { get; set; } = true;
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.HorizontalPosition),
