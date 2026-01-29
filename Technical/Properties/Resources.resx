@@ -4275,4 +4275,39 @@
     <value>Realized PnL Today</value>
     <comment>AccountInfoDisplay</comment>
   </data>
+    <data name="ShowTradesTodayRow" xml:space="preserve">
+    <value>Show Trades Today</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTradesTodayRowDescription" xml:space="preserve">
+    <value>Show the number of closed trades for the current trading day.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="ShowWinsLossesTodayRow" xml:space="preserve">
+    <value>Show Wins / Losses Today</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowWinsLossesTodayRowDescription" xml:space="preserve">
+    <value>Show the number of winning and losing trades for the current trading day.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="ShowCurrentStreakRow" xml:space="preserve">
+    <value>Show Current Streak</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowCurrentStreakRowDescription" xml:space="preserve">
+    <value>Show the current win or loss streak for the trading day.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="ShowRealizedPnlTodayRow" xml:space="preserve">
+    <value>Show Realized PnL Today</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowRealizedPnlTodayRowDescription" xml:space="preserve">
+    <value>Show realized profit and loss for the current trading day.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
 </root>

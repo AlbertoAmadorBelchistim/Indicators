@@ -1975,4 +1975,39 @@
     <value>PnL réalisé aujourd’hui</value>
     <comment>AccountInfoDisplay</comment>
   </data>
+    <data name="ShowTradesTodayRow" xml:space="preserve">
+    <value>Afficher les trades du jour</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTradesTodayRowDescription" xml:space="preserve">
+    <value>Affiche le nombre de trades clôturés durant la session en cours.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="ShowWinsLossesTodayRow" xml:space="preserve">
+    <value>Afficher gains / pertes du jour</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowWinsLossesTodayRowDescription" xml:space="preserve">
+    <value>Affiche le nombre de trades gagnants et perdants de la session actuelle.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="ShowCurrentStreakRow" xml:space="preserve">
+    <value>Afficher la série actuelle</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowCurrentStreakRowDescription" xml:space="preserve">
+    <value>Affiche la série active de gains ou de pertes consécutives de la session.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="ShowRealizedPnlTodayRow" xml:space="preserve">
+    <value>Afficher le PnL réalisé du jour</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowRealizedPnlTodayRowDescription" xml:space="preserve">
+    <value>Affiche le profit ou la perte réalisé(e) cumulée sur la session actuelle.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
 </root>

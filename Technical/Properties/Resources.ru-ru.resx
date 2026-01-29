@@ -4038,4 +4038,39 @@
     <value>Реализованный PnL сегодня</value>
     <comment>AccountInfoDisplay</comment>
   </data>
+    <data name="ShowTradesTodayRow" xml:space="preserve">
+    <value>Показать сделки за день</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTradesTodayRowDescription" xml:space="preserve">
+    <value>Показывает количество закрытых сделок за текущую торговую сессию.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="ShowWinsLossesTodayRow" xml:space="preserve">
+    <value>Показать прибыли / убытки за день</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowWinsLossesTodayRowDescription" xml:space="preserve">
+    <value>Показывает количество прибыльных и убыточных сделок за текущую сессию.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="ShowCurrentStreakRow" xml:space="preserve">
+    <value>Показать текущую серию</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowCurrentStreakRowDescription" xml:space="preserve">
+    <value>Показывает текущую серию последовательных прибылей или убытков.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="ShowRealizedPnlTodayRow" xml:space="preserve">
+    <value>Показать реализованный PnL за день</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowRealizedPnlTodayRowDescription" xml:space="preserve">
+    <value>Показывает суммарную реализованную прибыль или убыток за текущую сессию.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
 </root>
