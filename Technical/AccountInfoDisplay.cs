@@ -62,17 +62,30 @@ public class AccountInfoDisplay : Indicator
         public int TradesToday;
         public int WinsToday;
         public int LossesToday;
-        public int CurrentStreak;
+
+        // Single-position trade event tracking (OPEN->FLAT) to derive "closed trades today"
+        public bool WasPositionOpen;
+        public decimal TradeClosedPnlBaseline;
+
+        public int CurrentWinStreak;
+        public int CurrentLossStreak;
 
 
         public void ResetForNewDay(int dailyResetKey)
         {
             LastDailyResetKey = dailyResetKey;
+
             DailyRealizedPnlBaseline = 0m;
+
             TradesToday = 0;
             WinsToday = 0;
             LossesToday = 0;
-            CurrentStreak = 0;
+
+            CurrentWinStreak = 0;
+            CurrentLossStreak = 0;
+
+            WasPositionOpen = false;
+            TradeClosedPnlBaseline = 0m;
         }
     }
 
@@ -274,7 +287,13 @@ public class AccountInfoDisplay : Indicator
 		Description = nameof(Strings.ShowTotalPnLDescription), GroupName = nameof(Strings.Settings))]
 	public bool ShowTotalPnL { get; set; } = false;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.HorizontalPosition),
+    // Session metrics rows (Phase D)
+    public bool ShowTradesTodayRow { get; set; } = true;
+    public bool ShowWinsLossesTodayRow { get; set; } = true;
+    public bool ShowCurrentStreakRow { get; set; } = true;
+    public bool ShowRealizedPnlTodayRow { get; set; } = true;
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.HorizontalPosition),
 		GroupName = nameof(Strings.LayoutGroup))]
 	public HorizontalAlignment HorizontalPosition { get; set; } = HorizontalAlignment.Left;
 
@@ -499,7 +518,8 @@ public class AccountInfoDisplay : Indicator
         }
 
         var dailyState = GetDailyRailsState(accountKey);
-        MaybeResetDailyRails(dailyState);
+        MaybeResetDailyRails(dailyState, portfolio);
+        UpdateDailySessionMetricsFromTradeEvents(dailyState, portfolio);
 
         var equity = portfolio.Balance + portfolio.OpenPnL;
         UpdateTrailingDrawdown(equity);
@@ -660,6 +680,36 @@ public class AccountInfoDisplay : Indicator
                 label: Resources.RowTrailingStopEquity,
                 valueText: trailingState.StopEquity.ToString(CultureInfo.CurrentCulture),
                 numericValue: trailingState.StopEquity));
+        }
+
+        // -----------------------------
+        // Session Metrics
+        // -----------------------------
+        if (ShowTradesTodayRow || ShowWinsLossesTodayRow || ShowCurrentStreakRow || ShowRealizedPnlTodayRow)
+        {
+            var accountKey = GetAccountKey();
+            var daily = GetDailyRailsState(accountKey);
+
+            var realizedToday = portfolio.ClosedPnL - daily.DailyRealizedPnlBaseline;
+
+            if (ShowTradesTodayRow)
+                rows.Add(new DisplayRow(Resources.RowTradesToday, daily.TradesToday.ToString("N0")));
+
+            if (ShowWinsLossesTodayRow)
+                rows.Add(new DisplayRow(Resources.RowWinsLossesToday, $"{daily.WinsToday:N0} / {daily.LossesToday:N0}"));
+
+            if (ShowCurrentStreakRow)
+            {
+                var streakText =
+                    daily.CurrentWinStreak > 0 ? $"W{daily.CurrentWinStreak:N0}" :
+                    daily.CurrentLossStreak > 0 ? $"L{daily.CurrentLossStreak:N0}" :
+                    "-";
+
+                rows.Add(new DisplayRow(Resources.RowStreak, streakText));
+            }
+
+            if (ShowRealizedPnlTodayRow)
+                rows.Add(new DisplayRow(Resources.RowRealizedPnlToday, FormatCurrency(realizedToday), numericValue: realizedToday));
         }
 
         return rows;
@@ -987,9 +1037,9 @@ public class AccountInfoDisplay : Indicator
         return state;
     }
 
-    private void MaybeResetDailyRails(DailyRailsState state)
+    private void MaybeResetDailyRails(DailyRailsState state, Portfolio portfolio)
     {
-        if (state == null)
+        if (state == null || portfolio == null)
             return;
 
         var resetKey = GetDailyResetKey();
@@ -1002,6 +1052,9 @@ public class AccountInfoDisplay : Indicator
             return;
 
         state.ResetForNewDay(resetKey);
+
+        // Baseline for "Realized PnL Today"
+        state.DailyRealizedPnlBaseline = portfolio.ClosedPnL;
     }
 
     private int GetDailyResetKey()
@@ -1029,6 +1082,67 @@ public class AccountInfoDisplay : Indicator
     }
 
     #endregion
+
+    private void UpdateDailySessionMetricsFromTradeEvents(DailyRailsState state, Portfolio portfolio)
+    {
+        if (state == null || portfolio == null)
+            return;
+
+        var isOpen = IsActivePositionOpen(portfolio);
+
+        // OPEN event: FLAT -> OPEN
+        if (!state.WasPositionOpen && isOpen)
+        {
+            state.WasPositionOpen = true;
+            state.TradeClosedPnlBaseline = portfolio.ClosedPnL;
+        }
+        // CLOSE event: OPEN -> FLAT
+        else if (state.WasPositionOpen && !isOpen)
+        {
+            state.WasPositionOpen = false;
+
+            var tradePnl = portfolio.ClosedPnL - state.TradeClosedPnlBaseline;
+
+            state.TradesToday++;
+
+            if (tradePnl > 0m)
+            {
+                state.WinsToday++;
+                state.CurrentWinStreak++;
+                state.CurrentLossStreak = 0;
+            }
+            else if (tradePnl < 0m)
+            {
+                state.LossesToday++;
+                state.CurrentLossStreak++;
+                state.CurrentWinStreak = 0;
+            }
+            else
+            {
+                // Neutral trade: reset both streaks
+                state.CurrentWinStreak = 0;
+                state.CurrentLossStreak = 0;
+            }
+        }
+    }
+
+    private bool IsActivePositionOpen(Portfolio portfolio)
+    {
+        var tm = TradingManager;
+        var pos = tm?.Position;
+        var sec = tm?.Security;
+
+        if (portfolio == null || pos == null || sec == null)
+            return false;
+
+        if (!string.Equals(pos.AccountID, portfolio.AccountID, StringComparison.Ordinal))
+            return false;
+
+        if (pos.Security == null || !string.Equals(pos.Security.Code, sec.Code, StringComparison.Ordinal))
+            return false;
+
+        return pos.IsInPosition && pos.Volume != 0m;
+    }
 
     #region Private Methods - Persistence (path + load/apply)
     private string GetPersistencePath()
