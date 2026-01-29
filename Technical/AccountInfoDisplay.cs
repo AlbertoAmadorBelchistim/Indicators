@@ -49,6 +49,36 @@ public class AccountInfoDisplay : Indicator
 
     #endregion
 
+    #region class - Daily Rails state
+
+
+    private sealed class DailyRailsState
+    {
+        public int LastDailyResetKey;
+
+
+        // Phase D/E will use these. Phase C only initializes/resets them.
+        public decimal DailyRealizedPnlBaseline;
+        public int TradesToday;
+        public int WinsToday;
+        public int LossesToday;
+        public int CurrentStreak;
+
+
+        public void ResetForNewDay(int dailyResetKey)
+        {
+            LastDailyResetKey = dailyResetKey;
+            DailyRealizedPnlBaseline = 0m;
+            TradesToday = 0;
+            WinsToday = 0;
+            LossesToday = 0;
+            CurrentStreak = 0;
+        }
+    }
+
+
+    #endregion
+
     #region class - Trailing DD state
 
     private sealed class TrailingDrawdownState
@@ -135,6 +165,7 @@ public class AccountInfoDisplay : Indicator
     #region Fields - Trailing DD runtime
 
     private readonly Dictionary<string, TrailingDrawdownState> _trailingStatesByAccount = new();
+    private readonly Dictionary<string, DailyRailsState> _dailyRailsStatesByAccount = new();
 
     #endregion
 
@@ -338,6 +369,22 @@ public class AccountInfoDisplay : Indicator
         Order = 90)]
     public int MonthlyResetDay { get; set; }
 
+    [Display(
+    ResourceType = typeof(Resources),
+    Name = nameof(Resources.DailyResetMode),
+    Description = nameof(Resources.DailyResetModeDescription),
+    GroupName = nameof(Resources.DailyRails),
+    Order = 100)]
+    public DailyResetModeKind DailyResetMode { get; set; }
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.DailyResetTimeLocal),
+        Description = nameof(Resources.DailyResetTimeLocalDescription),
+        GroupName = nameof(Resources.DailyRails),
+        Order = 110)]
+    public TimeSpan DailyResetTimeLocal { get; set; }
+
     #endregion
 
     #region Enums
@@ -368,6 +415,18 @@ public class AccountInfoDisplay : Indicator
         EndOfDay
     }
 
+    public enum DailyResetModeKind
+    {
+        NewYork1700,
+        LocalCustomTime
+    }
+
+    public enum DailyLossModeKind
+    {
+        FromSessionStart,
+        FromSessionPeak
+    }
+
     #endregion
 
     #region ctor
@@ -389,6 +448,8 @@ public class AccountInfoDisplay : Indicator
         TrailingEodTimeLocal = new TimeSpan(17, 0, 0); // sensible default
         EnableMonthlyReset = false;
         MonthlyResetDay = 1;
+        DailyResetMode = DailyResetModeKind.NewYork1700;
+        DailyResetTimeLocal = new TimeSpan(17, 0, 0);
     }
 
 	#endregion
@@ -436,6 +497,9 @@ public class AccountInfoDisplay : Indicator
             ApplyLoadedTrailingStateIfAny(accountKey);
             _loadedAccounts.Add(accountKey);
         }
+
+        var dailyState = GetDailyRailsState(accountKey);
+        MaybeResetDailyRails(dailyState);
 
         var equity = portfolio.Balance + portfolio.OpenPnL;
         UpdateTrailingDrawdown(equity);
@@ -907,6 +971,60 @@ public class AccountInfoDisplay : Indicator
             return 0;
 
         var localDate = GetLocalDate(cur.Time);
+        return localDate.Year * 10000 + localDate.Month * 100 + localDate.Day;
+    }
+
+    private DailyRailsState GetDailyRailsState(string accountKey)
+    {
+        var key = accountKey ?? string.Empty;
+
+        if (!_dailyRailsStatesByAccount.TryGetValue(key, out var state))
+        {
+            state = new DailyRailsState();
+            _dailyRailsStatesByAccount[key] = state;
+        }
+
+        return state;
+    }
+
+    private void MaybeResetDailyRails(DailyRailsState state)
+    {
+        if (state == null)
+            return;
+
+        var resetKey = GetDailyResetKey();
+
+        // Not enough data yet (no candles) -> do not reset.
+        if (resetKey == 0)
+            return;
+
+        if (state.LastDailyResetKey == resetKey)
+            return;
+
+        state.ResetForNewDay(resetKey);
+    }
+
+    private int GetDailyResetKey()
+    {
+        // Deterministic daily key based on chart candle time (not DateTime.Now, not PC local).
+        if (CurrentBar < 1)
+            return 0;
+
+        var cur = GetCandle(CurrentBar - 1);
+        if (cur == null)
+            return 0;
+
+        var localDate = GetLocalDate(cur.Time);
+        var localTod = GetLocalTimeOfDay(cur.Time);
+
+        var cutoff = DailyResetMode == DailyResetModeKind.LocalCustomTime
+            ? DailyResetTimeLocal
+            : new TimeSpan(17, 0, 0);
+
+        // If we're before the cutoff, we still belong to the "previous trading day".
+        if (localTod < cutoff)
+            localDate = localDate.AddDays(-1);
+
         return localDate.Year * 10000 + localDate.Month * 100 + localDate.Day;
     }
 
