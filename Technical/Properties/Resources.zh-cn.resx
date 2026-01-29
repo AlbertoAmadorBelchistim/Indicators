@@ -1927,4 +1927,39 @@
     <value>今日已实现盈亏</value>
     <comment>AccountInfoDisplay</comment>
   </data>
+    <data name="ShowTradesTodayRow" xml:space="preserve">
+    <value>显示今日交易数</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTradesTodayRowDescription" xml:space="preserve">
+    <value>显示当前交易日内已平仓的交易数量。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="ShowWinsLossesTodayRow" xml:space="preserve">
+    <value>显示今日盈 / 亏</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowWinsLossesTodayRowDescription" xml:space="preserve">
+    <value>显示当前交易日内盈利和亏损交易的数量。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="ShowCurrentStreakRow" xml:space="preserve">
+    <value>显示当前连胜/连败</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowCurrentStreakRowDescription" xml:space="preserve">
+    <value>显示当前交易日内的连续盈利或连续亏损情况。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="ShowRealizedPnlTodayRow" xml:space="preserve">
+    <value>显示今日已实现盈亏</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowRealizedPnlTodayRowDescription" xml:space="preserve">
+    <value>显示当前交易日内累计的已实现盈亏。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
 </root>

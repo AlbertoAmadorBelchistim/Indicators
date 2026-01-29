@@ -1975,4 +1975,39 @@
     <value>आज का रियलाइज़्ड PnL</value>
     <comment>AccountInfoDisplay</comment>
   </data>
+    <data name="ShowTradesTodayRow" xml:space="preserve">
+    <value>आज के ट्रेड दिखाएँ</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTradesTodayRowDescription" xml:space="preserve">
+    <value>वर्तमान ट्रेडिंग सत्र में बंद किए गए ट्रेड्स की संख्या दिखाता है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="ShowWinsLossesTodayRow" xml:space="preserve">
+    <value>आज की जीत / हार दिखाएँ</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowWinsLossesTodayRowDescription" xml:space="preserve">
+    <value>वर्तमान सत्र में लाभ और हानि वाले ट्रेड्स की संख्या दिखाता है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="ShowCurrentStreakRow" xml:space="preserve">
+    <value>वर्तमान स्ट्रीक दिखाएँ</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowCurrentStreakRowDescription" xml:space="preserve">
+    <value>सत्र की सक्रिय जीत या हार की लगातार स्ट्रीक दिखाता है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="ShowRealizedPnlTodayRow" xml:space="preserve">
+    <value>आज का रियलाइज़्ड PnL दिखाएँ</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowRealizedPnlTodayRowDescription" xml:space="preserve">
+    <value>वर्तमान ट्रेडिंग सत्र के दौरान कुल रियलाइज़्ड लाभ या हानि दिखाता है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
 </root>

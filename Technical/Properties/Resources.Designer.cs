@@ -7576,6 +7576,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Show Current Streak.
+        /// </summary>
+        public static string ShowCurrentStreakRow {
+            get {
+                return ResourceManager.GetString("ShowCurrentStreakRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show the current win or loss streak for the trading day..
+        /// </summary>
+        public static string ShowCurrentStreakRowDescription {
+            get {
+                return ResourceManager.GetString("ShowCurrentStreakRowDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Show Current Value.
         /// </summary>
         public static string ShowCurrentValue {
@@ -7855,6 +7873,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Show Realized PnL Today.
+        /// </summary>
+        public static string ShowRealizedPnlTodayRow {
+            get {
+                return ResourceManager.GetString("ShowRealizedPnlTodayRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show realized profit and loss for the current trading day..
+        /// </summary>
+        public static string ShowRealizedPnlTodayRowDescription {
+            get {
+                return ResourceManager.GetString("ShowRealizedPnlTodayRowDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Sell Imbalances.
         /// </summary>
         public static string ShowSellImbalances {
@@ -8053,6 +8089,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Show Trades Today.
+        /// </summary>
+        public static string ShowTradesTodayRow {
+            get {
+                return ResourceManager.GetString("ShowTradesTodayRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show the number of closed trades for the current trading day..
+        /// </summary>
+        public static string ShowTradesTodayRowDescription {
+            get {
+                return ResourceManager.GetString("ShowTradesTodayRowDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Show markers.
         /// </summary>
         public static string ShowVisualAlerts {
@@ -8103,6 +8157,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string ShowVolumesDescription {
             get {
                 return ResourceManager.GetString("ShowVolumesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show Wins / Losses Today.
+        /// </summary>
+        public static string ShowWinsLossesTodayRow {
+            get {
+                return ResourceManager.GetString("ShowWinsLossesTodayRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show the number of winning and losing trades for the current trading day..
+        /// </summary>
+        public static string ShowWinsLossesTodayRowDescription {
+            get {
+                return ResourceManager.GetString("ShowWinsLossesTodayRowDescription", resourceCulture);
             }
         }
         
