@@ -1911,4 +1911,20 @@
     <value>仅当日内重置模式为 LocalCustomTime 时使用的本地重置时间。</value>
     <comment>AccountInfoDisplay</comment>
   </data>
+    <data name="RowTradesToday" xml:space="preserve">
+    <value>今日交易数</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowWinsLossesToday" xml:space="preserve">
+    <value>今日赢 / 输</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowStreak" xml:space="preserve">
+    <value>连胜/连败</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowRealizedPnlToday" xml:space="preserve">
+    <value>今日已实现盈亏</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
 </root>

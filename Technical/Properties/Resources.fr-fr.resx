@@ -1959,4 +1959,20 @@
     <value>Heure de reset locale utilisée uniquement lorsque le Mode de reset journalier est LocalCustomTime.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
+    <data name="RowTradesToday" xml:space="preserve">
+    <value>Trades aujourd’hui</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowWinsLossesToday" xml:space="preserve">
+    <value>Gagnés / Perdus aujourd’hui</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowStreak" xml:space="preserve">
+    <value>Série</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowRealizedPnlToday" xml:space="preserve">
+    <value>PnL réalisé aujourd’hui</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
 </root>

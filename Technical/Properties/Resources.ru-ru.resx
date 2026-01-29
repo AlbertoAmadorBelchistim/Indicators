@@ -4022,4 +4022,20 @@
     <value>Локальное время сброса, используется только когда режим дневного сброса — LocalCustomTime.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
+    <data name="RowTradesToday" xml:space="preserve">
+    <value>Сделки сегодня</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowWinsLossesToday" xml:space="preserve">
+    <value>Победы / Поражения сегодня</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowStreak" xml:space="preserve">
+    <value>Серия</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowRealizedPnlToday" xml:space="preserve">
+    <value>Реализованный PnL сегодня</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
 </root>
