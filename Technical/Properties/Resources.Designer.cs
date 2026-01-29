@@ -6838,6 +6838,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Realized PnL Today.
+        /// </summary>
+        public static string RowRealizedPnlToday {
+            get {
+                return ResourceManager.GetString("RowRealizedPnlToday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Rows.
         /// </summary>
         public static string Rows {
@@ -6901,11 +6910,29 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Streak.
+        /// </summary>
+        public static string RowStreak {
+            get {
+                return ResourceManager.GetString("RowStreak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Total PnL.
         /// </summary>
         public static string RowTotalPnL {
             get {
                 return ResourceManager.GetString("RowTotalPnL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Trades Today.
+        /// </summary>
+        public static string RowTradesToday {
+            get {
+                return ResourceManager.GetString("RowTradesToday", resourceCulture);
             }
         }
         
@@ -6942,6 +6969,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string RowWidth {
             get {
                 return ResourceManager.GetString("RowWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Wins / Losses Today.
+        /// </summary>
+        public static string RowWinsLossesToday {
+            get {
+                return ResourceManager.GetString("RowWinsLossesToday", resourceCulture);
             }
         }
         

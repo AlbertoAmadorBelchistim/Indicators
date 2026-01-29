@@ -1959,4 +1959,20 @@
     <value>लोकल रीसेट समय, केवल तब उपयोग होता है जब डेली रीसेट मोड LocalCustomTime हो।</value>
     <comment>AccountInfoDisplay</comment>
   </data>
+    <data name="RowTradesToday" xml:space="preserve">
+    <value>आज के ट्रेड</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowWinsLossesToday" xml:space="preserve">
+    <value>आज की जीत / हार</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowStreak" xml:space="preserve">
+    <value>स्ट्रीक</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowRealizedPnlToday" xml:space="preserve">
+    <value>आज का रियलाइज़्ड PnL</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
 </root>

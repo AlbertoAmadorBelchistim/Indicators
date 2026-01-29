@@ -4259,4 +4259,20 @@
     <value>Local reset time used only when Daily Reset Mode is LocalCustomTime.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
+    <data name="RowTradesToday" xml:space="preserve">
+    <value>Trades Today</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowWinsLossesToday" xml:space="preserve">
+    <value>Wins / Losses Today</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowStreak" xml:space="preserve">
+    <value>Streak</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowRealizedPnlToday" xml:space="preserve">
+    <value>Realized PnL Today</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
 </root>
