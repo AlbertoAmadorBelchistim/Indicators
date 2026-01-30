@@ -489,6 +489,14 @@ public partial class ClusterSearch : Indicator
 		_mergedLevels.Clear();
 		_validVolumeLevels.Clear();
 
+		// On certain chart types (Renko, Range XV, Range US, Range Z), when direction changes
+		// Chart types that modify previous bar: Renko (Open/Close), Range XV (Close), Range US (Close/High/Low), Range Z (Close)
+		if (bar >= 2 && ChartInfo.ChartType is "Renko" or "Range XV" or "Range US" or "Range Z" && PriceLoc is not PriceLocation.Any)
+		{
+			_lastSeriesBar.Clear();
+			CalculateBar(bar - 1);
+		}
+
 		if (CheckBarFormation(GetCandle(bar - 1)))
 		{
 			var lastBar = _lastSeriesBar.Select(p => p.MemberwiseClone()).ToArray();
