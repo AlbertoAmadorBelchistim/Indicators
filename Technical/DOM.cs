@@ -18,6 +18,7 @@ using OFT.Rendering;
 using OFT.Rendering.Context;
 using OFT.Rendering.Helpers;
 using OFT.Rendering.Tools;
+using ATAS.DataFeedsCore.Dom;
 using Utils.Common.Logging;
 
 using Color = System.Drawing.Color;
@@ -104,26 +105,93 @@ public class DOM : Indicator
 	private RenderFont _font = new("Arial", _fontSize); 
 	private RenderFont _cumulativeFont = new("Arial", 9);
 
-    private object _locker = new();
+    private readonly object _locker = new();
 
-	private decimal _maxBid;
 	private decimal _maxPrice = decimal.MinValue;
 
 	private VolumeInfo _maxVolume = new();
-	private SortedDictionary<decimal, MarketDataArg> _mDepth = new();
-	private decimal _minAsk;
+	private SortedDictionary<decimal, MarketDataArg> _asks = new();
+	private SortedDictionary<decimal, MarketDataArg> _bids = new();
 	private decimal _minPrice = decimal.MaxValue;
+
+	// Cached min/max with lazy invalidation
+	private decimal? _cachedMinAsk;
+	private decimal? _cachedMaxAsk;
+	private decimal? _cachedMaxBid;
+	private decimal? _cachedMinBid;
 
 	private int _priceLevelsHeight;
 	private int _lastRenderedHeight;
 	private int _scale;
 	private int _fontHeight;
 
+	private Dictionary<int, (RenderFont Font, int Height)> _fontCache = new();
+	private string _cachedFontFamily;
+	private float _cachedMaxFontSize;
+
+	private (decimal Volume, decimal VolumePrice, decimal MinPrice, decimal MaxPrice)? _visibleVolumeCache;
+
 	private List<FilterColor> _sortedFilters = new();
 	private Color _textColor;
 	private Mode _visualMode = Mode.Common;
 	private Color _volumeAskColor;
 	private Color _volumeBidColor;
+
+	#endregion
+
+	#region Computed properties
+
+	private decimal MinAsk
+	{
+		get
+		{
+			if (_asks.Count == 0)
+				return decimal.MaxValue;
+
+			_cachedMinAsk ??= _asks.Keys.First();
+			return _cachedMinAsk.Value;
+		}
+	}
+
+	private decimal MaxBid
+	{
+		get
+		{
+			if (_bids.Count == 0)
+				return decimal.MinValue;
+
+			_cachedMaxBid ??= _bids.Keys.Last();
+			return _cachedMaxBid.Value;
+		}
+	}
+
+	private decimal MinBid
+	{
+		get
+		{
+			if (_bids.Count == 0)
+				return decimal.MaxValue;
+
+			_cachedMinBid ??= _bids.Keys.First();
+			return _cachedMinBid.Value;
+		}
+	}
+
+	private decimal MaxAsk
+	{
+		get
+		{
+			if (_asks.Count == 0)
+				return decimal.MinValue;
+
+			_cachedMaxAsk ??= _asks.Keys.Last();
+			return _cachedMaxAsk.Value;
+		}
+	}
+
+	private decimal MinDepthPrice => _bids.Count > 0 ? MinBid : (_asks.Count > 0 ? MinAsk : 0);
+	private decimal MaxDepthPrice => _asks.Count > 0 ? MaxAsk : (_bids.Count > 0 ? MaxBid : 0);
+	private int TotalDepthCount => _asks.Count + _bids.Count;
 
 	#endregion
 
@@ -293,7 +361,8 @@ public class DOM : Indicator
 
 	protected override void OnDispose()
 	{
-		_mDepth?.Clear();
+		_asks?.Clear();
+		_bids?.Clear();
 	}
 	
 	protected override void OnCalculate(int bar, decimal value)
@@ -304,31 +373,32 @@ public class DOM : Indicator
 			{
 				_cumulativeAsk = new SortedList<decimal, decimal>();
 				_cumulativeBid = new SortedList<decimal, decimal>();
-			}
+				_visibleVolumeCache = null;
 
-			DataSeries.ForEach(x => x.Clear());
+				_asks = new SortedDictionary<decimal, MarketDataArg>();
+				_bids = new SortedDictionary<decimal, MarketDataArg>();
+				_cachedMinAsk = _cachedMaxAsk = _cachedMaxBid = _cachedMinBid = null;
 
-			lock (_locker)
-			{
+				DataSeries.ForEach(x => x.Clear());
+
 				var depths = MarketDepthInfo.GetMarketDepthSnapshot();
-
-				var mDepth = new SortedDictionary<decimal, MarketDataArg>();
 
 				foreach (var depth in depths)
 				{
 					try
 					{
-						mDepth.Add(depth.Price, depth);
-                    }
+						if (depth.DataType == MarketDataType.Ask)
+							_asks.Add(depth.Price, depth);
+						else
+							_bids.Add(depth.Price, depth);
+					}
 					catch (ArgumentException)
 					{
-						//catch duplicates in snapshot
-                    }
-                }
+						// catch duplicates in snapshot
+					}
+				}
 
-				_mDepth = mDepth;
-
-				if (_mDepth.Count == 0)
+				if (TotalDepthCount == 0)
 				{
 					_maxPrice = _minPrice = GetCandle(CurrentBar - 1).Close;
 					return;
@@ -336,17 +406,11 @@ public class DOM : Indicator
 
 				ResetColors();
 
-				_minAsk = _mDepth.FirstOrDefault(x => x.Value.Direction == TradeDirection.Buy).Key;
-				_maxBid = _mDepth.LastOrDefault(x => x.Value.Direction == TradeDirection.Sell).Key;
+				var maxBid = MaxBid;
+				_maxPrice = Math.Min(MaxDepthPrice, maxBid * 1.3m);
+				_minPrice = Math.Max(MinDepthPrice, maxBid * 0.7m);
 
-				_maxPrice = Math.Min(_mDepth.Keys.Last(), _maxBid * 1.3m);
-                _minPrice = Math.Max(_mDepth.Keys.First(), _maxBid * 0.7m);
-
-				var maxLevel = _mDepth
-					.Values
-					.OrderByDescending(x => x.Volume)
-					.First();
-
+				var maxLevel = FindMaxVolume();
 				_maxVolume = new VolumeInfo
 				{
 					Price = maxLevel.Price,
@@ -357,7 +421,7 @@ public class DOM : Indicator
 				{
 					var sum = 0m;
 
-					foreach (var (price, level) in _mDepth.Where(x => x.Value.DataType is MarketDataType.Ask))
+					foreach (var (price, level) in _asks)
 					{
 						sum += level.Volume;
 						_cumulativeAsk[price] = sum;
@@ -365,7 +429,8 @@ public class DOM : Indicator
 
 					sum = 0m;
 
-					foreach (var (price, level) in _mDepth.Where(x => x.Value.DataType is MarketDataType.Bid).OrderByDescending(x => x.Key))
+					// Accumulate from best bid (highest price) down
+					foreach (var (price, level) in _bids.Reverse())
 					{
 						sum += level.Volume;
 						_cumulativeBid[price] = sum;
@@ -389,6 +454,44 @@ public class DOM : Indicator
 		}
 	}
 
+	private (decimal Price, decimal Volume) FindMaxVolume(decimal? minPrice = null, decimal? maxPrice = null)
+	{
+		var maxVolume = 0m;
+		var maxVolumePrice = 0m;
+
+		foreach (var (price, depth) in _asks)
+		{
+			if (price < minPrice)
+				continue;
+
+			if (price > maxPrice)
+				break;
+
+			if (depth.Volume > maxVolume)
+			{
+				maxVolume = depth.Volume;
+				maxVolumePrice = price;
+			}
+		}
+
+		foreach (var (price, depth) in _bids)
+		{
+			if (price < minPrice)
+				continue;
+
+			if (price > maxPrice)
+				break;
+
+			if (depth.Volume > maxVolume)
+			{
+				maxVolume = depth.Volume;
+				maxVolumePrice = price;
+			}
+		}
+
+		return (maxVolumePrice, maxVolume);
+	}
+
 	protected override void OnRender(RenderContext context, DrawingLayouts layout)
 	{
 		var chartInfo = ChartInfo;
@@ -405,117 +508,101 @@ public class DOM : Indicator
 		if (xOfLastBar > ChartInfo.PriceChartContainer.Region.Right)
 			return;
 
-        if (CurrentBar <= 0)
+		if (CurrentBar <= 0)
 			return;
 
-		lock (_locker)
-		{
-			if (_mDepth.Count == 0)
-				return;
-		}
-
+		// UI calculations - don't require lock
 		var height = (int)Math.Floor(chartInfo.PriceChartContainer.PriceRowHeight) - 1;
 
 		if (PriceLevelsHeight != 0)
 			height = PriceLevelsHeight - 2;
 
-        height = height < 1 ? 1 : height;
+		height = height < 1 ? 1 : height;
 
-        if (_lastRenderedHeight != height && _font.Size < ChartInfo.PriceAxisFont.Size && height >= _minFontHeight
-            || _lastRenderedHeight is 0 || _fontHeight > height)
-        {
-	        SetTextSize(context, height);
-	        _lastRenderedHeight = height;
-        }
-
-        var maxVolume = _maxVolume.Volume;
-
-		lock (_locker)
+		if (_lastRenderedHeight != height && _font.Size < ChartInfo.PriceAxisFont.Size && height >= _minFontHeight
+		    || _lastRenderedHeight is 0 || _fontHeight > height)
 		{
-			if (VisualMode is not Mode.Common)
-				DrawCumulative(context);
+			SetTextSize(context, height);
+			_lastRenderedHeight = height;
 		}
 
-		if (VisualMode is not Mode.Cumulative)
+		var maxVisiblePrice = chartInfo.PriceChartContainer.High;
+		var minVisiblePrice = chartInfo.PriceChartContainer.Low;
+
+		decimal currentPrice;
+
+		try
 		{
-			if (UseAutoSize)
-			{
-				var maxVisiblePrice = chartInfo.PriceChartContainer.High;
-                var minVisiblePrice = chartInfo.PriceChartContainer.Low;
+			currentPrice = GetCandle(CurrentBar - 1).Close;
+		}
+		catch (Exception e)
+		{
+			this.LogDebug("Chart does not contains bars", e);
+			return;
+		}
 
-                lock (_locker)
-                {
-					maxVolume = _mDepth.Where(md => md.Key <= maxVisiblePrice && md.Key >= minVisiblePrice)
-						.Select(x => x.Value.Volume)
-						.DefaultIfEmpty(0)
-						.Max();
-                }
-            }
-			else
-                maxVolume = ProportionVolume;
+		var currentPriceY = chartInfo.GetYByPrice(currentPrice);
 
-            decimal currentPrice;
-
-			try
-			{
-				currentPrice = GetCandle(CurrentBar - 1).Close;
-			}
-			catch (Exception e)
-			{
-				this.LogDebug("Chart does not contains bars", e);
+		// Single lock for all data operations
+		lock (_locker)
+		{
+			if (TotalDepthCount == 0)
 				return;
-			}
 
-			var currentPriceY = chartInfo.GetYByPrice(currentPrice);
-			
-			DrawBackGround(context, currentPriceY);
+			var maxVolume = _maxVolume.Volume;
 
-			lock (_locker)
+			if (VisualMode is not Mode.Common)
+				DrawCumulative(context);
+
+			if (VisualMode is not Mode.Cumulative)
 			{
+				if (UseAutoSize)
+					maxVolume = GetMaxVisibleVolume(minVisiblePrice, maxVisiblePrice);
+				else
+					maxVolume = ProportionVolume;
+
+				var levelWidthKoeff = Width / (maxVolume == 0 ? 1 : maxVolume);
+
+				DrawBackGround(context, currentPriceY);
+
 				var stringRects = new List<(string Text, Rectangle Rect)>();
 
-				if (_mDepth.Values.Any(x => x.DataType is MarketDataType.Ask))
+				var levelHeight = PriceLevelsHeight == 0
+					? Math.Max(1, Math.Abs(chartInfo.GetYByPrice(currentPrice) - chartInfo.GetYByPrice(currentPrice - instrumentInfo.TickSize)) - 1)
+					: Math.Max(1, PriceLevelsHeight - 1);
+
+				if (_asks.Count > 0)
 				{
 					_asksHistogram = new HistogramRender(!RightToLeft);
-					var firstPrice = _minAsk;
+					var minAsk = MinAsk;
 
-					foreach (var priceDepth in _mDepth.Values.Where(x => x.DataType is MarketDataType.Ask))
+					foreach (var priceDepth in _asks.Values)
 					{
-						if (!IsInChart(priceDepth.Price))
+						if (!IsInChart(priceDepth.Price, maxVisiblePrice, minVisiblePrice))
 							continue;
 
 						int y;
 
 						if (PriceLevelsHeight == 0)
-						{
 							y = chartInfo.GetYByPrice(priceDepth.Price);
-							height = Math.Abs(y - chartInfo.GetYByPrice(priceDepth.Price - instrumentInfo.TickSize)) - 1;
-
-							if (height < 1)
-								height = 1;
-						}
 						else
 						{
-							height = PriceLevelsHeight - 1;
-
-							if (height < 1)
-								height = 1;
-							var diff = (priceDepth.Price - firstPrice) / instrumentInfo.TickSize;
-							y = currentPriceY - height * ((int)diff + 1) - (int)diff - 15;
+							var diff = (priceDepth.Price - minAsk) / instrumentInfo.TickSize;
+							y = currentPriceY - levelHeight * ((int)diff + 1) - (int)diff - 15;
 						}
 
-						if (y + height < chartInfo.Region.Top)
+						if (y + levelHeight < chartInfo.Region.Top)
 							continue;
 
-						var width = GetLevelWidth(priceDepth.Volume, maxVolume);
+						var width = GetLevelWidth(priceDepth.Volume, levelWidthKoeff);
 
 						if (!UseAutoSize)
 							width = Math.Min(width, Width);
 
-						if (priceDepth.Price == _minAsk)
+						if (priceDepth.Price == minAsk)
 						{
 							var bestRect = new Rectangle(new Point(chartInfo.Region.Width - Width, y),
-								new Size(Width, height));
+								new Size(Width, levelHeight));
 							context.FillRectangle(_bestAskBackGround, bestRect);
 						}
 
@@ -524,14 +611,13 @@ public class DOM : Indicator
 							: chartInfo.Region.Width - Width;
 
 						var x2 = x1 + width;
-						var botY = y + height;
+						var botY = y + levelHeight;
 
 						var rect = RightToLeft
-							? new Rectangle(chartInfo.Region.Width - width, y, width, height)
-							: new Rectangle(new Point(chartInfo.Region.Width - Width, y), new Size(width, height));
+							? new Rectangle(chartInfo.Region.Width - width, y, width, levelHeight)
+							: new Rectangle(new Point(chartInfo.Region.Width - Width, y), new Size(width, levelHeight));
 
-						if (!_filteredColors.TryGetValue(priceDepth.Price, out var fillColor))
-							fillColor = _askColor;
+						var fillColor = _filteredColors.GetValueOrDefault(priceDepth.Price, _askColor);
 
 						if (_fontHeight >= _heightToSolidMode)
 						{
@@ -543,8 +629,8 @@ public class DOM : Indicator
 								var textWidth = context.MeasureString(renderText, _font).Width + 5;
 
 								var textRect = RightToLeft
-									? new Rectangle(new Point(chartInfo.Region.Width - textWidth, y), new Size(textWidth, height))
-									: new Rectangle(new Point(chartInfo.Region.Width - Width, y), new Size(textWidth, height));
+									? new Rectangle(new Point(chartInfo.Region.Width - textWidth, y), new Size(textWidth, levelHeight))
+									: new Rectangle(new Point(chartInfo.Region.Width - Width, y), new Size(textWidth, levelHeight));
 
 								stringRects.Add((renderText, textRect));
 							}
@@ -554,53 +640,43 @@ public class DOM : Indicator
 					}
 				}
 
-				if (_mDepth.Values.Any(x => x.DataType is MarketDataType.Bid))
+				if (_bids.Count > 0)
 				{
 					_bidsHistogram = new HistogramRender(!RightToLeft);
+					var minAsk = MinAsk;
+					var maxBid = MaxBid;
 					var spread = 0;
 
-					if (_mDepth.Values.Any(x => x.DataType is MarketDataType.Ask))
-						spread = (int)((_minAsk - _maxBid) / instrumentInfo.TickSize);
+					if (_asks.Count > 0)
+						spread = (int)((minAsk - maxBid) / instrumentInfo.TickSize);
 
-					var firstPrice = _maxBid;
-
-					foreach (var priceDepth in _mDepth.Values.Where(x => x.DataType is MarketDataType.Bid))
+					foreach (var priceDepth in _bids.Values)
 					{
-						if (!IsInChart(priceDepth.Price))
+						if (!IsInChart(priceDepth.Price, maxVisiblePrice, minVisiblePrice))
 							continue;
 
-                        int y;
+						int y;
 
 						if (PriceLevelsHeight == 0)
-						{
 							y = chartInfo.GetYByPrice(priceDepth.Price);
-							height = Math.Abs(y - chartInfo.GetYByPrice(priceDepth.Price - instrumentInfo.TickSize)) - 1;
-
-							if (height < 1)
-								height = 1;
-						}
 						else
 						{
-							height = PriceLevelsHeight - 1;
-
-							if (height < 1)
-								height = 1;
-							var diff = (firstPrice - priceDepth.Price) / instrumentInfo.TickSize;
-							y = currentPriceY + height * ((int)diff + spread - 1) + (int)diff - 15;
+							var diff = (maxBid - priceDepth.Price) / instrumentInfo.TickSize;
+							y = currentPriceY + levelHeight * ((int)diff + spread - 1) + (int)diff - 15;
 						}
 
 						if (y > chartInfo.Region.Bottom)
 							continue;
 
-						var width = GetLevelWidth(priceDepth.Volume, maxVolume);
+						var width = GetLevelWidth(priceDepth.Volume, levelWidthKoeff);
 
 						if (!UseAutoSize)
 							width = Math.Min(width, Width);
 
-						if (priceDepth.Price == _maxBid)
+						if (priceDepth.Price == maxBid)
 						{
 							var bestRect = new Rectangle(new Point(chartInfo.Region.Width - Width, y),
-								new Size(Width, height));
+								new Size(Width, levelHeight));
 							context.FillRectangle(_bestBidBackGround, bestRect);
 						}
 
@@ -609,14 +685,13 @@ public class DOM : Indicator
 							: chartInfo.Region.Width - Width;
 
 						var x2 = x1 + width;
-						var botY = y + height;
+						var botY = y + levelHeight;
 
 						var rect = RightToLeft
-							? new Rectangle(chartInfo.Region.Width - width, y, width, height)
-							: new Rectangle(new Point(chartInfo.Region.Width - Width, y), new Size(width, height));
+							? new Rectangle(chartInfo.Region.Width - width, y, width, levelHeight)
+							: new Rectangle(new Point(chartInfo.Region.Width - Width, y), new Size(width, levelHeight));
 
-						if (!_filteredColors.TryGetValue(priceDepth.Price, out var fillColor))
-							fillColor = _bidColor;
+						var fillColor = _filteredColors.GetValueOrDefault(priceDepth.Price, _bidColor);
 
 						if (_fontHeight >= _heightToSolidMode)
 						{
@@ -626,8 +701,8 @@ public class DOM : Indicator
 								var textWidth = context.MeasureString(renderText, _font).Width + 5;
 
 								var textRect = RightToLeft
-									? new Rectangle(new Point(chartInfo.Region.Width - textWidth, y), new Size(textWidth, height))
-									: new Rectangle(new Point(chartInfo.Region.Width - Width, y), new Size(textWidth, height));
+									? new Rectangle(new Point(chartInfo.Region.Width - textWidth, y), new Size(textWidth, levelHeight))
+									: new Rectangle(new Point(chartInfo.Region.Width - Width, y), new Size(textWidth, levelHeight));
 
 								stringRects.Add((renderText, textRect));
 							}
@@ -660,18 +735,9 @@ public class DOM : Indicator
 		}
 	}
 
-	private bool IsInChart(decimal price)
-	{
-		return price <= ChartInfo?.PriceChartContainer.High && price >= ChartInfo?.PriceChartContainer.Low;
-	}
-
 	protected override void OnBestBidAskChanged(MarketDataArg depth)
 	{
-		if (depth.DataType is MarketDataType.Ask)
-			_minAsk = depth.Price;
-		else
-			_maxBid = depth.Price;
-
+		// MinAsk and MaxBid are now calculated automatically with lazy invalidation
 		RedrawChart(_emptyRedrawArg);
 	}
 
@@ -680,12 +746,33 @@ public class DOM : Indicator
 		lock (_locker)
 		{
 			var isCumulative = VisualMode is not Mode.Common;
-			
+			var isAsk = depth.DataType == MarketDataType.Ask;
+			var list = isAsk ? _asks : _bids;
+
+			InvalidateMaxVisibleVolumeCache(depth.Price, depth.Volume);
 			_filteredColors.Remove(depth.Price);
 
 			if (depth.Volume != 0)
 			{
-				_mDepth[depth.Price] = depth;
+				// Update min/max cache when adding
+				if (isAsk)
+				{
+					if (depth.Price < _cachedMinAsk)
+						_cachedMinAsk = depth.Price;
+
+					if (depth.Price > _cachedMaxAsk)
+						_cachedMaxAsk = depth.Price;
+				}
+				else
+				{
+					if (depth.Price > _cachedMaxBid)
+						_cachedMaxBid = depth.Price;
+
+					if (depth.Price < _cachedMinBid)
+						_cachedMinBid = depth.Price;
+				}
+
+				list[depth.Price] = depth;
 
 				foreach (var filterColor in _sortedFilters)
 				{
@@ -697,9 +784,29 @@ public class DOM : Indicator
 				}
 			}
 			else
-				_mDepth.Remove(depth.Price);
+			{
+				// Invalidate cache when removing current min/max
+				if (isAsk)
+				{
+					if (depth.Price == _cachedMinAsk)
+						_cachedMinAsk = null;
 
-            if (_mDepth.Count == 0)
+					if (depth.Price == _cachedMaxAsk)
+						_cachedMaxAsk = null;
+				}
+				else
+				{
+					if (depth.Price == _cachedMaxBid)
+						_cachedMaxBid = null;
+
+					if (depth.Price == _cachedMinBid)
+						_cachedMinBid = null;
+				}
+
+				list.Remove(depth.Price);
+			}
+
+			if (TotalDepthCount == 0)
 			{
 				if (isCumulative)
 				{
@@ -717,7 +824,7 @@ public class DOM : Indicator
 					if (depth.Price >= _maxPrice && depth.Volume != 0)
 						_maxPrice = depth.Price;
 					else if (depth.Price >= _maxPrice && depth.Volume == 0)
-						_maxPrice = _mDepth.Keys.LastOrDefault();
+						_maxPrice = MaxDepthPrice;
 
 					if (UseScale)
 						_upScale[CurrentBar - 1] = _maxPrice + InstrumentInfo.TickSize * (_scale + 3);
@@ -728,7 +835,7 @@ public class DOM : Indicator
 					if (depth.Price <= _minPrice && depth.Volume != 0)
 						_minPrice = depth.Price;
 					else if (depth.Price <= _minPrice && depth.Volume == 0)
-						_minPrice = _mDepth.Keys.FirstOrDefault();
+						_minPrice = MinDepthPrice;
 
 					if (UseScale)
 						_downScale[CurrentBar - 1] = _minPrice - InstrumentInfo.TickSize * (_scale + 3);
@@ -741,12 +848,9 @@ public class DOM : Indicator
 					_maxVolume.Volume = depth.Volume;
 				else
 				{
-					var priceLevel = _mDepth.Values
-						.OrderByDescending(x => x.Volume)
-						.First();
-
-					_maxVolume.Price = priceLevel.Price;
-					_maxVolume.Volume = priceLevel.Volume;
+					var maxLevel = FindMaxVolume();
+					_maxVolume.Price = maxLevel.Price;
+					_maxVolume.Volume = maxLevel.Volume;
 				}
 			}
 			else
@@ -907,7 +1011,7 @@ public class DOM : Indicator
 
 		_cumulativeHistogram.Draw(context, true);
 
-		if (VisualMode is Mode.Cumulative)
+		if (VisualMode is Mode.Cumulative && _fontHeight >= _minFontHeight)
 		{
 			foreach (var (price, volume) in _cumulativeBid)
 				DrawText(context, price, volume);
@@ -919,45 +1023,27 @@ public class DOM : Indicator
 
 	private void DrawText(RenderContext context, decimal price, decimal volume)
 	{
-		var form = RightToLeft ? _stringRightFormat : _stringLeftFormat;
-
 		var y = ChartInfo.GetYByPrice(price);
-		var renderText = ChartInfo.TryGetMinimizedVolumeString(volume,price);
+		var renderText = ChartInfo.TryGetMinimizedVolumeString(volume, price);
 		var textWidth = context.MeasureString(renderText, _font).Width + 5;
+		var rowHeight = (int)ChartInfo.PriceChartContainer.PriceRowHeight;
 
-		var textRect = new Rectangle(new Point(ChartInfo.Region.Width - textWidth, y),
-			new Size(textWidth, (int)ChartInfo.PriceChartContainer.PriceRowHeight));
+		var textRect = RightToLeft
+			? new Rectangle(ChartInfo.Region.Width - textWidth, y, textWidth, rowHeight)
+			: new Rectangle(ChartInfo.Region.Width - Width, y, textWidth, rowHeight);
 
-		if (!RightToLeft)
-		{
-			textRect = new Rectangle(new Point(ChartInfo.Region.Width - Width, y),
-				new Size(textWidth, (int)ChartInfo.PriceChartContainer.PriceRowHeight));
-		}
-
-		if (_fontHeight >= _minFontHeight)
-		{
-			context.DrawString(renderText,
-				_font,
-				_textColor,
-				textRect,
-				form);
-		}
-	}
-
-	private int GetLevelWidth(decimal curVolume, decimal maxVolume)
-	{
-		var width = Math.Floor(curVolume * Width /
-			(maxVolume == 0 ? 1 : maxVolume));
-
-		return (int)Math.Min(Width, width);
+		context.DrawString(renderText, _font, _textColor, textRect, RightToLeft ? _stringRightFormat : _stringLeftFormat);
 	}
 
 	private void DrawBackGround(RenderContext context, int priceY)
 	{
+		var minAsk = MinAsk;
+		var maxBid = MaxBid;
+
 		if (PriceLevelsHeight == 0)
 		{
-			var y2 = ChartInfo.GetYByPrice(_minAsk - InstrumentInfo.TickSize);
-			var y3 = ChartInfo.GetYByPrice(_maxBid);
+			var y2 = ChartInfo.GetYByPrice(minAsk - InstrumentInfo.TickSize);
+			var y3 = ChartInfo.GetYByPrice(maxBid);
 			var y4 = ChartInfo.Region.Height;
 
 			var fullRect = new Rectangle(new Point(ChartInfo.Region.Width - Width, 0), new Size(Width, y2));
@@ -971,7 +1057,7 @@ public class DOM : Indicator
 		}
 		else
 		{
-			var spread = (int)((_minAsk - _maxBid) / InstrumentInfo.TickSize);
+			var spread = (int)((minAsk - maxBid) / InstrumentInfo.TickSize);
 			var y = priceY - 15;
 
 			var fullRect = new Rectangle(new Point(ChartInfo.Region.Width - Width, 0), new Size(Width, y));
@@ -997,25 +1083,32 @@ public class DOM : Indicator
 				((INotifyPropertyChanged)item).PropertyChanged -= ItemPropertyChanged;
 		}
 
-		lock(_locker)
+		lock (_locker)
+		{
 			_sortedFilters = new List<FilterColor>(FilterColors.OrderByDescending(x => x.Value));
-
-		ResetColors();
+			ResetColors();
+		}
 	}
 
 	private void ItemPropertyChanged(object sender, PropertyChangedEventArgs e)
 	{
 		lock (_locker)
-            _sortedFilters = new List<FilterColor>(FilterColors.OrderByDescending(x => x.Value));
-
-		ResetColors();
+		{
+			_sortedFilters = new List<FilterColor>(FilterColors.OrderByDescending(x => x.Value));
+			ResetColors();
+		}
 	}
 
 	private void ResetColors()
 	{
 		_filteredColors.Clear();
+		ApplyFilters(_asks.Values);
+		ApplyFilters(_bids.Values);
+	}
 
-		foreach (var arg in _mDepth.Values)
+	private void ApplyFilters(IEnumerable<MarketDataArg> depths)
+	{
+		foreach (var arg in depths)
 		{
 			foreach (var filterColor in _sortedFilters)
 			{
@@ -1030,20 +1123,35 @@ public class DOM : Indicator
 
 	private void SetTextSize(RenderContext context, int height)
 	{
-		for (var i = ChartInfo.PriceAxisFont.Size; i > 0; i--)
+		var fontFamily = ChartInfo.PriceAxisFont.FontFamily;
+		var maxFontSize = ChartInfo.PriceAxisFont.Size;
+
+		if (_cachedFontFamily != fontFamily || _cachedMaxFontSize != maxFontSize)
 		{
-			var font = new RenderFont(ChartInfo.PriceAxisFont.FontFamily, i);
-            var size = context.MeasureString("12", font);
+			_fontCache.Clear();
+			_cachedFontFamily = fontFamily;
+			_cachedMaxFontSize = maxFontSize;
 
-            if (size.Height >= height + 4)
-	            continue;
+			for (var i = (int)maxFontSize; i > 0; i--)
+			{
+				var font = new RenderFont(fontFamily, i);
+				var size = context.MeasureString("12", font);
 
-            _font = font;
-            _fontHeight = size.Height;
-            return;
+				_fontCache[i] = (font, size.Height);
+			}
 		}
 
-		_font = new RenderFont(ChartInfo.PriceAxisFont.FontFamily, 0);
+		for (var i = (int)maxFontSize; i > 0; i--)
+		{
+			if (!_fontCache.TryGetValue(i, out var cached) || cached.Height >= height + 4)
+				continue;
+
+			_font = cached.Font;
+			_fontHeight = cached.Height;
+			return;
+		}
+
+		_font = new RenderFont(fontFamily, 0);
 		_fontHeight = 0;
 	}
 
@@ -1161,6 +1269,48 @@ public class DOM : Indicator
 
 		if (!hasLevel)
 			list.RemoveAt(existingIndex);
+	}
+
+	private bool IsInChart(decimal price, decimal high, decimal low)
+	{
+		return price <= high && price >= low;
+	}
+
+	private decimal GetMaxVisibleVolume(decimal minPrice, decimal maxPrice)
+	{
+		if (_visibleVolumeCache is { } cache && cache.MinPrice == minPrice && cache.MaxPrice == maxPrice)
+			return cache.Volume;
+
+		var (maxVolumePrice, maxVolume) = FindMaxVolume(minPrice, maxPrice);
+
+		_visibleVolumeCache = (maxVolume, maxVolumePrice, minPrice, maxPrice);
+
+		return maxVolume;
+	}
+
+	private void InvalidateMaxVisibleVolumeCache(decimal price, decimal newVolume)
+	{
+		if (_visibleVolumeCache is not { } cache)
+			return;
+
+		if (price < cache.MinPrice || price > cache.MaxPrice)
+			return;
+
+		if (newVolume > cache.Volume)
+		{
+			_visibleVolumeCache = (newVolume, price, cache.MinPrice, cache.MaxPrice);
+			return;
+		}
+
+		if (price == cache.VolumePrice)
+			_visibleVolumeCache = null;
+	}
+
+	private int GetLevelWidth(decimal curVolume, decimal levelWidthKoeff)
+	{
+		var width = Math.Floor(curVolume * levelWidthKoeff);
+
+		return (int)Math.Min(Width, width);
 	}
 
 	private static int GetInsertIndex(SortedList<decimal, decimal> list, decimal price)
