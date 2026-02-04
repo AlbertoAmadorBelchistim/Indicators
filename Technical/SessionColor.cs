@@ -10,6 +10,7 @@ namespace ATAS.Indicators.Technical
 	using OFT.Attributes;
     using OFT.Localization;
     using OFT.Rendering.Context;
+	using OFT.Rendering.Settings;
 	using OFT.Rendering.Tools;
 	
     [Obfuscation(Feature = "renaming", ApplyToMembers = true, Exclude = true)]
@@ -84,6 +85,7 @@ namespace ATAS.Indicators.Technical
 		private readonly object _syncRoot = new();
 
 		private Color _areaColor = Color.FromArgb(63, 65, 105, 225);
+		private Color _labelColor = Color.White;
 		private Session _currentSession;
 		private TimeSpan _endTime = new(12, 0, 0);
 		private Color _fillBrush;
@@ -121,6 +123,31 @@ namespace ATAS.Indicators.Technical
             Description = nameof(Strings.FitToPriceRangeDescription),
             Order = 25)]
 		public bool FitToPriceRange { get; set; }
+
+		[Display(ResourceType = typeof(Strings),
+			Name = nameof(Strings.Text),
+			GroupName = nameof(Strings.TextSettings),
+            Description = nameof(Strings.LabelTextDescription),
+            Order = 26)]
+		public string LabelText { get; set; } = string.Empty;
+
+		[Display(ResourceType = typeof(Strings),
+			Name = nameof(Strings.Font),
+			GroupName = nameof(Strings.TextSettings),
+            Description = nameof(Strings.FontSettingDescription),
+            Order = 27)]
+		public FontSetting LabelFont { get; set; } = new() { FontFamily = "Arial", Size = 10 };
+
+		[Display(ResourceType = typeof(Strings),
+			Name = nameof(Strings.Color),
+			GroupName = nameof(Strings.TextSettings),
+            Description = nameof(Strings.LabelTextColorDescription),
+            Order = 28)]
+		public CrossColor LabelColor
+		{
+			get => _labelColor.Convert();
+			set => _labelColor = value.Convert();
+		}
 
 		[Display(ResourceType = typeof(Strings),
 			Name = nameof(Strings.AreaColor),
@@ -378,6 +405,21 @@ namespace ATAS.Indicators.Technical
 						var pen = new RenderPen(_areaColor, 2);
 						context.DrawLine(pen, x, y, x, y + height);
 						context.DrawLine(pen, x2, y, x2, y + height);
+					}
+
+					if (!string.IsNullOrEmpty(LabelText))
+					{
+						var labelSize = context.MeasureString(LabelText, LabelFont.RenderObject);
+						var labelX = x + (x2 - x - labelSize.Width) / 2;
+						int labelY;
+
+						if (FitToPriceRange)
+							labelY = y - labelSize.Height - 2;
+						else
+							labelY = y + 2;
+
+						var labelRect = new Rectangle(labelX, labelY, labelSize.Width, labelSize.Height);
+						context.DrawString(LabelText, LabelFont.RenderObject, _labelColor, labelRect);
 					}
 				}
 			}
