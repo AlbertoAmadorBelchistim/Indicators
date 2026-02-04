@@ -28,6 +28,10 @@ namespace ATAS.Indicators.Technical
 
 			public int LastBar { get; private set; }
 
+			public decimal High { get; private set; }
+
+			public decimal Low { get; private set; }
+
 			private DateTime End { get; }
 
 			private DateTime Start { get; }
@@ -36,18 +40,20 @@ namespace ATAS.Indicators.Technical
 
 			#region ctor
 
-			public Session(DateTime start, DateTime end, int bar)
+			public Session(DateTime start, DateTime end, int bar, decimal high, decimal low)
 			{
 				Start = start;
 				End = end;
 				FirstBar = LastBar = bar;
+				High = high;
+				Low = low;
 			}
 
 			#endregion
 
 			#region Public methods
 
-			public bool TryAddCandle(int i, DateTime time)
+			public bool TryAddCandle(int i, DateTime time, decimal high, decimal low)
 			{
 				if (time >= End)
 					return false;
@@ -57,6 +63,12 @@ namespace ATAS.Indicators.Technical
 
 				if (i > LastBar)
 					LastBar = i;
+
+				if (high > High)
+					High = high;
+
+				if (low < Low)
+					Low = low;
 
 				return true;
 			}
@@ -102,6 +114,13 @@ namespace ATAS.Indicators.Technical
             Description = nameof(Strings.FillAreaDescription),
             Order = 20)]
 		public bool ShowArea { get; set; } = true;
+
+		[Display(ResourceType = typeof(Strings),
+			Name = nameof(Strings.FitToPriceRange),
+			GroupName = nameof(Strings.Settings),
+            Description = nameof(Strings.FitToPriceRangeDescription),
+            Order = 25)]
+		public bool FitToPriceRange { get; set; }
 
 		[Display(ResourceType = typeof(Strings),
 			Name = nameof(Strings.AreaColor),
@@ -272,7 +291,8 @@ namespace ATAS.Indicators.Technical
 					if (startBar == -1)
 						return;
 
-					_currentSession = new Session(start, end, startBar);
+					var startCandle = GetCandle(startBar);
+					_currentSession = new Session(start, end, startBar, startCandle.High, startCandle.Low);
 					_sessions.Add(_currentSession);
 					StartAlert(bar);
 				}
@@ -280,7 +300,7 @@ namespace ATAS.Indicators.Technical
 				{
 					StartAlert(bar);
 
-					var candleAdded = _currentSession.TryAddCandle(bar, time);
+					var candleAdded = _currentSession.TryAddCandle(bar, time, candle.High, candle.Low);
 
 					if (_lastSessionBar != _currentSession.LastBar && lastTime >= end && !candleAdded)
 					{
@@ -302,7 +322,8 @@ namespace ATAS.Indicators.Technical
 
 						if (_currentSession.FirstBar != startBar)
 						{
-							_currentSession = new Session(start, end, startBar);
+							var startCandle = GetCandle(startBar);
+							_currentSession = new Session(start, end, startBar, startCandle.High, startCandle.Low);
 							_sessions.Insert(0, _currentSession);
 						}
 					}
@@ -331,16 +352,32 @@ namespace ATAS.Indicators.Technical
 					if (x2 > ChartArea.Width)
 						x2 = ChartArea.Width;
 
+					int y;
+					int height;
+
+					if (FitToPriceRange)
+					{
+						var yHigh = ChartInfo.GetYByPrice(session.High);
+						var yLow = ChartInfo.GetYByPrice(session.Low);
+						y = yHigh;
+						height = yLow - yHigh;
+					}
+					else
+					{
+						y = 0;
+						height = ChartArea.Height;
+					}
+
 					if (ShowArea)
 					{
-						var rectangle = new Rectangle(x, 0, x2 - x, ChartArea.Height);
+						var rectangle = new Rectangle(x, y, x2 - x, height);
 						context.FillRectangle(_fillBrush, rectangle);
 					}
 					else
 					{
 						var pen = new RenderPen(_areaColor, 2);
-						context.DrawLine(pen, x, 0, x, ChartArea.Height);
-						context.DrawLine(pen, x2, 0, x2, ChartArea.Height);
+						context.DrawLine(pen, x, y, x, y + height);
+						context.DrawLine(pen, x2, y, x2, y + height);
 					}
 				}
 			}
