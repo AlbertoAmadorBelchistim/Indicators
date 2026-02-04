@@ -339,7 +339,7 @@ public class DailyLines : Indicator
 			return;
 		}
 
-		var range = isCurrent || (Period is PeriodType.PreviousDay && !_sessionRange.IsFinished && CustomSession)
+		var range = isCurrent
 			? _sessionRange
 			: _prevSessionRange;
 
