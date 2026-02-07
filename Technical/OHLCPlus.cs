@@ -3323,7 +3323,7 @@ public class OHLCPlus : Indicator
         // Text rect inside the padded rect
         var textRect = new Rectangle(rect.X + 2, rect.Y + 1, size.Width, size.Height);
         var format = req.AlignRight ? _stringRightFormat : _stringLeftFormat;
-        context.DrawString(req.Text, _font, textColor, textRect, format);
+        context.DrawString(req.Text, _font, textColor.Convert(), textRect, format);
     }
 
 
