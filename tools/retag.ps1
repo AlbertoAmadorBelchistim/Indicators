@@ -7,7 +7,7 @@ Utility script to help maintain consistent branch tagging during
 rebases and upstream synchronizations.
 
 NOTE
-This script does not modify remote tags unless explicitly pushed.
+This script rewrites local tags AND force-pushes moved tags to origin.
 #>
 
 param(
@@ -53,6 +53,9 @@ foreach ($c in $newCommits) {
 # Tags to move (only tags reachable from old ref)
 $tags = git tag --merged $OldRef
 
+# Track tags actually moved (for automatic remote push)
+$movedTags = New-Object System.Collections.Generic.List[string]
+
 # Ensure temp dir exists for annotated tag messages
 $tagDir = Join-Path $env:TEMP ("tagmsg_retag_" + [Guid]::NewGuid().ToString("N"))
 New-Item -ItemType Directory -Force -Path $tagDir | Out-Null
@@ -96,7 +99,22 @@ foreach ($t in $tags) {
         git tag -f $t $newCommit | Out-Null
     }
 
+    $movedTags.Add($t) | Out-Null
     Write-Host "MOVED: $t -> $newCommit"
+}
+
+# Automatically force-push moved tags to origin
+if ($movedTags.Count -gt 0) {
+    Write-Host "Pushing $($movedTags.Count) moved tag(s) to origin..." -ForegroundColor Cyan
+
+    foreach ($t in $movedTags) {
+        git push --force origin "refs/tags/$t"
+    }
+
+    Write-Host "Remote tag push complete." -ForegroundColor Green
+}
+else {
+    Write-Host "No tags were moved; nothing to push to origin."
 }
 
 Write-Host "Done."
