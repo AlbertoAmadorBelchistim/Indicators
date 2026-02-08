@@ -289,7 +289,12 @@ namespace ATAS.Indicators.Technical
 		{
 			try
 			{
-				var response = await RequestFixedProfileAsync(new FixedProfileRequest(Period, TradingSession, baseTime));
+				#if ALPHA || BETA || LATEST || STABLE || ATAS_X
+                var response = await RequestFixedProfileAsync(new FixedProfileRequest(Period, TradingSession));
+
+				#else
+                var response = await RequestFixedProfileAsync(new FixedProfileRequest(Period, TradingSession, baseTime));
+				#endif
 
 				if (response is { } r)
 				{
@@ -361,7 +366,7 @@ namespace ATAS.Indicators.Technical
 			context.SetTextRenderingHint(RenderTextRenderingHint.AntiAlias);
 		}
 
-		#endregion
+#endregion
 
 		#region Private methods
 
