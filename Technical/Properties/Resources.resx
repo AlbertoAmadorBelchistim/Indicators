@@ -4310,4 +4310,96 @@
     <value>Show realized profit and loss for the current trading day.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
+  <data name="SoftRecommendations" xml:space="preserve">
+    <value>Soft Recommendations</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="EnableSoftRecommendations" xml:space="preserve">
+    <value>Enable soft recommendations</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableSoftRecommendationsDescription" xml:space="preserve">
+    <value>Enables non-blocking trading discipline recommendations based on daily session metrics.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="MaxTradesPerDay" xml:space="preserve">
+    <value>Max trades per day</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="MaxTradesPerDayDescription" xml:space="preserve">
+    <value>Maximum number of trades allowed for the trading day before a caution or stop recommendation is triggered.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="MaxConsecutiveLosses" xml:space="preserve">
+    <value>Max consecutive losses</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="MaxConsecutiveLossesDescription" xml:space="preserve">
+    <value>Maximum allowed consecutive losing trades before a stop recommendation is suggested.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="CautionTradesThreshold" xml:space="preserve">
+    <value>Caution trades threshold</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionTradesThresholdDescription" xml:space="preserve">
+    <value>Number of trades at which a caution recommendation is shown before reaching the daily limit.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="CautionLossesThreshold" xml:space="preserve">
+    <value>Caution losses threshold</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionLossesThresholdDescription" xml:space="preserve">
+    <value>Number of consecutive losses at which a caution recommendation is shown before a stop is suggested.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="RowSuggestedStatus" xml:space="preserve">
+    <value>Suggested status</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="RowStopReasons" xml:space="preserve">
+    <value>Reasons</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="SuggestedStatusOk" xml:space="preserve">
+    <value>OK</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="SuggestedStatusCaution" xml:space="preserve">
+    <value>CAUTION</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="SuggestedStatusStop" xml:space="preserve">
+    <value>STOP (Suggested)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+    <data name="ShowSuggestedStatusRow" xml:space="preserve">
+    <value>Show suggested status row</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowSuggestedStatusRowDescription" xml:space="preserve">
+    <value>Show the suggested trading status (OK / CAUTION / STOP) based on today’s session metrics.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="ShowStopReasonsRow" xml:space="preserve">
+    <value>Show reasons row</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowStopReasonsRowDescription" xml:space="preserve">
+    <value>Show the reasons that triggered a CAUTION or STOP suggestion.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
 </root>

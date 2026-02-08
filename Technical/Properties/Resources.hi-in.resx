@@ -2010,4 +2010,96 @@
     <value>वर्तमान ट्रेडिंग सत्र के दौरान कुल रियलाइज़्ड लाभ या हानि दिखाता है।</value>
     <comment>AccountInfoDisplay</comment>
   </data>
+    <data name="SoftRecommendations" xml:space="preserve">
+    <value>ऑपरेटिव अनुशंसाएँ</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="EnableSoftRecommendations" xml:space="preserve">
+    <value>ऑपरेटिव अनुशंसाएँ सक्षम करें</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableSoftRecommendationsDescription" xml:space="preserve">
+    <value>दैनिक सत्र मेट्रिक्स के आधार पर ऑपरेटिव संकेत दिखाता है, बिना ट्रेडिंग को अवरुद्ध किए।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="MaxTradesPerDay" xml:space="preserve">
+    <value>प्रति दिन अधिकतम ट्रेड</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="MaxTradesPerDayDescription" xml:space="preserve">
+    <value>दैनिक सत्र में अनुमत अधिकतम ट्रेड्स, चेतावनी या रुकने के सुझाव से पहले।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="MaxConsecutiveLosses" xml:space="preserve">
+    <value>लगातार अधिकतम नुकसान</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="MaxConsecutiveLossesDescription" xml:space="preserve">
+    <value>लगातार नुकसान वाले ट्रेड्स की अधिकतम संख्या, रुकने के सुझाव से पहले।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="CautionTradesThreshold" xml:space="preserve">
+    <value>ट्रेड चेतावनी सीमा</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionTradesThresholdDescription" xml:space="preserve">
+    <value>ट्रेड्स की संख्या जिस पर दैनिक सीमा से पहले चेतावनी दिखाई जाती है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="CautionLossesThreshold" xml:space="preserve">
+    <value>नुकसान चेतावनी सीमा</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionLossesThresholdDescription" xml:space="preserve">
+    <value>लगातार नुकसान की संख्या जिस पर रुकने की चेतावनी दिखाई जाती है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="RowSuggestedStatus" xml:space="preserve">
+    <value>सुझाया गया ट्रेडिंग स्टेटस</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="RowStopReasons" xml:space="preserve">
+    <value>कारण</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="SuggestedStatusOk" xml:space="preserve">
+    <value>OK</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="SuggestedStatusCaution" xml:space="preserve">
+    <value>चेतावनी</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="SuggestedStatusStop" xml:space="preserve">
+    <value>रोकें (सुझावित)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowSuggestedStatusRow" xml:space="preserve">
+    <value>सुझाया गया स्टेटस दिखाएँ</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowSuggestedStatusRowDescription" xml:space="preserve">
+    <value>आज के सत्र मेट्रिक्स के आधार पर सुझाया गया ट्रेडिंग स्टेटस (OK / चेतावनी / STOP) दिखाता है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="ShowStopReasonsRow" xml:space="preserve">
+    <value>कारण दिखाएँ</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowStopReasonsRowDescription" xml:space="preserve">
+    <value>चेतावनी या STOP सुझाव ट्रिगर होने के कारण दिखाता है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
 </root>
