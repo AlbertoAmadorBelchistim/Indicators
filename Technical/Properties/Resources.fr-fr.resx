@@ -2010,4 +2010,96 @@
     <value>Affiche le profit ou la perte réalisé(e) cumulée sur la session actuelle.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
+    <data name="SoftRecommendations" xml:space="preserve">
+    <value>Recommandations opérationnelles</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="EnableSoftRecommendations" xml:space="preserve">
+    <value>Activer les recommandations opérationnelles</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableSoftRecommendationsDescription" xml:space="preserve">
+    <value>Active des alertes opérationnelles basées sur les métriques de la session, sans bloquer le trading.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="MaxTradesPerDay" xml:space="preserve">
+    <value>Nombre maximum de trades par jour</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="MaxTradesPerDayDescription" xml:space="preserve">
+    <value>Nombre maximum de trades autorisés pour la session avant d’afficher une alerte ou de suggérer l’arrêt.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="MaxConsecutiveLosses" xml:space="preserve">
+    <value>Nombre maximum de pertes consécutives</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="MaxConsecutiveLossesDescription" xml:space="preserve">
+    <value>Nombre maximum de trades perdants consécutifs avant de suggérer l’arrêt du trading.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="CautionTradesThreshold" xml:space="preserve">
+    <value>Seuil d’avertissement par trades</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionTradesThresholdDescription" xml:space="preserve">
+    <value>Nombre de trades à partir duquel une alerte est affichée avant d’atteindre la limite journalière.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="CautionLossesThreshold" xml:space="preserve">
+    <value>Seuil d’avertissement par pertes</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionLossesThresholdDescription" xml:space="preserve">
+    <value>Nombre de pertes consécutives à partir duquel une alerte est affichée avant de suggérer l’arrêt.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="RowSuggestedStatus" xml:space="preserve">
+    <value>Statut opérationnel suggéré</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="RowStopReasons" xml:space="preserve">
+    <value>Raisons</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="SuggestedStatusOk" xml:space="preserve">
+    <value>OK</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="SuggestedStatusCaution" xml:space="preserve">
+    <value>AVERTISSEMENT</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="SuggestedStatusStop" xml:space="preserve">
+    <value>STOP (Suggéré)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowSuggestedStatusRow" xml:space="preserve">
+    <value>Afficher le statut suggéré</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowSuggestedStatusRowDescription" xml:space="preserve">
+    <value>Affiche le statut de trading suggéré (OK / PRUDENCE / STOP) selon les métriques de la session du jour.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="ShowStopReasonsRow" xml:space="preserve">
+    <value>Afficher les raisons</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowStopReasonsRowDescription" xml:space="preserve">
+    <value>Affiche les raisons ayant déclenché une suggestion PRUDENCE ou STOP.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
 </root>

@@ -4073,4 +4073,96 @@
     <value>Показывает суммарную реализованную прибыль или убыток за текущую сессию.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
+    <data name="SoftRecommendations" xml:space="preserve">
+    <value>Операционные рекомендации</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="EnableSoftRecommendations" xml:space="preserve">
+    <value>Включить операционные рекомендации</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableSoftRecommendationsDescription" xml:space="preserve">
+    <value>Показывает операционные уведомления на основе дневных метрик без блокировки торговли.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="MaxTradesPerDay" xml:space="preserve">
+    <value>Максимум сделок в день</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="MaxTradesPerDayDescription" xml:space="preserve">
+    <value>Максимальное количество сделок за сессию перед показом предупреждения или рекомендации остановки.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="MaxConsecutiveLosses" xml:space="preserve">
+    <value>Максимум подряд убыточных сделок</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="MaxConsecutiveLossesDescription" xml:space="preserve">
+    <value>Максимальное количество подряд убыточных сделок перед рекомендацией остановки торговли.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="CautionTradesThreshold" xml:space="preserve">
+    <value>Порог предупреждения по сделкам</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionTradesThresholdDescription" xml:space="preserve">
+    <value>Количество сделок, при котором отображается предупреждение перед достижением дневного лимита.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="CautionLossesThreshold" xml:space="preserve">
+    <value>Порог предупреждения по убыткам</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionLossesThresholdDescription" xml:space="preserve">
+    <value>Количество подряд убыточных сделок, при котором отображается предупреждение перед рекомендацией остановки.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="RowSuggestedStatus" xml:space="preserve">
+    <value>Рекомендуемый торговый статус</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="RowStopReasons" xml:space="preserve">
+    <value>Причины</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="SuggestedStatusOk" xml:space="preserve">
+    <value>OK</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="SuggestedStatusCaution" xml:space="preserve">
+    <value>ПРЕДУПРЕЖДЕНИЕ</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="SuggestedStatusStop" xml:space="preserve">
+    <value>СТОП (Рекомендовано)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowSuggestedStatusRow" xml:space="preserve">
+    <value>Показать рекомендуемый статус</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowSuggestedStatusRowDescription" xml:space="preserve">
+    <value>Показывает рекомендуемый торговый статус (OK / ОСТОРОЖНО / STOP) на основе метрик текущей сессии.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="ShowStopReasonsRow" xml:space="preserve">
+    <value>Показать причины</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowStopReasonsRowDescription" xml:space="preserve">
+    <value>Показывает причины, из-за которых была предложена ОСТОРОЖНО или STOP.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
 </root>

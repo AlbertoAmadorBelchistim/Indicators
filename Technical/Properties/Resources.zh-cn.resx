@@ -1962,4 +1962,96 @@
     <value>显示当前交易日内累计的已实现盈亏。</value>
     <comment>AccountInfoDisplay</comment>
   </data>
+    <data name="SoftRecommendations" xml:space="preserve">
+    <value>操作建议</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="EnableSoftRecommendations" xml:space="preserve">
+    <value>启用操作建议</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableSoftRecommendationsDescription" xml:space="preserve">
+    <value>基于当日交易指标显示操作提示，不会阻止交易。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="MaxTradesPerDay" xml:space="preserve">
+    <value>每日最大交易次数</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="MaxTradesPerDayDescription" xml:space="preserve">
+    <value>在触发警告或建议停止之前，允许的每日最大交易次数。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="MaxConsecutiveLosses" xml:space="preserve">
+    <value>最大连续亏损次数</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="MaxConsecutiveLossesDescription" xml:space="preserve">
+    <value>在建议停止交易之前，允许的最大连续亏损交易次数。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="CautionTradesThreshold" xml:space="preserve">
+    <value>交易警告阈值</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionTradesThresholdDescription" xml:space="preserve">
+    <value>在达到每日限制前显示警告的交易次数。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="CautionLossesThreshold" xml:space="preserve">
+    <value>亏损警告阈值</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionLossesThresholdDescription" xml:space="preserve">
+    <value>在建议停止交易前显示警告的连续亏损次数。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="RowSuggestedStatus" xml:space="preserve">
+    <value>建议的操作状态</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="RowStopReasons" xml:space="preserve">
+    <value>原因</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="SuggestedStatusOk" xml:space="preserve">
+    <value>OK</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="SuggestedStatusCaution" xml:space="preserve">
+    <value>警告</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="SuggestedStatusStop" xml:space="preserve">
+    <value>停止（建议）</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowSuggestedStatusRow" xml:space="preserve">
+    <value>显示建议状态</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowSuggestedStatusRowDescription" xml:space="preserve">
+    <value>根据当日会话指标显示建议交易状态（OK / 注意 / STOP）。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
+  <data name="ShowStopReasonsRow" xml:space="preserve">
+    <value>显示原因</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowStopReasonsRowDescription" xml:space="preserve">
+    <value>显示触发“注意”或“STOP”建议的原因。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+
 </root>

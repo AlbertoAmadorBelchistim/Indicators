@@ -1465,6 +1465,42 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Caution losses threshold.
+        /// </summary>
+        public static string CautionLossesThreshold {
+            get {
+                return ResourceManager.GetString("CautionLossesThreshold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Number of consecutive losses at which a caution recommendation is shown before a stop is suggested..
+        /// </summary>
+        public static string CautionLossesThresholdDescription {
+            get {
+                return ResourceManager.GetString("CautionLossesThresholdDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Caution trades threshold.
+        /// </summary>
+        public static string CautionTradesThreshold {
+            get {
+                return ResourceManager.GetString("CautionTradesThreshold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Number of trades at which a caution recommendation is shown before reaching the daily limit..
+        /// </summary>
+        public static string CautionTradesThresholdDescription {
+            get {
+                return ResourceManager.GetString("CautionTradesThresholdDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Commodity Channel Index.
         /// </summary>
         public static string CCI {
@@ -2613,6 +2649,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string EnableMonthlyResetDescription {
             get {
                 return ResourceManager.GetString("EnableMonthlyResetDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Enable soft recommendations.
+        /// </summary>
+        public static string EnableSoftRecommendations {
+            get {
+                return ResourceManager.GetString("EnableSoftRecommendations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Enables non-blocking trading discipline recommendations based on daily session metrics..
+        /// </summary>
+        public static string EnableSoftRecommendationsDescription {
+            get {
+                return ResourceManager.GetString("EnableSoftRecommendationsDescription", resourceCulture);
             }
         }
         
@@ -4660,6 +4714,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Max consecutive losses.
+        /// </summary>
+        public static string MaxConsecutiveLosses {
+            get {
+                return ResourceManager.GetString("MaxConsecutiveLosses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Maximum allowed consecutive losing trades before a stop recommendation is suggested..
+        /// </summary>
+        public static string MaxConsecutiveLossesDescription {
+            get {
+                return ResourceManager.GetString("MaxConsecutiveLossesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Max Cumulative Volume.
         /// </summary>
         public static string MaxCumulativeVolume {
@@ -4845,6 +4917,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string MaxPrintVolume {
             get {
                 return ResourceManager.GetString("MaxPrintVolume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Max trades per day.
+        /// </summary>
+        public static string MaxTradesPerDay {
+            get {
+                return ResourceManager.GetString("MaxTradesPerDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Maximum number of trades allowed for the trading day before a caution or stop recommendation is triggered..
+        /// </summary>
+        public static string MaxTradesPerDayDescription {
+            get {
+                return ResourceManager.GetString("MaxTradesPerDayDescription", resourceCulture);
             }
         }
         
@@ -6910,11 +7000,29 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Reasons.
+        /// </summary>
+        public static string RowStopReasons {
+            get {
+                return ResourceManager.GetString("RowStopReasons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Streak.
         /// </summary>
         public static string RowStreak {
             get {
                 return ResourceManager.GetString("RowStreak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Suggested status.
+        /// </summary>
+        public static string RowSuggestedStatus {
+            get {
+                return ResourceManager.GetString("RowSuggestedStatus", resourceCulture);
             }
         }
         
@@ -8017,6 +8125,42 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Show reasons row.
+        /// </summary>
+        public static string ShowStopReasonsRow {
+            get {
+                return ResourceManager.GetString("ShowStopReasonsRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show the reasons that triggered a CAUTION or STOP suggestion..
+        /// </summary>
+        public static string ShowStopReasonsRowDescription {
+            get {
+                return ResourceManager.GetString("ShowStopReasonsRowDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show suggested status row.
+        /// </summary>
+        public static string ShowSuggestedStatusRow {
+            get {
+                return ResourceManager.GetString("ShowSuggestedStatusRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show the suggested trading status (OK / CAUTION / STOP) based on today’s session metrics..
+        /// </summary>
+        public static string ShowSuggestedStatusRowDescription {
+            get {
+                return ResourceManager.GetString("ShowSuggestedStatusRowDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Show threshold lines.
         /// </summary>
         public static string ShowThresholdLines {
@@ -8422,6 +8566,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Soft Recommendations.
+        /// </summary>
+        public static string SoftRecommendations {
+            get {
+                return ResourceManager.GetString("SoftRecommendations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Filter period.
         /// </summary>
         public static string SotAutoFilterPeriodName {
@@ -8679,6 +8832,33 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string StrongCandleBull {
             get {
                 return ResourceManager.GetString("StrongCandleBull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a CAUTION.
+        /// </summary>
+        public static string SuggestedStatusCaution {
+            get {
+                return ResourceManager.GetString("SuggestedStatusCaution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a OK.
+        /// </summary>
+        public static string SuggestedStatusOk {
+            get {
+                return ResourceManager.GetString("SuggestedStatusOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a STOP (Suggested).
+        /// </summary>
+        public static string SuggestedStatusStop {
+            get {
+                return ResourceManager.GetString("SuggestedStatusStop", resourceCulture);
             }
         }
         
