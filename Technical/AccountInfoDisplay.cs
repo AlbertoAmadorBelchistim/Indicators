@@ -92,6 +92,24 @@ public class AccountInfoDisplay : Indicator
 
     #endregion
 
+    #region class - Soft Recommendations
+
+    private enum SuggestedStatus
+    {
+        Ok = 0,
+        Caution = 1,
+        Stop = 2
+    }
+
+    private sealed class SuggestionResult
+    {
+        public SuggestedStatus Status { get; init; }
+        public string ReasonsText { get; init; } = string.Empty;
+    }
+
+    #endregion
+
+
     #region class - Trailing DD state
 
     private sealed class TrailingDrawdownState
@@ -159,7 +177,8 @@ public class AccountInfoDisplay : Indicator
 	private Color _textColor = Color.FromArgb(220, 220, 220);
 	private Color _positiveColor = Color.FromArgb(0, 230, 118);
 	private Color _negativeColor = Color.FromArgb(255, 82, 82);
-	private Color _neutralColor = Color.FromArgb(150, 150, 150);
+    private Color _cautionColor = Color.FromArgb(255, 193, 7); // amber/yellow, used for CAUTION rows
+    private Color _neutralColor = Color.FromArgb(150, 150, 150);
 	private RenderFont _font = new("Arial", 11);
 	private RenderStringFormat _stringFormat = new()
 	{
@@ -432,6 +451,73 @@ public class AccountInfoDisplay : Indicator
         GroupName = nameof(Resources.DailyRails),
         Order = 110)]
     public TimeSpan DailyResetTimeLocal { get; set; }
+
+    // -----------------------------
+    // Soft Recommendations (Phase E)
+    // -----------------------------
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.EnableSoftRecommendations),
+        Description = nameof(Resources.EnableSoftRecommendationsDescription),
+        GroupName = nameof(Resources.SoftRecommendations),
+        Order = 300)]
+    public bool EnableSoftRecommendations { get; set; } = true;
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.MaxTradesPerDay),
+        Description = nameof(Resources.MaxTradesPerDayDescription),
+        GroupName = nameof(Resources.SoftRecommendations),
+        Order = 310)]
+    [Range(0, 500)]
+    public int MaxTradesPerDay { get; set; } = 3;
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.MaxConsecutiveLosses),
+        Description = nameof(Resources.MaxConsecutiveLossesDescription),
+        GroupName = nameof(Resources.SoftRecommendations),
+        Order = 320)]
+    [Range(0, 100)]
+    public int MaxConsecutiveLosses { get; set; } = 2;
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.CautionTradesThreshold),
+        Description = nameof(Resources.CautionTradesThresholdDescription),
+        GroupName = nameof(Resources.SoftRecommendations),
+        Order = 330)]
+    [Range(0, 500)]
+    public int CautionTradesThreshold { get; set; } = 2;
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.CautionLossesThreshold),
+        Description = nameof(Resources.CautionLossesThresholdDescription),
+        GroupName = nameof(Resources.SoftRecommendations),
+        Order = 340)]
+    [Range(0, 100)]
+    public int CautionLossesThreshold { get; set; } = 1;
+
+    // Rows toggles (Phase E)
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.ShowSuggestedStatusRow),
+        Description = nameof(Resources.ShowSuggestedStatusRowDescription),
+        GroupName = nameof(Resources.SoftRecommendations),
+        Order = 350)]
+    public bool ShowSuggestedStatusRow { get; set; } = true;
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.ShowStopReasonsRow),
+        Description = nameof(Resources.ShowStopReasonsRowDescription),
+        GroupName = nameof(Resources.SoftRecommendations),
+        Order = 360)]
+    public bool ShowStopReasonsRow { get; set; } = true;
+
+
 
     #endregion
 
@@ -741,6 +827,35 @@ public class AccountInfoDisplay : Indicator
                 rows.Add(new DisplayRow(Resources.RowRealizedPnlToday, FormatCurrency(realizedToday), numericValue: realizedToday));
         }
 
+        // -----------------------------
+        // Soft Recommendations (Phase E)
+        // -----------------------------
+        if (EnableSoftRecommendations && (ShowSuggestedStatusRow || ShowStopReasonsRow))
+        {
+            var accountKey = GetAccountKey();
+            var daily = GetDailyRailsState(accountKey);
+
+            var suggestion = EvaluateSoftRecommendations(daily);
+
+            if (ShowSuggestedStatusRow)
+            {
+                var statusText =
+                    suggestion.Status == SuggestedStatus.Stop ? Resources.SuggestedStatusStop :
+                    suggestion.Status == SuggestedStatus.Caution ? Resources.SuggestedStatusCaution :
+                    Resources.SuggestedStatusOk;
+
+                CrossColor? overrideColor =
+                    suggestion.Status == SuggestedStatus.Stop ? _negativeColor.Convert() :
+                    suggestion.Status == SuggestedStatus.Caution ? _cautionColor.Convert() :
+                    _positiveColor.Convert();
+
+                rows.Add(new DisplayRow(Resources.RowSuggestedStatus, statusText, valueColorOverride: overrideColor));
+            }
+
+            if (ShowStopReasonsRow && suggestion.Status != SuggestedStatus.Ok)
+                rows.Add(new DisplayRow(Resources.RowStopReasons, suggestion.ReasonsText));
+        }
+
         return rows;
     }
 
@@ -760,10 +875,15 @@ public class AccountInfoDisplay : Indicator
             // Draw label
             context.DrawString(label, _font, _textColor, textRect.X, currentY);
 
-            // Determine color for value (Phase 0: keep current behavior)
+            // Determine color for value
             var valueColor = _textColor;
 
-            if (row.NumericValue.HasValue)
+            // Explicit per-row override has priority (used by soft recommendations, etc.)
+            if (row.ValueColorOverride.HasValue)
+            {
+                valueColor = row.ValueColorOverride.Value.Convert();
+            }
+            else if (row.NumericValue.HasValue)
             {
                 var value = row.NumericValue.Value;
                 valueColor = value > 0
@@ -1174,6 +1294,56 @@ public class AccountInfoDisplay : Indicator
 
         return pos.IsInPosition && pos.Volume != 0m;
     }
+
+    private SuggestionResult EvaluateSoftRecommendations(DailyRailsState state)
+    {
+        if (state == null)
+            return new SuggestionResult { Status = SuggestedStatus.Ok };
+
+        // Treat "0" as disabled.
+        var maxTrades = Math.Max(0, MaxTradesPerDay);
+        var maxLosses = Math.Max(0, MaxConsecutiveLosses);
+
+        var cautionTrades = Math.Max(0, CautionTradesThreshold);
+        var cautionLosses = Math.Max(0, CautionLossesThreshold);
+
+        var reasons = new List<string>();
+
+        // STOP conditions (hard recommendation)
+        if (maxTrades > 0 && state.TradesToday >= maxTrades)
+            reasons.Add($"{Resources.MaxTradesPerDay}: {state.TradesToday:N0} / {maxTrades:N0}");
+
+        if (maxLosses > 0 && state.CurrentLossStreak >= maxLosses)
+            reasons.Add($"{Resources.MaxConsecutiveLosses}: {state.CurrentLossStreak:N0} / {maxLosses:N0}");
+
+        if (reasons.Count > 0)
+        {
+            return new SuggestionResult
+            {
+                Status = SuggestedStatus.Stop,
+                ReasonsText = string.Join("; ", reasons)
+            };
+        }
+
+        // CAUTION conditions (warning recommendation)
+        if (cautionTrades > 0 && state.TradesToday >= cautionTrades)
+            reasons.Add($"{Resources.CautionTradesThreshold}: {state.TradesToday:N0} / {cautionTrades:N0}");
+
+        if (cautionLosses > 0 && state.CurrentLossStreak >= cautionLosses)
+            reasons.Add($"{Resources.CautionLossesThreshold}: {state.CurrentLossStreak:N0} / {cautionLosses:N0}");
+
+        if (reasons.Count > 0)
+        {
+            return new SuggestionResult
+            {
+                Status = SuggestedStatus.Caution,
+                ReasonsText = string.Join("; ", reasons)
+            };
+        }
+
+        return new SuggestionResult { Status = SuggestedStatus.Ok };
+    }
+
 
     #endregion
 
