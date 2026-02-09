@@ -134,9 +134,17 @@ public partial class ClusterSearch : Indicator
 
 		// Handle multiple bars created at once (e.g., Renko gap-filling)
 		if (_lastBar != targetBar)
-		{
+		{   
+			// On certain chart types (Renko, Range XV, Range US, Range Z), when direction changes
+			// Chart types that modify previous bar: Renko (Open/Close), Range XV (Close), Range US (Close/High/Low), Range Z (Close)
+			if (_lastBar >= 2 && ChartInfo.ChartType is "Renko" or "RangeXV" or "RangeUS" or "RangeZ" && PriceLoc is not PriceLocation.Any)
+			{
+				_lastSeriesBar.Clear();
+				CalculateBar(_lastBar);
+			}
+            
 			// Process all skipped bars (for Renko charts that create multiple bars from single trade)
-			var startBar = Math.Max(_lastBar + 1, _targetBar);
+            var startBar = Math.Max(_lastBar + 1, _targetBar);
 
 			for (var bar = startBar; bar <= targetBar; bar++)
 			{
@@ -488,14 +496,6 @@ public partial class ClusterSearch : Indicator
 	{
 		_mergedLevels.Clear();
 		_validVolumeLevels.Clear();
-
-		// On certain chart types (Renko, Range XV, Range US, Range Z), when direction changes
-		// Chart types that modify previous bar: Renko (Open/Close), Range XV (Close), Range US (Close/High/Low), Range Z (Close)
-		if (bar >= 2 && ChartInfo.ChartType is "Renko" or "Range XV" or "Range US" or "Range Z" && PriceLoc is not PriceLocation.Any)
-		{
-			_lastSeriesBar.Clear();
-			CalculateBar(bar - 1);
-		}
 
 		if (CheckBarFormation(GetCandle(bar - 1)))
 		{

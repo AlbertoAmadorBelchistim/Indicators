@@ -492,6 +492,15 @@ public class InitialBalance : Indicator
 
 	#region Protected methods
 
+	protected override void OnInitialize()
+	{
+		DataSeries.ForEach(ds =>
+		{
+			if (ds is RangeDataSeries rds)
+				rds.ScaleIt = false;
+		});
+	}
+
 	protected override void OnCalculate(int bar, decimal value)
 	{
 		if (bar == 0)
