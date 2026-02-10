@@ -132,17 +132,38 @@ public partial class ClusterSearch : Indicator
 
 		var targetBar = curBar - i;
 
-		// Handle multiple bars created at once (e.g., Renko gap-filling)
-		if (_lastBar != targetBar)
-		{   
+		var tradeInPrevBar = false;
+		var isModifiedChartType = ChartInfo.ChartType is "Renko" or "RangeXV" or "RangeUS" or "RangeZ";
+
+        // Handle multiple bars created at once (e.g., Renko gap-filling)
+        if (_lastBar != targetBar)
+		{
+			// On Renko/Range charts, the trade that completed the previous bar has its volume
+			// in the old bar's candle (added by the candle creator), but the framework routes it
+			// to the new bar. Detect this by comparing the old bar's candle volume at trade price
+			// with what we tracked in _clustersCache. If the candle has more — the candle creator
+			// added this trade's volume to the old bar.
+			if (isModifiedChartType)
+			{
+				var oldCandle = GetCandle(_lastBar);
+				var oldPriceInfo = oldCandle.GetPriceVolumeInfo(trade.Price);
+				var cachedVolume = _clustersCache.TryGetValue((_lastBar, trade.Price), out var cached) ? cached.Volume : 0;
+
+				if (oldPriceInfo != null && oldPriceInfo.Volume > cachedVolume)
+				{
+					tradeInPrevBar = true;
+					CalculateTick(_lastBar, trade);
+				}
+			}
+
 			// On certain chart types (Renko, Range XV, Range US, Range Z), when direction changes
 			// Chart types that modify previous bar: Renko (Open/Close), Range XV (Close), Range US (Close/High/Low), Range Z (Close)
-			if (_lastBar >= 2 && ChartInfo.ChartType is "Renko" or "RangeXV" or "RangeUS" or "RangeZ" && PriceLoc is not PriceLocation.Any)
+			if (_lastBar >= 2 && isModifiedChartType && PriceLoc is not PriceLocation.Any)
 			{
 				_lastSeriesBar.Clear();
 				CalculateBar(_lastBar);
 			}
-            
+
 			// Process all skipped bars (for Renko charts that create multiple bars from single trade)
             var startBar = Math.Max(_lastBar + 1, _targetBar);
 
@@ -153,6 +174,12 @@ public partial class ClusterSearch : Indicator
 			}
 
 			_lastBar = targetBar;
+        }
+
+		if (tradeInPrevBar)
+		{
+			_lastPrice = trade.Price;
+			return;
 		}
 
 		CalculateTick(targetBar, trade);
