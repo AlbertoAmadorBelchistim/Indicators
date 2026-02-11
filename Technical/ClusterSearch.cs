@@ -133,7 +133,7 @@ public partial class ClusterSearch : Indicator
 		var targetBar = curBar - i;
 
 		var tradeInPrevBar = false;
-		var isModifiedChartType = ChartInfo.ChartType is "Renko" or "RangeXV" or "RangeUS" or "RangeZ";
+		var isModifiedChartType = ChartInfo.ChartType is not ("TimeFrame" or "Seconds");
 
         // Handle multiple bars created at once (e.g., Renko gap-filling)
         if (_lastBar != targetBar)
@@ -153,12 +153,24 @@ public partial class ClusterSearch : Indicator
 				{
 					tradeInPrevBar = true;
 					CalculateTick(_lastBar, trade);
+
+					// Recalculate _clustersCache for the closed bar from authoritative candle data
+					for (var price = oldCandle.Low; price <= oldCandle.High; price += InstrumentInfo.TickSize)
+					{
+						var pvInfo = oldCandle.GetPriceVolumeInfo(price);
+
+						if (pvInfo != null)
+							_clustersCache[(_lastBar, price)] = new CustomVolumeInfo(pvInfo);
+					}
+
+					// Rebuild _mergedLevels from refreshed cache
+					UpdateCumulativeCachePerBar(_lastBar);
 				}
 			}
 
 			// On certain chart types (Renko, Range XV, Range US, Range Z), when direction changes
 			// Chart types that modify previous bar: Renko (Open/Close), Range XV (Close), Range US (Close/High/Low), Range Z (Close)
-			if (_lastBar >= 2 && isModifiedChartType && PriceLoc is not PriceLocation.Any)
+			if (_lastBar >= 2 && isModifiedChartType)
 			{
 				_lastSeriesBar.Clear();
 				CalculateBar(_lastBar);
@@ -221,7 +233,8 @@ public partial class ClusterSearch : Indicator
 		_lastBar = -1;
         _isFinishRecalculate = false;
 		_mergedLevels = new MergedClusterDictionary(PriceRange, InstrumentInfo.TickSize);
-		
+		_clustersCache.Clear();
+
 		_autoFilterValue = 0;
 		_targetBar = 0;
 
