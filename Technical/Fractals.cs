@@ -13,7 +13,7 @@ namespace ATAS.Indicators.Technical
 
     using Utils.Common.Collections;
 
-    using Pen = System.Drawing.Pen;
+    using Pen = CrossPen;
 
     [DisplayName("Fractals")]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.FractalsDescription))]
@@ -56,8 +56,8 @@ namespace ATAS.Indicators.Technical
 			Width = 5
 		};
 
-		private Pen _highPen;
-		private Pen _lowPen;
+		private CrossPen _highPen;
+		private CrossPen _lowPen;
 		private ShowMode _mode = ShowMode.All;
         private bool _showLine;
 		private decimal _tickSize;

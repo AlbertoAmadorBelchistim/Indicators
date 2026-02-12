@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 public enum LabelPosition
@@ -82,7 +83,7 @@ public class LevelSettings : NotifiableObject
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Color))]
-    public CrossColor Color 
+    public CrossColor Color
     {
         get => _color;
         set => SetField(ref _color, value);
@@ -223,6 +224,8 @@ public class OHLCPlus : Indicator
     private bool _needMonth;
     private bool _needPrevMonth;
     private bool _needContract;
+
+    private bool _allLevelsVisible = true;
 
     #endregion
 
@@ -949,6 +952,13 @@ public class OHLCPlus : Indicator
 
     #endregion
 
+    #region Visibility Settings
+
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Visibility), Name = nameof(Strings.ToggleLevelsVisibilityHotKey), Order = 1000)]
+    public CrossKey[] ToggleVisibilityHotKey { get; set; } = { CrossKey.Q };
+
+    #endregion
+
     #endregion
 
     #region Constructor
@@ -980,6 +990,17 @@ public class OHLCPlus : Indicator
     {
         RecalcAllNeeds();
         SubscribeAllLevels();
+    }
+
+    public override bool ProcessKeyDown(CrossKeyEventArgs e)
+    {
+        if (ToggleVisibilityHotKey != null && ToggleVisibilityHotKey.Contains(e.Key))
+        {
+            ToggleAllLevelsVisibility();
+            return true;
+        }
+
+        return base.ProcessKeyDown(e);
     }
 
     protected override void OnCalculate(int bar, decimal value)
@@ -1031,6 +1052,12 @@ public class OHLCPlus : Indicator
     #endregion
 
     #region Private methods
+
+    private void ToggleAllLevelsVisibility()
+    {
+        _allLevelsVisible = !_allLevelsVisible;
+        RedrawChart();
+    }
 
     #region OnCalculate
 
@@ -1219,7 +1246,7 @@ public class OHLCPlus : Indicator
 
     private void RenderLevel(RenderContext context, string levelKey, LevelSettings levelSettings)
     {
-        if (!levelSettings.Enabled || !_levels.TryGetValue(levelKey, out var level) || !level.IsValid)
+        if (!_allLevelsVisible || !levelSettings.Enabled || !_levels.TryGetValue(levelKey, out var level) || !level.IsValid)
             return;
             
         // Validate price is reasonable
@@ -1328,21 +1355,21 @@ public class OHLCPlus : Indicator
     private void DrawTextLabel(RenderContext context, string text, int x, int y, RenderPen pen, bool alignRight)
     {
         var size = context.MeasureString(text, _font);
-        var textColor = ChartInfo.ColorsStore.MouseTextColor;
-        
+        var backgroundColor = ChartInfo.ColorsStore.BaseBackgroundColor;
+        var textColor = GetContrastingColor(backgroundColor.Convert());
+
         // Calculate rectangle position based on alignment
         var rectX = alignRight ? x - size.Width : x;
         var rect = new Rectangle(rectX - 2, y - size.Height / 2 - 1, size.Width + 4, size.Height + 2);
-        
+
         // Draw background with border
-        var backgroundColor = ChartInfo.ColorsStore.BaseBackgroundColor;
         context.FillRectangle(backgroundColor, rect);
         context.DrawRectangle(pen, rect);
-        
+
         // Draw text
         var textRect = new Rectangle(rectX, y - size.Height / 2, size.Width, size.Height);
         var format = alignRight ? _stringRightFormat : _stringLeftFormat;
-        context.DrawString(text, _font, textColor, textRect, format);
+        context.DrawString(text, _font, textColor.Convert(), textRect, format);
     }
 
     private void RenderLevelGroup(RenderContext context, string prefix,

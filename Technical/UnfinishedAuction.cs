@@ -10,7 +10,7 @@ namespace ATAS.Indicators.Technical
 
 	using OFT.Attributes;
     using OFT.Localization;
-    using Pen = System.Drawing.Pen;
+    using Pen = CrossPen;
 	
     [DisplayName("Unfinished Auction")]
     [Category(IndicatorCategories.VolumeOrderFlow)]
@@ -286,7 +286,7 @@ namespace ATAS.Indicators.Technical
 			{
 				var lowPenColor = System.Drawing.Color.FromArgb(_lowLineColor.A, _lowLineColor.R, _lowLineColor.G, _lowLineColor.B);
 
-				var lowPen = new Pen(lowPenColor)
+				var lowPen = new CrossPen(lowPenColor)
 				{
 					Width = _lineWidth
 				};
@@ -306,7 +306,7 @@ namespace ATAS.Indicators.Technical
 			{
 				var highPenColor = System.Drawing.Color.FromArgb(_highLineColor.A, _highLineColor.R, _highLineColor.G, _highLineColor.B);
 
-				var highPen = new Pen(highPenColor)
+				var highPen = new CrossPen(highPenColor)
 				{
 					Width = _lineWidth
 				};

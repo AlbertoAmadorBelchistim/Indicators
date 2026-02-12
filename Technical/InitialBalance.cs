@@ -12,7 +12,7 @@ using OFT.Attributes;
 using OFT.Localization;
 using OFT.Rendering.Settings;
 
-using Pen = System.Drawing.Pen;
+using Pen = CrossPen;
 
 [DisplayName("Initial Balance")]
 [Category(IndicatorCategories.VolumeOrderFlow)]
@@ -188,7 +188,7 @@ public class InitialBalance : Indicator
 	private decimal _minValue = decimal.MaxValue;
 	private int _period = 60;
 	private PeriodType _periodMode = PeriodType.Minutes;
-	private DrawingRectangle _rectangle = new(0, 0, 0, 0, Pens.Gray, new SolidBrush(DefaultColors.Yellow));
+	private DrawingRectangle _rectangle = new(0, 0, 0, 0, CrossPens.Gray, new CrossSolidBrush(DefaultColors.Yellow));
 	private bool _showOpenRange = true;
 	private TimeSpan _startDate = new(9, 0, 0);
 	private int _targetBar;
@@ -492,6 +492,15 @@ public class InitialBalance : Indicator
 
 	#region Protected methods
 
+	protected override void OnInitialize()
+	{
+		DataSeries.ForEach(ds =>
+		{
+			if (ds is RangeDataSeries rds)
+				rds.ScaleIt = false;
+		});
+	}
+
 	protected override void OnCalculate(int bar, decimal value)
 	{
 		if (bar == 0)
@@ -613,11 +622,11 @@ public class InitialBalance : Indicator
 
             if (ShowOpenRange)
 			{
-				var pen = new Pen(ConvertColor(_borderColor))
+				var pen = new CrossPen(ConvertColor(_borderColor))
 				{
 					Width = _borderWidth
 				};
-				var brush = new SolidBrush(ConvertColor(_fillColor));
+				var brush = new CrossSolidBrush(ConvertColor(_fillColor));
 
 				_rectangle = new DrawingRectangle(bar, decimal.Zero, bar, decimal.Zero, pen, brush);
 
