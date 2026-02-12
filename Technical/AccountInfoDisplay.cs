@@ -167,6 +167,21 @@ public class AccountInfoDisplay : Indicator
 
     #endregion
 
+    #region class - Position Snapshot
+
+    private sealed class PositionSnapshot
+    {
+        public bool IsOpen;
+
+        public OrderDirections Direction;
+        public decimal Volume;
+        public decimal AvgEntryPrice;
+
+        public string AccountId = string.Empty;
+        public string SecurityCode = string.Empty;
+    }
+
+    #endregion
     #endregion
 
     #region Fields
@@ -217,6 +232,11 @@ public class AccountInfoDisplay : Indicator
 
     #endregion
 
+    #region Fields - Position snapshot
+    
+    private PositionSnapshot _posSnapshot = new();
+
+    #endregion
     #endregion
 
     #region Properties
@@ -517,6 +537,24 @@ public class AccountInfoDisplay : Indicator
         Order = 360)]
     public bool ShowStopReasonsRow { get; set; } = true;
 
+    // Position snapshot
+    [Display(
+    ResourceType = typeof(Resources),
+    Name = nameof(Resources.ShowPositionSnapshot),
+    Description = nameof(Resources.ShowPositionSnapshotDescription),
+    GroupName = nameof(Resources.DailyRails),
+    Order = 370)]
+    public bool ShowPositionSnapshot { get; set; } = true;
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.ShowFlatRow),
+        Description = nameof(Resources.ShowFlatRowDescription),
+        GroupName = nameof(Resources.DailyRails),
+        Order = 380)]
+    public bool ShowFlatRow { get; set; } = true;
+
+
 
 
     #endregion
@@ -638,6 +676,8 @@ public class AccountInfoDisplay : Indicator
 
         var equity = portfolio.Balance + portfolio.OpenPnL;
         UpdateTrailingDrawdown(equity);
+
+        UpdatePositionSnapshotFromTradingManager(portfolio);
 
         // Build structured rows (Phase 0 replacement)
         var rows = BuildRows(portfolio);
@@ -854,6 +894,23 @@ public class AccountInfoDisplay : Indicator
 
             if (ShowStopReasonsRow && suggestion.Status != SuggestedStatus.Ok)
                 rows.Add(new DisplayRow(Resources.RowStopReasons, suggestion.ReasonsText));
+        }
+
+        // -----------------------------
+        // Position Snapshot (Phase F)
+        // -----------------------------
+        if (ShowPositionSnapshot)
+        {
+            if (_posSnapshot != null && _posSnapshot.IsOpen)
+            {
+                rows.Add(new DisplayRow(Resources.RowPosDir, _posSnapshot.Direction.ToString()));
+                rows.Add(new DisplayRow(Resources.RowPosQty, _posSnapshot.Volume.ToString("N0")));
+                rows.Add(new DisplayRow(Resources.RowPosEntry, _posSnapshot.AvgEntryPrice.ToString("N2")));
+            }
+            else if (ShowFlatRow)
+            {
+                rows.Add(new DisplayRow(Resources.RowPos, Resources.PosFlatValue));
+            }
         }
 
         return rows;
@@ -1522,6 +1579,63 @@ public class AccountInfoDisplay : Indicator
             // Fail-safe: never break indicator render on persistence issues.
             // Keep dirty flag true so we can retry later.
         }
+    }
+
+    #endregion
+
+    #region Private Methods - Position snapshot
+
+    private void UpdatePositionSnapshotFromTradingManager(Portfolio portfolio)
+    {
+        _posSnapshot ??= new PositionSnapshot();
+
+        var tm = TradingManager;
+        var pos = tm?.Position;
+        var sec = tm?.Security;
+
+        if (portfolio == null || pos == null || sec == null)
+        {
+            _posSnapshot.IsOpen = false;
+            return;
+        }
+
+        // Defensive: ensure the position belongs to the currently selected portfolio/security
+        if (!string.Equals(pos.AccountID, portfolio.AccountID, StringComparison.Ordinal))
+        {
+            _posSnapshot.IsOpen = false;
+            return;
+        }
+
+        if (pos.Security == null || !string.Equals(pos.Security.Code, sec.Code, StringComparison.Ordinal))
+        {
+            _posSnapshot.IsOpen = false;
+            return;
+        }
+
+        var isOpen = pos.IsInPosition && pos.Volume != 0m;
+
+        if (!isOpen)
+        {
+            _posSnapshot = new PositionSnapshot
+            {
+                IsOpen = false,
+                AccountId = portfolio.AccountID,
+                SecurityCode = sec.Code
+            };
+            return;
+        }
+
+        var dir = pos.Volume > 0m ? OrderDirections.Buy : OrderDirections.Sell;
+
+        _posSnapshot = new PositionSnapshot
+        {
+            IsOpen = true,
+            Direction = dir,
+            Volume = Math.Abs(pos.Volume),
+            AvgEntryPrice = pos.AveragePrice,
+            AccountId = portfolio.AccountID,
+            SecurityCode = sec.Code
+        };
     }
 
     #endregion
