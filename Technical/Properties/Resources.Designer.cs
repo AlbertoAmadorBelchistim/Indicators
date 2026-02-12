@@ -6442,6 +6442,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a FLAT.
+        /// </summary>
+        public static string PosFlatValue {
+            get {
+                return ResourceManager.GetString("PosFlatValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Positive.
         /// </summary>
         public static string Positive {
@@ -6924,6 +6933,42 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string RowOpenPnL {
             get {
                 return ResourceManager.GetString("RowOpenPnL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Pos.
+        /// </summary>
+        public static string RowPos {
+            get {
+                return ResourceManager.GetString("RowPos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Pos dir.
+        /// </summary>
+        public static string RowPosDir {
+            get {
+                return ResourceManager.GetString("RowPosDir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Pos entry.
+        /// </summary>
+        public static string RowPosEntry {
+            get {
+                return ResourceManager.GetString("RowPosEntry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Pos qty.
+        /// </summary>
+        public static string RowPosQty {
+            get {
+                return ResourceManager.GetString("RowPosQty", resourceCulture);
             }
         }
         
@@ -7828,6 +7873,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Show FLAT row.
+        /// </summary>
+        public static string ShowFlatRow {
+            get {
+                return ResourceManager.GetString("ShowFlatRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a When no position is open, shows a FLAT row instead of position details..
+        /// </summary>
+        public static string ShowFlatRowDescription {
+            get {
+                return ResourceManager.GetString("ShowFlatRowDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Show Grid.
         /// </summary>
         public static string ShowGrid {
@@ -7968,6 +8031,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string ShowPeriod {
             get {
                 return ResourceManager.GetString("ShowPeriod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show position snapshot.
+        /// </summary>
+        public static string ShowPositionSnapshot {
+            get {
+                return ResourceManager.GetString("ShowPositionSnapshot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Shows a lightweight snapshot of the current open position (dir/qty/entry)..
+        /// </summary>
+        public static string ShowPositionSnapshotDescription {
+            get {
+                return ResourceManager.GetString("ShowPositionSnapshotDescription", resourceCulture);
             }
         }
         

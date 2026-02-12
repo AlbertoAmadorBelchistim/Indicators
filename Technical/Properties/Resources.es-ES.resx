@@ -2101,5 +2101,43 @@
     <value>Muestra los motivos que han activado una sugerencia de PRECAUCIÓN o STOP.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
+<data name="ShowPositionSnapshot" xml:space="preserve">
+  <value>Mostrar snapshot de posición</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowPositionSnapshotDescription" xml:space="preserve">
+  <value>Muestra un snapshot ligero de la posición abierta actual (dirección/contratos/entrada).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
+<data name="ShowFlatRow" xml:space="preserve">
+  <value>Mostrar fila FLAT</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowFlatRowDescription" xml:space="preserve">
+  <value>Si no hay posición abierta, muestra una fila FLAT en lugar de los detalles de la posición.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="RowPos" xml:space="preserve">
+  <value>Pos</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowPosDir" xml:space="preserve">
+  <value>Pos dir</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowPosQty" xml:space="preserve">
+  <value>Pos qty</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowPosEntry" xml:space="preserve">
+  <value>Pos entrada</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="PosFlatValue" xml:space="preserve">
+  <value>FLAT</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 </root>
