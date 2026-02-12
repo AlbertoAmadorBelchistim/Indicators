@@ -4164,5 +4164,43 @@
     <value>Показывает причины, из-за которых была предложена ОСТОРОЖНО или STOP.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
+<data name="ShowPositionSnapshot" xml:space="preserve">
+  <value>Показывать снимок позиции</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowPositionSnapshotDescription" xml:space="preserve">
+  <value>Показывает компактный снимок открытой позиции (направление/объём/вход).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
+<data name="ShowFlatRow" xml:space="preserve">
+  <value>Показывать строку FLAT</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowFlatRowDescription" xml:space="preserve">
+  <value>Если позиция не открыта, показывает строку FLAT вместо деталей позиции.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="RowPos" xml:space="preserve">
+  <value>Pos</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowPosDir" xml:space="preserve">
+  <value>Pos направление</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowPosQty" xml:space="preserve">
+  <value>Pos объём</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowPosEntry" xml:space="preserve">
+  <value>Pos вход</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="PosFlatValue" xml:space="preserve">
+  <value>FLAT</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 </root>

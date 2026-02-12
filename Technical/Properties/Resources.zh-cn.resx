@@ -2053,5 +2053,43 @@
     <value>显示触发“注意”或“STOP”建议的原因。</value>
     <comment>AccountInfoDisplay</comment>
   </data>
+<data name="ShowPositionSnapshot" xml:space="preserve">
+  <value>显示持仓快照</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowPositionSnapshotDescription" xml:space="preserve">
+  <value>显示当前持仓的简要快照（方向/数量/入场）。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
+<data name="ShowFlatRow" xml:space="preserve">
+  <value>显示 FLAT 行</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowFlatRowDescription" xml:space="preserve">
+  <value>当没有持仓时，显示 FLAT 行而不是持仓详情。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="RowPos" xml:space="preserve">
+  <value>Pos</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowPosDir" xml:space="preserve">
+  <value>Pos 方向</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowPosQty" xml:space="preserve">
+  <value>Pos 数量</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowPosEntry" xml:space="preserve">
+  <value>Pos 入场</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="PosFlatValue" xml:space="preserve">
+  <value>FLAT</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 </root>

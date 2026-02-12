@@ -4402,4 +4402,43 @@
     <value>Show the reasons that triggered a CAUTION or STOP suggestion.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
+  <data name="ShowPositionSnapshot" xml:space="preserve">
+  <value>Show position snapshot</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowPositionSnapshotDescription" xml:space="preserve">
+  <value>Shows a lightweight snapshot of the current open position (dir/qty/entry).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowFlatRow" xml:space="preserve">
+  <value>Show FLAT row</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowFlatRowDescription" xml:space="preserve">
+  <value>When no position is open, shows a FLAT row instead of position details.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="RowPos" xml:space="preserve">
+  <value>Pos</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowPosDir" xml:space="preserve">
+  <value>Pos dir</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowPosQty" xml:space="preserve">
+  <value>Pos qty</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowPosEntry" xml:space="preserve">
+  <value>Pos entry</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="PosFlatValue" xml:space="preserve">
+  <value>FLAT</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 </root>
