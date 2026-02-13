@@ -119,6 +119,7 @@ public class AccountInfoDisplay : Indicator
         public decimal PeakEquity;
         public decimal StopEquity;
         public DateTime LastEodPeakCaptureDate;
+        public int LastEodPeakSessionKey;
         public int LastMonthlyResetKey;
         public bool WasBreachedBeforeSession;
         public int LastSessionKey;
@@ -130,6 +131,7 @@ public class AccountInfoDisplay : Indicator
             PeakEquity = 0m;
             StopEquity = 0m;
             LastEodPeakCaptureDate = DateTime.MinValue;
+            LastEodPeakSessionKey = 0;
             LastMonthlyResetKey = 0;
             WasBreachedBeforeSession = false;
             LastSessionKey = 0;
@@ -161,6 +163,7 @@ public class AccountInfoDisplay : Indicator
         public decimal StopEquity { get; set; }
 
         public DateTime LastEodPeakCaptureDate { get; set; }
+        public int LastEodPeakSessionKey { get; set; }
         public int LastMonthlyResetKey { get; set; }
 
         public bool WasBreachedBeforeSession { get; set; }
@@ -1245,10 +1248,11 @@ public class AccountInfoDisplay : Indicator
         }
         else
         {
-            var nowLocal = DateTime.UtcNow.AddHours(InstrumentInfo.TimeZone);
-            if (ShouldCaptureEodPeak(state, nowLocal))
+            // Deterministic single-shot EOD capture: trigger only on boundary crossing (chart time),
+            // and only once per sessionKey (account-day).
+            if (ShouldCaptureEodPeak(state, sessionKey))
             {
-                CaptureEodPeak(state, currentEquity, nowLocal);
+                CaptureEodPeak(state, currentEquity, sessionKey);
             }
         }
     }
@@ -1267,32 +1271,45 @@ public class AccountInfoDisplay : Indicator
 
     #region Private Methods - Trailing DD (EOD peak)
 
-    private bool ShouldCaptureEodPeak(TrailingDrawdownState state, DateTime nowLocal)
+    private bool ShouldCaptureEodPeak(TrailingDrawdownState state, int sessionKey)
     {
         if (PeakUpdateMode != TrailingPeakUpdateMode.EndOfDay)
             return false;
 
-        // Already captured today
-        if (state.LastEodPeakCaptureDate.Date == nowLocal.Date)
+        // Deterministic trigger based on chart candle times.
+        if (!IsSessionBoundaryCrossed())
             return false;
 
-        // Only after configured EOD time
-        if (nowLocal.TimeOfDay < TrailingEodTimeLocal)
+        if (sessionKey == 0)
+            return false;
+
+        // Single-shot per account-day (sessionKey).
+        if (state.LastEodPeakSessionKey == sessionKey)
             return false;
 
         return true;
     }
 
-    private void CaptureEodPeak(TrailingDrawdownState state, decimal currentEquity, DateTime nowLocal)
+    private void CaptureEodPeak(TrailingDrawdownState state, decimal currentEquity, int sessionKey)
     {
         state.PeakEquity = currentEquity;
         state.StopEquity = state.PeakEquity - MaxTrailingDrawdown;
-        state.LastEodPeakCaptureDate = nowLocal.Date;
+
+        // Store a deterministic per-day marker.
+        state.LastEodPeakSessionKey = sessionKey;
+
+        // Keep legacy date field coherent (used by UI/diagnostics elsewhere).
+        var year = sessionKey / 10000;
+        var month = (sessionKey / 100) % 100;
+        var day = sessionKey % 100;
+        state.LastEodPeakCaptureDate = new DateTime(year, month, day);
+
         var accountKey = GetAccountKey();
         PersistTrailingStateToMemory(accountKey);
         MarkPersistenceDirty();
         SavePersistenceIfNeeded(force: true);
     }
+
 
     #endregion
 
@@ -1698,6 +1715,7 @@ public class AccountInfoDisplay : Indicator
         state.StopEquity = t.StopEquity;
 
         state.LastEodPeakCaptureDate = t.LastEodPeakCaptureDate;
+        state.LastEodPeakSessionKey = t.LastEodPeakSessionKey;
         state.LastMonthlyResetKey = t.LastMonthlyResetKey;
 
         state.WasBreachedBeforeSession = t.WasBreachedBeforeSession;
@@ -1825,6 +1843,7 @@ public class AccountInfoDisplay : Indicator
         t.StopEquity = state.StopEquity;
 
         t.LastEodPeakCaptureDate = state.LastEodPeakCaptureDate;
+        t.LastEodPeakSessionKey = state.LastEodPeakSessionKey;
         t.LastMonthlyResetKey = state.LastMonthlyResetKey;
 
         t.WasBreachedBeforeSession = state.WasBreachedBeforeSession;
