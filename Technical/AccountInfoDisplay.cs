@@ -182,6 +182,21 @@ public class AccountInfoDisplay : Indicator
     }
 
     #endregion
+
+    #region class - Account context (runtime)
+
+    private sealed class AccountContext
+    {
+        public readonly TrailingDrawdownState Trailing = new();
+        public readonly DailyRailsState Daily = new();
+        public readonly PositionSnapshot Position = new();
+
+        // One-time flags per account to apply loaded state safely.
+        public bool TrailingLoadedFromDisk;
+    }
+
+    #endregion
+
     #endregion
 
     #region Fields
@@ -209,11 +224,11 @@ public class AccountInfoDisplay : Indicator
 
     #endregion
 
-    #region Fields - Trailing DD runtime
+    #region Fields - Accounts
 
-    private readonly Dictionary<string, TrailingDrawdownState> _trailingStatesByAccount = new();
-    private readonly Dictionary<string, DailyRailsState> _dailyRailsStatesByAccount = new();
-
+    private readonly Dictionary<string, AccountContext> _accountsByKey = new(StringComparer.Ordinal); 
+    private string _activeAccountKey = string.Empty; 
+    
     #endregion
 
     #region Fields - Persistence
@@ -222,7 +237,6 @@ public class AccountInfoDisplay : Indicator
     private const string _persistenceFileName = "AccountInfoDisplay.states.v1.json";
     private string _persistencePath;
     private PersistedRootV1 _persisted; // in-memory loaded snapshot
-    private readonly HashSet<string> _loadedAccounts = new();
     private bool _persistenceDirty;
     private string _lastSavedSha256;
     private DateTime _lastSaveAttemptUtc = DateTime.MinValue;
@@ -232,11 +246,6 @@ public class AccountInfoDisplay : Indicator
 
     #endregion
 
-    #region Fields - Position snapshot
-    
-    private PositionSnapshot _posSnapshot = new();
-
-    #endregion
     #endregion
 
     #region Properties
@@ -664,10 +673,13 @@ public class AccountInfoDisplay : Indicator
             LoadPersistenceSafe();
 
         var accountKey = GetAccountKey();
-        if (!_loadedAccounts.Contains(accountKey))
+        EnsureActiveAccount(accountKey);
+
+        var ctx = GetOrCreateAccountContext(accountKey);
+        if (!ctx.TrailingLoadedFromDisk)
         {
             ApplyLoadedTrailingStateIfAny(accountKey);
-            _loadedAccounts.Add(accountKey);
+            ctx.TrailingLoadedFromDisk = true;
         }
 
         var dailyState = GetDailyRailsState(accountKey);
@@ -755,8 +767,11 @@ public class AccountInfoDisplay : Indicator
         if (portfolio == null)
             return rows;
 
+        var accountKey = GetAccountKey(portfolio);
+        var ctx = GetOrCreateAccountContext(accountKey);
+
         if (EnableTrailingDrawdown && MaxTrailingDrawdown > 0m)
-            trailingState = GetTrailingState();
+            trailingState = GetTrailingState(accountKey);
 
         if (ShowAccountId)
             rows.Add(new DisplayRow(
@@ -842,7 +857,6 @@ public class AccountInfoDisplay : Indicator
         // -----------------------------
         if (ShowTradesTodayRow || ShowWinsLossesTodayRow || ShowCurrentStreakRow || ShowRealizedPnlTodayRow)
         {
-            var accountKey = GetAccountKey();
             var daily = GetDailyRailsState(accountKey);
 
             var realizedToday = portfolio.ClosedPnL - daily.DailyRealizedPnlBaseline;
@@ -872,7 +886,6 @@ public class AccountInfoDisplay : Indicator
         // -----------------------------
         if (EnableSoftRecommendations && (ShowSuggestedStatusRow || ShowStopReasonsRow))
         {
-            var accountKey = GetAccountKey();
             var daily = GetDailyRailsState(accountKey);
 
             var suggestion = EvaluateSoftRecommendations(daily);
@@ -901,11 +914,13 @@ public class AccountInfoDisplay : Indicator
         // -----------------------------
         if (ShowPositionSnapshot)
         {
-            if (_posSnapshot != null && _posSnapshot.IsOpen)
+            var pos = GetOrCreateAccountContext(accountKey).Position;
+
+            if (pos != null && pos.IsOpen)
             {
-                rows.Add(new DisplayRow(Resources.RowPosDir, _posSnapshot.Direction.ToString()));
-                rows.Add(new DisplayRow(Resources.RowPosQty, _posSnapshot.Volume.ToString("N0")));
-                rows.Add(new DisplayRow(Resources.RowPosEntry, _posSnapshot.AvgEntryPrice.ToString("N2")));
+                rows.Add(new DisplayRow(Resources.RowPosDir, pos.Direction.ToString()));
+                rows.Add(new DisplayRow(Resources.RowPosQty, pos.Volume.ToString("N0")));
+                rows.Add(new DisplayRow(Resources.RowPosEntry, pos.AvgEntryPrice.ToString("N2")));
             }
             else if (ShowFlatRow)
             {
@@ -990,23 +1005,44 @@ public class AccountInfoDisplay : Indicator
 
     #region Private Methods - Trailing DD (account + state)
 
+    private AccountContext GetOrCreateAccountContext(string accountKey)
+    {
+        accountKey ??= string.Empty;
+
+        if (!_accountsByKey.TryGetValue(accountKey, out var ctx))
+        {
+            ctx = new AccountContext();
+            _accountsByKey[accountKey] = ctx;
+        }
+
+        return ctx;
+    }
+
+    private void EnsureActiveAccount(string accountKey)
+    {
+        if (string.Equals(_activeAccountKey, accountKey, StringComparison.Ordinal))
+            return;
+
+        _activeAccountKey = accountKey;
+        GetOrCreateAccountContext(_activeAccountKey);
+    }
+
+
     private string GetAccountKey()
     {
         var portfolio = _currentPortfolio ?? TradingManager?.Portfolio;
         return portfolio?.AccountID ?? "UNKNOWN_ACCOUNT";
     }
 
-    private TrailingDrawdownState GetTrailingState()
+    private static string GetAccountKey(Portfolio portfolio)
     {
-        var key = GetAccountKey();
+        return portfolio?.AccountID ?? string.Empty;
+    }
 
-        if (!_trailingStatesByAccount.TryGetValue(key, out var state))
-        {
-            state = new TrailingDrawdownState();
-            _trailingStatesByAccount[key] = state;
-        }
-
-        return state;
+    private TrailingDrawdownState GetTrailingState(string accountKey)
+    {
+        var ctx = GetOrCreateAccountContext(accountKey);
+        return ctx.Trailing;
     }
 
     #endregion
@@ -1050,7 +1086,8 @@ public class AccountInfoDisplay : Indicator
         if (!EnableTrailingDrawdown || MaxTrailingDrawdown <= 0m)
             return;
 
-        var state = GetTrailingState();
+        var accountKey = GetAccountKey();
+        var state = GetTrailingState(accountKey);
 
         // Session-start processing (boundary is TrailingEodTimeLocal)
         var sessionKey = GetSessionKey();
@@ -1084,7 +1121,6 @@ public class AccountInfoDisplay : Indicator
                 state.PeakEquity = currentEquity;
                 state.StopEquity = state.PeakEquity - MaxTrailingDrawdown;
 
-                var accountKey = GetAccountKey();
                 PersistTrailingStateToMemory(accountKey);
                 MarkPersistenceDirty();
             }
@@ -1101,9 +1137,9 @@ public class AccountInfoDisplay : Indicator
 
     private void ResetTrailingState()
     {
-        var state = GetTrailingState();
-        state.Reset();
         var accountKey = GetAccountKey();
+        var state = GetTrailingState(accountKey);
+        state.Reset();
         PersistTrailingStateToMemory(accountKey);
         MarkPersistenceDirty();
         SavePersistenceIfNeeded(force: true);
@@ -1236,15 +1272,8 @@ public class AccountInfoDisplay : Indicator
 
     private DailyRailsState GetDailyRailsState(string accountKey)
     {
-        var key = accountKey ?? string.Empty;
-
-        if (!_dailyRailsStatesByAccount.TryGetValue(key, out var state))
-        {
-            state = new DailyRailsState();
-            _dailyRailsStatesByAccount[key] = state;
-        }
-
-        return state;
+        var ctx = GetOrCreateAccountContext(accountKey);
+        return ctx.Daily;
     }
 
     private void MaybeResetDailyRails(DailyRailsState state, Portfolio portfolio)
@@ -1457,7 +1486,7 @@ public class AccountInfoDisplay : Indicator
             return;
 
         var t = acc.Trailing;
-        var state = GetTrailingState();
+        var state = GetTrailingState(accountKey);
 
         state.IsInitialized = t.IsInitialized;
         state.StartEquity = t.StartEquity;
@@ -1515,7 +1544,7 @@ public class AccountInfoDisplay : Indicator
             _persisted.Accounts[accountKey] = acc;
         }
 
-        var state = GetTrailingState();
+        var state = GetTrailingState(accountKey);
         var t = acc.Trailing;
 
         t.IsInitialized = state.IsInitialized;
@@ -1587,7 +1616,8 @@ public class AccountInfoDisplay : Indicator
 
     private void UpdatePositionSnapshotFromTradingManager(Portfolio portfolio)
     {
-        _posSnapshot ??= new PositionSnapshot();
+        var accountKey = GetAccountKey();
+        var snap = GetOrCreateAccountContext(accountKey).Position;
 
         var tm = TradingManager;
         var pos = tm?.Position;
@@ -1595,20 +1625,26 @@ public class AccountInfoDisplay : Indicator
 
         if (portfolio == null || pos == null || sec == null)
         {
-            _posSnapshot.IsOpen = false;
+            snap.IsOpen = false;
+            snap.AccountId = portfolio?.AccountID ?? string.Empty;
+            snap.SecurityCode = string.Empty;
             return;
         }
 
         // Defensive: ensure the position belongs to the currently selected portfolio/security
         if (!string.Equals(pos.AccountID, portfolio.AccountID, StringComparison.Ordinal))
         {
-            _posSnapshot.IsOpen = false;
+            snap.IsOpen = false;
+            snap.AccountId = portfolio.AccountID;
+            snap.SecurityCode = sec.Code;
             return;
         }
 
         if (pos.Security == null || !string.Equals(pos.Security.Code, sec.Code, StringComparison.Ordinal))
         {
-            _posSnapshot.IsOpen = false;
+            snap.IsOpen = false;
+            snap.AccountId = portfolio.AccountID;
+            snap.SecurityCode = sec.Code;
             return;
         }
 
@@ -1616,27 +1652,22 @@ public class AccountInfoDisplay : Indicator
 
         if (!isOpen)
         {
-            _posSnapshot = new PositionSnapshot
-            {
-                IsOpen = false,
-                AccountId = portfolio.AccountID,
-                SecurityCode = sec.Code
-            };
+            snap.IsOpen = false;
+            snap.AccountId = portfolio.AccountID;
+            snap.SecurityCode = sec.Code;
             return;
         }
 
         var dir = pos.Volume > 0m ? OrderDirections.Buy : OrderDirections.Sell;
 
-        _posSnapshot = new PositionSnapshot
-        {
-            IsOpen = true,
-            Direction = dir,
-            Volume = Math.Abs(pos.Volume),
-            AvgEntryPrice = pos.AveragePrice,
-            AccountId = portfolio.AccountID,
-            SecurityCode = sec.Code
-        };
+        snap.IsOpen = true;
+        snap.Direction = dir;
+        snap.Volume = Math.Abs(pos.Volume);
+        snap.AvgEntryPrice = pos.AveragePrice;
+        snap.AccountId = portfolio.AccountID;
+        snap.SecurityCode = sec.Code;
     }
+
 
     #endregion
 
