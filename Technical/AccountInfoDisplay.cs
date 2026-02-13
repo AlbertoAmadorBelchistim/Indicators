@@ -1428,9 +1428,33 @@ public class AccountInfoDisplay : Indicator
         // CLOSE event: OPEN -> FLAT
         else if (state.WasPositionOpen && !isOpen)
         {
-            state.WasPositionOpen = false;
-
+            // Compute realized PnL delta before mutating baselines/flags.
             var tradePnl = portfolio.ClosedPnL - state.TradeClosedPnlBaseline;
+
+            // Best-effort metadata from the last known position snapshot (still "open" in this render cycle).
+            var accountKey = GetAccountKey(portfolio);
+            var ctx = GetOrCreateAccountContext(accountKey);
+            var snap = ctx.Position;
+
+            OrderDirections? dir = null;
+            decimal? qty = null;
+
+            if (snap != null && snap.IsOpen)
+            {
+                dir = snap.Direction;
+                qty = snap.Volume;
+            }
+
+            var securityCode = (snap != null && !string.IsNullOrWhiteSpace(snap.SecurityCode))
+                ? snap.SecurityCode
+                : (TradingManager?.Security?.Code ?? string.Empty);
+
+            // Emit trade-close event (append-only JSONL).
+            var evt = CreateTradeCloseEventV1(accountKey, portfolio, securityCode, tradePnl, dir, qty);
+            AppendTradeEventJsonl(accountKey, evt);
+
+            // Update daily counters.
+            state.WasPositionOpen = false;
 
             state.TradesToday++;
 
