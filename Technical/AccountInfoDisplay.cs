@@ -1480,9 +1480,17 @@ public class AccountInfoDisplay : Indicator
             }
             else
             {
-                // Fallback: use event timestamp (less robust than ProcessedTradeTime).
-                var evt = CreateTradeCloseEventV1(accountKey, portfolio, securityCode, tradePnl, dir, qty);
+                // Fallback: derive a deterministic timestamp from the last candle (chart time),
+                // and enforce monotonicity vs. the persisted cursor to avoid duplicates on re-renders.
+                var candle = GetCandle(CurrentBar - 1);
+                var tsUtc = candle?.Time ?? DateTime.UtcNow;
 
+                if (ctx.LastTradeProcessedTimeUtc.HasValue && tsUtc <= ctx.LastTradeProcessedTimeUtc.Value)
+                    tsUtc = ctx.LastTradeProcessedTimeUtc.Value.AddTicks(1);
+
+                var evt = CreateTradeCloseEventV1(accountKey, portfolio, securityCode, tradePnl, dir, qty, tsUtc);
+
+                // Dedup: skip events not strictly newer than the cursor.
                 if (ctx.LastTradeProcessedTimeUtc.HasValue && evt.TimestampUtc <= ctx.LastTradeProcessedTimeUtc.Value)
                 {
                     // Skip duplicated close notifications.
@@ -1498,6 +1506,7 @@ public class AccountInfoDisplay : Indicator
                     SavePersistenceIfNeeded();
                 }
             }
+
 
             // Update daily counters.
             state.WasPositionOpen = false;
