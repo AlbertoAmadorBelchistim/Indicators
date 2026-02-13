@@ -165,6 +165,43 @@ public class AccountInfoDisplay : Indicator
         public int LastSessionKey { get; set; }
     }
 
+    private sealed class AccountConfigV1
+    {
+        public int SchemaVersion { get; set; } = 1;
+
+        // Trailing DD
+        public bool EnableTrailingDrawdown { get; set; }
+        public decimal MaxTrailingDrawdown { get; set; }
+        public TrailingInitializationMode TrailingInitMode { get; set; }
+        public decimal TrailingManualStopEquity { get; set; }
+        public TrailingPeakUpdateMode PeakUpdateMode { get; set; }
+        public TimeSpan TrailingEodTimeLocal { get; set; }
+        public bool EnableMonthlyReset { get; set; }
+        public int MonthlyResetDay { get; set; }
+
+        // Daily reset/session
+        public DailyResetModeKind DailyResetMode { get; set; }
+        public TimeSpan DailyResetTimeLocal { get; set; }
+
+        // Soft recommendations
+        public bool EnableSoftRecommendations { get; set; }
+        public int MaxTradesPerDay { get; set; }
+        public int MaxConsecutiveLosses { get; set; }
+        public int CautionTradesThreshold { get; set; }
+        public int CautionLossesThreshold { get; set; }
+
+        // UI toggles (risk-relevant)
+        public bool ShowTradesTodayRow { get; set; }
+        public bool ShowWinsLossesTodayRow { get; set; }
+        public bool ShowCurrentStreakRow { get; set; }
+        public bool ShowRealizedPnlTodayRow { get; set; }
+        public bool ShowSuggestedStatusRow { get; set; }
+        public bool ShowStopReasonsRow { get; set; }
+        public bool ShowPositionSnapshot { get; set; }
+        public bool ShowFlatRow { get; set; }
+    }
+
+
     #endregion
 
     #region class - Position Snapshot
@@ -193,6 +230,12 @@ public class AccountInfoDisplay : Indicator
 
         // One-time flags per account to apply loaded state safely.
         public bool TrailingLoadedFromDisk;
+
+        public AccountConfigV1 Config;
+        public bool ConfigLoadedFromDisk;
+        public bool ConfigAppliedToUiOnce;
+        public bool ConfigDirty;
+        public DateTime LastConfigSaveAttemptUtc = DateTime.MinValue;
     }
 
     #endregion
@@ -227,8 +270,11 @@ public class AccountInfoDisplay : Indicator
     #region Fields - Accounts
 
     private readonly Dictionary<string, AccountContext> _accountsByKey = new(StringComparer.Ordinal); 
-    private string _activeAccountKey = string.Empty; 
-    
+    private string _activeAccountKey = string.Empty;
+
+    // Prevent config sync loops when applying loaded config into UI properties.
+    private bool _suppressConfigSync;
+
     #endregion
 
     #region Fields - Persistence
@@ -676,6 +722,19 @@ public class AccountInfoDisplay : Indicator
         EnsureActiveAccount(accountKey);
 
         var ctx = GetOrCreateAccountContext(accountKey);
+
+        LoadAccountConfigSafe(accountKey);
+
+        if (ctx.Config != null && !ctx.ConfigAppliedToUiOnce)
+        {
+            ApplyAccountConfigToUi(ctx.Config);
+            ctx.ConfigAppliedToUiOnce = true;
+            RedrawChart();
+        }
+
+        SyncActiveAccountConfigFromUi(accountKey);
+        SaveAccountConfigIfNeeded(accountKey);
+
         if (!ctx.TrailingLoadedFromDisk)
         {
             ApplyLoadedTrailingStateIfAny(accountKey);
@@ -750,7 +809,10 @@ public class AccountInfoDisplay : Indicator
 
     private void OnPortfolioSelected(Portfolio portfolio)
 	{
-		_currentPortfolio = portfolio;
+        if (!string.IsNullOrEmpty(_activeAccountKey))
+            SaveAccountConfigIfNeeded(_activeAccountKey, force: true);
+
+        _currentPortfolio = portfolio;
 		RedrawChart();
 	}
 
@@ -1609,6 +1671,219 @@ public class AccountInfoDisplay : Indicator
             // Keep dirty flag true so we can retry later.
         }
     }
+
+    private string GetAccountConfigPath(string accountKey)
+    {
+        var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        var dir = Path.Combine(appData, "ATAS", "JSON");
+        Directory.CreateDirectory(dir);
+
+        var safeKey = SanitizeFileComponent(accountKey);
+        return Path.Combine(dir, $"AccountInfoDisplay.account.{safeKey}.config.v1.json");
+    }
+
+    private static string SanitizeFileComponent(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return "UNKNOWN";
+
+        foreach (var c in Path.GetInvalidFileNameChars())
+            value = value.Replace(c, '_');
+
+        return value.Trim();
+    }
+
+    private AccountConfigV1 CreateDefaultConfigFromCurrentUi()
+    {
+        return new AccountConfigV1
+        {
+            EnableTrailingDrawdown = EnableTrailingDrawdown,
+            MaxTrailingDrawdown = MaxTrailingDrawdown,
+            TrailingInitMode = TrailingInitMode,
+            TrailingManualStopEquity = TrailingManualStopEquity,
+            PeakUpdateMode = PeakUpdateMode,
+            TrailingEodTimeLocal = TrailingEodTimeLocal,
+            EnableMonthlyReset = EnableMonthlyReset,
+            MonthlyResetDay = MonthlyResetDay,
+
+            DailyResetMode = DailyResetMode,
+            DailyResetTimeLocal = DailyResetTimeLocal,
+
+            EnableSoftRecommendations = EnableSoftRecommendations,
+            MaxTradesPerDay = MaxTradesPerDay,
+            MaxConsecutiveLosses = MaxConsecutiveLosses,
+            CautionTradesThreshold = CautionTradesThreshold,
+            CautionLossesThreshold = CautionLossesThreshold,
+
+            ShowTradesTodayRow = ShowTradesTodayRow,
+            ShowWinsLossesTodayRow = ShowWinsLossesTodayRow,
+            ShowCurrentStreakRow = ShowCurrentStreakRow,
+            ShowRealizedPnlTodayRow = ShowRealizedPnlTodayRow,
+            ShowSuggestedStatusRow = ShowSuggestedStatusRow,
+            ShowStopReasonsRow = ShowStopReasonsRow,
+            ShowPositionSnapshot = ShowPositionSnapshot,
+            ShowFlatRow = ShowFlatRow
+        };
+    }
+
+    private void LoadAccountConfigSafe(string accountKey)
+    {
+        var ctx = GetOrCreateAccountContext(accountKey);
+
+        if (ctx.ConfigLoadedFromDisk)
+            return;
+
+        try
+        {
+            var path = GetAccountConfigPath(accountKey);
+
+            if (!File.Exists(path))
+            {
+                ctx.Config = CreateDefaultConfigFromCurrentUi();
+                ctx.ConfigLoadedFromDisk = true;
+                return;
+            }
+
+            var json = File.ReadAllText(path, Encoding.UTF8);
+            var loaded = JsonSerializer.Deserialize<AccountConfigV1>(json);
+
+            ctx.Config = loaded ?? CreateDefaultConfigFromCurrentUi();
+            ctx.ConfigLoadedFromDisk = true;
+        }
+        catch
+        {
+            ctx.Config = CreateDefaultConfigFromCurrentUi();
+            ctx.ConfigLoadedFromDisk = true;
+        }
+    }
+
+    private void SaveAccountConfigIfNeeded(string accountKey, bool force = false)
+    {
+        var ctx = GetOrCreateAccountContext(accountKey);
+
+        if (!ctx.ConfigDirty || ctx.Config == null)
+            return;
+
+        var nowUtc = DateTime.UtcNow;
+
+        if (!force && nowUtc - ctx.LastConfigSaveAttemptUtc < _saveThrottle)
+            return;
+
+        ctx.LastConfigSaveAttemptUtc = nowUtc;
+
+        try
+        {
+            var path = GetAccountConfigPath(accountKey);
+            var tmp = path + ".tmp";
+
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+
+            var json = JsonSerializer.Serialize(ctx.Config, options);
+
+            File.WriteAllText(tmp, json, Encoding.UTF8);
+
+            if (File.Exists(path))
+                File.Delete(path);
+
+            File.Move(tmp, path);
+
+            ctx.ConfigDirty = false;
+        }
+        catch
+        {
+            // Keep dirty=true, retry later. Never break render.
+        }
+    }
+
+    private void ApplyAccountConfigToUi(AccountConfigV1 cfg)
+    {
+        if (cfg == null)
+            return;
+
+        _suppressConfigSync = true;
+        try
+        {
+            EnableTrailingDrawdown = cfg.EnableTrailingDrawdown;
+            MaxTrailingDrawdown = cfg.MaxTrailingDrawdown;
+            TrailingInitMode = cfg.TrailingInitMode;
+            TrailingManualStopEquity = cfg.TrailingManualStopEquity;
+            PeakUpdateMode = cfg.PeakUpdateMode;
+            TrailingEodTimeLocal = cfg.TrailingEodTimeLocal;
+            EnableMonthlyReset = cfg.EnableMonthlyReset;
+            MonthlyResetDay = cfg.MonthlyResetDay;
+
+            DailyResetMode = cfg.DailyResetMode;
+            DailyResetTimeLocal = cfg.DailyResetTimeLocal;
+
+            EnableSoftRecommendations = cfg.EnableSoftRecommendations;
+            MaxTradesPerDay = cfg.MaxTradesPerDay;
+            MaxConsecutiveLosses = cfg.MaxConsecutiveLosses;
+            CautionTradesThreshold = cfg.CautionTradesThreshold;
+            CautionLossesThreshold = cfg.CautionLossesThreshold;
+
+            ShowTradesTodayRow = cfg.ShowTradesTodayRow;
+            ShowWinsLossesTodayRow = cfg.ShowWinsLossesTodayRow;
+            ShowCurrentStreakRow = cfg.ShowCurrentStreakRow;
+            ShowRealizedPnlTodayRow = cfg.ShowRealizedPnlTodayRow;
+            ShowSuggestedStatusRow = cfg.ShowSuggestedStatusRow;
+            ShowStopReasonsRow = cfg.ShowStopReasonsRow;
+            ShowPositionSnapshot = cfg.ShowPositionSnapshot;
+            ShowFlatRow = cfg.ShowFlatRow;
+        }
+        finally
+        {
+            _suppressConfigSync = false;
+        }
+    }
+
+    private void SyncActiveAccountConfigFromUi(string accountKey)
+    {
+        if (_suppressConfigSync)
+            return;
+
+        var ctx = GetOrCreateAccountContext(accountKey);
+        var cfg = ctx.Config;
+
+        if (cfg == null)
+            return;
+
+        var changed = false;
+
+        if (cfg.EnableTrailingDrawdown != EnableTrailingDrawdown) { cfg.EnableTrailingDrawdown = EnableTrailingDrawdown; changed = true; }
+        if (cfg.MaxTrailingDrawdown != MaxTrailingDrawdown) { cfg.MaxTrailingDrawdown = MaxTrailingDrawdown; changed = true; }
+        if (cfg.TrailingInitMode != TrailingInitMode) { cfg.TrailingInitMode = TrailingInitMode; changed = true; }
+        if (cfg.TrailingManualStopEquity != TrailingManualStopEquity) { cfg.TrailingManualStopEquity = TrailingManualStopEquity; changed = true; }
+        if (cfg.PeakUpdateMode != PeakUpdateMode) { cfg.PeakUpdateMode = PeakUpdateMode; changed = true; }
+        if (cfg.TrailingEodTimeLocal != TrailingEodTimeLocal) { cfg.TrailingEodTimeLocal = TrailingEodTimeLocal; changed = true; }
+        if (cfg.EnableMonthlyReset != EnableMonthlyReset) { cfg.EnableMonthlyReset = EnableMonthlyReset; changed = true; }
+        if (cfg.MonthlyResetDay != MonthlyResetDay) { cfg.MonthlyResetDay = MonthlyResetDay; changed = true; }
+
+        if (cfg.DailyResetMode != DailyResetMode) { cfg.DailyResetMode = DailyResetMode; changed = true; }
+        if (cfg.DailyResetTimeLocal != DailyResetTimeLocal) { cfg.DailyResetTimeLocal = DailyResetTimeLocal; changed = true; }
+
+        if (cfg.EnableSoftRecommendations != EnableSoftRecommendations) { cfg.EnableSoftRecommendations = EnableSoftRecommendations; changed = true; }
+        if (cfg.MaxTradesPerDay != MaxTradesPerDay) { cfg.MaxTradesPerDay = MaxTradesPerDay; changed = true; }
+        if (cfg.MaxConsecutiveLosses != MaxConsecutiveLosses) { cfg.MaxConsecutiveLosses = MaxConsecutiveLosses; changed = true; }
+        if (cfg.CautionTradesThreshold != CautionTradesThreshold) { cfg.CautionTradesThreshold = CautionTradesThreshold; changed = true; }
+        if (cfg.CautionLossesThreshold != CautionLossesThreshold) { cfg.CautionLossesThreshold = CautionLossesThreshold; changed = true; }
+
+        if (cfg.ShowTradesTodayRow != ShowTradesTodayRow) { cfg.ShowTradesTodayRow = ShowTradesTodayRow; changed = true; }
+        if (cfg.ShowWinsLossesTodayRow != ShowWinsLossesTodayRow) { cfg.ShowWinsLossesTodayRow = ShowWinsLossesTodayRow; changed = true; }
+        if (cfg.ShowCurrentStreakRow != ShowCurrentStreakRow) { cfg.ShowCurrentStreakRow = ShowCurrentStreakRow; changed = true; }
+        if (cfg.ShowRealizedPnlTodayRow != ShowRealizedPnlTodayRow) { cfg.ShowRealizedPnlTodayRow = ShowRealizedPnlTodayRow; changed = true; }
+        if (cfg.ShowSuggestedStatusRow != ShowSuggestedStatusRow) { cfg.ShowSuggestedStatusRow = ShowSuggestedStatusRow; changed = true; }
+        if (cfg.ShowStopReasonsRow != ShowStopReasonsRow) { cfg.ShowStopReasonsRow = ShowStopReasonsRow; changed = true; }
+        if (cfg.ShowPositionSnapshot != ShowPositionSnapshot) { cfg.ShowPositionSnapshot = ShowPositionSnapshot; changed = true; }
+        if (cfg.ShowFlatRow != ShowFlatRow) { cfg.ShowFlatRow = ShowFlatRow; changed = true; }
+
+        if (changed)
+            ctx.ConfigDirty = true;
+    }
+
+
 
     #endregion
 
