@@ -201,6 +201,30 @@ public class AccountInfoDisplay : Indicator
         public bool ShowFlatRow { get; set; }
     }
 
+    private sealed class TradeCloseEventV1
+    {
+        public int SchemaVersion { get; set; } = 1;
+
+        public string AccountKey { get; set; } = string.Empty;
+        public int EpochId { get; set; } = 0; // reserved for future "reset epochs"
+
+        public DateTime TimestampUtc { get; set; }
+        public DateTime TimestampLocal { get; set; }
+
+        public string SecurityCode { get; set; } = string.Empty;
+        public string PortfolioId { get; set; } = string.Empty;
+
+        public OrderDirections? Direction { get; set; }
+        public decimal? Quantity { get; set; }
+
+        public decimal RealizedPnL { get; set; }
+
+        public decimal? Balance { get; set; }
+        public decimal? Equity { get; set; }
+
+        // Best-effort stable identifier for deduplication in future.
+        public string EventId { get; set; } = string.Empty;
+    }
 
     #endregion
 
@@ -1296,6 +1320,12 @@ public class AccountInfoDisplay : Indicator
         return time.AddHours(InstrumentInfo.TimeZone).TimeOfDay;
     }
 
+    private static string BuildTradeEventId(string accountKey, DateTime tsUtc, decimal realizedPnl, string securityCode, decimal? qty)
+    {
+        // Simple stable id (not cryptographically strong; enough for future dedup checks).
+        return $"{accountKey}|{tsUtc:O}|{securityCode}|{realizedPnl}|{qty?.ToString(CultureInfo.InvariantCulture) ?? "null"}";
+    }
+
     private DateTime GetLocalDate(DateTime time)
     {
         return time.AddHours(InstrumentInfo.TimeZone).Date;
@@ -1682,6 +1712,17 @@ public class AccountInfoDisplay : Indicator
         return Path.Combine(dir, $"AccountInfoDisplay.account.{safeKey}.config.v1.json");
     }
 
+    private string GetAccountTradesLogPath(string accountKey)
+    {
+        var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        var dir = Path.Combine(appData, "ATAS", "JSON");
+        Directory.CreateDirectory(dir);
+
+        var safeKey = SanitizeFileComponent(accountKey);
+        return Path.Combine(dir, $"AccountInfoDisplay.account.{safeKey}.trades.v1.jsonl");
+    }
+
+
     private static string SanitizeFileComponent(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
@@ -1882,6 +1923,61 @@ public class AccountInfoDisplay : Indicator
         if (changed)
             ctx.ConfigDirty = true;
     }
+
+    private void AppendTradeEventJsonl(string accountKey, TradeCloseEventV1 evt)
+    {
+        if (evt == null)
+            return;
+
+        try
+        {
+            var path = GetAccountTradesLogPath(accountKey);
+
+            // Keep JSONL compact but readable enough.
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = false
+            };
+
+            var json = JsonSerializer.Serialize(evt, options);
+
+            // Append line (newline-terminated).
+            File.AppendAllText(path, json + Environment.NewLine, Encoding.UTF8);
+        }
+        catch
+        {
+            // Fail-safe: never break indicator render/update.
+        }
+    }
+
+    private TradeCloseEventV1 CreateTradeCloseEventV1(string accountKey, Portfolio portfolio, string securityCode, decimal realizedPnl, OrderDirections? dir, decimal? qty)
+    {
+        var nowUtc = DateTime.UtcNow;
+        var nowLocal = nowUtc.AddHours(InstrumentInfo.TimeZone);
+
+        var balance = portfolio?.Balance;
+        var equity = portfolio != null ? (portfolio.Balance + portfolio.OpenPnL) : (decimal?)null;
+
+        var evt = new TradeCloseEventV1
+        {
+            AccountKey = accountKey,
+            TimestampUtc = nowUtc,
+            TimestampLocal = nowLocal,
+            SecurityCode = securityCode ?? string.Empty,
+            PortfolioId = portfolio?.AccountID ?? string.Empty,
+            RealizedPnL = realizedPnl,
+            Direction = dir,
+            Quantity = qty,
+            Balance = balance,
+            Equity = equity
+        };
+
+        evt.EventId = BuildTradeEventId(evt.AccountKey, evt.TimestampUtc, evt.RealizedPnL, evt.SecurityCode, evt.Quantity);
+
+        return evt;
+    }
+
+
 
 
 
