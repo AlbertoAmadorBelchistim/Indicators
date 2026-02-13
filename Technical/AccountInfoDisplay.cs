@@ -149,6 +149,8 @@ public class AccountInfoDisplay : Indicator
     private sealed class PersistedAccountV1
     {
         public PersistedTrailingDdV1 Trailing { get; set; } = new();
+        public DateTime? LastTradeProcessedTimeUtc { get; set; }
+
     }
 
     private sealed class PersistedTrailingDdV1
@@ -260,6 +262,8 @@ public class AccountInfoDisplay : Indicator
         public bool ConfigAppliedToUiOnce;
         public bool ConfigDirty;
         public DateTime LastConfigSaveAttemptUtc = DateTime.MinValue;
+
+        public DateTime? LastTradeProcessedTimeUtc;
     }
 
     #endregion
@@ -762,6 +766,7 @@ public class AccountInfoDisplay : Indicator
         if (!ctx.TrailingLoadedFromDisk)
         {
             ApplyLoadedTrailingStateIfAny(accountKey);
+            ApplyLoadedTradeLogCursorIfAny(accountKey);
             ctx.TrailingLoadedFromDisk = true;
         }
 
@@ -1190,7 +1195,8 @@ public class AccountInfoDisplay : Indicator
                 state.WasBreachedBeforeSession = true;
 
 
-            MaybeResetMonthlyTrailingAtSessionStart(state, DateTime.Now);
+            var nowLocal = DateTime.UtcNow.AddHours(InstrumentInfo.TimeZone);
+            MaybeResetMonthlyTrailingAtSessionStart(state, nowLocal);
         }
 
         if (!state.IsInitialized)
@@ -1213,7 +1219,7 @@ public class AccountInfoDisplay : Indicator
         }
         else
         {
-            var nowLocal = DateTime.Now;
+            var nowLocal = DateTime.UtcNow.AddHours(InstrumentInfo.TimeZone);
             if (ShouldCaptureEodPeak(state, nowLocal))
             {
                 CaptureEodPeak(state, currentEquity, nowLocal);
@@ -1450,8 +1456,48 @@ public class AccountInfoDisplay : Indicator
                 : (TradingManager?.Security?.Code ?? string.Empty);
 
             // Emit trade-close event (append-only JSONL).
-            var evt = CreateTradeCloseEventV1(accountKey, portfolio, securityCode, tradePnl, dir, qty);
-            AppendTradeEventJsonl(accountKey, evt);
+            var processedUtc = portfolio.ProcessedTradeTime;
+
+            if (processedUtc.HasValue)
+            {
+                // Dedup: never log events that are not strictly newer than the last processed time.
+                if (ctx.LastTradeProcessedTimeUtc.HasValue && processedUtc.Value <= ctx.LastTradeProcessedTimeUtc.Value)
+                {
+                    // Skip duplicated close notifications.
+                }
+                else
+                {
+                    ctx.LastTradeProcessedTimeUtc = processedUtc.Value;
+
+                    var evt = CreateTradeCloseEventV1(accountKey, portfolio, securityCode, tradePnl, dir, qty, processedUtc.Value);
+
+                    AppendTradeEventJsonl(accountKey, evt);
+
+                    PersistTradeLogCursorToMemory(accountKey);
+                    MarkPersistenceDirty();
+                    SavePersistenceIfNeeded();
+                }
+            }
+            else
+            {
+                // Fallback: use event timestamp (less robust than ProcessedTradeTime).
+                var evt = CreateTradeCloseEventV1(accountKey, portfolio, securityCode, tradePnl, dir, qty);
+
+                if (ctx.LastTradeProcessedTimeUtc.HasValue && evt.TimestampUtc <= ctx.LastTradeProcessedTimeUtc.Value)
+                {
+                    // Skip duplicated close notifications.
+                }
+                else
+                {
+                    ctx.LastTradeProcessedTimeUtc = evt.TimestampUtc;
+
+                    AppendTradeEventJsonl(accountKey, evt);
+
+                    PersistTradeLogCursorToMemory(accountKey);
+                    MarkPersistenceDirty();
+                    SavePersistenceIfNeeded();
+                }
+            }
 
             // Update daily counters.
             state.WasPositionOpen = false;
@@ -1616,6 +1662,18 @@ public class AccountInfoDisplay : Indicator
         state.LastSessionKey = t.LastSessionKey;
     }
 
+    private void ApplyLoadedTradeLogCursorIfAny(string accountKey)
+    {
+        if (_persisted == null)
+            return;
+
+        if (!_persisted.Accounts.TryGetValue(accountKey, out var acc))
+            return;
+
+        var ctx = GetOrCreateAccountContext(accountKey);
+        ctx.LastTradeProcessedTimeUtc = acc.LastTradeProcessedTimeUtc;
+    }
+
     #endregion
 
     #region Private Methods - Persistence (atomic save)
@@ -1673,6 +1731,21 @@ public class AccountInfoDisplay : Indicator
 
         t.WasBreachedBeforeSession = state.WasBreachedBeforeSession;
         t.LastSessionKey = state.LastSessionKey;
+    }
+
+    private void PersistTradeLogCursorToMemory(string accountKey)
+    {
+        if (_persisted == null)
+            LoadPersistenceSafe();
+
+        if (!_persisted.Accounts.TryGetValue(accountKey, out var acc))
+        {
+            acc = new PersistedAccountV1();
+            _persisted.Accounts[accountKey] = acc;
+        }
+
+        var ctx = GetOrCreateAccountContext(accountKey);
+        acc.LastTradeProcessedTimeUtc = ctx.LastTradeProcessedTimeUtc;
     }
 
     private void MarkPersistenceDirty()
@@ -1839,7 +1912,6 @@ public class AccountInfoDisplay : Indicator
         try
         {
             var path = GetAccountConfigPath(accountKey);
-            var tmp = path + ".tmp";
 
             var options = new JsonSerializerOptions
             {
@@ -1848,12 +1920,8 @@ public class AccountInfoDisplay : Indicator
 
             var json = JsonSerializer.Serialize(ctx.Config, options);
 
-            File.WriteAllText(tmp, json, Encoding.UTF8);
-
-            if (File.Exists(path))
-                File.Delete(path);
-
-            File.Move(tmp, path);
+            // Atomic write (same strategy as states.v1.json)
+            WriteAllTextAtomic(path, json);
 
             ctx.ConfigDirty = false;
         }
@@ -1974,10 +2042,10 @@ public class AccountInfoDisplay : Indicator
         }
     }
 
-    private TradeCloseEventV1 CreateTradeCloseEventV1(string accountKey, Portfolio portfolio, string securityCode, decimal realizedPnl, OrderDirections? dir, decimal? qty)
+    private TradeCloseEventV1 CreateTradeCloseEventV1(string accountKey, Portfolio portfolio, string securityCode, decimal realizedPnl, OrderDirections? dir, decimal? qty, DateTime? timestampUtc = null)
     {
-        var nowUtc = DateTime.UtcNow;
-        var nowLocal = nowUtc.AddHours(InstrumentInfo.TimeZone);
+        var tsUtc = timestampUtc ?? DateTime.UtcNow;
+        var tsLocal = tsUtc.AddHours(InstrumentInfo.TimeZone);
 
         var balance = portfolio?.Balance;
         var equity = portfolio != null ? (portfolio.Balance + portfolio.OpenPnL) : (decimal?)null;
@@ -1985,8 +2053,8 @@ public class AccountInfoDisplay : Indicator
         var evt = new TradeCloseEventV1
         {
             AccountKey = accountKey,
-            TimestampUtc = nowUtc,
-            TimestampLocal = nowLocal,
+            TimestampUtc = tsUtc,
+            TimestampLocal = tsLocal,
             SecurityCode = securityCode ?? string.Empty,
             PortfolioId = portfolio?.AccountID ?? string.Empty,
             RealizedPnL = realizedPnl,
@@ -2005,13 +2073,14 @@ public class AccountInfoDisplay : Indicator
 
 
 
+
     #endregion
 
     #region Private Methods - Position snapshot
 
     private void UpdatePositionSnapshotFromTradingManager(Portfolio portfolio)
     {
-        var accountKey = GetAccountKey();
+        var accountKey = GetAccountKey(portfolio);
         var snap = GetOrCreateAccountContext(accountKey).Position;
 
         var tm = TradingManager;
