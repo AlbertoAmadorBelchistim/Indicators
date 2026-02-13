@@ -228,6 +228,32 @@ public class AccountInfoDisplay : Indicator
         public string EventId { get; set; } = string.Empty;
     }
 
+    private sealed class DailySnapshotV1
+    {
+        public int DayKey { get; set; } // yyyymmdd (local instrument time)
+        public string AccountKey { get; set; } = string.Empty;
+
+        public DateTime TimestampUtc { get; set; }
+        public DateTime TimestampLocal { get; set; }
+
+        // Daily rails summary (as-of end of day)
+        public int TradesToday { get; set; }
+        public int WinsToday { get; set; }
+        public int LossesToday { get; set; }
+        public int CurrentWinStreak { get; set; }
+        public int CurrentLossStreak { get; set; }
+
+        public decimal RealizedPnlToday { get; set; }
+
+        // Trailing snapshot (as-of end of day)
+        public bool TrailingIsInitialized { get; set; }
+        public decimal TrailingStartEquity { get; set; }
+        public decimal TrailingPeakEquity { get; set; }
+        public decimal TrailingStopEquity { get; set; }
+        public bool TrailingWasBreachedBeforeSession { get; set; }
+    }
+
+
     #endregion
 
     #region class - Position Snapshot
@@ -1388,6 +1414,13 @@ public class AccountInfoDisplay : Indicator
         if (state.LastDailyResetKey == resetKey)
             return;
 
+        // Before resetting counters, finalize the previous day snapshot (single-shot).
+        if (state.LastDailyResetKey != 0)
+        {
+            var accountKey = GetAccountKey(portfolio);
+            WriteDailySnapshotIfMissing(accountKey, state.LastDailyResetKey, portfolio, state);
+        }
+
         state.ResetForNewDay(resetKey);
 
         // Baseline for "Realized PnL Today"
@@ -1682,6 +1715,62 @@ public class AccountInfoDisplay : Indicator
         var ctx = GetOrCreateAccountContext(accountKey);
         ctx.LastTradeProcessedTimeUtc = acc.LastTradeProcessedTimeUtc;
     }
+
+    private string GetDailySnapshotPath(string accountKey, int dayKey)
+    {
+        var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        var dir = Path.Combine(appData, "ATAS", "JSON");
+        Directory.CreateDirectory(dir);
+
+        var safeKey = SanitizeFileComponent(accountKey);
+        return Path.Combine(dir, $"AccountInfoDisplay.account.{safeKey}.daily.{dayKey}.v1.json");
+    }
+
+    private void WriteDailySnapshotIfMissing(string accountKey, int dayKey, Portfolio portfolio, DailyRailsState dailyState)
+    {
+        if (portfolio == null || dailyState == null)
+            return;
+
+        var path = GetDailySnapshotPath(accountKey, dayKey);
+
+        // Single-shot: do not overwrite an existing daily snapshot.
+        if (File.Exists(path))
+            return;
+
+        var nowUtc = DateTime.UtcNow;
+        var nowLocal = nowUtc.AddHours(InstrumentInfo.TimeZone);
+
+        var trailing = GetTrailingState(accountKey);
+
+        // Realized PnL Today is computed relative to the baseline we store on reset.
+        var realizedToday = portfolio.ClosedPnL - dailyState.DailyRealizedPnlBaseline;
+
+        var snap = new DailySnapshotV1
+        {
+            DayKey = dayKey,
+            AccountKey = accountKey,
+            TimestampUtc = nowUtc,
+            TimestampLocal = nowLocal,
+
+            TradesToday = dailyState.TradesToday,
+            WinsToday = dailyState.WinsToday,
+            LossesToday = dailyState.LossesToday,
+            CurrentWinStreak = dailyState.CurrentWinStreak,
+            CurrentLossStreak = dailyState.CurrentLossStreak,
+            RealizedPnlToday = realizedToday,
+
+            TrailingIsInitialized = trailing.IsInitialized,
+            TrailingStartEquity = trailing.StartEquity,
+            TrailingPeakEquity = trailing.PeakEquity,
+            TrailingStopEquity = trailing.StopEquity,
+            TrailingWasBreachedBeforeSession = trailing.WasBreachedBeforeSession
+        };
+
+        var json = JsonSerializer.Serialize(snap, new JsonSerializerOptions { WriteIndented = true });
+        WriteAllTextAtomic(path, json);
+    }
+
+
 
     #endregion
 
