@@ -56,6 +56,14 @@ public class AccountInfoDisplay : Indicator
     {
         public int LastDailyResetKey;
 
+        public bool IsInitialized;
+
+        public decimal StartOfDayEquity;
+        public decimal PeakEquityToday;
+        public decimal FloorEquityToday;
+
+        public bool IsStop;
+        public string StopReasonsText;
 
         // Phase D/E will use these. Phase C only initializes/resets them.
         public decimal DailyRealizedPnlBaseline;
@@ -86,6 +94,15 @@ public class AccountInfoDisplay : Indicator
 
             WasPositionOpen = false;
             TradeClosedPnlBaseline = 0m;
+
+            IsInitialized = false;
+
+            StartOfDayEquity = 0m;
+            PeakEquityToday = 0m;
+            FloorEquityToday = 0m;
+
+            IsStop = false;
+            StopReasonsText = string.Empty;
         }
     }
 
@@ -151,8 +168,22 @@ public class AccountInfoDisplay : Indicator
     private sealed class PersistedAccountV1
     {
         public PersistedTrailingDdV1 Trailing { get; set; } = new();
+        public PersistedDailyRailsV1 DailyRails { get; set; } = new();
         public DateTime? LastTradeProcessedTimeUtc { get; set; }
+    }
 
+
+    private sealed class PersistedDailyRailsV1
+    {
+        public int LastDailyResetKey { get; set; }
+
+        public bool IsInitialized { get; set; }
+        public decimal StartOfDayEquity { get; set; }
+        public decimal PeakEquityToday { get; set; }
+        public decimal FloorEquityToday { get; set; }
+
+        public bool IsStop { get; set; }
+        public string StopReasonsText { get; set; } = string.Empty;
     }
 
     private sealed class PersistedTrailingDdV1
@@ -187,6 +218,12 @@ public class AccountInfoDisplay : Indicator
         // Daily reset/session
         public DailyResetModeKind DailyResetMode { get; set; }
         public TimeSpan DailyResetTimeLocal { get; set; }
+
+        // Daily rails (hard caps)
+        public bool EnableDailyRails { get; set; }
+        public decimal DailyLossLimit { get; set; }
+        public decimal DailyProfitTarget { get; set; }
+        public decimal DailyMaxDrawdownFromPeak { get; set; }
 
         // Soft recommendations
         public bool EnableSoftRecommendations { get; set; }
@@ -584,6 +621,40 @@ public class AccountInfoDisplay : Indicator
         Order = 110)]
     public TimeSpan DailyResetTimeLocal { get; set; }
 
+    // Daily rails (Phase D)
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.EnableDailyRails),
+        Description = nameof(Resources.EnableDailyRailsDescription),
+        GroupName = nameof(Resources.DailyRails),
+        Order = 120)]
+    public bool EnableDailyRails { get; set; }
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.DailyLossLimit),
+        Description = nameof(Resources.DailyLossLimitDescription),
+        GroupName = nameof(Resources.DailyRails),
+        Order = 130)]
+    public decimal DailyLossLimit { get; set; }
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.DailyProfitTarget),
+        Description = nameof(Resources.DailyProfitTargetDescription),
+        GroupName = nameof(Resources.DailyRails),
+        Order = 140)]
+    public decimal DailyProfitTarget { get; set; }
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.DailyMaxDrawdownFromPeak),
+        Description = nameof(Resources.DailyMaxDrawdownFromPeakDescription),
+        GroupName = nameof(Resources.DailyRails),
+        Order = 150)]
+    public decimal DailyMaxDrawdownFromPeak { get; set; }
+
+
     // -----------------------------
     // Soft Recommendations (Phase E)
     // -----------------------------
@@ -775,7 +846,7 @@ public class AccountInfoDisplay : Indicator
         if (_persisted == null)
             LoadPersistenceSafe();
 
-        var accountKey = GetAccountKey();
+        var accountKey = GetAccountKey(portfolio);
         EnsureActiveAccount(accountKey);
 
         var ctx = GetOrCreateAccountContext(accountKey);
@@ -795,6 +866,7 @@ public class AccountInfoDisplay : Indicator
         if (!ctx.TrailingLoadedFromDisk)
         {
             ApplyLoadedTrailingStateIfAny(accountKey);
+            ApplyLoadedDailyRailsIfAny(accountKey);
             ApplyLoadedTradeLogCursorIfAny(accountKey);
             ctx.TrailingLoadedFromDisk = true;
         }
@@ -804,6 +876,8 @@ public class AccountInfoDisplay : Indicator
         UpdateDailySessionMetricsFromTradeEvents(dailyState, portfolio);
 
         var equity = portfolio.Balance + portfolio.OpenPnL;
+
+        UpdateDailyRailsFromEquity(accountKey, dailyState, equity);
         UpdateTrailingDrawdown(equity);
 
         UpdatePositionSnapshotFromTradingManager(portfolio);
@@ -1257,6 +1331,67 @@ public class AccountInfoDisplay : Indicator
         }
     }
 
+    private void UpdateDailyRailsFromEquity(string accountKey, DailyRailsState state, decimal equity)
+    {
+        if (state == null)
+            return;
+
+        if (!EnableDailyRails)
+        {
+            // Keep state but clear stop flag for UI consistency.
+            state.IsStop = false;
+            state.StopReasonsText = string.Empty;
+            return;
+        }
+
+        if (!state.IsInitialized)
+        {
+            state.IsInitialized = true;
+            state.StartOfDayEquity = equity;
+            state.PeakEquityToday = equity;
+            state.FloorEquityToday = equity;
+
+            state.IsStop = false;
+            state.StopReasonsText = string.Empty;
+
+            PersistDailyRailsStateToMemory(accountKey);
+            MarkPersistenceDirty();
+            SavePersistenceIfNeeded();
+            return;
+        }
+
+        if (equity > state.PeakEquityToday)
+            state.PeakEquityToday = equity;
+
+        if (equity < state.FloorEquityToday)
+            state.FloorEquityToday = equity;
+
+        var reasons = new List<string>();
+
+        if (DailyLossLimit > 0m && equity <= state.StartOfDayEquity - DailyLossLimit)
+            reasons.Add($"DailyLossLimit: {FormatCurrency(equity)} <= {FormatCurrency(state.StartOfDayEquity - DailyLossLimit)}");
+
+        if (DailyProfitTarget > 0m && equity >= state.StartOfDayEquity + DailyProfitTarget)
+            reasons.Add($"DailyProfitTarget: {FormatCurrency(equity)} >= {FormatCurrency(state.StartOfDayEquity + DailyProfitTarget)}");
+
+        if (DailyMaxDrawdownFromPeak > 0m && equity <= state.PeakEquityToday - DailyMaxDrawdownFromPeak)
+            reasons.Add($"DailyMaxDrawdownFromPeak: {FormatCurrency(equity)} <= {FormatCurrency(state.PeakEquityToday - DailyMaxDrawdownFromPeak)}");
+
+        var newIsStop = reasons.Count > 0;
+        var newReasons = newIsStop ? string.Join("; ", reasons) : string.Empty;
+
+        if (state.IsStop != newIsStop || !string.Equals(state.StopReasonsText, newReasons, StringComparison.Ordinal))
+        {
+            state.IsStop = newIsStop;
+            state.StopReasonsText = newReasons;
+
+            PersistDailyRailsStateToMemory(accountKey);
+            MarkPersistenceDirty();
+            SavePersistenceIfNeeded();
+        }
+    }
+
+
     private void ResetTrailingState()
     {
         var accountKey = GetAccountKey();
@@ -1431,10 +1566,11 @@ public class AccountInfoDisplay : Indicator
         if (state.LastDailyResetKey == resetKey)
             return;
 
+        var accountKey = GetAccountKey(portfolio);
+
         // Before resetting counters, finalize the previous day snapshot (single-shot).
         if (state.LastDailyResetKey != 0)
         {
-            var accountKey = GetAccountKey(portfolio);
             WriteDailySnapshotIfMissing(accountKey, state.LastDailyResetKey, portfolio, state);
         }
 
@@ -1442,6 +1578,10 @@ public class AccountInfoDisplay : Indicator
 
         // Baseline for "Realized PnL Today"
         state.DailyRealizedPnlBaseline = portfolio.ClosedPnL;
+
+        PersistDailyRailsStateToMemory(accountKey);
+        MarkPersistenceDirty();
+        SavePersistenceIfNeeded();
     }
 
     private int GetDailyResetKey()
@@ -1616,6 +1756,20 @@ public class AccountInfoDisplay : Indicator
 
         var reasons = new List<string>();
 
+        // Daily rails hard stop (Commit 08)
+        if (EnableDailyRails && state.IsStop)
+        {
+            var txt = string.IsNullOrWhiteSpace(state.StopReasonsText)
+                ? "Daily rails stop"
+                : state.StopReasonsText;
+
+            return new SuggestionResult
+            {
+                Status = SuggestedStatus.Stop,
+                ReasonsText = txt
+            };
+        }
+
         // STOP conditions (hard recommendation)
         if (maxTrades > 0 && state.TradesToday >= maxTrades)
             reasons.Add($"{Resources.MaxTradesPerDay}: {state.TradesToday:N0} / {maxTrades:N0}");
@@ -1734,6 +1888,35 @@ public class AccountInfoDisplay : Indicator
         ctx.LastTradeProcessedTimeUtc = acc.LastTradeProcessedTimeUtc;
     }
 
+    private void ApplyLoadedDailyRailsIfAny(string accountKey)
+    {
+        if (_persisted == null)
+            return;
+
+        if (!_persisted.Accounts.TryGetValue(accountKey, out var acc))
+            return;
+
+        var ctx = GetOrCreateAccountContext(accountKey);
+        var state = ctx.Daily;
+
+        if (state == null)
+            return;
+
+        var p = acc.DailyRails;
+        if (p == null)
+            return;
+
+        state.LastDailyResetKey = p.LastDailyResetKey;
+
+        state.IsInitialized = p.IsInitialized;
+        state.StartOfDayEquity = p.StartOfDayEquity;
+        state.PeakEquityToday = p.PeakEquityToday;
+        state.FloorEquityToday = p.FloorEquityToday;
+
+        state.IsStop = p.IsStop;
+        state.StopReasonsText = p.StopReasonsText ?? string.Empty;
+    }
+
     private string GetDailySnapshotPath(string accountKey, int dayKey)
     {
         var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -1850,6 +2033,35 @@ public class AccountInfoDisplay : Indicator
         t.LastSessionKey = state.LastSessionKey;
     }
 
+    private void PersistDailyRailsStateToMemory(string accountKey)
+    {
+        if (_persisted == null)
+            return;
+
+        if (!_persisted.Accounts.TryGetValue(accountKey, out var acc))
+        {
+            acc = new PersistedAccountV1();
+            _persisted.Accounts[accountKey] = acc;
+        }
+
+        var ctx = GetOrCreateAccountContext(accountKey);
+        var state = ctx.Daily;
+
+        if (state == null)
+            return;
+
+        acc.DailyRails.LastDailyResetKey = state.LastDailyResetKey;
+
+        acc.DailyRails.IsInitialized = state.IsInitialized;
+        acc.DailyRails.StartOfDayEquity = state.StartOfDayEquity;
+        acc.DailyRails.PeakEquityToday = state.PeakEquityToday;
+        acc.DailyRails.FloorEquityToday = state.FloorEquityToday;
+
+        acc.DailyRails.IsStop = state.IsStop;
+        acc.DailyRails.StopReasonsText = state.StopReasonsText ?? string.Empty;
+    }
+
+
     private void PersistTradeLogCursorToMemory(string accountKey)
     {
         if (_persisted == null)
@@ -1964,6 +2176,11 @@ public class AccountInfoDisplay : Indicator
             DailyResetMode = DailyResetMode,
             DailyResetTimeLocal = DailyResetTimeLocal,
 
+            EnableDailyRails = EnableDailyRails,
+            DailyLossLimit = DailyLossLimit,
+            DailyProfitTarget = DailyProfitTarget,
+            DailyMaxDrawdownFromPeak = DailyMaxDrawdownFromPeak,
+
             EnableSoftRecommendations = EnableSoftRecommendations,
             MaxTradesPerDay = MaxTradesPerDay,
             MaxConsecutiveLosses = MaxConsecutiveLosses,
@@ -2068,6 +2285,11 @@ public class AccountInfoDisplay : Indicator
             DailyResetMode = cfg.DailyResetMode;
             DailyResetTimeLocal = cfg.DailyResetTimeLocal;
 
+            EnableDailyRails = cfg.EnableDailyRails;
+            DailyLossLimit = cfg.DailyLossLimit;
+            DailyProfitTarget = cfg.DailyProfitTarget;
+            DailyMaxDrawdownFromPeak = cfg.DailyMaxDrawdownFromPeak;
+
             EnableSoftRecommendations = cfg.EnableSoftRecommendations;
             MaxTradesPerDay = cfg.MaxTradesPerDay;
             MaxConsecutiveLosses = cfg.MaxConsecutiveLosses;
@@ -2113,6 +2335,11 @@ public class AccountInfoDisplay : Indicator
 
         if (cfg.DailyResetMode != DailyResetMode) { cfg.DailyResetMode = DailyResetMode; changed = true; }
         if (cfg.DailyResetTimeLocal != DailyResetTimeLocal) { cfg.DailyResetTimeLocal = DailyResetTimeLocal; changed = true; }
+
+        if (cfg.EnableDailyRails != EnableDailyRails) { cfg.EnableDailyRails = EnableDailyRails; changed = true; }
+        if (cfg.DailyLossLimit != DailyLossLimit) { cfg.DailyLossLimit = DailyLossLimit; changed = true; }
+        if (cfg.DailyProfitTarget != DailyProfitTarget) { cfg.DailyProfitTarget = DailyProfitTarget; changed = true; }
+        if (cfg.DailyMaxDrawdownFromPeak != DailyMaxDrawdownFromPeak) { cfg.DailyMaxDrawdownFromPeak = DailyMaxDrawdownFromPeak; changed = true; }
 
         if (cfg.EnableSoftRecommendations != EnableSoftRecommendations) { cfg.EnableSoftRecommendations = EnableSoftRecommendations; changed = true; }
         if (cfg.MaxTradesPerDay != MaxTradesPerDay) { cfg.MaxTradesPerDay = MaxTradesPerDay; changed = true; }
