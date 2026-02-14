@@ -4441,4 +4441,58 @@
   <value>FLAT</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+
+<data name="EnableDailyRails" xml:space="preserve">
+  <value>Enable daily rails</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnableDailyRailsDescription" xml:space="preserve">
+  <value>Enable hard daily risk limits (loss/profit/drawdown) per account-day.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="DailyLossLimit" xml:space="preserve">
+  <value>Daily loss limit</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="DailyLossLimitDescription" xml:space="preserve">
+  <value>Hard stop when equity falls below start-of-day equity by this amount.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="DailyProfitTarget" xml:space="preserve">
+  <value>Daily profit target</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="DailyProfitTargetDescription" xml:space="preserve">
+  <value>Hard stop when equity rises above start-of-day equity by this amount.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="DailyMaxDrawdownFromPeak" xml:space="preserve">
+  <value>Daily max drawdown from peak</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="DailyMaxDrawdownFromPeakDescription" xml:space="preserve">
+  <value>Hard stop when equity falls below today's peak equity by this amount.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="DailyRailsStopReasonLossLimit" xml:space="preserve">
+  <value>Daily loss limit reached.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="DailyRailsStopReasonProfitTarget" xml:space="preserve">
+  <value>Daily profit target reached.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="DailyRailsStopReasonMaxDdFromPeak" xml:space="preserve">
+  <value>Daily drawdown from peak reached.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="DailyRailsStopReasonGeneric" xml:space="preserve">
+  <value>Daily rails stop.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
 </root>
