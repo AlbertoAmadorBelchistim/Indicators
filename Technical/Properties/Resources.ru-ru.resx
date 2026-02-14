@@ -4203,4 +4203,40 @@
   <value>FLAT</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="EnableDailyRails" xml:space="preserve">
+  <value>Включить дневные лимиты</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnableDailyRailsDescription" xml:space="preserve">
+  <value>Включает жесткие дневные лимиты по убытку, прибыли и просадке для счета.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="DailyLossLimit" xml:space="preserve">
+  <value>Дневной лимит убытка</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="DailyLossLimitDescription" xml:space="preserve">
+  <value>Останавливает торговлю, если equity падает на эту сумму от начала дня.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="DailyProfitTarget" xml:space="preserve">
+  <value>Дневная цель по прибыли</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="DailyProfitTargetDescription" xml:space="preserve">
+  <value>Останавливает торговлю при достижении этой прибыли с начала дня.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="DailyMaxDrawdownFromPeak" xml:space="preserve">
+  <value>Макс. просадка от дневного максимума</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="DailyMaxDrawdownFromPeakDescription" xml:space="preserve">
+  <value>Останавливает торговлю, если equity снижается на эту сумму от дневного максимума.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
 </root>

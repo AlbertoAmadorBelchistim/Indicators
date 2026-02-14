@@ -2140,4 +2140,40 @@
   <value>FLAT</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="EnableDailyRails" xml:space="preserve">
+  <value>दैनिक लिमिट सक्रिय करें</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnableDailyRailsDescription" xml:space="preserve">
+  <value>खाते के लिए दैनिक हानि, लाभ और ड्रॉडाउन की सख्त सीमाएँ सक्रिय करता है।</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="DailyLossLimit" xml:space="preserve">
+  <value>दैनिक हानि सीमा</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="DailyLossLimitDescription" xml:space="preserve">
+  <value>यदि इक्विटी दिन की शुरुआत से इस राशि तक गिरती है तो ट्रेडिंग रोकता है।</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="DailyProfitTarget" xml:space="preserve">
+  <value>दैनिक लाभ लक्ष्य</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="DailyProfitTargetDescription" xml:space="preserve">
+  <value>यदि इक्विटी दिन की शुरुआत से इस लाभ तक पहुँचती है तो ट्रेडिंग रोकता है।</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="DailyMaxDrawdownFromPeak" xml:space="preserve">
+  <value>दैनिक उच्चतम से अधिकतम गिरावट</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="DailyMaxDrawdownFromPeakDescription" xml:space="preserve">
+  <value>यदि इक्विटी दिन के उच्चतम स्तर से इस राशि तक गिरती है तो ट्रेडिंग रोकता है।</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
 </root>

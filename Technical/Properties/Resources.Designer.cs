@@ -1969,11 +1969,101 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Daily loss limit.
+        /// </summary>
+        public static string DailyLossLimit {
+            get {
+                return ResourceManager.GetString("DailyLossLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Hard stop when equity falls below start-of-day equity by this amount..
+        /// </summary>
+        public static string DailyLossLimitDescription {
+            get {
+                return ResourceManager.GetString("DailyLossLimitDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Daily max drawdown from peak.
+        /// </summary>
+        public static string DailyMaxDrawdownFromPeak {
+            get {
+                return ResourceManager.GetString("DailyMaxDrawdownFromPeak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Hard stop when equity falls below today&apos;s peak equity by this amount..
+        /// </summary>
+        public static string DailyMaxDrawdownFromPeakDescription {
+            get {
+                return ResourceManager.GetString("DailyMaxDrawdownFromPeakDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Daily profit target.
+        /// </summary>
+        public static string DailyProfitTarget {
+            get {
+                return ResourceManager.GetString("DailyProfitTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Hard stop when equity rises above start-of-day equity by this amount..
+        /// </summary>
+        public static string DailyProfitTargetDescription {
+            get {
+                return ResourceManager.GetString("DailyProfitTargetDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Daily Rails.
         /// </summary>
         public static string DailyRails {
             get {
                 return ResourceManager.GetString("DailyRails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Daily rails stop..
+        /// </summary>
+        public static string DailyRailsStopReasonGeneric {
+            get {
+                return ResourceManager.GetString("DailyRailsStopReasonGeneric", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Daily loss limit reached..
+        /// </summary>
+        public static string DailyRailsStopReasonLossLimit {
+            get {
+                return ResourceManager.GetString("DailyRailsStopReasonLossLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Daily drawdown from peak reached..
+        /// </summary>
+        public static string DailyRailsStopReasonMaxDdFromPeak {
+            get {
+                return ResourceManager.GetString("DailyRailsStopReasonMaxDdFromPeak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Daily profit target reached..
+        /// </summary>
+        public static string DailyRailsStopReasonProfitTarget {
+            get {
+                return ResourceManager.GetString("DailyRailsStopReasonProfitTarget", resourceCulture);
             }
         }
         
@@ -2631,6 +2721,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string Enabled {
             get {
                 return ResourceManager.GetString("Enabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Enable daily rails.
+        /// </summary>
+        public static string EnableDailyRails {
+            get {
+                return ResourceManager.GetString("EnableDailyRails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Enable hard daily risk limits (loss/profit/drawdown) per account-day..
+        /// </summary>
+        public static string EnableDailyRailsDescription {
+            get {
+                return ResourceManager.GetString("EnableDailyRailsDescription", resourceCulture);
             }
         }
         

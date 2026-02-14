@@ -2140,4 +2140,40 @@
   <value>FLAT</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="EnableDailyRails" xml:space="preserve">
+  <value>Activar límites diarios</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnableDailyRailsDescription" xml:space="preserve">
+  <value>Activa límites duros diarios de pérdida, beneficio y retroceso para la cuenta.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="DailyLossLimit" xml:space="preserve">
+  <value>Límite de pérdida diaria</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="DailyLossLimitDescription" xml:space="preserve">
+  <value>Detiene la operativa si la equity cae este importe desde el inicio del día.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="DailyProfitTarget" xml:space="preserve">
+  <value>Objetivo diario de beneficio</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="DailyProfitTargetDescription" xml:space="preserve">
+  <value>Detiene la operativa si la equity alcanza este beneficio desde el inicio del día.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="DailyMaxDrawdownFromPeak" xml:space="preserve">
+  <value>Máx. retroceso desde máximo diario</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="DailyMaxDrawdownFromPeakDescription" xml:space="preserve">
+  <value>Detiene la operativa si la equity retrocede este importe desde el máximo del día.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
 </root>

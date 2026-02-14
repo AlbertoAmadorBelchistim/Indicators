@@ -2092,4 +2092,41 @@
   <value>FLAT</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+
+<data name="EnableDailyRails" xml:space="preserve">
+  <value>启用每日风控限制</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnableDailyRailsDescription" xml:space="preserve">
+  <value>为账户启用每日亏损、盈利和回撤的硬性限制。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="DailyLossLimit" xml:space="preserve">
+  <value>每日亏损上限</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="DailyLossLimitDescription" xml:space="preserve">
+  <value>当权益从当日初始值下跌至该金额时停止交易。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="DailyProfitTarget" xml:space="preserve">
+  <value>每日盈利目标</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="DailyProfitTargetDescription" xml:space="preserve">
+  <value>当权益达到当日盈利目标时停止交易。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="DailyMaxDrawdownFromPeak" xml:space="preserve">
+  <value>当日最高点最大回撤</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="DailyMaxDrawdownFromPeakDescription" xml:space="preserve">
+  <value>当权益从当日最高点回撤至该金额时停止交易。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
 </root>

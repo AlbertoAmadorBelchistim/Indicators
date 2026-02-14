@@ -2140,4 +2140,40 @@
   <value>FLAT</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="EnableDailyRails" xml:space="preserve">
+  <value>Activer les limites journalières</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnableDailyRailsDescription" xml:space="preserve">
+  <value>Active des limites strictes quotidiennes de perte, gain et drawdown pour le compte.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="DailyLossLimit" xml:space="preserve">
+  <value>Limite de perte journalière</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="DailyLossLimitDescription" xml:space="preserve">
+  <value>Arrête le trading si l’equity baisse de ce montant depuis le début de la journée.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="DailyProfitTarget" xml:space="preserve">
+  <value>Objectif de gain journalier</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="DailyProfitTargetDescription" xml:space="preserve">
+  <value>Arrête le trading si l’equity atteint ce gain depuis le début de la journée.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="DailyMaxDrawdownFromPeak" xml:space="preserve">
+  <value>Drawdown max depuis le plus haut</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="DailyMaxDrawdownFromPeakDescription" xml:space="preserve">
+  <value>Arrête le trading si l’equity recule de ce montant depuis le plus haut journalier.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
 </root>
