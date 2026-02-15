@@ -62,17 +62,19 @@ public class AccountInfoDisplay : Indicator
         public decimal PeakEquityToday;
         public decimal FloorEquityToday;
 
+        // "Now" stop state (psychological): can recover
         public bool IsStop;
+        // Latch info: stop was hit at least once today
         public bool WasStopHitToday;
         public string StopReasonsText;
 
-        // Phase D/E will use these. Phase C only initializes/resets them.
+        // Session metrics
         public decimal DailyRealizedPnlBaseline;
         public int TradesToday;
         public int WinsToday;
         public int LossesToday;
 
-        // Single-position trade event tracking (OPEN->FLAT) to derive "closed trades today"
+        // Single-position trade event tracking (OPEN->FLAT)
         public bool WasPositionOpen;
         public decimal TradeClosedPnlBaseline;
 
@@ -83,6 +85,16 @@ public class AccountInfoDisplay : Indicator
         public void ResetForNewDay(int dailyResetKey)
         {
             LastDailyResetKey = dailyResetKey;
+
+            IsInitialized = false;
+
+            StartOfDayEquity = 0m;
+            PeakEquityToday = 0m;
+            FloorEquityToday = 0m;
+
+            IsStop = false;
+            WasStopHitToday = false;
+            StopReasonsText = string.Empty;
 
             DailyRealizedPnlBaseline = 0m;
 
@@ -95,16 +107,6 @@ public class AccountInfoDisplay : Indicator
 
             WasPositionOpen = false;
             TradeClosedPnlBaseline = 0m;
-
-            IsInitialized = false;
-
-            StartOfDayEquity = 0m;
-            PeakEquityToday = 0m;
-            FloorEquityToday = 0m;
-
-            IsStop = false;
-            WasStopHitToday = false;
-            StopReasonsText = string.Empty;
         }
     }
 
@@ -245,6 +247,8 @@ public class AccountInfoDisplay : Indicator
         public bool ShowWinsLossesTodayRow { get; set; }
         public bool ShowCurrentStreakRow { get; set; }
         public bool ShowRealizedPnlTodayRow { get; set; }
+        public bool ShowRemainingDailyLossRow { get; set; }
+        public bool ShowRemainingDailyProfitTargetRow { get; set; }
         public bool ShowSuggestedStatusRow { get; set; }
         public bool ShowStopReasonsRow { get; set; }
         public bool ShowPositionSnapshot { get; set; }
@@ -517,6 +521,23 @@ public class AccountInfoDisplay : Indicator
     GroupName = nameof(Resources.DailyRails),
     Order = 230)]
     public bool ShowRealizedPnlTodayRow { get; set; } = true;
+
+    [Display(
+    ResourceType = typeof(Resources),
+    Name = nameof(Resources.ShowRemainingDailyLossRow),
+    Description = nameof(Resources.ShowRemainingDailyLossRowDescription),
+    GroupName = nameof(Resources.DailyRails),
+    Order = 240)]
+    public bool ShowRemainingDailyLossRow { get; set; } = true;
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.ShowRemainingDailyProfitTargetRow),
+        Description = nameof(Resources.ShowRemainingDailyProfitTargetRowDescription),
+        GroupName = nameof(Resources.DailyRails),
+        Order = 250)]
+    public bool ShowRemainingDailyProfitTargetRow { get; set; } = true;
+
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.HorizontalPosition),
 		GroupName = nameof(Strings.LayoutGroup))]
@@ -1092,7 +1113,8 @@ public class AccountInfoDisplay : Indicator
         // -----------------------------
         // Session Metrics
         // -----------------------------
-        if (ShowTradesTodayRow || ShowWinsLossesTodayRow || ShowCurrentStreakRow || ShowRealizedPnlTodayRow)
+        if (ShowTradesTodayRow || ShowWinsLossesTodayRow || ShowCurrentStreakRow || ShowRealizedPnlTodayRow
+            || ShowRemainingDailyLossRow || ShowRemainingDailyProfitTargetRow)
         {
             var daily = GetDailyRailsState(accountKey);
 
@@ -1116,6 +1138,31 @@ public class AccountInfoDisplay : Indicator
 
             if (ShowRealizedPnlTodayRow)
                 rows.Add(new DisplayRow(Resources.RowRealizedPnlToday, FormatCurrency(realizedToday), numericValue: realizedToday));
+
+            // Remaining rails (Phase D - remaining rows)
+            if (EnableDailyRails && daily.IsInitialized)
+            {
+                if (ShowRemainingDailyLossRow && DailyLossLimit > 0m)
+                {
+                    var floor = daily.StartOfDayEquity - DailyLossLimit;
+                    var remainingLoss = equity - floor;
+                    if (remainingLoss < 0m)
+                        remainingLoss = 0m;
+
+                    rows.Add(new DisplayRow(Resources.RowRemainingDailyLoss, FormatCurrency(remainingLoss), numericValue: remainingLoss));
+                }
+
+                if (ShowRemainingDailyProfitTargetRow && DailyProfitTarget > 0m)
+                {
+                    var target = daily.StartOfDayEquity + DailyProfitTarget;
+                    var remainingProfit = target - equity;
+                    if (remainingProfit < 0m)
+                        remainingProfit = 0m;
+
+                    rows.Add(new DisplayRow(Resources.RowRemainingDailyProfitTarget, FormatCurrency(remainingProfit), numericValue: remainingProfit));
+                }
+            }
+
         }
 
         // -----------------------------
@@ -2290,6 +2337,8 @@ public class AccountInfoDisplay : Indicator
             ShowWinsLossesTodayRow = ShowWinsLossesTodayRow,
             ShowCurrentStreakRow = ShowCurrentStreakRow,
             ShowRealizedPnlTodayRow = ShowRealizedPnlTodayRow,
+            ShowRemainingDailyLossRow = ShowRemainingDailyLossRow,
+            ShowRemainingDailyProfitTargetRow = ShowRemainingDailyProfitTargetRow,
             ShowSuggestedStatusRow = ShowSuggestedStatusRow,
             ShowStopReasonsRow = ShowStopReasonsRow,
             ShowPositionSnapshot = ShowPositionSnapshot,
@@ -2404,6 +2453,8 @@ public class AccountInfoDisplay : Indicator
             ShowWinsLossesTodayRow = cfg.ShowWinsLossesTodayRow;
             ShowCurrentStreakRow = cfg.ShowCurrentStreakRow;
             ShowRealizedPnlTodayRow = cfg.ShowRealizedPnlTodayRow;
+            ShowRemainingDailyLossRow = cfg.ShowRemainingDailyLossRow;
+            ShowRemainingDailyProfitTargetRow = cfg.ShowRemainingDailyProfitTargetRow;
             ShowSuggestedStatusRow = cfg.ShowSuggestedStatusRow;
             ShowStopReasonsRow = cfg.ShowStopReasonsRow;
             ShowPositionSnapshot = cfg.ShowPositionSnapshot;
@@ -2461,6 +2512,8 @@ public class AccountInfoDisplay : Indicator
         if (cfg.ShowWinsLossesTodayRow != ShowWinsLossesTodayRow) { cfg.ShowWinsLossesTodayRow = ShowWinsLossesTodayRow; changed = true; }
         if (cfg.ShowCurrentStreakRow != ShowCurrentStreakRow) { cfg.ShowCurrentStreakRow = ShowCurrentStreakRow; changed = true; }
         if (cfg.ShowRealizedPnlTodayRow != ShowRealizedPnlTodayRow) { cfg.ShowRealizedPnlTodayRow = ShowRealizedPnlTodayRow; changed = true; }
+        if (cfg.ShowRemainingDailyLossRow != ShowRemainingDailyLossRow) { cfg.ShowRemainingDailyLossRow = ShowRemainingDailyLossRow; changed = true; }
+        if (cfg.ShowRemainingDailyProfitTargetRow != ShowRemainingDailyProfitTargetRow) { cfg.ShowRemainingDailyProfitTargetRow = ShowRemainingDailyProfitTargetRow; changed = true; }
         if (cfg.ShowSuggestedStatusRow != ShowSuggestedStatusRow) { cfg.ShowSuggestedStatusRow = ShowSuggestedStatusRow; changed = true; }
         if (cfg.ShowStopReasonsRow != ShowStopReasonsRow) { cfg.ShowStopReasonsRow = ShowStopReasonsRow; changed = true; }
         if (cfg.ShowPositionSnapshot != ShowPositionSnapshot) { cfg.ShowPositionSnapshot = ShowPositionSnapshot; changed = true; }
