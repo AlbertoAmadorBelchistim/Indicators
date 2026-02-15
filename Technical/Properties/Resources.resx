@@ -4494,5 +4494,46 @@
   <value>Daily rails stop.</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<!-- Soft Recommendations: CAUTION (Phase 5) -->
+<data name="CautionLossFromStart" xml:space="preserve">
+  <value>Caution: loss from day start</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionLossFromStartDescription" xml:space="preserve">
+  <value>Show CAUTION when equity is down by this amount from start-of-day equity (0 = off).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionGivebackFromPeak" xml:space="preserve">
+  <value>Caution: giveback from day peak</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionGivebackFromPeakDescription" xml:space="preserve">
+  <value>Show CAUTION when equity gives back this amount from today's peak equity (0 = off).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionLossFromStartPct" xml:space="preserve">
+  <value>Caution: loss from start (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionLossFromStartPctDescription" xml:space="preserve">
+  <value>Show CAUTION when equity is down by this percent from start-of-day equity (0 = off).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionGivebackFromPeakPct" xml:space="preserve">
+  <value>Caution: giveback from peak (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionGivebackFromPeakPctDescription" xml:space="preserve">
+  <value>Show CAUTION when equity gives back this percent from today's peak equity (0 = off).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="StopHitEarlierToday" xml:space="preserve">
+  <value>Stop hit earlier today.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
 </root>

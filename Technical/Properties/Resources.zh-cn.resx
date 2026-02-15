@@ -2109,6 +2109,12 @@
 <data name="DailyLossLimitDescription" xml:space="preserve">
   <value>当权益从当日初始值下跌至该金额时停止交易。</value>
   <comment>AccountInfoDisplay</comment>
+  
+  <data name="StopHitEarlierToday" xml:space="preserve">
+  <value>今日已触发过STOP。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
 </data>
 
 <data name="DailyProfitTarget" xml:space="preserve">
@@ -2126,6 +2132,46 @@
 </data>
 <data name="DailyMaxDrawdownFromPeakDescription" xml:space="preserve">
   <value>当权益从当日最高点回撤至该金额时停止交易。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionLossFromStart" xml:space="preserve">
+  <value>谨慎：较日初回撤</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionLossFromStartDescription" xml:space="preserve">
+  <value>当权益较当日初始值回撤到该金额时提示“谨慎”(0 = 关闭)。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionGivebackFromPeak" xml:space="preserve">
+  <value>谨慎：较日内最高回吐</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionGivebackFromPeakDescription" xml:space="preserve">
+  <value>当权益从当日最高点回吐到该金额时提示“谨慎”(0 = 关闭)。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionLossFromStartPct" xml:space="preserve">
+  <value>谨慎：较日初回撤(%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionLossFromStartPctDescription" xml:space="preserve">
+  <value>当权益较当日初始值回撤到该百分比时提示“谨慎”(0 = 关闭)。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionGivebackFromPeakPct" xml:space="preserve">
+  <value>谨慎：较最高回吐(%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionGivebackFromPeakPctDescription" xml:space="preserve">
+  <value>当权益从当日最高点回吐到该百分比时提示“谨慎”(0 = 关闭)。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="DailyRailsStopReasonGeneric" xml:space="preserve">
+  <value>每日风控：STOP。</value>
   <comment>AccountInfoDisplay</comment>
 </data>
 

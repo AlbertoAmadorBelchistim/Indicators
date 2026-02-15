@@ -2175,5 +2175,49 @@
   <value>यदि इक्विटी दिन के उच्चतम स्तर से इस राशि तक गिरती है तो ट्रेडिंग रोकता है।</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="CautionLossFromStart" xml:space="preserve">
+  <value>सावधानी: दिन की शुरुआत से नुकसान</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionLossFromStartDescription" xml:space="preserve">
+  <value>यदि equity दिन की शुरुआत से इस राशि तक गिरती है तो सावधानी दिखाएँ (0 = बंद).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionGivebackFromPeak" xml:space="preserve">
+  <value>सावधानी: दिन के पीक से गिवबैक</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionGivebackFromPeakDescription" xml:space="preserve">
+  <value>यदि equity दिन के पीक से इस राशि तक वापस आती है तो सावधानी दिखाएँ (0 = बंद).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionLossFromStartPct" xml:space="preserve">
+  <value>सावधानी: शुरुआत से नुकसान (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionLossFromStartPctDescription" xml:space="preserve">
+  <value>यदि equity दिन की शुरुआत से इस % तक गिरती है तो सावधानी दिखाएँ (0 = बंद).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionGivebackFromPeakPct" xml:space="preserve">
+  <value>सावधानी: पीक से गिवबैक (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionGivebackFromPeakPctDescription" xml:space="preserve">
+  <value>यदि equity दिन के पीक से इस % तक वापस आती है तो सावधानी दिखाएँ (0 = बंद).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="DailyRailsStopReasonGeneric" xml:space="preserve">
+  <value>दैनिक लिमिट: STOP.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="StopHitEarlierToday" xml:space="preserve">
+  <value>आज STOP पहले ही लग चुका है।</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
 </root>
