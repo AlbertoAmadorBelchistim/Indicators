@@ -2220,4 +2220,32 @@
   <comment>AccountInfoDisplay</comment>
 </data>
 
+<data name="RowRemainingDailyLoss" xml:space="preserve">
+  <value>Pérdida restante hoy</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="RowRemainingDailyProfitTarget" xml:space="preserve">
+  <value>Beneficio restante hasta objetivo</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowRemainingDailyLossRow" xml:space="preserve">
+  <value>Mostrar pérdida restante diaria</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowRemainingDailyLossRowDescription" xml:space="preserve">
+  <value>Muestra cuánto margen queda antes de alcanzar el límite diario de pérdida (según equity actual).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowRemainingDailyProfitTargetRow" xml:space="preserve">
+  <value>Mostrar beneficio restante hasta objetivo</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowRemainingDailyProfitTargetRowDescription" xml:space="preserve">
+  <value>Muestra cuánto falta para alcanzar el objetivo diario de beneficio (según equity actual).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
 </root>

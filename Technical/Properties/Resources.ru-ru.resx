@@ -4282,5 +4282,32 @@
   <value>STOP уже срабатывал сегодня.</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="RowRemainingDailyLoss" xml:space="preserve">
+  <value>Остаток до лимита убытка</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="RowRemainingDailyProfitTarget" xml:space="preserve">
+  <value>Остаток до цели прибыли</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowRemainingDailyLossRow" xml:space="preserve">
+  <value>Показать остаток до лимита убытка</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowRemainingDailyLossRowDescription" xml:space="preserve">
+  <value>Показывает, сколько осталось до дневного лимита убытка (по текущей equity).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowRemainingDailyProfitTargetRow" xml:space="preserve">
+  <value>Показать остаток до цели прибыли</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowRemainingDailyProfitTargetRowDescription" xml:space="preserve">
+  <value>Показывает, сколько осталось до дневной цели прибыли (по текущей equity).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
 </root>

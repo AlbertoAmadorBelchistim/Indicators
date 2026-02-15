@@ -4536,4 +4536,31 @@
   <comment>AccountInfoDisplay</comment>
 </data>
 
+<data name="RowRemainingDailyLoss" xml:space="preserve">
+  <value>Remaining daily loss</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowRemainingDailyProfitTarget" xml:space="preserve">
+  <value>Remaining to profit target</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowRemainingDailyLossRow" xml:space="preserve">
+  <value>Show remaining daily loss</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowRemainingDailyLossRowDescription" xml:space="preserve">
+  <value>Show how much room is left before the daily loss limit (based on current equity).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowRemainingDailyProfitTargetRow" xml:space="preserve">
+  <value>Show remaining to profit target</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowRemainingDailyProfitTargetRowDescription" xml:space="preserve">
+  <value>Show how much is left to reach the daily profit target (based on current equity).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
 </root>
