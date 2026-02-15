@@ -1465,6 +1465,42 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Caution: giveback from day peak.
+        /// </summary>
+        public static string CautionGivebackFromPeak {
+            get {
+                return ResourceManager.GetString("CautionGivebackFromPeak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show CAUTION when equity gives back this amount from today&apos;s peak equity (0 = off)..
+        /// </summary>
+        public static string CautionGivebackFromPeakDescription {
+            get {
+                return ResourceManager.GetString("CautionGivebackFromPeakDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Caution: giveback from peak (%).
+        /// </summary>
+        public static string CautionGivebackFromPeakPct {
+            get {
+                return ResourceManager.GetString("CautionGivebackFromPeakPct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show CAUTION when equity gives back this percent from today&apos;s peak equity (0 = off)..
+        /// </summary>
+        public static string CautionGivebackFromPeakPctDescription {
+            get {
+                return ResourceManager.GetString("CautionGivebackFromPeakPctDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Caution losses threshold.
         /// </summary>
         public static string CautionLossesThreshold {
@@ -1479,6 +1515,42 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string CautionLossesThresholdDescription {
             get {
                 return ResourceManager.GetString("CautionLossesThresholdDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Caution: loss from day start.
+        /// </summary>
+        public static string CautionLossFromStart {
+            get {
+                return ResourceManager.GetString("CautionLossFromStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show CAUTION when equity is down by this amount from start-of-day equity (0 = off)..
+        /// </summary>
+        public static string CautionLossFromStartDescription {
+            get {
+                return ResourceManager.GetString("CautionLossFromStartDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Caution: loss from start (%).
+        /// </summary>
+        public static string CautionLossFromStartPct {
+            get {
+                return ResourceManager.GetString("CautionLossFromStartPct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show CAUTION when equity is down by this percent from start-of-day equity (0 = off)..
+        /// </summary>
+        public static string CautionLossFromStartPctDescription {
+            get {
+                return ResourceManager.GetString("CautionLossFromStartPctDescription", resourceCulture);
             }
         }
         
@@ -9003,6 +9075,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string Stochastic {
             get {
                 return ResourceManager.GetString("Stochastic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Stop hit earlier today..
+        /// </summary>
+        public static string StopHitEarlierToday {
+            get {
+                return ResourceManager.GetString("StopHitEarlierToday", resourceCulture);
             }
         }
         

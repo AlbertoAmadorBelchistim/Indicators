@@ -4238,5 +4238,49 @@
   <value>Останавливает торговлю, если equity снижается на эту сумму от дневного максимума.</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="CautionLossFromStart" xml:space="preserve">
+  <value>Осторожно: убыток от старта дня</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionLossFromStartDescription" xml:space="preserve">
+  <value>Показывает ОСТОРОЖНО, если equity упала на эту сумму от начала дня (0 = выкл.).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionGivebackFromPeak" xml:space="preserve">
+  <value>Осторожно: откат от пика дня</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionGivebackFromPeakDescription" xml:space="preserve">
+  <value>Показывает ОСТОРОЖНО, если equity откатилась на эту сумму от пика дня (0 = выкл.).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionLossFromStartPct" xml:space="preserve">
+  <value>Осторожно: убыток от старта (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionLossFromStartPctDescription" xml:space="preserve">
+  <value>Показывает ОСТОРОЖНО, если equity упала на этот % от начала дня (0 = выкл.).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionGivebackFromPeakPct" xml:space="preserve">
+  <value>Осторожно: откат от пика (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionGivebackFromPeakPctDescription" xml:space="preserve">
+  <value>Показывает ОСТОРОЖНО, если equity откатилась на этот % от пика дня (0 = выкл.).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="DailyRailsStopReasonGeneric" xml:space="preserve">
+  <value>Дневные лимиты: STOP.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="StopHitEarlierToday" xml:space="preserve">
+  <value>STOP уже срабатывал сегодня.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
 </root>

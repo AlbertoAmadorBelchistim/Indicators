@@ -2175,5 +2175,49 @@
   <value>Detiene la operativa si la equity retrocede este importe desde el máximo del día.</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="CautionLossFromStart" xml:space="preserve">
+  <value>Precaución: pérdida desde inicio del día</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionLossFromStartDescription" xml:space="preserve">
+  <value>Muestra PRECAUCIÓN si la equity cae este importe desde el inicio del día (0 = desactivado).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionGivebackFromPeak" xml:space="preserve">
+  <value>Precaución: retroceso desde máximo del día</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionGivebackFromPeakDescription" xml:space="preserve">
+  <value>Muestra PRECAUCIÓN si la equity retrocede este importe desde el máximo del día (0 = desactivado).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionLossFromStartPct" xml:space="preserve">
+  <value>Precaución: pérdida desde inicio (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionLossFromStartPctDescription" xml:space="preserve">
+  <value>Muestra PRECAUCIÓN si la equity cae este % desde el inicio del día (0 = desactivado).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionGivebackFromPeakPct" xml:space="preserve">
+  <value>Precaución: retroceso desde máximo (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionGivebackFromPeakPctDescription" xml:space="preserve">
+  <value>Muestra PRECAUCIÓN si la equity retrocede este % desde el máximo del día (0 = desactivado).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="DailyRailsStopReasonGeneric" xml:space="preserve">
+  <value>Límites diarios: STOP.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="StopHitEarlierToday" xml:space="preserve">
+  <value>El STOP ya saltó hoy.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
 </root>

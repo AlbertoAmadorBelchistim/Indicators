@@ -2182,5 +2182,49 @@
   <value>Stoppt den Handel, wenn die Equity vom Tageshoch um diesen Betrag zurückfällt.</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="CautionLossFromStart" xml:space="preserve">
+  <value>Vorsicht: Verlust seit Tagesstart</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionLossFromStartDescription" xml:space="preserve">
+  <value>Zeigt VORSICHT, wenn die Equity um diesen Betrag seit Tagesstart fällt (0 = aus).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionGivebackFromPeak" xml:space="preserve">
+  <value>Vorsicht: Rückgang vom Tageshoch</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionGivebackFromPeakDescription" xml:space="preserve">
+  <value>Zeigt VORSICHT, wenn die Equity um diesen Betrag vom Tageshoch zurückfällt (0 = aus).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionLossFromStartPct" xml:space="preserve">
+  <value>Vorsicht: Verlust seit Start (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionLossFromStartPctDescription" xml:space="preserve">
+  <value>Zeigt VORSICHT, wenn die Equity um diesen Prozentsatz seit Tagesstart fällt (0 = aus).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionGivebackFromPeakPct" xml:space="preserve">
+  <value>Vorsicht: Rückgang vom Hoch (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionGivebackFromPeakPctDescription" xml:space="preserve">
+  <value>Zeigt VORSICHT, wenn die Equity um diesen Prozentsatz vom Tageshoch zurückfällt (0 = aus).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="DailyRailsStopReasonGeneric" xml:space="preserve">
+  <value>Tägliche Limits: STOP.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="StopHitEarlierToday" xml:space="preserve">
+  <value>STOP wurde heute bereits ausgelöst.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
 </root>

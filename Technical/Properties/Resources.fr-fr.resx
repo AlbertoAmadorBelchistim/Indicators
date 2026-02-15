@@ -2175,5 +2175,49 @@
   <value>Arrête le trading si l’equity recule de ce montant depuis le plus haut journalier.</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="CautionLossFromStart" xml:space="preserve">
+  <value>Prudence : perte depuis le début du jour</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionLossFromStartDescription" xml:space="preserve">
+  <value>Affiche PRUDENCE si l’equity baisse de ce montant depuis le début de la journée (0 = off).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionGivebackFromPeak" xml:space="preserve">
+  <value>Prudence : retour depuis le plus haut du jour</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionGivebackFromPeakDescription" xml:space="preserve">
+  <value>Affiche PRUDENCE si l’equity recule de ce montant depuis le plus haut du jour (0 = off).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionLossFromStartPct" xml:space="preserve">
+  <value>Prudence : perte depuis le départ (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionLossFromStartPctDescription" xml:space="preserve">
+  <value>Affiche PRUDENCE si l’equity baisse de ce % depuis le début de la journée (0 = off).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionGivebackFromPeakPct" xml:space="preserve">
+  <value>Prudence : retour depuis le pic (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionGivebackFromPeakPctDescription" xml:space="preserve">
+  <value>Affiche PRUDENCE si l’equity recule de ce % depuis le plus haut du jour (0 = off).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="DailyRailsStopReasonGeneric" xml:space="preserve">
+  <value>Limites journalières : STOP.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="StopHitEarlierToday" xml:space="preserve">
+  <value>Le STOP a déjà été déclenché aujourd’hui.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
 </root>
