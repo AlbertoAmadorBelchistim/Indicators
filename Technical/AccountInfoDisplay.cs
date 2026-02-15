@@ -63,6 +63,7 @@ public class AccountInfoDisplay : Indicator
         public decimal FloorEquityToday;
 
         public bool IsStop;
+        public bool WasStopHitToday;
         public string StopReasonsText;
 
         // Phase D/E will use these. Phase C only initializes/resets them.
@@ -102,6 +103,7 @@ public class AccountInfoDisplay : Indicator
             FloorEquityToday = 0m;
 
             IsStop = false;
+            WasStopHitToday = false;
             StopReasonsText = string.Empty;
         }
     }
@@ -183,6 +185,7 @@ public class AccountInfoDisplay : Indicator
         public decimal FloorEquityToday { get; set; }
 
         public bool IsStop { get; set; }
+        public bool WasStopHitToday { get; set; }
         public string StopReasonsText { get; set; } = string.Empty;
     }
 
@@ -231,6 +234,11 @@ public class AccountInfoDisplay : Indicator
         public int MaxConsecutiveLosses { get; set; }
         public int CautionTradesThreshold { get; set; }
         public int CautionLossesThreshold { get; set; }
+
+        public decimal CautionLossFromStart { get; set; }
+        public decimal CautionGivebackFromPeak { get; set; }
+        public decimal CautionLossFromStartPct { get; set; }
+        public decimal CautionGivebackFromPeakPct { get; set; }
 
         // UI toggles (risk-relevant)
         public bool ShowTradesTodayRow { get; set; }
@@ -703,6 +711,41 @@ public class AccountInfoDisplay : Indicator
     [Range(0, 100)]
     public int CautionLossesThreshold { get; set; } = 1;
 
+    [Display(
+    ResourceType = typeof(Resources),
+    Name = nameof(Resources.CautionLossFromStart),
+    Description = nameof(Resources.CautionLossFromStartDescription),
+    GroupName = nameof(Resources.SoftRecommendations),
+    Order = 345)]
+    public decimal CautionLossFromStart { get; set; } = 0m;
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.CautionGivebackFromPeak),
+        Description = nameof(Resources.CautionGivebackFromPeakDescription),
+        GroupName = nameof(Resources.SoftRecommendations),
+        Order = 346)]
+    public decimal CautionGivebackFromPeak { get; set; } = 0m;
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.CautionLossFromStartPct),
+        Description = nameof(Resources.CautionLossFromStartPctDescription),
+        GroupName = nameof(Resources.SoftRecommendations),
+        Order = 347)]
+    [Range(0, 100)]
+    public decimal CautionLossFromStartPct { get; set; } = 0m;
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.CautionGivebackFromPeakPct),
+        Description = nameof(Resources.CautionGivebackFromPeakPctDescription),
+        GroupName = nameof(Resources.SoftRecommendations),
+        Order = 348)]
+    [Range(0, 100)]
+    public decimal CautionGivebackFromPeakPct { get; set; } = 0m;
+
+
     // Rows toggles (Phase E)
     [Display(
         ResourceType = typeof(Resources),
@@ -883,7 +926,7 @@ public class AccountInfoDisplay : Indicator
         UpdatePositionSnapshotFromTradingManager(portfolio);
 
         // Build structured rows (Phase 0 replacement)
-        var rows = BuildRows(portfolio);
+        var rows = BuildRows(portfolio, equity);
         if (rows == null || rows.Count == 0)
             return;
 
@@ -952,7 +995,7 @@ public class AccountInfoDisplay : Indicator
 
     #region Private Methods - UI rows (render model)
 
-    private List<DisplayRow> BuildRows(Portfolio portfolio)
+    private List<DisplayRow> BuildRows(Portfolio portfolio, decimal equity)
     {
         var rows = new List<DisplayRow>();
 
@@ -1082,7 +1125,7 @@ public class AccountInfoDisplay : Indicator
         {
             var daily = GetDailyRailsState(accountKey);
 
-            var suggestion = EvaluateSoftRecommendations(daily);
+            var suggestion = EvaluateSoftRecommendations(daily, equity);
 
             if (ShowSuggestedStatusRow)
             {
@@ -1340,6 +1383,7 @@ public class AccountInfoDisplay : Indicator
         {
             // Keep state but clear stop flag for UI consistency.
             state.IsStop = false;
+            state.WasStopHitToday = false;
             state.StopReasonsText = string.Empty;
             return;
         }
@@ -1369,18 +1413,25 @@ public class AccountInfoDisplay : Indicator
         var reasons = new List<string>();
 
         if (DailyLossLimit > 0m && equity <= state.StartOfDayEquity - DailyLossLimit)
-            reasons.Add($"DailyLossLimit: {FormatCurrency(equity)} <= {FormatCurrency(state.StartOfDayEquity - DailyLossLimit)}");
+            reasons.Add($"{Resources.DailyLossLimit}: {FormatCurrency(equity)} <= {FormatCurrency(state.StartOfDayEquity - DailyLossLimit)}");
 
         if (DailyProfitTarget > 0m && equity >= state.StartOfDayEquity + DailyProfitTarget)
-            reasons.Add($"DailyProfitTarget: {FormatCurrency(equity)} >= {FormatCurrency(state.StartOfDayEquity + DailyProfitTarget)}");
+            reasons.Add($"{Resources.DailyProfitTarget}: {FormatCurrency(equity)} >= {FormatCurrency(state.StartOfDayEquity + DailyProfitTarget)}");
 
         if (DailyMaxDrawdownFromPeak > 0m && equity <= state.PeakEquityToday - DailyMaxDrawdownFromPeak)
-            reasons.Add($"DailyMaxDrawdownFromPeak: {FormatCurrency(equity)} <= {FormatCurrency(state.PeakEquityToday - DailyMaxDrawdownFromPeak)}");
+            reasons.Add($"{Resources.DailyMaxDrawdownFromPeak}: {FormatCurrency(equity)} <= {FormatCurrency(state.PeakEquityToday - DailyMaxDrawdownFromPeak)}");
+
+        var prevWasStopHitToday = state.WasStopHitToday;
 
         var newIsStop = reasons.Count > 0;
         var newReasons = newIsStop ? string.Join("; ", reasons) : string.Empty;
 
-        if (state.IsStop != newIsStop || !string.Equals(state.StopReasonsText, newReasons, StringComparison.Ordinal))
+        if (newIsStop)
+            state.WasStopHitToday = true;
+
+        if (state.IsStop != newIsStop
+            || !string.Equals(state.StopReasonsText, newReasons, StringComparison.Ordinal)
+            || state.WasStopHitToday != prevWasStopHitToday)
         {
             state.IsStop = newIsStop;
             state.StopReasonsText = newReasons;
@@ -1742,7 +1793,7 @@ public class AccountInfoDisplay : Indicator
         return pos.IsInPosition && pos.Volume != 0m;
     }
 
-    private SuggestionResult EvaluateSoftRecommendations(DailyRailsState state)
+    private SuggestionResult EvaluateSoftRecommendations(DailyRailsState state, decimal equity)
     {
         if (state == null)
             return new SuggestionResult { Status = SuggestedStatus.Ok };
@@ -1756,18 +1807,32 @@ public class AccountInfoDisplay : Indicator
 
         var reasons = new List<string>();
 
-        // Daily rails hard stop (Commit 08)
-        if (EnableDailyRails && state.IsStop)
+        // Daily rails stop (psychological) + latch info
+        if (EnableDailyRails)
         {
-            var txt = string.IsNullOrWhiteSpace(state.StopReasonsText)
-                ? "Daily rails stop"
-                : state.StopReasonsText;
-
-            return new SuggestionResult
+            // STOP if currently in breach
+            if (state.IsStop)
             {
-                Status = SuggestedStatus.Stop,
-                ReasonsText = txt
-            };
+                var txt = string.IsNullOrWhiteSpace(state.StopReasonsText)
+                    ? Resources.DailyRailsStopReasonGeneric
+                    : state.StopReasonsText;
+
+                return new SuggestionResult
+                {
+                    Status = SuggestedStatus.Stop,
+                    ReasonsText = txt
+                };
+            }
+
+            // If recovered from STOP, show CAUTION with a deterministic message.
+            if (state.WasStopHitToday)
+            {
+                return new SuggestionResult
+                {
+                    Status = SuggestedStatus.Caution,
+                    ReasonsText = Resources.StopHitEarlierToday
+                };
+            }
         }
 
         // STOP conditions (hard recommendation)
@@ -1784,6 +1849,33 @@ public class AccountInfoDisplay : Indicator
                 Status = SuggestedStatus.Stop,
                 ReasonsText = string.Join("; ", reasons)
             };
+        }
+
+        if (state.IsInitialized)
+        {
+            // Loss from start (amount)
+            if (CautionLossFromStart > 0m && equity <= state.StartOfDayEquity - CautionLossFromStart)
+                reasons.Add($"{Resources.CautionLossFromStart}: {FormatCurrency(equity)} <= {FormatCurrency(state.StartOfDayEquity - CautionLossFromStart)}");
+
+            // Giveback from peak (amount)
+            if (CautionGivebackFromPeak > 0m && equity <= state.PeakEquityToday - CautionGivebackFromPeak)
+                reasons.Add($"{Resources.CautionGivebackFromPeak}: {FormatCurrency(equity)} <= {FormatCurrency(state.PeakEquityToday - CautionGivebackFromPeak)}");
+
+            // Loss from start (%)
+            if (CautionLossFromStartPct > 0m && state.StartOfDayEquity > 0m)
+            {
+                var lossPct = (state.StartOfDayEquity - equity) / state.StartOfDayEquity * 100m;
+                if (lossPct >= CautionLossFromStartPct)
+                    reasons.Add($"{Resources.CautionLossFromStartPct}: {lossPct:N2}% / {CautionLossFromStartPct:N2}%");
+            }
+
+            // Giveback from peak (%)
+            if (CautionGivebackFromPeakPct > 0m && state.PeakEquityToday > 0m)
+            {
+                var givebackPct = (state.PeakEquityToday - equity) / state.PeakEquityToday * 100m;
+                if (givebackPct >= CautionGivebackFromPeakPct)
+                    reasons.Add($"{Resources.CautionGivebackFromPeakPct}: {givebackPct:N2}% / {CautionGivebackFromPeakPct:N2}%");
+            }
         }
 
         // CAUTION conditions (warning recommendation)
@@ -1914,6 +2006,7 @@ public class AccountInfoDisplay : Indicator
         state.FloorEquityToday = p.FloorEquityToday;
 
         state.IsStop = p.IsStop;
+        state.WasStopHitToday = p.WasStopHitToday;
         state.StopReasonsText = p.StopReasonsText ?? string.Empty;
     }
 
@@ -2058,6 +2151,7 @@ public class AccountInfoDisplay : Indicator
         acc.DailyRails.FloorEquityToday = state.FloorEquityToday;
 
         acc.DailyRails.IsStop = state.IsStop;
+        acc.DailyRails.WasStopHitToday = state.WasStopHitToday;
         acc.DailyRails.StopReasonsText = state.StopReasonsText ?? string.Empty;
     }
 
@@ -2187,6 +2281,11 @@ public class AccountInfoDisplay : Indicator
             CautionTradesThreshold = CautionTradesThreshold,
             CautionLossesThreshold = CautionLossesThreshold,
 
+            CautionLossFromStart = CautionLossFromStart,
+            CautionGivebackFromPeak = CautionGivebackFromPeak,
+            CautionLossFromStartPct = CautionLossFromStartPct,
+            CautionGivebackFromPeakPct = CautionGivebackFromPeakPct,
+
             ShowTradesTodayRow = ShowTradesTodayRow,
             ShowWinsLossesTodayRow = ShowWinsLossesTodayRow,
             ShowCurrentStreakRow = ShowCurrentStreakRow,
@@ -2296,6 +2395,11 @@ public class AccountInfoDisplay : Indicator
             CautionTradesThreshold = cfg.CautionTradesThreshold;
             CautionLossesThreshold = cfg.CautionLossesThreshold;
 
+            CautionLossFromStart = cfg.CautionLossFromStart;
+            CautionGivebackFromPeak = cfg.CautionGivebackFromPeak;
+            CautionLossFromStartPct = cfg.CautionLossFromStartPct;
+            CautionGivebackFromPeakPct = cfg.CautionGivebackFromPeakPct;
+
             ShowTradesTodayRow = cfg.ShowTradesTodayRow;
             ShowWinsLossesTodayRow = cfg.ShowWinsLossesTodayRow;
             ShowCurrentStreakRow = cfg.ShowCurrentStreakRow;
@@ -2346,6 +2450,12 @@ public class AccountInfoDisplay : Indicator
         if (cfg.MaxConsecutiveLosses != MaxConsecutiveLosses) { cfg.MaxConsecutiveLosses = MaxConsecutiveLosses; changed = true; }
         if (cfg.CautionTradesThreshold != CautionTradesThreshold) { cfg.CautionTradesThreshold = CautionTradesThreshold; changed = true; }
         if (cfg.CautionLossesThreshold != CautionLossesThreshold) { cfg.CautionLossesThreshold = CautionLossesThreshold; changed = true; }
+
+        if (cfg.CautionLossFromStart != CautionLossFromStart) { cfg.CautionLossFromStart = CautionLossFromStart; changed = true; }
+        if (cfg.CautionGivebackFromPeak != CautionGivebackFromPeak) { cfg.CautionGivebackFromPeak = CautionGivebackFromPeak; changed = true; }
+        if (cfg.CautionLossFromStartPct != CautionLossFromStartPct) { cfg.CautionLossFromStartPct = CautionLossFromStartPct; changed = true; }
+        if (cfg.CautionGivebackFromPeakPct != CautionGivebackFromPeakPct) { cfg.CautionGivebackFromPeakPct = CautionGivebackFromPeakPct; changed = true; }
+
 
         if (cfg.ShowTradesTodayRow != ShowTradesTodayRow) { cfg.ShowTradesTodayRow = ShowTradesTodayRow; changed = true; }
         if (cfg.ShowWinsLossesTodayRow != ShowWinsLossesTodayRow) { cfg.ShowWinsLossesTodayRow = ShowWinsLossesTodayRow; changed = true; }
