@@ -2174,5 +2174,32 @@
   <value>每日风控：STOP。</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="RowRemainingDailyLoss" xml:space="preserve">
+  <value>今日剩余亏损空间</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="RowRemainingDailyProfitTarget" xml:space="preserve">
+  <value>距离盈利目标剩余</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowRemainingDailyLossRow" xml:space="preserve">
+  <value>显示剩余亏损空间</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowRemainingDailyLossRowDescription" xml:space="preserve">
+  <value>显示距离每日亏损上限还剩多少（基于当前权益）。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowRemainingDailyProfitTargetRow" xml:space="preserve">
+  <value>显示距离盈利目标剩余</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowRemainingDailyProfitTargetRowDescription" xml:space="preserve">
+  <value>显示距离每日盈利目标还剩多少（基于当前权益）。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
 </root>

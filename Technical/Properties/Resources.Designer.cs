@@ -7162,6 +7162,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Remaining daily loss.
+        /// </summary>
+        public static string RowRemainingDailyLoss {
+            get {
+                return ResourceManager.GetString("RowRemainingDailyLoss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Remaining to profit target.
+        /// </summary>
+        public static string RowRemainingDailyProfitTarget {
+            get {
+                return ResourceManager.GetString("RowRemainingDailyProfitTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Rows.
         /// </summary>
         public static string Rows {
@@ -8256,6 +8274,42 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string ShowRealizedPnlTodayRowDescription {
             get {
                 return ResourceManager.GetString("ShowRealizedPnlTodayRowDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show remaining daily loss.
+        /// </summary>
+        public static string ShowRemainingDailyLossRow {
+            get {
+                return ResourceManager.GetString("ShowRemainingDailyLossRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show how much room is left before the daily loss limit (based on current equity)..
+        /// </summary>
+        public static string ShowRemainingDailyLossRowDescription {
+            get {
+                return ResourceManager.GetString("ShowRemainingDailyLossRowDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show remaining to profit target.
+        /// </summary>
+        public static string ShowRemainingDailyProfitTargetRow {
+            get {
+                return ResourceManager.GetString("ShowRemainingDailyProfitTargetRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show how much is left to reach the daily profit target (based on current equity)..
+        /// </summary>
+        public static string ShowRemainingDailyProfitTargetRowDescription {
+            get {
+                return ResourceManager.GetString("ShowRemainingDailyProfitTargetRowDescription", resourceCulture);
             }
         }
         

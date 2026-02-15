@@ -2219,5 +2219,32 @@
   <value>आज STOP पहले ही लग चुका है।</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="RowRemainingDailyLoss" xml:space="preserve">
+  <value>आज की शेष हानि</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="RowRemainingDailyProfitTarget" xml:space="preserve">
+  <value>लाभ लक्ष्य तक शेष</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowRemainingDailyLossRow" xml:space="preserve">
+  <value>शेष दैनिक हानि दिखाएँ</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowRemainingDailyLossRowDescription" xml:space="preserve">
+  <value>दैनिक हानि सीमा तक कितना मार्जिन बचा है दिखाता है (वर्तमान equity के आधार पर).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowRemainingDailyProfitTargetRow" xml:space="preserve">
+  <value>लाभ लक्ष्य तक शेष दिखाएँ</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowRemainingDailyProfitTargetRowDescription" xml:space="preserve">
+  <value>दैनिक लाभ लक्ष्य तक कितना शेष है दिखाता है (वर्तमान equity के आधार पर).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
 </root>

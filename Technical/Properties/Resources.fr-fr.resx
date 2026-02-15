@@ -2219,5 +2219,32 @@
   <value>Le STOP a déjà été déclenché aujourd’hui.</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="RowRemainingDailyLoss" xml:space="preserve">
+  <value>Perte restante aujourd’hui</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="RowRemainingDailyProfitTarget" xml:space="preserve">
+  <value>Profit restant jusqu’à l’objectif</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowRemainingDailyLossRow" xml:space="preserve">
+  <value>Afficher la perte restante</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowRemainingDailyLossRowDescription" xml:space="preserve">
+  <value>Affiche la marge restante avant la limite journalière de perte (selon l’equity actuelle).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowRemainingDailyProfitTargetRow" xml:space="preserve">
+  <value>Afficher le profit restant</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowRemainingDailyProfitTargetRowDescription" xml:space="preserve">
+  <value>Affiche ce qu’il reste pour atteindre l’objectif journalier (selon l’equity actuelle).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
 </root>

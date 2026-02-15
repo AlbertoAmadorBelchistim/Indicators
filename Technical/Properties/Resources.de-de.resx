@@ -2226,5 +2226,32 @@
   <value>STOP wurde heute bereits ausgelöst.</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="RowRemainingDailyLoss" xml:space="preserve">
+  <value>Verbleibender Tagesverlust</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="RowRemainingDailyProfitTarget" xml:space="preserve">
+  <value>Verbleibend bis Gewinnziel</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowRemainingDailyLossRow" xml:space="preserve">
+  <value>Verbleibendes Verlustlimit anzeigen</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowRemainingDailyLossRowDescription" xml:space="preserve">
+  <value>Zeigt, wie viel Spielraum bis zum täglichen Verlustlimit verbleibt (basierend auf aktueller Equity).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowRemainingDailyProfitTargetRow" xml:space="preserve">
+  <value>Verbleibend bis Gewinnziel anzeigen</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowRemainingDailyProfitTargetRowDescription" xml:space="preserve">
+  <value>Zeigt, wie viel bis zum täglichen Gewinnziel fehlt (basierend auf aktueller Equity).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
 </root>
