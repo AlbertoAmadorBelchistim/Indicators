@@ -242,6 +242,24 @@ public class AccountInfoDisplay : Indicator
         public decimal CautionLossFromStartPct { get; set; }
         public decimal CautionGivebackFromPeakPct { get; set; }
 
+        // --- Phase 5: Soft recommendations (0022 parity) ---
+
+        // CAUTION thresholds (%-based)
+        public decimal CautionTradesPct { get; set; }
+        public decimal CautionRemainingDailyLossPct { get; set; }
+
+        // Consistency rules (payout concentration)
+        public bool EnableConsistencyRules { get; set; }
+        public decimal PayoutObjective { get; set; }
+        public decimal ConsistencyCautionPct { get; set; }
+        public decimal ConsistencyStopPct { get; set; }
+
+        // Giveback after peak today (CAUTION)
+        public bool EnableGivebackCaution { get; set; }
+        public decimal GivebackPctOfProfitTarget { get; set; } // uses DailyProfitTarget as "profit cap"
+        public decimal GivebackAbs { get; set; }
+
+
         // UI toggles (risk-relevant)
         public bool ShowTradesTodayRow { get; set; }
         public bool ShowWinsLossesTodayRow { get; set; }
@@ -744,7 +762,7 @@ public class AccountInfoDisplay : Indicator
     Name = nameof(Resources.CautionLossFromStart),
     Description = nameof(Resources.CautionLossFromStartDescription),
     GroupName = nameof(Resources.SoftRecommendations),
-    Order = 345)]
+    Order = 341)]
     public decimal CautionLossFromStart { get; set; } = 0m;
 
     [Display(
@@ -752,7 +770,7 @@ public class AccountInfoDisplay : Indicator
         Name = nameof(Resources.CautionGivebackFromPeak),
         Description = nameof(Resources.CautionGivebackFromPeakDescription),
         GroupName = nameof(Resources.SoftRecommendations),
-        Order = 346)]
+        Order = 342)]
     public decimal CautionGivebackFromPeak { get; set; } = 0m;
 
     [Display(
@@ -760,7 +778,7 @@ public class AccountInfoDisplay : Indicator
         Name = nameof(Resources.CautionLossFromStartPct),
         Description = nameof(Resources.CautionLossFromStartPctDescription),
         GroupName = nameof(Resources.SoftRecommendations),
-        Order = 347)]
+        Order = 343)]
     [Range(0, 100)]
     public decimal CautionLossFromStartPct { get; set; } = 0m;
 
@@ -769,9 +787,82 @@ public class AccountInfoDisplay : Indicator
         Name = nameof(Resources.CautionGivebackFromPeakPct),
         Description = nameof(Resources.CautionGivebackFromPeakPctDescription),
         GroupName = nameof(Resources.SoftRecommendations),
-        Order = 348)]
+        Order = 344)]
     [Range(0, 100)]
     public decimal CautionGivebackFromPeakPct { get; set; } = 0m;
+
+    [Display(
+    ResourceType = typeof(Resources),
+    GroupName = nameof(Resources.SoftRecommendations),
+    Name = nameof(Resources.CautionTradesPct),
+    Description = nameof(Resources.CautionTradesPctDescription),
+    Order = 345)]
+    public decimal CautionTradesPct { get; set; } = 0.75m;
+
+    [Display(
+        ResourceType = typeof(Resources),
+        GroupName = nameof(Resources.SoftRecommendations),
+        Name = nameof(Resources.CautionRemainingDailyLossPct),
+        Description = nameof(Resources.CautionRemainingDailyLossPctDescription),
+        Order = 346)]
+    public decimal CautionRemainingDailyLossPct { get; set; } = 0.20m;
+
+    [Display(
+        ResourceType = typeof(Resources),
+        GroupName = nameof(Resources.SoftRecommendations),
+        Name = nameof(Resources.EnableConsistencyRules),
+        Description = nameof(Resources.EnableConsistencyRulesDescription),
+        Order = 347)]
+    public bool EnableConsistencyRules { get; set; } = false;
+
+    [Display(
+        ResourceType = typeof(Resources),
+        GroupName = nameof(Resources.SoftRecommendations),
+        Name = nameof(Resources.PayoutObjective),
+        Description = nameof(Resources.PayoutObjectiveDescription),
+        Order = 348)]
+    public decimal PayoutObjective { get; set; } = 1500m;
+
+    [Display(
+        ResourceType = typeof(Resources),
+        GroupName = nameof(Resources.SoftRecommendations),
+        Name = nameof(Resources.ConsistencyCautionPct),
+        Description = nameof(Resources.ConsistencyCautionPctDescription),
+        Order = 349)]
+    public decimal ConsistencyCautionPct { get; set; } = 0.30m;
+
+    [Display(
+        ResourceType = typeof(Resources),
+        GroupName = nameof(Resources.SoftRecommendations),
+        Name = nameof(Resources.ConsistencyStopPct),
+        Description = nameof(Resources.ConsistencyStopPctDescription),
+        Order = 350)]
+    public decimal ConsistencyStopPct { get; set; } = 0.39m;
+
+    [Display(
+        ResourceType = typeof(Resources),
+        GroupName = nameof(Resources.SoftRecommendations),
+        Name = nameof(Resources.EnableGivebackCaution),
+        Description = nameof(Resources.EnableGivebackCautionDescription),
+        Order = 351)]
+    public bool EnableGivebackCaution { get; set; } = false;
+
+    [Display(
+        ResourceType = typeof(Resources),
+        GroupName = nameof(Resources.SoftRecommendations),
+        Name = nameof(Resources.GivebackPctOfProfitTarget),
+        Description = nameof(Resources.GivebackPctOfProfitTargetDescription),
+        Order = 352)]
+    public decimal GivebackPctOfProfitTarget { get; set; } = 0.30m;
+
+    [Display(
+        ResourceType = typeof(Resources),
+        GroupName = nameof(Resources.SoftRecommendations),
+        Name = nameof(Resources.GivebackAbs),
+        Description = nameof(Resources.GivebackAbsDescription),
+        Order = 353)]
+    public decimal GivebackAbs { get; set; } = 200m;
+
 
 
     // Rows toggles (Phase E)
@@ -780,7 +871,7 @@ public class AccountInfoDisplay : Indicator
         Name = nameof(Resources.ShowSuggestedStatusRow),
         Description = nameof(Resources.ShowSuggestedStatusRowDescription),
         GroupName = nameof(Resources.SoftRecommendations),
-        Order = 350)]
+        Order = 355)]
     public bool ShowSuggestedStatusRow { get; set; } = true;
 
     [Display(
@@ -1198,7 +1289,7 @@ public class AccountInfoDisplay : Indicator
         {
             var daily = GetDailyRailsState(accountKey);
 
-            var suggestion = EvaluateSoftRecommendations(daily, equity);
+            var suggestion = EvaluateSoftRecommendations(daily, portfolio, equity);
 
             if (ShowSuggestedStatusRow)
             {
@@ -1866,7 +1957,7 @@ public class AccountInfoDisplay : Indicator
         return pos.IsInPosition && pos.Volume != 0m;
     }
 
-    private SuggestionResult EvaluateSoftRecommendations(DailyRailsState state, decimal equity)
+    private SuggestionResult EvaluateSoftRecommendations(DailyRailsState state, Portfolio portfolio, decimal equity)
     {
         if (state == null)
             return new SuggestionResult { Status = SuggestedStatus.Ok };
@@ -1949,14 +2040,88 @@ public class AccountInfoDisplay : Indicator
                 if (givebackPct >= CautionGivebackFromPeakPct)
                     reasons.Add($"{Resources.CautionGivebackFromPeakPct}: {givebackPct:N2}% / {CautionGivebackFromPeakPct:N2}%");
             }
+
+            // CAUTION: remaining daily loss low
+            if (EnableDailyRails && DailyLossLimit > 0m && CautionRemainingDailyLossPct > 0m && state.IsInitialized)
+            {
+                var stopEquity = state.StartOfDayEquity - DailyLossLimit;
+                var remainingLoss = equity - stopEquity; // >=0 means not breached
+
+                if (remainingLoss >= 0m)
+                {
+                    var pct = ClampDecimal(CautionRemainingDailyLossPct, 0.05m, 0.50m);
+                    var threshold = DailyLossLimit * pct;
+
+                    if (remainingLoss <= threshold)
+                        reasons.Add($"{Resources.CautionRemainingDailyLossLow}: {FormatCurrency(remainingLoss)} / {FormatCurrency(threshold)}");
+                }
+            }
+
+            if (EnableConsistencyRules && PayoutObjective > 0m)
+            {
+                var realizedToday = GetRealizedPnlToday(state, portfolio); // helper sugerido abajo
+
+                var cautionPct = ClampDecimal(ConsistencyCautionPct, 0.01m, 1.00m);
+                var stopPct = ClampDecimal(ConsistencyStopPct, 0.01m, 1.00m);
+
+                var cautionLevel = PayoutObjective * cautionPct;
+                var stopLevel = PayoutObjective * stopPct;
+
+                if (realizedToday >= stopLevel)
+                    return new SuggestionResult { Status = SuggestedStatus.Stop, ReasonsText = Resources.ConsistencyStopReason };
+                if (realizedToday >= cautionLevel)
+                    reasons.Add(Resources.ConsistencyCautionReason);
+            }
         }
+
+        if (EnableGivebackCaution && state.IsInitialized)
+        {
+            var dailyPnl = equity - state.StartOfDayEquity;
+            var dailyPeakPnl = state.PeakEquityToday - state.StartOfDayEquity;
+
+            if (dailyPeakPnl > 0m)
+            {
+                var giveback = dailyPeakPnl - dailyPnl;
+
+                decimal threshold;
+                if (DailyProfitTarget > 0m)
+                {
+                    var pct = ClampDecimal(GivebackPctOfProfitTarget, 0.01m, 1.00m);
+                    threshold = DailyProfitTarget * pct;
+                }
+                else
+                {
+                    threshold = Math.Max(0m, GivebackAbs);
+                }
+
+                if (giveback >= threshold)
+                    reasons.Add(Resources.GivebackCautionReason);
+            }
+        }
+
 
         // CAUTION conditions (warning recommendation)
         if (cautionTrades > 0 && state.TradesToday >= cautionTrades)
             reasons.Add($"{Resources.CautionTradesThreshold}: {state.TradesToday:N0} / {cautionTrades:N0}");
 
+        // CAUTION: trades near limit (% of MaxTradesPerDay)
+        if (maxTrades > 0 && CautionTradesPct > 0m)
+        {
+            var pct = ClampDecimal(CautionTradesPct, 0.10m, 1.00m);
+            var raw = (int)Math.Floor(maxTrades * (double)pct);
+            var threshold = Math.Max(1, raw);
+
+            if (state.TradesToday >= threshold && state.TradesToday < maxTrades)
+                reasons.Add($"{Resources.CautionTradesPct}: {state.TradesToday:N0} / {maxTrades:N0}");
+        }
+
         if (cautionLosses > 0 && state.CurrentLossStreak >= cautionLosses)
             reasons.Add($"{Resources.CautionLossesThreshold}: {state.CurrentLossStreak:N0} / {cautionLosses:N0}");
+
+        // CAUTION: one loss away from MaxConsecutiveLosses
+        if (maxLosses > 0 && state.CurrentLossStreak == maxLosses - 1)
+            reasons.Add($"{Resources.CautionOneLossAway}");
+
 
         if (reasons.Count > 0)
         {
@@ -1970,6 +2135,21 @@ public class AccountInfoDisplay : Indicator
         return new SuggestionResult { Status = SuggestedStatus.Ok };
     }
 
+    private static decimal ClampDecimal(decimal value, decimal min, decimal max)
+    {
+        if (value < min) return min;
+        if (value > max) return max;
+        return value;
+    }
+
+    private static decimal GetRealizedPnlToday(DailyRailsState state, Portfolio portfolio)
+    {
+        // Uses the baseline set on daily reset; matches your snapshot convention.
+        if (portfolio == null)
+            return 0m;
+
+        return portfolio.ClosedPnL - state.DailyRealizedPnlBaseline;
+    }
 
     #endregion
 
@@ -2359,6 +2539,18 @@ public class AccountInfoDisplay : Indicator
             CautionLossFromStartPct = CautionLossFromStartPct,
             CautionGivebackFromPeakPct = CautionGivebackFromPeakPct,
 
+            CautionTradesPct = CautionTradesPct,
+            CautionRemainingDailyLossPct = CautionRemainingDailyLossPct,
+
+            EnableConsistencyRules = EnableConsistencyRules,
+            PayoutObjective = PayoutObjective,
+            ConsistencyCautionPct = ConsistencyCautionPct,
+            ConsistencyStopPct = ConsistencyStopPct,
+
+            EnableGivebackCaution = EnableGivebackCaution,
+            GivebackPctOfProfitTarget = GivebackPctOfProfitTarget,
+            GivebackAbs = GivebackAbs,
+
             ShowTradesTodayRow = ShowTradesTodayRow,
             ShowWinsLossesTodayRow = ShowWinsLossesTodayRow,
             ShowCurrentStreakRow = ShowCurrentStreakRow,
@@ -2475,6 +2667,18 @@ public class AccountInfoDisplay : Indicator
             CautionLossFromStartPct = cfg.CautionLossFromStartPct;
             CautionGivebackFromPeakPct = cfg.CautionGivebackFromPeakPct;
 
+            CautionTradesPct = cfg.CautionTradesPct;
+            CautionRemainingDailyLossPct = cfg.CautionRemainingDailyLossPct;
+
+            EnableConsistencyRules = cfg.EnableConsistencyRules;
+            PayoutObjective = cfg.PayoutObjective;
+            ConsistencyCautionPct = cfg.ConsistencyCautionPct;
+            ConsistencyStopPct = cfg.ConsistencyStopPct;
+
+            EnableGivebackCaution = cfg.EnableGivebackCaution;
+            GivebackPctOfProfitTarget = cfg.GivebackPctOfProfitTarget;
+            GivebackAbs = cfg.GivebackAbs;
+
             ShowTradesTodayRow = cfg.ShowTradesTodayRow;
             ShowWinsLossesTodayRow = cfg.ShowWinsLossesTodayRow;
             ShowCurrentStreakRow = cfg.ShowCurrentStreakRow;
@@ -2533,6 +2737,17 @@ public class AccountInfoDisplay : Indicator
         if (cfg.CautionLossFromStartPct != CautionLossFromStartPct) { cfg.CautionLossFromStartPct = CautionLossFromStartPct; changed = true; }
         if (cfg.CautionGivebackFromPeakPct != CautionGivebackFromPeakPct) { cfg.CautionGivebackFromPeakPct = CautionGivebackFromPeakPct; changed = true; }
 
+        if (cfg.CautionTradesPct != CautionTradesPct) { cfg.CautionTradesPct = CautionTradesPct; changed = true; }
+        if (cfg.CautionRemainingDailyLossPct != CautionRemainingDailyLossPct) { cfg.CautionRemainingDailyLossPct = CautionRemainingDailyLossPct; changed = true; }
+
+        if (cfg.EnableConsistencyRules != EnableConsistencyRules) { cfg.EnableConsistencyRules = EnableConsistencyRules; changed = true; }
+        if (cfg.PayoutObjective != PayoutObjective) { cfg.PayoutObjective = PayoutObjective; changed = true; }
+        if (cfg.ConsistencyCautionPct != ConsistencyCautionPct) { cfg.ConsistencyCautionPct = ConsistencyCautionPct; changed = true; }
+        if (cfg.ConsistencyStopPct != ConsistencyStopPct) { cfg.ConsistencyStopPct = ConsistencyStopPct; changed = true; }
+
+        if (cfg.EnableGivebackCaution != EnableGivebackCaution) { cfg.EnableGivebackCaution = EnableGivebackCaution; changed = true; }
+        if (cfg.GivebackPctOfProfitTarget != GivebackPctOfProfitTarget) { cfg.GivebackPctOfProfitTarget = GivebackPctOfProfitTarget; changed = true; }
+        if (cfg.GivebackAbs != GivebackAbs) { cfg.GivebackAbs = GivebackAbs; changed = true; }
 
         if (cfg.ShowTradesTodayRow != ShowTradesTodayRow) { cfg.ShowTradesTodayRow = ShowTradesTodayRow; changed = true; }
         if (cfg.ShowWinsLossesTodayRow != ShowWinsLossesTodayRow) { cfg.ShowWinsLossesTodayRow = ShowWinsLossesTodayRow; changed = true; }
