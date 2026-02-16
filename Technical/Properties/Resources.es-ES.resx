@@ -2247,5 +2247,13 @@
   <value>Muestra cuánto falta para alcanzar el objetivo diario de beneficio (según equity actual).</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="RowTradeMaxOpenPnLCurrent" xml:space="preserve">
+  <value>Máx. PnL abierto (actual)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowTradeMaxOpenPnLLast" xml:space="preserve">
+  <value>Máx. PnL abierto (último)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
 </root>

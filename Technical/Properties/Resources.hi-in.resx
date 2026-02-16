@@ -2246,5 +2246,13 @@
   <value>दैनिक लाभ लक्ष्य तक कितना शेष है दिखाता है (वर्तमान equity के आधार पर).</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="RowTradeMaxOpenPnLCurrent" xml:space="preserve">
+  <value>अधिकतम ओपन PnL (वर्तमान)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowTradeMaxOpenPnLLast" xml:space="preserve">
+  <value>अधिकतम ओपन PnL (पिछला)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
 </root>

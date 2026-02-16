@@ -2253,5 +2253,13 @@
   <value>Zeigt, wie viel bis zum täglichen Gewinnziel fehlt (basierend auf aktueller Equity).</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="RowTradeMaxOpenPnLCurrent" xml:space="preserve">
+  <value>Max. offener PnL (aktuell)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowTradeMaxOpenPnLLast" xml:space="preserve">
+  <value>Max. offener PnL (letzter)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
 </root>

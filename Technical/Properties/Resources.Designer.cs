@@ -7279,6 +7279,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Trade Max Open PnL (Current).
+        /// </summary>
+        public static string RowTradeMaxOpenPnLCurrent {
+            get {
+                return ResourceManager.GetString("RowTradeMaxOpenPnLCurrent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Trade Max Open PnL (Last).
+        /// </summary>
+        public static string RowTradeMaxOpenPnLLast {
+            get {
+                return ResourceManager.GetString("RowTradeMaxOpenPnLLast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Trades Today.
         /// </summary>
         public static string RowTradesToday {

@@ -2246,5 +2246,13 @@
   <value>Affiche ce qu’il reste pour atteindre l’objectif journalier (selon l’equity actuelle).</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="RowTradeMaxOpenPnLCurrent" xml:space="preserve">
+  <value>PnL ouvert max (actuel)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowTradeMaxOpenPnLLast" xml:space="preserve">
+  <value>PnL ouvert max (dernier)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
 </root>

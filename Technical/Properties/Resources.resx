@@ -4562,5 +4562,13 @@
   <value>Show how much is left to reach the daily profit target (based on current equity).</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="RowTradeMaxOpenPnLCurrent" xml:space="preserve">
+  <value>Trade Max Open PnL (Current)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowTradeMaxOpenPnLLast" xml:space="preserve">
+  <value>Trade Max Open PnL (Last)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
 </root>
