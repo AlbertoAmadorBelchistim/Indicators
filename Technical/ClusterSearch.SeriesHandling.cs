@@ -19,7 +19,6 @@ public partial class ClusterSearch
 			_lastSeriesBar.Insert(~index, value);
 	}
 
-	//Remove price selection from series by bar and price
 	private void RemoveOldSelection(int bar, decimal price)
 	{
 		var idx = GetSeriesLevelIndex(bar, price);
