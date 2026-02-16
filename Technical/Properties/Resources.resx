@@ -4570,5 +4570,113 @@
   <value>Trade Max Open PnL (Last)</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<!-- AccountInfoDisplay — Soft recommendations (0022 parity) -->
+
+<data name="CautionTradesPct" xml:space="preserve">
+  <value>Trades CAUTION (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionTradesPctDescription" xml:space="preserve">
+  <value>Triggers CAUTION when today's trade count reaches this percentage of Max Trades Per Day (e.g., 0.75 = 75%).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionRemainingDailyLossPct" xml:space="preserve">
+  <value>Remaining daily loss CAUTION (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionRemainingDailyLossPctDescription" xml:space="preserve">
+  <value>Triggers CAUTION when remaining daily loss is below this percentage of the daily loss limit.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="EnableConsistencyRules" xml:space="preserve">
+  <value>Enable consistency rules</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnableConsistencyRulesDescription" xml:space="preserve">
+  <value>Enables payout concentration checks (CAUTION/STOP) based on the payout objective.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="PayoutObjective" xml:space="preserve">
+  <value>Payout objective</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="PayoutObjectiveDescription" xml:space="preserve">
+  <value>Target payout used by consistency rules to compute CAUTION/STOP thresholds.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ConsistencyCautionPct" xml:space="preserve">
+  <value>Consistency CAUTION (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ConsistencyCautionPctDescription" xml:space="preserve">
+  <value>Triggers CAUTION when today's realized PnL reaches this percentage of the payout objective.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ConsistencyStopPct" xml:space="preserve">
+  <value>Consistency STOP (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ConsistencyStopPctDescription" xml:space="preserve">
+  <value>Triggers STOP when today's realized PnL reaches this percentage of the payout objective.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="EnableGivebackCaution" xml:space="preserve">
+  <value>Enable giveback CAUTION</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnableGivebackCautionDescription" xml:space="preserve">
+  <value>Enables CAUTION when today's PnL gives back too much from the intraday peak.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="GivebackPctOfProfitTarget" xml:space="preserve">
+  <value>Giveback CAUTION (% of daily profit target)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="GivebackPctOfProfitTargetDescription" xml:space="preserve">
+  <value>Giveback threshold as a percentage of the daily profit target (used when Daily Profit Target &gt; 0).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="GivebackAbs" xml:space="preserve">
+  <value>Giveback CAUTION (absolute)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="GivebackAbsDescription" xml:space="preserve">
+  <value>Absolute giveback threshold used when Daily Profit Target is 0.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<!-- AccountInfoDisplay — Soft recommendations (reason texts) -->
+
+<data name="CautionOneLossAway" xml:space="preserve">
+  <value>CAUTION: one loss away from max consecutive losses.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionRemainingDailyLossLow" xml:space="preserve">
+  <value>CAUTION: remaining daily loss is low.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ConsistencyCautionReason" xml:space="preserve">
+  <value>CAUTION: payout concentration threshold reached.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ConsistencyStopReason" xml:space="preserve">
+  <value>STOP: payout concentration threshold reached.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="GivebackCautionReason" xml:space="preserve">
+  <value>CAUTION: intraday giveback threshold reached.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
 </root>

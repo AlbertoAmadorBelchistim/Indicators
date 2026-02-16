@@ -1555,6 +1555,60 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a CAUTION: one loss away from max consecutive losses..
+        /// </summary>
+        public static string CautionOneLossAway {
+            get {
+                return ResourceManager.GetString("CautionOneLossAway", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a CAUTION: remaining daily loss is low..
+        /// </summary>
+        public static string CautionRemainingDailyLossLow {
+            get {
+                return ResourceManager.GetString("CautionRemainingDailyLossLow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Remaining daily loss CAUTION (%).
+        /// </summary>
+        public static string CautionRemainingDailyLossPct {
+            get {
+                return ResourceManager.GetString("CautionRemainingDailyLossPct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Triggers CAUTION when remaining daily loss is below this percentage of the daily loss limit..
+        /// </summary>
+        public static string CautionRemainingDailyLossPctDescription {
+            get {
+                return ResourceManager.GetString("CautionRemainingDailyLossPctDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Trades CAUTION (%).
+        /// </summary>
+        public static string CautionTradesPct {
+            get {
+                return ResourceManager.GetString("CautionTradesPct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Triggers CAUTION when today&apos;s trade count reaches this percentage of Max Trades Per Day (e.g., 0.75 = 75%)..
+        /// </summary>
+        public static string CautionTradesPctDescription {
+            get {
+                return ResourceManager.GetString("CautionTradesPctDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Caution trades threshold.
         /// </summary>
         public static string CautionTradesThreshold {
@@ -1848,6 +1902,60 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string Common {
             get {
                 return ResourceManager.GetString("Common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Consistency CAUTION (%).
+        /// </summary>
+        public static string ConsistencyCautionPct {
+            get {
+                return ResourceManager.GetString("ConsistencyCautionPct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Triggers CAUTION when today&apos;s realized PnL reaches this percentage of the payout objective..
+        /// </summary>
+        public static string ConsistencyCautionPctDescription {
+            get {
+                return ResourceManager.GetString("ConsistencyCautionPctDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a CAUTION: payout concentration threshold reached..
+        /// </summary>
+        public static string ConsistencyCautionReason {
+            get {
+                return ResourceManager.GetString("ConsistencyCautionReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Consistency STOP (%).
+        /// </summary>
+        public static string ConsistencyStopPct {
+            get {
+                return ResourceManager.GetString("ConsistencyStopPct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Triggers STOP when today&apos;s realized PnL reaches this percentage of the payout objective..
+        /// </summary>
+        public static string ConsistencyStopPctDescription {
+            get {
+                return ResourceManager.GetString("ConsistencyStopPctDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a STOP: payout concentration threshold reached..
+        /// </summary>
+        public static string ConsistencyStopReason {
+            get {
+                return ResourceManager.GetString("ConsistencyStopReason", resourceCulture);
             }
         }
         
@@ -2788,6 +2896,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Enable consistency rules.
+        /// </summary>
+        public static string EnableConsistencyRules {
+            get {
+                return ResourceManager.GetString("EnableConsistencyRules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Enables payout concentration checks (CAUTION/STOP) based on the payout objective..
+        /// </summary>
+        public static string EnableConsistencyRulesDescription {
+            get {
+                return ResourceManager.GetString("EnableConsistencyRulesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Enabled.
         /// </summary>
         public static string Enabled {
@@ -2811,6 +2937,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string EnableDailyRailsDescription {
             get {
                 return ResourceManager.GetString("EnableDailyRailsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Enable giveback CAUTION.
+        /// </summary>
+        public static string EnableGivebackCaution {
+            get {
+                return ResourceManager.GetString("EnableGivebackCaution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Enables CAUTION when today&apos;s PnL gives back too much from the intraday peak..
+        /// </summary>
+        public static string EnableGivebackCautionDescription {
+            get {
+                return ResourceManager.GetString("EnableGivebackCautionDescription", resourceCulture);
             }
         }
         
@@ -3360,6 +3504,51 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string General {
             get {
                 return ResourceManager.GetString("General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Giveback CAUTION (absolute).
+        /// </summary>
+        public static string GivebackAbs {
+            get {
+                return ResourceManager.GetString("GivebackAbs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Absolute giveback threshold used when Daily Profit Target is 0..
+        /// </summary>
+        public static string GivebackAbsDescription {
+            get {
+                return ResourceManager.GetString("GivebackAbsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a CAUTION: intraday giveback threshold reached..
+        /// </summary>
+        public static string GivebackCautionReason {
+            get {
+                return ResourceManager.GetString("GivebackCautionReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Giveback CAUTION (% of daily profit target).
+        /// </summary>
+        public static string GivebackPctOfProfitTarget {
+            get {
+                return ResourceManager.GetString("GivebackPctOfProfitTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Giveback threshold as a percentage of the daily profit target (used when Daily Profit Target &gt; 0)..
+        /// </summary>
+        public static string GivebackPctOfProfitTargetDescription {
+            get {
+                return ResourceManager.GetString("GivebackPctOfProfitTargetDescription", resourceCulture);
             }
         }
         
@@ -6159,6 +6348,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string ParabolicSAR {
             get {
                 return ResourceManager.GetString("ParabolicSAR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Payout objective.
+        /// </summary>
+        public static string PayoutObjective {
+            get {
+                return ResourceManager.GetString("PayoutObjective", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Target payout used by consistency rules to compute CAUTION/STOP thresholds..
+        /// </summary>
+        public static string PayoutObjectiveDescription {
+            get {
+                return ResourceManager.GetString("PayoutObjectiveDescription", resourceCulture);
             }
         }
         

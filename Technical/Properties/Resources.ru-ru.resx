@@ -4317,5 +4317,113 @@
   <value>Макс. открытый PnL (последний)</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<!-- AccountInfoDisplay — Soft recommendations (0022 parity) -->
+
+<data name="CautionTradesPct" xml:space="preserve">
+  <value>CAUTION по трейдам (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionTradesPctDescription" xml:space="preserve">
+  <value>Включает CAUTION, когда число трейдов за день достигает этого процента от Max Trades Per Day (напр., 0,75 = 75%).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionRemainingDailyLossPct" xml:space="preserve">
+  <value>CAUTION по оставшемуся дневному лимиту убытка (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionRemainingDailyLossPctDescription" xml:space="preserve">
+  <value>Включает CAUTION, когда оставшийся дневной лимит убытка падает ниже этого процента от дневного лимита.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="EnableConsistencyRules" xml:space="preserve">
+  <value>Включить правила консистентности</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnableConsistencyRulesDescription" xml:space="preserve">
+  <value>Включает проверки концентрации payout (CAUTION/STOP) на основе цели payout.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="PayoutObjective" xml:space="preserve">
+  <value>Цель payout</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="PayoutObjectiveDescription" xml:space="preserve">
+  <value>Цель, используемая правилами консистентности для расчёта порогов CAUTION/STOP.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ConsistencyCautionPct" xml:space="preserve">
+  <value>Консистентность CAUTION (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ConsistencyCautionPctDescription" xml:space="preserve">
+  <value>Включает CAUTION, когда реализованный PnL за день достигает этого процента от цели payout.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ConsistencyStopPct" xml:space="preserve">
+  <value>Консистентность STOP (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ConsistencyStopPctDescription" xml:space="preserve">
+  <value>Включает STOP, когда реализованный PnL за день достигает этого процента от цели payout.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="EnableGivebackCaution" xml:space="preserve">
+  <value>Включить CAUTION по giveback</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnableGivebackCautionDescription" xml:space="preserve">
+  <value>Включает CAUTION, когда дневной PnL слишком сильно откатывается от внутридневного пика.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="GivebackPctOfProfitTarget" xml:space="preserve">
+  <value>Giveback CAUTION (% от дневной цели)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="GivebackPctOfProfitTargetDescription" xml:space="preserve">
+  <value>Порог giveback как процент от дневной цели прибыли (используется если дневная цель &gt; 0).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="GivebackAbs" xml:space="preserve">
+  <value>Giveback CAUTION (абсолют)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="GivebackAbsDescription" xml:space="preserve">
+  <value>Абсолютный порог giveback, если дневная цель прибыли равна 0.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<!-- AccountInfoDisplay — Soft recommendations (reason texts) -->
+
+<data name="CautionOneLossAway" xml:space="preserve">
+  <value>CAUTION: одна потеря до максимума подряд убыточных сделок.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionRemainingDailyLossLow" xml:space="preserve">
+  <value>CAUTION: оставшийся дневной лимит убытка низкий.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ConsistencyCautionReason" xml:space="preserve">
+  <value>CAUTION: достигнут порог концентрации payout.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ConsistencyStopReason" xml:space="preserve">
+  <value>STOP: достигнут порог концентрации payout.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="GivebackCautionReason" xml:space="preserve">
+  <value>CAUTION: достигнут порог внутридневного giveback.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
 </root>
