@@ -2255,5 +2255,113 @@
   <value>Máx. PnL abierto (último)</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<!-- AccountInfoDisplay — Soft recommendations (0022 parity) -->
+
+<data name="CautionTradesPct" xml:space="preserve">
+  <value>CAUTION por trades (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionTradesPctDescription" xml:space="preserve">
+  <value>Activa CAUTION cuando el número de trades del día alcanza este porcentaje del máximo diario (p. ej., 0,75 = 75%).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionRemainingDailyLossPct" xml:space="preserve">
+  <value>CAUTION por pérdida diaria restante (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionRemainingDailyLossPctDescription" xml:space="preserve">
+  <value>Activa CAUTION cuando la pérdida diaria restante cae por debajo de este porcentaje del límite de pérdidas diario.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="EnableConsistencyRules" xml:space="preserve">
+  <value>Activar reglas de consistencia</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnableConsistencyRulesDescription" xml:space="preserve">
+  <value>Activa comprobaciones de concentración del payout (CAUTION/STOP) basadas en el objetivo de payout.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="PayoutObjective" xml:space="preserve">
+  <value>Objetivo de payout</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="PayoutObjectiveDescription" xml:space="preserve">
+  <value>Objetivo utilizado por las reglas de consistencia para calcular umbrales de CAUTION/STOP.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ConsistencyCautionPct" xml:space="preserve">
+  <value>Consistencia CAUTION (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ConsistencyCautionPctDescription" xml:space="preserve">
+  <value>Activa CAUTION cuando el PnL realizado del día alcanza este porcentaje del objetivo de payout.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ConsistencyStopPct" xml:space="preserve">
+  <value>Consistencia STOP (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ConsistencyStopPctDescription" xml:space="preserve">
+  <value>Activa STOP cuando el PnL realizado del día alcanza este porcentaje del objetivo de payout.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="EnableGivebackCaution" xml:space="preserve">
+  <value>Activar CAUTION por giveback</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnableGivebackCautionDescription" xml:space="preserve">
+  <value>Activa CAUTION cuando el PnL del día devuelve demasiado desde el máximo intradía.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="GivebackPctOfProfitTarget" xml:space="preserve">
+  <value>Giveback CAUTION (% del objetivo diario)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="GivebackPctOfProfitTargetDescription" xml:space="preserve">
+  <value>Umbral de giveback como porcentaje del objetivo diario de beneficio (se usa si el objetivo diario &gt; 0).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="GivebackAbs" xml:space="preserve">
+  <value>Giveback CAUTION (absoluto)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="GivebackAbsDescription" xml:space="preserve">
+  <value>Umbral absoluto de giveback cuando el objetivo diario de beneficio es 0.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<!-- AccountInfoDisplay — Soft recommendations (reason texts) -->
+
+<data name="CautionOneLossAway" xml:space="preserve">
+  <value>CAUTION: a una pérdida de alcanzar el máximo de pérdidas consecutivas.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionRemainingDailyLossLow" xml:space="preserve">
+  <value>CAUTION: la pérdida diaria restante es baja.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ConsistencyCautionReason" xml:space="preserve">
+  <value>CAUTION: alcanzado umbral de concentración del payout.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ConsistencyStopReason" xml:space="preserve">
+  <value>STOP: alcanzado umbral de concentración del payout.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="GivebackCautionReason" xml:space="preserve">
+  <value>CAUTION: alcanzado umbral de giveback intradía.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
 </root>

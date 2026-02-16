@@ -2254,5 +2254,113 @@
   <value>अधिकतम ओपन PnL (पिछला)</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<!-- AccountInfoDisplay — Soft recommendations (0022 parity) -->
+
+<data name="CautionTradesPct" xml:space="preserve">
+  <value>ट्रेड्स CAUTION (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionTradesPctDescription" xml:space="preserve">
+  <value>CAUTION तब ट्रिगर होता है जब आज के ट्रेड्स, Max Trades Per Day के इस प्रतिशत तक पहुँचते हैं (उदा., 0.75 = 75%).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionRemainingDailyLossPct" xml:space="preserve">
+  <value>शेष दैनिक नुकसान CAUTION (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionRemainingDailyLossPctDescription" xml:space="preserve">
+  <value>CAUTION तब ट्रिगर होता है जब शेष दैनिक नुकसान, दैनिक नुकसान सीमा के इस प्रतिशत से कम हो जाए।</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="EnableConsistencyRules" xml:space="preserve">
+  <value>Consistency नियम सक्षम करें</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnableConsistencyRulesDescription" xml:space="preserve">
+  <value>Payout objective के आधार पर payout concentration checks (CAUTION/STOP) सक्षम करता है।</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="PayoutObjective" xml:space="preserve">
+  <value>Payout उद्देश्य</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="PayoutObjectiveDescription" xml:space="preserve">
+  <value>Consistency नियमों द्वारा CAUTION/STOP thresholds निकालने के लिए उपयोग किया जाने वाला लक्ष्य।</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ConsistencyCautionPct" xml:space="preserve">
+  <value>Consistency CAUTION (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ConsistencyCautionPctDescription" xml:space="preserve">
+  <value>CAUTION तब ट्रिगर होता है जब आज का realized PnL, payout objective के इस प्रतिशत तक पहुँचता है।</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ConsistencyStopPct" xml:space="preserve">
+  <value>Consistency STOP (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ConsistencyStopPctDescription" xml:space="preserve">
+  <value>STOP तब ट्रिगर होता है जब आज का realized PnL, payout objective के इस प्रतिशत तक पहुँचता है।</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="EnableGivebackCaution" xml:space="preserve">
+  <value>Giveback CAUTION सक्षम करें</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnableGivebackCautionDescription" xml:space="preserve">
+  <value>CAUTION तब ट्रिगर होता है जब आज का PnL intraday peak से बहुत अधिक giveback करता है।</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="GivebackPctOfProfitTarget" xml:space="preserve">
+  <value>Giveback CAUTION (दैनिक लक्ष्य का %)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="GivebackPctOfProfitTargetDescription" xml:space="preserve">
+  <value>Giveback threshold, daily profit target के प्रतिशत के रूप में (जब Daily Profit Target &gt; 0 हो)।</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="GivebackAbs" xml:space="preserve">
+  <value>Giveback CAUTION (absolute)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="GivebackAbsDescription" xml:space="preserve">
+  <value>जब Daily Profit Target 0 हो, तब absolute giveback threshold उपयोग होता है।</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<!-- AccountInfoDisplay — Soft recommendations (reason texts) -->
+
+<data name="CautionOneLossAway" xml:space="preserve">
+  <value>CAUTION: अधिकतम लगातार नुकसान से एक नुकसान दूर।</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionRemainingDailyLossLow" xml:space="preserve">
+  <value>CAUTION: शेष दैनिक नुकसान कम है।</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ConsistencyCautionReason" xml:space="preserve">
+  <value>CAUTION: payout concentration threshold पहुँचा।</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ConsistencyStopReason" xml:space="preserve">
+  <value>STOP: payout concentration threshold पहुँचा।</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="GivebackCautionReason" xml:space="preserve">
+  <value>CAUTION: intraday giveback threshold पहुँचा।</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
 </root>

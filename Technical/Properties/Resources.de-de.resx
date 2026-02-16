@@ -2261,5 +2261,113 @@
   <value>Max. offener PnL (letzter)</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<!-- AccountInfoDisplay — Soft recommendations (0022 parity) -->
+
+<data name="CautionTradesPct" xml:space="preserve">
+  <value>CAUTION Trades (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionTradesPctDescription" xml:space="preserve">
+  <value>Löst CAUTION aus, wenn die Trades des Tages diesen Prozentsatz von Max Trades Per Day erreichen (z. B. 0,75 = 75%).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionRemainingDailyLossPct" xml:space="preserve">
+  <value>CAUTION verbleibender Tagesverlust (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="CautionRemainingDailyLossPctDescription" xml:space="preserve">
+  <value>Löst CAUTION aus, wenn der verbleibende Tagesverlust unter diesen Prozentsatz des Tagesverlust-Limits fällt.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="EnableConsistencyRules" xml:space="preserve">
+  <value>Konsistenzregeln aktivieren</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnableConsistencyRulesDescription" xml:space="preserve">
+  <value>Aktiviert Prüfungen zur Auszahlungs-Konzentration (CAUTION/STOP) basierend auf dem Auszahlungsziel.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="PayoutObjective" xml:space="preserve">
+  <value>Auszahlungsziel</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="PayoutObjectiveDescription" xml:space="preserve">
+  <value>Zielwert, der von Konsistenzregeln genutzt wird, um CAUTION/STOP-Schwellen zu berechnen.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ConsistencyCautionPct" xml:space="preserve">
+  <value>Konsistenz CAUTION (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ConsistencyCautionPctDescription" xml:space="preserve">
+  <value>Löst CAUTION aus, wenn der realisierte Tages-PnL diesen Prozentsatz des Auszahlungsziels erreicht.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ConsistencyStopPct" xml:space="preserve">
+  <value>Konsistenz STOP (%)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ConsistencyStopPctDescription" xml:space="preserve">
+  <value>Löst STOP aus, wenn der realisierte Tages-PnL diesen Prozentsatz des Auszahlungsziels erreicht.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="EnableGivebackCaution" xml:space="preserve">
+  <value>Giveback-CAUTION aktivieren</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnableGivebackCautionDescription" xml:space="preserve">
+  <value>Aktiviert CAUTION, wenn der Tages-PnL zu stark vom Intraday-Peak zurückgibt.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="GivebackPctOfProfitTarget" xml:space="preserve">
+  <value>Giveback-CAUTION (% vom Tagesziel)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="GivebackPctOfProfitTargetDescription" xml:space="preserve">
+  <value>Giveback-Schwelle als Prozentsatz des Tages-Gewinnziels (wenn Tagesziel &gt; 0).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="GivebackAbs" xml:space="preserve">
+  <value>Giveback-CAUTION (absolut)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="GivebackAbsDescription" xml:space="preserve">
+  <value>Absolute Giveback-Schwelle, wenn das Tages-Gewinnziel 0 ist.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<!-- AccountInfoDisplay — Soft recommendations (reason texts) -->
+
+<data name="CautionOneLossAway" xml:space="preserve">
+  <value>CAUTION: eine Niederlage vom Maximum an Verlustserien entfernt.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="CautionRemainingDailyLossLow" xml:space="preserve">
+  <value>CAUTION: verbleibender Tagesverlust ist niedrig.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ConsistencyCautionReason" xml:space="preserve">
+  <value>CAUTION: Schwelle für Auszahlungs-Konzentration erreicht.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ConsistencyStopReason" xml:space="preserve">
+  <value>STOP: Schwelle für Auszahlungs-Konzentration erreicht.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="GivebackCautionReason" xml:space="preserve">
+  <value>CAUTION: Intraday-Giveback-Schwelle erreicht.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
 </root>
