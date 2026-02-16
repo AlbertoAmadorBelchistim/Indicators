@@ -342,6 +342,11 @@ public class AccountInfoDisplay : Indicator
         public DateTime LastConfigSaveAttemptUtc = DateTime.MinValue;
 
         public DateTime? LastTradeProcessedTimeUtc;
+
+        // Per-trade max open PnL (runtime-only, per-account; NOT persisted)
+        public bool WasTradePositionOpen;
+        public decimal TradeOpenPnlBaseline;
+        public decimal TradeMaxOpenPnL;
     }
 
     #endregion
@@ -945,6 +950,7 @@ public class AccountInfoDisplay : Indicator
         UpdateTrailingDrawdown(equity);
 
         UpdatePositionSnapshotFromTradingManager(portfolio);
+        UpdateTradeMaxOpenPnlFromTradingManager(portfolio);
 
         // Build structured rows (Phase 0 replacement)
         var rows = BuildRows(portfolio, equity);
@@ -1068,11 +1074,22 @@ public class AccountInfoDisplay : Indicator
             ));
 
         if (ShowOpenPnL)
+        {
             rows.Add(new DisplayRow(
                 Resources.RowOpenPnL,
                 FormatCurrency(portfolio.OpenPnL),
                 numericValue: portfolio.OpenPnL
             ));
+
+            // Phase 0011: per-trade max open pnl (current trade only)
+            if (ctx.WasTradePositionOpen)
+            {
+                rows.Add(new DisplayRow(
+                    Resources.RowTradeMaxOpenPnLCurrent,
+                    FormatCurrency(ctx.TradeMaxOpenPnL),
+                    numericValue: ctx.TradeMaxOpenPnL));
+            }
+        }
 
         if (ShowClosedPnL)
             rows.Add(new DisplayRow(
@@ -2637,6 +2654,39 @@ public class AccountInfoDisplay : Indicator
         snap.AvgEntryPrice = pos.AveragePrice;
         snap.AccountId = portfolio.AccountID;
         snap.SecurityCode = sec.Code;
+    }
+
+    private void UpdateTradeMaxOpenPnlFromTradingManager(Portfolio portfolio)
+    {
+        if (portfolio == null)
+            return;
+
+        var accountKey = GetAccountKey(portfolio);
+        var ctx = GetOrCreateAccountContext(accountKey);
+
+        var isOpen = IsActivePositionOpen(portfolio);
+
+        // CLOSE/FLAT => clear in 0011 (0012 will preserve last trade)
+        if (!isOpen)
+        {
+            ctx.TradeMaxOpenPnL = 0m;
+            ctx.TradeOpenPnlBaseline = 0m;
+            ctx.WasTradePositionOpen = false;
+            return;
+        }
+
+        // OPEN event: FLAT -> OPEN
+        if (!ctx.WasTradePositionOpen)
+        {
+            ctx.TradeOpenPnlBaseline = portfolio.OpenPnL; // baseline at entry
+            ctx.TradeMaxOpenPnL = 0m;                     // starts at 0
+            ctx.WasTradePositionOpen = true;
+        }
+
+        // UPDATE while OPEN
+        var tradeOpenPnl = portfolio.OpenPnL - ctx.TradeOpenPnlBaseline;
+        if (tradeOpenPnl > ctx.TradeMaxOpenPnL)
+            ctx.TradeMaxOpenPnL = tradeOpenPnl;
     }
 
 
