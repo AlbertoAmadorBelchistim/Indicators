@@ -4309,5 +4309,13 @@
   <value>Показывает, сколько осталось до дневной цели прибыли (по текущей equity).</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="RowTradeMaxOpenPnLCurrent" xml:space="preserve">
+  <value>Макс. открытый PnL (текущий)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowTradeMaxOpenPnLLast" xml:space="preserve">
+  <value>Макс. открытый PnL (последний)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
 </root>

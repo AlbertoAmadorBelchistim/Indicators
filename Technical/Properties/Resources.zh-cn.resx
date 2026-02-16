@@ -2201,5 +2201,13 @@
   <value>显示距离每日盈利目标还剩多少（基于当前权益）。</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="RowTradeMaxOpenPnLCurrent" xml:space="preserve">
+  <value>最大未平仓盈亏（当前）</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowTradeMaxOpenPnLLast" xml:space="preserve">
+  <value>最大未平仓盈亏（上一笔）</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
 </root>
