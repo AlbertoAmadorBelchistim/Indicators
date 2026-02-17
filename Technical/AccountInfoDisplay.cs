@@ -406,6 +406,7 @@ public class AccountInfoDisplay : Indicator
 		LineAlignment = StringAlignment.Near,
 		Alignment = StringAlignment.Near
 	};
+    private Rectangle _lastPanelRect = Rectangle.Empty;
 
     #endregion
 
@@ -450,7 +451,16 @@ public class AccountInfoDisplay : Indicator
     public CrossColor BackgroundColor
     {
         get => _backgroundColor.Convert();
-        set => _backgroundColor = value.Convert();
+        set
+        {
+            var c = value.Convert();
+            if (c == _backgroundColor)
+                return;
+
+            _backgroundColor = c;
+            _lastPanelRect = Rectangle.Empty;
+            RedrawChart();
+        }
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.TextColor),
@@ -459,7 +469,16 @@ public class AccountInfoDisplay : Indicator
     public CrossColor TextColor
     {
         get => _textColor.Convert();
-        set => _textColor = value.Convert();
+        set
+        {
+            var c = value.Convert();
+            if (c == _textColor)
+                return;
+
+            _textColor = c;
+            _lastPanelRect = Rectangle.Empty;
+            RedrawChart();
+        }
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.PositiveColor),
@@ -468,7 +487,16 @@ public class AccountInfoDisplay : Indicator
     public CrossColor PositiveColor
     {
         get => _positiveColor.Convert();
-        set => _positiveColor = value.Convert();
+        set
+        {
+            var c = value.Convert();
+            if (c == _positiveColor)
+                return;
+
+            _positiveColor = c;
+            _lastPanelRect = Rectangle.Empty;
+            RedrawChart();
+        }
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.NegativeColor),
@@ -477,7 +505,16 @@ public class AccountInfoDisplay : Indicator
     public CrossColor NegativeColor
     {
         get => _negativeColor.Convert();
-        set => _negativeColor = value.Convert();
+        set
+        {
+            var c = value.Convert();
+            if (c == _negativeColor)
+                return;
+
+            _negativeColor = c;
+            _lastPanelRect = Rectangle.Empty;
+            RedrawChart();
+        }
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.NeutralColor),
@@ -486,7 +523,16 @@ public class AccountInfoDisplay : Indicator
     public CrossColor NeutralColor
     {
         get => _neutralColor.Convert();
-        set => _neutralColor = value.Convert();
+        set
+        {
+            var c = value.Convert();
+            if (c == _neutralColor)
+                return;
+
+            _neutralColor = c;
+            _lastPanelRect = Rectangle.Empty;
+            RedrawChart();
+        }
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.FontSize),
@@ -496,7 +542,15 @@ public class AccountInfoDisplay : Indicator
     public float FontSize
     {
         get => _font.Size;
-        set => _font = new RenderFont("Arial", value);
+        set
+        {
+            if (Math.Abs(_font.Size - value) < 0.001f)
+                return;
+
+            _font = new RenderFont("Arial", value);
+            _lastPanelRect = Rectangle.Empty;
+            RedrawChart();
+        }
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowAccountId),
@@ -668,13 +722,19 @@ public class AccountInfoDisplay : Indicator
 
 
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.HorizontalPosition),
-        GroupName = nameof(Strings.LayoutGroup),
-        Order = 200)]
+    [Display(
+    ResourceType = typeof(Resources),
+    Name = nameof(Resources.HorizontalPosition),
+    Description = nameof(Resources.HorizontalPositionDescription),
+    GroupName = nameof(Resources.LayoutGroup),
+    Order = 200)]
     public HorizontalAlignment HorizontalPosition { get; set; } = HorizontalAlignment.Left;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VerticalPosition),
-        GroupName = nameof(Strings.LayoutGroup),
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.VerticalPosition),
+        Description = nameof(Resources.VerticalPositionDescription),
+        GroupName = nameof(Resources.LayoutGroup),
         Order = 210)]
     public VerticalAlignment VerticalPosition { get; set; } = VerticalAlignment.Bottom;
 
@@ -1186,9 +1246,14 @@ public class AccountInfoDisplay : Indicator
         var x = CalculateXPosition(rectWidth);
         var y = CalculateYPosition(rectHeight);
 
-        // Draw background
+        // Draw background (clear union with previous panel rect to avoid ghosting)
         var rectangle = new Rectangle(x, y, rectWidth, rectHeight);
-        context.FillRectangle(_backgroundColor, rectangle);
+
+        var clearRect = rectangle;
+        if (!_lastPanelRect.IsEmpty)
+            clearRect = Rectangle.Union(clearRect, _lastPanelRect);
+
+        context.FillRectangle(_backgroundColor, clearRect);
 
         // Draw border
         context.DrawRectangle(new RenderPen(Color.Gray, 1), rectangle);
@@ -1202,6 +1267,8 @@ public class AccountInfoDisplay : Indicator
         );
 
         DrawColoredRows(context, rows, textRect, portfolio, maxLabelWidth);
+
+        _lastPanelRect = rectangle;
 
         SavePersistenceIfNeeded();
     }
