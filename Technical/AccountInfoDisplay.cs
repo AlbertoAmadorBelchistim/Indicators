@@ -428,7 +428,8 @@ public class AccountInfoDisplay : Indicator
     #region Properties
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BackGround),
-		Description = nameof(Strings.LabelFillColorDescription), GroupName = nameof(Strings.Visualization))]
+    Description = nameof(Strings.LabelFillColorDescription), GroupName = nameof(Strings.Visualization),
+    Order = 10)]
 	public CrossColor BackgroundColor
 	{
 		get => _backgroundColor.Convert();
@@ -436,7 +437,8 @@ public class AccountInfoDisplay : Indicator
 	}
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.TextColor),
-		Description = nameof(Strings.LabelTextColorDescription), GroupName = nameof(Strings.Visualization))]
+        Description = nameof(Strings.LabelTextColorDescription), GroupName = nameof(Strings.Visualization),
+        Order = 20)]
 	public CrossColor TextColor
 	{
 		get => _textColor.Convert();
@@ -444,7 +446,8 @@ public class AccountInfoDisplay : Indicator
 	}
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.PositiveColor),
-		Description = nameof(Strings.PositiveColorDescription), GroupName = nameof(Strings.Visualization))]
+        Description = nameof(Strings.PositiveColorDescription), GroupName = nameof(Strings.Visualization),
+        Order = 30)]
 	public CrossColor PositiveColor
 	{
 		get => _positiveColor.Convert();
@@ -452,7 +455,8 @@ public class AccountInfoDisplay : Indicator
 	}
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.NegativeColor),
-		Description = nameof(Strings.NegativeColorDescription), GroupName = nameof(Strings.Visualization))]
+        Description = nameof(Strings.NegativeColorDescription), GroupName = nameof(Strings.Visualization),
+        Order = 40)]
 	public CrossColor NegativeColor
 	{
 		get => _negativeColor.Convert();
@@ -460,7 +464,8 @@ public class AccountInfoDisplay : Indicator
 	}
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.NeutralColor),
-		Description = nameof(Strings.NeutralColorDescription), GroupName = nameof(Strings.Visualization))]
+        Description = nameof(Strings.NeutralColorDescription), GroupName = nameof(Strings.Visualization),
+        Order = 50)]
 	public CrossColor NeutralColor
 	{
 		get => _neutralColor.Convert();
@@ -468,7 +473,8 @@ public class AccountInfoDisplay : Indicator
 	}
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.FontSize),
-		Description = nameof(Strings.FontSizeDescription), GroupName = nameof(Strings.Visualization))]
+        Description = nameof(Strings.FontSizeDescription), GroupName = nameof(Strings.Visualization),
+        Order = 60)]
 	[Range(6, 30)]
 	public float FontSize
 	{
@@ -477,47 +483,57 @@ public class AccountInfoDisplay : Indicator
 	}
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowAccountId),
-		Description = nameof(Strings.ShowAccountIdDescription), GroupName = nameof(Strings.Settings))]
+        Description = nameof(Strings.ShowAccountIdDescription), GroupName = nameof(Strings.Settings),
+        Order = 100)]
 	public bool ShowAccountId { get; set; } = true;
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowCurrency),
-		Description = nameof(Strings.ShowCurrencyDescription), GroupName = nameof(Strings.Settings))]
+        Description = nameof(Strings.ShowCurrencyDescription), GroupName = nameof(Strings.Settings),
+        Order = 110)]
 	public bool ShowCurrency { get; set; } = true;
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowBalance),
-		Description = nameof(Strings.ShowBalanceDescription), GroupName = nameof(Strings.Settings))]
+        Description = nameof(Strings.ShowBalanceDescription), GroupName = nameof(Strings.Settings),
+        Order = 120)]
 	public bool ShowBalance { get; set; } = true;
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowAvailableBalance),
-		Description = nameof(Strings.ShowAvailableBalanceDescription), GroupName = nameof(Strings.Settings))]
+        Description = nameof(Strings.ShowAvailableBalanceDescription), GroupName = nameof(Strings.Settings),
+        Order = 130)]
 	public bool ShowAvailableBalance { get; set; } = true;
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowBlockedMargin),
-		Description = nameof(Strings.ShowBlockedMarginDescription), GroupName = nameof(Strings.Settings))]
+        Description = nameof(Strings.ShowBlockedMarginDescription), GroupName = nameof(Strings.Settings),
+        Order = 140)]
 	public bool ShowMargin { get; set; } = false;
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowLeverage),
-		Description = nameof(Strings.ShowLeverageDescription), GroupName = nameof(Strings.Settings))]
+        Description = nameof(Strings.ShowLeverageDescription), GroupName = nameof(Strings.Settings),
+        Order = 150)]
 	public bool ShowLeverage { get; set; } = true;
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowOpenPnL),
-		Description = nameof(Strings.ShowOpenPnLDescription), GroupName = nameof(Strings.Settings))]
+        Description = nameof(Strings.ShowOpenPnLDescription), GroupName = nameof(Strings.Settings),
+        Order = 160)]
 	public bool ShowOpenPnL { get; set; } = true;
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowClosedPnL),
-		Description = nameof(Strings.ShowClosedPnLDescription), GroupName = nameof(Strings.Settings))]
+        Description = nameof(Strings.ShowClosedPnLDescription), GroupName = nameof(Strings.Settings),
+        Order = 170)]
 	public bool ShowClosedPnL { get; set; } = true;
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowTotalPnL),
-		Description = nameof(Strings.ShowTotalPnLDescription), GroupName = nameof(Strings.Settings))]
+        Description = nameof(Strings.ShowTotalPnLDescription), GroupName = nameof(Strings.Settings),
+        Order = 180)]
 	public bool ShowTotalPnL { get; set; } = false;
+
 
     [Display(
     ResourceType = typeof(Resources),
     Name = nameof(Resources.ShowTradesTodayRow),
     Description = nameof(Resources.ShowTradesTodayRowDescription),
     GroupName = nameof(Resources.DailyRails),
-    Order = 200)]
+        Order = 600)]
     public bool ShowTradesTodayRow { get; set; } = true;
 
 
@@ -526,7 +542,7 @@ public class AccountInfoDisplay : Indicator
     Name = nameof(Resources.ShowWinsLossesTodayRow),
     Description = nameof(Resources.ShowWinsLossesTodayRowDescription),
     GroupName = nameof(Resources.DailyRails),
-    Order = 210)]
+    Order = 610)]
     public bool ShowWinsLossesTodayRow { get; set; } = true;
 
 
@@ -535,7 +551,7 @@ public class AccountInfoDisplay : Indicator
     Name = nameof(Resources.ShowCurrentStreakRow),
     Description = nameof(Resources.ShowCurrentStreakRowDescription),
     GroupName = nameof(Resources.DailyRails),
-    Order = 220)]
+        Order = 620)]
     public bool ShowCurrentStreakRow { get; set; } = true;
 
 
@@ -544,7 +560,7 @@ public class AccountInfoDisplay : Indicator
     Name = nameof(Resources.ShowRealizedPnlTodayRow),
     Description = nameof(Resources.ShowRealizedPnlTodayRowDescription),
     GroupName = nameof(Resources.DailyRails),
-    Order = 230)]
+        Order = 630)]
     public bool ShowRealizedPnlTodayRow { get; set; } = true;
 
     [Display(
@@ -552,7 +568,7 @@ public class AccountInfoDisplay : Indicator
     Name = nameof(Resources.ShowRemainingDailyLossRow),
     Description = nameof(Resources.ShowRemainingDailyLossRowDescription),
     GroupName = nameof(Resources.DailyRails),
-    Order = 240)]
+        Order = 640)]
     public bool ShowRemainingDailyLossRow { get; set; } = true;
 
     [Display(
@@ -560,39 +576,45 @@ public class AccountInfoDisplay : Indicator
         Name = nameof(Resources.ShowRemainingDailyProfitTargetRow),
         Description = nameof(Resources.ShowRemainingDailyProfitTargetRowDescription),
         GroupName = nameof(Resources.DailyRails),
-        Order = 250)]
+        Order = 650)]
     public bool ShowRemainingDailyProfitTargetRow { get; set; } = true;
 
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.HorizontalPosition),
-		GroupName = nameof(Strings.LayoutGroup))]
+        GroupName = nameof(Strings.LayoutGroup),
+        Order = 200)]
 	public HorizontalAlignment HorizontalPosition { get; set; } = HorizontalAlignment.Left;
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.VerticalPosition),
-		GroupName = nameof(Strings.LayoutGroup))]
+        GroupName = nameof(Strings.LayoutGroup),
+        Order = 210)]
 	public VerticalAlignment VerticalPosition { get; set; } = VerticalAlignment.Bottom;
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.OffsetX),
-		Description = nameof(Strings.OffsetXDescription), GroupName = nameof(Strings.LayoutGroup))]
+        Description = nameof(Strings.OffsetXDescription), GroupName = nameof(Strings.LayoutGroup),
+        Order = 220)]
 	[Range(0, 1000)]
 	public int OffsetX { get; set; } = 20;
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.OffsetY),
-		Description = nameof(Strings.OffsetYDescription), GroupName = nameof(Strings.LayoutGroup))]
+        Description = nameof(Strings.OffsetYDescription), GroupName = nameof(Strings.LayoutGroup),
+        Order = 230)]
 	[Range(0, 1000)]
 	public int OffsetY { get; set; } = 20;
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ColumnSpacing),
-		Description = nameof(Strings.ColumnSpacingDescription), GroupName = nameof(Strings.LayoutGroup))]
+        Description = nameof(Strings.ColumnSpacingDescription), GroupName = nameof(Strings.LayoutGroup),
+        Order = 240)]
 	[Range(5, 50)]
 	public int ColumnSpacing { get; set; } = 15;
+
 
     [Display(
     ResourceType = typeof(Resources),
     Name = nameof(Resources.EnableTrailingDrawdown),
     Description = nameof(Resources.EnableTrailingDrawdownDescription),
     GroupName = nameof(Resources.FundingTrailingDd),
-    Order = 10)]
+        Order = 300)]
     public bool EnableTrailingDrawdown { get; set; }
 
     [Display(
@@ -600,7 +622,7 @@ public class AccountInfoDisplay : Indicator
         Name = nameof(Resources.MaxTrailingDrawdown),
         Description = nameof(Resources.MaxTrailingDrawdownDescription),
         GroupName = nameof(Resources.FundingTrailingDd),
-        Order = 20)]
+        Order = 310)]
     public decimal MaxTrailingDrawdown { get; set; }
 
     [Display(
@@ -608,7 +630,7 @@ public class AccountInfoDisplay : Indicator
         Name = nameof(Resources.TrailingInitializationMode),
         Description = nameof(Resources.TrailingInitializationModeDescription),
         GroupName = nameof(Resources.FundingTrailingDd),
-        Order = 30)]
+        Order = 320)]
     public TrailingInitializationMode TrailingInitMode { get; set; }
 
     [Display(
@@ -616,7 +638,7 @@ public class AccountInfoDisplay : Indicator
         Name = nameof(Resources.TrailingManualStopEquity),
         Description = nameof(Resources.TrailingManualStopEquityDescription),
         GroupName = nameof(Resources.FundingTrailingDd),
-        Order = 40)]
+        Order = 330)]
     public decimal TrailingManualStopEquity { get; set; }
 
     [Display(
@@ -624,7 +646,7 @@ public class AccountInfoDisplay : Indicator
         Name = nameof(Resources.ReinitializeNow),
         Description = nameof(Resources.ReinitializeNowDescription),
         GroupName = nameof(Resources.FundingTrailingDd),
-        Order = 50)]
+        Order = 340)]
     public bool ReinitializeNow { get; set; }
 
     [Display(
@@ -632,7 +654,7 @@ public class AccountInfoDisplay : Indicator
     Name = nameof(Resources.TrailingPeakUpdateMode),
     Description = nameof(Resources.TrailingPeakUpdateModeDescription),
     GroupName = nameof(Resources.FundingTrailingDd),
-    Order = 60)]
+        Order = 350)]
     public TrailingPeakUpdateMode PeakUpdateMode { get; set; }
 
     [Display(
@@ -640,7 +662,7 @@ public class AccountInfoDisplay : Indicator
         Name = nameof(Resources.TrailingEodTimeLocal),
         Description = nameof(Resources.TrailingEodTimeLocalDescription),
         GroupName = nameof(Resources.FundingTrailingDd),
-        Order = 70)]
+        Order = 360)]
     public TimeSpan TrailingEodTimeLocal { get; set; }
 
     [Display(
@@ -648,7 +670,7 @@ public class AccountInfoDisplay : Indicator
     Name = nameof(Resources.EnableMonthlyReset),
     Description = nameof(Resources.EnableMonthlyResetDescription),
     GroupName = nameof(Resources.FundingTrailingDd),
-    Order = 80)]
+        Order = 370)]
     public bool EnableMonthlyReset { get; set; }
 
     [Display(
@@ -656,15 +678,16 @@ public class AccountInfoDisplay : Indicator
         Name = nameof(Resources.MonthlyResetDay),
         Description = nameof(Resources.MonthlyResetDayDescription),
         GroupName = nameof(Resources.FundingTrailingDd),
-        Order = 90)]
+        Order = 380)]
     public int MonthlyResetDay { get; set; }
+
 
     [Display(
     ResourceType = typeof(Resources),
     Name = nameof(Resources.DailyResetMode),
     Description = nameof(Resources.DailyResetModeDescription),
     GroupName = nameof(Resources.DailyRails),
-    Order = 100)]
+        Order = 500)]
     public DailyResetModeKind DailyResetMode { get; set; }
 
     [Display(
@@ -672,7 +695,7 @@ public class AccountInfoDisplay : Indicator
         Name = nameof(Resources.DailyResetTimeLocal),
         Description = nameof(Resources.DailyResetTimeLocalDescription),
         GroupName = nameof(Resources.DailyRails),
-        Order = 110)]
+        Order = 510)]
     public TimeSpan DailyResetTimeLocal { get; set; }
 
     // Daily rails (Phase D)
@@ -681,7 +704,7 @@ public class AccountInfoDisplay : Indicator
         Name = nameof(Resources.EnableDailyRails),
         Description = nameof(Resources.EnableDailyRailsDescription),
         GroupName = nameof(Resources.DailyRails),
-        Order = 120)]
+        Order = 520)]
     public bool EnableDailyRails { get; set; }
 
     [Display(
@@ -689,7 +712,7 @@ public class AccountInfoDisplay : Indicator
         Name = nameof(Resources.DailyLossLimit),
         Description = nameof(Resources.DailyLossLimitDescription),
         GroupName = nameof(Resources.DailyRails),
-        Order = 130)]
+        Order = 530)]
     public decimal DailyLossLimit { get; set; }
 
     [Display(
@@ -697,7 +720,7 @@ public class AccountInfoDisplay : Indicator
         Name = nameof(Resources.DailyProfitTarget),
         Description = nameof(Resources.DailyProfitTargetDescription),
         GroupName = nameof(Resources.DailyRails),
-        Order = 140)]
+        Order = 540)]
     public decimal DailyProfitTarget { get; set; }
 
     [Display(
@@ -705,7 +728,7 @@ public class AccountInfoDisplay : Indicator
         Name = nameof(Resources.DailyMaxDrawdownFromPeak),
         Description = nameof(Resources.DailyMaxDrawdownFromPeakDescription),
         GroupName = nameof(Resources.DailyRails),
-        Order = 150)]
+        Order = 550)]
     public decimal DailyMaxDrawdownFromPeak { get; set; }
 
 
@@ -718,7 +741,7 @@ public class AccountInfoDisplay : Indicator
         Name = nameof(Resources.EnableSoftRecommendations),
         Description = nameof(Resources.EnableSoftRecommendationsDescription),
         GroupName = nameof(Resources.SoftRecommendations),
-        Order = 300)]
+        Order = 700)]
     public bool EnableSoftRecommendations { get; set; } = true;
 
     [Display(
@@ -726,7 +749,7 @@ public class AccountInfoDisplay : Indicator
         Name = nameof(Resources.MaxTradesPerDay),
         Description = nameof(Resources.MaxTradesPerDayDescription),
         GroupName = nameof(Resources.SoftRecommendations),
-        Order = 310)]
+        Order = 710)]
     [Range(0, 500)]
     public int MaxTradesPerDay { get; set; } = 3;
 
@@ -735,7 +758,7 @@ public class AccountInfoDisplay : Indicator
         Name = nameof(Resources.MaxConsecutiveLosses),
         Description = nameof(Resources.MaxConsecutiveLossesDescription),
         GroupName = nameof(Resources.SoftRecommendations),
-        Order = 320)]
+        Order = 720)]
     [Range(0, 100)]
     public int MaxConsecutiveLosses { get; set; } = 2;
 
@@ -744,7 +767,7 @@ public class AccountInfoDisplay : Indicator
         Name = nameof(Resources.CautionTradesThreshold),
         Description = nameof(Resources.CautionTradesThresholdDescription),
         GroupName = nameof(Resources.SoftRecommendations),
-        Order = 330)]
+        Order = 730)]
     [Range(0, 500)]
     public int CautionTradesThreshold { get; set; } = 2;
 
@@ -753,7 +776,7 @@ public class AccountInfoDisplay : Indicator
         Name = nameof(Resources.CautionLossesThreshold),
         Description = nameof(Resources.CautionLossesThresholdDescription),
         GroupName = nameof(Resources.SoftRecommendations),
-        Order = 340)]
+        Order = 740)]
     [Range(0, 100)]
     public int CautionLossesThreshold { get; set; } = 1;
 
@@ -762,7 +785,7 @@ public class AccountInfoDisplay : Indicator
     Name = nameof(Resources.CautionLossFromStart),
     Description = nameof(Resources.CautionLossFromStartDescription),
     GroupName = nameof(Resources.SoftRecommendations),
-    Order = 341)]
+        Order = 741)]
     public decimal CautionLossFromStart { get; set; } = 0m;
 
     [Display(
@@ -770,7 +793,7 @@ public class AccountInfoDisplay : Indicator
         Name = nameof(Resources.CautionGivebackFromPeak),
         Description = nameof(Resources.CautionGivebackFromPeakDescription),
         GroupName = nameof(Resources.SoftRecommendations),
-        Order = 342)]
+        Order = 742)]
     public decimal CautionGivebackFromPeak { get; set; } = 0m;
 
     [Display(
@@ -778,7 +801,7 @@ public class AccountInfoDisplay : Indicator
         Name = nameof(Resources.CautionLossFromStartPct),
         Description = nameof(Resources.CautionLossFromStartPctDescription),
         GroupName = nameof(Resources.SoftRecommendations),
-        Order = 343)]
+        Order = 743)]
     [Range(0, 100)]
     public decimal CautionLossFromStartPct { get; set; } = 0m;
 
@@ -787,7 +810,7 @@ public class AccountInfoDisplay : Indicator
         Name = nameof(Resources.CautionGivebackFromPeakPct),
         Description = nameof(Resources.CautionGivebackFromPeakPctDescription),
         GroupName = nameof(Resources.SoftRecommendations),
-        Order = 344)]
+        Order = 744)]
     [Range(0, 100)]
     public decimal CautionGivebackFromPeakPct { get; set; } = 0m;
 
@@ -796,7 +819,7 @@ public class AccountInfoDisplay : Indicator
     GroupName = nameof(Resources.SoftRecommendations),
     Name = nameof(Resources.CautionTradesPct),
     Description = nameof(Resources.CautionTradesPctDescription),
-    Order = 345)]
+        Order = 745)]
     public decimal CautionTradesPct { get; set; } = 0.75m;
 
     [Display(
@@ -804,7 +827,7 @@ public class AccountInfoDisplay : Indicator
         GroupName = nameof(Resources.SoftRecommendations),
         Name = nameof(Resources.CautionRemainingDailyLossPct),
         Description = nameof(Resources.CautionRemainingDailyLossPctDescription),
-        Order = 346)]
+        Order = 746)]
     public decimal CautionRemainingDailyLossPct { get; set; } = 0.20m;
 
     [Display(
@@ -812,7 +835,7 @@ public class AccountInfoDisplay : Indicator
         GroupName = nameof(Resources.SoftRecommendations),
         Name = nameof(Resources.EnableConsistencyRules),
         Description = nameof(Resources.EnableConsistencyRulesDescription),
-        Order = 347)]
+        Order = 747)]
     public bool EnableConsistencyRules { get; set; } = false;
 
     [Display(
@@ -820,7 +843,7 @@ public class AccountInfoDisplay : Indicator
         GroupName = nameof(Resources.SoftRecommendations),
         Name = nameof(Resources.PayoutObjective),
         Description = nameof(Resources.PayoutObjectiveDescription),
-        Order = 348)]
+        Order = 748)]
     public decimal PayoutObjective { get; set; } = 1500m;
 
     [Display(
@@ -828,7 +851,7 @@ public class AccountInfoDisplay : Indicator
         GroupName = nameof(Resources.SoftRecommendations),
         Name = nameof(Resources.ConsistencyCautionPct),
         Description = nameof(Resources.ConsistencyCautionPctDescription),
-        Order = 349)]
+        Order = 749)]
     public decimal ConsistencyCautionPct { get; set; } = 0.30m;
 
     [Display(
@@ -836,7 +859,7 @@ public class AccountInfoDisplay : Indicator
         GroupName = nameof(Resources.SoftRecommendations),
         Name = nameof(Resources.ConsistencyStopPct),
         Description = nameof(Resources.ConsistencyStopPctDescription),
-        Order = 350)]
+        Order = 750)]
     public decimal ConsistencyStopPct { get; set; } = 0.39m;
 
     [Display(
@@ -844,7 +867,7 @@ public class AccountInfoDisplay : Indicator
         GroupName = nameof(Resources.SoftRecommendations),
         Name = nameof(Resources.EnableGivebackCaution),
         Description = nameof(Resources.EnableGivebackCautionDescription),
-        Order = 351)]
+        Order = 751)]
     public bool EnableGivebackCaution { get; set; } = false;
 
     [Display(
@@ -860,7 +883,7 @@ public class AccountInfoDisplay : Indicator
         GroupName = nameof(Resources.SoftRecommendations),
         Name = nameof(Resources.GivebackAbs),
         Description = nameof(Resources.GivebackAbsDescription),
-        Order = 353)]
+        Order = 753)]
     public decimal GivebackAbs { get; set; } = 200m;
 
 
@@ -871,7 +894,7 @@ public class AccountInfoDisplay : Indicator
         Name = nameof(Resources.ShowSuggestedStatusRow),
         Description = nameof(Resources.ShowSuggestedStatusRowDescription),
         GroupName = nameof(Resources.SoftRecommendations),
-        Order = 355)]
+        Order = 800)]
     public bool ShowSuggestedStatusRow { get; set; } = true;
 
     [Display(
@@ -879,7 +902,7 @@ public class AccountInfoDisplay : Indicator
         Name = nameof(Resources.ShowStopReasonsRow),
         Description = nameof(Resources.ShowStopReasonsRowDescription),
         GroupName = nameof(Resources.SoftRecommendations),
-        Order = 360)]
+        Order = 810)]
     public bool ShowStopReasonsRow { get; set; } = true;
 
     // Position snapshot
@@ -888,7 +911,7 @@ public class AccountInfoDisplay : Indicator
     Name = nameof(Resources.ShowPositionSnapshot),
     Description = nameof(Resources.ShowPositionSnapshotDescription),
     GroupName = nameof(Resources.DailyRails),
-    Order = 370)]
+        Order = 820)]
     public bool ShowPositionSnapshot { get; set; } = true;
 
     [Display(
@@ -896,7 +919,7 @@ public class AccountInfoDisplay : Indicator
         Name = nameof(Resources.ShowFlatRow),
         Description = nameof(Resources.ShowFlatRowDescription),
         GroupName = nameof(Resources.DailyRails),
-        Order = 380)]
+        Order = 830)]
     public bool ShowFlatRow { get; set; } = true;
 
 
