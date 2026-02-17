@@ -3940,6 +3940,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Horizontal position.
+        /// </summary>
+        public static string HorizontalPosition {
+            get {
+                return ResourceManager.GetString("HorizontalPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Panel horizontal alignment on the chart..
+        /// </summary>
+        public static string HorizontalPositionDescription {
+            get {
+                return ResourceManager.GetString("HorizontalPositionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Hourly.
         /// </summary>
         public static string Hourly {
@@ -4503,6 +4521,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string LastBarOnlyDesc {
             get {
                 return ResourceManager.GetString("LastBarOnlyDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Layout.
+        /// </summary>
+        public static string LayoutGroup {
+            get {
+                return ResourceManager.GetString("LayoutGroup", resourceCulture);
             }
         }
         
@@ -10641,6 +10668,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string VerticalOffset {
             get {
                 return ResourceManager.GetString("VerticalOffset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Vertical position.
+        /// </summary>
+        public static string VerticalPosition {
+            get {
+                return ResourceManager.GetString("VerticalPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Panel vertical alignment on the chart..
+        /// </summary>
+        public static string VerticalPositionDescription {
+            get {
+                return ResourceManager.GetString("VerticalPositionDescription", resourceCulture);
             }
         }
         

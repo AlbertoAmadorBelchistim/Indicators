@@ -2466,5 +2466,24 @@
   <value>Letzter Trade PnL (geschlossen)</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="HorizontalPosition" xml:space="preserve">
+  <value>Horizontale Position</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="HorizontalPositionDescription" xml:space="preserve">
+  <value>Horizontale Ausrichtung des Panels im Chart.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
-</root>
+<data name="VerticalPosition" xml:space="preserve">
+  <value>Vertikale Position</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="VerticalPositionDescription" xml:space="preserve">
+  <value>Vertikale Ausrichtung des Panels im Chart.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="LayoutGroup" xml:space="preserve">
+    <value>Layout</value>
+  </data></root>
