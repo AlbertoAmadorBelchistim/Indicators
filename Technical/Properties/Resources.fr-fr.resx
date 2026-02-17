@@ -2374,29 +2374,29 @@
 
 <!-- AccountInfoDisplay — Row toggles (Trailing DD) -->
 <data name="ShowTrailingStartEquityRow" xml:space="preserve">
-  <value>Afficher l&apos;équité de départ (trailing)</value>
+  <value>Afficher l'équité de départ (trailing)</value>
   <comment>AccountInfoDisplay</comment>
 </data>
 <data name="ShowTrailingStartEquityRowDescription" xml:space="preserve">
-  <value>Affiche la ligne d&apos;équité de départ du drawdown trailing.</value>
+  <value>Affiche la ligne d'équité de départ du drawdown trailing.</value>
   <comment>AccountInfoDisplay</comment>
 </data>
 
 <data name="ShowTrailingPeakEquityRow" xml:space="preserve">
-  <value>Afficher l&apos;équité au pic (trailing)</value>
+  <value>Afficher l'équité au pic (trailing)</value>
   <comment>AccountInfoDisplay</comment>
 </data>
 <data name="ShowTrailingPeakEquityRowDescription" xml:space="preserve">
-  <value>Affiche la ligne d&apos;équité au pic du drawdown trailing.</value>
+  <value>Affiche la ligne d'équité au pic du drawdown trailing.</value>
   <comment>AccountInfoDisplay</comment>
 </data>
 
 <data name="ShowTrailingStopEquityRow" xml:space="preserve">
-  <value>Afficher l&apos;équité stop (trailing)</value>
+  <value>Afficher l'équité stop (trailing)</value>
   <comment>AccountInfoDisplay</comment>
 </data>
 <data name="ShowTrailingStopEquityRowDescription" xml:space="preserve">
-  <value>Affiche la ligne d&apos;équité stop du drawdown trailing.</value>
+  <value>Affiche la ligne d'équité stop du drawdown trailing.</value>
   <comment>AccountInfoDisplay</comment>
 </data>
 
@@ -2405,7 +2405,7 @@
   <comment>AccountInfoDisplay</comment>
 </data>
 <data name="ShowTrailingRemainingDdRowDescription" xml:space="preserve">
-  <value>Affiche le drawdown restant jusqu&apos;à l&apos;équité stop trailing.</value>
+  <value>Affiche le drawdown restant jusqu'à l'équité stop trailing.</value>
   <comment>AccountInfoDisplay</comment>
 </data>
 
@@ -2414,7 +2414,7 @@
   <comment>AccountInfoDisplay</comment>
 </data>
 <data name="ShowTrailingCurrentDdRowDescription" xml:space="preserve">
-  <value>Affiche le drawdown actuel depuis le pic d&apos;équité trailing.</value>
+  <value>Affiche le drawdown actuel depuis le pic d'équité trailing.</value>
   <comment>AccountInfoDisplay</comment>
 </data>
 
@@ -2459,5 +2459,24 @@
   <value>PnL dernier trade (clôturé)</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<data name="HorizontalPosition" xml:space="preserve">
+  <value>Position horizontale</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="HorizontalPositionDescription" xml:space="preserve">
+  <value>Alignement horizontal du panneau sur le graphique.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
-</root>
+<data name="VerticalPosition" xml:space="preserve">
+  <value>Position verticale</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="VerticalPositionDescription" xml:space="preserve">
+  <value>Alignement vertical du panneau sur le graphique.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="LayoutGroup" xml:space="preserve">
+    <value>Mise en page</value>
+  </data></root>
