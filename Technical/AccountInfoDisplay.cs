@@ -271,6 +271,19 @@ public class AccountInfoDisplay : Indicator
         public bool ShowStopReasonsRow { get; set; }
         public bool ShowPositionSnapshot { get; set; }
         public bool ShowFlatRow { get; set; }
+
+        // UI toggles (per-row) - Trailing DD
+        public bool ShowTrailingStartEquityRow { get; set; }
+        public bool ShowTrailingPeakEquityRow { get; set; }
+        public bool ShowTrailingStopEquityRow { get; set; }
+        public bool ShowTrailingRemainingDdRow { get; set; }
+        public bool ShowTrailingCurrentDdRow { get; set; }
+
+        // UI toggles (per-row) - Trade
+        public bool ShowTradeMaxOpenPnlCurrentRow { get; set; }
+        public bool ShowTradeMaxOpenPnlLastRow { get; set; }
+        public bool ShowLastClosedTradePnlRow { get; set; }
+
     }
 
     private sealed class TradeCloseEventV1
@@ -367,6 +380,10 @@ public class AccountInfoDisplay : Indicator
         public decimal TradeMaxOpenPnL;
 
         public decimal LastTradeMaxOpenPnL;
+
+        // Last closed trade PnL (runtime-only, per-account; NOT persisted)
+        public decimal TradeClosedPnlBaseline;
+        public decimal LastClosedTradePnL;
     }
 
     #endregion
@@ -430,109 +447,109 @@ public class AccountInfoDisplay : Indicator
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BackGround),
     Description = nameof(Strings.LabelFillColorDescription), GroupName = nameof(Strings.Visualization),
     Order = 10)]
-	public CrossColor BackgroundColor
-	{
-		get => _backgroundColor.Convert();
-		set => _backgroundColor = value.Convert();
-	}
+    public CrossColor BackgroundColor
+    {
+        get => _backgroundColor.Convert();
+        set => _backgroundColor = value.Convert();
+    }
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.TextColor),
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.TextColor),
         Description = nameof(Strings.LabelTextColorDescription), GroupName = nameof(Strings.Visualization),
         Order = 20)]
-	public CrossColor TextColor
-	{
-		get => _textColor.Convert();
-		set => _textColor = value.Convert();
-	}
+    public CrossColor TextColor
+    {
+        get => _textColor.Convert();
+        set => _textColor = value.Convert();
+    }
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.PositiveColor),
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.PositiveColor),
         Description = nameof(Strings.PositiveColorDescription), GroupName = nameof(Strings.Visualization),
         Order = 30)]
-	public CrossColor PositiveColor
-	{
-		get => _positiveColor.Convert();
-		set => _positiveColor = value.Convert();
-	}
+    public CrossColor PositiveColor
+    {
+        get => _positiveColor.Convert();
+        set => _positiveColor = value.Convert();
+    }
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.NegativeColor),
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.NegativeColor),
         Description = nameof(Strings.NegativeColorDescription), GroupName = nameof(Strings.Visualization),
         Order = 40)]
-	public CrossColor NegativeColor
-	{
-		get => _negativeColor.Convert();
-		set => _negativeColor = value.Convert();
-	}
+    public CrossColor NegativeColor
+    {
+        get => _negativeColor.Convert();
+        set => _negativeColor = value.Convert();
+    }
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.NeutralColor),
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.NeutralColor),
         Description = nameof(Strings.NeutralColorDescription), GroupName = nameof(Strings.Visualization),
         Order = 50)]
-	public CrossColor NeutralColor
-	{
-		get => _neutralColor.Convert();
-		set => _neutralColor = value.Convert();
-	}
+    public CrossColor NeutralColor
+    {
+        get => _neutralColor.Convert();
+        set => _neutralColor = value.Convert();
+    }
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.FontSize),
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.FontSize),
         Description = nameof(Strings.FontSizeDescription), GroupName = nameof(Strings.Visualization),
         Order = 60)]
-	[Range(6, 30)]
-	public float FontSize
-	{
-		get => _font.Size;
-		set => _font = new RenderFont("Arial", value);
-	}
+    [Range(6, 30)]
+    public float FontSize
+    {
+        get => _font.Size;
+        set => _font = new RenderFont("Arial", value);
+    }
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowAccountId),
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowAccountId),
         Description = nameof(Strings.ShowAccountIdDescription), GroupName = nameof(Strings.Settings),
         Order = 100)]
-	public bool ShowAccountId { get; set; } = true;
+    public bool ShowAccountId { get; set; } = true;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowCurrency),
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowCurrency),
         Description = nameof(Strings.ShowCurrencyDescription), GroupName = nameof(Strings.Settings),
         Order = 110)]
-	public bool ShowCurrency { get; set; } = true;
+    public bool ShowCurrency { get; set; } = true;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowBalance),
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowBalance),
         Description = nameof(Strings.ShowBalanceDescription), GroupName = nameof(Strings.Settings),
         Order = 120)]
-	public bool ShowBalance { get; set; } = true;
+    public bool ShowBalance { get; set; } = true;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowAvailableBalance),
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowAvailableBalance),
         Description = nameof(Strings.ShowAvailableBalanceDescription), GroupName = nameof(Strings.Settings),
         Order = 130)]
-	public bool ShowAvailableBalance { get; set; } = true;
+    public bool ShowAvailableBalance { get; set; } = true;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowBlockedMargin),
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowBlockedMargin),
         Description = nameof(Strings.ShowBlockedMarginDescription), GroupName = nameof(Strings.Settings),
         Order = 140)]
-	public bool ShowMargin { get; set; } = false;
+    public bool ShowMargin { get; set; } = false;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowLeverage),
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowLeverage),
         Description = nameof(Strings.ShowLeverageDescription), GroupName = nameof(Strings.Settings),
         Order = 150)]
-	public bool ShowLeverage { get; set; } = true;
+    public bool ShowLeverage { get; set; } = true;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowOpenPnL),
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowOpenPnL),
         Description = nameof(Strings.ShowOpenPnLDescription), GroupName = nameof(Strings.Settings),
         Order = 160)]
-	public bool ShowOpenPnL { get; set; } = true;
+    public bool ShowOpenPnL { get; set; } = true;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowClosedPnL),
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowClosedPnL),
         Description = nameof(Strings.ShowClosedPnLDescription), GroupName = nameof(Strings.Settings),
         Order = 170)]
-	public bool ShowClosedPnL { get; set; } = true;
+    public bool ShowClosedPnL { get; set; } = true;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowTotalPnL),
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowTotalPnL),
         Description = nameof(Strings.ShowTotalPnLDescription), GroupName = nameof(Strings.Settings),
         Order = 180)]
-	public bool ShowTotalPnL { get; set; } = false;
+    public bool ShowTotalPnL { get; set; } = false;
 
 
     [Display(
-    ResourceType = typeof(Resources),
-    Name = nameof(Resources.ShowTradesTodayRow),
-    Description = nameof(Resources.ShowTradesTodayRowDescription),
-    GroupName = nameof(Resources.DailyRails),
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.ShowTradesTodayRow),
+        Description = nameof(Resources.ShowTradesTodayRowDescription),
+        GroupName = nameof(Resources.DailyRails),
         Order = 600)]
     public bool ShowTradesTodayRow { get; set; } = true;
 
@@ -545,29 +562,27 @@ public class AccountInfoDisplay : Indicator
     Order = 610)]
     public bool ShowWinsLossesTodayRow { get; set; } = true;
 
-
     [Display(
-    ResourceType = typeof(Resources),
-    Name = nameof(Resources.ShowCurrentStreakRow),
-    Description = nameof(Resources.ShowCurrentStreakRowDescription),
-    GroupName = nameof(Resources.DailyRails),
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.ShowCurrentStreakRow),
+        Description = nameof(Resources.ShowCurrentStreakRowDescription),
+        GroupName = nameof(Resources.DailyRails),
         Order = 620)]
     public bool ShowCurrentStreakRow { get; set; } = true;
 
-
     [Display(
-    ResourceType = typeof(Resources),
-    Name = nameof(Resources.ShowRealizedPnlTodayRow),
-    Description = nameof(Resources.ShowRealizedPnlTodayRowDescription),
-    GroupName = nameof(Resources.DailyRails),
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.ShowRealizedPnlTodayRow),
+        Description = nameof(Resources.ShowRealizedPnlTodayRowDescription),
+        GroupName = nameof(Resources.DailyRails),
         Order = 630)]
     public bool ShowRealizedPnlTodayRow { get; set; } = true;
 
     [Display(
-    ResourceType = typeof(Resources),
-    Name = nameof(Resources.ShowRemainingDailyLossRow),
-    Description = nameof(Resources.ShowRemainingDailyLossRowDescription),
-    GroupName = nameof(Resources.DailyRails),
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.ShowRemainingDailyLossRow),
+        Description = nameof(Resources.ShowRemainingDailyLossRowDescription),
+        GroupName = nameof(Resources.DailyRails),
         Order = 640)]
     public bool ShowRemainingDailyLossRow { get; set; } = true;
 
@@ -580,40 +595,113 @@ public class AccountInfoDisplay : Indicator
     public bool ShowRemainingDailyProfitTargetRow { get; set; } = true;
 
 
+    // -----------------------------
+    // Rows / Trailing DD
+    // -----------------------------
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.ShowTrailingStartEquityRow),
+        Description = nameof(Resources.ShowTrailingStartEquityRowDescription),
+        GroupName = nameof(Resources.RowsTrailingDd),
+        Order = 400)]
+    public bool ShowTrailingStartEquityRow { get; set; } = true;
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.ShowTrailingPeakEquityRow),
+        Description = nameof(Resources.ShowTrailingPeakEquityRowDescription),
+        GroupName = nameof(Resources.RowsTrailingDd),
+        Order = 410)]
+    public bool ShowTrailingPeakEquityRow { get; set; } = true;
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.ShowTrailingStopEquityRow),
+        Description = nameof(Resources.ShowTrailingStopEquityRowDescription),
+        GroupName = nameof(Resources.RowsTrailingDd),
+        Order = 420)]
+    public bool ShowTrailingStopEquityRow { get; set; } = true;
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.ShowTrailingRemainingDdRow),
+        Description = nameof(Resources.ShowTrailingRemainingDdRowDescription),
+        GroupName = nameof(Resources.RowsTrailingDd),
+        Order = 430)]
+    public bool ShowTrailingRemainingDdRow { get; set; } = true;
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.ShowTrailingCurrentDdRow),
+        Description = nameof(Resources.ShowTrailingCurrentDdRowDescription),
+        GroupName = nameof(Resources.RowsTrailingDd),
+        Order = 440)]
+    public bool ShowTrailingCurrentDdRow { get; set; } = true;
+
+
+    // -----------------------------
+    // Rows / Trade
+    // -----------------------------
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.ShowTradeMaxOpenPnlCurrentRow),
+        Description = nameof(Resources.ShowTradeMaxOpenPnlCurrentRowDescription),
+        GroupName = nameof(Resources.RowsTrade),
+        Order = 900)]
+    public bool ShowTradeMaxOpenPnlCurrentRow { get; set; } = true;
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.ShowTradeMaxOpenPnlLastRow),
+        Description = nameof(Resources.ShowTradeMaxOpenPnlLastRowDescription),
+        GroupName = nameof(Resources.RowsTrade),
+        Order = 910)]
+    public bool ShowTradeMaxOpenPnlLastRow { get; set; } = true;
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.ShowLastClosedTradePnlRow),
+        Description = nameof(Resources.ShowLastClosedTradePnlRowDescription),
+        GroupName = nameof(Resources.RowsTrade),
+        Order = 920)]
+    public bool ShowLastClosedTradePnlRow { get; set; } = true;
+
+
+
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.HorizontalPosition),
         GroupName = nameof(Strings.LayoutGroup),
         Order = 200)]
-	public HorizontalAlignment HorizontalPosition { get; set; } = HorizontalAlignment.Left;
+    public HorizontalAlignment HorizontalPosition { get; set; } = HorizontalAlignment.Left;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.VerticalPosition),
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VerticalPosition),
         GroupName = nameof(Strings.LayoutGroup),
         Order = 210)]
-	public VerticalAlignment VerticalPosition { get; set; } = VerticalAlignment.Bottom;
+    public VerticalAlignment VerticalPosition { get; set; } = VerticalAlignment.Bottom;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.OffsetX),
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.OffsetX),
         Description = nameof(Strings.OffsetXDescription), GroupName = nameof(Strings.LayoutGroup),
         Order = 220)]
-	[Range(0, 1000)]
-	public int OffsetX { get; set; } = 20;
+    [Range(0, 1000)]
+    public int OffsetX { get; set; } = 20;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.OffsetY),
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.OffsetY),
         Description = nameof(Strings.OffsetYDescription), GroupName = nameof(Strings.LayoutGroup),
         Order = 230)]
-	[Range(0, 1000)]
-	public int OffsetY { get; set; } = 20;
+    [Range(0, 1000)]
+    public int OffsetY { get; set; } = 20;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ColumnSpacing),
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ColumnSpacing),
         Description = nameof(Strings.ColumnSpacingDescription), GroupName = nameof(Strings.LayoutGroup),
         Order = 240)]
-	[Range(5, 50)]
-	public int ColumnSpacing { get; set; } = 15;
+    [Range(5, 50)]
+    public int ColumnSpacing { get; set; } = 15;
 
 
     [Display(
-    ResourceType = typeof(Resources),
-    Name = nameof(Resources.EnableTrailingDrawdown),
-    Description = nameof(Resources.EnableTrailingDrawdownDescription),
-    GroupName = nameof(Resources.FundingTrailingDd),
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.EnableTrailingDrawdown),
+        Description = nameof(Resources.EnableTrailingDrawdownDescription),
+        GroupName = nameof(Resources.FundingTrailingDd),
         Order = 300)]
     public bool EnableTrailingDrawdown { get; set; }
 
@@ -650,10 +738,10 @@ public class AccountInfoDisplay : Indicator
     public bool ReinitializeNow { get; set; }
 
     [Display(
-    ResourceType = typeof(Resources),
-    Name = nameof(Resources.TrailingPeakUpdateMode),
-    Description = nameof(Resources.TrailingPeakUpdateModeDescription),
-    GroupName = nameof(Resources.FundingTrailingDd),
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.TrailingPeakUpdateMode),
+        Description = nameof(Resources.TrailingPeakUpdateModeDescription),
+        GroupName = nameof(Resources.FundingTrailingDd),
         Order = 350)]
     public TrailingPeakUpdateMode PeakUpdateMode { get; set; }
 
@@ -666,10 +754,10 @@ public class AccountInfoDisplay : Indicator
     public TimeSpan TrailingEodTimeLocal { get; set; }
 
     [Display(
-    ResourceType = typeof(Resources),
-    Name = nameof(Resources.EnableMonthlyReset),
-    Description = nameof(Resources.EnableMonthlyResetDescription),
-    GroupName = nameof(Resources.FundingTrailingDd),
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.EnableMonthlyReset),
+        Description = nameof(Resources.EnableMonthlyResetDescription),
+        GroupName = nameof(Resources.FundingTrailingDd),
         Order = 370)]
     public bool EnableMonthlyReset { get; set; }
 
@@ -683,10 +771,10 @@ public class AccountInfoDisplay : Indicator
 
 
     [Display(
-    ResourceType = typeof(Resources),
-    Name = nameof(Resources.DailyResetMode),
-    Description = nameof(Resources.DailyResetModeDescription),
-    GroupName = nameof(Resources.DailyRails),
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.DailyResetMode),
+        Description = nameof(Resources.DailyResetModeDescription),
+        GroupName = nameof(Resources.DailyRails),
         Order = 500)]
     public DailyResetModeKind DailyResetMode { get; set; }
 
@@ -735,7 +823,7 @@ public class AccountInfoDisplay : Indicator
     // -----------------------------
     // Soft Recommendations (Phase E)
     // -----------------------------
-
+    
     [Display(
         ResourceType = typeof(Resources),
         Name = nameof(Resources.EnableSoftRecommendations),
@@ -781,10 +869,10 @@ public class AccountInfoDisplay : Indicator
     public int CautionLossesThreshold { get; set; } = 1;
 
     [Display(
-    ResourceType = typeof(Resources),
-    Name = nameof(Resources.CautionLossFromStart),
-    Description = nameof(Resources.CautionLossFromStartDescription),
-    GroupName = nameof(Resources.SoftRecommendations),
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.CautionLossFromStart),
+        Description = nameof(Resources.CautionLossFromStartDescription),
+        GroupName = nameof(Resources.SoftRecommendations),
         Order = 741)]
     public decimal CautionLossFromStart { get; set; } = 0m;
 
@@ -815,10 +903,10 @@ public class AccountInfoDisplay : Indicator
     public decimal CautionGivebackFromPeakPct { get; set; } = 0m;
 
     [Display(
-    ResourceType = typeof(Resources),
-    GroupName = nameof(Resources.SoftRecommendations),
-    Name = nameof(Resources.CautionTradesPct),
-    Description = nameof(Resources.CautionTradesPctDescription),
+        ResourceType = typeof(Resources),
+        GroupName = nameof(Resources.SoftRecommendations),
+        Name = nameof(Resources.CautionTradesPct),
+        Description = nameof(Resources.CautionTradesPctDescription),
         Order = 745)]
     public decimal CautionTradesPct { get; set; } = 0.75m;
 
@@ -875,7 +963,7 @@ public class AccountInfoDisplay : Indicator
         GroupName = nameof(Resources.SoftRecommendations),
         Name = nameof(Resources.GivebackPctOfProfitTarget),
         Description = nameof(Resources.GivebackPctOfProfitTargetDescription),
-        Order = 352)]
+        Order = 752)]
     public decimal GivebackPctOfProfitTarget { get; set; } = 0.30m;
 
     [Display(
@@ -885,7 +973,6 @@ public class AccountInfoDisplay : Indicator
         Description = nameof(Resources.GivebackAbsDescription),
         Order = 753)]
     public decimal GivebackAbs { get; set; } = 200m;
-
 
 
     // Rows toggles (Phase E)
@@ -907,10 +994,10 @@ public class AccountInfoDisplay : Indicator
 
     // Position snapshot
     [Display(
-    ResourceType = typeof(Resources),
-    Name = nameof(Resources.ShowPositionSnapshot),
-    Description = nameof(Resources.ShowPositionSnapshotDescription),
-    GroupName = nameof(Resources.DailyRails),
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.ShowPositionSnapshot),
+        Description = nameof(Resources.ShowPositionSnapshotDescription),
+        GroupName = nameof(Resources.DailyRails),
         Order = 820)]
     public bool ShowPositionSnapshot { get; set; } = true;
 
@@ -1197,20 +1284,35 @@ public class AccountInfoDisplay : Indicator
                 numericValue: portfolio.OpenPnL
             ));
 
-            // Phase 0011–0012: per-trade max open pnl (current vs last)
-            if (ctx.WasTradePositionOpen)
+        }
+
+        // Trade rows (per-row toggles)
+        if (ctx.WasTradePositionOpen)
+        {
+            if (ShowTradeMaxOpenPnlCurrentRow)
             {
                 rows.Add(new DisplayRow(
                     Resources.RowTradeMaxOpenPnLCurrent,
                     FormatCurrency(ctx.TradeMaxOpenPnL),
                     numericValue: ctx.TradeMaxOpenPnL));
             }
-            else
+        }
+        else
+        {
+            if (ShowTradeMaxOpenPnlLastRow)
             {
                 rows.Add(new DisplayRow(
                     Resources.RowTradeMaxOpenPnLLast,
                     FormatCurrency(ctx.LastTradeMaxOpenPnL),
                     numericValue: ctx.LastTradeMaxOpenPnL));
+            }
+
+            if (ShowLastClosedTradePnlRow)
+            {
+                rows.Add(new DisplayRow(
+                    Resources.RowLastClosedTradePnL,
+                    FormatCurrency(ctx.LastClosedTradePnL),
+                    numericValue: ctx.LastClosedTradePnL));
             }
         }
 
@@ -1234,21 +1336,51 @@ public class AccountInfoDisplay : Indicator
 
         if (trailingState != null && trailingState.IsInitialized)
         {
-            rows.Add(new DisplayRow(
-                label: Resources.RowTrailingStartEquity,
-                valueText: trailingState.StartEquity.ToString(CultureInfo.CurrentCulture),
-                numericValue: trailingState.StartEquity));
+            var currentDd = trailingState.PeakEquity - equity;          // positive when in drawdown
+            var remainingDd = equity - trailingState.StopEquity;        // positive = safe, negative = breached
 
-            rows.Add(new DisplayRow(
-                label: Resources.RowTrailingPeakEquity,
-                valueText: trailingState.PeakEquity.ToString(CultureInfo.CurrentCulture),
-                numericValue: trailingState.PeakEquity));
+            if (ShowTrailingStartEquityRow)
+            {
+                rows.Add(new DisplayRow(
+                    label: Resources.RowTrailingStartEquity,
+                    valueText: trailingState.StartEquity.ToString(CultureInfo.CurrentCulture),
+                    numericValue: trailingState.StartEquity));
+            }
 
-            rows.Add(new DisplayRow(
-                label: Resources.RowTrailingStopEquity,
-                valueText: trailingState.StopEquity.ToString(CultureInfo.CurrentCulture),
-                numericValue: trailingState.StopEquity));
+            if (ShowTrailingPeakEquityRow)
+            {
+                rows.Add(new DisplayRow(
+                    label: Resources.RowTrailingPeakEquity,
+                    valueText: trailingState.PeakEquity.ToString(CultureInfo.CurrentCulture),
+                    numericValue: trailingState.PeakEquity));
+            }
+
+            if (ShowTrailingStopEquityRow)
+            {
+                rows.Add(new DisplayRow(
+                    label: Resources.RowTrailingStopEquity,
+                    valueText: trailingState.StopEquity.ToString(CultureInfo.CurrentCulture),
+                    numericValue: trailingState.StopEquity));
+            }
+
+            if (ShowTrailingRemainingDdRow)
+            {
+                rows.Add(new DisplayRow(
+                    label: Resources.RowTrailingRemainingDd,
+                    valueText: FormatCurrency(remainingDd),
+                    numericValue: remainingDd));
+            }
+
+            if (ShowTrailingCurrentDdRow)
+            {
+                // Reuse color rule: positive=green, negative=red. Bigger DD is worse => pass -currentDd.
+                rows.Add(new DisplayRow(
+                    label: Resources.RowTrailingCurrentDd,
+                    valueText: FormatCurrency(currentDd),
+                    numericValue: -currentDd));
+            }
         }
+
 
         // -----------------------------
         // Session Metrics
@@ -2583,7 +2715,18 @@ public class AccountInfoDisplay : Indicator
             ShowSuggestedStatusRow = ShowSuggestedStatusRow,
             ShowStopReasonsRow = ShowStopReasonsRow,
             ShowPositionSnapshot = ShowPositionSnapshot,
-            ShowFlatRow = ShowFlatRow
+            ShowFlatRow = ShowFlatRow,
+
+            ShowTrailingStartEquityRow = ShowTrailingStartEquityRow,
+            ShowTrailingPeakEquityRow = ShowTrailingPeakEquityRow,
+            ShowTrailingStopEquityRow = ShowTrailingStopEquityRow,
+            ShowTrailingRemainingDdRow = ShowTrailingRemainingDdRow,
+            ShowTrailingCurrentDdRow = ShowTrailingCurrentDdRow,
+
+            ShowTradeMaxOpenPnlCurrentRow = ShowTradeMaxOpenPnlCurrentRow,
+            ShowTradeMaxOpenPnlLastRow = ShowTradeMaxOpenPnlLastRow,
+            ShowLastClosedTradePnlRow = ShowLastClosedTradePnlRow
+
         };
     }
 
@@ -2712,6 +2855,16 @@ public class AccountInfoDisplay : Indicator
             ShowStopReasonsRow = cfg.ShowStopReasonsRow;
             ShowPositionSnapshot = cfg.ShowPositionSnapshot;
             ShowFlatRow = cfg.ShowFlatRow;
+
+            ShowTrailingStartEquityRow = cfg.ShowTrailingStartEquityRow;
+            ShowTrailingPeakEquityRow = cfg.ShowTrailingPeakEquityRow;
+            ShowTrailingStopEquityRow = cfg.ShowTrailingStopEquityRow;
+            ShowTrailingRemainingDdRow = cfg.ShowTrailingRemainingDdRow;
+            ShowTrailingCurrentDdRow = cfg.ShowTrailingCurrentDdRow;
+
+            ShowTradeMaxOpenPnlCurrentRow = cfg.ShowTradeMaxOpenPnlCurrentRow;
+            ShowTradeMaxOpenPnlLastRow = cfg.ShowTradeMaxOpenPnlLastRow;
+            ShowLastClosedTradePnlRow = cfg.ShowLastClosedTradePnlRow;
         }
         finally
         {
@@ -2782,6 +2935,17 @@ public class AccountInfoDisplay : Indicator
         if (cfg.ShowStopReasonsRow != ShowStopReasonsRow) { cfg.ShowStopReasonsRow = ShowStopReasonsRow; changed = true; }
         if (cfg.ShowPositionSnapshot != ShowPositionSnapshot) { cfg.ShowPositionSnapshot = ShowPositionSnapshot; changed = true; }
         if (cfg.ShowFlatRow != ShowFlatRow) { cfg.ShowFlatRow = ShowFlatRow; changed = true; }
+
+        if (cfg.ShowTrailingStartEquityRow != ShowTrailingStartEquityRow) { cfg.ShowTrailingStartEquityRow = ShowTrailingStartEquityRow; changed = true; }
+        if (cfg.ShowTrailingPeakEquityRow != ShowTrailingPeakEquityRow) { cfg.ShowTrailingPeakEquityRow = ShowTrailingPeakEquityRow; changed = true; }
+        if (cfg.ShowTrailingStopEquityRow != ShowTrailingStopEquityRow) { cfg.ShowTrailingStopEquityRow = ShowTrailingStopEquityRow; changed = true; }
+        if (cfg.ShowTrailingRemainingDdRow != ShowTrailingRemainingDdRow) { cfg.ShowTrailingRemainingDdRow = ShowTrailingRemainingDdRow; changed = true; }
+        if (cfg.ShowTrailingCurrentDdRow != ShowTrailingCurrentDdRow) { cfg.ShowTrailingCurrentDdRow = ShowTrailingCurrentDdRow; changed = true; }
+
+        if (cfg.ShowTradeMaxOpenPnlCurrentRow != ShowTradeMaxOpenPnlCurrentRow) { cfg.ShowTradeMaxOpenPnlCurrentRow = ShowTradeMaxOpenPnlCurrentRow; changed = true; }
+        if (cfg.ShowTradeMaxOpenPnlLastRow != ShowTradeMaxOpenPnlLastRow) { cfg.ShowTradeMaxOpenPnlLastRow = ShowTradeMaxOpenPnlLastRow; changed = true; }
+        if (cfg.ShowLastClosedTradePnlRow != ShowLastClosedTradePnlRow) { cfg.ShowLastClosedTradePnlRow = ShowLastClosedTradePnlRow; changed = true; }
+
 
         if (changed)
             ctx.ConfigDirty = true;
@@ -2919,6 +3083,7 @@ public class AccountInfoDisplay : Indicator
             ctx.TradeOpenPnlBaseline = portfolio.OpenPnL; // baseline at entry
             ctx.TradeMaxOpenPnL = 0m;                     // current trade starts at 0
             ctx.WasTradePositionOpen = true;
+            ctx.TradeClosedPnlBaseline = portfolio.ClosedPnL;
             return;
         }
 
@@ -2930,6 +3095,8 @@ public class AccountInfoDisplay : Indicator
             ctx.TradeOpenPnlBaseline = 0m;
             ctx.TradeMaxOpenPnL = 0m;
             ctx.WasTradePositionOpen = false;
+            ctx.LastClosedTradePnL = portfolio.ClosedPnL - ctx.TradeClosedPnlBaseline;
+            ctx.TradeClosedPnlBaseline = 0m;
             return;
         }
 
