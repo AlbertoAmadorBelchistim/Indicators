@@ -7306,6 +7306,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Last Trade PnL (Closed).
+        /// </summary>
+        public static string RowLastClosedTradePnL {
+            get {
+                return ResourceManager.GetString("RowLastClosedTradePnL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Leverage.
         /// </summary>
         public static string RowLeverage {
@@ -7459,6 +7468,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Rows: Trade.
+        /// </summary>
+        public static string RowsTrade {
+            get {
+                return ResourceManager.GetString("RowsTrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Rows: Trailing drawdown.
+        /// </summary>
+        public static string RowsTrailingDd {
+            get {
+                return ResourceManager.GetString("RowsTrailingDd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Streak.
         /// </summary>
         public static string RowStreak {
@@ -7513,11 +7540,29 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Trailing Current DD.
+        /// </summary>
+        public static string RowTrailingCurrentDd {
+            get {
+                return ResourceManager.GetString("RowTrailingCurrentDd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Trailing Peak Equity.
         /// </summary>
         public static string RowTrailingPeakEquity {
             get {
                 return ResourceManager.GetString("RowTrailingPeakEquity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Trailing Remaining DD.
+        /// </summary>
+        public static string RowTrailingRemainingDd {
+            get {
+                return ResourceManager.GetString("RowTrailingRemainingDd", resourceCulture);
             }
         }
         
@@ -8359,6 +8404,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Show last closed trade PnL.
+        /// </summary>
+        public static string ShowLastClosedTradePnlRow {
+            get {
+                return ResourceManager.GetString("ShowLastClosedTradePnlRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Shows the realized PnL of the last closed trade (while flat)..
+        /// </summary>
+        public static string ShowLastClosedTradePnlRowDescription {
+            get {
+                return ResourceManager.GetString("ShowLastClosedTradePnlRowDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Show Lines.
         /// </summary>
         public static string ShowLines {
@@ -8755,6 +8818,42 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Show trade max open PnL (current).
+        /// </summary>
+        public static string ShowTradeMaxOpenPnlCurrentRow {
+            get {
+                return ResourceManager.GetString("ShowTradeMaxOpenPnlCurrentRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Shows the max open PnL for the current trade (while in position)..
+        /// </summary>
+        public static string ShowTradeMaxOpenPnlCurrentRowDescription {
+            get {
+                return ResourceManager.GetString("ShowTradeMaxOpenPnlCurrentRowDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show trade max open PnL (last).
+        /// </summary>
+        public static string ShowTradeMaxOpenPnlLastRow {
+            get {
+                return ResourceManager.GetString("ShowTradeMaxOpenPnlLastRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Shows the max open PnL for the last closed trade (while flat)..
+        /// </summary>
+        public static string ShowTradeMaxOpenPnlLastRowDescription {
+            get {
+                return ResourceManager.GetString("ShowTradeMaxOpenPnlLastRowDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Show Trades Count.
         /// </summary>
         public static string ShowTradesCount {
@@ -8787,6 +8886,96 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string ShowTradesTodayRowDescription {
             get {
                 return ResourceManager.GetString("ShowTradesTodayRowDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show trailing current drawdown.
+        /// </summary>
+        public static string ShowTrailingCurrentDdRow {
+            get {
+                return ResourceManager.GetString("ShowTrailingCurrentDdRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Shows current drawdown from the trailing peak equity..
+        /// </summary>
+        public static string ShowTrailingCurrentDdRowDescription {
+            get {
+                return ResourceManager.GetString("ShowTrailingCurrentDdRowDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show trailing peak equity.
+        /// </summary>
+        public static string ShowTrailingPeakEquityRow {
+            get {
+                return ResourceManager.GetString("ShowTrailingPeakEquityRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Shows the trailing drawdown peak equity row..
+        /// </summary>
+        public static string ShowTrailingPeakEquityRowDescription {
+            get {
+                return ResourceManager.GetString("ShowTrailingPeakEquityRowDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show trailing remaining drawdown.
+        /// </summary>
+        public static string ShowTrailingRemainingDdRow {
+            get {
+                return ResourceManager.GetString("ShowTrailingRemainingDdRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Shows remaining drawdown to the trailing stop equity..
+        /// </summary>
+        public static string ShowTrailingRemainingDdRowDescription {
+            get {
+                return ResourceManager.GetString("ShowTrailingRemainingDdRowDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show trailing start equity.
+        /// </summary>
+        public static string ShowTrailingStartEquityRow {
+            get {
+                return ResourceManager.GetString("ShowTrailingStartEquityRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Shows the trailing drawdown start equity row..
+        /// </summary>
+        public static string ShowTrailingStartEquityRowDescription {
+            get {
+                return ResourceManager.GetString("ShowTrailingStartEquityRowDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show trailing stop equity.
+        /// </summary>
+        public static string ShowTrailingStopEquityRow {
+            get {
+                return ResourceManager.GetString("ShowTrailingStopEquityRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Shows the trailing drawdown stop equity row..
+        /// </summary>
+        public static string ShowTrailingStopEquityRowDescription {
+            get {
+                return ResourceManager.GetString("ShowTrailingStopEquityRowDescription", resourceCulture);
             }
         }
         

@@ -4425,5 +4425,102 @@
   <value>CAUTION: достигнут порог внутридневного giveback.</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<!-- AccountInfoDisplay — Groups -->
+<data name="RowsTrailingDd" xml:space="preserve">
+  <value>Строки: trailing drawdown</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowsTrade" xml:space="preserve">
+  <value>Строки: trade</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<!-- AccountInfoDisplay — Row toggles (Trailing DD) -->
+<data name="ShowTrailingStartEquityRow" xml:space="preserve">
+  <value>Показывать стартовый equity (trailing)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowTrailingStartEquityRowDescription" xml:space="preserve">
+  <value>Показывает строку стартового equity для trailing drawdown.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowTrailingPeakEquityRow" xml:space="preserve">
+  <value>Показывать peak equity (trailing)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowTrailingPeakEquityRowDescription" xml:space="preserve">
+  <value>Показывает строку peak equity для trailing drawdown.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowTrailingStopEquityRow" xml:space="preserve">
+  <value>Показывать stop equity (trailing)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowTrailingStopEquityRowDescription" xml:space="preserve">
+  <value>Показывает строку stop equity для trailing drawdown.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowTrailingRemainingDdRow" xml:space="preserve">
+  <value>Показывать оставшийся drawdown (trailing)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowTrailingRemainingDdRowDescription" xml:space="preserve">
+  <value>Показывает оставшийся drawdown до trailing stop equity.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowTrailingCurrentDdRow" xml:space="preserve">
+  <value>Показывать текущий drawdown (trailing)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowTrailingCurrentDdRowDescription" xml:space="preserve">
+  <value>Показывает текущий drawdown от trailing peak equity.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<!-- AccountInfoDisplay — Row toggles (Trade) -->
+<data name="ShowTradeMaxOpenPnlCurrentRow" xml:space="preserve">
+  <value>Показывать макс. открытый PnL (текущий)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowTradeMaxOpenPnlCurrentRowDescription" xml:space="preserve">
+  <value>Показывает максимальный открытый PnL текущей сделки (в позиции).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowTradeMaxOpenPnlLastRow" xml:space="preserve">
+  <value>Показывать макс. открытый PnL (последний)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowTradeMaxOpenPnlLastRowDescription" xml:space="preserve">
+  <value>Показывает максимальный открытый PnL последней закрытой сделки (flat).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowLastClosedTradePnlRow" xml:space="preserve">
+  <value>Показывать PnL последней закрытой сделки</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowLastClosedTradePnlRowDescription" xml:space="preserve">
+  <value>Показывает реализованный PnL последней закрытой сделки (flat).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<!-- AccountInfoDisplay — Row labels -->
+<data name="RowTrailingRemainingDd" xml:space="preserve">
+  <value>Trailing: оставшийся DD</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowTrailingCurrentDd" xml:space="preserve">
+  <value>Trailing: текущий DD</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowLastClosedTradePnL" xml:space="preserve">
+  <value>PnL последней сделки (закрыта)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
 </root>

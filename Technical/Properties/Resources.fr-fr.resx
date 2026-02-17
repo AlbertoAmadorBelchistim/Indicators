@@ -2362,5 +2362,102 @@
   <value>CAUTION : seuil de giveback intraday atteint.</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<!-- AccountInfoDisplay — Groups -->
+<data name="RowsTrailingDd" xml:space="preserve">
+  <value>Lignes : drawdown trailing</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowsTrade" xml:space="preserve">
+  <value>Lignes : trade</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<!-- AccountInfoDisplay — Row toggles (Trailing DD) -->
+<data name="ShowTrailingStartEquityRow" xml:space="preserve">
+  <value>Afficher l&apos;équité de départ (trailing)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowTrailingStartEquityRowDescription" xml:space="preserve">
+  <value>Affiche la ligne d&apos;équité de départ du drawdown trailing.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowTrailingPeakEquityRow" xml:space="preserve">
+  <value>Afficher l&apos;équité au pic (trailing)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowTrailingPeakEquityRowDescription" xml:space="preserve">
+  <value>Affiche la ligne d&apos;équité au pic du drawdown trailing.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowTrailingStopEquityRow" xml:space="preserve">
+  <value>Afficher l&apos;équité stop (trailing)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowTrailingStopEquityRowDescription" xml:space="preserve">
+  <value>Affiche la ligne d&apos;équité stop du drawdown trailing.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowTrailingRemainingDdRow" xml:space="preserve">
+  <value>Afficher le drawdown restant (trailing)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowTrailingRemainingDdRowDescription" xml:space="preserve">
+  <value>Affiche le drawdown restant jusqu&apos;à l&apos;équité stop trailing.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowTrailingCurrentDdRow" xml:space="preserve">
+  <value>Afficher le drawdown actuel (trailing)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowTrailingCurrentDdRowDescription" xml:space="preserve">
+  <value>Affiche le drawdown actuel depuis le pic d&apos;équité trailing.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<!-- AccountInfoDisplay — Row toggles (Trade) -->
+<data name="ShowTradeMaxOpenPnlCurrentRow" xml:space="preserve">
+  <value>Afficher le PnL ouvert max (actuel)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowTradeMaxOpenPnlCurrentRowDescription" xml:space="preserve">
+  <value>Affiche le PnL ouvert maximal du trade actuel (en position).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowTradeMaxOpenPnlLastRow" xml:space="preserve">
+  <value>Afficher le PnL ouvert max (dernier)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowTradeMaxOpenPnlLastRowDescription" xml:space="preserve">
+  <value>Affiche le PnL ouvert maximal du dernier trade clôturé (à plat).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowLastClosedTradePnlRow" xml:space="preserve">
+  <value>Afficher le PnL du dernier trade clôturé</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowLastClosedTradePnlRowDescription" xml:space="preserve">
+  <value>Affiche le PnL réalisé du dernier trade clôturé (à plat).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<!-- AccountInfoDisplay — Row labels -->
+<data name="RowTrailingRemainingDd" xml:space="preserve">
+  <value>DD trailing restant</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowTrailingCurrentDd" xml:space="preserve">
+  <value>DD trailing actuel</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowLastClosedTradePnL" xml:space="preserve">
+  <value>PnL dernier trade (clôturé)</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
 </root>

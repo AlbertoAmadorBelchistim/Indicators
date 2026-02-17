@@ -2317,5 +2317,102 @@
   <value>CAUTION：达到日内回撤阈值。</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+<!-- AccountInfoDisplay — Groups -->
+<data name="RowsTrailingDd" xml:space="preserve">
+  <value>行：跟踪回撤</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowsTrade" xml:space="preserve">
+  <value>行：交易</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<!-- AccountInfoDisplay — Row toggles (Trailing DD) -->
+<data name="ShowTrailingStartEquityRow" xml:space="preserve">
+  <value>显示跟踪起始权益</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowTrailingStartEquityRowDescription" xml:space="preserve">
+  <value>显示跟踪回撤的起始权益行。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowTrailingPeakEquityRow" xml:space="preserve">
+  <value>显示跟踪峰值权益</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowTrailingPeakEquityRowDescription" xml:space="preserve">
+  <value>显示跟踪回撤的峰值权益行。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowTrailingStopEquityRow" xml:space="preserve">
+  <value>显示跟踪止损权益</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowTrailingStopEquityRowDescription" xml:space="preserve">
+  <value>显示跟踪回撤的止损权益行。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowTrailingRemainingDdRow" xml:space="preserve">
+  <value>显示跟踪剩余回撤</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowTrailingRemainingDdRowDescription" xml:space="preserve">
+  <value>显示距离跟踪止损权益的剩余回撤。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowTrailingCurrentDdRow" xml:space="preserve">
+  <value>显示跟踪当前回撤</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowTrailingCurrentDdRowDescription" xml:space="preserve">
+  <value>显示从跟踪峰值权益回落的当前回撤。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<!-- AccountInfoDisplay — Row toggles (Trade) -->
+<data name="ShowTradeMaxOpenPnlCurrentRow" xml:space="preserve">
+  <value>显示当前交易最大未平仓盈亏</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowTradeMaxOpenPnlCurrentRowDescription" xml:space="preserve">
+  <value>持仓时显示当前交易的最大未平仓盈亏。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowTradeMaxOpenPnlLastRow" xml:space="preserve">
+  <value>显示上一笔交易最大未平仓盈亏</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowTradeMaxOpenPnlLastRowDescription" xml:space="preserve">
+  <value>空仓时显示上一笔已平仓交易的最大未平仓盈亏。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowLastClosedTradePnlRow" xml:space="preserve">
+  <value>显示上一笔已平仓交易盈亏</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowLastClosedTradePnlRowDescription" xml:space="preserve">
+  <value>空仓时显示上一笔已平仓交易的已实现盈亏。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<!-- AccountInfoDisplay — Row labels -->
+<data name="RowTrailingRemainingDd" xml:space="preserve">
+  <value>跟踪剩余回撤</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowTrailingCurrentDd" xml:space="preserve">
+  <value>跟踪当前回撤</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowLastClosedTradePnL" xml:space="preserve">
+  <value>上一笔交易盈亏（已平仓）</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
 
 </root>
