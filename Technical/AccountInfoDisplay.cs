@@ -13,9 +13,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
+
 
 /// <summary>
 /// Displays account information on the chart including account ID, balance, blocked margin, available balance, and PnL.
@@ -2816,9 +2819,23 @@ public class AccountInfoDisplay : Indicator
             }
 
             var json = File.ReadAllText(path, Encoding.UTF8);
+
+            var defaults = CreateDefaultConfigFromCurrentUi();
             var loaded = JsonSerializer.Deserialize<AccountConfigV1>(json);
 
-            ctx.Config = loaded ?? CreateDefaultConfigFromCurrentUi();
+            if (loaded == null)
+            {
+                ctx.Config = defaults;
+                ctx.ConfigLoadedFromDisk = true;
+                return;
+            }
+
+            using var doc = JsonDocument.Parse(json);
+
+            // Merge: for properties missing in JSON, take defaults (prevents false/0 from older configs)
+            var merged = MergeConfigWithDefaults(loaded, defaults, doc.RootElement);
+
+            ctx.Config = merged;
             ctx.ConfigLoadedFromDisk = true;
         }
         catch
@@ -2827,6 +2844,55 @@ public class AccountInfoDisplay : Indicator
             ctx.ConfigLoadedFromDisk = true;
         }
     }
+
+    private static AccountConfigV1 MergeConfigWithDefaults(AccountConfigV1 loaded, AccountConfigV1 defaults, JsonElement root)
+    {
+        if (loaded == null)
+            return defaults;
+
+        if (defaults == null)
+            return loaded;
+
+        var type = typeof(AccountConfigV1);
+
+        foreach (var prop in type.GetProperties(BindingFlags.Instance | BindingFlags.Public))
+        {
+            // Only public writable scalar/struct/class properties; skip indexers
+            if (!prop.CanRead || !prop.CanWrite)
+                continue;
+
+            if (prop.GetIndexParameters().Length != 0)
+                continue;
+
+            // Skip [JsonIgnore]
+            if (prop.GetCustomAttribute<JsonIgnoreAttribute>() != null)
+                continue;
+
+            var jsonName = GetJsonPropertyName(prop);
+
+            // If the JSON doesn't contain this property, we restore the default value.
+            if (!root.TryGetProperty(jsonName, out _))
+            {
+                var defaultValue = prop.GetValue(defaults);
+                prop.SetValue(loaded, defaultValue);
+            }
+        }
+
+        return loaded;
+    }
+
+    private static string GetJsonPropertyName(PropertyInfo prop)
+    {
+        // If [JsonPropertyName] is present, it wins.
+        var attr = prop.GetCustomAttribute<JsonPropertyNameAttribute>();
+        if (attr != null && !string.IsNullOrWhiteSpace(attr.Name))
+            return attr.Name;
+
+        // Your current serialization uses default options (no naming policy), so this returns prop.Name.
+        // Keeping this helper allows future-proofing if you later introduce a naming policy.
+        return prop.Name;
+    }
+
 
     private void SaveAccountConfigIfNeeded(string accountKey, bool force = false)
     {
