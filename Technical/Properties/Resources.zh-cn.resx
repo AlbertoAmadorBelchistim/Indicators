@@ -2434,4 +2434,79 @@
 
 <data name="LayoutGroup" xml:space="preserve">
     <value>布局</value>
-  </data></root>
+  </data>
+  <!-- Price rails (settings) -->
+<data name="EnablePriceRails" xml:space="preserve">
+  <value>启用价格轨道</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnablePriceRailsDescription" xml:space="preserve">
+  <value>启用价格轨道辅助线（目标价与有效止损）。仅用于显示。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowTargetRail" xml:space="preserve">
+  <value>显示目标轨道</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowTargetRailDescription" xml:space="preserve">
+  <value>根据今日已实现盈亏和当前持仓规模，显示达到每日盈利目标所需的目标价格。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowStopRail" xml:space="preserve">
+  <value>显示止损轨道</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowStopRailDescription" xml:space="preserve">
+  <value>使用更严格的 STOP 驱动（每日亏损限制 vs 追踪回撤）显示有效止损价格。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowRailLabels" xml:space="preserve">
+  <value>显示轨道标签</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowRailLabelsDescription" xml:space="preserve">
+  <value>显示价格轨道的描述标签（目标/止损原因）。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="RailLineWidth" xml:space="preserve">
+  <value>轨道线宽</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RailLineWidthDescription" xml:space="preserve">
+  <value>图表价格轨道线的线宽。</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<!-- Price rails (panel rows) -->
+<data name="RowPriceRailTarget" xml:space="preserve">
+  <value>目标价格</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowPriceRailStop" xml:space="preserve">
+  <value>止损价格</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<!-- Price rails (reasons + label formats) -->
+<data name="StopReasonDailyLoss" xml:space="preserve">
+  <value>每日亏损限制</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="StopReasonTrailingDd" xml:space="preserve">
+  <value>追踪回撤</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="RailTargetLabelFormat" xml:space="preserve">
+  <value>目标 {0:N2} | 剩余 {1}</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RailStopLabelFormat" xml:space="preserve">
+  <value>止损（{0}）{1:N2}</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+</root>

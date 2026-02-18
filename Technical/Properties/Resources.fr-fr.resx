@@ -2479,4 +2479,79 @@
 
 <data name="LayoutGroup" xml:space="preserve">
     <value>Mise en page</value>
-  </data></root>
+  </data>
+  <!-- Price rails (settings) -->
+<data name="EnablePriceRails" xml:space="preserve">
+  <value>Activer les rails de prix</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnablePriceRailsDescription" xml:space="preserve">
+  <value>Active les rails de prix (objectif et stop effectif). Affichage uniquement.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowTargetRail" xml:space="preserve">
+  <value>Afficher le rail objectif</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowTargetRailDescription" xml:space="preserve">
+  <value>Affiche le prix cible nécessaire pour atteindre l’objectif de profit journalier selon le PnL réalisé aujourd’hui et la taille de la position actuelle.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowStopRail" xml:space="preserve">
+  <value>Afficher le rail stop</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowStopRailDescription" xml:space="preserve">
+  <value>Affiche le prix de stop effectif selon le driver STOP le plus restrictif (perte journalière vs drawdown trailing).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowRailLabels" xml:space="preserve">
+  <value>Afficher les libellés des rails</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowRailLabelsDescription" xml:space="preserve">
+  <value>Affiche des libellés descriptifs pour les rails de prix (objectif/raison du stop).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="RailLineWidth" xml:space="preserve">
+  <value>Épaisseur de ligne des rails</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RailLineWidthDescription" xml:space="preserve">
+  <value>Épaisseur de la ligne des rails de prix sur le graphique.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<!-- Price rails (panel rows) -->
+<data name="RowPriceRailTarget" xml:space="preserve">
+  <value>Prix cible</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowPriceRailStop" xml:space="preserve">
+  <value>Prix stop</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<!-- Price rails (reasons + label formats) -->
+<data name="StopReasonDailyLoss" xml:space="preserve">
+  <value>Limite de perte journalière</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="StopReasonTrailingDd" xml:space="preserve">
+  <value>Drawdown trailing</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="RailTargetLabelFormat" xml:space="preserve">
+  <value>Cible {0:N2} | reste {1}</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RailStopLabelFormat" xml:space="preserve">
+  <value>Stop ({0}) {1:N2}</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+</root>

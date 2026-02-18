@@ -4542,4 +4542,79 @@
 
 <data name="LayoutGroup" xml:space="preserve">
     <value>Расположение</value>
-  </data></root>
+  </data>
+  <!-- Price rails (settings) -->
+<data name="EnablePriceRails" xml:space="preserve">
+  <value>Включить ценовые уровни</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnablePriceRailsDescription" xml:space="preserve">
+  <value>Включает ценовые уровни (цель и эффективный стоп). Только отображение.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowTargetRail" xml:space="preserve">
+  <value>Показывать уровень цели</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowTargetRailDescription" xml:space="preserve">
+  <value>Показывает целевую цену для достижения дневной цели прибыли на основе реализованного PnL сегодня и размера текущей позиции.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowStopRail" xml:space="preserve">
+  <value>Показывать уровень стопа</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowStopRailDescription" xml:space="preserve">
+  <value>Показывает эффективную стоп-цену по наиболее строгому STOP-драйверу (дневной лимит потерь vs trailing drawdown).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowRailLabels" xml:space="preserve">
+  <value>Показывать подписи уровней</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowRailLabelsDescription" xml:space="preserve">
+  <value>Показывает описательные подписи для ценовых уровней (цель/причина стопа).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="RailLineWidth" xml:space="preserve">
+  <value>Толщина линии уровней</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RailLineWidthDescription" xml:space="preserve">
+  <value>Толщина линий ценовых уровней на графике.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<!-- Price rails (panel rows) -->
+<data name="RowPriceRailTarget" xml:space="preserve">
+  <value>Целевая цена</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowPriceRailStop" xml:space="preserve">
+  <value>Стоп-цена</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<!-- Price rails (reasons + label formats) -->
+<data name="StopReasonDailyLoss" xml:space="preserve">
+  <value>Лимит дневных потерь</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="StopReasonTrailingDd" xml:space="preserve">
+  <value>Трейлинг-дроудаун</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="RailTargetLabelFormat" xml:space="preserve">
+  <value>Цель {0:N2} | осталось {1}</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RailStopLabelFormat" xml:space="preserve">
+  <value>Стоп ({0}) {1:N2}</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+</root>
