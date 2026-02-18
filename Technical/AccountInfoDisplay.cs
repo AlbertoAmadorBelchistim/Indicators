@@ -1910,8 +1910,15 @@ public class AccountInfoDisplay : Indicator
         if (state.LastMonthlyResetKey == resetKey)
             return;
 
-        state.Reset();
+        // Mark first (avoid repeated resets if something re-enters during reset)
         state.LastMonthlyResetKey = resetKey;
+
+        // Full reset for the new "monthly period"
+        state.Reset();
+
+        // Restore marker because Reset() clears it
+        state.LastMonthlyResetKey = resetKey;
+
         var accountKey = GetAccountKey();
         PersistTrailingStateToMemory(accountKey);
         MarkPersistenceDirty();
@@ -2720,6 +2727,118 @@ public class AccountInfoDisplay : Indicator
         return Path.Combine(dir, $"AccountInfoDisplay.account.{safeKey}.trades.v1.jsonl");
     }
 
+    private bool TryGetLastClosedEquityBeforeCutoffFromTradeLog(
+    string accountKey,
+    DateTime localDate,
+    TimeSpan eodTimeLocal,
+    out decimal equity)
+    {
+        equity = 0m;
+
+        try
+        {
+            var path = GetAccountTradesLogPath(accountKey);
+            if (!File.Exists(path))
+                return false;
+
+            var cutoffLocal = localDate.Date.Add(eodTimeLocal);
+
+            // JSONL is append-only and (in practice) chronological; we scan all lines but keep last match.
+            decimal? lastEquity = null;
+            DateTime lastTs = DateTime.MinValue;
+
+            foreach (var line in File.ReadLines(path, Encoding.UTF8))
+            {
+                if (string.IsNullOrWhiteSpace(line))
+                    continue;
+
+                TradeCloseEventV1 evt;
+                try
+                {
+                    evt = JsonSerializer.Deserialize<TradeCloseEventV1>(line);
+                }
+                catch
+                {
+                    // Ignore corrupted lines (best-effort log)
+                    continue;
+                }
+
+                if (evt == null)
+                    continue;
+
+                if (!string.Equals(evt.AccountKey, accountKey, StringComparison.OrdinalIgnoreCase))
+                    continue;
+
+                if (!evt.Equity.HasValue)
+                    continue;
+
+                // Use instrument-local timestamps already stored in the event.
+                var tsLocal = evt.TimestampLocal;
+
+                if (tsLocal.Date != localDate.Date)
+                    continue;
+
+                if (tsLocal > cutoffLocal)
+                    continue;
+
+                if (tsLocal >= lastTs)
+                {
+                    lastTs = tsLocal;
+                    lastEquity = evt.Equity.Value;
+                }
+            }
+
+            if (!lastEquity.HasValue)
+                return false;
+
+            equity = lastEquity.Value;
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    private void RecomputeEodPeakFromTradeLogIfPossible(string accountKey, TimeSpan newEodTimeLocal)
+    {
+        // We recompute only for the current session day (based on chart time, deterministic).
+        var sessionKey = GetSessionKey();
+        if (sessionKey == 0)
+            return;
+
+        var year = sessionKey / 10000;
+        var month = (sessionKey / 100) % 100;
+        var day = sessionKey % 100;
+
+        DateTime localDate;
+        try
+        {
+            localDate = new DateTime(year, month, day);
+        }
+        catch
+        {
+            return;
+        }
+
+        if (!TryGetLastClosedEquityBeforeCutoffFromTradeLog(accountKey, localDate, newEodTimeLocal, out var equity))
+            return;
+
+        var state = GetTrailingState(accountKey);
+
+        // Apply the recomputed EOD peak (can go up or down depending on moved cutoff).
+        state.PeakEquity = equity;
+        state.StopEquity = state.PeakEquity - MaxTrailingDrawdown;
+
+        // Mark as already captured for this account-day to avoid single-shot capture trying again.
+        state.LastEodPeakSessionKey = sessionKey;
+        state.LastEodPeakCaptureDate = localDate;
+
+        PersistTrailingStateToMemory(accountKey);
+        MarkPersistenceDirty();
+        SavePersistenceIfNeeded(force: true);
+    }
+
 
     private static string SanitizeFileComponent(string value)
     {
@@ -3017,13 +3136,14 @@ public class AccountInfoDisplay : Indicator
             return;
 
         var changed = false;
+        var eodTimeChanged = false;
 
         if (cfg.EnableTrailingDrawdown != EnableTrailingDrawdown) { cfg.EnableTrailingDrawdown = EnableTrailingDrawdown; changed = true; }
         if (cfg.MaxTrailingDrawdown != MaxTrailingDrawdown) { cfg.MaxTrailingDrawdown = MaxTrailingDrawdown; changed = true; }
         if (cfg.TrailingInitMode != TrailingInitMode) { cfg.TrailingInitMode = TrailingInitMode; changed = true; }
         if (cfg.TrailingManualStopEquity != TrailingManualStopEquity) { cfg.TrailingManualStopEquity = TrailingManualStopEquity; changed = true; }
         if (cfg.PeakUpdateMode != PeakUpdateMode) { cfg.PeakUpdateMode = PeakUpdateMode; changed = true; }
-        if (cfg.TrailingEodTimeLocal != TrailingEodTimeLocal) { cfg.TrailingEodTimeLocal = TrailingEodTimeLocal; changed = true; }
+        if (cfg.TrailingEodTimeLocal != TrailingEodTimeLocal) { cfg.TrailingEodTimeLocal = TrailingEodTimeLocal; changed = true; eodTimeChanged = true; }
         if (cfg.EnableMonthlyReset != EnableMonthlyReset) { cfg.EnableMonthlyReset = EnableMonthlyReset; changed = true; }
         if (cfg.MonthlyResetDay != MonthlyResetDay) { cfg.MonthlyResetDay = MonthlyResetDay; changed = true; }
 
@@ -3079,6 +3199,8 @@ public class AccountInfoDisplay : Indicator
         if (cfg.ShowTradeMaxOpenPnlLastRow != ShowTradeMaxOpenPnlLastRow) { cfg.ShowTradeMaxOpenPnlLastRow = ShowTradeMaxOpenPnlLastRow; changed = true; }
         if (cfg.ShowLastClosedTradePnlRow != ShowLastClosedTradePnlRow) { cfg.ShowLastClosedTradePnlRow = ShowLastClosedTradePnlRow; changed = true; }
 
+        if (eodTimeChanged)
+            RecomputeEodPeakFromTradeLogIfPossible(accountKey, TrailingEodTimeLocal);
 
         if (changed)
             ctx.ConfigDirty = true;
