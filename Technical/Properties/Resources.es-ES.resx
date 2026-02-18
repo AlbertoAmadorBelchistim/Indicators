@@ -2480,4 +2480,79 @@
 
 <data name="LayoutGroup" xml:space="preserve">
     <value>Diseño</value>
-  </data></root>
+  </data>
+  <!-- Price rails (settings) -->
+<data name="EnablePriceRails" xml:space="preserve">
+  <value>Activar raíles de precio</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="EnablePriceRailsDescription" xml:space="preserve">
+  <value>Activa los raíles de precio (objetivo y stop efectivo). Solo informativo.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowTargetRail" xml:space="preserve">
+  <value>Mostrar raíl de objetivo</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowTargetRailDescription" xml:space="preserve">
+  <value>Muestra el precio objetivo necesario para alcanzar el objetivo de beneficio diario en función del PnL realizado hoy y el tamaño de la posición actual.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowStopRail" xml:space="preserve">
+  <value>Mostrar raíl de stop</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowStopRailDescription" xml:space="preserve">
+  <value>Muestra el precio de stop efectivo usando el driver STOP más restrictivo (pérdida diaria vs drawdown trailing).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="ShowRailLabels" xml:space="preserve">
+  <value>Mostrar etiquetas de raíles</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="ShowRailLabelsDescription" xml:space="preserve">
+  <value>Muestra etiquetas descriptivas para los raíles de precio (objetivo/motivo del stop).</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="RailLineWidth" xml:space="preserve">
+  <value>Grosor de línea de raíl</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RailLineWidthDescription" xml:space="preserve">
+  <value>Grosor de la línea de los raíles de precio en el gráfico.</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<!-- Price rails (panel rows) -->
+<data name="RowPriceRailTarget" xml:space="preserve">
+  <value>Precio objetivo</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RowPriceRailStop" xml:space="preserve">
+  <value>Precio stop</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<!-- Price rails (reasons + label formats) -->
+<data name="StopReasonDailyLoss" xml:space="preserve">
+  <value>Límite de pérdida diaria</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="StopReasonTrailingDd" xml:space="preserve">
+  <value>Drawdown trailing</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+
+<data name="RailTargetLabelFormat" xml:space="preserve">
+  <value>Objetivo {0:N2} | falta {1}</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+<data name="RailStopLabelFormat" xml:space="preserve">
+  <value>Stop ({0}) {1:N2}</value>
+  <comment>AccountInfoDisplay</comment>
+</data>
+</root>

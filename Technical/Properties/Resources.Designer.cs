@@ -2977,6 +2977,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Enable price rails.
+        /// </summary>
+        public static string EnablePriceRails {
+            get {
+                return ResourceManager.GetString("EnablePriceRails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Enables price rails helpers (target and effective stop). Display-only..
+        /// </summary>
+        public static string EnablePriceRailsDescription {
+            get {
+                return ResourceManager.GetString("EnablePriceRailsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Enable soft recommendations.
         /// </summary>
         public static string EnableSoftRecommendations {
@@ -7117,6 +7135,42 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Rail line width.
+        /// </summary>
+        public static string RailLineWidth {
+            get {
+                return ResourceManager.GetString("RailLineWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Line width for chart price rails..
+        /// </summary>
+        public static string RailLineWidthDescription {
+            get {
+                return ResourceManager.GetString("RailLineWidthDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Stop ({0}) {1:N2}.
+        /// </summary>
+        public static string RailStopLabelFormat {
+            get {
+                return ResourceManager.GetString("RailStopLabelFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Target {0:N2} | left {1}.
+        /// </summary>
+        public static string RailTargetLabelFormat {
+            get {
+                return ResourceManager.GetString("RailTargetLabelFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Range.
         /// </summary>
         public static string Range {
@@ -7392,6 +7446,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string RowPosQty {
             get {
                 return ResourceManager.GetString("RowPosQty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Stop price.
+        /// </summary>
+        public static string RowPriceRailStop {
+            get {
+                return ResourceManager.GetString("RowPriceRailStop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Target price.
+        /// </summary>
+        public static string RowPriceRailTarget {
+            get {
+                return ResourceManager.GetString("RowPriceRailTarget", resourceCulture);
             }
         }
         
@@ -8575,6 +8647,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Show rail labels.
+        /// </summary>
+        public static string ShowRailLabels {
+            get {
+                return ResourceManager.GetString("ShowRailLabels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Shows descriptive labels for price rails (target/stop reason)..
+        /// </summary>
+        public static string ShowRailLabelsDescription {
+            get {
+                return ResourceManager.GetString("ShowRailLabelsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Show Realized PnL Today.
         /// </summary>
         public static string ShowRealizedPnlTodayRow {
@@ -8755,6 +8845,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Show stop rail.
+        /// </summary>
+        public static string ShowStopRail {
+            get {
+                return ResourceManager.GetString("ShowStopRail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Shows the effective stop price using the nearest STOP driver (daily loss vs trailing drawdown)..
+        /// </summary>
+        public static string ShowStopRailDescription {
+            get {
+                return ResourceManager.GetString("ShowStopRailDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Show reasons row.
         /// </summary>
         public static string ShowStopReasonsRow {
@@ -8787,6 +8895,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string ShowSuggestedStatusRowDescription {
             get {
                 return ResourceManager.GetString("ShowSuggestedStatusRowDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show target rail.
+        /// </summary>
+        public static string ShowTargetRail {
+            get {
+                return ResourceManager.GetString("ShowTargetRail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Shows the target price required to reach the daily profit target based on realized PnL today and current position size..
+        /// </summary>
+        public static string ShowTargetRailDescription {
+            get {
+                return ResourceManager.GetString("ShowTargetRailDescription", resourceCulture);
             }
         }
         
@@ -9579,6 +9705,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string StopHitEarlierToday {
             get {
                 return ResourceManager.GetString("StopHitEarlierToday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Daily loss limit.
+        /// </summary>
+        public static string StopReasonDailyLoss {
+            get {
+                return ResourceManager.GetString("StopReasonDailyLoss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Trailing drawdown.
+        /// </summary>
+        public static string StopReasonTrailingDd {
+            get {
+                return ResourceManager.GetString("StopReasonTrailingDd", resourceCulture);
             }
         }
         
