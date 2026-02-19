@@ -4686,4 +4686,47 @@
     <comment>ClusterSearch</comment>
   </data>
 
+<data name="IBHM" xml:space="preserve">
+    <value>IBH-IBM</value>
+  </data><data name="IBHX1H" xml:space="preserve">
+    <value>IBHX1-ИБХ</value>
+  </data><data name="IBHX21" xml:space="preserve">
+    <value>IBHX2-1</value>
+  </data><data name="IBHX32" xml:space="preserve">
+    <value>IBHX3-2</value>
+  </data><data name="IBL1" xml:space="preserve">
+    <value>IBL-IBLX1</value>
+  </data><data name="IBLX12" xml:space="preserve">
+    <value>IBLX1-2</value>
+  </data><data name="IBLX23" xml:space="preserve">
+    <value>IBLX2-3</value>
+  </data><data name="IBML" xml:space="preserve">
+    <value>IBM-IBL</value>
+  </data>
+    <data name="LabelPosition" xml:space="preserve">
+    <value>Положение метки</value>
+    <comment>UI</comment>
+  </data>
+  <data name="LabelPositionDescription" xml:space="preserve">
+    <value>Расположение меток: на последнем баре, слева, справа или скрыто.</value>
+    <comment>UI</comment>
+  </data>
+
+  <data name="OverlayLineType" xml:space="preserve">
+    <value>Тип overlay-линии</value>
+    <comment>UI</comment>
+  </data>
+  <data name="OverlayLineTypeDescription" xml:space="preserve">
+    <value>Рисует горизонтальные линии от уровней Initial Balance к меткам или по всей ширине графика.</value>
+    <comment>UI</comment>
+  </data>
+
+  <data name="ShowDuringFormation" xml:space="preserve">
+    <value>Показывать во время формирования</value>
+    <comment>UI</comment>
+  </data>
+  <data name="ShowDuringFormationDescription" xml:space="preserve">
+    <value>Если отключено, линии и метки скрываются до завершения Initial Balance.</value>
+    <comment>UI</comment>
+  </data>
 </root>

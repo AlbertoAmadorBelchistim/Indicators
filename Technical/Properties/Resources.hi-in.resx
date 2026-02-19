@@ -2622,4 +2622,47 @@
     <comment>ClusterSearch</comment>
   </data>
 
+<data name="IBHM" xml:space="preserve">
+    <value>IBH-IBM</value>
+  </data><data name="IBHX1H" xml:space="preserve">
+    <value>IBHX1-आईबीएच</value>
+  </data><data name="IBHX21" xml:space="preserve">
+    <value>IBHX2-1</value>
+  </data><data name="IBHX32" xml:space="preserve">
+    <value>IBHX3-2</value>
+  </data><data name="IBL1" xml:space="preserve">
+    <value>IBL-IBLX1</value>
+  </data><data name="IBLX12" xml:space="preserve">
+    <value>IBLX1-2</value>
+  </data><data name="IBLX23" xml:space="preserve">
+    <value>IBLX2-3</value>
+  </data><data name="IBML" xml:space="preserve">
+    <value>IBM-IBL</value>
+  </data>
+    <data name="LabelPosition" xml:space="preserve">
+    <value>लेबल स्थिति</value>
+    <comment>UI</comment>
+  </data>
+  <data name="LabelPositionDescription" xml:space="preserve">
+    <value>लेबल की स्थिति: अंतिम बार पर, बाएँ, दाएँ या छिपा हुआ।</value>
+    <comment>UI</comment>
+  </data>
+
+  <data name="OverlayLineType" xml:space="preserve">
+    <value>ओवरले लाइन प्रकार</value>
+    <comment>UI</comment>
+  </data>
+  <data name="OverlayLineTypeDescription" xml:space="preserve">
+    <value>Initial Balance स्तरों से लेबल तक या पूरे चार्ट की चौड़ाई तक क्षैतिज रेखाएँ खींचता है।</value>
+    <comment>UI</comment>
+  </data>
+
+  <data name="ShowDuringFormation" xml:space="preserve">
+    <value>निर्माण के दौरान दिखाएँ</value>
+    <comment>UI</comment>
+  </data>
+  <data name="ShowDuringFormationDescription" xml:space="preserve">
+    <value>यदि अक्षम किया गया, तो Initial Balance पूर्ण होने तक रेखाएँ और लेबल छिपे रहेंगे।</value>
+    <comment>UI</comment>
+  </data>
 </root>

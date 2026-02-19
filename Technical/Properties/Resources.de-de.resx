@@ -2629,4 +2629,47 @@
     <comment>ClusterSearch</comment>
   </data>
 
+<data name="IBHM" xml:space="preserve">
+    <value>IBH-IBM</value>
+  </data><data name="IBHX1H" xml:space="preserve">
+    <value>IBHX1-IBH</value>
+  </data><data name="IBHX21" xml:space="preserve">
+    <value>IBHX2-1</value>
+  </data><data name="IBHX32" xml:space="preserve">
+    <value>IBHX3-2</value>
+  </data><data name="IBL1" xml:space="preserve">
+    <value>IBL-IBLX1</value>
+  </data><data name="IBLX12" xml:space="preserve">
+    <value>IBLX1-2</value>
+  </data><data name="IBLX23" xml:space="preserve">
+    <value>IBLX2-3</value>
+  </data><data name="IBML" xml:space="preserve">
+    <value>IBM-IBL</value>
+  </data>
+    <data name="LabelPosition" xml:space="preserve">
+    <value>Beschriftungsposition</value>
+    <comment>UI</comment>
+  </data>
+  <data name="LabelPositionDescription" xml:space="preserve">
+    <value>Position der Labels: an der letzten Kerze, links, rechts oder ausgeblendet.</value>
+    <comment>UI</comment>
+  </data>
+
+  <data name="OverlayLineType" xml:space="preserve">
+    <value>Overlay-Linientyp</value>
+    <comment>UI</comment>
+  </data>
+  <data name="OverlayLineTypeDescription" xml:space="preserve">
+    <value>Zeichnet horizontale Linien von den Initial-Balance-Niveaus zu den Labels oder über die gesamte Chartbreite.</value>
+    <comment>UI</comment>
+  </data>
+
+  <data name="ShowDuringFormation" xml:space="preserve">
+    <value>Während der Bildung anzeigen</value>
+    <comment>UI</comment>
+  </data>
+  <data name="ShowDuringFormationDescription" xml:space="preserve">
+    <value>Wenn deaktiviert, werden Linien und Labels erst nach Abschluss der Initial Balance angezeigt.</value>
+    <comment>UI</comment>
+  </data>
 </root>

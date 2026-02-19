@@ -4525,6 +4525,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Label position.
+        /// </summary>
+        public static string LabelPosition {
+            get {
+                return ResourceManager.GetString("LabelPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Where to place the labels: at the last bar, left side, right side, or hidden..
+        /// </summary>
+        public static string LabelPositionDescription {
+            get {
+                return ResourceManager.GetString("LabelPositionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Labels.
         /// </summary>
         public static string Labels {
@@ -6357,6 +6375,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string Overbought3 {
             get {
                 return ResourceManager.GetString("Overbought3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Overlay line type.
+        /// </summary>
+        public static string OverlayLineType {
+            get {
+                return ResourceManager.GetString("OverlayLineType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Draw horizontal overlay lines from the IB levels to the labels or across the full chart width..
+        /// </summary>
+        public static string OverlayLineTypeDescription {
+            get {
+                return ResourceManager.GetString("OverlayLineTypeDescription", resourceCulture);
             }
         }
         
@@ -8544,6 +8580,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string ShowDuration {
             get {
                 return ResourceManager.GetString("ShowDuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show during formation.
+        /// </summary>
+        public static string ShowDuringFormation {
+            get {
+                return ResourceManager.GetString("ShowDuringFormation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a If disabled, hide lines and labels until the Initial Balance is completed..
+        /// </summary>
+        public static string ShowDuringFormationDescription {
+            get {
+                return ResourceManager.GetString("ShowDuringFormationDescription", resourceCulture);
             }
         }
         

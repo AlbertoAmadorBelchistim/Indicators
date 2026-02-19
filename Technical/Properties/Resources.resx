@@ -4937,5 +4937,31 @@
     <value>Color used for sell-side diagonal imbalances.</value>
     <comment>ClusterSearch</comment>
   </data>
+  <data name="LabelPosition" xml:space="preserve">
+    <value>Label position</value>
+    <comment>UI</comment>
+  </data>
+  <data name="LabelPositionDescription" xml:space="preserve">
+    <value>Where to place the labels: at the last bar, left side, right side, or hidden.</value>
+    <comment>UI</comment>
+  </data>
+
+  <data name="OverlayLineType" xml:space="preserve">
+    <value>Overlay line type</value>
+    <comment>UI</comment>
+  </data>
+  <data name="OverlayLineTypeDescription" xml:space="preserve">
+    <value>Draw horizontal overlay lines from the IB levels to the labels or across the full chart width.</value>
+    <comment>UI</comment>
+  </data>
+
+  <data name="ShowDuringFormation" xml:space="preserve">
+    <value>Show during formation</value>
+    <comment>UI</comment>
+  </data>
+  <data name="ShowDuringFormationDescription" xml:space="preserve">
+    <value>If disabled, hide lines and labels until the Initial Balance is completed.</value>
+    <comment>UI</comment>
+  </data>
 
 </root>

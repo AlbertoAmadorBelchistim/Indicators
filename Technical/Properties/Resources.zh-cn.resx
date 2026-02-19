@@ -2578,4 +2578,47 @@
     <comment>ClusterSearch</comment>
   </data>
 
+<data name="IBHM" xml:space="preserve">
+    <value>IBH-IBM</value>
+  </data><data name="IBHX1H" xml:space="preserve">
+    <value>IBHX1-IBH</value>
+  </data><data name="IBHX21" xml:space="preserve">
+    <value>IBHX2-1</value>
+  </data><data name="IBHX32" xml:space="preserve">
+    <value>IBHX3-2</value>
+  </data><data name="IBL1" xml:space="preserve">
+    <value>IBL-IBLX1</value>
+  </data><data name="IBLX12" xml:space="preserve">
+    <value>IBLX1-2</value>
+  </data><data name="IBLX23" xml:space="preserve">
+    <value>IBLX2-3</value>
+  </data><data name="IBML" xml:space="preserve">
+    <value>IBM-IBL</value>
+  </data>
+    <data name="LabelPosition" xml:space="preserve">
+    <value>标签位置</value>
+    <comment>UI</comment>
+  </data>
+  <data name="LabelPositionDescription" xml:space="preserve">
+    <value>标签位置：最后一根K线、左侧、右侧或隐藏。</value>
+    <comment>UI</comment>
+  </data>
+
+  <data name="OverlayLineType" xml:space="preserve">
+    <value>覆盖线类型</value>
+    <comment>UI</comment>
+  </data>
+  <data name="OverlayLineTypeDescription" xml:space="preserve">
+    <value>从 Initial Balance 水平绘制水平线到标签或贯穿整个图表宽度。</value>
+    <comment>UI</comment>
+  </data>
+
+  <data name="ShowDuringFormation" xml:space="preserve">
+    <value>形成期间显示</value>
+    <comment>UI</comment>
+  </data>
+  <data name="ShowDuringFormationDescription" xml:space="preserve">
+    <value>如果禁用，在 Initial Balance 完成之前隐藏线条和标签。</value>
+    <comment>UI</comment>
+  </data>
 </root>

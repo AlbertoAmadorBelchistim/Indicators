@@ -2623,4 +2623,47 @@
     <comment>ClusterSearch</comment>
   </data>
 
+<data name="IBHM" xml:space="preserve">
+    <value>IBH-IBM</value>
+  </data><data name="IBHX1H" xml:space="preserve">
+    <value>IBHX1-IBH</value>
+  </data><data name="IBHX21" xml:space="preserve">
+    <value>IBHX2-1</value>
+  </data><data name="IBHX32" xml:space="preserve">
+    <value>IBHX3-2</value>
+  </data><data name="IBL1" xml:space="preserve">
+    <value>IBL-IBLX1</value>
+  </data><data name="IBLX12" xml:space="preserve">
+    <value>IBLX1-2</value>
+  </data><data name="IBLX23" xml:space="preserve">
+    <value>IBLX2-3</value>
+  </data><data name="IBML" xml:space="preserve">
+    <value>IBM-IBL</value>
+  </data>
+    <data name="LabelPosition" xml:space="preserve">
+    <value>Position de l’étiquette</value>
+    <comment>UI</comment>
+  </data>
+  <data name="LabelPositionDescription" xml:space="preserve">
+    <value>Position des étiquettes : sur la dernière bougie, à gauche, à droite ou masquées.</value>
+    <comment>UI</comment>
+  </data>
+
+  <data name="OverlayLineType" xml:space="preserve">
+    <value>Type de ligne overlay</value>
+    <comment>UI</comment>
+  </data>
+  <data name="OverlayLineTypeDescription" xml:space="preserve">
+    <value>Trace des lignes horizontales depuis les niveaux de l’Initial Balance jusqu’aux étiquettes ou sur toute la largeur du graphique.</value>
+    <comment>UI</comment>
+  </data>
+
+  <data name="ShowDuringFormation" xml:space="preserve">
+    <value>Afficher pendant la formation</value>
+    <comment>UI</comment>
+  </data>
+  <data name="ShowDuringFormationDescription" xml:space="preserve">
+    <value>Si désactivé, masque les lignes et étiquettes jusqu’à la fin de l’Initial Balance.</value>
+    <comment>UI</comment>
+  </data>
 </root>
