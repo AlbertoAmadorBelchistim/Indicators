@@ -1,5 +1,6 @@
 ﻿namespace ATAS.Indicators.Technical;
 
+using ATAS.Indicators.Technical.Properties;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -18,11 +19,13 @@ public partial class ClusterSearch
 
 		public decimal Delta => Ask - Bid;
 
-		#endregion
+        public CrossColor? PriceSelectionColor { get; set; }
 
-		#region ctor
-		
-		public CustomVolumeInfo(decimal price)
+        #endregion
+
+        #region ctor
+
+        public CustomVolumeInfo(decimal price)
 		{
 			Price = price;
 		}
@@ -30,33 +33,37 @@ public partial class ClusterSearch
 		#endregion
 	}
 
-	public enum CalcMode
-	{
-		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Bid))]
-		Bid,
+    public enum CalcMode
+    {
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Bid))]
+        Bid = 0,
 
-		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Ask))]
-		Ask,
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Ask))]
+        Ask = 1,
 
-		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Delta))]
-		Delta,
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Delta))]
+        Delta = 2,
 
-		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Volume))]
-		Volume,
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Volume))]
+        Volume = 3,
 
-		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Ticks))]
-		Tick,
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Ticks))]
+        Tick = 4,
 
-		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.PocLevel))]
-		MaxVolume,
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.PocLevel))]
+        MaxVolume = 5,
 
-		[Browsable(false)]
-		[Obsolete]
-		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Time))]
-		Time
-	}
+        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.DiagonalImbalance))]
+        DiagonalImbalance = 6,
 
-	public enum CandleDirection
+        [Browsable(false)]
+        [Obsolete]
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Time))]
+        Time = 7
+    }
+
+
+    public enum CandleDirection
 	{
 		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Bearlish))]
 		Bearish,
