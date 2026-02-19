@@ -461,7 +461,7 @@ public partial class ClusterSearch : Indicator
 		if (MinAverageTrade != 0 && avgTrade < MinAverageTrade)
 			return false;
 
-		if (MaxAverageTrade != 0 && avgTrade > MinAverageTrade)
+		if (MaxAverageTrade != 0 && avgTrade > MaxAverageTrade)
 			return false;
 
 		if (MinPercent != 0 || MaxPercent != 0)
