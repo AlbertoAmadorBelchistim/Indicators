@@ -2,6 +2,7 @@ namespace ATAS.Indicators.Technical;
 
 using ATAS.DataFeedsCore;
 using ATAS.Indicators.Technical.Properties;
+using DevExpress.Utils;
 using OFT.Attributes;
 using OFT.Localization;
 using OFT.Rendering.Context;
@@ -19,6 +20,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
+using ChartExtensions = ATAS.Indicators.Extensions;
 
 /// <summary>
 /// Displays account information on the chart including account ID, balance, blocked margin, available balance, and PnL.
@@ -939,7 +941,7 @@ public class AccountInfoDisplay : Indicator
     // -----------------------------
     // Soft Recommendations (Phase E)
     // -----------------------------
-    
+
     [Display(
         ResourceType = typeof(Resources),
         Name = nameof(Resources.EnableSoftRecommendations),
@@ -1325,6 +1327,56 @@ public class AccountInfoDisplay : Indicator
         DrawColoredRows(context, rows, textRect, portfolio, maxLabelWidth);
 
         _lastPanelRect = rectangle;
+
+        // -----------------------------
+        // Phase 5-4.2: Chart Price Rails (only when in position)
+        // -----------------------------
+        if (ctx?.Config != null && ctx.Config.EnablePriceRails && ctx.Position != null && ctx.Position.IsOpen)
+        {
+            var chart = ChartInfo;
+            if (chart != null)
+            {
+                int firstX = ChartExtensions.GetXByBar(chart, FirstVisibleBarNumber, false);
+                int rightX = Container.Region.Right;
+
+                // Target rail
+                if (ctx.Config.ShowTargetRail &&
+                    TryGetDailyProfitTargetPrice(portfolio, ctx.Config, ctx.Daily, ctx.Position, out var targetPrice, out var remainingToTarget))
+                {
+                    int yTarget = ChartExtensions.GetYByPrice(chart, targetPrice, false);
+                    var penTarget = new RenderPen(_positiveColor, Math.Max(1, ctx.Config.RailLineWidth));
+                    context.DrawLine(penTarget, firstX, yTarget, rightX, yTarget);
+
+                    if (ctx.Config.ShowRailLabels)
+                    {
+                        var label = string.Format(Resources.RailTargetLabelFormat, targetPrice, FormatCurrency(remainingToTarget));
+                        var size = context.MeasureString(label, _font);
+                        context.DrawString(label, _font, _positiveColor, rightX - (int)size.Width - 6, yTarget - (int)size.Height - 2);
+                    }
+                }
+
+                // Stop rail (effective)
+                if (ctx.Config.ShowStopRail &&
+                    TryGetEffectiveStopPrice(portfolio, ctx.Config, ctx.Trailing, ctx.Daily, ctx.Position, out var stopPrice, out var reasonKey))
+                {
+                    int yStop = ChartExtensions.GetYByPrice(chart, stopPrice, false);
+                    var penStop = new RenderPen(_negativeColor, Math.Max(1, ctx.Config.RailLineWidth));
+                    context.DrawLine(penStop, firstX, yStop, rightX, yStop);
+
+                    if (ctx.Config.ShowRailLabels)
+                    {
+                        var reason = reasonKey == nameof(Resources.StopReasonDailyLoss)
+                            ? Resources.StopReasonDailyLoss
+                            : Resources.StopReasonTrailingDd;
+
+                        var label = string.Format(Resources.RailStopLabelFormat, reason, stopPrice);
+                        var size = context.MeasureString(label, _font);
+                        context.DrawString(label, _font, _negativeColor, rightX - (int)size.Width - 6, yStop - (int)size.Height - 2);
+                    }
+                }
+            }
+        }
+
 
         SavePersistenceIfNeeded();
     }
