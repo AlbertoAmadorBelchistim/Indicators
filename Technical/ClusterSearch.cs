@@ -1,5 +1,6 @@
 namespace ATAS.Indicators.Technical;
 
+using ATAS.Indicators.Technical.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -170,7 +171,7 @@ public partial class ClusterSearch : Indicator
 
 				var info = GetMergedClusterInfo(bar, price);
 
-				if (CheckClusterFilters(info, totalVolume))
+				if (CheckClusterFilters(bar, info, totalVolume))
 					PlaceToDataSeries(bar, info);
 				else
 					RemoveOldSelection(bar, price);
@@ -394,7 +395,7 @@ public partial class ClusterSearch : Indicator
 				}
 			}
 
-			if (inRange && CheckClusterFilters(pocInfo, totalVolume))
+			if (inRange && CheckClusterFilters(bar, pocInfo, totalVolume))
 				PlaceToDataSeries(bar, pocInfo);
 
 			return;
@@ -406,7 +407,7 @@ public partial class ClusterSearch : Indicator
 			{
 				var info = GetMergedClusterInfo(bar, price);
 
-				if (CheckClusterFilters(info, totalVolume))
+				if (CheckClusterFilters(bar, info, totalVolume))
 					PlaceToDataSeries(bar, info);
 			}
 		}
@@ -440,9 +441,91 @@ public partial class ClusterSearch : Indicator
 		return info;
 	}
 
-	private bool CheckClusterFilters(CustomVolumeInfo info, decimal totalVolume)
-	{
-		var value = GetCalcValue(info);
+    private bool CheckDiagonalImbalance(int bar, CustomVolumeInfo upperInfo)
+    {
+        // Upper window is the current merged cluster (Ask/Bid/Vol summed across BarsRange and PriceRange)
+        var price = upperInfo.Price;
+        var step = InstrumentInfo.TickSize;
+        var nTicks = Math.Max(1, PriceRange);
+
+        var lowerStart = price - nTicks * step;
+
+        // Lower window is aligned immediately below the upper window (same height = PriceRange)
+        var lowerInfo = GetMergedClusterInfo(bar, lowerStart);
+
+        var ask = upperInfo.Ask;
+        var lowerBid = lowerInfo.Bid;
+
+        // Base DI decision using window sums
+        var isBuy = lowerBid > 0 &&
+            (ask / lowerBid) >= ImbalanceRatio &&
+            (ask - lowerBid) >= MinVolumeDifference &&
+            ask >= MinDominantVolume;
+
+        var isSell = ask > 0 &&
+            (lowerBid / ask) >= ImbalanceRatio &&
+            (lowerBid - ask) >= MinVolumeDifference &&
+            lowerBid >= MinDominantVolume;
+
+        if (!(isBuy || isSell))
+            return false;
+
+        // Stacked windows: slide by groups of N ticks (non-overlapping)
+        var stacked = 1;
+
+        for (var g = 1; g < ImbalanceStackedRange; g++)
+        {
+            var upStart = price + g * nTicks * step;
+
+            var upInfo = GetMergedClusterInfo(bar, upStart);
+            var loInfo = GetMergedClusterInfo(bar, upStart - nTicks * step);
+
+            var upAsk = upInfo.Ask;
+            var loBid = loInfo.Bid;
+
+            if (isBuy)
+            {
+                var ok = loBid > 0 &&
+                    (upAsk / loBid) >= ImbalanceRatio &&
+                    (upAsk - loBid) >= MinVolumeDifference &&
+                    upAsk >= MinDominantVolume;
+
+                if (!ok)
+                    break;
+
+                stacked++;
+            }
+            else // isSell
+            {
+                var ok = upAsk > 0 &&
+                    (loBid / upAsk) >= ImbalanceRatio &&
+                    (loBid - upAsk) >= MinVolumeDifference &&
+                    loBid >= MinDominantVolume;
+
+                if (!ok)
+                    break;
+
+                stacked++;
+            }
+        }
+
+        if (stacked < ImbalanceStackedRange)
+            return false;
+
+        // Optional per-side coloring
+        upperInfo.PriceSelectionColor = UseSeparateColors
+            ? (isBuy ? BuyImbalanceColor : SellImbalanceColor)
+            : null;
+
+        return true;
+    }
+
+    private bool CheckClusterFilters(int bar, CustomVolumeInfo info, decimal totalVolume)
+    {
+        if (CalcType == CalcMode.DiagonalImbalance)
+            return CheckDiagonalImbalance(bar, info);
+
+        var value = GetCalcValue(info);
 
 		if (AutoFilter)
 		{
@@ -751,14 +834,23 @@ public partial class ClusterSearch : Indicator
 	public CalcMode CalcType
 	{
 		get => _type;
-		set
-		{
-			_type = value;
-			RecalculateValues();
-		}
-	}
+        set
+        {
+            _type = value;
 
-	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Filters), Name = nameof(Strings.AutoFilter),
+            if (value == CalcMode.DiagonalImbalance)
+            {
+                AutoFilter = false;
+                MinimumFilter.Enabled = false;
+                MaximumFilter.Enabled = false;
+            }
+
+            RecalculateValues();
+        }
+
+    }
+
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Filters), Name = nameof(Strings.AutoFilter),
 		Description = nameof(Strings.ClusterSearchAutofilterDescription), Order = 215)]
 	public bool AutoFilter
 	{
@@ -882,11 +974,122 @@ public partial class ClusterSearch : Indicator
 		}
 	}
 
-	#endregion
+    #endregion
 
-	#region Location filters
+    #region Imbalance filters
 
-	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.LocationFilters), Name = nameof(Strings.CandleDirection),
+    private decimal _imbalanceRatio = 3m;
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.DiagonalImbalancesFilters), Name = nameof(Resources.ImbalanceRatio), Order = 320)]
+    [Range(1, 100)]
+    public decimal ImbalanceRatio
+    {
+        get => _imbalanceRatio;
+        set
+        {
+            _imbalanceRatio = value;
+            OnChangeProperty();
+            RecalculateValues();
+        }
+    }
+
+    private decimal _minVolumeDifference = 30m;
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.DiagonalImbalancesFilters), Name = nameof(Resources.MinVolumeDifference), Order = 330)]
+    [Range(0, 1000000)]
+    public decimal MinVolumeDifference
+    {
+        get => _minVolumeDifference;
+        set
+        {
+            _minVolumeDifference = value;
+            OnChangeProperty();
+            RecalculateValues();
+        }
+    }
+
+    private decimal _minDominantVolume = 100m;
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.DiagonalImbalancesFilters), Name = nameof(Resources.MinDominantVolume), Order = 340)]
+    [Range(0, 1000000)]
+    public decimal MinDominantVolume
+    {
+        get => _minDominantVolume;
+        set
+        {
+            _minDominantVolume = value;
+            OnChangeProperty();
+            RecalculateValues();
+        }
+    }
+
+    private int _imbalanceStackedRange = 1;
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.DiagonalImbalancesFilters), Name = nameof(Resources.ImbalanceStackedRange), Order = 350)]
+    [Range(1, 10)]
+    public int ImbalanceStackedRange
+    {
+        get => _imbalanceStackedRange;
+        set
+        {
+            _imbalanceStackedRange = value;
+            OnChangeProperty();
+            RecalculateValues();
+        }
+    }
+
+    #endregion
+
+    #region Imbalances visualization
+
+    private bool _useSeparateColors = true;
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.ImbalancesVisualization), Name = nameof(Resources.UseSeparateColors), Order = 680)]
+    public bool UseSeparateColors
+    {
+        get => _useSeparateColors;
+        set
+        {
+            _useSeparateColors = value;
+            OnChangeProperty();
+            RecalculateValues();
+        }
+    }
+
+    private CrossColor _buyImbalanceColor = CrossColors.Green;
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.ImbalancesVisualization), Name = nameof(Resources.BuyImbalanceColor), Order = 690)]
+    public CrossColor BuyImbalanceColor
+    {
+        get => _buyImbalanceColor;
+        set
+        {
+            _buyImbalanceColor = value;
+            OnChangeProperty();
+            RecalculateValues();
+        }
+    }
+
+    private CrossColor _sellImbalanceColor = CrossColors.Red;
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.ImbalancesVisualization), Name = nameof(Resources.SellImbalanceColor), Order = 695)]
+    public CrossColor SellImbalanceColor
+    {
+        get => _sellImbalanceColor;
+        set
+        {
+            _sellImbalanceColor = value;
+            OnChangeProperty();
+            RecalculateValues();
+        }
+    }
+
+    #endregion
+
+
+    #region Location filters
+
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.LocationFilters), Name = nameof(Strings.CandleDirection),
 		Description = nameof(Strings.CandleDirectionDescription), Order = 400)]
 	public CandleDirection CandleDir
 	{
