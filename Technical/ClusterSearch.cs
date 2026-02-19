@@ -980,7 +980,11 @@ public partial class ClusterSearch : Indicator
 
     private decimal _imbalanceRatio = 3m;
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.DiagonalImbalancesFilters), Name = nameof(Resources.ImbalanceRatio), Order = 320)]
+    [Display(ResourceType = typeof(Resources),
+        GroupName = nameof(Resources.DiagonalImbalancesFilters),
+        Name = nameof(Resources.ImbalanceRatio),
+        Description = nameof(Resources.ImbalanceRatioDescription),
+        Order = 320)]
     [Range(1, 100)]
     public decimal ImbalanceRatio
     {
@@ -995,7 +999,11 @@ public partial class ClusterSearch : Indicator
 
     private decimal _minVolumeDifference = 30m;
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.DiagonalImbalancesFilters), Name = nameof(Resources.MinVolumeDifference), Order = 330)]
+    [Display(ResourceType = typeof(Resources),
+        GroupName = nameof(Resources.DiagonalImbalancesFilters),
+        Name = nameof(Resources.MinVolumeDifference),
+        Description = nameof(Resources.MinVolumeDifferenceDescription),
+        Order = 330)]
     [Range(0, 1000000)]
     public decimal MinVolumeDifference
     {
@@ -1010,7 +1018,11 @@ public partial class ClusterSearch : Indicator
 
     private decimal _minDominantVolume = 100m;
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.DiagonalImbalancesFilters), Name = nameof(Resources.MinDominantVolume), Order = 340)]
+    [Display(ResourceType = typeof(Resources),
+        GroupName = nameof(Resources.DiagonalImbalancesFilters),
+        Name = nameof(Resources.MinDominantVolume),
+        Description = nameof(Resources.MinDominantVolumeDescription),
+        Order = 340)]
     [Range(0, 1000000)]
     public decimal MinDominantVolume
     {
@@ -1025,7 +1037,11 @@ public partial class ClusterSearch : Indicator
 
     private int _imbalanceStackedRange = 1;
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.DiagonalImbalancesFilters), Name = nameof(Resources.ImbalanceStackedRange), Order = 350)]
+    [Display(ResourceType = typeof(Resources),
+        GroupName = nameof(Resources.DiagonalImbalancesFilters),
+        Name = nameof(Resources.ImbalanceStackedRange),
+        Description = nameof(Resources.ImbalanceStackedRangeDescription),
+        Order = 350)]
     [Range(1, 10)]
     public int ImbalanceStackedRange
     {
@@ -1044,7 +1060,11 @@ public partial class ClusterSearch : Indicator
 
     private bool _useSeparateColors = true;
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.ImbalancesVisualization), Name = nameof(Resources.UseSeparateColors), Order = 680)]
+    [Display(ResourceType = typeof(Resources),
+        GroupName = nameof(Resources.ImbalancesVisualization),
+        Name = nameof(Resources.UseSeparateColors),
+        Description = nameof(Resources.UseSeparateColorsDescription),
+        Order = 360)]
     public bool UseSeparateColors
     {
         get => _useSeparateColors;
@@ -1058,7 +1078,11 @@ public partial class ClusterSearch : Indicator
 
     private CrossColor _buyImbalanceColor = CrossColors.Green;
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.ImbalancesVisualization), Name = nameof(Resources.BuyImbalanceColor), Order = 690)]
+    [Display(ResourceType = typeof(Resources),
+        GroupName = nameof(Resources.ImbalancesVisualization),
+        Name = nameof(Resources.BuyImbalanceColor),
+        Description = nameof(Resources.BuyImbalanceColorDescription),
+        Order = 370)]
     public CrossColor BuyImbalanceColor
     {
         get => _buyImbalanceColor;
@@ -1072,7 +1096,11 @@ public partial class ClusterSearch : Indicator
 
     private CrossColor _sellImbalanceColor = CrossColors.Red;
 
-    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.ImbalancesVisualization), Name = nameof(Resources.SellImbalanceColor), Order = 695)]
+    [Display(ResourceType = typeof(Resources),
+        GroupName = nameof(Resources.ImbalancesVisualization),
+        Name = nameof(Resources.SellImbalanceColor),
+        Description = nameof(Resources.SellImbalanceColorDescription),
+        Order = 380)]
     public CrossColor SellImbalanceColor
     {
         get => _sellImbalanceColor;
@@ -1085,6 +1113,7 @@ public partial class ClusterSearch : Indicator
     }
 
     #endregion
+
 
 
     #region Location filters
