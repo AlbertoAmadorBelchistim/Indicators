@@ -1,5 +1,6 @@
 ﻿namespace ATAS.Indicators.Technical;
 
+using ATAS.Indicators.Technical.Properties;
 using System;
 
 using OFT.Localization;
@@ -30,17 +31,18 @@ public partial class ClusterSearch
 	//Insert or replace price level in series
 	private void PlaceToDataSeries(int bar, CustomVolumeInfo cluster)
 	{
-		var value = CalcType switch
-		{
-			CalcMode.Bid => cluster.Bid,
-			CalcMode.Ask => cluster.Ask,
-			CalcMode.Delta => cluster.Delta,
-			CalcMode.Volume or CalcMode.MaxVolume => cluster.Volume,
-			CalcMode.Tick => cluster.Ticks,
-			_ => 0
-		};
+        var value = CalcType switch
+        {
+            CalcMode.Bid => cluster.Bid,
+            CalcMode.Ask => cluster.Ask,
+            CalcMode.Delta => cluster.Delta,
+            CalcMode.Volume or CalcMode.MaxVolume => cluster.Volume,
+            CalcMode.Tick => cluster.Ticks,
+            CalcMode.DiagonalImbalance => Math.Max(cluster.Ask, cluster.Bid), // size by dominant side
+            _ => 0
+        };
 
-		var level = CreatePriceSelectionValue(cluster);
+        var level = CreatePriceSelectionValue(cluster);
 
         if (OnlyOneSelectionPerBar
 		    && CalcType is not CalcMode.MaxVolume
@@ -95,17 +97,18 @@ public partial class ClusterSearch
 			_ => SelectionType.Full
 		};
 
-		var value = CalcType switch
-		{
-			CalcMode.Bid => cluster.Bid,
-			CalcMode.Ask => cluster.Ask,
-			CalcMode.Delta => cluster.Delta,
-			CalcMode.Volume or CalcMode.MaxVolume => cluster.Volume,
-			CalcMode.Tick => cluster.Ticks,
-			_ => 0
-		};
+        var value = CalcType switch
+        {
+            CalcMode.Bid => cluster.Bid,
+            CalcMode.Ask => cluster.Ask,
+            CalcMode.Delta => cluster.Delta,
+            CalcMode.Volume or CalcMode.MaxVolume => cluster.Volume,
+            CalcMode.Tick => cluster.Ticks,
+            CalcMode.DiagonalImbalance => Math.Max(cluster.Ask, cluster.Bid), // size by dominant side
+            _ => 0
+        };
 
-		var absValue = CalcType is CalcMode.Delta 
+        var absValue = CalcType is CalcMode.Delta 
 			? Math.Abs(value) 
 			: value;
 
@@ -133,8 +136,8 @@ public partial class ClusterSearch
 			SelectionSide = selectionSide,
 			ObjectColor = _clusterTransColor,
 			ObjectsTransparency = _visualObjectsTransparency,
-			PriceSelectionColor = ShowPriceSelection ? _clusterPriceColor : CrossColors.Transparent,
-			Tooltip = CreateToolTip(value),
+            PriceSelectionColor = cluster.PriceSelectionColor ?? (ShowPriceSelection ? _clusterPriceColor : CrossColors.Transparent),
+            Tooltip = CreateToolTip(value),
 			Context = absValue,
 			MinimumPrice = cluster.Price,
 			MaximumPrice = cluster.Price + InstrumentInfo.TickSize * (PriceRange - 1)
@@ -148,18 +151,19 @@ public partial class ClusterSearch
 	{
 		var tip = "Cluster Search" + Environment.NewLine + ChartInfo.TryGetMinimizedVolumeString(value) + " ";
 
-		tip += CalcType switch
-		{
-			CalcMode.Bid => Strings.Bid,
-			CalcMode.Ask => Strings.Ask,
-			CalcMode.Delta => Strings.Delta,
-			CalcMode.Volume => Strings.Volume,
-			CalcMode.Tick => Strings.Ticks,
-			CalcMode.MaxVolume => Strings.PocLevel,
-			_ => ""
-		};
+        tip += CalcType switch
+        {
+            CalcMode.Bid => Strings.Bid,
+            CalcMode.Ask => Strings.Ask,
+            CalcMode.Delta => Strings.Delta,
+            CalcMode.Volume => Strings.Volume,
+            CalcMode.Tick => Strings.Ticks,
+            CalcMode.MaxVolume => Strings.PocLevel,
+            CalcMode.DiagonalImbalance => Resources.DiagonalImbalance,
+            _ => ""
+        };
 
-		return tip;
+        return tip;
 	}
 
 	#endregion
