@@ -4617,4 +4617,45 @@
   <value>Стоп ({0}) {1:N2}</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+  <data name="DiagonalImbalance" xml:space="preserve">
+    <value>Диагональный дисбаланс</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="DiagonalImbalancesFilters" xml:space="preserve">
+    <value>Фильтры диагонального дисбаланса</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="ImbalancesVisualization" xml:space="preserve">
+    <value>Визуализация дисбалансов</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="ImbalanceRatio" xml:space="preserve">
+    <value>Коэффициент дисбаланса</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="MinVolumeDifference" xml:space="preserve">
+    <value>Минимальная разница объёма</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="MinDominantVolume" xml:space="preserve">
+    <value>Минимальный доминирующий объём</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="ImbalanceStackedRange" xml:space="preserve">
+    <value>Диапазон стакинга дисбаланса</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="UseSeparateColors" xml:space="preserve">
+    <value>Использовать разные цвета</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="BuyImbalanceColor" xml:space="preserve">
+    <value>Цвет дисбаланса покупок</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="SellImbalanceColor" xml:space="preserve">
+    <value>Цвет дисбаланса продаж</value>
+    <comment>ClusterSearch</comment>
+  </data>
+
 </root>

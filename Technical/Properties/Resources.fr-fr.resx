@@ -2554,4 +2554,45 @@
   <value>Stop ({0}) {1:N2}</value>
   <comment>AccountInfoDisplay</comment>
 </data>
+  <data name="DiagonalImbalance" xml:space="preserve">
+    <value>Déséquilibre diagonal</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="DiagonalImbalancesFilters" xml:space="preserve">
+    <value>Filtres de déséquilibre diagonal</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="ImbalancesVisualization" xml:space="preserve">
+    <value>Visualisation des déséquilibres</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="ImbalanceRatio" xml:space="preserve">
+    <value>Ratio de déséquilibre</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="MinVolumeDifference" xml:space="preserve">
+    <value>Différence minimale de volume</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="MinDominantVolume" xml:space="preserve">
+    <value>Volume dominant minimal</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="ImbalanceStackedRange" xml:space="preserve">
+    <value>Plage empilée du déséquilibre</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="UseSeparateColors" xml:space="preserve">
+    <value>Utiliser des couleurs séparées</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="BuyImbalanceColor" xml:space="preserve">
+    <value>Couleur déséquilibre achat</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="SellImbalanceColor" xml:space="preserve">
+    <value>Couleur déséquilibre vente</value>
+    <comment>ClusterSearch</comment>
+  </data>
+
 </root>

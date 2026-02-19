@@ -1276,6 +1276,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Buy Imbalance Color.
+        /// </summary>
+        public static string BuyImbalanceColor {
+            get {
+                return ResourceManager.GetString("BuyImbalanceColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Buy Imb.
         /// </summary>
         public static string BuyImbShort {
@@ -2577,6 +2586,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string Deviation {
             get {
                 return ResourceManager.GetString("Deviation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Diagonal Imbalance.
+        /// </summary>
+        public static string DiagonalImbalance {
+            get {
+                return ResourceManager.GetString("DiagonalImbalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Diagonal Imbalance Filters.
+        /// </summary>
+        public static string DiagonalImbalancesFilters {
+            get {
+                return ResourceManager.GetString("DiagonalImbalancesFilters", resourceCulture);
             }
         }
         
@@ -4210,6 +4237,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Imbalance Stacked Range.
+        /// </summary>
+        public static string ImbalanceStackedRange {
+            get {
+                return ResourceManager.GetString("ImbalanceStackedRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Imbalances Visualization.
+        /// </summary>
+        public static string ImbalancesVisualization {
+            get {
+                return ResourceManager.GetString("ImbalancesVisualization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Imbalance Threshold (%).
         /// </summary>
         public static string ImbalanceThresholdPercentName {
@@ -5605,6 +5650,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Minimum Dominant Volume.
+        /// </summary>
+        public static string MinDominantVolume {
+            get {
+                return ResourceManager.GetString("MinDominantVolume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Minimal Deviation (%).
         /// </summary>
         public static string MinimalDeviation {
@@ -5799,6 +5853,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string MinVolPercent {
             get {
                 return ResourceManager.GetString("MinVolPercent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Minimum Volume Difference.
+        /// </summary>
+        public static string MinVolumeDifference {
+            get {
+                return ResourceManager.GetString("MinVolumeDifference", resourceCulture);
             }
         }
         
@@ -7833,6 +7896,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string SellColor {
             get {
                 return ResourceManager.GetString("SellColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Sell Imbalance Color.
+        /// </summary>
+        public static string SellImbalanceColor {
+            get {
+                return ResourceManager.GetString("SellImbalanceColor", resourceCulture);
             }
         }
         
@@ -10731,6 +10803,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string UseScale {
             get {
                 return ResourceManager.GetString("UseScale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Use Separate Colors.
+        /// </summary>
+        public static string UseSeparateColors {
+            get {
+                return ResourceManager.GetString("UseSeparateColors", resourceCulture);
             }
         }
         
