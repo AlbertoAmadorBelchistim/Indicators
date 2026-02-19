@@ -2549,5 +2549,33 @@
     <value>卖方失衡颜色</value>
     <comment>ClusterSearch</comment>
   </data>
+  <data name="ImbalanceRatioDescription" xml:space="preserve">
+    <value>用于确认对角失衡的最小主导比率（主动方相对被动方）。</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="MinVolumeDifferenceDescription" xml:space="preserve">
+    <value>确认所需的最小绝对成交量差（主动方 vs 被动方）。</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="MinDominantVolumeDescription" xml:space="preserve">
+    <value>标记失衡所需的主导侧最小成交量。</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="ImbalanceStackedRangeDescription" xml:space="preserve">
+    <value>确认堆叠失衡所需的连续窗口数量。</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="UseSeparateColorsDescription" xml:space="preserve">
+    <value>按方向为对角失衡着色（买入 vs 卖出）。</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="BuyImbalanceColorDescription" xml:space="preserve">
+    <value>买方对角失衡使用的颜色。</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="SellImbalanceColorDescription" xml:space="preserve">
+    <value>卖方对角失衡使用的颜色。</value>
+    <comment>ClusterSearch</comment>
+  </data>
 
 </root>

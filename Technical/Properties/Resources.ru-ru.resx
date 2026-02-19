@@ -4657,5 +4657,33 @@
     <value>Цвет дисбаланса продаж</value>
     <comment>ClusterSearch</comment>
   </data>
+  <data name="ImbalanceRatioDescription" xml:space="preserve">
+    <value>Минимальное соотношение доминирования между агрессором и пассивной стороной для подтверждения диагонального дисбаланса.</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="MinVolumeDifferenceDescription" xml:space="preserve">
+    <value>Минимальная абсолютная разница объёма между агрессором и пассивной стороной, необходимая для подтверждения.</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="MinDominantVolumeDescription" xml:space="preserve">
+    <value>Минимальный объём на доминирующей стороне, необходимый для отметки дисбаланса.</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="ImbalanceStackedRangeDescription" xml:space="preserve">
+    <value>Количество последовательных окон, необходимых для подтверждения стакинга дисбаланса.</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="UseSeparateColorsDescription" xml:space="preserve">
+    <value>Окрашивать диагональные дисбалансы по направлению (покупка vs продажа).</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="BuyImbalanceColorDescription" xml:space="preserve">
+    <value>Цвет для диагональных дисбалансов покупок.</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="SellImbalanceColorDescription" xml:space="preserve">
+    <value>Цвет для диагональных дисбалансов продаж.</value>
+    <comment>ClusterSearch</comment>
+  </data>
 
 </root>

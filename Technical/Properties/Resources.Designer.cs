@@ -1285,6 +1285,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Color used for buy-side diagonal imbalances..
+        /// </summary>
+        public static string BuyImbalanceColorDescription {
+            get {
+                return ResourceManager.GetString("BuyImbalanceColorDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Buy Imb.
         /// </summary>
         public static string BuyImbShort {
@@ -4237,11 +4246,29 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Minimum dominance ratio between aggressor and passive side required to validate a diagonal imbalance..
+        /// </summary>
+        public static string ImbalanceRatioDescription {
+            get {
+                return ResourceManager.GetString("ImbalanceRatioDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Imbalance Stacked Range.
         /// </summary>
         public static string ImbalanceStackedRange {
             get {
                 return ResourceManager.GetString("ImbalanceStackedRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Number of consecutive imbalance windows required to confirm a stacked imbalance..
+        /// </summary>
+        public static string ImbalanceStackedRangeDescription {
+            get {
+                return ResourceManager.GetString("ImbalanceStackedRangeDescription", resourceCulture);
             }
         }
         
@@ -5659,6 +5686,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Minimum traded volume on the dominant side required to mark an imbalance..
+        /// </summary>
+        public static string MinDominantVolumeDescription {
+            get {
+                return ResourceManager.GetString("MinDominantVolumeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Minimal Deviation (%).
         /// </summary>
         public static string MinimalDeviation {
@@ -5862,6 +5898,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string MinVolumeDifference {
             get {
                 return ResourceManager.GetString("MinVolumeDifference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Minimum absolute volume difference between aggressor and passive side required for confirmation..
+        /// </summary>
+        public static string MinVolumeDifferenceDescription {
+            get {
+                return ResourceManager.GetString("MinVolumeDifferenceDescription", resourceCulture);
             }
         }
         
@@ -7905,6 +7950,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string SellImbalanceColor {
             get {
                 return ResourceManager.GetString("SellImbalanceColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Color used for sell-side diagonal imbalances..
+        /// </summary>
+        public static string SellImbalanceColorDescription {
+            get {
+                return ResourceManager.GetString("SellImbalanceColorDescription", resourceCulture);
             }
         }
         
@@ -10812,6 +10866,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string UseSeparateColors {
             get {
                 return ResourceManager.GetString("UseSeparateColors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Color diagonal imbalances by direction (buy vs sell)..
+        /// </summary>
+        public static string UseSeparateColorsDescription {
+            get {
+                return ResourceManager.GetString("UseSeparateColorsDescription", resourceCulture);
             }
         }
         

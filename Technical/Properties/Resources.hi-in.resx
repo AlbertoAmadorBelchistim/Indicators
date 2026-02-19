@@ -2593,5 +2593,33 @@
     <value>बिक्री असंतुलन रंग</value>
     <comment>ClusterSearch</comment>
   </data>
+  <data name="ImbalanceRatioDescription" xml:space="preserve">
+    <value>डायगोनल असंतुलन की पुष्टि के लिए आक्रामक बनाम निष्क्रिय पक्ष के बीच न्यूनतम डॉमिनेंस रेशियो।</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="MinVolumeDifferenceDescription" xml:space="preserve">
+    <value>पुष्टि के लिए आक्रामक और निष्क्रिय पक्ष के बीच न्यूनतम परिमाणात्मक वॉल्यूम अंतर।</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="MinDominantVolumeDescription" xml:space="preserve">
+    <value>असंतुलन मार्क करने के लिए डॉमिनेंट साइड पर न्यूनतम ट्रेडेड वॉल्यूम।</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="ImbalanceStackedRangeDescription" xml:space="preserve">
+    <value>स्टैक्ड असंतुलन की पुष्टि के लिए आवश्यक लगातार विंडो की संख्या।</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="UseSeparateColorsDescription" xml:space="preserve">
+    <value>दिशा के अनुसार रंग लगाएँ (खरीद बनाम बिक्री)।</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="BuyImbalanceColorDescription" xml:space="preserve">
+    <value>खरीद-तरफ़ डायगोनल असंतुलन के लिए रंग।</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="SellImbalanceColorDescription" xml:space="preserve">
+    <value>बिक्री-तरफ़ डायगोनल असंतुलन के लिए रंग।</value>
+    <comment>ClusterSearch</comment>
+  </data>
 
 </root>

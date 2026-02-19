@@ -2600,5 +2600,33 @@
     <value>Farbe Verkauf-Ungleichgewicht</value>
     <comment>ClusterSearch</comment>
   </data>
+  <data name="ImbalanceRatioDescription" xml:space="preserve">
+    <value>Minimales Dominanzverhältnis zwischen aggressiver und passiver Seite zur Bestätigung eines Diagonalungleichgewichts.</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="MinVolumeDifferenceDescription" xml:space="preserve">
+    <value>Minimale absolute Volumendifferenz zwischen aggressiver und passiver Seite zur Bestätigung.</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="MinDominantVolumeDescription" xml:space="preserve">
+    <value>Minimales gehandeltes Volumen auf der dominanten Seite, um ein Ungleichgewicht zu markieren.</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="ImbalanceStackedRangeDescription" xml:space="preserve">
+    <value>Anzahl aufeinanderfolgender Fenster, die zur Bestätigung eines gestapelten Ungleichgewichts erforderlich sind.</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="UseSeparateColorsDescription" xml:space="preserve">
+    <value>Diagonalungleichgewichte nach Richtung einfärben (Kauf vs Verkauf).</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="BuyImbalanceColorDescription" xml:space="preserve">
+    <value>Farbe für kaufseitige Diagonalungleichgewichte.</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="SellImbalanceColorDescription" xml:space="preserve">
+    <value>Farbe für verkaufsseitige Diagonalungleichgewichte.</value>
+    <comment>ClusterSearch</comment>
+  </data>
 
 </root>

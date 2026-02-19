@@ -2594,5 +2594,33 @@
     <value>Couleur déséquilibre vente</value>
     <comment>ClusterSearch</comment>
   </data>
+  <data name="ImbalanceRatioDescription" xml:space="preserve">
+    <value>Ratio minimal de dominance entre le côté agresseur et le côté passif pour valider un déséquilibre diagonal.</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="MinVolumeDifferenceDescription" xml:space="preserve">
+    <value>Différence absolue minimale de volume entre le côté agresseur et le côté passif requise pour confirmation.</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="MinDominantVolumeDescription" xml:space="preserve">
+    <value>Volume minimal négocié du côté dominant requis pour marquer le déséquilibre.</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="ImbalanceStackedRangeDescription" xml:space="preserve">
+    <value>Nombre de fenêtres consécutives nécessaires pour confirmer un déséquilibre empilé.</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="UseSeparateColorsDescription" xml:space="preserve">
+    <value>Colorer les déséquilibres diagonaux selon la direction (achat vs vente).</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="BuyImbalanceColorDescription" xml:space="preserve">
+    <value>Couleur utilisée pour les déséquilibres diagonaux acheteurs.</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="SellImbalanceColorDescription" xml:space="preserve">
+    <value>Couleur utilisée pour les déséquilibres diagonaux vendeurs.</value>
+    <comment>ClusterSearch</comment>
+  </data>
 
 </root>

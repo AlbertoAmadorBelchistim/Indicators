@@ -4909,4 +4909,33 @@
     <value>Sell Imbalance Color</value>
     <comment>ClusterSearch</comment>
   </data>
+    <data name="ImbalanceRatioDescription" xml:space="preserve">
+    <value>Minimum dominance ratio between aggressor and passive side required to validate a diagonal imbalance.</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="MinVolumeDifferenceDescription" xml:space="preserve">
+    <value>Minimum absolute volume difference between aggressor and passive side required for confirmation.</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="MinDominantVolumeDescription" xml:space="preserve">
+    <value>Minimum traded volume on the dominant side required to mark an imbalance.</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="ImbalanceStackedRangeDescription" xml:space="preserve">
+    <value>Number of consecutive imbalance windows required to confirm a stacked imbalance.</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="UseSeparateColorsDescription" xml:space="preserve">
+    <value>Color diagonal imbalances by direction (buy vs sell).</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="BuyImbalanceColorDescription" xml:space="preserve">
+    <value>Color used for buy-side diagonal imbalances.</value>
+    <comment>ClusterSearch</comment>
+  </data>
+  <data name="SellImbalanceColorDescription" xml:space="preserve">
+    <value>Color used for sell-side diagonal imbalances.</value>
+    <comment>ClusterSearch</comment>
+  </data>
+
 </root>
