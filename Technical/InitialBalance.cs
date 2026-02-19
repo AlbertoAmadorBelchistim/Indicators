@@ -1,17 +1,16 @@
 namespace ATAS.Indicators.Technical;
 
+using ATAS.Indicators.Drawing;
+using OFT.Attributes;
+using OFT.Localization;
+using OFT.Rendering.Context;
+using OFT.Rendering.Settings;
+using OFT.Rendering.Tools;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Linq;
-
-using ATAS.Indicators.Drawing;
-
-using OFT.Attributes;
-using OFT.Localization;
-using OFT.Rendering.Settings;
-
 using Pen = CrossPen;
 
 [DisplayName("Initial Balance")]
@@ -204,6 +203,16 @@ public class InitialBalance : Indicator
 	private decimal mid = decimal.Zero;
 
 	private bool _isStarted;
+
+    private RenderFont _font = new("Arial", 12);
+
+    private readonly RenderStringFormat _stringLeftFormat = new()
+    {
+        Alignment = StringAlignment.Near,
+        LineAlignment = StringAlignment.Center,
+        Trimming = StringTrimming.EllipsisCharacter,
+        FormatFlags = StringFormatFlags.NoWrap
+    };
 
     #endregion
 
@@ -456,6 +465,8 @@ public class InitialBalance : Indicator
 		: base(true)
 	{
 		DenyToChangePanel = true;
+        EnableCustomDrawing = true;
+        SubscribeToDrawingEvents(DrawingLayouts.Final);
 
         DataSeries[0] = _mid;
         DataSeries.Add(_ibh);
@@ -695,39 +706,65 @@ public class InitialBalance : Indicator
 		_iblx12[bar].Lower = _iblx23[bar].Upper = iblx2;
 		_iblx23[bar].Lower = iblx3;
 
-        if (DrawText)
-		{
-			AddText(_lastStartBar + "Mid", "Mid", true, bar, mid, 0, 0, ConvertColor(_mid.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
-
-			AddText(_lastStartBar + "IBH", "IBH", true, bar, _ibMax, 0, 0, ConvertColor(_ibh.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
-
-			AddText(_lastStartBar + "IBL", "IBL", true, bar, _ibMin, 0, 0, ConvertColor(_ibl.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
-
-			AddText(_lastStartBar + "IBM", "IBM", true, bar, _ibmValue, 0, 0, ConvertColor(_ibm.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
-
-			AddText(_lastStartBar + "IBHX1", "IBHX1", true, bar, ibhx1, 0, 0, ConvertColor(_ibhx1.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
-
-			AddText(_lastStartBar + "IBHX2", "IBHX2", true, bar, ibhx2, 0, 0, ConvertColor(_ibhx2.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
-
-			AddText(_lastStartBar + "IBHX3", "IBHX3", true, bar, ibhx3, 0, 0, ConvertColor(_ibhx3.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
-
-			AddText(_lastStartBar + "IBLX1", "IBLX1", true, bar, iblx1, 0, 0, ConvertColor(_iblx1.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
-
-			AddText(_lastStartBar + "IBLX2", "IBLX2", true, bar, iblx2, 0, 0, ConvertColor(_iblx2.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
-
-			AddText(_lastStartBar + "IBLX3", "IBLX3", true, bar, iblx3, 0, 0, ConvertColor(_iblx3.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
-		}
 	}
+
+    protected override void OnRender(RenderContext context, DrawingLayouts layout)
+    {
+        if (layout != DrawingLayouts.Final)
+            return;
+
+        if (!_drawText || ChartInfo is null || CurrentBar <= 0)
+            return;
+
+        var endBar = Math.Max(0, CurrentBar - 1);
+
+        // Bar-anchor baseline (equivalente a lo que hacía AddText: etiqueta “pegada” al último bar)
+        var xBar = ChartInfo.GetXByBar(endBar);
+        var barWidth = (int)ChartInfo.PriceChartContainer.BarsWidth;
+        var x = xBar + barWidth + 5;
+
+        DrawLabel(context, Strings.IBHM, _ibh, _ibh[endBar], x);
+        DrawLabel(context, Strings.IBML, _ibm, _ibm[endBar], x);
+        DrawLabel(context, Strings.IBL1, _ibl, _ibl[endBar], x);
+
+        DrawLabel(context, Strings.IBHX1H, _ibhx1, _ibhx1[endBar], x);
+        DrawLabel(context, Strings.IBHX21, _ibhx2, _ibhx2[endBar], x);
+        DrawLabel(context, Strings.IBHX32, _ibhx3, _ibhx3[endBar], x);
+
+        DrawLabel(context, Strings.IBLX12, _iblx1, _iblx1[endBar], x);
+        DrawLabel(context, Strings.IBLX23, _iblx2, _iblx2[endBar], x);
+    }
+
+    private void DrawLabel(RenderContext context, string text, ValueDataSeries series, decimal price, int x)
+    {
+        if (price == 0m || price == decimal.MinValue || price == decimal.MaxValue)
+            return;
+
+        var region = ChartInfo.PriceChartContainer.Region;
+        var y = ChartInfo.GetYByPrice(price, false);
+
+        if (y < region.Y || y > region.Bottom)
+            return;
+
+        var size = context.MeasureString(text, _font);
+
+        var textColor = ChartInfo.ColorsStore.MouseTextColor;
+        var backgroundColor = ChartInfo.ColorsStore.BaseBackgroundColor;
+
+        var pen = new PenSettings
+        {
+            Color = series.Color,
+            Width = series.Width,
+            LineDashStyle = series.LineDashStyle
+        }.RenderObject;
+
+        var rect = new Rectangle(x - 2, y - size.Height / 2 - 1, size.Width + 4, size.Height + 2);
+        context.FillRectangle(backgroundColor, rect);
+        context.DrawRectangle(pen, rect);
+
+        var textRect = new Rectangle(x, y - size.Height / 2, size.Width, size.Height);
+        context.DrawString(text, _font, textColor, textRect, _stringLeftFormat);
+    }
 
     private DateTime GetPrevDateTime(int bar)
     {
