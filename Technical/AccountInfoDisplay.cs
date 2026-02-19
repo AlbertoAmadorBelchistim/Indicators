@@ -287,6 +287,13 @@ public class AccountInfoDisplay : Indicator
         public bool ShowTradeMaxOpenPnlLastRow { get; set; }
         public bool ShowLastClosedTradePnlRow { get; set; }
 
+        // Phase 5-4: Price Rails
+        public bool EnablePriceRails { get; set; } = false;
+        public bool ShowTargetRail { get; set; } = true;
+        public bool ShowStopRail { get; set; } = true;
+        public bool ShowRailLabels { get; set; } = true;
+        public int RailLineWidth { get; set; } = 2;
+
     }
 
     private sealed class TradeCloseEventV1
@@ -881,6 +888,52 @@ public class AccountInfoDisplay : Indicator
         GroupName = nameof(Resources.DailyRails),
         Order = 550)]
     public decimal DailyMaxDrawdownFromPeak { get; set; }
+
+    // -----------------------------
+    // Price Rails (Phase 5-4)
+    // -----------------------------
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.EnablePriceRails),
+        Description = nameof(Resources.EnablePriceRailsDescription),
+        GroupName = nameof(Resources.DailyRails),
+        Order = 560)]
+    public bool EnablePriceRails { get; set; } = false;
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.ShowTargetRail),
+        Description = nameof(Resources.ShowTargetRailDescription),
+        GroupName = nameof(Resources.DailyRails),
+        Order = 570)]
+    public bool ShowTargetRail { get; set; } = true;
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.ShowStopRail),
+        Description = nameof(Resources.ShowStopRailDescription),
+        GroupName = nameof(Resources.DailyRails),
+        Order = 580)]
+    public bool ShowStopRail { get; set; } = true;
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.ShowRailLabels),
+        Description = nameof(Resources.ShowRailLabelsDescription),
+        GroupName = nameof(Resources.DailyRails),
+        Order = 590)]
+    public bool ShowRailLabels { get; set; } = true;
+
+    [Display(
+        ResourceType = typeof(Resources),
+        Name = nameof(Resources.RailLineWidth),
+        Description = nameof(Resources.RailLineWidthDescription),
+        GroupName = nameof(Resources.DailyRails),
+        Order = 600)]
+    [Range(1, 6)]
+    public int RailLineWidth { get; set; } = 2;
+
 
 
     // -----------------------------
@@ -1553,6 +1606,29 @@ public class AccountInfoDisplay : Indicator
                 rows.Add(new DisplayRow(Resources.RowPos, Resources.PosFlatValue));
             }
         }
+
+        var cfg = ctx.Config ?? CreateDefaultConfigFromCurrentUi();
+
+        if (cfg.EnablePriceRails && ctx.Position.IsOpen)
+        {
+            if (cfg.ShowTargetRail &&
+                TryGetDailyProfitTargetPrice(portfolio, cfg, ctx.Daily, ctx.Position, out var tpPrice, out var tpRemain))
+            {
+                var label = string.Format(Resources.RailTargetLabelFormat, tpPrice, FormatCurrency(tpRemain));
+                rows.Add(new DisplayRow(Resources.RowPriceRailTarget, label));
+            }
+
+            if (cfg.ShowStopRail &&
+                TryGetEffectiveStopPrice(portfolio, cfg, ctx.Trailing, ctx.Daily, ctx.Position, out var slPrice, out var reasonKey))
+            {
+                var reason = reasonKey == nameof(Resources.StopReasonDailyLoss)
+                    ? Resources.StopReasonDailyLoss
+                    : Resources.StopReasonTrailingDd;
+
+                rows.Add(new DisplayRow(Resources.RowPriceRailStop, $"{slPrice:N2} ({reason})"));
+            }
+        }
+
 
         return rows;
     }
@@ -2914,7 +2990,14 @@ public class AccountInfoDisplay : Indicator
 
             ShowTradeMaxOpenPnlCurrentRow = ShowTradeMaxOpenPnlCurrentRow,
             ShowTradeMaxOpenPnlLastRow = ShowTradeMaxOpenPnlLastRow,
-            ShowLastClosedTradePnlRow = ShowLastClosedTradePnlRow
+            ShowLastClosedTradePnlRow = ShowLastClosedTradePnlRow,
+
+            EnablePriceRails = EnablePriceRails,
+            ShowTargetRail = ShowTargetRail,
+            ShowStopRail = ShowStopRail,
+            ShowRailLabels = ShowRailLabels,
+            RailLineWidth = RailLineWidth
+
 
         };
     }
@@ -3117,6 +3200,13 @@ public class AccountInfoDisplay : Indicator
             ShowTradeMaxOpenPnlCurrentRow = cfg.ShowTradeMaxOpenPnlCurrentRow;
             ShowTradeMaxOpenPnlLastRow = cfg.ShowTradeMaxOpenPnlLastRow;
             ShowLastClosedTradePnlRow = cfg.ShowLastClosedTradePnlRow;
+
+            EnablePriceRails = cfg.EnablePriceRails;
+            ShowTargetRail = cfg.ShowTargetRail;
+            ShowStopRail = cfg.ShowStopRail;
+            ShowRailLabels = cfg.ShowRailLabels;
+            RailLineWidth = cfg.RailLineWidth;
+
         }
         finally
         {
@@ -3198,6 +3288,12 @@ public class AccountInfoDisplay : Indicator
         if (cfg.ShowTradeMaxOpenPnlCurrentRow != ShowTradeMaxOpenPnlCurrentRow) { cfg.ShowTradeMaxOpenPnlCurrentRow = ShowTradeMaxOpenPnlCurrentRow; changed = true; }
         if (cfg.ShowTradeMaxOpenPnlLastRow != ShowTradeMaxOpenPnlLastRow) { cfg.ShowTradeMaxOpenPnlLastRow = ShowTradeMaxOpenPnlLastRow; changed = true; }
         if (cfg.ShowLastClosedTradePnlRow != ShowLastClosedTradePnlRow) { cfg.ShowLastClosedTradePnlRow = ShowLastClosedTradePnlRow; changed = true; }
+
+        if (cfg.EnablePriceRails != EnablePriceRails) { cfg.EnablePriceRails = EnablePriceRails; changed = true; }
+        if (cfg.ShowTargetRail != ShowTargetRail) { cfg.ShowTargetRail = ShowTargetRail; changed = true; }
+        if (cfg.ShowStopRail != ShowStopRail) { cfg.ShowStopRail = ShowStopRail; changed = true; }
+        if (cfg.ShowRailLabels != ShowRailLabels) { cfg.ShowRailLabels = ShowRailLabels; changed = true; }
+        if (cfg.RailLineWidth != RailLineWidth) { cfg.RailLineWidth = RailLineWidth; changed = true; }
 
         if (eodTimeChanged)
             RecomputeEodPeakFromTradeLogIfPossible(accountKey, TrailingEodTimeLocal);
@@ -3368,5 +3464,193 @@ public class AccountInfoDisplay : Indicator
 
     #endregion
 
+    #region Methods - Daily targets
+
+    private bool TryGetInstrumentPointValue(out decimal tickSize, out decimal tickCost, out decimal valuePerPoint)
+    {
+        tickSize = 0m;
+        tickCost = 0m;
+        valuePerPoint = 0m;
+
+        var sec = TradingManager?.Security;
+        if (sec == null)
+            return false;
+
+        tickSize = sec.TickSize;
+        tickCost = sec.TickCost;
+
+        if (tickSize <= 0m || tickCost <= 0m)
+            return false;
+
+        valuePerPoint = tickCost / tickSize;
+        return valuePerPoint > 0m;
+    }
+
+    private decimal GetRealizedPnlToday(Portfolio portfolio, DailyRailsState daily)
+    {
+        // Your convention in this indicator: realized today = ClosedPnL - DailyRealizedPnlBaseline
+        return portfolio.ClosedPnL - daily.DailyRealizedPnlBaseline;
+    }
+
+    private static bool IsLong(PositionSnapshot ps) => ps != null && ps.IsOpen && ps.Direction == OrderDirections.Buy;
+    private static bool IsShort(PositionSnapshot ps) => ps != null && ps.IsOpen && ps.Direction == OrderDirections.Sell;
+
+    private bool TryGetDailyProfitTargetPrice(
+        Portfolio portfolio,
+        AccountConfigV1 cfg,
+        DailyRailsState daily,
+        PositionSnapshot pos,
+        out decimal targetPrice,
+        out decimal remainingToTarget)
+    {
+        targetPrice = 0m;
+        remainingToTarget = 0m;
+
+        if (portfolio == null || cfg == null || daily == null || pos == null || !pos.IsOpen)
+            return false;
+
+        if (!cfg.EnableDailyRails || cfg.DailyProfitTarget <= 0m)
+            return false;
+
+        if (pos.Volume <= 0m || pos.AvgEntryPrice <= 0m)
+            return false;
+
+        if (!TryGetInstrumentPointValue(out var tickSize, out _, out var valuePerPoint))
+            return false;
+
+        var realizedToday = GetRealizedPnlToday(portfolio, daily);
+
+        remainingToTarget = cfg.DailyProfitTarget - realizedToday;
+        if (remainingToTarget <= 0m)
+            return false;
+
+        var qtyAbs = pos.Volume;
+        var pointsNeeded = remainingToTarget / (qtyAbs * valuePerPoint);
+        if (pointsNeeded <= 0m)
+            return false;
+
+        var raw = IsLong(pos)
+            ? pos.AvgEntryPrice + pointsNeeded
+            : pos.AvgEntryPrice - pointsNeeded;
+
+        targetPrice = RoundToTick(raw, tickSize);
+        return true;
+    }
+
+    private bool TryGetEffectiveStopPrice(
+        Portfolio portfolio,
+        AccountConfigV1 cfg,
+        TrailingDrawdownState trailing,
+        DailyRailsState daily,
+        PositionSnapshot pos,
+        out decimal stopPrice,
+        out string stopReasonResourceKey)
+    {
+        stopPrice = 0m;
+        stopReasonResourceKey = string.Empty;
+
+        if (portfolio == null || cfg == null || trailing == null || daily == null || pos == null || !pos.IsOpen)
+            return false;
+
+        if (pos.Volume <= 0m || pos.AvgEntryPrice <= 0m)
+            return false;
+
+        if (!TryGetInstrumentPointValue(out var tickSize, out _, out var valuePerPoint))
+            return false;
+
+        // Candidate A: daily loss limit stop equity (if enabled)
+        var hasDaily = cfg.EnableDailyRails && cfg.DailyLossLimit > 0m;
+        decimal dailyStopEquity = 0m;
+
+        if (hasDaily)
+            dailyStopEquity = daily.FloorEquityToday; // already computed by your daily rails engine
+
+        // Candidate B: trailing stop equity (if enabled + initialized)
+        var hasTrailing = cfg.EnableTrailingDrawdown && trailing.IsInitialized && cfg.MaxTrailingDrawdown > 0m;
+        decimal trailingStopEquity = 0m;
+
+        if (hasTrailing)
+            trailingStopEquity = trailing.StopEquity;
+
+        if (!hasDaily && !hasTrailing)
+            return false;
+
+        decimal qtySigned = IsLong(pos) ? pos.Volume : -pos.Volume;
+
+        decimal SolvePrice(decimal stopEquity)
+        {
+            var deltaPoints = (stopEquity - portfolio.Balance) / (qtySigned * valuePerPoint);
+            return pos.AvgEntryPrice + deltaPoints;
+        }
+
+        decimal? dailyStopPrice = null;
+        decimal? trailingStopPrice = null;
+
+        if (hasDaily)
+            dailyStopPrice = RoundToTick(SolvePrice(dailyStopEquity), tickSize);
+
+        if (hasTrailing)
+            trailingStopPrice = RoundToTick(SolvePrice(trailingStopEquity), tickSize);
+
+        // Choose the most restrictive stop (nearest) without needing last price:
+        // LONG: higher stop price is more restrictive; SHORT: lower stop price is more restrictive.
+        if (dailyStopPrice.HasValue && trailingStopPrice.HasValue)
+        {
+            if (IsLong(pos))
+            {
+                if (dailyStopPrice.Value >= trailingStopPrice.Value)
+                {
+                    stopPrice = dailyStopPrice.Value;
+                    stopReasonResourceKey = nameof(Resources.StopReasonDailyLoss);
+                }
+                else
+                {
+                    stopPrice = trailingStopPrice.Value;
+                    stopReasonResourceKey = nameof(Resources.StopReasonTrailingDd);
+                }
+            }
+            else
+            {
+                if (dailyStopPrice.Value <= trailingStopPrice.Value)
+                {
+                    stopPrice = dailyStopPrice.Value;
+                    stopReasonResourceKey = nameof(Resources.StopReasonDailyLoss);
+                }
+                else
+                {
+                    stopPrice = trailingStopPrice.Value;
+                    stopReasonResourceKey = nameof(Resources.StopReasonTrailingDd);
+                }
+            }
+
+            return true;
+        }
+
+        if (dailyStopPrice.HasValue)
+        {
+            stopPrice = dailyStopPrice.Value;
+            stopReasonResourceKey = nameof(Resources.StopReasonDailyLoss);
+            return true;
+        }
+
+        if (trailingStopPrice.HasValue)
+        {
+            stopPrice = trailingStopPrice.Value;
+            stopReasonResourceKey = nameof(Resources.StopReasonTrailingDd);
+            return true;
+        }
+
+        return false;
+    }
+
+    private static decimal RoundToTick(decimal price, decimal tickSize)
+    {
+        if (tickSize <= 0m)
+            return price;
+
+        return Math.Round(price / tickSize, MidpointRounding.AwayFromZero) * tickSize;
+    }
+
+    #endregion
     #endregion
 }
