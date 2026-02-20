@@ -48,6 +48,17 @@ public class InitialBalance : Indicator
         Right
     }
 
+    public enum OverlayLineType
+    {
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.None))]
+        None,
+
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.TillBar))]
+        TillBar,
+
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.FullWidth))]
+        FullWidth
+    }
 
     #endregion
 
@@ -235,6 +246,7 @@ public class InitialBalance : Indicator
     };
 
     private LabelPositionType _labelPosition = LabelPositionType.TillBar;
+    private OverlayLineType _overlayLineType = OverlayLineType.None;
 
     #endregion
 
@@ -450,6 +462,20 @@ public class InitialBalance : Indicator
         }
     }
 
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.OverlayLineType),
+    GroupName = nameof(Resources.Show), Description = nameof(Resources.OverlayLineTypeDescription), Order = 137)]
+    public OverlayLineType OverlayLines
+    {
+        get => _overlayLineType;
+        set
+        {
+            if (_overlayLineType == value)
+                return;
+
+            _overlayLineType = value;
+            RedrawChart();
+        }
+    }
 
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.IBHX32), 
@@ -782,6 +808,10 @@ public class InitialBalance : Indicator
         var barIndex = Math.Max(0, CurrentBar - 1);
         var region = ChartInfo.PriceChartContainer.Region;
 
+        var xBar = ChartInfo.GetXByBar(barIndex);
+        var barWidth = (int)ChartInfo.PriceChartContainer.BarsWidth;
+        var xBarEnd = (int)xBar + barWidth;
+
         int x;
 
         switch (_labelPosition)
@@ -791,15 +821,29 @@ public class InitialBalance : Indicator
                 break;
 
             case LabelPositionType.Right:
-                x = region.Right - 80; // baseline; lo refinaremos más adelante
+                x = region.Right - 80; // baseline; refinaremos cuando midamos el ancho real
                 break;
 
             default: // TillBar
-                var xBar = ChartInfo.GetXByBar(barIndex);
-                var barWidth = (int)ChartInfo.PriceChartContainer.BarsWidth;
-                x = xBar + barWidth + 5;
+                x = xBarEnd + 5;
                 break;
         }
+
+        // 1) Draw overlay connectors first (under labels)
+        if (_overlayLineType != OverlayLineType.None)
+        {
+            DrawOverlay(context, _ibh, _ibh[barIndex], region, xBarEnd, x);
+            DrawOverlay(context, _ibm, _ibm[barIndex], region, xBarEnd, x);
+            DrawOverlay(context, _ibl, _ibl[barIndex], region, xBarEnd, x);
+
+            DrawOverlay(context, _ibhx1, _ibhx1[barIndex], region, xBarEnd, x);
+            DrawOverlay(context, _ibhx2, _ibhx2[barIndex], region, xBarEnd, x);
+            DrawOverlay(context, _ibhx3, _ibhx3[barIndex], region, xBarEnd, x);
+
+            DrawOverlay(context, _iblx1, _iblx1[barIndex], region, xBarEnd, x);
+            DrawOverlay(context, _iblx2, _iblx2[barIndex], region, xBarEnd, x);
+        }
+
 
         DrawLabel(context, Strings.IBHM, _ibh, _ibh[barIndex], x);
         DrawLabel(context, Strings.IBML, _ibm, _ibm[barIndex], x);
@@ -865,6 +909,48 @@ public class InitialBalance : Indicator
 	{
 		return System.Drawing.Color.FromArgb(color.A, color.R, color.G, color.B);
 	}
+
+	private void DrawOverlay(RenderContext context, ValueDataSeries series, decimal price, Rectangle region, int xBarEnd, int xLabel)
+{
+	if (_overlayLineType == OverlayLineType.None)
+		return;
+
+	if (price == 0m || price == decimal.MinValue || price == decimal.MaxValue)
+		return;
+
+	var y = ChartInfo.GetYByPrice(price, false);
+
+	if (y < region.Y || y > region.Bottom)
+		return;
+
+	var pen = new PenSettings
+	{
+		Color = series.Color,
+		Width = series.Width,
+		LineDashStyle = series.LineDashStyle
+	}.RenderObject;
+
+	int x1;
+	int x2;
+
+	switch (_overlayLineType)
+	{
+		case OverlayLineType.FullWidth:
+			x1 = region.X;
+			x2 = region.Right;
+			break;
+
+		default: // TillBar
+			// From end of last bar to (just before) label box
+			x1 = xBarEnd;
+			x2 = Math.Max(x1, xLabel - 3);
+			break;
+	}
+
+	// Draw under labels
+	context.DrawLine(pen, x1, y, x2, y);
+}
+
 
 	#endregion
 }
