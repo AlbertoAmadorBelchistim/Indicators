@@ -4354,6 +4354,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Determines whether the text label should be displayed..
+        /// </summary>
+        public static string IsNeedShowLabelDescription {
+            get {
+                return ResourceManager.GetString("IsNeedShowLabelDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Jaw Alligator.
         /// </summary>
         public static string JawAlligator {

@@ -4729,4 +4729,6 @@
     <value>Если отключено, линии и метки скрываются до завершения Initial Balance.</value>
     <comment>UI</comment>
   </data>
-</root>
+<data name="IsNeedShowLabelDescription" xml:space="preserve">
+    <value>Определяет, должен ли отображаться текстовый ярлык.</value>
+  </data></root>

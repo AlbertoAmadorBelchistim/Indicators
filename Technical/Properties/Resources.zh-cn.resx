@@ -2621,4 +2621,6 @@
     <value>如果禁用，在 Initial Balance 完成之前隐藏线条和标签。</value>
     <comment>UI</comment>
   </data>
-</root>
+<data name="IsNeedShowLabelDescription" xml:space="preserve">
+    <value>确定是否应显示文本标签。</value>
+  </data></root>

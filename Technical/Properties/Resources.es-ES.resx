@@ -2667,4 +2667,6 @@
     <value>Si se desactiva, oculta líneas y etiquetas hasta que el Initial Balance esté completado.</value>
     <comment>UI</comment>
   </data>
-</root>
+<data name="IsNeedShowLabelDescription" xml:space="preserve">
+    <value>Determina si se debe mostrar la etiqueta de texto.</value>
+  </data></root>

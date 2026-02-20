@@ -2672,4 +2672,6 @@
     <value>Wenn deaktiviert, werden Linien und Labels erst nach Abschluss der Initial Balance angezeigt.</value>
     <comment>UI</comment>
   </data>
-</root>
+<data name="IsNeedShowLabelDescription" xml:space="preserve">
+    <value>Bestimmt, ob das Textetikett angezeigt werden soll.</value>
+  </data></root>

@@ -2665,4 +2665,6 @@
     <value>यदि अक्षम किया गया, तो Initial Balance पूर्ण होने तक रेखाएँ और लेबल छिपे रहेंगे।</value>
     <comment>UI</comment>
   </data>
-</root>
+<data name="IsNeedShowLabelDescription" xml:space="preserve">
+    <value>यह निर्धारित करता है कि क्या पाठ लेबल प्रदर्शित किया जाना चाहिए।</value>
+  </data></root>

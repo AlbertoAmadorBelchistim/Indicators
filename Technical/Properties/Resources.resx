@@ -4964,4 +4964,6 @@
     <comment>UI</comment>
   </data>
 
-</root>
+<data name="IsNeedShowLabelDescription" xml:space="preserve">
+    <value>Determines whether the text label should be displayed.</value>
+  </data></root>
