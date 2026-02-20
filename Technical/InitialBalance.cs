@@ -808,6 +808,22 @@ public class InitialBalance : Indicator
         var barIndex = Math.Max(0, CurrentBar - 1);
         var region = ChartInfo.PriceChartContainer.Region;
 
+        var paddingRight = 5;
+
+        // Measure widest label text for right anchoring
+        int maxLabelWidth = 0;
+        maxLabelWidth = Math.Max(maxLabelWidth, context.MeasureString(Strings.IBHM, _font).Width);
+        maxLabelWidth = Math.Max(maxLabelWidth, context.MeasureString(Strings.IBML, _font).Width);
+        maxLabelWidth = Math.Max(maxLabelWidth, context.MeasureString(Strings.IBL1, _font).Width);
+        maxLabelWidth = Math.Max(maxLabelWidth, context.MeasureString(Strings.IBHX1H, _font).Width);
+        maxLabelWidth = Math.Max(maxLabelWidth, context.MeasureString(Strings.IBHX21, _font).Width);
+        maxLabelWidth = Math.Max(maxLabelWidth, context.MeasureString(Strings.IBHX32, _font).Width);
+        maxLabelWidth = Math.Max(maxLabelWidth, context.MeasureString(Strings.IBLX12, _font).Width);
+        maxLabelWidth = Math.Max(maxLabelWidth, context.MeasureString(Strings.IBLX23, _font).Width);
+
+        // Box adds +4 width in DrawLabel; keep consistent
+        var rightX = region.Right - paddingRight - (maxLabelWidth + 4);
+
         var xBar = ChartInfo.GetXByBar(barIndex);
         var barWidth = (int)ChartInfo.PriceChartContainer.BarsWidth;
         var xBarEnd = (int)xBar + barWidth;
@@ -821,7 +837,7 @@ public class InitialBalance : Indicator
                 break;
 
             case LabelPositionType.Right:
-                x = region.Right - 80; // baseline; refinaremos cuando midamos el ancho real
+                x = rightX;
                 break;
 
             default: // TillBar
@@ -829,19 +845,30 @@ public class InitialBalance : Indicator
                 break;
         }
 
+        var rIbh = GetLabelRect(context, Strings.IBHM, _ibh[barIndex], x);
+        var rIbm = GetLabelRect(context, Strings.IBML, _ibm[barIndex], x);
+        var rIbl = GetLabelRect(context, Strings.IBL1, _ibl[barIndex], x);
+
+        var rHx1 = GetLabelRect(context, Strings.IBHX1H, _ibhx1[barIndex], x);
+        var rHx2 = GetLabelRect(context, Strings.IBHX21, _ibhx2[barIndex], x);
+        var rHx3 = GetLabelRect(context, Strings.IBHX32, _ibhx3[barIndex], x);
+
+        var rLx1 = GetLabelRect(context, Strings.IBLX12, _iblx1[barIndex], x);
+        var rLx2 = GetLabelRect(context, Strings.IBLX23, _iblx2[barIndex], x);
+
         // 1) Draw overlay connectors first (under labels)
         if (_overlayLineType != OverlayLineType.None)
         {
-            DrawOverlay(context, _ibh, _ibh[barIndex], region, xBarEnd, x);
-            DrawOverlay(context, _ibm, _ibm[barIndex], region, xBarEnd, x);
-            DrawOverlay(context, _ibl, _ibl[barIndex], region, xBarEnd, x);
+            DrawOverlay(context, _ibh, _ibh[barIndex], region, xBarEnd, (rIbh?.Left ?? x));
+            DrawOverlay(context, _ibm, _ibm[barIndex], region, xBarEnd, (rIbm?.Left ?? x));
+            DrawOverlay(context, _ibl, _ibl[barIndex], region, xBarEnd, (rIbl?.Left ?? x));
 
-            DrawOverlay(context, _ibhx1, _ibhx1[barIndex], region, xBarEnd, x);
-            DrawOverlay(context, _ibhx2, _ibhx2[barIndex], region, xBarEnd, x);
-            DrawOverlay(context, _ibhx3, _ibhx3[barIndex], region, xBarEnd, x);
+            DrawOverlay(context, _ibhx1, _ibhx1[barIndex], region, xBarEnd, (rHx1?.Left ?? x));
+            DrawOverlay(context, _ibhx2, _ibhx2[barIndex], region, xBarEnd, (rHx2?.Left ?? x));
+            DrawOverlay(context, _ibhx3, _ibhx3[barIndex], region, xBarEnd, (rHx3?.Left ?? x));
 
-            DrawOverlay(context, _iblx1, _iblx1[barIndex], region, xBarEnd, x);
-            DrawOverlay(context, _iblx2, _iblx2[barIndex], region, xBarEnd, x);
+            DrawOverlay(context, _iblx1, _iblx1[barIndex], region, xBarEnd, (rLx1?.Left ?? x));
+            DrawOverlay(context, _iblx2, _iblx2[barIndex], region, xBarEnd, (rLx2?.Left ?? x));
         }
 
 
@@ -857,16 +884,16 @@ public class InitialBalance : Indicator
         DrawLabel(context, Strings.IBLX23, _iblx2, _iblx2[barIndex], x);
     }
 
-    private void DrawLabel(RenderContext context, string text, ValueDataSeries series, decimal price, int x)
+    private Rectangle? DrawLabel(RenderContext context, string text, ValueDataSeries series, decimal price, int x)
     {
         if (price == 0m || price == decimal.MinValue || price == decimal.MaxValue)
-            return;
+            return null;
 
         var region = ChartInfo.PriceChartContainer.Region;
         var y = ChartInfo.GetYByPrice(price, false);
 
         if (y < region.Y || y > region.Bottom)
-            return;
+            return null;
 
         var size = context.MeasureString(text, _font);
 
@@ -880,12 +907,16 @@ public class InitialBalance : Indicator
             LineDashStyle = series.LineDashStyle
         }.RenderObject;
 
+        // Box rect (with padding)
         var rect = new Rectangle(x - 2, y - size.Height / 2 - 1, size.Width + 4, size.Height + 2);
+
         context.FillRectangle(backgroundColor, rect);
         context.DrawRectangle(pen, rect);
 
         var textRect = new Rectangle(x, y - size.Height / 2, size.Width, size.Height);
         context.DrawString(text, _font, textColor, textRect, _stringLeftFormat);
+
+        return rect;
     }
 
     private DateTime GetPrevDateTime(int bar)
@@ -910,7 +941,7 @@ public class InitialBalance : Indicator
 		return System.Drawing.Color.FromArgb(color.A, color.R, color.G, color.B);
 	}
 
-	private void DrawOverlay(RenderContext context, ValueDataSeries series, decimal price, Rectangle region, int xBarEnd, int xLabel)
+	private void DrawOverlay(RenderContext context, ValueDataSeries series, decimal price, Rectangle region, int xBarEnd, int xTarget)
 {
 	if (_overlayLineType == OverlayLineType.None)
 		return;
@@ -943,7 +974,7 @@ public class InitialBalance : Indicator
 		default: // TillBar
 			// From end of last bar to (just before) label box
 			x1 = xBarEnd;
-			x2 = Math.Max(x1, xLabel - 3);
+			x2 = Math.Max(x1, xTarget - 3);
 			break;
 	}
 
@@ -951,6 +982,20 @@ public class InitialBalance : Indicator
 	context.DrawLine(pen, x1, y, x2, y);
 }
 
+    private Rectangle? GetLabelRect(RenderContext context, string text, decimal price, int x)
+    {
+        if (price == 0m || price == decimal.MinValue || price == decimal.MaxValue)
+            return null;
 
-	#endregion
+        var region = ChartInfo.PriceChartContainer.Region;
+        var y = ChartInfo.GetYByPrice(price, false);
+
+        if (y < region.Y || y > region.Bottom)
+            return null;
+
+        var size = context.MeasureString(text, _font);
+        return new Rectangle(x - 2, y - size.Height / 2 - 1, size.Width + 4, size.Height + 2);
+    }
+
+    #endregion
 }
