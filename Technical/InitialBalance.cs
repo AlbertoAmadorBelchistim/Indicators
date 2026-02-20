@@ -1,6 +1,8 @@
 namespace ATAS.Indicators.Technical;
 
 using ATAS.Indicators.Drawing;
+using ATAS.Indicators.Technical.Properties;
+
 using DevExpress.Utils.Serializing;
 using OFT.Attributes;
 using OFT.Localization;
@@ -31,11 +33,27 @@ public class InitialBalance : Indicator
 		Bars
 	}
 
-	#endregion
+    public enum LabelPositionType
+    {
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.None))]
+        None,
 
-	#region Fields
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.TillBar))]
+        TillBar,
 
-	private readonly ValueDataSeries _ibh = new("Ibh", "IBH")
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Left))]
+        Left,
+
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Right))]
+        Right
+    }
+
+
+    #endregion
+
+    #region Fields
+
+    private readonly ValueDataSeries _ibh = new("Ibh", "IBH")
 	{
 		Color = DefaultColors.Blue.Convert(),
 		LineDashStyle = LineDashStyle.Dash,
@@ -216,6 +234,8 @@ public class InitialBalance : Indicator
         FormatFlags = StringFormatFlags.NoWrap
     };
 
+    private LabelPositionType _labelPosition = LabelPositionType.TillBar;
+
     #endregion
 
     #region Properties
@@ -383,8 +403,8 @@ public class InitialBalance : Indicator
 		}
 	}
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Text),
-		GroupName = nameof(Strings.Show), Description = nameof(Strings.IsNeedShowLabelDescription), Order = 130)]
+	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.Text),
+		GroupName = nameof(Resources.Show), Description = nameof(Resources.IsNeedShowLabelDescription), Order = 130)]
 	public bool DrawText
 	{
 		get => _drawText;
@@ -395,9 +415,8 @@ public class InitialBalance : Indicator
 		}
 	}
 
-    [Display(
-    ResourceType = typeof(Strings), Name = nameof(Strings.FontSize),
-    GroupName = nameof(Strings.Show), Description = nameof(Strings.FontSizeDescription), Order = 135)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.FontSize),
+		GroupName = nameof(Resources.Show), Description = nameof(Resources.FontSizeDescription), Order = 135)]
     [Range(6, 48)]
     public float FontSize
     {
@@ -415,6 +434,22 @@ public class InitialBalance : Indicator
             RedrawChart();
         }
     }
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.LabelPosition),
+		GroupName = nameof(Resources.Show), Description = nameof(Resources.LabelPositionDescription), Order = 136)]
+    public LabelPositionType LabelPosition
+    {
+        get => _labelPosition;
+        set
+        {
+            if (_labelPosition == value)
+                return;
+
+            _labelPosition = value;
+            RedrawChart();
+        }
+    }
+
 
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.IBHX32), 
@@ -741,23 +776,41 @@ public class InitialBalance : Indicator
         if (!_drawText || ChartInfo is null || CurrentBar <= 0)
             return;
 
-        var endBar = Math.Max(0, CurrentBar - 1);
+        if (_labelPosition == LabelPositionType.None)
+            return;
 
-        // Bar-anchor baseline (equivalente a lo que hacía AddText: etiqueta “pegada” al último bar)
-        var xBar = ChartInfo.GetXByBar(endBar);
-        var barWidth = (int)ChartInfo.PriceChartContainer.BarsWidth;
-        var x = xBar + barWidth + 5;
+        var barIndex = Math.Max(0, CurrentBar - 1);
+        var region = ChartInfo.PriceChartContainer.Region;
 
-        DrawLabel(context, Strings.IBHM, _ibh, _ibh[endBar], x);
-        DrawLabel(context, Strings.IBML, _ibm, _ibm[endBar], x);
-        DrawLabel(context, Strings.IBL1, _ibl, _ibl[endBar], x);
+        int x;
 
-        DrawLabel(context, Strings.IBHX1H, _ibhx1, _ibhx1[endBar], x);
-        DrawLabel(context, Strings.IBHX21, _ibhx2, _ibhx2[endBar], x);
-        DrawLabel(context, Strings.IBHX32, _ibhx3, _ibhx3[endBar], x);
+        switch (_labelPosition)
+        {
+            case LabelPositionType.Left:
+                x = region.X + 5;
+                break;
 
-        DrawLabel(context, Strings.IBLX12, _iblx1, _iblx1[endBar], x);
-        DrawLabel(context, Strings.IBLX23, _iblx2, _iblx2[endBar], x);
+            case LabelPositionType.Right:
+                x = region.Right - 80; // baseline; lo refinaremos más adelante
+                break;
+
+            default: // TillBar
+                var xBar = ChartInfo.GetXByBar(barIndex);
+                var barWidth = (int)ChartInfo.PriceChartContainer.BarsWidth;
+                x = xBar + barWidth + 5;
+                break;
+        }
+
+        DrawLabel(context, Strings.IBHM, _ibh, _ibh[barIndex], x);
+        DrawLabel(context, Strings.IBML, _ibm, _ibm[barIndex], x);
+        DrawLabel(context, Strings.IBL1, _ibl, _ibl[barIndex], x);
+
+        DrawLabel(context, Strings.IBHX1H, _ibhx1, _ibhx1[barIndex], x);
+        DrawLabel(context, Strings.IBHX21, _ibhx2, _ibhx2[barIndex], x);
+        DrawLabel(context, Strings.IBHX32, _ibhx3, _ibhx3[barIndex], x);
+
+        DrawLabel(context, Strings.IBLX12, _iblx1, _iblx1[barIndex], x);
+        DrawLabel(context, Strings.IBLX23, _iblx2, _iblx2[barIndex], x);
     }
 
     private void DrawLabel(RenderContext context, string text, ValueDataSeries series, decimal price, int x)
