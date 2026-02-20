@@ -1,6 +1,7 @@
 namespace ATAS.Indicators.Technical;
 
 using ATAS.Indicators.Drawing;
+using DevExpress.Utils.Serializing;
 using OFT.Attributes;
 using OFT.Localization;
 using OFT.Rendering.Context;
@@ -204,7 +205,8 @@ public class InitialBalance : Indicator
 
 	private bool _isStarted;
 
-    private RenderFont _font = new("Arial", 12);
+    private float _fontSize = 12.0f;
+    private RenderFont _font;
 
     private readonly RenderStringFormat _stringLeftFormat = new()
     {
@@ -393,7 +395,29 @@ public class InitialBalance : Indicator
 		}
 	}
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.IBHX32), 
+    [Display(
+    ResourceType = typeof(Strings), Name = nameof(Strings.FontSize),
+    GroupName = nameof(Strings.Show), Description = nameof(Strings.FontSizeDescription), Order = 135)]
+    [Range(6, 48)]
+    public float FontSize
+    {
+        get => _fontSize;
+        set
+        {
+            // Prevent noise redraws from the property grid.
+            if (Math.Abs(_fontSize - value) < 0.01f)
+                return;
+
+            _fontSize = value;
+            _font = new RenderFont("Arial", _fontSize);
+
+            // Purely visual change: do not recalculate series.
+            RedrawChart();
+        }
+    }
+
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.IBHX32), 
 		GroupName = nameof(Strings.BackGround), Description = nameof(Strings.AreaColorDescription), Order = 200)]
 	public CrossColor Ibhx32
 	{
@@ -467,6 +491,7 @@ public class InitialBalance : Indicator
 		DenyToChangePanel = true;
         EnableCustomDrawing = true;
         SubscribeToDrawingEvents(DrawingLayouts.Final);
+        _font = new RenderFont("Arial", _fontSize);
 
         DataSeries[0] = _mid;
         DataSeries.Add(_ibh);
