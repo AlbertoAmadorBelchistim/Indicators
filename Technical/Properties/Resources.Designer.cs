@@ -4318,6 +4318,96 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a IBH.
+        /// </summary>
+        public static string InitialBalance_LabelIBH {
+            get {
+                return ResourceManager.GetString("InitialBalance_LabelIBH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a IBHX1.
+        /// </summary>
+        public static string InitialBalance_LabelIBHX1 {
+            get {
+                return ResourceManager.GetString("InitialBalance_LabelIBHX1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a IBHX2.
+        /// </summary>
+        public static string InitialBalance_LabelIBHX2 {
+            get {
+                return ResourceManager.GetString("InitialBalance_LabelIBHX2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a IBHX3.
+        /// </summary>
+        public static string InitialBalance_LabelIBHX3 {
+            get {
+                return ResourceManager.GetString("InitialBalance_LabelIBHX3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a IBL.
+        /// </summary>
+        public static string InitialBalance_LabelIBL {
+            get {
+                return ResourceManager.GetString("InitialBalance_LabelIBL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a IBLX1.
+        /// </summary>
+        public static string InitialBalance_LabelIBLX1 {
+            get {
+                return ResourceManager.GetString("InitialBalance_LabelIBLX1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a IBLX2.
+        /// </summary>
+        public static string InitialBalance_LabelIBLX2 {
+            get {
+                return ResourceManager.GetString("InitialBalance_LabelIBLX2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a IBLX3.
+        /// </summary>
+        public static string InitialBalance_LabelIBLX3 {
+            get {
+                return ResourceManager.GetString("InitialBalance_LabelIBLX3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a IBM.
+        /// </summary>
+        public static string InitialBalance_LabelIBM {
+            get {
+                return ResourceManager.GetString("InitialBalance_LabelIBM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Mid.
+        /// </summary>
+        public static string InitialBalance_LabelMid {
+            get {
+                return ResourceManager.GetString("InitialBalance_LabelMid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Inside Bar.
         /// </summary>
         public static string InsideBar {

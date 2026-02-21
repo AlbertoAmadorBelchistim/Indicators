@@ -2667,4 +2667,44 @@
   </data>
 <data name="IsNeedShowLabelDescription" xml:space="preserve">
     <value>यह निर्धारित करता है कि क्या पाठ लेबल प्रदर्शित किया जाना चाहिए।</value>
-  </data></root>
+  </data>
+  <data name="InitialBalance_LabelMid" xml:space="preserve">
+  <value>Mid</value>
+  <comment>InitialBalance</comment>
+</data>
+<data name="InitialBalance_LabelIBH" xml:space="preserve">
+  <value>IBH</value>
+  <comment>InitialBalance</comment>
+</data>
+<data name="InitialBalance_LabelIBL" xml:space="preserve">
+  <value>IBL</value>
+  <comment>InitialBalance</comment>
+</data>
+<data name="InitialBalance_LabelIBM" xml:space="preserve">
+  <value>IBM</value>
+  <comment>InitialBalance</comment>
+</data>
+<data name="InitialBalance_LabelIBHX1" xml:space="preserve">
+  <value>IBHX1</value>
+  <comment>InitialBalance</comment>
+</data>
+<data name="InitialBalance_LabelIBHX2" xml:space="preserve">
+  <value>IBHX2</value>
+  <comment>InitialBalance</comment>
+</data>
+<data name="InitialBalance_LabelIBHX3" xml:space="preserve">
+  <value>IBHX3</value>
+  <comment>InitialBalance</comment>
+</data>
+<data name="InitialBalance_LabelIBLX1" xml:space="preserve">
+  <value>IBLX1</value>
+  <comment>InitialBalance</comment>
+</data>
+<data name="InitialBalance_LabelIBLX2" xml:space="preserve">
+  <value>IBLX2</value>
+  <comment>InitialBalance</comment>
+</data>
+<data name="InitialBalance_LabelIBLX3" xml:space="preserve">
+  <value>IBLX3</value>
+  <comment>InitialBalance</comment>
+</data></root>
