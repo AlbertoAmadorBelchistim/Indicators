@@ -812,14 +812,15 @@ public class InitialBalance : Indicator
 
         // Measure widest label text for right anchoring
         int maxLabelWidth = 0;
-        maxLabelWidth = Math.Max(maxLabelWidth, context.MeasureString(Strings.IBHM, _font).Width);
-        maxLabelWidth = Math.Max(maxLabelWidth, context.MeasureString(Strings.IBML, _font).Width);
-        maxLabelWidth = Math.Max(maxLabelWidth, context.MeasureString(Strings.IBL1, _font).Width);
-        maxLabelWidth = Math.Max(maxLabelWidth, context.MeasureString(Strings.IBHX1H, _font).Width);
-        maxLabelWidth = Math.Max(maxLabelWidth, context.MeasureString(Strings.IBHX21, _font).Width);
-        maxLabelWidth = Math.Max(maxLabelWidth, context.MeasureString(Strings.IBHX32, _font).Width);
-        maxLabelWidth = Math.Max(maxLabelWidth, context.MeasureString(Strings.IBLX12, _font).Width);
-        maxLabelWidth = Math.Max(maxLabelWidth, context.MeasureString(Strings.IBLX23, _font).Width);
+        maxLabelWidth = Math.Max(maxLabelWidth, context.MeasureString(Resources.InitialBalance_LabelIBH, _font).Width);
+        maxLabelWidth = Math.Max(maxLabelWidth, context.MeasureString(Resources.InitialBalance_LabelIBM, _font).Width);
+        maxLabelWidth = Math.Max(maxLabelWidth, context.MeasureString(Resources.InitialBalance_LabelIBL, _font).Width);
+        maxLabelWidth = Math.Max(maxLabelWidth, context.MeasureString(Resources.InitialBalance_LabelIBHX1, _font).Width);
+        maxLabelWidth = Math.Max(maxLabelWidth, context.MeasureString(Resources.InitialBalance_LabelIBHX2, _font).Width);
+        maxLabelWidth = Math.Max(maxLabelWidth, context.MeasureString(Resources.InitialBalance_LabelIBHX3, _font).Width);
+        maxLabelWidth = Math.Max(maxLabelWidth, context.MeasureString(Resources.InitialBalance_LabelIBLX1, _font).Width);
+        maxLabelWidth = Math.Max(maxLabelWidth, context.MeasureString(Resources.InitialBalance_LabelIBLX2, _font).Width);
+        maxLabelWidth = Math.Max(maxLabelWidth, context.MeasureString(Resources.InitialBalance_LabelIBLX3, _font).Width);
 
         // Box adds +4 width in DrawLabel; keep consistent
         var rightX = region.Right - paddingRight - (maxLabelWidth + 4);
@@ -845,16 +846,17 @@ public class InitialBalance : Indicator
                 break;
         }
 
-        var rIbh = GetLabelRect(context, Strings.IBHM, _ibh[barIndex], x);
-        var rIbm = GetLabelRect(context, Strings.IBML, _ibm[barIndex], x);
-        var rIbl = GetLabelRect(context, Strings.IBL1, _ibl[barIndex], x);
+        var rIbh = GetLabelRect(context, Resources.InitialBalance_LabelIBH, ibh, x);
+        var rIbm = GetLabelRect(context, Resources.InitialBalance_LabelIBM, ibm, x);
+        var rIbl = GetLabelRect(context, Resources.InitialBalance_LabelIBL, ibl, x);
 
-        var rHx1 = GetLabelRect(context, Strings.IBHX1H, _ibhx1[barIndex], x);
-        var rHx2 = GetLabelRect(context, Strings.IBHX21, _ibhx2[barIndex], x);
-        var rHx3 = GetLabelRect(context, Strings.IBHX32, _ibhx3[barIndex], x);
+        var rHx1 = GetLabelRect(context, Resources.InitialBalance_LabelIBHX1, ibhx1, x);
+        var rHx2 = GetLabelRect(context, Resources.InitialBalance_LabelIBHX2, ibhx2, x);
+        var rHx3 = GetLabelRect(context, Resources.InitialBalance_LabelIBHX3, ibhx3, x);
 
-        var rLx1 = GetLabelRect(context, Strings.IBLX12, _iblx1[barIndex], x);
-        var rLx2 = GetLabelRect(context, Strings.IBLX23, _iblx2[barIndex], x);
+        var rLx1 = GetLabelRect(context, Resources.InitialBalance_LabelIBLX1, iblx1, x);
+        var rLx2 = GetLabelRect(context, Resources.InitialBalance_LabelIBLX2, iblx2, x);
+        var rLx3 = GetLabelRect(context, Resources.InitialBalance_LabelIBLX3, iblx3, x);
 
         // 1) Draw overlay connectors first (under labels)
         if (_overlayLineType != OverlayLineType.None)
@@ -872,16 +874,17 @@ public class InitialBalance : Indicator
         }
 
 
-        DrawLabel(context, Strings.IBHM, _ibh, _ibh[barIndex], x);
-        DrawLabel(context, Strings.IBML, _ibm, _ibm[barIndex], x);
-        DrawLabel(context, Strings.IBL1, _ibl, _ibl[barIndex], x);
+        DrawLabel(context, Resources.InitialBalance_LabelIBH, _ibh, ibh, x);
+        DrawLabel(context, Resources.InitialBalance_LabelIBM, _ibm, ibm, x);
+        DrawLabel(context, Resources.InitialBalance_LabelIBL, _ibl, ibl, x);
 
-        DrawLabel(context, Strings.IBHX1H, _ibhx1, _ibhx1[barIndex], x);
-        DrawLabel(context, Strings.IBHX21, _ibhx2, _ibhx2[barIndex], x);
-        DrawLabel(context, Strings.IBHX32, _ibhx3, _ibhx3[barIndex], x);
+        DrawLabel(context, Resources.InitialBalance_LabelIBHX1, _ibhx1, ibhx1, x);
+        DrawLabel(context, Resources.InitialBalance_LabelIBHX2, _ibhx2, ibhx2, x);
+        DrawLabel(context, Resources.InitialBalance_LabelIBHX3, _ibhx3, ibhx3, x);
 
-        DrawLabel(context, Strings.IBLX12, _iblx1, _iblx1[barIndex], x);
-        DrawLabel(context, Strings.IBLX23, _iblx2, _iblx2[barIndex], x);
+        DrawLabel(context, Resources.InitialBalance_LabelIBLX1, _iblx1, iblx1, x);
+        DrawLabel(context, Resources.InitialBalance_LabelIBLX2, _iblx2, iblx2, x);
+        DrawLabel(context, Resources.InitialBalance_LabelIBLX3, _iblx3, iblx3, x);
     }
 
     private Rectangle? DrawLabel(RenderContext context, string text, ValueDataSeries series, decimal price, int x)
