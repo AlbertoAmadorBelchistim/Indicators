@@ -248,6 +248,21 @@ public class InitialBalance : Indicator
     private LabelPositionType _labelPosition = LabelPositionType.TillBar;
     private OverlayLineType _overlayLineType = OverlayLineType.None;
 
+    private int _lastIbEndBar = -1;
+    private int _lastCustomSessionBar = -1;
+
+    // Snapshot values captured at IB completion (exact bar)
+    private decimal _sIbh;
+    private decimal _sIbm;
+    private decimal _sIbl;
+    private decimal _sIbhx1;
+    private decimal _sIbhx2;
+    private decimal _sIbhx3;
+    private decimal _sIblx1;
+    private decimal _sIblx2;
+    private decimal _sIblx3;
+
+
     #endregion
 
     #region Properties
@@ -667,7 +682,12 @@ public class InitialBalance : Indicator
 
             if (!inSession)
 			{
-				_isStarted = false;
+
+                // Freeze labels at the last bar that was still in session.
+                // This is only meaningful for custom sessions.
+                _lastCustomSessionBar = Math.Max(-1, bar - 1);
+
+                _isStarted = false;
 
                 foreach (var dataSeries in DataSeries)
 					if (dataSeries is ValueDataSeries series)
@@ -712,6 +732,11 @@ public class InitialBalance : Indicator
 			_lastStartBar = bar;
 			_endTime = candleFullDateTime.AddMinutes(_period);
             _isStarted = true;
+            _lastIbEndBar = -1;
+            _lastCustomSessionBar = -1;
+            _sIbh = _sIbm = _sIbl = 0m;
+            _sIbhx1 = _sIbhx2 = _sIbhx3 = 0m;
+            _sIblx1 = _sIblx2 = _sIblx3 = 0m;
 
             foreach (var dataSeries in DataSeries)
                 if (dataSeries is ValueDataSeries series)
@@ -735,7 +760,22 @@ public class InitialBalance : Indicator
 		}
 		else if (isEnd)
 		{
-			_calculate = _isStarted = false;
+            // Snapshot values at the exact IB completion bar (before we stop calculation)
+            _lastIbEndBar = bar;
+
+            _sIbh = _ibh[bar];
+            _sIbm = _ibm[bar];
+            _sIbl = _ibl[bar];
+
+            _sIbhx1 = _ibhx1[bar];
+            _sIbhx2 = _ibhx2[bar];
+            _sIbhx3 = _ibhx3[bar];
+
+            _sIblx1 = _iblx1[bar];
+            _sIblx2 = _iblx2[bar];
+            _sIblx3 = _iblx3[bar];
+
+            _calculate = _isStarted = false;
         }
 
 		if (_calculate)
@@ -806,6 +846,26 @@ public class InitialBalance : Indicator
             return;
 
         var barIndex = Math.Max(0, CurrentBar - 1);
+
+        // Anchor bar for X positioning
+        var anchorBarIndex = barIndex;
+
+        if (CustomSessionStart && _lastCustomSessionBar >= 0)
+            anchorBarIndex = _lastCustomSessionBar;
+
+        // Price values (snapshot after IB completion)
+        var ibh = _lastIbEndBar >= 0 ? _sIbh : _ibh[barIndex];
+        var ibm = _lastIbEndBar >= 0 ? _sIbm : _ibm[barIndex];
+        var ibl = _lastIbEndBar >= 0 ? _sIbl : _ibl[barIndex];
+
+        var ibhx1 = _lastIbEndBar >= 0 ? _sIbhx1 : _ibhx1[barIndex];
+        var ibhx2 = _lastIbEndBar >= 0 ? _sIbhx2 : _ibhx2[barIndex];
+        var ibhx3 = _lastIbEndBar >= 0 ? _sIbhx3 : _ibhx3[barIndex];
+
+        var iblx1 = _lastIbEndBar >= 0 ? _sIblx1 : _iblx1[barIndex];
+        var iblx2 = _lastIbEndBar >= 0 ? _sIblx2 : _iblx2[barIndex];
+        var iblx3 = _lastIbEndBar >= 0 ? _sIblx3 : _iblx3[barIndex];
+
         var region = ChartInfo.PriceChartContainer.Region;
 
         var paddingRight = 5;
@@ -825,7 +885,7 @@ public class InitialBalance : Indicator
         // Box adds +4 width in DrawLabel; keep consistent
         var rightX = region.Right - paddingRight - (maxLabelWidth + 4);
 
-        var xBar = ChartInfo.GetXByBar(barIndex);
+        var xBar = ChartInfo.GetXByBar(anchorBarIndex);
         var barWidth = (int)ChartInfo.PriceChartContainer.BarsWidth;
         var xBarEnd = (int)xBar + barWidth;
 
@@ -861,16 +921,16 @@ public class InitialBalance : Indicator
         // 1) Draw overlay connectors first (under labels)
         if (_overlayLineType != OverlayLineType.None)
         {
-            DrawOverlay(context, _ibh, _ibh[barIndex], region, xBarEnd, (rIbh?.Left ?? x));
-            DrawOverlay(context, _ibm, _ibm[barIndex], region, xBarEnd, (rIbm?.Left ?? x));
-            DrawOverlay(context, _ibl, _ibl[barIndex], region, xBarEnd, (rIbl?.Left ?? x));
+            DrawOverlay(context, _ibh, ibh, region, xBarEnd, (rIbh?.Left ?? x));
+            DrawOverlay(context, _ibm, ibm, region, xBarEnd, (rIbm?.Left ?? x));
+            DrawOverlay(context, _ibl, ibl, region, xBarEnd, (rIbl?.Left ?? x));
 
-            DrawOverlay(context, _ibhx1, _ibhx1[barIndex], region, xBarEnd, (rHx1?.Left ?? x));
-            DrawOverlay(context, _ibhx2, _ibhx2[barIndex], region, xBarEnd, (rHx2?.Left ?? x));
-            DrawOverlay(context, _ibhx3, _ibhx3[barIndex], region, xBarEnd, (rHx3?.Left ?? x));
+            DrawOverlay(context, _ibhx1, ibhx1, region, xBarEnd, (rHx1?.Left ?? x));
+            DrawOverlay(context, _ibhx2, ibhx2, region, xBarEnd, (rHx2?.Left ?? x));
+            DrawOverlay(context, _ibhx3, ibhx3, region, xBarEnd, (rHx3?.Left ?? x));
 
-            DrawOverlay(context, _iblx1, _iblx1[barIndex], region, xBarEnd, (rLx1?.Left ?? x));
-            DrawOverlay(context, _iblx2, _iblx2[barIndex], region, xBarEnd, (rLx2?.Left ?? x));
+            DrawOverlay(context, _iblx1, iblx1, region, xBarEnd, (rLx1?.Left ?? x));
+            DrawOverlay(context, _iblx2, iblx2, region, xBarEnd, (rLx2?.Left ?? x));
         }
 
 
