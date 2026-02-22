@@ -732,9 +732,11 @@ public class InitialBalance : Indicator
 		{
 			isEnd = (PeriodMode is PeriodType.Minutes && candleFullDateTime >= _endTime && GetPrevDateTime(bar) < _endTime)
 				 || (PeriodMode is PeriodType.Bars && bar - _lastStartBar >= Period);
-		}           
+		}
 
-		if (isStart)
+        var endThisBar = isEnd;
+
+        if (isStart)
 		{
 			//Clear all values
 			_maxValue = decimal.MinValue;
@@ -780,7 +782,14 @@ public class InitialBalance : Indicator
 				Rectangles.Add(_rectangle);
 			}
 		}
-		else if (isEnd)
+
+        else if (endThisBar)
+        {
+            // Mark completion bar, but DO NOT snapshot yet and DO NOT stop calculation yet.
+            _lastIbEndBar = bar;
+        }
+
+        else if (isEnd)
 		{
 			// Snapshot values at the exact IB completion bar (before we stop calculation)
 			_lastIbEndBar = bar;
@@ -864,7 +873,28 @@ public class InitialBalance : Indicator
 		_iblx12[bar].Lower = _iblx23[bar].Upper = iblx2;
 		_iblx23[bar].Lower = iblx3;
 
-	}
+        if (endThisBar)
+        {
+            // Snapshot values after the exact bar has been computed.
+            _sMid = mid;
+
+            _sIbh = _ibMax;
+            _sIbm = _ibmValue;
+            _sIbl = _ibMin;
+
+            _sIbhx1 = ibhx1;
+            _sIbhx2 = ibhx2;
+            _sIbhx3 = ibhx3;
+
+            _sIblx1 = iblx1;
+            _sIblx2 = iblx2;
+            _sIblx3 = iblx3;
+
+            _calculate = false;
+            _isStarted = false;
+        }
+
+    }
 
 	protected override void OnRender(RenderContext context, DrawingLayouts layout)
 	{
