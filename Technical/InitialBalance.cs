@@ -264,6 +264,7 @@ public class InitialBalance : Indicator
 	private decimal _sMid;
 
     private bool _showDuringFormation = true;
+    private bool _wasInCustomSession;
 
 
     #endregion
@@ -658,8 +659,9 @@ public class InitialBalance : Indicator
 			_initialized = false;
 			_targetBar = 0;
 			_isStarted = false;
+            _wasInCustomSession = false;
 
-			if (_days <= 0)
+            if (_days <= 0)
 				return;
 
 			var days = 0;
@@ -701,20 +703,26 @@ public class InitialBalance : Indicator
 			else
 				inSession = true;
 
-			if (!inSession)
-			{
+            if (inSession)
+            {
+                _wasInCustomSession = true;
+            }
+            else
+            {
+                // Transition: first bar outside after being inside
+                if (_wasInCustomSession)
+                {
+                    _lastCustomSessionBar = Math.Max(-1, bar - 1);
 
-				// Freeze labels at the last bar that was still in session.
-				// This is only meaningful for custom sessions.
-				_lastCustomSessionBar = Math.Max(-1, bar - 1);
+                    foreach (var dataSeries in DataSeries)
+                        if (dataSeries is ValueDataSeries series)
+                            series.SetPointOfEndLine(_lastCustomSessionBar);
 
-				_isStarted = false;
+                    _wasInCustomSession = false;
+                }
 
-				foreach (var dataSeries in DataSeries)
-					if (dataSeries is ValueDataSeries series)
-						series.SetPointOfEndLine(bar - 1);
-				return;
-			}
+                return;
+            }
 		}
 
 		var candleFullDateTime = candle.Time.AddHours(InstrumentInfo.TimeZone);
@@ -761,8 +769,9 @@ public class InitialBalance : Indicator
 			_sIbhx1 = _sIbhx2 = _sIbhx3 = 0m;
 			_sIblx1 = _sIblx2 = _sIblx3 = 0m;
 			_sMid = 0m;
+            _wasInCustomSession = true;
 
-			foreach (var dataSeries in DataSeries)
+            foreach (var dataSeries in DataSeries)
 				if (dataSeries is ValueDataSeries series)
 					series.SetPointOfEndLine(bar - 1);
 
