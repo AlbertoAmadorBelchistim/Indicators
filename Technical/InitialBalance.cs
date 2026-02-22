@@ -263,12 +263,14 @@ public class InitialBalance : Indicator
 	private decimal _sIblx3;
 	private decimal _sMid;
 
+    private bool _showDuringFormation = true;
 
-	#endregion
 
-	#region Properties
+    #endregion
 
-	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Calculation), 
+    #region Properties
+
+    [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Calculation), 
 		Name = nameof(Strings.DaysLookBack), Order = int.MaxValue, Description = nameof(Strings.DaysLookBackDescription))]
 	[Range(0, 1000)]
 	public int Days
@@ -493,8 +495,26 @@ public class InitialBalance : Indicator
 		}
 	}
 
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowDuringFormation),
+        GroupName = nameof(Resources.Show), Description = nameof(Resources.ShowDuringFormationDescription), Order = 139)]
+    public bool ShowDuringFormation
+    {
+        get => _showDuringFormation;
+        set
+        {
+            if (_showDuringFormation == value)
+                return;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.IBHX32), 
+            _showDuringFormation = value;
+
+            // Visual-only change, but we must update series clipping + redraw.
+            RecalculateValues();
+            RedrawChart();
+        }
+    }
+
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.IBHX32), 
 		GroupName = nameof(Strings.BackGround), Description = nameof(Strings.AreaColorDescription), Order = 200)]
 	public CrossColor Ibhx32
 	{
@@ -784,7 +804,15 @@ public class InitialBalance : Indicator
 
 		if (_calculate)
 		{
-			if (candle.High > _maxValue)
+            if (!ShowDuringFormation)
+            {
+                // Keep lines hidden during formation: clip end line to previous bar.
+                foreach (var dataSeries in DataSeries)
+                    if (dataSeries is ValueDataSeries series)
+                        series.SetPointOfEndLine(bar - 1);
+            }
+
+            if (candle.High > _maxValue)
 			{
 				_highLowIsSet = true;
 				_ibMax = _maxValue = candle.High;
@@ -849,7 +877,10 @@ public class InitialBalance : Indicator
 		if (_labelPosition == LabelPositionType.None)
 			return;
 
-		var barIndex = Math.Max(0, CurrentBar - 1);
+        if (!ShowDuringFormation && _lastIbEndBar < 0)
+            return;
+
+        var barIndex = Math.Max(0, CurrentBar - 1);
 
 		// Anchor bar for X positioning
 		var anchorBarIndex = barIndex;
