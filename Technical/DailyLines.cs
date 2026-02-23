@@ -8,6 +8,7 @@ using System.Globalization;
 using System.Reflection;
 
 using ATAS.Indicators.Drawing;
+using ATAS.Indicators.Technical.Properties;
 
 using OFT.Attributes;
 using OFT.Localization;
@@ -138,14 +139,15 @@ public class DailyLines : Indicator
 	private SessionRange _sessionRange;
 	private bool _showText = true;
 	private int _lastDefaultSession;
+	private FilterTimeSpan _tradingDayStart;
 
-	#endregion
+    #endregion
 
-	#region Properties
+    #region Properties
 
-	#region Calculation
+    #region Calculation
 
-	[Browsable(false)]
+    [Browsable(false)]
 	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Calculation), Name = nameof(Strings.DaysLookBack), Order = int.MaxValue,
 		Description = nameof(Strings.DaysLookBackDescription))]
 	[Range(1, 1000)]
@@ -185,6 +187,16 @@ public class DailyLines : Indicator
         {
             _customSession = value;
             FilterStartTime.Enabled = FilterEndTime.Enabled = _customSession;
+
+            if (_customSession)
+            {
+                // Backward-compatible default:
+                // If the user turns on CustomSession and TradingDayStart is still at zero,
+                // align TradingDayStart to the session start to preserve the legacy rollover behavior.
+                if (_tradingDayStart != null && _tradingDayStart.Value == TimeSpan.Zero)
+                    _tradingDayStart.Value = FilterStartTime.Value;
+            }
+
             RecalculateValues();
         }
     }
@@ -203,6 +215,20 @@ public class DailyLines : Indicator
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.SessionEnd), GroupName = nameof(Strings.Filters),
         Description = nameof(Strings.SessionEndDescription), Order = 120)]
     public FilterTimeSpan FilterEndTime { get; set; } = new(false);
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.TradingDayStart), Description = nameof(Resources.TradingDayStartDescription),
+    GroupName = nameof(Resources.Filters), Order = 125)]
+    public FilterTimeSpan TradingDayStart
+    {
+        get => _tradingDayStart;
+        set
+        {
+            _tradingDayStart = value ?? new FilterTimeSpan(false) { Value = TimeSpan.Zero };
+            _tradingDayStart.PropertyChanged -= OnFilterPropertyChanged;
+            _tradingDayStart.PropertyChanged += OnFilterPropertyChanged;
+            RecalculateValues();
+        }
+    }
 
     [Browsable(false)]
     public TimeSpan EndTime
@@ -320,7 +346,10 @@ public class DailyLines : Indicator
 
 		TextSize.Enabled = ShowText;
 		TextSize.Value = _fontSetting.Size;
-	}
+
+        _tradingDayStart = new FilterTimeSpan(false) { Value = TimeSpan.Zero };
+        _tradingDayStart.PropertyChanged += OnFilterPropertyChanged;
+    }
 
 	#endregion
 
