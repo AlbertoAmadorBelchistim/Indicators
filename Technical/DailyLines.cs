@@ -604,7 +604,36 @@ public class DailyLines : Indicator
 		};
 	}
 
-	private void OnFilterPropertyChanged(object sender, PropertyChangedEventArgs e)
+    private DateTime GetLocalBarTime(int bar)
+    {
+        var candle = GetCandle(bar);
+        return candle.Time.AddHours(InstrumentInfo.TimeZone);
+    }
+
+    private DateTime GetTradingDayAnchorDate(DateTime localTime)
+    {
+        // Trading day is anchored at TradingDayStartTime.
+        // If local time is before the anchor, it belongs to the previous anchor date.
+        var start = TradingDayStart?.Value ?? TimeSpan.Zero;
+
+        // NOTE: TimeSpan.Zero is a valid value (calendar-day semantics).
+        if (localTime.TimeOfDay < start)
+            return localTime.Date.AddDays(-1);
+
+        return localTime.Date;
+    }
+
+    private bool IsNewTradingDay(int bar)
+    {
+        if (bar <= 0)
+            return false;
+
+        var curr = GetTradingDayAnchorDate(GetLocalBarTime(bar));
+        var prev = GetTradingDayAnchorDate(GetLocalBarTime(bar - 1));
+        return curr != prev;
+    }
+
+    private void OnFilterPropertyChanged(object sender, PropertyChangedEventArgs e)
 	{
 		if (e.PropertyName != "Value")
 			return;
