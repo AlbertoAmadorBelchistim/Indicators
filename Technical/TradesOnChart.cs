@@ -181,13 +181,22 @@ public class TradesOnChart : Indicator
 
     #region Protected Methods
 
+    protected override void OnDispose()
+    {
+        TradingStatisticsProvider.StatisticsRebuilt -= OnRecalculate;
+        TradingStatisticsProvider.FilteredStatisticsSourceChanged -= OnTradingStatisticsProviderSourceChanged;
+        TradingManager.PortfolioSelected -= TradingManager_PortfolioSelected;
+        
+        _statistics?.HistoryMyTrades.Added -= OnTradeAdded;
+    }
+
     protected override void OnInitialize()
     {
-        TradingStatisticsProvider.StatisticsReloaded += OnRecalculate;
-        TradingStatisticsProvider.SourceChanged += OnTradingStatisticsProviderSourceChanged;
+        TradingStatisticsProvider.StatisticsRebuilt += OnRecalculate;
+        TradingStatisticsProvider.FilteredStatisticsSourceChanged += OnTradingStatisticsProviderSourceChanged;
         TradingManager.PortfolioSelected += TradingManager_PortfolioSelected;
 
-        if (TradingStatisticsProvider.Statistics is { } stat)
+        if (TradingStatisticsProvider.RawStatistics is { } stat)
             OnTradingStatisticsProviderSourceChanged(stat);
     }
 
