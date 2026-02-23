@@ -604,7 +604,10 @@ public class DailyLines : Indicator
 	{
 		var y = ChartInfo.GetYByPrice(price, false);
 
-		if (y + 8 > Container.Region.Height)
+        if (y < 0)
+            return;
+
+        if (y + 8 > Container.Region.Height)
 			return;
 
 		var renderText = price.ToString(CultureInfo.InvariantCulture);
