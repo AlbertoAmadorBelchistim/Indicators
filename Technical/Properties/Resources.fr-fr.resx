@@ -2708,4 +2708,13 @@
 <data name="InitialBalance_LabelIBLX3" xml:space="preserve">
   <value>IBLX3</value>
   <comment>InitialBalance</comment>
-</data></root>
+</data>
+  <data name="TradingDayStart" xml:space="preserve">
+    <value>Début de la journée de trading</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="TradingDayStartDescription" xml:space="preserve">
+    <value>Heure d’ancrage qui définit quand une nouvelle journée de trading commence. Cela détermine quel jour est considéré comme "actuel" et "précédent" (p. ex. week-ends/jours fériés), mais l’OHLC est calculé uniquement à partir de la fenêtre de session sélectionnée.</value>
+    <comment>DailyLines</comment>
+  </data>
+  </root>

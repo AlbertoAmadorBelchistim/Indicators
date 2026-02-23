@@ -2663,4 +2663,13 @@
 <data name="InitialBalance_LabelIBLX3" xml:space="preserve">
   <value>IBLX3</value>
   <comment>InitialBalance</comment>
-</data></root>
+</data>
+  <data name="TradingDayStart" xml:space="preserve">
+    <value>交易日开始</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="TradingDayStartDescription" xml:space="preserve">
+    <value>用于定义新交易日何时开始的锚定时间。它影响“当前/前一日”的判定（例如周末/假期），但 OHLC 仍仅基于所选会话时间窗口内的K线计算。</value>
+    <comment>DailyLines</comment>
+  </data>
+  </root>

@@ -4771,4 +4771,13 @@
 <data name="InitialBalance_LabelIBLX3" xml:space="preserve">
   <value>IBLX3</value>
   <comment>InitialBalance</comment>
-</data></root>
+</data>
+  <data name="TradingDayStart" xml:space="preserve">
+    <value>Начало торгового дня</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="TradingDayStartDescription" xml:space="preserve">
+    <value>Опорное время, определяющее начало нового торгового дня. Это влияет на то, какой день считается "текущим" и "предыдущим" (например, выходные/праздники), но OHLC рассчитывается только по выбранному интервалу сессии.</value>
+    <comment>DailyLines</comment>
+  </data>
+  </root>

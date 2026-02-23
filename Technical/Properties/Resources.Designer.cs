@@ -10681,6 +10681,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Trading day start.
+        /// </summary>
+        public static string TradingDayStart {
+            get {
+                return ResourceManager.GetString("TradingDayStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Anchor time that defines when a new trading day starts. This affects which day is considered &quot;current&quot; and &quot;previous&quot; (e.g., weekends/holidays), but OHLC is still calculated only from the selected session window..
+        /// </summary>
+        public static string TradingDayStartDescription {
+            get {
+                return ResourceManager.GetString("TradingDayStartDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a EOD Time (Local).
         /// </summary>
         public static string TrailingEodTimeLocal {

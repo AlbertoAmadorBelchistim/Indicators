@@ -2710,4 +2710,12 @@
   <value>IBLX3</value>
   <comment>InitialBalance</comment>
 </data>
-</root>
+  <data name="TradingDayStart" xml:space="preserve">
+    <value>Inicio del día de trading</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="TradingDayStartDescription" xml:space="preserve">
+    <value>Hora ancla que define cuándo comienza un nuevo día de trading. Afecta a qué día se considera "actual" y "previo" (p. ej., fines de semana/festivos), pero el OHLC se calcula solo con las velas dentro del intervalo de sesión seleccionado.</value>
+    <comment>DailyLines</comment>
+  </data>
+  </root>
