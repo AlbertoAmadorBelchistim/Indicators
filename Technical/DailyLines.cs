@@ -517,7 +517,21 @@ public class DailyLines : Indicator
 					_prevSessionRange = _sessionRange;
 				}
 
-				_sessionRange = new SessionRange(candle, bar);
+                if (Period is PeriodType.CurrentDay or PeriodType.PreviousDay)
+                {
+                    // For Day periods we want OHLC to be computed only from the selected session window.
+                    // When using TradingDayStart-based bucketing, the first bar of the bucket might be outside the session window.
+                    _sessionRange = UseTradingDayStartForDay()
+                        ? new SessionRange()
+                        : new SessionRange(candle, bar);
+
+                    if (InsideSession(bar))
+                        _sessionRange.IncCandle(candle, bar);
+                }
+                else
+                {
+                    _sessionRange = new SessionRange(candle, bar);
+                }
             }
 			else
 			{
@@ -593,12 +607,22 @@ public class DailyLines : Indicator
 			startTime <= sessionEnd || endTime <= sessionEnd;
 	}
 
-	private bool IsNewPeriod(int bar)
+    private bool UseTradingDayStartForDay()
+    {
+        // Only use TradingDayStart-based day bucketing when explicitly needed.
+        // This preserves upstream behavior for default sessions unless the user enables CustomSession
+        // or sets a non-zero TradingDayStart.
+        return CustomSession || (TradingDayStart?.Value ?? TimeSpan.Zero) != TimeSpan.Zero;
+    }
+
+    private bool IsNewPeriod(int bar)
 	{
 		return Period switch
 		{
-			PeriodType.CurrentDay or PeriodType.PreviousDay => IsNewSession(bar),
-			PeriodType.CurrenWeek or PeriodType.PreviousWeek => IsNewWeek(bar),
+            PeriodType.CurrentDay or PeriodType.PreviousDay => UseTradingDayStartForDay()
+                ? IsNewTradingDay(bar)
+                : IsNewSession(bar),
+            PeriodType.CurrenWeek or PeriodType.PreviousWeek => IsNewWeek(bar),
 			PeriodType.CurrentMonth or PeriodType.PreviousMonth => IsNewMonth(bar),
 			_ => false
 		};
