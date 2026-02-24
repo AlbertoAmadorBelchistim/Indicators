@@ -140,6 +140,7 @@ public class DailyLines : Indicator
 	private bool _showText = true;
 	private int _lastDefaultSession;
 	private FilterTimeSpan _tradingDayStart;
+    private SessionRange _lastCompletedDayRange;
 
     #endregion
 
@@ -377,7 +378,14 @@ public class DailyLines : Indicator
 			? _sessionRange
 			: _prevSessionRange;
 
-		var periodStr = Period switch
+        if (!isCurrent && Period == PeriodType.PreviousDay && UseTradingDayStartForDay() && _lastCompletedDayRange.OpenBar >= 0)
+        {
+            // PreviousDay should refer to the previous trading-day bucket with in-window data
+            // (skip empty days like weekends/holidays).
+            range = _lastCompletedDayRange;
+        }
+
+        var periodStr = Period switch
 		{
 			PeriodType.CurrentDay => "Curr. Day",
 			PeriodType.PreviousDay => "Prev. Day",
@@ -514,8 +522,17 @@ public class DailyLines : Indicator
 				if (_sessionRange.OpenBar >= 0)
 				{
 					_sessionRange.IsFinished = true;
-					_prevSessionRange = _sessionRange;
-				}
+
+                    // Preserve upstream behavior for other periods.
+                    _prevSessionRange = _sessionRange;
+
+                    // For Day periods, track the last completed range that actually has session-window data.
+                    if (Period is PeriodType.CurrentDay or PeriodType.PreviousDay)
+                    {
+                        // OpenBar >= 0 implies we have at least one in-window candle (because we only IncCandle when InsideSession is true).
+                        _lastCompletedDayRange = _sessionRange;
+                    }
+                }
 
                 if (Period is PeriodType.CurrentDay or PeriodType.PreviousDay)
                 {
