@@ -141,6 +141,7 @@ public class DailyLines : Indicator
 	private int _lastDefaultSession;
 	private FilterTimeSpan _tradingDayStart;
     private SessionRange _lastCompletedDayRange;
+    private RenderPen _halfGapPen;
 
     #endregion
 
@@ -326,6 +327,29 @@ public class DailyLines : Indicator
 
     #endregion
 
+    #region HalfGap
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowHalfGap),
+        Description = nameof(Resources.ShowHalfGapDescription),
+        GroupName = nameof(Resources.HalfGap), Order = 360)]
+    public bool ShowHalfGap { get; set; }
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Line),
+        Description = nameof(Resources.PenSettingsDescription),
+        GroupName = nameof(Resources.HalfGap), Order = 361)]
+    public PenSettings HalfGapPen { get; set; } = new()
+    {
+        Color = DefaultColors.Blue.Convert(),
+        Width = 2
+    };
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.HalfGapText),
+        Description = nameof(Resources.HalfGapTextDescription),
+        GroupName = nameof(Resources.HalfGap), Order = 362)]
+    public string HalfGapText { get; set; } = Resources.HalfGap;
+
+    #endregion
+
     #endregion
 
     #region ctor
@@ -399,7 +423,25 @@ public class DailyLines : Indicator
 		var high = ChartInfo.PriceChartContainer.High;
 		var low = ChartInfo.PriceChartContainer.Low;
 
-		if (range.OpenPrice >= low && range.OpenPrice <= high)
+        // Half Gap (midpoint between previous session close and current session open).
+        // Option A: only for CurrentDay when CustomSession is enabled.
+        if (ShowHalfGap
+            && CustomSession
+            && Period == PeriodType.CurrentDay
+            && _prevSessionRange is not null
+            && _prevSessionRange.IsFinished
+            && _prevSessionRange.OpenBar >= 0
+            && range.OpenBar >= 0)
+        {
+            var prevClose = _prevSessionRange.ClosePrice;
+            var currOpen = range.OpenPrice;
+            var halfGap = prevClose + (currOpen - prevClose) / 2m;
+
+            if (halfGap >= low && halfGap <= high)
+                DrawLevel(context, HalfGapPen, range.OpenBar, halfGap, HalfGapText, "HalfGap", periodStr);
+        }
+
+        if (range.OpenPrice >= low && range.OpenPrice <= high)
 			DrawLevel(context, OpenPen, range.OpenBar, range.OpenPrice, OpenText, "Open", periodStr);
 
 		if (range.HighPrice >= low && range.HighPrice <= high)
