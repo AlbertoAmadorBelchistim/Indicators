@@ -2723,4 +2723,30 @@
     <value>Ankerzeit, die definiert, wann ein neuer Handelstag beginnt. Dies beeinflusst, welcher Tag als "aktuell" und "vorherig" gilt (z. B. Wochenenden/Feiertage), aber OHLC wird weiterhin nur aus dem ausgewählten Sitzungsintervall berechnet.</value>
     <comment>DailyLines</comment>
   </data>
-  </root>
+  <data name="HalfGap" xml:space="preserve">
+  <value>Half Gap</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="HalfGapDescription" xml:space="preserve">
+  <value>Mittelpunkt zwischen dem Schlusskurs der vorherigen Sitzung und dem Eröffnungskurs der aktuellen Sitzung (typischer RTH-Anwendungsfall).</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowHalfGap" xml:space="preserve">
+  <value>Half Gap anzeigen</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowHalfGapDescription" xml:space="preserve">
+  <value>Zeigt die Half-Gap-Linie an (nur für Aktueller Tag mit aktivierter benutzerdefinierter Sitzung).</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="HalfGapText" xml:space="preserve">
+  <value>Half Gap Text</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="HalfGapTextDescription" xml:space="preserve">
+  <value>Text, der als Beschriftung der Half-Gap-Linie angezeigt wird.</value>
+  <comment>DailyLines</comment>
+</data>
+  <data name="PenSettingsDescription" xml:space="preserve">
+    <value>Legt Einstellungen für die Farbe, den Stil und die Breite der angezeigten Linien fest.</value>
+  </data></root>

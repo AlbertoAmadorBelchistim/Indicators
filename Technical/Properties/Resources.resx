@@ -5014,4 +5014,31 @@
 <data name="TradingDayStartDescription" xml:space="preserve">
  <value>Anchor time that defines when a new trading day starts. This affects which day is considered "current" and "previous" (e.g., weekends/holidays), but OHLC is still calculated only from the selected session window.</value>
  <comment>DailyLines</comment>
-</data></root>
+</data>
+<data name="HalfGap" xml:space="preserve">
+  <value>Half Gap</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="HalfGapDescription" xml:space="preserve">
+  <value>Midpoint between the previous session close and the current session open (RTH use case).</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowHalfGap" xml:space="preserve">
+  <value>Show Half Gap</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowHalfGapDescription" xml:space="preserve">
+  <value>Show the Half Gap line (only for Current Day with Custom Session enabled).</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="HalfGapText" xml:space="preserve">
+  <value>Half Gap text</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="HalfGapTextDescription" xml:space="preserve">
+  <value>Label text for the Half Gap line.</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="PenSettingsDescription" xml:space="preserve">
+    <value>Specifies settings for the color, style, and width of the displayed lines.</value>
+  </data></root>

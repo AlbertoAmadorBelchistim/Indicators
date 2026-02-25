@@ -2672,4 +2672,29 @@
     <value>用于定义新交易日何时开始的锚定时间。它影响“当前/前一日”的判定（例如周末/假期），但 OHLC 仍仅基于所选会话时间窗口内的K线计算。</value>
     <comment>DailyLines</comment>
   </data>
-  </root>
+  <data name="HalfGap" xml:space="preserve">
+  <value>Half Gap</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="HalfGapDescription" xml:space="preserve">
+  <value>上一交易时段收盘价与当前交易时段开盘价之间的中点（常用于 RTH 场景）。</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowHalfGap" xml:space="preserve">
+  <value>显示 Half Gap</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowHalfGapDescription" xml:space="preserve">
+  <value>显示 Half Gap 线（仅在当前日且启用自定义交易时段时）。</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="HalfGapText" xml:space="preserve">
+  <value>Half Gap 文本</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="HalfGapTextDescription" xml:space="preserve">
+  <value>Half Gap 线的标签文本。</value>
+  <comment>DailyLines</comment>
+</data><data name="PenSettingsDescription" xml:space="preserve">
+    <value>指定显示线条的颜色、样式和宽度设置。</value>
+  </data></root>

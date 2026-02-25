@@ -4780,4 +4780,30 @@
     <value>Опорное время, определяющее начало нового торгового дня. Это влияет на то, какой день считается "текущим" и "предыдущим" (например, выходные/праздники), но OHLC рассчитывается только по выбранному интервалу сессии.</value>
     <comment>DailyLines</comment>
   </data>
-  </root>
+  <data name="HalfGap" xml:space="preserve">
+  <value>Half Gap</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="HalfGapDescription" xml:space="preserve">
+  <value>Средняя точка между закрытием предыдущей сессии и открытием текущей сессии (типичный случай RTH).</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowHalfGap" xml:space="preserve">
+  <value>Показать Half Gap</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowHalfGapDescription" xml:space="preserve">
+  <value>Показывать линию Half Gap (только для Текущего дня при включённой пользовательской сессии).</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="HalfGapText" xml:space="preserve">
+  <value>Текст Half Gap</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="HalfGapTextDescription" xml:space="preserve">
+  <value>Текстовая метка линии Half Gap.</value>
+  <comment>DailyLines</comment>
+</data>
+  <data name="PenSettingsDescription" xml:space="preserve">
+    <value>Определяет параметры для цвета, стиля и ширины отображаемых линий.</value>
+  </data></root>

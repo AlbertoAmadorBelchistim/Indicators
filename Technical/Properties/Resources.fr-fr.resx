@@ -2717,4 +2717,30 @@
     <value>Heure d’ancrage qui définit quand une nouvelle journée de trading commence. Cela détermine quel jour est considéré comme "actuel" et "précédent" (p. ex. week-ends/jours fériés), mais l’OHLC est calculé uniquement à partir de la fenêtre de session sélectionnée.</value>
     <comment>DailyLines</comment>
   </data>
-  </root>
+  <data name="HalfGap" xml:space="preserve">
+  <value>Half Gap</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="HalfGapDescription" xml:space="preserve">
+  <value>Point médian entre la clôture de la session précédente et l'ouverture de la session actuelle (usage typique RTH).</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowHalfGap" xml:space="preserve">
+  <value>Afficher Half Gap</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowHalfGapDescription" xml:space="preserve">
+  <value>Affiche la ligne Half Gap (uniquement pour Jour Actuel avec session personnalisée activée).</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="HalfGapText" xml:space="preserve">
+  <value>Texte Half Gap</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="HalfGapTextDescription" xml:space="preserve">
+  <value>Texte affiché comme étiquette pour la ligne Half Gap.</value>
+  <comment>DailyLines</comment>
+</data>
+  <data name="PenSettingsDescription" xml:space="preserve">
+    <value>Spécifie les paramètres pour la couleur, le style et la largeur des lignes affichées.</value>
+  </data></root>

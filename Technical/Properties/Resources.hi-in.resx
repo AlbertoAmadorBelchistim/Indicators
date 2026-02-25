@@ -2716,4 +2716,29 @@
     <value>एंकर समय जो यह निर्धारित करता है कि नया ट्रेडिंग डे कब शुरू होता है। इससे यह तय होता है कि कौन सा दिन "वर्तमान" और "पिछला" माना जाएगा (जैसे वीकेंड/छुट्टियाँ), लेकिन OHLC केवल चयनित सेशन विंडो के भीतर की कैंडल्स से ही निकाला जाता है।</value>
     <comment>DailyLines</comment>
   </data>
-  </root>
+  <data name="HalfGap" xml:space="preserve">
+  <value>Half Gap</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="HalfGapDescription" xml:space="preserve">
+  <value>पिछले सत्र के क्लोज़ और वर्तमान सत्र के ओपन के बीच का मध्य बिंदु (आमतौर पर RTH उपयोग के लिए)।</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowHalfGap" xml:space="preserve">
+  <value>Half Gap दिखाएँ</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowHalfGapDescription" xml:space="preserve">
+  <value>Half Gap लाइन दिखाएँ (केवल वर्तमान दिन के लिए जब कस्टम सत्र सक्रिय हो)।</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="HalfGapText" xml:space="preserve">
+  <value>Half Gap टेक्स्ट</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="HalfGapTextDescription" xml:space="preserve">
+  <value>Half Gap लाइन के लिए प्रदर्शित लेबल टेक्स्ट।</value>
+  <comment>DailyLines</comment>
+</data><data name="PenSettingsDescription" xml:space="preserve">
+    <value>प्रदर्शित रेखाओं के रंग, शैली और चौड़ाई के लिए सेटिंग्स निर्धारित करता है।</value>
+  </data></root>

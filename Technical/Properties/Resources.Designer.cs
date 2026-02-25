@@ -3688,6 +3688,42 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Half Gap.
+        /// </summary>
+        public static string HalfGap {
+            get {
+                return ResourceManager.GetString("HalfGap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Midpoint between the previous session close and the current session open (RTH use case)..
+        /// </summary>
+        public static string HalfGapDescription {
+            get {
+                return ResourceManager.GetString("HalfGapDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Half Gap text.
+        /// </summary>
+        public static string HalfGapText {
+            get {
+                return ResourceManager.GetString("HalfGapText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Label text for the Half Gap line..
+        /// </summary>
+        public static string HalfGapTextDescription {
+            get {
+                return ResourceManager.GetString("HalfGapTextDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a 0DTE halo.
         /// </summary>
         public static string Halo {
@@ -6901,6 +6937,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Specifies settings for the color, style, and width of the displayed lines..
+        /// </summary>
+        public static string PenSettingsDescription {
+            get {
+                return ResourceManager.GetString("PenSettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Swing Model Upper Band (MenthorQ) (UB).
         /// </summary>
         public static string PenUpperBand {
@@ -8742,6 +8787,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string ShowGrid {
             get {
                 return ResourceManager.GetString("ShowGrid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show Half Gap.
+        /// </summary>
+        public static string ShowHalfGap {
+            get {
+                return ResourceManager.GetString("ShowHalfGap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show the Half Gap line (only for Current Day with Custom Session enabled)..
+        /// </summary>
+        public static string ShowHalfGapDescription {
+            get {
+                return ResourceManager.GetString("ShowHalfGapDescription", resourceCulture);
             }
         }
         
