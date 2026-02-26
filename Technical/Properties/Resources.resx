@@ -5112,4 +5112,16 @@
 The indicator loads volume data not more than 5 days.</value>
   </data><data name="SessionEndDescription" xml:space="preserve">
     <value>Defines the end date of data recording.</value>
-  </data></root>
+  </data>
+  <data name="ShowEth" xml:space="preserve">
+  <value>Show ETH (18:00→RTH)</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowEthDescription" xml:space="preserve">
+  <value>Draw ETH levels from Trading Day Start to the RTH start (custom session start time).</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="Eth" xml:space="preserve">
+  <value>ETH</value>
+  <comment>DailyLines</comment>
+</data></root>

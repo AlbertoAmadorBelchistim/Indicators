@@ -2811,4 +2811,16 @@
     <value>डेटा रिकॉर्डिंग की शुरुआत तिथि को परिभाषित करता है।</value>
   </data><data name="SessionEndDescription" xml:space="preserve">
     <value>डेटा रिकॉर्डिंग की समाप्ति तिथि को परिभाषित करता है।</value>
-  </data></root>
+  </data>
+  <data name="ShowEth" xml:space="preserve">
+  <value>ETH दिखाएँ (18:00→RTH)</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowEthDescription" xml:space="preserve">
+  <value>Trading Day Start से RTH start तक ETH levels दिखाता है (custom session start time).</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="Eth" xml:space="preserve">
+  <value>ETH</value>
+  <comment>DailyLines</comment>
+</data></root>

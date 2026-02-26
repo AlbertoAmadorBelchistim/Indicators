@@ -3112,6 +3112,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a ETH.
+        /// </summary>
+        public static string Eth {
+            get {
+                return ResourceManager.GetString("Eth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Exact.
         /// </summary>
         public static string Exact {
@@ -8851,6 +8860,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string ShowDuringFormationDescription {
             get {
                 return ResourceManager.GetString("ShowDuringFormationDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show ETH (18:00→RTH).
+        /// </summary>
+        public static string ShowEth {
+            get {
+                return ResourceManager.GetString("ShowEth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Draw ETH levels from Trading Day Start to the RTH start (custom session start time)..
+        /// </summary>
+        public static string ShowEthDescription {
+            get {
+                return ResourceManager.GetString("ShowEthDescription", resourceCulture);
             }
         }
         

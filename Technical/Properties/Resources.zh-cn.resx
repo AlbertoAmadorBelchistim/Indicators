@@ -2767,4 +2767,16 @@
     <value>定义数据记录的开始日期。</value>
   </data><data name="SessionEndDescription" xml:space="preserve">
     <value>定义数据记录的结束日期。</value>
-  </data></root>
+  </data>
+  <data name="ShowEth" xml:space="preserve">
+  <value>显示 ETH（18:00→RTH）</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowEthDescription" xml:space="preserve">
+  <value>从 Trading Day Start 绘制 ETH 水平到 RTH 开始（自定义会话开始时间）。</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="Eth" xml:space="preserve">
+  <value>ETH</value>
+  <comment>DailyLines</comment>
+</data></root>

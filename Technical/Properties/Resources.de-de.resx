@@ -2819,4 +2819,16 @@
     <value>Definiert das Startdatum der Datenaufzeichnung.</value>
   </data><data name="SessionEndDescription" xml:space="preserve">
     <value>Definiert das Enddatum der Datenaufzeichnung.</value>
-  </data></root>
+  </data>
+  <data name="ShowEth" xml:space="preserve">
+  <value>ETH anzeigen (18:00→RTH)</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowEthDescription" xml:space="preserve">
+  <value>Zeichnet ETH-Level vom Trading-Day-Start bis zum RTH-Start (Startzeit der Custom-Session).</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="Eth" xml:space="preserve">
+  <value>ETH</value>
+  <comment>DailyLines</comment>
+</data></root>

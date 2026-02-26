@@ -4877,4 +4877,16 @@
 Индикатор может загрузить данные объемов не более 5 дней.</value>
   </data><data name="SessionEndDescription" xml:space="preserve">
     <value>Определяет конечную дату записи данных.</value>
-  </data></root>
+  </data>
+  <data name="ShowEth" xml:space="preserve">
+  <value>Показывать ETH (18:00→RTH)</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowEthDescription" xml:space="preserve">
+  <value>Рисует уровни ETH от начала Trading Day до начала RTH (время старта custom-сессии).</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="Eth" xml:space="preserve">
+  <value>ETH</value>
+  <comment>DailyLines</comment>
+</data></root>
