@@ -517,187 +517,211 @@ public class DailyLines : Indicator
         _lastDefaultSession = 0;
     }
 
-	/// <summary>
-	/// Determines if a new custom session starts at the specified bar.
-	/// Uses a two-phase detection to correctly handle gaps (e.g., weekends):
-	/// 1. First, a new default session must be detected (sets _newSessionWait = true)
-	/// 2. Then, the custom session start time must fall within the current bar
-	/// This prevents false triggers when custom session time falls within weekend gaps.
-	/// </summary>
-	protected new bool IsNewSession(int bar)
-	{
-		var isNewDefault = base.IsNewSession(bar);
+    /// <summary>
+    /// Determines if a new custom session starts at the specified bar.
+    /// Uses a two-phase detection to correctly handle gaps (e.g., weekends):
+    /// 1. First, a new default session must be detected (sets _newSessionWait = true)
+    /// 2. Then, the custom session start time must fall within the current bar
+    /// This prevents false triggers when custom session time falls within weekend gaps.
+    /// </summary>
+    private bool IsNewSessionForScope(int bar, bool isNewDefaultSession)
+    {
+        if (!CustomSession)
+            return isNewDefaultSession;
 
-		if (!CustomSession)
-			return isNewDefault;
-
-		// Phase 1: Track when a new default (exchange) session starts
-		if (isNewDefault)
-			_newSessionWait = true;
-
-		var candle = GetCandle(bar);
-
-		var startTime = candle.Time.AddHours(InstrumentInfo.TimeZone).TimeOfDay;
-		var endTime = candle.LastTime.AddHours(InstrumentInfo.TimeZone).TimeOfDay;
-
-		// Phase 2: Check if custom session start time falls within this bar
-		bool isNewCustomSession;
-
-		if (bar == 0)
-		{
-			// First bar: check if custom start time is within bar's time range
-			if (startTime <= endTime)
-				isNewCustomSession = FilterStartTime.Value >= startTime && FilterStartTime.Value <= endTime;
-			else
-				isNewCustomSession = FilterStartTime.Value >= startTime || FilterStartTime.Value <= endTime;
-		}
-		else
-		{
-			// Check if custom start time falls inside current bar
-			var insideBar = (startTime <= endTime && FilterStartTime.Value >= startTime && FilterStartTime.Value <= endTime)
-				||
-				(startTime > endTime && (FilterStartTime.Value >= startTime || FilterStartTime.Value <= endTime));
-
-			if (insideBar)
-			{
-				isNewCustomSession = true;
-			}
-			else
-			{
-				// Check if custom start time falls in the gap between previous bar and current bar
-				var prevCandle = GetCandle(bar - 1);
-				startTime = prevCandle.LastTime.AddHours(InstrumentInfo.TimeZone).TimeOfDay;
-				endTime = candle.Time.AddHours(InstrumentInfo.TimeZone).TimeOfDay;
-
-				if (startTime <= endTime)
-					isNewCustomSession = FilterStartTime.Value >= startTime && FilterStartTime.Value <= endTime;
-				else
-					isNewCustomSession = FilterStartTime.Value >= startTime || FilterStartTime.Value <= endTime;
-			}
-		}
-
-		// Only trigger new session when BOTH conditions are met:
-		// - Default session has changed (we're in a new trading day)
-		// - Custom session start time is reached
-		if (!isNewCustomSession || !_newSessionWait)
-			return false;
-
-		_newSessionWait = false;
-		return true;
-	}
-
-	protected new bool IsNewWeek(int bar)
-	{
-		var isNew = base.IsNewWeek(bar);
-
-		if (!CustomSession)
-			return isNew;
-
-		if (isNew)
-			_newWeekWait = true;
-
-		if (!InsideSession(bar) || !_newWeekWait)
-			return false;
-
-		_newWeekWait = false;
-		return true;
-	}
-
-	protected override void OnCalculate(int bar, decimal value)
-	{
-        var scopeKind = GetLegacyScopeKind();
-        var state = GetScopeState(scopeKind);
+        // Phase 1: Track when a new default (exchange) session starts
+        if (isNewDefaultSession)
+            _newSessionWait = true;
 
         var candle = GetCandle(bar);
 
-		if (base.IsNewSession(bar))
-			_lastDefaultSession = bar;
+        var startTime = candle.Time.AddHours(InstrumentInfo.TimeZone).TimeOfDay;
+        var endTime = candle.LastTime.AddHours(InstrumentInfo.TimeZone).TimeOfDay;
 
-		if (bar != state.Current.OpenBar)
-		{
-			var isNewPeriod = IsNewPeriod(bar);
+        // Phase 2: Check if custom session start time falls within this bar
+        bool isNewCustomSession;
 
-			if (isNewPeriod)
-			{
-				if (state.Current.OpenBar >= 0)
-				{
-					state.Current.IsFinished = true;
+        if (bar == 0)
+        {
+            // First bar: check if custom start time is within bar's time range
+            if (startTime <= endTime)
+                isNewCustomSession = FilterStartTime.Value >= startTime && FilterStartTime.Value <= endTime;
+            else
+                isNewCustomSession = FilterStartTime.Value >= startTime || FilterStartTime.Value <= endTime;
+        }
+        else
+        {
+            // Check if custom start time falls inside current bar
+            var insideBar =
+                (startTime <= endTime && FilterStartTime.Value >= startTime && FilterStartTime.Value <= endTime)
+                ||
+                (startTime > endTime && (FilterStartTime.Value >= startTime || FilterStartTime.Value <= endTime));
 
-                    // Preserve upstream behavior for other periods.
-                    state.Prev = state.Current;
-
-                    // For Day periods, track the last completed range that actually has session-window data.
-                    if (Period is PeriodType.CurrentDay or PeriodType.PreviousDay)
-                    {
-                        // OpenBar >= 0 implies we have at least one in-window candle (because we only IncCandle when InsideSession is true).
-                        state.LastCompletedDayWithData = state.Current;
-                    }
-                }
-
-                if (Period is PeriodType.CurrentDay or PeriodType.PreviousDay)
-                {
-                    // For Day periods we want OHLC to be computed only from the selected session window.
-                    // When using TradingDayStart-based bucketing, the first bar of the bucket might be outside the session window.
-                    state.Current = UseTradingDayStartForDay()
-                        ? new SessionRange()
-                        : new SessionRange(candle, bar);
-
-                    if (InsideSession(bar))
-                        state.Current.IncCandle(candle, bar);
-                }
-                else
-                {
-                    state.Current = new SessionRange(candle, bar);
-                }
+            if (insideBar)
+            {
+                isNewCustomSession = true;
             }
-			else
-			{
-				if (Period is PeriodType.CurrentDay or PeriodType.PreviousDay)
-				{
-                    if (InsideSession(bar))
-					{
-						state.Current.IncCandle(candle, bar);
-					}
-					else 
-					{
-						if (state.Current.OpenBar >= 0)
-							state.Current.IsFinished = true;
-					}
-				}
-				else
-				{
-					if (state.Current.OpenBar >= 0)
-						state.Current.IncCandle(candle, bar);
-				}
-			}
-		}
-		else
-		{
-			if (Period is PeriodType.CurrentDay or PeriodType.PreviousDay)
-			{
-				if (InsideSession(bar))
-				{
-					state.Current.IncCandle(candle, bar);
-				}
-				else
-				{
-					if (state.Current.OpenBar >= 0)
-						state.Current.IsFinished = true;
-				}
-			}
-			else
-			{
-				if (state.Current.OpenBar >= 0)
-					state.Current.IncCandle(candle, bar);
-			}
-		}
+            else
+            {
+                // Check if custom start time falls in the gap between previous bar and current bar
+                var prevCandle = GetCandle(bar - 1);
+                startTime = prevCandle.LastTime.AddHours(InstrumentInfo.TimeZone).TimeOfDay;
+                endTime = candle.Time.AddHours(InstrumentInfo.TimeZone).TimeOfDay;
+
+                if (startTime <= endTime)
+                    isNewCustomSession = FilterStartTime.Value >= startTime && FilterStartTime.Value <= endTime;
+                else
+                    isNewCustomSession = FilterStartTime.Value >= startTime || FilterStartTime.Value <= endTime;
+            }
+        }
+
+        // Only trigger new session when BOTH conditions are met:
+        // - Default session has changed (we're in a new trading day)
+        // - Custom session start time is reached
+        if (!isNewCustomSession || !_newSessionWait)
+            return false;
+
+        _newSessionWait = false;
+        return true;
     }
 
-	#endregion
+    private bool IsNewWeekForScope(int bar, bool isNewBaseWeek)
+    {
+        if (!CustomSession)
+            return isNewBaseWeek;
 
-	#region Private methods
+        if (isNewBaseWeek)
+            _newWeekWait = true;
 
-	private bool InsideSession(int bar)
+        if (!InsideSession(bar) || !_newWeekWait)
+            return false;
+
+        _newWeekWait = false;
+        return true;
+    }
+
+    protected override void OnCalculate(int bar, decimal value)
+    {
+        var candle = GetCandle(bar);
+
+        // Cache base period boundaries ONCE to avoid side-effects when multi-scope is enabled.
+        var isNewDefaultSession = base.IsNewSession(bar);
+        if (isNewDefaultSession)
+            _lastDefaultSession = bar;
+
+        var isNewBaseWeek = base.IsNewWeek(bar);
+        var isNewBaseMonth = IsNewMonth(bar);
+
+        foreach (var scopeKind in GetActiveScopes())
+        {
+            var state = GetScopeState(scopeKind);
+
+            if (bar == state.Current.OpenBar)
+            {
+                // Same bar as current open: just keep expanding the current range (if applicable).
+                ProcessSameOpenBar(scopeKind, state, bar, candle);
+                continue;
+            }
+
+            var isNewPeriod = IsNewPeriod(bar, scopeKind, isNewDefaultSession, isNewBaseWeek, isNewBaseMonth);
+
+            if (isNewPeriod)
+            {
+                FinalizeAndShiftOnNewPeriod(scopeKind, state);
+                StartNewPeriod(scopeKind, state, bar, candle);
+            }
+            else
+            {
+                ExpandCurrentPeriod(scopeKind, state, bar, candle);
+            }
+        }
+    }
+
+    private void ProcessSameOpenBar(ScopeKind scopeKind, ScopeState state, int bar, IndicatorCandle candle)
+    {
+        if (IsDayScope(scopeKind))
+        {
+            if (InsideSession(bar))
+            {
+                state.Current.IncCandle(candle, bar);
+            }
+            else
+            {
+                if (state.Current.OpenBar >= 0)
+                    state.Current.IsFinished = true;
+            }
+        }
+        else
+        {
+            if (state.Current.OpenBar >= 0)
+                state.Current.IncCandle(candle, bar);
+        }
+    }
+
+    private void FinalizeAndShiftOnNewPeriod(ScopeKind scopeKind, ScopeState state)
+    {
+        if (state.Current.OpenBar >= 0)
+        {
+            state.Current.IsFinished = true;
+
+            // Preserve upstream behavior for all scopes.
+            state.Prev = state.Current;
+
+            // For Day scopes, track the last completed range that actually has session-window data.
+            if (IsDayScope(scopeKind))
+            {
+                // OpenBar >= 0 implies we have at least one in-window candle
+                // (because we only IncCandle when InsideSession is true).
+                state.LastCompletedDayWithData = state.Current;
+            }
+        }
+    }
+
+    private void StartNewPeriod(ScopeKind scopeKind, ScopeState state, int bar, IndicatorCandle candle)
+    {
+        if (IsDayScope(scopeKind))
+        {
+            // For Day scopes compute OHLC only from the selected session window.
+            // When using TradingDayStart-based bucketing, the first bar of the bucket might be outside the session window.
+            state.Current = UseTradingDayStartForDay()
+                ? new SessionRange()
+                : new SessionRange(candle, bar);
+
+            if (InsideSession(bar))
+                state.Current.IncCandle(candle, bar);
+        }
+        else
+        {
+            state.Current = new SessionRange(candle, bar);
+        }
+    }
+
+    private void ExpandCurrentPeriod(ScopeKind scopeKind, ScopeState state, int bar, IndicatorCandle candle)
+    {
+        if (IsDayScope(scopeKind))
+        {
+            if (InsideSession(bar))
+            {
+                state.Current.IncCandle(candle, bar);
+            }
+            else
+            {
+                if (state.Current.OpenBar >= 0)
+                    state.Current.IsFinished = true;
+            }
+        }
+        else
+        {
+            if (state.Current.OpenBar >= 0)
+                state.Current.IncCandle(candle, bar);
+        }
+    }
+
+    #endregion
+
+    #region Private methods
+
+    private bool InsideSession(int bar)
 	{
 		if (!CustomSession)
 			return true;
@@ -732,18 +756,28 @@ public class DailyLines : Indicator
         return CustomSession || (TradingDayStart?.Value ?? TimeSpan.Zero) != TimeSpan.Zero;
     }
 
-    private bool IsNewPeriod(int bar)
-	{
-		return Period switch
-		{
-            PeriodType.CurrentDay or PeriodType.PreviousDay => UseTradingDayStartForDay()
+    private bool IsNewPeriod(
+    int bar,
+    ScopeKind scope,
+    bool isNewDefaultSession,
+    bool isNewBaseWeek,
+    bool isNewBaseMonth)
+    {
+        if (IsDayScope(scope))
+        {
+            return UseTradingDayStartForDay()
                 ? IsNewTradingDay(bar)
-                : IsNewSession(bar),
-            PeriodType.CurrenWeek or PeriodType.PreviousWeek => IsNewWeek(bar),
-			PeriodType.CurrentMonth or PeriodType.PreviousMonth => IsNewMonth(bar),
-			_ => false
-		};
-	}
+                : IsNewSessionForScope(bar, isNewDefaultSession);
+        }
+
+        if (IsWeekScope(scope))
+            return IsNewWeekForScope(bar, isNewBaseWeek);
+
+        if (IsMonthScope(scope))
+            return isNewBaseMonth;
+
+        return false;
+    }
 
     private ScopeKind GetLegacyScopeKind()
     {
@@ -757,6 +791,21 @@ public class DailyLines : Indicator
             PeriodType.PreviousMonth => ScopeKind.PreviousMonth,
             _ => ScopeKind.CurrentDay
         };
+    }
+
+    private static bool IsDayScope(ScopeKind kind)
+    {
+        return kind is ScopeKind.CurrentDay or ScopeKind.PreviousDay;
+    }
+
+    private static bool IsWeekScope(ScopeKind kind)
+    {
+        return kind is ScopeKind.CurrentWeek or ScopeKind.PreviousWeek;
+    }
+
+    private static bool IsMonthScope(ScopeKind kind)
+    {
+        return kind is ScopeKind.CurrentMonth or ScopeKind.PreviousMonth;
     }
 
     private IEnumerable<ScopeKind> GetActiveScopes()
