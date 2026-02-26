@@ -2741,4 +2741,74 @@
   <comment>DailyLines</comment>
 </data><data name="PenSettingsDescription" xml:space="preserve">
     <value>प्रदर्शित रेखाओं के रंग, शैली और चौड़ाई के लिए सेटिंग्स निर्धारित करता है।</value>
+  </data>
+  <data name="MultiScope" xml:space="preserve">
+  <value>मल्टी-स्कोप</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="MultiScopeDescription" xml:space="preserve">
+  <value>एक साथ कई पीरियड दिखाने की अनुमति देता है (एक ही Period चुनने के बजाय)।</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowCurrentDay" xml:space="preserve">
+  <value>वर्तमान दिन दिखाएँ</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowCurrentDayDescription" xml:space="preserve">
+  <value>वर्तमान दिन के लेवल दिखाएँ।</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowPreviousDay" xml:space="preserve">
+  <value>पिछला दिन दिखाएँ</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowPreviousDayDescription" xml:space="preserve">
+  <value>पिछले दिन के लेवल दिखाएँ।</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowCurrentWeek" xml:space="preserve">
+  <value>वर्तमान सप्ताह दिखाएँ</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowCurrentWeekDescription" xml:space="preserve">
+  <value>वर्तमान सप्ताह के लेवल दिखाएँ।</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowPreviousWeek" xml:space="preserve">
+  <value>पिछला सप्ताह दिखाएँ</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowPreviousWeekDescription" xml:space="preserve">
+  <value>पिछले सप्ताह के लेवल दिखाएँ।</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowCurrentMonth" xml:space="preserve">
+  <value>वर्तमान माह दिखाएँ</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowCurrentMonthDescription" xml:space="preserve">
+  <value>वर्तमान माह के लेवल दिखाएँ।</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowPreviousMonth" xml:space="preserve">
+  <value>पिछला माह दिखाएँ</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowPreviousMonthDescription" xml:space="preserve">
+  <value>पिछले माह के लेवल दिखाएँ।</value>
+  <comment>DailyLines</comment>
+</data><data name="PeriodDescription" xml:space="preserve">
+    <value>गणना में शामिल होने वाली हाल की मोमबत्तियों की मात्रा को निर्धारित करता है।</value>
+  </data><data name="IsCustomSessionDescription" xml:space="preserve">
+    <value>यदि सक्षम है, तो एक कस्टम सत्र का उपयोग करने की अनुमति देता है, अन्यथा डिफ़ॉल्ट सत्र का उपयोग किया जाएगा।</value>
+  </data><data name="SessionBeginDescription" xml:space="preserve">
+    <value>डेटा रिकॉर्डिंग की शुरुआत तिथि को परिभाषित करता है।</value>
+  </data><data name="SessionEndDescription" xml:space="preserve">
+    <value>डेटा रिकॉर्डिंग की समाप्ति तिथि को परिभाषित करता है।</value>
   </data></root>

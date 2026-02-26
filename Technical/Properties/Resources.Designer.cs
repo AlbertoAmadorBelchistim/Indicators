@@ -4480,6 +4480,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a If enabled, allows the use of a custom session, otherwise the default session..
+        /// </summary>
+        public static string IsCustomSessionDescription {
+            get {
+                return ResourceManager.GetString("IsCustomSessionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Determines whether the text label should be displayed..
         /// </summary>
         public static string IsNeedShowLabelDescription {
@@ -6181,6 +6190,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Multi-scope.
+        /// </summary>
+        public static string MultiScope {
+            get {
+                return ResourceManager.GetString("MultiScope", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Enable showing multiple periods at the same time (instead of selecting a single Period)..
+        /// </summary>
+        public static string MultiScopeDescription {
+            get {
+                return ResourceManager.GetString("MultiScopeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Negative.
         /// </summary>
         public static string Negative {
@@ -7068,6 +7095,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string PeriodD {
             get {
                 return ResourceManager.GetString("PeriodD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Specifies the quantity of recent candles to include in the calculations..
+        /// </summary>
+        public static string PeriodDescription {
+            get {
+                return ResourceManager.GetString("PeriodDescription", resourceCulture);
             }
         }
         
@@ -8233,6 +8269,16 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Defines the start date of data recording.
+        ///The indicator loads volume data not more than 5 days..
+        /// </summary>
+        public static string SessionBeginDescription {
+            get {
+                return ResourceManager.GetString("SessionBeginDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Controls when session cumulative values are reset (Session Volume/Delta/Delta per Volume) and resets Delta Change at the start of a new session..
         /// </summary>
         public static string SessionCumModeDescription {
@@ -8283,6 +8329,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string SessionEnd {
             get {
                 return ResourceManager.GetString("SessionEnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Defines the end date of data recording..
+        /// </summary>
+        public static string SessionEndDescription {
+            get {
+                return ResourceManager.GetString("SessionEndDescription", resourceCulture);
             }
         }
         
@@ -8602,6 +8657,42 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Show Curr. Day.
+        /// </summary>
+        public static string ShowCurrentDay {
+            get {
+                return ResourceManager.GetString("ShowCurrentDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show current day levels..
+        /// </summary>
+        public static string ShowCurrentDayDescription {
+            get {
+                return ResourceManager.GetString("ShowCurrentDayDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show Curr. Month.
+        /// </summary>
+        public static string ShowCurrentMonth {
+            get {
+                return ResourceManager.GetString("ShowCurrentMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show current month levels..
+        /// </summary>
+        public static string ShowCurrentMonthDescription {
+            get {
+                return ResourceManager.GetString("ShowCurrentMonthDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Show Current Streak.
         /// </summary>
         public static string ShowCurrentStreakRow {
@@ -8625,6 +8716,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string ShowCurrentValue {
             get {
                 return ResourceManager.GetString("ShowCurrentValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show Curr. Week.
+        /// </summary>
+        public static string ShowCurrentWeek {
+            get {
+                return ResourceManager.GetString("ShowCurrentWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show current week levels..
+        /// </summary>
+        public static string ShowCurrentWeekDescription {
+            get {
+                return ResourceManager.GetString("ShowCurrentWeekDescription", resourceCulture);
             }
         }
         
@@ -8976,6 +9085,60 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string ShowPositionSnapshotDescription {
             get {
                 return ResourceManager.GetString("ShowPositionSnapshotDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show Prev. Day.
+        /// </summary>
+        public static string ShowPreviousDay {
+            get {
+                return ResourceManager.GetString("ShowPreviousDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show previous day levels..
+        /// </summary>
+        public static string ShowPreviousDayDescription {
+            get {
+                return ResourceManager.GetString("ShowPreviousDayDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show Prev. Month.
+        /// </summary>
+        public static string ShowPreviousMonth {
+            get {
+                return ResourceManager.GetString("ShowPreviousMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show previous month levels..
+        /// </summary>
+        public static string ShowPreviousMonthDescription {
+            get {
+                return ResourceManager.GetString("ShowPreviousMonthDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show Prev. Week.
+        /// </summary>
+        public static string ShowPreviousWeek {
+            get {
+                return ResourceManager.GetString("ShowPreviousWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show previous week levels..
+        /// </summary>
+        public static string ShowPreviousWeekDescription {
+            get {
+                return ResourceManager.GetString("ShowPreviousWeekDescription", resourceCulture);
             }
         }
         

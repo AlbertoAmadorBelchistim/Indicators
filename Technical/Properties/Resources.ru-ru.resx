@@ -4806,4 +4806,75 @@
 </data>
   <data name="PenSettingsDescription" xml:space="preserve">
     <value>Определяет параметры для цвета, стиля и ширины отображаемых линий.</value>
+  </data>
+  <data name="MultiScope" xml:space="preserve">
+  <value>Мульти-периоды</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="MultiScopeDescription" xml:space="preserve">
+  <value>Позволяет отображать несколько периодов одновременно (вместо выбора одного Period).</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowCurrentDay" xml:space="preserve">
+  <value>Показать тек. день</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowCurrentDayDescription" xml:space="preserve">
+  <value>Показывать уровни текущего дня.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowPreviousDay" xml:space="preserve">
+  <value>Показать пред. день</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowPreviousDayDescription" xml:space="preserve">
+  <value>Показывать уровни предыдущего дня.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowCurrentWeek" xml:space="preserve">
+  <value>Показать тек. неделю</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowCurrentWeekDescription" xml:space="preserve">
+  <value>Показывать уровни текущей недели.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowPreviousWeek" xml:space="preserve">
+  <value>Показать пред. неделю</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowPreviousWeekDescription" xml:space="preserve">
+  <value>Показывать уровни предыдущей недели.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowCurrentMonth" xml:space="preserve">
+  <value>Показать тек. месяц</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowCurrentMonthDescription" xml:space="preserve">
+  <value>Показывать уровни текущего месяца.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowPreviousMonth" xml:space="preserve">
+  <value>Показать пред. месяц</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowPreviousMonthDescription" xml:space="preserve">
+  <value>Показывать уровни предыдущего месяца.</value>
+  <comment>DailyLines</comment>
+</data><data name="PeriodDescription" xml:space="preserve">
+    <value>Определяет количество последних свечей, включаемых в расчеты.</value>
+  </data><data name="IsCustomSessionDescription" xml:space="preserve">
+    <value>Если включено, позволяет использовать пользовательскую сессию, в противном случае будет использоваться сессия по умолчанию.</value>
+  </data><data name="SessionBeginDescription" xml:space="preserve">
+    <value>Определяет начальную дату записи данных.
+Индикатор может загрузить данные объемов не более 5 дней.</value>
+  </data><data name="SessionEndDescription" xml:space="preserve">
+    <value>Определяет конечную дату записи данных.</value>
   </data></root>

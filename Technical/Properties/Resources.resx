@@ -5041,4 +5041,75 @@
 </data>
 <data name="PenSettingsDescription" xml:space="preserve">
     <value>Specifies settings for the color, style, and width of the displayed lines.</value>
+  </data>
+  <data name="MultiScope" xml:space="preserve">
+  <value>Multi-scope</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="MultiScopeDescription" xml:space="preserve">
+  <value>Enable showing multiple periods at the same time (instead of selecting a single Period).</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowCurrentDay" xml:space="preserve">
+  <value>Show Curr. Day</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowCurrentDayDescription" xml:space="preserve">
+  <value>Show current day levels.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowPreviousDay" xml:space="preserve">
+  <value>Show Prev. Day</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowPreviousDayDescription" xml:space="preserve">
+  <value>Show previous day levels.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowCurrentWeek" xml:space="preserve">
+  <value>Show Curr. Week</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowCurrentWeekDescription" xml:space="preserve">
+  <value>Show current week levels.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowPreviousWeek" xml:space="preserve">
+  <value>Show Prev. Week</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowPreviousWeekDescription" xml:space="preserve">
+  <value>Show previous week levels.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowCurrentMonth" xml:space="preserve">
+  <value>Show Curr. Month</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowCurrentMonthDescription" xml:space="preserve">
+  <value>Show current month levels.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowPreviousMonth" xml:space="preserve">
+  <value>Show Prev. Month</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowPreviousMonthDescription" xml:space="preserve">
+  <value>Show previous month levels.</value>
+  <comment>DailyLines</comment>
+</data><data name="PeriodDescription" xml:space="preserve">
+    <value>Specifies the quantity of recent candles to include in the calculations.</value>
+  </data><data name="IsCustomSessionDescription" xml:space="preserve">
+    <value>If enabled, allows the use of a custom session, otherwise the default session.</value>
+  </data><data name="SessionBeginDescription" xml:space="preserve">
+    <value>Defines the start date of data recording.
+The indicator loads volume data not more than 5 days.</value>
+  </data><data name="SessionEndDescription" xml:space="preserve">
+    <value>Defines the end date of data recording.</value>
   </data></root>

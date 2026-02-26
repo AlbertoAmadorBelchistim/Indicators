@@ -2744,4 +2744,75 @@
 </data>
 <data name="PenSettingsDescription" xml:space="preserve">
     <value>Especifica configuraciones para el color, estilo y ancho de las líneas mostradas.</value>
+  </data>
+  <data name="MultiScope" xml:space="preserve">
+  <value>Multi-periodo</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="MultiScopeDescription" xml:space="preserve">
+  <value>Permite mostrar varios periodos a la vez (en lugar de seleccionar un único Period).</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowCurrentDay" xml:space="preserve">
+  <value>Mostrar Día act.</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowCurrentDayDescription" xml:space="preserve">
+  <value>Muestra los niveles del día actual.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowPreviousDay" xml:space="preserve">
+  <value>Mostrar Día prev.</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowPreviousDayDescription" xml:space="preserve">
+  <value>Muestra los niveles del día previo.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowCurrentWeek" xml:space="preserve">
+  <value>Mostrar Semana act.</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowCurrentWeekDescription" xml:space="preserve">
+  <value>Muestra los niveles de la semana actual.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowPreviousWeek" xml:space="preserve">
+  <value>Mostrar Semana prev.</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowPreviousWeekDescription" xml:space="preserve">
+  <value>Muestra los niveles de la semana previa.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowCurrentMonth" xml:space="preserve">
+  <value>Mostrar Mes act.</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowCurrentMonthDescription" xml:space="preserve">
+  <value>Muestra los niveles del mes actual.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowPreviousMonth" xml:space="preserve">
+  <value>Mostrar Mes prev.</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowPreviousMonthDescription" xml:space="preserve">
+  <value>Muestra los niveles del mes previo.</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="PeriodDescription" xml:space="preserve">
+    <value>Especifica la cantidad de velas recientes para incluir en los cálculos.</value>
+  </data><data name="IsCustomSessionDescription" xml:space="preserve">
+    <value>Si está habilitado, permite el uso de una sesión personalizada, de lo contrario se utilizará la sesión predeterminada.</value>
+  </data><data name="SessionBeginDescription" xml:space="preserve">
+    <value>Define la fecha de inicio de la grabación de datos.</value>
+  </data><data name="SessionEndDescription" xml:space="preserve">
+    <value>Define la fecha de finalización de la grabación de datos.</value>
   </data></root>

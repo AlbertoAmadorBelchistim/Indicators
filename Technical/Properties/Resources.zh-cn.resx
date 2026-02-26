@@ -2697,4 +2697,74 @@
   <comment>DailyLines</comment>
 </data><data name="PenSettingsDescription" xml:space="preserve">
     <value>指定显示线条的颜色、样式和宽度设置。</value>
+  </data>
+  <data name="MultiScope" xml:space="preserve">
+  <value>多周期</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="MultiScopeDescription" xml:space="preserve">
+  <value>允许同时显示多个周期（而不是只选择一个 Period）。</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowCurrentDay" xml:space="preserve">
+  <value>显示当日</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowCurrentDayDescription" xml:space="preserve">
+  <value>显示当日的水平线。</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowPreviousDay" xml:space="preserve">
+  <value>显示前一日</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowPreviousDayDescription" xml:space="preserve">
+  <value>显示前一日的水平线。</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowCurrentWeek" xml:space="preserve">
+  <value>显示本周</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowCurrentWeekDescription" xml:space="preserve">
+  <value>显示本周的水平线。</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowPreviousWeek" xml:space="preserve">
+  <value>显示上周</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowPreviousWeekDescription" xml:space="preserve">
+  <value>显示上周的水平线。</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowCurrentMonth" xml:space="preserve">
+  <value>显示本月</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowCurrentMonthDescription" xml:space="preserve">
+  <value>显示本月的水平线。</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowPreviousMonth" xml:space="preserve">
+  <value>显示上月</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowPreviousMonthDescription" xml:space="preserve">
+  <value>显示上月的水平线。</value>
+  <comment>DailyLines</comment>
+</data><data name="PeriodDescription" xml:space="preserve">
+    <value>指定要包括在计算中的最近蜡烛的数量。</value>
+  </data><data name="IsCustomSessionDescription" xml:space="preserve">
+    <value>如果启用，允许使用自定义会话，否则将使用默认会话。</value>
+  </data><data name="SessionBeginDescription" xml:space="preserve">
+    <value>定义数据记录的开始日期。</value>
+  </data><data name="SessionEndDescription" xml:space="preserve">
+    <value>定义数据记录的结束日期。</value>
   </data></root>

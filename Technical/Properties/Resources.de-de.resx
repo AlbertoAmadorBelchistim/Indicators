@@ -2749,4 +2749,74 @@
 </data>
   <data name="PenSettingsDescription" xml:space="preserve">
     <value>Legt Einstellungen für die Farbe, den Stil und die Breite der angezeigten Linien fest.</value>
+  </data>
+  <data name="MultiScope" xml:space="preserve">
+  <value>Multi-Zeiträume</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="MultiScopeDescription" xml:space="preserve">
+  <value>Ermöglicht die gleichzeitige Anzeige mehrerer Zeiträume (statt nur einen Period auszuwählen).</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowCurrentDay" xml:space="preserve">
+  <value>Akt. Tag anzeigen</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowCurrentDayDescription" xml:space="preserve">
+  <value>Zeigt die Levels des aktuellen Tages an.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowPreviousDay" xml:space="preserve">
+  <value>Vorh. Tag anzeigen</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowPreviousDayDescription" xml:space="preserve">
+  <value>Zeigt die Levels des vorherigen Tages an.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowCurrentWeek" xml:space="preserve">
+  <value>Akt. Woche anzeigen</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowCurrentWeekDescription" xml:space="preserve">
+  <value>Zeigt die Levels der aktuellen Woche an.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowPreviousWeek" xml:space="preserve">
+  <value>Vorh. Woche anzeigen</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowPreviousWeekDescription" xml:space="preserve">
+  <value>Zeigt die Levels der vorherigen Woche an.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowCurrentMonth" xml:space="preserve">
+  <value>Akt. Monat anzeigen</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowCurrentMonthDescription" xml:space="preserve">
+  <value>Zeigt die Levels des aktuellen Monats an.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowPreviousMonth" xml:space="preserve">
+  <value>Vorh. Monat anzeigen</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowPreviousMonthDescription" xml:space="preserve">
+  <value>Zeigt die Levels des vorherigen Monats an.</value>
+  <comment>DailyLines</comment>
+</data><data name="PeriodDescription" xml:space="preserve">
+    <value>Legt die Anzahl der letzten Kerzen fest, die in die Berechnungen einbezogen werden sollen.</value>
+  </data><data name="IsCustomSessionDescription" xml:space="preserve">
+    <value>Wenn aktiviert, ermöglicht die Verwendung einer benutzerdefinierten Sitzung, andernfalls wird die Standardsitzung verwendet.</value>
+  </data><data name="SessionBeginDescription" xml:space="preserve">
+    <value>Definiert das Startdatum der Datenaufzeichnung.</value>
+  </data><data name="SessionEndDescription" xml:space="preserve">
+    <value>Definiert das Enddatum der Datenaufzeichnung.</value>
   </data></root>
