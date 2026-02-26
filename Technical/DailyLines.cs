@@ -183,8 +183,8 @@ public class DailyLines : Indicator
 	#region Filters
 
     [Parameter]
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Period), GroupName = nameof(Strings.Filters),
-        Description = nameof(Strings.PeriodDescription), Order = 110)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Period), GroupName = nameof(Resources.Filters),
+        Description = nameof(Resources.PeriodDescription), Order = 110)]
     public PeriodType Period
     {
         get => _per;
@@ -195,8 +195,47 @@ public class DailyLines : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.CustomSession), GroupName = nameof(Strings.Filters),
-        Description = nameof(Strings.IsCustomSessionDescription), Order = 120)]
+    #region MultiScope
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.MultiScope),
+        Description = nameof(Resources.MultiScopeDescription),
+        GroupName = nameof(Resources.Filters), Order = 111)]
+    public bool UseMultiScope { get; set; }
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowCurrentDay),
+        Description = nameof(Resources.ShowCurrentDayDescription),
+        GroupName = nameof(Resources.MultiScope), Order = 112)]
+    public bool ShowCurrentDay { get; set; }
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowPreviousDay),
+        Description = nameof(Resources.ShowPreviousDayDescription),
+        GroupName = nameof(Resources.MultiScope), Order = 113)]
+    public bool ShowPreviousDay { get; set; }
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowCurrentWeek),
+        Description = nameof(Resources.ShowCurrentWeekDescription),
+        GroupName = nameof(Resources.MultiScope), Order = 114)]
+    public bool ShowCurrentWeek { get; set; }
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowPreviousWeek),
+        Description = nameof(Resources.ShowPreviousWeekDescription),
+        GroupName = nameof(Resources.MultiScope), Order = 115)]
+    public bool ShowPreviousWeek { get; set; }
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowCurrentMonth),
+        Description = nameof(Resources.ShowCurrentMonthDescription),
+        GroupName = nameof(Resources.MultiScope), Order = 116)]
+    public bool ShowCurrentMonth { get; set; }
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowPreviousMonth),
+        Description = nameof(Resources.ShowPreviousMonthDescription),
+        GroupName = nameof(Resources.MultiScope), Order = 117)]
+    public bool ShowPreviousMonth { get; set; }
+
+    #endregion
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.CustomSession), GroupName = nameof(Resources.Filters),
+        Description = nameof(Resources.IsCustomSessionDescription), Order = 120)]
     public bool CustomSession
     {
         get => _customSession;
@@ -218,8 +257,8 @@ public class DailyLines : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.SessionBegin), GroupName = nameof(Strings.Filters),
-        Description = nameof(Strings.SessionBeginDescription), Order = 120)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.SessionBegin), GroupName = nameof(Resources.Filters),
+        Description = nameof(Resources.SessionBeginDescription), Order = 120)]
     public FilterTimeSpan FilterStartTime { get; set; } = new(false);
 
     [Browsable(false)]
@@ -229,8 +268,8 @@ public class DailyLines : Indicator
         set => FilterStartTime.Value = value;
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.SessionEnd), GroupName = nameof(Strings.Filters),
-        Description = nameof(Strings.SessionEndDescription), Order = 120)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.SessionEnd), GroupName = nameof(Resources.Filters),
+        Description = nameof(Resources.SessionEndDescription), Order = 120)]
     public FilterTimeSpan FilterEndTime { get; set; } = new(false);
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.TradingDayStart), Description = nameof(Resources.TradingDayStartDescription),
@@ -718,6 +757,33 @@ public class DailyLines : Indicator
             PeriodType.PreviousMonth => ScopeKind.PreviousMonth,
             _ => ScopeKind.CurrentDay
         };
+    }
+
+    private IEnumerable<ScopeKind> GetActiveScopes()
+    {
+        if (!UseMultiScope)
+        {
+            yield return GetLegacyScopeKind();
+            yield break;
+        }
+
+        if (ShowCurrentDay) yield return ScopeKind.CurrentDay;
+        if (ShowPreviousDay) yield return ScopeKind.PreviousDay;
+
+        if (ShowCurrentWeek) yield return ScopeKind.CurrentWeek;
+        if (ShowPreviousWeek) yield return ScopeKind.PreviousWeek;
+
+        if (ShowCurrentMonth) yield return ScopeKind.CurrentMonth;
+        if (ShowPreviousMonth) yield return ScopeKind.PreviousMonth;
+
+        // Safety fallback: if user enables multi-scope but forgets to tick any scope,
+        // keep legacy behavior to avoid "empty" indicator.
+        if (!ShowCurrentDay && !ShowPreviousDay &&
+            !ShowCurrentWeek && !ShowPreviousWeek &&
+            !ShowCurrentMonth && !ShowPreviousMonth)
+        {
+            yield return GetLegacyScopeKind();
+        }
     }
 
     private ScopeState GetScopeState(ScopeKind kind)
