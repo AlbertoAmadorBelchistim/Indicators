@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Linq;
 using ATAS.DataFeedsCore;
+using ATAS.DataFeedsCore.Statistics;
 using OFT.Attributes;
 using OFT.Localization;
 using OFT.Rendering.Context;
@@ -81,6 +82,8 @@ public class TradesOnChart : Indicator
     private DashStyle _lineStyle = DashStyle.Dash;
     private readonly List<Rectangle> _labelsAbove = new();
     private readonly List<Rectangle> _labelsBelow = new();
+
+    private ITradingStatistics? _statistics;
 
     #endregion
 
@@ -178,10 +181,32 @@ public class TradesOnChart : Indicator
 
     #region Protected Methods
 
+    protected override void OnDispose()
+    {
+        TradingStatisticsProvider.StatisticsRebuilt -= OnRecalculate;
+        TradingStatisticsProvider.FilteredStatisticsSourceChanged -= OnTradingStatisticsProviderSourceChanged;
+        TradingManager.PortfolioSelected -= TradingManager_PortfolioSelected;
+        
+        _statistics?.HistoryMyTrades.Added -= OnTradeAdded;
+    }
+
     protected override void OnInitialize()
     {
-        TradingStatisticsProvider.Realtime.HistoryMyTrades.Added += OnTradeAdded;
+        TradingStatisticsProvider.StatisticsRebuilt += OnRecalculate;
+        TradingStatisticsProvider.RawStatisticsSourceChanged += OnTradingStatisticsProviderSourceChanged;
         TradingManager.PortfolioSelected += TradingManager_PortfolioSelected;
+
+        if (TradingStatisticsProvider.RawStatistics is { } stat)
+            OnTradingStatisticsProviderSourceChanged(stat);
+    }
+
+    private void OnTradingStatisticsProviderSourceChanged(ITradingStatistics stat)
+    {
+        if (_statistics != null)
+            _statistics.HistoryMyTrades.Added -= OnTradeAdded;
+
+        _statistics = stat;
+        _statistics.HistoryMyTrades.Added += OnTradeAdded;
 
         OnRecalculate();
     }
@@ -458,15 +483,14 @@ public class TradesOnChart : Indicator
 	    if (TradingManager?.Portfolio == null|| TradingManager?.Security == null)
             return;
 
-	    var allTrades = TradingStatisticsProvider?.Realtime?.HistoryMyTrades
-		    .Where(t => 
-                t.AccountID == TradingManager.Portfolio.AccountID && 
-                t.Security.SecurityId.Equals(TradingManager.Security.SecurityId, StringComparison.InvariantCultureIgnoreCase));
-
-	    foreach (var trade in allTrades)
-	    {
-		    CreateTradePair(trade);
-	    }
+        var allTrades = _statistics?
+            .HistoryMyTrades
+            .Where(t =>
+                t.AccountID == TradingManager.Portfolio.AccountID &&
+                t.Security.SecurityId.Equals(TradingManager.Security.SecurityId, StringComparison.InvariantCultureIgnoreCase)) ?? [];
+        
+        foreach (var trade in allTrades)
+            CreateTradePair(trade);
     }
 
     private void OnTradeAdded(HistoryMyTrade trade)
