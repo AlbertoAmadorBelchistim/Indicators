@@ -1,21 +1,19 @@
 namespace ATAS.Indicators.Technical;
 
-using System;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Drawing;
-using System.Globalization;
-using System.Reflection;
-
 using ATAS.Indicators.Drawing;
 using ATAS.Indicators.Technical.Properties;
-
 using OFT.Attributes;
 using OFT.Localization;
 using OFT.Rendering.Context;
 using OFT.Rendering.Settings;
 using OFT.Rendering.Tools;
-
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Drawing;
+using System.Globalization;
+using System.Reflection;
 using Color = System.Drawing.Color;
 
 [DisplayName("Daily Lines")]
@@ -114,11 +112,30 @@ public class DailyLines : Indicator
 		PreviousMonth
 	}
 
-	#endregion
+    private enum ScopeKind
+    {
+        CurrentDay,
+        PreviousDay,
+        CurrentWeek,
+        PreviousWeek,
+        CurrentMonth,
+        PreviousMonth
+    }
 
-	#region Fields
+    private sealed class ScopeState
+    {
+        public SessionRange Current = new();
+        public SessionRange Prev = new();
+        public SessionRange LastCompletedDayWithData = new(); // Only used for Day scopes
+        public int SessionNumber;
+        public int LastDefaultSession;
+    }
 
-	private readonly RenderFont _axisFont = new("Arial", 9);
+    #endregion
+
+    #region Fields
+
+    private readonly RenderFont _axisFont = new("Arial", 9);
 	private readonly FontSetting _fontSetting = new("Arial", 9);
 
 	[Browsable(false)]
@@ -135,13 +152,11 @@ public class DailyLines : Indicator
 	private bool _newWeekWait;
 	private bool _newSessionWait;
 	private PeriodType _per = PeriodType.PreviousDay;
-	private SessionRange _prevSessionRange;
-	private SessionRange _sessionRange;
 	private bool _showText = true;
 	private int _lastDefaultSession;
 	private FilterTimeSpan _tradingDayStart;
-    private SessionRange _lastCompletedDayRange;
-    private RenderPen _halfGapPen;
+
+    private readonly Dictionary<ScopeKind, ScopeState> _scopeStates = new();
 
     #endregion
 
@@ -386,27 +401,28 @@ public class DailyLines : Indicator
 			return;
 
 		var isCurrent = Period is PeriodType.CurrentDay or PeriodType.CurrenWeek or PeriodType.CurrentMonth;
+        var state = GetScopeState(GetLegacyScopeKind());
 
         // Show message only when the current period is selected and we are clearly
         // outside the custom session window in the current viewport.
         // Avoid blocking rendering solely because the current session is marked as finished,
         // which may be legitimate in complex custom sessions (e.g., crossing midnight).
-        
-		if (isCurrent && CustomSession && _lastDefaultSession > _sessionRange.OpenBar && !InsideSession(LastVisibleBarNumber))
+
+        if (isCurrent && CustomSession && _lastDefaultSession > state.Current.OpenBar && !InsideSession(LastVisibleBarNumber))
 		{
 			DrawMessage(context);
 			return;
 		}
 
 		var range = isCurrent
-			? _sessionRange
-			: _prevSessionRange;
+			? state.Current
+            : state.Prev;
 
-        if (!isCurrent && Period == PeriodType.PreviousDay && UseTradingDayStartForDay() && _lastCompletedDayRange.OpenBar >= 0)
+        if (!isCurrent && Period == PeriodType.PreviousDay && UseTradingDayStartForDay() && state.LastCompletedDayWithData.OpenBar >= 0)
         {
             // PreviousDay should refer to the previous trading-day bucket with in-window data
             // (skip empty days like weekends/holidays).
-            range = _lastCompletedDayRange;
+            range = state.LastCompletedDayWithData;
         }
 
         var periodStr = Period switch
@@ -428,12 +444,12 @@ public class DailyLines : Indicator
         if (ShowHalfGap
             && CustomSession
             && Period == PeriodType.CurrentDay
-            && _prevSessionRange is not null
-            && _prevSessionRange.IsFinished
-            && _prevSessionRange.OpenBar >= 0
+            && state.Prev is not null
+            && state.Prev.IsFinished
+            && state.Prev.OpenBar >= 0
             && range.OpenBar >= 0)
         {
-            var prevClose = _prevSessionRange.ClosePrice;
+            var prevClose = state.Prev.ClosePrice;
             var currOpen = range.OpenPrice;
             var halfGap = prevClose + (currOpen - prevClose) / 2m;
 
@@ -456,11 +472,11 @@ public class DailyLines : Indicator
 
 	protected override void OnRecalculate()
 	{
-		_prevSessionRange = new SessionRange();
-		_sessionRange = new SessionRange();
-		_newSessionWait = false;
+        _scopeStates.Clear();
+        _newSessionWait = false;
 		_newWeekWait = false;
-	}
+        _lastDefaultSession = 0;
+    }
 
 	/// <summary>
 	/// Determines if a new custom session starts at the specified bar.
@@ -550,29 +566,32 @@ public class DailyLines : Indicator
 
 	protected override void OnCalculate(int bar, decimal value)
 	{
-		var candle = GetCandle(bar);
+        var scopeKind = GetLegacyScopeKind();
+        var state = GetScopeState(scopeKind);
+
+        var candle = GetCandle(bar);
 
 		if (base.IsNewSession(bar))
 			_lastDefaultSession = bar;
 
-		if (bar != _sessionRange.OpenBar)
+		if (bar != state.Current.OpenBar)
 		{
 			var isNewPeriod = IsNewPeriod(bar);
 
 			if (isNewPeriod)
 			{
-				if (_sessionRange.OpenBar >= 0)
+				if (state.Current.OpenBar >= 0)
 				{
-					_sessionRange.IsFinished = true;
+					state.Current.IsFinished = true;
 
                     // Preserve upstream behavior for other periods.
-                    _prevSessionRange = _sessionRange;
+                    state.Prev = state.Current;
 
                     // For Day periods, track the last completed range that actually has session-window data.
                     if (Period is PeriodType.CurrentDay or PeriodType.PreviousDay)
                     {
                         // OpenBar >= 0 implies we have at least one in-window candle (because we only IncCandle when InsideSession is true).
-                        _lastCompletedDayRange = _sessionRange;
+                        state.LastCompletedDayWithData = state.Current;
                     }
                 }
 
@@ -580,16 +599,16 @@ public class DailyLines : Indicator
                 {
                     // For Day periods we want OHLC to be computed only from the selected session window.
                     // When using TradingDayStart-based bucketing, the first bar of the bucket might be outside the session window.
-                    _sessionRange = UseTradingDayStartForDay()
+                    state.Current = UseTradingDayStartForDay()
                         ? new SessionRange()
                         : new SessionRange(candle, bar);
 
                     if (InsideSession(bar))
-                        _sessionRange.IncCandle(candle, bar);
+                        state.Current.IncCandle(candle, bar);
                 }
                 else
                 {
-                    _sessionRange = new SessionRange(candle, bar);
+                    state.Current = new SessionRange(candle, bar);
                 }
             }
 			else
@@ -598,18 +617,18 @@ public class DailyLines : Indicator
 				{
                     if (InsideSession(bar))
 					{
-						_sessionRange.IncCandle(candle, bar);
+						state.Current.IncCandle(candle, bar);
 					}
 					else 
 					{
-						if (_sessionRange.OpenBar >= 0)
-							_sessionRange.IsFinished = true;
+						if (state.Current.OpenBar >= 0)
+							state.Current.IsFinished = true;
 					}
 				}
 				else
 				{
-					if (_sessionRange.OpenBar >= 0)
-						_sessionRange.IncCandle(candle, bar);
+					if (state.Current.OpenBar >= 0)
+						state.Current.IncCandle(candle, bar);
 				}
 			}
 		}
@@ -619,18 +638,18 @@ public class DailyLines : Indicator
 			{
 				if (InsideSession(bar))
 				{
-					_sessionRange.IncCandle(candle, bar);
+					state.Current.IncCandle(candle, bar);
 				}
 				else
 				{
-					if (_sessionRange.OpenBar >= 0)
-						_sessionRange.IsFinished = true;
+					if (state.Current.OpenBar >= 0)
+						state.Current.IsFinished = true;
 				}
 			}
 			else
 			{
-				if (_sessionRange.OpenBar >= 0)
-					_sessionRange.IncCandle(candle, bar);
+				if (state.Current.OpenBar >= 0)
+					state.Current.IncCandle(candle, bar);
 			}
 		}
     }
@@ -686,6 +705,30 @@ public class DailyLines : Indicator
 			_ => false
 		};
 	}
+
+    private ScopeKind GetLegacyScopeKind()
+    {
+        return Period switch
+        {
+            PeriodType.CurrentDay => ScopeKind.CurrentDay,
+            PeriodType.PreviousDay => ScopeKind.PreviousDay,
+            PeriodType.CurrenWeek => ScopeKind.CurrentWeek,
+            PeriodType.PreviousWeek => ScopeKind.PreviousWeek,
+            PeriodType.CurrentMonth => ScopeKind.CurrentMonth,
+            PeriodType.PreviousMonth => ScopeKind.PreviousMonth,
+            _ => ScopeKind.CurrentDay
+        };
+    }
+
+    private ScopeState GetScopeState(ScopeKind kind)
+    {
+        if (_scopeStates.TryGetValue(kind, out var state))
+            return state;
+
+        state = new ScopeState();
+        _scopeStates[kind] = state;
+        return state;
+    }
 
     private DateTime GetLocalBarTime(int bar)
     {
