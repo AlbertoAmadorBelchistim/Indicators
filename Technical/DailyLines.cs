@@ -116,6 +116,7 @@ public class DailyLines : Indicator
     {
         CurrentDay,
         PreviousDay,
+        CurrentEth,
         CurrentWeek,
         PreviousWeek,
         CurrentMonth,
@@ -203,8 +204,8 @@ public class DailyLines : Indicator
     public bool UseMultiScope { get; set; }
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowCurrentDay),
-        Description = nameof(Resources.ShowCurrentDayDescription),
-        GroupName = nameof(Resources.MultiScope), Order = 112)]
+    Description = nameof(Resources.ShowCurrentDayDescription),
+    GroupName = nameof(Resources.MultiScope), Order = 112)]
     public bool ShowCurrentDay { get; set; }
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowPreviousDay),
@@ -212,24 +213,29 @@ public class DailyLines : Indicator
         GroupName = nameof(Resources.MultiScope), Order = 113)]
     public bool ShowPreviousDay { get; set; }
 
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowEth),
+        Description = nameof(Resources.ShowEthDescription),
+        GroupName = nameof(Resources.MultiScope), Order = 114)]
+    public bool ShowEth { get; set; }
+
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowCurrentWeek),
         Description = nameof(Resources.ShowCurrentWeekDescription),
-        GroupName = nameof(Resources.MultiScope), Order = 114)]
+        GroupName = nameof(Resources.MultiScope), Order = 115)]
     public bool ShowCurrentWeek { get; set; }
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowPreviousWeek),
         Description = nameof(Resources.ShowPreviousWeekDescription),
-        GroupName = nameof(Resources.MultiScope), Order = 115)]
+        GroupName = nameof(Resources.MultiScope), Order = 116)]
     public bool ShowPreviousWeek { get; set; }
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowCurrentMonth),
         Description = nameof(Resources.ShowCurrentMonthDescription),
-        GroupName = nameof(Resources.MultiScope), Order = 116)]
+        GroupName = nameof(Resources.MultiScope), Order = 117)]
     public bool ShowCurrentMonth { get; set; }
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowPreviousMonth),
         Description = nameof(Resources.ShowPreviousMonthDescription),
-        GroupName = nameof(Resources.MultiScope), Order = 117)]
+        GroupName = nameof(Resources.MultiScope), Order = 118)]
     public bool ShowPreviousMonth { get; set; }
 
     #endregion
@@ -430,86 +436,104 @@ public class DailyLines : Indicator
         _tradingDayStart.PropertyChanged += OnFilterPropertyChanged;
     }
 
-	#endregion
+    #endregion
 
-	#region Protected methods
+    #region Protected methods
 
-	protected override void OnRender(RenderContext context, DrawingLayouts layout)
-	{
-		if (ChartInfo is null)
-			return;
+    protected override void OnRender(RenderContext context, DrawingLayouts layout)
+    {
+        if (ChartInfo is null)
+            return;
 
-		var isCurrent = Period is PeriodType.CurrentDay or PeriodType.CurrenWeek or PeriodType.CurrentMonth;
-        var state = GetScopeState(GetLegacyScopeKind());
+        // Build active set once.
+        var active = new HashSet<ScopeKind>(GetActiveScopes());
 
-        // Show message only when the current period is selected and we are clearly
-        // outside the custom session window in the current viewport.
-        // Avoid blocking rendering solely because the current session is marked as finished,
-        // which may be legitimate in complex custom sessions (e.g., crossing midnight).
-
-        if (isCurrent && CustomSession && _lastDefaultSession > state.Current.OpenBar && !InsideSession(LastVisibleBarNumber))
-		{
-			DrawMessage(context);
-			return;
-		}
-
-		var range = isCurrent
-			? state.Current
-            : state.Prev;
-
-        if (!isCurrent && Period == PeriodType.PreviousDay && UseTradingDayStartForDay() && state.LastCompletedDayWithData.OpenBar >= 0)
+        // Legacy "custom session inactive" message behavior:
+        // show it only when a "current" scope is being rendered and the viewport is outside the session.
+        // Keep it deterministic: check in Day->Week->Month priority.
+        if (CustomSession)
         {
-            // PreviousDay should refer to the previous trading-day bucket with in-window data
-            // (skip empty days like weekends/holidays).
-            range = state.LastCompletedDayWithData;
+            ScopeKind? gateKind = null;
+
+            if (active.Contains(ScopeKind.CurrentDay))
+                gateKind = ScopeKind.CurrentDay;
+            else if (active.Contains(ScopeKind.CurrentWeek))
+                gateKind = ScopeKind.CurrentWeek;
+            else if (active.Contains(ScopeKind.CurrentMonth))
+                gateKind = ScopeKind.CurrentMonth;
+
+            if (gateKind.HasValue)
+            {
+                var gateState = GetScopeState(gateKind.Value);
+
+                if (_lastDefaultSession > gateState.Current.OpenBar && !InsideSession(LastVisibleBarNumber))
+                {
+                    DrawMessage(context);
+                    return;
+                }
+            }
         }
 
-        var periodStr = Period switch
-		{
-			PeriodType.CurrentDay => "Curr. Day",
-			PeriodType.PreviousDay => "Prev. Day",
-			PeriodType.CurrenWeek => "Curr. Week",
-			PeriodType.PreviousWeek => "Prev. Week",
-			PeriodType.CurrentMonth => "Curr. Month",
-			PeriodType.PreviousMonth => "Prev. Month",
-			_ => throw new ArgumentOutOfRangeException()
-		};
+        var high = ChartInfo.PriceChartContainer.High;
+        var low = ChartInfo.PriceChartContainer.Low;
 
-		var high = ChartInfo.PriceChartContainer.High;
-		var low = ChartInfo.PriceChartContainer.Low;
-
-        // Half Gap (midpoint between previous session close and current session open).
-        // Option A: only for CurrentDay when CustomSession is enabled.
-        if (ShowHalfGap
-            && CustomSession
-            && Period == PeriodType.CurrentDay
-            && state.Prev is not null
-            && state.Prev.IsFinished
-            && state.Prev.OpenBar >= 0
-            && range.OpenBar >= 0)
+        foreach (var scopeKind in _renderOrder)
         {
-            var prevClose = state.Prev.ClosePrice;
-            var currOpen = range.OpenPrice;
-            var halfGap = prevClose + (currOpen - prevClose) / 2m;
+            if (!active.Contains(scopeKind))
+                continue;
 
-            if (halfGap >= low && halfGap <= high)
-                DrawLevel(context, HalfGapPen, range.OpenBar, halfGap, HalfGapText, "HalfGap", periodStr);
+            var state = GetScopeState(scopeKind);
+
+            var isCurrent = IsCurrentScope(scopeKind);
+
+            var range = isCurrent
+                ? state.Current
+                : state.Prev;
+
+            // PreviousDay special: skip empty buckets when TradingDayStart-based day bucketing is used.
+            if (scopeKind == ScopeKind.PreviousDay && UseTradingDayStartForDay() && state.LastCompletedDayWithData.OpenBar >= 0)
+            {
+                range = state.LastCompletedDayWithData;
+            }
+
+            if (range.OpenBar < 0)
+                continue;
+
+            var periodStr = GetScopeLabel(scopeKind);
+
+            // Half Gap (midpoint between previous session close and current session open).
+            // Option A: only for CurrentDay when CustomSession is enabled.
+            if (ShowHalfGap
+                && CustomSession
+                && scopeKind == ScopeKind.CurrentDay
+                && state.Prev is not null
+                && state.Prev.IsFinished
+                && state.Prev.OpenBar >= 0
+                && range.OpenBar >= 0)
+            {
+                var prevClose = state.Prev.ClosePrice;
+                var currOpen = range.OpenPrice;
+                var halfGap = prevClose + (currOpen - prevClose) / 2m;
+
+                if (halfGap >= low && halfGap <= high)
+                    DrawLevel(context, HalfGapPen, range.OpenBar, halfGap, HalfGapText, "HalfGap", periodStr);
+            }
+
+            if (range.OpenPrice >= low && range.OpenPrice <= high)
+                DrawLevel(context, OpenPen, range.OpenBar, range.OpenPrice, OpenText, "Open", periodStr);
+
+            if (range.HighPrice >= low && range.HighPrice <= high)
+                DrawLevel(context, HighPen, range.HighBar, range.HighPrice, HighText, "High", periodStr);
+
+            if (range.LowPrice >= low && range.LowPrice <= high)
+                DrawLevel(context, LowPen, range.LowBar, range.LowPrice, LowText, "Low", periodStr);
+
+            if (range.IsFinished && range.ClosePrice >= low && range.ClosePrice <= high)
+                DrawLevel(context, ClosePen, range.CloseBar, range.ClosePrice, CloseText, "Close", periodStr);
         }
+    }
 
-        if (range.OpenPrice >= low && range.OpenPrice <= high)
-			DrawLevel(context, OpenPen, range.OpenBar, range.OpenPrice, OpenText, "Open", periodStr);
-
-		if (range.HighPrice >= low && range.HighPrice <= high)
-			DrawLevel(context, HighPen, range.HighBar, range.HighPrice, HighText, "High", periodStr);
-
-		if (range.LowPrice >= low && range.LowPrice <= high)
-			DrawLevel(context, LowPen, range.LowBar, range.LowPrice, LowText, "Low", periodStr);
-
-		if (range.IsFinished && range.ClosePrice >= low && range.ClosePrice <= high)
-			DrawLevel(context, ClosePen, range.CloseBar, range.ClosePrice, CloseText, "Close", periodStr);
-	}
-
-	protected override void OnRecalculate()
+    protected override void OnRecalculate()
 	{
         _scopeStates.Clear();
         _newSessionWait = false;
@@ -641,7 +665,7 @@ public class DailyLines : Indicator
     {
         if (IsDayScope(scopeKind))
         {
-            if (InsideSession(bar))
+            if (InsideWindow(scopeKind, bar))
             {
                 state.Current.IncCandle(candle, bar);
             }
@@ -687,7 +711,7 @@ public class DailyLines : Indicator
                 ? new SessionRange()
                 : new SessionRange(candle, bar);
 
-            if (InsideSession(bar))
+            if (InsideWindow(scopeKind, bar))
                 state.Current.IncCandle(candle, bar);
         }
         else
@@ -700,7 +724,7 @@ public class DailyLines : Indicator
     {
         if (IsDayScope(scopeKind))
         {
-            if (InsideSession(bar))
+            if (InsideWindow(scopeKind, bar))
             {
                 state.Current.IncCandle(candle, bar);
             }
@@ -748,6 +772,48 @@ public class DailyLines : Indicator
 			startTime <= sessionEnd || endTime <= sessionEnd;
 	}
 
+    private static bool IsEthScope(ScopeKind kind)
+    {
+        return kind == ScopeKind.CurrentEth;
+    }
+
+    private bool InsideEth(int bar)
+    {
+        // ETH depends on the RTH start (CustomSession start time).
+        if (!CustomSession)
+            return false;
+
+        // ETH is defined as: TradingDayStart -> RTH start (FilterStartTime).
+        var ethStart = TradingDayStart?.Value ?? TimeSpan.Zero;
+        var ethEnd = FilterStartTime.Value;
+
+        if (ethStart == ethEnd)
+            return true;
+
+        var candle = GetCandle(bar);
+        var startTime = candle.Time.AddHours(InstrumentInfo.TimeZone).TimeOfDay;
+        var endTime = candle.LastTime.AddHours(InstrumentInfo.TimeZone).TimeOfDay;
+
+        if (ethStart < ethEnd)
+        {
+            return (startTime >= ethStart && startTime <= ethEnd) ||
+                (endTime >= ethStart && endTime <= ethEnd) ||
+                (startTime <= ethStart && endTime >= ethEnd);
+        }
+
+        // Crossing midnight (typical: 18:00 -> 09:30)
+        return startTime >= ethStart || endTime >= ethStart ||
+            startTime <= ethEnd || endTime <= ethEnd;
+    }
+
+    private bool InsideWindow(ScopeKind scopeKind, int bar)
+    {
+        if (IsEthScope(scopeKind))
+            return InsideEth(bar);
+
+        return InsideSession(bar);
+    }
+
     private bool UseTradingDayStartForDay()
     {
         // Only use TradingDayStart-based day bucketing when explicitly needed.
@@ -765,6 +831,10 @@ public class DailyLines : Indicator
     {
         if (IsDayScope(scope))
         {
+            // ETH: day-like scope with an independent window, always anchored by TradingDayStart.
+            if (scope == ScopeKind.CurrentEth)
+                return IsNewTradingDay(bar);
+
             return UseTradingDayStartForDay()
                 ? IsNewTradingDay(bar)
                 : IsNewSessionForScope(bar, isNewDefaultSession);
@@ -795,7 +865,7 @@ public class DailyLines : Indicator
 
     private static bool IsDayScope(ScopeKind kind)
     {
-        return kind is ScopeKind.CurrentDay or ScopeKind.PreviousDay;
+        return kind is ScopeKind.CurrentDay or ScopeKind.PreviousDay or ScopeKind.CurrentEth;
     }
 
     private static bool IsWeekScope(ScopeKind kind)
@@ -818,6 +888,7 @@ public class DailyLines : Indicator
 
         if (ShowCurrentDay) yield return ScopeKind.CurrentDay;
         if (ShowPreviousDay) yield return ScopeKind.PreviousDay;
+        if (ShowEth) yield return ScopeKind.CurrentEth;
 
         if (ShowCurrentWeek) yield return ScopeKind.CurrentWeek;
         if (ShowPreviousWeek) yield return ScopeKind.PreviousWeek;
@@ -827,12 +898,43 @@ public class DailyLines : Indicator
 
         // Safety fallback: if user enables multi-scope but forgets to tick any scope,
         // keep legacy behavior to avoid "empty" indicator.
-        if (!ShowCurrentDay && !ShowPreviousDay &&
+        if (!ShowCurrentDay && !ShowPreviousDay && !ShowEth &&
             !ShowCurrentWeek && !ShowPreviousWeek &&
             !ShowCurrentMonth && !ShowPreviousMonth)
         {
             yield return GetLegacyScopeKind();
         }
+    }
+
+    private static readonly ScopeKind[] _renderOrder =
+    {
+    ScopeKind.CurrentDay,
+    ScopeKind.PreviousDay,
+    ScopeKind.CurrentEth,
+    ScopeKind.CurrentWeek,
+    ScopeKind.PreviousWeek,
+    ScopeKind.CurrentMonth,
+    ScopeKind.PreviousMonth
+};
+
+    private static bool IsCurrentScope(ScopeKind kind)
+    {
+        return kind is ScopeKind.CurrentDay or ScopeKind.CurrentEth or ScopeKind.CurrentWeek or ScopeKind.CurrentMonth;
+    }
+
+    private static string GetScopeLabel(ScopeKind kind)
+    {
+        return kind switch
+        {
+            ScopeKind.CurrentDay => Strings.CurrentDay,
+            ScopeKind.PreviousDay => Strings.PreviousDay,
+            ScopeKind.CurrentEth => Resources.Eth,
+            ScopeKind.CurrentWeek => Strings.CurrentWeek,
+            ScopeKind.PreviousWeek => Strings.PreviousWeek,
+            ScopeKind.CurrentMonth => Strings.CurrentMonth,
+            ScopeKind.PreviousMonth => Strings.PreviousMonth,
+            _ => string.Empty
+        };
     }
 
     private ScopeState GetScopeState(ScopeKind kind)
@@ -891,7 +993,13 @@ public class DailyLines : Indicator
 		}
 		else if (sender.Equals(TextSize))
 			_fontSetting.Size = TextSize.Value;
-	}
+
+        else if (sender.Equals(_tradingDayStart))
+        {
+            RecalculateValues();
+            RedrawChart();
+        }
+    }
 
 	private void DrawString(RenderContext context, RenderFont font, string renderText, int yPrice, Color color)
 	{
