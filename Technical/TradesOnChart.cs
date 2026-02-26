@@ -193,7 +193,7 @@ public class TradesOnChart : Indicator
     protected override void OnInitialize()
     {
         TradingStatisticsProvider.StatisticsRebuilt += OnRecalculate;
-        TradingStatisticsProvider.FilteredStatisticsSourceChanged += OnTradingStatisticsProviderSourceChanged;
+        TradingStatisticsProvider.RawStatisticsSourceChanged += OnTradingStatisticsProviderSourceChanged;
         TradingManager.PortfolioSelected += TradingManager_PortfolioSelected;
 
         if (TradingStatisticsProvider.RawStatistics is { } stat)
@@ -483,15 +483,14 @@ public class TradesOnChart : Indicator
 	    if (TradingManager?.Portfolio == null|| TradingManager?.Security == null)
             return;
 
-	    var allTrades = TradingStatisticsProvider?.Realtime?.HistoryMyTrades
-		    .Where(t => 
-                t.AccountID == TradingManager.Portfolio.AccountID && 
-                t.Security.SecurityId.Equals(TradingManager.Security.SecurityId, StringComparison.InvariantCultureIgnoreCase));
-
-	    foreach (var trade in allTrades)
-	    {
-		    CreateTradePair(trade);
-	    }
+        var allTrades = _statistics?
+            .HistoryMyTrades
+            .Where(t =>
+                t.AccountID == TradingManager.Portfolio.AccountID &&
+                t.Security.SecurityId.Equals(TradingManager.Security.SecurityId, StringComparison.InvariantCultureIgnoreCase)) ?? [];
+        
+        foreach (var trade in allTrades)
+            CreateTradePair(trade);
     }
 
     private void OnTradeAdded(HistoryMyTrade trade)
