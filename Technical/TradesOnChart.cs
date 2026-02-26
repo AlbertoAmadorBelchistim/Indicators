@@ -424,10 +424,10 @@ public class TradesOnChart : Indicator
 
         if (TradingStatisticsProvider != null)
         {
-            TradingStatisticsProvider.StatisticsReloaded += OnRecalculate;
-            TradingStatisticsProvider.SourceChanged += OnTradingStatisticsProviderSourceChanged;
+            TradingStatisticsProvider.StatisticsRebuilt += OnRecalculate;
+            TradingStatisticsProvider.FilteredStatisticsSourceChanged += OnTradingStatisticsProviderSourceChanged;
 
-            if (TradingStatisticsProvider.Statistics is { } stat)
+            if (TradingStatisticsProvider.RawStatistics is { } stat)
                 OnTradingStatisticsProviderSourceChanged(stat);
         }
 
@@ -441,8 +441,8 @@ public class TradesOnChart : Indicator
 
         if (TradingStatisticsProvider != null)
         {
-            TradingStatisticsProvider.StatisticsReloaded -= OnRecalculate;
-            TradingStatisticsProvider.SourceChanged -= OnTradingStatisticsProviderSourceChanged;
+            TradingStatisticsProvider.StatisticsRebuilt -= OnRecalculate;
+            TradingStatisticsProvider.FilteredStatisticsSourceChanged -= OnTradingStatisticsProviderSourceChanged;
         }
 
         if (_statistics != null)
