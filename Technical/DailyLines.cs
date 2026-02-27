@@ -130,6 +130,10 @@ public class DailyLines : Indicator
         public SessionRange LastCompletedDayWithData = new(); // Only used for Day scopes
         public int SessionNumber;
         public int LastDefaultSession;
+
+        // Used to detect incomplete history for current Week/Month
+        public bool HasSeenWeekBoundary;
+        public bool HasSeenMonthBoundary;
     }
 
     #endregion
@@ -158,6 +162,9 @@ public class DailyLines : Indicator
 	private FilterTimeSpan _tradingDayStart;
 
     private readonly Dictionary<ScopeKind, ScopeState> _scopeStates = new();
+
+    private static bool IsCurrentWeekScope(ScopeKind kind) => kind == ScopeKind.CurrentWeek;
+    private static bool IsCurrentMonthScope(ScopeKind kind) => kind == ScopeKind.CurrentMonth;
 
     #endregion
 
@@ -468,10 +475,49 @@ public class DailyLines : Indicator
 
                 if (_lastDefaultSession > gateState.Current.OpenBar && !InsideSession(LastVisibleBarNumber))
                 {
-                    DrawMessage(context);
+                    DrawMessage(context, Strings.CustomSessionInactive);
                     return;
                 }
             }
+        }
+
+        // Build warning overlay (non-blocking): missing data / incomplete history.
+        // In multi-scope, show a single overlay containing both categories if needed.
+        var noDataScopes = new List<string>();
+        var incompleteScopes = new List<string>();
+
+        foreach (var kind in _renderOrder)
+        {
+            if (!active.Contains(kind))
+                continue;
+
+            var state = GetScopeState(kind);
+            var range = IsCurrentScope(kind) ? state.Current : state.Prev;
+
+            // PreviousDay special-case (skip-empty) – keep your existing logic if you have it.
+            // If you already swap "range" for LastCompletedDayWithData, do it here too.
+
+            if (range.OpenBar < 0)
+            {
+                noDataScopes.Add(GetScopeLabel(kind));
+                continue;
+            }
+
+            if (IsIncompleteHistory(kind, state, range))
+                incompleteScopes.Add(GetScopeLabel(kind));
+        }
+
+        if (noDataScopes.Count > 0 || incompleteScopes.Count > 0)
+        {
+            var lines = new List<string>();
+
+            if (noDataScopes.Count > 0)
+                lines.Add(string.Format(Resources.NoDataForPeriod, string.Join(", ", noDataScopes)));
+
+            if (incompleteScopes.Count > 0)
+                lines.Add(string.Format(Resources.IncompleteDataForPeriod, string.Join(", ", incompleteScopes)));
+
+            DrawMessage(context, string.Join(Environment.NewLine, lines));
         }
 
         var high = ChartInfo.PriceChartContainer.High;
@@ -639,6 +685,13 @@ public class DailyLines : Indicator
         foreach (var scopeKind in GetActiveScopes())
         {
             var state = GetScopeState(scopeKind);
+
+            // Track boundary visibility to detect incomplete history later.
+            if (isNewBaseWeek)
+                state.HasSeenWeekBoundary = true;
+
+            if (isNewBaseMonth)
+                state.HasSeenMonthBoundary = true;
 
             if (bar == state.Current.OpenBar)
             {
@@ -976,6 +1029,20 @@ public class DailyLines : Indicator
         return curr != prev;
     }
 
+    private static bool IsIncompleteHistory(ScopeKind kind, ScopeState state, SessionRange range)
+    {
+        if (range.OpenBar < 0)
+            return false; // handled as "no data"
+
+        if (IsCurrentWeekScope(kind))
+            return !state.HasSeenWeekBoundary;
+
+        if (IsCurrentMonthScope(kind))
+            return !state.HasSeenMonthBoundary;
+
+        return false;
+    }
+
     private void OnFilterPropertyChanged(object sender, PropertyChangedEventArgs e)
 	{
 		if (e.PropertyName != "Value")
@@ -1061,15 +1128,36 @@ public class DailyLines : Indicator
 		}
 	}
 
-	private void DrawMessage(RenderContext g)
-	{
-		var text = Strings.CustomSessionInactive;
+    private void DrawMessage(RenderContext g, string text)
+    {
+        if (string.IsNullOrWhiteSpace(text))
+            return;
 
-		var textSize = g.MeasureString(text, ChartInfo.PriceAxisFont);
+        var lines = text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
 
-		var rect = new Rectangle(Container.Region.X, Container.Region.Bottom - textSize.Height, textSize.Width, textSize.Height);
-		g.DrawString(text, ChartInfo.PriceAxisFont, DefaultColors.Red, rect);
-	}
+        var maxWidth = 0f;
+        var totalHeight = 0f;
 
-	#endregion
+        foreach (var line in lines)
+        {
+            var size = g.MeasureString(line, ChartInfo.PriceAxisFont);
+            if (size.Width > maxWidth)
+                maxWidth = size.Width;
+
+            totalHeight += size.Height;
+        }
+
+        var x = Container.Region.X;
+        var y = Container.Region.Bottom - totalHeight;
+
+        foreach (var line in lines)
+        {
+            var size = g.MeasureString(line, ChartInfo.PriceAxisFont);
+            var rect = new Rectangle(x, (int)y, (int)maxWidth, (int)size.Height);
+            g.DrawString(line, ChartInfo.PriceAxisFont, DefaultColors.Red, rect);
+            y += size.Height;
+        }
+    }
+
+    #endregion
 }
