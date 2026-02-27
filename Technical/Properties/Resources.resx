@@ -5124,4 +5124,12 @@ The indicator loads volume data not more than 5 days.</value>
 <data name="Eth" xml:space="preserve">
   <value>ETH</value>
   <comment>DailyLines</comment>
+</data>
+<data name="NoDataForPeriod" xml:space="preserve">
+  <value>No data to calculate: {0}</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="IncompleteDataForPeriod" xml:space="preserve">
+  <value>Incomplete history (may be inaccurate): {0}</value>
+  <comment>DailyLines</comment>
 </data></root>

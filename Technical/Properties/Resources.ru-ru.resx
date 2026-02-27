@@ -4889,4 +4889,12 @@
 <data name="Eth" xml:space="preserve">
   <value>ETH</value>
   <comment>DailyLines</comment>
+</data>
+<data name="NoDataForPeriod" xml:space="preserve">
+  <value>Недостаточно данных для расчёта: {0}</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="IncompleteDataForPeriod" xml:space="preserve">
+  <value>История неполная (возможна неточность): {0}</value>
+  <comment>DailyLines</comment>
 </data></root>

@@ -2825,4 +2825,12 @@
 <data name="Eth" xml:space="preserve">
   <value>ETH</value>
   <comment>DailyLines</comment>
+</data>
+<data name="NoDataForPeriod" xml:space="preserve">
+  <value>Données insuffisantes pour calculer : {0}</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="IncompleteDataForPeriod" xml:space="preserve">
+  <value>Historique incomplet (peut être inexact) : {0}</value>
+  <comment>DailyLines</comment>
 </data></root>

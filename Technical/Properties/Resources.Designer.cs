@@ -4354,6 +4354,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Incomplete history (may be inaccurate): {0}.
+        /// </summary>
+        public static string IncompleteDataForPeriod {
+            get {
+                return ResourceManager.GetString("IncompleteDataForPeriod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Indicator.
         /// </summary>
         public static string Indicator {
@@ -6330,6 +6339,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string NeutralValueDescription {
             get {
                 return ResourceManager.GetString("NeutralValueDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No data to calculate: {0}.
+        /// </summary>
+        public static string NoDataForPeriod {
+            get {
+                return ResourceManager.GetString("NoDataForPeriod", resourceCulture);
             }
         }
         

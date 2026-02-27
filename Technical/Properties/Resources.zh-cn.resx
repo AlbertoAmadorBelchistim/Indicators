@@ -2779,4 +2779,12 @@
 <data name="Eth" xml:space="preserve">
   <value>ETH</value>
   <comment>DailyLines</comment>
+</data>
+<data name="NoDataForPeriod" xml:space="preserve">
+  <value>没有足够数据用于计算：{0}</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="IncompleteDataForPeriod" xml:space="preserve">
+  <value>历史数据不完整（可能不准确）：{0}</value>
+  <comment>DailyLines</comment>
 </data></root>
