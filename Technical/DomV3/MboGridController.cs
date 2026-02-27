@@ -566,29 +566,32 @@ public class MboGridController
 		// Optimization: iterate only over prices with data, not the entire range
 		if (_priceVolume.Count > 0)
 		{
-			foreach (var kvp in _priceVolume)
+			lock (_updateLock)
 			{
-				var price = kvp.Key;
-				if (price < fixLow || price > fixHigh)
-					continue;
-
-				var value = kvp.Value;
-				if (useWeight)
+				foreach (var kvp in _priceVolume)
 				{
-					var a = value.vol * value.count;
-					if (a > w)
+					var price = kvp.Key;
+					if (price < fixLow || price > fixHigh)
+						continue;
+
+					var value = kvp.Value;
+					if (useWeight)
 					{
-						w = a;
-						max = value;
+						var a = value.vol * value.count;
+						if (a > w)
+						{
+							w = a;
+							max = value;
+						}
 					}
-				}
-				else
-				{
-					if (value.vol > max.MaxVol)
-						max.MaxVol = value.vol;
+					else
+					{
+						if (value.vol > max.MaxVol)
+							max.MaxVol = value.vol;
 
-					if (value.count > max.MaxCount)
-						max.MaxCount = value.count;
+						if (value.count > max.MaxCount)
+							max.MaxCount = value.count;
+					}
 				}
 			}
 		}
