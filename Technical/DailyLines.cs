@@ -455,28 +455,32 @@ public class DailyLines : Indicator
         // Build active set once.
         var active = new HashSet<ScopeKind>(GetActiveScopes());
 
-        // Legacy "custom session inactive" message behavior:
-        // show it only when a "current" scope is being rendered and the viewport is outside the session.
-        // Keep it deterministic: check in Day->Week->Month priority.
+        var isOutsideSession = false;
+
+        // Custom session inactive message:
+        // show it when the viewport is outside the custom session AND at least one session-dependent scope is enabled.
+        // Do NOT return: non-session scopes (Week/Month) must still render.
         if (CustomSession)
         {
-            ScopeKind? gateKind = null;
+            var hasSessionDependentScope =
+                active.Contains(ScopeKind.CurrentDay) ||
+                active.Contains(ScopeKind.PreviousDay) ||
+                active.Contains(ScopeKind.CurrentEth);
 
-            if (active.Contains(ScopeKind.CurrentDay))
-                gateKind = ScopeKind.CurrentDay;
-            else if (active.Contains(ScopeKind.CurrentWeek))
-                gateKind = ScopeKind.CurrentWeek;
-            else if (active.Contains(ScopeKind.CurrentMonth))
-                gateKind = ScopeKind.CurrentMonth;
-
-            if (gateKind.HasValue)
+            if (hasSessionDependentScope)
             {
-                var gateState = GetScopeState(gateKind.Value);
+                // Pick a deterministic gate scope among session-dependent ones.
+                var gateKind =
+                    active.Contains(ScopeKind.CurrentDay) ? ScopeKind.CurrentDay :
+                    active.Contains(ScopeKind.CurrentEth) ? ScopeKind.CurrentEth :
+                    ScopeKind.PreviousDay;
+
+                var gateState = GetScopeState(gateKind);
 
                 if (_lastDefaultSession > gateState.Current.OpenBar && !InsideSession(LastVisibleBarNumber))
                 {
+                    isOutsideSession = true;
                     DrawMessage(context, Strings.CustomSessionInactive);
-                    return;
                 }
             }
         }
@@ -489,6 +493,10 @@ public class DailyLines : Indicator
         foreach (var kind in _renderOrder)
         {
             if (!active.Contains(kind))
+                continue;
+
+            // If outside custom session, skip only session-dependent scopes.
+            if (CustomSession && isOutsideSession && IsSessionDependentScope(kind))
                 continue;
 
             var state = GetScopeState(kind);
@@ -526,6 +534,10 @@ public class DailyLines : Indicator
         foreach (var scopeKind in _renderOrder)
         {
             if (!active.Contains(scopeKind))
+                continue;
+
+            // If outside custom session, skip only session-dependent scopes.
+            if (CustomSession && isOutsideSession && IsSessionDependentScope(scopeKind))
                 continue;
 
             var state = GetScopeState(scopeKind);
@@ -1041,6 +1053,13 @@ public class DailyLines : Indicator
             return !state.HasSeenMonthBoundary;
 
         return false;
+    }
+
+    private static bool IsSessionDependentScope(ScopeKind kind)
+    {
+        return kind == ScopeKind.CurrentDay
+            || kind == ScopeKind.PreviousDay
+            || kind == ScopeKind.CurrentEth; // si ETH depende de RTH boundary
     }
 
     private void OnFilterPropertyChanged(object sender, PropertyChangedEventArgs e)
