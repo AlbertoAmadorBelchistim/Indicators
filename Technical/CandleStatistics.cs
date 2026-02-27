@@ -101,7 +101,9 @@ public class CandleStatistics : Indicator
         var shiftBetweenStr = (int)(FontSetting.RenderObject.Size / 100 * 20);
 		var rowHeight = context.MeasureString("0", FontSetting.RenderObject).Height + shiftBetweenStr;
 
-        for (var bar = FirstVisibleBarNumber; bar <= LastVisibleBarNumber; bar++)
+        var lastBar = Math.Min(LastVisibleBarNumber, CurrentBar - 1);
+
+        for (var bar = FirstVisibleBarNumber; bar <= lastBar; bar++)
 		{
 			var candle = GetCandle(bar);
 			var delta = candle.Delta;
