@@ -117,6 +117,8 @@ public class DailyLines : Indicator
         CurrentDay,
         PreviousDay,
         CurrentEth,
+        CurrentRth,
+        PreviousRth,
         CurrentWeek,
         PreviousWeek,
         CurrentMonth,
@@ -169,6 +171,8 @@ public class DailyLines : Indicator
     private bool _showCurrentMonth;
     private bool _showPreviousMonth;
     private bool _showHalfGap;
+    private bool _showCurrentRth;
+    private bool _showPreviousRth;
 
     private readonly Dictionary<ScopeKind, ScopeState> _scopeStates = new();
 
@@ -274,6 +278,38 @@ public class DailyLines : Indicator
                 return;
 
             _showEth = value;
+            ApplySettingsChange();
+        }
+    }
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowCurrentRth),
+    Description = nameof(Resources.ShowCurrentRthDescription),
+    GroupName = nameof(Resources.MultiScope), Order = 1141)]
+    public bool ShowCurrentRth
+    {
+        get => _showCurrentRth;
+        set
+        {
+            if (_showCurrentRth == value)
+                return;
+
+            _showCurrentRth = value;
+            ApplySettingsChange();
+        }
+    }
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowPreviousRth),
+        Description = nameof(Resources.ShowPreviousRthDescription),
+        GroupName = nameof(Resources.MultiScope), Order = 1142)]
+    public bool ShowPreviousRth
+    {
+        get => _showPreviousRth;
+        set
+        {
+            if (_showPreviousRth == value)
+                return;
+
+            _showPreviousRth = value;
             ApplySettingsChange();
         }
     }
@@ -987,6 +1023,18 @@ public class DailyLines : Indicator
         if (IsEthScope(scopeKind))
             return InsideEth(bar);
 
+        // Multi-scope: "Day" scopes represent FULL DAY (no session filter).
+        // RTH scopes use the custom session window.
+        if (UseMultiScope)
+        {
+            if (scopeKind == ScopeKind.CurrentDay || scopeKind == ScopeKind.PreviousDay)
+                return true;
+
+            if (scopeKind == ScopeKind.CurrentRth || scopeKind == ScopeKind.PreviousRth)
+                return InsideSession(bar);
+        }
+
+        // Legacy behavior: day scopes can be session-filtered via CustomSession.
         return InsideSession(bar);
     }
 
@@ -1009,6 +1057,10 @@ public class DailyLines : Indicator
         {
             // ETH: day-like scope with an independent window, always anchored by TradingDayStart.
             if (scope == ScopeKind.CurrentEth)
+                return IsNewTradingDay(bar);
+
+            // Multi-scope RTH: also anchored by TradingDayStart (bucket), but filtered by session window.
+            if (UseMultiScope && (scope == ScopeKind.CurrentRth || scope == ScopeKind.PreviousRth))
                 return IsNewTradingDay(bar);
 
             return UseTradingDayStartForDay()
@@ -1041,7 +1093,8 @@ public class DailyLines : Indicator
 
     private static bool IsDayScope(ScopeKind kind)
     {
-        return kind is ScopeKind.CurrentDay or ScopeKind.PreviousDay or ScopeKind.CurrentEth;
+        return kind is ScopeKind.CurrentDay or ScopeKind.PreviousDay or ScopeKind.CurrentEth
+            or ScopeKind.CurrentRth or ScopeKind.PreviousRth;
     }
 
     private static bool IsWeekScope(ScopeKind kind)
@@ -1065,6 +1118,8 @@ public class DailyLines : Indicator
         if (ShowCurrentDay) yield return ScopeKind.CurrentDay;
         if (ShowPreviousDay) yield return ScopeKind.PreviousDay;
         if (ShowEth) yield return ScopeKind.CurrentEth;
+        if (ShowCurrentRth) yield return ScopeKind.CurrentRth;
+        if (ShowPreviousRth) yield return ScopeKind.PreviousRth;
 
         if (ShowCurrentWeek) yield return ScopeKind.CurrentWeek;
         if (ShowPreviousWeek) yield return ScopeKind.PreviousWeek;
@@ -1075,6 +1130,7 @@ public class DailyLines : Indicator
         // Safety fallback: if user enables multi-scope but forgets to tick any scope,
         // keep legacy behavior to avoid "empty" indicator.
         if (!ShowCurrentDay && !ShowPreviousDay && !ShowEth &&
+            !ShowCurrentRth && !ShowPreviousRth &&
             !ShowCurrentWeek && !ShowPreviousWeek &&
             !ShowCurrentMonth && !ShowPreviousMonth)
         {
@@ -1087,6 +1143,8 @@ public class DailyLines : Indicator
     ScopeKind.CurrentDay,
     ScopeKind.PreviousDay,
     ScopeKind.CurrentEth,
+    ScopeKind.CurrentRth,
+    ScopeKind.PreviousRth,
     ScopeKind.CurrentWeek,
     ScopeKind.PreviousWeek,
     ScopeKind.CurrentMonth,
@@ -1095,7 +1153,7 @@ public class DailyLines : Indicator
 
     private static bool IsCurrentScope(ScopeKind kind)
     {
-        return kind is ScopeKind.CurrentDay or ScopeKind.CurrentEth or ScopeKind.CurrentWeek or ScopeKind.CurrentMonth;
+        return kind is ScopeKind.CurrentDay or ScopeKind.CurrentEth or ScopeKind.CurrentRth or ScopeKind.CurrentWeek or ScopeKind.CurrentMonth;
     }
 
     private static string GetScopeLabel(ScopeKind kind)
@@ -1105,6 +1163,8 @@ public class DailyLines : Indicator
             ScopeKind.CurrentDay => Strings.CurrentDay,
             ScopeKind.PreviousDay => Strings.PreviousDay,
             ScopeKind.CurrentEth => Resources.Eth,
+            ScopeKind.CurrentRth => Resources.Rth,
+            ScopeKind.PreviousRth => Resources.Rth,
             ScopeKind.CurrentWeek => Strings.CurrentWeek,
             ScopeKind.PreviousWeek => Strings.PreviousWeek,
             ScopeKind.CurrentMonth => Strings.CurrentMonth,
@@ -1170,7 +1230,9 @@ public class DailyLines : Indicator
     {
         return kind == ScopeKind.CurrentDay
             || kind == ScopeKind.PreviousDay
-            || kind == ScopeKind.CurrentEth; // si ETH depende de RTH boundary
+            || kind == ScopeKind.CurrentEth
+            || kind == ScopeKind.CurrentRth
+            || kind == ScopeKind.PreviousRth;
     }
 
     private void OnFilterPropertyChanged(object sender, PropertyChangedEventArgs e)
