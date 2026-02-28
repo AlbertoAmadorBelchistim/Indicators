@@ -4897,4 +4897,143 @@
 <data name="IncompleteDataForPeriod" xml:space="preserve">
   <value>История неполная (возможна неточность): {0}</value>
   <comment>DailyLines</comment>
+</data>
+<data name="Rth" xml:space="preserve">
+  <value>RTH</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowCurrentRth" xml:space="preserve">
+  <value>Показать текущую RTH</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowCurrentRthDescription" xml:space="preserve">
+  <value>Показывает уровни текущей сессии RTH (окно пользовательской сессии).</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowPreviousRth" xml:space="preserve">
+  <value>Показать предыдущую RTH</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowPreviousRthDescription" xml:space="preserve">
+  <value>Показывает уровни предыдущей сессии RTH (окно пользовательской сессии).</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="DayFamilyLevels" xml:space="preserve">
+  <value>Семейство дня: уровни</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DayFamilyLevelsDescription" xml:space="preserve">
+  <value>Выберите, какие уровни OHLC рисовать для областей День / ETH / RTH.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="DayLevels" xml:space="preserve">
+  <value>Уровни дня</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DayLevelsDescription" xml:space="preserve">
+  <value>Уровни для текущего дня (полный день в режиме multi-scope).</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="PrevDayLevels" xml:space="preserve">
+  <value>Уровни предыдущего дня</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="PrevDayLevelsDescription" xml:space="preserve">
+  <value>Уровни для предыдущего дня (полный день в режиме multi-scope).</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="EthLevels" xml:space="preserve">
+  <value>Уровни ETH</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="EthLevelsDescription" xml:space="preserve">
+  <value>Уровни для ETH (TradingDayStart → начало RTH).</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="RthLevels" xml:space="preserve">
+  <value>Уровни RTH</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="RthLevelsDescription" xml:space="preserve">
+  <value>Уровни для текущей RTH (окно пользовательской сессии).</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="PrevRthLevels" xml:space="preserve">
+  <value>Уровни предыдущей RTH</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="PrevRthLevelsDescription" xml:space="preserve">
+  <value>Уровни для предыдущей RTH (окно пользовательской сессии).</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="DayFamilyStyles" xml:space="preserve">
+  <value>Семейство дня: стили</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DayFamilyStylesDescription" xml:space="preserve">
+  <value>Переопределяет стили линий по областям для День / ETH / RTH в режиме multi-scope.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="UseScopeStyleOverrides" xml:space="preserve">
+  <value>Использовать стили по областям</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="UseScopeStyleOverridesDescription" xml:space="preserve">
+  <value>Если включено, области День/ETH/RTH используют собственный стиль линии вместо глобальных OHLC-стилей.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="DayScopePen" xml:space="preserve">
+  <value>Стиль дня</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DayScopePenDescription" xml:space="preserve">
+  <value>Стиль линии для области Текущий день.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="PrevDayScopePen" xml:space="preserve">
+  <value>Стиль предыдущего дня</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="PrevDayScopePenDescription" xml:space="preserve">
+  <value>Стиль линии для области Предыдущий день.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="EthScopePen" xml:space="preserve">
+  <value>Стиль ETH</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="EthScopePenDescription" xml:space="preserve">
+  <value>Стиль линии для области ETH.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="RthScopePen" xml:space="preserve">
+  <value>Стиль RTH</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="RthScopePenDescription" xml:space="preserve">
+  <value>Стиль линии для области Текущая RTH.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="PrevRthScopePen" xml:space="preserve">
+  <value>Стиль предыдущей RTH</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="PrevRthScopePenDescription" xml:space="preserve">
+  <value>Стиль линии для области Предыдущая RTH.</value>
+  <comment>DailyLines</comment>
 </data></root>

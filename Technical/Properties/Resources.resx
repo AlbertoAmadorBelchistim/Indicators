@@ -5132,4 +5132,144 @@ The indicator loads volume data not more than 5 days.</value>
 <data name="IncompleteDataForPeriod" xml:space="preserve">
   <value>Incomplete history (may be inaccurate): {0}</value>
   <comment>DailyLines</comment>
-</data></root>
+</data>
+<data name="Rth" xml:space="preserve">
+  <value>RTH</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowCurrentRth" xml:space="preserve">
+  <value>Show Current RTH</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowCurrentRthDescription" xml:space="preserve">
+  <value>Show levels for the current RTH session (Custom Session window).</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowPreviousRth" xml:space="preserve">
+  <value>Show Previous RTH</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowPreviousRthDescription" xml:space="preserve">
+  <value>Show levels for the previous RTH session (Custom Session window).</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="DayFamilyLevels" xml:space="preserve">
+  <value>Day-family: levels</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DayFamilyLevelsDescription" xml:space="preserve">
+  <value>Select which OHLC levels are drawn for Day / ETH / RTH scopes.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="DayLevels" xml:space="preserve">
+  <value>Day levels</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DayLevelsDescription" xml:space="preserve">
+  <value>Levels to draw for Current Day (full day in multi-scope).</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="PrevDayLevels" xml:space="preserve">
+  <value>Previous day levels</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="PrevDayLevelsDescription" xml:space="preserve">
+  <value>Levels to draw for Previous Day (full day in multi-scope).</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="EthLevels" xml:space="preserve">
+  <value>ETH levels</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="EthLevelsDescription" xml:space="preserve">
+  <value>Levels to draw for ETH (TradingDayStart → RTH start).</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="RthLevels" xml:space="preserve">
+  <value>RTH levels</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="RthLevelsDescription" xml:space="preserve">
+  <value>Levels to draw for Current RTH (Custom Session window).</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="PrevRthLevels" xml:space="preserve">
+  <value>Previous RTH levels</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="PrevRthLevelsDescription" xml:space="preserve">
+  <value>Levels to draw for Previous RTH (Custom Session window).</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="DayFamilyStyles" xml:space="preserve">
+  <value>Day-family: styles</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DayFamilyStylesDescription" xml:space="preserve">
+  <value>Override line styles per scope for Day / ETH / RTH in multi-scope.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="UseScopeStyleOverrides" xml:space="preserve">
+  <value>Use scope style overrides</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="UseScopeStyleOverridesDescription" xml:space="preserve">
+  <value>When enabled, Day/ETH/RTH scopes use their own line style instead of the global OHLC styles.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="DayScopePen" xml:space="preserve">
+  <value>Day style</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DayScopePenDescription" xml:space="preserve">
+  <value>Line style for Current Day scope.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="PrevDayScopePen" xml:space="preserve">
+  <value>Previous day style</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="PrevDayScopePenDescription" xml:space="preserve">
+  <value>Line style for Previous Day scope.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="EthScopePen" xml:space="preserve">
+  <value>ETH style</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="EthScopePenDescription" xml:space="preserve">
+  <value>Line style for ETH scope.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="RthScopePen" xml:space="preserve">
+  <value>RTH style</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="RthScopePenDescription" xml:space="preserve">
+  <value>Line style for Current RTH scope.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="PrevRthScopePen" xml:space="preserve">
+  <value>Previous RTH style</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="PrevRthScopePenDescription" xml:space="preserve">
+  <value>Line style for Previous RTH scope.</value>
+  <comment>DailyLines</comment>
+</data>
+</root>

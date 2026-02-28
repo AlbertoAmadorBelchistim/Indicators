@@ -2831,4 +2831,143 @@
 <data name="IncompleteDataForPeriod" xml:space="preserve">
   <value>अधूरा इतिहास (गलत हो सकता है): {0}</value>
   <comment>DailyLines</comment>
+</data>
+<data name="Rth" xml:space="preserve">
+  <value>RTH</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowCurrentRth" xml:space="preserve">
+  <value>वर्तमान RTH दिखाएँ</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowCurrentRthDescription" xml:space="preserve">
+  <value>वर्तमान RTH सत्र के स्तर दिखाएँ (कस्टम सत्र विंडो)।</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowPreviousRth" xml:space="preserve">
+  <value>पिछला RTH दिखाएँ</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowPreviousRthDescription" xml:space="preserve">
+  <value>पिछले RTH सत्र के स्तर दिखाएँ (कस्टम सत्र विंडो)।</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="DayFamilyLevels" xml:space="preserve">
+  <value>डे-फ़ैमिली: स्तर</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DayFamilyLevelsDescription" xml:space="preserve">
+  <value>Day / ETH / RTH स्कोप के लिए कौन-से OHLC स्तर ड्रॉ हों, चुनें।</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="DayLevels" xml:space="preserve">
+  <value>Day स्तर</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DayLevelsDescription" xml:space="preserve">
+  <value>Current Day के लिए ड्रॉ होने वाले स्तर (multi-scope में पूरा दिन)।</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="PrevDayLevels" xml:space="preserve">
+  <value>पिछला Day स्तर</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="PrevDayLevelsDescription" xml:space="preserve">
+  <value>Previous Day के लिए ड्रॉ होने वाले स्तर (multi-scope में पूरा दिन)।</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="EthLevels" xml:space="preserve">
+  <value>ETH स्तर</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="EthLevelsDescription" xml:space="preserve">
+  <value>ETH के लिए ड्रॉ होने वाले स्तर (TradingDayStart → RTH शुरुआत)।</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="RthLevels" xml:space="preserve">
+  <value>RTH स्तर</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="RthLevelsDescription" xml:space="preserve">
+  <value>Current RTH के लिए ड्रॉ होने वाले स्तर (कस्टम सत्र विंडो)।</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="PrevRthLevels" xml:space="preserve">
+  <value>पिछला RTH स्तर</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="PrevRthLevelsDescription" xml:space="preserve">
+  <value>Previous RTH के लिए ड्रॉ होने वाले स्तर (कस्टम सत्र विंडो)।</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="DayFamilyStyles" xml:space="preserve">
+  <value>डे-फ़ैमिली: स्टाइल</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DayFamilyStylesDescription" xml:space="preserve">
+  <value>multi-scope में Day / ETH / RTH के लिए स्कोप के अनुसार लाइन स्टाइल बदलें।</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="UseScopeStyleOverrides" xml:space="preserve">
+  <value>स्कोप स्टाइल ओवरराइड उपयोग करें</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="UseScopeStyleOverridesDescription" xml:space="preserve">
+  <value>सक्रिय होने पर, Day/ETH/RTH स्कोप global OHLC स्टाइल की जगह अपना लाइन स्टाइल उपयोग करेंगे।</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="DayScopePen" xml:space="preserve">
+  <value>Day स्टाइल</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DayScopePenDescription" xml:space="preserve">
+  <value>Current Day स्कोप के लिए लाइन स्टाइल।</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="PrevDayScopePen" xml:space="preserve">
+  <value>Previous Day स्टाइल</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="PrevDayScopePenDescription" xml:space="preserve">
+  <value>Previous Day स्कोप के लिए लाइन स्टाइल।</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="EthScopePen" xml:space="preserve">
+  <value>ETH स्टाइल</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="EthScopePenDescription" xml:space="preserve">
+  <value>ETH स्कोप के लिए लाइन स्टाइल।</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="RthScopePen" xml:space="preserve">
+  <value>RTH स्टाइल</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="RthScopePenDescription" xml:space="preserve">
+  <value>Current RTH स्कोप के लिए लाइन स्टाइल।</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="PrevRthScopePen" xml:space="preserve">
+  <value>Previous RTH स्टाइल</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="PrevRthScopePenDescription" xml:space="preserve">
+  <value>Previous RTH स्कोप के लिए लाइन स्टाइल।</value>
+  <comment>DailyLines</comment>
 </data></root>

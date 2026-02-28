@@ -2833,4 +2833,143 @@
 <data name="IncompleteDataForPeriod" xml:space="preserve">
   <value>Historique incomplet (peut être inexact) : {0}</value>
   <comment>DailyLines</comment>
+</data>
+<data name="Rth" xml:space="preserve">
+  <value>RTH</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowCurrentRth" xml:space="preserve">
+  <value>Afficher la RTH actuelle</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowCurrentRthDescription" xml:space="preserve">
+  <value>Affiche les niveaux de la session RTH actuelle (fenêtre de session personnalisée).</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowPreviousRth" xml:space="preserve">
+  <value>Afficher la RTH précédente</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowPreviousRthDescription" xml:space="preserve">
+  <value>Affiche les niveaux de la session RTH précédente (fenêtre de session personnalisée).</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="DayFamilyLevels" xml:space="preserve">
+  <value>Famille Jour : niveaux</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DayFamilyLevelsDescription" xml:space="preserve">
+  <value>Sélectionnez quels niveaux OHLC sont tracés pour les portées Jour / ETH / RTH.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="DayLevels" xml:space="preserve">
+  <value>Niveaux Jour</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DayLevelsDescription" xml:space="preserve">
+  <value>Niveaux à tracer pour le Jour actuel (journée complète en mode multi-scope).</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="PrevDayLevels" xml:space="preserve">
+  <value>Niveaux Jour précédent</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="PrevDayLevelsDescription" xml:space="preserve">
+  <value>Niveaux à tracer pour le Jour précédent (journée complète en mode multi-scope).</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="EthLevels" xml:space="preserve">
+  <value>Niveaux ETH</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="EthLevelsDescription" xml:space="preserve">
+  <value>Niveaux à tracer pour l’ETH (TradingDayStart → début de la RTH).</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="RthLevels" xml:space="preserve">
+  <value>Niveaux RTH</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="RthLevelsDescription" xml:space="preserve">
+  <value>Niveaux à tracer pour la RTH actuelle (fenêtre de session personnalisée).</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="PrevRthLevels" xml:space="preserve">
+  <value>Niveaux RTH précédent</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="PrevRthLevelsDescription" xml:space="preserve">
+  <value>Niveaux à tracer pour la RTH précédente (fenêtre de session personnalisée).</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="DayFamilyStyles" xml:space="preserve">
+  <value>Famille Jour : styles</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DayFamilyStylesDescription" xml:space="preserve">
+  <value>Remplace les styles de ligne par portée pour Jour / ETH / RTH en mode multi-scope.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="UseScopeStyleOverrides" xml:space="preserve">
+  <value>Utiliser des styles par portée</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="UseScopeStyleOverridesDescription" xml:space="preserve">
+  <value>Lorsqu’activé, les portées Jour/ETH/RTH utilisent leur propre style au lieu des styles OHLC globaux.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="DayScopePen" xml:space="preserve">
+  <value>Style Jour</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DayScopePenDescription" xml:space="preserve">
+  <value>Style de ligne pour la portée Jour actuel.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="PrevDayScopePen" xml:space="preserve">
+  <value>Style Jour précédent</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="PrevDayScopePenDescription" xml:space="preserve">
+  <value>Style de ligne pour la portée Jour précédent.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="EthScopePen" xml:space="preserve">
+  <value>Style ETH</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="EthScopePenDescription" xml:space="preserve">
+  <value>Style de ligne pour la portée ETH.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="RthScopePen" xml:space="preserve">
+  <value>Style RTH</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="RthScopePenDescription" xml:space="preserve">
+  <value>Style de ligne pour la portée RTH actuelle.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="PrevRthScopePen" xml:space="preserve">
+  <value>Style RTH précédent</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="PrevRthScopePenDescription" xml:space="preserve">
+  <value>Style de ligne pour la portée RTH précédente.</value>
+  <comment>DailyLines</comment>
 </data></root>

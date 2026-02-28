@@ -2787,4 +2787,143 @@
 <data name="IncompleteDataForPeriod" xml:space="preserve">
   <value>历史数据不完整（可能不准确）：{0}</value>
   <comment>DailyLines</comment>
+</data>
+<data name="Rth" xml:space="preserve">
+  <value>RTH</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowCurrentRth" xml:space="preserve">
+  <value>显示当前 RTH</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowCurrentRthDescription" xml:space="preserve">
+  <value>显示当前 RTH 会话的水平线（自定义会话窗口）。</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="ShowPreviousRth" xml:space="preserve">
+  <value>显示上一 RTH</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="ShowPreviousRthDescription" xml:space="preserve">
+  <value>显示上一 RTH 会话的水平线（自定义会话窗口）。</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="DayFamilyLevels" xml:space="preserve">
+  <value>日内系列：水平线</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DayFamilyLevelsDescription" xml:space="preserve">
+  <value>选择在 Day / ETH / RTH 范围内绘制哪些 OHLC 水平线。</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="DayLevels" xml:space="preserve">
+  <value>Day 水平线</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DayLevelsDescription" xml:space="preserve">
+  <value>当前 Day（multi-scope 下为全天）要绘制的水平线。</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="PrevDayLevels" xml:space="preserve">
+  <value>上一 Day 水平线</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="PrevDayLevelsDescription" xml:space="preserve">
+  <value>上一 Day（multi-scope 下为全天）要绘制的水平线。</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="EthLevels" xml:space="preserve">
+  <value>ETH 水平线</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="EthLevelsDescription" xml:space="preserve">
+  <value>ETH 要绘制的水平线（TradingDayStart → RTH 开始）。</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="RthLevels" xml:space="preserve">
+  <value>RTH 水平线</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="RthLevelsDescription" xml:space="preserve">
+  <value>当前 RTH（自定义会话窗口）要绘制的水平线。</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="PrevRthLevels" xml:space="preserve">
+  <value>上一 RTH 水平线</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="PrevRthLevelsDescription" xml:space="preserve">
+  <value>上一 RTH（自定义会话窗口）要绘制的水平线。</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="DayFamilyStyles" xml:space="preserve">
+  <value>日内系列：样式</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DayFamilyStylesDescription" xml:space="preserve">
+  <value>在 multi-scope 模式下，为 Day / ETH / RTH 按范围覆盖线条样式。</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="UseScopeStyleOverrides" xml:space="preserve">
+  <value>使用范围样式覆盖</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="UseScopeStyleOverridesDescription" xml:space="preserve">
+  <value>启用后，Day/ETH/RTH 范围使用各自的线条样式，而不是全局 OHLC 样式。</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="DayScopePen" xml:space="preserve">
+  <value>Day 样式</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DayScopePenDescription" xml:space="preserve">
+  <value>当前 Day 范围的线条样式。</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="PrevDayScopePen" xml:space="preserve">
+  <value>上一 Day 样式</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="PrevDayScopePenDescription" xml:space="preserve">
+  <value>上一 Day 范围的线条样式。</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="EthScopePen" xml:space="preserve">
+  <value>ETH 样式</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="EthScopePenDescription" xml:space="preserve">
+  <value>ETH 范围的线条样式。</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="RthScopePen" xml:space="preserve">
+  <value>RTH 样式</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="RthScopePenDescription" xml:space="preserve">
+  <value>当前 RTH 范围的线条样式。</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="PrevRthScopePen" xml:space="preserve">
+  <value>上一 RTH 样式</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="PrevRthScopePenDescription" xml:space="preserve">
+  <value>上一 RTH 范围的线条样式。</value>
+  <comment>DailyLines</comment>
 </data></root>

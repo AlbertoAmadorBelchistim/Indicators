@@ -2338,11 +2338,83 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Day-family: levels.
+        /// </summary>
+        public static string DayFamilyLevels {
+            get {
+                return ResourceManager.GetString("DayFamilyLevels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Select which OHLC levels are drawn for Day / ETH / RTH scopes..
+        /// </summary>
+        public static string DayFamilyLevelsDescription {
+            get {
+                return ResourceManager.GetString("DayFamilyLevelsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Day-family: styles.
+        /// </summary>
+        public static string DayFamilyStyles {
+            get {
+                return ResourceManager.GetString("DayFamilyStyles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Override line styles per scope for Day / ETH / RTH in multi-scope..
+        /// </summary>
+        public static string DayFamilyStylesDescription {
+            get {
+                return ResourceManager.GetString("DayFamilyStylesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Day levels.
+        /// </summary>
+        public static string DayLevels {
+            get {
+                return ResourceManager.GetString("DayLevels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Levels to draw for Current Day (full day in multi-scope)..
+        /// </summary>
+        public static string DayLevelsDescription {
+            get {
+                return ResourceManager.GetString("DayLevelsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Days.
         /// </summary>
         public static string Days {
             get {
                 return ResourceManager.GetString("Days", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Day style.
+        /// </summary>
+        public static string DayScopePen {
+            get {
+                return ResourceManager.GetString("DayScopePen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Line style for Current Day scope..
+        /// </summary>
+        public static string DayScopePenDescription {
+            get {
+                return ResourceManager.GetString("DayScopePenDescription", resourceCulture);
             }
         }
         
@@ -3117,6 +3189,42 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string Eth {
             get {
                 return ResourceManager.GetString("Eth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a ETH levels.
+        /// </summary>
+        public static string EthLevels {
+            get {
+                return ResourceManager.GetString("EthLevels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Levels to draw for ETH (TradingDayStart → RTH start)..
+        /// </summary>
+        public static string EthLevelsDescription {
+            get {
+                return ResourceManager.GetString("EthLevelsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a ETH style.
+        /// </summary>
+        public static string EthScopePen {
+            get {
+                return ResourceManager.GetString("EthScopePen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Line style for ETH scope..
+        /// </summary>
+        public static string EthScopePenDescription {
+            get {
+                return ResourceManager.GetString("EthScopePenDescription", resourceCulture);
             }
         }
         
@@ -7279,6 +7387,42 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Previous day levels.
+        /// </summary>
+        public static string PrevDayLevels {
+            get {
+                return ResourceManager.GetString("PrevDayLevels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Levels to draw for Previous Day (full day in multi-scope)..
+        /// </summary>
+        public static string PrevDayLevelsDescription {
+            get {
+                return ResourceManager.GetString("PrevDayLevelsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Previous day style.
+        /// </summary>
+        public static string PrevDayScopePen {
+            get {
+                return ResourceManager.GetString("PrevDayScopePen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Line style for Previous Day scope..
+        /// </summary>
+        public static string PrevDayScopePenDescription {
+            get {
+                return ResourceManager.GetString("PrevDayScopePenDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Last Day.
         /// </summary>
         public static string PreviousDay {
@@ -7302,6 +7446,42 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string PreviousWeek {
             get {
                 return ResourceManager.GetString("PreviousWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Previous RTH levels.
+        /// </summary>
+        public static string PrevRthLevels {
+            get {
+                return ResourceManager.GetString("PrevRthLevels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Levels to draw for Previous RTH (Custom Session window)..
+        /// </summary>
+        public static string PrevRthLevelsDescription {
+            get {
+                return ResourceManager.GetString("PrevRthLevelsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Previous RTH style.
+        /// </summary>
+        public static string PrevRthScopePen {
+            get {
+                return ResourceManager.GetString("PrevRthScopePen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Line style for Previous RTH scope..
+        /// </summary>
+        public static string PrevRthScopePenDescription {
+            get {
+                return ResourceManager.GetString("PrevRthScopePenDescription", resourceCulture);
             }
         }
         
@@ -8062,6 +8242,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a RTH.
+        /// </summary>
+        public static string Rth {
+            get {
+                return ResourceManager.GetString("Rth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a RTH end.
         /// </summary>
         public static string RthEnd {
@@ -8076,6 +8265,42 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string RthEndDescription {
             get {
                 return ResourceManager.GetString("RthEndDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a RTH levels.
+        /// </summary>
+        public static string RthLevels {
+            get {
+                return ResourceManager.GetString("RthLevels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Levels to draw for Current RTH (Custom Session window)..
+        /// </summary>
+        public static string RthLevelsDescription {
+            get {
+                return ResourceManager.GetString("RthLevelsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a RTH style.
+        /// </summary>
+        public static string RthScopePen {
+            get {
+                return ResourceManager.GetString("RthScopePen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Line style for Current RTH scope..
+        /// </summary>
+        public static string RthScopePenDescription {
+            get {
+                return ResourceManager.GetString("RthScopePenDescription", resourceCulture);
             }
         }
         
@@ -8720,6 +8945,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Show Current RTH.
+        /// </summary>
+        public static string ShowCurrentRth {
+            get {
+                return ResourceManager.GetString("ShowCurrentRth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show levels for the current RTH session (Custom Session window)..
+        /// </summary>
+        public static string ShowCurrentRthDescription {
+            get {
+                return ResourceManager.GetString("ShowCurrentRthDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Show Current Streak.
         /// </summary>
         public static string ShowCurrentStreakRow {
@@ -9166,6 +9409,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string ShowPreviousMonthDescription {
             get {
                 return ResourceManager.GetString("ShowPreviousMonthDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show Previous RTH.
+        /// </summary>
+        public static string ShowPreviousRth {
+            get {
+                return ResourceManager.GetString("ShowPreviousRth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show levels for the previous RTH session (Custom Session window)..
+        /// </summary>
+        public static string ShowPreviousRthDescription {
+            get {
+                return ResourceManager.GetString("ShowPreviousRthDescription", resourceCulture);
             }
         }
         
@@ -11299,6 +11560,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string UseScale {
             get {
                 return ResourceManager.GetString("UseScale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Use scope style overrides.
+        /// </summary>
+        public static string UseScopeStyleOverrides {
+            get {
+                return ResourceManager.GetString("UseScopeStyleOverrides", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a When enabled, Day/ETH/RTH scopes use their own line style instead of the global OHLC styles..
+        /// </summary>
+        public static string UseScopeStyleOverridesDescription {
+            get {
+                return ResourceManager.GetString("UseScopeStyleOverridesDescription", resourceCulture);
             }
         }
         
