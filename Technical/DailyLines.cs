@@ -527,6 +527,45 @@ public class DailyLines : Indicator
 
     #endregion
 
+    #region DayFamily Styles
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.DayFamilyStyles),
+        Description = nameof(Resources.DayFamilyStylesDescription),
+        GroupName = nameof(Resources.Filters), Order = 300)]
+    public bool DayFamilyStylesHeader => true; // optional header
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.UseScopeStyleOverrides),
+        Description = nameof(Resources.UseScopeStyleOverridesDescription),
+        GroupName = nameof(Resources.DayFamilyStyles), Order = 301)]
+    public bool UseScopeStyleOverrides { get; set; } = true;
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.DayScopePen),
+        Description = nameof(Resources.DayScopePenDescription),
+        GroupName = nameof(Resources.DayFamilyStyles), Order = 302)]
+    public PenSettings DayScopePen { get; set; } = new() { Color = DefaultColors.Red.Convert(), Width = 2 };
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.PrevDayScopePen),
+        Description = nameof(Resources.PrevDayScopePenDescription),
+        GroupName = nameof(Resources.DayFamilyStyles), Order = 303)]
+    public PenSettings PrevDayScopePen { get; set; } = new() { Color = DefaultColors.Red.Convert(), Width = 2 };
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.EthScopePen),
+        Description = nameof(Resources.EthScopePenDescription),
+        GroupName = nameof(Resources.DayFamilyStyles), Order = 304)]
+    public PenSettings EthScopePen { get; set; } = new() { Color = DefaultColors.Red.Convert(), Width = 2 };
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.RthScopePen),
+        Description = nameof(Resources.RthScopePenDescription),
+        GroupName = nameof(Resources.DayFamilyStyles), Order = 305)]
+    public PenSettings RthScopePen { get; set; } = new() { Color = DefaultColors.Red.Convert(), Width = 2 };
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.PrevRthScopePen),
+        Description = nameof(Resources.PrevRthScopePenDescription),
+        GroupName = nameof(Resources.DayFamilyStyles), Order = 306)]
+    public PenSettings PrevRthScopePen { get; set; } = new() { Color = DefaultColors.Red.Convert(), Width = 2 };
+
+    #endregion
+
     #region Open
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Line), GroupName = nameof(Strings.Open),
@@ -776,16 +815,16 @@ public class DailyLines : Indicator
             }
 
             if (mask.HasFlag(LevelMask.Open) && range.OpenPrice >= low && range.OpenPrice <= high)
-                DrawLevel(context, OpenPen, range.OpenBar, range.OpenPrice, OpenText, "Open", periodStr);
+                DrawLevel(context, GetEffectivePen(scopeKind, OpenPen), range.OpenBar, range.OpenPrice, OpenText, "Open", periodStr);
 
             if (mask.HasFlag(LevelMask.High) && range.HighPrice >= low && range.HighPrice <= high)
-                DrawLevel(context, HighPen, range.HighBar, range.HighPrice, HighText, "High", periodStr);
+                DrawLevel(context, GetEffectivePen(scopeKind, OpenPen), range.HighBar, range.HighPrice, HighText, "High", periodStr);
 
             if (mask.HasFlag(LevelMask.Low) && range.LowPrice >= low && range.LowPrice <= high)
-                DrawLevel(context, LowPen, range.LowBar, range.LowPrice, LowText, "Low", periodStr);
+                DrawLevel(context, GetEffectivePen(scopeKind, LowPen), range.LowBar, range.LowPrice, LowText, "Low", periodStr);
 
             if (mask.HasFlag(LevelMask.Close) && range.IsFinished && range.ClosePrice >= low && range.ClosePrice <= high)
-                DrawLevel(context, ClosePen, range.CloseBar, range.ClosePrice, CloseText, "Close", periodStr);
+                DrawLevel(context, GetEffectivePen(scopeKind, ClosePen), range.CloseBar, range.ClosePrice, CloseText, "Close", periodStr);
         }
     }
 
@@ -1376,9 +1415,11 @@ public class DailyLines : Indicator
 		context.DrawLine(pen.RenderObject, x1, y, x2, y);
 
 		var offset = 3;
-		var renderText = string.IsNullOrEmpty(text) ? $"{periodStr} {ohlc}" : text;
+        var renderText = string.IsNullOrEmpty(text)
+            ? $"{periodStr} {ohlc}"
+            : (UseMultiScope ? $"{periodStr} {text}" : text);
 
-		if (ShowText)
+        if (ShowText)
 			DrawString(context, _fontSetting.RenderObject, renderText, y - offset, pen.RenderObject.Color);
 
 		if (ShowPrice)
@@ -1421,6 +1462,22 @@ public class DailyLines : Indicator
             g.DrawString(line, ChartInfo.PriceAxisFont, DefaultColors.Red, rect);
             y += size.Height;
         }
+    }
+
+    private PenSettings GetEffectivePen(ScopeKind scopeKind, PenSettings defaultPen)
+    {
+        if (!UseMultiScope || !UseScopeStyleOverrides)
+            return defaultPen;
+
+        return scopeKind switch
+        {
+            ScopeKind.CurrentDay => DayScopePen,
+            ScopeKind.PreviousDay => PrevDayScopePen,
+            ScopeKind.CurrentEth => EthScopePen,
+            ScopeKind.CurrentRth => RthScopePen,
+            ScopeKind.PreviousRth => PrevRthScopePen,
+            _ => defaultPen
+        };
     }
 
     #endregion
