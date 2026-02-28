@@ -428,8 +428,8 @@ public class DailyLines : Indicator
 
     #endregion
 
-    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.CustomSession), GroupName = nameof(Resources.Filters),
-        Description = nameof(Resources.IsCustomSessionDescription), Order = 120)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.CurrentDayRthEthSplit), GroupName = nameof(Resources.Filters),
+        Description = nameof(Resources.CurrentDayRthEthSplitDescription), Order = 120)]
     public bool CustomSession
     {
         get => _customSession;
@@ -451,8 +451,8 @@ public class DailyLines : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.SessionBegin), GroupName = nameof(Resources.Filters),
-        Description = nameof(Resources.SessionBeginDescription), Order = 120)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.RthStart), GroupName = nameof(Resources.Filters),
+        Description = nameof(Resources.RthStartDescription), Order = 120)]
     public FilterTimeSpan FilterStartTime { get; set; } = new(false);
 
     [Browsable(false)]
@@ -462,8 +462,8 @@ public class DailyLines : Indicator
         set => FilterStartTime.Value = value;
     }
 
-    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.SessionEnd), GroupName = nameof(Resources.Filters),
-        Description = nameof(Resources.SessionEndDescription), Order = 120)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.RthEnd), GroupName = nameof(Resources.Filters),
+        Description = nameof(Resources.RthEndDescription), Order = 120)]
     public FilterTimeSpan FilterEndTime { get; set; } = new(false);
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.TradingDayStart), Description = nameof(Resources.TradingDayStartDescription),
@@ -513,8 +513,8 @@ public class DailyLines : Indicator
         Description = nameof(Strings.ShowSelectedPriceOnPriceAxisDescription), Order = 210)]
     public bool ShowPrice { get; set; } = true;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.FirstBar), GroupName = nameof(Strings.Show),
-        Description = nameof(Strings.FirstBarDescription), Order = 220)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.DrawFromSignificantBar), GroupName = nameof(Resources.Show),
+        Description = nameof(Resources.DrawFromSignificantBarDescription), Order = 220)]
     public bool DrawFromBar { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AbovePrice), GroupName = nameof(Strings.Show),
