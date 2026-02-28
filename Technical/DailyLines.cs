@@ -138,6 +138,20 @@ public class DailyLines : Indicator
         public bool HasSeenMonthBoundary;
     }
 
+    [Flags]
+    public enum LevelMask
+    {
+        None = 0,
+        Open = 1 << 0,
+        High = 1 << 1,
+        Low = 1 << 2,
+        Close = 1 << 3,
+        HalfGap = 1 << 4,
+
+        Ohlc = Open | High | Low | Close,
+        All = Ohlc | HalfGap
+    }
+
     #endregion
 
     #region Fields
@@ -377,6 +391,40 @@ public class DailyLines : Indicator
             ApplySettingsChange();
         }
     }
+
+    #endregion
+
+    #region DayFamily Levels
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.DayFamilyLevels),
+        Description = nameof(Resources.DayFamilyLevelsDescription),
+        GroupName = nameof(Resources.Filters), Order = 140)]
+    public bool DayFamilyLevelsHeader => true; // dummy header (ATAS groups by GroupName; keep minimal)
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.DayLevels),
+        Description = nameof(Resources.DayLevelsDescription),
+        GroupName = nameof(Resources.DayFamilyLevels), Order = 141)]
+    public LevelMask DayLevels { get; set; } = LevelMask.Ohlc;
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.PrevDayLevels),
+        Description = nameof(Resources.PrevDayLevelsDescription),
+        GroupName = nameof(Resources.DayFamilyLevels), Order = 142)]
+    public LevelMask PrevDayLevels { get; set; } = LevelMask.Ohlc;
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.EthLevels),
+        Description = nameof(Resources.EthLevelsDescription),
+        GroupName = nameof(Resources.DayFamilyLevels), Order = 143)]
+    public LevelMask EthLevels { get; set; } = LevelMask.Ohlc;
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.RthLevels),
+        Description = nameof(Resources.RthLevelsDescription),
+        GroupName = nameof(Resources.DayFamilyLevels), Order = 144)]
+    public LevelMask RthLevels { get; set; } = LevelMask.Ohlc;
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.PrevRthLevels),
+        Description = nameof(Resources.PrevRthLevelsDescription),
+        GroupName = nameof(Resources.DayFamilyLevels), Order = 145)]
+    public LevelMask PrevRthLevels { get; set; } = LevelMask.Ohlc;
 
     #endregion
 
@@ -706,9 +754,12 @@ public class DailyLines : Indicator
 
             var periodStr = GetScopeLabel(scopeKind);
 
+            var mask = GetLevelMaskForScope(scopeKind);
+
             // Half Gap (midpoint between previous session close and current session open).
             // Option A: only for CurrentDay when CustomSession is enabled.
             if (ShowHalfGap
+                && mask.HasFlag(LevelMask.HalfGap)
                 && CustomSession
                 && scopeKind == ScopeKind.CurrentDay
                 && state.Prev is not null
@@ -724,16 +775,16 @@ public class DailyLines : Indicator
                     DrawLevel(context, HalfGapPen, range.OpenBar, halfGap, HalfGapText, "HalfGap", periodStr);
             }
 
-            if (range.OpenPrice >= low && range.OpenPrice <= high)
+            if (mask.HasFlag(LevelMask.Open) && range.OpenPrice >= low && range.OpenPrice <= high)
                 DrawLevel(context, OpenPen, range.OpenBar, range.OpenPrice, OpenText, "Open", periodStr);
 
-            if (range.HighPrice >= low && range.HighPrice <= high)
+            if (mask.HasFlag(LevelMask.High) && range.HighPrice >= low && range.HighPrice <= high)
                 DrawLevel(context, HighPen, range.HighBar, range.HighPrice, HighText, "High", periodStr);
 
-            if (range.LowPrice >= low && range.LowPrice <= high)
+            if (mask.HasFlag(LevelMask.Low) && range.LowPrice >= low && range.LowPrice <= high)
                 DrawLevel(context, LowPen, range.LowBar, range.LowPrice, LowText, "Low", periodStr);
 
-            if (range.IsFinished && range.ClosePrice >= low && range.ClosePrice <= high)
+            if (mask.HasFlag(LevelMask.Close) && range.IsFinished && range.ClosePrice >= low && range.ClosePrice <= high)
                 DrawLevel(context, ClosePen, range.CloseBar, range.ClosePrice, CloseText, "Close", periodStr);
         }
     }
@@ -1233,6 +1284,19 @@ public class DailyLines : Indicator
             || kind == ScopeKind.CurrentEth
             || kind == ScopeKind.CurrentRth
             || kind == ScopeKind.PreviousRth;
+    }
+
+    private LevelMask GetLevelMaskForScope(ScopeKind scopeKind)
+    {
+        return scopeKind switch
+        {
+            ScopeKind.CurrentDay => DayLevels,
+            ScopeKind.PreviousDay => PrevDayLevels,
+            ScopeKind.CurrentEth => EthLevels,
+            ScopeKind.CurrentRth => RthLevels,
+            ScopeKind.PreviousRth => PrevRthLevels,
+            _ => LevelMask.All // non-day-family: keep unchanged (no masking)
+        };
     }
 
     private void OnFilterPropertyChanged(object sender, PropertyChangedEventArgs e)
