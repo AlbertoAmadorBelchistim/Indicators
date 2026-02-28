@@ -2926,4 +2926,21 @@
 <data name="PrevRthScopePenDescription" xml:space="preserve">
   <value>上一 RTH 范围的线条样式。</value>
   <comment>DailyLines</comment>
+</data>
+<data name="CurrentDayRthEthSplit" xml:space="preserve">
+  <value>将当日分为 RTH/ETH</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="CurrentDayRthEthSplitDescription" xml:space="preserve">
+  <value>当 MultiScope 关闭时，当日水平仅显示 RTH。开启 MultiScope 后，此选项允许使用下方的 RTH 开始/结束时间将 RTH 与 ETH 分开显示。</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="DrawFromSignificantBar" xml:space="preserve">
+  <value>从关键 K 线开始</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DrawFromSignificantBarDescription" xml:space="preserve">
+  <value>启用后，线条从形成该水平的 K 线开始（Open=第一根，High/Low=极值那根，Close=最后一根）。禁用后，线条从周期边界开始。</value>
+  <comment>DailyLines</comment>
 </data></root>

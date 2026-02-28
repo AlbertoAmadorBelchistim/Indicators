@@ -2041,6 +2041,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Split Current Day into RTH/ETH.
+        /// </summary>
+        public static string CurrentDayRthEthSplit {
+            get {
+                return ResourceManager.GetString("CurrentDayRthEthSplit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a When MultiScope is disabled, Current Day levels are shown for RTH only. When MultiScope is enabled, this option allows showing RTH and ETH separately using the RTH start/end times below..
+        /// </summary>
+        public static string CurrentDayRthEthSplitDescription {
+            get {
+                return ResourceManager.GetString("CurrentDayRthEthSplitDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Current Month.
         /// </summary>
         public static string CurrentMonth {
@@ -2883,6 +2901,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string DownAlertFileFilterDescription {
             get {
                 return ResourceManager.GetString("DownAlertFileFilterDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a From significant bar.
+        /// </summary>
+        public static string DrawFromSignificantBar {
+            get {
+                return ResourceManager.GetString("DrawFromSignificantBar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a When enabled, lines start from the bar that formed the level (Open=first bar, High/Low=extreme bar, Close=last bar). When disabled, lines start from the period boundary..
+        /// </summary>
+        public static string DrawFromSignificantBarDescription {
+            get {
+                return ResourceManager.GetString("DrawFromSignificantBarDescription", resourceCulture);
             }
         }
         

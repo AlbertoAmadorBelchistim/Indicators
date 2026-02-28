@@ -2972,4 +2972,21 @@
 <data name="PrevRthScopePenDescription" xml:space="preserve">
   <value>Style de ligne pour la portée RTH précédente.</value>
   <comment>DailyLines</comment>
+</data>
+<data name="CurrentDayRthEthSplit" xml:space="preserve">
+  <value>Scinder la journée actuelle en RTH/ETH</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="CurrentDayRthEthSplitDescription" xml:space="preserve">
+  <value>Lorsque MultiScope est désactivé, les niveaux de la journée actuelle s’affichent uniquement pour la RTH. Lorsque MultiScope est activé, cette option permet d’afficher RTH et ETH séparément en utilisant les heures de début/fin RTH ci-dessous.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="DrawFromSignificantBar" xml:space="preserve">
+  <value>Depuis la bougie significative</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DrawFromSignificantBarDescription" xml:space="preserve">
+  <value>Si activé, les lignes démarrent sur la bougie qui a formé le niveau (Open=première bougie, High/Low=bougie de l’extrême, Close=dernière bougie). Sinon, elles démarrent à la limite de la période.</value>
+  <comment>DailyLines</comment>
 </data></root>

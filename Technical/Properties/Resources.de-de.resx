@@ -2978,4 +2978,21 @@
 <data name="PrevRthScopePenDescription" xml:space="preserve">
   <value>Linienstil für den Bereich Vorherige RTH.</value>
   <comment>DailyLines</comment>
+</data>
+<data name="CurrentDayRthEthSplit" xml:space="preserve">
+  <value>Aktuellen Tag in RTH/ETH aufteilen</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="CurrentDayRthEthSplitDescription" xml:space="preserve">
+  <value>Wenn MultiScope deaktiviert ist, werden die Levels des aktuellen Tages nur für RTH angezeigt. Wenn MultiScope aktiviert ist, ermöglicht diese Option die getrennte Anzeige von RTH und ETH anhand der untenstehenden RTH-Start/Endzeiten.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="DrawFromSignificantBar" xml:space="preserve">
+  <value>Ab signifikanter Kerze</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DrawFromSignificantBarDescription" xml:space="preserve">
+  <value>Wenn aktiviert, starten Linien an der Kerze, die das Level gebildet hat (Open=erste Kerze, High/Low=Extrem-Kerze, Close=letzte Kerze). Wenn deaktiviert, starten sie an der Periodengrenze.</value>
+  <comment>DailyLines</comment>
 </data></root>

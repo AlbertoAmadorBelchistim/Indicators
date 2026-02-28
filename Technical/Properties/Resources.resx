@@ -5272,4 +5272,21 @@ The indicator loads volume data not more than 5 days.</value>
   <value>Line style for Previous RTH scope.</value>
   <comment>DailyLines</comment>
 </data>
+<data name="CurrentDayRthEthSplit" xml:space="preserve">
+  <value>Split Current Day into RTH/ETH</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="CurrentDayRthEthSplitDescription" xml:space="preserve">
+  <value>When MultiScope is disabled, Current Day levels are shown for RTH only. When MultiScope is enabled, this option allows showing RTH and ETH separately using the RTH start/end times below.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="DrawFromSignificantBar" xml:space="preserve">
+  <value>From significant bar</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DrawFromSignificantBarDescription" xml:space="preserve">
+  <value>When enabled, lines start from the bar that formed the level (Open=first bar, High/Low=extreme bar, Close=last bar). When disabled, lines start from the period boundary.</value>
+  <comment>DailyLines</comment>
+</data>
 </root>

@@ -2970,4 +2970,21 @@
 <data name="PrevRthScopePenDescription" xml:space="preserve">
   <value>Previous RTH स्कोप के लिए लाइन स्टाइल।</value>
   <comment>DailyLines</comment>
+</data>
+<data name="CurrentDayRthEthSplit" xml:space="preserve">
+  <value>वर्तमान दिन को RTH/ETH में विभाजित करें</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="CurrentDayRthEthSplitDescription" xml:space="preserve">
+  <value>यदि MultiScope अक्षम है, तो Current Day के लेवल केवल RTH के लिए दिखते हैं। यदि MultiScope सक्षम है, तो यह विकल्प नीचे दिए गए RTH start/end समय का उपयोग करके RTH और ETH को अलग-अलग दिखाने देता है।</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="DrawFromSignificantBar" xml:space="preserve">
+  <value>महत्वपूर्ण बार से</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DrawFromSignificantBarDescription" xml:space="preserve">
+  <value>यदि सक्षम है, तो लाइनें उस बार से शुरू होती हैं जिसने लेवल बनाया (Open=पहली बार, High/Low=एक्सट्रीम बार, Close=अंतिम बार)। यदि अक्षम है, तो लाइनें पीरियड सीमा से शुरू होती हैं।</value>
+  <comment>DailyLines</comment>
 </data></root>

@@ -2975,4 +2975,21 @@
   <value>Estilo de línea para el ámbito RTH previo.</value>
   <comment>DailyLines</comment>
 </data>
+<data name="CurrentDayRthEthSplit" xml:space="preserve">
+  <value>Dividir día actual en RTH/ETH</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="CurrentDayRthEthSplitDescription" xml:space="preserve">
+  <value>Si MultiScope está desactivado, los niveles del Día actual se muestran solo para RTH. Si MultiScope está activado, esta opción permite mostrar RTH y ETH por separado usando los horarios de inicio/fin RTH de abajo.</value>
+  <comment>DailyLines</comment>
+</data>
+
+<data name="DrawFromSignificantBar" xml:space="preserve">
+  <value>Desde vela significativa</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DrawFromSignificantBarDescription" xml:space="preserve">
+  <value>Si se activa, las líneas empiezan en la vela que formó el nivel (Open=primera vela, High/Low=vela del extremo, Close=última vela). Si se desactiva, empiezan en el límite del período.</value>
+  <comment>DailyLines</comment>
+</data>
 </root>
