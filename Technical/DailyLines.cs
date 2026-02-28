@@ -160,6 +160,15 @@ public class DailyLines : Indicator
 	private bool _showText = true;
 	private int _lastDefaultSession;
 	private FilterTimeSpan _tradingDayStart;
+    private bool _useMultiScope;
+    private bool _showCurrentDay;
+    private bool _showPreviousDay;
+    private bool _showEth;
+    private bool _showCurrentWeek;
+    private bool _showPreviousWeek;
+    private bool _showCurrentMonth;
+    private bool _showPreviousMonth;
+    private bool _showHalfGap;
 
     private readonly Dictionary<ScopeKind, ScopeState> _scopeStates = new();
 
@@ -208,42 +217,130 @@ public class DailyLines : Indicator
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.MultiScope),
         Description = nameof(Resources.MultiScopeDescription),
         GroupName = nameof(Resources.Filters), Order = 111)]
-    public bool UseMultiScope { get; set; }
+    public bool UseMultiScope
+    {
+        get => _useMultiScope;
+        set
+        {
+            if (_useMultiScope == value)
+                return;
+
+            _useMultiScope = value;
+            ApplySettingsChange();
+        }
+    }
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowCurrentDay),
     Description = nameof(Resources.ShowCurrentDayDescription),
     GroupName = nameof(Resources.MultiScope), Order = 112)]
-    public bool ShowCurrentDay { get; set; }
+    public bool ShowCurrentDay
+    {
+        get => _showCurrentDay;
+        set
+        {
+            if (_showCurrentDay == value)
+                return;
+
+            _showCurrentDay = value;
+            ApplySettingsChange();
+        }
+    }
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowPreviousDay),
         Description = nameof(Resources.ShowPreviousDayDescription),
         GroupName = nameof(Resources.MultiScope), Order = 113)]
-    public bool ShowPreviousDay { get; set; }
+    public bool ShowPreviousDay
+    {
+        get => _showPreviousDay;
+        set
+        {
+            if (_showPreviousDay == value)
+                return;
+
+            _showPreviousDay = value;
+            ApplySettingsChange();
+        }
+    }
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowEth),
         Description = nameof(Resources.ShowEthDescription),
         GroupName = nameof(Resources.MultiScope), Order = 114)]
-    public bool ShowEth { get; set; }
+    public bool ShowEth
+    {
+        get => _showEth;
+        set
+        {
+            if (_showEth == value)
+                return;
+
+            _showEth = value;
+            ApplySettingsChange();
+        }
+    }
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowCurrentWeek),
         Description = nameof(Resources.ShowCurrentWeekDescription),
         GroupName = nameof(Resources.MultiScope), Order = 115)]
-    public bool ShowCurrentWeek { get; set; }
+    public bool ShowCurrentWeek
+    {
+        get => _showCurrentWeek;
+        set
+        {
+            if (_showCurrentWeek == value)
+                return;
+
+            _showCurrentWeek = value;
+            ApplySettingsChange();
+        }
+    }
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowPreviousWeek),
         Description = nameof(Resources.ShowPreviousWeekDescription),
         GroupName = nameof(Resources.MultiScope), Order = 116)]
-    public bool ShowPreviousWeek { get; set; }
+    public bool ShowPreviousWeek
+    {
+        get => _showPreviousWeek;
+        set
+        {
+            if (_showPreviousWeek == value)
+                return;
+
+            _showPreviousWeek = value;
+            ApplySettingsChange();
+        }
+    }
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowCurrentMonth),
         Description = nameof(Resources.ShowCurrentMonthDescription),
         GroupName = nameof(Resources.MultiScope), Order = 117)]
-    public bool ShowCurrentMonth { get; set; }
+    public bool ShowCurrentMonth
+    {
+        get => _showCurrentMonth;
+        set
+        {
+            if (_showCurrentMonth == value)
+                return;
+
+            _showCurrentMonth = value;
+            ApplySettingsChange();
+        }
+    }
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowPreviousMonth),
         Description = nameof(Resources.ShowPreviousMonthDescription),
         GroupName = nameof(Resources.MultiScope), Order = 118)]
-    public bool ShowPreviousMonth { get; set; }
+    public bool ShowPreviousMonth
+    {
+        get => _showPreviousMonth;
+        set
+        {
+            if (_showPreviousMonth == value)
+                return;
+
+            _showPreviousMonth = value;
+            ApplySettingsChange();
+        }
+    }
 
     #endregion
 
@@ -266,7 +363,7 @@ public class DailyLines : Indicator
                     _tradingDayStart.Value = FilterStartTime.Value;
             }
 
-            RecalculateValues();
+            ApplySettingsChange();
         }
     }
 
@@ -295,7 +392,7 @@ public class DailyLines : Indicator
             _tradingDayStart = value ?? new FilterTimeSpan(false) { Value = TimeSpan.Zero };
             _tradingDayStart.PropertyChanged -= OnFilterPropertyChanged;
             _tradingDayStart.PropertyChanged += OnFilterPropertyChanged;
-            RecalculateValues();
+            ApplySettingsChange();
         }
     }
 
@@ -399,7 +496,21 @@ public class DailyLines : Indicator
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowHalfGap),
         Description = nameof(Resources.ShowHalfGapDescription),
         GroupName = nameof(Resources.HalfGap), Order = 360)]
-    public bool ShowHalfGap { get; set; }
+    public bool ShowHalfGap
+    {
+        get => _showHalfGap;
+        set
+        {
+            if (_showHalfGap == value)
+                return;
+
+            _showHalfGap = value;
+
+            // HalfGap is render-only for existing ranges, but keep recalc for safety
+            // because it affects whether half-gap is drawn at all.
+            ApplySettingsChange();
+        }
+    }
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Line),
         Description = nameof(Resources.PenSettingsDescription),
@@ -1087,7 +1198,15 @@ public class DailyLines : Indicator
         }
     }
 
-	private void DrawString(RenderContext context, RenderFont font, string renderText, int yPrice, Color color)
+    private void ApplySettingsChange(bool recalc = true)
+    {
+        if (recalc)
+            RecalculateValues();
+
+        RedrawChart();
+    }
+
+    private void DrawString(RenderContext context, RenderFont font, string renderText, int yPrice, Color color)
 	{
 		var textSize = context.MeasureString(renderText, font);
 		context.DrawString(renderText, font, color, Container.Region.Right - textSize.Width - 5, yPrice - textSize.Height);
