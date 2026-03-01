@@ -4966,4 +4966,12 @@
   <data name="Show Fibonacci" xml:space="preserve">
     <value>Показать уровни Фибоначчи</value>
   </data>
+  <data name="DlPeriod" xml:space="preserve">
+  <value>Период</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DlPeriodDescription" xml:space="preserve">
+  <value>Выбранный период для расчёта значений открытия, максимума, минимума и закрытия.</value>
+  <comment>DailyLines</comment>
+</data>
 </root>

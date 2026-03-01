@@ -2833,6 +2833,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Period.
+        /// </summary>
+        public static string DlPeriod {
+            get {
+                return ResourceManager.GetString("DlPeriod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Selected time period used to calculate Open, High, Low, and Close values..
+        /// </summary>
+        public static string DlPeriodDescription {
+            get {
+                return ResourceManager.GetString("DlPeriodDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Dodge.
         /// </summary>
         public static string Dodge {

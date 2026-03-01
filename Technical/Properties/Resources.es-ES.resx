@@ -2912,4 +2912,12 @@
     <value>Si se activa, las líneas empiezan en la vela que formó el nivel (Open=primera vela, High/Low=vela del extremo, Close=última vela). Si se desactiva, empiezan en el inicio del gráfico (borde izquierdo).</value>
     <comment>DailyLines</comment>
   </data>
+  <data name="DlPeriod" xml:space="preserve">
+  <value>Periodo</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DlPeriodDescription" xml:space="preserve">
+  <value>Periodo temporal seleccionado para calcular los valores de apertura, máximo, mínimo y cierre.</value>
+  <comment>DailyLines</comment>
+</data>
 </root>

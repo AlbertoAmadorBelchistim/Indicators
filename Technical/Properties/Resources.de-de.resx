@@ -2915,4 +2915,12 @@
     <value>Line</value>
   </data><data name="TextSize" xml:space="preserve">
     <value>Textgröße</value>
-  </data></root>
+  </data>
+  <data name="DlPeriod" xml:space="preserve">
+  <value>Periode</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DlPeriodDescription" xml:space="preserve">
+  <value>Ausgewählte Zeitperiode zur Berechnung der Werte für Eröffnung, Hoch, Tief und Schluss.</value>
+  <comment>DailyLines</comment>
+</data></root>

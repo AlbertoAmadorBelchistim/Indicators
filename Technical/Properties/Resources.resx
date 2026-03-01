@@ -5191,4 +5191,12 @@ The indicator loads volume data not more than 5 days.</value>
     <value>When enabled, lines start from the bar that formed the level (Open=first bar, High/Low=extreme bar, Close=last bar). When disabled, lines start from the chart start (left edge).</value>
     <comment>DailyLines</comment>
   </data>
+  <data name="DlPeriod" xml:space="preserve">
+  <value>Period</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DlPeriodDescription" xml:space="preserve">
+  <value>Selected time period used to calculate Open, High, Low, and Close values.</value>
+  <comment>DailyLines</comment>
+</data>
 </root>

@@ -2910,4 +2910,12 @@
     <value>लाइन</value>
   </data><data name="TextSize" xml:space="preserve">
     <value>टेक्स्ट का आकार</value>
-  </data></root>
+  </data>
+  <data name="DlPeriod" xml:space="preserve">
+  <value>अवधि</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DlPeriodDescription" xml:space="preserve">
+  <value>ओपन, हाई, लो और क्लोज़ मानों की गणना के लिए चुनी गई समय-अवधि।</value>
+  <comment>DailyLines</comment>
+</data></root>

@@ -2858,4 +2858,12 @@
     <value>线</value>
   </data><data name="TextSize" xml:space="preserve">
     <value>文本大小</value>
-  </data></root>
+  </data>
+  <data name="DlPeriod" xml:space="preserve">
+  <value>周期</value>
+  <comment>DailyLines</comment>
+</data>
+<data name="DlPeriodDescription" xml:space="preserve">
+  <value>用于计算开盘价、最高价、最低价和收盘价的所选时间周期。</value>
+  <comment>DailyLines</comment>
+</data></root>
