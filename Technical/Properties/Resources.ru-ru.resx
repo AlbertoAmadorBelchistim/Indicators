@@ -4946,7 +4946,7 @@
     <comment>DailyLines</comment>
   </data>
   <data name="CurrentDayRthEthSplitDescription" xml:space="preserve">
-    <value>Если MultiScope выключен, уровни Текущего дня отображаются только для RTH. Если MultiScope включён, эта опция позволяет отображать RTH и ETH раздельно, используя время начала/окончания RTH ниже.</value>
+    <value>Если Мульти-периоды выключен, уровни Текущего дня отображаются только для RTH. Если Мульти-периоды включён, эта опция позволяет отображать RTH и ETH раздельно, используя время начала/окончания RTH ниже.</value>
     <comment>DailyLines</comment>
   </data>
   <data name="DrawFromSignificantBar" xml:space="preserve">

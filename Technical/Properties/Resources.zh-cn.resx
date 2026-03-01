@@ -2843,7 +2843,7 @@
     <comment>DailyLines</comment>
   </data>
   <data name="CurrentDayRthEthSplitDescription" xml:space="preserve">
-    <value>当 MultiScope 关闭时，当日水平仅显示 RTH。开启 MultiScope 后，此选项允许使用下方的 RTH 开始/结束时间将 RTH 与 ETH 分开显示。</value>
+    <value>当多周期关闭时，当日水平仅显示 RTH。开启多周期后，此选项允许使用下方的 RTH 开始/结束时间将 RTH 与 ETH 分开显示。</value>
     <comment>DailyLines</comment>
   </data>
   <data name="DrawFromSignificantBar" xml:space="preserve">

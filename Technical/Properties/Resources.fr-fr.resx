@@ -2895,7 +2895,7 @@
     <comment>DailyLines</comment>
   </data>
   <data name="CurrentDayRthEthSplitDescription" xml:space="preserve">
-    <value>Lorsque MultiScope est désactivé, les niveaux de la journée actuelle s’affichent uniquement pour la RTH. Lorsque MultiScope est activé, cette option permet d’afficher RTH et ETH séparément en utilisant les heures de début/fin RTH ci-dessous.</value>
+    <value>Lorsque Multi-période est désactivé, les niveaux de la journée actuelle s’affichent uniquement pour la RTH. Lorsque Multi-période est activé, cette option permet d’afficher RTH et ETH séparément en utilisant les heures de début/fin RTH ci-dessous.</value>
     <comment>DailyLines</comment>
   </data>
   <data name="DrawFromSignificantBar" xml:space="preserve">

@@ -5180,7 +5180,7 @@ The indicator loads volume data not more than 5 days.</value>
     <comment>DailyLines</comment>
   </data>
   <data name="CurrentDayRthEthSplitDescription" xml:space="preserve">
-    <value>When MultiScope is disabled, Current Day levels are shown for RTH only. When MultiScope is enabled, this option allows showing RTH and ETH separately using the RTH start/end times below.</value>
+    <value>When Multi-scope is disabled, Current Day levels are shown for RTH only. When Multi-scope is enabled, this option allows showing RTH and ETH separately using the RTH start/end times below.</value>
     <comment>DailyLines</comment>
   </data>
   <data name="DrawFromSignificantBar" xml:space="preserve">

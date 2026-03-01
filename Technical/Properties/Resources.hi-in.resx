@@ -2895,7 +2895,7 @@
     <comment>DailyLines</comment>
   </data>
   <data name="CurrentDayRthEthSplitDescription" xml:space="preserve">
-    <value>यदि MultiScope अक्षम है, तो Current Day के लेवल केवल RTH के लिए दिखते हैं। यदि MultiScope सक्षम है, तो यह विकल्प नीचे दिए गए RTH start/end समय का उपयोग करके RTH और ETH को अलग-अलग दिखाने देता है।</value>
+    <value>यदि मल्टी-स्कोप अक्षम है, तो Current Day के लेवल केवल RTH के लिए दिखते हैं। यदि मल्टी-स्कोप सक्षम है, तो यह विकल्प नीचे दिए गए RTH start/end समय का उपयोग करके RTH और ETH को अलग-अलग दिखाने देता है।</value>
     <comment>DailyLines</comment>
   </data>
   <data name="DrawFromSignificantBar" xml:space="preserve">

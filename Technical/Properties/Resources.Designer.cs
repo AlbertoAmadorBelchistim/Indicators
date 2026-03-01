@@ -2050,7 +2050,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a When MultiScope is disabled, Current Day levels are shown for RTH only. When MultiScope is enabled, this option allows showing RTH and ETH separately using the RTH start/end times below..
+        ///   Busca una cadena traducida similar a When Multi-scope is disabled, Current Day levels are shown for RTH only. When Multi-scope is enabled, this option allows showing RTH and ETH separately using the RTH start/end times below..
         /// </summary>
         public static string CurrentDayRthEthSplitDescription {
             get {
