@@ -2903,7 +2903,7 @@
     <comment>DailyLines</comment>
   </data>
   <data name="DrawFromSignificantBarDescription" xml:space="preserve">
-    <value>Si se activa, las líneas empiezan en la vela que formó el nivel (Open=primera vela, High/Low=vela del extremo, Close=última vela). Si se desactiva, empiezan en el límite del período.</value>
+    <value>Si se activa, las líneas empiezan en la vela que formó el nivel (Open=primera vela, High/Low=vela del extremo, Close=última vela). Si se desactiva, empiezan en el inicio del gráfico (borde izquierdo).</value>
     <comment>DailyLines</comment>
   </data>
 </root>

@@ -2903,7 +2903,7 @@
     <comment>DailyLines</comment>
   </data>
   <data name="DrawFromSignificantBarDescription" xml:space="preserve">
-    <value>यदि सक्षम है, तो लाइनें उस बार से शुरू होती हैं जिसने लेवल बनाया (Open=पहली बार, High/Low=एक्सट्रीम बार, Close=अंतिम बार)। यदि अक्षम है, तो लाइनें पीरियड सीमा से शुरू होती हैं।</value>
+    <value>यदि सक्षम है, तो लाइनें उस बार से शुरू होती हैं जिसने लेवल बनाया (Open=पहली बार, High/Low=एक्सट्रीम बार, Close=अंतिम बार)। यदि अक्षम है, तो लाइनें चार्ट की शुरुआत (बायाँ किनारा) से शुरू होती हैं।</value>
     <comment>DailyLines</comment>
   </data>
 </root>

@@ -2908,7 +2908,7 @@
     <comment>DailyLines</comment>
   </data>
   <data name="DrawFromSignificantBarDescription" xml:space="preserve">
-    <value>Wenn aktiviert, starten Linien an der Kerze, die das Level gebildet hat (Open=erste Kerze, High/Low=Extrem-Kerze, Close=letzte Kerze). Wenn deaktiviert, starten sie an der Periodengrenze.</value>
+    <value>Wenn aktiviert, starten Linien an der Kerze, die das Level gebildet hat (Open=erste Kerze, High/Low=Extrem-Kerze, Close=letzte Kerze). Wenn deaktiviert, starten sie am Anfang des Charts (linker Rand).</value>
     <comment>DailyLines</comment>
   </data>
 </root>

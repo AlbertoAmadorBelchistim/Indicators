@@ -2914,7 +2914,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a When enabled, lines start from the bar that formed the level (Open=first bar, High/Low=extreme bar, Close=last bar). When disabled, lines start from the period boundary..
+        ///   Busca una cadena traducida similar a When enabled, lines start from the bar that formed the level (Open=first bar, High/Low=extreme bar, Close=last bar). When disabled, lines start from the chart start (left edge)..
         /// </summary>
         public static string DrawFromSignificantBarDescription {
             get {

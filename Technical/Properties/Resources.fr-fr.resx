@@ -2903,7 +2903,7 @@
     <comment>DailyLines</comment>
   </data>
   <data name="DrawFromSignificantBarDescription" xml:space="preserve">
-    <value>Si activé, les lignes démarrent sur la bougie qui a formé le niveau (Open=première bougie, High/Low=bougie de l’extrême, Close=dernière bougie). Sinon, elles démarrent à la limite de la période.</value>
+    <value>Si activé, les lignes démarrent sur la bougie qui a formé le niveau (Open=première bougie, High/Low=bougie de l’extrême, Close=dernière bougie). Sinon, elles démarrent au début du graphique (bord gauche).</value>
     <comment>DailyLines</comment>
   </data>
 </root>

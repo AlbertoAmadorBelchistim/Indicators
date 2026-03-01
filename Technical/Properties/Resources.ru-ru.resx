@@ -4954,7 +4954,7 @@
     <comment>DailyLines</comment>
   </data>
   <data name="DrawFromSignificantBarDescription" xml:space="preserve">
-    <value>Если включено, линии начинаются со свечи, сформировавшей уровень (Open=первая свеча, High/Low=свеча экстремума, Close=последняя свеча). Если выключено, линии начинаются от границы периода.</value>
+    <value>Если включено, линии начинаются со свечи, сформировавшей уровень (Open=первая свеча, High/Low=свеча экстремума, Close=последняя свеча). Если выключено, линии начинаются от начала графика (левый край).</value>
     <comment>DailyLines</comment>
   </data>
   <data name="Misc" xml:space="preserve">

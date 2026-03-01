@@ -5188,7 +5188,7 @@ The indicator loads volume data not more than 5 days.</value>
     <comment>DailyLines</comment>
   </data>
   <data name="DrawFromSignificantBarDescription" xml:space="preserve">
-    <value>When enabled, lines start from the bar that formed the level (Open=first bar, High/Low=extreme bar, Close=last bar). When disabled, lines start from the period boundary.</value>
+    <value>When enabled, lines start from the bar that formed the level (Open=first bar, High/Low=extreme bar, Close=last bar). When disabled, lines start from the chart start (left edge).</value>
     <comment>DailyLines</comment>
   </data>
 </root>

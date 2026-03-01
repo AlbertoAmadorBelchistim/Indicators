@@ -2851,7 +2851,7 @@
     <comment>DailyLines</comment>
   </data>
   <data name="DrawFromSignificantBarDescription" xml:space="preserve">
-    <value>启用后，线条从形成该水平的 K 线开始（Open=第一根，High/Low=极值那根，Close=最后一根）。禁用后，线条从周期边界开始。</value>
+    <value>启用后，线条从形成该水平的 K 线开始（Open=第一根，High/Low=极值那根，Close=最后一根）。禁用后，线条从图表起点开始（左侧边缘）。</value>
     <comment>DailyLines</comment>
   </data>
 </root>
