@@ -175,7 +175,7 @@ public class DailyLines : Indicator
 	private PeriodType _per = PeriodType.PreviousDay;
 	private bool _showText = true;
 	private int _lastDefaultSession;
-	private FilterTimeSpan _tradingDayStart;
+	private TimeSpan _tradingDayStart;
     private bool _useMultiScope;
     private bool _showCurrentDay;
     private bool _showPreviousDay;
@@ -443,8 +443,8 @@ public class DailyLines : Indicator
                 // Backward-compatible default:
                 // If the user turns on CustomSession and TradingDayStart is still at zero,
                 // align TradingDayStart to the session start to preserve the legacy rollover behavior.
-                if (_tradingDayStart != null && _tradingDayStart.Value == TimeSpan.Zero)
-                    _tradingDayStart.Value = FilterStartTime.Value;
+                if (_tradingDayStart != null && _tradingDayStart == TimeSpan.Zero)
+                    _tradingDayStart = FilterStartTime.Value;
             }
 
             ApplySettingsChange();
@@ -468,14 +468,17 @@ public class DailyLines : Indicator
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.TradingDayStart), Description = nameof(Resources.TradingDayStartDescription),
     GroupName = nameof(Resources.Filters), Order = 125)]
-    public FilterTimeSpan TradingDayStart
+    public TimeSpan TradingDayStart
     {
         get => _tradingDayStart;
         set
         {
-            _tradingDayStart = value ?? new FilterTimeSpan(false) { Value = TimeSpan.Zero };
-            _tradingDayStart.PropertyChanged -= OnFilterPropertyChanged;
-            _tradingDayStart.PropertyChanged += OnFilterPropertyChanged;
+            if (_tradingDayStart == value)
+                return;
+
+            _tradingDayStart = value;
+
+            // Recalculate day bucketing
             ApplySettingsChange();
         }
     }
@@ -673,8 +676,7 @@ public class DailyLines : Indicator
 		TextSize.Enabled = ShowText;
 		TextSize.Value = _fontSetting.Size;
 
-        _tradingDayStart = new FilterTimeSpan(false) { Value = TimeSpan.Zero };
-        _tradingDayStart.PropertyChanged += OnFilterPropertyChanged;
+        _tradingDayStart = TimeSpan.Zero;
     }
 
     #endregion
@@ -1086,7 +1088,7 @@ public class DailyLines : Indicator
             return false;
 
         // ETH is defined as: TradingDayStart -> RTH start (FilterStartTime).
-        var ethStart = TradingDayStart?.Value ?? TimeSpan.Zero;
+        var ethStart = TradingDayStart;
         var ethEnd = FilterStartTime.Value;
 
         if (ethStart == ethEnd)
@@ -1133,7 +1135,7 @@ public class DailyLines : Indicator
         // Only use TradingDayStart-based day bucketing when explicitly needed.
         // This preserves upstream behavior for default sessions unless the user enables CustomSession
         // or sets a non-zero TradingDayStart.
-        return CustomSession || (TradingDayStart?.Value ?? TimeSpan.Zero) != TimeSpan.Zero;
+        return CustomSession || (TradingDayStart) != TimeSpan.Zero;
     }
 
     private bool IsNewPeriod(
@@ -1283,7 +1285,7 @@ public class DailyLines : Indicator
     {
         // Trading day is anchored at TradingDayStartTime.
         // If local time is before the anchor, it belongs to the previous anchor date.
-        var start = TradingDayStart?.Value ?? TimeSpan.Zero;
+        var start = TradingDayStart;
 
         // NOTE: TimeSpan.Zero is a valid value (calendar-day semantics).
         if (localTime.TimeOfDay < start)
