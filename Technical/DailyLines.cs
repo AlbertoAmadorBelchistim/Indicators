@@ -938,10 +938,10 @@ public class DailyLines : Indicator
             var state = GetScopeState(scopeKind);
 
             // Track boundary visibility to detect incomplete history later.
-            if (isNewBaseWeek)
+            if (bar > 0 && isNewBaseWeek)
                 state.HasSeenWeekBoundary = true;
 
-            if (isNewBaseMonth)
+            if (bar > 0 && isNewBaseMonth)
                 state.HasSeenMonthBoundary = true;
 
             if (bar == state.Current.OpenBar)
