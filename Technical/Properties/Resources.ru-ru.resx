@@ -1321,8 +1321,8 @@
     <comment>StackedImbalance</comment>
   </data>
   <data name="ImbalanceRatio" xml:space="preserve">
-    <value>Соотношение Дисбаланса</value>
-    <comment>StackedImbalance</comment>
+    <value>Коэффициент дисбаланса</value>
+    <comment>ClusterSearch</comment>
   </data>
   <data name="ImbalanceVolume" xml:space="preserve">
     <value>Объём Дисбаланса</value>
@@ -2094,6 +2094,30 @@
   </data>
   <data name="LevelsMode" xml:space="preserve">
     <value>Режим Уровней</value>
+  </data>
+  <data name="IBHM" xml:space="preserve">
+    <value>IBH-IBM</value>
+  </data>
+  <data name="IBHX1H" xml:space="preserve">
+    <value>IBHX1-ИБХ</value>
+  </data>
+  <data name="IBHX21" xml:space="preserve">
+    <value>IBHX2-1</value>
+  </data>
+  <data name="IBHX32" xml:space="preserve">
+    <value>IBHX3-2</value>
+  </data>
+  <data name="IBL1" xml:space="preserve">
+    <value>IBL-IBLX1</value>
+  </data>
+  <data name="IBLX12" xml:space="preserve">
+    <value>IBLX1-2</value>
+  </data>
+  <data name="IBLX23" xml:space="preserve">
+    <value>IBLX2-3</value>
+  </data>
+  <data name="IBML" xml:space="preserve">
+    <value>IBM-IBL</value>
   </data>
   <data name="Average" xml:space="preserve">
     <value>Средний</value>
@@ -3943,15 +3967,6 @@
     <value>День месяца, когда выполняется сброс (1–31). Если день превышает длину месяца, используется последний день.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-  <data name="Misc" xml:space="preserve">
-    <value>Разное</value>
-  </data>
-  <data name="Bearish" xml:space="preserve">
-    <value>Медвежье</value>
-  </data>
-  <data name="Show Fibonacci" xml:space="preserve">
-    <value>Показать уровни Фибоначчи</value>
-  </data>
   <data name="RowAccount" xml:space="preserve">
     <value>Счет</value>
     <comment>AccountInfoDisplay</comment>
@@ -3976,35 +3991,34 @@
     <value>Стоп-эквити (Trailing)</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-	<data name="RowCurrency" xml:space="preserve">
-  <value>Валюта</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-	<data name="RowAvailable" xml:space="preserve">
-  <value>Доступно</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-	<data name="RowBlockedMargin" xml:space="preserve">
-  <value>Заблокированная маржа</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-	<data name="RowLeverage" xml:space="preserve">
-  <value>Плечо</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-	<data name="RowClosedPnL" xml:space="preserve">
-  <value>Закрытый PnL</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-	<data name="RowTotalPnL" xml:space="preserve">
-  <value>Общий PnL</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
+  <data name="RowCurrency" xml:space="preserve">
+    <value>Валюта</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowAvailable" xml:space="preserve">
+    <value>Доступно</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowBlockedMargin" xml:space="preserve">
+    <value>Заблокированная маржа</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowLeverage" xml:space="preserve">
+    <value>Плечо</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowClosedPnL" xml:space="preserve">
+    <value>Закрытый PnL</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowTotalPnL" xml:space="preserve">
+    <value>Общий PnL</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
   <data name="DailyRails" xml:space="preserve">
     <value>Дневные рельсы</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="DailyResetMode" xml:space="preserve">
     <value>Режим дневного сброса</value>
     <comment>AccountInfoDisplay</comment>
@@ -4013,7 +4027,6 @@
     <value>Определяет, когда сбрасываются дневные метрики и рельсы. NewYork1700 использует отсечку в 17:00 (локальное время графика); LocalCustomTime использует локальное время, заданное ниже.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="DailyResetTimeLocal" xml:space="preserve">
     <value>Время дневного сброса (локальное)</value>
     <comment>AccountInfoDisplay</comment>
@@ -4022,7 +4035,7 @@
     <value>Локальное время сброса, используется только когда режим дневного сброса — LocalCustomTime.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-    <data name="RowTradesToday" xml:space="preserve">
+  <data name="RowTradesToday" xml:space="preserve">
     <value>Сделки сегодня</value>
     <comment>AccountInfoDisplay</comment>
   </data>
@@ -4038,7 +4051,7 @@
     <value>Реализованный PnL сегодня</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-    <data name="ShowTradesTodayRow" xml:space="preserve">
+  <data name="ShowTradesTodayRow" xml:space="preserve">
     <value>Показать сделки за день</value>
     <comment>AccountInfoDisplay</comment>
   </data>
@@ -4046,7 +4059,6 @@
     <value>Показывает количество закрытых сделок за текущую торговую сессию.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="ShowWinsLossesTodayRow" xml:space="preserve">
     <value>Показать прибыли / убытки за день</value>
     <comment>AccountInfoDisplay</comment>
@@ -4055,7 +4067,6 @@
     <value>Показывает количество прибыльных и убыточных сделок за текущую сессию.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="ShowCurrentStreakRow" xml:space="preserve">
     <value>Показать текущую серию</value>
     <comment>AccountInfoDisplay</comment>
@@ -4064,7 +4075,6 @@
     <value>Показывает текущую серию последовательных прибылей или убытков.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="ShowRealizedPnlTodayRow" xml:space="preserve">
     <value>Показать реализованный PnL за день</value>
     <comment>AccountInfoDisplay</comment>
@@ -4073,11 +4083,10 @@
     <value>Показывает суммарную реализованную прибыль или убыток за текущую сессию.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-    <data name="SoftRecommendations" xml:space="preserve">
+  <data name="SoftRecommendations" xml:space="preserve">
     <value>Операционные рекомендации</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="EnableSoftRecommendations" xml:space="preserve">
     <value>Включить операционные рекомендации</value>
     <comment>AccountInfoDisplay</comment>
@@ -4086,7 +4095,6 @@
     <value>Показывает операционные уведомления на основе дневных метрик без блокировки торговли.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="MaxTradesPerDay" xml:space="preserve">
     <value>Максимум сделок в день</value>
     <comment>AccountInfoDisplay</comment>
@@ -4095,7 +4103,6 @@
     <value>Максимальное количество сделок за сессию перед показом предупреждения или рекомендации остановки.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="MaxConsecutiveLosses" xml:space="preserve">
     <value>Максимум подряд убыточных сделок</value>
     <comment>AccountInfoDisplay</comment>
@@ -4104,7 +4111,6 @@
     <value>Максимальное количество подряд убыточных сделок перед рекомендацией остановки торговли.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="CautionTradesThreshold" xml:space="preserve">
     <value>Порог предупреждения по сделкам</value>
     <comment>AccountInfoDisplay</comment>
@@ -4113,7 +4119,6 @@
     <value>Количество сделок, при котором отображается предупреждение перед достижением дневного лимита.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="CautionLossesThreshold" xml:space="preserve">
     <value>Порог предупреждения по убыткам</value>
     <comment>AccountInfoDisplay</comment>
@@ -4122,27 +4127,22 @@
     <value>Количество подряд убыточных сделок, при котором отображается предупреждение перед рекомендацией остановки.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="RowSuggestedStatus" xml:space="preserve">
     <value>Рекомендуемый торговый статус</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="RowStopReasons" xml:space="preserve">
     <value>Причины</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="SuggestedStatusOk" xml:space="preserve">
     <value>OK</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="SuggestedStatusCaution" xml:space="preserve">
     <value>ПРЕДУПРЕЖДЕНИЕ</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="SuggestedStatusStop" xml:space="preserve">
     <value>СТОП (Рекомендовано)</value>
     <comment>AccountInfoDisplay</comment>
@@ -4155,7 +4155,6 @@
     <value>Показывает рекомендуемый торговый статус (OK / ОСТОРОЖНО / STOP) на основе метрик текущей сессии.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="ShowStopReasonsRow" xml:space="preserve">
     <value>Показать причины</value>
     <comment>AccountInfoDisplay</comment>
@@ -4164,459 +4163,405 @@
     <value>Показывает причины, из-за которых была предложена ОСТОРОЖНО или STOP.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-<data name="ShowPositionSnapshot" xml:space="preserve">
-  <value>Показывать снимок позиции</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowPositionSnapshotDescription" xml:space="preserve">
-  <value>Показывает компактный снимок открытой позиции (направление/объём/вход).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowFlatRow" xml:space="preserve">
-  <value>Показывать строку FLAT</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowFlatRowDescription" xml:space="preserve">
-  <value>Если позиция не открыта, показывает строку FLAT вместо деталей позиции.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="RowPos" xml:space="preserve">
-  <value>Pos</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowPosDir" xml:space="preserve">
-  <value>Pos направление</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowPosQty" xml:space="preserve">
-  <value>Pos объём</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowPosEntry" xml:space="preserve">
-  <value>Pos вход</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="PosFlatValue" xml:space="preserve">
-  <value>FLAT</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="EnableDailyRails" xml:space="preserve">
-  <value>Включить дневные лимиты</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="EnableDailyRailsDescription" xml:space="preserve">
-  <value>Включает жесткие дневные лимиты по убытку, прибыли и просадке для счета.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="DailyLossLimit" xml:space="preserve">
-  <value>Дневной лимит убытка</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="DailyLossLimitDescription" xml:space="preserve">
-  <value>Останавливает торговлю, если equity падает на эту сумму от начала дня.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="DailyProfitTarget" xml:space="preserve">
-  <value>Дневная цель по прибыли</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="DailyProfitTargetDescription" xml:space="preserve">
-  <value>Останавливает торговлю при достижении этой прибыли с начала дня.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="DailyMaxDrawdownFromPeak" xml:space="preserve">
-  <value>Макс. просадка от дневного максимума</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="DailyMaxDrawdownFromPeakDescription" xml:space="preserve">
-  <value>Останавливает торговлю, если equity снижается на эту сумму от дневного максимума.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="CautionLossFromStart" xml:space="preserve">
-  <value>Осторожно: убыток от старта дня</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="CautionLossFromStartDescription" xml:space="preserve">
-  <value>Показывает ОСТОРОЖНО, если equity упала на эту сумму от начала дня (0 = выкл.).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="CautionGivebackFromPeak" xml:space="preserve">
-  <value>Осторожно: откат от пика дня</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="CautionGivebackFromPeakDescription" xml:space="preserve">
-  <value>Показывает ОСТОРОЖНО, если equity откатилась на эту сумму от пика дня (0 = выкл.).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="CautionLossFromStartPct" xml:space="preserve">
-  <value>Осторожно: убыток от старта (%)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="CautionLossFromStartPctDescription" xml:space="preserve">
-  <value>Показывает ОСТОРОЖНО, если equity упала на этот % от начала дня (0 = выкл.).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="CautionGivebackFromPeakPct" xml:space="preserve">
-  <value>Осторожно: откат от пика (%)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="CautionGivebackFromPeakPctDescription" xml:space="preserve">
-  <value>Показывает ОСТОРОЖНО, если equity откатилась на этот % от пика дня (0 = выкл.).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="DailyRailsStopReasonGeneric" xml:space="preserve">
-  <value>Дневные лимиты: STOP.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="StopHitEarlierToday" xml:space="preserve">
-  <value>STOP уже срабатывал сегодня.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowRemainingDailyLoss" xml:space="preserve">
-  <value>Остаток до лимита убытка</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="RowRemainingDailyProfitTarget" xml:space="preserve">
-  <value>Остаток до цели прибыли</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowRemainingDailyLossRow" xml:space="preserve">
-  <value>Показать остаток до лимита убытка</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowRemainingDailyLossRowDescription" xml:space="preserve">
-  <value>Показывает, сколько осталось до дневного лимита убытка (по текущей equity).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowRemainingDailyProfitTargetRow" xml:space="preserve">
-  <value>Показать остаток до цели прибыли</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowRemainingDailyProfitTargetRowDescription" xml:space="preserve">
-  <value>Показывает, сколько осталось до дневной цели прибыли (по текущей equity).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowTradeMaxOpenPnLCurrent" xml:space="preserve">
-  <value>Макс. открытый PnL (текущий)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowTradeMaxOpenPnLLast" xml:space="preserve">
-  <value>Макс. открытый PnL (последний)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<!-- AccountInfoDisplay — Soft recommendations (0022 parity) -->
-
-<data name="CautionTradesPct" xml:space="preserve">
-  <value>CAUTION по трейдам (%)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="CautionTradesPctDescription" xml:space="preserve">
-  <value>Включает CAUTION, когда число трейдов за день достигает этого процента от Max Trades Per Day (напр., 0,75 = 75%).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="CautionRemainingDailyLossPct" xml:space="preserve">
-  <value>CAUTION по оставшемуся дневному лимиту убытка (%)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="CautionRemainingDailyLossPctDescription" xml:space="preserve">
-  <value>Включает CAUTION, когда оставшийся дневной лимит убытка падает ниже этого процента от дневного лимита.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="EnableConsistencyRules" xml:space="preserve">
-  <value>Включить правила консистентности</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="EnableConsistencyRulesDescription" xml:space="preserve">
-  <value>Включает проверки концентрации payout (CAUTION/STOP) на основе цели payout.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="PayoutObjective" xml:space="preserve">
-  <value>Цель payout</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="PayoutObjectiveDescription" xml:space="preserve">
-  <value>Цель, используемая правилами консистентности для расчёта порогов CAUTION/STOP.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ConsistencyCautionPct" xml:space="preserve">
-  <value>Консистентность CAUTION (%)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ConsistencyCautionPctDescription" xml:space="preserve">
-  <value>Включает CAUTION, когда реализованный PnL за день достигает этого процента от цели payout.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ConsistencyStopPct" xml:space="preserve">
-  <value>Консистентность STOP (%)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ConsistencyStopPctDescription" xml:space="preserve">
-  <value>Включает STOP, когда реализованный PnL за день достигает этого процента от цели payout.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="EnableGivebackCaution" xml:space="preserve">
-  <value>Включить CAUTION по giveback</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="EnableGivebackCautionDescription" xml:space="preserve">
-  <value>Включает CAUTION, когда дневной PnL слишком сильно откатывается от внутридневного пика.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="GivebackPctOfProfitTarget" xml:space="preserve">
-  <value>Giveback CAUTION (% от дневной цели)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="GivebackPctOfProfitTargetDescription" xml:space="preserve">
-  <value>Порог giveback как процент от дневной цели прибыли (используется если дневная цель &gt; 0).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="GivebackAbs" xml:space="preserve">
-  <value>Giveback CAUTION (абсолют)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="GivebackAbsDescription" xml:space="preserve">
-  <value>Абсолютный порог giveback, если дневная цель прибыли равна 0.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<!-- AccountInfoDisplay — Soft recommendations (reason texts) -->
-
-<data name="CautionOneLossAway" xml:space="preserve">
-  <value>CAUTION: одна потеря до максимума подряд убыточных сделок.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="CautionRemainingDailyLossLow" xml:space="preserve">
-  <value>CAUTION: оставшийся дневной лимит убытка низкий.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ConsistencyCautionReason" xml:space="preserve">
-  <value>CAUTION: достигнут порог концентрации payout.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ConsistencyStopReason" xml:space="preserve">
-  <value>STOP: достигнут порог концентрации payout.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="GivebackCautionReason" xml:space="preserve">
-  <value>CAUTION: достигнут порог внутридневного giveback.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<!-- AccountInfoDisplay — Groups -->
-<data name="RowsTrailingDd" xml:space="preserve">
-  <value>Строки: trailing drawdown</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowsTrade" xml:space="preserve">
-  <value>Строки: trade</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<!-- AccountInfoDisplay — Row toggles (Trailing DD) -->
-<data name="ShowTrailingStartEquityRow" xml:space="preserve">
-  <value>Показывать стартовый equity (trailing)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTrailingStartEquityRowDescription" xml:space="preserve">
-  <value>Показывает строку стартового equity для trailing drawdown.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowTrailingPeakEquityRow" xml:space="preserve">
-  <value>Показывать peak equity (trailing)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTrailingPeakEquityRowDescription" xml:space="preserve">
-  <value>Показывает строку peak equity для trailing drawdown.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowTrailingStopEquityRow" xml:space="preserve">
-  <value>Показывать stop equity (trailing)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTrailingStopEquityRowDescription" xml:space="preserve">
-  <value>Показывает строку stop equity для trailing drawdown.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowTrailingRemainingDdRow" xml:space="preserve">
-  <value>Показывать оставшийся drawdown (trailing)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTrailingRemainingDdRowDescription" xml:space="preserve">
-  <value>Показывает оставшийся drawdown до trailing stop equity.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowTrailingCurrentDdRow" xml:space="preserve">
-  <value>Показывать текущий drawdown (trailing)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTrailingCurrentDdRowDescription" xml:space="preserve">
-  <value>Показывает текущий drawdown от trailing peak equity.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<!-- AccountInfoDisplay — Row toggles (Trade) -->
-<data name="ShowTradeMaxOpenPnlCurrentRow" xml:space="preserve">
-  <value>Показывать макс. открытый PnL (текущий)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTradeMaxOpenPnlCurrentRowDescription" xml:space="preserve">
-  <value>Показывает максимальный открытый PnL текущей сделки (в позиции).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowTradeMaxOpenPnlLastRow" xml:space="preserve">
-  <value>Показывать макс. открытый PnL (последний)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTradeMaxOpenPnlLastRowDescription" xml:space="preserve">
-  <value>Показывает максимальный открытый PnL последней закрытой сделки (flat).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowLastClosedTradePnlRow" xml:space="preserve">
-  <value>Показывать PnL последней закрытой сделки</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowLastClosedTradePnlRowDescription" xml:space="preserve">
-  <value>Показывает реализованный PnL последней закрытой сделки (flat).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<!-- AccountInfoDisplay — Row labels -->
-<data name="RowTrailingRemainingDd" xml:space="preserve">
-  <value>Trailing: оставшийся DD</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowTrailingCurrentDd" xml:space="preserve">
-  <value>Trailing: текущий DD</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowLastClosedTradePnL" xml:space="preserve">
-  <value>PnL последней сделки (закрыта)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="HorizontalPosition" xml:space="preserve">
-  <value>Горизонтальное положение</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="HorizontalPositionDescription" xml:space="preserve">
-  <value>Горизонтальное выравнивание панели на графике.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="VerticalPosition" xml:space="preserve">
-  <value>Вертикальное положение</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="VerticalPositionDescription" xml:space="preserve">
-  <value>Вертикальное выравнивание панели на графике.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="LayoutGroup" xml:space="preserve">
+  <data name="ShowPositionSnapshot" xml:space="preserve">
+    <value>Показывать снимок позиции</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowPositionSnapshotDescription" xml:space="preserve">
+    <value>Показывает компактный снимок открытой позиции (направление/объём/вход).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowFlatRow" xml:space="preserve">
+    <value>Показывать строку FLAT</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowFlatRowDescription" xml:space="preserve">
+    <value>Если позиция не открыта, показывает строку FLAT вместо деталей позиции.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowPos" xml:space="preserve">
+    <value>Pos</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowPosDir" xml:space="preserve">
+    <value>Pos направление</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowPosQty" xml:space="preserve">
+    <value>Pos объём</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowPosEntry" xml:space="preserve">
+    <value>Pos вход</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="PosFlatValue" xml:space="preserve">
+    <value>FLAT</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableDailyRails" xml:space="preserve">
+    <value>Включить дневные лимиты</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableDailyRailsDescription" xml:space="preserve">
+    <value>Включает жесткие дневные лимиты по убытку, прибыли и просадке для счета.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyLossLimit" xml:space="preserve">
+    <value>Дневной лимит убытка</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyLossLimitDescription" xml:space="preserve">
+    <value>Останавливает торговлю, если equity падает на эту сумму от начала дня.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyProfitTarget" xml:space="preserve">
+    <value>Дневная цель по прибыли</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyProfitTargetDescription" xml:space="preserve">
+    <value>Останавливает торговлю при достижении этой прибыли с начала дня.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyMaxDrawdownFromPeak" xml:space="preserve">
+    <value>Макс. просадка от дневного максимума</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyMaxDrawdownFromPeakDescription" xml:space="preserve">
+    <value>Останавливает торговлю, если equity снижается на эту сумму от дневного максимума.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyRailsStopReasonGeneric" xml:space="preserve">
+    <value>Дневные лимиты: STOP.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionLossFromStart" xml:space="preserve">
+    <value>Осторожно: убыток от старта дня</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionLossFromStartDescription" xml:space="preserve">
+    <value>Показывает ОСТОРОЖНО, если equity упала на эту сумму от начала дня (0 = выкл.).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionGivebackFromPeak" xml:space="preserve">
+    <value>Осторожно: откат от пика дня</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionGivebackFromPeakDescription" xml:space="preserve">
+    <value>Показывает ОСТОРОЖНО, если equity откатилась на эту сумму от пика дня (0 = выкл.).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionLossFromStartPct" xml:space="preserve">
+    <value>Осторожно: убыток от старта (%)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionLossFromStartPctDescription" xml:space="preserve">
+    <value>Показывает ОСТОРОЖНО, если equity упала на этот % от начала дня (0 = выкл.).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionGivebackFromPeakPct" xml:space="preserve">
+    <value>Осторожно: откат от пика (%)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionGivebackFromPeakPctDescription" xml:space="preserve">
+    <value>Показывает ОСТОРОЖНО, если equity откатилась на этот % от пика дня (0 = выкл.).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="StopHitEarlierToday" xml:space="preserve">
+    <value>STOP уже срабатывал сегодня.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowRemainingDailyLoss" xml:space="preserve">
+    <value>Остаток до лимита убытка</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowRemainingDailyProfitTarget" xml:space="preserve">
+    <value>Остаток до цели прибыли</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowRemainingDailyLossRow" xml:space="preserve">
+    <value>Показать остаток до лимита убытка</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowRemainingDailyLossRowDescription" xml:space="preserve">
+    <value>Показывает, сколько осталось до дневного лимита убытка (по текущей equity).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowRemainingDailyProfitTargetRow" xml:space="preserve">
+    <value>Показать остаток до цели прибыли</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowRemainingDailyProfitTargetRowDescription" xml:space="preserve">
+    <value>Показывает, сколько осталось до дневной цели прибыли (по текущей equity).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowTradeMaxOpenPnLCurrent" xml:space="preserve">
+    <value>Макс. открытый PnL (текущий)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowTradeMaxOpenPnLLast" xml:space="preserve">
+    <value>Макс. открытый PnL (последний)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionTradesPct" xml:space="preserve">
+    <value>CAUTION по трейдам (%)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionTradesPctDescription" xml:space="preserve">
+    <value>Включает CAUTION, когда число трейдов за день достигает этого процента от Max Trades Per Day (напр., 0,75 = 75%).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionRemainingDailyLossPct" xml:space="preserve">
+    <value>CAUTION по оставшемуся дневному лимиту убытка (%)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionRemainingDailyLossPctDescription" xml:space="preserve">
+    <value>Включает CAUTION, когда оставшийся дневной лимит убытка падает ниже этого процента от дневного лимита.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableConsistencyRules" xml:space="preserve">
+    <value>Включить правила консистентности</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableConsistencyRulesDescription" xml:space="preserve">
+    <value>Включает проверки концентрации payout (CAUTION/STOP) на основе цели payout.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="PayoutObjective" xml:space="preserve">
+    <value>Цель payout</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="PayoutObjectiveDescription" xml:space="preserve">
+    <value>Цель, используемая правилами консистентности для расчёта порогов CAUTION/STOP.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ConsistencyCautionPct" xml:space="preserve">
+    <value>Консистентность CAUTION (%)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ConsistencyCautionPctDescription" xml:space="preserve">
+    <value>Включает CAUTION, когда реализованный PnL за день достигает этого процента от цели payout.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ConsistencyStopPct" xml:space="preserve">
+    <value>Консистентность STOP (%)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ConsistencyStopPctDescription" xml:space="preserve">
+    <value>Включает STOP, когда реализованный PnL за день достигает этого процента от цели payout.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableGivebackCaution" xml:space="preserve">
+    <value>Включить CAUTION по giveback</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableGivebackCautionDescription" xml:space="preserve">
+    <value>Включает CAUTION, когда дневной PnL слишком сильно откатывается от внутридневного пика.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="GivebackPctOfProfitTarget" xml:space="preserve">
+    <value>Giveback CAUTION (% от дневной цели)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="GivebackPctOfProfitTargetDescription" xml:space="preserve">
+    <value>Порог giveback как процент от дневной цели прибыли (используется если дневная цель &gt; 0).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="GivebackAbs" xml:space="preserve">
+    <value>Giveback CAUTION (абсолют)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="GivebackAbsDescription" xml:space="preserve">
+    <value>Абсолютный порог giveback, если дневная цель прибыли равна 0.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionOneLossAway" xml:space="preserve">
+    <value>CAUTION: одна потеря до максимума подряд убыточных сделок.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionRemainingDailyLossLow" xml:space="preserve">
+    <value>CAUTION: оставшийся дневной лимит убытка низкий.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ConsistencyCautionReason" xml:space="preserve">
+    <value>CAUTION: достигнут порог концентрации payout.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ConsistencyStopReason" xml:space="preserve">
+    <value>STOP: достигнут порог концентрации payout.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="GivebackCautionReason" xml:space="preserve">
+    <value>CAUTION: достигнут порог внутридневного giveback.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowsTrailingDd" xml:space="preserve">
+    <value>Строки: trailing drawdown</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowsTrade" xml:space="preserve">
+    <value>Строки: trade</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingStartEquityRow" xml:space="preserve">
+    <value>Показывать стартовый equity (trailing)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingStartEquityRowDescription" xml:space="preserve">
+    <value>Показывает строку стартового equity для trailing drawdown.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingPeakEquityRow" xml:space="preserve">
+    <value>Показывать peak equity (trailing)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingPeakEquityRowDescription" xml:space="preserve">
+    <value>Показывает строку peak equity для trailing drawdown.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingStopEquityRow" xml:space="preserve">
+    <value>Показывать stop equity (trailing)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingStopEquityRowDescription" xml:space="preserve">
+    <value>Показывает строку stop equity для trailing drawdown.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingRemainingDdRow" xml:space="preserve">
+    <value>Показывать оставшийся drawdown (trailing)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingRemainingDdRowDescription" xml:space="preserve">
+    <value>Показывает оставшийся drawdown до trailing stop equity.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingCurrentDdRow" xml:space="preserve">
+    <value>Показывать текущий drawdown (trailing)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingCurrentDdRowDescription" xml:space="preserve">
+    <value>Показывает текущий drawdown от trailing peak equity.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTradeMaxOpenPnlCurrentRow" xml:space="preserve">
+    <value>Показывать макс. открытый PnL (текущий)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTradeMaxOpenPnlCurrentRowDescription" xml:space="preserve">
+    <value>Показывает максимальный открытый PnL текущей сделки (в позиции).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTradeMaxOpenPnlLastRow" xml:space="preserve">
+    <value>Показывать макс. открытый PnL (последний)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTradeMaxOpenPnlLastRowDescription" xml:space="preserve">
+    <value>Показывает максимальный открытый PnL последней закрытой сделки (flat).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowLastClosedTradePnlRow" xml:space="preserve">
+    <value>Показывать PnL последней закрытой сделки</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowLastClosedTradePnlRowDescription" xml:space="preserve">
+    <value>Показывает реализованный PnL последней закрытой сделки (flat).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowTrailingRemainingDd" xml:space="preserve">
+    <value>Trailing: оставшийся DD</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowTrailingCurrentDd" xml:space="preserve">
+    <value>Trailing: текущий DD</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowLastClosedTradePnL" xml:space="preserve">
+    <value>PnL последней сделки (закрыта)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="HorizontalPosition" xml:space="preserve">
+    <value>Горизонтальное положение</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="HorizontalPositionDescription" xml:space="preserve">
+    <value>Горизонтальное выравнивание панели на графике.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="VerticalPosition" xml:space="preserve">
+    <value>Вертикальное положение</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="VerticalPositionDescription" xml:space="preserve">
+    <value>Вертикальное выравнивание панели на графике.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="LayoutGroup" xml:space="preserve">
     <value>Расположение</value>
   </data>
-  <!-- Price rails (settings) -->
-<data name="EnablePriceRails" xml:space="preserve">
-  <value>Включить ценовые уровни</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="EnablePriceRailsDescription" xml:space="preserve">
-  <value>Включает ценовые уровни (цель и эффективный стоп). Только отображение.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowTargetRail" xml:space="preserve">
-  <value>Показывать уровень цели</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTargetRailDescription" xml:space="preserve">
-  <value>Показывает целевую цену для достижения дневной цели прибыли на основе реализованного PnL сегодня и размера текущей позиции.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowStopRail" xml:space="preserve">
-  <value>Показывать уровень стопа</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowStopRailDescription" xml:space="preserve">
-  <value>Показывает эффективную стоп-цену по наиболее строгому STOP-драйверу (дневной лимит потерь vs trailing drawdown).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowRailLabels" xml:space="preserve">
-  <value>Показывать подписи уровней</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowRailLabelsDescription" xml:space="preserve">
-  <value>Показывает описательные подписи для ценовых уровней (цель/причина стопа).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="RailLineWidth" xml:space="preserve">
-  <value>Толщина линии уровней</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RailLineWidthDescription" xml:space="preserve">
-  <value>Толщина линий ценовых уровней на графике.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<!-- Price rails (panel rows) -->
-<data name="RowPriceRailTarget" xml:space="preserve">
-  <value>Целевая цена</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowPriceRailStop" xml:space="preserve">
-  <value>Стоп-цена</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<!-- Price rails (reasons + label formats) -->
-<data name="StopReasonDailyLoss" xml:space="preserve">
-  <value>Лимит дневных потерь</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="StopReasonTrailingDd" xml:space="preserve">
-  <value>Трейлинг-дроудаун</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="RailTargetLabelFormat" xml:space="preserve">
-  <value>Цель {0:N2} | осталось {1}</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RailStopLabelFormat" xml:space="preserve">
-  <value>Стоп ({0}) {1:N2}</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
+  <data name="EnablePriceRails" xml:space="preserve">
+    <value>Включить ценовые уровни</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnablePriceRailsDescription" xml:space="preserve">
+    <value>Включает ценовые уровни (цель и эффективный стоп). Только отображение.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTargetRail" xml:space="preserve">
+    <value>Показывать уровень цели</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTargetRailDescription" xml:space="preserve">
+    <value>Показывает целевую цену для достижения дневной цели прибыли на основе реализованного PnL сегодня и размера текущей позиции.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowStopRail" xml:space="preserve">
+    <value>Показывать уровень стопа</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowStopRailDescription" xml:space="preserve">
+    <value>Показывает эффективную стоп-цену по наиболее строгому STOP-драйверу (дневной лимит потерь vs trailing drawdown).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowRailLabels" xml:space="preserve">
+    <value>Показывать подписи уровней</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowRailLabelsDescription" xml:space="preserve">
+    <value>Показывает описательные подписи для ценовых уровней (цель/причина стопа).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RailLineWidth" xml:space="preserve">
+    <value>Толщина линии уровней</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RailLineWidthDescription" xml:space="preserve">
+    <value>Толщина линий ценовых уровней на графике.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowPriceRailTarget" xml:space="preserve">
+    <value>Целевая цена</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowPriceRailStop" xml:space="preserve">
+    <value>Стоп-цена</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="StopReasonDailyLoss" xml:space="preserve">
+    <value>Лимит дневных потерь</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="StopReasonTrailingDd" xml:space="preserve">
+    <value>Трейлинг-дроудаун</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RailTargetLabelFormat" xml:space="preserve">
+    <value>Цель {0:N2} | осталось {1}</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RailStopLabelFormat" xml:space="preserve">
+    <value>Стоп ({0}) {1:N2}</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
   <data name="DiagonalImbalance" xml:space="preserve">
     <value>Диагональный дисбаланс</value>
     <comment>ClusterSearch</comment>
@@ -4627,10 +4572,6 @@
   </data>
   <data name="ImbalancesVisualization" xml:space="preserve">
     <value>Визуализация дисбалансов</value>
-    <comment>ClusterSearch</comment>
-  </data>
-  <data name="ImbalanceRatio" xml:space="preserve">
-    <value>Коэффициент дисбаланса</value>
     <comment>ClusterSearch</comment>
   </data>
   <data name="MinVolumeDifference" xml:space="preserve">
@@ -4685,25 +4626,7 @@
     <value>Цвет для диагональных дисбалансов продаж.</value>
     <comment>ClusterSearch</comment>
   </data>
-
-<data name="IBHM" xml:space="preserve">
-    <value>IBH-IBM</value>
-  </data><data name="IBHX1H" xml:space="preserve">
-    <value>IBHX1-ИБХ</value>
-  </data><data name="IBHX21" xml:space="preserve">
-    <value>IBHX2-1</value>
-  </data><data name="IBHX32" xml:space="preserve">
-    <value>IBHX3-2</value>
-  </data><data name="IBL1" xml:space="preserve">
-    <value>IBL-IBLX1</value>
-  </data><data name="IBLX12" xml:space="preserve">
-    <value>IBLX1-2</value>
-  </data><data name="IBLX23" xml:space="preserve">
-    <value>IBLX2-3</value>
-  </data><data name="IBML" xml:space="preserve">
-    <value>IBM-IBL</value>
-  </data>
-    <data name="LabelPosition" xml:space="preserve">
+  <data name="LabelPosition" xml:space="preserve">
     <value>Положение метки</value>
     <comment>UI</comment>
   </data>
@@ -4711,7 +4634,6 @@
     <value>Расположение меток: на последнем баре, слева, справа или скрыто.</value>
     <comment>UI</comment>
   </data>
-
   <data name="OverlayLineType" xml:space="preserve">
     <value>Тип overlay-линии</value>
     <comment>UI</comment>
@@ -4720,7 +4642,6 @@
     <value>Рисует горизонтальные линии от уровней Initial Balance к меткам или по всей ширине графика.</value>
     <comment>UI</comment>
   </data>
-
   <data name="ShowDuringFormation" xml:space="preserve">
     <value>Показывать во время формирования</value>
     <comment>UI</comment>
@@ -4729,328 +4650,320 @@
     <value>Если отключено, линии и метки скрываются до завершения Initial Balance.</value>
     <comment>UI</comment>
   </data>
-<data name="IsNeedShowLabelDescription" xml:space="preserve">
+  <data name="IsNeedShowLabelDescription" xml:space="preserve">
     <value>Определяет, должен ли отображаться текстовый ярлык.</value>
   </data>
   <data name="InitialBalance_LabelMid" xml:space="preserve">
-  <value>Mid</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBH" xml:space="preserve">
-  <value>IBH</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBL" xml:space="preserve">
-  <value>IBL</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBM" xml:space="preserve">
-  <value>IBM</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBHX1" xml:space="preserve">
-  <value>IBHX1</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBHX2" xml:space="preserve">
-  <value>IBHX2</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBHX3" xml:space="preserve">
-  <value>IBHX3</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBLX1" xml:space="preserve">
-  <value>IBLX1</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBLX2" xml:space="preserve">
-  <value>IBLX2</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBLX3" xml:space="preserve">
-  <value>IBLX3</value>
-  <comment>InitialBalance</comment>
-</data>
+    <value>Mid</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBH" xml:space="preserve">
+    <value>IBH</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBL" xml:space="preserve">
+    <value>IBL</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBM" xml:space="preserve">
+    <value>IBM</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBHX1" xml:space="preserve">
+    <value>IBHX1</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBHX2" xml:space="preserve">
+    <value>IBHX2</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBHX3" xml:space="preserve">
+    <value>IBHX3</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBLX1" xml:space="preserve">
+    <value>IBLX1</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBLX2" xml:space="preserve">
+    <value>IBLX2</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBLX3" xml:space="preserve">
+    <value>IBLX3</value>
+    <comment>InitialBalance</comment>
+  </data>
   <data name="TradingDayStart" xml:space="preserve">
     <value>Начало торгового дня</value>
     <comment>DailyLines</comment>
   </data>
   <data name="TradingDayStartDescription" xml:space="preserve">
-    <value>Опорное время, определяющее начало нового торгового дня. Это влияет на то, какой день считается "текущим" и "предыдущим" (например, выходные/праздники), но OHLC рассчитывается только по выбранному интервалу сессии.</value>
+    <value>Опорное время, определяющее начало нового торгового дня. Определяет, какой день считается «текущим» и «предыдущим».</value>
     <comment>DailyLines</comment>
   </data>
   <data name="HalfGap" xml:space="preserve">
-  <value>Half Gap</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="HalfGapDescription" xml:space="preserve">
-  <value>Средняя точка между закрытием предыдущей сессии и открытием текущей сессии (типичный случай RTH).</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowHalfGap" xml:space="preserve">
-  <value>Показать Half Gap</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowHalfGapDescription" xml:space="preserve">
-  <value>Показывать линию Half Gap (только для Текущего дня при включённой пользовательской сессии).</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="HalfGapText" xml:space="preserve">
-  <value>Текст Half Gap</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="HalfGapTextDescription" xml:space="preserve">
-  <value>Текстовая метка линии Half Gap.</value>
-  <comment>DailyLines</comment>
-</data>
+    <value>Half Gap</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="HalfGapDescription" xml:space="preserve">
+    <value>Средняя точка между закрытием предыдущей сессии и открытием текущей сессии (типичный случай RTH).</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowHalfGap" xml:space="preserve">
+    <value>Показать Half Gap</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowHalfGapDescription" xml:space="preserve">
+    <value>Показывать линию Half Gap (только для Текущего дня при включённой пользовательской сессии).</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="HalfGapText" xml:space="preserve">
+    <value>Текст Half Gap</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="HalfGapTextDescription" xml:space="preserve">
+    <value>Текстовая метка линии Half Gap.</value>
+    <comment>DailyLines</comment>
+  </data>
   <data name="PenSettingsDescription" xml:space="preserve">
     <value>Определяет параметры для цвета, стиля и ширины отображаемых линий.</value>
   </data>
   <data name="MultiScope" xml:space="preserve">
-  <value>Мульти-периоды</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="MultiScopeDescription" xml:space="preserve">
-  <value>Позволяет отображать несколько периодов одновременно (вместо выбора одного Period).</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowCurrentDay" xml:space="preserve">
-  <value>Показать тек. день</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowCurrentDayDescription" xml:space="preserve">
-  <value>Показывать уровни текущего дня.</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowPreviousDay" xml:space="preserve">
-  <value>Показать пред. день</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowPreviousDayDescription" xml:space="preserve">
-  <value>Показывать уровни предыдущего дня.</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowCurrentWeek" xml:space="preserve">
-  <value>Показать тек. неделю</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowCurrentWeekDescription" xml:space="preserve">
-  <value>Показывать уровни текущей недели.</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowPreviousWeek" xml:space="preserve">
-  <value>Показать пред. неделю</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowPreviousWeekDescription" xml:space="preserve">
-  <value>Показывать уровни предыдущей недели.</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowCurrentMonth" xml:space="preserve">
-  <value>Показать тек. месяц</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowCurrentMonthDescription" xml:space="preserve">
-  <value>Показывать уровни текущего месяца.</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowPreviousMonth" xml:space="preserve">
-  <value>Показать пред. месяц</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowPreviousMonthDescription" xml:space="preserve">
-  <value>Показывать уровни предыдущего месяца.</value>
-  <comment>DailyLines</comment>
-</data><data name="PeriodDescription" xml:space="preserve">
+    <value>Мульти-периоды</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="MultiScopeDescription" xml:space="preserve">
+    <value>Позволяет отображать несколько периодов одновременно (вместо выбора одного Period).</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentDay" xml:space="preserve">
+    <value>Показать тек. день</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentDayDescription" xml:space="preserve">
+    <value>Показывать уровни текущего дня.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousDay" xml:space="preserve">
+    <value>Показать пред. день</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousDayDescription" xml:space="preserve">
+    <value>Показывать уровни предыдущего дня.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentWeek" xml:space="preserve">
+    <value>Показать тек. неделю</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentWeekDescription" xml:space="preserve">
+    <value>Показывать уровни текущей недели.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousWeek" xml:space="preserve">
+    <value>Показать пред. неделю</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousWeekDescription" xml:space="preserve">
+    <value>Показывать уровни предыдущей недели.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentMonth" xml:space="preserve">
+    <value>Показать тек. месяц</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentMonthDescription" xml:space="preserve">
+    <value>Показывать уровни текущего месяца.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousMonth" xml:space="preserve">
+    <value>Показать пред. месяц</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousMonthDescription" xml:space="preserve">
+    <value>Показывать уровни предыдущего месяца.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PeriodDescription" xml:space="preserve">
     <value>Определяет количество последних свечей, включаемых в расчеты.</value>
-  </data><data name="IsCustomSessionDescription" xml:space="preserve">
+  </data>
+  <data name="IsCustomSessionDescription" xml:space="preserve">
     <value>Если включено, позволяет использовать пользовательскую сессию, в противном случае будет использоваться сессия по умолчанию.</value>
-  </data><data name="SessionBeginDescription" xml:space="preserve">
+  </data>
+  <data name="SessionBeginDescription" xml:space="preserve">
     <value>Определяет начальную дату записи данных.
 Индикатор может загрузить данные объемов не более 5 дней.</value>
-  </data><data name="SessionEndDescription" xml:space="preserve">
+  </data>
+  <data name="SessionEndDescription" xml:space="preserve">
     <value>Определяет конечную дату записи данных.</value>
   </data>
   <data name="ShowEth" xml:space="preserve">
-  <value>Показывать ETH (18:00→RTH)</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowEthDescription" xml:space="preserve">
-  <value>Рисует уровни ETH от начала Trading Day до начала RTH (время старта custom-сессии).</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="Eth" xml:space="preserve">
-  <value>ETH</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="NoDataForPeriod" xml:space="preserve">
-  <value>Недостаточно данных для расчёта: {0}</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="IncompleteDataForPeriod" xml:space="preserve">
-  <value>История неполная (возможна неточность): {0}</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="Rth" xml:space="preserve">
-  <value>RTH</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowCurrentRth" xml:space="preserve">
-  <value>Показать текущую RTH</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowCurrentRthDescription" xml:space="preserve">
-  <value>Показывает уровни текущей сессии RTH (окно пользовательской сессии).</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowPreviousRth" xml:space="preserve">
-  <value>Показать предыдущую RTH</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowPreviousRthDescription" xml:space="preserve">
-  <value>Показывает уровни предыдущей сессии RTH (окно пользовательской сессии).</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="DayFamilyLevels" xml:space="preserve">
-  <value>Семейство дня: уровни</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="DayFamilyLevelsDescription" xml:space="preserve">
-  <value>Выберите, какие уровни OHLC рисовать для областей День / ETH / RTH.</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="DayLevels" xml:space="preserve">
-  <value>Уровни дня</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="DayLevelsDescription" xml:space="preserve">
-  <value>Уровни для текущего дня (полный день в режиме multi-scope).</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="PrevDayLevels" xml:space="preserve">
-  <value>Уровни предыдущего дня</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="PrevDayLevelsDescription" xml:space="preserve">
-  <value>Уровни для предыдущего дня (полный день в режиме multi-scope).</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="EthLevels" xml:space="preserve">
-  <value>Уровни ETH</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="EthLevelsDescription" xml:space="preserve">
-  <value>Уровни для ETH (TradingDayStart → начало RTH).</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="RthLevels" xml:space="preserve">
-  <value>Уровни RTH</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="RthLevelsDescription" xml:space="preserve">
-  <value>Уровни для текущей RTH (окно пользовательской сессии).</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="PrevRthLevels" xml:space="preserve">
-  <value>Уровни предыдущей RTH</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="PrevRthLevelsDescription" xml:space="preserve">
-  <value>Уровни для предыдущей RTH (окно пользовательской сессии).</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="DayFamilyStyles" xml:space="preserve">
-  <value>Семейство дня: стили</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="DayFamilyStylesDescription" xml:space="preserve">
-  <value>Переопределяет стили линий по областям для День / ETH / RTH в режиме multi-scope.</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="UseScopeStyleOverrides" xml:space="preserve">
-  <value>Использовать стили по областям</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="UseScopeStyleOverridesDescription" xml:space="preserve">
-  <value>Если включено, области День/ETH/RTH используют собственный стиль линии вместо глобальных OHLC-стилей.</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="DayScopePen" xml:space="preserve">
-  <value>Стиль дня</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="DayScopePenDescription" xml:space="preserve">
-  <value>Стиль линии для области Текущий день.</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="PrevDayScopePen" xml:space="preserve">
-  <value>Стиль предыдущего дня</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="PrevDayScopePenDescription" xml:space="preserve">
-  <value>Стиль линии для области Предыдущий день.</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="EthScopePen" xml:space="preserve">
-  <value>Стиль ETH</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="EthScopePenDescription" xml:space="preserve">
-  <value>Стиль линии для области ETH.</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="RthScopePen" xml:space="preserve">
-  <value>Стиль RTH</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="RthScopePenDescription" xml:space="preserve">
-  <value>Стиль линии для области Текущая RTH.</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="PrevRthScopePen" xml:space="preserve">
-  <value>Стиль предыдущей RTH</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="PrevRthScopePenDescription" xml:space="preserve">
-  <value>Стиль линии для области Предыдущая RTH.</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="CurrentDayRthEthSplit" xml:space="preserve">
-  <value>Разделять текущий день на RTH/ETH</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="CurrentDayRthEthSplitDescription" xml:space="preserve">
-  <value>Если MultiScope выключен, уровни Текущего дня отображаются только для RTH. Если MultiScope включён, эта опция позволяет отображать RTH и ETH раздельно, используя время начала/окончания RTH ниже.</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="DrawFromSignificantBar" xml:space="preserve">
-  <value>От значимой свечи</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="DrawFromSignificantBarDescription" xml:space="preserve">
-  <value>Если включено, линии начинаются со свечи, сформировавшей уровень (Open=первая свеча, High/Low=свеча экстремума, Close=последняя свеча). Если выключено, линии начинаются от границы периода.</value>
-  <comment>DailyLines</comment>
-</data></root>
+    <value>Показывать ETH (18:00→RTH)</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowEthDescription" xml:space="preserve">
+    <value>Рисует уровни ETH от начала Trading Day до начала RTH (время старта custom-сессии).</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="Eth" xml:space="preserve">
+    <value>ETH</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="NoDataForPeriod" xml:space="preserve">
+    <value>Недостаточно данных для расчёта: {0}</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="IncompleteDataForPeriod" xml:space="preserve">
+    <value>История неполная (возможна неточность): {0}</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="Rth" xml:space="preserve">
+    <value>RTH</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentRth" xml:space="preserve">
+    <value>Показать текущую RTH</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentRthDescription" xml:space="preserve">
+    <value>Показывает уровни текущей сессии RTH (окно пользовательской сессии).</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousRth" xml:space="preserve">
+    <value>Показать предыдущую RTH</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousRthDescription" xml:space="preserve">
+    <value>Показывает уровни предыдущей сессии RTH (окно пользовательской сессии).</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayFamilyLevels" xml:space="preserve">
+    <value>Семейство дня: уровни</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayFamilyLevelsDescription" xml:space="preserve">
+    <value>Выберите, какие уровни OHLC рисовать для областей День / ETH / RTH.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayLevels" xml:space="preserve">
+    <value>Уровни дня</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayLevelsDescription" xml:space="preserve">
+    <value>Уровни для текущего дня (полный день в режиме multi-scope).</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevDayLevels" xml:space="preserve">
+    <value>Уровни предыдущего дня</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevDayLevelsDescription" xml:space="preserve">
+    <value>Уровни для предыдущего дня (полный день в режиме multi-scope).</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="EthLevels" xml:space="preserve">
+    <value>Уровни ETH</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="EthLevelsDescription" xml:space="preserve">
+    <value>Уровни для ETH (TradingDayStart → начало RTH).</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="RthLevels" xml:space="preserve">
+    <value>Уровни RTH</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="RthLevelsDescription" xml:space="preserve">
+    <value>Уровни для текущей RTH (окно пользовательской сессии).</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevRthLevels" xml:space="preserve">
+    <value>Уровни предыдущей RTH</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevRthLevelsDescription" xml:space="preserve">
+    <value>Уровни для предыдущей RTH (окно пользовательской сессии).</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayFamilyStyles" xml:space="preserve">
+    <value>Семейство дня: стили</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayFamilyStylesDescription" xml:space="preserve">
+    <value>Переопределяет стили линий по областям для День / ETH / RTH в режиме multi-scope.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="UseScopeStyleOverrides" xml:space="preserve">
+    <value>Использовать стили по областям</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="UseScopeStyleOverridesDescription" xml:space="preserve">
+    <value>Если включено, области День/ETH/RTH используют собственный стиль линии вместо глобальных OHLC-стилей.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayScopePen" xml:space="preserve">
+    <value>Стиль дня</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayScopePenDescription" xml:space="preserve">
+    <value>Стиль линии для области Текущий день.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevDayScopePen" xml:space="preserve">
+    <value>Стиль предыдущего дня</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevDayScopePenDescription" xml:space="preserve">
+    <value>Стиль линии для области Предыдущий день.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="EthScopePen" xml:space="preserve">
+    <value>Стиль ETH</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="EthScopePenDescription" xml:space="preserve">
+    <value>Стиль линии для области ETH.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="RthScopePen" xml:space="preserve">
+    <value>Стиль RTH</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="RthScopePenDescription" xml:space="preserve">
+    <value>Стиль линии для области Текущая RTH.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevRthScopePen" xml:space="preserve">
+    <value>Стиль предыдущей RTH</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevRthScopePenDescription" xml:space="preserve">
+    <value>Стиль линии для области Предыдущая RTH.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="CurrentDayRthEthSplit" xml:space="preserve">
+    <value>Разделять текущий день на RTH/ETH</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="CurrentDayRthEthSplitDescription" xml:space="preserve">
+    <value>Если MultiScope выключен, уровни Текущего дня отображаются только для RTH. Если MultiScope включён, эта опция позволяет отображать RTH и ETH раздельно, используя время начала/окончания RTH ниже.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DrawFromSignificantBar" xml:space="preserve">
+    <value>От значимой свечи</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DrawFromSignificantBarDescription" xml:space="preserve">
+    <value>Если включено, линии начинаются со свечи, сформировавшей уровень (Open=первая свеча, High/Low=свеча экстремума, Close=последняя свеча). Если выключено, линии начинаются от границы периода.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="Misc" xml:space="preserve">
+    <value>Разное</value>
+  </data>
+  <data name="Bearish" xml:space="preserve">
+    <value>Медвежье</value>
+  </data>
+  <data name="Show Fibonacci" xml:space="preserve">
+    <value>Показать уровни Фибоначчи</value>
+  </data>
+</root>

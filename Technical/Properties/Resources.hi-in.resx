@@ -321,6 +321,10 @@
   <data name="OffsetX" xml:space="preserve">
     <value>ऑफसेटएक्स</value>
   </data>
+  <data name="ImbalanceRatio" xml:space="preserve">
+    <value>असंतुलन अनुपात</value>
+    <comment>ClusterSearch</comment>
+  </data>
   <data name="LineWidth" xml:space="preserve">
     <value>लाइन की चौड़ाई</value>
   </data>
@@ -359,6 +363,30 @@
   </data>
   <data name="NeutralBorderColor" xml:space="preserve">
     <value>सीमा का रंग</value>
+  </data>
+  <data name="IBHM" xml:space="preserve">
+    <value>IBH-IBM</value>
+  </data>
+  <data name="IBHX1H" xml:space="preserve">
+    <value>IBHX1-आईबीएच</value>
+  </data>
+  <data name="IBHX21" xml:space="preserve">
+    <value>IBHX2-1</value>
+  </data>
+  <data name="IBHX32" xml:space="preserve">
+    <value>IBHX3-2</value>
+  </data>
+  <data name="IBL1" xml:space="preserve">
+    <value>IBL-IBLX1</value>
+  </data>
+  <data name="IBLX12" xml:space="preserve">
+    <value>IBLX1-2</value>
+  </data>
+  <data name="IBLX23" xml:space="preserve">
+    <value>IBLX2-3</value>
+  </data>
+  <data name="IBML" xml:space="preserve">
+    <value>IBM-IBL</value>
   </data>
   <data name="Average" xml:space="preserve">
     <value>औसत</value>
@@ -1913,35 +1941,34 @@
     <value>Trailing Stop Equity</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-	<data name="RowCurrency" xml:space="preserve">
-  <value>Currency</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-	<data name="RowAvailable" xml:space="preserve">
-  <value>Available</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-	<data name="RowBlockedMargin" xml:space="preserve">
-  <value>Blocked Margin</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-	<data name="RowLeverage" xml:space="preserve">
-  <value>Leverage</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-	<data name="RowClosedPnL" xml:space="preserve">
-  <value>Closed PnL</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-	<data name="RowTotalPnL" xml:space="preserve">
-  <value>Total PnL</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
+  <data name="RowCurrency" xml:space="preserve">
+    <value>Currency</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowAvailable" xml:space="preserve">
+    <value>Available</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowBlockedMargin" xml:space="preserve">
+    <value>Blocked Margin</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowLeverage" xml:space="preserve">
+    <value>Leverage</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowClosedPnL" xml:space="preserve">
+    <value>Closed PnL</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowTotalPnL" xml:space="preserve">
+    <value>Total PnL</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
   <data name="DailyRails" xml:space="preserve">
     <value>डेली रेल्स</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="DailyResetMode" xml:space="preserve">
     <value>डेली रीसेट मोड</value>
     <comment>AccountInfoDisplay</comment>
@@ -1950,7 +1977,6 @@
     <value>यह निर्धारित करता है कि दैनिक मेट्रिक्स और रेल्स कब रीसेट हों। NewYork1700 17:00 (चार्ट लोकल समय) कट का उपयोग करता है; LocalCustomTime नीचे कॉन्फ़िगर किए गए लोकल समय का उपयोग करता है।</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="DailyResetTimeLocal" xml:space="preserve">
     <value>डेली रीसेट टाइम (लोकल)</value>
     <comment>AccountInfoDisplay</comment>
@@ -1959,7 +1985,7 @@
     <value>लोकल रीसेट समय, केवल तब उपयोग होता है जब डेली रीसेट मोड LocalCustomTime हो।</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-    <data name="RowTradesToday" xml:space="preserve">
+  <data name="RowTradesToday" xml:space="preserve">
     <value>आज के ट्रेड</value>
     <comment>AccountInfoDisplay</comment>
   </data>
@@ -1975,7 +2001,7 @@
     <value>आज का रियलाइज़्ड PnL</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-    <data name="ShowTradesTodayRow" xml:space="preserve">
+  <data name="ShowTradesTodayRow" xml:space="preserve">
     <value>आज के ट्रेड दिखाएँ</value>
     <comment>AccountInfoDisplay</comment>
   </data>
@@ -1983,7 +2009,6 @@
     <value>वर्तमान ट्रेडिंग सत्र में बंद किए गए ट्रेड्स की संख्या दिखाता है।</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="ShowWinsLossesTodayRow" xml:space="preserve">
     <value>आज की जीत / हार दिखाएँ</value>
     <comment>AccountInfoDisplay</comment>
@@ -1992,7 +2017,6 @@
     <value>वर्तमान सत्र में लाभ और हानि वाले ट्रेड्स की संख्या दिखाता है।</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="ShowCurrentStreakRow" xml:space="preserve">
     <value>वर्तमान स्ट्रीक दिखाएँ</value>
     <comment>AccountInfoDisplay</comment>
@@ -2001,7 +2025,6 @@
     <value>सत्र की सक्रिय जीत या हार की लगातार स्ट्रीक दिखाता है।</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="ShowRealizedPnlTodayRow" xml:space="preserve">
     <value>आज का रियलाइज़्ड PnL दिखाएँ</value>
     <comment>AccountInfoDisplay</comment>
@@ -2010,11 +2033,10 @@
     <value>वर्तमान ट्रेडिंग सत्र के दौरान कुल रियलाइज़्ड लाभ या हानि दिखाता है।</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-    <data name="SoftRecommendations" xml:space="preserve">
+  <data name="SoftRecommendations" xml:space="preserve">
     <value>ऑपरेटिव अनुशंसाएँ</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="EnableSoftRecommendations" xml:space="preserve">
     <value>ऑपरेटिव अनुशंसाएँ सक्षम करें</value>
     <comment>AccountInfoDisplay</comment>
@@ -2023,7 +2045,6 @@
     <value>दैनिक सत्र मेट्रिक्स के आधार पर ऑपरेटिव संकेत दिखाता है, बिना ट्रेडिंग को अवरुद्ध किए।</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="MaxTradesPerDay" xml:space="preserve">
     <value>प्रति दिन अधिकतम ट्रेड</value>
     <comment>AccountInfoDisplay</comment>
@@ -2032,7 +2053,6 @@
     <value>दैनिक सत्र में अनुमत अधिकतम ट्रेड्स, चेतावनी या रुकने के सुझाव से पहले।</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="MaxConsecutiveLosses" xml:space="preserve">
     <value>लगातार अधिकतम नुकसान</value>
     <comment>AccountInfoDisplay</comment>
@@ -2041,7 +2061,6 @@
     <value>लगातार नुकसान वाले ट्रेड्स की अधिकतम संख्या, रुकने के सुझाव से पहले।</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="CautionTradesThreshold" xml:space="preserve">
     <value>ट्रेड चेतावनी सीमा</value>
     <comment>AccountInfoDisplay</comment>
@@ -2050,7 +2069,6 @@
     <value>ट्रेड्स की संख्या जिस पर दैनिक सीमा से पहले चेतावनी दिखाई जाती है।</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="CautionLossesThreshold" xml:space="preserve">
     <value>नुकसान चेतावनी सीमा</value>
     <comment>AccountInfoDisplay</comment>
@@ -2059,27 +2077,22 @@
     <value>लगातार नुकसान की संख्या जिस पर रुकने की चेतावनी दिखाई जाती है।</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="RowSuggestedStatus" xml:space="preserve">
     <value>सुझाया गया ट्रेडिंग स्टेटस</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="RowStopReasons" xml:space="preserve">
     <value>कारण</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="SuggestedStatusOk" xml:space="preserve">
     <value>OK</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="SuggestedStatusCaution" xml:space="preserve">
     <value>चेतावनी</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="SuggestedStatusStop" xml:space="preserve">
     <value>रोकें (सुझावित)</value>
     <comment>AccountInfoDisplay</comment>
@@ -2092,7 +2105,6 @@
     <value>आज के सत्र मेट्रिक्स के आधार पर सुझाया गया ट्रेडिंग स्टेटस (OK / चेतावनी / STOP) दिखाता है।</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="ShowStopReasonsRow" xml:space="preserve">
     <value>कारण दिखाएँ</value>
     <comment>AccountInfoDisplay</comment>
@@ -2101,458 +2113,405 @@
     <value>चेतावनी या STOP सुझाव ट्रिगर होने के कारण दिखाता है।</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-<data name="ShowPositionSnapshot" xml:space="preserve">
-  <value>पोज़िशन स्नैपशॉट दिखाएँ</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowPositionSnapshotDescription" xml:space="preserve">
-  <value>वर्तमान ओपन पोज़िशन का हल्का स्नैपशॉट दिखाता है (दिशा/qty/एंट्री).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowFlatRow" xml:space="preserve">
-  <value>FLAT पंक्ति दिखाएँ</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowFlatRowDescription" xml:space="preserve">
-  <value>यदि कोई पोज़िशन ओपन नहीं है, तो डिटेल्स की जगह FLAT पंक्ति दिखाता है.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="RowPos" xml:space="preserve">
-  <value>Pos</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowPosDir" xml:space="preserve">
-  <value>Pos dir</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowPosQty" xml:space="preserve">
-  <value>Pos qty</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowPosEntry" xml:space="preserve">
-  <value>Pos entry</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="PosFlatValue" xml:space="preserve">
-  <value>FLAT</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="EnableDailyRails" xml:space="preserve">
-  <value>दैनिक लिमिट सक्रिय करें</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="EnableDailyRailsDescription" xml:space="preserve">
-  <value>खाते के लिए दैनिक हानि, लाभ और ड्रॉडाउन की सख्त सीमाएँ सक्रिय करता है।</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="DailyLossLimit" xml:space="preserve">
-  <value>दैनिक हानि सीमा</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="DailyLossLimitDescription" xml:space="preserve">
-  <value>यदि इक्विटी दिन की शुरुआत से इस राशि तक गिरती है तो ट्रेडिंग रोकता है।</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="DailyProfitTarget" xml:space="preserve">
-  <value>दैनिक लाभ लक्ष्य</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="DailyProfitTargetDescription" xml:space="preserve">
-  <value>यदि इक्विटी दिन की शुरुआत से इस लाभ तक पहुँचती है तो ट्रेडिंग रोकता है।</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="DailyMaxDrawdownFromPeak" xml:space="preserve">
-  <value>दैनिक उच्चतम से अधिकतम गिरावट</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="DailyMaxDrawdownFromPeakDescription" xml:space="preserve">
-  <value>यदि इक्विटी दिन के उच्चतम स्तर से इस राशि तक गिरती है तो ट्रेडिंग रोकता है।</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="CautionLossFromStart" xml:space="preserve">
-  <value>सावधानी: दिन की शुरुआत से नुकसान</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="CautionLossFromStartDescription" xml:space="preserve">
-  <value>यदि equity दिन की शुरुआत से इस राशि तक गिरती है तो सावधानी दिखाएँ (0 = बंद).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="CautionGivebackFromPeak" xml:space="preserve">
-  <value>सावधानी: दिन के पीक से गिवबैक</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="CautionGivebackFromPeakDescription" xml:space="preserve">
-  <value>यदि equity दिन के पीक से इस राशि तक वापस आती है तो सावधानी दिखाएँ (0 = बंद).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="CautionLossFromStartPct" xml:space="preserve">
-  <value>सावधानी: शुरुआत से नुकसान (%)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="CautionLossFromStartPctDescription" xml:space="preserve">
-  <value>यदि equity दिन की शुरुआत से इस % तक गिरती है तो सावधानी दिखाएँ (0 = बंद).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="CautionGivebackFromPeakPct" xml:space="preserve">
-  <value>सावधानी: पीक से गिवबैक (%)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="CautionGivebackFromPeakPctDescription" xml:space="preserve">
-  <value>यदि equity दिन के पीक से इस % तक वापस आती है तो सावधानी दिखाएँ (0 = बंद).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="DailyRailsStopReasonGeneric" xml:space="preserve">
-  <value>दैनिक लिमिट: STOP.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="StopHitEarlierToday" xml:space="preserve">
-  <value>आज STOP पहले ही लग चुका है।</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowRemainingDailyLoss" xml:space="preserve">
-  <value>आज की शेष हानि</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="RowRemainingDailyProfitTarget" xml:space="preserve">
-  <value>लाभ लक्ष्य तक शेष</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowRemainingDailyLossRow" xml:space="preserve">
-  <value>शेष दैनिक हानि दिखाएँ</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowRemainingDailyLossRowDescription" xml:space="preserve">
-  <value>दैनिक हानि सीमा तक कितना मार्जिन बचा है दिखाता है (वर्तमान equity के आधार पर).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowRemainingDailyProfitTargetRow" xml:space="preserve">
-  <value>लाभ लक्ष्य तक शेष दिखाएँ</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowRemainingDailyProfitTargetRowDescription" xml:space="preserve">
-  <value>दैनिक लाभ लक्ष्य तक कितना शेष है दिखाता है (वर्तमान equity के आधार पर).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowTradeMaxOpenPnLCurrent" xml:space="preserve">
-  <value>अधिकतम ओपन PnL (वर्तमान)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowTradeMaxOpenPnLLast" xml:space="preserve">
-  <value>अधिकतम ओपन PnL (पिछला)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<!-- AccountInfoDisplay — Soft recommendations (0022 parity) -->
-
-<data name="CautionTradesPct" xml:space="preserve">
-  <value>ट्रेड्स CAUTION (%)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="CautionTradesPctDescription" xml:space="preserve">
-  <value>CAUTION तब ट्रिगर होता है जब आज के ट्रेड्स, Max Trades Per Day के इस प्रतिशत तक पहुँचते हैं (उदा., 0.75 = 75%).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="CautionRemainingDailyLossPct" xml:space="preserve">
-  <value>शेष दैनिक नुकसान CAUTION (%)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="CautionRemainingDailyLossPctDescription" xml:space="preserve">
-  <value>CAUTION तब ट्रिगर होता है जब शेष दैनिक नुकसान, दैनिक नुकसान सीमा के इस प्रतिशत से कम हो जाए।</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="EnableConsistencyRules" xml:space="preserve">
-  <value>Consistency नियम सक्षम करें</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="EnableConsistencyRulesDescription" xml:space="preserve">
-  <value>Payout objective के आधार पर payout concentration checks (CAUTION/STOP) सक्षम करता है।</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="PayoutObjective" xml:space="preserve">
-  <value>Payout उद्देश्य</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="PayoutObjectiveDescription" xml:space="preserve">
-  <value>Consistency नियमों द्वारा CAUTION/STOP thresholds निकालने के लिए उपयोग किया जाने वाला लक्ष्य।</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ConsistencyCautionPct" xml:space="preserve">
-  <value>Consistency CAUTION (%)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ConsistencyCautionPctDescription" xml:space="preserve">
-  <value>CAUTION तब ट्रिगर होता है जब आज का realized PnL, payout objective के इस प्रतिशत तक पहुँचता है।</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ConsistencyStopPct" xml:space="preserve">
-  <value>Consistency STOP (%)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ConsistencyStopPctDescription" xml:space="preserve">
-  <value>STOP तब ट्रिगर होता है जब आज का realized PnL, payout objective के इस प्रतिशत तक पहुँचता है।</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="EnableGivebackCaution" xml:space="preserve">
-  <value>Giveback CAUTION सक्षम करें</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="EnableGivebackCautionDescription" xml:space="preserve">
-  <value>CAUTION तब ट्रिगर होता है जब आज का PnL intraday peak से बहुत अधिक giveback करता है।</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="GivebackPctOfProfitTarget" xml:space="preserve">
-  <value>Giveback CAUTION (दैनिक लक्ष्य का %)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="GivebackPctOfProfitTargetDescription" xml:space="preserve">
-  <value>Giveback threshold, daily profit target के प्रतिशत के रूप में (जब Daily Profit Target &gt; 0 हो)।</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="GivebackAbs" xml:space="preserve">
-  <value>Giveback CAUTION (absolute)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="GivebackAbsDescription" xml:space="preserve">
-  <value>जब Daily Profit Target 0 हो, तब absolute giveback threshold उपयोग होता है।</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<!-- AccountInfoDisplay — Soft recommendations (reason texts) -->
-
-<data name="CautionOneLossAway" xml:space="preserve">
-  <value>CAUTION: अधिकतम लगातार नुकसान से एक नुकसान दूर।</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="CautionRemainingDailyLossLow" xml:space="preserve">
-  <value>CAUTION: शेष दैनिक नुकसान कम है।</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ConsistencyCautionReason" xml:space="preserve">
-  <value>CAUTION: payout concentration threshold पहुँचा।</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ConsistencyStopReason" xml:space="preserve">
-  <value>STOP: payout concentration threshold पहुँचा।</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="GivebackCautionReason" xml:space="preserve">
-  <value>CAUTION: intraday giveback threshold पहुँचा।</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<!-- AccountInfoDisplay — Groups -->
-<data name="RowsTrailingDd" xml:space="preserve">
-  <value>Rows: Trailing drawdown</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowsTrade" xml:space="preserve">
-  <value>Rows: Trade</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<!-- AccountInfoDisplay — Row toggles (Trailing DD) -->
-<data name="ShowTrailingStartEquityRow" xml:space="preserve">
-  <value>Trailing start equity दिखाएँ</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTrailingStartEquityRowDescription" xml:space="preserve">
-  <value>Trailing drawdown के start equity की row दिखाता है।</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowTrailingPeakEquityRow" xml:space="preserve">
-  <value>Trailing peak equity दिखाएँ</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTrailingPeakEquityRowDescription" xml:space="preserve">
-  <value>Trailing drawdown के peak equity की row दिखाता है।</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowTrailingStopEquityRow" xml:space="preserve">
-  <value>Trailing stop equity दिखाएँ</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTrailingStopEquityRowDescription" xml:space="preserve">
-  <value>Trailing drawdown के stop equity की row दिखाता है।</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowTrailingRemainingDdRow" xml:space="preserve">
-  <value>Trailing remaining DD दिखाएँ</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTrailingRemainingDdRowDescription" xml:space="preserve">
-  <value>Trailing stop equity तक remaining drawdown दिखाता है।</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowTrailingCurrentDdRow" xml:space="preserve">
-  <value>Trailing current DD दिखाएँ</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTrailingCurrentDdRowDescription" xml:space="preserve">
-  <value>Trailing peak equity से current drawdown दिखाता है।</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<!-- AccountInfoDisplay — Row toggles (Trade) -->
-<data name="ShowTradeMaxOpenPnlCurrentRow" xml:space="preserve">
-  <value>Current trade max open PnL दिखाएँ</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTradeMaxOpenPnlCurrentRowDescription" xml:space="preserve">
-  <value>Position में रहते हुए current trade का max open PnL दिखाता है।</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowTradeMaxOpenPnlLastRow" xml:space="preserve">
-  <value>Last trade max open PnL दिखाएँ</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTradeMaxOpenPnlLastRowDescription" xml:space="preserve">
-  <value>Flat होने पर last closed trade का max open PnL दिखाता है।</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowLastClosedTradePnlRow" xml:space="preserve">
-  <value>Last closed trade PnL दिखाएँ</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowLastClosedTradePnlRowDescription" xml:space="preserve">
-  <value>Flat होने पर last closed trade का realized PnL दिखाता है।</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<!-- AccountInfoDisplay — Row labels -->
-<data name="RowTrailingRemainingDd" xml:space="preserve">
-  <value>Trailing Remaining DD</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowTrailingCurrentDd" xml:space="preserve">
-  <value>Trailing Current DD</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowLastClosedTradePnL" xml:space="preserve">
-  <value>Last Trade PnL (Closed)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="HorizontalPosition" xml:space="preserve">
-  <value>Horizontal position</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="HorizontalPositionDescription" xml:space="preserve">
-  <value>Chart पर panel का horizontal alignment.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="VerticalPosition" xml:space="preserve">
-  <value>Vertical position</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="VerticalPositionDescription" xml:space="preserve">
-  <value>Chart पर panel का vertical alignment.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="LayoutGroup" xml:space="preserve">
+  <data name="ShowPositionSnapshot" xml:space="preserve">
+    <value>पोज़िशन स्नैपशॉट दिखाएँ</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowPositionSnapshotDescription" xml:space="preserve">
+    <value>वर्तमान ओपन पोज़िशन का हल्का स्नैपशॉट दिखाता है (दिशा/qty/एंट्री).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowFlatRow" xml:space="preserve">
+    <value>FLAT पंक्ति दिखाएँ</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowFlatRowDescription" xml:space="preserve">
+    <value>यदि कोई पोज़िशन ओपन नहीं है, तो डिटेल्स की जगह FLAT पंक्ति दिखाता है.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowPos" xml:space="preserve">
+    <value>Pos</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowPosDir" xml:space="preserve">
+    <value>Pos dir</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowPosQty" xml:space="preserve">
+    <value>Pos qty</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowPosEntry" xml:space="preserve">
+    <value>Pos entry</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="PosFlatValue" xml:space="preserve">
+    <value>FLAT</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableDailyRails" xml:space="preserve">
+    <value>दैनिक लिमिट सक्रिय करें</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableDailyRailsDescription" xml:space="preserve">
+    <value>खाते के लिए दैनिक हानि, लाभ और ड्रॉडाउन की सख्त सीमाएँ सक्रिय करता है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyLossLimit" xml:space="preserve">
+    <value>दैनिक हानि सीमा</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyLossLimitDescription" xml:space="preserve">
+    <value>यदि इक्विटी दिन की शुरुआत से इस राशि तक गिरती है तो ट्रेडिंग रोकता है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyProfitTarget" xml:space="preserve">
+    <value>दैनिक लाभ लक्ष्य</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyProfitTargetDescription" xml:space="preserve">
+    <value>यदि इक्विटी दिन की शुरुआत से इस लाभ तक पहुँचती है तो ट्रेडिंग रोकता है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyMaxDrawdownFromPeak" xml:space="preserve">
+    <value>दैनिक उच्चतम से अधिकतम गिरावट</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyMaxDrawdownFromPeakDescription" xml:space="preserve">
+    <value>यदि इक्विटी दिन के उच्चतम स्तर से इस राशि तक गिरती है तो ट्रेडिंग रोकता है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyRailsStopReasonGeneric" xml:space="preserve">
+    <value>दैनिक लिमिट: STOP.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionLossFromStart" xml:space="preserve">
+    <value>सावधानी: दिन की शुरुआत से नुकसान</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionLossFromStartDescription" xml:space="preserve">
+    <value>यदि equity दिन की शुरुआत से इस राशि तक गिरती है तो सावधानी दिखाएँ (0 = बंद).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionGivebackFromPeak" xml:space="preserve">
+    <value>सावधानी: दिन के पीक से गिवबैक</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionGivebackFromPeakDescription" xml:space="preserve">
+    <value>यदि equity दिन के पीक से इस राशि तक वापस आती है तो सावधानी दिखाएँ (0 = बंद).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionLossFromStartPct" xml:space="preserve">
+    <value>सावधानी: शुरुआत से नुकसान (%)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionLossFromStartPctDescription" xml:space="preserve">
+    <value>यदि equity दिन की शुरुआत से इस % तक गिरती है तो सावधानी दिखाएँ (0 = बंद).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionGivebackFromPeakPct" xml:space="preserve">
+    <value>सावधानी: पीक से गिवबैक (%)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionGivebackFromPeakPctDescription" xml:space="preserve">
+    <value>यदि equity दिन के पीक से इस % तक वापस आती है तो सावधानी दिखाएँ (0 = बंद).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="StopHitEarlierToday" xml:space="preserve">
+    <value>आज STOP पहले ही लग चुका है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowRemainingDailyLoss" xml:space="preserve">
+    <value>आज की शेष हानि</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowRemainingDailyProfitTarget" xml:space="preserve">
+    <value>लाभ लक्ष्य तक शेष</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowRemainingDailyLossRow" xml:space="preserve">
+    <value>शेष दैनिक हानि दिखाएँ</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowRemainingDailyLossRowDescription" xml:space="preserve">
+    <value>दैनिक हानि सीमा तक कितना मार्जिन बचा है दिखाता है (वर्तमान equity के आधार पर).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowRemainingDailyProfitTargetRow" xml:space="preserve">
+    <value>लाभ लक्ष्य तक शेष दिखाएँ</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowRemainingDailyProfitTargetRowDescription" xml:space="preserve">
+    <value>दैनिक लाभ लक्ष्य तक कितना शेष है दिखाता है (वर्तमान equity के आधार पर).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowTradeMaxOpenPnLCurrent" xml:space="preserve">
+    <value>अधिकतम ओपन PnL (वर्तमान)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowTradeMaxOpenPnLLast" xml:space="preserve">
+    <value>अधिकतम ओपन PnL (पिछला)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionTradesPct" xml:space="preserve">
+    <value>ट्रेड्स CAUTION (%)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionTradesPctDescription" xml:space="preserve">
+    <value>CAUTION तब ट्रिगर होता है जब आज के ट्रेड्स, Max Trades Per Day के इस प्रतिशत तक पहुँचते हैं (उदा., 0.75 = 75%).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionRemainingDailyLossPct" xml:space="preserve">
+    <value>शेष दैनिक नुकसान CAUTION (%)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionRemainingDailyLossPctDescription" xml:space="preserve">
+    <value>CAUTION तब ट्रिगर होता है जब शेष दैनिक नुकसान, दैनिक नुकसान सीमा के इस प्रतिशत से कम हो जाए।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableConsistencyRules" xml:space="preserve">
+    <value>Consistency नियम सक्षम करें</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableConsistencyRulesDescription" xml:space="preserve">
+    <value>Payout objective के आधार पर payout concentration checks (CAUTION/STOP) सक्षम करता है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="PayoutObjective" xml:space="preserve">
+    <value>Payout उद्देश्य</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="PayoutObjectiveDescription" xml:space="preserve">
+    <value>Consistency नियमों द्वारा CAUTION/STOP thresholds निकालने के लिए उपयोग किया जाने वाला लक्ष्य।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ConsistencyCautionPct" xml:space="preserve">
+    <value>Consistency CAUTION (%)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ConsistencyCautionPctDescription" xml:space="preserve">
+    <value>CAUTION तब ट्रिगर होता है जब आज का realized PnL, payout objective के इस प्रतिशत तक पहुँचता है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ConsistencyStopPct" xml:space="preserve">
+    <value>Consistency STOP (%)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ConsistencyStopPctDescription" xml:space="preserve">
+    <value>STOP तब ट्रिगर होता है जब आज का realized PnL, payout objective के इस प्रतिशत तक पहुँचता है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableGivebackCaution" xml:space="preserve">
+    <value>Giveback CAUTION सक्षम करें</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableGivebackCautionDescription" xml:space="preserve">
+    <value>CAUTION तब ट्रिगर होता है जब आज का PnL intraday peak से बहुत अधिक giveback करता है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="GivebackPctOfProfitTarget" xml:space="preserve">
+    <value>Giveback CAUTION (दैनिक लक्ष्य का %)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="GivebackPctOfProfitTargetDescription" xml:space="preserve">
+    <value>Giveback threshold, daily profit target के प्रतिशत के रूप में (जब Daily Profit Target &gt; 0 हो)।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="GivebackAbs" xml:space="preserve">
+    <value>Giveback CAUTION (absolute)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="GivebackAbsDescription" xml:space="preserve">
+    <value>जब Daily Profit Target 0 हो, तब absolute giveback threshold उपयोग होता है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionOneLossAway" xml:space="preserve">
+    <value>CAUTION: अधिकतम लगातार नुकसान से एक नुकसान दूर।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionRemainingDailyLossLow" xml:space="preserve">
+    <value>CAUTION: शेष दैनिक नुकसान कम है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ConsistencyCautionReason" xml:space="preserve">
+    <value>CAUTION: payout concentration threshold पहुँचा।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ConsistencyStopReason" xml:space="preserve">
+    <value>STOP: payout concentration threshold पहुँचा।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="GivebackCautionReason" xml:space="preserve">
+    <value>CAUTION: intraday giveback threshold पहुँचा।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowsTrailingDd" xml:space="preserve">
+    <value>Rows: Trailing drawdown</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowsTrade" xml:space="preserve">
+    <value>Rows: Trade</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingStartEquityRow" xml:space="preserve">
+    <value>Trailing start equity दिखाएँ</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingStartEquityRowDescription" xml:space="preserve">
+    <value>Trailing drawdown के start equity की row दिखाता है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingPeakEquityRow" xml:space="preserve">
+    <value>Trailing peak equity दिखाएँ</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingPeakEquityRowDescription" xml:space="preserve">
+    <value>Trailing drawdown के peak equity की row दिखाता है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingStopEquityRow" xml:space="preserve">
+    <value>Trailing stop equity दिखाएँ</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingStopEquityRowDescription" xml:space="preserve">
+    <value>Trailing drawdown के stop equity की row दिखाता है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingRemainingDdRow" xml:space="preserve">
+    <value>Trailing remaining DD दिखाएँ</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingRemainingDdRowDescription" xml:space="preserve">
+    <value>Trailing stop equity तक remaining drawdown दिखाता है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingCurrentDdRow" xml:space="preserve">
+    <value>Trailing current DD दिखाएँ</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingCurrentDdRowDescription" xml:space="preserve">
+    <value>Trailing peak equity से current drawdown दिखाता है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTradeMaxOpenPnlCurrentRow" xml:space="preserve">
+    <value>Current trade max open PnL दिखाएँ</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTradeMaxOpenPnlCurrentRowDescription" xml:space="preserve">
+    <value>Position में रहते हुए current trade का max open PnL दिखाता है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTradeMaxOpenPnlLastRow" xml:space="preserve">
+    <value>Last trade max open PnL दिखाएँ</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTradeMaxOpenPnlLastRowDescription" xml:space="preserve">
+    <value>Flat होने पर last closed trade का max open PnL दिखाता है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowLastClosedTradePnlRow" xml:space="preserve">
+    <value>Last closed trade PnL दिखाएँ</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowLastClosedTradePnlRowDescription" xml:space="preserve">
+    <value>Flat होने पर last closed trade का realized PnL दिखाता है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowTrailingRemainingDd" xml:space="preserve">
+    <value>Trailing Remaining DD</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowTrailingCurrentDd" xml:space="preserve">
+    <value>Trailing Current DD</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowLastClosedTradePnL" xml:space="preserve">
+    <value>Last Trade PnL (Closed)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="HorizontalPosition" xml:space="preserve">
+    <value>Horizontal position</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="HorizontalPositionDescription" xml:space="preserve">
+    <value>Chart पर panel का horizontal alignment.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="VerticalPosition" xml:space="preserve">
+    <value>Vertical position</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="VerticalPositionDescription" xml:space="preserve">
+    <value>Chart पर panel का vertical alignment.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="LayoutGroup" xml:space="preserve">
     <value>लेआउट</value>
-  </data><!-- Price rails (settings) -->
-<data name="EnablePriceRails" xml:space="preserve">
-  <value>Price rails enable करें</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="EnablePriceRailsDescription" xml:space="preserve">
-  <value>Price rails (target और effective stop) सक्षम करता है। केवल display.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowTargetRail" xml:space="preserve">
-  <value>Target rail दिखाएँ</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTargetRailDescription" xml:space="preserve">
-  <value>आज के realized PnL और current position size के आधार पर daily profit target तक पहुँचने के लिए target price दिखाता है।</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowStopRail" xml:space="preserve">
-  <value>Stop rail दिखाएँ</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowStopRailDescription" xml:space="preserve">
-  <value>सबसे restrictive STOP driver (daily loss बनाम trailing drawdown) के आधार पर effective stop price दिखाता है।</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowRailLabels" xml:space="preserve">
-  <value>Rail labels दिखाएँ</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowRailLabelsDescription" xml:space="preserve">
-  <value>Price rails के लिए descriptive labels दिखाता है (target/stop reason).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="RailLineWidth" xml:space="preserve">
-  <value>Rail line width</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RailLineWidthDescription" xml:space="preserve">
-  <value>Chart पर price rails के लिए line width.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<!-- Price rails (panel rows) -->
-<data name="RowPriceRailTarget" xml:space="preserve">
-  <value>Target price</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowPriceRailStop" xml:space="preserve">
-  <value>Stop price</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<!-- Price rails (reasons + label formats) -->
-<data name="StopReasonDailyLoss" xml:space="preserve">
-  <value>Daily loss limit</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="StopReasonTrailingDd" xml:space="preserve">
-  <value>Trailing drawdown</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="RailTargetLabelFormat" xml:space="preserve">
-  <value>Target {0:N2} | left {1}</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RailStopLabelFormat" xml:space="preserve">
-  <value>Stop ({0}) {1:N2}</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
+  </data>
+  <data name="EnablePriceRails" xml:space="preserve">
+    <value>Price rails enable करें</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnablePriceRailsDescription" xml:space="preserve">
+    <value>Price rails (target और effective stop) सक्षम करता है। केवल display.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTargetRail" xml:space="preserve">
+    <value>Target rail दिखाएँ</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTargetRailDescription" xml:space="preserve">
+    <value>आज के realized PnL और current position size के आधार पर daily profit target तक पहुँचने के लिए target price दिखाता है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowStopRail" xml:space="preserve">
+    <value>Stop rail दिखाएँ</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowStopRailDescription" xml:space="preserve">
+    <value>सबसे restrictive STOP driver (daily loss बनाम trailing drawdown) के आधार पर effective stop price दिखाता है।</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowRailLabels" xml:space="preserve">
+    <value>Rail labels दिखाएँ</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowRailLabelsDescription" xml:space="preserve">
+    <value>Price rails के लिए descriptive labels दिखाता है (target/stop reason).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RailLineWidth" xml:space="preserve">
+    <value>Rail line width</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RailLineWidthDescription" xml:space="preserve">
+    <value>Chart पर price rails के लिए line width.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowPriceRailTarget" xml:space="preserve">
+    <value>Target price</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowPriceRailStop" xml:space="preserve">
+    <value>Stop price</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="StopReasonDailyLoss" xml:space="preserve">
+    <value>Daily loss limit</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="StopReasonTrailingDd" xml:space="preserve">
+    <value>Trailing drawdown</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RailTargetLabelFormat" xml:space="preserve">
+    <value>Target {0:N2} | left {1}</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RailStopLabelFormat" xml:space="preserve">
+    <value>Stop ({0}) {1:N2}</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
   <data name="DiagonalImbalance" xml:space="preserve">
     <value>डायगोनल असंतुलन</value>
     <comment>ClusterSearch</comment>
@@ -2563,10 +2522,6 @@
   </data>
   <data name="ImbalancesVisualization" xml:space="preserve">
     <value>असंतुलन विज़ुअलाइज़ेशन</value>
-    <comment>ClusterSearch</comment>
-  </data>
-  <data name="ImbalanceRatio" xml:space="preserve">
-    <value>असंतुलन अनुपात</value>
     <comment>ClusterSearch</comment>
   </data>
   <data name="MinVolumeDifference" xml:space="preserve">
@@ -2621,25 +2576,7 @@
     <value>बिक्री-तरफ़ डायगोनल असंतुलन के लिए रंग।</value>
     <comment>ClusterSearch</comment>
   </data>
-
-<data name="IBHM" xml:space="preserve">
-    <value>IBH-IBM</value>
-  </data><data name="IBHX1H" xml:space="preserve">
-    <value>IBHX1-आईबीएच</value>
-  </data><data name="IBHX21" xml:space="preserve">
-    <value>IBHX2-1</value>
-  </data><data name="IBHX32" xml:space="preserve">
-    <value>IBHX3-2</value>
-  </data><data name="IBL1" xml:space="preserve">
-    <value>IBL-IBLX1</value>
-  </data><data name="IBLX12" xml:space="preserve">
-    <value>IBLX1-2</value>
-  </data><data name="IBLX23" xml:space="preserve">
-    <value>IBLX2-3</value>
-  </data><data name="IBML" xml:space="preserve">
-    <value>IBM-IBL</value>
-  </data>
-    <data name="LabelPosition" xml:space="preserve">
+  <data name="LabelPosition" xml:space="preserve">
     <value>लेबल स्थिति</value>
     <comment>UI</comment>
   </data>
@@ -2647,7 +2584,6 @@
     <value>लेबल की स्थिति: अंतिम बार पर, बाएँ, दाएँ या छिपा हुआ।</value>
     <comment>UI</comment>
   </data>
-
   <data name="OverlayLineType" xml:space="preserve">
     <value>ओवरले लाइन प्रकार</value>
     <comment>UI</comment>
@@ -2656,7 +2592,6 @@
     <value>Initial Balance स्तरों से लेबल तक या पूरे चार्ट की चौड़ाई तक क्षैतिज रेखाएँ खींचता है।</value>
     <comment>UI</comment>
   </data>
-
   <data name="ShowDuringFormation" xml:space="preserve">
     <value>निर्माण के दौरान दिखाएँ</value>
     <comment>UI</comment>
@@ -2665,326 +2600,310 @@
     <value>यदि अक्षम किया गया, तो Initial Balance पूर्ण होने तक रेखाएँ और लेबल छिपे रहेंगे।</value>
     <comment>UI</comment>
   </data>
-<data name="IsNeedShowLabelDescription" xml:space="preserve">
+  <data name="IsNeedShowLabelDescription" xml:space="preserve">
     <value>यह निर्धारित करता है कि क्या पाठ लेबल प्रदर्शित किया जाना चाहिए।</value>
   </data>
   <data name="InitialBalance_LabelMid" xml:space="preserve">
-  <value>Mid</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBH" xml:space="preserve">
-  <value>IBH</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBL" xml:space="preserve">
-  <value>IBL</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBM" xml:space="preserve">
-  <value>IBM</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBHX1" xml:space="preserve">
-  <value>IBHX1</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBHX2" xml:space="preserve">
-  <value>IBHX2</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBHX3" xml:space="preserve">
-  <value>IBHX3</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBLX1" xml:space="preserve">
-  <value>IBLX1</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBLX2" xml:space="preserve">
-  <value>IBLX2</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBLX3" xml:space="preserve">
-  <value>IBLX3</value>
-  <comment>InitialBalance</comment>
-</data>
+    <value>Mid</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBH" xml:space="preserve">
+    <value>IBH</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBL" xml:space="preserve">
+    <value>IBL</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBM" xml:space="preserve">
+    <value>IBM</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBHX1" xml:space="preserve">
+    <value>IBHX1</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBHX2" xml:space="preserve">
+    <value>IBHX2</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBHX3" xml:space="preserve">
+    <value>IBHX3</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBLX1" xml:space="preserve">
+    <value>IBLX1</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBLX2" xml:space="preserve">
+    <value>IBLX2</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBLX3" xml:space="preserve">
+    <value>IBLX3</value>
+    <comment>InitialBalance</comment>
+  </data>
   <data name="TradingDayStart" xml:space="preserve">
     <value>ट्रेडिंग डे की शुरुआत</value>
     <comment>DailyLines</comment>
   </data>
   <data name="TradingDayStartDescription" xml:space="preserve">
-    <value>एंकर समय जो यह निर्धारित करता है कि नया ट्रेडिंग डे कब शुरू होता है। इससे यह तय होता है कि कौन सा दिन "वर्तमान" और "पिछला" माना जाएगा (जैसे वीकेंड/छुट्टियाँ), लेकिन OHLC केवल चयनित सेशन विंडो के भीतर की कैंडल्स से ही निकाला जाता है।</value>
+    <value>एंकर समय जो नए ट्रेडिंग दिन की शुरुआत को परिभाषित करता है। यह निर्धारित करता है कि कौन सा दिन "वर्तमान" और "पिछला" माना जाएगा।</value>
     <comment>DailyLines</comment>
   </data>
   <data name="HalfGap" xml:space="preserve">
-  <value>Half Gap</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="HalfGapDescription" xml:space="preserve">
-  <value>पिछले सत्र के क्लोज़ और वर्तमान सत्र के ओपन के बीच का मध्य बिंदु (आमतौर पर RTH उपयोग के लिए)।</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowHalfGap" xml:space="preserve">
-  <value>Half Gap दिखाएँ</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowHalfGapDescription" xml:space="preserve">
-  <value>Half Gap लाइन दिखाएँ (केवल वर्तमान दिन के लिए जब कस्टम सत्र सक्रिय हो)।</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="HalfGapText" xml:space="preserve">
-  <value>Half Gap टेक्स्ट</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="HalfGapTextDescription" xml:space="preserve">
-  <value>Half Gap लाइन के लिए प्रदर्शित लेबल टेक्स्ट।</value>
-  <comment>DailyLines</comment>
-</data><data name="PenSettingsDescription" xml:space="preserve">
+    <value>Half Gap</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="HalfGapDescription" xml:space="preserve">
+    <value>पिछले सत्र के क्लोज़ और वर्तमान सत्र के ओपन के बीच का मध्य बिंदु (आमतौर पर RTH उपयोग के लिए)।</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowHalfGap" xml:space="preserve">
+    <value>Half Gap दिखाएँ</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowHalfGapDescription" xml:space="preserve">
+    <value>Half Gap लाइन दिखाएँ (केवल वर्तमान दिन के लिए जब कस्टम सत्र सक्रिय हो)।</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="HalfGapText" xml:space="preserve">
+    <value>Half Gap टेक्स्ट</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="HalfGapTextDescription" xml:space="preserve">
+    <value>Half Gap लाइन के लिए प्रदर्शित लेबल टेक्स्ट।</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PenSettingsDescription" xml:space="preserve">
     <value>प्रदर्शित रेखाओं के रंग, शैली और चौड़ाई के लिए सेटिंग्स निर्धारित करता है।</value>
   </data>
   <data name="MultiScope" xml:space="preserve">
-  <value>मल्टी-स्कोप</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="MultiScopeDescription" xml:space="preserve">
-  <value>एक साथ कई पीरियड दिखाने की अनुमति देता है (एक ही Period चुनने के बजाय)।</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowCurrentDay" xml:space="preserve">
-  <value>वर्तमान दिन दिखाएँ</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowCurrentDayDescription" xml:space="preserve">
-  <value>वर्तमान दिन के लेवल दिखाएँ।</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowPreviousDay" xml:space="preserve">
-  <value>पिछला दिन दिखाएँ</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowPreviousDayDescription" xml:space="preserve">
-  <value>पिछले दिन के लेवल दिखाएँ।</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowCurrentWeek" xml:space="preserve">
-  <value>वर्तमान सप्ताह दिखाएँ</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowCurrentWeekDescription" xml:space="preserve">
-  <value>वर्तमान सप्ताह के लेवल दिखाएँ।</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowPreviousWeek" xml:space="preserve">
-  <value>पिछला सप्ताह दिखाएँ</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowPreviousWeekDescription" xml:space="preserve">
-  <value>पिछले सप्ताह के लेवल दिखाएँ।</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowCurrentMonth" xml:space="preserve">
-  <value>वर्तमान माह दिखाएँ</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowCurrentMonthDescription" xml:space="preserve">
-  <value>वर्तमान माह के लेवल दिखाएँ।</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowPreviousMonth" xml:space="preserve">
-  <value>पिछला माह दिखाएँ</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowPreviousMonthDescription" xml:space="preserve">
-  <value>पिछले माह के लेवल दिखाएँ।</value>
-  <comment>DailyLines</comment>
-</data><data name="PeriodDescription" xml:space="preserve">
+    <value>मल्टी-स्कोप</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="MultiScopeDescription" xml:space="preserve">
+    <value>एक साथ कई पीरियड दिखाने की अनुमति देता है (एक ही Period चुनने के बजाय)।</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentDay" xml:space="preserve">
+    <value>वर्तमान दिन दिखाएँ</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentDayDescription" xml:space="preserve">
+    <value>वर्तमान दिन के लेवल दिखाएँ।</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousDay" xml:space="preserve">
+    <value>पिछला दिन दिखाएँ</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousDayDescription" xml:space="preserve">
+    <value>पिछले दिन के लेवल दिखाएँ।</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentWeek" xml:space="preserve">
+    <value>वर्तमान सप्ताह दिखाएँ</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentWeekDescription" xml:space="preserve">
+    <value>वर्तमान सप्ताह के लेवल दिखाएँ।</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousWeek" xml:space="preserve">
+    <value>पिछला सप्ताह दिखाएँ</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousWeekDescription" xml:space="preserve">
+    <value>पिछले सप्ताह के लेवल दिखाएँ।</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentMonth" xml:space="preserve">
+    <value>वर्तमान माह दिखाएँ</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentMonthDescription" xml:space="preserve">
+    <value>वर्तमान माह के लेवल दिखाएँ।</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousMonth" xml:space="preserve">
+    <value>पिछला माह दिखाएँ</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousMonthDescription" xml:space="preserve">
+    <value>पिछले माह के लेवल दिखाएँ।</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PeriodDescription" xml:space="preserve">
     <value>गणना में शामिल होने वाली हाल की मोमबत्तियों की मात्रा को निर्धारित करता है।</value>
-  </data><data name="IsCustomSessionDescription" xml:space="preserve">
+  </data>
+  <data name="IsCustomSessionDescription" xml:space="preserve">
     <value>यदि सक्षम है, तो एक कस्टम सत्र का उपयोग करने की अनुमति देता है, अन्यथा डिफ़ॉल्ट सत्र का उपयोग किया जाएगा।</value>
-  </data><data name="SessionBeginDescription" xml:space="preserve">
+  </data>
+  <data name="SessionBeginDescription" xml:space="preserve">
     <value>डेटा रिकॉर्डिंग की शुरुआत तिथि को परिभाषित करता है।</value>
-  </data><data name="SessionEndDescription" xml:space="preserve">
+  </data>
+  <data name="SessionEndDescription" xml:space="preserve">
     <value>डेटा रिकॉर्डिंग की समाप्ति तिथि को परिभाषित करता है।</value>
   </data>
   <data name="ShowEth" xml:space="preserve">
-  <value>ETH दिखाएँ (18:00→RTH)</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowEthDescription" xml:space="preserve">
-  <value>Trading Day Start से RTH start तक ETH levels दिखाता है (custom session start time).</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="Eth" xml:space="preserve">
-  <value>ETH</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="NoDataForPeriod" xml:space="preserve">
-  <value>गणना के लिए डेटा नहीं है: {0}</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="IncompleteDataForPeriod" xml:space="preserve">
-  <value>अधूरा इतिहास (गलत हो सकता है): {0}</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="Rth" xml:space="preserve">
-  <value>RTH</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowCurrentRth" xml:space="preserve">
-  <value>वर्तमान RTH दिखाएँ</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowCurrentRthDescription" xml:space="preserve">
-  <value>वर्तमान RTH सत्र के स्तर दिखाएँ (कस्टम सत्र विंडो)।</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowPreviousRth" xml:space="preserve">
-  <value>पिछला RTH दिखाएँ</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowPreviousRthDescription" xml:space="preserve">
-  <value>पिछले RTH सत्र के स्तर दिखाएँ (कस्टम सत्र विंडो)।</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="DayFamilyLevels" xml:space="preserve">
-  <value>डे-फ़ैमिली: स्तर</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="DayFamilyLevelsDescription" xml:space="preserve">
-  <value>Day / ETH / RTH स्कोप के लिए कौन-से OHLC स्तर ड्रॉ हों, चुनें।</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="DayLevels" xml:space="preserve">
-  <value>Day स्तर</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="DayLevelsDescription" xml:space="preserve">
-  <value>Current Day के लिए ड्रॉ होने वाले स्तर (multi-scope में पूरा दिन)।</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="PrevDayLevels" xml:space="preserve">
-  <value>पिछला Day स्तर</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="PrevDayLevelsDescription" xml:space="preserve">
-  <value>Previous Day के लिए ड्रॉ होने वाले स्तर (multi-scope में पूरा दिन)।</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="EthLevels" xml:space="preserve">
-  <value>ETH स्तर</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="EthLevelsDescription" xml:space="preserve">
-  <value>ETH के लिए ड्रॉ होने वाले स्तर (TradingDayStart → RTH शुरुआत)।</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="RthLevels" xml:space="preserve">
-  <value>RTH स्तर</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="RthLevelsDescription" xml:space="preserve">
-  <value>Current RTH के लिए ड्रॉ होने वाले स्तर (कस्टम सत्र विंडो)।</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="PrevRthLevels" xml:space="preserve">
-  <value>पिछला RTH स्तर</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="PrevRthLevelsDescription" xml:space="preserve">
-  <value>Previous RTH के लिए ड्रॉ होने वाले स्तर (कस्टम सत्र विंडो)।</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="DayFamilyStyles" xml:space="preserve">
-  <value>डे-फ़ैमिली: स्टाइल</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="DayFamilyStylesDescription" xml:space="preserve">
-  <value>multi-scope में Day / ETH / RTH के लिए स्कोप के अनुसार लाइन स्टाइल बदलें।</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="UseScopeStyleOverrides" xml:space="preserve">
-  <value>स्कोप स्टाइल ओवरराइड उपयोग करें</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="UseScopeStyleOverridesDescription" xml:space="preserve">
-  <value>सक्रिय होने पर, Day/ETH/RTH स्कोप global OHLC स्टाइल की जगह अपना लाइन स्टाइल उपयोग करेंगे।</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="DayScopePen" xml:space="preserve">
-  <value>Day स्टाइल</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="DayScopePenDescription" xml:space="preserve">
-  <value>Current Day स्कोप के लिए लाइन स्टाइल।</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="PrevDayScopePen" xml:space="preserve">
-  <value>Previous Day स्टाइल</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="PrevDayScopePenDescription" xml:space="preserve">
-  <value>Previous Day स्कोप के लिए लाइन स्टाइल।</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="EthScopePen" xml:space="preserve">
-  <value>ETH स्टाइल</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="EthScopePenDescription" xml:space="preserve">
-  <value>ETH स्कोप के लिए लाइन स्टाइल।</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="RthScopePen" xml:space="preserve">
-  <value>RTH स्टाइल</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="RthScopePenDescription" xml:space="preserve">
-  <value>Current RTH स्कोप के लिए लाइन स्टाइल।</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="PrevRthScopePen" xml:space="preserve">
-  <value>Previous RTH स्टाइल</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="PrevRthScopePenDescription" xml:space="preserve">
-  <value>Previous RTH स्कोप के लिए लाइन स्टाइल।</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="CurrentDayRthEthSplit" xml:space="preserve">
-  <value>वर्तमान दिन को RTH/ETH में विभाजित करें</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="CurrentDayRthEthSplitDescription" xml:space="preserve">
-  <value>यदि MultiScope अक्षम है, तो Current Day के लेवल केवल RTH के लिए दिखते हैं। यदि MultiScope सक्षम है, तो यह विकल्प नीचे दिए गए RTH start/end समय का उपयोग करके RTH और ETH को अलग-अलग दिखाने देता है।</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="DrawFromSignificantBar" xml:space="preserve">
-  <value>महत्वपूर्ण बार से</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="DrawFromSignificantBarDescription" xml:space="preserve">
-  <value>यदि सक्षम है, तो लाइनें उस बार से शुरू होती हैं जिसने लेवल बनाया (Open=पहली बार, High/Low=एक्सट्रीम बार, Close=अंतिम बार)। यदि अक्षम है, तो लाइनें पीरियड सीमा से शुरू होती हैं।</value>
-  <comment>DailyLines</comment>
-</data></root>
+    <value>ETH दिखाएँ (18:00→RTH)</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowEthDescription" xml:space="preserve">
+    <value>Trading Day Start से RTH start तक ETH levels दिखाता है (custom session start time).</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="Eth" xml:space="preserve">
+    <value>ETH</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="NoDataForPeriod" xml:space="preserve">
+    <value>गणना के लिए डेटा नहीं है: {0}</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="IncompleteDataForPeriod" xml:space="preserve">
+    <value>अधूरा इतिहास (गलत हो सकता है): {0}</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="Rth" xml:space="preserve">
+    <value>RTH</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentRth" xml:space="preserve">
+    <value>वर्तमान RTH दिखाएँ</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentRthDescription" xml:space="preserve">
+    <value>वर्तमान RTH सत्र के स्तर दिखाएँ (कस्टम सत्र विंडो)।</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousRth" xml:space="preserve">
+    <value>पिछला RTH दिखाएँ</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousRthDescription" xml:space="preserve">
+    <value>पिछले RTH सत्र के स्तर दिखाएँ (कस्टम सत्र विंडो)।</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayFamilyLevels" xml:space="preserve">
+    <value>डे-फ़ैमिली: स्तर</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayFamilyLevelsDescription" xml:space="preserve">
+    <value>Day / ETH / RTH स्कोप के लिए कौन-से OHLC स्तर ड्रॉ हों, चुनें।</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayLevels" xml:space="preserve">
+    <value>Day स्तर</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayLevelsDescription" xml:space="preserve">
+    <value>Current Day के लिए ड्रॉ होने वाले स्तर (multi-scope में पूरा दिन)।</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevDayLevels" xml:space="preserve">
+    <value>पिछला Day स्तर</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevDayLevelsDescription" xml:space="preserve">
+    <value>Previous Day के लिए ड्रॉ होने वाले स्तर (multi-scope में पूरा दिन)।</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="EthLevels" xml:space="preserve">
+    <value>ETH स्तर</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="EthLevelsDescription" xml:space="preserve">
+    <value>ETH के लिए ड्रॉ होने वाले स्तर (TradingDayStart → RTH शुरुआत)।</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="RthLevels" xml:space="preserve">
+    <value>RTH स्तर</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="RthLevelsDescription" xml:space="preserve">
+    <value>Current RTH के लिए ड्रॉ होने वाले स्तर (कस्टम सत्र विंडो)।</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevRthLevels" xml:space="preserve">
+    <value>पिछला RTH स्तर</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevRthLevelsDescription" xml:space="preserve">
+    <value>Previous RTH के लिए ड्रॉ होने वाले स्तर (कस्टम सत्र विंडो)।</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayFamilyStyles" xml:space="preserve">
+    <value>डे-फ़ैमिली: स्टाइल</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayFamilyStylesDescription" xml:space="preserve">
+    <value>multi-scope में Day / ETH / RTH के लिए स्कोप के अनुसार लाइन स्टाइल बदलें।</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="UseScopeStyleOverrides" xml:space="preserve">
+    <value>स्कोप स्टाइल ओवरराइड उपयोग करें</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="UseScopeStyleOverridesDescription" xml:space="preserve">
+    <value>सक्रिय होने पर, Day/ETH/RTH स्कोप global OHLC स्टाइल की जगह अपना लाइन स्टाइल उपयोग करेंगे।</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayScopePen" xml:space="preserve">
+    <value>Day स्टाइल</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayScopePenDescription" xml:space="preserve">
+    <value>Current Day स्कोप के लिए लाइन स्टाइल।</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevDayScopePen" xml:space="preserve">
+    <value>Previous Day स्टाइल</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevDayScopePenDescription" xml:space="preserve">
+    <value>Previous Day स्कोप के लिए लाइन स्टाइल।</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="EthScopePen" xml:space="preserve">
+    <value>ETH स्टाइल</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="EthScopePenDescription" xml:space="preserve">
+    <value>ETH स्कोप के लिए लाइन स्टाइल।</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="RthScopePen" xml:space="preserve">
+    <value>RTH स्टाइल</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="RthScopePenDescription" xml:space="preserve">
+    <value>Current RTH स्कोप के लिए लाइन स्टाइल।</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevRthScopePen" xml:space="preserve">
+    <value>Previous RTH स्टाइल</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevRthScopePenDescription" xml:space="preserve">
+    <value>Previous RTH स्कोप के लिए लाइन स्टाइल।</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="CurrentDayRthEthSplit" xml:space="preserve">
+    <value>वर्तमान दिन को RTH/ETH में विभाजित करें</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="CurrentDayRthEthSplitDescription" xml:space="preserve">
+    <value>यदि MultiScope अक्षम है, तो Current Day के लेवल केवल RTH के लिए दिखते हैं। यदि MultiScope सक्षम है, तो यह विकल्प नीचे दिए गए RTH start/end समय का उपयोग करके RTH और ETH को अलग-अलग दिखाने देता है।</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DrawFromSignificantBar" xml:space="preserve">
+    <value>महत्वपूर्ण बार से</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DrawFromSignificantBarDescription" xml:space="preserve">
+    <value>यदि सक्षम है, तो लाइनें उस बार से शुरू होती हैं जिसने लेवल बनाया (Open=पहली बार, High/Low=एक्सट्रीम बार, Close=अंतिम बार)। यदि अक्षम है, तो लाइनें पीरियड सीमा से शुरू होती हैं।</value>
+    <comment>DailyLines</comment>
+  </data>
+</root>

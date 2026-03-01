@@ -321,6 +321,10 @@
   <data name="OffsetX" xml:space="preserve">
     <value>X 轴位移</value>
   </data>
+  <data name="ImbalanceRatio" xml:space="preserve">
+    <value>失衡比率</value>
+    <comment>ClusterSearch</comment>
+  </data>
   <data name="LineWidth" xml:space="preserve">
     <value>线条宽度</value>
   </data>
@@ -359,6 +363,30 @@
   </data>
   <data name="NeutralBorderColor" xml:space="preserve">
     <value>边框颜色</value>
+  </data>
+  <data name="IBHM" xml:space="preserve">
+    <value>IBH-IBM</value>
+  </data>
+  <data name="IBHX1H" xml:space="preserve">
+    <value>IBHX1-IBH</value>
+  </data>
+  <data name="IBHX21" xml:space="preserve">
+    <value>IBHX2-1</value>
+  </data>
+  <data name="IBHX32" xml:space="preserve">
+    <value>IBHX3-2</value>
+  </data>
+  <data name="IBL1" xml:space="preserve">
+    <value>IBL-IBLX1</value>
+  </data>
+  <data name="IBLX12" xml:space="preserve">
+    <value>IBLX1-2</value>
+  </data>
+  <data name="IBLX23" xml:space="preserve">
+    <value>IBLX2-3</value>
+  </data>
+  <data name="IBML" xml:space="preserve">
+    <value>IBM-IBL</value>
   </data>
   <data name="Average" xml:space="preserve">
     <value>平均值</value>
@@ -1865,35 +1893,34 @@
     <value>追踪止损权益</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-	<data name="RowCurrency" xml:space="preserve">
-  <value>币种</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-	<data name="RowAvailable" xml:space="preserve">
-  <value>可用资金</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-	<data name="RowBlockedMargin" xml:space="preserve">
-  <value>已占用保证金</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-	<data name="RowLeverage" xml:space="preserve">
-  <value>杠杆</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-	<data name="RowClosedPnL" xml:space="preserve">
-  <value>已实现盈亏</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-	<data name="RowTotalPnL" xml:space="preserve">
-  <value>总盈亏</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
+  <data name="RowCurrency" xml:space="preserve">
+    <value>币种</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowAvailable" xml:space="preserve">
+    <value>可用资金</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowBlockedMargin" xml:space="preserve">
+    <value>已占用保证金</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowLeverage" xml:space="preserve">
+    <value>杠杆</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowClosedPnL" xml:space="preserve">
+    <value>已实现盈亏</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowTotalPnL" xml:space="preserve">
+    <value>总盈亏</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
   <data name="DailyRails" xml:space="preserve">
     <value>日内护栏</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="DailyResetMode" xml:space="preserve">
     <value>日内重置模式</value>
     <comment>AccountInfoDisplay</comment>
@@ -1902,7 +1929,6 @@
     <value>定义日内指标与护栏的重置时点。NewYork1700 使用 17:00（图表本地时间）的切换；LocalCustomTime 使用下方配置的本地时间。</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="DailyResetTimeLocal" xml:space="preserve">
     <value>日内重置时间（本地）</value>
     <comment>AccountInfoDisplay</comment>
@@ -1911,7 +1937,7 @@
     <value>仅当日内重置模式为 LocalCustomTime 时使用的本地重置时间。</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-    <data name="RowTradesToday" xml:space="preserve">
+  <data name="RowTradesToday" xml:space="preserve">
     <value>今日交易数</value>
     <comment>AccountInfoDisplay</comment>
   </data>
@@ -1927,7 +1953,7 @@
     <value>今日已实现盈亏</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-    <data name="ShowTradesTodayRow" xml:space="preserve">
+  <data name="ShowTradesTodayRow" xml:space="preserve">
     <value>显示今日交易数</value>
     <comment>AccountInfoDisplay</comment>
   </data>
@@ -1935,7 +1961,6 @@
     <value>显示当前交易日内已平仓的交易数量。</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="ShowWinsLossesTodayRow" xml:space="preserve">
     <value>显示今日盈 / 亏</value>
     <comment>AccountInfoDisplay</comment>
@@ -1944,7 +1969,6 @@
     <value>显示当前交易日内盈利和亏损交易的数量。</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="ShowCurrentStreakRow" xml:space="preserve">
     <value>显示当前连胜/连败</value>
     <comment>AccountInfoDisplay</comment>
@@ -1953,7 +1977,6 @@
     <value>显示当前交易日内的连续盈利或连续亏损情况。</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="ShowRealizedPnlTodayRow" xml:space="preserve">
     <value>显示今日已实现盈亏</value>
     <comment>AccountInfoDisplay</comment>
@@ -1962,11 +1985,10 @@
     <value>显示当前交易日内累计的已实现盈亏。</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-    <data name="SoftRecommendations" xml:space="preserve">
+  <data name="SoftRecommendations" xml:space="preserve">
     <value>操作建议</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="EnableSoftRecommendations" xml:space="preserve">
     <value>启用操作建议</value>
     <comment>AccountInfoDisplay</comment>
@@ -1975,7 +1997,6 @@
     <value>基于当日交易指标显示操作提示，不会阻止交易。</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="MaxTradesPerDay" xml:space="preserve">
     <value>每日最大交易次数</value>
     <comment>AccountInfoDisplay</comment>
@@ -1984,7 +2005,6 @@
     <value>在触发警告或建议停止之前，允许的每日最大交易次数。</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="MaxConsecutiveLosses" xml:space="preserve">
     <value>最大连续亏损次数</value>
     <comment>AccountInfoDisplay</comment>
@@ -1993,7 +2013,6 @@
     <value>在建议停止交易之前，允许的最大连续亏损交易次数。</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="CautionTradesThreshold" xml:space="preserve">
     <value>交易警告阈值</value>
     <comment>AccountInfoDisplay</comment>
@@ -2002,7 +2021,6 @@
     <value>在达到每日限制前显示警告的交易次数。</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="CautionLossesThreshold" xml:space="preserve">
     <value>亏损警告阈值</value>
     <comment>AccountInfoDisplay</comment>
@@ -2011,27 +2029,22 @@
     <value>在建议停止交易前显示警告的连续亏损次数。</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="RowSuggestedStatus" xml:space="preserve">
     <value>建议的操作状态</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="RowStopReasons" xml:space="preserve">
     <value>原因</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="SuggestedStatusOk" xml:space="preserve">
     <value>OK</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="SuggestedStatusCaution" xml:space="preserve">
     <value>警告</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="SuggestedStatusStop" xml:space="preserve">
     <value>停止（建议）</value>
     <comment>AccountInfoDisplay</comment>
@@ -2044,7 +2057,6 @@
     <value>根据当日会话指标显示建议交易状态（OK / 注意 / STOP）。</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="ShowStopReasonsRow" xml:space="preserve">
     <value>显示原因</value>
     <comment>AccountInfoDisplay</comment>
@@ -2053,462 +2065,401 @@
     <value>显示触发“注意”或“STOP”建议的原因。</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-<data name="ShowPositionSnapshot" xml:space="preserve">
-  <value>显示持仓快照</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowPositionSnapshotDescription" xml:space="preserve">
-  <value>显示当前持仓的简要快照（方向/数量/入场）。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowFlatRow" xml:space="preserve">
-  <value>显示 FLAT 行</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowFlatRowDescription" xml:space="preserve">
-  <value>当没有持仓时，显示 FLAT 行而不是持仓详情。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="RowPos" xml:space="preserve">
-  <value>Pos</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowPosDir" xml:space="preserve">
-  <value>Pos 方向</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowPosQty" xml:space="preserve">
-  <value>Pos 数量</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowPosEntry" xml:space="preserve">
-  <value>Pos 入场</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="PosFlatValue" xml:space="preserve">
-  <value>FLAT</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="EnableDailyRails" xml:space="preserve">
-  <value>启用每日风控限制</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="EnableDailyRailsDescription" xml:space="preserve">
-  <value>为账户启用每日亏损、盈利和回撤的硬性限制。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="DailyLossLimit" xml:space="preserve">
-  <value>每日亏损上限</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="DailyLossLimitDescription" xml:space="preserve">
-  <value>当权益从当日初始值下跌至该金额时停止交易。</value>
-  <comment>AccountInfoDisplay</comment>
-  
-  <data name="StopHitEarlierToday" xml:space="preserve">
-  <value>今日已触发过STOP。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-</data>
-
-<data name="DailyProfitTarget" xml:space="preserve">
-  <value>每日盈利目标</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="DailyProfitTargetDescription" xml:space="preserve">
-  <value>当权益达到当日盈利目标时停止交易。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="DailyMaxDrawdownFromPeak" xml:space="preserve">
-  <value>当日最高点最大回撤</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="DailyMaxDrawdownFromPeakDescription" xml:space="preserve">
-  <value>当权益从当日最高点回撤至该金额时停止交易。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="CautionLossFromStart" xml:space="preserve">
-  <value>谨慎：较日初回撤</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="CautionLossFromStartDescription" xml:space="preserve">
-  <value>当权益较当日初始值回撤到该金额时提示“谨慎”(0 = 关闭)。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="CautionGivebackFromPeak" xml:space="preserve">
-  <value>谨慎：较日内最高回吐</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="CautionGivebackFromPeakDescription" xml:space="preserve">
-  <value>当权益从当日最高点回吐到该金额时提示“谨慎”(0 = 关闭)。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="CautionLossFromStartPct" xml:space="preserve">
-  <value>谨慎：较日初回撤(%)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="CautionLossFromStartPctDescription" xml:space="preserve">
-  <value>当权益较当日初始值回撤到该百分比时提示“谨慎”(0 = 关闭)。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="CautionGivebackFromPeakPct" xml:space="preserve">
-  <value>谨慎：较最高回吐(%)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="CautionGivebackFromPeakPctDescription" xml:space="preserve">
-  <value>当权益从当日最高点回吐到该百分比时提示“谨慎”(0 = 关闭)。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="DailyRailsStopReasonGeneric" xml:space="preserve">
-  <value>每日风控：STOP。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowRemainingDailyLoss" xml:space="preserve">
-  <value>今日剩余亏损空间</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="RowRemainingDailyProfitTarget" xml:space="preserve">
-  <value>距离盈利目标剩余</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowRemainingDailyLossRow" xml:space="preserve">
-  <value>显示剩余亏损空间</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowRemainingDailyLossRowDescription" xml:space="preserve">
-  <value>显示距离每日亏损上限还剩多少（基于当前权益）。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowRemainingDailyProfitTargetRow" xml:space="preserve">
-  <value>显示距离盈利目标剩余</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowRemainingDailyProfitTargetRowDescription" xml:space="preserve">
-  <value>显示距离每日盈利目标还剩多少（基于当前权益）。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowTradeMaxOpenPnLCurrent" xml:space="preserve">
-  <value>最大未平仓盈亏（当前）</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowTradeMaxOpenPnLLast" xml:space="preserve">
-  <value>最大未平仓盈亏（上一笔）</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<!-- AccountInfoDisplay — Soft recommendations (0022 parity) -->
-
-<data name="CautionTradesPct" xml:space="preserve">
-  <value>交易次数 CAUTION（%）</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="CautionTradesPctDescription" xml:space="preserve">
-  <value>当今日交易次数达到“每日最大交易次数”的该百分比时触发 CAUTION（例如 0.75 = 75%）。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="CautionRemainingDailyLossPct" xml:space="preserve">
-  <value>剩余日亏损 CAUTION（%）</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="CautionRemainingDailyLossPctDescription" xml:space="preserve">
-  <value>当剩余可亏损额度低于日亏损上限的该百分比时触发 CAUTION。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="EnableConsistencyRules" xml:space="preserve">
-  <value>启用一致性规则</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="EnableConsistencyRulesDescription" xml:space="preserve">
-  <value>根据 payout 目标启用 payout 集中度检查（CAUTION/STOP）。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="PayoutObjective" xml:space="preserve">
-  <value>Payout 目标</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="PayoutObjectiveDescription" xml:space="preserve">
-  <value>一致性规则用于计算 CAUTION/STOP 阈值的目标值。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ConsistencyCautionPct" xml:space="preserve">
-  <value>一致性 CAUTION（%）</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ConsistencyCautionPctDescription" xml:space="preserve">
-  <value>当今日已实现盈亏达到 payout 目标的该百分比时触发 CAUTION。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ConsistencyStopPct" xml:space="preserve">
-  <value>一致性 STOP（%）</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ConsistencyStopPctDescription" xml:space="preserve">
-  <value>当今日已实现盈亏达到 payout 目标的该百分比时触发 STOP。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="EnableGivebackCaution" xml:space="preserve">
-  <value>启用回撤 CAUTION</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="EnableGivebackCautionDescription" xml:space="preserve">
-  <value>当今日盈亏从日内峰值回撤过大时触发 CAUTION。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="GivebackPctOfProfitTarget" xml:space="preserve">
-  <value>回撤 CAUTION（占日目标百分比）</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="GivebackPctOfProfitTargetDescription" xml:space="preserve">
-  <value>回撤阈值：日盈利目标的百分比（当日盈利目标 &gt; 0 时使用）。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="GivebackAbs" xml:space="preserve">
-  <value>回撤 CAUTION（绝对值）</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="GivebackAbsDescription" xml:space="preserve">
-  <value>当日盈利目标为 0 时使用的绝对回撤阈值。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<!-- AccountInfoDisplay — Soft recommendations (reason texts) -->
-
-<data name="CautionOneLossAway" xml:space="preserve">
-  <value>CAUTION：距离达到最大连续亏损还差一笔亏损。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="CautionRemainingDailyLossLow" xml:space="preserve">
-  <value>CAUTION：剩余日亏损额度偏低。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ConsistencyCautionReason" xml:space="preserve">
-  <value>CAUTION：达到 payout 集中度阈值。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ConsistencyStopReason" xml:space="preserve">
-  <value>STOP：达到 payout 集中度阈值。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="GivebackCautionReason" xml:space="preserve">
-  <value>CAUTION：达到日内回撤阈值。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<!-- AccountInfoDisplay — Groups -->
-<data name="RowsTrailingDd" xml:space="preserve">
-  <value>行：跟踪回撤</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowsTrade" xml:space="preserve">
-  <value>行：交易</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<!-- AccountInfoDisplay — Row toggles (Trailing DD) -->
-<data name="ShowTrailingStartEquityRow" xml:space="preserve">
-  <value>显示跟踪起始权益</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTrailingStartEquityRowDescription" xml:space="preserve">
-  <value>显示跟踪回撤的起始权益行。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowTrailingPeakEquityRow" xml:space="preserve">
-  <value>显示跟踪峰值权益</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTrailingPeakEquityRowDescription" xml:space="preserve">
-  <value>显示跟踪回撤的峰值权益行。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowTrailingStopEquityRow" xml:space="preserve">
-  <value>显示跟踪止损权益</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTrailingStopEquityRowDescription" xml:space="preserve">
-  <value>显示跟踪回撤的止损权益行。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowTrailingRemainingDdRow" xml:space="preserve">
-  <value>显示跟踪剩余回撤</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTrailingRemainingDdRowDescription" xml:space="preserve">
-  <value>显示距离跟踪止损权益的剩余回撤。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowTrailingCurrentDdRow" xml:space="preserve">
-  <value>显示跟踪当前回撤</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTrailingCurrentDdRowDescription" xml:space="preserve">
-  <value>显示从跟踪峰值权益回落的当前回撤。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<!-- AccountInfoDisplay — Row toggles (Trade) -->
-<data name="ShowTradeMaxOpenPnlCurrentRow" xml:space="preserve">
-  <value>显示当前交易最大未平仓盈亏</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTradeMaxOpenPnlCurrentRowDescription" xml:space="preserve">
-  <value>持仓时显示当前交易的最大未平仓盈亏。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowTradeMaxOpenPnlLastRow" xml:space="preserve">
-  <value>显示上一笔交易最大未平仓盈亏</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTradeMaxOpenPnlLastRowDescription" xml:space="preserve">
-  <value>空仓时显示上一笔已平仓交易的最大未平仓盈亏。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowLastClosedTradePnlRow" xml:space="preserve">
-  <value>显示上一笔已平仓交易盈亏</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowLastClosedTradePnlRowDescription" xml:space="preserve">
-  <value>空仓时显示上一笔已平仓交易的已实现盈亏。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<!-- AccountInfoDisplay — Row labels -->
-<data name="RowTrailingRemainingDd" xml:space="preserve">
-  <value>跟踪剩余回撤</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowTrailingCurrentDd" xml:space="preserve">
-  <value>跟踪当前回撤</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowLastClosedTradePnL" xml:space="preserve">
-  <value>上一笔交易盈亏（已平仓）</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="HorizontalPosition" xml:space="preserve">
-  <value>水平位置</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="HorizontalPositionDescription" xml:space="preserve">
-  <value>面板在图表上的水平对齐方式。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="VerticalPosition" xml:space="preserve">
-  <value>垂直位置</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="VerticalPositionDescription" xml:space="preserve">
-  <value>面板在图表上的垂直对齐方式。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="LayoutGroup" xml:space="preserve">
+  <data name="ShowPositionSnapshot" xml:space="preserve">
+    <value>显示持仓快照</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowPositionSnapshotDescription" xml:space="preserve">
+    <value>显示当前持仓的简要快照（方向/数量/入场）。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowFlatRow" xml:space="preserve">
+    <value>显示 FLAT 行</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowFlatRowDescription" xml:space="preserve">
+    <value>当没有持仓时，显示 FLAT 行而不是持仓详情。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowPos" xml:space="preserve">
+    <value>Pos</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowPosDir" xml:space="preserve">
+    <value>Pos 方向</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowPosQty" xml:space="preserve">
+    <value>Pos 数量</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowPosEntry" xml:space="preserve">
+    <value>Pos 入场</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="PosFlatValue" xml:space="preserve">
+    <value>FLAT</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableDailyRails" xml:space="preserve">
+    <value>启用每日风控限制</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableDailyRailsDescription" xml:space="preserve">
+    <value>为账户启用每日亏损、盈利和回撤的硬性限制。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyLossLimit" xml:space="preserve">
+    <value>每日亏损上限</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyLossLimitDescription" xml:space="preserve">
+    <value>今日已触发过STOP。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyProfitTarget" xml:space="preserve">
+    <value>每日盈利目标</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyProfitTargetDescription" xml:space="preserve">
+    <value>当权益达到当日盈利目标时停止交易。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyMaxDrawdownFromPeak" xml:space="preserve">
+    <value>当日最高点最大回撤</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyMaxDrawdownFromPeakDescription" xml:space="preserve">
+    <value>当权益从当日最高点回撤至该金额时停止交易。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyRailsStopReasonGeneric" xml:space="preserve">
+    <value>每日风控：STOP。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionLossFromStart" xml:space="preserve">
+    <value>谨慎：较日初回撤</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionLossFromStartDescription" xml:space="preserve">
+    <value>当权益较当日初始值回撤到该金额时提示“谨慎”(0 = 关闭)。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionGivebackFromPeak" xml:space="preserve">
+    <value>谨慎：较日内最高回吐</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionGivebackFromPeakDescription" xml:space="preserve">
+    <value>当权益从当日最高点回吐到该金额时提示“谨慎”(0 = 关闭)。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionLossFromStartPct" xml:space="preserve">
+    <value>谨慎：较日初回撤(%)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionLossFromStartPctDescription" xml:space="preserve">
+    <value>当权益较当日初始值回撤到该百分比时提示“谨慎”(0 = 关闭)。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionGivebackFromPeakPct" xml:space="preserve">
+    <value>谨慎：较最高回吐(%)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionGivebackFromPeakPctDescription" xml:space="preserve">
+    <value>当权益从当日最高点回吐到该百分比时提示“谨慎”(0 = 关闭)。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowRemainingDailyLoss" xml:space="preserve">
+    <value>今日剩余亏损空间</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowRemainingDailyProfitTarget" xml:space="preserve">
+    <value>距离盈利目标剩余</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowRemainingDailyLossRow" xml:space="preserve">
+    <value>显示剩余亏损空间</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowRemainingDailyLossRowDescription" xml:space="preserve">
+    <value>显示距离每日亏损上限还剩多少（基于当前权益）。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowRemainingDailyProfitTargetRow" xml:space="preserve">
+    <value>显示距离盈利目标剩余</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowRemainingDailyProfitTargetRowDescription" xml:space="preserve">
+    <value>显示距离每日盈利目标还剩多少（基于当前权益）。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowTradeMaxOpenPnLCurrent" xml:space="preserve">
+    <value>最大未平仓盈亏（当前）</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowTradeMaxOpenPnLLast" xml:space="preserve">
+    <value>最大未平仓盈亏（上一笔）</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionTradesPct" xml:space="preserve">
+    <value>交易次数 CAUTION（%）</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionTradesPctDescription" xml:space="preserve">
+    <value>当今日交易次数达到“每日最大交易次数”的该百分比时触发 CAUTION（例如 0.75 = 75%）。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionRemainingDailyLossPct" xml:space="preserve">
+    <value>剩余日亏损 CAUTION（%）</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionRemainingDailyLossPctDescription" xml:space="preserve">
+    <value>当剩余可亏损额度低于日亏损上限的该百分比时触发 CAUTION。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableConsistencyRules" xml:space="preserve">
+    <value>启用一致性规则</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableConsistencyRulesDescription" xml:space="preserve">
+    <value>根据 payout 目标启用 payout 集中度检查（CAUTION/STOP）。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="PayoutObjective" xml:space="preserve">
+    <value>Payout 目标</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="PayoutObjectiveDescription" xml:space="preserve">
+    <value>一致性规则用于计算 CAUTION/STOP 阈值的目标值。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ConsistencyCautionPct" xml:space="preserve">
+    <value>一致性 CAUTION（%）</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ConsistencyCautionPctDescription" xml:space="preserve">
+    <value>当今日已实现盈亏达到 payout 目标的该百分比时触发 CAUTION。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ConsistencyStopPct" xml:space="preserve">
+    <value>一致性 STOP（%）</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ConsistencyStopPctDescription" xml:space="preserve">
+    <value>当今日已实现盈亏达到 payout 目标的该百分比时触发 STOP。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableGivebackCaution" xml:space="preserve">
+    <value>启用回撤 CAUTION</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableGivebackCautionDescription" xml:space="preserve">
+    <value>当今日盈亏从日内峰值回撤过大时触发 CAUTION。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="GivebackPctOfProfitTarget" xml:space="preserve">
+    <value>回撤 CAUTION（占日目标百分比）</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="GivebackPctOfProfitTargetDescription" xml:space="preserve">
+    <value>回撤阈值：日盈利目标的百分比（当日盈利目标 &gt; 0 时使用）。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="GivebackAbs" xml:space="preserve">
+    <value>回撤 CAUTION（绝对值）</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="GivebackAbsDescription" xml:space="preserve">
+    <value>当日盈利目标为 0 时使用的绝对回撤阈值。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionOneLossAway" xml:space="preserve">
+    <value>CAUTION：距离达到最大连续亏损还差一笔亏损。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionRemainingDailyLossLow" xml:space="preserve">
+    <value>CAUTION：剩余日亏损额度偏低。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ConsistencyCautionReason" xml:space="preserve">
+    <value>CAUTION：达到 payout 集中度阈值。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ConsistencyStopReason" xml:space="preserve">
+    <value>STOP：达到 payout 集中度阈值。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="GivebackCautionReason" xml:space="preserve">
+    <value>CAUTION：达到日内回撤阈值。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowsTrailingDd" xml:space="preserve">
+    <value>行：跟踪回撤</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowsTrade" xml:space="preserve">
+    <value>行：交易</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingStartEquityRow" xml:space="preserve">
+    <value>显示跟踪起始权益</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingStartEquityRowDescription" xml:space="preserve">
+    <value>显示跟踪回撤的起始权益行。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingPeakEquityRow" xml:space="preserve">
+    <value>显示跟踪峰值权益</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingPeakEquityRowDescription" xml:space="preserve">
+    <value>显示跟踪回撤的峰值权益行。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingStopEquityRow" xml:space="preserve">
+    <value>显示跟踪止损权益</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingStopEquityRowDescription" xml:space="preserve">
+    <value>显示跟踪回撤的止损权益行。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingRemainingDdRow" xml:space="preserve">
+    <value>显示跟踪剩余回撤</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingRemainingDdRowDescription" xml:space="preserve">
+    <value>显示距离跟踪止损权益的剩余回撤。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingCurrentDdRow" xml:space="preserve">
+    <value>显示跟踪当前回撤</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingCurrentDdRowDescription" xml:space="preserve">
+    <value>显示从跟踪峰值权益回落的当前回撤。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTradeMaxOpenPnlCurrentRow" xml:space="preserve">
+    <value>显示当前交易最大未平仓盈亏</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTradeMaxOpenPnlCurrentRowDescription" xml:space="preserve">
+    <value>持仓时显示当前交易的最大未平仓盈亏。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTradeMaxOpenPnlLastRow" xml:space="preserve">
+    <value>显示上一笔交易最大未平仓盈亏</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTradeMaxOpenPnlLastRowDescription" xml:space="preserve">
+    <value>空仓时显示上一笔已平仓交易的最大未平仓盈亏。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowLastClosedTradePnlRow" xml:space="preserve">
+    <value>显示上一笔已平仓交易盈亏</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowLastClosedTradePnlRowDescription" xml:space="preserve">
+    <value>空仓时显示上一笔已平仓交易的已实现盈亏。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowTrailingRemainingDd" xml:space="preserve">
+    <value>跟踪剩余回撤</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowTrailingCurrentDd" xml:space="preserve">
+    <value>跟踪当前回撤</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowLastClosedTradePnL" xml:space="preserve">
+    <value>上一笔交易盈亏（已平仓）</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="HorizontalPosition" xml:space="preserve">
+    <value>水平位置</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="HorizontalPositionDescription" xml:space="preserve">
+    <value>面板在图表上的水平对齐方式。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="VerticalPosition" xml:space="preserve">
+    <value>垂直位置</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="VerticalPositionDescription" xml:space="preserve">
+    <value>面板在图表上的垂直对齐方式。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="LayoutGroup" xml:space="preserve">
     <value>布局</value>
   </data>
-  <!-- Price rails (settings) -->
-<data name="EnablePriceRails" xml:space="preserve">
-  <value>启用价格轨道</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="EnablePriceRailsDescription" xml:space="preserve">
-  <value>启用价格轨道辅助线（目标价与有效止损）。仅用于显示。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowTargetRail" xml:space="preserve">
-  <value>显示目标轨道</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTargetRailDescription" xml:space="preserve">
-  <value>根据今日已实现盈亏和当前持仓规模，显示达到每日盈利目标所需的目标价格。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowStopRail" xml:space="preserve">
-  <value>显示止损轨道</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowStopRailDescription" xml:space="preserve">
-  <value>使用更严格的 STOP 驱动（每日亏损限制 vs 追踪回撤）显示有效止损价格。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowRailLabels" xml:space="preserve">
-  <value>显示轨道标签</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowRailLabelsDescription" xml:space="preserve">
-  <value>显示价格轨道的描述标签（目标/止损原因）。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="RailLineWidth" xml:space="preserve">
-  <value>轨道线宽</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RailLineWidthDescription" xml:space="preserve">
-  <value>图表价格轨道线的线宽。</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<!-- Price rails (panel rows) -->
-<data name="RowPriceRailTarget" xml:space="preserve">
-  <value>目标价格</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowPriceRailStop" xml:space="preserve">
-  <value>止损价格</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<!-- Price rails (reasons + label formats) -->
-<data name="StopReasonDailyLoss" xml:space="preserve">
-  <value>每日亏损限制</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="StopReasonTrailingDd" xml:space="preserve">
-  <value>追踪回撤</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="RailTargetLabelFormat" xml:space="preserve">
-  <value>目标 {0:N2} | 剩余 {1}</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RailStopLabelFormat" xml:space="preserve">
-  <value>止损（{0}）{1:N2}</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
+  <data name="EnablePriceRails" xml:space="preserve">
+    <value>启用价格轨道</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnablePriceRailsDescription" xml:space="preserve">
+    <value>启用价格轨道辅助线（目标价与有效止损）。仅用于显示。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTargetRail" xml:space="preserve">
+    <value>显示目标轨道</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTargetRailDescription" xml:space="preserve">
+    <value>根据今日已实现盈亏和当前持仓规模，显示达到每日盈利目标所需的目标价格。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowStopRail" xml:space="preserve">
+    <value>显示止损轨道</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowStopRailDescription" xml:space="preserve">
+    <value>使用更严格的 STOP 驱动（每日亏损限制 vs 追踪回撤）显示有效止损价格。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowRailLabels" xml:space="preserve">
+    <value>显示轨道标签</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowRailLabelsDescription" xml:space="preserve">
+    <value>显示价格轨道的描述标签（目标/止损原因）。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RailLineWidth" xml:space="preserve">
+    <value>轨道线宽</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RailLineWidthDescription" xml:space="preserve">
+    <value>图表价格轨道线的线宽。</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowPriceRailTarget" xml:space="preserve">
+    <value>目标价格</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowPriceRailStop" xml:space="preserve">
+    <value>止损价格</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="StopReasonDailyLoss" xml:space="preserve">
+    <value>每日亏损限制</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="StopReasonTrailingDd" xml:space="preserve">
+    <value>追踪回撤</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RailTargetLabelFormat" xml:space="preserve">
+    <value>目标 {0:N2} | 剩余 {1}</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RailStopLabelFormat" xml:space="preserve">
+    <value>止损（{0}）{1:N2}</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
   <data name="DiagonalImbalance" xml:space="preserve">
     <value>对角失衡</value>
     <comment>ClusterSearch</comment>
@@ -2519,10 +2470,6 @@
   </data>
   <data name="ImbalancesVisualization" xml:space="preserve">
     <value>失衡可视化</value>
-    <comment>ClusterSearch</comment>
-  </data>
-  <data name="ImbalanceRatio" xml:space="preserve">
-    <value>失衡比率</value>
     <comment>ClusterSearch</comment>
   </data>
   <data name="MinVolumeDifference" xml:space="preserve">
@@ -2577,25 +2524,7 @@
     <value>卖方对角失衡使用的颜色。</value>
     <comment>ClusterSearch</comment>
   </data>
-
-<data name="IBHM" xml:space="preserve">
-    <value>IBH-IBM</value>
-  </data><data name="IBHX1H" xml:space="preserve">
-    <value>IBHX1-IBH</value>
-  </data><data name="IBHX21" xml:space="preserve">
-    <value>IBHX2-1</value>
-  </data><data name="IBHX32" xml:space="preserve">
-    <value>IBHX3-2</value>
-  </data><data name="IBL1" xml:space="preserve">
-    <value>IBL-IBLX1</value>
-  </data><data name="IBLX12" xml:space="preserve">
-    <value>IBLX1-2</value>
-  </data><data name="IBLX23" xml:space="preserve">
-    <value>IBLX2-3</value>
-  </data><data name="IBML" xml:space="preserve">
-    <value>IBM-IBL</value>
-  </data>
-    <data name="LabelPosition" xml:space="preserve">
+  <data name="LabelPosition" xml:space="preserve">
     <value>标签位置</value>
     <comment>UI</comment>
   </data>
@@ -2603,7 +2532,6 @@
     <value>标签位置：最后一根K线、左侧、右侧或隐藏。</value>
     <comment>UI</comment>
   </data>
-
   <data name="OverlayLineType" xml:space="preserve">
     <value>覆盖线类型</value>
     <comment>UI</comment>
@@ -2612,7 +2540,6 @@
     <value>从 Initial Balance 水平绘制水平线到标签或贯穿整个图表宽度。</value>
     <comment>UI</comment>
   </data>
-
   <data name="ShowDuringFormation" xml:space="preserve">
     <value>形成期间显示</value>
     <comment>UI</comment>
@@ -2621,326 +2548,310 @@
     <value>如果禁用，在 Initial Balance 完成之前隐藏线条和标签。</value>
     <comment>UI</comment>
   </data>
-<data name="IsNeedShowLabelDescription" xml:space="preserve">
+  <data name="IsNeedShowLabelDescription" xml:space="preserve">
     <value>确定是否应显示文本标签。</value>
   </data>
   <data name="InitialBalance_LabelMid" xml:space="preserve">
-  <value>Mid</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBH" xml:space="preserve">
-  <value>IBH</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBL" xml:space="preserve">
-  <value>IBL</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBM" xml:space="preserve">
-  <value>IBM</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBHX1" xml:space="preserve">
-  <value>IBHX1</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBHX2" xml:space="preserve">
-  <value>IBHX2</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBHX3" xml:space="preserve">
-  <value>IBHX3</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBLX1" xml:space="preserve">
-  <value>IBLX1</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBLX2" xml:space="preserve">
-  <value>IBLX2</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBLX3" xml:space="preserve">
-  <value>IBLX3</value>
-  <comment>InitialBalance</comment>
-</data>
+    <value>Mid</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBH" xml:space="preserve">
+    <value>IBH</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBL" xml:space="preserve">
+    <value>IBL</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBM" xml:space="preserve">
+    <value>IBM</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBHX1" xml:space="preserve">
+    <value>IBHX1</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBHX2" xml:space="preserve">
+    <value>IBHX2</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBHX3" xml:space="preserve">
+    <value>IBHX3</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBLX1" xml:space="preserve">
+    <value>IBLX1</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBLX2" xml:space="preserve">
+    <value>IBLX2</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBLX3" xml:space="preserve">
+    <value>IBLX3</value>
+    <comment>InitialBalance</comment>
+  </data>
   <data name="TradingDayStart" xml:space="preserve">
     <value>交易日开始</value>
     <comment>DailyLines</comment>
   </data>
   <data name="TradingDayStartDescription" xml:space="preserve">
-    <value>用于定义新交易日何时开始的锚定时间。它影响“当前/前一日”的判定（例如周末/假期），但 OHLC 仍仅基于所选会话时间窗口内的K线计算。</value>
+    <value>定义新交易日开始时间的锚点。决定哪个交易日被视为“当前”和“前一日”。</value>
     <comment>DailyLines</comment>
   </data>
   <data name="HalfGap" xml:space="preserve">
-  <value>Half Gap</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="HalfGapDescription" xml:space="preserve">
-  <value>上一交易时段收盘价与当前交易时段开盘价之间的中点（常用于 RTH 场景）。</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowHalfGap" xml:space="preserve">
-  <value>显示 Half Gap</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowHalfGapDescription" xml:space="preserve">
-  <value>显示 Half Gap 线（仅在当前日且启用自定义交易时段时）。</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="HalfGapText" xml:space="preserve">
-  <value>Half Gap 文本</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="HalfGapTextDescription" xml:space="preserve">
-  <value>Half Gap 线的标签文本。</value>
-  <comment>DailyLines</comment>
-</data><data name="PenSettingsDescription" xml:space="preserve">
+    <value>Half Gap</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="HalfGapDescription" xml:space="preserve">
+    <value>上一交易时段收盘价与当前交易时段开盘价之间的中点（常用于 RTH 场景）。</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowHalfGap" xml:space="preserve">
+    <value>显示 Half Gap</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowHalfGapDescription" xml:space="preserve">
+    <value>显示 Half Gap 线（仅在当前日且启用自定义交易时段时）。</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="HalfGapText" xml:space="preserve">
+    <value>Half Gap 文本</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="HalfGapTextDescription" xml:space="preserve">
+    <value>Half Gap 线的标签文本。</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PenSettingsDescription" xml:space="preserve">
     <value>指定显示线条的颜色、样式和宽度设置。</value>
   </data>
   <data name="MultiScope" xml:space="preserve">
-  <value>多周期</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="MultiScopeDescription" xml:space="preserve">
-  <value>允许同时显示多个周期（而不是只选择一个 Period）。</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowCurrentDay" xml:space="preserve">
-  <value>显示当日</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowCurrentDayDescription" xml:space="preserve">
-  <value>显示当日的水平线。</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowPreviousDay" xml:space="preserve">
-  <value>显示前一日</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowPreviousDayDescription" xml:space="preserve">
-  <value>显示前一日的水平线。</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowCurrentWeek" xml:space="preserve">
-  <value>显示本周</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowCurrentWeekDescription" xml:space="preserve">
-  <value>显示本周的水平线。</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowPreviousWeek" xml:space="preserve">
-  <value>显示上周</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowPreviousWeekDescription" xml:space="preserve">
-  <value>显示上周的水平线。</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowCurrentMonth" xml:space="preserve">
-  <value>显示本月</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowCurrentMonthDescription" xml:space="preserve">
-  <value>显示本月的水平线。</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowPreviousMonth" xml:space="preserve">
-  <value>显示上月</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowPreviousMonthDescription" xml:space="preserve">
-  <value>显示上月的水平线。</value>
-  <comment>DailyLines</comment>
-</data><data name="PeriodDescription" xml:space="preserve">
+    <value>多周期</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="MultiScopeDescription" xml:space="preserve">
+    <value>允许同时显示多个周期（而不是只选择一个 Period）。</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentDay" xml:space="preserve">
+    <value>显示当日</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentDayDescription" xml:space="preserve">
+    <value>显示当日的水平线。</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousDay" xml:space="preserve">
+    <value>显示前一日</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousDayDescription" xml:space="preserve">
+    <value>显示前一日的水平线。</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentWeek" xml:space="preserve">
+    <value>显示本周</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentWeekDescription" xml:space="preserve">
+    <value>显示本周的水平线。</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousWeek" xml:space="preserve">
+    <value>显示上周</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousWeekDescription" xml:space="preserve">
+    <value>显示上周的水平线。</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentMonth" xml:space="preserve">
+    <value>显示本月</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentMonthDescription" xml:space="preserve">
+    <value>显示本月的水平线。</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousMonth" xml:space="preserve">
+    <value>显示上月</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousMonthDescription" xml:space="preserve">
+    <value>显示上月的水平线。</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PeriodDescription" xml:space="preserve">
     <value>指定要包括在计算中的最近蜡烛的数量。</value>
-  </data><data name="IsCustomSessionDescription" xml:space="preserve">
+  </data>
+  <data name="IsCustomSessionDescription" xml:space="preserve">
     <value>如果启用，允许使用自定义会话，否则将使用默认会话。</value>
-  </data><data name="SessionBeginDescription" xml:space="preserve">
+  </data>
+  <data name="SessionBeginDescription" xml:space="preserve">
     <value>定义数据记录的开始日期。</value>
-  </data><data name="SessionEndDescription" xml:space="preserve">
+  </data>
+  <data name="SessionEndDescription" xml:space="preserve">
     <value>定义数据记录的结束日期。</value>
   </data>
   <data name="ShowEth" xml:space="preserve">
-  <value>显示 ETH（18:00→RTH）</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowEthDescription" xml:space="preserve">
-  <value>从 Trading Day Start 绘制 ETH 水平到 RTH 开始（自定义会话开始时间）。</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="Eth" xml:space="preserve">
-  <value>ETH</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="NoDataForPeriod" xml:space="preserve">
-  <value>没有足够数据用于计算：{0}</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="IncompleteDataForPeriod" xml:space="preserve">
-  <value>历史数据不完整（可能不准确）：{0}</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="Rth" xml:space="preserve">
-  <value>RTH</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowCurrentRth" xml:space="preserve">
-  <value>显示当前 RTH</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowCurrentRthDescription" xml:space="preserve">
-  <value>显示当前 RTH 会话的水平线（自定义会话窗口）。</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowPreviousRth" xml:space="preserve">
-  <value>显示上一 RTH</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowPreviousRthDescription" xml:space="preserve">
-  <value>显示上一 RTH 会话的水平线（自定义会话窗口）。</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="DayFamilyLevels" xml:space="preserve">
-  <value>日内系列：水平线</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="DayFamilyLevelsDescription" xml:space="preserve">
-  <value>选择在 Day / ETH / RTH 范围内绘制哪些 OHLC 水平线。</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="DayLevels" xml:space="preserve">
-  <value>Day 水平线</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="DayLevelsDescription" xml:space="preserve">
-  <value>当前 Day（multi-scope 下为全天）要绘制的水平线。</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="PrevDayLevels" xml:space="preserve">
-  <value>上一 Day 水平线</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="PrevDayLevelsDescription" xml:space="preserve">
-  <value>上一 Day（multi-scope 下为全天）要绘制的水平线。</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="EthLevels" xml:space="preserve">
-  <value>ETH 水平线</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="EthLevelsDescription" xml:space="preserve">
-  <value>ETH 要绘制的水平线（TradingDayStart → RTH 开始）。</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="RthLevels" xml:space="preserve">
-  <value>RTH 水平线</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="RthLevelsDescription" xml:space="preserve">
-  <value>当前 RTH（自定义会话窗口）要绘制的水平线。</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="PrevRthLevels" xml:space="preserve">
-  <value>上一 RTH 水平线</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="PrevRthLevelsDescription" xml:space="preserve">
-  <value>上一 RTH（自定义会话窗口）要绘制的水平线。</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="DayFamilyStyles" xml:space="preserve">
-  <value>日内系列：样式</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="DayFamilyStylesDescription" xml:space="preserve">
-  <value>在 multi-scope 模式下，为 Day / ETH / RTH 按范围覆盖线条样式。</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="UseScopeStyleOverrides" xml:space="preserve">
-  <value>使用范围样式覆盖</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="UseScopeStyleOverridesDescription" xml:space="preserve">
-  <value>启用后，Day/ETH/RTH 范围使用各自的线条样式，而不是全局 OHLC 样式。</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="DayScopePen" xml:space="preserve">
-  <value>Day 样式</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="DayScopePenDescription" xml:space="preserve">
-  <value>当前 Day 范围的线条样式。</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="PrevDayScopePen" xml:space="preserve">
-  <value>上一 Day 样式</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="PrevDayScopePenDescription" xml:space="preserve">
-  <value>上一 Day 范围的线条样式。</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="EthScopePen" xml:space="preserve">
-  <value>ETH 样式</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="EthScopePenDescription" xml:space="preserve">
-  <value>ETH 范围的线条样式。</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="RthScopePen" xml:space="preserve">
-  <value>RTH 样式</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="RthScopePenDescription" xml:space="preserve">
-  <value>当前 RTH 范围的线条样式。</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="PrevRthScopePen" xml:space="preserve">
-  <value>上一 RTH 样式</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="PrevRthScopePenDescription" xml:space="preserve">
-  <value>上一 RTH 范围的线条样式。</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="CurrentDayRthEthSplit" xml:space="preserve">
-  <value>将当日分为 RTH/ETH</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="CurrentDayRthEthSplitDescription" xml:space="preserve">
-  <value>当 MultiScope 关闭时，当日水平仅显示 RTH。开启 MultiScope 后，此选项允许使用下方的 RTH 开始/结束时间将 RTH 与 ETH 分开显示。</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="DrawFromSignificantBar" xml:space="preserve">
-  <value>从关键 K 线开始</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="DrawFromSignificantBarDescription" xml:space="preserve">
-  <value>启用后，线条从形成该水平的 K 线开始（Open=第一根，High/Low=极值那根，Close=最后一根）。禁用后，线条从周期边界开始。</value>
-  <comment>DailyLines</comment>
-</data></root>
+    <value>显示 ETH（18:00→RTH）</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowEthDescription" xml:space="preserve">
+    <value>从 Trading Day Start 绘制 ETH 水平到 RTH 开始（自定义会话开始时间）。</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="Eth" xml:space="preserve">
+    <value>ETH</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="NoDataForPeriod" xml:space="preserve">
+    <value>没有足够数据用于计算：{0}</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="IncompleteDataForPeriod" xml:space="preserve">
+    <value>历史数据不完整（可能不准确）：{0}</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="Rth" xml:space="preserve">
+    <value>RTH</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentRth" xml:space="preserve">
+    <value>显示当前 RTH</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentRthDescription" xml:space="preserve">
+    <value>显示当前 RTH 会话的水平线（自定义会话窗口）。</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousRth" xml:space="preserve">
+    <value>显示上一 RTH</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousRthDescription" xml:space="preserve">
+    <value>显示上一 RTH 会话的水平线（自定义会话窗口）。</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayFamilyLevels" xml:space="preserve">
+    <value>日内系列：水平线</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayFamilyLevelsDescription" xml:space="preserve">
+    <value>选择在 Day / ETH / RTH 范围内绘制哪些 OHLC 水平线。</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayLevels" xml:space="preserve">
+    <value>Day 水平线</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayLevelsDescription" xml:space="preserve">
+    <value>当前 Day（multi-scope 下为全天）要绘制的水平线。</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevDayLevels" xml:space="preserve">
+    <value>上一 Day 水平线</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevDayLevelsDescription" xml:space="preserve">
+    <value>上一 Day（multi-scope 下为全天）要绘制的水平线。</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="EthLevels" xml:space="preserve">
+    <value>ETH 水平线</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="EthLevelsDescription" xml:space="preserve">
+    <value>ETH 要绘制的水平线（TradingDayStart → RTH 开始）。</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="RthLevels" xml:space="preserve">
+    <value>RTH 水平线</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="RthLevelsDescription" xml:space="preserve">
+    <value>当前 RTH（自定义会话窗口）要绘制的水平线。</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevRthLevels" xml:space="preserve">
+    <value>上一 RTH 水平线</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevRthLevelsDescription" xml:space="preserve">
+    <value>上一 RTH（自定义会话窗口）要绘制的水平线。</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayFamilyStyles" xml:space="preserve">
+    <value>日内系列：样式</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayFamilyStylesDescription" xml:space="preserve">
+    <value>在 multi-scope 模式下，为 Day / ETH / RTH 按范围覆盖线条样式。</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="UseScopeStyleOverrides" xml:space="preserve">
+    <value>使用范围样式覆盖</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="UseScopeStyleOverridesDescription" xml:space="preserve">
+    <value>启用后，Day/ETH/RTH 范围使用各自的线条样式，而不是全局 OHLC 样式。</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayScopePen" xml:space="preserve">
+    <value>Day 样式</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayScopePenDescription" xml:space="preserve">
+    <value>当前 Day 范围的线条样式。</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevDayScopePen" xml:space="preserve">
+    <value>上一 Day 样式</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevDayScopePenDescription" xml:space="preserve">
+    <value>上一 Day 范围的线条样式。</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="EthScopePen" xml:space="preserve">
+    <value>ETH 样式</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="EthScopePenDescription" xml:space="preserve">
+    <value>ETH 范围的线条样式。</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="RthScopePen" xml:space="preserve">
+    <value>RTH 样式</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="RthScopePenDescription" xml:space="preserve">
+    <value>当前 RTH 范围的线条样式。</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevRthScopePen" xml:space="preserve">
+    <value>上一 RTH 样式</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevRthScopePenDescription" xml:space="preserve">
+    <value>上一 RTH 范围的线条样式。</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="CurrentDayRthEthSplit" xml:space="preserve">
+    <value>将当日分为 RTH/ETH</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="CurrentDayRthEthSplitDescription" xml:space="preserve">
+    <value>当 MultiScope 关闭时，当日水平仅显示 RTH。开启 MultiScope 后，此选项允许使用下方的 RTH 开始/结束时间将 RTH 与 ETH 分开显示。</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DrawFromSignificantBar" xml:space="preserve">
+    <value>从关键 K 线开始</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DrawFromSignificantBarDescription" xml:space="preserve">
+    <value>启用后，线条从形成该水平的 K 线开始（Open=第一根，High/Low=极值那根，Close=最后一根）。禁用后，线条从周期边界开始。</value>
+    <comment>DailyLines</comment>
+  </data>
+</root>

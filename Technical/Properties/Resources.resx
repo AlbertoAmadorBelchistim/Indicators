@@ -1341,7 +1341,7 @@
   </data>
   <data name="ImbalanceRatio" xml:space="preserve">
     <value>Imbalance Ratio</value>
-    <comment>StackedImbalance</comment>
+    <comment>ClusterSearch</comment>
   </data>
   <data name="ImbalanceVolume" xml:space="preserve">
     <value>Imbalance Volume</value>
@@ -4237,11 +4237,10 @@
     <value>Total PnL</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-    <data name="DailyRails" xml:space="preserve">
+  <data name="DailyRails" xml:space="preserve">
     <value>Daily Rails</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="DailyResetMode" xml:space="preserve">
     <value>Daily Reset Mode</value>
     <comment>AccountInfoDisplay</comment>
@@ -4250,7 +4249,6 @@
     <value>Defines when daily session metrics and rails reset. NewYork1700 uses a 17:00 session cut (chart local time); LocalCustomTime uses the local time configured below.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="DailyResetTimeLocal" xml:space="preserve">
     <value>Daily Reset Time (Local)</value>
     <comment>AccountInfoDisplay</comment>
@@ -4259,7 +4257,7 @@
     <value>Local reset time used only when Daily Reset Mode is LocalCustomTime.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-    <data name="RowTradesToday" xml:space="preserve">
+  <data name="RowTradesToday" xml:space="preserve">
     <value>Trades Today</value>
     <comment>AccountInfoDisplay</comment>
   </data>
@@ -4275,7 +4273,7 @@
     <value>Realized PnL Today</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-    <data name="ShowTradesTodayRow" xml:space="preserve">
+  <data name="ShowTradesTodayRow" xml:space="preserve">
     <value>Show Trades Today</value>
     <comment>AccountInfoDisplay</comment>
   </data>
@@ -4283,7 +4281,6 @@
     <value>Show the number of closed trades for the current trading day.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="ShowWinsLossesTodayRow" xml:space="preserve">
     <value>Show Wins / Losses Today</value>
     <comment>AccountInfoDisplay</comment>
@@ -4292,7 +4289,6 @@
     <value>Show the number of winning and losing trades for the current trading day.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="ShowCurrentStreakRow" xml:space="preserve">
     <value>Show Current Streak</value>
     <comment>AccountInfoDisplay</comment>
@@ -4301,7 +4297,6 @@
     <value>Show the current win or loss streak for the trading day.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="ShowRealizedPnlTodayRow" xml:space="preserve">
     <value>Show Realized PnL Today</value>
     <comment>AccountInfoDisplay</comment>
@@ -4314,7 +4309,6 @@
     <value>Soft Recommendations</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="EnableSoftRecommendations" xml:space="preserve">
     <value>Enable soft recommendations</value>
     <comment>AccountInfoDisplay</comment>
@@ -4323,7 +4317,6 @@
     <value>Enables non-blocking trading discipline recommendations based on daily session metrics.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="MaxTradesPerDay" xml:space="preserve">
     <value>Max trades per day</value>
     <comment>AccountInfoDisplay</comment>
@@ -4332,7 +4325,6 @@
     <value>Maximum number of trades allowed for the trading day before a caution or stop recommendation is triggered.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="MaxConsecutiveLosses" xml:space="preserve">
     <value>Max consecutive losses</value>
     <comment>AccountInfoDisplay</comment>
@@ -4341,7 +4333,6 @@
     <value>Maximum allowed consecutive losing trades before a stop recommendation is suggested.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="CautionTradesThreshold" xml:space="preserve">
     <value>Caution trades threshold</value>
     <comment>AccountInfoDisplay</comment>
@@ -4350,7 +4341,6 @@
     <value>Number of trades at which a caution recommendation is shown before reaching the daily limit.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="CautionLossesThreshold" xml:space="preserve">
     <value>Caution losses threshold</value>
     <comment>AccountInfoDisplay</comment>
@@ -4359,33 +4349,27 @@
     <value>Number of consecutive losses at which a caution recommendation is shown before a stop is suggested.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="RowSuggestedStatus" xml:space="preserve">
     <value>Suggested status</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="RowStopReasons" xml:space="preserve">
     <value>Reasons</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="SuggestedStatusOk" xml:space="preserve">
     <value>OK</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="SuggestedStatusCaution" xml:space="preserve">
     <value>CAUTION</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="SuggestedStatusStop" xml:space="preserve">
     <value>STOP (Suggested)</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
-    <data name="ShowSuggestedStatusRow" xml:space="preserve">
+  <data name="ShowSuggestedStatusRow" xml:space="preserve">
     <value>Show suggested status row</value>
     <comment>AccountInfoDisplay</comment>
   </data>
@@ -4393,7 +4377,6 @@
     <value>Show the suggested trading status (OK / CAUTION / STOP) based on today’s session metrics.</value>
     <comment>AccountInfoDisplay</comment>
   </data>
-
   <data name="ShowStopReasonsRow" xml:space="preserve">
     <value>Show reasons row</value>
     <comment>AccountInfoDisplay</comment>
@@ -4403,472 +4386,416 @@
     <comment>AccountInfoDisplay</comment>
   </data>
   <data name="ShowPositionSnapshot" xml:space="preserve">
-  <value>Show position snapshot</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowPositionSnapshotDescription" xml:space="preserve">
-  <value>Shows a lightweight snapshot of the current open position (dir/qty/entry).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowFlatRow" xml:space="preserve">
-  <value>Show FLAT row</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowFlatRowDescription" xml:space="preserve">
-  <value>When no position is open, shows a FLAT row instead of position details.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="RowPos" xml:space="preserve">
-  <value>Pos</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowPosDir" xml:space="preserve">
-  <value>Pos dir</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowPosQty" xml:space="preserve">
-  <value>Pos qty</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowPosEntry" xml:space="preserve">
-  <value>Pos entry</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="PosFlatValue" xml:space="preserve">
-  <value>FLAT</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="EnableDailyRails" xml:space="preserve">
-  <value>Enable daily rails</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="EnableDailyRailsDescription" xml:space="preserve">
-  <value>Enable hard daily risk limits (loss/profit/drawdown) per account-day.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="DailyLossLimit" xml:space="preserve">
-  <value>Daily loss limit</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="DailyLossLimitDescription" xml:space="preserve">
-  <value>Hard stop when equity falls below start-of-day equity by this amount.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="DailyProfitTarget" xml:space="preserve">
-  <value>Daily profit target</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="DailyProfitTargetDescription" xml:space="preserve">
-  <value>Hard stop when equity rises above start-of-day equity by this amount.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="DailyMaxDrawdownFromPeak" xml:space="preserve">
-  <value>Daily max drawdown from peak</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="DailyMaxDrawdownFromPeakDescription" xml:space="preserve">
-  <value>Hard stop when equity falls below today's peak equity by this amount.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="DailyRailsStopReasonLossLimit" xml:space="preserve">
-  <value>Daily loss limit reached.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="DailyRailsStopReasonProfitTarget" xml:space="preserve">
-  <value>Daily profit target reached.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="DailyRailsStopReasonMaxDdFromPeak" xml:space="preserve">
-  <value>Daily drawdown from peak reached.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="DailyRailsStopReasonGeneric" xml:space="preserve">
-  <value>Daily rails stop.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<!-- Soft Recommendations: CAUTION (Phase 5) -->
-<data name="CautionLossFromStart" xml:space="preserve">
-  <value>Caution: loss from day start</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="CautionLossFromStartDescription" xml:space="preserve">
-  <value>Show CAUTION when equity is down by this amount from start-of-day equity (0 = off).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="CautionGivebackFromPeak" xml:space="preserve">
-  <value>Caution: giveback from day peak</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="CautionGivebackFromPeakDescription" xml:space="preserve">
-  <value>Show CAUTION when equity gives back this amount from today's peak equity (0 = off).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="CautionLossFromStartPct" xml:space="preserve">
-  <value>Caution: loss from start (%)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="CautionLossFromStartPctDescription" xml:space="preserve">
-  <value>Show CAUTION when equity is down by this percent from start-of-day equity (0 = off).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="CautionGivebackFromPeakPct" xml:space="preserve">
-  <value>Caution: giveback from peak (%)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="CautionGivebackFromPeakPctDescription" xml:space="preserve">
-  <value>Show CAUTION when equity gives back this percent from today's peak equity (0 = off).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="StopHitEarlierToday" xml:space="preserve">
-  <value>Stop hit earlier today.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="RowRemainingDailyLoss" xml:space="preserve">
-  <value>Remaining daily loss</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowRemainingDailyProfitTarget" xml:space="preserve">
-  <value>Remaining to profit target</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowRemainingDailyLossRow" xml:space="preserve">
-  <value>Show remaining daily loss</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowRemainingDailyLossRowDescription" xml:space="preserve">
-  <value>Show how much room is left before the daily loss limit (based on current equity).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowRemainingDailyProfitTargetRow" xml:space="preserve">
-  <value>Show remaining to profit target</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowRemainingDailyProfitTargetRowDescription" xml:space="preserve">
-  <value>Show how much is left to reach the daily profit target (based on current equity).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowTradeMaxOpenPnLCurrent" xml:space="preserve">
-  <value>Trade Max Open PnL (Current)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowTradeMaxOpenPnLLast" xml:space="preserve">
-  <value>Trade Max Open PnL (Last)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<!-- AccountInfoDisplay — Soft recommendations (0022 parity) -->
-
-<data name="CautionTradesPct" xml:space="preserve">
-  <value>Trades CAUTION (%)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="CautionTradesPctDescription" xml:space="preserve">
-  <value>Triggers CAUTION when today's trade count reaches this percentage of Max Trades Per Day (e.g., 0.75 = 75%).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="CautionRemainingDailyLossPct" xml:space="preserve">
-  <value>Remaining daily loss CAUTION (%)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="CautionRemainingDailyLossPctDescription" xml:space="preserve">
-  <value>Triggers CAUTION when remaining daily loss is below this percentage of the daily loss limit.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="EnableConsistencyRules" xml:space="preserve">
-  <value>Enable consistency rules</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="EnableConsistencyRulesDescription" xml:space="preserve">
-  <value>Enables payout concentration checks (CAUTION/STOP) based on the payout objective.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="PayoutObjective" xml:space="preserve">
-  <value>Payout objective</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="PayoutObjectiveDescription" xml:space="preserve">
-  <value>Target payout used by consistency rules to compute CAUTION/STOP thresholds.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ConsistencyCautionPct" xml:space="preserve">
-  <value>Consistency CAUTION (%)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ConsistencyCautionPctDescription" xml:space="preserve">
-  <value>Triggers CAUTION when today's realized PnL reaches this percentage of the payout objective.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ConsistencyStopPct" xml:space="preserve">
-  <value>Consistency STOP (%)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ConsistencyStopPctDescription" xml:space="preserve">
-  <value>Triggers STOP when today's realized PnL reaches this percentage of the payout objective.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="EnableGivebackCaution" xml:space="preserve">
-  <value>Enable giveback CAUTION</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="EnableGivebackCautionDescription" xml:space="preserve">
-  <value>Enables CAUTION when today's PnL gives back too much from the intraday peak.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="GivebackPctOfProfitTarget" xml:space="preserve">
-  <value>Giveback CAUTION (% of daily profit target)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="GivebackPctOfProfitTargetDescription" xml:space="preserve">
-  <value>Giveback threshold as a percentage of the daily profit target (used when Daily Profit Target &gt; 0).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="GivebackAbs" xml:space="preserve">
-  <value>Giveback CAUTION (absolute)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="GivebackAbsDescription" xml:space="preserve">
-  <value>Absolute giveback threshold used when Daily Profit Target is 0.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<!-- AccountInfoDisplay — Soft recommendations (reason texts) -->
-
-<data name="CautionOneLossAway" xml:space="preserve">
-  <value>CAUTION: one loss away from max consecutive losses.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="CautionRemainingDailyLossLow" xml:space="preserve">
-  <value>CAUTION: remaining daily loss is low.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ConsistencyCautionReason" xml:space="preserve">
-  <value>CAUTION: payout concentration threshold reached.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ConsistencyStopReason" xml:space="preserve">
-  <value>STOP: payout concentration threshold reached.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="GivebackCautionReason" xml:space="preserve">
-  <value>CAUTION: intraday giveback threshold reached.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<!-- AccountInfoDisplay — Groups -->
-<data name="RowsTrailingDd" xml:space="preserve">
-  <value>Rows: Trailing drawdown</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowsTrade" xml:space="preserve">
-  <value>Rows: Trade</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<!-- AccountInfoDisplay — Row toggles (Trailing DD) -->
-<data name="ShowTrailingStartEquityRow" xml:space="preserve">
-  <value>Show trailing start equity</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTrailingStartEquityRowDescription" xml:space="preserve">
-  <value>Shows the trailing drawdown start equity row.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowTrailingPeakEquityRow" xml:space="preserve">
-  <value>Show trailing peak equity</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTrailingPeakEquityRowDescription" xml:space="preserve">
-  <value>Shows the trailing drawdown peak equity row.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowTrailingStopEquityRow" xml:space="preserve">
-  <value>Show trailing stop equity</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTrailingStopEquityRowDescription" xml:space="preserve">
-  <value>Shows the trailing drawdown stop equity row.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowTrailingRemainingDdRow" xml:space="preserve">
-  <value>Show trailing remaining drawdown</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTrailingRemainingDdRowDescription" xml:space="preserve">
-  <value>Shows remaining drawdown to the trailing stop equity.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowTrailingCurrentDdRow" xml:space="preserve">
-  <value>Show trailing current drawdown</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTrailingCurrentDdRowDescription" xml:space="preserve">
-  <value>Shows current drawdown from the trailing peak equity.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<!-- AccountInfoDisplay — Row toggles (Trade) -->
-<data name="ShowTradeMaxOpenPnlCurrentRow" xml:space="preserve">
-  <value>Show trade max open PnL (current)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTradeMaxOpenPnlCurrentRowDescription" xml:space="preserve">
-  <value>Shows the max open PnL for the current trade (while in position).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowTradeMaxOpenPnlLastRow" xml:space="preserve">
-  <value>Show trade max open PnL (last)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTradeMaxOpenPnlLastRowDescription" xml:space="preserve">
-  <value>Shows the max open PnL for the last closed trade (while flat).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowLastClosedTradePnlRow" xml:space="preserve">
-  <value>Show last closed trade PnL</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowLastClosedTradePnlRowDescription" xml:space="preserve">
-  <value>Shows the realized PnL of the last closed trade (while flat).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<!-- AccountInfoDisplay — Row labels -->
-<data name="RowTrailingRemainingDd" xml:space="preserve">
-  <value>Trailing Remaining DD</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowTrailingCurrentDd" xml:space="preserve">
-  <value>Trailing Current DD</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowLastClosedTradePnL" xml:space="preserve">
-  <value>Last Trade PnL (Closed)</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="HorizontalPosition" xml:space="preserve">
-  <value>Horizontal position</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="HorizontalPositionDescription" xml:space="preserve">
-  <value>Panel horizontal alignment on the chart.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="VerticalPosition" xml:space="preserve">
-  <value>Vertical position</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="VerticalPositionDescription" xml:space="preserve">
-  <value>Panel vertical alignment on the chart.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="LayoutGroup" xml:space="preserve">
+    <value>Show position snapshot</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowPositionSnapshotDescription" xml:space="preserve">
+    <value>Shows a lightweight snapshot of the current open position (dir/qty/entry).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowFlatRow" xml:space="preserve">
+    <value>Show FLAT row</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowFlatRowDescription" xml:space="preserve">
+    <value>When no position is open, shows a FLAT row instead of position details.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowPos" xml:space="preserve">
+    <value>Pos</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowPosDir" xml:space="preserve">
+    <value>Pos dir</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowPosQty" xml:space="preserve">
+    <value>Pos qty</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowPosEntry" xml:space="preserve">
+    <value>Pos entry</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="PosFlatValue" xml:space="preserve">
+    <value>FLAT</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableDailyRails" xml:space="preserve">
+    <value>Enable daily rails</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableDailyRailsDescription" xml:space="preserve">
+    <value>Enable hard daily risk limits (loss/profit/drawdown) per account-day.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyLossLimit" xml:space="preserve">
+    <value>Daily loss limit</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyLossLimitDescription" xml:space="preserve">
+    <value>Hard stop when equity falls below start-of-day equity by this amount.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyProfitTarget" xml:space="preserve">
+    <value>Daily profit target</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyProfitTargetDescription" xml:space="preserve">
+    <value>Hard stop when equity rises above start-of-day equity by this amount.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyMaxDrawdownFromPeak" xml:space="preserve">
+    <value>Daily max drawdown from peak</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyMaxDrawdownFromPeakDescription" xml:space="preserve">
+    <value>Hard stop when equity falls below today's peak equity by this amount.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyRailsStopReasonLossLimit" xml:space="preserve">
+    <value>Daily loss limit reached.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyRailsStopReasonProfitTarget" xml:space="preserve">
+    <value>Daily profit target reached.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyRailsStopReasonMaxDdFromPeak" xml:space="preserve">
+    <value>Daily drawdown from peak reached.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="DailyRailsStopReasonGeneric" xml:space="preserve">
+    <value>Daily rails stop.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionLossFromStart" xml:space="preserve">
+    <value>Caution: loss from day start</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionLossFromStartDescription" xml:space="preserve">
+    <value>Show CAUTION when equity is down by this amount from start-of-day equity (0 = off).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionGivebackFromPeak" xml:space="preserve">
+    <value>Caution: giveback from day peak</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionGivebackFromPeakDescription" xml:space="preserve">
+    <value>Show CAUTION when equity gives back this amount from today's peak equity (0 = off).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionLossFromStartPct" xml:space="preserve">
+    <value>Caution: loss from start (%)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionLossFromStartPctDescription" xml:space="preserve">
+    <value>Show CAUTION when equity is down by this percent from start-of-day equity (0 = off).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionGivebackFromPeakPct" xml:space="preserve">
+    <value>Caution: giveback from peak (%)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionGivebackFromPeakPctDescription" xml:space="preserve">
+    <value>Show CAUTION when equity gives back this percent from today's peak equity (0 = off).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="StopHitEarlierToday" xml:space="preserve">
+    <value>Stop hit earlier today.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowRemainingDailyLoss" xml:space="preserve">
+    <value>Remaining daily loss</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowRemainingDailyProfitTarget" xml:space="preserve">
+    <value>Remaining to profit target</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowRemainingDailyLossRow" xml:space="preserve">
+    <value>Show remaining daily loss</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowRemainingDailyLossRowDescription" xml:space="preserve">
+    <value>Show how much room is left before the daily loss limit (based on current equity).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowRemainingDailyProfitTargetRow" xml:space="preserve">
+    <value>Show remaining to profit target</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowRemainingDailyProfitTargetRowDescription" xml:space="preserve">
+    <value>Show how much is left to reach the daily profit target (based on current equity).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowTradeMaxOpenPnLCurrent" xml:space="preserve">
+    <value>Trade Max Open PnL (Current)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowTradeMaxOpenPnLLast" xml:space="preserve">
+    <value>Trade Max Open PnL (Last)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionTradesPct" xml:space="preserve">
+    <value>Trades CAUTION (%)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionTradesPctDescription" xml:space="preserve">
+    <value>Triggers CAUTION when today's trade count reaches this percentage of Max Trades Per Day (e.g., 0.75 = 75%).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionRemainingDailyLossPct" xml:space="preserve">
+    <value>Remaining daily loss CAUTION (%)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionRemainingDailyLossPctDescription" xml:space="preserve">
+    <value>Triggers CAUTION when remaining daily loss is below this percentage of the daily loss limit.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableConsistencyRules" xml:space="preserve">
+    <value>Enable consistency rules</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableConsistencyRulesDescription" xml:space="preserve">
+    <value>Enables payout concentration checks (CAUTION/STOP) based on the payout objective.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="PayoutObjective" xml:space="preserve">
+    <value>Payout objective</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="PayoutObjectiveDescription" xml:space="preserve">
+    <value>Target payout used by consistency rules to compute CAUTION/STOP thresholds.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ConsistencyCautionPct" xml:space="preserve">
+    <value>Consistency CAUTION (%)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ConsistencyCautionPctDescription" xml:space="preserve">
+    <value>Triggers CAUTION when today's realized PnL reaches this percentage of the payout objective.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ConsistencyStopPct" xml:space="preserve">
+    <value>Consistency STOP (%)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ConsistencyStopPctDescription" xml:space="preserve">
+    <value>Triggers STOP when today's realized PnL reaches this percentage of the payout objective.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableGivebackCaution" xml:space="preserve">
+    <value>Enable giveback CAUTION</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnableGivebackCautionDescription" xml:space="preserve">
+    <value>Enables CAUTION when today's PnL gives back too much from the intraday peak.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="GivebackPctOfProfitTarget" xml:space="preserve">
+    <value>Giveback CAUTION (% of daily profit target)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="GivebackPctOfProfitTargetDescription" xml:space="preserve">
+    <value>Giveback threshold as a percentage of the daily profit target (used when Daily Profit Target &gt; 0).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="GivebackAbs" xml:space="preserve">
+    <value>Giveback CAUTION (absolute)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="GivebackAbsDescription" xml:space="preserve">
+    <value>Absolute giveback threshold used when Daily Profit Target is 0.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionOneLossAway" xml:space="preserve">
+    <value>CAUTION: one loss away from max consecutive losses.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="CautionRemainingDailyLossLow" xml:space="preserve">
+    <value>CAUTION: remaining daily loss is low.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ConsistencyCautionReason" xml:space="preserve">
+    <value>CAUTION: payout concentration threshold reached.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ConsistencyStopReason" xml:space="preserve">
+    <value>STOP: payout concentration threshold reached.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="GivebackCautionReason" xml:space="preserve">
+    <value>CAUTION: intraday giveback threshold reached.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowsTrailingDd" xml:space="preserve">
+    <value>Rows: Trailing drawdown</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowsTrade" xml:space="preserve">
+    <value>Rows: Trade</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingStartEquityRow" xml:space="preserve">
+    <value>Show trailing start equity</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingStartEquityRowDescription" xml:space="preserve">
+    <value>Shows the trailing drawdown start equity row.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingPeakEquityRow" xml:space="preserve">
+    <value>Show trailing peak equity</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingPeakEquityRowDescription" xml:space="preserve">
+    <value>Shows the trailing drawdown peak equity row.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingStopEquityRow" xml:space="preserve">
+    <value>Show trailing stop equity</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingStopEquityRowDescription" xml:space="preserve">
+    <value>Shows the trailing drawdown stop equity row.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingRemainingDdRow" xml:space="preserve">
+    <value>Show trailing remaining drawdown</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingRemainingDdRowDescription" xml:space="preserve">
+    <value>Shows remaining drawdown to the trailing stop equity.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingCurrentDdRow" xml:space="preserve">
+    <value>Show trailing current drawdown</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTrailingCurrentDdRowDescription" xml:space="preserve">
+    <value>Shows current drawdown from the trailing peak equity.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTradeMaxOpenPnlCurrentRow" xml:space="preserve">
+    <value>Show trade max open PnL (current)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTradeMaxOpenPnlCurrentRowDescription" xml:space="preserve">
+    <value>Shows the max open PnL for the current trade (while in position).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTradeMaxOpenPnlLastRow" xml:space="preserve">
+    <value>Show trade max open PnL (last)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTradeMaxOpenPnlLastRowDescription" xml:space="preserve">
+    <value>Shows the max open PnL for the last closed trade (while flat).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowLastClosedTradePnlRow" xml:space="preserve">
+    <value>Show last closed trade PnL</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowLastClosedTradePnlRowDescription" xml:space="preserve">
+    <value>Shows the realized PnL of the last closed trade (while flat).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowTrailingRemainingDd" xml:space="preserve">
+    <value>Trailing Remaining DD</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowTrailingCurrentDd" xml:space="preserve">
+    <value>Trailing Current DD</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowLastClosedTradePnL" xml:space="preserve">
+    <value>Last Trade PnL (Closed)</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="HorizontalPosition" xml:space="preserve">
+    <value>Horizontal position</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="HorizontalPositionDescription" xml:space="preserve">
+    <value>Panel horizontal alignment on the chart.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="VerticalPosition" xml:space="preserve">
+    <value>Vertical position</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="VerticalPositionDescription" xml:space="preserve">
+    <value>Panel vertical alignment on the chart.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="LayoutGroup" xml:space="preserve">
     <value>Layout</value>
   </data>
-  <!-- Price rails (settings) -->
-<data name="EnablePriceRails" xml:space="preserve">
-  <value>Enable price rails</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="EnablePriceRailsDescription" xml:space="preserve">
-  <value>Enables price rails helpers (target and effective stop). Display-only.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowTargetRail" xml:space="preserve">
-  <value>Show target rail</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowTargetRailDescription" xml:space="preserve">
-  <value>Shows the target price required to reach the daily profit target based on realized PnL today and current position size.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowStopRail" xml:space="preserve">
-  <value>Show stop rail</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowStopRailDescription" xml:space="preserve">
-  <value>Shows the effective stop price using the nearest STOP driver (daily loss vs trailing drawdown).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="ShowRailLabels" xml:space="preserve">
-  <value>Show rail labels</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="ShowRailLabelsDescription" xml:space="preserve">
-  <value>Shows descriptive labels for price rails (target/stop reason).</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="RailLineWidth" xml:space="preserve">
-  <value>Rail line width</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RailLineWidthDescription" xml:space="preserve">
-  <value>Line width for chart price rails.</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<!-- Price rails (panel rows) -->
-<data name="RowPriceRailTarget" xml:space="preserve">
-  <value>Target price</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RowPriceRailStop" xml:space="preserve">
-  <value>Stop price</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<!-- Price rails (reasons + label formats) -->
-<data name="StopReasonDailyLoss" xml:space="preserve">
-  <value>Daily loss limit</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="StopReasonTrailingDd" xml:space="preserve">
-  <value>Trailing drawdown</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-
-<data name="RailTargetLabelFormat" xml:space="preserve">
-  <value>Target {0:N2} | left {1}</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
-<data name="RailStopLabelFormat" xml:space="preserve">
-  <value>Stop ({0}) {1:N2}</value>
-  <comment>AccountInfoDisplay</comment>
-</data>
+  <data name="EnablePriceRails" xml:space="preserve">
+    <value>Enable price rails</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="EnablePriceRailsDescription" xml:space="preserve">
+    <value>Enables price rails helpers (target and effective stop). Display-only.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTargetRail" xml:space="preserve">
+    <value>Show target rail</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowTargetRailDescription" xml:space="preserve">
+    <value>Shows the target price required to reach the daily profit target based on realized PnL today and current position size.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowStopRail" xml:space="preserve">
+    <value>Show stop rail</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowStopRailDescription" xml:space="preserve">
+    <value>Shows the effective stop price using the nearest STOP driver (daily loss vs trailing drawdown).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowRailLabels" xml:space="preserve">
+    <value>Show rail labels</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="ShowRailLabelsDescription" xml:space="preserve">
+    <value>Shows descriptive labels for price rails (target/stop reason).</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RailLineWidth" xml:space="preserve">
+    <value>Rail line width</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RailLineWidthDescription" xml:space="preserve">
+    <value>Line width for chart price rails.</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowPriceRailTarget" xml:space="preserve">
+    <value>Target price</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RowPriceRailStop" xml:space="preserve">
+    <value>Stop price</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="StopReasonDailyLoss" xml:space="preserve">
+    <value>Daily loss limit</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="StopReasonTrailingDd" xml:space="preserve">
+    <value>Trailing drawdown</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RailTargetLabelFormat" xml:space="preserve">
+    <value>Target {0:N2} | left {1}</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
+  <data name="RailStopLabelFormat" xml:space="preserve">
+    <value>Stop ({0}) {1:N2}</value>
+    <comment>AccountInfoDisplay</comment>
+  </data>
   <data name="DiagonalImbalance" xml:space="preserve">
     <value>Diagonal Imbalance</value>
     <comment>ClusterSearch</comment>
@@ -4879,10 +4806,6 @@
   </data>
   <data name="ImbalancesVisualization" xml:space="preserve">
     <value>Imbalances Visualization</value>
-    <comment>ClusterSearch</comment>
-  </data>
-  <data name="ImbalanceRatio" xml:space="preserve">
-    <value>Imbalance Ratio</value>
     <comment>ClusterSearch</comment>
   </data>
   <data name="MinVolumeDifference" xml:space="preserve">
@@ -4909,7 +4832,7 @@
     <value>Sell Imbalance Color</value>
     <comment>ClusterSearch</comment>
   </data>
-    <data name="ImbalanceRatioDescription" xml:space="preserve">
+  <data name="ImbalanceRatioDescription" xml:space="preserve">
     <value>Minimum dominance ratio between aggressor and passive side required to validate a diagonal imbalance.</value>
     <comment>ClusterSearch</comment>
   </data>
@@ -4945,7 +4868,6 @@
     <value>Where to place the labels: at the last bar, left side, right side, or hidden.</value>
     <comment>UI</comment>
   </data>
-
   <data name="OverlayLineType" xml:space="preserve">
     <value>Overlay line type</value>
     <comment>UI</comment>
@@ -4954,7 +4876,6 @@
     <value>Draw horizontal overlay lines from the IB levels to the labels or across the full chart width.</value>
     <comment>UI</comment>
   </data>
-
   <data name="ShowDuringFormation" xml:space="preserve">
     <value>Show during formation</value>
     <comment>UI</comment>
@@ -4963,330 +4884,311 @@
     <value>If disabled, hide lines and labels until the Initial Balance is completed.</value>
     <comment>UI</comment>
   </data>
-
-<data name="IsNeedShowLabelDescription" xml:space="preserve">
+  <data name="IsNeedShowLabelDescription" xml:space="preserve">
     <value>Determines whether the text label should be displayed.</value>
   </data>
   <data name="InitialBalance_LabelMid" xml:space="preserve">
-  <value>Mid</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBH" xml:space="preserve">
-  <value>IBH</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBL" xml:space="preserve">
-  <value>IBL</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBM" xml:space="preserve">
-  <value>IBM</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBHX1" xml:space="preserve">
-  <value>IBHX1</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBHX2" xml:space="preserve">
-  <value>IBHX2</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBHX3" xml:space="preserve">
-  <value>IBHX3</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBLX1" xml:space="preserve">
-  <value>IBLX1</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBLX2" xml:space="preserve">
-  <value>IBLX2</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="InitialBalance_LabelIBLX3" xml:space="preserve">
-  <value>IBLX3</value>
-  <comment>InitialBalance</comment>
-</data>
-<data name="TradingDayStart" xml:space="preserve">
- <value>Trading day start</value>
- <comment>DailyLines</comment>
-</data>
-<data name="TradingDayStartDescription" xml:space="preserve">
- <value>Anchor time that defines when a new trading day starts. This affects which day is considered "current" and "previous" (e.g., weekends/holidays), but OHLC is still calculated only from the selected session window.</value>
- <comment>DailyLines</comment>
-</data>
-<data name="HalfGap" xml:space="preserve">
-  <value>Half Gap</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="HalfGapDescription" xml:space="preserve">
-  <value>Midpoint between the previous session close and the current session open (RTH use case).</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowHalfGap" xml:space="preserve">
-  <value>Show Half Gap</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowHalfGapDescription" xml:space="preserve">
-  <value>Show the Half Gap line (only for Current Day with Custom Session enabled).</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="HalfGapText" xml:space="preserve">
-  <value>Half Gap text</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="HalfGapTextDescription" xml:space="preserve">
-  <value>Label text for the Half Gap line.</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="PenSettingsDescription" xml:space="preserve">
+    <value>Mid</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBH" xml:space="preserve">
+    <value>IBH</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBL" xml:space="preserve">
+    <value>IBL</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBM" xml:space="preserve">
+    <value>IBM</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBHX1" xml:space="preserve">
+    <value>IBHX1</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBHX2" xml:space="preserve">
+    <value>IBHX2</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBHX3" xml:space="preserve">
+    <value>IBHX3</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBLX1" xml:space="preserve">
+    <value>IBLX1</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBLX2" xml:space="preserve">
+    <value>IBLX2</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="InitialBalance_LabelIBLX3" xml:space="preserve">
+    <value>IBLX3</value>
+    <comment>InitialBalance</comment>
+  </data>
+  <data name="TradingDayStart" xml:space="preserve">
+    <value>Trading day start</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="TradingDayStartDescription" xml:space="preserve">
+    <value>Anchor time that defines when a new trading day begins. Determines which day is considered "current" and "previous".</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="HalfGap" xml:space="preserve">
+    <value>Half Gap</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="HalfGapDescription" xml:space="preserve">
+    <value>Midpoint between the previous session close and the current session open (RTH use case).</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowHalfGap" xml:space="preserve">
+    <value>Show Half Gap</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowHalfGapDescription" xml:space="preserve">
+    <value>Show the Half Gap line (only for Current Day with Custom Session enabled).</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="HalfGapText" xml:space="preserve">
+    <value>Half Gap text</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="HalfGapTextDescription" xml:space="preserve">
+    <value>Label text for the Half Gap line.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PenSettingsDescription" xml:space="preserve">
     <value>Specifies settings for the color, style, and width of the displayed lines.</value>
   </data>
   <data name="MultiScope" xml:space="preserve">
-  <value>Multi-scope</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="MultiScopeDescription" xml:space="preserve">
-  <value>Enable showing multiple periods at the same time (instead of selecting a single Period).</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowCurrentDay" xml:space="preserve">
-  <value>Show Curr. Day</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowCurrentDayDescription" xml:space="preserve">
-  <value>Show current day levels.</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowPreviousDay" xml:space="preserve">
-  <value>Show Prev. Day</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowPreviousDayDescription" xml:space="preserve">
-  <value>Show previous day levels.</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowCurrentWeek" xml:space="preserve">
-  <value>Show Curr. Week</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowCurrentWeekDescription" xml:space="preserve">
-  <value>Show current week levels.</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowPreviousWeek" xml:space="preserve">
-  <value>Show Prev. Week</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowPreviousWeekDescription" xml:space="preserve">
-  <value>Show previous week levels.</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowCurrentMonth" xml:space="preserve">
-  <value>Show Curr. Month</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowCurrentMonthDescription" xml:space="preserve">
-  <value>Show current month levels.</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowPreviousMonth" xml:space="preserve">
-  <value>Show Prev. Month</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowPreviousMonthDescription" xml:space="preserve">
-  <value>Show previous month levels.</value>
-  <comment>DailyLines</comment>
-</data><data name="PeriodDescription" xml:space="preserve">
+    <value>Multi-scope</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="MultiScopeDescription" xml:space="preserve">
+    <value>Enable showing multiple periods at the same time (instead of selecting a single Period).</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentDay" xml:space="preserve">
+    <value>Show Curr. Day</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentDayDescription" xml:space="preserve">
+    <value>Show current day levels.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousDay" xml:space="preserve">
+    <value>Show Prev. Day</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousDayDescription" xml:space="preserve">
+    <value>Show previous day levels.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentWeek" xml:space="preserve">
+    <value>Show Curr. Week</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentWeekDescription" xml:space="preserve">
+    <value>Show current week levels.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousWeek" xml:space="preserve">
+    <value>Show Prev. Week</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousWeekDescription" xml:space="preserve">
+    <value>Show previous week levels.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentMonth" xml:space="preserve">
+    <value>Show Curr. Month</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentMonthDescription" xml:space="preserve">
+    <value>Show current month levels.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousMonth" xml:space="preserve">
+    <value>Show Prev. Month</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousMonthDescription" xml:space="preserve">
+    <value>Show previous month levels.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PeriodDescription" xml:space="preserve">
     <value>Specifies the quantity of recent candles to include in the calculations.</value>
-  </data><data name="IsCustomSessionDescription" xml:space="preserve">
+  </data>
+  <data name="IsCustomSessionDescription" xml:space="preserve">
     <value>If enabled, allows the use of a custom session, otherwise the default session.</value>
-  </data><data name="SessionBeginDescription" xml:space="preserve">
+  </data>
+  <data name="SessionBeginDescription" xml:space="preserve">
     <value>Defines the start date of data recording.
 The indicator loads volume data not more than 5 days.</value>
-  </data><data name="SessionEndDescription" xml:space="preserve">
+  </data>
+  <data name="SessionEndDescription" xml:space="preserve">
     <value>Defines the end date of data recording.</value>
   </data>
   <data name="ShowEth" xml:space="preserve">
-  <value>Show ETH (18:00→RTH)</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowEthDescription" xml:space="preserve">
-  <value>Draw ETH levels from Trading Day Start to the RTH start (custom session start time).</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="Eth" xml:space="preserve">
-  <value>ETH</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="NoDataForPeriod" xml:space="preserve">
-  <value>No data to calculate: {0}</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="IncompleteDataForPeriod" xml:space="preserve">
-  <value>Incomplete history (may be inaccurate): {0}</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="Rth" xml:space="preserve">
-  <value>RTH</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowCurrentRth" xml:space="preserve">
-  <value>Show Current RTH</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowCurrentRthDescription" xml:space="preserve">
-  <value>Show levels for the current RTH session (Custom Session window).</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="ShowPreviousRth" xml:space="preserve">
-  <value>Show Previous RTH</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="ShowPreviousRthDescription" xml:space="preserve">
-  <value>Show levels for the previous RTH session (Custom Session window).</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="DayFamilyLevels" xml:space="preserve">
-  <value>Day-family: levels</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="DayFamilyLevelsDescription" xml:space="preserve">
-  <value>Select which OHLC levels are drawn for Day / ETH / RTH scopes.</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="DayLevels" xml:space="preserve">
-  <value>Day levels</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="DayLevelsDescription" xml:space="preserve">
-  <value>Levels to draw for Current Day (full day in multi-scope).</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="PrevDayLevels" xml:space="preserve">
-  <value>Previous day levels</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="PrevDayLevelsDescription" xml:space="preserve">
-  <value>Levels to draw for Previous Day (full day in multi-scope).</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="EthLevels" xml:space="preserve">
-  <value>ETH levels</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="EthLevelsDescription" xml:space="preserve">
-  <value>Levels to draw for ETH (TradingDayStart → RTH start).</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="RthLevels" xml:space="preserve">
-  <value>RTH levels</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="RthLevelsDescription" xml:space="preserve">
-  <value>Levels to draw for Current RTH (Custom Session window).</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="PrevRthLevels" xml:space="preserve">
-  <value>Previous RTH levels</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="PrevRthLevelsDescription" xml:space="preserve">
-  <value>Levels to draw for Previous RTH (Custom Session window).</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="DayFamilyStyles" xml:space="preserve">
-  <value>Day-family: styles</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="DayFamilyStylesDescription" xml:space="preserve">
-  <value>Override line styles per scope for Day / ETH / RTH in multi-scope.</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="UseScopeStyleOverrides" xml:space="preserve">
-  <value>Use scope style overrides</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="UseScopeStyleOverridesDescription" xml:space="preserve">
-  <value>When enabled, Day/ETH/RTH scopes use their own line style instead of the global OHLC styles.</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="DayScopePen" xml:space="preserve">
-  <value>Day style</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="DayScopePenDescription" xml:space="preserve">
-  <value>Line style for Current Day scope.</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="PrevDayScopePen" xml:space="preserve">
-  <value>Previous day style</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="PrevDayScopePenDescription" xml:space="preserve">
-  <value>Line style for Previous Day scope.</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="EthScopePen" xml:space="preserve">
-  <value>ETH style</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="EthScopePenDescription" xml:space="preserve">
-  <value>Line style for ETH scope.</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="RthScopePen" xml:space="preserve">
-  <value>RTH style</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="RthScopePenDescription" xml:space="preserve">
-  <value>Line style for Current RTH scope.</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="PrevRthScopePen" xml:space="preserve">
-  <value>Previous RTH style</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="PrevRthScopePenDescription" xml:space="preserve">
-  <value>Line style for Previous RTH scope.</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="CurrentDayRthEthSplit" xml:space="preserve">
-  <value>Split Current Day into RTH/ETH</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="CurrentDayRthEthSplitDescription" xml:space="preserve">
-  <value>When MultiScope is disabled, Current Day levels are shown for RTH only. When MultiScope is enabled, this option allows showing RTH and ETH separately using the RTH start/end times below.</value>
-  <comment>DailyLines</comment>
-</data>
-
-<data name="DrawFromSignificantBar" xml:space="preserve">
-  <value>From significant bar</value>
-  <comment>DailyLines</comment>
-</data>
-<data name="DrawFromSignificantBarDescription" xml:space="preserve">
-  <value>When enabled, lines start from the bar that formed the level (Open=first bar, High/Low=extreme bar, Close=last bar). When disabled, lines start from the period boundary.</value>
-  <comment>DailyLines</comment>
-</data>
+    <value>Show ETH (18:00→RTH)</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowEthDescription" xml:space="preserve">
+    <value>Draw ETH levels from Trading Day Start to the RTH start (custom session start time).</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="Eth" xml:space="preserve">
+    <value>ETH</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="NoDataForPeriod" xml:space="preserve">
+    <value>No data to calculate: {0}</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="IncompleteDataForPeriod" xml:space="preserve">
+    <value>Incomplete history (may be inaccurate): {0}</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="Rth" xml:space="preserve">
+    <value>RTH</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentRth" xml:space="preserve">
+    <value>Show Current RTH</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowCurrentRthDescription" xml:space="preserve">
+    <value>Show levels for the current RTH session (Custom Session window).</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousRth" xml:space="preserve">
+    <value>Show Previous RTH</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="ShowPreviousRthDescription" xml:space="preserve">
+    <value>Show levels for the previous RTH session (Custom Session window).</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayFamilyLevels" xml:space="preserve">
+    <value>Day-family: levels</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayFamilyLevelsDescription" xml:space="preserve">
+    <value>Select which OHLC levels are drawn for Day / ETH / RTH scopes.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayLevels" xml:space="preserve">
+    <value>Day levels</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayLevelsDescription" xml:space="preserve">
+    <value>Levels to draw for Current Day (full day in multi-scope).</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevDayLevels" xml:space="preserve">
+    <value>Previous day levels</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevDayLevelsDescription" xml:space="preserve">
+    <value>Levels to draw for Previous Day (full day in multi-scope).</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="EthLevels" xml:space="preserve">
+    <value>ETH levels</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="EthLevelsDescription" xml:space="preserve">
+    <value>Levels to draw for ETH (TradingDayStart → RTH start).</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="RthLevels" xml:space="preserve">
+    <value>RTH levels</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="RthLevelsDescription" xml:space="preserve">
+    <value>Levels to draw for Current RTH (Custom Session window).</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevRthLevels" xml:space="preserve">
+    <value>Previous RTH levels</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevRthLevelsDescription" xml:space="preserve">
+    <value>Levels to draw for Previous RTH (Custom Session window).</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayFamilyStyles" xml:space="preserve">
+    <value>Day-family: styles</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayFamilyStylesDescription" xml:space="preserve">
+    <value>Override line styles per scope for Day / ETH / RTH in multi-scope.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="UseScopeStyleOverrides" xml:space="preserve">
+    <value>Use scope style overrides</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="UseScopeStyleOverridesDescription" xml:space="preserve">
+    <value>When enabled, Day/ETH/RTH scopes use their own line style instead of the global OHLC styles.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayScopePen" xml:space="preserve">
+    <value>Day style</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DayScopePenDescription" xml:space="preserve">
+    <value>Line style for Current Day scope.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevDayScopePen" xml:space="preserve">
+    <value>Previous day style</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevDayScopePenDescription" xml:space="preserve">
+    <value>Line style for Previous Day scope.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="EthScopePen" xml:space="preserve">
+    <value>ETH style</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="EthScopePenDescription" xml:space="preserve">
+    <value>Line style for ETH scope.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="RthScopePen" xml:space="preserve">
+    <value>RTH style</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="RthScopePenDescription" xml:space="preserve">
+    <value>Line style for Current RTH scope.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevRthScopePen" xml:space="preserve">
+    <value>Previous RTH style</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="PrevRthScopePenDescription" xml:space="preserve">
+    <value>Line style for Previous RTH scope.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="CurrentDayRthEthSplit" xml:space="preserve">
+    <value>Split Current Day into RTH/ETH</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="CurrentDayRthEthSplitDescription" xml:space="preserve">
+    <value>When MultiScope is disabled, Current Day levels are shown for RTH only. When MultiScope is enabled, this option allows showing RTH and ETH separately using the RTH start/end times below.</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DrawFromSignificantBar" xml:space="preserve">
+    <value>From significant bar</value>
+    <comment>DailyLines</comment>
+  </data>
+  <data name="DrawFromSignificantBarDescription" xml:space="preserve">
+    <value>When enabled, lines start from the bar that formed the level (Open=first bar, High/Low=extreme bar, Close=last bar). When disabled, lines start from the period boundary.</value>
+    <comment>DailyLines</comment>
+  </data>
 </root>

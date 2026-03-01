@@ -11258,7 +11258,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Anchor time that defines when a new trading day starts. This affects which day is considered &quot;current&quot; and &quot;previous&quot; (e.g., weekends/holidays), but OHLC is still calculated only from the selected session window..
+        ///   Busca una cadena traducida similar a Anchor time that defines when a new trading day begins. Determines which day is considered &quot;current&quot; and &quot;previous&quot;..
         /// </summary>
         public static string TradingDayStartDescription {
             get {
