@@ -218,8 +218,8 @@ public class DailyLines : Indicator
 	#region Filters
 
     [Parameter]
-    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Period), GroupName = nameof(Resources.Filters),
-        Description = nameof(Resources.PeriodDescription), Order = 100)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.DlPeriod), GroupName = nameof(Resources.Filters),
+    Description = nameof(Resources.DlPeriodDescription), Order = 100)]
     public PeriodType Period
     {
         get => _per;
