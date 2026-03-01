@@ -2906,4 +2906,8 @@
     <value>Si activé, les lignes démarrent sur la bougie qui a formé le niveau (Open=première bougie, High/Low=bougie de l’extrême, Close=dernière bougie). Sinon, elles démarrent au début du graphique (bord gauche).</value>
     <comment>DailyLines</comment>
   </data>
-</root>
+<data name="Line" xml:space="preserve">
+    <value>Ligne</value>
+  </data><data name="TextSize" xml:space="preserve">
+    <value>Taille du texte</value>
+  </data></root>

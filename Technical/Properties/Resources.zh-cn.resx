@@ -2854,4 +2854,8 @@
     <value>启用后，线条从形成该水平的 K 线开始（Open=第一根，High/Low=极值那根，Close=最后一根）。禁用后，线条从图表起点开始（左侧边缘）。</value>
     <comment>DailyLines</comment>
   </data>
-</root>
+<data name="Line" xml:space="preserve">
+    <value>线</value>
+  </data><data name="TextSize" xml:space="preserve">
+    <value>文本大小</value>
+  </data></root>

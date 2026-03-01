@@ -147,6 +147,9 @@
   <data name="Filter" xml:space="preserve">
     <value>Filtro</value>
   </data>
+  <data name="Line" xml:space="preserve">
+    <value>Línea</value>
+  </data>
   <data name="AlertFile" xml:space="preserve">
     <value>Archivo de alarma</value>
   </data>
@@ -203,6 +206,9 @@
   </data>
   <data name="Show" xml:space="preserve">
     <value>Mostrar</value>
+  </data>
+  <data name="TextSize" xml:space="preserve">
+    <value>Tamaño del texto</value>
   </data>
   <data name="FontSize" xml:space="preserve">
     <value>Tamaño de tipo de letra</value>

@@ -2911,4 +2911,8 @@
     <value>Wenn aktiviert, starten Linien an der Kerze, die das Level gebildet hat (Open=erste Kerze, High/Low=Extrem-Kerze, Close=letzte Kerze). Wenn deaktiviert, starten sie am Anfang des Charts (linker Rand).</value>
     <comment>DailyLines</comment>
   </data>
-</root>
+<data name="Line" xml:space="preserve">
+    <value>Line</value>
+  </data><data name="TextSize" xml:space="preserve">
+    <value>Textgröße</value>
+  </data></root>

@@ -2906,4 +2906,8 @@
     <value>यदि सक्षम है, तो लाइनें उस बार से शुरू होती हैं जिसने लेवल बनाया (Open=पहली बार, High/Low=एक्सट्रीम बार, Close=अंतिम बार)। यदि अक्षम है, तो लाइनें चार्ट की शुरुआत (बायाँ किनारा) से शुरू होती हैं।</value>
     <comment>DailyLines</comment>
   </data>
-</root>
+<data name="Line" xml:space="preserve">
+    <value>लाइन</value>
+  </data><data name="TextSize" xml:space="preserve">
+    <value>टेक्स्ट का आकार</value>
+  </data></root>
