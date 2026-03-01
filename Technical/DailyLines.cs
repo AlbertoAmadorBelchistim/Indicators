@@ -508,8 +508,8 @@ public class DailyLines : Indicator
     }
 
     [Range(5, 30)]
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.TextSize), GroupName = nameof(Strings.Show),
-        Description = nameof(Strings.FontSizeDescription), Order = 205)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.TextSize), GroupName = nameof(Resources.Show),
+        Description = nameof(Resources.FontSizeDescription), Order = 205)]
     public FilterInt TextSize { get; set; } = new(false);
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowPriceLabels), GroupName = nameof(Strings.Show),
