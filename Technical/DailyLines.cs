@@ -219,7 +219,7 @@ public class DailyLines : Indicator
 
     [Parameter]
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Period), GroupName = nameof(Resources.Filters),
-        Description = nameof(Resources.PeriodDescription), Order = 110)]
+        Description = nameof(Resources.PeriodDescription), Order = 100)]
     public PeriodType Period
     {
         get => _per;
@@ -234,7 +234,7 @@ public class DailyLines : Indicator
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.MultiScope),
         Description = nameof(Resources.MultiScopeDescription),
-        GroupName = nameof(Resources.Filters), Order = 111)]
+        GroupName = nameof(Resources.Filters), Order = 101)]
     public bool UseMultiScope
     {
         get => _useMultiScope;
@@ -250,7 +250,7 @@ public class DailyLines : Indicator
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowCurrentDay),
     Description = nameof(Resources.ShowCurrentDayDescription),
-    GroupName = nameof(Resources.MultiScope), Order = 112)]
+    GroupName = nameof(Resources.MultiScope), Order = 110)]
     public bool ShowCurrentDay
     {
         get => _showCurrentDay;
@@ -266,7 +266,7 @@ public class DailyLines : Indicator
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowPreviousDay),
         Description = nameof(Resources.ShowPreviousDayDescription),
-        GroupName = nameof(Resources.MultiScope), Order = 113)]
+        GroupName = nameof(Resources.MultiScope), Order = 111)]
     public bool ShowPreviousDay
     {
         get => _showPreviousDay;
@@ -282,7 +282,7 @@ public class DailyLines : Indicator
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowEth),
         Description = nameof(Resources.ShowEthDescription),
-        GroupName = nameof(Resources.MultiScope), Order = 114)]
+        GroupName = nameof(Resources.MultiScope), Order = 112)]
     public bool ShowEth
     {
         get => _showEth;
@@ -298,7 +298,7 @@ public class DailyLines : Indicator
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowCurrentRth),
     Description = nameof(Resources.ShowCurrentRthDescription),
-    GroupName = nameof(Resources.MultiScope), Order = 1141)]
+    GroupName = nameof(Resources.MultiScope), Order = 113)]
     public bool ShowCurrentRth
     {
         get => _showCurrentRth;
@@ -314,7 +314,7 @@ public class DailyLines : Indicator
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowPreviousRth),
         Description = nameof(Resources.ShowPreviousRthDescription),
-        GroupName = nameof(Resources.MultiScope), Order = 1142)]
+        GroupName = nameof(Resources.MultiScope), Order = 114)]
     public bool ShowPreviousRth
     {
         get => _showPreviousRth;
@@ -398,32 +398,32 @@ public class DailyLines : Indicator
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.DayFamilyLevels),
         Description = nameof(Resources.DayFamilyLevelsDescription),
-        GroupName = nameof(Resources.Filters), Order = 140)]
+        GroupName = nameof(Resources.Filters), Order = 130)]
     public bool DayFamilyLevelsHeader => true; // dummy header (ATAS groups by GroupName; keep minimal)
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.DayLevels),
         Description = nameof(Resources.DayLevelsDescription),
-        GroupName = nameof(Resources.DayFamilyLevels), Order = 141)]
+        GroupName = nameof(Resources.DayFamilyLevels), Order = 131)]
     public LevelMask DayLevels { get; set; } = LevelMask.Ohlc;
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.PrevDayLevels),
         Description = nameof(Resources.PrevDayLevelsDescription),
-        GroupName = nameof(Resources.DayFamilyLevels), Order = 142)]
+        GroupName = nameof(Resources.DayFamilyLevels), Order = 132)]
     public LevelMask PrevDayLevels { get; set; } = LevelMask.Ohlc;
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.EthLevels),
         Description = nameof(Resources.EthLevelsDescription),
-        GroupName = nameof(Resources.DayFamilyLevels), Order = 143)]
+        GroupName = nameof(Resources.DayFamilyLevels), Order = 133)]
     public LevelMask EthLevels { get; set; } = LevelMask.Ohlc;
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.RthLevels),
         Description = nameof(Resources.RthLevelsDescription),
-        GroupName = nameof(Resources.DayFamilyLevels), Order = 144)]
+        GroupName = nameof(Resources.DayFamilyLevels), Order = 134)]
     public LevelMask RthLevels { get; set; } = LevelMask.Ohlc;
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.PrevRthLevels),
         Description = nameof(Resources.PrevRthLevelsDescription),
-        GroupName = nameof(Resources.DayFamilyLevels), Order = 145)]
+        GroupName = nameof(Resources.DayFamilyLevels), Order = 135)]
     public LevelMask PrevRthLevels { get; set; } = LevelMask.Ohlc;
 
     #endregion
@@ -452,7 +452,7 @@ public class DailyLines : Indicator
     }
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.RthStart), GroupName = nameof(Resources.Filters),
-        Description = nameof(Resources.RthStartDescription), Order = 120)]
+        Description = nameof(Resources.RthStartDescription), Order = 121)]
     public FilterTimeSpan FilterStartTime { get; set; } = new(false);
 
     [Browsable(false)]
@@ -463,11 +463,11 @@ public class DailyLines : Indicator
     }
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.RthEnd), GroupName = nameof(Resources.Filters),
-        Description = nameof(Resources.RthEndDescription), Order = 120)]
+        Description = nameof(Resources.RthEndDescription), Order = 122)]
     public FilterTimeSpan FilterEndTime { get; set; } = new(false);
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.TradingDayStart), Description = nameof(Resources.TradingDayStartDescription),
-    GroupName = nameof(Resources.Filters), Order = 125)]
+    GroupName = nameof(Resources.Filters), Order = 123)]
     public TimeSpan TradingDayStart
     {
         get => _tradingDayStart;
@@ -534,37 +534,37 @@ public class DailyLines : Indicator
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.DayFamilyStyles),
         Description = nameof(Resources.DayFamilyStylesDescription),
-        GroupName = nameof(Resources.Filters), Order = 300)]
+        GroupName = nameof(Resources.Filters), Order = 140)]
     public bool DayFamilyStylesHeader => true; // optional header
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.UseScopeStyleOverrides),
         Description = nameof(Resources.UseScopeStyleOverridesDescription),
-        GroupName = nameof(Resources.DayFamilyStyles), Order = 301)]
+        GroupName = nameof(Resources.DayFamilyStyles), Order = 141)]
     public bool UseScopeStyleOverrides { get; set; } = true;
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.DayScopePen),
         Description = nameof(Resources.DayScopePenDescription),
-        GroupName = nameof(Resources.DayFamilyStyles), Order = 302)]
+        GroupName = nameof(Resources.DayFamilyStyles), Order = 142)]
     public PenSettings DayScopePen { get; set; } = new() { Color = DefaultColors.Red.Convert(), Width = 2 };
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.PrevDayScopePen),
         Description = nameof(Resources.PrevDayScopePenDescription),
-        GroupName = nameof(Resources.DayFamilyStyles), Order = 303)]
+        GroupName = nameof(Resources.DayFamilyStyles), Order = 143)]
     public PenSettings PrevDayScopePen { get; set; } = new() { Color = DefaultColors.Red.Convert(), Width = 2 };
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.EthScopePen),
         Description = nameof(Resources.EthScopePenDescription),
-        GroupName = nameof(Resources.DayFamilyStyles), Order = 304)]
+        GroupName = nameof(Resources.DayFamilyStyles), Order = 144)]
     public PenSettings EthScopePen { get; set; } = new() { Color = DefaultColors.Red.Convert(), Width = 2 };
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.RthScopePen),
         Description = nameof(Resources.RthScopePenDescription),
-        GroupName = nameof(Resources.DayFamilyStyles), Order = 305)]
+        GroupName = nameof(Resources.DayFamilyStyles), Order = 145)]
     public PenSettings RthScopePen { get; set; } = new() { Color = DefaultColors.Red.Convert(), Width = 2 };
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.PrevRthScopePen),
         Description = nameof(Resources.PrevRthScopePenDescription),
-        GroupName = nameof(Resources.DayFamilyStyles), Order = 306)]
+        GroupName = nameof(Resources.DayFamilyStyles), Order = 146)]
     public PenSettings PrevRthScopePen { get; set; } = new() { Color = DefaultColors.Red.Convert(), Width = 2 };
 
     #endregion
@@ -621,7 +621,7 @@ public class DailyLines : Indicator
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowHalfGap),
         Description = nameof(Resources.ShowHalfGapDescription),
-        GroupName = nameof(Resources.HalfGap), Order = 360)]
+        GroupName = nameof(Resources.HalfGap), Order = 350)]
     public bool ShowHalfGap
     {
         get => _showHalfGap;
@@ -640,7 +640,7 @@ public class DailyLines : Indicator
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Line),
         Description = nameof(Resources.PenSettingsDescription),
-        GroupName = nameof(Resources.HalfGap), Order = 361)]
+        GroupName = nameof(Resources.HalfGap), Order = 355)]
     public PenSettings HalfGapPen { get; set; } = new()
     {
         Color = DefaultColors.Blue.Convert(),
@@ -649,7 +649,7 @@ public class DailyLines : Indicator
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.HalfGapText),
         Description = nameof(Resources.HalfGapTextDescription),
-        GroupName = nameof(Resources.HalfGap), Order = 362)]
+        GroupName = nameof(Resources.HalfGap), Order = 360)]
     public string HalfGapText { get; set; } = Resources.HalfGap;
 
     #endregion
