@@ -5199,4 +5199,16 @@ The indicator loads volume data not more than 5 days.</value>
   <value>Selected time period used to calculate Open, High, Low, and Close values.</value>
   <comment>DailyLines</comment>
 </data>
+<data name="CurrentEth" xml:space="preserve">
+  <value>Current ETH</value>
+  <comment>DailyLines (group)</comment>
+</data>
+<data name="CurrentRth" xml:space="preserve">
+  <value>Current RTH</value>
+  <comment>DailyLines (group)</comment>
+</data>
+<data name="PreviousRth" xml:space="preserve">
+  <value>Previous RTH</value>
+  <comment>DailyLines (group)</comment>
+</data>
 </root>

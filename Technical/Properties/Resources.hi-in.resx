@@ -2918,4 +2918,16 @@
 <data name="DlPeriodDescription" xml:space="preserve">
   <value>ओपन, हाई, लो और क्लोज़ मानों की गणना के लिए चुनी गई समय-अवधि।</value>
   <comment>DailyLines</comment>
+</data>
+<data name="CurrentEth" xml:space="preserve">
+  <value>वर्तमान ETH</value>
+  <comment>DailyLines (group)</comment>
+</data>
+<data name="CurrentRth" xml:space="preserve">
+  <value>वर्तमान RTH</value>
+  <comment>DailyLines (group)</comment>
+</data>
+<data name="PreviousRth" xml:space="preserve">
+  <value>पिछला RTH</value>
+  <comment>DailyLines (group)</comment>
 </data></root>

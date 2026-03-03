@@ -2059,11 +2059,29 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Current ETH.
+        /// </summary>
+        public static string CurrentEth {
+            get {
+                return ResourceManager.GetString("CurrentEth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Current Month.
         /// </summary>
         public static string CurrentMonth {
             get {
                 return ResourceManager.GetString("CurrentMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Current RTH.
+        /// </summary>
+        public static string CurrentRth {
+            get {
+                return ResourceManager.GetString("CurrentRth", resourceCulture);
             }
         }
         
@@ -7491,6 +7509,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string PreviousMonth {
             get {
                 return ResourceManager.GetString("PreviousMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Previous RTH.
+        /// </summary>
+        public static string PreviousRth {
+            get {
+                return ResourceManager.GetString("PreviousRth", resourceCulture);
             }
         }
         

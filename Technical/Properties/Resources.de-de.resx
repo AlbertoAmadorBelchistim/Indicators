@@ -2923,4 +2923,16 @@
 <data name="DlPeriodDescription" xml:space="preserve">
   <value>Ausgewählte Zeitperiode zur Berechnung der Werte für Eröffnung, Hoch, Tief und Schluss.</value>
   <comment>DailyLines</comment>
+</data>
+<data name="CurrentEth" xml:space="preserve">
+  <value>Aktuelles ETH</value>
+  <comment>DailyLines (group)</comment>
+</data>
+<data name="CurrentRth" xml:space="preserve">
+  <value>Aktuelles RTH</value>
+  <comment>DailyLines (group)</comment>
+</data>
+<data name="PreviousRth" xml:space="preserve">
+  <value>Vorheriges RTH</value>
+  <comment>DailyLines (group)</comment>
 </data></root>

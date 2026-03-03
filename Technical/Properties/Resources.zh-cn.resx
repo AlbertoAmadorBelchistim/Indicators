@@ -2866,4 +2866,17 @@
 <data name="DlPeriodDescription" xml:space="preserve">
   <value>用于计算开盘价、最高价、最低价和收盘价的所选时间周期。</value>
   <comment>DailyLines</comment>
-</data></root>
+</data>
+<data name="CurrentEth" xml:space="preserve">
+  <value>当前 ETH</value>
+  <comment>DailyLines (group)</comment>
+</data>
+<data name="CurrentRth" xml:space="preserve">
+  <value>当前 RTH</value>
+  <comment>DailyLines (group)</comment>
+</data>
+<data name="PreviousRth" xml:space="preserve">
+  <value>上一 RTH</value>
+  <comment>DailyLines (group)</comment>
+</data>
+</root>

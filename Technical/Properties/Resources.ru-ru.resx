@@ -4974,4 +4974,16 @@
   <value>Выбранный период для расчёта значений открытия, максимума, минимума и закрытия.</value>
   <comment>DailyLines</comment>
 </data>
+<data name="CurrentEth" xml:space="preserve">
+  <value>Текущая ETH</value>
+  <comment>DailyLines (group)</comment>
+</data>
+<data name="CurrentRth" xml:space="preserve">
+  <value>Текущая RTH</value>
+  <comment>DailyLines (group)</comment>
+</data>
+<data name="PreviousRth" xml:space="preserve">
+  <value>Предыдущая RTH</value>
+  <comment>DailyLines (group)</comment>
+</data>
 </root>

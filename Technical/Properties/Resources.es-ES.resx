@@ -2920,4 +2920,16 @@
   <value>Periodo temporal seleccionado para calcular los valores de apertura, máximo, mínimo y cierre.</value>
   <comment>DailyLines</comment>
 </data>
+<data name="CurrentEth" xml:space="preserve">
+  <value>ETH actual</value>
+  <comment>DailyLines (group)</comment>
+</data>
+<data name="CurrentRth" xml:space="preserve">
+  <value>RTH actual</value>
+  <comment>DailyLines (group)</comment>
+</data>
+<data name="PreviousRth" xml:space="preserve">
+  <value>RTH previo</value>
+  <comment>DailyLines (group)</comment>
+</data>
 </root>
