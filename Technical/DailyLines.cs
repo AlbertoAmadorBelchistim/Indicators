@@ -743,6 +743,8 @@ public class DailyLines : Indicator
 		TextSize.Value = _fontSetting.Size;
 
         _tradingDayStart = TimeSpan.Zero;
+
+        BuildDefaultLineSettings();
     }
 
     #endregion
@@ -1547,6 +1549,40 @@ public class DailyLines : Indicator
             _ => defaultPen
         };
     }
+
+    #region Line Settings (internal)
+
+    private void AddLine(ScopeKind scope, LevelType type, bool visible, string label)
+    {
+        var key = new LineKey(scope, type);
+
+        _lineSettings[key] = new LineSettings
+        {
+            Visible = visible,
+            Label = label,
+            Pen = null // Will be mapped from legacy settings / palette later
+        };
+    }
+
+    private void BuildDefaultLineSettings()
+    {
+        _lineSettings.Clear();
+
+        foreach (ScopeKind scope in Enum.GetValues(typeof(ScopeKind)))
+        {
+            // Base lines (apply to all scopes)
+            AddLine(scope, LevelType.Open, visible: true, label: $"{scope} Open");
+            AddLine(scope, LevelType.High, visible: true, label: $"{scope} High");
+            AddLine(scope, LevelType.Low, visible: true, label: $"{scope} Low");
+            AddLine(scope, LevelType.Close, visible: true, label: $"{scope} Close");
+        }
+
+        // Special lines
+        // HalfGap: only for Current RTH by design.
+        AddLine(ScopeKind.CurrentRth, LevelType.HalfGap, visible: true, label: "HalfGap");
+    }
+
+    #endregion
 
     #endregion
 }
