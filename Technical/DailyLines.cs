@@ -259,6 +259,9 @@ public class DailyLines : Indicator
     // Internal per-line settings storage (populated in later commits)
     private readonly Dictionary<LineKey, LineSettings> _lineSettings = new();
 
+    private bool TryGetLineSettings(ScopeKind scope, LevelType type, out LineSettings settings)
+    => _lineSettings.TryGetValue(new LineKey(scope, type), out settings);
+
     #endregion
 
     #region Properties
@@ -867,35 +870,58 @@ public class DailyLines : Indicator
             var mask = GetLevelMaskForScope(scopeKind);
 
             // Half Gap (midpoint between previous session close and current session open).
-            // Option A: only for CurrentDay when CustomSession is enabled.
+            // Model rule: HalfGap exists only for CurrentRth.
             if (ShowHalfGap
                 && mask.HasFlag(LevelMask.HalfGap)
                 && CustomSession
-                && scopeKind == ScopeKind.CurrentDay
+                && scopeKind == ScopeKind.CurrentRth
                 && state.Prev is not null
                 && state.Prev.IsFinished
                 && state.Prev.OpenBar >= 0
-                && range.OpenBar >= 0)
+                && range.OpenBar >= 0
+                && TryGetLineSettings(scopeKind, LevelType.HalfGap, out var halfGapLs)
+                && halfGapLs.Visible)
             {
                 var prevClose = state.Prev.ClosePrice;
                 var currOpen = range.OpenPrice;
                 var halfGap = prevClose + (currOpen - prevClose) / 2m;
 
                 if (halfGap >= low && halfGap <= high)
-                    DrawLevel(context, HalfGapPen, range.OpenBar, halfGap, HalfGapText, "HalfGap", periodStr);
+                    DrawLevel(context, halfGapLs.Pen ?? HalfGapPen, range.OpenBar, halfGap, halfGapLs.Label, "HalfGap", periodStr);
             }
 
-            if (mask.HasFlag(LevelMask.Open) && range.OpenPrice >= low && range.OpenPrice <= high)
-                DrawLevel(context, GetEffectivePen(scopeKind, OpenPen), range.OpenBar, range.OpenPrice, OpenText, "Open", periodStr);
+            if (mask.HasFlag(LevelMask.Open)
+                && range.OpenPrice >= low && range.OpenPrice <= high
+                && TryGetLineSettings(scopeKind, LevelType.Open, out var openLs)
+                && openLs.Visible)
+            {
+                DrawLevel(context, openLs.Pen ?? OpenPen, range.OpenBar, range.OpenPrice, openLs.Label, "Open", periodStr);
+            }
 
-            if (mask.HasFlag(LevelMask.High) && range.HighPrice >= low && range.HighPrice <= high)
-                DrawLevel(context, GetEffectivePen(scopeKind, OpenPen), range.HighBar, range.HighPrice, HighText, "High", periodStr);
+            if (mask.HasFlag(LevelMask.High)
+                && range.HighPrice >= low && range.HighPrice <= high
+                && TryGetLineSettings(scopeKind, LevelType.High, out var highLs)
+                && highLs.Visible)
+            {
+                DrawLevel(context, highLs.Pen ?? HighPen, range.HighBar, range.HighPrice, highLs.Label, "High", periodStr);
+            }
 
-            if (mask.HasFlag(LevelMask.Low) && range.LowPrice >= low && range.LowPrice <= high)
-                DrawLevel(context, GetEffectivePen(scopeKind, LowPen), range.LowBar, range.LowPrice, LowText, "Low", periodStr);
+            if (mask.HasFlag(LevelMask.Low)
+                && range.LowPrice >= low && range.LowPrice <= high
+                && TryGetLineSettings(scopeKind, LevelType.Low, out var lowLs)
+                && lowLs.Visible)
+            {
+                DrawLevel(context, lowLs.Pen ?? LowPen, range.LowBar, range.LowPrice, lowLs.Label, "Low", periodStr);
+            }
 
-            if (mask.HasFlag(LevelMask.Close) && range.IsFinished && range.ClosePrice >= low && range.ClosePrice <= high)
-                DrawLevel(context, GetEffectivePen(scopeKind, ClosePen), range.CloseBar, range.ClosePrice, CloseText, "Close", periodStr);
+            if (mask.HasFlag(LevelMask.Close)
+                && range.IsFinished
+                && range.ClosePrice >= low && range.ClosePrice <= high
+                && TryGetLineSettings(scopeKind, LevelType.Close, out var closeLs)
+                && closeLs.Visible)
+            {
+                DrawLevel(context, closeLs.Pen ?? ClosePen, range.CloseBar, range.ClosePrice, closeLs.Label, "Close", periodStr);
+            }
         }
     }
 
@@ -1436,6 +1462,9 @@ public class DailyLines : Indicator
 
     private void ApplySettingsChange(bool recalc = true)
     {
+        // Keep the per-line model in sync with legacy UI parameters.
+        ApplyLegacyToLineSettings();
+
         if (recalc)
             RecalculateValues();
 
