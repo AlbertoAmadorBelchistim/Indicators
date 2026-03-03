@@ -152,6 +152,69 @@ public class DailyLines : Indicator
         All = Ohlc | HalfGap
     }
 
+    #region Line Model (internal)
+
+    /// <summary>
+    /// Logical type of level within a scope.
+    /// Internal enum – does not change public API.
+    /// </summary>
+    private enum LevelType
+    {
+        Open,
+        High,
+        Low,
+        Close,
+        HalfGap
+    }
+
+    /// <summary>
+    /// Unique identity of a rendered line (Scope + LevelType).
+    /// </summary>
+    private readonly struct LineKey
+    {
+        public ScopeKind Scope { get; }
+        public LevelType Type { get; }
+
+        public LineKey(ScopeKind scope, LevelType type)
+        {
+            Scope = scope;
+            Type = type;
+        }
+
+        public override int GetHashCode()
+            => HashCode.Combine((int)Scope, (int)Type);
+
+        public override bool Equals(object obj)
+            => obj is LineKey other &&
+               other.Scope == Scope &&
+               other.Type == Type;
+    }
+
+    /// <summary>
+    /// Per-line configuration container.
+    /// This does NOT replace legacy settings yet.
+    /// It will be used progressively in later commits.
+    /// </summary>
+    private sealed class LineSettings
+    {
+        /// <summary>
+        /// Whether the line is visible.
+        /// </summary>
+        public bool Visible { get; set; }
+
+        /// <summary>
+        /// Display label of the line.
+        /// </summary>
+        public string Label { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Pen used for rendering the line.
+        /// </summary>
+        public PenSettings? Pen { get; set; }
+    }
+
+    #endregion
+
     #endregion
 
     #region Fields
@@ -192,6 +255,9 @@ public class DailyLines : Indicator
 
     private static bool IsCurrentWeekScope(ScopeKind kind) => kind == ScopeKind.CurrentWeek;
     private static bool IsCurrentMonthScope(ScopeKind kind) => kind == ScopeKind.CurrentMonth;
+
+    // Internal per-line settings storage (populated in later commits)
+    private readonly Dictionary<LineKey, LineSettings> _lineSettings = new();
 
     #endregion
 
