@@ -405,8 +405,16 @@ public class DailyLines : Indicator
         get => _per;
         set
         {
+            if (_per == value)
+                return;
+
             _per = value;
-            RecalculateValues();
+
+            // In single-period mode, changing Period should switch the enabled scope lines.
+            if (!UseMultiScope)
+                ApplyDefaultLineEnabledState();
+
+            ApplySettingsChange();
         }
     }
 
@@ -1018,6 +1026,7 @@ public class DailyLines : Indicator
         BuildDefaultLineSettings();
         ApplyLegacyToLineSettings();
         InitializeLineUi();
+        ApplyDefaultLineEnabledState();
         HookLineUiEvents();
     }
 
@@ -1732,6 +1741,8 @@ public class DailyLines : Indicator
 
     private void ApplySettingsChange(bool recalc = true)
     {
+        SyncLegacyScopeTogglesFromLineUi();
+
         ApplyUiLineSettingsToModel();
         ApplyLegacyToLineSettings(); // fallback only
 
@@ -2016,7 +2027,9 @@ public class DailyLines : Indicator
     private DlLevelSettings NewDefaultLineUi(ScopeKind scope, string label)
     {
         var pen = GetScopePen(scope);
-        return new DlLevelSettings(true, pen.Color, pen.Width, pen.LineDashStyle, label);
+
+        // Default: disabled. Single-period mode will enable only the selected period.
+        return new DlLevelSettings(false, pen.Color, pen.Width, pen.LineDashStyle, label);
     }
 
     private PenSettings GetScopePen(ScopeKind scope)
@@ -2051,6 +2064,71 @@ public class DailyLines : Indicator
         yield return PreviousWeekOpen; yield return PreviousWeekHigh; yield return PreviousWeekLow; yield return PreviousWeekClose;
         yield return CurrentMonthOpen; yield return CurrentMonthHigh; yield return CurrentMonthLow; yield return CurrentMonthClose;
         yield return PreviousMonthOpen; yield return PreviousMonthHigh; yield return PreviousMonthLow; yield return PreviousMonthClose;
+    }
+
+    private void ApplyDefaultLineEnabledState()
+    {
+        // Always start from a clean disabled state
+        SetAllLinesEnabled(false);
+
+        // In single-period mode, enable only the selected Period scope (OHLC).
+        if (!UseMultiScope)
+            EnableSelectedSinglePeriodLines();
+    }
+
+    private void SetAllLinesEnabled(bool enabled)
+    {
+        foreach (var ui in EnumerateAllLineUi())
+            ui.Enabled = enabled;
+    }
+
+    private void EnableSelectedSinglePeriodLines()
+    {
+        var scope = PeriodToScopeKind(Period);
+
+        // Enable only OHLC for the selected scope.
+        // (HalfGap is not part of PeriodType and stays disabled by default.)
+        switch (scope)
+        {
+            case ScopeKind.CurrentDay:
+                CurrentDayOpen.Enabled = CurrentDayHigh.Enabled = CurrentDayLow.Enabled = CurrentDayClose.Enabled = true;
+                break;
+
+            case ScopeKind.PreviousDay:
+                PreviousDayOpen.Enabled = PreviousDayHigh.Enabled = PreviousDayLow.Enabled = PreviousDayClose.Enabled = true;
+                break;
+
+            case ScopeKind.CurrentWeek:
+                CurrentWeekOpen.Enabled = CurrentWeekHigh.Enabled = CurrentWeekLow.Enabled = CurrentWeekClose.Enabled = true;
+                break;
+
+            case ScopeKind.PreviousWeek:
+                PreviousWeekOpen.Enabled = PreviousWeekHigh.Enabled = PreviousWeekLow.Enabled = PreviousWeekClose.Enabled = true;
+                break;
+
+            case ScopeKind.CurrentMonth:
+                CurrentMonthOpen.Enabled = CurrentMonthHigh.Enabled = CurrentMonthLow.Enabled = CurrentMonthClose.Enabled = true;
+                break;
+
+            case ScopeKind.PreviousMonth:
+                PreviousMonthOpen.Enabled = PreviousMonthHigh.Enabled = PreviousMonthLow.Enabled = PreviousMonthClose.Enabled = true;
+                break;
+        }
+    }
+
+    private static ScopeKind PeriodToScopeKind(PeriodType period)
+    {
+        // NOTE: enum has a typo "CurrenWeek" in your code.
+        return period switch
+        {
+            PeriodType.CurrentDay => ScopeKind.CurrentDay,
+            PeriodType.PreviousDay => ScopeKind.PreviousDay,
+            PeriodType.CurrenWeek => ScopeKind.CurrentWeek,
+            PeriodType.PreviousWeek => ScopeKind.PreviousWeek,
+            PeriodType.CurrentMonth => ScopeKind.CurrentMonth,
+            PeriodType.PreviousMonth => ScopeKind.PreviousMonth,
+            _ => ScopeKind.PreviousDay
+        };
     }
 
     private void ApplyUiLineSettingsToModel()
@@ -2114,6 +2192,24 @@ public class DailyLines : Indicator
         ls.Visible = ui.Enabled;
         ls.Pen = ui.ToPenSettings();
         ls.Label = ui.Label;
+    }
+
+    private void SyncLegacyScopeTogglesFromLineUi()
+    {
+        // Only matters when MultiScope is enabled. In single-period mode, these flags are not used.
+        if (!UseMultiScope)
+            return;
+
+        // A scope is considered "active" if any line within that scope is enabled.
+        _showCurrentDay = CurrentDayOpen.Enabled || CurrentDayHigh.Enabled || CurrentDayLow.Enabled || CurrentDayClose.Enabled;
+        _showPreviousDay = PreviousDayOpen.Enabled || PreviousDayHigh.Enabled || PreviousDayLow.Enabled || PreviousDayClose.Enabled;
+        _showEth = CurrentEthOpen.Enabled || CurrentEthHigh.Enabled || CurrentEthLow.Enabled || CurrentEthClose.Enabled;
+        _showCurrentRth = CurrentRthOpen.Enabled || CurrentRthHigh.Enabled || CurrentRthLow.Enabled || CurrentRthClose.Enabled || CurrentRthHalfGap.Enabled;
+        _showPreviousRth = PreviousRthOpen.Enabled || PreviousRthHigh.Enabled || PreviousRthLow.Enabled || PreviousRthClose.Enabled;
+        _showCurrentWeek = CurrentWeekOpen.Enabled || CurrentWeekHigh.Enabled || CurrentWeekLow.Enabled || CurrentWeekClose.Enabled;
+        _showPreviousWeek = PreviousWeekOpen.Enabled || PreviousWeekHigh.Enabled || PreviousWeekLow.Enabled || PreviousWeekClose.Enabled;
+        _showCurrentMonth = CurrentMonthOpen.Enabled || CurrentMonthHigh.Enabled || CurrentMonthLow.Enabled || CurrentMonthClose.Enabled;
+        _showPreviousMonth = PreviousMonthOpen.Enabled || PreviousMonthHigh.Enabled || PreviousMonthLow.Enabled || PreviousMonthClose.Enabled;
     }
 
     #endregion
