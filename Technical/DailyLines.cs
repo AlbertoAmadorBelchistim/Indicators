@@ -745,6 +745,7 @@ public class DailyLines : Indicator
         _tradingDayStart = TimeSpan.Zero;
 
         BuildDefaultLineSettings();
+        ApplyLegacyToLineSettings();
     }
 
     #endregion
@@ -1580,6 +1581,83 @@ public class DailyLines : Indicator
         // Special lines
         // HalfGap: only for Current RTH by design.
         AddLine(ScopeKind.CurrentRth, LevelType.HalfGap, visible: true, label: "HalfGap");
+    }
+
+    #endregion
+
+    #region Legacy Mapping (internal)
+
+    private void ApplyLegacyToLineSettings()
+    {
+        // Assumes _lineSettings has been built via BuildDefaultLineSettings().
+        // This method does not change visibility yet; it only maps legacy label/pen defaults
+        // into the new per-line model.
+
+        foreach (var kv in _lineSettings)
+        {
+            var key = kv.Key;
+            var settings = kv.Value;
+
+            settings.Label = ResolveLegacyLabel(key.Scope, key.Type);
+            settings.Pen = ResolveLegacyPen(key.Scope, key.Type);
+        }
+    }
+
+    private string ResolveLegacyLabel(ScopeKind scope, LevelType type)
+    {
+        // IMPORTANT: keep this logic deterministic and backward-compatible.
+        // Per-line UI overrides will come later and should override this result.
+
+        return type switch
+        {
+            LevelType.Open => OpenText,
+            LevelType.High => HighText,
+            LevelType.Low => LowText,
+            LevelType.Close => CloseText,
+            LevelType.HalfGap => HalfGapText,
+            _ => string.Empty
+        };
+    }
+
+    private PenSettings? ResolveLegacyPen(ScopeKind scope, LevelType type)
+    {
+        // Priority:
+        // 1) Scope-specific pen override (if enabled)
+        // 2) Type-specific pen (Open/High/Low/Close/HalfGap)
+
+        var scopePen = TryGetScopeOverridePen(scope);
+
+        if (scopePen != null)
+            return scopePen;
+
+        return type switch
+        {
+            LevelType.Open => OpenPen,
+            LevelType.High => HighPen,
+            LevelType.Low => LowPen,
+            LevelType.Close => ClosePen,
+            LevelType.HalfGap => HalfGapPen,
+            _ => null
+        };
+    }
+
+    private PenSettings? TryGetScopeOverridePen(ScopeKind scope)
+    {
+        // Match the existing behavior in GetEffectivePen:
+        // - Scope pens are only meaningful when MultiScope is enabled
+        // - And the override toggle is enabled
+        if (!UseMultiScope || !UseScopeStyleOverrides)
+            return null;
+
+        return scope switch
+        {
+            ScopeKind.CurrentDay => DayScopePen,
+            ScopeKind.PreviousDay => PrevDayScopePen,
+            ScopeKind.CurrentEth => EthScopePen,
+            ScopeKind.CurrentRth => RthScopePen,
+            ScopeKind.PreviousRth => PrevRthScopePen,
+            _ => null // Week/Month: no scope pens (fallback to per-type pens)
+        };
     }
 
     #endregion
