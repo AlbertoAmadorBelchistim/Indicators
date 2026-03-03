@@ -21,9 +21,120 @@ using Color = System.Drawing.Color;
 [HelpLink("https://help.atas.net/support/solutions/articles/72000602284")]
 public class DailyLines : Indicator
 {
-	#region Nested types
+    #region Nested types
 
-	private class SessionRange
+    #region Line UI (internal)
+
+    [Editor(typeof(ATAS.Indicators.Technical.Editors.LevelSettingsEditor), typeof(ATAS.Indicators.Technical.Editors.LevelSettingsEditor))]
+    public sealed class DlLevelSettings : INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private bool _enabled;
+        private CrossColor _color;
+        private int _width = 1;
+        private LineDashStyle _lineStyle = LineDashStyle.Solid;
+        private string _label = string.Empty;
+
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled))]
+        public bool Enabled
+        {
+            get => _enabled;
+            set
+            {
+                if (_enabled == value)
+                    return;
+
+                _enabled = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Enabled)));
+            }
+        }
+
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Color))]
+        public CrossColor Color
+        {
+            get => _color;
+            set
+            {
+                if (_color.Equals(value))
+                    return;
+
+                _color = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Color)));
+            }
+        }
+
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Width))]
+        [Range(1, 10)]
+        public int Width
+        {
+            get => _width;
+            set
+            {
+                if (_width == value)
+                    return;
+
+                _width = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Width)));
+            }
+        }
+
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LineStyle))]
+        public LineDashStyle LineStyle
+        {
+            get => _lineStyle;
+            set
+            {
+                if (_lineStyle == value)
+                    return;
+
+                _lineStyle = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(LineStyle)));
+            }
+        }
+
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Label))]
+        public string Label
+        {
+            get => _label;
+            set
+            {
+                value ??= string.Empty;
+
+                if (_label == value)
+                    return;
+
+                _label = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Label)));
+            }
+        }
+
+        [Browsable(false)]
+        public PenSettings ToPenSettings()
+            => new()
+            {
+                Color = Color,
+                Width = Width,
+                LineDashStyle = LineStyle
+            };
+
+        public DlLevelSettings()
+        {
+        }
+
+        public DlLevelSettings(bool enabled, CrossColor color, int width = 1, LineDashStyle style = LineDashStyle.Solid, string label = "")
+        {
+            _enabled = enabled;
+            _color = color;
+            _width = width;
+            _lineStyle = style;
+            _label = label;
+        }
+    }
+
+    #endregion
+
+    private class SessionRange
 	{
 		#region Properties
 
@@ -465,31 +576,37 @@ public class DailyLines : Indicator
 
     #region DayFamily Levels
 
+    [Browsable(false)]
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.DayFamilyLevels),
         Description = nameof(Resources.DayFamilyLevelsDescription),
         GroupName = nameof(Resources.Filters), Order = 130)]
     public bool DayFamilyLevelsHeader => true; // dummy header (ATAS groups by GroupName; keep minimal)
 
+    [Browsable(false)]
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.DayLevels),
         Description = nameof(Resources.DayLevelsDescription),
         GroupName = nameof(Resources.DayFamilyLevels), Order = 131)]
     public LevelMask DayLevels { get; set; } = LevelMask.Ohlc;
 
+    [Browsable(false)]
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.PrevDayLevels),
         Description = nameof(Resources.PrevDayLevelsDescription),
         GroupName = nameof(Resources.DayFamilyLevels), Order = 132)]
     public LevelMask PrevDayLevels { get; set; } = LevelMask.Ohlc;
 
+    [Browsable(false)]
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.EthLevels),
         Description = nameof(Resources.EthLevelsDescription),
         GroupName = nameof(Resources.DayFamilyLevels), Order = 133)]
     public LevelMask EthLevels { get; set; } = LevelMask.Ohlc;
 
+    [Browsable(false)]
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.RthLevels),
         Description = nameof(Resources.RthLevelsDescription),
         GroupName = nameof(Resources.DayFamilyLevels), Order = 134)]
     public LevelMask RthLevels { get; set; } = LevelMask.Ohlc;
 
+    [Browsable(false)]
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.PrevRthLevels),
         Description = nameof(Resources.PrevRthLevelsDescription),
         GroupName = nameof(Resources.DayFamilyLevels), Order = 135)]
@@ -512,7 +629,7 @@ public class DailyLines : Indicator
                 // Backward-compatible default:
                 // If the user turns on CustomSession and TradingDayStart is still at zero,
                 // align TradingDayStart to the session start to preserve the legacy rollover behavior.
-                if (_tradingDayStart != null && _tradingDayStart == TimeSpan.Zero)
+                if (_tradingDayStart == TimeSpan.Zero)
                     _tradingDayStart = FilterStartTime.Value;
             }
 
@@ -601,36 +718,43 @@ public class DailyLines : Indicator
 
     #region DayFamily Styles
 
+    [Browsable(false)]
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.DayFamilyStyles),
         Description = nameof(Resources.DayFamilyStylesDescription),
         GroupName = nameof(Resources.Filters), Order = 140)]
     public bool DayFamilyStylesHeader => true; // optional header
 
+    [Browsable(false)]
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.UseScopeStyleOverrides),
         Description = nameof(Resources.UseScopeStyleOverridesDescription),
         GroupName = nameof(Resources.DayFamilyStyles), Order = 141)]
     public bool UseScopeStyleOverrides { get; set; } = true;
 
+    [Browsable(false)]
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.DayScopePen),
         Description = nameof(Resources.DayScopePenDescription),
         GroupName = nameof(Resources.DayFamilyStyles), Order = 142)]
     public PenSettings DayScopePen { get; set; } = new() { Color = DefaultColors.Red.Convert(), Width = 2 };
 
+    [Browsable(false)]
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.PrevDayScopePen),
         Description = nameof(Resources.PrevDayScopePenDescription),
         GroupName = nameof(Resources.DayFamilyStyles), Order = 143)]
     public PenSettings PrevDayScopePen { get; set; } = new() { Color = DefaultColors.Red.Convert(), Width = 2 };
 
+    [Browsable(false)]
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.EthScopePen),
         Description = nameof(Resources.EthScopePenDescription),
         GroupName = nameof(Resources.DayFamilyStyles), Order = 144)]
     public PenSettings EthScopePen { get; set; } = new() { Color = DefaultColors.Red.Convert(), Width = 2 };
 
+    [Browsable(false)]
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.RthScopePen),
         Description = nameof(Resources.RthScopePenDescription),
         GroupName = nameof(Resources.DayFamilyStyles), Order = 145)]
     public PenSettings RthScopePen { get; set; } = new() { Color = DefaultColors.Red.Convert(), Width = 2 };
 
+    [Browsable(false)]
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.PrevRthScopePen),
         Description = nameof(Resources.PrevRthScopePenDescription),
         GroupName = nameof(Resources.DayFamilyStyles), Order = 146)]
@@ -639,11 +763,13 @@ public class DailyLines : Indicator
     #endregion
 
     #region Open
-
+    
+    [Browsable(false)]
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Line), GroupName = nameof(Strings.Open),
         Description = nameof(Strings.PenSettingsDescription), Order = 310)]
     public PenSettings OpenPen { get; set; } = new() { Color = DefaultColors.Red.Convert(), Width = 2 };
-
+    
+    [Browsable(false)]
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Text), GroupName = nameof(Strings.Open), Description = nameof(Strings.LabelTextDescription),
         Order = 315)]
     public string OpenText { get; set; }
@@ -652,10 +778,12 @@ public class DailyLines : Indicator
 
     #region Close
 
+    [Browsable(false)]
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Line), GroupName = nameof(Strings.Close),
         Description = nameof(Strings.PenSettingsDescription), Order = 320)]
     public PenSettings ClosePen { get; set; } = new() { Color = DefaultColors.Red.Convert(), Width = 2 };
 
+    [Browsable(false)]
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Text), GroupName = nameof(Strings.Close), Description = nameof(Strings.LabelTextDescription),
         Order = 325)]
     public string CloseText { get; set; }
@@ -664,10 +792,12 @@ public class DailyLines : Indicator
 
     #region High
 
+    [Browsable(false)]
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Line), GroupName = nameof(Strings.High),
         Description = nameof(Strings.PenSettingsDescription), Order = 330)]
     public PenSettings HighPen { get; set; } = new() { Color = DefaultColors.Red.Convert(), Width = 2 };
 
+    [Browsable(false)]
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Text), GroupName = nameof(Strings.High), Description = nameof(Strings.LabelTextDescription),
         Order = 335)]
     public string HighText { get; set; }
@@ -676,10 +806,12 @@ public class DailyLines : Indicator
 
     #region Low
 
+    [Browsable(false)]
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Line), GroupName = nameof(Strings.Low), Description = nameof(Strings.PenSettingsDescription),
         Order = 340)]
     public PenSettings LowPen { get; set; } = new() { Color = DefaultColors.Red.Convert(), Width = 2 };
 
+    [Browsable(false)]
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Text), GroupName = nameof(Strings.Low), Description = nameof(Strings.LabelTextDescription),
         Order = 345)]
     public string LowText { get; set; }
@@ -688,6 +820,7 @@ public class DailyLines : Indicator
 
     #region HalfGap
 
+    [Browsable(false)]
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowHalfGap),
         Description = nameof(Resources.ShowHalfGapDescription),
         GroupName = nameof(Resources.HalfGap), Order = 350)]
@@ -707,6 +840,7 @@ public class DailyLines : Indicator
         }
     }
 
+    [Browsable(false)]
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Line),
         Description = nameof(Resources.PenSettingsDescription),
         GroupName = nameof(Resources.HalfGap), Order = 355)]
@@ -716,10 +850,135 @@ public class DailyLines : Indicator
         Width = 2
     };
 
+    [Browsable(false)]
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.HalfGapText),
         Description = nameof(Resources.HalfGapTextDescription),
         GroupName = nameof(Resources.HalfGap), Order = 360)]
     public string HalfGapText { get; set; } = Resources.HalfGap;
+
+    #endregion
+
+    #region Line Settings (OHLCPlus-style)
+
+    // -------- Current Day --------
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentDay), Name = nameof(Resources.BarOpen), Order = 10)]
+    public DlLevelSettings CurrentDayOpen { get; set; }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentDay), Name = nameof(Resources.BarHigh), Order = 20)]
+    public DlLevelSettings CurrentDayHigh { get; set; }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentDay), Name = nameof(Resources.BarLow), Order = 30)]
+    public DlLevelSettings CurrentDayLow { get; set; }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentDay), Name = nameof(Resources.BarClose), Order = 40)]
+    public DlLevelSettings CurrentDayClose { get; set; }
+
+    // -------- Previous Day --------
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousDay), Name = nameof(Resources.BarOpen), Order = 10)]
+    public DlLevelSettings PreviousDayOpen { get; set; }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousDay), Name = nameof(Resources.BarHigh), Order = 20)]
+    public DlLevelSettings PreviousDayHigh { get; set; }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousDay), Name = nameof(Resources.BarLow), Order = 30)]
+    public DlLevelSettings PreviousDayLow { get; set; }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousDay), Name = nameof(Resources.BarClose), Order = 40)]
+    public DlLevelSettings PreviousDayClose { get; set; }
+
+    // -------- Current ETH --------
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentEth), Name = nameof(Resources.BarOpen), Order = 10)]
+    public DlLevelSettings CurrentEthOpen { get; set; }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentEth), Name = nameof(Resources.BarHigh), Order = 20)]
+    public DlLevelSettings CurrentEthHigh { get; set; }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentEth), Name = nameof(Resources.BarLow), Order = 30)]
+    public DlLevelSettings CurrentEthLow { get; set; }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentEth), Name = nameof(Resources.BarClose), Order = 40)]
+    public DlLevelSettings CurrentEthClose { get; set; }
+
+    // -------- Current RTH --------
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentRth), Name = nameof(Resources.BarOpen), Order = 10)]
+    public DlLevelSettings CurrentRthOpen { get; set; }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentRth), Name = nameof(Resources.BarHigh), Order = 20)]
+    public DlLevelSettings CurrentRthHigh { get; set; }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentRth), Name = nameof(Resources.BarLow), Order = 30)]
+    public DlLevelSettings CurrentRthLow { get; set; }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentRth), Name = nameof(Resources.BarClose), Order = 40)]
+    public DlLevelSettings CurrentRthClose { get; set; }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentRth), Name = nameof(Resources.HalfGap), Order = 50)]
+    public DlLevelSettings CurrentRthHalfGap { get; set; }
+
+    // -------- Previous RTH --------
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousRth), Name = nameof(Resources.BarOpen), Order = 10)]
+    public DlLevelSettings PreviousRthOpen { get; set; }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousRth), Name = nameof(Resources.BarHigh), Order = 20)]
+    public DlLevelSettings PreviousRthHigh { get; set; }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousRth), Name = nameof(Resources.BarLow), Order = 30)]
+    public DlLevelSettings PreviousRthLow { get; set; }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousRth), Name = nameof(Resources.BarClose), Order = 40)]
+    public DlLevelSettings PreviousRthClose { get; set; }
+
+    // -------- Current Week --------
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentWeek), Name = nameof(Resources.BarOpen), Order = 10)]
+    public DlLevelSettings CurrentWeekOpen { get; set; }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentWeek), Name = nameof(Resources.BarHigh), Order = 20)]
+    public DlLevelSettings CurrentWeekHigh { get; set; }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentWeek), Name = nameof(Resources.BarLow), Order = 30)]
+    public DlLevelSettings CurrentWeekLow { get; set; }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentWeek), Name = nameof(Resources.BarClose), Order = 40)]
+    public DlLevelSettings CurrentWeekClose { get; set; }
+
+    // -------- Previous Week --------
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousWeek), Name = nameof(Resources.BarOpen), Order = 10)]
+    public DlLevelSettings PreviousWeekOpen { get; set; }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousWeek), Name = nameof(Resources.BarHigh), Order = 20)]
+    public DlLevelSettings PreviousWeekHigh { get; set; }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousWeek), Name = nameof(Resources.BarLow), Order = 30)]
+    public DlLevelSettings PreviousWeekLow { get; set; }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousWeek), Name = nameof(Resources.BarClose), Order = 40)]
+    public DlLevelSettings PreviousWeekClose { get; set; }
+
+    // -------- Current Month --------
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentMonth), Name = nameof(Resources.BarOpen), Order = 10)]
+    public DlLevelSettings CurrentMonthOpen { get; set; }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentMonth), Name = nameof(Resources.BarHigh), Order = 20)]
+    public DlLevelSettings CurrentMonthHigh { get; set; }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentMonth), Name = nameof(Resources.BarLow), Order = 30)]
+    public DlLevelSettings CurrentMonthLow { get; set; }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.CurrentMonth), Name = nameof(Resources.BarClose), Order = 40)]
+    public DlLevelSettings CurrentMonthClose { get; set; }
+
+    // -------- Previous Month --------
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousMonth), Name = nameof(Resources.BarOpen), Order = 10)]
+    public DlLevelSettings PreviousMonthOpen { get; set; }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousMonth), Name = nameof(Resources.BarHigh), Order = 20)]
+    public DlLevelSettings PreviousMonthHigh { get; set; }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousMonth), Name = nameof(Resources.BarLow), Order = 30)]
+    public DlLevelSettings PreviousMonthLow { get; set; }
+
+    [Display(ResourceType = typeof(Resources), GroupName = nameof(Resources.PreviousMonth), Name = nameof(Resources.BarClose), Order = 40)]
+    public DlLevelSettings PreviousMonthClose { get; set; }
 
     #endregion
 
@@ -749,6 +1008,8 @@ public class DailyLines : Indicator
 
         BuildDefaultLineSettings();
         ApplyLegacyToLineSettings();
+        InitializeLineUi();
+        HookLineUiEvents();
     }
 
     #endregion
@@ -1462,8 +1723,8 @@ public class DailyLines : Indicator
 
     private void ApplySettingsChange(bool recalc = true)
     {
-        // Keep the per-line model in sync with legacy UI parameters.
-        ApplyLegacyToLineSettings();
+        ApplyUiLineSettingsToModel();
+        ApplyLegacyToLineSettings(); // fallback only
 
         if (recalc)
             RecalculateValues();
@@ -1627,8 +1888,10 @@ public class DailyLines : Indicator
             var key = kv.Key;
             var settings = kv.Value;
 
-            settings.Label = ResolveLegacyLabel(key.Scope, key.Type);
-            settings.Pen = ResolveLegacyPen(key.Scope, key.Type);
+            if (string.IsNullOrWhiteSpace(settings.Label))
+                settings.Label = ResolveLegacyLabel(key.Scope, key.Type);
+
+            settings.Pen ??= ResolveLegacyPen(key.Scope, key.Type);
         }
     }
 
@@ -1690,6 +1953,159 @@ public class DailyLines : Indicator
     }
 
     #endregion
+
+    private void InitializeLineUi()
+    {
+        // Defaults per-scope: we seed from existing scope pens to keep the look consistent.
+        CurrentDayOpen = NewDefaultLineUi(ScopeKind.CurrentDay, "Open");
+        CurrentDayHigh = NewDefaultLineUi(ScopeKind.CurrentDay, "High");
+        CurrentDayLow = NewDefaultLineUi(ScopeKind.CurrentDay, "Low");
+        CurrentDayClose = NewDefaultLineUi(ScopeKind.CurrentDay, "Close");
+
+        PreviousDayOpen = NewDefaultLineUi(ScopeKind.PreviousDay, "Open");
+        PreviousDayHigh = NewDefaultLineUi(ScopeKind.PreviousDay, "High");
+        PreviousDayLow = NewDefaultLineUi(ScopeKind.PreviousDay, "Low");
+        PreviousDayClose = NewDefaultLineUi(ScopeKind.PreviousDay, "Close");
+
+        CurrentEthOpen = NewDefaultLineUi(ScopeKind.CurrentEth, "Open");
+        CurrentEthHigh = NewDefaultLineUi(ScopeKind.CurrentEth, "High");
+        CurrentEthLow = NewDefaultLineUi(ScopeKind.CurrentEth, "Low");
+        CurrentEthClose = NewDefaultLineUi(ScopeKind.CurrentEth, "Close");
+
+        CurrentRthOpen = NewDefaultLineUi(ScopeKind.CurrentRth, "Open");
+        CurrentRthHigh = NewDefaultLineUi(ScopeKind.CurrentRth, "High");
+        CurrentRthLow = NewDefaultLineUi(ScopeKind.CurrentRth, "Low");
+        CurrentRthClose = NewDefaultLineUi(ScopeKind.CurrentRth, "Close");
+        CurrentRthHalfGap = NewDefaultLineUi(ScopeKind.CurrentRth, "HalfGap");
+
+        PreviousRthOpen = NewDefaultLineUi(ScopeKind.PreviousRth, "Open");
+        PreviousRthHigh = NewDefaultLineUi(ScopeKind.PreviousRth, "High");
+        PreviousRthLow = NewDefaultLineUi(ScopeKind.PreviousRth, "Low");
+        PreviousRthClose = NewDefaultLineUi(ScopeKind.PreviousRth, "Close");
+
+        CurrentWeekOpen = NewDefaultLineUi(ScopeKind.CurrentWeek, "Open");
+        CurrentWeekHigh = NewDefaultLineUi(ScopeKind.CurrentWeek, "High");
+        CurrentWeekLow = NewDefaultLineUi(ScopeKind.CurrentWeek, "Low");
+        CurrentWeekClose = NewDefaultLineUi(ScopeKind.CurrentWeek, "Close");
+
+        PreviousWeekOpen = NewDefaultLineUi(ScopeKind.PreviousWeek, "Open");
+        PreviousWeekHigh = NewDefaultLineUi(ScopeKind.PreviousWeek, "High");
+        PreviousWeekLow = NewDefaultLineUi(ScopeKind.PreviousWeek, "Low");
+        PreviousWeekClose = NewDefaultLineUi(ScopeKind.PreviousWeek, "Close");
+
+        CurrentMonthOpen = NewDefaultLineUi(ScopeKind.CurrentMonth, "Open");
+        CurrentMonthHigh = NewDefaultLineUi(ScopeKind.CurrentMonth, "High");
+        CurrentMonthLow = NewDefaultLineUi(ScopeKind.CurrentMonth, "Low");
+        CurrentMonthClose = NewDefaultLineUi(ScopeKind.CurrentMonth, "Close");
+
+        PreviousMonthOpen = NewDefaultLineUi(ScopeKind.PreviousMonth, "Open");
+        PreviousMonthHigh = NewDefaultLineUi(ScopeKind.PreviousMonth, "High");
+        PreviousMonthLow = NewDefaultLineUi(ScopeKind.PreviousMonth, "Low");
+        PreviousMonthClose = NewDefaultLineUi(ScopeKind.PreviousMonth, "Close");
+    }
+
+    private DlLevelSettings NewDefaultLineUi(ScopeKind scope, string label)
+    {
+        var pen = GetScopePen(scope);
+        return new DlLevelSettings(true, pen.Color, pen.Width, pen.LineDashStyle, label);
+    }
+
+    private PenSettings GetScopePen(ScopeKind scope)
+    {
+        // Use existing scope pens as palette.
+        return scope switch
+        {
+            ScopeKind.CurrentDay => DayScopePen,
+            ScopeKind.PreviousDay => PrevDayScopePen,
+            ScopeKind.CurrentEth => EthScopePen,
+            ScopeKind.CurrentRth => RthScopePen,
+            ScopeKind.PreviousRth => PrevRthScopePen,
+            _ => DayScopePen
+        };
+    }
+
+    private void HookLineUiEvents()
+    {
+        foreach (var ui in EnumerateAllLineUi())
+            ui.PropertyChanged += (_, __) => ApplySettingsChange(recalc: false);
+    }
+
+    private IEnumerable<DlLevelSettings> EnumerateAllLineUi()
+    {
+        yield return CurrentDayOpen; yield return CurrentDayHigh; yield return CurrentDayLow; yield return CurrentDayClose;
+        yield return PreviousDayOpen; yield return PreviousDayHigh; yield return PreviousDayLow; yield return PreviousDayClose;
+        yield return CurrentEthOpen; yield return CurrentEthHigh; yield return CurrentEthLow; yield return CurrentEthClose;
+        yield return CurrentRthOpen; yield return CurrentRthHigh; yield return CurrentRthLow; yield return CurrentRthClose;
+        yield return CurrentRthHalfGap;
+        yield return PreviousRthOpen; yield return PreviousRthHigh; yield return PreviousRthLow; yield return PreviousRthClose;
+        yield return CurrentWeekOpen; yield return CurrentWeekHigh; yield return CurrentWeekLow; yield return CurrentWeekClose;
+        yield return PreviousWeekOpen; yield return PreviousWeekHigh; yield return PreviousWeekLow; yield return PreviousWeekClose;
+        yield return CurrentMonthOpen; yield return CurrentMonthHigh; yield return CurrentMonthLow; yield return CurrentMonthClose;
+        yield return PreviousMonthOpen; yield return PreviousMonthHigh; yield return PreviousMonthLow; yield return PreviousMonthClose;
+    }
+
+    private void ApplyUiLineSettingsToModel()
+    {
+        _showHalfGap = CurrentRthHalfGap.Enabled;
+
+        ApplyUi(ScopeKind.CurrentDay, LevelType.Open, CurrentDayOpen);
+        ApplyUi(ScopeKind.CurrentDay, LevelType.High, CurrentDayHigh);
+        ApplyUi(ScopeKind.CurrentDay, LevelType.Low, CurrentDayLow);
+        ApplyUi(ScopeKind.CurrentDay, LevelType.Close, CurrentDayClose);
+
+        ApplyUi(ScopeKind.PreviousDay, LevelType.Open, PreviousDayOpen);
+        ApplyUi(ScopeKind.PreviousDay, LevelType.High, PreviousDayHigh);
+        ApplyUi(ScopeKind.PreviousDay, LevelType.Low, PreviousDayLow);
+        ApplyUi(ScopeKind.PreviousDay, LevelType.Close, PreviousDayClose);
+
+        ApplyUi(ScopeKind.CurrentEth, LevelType.Open, CurrentEthOpen);
+        ApplyUi(ScopeKind.CurrentEth, LevelType.High, CurrentEthHigh);
+        ApplyUi(ScopeKind.CurrentEth, LevelType.Low, CurrentEthLow);
+        ApplyUi(ScopeKind.CurrentEth, LevelType.Close, CurrentEthClose);
+
+        ApplyUi(ScopeKind.CurrentRth, LevelType.Open, CurrentRthOpen);
+        ApplyUi(ScopeKind.CurrentRth, LevelType.High, CurrentRthHigh);
+        ApplyUi(ScopeKind.CurrentRth, LevelType.Low, CurrentRthLow);
+        ApplyUi(ScopeKind.CurrentRth, LevelType.Close, CurrentRthClose);
+        ApplyUi(ScopeKind.CurrentRth, LevelType.HalfGap, CurrentRthHalfGap);
+
+        ApplyUi(ScopeKind.PreviousRth, LevelType.Open, PreviousRthOpen);
+        ApplyUi(ScopeKind.PreviousRth, LevelType.High, PreviousRthHigh);
+        ApplyUi(ScopeKind.PreviousRth, LevelType.Low, PreviousRthLow);
+        ApplyUi(ScopeKind.PreviousRth, LevelType.Close, PreviousRthClose);
+
+        ApplyUi(ScopeKind.CurrentWeek, LevelType.Open, CurrentWeekOpen);
+        ApplyUi(ScopeKind.CurrentWeek, LevelType.High, CurrentWeekHigh);
+        ApplyUi(ScopeKind.CurrentWeek, LevelType.Low, CurrentWeekLow);
+        ApplyUi(ScopeKind.CurrentWeek, LevelType.Close, CurrentWeekClose);
+
+        ApplyUi(ScopeKind.PreviousWeek, LevelType.Open, PreviousWeekOpen);
+        ApplyUi(ScopeKind.PreviousWeek, LevelType.High, PreviousWeekHigh);
+        ApplyUi(ScopeKind.PreviousWeek, LevelType.Low, PreviousWeekLow);
+        ApplyUi(ScopeKind.PreviousWeek, LevelType.Close, PreviousWeekClose);
+
+        ApplyUi(ScopeKind.CurrentMonth, LevelType.Open, CurrentMonthOpen);
+        ApplyUi(ScopeKind.CurrentMonth, LevelType.High, CurrentMonthHigh);
+        ApplyUi(ScopeKind.CurrentMonth, LevelType.Low, CurrentMonthLow);
+        ApplyUi(ScopeKind.CurrentMonth, LevelType.Close, CurrentMonthClose);
+
+        ApplyUi(ScopeKind.PreviousMonth, LevelType.Open, PreviousMonthOpen);
+        ApplyUi(ScopeKind.PreviousMonth, LevelType.High, PreviousMonthHigh);
+        ApplyUi(ScopeKind.PreviousMonth, LevelType.Low, PreviousMonthLow);
+        ApplyUi(ScopeKind.PreviousMonth, LevelType.Close, PreviousMonthClose);
+    }
+
+    private void ApplyUi(ScopeKind scope, LevelType type, DlLevelSettings ui)
+    {
+        var key = new LineKey(scope, type);
+
+        if (!_lineSettings.TryGetValue(key, out var ls))
+            return;
+
+        ls.Visible = ui.Enabled;
+        ls.Pen = ui.ToPenSettings();
+        ls.Label = ui.Label;
+    }
 
     #endregion
 }
