@@ -101,6 +101,11 @@ namespace ATAS.Indicators.Technical
 				_volSum = 0;
 				_volPriceSum = 0;
 				_renderSeries.Clear();
+				_renderSeries[bar] = GetCandle(bar).Close;
+
+				if (Period > 1)
+					_renderSeries.SetPointOfEndLine(bar);
+
 				return;
 			}
 
