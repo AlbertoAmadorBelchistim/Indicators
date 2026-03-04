@@ -698,7 +698,7 @@ public class DailyLines : Indicator
     #region Show
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Text), GroupName = nameof(Strings.Show),
-        Description = nameof(Strings.IsNeedShowLabelDescription), Order = 200)]
+        Description = nameof(Strings.IsNeedShowLabelDescription), Order = 400)]
     public bool ShowText
     {
         get => _showText;
@@ -712,19 +712,19 @@ public class DailyLines : Indicator
 
     [Range(5, 30)]
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.TextSize), GroupName = nameof(Resources.Show),
-        Description = nameof(Resources.FontSizeDescription), Order = 205)]
+        Description = nameof(Resources.FontSizeDescription), Order = 405)]
     public FilterInt TextSize { get; set; } = new(false);
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowPriceLabels), GroupName = nameof(Strings.Show),
-        Description = nameof(Strings.ShowSelectedPriceOnPriceAxisDescription), Order = 210)]
+        Description = nameof(Strings.ShowSelectedPriceOnPriceAxisDescription), Order = 410)]
     public bool ShowPrice { get; set; } = true;
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.DrawFromSignificantBar), GroupName = nameof(Resources.Show),
-        Description = nameof(Resources.DrawFromSignificantBarDescription), Order = 220)]
+        Description = nameof(Resources.DrawFromSignificantBarDescription), Order = 420)]
     public bool DrawFromBar { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AbovePrice), GroupName = nameof(Strings.Show),
-        Description = nameof(Strings.DrawAbovePriceDescription), Order = 230)]
+        Description = nameof(Strings.DrawAbovePriceDescription), Order = 430)]
     public bool DrawOverChart
     {
         get => _drawOverChart;
