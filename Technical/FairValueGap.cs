@@ -340,7 +340,7 @@ public class FairValueGap : Indicator
 
     #region Properties
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.TimeFrame), GroupName = nameof(Strings.Settings), Description = nameof(Strings.SelectTimeframeDescription))]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.HigherTimeFrame), GroupName = nameof(Strings.Settings), Description = nameof(Strings.SelectTimeframeDescription))]
     public TimeFrameScale HigherTimeframe 
     { 
         get => _timeframe;
@@ -647,7 +647,7 @@ public class FairValueGap : Indicator
 
     private void HigherTfCalculate(int bar)
     {
-        if (_secondsPerCandle > _higherTfObj.SecondsPerTframe) return;
+        if (_secondsPerCandle >= _higherTfObj.SecondsPerTframe) return;
 
         _higherTfObj.AddBar(bar);
 
