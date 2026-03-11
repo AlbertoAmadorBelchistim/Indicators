@@ -50,8 +50,7 @@ namespace ATAS.Indicators.Technical
             UseMinimizedModeIfEnabled = true,
             ResetAlertsOnNewBar = true,
             DescriptionKey = nameof(Strings.OISettingsDescription),
-            HideZeroCandles = true,
-            TooltipAnchor = CandleTooltipAnchor.Top
+            HideZeroCandles = true
         };
 
         private int _lastBar = -1;
@@ -73,6 +72,7 @@ namespace ATAS.Indicators.Technical
             set
             {
                 _mode = value;
+                UpdateTooltipSettings();
                 RecalculateValues();
             }
         }
@@ -84,6 +84,7 @@ namespace ATAS.Indicators.Technical
             set
             {
                 _minimizedMode = value;
+                UpdateTooltipSettings();
                 RecalculateValues();
             }
         }
@@ -275,6 +276,18 @@ namespace ATAS.Indicators.Technical
             }
 
             _lastBar = bar;
+        }
+
+        #endregion
+
+        #region Private methods
+
+        private void UpdateTooltipSettings()
+        {
+            _oi.HideOpenCloseLabels = _mode is OpenInterestMode.ByBar;
+            _oi.TooltipAnchor = _mode is OpenInterestMode.ByBar && _minimizedMode
+                ? CandleTooltipAnchor.Top
+                : CandleTooltipAnchor.Close;
         }
 
         #endregion
