@@ -108,6 +108,7 @@ public class CumulativeDelta : Indicator
                     : _mode == SessionDeltaVisualMode.Line
                           ? VisualMode.Line
                           : VisualMode.Histogram;
+                _lineHistSeries.Color = GetFallbackLineColor(_cumDelta).Convert();
             }
 
             SetFiltersEnabled();
@@ -203,6 +204,7 @@ public class CumulativeDelta : Indicator
         {
             _posColor = value.Convert();
             _candleSeries.UpCandleColor = value;
+            _lineHistSeries.Color = GetFallbackLineColor(_cumDelta).Convert();
             RecalculateValues();
         }
     }
@@ -215,6 +217,7 @@ public class CumulativeDelta : Indicator
         {
             _negColor = value.Convert();
             _candleSeries.DownCandleColor = value;
+            _lineHistSeries.Color = GetFallbackLineColor(_cumDelta).Convert();
             RecalculateValues();
         }
     }
@@ -263,6 +266,9 @@ public class CumulativeDelta : Indicator
                                            SessionDeltaVisualMode.Line => VisualMode.Line,
                                            _ => VisualMode.Hide
                                        };
+
+            if (value && _mode != SessionDeltaVisualMode.Candles)
+                _lineHistSeries.Color = GetFallbackLineColor(_cumDelta).Convert();
         }
     }
 
@@ -435,11 +441,9 @@ public class CumulativeDelta : Indicator
                     break;
                 case SessionDeltaVisualMode.Bars:
                 case SessionDeltaVisualMode.Line:
-
-                    if (_cumDelta >= LineSeries[0].Value)
-                        _lineHistSeries.Colors[bar] = _posColor;
-                    else
-                        _lineHistSeries.Colors[bar] = _negColor;
+                    var color = GetFallbackLineColor(_cumDelta);
+                    _lineHistSeries.Colors[bar] = color;
+                    _lineHistSeries.Color = color.Convert();
                     break;
             }
         }
@@ -485,6 +489,18 @@ public class CumulativeDelta : Indicator
     #endregion
 
     #region Private methods
+
+    private Color GetFallbackLineColor(decimal value)
+    {
+        var preferredColor = value >= LineSeries[0].Value ? _posColor : _negColor;
+
+        // Some workspaces can persist transparent series colors for the line/hist series.
+        // Keep the series visible by falling back to standard opaque colors.
+        if (preferredColor.A == 0)
+            preferredColor = value >= LineSeries[0].Value ? Color.Green : Color.Red;
+
+        return preferredColor;
+    }
 
     private void SetFiltersEnabled()
     {
