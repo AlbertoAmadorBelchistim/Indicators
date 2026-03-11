@@ -723,7 +723,7 @@ public class FairValueGap : Indicator
 
         if (timeFrame.Contains('H'))
         {
-            _secondsPerCandle = 60 * (int)TimeFrameScale.Daily * period;
+            _secondsPerCandle = 60 * (int)TimeFrameScale.Hourly * period;
             return;
         }
 
