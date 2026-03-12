@@ -56,11 +56,11 @@ public class TradesOnChart : Indicator
 
     public enum LabelDisplayMode
     {
-        [Display(Name = "Hide")]
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Hide))]
         Hide,
-        [Display(Name = "Short")]
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Short))]
         Short,
-        [Display(Name = "Full")]
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Full))]
         Full
     }
 
@@ -89,16 +89,16 @@ public class TradesOnChart : Indicator
 
     #region Properties
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowLines), GroupName = nameof(Strings.Visualization))]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowLines), Description = nameof(Strings.IsNeedShowLinesDescription), GroupName = nameof(Strings.Visualization))]
     public bool ShowLine { get; set; } = true;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDescription), GroupName = nameof(Strings.Visualization))]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDescription), Description = nameof(Strings.ShowTradeTooltipDescription), GroupName = nameof(Strings.Visualization))]
     public bool ShowTooltip { get; set; } = true;
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LabelDisplay), Description = nameof(Strings.LabelDisplayDescription), GroupName = nameof(Strings.Visualization))]
     public LabelDisplayMode LabelDisplay { get; set; } = LabelDisplayMode.Hide;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BuyColor), GroupName = nameof(Strings.Visualization))]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BuyColor), Description = nameof(Strings.BuyTradeLineColorDescription), GroupName = nameof(Strings.Visualization))]
     public Color BuyColor 
     {
         get => _buyColor;
@@ -109,7 +109,7 @@ public class TradesOnChart : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.SellColor), GroupName = nameof(Strings.Visualization))]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.SellColor), Description = nameof(Strings.SellTradeLineColorDescription), GroupName = nameof(Strings.Visualization))]
     public Color SellColor
     {
         get => _sellColor;
@@ -120,14 +120,14 @@ public class TradesOnChart : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ProfitColor), GroupName = nameof(Strings.Visualization), Description = "Color for profitable trades result section")]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ProfitColor), Description = nameof(Strings.ProfitTradeResultColorDescription), GroupName = nameof(Strings.Visualization))]
     public Color ProfitColor
     {
         get => _profitColor;
         set => _profitColor = value;
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LossColor), GroupName = nameof(Strings.Visualization), Description = "Color for losing trades result section")]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LossColor), Description = nameof(Strings.LossTradeResultColorDescription), GroupName = nameof(Strings.Visualization))]
     public Color LossColor
     {
         get => _lossColor;
@@ -135,7 +135,7 @@ public class TradesOnChart : Indicator
     }
 
     [Range(1, 20)]
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LineWidth), GroupName = nameof(Strings.Visualization))]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LineWidth), Description = nameof(Strings.LineWidthDescription), GroupName = nameof(Strings.Visualization))]
     public float LineWidth 
     { 
         get => _lineWidth; 
@@ -147,7 +147,7 @@ public class TradesOnChart : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.DashStyle), GroupName = nameof(Strings.Visualization))]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.DashStyle), Description = nameof(Strings.LineDashStyleDescription), GroupName = nameof(Strings.Visualization))]
     public DashStyle LineStyle 
     {
         get => _lineStyle;
@@ -160,7 +160,7 @@ public class TradesOnChart : Indicator
     }
 
     [Range(1, 10)]
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Size), GroupName = nameof(Strings.Visualization))]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Size), Description = nameof(Strings.SizeDescription), GroupName = nameof(Strings.Visualization))]
     public int MarkerSize { get; set; } = 2;
 
     #endregion
