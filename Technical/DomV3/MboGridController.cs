@@ -380,13 +380,13 @@ public class MboGridController
 							{
 								var order = new OrderInfo(new MarketByOrder
 								{
-									Price = value.Price, 
+									Price = value.Price,
 									Volume = value.Volume,
 									Type = MarketByOrderUpdateTypes.Snapshot,
 									ExchangeOrderId = 0,
-									Priority = 0, 
+									Priority = 0,
 									Side = type,
-									Security = _security, 
+									Security = _security,
 									Time = value.Time
 								});
 
@@ -399,6 +399,137 @@ public class MboGridController
 		}
 
 		return nullItem;
+	}
+
+	/// <summary>
+	/// Gets aggregated orders for a price range [priceFrom, priceTo) when chart scale > 1.
+	/// Multiple tick levels are merged into one visual row.
+	/// </summary>
+	public (OrderInfo[] Orders, MarketDataType Type) GetItemInRange(decimal priceFrom, decimal priceTo, decimal tickSize, MarketDataArg lastAsk, MarketDataArg lastBid, bool forceReturnLevel2)
+	{
+		var nullItem = (Array.Empty<OrderInfo>(), MarketDataType.Trade);
+		var aggregatedOrders = new List<OrderInfo>();
+		var detectedType = MarketDataType.Trade;
+
+		lock (_updateLock)
+		{
+			if (!forceReturnLevel2 && _grid.Count != 0)
+			{
+				for (var p = priceFrom; p < priceTo; p += tickSize)
+				{
+					if (!_grid.TryGetValue(p, out var value))
+						continue;
+
+					if (value.Type is MarketDataType.Ask && p < lastAsk.Price)
+						continue;
+
+					if (value.Type is MarketDataType.Bid && p > lastBid.Price)
+						continue;
+
+					var orders = value.GetOrderedData();
+
+					if (orders.Length > 0)
+					{
+						aggregatedOrders.AddRange(orders);
+						detectedType = value.Type;
+					}
+				}
+
+				return aggregatedOrders.Count > 0
+					? (aggregatedOrders.ToArray(), detectedType)
+					: nullItem;
+			}
+			else
+			{
+				lock (_level2UpdateLock)
+				{
+					if (_level2Data.Count != 0)
+					{
+						for (var p = priceFrom; p < priceTo; p += tickSize)
+						{
+							if (!_level2Data.TryGetValue(p, out var value))
+								continue;
+
+							if (value.DataType is ATAS.Indicators.MarketDataType.Ask && p < lastAsk.Price)
+								continue;
+
+							if (value.DataType is ATAS.Indicators.MarketDataType.Bid && p > lastBid.Price)
+								continue;
+
+							var type = value.DataType is ATAS.Indicators.MarketDataType.Ask
+								? MarketDataType.Ask
+								: MarketDataType.Bid;
+
+							if (value.Volume > 0)
+							{
+								aggregatedOrders.Add(new OrderInfo(new MarketByOrder
+								{
+									Price = value.Price,
+									Volume = value.Volume,
+									Type = MarketByOrderUpdateTypes.Snapshot,
+									ExchangeOrderId = 0,
+									Priority = 0,
+									Side = type,
+									Security = _security,
+									Time = value.Time
+								}));
+								detectedType = type;
+							}
+						}
+
+						return aggregatedOrders.Count > 0
+							? (aggregatedOrders.ToArray(), detectedType)
+							: nullItem;
+					}
+				}
+			}
+		}
+
+		return nullItem;
+	}
+
+	/// <summary>
+	/// Gets aggregated volume for a price range [priceFrom, priceTo) when chart scale > 1.
+	/// </summary>
+	public (decimal volume, DataType dataType) VolumeInRange(decimal priceFrom, decimal priceTo, decimal tickSize, MarketDataArg lastAsk, MarketDataArg lastBid, decimal lastPrice)
+	{
+		var totalVolume = 0m;
+		var type = DataType.Lvl3;
+
+		lock (_updateLock)
+		{
+			if (_priceVolume.Count == 0 && _grid.Count == 0)
+			{
+				type = DataType.Lvl2;
+
+				lock (_level2UpdateLock)
+				{
+					for (var p = priceFrom; p < priceTo; p += tickSize)
+					{
+						if (!_level2Data.TryGetValue(p, out var value))
+							continue;
+
+						if (value.DataType is ATAS.Indicators.MarketDataType.Ask && p < lastAsk.Price)
+							continue;
+
+						if (value.DataType is ATAS.Indicators.MarketDataType.Bid && p > lastBid.Price)
+							continue;
+
+						totalVolume += value.Volume;
+					}
+				}
+			}
+			else
+			{
+				for (var p = priceFrom; p < priceTo; p += tickSize)
+				{
+					if (_priceVolume.TryGetValue(p, out var value))
+						totalVolume += value.vol;
+				}
+			}
+
+			return (totalVolume, type);
+		}
 	}
 
 	/// <summary>

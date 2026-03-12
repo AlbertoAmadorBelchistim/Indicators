@@ -567,6 +567,8 @@ public class DOM : Indicator
 				DrawBackGround(context, currentPriceY);
 
 				var stringRects = new List<(string Text, Rectangle Rect)>();
+				MultiColorsHistogramRender asksFiltersHistogram = null;
+				MultiColorsHistogramRender bidsFiltersHistogram = null;
 
 				var levelHeight = PriceLevelsHeight == 0
 					? Math.Max(1, Math.Abs(chartInfo.GetYByPrice(currentPrice) - chartInfo.GetYByPrice(currentPrice - instrumentInfo.TickSize)) - 1)
@@ -637,7 +639,15 @@ public class DOM : Indicator
 							}
 						}
 						else
+						{
 							_asksHistogram.AddPrice(RightToLeft ? x2 : x1, RightToLeft ? x1 : x2, botY, y - 1);
+
+							if (_filteredColors.TryGetValue(priceDepth.Price, out var filteredColor))
+							{
+								asksFiltersHistogram ??= new MultiColorsHistogramRender(_askColor, !RightToLeft);
+								asksFiltersHistogram.AddPrice(RightToLeft ? x2 : x1, RightToLeft ? x1 : x2, botY, y - 1, filteredColor);
+							}
+						}
 					}
 				}
 
@@ -711,7 +721,15 @@ public class DOM : Indicator
 							context.FillRectangle(fillColor, rect);
 						}
 						else
+						{
 							_bidsHistogram.AddPrice(RightToLeft ? x2 : x1, RightToLeft ? x1 : x2, botY, y - 1);
+
+							if (_filteredColors.TryGetValue(priceDepth.Price, out var filteredColor))
+							{
+								bidsFiltersHistogram ??= new MultiColorsHistogramRender(_bidColor, !RightToLeft);
+								bidsFiltersHistogram.AddPrice(RightToLeft ? x2 : x1, RightToLeft ? x1 : x2, botY, y - 1, filteredColor);
+							}
+						}
 					}
 				}
 
@@ -719,6 +737,8 @@ public class DOM : Indicator
 				{
 					_asksHistogram?.Draw(context, _askColor, true);
 					_bidsHistogram?.Draw(context, _bidColor, true);
+					asksFiltersHistogram?.Draw(context, true);
+					bidsFiltersHistogram?.Draw(context, true);
 				}
 
 				foreach (var (text, rect) in stringRects)
