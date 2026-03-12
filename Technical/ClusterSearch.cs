@@ -247,8 +247,7 @@ public partial class ClusterSearch : Indicator
 		_lastSeriesBar.Clear();
 		_renderDataSeries.Clear();
 
-		if (!AutoFilter)
-			_minFilterValue = MinimalFilter();
+		_minFilterValue = MinimalFilter();
 	}
 
 	protected override void OnFinishRecalculate()
@@ -277,7 +276,9 @@ public partial class ClusterSearch : Indicator
 				? (decimal)valuesList.Last().Context
 				: (decimal)valuesList.Skip(10).First().Context;
 
+			_minFilter.PropertyChanged -= Filter_PropertyChanged;
 			MinimumFilter.Value = _autoFilterValue;
+			_minFilter.PropertyChanged += Filter_PropertyChanged;
 			_minFilterValue = MinimalFilter();
 
 			for (var i = 0; i < _renderDataSeries.Count; i++)
@@ -461,7 +462,7 @@ public partial class ClusterSearch : Indicator
 		if (MinAverageTrade != 0 && avgTrade < MinAverageTrade)
 			return false;
 
-		if (MaxAverageTrade != 0 && avgTrade > MinAverageTrade)
+		if (MaxAverageTrade != 0 && avgTrade > MaxAverageTrade)
 			return false;
 
 		if (MinPercent != 0 || MaxPercent != 0)
