@@ -150,8 +150,6 @@ public partial class MainIndicator : Indicator
 				    return;
 
 			    var tickSize = InstrumentInfo.TickSize;
-			    var step = ChartInfo.PriceChartContainer.Step;
-			    var isScaled = step > tickSize;
 			    var fixHigh = GetFixPrice(ChartInfo.PriceChartContainer.High, true);
 			    var fixLow = GetFixPrice(ChartInfo.PriceChartContainer.Low, false);
 
@@ -165,8 +163,8 @@ public partial class MainIndicator : Indicator
 				    return;
 
 			    // Intersect visible range with data range
-			    var effectiveHigh = Math.Min(fixHigh, dataMaxPrice + step);
-			    var effectiveLow = Math.Max(fixLow, dataMinPrice - step);
+			    var effectiveHigh = Math.Min(fixHigh, dataMaxPrice + tickSize);
+			    var effectiveLow = Math.Max(fixLow, dataMinPrice - tickSize);
 
 			    if (effectiveLow >= effectiveHigh)
 				    return;
@@ -174,7 +172,7 @@ public partial class MainIndicator : Indicator
 			    var yy1 = ChartInfo.GetYByPrice(ChartInfo.PriceChartContainer.High);
 			    var yy2 = ChartInfo.GetYByPrice(ChartInfo.PriceChartContainer.Low);
 
-			    var height = Math.Abs(yy2 - yy1) / ((ChartInfo.PriceChartContainer.High - ChartInfo.PriceChartContainer.Low) / step);
+			    var height = Math.Abs(yy2 - yy1) / ((ChartInfo.PriceChartContainer.High - ChartInfo.PriceChartContainer.Low) / InstrumentInfo.TickSize);
 
                 var (fontSize, fontWidth) =
 				    SetFontSize(context, height);
@@ -206,24 +204,13 @@ public partial class MainIndicator : Indicator
 
 			    var pricesWithData = _gridController.GetPricesInRange(effectiveHigh, effectiveLow, _lastAsk, _lastBid);
 
-			    // When scaled, group prices by visual row to avoid drawing multiple
-			    // entries at the same Y with zero height
-			    var processedVisualRows = isScaled ? new HashSet<int>() : null;
-
 			    foreach (var price in pricesWithData)
 			    {
 				    if (price < fixLow || price > fixHigh)
 					    continue;
 
 				    var y1 = ChartInfo.GetYByPrice(price);
-				    var y2 = ChartInfo.GetYByPrice(price - step);
-
-				    // When scaled, skip if we already drew this visual row
-				    if (isScaled)
-				    {
-					    if (!processedVisualRows!.Add(y1))
-						    continue;
-				    }
+				    var y2 = ChartInfo.GetYByPrice(price - tickSize);
 
 				    if (showSeparately)
 				    {
@@ -232,16 +219,9 @@ public partial class MainIndicator : Indicator
 
 				    var realHeight = y2 - y1;
 
-				    // Snap price to the visual row boundary for scaled mode
-				    var rowPrice = isScaled ? Math.Floor(price / step) * step : price;
+                    var blockInRow = _gridController.GetItemInRow(price, _lastAsk, _lastBid, !showSeparately&& !showText);
 
-				    var blockInRow = isScaled
-					    ? _gridController.GetItemInRange(rowPrice, rowPrice + step, tickSize, _lastAsk, _lastBid, !showSeparately && !showText)
-					    : _gridController.GetItemInRow(price, _lastAsk, _lastBid, !showSeparately && !showText);
-
-				    var (rowVol, dataType) = isScaled
-					    ? _gridController.VolumeInRange(rowPrice, rowPrice + step, tickSize, _lastAsk, _lastBid, _lastPrice)
-					    : _gridController.Volume(price, _lastAsk, _lastBid, _lastPrice);
+                    var (rowVol, dataType) = _gridController.Volume(price, _lastAsk, _lastBid, _lastPrice);
 
                     if (dataType == DataType.Lvl2)
 				    {
