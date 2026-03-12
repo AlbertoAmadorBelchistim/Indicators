@@ -174,9 +174,9 @@ public partial class MainIndicator : Indicator
 			    if (_lastAsk is null || _lastBid is null)
 				    return;
 
-			    var step = ChartInfo.PriceChartContainer.Step;
-			    var fixHigh = GetFixPrice(ChartInfo.PriceChartContainer.High, true, step);
-			    var fixLow = GetFixPrice(ChartInfo.PriceChartContainer.Low, false, step);
+			    var tickSize = InstrumentInfo.TickSize;
+			    var fixHigh = GetFixPrice(ChartInfo.PriceChartContainer.High, true);
+			    var fixLow = GetFixPrice(ChartInfo.PriceChartContainer.Low, false);
 
 			    if (fixLow >= fixHigh)
 				    return;
@@ -188,13 +188,16 @@ public partial class MainIndicator : Indicator
 				    return;
 
 			    // Intersect visible range with data range
-			    var effectiveHigh = Math.Min(fixHigh, dataMaxPrice + step);
-			    var effectiveLow = Math.Max(fixLow, dataMinPrice - step);
+			    var effectiveHigh = Math.Min(fixHigh, dataMaxPrice + tickSize);
+			    var effectiveLow = Math.Max(fixLow, dataMinPrice - tickSize);
 
 			    if (effectiveLow >= effectiveHigh)
 				    return;
 
-			    var height = ChartInfo.PriceChartContainer.PriceRowHeight;
+			    var yy1 = ChartInfo.GetYByPrice(ChartInfo.PriceChartContainer.High);
+			    var yy2 = ChartInfo.GetYByPrice(ChartInfo.PriceChartContainer.Low);
+
+			    var height = Math.Abs(yy2 - yy1) / ((ChartInfo.PriceChartContainer.High - ChartInfo.PriceChartContainer.Low) / InstrumentInfo.TickSize);
 
                 var (fontSize, fontWidth) =
 				    SetFontSize(context, height);
@@ -226,19 +229,30 @@ public partial class MainIndicator : Indicator
 
 			    var pricesWithData = _gridController.GetPricesInRange(effectiveHigh, effectiveLow, _lastAsk, _lastBid);
 
-			    // Phase 1: Group prices by visual row (handles Scale > 1 where multiple tick prices share one row)
-			    _visualRows.Clear();
-			    var lastPriceRowIndex = long.MinValue;
-
-			    var tickSize = InstrumentInfo.TickSize;
-
 			    foreach (var price in pricesWithData)
 			    {
 				    if (price < fixLow || price > fixHigh)
 					    continue;
 
-				    var blockInRow = _gridController.GetItemInRow(price, _lastAsk, _lastBid, !showSeparately && !showText);
-				    var (rowVol, dataType) = _gridController.Volume(price, _lastAsk, _lastBid, _lastPrice);
+				    var y1 = ChartInfo.GetYByPrice(price);
+				    var y2 = ChartInfo.GetYByPrice(price - tickSize);
+
+				    if (showSeparately)
+				    {
+					    y1 += 1;
+                    }
+
+				    var realHeight = y2 - y1;
+
+                    var blockInRow = _gridController.GetItemInRow(price, _lastAsk, _lastBid, !showSeparately&& !showText);
+
+                    var (rowVol, dataType) = _gridController.Volume(price, _lastAsk, _lastBid, _lastPrice);
+
+                    if (dataType == DataType.Lvl2)
+				    {
+					    aggregationBaseRow.X += aggregationBaseRow.Width;
+					    aggregationBaseRow.Width = 0;
+				    }
 
 				    if (blockInRow.Orders.Length == 0 && rowVol == 0)
 					    continue;
