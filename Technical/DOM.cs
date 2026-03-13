@@ -587,14 +587,18 @@ public class DOM : Indicator
 						int y;
 
 						if (PriceLevelsHeight == 0)
-							y = chartInfo.GetYByPrice(priceDepth.Price);
+							y = chartInfo.GetYByPrice(priceDepth.Price, true);
 						else
 						{
 							var diff = (priceDepth.Price - minAsk) / instrumentInfo.TickSize;
 							y = currentPriceY - levelHeight * ((int)diff + 1) - (int)diff - 15;
 						}
 
-						if (y + levelHeight < chartInfo.Region.Top)
+						var currentLevelHeight = PriceLevelsHeight == 0
+							? Math.Max(1, chartInfo.GetYByPrice(priceDepth.Price - instrumentInfo.TickSize, true) - y)
+							: levelHeight;
+
+						if (y + currentLevelHeight < chartInfo.Region.Top)
 							continue;
 
 						var width = GetLevelWidth(priceDepth.Volume, levelWidthKoeff);
@@ -605,7 +609,7 @@ public class DOM : Indicator
 						if (priceDepth.Price == minAsk)
 						{
 							var bestRect = new Rectangle(new Point(chartInfo.Region.Width - Width, y),
-								new Size(Width, levelHeight));
+								new Size(Width, currentLevelHeight));
 							context.FillRectangle(_bestAskBackGround, bestRect);
 						}
 
@@ -614,11 +618,11 @@ public class DOM : Indicator
 							: chartInfo.Region.Width - Width;
 
 						var x2 = x1 + width;
-						var botY = y + levelHeight;
+						var botY = y + currentLevelHeight;
 
 						var rect = RightToLeft
-							? new Rectangle(chartInfo.Region.Width - width, y, width, levelHeight)
-							: new Rectangle(new Point(chartInfo.Region.Width - Width, y), new Size(width, levelHeight));
+							? new Rectangle(chartInfo.Region.Width - width, y, width, currentLevelHeight)
+							: new Rectangle(new Point(chartInfo.Region.Width - Width, y), new Size(width, currentLevelHeight));
 
 						var fillColor = _filteredColors.GetValueOrDefault(priceDepth.Price, _askColor);
 
@@ -632,8 +636,8 @@ public class DOM : Indicator
 								var textWidth = context.MeasureString(renderText, _font).Width + 5;
 
 								var textRect = RightToLeft
-									? new Rectangle(new Point(chartInfo.Region.Width - textWidth, y), new Size(textWidth, levelHeight))
-									: new Rectangle(new Point(chartInfo.Region.Width - Width, y), new Size(textWidth, levelHeight));
+									? new Rectangle(new Point(chartInfo.Region.Width - textWidth, y), new Size(textWidth, currentLevelHeight))
+									: new Rectangle(new Point(chartInfo.Region.Width - Width, y), new Size(textWidth, currentLevelHeight));
 
 								stringRects.Add((renderText, textRect));
 							}
@@ -669,12 +673,16 @@ public class DOM : Indicator
 						int y;
 
 						if (PriceLevelsHeight == 0)
-							y = chartInfo.GetYByPrice(priceDepth.Price);
+							y = chartInfo.GetYByPrice(priceDepth.Price, true);
 						else
 						{
 							var diff = (maxBid - priceDepth.Price) / instrumentInfo.TickSize;
 							y = currentPriceY + levelHeight * ((int)diff + spread - 1) + (int)diff - 15;
 						}
+
+						var currentLevelHeight = PriceLevelsHeight == 0
+							? Math.Max(1, chartInfo.GetYByPrice(priceDepth.Price - instrumentInfo.TickSize, true) - y)
+							: levelHeight;
 
 						if (y > chartInfo.Region.Bottom)
 							continue;
@@ -687,7 +695,7 @@ public class DOM : Indicator
 						if (priceDepth.Price == maxBid)
 						{
 							var bestRect = new Rectangle(new Point(chartInfo.Region.Width - Width, y),
-								new Size(Width, levelHeight));
+								new Size(Width, currentLevelHeight));
 							context.FillRectangle(_bestBidBackGround, bestRect);
 						}
 
@@ -696,11 +704,11 @@ public class DOM : Indicator
 							: chartInfo.Region.Width - Width;
 
 						var x2 = x1 + width;
-						var botY = y + levelHeight;
+						var botY = y + currentLevelHeight;
 
 						var rect = RightToLeft
-							? new Rectangle(chartInfo.Region.Width - width, y, width, levelHeight)
-							: new Rectangle(new Point(chartInfo.Region.Width - Width, y), new Size(width, levelHeight));
+							? new Rectangle(chartInfo.Region.Width - width, y, width, currentLevelHeight)
+							: new Rectangle(new Point(chartInfo.Region.Width - Width, y), new Size(width, currentLevelHeight));
 
 						var fillColor = _filteredColors.GetValueOrDefault(priceDepth.Price, _bidColor);
 
@@ -712,8 +720,8 @@ public class DOM : Indicator
 								var textWidth = context.MeasureString(renderText, _font).Width + 5;
 
 								var textRect = RightToLeft
-									? new Rectangle(new Point(chartInfo.Region.Width - textWidth, y), new Size(textWidth, levelHeight))
-									: new Rectangle(new Point(chartInfo.Region.Width - Width, y), new Size(textWidth, levelHeight));
+									? new Rectangle(new Point(chartInfo.Region.Width - textWidth, y), new Size(textWidth, currentLevelHeight))
+									: new Rectangle(new Point(chartInfo.Region.Width - Width, y), new Size(textWidth, currentLevelHeight));
 
 								stringRects.Add((renderText, textRect));
 							}
