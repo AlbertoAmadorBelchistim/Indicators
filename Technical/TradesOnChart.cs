@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Linq;
 using ATAS.DataFeedsCore;
 using ATAS.DataFeedsCore.Statistics;
+using ATAS.Indicators.Technical.Properties;
 using OFT.Attributes;
 using OFT.Localization;
 using OFT.Rendering.Context;
@@ -92,13 +93,13 @@ public class TradesOnChart : Indicator
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowLines), Description = nameof(Strings.IsNeedShowLinesDescription), GroupName = nameof(Strings.Visualization))]
     public bool ShowLine { get; set; } = true;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDescription), Description = nameof(Strings.ShowTradeTooltipDescription), GroupName = nameof(Strings.Visualization))]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowDescription), Description = nameof(Resources.ShowTradeTooltipDescription), GroupName = nameof(Resources.Visualization))]
     public bool ShowTooltip { get; set; } = true;
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LabelDisplay), Description = nameof(Strings.LabelDisplayDescription), GroupName = nameof(Strings.Visualization))]
     public LabelDisplayMode LabelDisplay { get; set; } = LabelDisplayMode.Hide;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BuyColor), Description = nameof(Strings.BuyTradeLineColorDescription), GroupName = nameof(Strings.Visualization))]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BuyColor), Description = nameof(Resources.BuyTradeLineColorDescription), GroupName = nameof(Resources.Visualization))]
     public Color BuyColor 
     {
         get => _buyColor;
@@ -109,7 +110,7 @@ public class TradesOnChart : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.SellColor), Description = nameof(Strings.SellTradeLineColorDescription), GroupName = nameof(Strings.Visualization))]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.SellColor), Description = nameof(Resources.SellTradeLineColorDescription), GroupName = nameof(Resources.Visualization))]
     public Color SellColor
     {
         get => _sellColor;
@@ -120,14 +121,14 @@ public class TradesOnChart : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ProfitColor), Description = nameof(Strings.ProfitTradeResultColorDescription), GroupName = nameof(Strings.Visualization))]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ProfitColor), Description = nameof(Resources.ProfitTradeResultColorDescription), GroupName = nameof(Resources.Visualization))]
     public Color ProfitColor
     {
         get => _profitColor;
         set => _profitColor = value;
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LossColor), Description = nameof(Strings.LossTradeResultColorDescription), GroupName = nameof(Strings.Visualization))]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.LossColor), Description = nameof(Resources.LossTradeResultColorDescription), GroupName = nameof(Resources.Visualization))]
     public Color LossColor
     {
         get => _lossColor;
