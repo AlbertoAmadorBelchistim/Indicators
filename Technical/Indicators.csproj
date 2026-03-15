@@ -65,6 +65,13 @@
     <AssemblyName>Indicators_X_Beta</AssemblyName>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)' == 'Beta'">
+    <DefineConstants>$(DefineConstants);ATAS_BETA</DefineConstants>
+    <ATAS_BASE>C:\Program Files (x86)\ATAS Platform beta</ATAS_BASE>
+    <AssemblyName>Indicators_Beta</AssemblyName>
+  </PropertyGroup>
+
+
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk.WindowsDesktop" Condition=" '$(Platform)' != 'Cross' " />
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk.WindowsDesktop" Condition=" '$(Platform)' != 'Cross' " />
 
