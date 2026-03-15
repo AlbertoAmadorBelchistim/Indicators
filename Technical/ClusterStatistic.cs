@@ -10,6 +10,7 @@ using System.Linq;
 
 using ATAS.Indicators.Drawing;
 using ATAS.Indicators.Technical.Extensions;
+using ATAS.Indicators.Technical.Properties;
 
 using OFT.Attributes;
 using OFT.Localization;
@@ -725,165 +726,165 @@ public class ClusterStatistic : Indicator
 
     #region Delta Per Volume Alert
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.DeltaPerVolumeAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 800)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Enabled), GroupName = nameof(Resources.DeltaPerVolumeAlert),
+        Description = nameof(Resources.UseAlertDescription), Order = 800)]
     public bool UseDeltaPerVolumeAlert { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.DeltaPerVolumeAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 810)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Filter), GroupName = nameof(Resources.DeltaPerVolumeAlert),
+        Description = nameof(Resources.AlertFilterDescription), Order = 810)]
     [Range(0, 100)]
     public decimal DeltaPerVolumeAlertValue { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.DeltaPerVolumeAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 820)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.AlertFile), GroupName = nameof(Resources.DeltaPerVolumeAlert),
+        Description = nameof(Resources.AlertFileDescription), Order = 820)]
     public string DeltaPerVolumeAlertFile { get; set; } = "alert1";
 
     #endregion
 
     #region Session Delta Alert
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.SessionDeltaAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 900)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Enabled), GroupName = nameof(Resources.SessionDeltaAlert),
+        Description = nameof(Resources.UseAlertDescription), Order = 900)]
     public bool UseSessionDeltaAlert { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.SessionDeltaAlert),
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Filter), GroupName = nameof(Resources.SessionDeltaAlert),
         Description = nameof(Strings.AlertFilterDescription), Order = 910)]
     public decimal SessionDeltaAlertValue { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.SessionDeltaAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 920)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.AlertFile), GroupName = nameof(Resources.SessionDeltaAlert),
+        Description = nameof(Resources.AlertFileDescription), Order = 920)]
     public string SessionDeltaAlertFile { get; set; } = "alert1";
 
     #endregion
 
     #region Session Delta Per Volume Alert
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.SessionDeltaPerVolumeAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 1000)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Enabled), GroupName = nameof(Resources.SessionDeltaPerVolumeAlert),
+        Description = nameof(Resources.UseAlertDescription), Order = 1000)]
     public bool UseSessionDeltaPerVolumeAlert { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.SessionDeltaPerVolumeAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 1010)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Filter), GroupName = nameof(Resources.SessionDeltaPerVolumeAlert),
+        Description = nameof(Resources.AlertFilterDescription), Order = 1010)]
     public decimal SessionDeltaPerVolumeAlertValue { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.SessionDeltaPerVolumeAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 1020)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.AlertFile), GroupName = nameof(Resources.SessionDeltaPerVolumeAlert),
+        Description = nameof(Resources.AlertFileDescription), Order = 1020)]
     public string SessionDeltaPerVolumeAlertFile { get; set; } = "alert1";
 
     #endregion
 
     #region Max Delta Alert
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.MaxDeltaAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 1100)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Enabled), GroupName = nameof(Resources.MaxDeltaAlert),
+        Description = nameof(Resources.UseAlertDescription), Order = 1100)]
     public bool UseMaxDeltaAlert { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.MaxDeltaAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 1110)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Filter), GroupName = nameof(Resources.MaxDeltaAlert),
+        Description = nameof(Resources.AlertFilterDescription), Order = 1110)]
     public decimal MaxDeltaAlertValue { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.MaxDeltaAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 1120)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.AlertFile), GroupName = nameof(Resources.MaxDeltaAlert),
+        Description = nameof(Resources.AlertFileDescription), Order = 1120)]
     public string MaxDeltaAlertFile { get; set; } = "alert1";
 
     #endregion
 
     #region Min Delta Alert
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.MinDeltaAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 1200)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Enabled), GroupName = nameof(Resources.MinDeltaAlert),
+        Description = nameof(Resources.UseAlertDescription), Order = 1200)]
     public bool UseMinDeltaAlert { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.MinDeltaAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 1210)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Filter), GroupName = nameof(Resources.MinDeltaAlert),
+        Description = nameof(Resources.AlertFilterDescription), Order = 1210)]
     public decimal MinDeltaAlertValue { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.MinDeltaAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 1220)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.AlertFile), GroupName = nameof(Resources.MinDeltaAlert),
+        Description = nameof(Resources.AlertFileDescription), Order = 1220)]
     public string MinDeltaAlertFile { get; set; } = "alert1";
 
     #endregion
 
     #region Delta Change Alert
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.DeltaChangeAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 1300)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Enabled), GroupName = nameof(Resources.DeltaChangeAlert),
+        Description = nameof(Resources.UseAlertDescription), Order = 1300)]
     public bool UseDeltaChangeAlert { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.DeltaChangeAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 1310)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Filter), GroupName = nameof(Resources.DeltaChangeAlert),
+        Description = nameof(Resources.AlertFilterDescription), Order = 1310)]
     public decimal DeltaChangeAlertValue { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.DeltaChangeAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 1320)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.AlertFile), GroupName = nameof(Resources.DeltaChangeAlert),
+        Description = nameof(Resources.AlertFileDescription), Order = 1320)]
     public string DeltaChangeAlertFile { get; set; } = "alert1";
 
     #endregion
 
     #region Volume Per Second Alert
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.VolumePerSecondAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 1400)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Enabled), GroupName = nameof(Resources.VolumePerSecondAlert),
+        Description = nameof(Resources.UseAlertDescription), Order = 1400)]
     public bool UseVolumePerSecondAlert { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.VolumePerSecondAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 1410)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Filter), GroupName = nameof(Resources.VolumePerSecondAlert),
+        Description = nameof(Resources.AlertFilterDescription), Order = 1410)]
     [Range(0, int.MaxValue)]
     public decimal VolumePerSecondAlertValue { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.VolumePerSecondAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 1420)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.AlertFile), GroupName = nameof(Resources.VolumePerSecondAlert),
+        Description = nameof(Resources.AlertFileDescription), Order = 1420)]
     public string VolumePerSecondAlertFile { get; set; } = "alert1";
 
     #endregion
 
     #region Session Volume Alert
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.SessionVolumeAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 1500)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Enabled), GroupName = nameof(Resources.SessionVolumeAlert),
+        Description = nameof(Resources.UseAlertDescription), Order = 1500)]
     public bool UseSessionVolumeAlert { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.SessionVolumeAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 1510)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Filter), GroupName = nameof(Resources.SessionVolumeAlert),
+        Description = nameof(Resources.AlertFilterDescription), Order = 1510)]
     [Range(0, int.MaxValue)]
     public decimal SessionVolumeAlertValue { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.SessionVolumeAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 1520)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.AlertFile), GroupName = nameof(Resources.SessionVolumeAlert),
+        Description = nameof(Resources.AlertFileDescription), Order = 1520)]
     public string SessionVolumeAlertFile { get; set; } = "alert1";
 
     #endregion
 
     #region Trades Alert
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.TradesAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 1600)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Enabled), GroupName = nameof(Resources.TradesAlert),
+        Description = nameof(Resources.UseAlertDescription), Order = 1600)]
     public bool UseTradesAlert { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.TradesAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 1610)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Filter), GroupName = nameof(Resources.TradesAlert),
+        Description = nameof(Resources.AlertFilterDescription), Order = 1610)]
     [Range(0, int.MaxValue)]
     public decimal TradesAlertValue { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.TradesAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 1620)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.AlertFile), GroupName = nameof(Resources.TradesAlert),
+        Description = nameof(Resources.AlertFileDescription), Order = 1620)]
     public string TradesAlertFile { get; set; } = "alert1";
 
     #endregion
 
     #region Height Alert
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.HeightAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 1700)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Enabled), GroupName = nameof(Resources.HeightAlert),
+        Description = nameof(Resources.UseAlertDescription), Order = 1700)]
     public bool UseHeightAlert { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.HeightAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 1710)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Filter), GroupName = nameof(Resources.HeightAlert),
+        Description = nameof(Resources.AlertFilterDescription), Order = 1710)]
     [Range(0, int.MaxValue)]
     public decimal HeightAlertValue { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.HeightAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 1720)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.AlertFile), GroupName = nameof(Resources.HeightAlert),
+        Description = nameof(Resources.AlertFileDescription), Order = 1720)]
     public string HeightAlertFile { get; set; } = "alert1";
 
     #endregion

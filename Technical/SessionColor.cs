@@ -7,7 +7,9 @@ namespace ATAS.Indicators.Technical
 	using System.Drawing;
 	using System.Reflection;
 
-	using OFT.Attributes;
+	using ATAS.Indicators.Technical.Properties;
+
+    using OFT.Attributes;
     using OFT.Localization;
     using OFT.Rendering.Context;
 	using OFT.Rendering.Settings;
@@ -117,10 +119,10 @@ namespace ATAS.Indicators.Technical
             Order = 20)]
 		public bool ShowArea { get; set; } = true;
 
-		[Display(ResourceType = typeof(Strings),
-			Name = nameof(Strings.FitToPriceRange),
-			GroupName = nameof(Strings.Settings),
-            Description = nameof(Strings.FitToPriceRangeDescription),
+		[Display(ResourceType = typeof(Resources),
+			Name = nameof(Resources.FitToPriceRange),
+			GroupName = nameof(Resources.Settings),
+            Description = nameof(Resources.FitToPriceRangeDescription),
             Order = 25)]
 		public bool FitToPriceRange { get; set; }
 

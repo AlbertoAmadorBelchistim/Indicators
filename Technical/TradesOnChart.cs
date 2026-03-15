@@ -96,7 +96,7 @@ public class TradesOnChart : Indicator
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowDescription), Description = nameof(Resources.ShowTradeTooltipDescription), GroupName = nameof(Resources.Visualization))]
     public bool ShowTooltip { get; set; } = true;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LabelDisplay), Description = nameof(Strings.LabelDisplayDescription), GroupName = nameof(Strings.Visualization))]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.LabelDisplay), Description = nameof(Resources.LabelDisplayDescription), GroupName = nameof(Resources.Visualization))]
     public LabelDisplayMode LabelDisplay { get; set; } = LabelDisplayMode.Hide;
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BuyColor), Description = nameof(Resources.BuyTradeLineColorDescription), GroupName = nameof(Resources.Visualization))]
