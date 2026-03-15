@@ -1,32 +1,44 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.13.36105.23
+# Visual Studio Version 18
+VisualStudioVersion = 18.3.11520.95
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Indicators", "Technical\Indicators.csproj", "{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Debug|Cross = Debug|Cross
-		Publish|Any CPU = Publish|Any CPU
-		Publish|Cross = Publish|Cross
-		Release|Any CPU = Release|Any CPU
-		Release|Cross = Release|Cross
+		Alpha|Any CPU = Alpha|Any CPU
+		Alpha|Cross = Alpha|Cross
+		ATAS_X|Any CPU = ATAS_X|Any CPU
+		ATAS_X|Cross = ATAS_X|Cross
+		Beta|Any CPU = Beta|Any CPU
+		Beta|Cross = Beta|Cross
+		Latest|Any CPU = Latest|Any CPU
+		Latest|Cross = Latest|Cross
+		Stable|Any CPU = Stable|Any CPU
+		Stable|Cross = Stable|Cross
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Debug|Cross.ActiveCfg = Debug|Cross
-		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Debug|Cross.Build.0 = Debug|Cross
-		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Publish|Any CPU.ActiveCfg = Publish|Any CPU
-		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Publish|Any CPU.Build.0 = Publish|Any CPU
-		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Publish|Cross.ActiveCfg = Publish|Cross
-		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Publish|Cross.Build.0 = Publish|Cross
-		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Release|Cross.ActiveCfg = Release|Cross
-		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Release|Cross.Build.0 = Release|Cross
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Alpha|Any CPU.ActiveCfg = ATAS_X|Cross
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Alpha|Any CPU.Build.0 = ATAS_X|Cross
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Alpha|Cross.ActiveCfg = Alpha|Cross
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Alpha|Cross.Build.0 = Alpha|Cross
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.ATAS_X|Any CPU.ActiveCfg = ATAS_X|Any CPU
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.ATAS_X|Any CPU.Build.0 = ATAS_X|Any CPU
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.ATAS_X|Cross.ActiveCfg = ATAS_X|Cross
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.ATAS_X|Cross.Build.0 = ATAS_X|Cross
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Beta|Any CPU.ActiveCfg = Beta|Any CPU
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Beta|Any CPU.Build.0 = Beta|Any CPU
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Beta|Cross.ActiveCfg = Beta|Cross
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Beta|Cross.Build.0 = Beta|Cross
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Latest|Any CPU.ActiveCfg = Latest|Any CPU
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Latest|Any CPU.Build.0 = Latest|Any CPU
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Latest|Cross.ActiveCfg = Latest|Cross
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Latest|Cross.Build.0 = Latest|Cross
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Stable|Any CPU.ActiveCfg = Stable|Any CPU
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Stable|Any CPU.Build.0 = Stable|Any CPU
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Stable|Cross.ActiveCfg = Stable|Cross
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Stable|Cross.Build.0 = Stable|Cross
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

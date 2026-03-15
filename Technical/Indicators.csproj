@@ -5,8 +5,12 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <LangVersion>latest</LangVersion>
     <SignAssembly>true</SignAssembly>
-    <Configurations>Debug;Release;Publish</Configurations>
+    <Configurations>ATAS_X;Alpha;Beta;Latest;Stable</Configurations>
     <Platforms>AnyCPU;Cross</Platforms>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <IntermediateOutputPath>obj\$(Configuration)\$(Platform)\</IntermediateOutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Platform)' == 'Cross' ">
@@ -25,12 +29,34 @@
     <Optimize Condition=" '$(Optimize)' == '' ">true</Optimize>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Platform)' == 'Cross' ">
-    <ATAS_BASE>C:\Program Files\ATAS X</ATAS_BASE>
+  <PropertyGroup Condition="'$(Configuration)' == 'Stable'">
+    <DefineConstants>$(DefineConstants);ATAS_STABLE</DefineConstants>
+    <ATAS_BASE>C:\Program Files (x86)\ATAS Platform stable</ATAS_BASE>
+    <AssemblyName>Indicators_Stable</AssemblyName>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Platform)' != 'Cross' ">
+  <PropertyGroup Condition="'$(Configuration)' == 'Alpha'">
+    <DefineConstants>$(DefineConstants);ATAS_ALPHA</DefineConstants>
     <ATAS_BASE>C:\Program Files (x86)\ATAS Platform</ATAS_BASE>
+    <AssemblyName>Indicators_Alpha</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Beta'">
+    <DefineConstants>$(DefineConstants);ATAS_BETA</DefineConstants>
+    <ATAS_BASE>C:\Program Files (x86)\ATAS Platform beta</ATAS_BASE>
+    <AssemblyName>Indicators_Beta</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Latest'">
+    <DefineConstants>$(DefineConstants);ATAS_LATEST</DefineConstants>
+    <ATAS_BASE>C:\Program Files (x86)\ATAS Platform latest</ATAS_BASE>
+    <AssemblyName>Indicators_Latest</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'ATAS_X'">
+    <DefineConstants>$(DefineConstants);ATAS_X</DefineConstants>
+    <ATAS_BASE>C:\Program Files\ATAS X</ATAS_BASE>
+    <AssemblyName>Indicators_X</AssemblyName>
   </PropertyGroup>
 
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk.WindowsDesktop" Condition=" '$(Platform)' != 'Cross' " />
@@ -106,4 +132,11 @@
     <None Include="**\*.xaml" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
   </ItemGroup>
 
+
+  <Target Name="ValidateConfigurationPlatform" BeforeTargets="PrepareForBuild">
+    <Error Condition="'$(Configuration)' == 'ATAS_X' and '$(Platform)' != 'Cross'" Text="ATAS_X must be built with Platform=Cross." />
+
+    <Error Condition="'$(Configuration)' != 'ATAS_X' and '$(Platform)' == 'Cross'" Text="Cross platform is only valid for ATAS_X configuration." />
+  </Target>
+	
 </Project>
