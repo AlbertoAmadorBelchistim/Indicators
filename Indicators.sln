@@ -9,8 +9,10 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Alpha|Any CPU = Alpha|Any CPU
 		Alpha|Cross = Alpha|Cross
-		ATAS_X|Any CPU = ATAS_X|Any CPU
-		ATAS_X|Cross = ATAS_X|Cross
+		ATAS_X_Alpha|Any CPU = ATAS_X_Alpha|Any CPU
+		ATAS_X_Alpha|Cross = ATAS_X_Alpha|Cross
+		ATAS_X_Beta|Any CPU = ATAS_X_Beta|Any CPU
+		ATAS_X_Beta|Cross = ATAS_X_Beta|Cross
 		Beta|Any CPU = Beta|Any CPU
 		Beta|Cross = Beta|Cross
 		Latest|Any CPU = Latest|Any CPU
@@ -19,14 +21,18 @@ Global
 		Stable|Cross = Stable|Cross
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Alpha|Any CPU.ActiveCfg = ATAS_X|Cross
-		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Alpha|Any CPU.Build.0 = ATAS_X|Cross
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Alpha|Any CPU.ActiveCfg = ATAS_X_Beta|Cross
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Alpha|Any CPU.Build.0 = ATAS_X_Beta|Cross
 		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Alpha|Cross.ActiveCfg = Alpha|Cross
 		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Alpha|Cross.Build.0 = Alpha|Cross
-		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.ATAS_X|Any CPU.ActiveCfg = ATAS_X|Any CPU
-		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.ATAS_X|Any CPU.Build.0 = ATAS_X|Any CPU
-		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.ATAS_X|Cross.ActiveCfg = ATAS_X|Cross
-		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.ATAS_X|Cross.Build.0 = ATAS_X|Cross
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.ATAS_X_Alpha|Any CPU.ActiveCfg = ATAS_X_Alpha|Any CPU
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.ATAS_X_Alpha|Any CPU.Build.0 = ATAS_X_Alpha|Any CPU
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.ATAS_X_Alpha|Cross.ActiveCfg = ATAS_X_Alpha|Cross
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.ATAS_X_Alpha|Cross.Build.0 = ATAS_X_Alpha|Cross
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.ATAS_X_Beta|Any CPU.ActiveCfg = ATAS_X_Beta|Any CPU
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.ATAS_X_Beta|Any CPU.Build.0 = ATAS_X_Beta|Any CPU
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.ATAS_X_Beta|Cross.ActiveCfg = ATAS_X_Beta|Cross
+		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.ATAS_X_Beta|Cross.Build.0 = ATAS_X_Beta|Cross
 		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Beta|Any CPU.ActiveCfg = Beta|Any CPU
 		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Beta|Any CPU.Build.0 = Beta|Any CPU
 		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Beta|Cross.ActiveCfg = Beta|Cross

@@ -5,7 +5,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <LangVersion>latest</LangVersion>
     <SignAssembly>true</SignAssembly>
-    <Configurations>ATAS_X;Alpha;Beta;Latest;Stable</Configurations>
+    <Configurations>ATAS_X_Alpha;ATAS_X_Beta;Alpha;Beta;Latest;Stable</Configurations>
     <Platforms>AnyCPU;Cross</Platforms>
   </PropertyGroup>
 
@@ -53,10 +53,16 @@
     <AssemblyName>Indicators_Latest</AssemblyName>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)' == 'ATAS_X'">
-    <DefineConstants>$(DefineConstants);ATAS_X</DefineConstants>
+  <PropertyGroup Condition="'$(Configuration)' == 'ATAS_X_Alpha'">
+    <DefineConstants>$(DefineConstants);ATAS_X_ALPHA</DefineConstants>
     <ATAS_BASE>C:\Program Files\ATAS X</ATAS_BASE>
-    <AssemblyName>Indicators_X</AssemblyName>
+    <AssemblyName>Indicators_X_Alpha</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'ATAS_X_Beta'">
+    <DefineConstants>$(DefineConstants);ATAS_X_BETA</DefineConstants>
+    <ATAS_BASE>C:\Program Files\ATAS X beta</ATAS_BASE>
+    <AssemblyName>Indicators_X_Beta</AssemblyName>
   </PropertyGroup>
 
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk.WindowsDesktop" Condition=" '$(Platform)' != 'Cross' " />
@@ -133,10 +139,17 @@
   </ItemGroup>
 
 
-  <Target Name="ValidateConfigurationPlatform" BeforeTargets="PrepareForBuild">
-    <Error Condition="'$(Configuration)' == 'ATAS_X' and '$(Platform)' != 'Cross'" Text="ATAS_X must be built with Platform=Cross." />
+	<PropertyGroup>
+		<IsAtasX Condition="'$(Configuration)' == 'ATAS_X_Alpha' Or '$(Configuration)' == 'ATAS_X_Beta'">true</IsAtasX>
+		<IsAtasX Condition="'$(IsAtasX)' == ''">false</IsAtasX>
+	</PropertyGroup>
 
-    <Error Condition="'$(Configuration)' != 'ATAS_X' and '$(Platform)' == 'Cross'" Text="Cross platform is only valid for ATAS_X configuration." />
-  </Target>
+	<Target Name="ValidateConfigurationPlatform" BeforeTargets="PrepareForBuild">
+		<Error Condition="'$(IsAtasX)' == 'true' And '$(Platform)' != 'Cross'"
+			   Text="ATAS_X configurations must be built with Platform=Cross." />
+
+		<Error Condition="'$(IsAtasX)' != 'true' And '$(Platform)' == 'Cross'"
+			   Text="Cross platform is only valid for ATAS_X configurations." />
+	</Target>
 	
 </Project>
