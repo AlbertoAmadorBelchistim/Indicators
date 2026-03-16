@@ -19,7 +19,12 @@
 
     [DisplayName("Properties")]
 	[Category(IndicatorCategories.Samples)]
+	#if STABLE
+	public class SampleProperties : Indicator, IPropertiesEditorOwner
+	#else
 	public class SampleProperties : Indicator
+	#endif
+
 	{
 		#region Private fields
 
@@ -28,12 +33,15 @@
 		private bool _activateProperties;
 		private bool _categoryManager;
 		private bool _propertyManager;
+		#if STABLE
+	    private IPropertiesEditor _propertiesEditor;
+		#endif
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		[Display(Name = "Font", GroupName = "Examples")]
+        [Display(Name = "Font", GroupName = "Examples")]
 		public FontSetting Font { get; set; } = new();
 
 		[Display(Name = "Pen", GroupName = "Examples")]
@@ -183,15 +191,23 @@
 		public bool CategoryManager
 		{
 			get => _categoryManager;
-			set => SetProperty(ref _categoryManager, value, () => PropertiesEditor?.SetIsExpandedCategory(_managedCategoryCategoryName, value));
-		}
+			#if STABLE
+			set => SetProperty(ref _categoryManager, value, () => _propertiesEditor?.SetIsExpandedCategory(_managedCategoryCategoryName, value));
+			#else
+            set => SetProperty(ref _categoryManager, value, () => PropertiesEditor?.SetIsExpandedCategory(_managedCategoryCategoryName, value));
+			#endif
+        }
 
-		[Display(Name = "Property", GroupName = "Management")]
+        [Display(Name = "Property", GroupName = "Management")]
 		public bool PropertyManager
 		{
 			get => _propertyManager;
+			#if STABLE
+            set => SetProperty(ref _propertyManager, value, () => _propertiesEditor?.SetIsExpandedProperty(nameof(ExpandableProperty), value));
+			#else
 			set => SetProperty(ref _propertyManager, value, () => PropertiesEditor?.SetIsExpandedProperty(nameof(ExpandableProperty), value));
-		}
+			#endif
+        }
 
 		[Display(Name = "Managed Property 1", GroupName = _managedCategoryCategoryName)]
 		public int ManagedProperty1 { get; set; }
@@ -199,9 +215,9 @@
 		[Display(Name = "Managed Property 2", GroupName = _managedCategoryCategoryName)]
 		public int ManagetProperty2 { get; set; }
 
-		#endregion
+#endregion
 
-        #region ctor
+		#region ctor
 
         public SampleProperties()
 			: base(true)
@@ -298,23 +314,42 @@
 			#endregion
 		}
 
-		#endregion
+        #endregion
 
-		#region Overrides of BaseIndicator
+        #region Overrides of BaseIndicator
 
+        private void ApplyPropertiesEditorState(IPropertiesEditor editor)
+        {
+            editor?.BeginInit();
+            editor?.SetIsExpandedCategory(_managedCategoryCategoryName, CategoryManager);
+            editor?.SetIsExpandedProperty(nameof(ExpandableProperty), PropertyManager);
+            editor?.EndInit();
+        }
+
+		#if STABLE
+        [Browsable(false)]
+        IPropertiesEditor IPropertiesEditorOwner.PropertiesEditor
+        {
+            get => _propertiesEditor;
+            set
+            {
+                if (_propertiesEditor == value)
+                    return;
+
+                _propertiesEditor = value;
+                ApplyPropertiesEditorState(value);
+            }
+        }
+		#else
 		protected override void OnPropertiesEditorChanged(IPropertiesEditor? oldValue, IPropertiesEditor? newValue)
 		{
-			newValue?.BeginInit();
-
-			newValue?.SetIsExpandedCategory(_managedCategoryCategoryName, CategoryManager);
-			newValue?.SetIsExpandedProperty(nameof(ExpandableProperty), PropertyManager);
-
-			newValue?.EndInit();
+		ApplyPropertiesEditorState(newValue);
 		}
+		#endif
 
-		#endregion
-	}
-	
+        #endregion
+    }
+
     [Editor(typeof(SampleEditor), typeof(SampleEditor))]
     public class CustomClass
     {
