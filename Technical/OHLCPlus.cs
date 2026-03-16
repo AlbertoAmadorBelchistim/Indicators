@@ -1203,8 +1203,8 @@ public class OHLCPlus : Indicator
             UpdateLevel(keys[5], candle.MaxVolumePriceInfo.Price);
 
         // VWAP
-        if (candle.VWAP > 0)
-            UpdateLevel(keys[6], candle.VWAP);
+        if (candle.GetVwapCompat() > 0)
+            UpdateLevel(keys[6], candle.GetVwapCompat());
 
         // VAH/VAL
         if (candle.ValueArea != null &&
