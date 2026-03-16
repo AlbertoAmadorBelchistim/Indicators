@@ -184,21 +184,36 @@ public class TradesOnChart : Indicator
 
     protected override void OnDispose()
     {
+        #if ATAS_STABLE
+        TradingManager.PortfolioSelected -= TradingManager_PortfolioSelected;
+        #else
         TradingStatisticsProvider.StatisticsRebuilt -= OnRecalculate;
         TradingStatisticsProvider.FilteredStatisticsSourceChanged -= OnTradingStatisticsProviderSourceChanged;
         TradingManager.PortfolioSelected -= TradingManager_PortfolioSelected;
-        
+        #endif
+
         _statistics?.HistoryMyTrades.Added -= OnTradeAdded;
     }
 
     protected override void OnInitialize()
     {
+        #if ATAS_STABLE
+        TradingManager.PortfolioSelected += TradingManager_PortfolioSelected;
+
+        if (TradingStatisticsProvider.Realtime is { } rtStat)
+            OnTradingStatisticsProviderSourceChanged(rtStat);
+        else if (TradingStatisticsProvider.Replay is { } replayStat)
+            OnTradingStatisticsProviderSourceChanged(replayStat);
+        else
+            OnRecalculate();
+        #else
         TradingStatisticsProvider.StatisticsRebuilt += OnRecalculate;
         TradingStatisticsProvider.RawStatisticsSourceChanged += OnTradingStatisticsProviderSourceChanged;
         TradingManager.PortfolioSelected += TradingManager_PortfolioSelected;
 
         if (TradingStatisticsProvider.RawStatistics is { } stat)
             OnTradingStatisticsProviderSourceChanged(stat);
+        #endif
     }
 
     private void OnTradingStatisticsProviderSourceChanged(ITradingStatistics stat)
@@ -475,7 +490,7 @@ public class TradesOnChart : Indicator
 
     #endregion
 
-    #endregion
+#endregion
 
     #region Private Methods
 
