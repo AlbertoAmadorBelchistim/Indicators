@@ -143,6 +143,10 @@
     <IsAtasX Condition="'$(IsAtasX)' == ''">false</IsAtasX>
   </PropertyGroup>
 
+  <ItemGroup Condition=" '$(Configuration)' == 'Stable' ">
+    <Compile Remove="RolloverDates.cs" />
+  </ItemGroup>
+
   <Target Name="ValidateConfigurationPlatform" BeforeTargets="PrepareForBuild">
     <Error Condition="'$(IsAtasX)' == 'true' And '$(Platform)' != 'Cross'"
            Text="ATAS_X configurations must be built with Platform=Cross." />
