@@ -289,7 +289,13 @@ namespace ATAS.Indicators.Technical
 		{
 			try
 			{
-				var response = await RequestFixedProfileAsync(new FixedProfileRequest(Period, TradingSession, baseTime));
+				#if ATAS_STABLE
+				// Stable SDK does not support baseTime in FixedProfileRequest.
+				// Fall back to the legacy request shape (period + tradingSession).
+				var response = await RequestFixedProfileAsync(new FixedProfileRequest(Period, TradingSession));
+				#else
+                var response = await RequestFixedProfileAsync(new FixedProfileRequest(Period, TradingSession, baseTime));
+				#endif
 
 				if (response is { } r)
 				{
