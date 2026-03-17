@@ -113,16 +113,15 @@ public partial class MainIndicator
         return (bestSize, bestW);
     }
 
-    private decimal GetFixPrice(decimal value, bool isTop)
+    private decimal GetFixPrice(decimal value, bool isTop, decimal step)
     {
         if (InstrumentInfo == null) return value;
-        var tick = InstrumentInfo.TickSize;
-        var left = value % tick;
+        var left = value % step;
         value = value - left;
-        if (isTop) value += tick;
-        else value -= tick;
-        if (isTop) value += tick;
-        else value -= tick;
+        if (isTop) value += step;
+        else value -= step;
+        if (isTop) value += step;
+        else value -= step;
         return value;
     }
 }
