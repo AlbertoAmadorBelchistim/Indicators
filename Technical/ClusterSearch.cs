@@ -226,6 +226,13 @@ public partial class ClusterSearch : Indicator
 		_autoFilterValue = 0;
 		_targetBar = 0;
 
+		if (AutoFilter)
+		{
+			_minFilter.PropertyChanged -= Filter_PropertyChanged;
+			MinimumFilter.Value = 0;
+			_minFilter.PropertyChanged += Filter_PropertyChanged;
+		}
+
 		if (Days is 0)
 			return;
 
