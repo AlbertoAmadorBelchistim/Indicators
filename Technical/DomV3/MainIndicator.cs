@@ -23,9 +23,34 @@ using Timer = System.Timers.Timer;
 [Category(IndicatorCategories.OrderBook)]
 public partial class MainIndicator : Indicator
 {
+    #region Nested types
+
+    private sealed class VisualRowData
+    {
+        public int Y1;
+        public int Y2;
+        public readonly List<OrderInfo> Orders = new();
+        public MarketDataType Type = MarketDataType.Trade;
+        public decimal RowVol;
+        public DataType DataType = DataType.Lvl3;
+
+        public void Reset(int y1, int y2, MarketDataType type, decimal rowVol, DataType dataType)
+        {
+            Y1 = y1;
+            Y2 = y2;
+            Type = type;
+            RowVol = rowVol;
+            DataType = dataType;
+            Orders.Clear();
+        }
+    }
+
+    #endregion
+
     private MboGridController _gridController = new();
     private readonly object _renderLock = new();
     private readonly Dictionary<decimal, int> _tempSizeBuffer = new();
+    private readonly List<VisualRowData> _visualRows = new();
     private readonly RenderFont _tooltipFont = new("Arial", 8);
 
 	private Timer _timer = new();
@@ -33,7 +58,7 @@ public partial class MainIndicator : Indicator
     private MarketDataArg? _lastBid = null;
     private decimal _lastPrice = 0;
 
-    public MainIndicator() 
+    public MainIndicator()
 	    : base(true)
     {
 	    ((ValueDataSeries)DataSeries[0]).IsHidden = true;
@@ -93,7 +118,7 @@ public partial class MainIndicator : Indicator
 
     protected override void OnApplyDefaultColors()
     {
-        if (ChartInfo == null) 
+        if (ChartInfo == null)
 	        return;
 
         _bidColor = ChartInfo.ColorsStore.UpCandleColor;
@@ -149,9 +174,9 @@ public partial class MainIndicator : Indicator
 			    if (_lastAsk is null || _lastBid is null)
 				    return;
 
-			    var tickSize = InstrumentInfo.TickSize;
-			    var fixHigh = GetFixPrice(ChartInfo.PriceChartContainer.High, true);
-			    var fixLow = GetFixPrice(ChartInfo.PriceChartContainer.Low, false);
+			    var step = ChartInfo.PriceChartContainer.Step;
+			    var fixHigh = GetFixPrice(ChartInfo.PriceChartContainer.High, true, step);
+			    var fixLow = GetFixPrice(ChartInfo.PriceChartContainer.Low, false, step);
 
 			    if (fixLow >= fixHigh)
 				    return;
@@ -163,16 +188,13 @@ public partial class MainIndicator : Indicator
 				    return;
 
 			    // Intersect visible range with data range
-			    var effectiveHigh = Math.Min(fixHigh, dataMaxPrice + tickSize);
-			    var effectiveLow = Math.Max(fixLow, dataMinPrice - tickSize);
+			    var effectiveHigh = Math.Min(fixHigh, dataMaxPrice + step);
+			    var effectiveLow = Math.Max(fixLow, dataMinPrice - step);
 
 			    if (effectiveLow >= effectiveHigh)
 				    return;
 
-			    var yy1 = ChartInfo.GetYByPrice(ChartInfo.PriceChartContainer.High);
-			    var yy2 = ChartInfo.GetYByPrice(ChartInfo.PriceChartContainer.Low);
-
-			    var height = Math.Abs(yy2 - yy1) / ((ChartInfo.PriceChartContainer.High - ChartInfo.PriceChartContainer.Low) / InstrumentInfo.TickSize);
+			    var height = ChartInfo.PriceChartContainer.PriceRowHeight;
 
                 var (fontSize, fontWidth) =
 				    SetFontSize(context, height);
@@ -182,7 +204,7 @@ public partial class MainIndicator : Indicator
 				var showText = _lastHeight < height;
 
                 var maxScreenSize = Container.RelativeRegion.Width * 0.5m;
-			    var (maxVol, maxCount) = _gridController.MaxInView(effectiveHigh, effectiveLow, tickSize, true);
+			    var (maxVol, maxCount) = _gridController.MaxInView(effectiveHigh, effectiveLow, step, true);
 
 			    var aggregationBaseRow = new Rectangle() { X = Container.RelativeRegion.Right - 1, Width = 0, };
 
@@ -204,30 +226,19 @@ public partial class MainIndicator : Indicator
 
 			    var pricesWithData = _gridController.GetPricesInRange(effectiveHigh, effectiveLow, _lastAsk, _lastBid);
 
+			    // Phase 1: Group prices by visual row (handles Scale > 1 where multiple tick prices share one row)
+			    _visualRows.Clear();
+			    var lastPriceRowIndex = long.MinValue;
+
+			    var tickSize = InstrumentInfo.TickSize;
+
 			    foreach (var price in pricesWithData)
 			    {
 				    if (price < fixLow || price > fixHigh)
 					    continue;
 
-				    var y1 = ChartInfo.GetYByPrice(price);
-				    var y2 = ChartInfo.GetYByPrice(price - tickSize);
-
-				    if (showSeparately)
-				    {
-					    y1 += 1;
-                    }
-
-				    var realHeight = y2 - y1;
-
-                    var blockInRow = _gridController.GetItemInRow(price, _lastAsk, _lastBid, !showSeparately&& !showText);
-
-                    var (rowVol, dataType) = _gridController.Volume(price, _lastAsk, _lastBid, _lastPrice);
-
-                    if (dataType == DataType.Lvl2)
-				    {
-					    aggregationBaseRow.X += aggregationBaseRow.Width;
-					    aggregationBaseRow.Width = 0;
-				    }
+				    var blockInRow = _gridController.GetItemInRow(price, _lastAsk, _lastBid, !showSeparately && !showText);
+				    var (rowVol, dataType) = _gridController.Volume(price, _lastAsk, _lastBid, _lastPrice);
 
 				    if (blockInRow.Orders.Length == 0 && rowVol == 0)
 					    continue;
@@ -235,7 +246,51 @@ public partial class MainIndicator : Indicator
 				    if (rowVol > 0 && blockInRow.Orders.Length == 0)
 					    rowVol = 0;
 
-				    var pen = blockInRow.Type switch
+				    // Group by price grid position (deterministic, independent of pixel rounding)
+				    var priceRowIndex = step > 0 ? (long)Math.Floor(price / step) : 0;
+
+				    if (_visualRows.Count > 0 && priceRowIndex == lastPriceRowIndex)
+				    {
+					    // Same visual row - merge orders from adjacent tick prices
+					    var lastVisualRow = _visualRows[^1];
+					    lastVisualRow.Orders.AddRange(blockInRow.Orders);
+					    lastVisualRow.RowVol += rowVol;
+
+					    if (lastVisualRow.Type == MarketDataType.Trade)
+						    lastVisualRow.Type = blockInRow.Type;
+				    }
+				    else
+				    {
+					    lastPriceRowIndex = priceRowIndex;
+
+					    // Snap to step-aligned boundaries to prevent overlap between groups
+					    var topTickPrice = (priceRowIndex + 1) * step - tickSize;
+					    var y1 = ChartInfo.GetYByPrice(topTickPrice);
+					    var y2 = ChartInfo.GetYByPrice(topTickPrice - step);
+
+					    if (showSeparately)
+						    y1 += 1;
+
+					    var row = new VisualRowData();
+					    row.Reset(y1, y2, blockInRow.Type, rowVol, dataType);
+					    row.Orders.AddRange(blockInRow.Orders);
+					    _visualRows.Add(row);
+				    }
+			    }
+
+			    // Phase 2: Render visual rows
+			    foreach (var visualRow in _visualRows)
+			    {
+				    var y1 = visualRow.Y1;
+				    var realHeight = visualRow.Y2 - y1;
+
+				    if (visualRow.DataType == DataType.Lvl2)
+				    {
+					    aggregationBaseRow.X += aggregationBaseRow.Width;
+					    aggregationBaseRow.Width = 0;
+				    }
+
+				    var pen = visualRow.Type switch
 				    {
 					    MarketDataType.Ask => _askColorPen,
 					    MarketDataType.Bid => _bidColorPen,
@@ -246,9 +301,7 @@ public partial class MainIndicator : Indicator
 				    var aggregationRow = aggregationBaseRow with { Y = y1, Height = realHeight };
 
 				    if (aggregationRow.Height < 1)
-				    {
 					    aggregationRow.Height = 1;
-				    }
 
 				    if (aggregationRow.Width > 0)
 				    {
@@ -258,7 +311,7 @@ public partial class MainIndicator : Indicator
 
 					    if (ShowSum)
 					    {
-						    var text = $"V {ChartInfo.TryGetMinimizedVolumeString(rowVol)}";
+						    var text = $"V {ChartInfo.TryGetMinimizedVolumeString(visualRow.RowVol)}";
 
 						    var aggVolBox = aggregationRow with
 						    {
@@ -266,9 +319,9 @@ public partial class MainIndicator : Indicator
 						    };
 						    pw = aggVolBox.Width;
 
-						    if (RowOrderVolume.Enabled && blockInRow.Type != MarketDataType.Trade)
+						    if (RowOrderVolume.Enabled && visualRow.Type != MarketDataType.Trade)
 						    {
-							    if (RowOrderVolume.Value <= rowVol)
+							    if (RowOrderVolume.Value <= visualRow.RowVol)
 								    context.FillRectangle(pen.Color, aggVolBox);
 						    }
 
@@ -277,16 +330,16 @@ public partial class MainIndicator : Indicator
 
 					    if (ShowCount)
 					    {
-						    var text = $"C {blockInRow.Orders.Length}";
+						    var text = $"C {visualRow.Orders.Count}";
 
 						    var aggCountBox = aggregationRow with
 						    {
 							    X = aggregationRow.X + pw, Width = aggregationRow.Width - pw
 						    };
 
-						    if (RowOrderCount.Enabled && blockInRow.Type != MarketDataType.Trade)
+						    if (RowOrderCount.Enabled && visualRow.Type != MarketDataType.Trade)
 						    {
-							    if (RowOrderCount.Value <= blockInRow.Orders.Length)
+							    if (RowOrderCount.Value <= visualRow.Orders.Count)
 								    context.FillRectangle(pen.Color, aggCountBox);
 						    }
 
@@ -294,25 +347,20 @@ public partial class MainIndicator : Indicator
 					    }
 				    }
 
-				    var availableArea = maxScreenSize - aggregationRow.Width;
-
-				    var availableForThisRow =
-					    maxCount == 0 ? 0 : (int)((availableArea / maxCount) * blockInRow.Orders.Length);
-
-				    if (blockInRow.Type is not MarketDataType.Trade && blockInRow.Orders.Length > 0)
+				    if (visualRow.Type is not MarketDataType.Trade && visualRow.Orders.Count > 0)
 				    {
-					    var minW = (int)Math.Max(height, 6 );
+					    var minW = (int)Math.Max(height, 6);
 					    var lastX = aggregationRow.X - 2;
 
-					    foreach (var order in blockInRow.Orders)
+					    foreach (var order in visualRow.Orders)
 					    {
 						    var vol = order.Order.Volume;
 
-						    var needToFilterBlockSize = (MinBlockSize.Enabled && MinBlockSize.Value > vol &&
-							    blockInRow.Type != MarketDataType.Trade);
+						    var needToFilterBlockSize = MinBlockSize.Enabled && MinBlockSize.Value > vol &&
+							    visualRow.Type != MarketDataType.Trade;
 
-						    var needToFillBox = (OrderSizeFilter.Enabled && OrderSizeFilter.Value <= vol &&
-							    blockInRow.Type != MarketDataType.Trade);
+						    var needToFillBox = OrderSizeFilter.Enabled && OrderSizeFilter.Value <= vol &&
+							    visualRow.Type != MarketDataType.Trade;
 
 						    if (needToFilterBlockSize)
 							    continue;
@@ -320,14 +368,14 @@ public partial class MainIndicator : Indicator
 						    // Cache width by volume to avoid recalculation for orders with same volume
 						    if (!_tempSizeBuffer.TryGetValue(vol, out var ww))
 						    {
-							    ww = ItemWidthCalculation(vol, maxVol, (int)maxScreenSize/2, maxCount, 0, minW);
+							    ww = ItemWidthCalculation(vol, maxVol, (int)maxScreenSize / 2, maxCount, 0, minW);
 							    _tempSizeBuffer[vol] = ww;
 						    }
 
 						    var orderBlockRow = aggregationRow with
 						    {
 							    X = lastX - ww, Width = ww, Height = realHeight
-                            };
+						    };
 
 						    if (showSeparately)
 						    {
@@ -335,10 +383,10 @@ public partial class MainIndicator : Indicator
 							    {
 								    var textColor = TextColor;
 
-                                    if (IsPointInRectangle(orderBlockRow, MouseLocationInfo.LastPosition))
-                                    {
-	                                    selectedRectangle = orderBlockRow;
-                                        context.FillRectangle(ChartInfo.ColorsStore.MouseBackground, orderBlockRow);
+								    if (IsPointInRectangle(orderBlockRow, MouseLocationInfo.LastPosition))
+								    {
+									    selectedRectangle = orderBlockRow;
+									    context.FillRectangle(ChartInfo.ColorsStore.MouseBackground, orderBlockRow);
 									    textColor = ChartInfo.ColorsStore.MouseTextColor;
 
 									    if (ChartInfo.KeyboardInfo.PressedKey != null && ChartInfo.KeyboardInfo.PressedKey.Key == CrossKey.LeftCtrl)
@@ -348,7 +396,7 @@ public partial class MainIndicator : Indicator
 										              $"Time\t\t{order.Order.Time:HH:mm:ss.fff}{Environment.NewLine}" +
 										              $"Id\t\t{order.Order.ExchangeOrderId}{Environment.NewLine}" +
 										              $"Priority\t{order.Order.Priority}{Environment.NewLine}";
-                                        }
+									    }
 								    }
 								    else if (needToFillBox)
 									    context.FillRectangle(pen.Color, orderBlockRow);
@@ -359,8 +407,8 @@ public partial class MainIndicator : Indicator
 								    {
 									    context.DrawString(ChartInfo.TryGetMinimizedVolumeString(vol), _font,
 										    textColor, orderBlockRow,
-										    dataType is DataType.Lvl3 ? _stringCenterFormat : _stringRightFormat);
-                                    }
+										    visualRow.DataType is DataType.Lvl3 ? _stringCenterFormat : _stringRightFormat);
+								    }
 							    }
 						    }
 
