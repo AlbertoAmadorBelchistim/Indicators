@@ -562,12 +562,12 @@ public class ClusterStatistic : Indicator
 
     #region Colors
 
-    [Display(ResourceType = typeof(Strings), Name = "BackGround", GroupName = nameof(Strings.Visualization),
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BackGround), GroupName = nameof(Strings.Visualization),
         Description = nameof(Strings.LabelFillColorDescription), Order = 200)]
     public Color BackGroundColor { get; set; } = Color.FromArgb(120, 0, 0, 0);
 
     [Range(1, 10)]
-    [Display(ResourceType = typeof(Strings), Name = "Transparency", GroupName = nameof(Strings.Visualization), Order = 205)]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Transparency), GroupName = nameof(Strings.Visualization), Order = 205)]
     public int BgTransparency
     {
         get => _bgTransparency;
