@@ -378,14 +378,14 @@ public class Volume : Indicator
 	{
 		var candle = GetCandle(bar);
 
-		var val = Input switch
-		{
-			InputType.Ticks => candle.Ticks,
-			InputType.Asks => candle.Ask,
-			InputType.Bids => candle.Bid,
-			_ => candle.Volume
-		};
-		_renderSeries[bar] = val;
+        var val = Input switch
+        {
+            InputType.Ticks => candle.Ticks,
+            InputType.Asks => candle.Ask,
+            InputType.Bids => candle.Bid,
+            _ => candle.Volume
+        };
+        _renderSeries[bar] = val;
 
 		if (bar == CurrentBar - 1)
 		{
@@ -405,7 +405,7 @@ public class Volume : Indicator
 			}
 		}
 
-		HighestVol.Calculate(bar, candle.Volume);
+		HighestVol.Calculate(bar, val);
 
 		if (_useFilter && val > _filter)
 		{
@@ -433,9 +433,9 @@ public class Volume : Indicator
 		}
 	}
 
-	#endregion
+    #endregion
 
-	#region Private methods
+    #region Private methods
 
 	private int GetMinWidth(RenderContext context, int startBar, int endBar)
 	{
