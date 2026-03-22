@@ -391,7 +391,7 @@ public class Volume : Indicator
 		{
 			if (UseVolumeAlerts && _lastVolumeAlert != bar && val >= _filter && _filter != 0)
 			{
-				AddAlert(AlertVolumeFile, $"Candle volume: {val}");
+				AddAlert(AlertVolumeFile, $"Candle {GetInputLabel()}: {val}");
 				_lastVolumeAlert = bar;
 			}
 
@@ -399,7 +399,7 @@ public class Volume : Indicator
 			{
 				if ((candle.Delta < 0 && candle.Close > candle.Open) || (candle.Delta > 0 && candle.Close < candle.Open))
 				{
-					AddAlert(AlertReverseFile, $"Candle volume: {val} (Reverse alert)");
+					AddAlert(AlertReverseFile, $"Candle {GetInputLabel()}: {val} (Reverse alert)");
 					_lastReverseAlert = bar;
 				}
 			}
@@ -473,5 +473,16 @@ public class Volume : Indicator
 		_posColor = _positive.Color.Convert();
 	}
 
-    #endregion
+	private string GetInputLabel()
+	{
+		return Input switch
+		{
+			InputType.Ticks => "Ticks",
+			InputType.Asks => "Asks",
+			InputType.Bids => "Bids",
+			_ => "Volume"
+		};
+	}
+
+	#endregion
 }
