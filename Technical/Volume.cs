@@ -3,6 +3,7 @@ namespace ATAS.Indicators.Technical;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
+using System;
 
 using ATAS.Indicators.Drawing;
 
@@ -103,6 +104,31 @@ public class Volume : Indicator
 	protected ValueDataSeries MaxVolSeries;
 	protected Color TextColor = DefaultColors.Blue;
 
+    // ===================== Thresholds (Fixed) =====================
+
+    private const string UiGroupThresholds = "Thresholds";
+    private const string UiGroupFixedThreshold = "Fixed Threshold";
+
+    private readonly ValueDataSeries _thrMajor = new("VolThrMajor", "Volume Threshold Major")
+    {
+        VisualType = VisualMode.Line,
+        ShowCurrentValue = false,
+        UseMinimizedModeIfEnabled = true,
+        IgnoredByAlerts = true
+    };
+
+    private readonly ValueDataSeries _thrMinor = new("VolThrMinor", "Volume Threshold Minor")
+    {
+        VisualType = VisualMode.Line,
+        ShowCurrentValue = false,
+        UseMinimizedModeIfEnabled = true,
+        IgnoredByAlerts = true
+    };
+
+    private bool _showThresholdLines;
+    private decimal _fixedMinorLevel = 1000m;
+    private decimal _fixedMajorLevel = 2000m;
+
     #endregion
 
     #region Properties
@@ -169,6 +195,63 @@ public class Volume : Indicator
     public string AlertVolumeFile { get; set; } = "alert1";
 
     #endregion
+
+    #region Thresholds
+
+    [DisplayName("Show Threshold lines")]
+    [Display(GroupName = UiGroupThresholds, Description = "Show horizontal threshold lines in the Volume panel", Order = 500)]
+    public bool ShowThresholdLines
+    {
+        get => _showThresholdLines;
+        set
+        {
+            if (_showThresholdLines == value)
+                return;
+
+            _showThresholdLines = value;
+            UpdateThresholdSeriesVisibility();
+            RedrawChart();
+        }
+    }
+
+    [DisplayName("Fixed minor")]
+    [Display(GroupName = UiGroupFixedThreshold, Description = "Fixed minor threshold", Order = 520)]
+    [Range(0, int.MaxValue)]
+    [DisplayFormat(DataFormatString = "F0")]
+    public decimal FixedMinorLevel
+    {
+        get => _fixedMinorLevel;
+        set
+        {
+            if (_fixedMinorLevel == value)
+                return;
+
+            _fixedMinorLevel = value;
+            RecalculateValues();
+            RedrawChart();
+        }
+    }
+
+    [DisplayName("Fixed major")]
+    [Display(GroupName = UiGroupFixedThreshold, Description = "Fixed major threshold", Order = 530)]
+    [Range(0, int.MaxValue)]
+    [DisplayFormat(DataFormatString = "F0")]
+    public decimal FixedMajorLevel
+    {
+        get => _fixedMajorLevel;
+        set
+        {
+            if (_fixedMajorLevel == value)
+                return;
+
+            _fixedMajorLevel = value;
+            RecalculateValues();
+            RedrawChart();
+        }
+    }
+
+    #endregion
+
 
     #region MaximumVolume
 
@@ -309,6 +392,13 @@ public class Volume : Indicator
 		_positive.PropertyChanged += PositiveChanged;
 		_negative.PropertyChanged += NegativeChanged;
 		_neutral.PropertyChanged += NeutralChanged;
+
+        // Threshold series (Volume panel)
+        DataSeries.Add(_thrMinor);
+        DataSeries.Add(_thrMajor);
+
+        UpdateThresholdSeriesVisibility();
+        SetupThresholdLineStyle();
     }
 
     #endregion
@@ -387,7 +477,19 @@ public class Volume : Indicator
         };
         _renderSeries[bar] = val;
 
-		if (bar == CurrentBar - 1)
+        // ===================== Fixed threshold lines =====================
+        if (_showThresholdLines)
+        {
+            _thrMinor[bar] = _fixedMinorLevel;
+            _thrMajor[bar] = _fixedMajorLevel;
+        }
+        else
+        {
+            // Prevent connecting segments across disabled regions
+            CutThresholdsAt(bar - 1);
+        }
+
+        if (bar == CurrentBar - 1)
 		{
 			if (UseVolumeAlerts && _lastVolumeAlert != bar && val >= _filter && _filter != 0)
 			{
@@ -482,6 +584,33 @@ public class Volume : Indicator
 			InputType.Bids => "Bids",
 			_ => "Volume"
 		};
+	}
+
+	private void UpdateThresholdSeriesVisibility()
+	{
+		var vis = _showThresholdLines ? VisualMode.Line : VisualMode.Hide;
+		_thrMajor.VisualType = vis;
+		_thrMinor.VisualType = vis;
+	}
+
+	private void CutThresholdsAt(int bar)
+	{
+		var b = Math.Max(0, bar);
+		_thrMajor.SetPointOfEndLine(b);
+		_thrMinor.SetPointOfEndLine(b);
+	}
+
+	private void SetupThresholdLineStyle()
+	{
+		// Major: solid
+		_thrMajor.Color = CrossColor.FromArgb(255, 169, 169, 169);
+		_thrMajor.Width = 1;
+		_thrMajor.LineDashStyle = LineDashStyle.Solid;
+
+		// Minor: dotted
+		_thrMinor.Color = CrossColor.FromArgb(255, 105, 105, 105);
+		_thrMinor.Width = 1;
+		_thrMinor.LineDashStyle = LineDashStyle.Dot;
 	}
 
 	#endregion
