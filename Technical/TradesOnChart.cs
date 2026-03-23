@@ -483,13 +483,13 @@ public class TradesOnChart : Indicator
 	    if (TradingManager?.Portfolio == null|| TradingManager?.Security == null)
             return;
 
-        var allTrades = _statistics?
+	    var allTrades = _statistics?
             .HistoryMyTrades
-            .Where(t =>
-                t.AccountID == TradingManager.Portfolio.AccountID &&
+		    .Where(t => 
+                t.AccountID == TradingManager.Portfolio.AccountID && 
                 t.Security.SecurityId.Equals(TradingManager.Security.SecurityId, StringComparison.InvariantCultureIgnoreCase)) ?? [];
-        
-        foreach (var trade in allTrades)
+
+	    foreach (var trade in allTrades)
             CreateTradePair(trade);
     }
 

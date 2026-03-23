@@ -254,8 +254,7 @@ public partial class ClusterSearch : Indicator
 		_lastSeriesBar.Clear();
 		_renderDataSeries.Clear();
 
-		if (!AutoFilter)
-			_minFilterValue = MinimalFilter();
+		_minFilterValue = MinimalFilter();
 	}
 
 	protected override void OnFinishRecalculate()
