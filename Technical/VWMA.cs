@@ -18,6 +18,7 @@ namespace ATAS.Indicators.Technical
 		private int _period = 10;
 		private int _lastBar = -1;
 		private EMA _ema = new() { SourceDataSeries = new ValueDataSeries("EmaSource") };
+		private bool _emaPrimed;
 		private FilterInt _smooth;
 
 		private decimal _volSum;
@@ -30,7 +31,8 @@ namespace ATAS.Indicators.Technical
 		private ValueDataSeries _renderSeries = new("RenderSeries", "VWMA")
 		{
 			Color = DefaultColors.Red.Convert(),
-			ShowZeroValue = false
+			ShowZeroValue = false,
+			ScaleIt = false
 		};
 
 		#endregion
@@ -91,19 +93,25 @@ namespace ATAS.Indicators.Technical
 		{
 			_ema = new() { SourceDataSeries = new ValueDataSeries("EmaSource") };
 			_ema.Period = _smooth.Value;
+			_emaPrimed = false;
 		}
 
 		protected override void OnCalculate(int bar, decimal value)
 		{
+			var sourceStartBar = Period - 1;
+			var renderStartBar = sourceStartBar + (Smooth.Enabled ? Smooth.Value - 1 : 0);
+
 			if (bar is 0)
 			{
 				_lastBar = -1;
+				_emaPrimed = false;
 				_volSum = 0;
 				_volPriceSum = 0;
+				_vwmaSeries.Clear();
 				_renderSeries.Clear();
-				_renderSeries[bar] = GetCandle(bar).Close;
+				_renderSeries[bar] = renderStartBar > 0 ? 0 : GetCandle(bar).Close;
 
-				if (Period > 1)
+				if (renderStartBar > 0)
 					_renderSeries.SetPointOfEndLine(bar);
 
 				return;
@@ -125,8 +133,9 @@ namespace ATAS.Indicators.Technical
 				}
 			}
 
-			if (bar < Period)
+			if (bar < sourceStartBar)
 			{
+				_renderSeries[bar] = 0;
 				_renderSeries.SetPointOfEndLine(bar);
 				return;
 			}
@@ -138,9 +147,37 @@ namespace ATAS.Indicators.Technical
 			if (volSum != 0)
 				_vwmaSeries[bar] = volPriceSum / volSum;
 
-			_renderSeries[bar] = Smooth.Enabled
-				? _ema.Calculate(bar, _vwmaSeries[bar])
+			var renderValue = Smooth.Enabled
+				? CalculateSmoothedValue(bar, sourceStartBar)
 				: _vwmaSeries[bar];
+
+			if (bar <= renderStartBar)
+			{
+				_renderSeries[bar] = bar < renderStartBar ? 0 : renderValue;
+				_renderSeries.SetPointOfEndLine(bar);
+
+				if (bar < renderStartBar)
+					return;
+			}
+
+			_renderSeries[bar] = renderValue;
+		}
+
+		private decimal CalculateSmoothedValue(int bar, int sourceStartBar)
+		{
+			if (!_emaPrimed)
+			{
+				var seedValue = _vwmaSeries[bar];
+
+				for (var i = 0; i <= sourceStartBar; i++)
+					_ema.Calculate(i, seedValue);
+
+				_emaPrimed = true;
+
+				return seedValue;
+			}
+
+			return _ema.Calculate(bar, _vwmaSeries[bar]);
 		}
 
 		#endregion
