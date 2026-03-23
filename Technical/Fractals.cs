@@ -60,12 +60,37 @@ namespace ATAS.Indicators.Technical
 		private CrossPen _lowPen;
 		private ShowMode _mode = ShowMode.All;
         private bool _showLine;
+		private int _period = 2;
+		private bool _includeEqualHighLow;
 		private decimal _tickSize;
 		private int _lastBar;
 
 		#endregion
 
 		#region Properties
+
+		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Period), GroupName = nameof(Strings.Settings), Description = nameof(Strings.FractalPeriodDescription), Order = 10)]
+		[Range(1, int.MaxValue)]
+		public int Period
+		{
+			get => _period;
+			set
+			{
+				_period = value;
+				RecalculateValues();
+			}
+		}
+
+		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.IncludeEqualHighLow), GroupName = nameof(Strings.Settings), Description = nameof(Strings.IncludeEqualsValuesDescription), Order = 20)]
+		public bool IncludeEqualHighLow
+		{
+			get => _includeEqualHighLow;
+			set
+			{
+				_includeEqualHighLow = value;
+				RecalculateValues();
+			}
+		}
 
 		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Show), GroupName = nameof(Strings.Line), Description = nameof(Strings.IsNeedShowLinesDescription), Order = 100)]
 		public bool ShowLine
@@ -129,31 +154,25 @@ namespace ATAS.Indicators.Technical
 			if (Mode is ShowMode.None)
 				return;
 
-			if (bar < 4)
+			if (bar < 2 * _period)
 				return;
 
 			var isNewBar = _lastBar != bar;
 			_lastBar = bar;
 
-			var fractalBar = bar - 2;
+			var fractalBar = bar - _period;
+			var centerCandle = GetCandle(fractalBar);
 
-			var bar0 = GetCandle(bar);
-			var bar1 = GetCandle(bar - 1);
-			var bar2 = GetCandle(bar - 2);
-			var bar3 = GetCandle(bar - 3);
-			var bar4 = GetCandle(bar - 4);
+			var isHighFractal = Mode is ShowMode.High or ShowMode.All && IsHighFractal(fractalBar, centerCandle.High);
+			var isLowFractal = Mode is ShowMode.Low or ShowMode.All && IsLowFractal(fractalBar, centerCandle.Low);
 
-			if (bar2.High > bar4.High &&
-			    bar2.High > bar3.High &&
-			    bar2.High > bar1.High &&
-			    bar2.High > bar0.High &&
-			    Mode is ShowMode.High or ShowMode.All)
+			if (isHighFractal)
 			{
-				_fractalUp[fractalBar] = bar2.High + 3 * _tickSize;
+				_fractalUp[fractalBar] = centerCandle.High + 3 * _tickSize;
 
 				if (ShowLine)
 				{
-					var line = new LineTillTouch(fractalBar, bar2.High, _highPen) { Context = true };
+					var line = new LineTillTouch(fractalBar, centerCandle.High, _highPen) { Context = true };
 
 					if (!isNewBar && IsCurrentLine(fractalBar, true))
 					{
@@ -176,17 +195,13 @@ namespace ATAS.Indicators.Technical
 				}
 			}
 
-			if (bar2.Low < bar4.Low &&
-			    bar2.Low < bar3.Low &&
-			    bar2.Low < bar1.Low &&
-			    bar2.Low < bar0.Low &&
-			    Mode is ShowMode.Low or ShowMode.All)
+			if (isLowFractal)
 			{
-				_fractalDown[fractalBar] = bar2.Low - 3 * _tickSize;
+				_fractalDown[fractalBar] = centerCandle.Low - 3 * _tickSize;
 
 				if (ShowLine)
 				{
-					var line = new LineTillTouch(fractalBar, bar2.Low, _lowPen) { Context = false };
+					var line = new LineTillTouch(fractalBar, centerCandle.Low, _lowPen) { Context = false };
 
 					if (!isNewBar && IsCurrentLine(fractalBar, false))
 					{
@@ -213,6 +228,50 @@ namespace ATAS.Indicators.Technical
         #endregion
 
         #region Private methods
+
+        private bool IsHighFractal(int centerBar, decimal centerHigh)
+        {
+	        for (var i = 1; i <= _period; i++)
+	        {
+		        var left = GetCandle(centerBar - i).High;
+		        var right = GetCandle(centerBar + i).High;
+
+		        if (_includeEqualHighLow)
+		        {
+			        if (left > centerHigh || right > centerHigh)
+				        return false;
+		        }
+		        else
+		        {
+			        if (left >= centerHigh || right >= centerHigh)
+				        return false;
+		        }
+	        }
+
+	        return true;
+        }
+
+        private bool IsLowFractal(int centerBar, decimal centerLow)
+        {
+	        for (var i = 1; i <= _period; i++)
+	        {
+		        var left = GetCandle(centerBar - i).Low;
+		        var right = GetCandle(centerBar + i).Low;
+
+		        if (_includeEqualHighLow)
+		        {
+			        if (left < centerLow || right < centerLow)
+				        return false;
+		        }
+		        else
+		        {
+			        if (left <= centerLow || right <= centerLow)
+				        return false;
+		        }
+	        }
+
+	        return true;
+        }
 
         private bool IsCurrentLine(int bar, bool isHighLine)
         {

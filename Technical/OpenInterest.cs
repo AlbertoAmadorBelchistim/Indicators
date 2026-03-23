@@ -7,7 +7,7 @@ namespace ATAS.Indicators.Technical
 	using OFT.Attributes;
     using OFT.Localization;
     using Utils.Common;
-    
+
     [DisplayName("Open Interest")]
     [Category(IndicatorCategories.VolumeOrderFlow)]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.OpenInterestDescription))]
@@ -41,14 +41,16 @@ namespace ATAS.Indicators.Technical
             ShowCurrentValue = false,
             ShowTooltip = false,
             UseMinimizedModeIfEnabled = true,
-            ResetAlertsOnNewBar = true
+            ResetAlertsOnNewBar = true,
+            HideZeroCandles = true
         };
 
         private readonly CandleDataSeries _oi = new("Oi", "OI")
         {
             UseMinimizedModeIfEnabled = true,
             ResetAlertsOnNewBar = true,
-            DescriptionKey=nameof(Strings.OISettingsDescription)
+            DescriptionKey = nameof(Strings.OISettingsDescription),
+            HideZeroCandles = true
         };
 
         private int _lastBar = -1;
@@ -70,6 +72,7 @@ namespace ATAS.Indicators.Technical
             set
             {
                 _mode = value;
+                UpdateTooltipSettings();
                 RecalculateValues();
             }
         }
@@ -81,6 +84,7 @@ namespace ATAS.Indicators.Technical
             set
             {
                 _minimizedMode = value;
+                UpdateTooltipSettings();
                 RecalculateValues();
             }
         }
@@ -118,10 +122,10 @@ namespace ATAS.Indicators.Technical
         public decimal ChangeSize
         {
             get => _changeSize;
-            set 
+            set
             {
                 _changeSize = value;
-                RecalculateValues(); 
+                RecalculateValues();
             }
         }
 
@@ -188,7 +192,7 @@ namespace ATAS.Indicators.Technical
                 return;
             }
 
-            var currentOpen = bar == 0 
+            var currentOpen = bar == 0
 	            ? currentCandle.OI
 	            : GetCandle(bar - 1).OI;
 
@@ -202,6 +206,8 @@ namespace ATAS.Indicators.Technical
                 case OpenInterestMode.ByBar:
                     if (_minimizedMode)
                     {
+                        candle.Low = 0;
+
                         if (currentCandle.OI > currentOpen)
                         {
                             candle.Open = 0;
@@ -251,10 +257,10 @@ namespace ATAS.Indicators.Technical
             var oiValue = Math.Abs(candle.Close);
 
             if (oiValue < Filter || Filter == 0)
-                _filterSeries[bar].Open = _filterSeries[bar].Close = _filterSeries[bar].High = _filterSeries[bar].Low = candle.Open;
+                _filterSeries[bar].Open = _filterSeries[bar].Close = _filterSeries[bar].High = _filterSeries[bar].Low = 0;
             else
                 _filterSeries[bar] = candle.MemberwiseClone();
-            
+
             if (bar != _lastBar)
             {
                 _isAlerted = false;
@@ -270,6 +276,18 @@ namespace ATAS.Indicators.Technical
             }
 
             _lastBar = bar;
+        }
+
+        #endregion
+
+        #region Private methods
+
+        private void UpdateTooltipSettings()
+        {
+            _oi.HideOpenCloseLabels = _mode is OpenInterestMode.ByBar;
+            _oi.TooltipAnchor = _mode is OpenInterestMode.ByBar && _minimizedMode
+                ? CandleTooltipAnchor.Top
+                : CandleTooltipAnchor.Close;
         }
 
         #endregion

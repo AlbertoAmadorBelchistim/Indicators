@@ -360,7 +360,7 @@ public class MboGridController
 			}
 			else
 			{
-				lock (_level2Data)
+				lock (_level2UpdateLock)
 				{
 					if (_level2Data.Count != 0)
 					{
@@ -564,50 +564,53 @@ public class MboGridController
 		var w = 0m;
 
 		// Optimization: iterate only over prices with data, not the entire range
-		if (_priceVolume.Count > 0)
+		lock (_updateLock)
 		{
-			foreach (var kvp in _priceVolume)
+			if (_priceVolume.Count > 0)
 			{
-				var price = kvp.Key;
-				if (price < fixLow || price > fixHigh)
-					continue;
-
-				var value = kvp.Value;
-				if (useWeight)
+				foreach (var kvp in _priceVolume)
 				{
-					var a = value.vol * value.count;
-					if (a > w)
+					var price = kvp.Key;
+					if (price < fixLow || price > fixHigh)
+						continue;
+
+					var value = kvp.Value;
+					if (useWeight)
 					{
-						w = a;
-						max = value;
+						var a = value.vol * value.count;
+						if (a > w)
+						{
+							w = a;
+							max = value;
+						}
+					}
+					else
+					{
+						if (value.vol > max.MaxVol)
+							max.MaxVol = value.vol;
+
+						if (value.count > max.MaxCount)
+							max.MaxCount = value.count;
 					}
 				}
-				else
-				{
-					if (value.vol > max.MaxVol)
-						max.MaxVol = value.vol;
 
-					if (value.count > max.MaxCount)
-						max.MaxCount = value.count;
-				}
+				return max;
 			}
 		}
-		else
-		{
-			lock (_level2Data)
-			{
-				if (_level2Data.Count != 0)
-				{
-					foreach (var kvp in _level2Data)
-					{
-						var price = kvp.Key;
-						if (price < fixLow || price > fixHigh)
-							continue;
 
-						max.MaxCount = 1;
-						if (kvp.Value.Volume > max.MaxVol)
-							max.MaxVol = kvp.Value.Volume;
-					}
+		lock (_level2UpdateLock)
+		{
+			if (_level2Data.Count != 0)
+			{
+				foreach (var kvp in _level2Data)
+				{
+					var price = kvp.Key;
+					if (price < fixLow || price > fixHigh)
+						continue;
+
+					max.MaxCount = 1;
+					if (kvp.Value.Volume > max.MaxVol)
+						max.MaxVol = kvp.Value.Volume;
 				}
 			}
 		}
@@ -707,9 +710,13 @@ public class MboGridController
 	{
 		_grid.Clear();
 		_priceVolume.Clear();
-		_level2Data.Clear();
 		_isGridPriceRangeDirty = true;
-		_isLevel2PriceRangeDirty = true;
+
+		lock (_level2UpdateLock)
+		{
+			_level2Data.Clear();
+			_isLevel2PriceRangeDirty = true;
+		}
 	}
 
 	private void UpdateList(IEnumerable<MarketByOrder> orders)
