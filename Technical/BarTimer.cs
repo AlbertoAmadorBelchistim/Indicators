@@ -102,24 +102,30 @@ namespace ATAS.Indicators.Technical
 		#region Properties
 
 		[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.TimeSettings), Name = nameof(Strings.TimeFormat), Description = nameof(Strings.TimeFormatDescription), Order = 100)]
+		[Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
 		public Format TimeFormat { get; set; }
 
 		[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.TimeSettings), Name = nameof(Strings.Mode), Description = nameof(Strings.TimeModeDescription), Order = 110)]
+		[Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
 		public Mode TimeMode { get; set; }
 
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.TimeSettings), Name = nameof(Strings.TimeZone), Description = nameof(Strings.TimeZoneDescription), Order = 120)]
+        [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
         [Range(-23, 23)]
         public int CustomTimeZone { get; set; }
 
         [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Settings), Name = nameof(Strings.OffsetX), Description = nameof(Strings.LabelOffsetXDescription), Order = 200)]
+		[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
 		[Range(-10000, 10000)]
 		public int OffsetX { get; set; }
 
 		[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Settings), Name = nameof(Strings.OffsetY), Description = nameof(Strings.LabelOffsetYDescription), Order = 210)]
+		[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
 		[Range(-10000, 10000)]
 		public int OffsetY { get; set; }
 
 		[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Settings), Name = nameof(Strings.Size), Description = nameof(Strings.FontSizeDescription), Order = 220)]
+		[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
 		[Range(1, 100)]
 		public int Size
 		{
@@ -128,6 +134,7 @@ namespace ATAS.Indicators.Technical
 		}
 
 		[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Settings), Name = nameof(Strings.Location), Description = nameof(Strings.LabelLocationDescription), Order = 230)]
+		[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
 		public Location TimeLocation
 		{
 			get => _timeLocation;
@@ -139,6 +146,7 @@ namespace ATAS.Indicators.Technical
 		}
 
 		[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Colors), Name = nameof(Strings.Color), Description = nameof(Strings.LabelTextColorDescription), Order = 300)]
+		[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
 		public CrossColor TextColor
 		{
 			get => _textColor.Convert();
@@ -146,6 +154,7 @@ namespace ATAS.Indicators.Technical
 		}
 
 		[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Colors), Name = nameof(Strings.BackGround), Description = nameof(Strings.LabelFillColorDescription), Order = 310)]
+		[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
 		public CrossColor BackGroundColor
 		{
 			get => _backGroundColor.Convert();
@@ -153,31 +162,40 @@ namespace ATAS.Indicators.Technical
 		}
 
 		[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.AlertNewCandle), Name = nameof(Strings.UseAlerts), Description = nameof(Strings.UseAlertsDescription), Order = 400)]
+		[Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
 		public bool UseAlert { get; set; }
 
 		[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.AlertNewCandle), Name = nameof(Strings.AlertFile), Description = nameof(Strings.AlertFileDescription), Order = 410)]
+		[Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
 		public string AlertFile { get; set; } = "alert1";
 
 		[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.AlertNewCandle), Name = nameof(Strings.TextColor), Description = nameof(Strings.AlertTextColorDescription), Order = 420)]
+		[Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
 		public CrossColor AlertTextColor { get; set; } = CrossColors.White;
 
 		[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.AlertNewCandle), Name = nameof(Strings.AreaColor), Description = nameof(Strings.AlertFillColorDescription), Order = 430)]
+		[Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
 		public CrossColor AlertBackgroundColor { get; set; } = CrossColors.Black;
 
 		[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.ColorBeforeCandle), Name = nameof(Strings.UseAlerts), Description = nameof(Strings.UseAlertBeforeDescription), Order = 500)]
+		[Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
 		public bool UseAlertBefore { get; set; }
 
 		[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.ColorBeforeCandle), Name = nameof(Strings.AlertFile), Description = nameof(Strings.AlertBeforeFileDescription), Order = 510)]
+		[Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
 		public string AlertBeforeFile { get; set; } = "alert1";
 
 		[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.ColorBeforeCandle), Name = nameof(Strings.Seconds), Description = nameof(Strings.AlertBeforeSecondsDescription), Order = 520)]
+		[Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
 		[Range(1, 10000)]
 		public int AlertBeforeSeconds { get; set; } = 5;
 
 		[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.ColorBeforeCandle), Name = nameof(Strings.ShowArea), Description = nameof(Strings.ShowAlertAreaDescription), Order = 530)]
+		[Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
 		public bool ShowAlertArea { get; set; }
 
 		[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.ColorBeforeCandle), Name = nameof(Strings.AreaColor), Description = nameof(Strings.LabelFillColorDescription), Order = 540)]
+		[Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
 		public Color AreaBeforeColor
 		{
 			get => _areaBeforeColor.Convert();
@@ -185,6 +203,7 @@ namespace ATAS.Indicators.Technical
 		} 
 
 		[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.ColorBeforeCandle), Name = nameof(Strings.TextColor), Description = nameof(Strings.LabelTextColorDescription), Order = 550)]
+		[Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
 		public Color TextBeforeColor
 		{
 			get => _textBeforeColor.Convert();
