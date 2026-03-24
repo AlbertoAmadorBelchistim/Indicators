@@ -334,8 +334,8 @@ public class ClusterStatistic : Indicator
 	
     #region Rows
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowAsk), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowAsksDescription), Order = 110)]
+    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.ShowAsk), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowAsksDescription), Order = 110, ResourceType = typeof(Strings))]
     public bool ShowAsk
     {
         get => _showAsk;
@@ -346,8 +346,8 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowBid), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowBidsDescription), Order = 110)]
+    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.ShowBid), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowBidsDescription), Order = 110, ResourceType = typeof(Strings))]
     public bool ShowBid
     {
         get => _showBid;
@@ -358,8 +358,8 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDelta), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowDeltaDescription), Order = 120)]
+    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.ShowDelta), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowDeltaDescription), Order = 120, ResourceType = typeof(Strings))]
     public bool ShowDelta
     {
         get => _showDelta;
@@ -370,8 +370,8 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDeltaPerVolume), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowDeltaPerVolumeDescription), Order = 130)]
+    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.ShowDeltaPerVolume), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowDeltaPerVolumeDescription), Order = 130, ResourceType = typeof(Strings))]
     public bool ShowDeltaPerVolume
     {
         get => _showDeltaPerVolume;
@@ -382,8 +382,8 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowSessionDelta), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowSessionDeltaDescription), Order = 140)]
+    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.ShowSessionDelta), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowSessionDeltaDescription), Order = 140, ResourceType = typeof(Strings))]
     public bool ShowSessionDelta
     {
         get => _showSessionDelta;
@@ -394,8 +394,8 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowSessionDeltaPerVolume), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowSessionDeltaPerVolumeDescription), Order = 150)]
+    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.ShowSessionDeltaPerVolume), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowSessionDeltaPerVolumeDescription), Order = 150, ResourceType = typeof(Strings))]
     public bool ShowSessionDeltaPerVolume
     {
         get => _showSessionDeltaPerVolume;
@@ -409,8 +409,8 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowMaximumDelta), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowMaximumDeltaDescription), Order = 160)]
+    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.ShowMaximumDelta), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowMaximumDeltaDescription), Order = 160, ResourceType = typeof(Strings))]
     public bool ShowMaximumDelta
     {
         get => _showMaximumDelta;
@@ -421,8 +421,8 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowMinimumDelta), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowMinimumDeltaDescription), Order = 170)]
+    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.ShowMinimumDelta), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowMinimumDeltaDescription), Order = 170, ResourceType = typeof(Strings))]
     public bool ShowMinimumDelta
     {
         get => _showMinimumDelta;
@@ -433,8 +433,8 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDeltaChange), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowDeltaChangeDescription), Order = 175)]
+    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.ShowDeltaChange), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowDeltaChangeDescription), Order = 175, ResourceType = typeof(Strings))]
     public bool ShowDeltaChange
     {
         get => _showDeltaChange;
@@ -445,8 +445,8 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowVolume), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowVolumesDescription), Order = 180)]
+    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.ShowVolume), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowVolumesDescription), Order = 180, ResourceType = typeof(Strings))]
     public bool ShowVolume
     {
         get => _showVolume;
@@ -457,8 +457,8 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowVolumePerSecond), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowVolumePerSecondDescription), Order = 190)]
+    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.ShowVolumePerSecond), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowVolumePerSecondDescription), Order = 190, ResourceType = typeof(Strings))]
     public bool ShowVolumePerSecond
     {
         get => _showVolumePerSecond;
@@ -469,8 +469,8 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowSessionVolume), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowSessionVolumeDescription), Order = 191)]
+    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.ShowSessionVolume), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowSessionVolumeDescription), Order = 191, ResourceType = typeof(Strings))]
     public bool ShowSessionVolume
     {
         get => _showSessionVolume;
@@ -481,8 +481,8 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowTradesCount), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowTradesCountDescription), Order = 192)]
+    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.ShowTradesCount), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowTradesCountDescription), Order = 192, ResourceType = typeof(Strings))]
     public bool ShowTicks
     {
         get => _showTicks;
@@ -493,8 +493,8 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowHeight), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowCandleHeightDescription), Order = 193)]
+    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.ShowHeight), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowCandleHeightDescription), Order = 193, ResourceType = typeof(Strings))]
     public bool ShowHighLow
     {
         get => _showHighLow;
@@ -505,8 +505,8 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowTime), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowCandleTimeDescription), Order = 194)]
+    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.ShowTime), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowCandleTimeDescription), Order = 194, ResourceType = typeof(Strings))]
     public bool ShowTime
     {
         get => _showTime;
@@ -517,8 +517,8 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDuration), GroupName = nameof(Strings.Rows),
-        Description = nameof(Strings.ShowCandleDurationDescription), Order = 196)]
+    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.ShowDuration), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowCandleDurationDescription), Order = 196, ResourceType = typeof(Strings))]
     public bool ShowDuration
     {
         get => _showDuration;
@@ -533,8 +533,8 @@ public class ClusterStatistic : Indicator
 
     #region Session
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.SessionDeltaMode), GroupName = nameof(Strings.Session),
-        Description = nameof(Strings.SessionModeDescription), Order = 100)]
+    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.SessionDeltaMode), GroupName = nameof(Strings.Session), Description = nameof(Strings.SessionModeDescription), Order = 100, ResourceType = typeof(Strings))]
     public SessionMode SessionCumMode
     {
         get => _sessionMode;
@@ -546,8 +546,8 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.CustomSessionStart), GroupName = nameof(Strings.Session),
-        Description = nameof(Strings.CustomSessionStartDescription), Order = 110)]
+    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.CustomSessionStart), GroupName = nameof(Strings.Session), Description = nameof(Strings.CustomSessionStartDescription), Order = 110, ResourceType = typeof(Strings))]
     public FilterTimeSpan CustomSessionStart
 	{
 		get => _customSessionStart;
@@ -562,12 +562,13 @@ public class ClusterStatistic : Indicator
 
     #region Colors
 
-    [Display(ResourceType = typeof(Strings), Name = "BackGround", GroupName = nameof(Strings.Visualization),
-        Description = nameof(Strings.LabelFillColorDescription), Order = 200)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.BackGround), GroupName = nameof(Strings.Visualization), Description = nameof(Strings.LabelFillColorDescription), Order = 200, ResourceType = typeof(Strings))]
     public Color BackGroundColor { get; set; } = Color.FromArgb(120, 0, 0, 0);
 
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Transparency), GroupName = nameof(Strings.Visualization), Order = 205, ResourceType = typeof(Strings))]
     [Range(1, 10)]
-    [Display(ResourceType = typeof(Strings), Name = "Transparency", GroupName = nameof(Strings.Visualization), Order = 205)]
     public int BgTransparency
     {
         get => _bgTransparency;
@@ -578,8 +579,8 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Grid), GroupName = nameof(Strings.Visualization),
-        Description = nameof(Strings.GridColorDescription), Order = 210)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Grid), GroupName = nameof(Strings.Visualization), Description = nameof(Strings.GridColorDescription), Order = 210, ResourceType = typeof(Strings))]
     public Color GridColor
     {
         get => _linePen.Color.Convert();
@@ -590,44 +591,44 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VisibleProportion), GroupName = nameof(Strings.Visualization),
-        Description = nameof(Strings.VisibleProportionDescription), Order = 220)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.VisibleProportion), GroupName = nameof(Strings.Visualization), Description = nameof(Strings.VisibleProportionDescription), Order = 220, ResourceType = typeof(Strings))]
     public bool VisibleProportion { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Volume), GroupName = nameof(Strings.Visualization),
-        Description = nameof(Strings.VolumeColorDescription), Order = 230)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Volume), GroupName = nameof(Strings.Visualization), Description = nameof(Strings.VolumeColorDescription), Order = 230, ResourceType = typeof(Strings))]
     public Color VolumeColor { get; set; } = CrossColors.DarkGray;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AskColor), GroupName = nameof(Strings.Visualization),
-        Description = nameof(Strings.AskColorDescription), Order = 240)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.AskColor), GroupName = nameof(Strings.Visualization), Description = nameof(Strings.AskColorDescription), Order = 240, ResourceType = typeof(Strings))]
     public Color AskColor { get; set; } = CrossColors.Green;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BidColor), GroupName = nameof(Strings.Visualization),
-        Description = nameof(Strings.BidColorDescription), Order = 250)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.BidColor), GroupName = nameof(Strings.Visualization), Description = nameof(Strings.BidColorDescription), Order = 250, ResourceType = typeof(Strings))]
     public Color BidColor { get; set; } = CrossColors.Red;
 
     #endregion
 
     #region Text
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Color), GroupName = nameof(Strings.Text),
-        Description = nameof(Strings.LabelTextColorDescription), Order = 300)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Color), GroupName = nameof(Strings.Text), Description = nameof(Strings.LabelTextColorDescription), Order = 300, ResourceType = typeof(Strings))]
     public Color TextColor
     {
         get => _textColor.Convert();
         set => _textColor = value.Convert();
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Font), GroupName = nameof(Strings.Text),
-        Description = nameof(Strings.FontSettingDescription), Order = 310)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Font), GroupName = nameof(Strings.Text), Description = nameof(Strings.FontSettingDescription), Order = 310, ResourceType = typeof(Strings))]
     public FontSetting Font
     {
         get => _font;
         set => SetTrackedProperty(ref _font, value, OnFontPropertyChanged);
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.CenterAlign), GroupName = nameof(Strings.Text),
-        Description = nameof(Strings.CenterAlignDescription), Order = 320)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.CenterAlign), GroupName = nameof(Strings.Text), Description = nameof(Strings.CenterAlignDescription), Order = 320, ResourceType = typeof(Strings))]
     public bool CenterAlign
     {
         get => _centerAlign;
@@ -642,248 +643,248 @@ public class ClusterStatistic : Indicator
 
     #region Headers
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Color), GroupName = nameof(Strings.Headers),
-        Description = nameof(Strings.HeaderBackgroundDescription), Order = 330)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Color), GroupName = nameof(Strings.Headers), Description = nameof(Strings.HeaderBackgroundDescription), Order = 330, ResourceType = typeof(Strings))]
     public Color HeaderBackground
     {
         get => _headerBackground.Convert();
         set => _headerBackground = value.Convert();
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.HideRowsDescription), GroupName = nameof(Strings.Headers),
-        Description = nameof(Strings.HideHeadersDescription), Order = 340)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.HideRowsDescription), GroupName = nameof(Strings.Headers), Description = nameof(Strings.HideHeadersDescription), Order = 340, ResourceType = typeof(Strings))]
     public bool HideRowsDescription { get; set; }
 
     #endregion
 
     #region Volume Alert
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.VolumeAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 400)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Enabled), GroupName = nameof(Strings.VolumeAlert), Description = nameof(Strings.UseAlertDescription), Order = 400, ResourceType = typeof(Strings))]
     public bool UseVolumeAlert { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.VolumeAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 410)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Filter), GroupName = nameof(Strings.VolumeAlert), Description = nameof(Strings.AlertFilterDescription), Order = 410, ResourceType = typeof(Strings))]
     [Range(0, int.MaxValue)]
     public decimal VolumeAlertValue { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.VolumeAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 420)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.VolumeAlert), Description = nameof(Strings.AlertFileDescription), Order = 420, ResourceType = typeof(Strings))]
     public string VolumeAlertFile { get; set; } = "alert1";
 
     #endregion
 
     #region Delta alert
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.DeltaAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 500)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Enabled), GroupName = nameof(Strings.DeltaAlert), Description = nameof(Strings.UseAlertDescription), Order = 500, ResourceType = typeof(Strings))]
     public bool UseDeltaAlert { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.DeltaAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 510)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Filter), GroupName = nameof(Strings.DeltaAlert), Description = nameof(Strings.AlertFilterDescription), Order = 510, ResourceType = typeof(Strings))]
     public decimal DeltaAlertValue { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.DeltaAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 520)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.DeltaAlert), Description = nameof(Strings.AlertFileDescription), Order = 520, ResourceType = typeof(Strings))]
     public string DeltaAlertFile { get; set; } = "alert1";
 
     #endregion
 
     #region Ask Alert
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.AskAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 600)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Enabled), GroupName = nameof(Strings.AskAlert), Description = nameof(Strings.UseAlertDescription), Order = 600, ResourceType = typeof(Strings))]
     public bool UseAskAlert { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.AskAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 610)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Filter), GroupName = nameof(Strings.AskAlert), Description = nameof(Strings.AlertFilterDescription), Order = 610, ResourceType = typeof(Strings))]
     [Range(0, int.MaxValue)]
     public decimal AskAlertValue { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.AskAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 620)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.AskAlert), Description = nameof(Strings.AlertFileDescription), Order = 620, ResourceType = typeof(Strings))]
     public string AskAlertFile { get; set; } = "alert1";
 
     #endregion
 
     #region Bid Alert
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.BidAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 700)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Enabled), GroupName = nameof(Strings.BidAlert), Description = nameof(Strings.UseAlertDescription), Order = 700, ResourceType = typeof(Strings))]
     public bool UseBidAlert { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.BidAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 710)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Filter), GroupName = nameof(Strings.BidAlert), Description = nameof(Strings.AlertFilterDescription), Order = 710, ResourceType = typeof(Strings))]
     [Range(0, int.MaxValue)]
     public decimal BidAlertValue { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.BidAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 720)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.BidAlert), Description = nameof(Strings.AlertFileDescription), Order = 720, ResourceType = typeof(Strings))]
     public string BidAlertFile { get; set; } = "alert1";
 
     #endregion
 
     #region Delta Per Volume Alert
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.DeltaPerVolumeAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 800)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Enabled), GroupName = nameof(Strings.DeltaPerVolumeAlert), Description = nameof(Strings.UseAlertDescription), Order = 800, ResourceType = typeof(Strings))]
     public bool UseDeltaPerVolumeAlert { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.DeltaPerVolumeAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 810)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Filter), GroupName = nameof(Strings.DeltaPerVolumeAlert), Description = nameof(Strings.AlertFilterDescription), Order = 810, ResourceType = typeof(Strings))]
     [Range(0, 100)]
     public decimal DeltaPerVolumeAlertValue { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.DeltaPerVolumeAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 820)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.DeltaPerVolumeAlert), Description = nameof(Strings.AlertFileDescription), Order = 820, ResourceType = typeof(Strings))]
     public string DeltaPerVolumeAlertFile { get; set; } = "alert1";
 
     #endregion
 
     #region Session Delta Alert
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.SessionDeltaAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 900)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Enabled), GroupName = nameof(Strings.SessionDeltaAlert), Description = nameof(Strings.UseAlertDescription), Order = 900, ResourceType = typeof(Strings))]
     public bool UseSessionDeltaAlert { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.SessionDeltaAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 910)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Filter), GroupName = nameof(Strings.SessionDeltaAlert), Description = nameof(Strings.AlertFilterDescription), Order = 910, ResourceType = typeof(Strings))]
     public decimal SessionDeltaAlertValue { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.SessionDeltaAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 920)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.SessionDeltaAlert), Description = nameof(Strings.AlertFileDescription), Order = 920, ResourceType = typeof(Strings))]
     public string SessionDeltaAlertFile { get; set; } = "alert1";
 
     #endregion
 
     #region Session Delta Per Volume Alert
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.SessionDeltaPerVolumeAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 1000)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Enabled), GroupName = nameof(Strings.SessionDeltaPerVolumeAlert), Description = nameof(Strings.UseAlertDescription), Order = 1000, ResourceType = typeof(Strings))]
     public bool UseSessionDeltaPerVolumeAlert { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.SessionDeltaPerVolumeAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 1010)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Filter), GroupName = nameof(Strings.SessionDeltaPerVolumeAlert), Description = nameof(Strings.AlertFilterDescription), Order = 1010, ResourceType = typeof(Strings))]
     public decimal SessionDeltaPerVolumeAlertValue { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.SessionDeltaPerVolumeAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 1020)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.SessionDeltaPerVolumeAlert), Description = nameof(Strings.AlertFileDescription), Order = 1020, ResourceType = typeof(Strings))]
     public string SessionDeltaPerVolumeAlertFile { get; set; } = "alert1";
 
     #endregion
 
     #region Max Delta Alert
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.MaxDeltaAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 1100)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Enabled), GroupName = nameof(Strings.MaxDeltaAlert), Description = nameof(Strings.UseAlertDescription), Order = 1100, ResourceType = typeof(Strings))]
     public bool UseMaxDeltaAlert { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.MaxDeltaAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 1110)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Filter), GroupName = nameof(Strings.MaxDeltaAlert), Description = nameof(Strings.AlertFilterDescription), Order = 1110, ResourceType = typeof(Strings))]
     public decimal MaxDeltaAlertValue { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.MaxDeltaAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 1120)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.MaxDeltaAlert), Description = nameof(Strings.AlertFileDescription), Order = 1120, ResourceType = typeof(Strings))]
     public string MaxDeltaAlertFile { get; set; } = "alert1";
 
     #endregion
 
     #region Min Delta Alert
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.MinDeltaAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 1200)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Enabled), GroupName = nameof(Strings.MinDeltaAlert), Description = nameof(Strings.UseAlertDescription), Order = 1200, ResourceType = typeof(Strings))]
     public bool UseMinDeltaAlert { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.MinDeltaAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 1210)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Filter), GroupName = nameof(Strings.MinDeltaAlert), Description = nameof(Strings.AlertFilterDescription), Order = 1210, ResourceType = typeof(Strings))]
     public decimal MinDeltaAlertValue { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.MinDeltaAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 1220)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.MinDeltaAlert), Description = nameof(Strings.AlertFileDescription), Order = 1220, ResourceType = typeof(Strings))]
     public string MinDeltaAlertFile { get; set; } = "alert1";
 
     #endregion
 
     #region Delta Change Alert
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.DeltaChangeAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 1300)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Enabled), GroupName = nameof(Strings.DeltaChangeAlert), Description = nameof(Strings.UseAlertDescription), Order = 1300, ResourceType = typeof(Strings))]
     public bool UseDeltaChangeAlert { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.DeltaChangeAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 1310)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Filter), GroupName = nameof(Strings.DeltaChangeAlert), Description = nameof(Strings.AlertFilterDescription), Order = 1310, ResourceType = typeof(Strings))]
     public decimal DeltaChangeAlertValue { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.DeltaChangeAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 1320)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.DeltaChangeAlert), Description = nameof(Strings.AlertFileDescription), Order = 1320, ResourceType = typeof(Strings))]
     public string DeltaChangeAlertFile { get; set; } = "alert1";
 
     #endregion
 
     #region Volume Per Second Alert
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.VolumePerSecondAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 1400)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Enabled), GroupName = nameof(Strings.VolumePerSecondAlert), Description = nameof(Strings.UseAlertDescription), Order = 1400, ResourceType = typeof(Strings))]
     public bool UseVolumePerSecondAlert { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.VolumePerSecondAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 1410)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Filter), GroupName = nameof(Strings.VolumePerSecondAlert), Description = nameof(Strings.AlertFilterDescription), Order = 1410, ResourceType = typeof(Strings))]
     [Range(0, int.MaxValue)]
     public decimal VolumePerSecondAlertValue { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.VolumePerSecondAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 1420)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.VolumePerSecondAlert), Description = nameof(Strings.AlertFileDescription), Order = 1420, ResourceType = typeof(Strings))]
     public string VolumePerSecondAlertFile { get; set; } = "alert1";
 
     #endregion
 
     #region Session Volume Alert
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.SessionVolumeAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 1500)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Enabled), GroupName = nameof(Strings.SessionVolumeAlert), Description = nameof(Strings.UseAlertDescription), Order = 1500, ResourceType = typeof(Strings))]
     public bool UseSessionVolumeAlert { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.SessionVolumeAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 1510)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Filter), GroupName = nameof(Strings.SessionVolumeAlert), Description = nameof(Strings.AlertFilterDescription), Order = 1510, ResourceType = typeof(Strings))]
     [Range(0, int.MaxValue)]
     public decimal SessionVolumeAlertValue { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.SessionVolumeAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 1520)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.SessionVolumeAlert), Description = nameof(Strings.AlertFileDescription), Order = 1520, ResourceType = typeof(Strings))]
     public string SessionVolumeAlertFile { get; set; } = "alert1";
 
     #endregion
 
     #region Trades Alert
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.TradesAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 1600)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Enabled), GroupName = nameof(Strings.TradesAlert), Description = nameof(Strings.UseAlertDescription), Order = 1600, ResourceType = typeof(Strings))]
     public bool UseTradesAlert { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.TradesAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 1610)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Filter), GroupName = nameof(Strings.TradesAlert), Description = nameof(Strings.AlertFilterDescription), Order = 1610, ResourceType = typeof(Strings))]
     [Range(0, int.MaxValue)]
     public decimal TradesAlertValue { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.TradesAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 1620)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.TradesAlert), Description = nameof(Strings.AlertFileDescription), Order = 1620, ResourceType = typeof(Strings))]
     public string TradesAlertFile { get; set; } = "alert1";
 
     #endregion
 
     #region Height Alert
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.HeightAlert),
-        Description = nameof(Strings.UseAlertDescription), Order = 1700)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Enabled), GroupName = nameof(Strings.HeightAlert), Description = nameof(Strings.UseAlertDescription), Order = 1700, ResourceType = typeof(Strings))]
     public bool UseHeightAlert { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.HeightAlert),
-        Description = nameof(Strings.AlertFilterDescription), Order = 1710)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.Filter), GroupName = nameof(Strings.HeightAlert), Description = nameof(Strings.AlertFilterDescription), Order = 1710, ResourceType = typeof(Strings))]
     [Range(0, int.MaxValue)]
     public decimal HeightAlertValue { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.HeightAlert),
-        Description = nameof(Strings.AlertFileDescription), Order = 1720)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.HeightAlert), Description = nameof(Strings.AlertFileDescription), Order = 1720, ResourceType = typeof(Strings))]
     public string HeightAlertFile { get; set; } = "alert1";
 
     #endregion
