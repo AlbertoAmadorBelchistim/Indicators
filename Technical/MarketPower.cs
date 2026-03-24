@@ -94,6 +94,7 @@ namespace ATAS.Indicators.Technical
         [Parameter]
         [Range(0, 1000000)]
         [Display(ResourceType = typeof(Strings), Name = nameof(Strings.SMAPeriod), GroupName = nameof(Strings.Settings), Description = nameof(Strings.PeriodDescription), Order = 10)]
+        [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
         public int SmaPeriod
         {
             get => _sma.Period;
@@ -108,6 +109,7 @@ namespace ATAS.Indicators.Technical
         }
 
         [Display(ResourceType = typeof(Strings), Name = nameof(Strings.CumulativeTrades), GroupName = nameof(Strings.Settings), Description = nameof(Strings.CumulativeTradesModeDescription), Order = 20)]
+        [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
         [PostValueMode(PostValueModes.Delayed, DelayMilliseconds = 500)]
         public bool CumulativeTrades
         {
@@ -120,6 +122,7 @@ namespace ATAS.Indicators.Technical
         }
 
         [Display(ResourceType = typeof(Strings), Name = nameof(Strings.MinimumVolume), GroupName = nameof(Strings.Settings), Description = nameof(Strings.MinVolumeFilterCommonDescription), Order = 30)]
+        [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
         [Range(0, 1000000)]
         [PostValueMode(PostValueModes.Delayed, DelayMilliseconds = 500)]
         public decimal MinimumVolume
@@ -133,6 +136,7 @@ namespace ATAS.Indicators.Technical
         }
 
         [Display(ResourceType = typeof(Strings), Name = nameof(Strings.MaximumVolume), GroupName = nameof(Strings.Settings), Description = nameof(Strings.MaxVolumeFilterCommonDescription), Order = 40)]
+        [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
         [Range(0, 1000000)]
         [PostValueMode(PostValueModes.Delayed, DelayMilliseconds = 500)]
         public decimal MaximumVolume
@@ -150,6 +154,7 @@ namespace ATAS.Indicators.Technical
         #region Visualization
 
         [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowSMA), GroupName = nameof(Strings.Visualization), Description = nameof(Strings.DisplaySMADescription), Order = 100)]
+        [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
 		public bool ShowSma
 		{
 			get => _showSma;
@@ -163,6 +168,7 @@ namespace ATAS.Indicators.Technical
 		}
 
 		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowHighLow), GroupName = nameof(Strings.Visualization), Description = nameof(Strings.DisplayHighLowLineDescription), Order = 110)]
+		[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
 		public bool ShowHighLow
 		{
 			get => _showHiLo;
@@ -180,6 +186,7 @@ namespace ATAS.Indicators.Technical
 		}
 
 		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowCumulative), GroupName = nameof(Strings.Visualization), Description = nameof(Strings.VisualModeHistogramDescription), Order = 120)]
+		[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
 		public bool ShowCumulative
 		{
 			get => _showCumulative;
@@ -210,6 +217,7 @@ namespace ATAS.Indicators.Technical
 		}
 
 		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.HighLowColor), GroupName = nameof(Strings.Visualization), Description = nameof(Strings.HighLowLineColorDescription), Order = 300)]
+		[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
 		public CrossColor HighLowColor
 		{
 			get => _lower.Color;
@@ -217,6 +225,7 @@ namespace ATAS.Indicators.Technical
 		}
 
 		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Color), GroupName = nameof(Strings.Visualization), Description = nameof(Strings.CumDeltaLineColorDescription), Order = 310)]
+		[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
 		public CrossColor LineColor
 		{
 			get => _cumulativeDelta.Color;
@@ -224,6 +233,7 @@ namespace ATAS.Indicators.Technical
 		}
 
 		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.SMAColor), GroupName = nameof(Strings.Visualization), Description = nameof(Strings.SMALineColorDescription), Order = 320)]
+		[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
 		public CrossColor SmaColor
 		{
 			get => _smaSeries.Color;
@@ -231,6 +241,7 @@ namespace ATAS.Indicators.Technical
 		}
 
 		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Width), GroupName = nameof(Strings.Visualization), Description = nameof(Strings.CumDeltaLineWidthDescription), Order = 330)]
+		[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
 		[Range(1, 100)]
 		public int Width
 		{
