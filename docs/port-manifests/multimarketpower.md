@@ -55,10 +55,10 @@ Fix-only commits must be applied first; fixes that build on feat state come afte
 
 | Commit (prready/main) | Description | Local branch | Status | Notes |
 |----------------------|-------------|--------------|--------|-------|
-| `0e309fa5` | Add Smart Money Spread series | `feat/mmp-spread-series` | pending | new histogram series + spread calculation |
-| `d77aa581` | Add view mode toggle for Filters vs Spread | `feat/mmp-view-mode` | pending | new ViewMode enum + property |
-| `ffbfbe08` | Add session controls and session-based resets | `feat/mmp-session-controls` | pending | new SessionMode enum + CustomSessionStart + SessionsBack |
-| `994c03a2` | Add signal SMA and 4-color spread shading | `feat/mmp-signal-sma` | pending | ShowSignalLine + Use4ColorSystem + 8 color properties |
+| `0e309fa5` | Add Smart Money Spread series | `feat/mmp-spread-series` | done (dd87823e) | new histogram series + spread calculation |
+| `d77aa581` | Add view mode toggle for Filters vs Spread | `feat/mmp-view-mode` | done (3ece00fe) | new ViewMode enum + property |
+| `ffbfbe08` | Add session controls and session-based resets | `feat/mmp-session-controls` | done (1c66f347) | fixed tab indentation in CalculateTick |
+| `994c03a2` | Add signal SMA and 4-color spread shading | `feat/mmp-signal-sma` | done (f3ba2b8d) | added `_currentSessionBegin` to fix SMA session boundary |
 
 ---
 
@@ -113,7 +113,7 @@ Fix-only commits must be applied first; fixes that build on feat state come afte
 
 | Area | prready/main behavior | Local behavior | Reason | Revisit? |
 |------|-----------------------|----------------|--------|----------|
-| _(none identified yet)_ | | | | |
+| SMA session boundary | `Math.Max(0, bar - period + 1)` — SMA includes bars from previous sessions after reset | Added `_currentSessionBegin` field; `UpdateSpreadVisuals` clamps start to `_currentSessionBegin`; `ResetSessionState` updates it | Bug fix: cross-session contamination of signal SMA | No — correct behavior |
 
 ---
 
