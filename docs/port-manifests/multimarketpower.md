@@ -37,9 +37,9 @@ Fix-only commits must be applied first; fixes that build on feat state come afte
 
 | Commit (prready/main) | Description | Local branch | Status | Notes |
 |----------------------|-------------|--------------|--------|-------|
-| `94a06c9b` | Stabilize historical tick cursor iteration | `fix/mmp-history-tick-cursor` | pending | |
-| `e393cc28` | Make historical request window deterministic | `fix/mmp-history-request-window` | pending | |
-| `31cc814e` | Guard OnCalculate against bar 0 | `fix/mmp-bar0-guard` | pending | simple null/bounds guard |
+| `94a06c9b` | Stabilize historical tick cursor iteration | `fix/mmp-history-tick-cursor` | done (98ca4ebb) | |
+| `e393cc28` | Make historical request window deterministic | `fix/mmp-history-request-window` | done (1272f030) | |
+| `31cc814e` | Guard OnCalculate against bar 0 | `fix/mmp-bar0-guard` | done (72804d95) | simple null/bounds guard |
 | `86ea4948` | Replay buffered realtime after history load | `fix/mmp-realtime-replay-buffer` | pending | depends on `0e309fa5` (feat: spread series) |
 | `a8cf811d` | Refresh chart correctly when switching view mode | `fix/mmp-view-mode-refresh` | pending | depends on `d77aa581` (feat: view mode) |
 | `0aa076bc` | Respect filter visibility toggles in Filters view | `fix/mmp-filter-visibility` | pending | depends on `d77aa581` (feat: view mode) |
