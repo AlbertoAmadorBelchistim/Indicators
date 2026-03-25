@@ -190,7 +190,7 @@ public class Delta : Indicator
 
 	private readonly CandleDataSeries _divergenceCandles = new("DivergenceCandles", "Divergence candles")
 	{
-		IsHidden = false,
+		IsHidden = true,
 		ShowCurrentValue = false,
 		UseMinimizedModeIfEnabled = true,
 		Visible = false,
@@ -201,7 +201,7 @@ public class Delta : Indicator
 
 	private readonly CandleDataSeries _divergenceDownCandles = new("DivergenceDownCandles", "Divergence down candles")
 	{
-		IsHidden = false,
+		IsHidden = true,
 		ShowCurrentValue = false,
 		UseMinimizedModeIfEnabled = true,
 		Visible = false,
@@ -326,7 +326,7 @@ public class Delta : Indicator
 
 	#region Fields (dynamic thresholds)
 
-	private int _samplesForMeanStd = 10;
+	private int _samplesForMeanStd = 1;
 
 	private bool _posReady;
 	private bool _negReady;
@@ -356,7 +356,7 @@ public class Delta : Indicator
 
 	#region Fields (audio alerts)
 
-	private bool _audioEnabled;
+	private bool _audioEnabled = false;
 	private bool _audioAtBarCloseOnly = true;
 	private int _alertCooldownBars = 3;
 
@@ -400,11 +400,14 @@ public class Delta : Indicator
 		VisualType = VisualMode.Hide,
 		IsHidden = true,
 		UseMinimizedModeIfEnabled = true,
-		IgnoredByAlerts = true
+		IgnoredByAlerts = true,
+		Width = 2,
+		Color = CrossColor.FromArgb(255, 60, 120, 240),
+		ShowCurrentValue = false
 	};
 
 	private bool _showAverage;
-	private int _averagePeriod = 14;
+	private int _averagePeriod = 20;
 	private AverageMode _avgMode = AverageMode.Sma;
 	private AverageColorMode _avgColorMode = AverageColorMode.Fixed;
 	private Color _avgSlopeUpColor = Color.Green;
@@ -510,8 +513,8 @@ public class Delta : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BullishColor), GroupName = nameof(Strings.Drawing),
-        Description = nameof(Strings.PositiveValueColorDescription), Order = 40)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.DeltaPositiveColor), GroupName = nameof(Resources.Drawing),
+        Description = nameof(Resources.PositiveValueColorDescription), Order = 1000)]
     public CrossColor UpColor
     {
         get => _upColor.Convert();
@@ -523,8 +526,8 @@ public class Delta : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BearlishColor), GroupName = nameof(Strings.Drawing),
-        Description = nameof(Strings.NegativeValueColorDescription), Order = 50)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.DeltaNegativeColor), GroupName = nameof(Resources.Drawing),
+        Description = nameof(Resources.NegativeValueColorDescription), Order = 1010)]
     public CrossColor DownColor
     {
         get => _downColor.Convert();
@@ -537,8 +540,8 @@ public class Delta : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.NeutralBorderColor), GroupName = nameof(Strings.Drawing),
-        Description = nameof(Strings.NeutralValueDescription), Order = 60)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.NeutralBorderColor), GroupName = nameof(Resources.Drawing),
+        Description = nameof(Resources.NeutralValueDescription), Order = 1020)]
     public CrossColor NeutralColor
     {
         get => _neutralColor.Convert();
@@ -598,11 +601,12 @@ public class Delta : Indicator
 
     private Indicators.FilterColor _divergenceBarsFilter = new(true) { Enabled = false, Value = CrossColor.FromArgb(255, 255, 165, 0) };
 
-    [Display(ResourceType = typeof(Resources), Name = "DivergenceDots", GroupName = nameof(Resources.Divergence),
-        Description = nameof(Resources.BarDirVsDeltaDivergenceDescription), Order = 130)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.DivergenceDots), GroupName = nameof(Resources.Divergence),
+        Description = nameof(Resources.DivergenceDotsDescription), Order = 130)]
     public bool ShowDivergence { get; set; }
 
-    [Display(ResourceType = typeof(Resources), Name = "DivergenceBars", GroupName = nameof(Resources.Divergence), Order = 135)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.DivergenceBars), GroupName = nameof(Resources.Divergence),
+        Description = nameof(Resources.DivergenceBarsDescription), Order = 135)]
     public Indicators.FilterColor DivergenceBarsFilter
     {
         get => _divergenceBarsFilter;
@@ -632,7 +636,7 @@ public class Delta : Indicator
         UpCandleColor = Color.Green.Convert(),
         DownCandleColor = Color.Red.Convert(),
         BorderColor = CrossColor.FromArgb(0, 0, 0, 0),
-        IsHidden = false,
+        IsHidden = true,
         UseMinimizedModeIfEnabled = true,
         ShowCurrentValue = false
     };
@@ -681,8 +685,8 @@ public class Delta : Indicator
 
     #region Average Delta
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowAverage),
-        GroupName = nameof(Strings.Average), Order = 400)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowAverage),
+        GroupName = nameof(Resources.Average), Order = 400)]
     public bool ShowAverage
     {
         get => _showAverage;
@@ -698,8 +702,8 @@ public class Delta : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AveragePeriod),
-        GroupName = nameof(Strings.Average), Order = 410)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.AveragePeriod),
+        GroupName = nameof(Resources.Average), Order = 410)]
     [Range(1, 1000)]
     public int AveragePeriod
     {
@@ -716,8 +720,8 @@ public class Delta : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.CalculationMode),
-        GroupName = nameof(Strings.Average), Order = 420)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.CalculationMode),
+        GroupName = nameof(Resources.Average), Order = 420)]
     public AverageMode AvgMode
     {
         get => _avgMode;
@@ -733,7 +737,7 @@ public class Delta : Indicator
     }
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ColorMode),
-        GroupName = nameof(Strings.Average), Order = 425)]
+        GroupName = nameof(Resources.Average), Order = 425)]
     public AverageColorMode AvgColorMode
     {
         get => _avgColorMode;
@@ -749,7 +753,7 @@ public class Delta : Indicator
     }
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.BaseColor),
-        GroupName = nameof(Strings.Average), Order = 430)]
+        GroupName = nameof(Resources.Average), Order = 430)]
     public CrossColor AverageColor
     {
         get => _avgSeries.Color;
@@ -761,7 +765,7 @@ public class Delta : Indicator
     }
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.SlopeUpColor),
-        GroupName = nameof(Strings.Average), Order = 431)]
+        GroupName = nameof(Resources.Average), Order = 431)]
     public CrossColor AvgSlopeUpColor
     {
         get => _avgSlopeUpColor.Convert();
@@ -773,7 +777,7 @@ public class Delta : Indicator
     }
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.SlopeDownColor),
-        GroupName = nameof(Strings.Average), Order = 432)]
+        GroupName = nameof(Resources.Average), Order = 432)]
     public CrossColor AvgSlopeDownColor
     {
         get => _avgSlopeDownColor.Convert();
@@ -784,8 +788,8 @@ public class Delta : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Width),
-        GroupName = nameof(Strings.Average), Order = 440)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.LineWidth),
+        GroupName = nameof(Resources.Average), Order = 440)]
     [Range(1, 10)]
     public int AverageWidth
     {
@@ -1003,24 +1007,24 @@ public class Delta : Indicator
 
     #region Volume
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Show), GroupName = nameof(Strings.VolumeLabel), Order = 200,
-        Description = nameof(Strings.VolumeLabelDescription))]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Show), GroupName = nameof(Resources.DeltaLabelGroup), Order = 900,
+        Description = nameof(Resources.VolumeLabelDescription))]
     public bool ShowVolume { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Color), GroupName = nameof(Strings.VolumeLabel),
-        Description = nameof(Strings.LabelTextColorDescription), Order = 210)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Color), GroupName = nameof(Resources.DeltaLabelGroup),
+        Description = nameof(Resources.LabelTextColorDescription), Order = 910)]
     public CrossColor FontColor
     {
         get => _fontColor.Convert();
         set => _fontColor = value.Convert();
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Location), GroupName = nameof(Strings.VolumeLabel),
-        Description = nameof(Strings.LabelLocationDescription), Order = 220)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Location), GroupName = nameof(Resources.DeltaLabelGroup),
+        Description = nameof(Resources.LabelLocationDescription), Order = 920)]
     public Location VolLocation { get; set; } = Location.Middle;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Font), GroupName = nameof(Strings.VolumeLabel),
-        Description = nameof(Strings.FontSettingDescription), Order = 230)]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Font), GroupName = nameof(Resources.DeltaLabelGroup),
+        Description = nameof(Resources.FontSettingDescription), Order = 930)]
     public FontSetting Font { get; set; } = new("Arial", 10);
 
     #endregion
@@ -1039,6 +1043,7 @@ public class Delta : Indicator
                 return;
 
             _audioEnabled = value;
+            RedrawChart();
         }
     }
 
@@ -1054,6 +1059,7 @@ public class Delta : Indicator
                 return;
 
             _audioUpLevel = value;
+            RedrawChart();
         }
     }
 
@@ -1069,6 +1075,7 @@ public class Delta : Indicator
                 return;
 
             _audioDownLevel = value;
+            RedrawChart();
         }
     }
 
@@ -1222,15 +1229,13 @@ public class Delta : Indicator
 
     #region Alerts
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.UpAlert), GroupName = nameof(Strings.Alerts),
-        Description = nameof(Strings.UpAlertFileFilterDescription), Order = 300)]
+    [Browsable(false)]
     [Range(0, int.MaxValue)]
     [DisplayFormat(DataFormatString = "F0")]
     public Filter UpAlert { get; set; } = new()
     { Enabled = false, Value = 0 };
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.DownAlert), GroupName = nameof(Strings.Alerts),
-        Description = nameof(Strings.DownAlertFileFilterDescription), Order = 310)]
+    [Browsable(false)]
     [Range(int.MinValue, 0)]
     [DisplayFormat(DataFormatString = "F0")]
     public Filter DownAlert { get; set; } = new()
@@ -1285,6 +1290,7 @@ public class Delta : Indicator
     public Delta()
 		: base(true)
 	{
+		DenyToChangePanel = true;
 		EnableCustomDrawing = true;
 		SubscribeToDrawingEvents(DrawingLayouts.Final);
 		FontColor = Color.Blue.Convert();
