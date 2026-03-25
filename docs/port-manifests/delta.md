@@ -52,9 +52,9 @@ Keys added in commit `67e122dc` on `local/build/04-localization`.
 | `VisualUpThresholds` | Up threshold | `9c59238b` | visual alert property | done |
 | `VisualUpThresholdsDescription` | ... | `9c59238b` | tooltip | done |
 | `ZeroCross` | Zero cross | `241ce6cd` | AverageColorMode enum | done |
-| `DeltaLabelGroup` | Delta label | `b071cbf0` | label group header in Delta.cs | **missing** |
-| `DivergenceDotsDescription` | Shows divergence markers... | `9053fcd7` | DivergenceDots tooltip | **missing** |
-| `DivergenceBarsDescription` | Highlights divergence bars... | `9053fcd7` | DivergenceBars tooltip | **missing** |
+| `DeltaLabelGroup` | Delta label | `b071cbf0` | label group header in Delta.cs | done (`d20c6846`) |
+| `DivergenceDotsDescription` | Shows divergence markers... | `9053fcd7` | DivergenceDots tooltip | done (`d20c6846`) |
+| `DivergenceBarsDescription` | Highlights divergence bars... | `9053fcd7` | DivergenceBars tooltip | done (`d20c6846`) |
 | `DeltaPositiveColor` | Positive color | `241ce6cd` | needed by `0d087ebd` (Phase 3) | pending (Phase 3) |
 | `DeltaNegativeColor` | Negative color | `241ce6cd` | needed by `0d087ebd` (Phase 3) | pending (Phase 3) |
 | `UpperMajorLevel` | Upper major | `b071cbf0` | not referenced in current Delta.cs | skipped — unused |
@@ -141,11 +141,11 @@ These commits must be applied before publication. They do not add features but a
 - [x] 40 new keys in Resources.resx (en) — verified
 - [x] All 40 keys in 6 satellite locales — verified
 - [x] Resources.Designer.cs up to date for 40 keys
-- [ ] `DeltaLabelGroup` in Resources.resx — **NO**
-- [ ] `DivergenceDotsDescription` in Resources.resx — **NO**
-- [ ] `DivergenceBarsDescription` in Resources.resx — **NO**
-- [ ] DivergenceDots `Name` uses `nameof(Resources.DivergenceDots)` not hardcoded string — **NO**
-- [ ] DivergenceBars has `Description = nameof(Resources.DivergenceBarsDescription)` — **NO**
+- [x] `DeltaLabelGroup` in Resources.resx — done (`d20c6846`)
+- [x] `DivergenceDotsDescription` in Resources.resx — done (`d20c6846`)
+- [x] `DivergenceBarsDescription` in Resources.resx — done (`d20c6846`)
+- [ ] DivergenceDots `Name` uses `nameof(Resources.DivergenceDots)` not hardcoded string — pending (Phase 3)
+- [ ] DivergenceBars has `Description = nameof(Resources.DivergenceBarsDescription)` — pending (Phase 3)
 
 ### 4.4 Functional smoke test
 - [ ] Indicator loads without crash — pending full integration test
@@ -175,9 +175,9 @@ Must be empty before manifest is marked `complete`.
 | `_absorptionThreshold` dead field still present | low — compiles, no behavior impact | Cherry-pick `e806415e` content | Add commit to `local/delta-i18n` |
 | Divergence dots missing `>= region.Top` check | medium — dots can render above chart top | Cherry-pick `183adb44` content | Add commit to `local/delta-i18n` |
 | Triangle rendering: skip vs clamp | medium — different UX for off-screen prices | Apply `ClampInt` approach from `7b3a8405` | Replace skip logic in `local/delta-i18n` |
-| `DeltaLabelGroup` key missing | high — shows literal key in UI | Add to 04-localization (all 7 locales) + update Designer.cs | `local/build/04-localization` |
-| `DivergenceDotsDescription` key missing | medium — no tooltip for DivergenceDots | Add to 04-localization | `local/build/04-localization` |
-| `DivergenceBarsDescription` key missing | medium — no tooltip for DivergenceBars | Add to 04-localization | `local/build/04-localization` |
+| ~~`DeltaLabelGroup` key missing~~ | ~~high~~ | ~~done `d20c6846`~~ | ~~`local/build/04-localization`~~ |
+| ~~`DivergenceDotsDescription` key missing~~ | ~~medium~~ | ~~done `d20c6846`~~ | ~~`local/build/04-localization`~~ |
+| ~~`DivergenceBarsDescription` key missing~~ | ~~medium~~ | ~~done `d20c6846`~~ | ~~`local/build/04-localization`~~ |
 | `DivergenceDots` Name is hardcoded string `"DivergenceDots"` | low — works but not refactoring-safe | Change to `nameof(Resources.DivergenceDots)` | `local/delta-i18n` |
 | 8 Phase 3 chore commits not applied | medium — affects UX quality, not functionality | Create `chore/delta-ui-polish` branch + port to `local/delta-i18n` | `chore/delta-ui-polish` → `local/delta-i18n` |
 | `_averagePeriod` default is `14` (should be `20`) | low | Update field initializer | `local/delta-i18n` |
