@@ -637,8 +637,6 @@ public class Delta : Indicator
         ShowCurrentValue = false
     };
 
-    private int _absorptionThreshold = 250;
-
     private FilterInt _absorption = new(true) { Enabled = false, Value = 250 };
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Absorption), GroupName = nameof(Resources.Absorption),
@@ -1368,8 +1366,9 @@ public class Delta : Indicator
 					if (_upSeries[i] != 0)
 					{
 						var yPrice = ChartInfo.PriceChartContainer.GetYByPrice(candle.Low, false) + 10;
+						var region = ChartInfo.PriceChartContainer.Region;
 
-						if (yPrice <= ChartInfo.PriceChartContainer.Region.Bottom)
+						if (yPrice >= region.Top && yPrice <= region.Bottom)
 						{
 							var rect = new Rectangle(x - 5, yPrice - 4, 8, 8);
 							context.FillEllipse(_upColor, rect);
@@ -1379,8 +1378,9 @@ public class Delta : Indicator
 					if (_downSeries[i] != 0)
 					{
 						var yPrice = ChartInfo.PriceChartContainer.GetYByPrice(candle.High, false) - 10;
+						var region = ChartInfo.PriceChartContainer.Region;
 
-						if (yPrice <= ChartInfo.PriceChartContainer.Region.Bottom)
+						if (yPrice >= region.Top && yPrice <= region.Bottom)
 						{
 							var rect = new Rectangle(x - 5, yPrice - 4, 8, 8);
 							context.FillEllipse(_downColor, rect);
@@ -1394,40 +1394,42 @@ public class Delta : Indicator
 			}
 		}
 
-		// Price signals (triangles) — rendered on price panel
+		// Price signals (triangles) - only on price panel
 		if (_visualEnabled)
 		{
 			var priceRc = ChartInfo.PriceChartContainer.Region;
 			var half = _priceSignalSize / 2;
+			// Clamp drawing area so triangles are fully visible inside the region.
+			// We clamp the triangle "center" so its vertices don't exceed bounds.
+			var yMin = priceRc.Top + half;
+			var yMax = priceRc.Bottom - half;
 
 			for (var i = FirstVisibleBarNumber; i <= LastVisibleBarNumber; i++)
 			{
 				var x = ChartInfo.PriceChartContainer.GetXByBar(i, false);
 
+				// Up triangle
 				var upPrice = _priceSignalUp[i];
 				if (upPrice > 0)
 				{
 					var yPx = ChartInfo.PriceChartContainer.GetYByPrice(upPrice, false);
-					if (yPx >= priceRc.Top && yPx <= priceRc.Bottom)
-					{
-						var p1 = new Point(x, yPx - half);
-						var p2 = new Point(x - half, yPx + half);
-						var p3 = new Point(x + half, yPx + half);
-						context.FillPolygon(_priceSignalUpColor, new[] { p1, p2, p3 });
-					}
+					yPx = ClampInt(yPx, yMin, yMax);
+					var p1 = new Point(x, yPx - half);
+					var p2 = new Point(x - half, yPx + half);
+					var p3 = new Point(x + half, yPx + half);
+					context.FillPolygon(_priceSignalUpColor, new[] { p1, p2, p3 });
 				}
 
+				// Down triangle
 				var dnPrice = _priceSignalDown[i];
 				if (dnPrice > 0)
 				{
 					var yPx = ChartInfo.PriceChartContainer.GetYByPrice(dnPrice, false);
-					if (yPx >= priceRc.Top && yPx <= priceRc.Bottom)
-					{
-						var p1 = new Point(x, yPx + half);
-						var p2 = new Point(x - half, yPx - half);
-						var p3 = new Point(x + half, yPx - half);
-						context.FillPolygon(_priceSignalDownColor, new[] { p1, p2, p3 });
-					}
+					yPx = ClampInt(yPx, yMin, yMax);
+					var p1 = new Point(x, yPx + half);
+					var p2 = new Point(x - half, yPx - half);
+					var p3 = new Point(x + half, yPx - half);
+					context.FillPolygon(_priceSignalDownColor, new[] { p1, p2, p3 });
 				}
 			}
 		}
@@ -1992,6 +1994,13 @@ public class Delta : Indicator
 			sampleStr += '0';
 
 		return context.MeasureString(sampleStr, Font.RenderObject).Width;
+	}
+
+	private static int ClampInt(int value, int min, int max)
+	{
+		if (value < min) return min;
+		if (value > max) return max;
+		return value;
 	}
 
     #endregion
