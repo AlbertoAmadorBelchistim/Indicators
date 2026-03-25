@@ -12,21 +12,21 @@
 
 | Key | Value (en) | Comment | Used by | Status |
 |-----|-----------|---------|---------|--------|
-| `ViewMode` | View Mode | UI | ViewMode enum display + property | pending |
-| `SessionMode` | Session Mode | UI | SessionMode property | pending |
-| `SessionsBack` | Sessions Back | UI | SessionsBack property | pending |
-| `DefaultSession` | Default Session | UI | SessionMode enum value | pending |
-| `SmartMoneySpread` | Smart Money Spread | MultiMarketPower | ViewMode enum value + group header | pending |
-| `Use4ColorSystem` | Use 4-Color System | MultiMarketPower | spread property | pending |
-| `Use4ColorSystemDescription` | If true, uses slope-based colors. If false, uses simple zero-line colors. | MultiMarketPower | tooltip | pending |
-| `ShowSignalLine` | Show Signal Line (SMA) | MultiMarketPower | spread property | pending |
-| `SimplePositiveColor` | Simple Positive Color | MultiMarketPower | spread property | pending |
-| `SimpleNegativeColor` | Simple Negative Color | MultiMarketPower | spread property | pending |
-| `SimpleColorDescription` | Used only when the 4-Color System is disabled. | MultiMarketPower | tooltip | pending |
-| `ColorPosSmaUp` | Positive · SMA ↑ | MultiMarketPower | 4-color property | pending |
-| `ColorPosSmaDown` | Positive · SMA ↓ | MultiMarketPower | 4-color property | pending |
-| `ColorNegSmaUp` | Negative · SMA ↑ | MultiMarketPower | 4-color property | pending |
-| `ColorNegSmaDown` | Negative · SMA ↓ | MultiMarketPower | 4-color property | pending |
+| `ViewMode` | View Mode | UI | ViewMode enum display + property | done (b0b56ba1) |
+| `SessionMode` | Session Mode | UI | SessionMode property | done (b0b56ba1) |
+| `SessionsBack` | Sessions Back | UI | SessionsBack property | done (b0b56ba1) |
+| `DefaultSession` | Default Session | UI | SessionMode enum value | done (b0b56ba1) |
+| `SmartMoneySpread` | Smart Money Spread | MultiMarketPower | ViewMode enum value + group header | done (b0b56ba1) |
+| `Use4ColorSystem` | Use 4-Color System | MultiMarketPower | spread property | done (b0b56ba1) |
+| `Use4ColorSystemDescription` | If true, uses slope-based colors. If false, uses simple zero-line colors. | MultiMarketPower | tooltip | done (b0b56ba1) |
+| `ShowSignalLine` | Show Signal Line (SMA) | MultiMarketPower | spread property | done (b0b56ba1) |
+| `SimplePositiveColor` | Simple Positive Color | MultiMarketPower | spread property | done (b0b56ba1) |
+| `SimpleNegativeColor` | Simple Negative Color | MultiMarketPower | spread property | done (b0b56ba1) |
+| `SimpleColorDescription` | Used only when the 4-Color System is disabled. | MultiMarketPower | tooltip | done (b0b56ba1) |
+| `ColorPosSmaUp` | Positive · SMA ↑ | MultiMarketPower | 4-color property | done (b0b56ba1) |
+| `ColorPosSmaDown` | Positive · SMA ↓ | MultiMarketPower | 4-color property | done (b0b56ba1) |
+| `ColorNegSmaUp` | Negative · SMA ↑ | MultiMarketPower | 4-color property | done (b0b56ba1) |
+| `ColorNegSmaDown` | Negative · SMA ↓ | MultiMarketPower | 4-color property | done (b0b56ba1) |
 
 ---
 
@@ -124,4 +124,4 @@ Must be empty before manifest is marked `complete`.
 | Gap | Severity | Planned fix | Target branch |
 |-----|----------|-------------|---------------|
 | All 20 commits not yet ported | high | Execute Phases 1-3 in order | `local/multimarketpower-i18n` |
-| 15 resource keys missing from `04-localization` | high | Add keys before Phase 2 work | `local/build/04-localization` |
+| ~~15 resource keys missing from `04-localization`~~ | ~~high~~ | ~~Add keys before Phase 2 work~~ | ~~done b0b56ba1~~ |
