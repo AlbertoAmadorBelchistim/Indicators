@@ -75,6 +75,13 @@ public class Delta : Indicator
 		Down
 	}
 
+	[Serializable]
+	public enum ThresholdLevel
+	{
+		Major = 0,
+		Minor = 1
+	}
+
 	#endregion
 
 	#region Fields
@@ -203,6 +210,9 @@ public class Delta : Indicator
 		UseMinimizedModeIfEnabled = true,
 		IgnoredByAlerts = true
 	};
+
+	private ThresholdLevel _visualUpLevel = ThresholdLevel.Major;
+	private ThresholdLevel _visualDownLevel = ThresholdLevel.Major;
 
     #endregion
 
@@ -403,6 +413,40 @@ public class Delta : Indicator
     }
 
     #endregion
+
+	#region Visual threshold selection
+
+	[Display(Name = "Visual up level", Description = "Threshold level used for bullish visual alerts.",
+		GroupName = "Alerts", Order = 293)]
+	public ThresholdLevel VisualUpLevel
+	{
+		get => _visualUpLevel;
+		set
+		{
+			if (_visualUpLevel == value)
+				return;
+
+			_visualUpLevel = value;
+			RedrawChart();
+		}
+	}
+
+	[Display(Name = "Visual down level", Description = "Threshold level used for bearish visual alerts.",
+		GroupName = "Alerts", Order = 294)]
+	public ThresholdLevel VisualDownLevel
+	{
+		get => _visualDownLevel;
+		set
+		{
+			if (_visualDownLevel == value)
+				return;
+
+			_visualDownLevel = value;
+			RedrawChart();
+		}
+	}
+
+	#endregion
 
     #region Absorption
 
@@ -965,6 +1009,15 @@ public class Delta : Indicator
 
 	#region Private methods
 
+	private decimal PickUpThreshold(int bar, ThresholdLevel level)
+	{
+		return (level == ThresholdLevel.Major) ? UpMajorLevel : UpMinorLevel;
+	}
+
+	private decimal PickDownThreshold(int bar, ThresholdLevel level)
+	{
+		return (level == ThresholdLevel.Major) ? DownMajorLevel : DownMinorLevel;
+	}
 
 	private int GetMinWidth(RenderContext context, int startBar, int endBar)
 	{
