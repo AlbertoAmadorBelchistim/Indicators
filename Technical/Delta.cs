@@ -75,6 +75,13 @@ public class Delta : Indicator
 		Down
 	}
 
+	[Serializable]
+	public enum ThresholdLevel
+	{
+		Major = 0,
+		Minor = 1
+	}
+
 	#endregion
 
 	#region Fields
@@ -203,6 +210,26 @@ public class Delta : Indicator
 		UseMinimizedModeIfEnabled = true,
 		IgnoredByAlerts = true
 	};
+
+	#region Fields (audio alerts)
+
+	private bool _audioEnabled;
+	private bool _audioAtBarCloseOnly = true;
+	private int _alertCooldownBars = 3;
+
+	private ThresholdLevel _audioUpLevel = ThresholdLevel.Major;
+	private ThresholdLevel _audioDownLevel = ThresholdLevel.Major;
+
+	// Default fixed thresholds for audio (used until feat/delta-fixed-thresholds is integrated)
+	private int _audioUpMajor = 300;
+	private int _audioUpMinor = 200;
+	private int _audioDownMinor = -200;
+	private int _audioDownMajor = -300;
+
+	private int _lastBarAudioUpAlert;
+	private int _lastBarAudioDownAlert;
+
+	#endregion
 
     #endregion
 
@@ -541,6 +568,84 @@ public class Delta : Indicator
     public CrossColor AlertBGColor { get; set; } = CrossColor.FromArgb(255, 75, 72, 72);
 
     #endregion
+
+	#region Audio alerts
+
+	[Display(Name = "Audio alerts", Description = "Play sound when thresholds are crossed.",
+		GroupName = "Alerts", Order = 301)]
+	public bool AudioEnabled
+	{
+		get => _audioEnabled;
+		set
+		{
+			if (_audioEnabled == value)
+				return;
+
+			_audioEnabled = value;
+			RedrawChart();
+		}
+	}
+
+	[Display(Name = "Audio up level", Description = "Threshold level used for bullish audio alerts.",
+		GroupName = "Alerts", Order = 302)]
+	public ThresholdLevel AudioUpLevel
+	{
+		get => _audioUpLevel;
+		set
+		{
+			if (_audioUpLevel == value)
+				return;
+
+			_audioUpLevel = value;
+			RedrawChart();
+		}
+	}
+
+	[Display(Name = "Audio down level", Description = "Threshold level used for bearish audio alerts.",
+		GroupName = "Alerts", Order = 303)]
+	public ThresholdLevel AudioDownLevel
+	{
+		get => _audioDownLevel;
+		set
+		{
+			if (_audioDownLevel == value)
+				return;
+
+			_audioDownLevel = value;
+			RedrawChart();
+		}
+	}
+
+	[Display(Name = "Audio at bar close", Description = "Trigger audio alerts only after the bar closes.",
+		GroupName = "Alerts", Order = 304)]
+	public bool AudioAtBarCloseOnly
+	{
+		get => _audioAtBarCloseOnly;
+		set
+		{
+			if (_audioAtBarCloseOnly == value)
+				return;
+
+			_audioAtBarCloseOnly = value;
+		}
+	}
+
+	[Display(Name = "Alert cooldown (bars)", Description = "Minimum bars between repeated audio alerts on the same side.",
+		GroupName = "Alerts", Order = 305)]
+	[Range(0, 100)]
+	public int AlertCooldownBars
+	{
+		get => _alertCooldownBars;
+		set
+		{
+			if (_alertCooldownBars == value)
+				return;
+
+			_alertCooldownBars = value;
+		}
+	}
+
+	#endregion
 
     #endregion
 
@@ -885,6 +990,48 @@ public class Delta : Indicator
 			}
 		}
 
+		// --- Audio alerts (edge or bar-close confirmation) ---
+		if (_audioEnabled && InstrumentInfo is not null)
+		{
+			var audioUpTh = (decimal)(_audioUpLevel == ThresholdLevel.Major ? _audioUpMajor : _audioUpMinor);
+			var audioDownTh = (decimal)(_audioDownLevel == ThresholdLevel.Major ? _audioDownMajor : _audioDownMinor);
+
+			if (!_audioAtBarCloseOnly)
+			{
+				// Instant: intra-bar threshold cross with cooldown guard
+				if (_prevDeltaValue < audioUpTh && deltaValue >= audioUpTh
+					&& bar - _lastBarAudioUpAlert >= _alertCooldownBars)
+				{
+					_lastBarAudioUpAlert = bar;
+					TryAddAudioAlert($"Delta >= {audioUpTh} (UP)");
+				}
+
+				if (_prevDeltaValue > audioDownTh && deltaValue <= audioDownTh
+					&& bar - _lastBarAudioDownAlert >= _alertCooldownBars)
+				{
+					_lastBarAudioDownAlert = bar;
+					TryAddAudioAlert($"Delta <= {audioDownTh} (DOWN)");
+				}
+			}
+			else if (bar > 0 && bar == CurrentBar - 1)
+			{
+				// Bar-close confirmation: check the bar that just closed (bar - 1)
+				var closedBar = bar - 1;
+				var closedDelta = _delta[closedBar];
+
+				if (closedDelta >= audioUpTh && closedBar - _lastBarAudioUpAlert >= _alertCooldownBars)
+				{
+					_lastBarAudioUpAlert = closedBar;
+					TryAddAudioAlert($"Delta CLOSE >= {audioUpTh} (UP)");
+				}
+				else if (closedDelta <= audioDownTh && closedBar - _lastBarAudioDownAlert >= _alertCooldownBars)
+				{
+					_lastBarAudioDownAlert = closedBar;
+					TryAddAudioAlert($"Delta CLOSE <= {audioDownTh} (DOWN)");
+				}
+			}
+		}
+
 		_prevDeltaValue = deltaValue;
 
 		if (Absorption.Enabled)
@@ -965,6 +1112,18 @@ public class Delta : Indicator
 
 	#region Private methods
 
+	private void TryAddAudioAlert(string message)
+	{
+		try
+		{
+			var symbol = InstrumentInfo?.Instrument ?? "Delta";
+			AddAlert(AlertFile, symbol, message, AlertBGColor, AlertForeColor);
+		}
+		catch
+		{
+			// Intentionally swallow: alert infrastructure must not break indicator calculation.
+		}
+	}
 
 	private int GetMinWidth(RenderContext context, int startBar, int endBar)
 	{
