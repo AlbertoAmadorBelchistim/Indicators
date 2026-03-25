@@ -67,9 +67,9 @@ Fix branches must have their content applied to `local/delta-i18n` **before** fe
 
 | Commit (prready/main) | Description | Local branch | Status | Gap in local/delta-i18n |
 |----------------------|-------------|--------------|--------|--------------------------|
-| `e806415e` (local) / matches `prready/main` | Remove dead field `_absorptionThreshold` | `fix/delta-deadfield-absorptionthreshold` | **missing** | `_absorptionThreshold = 250` still present |
-| `183adb44` (local) / matches `prready/main` | Clamp divergence dots to visible price region (add `>= region.Top` check) | `fix/delta-divergence-dot-bounds` | **missing** | only `<= region.Bottom` check present |
-| `64ed7f58` (prready/main) / `7b3a8405` (local) | Clamp triangle markers to visible region | `fix/delta-triangle-clamp` | **partial** — see Section 5 |
+| `e806415e` (local) / matches `prready/main` | Remove dead field `_absorptionThreshold` | `fix/delta-deadfield-absorptionthreshold` | done (`65f0eb75`) | |
+| `183adb44` (local) / matches `prready/main` | Clamp divergence dots to visible price region (add `>= region.Top` check) | `fix/delta-divergence-dot-bounds` | done (`65f0eb75`) | |
+| `64ed7f58` (prready/main) / `7b3a8405` (local) | Clamp triangle markers to visible region | `fix/delta-triangle-clamp` | done (`65f0eb75`) | clamp approach now matches prready/main behavior |
 
 ---
 
@@ -126,9 +126,9 @@ These commits must be applied before publication. They do not add features but a
 - [ ] `dotnet build -c Stable` — pending
 
 ### 4.2 Content completeness
-- [ ] fix/delta-deadfield content present — **NO** (`_absorptionThreshold` still present)
-- [ ] fix/delta-divergence-dot-bounds content present — **NO** (missing `>= region.Top`)
-- [~] fix/delta-triangle-clamp content present — **PARTIAL** (skip vs clamp — see Section 5)
+- [x] fix/delta-deadfield content present — done (`65f0eb75`)
+- [x] fix/delta-divergence-dot-bounds content present — done (`65f0eb75`)
+- [x] fix/delta-triangle-clamp content present — done (`65f0eb75`) — clamp approach matches prready/main
 - [x] feat/delta-fixed-thresholds ported
 - [x] feat/delta-price-signals ported
 - [x] feat/delta-threshold-selection ported
@@ -159,7 +159,7 @@ These commits must be applied before publication. They do not add features but a
 | Area | prready/main behavior | Local behavior | Reason | Revisit? |
 |------|-----------------------|----------------|--------|----------|
 | `typeof(Resources)` unconditional | prready/main wraps some Display attrs in `#if !ATAS_STABLE` guards via `1ef5799d` (buggy: uses `#if STABLE`) | Local uses `typeof(Resources)` unconditionally | `1ef5799d` is dead code (wrong define constant). Resources.resx is synced from platform so all flavors have the keys. Functionally equivalent. | Only if upstream fixes the define constant and ships real STABLE-specific behavior |
-| Triangle rendering | prready/main clamps triangles to screen edge (`ClampInt`) — triangle always drawn at boundary | Local skips triangle if price is outside visible region | Different UX: prready/main always shows a triangle at the edge; local hides it if price is offscreen | Yes — prefer prready/main behavior; needs fix in Phase 1 remediation |
+| Triangle rendering | prready/main clamps triangles to screen edge (`ClampInt`) — triangle always drawn at boundary | Local now uses `ClampInt` — matches prready/main | Fixed in `65f0eb75` | No — resolved |
 | `AverageMode` ResourceType | prready/main uses `typeof(Resources)` with `Resources.SMA`/`Resources.EMA` | Local uses `typeof(Strings)` with `Strings.SMA`/`Strings.EMA` | `SMA`/`EMA` keys exist in upstream `Strings` — using `Strings` is more correct for upstream-compatible keys | No — local approach is correct |
 | `_averagePeriod` default | prready/main: `20` | Local: `14` | Ported from earlier feat branch before default was revised | Yes — update to `20` during Phase 3 |
 | `_samplesForMeanStd` default | prready/main: `1` | Local: `10` | Same | Yes — update to `1` during Phase 3 |
@@ -172,9 +172,9 @@ Must be empty before manifest is marked `complete`.
 
 | Gap | Severity | Planned fix | Target branch |
 |-----|----------|-------------|---------------|
-| `_absorptionThreshold` dead field still present | low — compiles, no behavior impact | Cherry-pick `e806415e` content | Add commit to `local/delta-i18n` |
-| Divergence dots missing `>= region.Top` check | medium — dots can render above chart top | Cherry-pick `183adb44` content | Add commit to `local/delta-i18n` |
-| Triangle rendering: skip vs clamp | medium — different UX for off-screen prices | Apply `ClampInt` approach from `7b3a8405` | Replace skip logic in `local/delta-i18n` |
+| ~~`_absorptionThreshold` dead field still present~~ | ~~low~~ | ~~done `65f0eb75`~~ | ~~`local/delta-i18n`~~ |
+| ~~Divergence dots missing `>= region.Top` check~~ | ~~medium~~ | ~~done `65f0eb75`~~ | ~~`local/delta-i18n`~~ |
+| ~~Triangle rendering: skip vs clamp~~ | ~~medium~~ | ~~done `65f0eb75`~~ | ~~`local/delta-i18n`~~ |
 | ~~`DeltaLabelGroup` key missing~~ | ~~high~~ | ~~done `d20c6846`~~ | ~~`local/build/04-localization`~~ |
 | ~~`DivergenceDotsDescription` key missing~~ | ~~medium~~ | ~~done `d20c6846`~~ | ~~`local/build/04-localization`~~ |
 | ~~`DivergenceBarsDescription` key missing~~ | ~~medium~~ | ~~done `d20c6846`~~ | ~~`local/build/04-localization`~~ |
