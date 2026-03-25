@@ -2,7 +2,7 @@
 
 **Source:** `prready/main`
 **Integration target:** `local/delta-i18n` (stacked on `local/build/04-localization`)
-**Status:** `in-progress`
+**Status:** `complete` (pending Phase 4 smoke test in ATAS Platform)
 
 ---
 
@@ -93,24 +93,24 @@ These commits must be applied before publication. They do not add features but a
 
 | Commit (prready/main) | Description | Local branch | Status | Notes |
 |----------------------|-------------|--------------|--------|-------|
-| `3e420e5c` | Hide internal series from Drawing group (`IsHidden = true`) | `chore/delta-ui-polish` (planned) | **pending** | affects _priceSignalUp/Down + _avgSeries visibility |
-| `811000d6` | Reorganize UI groups and ordering (no behavior change) | `chore/delta-ui-polish` (planned) | **pending** | property Order values differ from prready/main |
-| `5fe49e01` | Use `Width` (LineWidth) for average thickness + UI order | `chore/delta-ui-polish` (planned) | **pending** | average uses different thickness property |
-| `5f78e83f` | Assign specific divergence descriptions + fix i18n errors | `chore/delta-ui-polish` (planned) | **pending** | DivergenceDots Name is hardcoded string, not `nameof` |
-| `5e336b28` | Delta-specific labels for fixed threshold properties | `chore/delta-ui-polish` (planned) | **pending** | uses generic labels |
-| `eff7ee3f` | Hide and disable legacy fixed-value alert fields | `chore/delta-ui-polish` (planned) | **pending** | legacy fields still visible |
+| `3e420e5c` | Hide internal series from Drawing group (`IsHidden = true`) | `local/delta-i18n` | done (`6c63cac1`) | _divergenceCandles, _divergenceDownCandles, _absorptionCandles |
+| `811000d6` | Reorganize UI groups and ordering (no behavior change) | `local/delta-i18n` | done (`6c63cac1`) | Drawing group orders 1000-1020; Average group → Resources.Average |
+| `5fe49e01` | Use `Width` (LineWidth) for average thickness + UI order | `local/delta-i18n` | done (`6c63cac1`) | AverageWidth now uses Resources.LineWidth label |
+| `5f78e83f` | Assign specific divergence descriptions + fix i18n errors | `local/delta-i18n` | done (`6c63cac1`) | DivergenceDots/Bars use nameof; descriptions added |
+| `5e336b28` | Delta-specific labels for fixed threshold properties | `local/delta-i18n` | done (`6c63cac1`) | Volume group uses DeltaLabelGroup; Resources.Show/Color/Location/Font |
+| `eff7ee3f` | Hide and disable legacy fixed-value alert fields | `local/delta-i18n` | done (`6c63cac1`) | UpAlert/DownAlert now [Browsable(false)]; _absorptionCandles IsHidden=true. NOTE: #if STABLE guards not ported (wrong define). _absorptionThreshold not re-added (correctly removed in Phase 1). |
 | `9da4aa2a` | Add Display attrs to ThresholdLevel enum | `local/delta-i18n` | done | applied in commit `29a9b0d7` |
-| `0d087ebd` | Use `DeltaPositiveColor`/`DeltaNegativeColor` in Drawing group | `chore/delta-ui-polish` (planned) | **pending** | requires Phase 0 keys added first |
+| `0d087ebd` | Use `DeltaPositiveColor`/`DeltaNegativeColor` in Drawing group | `local/delta-i18n` | done (`6c63cac1`) | keys added to 04-localization in `38e0029f` |
 | `1ef5799d` | Add STABLE compatibility guards | none | **skipped** | bug: uses `#if STABLE` (never true) instead of `#if ATAS_STABLE`; unconditional `typeof(Resources)` is acceptable for all flavors |
 
 **Resource-only commits (refine keys, all covered by Phase 0 keys above):**
 
 | Commit | Description | Status |
 |--------|-------------|--------|
-| `b071cbf0` | Refine threshold group labels + PriceSignalsGroup + DeltaLabelGroup | partially done — DeltaLabelGroup missing |
+| `b071cbf0` | Refine threshold group labels + PriceSignalsGroup + DeltaLabelGroup | done — all keys exist |
 | `1de5e2c8` | Refine delta volume group labels (LabelTextColor/Location/Font) | done — keys exist |
 | `7b764bad` | Correct average labels and SMA translations | done — keys exist |
-| `9053fcd7` | Clarify divergence labels (DivergenceDots/Bars + descriptions) | partially done — descriptions missing |
+| `9053fcd7` | Clarify divergence labels (DivergenceDots/Bars + descriptions) | done — descriptions added in `d20c6846` |
 | `ea6d3c7c` | Add Divergence GroupName localization | done |
 | `338068b1` | Clarify fixed threshold labels/descriptions | done |
 | `9c59238b` | Clarify audio/visual alerts localization | done |
@@ -122,7 +122,7 @@ These commits must be applied before publication. They do not add features but a
 ## Phase 4 — Integration verification: `local/delta-i18n`
 
 ### 4.1 Build
-- [x] `dotnet build -c Alpha` — 0 errors (verified 2026-03-25)
+- [x] `dotnet build -c Alpha` — 0 errors (verified 2026-03-25, re-verified 2026-03-25 after Phase 3)
 - [ ] `dotnet build -c Stable` — pending
 
 ### 4.2 Content completeness
@@ -135,7 +135,7 @@ These commits must be applied before publication. They do not add features but a
 - [x] feat/delta-dynamic-thresholds ported
 - [x] feat/delta-audio-alerts ported
 - [x] feat/delta-average-line ported
-- [ ] Phase 3 chore changes applied — **NO**
+- [x] Phase 3 chore changes applied — done (`6c63cac1`)
 
 ### 4.3 Resource completeness
 - [x] 40 new keys in Resources.resx (en) — verified
@@ -144,8 +144,8 @@ These commits must be applied before publication. They do not add features but a
 - [x] `DeltaLabelGroup` in Resources.resx — done (`d20c6846`)
 - [x] `DivergenceDotsDescription` in Resources.resx — done (`d20c6846`)
 - [x] `DivergenceBarsDescription` in Resources.resx — done (`d20c6846`)
-- [ ] DivergenceDots `Name` uses `nameof(Resources.DivergenceDots)` not hardcoded string — pending (Phase 3)
-- [ ] DivergenceBars has `Description = nameof(Resources.DivergenceBarsDescription)` — pending (Phase 3)
+- [x] DivergenceDots `Name` uses `nameof(Resources.DivergenceDots)` — done (`6c63cac1`)
+- [x] DivergenceBars has `Description = nameof(Resources.DivergenceBarsDescription)` — done (`6c63cac1`)
 
 ### 4.4 Functional smoke test
 - [ ] Indicator loads without crash — pending full integration test
@@ -178,7 +178,7 @@ Must be empty before manifest is marked `complete`.
 | ~~`DeltaLabelGroup` key missing~~ | ~~high~~ | ~~done `d20c6846`~~ | ~~`local/build/04-localization`~~ |
 | ~~`DivergenceDotsDescription` key missing~~ | ~~medium~~ | ~~done `d20c6846`~~ | ~~`local/build/04-localization`~~ |
 | ~~`DivergenceBarsDescription` key missing~~ | ~~medium~~ | ~~done `d20c6846`~~ | ~~`local/build/04-localization`~~ |
-| `DivergenceDots` Name is hardcoded string `"DivergenceDots"` | low — works but not refactoring-safe | Change to `nameof(Resources.DivergenceDots)` | `local/delta-i18n` |
-| 8 Phase 3 chore commits not applied | medium — affects UX quality, not functionality | Create `chore/delta-ui-polish` branch + port to `local/delta-i18n` | `chore/delta-ui-polish` → `local/delta-i18n` |
-| `_averagePeriod` default is `14` (should be `20`) | low | Update field initializer | `local/delta-i18n` |
-| `_samplesForMeanStd` default is `10` (should be `1`) | low | Update field initializer | `local/delta-i18n` |
+| ~~`DivergenceDots` Name is hardcoded string~~ | ~~low~~ | ~~done `6c63cac1`~~ | ~~`local/delta-i18n`~~ |
+| ~~8 Phase 3 chore commits not applied~~ | ~~medium~~ | ~~done `6c63cac1`~~ | ~~`local/delta-i18n`~~ |
+| ~~`_averagePeriod` default is `14` (should be `20`)~~ | ~~low~~ | ~~done `6c63cac1`~~ | ~~`local/delta-i18n`~~ |
+| ~~`_samplesForMeanStd` default is `10` (should be `1`)~~ | ~~low~~ | ~~done `6c63cac1`~~ | ~~`local/delta-i18n`~~ |
