@@ -77,6 +77,16 @@ public class Delta : Indicator
 		Down
 	}
 
+	[Serializable]
+	public enum ThresholdLevel
+	{
+		[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ThresholdLevelMajor))]
+		Major = 0,
+
+		[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ThresholdLevelMinor))]
+		Minor = 1
+	}
+
 	#endregion
 
 	#region Fields
@@ -265,6 +275,9 @@ public class Delta : Indicator
 	private int _upMinorLevel = 200;
 	private int _downMinorLevel = -200;
 	private int _downMajorLevel = -300;
+
+	private ThresholdLevel _visualUpLevel = ThresholdLevel.Major;
+	private ThresholdLevel _visualDownLevel = ThresholdLevel.Major;
 
 	#endregion
 
@@ -661,6 +674,42 @@ public class Delta : Indicator
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Font), GroupName = nameof(Strings.VolumeLabel),
         Description = nameof(Strings.FontSettingDescription), Order = 230)]
     public FontSetting Font { get; set; } = new("Arial", 10);
+
+    #endregion
+
+    #region Threshold level selection
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.VisualUpThresholds),
+        Description = nameof(Resources.VisualUpThresholdsDescription),
+        GroupName = nameof(Resources.Alerts), Order = 293)]
+    public ThresholdLevel VisualUpLevel
+    {
+        get => _visualUpLevel;
+        set
+        {
+            if (_visualUpLevel == value)
+                return;
+
+            _visualUpLevel = value;
+            RedrawChart();
+        }
+    }
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.VisualDownThresholds),
+        Description = nameof(Resources.VisualDownThresholdsDescription),
+        GroupName = nameof(Resources.Alerts), Order = 294)]
+    public ThresholdLevel VisualDownLevel
+    {
+        get => _visualDownLevel;
+        set
+        {
+            if (_visualDownLevel == value)
+                return;
+
+            _visualDownLevel = value;
+            RedrawChart();
+        }
+    }
 
     #endregion
 
@@ -1295,6 +1344,19 @@ public class Delta : Indicator
 
     #region Private methods
 
+	private int PickUpThreshold()
+	{
+		return _visualUpLevel == ThresholdLevel.Major
+			? _upMajorLevel
+			: _upMinorLevel;
+	}
+
+	private int PickDownThreshold()
+	{
+		return _visualDownLevel == ThresholdLevel.Major
+			? _downMajorLevel
+			: _downMinorLevel;
+	}
 
 	private int GetMinWidth(RenderContext context, int startBar, int endBar)
 	{
