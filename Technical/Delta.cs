@@ -268,6 +268,34 @@ public class Delta : Indicator
 
 	#endregion
 
+	#region Fields (price signals)
+
+	private readonly ValueDataSeries _priceSignalUp = new("PriceSignalUp", "Price Signal Up")
+	{
+		VisualType = VisualMode.Hide,
+		IsHidden = true,
+		UseMinimizedModeIfEnabled = true,
+		IgnoredByAlerts = true,
+		ShowCurrentValue = false
+	};
+
+	private readonly ValueDataSeries _priceSignalDown = new("PriceSignalDown", "Price Signal Down")
+	{
+		VisualType = VisualMode.Hide,
+		IsHidden = true,
+		UseMinimizedModeIfEnabled = true,
+		IgnoredByAlerts = true,
+		ShowCurrentValue = false
+	};
+
+	private bool _visualEnabled = true;
+	private int _priceSignalOffsetTicks = 2;
+	private int _priceSignalSize = 10;
+	private Color _priceSignalUpColor = Color.Lime;
+	private Color _priceSignalDownColor = Color.Fuchsia;
+
+	#endregion
+
 #endregion
 
     #region Properties
@@ -636,6 +664,86 @@ public class Delta : Indicator
 
     #endregion
 
+    #region Visual alerts (price panel)
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowVisualAlerts),
+        Description = nameof(Resources.ShowVisualAlertsDescription),
+        GroupName = nameof(Resources.Alerts), Order = 295)]
+    public bool VisualEnabled
+    {
+        get => _visualEnabled;
+        set
+        {
+            if (_visualEnabled == value)
+                return;
+
+            _visualEnabled = value;
+            RedrawChart();
+        }
+    }
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.VerticalOffset),
+        Description = nameof(Resources.PriceSignalOffsetTicksDescription),
+        GroupName = nameof(Resources.Alerts), Order = 296)]
+    [Range(0, 50)]
+    public int PriceSignalOffsetTicks
+    {
+        get => _priceSignalOffsetTicks;
+        set
+        {
+            if (_priceSignalOffsetTicks == value)
+                return;
+
+            _priceSignalOffsetTicks = value;
+            RedrawChart();
+        }
+    }
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.MarkerSize),
+        Description = nameof(Resources.MarkerSizeDescription),
+        GroupName = nameof(Resources.Alerts), Order = 297)]
+    [Range(6, 24)]
+    public int PriceSignalSize
+    {
+        get => _priceSignalSize;
+        set
+        {
+            if (_priceSignalSize == value)
+                return;
+
+            _priceSignalSize = value;
+            RedrawChart();
+        }
+    }
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.PriceSignalUpColor),
+        Description = nameof(Resources.PriceSignalUpColorDescription),
+        GroupName = nameof(Resources.Alerts), Order = 298)]
+    public CrossColor PriceSignalUpColor
+    {
+        get => _priceSignalUpColor.Convert();
+        set
+        {
+            _priceSignalUpColor = value.Convert();
+            RedrawChart();
+        }
+    }
+
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.PriceSignalDownColor),
+        Description = nameof(Resources.PriceSignalDownColorDescription),
+        GroupName = nameof(Resources.Alerts), Order = 299)]
+    public CrossColor PriceSignalDownColor
+    {
+        get => _priceSignalDownColor.Convert();
+        set
+        {
+            _priceSignalDownColor = value.Convert();
+            RedrawChart();
+        }
+    }
+
+    #endregion
+
     #region Alerts
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.UpAlert), GroupName = nameof(Strings.Alerts),
@@ -726,6 +834,9 @@ public class Delta : Indicator
 		DataSeries.Add(_dnMinor);
 		DataSeries.Add(_dnMajor);
 
+		DataSeries.Add(_priceSignalUp);
+		DataSeries.Add(_priceSignalDown);
+
 		UpdateThresholdLinesVisibility(repaint: false);
 
 		UpAlert.PropertyChanged += (sender, e) => _lastBarAlert = 0;
@@ -803,6 +914,44 @@ public class Delta : Indicator
 			}
 		}
 
+		// Price signals (triangles) — rendered on price panel
+		if (_visualEnabled)
+		{
+			var priceRc = ChartInfo.PriceChartContainer.Region;
+			var half = _priceSignalSize / 2;
+
+			for (var i = FirstVisibleBarNumber; i <= LastVisibleBarNumber; i++)
+			{
+				var x = ChartInfo.PriceChartContainer.GetXByBar(i, false);
+
+				var upPrice = _priceSignalUp[i];
+				if (upPrice > 0)
+				{
+					var yPx = ChartInfo.PriceChartContainer.GetYByPrice(upPrice, false);
+					if (yPx >= priceRc.Top && yPx <= priceRc.Bottom)
+					{
+						var p1 = new Point(x, yPx - half);
+						var p2 = new Point(x - half, yPx + half);
+						var p3 = new Point(x + half, yPx + half);
+						context.FillPolygon(_priceSignalUpColor, new[] { p1, p2, p3 });
+					}
+				}
+
+				var dnPrice = _priceSignalDown[i];
+				if (dnPrice > 0)
+				{
+					var yPx = ChartInfo.PriceChartContainer.GetYByPrice(dnPrice, false);
+					if (yPx >= priceRc.Top && yPx <= priceRc.Bottom)
+					{
+						var p1 = new Point(x, yPx + half);
+						var p2 = new Point(x - half, yPx - half);
+						var p3 = new Point(x + half, yPx - half);
+						context.FillPolygon(_priceSignalDownColor, new[] { p1, p2, p3 });
+					}
+				}
+			}
+		}
+
 		if (!ShowVolume || ChartInfo.ChartVisualMode != ChartVisualModes.Clusters || Panel == IndicatorDataProvider.CandlesPanel)
 			return;
 
@@ -854,6 +1003,10 @@ public class Delta : Indicator
 			_downSeries.Clear();
 			_divergenceBars.Clear();
 		}
+
+		// Always clear per bar to avoid stale markers
+		_priceSignalUp[bar] = 0m;
+		_priceSignalDown[bar] = 0m;
 
 		var candle = GetCandle(bar);
 		var deltaValue = candle.Delta;
@@ -1027,6 +1180,12 @@ public class Delta : Indicator
 
 			if ((deltaValue >= alertValue && _prevDeltaValue < alertValue) || (deltaValue <= alertValue && _prevDeltaValue > alertValue))
 			{
+				if (_visualEnabled)
+				{
+					var offset = _priceSignalOffsetTicks * InstrumentInfo.TickSize;
+					_priceSignalUp[bar] = candle.Low - offset;
+				}
+
 				_lastBarAlert = bar;
 				AddAlert(AlertFile, InstrumentInfo.Instrument, $"Delta reached {alertValue} filter", AlertBGColor, AlertForeColor);
 			}
@@ -1039,6 +1198,12 @@ public class Delta : Indicator
 			if ((deltaValue >= negativeAlertValue && _prevDeltaValue < negativeAlertValue) ||
 			    (deltaValue <= negativeAlertValue && _prevDeltaValue > negativeAlertValue))
 			{
+				if (_visualEnabled)
+				{
+					var offset = _priceSignalOffsetTicks * InstrumentInfo.TickSize;
+					_priceSignalDown[bar] = candle.High + offset;
+				}
+
 				_lastBarNegativeAlert = bar;
 				AddAlert(AlertFile, InstrumentInfo.Instrument, $"Delta reached {negativeAlertValue} filter", AlertBGColor, AlertForeColor);
 			}
