@@ -746,9 +746,23 @@ namespace ATAS.Indicators.Technical
 			_sessionRanges.Add(_currentSessions[settings]);
 		}
 
+		private void ResetSessionState()
+		{
+			lock (_syncRoot)
+			{
+				_currentSessions.Clear();
+				_sessionRanges.Clear();
+				_lastSessionBars.Clear();
+				_lastEndAlerts.Clear();
+				_lastStartAlerts.Clear();
+			}
+		}
+
 		private void SessionSettingsChanged(object sender, PropertyChangedEventArgs e)
 		{
+			ResetSessionState();
 			RecalculateValues();
+			RedrawChart();
 		}
 
 		private void SyncLegacySession(Action<SessionSettings> updateAction)
@@ -773,7 +787,9 @@ namespace ATAS.Indicators.Technical
 					session.PropertyChanged -= SessionSettingsChanged;
 			}
 
+			ResetSessionState();
 			RecalculateValues();
+			RedrawChart();
 		}
 
 		private void StartAlert(SessionSettings settings, SessionRange session, int bar)
