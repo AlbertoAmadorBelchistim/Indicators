@@ -7,6 +7,7 @@
 | yes | `0e610d33` | 2026-03-25 | fix | dompower | fix(dompower): reset state and rebind LevelDepth filter safely | fix/dompower-leveldepth-state-reset | yes | no | no | not-opened | pending | Event subscription leak + stale state on filter change |
 | yes | `ef3f6513` | 2026-03-25 | fix | volume | fix(volume): make alert messages reflect selected input type | fix/volume-alert-label | yes | no | no | not-opened | pending | Upstream strings were hardcoded; uses `GetInputLabel()` |
 | yes | `fdd1bbef` | 2026-03-25 | fix | volume | fix(volume): make MaximumVolume follow selected input | fix/volume-max-follow-input | yes | no | no | not-opened | pending | Lookback used `candle.Volume` instead of `val` |
+| pending | `64ed7f58` | prready/main | fix | delta | fix(delta): clamp price-panel triangle markers to visible region | fix/delta-marker-clamp (not yet created) | yes | no | no | not-opened | pending | Markers outside chart bounds caused visual artifacts |
 
 ---
 
@@ -37,7 +38,8 @@ git cherry-pick 8308d666 b3d7354f 70354534 9760b860 f7fd5c82
 
 - `fix/domstrength-*` and `fix/dompower-*` are fully independent and atomic.
 - `fix/volume-max-follow-input` depends on `fix/volume-alert-label` (adds `GetInputLabel()` used by both).
-- All five patches are safe for PR submission to upstream.
+- All five original patches are safe for PR submission to upstream.
+- `fix/delta-marker-clamp` is pending branch creation (cherry-pick from `prready/main` commit `64ed7f58`).
 
 ---
 
@@ -83,11 +85,20 @@ all target ATAS versions ship `TabAttribute` in `OFT.Attributes.dll`.
 
 #### Included keys (2026-03-25)
 
-27 keys for Volume.cs threshold feature across all 6 locales (en, de-de, ru-ru, zh-cn, pt-br, fr-fr):
-`ThresholdsGroup`, `FixedThresholdGroup`, `DynamicThresholdGroup`, `ShowThresholdLines`,
+27 keys for Volume.cs threshold feature + 40 keys for Delta.cs features, across all 7 locales
+(en, de-de, ru-ru, es-es, fr-fr, hi-in, zh-cn):
+
+**Volume keys (27):** `ThresholdsGroup`, `FixedThresholdGroup`, `DynamicThresholdGroup`, `ShowThresholdLines`,
 `FixedMinorLevel`, `FixedMajorLevel`, `ThresholdSource`, `SessionWindowMode`, `RthStart`, `RthEnd`,
 `SamplesForMeanStd`, `StdMultiplier`, `ThresholdSourceFixed`, `ThresholdSourceDynamicWelford`,
 `SessionWindowModeRth`, `SessionWindowModeFull24h`, `VolumeThresholdMajor`, `VolumeThresholdMinor`
+and their `*Description` variants.
+
+**Delta keys (40):** `AudioAlerts`, `AudioAtBarCloseOnly`, `AudioDownThresholds`, `AudioUpThresholds`,
+`BaseColor`, `ColorMode`, `Fixed`, `FixedNegMajorLevel`, `FixedNegMinorLevel`, `FixedPosMajorLevel`,
+`FixedPosMinorLevel`, `MarkerSize`, `PriceSignalDownColor`, `PriceSignalUpColor`, `PriceSignalsGroup`,
+`ShowVisualAlerts`, `Slope`, `SlopeDownColor`, `SlopeUpColor`, `ThresholdLevelMajor`, `ThresholdLevelMinor`,
+`VisualDownThresholds`, `VisualUpThresholds`, `ZeroCross`
 and their `*Description` variants.
 
 ### Stack notes

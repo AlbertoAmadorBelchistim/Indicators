@@ -335,7 +335,37 @@ Rules:
 
 ---
 
-## 8. Documentation responsibilities
+## 8. Localization workflow
+
+Local branches use `typeof(Resources)` for display attributes; upstream-targeted branches use `typeof(Strings)`.
+
+### Adding new resource keys
+
+1. Add the key and English value to `Properties/Resources.resx`
+2. Add the same key to all satellite `.resx` files: `de-de`, `ru-ru`, `es-es`, `fr-fr`, `hi-in`, `zh-cn`
+3. Regenerate `Properties/Resources.Designer.cs` (VS `PublicResXFileCodeGenerator` or the `scripts/gen-designer.py` helper)
+4. Do this in a dedicated commit on `local/build/04-localization` **before** the feature branch that uses the key
+5. Document the new key set in `docs/patch-registry.md` under the `04-localization` section
+
+### Choosing between `typeof(Strings)` and `typeof(Resources)`
+
+| Case | Use |
+|------|-----|
+| Key exists in upstream `Strings` (e.g. `Period`, `SMA`, `Volume`) | `typeof(Strings)` |
+| Key is new, added to local `Resources.resx` | `typeof(Resources)` |
+| PR-targeted branch | `typeof(Strings)` — do not introduce `typeof(Resources)` into upstream PRs |
+
+### Testing checklist
+
+See `docs/testing-checklist.md` for the full per-indicator QA checklist.
+
+Two-phase model:
+- **Smoke test** when integrating a branch: does it load, do properties appear, does the panel render?
+- **Full checklist** before PR submission or publication.
+
+---
+
+## 9. Documentation responsibilities
 
 The repository uses different documents for different concerns.
 
@@ -365,7 +395,7 @@ This separation must be preserved.
 
 ---
 
-## 9. Practical review checklist
+## 10. Practical review checklist
 
 Before considering a branch or commit ready, verify:
 
@@ -379,7 +409,7 @@ Before considering a branch or commit ready, verify:
 
 ---
 
-## 10. Final rule
+## 11. Final rule
 
 Contribute in a way that makes future integration easier.
 

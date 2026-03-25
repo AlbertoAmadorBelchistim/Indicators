@@ -262,7 +262,105 @@ If a feature requires both localization and logic:
 
 ---
 
-## 9. Architecture as a living document
+## 9. Recurring implementation patterns
+
+Patterns that appear in multiple indicators and should be followed consistently.
+
+### 9.1 Color fields: storage vs property vs per-bar assignment
+
+ATAS uses two color types with different roles:
+- `System.Drawing.Color` — internal storage (fields)
+- `CrossColor` (`System.Windows.Media.Color`) — property type exposed to UI, and the type returned by `_series.Color`
+
+Correct pattern (from `AO.cs`, `Delta.cs`, etc.):
+
+```csharp
+// Field: store as Drawing.Color
+private Color _upColor = Color.Green;
+
+// Property: expose as CrossColor, convert on get/set
+public CrossColor UpColor
+{
+    get => _upColor.Convert();
+    set { _upColor = value.Convert(); RecalculateValues(); }
+}
+
+// Per-bar assignment: Colors[bar] accepts Drawing.Color
+_series.Colors[bar] = _upColor;                     // field → direct
+_series.Colors[bar] = _series.Color.Convert();      // CrossColor → Drawing.Color
+```
+
+Never assign `CrossColor` directly to `Colors[bar]` — it compiles but produces a type mismatch at runtime.
+
+### 9.2 Session-aware Welford running statistics
+
+For dynamic thresholds that reset per session and accumulate independently per direction:
+
+```csharp
+// State
+private int _n;
+private double _mean, _m2;
+
+// Update (call once per in-session bar)
+private static void WelfordPush(ref int n, ref double mean, ref double m2, double x)
+{
+    n++;
+    var delta = x - mean;
+    mean += delta / n;
+    m2 += delta * (x - mean);
+}
+
+private static double WelfordStd(int n, double m2)
+    => n > 1 ? Math.Sqrt(m2 / (n - 1)) : 0.0;
+```
+
+Rules:
+- Reset accumulators at `bar == 0` and at detected session starts
+- Use `_samplesForMeanStd` as a readiness guard before applying dynamic values
+- Keep separate accumulators per sign direction (positive extremes vs negative magnitude extremes)
+- Cache the computed threshold for the current bar to avoid look-ahead
+
+### 9.3 Enum display attributes: `typeof(Strings)` vs `typeof(Resources)`
+
+- Use `typeof(Strings)` when the enum value name matches an existing upstream key (e.g., `SMA`, `EMA`, `Period`)
+- Use `typeof(Resources)` for new keys that exist only in the local resource files
+- Never mix the two `typeof(...)` within a single enum — prefer a consistent source per enum
+
+```csharp
+// Upstream key exists → typeof(Strings)
+[Display(ResourceType = typeof(Strings), Name = nameof(Strings.SMA))]
+Sma = 0,
+
+// New local key → typeof(Resources)
+[Display(ResourceType = typeof(Resources), Name = nameof(Resources.ZeroCross))]
+ZeroCross = 1,
+```
+
+### 9.4 Build-flavor guards
+
+Prefer the minimal and future-proof form:
+
+```csharp
+// Prefer (works for any future flavor that is not Stable)
+#if !ATAS_STABLE
+_candleSeries.DrawCandleBorder = true;
+#endif
+
+// Avoid (must be updated each time a new flavor is added)
+#if ATAS_ALPHA || ATAS_BETA || ATAS_LATEST || ATAS_X_ALPHA || ATAS_X_BETA
+_candleSeries.DrawCandleBorder = true;
+#endif
+
+// Avoid (empty if-body is confusing)
+#if ATAS_STABLE
+#else
+_candleSeries.DrawCandleBorder = true;
+#endif
+```
+
+---
+
+## 11. Architecture as a living document
 
 This document is:
 - authoritative
@@ -278,7 +376,7 @@ Architecture changes must be justified by **real code**, not preference.
 
 ---
 
-## 10. Architecture Decision Records (ADR)
+## 12. Architecture Decision Records (ADR)
 
 Non-trivial technical or UX decisions should be documented using an ADR,
 especially when they affect:
