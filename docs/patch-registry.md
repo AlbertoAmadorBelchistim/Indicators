@@ -2,11 +2,11 @@
 
 | Include | Commit | Date | Type | Area | Subject | Source branch | Cherry-pick safe | In testing | In release | PR status | Upstream status | Notes |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| yes | `8308d666` | 2026-03-25 | fix | domstrength | fix(domstrength): use bid depth values when summing bids | fix/domstrength-bid-sum-source | yes | no | no | not-opened | pending | Copy-paste bug: was using `_mDepthAsk.Values` for bids |
-| yes | `b3d7354f` | 2026-03-25 | fix | domstrength | fix(domstrength): avoid off-by-one when iterating level depth | fix/domstrength-leveldepth-off-by-one | yes | no | no | not-opened | pending | Loop was `<= LevelDepth.Value` instead of `<` |
-| yes | `70354534` | 2026-03-25 | fix | dompower | fix(dompower): reset state and rebind LevelDepth filter safely | fix/dompower-leveldepth-state-reset | yes | no | no | not-opened | pending | Event subscription leak + stale state on filter change |
-| yes | `9760b860` | 2026-03-25 | fix | volume | fix(volume): make alert messages reflect selected input type | fix/volume-alert-label | yes | no | no | not-opened | pending | Upstream strings were hardcoded; uses `GetInputLabel()` |
-| yes | `f7fd5c82` | 2026-03-25 | fix | volume | fix(volume): make MaximumVolume follow selected input | fix/volume-max-follow-input | yes | no | no | not-opened | pending | Lookback used `candle.Volume` instead of `val` |
+| yes | `c62e44ae` | 2026-03-25 | fix | domstrength | fix(domstrength): use bid depth values when summing bids | fix/domstrength-bid-sum-source | yes | no | no | not-opened | pending | Copy-paste bug: was using `_mDepthAsk.Values` for bids |
+| yes | `be5939ca` | 2026-03-25 | fix | domstrength | fix(domstrength): avoid off-by-one when iterating level depth | fix/domstrength-leveldepth-off-by-one | yes | no | no | not-opened | pending | Loop was `<= LevelDepth.Value` instead of `<` |
+| yes | `0e610d33` | 2026-03-25 | fix | dompower | fix(dompower): reset state and rebind LevelDepth filter safely | fix/dompower-leveldepth-state-reset | yes | no | no | not-opened | pending | Event subscription leak + stale state on filter change |
+| yes | `ef3f6513` | 2026-03-25 | fix | volume | fix(volume): make alert messages reflect selected input type | fix/volume-alert-label | yes | no | no | not-opened | pending | Upstream strings were hardcoded; uses `GetInputLabel()` |
+| yes | `fdd1bbef` | 2026-03-25 | fix | volume | fix(volume): make MaximumVolume follow selected input | fix/volume-max-follow-input | yes | no | no | not-opened | pending | Lookback used `candle.Volume` instead of `val` |
 
 ---
 
