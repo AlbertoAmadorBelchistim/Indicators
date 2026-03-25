@@ -75,6 +75,26 @@ public class Delta : Indicator
 		Down
 	}
 
+	[Serializable]
+	public enum ThresholdSource
+	{
+		[Display(Name = "Fixed")]
+		Fixed = 0,
+
+		[Display(Name = "Dynamic (Welford)")]
+		DynamicWelford = 1
+	}
+
+	[Serializable]
+	public enum SessionWindowMode
+	{
+		[Display(Name = "Full 24h")]
+		Full24h = 0,
+
+		[Display(Name = "RTH")]
+		RTH = 1
+	}
+
 	#endregion
 
 	#region Fields
@@ -203,6 +223,36 @@ public class Delta : Indicator
 		UseMinimizedModeIfEnabled = true,
 		IgnoredByAlerts = true
 	};
+
+	#region Fields (dynamic thresholds)
+
+	private int _samplesForMeanStd = 10;
+
+	private bool _posReady;
+	private bool _negReady;
+
+	private readonly List<bool> _posReadyByBar = new();
+	private readonly List<bool> _negReadyByBar = new();
+
+	private int _posN;
+	private decimal _posMean;
+	private decimal _posM2;
+
+	private int _negN;
+	private decimal _negMean;
+	private decimal _negM2;
+
+	private decimal _dynPosMinor, _dynPosMajor;
+	private decimal _dynNegMinor, _dynNegMajor;
+
+	private SessionWindowMode _sessionMode = SessionWindowMode.RTH;
+	private TimeSpan _rthStart = new(9, 30, 0);
+	private TimeSpan _rthEnd = new(16, 0, 0);
+	private decimal _stdMultiplier = 1.0m;
+
+	private ThresholdSource _thresholds = ThresholdSource.Fixed;
+
+	#endregion
 
     #endregion
 
@@ -403,6 +453,111 @@ public class Delta : Indicator
     }
 
     #endregion
+
+	#region Dynamic thresholds
+
+	[Display(Name = "Threshold source", Description = "Select fixed thresholds or dynamic Welford thresholds.",
+		GroupName = "Thresholds", Order = 140)]
+	public ThresholdSource Thresholds
+	{
+		get => _thresholds;
+		set
+		{
+			if (_thresholds == value)
+				return;
+
+			_thresholds = value;
+			RecalculateValues();
+			RedrawChart();
+		}
+	}
+
+	[Display(Name = "Session window", Description = "Session window used to reset dynamic thresholds.",
+		GroupName = "Dynamic Threshold", Order = 141)]
+	public SessionWindowMode SessionMode
+	{
+		get => _sessionMode;
+		set
+		{
+			if (_sessionMode == value)
+				return;
+
+			_sessionMode = value;
+			RecalculateValues();
+			RedrawChart();
+		}
+	}
+
+	[Display(Name = "RTH start", Description = "Start time of Regular Trading Hours (exchange time).",
+		GroupName = "Dynamic Threshold", Order = 142)]
+	public TimeSpan RthStart
+	{
+		get => _rthStart;
+		set
+		{
+			if (_rthStart == value)
+				return;
+
+			_rthStart = value;
+			RecalculateValues();
+			RedrawChart();
+		}
+	}
+
+	[Display(Name = "RTH end", Description = "End time of Regular Trading Hours (exchange time).",
+		GroupName = "Dynamic Threshold", Order = 143)]
+	public TimeSpan RthEnd
+	{
+		get => _rthEnd;
+		set
+		{
+			if (_rthEnd == value)
+				return;
+
+			_rthEnd = value;
+			RecalculateValues();
+			RedrawChart();
+		}
+	}
+
+	[Display(Name = "Std multiplier", Description = "Major = mean + k·std. Minor = mean.",
+		GroupName = "Dynamic Threshold", Order = 144)]
+	[Range(typeof(decimal), "0", "10")]
+	[DisplayFormat(DataFormatString = "F2")]
+	public decimal StdMultiplier
+	{
+		get => _stdMultiplier;
+		set
+		{
+			if (value < 0) value = 0;
+			if (_stdMultiplier == value)
+				return;
+
+			_stdMultiplier = value;
+			RecalculateValues();
+			RedrawChart();
+		}
+	}
+
+	[Display(Name = "Samples for mean/std", Description = "Minimum samples required before dynamic thresholds become active.",
+		GroupName = "Dynamic Threshold", Order = 145)]
+	[Range(1, 5000)]
+	public int SamplesForMeanStd
+	{
+		get => _samplesForMeanStd;
+		set
+		{
+			if (value < 1) value = 1;
+			if (_samplesForMeanStd == value)
+				return;
+
+			_samplesForMeanStd = value;
+			RecalculateValues();
+			RedrawChart();
+		}
+	}
+
+	#endregion
 
     #region Absorption
 
@@ -965,6 +1120,101 @@ public class Delta : Indicator
 
 	#region Private methods
 
+	#region Dynamic threshold private methods
+
+	private static bool TryGetPositiveExtremeSample(IndicatorCandle candle, out decimal sample)
+	{
+		var x = candle.MaxDelta;
+		if (x > 0) { sample = x; return true; }
+
+		sample = 0;
+		return false;
+	}
+
+	private static bool TryGetNegativeMagnitudeExtremeSample(IndicatorCandle candle, out decimal sampleAbs)
+	{
+		var x = candle.MinDelta;
+		if (x < 0) { sampleAbs = Math.Abs(x); return true; }
+
+		sampleAbs = 0;
+		return false;
+	}
+
+	private void EnsureReadyCapacity(int bar)
+	{
+		while (_posReadyByBar.Count <= bar) _posReadyByBar.Add(false);
+		while (_negReadyByBar.Count <= bar) _negReadyByBar.Add(false);
+	}
+
+	private void ResetDynamicState()
+	{
+		_posN = 0;
+		_posMean = 0;
+		_posM2 = 0;
+
+		_negN = 0;
+		_negMean = 0;
+		_negM2 = 0;
+
+		_posReady = false;
+		_negReady = false;
+
+		_dynPosMinor = _dynPosMajor = 0;
+		_dynNegMinor = _dynNegMajor = 0;
+	}
+
+	private bool InSession(DateTime exchangeTimeUtc)
+	{
+		if (SessionMode == SessionWindowMode.Full24h)
+			return true;
+
+		var tLocal = exchangeTimeUtc.AddHours(InstrumentInfo.TimeZone).TimeOfDay;
+		return tLocal >= RthStart && tLocal <= RthEnd;
+	}
+
+	private bool IsSessionStart(int bar)
+	{
+		if (bar == 0)
+			return true;
+
+		var prevUtc = GetCandle(bar - 1).Time;
+		var currUtc = GetCandle(bar).Time;
+
+		var prevIn = InSession(prevUtc);
+		var currIn = InSession(currUtc);
+
+		if (!prevIn && currIn)
+			return true;
+
+		if (currIn && prevUtc.Date != currUtc.Date)
+		{
+			var tLocal = currUtc.AddHours(InstrumentInfo.TimeZone).TimeOfDay;
+			if (tLocal >= RthStart && tLocal <= RthEnd)
+				return true;
+		}
+
+		return false;
+	}
+
+	private static void WelfordPush(ref int n, ref decimal mean, ref decimal m2, decimal x)
+	{
+		n++;
+		var delta = x - mean;
+		mean += delta / n;
+		var delta2 = x - mean;
+		m2 += delta * delta2;
+	}
+
+	private static decimal WelfordStd(int n, decimal m2)
+	{
+		if (n <= 1)
+			return 0;
+
+		var variance = m2 / (n - 1);
+		return (decimal)Math.Sqrt((double)variance);
+	}
+
+	#endregion
 
 	private int GetMinWidth(RenderContext context, int startBar, int endBar)
 	{
