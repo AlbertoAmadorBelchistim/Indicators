@@ -5,7 +5,6 @@ using System;
 using System.Xml.Linq;
 
 namespace ATAS.Indicators.Technical;
-using ATAS.Indicators.Technical.Properties;
 
 using ATAS.Indicators.Drawing;
 using ATAS.Indicators.Technical.Extensions;
@@ -455,16 +454,16 @@ public class ClusterStatistic : Indicator
 
 	// ============================================================
 	// Rows (scalper-first order)
-	// 1100–1190 Pace / Activity
-	// 1200–1290 Directional Pressure
-	// 1300–1390 Imbalances
-	// 1500–1590 Candle Context
-	// 1600–1690 Session Context
-	// 1700–1790 Raw Prints
+	// 1100ï¿½1190 Pace / Activity
+	// 1200ï¿½1290 Directional Pressure
+	// 1300ï¿½1390 Imbalances
+	// 1500ï¿½1590 Candle Context
+	// 1600ï¿½1690 Session Context
+	// 1700ï¿½1790 Raw Prints
 	// ============================================================
 
 	// ----------------------------
-	// Pace / Activity (1100–1190)
+	// Pace / Activity (1100ï¿½1190)
 	// ----------------------------
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowVolumePerSecond),
@@ -480,12 +479,9 @@ public class ClusterStatistic : Indicator
 		}
 	}
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.ShowDeltaPerSecond),
-        GroupName = nameof(Resources.Rows),
-        Description = nameof(Resources.ShowDeltaPerSecondDescription),
-        Order = 1110)]
-    public bool ShowDeltaPerSecond
+	[DisplayName("Delta/sec")]
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 1110)]
+	public bool ShowDeltaPerSecond
 	{
 		get => _showDeltaPerSecond;
 		set
@@ -495,38 +491,32 @@ public class ClusterStatistic : Indicator
 		}
 	}
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.ShowPeakVolPerSec),
-        GroupName = nameof(Resources.Rows),
-        Order = 1120)]
-    public bool ShowPeakVolPerSec
+	[DisplayName("Max Vol/sec")]
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 1120)]
+	public bool ShowPeakVolPerSec
 	{
 		get => RowsOrder.TryGetValue(DataType.PeakVolPerSec, out var ri) && ri.Enabled;
 		set => RowsOrder.SetEnabled(DataType.PeakVolPerSec, value);
 	}
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.ShowPeakDeltaPerSec),
-        GroupName = nameof(Resources.Rows),
-        Order = 1130)]
-    public bool ShowPeakDeltaPerSec
+	[DisplayName("Max Delta/sec")]
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 1130)]
+	public bool ShowPeakDeltaPerSec
 	{
 		get => RowsOrder.TryGetValue(DataType.PeakDeltaPerSec, out var ri) && ri.Enabled;
 		set => RowsOrder.SetEnabled(DataType.PeakDeltaPerSec, value);
 	}
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.ShowPeakDeltaPerVol),
-        GroupName = nameof(Resources.Rows),
-        Order = 1140)]
-    public bool ShowPeakDeltaPerVol
+	[DisplayName("Peak Delta/Vol")]
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 1140)]
+	public bool ShowPeakDeltaPerVol
 	{
 		get => RowsOrder.TryGetValue(DataType.PeakDeltaPerVol, out var ri) && ri.Enabled;
 		set => RowsOrder.SetEnabled(DataType.PeakDeltaPerVol, value);
 	}
 
 	// ----------------------------
-	// Directional Pressure (1200–1290)
+	// Directional Pressure (1200ï¿½1290)
 	// ----------------------------
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDelta),
@@ -600,14 +590,12 @@ public class ClusterStatistic : Indicator
 	}
 
     // ----------------------------
-    // Imbalances (1300–1390)
+    // Imbalances (1300ï¿½1390)
     // ----------------------------
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.ShowSellImbalances),
-        GroupName = nameof(Resources.Rows),
-        Order = 1300)]
-    public bool ShowBuyImbalance
+	[DisplayName("Buy Imbalances")]
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 1300)]
+	public bool ShowBuyImbalance
 	{
 		get => RowsOrder.TryGetValue(DataType.BuyImbalance, out var ri) && ri.Enabled;
 		set
@@ -621,11 +609,9 @@ public class ClusterStatistic : Indicator
         }
 	}
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.ShowSellImbalances),
-        GroupName = nameof(Resources.Rows),
-        Order = 1310)]
-    public bool ShowSellImbalance
+	[DisplayName("Sell Imbalances")]
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 1310)]
+	public bool ShowSellImbalance
 	{
 		get => RowsOrder.TryGetValue(DataType.SellImbalance, out var ri) && ri.Enabled;
 		set
@@ -639,11 +625,9 @@ public class ClusterStatistic : Indicator
         }
 	}
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.ShowNetImbalances),
-        GroupName = nameof(Resources.Rows),
-        Order = 1320)]
-    public bool ShowNetImbalance
+	[DisplayName("Net Imbalances")]
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 1320)]
+	public bool ShowNetImbalance
 	{
 		get => RowsOrder.TryGetValue(DataType.NetImbalance, out var ri) && ri.Enabled;
 		set
@@ -657,9 +641,8 @@ public class ClusterStatistic : Indicator
 		}
 	}
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.ShowStackedBuyImbalances),
-        GroupName = nameof(Resources.Rows), Order = 1330)]
+	[DisplayName("Stacked Buy Imbalances")]
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 1330)]
 	public bool ShowStackedBuyImbalance
 	{
 		get => RowsOrder.TryGetValue(DataType.StackedBuyImbalance, out var ri) && ri.Enabled;
@@ -674,9 +657,8 @@ public class ClusterStatistic : Indicator
 		}
 	}
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.ShowStackedSellImbalances),
-        GroupName = nameof(Resources.Rows), Order = 1340)]
+	[DisplayName("Stacked Sell Imbalances")]
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 1340)]
 	public bool ShowStackedSellImbalance
 	{
 		get => RowsOrder.TryGetValue(DataType.StackedSellImbalance, out var ri) && ri.Enabled;
@@ -691,9 +673,8 @@ public class ClusterStatistic : Indicator
 		}
 	}
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.ShowStackedNetImbalances),
-        GroupName = nameof(Resources.Rows), Order = 1350)]
+	[DisplayName("Stacked Net Imbalances")]
+	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Rows), Order = 1350)]
 	public bool ShowStackedNetImbalance
 	{
 		get => RowsOrder.TryGetValue(DataType.StackedNetImbalance, out var ri) && ri.Enabled;
@@ -709,7 +690,7 @@ public class ClusterStatistic : Indicator
 	}
 
 	// ----------------------------
-	// Candle Context (1500–1590)
+	// Candle Context (1500ï¿½1590)
 	// ----------------------------
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowVolume),
@@ -783,7 +764,7 @@ public class ClusterStatistic : Indicator
 	}
 
 	// ----------------------------
-	// Session Context (1600–1690)
+	// Session Context (1600ï¿½1690)
 	// ----------------------------
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowSessionVolume),
@@ -829,7 +810,7 @@ public class ClusterStatistic : Indicator
 	}
 
 	// ----------------------------
-	// Raw Prints (1700–1790)
+	// Raw Prints (1700ï¿½1790)
 	// ----------------------------
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowAsk),
@@ -866,13 +847,10 @@ public class ClusterStatistic : Indicator
     #region Max vol/sec settings
 
     // ============================================================
-    // Max vol/sec (SoT) settings (9000–9090)
+    // Max vol/sec (SoT) settings (9000ï¿½9090)
     // ============================================================
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.SotTimeWindowSecName),
-        GroupName = nameof(Resources.MaxVolPerSecGroup),
-        Order = 9000)]
+	[Display(Name = "Time Window (sec)", GroupName = "Max Vol/sec", Order = 9000)]
     [Range(1, 600)]
 	public int SotTimeWindowSec
 	{
@@ -888,10 +866,7 @@ public class ClusterStatistic : Indicator
 		}
 	}
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.SotMinVolumeName),
-        GroupName = nameof(Resources.MaxVolPerSecGroup),
-        Order = 9010)]
+	[Display(Name = "Min Volume per Window", GroupName = "Max Vol/sec", Order = 9010)]
     [Range(1, 100000)]
 	public int SotMinVolume
 	{
@@ -909,10 +884,7 @@ public class ClusterStatistic : Indicator
 
 	private bool _sotUseAutoFilter = true;
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.SotUseAutoFilterName),
-        GroupName = nameof(Resources.MaxVolPerSecGroup),
-        Order = 9020)]
+	[Display(Name = "Use Auto Filter", GroupName = "Max Vol/sec", Order = 9020)]
     public bool SotUseAutoFilter
 	{
 		get => _sotUseAutoFilter;
@@ -929,10 +901,7 @@ public class ClusterStatistic : Indicator
 
 	private int _sotAutoFilterPeriod = 3;
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.SotAutoFilterPeriodName),
-        GroupName = nameof(Resources.MaxVolPerSecGroup),
-        Order = 9030)]
+	[Display(Name = "Auto Filter Period", GroupName = "Max Vol/sec", Order = 9030)]
     [Range(1, 200)]
 	public int SotAutoFilterPeriod
 	{
@@ -951,10 +920,7 @@ public class ClusterStatistic : Indicator
 
 	private bool _sotAutoFilterUseEma = true;
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.SotAutoFilterUseEmaName),
-        GroupName = nameof(Resources.MaxVolPerSecGroup),
-        Order = 9040)]
+	[Display(Name = "Use EMA for Auto Filter", GroupName = "Max Vol/sec", Order = 9040)]
     public bool SotAutoFilterUseEma
 	{
 		get => _sotAutoFilterUseEma;
@@ -974,15 +940,12 @@ public class ClusterStatistic : Indicator
 	#region Imbalance settings
 
 	// ============================================================
-	// Imbalance settings (2000–2090)
+	// Imbalance settings (2000ï¿½2090)
 	// ============================================================
 
 	private int _imbalanceThreshold = 300;
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.ImbalanceThresholdPercentName),
-        GroupName = nameof(Resources.ImbalanceGroup),
-        Order = 2000)]
+	[Display(Name = "Imbalance Threshold (%)", GroupName = "Imbalance", Order = 2000)]
     [Range(101, 999)]
 	public int ImbalanceThreshold
 	{
@@ -999,10 +962,7 @@ public class ClusterStatistic : Indicator
 
 	private int _imbalanceMinDominantVolume = 30;
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.ImbalanceMinDominantVolumeName),
-        GroupName = nameof(Resources.ImbalanceGroup),
-        Order = 2010)]
+	[Display(Name = "Min Dominant Volume", GroupName = "Imbalance", Order = 2010)]
     [Range(1, 100000)]
 	public int ImbalanceMinDominantVolume
 	{
@@ -1019,10 +979,7 @@ public class ClusterStatistic : Indicator
 
 	private int _imbalanceMinDifference = 30;
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.ImbalanceMinDifferenceName),
-        GroupName = nameof(Resources.ImbalanceGroup),
-        Order = 2020)]
+	[Display(Name = "Min Volume Difference", GroupName = "Imbalance", Order = 2020)]
     [Range(0, 100000)]
 	public int ImbalanceMinDifference
 	{
@@ -1040,10 +997,7 @@ public class ClusterStatistic : Indicator
 
 	private int _stackedImbalanceMinLevels = 3;
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.StackedImbalanceMinLevelsName),
-        GroupName = nameof(Resources.ImbalanceGroup),
-        Order = 2030)]
+	[Display(Name = "Stacked Imbalance Min Levels", GroupName = "Imbalance", Order = 2030)]
     [Range(2, 20)]
 	public int StackedImbalanceMinLevels
 	{
@@ -1093,15 +1047,15 @@ public class ClusterStatistic : Indicator
     #region Colors
 
 	// ============================================================
-	// Visualization / Colors (6000–6090)
+	// Visualization / Colors (6000ï¿½6090)
 	// ============================================================
 
-	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.BackGround), GroupName = nameof(Resources.Visualization),
-		Description = nameof(Resources.LabelFillColorDescription), Order = 6000)]
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.BackGround), GroupName = nameof(Strings.Visualization),
+		Description = nameof(Strings.LabelFillColorDescription), Order = 6000)]
 	public Color BackGroundColor { get; set; } = Color.FromArgb(120, 0, 0, 0);
 
 	[Range(1, 10)]
-	[Display(ResourceType = typeof(Resources), Name = nameof(Resources.Transparency), GroupName = nameof(Resources.Visualization), Order = 6010)]
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Transparency), GroupName = nameof(Strings.Visualization), Order = 6010)]
 	public int BgTransparency
 	{
 		get => _bgTransparency;
@@ -1128,10 +1082,7 @@ public class ClusterStatistic : Indicator
 		Description = nameof(Strings.VisibleProportionDescription), Order = 6030)]
 	public bool VisibleProportion { get; set; }
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.RatiosAsPercent),
-        GroupName = nameof(Resources.Visualization),
-        Order = 6040)]
+	[Display(Name = "Ratios as Percent", GroupName = nameof(Strings.Visualization), Order = 6040)]
     public bool RatiosAsPercent
 	{
 		get => _ratiosAsPercent;
@@ -1155,7 +1106,7 @@ public class ClusterStatistic : Indicator
 	#region Text
 
 	// ============================================================
-	// Text (7000–7090)
+	// Text (7000ï¿½7090)
 	// ============================================================
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Color), GroupName = nameof(Strings.Text),
@@ -1191,7 +1142,7 @@ public class ClusterStatistic : Indicator
 	#region Headers
 
 	// ============================================================
-	// Headers (8000–8090)
+	// Headers (8000ï¿½8090)
 	// ============================================================
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Color), GroupName = nameof(Strings.Headers),
@@ -1211,7 +1162,7 @@ public class ClusterStatistic : Indicator
 	#region Volume Alert
 
 	// ============================================================
-	// Alerts (4000–4090 Volume, 5000–5090 Delta, 3000–3090 Net Imbalance)
+	// Alerts (4000ï¿½4090 Volume, 5000ï¿½5090 Delta, 3000ï¿½3090 Net Imbalance)
 	// ============================================================
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.VolumeAlert),
@@ -1447,10 +1398,7 @@ public class ClusterStatistic : Indicator
 
 	private bool _useNetImbalanceAlert;
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.Enabled),
-        GroupName = nameof(Resources.NetImbalanceAlertGroup),
-        Order = 3000)]
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = "Net Imbalance Alert", Order = 3000)]
     public bool UseNetImbalanceAlert
 	{
 		get => _useNetImbalanceAlert;
@@ -1467,24 +1415,15 @@ public class ClusterStatistic : Indicator
 	}
 
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.NetImbalanceAlertThresholdAbs),
-        GroupName = nameof(Resources.NetImbalanceAlertGroup),
-        Order = 3010)]
+	[Display(Name = "Alert Threshold (abs)", GroupName = "Net Imbalance Alert", Order = 3010)]
     [Range(1, 100000)]
 	public int NetImbalanceAlertValue { get; set; } = 6;
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.NetImbalanceAlertUseClosedCandle),
-        GroupName = nameof(Resources.NetImbalanceAlertGroup),
-        Order = 3020)]
+	[Display(Name = "Use Closed Candle", GroupName = "Net Imbalance Alert", Order = 3020)]
     public bool UseClosedCandleForNetImbalanceAlert { get; set; }
 
-    [Display(ResourceType = typeof(Resources),
-        Name = nameof(Resources.AlertFile),
-        GroupName = nameof(Resources.NetImbalanceAlertGroup),
-        Order = 3030)]
-    public string NetImbalanceAlertFile { get; set; } = "alert1";
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = "Net Imbalance Alert", Order = 3030)]
+	public string NetImbalanceAlertFile { get; set; } = "alert1";
 
 	#endregion
 
