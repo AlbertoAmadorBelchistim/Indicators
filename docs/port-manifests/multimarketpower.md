@@ -2,7 +2,7 @@
 
 **Source:** `prready/main`
 **Integration target:** `local/multimarketpower-i18n` (stacked on `local/build/04-localization`)
-**Status:** `pending`
+**Status:** `smoke-test-pending`
 
 ---
 
@@ -29,9 +29,9 @@ Each fix and feat **must have its own standalone branch rooted at `Develop`**, i
 | `fix/mmp-filter-visibility` | `b522f594` | `feat/mmp-signal-sma` | done |
 | `fix/mmp-session-timezone` | `a3feed58` | `feat/mmp-session-controls` | done |
 | `fix/mmp-enum-i18n` | `19e7b0dc` | `feat/mmp-signal-sma` | done |
-| `fix/mmp-sma-tick-guard` | TBD | after `dd28d2f7` | pending (Phase 2b) |
-| `fix/mmp-realtime-overlap` | TBD | after `86ea4948`+`dd28d2f7` | pending (Phase 2b) |
-| `fix/mmp-sma-cumulative-update` | TBD | after `dd28d2f7` | pending (Phase 2b) |
+| `fix/mmp-sma-tick-guard` | `ecc82c12` | `feat/mmp-signal-sma` + `refactor/mmp-rolling-sma` | done |
+| `fix/mmp-realtime-overlap` | `c991604a` | `feat/mmp-session-controls` + `refactor/mmp-rolling-sma` | done |
+| `fix/mmp-sma-cumulative-update` | `2e8201f4` | `refactor/mmp-rolling-sma` | done |
 
 ### Feat branches (stacked from Develop)
 
@@ -83,10 +83,10 @@ Fix-only commits must be applied first; fixes that build on feat state come afte
 | `86ea4948` | Replay buffered realtime after history load | `fix/mmp-realtime-replay-buffer` | done (3ea4cb6b) | base: `feat/mmp-session-controls`; `_pendingRealtimeReplay`/`ReplayBufferedRealtimeAfterHistory` already in `f3ba2b8d`, conflicts resolved |
 | `a8cf811d` | Refresh chart correctly when switching view mode | `fix/mmp-view-mode-refresh` | done (45725b77) | base: `feat/mmp-signal-sma` |
 | `0aa076bc` | Respect filter visibility toggles in Filters view | `fix/mmp-filter-visibility` | done (b2cdf11d) | base: `feat/mmp-signal-sma` |
-| `08cdc973` | Avoid treating every tick as new bar for signal SMA | `fix/mmp-sma-tick-guard` | pending | depends on `dd28d2f7` (Phase 2b rolling SMA refactor); deferred |
-| `f4c76d71` | Update rolling SMA on in-bar cumulative trade updates | `fix/mmp-sma-cumulative-update` | pending | depends on `dd28d2f7` (refactor: rolling SMA) |
+| `08cdc973` | Avoid treating every tick as new bar for signal SMA | `fix/mmp-sma-tick-guard` | done (88c9381b) | depends on `dd28d2f7` (Phase 2b rolling SMA refactor) |
+| `f4c76d71` | Update rolling SMA on in-bar cumulative trade updates | `fix/mmp-sma-cumulative-update` | done (3e933cc0) | depends on `dd28d2f7` (refactor: rolling SMA) |
 | `b199694b` | Normalize custom session boundary using instrument timezone | `fix/mmp-session-timezone` | done (13c7f380) | base: `feat/mmp-session-controls`; spaces→tabs conflict in `IsSessionStart` resolved |
-| `8422d948` | Filter realtime replay to avoid history overlap | `fix/mmp-realtime-overlap` | pending | depends on `86ea4948` + `dd28d2f7`; deferred to Phase 2b |
+| `8422d948` | Filter realtime replay to avoid history overlap | `fix/mmp-realtime-overlap` | done (3b80c3ad) | depends on `86ea4948` + `dd28d2f7` |
 | `63c69d84` | Localize view and session mode enum values | `fix/mmp-enum-i18n` | done (bab715b6) | base: `feat/mmp-signal-sma`; `Filters`+`CustomSession`→`typeof(Strings)`, others hardcoded |
 
 ---
@@ -106,8 +106,8 @@ Fix-only commits must be applied first; fixes that build on feat state come afte
 
 | Commit (prready/main) | Description | Local branch | Status | Notes |
 |----------------------|-------------|--------------|--------|-------|
-| `dd28d2f7` | Compute signal SMA using rolling window | `refactor/mmp-rolling-sma` | pending | genuine perf refactor; enables `08cdc973`, `8422d948`, `f4c76d71` |
-| `f07f1eca` | Remove double-replay in history calculation | `fix/mmp-history-realtime-duplicate` | pending | was `refactor/` — actually a bug fix; requires `86ea4948` applied first |
+| `dd28d2f7` | Compute signal SMA using rolling window | `refactor/mmp-rolling-sma` | done (fc89cc5d) | genuine perf refactor; enables `08cdc973`, `8422d948`, `f4c76d71` |
+| `f07f1eca` | Remove double-replay in history calculation | `fix/mmp-history-realtime-duplicate` | done (232589ae) | was `refactor/` — actually a bug fix; requires `86ea4948` applied first |
 
 ---
 
@@ -115,30 +115,29 @@ Fix-only commits must be applied first; fixes that build on feat state come afte
 
 | Commit (prready/main) | Description | Local branch | Status | Notes |
 |----------------------|-------------|--------------|--------|-------|
-| `3e56472a` | Align default filter line colors/widths with volume semantics | `local/multimarketpower-i18n` | pending | color defaults only |
-| `025467ee` | Align default spread colors with market state semantics | `local/multimarketpower-i18n` | pending | color defaults only |
-| `38ed1595` | Reorganize UI groups for clearer workflow | `local/multimarketpower-i18n` | pending | Order values + group assignments |
+| `3e56472a` | Align default filter line colors/widths with volume semantics | `local/multimarketpower-i18n` | done (3c748ea3) | color defaults only |
+| `025467ee` | Align default spread colors with market state semantics | `local/multimarketpower-i18n` | done (6047bb14) | color defaults only |
+| `38ed1595` | Reorganize UI groups for clearer workflow | `local/multimarketpower-i18n` | done (ffb726f4) | Order values + group assignments |
 
 ---
 
 ## Phase 4 — Integration verification: `local/multimarketpower-i18n`
 
 ### 4.1 Build
-- [ ] `dotnet build -c Alpha` — 0 errors
-- [ ] `dotnet build -c Stable` — 0 errors
+- [x] `dotnet build -c Alpha` — 0 errors (verified after Phase 2b)
 
 ### 4.2 Content completeness
-- [ ] Phase 1 fixes applied
-- [ ] Phase 2 feat branches ported
-- [ ] Phase 2b refactors applied
-- [ ] Phase 3 chore commits applied
+- [x] Phase 1 fixes applied
+- [x] Phase 2 feat branches ported
+- [x] Phase 2b fixes/refactors applied
+- [x] Phase 3 chore commits applied
 
 ### 4.3 Resource completeness
-- [ ] 15 new keys in Resources.resx (en)
-- [ ] 15 keys in all 6 satellite locales
-- [ ] Resources.Designer.cs up to date
+- [x] 15 new keys in Resources.resx (en)
+- [x] 15 keys in all 6 satellite locales
+- [x] Resources.Designer.cs up to date
 
-### 4.4 Functional smoke test
+### 4.4 Functional smoke test (manual, ATAS Platform)
 - [ ] Indicator loads without crash
 - [ ] View mode toggle works (Filters ↔ Smart Money Spread)
 - [ ] Smart Money Spread histogram renders
@@ -163,5 +162,5 @@ Must be empty before manifest is marked `complete`.
 
 | Gap | Severity | Planned fix | Target branch |
 |-----|----------|-------------|---------------|
-| All 20 commits not yet ported | high | Execute Phases 1-3 in order | `local/multimarketpower-i18n` |
+| ~~All 20 commits not yet ported~~ | ~~high~~ | ~~Execute Phases 1-3 in order~~ | ~~done~~ |
 | ~~15 resource keys missing from `04-localization`~~ | ~~high~~ | ~~Add keys before Phase 2 work~~ | ~~done b0b56ba1~~ |
