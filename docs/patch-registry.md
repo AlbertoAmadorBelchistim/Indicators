@@ -8,6 +8,9 @@
 | yes | `ef3f6513` | 2026-03-25 | fix | volume | fix(volume): make alert messages reflect selected input type | fix/volume-alert-label | yes | no | no | not-opened | pending | Upstream strings were hardcoded; uses `GetInputLabel()` |
 | yes | `fdd1bbef` | 2026-03-25 | fix | volume | fix(volume): make MaximumVolume follow selected input | fix/volume-max-follow-input | yes | no | no | not-opened | pending | Lookback used `candle.Volume` instead of `val` |
 | pending | `64ed7f58` | prready/main | fix | delta | fix(delta): clamp price-panel triangle markers to visible region | fix/delta-marker-clamp (not yet created) | yes | no | no | not-opened | pending | Markers outside chart bounds caused visual artifacts |
+| yes | `2ddf2f9e` | 2026-01-15 | fix | multimarketpower | fix(multimarketpower): stabilize historical tick cursor iteration | fix/mmp-history-tick-cursor | yes | no | no | not-opened | pending | Cursor index now scoped per request; avoids stale position across calls |
+| yes | `db0a9615` | 2026-01-15 | fix | multimarketpower | fix(multimarketpower): make historical request window deterministic | fix/mmp-history-request-window | yes | no | no | not-opened | pending | Use last fully-formed bar time as window end to avoid moving-end race |
+| yes | `b2473291` | 2026-01-15 | fix | multimarketpower | fix(multimarketpower): guard OnCalculate against bar 0 | fix/mmp-bar0-guard | yes | no | no | not-opened | pending | Skip calculation on bar 0 to avoid index underrun |
 
 ---
 
@@ -38,8 +41,9 @@ git cherry-pick 8308d666 b3d7354f 70354534 9760b860 f7fd5c82
 
 - `fix/domstrength-*` and `fix/dompower-*` are fully independent and atomic.
 - `fix/volume-max-follow-input` depends on `fix/volume-alert-label` (adds `GetInputLabel()` used by both).
-- All five original patches are safe for PR submission to upstream.
+- All five original Dom/Volume patches are safe for PR submission to upstream.
 - `fix/delta-marker-clamp` is pending branch creation (cherry-pick from `prready/main` commit `64ed7f58`).
+- `fix/mmp-history-*` and `fix/mmp-bar0-guard` are fully independent and atomic — safe for PR submission. All other MMP branches depend on local feat branches not yet submitted upstream.
 
 ---
 
@@ -83,9 +87,9 @@ all target ATAS versions ship `TabAttribute` in `OFT.Attributes.dll`.
 |---|---|---|---|---|
 | `local/build/04-localization` | `local/build/03-version-shims` | resources | Stack | Adds new .resx keys needed by local indicator branches |
 
-#### Included keys (2026-03-25)
+#### Included keys (2026-03-25, updated 2026-03-26)
 
-27 keys for Volume.cs threshold feature + 40 keys for Delta.cs features, across all 7 locales
+27 keys for Volume.cs threshold feature + 40 keys for Delta.cs features + 15 keys for MultiMarketPower.cs features, across all 7 locales
 (en, de-de, ru-ru, es-es, fr-fr, hi-in, zh-cn):
 
 **Volume keys (27):** `ThresholdsGroup`, `FixedThresholdGroup`, `DynamicThresholdGroup`, `ShowThresholdLines`,
@@ -100,6 +104,11 @@ and their `*Description` variants.
 `ShowVisualAlerts`, `Slope`, `SlopeDownColor`, `SlopeUpColor`, `ThresholdLevelMajor`, `ThresholdLevelMinor`,
 `VisualDownThresholds`, `VisualUpThresholds`, `ZeroCross`
 and their `*Description` variants.
+
+**MultiMarketPower keys (15):** `ViewMode`, `SessionMode`, `SessionsBack`, `DefaultSession`,
+`SmartMoneySpread`, `Use4ColorSystem`, `Use4ColorSystemDescription`, `ShowSignalLine`,
+`SimplePositiveColor`, `SimpleNegativeColor`, `SimpleColorDescription`,
+`ColorPosSmaUp`, `ColorPosSmaDown`, `ColorNegSmaUp`, `ColorNegSmaDown`.
 
 ### Stack notes
 

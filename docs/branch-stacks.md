@@ -13,7 +13,7 @@ develop
 | `local/build/01-base` | `develop` | PR open | Base local build alignment: `$(ATAS_BASE)`, `net8.0-windows` / `net8.0`, Cross platform exclusions |
 | `local/build/02-multiversion` | `local/build/01-base` | local-only | Multi-flavor build configs: Alpha / Beta / Latest / Stable / ATAS_X_Alpha / ATAS_X_Beta |
 | `local/build/03-version-shims` | `local/build/02-multiversion` | local-only | Version compatibility shims + TabAttribute stub for pre-release OFT.Attributes |
-| `local/build/04-localization` | `local/build/03-version-shims` | local-only | New .resx keys for Volume + Delta features (67 keys total, all 6 locales) |
+| `local/build/04-localization` | `local/build/03-version-shims` | local-only | New .resx keys for Volume + Delta + MultiMarketPower features (82 keys total, all 7 locales) |
 
 ## Delta branches
 
@@ -63,6 +63,49 @@ develop
 | `fix/volume-max-follow-input` | `fix/volume-alert-label` | PR-ready | MaxFollowInput: highest-vol lookback now uses `val` (current input) not `candle.Volume` |
 | `feature/volume-thresholds` | `fix/volume-max-follow-input` | local-only | Fixed and dynamic (Welford) volume threshold lines with session-aware reset |
 | `local/volume-i18n` | `local/build/04-localization` | local-only | Full i18n of Volume.cs: all display strings via Resources, bugs fixed (double-paren, color setters) |
+
+## MultiMarketPower branches
+
+```text
+develop
+├─ fix/mmp-history-tick-cursor       (PR-ready)
+├─ fix/mmp-history-request-window    (PR-ready)
+├─ fix/mmp-bar0-guard                (PR-ready)
+├─ feat/mmp-spread-series            (local)
+│  └─ feat/mmp-view-mode             (local)
+│     └─ feat/mmp-session-controls   (local)
+│        ├─ fix/mmp-realtime-replay-buffer   (local)
+│        ├─ fix/mmp-session-timezone         (local)
+│        └─ feat/mmp-signal-sma      (local)
+│           ├─ fix/mmp-view-mode-refresh     (local)
+│           ├─ fix/mmp-filter-visibility     (local)
+│           └─ fix/mmp-enum-i18n             (local)
+└─ local/build/04-localization
+   └─ local/multimarketpower-i18n    (local)
+      (also absorbs: refactor/mmp-rolling-sma, fix/mmp-history-realtime-duplicate,
+       fix/mmp-sma-cumulative-update, fix/mmp-sma-tick-guard, fix/mmp-realtime-overlap)
+```
+
+| Branch | Parent | Status | Notes |
+|---|---|---|---|
+| `fix/mmp-history-tick-cursor` | `develop` | PR-ready | Stabilize historical tick cursor iteration |
+| `fix/mmp-history-request-window` | `develop` | PR-ready | Make historical request window deterministic |
+| `fix/mmp-bar0-guard` | `develop` | PR-ready | Guard OnCalculate against bar 0 |
+| `feat/mmp-spread-series` | `develop` | local-only | Add Smart Money Spread histogram series |
+| `feat/mmp-view-mode` | `feat/mmp-spread-series` | local-only | Add ViewMode toggle (Filters ↔ Smart Money Spread) |
+| `feat/mmp-session-controls` | `feat/mmp-view-mode` | local-only | Add SessionMode/SessionsBack controls and session-based resets |
+| `feat/mmp-signal-sma` | `feat/mmp-session-controls` | local-only | Add signal SMA line and 4-color spread shading |
+| `fix/mmp-realtime-replay-buffer` | `feat/mmp-session-controls` | local-only | Replay buffered realtime data after history load |
+| `fix/mmp-session-timezone` | `feat/mmp-session-controls` | local-only | Normalize custom session boundary with instrument timezone |
+| `fix/mmp-view-mode-refresh` | `feat/mmp-signal-sma` | local-only | Refresh chart correctly when switching view mode |
+| `fix/mmp-filter-visibility` | `feat/mmp-signal-sma` | local-only | Respect filter visibility toggles in Filters view |
+| `fix/mmp-enum-i18n` | `feat/mmp-signal-sma` | local-only | Localize ViewMode/SessionMode enum display values |
+| `refactor/mmp-rolling-sma` | `feat/mmp-signal-sma` | local-only | Compute signal SMA using O(1) rolling window instead of O(n) loop |
+| `fix/mmp-history-realtime-duplicate` | `fix/mmp-realtime-replay-buffer` | local-only | Remove double-replay of realtime trades during history calculation |
+| `fix/mmp-sma-cumulative-update` | `refactor/mmp-rolling-sma` | local-only | Update rolling SMA on in-bar cumulative trade updates |
+| `fix/mmp-sma-tick-guard` | `refactor/mmp-rolling-sma` | local-only | Avoid treating every tick as new bar for signal SMA |
+| `fix/mmp-realtime-overlap` | `refactor/mmp-rolling-sma` | local-only | Filter realtime replay to avoid history overlap |
+| `local/multimarketpower-i18n` | `local/build/04-localization` | local-only | Full port of MultiMarketPower.cs: all new display strings via `typeof(Resources)` |
 
 ## Patch branches
 
