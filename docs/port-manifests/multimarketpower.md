@@ -6,6 +6,38 @@
 
 ---
 
+## Phase -1 — Standalone branches (Develop-based)
+
+Each fix and feat **must have its own standalone branch rooted at `Develop`**, independent of the integration branch and the localization infrastructure branch. This allows individual PRs to be reviewed without requiring the full localization stack.
+
+**Rules:**
+- Base: `git checkout -B <branch> Develop`
+- `typeof(Resources)` **must not be used** for keys that don't exist in the platform `Strings` class on `Develop`. Use hardcoded English strings instead.
+- Keys available in `Strings` on `Develop`: `Visualization`, `SignalPeriod`, `Session`, `CustomSessionStart` (and all keys used by other existing indicators).
+- Keys that must be hardcoded: `ViewMode`, `SessionMode`, `SessionsBack`, `DefaultSession`, `SmartMoneySpread`, `Use4ColorSystem`, `Use4ColorSystemDescription`, `ShowSignalLine`, `SimplePositiveColor`, `SimpleNegativeColor`, `SimpleColorDescription`, `ColorPosSmaUp`, `ColorPosSmaDown`, `ColorNegSmaUp`, `ColorNegSmaDown`.
+- **Build note:** `dotnet build -c Alpha` on `Develop`-based branches may fail with MC1000 (DevExpress XAML assembly error). This is an environmental issue on `Develop` unrelated to C# changes. Verify logic review instead.
+
+### Fix branches (Develop-based)
+
+| Branch | Develop-based commit | Status |
+|--------|---------------------|--------|
+| `fix/mmp-history-tick-cursor` | `2ddf2f9e` | done |
+| `fix/mmp-history-request-window` | `db0a9615` | done |
+| `fix/mmp-bar0-guard` | `b2473291` | done |
+
+### Feat branches (stacked from Develop)
+
+Feat branches are stacked because they share code dependencies. All ultimately have `Develop` as ancestor.
+
+| Branch | Develop-based commit | Stacked on | Status |
+|--------|---------------------|------------|--------|
+| `feat/mmp-spread-series` | `8b56d6d7` | `Develop` | done |
+| `feat/mmp-view-mode` | `d0ac758a` | `feat/mmp-spread-series` | done |
+| `feat/mmp-session-controls` | `7d74b6ef` | `feat/mmp-view-mode` | done |
+| `feat/mmp-signal-sma` | `c5efe05a` | `feat/mmp-session-controls` | done |
+
+---
+
 ## Phase 0 — Resource keys required in `local/build/04-localization`
 
 15 new keys needed. All others already exist (`Filters`, `General`, `Session`, `CustomSession`, `CustomSessionStart`, `SignalPeriod`).

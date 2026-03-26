@@ -36,6 +36,32 @@ Status values:
 
 ---
 
+## Phase -1 — Standalone branches (Develop-based)
+
+Each fix and feat **must have its own standalone branch rooted at `Develop`**, independent of the integration branch and the localization infrastructure. This allows individual PRs to be reviewed without requiring the full localization stack.
+
+**Rules:**
+- Base: `git checkout -B <branch> Develop`
+- `typeof(Resources)` **must not be used** for keys that don't exist in the platform `Strings` class on `Develop`. Use hardcoded English strings instead.
+- Check which indicator-specific keys are NOT in `Strings` before creating branches; hardcode those, use `typeof(Strings)` only where both `Name` and `GroupName` keys exist in `Strings`.
+- **Build note:** `dotnet build -c Alpha` on `Develop`-based branches may fail with MC1000 (DevExpress XAML assembly error). This is a pre-existing environmental issue on `Develop`, not a C# error in your changes.
+
+### Fix branches (Develop-based)
+
+| Branch | Develop-based commit | Status |
+|--------|---------------------|--------|
+| `fix/[indicator]-...` | | pending |
+
+### Feat branches (stacked from Develop)
+
+Feat branches are stacked when they share code dependencies. All must ultimately have `Develop` as ancestor.
+
+| Branch | Develop-based commit | Stacked on | Status |
+|--------|---------------------|------------|--------|
+| `feat/[indicator]-...` | | `Develop` | pending |
+
+---
+
 ## Phase 0 — Resource keys required in `local/build/04-localization`
 
 Keys that do not exist in upstream `Strings` and must be added to `Resources.resx` (all locales)
