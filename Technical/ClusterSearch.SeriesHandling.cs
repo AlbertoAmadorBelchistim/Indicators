@@ -1,6 +1,5 @@
 ﻿namespace ATAS.Indicators.Technical;
 
-using ATAS.Indicators.Technical.Properties;
 using System;
 
 using OFT.Localization;
@@ -159,7 +158,7 @@ public partial class ClusterSearch
             CalcMode.Volume => Strings.Volume,
             CalcMode.Tick => Strings.Ticks,
             CalcMode.MaxVolume => Strings.PocLevel,
-            CalcMode.DiagonalImbalance => Resources.DiagonalImbalance,
+            CalcMode.DiagonalImbalance => "Diagonal Imbalance",
             _ => ""
         };
 

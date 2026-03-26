@@ -1,6 +1,5 @@
 namespace ATAS.Indicators.Technical;
 
-using ATAS.Indicators.Technical.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -844,6 +843,7 @@ public partial class ClusterSearch : Indicator
 		get => _type;
         set
         {
+            var previous = _type;
             _type = value;
 
             if (value == CalcMode.DiagonalImbalance)
@@ -852,10 +852,14 @@ public partial class ClusterSearch : Indicator
                 MinimumFilter.Enabled = false;
                 MaximumFilter.Enabled = false;
             }
+            else if (previous == CalcMode.DiagonalImbalance)
+            {
+                MinimumFilter.Enabled = true;
+                MaximumFilter.Enabled = true;
+            }
 
             RecalculateValues();
         }
-
     }
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Filters), Name = nameof(Strings.AutoFilter),
@@ -988,10 +992,9 @@ public partial class ClusterSearch : Indicator
 
     private decimal _imbalanceRatio = 3m;
 
-    [Display(ResourceType = typeof(Resources),
-        GroupName = nameof(Resources.DiagonalImbalancesFilters),
-        Name = nameof(Resources.ImbalanceRatio),
-        Description = nameof(Resources.ImbalanceRatioDescription),
+    [Display(GroupName = "Diagonal Imbalance Filters",
+        Name = "Imbalance Ratio",
+        Description = "Minimum dominance ratio between aggressor and passive side required to validate a diagonal imbalance.",
         Order = 320)]
     [Range(1, 100)]
     public decimal ImbalanceRatio
@@ -1007,10 +1010,9 @@ public partial class ClusterSearch : Indicator
 
     private decimal _minVolumeDifference = 30m;
 
-    [Display(ResourceType = typeof(Resources),
-        GroupName = nameof(Resources.DiagonalImbalancesFilters),
-        Name = nameof(Resources.MinVolumeDifference),
-        Description = nameof(Resources.MinVolumeDifferenceDescription),
+    [Display(GroupName = "Diagonal Imbalance Filters",
+        Name = "Minimum Volume Difference",
+        Description = "Minimum absolute volume difference between aggressor and passive side required for confirmation.",
         Order = 330)]
     [Range(0, 1000000)]
     public decimal MinVolumeDifference
@@ -1026,10 +1028,9 @@ public partial class ClusterSearch : Indicator
 
     private decimal _minDominantVolume = 100m;
 
-    [Display(ResourceType = typeof(Resources),
-        GroupName = nameof(Resources.DiagonalImbalancesFilters),
-        Name = nameof(Resources.MinDominantVolume),
-        Description = nameof(Resources.MinDominantVolumeDescription),
+    [Display(GroupName = "Diagonal Imbalance Filters",
+        Name = "Minimum Dominant Volume",
+        Description = "Minimum traded volume on the dominant side required to mark an imbalance.",
         Order = 340)]
     [Range(0, 1000000)]
     public decimal MinDominantVolume
@@ -1045,10 +1046,9 @@ public partial class ClusterSearch : Indicator
 
     private int _imbalanceStackedRange = 1;
 
-    [Display(ResourceType = typeof(Resources),
-        GroupName = nameof(Resources.DiagonalImbalancesFilters),
-        Name = nameof(Resources.ImbalanceStackedRange),
-        Description = nameof(Resources.ImbalanceStackedRangeDescription),
+    [Display(GroupName = "Diagonal Imbalance Filters",
+        Name = "Imbalance Stacked Range",
+        Description = "Number of consecutive imbalance windows required to confirm a stacked imbalance.",
         Order = 350)]
     [Range(1, 10)]
     public int ImbalanceStackedRange
@@ -1068,10 +1068,9 @@ public partial class ClusterSearch : Indicator
 
     private bool _useSeparateColors = true;
 
-    [Display(ResourceType = typeof(Resources),
-        GroupName = nameof(Resources.ImbalancesVisualization),
-        Name = nameof(Resources.UseSeparateColors),
-        Description = nameof(Resources.UseSeparateColorsDescription),
+    [Display(GroupName = "Imbalances Visualization",
+        Name = "Use Separate Colors",
+        Description = "Color diagonal imbalances by direction (buy vs sell).",
         Order = 360)]
     public bool UseSeparateColors
     {
@@ -1086,10 +1085,9 @@ public partial class ClusterSearch : Indicator
 
     private CrossColor _buyImbalanceColor = CrossColors.Green;
 
-    [Display(ResourceType = typeof(Resources),
-        GroupName = nameof(Resources.ImbalancesVisualization),
-        Name = nameof(Resources.BuyImbalanceColor),
-        Description = nameof(Resources.BuyImbalanceColorDescription),
+    [Display(GroupName = "Imbalances Visualization",
+        Name = "Buy Imbalance Color",
+        Description = "Color used for buy-side diagonal imbalances.",
         Order = 370)]
     public CrossColor BuyImbalanceColor
     {
@@ -1104,10 +1102,9 @@ public partial class ClusterSearch : Indicator
 
     private CrossColor _sellImbalanceColor = CrossColors.Red;
 
-    [Display(ResourceType = typeof(Resources),
-        GroupName = nameof(Resources.ImbalancesVisualization),
-        Name = nameof(Resources.SellImbalanceColor),
-        Description = nameof(Resources.SellImbalanceColorDescription),
+    [Display(GroupName = "Imbalances Visualization",
+        Name = "Sell Imbalance Color",
+        Description = "Color used for sell-side diagonal imbalances.",
         Order = 380)]
     public CrossColor SellImbalanceColor
     {

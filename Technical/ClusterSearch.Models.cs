@@ -1,6 +1,5 @@
 ﻿namespace ATAS.Indicators.Technical;
 
-using ATAS.Indicators.Technical.Properties;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -53,7 +52,7 @@ public partial class ClusterSearch
         [Display(ResourceType = typeof(Strings), Name = nameof(Strings.PocLevel))]
         MaxVolume = 5,
 
-        [Display(ResourceType = typeof(Resources), Name = nameof(Resources.DiagonalImbalance))]
+        [Display(Name = "Diagonal Imbalance")]
         DiagonalImbalance = 6,
 
         [Browsable(false)]
