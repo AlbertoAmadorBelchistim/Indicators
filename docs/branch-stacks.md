@@ -13,7 +13,7 @@ develop
 | `local/build/01-base` | `develop` | PR open | Base local build alignment: `$(ATAS_BASE)`, `net8.0-windows` / `net8.0`, Cross platform exclusions |
 | `local/build/02-multiversion` | `local/build/01-base` | local-only | Multi-flavor build configs: Alpha / Beta / Latest / Stable / ATAS_X_Alpha / ATAS_X_Beta |
 | `local/build/03-version-shims` | `local/build/02-multiversion` | local-only | Version compatibility shims + TabAttribute stub for pre-release OFT.Attributes |
-| `local/build/04-localization` | `local/build/03-version-shims` | local-only | New .resx keys for Volume + Delta + MultiMarketPower features (82 keys total, all 7 locales) |
+| `local/build/04-localization` | `local/build/03-version-shims` | local-only | New .resx keys for Volume + Delta + MultiMarketPower + ClusterSearch features (99 keys total, all 7 locales) |
 
 ## Delta branches
 
@@ -106,6 +106,23 @@ develop
 | `fix/mmp-sma-tick-guard` | `refactor/mmp-rolling-sma` | local-only | Avoid treating every tick as new bar for signal SMA |
 | `fix/mmp-realtime-overlap` | `refactor/mmp-rolling-sma` | local-only | Filter realtime replay to avoid history overlap |
 | `local/multimarketpower-i18n` | `local/build/04-localization` | local-only | Full port of MultiMarketPower.cs: all new display strings via `typeof(Resources)` |
+
+## ClusterSearch branches
+
+```text
+develop
+├─ fix/cs-dead-fields                (PR-ready)
+├─ feat/cs-diagonal-imbalance        (local)
+└─ local/build/04-localization
+   └─ local/clustersearch-i18n       (local)
+      (absorbs: fix/cs-dead-fields, feat/cs-diagonal-imbalance)
+```
+
+| Branch | Parent | Status | Notes |
+|---|---|---|---|
+| `fix/cs-dead-fields` | `develop` | PR-ready | Remove unused `_pocPrice`/`_pocVolume` fields and dead `Transparency` property |
+| `feat/cs-diagonal-imbalance` | `develop` | local-only | DiagonalImbalance CalcMode: detection logic, stacked windows, separate buy/sell colors; CalcType setter restores filters on exit |
+| `local/clustersearch-i18n` | `local/build/04-localization` | local-only | Full port of ClusterSearch: dead fields removed + DiagonalImbalance feature; awaiting smoke test |
 
 ## Patch branches
 

@@ -11,6 +11,7 @@
 | yes | `2ddf2f9e` | 2026-01-15 | fix | multimarketpower | fix(multimarketpower): stabilize historical tick cursor iteration | fix/mmp-history-tick-cursor | yes | no | no | not-opened | pending | Cursor index now scoped per request; avoids stale position across calls |
 | yes | `db0a9615` | 2026-01-15 | fix | multimarketpower | fix(multimarketpower): make historical request window deterministic | fix/mmp-history-request-window | yes | no | no | not-opened | pending | Use last fully-formed bar time as window end to avoid moving-end race |
 | yes | `b2473291` | 2026-01-15 | fix | multimarketpower | fix(multimarketpower): guard OnCalculate against bar 0 | fix/mmp-bar0-guard | yes | no | no | not-opened | pending | Skip calculation on bar 0 to avoid index underrun |
+| yes | `7a3599f3` | 2026-03-26 | fix | clustersearch | fix(ClusterSearch): remove unused _pocPrice/_pocVolume fields and dead Transparency property | fix/cs-dead-fields | yes | no | no | not-opened | pending | Dead fields set but never read; property was [Browsable(false)] and never referenced |
 
 ---
 
@@ -44,6 +45,7 @@ git cherry-pick 8308d666 b3d7354f 70354534 9760b860 f7fd5c82
 - All five original Dom/Volume patches are safe for PR submission to upstream.
 - `fix/delta-marker-clamp` is pending branch creation (cherry-pick from `prready/main` commit `64ed7f58`).
 - `fix/mmp-history-*` and `fix/mmp-bar0-guard` are fully independent and atomic — safe for PR submission. All other MMP branches depend on local feat branches not yet submitted upstream.
+- `fix/cs-dead-fields` is fully independent and atomic — safe for PR submission. All other ClusterSearch branches depend on local feat branches not yet submitted upstream.
 
 ---
 
@@ -89,7 +91,7 @@ all target ATAS versions ship `TabAttribute` in `OFT.Attributes.dll`.
 
 #### Included keys (2026-03-25, updated 2026-03-26)
 
-27 keys for Volume.cs threshold feature + 40 keys for Delta.cs features + 15 keys for MultiMarketPower.cs features, across all 7 locales
+27 keys for Volume.cs threshold feature + 40 keys for Delta.cs features + 15 keys for MultiMarketPower.cs features + 17 keys for ClusterSearch DiagonalImbalance feature, across all 7 locales
 (en, de-de, ru-ru, es-es, fr-fr, hi-in, zh-cn):
 
 **Volume keys (27):** `ThresholdsGroup`, `FixedThresholdGroup`, `DynamicThresholdGroup`, `ShowThresholdLines`,
@@ -109,6 +111,11 @@ and their `*Description` variants.
 `SmartMoneySpread`, `Use4ColorSystem`, `Use4ColorSystemDescription`, `ShowSignalLine`,
 `SimplePositiveColor`, `SimpleNegativeColor`, `SimpleColorDescription`,
 `ColorPosSmaUp`, `ColorPosSmaDown`, `ColorNegSmaUp`, `ColorNegSmaDown`.
+
+**ClusterSearch keys (17):** `DiagonalImbalance`, `DiagonalImbalancesFilters`, `ImbalancesVisualization`,
+`ImbalanceRatio`, `MinVolumeDifference`, `MinDominantVolume`, `ImbalanceStackedRange`,
+`UseSeparateColors`, `BuyImbalanceColor`, `SellImbalanceColor`
+and their `*Description` variants (7 keys). Note: `ImbalanceRatio` key already existed in Designer.cs (OHLCPlus); only 16 new Designer.cs properties added.
 
 ### Stack notes
 
