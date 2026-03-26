@@ -12,6 +12,7 @@
 | yes | `db0a9615` | 2026-01-15 | fix | multimarketpower | fix(multimarketpower): make historical request window deterministic | fix/mmp-history-request-window | yes | no | no | not-opened | pending | Use last fully-formed bar time as window end to avoid moving-end race |
 | yes | `b2473291` | 2026-01-15 | fix | multimarketpower | fix(multimarketpower): guard OnCalculate against bar 0 | fix/mmp-bar0-guard | yes | no | no | not-opened | pending | Skip calculation on bar 0 to avoid index underrun |
 | yes | `7a3599f3` | 2026-03-26 | fix | clustersearch | fix(ClusterSearch): remove unused _pocPrice/_pocVolume fields and dead Transparency property | fix/cs-dead-fields | yes | no | no | not-opened | pending | Dead fields set but never read; property was [Browsable(false)] and never referenced |
+| yes | `e6b262f3` | 2026-03-26 | fix | clusterstatistic | fix(clusterstatistic): correct max bid and delta/vol maxima tracking | fix/cs-statistic-maxbid | yes | no | no | not-opened | pending | maxBid was reading candle.Ask (copy-paste bug); deltaPerVol Math.Abs removed (ratio is signed) |
 
 ---
 
@@ -46,6 +47,7 @@ git cherry-pick 8308d666 b3d7354f 70354534 9760b860 f7fd5c82
 - `fix/delta-marker-clamp` is pending branch creation (cherry-pick from `prready/main` commit `64ed7f58`).
 - `fix/mmp-history-*` and `fix/mmp-bar0-guard` are fully independent and atomic — safe for PR submission. All other MMP branches depend on local feat branches not yet submitted upstream.
 - `fix/cs-dead-fields` is fully independent and atomic — safe for PR submission. All other ClusterSearch branches depend on local feat branches not yet submitted upstream.
+- `fix/cs-statistic-maxbid` is fully independent and atomic — safe for PR submission. All other ClusterStatistic branches depend on local feat branches not yet submitted upstream.
 
 ---
 
@@ -91,8 +93,8 @@ all target ATAS versions ship `TabAttribute` in `OFT.Attributes.dll`.
 
 #### Included keys (2026-03-25, updated 2026-03-26)
 
-27 keys for Volume.cs threshold feature + 40 keys for Delta.cs features + 15 keys for MultiMarketPower.cs features + 17 keys for ClusterSearch DiagonalImbalance feature, across all 7 locales
-(en, de-de, ru-ru, es-es, fr-fr, hi-in, zh-cn):
+27 keys for Volume.cs threshold feature + 40 keys for Delta.cs features + 15 keys for MultiMarketPower.cs features + 17 keys for ClusterSearch DiagonalImbalance feature + 74 keys for ClusterStatistic features, across all 7 locales
+(en, de-de, ru-ru, es-ES, fr-fr, hi-in, zh-cn):
 
 **Volume keys (27):** `ThresholdsGroup`, `FixedThresholdGroup`, `DynamicThresholdGroup`, `ShowThresholdLines`,
 `FixedMinorLevel`, `FixedMajorLevel`, `ThresholdSource`, `SessionWindowMode`, `RthStart`, `RthEnd`,
@@ -116,6 +118,8 @@ and their `*Description` variants.
 `ImbalanceRatio`, `MinVolumeDifference`, `MinDominantVolume`, `ImbalanceStackedRange`,
 `UseSeparateColors`, `BuyImbalanceColor`, `SellImbalanceColor`
 and their `*Description` variants (7 keys). Note: `ImbalanceRatio` key already existed in Designer.cs (OHLCPlus); only 16 new Designer.cs properties added.
+
+**ClusterStatistic keys (74):** SoT/Pace rows (11): `ShowDeltaPerSecond`, `ShowDeltaPerSecondDescription`, `ShowPeakVolPerSec`, `ShowPeakDeltaPerSec`, `ShowPeakDeltaPerVol`, `MaxVolPerSecGroup`, `SotTimeWindowSecName`, `SotMinVolumeName`, `SotUseAutoFilterName`, `SotAutoFilterPeriodName`, `SotAutoFilterUseEmaName`. Imbalance rows (11): `ShowBuyImbalances`, `ShowSellImbalances`, `ShowNetImbalances`, `ShowStackedBuyImbalances`, `ShowStackedSellImbalances`, `ShowStackedNetImbalances`, `ImbalanceGroup`, `ImbalanceThresholdPercentName`, `ImbalanceMinDominantVolumeName`, `ImbalanceMinDifferenceName`, `StackedImbalanceMinLevelsName`. Net imbalance alert (6): `NetImbalanceAlertGroup`, `NetImbalanceAlertThresholdAbs`, `NetImbalanceAlertUseClosedCandle`, `AlertNetImbalanceTemplate`, `AlertDeltaTemplate`, `AlertVolumeTemplate`. Row subgroups (6): `RowsPaceGroup`, `RowsPressureGroup`, `RowsImbalanceRowsGroup`, `RowsCandleContextGroup`, `RowsSessionContextGroup`, `RowsRawPrintsGroup`. Display extras (7): `RatiosAsPercent`, `NetStkShort`, `LabelFillColorDescription`, `DeltaVolume`, `DeltaVolumePercent`, `AlertPaceVolPerSecGroup`, `DefaultSession`. Description keys (25): `ShowVolumePerSecondDescription`, `ShowDeltaDescription`, `ShowDeltaPerVolumeDescription`, `ShowDeltaChangeDescription`, `ShowMaximumDeltaDescription`, `ShowMinimumDeltaDescription`, `ShowVolumesDescription`, `ShowTradesCountDescription`, `ShowCandleHeightDescription`, `ShowCandleDurationDescription`, `ShowCandleTimeDescription`, `ShowSessionVolumeDescription`, `ShowSessionDeltaDescription`, `ShowSessionDeltaPerVolumeDescription`, `ShowAsksDescription`, `ShowBidsDescription`, `AlertFileDescription`, `AlertFilterDescription`, `UseAlertDescription`, `CustomSessionStartDescription`, `SessionCumModeDescription`, `AlertCandleHeightGroup`, `AlertCandleTradesGroup`, `AlertCandleVolumeGroup`, `AlertPressureGroup`.
 
 ### Stack notes
 

@@ -2,7 +2,7 @@
 
 **Source:** `prready/main`
 **Integration target:** `local/clusterstatistic-i18n` (stacked on `local/build/04-localization`)
-**Status:** `in-progress`
+**Status:** `smoke-test-pending`
 
 ---
 
@@ -47,7 +47,7 @@ None identified — all commits ported as-is, with Develop-branch adaptation for
 
 | Branch | Develop-based commit | Base | Status |
 |--------|---------------------|------|--------|
-| `fix/cs-statistic-maxbid` | TBD | `Develop` | pending |
+| `fix/cs-statistic-maxbid` | `e6b262f3` | `Develop` | done |
 
 `fix/cs-statistic-maxbid` ports **`7e78c702`**:
 - `_maxBid = Math.Max(candle.Bid, _maxBid)` — was erroneously using `candle.Ask` (copy-paste bug)
@@ -58,7 +58,7 @@ None identified — all commits ported as-is, with Develop-branch adaptation for
 
 | Branch | HEAD commit | Stacked on | Status |
 |--------|------------|------------|--------|
-| `feat/cs-statistic` | TBD | `Develop` | pending |
+| `feat/cs-statistic` | `b618cc0a` | `Develop` | done |
 
 `feat/cs-statistic` contains **27 commits** (all prready/main feat+refactor+fix commits except `9e656e71` which is split — see Phase 2b).
 
@@ -68,13 +68,13 @@ None identified — all commits ported as-is, with Develop-branch adaptation for
 
 **74 net new keys** from 5 commits:
 
-| Commit | Action | Files | Notes |
-|--------|--------|-------|-------|
-| `d32ea792` | +49 keys | All 7 locales (no Designer.cs) | Main batch: SoT + imbalance keys |
-| `ca44800c` | +3 keys | All 7 locales + Designer.cs | ShowDeltaPerSecond, NetStkShort, LabelFillColorDescription |
-| `3c5546d3` | value fixes + removes 3 keys | All 7 locales | Removes SotUseAutoFilterName, SotAutoFilterPeriodName, SotAutoFilterUseEmaName (superseded by 47457e7c) |
-| `47457e7c` | +25 keys | All 7 locales + Designer.cs | Re-adds the 3 Sot keys with corrected values + 22 description keys |
-| `eee746cb` | value corrections only | All 7 locales + Designer.cs | Corrects DeltaAlert templates (no new keys) |
+| Commit | Action | Files | Notes | Status |
+|--------|--------|-------|-------|--------|
+| `d32ea792` | +49 keys | All 7 locales (no Designer.cs) | Main batch: SoT + imbalance keys | done (`7868c4a1`) |
+| `ca44800c` | +3 keys | All 7 locales + Designer.cs | ShowDeltaPerSecond, NetStkShort, LabelFillColorDescription | done (`bfdb684c`) |
+| `3c5546d3` | value fixes + removes 3 keys | All 7 locales | Removes SotUseAutoFilterName, SotAutoFilterPeriodName, SotAutoFilterUseEmaName (superseded by 47457e7c) | done (`50e306b0`) |
+| `47457e7c` | +25 keys | All 7 locales + Designer.cs | Re-adds the 3 Sot keys with corrected values + 22 description keys | done (`c4346781`) |
+| `eee746cb` | value corrections only | All 7 locales + Designer.cs | Corrects DeltaAlert templates (no new keys) | done (`b8207ba7`) |
 
 ### New keys (74 total after all 5 commits applied)
 
@@ -127,37 +127,38 @@ All 28 remaining commits form a single tightly-coupled stack: `feat/cs-statistic
 
 | Commit (prready/main) | Description | Status |
 |----------------------|-------------|--------|
-| `876d89ab` | Add Delta/sec row with scaling and formatting | pending |
-| `419d2b86` | Add peak Vol/sec and paired Delta rows (plumbing) | pending |
-| `33af74b7` | Compute SoT peak Vol/sec and paired Delta from cumulative trades | pending |
-| `b9ad6779` | Fix: seed SoT live window in chronological order | pending |
-| `a305147a` | Add SoT auto-filter scaling (EMA/SMA) for peak metrics | pending |
-| `7130799f` | Add Peak Delta/Vol row derived from SoT peaks | pending |
+| `876d89ab` | Add Delta/sec row with scaling and formatting | done |
+| `40b7e7d0` | Add peak Vol/sec and paired Delta rows (plumbing) | done |
+| `96bf0433` | Compute SoT peak Vol/sec and paired Delta from cumulative trades | done |
+| `d702f6b1` | Fix: seed SoT live window in chronological order | done |
+| `64bbfb69` | Add SoT auto-filter scaling (EMA/SMA) for peak metrics | done |
+| `a5eeea28` | Add Peak Delta/Vol row derived from SoT peaks | done |
 
 ### Phase 2b — Ratio display + table readability (commits 7–9)
 
 | Commit (prready/main) | Description | Status |
 |----------------------|-------------|--------|
-| `b677ec05` | Refactor: add ratio formatting helper | pending |
-| `4e100638` | Unify ratio formatting and optional percent display | pending |
-| `87cefe24` | Refactor: improve table readability with contrast text and high-rate outlines | pending |
+| `72927be0` | Refactor: add ratio formatting helper | done |
+| `ccd84094` | Unify ratio formatting and optional percent display | done |
+| `669956e3` | Refactor: improve table readability with contrast text and high-rate outlines | done |
 
 ### Phase 2c — Imbalances (commits 10–12)
 
 | Commit (prready/main) | Description | Status |
 |----------------------|-------------|--------|
-| `8dad75ce` | Add buy/sell/net imbalance rows | pending |
-| `ac74892a` | Add net imbalance threshold alert (crossing, no-spam) | pending |
-| `991b0380` | Add stacked imbalances rows (consecutive levels) | pending |
+| `4903d8e2` | Add buy/sell/net imbalance rows | done |
+| `634055f0` | Add net imbalance threshold alert (crossing, no-spam) | done |
+| `6151b7c2` | Add stacked imbalances rows (consecutive levels) | done |
 
-### Phase 2d — Settings refactor + fixes (commits 13–15)
+### Phase 2d — Settings refactor + fixes (commits 13–15, plus pre-existing Revert)
 
 | Commit (prready/main) | Description | Status |
 |----------------------|-------------|--------|
-| `de4b05e3` | Reorder default rows for faster scalping reads | pending |
-| `9ad699ae` | Reorganize settings and row toggles for scalping workflow | pending |
-| `3659ed92` | Fix: correct net imbalance alert crossing (closed candle) | pending |
-| `e4ed3f20` | Perf: gate imbalance computation and rebuild on enable/params change | pending |
+| `8ff73a47` | Revert "CumulativeDalta lining refactoring" | done |
+| `69b6cadd` | Reorder default rows for faster scalping reads | done |
+| `8185c11a` | Reorganize settings and row toggles for scalping workflow | done |
+| `7e4a5932` | Fix: correct net imbalance alert crossing (closed candle) | done |
+| `e9708c76` | Perf: gate imbalance computation and rebuild on enable/params change | done |
 
 ### Phase 2e — i18n refactor (adaptation required on Develop branch)
 
@@ -173,18 +174,18 @@ All 28 remaining commits form a single tightly-coupled stack: `feat/cs-statistic
 
 | Commit (prready/main) | Description | Adaptation | Status |
 |----------------------|-------------|-----------|--------|
-| `9e656e71` | Replace hardcoded UI strings with Resources | Adapt: keep hardcoded/typeof(Strings) on Develop branch | pending |
-| `36658d0b` | Reorganize Rows into logical UI subgroups | Adapt: keep hardcoded for new keys | pending |
-| `b18066ff` | Fix: rebuild imbalances immediately on parameter changes | None | pending |
-| `18add1c8` | Fix: use full-range MAX for non-visible scaling | None | pending |
-| `14a9e105` | Fix: make closed net-imbalance alert deterministic | None | pending |
-| `e5bf859f` | Refactor: centralize imbalance compute gating | None | pending |
-| `4c5a8b06` | Fix: reset SoT runtime window on bar change | None | pending |
-| `0b645e2f` | Chore: align UI order comments with actual property order | Adapt: keep hardcoded for Resources refs | pending |
-| `3e040bed` | Refactor: reuse imbalance series writer in historical rebuild | None | pending |
-| `876edebb` | Fix: use absolute max for net imbalance scaling | None | pending |
-| `b372300b` | Chore: normalize indentation and remove duplicate comments | None | pending |
-| `e0046c0b` | Fix: use auto-filter mean fallback for live bar scaling | Adapt: keep hardcoded for Resources ref | pending |
+| `9e656e71` | Replace hardcoded UI strings with Resources | Adapted on feat branch (`f8e76772` + `40cc7917`) | done |
+| `36658d0b` | Reorganize Rows into logical UI subgroups | Adapted on feat branch (`459d1cb3` + `b618cc0a`) | done |
+| `b18066ff` | Fix: rebuild imbalances immediately on parameter changes | None | done |
+| `18add1c8` | Fix: use full-range MAX for non-visible scaling | None | done |
+| `14a9e105` | Fix: make closed net-imbalance alert deterministic | None | done |
+| `e5bf859f` | Refactor: centralize imbalance compute gating | None | done |
+| `4c5a8b06` | Fix: reset SoT runtime window on bar change | None | done |
+| `0b645e2f` | Chore: align UI order comments with actual property order | Adapted on feat branch | done |
+| `3e040bed` | Refactor: reuse imbalance series writer in historical rebuild | None | done |
+| `876edebb` | Fix: use absolute max for net imbalance scaling | None | done |
+| `b372300b` | Chore: normalize indentation and remove duplicate comments | None | done |
+| `e0046c0b` | Fix: use auto-filter mean fallback for live bar scaling | Adapted on feat branch | done |
 
 ---
 
@@ -203,16 +204,16 @@ Already included in Phase 2e (`b372300b`, `0b645e2f`).
 ## Phase 4 — Integration verification: `local/clusterstatistic-i18n`
 
 ### 4.1 Build
-- [ ] `dotnet build` — 0 C# errors
+- [x] `dotnet build` — 0 C# errors (MC1000 XAML error is environmental DevExpress only)
 
 ### 4.2 Content completeness
-- [ ] Phase 1 fix applied (fix/cs-statistic-maxbid cherry-pick)
-- [ ] Phase 2 feat branch applied (feat/cs-statistic cherry-pick)
+- [x] Phase 1 fix applied: `fix/cs-statistic-maxbid` → `2446c814`
+- [x] Phase 2 feat branch applied: 29 commits cherry-picked, HEAD `71d1f29c`
 
 ### 4.3 Resource completeness
-- [ ] 74 new keys in Resources.resx (en)
-- [ ] 74 keys in all 6 satellite locales
-- [ ] Resources.Designer.cs up to date
+- [x] 74 new keys in Resources.resx (en)
+- [x] 74 keys in all 6 satellite locales
+- [x] Resources.Designer.cs up to date
 
 ### 4.4 Functional smoke test (manual, ATAS Platform)
 - [ ] Indicator loads without crash
@@ -236,9 +237,4 @@ None. All logic ported as-is; only the typeof(Resources) → hardcoded adaptatio
 
 Must be empty before manifest is marked `complete`.
 
-| Gap | Severity | Planned fix | Target branch |
-|-----|----------|-------------|---------------|
-| Phase 0 resource keys not yet added | high | Apply 5 resource commits to local/build/04-localization | `local/build/04-localization` |
-| fix/cs-statistic-maxbid not yet created | high | Cherry-pick 7e78c702 | `fix/cs-statistic-maxbid` |
-| feat/cs-statistic not yet created | high | Cherry-pick 27 commits + adapt i18n | `feat/cs-statistic` |
-| local/clusterstatistic-i18n not yet created | high | Stack on 04-localization | `local/clusterstatistic-i18n` |
+All gaps resolved. Smoke test pending (4.4).

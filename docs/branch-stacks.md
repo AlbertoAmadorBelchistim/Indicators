@@ -13,7 +13,7 @@ develop
 | `local/build/01-base` | `develop` | PR open | Base local build alignment: `$(ATAS_BASE)`, `net8.0-windows` / `net8.0`, Cross platform exclusions |
 | `local/build/02-multiversion` | `local/build/01-base` | local-only | Multi-flavor build configs: Alpha / Beta / Latest / Stable / ATAS_X_Alpha / ATAS_X_Beta |
 | `local/build/03-version-shims` | `local/build/02-multiversion` | local-only | Version compatibility shims + TabAttribute stub for pre-release OFT.Attributes |
-| `local/build/04-localization` | `local/build/03-version-shims` | local-only | New .resx keys for Volume + Delta + MultiMarketPower + ClusterSearch features (99 keys total, all 7 locales) |
+| `local/build/04-localization` | `local/build/03-version-shims` | local-only | New .resx keys for Volume + Delta + MultiMarketPower + ClusterSearch + ClusterStatistic features (173 keys total, all 7 locales) |
 
 ## Delta branches
 
@@ -123,6 +123,23 @@ develop
 | `fix/cs-dead-fields` | `develop` | PR-ready | Remove unused `_pocPrice`/`_pocVolume` fields and dead `Transparency` property |
 | `feat/cs-diagonal-imbalance` | `develop` | local-only | DiagonalImbalance CalcMode: detection logic, stacked windows, separate buy/sell colors; CalcType setter restores filters on exit |
 | `local/clustersearch-i18n` | `local/build/04-localization` | local-only | Full port of ClusterSearch: dead fields removed + DiagonalImbalance feature; awaiting smoke test |
+
+## ClusterStatistic branches
+
+```text
+develop
+├─ fix/cs-statistic-maxbid           (PR-ready)
+├─ feat/cs-statistic                 (local)
+└─ local/build/04-localization
+   └─ local/cs-statistic-i18n        (local)
+      (absorbs: fix/cs-statistic-maxbid, feat/cs-statistic)
+```
+
+| Branch | Parent | Status | Notes |
+|---|---|---|---|
+| `fix/cs-statistic-maxbid` | `develop` | PR-ready | Correct maxBid copy-paste bug + remove unnecessary Math.Abs on delta/vol ratio |
+| `feat/cs-statistic` | `develop` | local-only | 29 commits: SoT metrics, imbalance rows (buy/sell/net/stacked), net imbalance alert, settings refactor; typeof(Resources) adapted to hardcoded strings for Develop |
+| `local/cs-statistic-i18n` | `local/build/04-localization` | local-only | Full port of ClusterStatistic: fix + feat applied with typeof(Resources); awaiting smoke test |
 
 ## Patch branches
 
