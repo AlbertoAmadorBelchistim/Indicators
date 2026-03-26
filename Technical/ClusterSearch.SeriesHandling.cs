@@ -156,6 +156,7 @@ public partial class ClusterSearch
 			CalcMode.Volume => Strings.Volume,
 			CalcMode.Tick => Strings.Ticks,
 			CalcMode.MaxVolume => Strings.PocLevel,
+			CalcMode.DiagonalImbalance => "Diagonal Imbalance",
 			_ => ""
 		};
 

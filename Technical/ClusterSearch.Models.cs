@@ -50,11 +50,14 @@ public partial class ClusterSearch
 		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.PocLevel))]
 		MaxVolume,
 
-		[Browsable(false)]
-		[Obsolete]
-		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Time))]
-		Time
-	}
+	[Display(Name = "Diagonal Imbalance")]
+	DiagonalImbalance = 6,
+
+	[Browsable(false)]
+	[Obsolete]
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Time))]
+	Time = 7
+}
 
 	public enum CandleDirection
 	{

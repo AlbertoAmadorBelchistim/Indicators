@@ -753,7 +753,21 @@ public partial class ClusterSearch : Indicator
 		get => _type;
 		set
 		{
+			var previous = _type;
 			_type = value;
+
+			if (value == CalcMode.DiagonalImbalance)
+			{
+				AutoFilter = false;
+				MinimumFilter.Enabled = false;
+				MaximumFilter.Enabled = false;
+			}
+			else if (previous == CalcMode.DiagonalImbalance)
+			{
+				MinimumFilter.Enabled = true;
+				MaximumFilter.Enabled = true;
+			}
+
 			RecalculateValues();
 		}
 	}
@@ -878,6 +892,137 @@ public partial class ClusterSearch : Indicator
 		set
 		{
 			_deltaFilter = value;
+			RecalculateValues();
+		}
+	}
+
+	#endregion
+
+	#region Imbalance filters
+
+	private decimal _imbalanceRatio = 3m;
+
+	[Display(GroupName = "Diagonal Imbalance Filters",
+		Name = "Imbalance Ratio",
+		Description = "Minimum dominance ratio between aggressor and passive side required to validate a diagonal imbalance.",
+		Order = 320)]
+	[Range(1, 100)]
+	public decimal ImbalanceRatio
+	{
+		get => _imbalanceRatio;
+		set
+		{
+			_imbalanceRatio = value;
+			OnChangeProperty();
+			RecalculateValues();
+		}
+	}
+
+	private decimal _minVolumeDifference = 30m;
+
+	[Display(GroupName = "Diagonal Imbalance Filters",
+		Name = "Minimum Volume Difference",
+		Description = "Minimum absolute volume difference between aggressor and passive side required for confirmation.",
+		Order = 330)]
+	[Range(0, 1000000)]
+	public decimal MinVolumeDifference
+	{
+		get => _minVolumeDifference;
+		set
+		{
+			_minVolumeDifference = value;
+			OnChangeProperty();
+			RecalculateValues();
+		}
+	}
+
+	private decimal _minDominantVolume = 100m;
+
+	[Display(GroupName = "Diagonal Imbalance Filters",
+		Name = "Minimum Dominant Volume",
+		Description = "Minimum traded volume on the dominant side required to mark an imbalance.",
+		Order = 340)]
+	[Range(0, 1000000)]
+	public decimal MinDominantVolume
+	{
+		get => _minDominantVolume;
+		set
+		{
+			_minDominantVolume = value;
+			OnChangeProperty();
+			RecalculateValues();
+		}
+	}
+
+	private int _imbalanceStackedRange = 1;
+
+	[Display(GroupName = "Diagonal Imbalance Filters",
+		Name = "Imbalance Stacked Range",
+		Description = "Number of consecutive imbalance windows required to confirm a stacked imbalance.",
+		Order = 350)]
+	[Range(1, 10)]
+	public int ImbalanceStackedRange
+	{
+		get => _imbalanceStackedRange;
+		set
+		{
+			_imbalanceStackedRange = value;
+			OnChangeProperty();
+			RecalculateValues();
+		}
+	}
+
+	#endregion
+
+	#region Imbalances visualization
+
+	private bool _useSeparateColors = true;
+
+	[Display(GroupName = "Imbalances Visualization",
+		Name = "Use Separate Colors",
+		Description = "Color diagonal imbalances by direction (buy vs sell).",
+		Order = 360)]
+	public bool UseSeparateColors
+	{
+		get => _useSeparateColors;
+		set
+		{
+			_useSeparateColors = value;
+			OnChangeProperty();
+			RecalculateValues();
+		}
+	}
+
+	private CrossColor _buyImbalanceColor = CrossColors.Green;
+
+	[Display(GroupName = "Imbalances Visualization",
+		Name = "Buy Imbalance Color",
+		Description = "Color used for buy-side diagonal imbalances.",
+		Order = 370)]
+	public CrossColor BuyImbalanceColor
+	{
+		get => _buyImbalanceColor;
+		set
+		{
+			_buyImbalanceColor = value;
+			OnChangeProperty();
+			RecalculateValues();
+		}
+	}
+
+	private CrossColor _sellImbalanceColor = CrossColors.Red;
+
+	[Display(GroupName = "Imbalances Visualization",
+		Name = "Sell Imbalance Color",
+		Description = "Color used for sell-side diagonal imbalances.",
+		Order = 380)]
+	public CrossColor SellImbalanceColor
+	{
+		get => _sellImbalanceColor;
+		set
+		{
+			_sellImbalanceColor = value;
+			OnChangeProperty();
 			RecalculateValues();
 		}
 	}
