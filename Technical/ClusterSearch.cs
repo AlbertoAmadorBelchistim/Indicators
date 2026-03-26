@@ -57,8 +57,6 @@ public partial class ClusterSearch : Indicator
 	private bool _onlyOneSelectionPerBar;
 	private Filter _pipsFromHigh = new() { Value = 100000000 };
 	private Filter _pipsFromLow = new() { Value = 100000000 };
-	private decimal _pocPrice;
-	private decimal _pocVolume;
 	private PriceLocation _priceLocation = PriceLocation.Any;
 	private int _priceRange = 1;
 	private bool _showPriceSelection = true;
@@ -356,9 +354,6 @@ public partial class ClusterSearch : Indicator
 		var candle = GetCandle(bar);
 
 		_lastSeriesBar.Clear();
-		_pocPrice = 0;
-		_pocVolume = 0;
-
 		_lastBarFormationValid = CheckBarFormation(candle);
 
 		if (!_lastBarFormationValid)
@@ -387,9 +382,6 @@ public partial class ClusterSearch : Indicator
 
 			if (pocInfo is null || pocInfo.Volume is 0)
 				return;
-
-			_pocPrice = pocInfo.Price;
-			_pocVolume = pocInfo.Volume;
 
 			var inRange = false;
 
@@ -1130,12 +1122,6 @@ public partial class ClusterSearch : Indicator
 				_renderDataSeries[i].ForEach(x => x.PriceSelectionColor = ShowPriceSelection ? _clusterPriceColor : CrossColors.Transparent);
 		}
 	}
-
-	[Browsable(false)]
-	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Visualization), Name = nameof(Strings.ClusterSelectionTransparency), Order = 625,
-		Description = nameof(Strings.PriceSelectionTransparencyDescription))]
-	[Range(0, 100)]
-	public int Transparency { get; set; }
 
 	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Visualization), Name = nameof(Strings.FixedSizes), Order = 640,
 		Description = nameof(Strings.FixedSizesDescription))]
