@@ -102,12 +102,12 @@ Fix-only commits must be applied first; fixes that build on feat state come afte
 
 ---
 
-## Phase 2b — Refactors (depend on feat state, apply after feat)
+## Phase 2b — Fixes and refactors (depend on feat/Phase 1 state)
 
 | Commit (prready/main) | Description | Local branch | Status | Notes |
 |----------------------|-------------|--------------|--------|-------|
-| `f07f1eca` | Remove redundant realtime replay from history calculation | `refactor/mmp-history-realtime` | pending | skippable if high integration cost |
-| `dd28d2f7` | Compute signal SMA using rolling window | `refactor/mmp-rolling-sma` | pending | needed before `f4c76d71` fix |
+| `dd28d2f7` | Compute signal SMA using rolling window | `refactor/mmp-rolling-sma` | pending | genuine perf refactor; enables `08cdc973`, `8422d948`, `f4c76d71` |
+| `f07f1eca` | Remove double-replay in history calculation | `fix/mmp-history-realtime-duplicate` | pending | was `refactor/` — actually a bug fix; requires `86ea4948` applied first |
 
 ---
 
