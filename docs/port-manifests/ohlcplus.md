@@ -19,7 +19,9 @@
 - 43 feat/fix commits form a single tightly-coupled stack (each area builds on prior ones).
 - 3 refactor commits (`8447b822`, `14c68410`, `81a5e616`) are standalone (no behavior change) — candidate for `refactor/ohlcplus-period-helpers`.
 - `635a5706` (Feb 7) is a one-line fix restoring `Color.Convert()` lost in a rebase conflict — belongs at the end of the feat stack.
-- **typeof(Resources) pattern:** Two commits (`6e502c67`, `a12abc02`) use `#if STABLE / typeof(Resources) / #else / typeof(Strings) / #endif` preprocessor guards — **no adaptation needed** for Develop branch. Ten other commits (`4ece1376`, `9edf68b3`, `9d4652fa`, `68d773d0`, `079b863d`, `2bed76ee`, `69fcdc69`, `aa7bbc18`, `30850ada`, `a9d7e36e`) use `typeof(Resources)` directly — **adaptation required** on the Develop-based feat branch.
+- **typeof(Resources) pattern:** `6e502c67` uses `#if STABLE / typeof(Resources) / #else / typeof(Strings) / #endif` guards — **simplify**: strip `#if STABLE` blocks, keep only the `#else` content (`typeof(Strings)`) uniformly. `a12abc02` only modifies the `#if STABLE` branch of `6e502c67` — **skip** entirely (no-op once STABLE blocks are removed). Ten other commits (`4ece1376`, `9edf68b3`, `9d4652fa`, `68d773d0`, `079b863d`, `2bed76ee`, `69fcdc69`, `aa7bbc18`, `30850ada`, `a9d7e36e`) use `typeof(Resources)` directly — **adaptation required** on the Develop-based feat branch.
+- **`ToggleLevelsVisibilityHotKey` `#if ATAS_ALPHA || ATAS_X` guard** — present in `c5ca65ed`. This is a build-flavor concern handled at the `local/build/` layer, not in `feat/ohlcplus` or `local/ohlcplus-i18n`.
+- **Three upstream bugs found** during review — to be fixed as additional commits in `feat/ohlcplus` (see Phase 2f).
 
 ### Discretionary trader / algo trader perspective
 
@@ -30,7 +32,7 @@
 
 ### Intentional additions/deviations
 
-None identified — all commits ported as-is, with Develop-branch adaptation for Resources.
+Three bug fixes added locally (not in prready/main) — see Phase 2f.
 
 ---
 
@@ -146,9 +148,9 @@ The optional 3 period-helper refactors (`8447b822`, `14c68410`, `81a5e616`) may 
 |----------------------|-------------|-----------|--------|
 | `b425f198` | Scaffold pq02 visual semantic descriptors | None | pending |
 | `9664a58f` | Fix: avoid redundant redraws when levels unchanged | None | pending |
-| `a12abc02` | Fix: align UI resources for stable vs alpha (#if STABLE guards) | **None — #if STABLE guards handle both builds** | pending |
+| ~~`a12abc02`~~ | ~~Fix: align UI resources for stable vs alpha~~  | **Skip — only edits #if STABLE blocks which are removed in 6e502c67 adaptation** | skip |
 | `c2f18e18` | Introduce explicit semantic label priority | None | pending |
-| `6e502c67` | Route Display attributes to Resources under STABLE (#if STABLE) | **None — #if STABLE guards handle both builds** | pending |
+| `6e502c67` | Route Display attributes to Resources under STABLE | **Simplify: strip all `#if STABLE / #else / #endif` blocks, keep `#else` content (`typeof(Strings)`) as the unconditional form** | pending |
 | `545a78a7` | Add pq02 visual semantic UI and palettes | None | pending |
 | `981e13c0` | Implement pq02 visual semantic rulesets (by period / by level type) | None | pending |
 | `eb51f389` | Apply pq02 visual semantic styles during rendering | None | pending |
@@ -189,6 +191,28 @@ The optional 3 period-helper refactors (`8447b822`, `14c68410`, `81a5e616`) may 
 |----------------------|-------------|-----------|--------|
 | `635a5706` | Fix: restore Color.Convert() lost during rebase conflict resolution | None | pending |
 
+### Phase 2f — Local fixes (not in prready/main)
+
+Three bugs found during pre-port review. These are new commits authored locally in `feat/ohlcplus`.
+
+#### Fix 1 — Stale ordered-levels cache in `OnFixedProfilesResponse`
+
+**Impact:** Medium. When a fixed profile is refreshed mid-session (new data arrives for a period already in `_profileCandles`), `UpdateHVNs`/`UpdateLVNs` call `GetOrderedLevels(period, newCandle)`, which returns the sorted price-level list cached by the previous `UpdateAllNeededLevelsFromCache()` call — computed against the old candle. HVN/LVN bands are then computed against stale data until the next cache clear.
+
+**Fix:** Add `_orderedLevelsCache.Remove(period);` at the top of `OnFixedProfilesResponse`, before `_profileCandles[period] = fixedProfileOriginScale`.
+
+#### Fix 2 — Label and prefix property setters don't redraw
+
+**Impact:** Medium / UX. All 16 label-text and period-prefix properties are bare pass-throughs (`set => _field = value`). Changing any of them in the settings panel has no visible effect until the next natural redraw (new tick, chart resize). Each setter must call `RedrawChart()`.
+
+**Affected properties (16):** `LabelTemplate`, `OpenLabel`, `HighLabel`, `LowLabel`, `CloseLabel`, `EquilibriumLabel`, `PocLabel`, `VwapLabel`, `VahLabel`, `ValLabel`, `DayPrefix`, `PrevDayPrefix`, `WeekPrefix`, `PrevWeekPrefix`, `MonthPrefix`, `PrevMonthPrefix`, `ContractPrefix`.
+
+#### Fix 3 — Palette color changes don't invalidate the Visual Semantic ruleset
+
+**Impact:** High / correctness. All 16 palette-color properties (`PeriodColorCurrentDay`, …, `LevelColorVAL`) are auto-properties. When the user changes a palette color while in RuleSet mode, two things are missing: `_visualRuleSetDirty = true` (the cached ruleset was built with the old color and won't rebuild) and `RedrawChart()` (the chart doesn't repaint at all). **Changing palette colors in RuleSet mode is completely silent.**
+
+**Fix:** Back each palette property with a private field; setter sets `_visualRuleSetDirty = true` and calls `RedrawChart()`.
+
 ### Adaptation summary
 
 Commits requiring `typeof(Resources)` → hardcode/`typeof(Strings)` adaptation on the Develop-based feat branch:
@@ -208,15 +232,14 @@ Commits requiring `typeof(Resources)` → hardcode/`typeof(Strings)` adaptation 
 
 Total adapted refs: **121**
 
-Commits with `#if STABLE` guards (no adaptation needed):
-- `6e502c67` — routes Display attrs to Resources under STABLE
-- `a12abc02` — aligns UI resources for stable vs alpha
+`6e502c67` — strip `#if STABLE / #else / #endif` wrappers; the `#else` body (`typeof(Strings)`) becomes the unconditional form. Net change: removes ~60 lines of preprocessor noise, no logic change.
+`a12abc02` — **skip** (its only changes are inside `#if STABLE` blocks that no longer exist).
 
 ### Strategy for Develop-based `feat/ohlcplus`
 
-- All `typeof(Resources)` references in adapted commits: replace with hardcoded English strings for new OHLCPlus-specific keys; use `typeof(Strings)` for keys that already exist in the platform `Strings` class.
+- All `typeof(Resources)` references in adapted commits: replace with hardcoded English strings for new OHLCPlus-specific keys; use `typeof(Strings)` for keys already in the platform `Strings` class.
 - Do NOT add `using ATAS.Indicators.Technical.Properties`.
-- The `#if STABLE` guards in `6e502c67` and `a12abc02` apply cleanly as-is.
+- `ToggleLevelsVisibilityHotKey` `#if ATAS_ALPHA || ATAS_X` guard: this is a build-flavor concern owned by the `local/build/` stack, not by `feat/ohlcplus`. On `feat/ohlcplus` use `typeof(Resources)` (the `#else` branch) unconditionally — the guard is restored by the integration branch layer if needed.
 
 ### Strategy for `local/ohlcplus-i18n` (integration)
 
@@ -248,9 +271,11 @@ No separate phase — all polish commits are included in the feat stack above.
 ### 4.4 Functional smoke test (manual, ATAS Platform)
 - [ ] Indicator loads without crash
 - [ ] Level labels render using template (e.g., period prefix + level name)
+- [ ] Changing a label text or period prefix immediately redraws (Fix 2)
 - [ ] Per-level label override replaces the full label
 - [ ] Visual Semantic Mode selector visible and switches rendering
 - [ ] pq02 rulesets (ByPeriod / ByLevelType) color levels correctly
+- [ ] Changing a palette color in RuleSet mode immediately redraws with new color (Fix 3)
 - [ ] HVN bands overlay appears when enabled
 - [ ] LVN bands overlay appears when enabled
 - [ ] Hybrid LVN tail filter (min ticks + % of range) gates LVN detection
@@ -261,7 +286,13 @@ No separate phase — all polish commits are included in the feat stack above.
 
 ## Section 5 — Intentional divergences from prready/main
 
-None. All logic ported as-is; only the typeof(Resources) → hardcoded adaptation differs on Develop-based branches (by design).
+| Area | Divergence | Reason |
+|------|-----------|--------|
+| `6e502c67` | `#if STABLE` blocks removed; `#else` (`typeof(Strings)`) kept unconditionally | STABLE builds not targeted; preprocessor noise eliminated |
+| `a12abc02` | Skipped entirely | No-op once STABLE blocks are gone |
+| Fix 1 | `_orderedLevelsCache.Remove(period)` added to `OnFixedProfilesResponse` | Bug fix not in prready/main |
+| Fix 2 | `RedrawChart()` added to 16 label/prefix setters | Bug fix not in prready/main |
+| Fix 3 | Palette properties converted from auto to backed-field with `_visualRuleSetDirty = true; RedrawChart()` | Bug fix not in prready/main |
 
 ---
 
