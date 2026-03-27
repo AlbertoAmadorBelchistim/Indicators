@@ -508,6 +508,24 @@ public class OHLCPlus : Indicator
     private VisualRuleSet _visualRuleSet = VisualRuleSet.Empty;
     private bool _visualRuleSetDirty = true;
 
+    // Palette backing fields (palette changes dirty the visual ruleset)
+    private CrossColor _palPeriodCurrentDay = System.Drawing.Color.WhiteSmoke.Convert();
+    private CrossColor _palPeriodPreviousDay = System.Drawing.Color.DarkGray.Convert();
+    private CrossColor _palPeriodCurrentWeek = System.Drawing.Color.DeepSkyBlue.Convert();
+    private CrossColor _palPeriodPreviousWeek = System.Drawing.Color.SteelBlue.Convert();
+    private CrossColor _palPeriodCurrentMonth = System.Drawing.Color.MediumSeaGreen.Convert();
+    private CrossColor _palPeriodPreviousMonth = System.Drawing.Color.DarkOliveGreen.Convert();
+    private CrossColor _palPeriodContract = System.Drawing.Color.SaddleBrown.Convert();
+    private CrossColor _palLevelOpen = System.Drawing.Color.DarkOrange.Convert();
+    private CrossColor _palLevelHigh = System.Drawing.Color.ForestGreen.Convert();
+    private CrossColor _palLevelLow = System.Drawing.Color.Firebrick.Convert();
+    private CrossColor _palLevelClose = System.Drawing.Color.DimGray.Convert();
+    private CrossColor _palLevelEQ = System.Drawing.Color.Gray.Convert();
+    private CrossColor _palLevelPOC = System.Drawing.Color.Goldenrod.Convert();
+    private CrossColor _palLevelVWAP = System.Drawing.Color.DodgerBlue.Convert();
+    private CrossColor _palLevelVAH = System.Drawing.Color.Teal.Convert();
+    private CrossColor _palLevelVAL = System.Drawing.Color.Teal.Convert();
+
     // Legacy mode intentionally bypasses pq02 semantics and relies exclusively
     // on per-level LevelSettings (upstream-compatible behavior).
     private static readonly VisualStyleDelta _emptyVisualStyle = new();
@@ -1915,70 +1933,70 @@ public class OHLCPlus : Indicator
     public string LabelTemplate
     {
         get => _labelTemplate;
-        set => _labelTemplate = value;
+        set { _labelTemplate = value; RedrawChart(); }
     }
 
     [Display(GroupName = "Labels", Name = "Open", Order = 20)]
     public string OpenLabel
     {
         get => _openLabel;
-        set => _openLabel = value;
+        set { _openLabel = value; RedrawChart(); }
     }
 
     [Display(GroupName = "Labels", Name = "High", Order = 30)]
     public string HighLabel
     {
         get => _highLabel;
-        set => _highLabel = value;
+        set { _highLabel = value; RedrawChart(); }
     }
 
     [Display(GroupName = "Labels", Name = "Low", Order = 40)]
     public string LowLabel
     {
         get => _lowLabel;
-        set => _lowLabel = value;
+        set { _lowLabel = value; RedrawChart(); }
     }
 
     [Display(GroupName = "Labels", Name = "Close", Order = 50)]
     public string CloseLabel
     {
         get => _closeLabel;
-        set => _closeLabel = value;
+        set { _closeLabel = value; RedrawChart(); }
     }
 
     [Display(GroupName = "Labels", Name = "Equilibrium", Order = 60)]
     public string EquilibriumLabel
     {
         get => _equilibriumLabel;
-        set => _equilibriumLabel = value;
+        set { _equilibriumLabel = value; RedrawChart(); }
     }
 
     [Display(GroupName = "Labels", Name = "POC", Order = 70)]
     public string PocLabel
     {
         get => _pocLabel;
-        set => _pocLabel = value;
+        set { _pocLabel = value; RedrawChart(); }
     }
 
     [Display(GroupName = "Labels", Name = "VWAP", Order = 80)]
     public string VwapLabel
     {
         get => _vwapLabel;
-        set => _vwapLabel = value;
+        set { _vwapLabel = value; RedrawChart(); }
     }
 
     [Display(GroupName = "Labels", Name = "VAH", Order = 90)]
     public string VahLabel
     {
         get => _vahLabel;
-        set => _vahLabel = value;
+        set { _vahLabel = value; RedrawChart(); }
     }
 
     [Display(GroupName = "Labels", Name = "VAL", Order = 100)]
     public string ValLabel
     {
         get => _valLabel;
-        set => _valLabel = value;
+        set { _valLabel = value; RedrawChart(); }
     }
 
     // --- Prefixes group ---
@@ -1986,49 +2004,49 @@ public class OHLCPlus : Indicator
     public string DayPrefix
     {
         get => _dayPrefix;
-        set => _dayPrefix = value;
+        set { _dayPrefix = value; RedrawChart(); }
     }
 
     [Display(ResourceType = typeof(Strings), GroupName = "Prefixes", Name = nameof(Strings.PreviousDay), Order = 20)]
     public string PrevDayPrefix
     {
         get => _prevDayPrefix;
-        set => _prevDayPrefix = value;
+        set { _prevDayPrefix = value; RedrawChart(); }
     }
 
     [Display(ResourceType = typeof(Strings), GroupName = "Prefixes", Name = nameof(Strings.CurrentWeek), Order = 30)]
     public string WeekPrefix
     {
         get => _weekPrefix;
-        set => _weekPrefix = value;
+        set { _weekPrefix = value; RedrawChart(); }
     }
 
     [Display(ResourceType = typeof(Strings), GroupName = "Prefixes", Name = nameof(Strings.PreviousWeek), Order = 40)]
     public string PrevWeekPrefix
     {
         get => _prevWeekPrefix;
-        set => _prevWeekPrefix = value;
+        set { _prevWeekPrefix = value; RedrawChart(); }
     }
 
     [Display(ResourceType = typeof(Strings), GroupName = "Prefixes", Name = nameof(Strings.CurrentMonth), Order = 50)]
     public string MonthPrefix
     {
         get => _monthPrefix;
-        set => _monthPrefix = value;
+        set { _monthPrefix = value; RedrawChart(); }
     }
 
     [Display(ResourceType = typeof(Strings), GroupName = "Prefixes", Name = nameof(Strings.PreviousMonth), Order = 60)]
     public string PrevMonthPrefix
     {
         get => _prevMonthPrefix;
-        set => _prevMonthPrefix = value;
+        set { _prevMonthPrefix = value; RedrawChart(); }
     }
 
     [Display(GroupName = "Prefixes", Name = "Contract", Order = 70)]
     public string ContractPrefix
     {
         get => _contractPrefix;
-        set => _contractPrefix = value;
+        set { _contractPrefix = value; RedrawChart(); }
     }
 
 
@@ -2038,54 +2056,118 @@ public class OHLCPlus : Indicator
 
     // Period palette (ByPeriod)
     [Display(ResourceType = typeof(Strings), GroupName = "Visual Semantic – Period Palette", Name = nameof(Strings.CurrentDay), Order = 10)]
-    public CrossColor PeriodColorCurrentDay { get; set; } = System.Drawing.Color.WhiteSmoke.Convert();
+    public CrossColor PeriodColorCurrentDay
+    {
+        get => _palPeriodCurrentDay;
+        set { _palPeriodCurrentDay = value; _visualRuleSetDirty = true; RedrawChart(); }
+    }
 
     [Display(ResourceType = typeof(Strings), GroupName = "Visual Semantic – Period Palette", Name = nameof(Strings.PreviousDay), Order = 20)]
-    public CrossColor PeriodColorPreviousDay { get; set; } = System.Drawing.Color.DarkGray.Convert();
+    public CrossColor PeriodColorPreviousDay
+    {
+        get => _palPeriodPreviousDay;
+        set { _palPeriodPreviousDay = value; _visualRuleSetDirty = true; RedrawChart(); }
+    }
 
     [Display(ResourceType = typeof(Strings), GroupName = "Visual Semantic – Period Palette", Name = nameof(Strings.CurrentWeek), Order = 30)]
-    public CrossColor PeriodColorCurrentWeek { get; set; } = System.Drawing.Color.DeepSkyBlue.Convert();
+    public CrossColor PeriodColorCurrentWeek
+    {
+        get => _palPeriodCurrentWeek;
+        set { _palPeriodCurrentWeek = value; _visualRuleSetDirty = true; RedrawChart(); }
+    }
 
     [Display(ResourceType = typeof(Strings), GroupName = "Visual Semantic – Period Palette", Name = nameof(Strings.PreviousWeek), Order = 40)]
-    public CrossColor PeriodColorPreviousWeek { get; set; } = System.Drawing.Color.SteelBlue.Convert();
+    public CrossColor PeriodColorPreviousWeek
+    {
+        get => _palPeriodPreviousWeek;
+        set { _palPeriodPreviousWeek = value; _visualRuleSetDirty = true; RedrawChart(); }
+    }
 
     [Display(ResourceType = typeof(Strings), GroupName = "Visual Semantic – Period Palette", Name = nameof(Strings.CurrentMonth), Order = 50)]
-    public CrossColor PeriodColorCurrentMonth { get; set; } = System.Drawing.Color.MediumSeaGreen.Convert();
+    public CrossColor PeriodColorCurrentMonth
+    {
+        get => _palPeriodCurrentMonth;
+        set { _palPeriodCurrentMonth = value; _visualRuleSetDirty = true; RedrawChart(); }
+    }
 
     [Display(ResourceType = typeof(Strings), GroupName = "Visual Semantic – Period Palette", Name = nameof(Strings.PreviousMonth), Order = 60)]
-    public CrossColor PeriodColorPreviousMonth { get; set; } = System.Drawing.Color.DarkOliveGreen.Convert();
+    public CrossColor PeriodColorPreviousMonth
+    {
+        get => _palPeriodPreviousMonth;
+        set { _palPeriodPreviousMonth = value; _visualRuleSetDirty = true; RedrawChart(); }
+    }
 
     [Display(GroupName = "Visual Semantic – Period Palette", Name = "Contract", Order = 70)]
-    public CrossColor PeriodColorContract { get; set; } = System.Drawing.Color.SaddleBrown.Convert();
+    public CrossColor PeriodColorContract
+    {
+        get => _palPeriodContract;
+        set { _palPeriodContract = value; _visualRuleSetDirty = true; RedrawChart(); }
+    }
 
 
     // Level-type palette (ByLevelType)
     [Display(GroupName = "Visual Semantic – Level Palette", Name = "Open", Order = 10)]
-    public CrossColor LevelColorOpen { get; set; } = System.Drawing.Color.DarkOrange.Convert();
+    public CrossColor LevelColorOpen
+    {
+        get => _palLevelOpen;
+        set { _palLevelOpen = value; _visualRuleSetDirty = true; RedrawChart(); }
+    }
 
     [Display(GroupName = "Visual Semantic – Level Palette", Name = "High", Order = 20)]
-    public CrossColor LevelColorHigh { get; set; } = System.Drawing.Color.ForestGreen.Convert();
+    public CrossColor LevelColorHigh
+    {
+        get => _palLevelHigh;
+        set { _palLevelHigh = value; _visualRuleSetDirty = true; RedrawChart(); }
+    }
 
     [Display(GroupName = "Visual Semantic – Level Palette", Name = "Low", Order = 30)]
-    public CrossColor LevelColorLow { get; set; } = System.Drawing.Color.Firebrick.Convert();
+    public CrossColor LevelColorLow
+    {
+        get => _palLevelLow;
+        set { _palLevelLow = value; _visualRuleSetDirty = true; RedrawChart(); }
+    }
 
     [Display(GroupName = "Visual Semantic – Level Palette", Name = "Close", Order = 40)]
-    public CrossColor LevelColorClose { get; set; } = System.Drawing.Color.DimGray.Convert();
+    public CrossColor LevelColorClose
+    {
+        get => _palLevelClose;
+        set { _palLevelClose = value; _visualRuleSetDirty = true; RedrawChart(); }
+    }
 
     [Display(GroupName = "Visual Semantic – Level Palette", Name = "Equilibrium", Order = 50)]
-    public CrossColor LevelColorEQ { get; set; } = System.Drawing.Color.Gray.Convert();
+    public CrossColor LevelColorEQ
+    {
+        get => _palLevelEQ;
+        set { _palLevelEQ = value; _visualRuleSetDirty = true; RedrawChart(); }
+    }
 
     [Display(GroupName = "Visual Semantic – Level Palette", Name = "POC", Order = 60)]
-    public CrossColor LevelColorPOC { get; set; } = System.Drawing.Color.Goldenrod.Convert();
+    public CrossColor LevelColorPOC
+    {
+        get => _palLevelPOC;
+        set { _palLevelPOC = value; _visualRuleSetDirty = true; RedrawChart(); }
+    }
 
     [Display(GroupName = "Visual Semantic – Level Palette", Name = "VWAP", Order = 70)]
-    public CrossColor LevelColorVWAP { get; set; } = System.Drawing.Color.DodgerBlue.Convert();
+    public CrossColor LevelColorVWAP
+    {
+        get => _palLevelVWAP;
+        set { _palLevelVWAP = value; _visualRuleSetDirty = true; RedrawChart(); }
+    }
 
     [Display(GroupName = "Visual Semantic – Level Palette", Name = "VAH", Order = 80)]
-    public CrossColor LevelColorVAH { get; set; } = System.Drawing.Color.Teal.Convert();
+    public CrossColor LevelColorVAH
+    {
+        get => _palLevelVAH;
+        set { _palLevelVAH = value; _visualRuleSetDirty = true; RedrawChart(); }
+    }
 
     [Display(GroupName = "Visual Semantic – Level Palette", Name = "VAL", Order = 90)]
-    public CrossColor LevelColorVAL { get; set; } = System.Drawing.Color.Teal.Convert();
+    public CrossColor LevelColorVAL
+    {
+        get => _palLevelVAL;
+        set { _palLevelVAL = value; _visualRuleSetDirty = true; RedrawChart(); }
+    }
 
     #endregion
 
@@ -2160,6 +2242,7 @@ public class OHLCPlus : Indicator
 
     protected override void OnFixedProfilesResponse(IndicatorCandle fixedProfileScaled, IndicatorCandle fixedProfileOriginScale, FixedProfilePeriods period)
     {
+        _orderedLevelsCache.Remove(period);
         _profileCandles[period] = fixedProfileOriginScale;
 
         var levelsChanged = UpdateLevels(period, fixedProfileOriginScale);
