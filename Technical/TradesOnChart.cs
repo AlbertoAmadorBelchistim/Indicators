@@ -685,8 +685,8 @@ public class TradesOnChart : Indicator
 	{
 		// Direction text (prefer explicit words for fast reading)
 		var directionText = trade.Direction == OrderDirections.Buy
-			? Resources.TradeDirectionLong
-			: Resources.TradeDirectionShort;
+			? "Long"
+			: "Short";
 
 		// Header: "LONG 0.001 BTCUSDT"
 		_labelSb.Clear();
@@ -707,7 +707,7 @@ public class TradesOnChart : Indicator
 		var closeTime = trade.CloseTime.AddHours(InstrumentInfo.TimeZone);
 
 		_labelSb.Clear();
-		_labelSb.Append(Resources.TradeEntry);
+		_labelSb.Append("Entry");
 		_labelSb.Append(": ");
 		_labelSb.Append(ChartInfo.GetPriceString(trade.OpenPrice));
 		_labelSb.Append(" @ ");
@@ -715,7 +715,7 @@ public class TradesOnChart : Indicator
 
 		_labelSb.Append(Environment.NewLine);
 
-		_labelSb.Append(Resources.TradeExit);
+		_labelSb.Append("Exit");
 		_labelSb.Append(": ");
 		_labelSb.Append(ChartInfo.GetPriceString(trade.ClosePrice));
 		_labelSb.Append(" @ ");
@@ -727,7 +727,7 @@ public class TradesOnChart : Indicator
 		isProfit = trade.PnL >= 0;
 
 		_labelSb.Clear();
-		_labelSb.Append(Resources.TradeResult);
+		_labelSb.Append("Result");
 		_labelSb.Append(": ");
 
 		if (trade.PnL > 0)
@@ -742,7 +742,7 @@ public class TradesOnChart : Indicator
 
 		_labelSb.Append(trade.PnLTicks);
 		_labelSb.Append(' ');
-		_labelSb.Append(Resources.TradeTicks);
+		_labelSb.Append("ticks");
 		_labelSb.Append(')');
 
 		footer = _labelSb.ToString();
@@ -755,8 +755,8 @@ public class TradesOnChart : Indicator
 			return (Rectangle.Empty, false);
 
 		var direction = trade.Direction == OrderDirections.Buy
-			? Resources.TradeDirectionLong
-			: Resources.TradeDirectionShort;
+			? "Long"
+			: "Short";
 
 		var pnlSign = trade.PnL > 0 ? "+" : "";
 
