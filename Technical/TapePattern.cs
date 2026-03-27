@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 using ATAS.Indicators.Technical.Extensions;
 
@@ -171,6 +172,7 @@ public class TapePattern : Indicator
 	private TimeSpan _timeFrom;
 	private TimeSpan _timeTo;
 	private CancellationTokenSource _tokenSource;
+	private CancellationTokenSource _historyCts;
 	private Thread _tradesThread;
 	private bool _useCumulativeTrades;
 	private bool _useTimeFilter;
@@ -534,11 +536,14 @@ public class TapePattern : Indicator
 
 	protected override void OnDispose()
 	{
+		_historyCts?.Cancel();
 		StopProcessQueueThread();
 	}
 
 	protected override void OnRecalculate()
 	{
+		_historyCts?.Cancel();
+
 		while (_tradesQueue.TryTake(out _))
 		{
 		}
@@ -617,7 +622,15 @@ public class TapePattern : Indicator
 		{
 			var trades = cumulativeTrades.ToList();
 
-			GetTradesHistory(trades);
+			_historyCts?.Dispose();
+			_historyCts = new CancellationTokenSource();
+			var token = _historyCts.Token;
+
+			Task.Run(() =>
+			{
+				if (!token.IsCancellationRequested)
+					GetTradesHistory(trades, token);
+			}, token);
 		}
 		else
 		{
@@ -965,23 +978,31 @@ public class TapePattern : Indicator
 		_currentTick = null;
 	}
 
-	private void GetTradesHistory(List<CumulativeTrade> trades)
+	private void GetTradesHistory(List<CumulativeTrade> trades, CancellationToken token)
 	{
+		var searchFrom = _lastSession;
+
 		foreach (var trade in trades.OrderBy(x => x.Time))
 		{
+			if (token.IsCancellationRequested)
+				return;
+
 			var time = trade.Time;
 
-			for (var i = _lastSession; i <= ChartInfo.PriceChartContainer.TotalBars; i++)
+			for (var i = searchFrom; i <= ChartInfo.PriceChartContainer.TotalBars; i++)
 			{
 				var candle = GetCandle(i);
 
-				if (candle.Time > time || candle.LastTime < time)
+				if (candle.LastTime < time)
 					continue;
+
+				if (candle.Time > time)
+					break;
+
+				searchFrom = i;
 
 				if (_useCumulativeTrades)
 				{
-					// ProcessCumulativeTick(trade, i, false);
-
 					var cumTradeExt = GetCumTradeExtended(trade);
 					ProcessCumulativeTickExtended(cumTradeExt, i, false);
                 }
@@ -995,8 +1016,11 @@ public class TapePattern : Indicator
 			}
 		}
 
-		_historyCalculated = true;
-		RedrawChart();
+		if (!token.IsCancellationRequested)
+		{
+			_historyCalculated = true;
+			RedrawChart();
+		}
 	}
 
     private void ProcessCumulativeTickExtended(CumTradeExtended cumTradeExt, int bar, bool isUpdate)

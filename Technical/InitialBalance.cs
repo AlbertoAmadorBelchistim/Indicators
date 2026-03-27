@@ -743,7 +743,7 @@ public class InitialBalance : Indicator
 		if (!_initialized)
 			return;
 
-		RecalculateValues();
+		RedrawChart();
 	}
 
 	private System.Drawing.Color ConvertColor(CrossColor color)
