@@ -2,7 +2,7 @@
 
 **Source:** `prready/main`
 **Integration target:** `local/ohlcplus-i18n` (stacked on `local/build/04-localization`)
-**Status:** `not-started`
+**Status:** `complete` (pending Phase 4 smoke test)
 
 ---
 
@@ -53,7 +53,7 @@ None identified.
 
 | Branch | prready/main commits | Status |
 |--------|---------------------|--------|
-| `refactor/ohlcplus-period-helpers` | `8447b822`, `14c68410`, `81a5e616` | pending |
+| `refactor/ohlcplus-period-helpers` | `8447b822`, `14c68410`, `81a5e616` | done |
 
 Three sequential "no behavior change" refactors (Dec 30):
 - `8447b822` — centralize level enumeration by period (adds helper method)
@@ -74,19 +74,19 @@ None (all prready/main fixes are coupled to features not present in Develop).
 
 | Commit | Keys (+/-) | Files | Notes | Status |
 |--------|-----------|-------|-------|--------|
-| `c5ca65ed` | +13 | All 7 locales + Designer.cs + csproj | Core display keys: ToggleLevelsVisibilityHotKey, OHLCPlusDescription, TillBar, FullWidth, BarOpen-Close, Equilibrium, POC, VWAP, VAH, VAL | pending |
-| `05f12175` | +4 | All 7 locales | Labels, LabelTemplate, Prefixes, Contract | pending |
-| `004e89e9` | +1 | All 7 locales | OverrideLabel | pending |
-| `2176efbd` | +2 | All 7 locales | OverrideColorInSchemes, OverrideColorInSchemesDescription | pending |
-| `8000c260` | +5 | All 7 locales | ByPeriod, ByLevelType, VisualSemantic, VisualSemanticMode, VisualSemanticPreset | pending |
-| `8ce33b3e` | +4 | All 7 locales | OverrideWidthInSchemes/Description, OverrideStyleInSchemes/Description | pending |
-| `ef458870` | +6 | All 7 locales | VisualSemantic_LevelPalette, VisualSemantic_PeriodPalette, VisualMode_Legacy/Ruleset + descriptions | pending |
-| `045d2b72` | +9 | All 7 locales | HVN_Group, HVN_Enable, HVN_Color, HVN_ThresholdPct, HVN_GapToleranceTicks, HVN_OcclusionTicks + 3 descriptions | pending |
-| `8ce614b9` | +8 | All 7 locales | HVN_Enabled, LVN_Group, LVN_ThresholdPct/GapToleranceTicks/OcclusionTicks + descriptions | pending |
-| `10cd6ce9` | +2 | All 7 locales | LVN_Enabled, LVN_Color | pending |
-| `435cc30a` | +4 | All 7 locales | LVN_MinPocVol/Description, LVN_TailFilterMinTicks/Description | pending |
-| `7997d0fd` | +2 | All 7 locales | LVN_TailFilterRangePct, LVN_TailFilterRangePct_Description | pending |
-| `0047162c` | 0 new (value fixes) | de-de, es-ES, fr-fr, hi-in | Fix LVN label values in satellite locales only | pending |
+| `c5ca65ed` | +13 | All 7 locales + Designer.cs + csproj | Core display keys: ToggleLevelsVisibilityHotKey, OHLCPlusDescription, TillBar, FullWidth, BarOpen-Close, Equilibrium, POC, VWAP, VAH, VAL | done |
+| `05f12175` | +4 | All 7 locales | Labels, LabelTemplate, Prefixes, Contract | done |
+| `004e89e9` | +1 | All 7 locales | OverrideLabel | done |
+| `2176efbd` | +2 | All 7 locales | OverrideColorInSchemes, OverrideColorInSchemesDescription | done |
+| `8000c260` | +5 | All 7 locales | ByPeriod, ByLevelType, VisualSemantic, VisualSemanticMode, VisualSemanticPreset | done |
+| `8ce33b3e` | +4 | All 7 locales | OverrideWidthInSchemes/Description, OverrideStyleInSchemes/Description | done |
+| `ef458870` | +6 | All 7 locales | VisualSemantic_LevelPalette, VisualSemantic_PeriodPalette, VisualMode_Legacy/Ruleset + descriptions | done |
+| `045d2b72` | +9 | All 7 locales | HVN_Group, HVN_Enable, HVN_Color, HVN_ThresholdPct, HVN_GapToleranceTicks, HVN_OcclusionTicks + 3 descriptions | done |
+| `8ce614b9` | +8 | All 7 locales | HVN_Enabled, LVN_Group, LVN_ThresholdPct/GapToleranceTicks/OcclusionTicks + descriptions | done |
+| `10cd6ce9` | +2 | All 7 locales | LVN_Enabled, LVN_Color | done |
+| `435cc30a` | +4 | All 7 locales | LVN_MinPocVol/Description, LVN_TailFilterMinTicks/Description | done |
+| `7997d0fd` | +2 | All 7 locales | LVN_TailFilterRangePct, LVN_TailFilterRangePct_Description | done |
+| `0047162c` | 0 new (value fixes) | de-de, es-ES, fr-fr, hi-in | Fix LVN label values in satellite locales only | done |
 
 ### New keys (60 total)
 
@@ -130,66 +130,66 @@ The optional 3 period-helper refactors (`8447b822`, `14c68410`, `81a5e616`) may 
 
 | Commit (prready/main) | Description | Adaptation | Status |
 |----------------------|-------------|-----------|--------|
-| `45e21dfa` | Scaffold label template and parameters (no behavior change) | None | pending |
-| `5c74a65f` | Render labels using template and per-level overrides | None | pending |
-| `247c1247` | Resolve label text via split-key suffix mapping | None | pending |
-| `9acbbbd5` | Add configurable period prefixes for labels | None | pending |
-| `9ffd20fc` | Normalize label template tokens to lowercase | None | pending |
-| `d22a882c` | Batched, collision-aware label layout | None | pending |
-| `ad20febc` | Improve label placement with horizontal corridor + stable ordering | None | pending |
-| `b5ccac8a` | Correct line clipping bounds and trim bar line start | None | pending |
-| `9d4652fa` | Add label and prefix settings UI | **Adapt: 17 typeof(Resources) → hardcode/typeof(Strings)** | pending |
-| `2bed76ee` | Add per-level label override | **Adapt: 1 typeof(Resources) → hardcode** | pending |
-| `1a21cb4c` | Fix: per-level OverrideLabel replaces full label | None | pending |
+| `45e21dfa` | Scaffold label template and parameters (no behavior change) | None | done |
+| `5c74a65f` | Render labels using template and per-level overrides | None | done |
+| `247c1247` | Resolve label text via split-key suffix mapping | None | done |
+| `9acbbbd5` | Add configurable period prefixes for labels | None | done |
+| `9ffd20fc` | Normalize label template tokens to lowercase | None | done |
+| `d22a882c` | Batched, collision-aware label layout | None | done |
+| `ad20febc` | Improve label placement with horizontal corridor + stable ordering | None | done |
+| `b5ccac8a` | Correct line clipping bounds and trim bar line start | None | done |
+| `9d4652fa` | Add label and prefix settings UI | **Adapt: 17 typeof(Resources) → hardcode/typeof(Strings)** | done |
+| `2bed76ee` | Add per-level label override | **Adapt: 1 typeof(Resources) → hardcode** | done |
+| `1a21cb4c` | Fix: per-level OverrideLabel replaces full label | None | done |
 
 ### Phase 2b — Visual Semantic Schemes (12 commits, Jan 1–3)
 
 | Commit (prready/main) | Description | Adaptation | Status |
 |----------------------|-------------|-----------|--------|
-| `b425f198` | Scaffold pq02 visual semantic descriptors | None | pending |
-| `9664a58f` | Fix: avoid redundant redraws when levels unchanged | None | pending |
+| `b425f198` | Scaffold pq02 visual semantic descriptors | None | done |
+| `9664a58f` | Fix: avoid redundant redraws when levels unchanged | None | done |
 | ~~`a12abc02`~~ | ~~Fix: align UI resources for stable vs alpha~~  | **Skip — only edits #if STABLE blocks which are removed in 6e502c67 adaptation** | skip |
-| `c2f18e18` | Introduce explicit semantic label priority | None | pending |
-| `6e502c67` | Route Display attributes to Resources under STABLE | **Simplify: strip all `#if STABLE / #else / #endif` blocks, keep `#else` content (`typeof(Strings)`) as the unconditional form** | pending |
-| `545a78a7` | Add pq02 visual semantic UI and palettes | None | pending |
-| `981e13c0` | Implement pq02 visual semantic rulesets (by period / by level type) | None | pending |
-| `eb51f389` | Apply pq02 visual semantic styles during rendering | None | pending |
-| `4ece1376` | Localize visual semantic preset and mode displays | **Adapt: 4 typeof(Resources) → hardcode** | pending |
-| `9edf68b3` | Localize visual semantic mode and palettes strings | **Adapt: 18 typeof(Resources) → hardcode** | pending |
-| `aa7bbc18` | Allow per-line width and style overrides in scheme modes | **Adapt: 2 typeof(Resources) → hardcode** | pending |
-| `69fcdc69` | Allow per-level color override when semantic schemes active | **Adapt: 1 typeof(Resources) → hardcode** | pending |
+| `c2f18e18` | Introduce explicit semantic label priority | None | done |
+| `6e502c67` | Route Display attributes to Resources under STABLE | **Simplify: strip all `#if STABLE / #else / #endif` blocks, keep `#else` content (`typeof(Strings)`) as the unconditional form** | done |
+| `545a78a7` | Add pq02 visual semantic UI and palettes | None | done |
+| `981e13c0` | Implement pq02 visual semantic rulesets (by period / by level type) | None | done |
+| `eb51f389` | Apply pq02 visual semantic styles during rendering | None | done |
+| `4ece1376` | Localize visual semantic preset and mode displays | **Adapt: 4 typeof(Resources) → hardcode** | done |
+| `9edf68b3` | Localize visual semantic mode and palettes strings | **Adapt: 18 typeof(Resources) → hardcode** | done |
+| `aa7bbc18` | Allow per-line width and style overrides in scheme modes | **Adapt: 2 typeof(Resources) → hardcode** | done |
+| `69fcdc69` | Allow per-level color override when semantic schemes active | **Adapt: 1 typeof(Resources) → hardcode** | done |
 
 ### Phase 2c — HVN Bands (3 commits, Jan 3)
 
 | Commit (prready/main) | Description | Adaptation | Status |
 |----------------------|-------------|-----------|--------|
-| `68d773d0` | Compute HVN bands from fixed profiles (overlay plumbing) | **Adapt: 17 typeof(Resources) → hardcode** | pending |
-| `15b2ca42` | Render HVN bands with priority and occlusion | None | pending |
-| `9709fc85` | Fix: skip HVN recomputation when disabled; convert WPF → System.Drawing colors | None | pending |
+| `68d773d0` | Compute HVN bands from fixed profiles (overlay plumbing) | **Adapt: 17 typeof(Resources) → hardcode** | done |
+| `15b2ca42` | Render HVN bands with priority and occlusion | None | done |
+| `9709fc85` | Fix: skip HVN recomputation when disabled; convert WPF → System.Drawing colors | None | done |
 
 ### Phase 2d — LVN Bands + Unification (13 commits, Jan 4–5)
 
 | Commit (prready/main) | Description | Adaptation | Status |
 |----------------------|-------------|-----------|--------|
-| `75b6b904` | Refactor: unify profile band model for HVN/LVN overlays | None | pending |
-| `079b863d` | Add LVN bands settings and cache scaffolding | **Adapt: 24 typeof(Resources) → hardcode** | pending |
-| `9d85b2a8` | Compute LVN bands from fixed profiles | None | pending |
-| `a9d7e36e` | Add HVN/LVN settings surface (toggles/colors/params) | **Adapt: 36 typeof(Resources) → hardcode** | pending |
-| `1f3ae47b` | Compute HVN/LVN bands (cache + refresh triggers) | None | pending |
-| `3f776004` | Render HVN/LVN overlays with occlusion | None | pending |
-| `3dd8f336` | Fix: emphasize VN borders | None | pending |
-| `36a83021` | Fix: stabilize HVN/LVN band updates and change detection | None | pending |
-| `30850ada` | Add hybrid LVN tail filter (min ticks + % of range) | **Adapt: 1 typeof(Resources) → hardcode** | pending |
-| `1aba0c0b` | Perf: reuse ordered profile levels for HVN and LVN | None | pending |
-| `886cc0df` | Perf: remove dynamic and cache typed price levels for HVN/LVN | None | pending |
-| `b6801850` | Refactor: make fixed-profile request helper side-effect free | None | pending |
-| `da472879` | Chore: remove outdated comment about unused HVN parameters | None | pending |
+| `75b6b904` | Refactor: unify profile band model for HVN/LVN overlays | None | done |
+| `079b863d` | Add LVN bands settings and cache scaffolding | **Adapt: 24 typeof(Resources) → hardcode** | done |
+| `9d85b2a8` | Compute LVN bands from fixed profiles | None | done |
+| `a9d7e36e` | Add HVN/LVN settings surface (toggles/colors/params) | **Adapt: 36 typeof(Resources) → hardcode** | done |
+| `1f3ae47b` | Compute HVN/LVN bands (cache + refresh triggers) | None | done |
+| `3f776004` | Render HVN/LVN overlays with occlusion | None | done |
+| `3dd8f336` | Fix: emphasize VN borders | None | done |
+| `36a83021` | Fix: stabilize HVN/LVN band updates and change detection | None | done |
+| `30850ada` | Add hybrid LVN tail filter (min ticks + % of range) | **Adapt: 1 typeof(Resources) → hardcode** | done |
+| `1aba0c0b` | Perf: reuse ordered profile levels for HVN and LVN | None | done |
+| `886cc0df` | Perf: remove dynamic and cache typed price levels for HVN/LVN | None | done |
+| `b6801850` | Refactor: make fixed-profile request helper side-effect free | None | done |
+| `da472879` | Chore: remove outdated comment about unused HVN parameters | None | done |
 
 ### Phase 2e — Bug fix (1 commit, Feb 7)
 
 | Commit (prready/main) | Description | Adaptation | Status |
 |----------------------|-------------|-----------|--------|
-| `635a5706` | Fix: restore Color.Convert() lost during rebase conflict resolution | None | pending |
+| `635a5706` | Fix: restore Color.Convert() lost during rebase conflict resolution | None | done |
 
 ### Phase 2f — Local fixes (not in prready/main)
 
@@ -243,8 +243,9 @@ Total adapted refs: **121**
 
 ### Strategy for `local/ohlcplus-i18n` (integration)
 
-- Cherry-pick from `feat/ohlcplus` and additionally re-apply the adapted commits using `typeof(Resources)` instead of hardcoded strings.
-- Alternatively: cherry-pick directly from prready/main SHAs (preserves typeof(Resources) without inverse adaptation).
+- **Implemented as squash**: cherry-pick cascade from `feat/ohlcplus` produced cascading conflicts; used single-commit approach instead: checkout final `feat/ohlcplus` OHLCPlus.cs, then convert all hardcoded strings + mixed `typeof(Strings)` attributes to `typeof(Resources)` form via a targeted replacement script.
+- Integration branch HEAD: `e7e9c455` — single commit containing full feat/ohlcplus state with all 78 `typeof(Resources)` Display attribute references.
+- `feat/ohlcplus` HEAD: `3aa1a482` — 41 commits (hardcoded string form for Develop compatibility).
 
 ---
 
@@ -300,4 +301,4 @@ No separate phase — all polish commits are included in the feat stack above.
 
 Must be empty before manifest is marked `complete`.
 
-- Port not yet started.
+- Phase 4 smoke test pending (manual, ATAS Platform).

@@ -13,7 +13,7 @@ develop
 | `local/build/01-base` | `develop` | PR open | Base local build alignment: `$(ATAS_BASE)`, `net8.0-windows` / `net8.0`, Cross platform exclusions |
 | `local/build/02-multiversion` | `local/build/01-base` | local-only | Multi-flavor build configs: Alpha / Beta / Latest / Stable / ATAS_X_Alpha / ATAS_X_Beta |
 | `local/build/03-version-shims` | `local/build/02-multiversion` | local-only | Version compatibility shims + TabAttribute stub for pre-release OFT.Attributes |
-| `local/build/04-localization` | `local/build/03-version-shims` | local-only | New .resx keys for Volume + Delta + MultiMarketPower + ClusterSearch + ClusterStatistic features (173 keys total, all 7 locales); OHLCPlus 60 keys pending |
+| `local/build/04-localization` | `local/build/03-version-shims` | local-only | New .resx keys for Volume + Delta + MultiMarketPower + ClusterSearch + ClusterStatistic + OHLCPlus features (233 keys total, all 7 locales) |
 
 ## Delta branches
 
@@ -155,8 +155,8 @@ develop
 | Branch | Parent | Status | Notes |
 |---|---|---|---|
 | `refactor/ohlcplus-period-helpers` | `develop` | pending | 3 refactors (Dec 30): centralize level enumeration, period-needs helper, profile-requests cleanup — no behavior change |
-| `feat/ohlcplus` | `develop` | pending | 40 commits: label system (template/prefixes/overrides), visual semantic schemes (pq02), HVN bands, LVN bands + tail filter; typeof(Resources) adapted to hardcoded strings for Develop |
-| `local/ohlcplus-i18n` | `local/build/04-localization` | pending | Full port of OHLCPlus: refactor + feat applied with typeof(Resources) |
+| `feat/ohlcplus` | `develop` | local-only | 41 commits (HEAD `3aa1a482`): label system, visual semantic schemes (pq02), HVN/LVN bands + tail filter; 3 local bug fixes; typeof(Resources) adapted to hardcoded strings |
+| `local/ohlcplus-i18n` | `local/build/04-localization` | local-only | 1 squash commit (HEAD `e7e9c455`): full feat/ohlcplus state with all Display attributes converted to typeof(Resources); 0 C# errors |
 
 ## Patch branches
 
