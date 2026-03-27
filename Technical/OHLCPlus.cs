@@ -1,6 +1,5 @@
 namespace ATAS.Indicators.Technical;
 
-using ATAS.Indicators.Technical.Properties;
 using OFT.Localization;
 using OFT.Rendering.Context;
 using OFT.Rendering.Settings;
