@@ -20,7 +20,7 @@ working model. Items are closed once the corresponding fix is committed.
 |---|------|---------|------------|--------|
 | B1 | 7 locale files locally | Was: de-de + ru-ru only. Correct: en, de-de, ru-ru, es-ES, fr-fr, hi-in, zh-cn | Updated memory; fix CONTRIBUTING.md locale list | closed |
 | B2 | Phase 0 gaps in existing ports | OHLCPlus Phase 0 (`fe9bb5c7`): missing es-ES. TradesOnChart Phase 0 (`2cdd4c82`): missing es-ES, fr-fr, hi-in, zh-cn | Repair commits: es-es rebuilt (`0688067e`); fr-fr/hi-in/zh-cn added (`9dd3e31f`) | closed |
-| B3 | `typeof(Resources)` scope rule | Correct: feat/ = hardcoded; i18n branch = typeof(Resources) | — | ✓ |
+| B3 | `typeof(Resources)` scope rule | Correct: feat/ = hardcoded; i18n branch = typeof(Resources). Added missing: near-duplicate key case + diff tool reference + in_both.json guidance | Expanded CONTRIBUTING.md §8 (`d001c05b`) | closed |
 | B4 | Upstream locale count | Correct: upstream Develop only has en, de-de, ru-ru | — | ✓ |
 
 ## Section C — Port phases
@@ -77,3 +77,4 @@ Items to be addressed when we reach the corresponding audit section:
 | A9 | `feat/TradesOnChart-realtime-engine` | Possibly legacy (content may already be in `local/tradesonchart-i18n`). Was mistakenly lowercased during rename — corrected to CamelCase. | Review content vs tradesonchart-i18n before deleting |
 | A10 | `publish_platformx_beta` | Appeared from upstream during `git fetch`. Not created locally. | Monitor — upstream-only branch, no action needed |
 | A11 | `local-only` label meaning | In branch-stacks.md: means "not yet submitted as PR to upstream ATAS", not "absent from origin". All active branches should exist on origin. | Clarify label definition in branch-stacks.md |
+| G1 | Branch history audit + key integration workflow | Need to audit every active branch one by one: review commit history, verify Phase correctness, and define how new Resource keys are added going forward (automated by Claude or via explicit user command). | New Section G — schedule as dedicated session after Section C-F review complete |
