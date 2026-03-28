@@ -65,14 +65,14 @@ Items to be addressed when we reach the corresponding audit section:
 
 | # | Item | Deferred to | Notes |
 |---|------|-------------|-------|
-| B2 | Phase 0 locale repair | Section B | OHLCPlus: add es-ES keys. TradesOnChart: add es-ES, fr-fr, hi-in, zh-cn keys. Both on `local/build/04-localization`. |
+| B2 | Phase 0 locale repair | Section B | ~~es-es for OHLCPlus and TradesOnChart resolved in B5 repair commit.~~ Remaining: OHLCPlus still missing fr-fr/hi-in/zh-cn for TradesOnChart keys (TradesOnChart es-es fixed in B5). |
 | D3 | CLAUDE.md cross-references | Section D | Add pointers to docs/ and memory/ so branch-unaware context is partially mitigated |
 
 ## Additional findings (post-A review)
 
 | # | Item | Finding | Action |
 |---|------|---------|--------|
-| A7 | `es-ES` vs `es-es` casing | All other locales use lowercase (de-de, ru-ru, etc.) but es-ES uses mixed case (BCP-47 correct). Inconsistency exists. | Keep es-ES for now (changing risks Windows case-conflict again). Full BCP-47 rename of all locales is a separate scheduled task. |
+| A7 | `es-ES` vs `es-es` casing | ATAS Platform uses all-lowercase folder names (`de-de`, `es-es`, `fr-fr`, `hi-in`, `ru-ru`, `zh-cn`). BCP-47 uppercase rename would break the sync tool. `es-ES` was a mistake from `c9e31e23`. | **Repaired**: `es-es.resx` restored in `0688067e` (6451 keys: March-25 base + 128 custom + 36 new). `diff_strings_vs_resources.ps1` added to `03-version-shims`. | closed |
 | A8 | `feat/tradesonchart` branch granularity | Single branch with 23 commits covering multiple independent features — does not meet current "per indivisible concept" rule | Audit and split after context audit is complete |
 | A9 | `feat/TradesOnChart-realtime-engine` | Possibly legacy (content may already be in `local/tradesonchart-i18n`). Was mistakenly lowercased during rename — corrected to CamelCase. | Review content vs tradesonchart-i18n before deleting |
 | A10 | `publish_platformx_beta` | Appeared from upstream during `git fetch`. Not created locally. | Monitor — upstream-only branch, no action needed |
