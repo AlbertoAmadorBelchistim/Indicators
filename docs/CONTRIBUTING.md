@@ -361,7 +361,7 @@ Local branches use `typeof(Resources)` for display attributes; upstream-targeted
 ### Adding new resource keys
 
 1. Add the key and English value to `Properties/Resources.resx`
-2. Add the same key to **all 7 satellite `.resx` files**: `de-de`, `ru-ru`, `es-ES`, `fr-fr`, `hi-in`, `zh-cn`
+2. Add the same key to **all 7 satellite `.resx` files**: `de-de`, `ru-ru`, `es-es`, `fr-fr`, `hi-in`, `zh-cn`
 3. Regenerate `Properties/Resources.Designer.cs` (VS `PublicResXFileCodeGenerator` or the `scripts/gen-designer.py` helper)
 4. Do this in a dedicated commit on `local/build/04-localization` **before** the feature branch that uses the key
 5. Document the new key set in `docs/patch-registry.md` under the `04-localization` section
@@ -371,8 +371,21 @@ Local branches use `typeof(Resources)` for display attributes; upstream-targeted
 | Case | Use |
 |------|-----|
 | Key exists in upstream `Strings` (e.g. `Period`, `SMA`, `Volume`) | `typeof(Strings)` |
-| Key is new, added to local `Resources.resx` | `typeof(Resources)` |
+| Key is new, not present in any `Strings` version | `typeof(Resources)` |
+| Key exists in `Strings` under a slightly different name (e.g. `Strings.AlertColor` vs your `Resources.AlertColorDescription`) | Use `typeof(Strings)` for the base key; add only the description variant to `Resources` if it is genuinely new |
 | PR-targeted branch | `typeof(Strings)` — do not introduce `typeof(Resources)` into upstream PRs |
+
+**Before adding any new key to `Resources.resx`**, run the diff tool to check whether the key (or a near-equivalent) already exists in the upstream platform:
+
+```powershell
+# On local/build/03-version-shims
+tools/localization/diff_strings_vs_resources.ps1
+# → outputs only_in_strings.json  (candidates for typeof(Strings))
+# →         only_in_resources.json (confirmed local-only keys)
+# →         in_both.json           (duplicate additions — should be removed from Resources)
+```
+
+If a key appears in `in_both.json`, remove it from `Resources.resx` and switch the reference to `typeof(Strings)`.
 
 ### Testing checklist
 
@@ -453,7 +466,7 @@ Create all `feat/` and `fix/` branches rooted at `Develop` — one per indivisib
 ### Phase 3 — Resource keys
 
 Add all new keys (not yet in upstream `Strings`) to `local/build/04-localization`.
-All 7 locale files must be updated: `en`, `de-de`, `ru-ru`, `es-ES`, `fr-fr`, `hi-in`, `zh-cn`.
+All 7 locale files must be updated: `en`, `de-de`, `ru-ru`, `es-es`, `fr-fr`, `hi-in`, `zh-cn`.
 Done before the integration branch is created.
 
 ### Phase 4 — Integration branch
