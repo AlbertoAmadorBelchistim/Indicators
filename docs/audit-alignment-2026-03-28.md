@@ -19,7 +19,7 @@ working model. Items are closed once the corresponding fix is committed.
 | # | Item | Finding | Resolution | Status |
 |---|------|---------|------------|--------|
 | B1 | 7 locale files locally | Was: de-de + ru-ru only. Correct: en, de-de, ru-ru, es-ES, fr-fr, hi-in, zh-cn | Updated memory; fix CONTRIBUTING.md locale list | closed |
-| B2 | Phase 0 gaps in existing ports | OHLCPlus Phase 0 (`fe9bb5c7`): missing es-ES. TradesOnChart Phase 0 (`2cdd4c82`): missing es-ES, fr-fr, hi-in, zh-cn | Add missing keys to 04-localization in a repair commit | **open** |
+| B2 | Phase 0 gaps in existing ports | OHLCPlus Phase 0 (`fe9bb5c7`): missing es-ES. TradesOnChart Phase 0 (`2cdd4c82`): missing es-ES, fr-fr, hi-in, zh-cn | Repair commits: es-es rebuilt (`0688067e`); fr-fr/hi-in/zh-cn added (`9dd3e31f`) | closed |
 | B3 | `typeof(Resources)` scope rule | Correct: feat/ = hardcoded; i18n branch = typeof(Resources) | — | ✓ |
 | B4 | Upstream locale count | Correct: upstream Develop only has en, de-de, ru-ru | — | ✓ |
 
@@ -65,7 +65,7 @@ Items to be addressed when we reach the corresponding audit section:
 
 | # | Item | Deferred to | Notes |
 |---|------|-------------|-------|
-| B2 | Phase 0 locale repair | Section B | ~~es-es for OHLCPlus and TradesOnChart resolved in B5 repair commit.~~ Remaining: OHLCPlus still missing fr-fr/hi-in/zh-cn for TradesOnChart keys (TradesOnChart es-es fixed in B5). |
+| B2 | Phase 0 locale repair | Section B | Fully closed: es-es (`0688067e`) + fr-fr/hi-in/zh-cn (`9dd3e31f`). All 7 locales complete for TradesOnChart Phase 0. |
 | D3 | CLAUDE.md cross-references | Section D | Add pointers to docs/ and memory/ so branch-unaware context is partially mitigated |
 
 ## Additional findings (post-A review)
