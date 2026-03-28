@@ -62,18 +62,27 @@ Rules:
 Use dedicated branches for isolated code changes:
 
 - `fix/*`
-- `feature/*`
+- `feat/*`
 - `refactor/*`
+- `chore/*`
 
 Examples:
 - `fix/domstrength-bid-sum-source`
-- `feature/ohlcplus-layout-option`
+- `feat/ohlcplus-label-system`
 - `refactor/clusterstatistic-series-cleanup`
+- `chore/delta-ui-polish`
+
+One branch per **indivisible feature concept** — an indicator can have multiple `feat/` branches
+if the features are independent (e.g. `feat/delta-audio-alerts` and `feat/delta-average-line`).
 
 These branches should contain:
 - one clear purpose
 - minimal hidden dependencies
 - commits that are understandable in isolation
+
+New resource keys on these branches must use hardcoded English strings (no `typeof(Resources)`
+for keys not present in the upstream `Strings` class). Use `typeof(Strings)` only where the key
+already exists in the platform.
 
 ---
 
@@ -114,18 +123,28 @@ They should be treated as **stacks**, not as arbitrary collections of independen
 
 ### 2.5 Local integration branches
 
-Use `local/integration/*` for patch promotion and local validation.
+There are two distinct kinds of local integration branch:
+
+**Per-indicator integration — `local/<indicator>-i18n`**
+
+One branch per indicator, stacked on `local/build/04-localization`. Combines the indicator's
+fix and feat standalone branches (in that order) and converts all new keys to `typeof(Resources)`.
+This is the compilable, fully-localized version of a single indicator.
 
 Examples:
-- `local/integration/testing`
-- `local/integration/release`
+- `local/delta-i18n`
+- `local/tradesonchart-i18n`
 
-These branches are intended to:
-- collect approved individual patches
-- test patch combinations
-- assemble reproducible local builds
+**Meta-integration — `local/staging`**
 
-They are not the default place where fixes are authored.
+A single branch that merges all completed `local/<indicator>-i18n` branches for pre-publication
+verification. Created from `local/build/04-localization`; each i18n branch is merged in as it
+completes.
+
+- When an i18n branch gets new forward-only commits: re-merge into staging
+- When an i18n branch is rebased (because 04-localization changed): rebuild staging from scratch
+
+`local/staging` is the final step before publication. It is not where code is authored.
 
 ---
 
@@ -249,8 +268,8 @@ Use `cherry-pick` to promote **individual patches** into integration branches.
 Typical workflow:
 - author fix in `fix/*`
 - validate it
-- cherry-pick into `local/integration/testing`
-- promote later to `local/integration/release`
+- cherry-pick into `local/<indicator>-i18n`
+- merge into `local/staging` when ready for publication
 
 Cherry-pick should be preferred when:
 - the patch is atomic
@@ -302,7 +321,7 @@ Examples:
 
 These should usually live in:
 - `fix/*`
-- `feature/*`
+- `feat/*`
 - `prready/*` if grouping is needed
 
 ---
@@ -342,7 +361,7 @@ Local branches use `typeof(Resources)` for display attributes; upstream-targeted
 ### Adding new resource keys
 
 1. Add the key and English value to `Properties/Resources.resx`
-2. Add the same key to all satellite `.resx` files: `de-de`, `ru-ru`, `es-es`, `fr-fr`, `hi-in`, `zh-cn`
+2. Add the same key to **all 7 satellite `.resx` files**: `de-de`, `ru-ru`, `es-ES`, `fr-fr`, `hi-in`, `zh-cn`
 3. Regenerate `Properties/Resources.Designer.cs` (VS `PublicResXFileCodeGenerator` or the `scripts/gen-designer.py` helper)
 4. Do this in a dedicated commit on `local/build/04-localization` **before** the feature branch that uses the key
 5. Document the new key set in `docs/patch-registry.md` under the `04-localization` section
@@ -409,7 +428,62 @@ Before considering a branch or commit ready, verify:
 
 ---
 
-## 11. Final rule
+## 11. Indicator port workflow (6 phases)
+
+Use this workflow when porting an indicator from an upstream source or developing new indicator features.
+
+### Phase 1 — Evaluation + Manifest
+
+Evaluate the indicator from three perspectives:
+- **Software engineer**: correctness bugs, data-race risks, O(n) hot paths, series indexing, edge cases at bar 0 / session boundary
+- **Discretionary trader**: does the visualization communicate what traders need? Are defaults sensible?
+- **Algo trader**: are calculated values stable and deterministic enough for signal use? Any recalculation or look-ahead issues?
+
+Evaluate which changes to make. Agree on intentional divergences.
+Create the port manifest in `docs/port-manifests/<indicator>.md` on `meta/docs`.
+**Phase 1 ends when the manifest is committed. No code is written before this.**
+
+### Phase 2 — Standalone branches (Develop-based)
+
+Create all `feat/` and `fix/` branches rooted at `Develop` — one per indivisible concept.
+- Use hardcoded English strings for new keys (no `typeof(Resources)` for keys not in upstream `Strings`)
+- Must be C#-valid; Alpha build failures on Develop (MC1000 XAML error) are environmental, not a blocker
+- These branches are candidates for upstream PRs
+
+### Phase 3 — Resource keys
+
+Add all new keys (not yet in upstream `Strings`) to `local/build/04-localization`.
+All 7 locale files must be updated: `en`, `de-de`, `ru-ru`, `es-ES`, `fr-fr`, `hi-in`, `zh-cn`.
+Done before the integration branch is created.
+
+### Phase 4 — Integration branch
+
+Create `local/<indicator>-i18n` stacked on `local/build/04-localization`.
+Apply fix branches first, then feat branches. Convert all new keys to `typeof(Resources)`.
+
+### Phase 5 — Smoke test
+
+Create the per-indicator verification document (upstream functionality preservation + each new feature).
+User executes it manually in ATAS Platform. Nothing is marked complete until Phase 5 passes.
+
+### Phase 6 — Documentation
+
+Update indicator docs in `publish_stable_MyIndicators`. Mark port manifest `complete`.
+
+---
+
+### Upstream sync rules
+
+| Target | Trigger | Command |
+|--------|---------|---------|
+| `Develop` | Every session (or daily when not actively porting) | `git fetch origin && git merge origin/Develop Develop` |
+| `local/build/01→02→03→04` | After every `Develop` sync | Rebase each level in order |
+| `local/<indicator>-i18n` | Only when `04-localization` itself changes | Rebase on updated 04 |
+| `local/staging` | When an i18n branch is rebased | Rebuild from scratch; otherwise re-merge |
+
+---
+
+## 12. Final rule
 
 Contribute in a way that makes future integration easier.
 

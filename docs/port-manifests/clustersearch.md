@@ -6,7 +6,13 @@
 
 ---
 
-## Phase -1 — Standalone branches (Develop-based)
+## Phase 1 — Evaluation + Manifest
+
+Evaluation complete. Manifest created as part of port planning.
+
+---
+
+## Phase 2 — Standalone branches (Develop-based)
 
 **Rules:**
 - Base: `git checkout -B <branch> Develop`
@@ -40,7 +46,7 @@ Commits in `feat/cs-diagonal-imbalance`:
 
 ---
 
-## Phase 0 — Resource keys required in `local/build/04-localization`
+## Phase 3 — Resource keys required in `local/build/04-localization`
 
 17 new keys needed. All from commits `b0d115ff` (UI labels) and `2f1d5de8` (descriptions).
 
@@ -77,7 +83,9 @@ Resource commit on `local/build/04-localization`: `7c9e008d` (manually inserted 
 
 ---
 
-## Phase 1 — Fix branches (port before feat)
+## Phase 4 — Integration branch: `local/clustersearch-i18n`
+
+### Fix commits
 
 | Commit (prready/main) | Description | Local branch | Status | Notes |
 |----------------------|-------------|--------------|--------|-------|
@@ -91,7 +99,7 @@ Resource commit on `local/build/04-localization`: `7c9e008d` (manually inserted 
 
 ---
 
-## Phase 2 — Feat branches
+### Feat commits
 
 | Commit (prready/main) | Description | Local branch | Status | Notes |
 |----------------------|-------------|--------------|--------|-------|
@@ -108,19 +116,19 @@ Resource commit on `local/build/04-localization`: `7c9e008d` (manually inserted 
 
 ---
 
-## Phase 2b — Dependent fixes/refactors
+### Dependent fixes/refactors
 
 None identified.
 
 ---
 
-## Phase 3 — Chore / UI polish
+### Chore / UI polish
 
 None identified.
 
 ---
 
-## Phase 4 — Integration verification: `local/clustersearch-i18n`
+## Phase 5 — Smoke test
 
 ### 4.1 Build
 - [x] `dotnet build` — 0 C# errors (MC3074 XAML errors are environment-only, expected on all branches)
@@ -141,6 +149,13 @@ None identified.
 - [ ] Buy/Sell separate colors work when UseSeparateColors = true
 - [ ] Switching CalcType away from DI restores AutoFilter/MinFilter controls
 - [ ] fix/cs-dead-fields: removed properties not visible in UI
+
+---
+
+## Phase 6 — Documentation
+
+- [ ] `publish_stable_MyIndicators` docs updated to reflect final behavior
+- [ ] Manifest marked `complete`
 
 ---
 

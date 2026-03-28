@@ -13,7 +13,7 @@ develop
 | `local/build/01-base` | `develop` | PR open | Base local build alignment: `$(ATAS_BASE)`, `net8.0-windows` / `net8.0`, Cross platform exclusions |
 | `local/build/02-multiversion` | `local/build/01-base` | local-only | Multi-flavor build configs: Alpha / Beta / Latest / Stable / ATAS_X_Alpha / ATAS_X_Beta |
 | `local/build/03-version-shims` | `local/build/02-multiversion` | local-only | Version compatibility shims + TabAttribute stub for pre-release OFT.Attributes |
-| `local/build/04-localization` | `local/build/03-version-shims` | local-only | New .resx keys for Volume + Delta + MultiMarketPower + ClusterSearch + ClusterStatistic + OHLCPlus features (233 keys total, all 7 locales) |
+| `local/build/04-localization` | `local/build/03-version-shims` | local-only | New .resx keys for Volume + Delta + MultiMarketPower + ClusterSearch + ClusterStatistic + OHLCPlus + TradesOnChart features (~400 keys, all 7 locales). **Note:** OHLCPlus missing es-ES; TradesOnChart missing es-ES + fr-fr + hi-in + zh-cn — repair pending. |
 
 ## Delta branches
 
@@ -61,7 +61,7 @@ develop
 |---|---|---|---|
 | `fix/volume-alert-label` | `develop` | PR-ready | Alert messages now reflect selected input type via `GetInputLabel()` |
 | `fix/volume-max-follow-input` | `fix/volume-alert-label` | PR-ready | MaxFollowInput: highest-vol lookback now uses `val` (current input) not `candle.Volume` |
-| `feature/volume-thresholds` | `fix/volume-max-follow-input` | local-only | Fixed and dynamic (Welford) volume threshold lines with session-aware reset |
+| `feat/volume-thresholds` | `fix/volume-max-follow-input` | local-only | Fixed and dynamic (Welford) volume threshold lines with session-aware reset |
 | `local/volume-i18n` | `local/build/04-localization` | local-only | Full i18n of Volume.cs: all display strings via Resources, bugs fixed (double-paren, color setters) |
 
 ## MultiMarketPower branches
@@ -157,6 +157,37 @@ develop
 | `refactor/ohlcplus-period-helpers` | `develop` | pending | 3 refactors (Dec 30): centralize level enumeration, period-needs helper, profile-requests cleanup — no behavior change |
 | `feat/ohlcplus` | `develop` | local-only | 41 commits (HEAD `3aa1a482`): label system, visual semantic schemes (pq02), HVN/LVN bands + tail filter; 3 local bug fixes; typeof(Resources) adapted to hardcoded strings |
 | `local/ohlcplus-i18n` | `local/build/04-localization` | local-only | 1 squash commit (HEAD `e7e9c455`): full feat/ohlcplus state with all Display attributes converted to typeof(Resources); 0 C# errors |
+
+## TradesOnChart branches
+
+```text
+develop
+└─ feat/tradesonchart          (local)
+local/build/04-localization
+└─ local/tradesonchart-i18n    (local)
+```
+
+| Branch | Parent | Status | Notes |
+|---|---|---|---|
+| `feat/tradesonchart` | `develop` | local-only | 23 commits: realtime+history trade loading, label modes (Hide/Short/Full/Card), card label rendering, connector line, X anchor, settings reorganization; hardcoded strings |
+| `local/tradesonchart-i18n` | `local/build/04-localization` | local-only | Full port with typeof(Resources); Phase 5 smoke test pending |
+
+## Staging branch
+
+```text
+local/build/04-localization
+└─ local/staging               (meta-integration — not yet created)
+   ├─ ← local/delta-i18n
+   ├─ ← local/multimarketpower-i18n
+   ├─ ← local/clustersearch-i18n
+   ├─ ← local/cs-statistic-i18n
+   ├─ ← local/ohlcplus-i18n
+   └─ ← local/tradesonchart-i18n
+```
+
+`local/staging` is created from `local/build/04-localization` and each `local/<indicator>-i18n`
+branch is merged into it after its Phase 5 smoke test passes. This is the pre-publication
+verification branch — build and full functional verification run here before publication.
 
 ## Patch branches
 

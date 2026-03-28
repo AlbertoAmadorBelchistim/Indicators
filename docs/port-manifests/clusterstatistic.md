@@ -35,7 +35,13 @@ None identified — all commits ported as-is, with Develop-branch adaptation for
 
 ---
 
-## Phase -1 — Standalone branches (Develop-based)
+## Phase 1 — Evaluation + Manifest
+
+Evaluation complete. Manifest created as part of port planning.
+
+---
+
+## Phase 2 — Standalone branches (Develop-based)
 
 **Rules:**
 - Base: `git checkout -B <branch> Develop`
@@ -64,7 +70,7 @@ None identified — all commits ported as-is, with Develop-branch adaptation for
 
 ---
 
-## Phase 0 — Resource keys required in `local/build/04-localization`
+## Phase 3 — Resource keys required in `local/build/04-localization`
 
 **74 net new keys** from 5 commits:
 
@@ -107,7 +113,9 @@ None identified — all commits ported as-is, with Develop-branch adaptation for
 
 ---
 
-## Phase 1 — Fix branches (port before feat)
+## Phase 4 — Integration branch: `local/clusterstatistic-i18n`
+
+### Fix commits
 
 No prready/main fixes are standalone (all depend on new features added in Phase 2).
 
@@ -119,7 +127,7 @@ No prready/main fixes are standalone (all depend on new features added in Phase 
 
 ---
 
-## Phase 2 — Feat branch
+### Feat commits
 
 All 28 remaining commits form a single tightly-coupled stack: `feat/cs-statistic`.
 
@@ -189,19 +197,19 @@ All 28 remaining commits form a single tightly-coupled stack: `feat/cs-statistic
 
 ---
 
-## Phase 2b — Dependent fixes/refactors
+### Dependent fixes/refactors
 
 Already included above in Phase 2d and 2e.
 
 ---
 
-## Phase 3 — Chore / UI polish
+### Chore / UI polish
 
 Already included in Phase 2e (`b372300b`, `0b645e2f`).
 
 ---
 
-## Phase 4 — Integration verification: `local/clusterstatistic-i18n`
+## Phase 5 — Smoke test
 
 ### 4.1 Build
 - [x] `dotnet build` — 0 C# errors (MC1000 XAML error is environmental DevExpress only)
@@ -224,6 +232,13 @@ Already included in Phase 2e (`b372300b`, `0b645e2f`).
 - [ ] Net imbalance alert fires when threshold crossed
 - [ ] Closed-candle alert mode is deterministic
 - [ ] Percent display mode (RatiosAsPercent) toggles correctly
+
+---
+
+## Phase 6 — Documentation
+
+- [ ] `publish_stable_MyIndicators` docs updated to reflect final behavior
+- [ ] Manifest marked `complete`
 
 ---
 

@@ -9,7 +9,13 @@ into the local branch stack.
 
 ---
 
-## Phase -1 — Standalone branches (Develop-based)
+## Phase 1 — Evaluation + Manifest
+
+Evaluation complete. Manifest created as part of port planning.
+
+---
+
+## Phase 2 — Standalone branches (Develop-based)
 
 No standalone fix/feat branches are required before Phase 2. All fixes and features are tightly
 coupled to the new TradesOnChart rendering pipeline introduced in this batch and are best
@@ -27,7 +33,7 @@ None planned.
 
 ---
 
-## Phase 0 — Resource keys required in `local/build/04-localization`
+## Phase 3 — Resource keys required in `local/build/04-localization`
 
 33 new keys (5 existing keys already have correct values or need only minor updates).
 
@@ -79,13 +85,15 @@ None planned.
 
 ---
 
-## Phase 1 — Fix branches (port before feat)
+## Phase 4 — Integration branch: `local/tradesonchart-i18n`
 
-No standalone fix branches planned (see Phase -1).
+### Fix commits
+
+No standalone fix branches planned (see Phase 2).
 
 ---
 
-## Phase 2 — Feat branch: `feat/tradesonchart`
+### Feat commits: `feat/tradesonchart`
 
 All 23 commits go onto a single `feat/tradesonchart` branch rooted at `Develop`.
 6 commits require **adaptation**: replace `typeof(Resources)` references with hardcoded strings
@@ -195,7 +203,7 @@ or `typeof(Strings)` equivalents (Resources keys don't exist on Develop).
 
 ---
 
-## Phase 3 — Integration branch: `local/tradesonchart-i18n`
+### Integration notes
 
 Stacked on `local/build/04-localization`. Cherry-pick from `feat/tradesonchart` and apply
 `typeof(Resources)` for all keys that were hardcoded on the feat branch.
@@ -209,7 +217,7 @@ All adaptations from Phase 2 are reversed here — the Resources keys are availa
 
 ---
 
-## Phase 4 — Integration verification: `local/tradesonchart-i18n`
+## Phase 5 — Smoke test
 
 ### 4.1 Build
 - [ ] `dotnet build -c Alpha` — 0 errors
@@ -233,6 +241,13 @@ All adaptations from Phase 2 are reversed here — the Resources keys are availa
 - [ ] Card label shows entry/exit/PnL text
 - [ ] Settings panel: LinesAndMarkers, Labels, Details groups visible
 - [ ] No resource key literal visible in UI
+
+---
+
+## Phase 6 — Documentation
+
+- [ ] `publish_stable_MyIndicators` docs updated to reflect final behavior
+- [ ] Manifest marked `complete`
 
 ---
 

@@ -42,7 +42,13 @@ None identified.
 
 ---
 
-## Phase -1 — Standalone branches (Develop-based)
+## Phase 1 — Evaluation + Manifest
+
+Evaluation complete. Manifest created as part of port planning.
+
+---
+
+## Phase 2 — Standalone branches (Develop-based)
 
 **Rules:**
 - Base: `git checkout -B <branch> Develop`
@@ -68,7 +74,7 @@ None (all prready/main fixes are coupled to features not present in Develop).
 
 ---
 
-## Phase 0 — Resource keys required in `local/build/04-localization`
+## Phase 3 — Resource keys required in `local/build/04-localization`
 
 **60 net new keys** across 13 commits (all 7 locales):
 
@@ -120,7 +126,9 @@ Note: `ImbalanceRatio` key already exists in Designer.cs (ClusterSearch). All ot
 
 ---
 
-## Phase 2 — Feat branch
+## Phase 4 — Integration branch: `local/ohlcplus-i18n`
+
+### Feat commits
 
 All 40 commits (excluding the 3 period-helper refactors) form a single tightly-coupled stack: `feat/ohlcplus`.
 
@@ -249,13 +257,13 @@ Total adapted refs: **121**
 
 ---
 
-## Phase 3 — Chore / UI polish
+### Chore / UI polish
 
 No separate phase — all polish commits are included in the feat stack above.
 
 ---
 
-## Phase 4 — Integration verification: `local/ohlcplus-i18n`
+## Phase 5 — Smoke test
 
 ### 4.1 Build
 - [ ] `dotnet build` — 0 C# errors
@@ -282,6 +290,13 @@ No separate phase — all polish commits are included in the feat stack above.
 - [ ] Hybrid LVN tail filter (min ticks + % of range) gates LVN detection
 - [ ] HVN/LVN occlusion and priority ordering work correctly
 - [ ] Collision-aware label layout prevents overlap on dense charts
+
+---
+
+## Phase 6 — Documentation
+
+- [ ] `publish_stable_MyIndicators` docs updated to reflect final behavior
+- [ ] Manifest marked `complete`
 
 ---
 

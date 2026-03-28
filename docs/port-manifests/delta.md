@@ -6,7 +6,13 @@
 
 ---
 
-## Phase 0 — Resource keys required in `local/build/04-localization`
+## Phase 1 — Evaluation + Manifest
+
+Evaluation complete. Manifest created as part of port planning.
+
+---
+
+## Phase 3 — Resource keys required in `local/build/04-localization`
 
 Keys added in commit `67e122dc` on `local/build/04-localization`.
 
@@ -61,7 +67,9 @@ Keys added in commit `67e122dc` on `local/build/04-localization`.
 
 ---
 
-## Phase 1 — Fix branches (port before feat)
+## Phase 4 — Integration branch: `local/delta-i18n`
+
+### Fix commits
 
 Fix branches must have their content applied to `local/delta-i18n` **before** feat content.
 
@@ -73,7 +81,7 @@ Fix branches must have their content applied to `local/delta-i18n` **before** fe
 
 ---
 
-## Phase 2 — Feat branches
+### Feat commits
 
 | Commit (prready/main) | Description | Local branch | Status | Notes |
 |----------------------|-------------|--------------|--------|-------|
@@ -87,7 +95,7 @@ Fix branches must have their content applied to `local/delta-i18n` **before** fe
 
 ---
 
-## Phase 3 — Chore / UI polish / compat
+### Chore / UI polish / compat
 
 These commits must be applied before publication. They do not add features but affect UX quality.
 
@@ -119,7 +127,7 @@ These commits must be applied before publication. They do not add features but a
 
 ---
 
-## Phase 4 — Integration verification: `local/delta-i18n`
+## Phase 5 — Smoke test
 
 ### 4.1 Build
 - [x] `dotnet build -c Alpha` — 0 errors (verified 2026-03-25, re-verified 2026-03-25 after Phase 3)
@@ -151,6 +159,13 @@ These commits must be applied before publication. They do not add features but a
 - [ ] Indicator loads without crash — pending full integration test
 - [ ] "Delta label" group visible (not "DeltaLabelGroup" literal) — pending key fix
 - [ ] No resource key literal visible in UI — pending
+
+---
+
+## Phase 6 — Documentation
+
+- [ ] `publish_stable_MyIndicators` docs updated to reflect final behavior
+- [ ] Manifest marked `complete`
 
 ---
 

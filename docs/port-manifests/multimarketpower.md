@@ -6,7 +6,13 @@
 
 ---
 
-## Phase -1 — Standalone branches (Develop-based)
+## Phase 1 — Evaluation + Manifest
+
+Evaluation complete. Manifest created as part of port planning.
+
+---
+
+## Phase 2 — Standalone branches (Develop-based)
 
 Each fix and feat **must have its own standalone branch rooted at `Develop`**, independent of the integration branch and the localization infrastructure branch. This allows individual PRs to be reviewed without requiring the full localization stack.
 
@@ -46,7 +52,7 @@ Feat branches are stacked because they share code dependencies. All ultimately h
 
 ---
 
-## Phase 0 — Resource keys required in `local/build/04-localization`
+## Phase 3 — Resource keys required in `local/build/04-localization`
 
 15 new keys needed. All others already exist (`Filters`, `General`, `Session`, `CustomSession`, `CustomSessionStart`, `SignalPeriod`).
 
@@ -70,7 +76,9 @@ Feat branches are stacked because they share code dependencies. All ultimately h
 
 ---
 
-## Phase 1 — Fix branches (port before feat)
+## Phase 4 — Integration branch: `local/multimarketpower-i18n`
+
+### Fix commits
 
 Fix commits must be applied to `local/multimarketpower-i18n` **before** feat content.
 Fix-only commits must be applied first; fixes that build on feat state come after their feat.
@@ -91,7 +99,7 @@ Fix-only commits must be applied first; fixes that build on feat state come afte
 
 ---
 
-## Phase 2 — Feat branches
+### Feat commits
 
 | Commit (prready/main) | Description | Local branch | Status | Notes |
 |----------------------|-------------|--------------|--------|-------|
@@ -102,7 +110,7 @@ Fix-only commits must be applied first; fixes that build on feat state come afte
 
 ---
 
-## Phase 2b — Fixes and refactors (depend on feat/Phase 1 state)
+### Fixes and refactors (depend on feat/Phase 1 state)
 
 | Commit (prready/main) | Description | Local branch | Status | Notes |
 |----------------------|-------------|--------------|--------|-------|
@@ -111,7 +119,7 @@ Fix-only commits must be applied first; fixes that build on feat state come afte
 
 ---
 
-## Phase 3 — Chore / UI polish
+### Chore / UI polish
 
 | Commit (prready/main) | Description | Local branch | Status | Notes |
 |----------------------|-------------|--------------|--------|-------|
@@ -121,7 +129,7 @@ Fix-only commits must be applied first; fixes that build on feat state come afte
 
 ---
 
-## Phase 4 — Integration verification: `local/multimarketpower-i18n`
+## Phase 5 — Smoke test
 
 ### 4.1 Build
 - [x] `dotnet build -c Alpha` — 0 errors (verified after Phase 2b)
@@ -145,6 +153,13 @@ Fix-only commits must be applied first; fixes that build on feat state come afte
 - [ ] 4-color system works (colors change by SMA slope)
 - [ ] Session controls reset state at session boundary
 - [ ] No resource key literals visible in UI
+
+---
+
+## Phase 6 — Documentation
+
+- [ ] `publish_stable_MyIndicators` docs updated to reflect final behavior
+- [ ] Manifest marked `complete`
 
 ---
 
