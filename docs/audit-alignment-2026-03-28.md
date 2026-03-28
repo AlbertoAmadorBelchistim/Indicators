@@ -61,5 +61,19 @@ working model. Items are closed once the corresponding fix is committed.
 
 ## Open items
 
-- **B2** — Phase 0 locale repair: add missing keys for OHLCPlus (es-ES) and TradesOnChart (es-ES, fr-fr, hi-in, zh-cn) to `local/build/04-localization`
-- **D3** — CLAUDE.md does not reference docs/ or memory/ — add cross-references
+Items to be addressed when we reach the corresponding audit section:
+
+| # | Item | Deferred to | Notes |
+|---|------|-------------|-------|
+| B2 | Phase 0 locale repair | Section B | OHLCPlus: add es-ES keys. TradesOnChart: add es-ES, fr-fr, hi-in, zh-cn keys. Both on `local/build/04-localization`. |
+| D3 | CLAUDE.md cross-references | Section D | Add pointers to docs/ and memory/ so branch-unaware context is partially mitigated |
+
+## Additional findings (post-A review)
+
+| # | Item | Finding | Action |
+|---|------|---------|--------|
+| A7 | `es-ES` vs `es-es` casing | All other locales use lowercase (de-de, ru-ru, etc.) but es-ES uses mixed case (BCP-47 correct). Inconsistency exists. | Keep es-ES for now (changing risks Windows case-conflict again). Full BCP-47 rename of all locales is a separate scheduled task. |
+| A8 | `feat/tradesonchart` branch granularity | Single branch with 23 commits covering multiple independent features — does not meet current "per indivisible concept" rule | Audit and split after context audit is complete |
+| A9 | `feat/TradesOnChart-realtime-engine` | Possibly legacy (content may already be in `local/tradesonchart-i18n`). Was mistakenly lowercased during rename — corrected to CamelCase. | Review content vs tradesonchart-i18n before deleting |
+| A10 | `publish_platformx_beta` | Appeared from upstream during `git fetch`. Not created locally. | Monitor — upstream-only branch, no action needed |
+| A11 | `local-only` label meaning | In branch-stacks.md: means "not yet submitted as PR to upstream ATAS", not "absent from origin". All active branches should exist on origin. | Clarify label definition in branch-stacks.md |
