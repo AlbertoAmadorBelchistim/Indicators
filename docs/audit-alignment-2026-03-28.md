@@ -32,7 +32,7 @@ working model. Items are closed once the corresponding fix is committed.
 | C3 | Phase ordering | Correct overall; renumbered to 1-6 | See A4 | closed |
 | C4 | Smoke tests are manual | Correct | — | ✓ |
 | C5 | Docs updated after smoke test | Correct | — | ✓ |
-| C6 | Per-indicator verification document | Phase 5 in CONTRIBUTING.md mentions creating the document, but `docs/testing-checklist.md` is a general skeleton with no per-indicator sections. Format and location not defined. | Decide: append to testing-checklist.md vs separate `docs/smoke-tests/<indicator>.md` files. Defer to user. | **open** |
+| C6 | Per-indicator verification document | Phase 5 in CONTRIBUTING.md mentions creating the document, but `docs/testing-checklist.md` is a general skeleton with no per-indicator sections. Format and location not defined. | Created `docs/smoke-tests/TEMPLATE.md` — one `.md` file per indicator under `docs/smoke-tests/`. Individual files generated at Phase 5 start. | closed |
 
 ## Section D — Memory / context gaps
 
@@ -53,13 +53,13 @@ working model. Items are closed once the corresponding fix is committed.
 | E2 | typeof(Strings) vs typeof(Resources) | Correct | — | ✓ |
 | E3 | #if !ATAS_STABLE preference | Correct | — | ✓ |
 | E4 | *Modif = controlled derivation | Correct | — | ✓ |
-| E5 | DataSeries types not documented | `ValueDataSeries` properties (`VisualMode`, `IsHidden`, `ShowCurrentValue`, `IgnoredByAlerts`, `ResetAlertsOnNewBar`, `UseMinimizedModeIfEnabled`, `ScaleIt`), `RangeDataSeries`, `CandleDataSeries`, `PaintbarsDataSeries` all used in 20+ indicators but absent from ARCHITECTURE.md | Add §9.5 to ARCHITECTURE.md | **open** |
-| E6 | Indicator lifecycle methods not documented | `OnInitialize`, `OnApplyDefaultColors`, `OnRecalculate`, `OnDispose`, `SubscribeToDrawingEvents(DrawingLayouts)` — used across 30+ indicators, none documented in ARCHITECTURE.md | Add §9.6 | **open** |
-| E7 | OnRender / custom drawing pattern not documented | `EnableCustomDrawing`, `OnRender(RenderContext, DrawingLayouts)`, coordinate conversion (`GetXByBar`, `GetYByPrice`), `FirstVisibleBarNumber`/`LastVisibleBarNumber` guards, render resource fields — used in TradesOnChart, DOM, ClusterStatistic, AccountInfoDisplay. Also: `ChartInfo.ColorsStore` for platform color theming. | Add §9.7 | **open** |
-| E8 | Parameter attribute pattern not documented | `[Parameter]`, `[Range]`, `[Display(..., Description=..., Order=...)]` full pattern; `Order` numbering conventions; `RaisePropertyChanged` vs `RecalculateValues`; `Filter`/`FilterInt`/`FilterString` types | Add §9.8 | **open** |
-| E9 | Session/bar lifecycle pattern not documented | `bar == 0` full reset (`DataSeries.ForEach(x => x.Clear())`), `bar == CurrentBar - 1` realtime guard, `IsNewSession(bar)`, `SetPointOfEndLine`, `_lastBar`/`_lastAlert` dedup guards | Add §9.9 | **open** |
-| E10 | Alerts and trading statistics not documented | `AddAlert(file, instrument, message, bgColor, fontColor)`, `IgnoredByAlerts`, `ResetAlertsOnNewBar`, `InstrumentInfo.TickSize`, `TradingStatisticsProvider`, `TradingManager.PortfolioSelected` — subscribe in `OnInitialize`, unsubscribe in `OnDispose` | Add §9.10 | **open** |
-| E11 | ATAS X compatibility gap | Custom WPF editors (`Editors/` folder) are **incompatible** with ATAS X. `System.Windows.Media` base types auto-mapped (no code change needed). Indicators using custom `UserControl` editors will fail on ATAS X. | Audit `Editors/` folder; add §5.x to ARCHITECTURE.md | **open** |
+| E5 | DataSeries types not documented | `ValueDataSeries` properties, `RangeDataSeries`, `CandleDataSeries`, `PaintbarsDataSeries` absent from ARCHITECTURE.md | Added §9.5 (`36390d3c`) | closed |
+| E6 | Indicator lifecycle methods not documented | `OnInitialize`, `OnApplyDefaultColors`, `OnRecalculate`, `OnDispose`, `SubscribeToDrawingEvents` | Added §9.6 (`36390d3c`) | closed |
+| E7 | OnRender / custom drawing pattern not documented | `EnableCustomDrawing`, `OnRender`, `RenderContext`, coordinate conversion, visibility guards, `ChartInfo.ColorsStore` | Added §9.7 (`36390d3c`) | closed |
+| E8 | Parameter attribute pattern not documented | `[Display]` full pattern, `Order` conventions, `Filter`/`FilterInt`/`FilterString` types | Added §9.8 (`36390d3c`) | closed |
+| E9 | Session/bar lifecycle pattern not documented | `bar==0` reset, `CurrentBar-1` guard, `IsNewSession`, `SetPointOfEndLine`, dedup guards | Added §9.9 (`36390d3c`) | closed |
+| E10 | Alerts and trading statistics not documented | `AddAlert`, `TradingStatisticsProvider`, `IgnoredByAlerts`, `InstrumentInfo.TickSize` | Added §9.10 (`36390d3c`) | closed |
+| E11 | ATAS X compatibility gap | WPF custom editors incompatible; `System.Windows.Media` auto-mapped | Added §5.1 (`36390d3c`); `Editors/` audit pending | partial |
 
 ## Section F — Project understanding
 
