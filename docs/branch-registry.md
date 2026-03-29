@@ -84,7 +84,7 @@ In origin but **deleted from upstream** (deleted during fetch 2026-03-29) and **
 | Branch | Was in upstream | Last O | Content | Action |
 |--------|----------------|--------|---------|--------|
 | ~~`auto-chart-reload`~~ | Yes, deleted 2026-03-29 | — | PLAT-1446 auto chart reload (only .csproj change, fully merged into Develop) | **Deleted 2026-03-29** |
-| `mn_trades-on-chart` | Yes, deleted 2026-03-29 | unknown | PLAT-3736: TradesOnChart fixes by ATAS (shows all data regardless stats filters) | **Review vs our port**, then delete |
+| ~~`mn_trades-on-chart`~~ | Yes, deleted 2026-03-29 | — | PLAT-3736 intermediate state. All 3 final PLAT-3736 commits already in Develop (Feb 17–26 2026). Our `feat/tradesonchart` branches from current Develop tip — PLAT-3736 included. | **Deleted 2026-03-29** |
 | ~~`vp_history-of-expiries`~~ | Yes, deleted 2026-03-29 | — | PLAT-2716 RolloverDates (fully merged into Develop) | **Deleted 2026-03-29** |
 | ~~`vp_DataSeriesPropVizible2`~~ | Never in upstream | — | Properties simplification + cross-platform (no diff vs Develop, fully absorbed) | **Deleted 2026-03-29** |
 | ~~`local/build-base`~~ | — | — | Older name for `local/build/01-base`, superseded | **Deleted 2026-03-29** |
@@ -134,7 +134,7 @@ All active feat/ and fix/ branches are in both local and origin. No sync issues 
 | `feat/mmp-*` (4 branches) | 2026-03-26 | 2026-03-26 | All synced |
 | `feat/cs-*` (2 branches) | 2026-03-26 | 2026-03-26 | All synced |
 | `feat/volume-thresholds` | 2026-03-25 | 2026-03-25 | Synced |
-| `feat/SpeedOfTapeV2` | — | ✓ | Local missing — check if still needed |
+| `feat/SpeedOfTapeV2` | — | ✓ | **Original indicator** (not an upstream port). Not yet reviewed or ported to current .NET8 project. Keep in origin; evaluate before next publication cycle. |
 | `feat/TradesOnChart-realtime-engine` | — | ✓ | Origin only — local deleted after rename to CamelCase. Review A9. |
 | `fix/delta-*` (3 branches) | 2026-03-25–26 | same | All synced |
 | `fix/mmp-*` (11 branches) | 2026-03-26 | 2026-03-26 | All synced |
@@ -149,9 +149,8 @@ All active feat/ and fix/ branches are in both local and origin. No sync issues 
 
 | Priority | Action | Branch(es) |
 |----------|--------|-----------|
-| 🟡 Medium | Review `mn_trades-on-chart` vs our TradesOnChart port (PLAT-3736), then delete | `origin/mn_trades-on-chart` |
 | 🟡 Medium | `revert-60-patch-6`: WoodiesCCI refactor reverted by ATAS — do not re-submit. Keep for reference. | `upstream/revert-60-patch-6` |
-| 🟠 Low | Evaluate `feat/SpeedOfTapeV2` — still needed in local? | — |
+| 🟠 Low | `feat/SpeedOfTapeV2`: original indicator, not yet ported to .NET8 project. Keep in origin; port before next publication cycle. | origin only |
 | 🟠 Low | All other upstream legacy branches — origin only is correct, no local needed | — |
 
 **Completed 2026-03-29:**
@@ -160,3 +159,5 @@ All active feat/ and fix/ branches are in both local and origin. No sync issues 
 - Synced local publish_alpha to upstream
 - Deleted from origin: `auto-chart-reload`, `vp_history-of-expiries`, `vp_DataSeriesPropVizible2`, `local/build-base`
 - Confirmed upstream/OHLCPlus fully merged into Develop (PLAT-3096 complete)
+- Deleted `mn_trades-on-chart` — PLAT-3736 already in Develop, our port base is current
+- `feat/SpeedOfTapeV2`: classified as original indicator pending .NET8 port, keep in origin
