@@ -5,6 +5,7 @@ Inventory of all branches across the three locations: **upstream** (AtasPlatform
 **local** (working machine).
 
 Last full sync: **2026-03-29**
+Last cleanup: **2026-03-29**
 
 Column guide:
 - **L** = exists in local | **O** = exists in origin | **U** = exists in upstream
@@ -21,7 +22,7 @@ Branches that exist in upstream AND are tracked locally. Must be kept in sync.
 |--------|---------|---|---|---|--------|--------|--------|-------------|--------|
 | `Develop` | Upstream main dev branch. Base for all feat/fix branches. | ✓ | ✓ | ✓ | 2026-03-26 | 2026-03-26 | 2026-03-26 | ✓ synced | Sync at session start |
 | `publish_stable` | Last stable release from upstream | ✓ | ✓ | ✓ | 2025-06-17 | 2025-06-17 | 2025-06-17 | ✓ synced | Update after each stable release |
-| `publish_alpha` | Alpha release (most current published) | ✓ | ✓ | ✓ | 2026-03-27 | 2026-03-24 | 2026-03-24 | O/L behind upstream 1 commit | Pull from upstream |
+| `publish_alpha` | Alpha release (most current published) | ✓ | ✓ | ✓ | 2026-03-27 | 2026-03-27 | 2026-03-27 | ✓ synced | Update after each alpha release |
 | `publish_beta` | Beta release | ✓ | ✓ | ✓ | 2026-03-23 | 2026-03-23 | 2026-03-23 | ✓ synced | Update after each beta release |
 | `publish_latest` | Latest release | ✓ | ✓ | ✓ | 2026-02-26 | 2026-02-26 | 2026-02-26 | ✓ synced | — |
 | `publish_platformx_beta` | ATAS X beta (cross-platform) | — | ✓ | ✓ | 2026-03-23 | 2026-03-23 | n/a | O mirrors U | Bring to local if ATAS X testing needed |
@@ -39,7 +40,7 @@ Upstream feature branches with recent activity. Worth tracking in origin; evalua
 | `develop-avalonia2` | ATAS X (Avalonia UI) cross-platform port | — | ✓ | ✓ | 2026-02-04 | Active. Affects custom editor compatibility (E11). | Keep in origin, monitor |
 | `net10` | .NET 10 migration (last: Nov 2025, stalled?) | — | ✓ | ✓ | 2025-11-28 | May revive. Our build stack would need adaptation. | Keep in origin, monitor |
 | `cluster_search_revert` | Rollback of ClusterSearch change (PLAT-3550 revert) | — | ✓ | ✓ | 2026-02-13 | Relevant: may affect our ClusterSearch port | Keep in origin |
-| `OHLCPlus` | ATAS own OHLCPlus work (PLAT-3096, partial localization) | — | ✓ | ✓ | 2025-09-10 | **Critical**: overlaps with our OHLCPlus port. Review before Phase 6. | Keep in origin, review at OHLCPlus Phase 5 |
+| `OHLCPlus` | ATAS own OHLCPlus work (PLAT-3096, partial localization) | — | ✓ | ✓ | 2025-09-10 | Fully merged into Develop (0 unique commits). PLAT-3096 complete. No action needed before Phase 6. | Keep in origin |
 | `js-dom-indicator` | DOM indicator perf/rendering improvements | — | ✓ | ✓ | 2026-01-21 | DOM render optimizations; relevant if we port DOM variants | Keep in origin |
 
 ---
@@ -82,26 +83,26 @@ In origin but **deleted from upstream** (deleted during fetch 2026-03-29) and **
 
 | Branch | Was in upstream | Last O | Content | Action |
 |--------|----------------|--------|---------|--------|
-| `auto-chart-reload` | Yes, deleted 2026-03-29 | unknown | Auto chart reload feature (merged/abandoned by ATAS) | **Delete from origin** |
+| ~~`auto-chart-reload`~~ | Yes, deleted 2026-03-29 | — | PLAT-1446 auto chart reload (only .csproj change, fully merged into Develop) | **Deleted 2026-03-29** |
 | `mn_trades-on-chart` | Yes, deleted 2026-03-29 | unknown | PLAT-3736: TradesOnChart fixes by ATAS (shows all data regardless stats filters) | **Review vs our port**, then delete |
-| `vp_history-of-expiries` | Yes, deleted 2026-03-29 | unknown | History of expiries feature | **Delete from origin** |
-| `vp_DataSeriesPropVizible2` | Never in upstream (or deleted earlier) | unknown | DataSeries visibility properties work | **Delete from origin** |
-| `local/build-base` | — | — | Older name for `local/build/01-base`, superseded | **Delete from origin** |
+| ~~`vp_history-of-expiries`~~ | Yes, deleted 2026-03-29 | — | PLAT-2716 RolloverDates (fully merged into Develop) | **Deleted 2026-03-29** |
+| ~~`vp_DataSeriesPropVizible2`~~ | Never in upstream | — | Properties simplification + cross-platform (no diff vs Develop, fully absorbed) | **Deleted 2026-03-29** |
+| ~~`local/build-base`~~ | — | — | Older name for `local/build/01-base`, superseded | **Deleted 2026-03-29** |
 
 ---
 
 ## 5. Local-only work branches (user's own — need origin push)
 
-User's active work branches. Should exist in origin as backup. Currently missing from origin:
+User's active work branches. Should exist in origin as backup. All pushed as of 2026-03-29.
 
-| Branch | Last L | Status | Missing from origin | Action |
-|--------|--------|--------|---------------------|--------|
-| `feat/ohlcplus` | 2026-03-27 | Active (41 commits) | **Yes** | `git push origin feat/ohlcplus` |
-| `feat/tradesonchart` | 2026-03-27 | Active (23 commits) | **Yes** | `git push origin feat/tradesonchart` |
-| `local/ohlcplus-i18n` | 2026-03-27 | Complete, pending smoke test | **Yes** | `git push origin local/ohlcplus-i18n` |
-| `local/tradesonchart-i18n` | 2026-03-27 | Complete, pending smoke test | **Yes** | `git push origin local/tradesonchart-i18n` |
-| `refactor/ohlcplus-period-helpers` | 2026-03-27 | Active refactor | **Yes** | `git push origin refactor/ohlcplus-period-helpers` |
-| `backup/prready-main-pre-rebase` | 2026-02-19 | Safety backup | **Yes** | `git push origin backup/prready-main-pre-rebase` |
+| Branch | Last L | Status | In origin | Notes |
+|--------|--------|--------|-----------|-------|
+| `feat/ohlcplus` | 2026-03-27 | Active (41 commits) | ✓ | Pushed 2026-03-29 |
+| `feat/tradesonchart` | 2026-03-27 | Active (23 commits) | ✓ | Pushed 2026-03-29 |
+| `local/ohlcplus-i18n` | 2026-03-27 | Complete, pending smoke test | ✓ | Pushed 2026-03-29 |
+| `local/tradesonchart-i18n` | 2026-03-27 | Complete, pending smoke test | ✓ | Pushed 2026-03-29 |
+| `refactor/ohlcplus-period-helpers` | 2026-03-27 | Active refactor | ✓ | Pushed 2026-03-29 |
+| `backup/prready-main-pre-rebase` | 2026-02-19 | Safety backup | ✓ | Pushed 2026-03-29 |
 
 ---
 
@@ -111,15 +112,15 @@ User's active work branches. Should exist in origin as backup. Currently missing
 |--------|--------|--------|--------|-------|
 | `local/build/01-base` | 2026-03-25 | 2026-03-25 | ✓ synced | PR open to upstream |
 | `local/build/02-multiversion` | 2026-03-25 | 2026-03-25 | ✓ synced | local-only |
-| `local/build/03-version-shims` | 2026-03-28 | — | **Not in origin** | `git push origin local/build/03-version-shims` |
-| `local/build/04-localization` | 2026-03-28 | — | **Not in origin** | `git push origin local/build/04-localization` |
-| `meta/docs` | 2026-03-29 | 2026-03-26 | O behind L by 10 commits | `git push origin meta/docs` |
+| `local/build/03-version-shims` | 2026-03-28 | 2026-03-28 | ✓ synced | Pushed 2026-03-29 |
+| `local/build/04-localization` | 2026-03-29 | 2026-03-29 | ✓ synced | Pushed 2026-03-29 |
+| `meta/docs` | 2026-03-29 | 2026-03-29 | ✓ synced | Pushed 2026-03-29 |
 | `prready/main` | 2026-03-05 | 2026-03-05 | ✓ synced | Legacy migration source |
 | `compile/myindicators` | 2025-12-29 | 2025-12-29 | ✓ synced | Last published build reference |
 | `compile/local-testing` | 2026-03-20 | 2026-03-20 | ✓ synced | Local test build |
 | `publish_stable_MyIndicators` | 2026-01-11 | 2026-01-11 | ✓ synced | User-facing GitHub main branch |
 | `refactor/mmp-rolling-sma` | 2026-03-26 | 2026-03-26 | ✓ synced | MMP rolling SMA refactor |
-| `refactor/ohlcplus-period-helpers` | 2026-03-27 | — | **Not in origin** | Push needed |
+| `refactor/ohlcplus-period-helpers` | 2026-03-27 | 2026-03-27 | ✓ synced | Pushed 2026-03-29 |
 
 ---
 
@@ -144,16 +145,18 @@ All active feat/ and fix/ branches are in both local and origin. No sync issues 
 
 ---
 
-## 8. Immediate actions required
+## 8. Remaining actions
 
 | Priority | Action | Branch(es) |
 |----------|--------|-----------|
-| 🔴 High | Push missing active branches to origin | `feat/ohlcplus`, `feat/tradesonchart`, `local/ohlcplus-i18n`, `local/tradesonchart-i18n`, `local/build/03-version-shims`, `local/build/04-localization`, `refactor/ohlcplus-period-helpers`, `backup/prready-main-pre-rebase` |
-| 🔴 High | Push meta/docs (10 commits behind origin) | `meta/docs` |
-| 🟡 Medium | Review `mn_trades-on-chart` vs our TradesOnChart port (PLAT-3736) | `origin/mn_trades-on-chart` |
-| 🟡 Medium | Review `revert-60-patch-6` — understand what ATAS reverted and why | `upstream/revert-60-patch-6` |
-| 🟡 Medium | Review `upstream/OHLCPlus` vs our OHLCPlus port | `upstream/OHLCPlus` |
-| 🟡 Medium | Pull `upstream/publish_alpha` (1 commit ahead of local) | `publish_alpha` |
-| 🟠 Low | Delete from origin: `auto-chart-reload`, `vp_history-of-expiries`, `vp_DataSeriesPropVizible2`, `local/build-base` | origin cleanup |
+| 🟡 Medium | Review `mn_trades-on-chart` vs our TradesOnChart port (PLAT-3736), then delete | `origin/mn_trades-on-chart` |
+| 🟡 Medium | `revert-60-patch-6`: WoodiesCCI refactor reverted by ATAS — do not re-submit. Keep for reference. | `upstream/revert-60-patch-6` |
 | 🟠 Low | Evaluate `feat/SpeedOfTapeV2` — still needed in local? | — |
 | 🟠 Low | All other upstream legacy branches — origin only is correct, no local needed | — |
+
+**Completed 2026-03-29:**
+- Pushed 8 previously missing branches (feat/ohlcplus, feat/tradesonchart, local/ohlcplus-i18n, local/tradesonchart-i18n, local/build/03-version-shims, local/build/04-localization, refactor/ohlcplus-period-helpers, backup/prready-main-pre-rebase)
+- Pushed meta/docs
+- Synced local publish_alpha to upstream
+- Deleted from origin: `auto-chart-reload`, `vp_history-of-expiries`, `vp_DataSeriesPropVizible2`, `local/build-base`
+- Confirmed upstream/OHLCPlus fully merged into Develop (PLAT-3096 complete)
