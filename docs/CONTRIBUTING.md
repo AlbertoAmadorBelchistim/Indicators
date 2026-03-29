@@ -462,6 +462,7 @@ Create all `feat/` and `fix/` branches rooted at `Develop` — one per indivisib
 - Use hardcoded English strings for new keys (no `typeof(Resources)` for keys not in upstream `Strings`)
 - Must be C#-valid; Alpha build failures on Develop (MC1000 XAML error) are environmental, not a blocker
 - These branches are candidates for upstream PRs
+- **For every `fix/` branch**: add an entry to `docs/patch-registry.md` on `meta/docs` with all columns filled (commit hash, date, type, area, subject, source branch, cherry-pick safe, PR status, upstream status, notes)
 
 ### Phase 3 — Resource keys
 
