@@ -7,6 +7,8 @@
 | `complete` | Phase 4 integration done; pending Phase 5 smoke test |
 | `legacy` | Historical reference only; no new commits expected |
 
+See **[`docs/branch-registry.md`](branch-registry.md)** for the full branch inventory across upstream / origin / local with sync status and recommended actions.
+
 ---
 
 # Local build stack
