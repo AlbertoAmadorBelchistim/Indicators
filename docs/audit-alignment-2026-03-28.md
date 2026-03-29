@@ -40,6 +40,7 @@ working model. Items are closed once the corresponding fix is committed.
 |---|------|---------|------------|--------|
 | D1 | ARCHITECTURE.md rules not in memory | Only a pointer existed | Created `memory/architecture_rules.md` with all fundamental rules | closed |
 | D5 | `patch-registry.md` not in workflow | Pointer existed in memory but column semantics undocumented; no workflow step required updating it | Added Phase 2 step to CONTRIBUTING.md; updated `memory/reference_docs.md` with column semantics | closed |
+| D6 | `patch-registry.md` structure — build stacks section | Lower half of file mixes exhaustive key lists (git log duplicate, goes stale) with useful build stack purpose docs. Cherry-pick command sets are hash-dependent and fragile post-rebase. | Keep patch table + patch notes as-is. Trim build stacks section to purpose + high-level categories only; remove key enumerations. Remove static cherry-pick command sets. | open |
 | D2 | Ultimate project goals not in memory | Missing | Created memory/user_goals.md | closed |
 | D3 | CLAUDE.md branch-unaware | Structural limitation | Added: key branches table, docs/ cross-references, memory/ path, fixed 7-locale count. Also: `reference_docs.md` updated with key branch roles + prready/main tracking note. | closed |
 | D4 | publish_stable audit model not in memory | Missing | Documented in memory/user_goals.md (scores, categories, actions) | closed |
