@@ -32,6 +32,7 @@ working model. Items are closed once the corresponding fix is committed.
 | C3 | Phase ordering | Correct overall; renumbered to 1-6 | See A4 | closed |
 | C4 | Smoke tests are manual | Correct | — | ✓ |
 | C5 | Docs updated after smoke test | Correct | — | ✓ |
+| C6 | Per-indicator verification document | Phase 5 in CONTRIBUTING.md mentions creating the document, but `docs/testing-checklist.md` is a general skeleton with no per-indicator sections. Format and location not defined. | Decide: append to testing-checklist.md vs separate `docs/smoke-tests/<indicator>.md` files. Defer to user. | **open** |
 
 ## Section D — Memory / context gaps
 
