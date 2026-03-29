@@ -38,9 +38,9 @@ working model. Items are closed once the corresponding fix is committed.
 
 | # | Item | Finding | Resolution | Status |
 |---|------|---------|------------|--------|
-| D1 | ARCHITECTURE.md rules not in memory | Only a pointer existed | Pointer still in reference_docs.md; key rules in CONTRIBUTING.md | partial |
+| D1 | ARCHITECTURE.md rules not in memory | Only a pointer existed | Created `memory/architecture_rules.md` with all fundamental rules | closed |
 | D2 | Ultimate project goals not in memory | Missing | Created memory/user_goals.md | closed |
-| D3 | CLAUDE.md branch-unaware | Structural limitation | Accepted; cross-reference docs/ in CLAUDE.md | open |
+| D3 | CLAUDE.md branch-unaware | Structural limitation | Added: key branches table, docs/ cross-references, memory/ path, fixed 7-locale count. Also: `reference_docs.md` updated with key branch roles + prready/main tracking note. | closed |
 | D4 | publish_stable audit model not in memory | Missing | Documented in memory/user_goals.md (scores, categories, actions) | closed |
 
 ## Section E — Code patterns
@@ -67,7 +67,7 @@ Items to be addressed when we reach the corresponding audit section:
 | # | Item | Deferred to | Notes |
 |---|------|-------------|-------|
 | B2 | Phase 0 locale repair | Section B | Fully closed: es-es (`0688067e`) + fr-fr/hi-in/zh-cn (`9dd3e31f`). All 7 locales complete for TradesOnChart Phase 0. |
-| D3 | CLAUDE.md cross-references | Section D | Add pointers to docs/ and memory/ so branch-unaware context is partially mitigated |
+| D3 | CLAUDE.md cross-references | Section D | Closed: key branches table + docs/ + memory/ added to CLAUDE.md. |
 
 ## Additional findings (post-A review)
 
