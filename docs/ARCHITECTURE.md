@@ -624,6 +624,83 @@ Use `InstrumentInfo.TickSize` for price-relative thresholds (e.g., alert when mo
 
 ---
 
+### 9.11 Real-time event hooks (ExtendedIndicator)
+
+Indicators that react to live market events override these methods from `ExtendedIndicator`.
+**All subscriptions from `OnInitialize` must be unsubscribed in `OnDispose`.**
+Any UI update from these callbacks must go through `DoActionInGuiThread(() => { ... })`.
+
+**Trade and tape events:**
+```csharp
+protected override void OnNewTrade(MarketDataArg trade) { }         // single tick
+protected override void OnNewTrades(MarketDataArg[] trades) { }     // batch of ticks
+protected override void OnCumulativeTrade(CumulativeTrade trade) { }
+protected override void OnUpdateCumulativeTrade(CumulativeTrade trade) { }
+```
+
+**Order book events:**
+```csharp
+protected override void OnBestBidAskChanged(MarketDataArg arg) { }
+protected override void MarketDepthChanged(MarketDepth depth) { }
+protected override void MarketDepthsChanged(MarketDepth[] depths) { }
+```
+
+**Order and position events** (use when indicator also manages orders):
+```csharp
+protected override void OnNewOrder(Order order) { }
+protected override void OnOrderChanged(Order order) { }
+protected override void OnNewMyTrade(MyTrade trade) { }
+protected override void OnOrderRegisterFailed(Order order) { }
+protected override void OnPortfolioChanged(Portfolio portfolio) { }
+protected override void OnPositionChanged(Position position) { }
+```
+
+**Timer-based updates:**
+```csharp
+// In constructor or OnInitialize:
+SubscribeToTimer(TimeSpan.FromSeconds(1));
+
+protected override void OnTimer() { DoActionInGuiThread(() => RedrawChart()); }
+
+protected override void OnDispose() { UnsubscribeFromTimer(); }
+```
+
+**GUI thread safety:** event callbacks execute on a background thread. Any DataSeries write
+or chart state mutation must be wrapped in `DoActionInGuiThread(() => { ... })`.
+
+**Snapshot access:**
+```csharp
+var snapshot = GetMarketDepthSnapshot();    // current order book
+var bids = CumulativeDomBids;               // aggregated DOM bids
+var asks = CumulativeDomAsks;               // aggregated DOM asks
+```
+
+---
+
+### 9.12 Additional Indicator properties and utilities
+
+```csharp
+// Chart state
+int first = FirstVisibleBarNumber;
+int last  = LastVisibleBarNumber;
+int count = VisibleBarsCount;
+
+// Text annotations (render-independent, persisted on chart)
+AddText("id", bar, price, "label", Color.White, Color.Transparent, Color.White,
+        new RenderFont("Arial", 9), StringAlignment.Center, false, false);
+
+// Platform color theming
+var palette = ChartInfo.ColorsStore;   // use for platform-consistent colors
+
+// DOM snapshot
+var snapshot = GetMarketDepthSnapshot();
+```
+
+`VisibleBarsCount`, `FirstVisibleBarNumber`, and `LastVisibleBarNumber` are the same
+properties used in `OnRender` guards — always prefer them over iterating `CurrentBar`.
+
+---
+
 ## 11. Architecture as a living document
 
 This document is:

@@ -1,3 +1,14 @@
+# Branch status legend
+
+| Status label | Meaning |
+|---|---|
+| `PR open` | A PR to the upstream ATAS platform repo has been submitted and is open |
+| `local-only` | Not submitted as a PR upstream. The branch **does** exist on `origin` (your remote). "Local-only" means not a PR candidate to the official ATAS repo, not absent from your backup remote. |
+| `complete` | Phase 4 integration done; pending Phase 5 smoke test |
+| `legacy` | Historical reference only; no new commits expected |
+
+---
+
 # Local build stack
 
 ```text
@@ -13,7 +24,7 @@ develop
 | `local/build/01-base` | `develop` | PR open | Base local build alignment: `$(ATAS_BASE)`, `net8.0-windows` / `net8.0`, Cross platform exclusions |
 | `local/build/02-multiversion` | `local/build/01-base` | local-only | Multi-flavor build configs: Alpha / Beta / Latest / Stable / ATAS_X_Alpha / ATAS_X_Beta |
 | `local/build/03-version-shims` | `local/build/02-multiversion` | local-only | Version compatibility shims + TabAttribute stub for pre-release OFT.Attributes |
-| `local/build/04-localization` | `local/build/03-version-shims` | local-only | New .resx keys for Volume + Delta + MultiMarketPower + ClusterSearch + ClusterStatistic + OHLCPlus + TradesOnChart features (~400 keys, all 7 locales). **Note:** OHLCPlus missing es-ES; TradesOnChart missing es-ES + fr-fr + hi-in + zh-cn — repair pending. |
+| `local/build/04-localization` | `local/build/03-version-shims` | local-only | New .resx keys for Volume + Delta + MultiMarketPower + ClusterSearch + ClusterStatistic + OHLCPlus + TradesOnChart features (~400 keys, all 7 locales). All locale gaps repaired as of 2026-03-29. |
 
 ## Delta branches
 

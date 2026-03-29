@@ -55,74 +55,12 @@ git cherry-pick 8308d666 b3d7354f 70354534 9760b860 f7fd5c82
 
 # Build stacks
 
-### local/build/03-version-shims
+Build stacks are **cohesive units** — not suitable for cherry-picking individual commits.
+Each layer must be rebased on its parent after any upstream merge into `Develop`.
+`local/*` branches use `typeof(Resources)`; `fix/*` PR-candidate branches use `typeof(Strings)`.
+For the full key inventory per indicator use `git log --oneline local/build/04-localization`.
 
-| Stack | Base | Scope | Integration mode | Notes |
-|---|---|---|---|---|
-| `local/build/03-version-shims` | `local/build/02-multiversion` | compatibility / multi-version support | Stack | Compatibility shims, TabAttribute stub, and build adaptations for all ATAS flavors |
-
-#### Included changes (high-level)
-
-**Compatibility**
-- compat(stable): guard newer CandleDataSeries visual API by build flavor
-- compat(beta): guard newer CandleDataSeries visual API by build flavor
-- compat(candles): disable DrawCandleBorder on stable
-- compat(candles): add VWAP shim for stable 7.09
-- compat(stable): add PropertiesEditor compatibility shim
-- compat(rollovers): exclude RolloverDates from stable build
-- compat(clusterstatistic): add TabAttribute stub for pre-release OFT.Attributes builds
-
-**Resources and tooling**
-- compat(resources): sync local resource catalogs with extracted ATAS localization data
-- tooling(localization): scripts to export and sync localization resources
-
-**Build**
-- build(solution): multi-flavor build configurations (Alpha / Beta / Latest / Stable / ATAS_X_Alpha / ATAS_X_Beta)
-
-#### TabAttribute note
-
-`Compat/TabAttributeCompat.cs` provides a stub `[Tab]` attribute for non-Alpha builds.
-Remove this file (or set `TAB_ATTRIBUTE_AVAILABLE` for the relevant configs in csproj) once
-all target ATAS versions ship `TabAttribute` in `OFT.Attributes.dll`.
-
-### local/build/04-localization
-
-| Stack | Base | Scope | Integration mode | Notes |
-|---|---|---|---|---|
-| `local/build/04-localization` | `local/build/03-version-shims` | resources | Stack | Adds new .resx keys needed by local indicator branches |
-
-#### Included keys (2026-03-25, updated 2026-03-26)
-
-27 keys for Volume.cs threshold feature + 40 keys for Delta.cs features + 15 keys for MultiMarketPower.cs features + 17 keys for ClusterSearch DiagonalImbalance feature + 74 keys for ClusterStatistic features, across all 7 locales
-(en, de-de, ru-ru, es-ES, fr-fr, hi-in, zh-cn):
-
-**Volume keys (27):** `ThresholdsGroup`, `FixedThresholdGroup`, `DynamicThresholdGroup`, `ShowThresholdLines`,
-`FixedMinorLevel`, `FixedMajorLevel`, `ThresholdSource`, `SessionWindowMode`, `RthStart`, `RthEnd`,
-`SamplesForMeanStd`, `StdMultiplier`, `ThresholdSourceFixed`, `ThresholdSourceDynamicWelford`,
-`SessionWindowModeRth`, `SessionWindowModeFull24h`, `VolumeThresholdMajor`, `VolumeThresholdMinor`
-and their `*Description` variants.
-
-**Delta keys (40):** `AudioAlerts`, `AudioAtBarCloseOnly`, `AudioDownThresholds`, `AudioUpThresholds`,
-`BaseColor`, `ColorMode`, `Fixed`, `FixedNegMajorLevel`, `FixedNegMinorLevel`, `FixedPosMajorLevel`,
-`FixedPosMinorLevel`, `MarkerSize`, `PriceSignalDownColor`, `PriceSignalUpColor`, `PriceSignalsGroup`,
-`ShowVisualAlerts`, `Slope`, `SlopeDownColor`, `SlopeUpColor`, `ThresholdLevelMajor`, `ThresholdLevelMinor`,
-`VisualDownThresholds`, `VisualUpThresholds`, `ZeroCross`
-and their `*Description` variants.
-
-**MultiMarketPower keys (15):** `ViewMode`, `SessionMode`, `SessionsBack`, `DefaultSession`,
-`SmartMoneySpread`, `Use4ColorSystem`, `Use4ColorSystemDescription`, `ShowSignalLine`,
-`SimplePositiveColor`, `SimpleNegativeColor`, `SimpleColorDescription`,
-`ColorPosSmaUp`, `ColorPosSmaDown`, `ColorNegSmaUp`, `ColorNegSmaDown`.
-
-**ClusterSearch keys (17):** `DiagonalImbalance`, `DiagonalImbalancesFilters`, `ImbalancesVisualization`,
-`ImbalanceRatio`, `MinVolumeDifference`, `MinDominantVolume`, `ImbalanceStackedRange`,
-`UseSeparateColors`, `BuyImbalanceColor`, `SellImbalanceColor`
-and their `*Description` variants (7 keys). Note: `ImbalanceRatio` key already existed in Designer.cs (OHLCPlus); only 16 new Designer.cs properties added.
-
-**ClusterStatistic keys (74):** SoT/Pace rows (11): `ShowDeltaPerSecond`, `ShowDeltaPerSecondDescription`, `ShowPeakVolPerSec`, `ShowPeakDeltaPerSec`, `ShowPeakDeltaPerVol`, `MaxVolPerSecGroup`, `SotTimeWindowSecName`, `SotMinVolumeName`, `SotUseAutoFilterName`, `SotAutoFilterPeriodName`, `SotAutoFilterUseEmaName`. Imbalance rows (11): `ShowBuyImbalances`, `ShowSellImbalances`, `ShowNetImbalances`, `ShowStackedBuyImbalances`, `ShowStackedSellImbalances`, `ShowStackedNetImbalances`, `ImbalanceGroup`, `ImbalanceThresholdPercentName`, `ImbalanceMinDominantVolumeName`, `ImbalanceMinDifferenceName`, `StackedImbalanceMinLevelsName`. Net imbalance alert (6): `NetImbalanceAlertGroup`, `NetImbalanceAlertThresholdAbs`, `NetImbalanceAlertUseClosedCandle`, `AlertNetImbalanceTemplate`, `AlertDeltaTemplate`, `AlertVolumeTemplate`. Row subgroups (6): `RowsPaceGroup`, `RowsPressureGroup`, `RowsImbalanceRowsGroup`, `RowsCandleContextGroup`, `RowsSessionContextGroup`, `RowsRawPrintsGroup`. Display extras (7): `RatiosAsPercent`, `NetStkShort`, `LabelFillColorDescription`, `DeltaVolume`, `DeltaVolumePercent`, `AlertPaceVolPerSecGroup`, `DefaultSession`. Description keys (25): `ShowVolumePerSecondDescription`, `ShowDeltaDescription`, `ShowDeltaPerVolumeDescription`, `ShowDeltaChangeDescription`, `ShowMaximumDeltaDescription`, `ShowMinimumDeltaDescription`, `ShowVolumesDescription`, `ShowTradesCountDescription`, `ShowCandleHeightDescription`, `ShowCandleDurationDescription`, `ShowCandleTimeDescription`, `ShowSessionVolumeDescription`, `ShowSessionDeltaDescription`, `ShowSessionDeltaPerVolumeDescription`, `ShowAsksDescription`, `ShowBidsDescription`, `AlertFileDescription`, `AlertFilterDescription`, `UseAlertDescription`, `CustomSessionStartDescription`, `SessionCumModeDescription`, `AlertCandleHeightGroup`, `AlertCandleTradesGroup`, `AlertCandleVolumeGroup`, `AlertPressureGroup`.
-
-### Stack notes
-
-- Build stacks are treated as **cohesive units** — not suitable for cherry-picking individual commits.
-- Each stack layer must be rebased on its parent after any upstream merge into Develop.
-- `local/*` branches use `typeof(Resources)` for display attributes; `fix/*` branches targeting upstream use `typeof(Strings)`.
+| Branch | Base | Purpose | Key contents |
+|---|---|---|---|
+| `local/build/03-version-shims` | `02-multiversion` | Compatibility shims + build configs | CandleDataSeries guards, VWAP shim (Stable 7.09), PropertiesEditor shim, RolloverDates exclusion, TabAttribute stub (remove when OFT.Attributes ships it in all flavors), multi-flavor build configs (Alpha/Beta/Latest/Stable/ATAS_X_*), localization sync tooling |
+| `local/build/04-localization` | `03-version-shims` | New `.resx` keys (7 locales) | Volume (27 keys), Delta (40), MultiMarketPower (15), ClusterSearch (17), ClusterStatistic (74), OHLCPlus (Phase 0), TradesOnChart (33). All locale gaps repaired 2026-03-29. |
