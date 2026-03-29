@@ -166,6 +166,20 @@ Anti-patterns to avoid:
 - mixing compatibility code with unrelated refactors
 - using shims to justify unclear semantics or broken abstractions
 
+### 5.1 ATAS X compatibility
+
+ATAS X is the cross-platform version (Windows + macOS). Key differences from classic ATAS:
+
+**Auto-mapped — no code changes needed:**
+- `System.Windows.Media.Color`, `SolidColorBrush`, and similar types from `System.Windows.Media` are automatically mapped to cross-platform equivalents at runtime
+
+**Incompatible — requires attention:**
+- Custom property editors built with WPF `UserControl` (files in `Editors/`) **will not work on ATAS X**
+- Indicators that reference these editors will fail at runtime on the cross-platform version
+- Before publishing for ATAS X users, audit `Editors/` and either replace with native ATAS UI controls or mark as Windows-only
+
+Rule: Do not introduce new WPF-dependent custom editors. Use native ATAS attribute-based UI (`NumericEditor`, `ComboBoxEditor`, `[Display]`, etc.) wherever possible.
+
 ---
 
 ## 6. Modified indicators (`*Modif`)
@@ -357,6 +371,256 @@ _candleSeries.DrawCandleBorder = true;
 _candleSeries.DrawCandleBorder = true;
 #endif
 ```
+
+---
+
+### 9.5 DataSeries types and configuration properties
+
+ATAS provides several DataSeries types. Choose based on visual intent:
+
+| Type | Use case |
+|------|----------|
+| `ValueDataSeries` | Scalar values — lines, histograms, dots |
+| `RangeDataSeries` | Channel/band between two boundary values |
+| `CandleDataSeries` | OHLC candle rendering |
+| `PaintbarsDataSeries` | Per-bar color overlay (typically `IsHidden = true`) |
+| `ObjectDataSeries` | Generic typed object storage, not rendered directly |
+
+**Key `ValueDataSeries` properties:**
+
+```csharp
+_series.VisualType = VisualMode.Histogram;   // Line | Histogram | Dots | Hide | OnlyValueOnAxis | ...
+_series.IsHidden = true;                      // Hide from data series list in UI
+_series.ShowCurrentValue = false;             // Show/hide current value on price axis
+_series.ShowZeroValue = false;                // Whether zero is rendered or treated as empty
+_series.IgnoredByAlerts = true;               // Exclude from alert evaluation
+_series.ResetAlertsOnNewBar = true;           // Reset alert state on each new bar
+_series.UseMinimizedModeIfEnabled = true;     // Collapse in minimized panel mode
+_series.ScaleIt = false;                      // Whether this series participates in auto-scaling
+```
+
+**`RangeDataSeries`** — sync colors via `PropertyChanged`:
+
+```csharp
+_upperBand.PropertyChanged += (s, e) => {
+    if (e.PropertyName == nameof(_upperBand.Color))
+        _lowerBand.Color = _upperBand.Color;
+};
+```
+
+---
+
+### 9.6 Indicator lifecycle methods
+
+Override in this order of responsibility:
+
+```csharp
+// Called once during construction — set panel, series, static config
+public MyIndicator() : base(true)
+{
+    Panel = IndicatorDataProvider.NewPanel;
+    DenyToChangePanel = true;
+    EnableCustomDrawing = true;
+    SubscribeToDrawingEvents(DrawingLayouts.Final | DrawingLayouts.LatestBar);
+    DataSeries[0] = _mainSeries;
+}
+
+// Called when indicator is added to chart — subscribe to platform events
+protected override void OnInitialize()
+{
+    _provider = TradingStatisticsProvider;
+    _provider.TradesUpdated += OnTradesUpdated;
+    TradingManager.PortfolioSelected += OnPortfolioSelected;
+}
+
+// Called on dispose — always unsubscribe
+protected override void OnDispose()
+{
+    if (_provider != null) _provider.TradesUpdated -= OnTradesUpdated;
+    TradingManager.PortfolioSelected -= OnPortfolioSelected;
+}
+
+// Called before first calculation — initialize color fields from defaults
+protected override void OnApplyDefaultColors()
+{
+    _upColor = DefaultColors.Green.Convert();   // Drawing.Color from CrossColor default
+}
+
+// Called when RecalculateValues() is triggered — clear series, reset state
+protected override void OnRecalculate()
+{
+    // Series cleared automatically by base; reset accumulators here if needed
+}
+```
+
+Rules:
+- Platform event subscriptions belong in `OnInitialize`, never in the constructor
+- Every subscription in `OnInitialize` must have a matching unsubscription in `OnDispose`
+- `OnApplyDefaultColors` is for setting `Drawing.Color` field defaults, not CrossColor properties
+- `DenyToChangePanel = true` prevents users from dragging the indicator to a different panel
+
+---
+
+### 9.7 Custom rendering (OnRender)
+
+```csharp
+// Constructor
+EnableCustomDrawing = true;
+SubscribeToDrawingEvents(DrawingLayouts.Final);
+DataSeries[0].VisualType = VisualMode.Hide;  // hide series when only custom rendering is used
+
+// Fields — allocate once, not per render call
+private readonly RenderFont _font = new("Arial", 10);
+private readonly RenderStringFormat _format = new() { Alignment = StringAlignment.Center };
+
+protected override void OnRender(RenderContext context, DrawingLayouts layout)
+{
+    // Only render bars that are on screen
+    for (var bar = FirstVisibleBarNumber; bar <= LastVisibleBarNumber; bar++)
+    {
+        var x = ChartInfo.GetXByBar(bar);
+        var y = ChartInfo.GetYByPrice((double)_series[bar]);
+        context.DrawString("label", _font, Color.White, x, y, _format);
+        context.DrawLine(pen, x1, y1, x2, y2);
+    }
+}
+```
+
+Rules:
+- `DrawingLayouts.Final` — renders after all series are drawn; use for overlays
+- `DrawingLayouts.LatestBar` — renders only on the last bar; efficient for real-time annotations
+- `DrawingLayouts.Historical` — renders during backtesting passes
+- Store `RenderFont`, `Pen`, `RenderStringFormat` as class fields — never allocate per render call
+- Always guard with `FirstVisibleBarNumber` / `LastVisibleBarNumber` — never iterate all bars in OnRender
+- Use `ChartInfo.GetXByBar(bar)` and `ChartInfo.GetYByPrice(price)` for coordinate conversion
+- Use `ChartInfo.ColorsStore` for platform-consistent color theming when appropriate
+- Rendering must never write to DataSeries or change calculation state
+
+---
+
+### 9.8 Parameter and property attribute pattern
+
+```csharp
+[Parameter]
+[Range(1, 10000)]
+[Display(
+    ResourceType = typeof(Resources),
+    Name = nameof(Resources.Period),
+    GroupName = nameof(Resources.Settings),
+    Description = nameof(Resources.PeriodDescription),
+    Order = 100)]
+public int Period
+{
+    get => _period;
+    set { _period = value; RecalculateValues(); }
+}
+```
+
+**Order convention:** use multiples of 10 within a group; space groups by 100 (Settings: 100–190, Visualization: 200–290, Alerts: 300–390).
+
+**Property change triggers:**
+- Call `RecalculateValues()` when the change requires a full recalculation pass
+- Call `RaisePropertyChanged(nameof(Prop))` only when one property change should update another UI property without triggering recalc
+
+**`Filter` types** — for parameters with an enable/disable toggle:
+
+```csharp
+private FilterInt _levelFilter = new() { Value = 5, Enabled = true };
+
+[Display(...)]
+public FilterInt LevelFilter
+{
+    get => _levelFilter;
+    set { _levelFilter = value; RecalculateValues(); }
+}
+// In OnCalculate: if (_levelFilter.Enabled) { use _levelFilter.Value }
+```
+
+Use `Filter<T>` for decimal, `FilterInt` for int, `FilterString` for string. All implement `INotifyPropertyChanged` — assign the whole object in the setter so the UI updates correctly.
+
+---
+
+### 9.9 Session and bar lifecycle
+
+```csharp
+protected override void OnCalculate(int bar, decimal value)
+{
+    // ── bar == 0: full reset ──────────────────────────────────────────────
+    if (bar == 0)
+    {
+        DataSeries.ForEach(x => x.Clear());
+        _sessionHigh = decimal.MinValue;
+        _n = 0; _mean = 0; _m2 = 0;   // Welford accumulators
+        return;
+    }
+
+    // ── session boundary ─────────────────────────────────────────────────
+    if (IsNewSession(bar))
+    {
+        _sessionHigh = decimal.MinValue;
+        _n = 0; _mean = 0; _m2 = 0;
+    }
+
+    // ── main calculation ─────────────────────────────────────────────────
+    var candle = GetCandle(bar);
+    // ...
+
+    // ── realtime-only logic (alerts, UI notifications) ───────────────────
+    if (bar == CurrentBar - 1 && bar != _lastAlertBar)
+    {
+        _lastAlertBar = bar;
+        AddAlert(_alertFile, InstrumentInfo.Instrument, "message", Color.White, Color.Black);
+    }
+}
+```
+
+Rules:
+- `bar == 0` resets everything — series, accumulators, session state
+- `bar == CurrentBar - 1` identifies the live bar; use `_lastBar` / `_lastAlertBar` guards to prevent duplicate alerts on re-ticks
+- `IsNewSession(bar)` detects session boundaries; also available: `IsNewWeek(bar)`, `IsNewMonth(bar)`
+- `SetPointOfEndLine(bar)` / `RemovePointOfEndLine(bar)` — shift displaced/lagging lines to correct end position
+
+---
+
+### 9.10 Alerts and trading statistics
+
+**Alerts:**
+
+```csharp
+// Trigger at bar == CurrentBar - 1 with dedup guard
+if (bar == CurrentBar - 1 && !_alreadyAlerted)
+{
+    _alreadyAlerted = true;
+    AddAlert("alert.wav", InstrumentInfo.Instrument, $"Signal: {_value:F2}", Color.White, Color.DarkGreen);
+}
+// Reset guard on new bar
+if (bar != _lastBar) { _lastBar = bar; _alreadyAlerted = false; }
+```
+
+Series alert flags:
+- `_series.IgnoredByAlerts = true` — exclude auxiliary/visual series from alert evaluation
+- `_series.ResetAlertsOnNewBar = true` — reset alert state automatically on each new bar
+
+**Trading statistics** (read trade history for display):
+
+```csharp
+protected override void OnInitialize()
+{
+    _stats = TradingStatisticsProvider;
+    _stats.TradesUpdated += OnTradesUpdated;
+    TradingManager.PortfolioSelected += OnPortfolioSelected;
+}
+
+protected override void OnDispose()
+{
+    _stats.TradesUpdated -= OnTradesUpdated;
+    TradingManager.PortfolioSelected -= OnPortfolioSelected;
+}
+
+private void OnTradesUpdated(object sender, EventArgs e) => RedrawChart();
+```
+
+Use `InstrumentInfo.TickSize` for price-relative thresholds (e.g., alert when move > N ticks).
 
 ---
 
