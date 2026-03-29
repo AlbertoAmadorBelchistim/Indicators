@@ -53,6 +53,13 @@ working model. Items are closed once the corresponding fix is committed.
 | E2 | typeof(Strings) vs typeof(Resources) | Correct | — | ✓ |
 | E3 | #if !ATAS_STABLE preference | Correct | — | ✓ |
 | E4 | *Modif = controlled derivation | Correct | — | ✓ |
+| E5 | DataSeries types not documented | `ValueDataSeries` properties (`VisualMode`, `IsHidden`, `ShowCurrentValue`, `IgnoredByAlerts`, `ResetAlertsOnNewBar`, `UseMinimizedModeIfEnabled`, `ScaleIt`), `RangeDataSeries`, `CandleDataSeries`, `PaintbarsDataSeries` all used in 20+ indicators but absent from ARCHITECTURE.md | Add §9.5 to ARCHITECTURE.md | **open** |
+| E6 | Indicator lifecycle methods not documented | `OnInitialize`, `OnApplyDefaultColors`, `OnRecalculate`, `OnDispose`, `SubscribeToDrawingEvents(DrawingLayouts)` — used across 30+ indicators, none documented in ARCHITECTURE.md | Add §9.6 | **open** |
+| E7 | OnRender / custom drawing pattern not documented | `EnableCustomDrawing`, `OnRender(RenderContext, DrawingLayouts)`, coordinate conversion (`GetXByBar`, `GetYByPrice`), `FirstVisibleBarNumber`/`LastVisibleBarNumber` guards, render resource fields — used in TradesOnChart, DOM, ClusterStatistic, AccountInfoDisplay. Also: `ChartInfo.ColorsStore` for platform color theming. | Add §9.7 | **open** |
+| E8 | Parameter attribute pattern not documented | `[Parameter]`, `[Range]`, `[Display(..., Description=..., Order=...)]` full pattern; `Order` numbering conventions; `RaisePropertyChanged` vs `RecalculateValues`; `Filter`/`FilterInt`/`FilterString` types | Add §9.8 | **open** |
+| E9 | Session/bar lifecycle pattern not documented | `bar == 0` full reset (`DataSeries.ForEach(x => x.Clear())`), `bar == CurrentBar - 1` realtime guard, `IsNewSession(bar)`, `SetPointOfEndLine`, `_lastBar`/`_lastAlert` dedup guards | Add §9.9 | **open** |
+| E10 | Alerts and trading statistics not documented | `AddAlert(file, instrument, message, bgColor, fontColor)`, `IgnoredByAlerts`, `ResetAlertsOnNewBar`, `InstrumentInfo.TickSize`, `TradingStatisticsProvider`, `TradingManager.PortfolioSelected` — subscribe in `OnInitialize`, unsubscribe in `OnDispose` | Add §9.10 | **open** |
+| E11 | ATAS X compatibility gap | Custom WPF editors (`Editors/` folder) are **incompatible** with ATAS X. `System.Windows.Media` base types auto-mapped (no code change needed). Indicators using custom `UserControl` editors will fail on ATAS X. | Audit `Editors/` folder; add §5.x to ARCHITECTURE.md | **open** |
 
 ## Section F — Project understanding
 
