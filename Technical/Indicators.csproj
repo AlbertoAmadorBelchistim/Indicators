@@ -27,7 +27,7 @@
 
   <!-- Configuration flavors: install path, assembly name, define constants, target framework -->
   <PropertyGroup Condition="'$(Configuration)' == 'Alpha'">
-    <DefineConstants>$(DefineConstants);ATAS_ALPHA</DefineConstants>
+    <DefineConstants>$(DefineConstants);ATAS_ALPHA;TAB_ATTRIBUTE_AVAILABLE</DefineConstants>
     <ATAS_BASE>C:\Program Files (x86)\ATAS Platform</ATAS_BASE>
     <AssemblyName>Indicators_Alpha</AssemblyName>
     <TargetFramework>net10.0-windows</TargetFramework>
