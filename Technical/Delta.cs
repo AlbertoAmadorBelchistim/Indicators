@@ -6,6 +6,8 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 
+using ATAS.Indicators.Technical.Properties;
+
 using OFT.Attributes;
 using OFT.Localization;
 using OFT.Rendering.Context;
@@ -139,8 +141,10 @@ public class Delta : Indicator
 		ShowCurrentValue = false,
 		UseMinimizedModeIfEnabled = true,
 		Visible = false,
+		#if !ATAS_STABLE
 		DrawCandleBorder = false
-	};
+		#endif
+    };
 
 	private readonly CandleDataSeries _divergenceDownCandles = new("DivergenceDownCandles", "Divergence down candles")
 	{
@@ -148,8 +152,10 @@ public class Delta : Indicator
 		ShowCurrentValue = false,
 		UseMinimizedModeIfEnabled = true,
 		Visible = false,
+		#if !ATAS_STABLE
 		DrawCandleBorder = false
-	};
+		#endif
+    };
 
 	private readonly CandleDataSeries _downCandles = new("DownCandles", "Delta candles")
 	{
@@ -204,7 +210,7 @@ public class Delta : Indicator
 		IgnoredByAlerts = true
 	};
 
-    #endregion
+#endregion
 
     #region Properties
 
@@ -377,11 +383,11 @@ public class Delta : Indicator
 
     private Indicators.FilterColor _divergenceBarsFilter = new(true) { Enabled = false, Value = CrossColor.FromArgb(255, 255, 165, 0) };
 
-    [Display(ResourceType = typeof(Strings), Name = "DivergenceDots", GroupName = nameof(Strings.Divergence),
-        Description = nameof(Strings.BarDirVsDeltaDivergenceDescription), Order = 130)]
+    [Display(ResourceType = typeof(Resources), Name = "DivergenceDots", GroupName = nameof(Resources.Divergence),
+        Description = nameof(Resources.BarDirVsDeltaDivergenceDescription), Order = 130)]
     public bool ShowDivergence { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = "DivergenceBars", GroupName = nameof(Strings.Divergence), Order = 135)]
+    [Display(ResourceType = typeof(Resources), Name = "DivergenceBars", GroupName = nameof(Resources.Divergence), Order = 135)]
     public Indicators.FilterColor DivergenceBarsFilter
     {
         get => _divergenceBarsFilter;
@@ -420,7 +426,7 @@ public class Delta : Indicator
 
     private FilterInt _absorption = new(true) { Enabled = false, Value = 250 };
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Absorption), GroupName = nameof(Strings.Absorption),
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Absorption), GroupName = nameof(Resources.Absorption),
         Description = "AbsorptionThresholdDesc", Order = 140)]
     [Range(0, int.MaxValue)]
     public FilterInt Absorption
@@ -580,9 +586,9 @@ public class Delta : Indicator
 			RecalculateValues();
 	}
 
-	#endregion
+    #endregion
 
-	#region Protected methods
+    #region Protected methods
 
 	protected override void OnApplyDefaultColors()
 	{
@@ -961,9 +967,9 @@ public class Delta : Indicator
 				: _neutralColor;
 	}
 
-	#endregion
+    #endregion
 
-	#region Private methods
+    #region Private methods
 
 
 	private int GetMinWidth(RenderContext context, int startBar, int endBar)
@@ -997,9 +1003,9 @@ public class Delta : Indicator
 		return context.MeasureString(sampleStr, Font.RenderObject).Width;
 	}
 
-	#endregion
+    #endregion
 
-	#region Event handlers
+    #region Event handlers
 
 	private void OnDivergenceFilterChanged(object sender, PropertyChangedEventArgs e)
 	{
@@ -1075,5 +1081,5 @@ public class Delta : Indicator
 		}
 	}
 
-	#endregion
+    #endregion
 }

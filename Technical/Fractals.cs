@@ -5,6 +5,7 @@ namespace ATAS.Indicators.Technical
     using System.Linq;
 
     using ATAS.Indicators.Drawing;
+	using ATAS.Indicators.Technical.Properties;
 
     using OFT.Attributes;
     using OFT.Localization;
@@ -69,7 +70,7 @@ namespace ATAS.Indicators.Technical
 
 		#region Properties
 
-		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Period), GroupName = nameof(Strings.Settings), Description = nameof(Strings.FractalPeriodDescription), Order = 10)]
+		[Display(ResourceType = typeof(Resources), Name = nameof(Resources.Period), GroupName = nameof(Resources.Settings), Description = nameof(Resources.FractalPeriodDescription), Order = 10)]
 		[Range(1, int.MaxValue)]
 		public int Period
 		{

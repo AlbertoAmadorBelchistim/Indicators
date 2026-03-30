@@ -5,12 +5,13 @@ namespace ATAS.Indicators.Technical
 	using System.ComponentModel.DataAnnotations;
 
 	using ATAS.Indicators.Drawing;
+    using ATAS.Indicators.Technical.Properties;
 
-	using OFT.Attributes;
+    using OFT.Attributes;
 	using OFT.Localization;
 
 	[DisplayName("VWMA")]
-	[Display(ResourceType = typeof(Strings), Description = nameof(Strings.VWMADescription))]
+	[Display(ResourceType = typeof(Resources), Description = nameof(Resources.VWMADescription))]
 	public class VWMA : Indicator
 	{
 		#region Fields
@@ -57,10 +58,10 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(ResourceType = typeof(Strings),
-			Name = nameof(Strings.Smoothing),
-			GroupName = nameof(Strings.Settings),
-			Description = nameof(Strings.SmoothDescription),
+		[Display(ResourceType = typeof(Resources),
+			Name = nameof(Resources.Smoothing),
+			GroupName = nameof(Resources.Settings),
+			Description = nameof(Resources.SmoothDescription),
 			Order = 30)]
 		[Range(1, 10000)]
 		public FilterInt Smooth

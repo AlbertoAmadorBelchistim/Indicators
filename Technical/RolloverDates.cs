@@ -8,6 +8,8 @@ using System.Drawing;
 using System.Linq;
 using System.Threading;
 
+using ATAS.Indicators.Technical.Properties;
+
 using OFT.Attributes;
 using OFT.Localization;
 using OFT.Rendering.Context;
@@ -37,7 +39,7 @@ public class RolloverDates : Indicator
 
     #region Settings
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.RolloverType), GroupName = nameof(Strings.Settings))]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.RolloverType), GroupName = nameof(Resources.Settings))]
     [Parameter]
     public FilterEnum<ContractRolloverType> RolloverType 
     { 
@@ -53,8 +55,8 @@ public class RolloverDates : Indicator
 
     #region Drawing
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LineSettings), GroupName = nameof(Strings.Drawing),
-       Description = nameof(Strings.LineSettingsDescription))]
+    [Display(ResourceType = typeof(Resources), Name = nameof(Resources.LineSettings), GroupName = nameof(Resources.Drawing),
+       Description = nameof(Resources.LineSettingsDescription))]
     public PenSettings LineSettings { get; set; }
 
     #endregion
