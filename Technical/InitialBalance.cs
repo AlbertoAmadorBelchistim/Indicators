@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Linq;
+using System.Collections.Generic;
 
 using ATAS.Indicators.Drawing;
 
@@ -743,7 +744,47 @@ public class InitialBalance : Indicator
 		if (!_initialized)
 			return;
 
+		if (DrawText && e.PropertyName == nameof(ValueDataSeries.Color) && sender is ValueDataSeries dataSeries)
+		{
+			UpdateLabelColors(dataSeries);
+			RedrawChart();
+			return;
+		}
+
 		RedrawChart();
+	}
+
+	private void UpdateLabelColors(ValueDataSeries dataSeries)
+	{
+		if (Labels.Count == 0)
+			return;
+
+		var textColor = ConvertColor(dataSeries.Color);
+		var suffixes = GetLabelTagSuffixes(dataSeries).ToArray();
+
+		if (suffixes.Length == 0)
+			return;
+
+		foreach (var key in Labels.Keys)
+		{
+			var hasMatchingSuffix = suffixes.Any(suffix => key.EndsWith(suffix, StringComparison.Ordinal));
+
+			if (!hasMatchingSuffix)
+				continue;
+
+			Labels[key].Textcolor = textColor;
+		}
+	}
+
+	private IEnumerable<string> GetLabelTagSuffixes(ValueDataSeries dataSeries)
+	{
+		if (ReferenceEquals(dataSeries, _mid))
+		{
+			yield return "Mid";
+			yield break;
+		}
+
+		yield return dataSeries.Name;
 	}
 
 	private System.Drawing.Color ConvertColor(CrossColor color)
