@@ -155,6 +155,7 @@ When a build error appears on a specific flavor after an ATAS update:
 | API | Indicator(s) | Guard | Notes |
 |-----|-------------|-------|-------|
 | `candle.VWAP` | VWMA, others | `#if !ATAS_STABLE` → manual calc in `IndicatorCandleCompat.cs` | Stable 7.0.9 lacks this property |
+| `CandleDataSeries.HideZeroCandles` | OpenInterest | `#if !ATAS_STABLE && !ATAS_BETA` | Not available in Stable or Beta |
 | `CandleDataSeries` visual properties | Multiple | `#if !ATAS_STABLE`, `#if !ATAS_BETA` | Newer API not in older builds |
 | `DrawCandleBorder` | Delta | `#if !ATAS_STABLE` | Property added post-stable |
 | `IgnoreHistoryScale` | Multiple | `#if !ATAS_STABLE` | Missing in stable |
@@ -185,6 +186,16 @@ Confirmed via `OFT.Platform.runtimeconfig.json`.
 
 All 16 original `04-localization` commits squashed into a single clean commit. The
 delete+restore pair (`c9e31e23` + `0688067e`) no longer exists in history.
+
+### 5.4 ~~03-version-shims history had mixed concerns and duplicate commits~~ — RESOLVED 2026-03-30
+
+Rewrote from 16 → 12 commits:
+- Tooling scripts (3 separate commits → 1)
+- Resource sync (2 dated snapshots → 1 squash at final state 2026-03-25)
+- `use local Resources` for Beta+Stable (2 commits → 1)
+- `CandleDataSeries` guards for Beta+Stable (2 commits → 1)
+- `TabAttribute` stub split from unrelated `SessionColor` using change (1 → 2)
+- `OpenInterest.cs` guard corrected from `#if ATAS_ALPHA` to `#if !ATAS_STABLE && !ATAS_BETA`
 
 ---
 
