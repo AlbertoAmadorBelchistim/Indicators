@@ -29,10 +29,19 @@ Develop (upstream)
 | `ATAS_X_Alpha` | Cross | `C:\Program Files\ATAS X` | `ATAS_X_ALPHA` | `Indicators_X_Alpha.dll` |
 | `ATAS_X_Beta` | Cross | `C:\Program Files\ATAS X beta` | `ATAS_X_BETA` | `Indicators_X_Beta.dll` |
 
-**Framework targets:**
+**Framework targets** (confirmed via `OFT.Platform.runtimeconfig.json` on 2026-03-30):
 
-- Windows (AnyCPU): `net10.0-windows` — verify this matches ATAS Platform's runtime on each update
-- Cross: `net10.0`
+| Configuration | TargetFramework | ATAS runtime |
+|---------------|-----------------|--------------|
+| Alpha | `net10.0-windows` | net10.0 ✓ |
+| Beta | `net10.0-windows` | net10.0 ✓ |
+| Latest | `net10.0-windows` | net10.0 ✓ |
+| **Stable** | **`net8.0-windows`** | **net8.0 ✓** |
+| ATAS_X_Alpha | `net10.0` | net10.0 ✓ |
+| ATAS_X_Beta | `net10.0` | net10.0 ✓ |
+
+Each flavor declares its own `<TargetFramework>` in `local/build/02-multiversion`.
+The shared AnyCPU block no longer sets a TargetFramework — flavors own it individually.
 
 ---
 
@@ -160,26 +169,22 @@ When a build error appears on a specific flavor after an ATAS update:
 
 ## 5. Known issues and deferred fixes
 
-### 5.1 `Alpha|Cross` etc. in solution file
+### 5.1 ~~`Alpha|Cross` etc. in solution file~~ — RESOLVED 2026-03-30
 
-`Indicators.sln` lists `Alpha|Cross`, `Beta|Cross`, `Latest|Cross`, `Stable|Cross` as solution
-configurations. These will error immediately at build time (the `ValidateConfigurationPlatform`
-target rejects Cross for non-ATAS_X configs). They are dead entries — harmless but noisy in VS.
+Stale `Alpha|Cross`, `Beta|Cross`, `Latest|Cross`, `Stable|Cross` entries removed from
+`Indicators.sln` in `local/build/02-multiversion` (squash rewrite). Only `ATAS_X_Alpha|Cross`
+and `ATAS_X_Beta|Cross` remain.
 
-**Fix:** Remove all `|Cross` entries except `ATAS_X_Alpha|Cross` and `ATAS_X_Beta|Cross` from
-`Indicators.sln`. Requires rebase of `03-version-shims`, `04-localization`, and all integration
-branches. Schedule for next major build stack maintenance window.
+### 5.2 ~~net10.0 for all Windows flavors~~ — RESOLVED 2026-03-30
 
-### 5.2 net10.0 for Windows build
+`local/build/02-multiversion` now sets `TargetFramework` per-flavor instead of via the shared
+AnyCPU block. Stable correctly targets `net8.0-windows`; Alpha/Beta/Latest target `net10.0-windows`.
+Confirmed via `OFT.Platform.runtimeconfig.json`.
 
-`local/build/01-base` targets `net10.0-windows` for the Windows (AnyCPU) build. This assumes
-ATAS Platform runs on .NET 10. Confirm on each major ATAS version update (§2-C). If ATAS
-reverts to .NET 8, the output DLL will fail to load.
+### 5.3 ~~04-localization history had a delete+restore pair~~ — RESOLVED 2026-03-30
 
-### 5.3 04-localization history has a delete+restore pair
-
-`c9e31e23` (deleted `es-es.resx`) + `0688067e` (restored it) should be a single clean commit.
-Squash when next doing a full stack rebase (e.g., when syncing with a major Develop update).
+All 16 original `04-localization` commits squashed into a single clean commit. The
+delete+restore pair (`c9e31e23` + `0688067e`) no longer exists in history.
 
 ---
 
