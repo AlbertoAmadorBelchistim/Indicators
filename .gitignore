@@ -75,3 +75,7 @@ sn.snk
 __temp_file_*
 
 *.DotSettings
+
+# Generated localization exports (derived from local ATAS assemblies)
+.atas-exports/
+fallbacks-data/
