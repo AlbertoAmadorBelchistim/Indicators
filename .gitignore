@@ -75,3 +75,6 @@ sn.snk
 __temp_file_*
 
 *.DotSettings
+
+# Generated localization exports (derived from local ATAS assemblies)
+tools/localization/exports/
