@@ -117,8 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="_Main" xml:space="preserve">
-    <value>_主要设置</value>
+  <data name="Ask" xml:space="preserve">
+    <value>Ask</value>
+  </data>
+  <data name="Bid" xml:space="preserve">
+    <value>买盘</value>
+  </data>
+  <data name="AlertFile" xml:space="preserve">
+    <value>警报文件</value>
+  </data>
+  <data name="BackGround" xml:space="preserve">
+    <value>背景颜色</value>
+  </data>
+  <data name="Delta" xml:space="preserve">
+    <value>Delta</value>
+  </data>
+  <data name="ShowVolume" xml:space="preserve">
+    <value>成交量</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>时间</value>
+  </data>
+  <data name="Volume" xml:space="preserve">
+    <value>交易量</value>
+  </data>
+  <data name="CurrentDay" xml:space="preserve">
+    <value>当天</value>
   </data>
   <data name="AboutPropgram" xml:space="preserve">
     <value>关于</value>
@@ -135,8 +159,98 @@
   <data name="AboveCandle" xml:space="preserve">
     <value>蜡烛上方</value>
   </data>
-  <data name="AbovePrice" xml:space="preserve">
-    <value>上述价格</value>
+  <data name="Height" xml:space="preserve">
+    <value>高度</value>
+  </data>
+  <data name="Visualization" xml:space="preserve">
+    <value>视觉化</value>
+  </data>
+  <data name="Trades" xml:space="preserve">
+    <value>交易</value>
+  </data>
+  <data name="AskColor" xml:space="preserve">
+    <value>Ask 颜色</value>
+  </data>
+  <data name="BidColor" xml:space="preserve">
+    <value>Bid 颜色</value>
+  </data>
+  <data name="HideRowsDescription" xml:space="preserve">
+    <value>隐藏标题</value>
+  </data>
+  <data name="ShowAsk" xml:space="preserve">
+    <value>显示 Asks</value>
+  </data>
+  <data name="ShowBid" xml:space="preserve">
+    <value>显示 Bids</value>
+  </data>
+  <data name="ShowDelta" xml:space="preserve">
+    <value>差额</value>
+  </data>
+  <data name="ShowDeltaPerVolume" xml:space="preserve">
+    <value>显示 Delta/Volume</value>
+  </data>
+  <data name="ShowDuration" xml:space="preserve">
+    <value>显示持续时间，秒</value>
+  </data>
+  <data name="ShowMaximumDelta" xml:space="preserve">
+    <value>最大差值</value>
+  </data>
+  <data name="ShowMinimumDelta" xml:space="preserve">
+    <value>最小差值</value>
+  </data>
+  <data name="ShowSessionDelta" xml:space="preserve">
+    <value>会话差值</value>
+  </data>
+  <data name="ShowSessionDeltaPerVolume" xml:space="preserve">
+    <value>会话差值/成交量</value>
+  </data>
+  <data name="ShowSessionVolume" xml:space="preserve">
+    <value>会话交易量</value>
+  </data>
+  <data name="ShowTime" xml:space="preserve">
+    <value>时间</value>
+  </data>
+  <data name="ShowVolumePerSecond" xml:space="preserve">
+    <value>交易量/秒</value>
+  </data>
+  <data name="VolumeColor" xml:space="preserve">
+    <value>交易量颜色</value>
+  </data>
+  <data name="GridColor" xml:space="preserve">
+    <value>网格样式</value>
+  </data>
+  <data name="HeaderBackground" xml:space="preserve">
+    <value>标题背景颜色</value>
+  </data>
+  <data name="VisibleProportion" xml:space="preserve">
+    <value>图表可见部分比例</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="ShowDeltaChange" xml:space="preserve">
+    <value>差额变化</value>
+  </data>
+  <data name="Transparency" xml:space="preserve">
+    <value>透明度</value>
+  </data>
+  <data name="ShortValues" xml:space="preserve">
+    <value>显示缩写值</value>
+  </data>
+  <data name="ShowTradesCount" xml:space="preserve">
+    <value>交易数量</value>
+  </data>
+  <data name="ShowHeight" xml:space="preserve">
+    <value>高度</value>
+  </data>
+  <data name="DeltaAlert" xml:space="preserve">
+    <value>Delta 警报</value>
+  </data>
+  <data name="Rows" xml:space="preserve">
+    <value>行数</value>
+  </data>
+  <data name="ToggleLevelsVisibilityHotKey" xml:space="preserve">
+    <value>切换所有级别的可见性</value>
   </data>
   <data name="Absolute" xml:space="preserve">
     <value>Absolute, lots</value>
@@ -5165,6 +5279,14 @@ Character set</value>
   </data>
   <data name="DivergenceDots" xml:space="preserve">
     <value>背离点</value>
+  </data>
+  <data name="DivergenceDotsDescription" xml:space="preserve">
+    <value>当K线方向与Delta相反时，在价格上显示背离标记。</value>
+    <comment>Delta</comment>
+  </data>
+  <data name="DivergenceBarsDescription" xml:space="preserve">
+    <value>当K线方向与Delta相反时，在Delta面板中高亮显示背离柱。</value>
+    <comment>Delta</comment>
   </data>
   <data name="DividedByPriceDescription" xml:space="preserve">
     <value>1 Divided by Price - 该指标反映了反向图表。蜡烛图的值等于1/初始价格。</value>
@@ -19332,4 +19454,684 @@ LowerLevel=(High[i]+Low[i])/2-Multiplier*Atr(Period)</value>
   <data name="ZScoreIndDescription" xml:space="preserve">
     <value>Z-分数（标准分数）是观察或测量值相对传播的度量，指示其相对平均传播有多少个标准偏差。该指标显示价格偏离其平均值的值。</value>
   </data>
+  <data name="ThresholdsGroup" xml:space="preserve">
+    <value>阈值</value>
+  </data>
+  <data name="FixedThresholdGroup" xml:space="preserve">
+    <value>固定阈值</value>
+  </data>
+  <data name="DynamicThresholdGroup" xml:space="preserve">
+    <value>动态阈值</value>
+  </data>
+  <data name="ShowThresholdLines" xml:space="preserve">
+    <value>显示阈值线</value>
+  </data>
+  <data name="ShowThresholdLinesDescription" xml:space="preserve">
+    <value>在成交量面板中显示水平阈值线。</value>
+  </data>
+  <data name="FixedMinorLevel" xml:space="preserve">
+    <value>固定（次级）</value>
+  </data>
+  <data name="FixedMinorLevelDescription" xml:space="preserve">
+    <value>固定次级阈值数值。</value>
+  </data>
+  <data name="FixedMajorLevel" xml:space="preserve">
+    <value>固定（主要）</value>
+  </data>
+  <data name="FixedMajorLevelDescription" xml:space="preserve">
+    <value>固定主要阈值数值。</value>
+  </data>
+  <data name="ThresholdSource" xml:space="preserve">
+    <value>阈值来源</value>
+  </data>
+  <data name="ThresholdSourceDescription" xml:space="preserve">
+    <value>选择固定阈值或动态阈值（Welford）。</value>
+  </data>
+  <data name="SessionWindowMode" xml:space="preserve">
+    <value>会话窗口</value>
+  </data>
+  <data name="SessionWindowModeDescription" xml:space="preserve">
+    <value>用于重置动态阈值的会话窗口。</value>
+  </data>
+  <data name="RthStart" xml:space="preserve">
+    <value>RTH 开始</value>
+  </data>
+  <data name="RthStartDescription" xml:space="preserve">
+    <value>常规交易时段开始时间（交易所时间）。</value>
+  </data>
+  <data name="RthEnd" xml:space="preserve">
+    <value>RTH 结束</value>
+  </data>
+  <data name="RthEndDescription" xml:space="preserve">
+    <value>常规交易时段结束时间（交易所时间）。</value>
+  </data>
+  <data name="SamplesForMeanStd" xml:space="preserve">
+    <value>均值/标准差样本数</value>
+  </data>
+  <data name="SamplesForMeanStdDescription" xml:space="preserve">
+    <value>动态阈值生效前所需的最小样本数。</value>
+  </data>
+  <data name="StdMultiplier" xml:space="preserve">
+    <value>标准差系数</value>
+  </data>
+  <data name="StdMultiplierDescription" xml:space="preserve">
+    <value>主要 = 均值 + k·标准差；次级 = 均值。</value>
+  </data>
+  <data name="ThresholdSourceFixed" xml:space="preserve">
+    <value>固定</value>
+  </data>
+  <data name="ThresholdSourceDynamicWelford" xml:space="preserve">
+    <value>动态（Welford）</value>
+  </data>
+  <data name="SessionWindowModeRth" xml:space="preserve">
+    <value>RTH</value>
+  </data>
+  <data name="SessionWindowModeFull24h" xml:space="preserve">
+    <value>全天 24 小时</value>
+  </data>
+  <data name="VolumeThresholdMajor" xml:space="preserve">
+    <value>成交量阈值（主要）</value>
+  </data>
+  <data name="VolumeThresholdMinor" xml:space="preserve">
+    <value>成交量阈值（次要）</value>
+  </data>
+  <data name="ShowDeltaPerSecond" xml:space="preserve">
+    <value>Delta/秒</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowDeltaPerSecondDescription" xml:space="preserve">
+    <value>显示每秒 Delta</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowPeakVolPerSec" xml:space="preserve">
+    <value>最大成交量/秒</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowPeakDeltaPerSec" xml:space="preserve">
+    <value>最大成交量/秒时的 Delta</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowPeakDeltaPerVol" xml:space="preserve">
+    <value>最大成交量/秒时的 Delta/成交量</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowBuyImbalances" xml:space="preserve">
+    <value>买方失衡</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowSellImbalances" xml:space="preserve">
+    <value>卖方失衡</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowNetImbalances" xml:space="preserve">
+    <value>净失衡</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowStackedBuyImbalances" xml:space="preserve">
+    <value>叠加买方失衡</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowStackedSellImbalances" xml:space="preserve">
+    <value>叠加卖方失衡</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowStackedNetImbalances" xml:space="preserve">
+    <value>叠加净失衡</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="MaxVolPerSecGroup" xml:space="preserve">
+    <value>最大成交量/秒</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ImbalanceGroup" xml:space="preserve">
+    <value>失衡</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="NetImbalanceAlertGroup" xml:space="preserve">
+    <value>净失衡警报</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SotTimeWindowSecName" xml:space="preserve">
+    <value>时间窗口（秒）</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SotMinVolumeName" xml:space="preserve">
+    <value>每窗口最小成交量</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SotUseAutoFilterName" xml:space="preserve">
+    <value>使用过滤</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SotAutoFilterPeriodName" xml:space="preserve">
+    <value>过滤周期</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SotAutoFilterUseEmaName" xml:space="preserve">
+    <value>EMA（关=SMA）</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ImbalanceThresholdPercentName" xml:space="preserve">
+    <value>失衡阈值 (%)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ImbalanceMinDominantVolumeName" xml:space="preserve">
+    <value>最小主导成交量</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ImbalanceMinDifferenceName" xml:space="preserve">
+    <value>最小成交量差值</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="StackedImbalanceMinLevelsName" xml:space="preserve">
+    <value>最小叠加层级</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RatiosAsPercent" xml:space="preserve">
+    <value>比率（百分比）</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="NetImbalanceAlertThresholdAbs" xml:space="preserve">
+    <value>阈值（绝对）</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="NetImbalanceAlertUseClosedCandle" xml:space="preserve">
+    <value>使用已收盘K线</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertDeltaTemplate" xml:space="preserve">
+    <value>ClusterStatistic Delta 警报：{0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertVolumeTemplate" xml:space="preserve">
+    <value>ClusterStatistic 成交量警报：{0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertNetImbalanceTemplate" xml:space="preserve">
+    <value>ClusterStatistic 净失衡警报：{0}（阈值={1}）</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="DeltaVolume" xml:space="preserve">
+    <value>Delta/成交量</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="DeltaVolumePercent" xml:space="preserve">
+    <value>Delta/成交量(%)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SessionDelta" xml:space="preserve">
+    <value>会话 Delta</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SessionDeltaVolume" xml:space="preserve">
+    <value>会话 Delta/成交量</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SessionDeltaVolumePercent" xml:space="preserve">
+    <value>会话 Delta/成交量 (%)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="MaxDelta" xml:space="preserve">
+    <value>最大Delta</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="MinDelta" xml:space="preserve">
+    <value>最小Delta</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="DeltaChange" xml:space="preserve">
+    <value>Delta变化</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="VolumeSecond" xml:space="preserve">
+    <value>成交量/秒</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SessionVolume" xml:space="preserve">
+    <value>会话成交量</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>持续时间</value>
+  </data>
+  <data name="DeltaSecond" xml:space="preserve">
+    <value>Delta/秒</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="PeakVolPerSec" xml:space="preserve">
+    <value>最大成交量/秒</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="PeakDeltaPerSec" xml:space="preserve">
+    <value>最大成交量/秒时Delta</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="PeakDeltaPerVol" xml:space="preserve">
+    <value>最大成交量/秒时Delta/量</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="PeakDeltaPerVolPercent" xml:space="preserve">
+    <value>最大成交量/秒时Delta/量(%)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="BuyImbShort" xml:space="preserve">
+    <value>买方失衡</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SellImbShort" xml:space="preserve">
+    <value>卖方失衡</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="NetImbShort" xml:space="preserve">
+    <value>净失衡</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="BuyStkShort" xml:space="preserve">
+    <value>买方叠加</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SellStkShort" xml:space="preserve">
+    <value>卖方叠加</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="NetStkShort" xml:space="preserve">
+    <value>Net Stk.</value>
+  </data>
+  <data name="LabelFillColorDescription" xml:space="preserve">
+    <value>设置标签的背景颜色。</value>
+  </data>
+  <data name="RowsPaceGroup" xml:space="preserve">
+    <value>节奏 / 活动</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsPressureGroup" xml:space="preserve">
+    <value>方向性压力</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsImbalanceRowsGroup" xml:space="preserve">
+    <value>失衡</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsCandleContextGroup" xml:space="preserve">
+    <value>K线背景</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsSessionContextGroup" xml:space="preserve">
+    <value>会话背景</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsRawPrintsGroup" xml:space="preserve">
+    <value>原始成交</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowVolumePerSecondDescription" xml:space="preserve">
+    <value>确定是否显示每秒的成交量信息。</value>
+  </data>
+  <data name="ShowDeltaDescription" xml:space="preserve">
+    <value>确定是否显示有关增量的信息。</value>
+  </data>
+  <data name="ShowDeltaPerVolumeDescription" xml:space="preserve">
+    <value>确定是否应显示每个成交量的增量信息。</value>
+  </data>
+  <data name="ShowDeltaChangeDescription" xml:space="preserve">
+    <value>确定是否显示当前蜡烛的增量与上一个蜡烛的增量之间的差异信息。</value>
+  </data>
+  <data name="ShowMaximumDeltaDescription" xml:space="preserve">
+    <value>确定是否显示有关最大增量的信息。</value>
+  </data>
+  <data name="ShowMinimumDeltaDescription" xml:space="preserve">
+    <value>确定是否显示有关最小增量的信息。</value>
+  </data>
+  <data name="ShowVolumesDescription" xml:space="preserve">
+    <value>确定是否显示有关成交量的信息。</value>
+  </data>
+  <data name="ShowTradesCountDescription" xml:space="preserve">
+    <value>确定是否显示交易数量的信息。</value>
+  </data>
+  <data name="ShowCandleHeightDescription" xml:space="preserve">
+    <value>确定是否显示蜡烛的高度信息（以货币计）。</value>
+  </data>
+  <data name="ShowCandleDurationDescription" xml:space="preserve">
+    <value>确定是否应显示蜡烛的时间持续信息。</value>
+  </data>
+  <data name="ShowCandleTimeDescription" xml:space="preserve">
+    <value>确定是否显示蜡烛开始时间的信息。</value>
+  </data>
+  <data name="ShowSessionVolumeDescription" xml:space="preserve">
+    <value>确定是否在会话中显示累积成交量信息。</value>
+  </data>
+  <data name="ShowSessionDeltaDescription" xml:space="preserve">
+    <value>确定是否显示有关会话差异的信息。</value>
+  </data>
+  <data name="ShowSessionDeltaPerVolumeDescription" xml:space="preserve">
+    <value>确定是否显示有关每个成交量的会话增量的信息。</value>
+  </data>
+  <data name="ShowAsksDescription" xml:space="preserve">
+    <value>确定是否显示询价量信息。</value>
+  </data>
+  <data name="ShowBidsDescription" xml:space="preserve">
+    <value>确定是否显示竞标量信息。</value>
+  </data>
+  <data name="UseAlertDescription" xml:space="preserve">
+    <value>此设置可用于特定条件或事件的警报通知，这些条件或事件由指示器定义。激活后，指示器将发送警报。</value>
+  </data>
+  <data name="AlertFilterDescription" xml:space="preserve">
+    <value>设置警报触发的值。</value>
+  </data>
+  <data name="AlertFileDescription" xml:space="preserve">
+    <value>AlertFileDescription参数允许用户为ATAS平台中的警报声设置自定义音频文件的名称。用户可以选择一个WAV文件，在满足警报条件时播放。所选的WAV文件应位于C:\Program Files (x86)\ATAS Platform\Sounds文件夹中。</value>
+  </data>
+
+  <data name="Labels" xml:space="preserve">
+    <value>标签</value>
+  </data>
+
+  <data name="LabelTemplate" xml:space="preserve">
+    <value>模板</value>
+  </data>
+
+  <data name="Prefixes" xml:space="preserve">
+    <value>前缀</value>
+  </data>
+
+  <data name="OverrideLabel" xml:space="preserve">
+    <value>覆盖标签（可选）</value>
+  </data>
+
+  <data name="OverrideColorInSchemes" xml:space="preserve">
+    <value>在配色方案中覆盖颜色</value>
+  </data>
+
+  <data name="OverrideColorInSchemesDescription" xml:space="preserve">
+    <value>启用后，即使视觉语义方案处于激活状态，该线条也将使用其自身的颜色。</value>
+  </data>
+
+  <data name="ByPeriod" xml:space="preserve">
+    <value>按周期</value>
+  </data>
+
+  <data name="ByLevelType" xml:space="preserve">
+    <value>按水平类型</value>
+  </data>
+
+  <data name="VisualSemantic" xml:space="preserve">
+    <value>视觉语义</value>
+  </data>
+
+  <data name="VisualSemanticMode" xml:space="preserve">
+    <value>模式</value>
+  </data>
+
+  <data name="VisualSemanticPreset" xml:space="preserve">
+    <value>预设</value>
+  </data>
+
+  <data name="OverrideWidthInSchemes" xml:space="preserve">
+    <value>在方案中覆盖线宽</value>
+  </data>
+
+  <data name="OverrideWidthInSchemesDescription" xml:space="preserve">
+    <value>启用后，即使视觉语义方案处于活动状态，该级别也将使用其自身的线宽。</value>
+  </data>
+
+  <data name="OverrideStyleInSchemes" xml:space="preserve">
+    <value>在方案中覆盖线型</value>
+  </data>
+
+  <data name="OverrideStyleInSchemesDescription" xml:space="preserve">
+    <value>启用后，即使视觉语义方案处于活动状态，该级别也将使用其自身的线型。</value>
+  </data>
+
+  <data name="VisualSemantic_LevelPalette" xml:space="preserve">
+    <value>视觉语义 – 价格层级调色板</value>
+  </data>
+
+  <data name="VisualSemantic_PeriodPalette" xml:space="preserve">
+    <value>视觉语义 – 周期调色板</value>
+  </data>
+
+  <data name="VisualMode_Legacy" xml:space="preserve">
+    <value>传统模式</value>
+  </data>
+
+  <data name="VisualMode_Ruleset" xml:space="preserve">
+    <value>规则集</value>
+  </data>
+
+  <data name="VisualMode_Legacy_Description" xml:space="preserve">
+    <value>不使用语义规则的经典可视化方式。</value>
+  </data>
+
+  <data name="VisualMode_Ruleset_Description" xml:space="preserve">
+    <value>由语义规则和调色板驱动的可视化方式。</value>
+  </data>
+
+  <data name="HVN_Group" xml:space="preserve">
+    <value>HVN</value>
+  </data>
+
+  <data name="HVN_Color" xml:space="preserve">
+    <value>HVN 颜色</value>
+  </data>
+
+  <data name="HVN_ThresholdPct" xml:space="preserve">
+    <value>HVN 阈值（%）</value>
+  </data>
+
+  <data name="HVN_GapToleranceTicks" xml:space="preserve">
+    <value>间隙容忍（tick）</value>
+  </data>
+
+  <data name="HVN_OcclusionTicks" xml:space="preserve">
+    <value>遮挡（tick）</value>
+  </data>
+
+  <data name="HVN_ThresholdPct_Description" xml:space="preserve">
+    <value>当某一价格层级的成交量等于或高于该档案 POC 成交量的此百分比时，该价格层级被视为 HVN。</value>
+  </data>
+
+  <data name="HVN_GapToleranceTicks_Description" xml:space="preserve">
+    <value>允许 HVN 区域内存在小的间隙（tick），以合并相邻的高成交量价位。</value>
+  </data>
+
+  <data name="HVN_OcclusionTicks_Description" xml:space="preserve">
+    <value>不同周期的 HVN 区域之间为避免视觉重叠所需的最小垂直距离（以 tick 为单位）</value>
+  </data>
+
+  <data name="HVN_Enabled" xml:space="preserve">
+    <value>启用 HVN</value>
+  </data>
+
+  <data name="LVN_Group" xml:space="preserve">
+    <value>LVN</value>
+  </data>
+
+  <data name="LVN_ThresholdPct" xml:space="preserve">
+    <value>LVN 阈值 (%)</value>
+  </data>
+
+  <data name="LVN_ThresholdPct_Description" xml:space="preserve">
+    <value>当某一价格层级的成交量低于该档案 POC 成交量的此百分比时，该价格层级被视为 LVN。</value>
+  </data>
+
+  <data name="LVN_GapToleranceTicks" xml:space="preserve">
+    <value>间隙容差（tick）</value>
+  </data>
+
+  <data name="LVN_GapToleranceTicks_Description" xml:space="preserve">
+    <value>允许 LVN 区域内部存在小的间隙（tick），以将相邻的低成交量价位合并在一起。</value>
+  </data>
+
+  <data name="LVN_OcclusionTicks" xml:space="preserve">
+    <value>遮挡（tick）</value>
+  </data>
+
+  <data name="LVN_OcclusionTicks_Description" xml:space="preserve">
+    <value>为避免不同周期的 LVN 区域发生视觉重叠而设置的最小垂直距离（以 tick 为单位）。</value>
+  </data>
+
+  <data name="LVN_Enabled" xml:space="preserve">
+    <value>启用 LVN</value>
+  </data>
+
+  <data name="LVN_Color" xml:space="preserve">
+    <value>LVN 颜色</value>
+  </data>
+
+  <data name="LVN_MinPocVol" xml:space="preserve">
+    <value>LVN 的最小 POC 成交量</value>
+  </data>
+
+  <data name="LVN_MinPocVol_Description" xml:space="preserve">
+    <value>在档案的 POC 成交量达到该值之前不计算 LVN 区域。可避免周期初期的 LVN 噪音。</value>
+  </data>
+
+  <data name="LVN_TailFilterMinTicks" xml:space="preserve">
+    <value>尾部过滤（tick）</value>
+  </data>
+
+  <data name="LVN_TailFilterMinTicks_Description" xml:space="preserve">
+    <value>从 LVN 识别中排除接近档案最高价和最低价的低成交量尾部区域。</value>
+  </data>
+
+  <data name="LVN_TailFilterRangePct" xml:space="preserve">
+    <value>尾部过滤（范围百分比）</value>
+  </data>
+
+  <data name="LVN_TailFilterRangePct_Description" xml:space="preserve">
+    <value>使用轮廓范围的百分比，将靠近轮廓高点和低点的低成交量尾部区域从 LVN 检测中排除。（0 = 禁用）</value>
+  </data>
+
+  <data name="DetailsGroup" xml:space="preserve">
+    <value>详情</value>
+  </data>
+
+  <data name="LabelDisplayModeCard" xml:space="preserve">
+    <value>卡片</value>
+  </data>
+
+  <data name="LabelDisplayModeFull" xml:space="preserve">
+    <value>完整</value>
+  </data>
+
+  <data name="LabelDisplayModeHide" xml:space="preserve">
+    <value>隐藏</value>
+  </data>
+
+  <data name="LabelDisplayModeShort" xml:space="preserve">
+    <value>简短</value>
+  </data>
+
+  <data name="LabelDistance" xml:space="preserve">
+    <value>标签距离</value>
+  </data>
+
+  <data name="LabelDistanceDescription" xml:space="preserve">
+    <value>交易标记与标签之间的垂直间距（像素）。</value>
+  </data>
+
+  <data name="LabelMode" xml:space="preserve">
+    <value>标签模式</value>
+  </data>
+
+  <data name="LabelModeDescription" xml:space="preserve">
+    <value>选择交易标签的显示方式。</value>
+  </data>
+
+  <data name="LabelXAnchor" xml:space="preserve">
+    <value>标签水平锚点</value>
+  </data>
+
+  <data name="LabelXAnchorCloseBar" xml:space="preserve">
+    <value>收盘柱</value>
+  </data>
+
+  <data name="LabelXAnchorDescription" xml:space="preserve">
+    <value>设置交易标签水平定位的参考点。</value>
+  </data>
+
+  <data name="LabelXAnchorMidpoint" xml:space="preserve">
+    <value>交易中点</value>
+  </data>
+
+  <data name="LinesAndMarkers" xml:space="preserve">
+    <value>线条与标记</value>
+  </data>
+
+  <data name="LossColorDescription" xml:space="preserve">
+    <value>用于显示亏损交易的颜色。</value>
+  </data>
+
+  <data name="MarkerSize" xml:space="preserve">
+    <value>标记大小</value>
+  </data>
+
+  <data name="MarkerSizeDescription" xml:space="preserve">
+    <value>入场/出场标记的大小。</value>
+  </data>
+
+  <data name="ProfitColorDescription" xml:space="preserve">
+    <value>用于显示盈利交易的颜色。</value>
+  </data>
+
+  <data name="TradeBuyColor" xml:space="preserve">
+    <value>买入颜色</value>
+  </data>
+
+  <data name="TradeDetailsDescription" xml:space="preserve">
+    <value>悬停在标记或标签上时显示交易详情。</value>
+  </data>
+
+  <data name="TradeDirectionLong" xml:space="preserve">
+    <value>多</value>
+  </data>
+
+  <data name="TradeDirectionShort" xml:space="preserve">
+    <value>空</value>
+  </data>
+
+  <data name="TradeEntry" xml:space="preserve">
+    <value>入场</value>
+  </data>
+
+  <data name="TradeExit" xml:space="preserve">
+    <value>出场</value>
+  </data>
+
+  <data name="TradeIn" xml:space="preserve">
+    <value>入场</value>
+  </data>
+
+  <data name="TradeLine" xml:space="preserve">
+    <value>交易线</value>
+  </data>
+
+  <data name="TradeLineDescription" xml:space="preserve">
+    <value>绘制连接入场和出场标记的线条。</value>
+  </data>
+
+  <data name="TradeOut" xml:space="preserve">
+    <value>出场</value>
+  </data>
+
+  <data name="TradePnL" xml:space="preserve">
+    <value>盈亏</value>
+  </data>
+
+  <data name="TradeResult" xml:space="preserve">
+    <value>结果</value>
+  </data>
+
+  <data name="TradeSellColor" xml:space="preserve">
+    <value>卖出颜色</value>
+  </data>
+
+  <data name="TradeTicks" xml:space="preserve">
+    <value>跳动点</value>
+  </data>
+
+  <data name="TradeTicksShort" xml:space="preserve">
+    <value>t</value>
+  </data>
+
 </root>

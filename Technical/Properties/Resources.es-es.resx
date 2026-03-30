@@ -19321,4 +19321,552 @@ Para renovarla, pague la tarifa requerida en el Área personal</value>
   <data name="ZScoreIndDescription" xml:space="preserve">
     <value>El Z-score (puntuación estándar) es una medida de la dispersión relativa de un valor observado o medido, que indica cuántas desviaciones estándar es su dispersión media relativa. El indicador muestra el valor de la desviación del precio de su valor promedio.</value>
   </data>
+
+  <data name="Labels" xml:space="preserve">
+    <value>Etiquetas</value>
+  </data>
+  <data name="LabelTemplate" xml:space="preserve">
+    <value>Plantilla</value>
+  </data>
+  <data name="Prefixes" xml:space="preserve">
+    <value>Prefijos</value>
+  </data>
+  <data name="OverrideLabel" xml:space="preserve">
+    <value>Sobrescribir etiqueta (opcional)</value>
+  </data>
+  <data name="OverrideColorInSchemes" xml:space="preserve">
+    <value>Sobrescribir color en esquemas</value>
+  </data>
+  <data name="OverrideColorInSchemesDescription" xml:space="preserve">
+    <value>Si está activado, esta línea usará su propio color incluso cuando los esquemas semánticos visuales estén activos.</value>
+  </data>
+  <data name="ByPeriod" xml:space="preserve">
+    <value>Por período</value>
+  </data>
+  <data name="ByLevelType" xml:space="preserve">
+    <value>Por tipo de nivel</value>
+  </data>
+  <data name="VisualSemantic" xml:space="preserve">
+    <value>Semántica visual</value>
+  </data>
+  <data name="VisualSemanticMode" xml:space="preserve">
+    <value>Modo</value>
+  </data>
+  <data name="VisualSemanticPreset" xml:space="preserve">
+    <value>Preset</value>
+  </data>
+  <data name="OverrideWidthInSchemes" xml:space="preserve">
+    <value>Sobrescribir grosor en esquemas</value>
+  </data>
+  <data name="OverrideWidthInSchemesDescription" xml:space="preserve">
+    <value>Si está activado, este nivel usará su propio grosor de línea incluso cuando los esquemas semánticos visuales estén activos.</value>
+  </data>
+  <data name="OverrideStyleInSchemes" xml:space="preserve">
+    <value>Sobrescribir estilo de línea en esquemas</value>
+  </data>
+  <data name="OverrideStyleInSchemesDescription" xml:space="preserve">
+    <value>Si está activado, este nivel usará su propio estilo de línea incluso cuando los esquemas semánticos visuales estén activos.</value>
+  </data>
+  <data name="VisualSemantic_LevelPalette" xml:space="preserve">
+    <value>Semántica visual – Paleta por nivel</value>
+  </data>
+  <data name="VisualSemantic_PeriodPalette" xml:space="preserve">
+    <value>Semántica visual – Paleta por período</value>
+  </data>
+  <data name="VisualMode_Legacy" xml:space="preserve">
+    <value>Clásico</value>
+  </data>
+  <data name="VisualMode_Ruleset" xml:space="preserve">
+    <value>Conjunto de reglas</value>
+  </data>
+  <data name="VisualMode_Legacy_Description" xml:space="preserve">
+    <value>Visualización clásica sin reglas semánticas.</value>
+  </data>
+  <data name="VisualMode_Ruleset_Description" xml:space="preserve">
+    <value>Visualización gobernada por reglas y paletas semánticas.</value>
+  </data>
+  <data name="HVN_Group" xml:space="preserve">
+    <value>HVN</value>
+  </data>
+  <data name="HVN_Enabled" xml:space="preserve">
+    <value>Activar HVN</value>
+  </data>
+  <data name="HVN_Color" xml:space="preserve">
+    <value>Color HVN</value>
+  </data>
+  <data name="HVN_ThresholdPct" xml:space="preserve">
+    <value>Umbral HVN (%)</value>
+  </data>
+  <data name="HVN_GapToleranceTicks" xml:space="preserve">
+    <value>Tolerancia de huecos (ticks)</value>
+  </data>
+  <data name="HVN_OcclusionTicks" xml:space="preserve">
+    <value>Oclusión (ticks)</value>
+  </data>
+  <data name="HVN_ThresholdPct_Description" xml:space="preserve">
+    <value>Un nivel de precio se considera HVN cuando su volumen es igual o superior a este porcentaje del volumen del POC del perfil.</value>
+  </data>
+  <data name="HVN_GapToleranceTicks_Description" xml:space="preserve">
+    <value>Permite pequeños huecos (en ticks) dentro de una banda HVN para agrupar niveles de alto volumen cercanos.</value>
+  </data>
+  <data name="HVN_OcclusionTicks_Description" xml:space="preserve">
+    <value>Distancia vertical mínima (en ticks) requerida entre bandas HVN de distintos períodos para evitar solapamientos visuales.</value>
+  </data>
+  <data name="LVN_Group" xml:space="preserve">
+    <value>LVN</value>
+  </data>
+  <data name="LVN_ThresholdPct" xml:space="preserve">
+    <value>Umbral LVN (%)</value>
+  </data>
+  <data name="LVN_ThresholdPct_Description" xml:space="preserve">
+    <value>Un nivel de precio se considera LVN cuando su volumen está por debajo de este porcentaje del volumen del POC del perfil.</value>
+  </data>
+  <data name="LVN_GapToleranceTicks" xml:space="preserve">
+    <value>Tolerancia de huecos (ticks)</value>
+  </data>
+  <data name="LVN_GapToleranceTicks_Description" xml:space="preserve">
+    <value>Permite pequeños huecos (en ticks) dentro de una banda LVN para agrupar niveles cercanos de bajo volumen.</value>
+  </data>
+  <data name="LVN_OcclusionTicks" xml:space="preserve">
+    <value>Oclusión (ticks)</value>
+  </data>
+  <data name="LVN_OcclusionTicks_Description" xml:space="preserve">
+    <value>Distancia vertical mínima (en ticks) requerida entre bandas LVN de distintos períodos para evitar solapamientos visuales.</value>
+  </data>
+  <data name="LVN_Enabled" xml:space="preserve">
+    <value>Activar LVN</value>
+  </data>
+  <data name="LVN_Color" xml:space="preserve">
+    <value>Color LVN</value>
+  </data>
+  <data name="LVN_MinPocVol" xml:space="preserve">
+    <value>Volumen mínimo del POC para LVN</value>
+  </data>
+  <data name="LVN_MinPocVol_Description" xml:space="preserve">
+    <value>No calcula las bandas LVN hasta que el volumen del POC del perfil alcance este valor. Evita ruido LVN al inicio del período.</value>
+  </data>
+  <data name="LVN_TailFilterMinTicks" xml:space="preserve">
+    <value>Filtro de colas (ticks)</value>
+  </data>
+  <data name="LVN_TailFilterMinTicks_Description" xml:space="preserve">
+    <value>Excluye las zonas de cola de bajo volumen cercanas al máximo y mínimo del perfil de la detección de LVN.</value>
+  </data>
+  <data name="LVN_TailFilterRangePct" xml:space="preserve">
+    <value>Filtro de colas  (% del rango)</value>
+  </data>
+  <data name="LVN_TailFilterRangePct_Description" xml:space="preserve">
+    <value>Excluye las colas de bajo volumen cercanas al máximo y mínimo del perfil en la detección de LVN, usando un porcentaje del rango del perfil. (0 = desactivado).</value>
+  </data>
+  <data name="ThresholdsGroup" xml:space="preserve">
+    <value>Umbrales</value>
+  </data>
+  <data name="FixedThresholdGroup" xml:space="preserve">
+    <value>Umbral fijo</value>
+  </data>
+  <data name="DynamicThresholdGroup" xml:space="preserve">
+    <value>Umbral dinámico</value>
+  </data>
+  <data name="ShowThresholdLines" xml:space="preserve">
+    <value>Mostrar líneas de umbral</value>
+  </data>
+  <data name="ShowThresholdLinesDescription" xml:space="preserve">
+    <value>Muestra líneas horizontales de umbral en el panel de Volumen.</value>
+  </data>
+  <data name="FixedMinorLevel" xml:space="preserve">
+    <value>Fijo menor</value>
+  </data>
+  <data name="FixedMinorLevelDescription" xml:space="preserve">
+    <value>Valor del umbral fijo menor.</value>
+  </data>
+  <data name="FixedMajorLevel" xml:space="preserve">
+    <value>Fijo mayor</value>
+  </data>
+  <data name="FixedMajorLevelDescription" xml:space="preserve">
+    <value>Valor del umbral fijo mayor.</value>
+  </data>
+  <data name="ThresholdSource" xml:space="preserve">
+    <value>Fuente del umbral</value>
+  </data>
+  <data name="ThresholdSourceDescription" xml:space="preserve">
+    <value>Selecciona umbrales fijos o umbrales dinámicos (Welford).</value>
+  </data>
+  <data name="SessionWindowMode" xml:space="preserve">
+    <value>Ventana de sesión</value>
+  </data>
+  <data name="SessionWindowModeDescription" xml:space="preserve">
+    <value>Ventana de sesión utilizada para reiniciar los umbrales dinámicos.</value>
+  </data>
+  <data name="RthStart" xml:space="preserve">
+    <value>Inicio RTH</value>
+  </data>
+  <data name="RthStartDescription" xml:space="preserve">
+    <value>Hora de inicio del horario regular de negociación (hora del mercado).</value>
+  </data>
+  <data name="RthEnd" xml:space="preserve">
+    <value>Fin RTH</value>
+  </data>
+  <data name="RthEndDescription" xml:space="preserve">
+    <value>Hora de fin del horario regular de negociación (hora del mercado).</value>
+  </data>
+  <data name="SamplesForMeanStd" xml:space="preserve">
+    <value>Muestras para media/desv</value>
+  </data>
+  <data name="SamplesForMeanStdDescription" xml:space="preserve">
+    <value>Mínimo de muestras requerido para activar los umbrales dinámicos.</value>
+  </data>
+  <data name="StdMultiplier" xml:space="preserve">
+    <value>Multiplicador de desv</value>
+  </data>
+  <data name="StdMultiplierDescription" xml:space="preserve">
+    <value>Mayor = media + k·desviación típica. Menor = media.</value>
+  </data>
+  <data name="ThresholdSourceFixed" xml:space="preserve">
+    <value>Fijo</value>
+  </data>
+  <data name="ThresholdSourceDynamicWelford" xml:space="preserve">
+    <value>Dinámico (Welford)</value>
+  </data>
+  <data name="SessionWindowModeRth" xml:space="preserve">
+    <value>RTH</value>
+  </data>
+  <data name="SessionWindowModeFull24h" xml:space="preserve">
+    <value>24 h</value>
+  </data>
+  <data name="VolumeThresholdMajor" xml:space="preserve">
+    <value>Umbral de volumen (mayor)</value>
+  </data>
+  <data name="VolumeThresholdMinor" xml:space="preserve">
+    <value>Umbral de volumen (menor)</value>
+  </data>
+  <data name="ShowDeltaPerSecond" xml:space="preserve">
+    <value>Delta/seg</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowDeltaPerSecondDescription" xml:space="preserve">
+    <value>Mostrar delta por segundo</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowPeakVolPerSec" xml:space="preserve">
+    <value>Vol máx/seg</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowPeakDeltaPerSec" xml:space="preserve">
+    <value>Delta en vol máx/seg</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowPeakDeltaPerVol" xml:space="preserve">
+    <value>Delta/Vol en vol máx/seg</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowBuyImbalances" xml:space="preserve">
+    <value>Desequilibrios compradores</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowSellImbalances" xml:space="preserve">
+    <value>Desequilibrios vendedores</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowNetImbalances" xml:space="preserve">
+    <value>Desequilibrios netos</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowStackedBuyImbalances" xml:space="preserve">
+    <value>Desequilibrios compradores apilados</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowStackedSellImbalances" xml:space="preserve">
+    <value>Desequilibrios vendedores apilados</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ShowStackedNetImbalances" xml:space="preserve">
+    <value>Desequilibrios netos apilados</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="MaxVolPerSecGroup" xml:space="preserve">
+    <value>Vol máx/seg</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ImbalanceGroup" xml:space="preserve">
+    <value>Desequilibrio</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="NetImbalanceAlertGroup" xml:space="preserve">
+    <value>Alerta de desequilibrio neto</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SotTimeWindowSecName" xml:space="preserve">
+    <value>Ventana de tiempo (seg)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SotMinVolumeName" xml:space="preserve">
+    <value>Volumen mínimo por ventana</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SotUseAutoFilterName" xml:space="preserve">
+    <value>Usar filtro</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SotAutoFilterPeriodName" xml:space="preserve">
+    <value>Periodo del filtro</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SotAutoFilterUseEmaName" xml:space="preserve">
+    <value>EMA (off=SMA)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ImbalanceThresholdPercentName" xml:space="preserve">
+    <value>Umbral de desequilibrio (%)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ImbalanceMinDominantVolumeName" xml:space="preserve">
+    <value>Volumen dominante mínimo</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="ImbalanceMinDifferenceName" xml:space="preserve">
+    <value>Diferencia mínima de volumen</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="StackedImbalanceMinLevelsName" xml:space="preserve">
+    <value>Niveles mínimos apilados</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RatiosAsPercent" xml:space="preserve">
+    <value>Ratio como porcentaje</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="NetImbalanceAlertThresholdAbs" xml:space="preserve">
+    <value>Umbral (abs)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="NetImbalanceAlertUseClosedCandle" xml:space="preserve">
+    <value>Usar vela cerrada</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertDeltaTemplate" xml:space="preserve">
+    <value>Alerta de delta ClusterStatistic: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertVolumeTemplate" xml:space="preserve">
+    <value>Alerta de volumen ClusterStatistic: {0}</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="AlertNetImbalanceTemplate" xml:space="preserve">
+    <value>Alerta de desequilibrio neto ClusterStatistic: {0} (umbral={1})</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="DeltaVolume" xml:space="preserve">
+    <value>Delta/Vol</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="DeltaVolumePercent" xml:space="preserve">
+    <value>Delta/Vol (%)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SessionDelta" xml:space="preserve">
+    <value>Delta de sesión</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SessionDeltaVolume" xml:space="preserve">
+    <value>Delta/volumen de sesión</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SessionDeltaVolumePercent" xml:space="preserve">
+    <value>Delta/volumen de sesión (%)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="MaxDelta" xml:space="preserve">
+    <value>Delta máx.</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="MinDelta" xml:space="preserve">
+    <value>Delta mín.</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="DeltaChange" xml:space="preserve">
+    <value>Cambio Delta</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="VolumeSecond" xml:space="preserve">
+    <value>Vol/seg</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SessionVolume" xml:space="preserve">
+    <value>Vol sesión</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="DeltaSecond" xml:space="preserve">
+    <value>Delta/seg</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="PeakVolPerSec" xml:space="preserve">
+    <value>Vol máx/seg</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="PeakDeltaPerSec" xml:space="preserve">
+    <value>Delta @ Vol máx/seg</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="PeakDeltaPerVol" xml:space="preserve">
+    <value>Delta/Vol @ Vol máx/seg</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="PeakDeltaPerVolPercent" xml:space="preserve">
+    <value>Delta/Vol @ Vol máx/seg (%)</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="BuyImbShort" xml:space="preserve">
+    <value>Imb Comp</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SellImbShort" xml:space="preserve">
+    <value>Imb Vend</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="NetImbShort" xml:space="preserve">
+    <value>Imb Neto</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="BuyStkShort" xml:space="preserve">
+    <value>Stk Comp.</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="SellStkShort" xml:space="preserve">
+    <value>Stk Vend.</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="NetStkShort" xml:space="preserve">
+    <value>Net Stk.</value>
+  </data>
+  <data name="RowsPaceGroup" xml:space="preserve">
+    <value>Ritmo / Actividad</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsPressureGroup" xml:space="preserve">
+    <value>Presión direccional</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsImbalanceRowsGroup" xml:space="preserve">
+    <value>Desequilibrios</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsCandleContextGroup" xml:space="preserve">
+    <value>Contexto de vela</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsSessionContextGroup" xml:space="preserve">
+    <value>Contexto de sesión</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="RowsRawPrintsGroup" xml:space="preserve">
+    <value>Impresiones crudas</value>
+    <comment>ClusterStatistics</comment>
+  </data>
+  <data name="DaysLookBackDescription" xml:space="preserve">
+    <value>Número de días anteriores al actual incluidos en el cálculo del delta.</value>
+  </data>
+  <data name="DivergenceBarsDescription" xml:space="preserve">
+    <value>Número de barras sobre las que se evalúa la divergencia de delta.</value>
+  </data>
+  <data name="DivergenceDotsDescription" xml:space="preserve">
+    <value>Muestra puntos de divergencia de delta en el panel de precios.</value>
+  </data>
+  <data name="DetailsGroup" xml:space="preserve">
+    <value>Detalles</value>
+  </data>
+  <data name="LabelDisplayModeCard" xml:space="preserve">
+    <value>Tarjeta</value>
+  </data>
+  <data name="LabelDisplayModeFull" xml:space="preserve">
+    <value>Completo</value>
+  </data>
+  <data name="LabelDisplayModeHide" xml:space="preserve">
+    <value>Ocultar</value>
+  </data>
+  <data name="LabelDisplayModeShort" xml:space="preserve">
+    <value>Corto</value>
+  </data>
+  <data name="LabelDistance" xml:space="preserve">
+    <value>Distancia de etiqueta</value>
+  </data>
+  <data name="LabelDistanceDescription" xml:space="preserve">
+    <value>Espaciado vertical entre marcadores de operación y etiquetas (px).</value>
+  </data>
+  <data name="LabelMode" xml:space="preserve">
+    <value>Modo de etiqueta</value>
+  </data>
+  <data name="LabelModeDescription" xml:space="preserve">
+    <value>Selecciona cómo se muestran las etiquetas de operación.</value>
+  </data>
+  <data name="LabelXAnchor" xml:space="preserve">
+    <value>Centrado de etiqueta</value>
+  </data>
+  <data name="LabelXAnchorCloseBar" xml:space="preserve">
+    <value>Barra de cierre</value>
+  </data>
+  <data name="LabelXAnchorDescription" xml:space="preserve">
+    <value>Define la referencia horizontal para posicionar las etiquetas de operación.</value>
+  </data>
+  <data name="LabelXAnchorMidpoint" xml:space="preserve">
+    <value>Punto medio de operación</value>
+  </data>
+  <data name="LinesAndMarkers" xml:space="preserve">
+    <value>Líneas y marcadores</value>
+  </data>
+  <data name="LossColorDescription" xml:space="preserve">
+    <value>Color utilizado para mostrar operaciones con pérdida.</value>
+  </data>
+  <data name="MarkerSize" xml:space="preserve">
+    <value>Tamaño del marcador</value>
+  </data>
+  <data name="MarkerSizeDescription" xml:space="preserve">
+    <value>Tamaño de los marcadores de entrada/salida.</value>
+  </data>
+  <data name="ProfitColorDescription" xml:space="preserve">
+    <value>Color utilizado para mostrar operaciones rentables.</value>
+  </data>
+  <data name="TradeBuyColor" xml:space="preserve">
+    <value>Color de compra</value>
+  </data>
+  <data name="TradeDetailsDescription" xml:space="preserve">
+    <value>Muestra detalles de la operación al pasar el cursor sobre marcadores o etiquetas.</value>
+  </data>
+  <data name="TradeDirectionLong" xml:space="preserve">
+    <value>Largo</value>
+  </data>
+  <data name="TradeDirectionShort" xml:space="preserve">
+    <value>Corto</value>
+  </data>
+  <data name="TradeEntry" xml:space="preserve">
+    <value>Entrada</value>
+  </data>
+  <data name="TradeExit" xml:space="preserve">
+    <value>Salida</value>
+  </data>
+  <data name="TradeIn" xml:space="preserve">
+    <value>Entrada</value>
+  </data>
+  <data name="TradeLine" xml:space="preserve">
+    <value>Línea de operación</value>
+  </data>
+  <data name="TradeLineDescription" xml:space="preserve">
+    <value>Dibuja una línea que conecta los marcadores de entrada y salida.</value>
+  </data>
+  <data name="TradeOut" xml:space="preserve">
+    <value>Salida</value>
+  </data>
+  <data name="TradePnL" xml:space="preserve">
+    <value>PnL</value>
+  </data>
+  <data name="TradeResult" xml:space="preserve">
+    <value>Resultado</value>
+  </data>
+  <data name="TradeSellColor" xml:space="preserve">
+    <value>Color de venta</value>
+  </data>
+  <data name="TradeTicks" xml:space="preserve">
+    <value>ticks</value>
+  </data>
+  <data name="TradeTicksShort" xml:space="preserve">
+    <value>t</value>
+  </data>
 </root>

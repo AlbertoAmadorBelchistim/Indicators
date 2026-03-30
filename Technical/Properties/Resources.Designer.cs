@@ -1337,6 +1337,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Cluster statistic delta alert: {0}.
+        /// </summary>
+        public static string AlertDeltaTemplate {
+            get {
+                return ResourceManager.GetString("AlertDeltaTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Alert File.
         /// </summary>
         public static string AlertFile {
@@ -1346,20 +1355,11 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Custom alert sound settings. The selected file must be in WAV format and located in the C:\Program Files (x86)\ATAS Platform\Sounds folder..
+        ///   Busca una cadena traducida similar a This parameter allows users to specify the name of a custom audio file for alert sounds. Users can select a WAV file that will be played whenever an alert condition is triggered. The chosen WAV file should be located in the folder C:\Program Files (x86)\ATAS Platform\Sounds..
         /// </summary>
         public static string AlertFileDescription {
             get {
                 return ResourceManager.GetString("AlertFileDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sets the background color of the alert window..
-        /// </summary>
-        public static string AlertFillColorDescription {
-            get {
-                return ResourceManager.GetString("AlertFillColorDescription", resourceCulture);
             }
         }
         
@@ -1373,7 +1373,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Notification when manually set volume level is reached..
+        ///   Busca una cadena traducida similar a Sets the value at which the alert is triggered..
         /// </summary>
         public static string AlertFilterDescription {
             get {
@@ -1382,25 +1382,16 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Alert repeat interval (sec).
+        ///   Busca una cadena traducida similar a ClusterStatistics Net Imbalance alert: {0} (thr={1}).
         /// </summary>
-        public static string AlertInterval {
+        public static string AlertNetImbalanceTemplate {
             get {
-                return ResourceManager.GetString("AlertInterval", resourceCulture);
+                return ResourceManager.GetString("AlertNetImbalanceTemplate", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Time in seconds of next repeated alert.
-        /// </summary>
-        public static string AlertIntervalDescription {
-            get {
-                return ResourceManager.GetString("AlertIntervalDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Alert on new candle.
+        ///   Busca una cadena traducida similar a Alert On New Candle.
         /// </summary>
         public static string AlertNewCandle {
             get {
@@ -1490,165 +1481,16 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Alerts.
+        ///   Busca una cadena traducida similar a Cluster statistic volume alert: {0}.
         /// </summary>
-        public static string Alerts4 {
+        public static string AlertVolumeTemplate {
             get {
-                return ResourceManager.GetString("Alerts4", resourceCulture);
+                return ResourceManager.GetString("AlertVolumeTemplate", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Alerts.
-        /// </summary>
-        public static string AlertsListMenu {
-            get {
-                return ResourceManager.GetString("AlertsListMenu", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Alerts.
-        /// </summary>
-        public static string AlertsTitle {
-            get {
-                return ResourceManager.GetString("AlertsTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sets the color of the text in the alert window..
-        /// </summary>
-        public static string AlertTextColorDescription {
-            get {
-                return ResourceManager.GetString("AlertTextColorDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Align to session.
-        /// </summary>
-        public static string AlignToSession {
-            get {
-                return ResourceManager.GetString("AlignToSession", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Disable to request all available data, enable to match data for ATAS instruments. Disabling this field will allow to see pre and post market tradings. Cache clean may be required..
-        /// </summary>
-        public static string AlignToSessionDescription {
-            get {
-                return ResourceManager.GetString("AlignToSessionDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a All Accounts.
-        /// </summary>
-        public static string AllAccounts {
-            get {
-                return ResourceManager.GetString("AllAccounts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a All Copy Groups.
-        /// </summary>
-        public static string AllCopyGroups {
-            get {
-                return ResourceManager.GetString("AllCopyGroups", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a All day.
-        /// </summary>
-        public static string AllDay {
-            get {
-                return ResourceManager.GetString("AllDay", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a All files (*.*)|*.*.
-        /// </summary>
-        public static string AllFilesFilter {
-            get {
-                return ResourceManager.GetString("AllFilesFilter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a &lt;p&gt;A complete list of all available indicators in ATAS.&lt;/p&gt;
-        ///&lt;ul&gt;
-        ///  &lt;li&gt;All indicators in one place, without filters by type or task.&lt;/li&gt;
-        ///  &lt;li&gt;A convenient starting point for searching and comparing tools.&lt;/li&gt;
-        ///  &lt;li&gt;Discover new solutions for your analysis.&lt;/li&gt;
-        ///&lt;/ul&gt;.
-        /// </summary>
-        public static string AllGroupDescription {
-            get {
-                return ResourceManager.GetString("AllGroupDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Alligator technical indicator represents nothing more than the usual combination of three smoothed moving averages (SMA) with different periods (13, 8 and 5), which shifted for various periods (8, 5 and 3, respectively). The author of this technical indicator uses the median price to build moving averages..
-        /// </summary>
-        public static string AlligatorDescription {
-            get {
-                return ResourceManager.GetString("AlligatorDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a All.
-        /// </summary>
-        public static string AllIndicatorsTitle {
-            get {
-                return ResourceManager.GetString("AllIndicatorsTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a All Instruments.
-        /// </summary>
-        public static string AllInstruments {
-            get {
-                return ResourceManager.GetString("AllInstruments", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a All instruments.
-        /// </summary>
-        public static string AllInstrumentsTab {
-            get {
-                return ResourceManager.GetString("AllInstrumentsTab", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Defines the color of all levels..
-        /// </summary>
-        public static string AllLevelsColorDescription {
-            get {
-                return ResourceManager.GetString("AllLevelsColorDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Allow auto-scrolling.
-        /// </summary>
-        public static string AllowAutoScrolling {
-            get {
-                return ResourceManager.GetString("AllowAutoScrolling", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Custom starting point mode.
+        ///   Busca una cadena traducida similar a Custom Starting Point Mode.
         /// </summary>
         public static string AllowCustomStartPoint {
             get {
@@ -6193,88 +6035,16 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Buy Limit.
+        ///   Busca una cadena traducida similar a Buy Imb.
         /// </summary>
-        public static string BuyLimit {
+        public static string BuyImbShort {
             get {
-                return ResourceManager.GetString("BuyLimit", resourceCulture);
+                return ResourceManager.GetString("BuyImbShort", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Buy Limit at {0}.
-        /// </summary>
-        public static string BuyLimitAtFormat {
-            get {
-                return ResourceManager.GetString("BuyLimitAtFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Buy at best bid.
-        /// </summary>
-        public static string BuyLimitOnBestBid {
-            get {
-                return ResourceManager.GetString("BuyLimitOnBestBid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Buy Stop Limit.
-        /// </summary>
-        public static string BuyLimitStop {
-            get {
-                return ResourceManager.GetString("BuyLimitStop", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Buy/Long.
-        /// </summary>
-        public static string BuyLong {
-            get {
-                return ResourceManager.GetString("BuyLong", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Buy Market.
-        /// </summary>
-        public static string BuyMarket {
-            get {
-                return ResourceManager.GetString("BuyMarket", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Buy Market.
-        /// </summary>
-        public static string BuyMarketButton {
-            get {
-                return ResourceManager.GetString("BuyMarketButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Buy MKT.
-        /// </summary>
-        public static string BuyMktButton {
-            get {
-                return ResourceManager.GetString("BuyMktButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Buy orders.
-        /// </summary>
-        public static string BuyOrders {
-            get {
-                return ResourceManager.GetString("BuyOrders", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Buy overshoot 1 color.
+        ///   Busca una cadena traducida similar a Buy Overshoot 1 Color.
         /// </summary>
         public static string BuyOvershoot1Color {
             get {
@@ -6400,155 +6170,11 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Defines the period value for the average moving buy/sell power..
+        ///   Busca una cadena traducida similar a Buy Stk..
         /// </summary>
-        public static string BuySellPowerPeriodDescription {
+        public static string BuyStkShort {
             get {
-                return ResourceManager.GetString("BuySellPowerPeriodDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Settings for displaying the dominance of buy/sell power..
-        /// </summary>
-        public static string BuySellPowerSettingsDescription {
-            get {
-                return ResourceManager.GetString("BuySellPowerSettingsDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Buy/Sell Width.
-        /// </summary>
-        public static string BuySellWidth {
-            get {
-                return ResourceManager.GetString("BuySellWidth", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Buys font color.
-        /// </summary>
-        public static string Buysfontcolor {
-            get {
-                return ResourceManager.GetString("Buysfontcolor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a .
-        /// </summary>
-        public static string Buysfontcolor1 {
-            get {
-                return ResourceManager.GetString("Buysfontcolor1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sets the color of the element representing the buy signal..
-        /// </summary>
-        public static string BuySignalColorDescription {
-            get {
-                return ResourceManager.GetString("BuySignalColorDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Visualization settings for the buy signal..
-        /// </summary>
-        public static string BuySignalSettingsDescription {
-            get {
-                return ResourceManager.GetString("BuySignalSettingsDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Buy Sound.
-        /// </summary>
-        public static string BuySound {
-            get {
-                return ResourceManager.GetString("BuySound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Buy current trades.
-        /// </summary>
-        public static string buyspreadtrades {
-            get {
-                return ResourceManager.GetString("buyspreadtrades", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Buy Stop.
-        /// </summary>
-        public static string BuyStop {
-            get {
-                return ResourceManager.GetString("BuyStop", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Buy Stop at {0}.
-        /// </summary>
-        public static string BuyStopAtFormat {
-            get {
-                return ResourceManager.GetString("BuyStopAtFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Buy Stop Limit at {0}.
-        /// </summary>
-        public static string BuyStopLimitAtFormat {
-            get {
-                return ResourceManager.GetString("BuyStopLimitAtFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Buys with Asks.
-        /// </summary>
-        public static string BuysWithAsks {
-            get {
-                return ResourceManager.GetString("BuysWithAsks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Buys with bids.
-        /// </summary>
-        public static string BuysWithBids {
-            get {
-                return ResourceManager.GetString("BuysWithBids", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Defines the color for the element displaying buy trades..
-        /// </summary>
-        public static string BuyTradeColorDescription {
-            get {
-                return ResourceManager.GetString("BuyTradeColorDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Specifies the color used to display buy trade lines and markers..
-        /// </summary>
-        public static string BuyTradeLineColorDescription {
-            get {
-                return ResourceManager.GetString("BuyTradeLineColorDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Buy volume.
-        /// </summary>
-        public static string BuyVolume {
-            get {
-                return ResourceManager.GetString("BuyVolume", resourceCulture);
+                return ResourceManager.GetString("BuyStkShort", resourceCulture);
             }
         }
         
@@ -13764,34 +13390,16 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Delta (centered).
+        ///   Busca una cadena traducida similar a Delta Change.
         /// </summary>
-        public static string DeltaCentered {
+        public static string DeltaChange {
             get {
-                return ResourceManager.GetString("DeltaCentered", resourceCulture);
+                return ResourceManager.GetString("DeltaChange", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Delta change alert.
-        /// </summary>
-        public static string DeltaChangeAlert {
-            get {
-                return ResourceManager.GetString("DeltaChangeAlert", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Delta сolor.
-        /// </summary>
-        public static string DeltaColor {
-            get {
-                return ResourceManager.GetString("DeltaColor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Delta colored.
+        ///   Busca una cadena traducida similar a Delta Coloring.
         /// </summary>
         public static string DeltaColored {
             get {
@@ -13890,71 +13498,16 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Delta OI.
+        ///   Busca una cadena traducida similar a Delta/sec.
         /// </summary>
-        public static string DeltaOIColumn {
+        public static string DeltaSecond {
             get {
-                return ResourceManager.GetString("DeltaOIColumn", resourceCulture);
+                return ResourceManager.GetString("DeltaSecond", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Delta over volume.
-        /// </summary>
-        public static string DeltaOverVolume {
-            get {
-                return ResourceManager.GetString("DeltaOverVolume", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a D.
-        /// </summary>
-        public static string DeltaPeriodLabel {
-            get {
-                return ResourceManager.GetString("DeltaPeriodLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Delta/Volume alert.
-        /// </summary>
-        public static string DeltaPerVolumeAlert {
-            get {
-                return ResourceManager.GetString("DeltaPerVolumeAlert", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Delta Strength marks bars where the delta is not less than the indicated percentage of the bar&apos;s maximum delta..
-        /// </summary>
-        public static string DeltaStrengthDescription {
-            get {
-                return ResourceManager.GetString("DeltaStrengthDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Delta to volume.
-        /// </summary>
-        public static string DeltaToVolume {
-            get {
-                return ResourceManager.GetString("DeltaToVolume", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Delta Turnaround displays potential pivot points in the chart.
-        ///Conditions for an up signal: there are two consecutive bearish candles, and the third candle is bullish, while the delta of the bullish candle is positive and its low is less than or equal to the low of the previous candle. Conditions for a down signal: there are two consecutive bullish candles, and the third candle is bearish, while the delta of the bearish candle is negative and its high is greater than or equal to the low of the previous can [resto de la cadena truncado]&quot;;.
-        /// </summary>
-        public static string DeltaTurnaroundDescription {
-            get {
-                return ResourceManager.GetString("DeltaTurnaroundDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Delta type.
+        ///   Busca una cadena traducida similar a Delta Type.
         /// </summary>
         public static string DeltaType {
             get {
@@ -13963,47 +13516,20 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Specifies the delta type: positive, negative, or both..
+        ///   Busca una cadena traducida similar a Delta/Volume.
         /// </summary>
-        public static string DeltaTypeDescription {
+        public static string DeltaVolume {
             get {
-                return ResourceManager.GetString("DeltaTypeDescription", resourceCulture);
+                return ResourceManager.GetString("DeltaVolume", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Delta - colored.
+        ///   Busca una cadena traducida similar a Delta/Volume (%).
         /// </summary>
-        public static string DeltaV2 {
+        public static string DeltaVolumePercent {
             get {
-                return ResourceManager.GetString("DeltaV2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a .
-        /// </summary>
-        public static string DeltaV21 {
-            get {
-                return ResourceManager.GetString("DeltaV21", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a 4.Delta/Volume.
-        /// </summary>
-        public static string DeltaVolume4 {
-            get {
-                return ResourceManager.GetString("DeltaVolume4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Delta proportional to volume.
-        /// </summary>
-        public static string DeltaVolumeProportional {
-            get {
-                return ResourceManager.GetString("DeltaVolumeProportional", resourceCulture);
+                return ResourceManager.GetString("DeltaVolumePercent", resourceCulture);
             }
         }
         
@@ -14975,7 +14501,19 @@ namespace ATAS.Indicators.Technical.Properties {
                 return ResourceManager.GetString("DivergenceDots", resourceCulture);
             }
         }
-        
+
+        public static string DivergenceDotsDescription {
+            get {
+                return ResourceManager.GetString("DivergenceDotsDescription", resourceCulture);
+            }
+        }
+
+        public static string DivergenceBarsDescription {
+            get {
+                return ResourceManager.GetString("DivergenceBarsDescription", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Busca una cadena traducida similar a 1 Divided by Price - this indicator reflects the reverse chart. The candlestick values are equal to 1/Initial Price..
         /// </summary>
@@ -15866,133 +15404,6 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Drawing mode.
-        /// </summary>
-        public static string DrawingMode {
-            get {
-                return ResourceManager.GetString("DrawingMode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Global.
-        /// </summary>
-        public static string DrawingObjectGlobal {
-            get {
-                return ResourceManager.GetString("DrawingObjectGlobal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Determines whether the object is global..
-        /// </summary>
-        public static string DrawingObjectGlobalDescription {
-            get {
-                return ResourceManager.GetString("DrawingObjectGlobalDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Drawing objects.
-        /// </summary>
-        public static string DrawingObjects {
-            get {
-                return ResourceManager.GetString("DrawingObjects", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Drawing objects toolbar.
-        /// </summary>
-        public static string DrawingObjectsBar {
-            get {
-                return ResourceManager.GetString("DrawingObjectsBar", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sets or gets the size value for this drawing object..
-        /// </summary>
-        public static string DrawingObjectSizeDescription {
-            get {
-                return ResourceManager.GetString("DrawingObjectSizeDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Drawing objects.
-        /// </summary>
-        public static string DrawingObjectsList {
-            get {
-                return ResourceManager.GetString("DrawingObjectsList", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a This drawing object is designed to create and manage graphical elements that display trading positions and visualize data, including profit and loss zones and price tags. Both long and short positions are supported..
-        /// </summary>
-        public static string DrawingPositionObjDescription {
-            get {
-                return ResourceManager.GetString("DrawingPositionObjDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Drawing Tools.
-        /// </summary>
-        public static string DrawingTools {
-            get {
-                return ResourceManager.GetString("DrawingTools", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Enables or disables the display of boundary lines on the chart..
-        /// </summary>
-        public static string DrawLinesDescription {
-            get {
-                return ResourceManager.GetString("DrawLinesDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Draw tooltip on mouse over.
-        /// </summary>
-        public static string DrawToolTip {
-            get {
-                return ResourceManager.GetString("DrawToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a DT Oscillator – the indicator displays a stochastic oscillator based on the Relative Strength Index (RSI) instead of price, which is the main method of the stochastic oscillator calculation..
-        /// </summary>
-        public static string DtOscillatorDescription {
-            get {
-                return ResourceManager.GetString("DtOscillatorDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a A connector with the same credentials is already connected.
-        ///Use the existing connection or enter different login credentials..
-        /// </summary>
-        public static string DuplicateConnectorCredentials {
-            get {
-                return ResourceManager.GetString("DuplicateConnectorCredentials", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a You have two or more connectors receiving data for the same instruments. Please note that this can cause data to be duplicated! To avoid this, keep one connector as the primary source of quotes..
-        /// </summary>
-        public static string DuplicatedMarketDataSourceWarning {
-            get {
-                return ResourceManager.GetString("DuplicatedMarketDataSourceWarning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Busca una cadena traducida similar a Duration.
         /// </summary>
         public static string Duration {
@@ -16002,7 +15413,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Directional movement index.
+        ///   Busca una cadena traducida similar a Directional Movement Index.
         /// </summary>
         public static string DX {
             get {
@@ -16575,6 +15986,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string DynamicPocTxt {
             get {
                 return ResourceManager.GetString("DynamicPocTxt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Dynamic Threshold.
+        /// </summary>
+        public static string DynamicThresholdGroup {
+            get {
+                return ResourceManager.GetString("DynamicThresholdGroup", resourceCulture);
             }
         }
         
@@ -19435,11 +18855,47 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Fixed major.
+        /// </summary>
+        public static string FixedMajorLevel {
+            get {
+                return ResourceManager.GetString("FixedMajorLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fixed major threshold value..
+        /// </summary>
+        public static string FixedMajorLevelDescription {
+            get {
+                return ResourceManager.GetString("FixedMajorLevelDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Fixed Profile &amp; TPO.
         /// </summary>
         public static string FixedMarketProfile {
             get {
                 return ResourceManager.GetString("FixedMarketProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fixed minor.
+        /// </summary>
+        public static string FixedMinorLevel {
+            get {
+                return ResourceManager.GetString("FixedMinorLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fixed minor threshold value..
+        /// </summary>
+        public static string FixedMinorLevelDescription {
+            get {
+                return ResourceManager.GetString("FixedMinorLevelDescription", resourceCulture);
             }
         }
         
@@ -19458,6 +18914,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string FixedSizesDescription {
             get {
                 return ResourceManager.GetString("FixedSizesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fixed Threshold.
+        /// </summary>
+        public static string FixedThresholdGroup {
+            get {
+                return ResourceManager.GetString("FixedThresholdGroup", resourceCulture);
             }
         }
         
@@ -23231,56 +22696,29 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Specifies the display location of the image..
+        ///   Busca una cadena traducida similar a Imbalance.
         /// </summary>
-        public static string ImageLocationDescription {
+        public static string ImbalanceGroup {
             get {
-                return ResourceManager.GetString("ImageLocationDescription", resourceCulture);
+                return ResourceManager.GetString("ImbalanceGroup", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Sets the x-axis offset of the image in pixels..
+        ///   Busca una cadena traducida similar a Min volume difference.
         /// </summary>
-        public static string ImageOffsetXDescription {
+        public static string ImbalanceMinDifferenceName {
             get {
-                return ResourceManager.GetString("ImageOffsetXDescription", resourceCulture);
+                return ResourceManager.GetString("ImbalanceMinDifferenceName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Sets the y-axis offset of the image in pixels..
+        ///   Busca una cadena traducida similar a Min dominant volume.
         /// </summary>
-        public static string ImageOffsetYDescription {
+        public static string ImbalanceMinDominantVolumeName {
             get {
-                return ResourceManager.GetString("ImageOffsetYDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Defines a value for the transparency component of an image..
-        /// </summary>
-        public static string ImageTransparencyDescription {
-            get {
-                return ResourceManager.GetString("ImageTransparencyDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Imbalance alerts.
-        /// </summary>
-        public static string ImbalanceAlerts {
-            get {
-                return ResourceManager.GetString("ImbalanceAlerts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Minimum difference.
-        /// </summary>
-        public static string ImbalanceDifference {
-            get {
-                return ResourceManager.GetString("ImbalanceDifference", resourceCulture);
+                return ResourceManager.GetString("ImbalanceMinDominantVolumeName", resourceCulture);
             }
         }
         
@@ -23312,20 +22750,11 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a The indicator exhibits imbalances between bid and ask orders based on a specified ratio, along with the count of such imbalances within a given bar..
+        ///   Busca una cadena traducida similar a Imbalance Threshold (%).
         /// </summary>
-        public static string ImbalanceRatioIndDescription {
+        public static string ImbalanceThresholdPercentName {
             get {
-                return ResourceManager.GetString("ImbalanceRatioIndDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Imbalance sound.
-        /// </summary>
-        public static string ImbalanceSound {
-            get {
-                return ResourceManager.GetString("ImbalanceSound", resourceCulture);
+                return ResourceManager.GetString("ImbalanceThresholdPercentName", resourceCulture);
             }
         }
         
@@ -24846,43 +24275,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Label.
-        /// </summary>
-        public static string Label1 {
-            get {
-                return ResourceManager.GetString("Label1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Type @value for auto mode.
-        /// </summary>
-        public static string LabelDescription {
-            get {
-                return ResourceManager.GetString("LabelDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Label Display.
-        /// </summary>
-        public static string LabelDisplay {
-            get {
-                return ResourceManager.GetString("LabelDisplay", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Control label visibility: Hide, Short (direction + result), Full (with prices).
-        /// </summary>
-        public static string LabelDisplayDescription {
-            get {
-                return ResourceManager.GetString("LabelDisplayDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Settings for comfortable data reading..
+        ///   Busca una cadena traducida similar a Sets the background color of the label..
         /// </summary>
         public static string LabelFillColorDescription {
             get {
@@ -24891,7 +24284,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Label location.
+        ///   Busca una cadena traducida similar a Label Location.
         /// </summary>
         public static string LabelLocation {
             get {
@@ -28369,92 +27762,11 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Defines the maximum volume for cumulative trades allowed for calculation..
+        ///   Busca una cadena traducida similar a Max.Delta.
         /// </summary>
-        public static string MaxCumulativeVolumeDescription {
+        public static string MaxDelta {
             get {
-                return ResourceManager.GetString("MaxCumulativeVolumeDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Max. update frequency.
-        /// </summary>
-        public static string MaxCustomFPS {
-            get {
-                return ResourceManager.GetString("MaxCustomFPS", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Maximum update frequency.
-        /// </summary>
-        public static string MaxCustomFPSDescription {
-            get {
-                return ResourceManager.GetString("MaxCustomFPSDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Maximum store backups.
-        /// </summary>
-        public static string MaxDatabaseStoreBackups {
-            get {
-                return ResourceManager.GetString("MaxDatabaseStoreBackups", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Max delta alert.
-        /// </summary>
-        public static string MaxDeltaAlert {
-            get {
-                return ResourceManager.GetString("MaxDeltaAlert", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The delta percentage is defined as follows: for a positive delta it is a percentage of the maximum delta, and for a negative delta it is a percentage of the minimum delta. Values greater than the delta percentage are ignored..
-        /// </summary>
-        public static string MaxDeltaFilterPercentDescription {
-            get {
-                return ResourceManager.GetString("MaxDeltaFilterPercentDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Maximum delta display settings..
-        /// </summary>
-        public static string MaxDeltaSettingsDescription {
-            get {
-                return ResourceManager.GetString("MaxDeltaSettingsDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Delta volumes greater than the value set in this filter will be ignored..
-        /// </summary>
-        public static string MaxDeltaVolumeFilterCommonDescription {
-            get {
-                return ResourceManager.GetString("MaxDeltaVolumeFilterCommonDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Max drawdown.
-        /// </summary>
-        public static string MaxDrawdown {
-            get {
-                return ResourceManager.GetString("MaxDrawdown", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Max Drawdown Date.
-        /// </summary>
-        public static string MaxDrawdownDate {
-            get {
-                return ResourceManager.GetString("MaxDrawdownDate", resourceCulture);
+                return ResourceManager.GetString("MaxDelta", resourceCulture);
             }
         }
         
@@ -28954,133 +28266,16 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Maximum Volume Selection.
+        ///   Busca una cadena traducida similar a Max vol/sec.
         /// </summary>
-        public static string MaxVolSelection3 {
+        public static string MaxVolPerSecGroup {
             get {
-                return ResourceManager.GetString("MaxVolSelection3", resourceCulture);
+                return ResourceManager.GetString("MaxVolPerSecGroup", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Maximum Volume.
-        /// </summary>
-        public static string MaxVolume {
-            get {
-                return ResourceManager.GetString("MaxVolume", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a If enabled, defines the size of the level above which elements are painted a specific color..
-        /// </summary>
-        public static string MaxVolumeColoredFilterDescription {
-            get {
-                return ResourceManager.GetString("MaxVolumeColoredFilterDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Max. volume filter.
-        /// </summary>
-        public static string MaxVolumeFilter {
-            get {
-                return ResourceManager.GetString("MaxVolumeFilter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Defines the color for elements that do not pass the maximum volume filter..
-        /// </summary>
-        public static string MaxVolumeFilterColorDescription {
-            get {
-                return ResourceManager.GetString("MaxVolumeFilterColorDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Volumes greater than the value set in this filter will be ignored..
-        /// </summary>
-        public static string MaxVolumeFilterCommonDescription {
-            get {
-                return ResourceManager.GetString("MaxVolumeFilterCommonDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Maximum volume location.
-        /// </summary>
-        public static string MaxVolumeLocation {
-            get {
-                return ResourceManager.GetString("MaxVolumeLocation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Determines the location of the maximum volume in the candle..
-        /// </summary>
-        public static string MaxVolumeLocationDescription {
-            get {
-                return ResourceManager.GetString("MaxVolumeLocationDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Max volume percent.
-        /// </summary>
-        public static string MaxVolumePercent {
-            get {
-                return ResourceManager.GetString("MaxVolumePercent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a MBO filters.
-        /// </summary>
-        public static string MBOFilters {
-            get {
-                return ResourceManager.GetString("MBOFilters", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The McClellan Oscillator is a technical market indicator, which characterizes the market width through analysis of a number of growing and falling instruments in the period and is one of the most widely used indicators of this type..
-        /// </summary>
-        public static string McClellanOscillatorDescription {
-            get {
-                return ResourceManager.GetString("McClellanOscillatorDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Middle click.
-        /// </summary>
-        public static string MClk {
-            get {
-                return ResourceManager.GetString("MClk", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Double middle click.
-        /// </summary>
-        public static string MDbClk {
-            get {
-                return ResourceManager.GetString("MDbClk", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The Mean Deviation indicator is a technical analysis tool that calculates the mean deviation of the price from its simple moving average (SMA) over a specified period..
-        /// </summary>
-        public static string MeanDevDescription {
-            get {
-                return ResourceManager.GetString("MeanDevDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Mean deviation.
+        ///   Busca una cadena traducida similar a Mean Deviation.
         /// </summary>
         public static string MeanDeviation {
             get {
@@ -29494,70 +28689,16 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Defines the minimum volume for cumulative trades allowed for calculation..
+        ///   Busca una cadena traducida similar a Min.Delta.
         /// </summary>
-        public static string MinCumulativeVolumeDescription {
+        public static string MinDelta {
             get {
-                return ResourceManager.GetString("MinCumulativeVolumeDescription", resourceCulture);
+                return ResourceManager.GetString("MinDelta", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Min. update frequency.
-        /// </summary>
-        public static string MinCustomFPS {
-            get {
-                return ResourceManager.GetString("MinCustomFPS", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Minimum update frequency.
-        /// </summary>
-        public static string MinCustomFPSDescription {
-            get {
-                return ResourceManager.GetString("MinCustomFPSDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Min delta alert.
-        /// </summary>
-        public static string MinDeltaAlert {
-            get {
-                return ResourceManager.GetString("MinDeltaAlert", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The delta percentage is defined as follows: for a positive delta it is a percentage of the maximum delta, and for a negative delta it is a percentage of the minimum delta. Values that are less than the delta percentage are ignored..
-        /// </summary>
-        public static string MinDeltaFilterPercentDescription {
-            get {
-                return ResourceManager.GetString("MinDeltaFilterPercentDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Minimum delta display settings..
-        /// </summary>
-        public static string MinDeltaSettingsDescription {
-            get {
-                return ResourceManager.GetString("MinDeltaSettingsDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Delta volumes that are less than the value set in this filter will be ignored..
-        /// </summary>
-        public static string MinDeltaVolumeFilterCommonDescription {
-            get {
-                return ResourceManager.GetString("MinDeltaVolumeFilterCommonDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Minimal deviation.
+        ///   Busca una cadena traducida similar a Minimal Deviation (%).
         /// </summary>
         public static string MinimalDeviation {
             get {
@@ -30934,83 +30075,47 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Negative delta display settings..
+        ///   Busca una cadena traducida similar a Net Imbalance Alert.
         /// </summary>
-        public static string NegativeDeltaSettingsDescription {
+        public static string NetImbalanceAlertGroup {
             get {
-                return ResourceManager.GetString("NegativeDeltaSettingsDescription", resourceCulture);
+                return ResourceManager.GetString("NetImbalanceAlertGroup", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Visualization settings for the negative line..
+        ///   Busca una cadena traducida similar a Threshold (abs).
         /// </summary>
-        public static string NegativeLineSettingsDescription {
+        public static string NetImbalanceAlertThresholdAbs {
             get {
-                return ResourceManager.GetString("NegativeLineSettingsDescription", resourceCulture);
+                return ResourceManager.GetString("NetImbalanceAlertThresholdAbs", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Negative LSMA.
+        ///   Busca una cadena traducida similar a Use closed candle.
         /// </summary>
-        public static string NegativeLsma {
+        public static string NetImbalanceAlertUseClosedCandle {
             get {
-                return ResourceManager.GetString("NegativeLsma", resourceCulture);
+                return ResourceManager.GetString("NetImbalanceAlertUseClosedCandle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Negative PnL.
+        ///   Busca una cadena traducida similar a Net Imb.
         /// </summary>
-        public static string NegativePnl {
+        public static string NetImbShort {
             get {
-                return ResourceManager.GetString("NegativePnl", resourceCulture);
+                return ResourceManager.GetString("NetImbShort", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Negative pnl background.
+        ///   Busca una cadena traducida similar a Net Stk..
         /// </summary>
-        public static string NegativePnlBackground {
+        public static string NetStkShort {
             get {
-                return ResourceManager.GetString("NegativePnlBackground", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Negative profit.
-        /// </summary>
-        public static string NegativeProfitColor {
-            get {
-                return ResourceManager.GetString("NegativeProfitColor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Displays the color of an element with a negative value..
-        /// </summary>
-        public static string NegativeValueColorDescription {
-            get {
-                return ResourceManager.GetString("NegativeValueColorDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Represents the color used for negative values.
-        /// </summary>
-        public static string NegativeValueDescription {
-            get {
-                return ResourceManager.GetString("NegativeValueDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Net PnL.
-        /// </summary>
-        public static string NetPnL {
-            get {
-                return ResourceManager.GetString("NetPnL", resourceCulture);
+                return ResourceManager.GetString("NetStkShort", resourceCulture);
             }
         }
         
@@ -34829,398 +33934,38 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a SAR (Parabolic SAR) is a technical indicator that was developed to analyze trend markets. The indicator is shown on a price chart. In essence, this indicator is similar to the moving average, the only difference is that Parabolic SAR moves at a more accelerated rate (AF – acceleration factor) and may change its position in relation to the price. On the Up Trend, the indicator is below prices, and on the Down Trend, it is above them..
+        ///   Busca una cadena traducida similar a Delta at Max vol/sec.
         /// </summary>
-        public static string ParabolicSARDescription {
+        public static string PeakDeltaPerSec {
             get {
-                return ResourceManager.GetString("ParabolicSARDescription", resourceCulture);
+                return ResourceManager.GetString("PeakDeltaPerSec", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Templates from old version (*.{0})|*.{0}.
+        ///   Busca una cadena traducida similar a Delta/Vol Max vol/sec.
         /// </summary>
-        public static string ParameterOldTemplateFilterFormat {
+        public static string PeakDeltaPerVol {
             get {
-                return ResourceManager.GetString("ParameterOldTemplateFilterFormat", resourceCulture);
+                return ResourceManager.GetString("PeakDeltaPerVol", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Parameters.
+        ///   Busca una cadena traducida similar a Delta/Vol Max vol/sec (%).
         /// </summary>
-        public static string Parameters {
+        public static string PeakDeltaPerVolPercent {
             get {
-                return ResourceManager.GetString("Parameters", resourceCulture);
+                return ResourceManager.GetString("PeakDeltaPerVolPercent", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Settings templates (*.ts)|*.ts.
+        ///   Busca una cadena traducida similar a Max Vol/sec.
         /// </summary>
-        public static string ParameterTemplateFilter {
+        public static string PeakVolPerSec {
             get {
-                return ResourceManager.GetString("ParameterTemplateFilter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Settings templates (*.{0})|*.{0}.
-        /// </summary>
-        public static string ParameterTemplateFilterFormat {
-            get {
-                return ResourceManager.GetString("ParameterTemplateFilterFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Passphrase.
-        /// </summary>
-        public static string Passphrase {
-            get {
-                return ResourceManager.GetString("Passphrase", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Password.
-        /// </summary>
-        public static string Password {
-            get {
-                return ResourceManager.GetString("Password", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Password.
-        /// </summary>
-        public static string PasswordLabel {
-            get {
-                return ResourceManager.GetString("PasswordLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Passwords do not match.
-        /// </summary>
-        public static string PasswordsNotMatchError {
-            get {
-                return ResourceManager.GetString("PasswordsNotMatchError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Paste.
-        /// </summary>
-        public static string Paste {
-            get {
-                return ResourceManager.GetString("Paste", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Pause.
-        /// </summary>
-        public static string Pause {
-            get {
-                return ResourceManager.GetString("Pause", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Paused.
-        /// </summary>
-        public static string Paused {
-            get {
-                return ResourceManager.GetString("Paused", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Chart history depth (standard instruments).
-        /// </summary>
-        public static string PayWallFeature_ChartHistoryDepth {
-            get {
-                return ResourceManager.GetString("PayWallFeature_ChartHistoryDepth", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Chart history depth (crypto instruments).
-        /// </summary>
-        public static string PayWallFeature_CryptoChartHistoryDepth {
-            get {
-                return ResourceManager.GetString("PayWallFeature_CryptoChartHistoryDepth", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Indicators usage on charts (for crypto instruments).
-        /// </summary>
-        public static string PayWallFeature_CryptoIndicatorsDisabled {
-            get {
-                return ResourceManager.GetString("PayWallFeature_CryptoIndicatorsDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Maximum indicators per chart (for crypto instruments).
-        /// </summary>
-        public static string PayWallFeature_CryptoIndicatorsPerChart {
-            get {
-                return ResourceManager.GetString("PayWallFeature_CryptoIndicatorsPerChart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Number of crypto instruments.
-        /// </summary>
-        public static string PayWallFeature_CryptoInstrumentsCount {
-            get {
-                return ResourceManager.GetString("PayWallFeature_CryptoInstrumentsCount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Cumulative trades timeframe usage (for crypto instruments).
-        /// </summary>
-        public static string PayWallFeature_CryptoTimeFrameCumulativeTradesDisabled {
-            get {
-                return ResourceManager.GetString("PayWallFeature_CryptoTimeFrameCumulativeTradesDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Delta timeframe usage (for crypto instruments).
-        /// </summary>
-        public static string PayWallFeature_CryptoTimeFrameDeltaDisabled {
-            get {
-                return ResourceManager.GetString("PayWallFeature_CryptoTimeFrameDeltaDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Order flow timeframe usage (for crypto instruments).
-        /// </summary>
-        public static string PayWallFeature_CryptoTimeFrameOrderFlowDisabled {
-            get {
-                return ResourceManager.GetString("PayWallFeature_CryptoTimeFrameOrderFlowDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Range timeframe usage (for crypto instruments).
-        /// </summary>
-        public static string PayWallFeature_CryptoTimeFramePerRangeDisabled {
-            get {
-                return ResourceManager.GetString("PayWallFeature_CryptoTimeFramePerRangeDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Seconds timeframe usage (for crypto instruments).
-        /// </summary>
-        public static string PayWallFeature_CryptoTimeFramePerSecondsDisabled {
-            get {
-                return ResourceManager.GetString("PayWallFeature_CryptoTimeFramePerSecondsDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Renko timeframe usage (for crypto instruments).
-        /// </summary>
-        public static string PayWallFeature_CryptoTimeFrameRenkoDisabled {
-            get {
-                return ResourceManager.GetString("PayWallFeature_CryptoTimeFrameRenkoDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Tick timeframe usage (for crypto instruments).
-        /// </summary>
-        public static string PayWallFeature_CryptoTimeFrameTicksDisabled {
-            get {
-                return ResourceManager.GetString("PayWallFeature_CryptoTimeFrameTicksDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Unique range timeframe usage (for crypto instruments).
-        /// </summary>
-        public static string PayWallFeature_CryptoTimeFrameUniqRangeDisabled {
-            get {
-                return ResourceManager.GetString("PayWallFeature_CryptoTimeFrameUniqRangeDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Unique reversal timeframe usage (for crypto instruments).
-        /// </summary>
-        public static string PayWallFeature_CryptoTimeFrameUniqReversalDisabled {
-            get {
-                return ResourceManager.GetString("PayWallFeature_CryptoTimeFrameUniqReversalDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Volume timeframe usage (for crypto instruments).
-        /// </summary>
-        public static string PayWallFeature_CryptoTimeFrameVolumeDisabled {
-            get {
-                return ResourceManager.GetString("PayWallFeature_CryptoTimeFrameVolumeDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Following Manager usage.
-        /// </summary>
-        public static string PayWallFeature_FollowingManagerDisabled {
-            get {
-                return ResourceManager.GetString("PayWallFeature_FollowingManagerDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Indicators usage on charts (for standard instruments).
-        /// </summary>
-        public static string PayWallFeature_IndicatorsDisabled {
-            get {
-                return ResourceManager.GetString("PayWallFeature_IndicatorsDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Maximum indicators per chart (for standard instruments).
-        /// </summary>
-        public static string PayWallFeature_IndicatorsPerChart {
-            get {
-                return ResourceManager.GetString("PayWallFeature_IndicatorsPerChart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Number of standard instruments.
-        /// </summary>
-        public static string PayWallFeature_NonCryptoInstrumentsCount {
-            get {
-                return ResourceManager.GetString("PayWallFeature_NonCryptoInstrumentsCount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Standard instruments real-time data usage.
-        /// </summary>
-        public static string PayWallFeature_NonCryptoRealTimeInstrumentsDisabled {
-            get {
-                return ResourceManager.GetString("PayWallFeature_NonCryptoRealTimeInstrumentsDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Cumulative trades timeframe usage (for standard instruments).
-        /// </summary>
-        public static string PayWallFeature_TimeFrameCumulativeTradesDisabled {
-            get {
-                return ResourceManager.GetString("PayWallFeature_TimeFrameCumulativeTradesDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Delta timeframe usage (for standard instruments).
-        /// </summary>
-        public static string PayWallFeature_TimeFrameDeltaDisabled {
-            get {
-                return ResourceManager.GetString("PayWallFeature_TimeFrameDeltaDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Order flow timeframe usage (for standard instruments).
-        /// </summary>
-        public static string PayWallFeature_TimeFrameOrderFlowDisabled {
-            get {
-                return ResourceManager.GetString("PayWallFeature_TimeFrameOrderFlowDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Range timeframe usage (for standard instruments).
-        /// </summary>
-        public static string PayWallFeature_TimeFramePerRangeDisabled {
-            get {
-                return ResourceManager.GetString("PayWallFeature_TimeFramePerRangeDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Seconds timeframe usage (for standard instruments).
-        /// </summary>
-        public static string PayWallFeature_TimeFramePerSecondsDisabled {
-            get {
-                return ResourceManager.GetString("PayWallFeature_TimeFramePerSecondsDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Renko timeframe usage (for standard instruments).
-        /// </summary>
-        public static string PayWallFeature_TimeFrameRenkoDisabled {
-            get {
-                return ResourceManager.GetString("PayWallFeature_TimeFrameRenkoDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Tick timeframe usage (for standard instruments).
-        /// </summary>
-        public static string PayWallFeature_TimeFrameTicksDisabled {
-            get {
-                return ResourceManager.GetString("PayWallFeature_TimeFrameTicksDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Unique range timeframe usage (for standard instruments).
-        /// </summary>
-        public static string PayWallFeature_TimeFrameUniqRangeDisabled {
-            get {
-                return ResourceManager.GetString("PayWallFeature_TimeFrameUniqRangeDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Unique reversal timeframe usage (for standard instruments).
-        /// </summary>
-        public static string PayWallFeature_TimeFrameUniqReversalDisabled {
-            get {
-                return ResourceManager.GetString("PayWallFeature_TimeFrameUniqReversalDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Volume timeframe usage (for standard instruments).
-        /// </summary>
-        public static string PayWallFeature_TimeFrameVolumeDisabled {
-            get {
-                return ResourceManager.GetString("PayWallFeature_TimeFrameVolumeDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Number of instruments in watchlists.
-        /// </summary>
-        public static string PayWallFeature_WatchlistInstrumentsCount {
-            get {
-                return ResourceManager.GetString("PayWallFeature_WatchlistInstrumentsCount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Specifies settings for the color, style, and width of the displayed lines..
-        /// </summary>
-        public static string PenSettingsDescription {
-            get {
-                return ResourceManager.GetString("PenSettingsDescription", resourceCulture);
+                return ResourceManager.GetString("PeakVolPerSec", resourceCulture);
             }
         }
         
@@ -39794,346 +38539,11 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a R.
+        ///   Busca una cadena traducida similar a Ratio as percent.
         /// </summary>
-        public static string RangePeriodLabel {
+        public static string RatiosAsPercent {
             get {
-                return ResourceManager.GetString("RangePeriodLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a R US.
-        /// </summary>
-        public static string RangeUSPeriodLabel {
-            get {
-                return ResourceManager.GetString("RangeUSPeriodLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a RX.
-        /// </summary>
-        public static string RangeXPeriodLabel {
-            get {
-                return ResourceManager.GetString("RangeXPeriodLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a RXV.
-        /// </summary>
-        public static string RangeXVPeriodLabel {
-            get {
-                return ResourceManager.GetString("RangeXVPeriodLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a RZ.
-        /// </summary>
-        public static string RangeZPeriodLabel {
-            get {
-                return ResourceManager.GetString("RangeZPeriodLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Rate the ATAS platform.
-        /// </summary>
-        public static string RatePlatform {
-            get {
-                return ResourceManager.GetString("RatePlatform", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Rate the current update.
-        /// </summary>
-        public static string RateTheCurrentUpdate {
-            get {
-                return ResourceManager.GetString("RateTheCurrentUpdate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Would you like a support specialist to contact you?.
-        /// </summary>
-        public static string RatingWizardWantSupport {
-            get {
-                return ResourceManager.GetString("RatingWizardWantSupport", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Ratio.
-        /// </summary>
-        public static string Ratio {
-            get {
-                return ResourceManager.GetString("Ratio", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Ratio - relation between two numbers. The ratio of numbers A and B can be expressed as A:B. Ratio Number appears above bearish candle and below bullish candle. Two numbers which are compared are the two highest asks for bearish candle and to lowest bids for bullish candles. When the value of Ratio is a number between Low Ratio and Neutral Ratio - the Ratio number is black. When the value of Ratio number above Neutral Ratio - the Ratio number is blue..
-        /// </summary>
-        public static string RatioDescription {
-            get {
-                return ResourceManager.GetString("RatioDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Ray.
-        /// </summary>
-        public static string Ray {
-            get {
-                return ResourceManager.GetString("Ray", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Right click.
-        /// </summary>
-        public static string RClk {
-            get {
-                return ResourceManager.GetString("RClk", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Double right click.
-        /// </summary>
-        public static string RDbClk {
-            get {
-                return ResourceManager.GetString("RDbClk", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a You have open positions in your account. If you recalculate the statistics now, the data may become desynchronized. We strongly recommend recalculating statistics only with closed positions.
-        ///Recalculate the trade statistics for existing trade transactions?.
-        /// </summary>
-        public static string ReacalculateStatisticsWithOpenPositionsQuestion {
-            get {
-                return ResourceManager.GetString("ReacalculateStatisticsWithOpenPositionsQuestion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Read.
-        /// </summary>
-        public static string Read {
-            get {
-                return ResourceManager.GetString("Read", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Read more.
-        /// </summary>
-        public static string ReadMore {
-            get {
-                return ResourceManager.GetString("ReadMore", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Read more on.
-        /// </summary>
-        public static string ReadMoreOn {
-            get {
-                return ResourceManager.GetString("ReadMoreOn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Ready.
-        /// </summary>
-        public static string Ready {
-            get {
-                return ResourceManager.GetString("Ready", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Ready to be Installed.
-        /// </summary>
-        public static string ReadyToBeInstalled {
-            get {
-                return ResourceManager.GetString("ReadyToBeInstalled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Ready to use..
-        /// </summary>
-        public static string ReadyToUse {
-            get {
-                return ResourceManager.GetString("ReadyToUse", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Real account.
-        /// </summary>
-        public static string RealAccount {
-            get {
-                return ResourceManager.GetString("RealAccount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Real.
-        /// </summary>
-        public static string RealTabTitle {
-            get {
-                return ResourceManager.GetString("RealTabTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Realtime.
-        /// </summary>
-        public static string Realtime {
-            get {
-                return ResourceManager.GetString("Realtime", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Realtime mode.
-        /// </summary>
-        public static string Realtimemode {
-            get {
-                return ResourceManager.GetString("Realtimemode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Real Volume.
-        /// </summary>
-        public static string RealVolume {
-            get {
-                return ResourceManager.GetString("RealVolume", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Recalculate statistics.
-        /// </summary>
-        public static string RecalculateStatistics {
-            get {
-                return ResourceManager.GetString("RecalculateStatistics", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Trade statistics can only be recalculated when there are active connections.
-        /// </summary>
-        public static string RecalculateStatisticsNoConnections {
-            get {
-                return ResourceManager.GetString("RecalculateStatisticsNoConnections", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Recalculate the trade statistics for existing trade transactions?.
-        /// </summary>
-        public static string RecalculateStatisticsQuestion {
-            get {
-                return ResourceManager.GetString("RecalculateStatisticsQuestion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a An error occurred while receiving news.
-        /// </summary>
-        public static string ReceivedNewsHasErrors {
-            get {
-                return ResourceManager.GetString("ReceivedNewsHasErrors", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The resulting news list is empty..
-        /// </summary>
-        public static string ReceivedNewsListEmpty {
-            get {
-                return ResourceManager.GetString("ReceivedNewsListEmpty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Recent workspaces.
-        /// </summary>
-        public static string RecentWorkspacesLabel {
-            get {
-                return ResourceManager.GetString("RecentWorkspacesLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Recognizing big trades.
-        /// </summary>
-        public static string RecognizingBigTradesMsg {
-            get {
-                return ResourceManager.GetString("RecognizingBigTradesMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a You have chosen {0} days for this chart. Such a number of days can negatively affect the duration of receiving data from servers and the RAM consumption.
-        ///We recommend lowering this value to {1} to improve the performance..
-        /// </summary>
-        public static string RecommendationsChartLoadDays {
-            get {
-                return ResourceManager.GetString("RecommendationsChartLoadDays", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Recommended.
-        /// </summary>
-        public static string Recommended {
-            get {
-                return ResourceManager.GetString("Recommended", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Recover the corrupted data.
-        /// </summary>
-        public static string RecoverDamagedData {
-            get {
-                return ResourceManager.GetString("RecoverDamagedData", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Recovery factor.
-        /// </summary>
-        public static string RecoveryFactor {
-            get {
-                return ResourceManager.GetString("RecoveryFactor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Rectangle.
-        /// </summary>
-        public static string Rectangle {
-            get {
-                return ResourceManager.GetString("Rectangle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a This drawing object allows you to display a rectangle on the chart..
-        /// </summary>
-        public static string RectangleObjDescription {
-            get {
-                return ResourceManager.GetString("RectangleObjDescription", resourceCulture);
+                return ResourceManager.GetString("RatiosAsPercent", resourceCulture);
             }
         }
         
@@ -42372,16 +40782,61 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Rows Height.
+        ///   Busca una cadena traducida similar a Candle Context.
         /// </summary>
-        public static string RowsHeight {
+        public static string RowsCandleContextGroup {
             get {
-                return ResourceManager.GetString("RowsHeight", resourceCulture);
+                return ResourceManager.GetString("RowsCandleContextGroup", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Row width.
+        ///   Busca una cadena traducida similar a Imbalances.
+        /// </summary>
+        public static string RowsImbalanceRowsGroup {
+            get {
+                return ResourceManager.GetString("RowsImbalanceRowsGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Pace / Activity.
+        /// </summary>
+        public static string RowsPaceGroup {
+            get {
+                return ResourceManager.GetString("RowsPaceGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Directional Pressure.
+        /// </summary>
+        public static string RowsPressureGroup {
+            get {
+                return ResourceManager.GetString("RowsPressureGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Raw Prints.
+        /// </summary>
+        public static string RowsRawPrintsGroup {
+            get {
+                return ResourceManager.GetString("RowsRawPrintsGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Session Context.
+        /// </summary>
+        public static string RowsSessionContextGroup {
+            get {
+                return ResourceManager.GetString("RowsSessionContextGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Row Width.
         /// </summary>
         public static string RowWidth {
             get {
@@ -42422,6 +40877,42 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string RSSReaderTitle {
             get {
                 return ResourceManager.GetString("RSSReaderTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a RTH end.
+        /// </summary>
+        public static string RthEnd {
+            get {
+                return ResourceManager.GetString("RthEnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a End time of Regular Trading Hours (exchange time)..
+        /// </summary>
+        public static string RthEndDescription {
+            get {
+                return ResourceManager.GetString("RthEndDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a RTH start.
+        /// </summary>
+        public static string RthStart {
+            get {
+                return ResourceManager.GetString("RthStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Start time of Regular Trading Hours (exchange time)..
+        /// </summary>
+        public static string RthStartDescription {
+            get {
+                return ResourceManager.GetString("RthStartDescription", resourceCulture);
             }
         }
         
@@ -42619,6 +41110,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string SampleGroupDescription {
             get {
                 return ResourceManager.GetString("SampleGroupDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Samples for mean/std.
+        /// </summary>
+        public static string SamplesForMeanStd {
+            get {
+                return ResourceManager.GetString("SamplesForMeanStd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Minimum samples required before dynamic thresholds become active..
+        /// </summary>
+        public static string SamplesForMeanStdDescription {
+            get {
+                return ResourceManager.GetString("SamplesForMeanStdDescription", resourceCulture);
             }
         }
         
@@ -43566,70 +42075,16 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Sell Limit.
+        ///   Busca una cadena traducida similar a Sell Imb.
         /// </summary>
-        public static string SellLimit {
+        public static string SellImbShort {
             get {
-                return ResourceManager.GetString("SellLimit", resourceCulture);
+                return ResourceManager.GetString("SellImbShort", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Sell Limit at {0}.
-        /// </summary>
-        public static string SellLimitAtFormat {
-            get {
-                return ResourceManager.GetString("SellLimitAtFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sell at best ask.
-        /// </summary>
-        public static string SellLimitOnBestAsk {
-            get {
-                return ResourceManager.GetString("SellLimitOnBestAsk", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sell Market.
-        /// </summary>
-        public static string SellMarket {
-            get {
-                return ResourceManager.GetString("SellMarket", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sell Market.
-        /// </summary>
-        public static string SellMarketButton {
-            get {
-                return ResourceManager.GetString("SellMarketButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sell MKT.
-        /// </summary>
-        public static string SellMktButton {
-            get {
-                return ResourceManager.GetString("SellMktButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sell orders.
-        /// </summary>
-        public static string SellOrders {
-            get {
-                return ResourceManager.GetString("SellOrders", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sell overshoot 1 color.
+        ///   Busca una cadena traducida similar a Sell Overshoot 1 Color.
         /// </summary>
         public static string SellOvershoot1Color {
             get {
@@ -43674,227 +42129,11 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Sells backgroud color.
+        ///   Busca una cadena traducida similar a Sell Stk..
         /// </summary>
-        public static string Sellsbackgroudcolor {
+        public static string SellStkShort {
             get {
-                return ResourceManager.GetString("Sellsbackgroudcolor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a .
-        /// </summary>
-        public static string Sellsbackgroudcolor1 {
-            get {
-                return ResourceManager.GetString("Sellsbackgroudcolor1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sells font color.
-        /// </summary>
-        public static string Sellsfontcolor {
-            get {
-                return ResourceManager.GetString("Sellsfontcolor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a .
-        /// </summary>
-        public static string Sellsfontcolor1 {
-            get {
-                return ResourceManager.GetString("Sellsfontcolor1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sell/Short.
-        /// </summary>
-        public static string SellShort {
-            get {
-                return ResourceManager.GetString("SellShort", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sets the color of the element representing the sell signal..
-        /// </summary>
-        public static string SellSignalColorDescription {
-            get {
-                return ResourceManager.GetString("SellSignalColorDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Visualization settings for the sell signal..
-        /// </summary>
-        public static string SellSignalSettingsDescription {
-            get {
-                return ResourceManager.GetString("SellSignalSettingsDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sell Sound.
-        /// </summary>
-        public static string SellSound {
-            get {
-                return ResourceManager.GetString("SellSound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sell current trades.
-        /// </summary>
-        public static string sellspreadtrades {
-            get {
-                return ResourceManager.GetString("sellspreadtrades", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sell Stop.
-        /// </summary>
-        public static string SellStop {
-            get {
-                return ResourceManager.GetString("SellStop", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sell Stop at {0}.
-        /// </summary>
-        public static string SellStopAtFormat {
-            get {
-                return ResourceManager.GetString("SellStopAtFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sell Stop Limit.
-        /// </summary>
-        public static string SellStopLimit {
-            get {
-                return ResourceManager.GetString("SellStopLimit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sell Stop Limit at {0}.
-        /// </summary>
-        public static string SellStopLimitAtFormat {
-            get {
-                return ResourceManager.GetString("SellStopLimitAtFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sells with asks.
-        /// </summary>
-        public static string SellsWithAsks {
-            get {
-                return ResourceManager.GetString("SellsWithAsks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sells with Bids.
-        /// </summary>
-        public static string SellsWithBids {
-            get {
-                return ResourceManager.GetString("SellsWithBids", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Defines the color for the element displaying sell trades..
-        /// </summary>
-        public static string SellTradeColorDescription {
-            get {
-                return ResourceManager.GetString("SellTradeColorDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Specifies the color used to display sell trade lines and markers..
-        /// </summary>
-        public static string SellTradeLineColorDescription {
-            get {
-                return ResourceManager.GetString("SellTradeLineColorDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sell volume.
-        /// </summary>
-        public static string SellVolume {
-            get {
-                return ResourceManager.GetString("SellVolume", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Send.
-        /// </summary>
-        public static string SendButton {
-            get {
-                return ResourceManager.GetString("SendButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a To find out the reason for the data corruption, please send the archive &lt;a href=&quot;app://LocalDatabaseErrors&quot;&gt;{0}&lt;/a&gt; to &lt;a href=&quot;https://support.atas.net/en/communities/1-questions-and-answers&quot;&gt;support&lt;/a&gt;..
-        /// </summary>
-        public static string SendDatabaseErrorArchive {
-            get {
-                return ResourceManager.GetString("SendDatabaseErrorArchive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sending message....
-        /// </summary>
-        public static string SendingMessage {
-            get {
-                return ResourceManager.GetString("SendingMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Send test alert.
-        /// </summary>
-        public static string SendTestAlert {
-            get {
-                return ResourceManager.GetString("SendTestAlert", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Senkou Span B.
-        /// </summary>
-        public static string SenkouSpanB {
-            get {
-                return ResourceManager.GetString("SenkouSpanB", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sensitivity.
-        /// </summary>
-        public static string Sensitivity {
-            get {
-                return ResourceManager.GetString("Sensitivity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Separated Prints Filters.
-        /// </summary>
-        public static string SeparatedPrintsFilters {
-            get {
-                return ResourceManager.GetString("SeparatedPrintsFilters", resourceCulture);
+                return ResourceManager.GetString("SellStkShort", resourceCulture);
             }
         }
         
@@ -44043,44 +42282,16 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Defines the start date of data recording.
-        ///The indicator loads volume data not more than 5 days..
+        ///   Busca una cadena traducida similar a Session Delta.
         /// </summary>
-        public static string SessionBeginDescription {
+        public static string SessionDelta {
             get {
-                return ResourceManager.GetString("SessionBeginDescription", resourceCulture);
+                return ResourceManager.GetString("SessionDelta", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a The following indicator allows to highlight the background of the chart for a set period of time, cyclically, every trading day. For example, by setting a couple of such indicators with different setup, we can highlight the trading sessions of the main trading platforms, and visualize when they start, end, and intersect with each other. It may be important to consider this during the intraday trading, as during the opening and closing of a day, higher trading activity and instrument volatility is often obse [resto de la cadena truncado]&quot;;.
-        /// </summary>
-        public static string SessionColorIndDescription {
-            get {
-                return ResourceManager.GetString("SessionColorIndDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a 5.Session Delta.
-        /// </summary>
-        public static string SessionDelta5 {
-            get {
-                return ResourceManager.GetString("SessionDelta5", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Session delta alert.
-        /// </summary>
-        public static string SessionDeltaAlert {
-            get {
-                return ResourceManager.GetString("SessionDeltaAlert", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Session delta mode.
+        ///   Busca una cadena traducida similar a Session Delta Mode.
         /// </summary>
         public static string SessionDeltaMode {
             get {
@@ -44089,25 +42300,25 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Session delta/Volume alert.
+        ///   Busca una cadena traducida similar a Session Delta/Volume.
         /// </summary>
-        public static string SessionDeltaPerVolumeAlert {
+        public static string SessionDeltaVolume {
             get {
-                return ResourceManager.GetString("SessionDeltaPerVolumeAlert", resourceCulture);
+                return ResourceManager.GetString("SessionDeltaVolume", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a 6.Session Delta/Volume.
+        ///   Busca una cadena traducida similar a Session Delta/Volume (%).
         /// </summary>
-        public static string SessionDeltaVolume6 {
+        public static string SessionDeltaVolumePercent {
             get {
-                return ResourceManager.GetString("SessionDeltaVolume6", resourceCulture);
+                return ResourceManager.GetString("SessionDeltaVolumePercent", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Session end.
+        ///   Busca una cadena traducida similar a Session End.
         /// </summary>
         public static string SessionEnd {
             get {
@@ -44152,20 +42363,47 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a 9.Session Volume.
+        ///   Busca una cadena traducida similar a Session Volume.
         /// </summary>
-        public static string SessionVolume8 {
+        public static string SessionVolume {
             get {
-                return ResourceManager.GetString("SessionVolume8", resourceCulture);
+                return ResourceManager.GetString("SessionVolume", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Session volume alert.
+        ///   Busca una cadena traducida similar a Session window.
         /// </summary>
-        public static string SessionVolumeAlert {
+        public static string SessionWindowMode {
             get {
-                return ResourceManager.GetString("SessionVolumeAlert", resourceCulture);
+                return ResourceManager.GetString("SessionWindowMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Session window used to reset dynamic thresholds..
+        /// </summary>
+        public static string SessionWindowModeDescription {
+            get {
+                return ResourceManager.GetString("SessionWindowModeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Full 24h.
+        /// </summary>
+        public static string SessionWindowModeFull24h {
+            get {
+                return ResourceManager.GetString("SessionWindowModeFull24h", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a RTH.
+        /// </summary>
+        public static string SessionWindowModeRth {
+            get {
+                return ResourceManager.GetString("SessionWindowModeRth", resourceCulture);
             }
         }
         
@@ -44856,16 +43094,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Asks.
-        /// </summary>
-        public static string ShowAsks {
-            get {
-                return ResourceManager.GetString("ShowAsks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Buy Volume..
+        ///   Busca una cadena traducida similar a Determines whether to display information about ask volumes..
         /// </summary>
         public static string ShowAsksDescription {
             get {
@@ -44874,25 +43103,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Show Available Balance.
-        /// </summary>
-        public static string ShowAvailableBalance {
-            get {
-                return ResourceManager.GetString("ShowAvailableBalance", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Display available funds for trading.
-        /// </summary>
-        public static string ShowAvailableBalanceDescription {
-            get {
-                return ResourceManager.GetString("ShowAvailableBalanceDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Show average.
+        ///   Busca una cadena traducida similar a Show Average.
         /// </summary>
         public static string ShowAverage {
             get {
@@ -44973,34 +43184,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Show Bid &amp; Ask.
-        /// </summary>
-        public static string ShowBidAsk {
-            get {
-                return ResourceManager.GetString("ShowBidAsk", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Determines whether to display bid and ask price data..
-        /// </summary>
-        public static string ShowBidAskDescription {
-            get {
-                return ResourceManager.GetString("ShowBidAskDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Bids.
-        /// </summary>
-        public static string ShowBids {
-            get {
-                return ResourceManager.GetString("ShowBids", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sell Volume..
+        ///   Busca una cadena traducida similar a Determines whether to display information about bid volumes..
         /// </summary>
         public static string ShowBidsDescription {
             get {
@@ -45009,25 +43193,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Show Blocked Margin.
-        /// </summary>
-        public static string ShowBlockedMargin {
-            get {
-                return ResourceManager.GetString("ShowBlockedMargin", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Display margin locked by open positions.
-        /// </summary>
-        public static string ShowBlockedMarginDescription {
-            get {
-                return ResourceManager.GetString("ShowBlockedMarginDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Show bottom block.
+        ///   Busca una cadena traducida similar a Show Bot Block.
         /// </summary>
         public static string ShowBotBlock {
             get {
@@ -45054,25 +43220,16 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Determines whether to display broken levels..
+        ///   Busca una cadena traducida similar a Buy Imbalances.
         /// </summary>
-        public static string ShowBrokenChannelDescription {
+        public static string ShowBuyImbalances {
             get {
-                return ResourceManager.GetString("ShowBrokenChannelDescription", resourceCulture);
+                return ResourceManager.GetString("ShowBuyImbalances", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Show Buy/Sell Indicator.
-        /// </summary>
-        public static string ShowBuySellIndicator {
-            get {
-                return ResourceManager.GetString("ShowBuySellIndicator", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Information about candle duration..
+        ///   Busca una cadena traducida similar a Determines whether to display information about the time duration of the candle..
         /// </summary>
         public static string ShowCandleDurationDescription {
             get {
@@ -45081,7 +43238,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Candle size in ticks..
+        ///   Busca una cadena traducida similar a Determines whether to display information about the height of the candle (in currency)..
         /// </summary>
         public static string ShowCandleHeightDescription {
             get {
@@ -45090,7 +43247,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Candle start time..
+        ///   Busca una cadena traducida similar a Determines whether to display information about the start time of the candle..
         /// </summary>
         public static string ShowCandleTimeDescription {
             get {
@@ -45099,34 +43256,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Show close.
-        /// </summary>
-        public static string ShowClose {
-            get {
-                return ResourceManager.GetString("ShowClose", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Show Closed PnL.
-        /// </summary>
-        public static string ShowClosedPnL {
-            get {
-                return ResourceManager.GetString("ShowClosedPnL", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Display realized profit and loss.
-        /// </summary>
-        public static string ShowClosedPnLDescription {
-            get {
-                return ResourceManager.GetString("ShowClosedPnLDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Show cumulative.
+        ///   Busca una cadena traducida similar a Show Cumulative.
         /// </summary>
         public static string ShowCumulative {
             get {
@@ -45261,7 +43391,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Market direction change between bars..
+        ///   Busca una cadena traducida similar a Determines whether to display information about the difference between the delta of the current candle and the delta of the previous one..
         /// </summary>
         public static string ShowDeltaChangeDescription {
             get {
@@ -45270,11 +43400,29 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Difference between volumes in each bar..
+        ///   Busca una cadena traducida similar a Determines whether to display information about delta..
         /// </summary>
         public static string ShowDeltaDescription {
             get {
                 return ResourceManager.GetString("ShowDeltaDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Delta/sec.
+        /// </summary>
+        public static string ShowDeltaPerSecond {
+            get {
+                return ResourceManager.GetString("ShowDeltaPerSecond", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show Delta per second.
+        /// </summary>
+        public static string ShowDeltaPerSecondDescription {
+            get {
+                return ResourceManager.GetString("ShowDeltaPerSecondDescription", resourceCulture);
             }
         }
         
@@ -45288,7 +43436,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Delta imbalance relative to total volume (%)..
+        ///   Busca una cadena traducida similar a Determines whether to display information about delta per volume..
         /// </summary>
         public static string ShowDeltaPerVolumeDescription {
             get {
@@ -45297,52 +43445,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Delta/volume.
-        /// </summary>
-        public static string ShowDeltaVolume {
-            get {
-                return ResourceManager.GetString("ShowDeltaVolume", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Show depth changes.
-        /// </summary>
-        public static string ShowDepthChanges {
-            get {
-                return ResourceManager.GetString("ShowDepthChanges", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Show description.
-        /// </summary>
-        public static string ShowDescription {
-            get {
-                return ResourceManager.GetString("ShowDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Indicator name display..
-        /// </summary>
-        public static string ShowDescriptionDescription {
-            get {
-                return ResourceManager.GetString("ShowDescriptionDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Show direction indicator.
-        /// </summary>
-        public static string ShowDirectionMarker {
-            get {
-                return ResourceManager.GetString("ShowDirectionMarker", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Show divergence.
+        ///   Busca una cadena traducida similar a Show Divergence.
         /// </summary>
         public static string ShowDivergence {
             get {
@@ -45720,7 +43823,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Maximum delta value during candle formation..
+        ///   Busca una cadena traducida similar a Determines whether to display information about maximum delta..
         /// </summary>
         public static string ShowMaximumDeltaDescription {
             get {
@@ -45729,97 +43832,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Show Maximum Level.
-        /// </summary>
-        public static string ShowMaximumLevel {
-            get {
-                return ResourceManager.GetString("ShowMaximumLevel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Determines whether to display the date at the maximum volume level..
-        /// </summary>
-        public static string ShowMaxLevelDateDescription {
-            get {
-                return ResourceManager.GetString("ShowMaxLevelDateDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Determines whether to display the maximum volume level..
-        /// </summary>
-        public static string ShowMaxLevelDescription {
-            get {
-                return ResourceManager.GetString("ShowMaxLevelDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Determines whether to display the maximum volume value..
-        /// </summary>
-        public static string ShowMaxLevelValueDescription {
-            get {
-                return ResourceManager.GetString("ShowMaxLevelValueDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Determines whether to display the element with the maximum value..
-        /// </summary>
-        public static string ShowMaxValueDescription {
-            get {
-                return ResourceManager.GetString("ShowMaxValueDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Show median.
-        /// </summary>
-        public static string ShowMedian {
-            get {
-                return ResourceManager.GetString("ShowMedian", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Show menu.
-        /// </summary>
-        public static string ShowMenu {
-            get {
-                return ResourceManager.GetString("ShowMenu", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Determines whether to display the middle line..
-        /// </summary>
-        public static string ShowMidlineDescription {
-            get {
-                return ResourceManager.GetString("ShowMidlineDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Show milliseconds.
-        /// </summary>
-        public static string ShowMilliseconds {
-            get {
-                return ResourceManager.GetString("ShowMilliseconds", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Show minimum delta.
-        /// </summary>
-        public static string ShowMinDelta {
-            get {
-                return ResourceManager.GetString("ShowMinDelta", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Minimum delta.
+        ///   Busca una cadena traducida similar a Show Minimum Delta.
         /// </summary>
         public static string ShowMinimumDelta {
             get {
@@ -45828,7 +43841,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Minimum delta value during candle formation..
+        ///   Busca una cadena traducida similar a Determines whether to display information about minimum delta..
         /// </summary>
         public static string ShowMinimumDeltaDescription {
             get {
@@ -45837,38 +43850,11 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Show neutral volume.
+        ///   Busca una cadena traducida similar a Net Imbalances.
         /// </summary>
-        public static string ShowNeutralVolume {
+        public static string ShowNetImbalances {
             get {
-                return ResourceManager.GetString("ShowNeutralVolume", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Show notification.
-        /// </summary>
-        public static string ShowNotification {
-            get {
-                return ResourceManager.GetString("ShowNotification", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Show notifications on the desktop.
-        /// </summary>
-        public static string ShowNotificationDescription {
-            get {
-                return ResourceManager.GetString("ShowNotificationDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a OHLC Values.
-        /// </summary>
-        public static string ShowOhlcValues {
-            get {
-                return ResourceManager.GetString("ShowOhlcValues", resourceCulture);
+                return ResourceManager.GetString("ShowNetImbalances", resourceCulture);
             }
         }
         
@@ -45882,97 +43868,34 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a If enabled, the display will be at the location of the last bar..
+        ///   Busca una cadena traducida similar a Delta at Max vol/sec.
         /// </summary>
-        public static string ShowOnLastBarDescription {
+        public static string ShowPeakDeltaPerSec {
             get {
-                return ResourceManager.GetString("ShowOnLastBarDescription", resourceCulture);
+                return ResourceManager.GetString("ShowPeakDeltaPerSec", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Show only zero values.
+        ///   Busca una cadena traducida similar a Delta/Vol at Max vol/sec.
         /// </summary>
-        public static string ShowOnlyZeroValues {
+        public static string ShowPeakDeltaPerVol {
             get {
-                return ResourceManager.GetString("ShowOnlyZeroValues", resourceCulture);
+                return ResourceManager.GetString("ShowPeakDeltaPerVol", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Show open.
+        ///   Busca una cadena traducida similar a Max Vol/sec.
         /// </summary>
-        public static string ShowOpen {
+        public static string ShowPeakVolPerSec {
             get {
-                return ResourceManager.GetString("ShowOpen", resourceCulture);
+                return ResourceManager.GetString("ShowPeakVolPerSec", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Show Open PnL.
-        /// </summary>
-        public static string ShowOpenPnL {
-            get {
-                return ResourceManager.GetString("ShowOpenPnL", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Display unrealized profit and loss.
-        /// </summary>
-        public static string ShowOpenPnLDescription {
-            get {
-                return ResourceManager.GetString("ShowOpenPnLDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Determines whether to display the initial opening range..
-        /// </summary>
-        public static string ShowOpenRangeDescription {
-            get {
-                return ResourceManager.GetString("ShowOpenRangeDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Show orders count.
-        /// </summary>
-        public static string ShowOrdersCount {
-            get {
-                return ResourceManager.GetString("ShowOrdersCount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Show panels.
-        /// </summary>
-        public static string Showpanels {
-            get {
-                return ResourceManager.GetString("Showpanels", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Show Price Change,%.
-        /// </summary>
-        public static string ShowPercPriceChange {
-            get {
-                return ResourceManager.GetString("ShowPercPriceChange", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Determines whether to display the price change value expressed as a percentage..
-        /// </summary>
-        public static string ShowPercPriceChangeDescription {
-            get {
-                return ResourceManager.GetString("ShowPercPriceChangeDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Show period.
+        ///   Busca una cadena traducida similar a Show Period.
         /// </summary>
         public static string ShowPeriod {
             get {
@@ -46080,34 +44003,16 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a When enabled, this feature highlights price levels within clusters on the chart, making it easier to identify significant price points within selected volumes..
+        ///   Busca una cadena traducida similar a Sell Imbalances.
         /// </summary>
-        public static string ShowPriceSelectionDescription {
+        public static string ShowSellImbalances {
             get {
-                return ResourceManager.GetString("ShowPriceSelectionDescription", resourceCulture);
+                return ResourceManager.GetString("ShowSellImbalances", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Show debug info.
-        /// </summary>
-        public static string ShowRendererInfo {
-            get {
-                return ResourceManager.GetString("ShowRendererInfo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Determines whether the price should be highlighted on the price axis..
-        /// </summary>
-        public static string ShowSelectedPriceOnPriceAxisDescription {
-            get {
-                return ResourceManager.GetString("ShowSelectedPriceOnPriceAxisDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Session delta.
+        ///   Busca una cadena traducida similar a Show Session Delta.
         /// </summary>
         public static string ShowSessionDelta {
             get {
@@ -46116,7 +44021,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Cumulative ask and bid imbalance since session start..
+        ///   Busca una cadena traducida similar a Determines whether to display information about session delta..
         /// </summary>
         public static string ShowSessionDeltaDescription {
             get {
@@ -46125,7 +44030,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Session delta/volume.
+        ///   Busca una cadena traducida similar a Show Session Delta/Volume.
         /// </summary>
         public static string ShowSessionDeltaPerVolume {
             get {
@@ -46134,7 +44039,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Delta imbalance relative to total daily volume..
+        ///   Busca una cadena traducida similar a Determines whether to display information about session delta per volume..
         /// </summary>
         public static string ShowSessionDeltaPerVolumeDescription {
             get {
@@ -46143,16 +44048,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Show Session delta/Volume.
-        /// </summary>
-        public static string ShowSessionDeltaVolume {
-            get {
-                return ResourceManager.GetString("ShowSessionDeltaVolume", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Session volume.
+        ///   Busca una cadena traducida similar a Show Session Volume.
         /// </summary>
         public static string ShowSessionVolume {
             get {
@@ -46161,7 +44057,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Cumulative volume for the session..
+        ///   Busca una cadena traducida similar a Determines whether to display cumulative volume information within a session..
         /// </summary>
         public static string ShowSessionVolumeDescription {
             get {
@@ -46170,7 +44066,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Show signal numbers.
+        ///   Busca una cadena traducida similar a Show Signal Numbers.
         /// </summary>
         public static string ShowSignalNumbers {
             get {
@@ -46215,47 +44111,47 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Determines whether to display trades that do not pass the filter..
+        ///   Busca una cadena traducida similar a Stacked Buy Imbalances.
         /// </summary>
-        public static string ShowSmallTradesDescription {
+        public static string ShowStackedBuyImbalances {
             get {
-                return ResourceManager.GetString("ShowSmallTradesDescription", resourceCulture);
+                return ResourceManager.GetString("ShowStackedBuyImbalances", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Show status bar.
+        ///   Busca una cadena traducida similar a Stacked Net Imbalances.
         /// </summary>
-        public static string ShowStatusBar {
+        public static string ShowStackedNetImbalances {
             get {
-                return ResourceManager.GetString("ShowStatusBar", resourceCulture);
+                return ResourceManager.GetString("ShowStackedNetImbalances", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Show or hide the watchlist status bar. The status bar is at the bottom of the module..
+        ///   Busca una cadena traducida similar a Stacked Sell Imbalances.
         /// </summary>
-        public static string ShowStatusBarDescription {
+        public static string ShowStackedSellImbalances {
             get {
-                return ResourceManager.GetString("ShowStatusBarDescription", resourceCulture);
+                return ResourceManager.GetString("ShowStackedSellImbalances", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Determines whether to display support and resistance levels..
+        ///   Busca una cadena traducida similar a Show threshold lines.
         /// </summary>
-        public static string ShowSupResLevelsDescription {
+        public static string ShowThresholdLines {
             get {
-                return ResourceManager.GetString("ShowSupResLevelsDescription", resourceCulture);
+                return ResourceManager.GetString("ShowThresholdLines", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Show Text.
+        ///   Busca una cadena traducida similar a Show horizontal threshold lines in the Volume panel..
         /// </summary>
-        public static string ShowText {
+        public static string ShowThresholdLinesDescription {
             get {
-                return ResourceManager.GetString("ShowText", resourceCulture);
+                return ResourceManager.GetString("ShowThresholdLinesDescription", resourceCulture);
             }
         }
         
@@ -46422,7 +44318,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Information about the number of trades..
+        ///   Busca una cadena traducida similar a Determines whether to display information about the number of trades..
         /// </summary>
         public static string ShowTradesCountDescription {
             get {
@@ -46431,61 +44327,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Determines whether to show a tooltip with trade details when hovering over trade markers..
-        /// </summary>
-        public static string ShowTradeTooltipDescription {
-            get {
-                return ResourceManager.GetString("ShowTradeTooltipDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Show unavailable rows.
-        /// </summary>
-        public static string ShowUnvailableRows {
-            get {
-                return ResourceManager.GetString("ShowUnvailableRows", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Show value.
-        /// </summary>
-        public static string ShowValue {
-            get {
-                return ResourceManager.GetString("ShowValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Show Value Area.
-        /// </summary>
-        public static string ShowValueArea {
-            get {
-                return ResourceManager.GetString("ShowValueArea", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Display current indicator value on the price axis..
-        /// </summary>
-        public static string ShowValueOnLabelDescription {
-            get {
-                return ResourceManager.GetString("ShowValueOnLabelDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Show vertical grid.
-        /// </summary>
-        public static string ShowVertGrid {
-            get {
-                return ResourceManager.GetString("ShowVertGrid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Volume.
+        ///   Busca una cadena traducida similar a Show Volume.
         /// </summary>
         public static string ShowVolume {
             get {
@@ -46512,7 +44354,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Traded volume per second..
+        ///   Busca una cadena traducida similar a Determines whether to display information about volume per second..
         /// </summary>
         public static string ShowVolumePerSecondDescription {
             get {
@@ -46521,56 +44363,11 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Traded volume on each bar..
+        ///   Busca una cadena traducida similar a Determines whether to display volume information..
         /// </summary>
         public static string ShowVolumesDescription {
             get {
                 return ResourceManager.GetString("ShowVolumesDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Show when selected.
-        /// </summary>
-        public static string ShowWhenSelected {
-            get {
-                return ResourceManager.GetString("ShowWhenSelected", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Workspaces.
-        /// </summary>
-        public static string ShowWorkspaces {
-            get {
-                return ResourceManager.GetString("ShowWorkspaces", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Show yesterdays median.
-        /// </summary>
-        public static string ShowYesterdaysMedian {
-            get {
-                return ResourceManager.GetString("ShowYesterdaysMedian", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Show zero values on axis.
-        /// </summary>
-        public static string ShowZeroValue {
-            get {
-                return ResourceManager.GetString("ShowZeroValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Determines if a zero value should be displayed on the price axis..
-        /// </summary>
-        public static string ShowZeroValueDescription {
-            get {
-                return ResourceManager.GetString("ShowZeroValueDescription", resourceCulture);
             }
         }
         
@@ -47503,272 +45300,47 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Smoothing period applied to the indicator values..
+        ///   Busca una cadena traducida similar a Filter period.
         /// </summary>
-        public static string SmoothDescription {
+        public static string SotAutoFilterPeriodName {
             get {
-                return ResourceManager.GetString("SmoothDescription", resourceCulture);
+                return ResourceManager.GetString("SotAutoFilterPeriodName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Smoothing.
+        ///   Busca una cadena traducida similar a EMA (off=SMA).
         /// </summary>
-        public static string Smoothing {
+        public static string SotAutoFilterUseEmaName {
             get {
-                return ResourceManager.GetString("Smoothing", resourceCulture);
+                return ResourceManager.GetString("SotAutoFilterUseEmaName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Smoothing mode.
+        ///   Busca una cadena traducida similar a Min Volume per Window.
         /// </summary>
-        public static string SmoothingMode {
+        public static string SotMinVolumeName {
             get {
-                return ResourceManager.GetString("SmoothingMode", resourceCulture);
+                return ResourceManager.GetString("SotMinVolumeName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Defines one of the available smoothing modes..
+        ///   Busca una cadena traducida similar a Time Window (sec).
         /// </summary>
-        public static string SmoothingModesDescription {
+        public static string SotTimeWindowSecName {
             get {
-                return ResourceManager.GetString("SmoothingModesDescription", resourceCulture);
+                return ResourceManager.GetString("SotTimeWindowSecName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Determines the smoothing ratio for a given element..
+        ///   Busca una cadena traducida similar a Use filter.
         /// </summary>
-        public static string SmoothingRatioDescription {
+        public static string SotUseAutoFilterName {
             get {
-                return ResourceManager.GetString("SmoothingRatioDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Visualization settings for the smooth line..
-        /// </summary>
-        public static string SmoothLineSettingsDescription {
-            get {
-                return ResourceManager.GetString("SmoothLineSettingsDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a If enabled, the calculations use smoothing of a certain parameter using a given period..
-        /// </summary>
-        public static string SmoothPeriodFilterDescription {
-            get {
-                return ResourceManager.GetString("SmoothPeriodFilterDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Snap crosshair to price.
-        /// </summary>
-        public static string SnapCrosshairToPrice {
-            get {
-                return ResourceManager.GetString("SnapCrosshairToPrice", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Snapshot named &quot;{0}&quot; already exists. To add a snapshot, you can overwrite an existing snapshot or rename a snapshot..
-        /// </summary>
-        public static string SnapshotAlreadyExistsMessage {
-            get {
-                return ResourceManager.GetString("SnapshotAlreadyExistsMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Snapshot name.
-        /// </summary>
-        public static string SnapshotName {
-            get {
-                return ResourceManager.GetString("SnapshotName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Snapshots.
-        /// </summary>
-        public static string SnapshotsTitle {
-            get {
-                return ResourceManager.GetString("SnapshotsTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Solid.
-        /// </summary>
-        public static string Solid {
-            get {
-                return ResourceManager.GetString("Solid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Solid.
-        /// </summary>
-        public static string SolidBrush {
-            get {
-                return ResourceManager.GetString("SolidBrush", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Solid color.
-        /// </summary>
-        public static string SolidColor {
-            get {
-                return ResourceManager.GetString("SolidColor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Some trades have zero price. Please enter correct price..
-        /// </summary>
-        public static string SomeTradesHaveZeroPrice {
-            get {
-                return ResourceManager.GetString("SomeTradesHaveZeroPrice", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Some trades have zero volume. Please enter correct value..
-        /// </summary>
-        public static string SomeTradesHaveZeroVolume {
-            get {
-                return ResourceManager.GetString("SomeTradesHaveZeroVolume", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sound File.
-        /// </summary>
-        public static string SoundFile {
-            get {
-                return ResourceManager.GetString("SoundFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sounds enabled.
-        /// </summary>
-        public static string SoundsEnabled {
-            get {
-                return ResourceManager.GetString("SoundsEnabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sound files (*.wav)|*.wav.
-        /// </summary>
-        public static string SoundsFileFilter {
-            get {
-                return ResourceManager.GetString("SoundsFileFilter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sounds settings.
-        /// </summary>
-        public static string SoundsSettingsMenu {
-            get {
-                return ResourceManager.GetString("SoundsSettingsMenu", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sounds settings.
-        /// </summary>
-        public static string SoundsSettingsTitle {
-            get {
-                return ResourceManager.GetString("SoundsSettingsTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Volume.
-        /// </summary>
-        public static string SoundVolume {
-            get {
-                return ResourceManager.GetString("SoundVolume", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Source.
-        /// </summary>
-        public static string Source {
-            get {
-                return ResourceManager.GetString("Source", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Source.
-        /// </summary>
-        public static string SourceColumn {
-            get {
-                return ResourceManager.GetString("SourceColumn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Source.
-        /// </summary>
-        public static string SourceDataSeries {
-            get {
-                return ResourceManager.GetString("SourceDataSeries", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Allows the user to select the data source for calculating the indicator. It can be specific candlestick prices like open, close, etc., or another indicator.
-        /// </summary>
-        public static string SourceDescription {
-            get {
-                return ResourceManager.GetString("SourceDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a How did you hear about us?.
-        /// </summary>
-        public static string SourceKnowledgeQuestion {
-            get {
-                return ResourceManager.GetString("SourceKnowledgeQuestion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Represents one of the available data source types..
-        /// </summary>
-        public static string SourceTypeDescription {
-            get {
-                return ResourceManager.GetString("SourceTypeDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Defines the size of the distance between labels..
-        /// </summary>
-        public static string SpaceBetweenLabelsDescription {
-            get {
-                return ResourceManager.GetString("SpaceBetweenLabelsDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sets the spacing value between displayed objects..
-        /// </summary>
-        public static string SpaceBetweenObjectsDescription {
-            get {
-                return ResourceManager.GetString("SpaceBetweenObjectsDescription", resourceCulture);
+                return ResourceManager.GetString("SotUseAutoFilterName", resourceCulture);
             }
         }
         
@@ -47927,232 +45499,16 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Stability of operation after update.
+        ///   Busca una cadena traducida similar a Stacked Min Levels.
         /// </summary>
-        public static string StabilityOfOperationAfterUpdate {
+        public static string StackedImbalanceMinLevelsName {
             get {
-                return ResourceManager.GetString("StabilityOfOperationAfterUpdate", resourceCulture);
+                return ResourceManager.GetString("StackedImbalanceMinLevelsName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a The &lt;b&gt;stable version&lt;/b&gt; is the most reliable platform version, which is released several times a year and is intended for regular use. Before its release, the stable version was thoroughly checked by the testing team and the ATAS community. It doesn’t have all new functions and fixes of the last or beta version..
-        /// </summary>
-        public static string StableMessage {
-            get {
-                return ResourceManager.GetString("StableMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a &lt;b&gt;stable&lt;/b&gt; version.
-        /// </summary>
-        public static string StableMessageEnding {
-            get {
-                return ResourceManager.GetString("StableMessageEnding", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a stable.
-        /// </summary>
-        public static string StableVersion {
-            get {
-                return ResourceManager.GetString("StableVersion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The stable version is receiving updates once or twice a year and the most tested.
-        /// </summary>
-        public static string StableVersionDescription {
-            get {
-                return ResourceManager.GetString("StableVersionDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stable.
-        /// </summary>
-        public static string StableVersionName {
-            get {
-                return ResourceManager.GetString("StableVersionName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stable version.
-        /// </summary>
-        public static string StableVersionTitle {
-            get {
-                return ResourceManager.GetString("StableVersionTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a This indicator is designed to identify and visualize imbalances between supply and demand volumes at adjacent price levels. It provides insight into potential areas of interest for traders based on differences in volume. The magnitude of the imbalance is determined as a percentage of the compared volumes. For example, let&apos;s analyze the value of 30 ask and the value of the overweight of 350%, 350% of 30 = 105, in order for the cluster to be highlighted, the bid must be more than 105..
-        /// </summary>
-        public static string StackedImbalanceDescription {
-            get {
-                return ResourceManager.GetString("StackedImbalanceDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stacked levels.
-        /// </summary>
-        public static string StackedLevels {
-            get {
-                return ResourceManager.GetString("StackedLevels", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Determines the number of consecutive price levels found during the calculation..
-        /// </summary>
-        public static string StackedLevelsDescription {
-            get {
-                return ResourceManager.GetString("StackedLevelsDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stacking.
-        /// </summary>
-        public static string Stacking {
-            get {
-                return ResourceManager.GetString("Stacking", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Classic technical analysis.
-        /// </summary>
-        public static string StandardTechnicalAnalysis {
-            get {
-                return ResourceManager.GetString("StandardTechnicalAnalysis", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The STARC Bands indicator is an alternative to the standard Bollinger Bands indicator. The STARC Bands narrow in stable markets and widen as volatility rises. Unlike the Bollinger Bands, the STARC Bands do not use closing prices and standard deviation. This indicator use the average true range (ATR) for calculation, which gives more meaningful information about the volatility level.The optimum ATR period is 10..
-        /// </summary>
-        public static string StarcBandsDescription {
-            get {
-                return ResourceManager.GetString("StarcBandsDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Start.
-        /// </summary>
-        public static string Start {
-            get {
-                return ResourceManager.GetString("Start", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a https://start.atas.net.
-        /// </summary>
-        public static string StartAtasLink {
-            get {
-                return ResourceManager.GetString("StartAtasLink", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Start color.
-        /// </summary>
-        public static string StartColor {
-            get {
-                return ResourceManager.GetString("StartColor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Start copying.
-        /// </summary>
-        public static string StartCoping {
-            get {
-                return ResourceManager.GetString("StartCoping", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Start date.
-        /// </summary>
-        public static string StartDate {
-            get {
-                return ResourceManager.GetString("StartDate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Start day.
-        /// </summary>
-        public static string StartDay {
-            get {
-                return ResourceManager.GetString("StartDay", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The start day of the trading platform.
-        /// </summary>
-        public static string StartDayDescription {
-            get {
-                return ResourceManager.GetString("StartDayDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Start day greater than end day..
-        /// </summary>
-        public static string StartDayGreaterEndDay {
-            get {
-                return ResourceManager.GetString("StartDayGreaterEndDay", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Started.
-        /// </summary>
-        public static string Started {
-            get {
-                return ResourceManager.GetString("Started", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Started.
-        /// </summary>
-        public static string StartedLabel {
-            get {
-                return ResourceManager.GetString("StartedLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Start of line as arrow.
-        /// </summary>
-        public static string StartLineAsArrow {
-            get {
-                return ResourceManager.GetString("StartLineAsArrow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Determines whether to display the start of the line as an arrow..
-        /// </summary>
-        public static string StartLineAsArrowDescription {
-            get {
-                return ResourceManager.GetString("StartLineAsArrowDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Start price.
+        ///   Busca una cadena traducida similar a Start Price.
         /// </summary>
         public static string StartPrice {
             get {
@@ -48431,6 +45787,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Std multiplier.
+        /// </summary>
+        public static string StdMultiplier {
+            get {
+                return ResourceManager.GetString("StdMultiplier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Major = mean + k·std. Minor = mean..
+        /// </summary>
+        public static string StdMultiplierDescription {
+            get {
+                return ResourceManager.GetString("StdMultiplierDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Standard deviation period.
         /// </summary>
         public static string StdPeriod {
@@ -48490,825 +45864,6 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string Stochastic {
             get {
                 return ResourceManager.GetString("Stochastic", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stochastic oscillator (stochastic, stochastics) – a technical analysis indicator, which indicates the current price position as to the price range for a specific period in the past. It is measured in percent..
-        /// </summary>
-        public static string StochasticDescription {
-            get {
-                return ResourceManager.GetString("StochasticDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The Preferred Stochastic - DiNapoli indicator is a variation of the Stochastic Oscillator that incorporates exponential moving averages (EMA) for smoothing. The Stochastic Oscillator measures the location of a security&apos;s close relative to its price range over a certain period. The DiNapoli version adds further smoothing using EMAs..
-        /// </summary>
-        public static string StochasticDiNapoliDescription {
-            get {
-                return ResourceManager.GetString("StochasticDiNapoliDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stochastic Momentum is a momentum oscillator that measures the location of the close price relative to the midpoint of the high-low range over a specified period. It helps identify overbought and oversold conditions..
-        /// </summary>
-        public static string StochasticMomentumDescription {
-            get {
-                return ResourceManager.GetString("StochasticMomentumDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stochastic RSI – it is a technical analysis indicator, which is used for identifying overselling and overbuying areas. It is calculated with the help of maximum and minimum values of the RSI indicator for a selected period of time. Stochastic RSI - is an oscillator, which calculates a value within the range from 0 to 1, which is shown in the chart as a line..
-        /// </summary>
-        public static string StochasticRsiDescription {
-            get {
-                return ResourceManager.GetString("StochasticRsiDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sets the period of Stochastic RSI..
-        /// </summary>
-        public static string StochasticRsiPeriodDescription {
-            get {
-                return ResourceManager.GetString("StochasticRsiPeriodDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Sets the RSI period of Stochastic RSI..
-        /// </summary>
-        public static string StochasticRsiRsiPeriodDescription {
-            get {
-                return ResourceManager.GetString("StochasticRsiRsiPeriodDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stock trading.
-        /// </summary>
-        public static string StockTrading {
-            get {
-                return ResourceManager.GetString("StockTrading", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stochastic - Percentile is a technical oscillator, which is based on the price position at a given time interval. Last N of bars are arranged in ascending order, and the arranged number of the last bar is divided by the period value. After the oscillator calculation, the values are smoothed by the moving average..
-        /// </summary>
-        public static string StohasticPercentileDescription {
-            get {
-                return ResourceManager.GetString("StohasticPercentileDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stop.
-        /// </summary>
-        public static string Stop {
-            get {
-                return ResourceManager.GetString("Stop", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stop as StopLimit.
-        /// </summary>
-        public static string StopasStopLimit {
-            get {
-                return ResourceManager.GetString("StopasStopLimit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stop Orders Color.
-        /// </summary>
-        public static string StopColor {
-            get {
-                return ResourceManager.GetString("StopColor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stop Copy Group.
-        /// </summary>
-        public static string StopCopyGroup {
-            get {
-                return ResourceManager.GetString("StopCopyGroup", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stop limit.
-        /// </summary>
-        public static string StopLimit {
-            get {
-                return ResourceManager.GetString("StopLimit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stop Limit Orders become limit orders when a specified stop price is reached. Specify a trigger price to activate the order..
-        /// </summary>
-        public static string StopLimitDescription {
-            get {
-                return ResourceManager.GetString("StopLimitDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stop Limit Slippage.
-        /// </summary>
-        public static string StopLimitSlippage {
-            get {
-                return ResourceManager.GetString("StopLimitSlippage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stop Loss.
-        /// </summary>
-        public static string StopLoss {
-            get {
-                return ResourceManager.GetString("StopLoss", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Defines the size of the area in percent from the order execution price to the stop loss price..
-        /// </summary>
-        public static string StopLossPercentDescription {
-            get {
-                return ResourceManager.GetString("StopLossPercentDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Defines the size of the area in ticks from the order execution price to the stop loss price..
-        /// </summary>
-        public static string StopLossTicksDescription {
-            get {
-                return ResourceManager.GetString("StopLossTicksDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Определяет цену стоп лосса..
-        /// </summary>
-        public static string StopLosstPriceDescription {
-            get {
-                return ResourceManager.GetString("StopLosstPriceDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stop Market.
-        /// </summary>
-        public static string StopMarket {
-            get {
-                return ResourceManager.GetString("StopMarket", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stop Market Orders become market orders when a specified price is reached. Specify a trigger price to activate the order..
-        /// </summary>
-        public static string StopMarketDescription {
-            get {
-                return ResourceManager.GetString("StopMarketDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stop Market Replay.
-        /// </summary>
-        public static string StopMarketReplay {
-            get {
-                return ResourceManager.GetString("StopMarketReplay", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stop Mode.
-        /// </summary>
-        public static string StopMode {
-            get {
-                return ResourceManager.GetString("StopMode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stop order filled.
-        /// </summary>
-        public static string StopOrderFilledSound {
-            get {
-                return ResourceManager.GetString("StopOrderFilledSound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Safe spread for stop order.
-        /// </summary>
-        public static string StopOrderSafeSpread {
-            get {
-                return ResourceManager.GetString("StopOrderSafeSpread", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Indent for the order price from the stop price.
-        /// </summary>
-        public static string StopOrderSafeSpreadDescription {
-            get {
-                return ResourceManager.GetString("StopOrderSafeSpreadDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Safe spread units.
-        /// </summary>
-        public static string StopOrderSafeSpreadType {
-            get {
-                return ResourceManager.GetString("StopOrderSafeSpreadType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a This connection doesn&apos;t allow to submit server-side Stop &amp; StopLimit orders. These types of orders get emulated locally on your computer. It means that for correct execution of these orders the platform has to be constantly connected to your broker. If you get disconnected the orders will NOT BE executed..
-        /// </summary>
-        public static string StopOrdersAgreement {
-            get {
-                return ResourceManager.GetString("StopOrdersAgreement", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stop orders mode.
-        /// </summary>
-        public static string StopOrdersMode {
-            get {
-                return ResourceManager.GetString("StopOrdersMode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stop orders refresh rate (minutes).
-        /// </summary>
-        public static string StopOrdersRefresh {
-            get {
-                return ResourceManager.GetString("StopOrdersRefresh", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stopped.
-        /// </summary>
-        public static string Stopped {
-            get {
-                return ResourceManager.GetString("Stopped", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stop Price.
-        /// </summary>
-        public static string StopPrice {
-            get {
-                return ResourceManager.GetString("StopPrice", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stop price mode.
-        /// </summary>
-        public static string StopPriceMode {
-            get {
-                return ResourceManager.GetString("StopPriceMode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a SL&amp;TP.
-        /// </summary>
-        public static string StopProfit {
-            get {
-                return ResourceManager.GetString("StopProfit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a SL,TP,Breakeven.
-        /// </summary>
-        public static string StopProfitBreakeven {
-            get {
-                return ResourceManager.GetString("StopProfitBreakeven", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stop&amp;Profit Settings.
-        /// </summary>
-        public static string StopProfitSettings {
-            get {
-                return ResourceManager.GetString("StopProfitSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a SL,TP, Trailing.
-        /// </summary>
-        public static string StopProfitTrailing {
-            get {
-                return ResourceManager.GetString("StopProfitTrailing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stop Settings.
-        /// </summary>
-        public static string StopSettings {
-            get {
-                return ResourceManager.GetString("StopSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stop strategy.
-        /// </summary>
-        public static string StopStrategy {
-            get {
-                return ResourceManager.GetString("StopStrategy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Percents.
-        /// </summary>
-        public static string StopTakeValueInPercents {
-            get {
-                return ResourceManager.GetString("StopTakeValueInPercents", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Ticks.
-        /// </summary>
-        public static string StopTakeValueInTicks {
-            get {
-                return ResourceManager.GetString("StopTakeValueInTicks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stop/take value in.
-        /// </summary>
-        public static string StopTakeValueType {
-            get {
-                return ResourceManager.GetString("StopTakeValueType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Strategies.
-        /// </summary>
-        public static string Strategies {
-            get {
-                return ResourceManager.GetString("Strategies", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Current price unknown.
-        /// </summary>
-        public static string StrategiesCurrentPriceUnknown {
-            get {
-                return ResourceManager.GetString("StrategiesCurrentPriceUnknown", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a SL {0} is close to the current price {1}.
-        /// </summary>
-        public static string StrategiesStopLossIsCloseToCurrentPrice {
-            get {
-                return ResourceManager.GetString("StrategiesStopLossIsCloseToCurrentPrice", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a SL {0} is less than the current price {1}.
-        /// </summary>
-        public static string StrategiesStopLossIsLessThanCurrentPrice {
-            get {
-                return ResourceManager.GetString("StrategiesStopLossIsLessThanCurrentPrice", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a SL {0} is more than the current price {1}.
-        /// </summary>
-        public static string StrategiesStopLossIsMoreThanCurrentPrice {
-            get {
-                return ResourceManager.GetString("StrategiesStopLossIsMoreThanCurrentPrice", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a TP {0} is close to the current price {1}.
-        /// </summary>
-        public static string StrategiesTakeProfitIsCloseToCurrentPrice {
-            get {
-                return ResourceManager.GetString("StrategiesTakeProfitIsCloseToCurrentPrice", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a TP {0} is less than the current price {1}.
-        /// </summary>
-        public static string StrategiesTakeProfitIsLessThanCurrentPrice {
-            get {
-                return ResourceManager.GetString("StrategiesTakeProfitIsLessThanCurrentPrice", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a TP {0} is more than the current price {1}.
-        /// </summary>
-        public static string StrategiesTakeProfitIsMoreThanCurrentPrice {
-            get {
-                return ResourceManager.GetString("StrategiesTakeProfitIsMoreThanCurrentPrice", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Strategy.
-        /// </summary>
-        public static string Strategy {
-            get {
-                return ResourceManager.GetString("Strategy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The strategy is activated, pending orders will be placed when a position is opened..
-        /// </summary>
-        public static string StrategyActivated {
-            get {
-                return ResourceManager.GetString("StrategyActivated", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The strategy is activated, pending orders will be placed when a position is opened..
-        /// </summary>
-        public static string StrategyActivatedMessage {
-            get {
-                return ResourceManager.GetString("StrategyActivatedMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Activated.
-        /// </summary>
-        public static string StrategyActivatedShort {
-            get {
-                return ResourceManager.GetString("StrategyActivatedShort", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The strategy is activated, pending orders have been placed..
-        /// </summary>
-        public static string StrategyActivatedWithPositionMessage {
-            get {
-                return ResourceManager.GetString("StrategyActivatedWithPositionMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The strategy is activated, pending orders will be placed when a position is opened..
-        /// </summary>
-        public static string StrategyActivatedWithZeroPositionMessage {
-            get {
-                return ResourceManager.GetString("StrategyActivatedWithZeroPositionMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a For the selected instrument, there is an open position or active pending orders that can change the current position, this may affect the operation of the launched strategy, activate the strategy?.
-        /// </summary>
-        public static string StrategyActivateWithActiveOrdersWarning {
-            get {
-                return ResourceManager.GetString("StrategyActivateWithActiveOrdersWarning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Behavior.
-        /// </summary>
-        public static string StrategyBehaviorCategory {
-            get {
-                return ResourceManager.GetString("StrategyBehaviorCategory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The strategy is deactivated after the user cancels pending orders, the strategy will be activated after the current position is closed..
-        /// </summary>
-        public static string StrategyDeactivatedOnStopOrdersCancelled {
-            get {
-                return ResourceManager.GetString("StrategyDeactivatedOnStopOrdersCancelled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Connection errors resulted in the following errors with SL/TP orders:.
-        /// </summary>
-        public static string StrategyHasConnectionErrors {
-            get {
-                return ResourceManager.GetString("StrategyHasConnectionErrors", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The following errors occurred during the strategy:.
-        /// </summary>
-        public static string StrategyHasErrors {
-            get {
-                return ResourceManager.GetString("StrategyHasErrors", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The following SL/TP orders were not found:.
-        /// </summary>
-        public static string StrategyHasNotFoundOrdersErrors {
-            get {
-                return ResourceManager.GetString("StrategyHasNotFoundOrdersErrors", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The allowed number of errors has been exceeded, next attempts to place orders will be canceled..
-        /// </summary>
-        public static string StrategyMaxNumberOfErrorsExceeded {
-            get {
-                return ResourceManager.GetString("StrategyMaxNumberOfErrorsExceeded", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The allowed number of no connection errors has been exceeded, next attempts to place orders will be canceled. Please check your connection to the exchange..
-        /// </summary>
-        public static string StrategyMaxNumberOfNoConnectionErrorsExceeded {
-            get {
-                return ResourceManager.GetString("StrategyMaxNumberOfNoConnectionErrorsExceeded", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Strategy name.
-        /// </summary>
-        public static string StrategyName {
-            get {
-                return ResourceManager.GetString("StrategyName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a  Misc.
-        /// </summary>
-        public static string StrategyNameCategory {
-            get {
-                return ResourceManager.GetString("StrategyNameCategory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a It is forbidden for a strategy to trade when receiving positions with an unguaranteed average price, position changes are ignored..
-        /// </summary>
-        public static string StrategyNotAllowedToUseUnguaranteedAveragePrice {
-            get {
-                return ResourceManager.GetString("StrategyNotAllowedToUseUnguaranteedAveragePrice", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Previously placed SL/TP orders were not found..
-        /// </summary>
-        public static string StrategyPreviousOrdersNotFound {
-            get {
-                return ResourceManager.GetString("StrategyPreviousOrdersNotFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Strategy settings.
-        /// </summary>
-        public static string StrategySettings {
-            get {
-                return ResourceManager.GetString("StrategySettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Strategy settings.
-        /// </summary>
-        public static string StrategySettingsGroupHeader {
-            get {
-                return ResourceManager.GetString("StrategySettingsGroupHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The strategy will be activated after closing all positions, pending orders for the current position will not be placed..
-        /// </summary>
-        public static string StrategyStarted {
-            get {
-                return ResourceManager.GetString("StrategyStarted", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The strategy will be activated after closing all positions and cancelling current pending orders, strategy pending orders for the current position will not be placed..
-        /// </summary>
-        public static string StrategyStartedMessage {
-            get {
-                return ResourceManager.GetString("StrategyStartedMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Pending.
-        /// </summary>
-        public static string StrategyStartedShort {
-            get {
-                return ResourceManager.GetString("StrategyStartedShort", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The strategy is stopped, pending orders will not be placed..
-        /// </summary>
-        public static string StrategyStopped {
-            get {
-                return ResourceManager.GetString("StrategyStopped", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The strategy is stopped, pending orders will not be placed..
-        /// </summary>
-        public static string StrategyStoppedMessage {
-            get {
-                return ResourceManager.GetString("StrategyStoppedMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Stopped.
-        /// </summary>
-        public static string StrategyStoppedShort {
-            get {
-                return ResourceManager.GetString("StrategyStoppedShort", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The strategy is stopped, pending orders placed by the strategy were canceled..
-        /// </summary>
-        public static string StrategyStoppedWithCancelOrderMessage {
-            get {
-                return ResourceManager.GetString("StrategyStoppedWithCancelOrderMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The strategy is stopped, pending orders will not be placed..
-        /// </summary>
-        public static string StrategyStoppedWithoutPositionMessage {
-            get {
-                return ResourceManager.GetString("StrategyStoppedWithoutPositionMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The strategy is stopped, pending orders remain active, independent of each other and of the position..
-        /// </summary>
-        public static string StrategyStoppedWithPositionWithoutCancelMessage {
-            get {
-                return ResourceManager.GetString("StrategyStoppedWithPositionWithoutCancelMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Strategy deactivated.
-        /// </summary>
-        public static string StrategySuspended {
-            get {
-                return ResourceManager.GetString("StrategySuspended", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Strategy deactivated.
-        /// </summary>
-        public static string StrategySuspendedMessage {
-            get {
-                return ResourceManager.GetString("StrategySuspendedMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Deactivated.
-        /// </summary>
-        public static string StrategySuspendedShort {
-            get {
-                return ResourceManager.GetString("StrategySuspendedShort", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Strategy template settings.
-        /// </summary>
-        public static string StrategyTemplateSettingsTitle {
-            get {
-                return ResourceManager.GetString("StrategyTemplateSettingsTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Strikeout.
-        /// </summary>
-        public static string Strikeout {
-            get {
-                return ResourceManager.GetString("Strikeout", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a .
-        /// </summary>
-        public static string String {
-            get {
-                return ResourceManager.GetString("String", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a .
-        /// </summary>
-        public static string String1 {
-            get {
-                return ResourceManager.GetString("String1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a .
-        /// </summary>
-        public static string String2 {
-            get {
-                return ResourceManager.GetString("String2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a .
-        /// </summary>
-        public static string String3 {
-            get {
-                return ResourceManager.GetString("String3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Strings.
-        /// </summary>
-        public static string StringsStr {
-            get {
-                return ResourceManager.GetString("StringsStr", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a String value desciption.
-        /// </summary>
-        public static string StringValueDescription {
-            get {
-                return ResourceManager.GetString("StringValueDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Value (string):.
-        /// </summary>
-        public static string StringValueLabel {
-            get {
-                return ResourceManager.GetString("StringValueLabel", resourceCulture);
             }
         }
         
@@ -50457,6 +47012,51 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string ThresholdLineColor {
             get {
                 return ResourceManager.GetString("ThresholdLineColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Thresholds.
+        /// </summary>
+        public static string ThresholdsGroup {
+            get {
+                return ResourceManager.GetString("ThresholdsGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Threshold source.
+        /// </summary>
+        public static string ThresholdSource {
+            get {
+                return ResourceManager.GetString("ThresholdSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Select fixed thresholds or dynamic Welford thresholds..
+        /// </summary>
+        public static string ThresholdSourceDescription {
+            get {
+                return ResourceManager.GetString("ThresholdSourceDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Dynamic (Welford).
+        /// </summary>
+        public static string ThresholdSourceDynamicWelford {
+            get {
+                return ResourceManager.GetString("ThresholdSourceDynamicWelford", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fixed.
+        /// </summary>
+        public static string ThresholdSourceFixed {
+            get {
+                return ResourceManager.GetString("ThresholdSourceFixed", resourceCulture);
             }
         }
         
@@ -53330,25 +49930,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Use Alert.
-        /// </summary>
-        public static string UseAlert {
-            get {
-                return ResourceManager.GetString("UseAlert", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Enables or disables a sound notification a certain number of seconds before a new main alert appears..
-        /// </summary>
-        public static string UseAlertBeforeDescription {
-            get {
-                return ResourceManager.GetString("UseAlertBeforeDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Notifications about events detected by the indicator..
+        ///   Busca una cadena traducida similar a This setting enables alert notifications for specific conditions or events as defined by the indicator. When activated, the indicator will send an alert..
         /// </summary>
         public static string UseAlertDescription {
             get {
@@ -53357,7 +49939,7 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Use alerts.
+        ///   Busca una cadena traducida similar a Use Alerts.
         /// </summary>
         public static string UseAlerts {
             get {
@@ -55098,214 +51680,29 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Represents the period for the volume moving average..
+        ///   Busca una cadena traducida similar a Volume/sec.
         /// </summary>
-        public static string VolumeMAPeriodDescription {
+        public static string VolumeSecond {
             get {
-                return ResourceManager.GetString("VolumeMAPeriodDescription", resourceCulture);
+                return ResourceManager.GetString("VolumeSecond", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Volume is more that N last bars total volume.
+        ///   Busca una cadena traducida similar a Volume threshold (major).
         /// </summary>
-        public static string VolumeMoreNBars {
+        public static string VolumeThresholdMajor {
             get {
-                return ResourceManager.GetString("VolumeMoreNBars", resourceCulture);
+                return ResourceManager.GetString("VolumeThresholdMajor", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Volume is more than SMA(N) volume.
+        ///   Busca una cadena traducida similar a Volume threshold (minor).
         /// </summary>
-        public static string VolumeMoreSma {
+        public static string VolumeThresholdMinor {
             get {
-                return ResourceManager.GetString("VolumeMoreSma", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Volume + ΔOI.
-        /// </summary>
-        public static string VolumeOIColumn {
-            get {
-                return ResourceManager.GetString("VolumeOIColumn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The indicator is a complete analogue of the Volume indicator, except that it is displayed not in a separate panel, but at the bottom of the chart..
-        /// </summary>
-        public static string VolumeOnChartDescription {
-            get {
-                return ResourceManager.GetString("VolumeOnChartDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a &lt;p&gt;Market activity analysis at the trade level.&lt;/p&gt;
-        ///&lt;ul&gt;
-        ///  &lt;li&gt;Real-time volumes, delta, and order flow.&lt;/li&gt;
-        ///  &lt;li&gt;Work with clusters, imbalances, and volume concentration levels.&lt;/li&gt;
-        ///  &lt;li&gt;Assess buyer and seller activity in key price zones.&lt;/li&gt;
-        ///&lt;/ul&gt;.
-        /// </summary>
-        public static string VolumeOrderFlowGroupDescription {
-            get {
-                return ResourceManager.GetString("VolumeOrderFlowGroupDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a V.
-        /// </summary>
-        public static string VolumePeriodLabel {
-            get {
-                return ResourceManager.GetString("VolumePeriodLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Volume/sec alert.
-        /// </summary>
-        public static string VolumePerSecondAlert {
-            get {
-                return ResourceManager.GetString("VolumePerSecondAlert", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a The indicator shows the average trade volume..
-        /// </summary>
-        public static string VolumePerTradeIndDescription {
-            get {
-                return ResourceManager.GetString("VolumePerTradeIndDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Volume Pressure.
-        /// </summary>
-        public static string VolumePressure {
-            get {
-                return ResourceManager.GetString("VolumePressure", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Histogram profile.
-        /// </summary>
-        public static string VolumeProfile {
-            get {
-                return ResourceManager.GetString("VolumeProfile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Identify true support and resistance levels using the volume profile to find the best entry points for trades..
-        /// </summary>
-        public static string VolumeProfileTemplateDescription {
-            get {
-                return ResourceManager.GetString("VolumeProfileTemplateDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Japanese Candlesticks with Volume Profile.
-        /// </summary>
-        public static string VolumeProfileTemplateTitle {
-            get {
-                return ResourceManager.GetString("VolumeProfileTemplateTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Volume proportion.
-        /// </summary>
-        public static string VolumeProportion {
-            get {
-                return ResourceManager.GetString("VolumeProportion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Bid/Ask volume proportion.
-        /// </summary>
-        public static string VolumeProportionedBidAsk {
-            get {
-                return ResourceManager.GetString("VolumeProportionedBidAsk", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Choose the volume for trading.
-        /// </summary>
-        public static string VolumeSelectoDescription {
-            get {
-                return ResourceManager.GetString("VolumeSelectoDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Visualization settings for the volume elements..
-        /// </summary>
-        public static string VolumeSettingsDescription {
-            get {
-                return ResourceManager.GetString("VolumeSettingsDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Volumes in USD.
-        /// </summary>
-        public static string VolumesInUSD {
-            get {
-                return ResourceManager.GetString("VolumesInUSD", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Volumes in USDT.
-        /// </summary>
-        public static string VolumesInUSDT {
-            get {
-                return ResourceManager.GetString("VolumesInUSDT", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a This setting displays the contents of cluster volumes, limit orders in the order book and some indicators, in the quote currency for USDT pairs..
-        /// </summary>
-        public static string VolumesInUSDTDescription {
-            get {
-                return ResourceManager.GetString("VolumesInUSDTDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Volume Spread Analysis (VSA).
-        /// </summary>
-        public static string VolumeSpreadAnalysis {
-            get {
-                return ResourceManager.GetString("VolumeSpreadAnalysis", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Volume selection.
-        /// </summary>
-        public static string VolumesSelector {
-            get {
-                return ResourceManager.GetString("VolumesSelector", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a This indicator relies on significant trading volume at fractal lows or highs, and the zones are determined by the length of the candle wick for that particular time frame. This helps traders identify critical price levels that play an important role in either reversing a trend or maintaining its continuation when zones are broken and subsequently retested. It is possible to use up to 4 different periods simultaneously..
-        /// </summary>
-        public static string VolumeSupResZonesDescription {
-            get {
-                return ResourceManager.GetString("VolumeSupResZonesDescription", resourceCulture);
+                return ResourceManager.GetString("VolumeThresholdMinor", resourceCulture);
             }
         }
         
@@ -56922,6 +53319,806 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string ZScoreIndDescription {
             get {
                 return ResourceManager.GetString("ZScoreIndDescription", resourceCulture);
+            }
+        }
+
+        public static string DiagonalImbalance {
+            get {
+                return ResourceManager.GetString("DiagonalImbalance", resourceCulture);
+            }
+        }
+
+        public static string DiagonalImbalancesFilters {
+            get {
+                return ResourceManager.GetString("DiagonalImbalancesFilters", resourceCulture);
+            }
+        }
+
+        public static string ImbalancesVisualization {
+            get {
+                return ResourceManager.GetString("ImbalancesVisualization", resourceCulture);
+            }
+        }
+
+        public static string MinVolumeDifference {
+            get {
+                return ResourceManager.GetString("MinVolumeDifference", resourceCulture);
+            }
+        }
+
+        public static string MinDominantVolume {
+            get {
+                return ResourceManager.GetString("MinDominantVolume", resourceCulture);
+            }
+        }
+
+        public static string ImbalanceStackedRange {
+            get {
+                return ResourceManager.GetString("ImbalanceStackedRange", resourceCulture);
+            }
+        }
+
+        public static string UseSeparateColors {
+            get {
+                return ResourceManager.GetString("UseSeparateColors", resourceCulture);
+            }
+        }
+
+        public static string BuyImbalanceColor {
+            get {
+                return ResourceManager.GetString("BuyImbalanceColor", resourceCulture);
+            }
+        }
+
+        public static string SellImbalanceColor {
+            get {
+                return ResourceManager.GetString("SellImbalanceColor", resourceCulture);
+            }
+        }
+
+        public static string ImbalanceRatioDescription {
+            get {
+                return ResourceManager.GetString("ImbalanceRatioDescription", resourceCulture);
+            }
+        }
+
+        public static string MinVolumeDifferenceDescription {
+            get {
+                return ResourceManager.GetString("MinVolumeDifferenceDescription", resourceCulture);
+            }
+        }
+
+        public static string MinDominantVolumeDescription {
+            get {
+                return ResourceManager.GetString("MinDominantVolumeDescription", resourceCulture);
+            }
+        }
+
+        public static string ImbalanceStackedRangeDescription {
+            get {
+                return ResourceManager.GetString("ImbalanceStackedRangeDescription", resourceCulture);
+            }
+        }
+
+        public static string UseSeparateColorsDescription {
+            get {
+                return ResourceManager.GetString("UseSeparateColorsDescription", resourceCulture);
+            }
+        }
+
+        public static string BuyImbalanceColorDescription {
+            get {
+                return ResourceManager.GetString("BuyImbalanceColorDescription", resourceCulture);
+            }
+        }
+
+        public static string SellImbalanceColorDescription {
+            get {
+                return ResourceManager.GetString("SellImbalanceColorDescription", resourceCulture);
+            }
+        }
+    }
+
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Labels.
+        /// </summary>
+        public static string Labels {
+            get {
+                return ResourceManager.GetString("Labels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Template.
+        /// </summary>
+        public static string LabelTemplate {
+            get {
+                return ResourceManager.GetString("LabelTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Prefixes.
+        /// </summary>
+        public static string Prefixes {
+            get {
+                return ResourceManager.GetString("Prefixes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Override label (optional).
+        /// </summary>
+        public static string OverrideLabel {
+            get {
+                return ResourceManager.GetString("OverrideLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Override color in schemes.
+        /// </summary>
+        public static string OverrideColorInSchemes {
+            get {
+                return ResourceManager.GetString("OverrideColorInSchemes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a If enabled, this line will use its own Color even when visual semantic schemes are active..
+        /// </summary>
+        public static string OverrideColorInSchemesDescription {
+            get {
+                return ResourceManager.GetString("OverrideColorInSchemesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a By period.
+        /// </summary>
+        public static string ByPeriod {
+            get {
+                return ResourceManager.GetString("ByPeriod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a By level type.
+        /// </summary>
+        public static string ByLevelType {
+            get {
+                return ResourceManager.GetString("ByLevelType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Visual semantic.
+        /// </summary>
+        public static string VisualSemantic {
+            get {
+                return ResourceManager.GetString("VisualSemantic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Mode.
+        /// </summary>
+        public static string VisualSemanticMode {
+            get {
+                return ResourceManager.GetString("VisualSemanticMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Preset.
+        /// </summary>
+        public static string VisualSemanticPreset {
+            get {
+                return ResourceManager.GetString("VisualSemanticPreset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Override width in schemes.
+        /// </summary>
+        public static string OverrideWidthInSchemes {
+            get {
+                return ResourceManager.GetString("OverrideWidthInSchemes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a If enabled, this level will use its own line width even when visual semantic schemes are active..
+        /// </summary>
+        public static string OverrideWidthInSchemesDescription {
+            get {
+                return ResourceManager.GetString("OverrideWidthInSchemesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Override line style in schemes.
+        /// </summary>
+        public static string OverrideStyleInSchemes {
+            get {
+                return ResourceManager.GetString("OverrideStyleInSchemes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a If enabled, this level will use its own line style even when visual semantic schemes are active..
+        /// </summary>
+        public static string OverrideStyleInSchemesDescription {
+            get {
+                return ResourceManager.GetString("OverrideStyleInSchemesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Visual Semantic – Level Palette.
+        /// </summary>
+        public static string VisualSemantic_LevelPalette {
+            get {
+                return ResourceManager.GetString("VisualSemantic_LevelPalette", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Visual Semantic – Period Palette.
+        /// </summary>
+        public static string VisualSemantic_PeriodPalette {
+            get {
+                return ResourceManager.GetString("VisualSemantic_PeriodPalette", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Legacy.
+        /// </summary>
+        public static string VisualMode_Legacy {
+            get {
+                return ResourceManager.GetString("VisualMode_Legacy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Ruleset.
+        /// </summary>
+        public static string VisualMode_Ruleset {
+            get {
+                return ResourceManager.GetString("VisualMode_Ruleset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Classic visualization without semantic rules..
+        /// </summary>
+        public static string VisualMode_Legacy_Description {
+            get {
+                return ResourceManager.GetString("VisualMode_Legacy_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Visualization driven by semantic rules and palettes..
+        /// </summary>
+        public static string VisualMode_Ruleset_Description {
+            get {
+                return ResourceManager.GetString("VisualMode_Ruleset_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a HVN.
+        /// </summary>
+        public static string HVN_Group {
+            get {
+                return ResourceManager.GetString("HVN_Group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a HVN color.
+        /// </summary>
+        public static string HVN_Color {
+            get {
+                return ResourceManager.GetString("HVN_Color", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a HVN threshold (%).
+        /// </summary>
+        public static string HVN_ThresholdPct {
+            get {
+                return ResourceManager.GetString("HVN_ThresholdPct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Gap tolerance (ticks).
+        /// </summary>
+        public static string HVN_GapToleranceTicks {
+            get {
+                return ResourceManager.GetString("HVN_GapToleranceTicks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Occlusion (ticks).
+        /// </summary>
+        public static string HVN_OcclusionTicks {
+            get {
+                return ResourceManager.GetString("HVN_OcclusionTicks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a A price level is considered HVN when its volume is at or above this percentage of the profile POC volume..
+        /// </summary>
+        public static string HVN_ThresholdPct_Description {
+            get {
+                return ResourceManager.GetString("HVN_ThresholdPct_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Allows small gaps (in ticks) inside an HVN band to keep nearby high-volume levels grouped..
+        /// </summary>
+        public static string HVN_GapToleranceTicks_Description {
+            get {
+                return ResourceManager.GetString("HVN_GapToleranceTicks_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Minimum vertical distance (in ticks) required between HVN bands of different periods to avoid visual overlap..
+        /// </summary>
+        public static string HVN_OcclusionTicks_Description {
+            get {
+                return ResourceManager.GetString("HVN_OcclusionTicks_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Enable HVN.
+        /// </summary>
+        public static string HVN_Enabled {
+            get {
+                return ResourceManager.GetString("HVN_Enabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a LVN.
+        /// </summary>
+        public static string LVN_Group {
+            get {
+                return ResourceManager.GetString("LVN_Group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a LVN Threshold (%).
+        /// </summary>
+        public static string LVN_ThresholdPct {
+            get {
+                return ResourceManager.GetString("LVN_ThresholdPct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a A price level is considered LVN when its volume is below this percentage of the profile POC volume..
+        /// </summary>
+        public static string LVN_ThresholdPct_Description {
+            get {
+                return ResourceManager.GetString("LVN_ThresholdPct_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Gap tolerance (ticks).
+        /// </summary>
+        public static string LVN_GapToleranceTicks {
+            get {
+                return ResourceManager.GetString("LVN_GapToleranceTicks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Allows small gaps (in ticks) inside an LVN band to keep nearby low-volume levels grouped..
+        /// </summary>
+        public static string LVN_GapToleranceTicks_Description {
+            get {
+                return ResourceManager.GetString("LVN_GapToleranceTicks_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Occlusion (ticks).
+        /// </summary>
+        public static string LVN_OcclusionTicks {
+            get {
+                return ResourceManager.GetString("LVN_OcclusionTicks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Minimum vertical distance (in ticks) required between LVN bands of different periods to avoid visual overlap..
+        /// </summary>
+        public static string LVN_OcclusionTicks_Description {
+            get {
+                return ResourceManager.GetString("LVN_OcclusionTicks_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Enable LVN.
+        /// </summary>
+        public static string LVN_Enabled {
+            get {
+                return ResourceManager.GetString("LVN_Enabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a LVN color.
+        /// </summary>
+        public static string LVN_Color {
+            get {
+                return ResourceManager.GetString("LVN_Color", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Min POC volume for LVN.
+        /// </summary>
+        public static string LVN_MinPocVol {
+            get {
+                return ResourceManager.GetString("LVN_MinPocVol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Do not compute LVN bands until the profile POC volume reaches this value. Prevents LVN noise early in the period..
+        /// </summary>
+        public static string LVN_MinPocVol_Description {
+            get {
+                return ResourceManager.GetString("LVN_MinPocVol_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Tail filter (ticks).
+        /// </summary>
+        public static string LVN_TailFilterMinTicks {
+            get {
+                return ResourceManager.GetString("LVN_TailFilterMinTicks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Excludes low-volume tail areas near the high and low of the profile from LVN detection..
+        /// </summary>
+        public static string LVN_TailFilterMinTicks_Description {
+            get {
+                return ResourceManager.GetString("LVN_TailFilterMinTicks_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Tail Filter (% of Range).
+        /// </summary>
+        public static string LVN_TailFilterRangePct {
+            get {
+                return ResourceManager.GetString("LVN_TailFilterRangePct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Excludes low-volume tail areas near the high and low of the profile from LVN detection, using a percentage of the profile range. (0 = disabled)..
+        /// </summary>
+        public static string LVN_TailFilterRangePct_Description {
+            get {
+                return ResourceManager.GetString("LVN_TailFilterRangePct_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Color used to display profitable trades..
+        /// </summary>
+        public static string ProfitColorDescription {
+            get {
+                return ResourceManager.GetString("ProfitColorDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Color used to display losing trades..
+        /// </summary>
+        public static string LossColorDescription {
+            get {
+                return ResourceManager.GetString("LossColorDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Hide.
+        /// </summary>
+        public static string LabelDisplayModeHide {
+            get {
+                return ResourceManager.GetString("LabelDisplayModeHide", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Short.
+        /// </summary>
+        public static string LabelDisplayModeShort {
+            get {
+                return ResourceManager.GetString("LabelDisplayModeShort", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Full.
+        /// </summary>
+        public static string LabelDisplayModeFull {
+            get {
+                return ResourceManager.GetString("LabelDisplayModeFull", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Card.
+        /// </summary>
+        public static string LabelDisplayModeCard {
+            get {
+                return ResourceManager.GetString("LabelDisplayModeCard", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Long.
+        /// </summary>
+        public static string TradeDirectionLong {
+            get {
+                return ResourceManager.GetString("TradeDirectionLong", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Short.
+        /// </summary>
+        public static string TradeDirectionShort {
+            get {
+                return ResourceManager.GetString("TradeDirectionShort", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Entry.
+        /// </summary>
+        public static string TradeEntry {
+            get {
+                return ResourceManager.GetString("TradeEntry", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Exit.
+        /// </summary>
+        public static string TradeExit {
+            get {
+                return ResourceManager.GetString("TradeExit", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Result.
+        /// </summary>
+        public static string TradeResult {
+            get {
+                return ResourceManager.GetString("TradeResult", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a PnL.
+        /// </summary>
+        public static string TradePnL {
+            get {
+                return ResourceManager.GetString("TradePnL", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a In.
+        /// </summary>
+        public static string TradeIn {
+            get {
+                return ResourceManager.GetString("TradeIn", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Out.
+        /// </summary>
+        public static string TradeOut {
+            get {
+                return ResourceManager.GetString("TradeOut", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a ticks.
+        /// </summary>
+        public static string TradeTicks {
+            get {
+                return ResourceManager.GetString("TradeTicks", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a t.
+        /// </summary>
+        public static string TradeTicksShort {
+            get {
+                return ResourceManager.GetString("TradeTicksShort", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Label distance.
+        /// </summary>
+        public static string LabelDistance {
+            get {
+                return ResourceManager.GetString("LabelDistance", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Vertical spacing between trade markers and labels (px)..
+        /// </summary>
+        public static string LabelDistanceDescription {
+            get {
+                return ResourceManager.GetString("LabelDistanceDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Label centering.
+        /// </summary>
+        public static string LabelXAnchor {
+            get {
+                return ResourceManager.GetString("LabelXAnchor", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Defines the horizontal reference used to position trade labels..
+        /// </summary>
+        public static string LabelXAnchorDescription {
+            get {
+                return ResourceManager.GetString("LabelXAnchorDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Close bar.
+        /// </summary>
+        public static string LabelXAnchorCloseBar {
+            get {
+                return ResourceManager.GetString("LabelXAnchorCloseBar", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Trade midpoint.
+        /// </summary>
+        public static string LabelXAnchorMidpoint {
+            get {
+                return ResourceManager.GetString("LabelXAnchorMidpoint", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Label mode.
+        /// </summary>
+        public static string LabelMode {
+            get {
+                return ResourceManager.GetString("LabelMode", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Selects how trade labels are displayed..
+        /// </summary>
+        public static string LabelModeDescription {
+            get {
+                return ResourceManager.GetString("LabelModeDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Lines and markers.
+        /// </summary>
+        public static string LinesAndMarkers {
+            get {
+                return ResourceManager.GetString("LinesAndMarkers", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Details.
+        /// </summary>
+        public static string DetailsGroup {
+            get {
+                return ResourceManager.GetString("DetailsGroup", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Trade line.
+        /// </summary>
+        public static string TradeLine {
+            get {
+                return ResourceManager.GetString("TradeLine", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Draws a line connecting entry and exit markers..
+        /// </summary>
+        public static string TradeLineDescription {
+            get {
+                return ResourceManager.GetString("TradeLineDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Shows trade details when hovering markers or labels..
+        /// </summary>
+        public static string TradeDetailsDescription {
+            get {
+                return ResourceManager.GetString("TradeDetailsDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Buy color.
+        /// </summary>
+        public static string TradeBuyColor {
+            get {
+                return ResourceManager.GetString("TradeBuyColor", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Sell color.
+        /// </summary>
+        public static string TradeSellColor {
+            get {
+                return ResourceManager.GetString("TradeSellColor", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Marker size.
+        /// </summary>
+        public static string MarkerSize {
+            get {
+                return ResourceManager.GetString("MarkerSize", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Busca una cadena traducida similar a Size of entry/exit markers..
+        /// </summary>
+        public static string MarkerSizeDescription {
+            get {
+                return ResourceManager.GetString("MarkerSizeDescription", resourceCulture);
             }
         }
     }
