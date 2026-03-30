@@ -42,7 +42,10 @@ namespace ATAS.Indicators.Technical
             ShowTooltip = false,
             UseMinimizedModeIfEnabled = true,
             ResetAlertsOnNewBar = true,
+            #if !ATAS_STABLE && !ATAS_BETA
+            // HideZeroCandles not available in Stable or Beta.
             HideZeroCandles = true
+            #endif
         };
 
         private readonly CandleDataSeries _oi = new("Oi", "OI")
@@ -50,7 +53,10 @@ namespace ATAS.Indicators.Technical
             UseMinimizedModeIfEnabled = true,
             ResetAlertsOnNewBar = true,
             DescriptionKey = nameof(Strings.OISettingsDescription),
+            #if !ATAS_STABLE && !ATAS_BETA
+            // HideZeroCandles not available in Stable or Beta.
             HideZeroCandles = true
+            #endif
         };
 
         private int _lastBar = -1;
@@ -61,7 +67,7 @@ namespace ATAS.Indicators.Technical
         private OpenInterestMode _mode = OpenInterestMode.ByBar;
         private decimal _changeSize;
 
-        #endregion
+#endregion
 
         #region Properties
 
@@ -284,12 +290,15 @@ namespace ATAS.Indicators.Technical
 
         private void UpdateTooltipSettings()
         {
+            #if ATAS_ALPHA
+            // Available only in newer SDK builds; skipped for older flavors.
             _oi.HideOpenCloseLabels = _mode is OpenInterestMode.ByBar;
             _oi.TooltipAnchor = _mode is OpenInterestMode.ByBar && _minimizedMode
                 ? CandleTooltipAnchor.Top
                 : CandleTooltipAnchor.Close;
+            #endif
         }
 
-        #endregion
+#endregion
     }
 }
