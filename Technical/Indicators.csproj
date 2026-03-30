@@ -5,10 +5,15 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <LangVersion>latest</LangVersion>
     <SignAssembly>true</SignAssembly>
-    <Configurations>Debug;Release;Publish</Configurations>
+    <Configurations>ATAS_X_Alpha;ATAS_X_Beta;Alpha;Beta;Latest;Stable</Configurations>
     <Platforms>AnyCPU;Cross</Platforms>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <IntermediateOutputPath>obj\$(Configuration)\$(Platform)\</IntermediateOutputPath>
+  </PropertyGroup>
+
+  <!-- Platform split: Cross = ATAS X (no WPF, net10.0), AnyCPU = Windows (WPF enabled) -->
   <PropertyGroup Condition=" '$(Platform)' == 'Cross' ">
     <UseWPF>False</UseWPF>
     <DefineConstants>$(DefineConstants);CROSS_PLATFORM</DefineConstants>
@@ -17,66 +22,91 @@
 
   <PropertyGroup Condition=" '$(Platform)' != 'Cross' ">
     <UseWPF>True</UseWPF>
-    <TargetFramework>net10.0-windows</TargetFramework>
     <NoWarn>$(NoWarn);CA1416</NoWarn>
   </PropertyGroup>
-	
-  <PropertyGroup Condition=" '$(Configuration)' == 'Publish' ">
-    <Optimize Condition=" '$(Optimize)' == '' ">true</Optimize>
-  </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Platform)' == 'Cross' ">
-    <ATAS_BASE>C:\Program Files\ATAS X</ATAS_BASE>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(Platform)' != 'Cross' ">
+  <!-- Configuration flavors: install path, assembly name, define constants, target framework -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Alpha'">
+    <DefineConstants>$(DefineConstants);ATAS_ALPHA</DefineConstants>
     <ATAS_BASE>C:\Program Files (x86)\ATAS Platform</ATAS_BASE>
+    <AssemblyName>Indicators_Alpha</AssemblyName>
+    <TargetFramework>net10.0-windows</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Beta'">
+    <DefineConstants>$(DefineConstants);ATAS_BETA</DefineConstants>
+    <ATAS_BASE>C:\Program Files (x86)\ATAS Platform beta</ATAS_BASE>
+    <AssemblyName>Indicators_Beta</AssemblyName>
+    <TargetFramework>net10.0-windows</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Latest'">
+    <DefineConstants>$(DefineConstants);ATAS_LATEST</DefineConstants>
+    <ATAS_BASE>C:\Program Files (x86)\ATAS Platform latest</ATAS_BASE>
+    <AssemblyName>Indicators_Latest</AssemblyName>
+    <TargetFramework>net10.0-windows</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Stable'">
+    <DefineConstants>$(DefineConstants);ATAS_STABLE</DefineConstants>
+    <ATAS_BASE>C:\Program Files (x86)\ATAS Platform stable</ATAS_BASE>
+    <AssemblyName>Indicators_Stable</AssemblyName>
+    <TargetFramework>net8.0-windows</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'ATAS_X_Alpha'">
+    <DefineConstants>$(DefineConstants);ATAS_X_ALPHA</DefineConstants>
+    <ATAS_BASE>C:\Program Files\ATAS X</ATAS_BASE>
+    <AssemblyName>Indicators_X_Alpha</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'ATAS_X_Beta'">
+    <DefineConstants>$(DefineConstants);ATAS_X_BETA</DefineConstants>
+    <ATAS_BASE>C:\Program Files\ATAS X beta</ATAS_BASE>
+    <AssemblyName>Indicators_X_Beta</AssemblyName>
   </PropertyGroup>
 
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk.WindowsDesktop" Condition=" '$(Platform)' != 'Cross' " />
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk.WindowsDesktop" Condition=" '$(Platform)' != 'Cross' " />
 
-	<ItemGroup>
-		<Reference Include="OFT.Attributes">
-			<HintPath>$(ATAS_BASE)\OFT.Attributes.dll</HintPath>
-		</Reference>
-		<Reference Include="OFT.Editors" Condition=" '$(Platform)' != 'Cross' ">
-			<HintPath>$(ATAS_BASE)\OFT.Editors.dll</HintPath>
-		</Reference>
-
-		<Reference Include="ATAS.DataFeedsCore">
-			<HintPath>$(ATAS_BASE)\ATAS.DataFeedsCore.dll</HintPath>
-		</Reference>
-		<Reference Include="ATAS.Indicators">
-			<HintPath>$(ATAS_BASE)\ATAS.Indicators.dll</HintPath>
-		</Reference>
-		<Reference Include="OFT.Rendering">
-			<HintPath>$(ATAS_BASE)\OFT.Rendering.dll</HintPath>
-		</Reference>
-		<Reference Include="Utils.Common">
-			<HintPath>$(ATAS_BASE)\Utils.Common.dll</HintPath>
-		</Reference>
-		<Reference Include="Utils.Windows" Condition=" '$(Platform)' != 'Cross' ">
-			<HintPath>$(ATAS_BASE)\Utils.Windows.dll</HintPath>
-		</Reference>
-		<Reference Include="OFT.Localization">
-			<HintPath>$(ATAS_BASE)\OFT.Localization.dll</HintPath>
-		</Reference>
-		<Reference Include="DevExpress.Data.v25.2" Condition=" '$(Platform)' != 'Cross' ">
-			<HintPath>$(ATAS_BASE)\DevExpress.Data.v25.2.dll</HintPath>
-		</Reference>
-		<Reference Include="Avalonia" Condition=" '$(Platform)' == 'Cross' ">
-			<HintPath>$(ATAS_BASE)\Avalonia.Base.dll</HintPath>
-		</Reference>
-	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="System.Drawing.Common" Version="10.0.0" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-	</ItemGroup>
-  <ItemGroup Condition=" '$(Platform)' != 'Cross' ">
-	  <Compile Remove="**\*.Common.cs" />
-	  <None Include="**\*.Common.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+  <ItemGroup>
+    <Reference Include="OFT.Attributes">
+      <HintPath>$(ATAS_BASE)\OFT.Attributes.dll</HintPath>
+    </Reference>
+    <Reference Include="OFT.Editors" Condition=" '$(Platform)' != 'Cross' ">
+      <HintPath>$(ATAS_BASE)\OFT.Editors.dll</HintPath>
+    </Reference>
+    <Reference Include="ATAS.DataFeedsCore">
+      <HintPath>$(ATAS_BASE)\ATAS.DataFeedsCore.dll</HintPath>
+    </Reference>
+    <Reference Include="ATAS.Indicators">
+      <HintPath>$(ATAS_BASE)\ATAS.Indicators.dll</HintPath>
+    </Reference>
+    <Reference Include="OFT.Rendering">
+      <HintPath>$(ATAS_BASE)\OFT.Rendering.dll</HintPath>
+    </Reference>
+    <Reference Include="Utils.Common">
+      <HintPath>$(ATAS_BASE)\Utils.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Utils.Windows" Condition=" '$(Platform)' != 'Cross' ">
+      <HintPath>$(ATAS_BASE)\Utils.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="OFT.Localization">
+      <HintPath>$(ATAS_BASE)\OFT.Localization.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Data.v25.2" Condition=" '$(Platform)' != 'Cross' ">
+      <HintPath>$(ATAS_BASE)\DevExpress.Data.v25.2.dll</HintPath>
+    </Reference>
+    <Reference Include="Avalonia" Condition=" '$(Platform)' == 'Cross' ">
+      <HintPath>$(ATAS_BASE)\Avalonia.Base.dll</HintPath>
+    </Reference>
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="10.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -84,6 +114,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
+
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -91,16 +122,32 @@
     </EmbeddedResource>
   </ItemGroup>
 
-  <!-- File exclusions -->
+  <!-- File exclusions by platform -->
   <ItemGroup Condition=" '$(Platform)' == 'Cross' ">
     <Compile Remove="**\*.Windows.cs" />
     <None Include="**\*.Windows.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
-
     <Compile Remove="**\*.xaml.cs" />
     <None Include="**\*.xaml.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
-
     <Compile Remove="**\*.xaml" />
     <None Include="**\*.xaml" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
   </ItemGroup>
+
+  <ItemGroup Condition=" '$(Platform)' != 'Cross' ">
+    <Compile Remove="**\*.Common.cs" />
+    <None Include="**\*.Common.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+  </ItemGroup>
+
+  <!-- Guard: ATAS_X configs require Cross platform, and vice versa -->
+  <PropertyGroup>
+    <IsAtasX Condition="'$(Configuration)' == 'ATAS_X_Alpha' Or '$(Configuration)' == 'ATAS_X_Beta'">true</IsAtasX>
+    <IsAtasX Condition="'$(IsAtasX)' == ''">false</IsAtasX>
+  </PropertyGroup>
+
+  <Target Name="ValidateConfigurationPlatform" BeforeTargets="PrepareForBuild">
+    <Error Condition="'$(IsAtasX)' == 'true' And '$(Platform)' != 'Cross'"
+           Text="ATAS_X configurations must be built with Platform=Cross." />
+    <Error Condition="'$(IsAtasX)' != 'true' And '$(Platform)' == 'Cross'"
+           Text="Cross platform is only valid for ATAS_X configurations." />
+  </Target>
 
 </Project>
