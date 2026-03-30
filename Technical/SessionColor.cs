@@ -12,6 +12,8 @@ namespace ATAS.Indicators.Technical
 
 	using Newtonsoft.Json;
 
+	using ATAS.Indicators.Technical.Properties;
+
 	using OFT.Attributes;
 	using OFT.Attributes.Editors;
 	using OFT.Localization;
@@ -113,10 +115,10 @@ namespace ATAS.Indicators.Technical
 				set => SetProperty(ref _showArea, value);
 			}
 
-			[Display(ResourceType = typeof(Strings),
-				Name = nameof(Strings.FitToPriceRange),
-				GroupName = nameof(Strings.Settings),
-				Description = nameof(Strings.FitToPriceRangeDescription),
+			[Display(ResourceType = typeof(Resources),
+				Name = nameof(Resources.FitToPriceRange),
+				GroupName = nameof(Resources.Settings),
+				Description = nameof(Resources.FitToPriceRangeDescription),
 				Order = 25)]
 			public bool FitToPriceRange
 			{
