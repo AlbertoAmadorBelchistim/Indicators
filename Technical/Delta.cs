@@ -1,7 +1,5 @@
 namespace ATAS.Indicators.Technical;
 
-using ATAS.Indicators.Technical.Properties;
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -284,203 +282,359 @@ public class Delta : Indicator
 
 	#endregion
 
-    #region Properties
+	#region Fields (price signals)
 
-    #region Visualization
+	private readonly ValueDataSeries _priceSignalUp = new("PriceSignalUp", "Price Signal Up")
+	{
+		VisualType = VisualMode.Hide,
+		IsHidden = true,
+		UseMinimizedModeIfEnabled = true,
+		IgnoredByAlerts = true,
+		ShowCurrentValue = false
+	};
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VisualMode), GroupName = nameof(Strings.Visualization),
-        Description = nameof(Strings.VisualModeDescription), Order = 10)]
-    public DeltaVisualMode Mode
-    {
-        get => _mode;
-        set
-        {
-            _mode = value;
+	private readonly ValueDataSeries _priceSignalDown = new("PriceSignalDown", "Price Signal Down")
+	{
+		VisualType = VisualMode.Hide,
+		IsHidden = true,
+		UseMinimizedModeIfEnabled = true,
+		IgnoredByAlerts = true,
+		ShowCurrentValue = false
+	};
 
-            if (_mode == DeltaVisualMode.Histogram)
-            {
-                _delta.VisualType = VisualMode.Histogram;
-                _diapasonHigh.VisualType = VisualMode.Hide;
-                _diapasonLow.VisualType = VisualMode.Hide;
-                _candles.Visible = _downCandles.Visible = false;
-                _divergenceCandles.Visible = _divergenceDownCandles.Visible = false;
-            }
-            else if (_mode == DeltaVisualMode.HighLow)
-            {
-                _delta.VisualType = VisualMode.Histogram;
-                _diapasonHigh.VisualType = VisualMode.Histogram;
-                _diapasonLow.VisualType = VisualMode.Histogram;
-                _candles.Visible = _downCandles.Visible = false;
-                _divergenceCandles.Visible = _divergenceDownCandles.Visible = false;
-            }
-            else if (_mode == DeltaVisualMode.Candles)
-            {
-                _delta.VisualType = VisualMode.Hide;
-                _diapasonHigh.VisualType = VisualMode.Hide;
-                _diapasonLow.VisualType = VisualMode.Hide;
-                _candles.Visible = _downCandles.Visible = true;
-                _candles.Mode = _downCandles.Mode = CandleVisualMode.Candles;
-                _divergenceCandles.Mode = _divergenceDownCandles.Mode = CandleVisualMode.Candles;
-            }
-            else
-            {
-                _delta.VisualType = VisualMode.Hide;
-                _diapasonHigh.VisualType = VisualMode.Hide;
-                _diapasonLow.VisualType = VisualMode.Hide;
-                _candles.Visible = _downCandles.Visible = true;
-                _candles.Mode = _downCandles.Mode = CandleVisualMode.Bars;
-                _divergenceCandles.Mode = _divergenceDownCandles.Mode = CandleVisualMode.Bars;
-            }
+	private bool _visualEnabled = true;
+	private int _priceSignalOffsetTicks = 2;
+	private int _priceSignalSize = 10;
+	private Color _priceSignalUpColor = Color.Lime;
+	private Color _priceSignalDownColor = Color.Fuchsia;
 
-            RaisePropertyChanged("Mode");
-            RecalculateValues();
+	#endregion
+
+	#region Fields (audio alerts)
+
+	private bool _audioEnabled;
+	private bool _audioAtBarCloseOnly = true;
+	private int _alertCooldownBars = 3;
+
+	private ThresholdLevel _audioUpLevel = ThresholdLevel.Major;
+	private ThresholdLevel _audioDownLevel = ThresholdLevel.Major;
+
+	private int _lastBarAudioUpAlert;
+	private int _lastBarAudioDownAlert;
+
+	#endregion
+
+	#endregion
+
+	#region Properties
+
+	#region Visualization
+
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.VisualMode), GroupName = nameof(Strings.Visualization),
+		Description = nameof(Strings.VisualModeDescription), Order = 10)]
+	public DeltaVisualMode Mode
+	{
+		get => _mode;
+		set
+		{
+			_mode = value;
+
+			if (_mode == DeltaVisualMode.Histogram)
+			{
+				_delta.VisualType = VisualMode.Histogram;
+				_diapasonHigh.VisualType = VisualMode.Hide;
+				_diapasonLow.VisualType = VisualMode.Hide;
+				_candles.Visible = _downCandles.Visible = false;
+				_divergenceCandles.Visible = _divergenceDownCandles.Visible = false;
+			}
+			else if (_mode == DeltaVisualMode.HighLow)
+			{
+				_delta.VisualType = VisualMode.Histogram;
+				_diapasonHigh.VisualType = VisualMode.Histogram;
+				_diapasonLow.VisualType = VisualMode.Histogram;
+				_candles.Visible = _downCandles.Visible = false;
+				_divergenceCandles.Visible = _divergenceDownCandles.Visible = false;
+			}
+			else if (_mode == DeltaVisualMode.Candles)
+			{
+				_delta.VisualType = VisualMode.Hide;
+				_diapasonHigh.VisualType = VisualMode.Hide;
+				_diapasonLow.VisualType = VisualMode.Hide;
+				_candles.Visible = _downCandles.Visible = true;
+				_candles.Mode = _downCandles.Mode = CandleVisualMode.Candles;
+				_divergenceCandles.Mode = _divergenceDownCandles.Mode = CandleVisualMode.Candles;
+			}
+			else
+			{
+				_delta.VisualType = VisualMode.Hide;
+				_diapasonHigh.VisualType = VisualMode.Hide;
+				_diapasonLow.VisualType = VisualMode.Hide;
+				_candles.Visible = _downCandles.Visible = true;
+				_candles.Mode = _downCandles.Mode = CandleVisualMode.Bars;
+				_divergenceCandles.Mode = _divergenceDownCandles.Mode = CandleVisualMode.Bars;
+			}
+
+			RaisePropertyChanged("Mode");
+			RecalculateValues();
 
 			ApplyDivergenceColorsToCurrentMode();
-            UpdateDivergenceCandlesVisibility();
-        }
-    }
-
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.MinimizedMode), GroupName = nameof(Strings.Visualization),
-        Description = nameof(Strings.HistogramMinimizedModeDescription), Order = 20)]
-
-    public bool MinimizedMode
-    {
-        get => _minimizedMode;
-        set
-        {
-            _minimizedMode = value;
-            RaisePropertyChanged("MinimizedMode");
-            RecalculateValues();
 			UpdateDivergenceCandlesVisibility();
-        }
-    }
+		}
+	}
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowCurrentValue), GroupName = nameof(Strings.Visualization),
-        Description = nameof(Strings.ShowCurrentValueDescription), Order = 30)]
-    public bool ShowCurrentValues
-    {
-        get => _showCurrentValues;
-        set
-        {
-            _showCurrentValues = value;
-            _currentValues.ShowCurrentValue = value;
-        }
-    }
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.MinimizedMode), GroupName = nameof(Strings.Visualization),
+		Description = nameof(Strings.HistogramMinimizedModeDescription), Order = 20)]
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BullishColor), GroupName = nameof(Strings.Drawing),
-        Description = nameof(Strings.PositiveValueColorDescription), Order = 40)]
-    public CrossColor UpColor
-    {
-        get => _upColor.Convert();
-        set
-        {
-            _upColor = value.Convert();
-            _candles.UpCandleColor = value;
-            _upSeries.Color = value;
-        }
-    }
+	public bool MinimizedMode
+	{
+		get => _minimizedMode;
+		set
+		{
+			_minimizedMode = value;
+			RaisePropertyChanged("MinimizedMode");
+			RecalculateValues();
+			UpdateDivergenceCandlesVisibility();
+		}
+	}
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BearlishColor), GroupName = nameof(Strings.Drawing),
-        Description = nameof(Strings.NegativeValueColorDescription), Order = 50)]
-    public CrossColor DownColor
-    {
-        get => _downColor.Convert();
-        set
-        {
-            _downColor = value.Convert();
-            _candles.DownCandleColor = value;
-            _downCandles.UpCandleColor = value;
-            _downSeries.Color = value;
-        }
-    }
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowCurrentValue), GroupName = nameof(Strings.Visualization),
+		Description = nameof(Strings.ShowCurrentValueDescription), Order = 30)]
+	public bool ShowCurrentValues
+	{
+		get => _showCurrentValues;
+		set
+		{
+			_showCurrentValues = value;
+			_currentValues.ShowCurrentValue = value;
+		}
+	}
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.NeutralBorderColor), GroupName = nameof(Strings.Drawing),
-        Description = nameof(Strings.NeutralValueDescription), Order = 60)]
-    public CrossColor NeutralColor
-    {
-        get => _neutralColor.Convert();
-        set
-        {
-            _neutralColor = value.Convert();
-            _candles.BorderColor = _downCandles.BorderColor = value;
-            _diapasonHigh.Color = _diapasonLow.Color = value;
-        }
-    }
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.BullishColor), GroupName = nameof(Strings.Drawing),
+		Description = nameof(Strings.PositiveValueColorDescription), Order = 40)]
+	public CrossColor UpColor
+	{
+		get => _upColor.Convert();
+		set
+		{
+			_upColor = value.Convert();
+			_candles.UpCandleColor = value;
+			_upSeries.Color = value;
+		}
+	}
 
-    #endregion
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.BearlishColor), GroupName = nameof(Strings.Drawing),
+		Description = nameof(Strings.NegativeValueColorDescription), Order = 50)]
+	public CrossColor DownColor
+	{
+		get => _downColor.Convert();
+		set
+		{
+			_downColor = value.Convert();
+			_candles.DownCandleColor = value;
+			_downCandles.UpCandleColor = value;
+			_downSeries.Color = value;
+		}
+	}
 
-    #region Filters
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.NeutralBorderColor), GroupName = nameof(Strings.Drawing),
+		Description = nameof(Strings.NeutralValueDescription), Order = 60)]
+	public CrossColor NeutralColor
+	{
+		get => _neutralColor.Convert();
+		set
+		{
+			_neutralColor = value.Convert();
+			_candles.BorderColor = _downCandles.BorderColor = value;
+			_diapasonHigh.Color = _diapasonLow.Color = value;
+		}
+	}
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BarsDirection), GroupName = nameof(Strings.Filters),
-        Description = nameof(Strings.BarDirectionDescription), Order = 100)]
-    public BarDirection BarsDirection
-    {
-        get => _barDirection;
-        set
-        {
-            _barDirection = value;
-            RecalculateValues();
-        }
-    }
+	#endregion
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.DeltaType), GroupName = nameof(Strings.Filters),
-        Description = nameof(Strings.DeltaTypeDescription), Order = 110)]
-    public DeltaType DeltaTypes
-    {
-        get => _deltaType;
-        set
-        {
-            _deltaType = value;
-            RecalculateValues();
-        }
-    }
+	#region Filters
 
-    [Parameter]
-    [Range(0, int.MaxValue)]
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.Filters),
-        Description = nameof(Strings.MinDeltaVolumeFilterCommonDescription), Order = 120)]
-    public decimal Filter
-    {
-        get => _filter;
-        set
-        {
-            _filter = value;
-            RecalculateValues();
-        }
-    }
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.BarsDirection), GroupName = nameof(Strings.Filters),
+		Description = nameof(Strings.BarDirectionDescription), Order = 100)]
+	public BarDirection BarsDirection
+	{
+		get => _barDirection;
+		set
+		{
+			_barDirection = value;
+			RecalculateValues();
+		}
+	}
 
-    #endregion
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.DeltaType), GroupName = nameof(Strings.Filters),
+		Description = nameof(Strings.DeltaTypeDescription), Order = 110)]
+	public DeltaType DeltaTypes
+	{
+		get => _deltaType;
+		set
+		{
+			_deltaType = value;
+			RecalculateValues();
+		}
+	}
 
-    #region Divergence
+	[Parameter]
+	[Range(0, int.MaxValue)]
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.Filters),
+		Description = nameof(Strings.MinDeltaVolumeFilterCommonDescription), Order = 120)]
+	public decimal Filter
+	{
+		get => _filter;
+		set
+		{
+			_filter = value;
+			RecalculateValues();
+		}
+	}
 
-    private Indicators.FilterColor _divergenceBarsFilter = new(true) { Enabled = false, Value = CrossColor.FromArgb(255, 255, 165, 0) };
+	#endregion
 
-    [Display(ResourceType = typeof(Strings), Name = "DivergenceDots", GroupName = nameof(Strings.Divergence),
-        Description = nameof(Strings.BarDirVsDeltaDivergenceDescription), Order = 130)]
-    public bool ShowDivergence { get; set; }
+	#region Divergence
 
-    [Display(ResourceType = typeof(Strings), Name = "DivergenceBars", GroupName = nameof(Strings.Divergence), Order = 135)]
-    public Indicators.FilterColor DivergenceBarsFilter
-    {
-        get => _divergenceBarsFilter;
-        set
-        {
-            if (_divergenceBarsFilter == value)
-                return;
+	private Indicators.FilterColor _divergenceBarsFilter = new(true) { Enabled = false, Value = CrossColor.FromArgb(255, 255, 165, 0) };
 
-            if (_divergenceBarsFilter != null)
-                _divergenceBarsFilter.PropertyChanged -= OnDivergenceFilterChanged;
+	[Display(ResourceType = typeof(Strings), Name = "DivergenceDots", GroupName = nameof(Strings.Divergence),
+		Description = nameof(Strings.BarDirVsDeltaDivergenceDescription), Order = 130)]
+	public bool ShowDivergence { get; set; }
 
-            _divergenceBarsFilter = value;
+	[Display(ResourceType = typeof(Strings), Name = "DivergenceBars", GroupName = nameof(Strings.Divergence), Order = 135)]
+	public Indicators.FilterColor DivergenceBarsFilter
+	{
+		get => _divergenceBarsFilter;
+		set
+		{
+			if (_divergenceBarsFilter == value)
+				return;
 
-            if (_divergenceBarsFilter != null)
-                _divergenceBarsFilter.PropertyChanged += OnDivergenceFilterChanged;
+			if (_divergenceBarsFilter != null)
+				_divergenceBarsFilter.PropertyChanged -= OnDivergenceFilterChanged;
 
-            RaisePropertyChanged(nameof(DivergenceBarsFilter));
-        }
-    }
+			_divergenceBarsFilter = value;
 
-    #endregion
+			if (_divergenceBarsFilter != null)
+				_divergenceBarsFilter.PropertyChanged += OnDivergenceFilterChanged;
+
+			RaisePropertyChanged(nameof(DivergenceBarsFilter));
+		}
+	}
+
+	#endregion
+
+	#region Visual threshold selection
+
+	[Display(Name = "Visual up level", Description = "Threshold level used for bullish visual alerts.",
+		GroupName = "Alerts", Order = 293)]
+	public ThresholdLevel VisualUpLevel
+	{
+		get => _visualUpLevel;
+		set
+		{
+			if (_visualUpLevel == value)
+				return;
+
+			_visualUpLevel = value;
+			RedrawChart();
+		}
+	}
+
+	[Display(Name = "Visual down level", Description = "Threshold level used for bearish visual alerts.",
+		GroupName = "Alerts", Order = 294)]
+	public ThresholdLevel VisualDownLevel
+	{
+		get => _visualDownLevel;
+		set
+		{
+			if (_visualDownLevel == value)
+				return;
+
+			_visualDownLevel = value;
+			RedrawChart();
+		}
+	}
+
+	#endregion
+
+	#region Audio alerts
+
+	[Display(Name = "Audio alerts", Description = "Play sound when delta crosses a threshold.",
+		GroupName = "Alerts", Order = 301)]
+	public bool AudioEnabled
+	{
+		get => _audioEnabled;
+		set
+		{
+			if (_audioEnabled == value)
+				return;
+
+			_audioEnabled = value;
+			RedrawChart();
+		}
+	}
+
+	[Display(Name = "Audio up level", Description = "Threshold level used for bullish audio alerts.",
+		GroupName = "Alerts", Order = 302)]
+	public ThresholdLevel AudioUpLevel
+	{
+		get => _audioUpLevel;
+		set
+		{
+			if (_audioUpLevel == value)
+				return;
+
+			_audioUpLevel = value;
+			RedrawChart();
+		}
+	}
+
+	[Display(Name = "Audio down level", Description = "Threshold level used for bearish audio alerts.",
+		GroupName = "Alerts", Order = 303)]
+	public ThresholdLevel AudioDownLevel
+	{
+		get => _audioDownLevel;
+		set
+		{
+			if (_audioDownLevel == value)
+				return;
+
+			_audioDownLevel = value;
+			RedrawChart();
+		}
+	}
+
+	[Display(Name = "Audio at bar close", Description = "Trigger audio alerts only after the bar closes.",
+		GroupName = "Alerts", Order = 304)]
+	public bool AudioAtBarCloseOnly
+	{
+		get => _audioAtBarCloseOnly;
+		set
+		{
+			if (_audioAtBarCloseOnly == value)
+				return;
+
+			_audioAtBarCloseOnly = value;
+		}
+	}
+
+	[Display(Name = "Alert cooldown (bars)", Description = "Minimum bars between repeated audio alerts on the same side.",
+		GroupName = "Alerts", Order = 305)]
+	[Range(0, 100)]
+	public int AlertCooldownBars
+	{
+		get => _alertCooldownBars;
+		set
+		{
+			if (_alertCooldownBars == value)
+				return;
+
+			_alertCooldownBars = value;
+		}
+	}
+
+	#endregion
 
 	#region Threshold lines (fixed)
 
@@ -566,183 +720,224 @@ public class Delta : Indicator
 
 	#endregion
 
-	#region Visual threshold selection
+	#region Absorption
 
-	[Display(Name = "Visual up level", Description = "Threshold level used for bullish visual alerts.",
-		GroupName = "Alerts", Order = 293)]
-	public ThresholdLevel VisualUpLevel
+	private readonly CandleDataSeries _absorptionCandles = new("AbsorptionDotsCandles", "Absorption Dots")
 	{
-		get => _visualUpLevel;
+		UpCandleColor = Color.Green.Convert(),
+		DownCandleColor = Color.Red.Convert(),
+		BorderColor = CrossColor.FromArgb(0, 0, 0, 0),
+		IsHidden = false,
+		UseMinimizedModeIfEnabled = true,
+		ShowCurrentValue = false
+	};
+
+	private int _absorptionThreshold = 250;
+
+	private FilterInt _absorption = new(true) { Enabled = false, Value = 250 };
+
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Absorption), GroupName = nameof(Strings.Absorption),
+		Description = "AbsorptionThresholdDesc", Order = 140)]
+	[Range(0, int.MaxValue)]
+	public FilterInt Absorption
+	{
+		get => _absorption;
 		set
 		{
-			if (_visualUpLevel == value)
+			if (_absorption == value)
 				return;
 
-			_visualUpLevel = value;
+			if (_absorption != null)
+				_absorption.PropertyChanged -= OnAbsorptionFilterChanged;
+
+			_absorption = value;
+
+			if (_absorption != null)
+				_absorption.PropertyChanged += OnAbsorptionFilterChanged;
+
+			RaisePropertyChanged(nameof(Absorption));
+		}
+	}
+
+	// Backward compatibility properties (hidden from UI)
+	[Browsable(false)]
+	public bool ShowAbsorptionDots
+	{
+		get => Absorption.Enabled;
+		set => Absorption.Enabled = value;
+	}
+
+	[Browsable(false)]
+	public int AbsorptionDeltaThreshold
+	{
+		get => Absorption.Value;
+		set => Absorption.Value = value;
+	}
+
+	#endregion
+
+	#region Volume
+
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Show), GroupName = nameof(Strings.VolumeLabel), Order = 200,
+		Description = nameof(Strings.VolumeLabelDescription))]
+	public bool ShowVolume { get; set; }
+
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Color), GroupName = nameof(Strings.VolumeLabel),
+		Description = nameof(Strings.LabelTextColorDescription), Order = 210)]
+	public CrossColor FontColor
+	{
+		get => _fontColor.Convert();
+		set => _fontColor = value.Convert();
+	}
+
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Location), GroupName = nameof(Strings.VolumeLabel),
+		Description = nameof(Strings.LabelLocationDescription), Order = 220)]
+	public Location VolLocation { get; set; } = Location.Middle;
+
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Font), GroupName = nameof(Strings.VolumeLabel),
+		Description = nameof(Strings.FontSettingDescription), Order = 230)]
+	public FontSetting Font { get; set; } = new("Arial", 10);
+
+	#endregion
+
+	#region Visual alerts (price panel)
+
+	[Display(Name = "Visual alerts", Description = "Show threshold markers on the price chart.",
+		GroupName = "Alerts", Order = 295)]
+	public bool VisualEnabled
+	{
+		get => _visualEnabled;
+		set
+		{
+			if (_visualEnabled == value)
+				return;
+
+			_visualEnabled = value;
 			RedrawChart();
 		}
 	}
 
-	[Display(Name = "Visual down level", Description = "Threshold level used for bearish visual alerts.",
-		GroupName = "Alerts", Order = 294)]
-	public ThresholdLevel VisualDownLevel
+	[Display(Name = "Vertical offset", Description = "Vertical offset for price markers, in ticks.",
+		GroupName = "Alerts", Order = 296)]
+	[Range(0, 50)]
+	public int PriceSignalOffsetTicks
 	{
-		get => _visualDownLevel;
+		get => _priceSignalOffsetTicks;
 		set
 		{
-			if (_visualDownLevel == value)
+			if (_priceSignalOffsetTicks == value)
 				return;
 
-			_visualDownLevel = value;
+			_priceSignalOffsetTicks = value;
+			RedrawChart();
+		}
+	}
+
+	[Display(Name = "Size", Description = "Marker size in pixels.",
+		GroupName = "Alerts", Order = 297)]
+	[Range(6, 24)]
+	public int PriceSignalSize
+	{
+		get => _priceSignalSize;
+		set
+		{
+			if (_priceSignalSize == value)
+				return;
+
+			_priceSignalSize = value;
+			RedrawChart();
+		}
+	}
+
+	[Display(Name = "Up marker color", Description = "Color of bullish price markers.",
+		GroupName = "Alerts", Order = 298)]
+	public CrossColor PriceSignalUpColor
+	{
+		get => _priceSignalUpColor.Convert();
+		set
+		{
+			_priceSignalUpColor = value.Convert();
+			RedrawChart();
+		}
+	}
+
+	[Display(Name = "Down marker color", Description = "Color of bearish price markers.",
+		GroupName = "Alerts", Order = 299)]
+	public CrossColor PriceSignalDownColor
+	{
+		get => _priceSignalDownColor.Convert();
+		set
+		{
+			_priceSignalDownColor = value.Convert();
 			RedrawChart();
 		}
 	}
 
 	#endregion
 
-    #region Absorption
+	#region Alerts
 
-    private readonly CandleDataSeries _absorptionCandles = new("AbsorptionDotsCandles", "Absorption Dots")
-    {
-        UpCandleColor = Color.Green.Convert(),
-        DownCandleColor = Color.Red.Convert(),
-        BorderColor = CrossColor.FromArgb(0, 0, 0, 0),
-        IsHidden = false,
-        UseMinimizedModeIfEnabled = true,
-        ShowCurrentValue = false
-    };
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.UpAlert), GroupName = nameof(Strings.Alerts),
+		Description = nameof(Strings.UpAlertFileFilterDescription), Order = 300)]
+	[Range(0, int.MaxValue)]
+	[DisplayFormat(DataFormatString = "F0")]
+	public Filter UpAlert { get; set; } = new()
+	{ Enabled = false, Value = 0 };
 
-    private int _absorptionThreshold = 250;
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.DownAlert), GroupName = nameof(Strings.Alerts),
+		Description = nameof(Strings.DownAlertFileFilterDescription), Order = 310)]
+	[Range(int.MinValue, 0)]
+	[DisplayFormat(DataFormatString = "F0")]
+	public Filter DownAlert { get; set; } = new()
+	{ Enabled = false, Value = 0 };
 
-    private FilterInt _absorption = new(true) { Enabled = false, Value = 250 };
+	[Browsable(false)]
+	public bool UseAlerts
+	{
+		get => UpAlert.Enabled;
+		set => UpAlert.Enabled = value;
+	}
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Absorption), GroupName = nameof(Strings.Absorption),
-        Description = "AbsorptionThresholdDesc", Order = 140)]
-    [Range(0, int.MaxValue)]
-    public FilterInt Absorption
-    {
-        get => _absorption;
-        set
-        {
-            if (_absorption == value)
-                return;
+	[Browsable(false)]
+	public decimal AlertFilter
+	{
+		get => UpAlert.Value;
+		set => UpAlert.Value = value;
+	}
 
-            if (_absorption != null)
-                _absorption.PropertyChanged -= OnAbsorptionFilterChanged;
+	[Browsable(false)]
+	public bool UseNegativeAlerts
+	{
+		get => DownAlert.Enabled;
+		set => DownAlert.Enabled = value;
+	}
 
-            _absorption = value;
+	[Browsable(false)]
+	public decimal NegativeAlertFilter
+	{
+		get => DownAlert.Value;
+		set => DownAlert.Value = value;
+	}
 
-            if (_absorption != null)
-                _absorption.PropertyChanged += OnAbsorptionFilterChanged;
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.Alerts),
+		Description = nameof(Strings.AlertFileDescription), Order = 320)]
+	public string AlertFile { get; set; } = "alert1";
 
-            RaisePropertyChanged(nameof(Absorption));
-        }
-    }
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.FontColor), GroupName = nameof(Strings.Alerts),
+		Description = nameof(Strings.AlertTextColorDescription), Order = 330)]
+	public CrossColor AlertForeColor { get; set; } = CrossColor.FromArgb(255, 247, 249, 249);
 
-    // Backward compatibility properties (hidden from UI)
-    [Browsable(false)]
-    public bool ShowAbsorptionDots
-    {
-        get => Absorption.Enabled;
-        set => Absorption.Enabled = value;
-    }
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.BackGround), GroupName = nameof(Strings.Alerts),
+		Description = nameof(Strings.AlertFillColorDescription), Order = 340)]
+	public CrossColor AlertBGColor { get; set; } = CrossColor.FromArgb(255, 75, 72, 72);
 
-    [Browsable(false)]
-    public int AbsorptionDeltaThreshold
-    {
-        get => Absorption.Value;
-        set => Absorption.Value = value;
-    }
+	#endregion
 
-    #endregion
+	#endregion
 
-    #region Volume
+	#region ctor
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Show), GroupName = nameof(Strings.VolumeLabel), Order = 200,
-        Description = nameof(Strings.VolumeLabelDescription))]
-    public bool ShowVolume { get; set; }
-
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Color), GroupName = nameof(Strings.VolumeLabel),
-        Description = nameof(Strings.LabelTextColorDescription), Order = 210)]
-    public CrossColor FontColor
-    {
-        get => _fontColor.Convert();
-        set => _fontColor = value.Convert();
-    }
-
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Location), GroupName = nameof(Strings.VolumeLabel),
-        Description = nameof(Strings.LabelLocationDescription), Order = 220)]
-    public Location VolLocation { get; set; } = Location.Middle;
-
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Font), GroupName = nameof(Strings.VolumeLabel),
-        Description = nameof(Strings.FontSettingDescription), Order = 230)]
-    public FontSetting Font { get; set; } = new("Arial", 10);
-
-    #endregion
-
-    #region Alerts
-
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.UpAlert), GroupName = nameof(Strings.Alerts),
-        Description = nameof(Strings.UpAlertFileFilterDescription), Order = 300)]
-    [Range(0, int.MaxValue)]
-    [DisplayFormat(DataFormatString = "F0")]
-    public Filter UpAlert { get; set; } = new()
-    { Enabled = false, Value = 0 };
-
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.DownAlert), GroupName = nameof(Strings.Alerts),
-        Description = nameof(Strings.DownAlertFileFilterDescription), Order = 310)]
-    [Range(int.MinValue, 0)]
-    [DisplayFormat(DataFormatString = "F0")]
-    public Filter DownAlert { get; set; } = new()
-    { Enabled = false, Value = 0 };
-
-    [Browsable(false)]
-    public bool UseAlerts
-    {
-        get => UpAlert.Enabled;
-        set => UpAlert.Enabled = value;
-    }
-
-    [Browsable(false)]
-    public decimal AlertFilter
-    {
-        get => UpAlert.Value;
-        set => UpAlert.Value = value;
-    }
-
-    [Browsable(false)]
-    public bool UseNegativeAlerts
-    {
-        get => DownAlert.Enabled;
-        set => DownAlert.Enabled = value;
-    }
-
-    [Browsable(false)]
-    public decimal NegativeAlertFilter
-    {
-        get => DownAlert.Value;
-        set => DownAlert.Value = value;
-    }
-
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.Alerts),
-        Description = nameof(Strings.AlertFileDescription), Order = 320)]
-    public string AlertFile { get; set; } = "alert1";
-
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.FontColor), GroupName = nameof(Strings.Alerts),
-        Description = nameof(Strings.AlertTextColorDescription), Order = 330)]
-    public CrossColor AlertForeColor { get; set; } = CrossColor.FromArgb(255, 247, 249, 249);
-
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BackGround), GroupName = nameof(Strings.Alerts),
-        Description = nameof(Strings.AlertFillColorDescription), Order = 340)]
-    public CrossColor AlertBGColor { get; set; } = CrossColor.FromArgb(255, 75, 72, 72);
-
-    #endregion
-
-    #endregion
-
-    #region ctor
-
-    public Delta()
+	public Delta()
 		: base(true)
 	{
 		EnableCustomDrawing = true;
@@ -765,15 +960,18 @@ public class Delta : Indicator
 
 		DataSeries.Add(_absorptionCandles);
 
-        // fixed threshold lines
-        DataSeries.Add(_upMajor);
-        DataSeries.Add(_upMinor);
-        DataSeries.Add(_dnMinor);
-        DataSeries.Add(_dnMajor);
+		// fixed threshold lines
+		DataSeries.Add(_upMajor);
+		DataSeries.Add(_upMinor);
+		DataSeries.Add(_dnMinor);
+		DataSeries.Add(_dnMajor);
 
-        UpdateThresholdLinesVisibility(repaint: false);
+		DataSeries.Add(_priceSignalUp);
+		DataSeries.Add(_priceSignalDown);
 
-        UpAlert.PropertyChanged += (sender, e) => _lastBarAlert = 0;
+		UpdateThresholdLinesVisibility(repaint: false);
+
+		UpAlert.PropertyChanged += (sender, e) => _lastBarAlert = 0;
 		DownAlert.PropertyChanged += (sender, e) => _lastBarNegativeAlert = 0;
 		_divergenceBarsFilter.PropertyChanged += OnDivergenceFilterChanged;
 		_absorption.PropertyChanged += OnAbsorptionFilterChanged;
@@ -848,6 +1046,46 @@ public class Delta : Indicator
 			}
 		}
 
+		// Price signals (triangles) - only on price panel
+		if (_visualEnabled)
+		{
+			var priceRc = ChartInfo.PriceChartContainer.Region;
+			var half = _priceSignalSize / 2;
+
+			for (var i = FirstVisibleBarNumber; i <= LastVisibleBarNumber; i++)
+			{
+				var x = ChartInfo.PriceChartContainer.GetXByBar(i, false);
+
+				// Up triangle
+				var upPrice = _priceSignalUp[i];
+				if (upPrice > 0)
+				{
+					var yPx = ChartInfo.PriceChartContainer.GetYByPrice(upPrice, false);
+					if (yPx >= priceRc.Top && yPx <= priceRc.Bottom)
+					{
+						var p1 = new Point(x, yPx - half);
+						var p2 = new Point(x - half, yPx + half);
+						var p3 = new Point(x + half, yPx + half);
+						context.FillPolygon(_priceSignalUpColor, new[] { p1, p2, p3 });
+					}
+				}
+
+				// Down triangle
+				var dnPrice = _priceSignalDown[i];
+				if (dnPrice > 0)
+				{
+					var yPx = ChartInfo.PriceChartContainer.GetYByPrice(dnPrice, false);
+					if (yPx >= priceRc.Top && yPx <= priceRc.Bottom)
+					{
+						var p1 = new Point(x, yPx + half);
+						var p2 = new Point(x - half, yPx - half);
+						var p3 = new Point(x + half, yPx - half);
+						context.FillPolygon(_priceSignalDownColor, new[] { p1, p2, p3 });
+					}
+				}
+			}
+		}
+
 		if (!ShowVolume || ChartInfo.ChartVisualMode != ChartVisualModes.Clusters || Panel == IndicatorDataProvider.CandlesPanel)
 			return;
 
@@ -900,6 +1138,10 @@ public class Delta : Indicator
 			_divergenceBars.Clear();
 		}
 
+		// Always clear per bar to avoid stale markers ("ghosts")
+		_priceSignalUp[bar] = 0m;
+		_priceSignalDown[bar] = 0m;
+
 		var candle = GetCandle(bar);
 		var deltaValue = candle.Delta;
 		var absDelta = Math.Abs(deltaValue);
@@ -912,7 +1154,7 @@ public class Delta : Indicator
 				minDelta = 0;
 			else
 				maxDelta = 0;
-        }
+		}
 
 		var isUnderFilter = absDelta < _filter;
 
@@ -1021,7 +1263,7 @@ public class Delta : Indicator
 		_divergenceBars[bar] = hasDivergence;
 
 		if (hasDivergence && DivergenceBarsFilter != null && DivergenceBarsFilter.Enabled &&
-		    (_mode == DeltaVisualMode.Candles || _mode == DeltaVisualMode.Bars))
+			(_mode == DeltaVisualMode.Candles || _mode == DeltaVisualMode.Bars))
 		{
 			if (MinimizedMode)
 			{
@@ -1051,7 +1293,7 @@ public class Delta : Indicator
 		_delta.Colors[bar] = deltaValue > 0 ? _upColor : _downColor;
 
 		if (DivergenceBarsFilter != null && DivergenceBarsFilter.Enabled &&
-		    (_mode == DeltaVisualMode.Histogram || _mode == DeltaVisualMode.HighLow))
+			(_mode == DeltaVisualMode.Histogram || _mode == DeltaVisualMode.HighLow))
 		{
 			if (hasDivergence)
 			{
@@ -1082,22 +1324,75 @@ public class Delta : Indicator
 			var negativeAlertValue = DownAlert.Value;
 
 			if ((deltaValue >= negativeAlertValue && _prevDeltaValue < negativeAlertValue) ||
-			    (deltaValue <= negativeAlertValue && _prevDeltaValue > negativeAlertValue))
+				(deltaValue <= negativeAlertValue && _prevDeltaValue > negativeAlertValue))
 			{
 				_lastBarNegativeAlert = bar;
 				AddAlert(AlertFile, InstrumentInfo.Instrument, $"Delta reached {negativeAlertValue} filter", AlertBGColor, AlertForeColor);
 			}
 		}
 
+		if (_visualEnabled && CurrentBar - 1 == bar)
+		{
+			var visualUpTh = PickUpThreshold(bar, _visualUpLevel);
+			var visualDownTh = PickDownThreshold(bar, _visualDownLevel);
+			var offset = _priceSignalOffsetTicks * InstrumentInfo.TickSize;
+
+			if (deltaValue >= visualUpTh && _prevDeltaValue < visualUpTh)
+				_priceSignalUp[bar] = candle.Low - offset;
+
+			if (deltaValue <= visualDownTh && _prevDeltaValue > visualDownTh)
+				_priceSignalDown[bar] = candle.High + offset;
+		}
+
 		_prevDeltaValue = deltaValue;
 
-        // --- Fixed threshold lines (panel) ---
-        _upMajor[bar] = _upMajorLevel;
-        _upMinor[bar] = _upMinorLevel;
-        _dnMinor[bar] = _downMinorLevel;
-        _dnMajor[bar] = _downMajorLevel;
+		// --- Audio alerts (edge or bar-close confirmation) ---
+		if (_audioEnabled && InstrumentInfo is not null)
+		{
+			var audioUpTh = PickUpThreshold(bar, _audioUpLevel);
+			var audioDownTh = PickDownThreshold(bar, _audioDownLevel);
 
-        if (Absorption.Enabled)
+			if (!_audioAtBarCloseOnly)
+			{
+				if (_prevDeltaValue < audioUpTh && deltaValue >= audioUpTh
+					&& bar - _lastBarAudioUpAlert >= _alertCooldownBars)
+				{
+					_lastBarAudioUpAlert = bar;
+					TryAddAudioAlert($"Delta >= {audioUpTh} (UP)");
+				}
+
+				if (_prevDeltaValue > audioDownTh && deltaValue <= audioDownTh
+					&& bar - _lastBarAudioDownAlert >= _alertCooldownBars)
+				{
+					_lastBarAudioDownAlert = bar;
+					TryAddAudioAlert($"Delta <= {audioDownTh} (DOWN)");
+				}
+			}
+			else if (bar > 0 && bar == CurrentBar - 1)
+			{
+				var closedBar = bar - 1;
+				var closedDelta = _delta[closedBar];
+
+				if (closedDelta >= audioUpTh && closedBar - _lastBarAudioUpAlert >= _alertCooldownBars)
+				{
+					_lastBarAudioUpAlert = closedBar;
+					TryAddAudioAlert($"Delta CLOSE >= {audioUpTh} (UP)");
+				}
+				else if (closedDelta <= audioDownTh && closedBar - _lastBarAudioDownAlert >= _alertCooldownBars)
+				{
+					_lastBarAudioDownAlert = closedBar;
+					TryAddAudioAlert($"Delta CLOSE <= {audioDownTh} (DOWN)");
+				}
+			}
+		}
+
+		// --- Fixed threshold lines (panel) ---
+		_upMajor[bar] = _upMajorLevel;
+		_upMinor[bar] = _upMinorLevel;
+		_dnMinor[bar] = _downMinorLevel;
+		_dnMajor[bar] = _downMajorLevel;
+
+		if (Absorption.Enabled)
 		{
 			decimal deltaOpen, deltaClose, deltaHigh, deltaLow;
 
@@ -1185,6 +1480,19 @@ public class Delta : Indicator
 		return (level == ThresholdLevel.Major) ? DownMajorLevel : DownMinorLevel;
 	}
 
+	private void TryAddAudioAlert(string message)
+	{
+		try
+		{
+			var symbol = InstrumentInfo?.Instrument ?? "Delta";
+			AddAlert(AlertFile, symbol, message, AlertBGColor, AlertForeColor);
+		}
+		catch
+		{
+			// Intentionally swallow: alert infrastructure must not break indicator calculation.
+		}
+	}
+
 	private int GetMinWidth(RenderContext context, int startBar, int endBar)
 	{
 		var maxLength = 0;
@@ -1216,24 +1524,25 @@ public class Delta : Indicator
 		return context.MeasureString(sampleStr, Font.RenderObject).Width;
 	}
 
-    private void UpdateThresholdLinesVisibility(bool repaint)
-    {
-        var vis = _showThresholdLines ? VisualMode.Line : VisualMode.Hide;
+	private void UpdateThresholdLinesVisibility(bool repaint)
+	{
+		var vis = _showThresholdLines ? VisualMode.Line : VisualMode.Hide;
 
-        _upMajor.VisualType = vis;
-        _upMinor.VisualType = vis;
-        _dnMinor.VisualType = vis;
-        _dnMajor.VisualType = vis;
+		_upMajor.VisualType = vis;
+		_upMinor.VisualType = vis;
+		_dnMinor.VisualType = vis;
+		_dnMajor.VisualType = vis;
 
-        if (repaint)
-            RedrawChart();
-    }
+		if (repaint)
+			RedrawChart();
+	}
 
-    #endregion
+	#endregion
 
-    #region Event handlers
+	#region Event handlers
 
-    private void OnDivergenceFilterChanged(object sender, PropertyChangedEventArgs e)
+
+	private void OnDivergenceFilterChanged(object sender, PropertyChangedEventArgs e)
 	{
 		if (e.PropertyName == nameof(Indicators.FilterColor.Enabled))
 			ApplyDivergenceColorsToCurrentMode();
