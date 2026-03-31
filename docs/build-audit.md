@@ -197,6 +197,48 @@ Rewrote from 16 → 12 commits:
 - `TabAttribute` stub split from unrelated `SessionColor` using change (1 → 2)
 - `OpenInterest.cs` guard corrected from `#if ATAS_ALPHA` to `#if !ATAS_STABLE && !ATAS_BETA`
 
+### 5.5 ~~`ATAS_X_Alpha/Beta|Any CPU` entries in solution file~~ — RESOLVED 2026-03-31
+
+`Indicators.sln` had spurious `ATAS_X_Alpha|Any CPU` and `ATAS_X_Beta|Any CPU` entries in both
+`SolutionConfigurationPlatforms` and the project config mappings. Because the
+`ValidateConfigurationPlatform` MSBuild target enforces `Cross` for all ATAS_X configs, these
+entries would either silently build with the wrong DLLs (no `CROSS_PLATFORM`, no Avalonia refs)
+or trigger a build error. Removed from `local/build/02-multiversion` (amend). Only
+`ATAS_X_Alpha|Cross` and `ATAS_X_Beta|Cross` remain.
+
+### 5.6 ~~BOM written as literal `&#xFEFF;` in `Indicators.csproj`~~ — RESOLVED 2026-03-31
+
+The Write tool had serialized the UTF-8 BOM as the ASCII string `&#xFEFF;` instead of the three
+real BOM bytes (`\xef\xbb\xbf`). MSBuild failed to parse the file as valid XML. Fixed by writing
+the file in binary mode and squashed into the `local/build/02-multiversion` commit.
+
+### 5.7 ~~`01-base` and `02-multiversion` pointed to the same commit~~ — RESOLVED 2026-03-31
+
+After the layer 02 squash rewrite, `local/build/01-base` was incorrectly left pointing at the
+same commit as `local/build/02-multiversion`. Corrected by moving `01-base` back to `aad31c1d`
+(the csproj local-path adaptation commit). No rebase of upstream layers required since 03/04
+already sat on top of the 02 commit.
+
+| Branch | Commit | Content |
+|--------|--------|---------|
+| `local/build/01-base` | `aad31c1d` | `build(indicators): align Indicators.csproj with current Cross/Windows build structure` |
+| `local/build/02-multiversion` | `bf8ce80f` | `build(multiversion): add multi-flavor build matrix` |
+
+### 5.8 ~~`04-localization`: stale keys and broken `Resources.Designer.cs`~~ — RESOLVED 2026-03-31
+
+The squashed `04-localization` commit had several problems:
+
+- 4 stale keys (`AskBGColorDescription`, `AuthorizationPasswordHint`, `AutoCenterSettings`,
+  `AutoUpdateModulesFromPersonalArea`) present in all 6 satellite `.resx` files but not in the
+  neutral `Resources.resx` → removed from all 6 satellites.
+- 13 extra keys in `ru-ru` only (e.g. `AlertBeforeCandle`, `Combined`, `FakeSeries`, …) that
+  were never added to other locales → removed from `ru-ru`. All 7 locales now have exactly 163
+  custom keys.
+- `Resources.Designer.cs` had a spurious class-closing brace mid-file (from a squash merge
+  artefact), 4 stale property accessors, and 486 missing accessors for new keys added in §5.3.
+  The file was fully regenerated (6 439 property accessors, sorted alphabetically) with the
+  `ResourceManager` and `Culture` infrastructure properties preserved in the header.
+
 ---
 
 ## 6. How to add new .resx keys (Phase 3 of port workflow)
