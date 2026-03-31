@@ -130,6 +130,31 @@ public class Delta : Indicator
 		Minor = 1
 	}
 
+	private struct WelfordAcc
+	{
+		public int Count;
+		public decimal Mean;
+		public decimal M2;
+
+		public void Add(decimal x)
+		{
+			Count++;
+			var delta = x - Mean;
+			Mean += delta / Count;
+			var delta2 = x - Mean;
+			M2 += delta * delta2;
+		}
+
+		public decimal Std()
+		{
+			if (Count <= 1) return 0m;
+			var variance = M2 / (Count - 1);
+			return (decimal)Math.Sqrt((double)variance);
+		}
+
+		public void Reset() { Count = 0; Mean = 0m; M2 = 0m; }
+	}
+
 	#endregion
 
 	#region Fields
@@ -334,13 +359,8 @@ public class Delta : Indicator
 	private readonly List<bool> _posReadyByBar = new();
 	private readonly List<bool> _negReadyByBar = new();
 
-	private int _posN;
-	private decimal _posMean;
-	private decimal _posM2;
-
-	private int _negN;
-	private decimal _negMean;
-	private decimal _negM2;
+	private WelfordAcc _posAcc;
+	private WelfordAcc _negAcc;
 
 	private decimal _dynPosMinor, _dynPosMajor;
 	private decimal _dynNegMinor, _dynNegMajor;
@@ -362,11 +382,6 @@ public class Delta : Indicator
 
 	private ThresholdLevel _audioUpLevel = ThresholdLevel.Major;
 	private ThresholdLevel _audioDownLevel = ThresholdLevel.Major;
-
-	private int _audioUpMajor = 300;
-	private int _audioUpMinor = 200;
-	private int _audioDownMinor = -200;
-	private int _audioDownMajor = -300;
 
 	private int _lastBarAudioUpAlert;
 	private int _lastBarAudioDownAlert;
@@ -1668,12 +1683,6 @@ public class Delta : Indicator
 
 			if ((deltaValue >= alertValue && _prevDeltaValue < alertValue) || (deltaValue <= alertValue && _prevDeltaValue > alertValue))
 			{
-				if (_visualEnabled)
-				{
-					var offset = _priceSignalOffsetTicks * InstrumentInfo.TickSize;
-					_priceSignalUp[bar] = candle.Low - offset;
-				}
-
 				_lastBarAlert = bar;
 				AddAlert(AlertFile, InstrumentInfo.Instrument, $"Delta reached {alertValue} filter", AlertBGColor, AlertForeColor);
 			}
@@ -1686,15 +1695,22 @@ public class Delta : Indicator
 			if ((deltaValue >= negativeAlertValue && _prevDeltaValue < negativeAlertValue) ||
 			    (deltaValue <= negativeAlertValue && _prevDeltaValue > negativeAlertValue))
 			{
-				if (_visualEnabled)
-				{
-					var offset = _priceSignalOffsetTicks * InstrumentInfo.TickSize;
-					_priceSignalDown[bar] = candle.High + offset;
-				}
-
 				_lastBarNegativeAlert = bar;
 				AddAlert(AlertFile, InstrumentInfo.Instrument, $"Delta reached {negativeAlertValue} filter", AlertBGColor, AlertForeColor);
 			}
+		}
+
+		if (_visualEnabled && CurrentBar - 1 == bar)
+		{
+			var visualUpTh = PickUpThreshold(bar, _visualUpLevel);
+			var visualDownTh = PickDownThreshold(bar, _visualDownLevel);
+			var offset = _priceSignalOffsetTicks * InstrumentInfo.TickSize;
+
+			if (deltaValue >= visualUpTh && _prevDeltaValue < visualUpTh)
+				_priceSignalUp[bar] = candle.Low - offset;
+
+			if (deltaValue <= visualDownTh && _prevDeltaValue > visualDownTh)
+				_priceSignalDown[bar] = candle.High + offset;
 		}
 
 		// --- Average delta (SMA/EMA) ---
@@ -1760,8 +1776,8 @@ public class Delta : Indicator
 		// --- Audio alerts (edge or bar-close confirmation) ---
 		if (_audioEnabled && InstrumentInfo is not null)
 		{
-			var audioUpTh = (decimal)(_audioUpLevel == ThresholdLevel.Major ? _audioUpMajor : _audioUpMinor);
-			var audioDownTh = (decimal)(_audioDownLevel == ThresholdLevel.Major ? _audioDownMajor : _audioDownMinor);
+			var audioUpTh = PickUpThreshold(bar, _audioUpLevel);
+			var audioDownTh = PickDownThreshold(bar, _audioDownLevel);
 
 			if (!_audioAtBarCloseOnly)
 			{
@@ -1797,11 +1813,8 @@ public class Delta : Indicator
 			}
 		}
 
-		// --- Fixed threshold lines ---
-		_upMajor[bar] = _upMajorLevel;
-		_upMinor[bar] = _upMinorLevel;
-		_dnMinor[bar] = _downMinorLevel;
-		_dnMajor[bar] = _downMajorLevel;
+		// --- Threshold lines (fixed or dynamic) ---
+		UpdateDynamicThresholdState(bar, candle);
 
 		_prevDeltaValue = deltaValue;
 
@@ -1891,13 +1904,8 @@ public class Delta : Indicator
 
 	private void ResetDynamicState()
 	{
-		_posN = 0;
-		_posMean = 0;
-		_posM2 = 0;
-
-		_negN = 0;
-		_negMean = 0;
-		_negM2 = 0;
+		_posAcc.Reset();
+		_negAcc.Reset();
 
 		_posReady = false;
 		_negReady = false;
@@ -1939,36 +1947,132 @@ public class Delta : Indicator
 		return false;
 	}
 
-	private static void WelfordPush(ref int n, ref decimal mean, ref decimal m2, decimal x)
+	// No look-ahead: thresholds for bar b computed from state up to b-1; bar b fed after writing.
+	private void UpdateDynamicThresholdState(int bar, IndicatorCandle candle)
 	{
-		n++;
-		var delta = x - mean;
-		mean += delta / n;
-		var delta2 = x - mean;
-		m2 += delta * delta2;
+		if (Thresholds != ThresholdSource.DynamicWelford)
+		{
+			// Fixed: write constant levels every bar
+			_upMajor[bar] = _upMajorLevel;
+			_upMinor[bar] = _upMinorLevel;
+			_dnMinor[bar] = _downMinorLevel;
+			_dnMajor[bar] = _downMajorLevel;
+			return;
+		}
+
+		if (IsSessionStart(bar))
+		{
+			ResetDynamicState();
+			CutAllThresholdsAt(bar - 1);
+		}
+
+		var inside = InSession(candle.Time);
+		EnsureReadyCapacity(bar);
+
+		if (inside)
+		{
+			_posReady = _posAcc.Count >= SamplesForMeanStd;
+			_negReady = _negAcc.Count >= SamplesForMeanStd;
+
+			_posReadyByBar[bar] = _posReady;
+			_negReadyByBar[bar] = _negReady;
+
+			if (_posReady)
+			{
+				var k = StdMultiplier;
+				_dynPosMinor = _posAcc.Mean;
+				_dynPosMajor = _posAcc.Mean + k * _posAcc.Std();
+			}
+			else
+				_dynPosMinor = _dynPosMajor = 0m;
+
+			if (_negReady)
+			{
+				var k = StdMultiplier;
+				_dynNegMinor = -_negAcc.Mean;
+				_dynNegMajor = -(_negAcc.Mean + k * _negAcc.Std());
+			}
+			else
+				_dynNegMinor = _dynNegMajor = 0m;
+
+			// Write to series (enables PickUpThreshold to read per-bar history)
+			_upMinor[bar] = _dynPosMinor;
+			_upMajor[bar] = _dynPosMajor;
+			_dnMinor[bar] = _dynNegMinor;
+			_dnMajor[bar] = _dynNegMajor;
+
+			// Feed current bar extremes AFTER writing (no look-ahead)
+			if (TryGetPositiveExtremeSample(candle, out var posSample))
+				_posAcc.Add(posSample);
+
+			if (TryGetNegativeMagnitudeExtremeSample(candle, out var negAbsSample))
+				_negAcc.Add(negAbsSample);
+
+			if (!_posReady) CutUpThresholdsAt(bar - 1);
+			if (!_negReady) CutDownThresholdsAt(bar - 1);
+		}
+		else
+		{
+			_posReadyByBar[bar] = false;
+			_negReadyByBar[bar] = false;
+			CutAllThresholdsAt(bar - 1);
+		}
 	}
 
-	private static decimal WelfordStd(int n, decimal m2)
+	private decimal PickUpThreshold(int bar, ThresholdLevel level)
 	{
-		if (n <= 1)
-			return 0;
+		var t = GetCandle(bar).Time;
 
-		var variance = m2 / (n - 1);
-		return (decimal)Math.Sqrt((double)variance);
+		if (Thresholds == ThresholdSource.DynamicWelford && !InSession(t))
+			return decimal.MaxValue;
+
+		if (Thresholds == ThresholdSource.Fixed)
+			return (level == ThresholdLevel.Major) ? UpMajorLevel : UpMinorLevel;
+
+		if (bar < 0 || bar >= _posReadyByBar.Count || !_posReadyByBar[bar])
+			return decimal.MaxValue;
+
+		return (level == ThresholdLevel.Major) ? _upMajor[bar] : _upMinor[bar];
 	}
 
-	private int PickUpThreshold()
+	private decimal PickDownThreshold(int bar, ThresholdLevel level)
 	{
-		return _visualUpLevel == ThresholdLevel.Major
-			? _upMajorLevel
-			: _upMinorLevel;
+		var t = GetCandle(bar).Time;
+
+		if (Thresholds == ThresholdSource.DynamicWelford && !InSession(t))
+			return decimal.MinValue;
+
+		if (Thresholds == ThresholdSource.Fixed)
+			return (level == ThresholdLevel.Major) ? DownMajorLevel : DownMinorLevel;
+
+		if (bar < 0 || bar >= _negReadyByBar.Count || !_negReadyByBar[bar])
+			return decimal.MinValue;
+
+		return (level == ThresholdLevel.Major) ? _dnMajor[bar] : _dnMinor[bar];
 	}
 
-	private int PickDownThreshold()
+	private void CutAllThresholdsAt(int bar)
 	{
-		return _visualDownLevel == ThresholdLevel.Major
-			? _downMajorLevel
-			: _downMinorLevel;
+		CutUpThresholdsAt(bar);
+		CutDownThresholdsAt(bar);
+	}
+
+	private void CutUpThresholdsAt(int bar)
+	{
+		if (bar >= 0)
+		{
+			_upMajor[bar] = 0m;
+			_upMinor[bar] = 0m;
+		}
+	}
+
+	private void CutDownThresholdsAt(int bar)
+	{
+		if (bar >= 0)
+		{
+			_dnMinor[bar] = 0m;
+			_dnMajor[bar] = 0m;
+		}
 	}
 
 	private int GetMinWidth(RenderContext context, int startBar, int endBar)
