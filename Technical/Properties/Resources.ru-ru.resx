@@ -1,110 +1,51 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
+<root xmlns:ns1="urn:schemas-microsoft-com:xml-msdata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:schema id="root">
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xs:element name="root" ns1:IsDataSet="true">
+      <xs:complexType>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element name="metadata">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" />
+              </xs:sequence>
+              <xs:attribute name="name" use="required" type="xsd:string" />
+              <xs:attribute name="type" type="xsd:string" />
+              <xs:attribute name="mimetype" type="xsd:string" />
+              <xs:attribute ref="xml:space" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="assembly">
+            <xs:complexType>
+              <xs:attribute name="alias" type="xsd:string" />
+              <xs:attribute name="name" type="xsd:string" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="data">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
+                <xs:element name="comment" type="xsd:string" minOccurs="0" ns1:Ordinal="2" />
+              </xs:sequence>
+              <xs:attribute name="name" type="xsd:string" use="required" ns1:Ordinal="1" />
+              <xs:attribute name="type" type="xsd:string" ns1:Ordinal="3" />
+              <xs:attribute name="mimetype" type="xsd:string" ns1:Ordinal="4" />
+              <xs:attribute ref="xml:space" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="resheader">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
+              </xs:sequence>
+              <xs:attribute name="name" type="xsd:string" use="required" />
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
   <resheader name="resmimetype">
     <value>text/microsoft-resx</value>
   </resheader>
@@ -904,9 +845,6 @@ A/D(i-1) — значение Индикатора Накопления/Расп
   <data name="AskAlert" xml:space="preserve">
     <value>Ask Alert</value>
   </data>
-  <data name="AskBGColorDescription" xml:space="preserve">
-    <value>Устанавливает цвет фона для элемента, отображающего объемы предложений.</value>
-  </data>
   <data name="AskBid" xml:space="preserve">
     <value>Аск и Бид</value>
   </data>
@@ -1048,9 +986,6 @@ A/D(i-1) — значение Индикатора Накопления/Расп
   <data name="AuthorizationEmailHint" xml:space="preserve">
     <value>Email указанный при регистрации</value>
   </data>
-  <data name="AuthorizationPasswordHint" xml:space="preserve">
-    <value>Пароль из письма после регистрации</value>
-  </data>
   <data name="AuthorizationWindowTitle" xml:space="preserve">
     <value>Авторизация</value>
   </data>
@@ -1090,9 +1025,6 @@ A/D(i-1) — значение Индикатора Накопления/Расп
   <data name="AutoCenterIntervalTicks" xml:space="preserve">
     <value>Интервал автоцентровки, такты</value>
   </data>
-  <data name="AutoCenterSettings" xml:space="preserve">
-    <value>Параметры автоцентровки</value>
-  </data>
   <data name="AutoCenterSpeed" xml:space="preserve">
     <value>Скорость автоцентровки</value>
   </data>
@@ -1128,9 +1060,6 @@ A/D(i-1) — значение Индикатора Накопления/Расп
   </data>
   <data name="AutoTransformVerticalLines" xml:space="preserve">
     <value>Трансформировать вертикальные линии в режиме кластеров</value>
-  </data>
-  <data name="AutoUpdateModulesFromPersonalArea" xml:space="preserve">
-    <value>Автоматически обновлять модули</value>
   </data>
   <data name="AutoUpdateModulesFromPersonalAreaDescription" xml:space="preserve">
     <value>Автоматически обновлять модули (индикаторы, стратегии и т.д.) из личного кабинета при запуске платформы.</value>
@@ -2601,48 +2530,20 @@ A/D(i-1) — значение Индикатора Накопления/Расп
     <value>Отклонение</value>
     <comment>InsideBars</comment>
   </data>
-  <data name="CustomTimeZone" xml:space="preserve">
-    <value>Произвольное Смещение Текущего Времени</value>
-    <comment>BarTimer</comment>
-  </data>
-  <data name="MaxVolPercent" xml:space="preserve">
-    <value>Максимальный Процент От Объема Свечи</value>
-    <comment>ClusterSearch</comment>
-  </data>
-  <data name="MinVolPercent" xml:space="preserve">
-    <value>Минимальный Процент От Объема Свечи</value>
-    <comment>ClusterSearch</comment>
-  </data>
   <data name="ShowTradesCount" xml:space="preserve">
     <value>Отображать Количество Сделок</value>
     <comment>ClusterStatistic</comment>
   </data>
-  <data name="FakeSeries" xml:space="preserve">
-    <value>Фальшивая Серия</value>
-    <comment>MFI</comment>
-  </data>
   <data name="FakeSeriesColor" xml:space="preserve">
     <value>Цвет Фальшивой Серии</value>
-    <comment>MFI</comment>
-  </data>
-  <data name="GreenSeries" xml:space="preserve">
-    <value>Зеленая Серия</value>
     <comment>MFI</comment>
   </data>
   <data name="GreenSeriesColor" xml:space="preserve">
     <value>Цвет Зеленой Серии</value>
     <comment>MFI</comment>
   </data>
-  <data name="SitSeries" xml:space="preserve">
-    <value>Присядающая Серия</value>
-    <comment>MFI</comment>
-  </data>
   <data name="SitSeriesColor" xml:space="preserve">
     <value>Цвет Приседающей Серии</value>
-    <comment>MFI</comment>
-  </data>
-  <data name="WeakSeries" xml:space="preserve">
-    <value>Увядающая Серия</value>
     <comment>MFI</comment>
   </data>
   <data name="WeakSeriesColor" xml:space="preserve">
@@ -2709,15 +2610,6 @@ A/D(i-1) — значение Индикатора Накопления/Расп
   <data name="PocChangeAlert" xml:space="preserve">
     <value>Алерт При Изменении Уровня POC</value>
   </data>
-  <data name="PocTouchAlert" xml:space="preserve">
-    <value>Алерт При Касании Уровня POC</value>
-  </data>
-  <data name="VahTouchAlert" xml:space="preserve">
-    <value>Алерт При Касании Уровня VAH</value>
-  </data>
-  <data name="ValTouchAlert" xml:space="preserve">
-    <value>Алерт При Касании Уровня VAL</value>
-  </data>
   <data name="PriceSelectionColor" xml:space="preserve">
     <value>Цвет Выделения Цен</value>
   </data>
@@ -2748,9 +2640,6 @@ A/D(i-1) — значение Индикатора Накопления/Расп
   <data name="FillCandles" xml:space="preserve">
     <value>Раскрашивать Свечи</value>
     <comment>ExternalChart</comment>
-  </data>
-  <data name="AlertBeforeCandle" xml:space="preserve">
-    <value>Алерт Перед Новым Баром</value>
   </data>
   <data name="Seconds" xml:space="preserve">
     <value>Секунды</value>
@@ -2814,9 +2703,6 @@ A/D(i-1) — значение Индикатора Накопления/Расп
   <data name="NeutralBorderColor" xml:space="preserve">
     <value>Нейтральный Цвет Границы</value>
     <comment>Delta</comment>
-  </data>
-  <data name="Combined" xml:space="preserve">
-    <value>Совмещенный</value>
   </data>
   <data name="Both" xml:space="preserve">
     <value>Оба</value>
@@ -21314,9 +21200,6 @@ VBBR(t) = Vol(t) / (high(t) - Low(t))</value>
   <data name="Bearish" xml:space="preserve">
     <value>Медвежье</value>
   </data>
-  <data name="Show Fibonacci" xml:space="preserve">
-    <value>Показать уровни Фибоначчи</value>
-  </data>
   <data name="ShowVolumePerSecondDescription" xml:space="preserve">
     <value>Определяет, следует ли отображать информацию об объеме в секунду.</value>
   </data>
@@ -21374,343 +21257,266 @@ VBBR(t) = Vol(t) / (high(t) - Low(t))</value>
   <data name="AlertFileDescription" xml:space="preserve">
     <value>Этот параметр позволяет пользователям указать название пользовательского звукового файла для звуков оповещения в платформе ATAS. Пользователи могут выбрать файл WAV, который будет воспроизводиться, когда условие оповещения будет выполнено. Выбранный файл WAV должен быть расположен в папке C:\Program Files (x86)\ATAS Platform\Sounds.</value>
   </data>
-
   <data name="Labels" xml:space="preserve">
     <value>Метки</value>
   </data>
-
   <data name="LabelTemplate" xml:space="preserve">
     <value>Шаблон</value>
   </data>
-
   <data name="Prefixes" xml:space="preserve">
     <value>Префиксы</value>
   </data>
-
   <data name="OverrideLabel" xml:space="preserve">
     <value>Переопределить метку (необязательно)</value>
   </data>
-
   <data name="OverrideColorInSchemes" xml:space="preserve">
     <value>Переопределить цвет в схемах</value>
   </data>
-
   <data name="OverrideColorInSchemesDescription" xml:space="preserve">
     <value>Если включено, эта линия будет использовать свой собственный цвет, даже когда активны визуальные семантические схемы.</value>
   </data>
-
   <data name="ByPeriod" xml:space="preserve">
     <value>По периоду</value>
   </data>
-
   <data name="ByLevelType" xml:space="preserve">
     <value>По типу уровня</value>
   </data>
-
   <data name="VisualSemantic" xml:space="preserve">
     <value>Визуальная семантика</value>
   </data>
-
   <data name="VisualSemanticMode" xml:space="preserve">
     <value>Режим</value>
   </data>
-
   <data name="VisualSemanticPreset" xml:space="preserve">
     <value>Пресет</value>
   </data>
-
   <data name="OverrideWidthInSchemes" xml:space="preserve">
     <value>Переопределить толщину в схемах</value>
   </data>
-
   <data name="OverrideWidthInSchemesDescription" xml:space="preserve">
     <value>Если включено, этот уровень будет использовать свою собственную толщину линии, даже когда активны визуально-семантические схемы.</value>
   </data>
-
   <data name="OverrideStyleInSchemes" xml:space="preserve">
     <value>Переопределить стиль линии в схемах</value>
   </data>
-
   <data name="OverrideStyleInSchemesDescription" xml:space="preserve">
     <value>Если включено, этот уровень будет использовать свой собственный стиль линии, даже когда активны визуально-семантические схемы.</value>
   </data>
-
   <data name="VisualSemantic_LevelPalette" xml:space="preserve">
     <value>Визуальная семантика — палитра уровней</value>
   </data>
-
   <data name="VisualSemantic_PeriodPalette" xml:space="preserve">
     <value>Визуальная семантика — палитра периодов</value>
   </data>
-
   <data name="VisualMode_Legacy" xml:space="preserve">
     <value>Классический</value>
   </data>
-
   <data name="VisualMode_Ruleset" xml:space="preserve">
     <value>Набор правил</value>
   </data>
-
   <data name="VisualMode_Legacy_Description" xml:space="preserve">
     <value>Классическая визуализация без семантических правил.</value>
   </data>
-
   <data name="VisualMode_Ruleset_Description" xml:space="preserve">
     <value>Визуализация, управляемая семантическими правилами и палитрами.</value>
   </data>
-
   <data name="HVN_Group" xml:space="preserve">
     <value>HVN</value>
   </data>
-
   <data name="HVN_Color" xml:space="preserve">
     <value>Цвет HVN</value>
   </data>
-
   <data name="HVN_ThresholdPct" xml:space="preserve">
     <value>Порог HVN (%)</value>
   </data>
-
   <data name="HVN_GapToleranceTicks" xml:space="preserve">
     <value>Допуск разрыва (тики)</value>
   </data>
-
   <data name="HVN_OcclusionTicks" xml:space="preserve">
     <value>Окклюзия (тики)</value>
   </data>
-
   <data name="HVN_ThresholdPct_Description" xml:space="preserve">
     <value>Уровень цены считается HVN, если его объём равен или превышает этот процент от объёма POC профиля.</value>
   </data>
-
   <data name="HVN_GapToleranceTicks_Description" xml:space="preserve">
     <value>Позволяет небольшие разрывы (в тиках) внутри зоны HVN для объединения близких уровней с высоким объёмом.</value>
   </data>
-
   <data name="HVN_OcclusionTicks_Description" xml:space="preserve">
     <value>Минимальное вертикальное расстояние (в тиках) между зонами HVN разных периодов для предотвращения визуального перекрытия.</value>
   </data>
-
   <data name="HVN_Enabled" xml:space="preserve">
     <value>Включить HVN</value>
   </data>
-
   <data name="LVN_ThresholdPct" xml:space="preserve">
     <value>Порог LVN (%)</value>
   </data>
-
   <data name="LVN_ThresholdPct_Description" xml:space="preserve">
     <value>Уровень цены считается LVN, если его объём ниже этого процента от объёма POC профиля.</value>
   </data>
-
   <data name="LVN_GapToleranceTicks" xml:space="preserve">
     <value>Допуск разрыва (тики)</value>
   </data>
-
   <data name="LVN_GapToleranceTicks_Description" xml:space="preserve">
     <value>Позволяет небольшие разрывы (в тиках) внутри зоны LVN для объединения близких уровней с низким объёмом.</value>
   </data>
-
   <data name="LVN_OcclusionTicks" xml:space="preserve">
     <value>Окклюзия (тики)</value>
   </data>
-
   <data name="LVN_OcclusionTicks_Description" xml:space="preserve">
     <value>Минимальное вертикальное расстояние (в тиках), необходимое между зонами LVN разных периодов для предотвращения визуального перекрытия.</value>
   </data>
-
   <data name="LVN_Enabled" xml:space="preserve">
     <value>Включить LVN</value>
   </data>
-
   <data name="LVN_Color" xml:space="preserve">
     <value>Цвет LVN</value>
   </data>
-
   <data name="LVN_MinPocVol" xml:space="preserve">
     <value>Минимальный объём POC для LVN</value>
   </data>
-
   <data name="LVN_MinPocVol_Description" xml:space="preserve">
     <value>LVN-зоны не вычисляются, пока объём POC профиля не достигнет этого значения. Предотвращает LVN-шум в начале периода.</value>
   </data>
-
   <data name="LVN_TailFilterMinTicks" xml:space="preserve">
     <value>Фильтр хвостов (тики)</value>
   </data>
-
   <data name="LVN_TailFilterMinTicks_Description" xml:space="preserve">
     <value>Исключает зоны хвостов с низким объёмом вблизи максимума и минимума профиля из определения LVN.</value>
   </data>
-
   <data name="LVN_TailFilterRangePct" xml:space="preserve">
     <value>Фильтр хвостов (% диапазона)</value>
   </data>
-
   <data name="LVN_TailFilterRangePct_Description" xml:space="preserve">
     <value>Исключает хвостовые зоны с низким объёмом возле максимума и минимума профиля при обнаружении LVN, используя процент диапазона профиля. (0 = отключено).</value>
   </data>
-
   <data name="ProfitColorDescription" xml:space="preserve">
     <value>Цвет для отображения прибыльных сделок.</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LossColorDescription" xml:space="preserve">
     <value>Цвет для отображения убыточных сделок.</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LabelDisplayModeHide" xml:space="preserve">
     <value>Скрыть</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LabelDisplayModeShort" xml:space="preserve">
     <value>Кратко</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LabelDisplayModeFull" xml:space="preserve">
     <value>Полный</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LabelDisplayModeCard" xml:space="preserve">
     <value>Карточка</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeDirectionLong" xml:space="preserve">
     <value>Лонг</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeDirectionShort" xml:space="preserve">
     <value>Шорт</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeEntry" xml:space="preserve">
     <value>Вход</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeExit" xml:space="preserve">
     <value>Выход</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeResult" xml:space="preserve">
     <value>Результат</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradePnL" xml:space="preserve">
     <value>PnL</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeIn" xml:space="preserve">
     <value>Вх.</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeOut" xml:space="preserve">
     <value>Вых.</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeTicks" xml:space="preserve">
     <value>тики</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeTicksShort" xml:space="preserve">
     <value>т</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LabelDistance" xml:space="preserve">
     <value>Отступ метки</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LabelDistanceDescription" xml:space="preserve">
     <value>Вертикальный отступ между маркерами и меткой (px).</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LabelXAnchor" xml:space="preserve">
     <value>Центровка метки</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LabelXAnchorDescription" xml:space="preserve">
     <value>Горизонтальная опора для центрирования метки над сделкой.</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LabelXAnchorCloseBar" xml:space="preserve">
     <value>Бар закрытия</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LabelXAnchorMidpoint" xml:space="preserve">
     <value>Середина сделки</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LabelMode" xml:space="preserve">
     <value>Режим метки</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LabelModeDescription" xml:space="preserve">
     <value>Выбор способа отображения меток сделки.</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LinesAndMarkers" xml:space="preserve">
     <value>Линии и маркеры</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="DetailsGroup" xml:space="preserve">
     <value>Детали</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeLine" xml:space="preserve">
     <value>Линия сделки</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeLineDescription" xml:space="preserve">
     <value>Рисует линию, соединяющую маркеры входа и выхода.</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeDetailsDescription" xml:space="preserve">
     <value>Показывает детали сделки при наведении на маркеры или метки.</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeBuyColor" xml:space="preserve">
     <value>Цвет покупки</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeSellColor" xml:space="preserve">
     <value>Цвет продажи</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="MarkerSize" xml:space="preserve">
     <value>Размер маркера</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="MarkerSizeDescription" xml:space="preserve">
     <value>Размер маркеров входа/выхода.</value>
     <comment>TradesOnChart</comment>

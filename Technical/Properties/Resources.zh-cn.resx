@@ -1,110 +1,51 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
+<root xmlns:ns1="urn:schemas-microsoft-com:xml-msdata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:schema id="root">
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xs:element name="root" ns1:IsDataSet="true">
+      <xs:complexType>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element name="metadata">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" />
+              </xs:sequence>
+              <xs:attribute name="name" use="required" type="xsd:string" />
+              <xs:attribute name="type" type="xsd:string" />
+              <xs:attribute name="mimetype" type="xsd:string" />
+              <xs:attribute ref="xml:space" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="assembly">
+            <xs:complexType>
+              <xs:attribute name="alias" type="xsd:string" />
+              <xs:attribute name="name" type="xsd:string" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="data">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
+                <xs:element name="comment" type="xsd:string" minOccurs="0" ns1:Ordinal="2" />
+              </xs:sequence>
+              <xs:attribute name="name" type="xsd:string" use="required" ns1:Ordinal="1" />
+              <xs:attribute name="type" type="xsd:string" ns1:Ordinal="3" />
+              <xs:attribute name="mimetype" type="xsd:string" ns1:Ordinal="4" />
+              <xs:attribute ref="xml:space" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="resheader">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
+              </xs:sequence>
+              <xs:attribute name="name" type="xsd:string" use="required" />
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
   <resheader name="resmimetype">
     <value>text/microsoft-resx</value>
   </resheader>
@@ -1007,9 +948,6 @@
   <data name="AskAlert" xml:space="preserve">
     <value>Ask 警报</value>
   </data>
-  <data name="AskBGColorDescription" xml:space="preserve">
-    <value>设置显示要约量的元素的背景颜色。</value>
-  </data>
   <data name="AskBid" xml:space="preserve">
     <value>AskBid</value>
   </data>
@@ -1151,9 +1089,6 @@
   <data name="AuthorizationEmailHint" xml:space="preserve">
     <value>输入您注册时使用的电子邮箱</value>
   </data>
-  <data name="AuthorizationPasswordHint" xml:space="preserve">
-    <value>注册后电子邮箱中的密码</value>
-  </data>
   <data name="AuthorizationWindowTitle" xml:space="preserve">
     <value>ATAS</value>
   </data>
@@ -1193,9 +1128,6 @@
   <data name="AutoCenterIntervalTicks" xml:space="preserve">
     <value>自动居中间隔，滴答声</value>
   </data>
-  <data name="AutoCenterSettings" xml:space="preserve">
-    <value>自动居中设置</value>
-  </data>
   <data name="AutoCenterSpeed" xml:space="preserve">
     <value>自动居中速度</value>
   </data>
@@ -1234,9 +1166,6 @@
   </data>
   <data name="AutoTransformVerticalLines" xml:space="preserve">
     <value>自动转换垂直线</value>
-  </data>
-  <data name="AutoUpdateModulesFromPersonalArea" xml:space="preserve">
-    <value>自动更新模块</value>
   </data>
   <data name="AutoUpdateModulesFromPersonalAreaDescription" xml:space="preserve">
     <value>在平台启动时自动更新个人区域的模块（指标、策略等）。</value>
@@ -19821,317 +19750,238 @@ LowerLevel=(High[i]+Low[i])/2-Multiplier*Atr(Period)</value>
   <data name="AlertFileDescription" xml:space="preserve">
     <value>AlertFileDescription参数允许用户为ATAS平台中的警报声设置自定义音频文件的名称。用户可以选择一个WAV文件，在满足警报条件时播放。所选的WAV文件应位于C:\Program Files (x86)\ATAS Platform\Sounds文件夹中。</value>
   </data>
-
   <data name="Labels" xml:space="preserve">
     <value>标签</value>
   </data>
-
   <data name="LabelTemplate" xml:space="preserve">
     <value>模板</value>
   </data>
-
   <data name="Prefixes" xml:space="preserve">
     <value>前缀</value>
   </data>
-
   <data name="OverrideLabel" xml:space="preserve">
     <value>覆盖标签（可选）</value>
   </data>
-
   <data name="OverrideColorInSchemes" xml:space="preserve">
     <value>在配色方案中覆盖颜色</value>
   </data>
-
   <data name="OverrideColorInSchemesDescription" xml:space="preserve">
     <value>启用后，即使视觉语义方案处于激活状态，该线条也将使用其自身的颜色。</value>
   </data>
-
   <data name="ByPeriod" xml:space="preserve">
     <value>按周期</value>
   </data>
-
   <data name="ByLevelType" xml:space="preserve">
     <value>按水平类型</value>
   </data>
-
   <data name="VisualSemantic" xml:space="preserve">
     <value>视觉语义</value>
   </data>
-
   <data name="VisualSemanticMode" xml:space="preserve">
     <value>模式</value>
   </data>
-
   <data name="VisualSemanticPreset" xml:space="preserve">
     <value>预设</value>
   </data>
-
   <data name="OverrideWidthInSchemes" xml:space="preserve">
     <value>在方案中覆盖线宽</value>
   </data>
-
   <data name="OverrideWidthInSchemesDescription" xml:space="preserve">
     <value>启用后，即使视觉语义方案处于活动状态，该级别也将使用其自身的线宽。</value>
   </data>
-
   <data name="OverrideStyleInSchemes" xml:space="preserve">
     <value>在方案中覆盖线型</value>
   </data>
-
   <data name="OverrideStyleInSchemesDescription" xml:space="preserve">
     <value>启用后，即使视觉语义方案处于活动状态，该级别也将使用其自身的线型。</value>
   </data>
-
   <data name="VisualSemantic_LevelPalette" xml:space="preserve">
     <value>视觉语义 – 价格层级调色板</value>
   </data>
-
   <data name="VisualSemantic_PeriodPalette" xml:space="preserve">
     <value>视觉语义 – 周期调色板</value>
   </data>
-
   <data name="VisualMode_Legacy" xml:space="preserve">
     <value>传统模式</value>
   </data>
-
   <data name="VisualMode_Ruleset" xml:space="preserve">
     <value>规则集</value>
   </data>
-
   <data name="VisualMode_Legacy_Description" xml:space="preserve">
     <value>不使用语义规则的经典可视化方式。</value>
   </data>
-
   <data name="VisualMode_Ruleset_Description" xml:space="preserve">
     <value>由语义规则和调色板驱动的可视化方式。</value>
   </data>
-
   <data name="HVN_Group" xml:space="preserve">
     <value>HVN</value>
   </data>
-
   <data name="HVN_Color" xml:space="preserve">
     <value>HVN 颜色</value>
   </data>
-
   <data name="HVN_ThresholdPct" xml:space="preserve">
     <value>HVN 阈值（%）</value>
   </data>
-
   <data name="HVN_GapToleranceTicks" xml:space="preserve">
     <value>间隙容忍（tick）</value>
   </data>
-
   <data name="HVN_OcclusionTicks" xml:space="preserve">
     <value>遮挡（tick）</value>
   </data>
-
   <data name="HVN_ThresholdPct_Description" xml:space="preserve">
     <value>当某一价格层级的成交量等于或高于该档案 POC 成交量的此百分比时，该价格层级被视为 HVN。</value>
   </data>
-
   <data name="HVN_GapToleranceTicks_Description" xml:space="preserve">
     <value>允许 HVN 区域内存在小的间隙（tick），以合并相邻的高成交量价位。</value>
   </data>
-
   <data name="HVN_OcclusionTicks_Description" xml:space="preserve">
     <value>不同周期的 HVN 区域之间为避免视觉重叠所需的最小垂直距离（以 tick 为单位）</value>
   </data>
-
   <data name="HVN_Enabled" xml:space="preserve">
     <value>启用 HVN</value>
   </data>
-
   <data name="LVN_Group" xml:space="preserve">
     <value>LVN</value>
   </data>
-
   <data name="LVN_ThresholdPct" xml:space="preserve">
     <value>LVN 阈值 (%)</value>
   </data>
-
   <data name="LVN_ThresholdPct_Description" xml:space="preserve">
     <value>当某一价格层级的成交量低于该档案 POC 成交量的此百分比时，该价格层级被视为 LVN。</value>
   </data>
-
   <data name="LVN_GapToleranceTicks" xml:space="preserve">
     <value>间隙容差（tick）</value>
   </data>
-
   <data name="LVN_GapToleranceTicks_Description" xml:space="preserve">
     <value>允许 LVN 区域内部存在小的间隙（tick），以将相邻的低成交量价位合并在一起。</value>
   </data>
-
   <data name="LVN_OcclusionTicks" xml:space="preserve">
     <value>遮挡（tick）</value>
   </data>
-
   <data name="LVN_OcclusionTicks_Description" xml:space="preserve">
     <value>为避免不同周期的 LVN 区域发生视觉重叠而设置的最小垂直距离（以 tick 为单位）。</value>
   </data>
-
   <data name="LVN_Enabled" xml:space="preserve">
     <value>启用 LVN</value>
   </data>
-
   <data name="LVN_Color" xml:space="preserve">
     <value>LVN 颜色</value>
   </data>
-
   <data name="LVN_MinPocVol" xml:space="preserve">
     <value>LVN 的最小 POC 成交量</value>
   </data>
-
   <data name="LVN_MinPocVol_Description" xml:space="preserve">
     <value>在档案的 POC 成交量达到该值之前不计算 LVN 区域。可避免周期初期的 LVN 噪音。</value>
   </data>
-
   <data name="LVN_TailFilterMinTicks" xml:space="preserve">
     <value>尾部过滤（tick）</value>
   </data>
-
   <data name="LVN_TailFilterMinTicks_Description" xml:space="preserve">
     <value>从 LVN 识别中排除接近档案最高价和最低价的低成交量尾部区域。</value>
   </data>
-
   <data name="LVN_TailFilterRangePct" xml:space="preserve">
     <value>尾部过滤（范围百分比）</value>
   </data>
-
   <data name="LVN_TailFilterRangePct_Description" xml:space="preserve">
     <value>使用轮廓范围的百分比，将靠近轮廓高点和低点的低成交量尾部区域从 LVN 检测中排除。（0 = 禁用）</value>
   </data>
-
   <data name="DetailsGroup" xml:space="preserve">
     <value>详情</value>
   </data>
-
   <data name="LabelDisplayModeCard" xml:space="preserve">
     <value>卡片</value>
   </data>
-
   <data name="LabelDisplayModeFull" xml:space="preserve">
     <value>完整</value>
   </data>
-
   <data name="LabelDisplayModeHide" xml:space="preserve">
     <value>隐藏</value>
   </data>
-
   <data name="LabelDisplayModeShort" xml:space="preserve">
     <value>简短</value>
   </data>
-
   <data name="LabelDistance" xml:space="preserve">
     <value>标签距离</value>
   </data>
-
   <data name="LabelDistanceDescription" xml:space="preserve">
     <value>交易标记与标签之间的垂直间距（像素）。</value>
   </data>
-
   <data name="LabelMode" xml:space="preserve">
     <value>标签模式</value>
   </data>
-
   <data name="LabelModeDescription" xml:space="preserve">
     <value>选择交易标签的显示方式。</value>
   </data>
-
   <data name="LabelXAnchor" xml:space="preserve">
     <value>标签水平锚点</value>
   </data>
-
   <data name="LabelXAnchorCloseBar" xml:space="preserve">
     <value>收盘柱</value>
   </data>
-
   <data name="LabelXAnchorDescription" xml:space="preserve">
     <value>设置交易标签水平定位的参考点。</value>
   </data>
-
   <data name="LabelXAnchorMidpoint" xml:space="preserve">
     <value>交易中点</value>
   </data>
-
   <data name="LinesAndMarkers" xml:space="preserve">
     <value>线条与标记</value>
   </data>
-
   <data name="LossColorDescription" xml:space="preserve">
     <value>用于显示亏损交易的颜色。</value>
   </data>
-
   <data name="MarkerSize" xml:space="preserve">
     <value>标记大小</value>
   </data>
-
   <data name="MarkerSizeDescription" xml:space="preserve">
     <value>入场/出场标记的大小。</value>
   </data>
-
   <data name="ProfitColorDescription" xml:space="preserve">
     <value>用于显示盈利交易的颜色。</value>
   </data>
-
   <data name="TradeBuyColor" xml:space="preserve">
     <value>买入颜色</value>
   </data>
-
   <data name="TradeDetailsDescription" xml:space="preserve">
     <value>悬停在标记或标签上时显示交易详情。</value>
   </data>
-
   <data name="TradeDirectionLong" xml:space="preserve">
     <value>多</value>
   </data>
-
   <data name="TradeDirectionShort" xml:space="preserve">
     <value>空</value>
   </data>
-
   <data name="TradeEntry" xml:space="preserve">
     <value>入场</value>
   </data>
-
   <data name="TradeExit" xml:space="preserve">
     <value>出场</value>
   </data>
-
   <data name="TradeIn" xml:space="preserve">
     <value>入场</value>
   </data>
-
   <data name="TradeLine" xml:space="preserve">
     <value>交易线</value>
   </data>
-
   <data name="TradeLineDescription" xml:space="preserve">
     <value>绘制连接入场和出场标记的线条。</value>
   </data>
-
   <data name="TradeOut" xml:space="preserve">
     <value>出场</value>
   </data>
-
   <data name="TradePnL" xml:space="preserve">
     <value>盈亏</value>
   </data>
-
   <data name="TradeResult" xml:space="preserve">
     <value>结果</value>
   </data>
-
   <data name="TradeSellColor" xml:space="preserve">
     <value>卖出颜色</value>
   </data>
-
   <data name="TradeTicks" xml:space="preserve">
     <value>跳动点</value>
   </data>
-
   <data name="TradeTicksShort" xml:space="preserve">
     <value>t</value>
   </data>
-
 </root>

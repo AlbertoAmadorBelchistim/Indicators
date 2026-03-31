@@ -1,110 +1,51 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
+<root xmlns:ns1="urn:schemas-microsoft-com:xml-msdata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:schema id="root">
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xs:element name="root" ns1:IsDataSet="true">
+      <xs:complexType>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element name="metadata">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" />
+              </xs:sequence>
+              <xs:attribute name="name" use="required" type="xsd:string" />
+              <xs:attribute name="type" type="xsd:string" />
+              <xs:attribute name="mimetype" type="xsd:string" />
+              <xs:attribute ref="xml:space" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="assembly">
+            <xs:complexType>
+              <xs:attribute name="alias" type="xsd:string" />
+              <xs:attribute name="name" type="xsd:string" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="data">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
+                <xs:element name="comment" type="xsd:string" minOccurs="0" ns1:Ordinal="2" />
+              </xs:sequence>
+              <xs:attribute name="name" type="xsd:string" use="required" ns1:Ordinal="1" />
+              <xs:attribute name="type" type="xsd:string" ns1:Ordinal="3" />
+              <xs:attribute name="mimetype" type="xsd:string" ns1:Ordinal="4" />
+              <xs:attribute ref="xml:space" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="resheader">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
+              </xs:sequence>
+              <xs:attribute name="name" type="xsd:string" use="required" />
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
   <resheader name="resmimetype">
     <value>text/microsoft-resx</value>
   </resheader>
@@ -1017,9 +958,6 @@ Diese Aktion kann nicht rückgängig gemacht werden.</value>
   <data name="AskAlert" xml:space="preserve">
     <value>Ask Alarm</value>
   </data>
-  <data name="AskBGColorDescription" xml:space="preserve">
-    <value>Legt die Hintergrundfarbe für das Element fest, das die Angebotsvolumina anzeigt.</value>
-  </data>
   <data name="AskBid" xml:space="preserve">
     <value>AskBid</value>
   </data>
@@ -1161,9 +1099,6 @@ Diese Aktion kann nicht rückgängig gemacht werden.</value>
   <data name="AuthorizationEmailHint" xml:space="preserve">
     <value>Bei der Registrierung angegebene E-Mail-Adresse</value>
   </data>
-  <data name="AuthorizationPasswordHint" xml:space="preserve">
-    <value>Passwort aus E-Mail nach der Registrierung</value>
-  </data>
   <data name="AuthorizationWindowTitle" xml:space="preserve">
     <value>Autorisierung</value>
   </data>
@@ -1203,9 +1138,6 @@ Diese Aktion kann nicht rückgängig gemacht werden.</value>
   <data name="AutoCenterIntervalTicks" xml:space="preserve">
     <value>Auto-Center-Intervall, Ticks</value>
   </data>
-  <data name="AutoCenterSettings" xml:space="preserve">
-    <value>Auto-center Einstellungen</value>
-  </data>
   <data name="AutoCenterSpeed" xml:space="preserve">
     <value>Auto-center Geschwindigkeit</value>
   </data>
@@ -1241,9 +1173,6 @@ Diese Aktion kann nicht rückgängig gemacht werden.</value>
   </data>
   <data name="AutoTransformVerticalLines" xml:space="preserve">
     <value>Auto transformieren vertikale Linien</value>
-  </data>
-  <data name="AutoUpdateModulesFromPersonalArea" xml:space="preserve">
-    <value>Automatische Aktualisierung von Modulen</value>
   </data>
   <data name="AutoUpdateModulesFromPersonalAreaDescription" xml:space="preserve">
     <value>Automatisches Aktualisieren von Modulen (Indikatoren, Strategien usw.) aus dem persönlichen Bereich beim Start der Plattform.</value>
@@ -19828,347 +19757,269 @@ Um sie zu erneuern, wählen Sie die entsprechende Lizenz in Ihrem persönlichen 
   <data name="AlertFileDescription" xml:space="preserve">
     <value>Der Parameter AlertFileDescription ermöglicht es Benutzern, den Namen einer benutzerdefinierten Audiodatei für Alarmtöne in der ATAS-Plattform festzulegen. Benutzer können eine WAV-Datei auswählen, die abgespielt wird, wenn eine Alarmbedingung erfüllt ist. Die ausgewählte WAV-Datei sollte im Ordner C:\Program Files (x86)\ATAS Platform\Sounds liegen.</value>
   </data>
-
   <data name="Labels" xml:space="preserve">
     <value>Beschriftungen</value>
   </data>
-
   <data name="LabelTemplate" xml:space="preserve">
     <value>Beschriftungsvorlage</value>
   </data>
-
   <data name="Prefixes" xml:space="preserve">
     <value>Präfixe</value>
   </data>
-
   <data name="OverrideLabel" xml:space="preserve">
     <value>Beschriftung überschreiben (optional)</value>
   </data>
-
   <data name="OverrideColorInSchemes" xml:space="preserve">
     <value>Farbe in Schemata überschreiben</value>
   </data>
-
   <data name="OverrideColorInSchemesDescription" xml:space="preserve">
     <value>Wenn aktiviert, verwendet diese Linie ihre eigene Farbe, auch wenn visuelle semantische Schemata aktiv sind.</value>
   </data>
-
   <data name="ByPeriod" xml:space="preserve">
     <value>Nach Zeitraum</value>
   </data>
-
   <data name="ByLevelType" xml:space="preserve">
     <value>Nach Ebenentyp</value>
   </data>
-
   <data name="VisualSemantic" xml:space="preserve">
     <value>Visuelle Semantik</value>
   </data>
-
   <data name="VisualSemanticMode" xml:space="preserve">
     <value>Modus</value>
   </data>
-
   <data name="VisualSemanticPreset" xml:space="preserve">
     <value>Preset</value>
   </data>
-
   <data name="OverrideWidthInSchemes" xml:space="preserve">
     <value>Linienstärke in Schemas überschreiben</value>
   </data>
-
   <data name="OverrideWidthInSchemesDescription" xml:space="preserve">
     <value>Wenn aktiviert, verwendet dieses Niveau seine eigene Linienstärke, auch wenn visuelle semantische Schemata aktiv sind.</value>
   </data>
-
   <data name="OverrideStyleInSchemes" xml:space="preserve">
     <value>Linienstil in Schemas überschreiben</value>
   </data>
-
   <data name="OverrideStyleInSchemesDescription" xml:space="preserve">
     <value>Wenn aktiviert, verwendet dieses Niveau seinen eigenen Linienstil, auch wenn visuelle semantische Schemata aktiv sind.</value>
   </data>
-
   <data name="VisualSemantic_LevelPalette" xml:space="preserve">
     <value>Visuelle Semantik – Ebenenpalette</value>
   </data>
-
   <data name="VisualSemantic_PeriodPalette" xml:space="preserve">
     <value>Visuelle Semantik – Periodenpalette</value>
   </data>
-
   <data name="VisualMode_Legacy" xml:space="preserve">
     <value>Klassisch</value>
   </data>
-
   <data name="VisualMode_Ruleset" xml:space="preserve">
     <value>Regelsatz</value>
   </data>
-
   <data name="VisualMode_Legacy_Description" xml:space="preserve">
     <value>Klassische Darstellung ohne semantische Regeln.</value>
   </data>
-
   <data name="VisualMode_Ruleset_Description" xml:space="preserve">
     <value>Darstellung, gesteuert durch semantische Regeln und Paletten.</value>
   </data>
-
   <data name="HVN_Group" xml:space="preserve">
     <value>HVN</value>
   </data>
-
   <data name="HVN_Color" xml:space="preserve">
     <value>HVN-Farbe</value>
   </data>
-
   <data name="HVN_ThresholdPct" xml:space="preserve">
     <value>HVN-Schwelle (%)</value>
   </data>
-
   <data name="HVN_GapToleranceTicks" xml:space="preserve">
     <value>Lückentoleranz (Ticks)</value>
   </data>
-
   <data name="HVN_OcclusionTicks" xml:space="preserve">
     <value>Überdeckung (Ticks)</value>
   </data>
-
   <data name="HVN_ThresholdPct_Description" xml:space="preserve">
     <value>Ein Preisniveau gilt als HVN, wenn sein Volumen gleich oder größer als dieser Prozentsatz des POC-Volumens des Profils ist.</value>
   </data>
-
   <data name="HVN_GapToleranceTicks_Description" xml:space="preserve">
     <value>Erlaubt kleine Lücken (in Ticks) innerhalb einer HVN-Zone, um nahe Hochvolumenlevel zusammenzufassen.</value>
   </data>
-
   <data name="HVN_OcclusionTicks_Description" xml:space="preserve">
     <value>Minimaler vertikaler Abstand (in Ticks) zwischen HVN-Zonen verschiedener Perioden, um visuelle Überlagerungen zu vermeiden.</value>
   </data>
-
   <data name="HVN_Enabled" xml:space="preserve">
     <value>HVN aktivieren</value>
   </data>
-
   <data name="LVN_Group" xml:space="preserve">
     <value>LVN</value>
   </data>
-
   <data name="LVN_ThresholdPct" xml:space="preserve">
     <value>LVN-Schwelle (%)</value>
   </data>
-
   <data name="LVN_ThresholdPct_Description" xml:space="preserve">
     <value>Ein Preisniveau gilt als LVN, wenn sein Volumen unter diesem Prozentsatz des POC-Volumens des Profils liegt.</value>
   </data>
-
   <data name="LVN_GapToleranceTicks" xml:space="preserve">
     <value>Lückentoleranz (Ticks)</value>
   </data>
-
   <data name="LVN_GapToleranceTicks_Description" xml:space="preserve">
     <value>Erlaubt kleine Lücken (in Ticks) innerhalb eines LVN-Bands, um nahegelegene Niedrigvolumen-Niveaus zu gruppieren.</value>
   </data>
-
   <data name="LVN_OcclusionTicks" xml:space="preserve">
     <value>Überdeckung (Ticks)</value>
   </data>
-
   <data name="LVN_OcclusionTicks_Description" xml:space="preserve">
     <value>Minimaler vertikaler Abstand (in Ticks), der zwischen LVN-Bändern unterschiedlicher Perioden erforderlich ist, um visuelle Überlagerungen zu vermeiden.</value>
   </data>
-
   <data name="LVN_Enabled" xml:space="preserve">
     <value>LVN aktivieren</value>
   </data>
-
   <data name="LVN_Color" xml:space="preserve">
     <value>LVN-Farbe</value>
   </data>
-
   <data name="LVN_MinPocVol" xml:space="preserve">
     <value>Minimales POC-Volumen für LVN</value>
   </data>
-
   <data name="LVN_MinPocVol_Description" xml:space="preserve">
     <value>LVN-Bänder werden erst berechnet, wenn das POC-Volumen des Profils diesen Wert erreicht. Verhindert LVN-Rauschen zu Beginn der Periode.</value>
   </data>
-
   <data name="LVN_TailFilterMinTicks" xml:space="preserve">
     <value>Tail-Filter (Ticks)</value>
   </data>
-
   <data name="LVN_TailFilterMinTicks_Description" xml:space="preserve">
     <value>Schließt volumenarme Tail-Bereiche nahe dem Hoch und Tief des Profils von der LVN-Erkennung aus.</value>
   </data>
-
   <data name="LVN_TailFilterRangePct" xml:space="preserve">
     <value>Tail-Filter (% der Spanne)</value>
   </data>
-
   <data name="LVN_TailFilterRangePct_Description" xml:space="preserve">
     <value>Schließt volumenarme Randbereiche nahe dem Hoch und Tief des Profils von der LVN-Erkennung aus, basierend auf einem Prozentsatz der Profilspanne. (0 = deaktiviert).</value>
   </data>
-
   <data name="ProfitColorDescription" xml:space="preserve">
     <value>Farbe zur Darstellung profitabler Trades.</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LossColorDescription" xml:space="preserve">
     <value>Farbe zur Darstellung verlustreicher Trades.</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LabelDisplayModeHide" xml:space="preserve">
     <value>Ausblenden</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LabelDisplayModeShort" xml:space="preserve">
     <value>Kurz</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LabelDisplayModeFull" xml:space="preserve">
     <value>Vollständig</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LabelDisplayModeCard" xml:space="preserve">
     <value>Karte</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeDirectionLong" xml:space="preserve">
     <value>Long</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeDirectionShort" xml:space="preserve">
     <value>Short</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeEntry" xml:space="preserve">
     <value>Einstieg</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeExit" xml:space="preserve">
     <value>Ausstieg</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeResult" xml:space="preserve">
     <value>Ergebnis</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradePnL" xml:space="preserve">
     <value>PnL</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeIn" xml:space="preserve">
     <value>Ein</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeOut" xml:space="preserve">
     <value>Aus</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeTicks" xml:space="preserve">
     <value>Ticks</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeTicksShort" xml:space="preserve">
     <value>t</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LabelDistance" xml:space="preserve">
     <value>Label-Abstand</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LabelDistanceDescription" xml:space="preserve">
     <value>Vertikaler Abstand zwischen Markern und Label (px).</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LabelXAnchor" xml:space="preserve">
     <value>Label-Zentrierung</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LabelXAnchorDescription" xml:space="preserve">
     <value>Horizontale Referenz zum Zentrieren des Labels über dem Trade.</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LabelXAnchorCloseBar" xml:space="preserve">
     <value>Schlussbalken</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LabelXAnchorMidpoint" xml:space="preserve">
     <value>Trade-Mittelpunkt</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LabelMode" xml:space="preserve">
     <value>Label-Modus</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LabelModeDescription" xml:space="preserve">
     <value>Legt fest, wie Trade-Labels angezeigt werden.</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="LinesAndMarkers" xml:space="preserve">
     <value>Linien und Marker</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="DetailsGroup" xml:space="preserve">
     <value>Details</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeLine" xml:space="preserve">
     <value>Trade-Linie</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeLineDescription" xml:space="preserve">
     <value>Zeichnet eine Linie zwischen Ein- und Ausstiegsmarkern.</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeDetailsDescription" xml:space="preserve">
     <value>Zeigt Trade-Details beim Überfahren von Markern oder Labels.</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeBuyColor" xml:space="preserve">
     <value>Kauf-Farbe</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="TradeSellColor" xml:space="preserve">
     <value>Verkauf-Farbe</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="MarkerSize" xml:space="preserve">
     <value>Markergröße</value>
     <comment>TradesOnChart</comment>
   </data>
-
   <data name="MarkerSizeDescription" xml:space="preserve">
     <value>Größe der Ein-/Ausstiegsmarker.</value>
     <comment>TradesOnChart</comment>
