@@ -84,6 +84,24 @@ New resource keys on these branches must use hardcoded English strings (no `type
 for keys not present in the upstream `Strings` class). Use `typeof(Strings)` only where the key
 already exists in the platform.
 
+#### Feature dependency analysis (required before creating branches)
+
+Before creating any `feat/*` branch for a new indicator, run a dependency analysis:
+
+1. List all new features vs upstream `Develop` (source: `prready/main` diff or `*Modif` inventory).
+2. For each feature, list every field, method, or series it reads that **does not exist on Develop**.
+3. If a feature requires only things that exist on Develop → branch from **`Develop`**.
+4. If a feature requires something introduced by another local `feat/*` → branch from **that feat branch**.
+5. Document the resulting topology in the port manifest under `§7 Branch topology`.
+
+The goal: upstream should be able to accept any subset of features in any order, subject only to
+declared stacking constraints. See `docs/feat-dependency-guide.md` for the full decision framework
+and the Delta indicator as a worked example.
+
+**Stacked `feat/*` branches and PRs:**
+A stacked PR (PR #2 based on PR #1) is legitimate. Submit both simultaneously, noting the
+dependency in the PR description. Upstream can evaluate in parallel and merge in order.
+
 ---
 
 ### 2.3 PR preparation branches

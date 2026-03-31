@@ -2,7 +2,45 @@
 
 **Source:** `prready/main`
 **Integration target:** `local/delta-i18n` (stacked on `local/build/04-localization`)
-**Status:** `complete` (pending Phase 4 smoke test in ATAS Platform)
+**Status:** `in-progress` — feat branches being corrected (2026-03-31); integration branch pending re-verification
+
+---
+
+## Section 7 — Branch topology (confirmed 2026-03-31)
+
+See also: `docs/feat-dependency-guide.md` for the general decision framework.
+
+```
+Develop
+  ├── feat/delta-average-line              standalone — uses only Develop APIs
+  ├── feat/delta-fixed-thresholds          standalone — introduces _upMajor/_upMinor/_dnMinor/_dnMajor + UpMajorLevel etc.
+  │     └── feat/delta-threshold-selection  stack — needs UpMajorLevel/DownMajorLevel etc.
+  │           ├── feat/delta-price-signals   stack — needs PickUpThreshold(bar, level)
+  │           └── feat/delta-audio-alerts    stack — needs PickUpThreshold(bar, level); independent of price-signals
+  └── feat/delta-dynamic-thresholds        standalone — WelfordAcc machinery only; no _upMajor writes (integration concern)
+
+local/delta-i18n  (stacked on local/build/04-localization)
+  Merges all feat/* above, then adds:
+  - i18n: typeof(Resources) for all new keys
+  - PickUpThreshold dynamic case: reads _upMajor[bar] / _upMinor[bar] (series exist after merge)
+  - CutAllThresholdsAt / CutUpThresholdsAt / CutDownThresholdsAt
+  - UpdateDynamicThresholdState: writes _upMajor[bar] / _upMinor[bar] per bar (no look-ahead)
+  - Full parity with compile/myindicators:MyIndicators/DeltaModif.cs
+```
+
+### Stacked PR submission order
+1. `feat/delta-fixed-thresholds` — independent, submit first
+2. `feat/delta-threshold-selection` — depends on #1
+3. `feat/delta-price-signals` — depends on #2, independent of audio
+4. `feat/delta-audio-alerts` — depends on #2, independent of price-signals
+5. `feat/delta-average-line` — independent, submit any time
+6. `feat/delta-dynamic-thresholds` — independent, submit any time
+
+### Corrections applied 2026-03-31
+- `feat/delta-dynamic-thresholds`: replaced raw Welford fields with `WelfordAcc` struct; added `UpdateDynamicThresholdState(bar, candle)` with no look-ahead; removed static `WelfordPush`/`WelfordStd`
+- `feat/delta-threshold-selection`: corrected `PickUpThreshold()→int` to `PickUpThreshold(int bar, ThresholdLevel level)→decimal`; rebased onto `feat/delta-fixed-thresholds`
+- `feat/delta-price-signals`: price signal trigger decoupled from `UpAlert`; now uses `PickUpThreshold(bar, _visualUpLevel)`; rebased onto `feat/delta-threshold-selection`
+- `feat/delta-audio-alerts`: in progress — rebasing onto `feat/delta-threshold-selection` and replacing inline threshold lookup with `PickUpThreshold(bar, _audioUpLevel)`
 
 ---
 
