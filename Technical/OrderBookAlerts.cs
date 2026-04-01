@@ -52,8 +52,8 @@ public class OrderBookAlerts : Indicator
     private PriceOffsetMode _pOMode;
     private int _priceOffset = 1;
 
-    private System.Windows.Media.Color _alertForeColor;
-    private System.Windows.Media.Color _alertBgColor;
+    private CrossColor _alertForeColor;
+    private CrossColor _alertBgColor;
     private Color _chartFillColor = Color.FromArgb((int)(255 * 0.7), 75, 72, 72);
 
     #endregion
