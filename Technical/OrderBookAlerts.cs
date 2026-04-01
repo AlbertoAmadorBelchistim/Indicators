@@ -5,11 +5,12 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
 using OFT.Attributes;
 using OFT.Localization;
 using OFT.Rendering.Context;
+using Utils.Common.Logging;
 using Color = System.Drawing.Color;
 
 [DisplayName("Order Book Alerts")]
@@ -43,13 +44,17 @@ public class OrderBookAlerts : Indicator
 
     #region Fields
 
-    private readonly ConcurrentBag<PriceInfo> _priceInfos = [];
+    private readonly ConcurrentDictionary<decimal, PriceInfo> _priceInfos = new();
     private readonly object _locker = new();
     private SortedDictionary<decimal, MarketDataArg> _mDepth = [];
     private decimal _lastPrice;
     private decimal _filter = 100;
     private PriceOffsetMode _pOMode;
     private int _priceOffset = 1;
+
+    private System.Windows.Media.Color _alertForeColor;
+    private System.Windows.Media.Color _alertBgColor;
+    private Color _chartFillColor = Color.FromArgb((int)(255 * 0.7), 75, 72, 72);
 
     #endregion
 
@@ -103,10 +108,33 @@ public class OrderBookAlerts : Indicator
     public string AlertFile { get; set; } = "alert1";
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.FontColor), GroupName = nameof(Strings.Alerts), Description = nameof(Strings.AlertTextColorDescription))]
-    public Color AlertForeColor { get; set; } = Color.FromArgb(255, 247, 249, 249);
+    public Color AlertForeColor
+    {
+        get => field;
+        set
+        {
+            if (value.Equals(field))
+                return;
+
+            field = value;
+            _alertForeColor = value.Convert();
+        }
+    } = Color.FromArgb(255, 247, 249, 249);
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BackGround), GroupName = nameof(Strings.Alerts), Description = nameof(Strings.AlertFillColorDescription))]
-    public Color AlertBGColor { get; set; } = Color.FromArgb(255, 75, 72, 72);
+    public Color AlertBGColor
+    {
+        get => field;
+        set
+        {
+            if (value.Equals(field))
+                return;
+
+            field = value;
+            _alertBgColor = value.Convert();
+            _chartFillColor = Color.FromArgb((int)(value.A * 0.7), value.R, value.G, value.B);
+        }
+    } = Color.FromArgb(255, 75, 72, 72);
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowOnChart), GroupName = nameof(Strings.Alerts), Description = nameof(Strings.ShowLevelsOnChartDescription))]
     public bool ShowOnChart { get; set; }
@@ -221,8 +249,7 @@ public class OrderBookAlerts : Indicator
         if (depth.Price < lowerPrice || depth.Price > upperPrice)
         {
             // Price outside range - deactivate if exists
-            var priceInfo = _priceInfos.FirstOrDefault(p => p.Price == depth.Price);
-            if (priceInfo != null)
+            if (_priceInfos.TryGetValue(depth.Price, out var priceInfo))
             {
                 priceInfo.IsAlerted = false;
                 priceInfo.IsActive = false;
@@ -233,15 +260,15 @@ public class OrderBookAlerts : Indicator
         // Process the changed level
         if (depth.Volume > _filter)
         {
-            var priceInfo = _priceInfos.FirstOrDefault(p => p.Price == depth.Price)
-                ?? new PriceInfo { AppearanceTime = MarketTime };
+            if (!_priceInfos.TryGetValue(depth.Price, out var priceInfo))
+            {
+                priceInfo = new PriceInfo { AppearanceTime = MarketTime };
+                _priceInfos[depth.Price] = priceInfo;
+            }
 
             priceInfo.Price = depth.Price;
             priceInfo.Volume = depth.Volume;
             priceInfo.IsActive = true;
-
-            if (!_priceInfos.Contains(priceInfo))
-                _priceInfos.Add(priceInfo);
 
             if (!priceInfo.IsAlerted && (MarketTime - priceInfo.LastAlertTime).TotalSeconds >= CoolDownPeriod)
             {
@@ -257,7 +284,7 @@ public class OrderBookAlerts : Indicator
                     if (UseAlerts)
                     {
                         AddAlert(AlertFile, InstrumentInfo.Instrument, $"New Level: {priceInfo.Price}, Volume: {priceInfo.Volume}",
-                            AlertBGColor.Convert(), AlertForeColor.Convert());
+                            _alertBgColor, _alertForeColor);
                         priceInfo.IsAlerted = true;
                     }
                 }
@@ -265,9 +292,7 @@ public class OrderBookAlerts : Indicator
         }
         else
         {
-            var priceInfo = _priceInfos.FirstOrDefault(p => p.Price == depth.Price);
-
-            if (priceInfo != null)
+            if (_priceInfos.TryGetValue(depth.Price, out var priceInfo))
             {
                 priceInfo.IsAlerted = false;
                 priceInfo.IsActive = false;
@@ -289,7 +314,9 @@ public class OrderBookAlerts : Indicator
 
     private void DrawPriceLevel(RenderContext context)
     {
-        foreach (var pInfo in _priceInfos)
+        var color = _chartFillColor;
+
+        foreach (var pInfo in _priceInfos.Values)
         {
             if (!pInfo.IsActive) continue;
 
@@ -298,8 +325,6 @@ public class OrderBookAlerts : Indicator
             var w = ChartInfo.Region.Width;
             var h = Math.Max(1, ChartInfo.PriceChartContainer.PriceRowHeight);
             var rec = new Rectangle(x, y, w, (int)h);
-            var color = Color.FromArgb((int)(AlertBGColor.A * 0.7), AlertBGColor.R, AlertBGColor.G, AlertBGColor.B);
-
             context.FillRectangle(color, rec);
         }
     }
