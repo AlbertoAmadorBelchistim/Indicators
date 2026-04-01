@@ -167,8 +167,6 @@ public class OrderBookAlerts : Indicator
         {
             _mDepth?.Clear();
         }
-
-        this.LogWarn("TOTAL MD CHANGE HANDLER TIME: {0}, TOTAL RENDER TIME: {1}", _totalMdChangeTime, _totalRenderTime);
     }
 
     protected override void OnRecalculate()
@@ -215,14 +213,9 @@ public class OrderBookAlerts : Indicator
         _lastPrice = candle.Close;
     }
 
-    private TimeSpan _totalMdChangeTime = TimeSpan.Zero;
-    private TimeSpan _totalRenderTime = TimeSpan.Zero;
-
     protected override void MarketDepthChanged(MarketDataArg depth)
     {
         if (_lastPrice == 0) return;
-
-        var t0 = Stopwatch.GetTimestamp();
 
         lock (_locker)
         {
@@ -305,8 +298,6 @@ public class OrderBookAlerts : Indicator
                 priceInfo.IsActive = false;
             }
         }
-
-        _totalMdChangeTime += Stopwatch.GetElapsedTime(t0);
     }
 
     protected override void OnRender(RenderContext context, DrawingLayouts layout)
@@ -323,8 +314,6 @@ public class OrderBookAlerts : Indicator
 
     private void DrawPriceLevel(RenderContext context)
     {
-        var t0 = Stopwatch.GetTimestamp();
-
         var color = _chartFillColor;
 
         foreach (var pInfo in _priceInfos.Values)
@@ -338,8 +327,6 @@ public class OrderBookAlerts : Indicator
             var rec = new Rectangle(x, y, w, (int)h);
             context.FillRectangle(color, rec);
         }
-
-        _totalRenderTime += Stopwatch.GetElapsedTime(t0);
     }
 
     #endregion
