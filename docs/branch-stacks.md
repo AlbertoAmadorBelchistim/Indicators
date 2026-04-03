@@ -26,38 +26,39 @@ develop
 | `local/build/01-base` | `develop` | PR open | Base local build alignment: `$(ATAS_BASE)`, `net8.0-windows` / `net8.0`, Cross platform exclusions |
 | `local/build/02-multiversion` | `local/build/01-base` | local-only | Multi-flavor build configs: Alpha / Beta / Latest / Stable / ATAS_X_Alpha / ATAS_X_Beta |
 | `local/build/03-version-shims` | `local/build/02-multiversion` | local-only | Version compatibility shims + TabAttribute stub for pre-release OFT.Attributes |
-| `local/build/04-localization` | `local/build/03-version-shims` | local-only | New .resx keys for Volume + Delta + MultiMarketPower + ClusterSearch + ClusterStatistic + OHLCPlus + TradesOnChart features (~400 keys, all 7 locales). All locale gaps repaired as of 2026-03-29. |
+| `local/build/04-localization` | `local/build/03-version-shims` | local-only | New .resx keys for Volume + Delta + MultiMarketPower + ClusterSearch + ClusterStatistic + OHLCPlus + TradesOnChart features. 39 Delta keys added 2026-04-03 (audio, threshold levels, price signals, slope colors). All 7 locales. |
 
 ## Delta branches
 
 ```text
-develop
-├─ feat/delta-threshold-lines       (local)
-│  └─ feat/delta-price-signals      (local)
-│     └─ feat/delta-threshold-sel   (local)
-│        └─ feat/delta-dyn-thresh   (local)
-│           └─ feat/delta-audio     (local)
-│              └─ feat/delta-avg    (local)
+Develop
+├─ feat/delta-fixed-thresholds          (local)
+│  ├─ feat/delta-threshold-selection    (local, depends on fixed-thresholds)
+│  │  └─ feat/delta-audio-alerts        (local, depends on threshold-selection)
+│  └─ feat/delta-price-signals          (local, depends on fixed-thresholds)
+├─ feat/delta-dynamic-thresholds        (local, standalone from Develop)
+├─ feat/delta-average-line              (local, standalone from Develop)
+├─ fix/delta-deadfield-absorptionthreshold  (local, standalone from Develop)
+├─ fix/delta-divergence-dot-bounds      (local, standalone from Develop)
+├─ fix/delta-triangle-clamp             (local, standalone from Develop)
 └─ local/build/04-localization
-   └─ local/delta-i18n              (local)
+   └─ local/delta-i18n                  (integration, stacks all feat/fix above)
+      └─ chore/delta-ui-polish          (local, UI Order numbers aligned with prready/main)
 ```
 
 | Branch | Parent | Status | Notes |
 |---|---|---|---|
-| `feat/delta-threshold-lines` | `develop` | local-only | Fixed threshold line series (up/down major/minor) |
-| `feat/delta-price-signals` | `feat/delta-threshold-lines` | local-only | Price-panel triangle signals (visual alerts) |
-| `feat/delta-threshold-sel` | `feat/delta-price-signals` | local-only | ThresholdLevel enum: per-side major/minor selection for visual alerts |
-| `feat/delta-dyn-thresh` | `feat/delta-threshold-sel` | local-only | Session-anchored dynamic thresholds via Welford running statistics |
-| `feat/delta-audio` | `feat/delta-dyn-thresh` | local-only | Audio alerts with cooldown, bar-close policy, and per-side threshold selection |
-| `feat/delta-avg` | `feat/delta-audio` | local-only | Average delta line: SMA/EMA, three color modes (Fixed/ZeroCross/Slope) |
-| `local/delta-i18n` | `local/build/04-localization` | local-only | Full i18n of Delta.cs: all new display strings via `typeof(Resources)` |
-
-### Pending Delta branches (from prready/main, not yet extracted)
-
-| Planned branch | Commit | Description |
-|---|---|---|
-| `fix/delta-marker-clamp` | `64ed7f58` | Clamp price-panel triangle markers to visible region |
-| `chore/delta-ui-polish` | `3e420e5c`, `811000d6`, `5fe49e01`, `5f78e83f`, `5e336b28`, `eff7ee3f`, `0d087ebd` | UI group reorganization, Drawing group cleanup, label polish |
+| `feat/delta-fixed-thresholds` | `Develop` | local-only | Fixed threshold line series (up/down major/minor) |
+| `feat/delta-threshold-selection` | `feat/delta-fixed-thresholds` | local-only | ThresholdLevel enum: per-side major/minor selection for visual/audio alerts |
+| `feat/delta-audio-alerts` | `feat/delta-threshold-selection` | local-only | Audio alerts with cooldown, bar-close policy, and per-side threshold selection |
+| `feat/delta-price-signals` | `feat/delta-fixed-thresholds` | local-only | Price-panel triangle signals (visual markers on price chart) |
+| `feat/delta-dynamic-thresholds` | `Develop` | local-only | Session-anchored dynamic thresholds via WelfordAcc running statistics (no look-ahead) |
+| `feat/delta-average-line` | `Develop` | local-only | Average delta line: SMA/EMA, three color modes (Fixed/ZeroCross/Slope) |
+| `fix/delta-deadfield-absorptionthreshold` | `Develop` | local-only | Remove dead field _absorptionThreshold |
+| `fix/delta-divergence-dot-bounds` | `Develop` | local-only | Clamp divergence dots to visible price region |
+| `fix/delta-triangle-clamp` | `Develop` | local-only | Clamp price-panel triangle markers to visible region |
+| `local/delta-i18n` | `local/build/04-localization` | local-only | Integration branch: merges all feat/fix + typeof(Resources) wiring + session boundaries (CutAllThresholdsAt) |
+| `chore/delta-ui-polish` | `local/delta-i18n` | local-only | Align UI property Order numbers with prready/main; fix AbsorptionThresholdDesc reference |
 
 ## Volume branches
 
