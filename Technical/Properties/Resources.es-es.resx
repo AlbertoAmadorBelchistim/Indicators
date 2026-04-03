@@ -19797,4 +19797,121 @@ Para renovarla, pague la tarifa requerida en el Área personal</value>
   <data name="TradeTicksShort" xml:space="preserve">
     <value>t</value>
   </data>
+  <data name="AudioAlerts" xml:space="preserve">
+    <value>Use audio alerts</value>
+  </data>
+  <data name="AudioAlertsDescription" xml:space="preserve">
+    <value>Play sound when thresholds are crossed.</value>
+  </data>
+  <data name="AudioAtBarCloseOnly" xml:space="preserve">
+    <value>Audio at bar close</value>
+  </data>
+  <data name="AudioAtBarCloseOnlyDescription" xml:space="preserve">
+    <value>Trigger audio alerts only after the bar closes.</value>
+  </data>
+  <data name="AudioDownThresholds" xml:space="preserve">
+    <value>Audio threshold -</value>
+  </data>
+  <data name="AudioDownThresholdsDescription" xml:space="preserve">
+    <value>Threshold level used for bearish audio alerts.</value>
+  </data>
+  <data name="AudioUpThresholds" xml:space="preserve">
+    <value>Audio threshold +</value>
+  </data>
+  <data name="AudioUpThresholdsDescription" xml:space="preserve">
+    <value>Threshold level used for bullish audio alerts.</value>
+  </data>
+  <data name="BaseColor" xml:space="preserve">
+    <value>Base color</value>
+  </data>
+  <data name="ColorMode" xml:space="preserve">
+    <value>Color mode</value>
+  </data>
+  <data name="DeltaLabelGroup" xml:space="preserve">
+    <value>Delta label</value>
+  </data>
+  <data name="DeltaNegativeColor" xml:space="preserve">
+    <value>Negative color</value>
+  </data>
+  <data name="DeltaPositiveColor" xml:space="preserve">
+    <value>Positive color</value>
+  </data>
+  <data name="Fixed" xml:space="preserve">
+    <value>Fixed</value>
+  </data>
+  <data name="FixedNegMajorLevel" xml:space="preserve">
+    <value>Fixed - major</value>
+  </data>
+  <data name="FixedNegMajorLevelDescription" xml:space="preserve">
+    <value>Upper (in magnitude) threshold for negative delta.</value>
+  </data>
+  <data name="FixedNegMinorLevel" xml:space="preserve">
+    <value>Fixed - minor</value>
+  </data>
+  <data name="FixedNegMinorLevelDescription" xml:space="preserve">
+    <value>Lower (in magnitude) threshold for negative delta.</value>
+  </data>
+  <data name="FixedPosMajorLevel" xml:space="preserve">
+    <value>Fixed + major</value>
+  </data>
+  <data name="FixedPosMajorLevelDescription" xml:space="preserve">
+    <value>Upper threshold for positive delta.</value>
+  </data>
+  <data name="FixedPosMinorLevel" xml:space="preserve">
+    <value>Fixed + minor</value>
+  </data>
+  <data name="FixedPosMinorLevelDescription" xml:space="preserve">
+    <value>Lower threshold for positive delta.</value>
+  </data>
+  <data name="PriceSignalDownColor" xml:space="preserve">
+    <value>Down marker color</value>
+  </data>
+  <data name="PriceSignalDownColorDescription" xml:space="preserve">
+    <value>Color of bearish price markers.</value>
+  </data>
+  <data name="PriceSignalOffsetTicksDescription" xml:space="preserve">
+    <value>Vertical offset for price markers, in ticks.</value>
+  </data>
+  <data name="PriceSignalUpColor" xml:space="preserve">
+    <value>Up marker color</value>
+  </data>
+  <data name="PriceSignalUpColorDescription" xml:space="preserve">
+    <value>Color of bullish price markers.</value>
+  </data>
+  <data name="ShowVisualAlerts" xml:space="preserve">
+    <value>Show markers</value>
+  </data>
+  <data name="ShowVisualAlertsDescription" xml:space="preserve">
+    <value>Show threshold markers on the price chart.</value>
+  </data>
+  <data name="Slope" xml:space="preserve">
+    <value>Slope</value>
+  </data>
+  <data name="SlopeDownColor" xml:space="preserve">
+    <value>Slope down color</value>
+  </data>
+  <data name="SlopeUpColor" xml:space="preserve">
+    <value>Slope up color</value>
+  </data>
+  <data name="ThresholdLevelMajor" xml:space="preserve">
+    <value>Major</value>
+  </data>
+  <data name="ThresholdLevelMinor" xml:space="preserve">
+    <value>Minor</value>
+  </data>
+  <data name="VisualDownThresholds" xml:space="preserve">
+    <value>Visual threshold -</value>
+  </data>
+  <data name="VisualDownThresholdsDescription" xml:space="preserve">
+    <value>Threshold level used for bearish visual alerts.</value>
+  </data>
+  <data name="VisualUpThresholds" xml:space="preserve">
+    <value>Visual threshold +</value>
+  </data>
+  <data name="VisualUpThresholdsDescription" xml:space="preserve">
+    <value>Threshold level used for bullish visual alerts.</value>
+  </data>
+  <data name="ZeroCross" xml:space="preserve">
+    <value>Zero cross</value>
+  </data>
 </root>

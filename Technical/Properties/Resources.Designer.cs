@@ -38688,5 +38688,318 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string zh {
             get { return ResourceManager.GetString("zh", resourceCulture); }
         }
+        /// <summary>
+        ///   Use audio alerts
+        /// </summary>
+        public static string AudioAlerts {
+            get {
+                return ResourceManager.GetString("AudioAlerts", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Play sound when thresholds are crossed.
+        /// </summary>
+        public static string AudioAlertsDescription {
+            get {
+                return ResourceManager.GetString("AudioAlertsDescription", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Audio at bar close
+        /// </summary>
+        public static string AudioAtBarCloseOnly {
+            get {
+                return ResourceManager.GetString("AudioAtBarCloseOnly", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Trigger audio alerts only after the bar closes.
+        /// </summary>
+        public static string AudioAtBarCloseOnlyDescription {
+            get {
+                return ResourceManager.GetString("AudioAtBarCloseOnlyDescription", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Audio threshold -
+        /// </summary>
+        public static string AudioDownThresholds {
+            get {
+                return ResourceManager.GetString("AudioDownThresholds", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Threshold level used for bearish audio alerts.
+        /// </summary>
+        public static string AudioDownThresholdsDescription {
+            get {
+                return ResourceManager.GetString("AudioDownThresholdsDescription", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Audio threshold +
+        /// </summary>
+        public static string AudioUpThresholds {
+            get {
+                return ResourceManager.GetString("AudioUpThresholds", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Threshold level used for bullish audio alerts.
+        /// </summary>
+        public static string AudioUpThresholdsDescription {
+            get {
+                return ResourceManager.GetString("AudioUpThresholdsDescription", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Base color
+        /// </summary>
+        public static string BaseColor {
+            get {
+                return ResourceManager.GetString("BaseColor", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Color mode
+        /// </summary>
+        public static string ColorMode {
+            get {
+                return ResourceManager.GetString("ColorMode", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Delta label
+        /// </summary>
+        public static string DeltaLabelGroup {
+            get {
+                return ResourceManager.GetString("DeltaLabelGroup", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Negative color
+        /// </summary>
+        public static string DeltaNegativeColor {
+            get {
+                return ResourceManager.GetString("DeltaNegativeColor", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Positive color
+        /// </summary>
+        public static string DeltaPositiveColor {
+            get {
+                return ResourceManager.GetString("DeltaPositiveColor", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Fixed
+        /// </summary>
+        public static string Fixed {
+            get {
+                return ResourceManager.GetString("Fixed", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Fixed - major
+        /// </summary>
+        public static string FixedNegMajorLevel {
+            get {
+                return ResourceManager.GetString("FixedNegMajorLevel", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Upper (in magnitude) threshold for negative delta.
+        /// </summary>
+        public static string FixedNegMajorLevelDescription {
+            get {
+                return ResourceManager.GetString("FixedNegMajorLevelDescription", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Fixed - minor
+        /// </summary>
+        public static string FixedNegMinorLevel {
+            get {
+                return ResourceManager.GetString("FixedNegMinorLevel", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Lower (in magnitude) threshold for negative delta.
+        /// </summary>
+        public static string FixedNegMinorLevelDescription {
+            get {
+                return ResourceManager.GetString("FixedNegMinorLevelDescription", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Fixed + major
+        /// </summary>
+        public static string FixedPosMajorLevel {
+            get {
+                return ResourceManager.GetString("FixedPosMajorLevel", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Upper threshold for positive delta.
+        /// </summary>
+        public static string FixedPosMajorLevelDescription {
+            get {
+                return ResourceManager.GetString("FixedPosMajorLevelDescription", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Fixed + minor
+        /// </summary>
+        public static string FixedPosMinorLevel {
+            get {
+                return ResourceManager.GetString("FixedPosMinorLevel", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Lower threshold for positive delta.
+        /// </summary>
+        public static string FixedPosMinorLevelDescription {
+            get {
+                return ResourceManager.GetString("FixedPosMinorLevelDescription", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Down marker color
+        /// </summary>
+        public static string PriceSignalDownColor {
+            get {
+                return ResourceManager.GetString("PriceSignalDownColor", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Color of bearish price markers.
+        /// </summary>
+        public static string PriceSignalDownColorDescription {
+            get {
+                return ResourceManager.GetString("PriceSignalDownColorDescription", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Vertical offset for price markers, in ticks.
+        /// </summary>
+        public static string PriceSignalOffsetTicksDescription {
+            get {
+                return ResourceManager.GetString("PriceSignalOffsetTicksDescription", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Up marker color
+        /// </summary>
+        public static string PriceSignalUpColor {
+            get {
+                return ResourceManager.GetString("PriceSignalUpColor", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Color of bullish price markers.
+        /// </summary>
+        public static string PriceSignalUpColorDescription {
+            get {
+                return ResourceManager.GetString("PriceSignalUpColorDescription", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Show markers
+        /// </summary>
+        public static string ShowVisualAlerts {
+            get {
+                return ResourceManager.GetString("ShowVisualAlerts", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Show threshold markers on the price chart.
+        /// </summary>
+        public static string ShowVisualAlertsDescription {
+            get {
+                return ResourceManager.GetString("ShowVisualAlertsDescription", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Slope
+        /// </summary>
+        public static string Slope {
+            get {
+                return ResourceManager.GetString("Slope", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Slope down color
+        /// </summary>
+        public static string SlopeDownColor {
+            get {
+                return ResourceManager.GetString("SlopeDownColor", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Slope up color
+        /// </summary>
+        public static string SlopeUpColor {
+            get {
+                return ResourceManager.GetString("SlopeUpColor", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Major
+        /// </summary>
+        public static string ThresholdLevelMajor {
+            get {
+                return ResourceManager.GetString("ThresholdLevelMajor", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Minor
+        /// </summary>
+        public static string ThresholdLevelMinor {
+            get {
+                return ResourceManager.GetString("ThresholdLevelMinor", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Visual threshold -
+        /// </summary>
+        public static string VisualDownThresholds {
+            get {
+                return ResourceManager.GetString("VisualDownThresholds", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Threshold level used for bearish visual alerts.
+        /// </summary>
+        public static string VisualDownThresholdsDescription {
+            get {
+                return ResourceManager.GetString("VisualDownThresholdsDescription", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Visual threshold +
+        /// </summary>
+        public static string VisualUpThresholds {
+            get {
+                return ResourceManager.GetString("VisualUpThresholds", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Threshold level used for bullish visual alerts.
+        /// </summary>
+        public static string VisualUpThresholdsDescription {
+            get {
+                return ResourceManager.GetString("VisualUpThresholdsDescription", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Zero cross
+        /// </summary>
+        public static string ZeroCross {
+            get {
+                return ResourceManager.GetString("ZeroCross", resourceCulture);
+            }
+        }
+
     }
 }
