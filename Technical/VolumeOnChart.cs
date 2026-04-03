@@ -106,32 +106,68 @@ public class VolumeOnChart : Volume
 		if (maxValue <= 0)
 			return;
 
-		for (var i = FirstVisibleBarNumber; i <= LastVisibleBarNumber; i++)
-		{
-			var volumeValue = renderSeries[i];
-			var volumeColor = renderSeries.Colors[i];
-			var x = ChartInfo.GetXByBar(i);
-			var height = (int)(maxHeight * volumeValue / maxValue);
+		var hasPendingBar = false;
+		var pendingX = 0;
+		var pendingValue = 0m;
+		var pendingColor = default(Color);
 
-			var rectangle = new Rectangle(x, Container.Region.Bottom - height, barsWidth, height);
-			context.FillRectangle(volumeColor, rectangle);
+		void DrawPendingBar()
+		{
+			var height = (int)(maxHeight * pendingValue / maxValue);
+			var rectangle = new Rectangle(pendingX, Container.Region.Bottom - height, barsWidth, height);
+			context.FillRectangle(pendingColor, rectangle);
 
 			if (!showLabels)
-				continue;
+				return;
 
-			var renderText = ChartInfo.TryGetMinimizedVolumeString(volumeValue);
+			var renderText = ChartInfo.TryGetMinimizedVolumeString(pendingValue);
 			if (!textSizes.TryGetValue(renderText, out var textSize))
 			{
 				textSize = context.MeasureString(renderText, Font.RenderObject);
 				textSizes[renderText] = textSize;
 			}
 
-			var strRect = new Rectangle(x,
+			var strRect = new Rectangle(pendingX,
 				textY,
 				Math.Max(barsWidth, textSize.Width),
 				textSize.Height);
 			context.DrawString(renderText, Font.RenderObject, TextColor, strRect, Format);
 		}
+
+		for (var i = FirstVisibleBarNumber; i <= LastVisibleBarNumber; i++)
+		{
+			var volumeValue = renderSeries[i];
+			var volumeColor = renderSeries.Colors[i];
+			var x = ChartInfo.GetXByBar(i);
+
+			if (!hasPendingBar)
+			{
+				hasPendingBar = true;
+				pendingX = x;
+				pendingValue = volumeValue;
+				pendingColor = volumeColor;
+				continue;
+			}
+
+			if (x == pendingX)
+			{
+				if (volumeValue > pendingValue)
+				{
+					pendingValue = volumeValue;
+					pendingColor = volumeColor;
+				}
+
+				continue;
+			}
+
+			DrawPendingBar();
+			pendingX = x;
+			pendingValue = volumeValue;
+			pendingColor = volumeColor;
+		}
+
+		if (hasPendingBar)
+			DrawPendingBar();
 	}
 
 	#endregion
