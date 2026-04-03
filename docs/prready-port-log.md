@@ -3,7 +3,7 @@
 Tracks every commit in `prready/main` that is not in `Develop`, grouped by indicator/area.
 Each entry records what was done and where, or why it was skipped.
 
-**Last updated:** 2026-03-31
+**Last updated:** 2026-04-03
 **Scope:** `git log --oneline Develop..prready/main -- Technical/ docs/`
 
 ---
@@ -25,21 +25,48 @@ Each entry records what was done and where, or why it was skipped.
 | Indicator / Area | Total commits | ✅ Done | ⚠️ Partial | ⏭️ Skipped | 🔲 Pending |
 |------------------|--------------|--------|-----------|-----------|-----------|
 | Delta | 24 | 21 | 1 | 2 | 0 |
-| Resources (Delta-specific) | 8 | 8 | 0 | 0 | 0 |
-| OHLCPlus | 44 | 0 | 0 | 0 | 44 |
-| ClusterStatistic | 37 | 0 | 0 | 0 | 37 |
-| MultiMarketPower | 22 | 0 | 0 | 0 | 22 |
-| DailyLines | 21 | 0 | 0 | 0 | 21 |
-| Volume | 6 | 0 | 0 | 0 | 6 |
-| TradesOnChart | 3 | 0 | 0 | 0 | 3 |
-| ClusterSearch | 6 | 0 | 0 | 0 | 6 |
-| InitialBalance | 10 | 0 | 0 | 0 | 10 |
-| AccountInfoDisplay | 14 | 0 | 0 | 0 | 14 |
-| GammaLevels | 30 | 0 | 0 | 0 | 30 |
+| Resources (Delta-specific) | 10 | 10 | 0 | 0 | 0 |
+| OHLCPlus | 43 | 39 | 0 | 0 | 4 |
+| ClusterStatistic (.cs) | 33 | 29 | 0 | 0 | 4 |
+| Resources (ClusterStatistic) | 7 | 0 | 0 | 0 | 7 |
+| MultiMarketPower (.cs) | 20 | 20 | 0 | 0 | 0 |
+| Resources (MultiMarketPower) | 4 | 0 | 0 | 0 | 4 |
+| DailyLines | 23 | 0 | 0 | 0 | 23 |
+| Volume | 7 | 0 | 0 | 0 | 7 |
+| TradesOnChart (.cs) | 24 | 23 | 0 | 1 | 0 |
+| Resources (TradesOnChart) | 4 | 0 | 0 | 0 | 4 |
+| ClusterSearch (.cs) | 5 | 5 | 0 | 0 | 0 |
+| Resources (ClusterSearch) | 2 | 2 | 0 | 0 | 0 |
+| InitialBalance | 12 | 0 | 0 | 0 | 12 |
+| AccountInfoDisplay | 8 | 0 | 0 | 0 | 8 |
+| GammaLevels | 27 | 0 | 0 | 0 | 27 |
 | DOM / DOMStrength | 2 | 0 | 0 | 0 | 2 |
 | Compat / Build | 2 | 2 | 0 | 0 | 0 |
 | Docs / ADRs | 10 | 0 | 0 | 0 | 10 |
-| **Total** | **239** | **31** | **1** | **2** | **205** |
+| **Total** | **261** | **152** | **1** | **3** | **105** ||## Summary
+
+| Indicator / Area | Total commits | ✅ Done | ⚠️ Partial | ⏭️ Skipped | 🔲 Pending |
+|------------------|--------------|--------|-----------|-----------|-----------|
+| Delta | 24 | 21 | 1 | 2 | 0 |
+| Resources (Delta-specific) | 10 | 10 | 0 | 0 | 0 |
+| OHLCPlus | 43 | 39 | 0 | 0 | 4 |
+| ClusterStatistic (.cs) | 33 | 29 | 0 | 0 | 4 |
+| Resources (ClusterStatistic) | 7 | 0 | 0 | 0 | 7 |
+| MultiMarketPower (.cs) | 20 | 20 | 0 | 0 | 0 |
+| Resources (MultiMarketPower) | 4 | 0 | 0 | 0 | 4 |
+| DailyLines | 23 | 0 | 0 | 0 | 23 |
+| Volume | 7 | 0 | 0 | 0 | 7 |
+| TradesOnChart (.cs) | 24 | 23 | 0 | 1 | 0 |
+| Resources (TradesOnChart) | 4 | 0 | 0 | 0 | 4 |
+| ClusterSearch (.cs) | 5 | 5 | 0 | 0 | 0 |
+| Resources (ClusterSearch) | 2 | 2 | 0 | 0 | 0 |
+| InitialBalance | 12 | 0 | 0 | 0 | 12 |
+| AccountInfoDisplay | 8 | 0 | 0 | 0 | 8 |
+| GammaLevels | 27 | 0 | 0 | 0 | 27 |
+| DOM / DOMStrength | 2 | 0 | 0 | 0 | 2 |
+| Compat / Build | 2 | 2 | 0 | 0 | 0 |
+| Docs / ADRs | 10 | 0 | 0 | 0 | 10 |
+| **Total** | **261** | **152** | **1** | **3** | **105** |
 
 ---
 
@@ -85,132 +112,164 @@ All 24 code commits in prready/main that are not in Develop. Ports live under `l
 
 ---
 
-## OHLCPlus — Technical/OHLCPlus.cs (44 commits — pending)
+## OHLCPlus — Technical/OHLCPlus.cs (43 commits — 39 ✅, 4 🔲)
+
+Port lives under `feat/ohlcplus` (41 commits: 39 matching prready/main + 2 local-only fixes) and
+`local/ohlcplus-i18n` (1 squashed integration commit from `feat/ohlcplus` HEAD + typeof(Resources) conversion).
+Four prready/main refactors are not yet in `feat/ohlcplus` or `local/ohlcplus-i18n` — marked 🔲.
+
+Note: `cfaba2f9` / `0f816958` (build fixes) also appear in **Compat / Build** section (already ✅).
+
+| Hash | Description | Status | Notes |
+|------|-------------|--------|-------|
+| `cfaba2f9` | fix(build): stabilize multi-platform builds (AnyCPU vs Cross) and prevent obj collisions | ✅ | Compat/Build — absorbed into `local/build/02-multiversion` |
+| `0f816958` | chore(csproj): fix signing semantics and simplify SDK imports | ✅ | Compat/Build — absorbed into `local/build/02-multiversion` |
+| `8447b822` | refactor: centralize level enumeration by period (no behavior change) | 🔲 | Not yet in `feat/ohlcplus` |
+| `14c68410` | refactor: compute period needs via generic helper (no behavior change) | 🔲 | Not yet in `feat/ohlcplus` |
+| `81a5e616` | refactor: streamline profile requests loop (no behavior change) | 🔲 | Not yet in `feat/ohlcplus` |
+| `6e502c67` | refactor: route Display attributes to Resources under STABLE builds | ✅ | `feat/ohlcplus` `e61bb0b7` |
+| `45e21dfa` | chore: add label template and label parameters (no behavior change) | ✅ | `feat/ohlcplus` `81f86eff` |
+| `5c74a65f` | feat: render labels using template and per-level overrides | ✅ | `feat/ohlcplus` `eb0b12d8` |
+| `247c1247` | refactor: resolve label text via split-key suffix mapping | ✅ | `feat/ohlcplus` `ab159f14` |
+| `9acbbbd5` | feat: add configurable period prefixes for labels | ✅ | `feat/ohlcplus` `f7657232` |
+| `9d4652fa` | feat: add label and prefix settings UI | ✅ | `feat/ohlcplus` `c74e3384` |
+| `9ffd20fc` | chore: normalize label template tokens to lowercase | ✅ | `feat/ohlcplus` `81bf49fd` |
+| `d22a882c` | feat: introduce batched, collision-aware label layout | ✅ | `feat/ohlcplus` `8eac77b0` |
+| `ad20febc` | feat: improve label placement with horizontal corridor and stable ordering | ✅ | `feat/ohlcplus` `ed2d9735` |
+| `b5ccac8a` | fix: correct line clipping bounds and trim bar line start | ✅ | `feat/ohlcplus` `1f84b52c` |
+| `c2f18e18` | feat: introduce explicit semantic label priority | ✅ | `feat/ohlcplus` `c671a04d` |
+| `a12abc02` | fix: align UI resources for stable vs alpha/atas_x builds | 🔲 | Not yet in `feat/ohlcplus` |
+| `9664a58f` | fix: avoid redundant redraws when levels are unchanged | ✅ | `feat/ohlcplus` `fda226af` |
+| `b425f198` | chore: scaffold pq02 visual semantic descriptors | ✅ | `feat/ohlcplus` `e668899f` |
+| `545a78a7` | feat: add pq02 visual semantic UI and palettes | ✅ | `feat/ohlcplus` `2999e858` |
+| `981e13c0` | feat: implement pq02 visual semantic rulesets (by period / by level type) | ✅ | `feat/ohlcplus` `36b6cd8d` |
+| `eb51f389` | feat: apply pq02 visual semantic styles during rendering | ✅ | `feat/ohlcplus` `a029df13` |
+| `004e89e9` | chore: add OverrideLabel resource key | ✅ | Absorbed into `feat/ohlcplus` label override commits |
+| `2bed76ee` | feat: add per-level label override | ✅ | `feat/ohlcplus` `641192b9` |
+| `1a21cb4c` | fix: make per-level OverrideLabel replace the full label | ✅ | `feat/ohlcplus` `af9f223b` |
+| `2176efbd` | chore: add OverrideColorInSchemes resource keys | ✅ | Absorbed into `feat/ohlcplus` color override commit |
+| `69fcdc69` | feat: allow per-level color override when semantic schemes are active | ✅ | `feat/ohlcplus` `6dde2d14` |
+| `8000c260` | chore: localize visual semantic mode and preset labels | ✅ | Absorbed into `feat/ohlcplus` localization commits |
+| `4ece1376` | chore: localize visual semantic preset and mode displays | ✅ | `feat/ohlcplus` `d77d4404` |
+| `8ce33b3e` | chore: add semantic scheme width and line style override strings | ✅ | Absorbed into `feat/ohlcplus` scheme commits |
+| `aa7bbc18` | feat: allow per-line width and style overrides in scheme modes | ✅ | `feat/ohlcplus` `c755517f` |
+| `ef458870` | chore: add visual semantic mode and palettes strings | ✅ | Absorbed into `feat/ohlcplus` semantic commits |
+| `9edf68b3` | chore: localize visual semantic mode and palettes strings | ✅ | `feat/ohlcplus` `4958017b` |
+| `045d2b72` | chore: add HVN labels and descriptions for all languages | ✅ | Absorbed into `feat/ohlcplus` HVN commits |
+| `68d773d0` | feat: compute HVN bands from fixed profiles (overlay plumbing) | ✅ | `feat/ohlcplus` `3f170a94` |
+| `15b2ca42` | feat: render HVN bands with priority and occlusion | ✅ | `feat/ohlcplus` `2781c46b` |
+| `9709fc85` | fix: skip HVN recomputation when disabled; convert WPF colors for HVN fill | ✅ | `feat/ohlcplus` `98194edd` |
+| `75b6b904` | refactor: unify profile band model for HVN/LVN overlays | ✅ | `feat/ohlcplus` `52fbfa2d` |
+| `8ce614b9` | chore: add LVN labels and descriptions for all languages; align HVN | ✅ | Absorbed into `feat/ohlcplus` LVN commits |
+| `10cd6ce9` | chore: add LVN UI group for all supported languages | ✅ | Absorbed into `feat/ohlcplus` LVN commits |
+| `079b863d` | feat: add LVN bands settings and cache scaffolding | ✅ | `feat/ohlcplus` `30f36daf` |
+| `9d85b2a8` | feat: compute LVN bands from fixed profiles | ✅ | `feat/ohlcplus` `b086d876` |
+| `a9d7e36e` | feat: add HVN/LVN settings surface (toggles/colors/params) | ✅ | `feat/ohlcplus` `1ea7e637` |
+| `1f3ae47b` | feat: compute HVN/LVN bands (cache + refresh triggers) | ✅ | `feat/ohlcplus` `ded9510c` |
+| `3f776004` | feat: render HVN/LVN overlays with occlusion | ✅ | `feat/ohlcplus` `66a8861a` |
+| `3dd8f336` | fix(OHLCPlus): emphasize VN borders | ✅ | `feat/ohlcplus` `847a90a4` |
+| `36a83021` | fix: stabilize HVN/LVN band updates and change detection | ✅ | `feat/ohlcplus` `1900b22d` |
+| `30850ada` | feat: add hybrid LVN tail filter (min ticks + % of range) | ✅ | `feat/ohlcplus` `3ecb775b` |
+| `1aba0c0b` | perf: reuse ordered profile levels for HVN and LVN | ✅ | `feat/ohlcplus` `1924d970` |
+| `886cc0df` | perf: remove dynamic and cache typed price levels for HVN/LVN | ✅ | `feat/ohlcplus` `bae5fbfc` |
+| `b6801850` | refactor: make fixed-profile request helper side-effect free | ✅ | `feat/ohlcplus` `a50afbb1` |
+| `da472879` | chore: remove outdated comment about unused HVN parameters | ✅ | `feat/ohlcplus` `e85cb63b` |
+| `635a5706` | fix(ohlcplus): restore Color.Convert() lost during rebase conflict resolution | ✅ | `feat/ohlcplus` `fa0e63db` |
+
+
+## ClusterStatistic — Technical/ClusterStatistic.cs (33 commits — 29 ✅, 4 🔲)
+
+Port lives under `feat/cs-statistic` (29 commits) and `local/cs-statistic-i18n` (30 commits above
+build stack, including 1 local revert `dff7e07e` not from prready/main).
+Four newest prready/main commits (alert localization refactors) are not yet ported — marked 🔲.
+
+| Hash | Description | Status | Notes |
+|------|-------------|--------|-------|
+| `7b485c36` | refactor: use explicit session mode labels and descriptions | 🔲 | Alert locale refactor — postdates i18n branch |
+| `ff76f97c` | fix: localize alert messages using Resources templates | 🔲 | Not yet ported |
+| `2fa0f4a4` | refactor: reorganize alert UI ordering and align group names | 🔲 | Not yet ported |
+| `16cd5796` | refactor: place Alerts after imbalance settings (2000–2690) | 🔲 | Not yet ported |
+| `e0046c0b` | fix: use auto-filter mean fallback for live bar scaling | ✅ | `local/cs-statistic-i18n` `6ea9d20a` |
+| `b372300b` | chore: normalize indentation and remove duplicate comments | ✅ | `local/cs-statistic-i18n` `602e632f` |
+| `876edebb` | fix: use absolute max for net imbalance scaling | ✅ | `local/cs-statistic-i18n` `95e9891b` |
+| `3e040bed` | refactor: reuse imbalance series writer in historical rebuild | ✅ | `local/cs-statistic-i18n` `a26d64fc` |
+| `0b645e2f` | chore: align UI order comments with actual property order | ✅ | `local/cs-statistic-i18n` `d36b578b` |
+| `4c5a8b06` | fix: reset SoT runtime window on bar change | ✅ | `local/cs-statistic-i18n` `cee009c6` |
+| `e5bf859f` | refactor: centralize imbalance compute gating | ✅ | `local/cs-statistic-i18n` `0b980289` |
+| `14a9e105` | fix: make closed net-imbalance alert deterministic | ✅ | `local/cs-statistic-i18n` `91cd233f` |
+| `18add1c8` | fix: use full-range MAX for non-visible scaling | ✅ | `local/cs-statistic-i18n` `d1e075a1` |
+| `b18066ff` | fix: rebuild imbalances immediately on parameter changes | ✅ | `local/cs-statistic-i18n` `dd3e0f3f` |
+| `36658d0b` | refactor: reorganize Rows into logical UI subgroups | ✅ | `local/cs-statistic-i18n` `97e5b570` (+ adapted `b618cc0a`) |
+| `9e656e71` | refactor: replace hardcoded UI strings with Resources | ✅ | `local/cs-statistic-i18n` `b2064e33` (+ adapted `40cc7917`) |
+| `e4ed3f20` | perf: gate imbalance computation and rebuild on enable/params change | ✅ | `local/cs-statistic-i18n` `d4089b9b` |
+| `3659ed92` | fix: correct net imbalance alert crossing (closed candle) | ✅ | `local/cs-statistic-i18n` `de2d64d7` |
+| `9ad699ae` | refactor: reorganize settings and row toggles for scalping workflow | ✅ | `local/cs-statistic-i18n` `b69bfb50` |
+| `de4b05e3` | refactor: reorder default rows for faster scalping reads | ✅ | `local/cs-statistic-i18n` `5e75df4f` |
+| `87cefe24` | refactor: improve table readability with contrast text and high-rate outlines | ✅ | `local/cs-statistic-i18n` `41e89beb` |
+| `991b0380` | feat: add stacked imbalances rows (consecutive levels) | ✅ | `local/cs-statistic-i18n` `ba5fcedc` |
+| `ac74892a` | feat: add net imbalance threshold alert (crossing, no-spam) | ✅ | `local/cs-statistic-i18n` `9029f4bc` |
+| `8dad75ce` | feat: add buy/sell/net imbalance rows | ✅ | `local/cs-statistic-i18n` `5e5565f9` |
+| `4e100638` | feat: unify ratio formatting and optional percent display | ✅ | `local/cs-statistic-i18n` `cd5ba8f4` |
+| `b677ec05` | refactor: add ratio formatting helper | ✅ | `local/cs-statistic-i18n` `4bc6b316` |
+| `7130799f` | feat: add Peak Delta/Vol row derived from SoT peaks | ✅ | `local/cs-statistic-i18n` `cd701b88` |
+| `a305147a` | feat: add SoT auto-filter scaling (EMA/SMA) for peak metrics | ✅ | `local/cs-statistic-i18n` `845a8ab7` |
+| `b9ad6779` | fix: seed SoT live window in chronological order | ✅ | `local/cs-statistic-i18n` `b272ca77` |
+| `33af74b7` | feat: compute SoT peak Vol/sec and paired Delta from cumulative trades | ✅ | `local/cs-statistic-i18n` `10805969` |
+| `419d2b86` | feat: add peak Vol/sec and paired Delta rows (plumbing) | ✅ | `local/cs-statistic-i18n` `13cf4123` |
+| `876d89ab` | feat: add Delta/sec row with scaling and formatting | ✅ | `local/cs-statistic-i18n` `1b19f9fa` |
+| `7e78c702` | fix: correct max bid and delta/vol maxima tracking | ✅ | `local/cs-statistic-i18n` `5aed8321` |
+
+> ℹ️ `dff7e07e` Revert "CumulativeDalta lining refactoring" is in `local/cs-statistic-i18n` but
+> NOT in prready/main — local-only revert, needs investigation before pushing upstream.
+
+## Resources — ClusterStatistic (7 commits — 🔲 all pending)
+
+All 7 resource commits are only in `prready/main`. Required for the 4 pending alert localization
+commits and for layer 04 key completeness.
 
 | Hash | Description | Status |
 |------|-------------|--------|
-| `cfaba2f9` | fix(build): stabilize multi-platform builds (AnyCPU vs Cross) and prevent obj collisions | 🔲 |
-| `0f816958` | chore(csproj): fix signing semantics and simplify SDK imports | 🔲 |
-| `6e502c67` | refactor: route Display attributes to Resources under STABLE builds | 🔲 |
-| `c5ca65ed` | fix: add missing localization resource files for main ATAS languages | 🔲 |
-| `81a5e616` | refactor: streamline profile requests loop (no behavior change) | 🔲 |
-| `14c68410` | refactor: compute period needs via generic helper (no behavior change) | 🔲 |
-| `8447b822` | refactor: centralize level enumeration by period (no behavior change) | 🔲 |
-| `45e21dfa` | chore: add label template and label parameters (no behavior change) | 🔲 |
-| `5c74a65f` | feat: render labels using template and per-level overrides | 🔲 |
-| `9acbbbd5` | feat: add configurable period prefixes for labels | 🔲 |
-| `247c1247` | refactor: resolve label text via split-key suffix mapping | 🔲 |
-| `05f12175` | chore: add localized labels for UI settings | 🔲 |
-| `9d4652fa` | feat: add label and prefix settings UI | 🔲 |
-| `9ffd20fc` | chore: normalize label template tokens to lowercase | 🔲 |
-| `d22a882c` | feat: introduce batched, collision-aware label layout | 🔲 |
-| `ad20febc` | feat: improve label placement with horizontal corridor and stable ordering | 🔲 |
-| `b5ccac8a` | fix: correct line clipping bounds and trim bar line start | 🔲 |
-| `c2f18e18` | feat: introduce explicit semantic label priority | 🔲 |
-| `a12abc02` | fix: align UI resources for stable vs alpha/atas_x builds | 🔲 |
-| `9664a58f` | fix: avoid redundant redraws when levels are unchanged | 🔲 |
-| `b425f198` | chore: scaffold pq02 visual semantic descriptors | 🔲 |
-| `545a78a7` | feat: add pq02 visual semantic UI and palettes | 🔲 |
-| `981e13c0` | feat: implement pq02 visual semantic rulesets (by period / by level type) | 🔲 |
-| `eb51f389` | feat: apply pq02 visual semantic styles during rendering | 🔲 |
-| `004e89e9` | chore: add OverrideLabel resource key | 🔲 |
-| `2bed76ee` | feat: add per-level label override | 🔲 |
-| `1a21cb4c` | fix: make per-level OverrideLabel replace the full label | 🔲 |
-| `2176efbd` | chore: add OverrideColorInSchemes resource keys | 🔲 |
-| `69fcdc69` | feat: allow per-level color override when semantic schemes are active | 🔲 |
-| `8000c260` | chore: localize visual semantic mode and preset labels | 🔲 |
-| `4ece1376` | chore: localize visual semantic preset and mode displays | 🔲 |
-| `8ce33b3e` | chore: add semantic scheme width and line style override strings | 🔲 |
-| `aa7bbc18` | feat: allow per-line width and style overrides in scheme modes | 🔲 |
-| `ef458870` | chore: add visual semantic mode and palettes strings | 🔲 |
-| `9edf68b3` | chore: localize visual semantic mode and palettes strings | 🔲 |
-| `045d2b72` | chore: add HVN labels and descriptions for all languages | 🔲 |
-| `68d773d0` | feat: compute HVN bands from fixed profiles (overlay plumbing) | 🔲 |
-| `15b2ca42` | feat: render HVN bands with priority and occlusion | 🔲 |
-| `9709fc85` | fix: skip HVN recomputation when disabled; convert WPF colors for HVN fill | 🔲 |
-| `75b6b904` | refactor: unify profile band model for HVN/LVN overlays | 🔲 |
-| `8ce614b9` | chore: add LVN labels and descriptions for all languages; align HVN | 🔲 |
-| `10cd6ce9` | chore: add LVN UI group for all supported languages | 🔲 |
-| `079b863d` | feat: add LVN bands settings and cache scaffolding | 🔲 |
-| `9d85b2a8` | feat: compute LVN bands from fixed profiles | 🔲 |
-
----
-
-## ClusterStatistic — Technical/ClusterStatistic.cs (37 commits — pending)
-
-| Hash | Description | Status |
-|------|-------------|--------|
-| `9ad699ae` | refactor: reorganize settings and row toggles for scalping workflow | 🔲 |
-| `3659ed92` | fix: correct net imbalance alert crossing (closed candle) | 🔲 |
-| `e4ed3f20` | perf: gate imbalance computation and rebuild on enable/params change | 🔲 |
 | `d32ea792` | chore: add localization keys | 🔲 |
 | `ca44800c` | chore: add more localization keys | 🔲 |
-| `9e656e71` | refactor: replace hardcoded UI strings with Resources | 🔲 |
 | `3c5546d3` | fix: correct, complete and shorten localization strings | 🔲 |
 | `47457e7c` | fix: add row subgroup labels and fix missing translations | 🔲 |
 | `eee746cb` | fix: correct DeltaAlert localization | 🔲 |
-| `36658d0b` | refactor: reorganize Rows into logical UI subgroups | 🔲 |
-| `b18066ff` | fix: rebuild imbalances immediately on parameter changes | 🔲 |
-| `18add1c8` | fix: use full-range MAX for non-visible scaling | 🔲 |
-| `14a9e105` | fix: make closed net-imbalance alert deterministic | 🔲 |
-| `e5bf859f` | refactor: centralize imbalance compute gating | 🔲 |
-| `4c5a8b06` | fix: reset SoT runtime window on bar change | 🔲 |
-| `0b645e2f` | chore: align UI order comments with actual property order | 🔲 |
-| `3e040bed` | refactor: reuse imbalance series writer in historical rebuild | 🔲 |
-| `876edebb` | fix: use absolute max for net imbalance scaling | 🔲 |
-| `b0b372300` | chore: normalize indentation and remove duplicate comments | 🔲 |
-| `e0046c0b` | fix: use auto-filter mean fallback for live bar scaling | 🔲 |
-| `419d2b86` | feat: add peak Vol/sec and paired Delta rows (plumbing) | 🔲 |
-| `33af74b7` | feat: compute SoT peak Vol/sec and paired Delta from cumulative trades | 🔲 |
-| `b9ad6779` | fix: seed SoT live window in chronological order | 🔲 |
-| `a305147a` | feat: add SoT auto-filter scaling (EMA/SMA) for peak metrics | 🔲 |
-| `7130799f` | feat: add Peak Delta/Vol row derived from SoT peaks | 🔲 |
-| `876d89ab` | feat: add Delta/sec row with scaling and formatting | 🔲 |
-| `7e78c702` | fix: correct max bid and delta/vol maxima tracking | 🔲 |
-| `b677ec05` | refactor: add ratio formatting helper | 🔲 |
-| `4e100638` | feat: unify ratio formatting and optional percent display | 🔲 |
-| `8dad75ce` | feat: add buy/sell/net imbalance rows | 🔲 |
-| `ac74892a` | feat: add net imbalance threshold alert (crossing, no-spam) | 🔲 |
-| `991b0380` | feat: add stacked imbalances rows (consecutive levels) | 🔲 |
-| `87cefe24` | refactor: improve table readability with contrast text and high-rate outlines | 🔲 |
-| `de4b05e3` | refactor: reorder default rows for faster scalping reads | 🔲 |
 | `dc1a4587` | chore: add ClusterStatistic alert taxonomy groups and message templates | 🔲 |
-| `16cd5796` | refactor: place Alerts after imbalance settings (2000–2690) | 🔲 |
-| `2fa0f4a4` | refactor: reorganize alert UI ordering and align group names | 🔲 |
-| `ff76f97c` | fix: localize alert messages using Resources templates | 🔲 |
+| `27d1d480` | chore: clarify session mode localization and add explicit labels | 🔲 |
 
----
 
-## MultiMarketPower — Technical/MultiMarketPower.cs (22 commits — pending)
+## MultiMarketPower — Technical/MultiMarketPower.cs (20 ✅ + 4 resources 🔲)
 
-| Hash | Description | Status |
-|------|-------------|--------|
-| `94a06c9b` | fix: stabilize historical tick cursor iteration | 🔲 |
-| `e393cc28` | fix: make historical request window deterministic | 🔲 |
-| `9d56b8e7` | chore: add localization keys for upcoming UI settings | 🔲 |
-| `0e309fa5` | feat: add Smart Money Spread series | 🔲 |
-| `f7316bba` | chore: sync ResourceDesigner with updated .resx files | 🔲 |
-| `d77aa581` | feat: add view mode toggle for filters vs spread | 🔲 |
-| `ffbfbe08` | feat: add session controls and session-based resets | 🔲 |
-| `86ea4948` | fix: replay buffered realtime after history load | 🔲 |
-| `31cc814e` | fix: guard OnCalculate against bar 0 | 🔲 |
-| `994c03a2` | feat: add signal SMA and 4-color spread shading | 🔲 |
-| `a8cf811d` | fix: refresh chart correctly when switching view mode | 🔲 |
-| `dd28d2f7` | refactor: compute signal SMA using rolling window | 🔲 |
-| `f4c76d71` | fix: update rolling SMA on in-bar cumulative trade updates | 🔲 |
-| `f07f1eca` | refactor: remove redundant realtime replay from history calculation | 🔲 |
-| `08cdc973` | fix: avoid treating every tick as new bar for signal SMA | 🔲 |
-| `0aa076bc` | fix: respect filter visibility toggles in Filters view | 🔲 |
-| `b199694b` | fix: normalize custom session boundary using instrument timezone | 🔲 |
-| `8422d948` | fix: filter realtime replay to avoid history overlap | 🔲 |
-| `c6c0d034` | chore: add localized entries for view and session mode values | 🔲 |
-| `63c69d84` | fix: localize view and session mode values | 🔲 |
-| `3e56472a` | chore: align default filter line colors and widths with volume semantics | 🔲 |
-| `025467ee` | chore: align default spread colors with market state semantics | 🔲 |
-| `38ed1595` | chore: reorganize UI groups for clearer workflow | 🔲 |
-| `add88635` | chore: refine UI labels for improved readability | 🔲 |
+All 20 `.cs` commits are fully ported to `local/multimarketpower-i18n`.
+Four resource commits are only in `prready/main` — pending layer 04 integration.
 
----
+| Hash | Description | Status | Notes |
+|------|-------------|--------|-------|
+| `94a06c9b` | fix: stabilize historical tick cursor iteration | ✅ | `local/multimarketpower-i18n` `4fd099d4` |
+| `e393cc28` | fix: make historical request window deterministic | ✅ | `local/multimarketpower-i18n` `668c50cd` |
+| `9d56b8e7` | chore: add localization keys for upcoming UI settings | 🔲 | Resource only — pending layer 04 |
+| `0e309fa5` | feat: add Smart Money Spread series | ✅ | `local/multimarketpower-i18n` `37a58d4c` |
+| `f7316bba` | chore: sync ResourceDesigner with updated .resx files | 🔲 | Resource only — pending layer 04 |
+| `d77aa581` | feat: add view mode toggle for filters vs spread | ✅ | `local/multimarketpower-i18n` `ab6d9937` |
+| `ffbfbe08` | feat: add session controls and session-based resets | ✅ | `local/multimarketpower-i18n` `addc0d30` |
+| `86ea4948` | fix: replay buffered realtime after history load | ✅ | `local/multimarketpower-i18n` `4ff09874` |
+| `31cc814e` | fix: guard OnCalculate against bar 0 | ✅ | `local/multimarketpower-i18n` `dc70b425` |
+| `994c03a2` | feat: add signal SMA and 4-color spread shading | ✅ | `local/multimarketpower-i18n` `5565e371` |
+| `a8cf811d` | fix: refresh chart correctly when switching view mode | ✅ | `local/multimarketpower-i18n` `f6439474` |
+| `dd28d2f7` | refactor: compute signal SMA using rolling window | ✅ | `local/multimarketpower-i18n` `85788a51` |
+| `f4c76d71` | fix: update rolling SMA on in-bar cumulative trade updates | ✅ | `local/multimarketpower-i18n` `af871d2b` |
+| `f07f1eca` | refactor: remove redundant realtime replay from history calculation | ✅ | `local/multimarketpower-i18n` `29c05f0c` |
+| `08cdc973` | fix: avoid treating every tick as new bar for signal SMA | ✅ | `local/multimarketpower-i18n` `ca01ce24` |
+| `0aa076bc` | fix: respect filter visibility toggles in Filters view | ✅ | `local/multimarketpower-i18n` `68bf6a3e` |
+| `b199694b` | fix: normalize custom session boundary using instrument timezone | ✅ | `local/multimarketpower-i18n` `d00f7f1a` |
+| `8422d948` | fix: filter realtime replay to avoid history overlap | ✅ | `local/multimarketpower-i18n` `73c435d0` |
+| `c6c0d034` | chore: add localized entries for view and session mode values | 🔲 | Resource only — pending layer 04 |
+| `63c69d84` | fix: localize view and session mode values | ✅ | `local/multimarketpower-i18n` `46729940` |
+| `3e56472a` | chore: align default filter line colors and widths with volume semantics | ✅ | `local/multimarketpower-i18n` `2e2d7eff` |
+| `025467ee` | chore: align default spread colors with market state semantics | ✅ | `local/multimarketpower-i18n` `04317adb` |
+| `38ed1595` | chore: reorganize UI groups for clearer workflow | ✅ | `local/multimarketpower-i18n` `8fc156be` |
+| `add88635` | chore: refine UI labels for improved readability | 🔲 | Resource only — pending layer 04 |
+
 
 ## DailyLines — Technical/DailyLines.cs (21 commits — pending)
 
@@ -256,29 +315,66 @@ All 24 code commits in prready/main that are not in Develop. Ports live under `l
 
 ---
 
-## TradesOnChart — Technical/TradesOnChart.cs (3 commits — pending)
+## TradesOnChart — Technical/TradesOnChart.cs (24 commits — 23 ✅, 1 ⏭️)
+
+All 23 ported commits live in `local/tradesonchart-i18n` (23 commits above build stack).
+`7c558b15` skipped — API names in that fix are already current in Develop.
+Four resource commits are only in prready/main — pending layer 04 integration.
+
+| Hash | Description | Status | Notes |
+|------|-------------|--------|-------|
+| `7c558b15` | fix: update TradingStatisticsProvider event and property names after upstream API change | ⏭️ | API already current in Develop; no-op in local context |
+| `c0b75fd2` | fix: redraw chart on visual settings changes | ✅ | `local/tradesonchart-i18n` `2851232e` |
+| `03ed72e8` | chore: regroup and relocalize settings for trader workflow | ✅ | `local/tradesonchart-i18n` `11a7762d` |
+| `a4c8d841` | feat: improve card label readability (header/body/footer) | ✅ | `local/tradesonchart-i18n` `47deaec4` |
+| `9365055a` | feat: make Midpoint anchor center between entry/exit markers | ✅ | `local/tradesonchart-i18n` `023626f9` |
+| `77134b33` | feat: add label X anchor and centered placement | ✅ | `local/tradesonchart-i18n` `593bfccb` |
+| `f60a6ed2` | feat: add connector line and improve Card placement | ✅ | `local/tradesonchart-i18n` `de4c54e3` |
+| `37f55fe2` | feat: implement Card label rendering | ✅ | `local/tradesonchart-i18n` `9d606841` |
+| `97f26fcc` | refactor: extract label text building | ✅ | `local/tradesonchart-i18n` `edcbd3ef` |
+| `a26d3724` | chore: localize tooltip and label text tokens | ✅ | `local/tradesonchart-i18n` `4c15a673` |
+| `4561ed08` | chore: expose Card label mode in UI | ✅ | `local/tradesonchart-i18n` `47ba1b19` |
+| `61dab5db` | feat: add label distance spacing option | ✅ | `local/tradesonchart-i18n` `3b9d8200` |
+| `7451f8d6` | fix: cleanup subscriptions on dispose and prevent double attach | ✅ | `local/tradesonchart-i18n` `50b81ea0` |
+| `0d15a583` | fix: guard against null candle during label render | ✅ | `local/tradesonchart-i18n` `53c60311` |
+| `c1a4e902` | perf: reuse string formats and reduce label/tooltip allocations | ✅ | `local/tradesonchart-i18n` `5a21fe0d` |
+| `3acfb922` | perf: reuse tooltip buffer and avoid per-frame allocations | ✅ | `local/tradesonchart-i18n` `8595e303` |
+| `ec4bcf9d` | perf: bound label collision checks during rendering | ✅ | `local/tradesonchart-i18n` `c80360ae` |
+| `bf19b9b6` | perf: optimize bar lookup using binary search | ✅ | `local/tradesonchart-i18n` `10100d44` |
+| `945216c3` | fix: show closed trades immediately | ✅ | `local/tradesonchart-i18n` `cf6d8c00` |
+| `33b1bae4` | fix: dedupe history and realtime trades | ✅ | `local/tradesonchart-i18n` `7f109d20` |
+| `3749d4f6` | feat: load trade history by chart range | ✅ | `local/tradesonchart-i18n` `47ad5b72` |
+| `df4b8d8f` | fix: prevent render crash by snapshotting trades list | ✅ | `local/tradesonchart-i18n` `3e873e43` |
+| `d0068a75` | fix: keep LabelDisplayMode values stable | ✅ | `local/tradesonchart-i18n` `bb9d389a` |
+| `48ab4e05` | chore: localize Display metadata for label mode and PnL colors | ✅ | `local/tradesonchart-i18n` `49be4614` |
+
+## Resources — TradesOnChart (4 commits — 🔲 all pending)
 
 | Hash | Description | Status |
 |------|-------------|--------|
-| `3749d4f6` | feat: load trade history by chart range | 🔲 |
-| `7c558b15` | fix: update TradingStatisticsProvider event and property names after upstream API change | 🔲 |
-| `48ab4e05` | chore: localize Display metadata for label mode and PnL colors | 🔲 |
+| `777b1019` | chore: add localized resources for UI strings | 🔲 |
+| `643da7e5` | chore: add TradesOnChart label distance strings | 🔲 |
+| `4196b812` | chore: add TradesOnChart label X anchor strings | 🔲 |
+| `751d9c63` | chore: add trader-focused UI localization and groups | 🔲 |
 
----
 
-## ClusterSearch — Technical/ClusterSearch.cs (6 commits — pending)
+## ClusterSearch — Technical/ClusterSearch.cs (5 commits + 2 resources — all ✅)
 
-| Hash | Description | Status |
-|------|-------------|--------|
-| `81b6ffde` | chore: pin CalcMode values and add DiagonalImbalance enum + color override field | 🔲 |
-| `b0d115ff` | chore: add localized resources for diagonal imbalance UI | 🔲 |
-| `4313ce4a` | feat: add diagonal imbalance filters and detection logic | 🔲 |
-| `6ad637b91` | feat: support DiagonalImbalance in SeriesHandling | 🔲 |
-| `255d8e77` | chore: wire diagonal imbalance descriptions into UI attributes | 🔲 |
-| `2f1d5de8` | chore: add localized descriptions for diagonal imbalance settings | 🔲 |
-| `9867dfd5` | fix: correct MaxAverageTrade filter comparison | 🔲 |
+All 5 `.cs` commits and 2 resource commits are ported. Consolidated into
+`local/clustersearch-i18n` commit `6059e945`. The MaxAverageTrade fix (`9867dfd5`) is absorbed
+into `6059e945` — the fix was already present in ClusterSearch.cs when the port was built.
+`361f26bf` is a local-only dead-field removal (not from prready/main).
 
----
+| Hash | Description | Status | Notes |
+|------|-------------|--------|-------|
+| `81b6ffde` | chore: pin CalcMode values and add DiagonalImbalance enum + color override field | ✅ | `local/clustersearch-i18n` `6059e945` |
+| `b0d115ff` | chore: add localized resources for diagonal imbalance UI | ✅ | `local/clustersearch-i18n` `6059e945` / layer 04 |
+| `4313ce4a` | feat: add diagonal imbalance filters and detection logic | ✅ | `local/clustersearch-i18n` `6059e945` |
+| `6ad637b91` | feat: support DiagonalImbalance in SeriesHandling | ✅ | `local/clustersearch-i18n` `6059e945` |
+| `255d8e77` | chore: wire diagonal imbalance descriptions into UI attributes | ✅ | `local/clustersearch-i18n` `6059e945` |
+| `2f1d5de8` | chore: add localized descriptions for diagonal imbalance settings | ✅ | `local/clustersearch-i18n` `6059e945` / layer 04 |
+| `9867dfd5` | fix: correct MaxAverageTrade filter comparison | ✅ | Absorbed into `6059e945` code base |
+
 
 ## InitialBalance — Technical/InitialBalance.cs (10 commits — pending)
 
