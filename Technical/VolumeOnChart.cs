@@ -1,6 +1,7 @@
 namespace ATAS.Indicators.Technical;
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
@@ -66,54 +67,66 @@ public class VolumeOnChart : Volume
 
 	protected override void OnCalculate(int bar, decimal value)
 	{
-		HighestVol.Calculate(bar, GetCandle(bar).Volume);
 		base.OnCalculate(bar, value);
 	}
 
 	protected override void OnRender(RenderContext context, DrawingLayouts layout)
 	{
+		if (FirstVisibleBarNumber > LastVisibleBarNumber)
+			return;
+
+		var renderSeries = (ValueDataSeries)DataSeries[0];
 		var maxValue = 0m;
-
 		var maxHeight = Container.Region.Height * Height / 100m;
+
+		if (maxHeight <= 0)
+			return;
+
 		var barsWidth = Math.Max(1, (int)ChartInfo.PriceChartContainer.BarsWidth);
+		var showLabels = ShowVolume && ChartInfo.ChartVisualMode == ChartVisualModes.Clusters;
+		var textY = 0;
+		var textSizes = new Dictionary<string, Size>();
 
-		var strHeight = context.MeasureString("0", Font.RenderObject).Height;
-
-        var textY = VolLocation switch
+		if (showLabels)
 		{
-			Location.Up => (int)(Container.Region.Bottom - maxHeight),
-			Location.Down => Container.Region.Bottom - strHeight,
-			_ => (int)(Container.Region.Bottom - maxHeight / 2)
-        };
-
-        for (var i = FirstVisibleBarNumber; i <= LastVisibleBarNumber; i++)
-		{
-			var candle = GetCandle(i);
-			var volumeValue = Input == InputType.Volume ? candle.Volume : candle.Ticks;
-
-			maxValue = Math.Max(volumeValue, maxValue);
+			var strHeight = context.MeasureString("0", Font.RenderObject).Height;
+			textY = VolLocation switch
+			{
+				Location.Up => (int)(Container.Region.Bottom - maxHeight),
+				Location.Down => Container.Region.Bottom - strHeight,
+				_ => (int)(Container.Region.Bottom - maxHeight / 2)
+			};
 		}
 
 		for (var i = FirstVisibleBarNumber; i <= LastVisibleBarNumber; i++)
 		{
-			var candle = GetCandle(i);
-			var volumeValue = Input == InputType.Volume ? candle.Volume : candle.Ticks;
+			maxValue = Math.Max(renderSeries[i], maxValue);
+		}
 
-			var volumeColor = ((ValueDataSeries)DataSeries[0]).Colors[i];
+		if (maxValue <= 0)
+			return;
 
+		for (var i = FirstVisibleBarNumber; i <= LastVisibleBarNumber; i++)
+		{
+			var volumeValue = renderSeries[i];
+			var volumeColor = renderSeries.Colors[i];
 			var x = ChartInfo.GetXByBar(i);
 			var height = (int)(maxHeight * volumeValue / maxValue);
 
 			var rectangle = new Rectangle(x, Container.Region.Bottom - height, barsWidth, height);
 			context.FillRectangle(volumeColor, rectangle);
 
-			if (!ShowVolume || ChartInfo.ChartVisualMode != ChartVisualModes.Clusters)
+			if (!showLabels)
 				continue;
 
 			var renderText = ChartInfo.TryGetMinimizedVolumeString(volumeValue);
-            var textSize = context.MeasureString(renderText, Font.RenderObject);
+			if (!textSizes.TryGetValue(renderText, out var textSize))
+			{
+				textSize = context.MeasureString(renderText, Font.RenderObject);
+				textSizes[renderText] = textSize;
+			}
 
-			var strRect = new Rectangle(ChartInfo.GetXByBar(i),
+			var strRect = new Rectangle(x,
 				textY,
 				Math.Max(barsWidth, textSize.Width),
 				textSize.Height);
