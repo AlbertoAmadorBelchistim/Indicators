@@ -37,7 +37,7 @@ public class VolumeOnChart : Volume
 	public VolumeOnChart()
 	{
 		EnableCustomDrawing = true;
-		SubscribeToDrawingEvents(DrawingLayouts.LatestBar);
+		SubscribeToDrawingEvents(DrawingLayouts.Final);
 		Panel = IndicatorDataProvider.CandlesPanel;
 		DenyToChangePanel = true;
 		MaxVolSeries.VisualType = VisualMode.Hide;
