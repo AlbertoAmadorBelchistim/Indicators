@@ -617,11 +617,11 @@ public class Delta : Indicator
     private Indicators.FilterColor _divergenceBarsFilter = new(true) { Enabled = false, Value = CrossColor.FromArgb(255, 255, 165, 0) };
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.DivergenceDots), GroupName = nameof(Resources.Divergence),
-        Description = nameof(Resources.DivergenceDotsDescription), Order = 130)]
+        Description = nameof(Resources.DivergenceDotsDescription), Order = 300)]
     public bool ShowDivergence { get; set; }
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.DivergenceBars), GroupName = nameof(Resources.Divergence),
-        Description = nameof(Resources.DivergenceBarsDescription), Order = 135)]
+        Description = nameof(Resources.DivergenceBarsDescription), Order = 310)]
     public Indicators.FilterColor DivergenceBarsFilter
     {
         get => _divergenceBarsFilter;
@@ -659,7 +659,7 @@ public class Delta : Indicator
     private FilterInt _absorption = new(true) { Enabled = false, Value = 250 };
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.Absorption), GroupName = nameof(Resources.Absorption),
-        Description = "AbsorptionThresholdDesc", Order = 140)]
+        Description = nameof(Resources.AbsorptionThresholdDesc), Order = 400)]
     [Range(0, int.MaxValue)]
     public FilterInt Absorption
     {
@@ -701,7 +701,7 @@ public class Delta : Indicator
     #region Average Delta
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowAverage),
-        GroupName = nameof(Resources.Average), Order = 400)]
+        GroupName = nameof(Resources.Average), Order = 200)]
     public bool ShowAverage
     {
         get => _showAverage;
@@ -718,7 +718,7 @@ public class Delta : Indicator
     }
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.AveragePeriod),
-        GroupName = nameof(Resources.Average), Order = 410)]
+        GroupName = nameof(Resources.Average), Order = 220)]
     [Range(1, 1000)]
     public int AveragePeriod
     {
@@ -736,7 +736,7 @@ public class Delta : Indicator
     }
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.CalculationMode),
-        GroupName = nameof(Resources.Average), Order = 420)]
+        GroupName = nameof(Resources.Average), Order = 210)]
     public AverageMode AvgMode
     {
         get => _avgMode;
@@ -752,7 +752,7 @@ public class Delta : Indicator
     }
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ColorMode),
-        GroupName = nameof(Resources.Average), Order = 425)]
+        GroupName = nameof(Resources.Average), Order = 230)]
     public AverageColorMode AvgColorMode
     {
         get => _avgColorMode;
@@ -780,7 +780,7 @@ public class Delta : Indicator
     }
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.SlopeUpColor),
-        GroupName = nameof(Resources.Average), Order = 431)]
+        GroupName = nameof(Resources.Average), Order = 232)]
     public CrossColor AvgSlopeUpColor
     {
         get => _avgSlopeUpColor.Convert();
@@ -792,7 +792,7 @@ public class Delta : Indicator
     }
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.SlopeDownColor),
-        GroupName = nameof(Resources.Average), Order = 432)]
+        GroupName = nameof(Resources.Average), Order = 233)]
     public CrossColor AvgSlopeDownColor
     {
         get => _avgSlopeDownColor.Convert();
@@ -804,7 +804,7 @@ public class Delta : Indicator
     }
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.LineWidth),
-        GroupName = nameof(Resources.Average), Order = 440)]
+        GroupName = nameof(Resources.Average), Order = 225)]
     [Range(1, 10)]
     public int AverageWidth
     {
@@ -825,7 +825,7 @@ public class Delta : Indicator
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ThresholdSource),
         Description = nameof(Resources.ThresholdSourceDescription),
-        GroupName = nameof(Resources.ThresholdsGroup), Order = 140)]
+        GroupName = nameof(Resources.ThresholdsGroup), Order = 500)]
     public ThresholdSource Thresholds
     {
         get => _thresholds;
@@ -842,7 +842,7 @@ public class Delta : Indicator
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.SessionWindowMode),
         Description = nameof(Resources.SessionWindowModeDescription),
-        GroupName = nameof(Resources.DynamicThresholdGroup), Order = 141)]
+        GroupName = nameof(Resources.DynamicThresholdGroup), Order = 560)]
     public SessionWindowMode SessionMode
     {
         get => _sessionMode;
@@ -859,7 +859,7 @@ public class Delta : Indicator
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.RthStart),
         Description = nameof(Resources.RthStartDescription),
-        GroupName = nameof(Resources.DynamicThresholdGroup), Order = 142)]
+        GroupName = nameof(Resources.DynamicThresholdGroup), Order = 561)]
     public TimeSpan RthStart
     {
         get => _rthStart;
@@ -876,7 +876,7 @@ public class Delta : Indicator
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.RthEnd),
         Description = nameof(Resources.RthEndDescription),
-        GroupName = nameof(Resources.DynamicThresholdGroup), Order = 143)]
+        GroupName = nameof(Resources.DynamicThresholdGroup), Order = 562)]
     public TimeSpan RthEnd
     {
         get => _rthEnd;
@@ -893,7 +893,7 @@ public class Delta : Indicator
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.StdMultiplier),
         Description = nameof(Resources.StdMultiplierDescription),
-        GroupName = nameof(Resources.DynamicThresholdGroup), Order = 144)]
+        GroupName = nameof(Resources.DynamicThresholdGroup), Order = 563)]
     [Range(typeof(decimal), "0", "10")]
     [DisplayFormat(DataFormatString = "F2")]
     public decimal StdMultiplier
@@ -913,7 +913,7 @@ public class Delta : Indicator
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.SamplesForMeanStd),
         Description = nameof(Resources.SamplesForMeanStdDescription),
-        GroupName = nameof(Resources.DynamicThresholdGroup), Order = 145)]
+        GroupName = nameof(Resources.DynamicThresholdGroup), Order = 564)]
     [Range(1, 5000)]
     public int SamplesForMeanStd
     {
@@ -936,7 +936,7 @@ public class Delta : Indicator
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.ShowThresholdLines),
         Description = nameof(Resources.ShowThresholdLinesDescription),
-        GroupName = nameof(Resources.ThresholdsGroup), Order = 145)]
+        GroupName = nameof(Resources.ThresholdsGroup), Order = 510)]
     public bool ShowThresholdLines
     {
         get => _showThresholdLines;
@@ -952,7 +952,7 @@ public class Delta : Indicator
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.FixedPosMajorLevel),
         Description = nameof(Resources.FixedPosMajorLevelDescription),
-        GroupName = nameof(Resources.FixedThresholdGroup), Order = 150)]
+        GroupName = nameof(Resources.FixedThresholdGroup), Order = 520)]
     [Range(0, int.MaxValue)]
     public int UpMajorLevel
     {
@@ -969,7 +969,7 @@ public class Delta : Indicator
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.FixedPosMinorLevel),
         Description = nameof(Resources.FixedPosMinorLevelDescription),
-        GroupName = nameof(Resources.FixedThresholdGroup), Order = 160)]
+        GroupName = nameof(Resources.FixedThresholdGroup), Order = 530)]
     [Range(0, int.MaxValue)]
     public int UpMinorLevel
     {
@@ -986,7 +986,7 @@ public class Delta : Indicator
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.FixedNegMinorLevel),
         Description = nameof(Resources.FixedNegMinorLevelDescription),
-        GroupName = nameof(Resources.FixedThresholdGroup), Order = 170)]
+        GroupName = nameof(Resources.FixedThresholdGroup), Order = 540)]
     [Range(int.MinValue, 0)]
     public int DownMinorLevel
     {
@@ -1003,7 +1003,7 @@ public class Delta : Indicator
 
     [Display(ResourceType = typeof(Resources), Name = nameof(Resources.FixedNegMajorLevel),
         Description = nameof(Resources.FixedNegMajorLevelDescription),
-        GroupName = nameof(Resources.FixedThresholdGroup), Order = 180)]
+        GroupName = nameof(Resources.FixedThresholdGroup), Order = 550)]
     [Range(int.MinValue, 0)]
     public int DownMajorLevel
     {
