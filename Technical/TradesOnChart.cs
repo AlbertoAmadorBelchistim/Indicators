@@ -184,9 +184,10 @@ public class TradesOnChart : Indicator
     protected override void OnDispose()
     {
         TradingStatisticsProvider.StatisticsRebuilt -= OnRecalculate;
-        TradingStatisticsProvider.FilteredStatisticsSourceChanged -= OnTradingStatisticsProviderSourceChanged;
+        TradingStatisticsProvider.RawStatisticsSourceChanged -= OnTradingStatisticsProviderSourceChanged;
         TradingManager.PortfolioSelected -= TradingManager_PortfolioSelected;
-        
+        TradingManager.SecuritySelected -= OnSecuritySelected;
+
         _statistics?.HistoryMyTrades.Added -= OnTradeAdded;
     }
 
@@ -195,6 +196,7 @@ public class TradesOnChart : Indicator
         TradingStatisticsProvider.StatisticsRebuilt += OnRecalculate;
         TradingStatisticsProvider.RawStatisticsSourceChanged += OnTradingStatisticsProviderSourceChanged;
         TradingManager.PortfolioSelected += TradingManager_PortfolioSelected;
+        TradingManager.SecuritySelected += OnSecuritySelected;
 
         if (TradingStatisticsProvider.RawStatistics is { } stat)
             OnTradingStatisticsProviderSourceChanged(stat);
@@ -478,15 +480,20 @@ public class TradesOnChart : Indicator
 
     #region Private Methods
 
+    private void OnSecuritySelected(Security? security)
+    {
+        OnRecalculate();
+    }
+
     private void AddHistoryMyTrade()
     {
-	    if (TradingManager?.Portfolio == null|| TradingManager?.Security == null)
+	    if (TradingManager?.Portfolio == null || TradingManager?.Security == null)
             return;
 
 	    var allTrades = _statistics?
             .HistoryMyTrades
-		    .Where(t => 
-                t.AccountID == TradingManager.Portfolio.AccountID && 
+		    .Where(t =>
+                t.AccountID == TradingManager.Portfolio.AccountID &&
                 t.Security.SecurityId.Equals(TradingManager.Security.SecurityId, StringComparison.InvariantCultureIgnoreCase)) ?? [];
 
 	    foreach (var trade in allTrades)
@@ -498,8 +505,9 @@ public class TradesOnChart : Indicator
 	    if (TradingManager?.Portfolio == null || TradingManager?.Security == null)
 		    return;
 
-        if (trade.AccountID == TradingManager.Portfolio.AccountID && trade.Security.Instrument == TradingManager.Security.Instrument)
-		    CreateTradePair(trade);        
+        if (trade.AccountID == TradingManager.Portfolio.AccountID &&
+            trade.Security.SecurityId.Equals(TradingManager.Security.SecurityId, StringComparison.InvariantCultureIgnoreCase))
+		    CreateTradePair(trade);
     }
 
     private void CreateTradePair(HistoryMyTrade trade)
