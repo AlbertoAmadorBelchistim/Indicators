@@ -88,7 +88,7 @@ public class Ichimoku : Indicator
 	}
 
     [Parameter]
-    [Display(ResourceType = typeof(Strings), Name = "TenkanSen", GroupName = nameof(Strings.Settings), Description = nameof(Strings.ConversionLinePeriodDescription), Order = 100)]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.TenkanSen), GroupName = nameof(Strings.Settings), Description = nameof(Strings.ConversionLinePeriodDescription), Order = 100)]
 	[Range(1, 10000)]
 	public int Tenkan
 	{
@@ -101,7 +101,7 @@ public class Ichimoku : Indicator
 	}
 
     [Parameter]
-	[Display(ResourceType = typeof(Strings), Name = "KijunSen", GroupName = nameof(Strings.Settings), Description = nameof(Strings.BaseLinePeriodDescription), Order = 110)]
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.KijunSen), GroupName = nameof(Strings.Settings), Description = nameof(Strings.BaseLinePeriodDescription), Order = 110)]
 	[Range(1, 10000)]
 	public int Kijun
 	{
@@ -114,7 +114,7 @@ public class Ichimoku : Indicator
 	}
 
     [Parameter]
-    [Display(ResourceType = typeof(Strings), Name = "SenkouSpanB", GroupName = nameof(Strings.Settings), Description = nameof(Strings.LaggingLinePeriodDescription), Order = 120)]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.SenkouSpanB), GroupName = nameof(Strings.Settings), Description = nameof(Strings.LaggingLinePeriodDescription), Order = 120)]
     [Range(1, 10000)]
 	public int Senkou
 	{
@@ -127,7 +127,7 @@ public class Ichimoku : Indicator
 	}
 
     [Parameter]
-    [Display(ResourceType = typeof(Strings), Name = "Displacement", GroupName = nameof(Strings.Settings), Description = nameof(Strings.BarShiftDescription), Order = 130)]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Displacement), GroupName = nameof(Strings.Settings), Description = nameof(Strings.BarShiftDescription), Order = 130)]
     [Range(1, 10000)]
 	public int Displacement
 	{

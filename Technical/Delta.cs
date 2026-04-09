@@ -377,11 +377,11 @@ public class Delta : Indicator
 
     private Indicators.FilterColor _divergenceBarsFilter = new(true) { Enabled = false, Value = CrossColor.FromArgb(255, 255, 165, 0) };
 
-    [Display(ResourceType = typeof(Strings), Name = "DivergenceDots", GroupName = nameof(Strings.Divergence),
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.DivergenceDots), GroupName = nameof(Strings.Divergence),
         Description = nameof(Strings.BarDirVsDeltaDivergenceDescription), Order = 130)]
     public bool ShowDivergence { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = "DivergenceBars", GroupName = nameof(Strings.Divergence), Order = 135)]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.DivergenceBars), GroupName = nameof(Strings.Divergence), Order = 135)]
     public Indicators.FilterColor DivergenceBarsFilter
     {
         get => _divergenceBarsFilter;
@@ -421,7 +421,7 @@ public class Delta : Indicator
     private FilterInt _absorption = new(true) { Enabled = false, Value = 250 };
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Absorption), GroupName = nameof(Strings.Absorption),
-        Description = "AbsorptionThresholdDesc", Order = 140)]
+        Description = nameof(Strings.AbsorptionThresholdDesc), Order = 140)]
     [Range(0, int.MaxValue)]
     public FilterInt Absorption
     {
