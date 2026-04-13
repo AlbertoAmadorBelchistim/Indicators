@@ -241,6 +241,20 @@ public class DomPower : Indicator
             _levelDepth.PropertyChanged -= DepthFilterChanged;
     }
 
+    protected override void OnRecalculate()
+    {
+        _first = true;
+        _lastCalculatedBar = 0;
+        _lastBar = -1;
+
+        lock (_locker)
+        {
+            _isLastDeltaCalc = false;
+            _mDepthAsk.Clear();
+            _mDepthBid.Clear();
+        }
+    }
+
 	#endregion
 
 	#region Private methods
