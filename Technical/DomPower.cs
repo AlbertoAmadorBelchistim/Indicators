@@ -35,7 +35,7 @@ public class DomPower : Indicator
 		Value = 5,
 		Enabled = false
 	};
-	private object _locker = new();
+	private readonly object _locker = new();
 
 	private ValueDataSeries _maxDelta = new("MaxDelta", "Max Delta")
 	{
@@ -55,7 +55,7 @@ public class DomPower : Indicator
     };
 
 	private int _lastBar = -1;
-    private bool _isLastDeltaCalc;
+    private volatile bool _isLastDeltaCalc;
 
     #endregion
 
