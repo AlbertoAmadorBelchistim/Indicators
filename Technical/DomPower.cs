@@ -68,8 +68,19 @@ public class DomPower : Indicator
 		get => _levelDepth;
 		set
 		{
+			if (!ReferenceEquals(_levelDepth, value))
+			{
+				if (_levelDepth != null)
+					_levelDepth.PropertyChanged -= DepthFilterChanged;
+
 			_levelDepth = value;
+
+				if (_levelDepth != null)
+					_levelDepth.PropertyChanged += DepthFilterChanged;
+			}
+
 			DataSeries.ForEach(x => x.Clear());
+            RedrawChart();
 		}
 	}
 
@@ -223,6 +234,12 @@ public class DomPower : Indicator
 
 		_lastCalculatedBar = lastCandle;
 	}
+
+    protected override void OnDispose()
+    {
+        if (_levelDepth != null)
+            _levelDepth.PropertyChanged -= DepthFilterChanged;
+    }
 
 	#endregion
 
