@@ -1,5 +1,6 @@
 namespace ATAS.Indicators.Technical;
 
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
@@ -62,40 +63,40 @@ public class Volume : Indicator
 	private Color _neutralColor = Color.Gray;
 	private Color _posColor = Color.Green;
 
-    #region Legacy Series
+	#region Legacy Series
 
 	//For old templates
 	private readonly ValueDataSeries _negative = new("NegativeId", "Negative")
-    {
-	    VisualType = VisualMode.Hide,
+	{
+		VisualType = VisualMode.Hide,
 		IsHidden = true
-    };
+	};
 
-    private readonly ValueDataSeries _neutral = new("NeutralId", "Neutral")
-    {
-	    VisualType = VisualMode.Hide,
+	private readonly ValueDataSeries _neutral = new("NeutralId", "Neutral")
+	{
+		VisualType = VisualMode.Hide,
 		Color = Color.Gray.Convert(),
-	    IsHidden = true
-    };
+		IsHidden = true
+	};
 
-    private readonly ValueDataSeries _positive = new("PositiveId", "Positive")
-    {
-	    VisualType = VisualMode.Hide,
-	    Color = Color.Green.Convert(),
-        IsHidden = true
-    };
+	private readonly ValueDataSeries _positive = new("PositiveId", "Positive")
+	{
+		VisualType = VisualMode.Hide,
+		Color = Color.Green.Convert(),
+		IsHidden = true
+	};
 
 	#endregion
 
-    private ValueDataSeries _renderSeries = new("RenderSeries", Strings.Visualization)
-    {
-	    VisualType = VisualMode.Histogram,
-	    ShowZeroValue = false,
-	    UseMinimizedModeIfEnabled = true,
-	    ResetAlertsOnNewBar = true
-    };
+	private ValueDataSeries _renderSeries = new("RenderSeries", Strings.Visualization)
+	{
+		VisualType = VisualMode.Histogram,
+		ShowZeroValue = false,
+		UseMinimizedModeIfEnabled = true,
+		ResetAlertsOnNewBar = true
+	};
 
-    private bool _useFilter;
+	private bool _useFilter;
 
 	protected RenderStringFormat Format = new() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
 
@@ -103,14 +104,65 @@ public class Volume : Indicator
 	protected ValueDataSeries MaxVolSeries;
 	protected Color TextColor = DefaultColors.Blue;
 
-    #endregion
+	// ===================== Thresholds (Fixed) =====================
 
-    #region Properties
+	private readonly ValueDataSeries _thrMajor = new("Volume_ThresholdMajor", SeriesVolThrMajor)
+	{
+		VisualType = VisualMode.Hide,
+		ShowCurrentValue = false,
+		IgnoredByAlerts = true,
+		IsHidden = false,
+		Width = 1,
+		LineDashStyle = LineDashStyle.Solid,
+		Color = System.Drawing.Color.DarkGray.Convert()
+	};
 
-    #region Calculation
+	private readonly ValueDataSeries _thrMinor = new("Volume_ThresholdMinor", SeriesVolThrMinor)
+	{
+		VisualType = VisualMode.Hide,
+		ShowCurrentValue = false,
+		IgnoredByAlerts = true,
+		IsHidden = false,
+		Width = 1,
+		LineDashStyle = LineDashStyle.Dot,
+		Color = System.Drawing.Color.DimGray.Convert()
+	};
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Type), GroupName = nameof(Strings.Calculation), Description = nameof(Strings.SourceTypeDescription))]
-    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
+	private bool _showThresholdLines;
+	private decimal _fixedMinorLevel = 1000m;
+	private decimal _fixedMajorLevel = 2000m;
+
+	#endregion
+
+	#region UI strings (pending localization — see NOTE at the top of this region)
+
+	// NOTE to maintainers: these strings are hardcoded to keep this PR self-contained.
+	// On merge they are intended to be moved to Strings.resx and referenced via
+	// [Display(ResourceType = typeof(Strings), Name = nameof(Strings.<Key>), ...)].
+	// Each constant below maps 1:1 to one resource key.
+
+	private const string UiGroupThresholds = "Thresholds";
+	private const string UiGroupFixedThreshold = "Fixed threshold";
+
+	private const string TxtShowThresholdLines = "Show threshold lines";
+	private const string TxtShowThresholdLinesDesc = "Show horizontal threshold lines on the Volume panel.";
+
+	private const string TxtFixedMinor = "Minor level";
+	private const string TxtFixedMinorDesc = "Value of the minor threshold line.";
+	private const string TxtFixedMajor = "Major level";
+	private const string TxtFixedMajorDesc = "Value of the major threshold line.";
+
+	private const string SeriesVolThrMajor = "Volume Threshold Major";
+	private const string SeriesVolThrMinor = "Volume Threshold Minor";
+
+	#endregion
+
+	#region Properties
+
+	#region Calculation
+
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Type), GroupName = nameof(Strings.Calculation), Description = nameof(Strings.SourceTypeDescription))]
+	[Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
 	public InputType Input
 	{
 		get => _input;
@@ -122,130 +174,193 @@ public class Volume : Indicator
 		}
 	}
 
-    #endregion
+	#endregion
 
-    #region Filter
+	#region Thresholds
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.UseFilter), GroupName = nameof(Strings.Filter), Description = nameof(Strings.UseFilterDescription))]
-    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
-    public bool UseFilter
-    {
-        get => _useFilter;
-        set
-        {
-            _useFilter = value;
-            RaisePropertyChanged(nameof(UseFilter));
-            RecalculateValues();
-        }
-    }
+	[Display(Name = TxtShowThresholdLines, GroupName = UiGroupThresholds, Description = TxtShowThresholdLinesDesc, Order = 500)]
+	[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+	public bool ShowThresholdLines
+	{
+		get => _showThresholdLines;
+		set
+		{
+			if (_showThresholdLines == value)
+				return;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.Filter), Description = nameof(Strings.MinVolumeFilterCommonDescription))]
-    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
-    [Range(0, double.MaxValue)]
-    public decimal FilterValue
-    {
-        get => _filter;
-        set
-        {
-            _filter = value;
-            RaisePropertyChanged(nameof(FilterValue));
-            RecalculateValues();
-        }
-    }
+			_showThresholdLines = value;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Color), GroupName = nameof(Strings.Filter), Description = nameof(Strings.FilterColorDescription))]
-    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
-    public CrossColor FilterColor
-    {
-        get => _filterColor.Convert();
-        set
-        {
-            _filterColor = value.Convert();
+			var vis = value ? VisualMode.Line : VisualMode.Hide;
+			_thrMajor.VisualType = vis;
+			_thrMinor.VisualType = vis;
 
-            RaisePropertyChanged(nameof(FilterColor));
-            RecalculateValues();
-        }
-    }
+			if (!value)
+				CutThresholdsAt(CurrentBar - 1);
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.UseAlerts), GroupName = nameof(Strings.Filter), Description = nameof(Strings.UseAlertsDescription))]
-    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    public bool UseVolumeAlerts { get; set; }
+			RecalculateValues();
+		}
+	}
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.Filter), Description = nameof(Strings.AlertFileDescription))]
-    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    public string AlertVolumeFile { get; set; } = "alert1";
+	[DisplayName(TxtFixedMinor)]
+	[Display(GroupName = UiGroupFixedThreshold, Description = TxtFixedMinorDesc, Order = 520)]
+	[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+	[Range(0, double.MaxValue)]
+	[DisplayFormat(DataFormatString = "F0")]
+	public decimal FixedMinorLevel
+	{
+		get => _fixedMinorLevel;
+		set
+		{
+			if (_fixedMinorLevel == value)
+				return;
 
-    #endregion
+			_fixedMinorLevel = value;
+			RecalculateValues();
+		}
+	}
 
-    #region MaximumVolume
+	[DisplayName(TxtFixedMajor)]
+	[Display(GroupName = UiGroupFixedThreshold, Description = TxtFixedMajorDesc, Order = 530)]
+	[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+	[Range(0, double.MaxValue)]
+	[DisplayFormat(DataFormatString = "F0")]
+	public decimal FixedMajorLevel
+	{
+		get => _fixedMajorLevel;
+		set
+		{
+			if (_fixedMajorLevel == value)
+				return;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Show), GroupName = nameof(Strings.MaximumVolume), Description = nameof(Strings.MaximumVolumeDescription))]
-    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
-    public bool ShowMaxVolume
-    {
-        get => MaxVolSeries.VisualType is not VisualMode.Hide;
-        set => MaxVolSeries.VisualType = value ? VisualMode.Line : VisualMode.Hide;
-    }
+			_fixedMajorLevel = value;
+			RecalculateValues();
+		}
+	}
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Period), GroupName = nameof(Strings.MaximumVolume), Description = nameof(Strings.MaximumVolumePeriodDescription))]
-    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
-    [Range(1, 100000)]
-    public int HiVolPeriod
-    {
-        get => HighestVol.Period;
-        set => HighestVol.Period = value;
-    }
+	#endregion
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Color), GroupName = nameof(Strings.MaximumVolume), Description = nameof(Strings.ColorDescription))]
-    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
-    public CrossColor LineColor
-    {
-        get => MaxVolSeries.Color;
-        set => MaxVolSeries.Color = value;
-    }
+	#region Filter
 
-    #endregion
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.UseFilter), GroupName = nameof(Strings.Filter), Description = nameof(Strings.UseFilterDescription))]
+	[Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
+	public bool UseFilter
+	{
+		get => _useFilter;
+		set
+		{
+			_useFilter = value;
+			RaisePropertyChanged(nameof(UseFilter));
+			RecalculateValues();
+		}
+	}
 
-    #region Volume label
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.Filter), Description = nameof(Strings.MinVolumeFilterCommonDescription))]
+	[Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
+	[Range(0, double.MaxValue)]
+	public decimal FilterValue
+	{
+		get => _filter;
+		set
+		{
+			_filter = value;
+			RaisePropertyChanged(nameof(FilterValue));
+			RecalculateValues();
+		}
+	}
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Show), GroupName = nameof(Strings.VolumeLabel), Description = nameof(Strings.VolumeLabelDescription))]
-    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
-    public bool ShowVolume { get; set; }
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Color), GroupName = nameof(Strings.Filter), Description = nameof(Strings.FilterColorDescription))]
+	[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+	public CrossColor FilterColor
+	{
+		get => _filterColor.Convert();
+		set
+		{
+			_filterColor = value.Convert();
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Color), GroupName = nameof(Strings.VolumeLabel), Description = nameof(Strings.LabelTextColorDescription))]
-    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
-    public CrossColor FontColor
-    {
-        get => TextColor.Convert();
-        set => TextColor = value.Convert();
-    }
+			RaisePropertyChanged(nameof(FilterColor));
+			RecalculateValues();
+		}
+	}
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Location), GroupName = nameof(Strings.VolumeLabel), Description = nameof(Strings.LabelLocationDescription))]
-    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
-    public Location VolLocation { get; set; } = Location.Middle;
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.UseAlerts), GroupName = nameof(Strings.Filter), Description = nameof(Strings.UseAlertsDescription))]
+	[Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+	public bool UseVolumeAlerts { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Font), GroupName = nameof(Strings.VolumeLabel), Description = nameof(Strings.FontSettingDescription))]
-    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
-    public FontSetting Font { get; set; } = new("Arial", 10);
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.Filter), Description = nameof(Strings.AlertFileDescription))]
+	[Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+	public string AlertVolumeFile { get; set; } = "alert1";
 
-    #endregion
+	#endregion
 
-    #region Divergence alert
+	#region MaximumVolume
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.ReverseAlert), Description = nameof(Strings.ReverseAlertDescription))]
-    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    public bool UseReverseAlerts { get; set; }
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Show), GroupName = nameof(Strings.MaximumVolume), Description = nameof(Strings.MaximumVolumeDescription))]
+	[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+	public bool ShowMaxVolume
+	{
+		get => MaxVolSeries.VisualType is not VisualMode.Hide;
+		set => MaxVolSeries.VisualType = value ? VisualMode.Line : VisualMode.Hide;
+	}
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.ReverseAlert), Description = nameof(Strings.AlertFileDescription))]
-    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    public string AlertReverseFile { get; set; } = "alert1";
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Period), GroupName = nameof(Strings.MaximumVolume), Description = nameof(Strings.MaximumVolumePeriodDescription))]
+	[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+	[Range(1, 100000)]
+	public int HiVolPeriod
+	{
+		get => HighestVol.Period;
+		set => HighestVol.Period = value;
+	}
 
-    #endregion
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Color), GroupName = nameof(Strings.MaximumVolume), Description = nameof(Strings.ColorDescription))]
+	[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+	public CrossColor LineColor
+	{
+		get => MaxVolSeries.Color;
+		set => MaxVolSeries.Color = value;
+	}
 
-    #region Drawing
+	#endregion
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.DeltaColored), GroupName = nameof(Strings.Drawing), Description = nameof(Strings.DeltaColoredDescription))]
-    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+	#region Volume label
+
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Show), GroupName = nameof(Strings.VolumeLabel), Description = nameof(Strings.VolumeLabelDescription))]
+	[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+	public bool ShowVolume { get; set; }
+
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Color), GroupName = nameof(Strings.VolumeLabel), Description = nameof(Strings.LabelTextColorDescription))]
+	[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+	public CrossColor FontColor
+	{
+		get => TextColor.Convert();
+		set => TextColor = value.Convert();
+	}
+
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Location), GroupName = nameof(Strings.VolumeLabel), Description = nameof(Strings.LabelLocationDescription))]
+	[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+	public Location VolLocation { get; set; } = Location.Middle;
+
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Font), GroupName = nameof(Strings.VolumeLabel), Description = nameof(Strings.FontSettingDescription))]
+	[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+	public FontSetting Font { get; set; } = new("Arial", 10);
+
+	#endregion
+
+	#region Divergence alert
+
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.ReverseAlert), Description = nameof(Strings.ReverseAlertDescription))]
+	[Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+	public bool UseReverseAlerts { get; set; }
+
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.ReverseAlert), Description = nameof(Strings.AlertFileDescription))]
+	[Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+	public string AlertReverseFile { get; set; } = "alert1";
+
+	#endregion
+
+	#region Drawing
+
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.DeltaColored), GroupName = nameof(Strings.Drawing), Description = nameof(Strings.DeltaColoredDescription))]
+	[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
 	public bool DeltaColored
 	{
 		get => _deltaColored;
@@ -264,8 +379,8 @@ public class Volume : Indicator
 		get => _posColor.Convert();
 		set
 		{
-            _posColor = value.Convert();
-            _positive.Color = value;
+			_posColor = value.Convert();
+			_positive.Color = value;
 			RaisePropertyChanged(nameof(PosColor));
 			RecalculateValues();
 		}
@@ -278,8 +393,8 @@ public class Volume : Indicator
 		get => _negColor.Convert();
 		set
 		{
-            _negColor = value.Convert();
-            _negative.Color = value;
+			_negColor = value.Convert();
+			_negative.Color = value;
 			RaisePropertyChanged(nameof(NegColor));
 			RecalculateValues();
 		}
@@ -290,22 +405,22 @@ public class Volume : Indicator
 	public CrossColor NeutralColor
 	{
 		get => _neutralColor.Convert();
-        set
+		set
 		{
-            _neutralColor = value.Convert();
-            _neutral.Color = value;
+			_neutralColor = value.Convert();
+			_neutral.Color = value;
 			RaisePropertyChanged(nameof(NeutralColor));
 			RecalculateValues();
 		}
 	}
 
-    #endregion
+	#endregion
 
-    #endregion
+	#endregion
 
-    #region ctor
+	#region ctor
 
-    public Volume()
+	public Volume()
 		: base(true)
 	{
 		EnableCustomDrawing = true;
@@ -332,55 +447,58 @@ public class Volume : Indicator
 		_positive.PropertyChanged += PositiveChanged;
 		_negative.PropertyChanged += NegativeChanged;
 		_neutral.PropertyChanged += NeutralChanged;
-    }
 
-    #endregion
+		DataSeries.Add(_thrMinor);
+		DataSeries.Add(_thrMajor);
+	}
 
-    protected override void OnApplyDefaultColors()
-    {
-	    if (ChartInfo != null)
-	    {
-		    PosColor = ChartInfo.ColorsStore.UpCandleColor.Convert();
-		    NegColor = ChartInfo.ColorsStore.DownCandleColor.Convert();
-		    NeutralColor = ChartInfo.ColorsStore.DojiBarPen.Color.Convert();
-	    }
-    }
+	#endregion
 
-    #region Public methods
+	protected override void OnApplyDefaultColors()
+	{
+		if (ChartInfo != null)
+		{
+			PosColor = ChartInfo.ColorsStore.UpCandleColor.Convert();
+			NegColor = ChartInfo.ColorsStore.DownCandleColor.Convert();
+			NeutralColor = ChartInfo.ColorsStore.DojiBarPen.Color.Convert();
+		}
+	}
 
-    public override string ToString()
+	#region Public methods
+
+	public override string ToString()
 	{
 		return "Volume";
 	}
 
-    #endregion
+	#endregion
 
-    #region Protected methods
+	#region Protected methods
 
-    protected override void OnInitialize()
-    {
+	protected override void OnInitialize()
+	{
 		_positive.VisualType = VisualMode.Hide;
 		_negative.VisualType = VisualMode.Hide;
 		_neutral.VisualType = VisualMode.Hide;
-    }
+	}
 
-    protected override void OnRender(RenderContext context, DrawingLayouts layout)
+	protected override void OnRender(RenderContext context, DrawingLayouts layout)
 	{
-        if (ChartInfo == null) 
+		if (ChartInfo == null) 
 			return;
 
-        if (!ShowVolume || ChartInfo.ChartVisualMode != ChartVisualModes.Clusters || Panel == IndicatorDataProvider.CandlesPanel)
+		if (!ShowVolume || ChartInfo.ChartVisualMode != ChartVisualModes.Clusters || Panel == IndicatorDataProvider.CandlesPanel)
 			return;
 
-        var minWidth = GetMinWidth(context, FirstVisibleBarNumber, LastVisibleBarNumber);
+		var minWidth = GetMinWidth(context, FirstVisibleBarNumber, LastVisibleBarNumber);
 		var barWidth = ChartInfo.GetXByBar(1) - ChartInfo.GetXByBar(0);
 
 		if (minWidth > barWidth)
 			return;
 
-        context.SetClip(Container.Region);
+		context.SetClip(Container.Region);
 
-        var strHeight = context.MeasureString("0", Font.RenderObject).Height;
+		var strHeight = context.MeasureString("0", Font.RenderObject).Height;
 
 		var y = VolLocation switch
 		{
@@ -401,8 +519,8 @@ public class Volume : Indicator
 			context.DrawString(renderText, Font.RenderObject, TextColor, strRect, Format);
 		}
 
-        context.ResetClip();
-    }
+		context.ResetClip();
+	}
 
 	protected override void OnCalculate(int bar, decimal value)
 	{
@@ -416,6 +534,12 @@ public class Volume : Indicator
 			_ => candle.Volume
 		};
 		_renderSeries[bar] = val;
+
+		if (_showThresholdLines)
+		{
+			_thrMinor[bar] = _fixedMinorLevel;
+			_thrMajor[bar] = _fixedMajorLevel;
+		}
 
 		if (bar == CurrentBar - 1)
 		{
@@ -463,64 +587,71 @@ public class Volume : Indicator
 		}
 	}
 
-    protected override void OnDispose()
-    {
-        _positive.PropertyChanged -= PositiveChanged;
-        _negative.PropertyChanged -= NegativeChanged;
-        _neutral.PropertyChanged -= NeutralChanged;
-    }
+	protected override void OnDispose()
+	{
+		_positive.PropertyChanged -= PositiveChanged;
+		_negative.PropertyChanged -= NegativeChanged;
+		_neutral.PropertyChanged -= NeutralChanged;
+	}
 
-    #endregion
+	#endregion
 
-    #region Private methods
+	#region Private methods
 
-    private int GetMinWidth(RenderContext context, int startBar, int endBar)
+	private int GetMinWidth(RenderContext context, int startBar, int endBar)
 	{
 		var maxLength = 0;
 
 		for (var i = startBar; i <= endBar; i++)
 		{
 			var value = _renderSeries[i];
-            var renderText = ChartInfo.TryGetMinimizedVolumeString(value);
-            var length = renderText.Length;
+			var renderText = ChartInfo.TryGetMinimizedVolumeString(value);
+			var length = renderText.Length;
 
-            if (length > maxLength)
+			if (length > maxLength)
 				maxLength = length;
 		}
 
-        var sampleStr = new string('0', maxLength);
+		var sampleStr = new string('0', maxLength);
 
-        return context.MeasureString(sampleStr, Font.RenderObject).Width;
+		return context.MeasureString(sampleStr, Font.RenderObject).Width;
 	}
 
 	private void NeutralChanged(object sender, PropertyChangedEventArgs e)
 	{
-        if (e.PropertyName == nameof(ValueDataSeries.Color))
-            _neutralColor = _neutral.Color.Convert();
+		if (e.PropertyName == nameof(ValueDataSeries.Color))
+			_neutralColor = _neutral.Color.Convert();
 	}
 
 	private void NegativeChanged(object sender, PropertyChangedEventArgs e)
 	{
-        if (e.PropertyName == nameof(ValueDataSeries.Color))
-            _negColor = _negative.Color.Convert();
+		if (e.PropertyName == nameof(ValueDataSeries.Color))
+			_negColor = _negative.Color.Convert();
 	}
 
 	private void PositiveChanged(object sender, PropertyChangedEventArgs e)
 	{
-        if (e.PropertyName == nameof(ValueDataSeries.Color))
-            _posColor = _positive.Color.Convert();
+		if (e.PropertyName == nameof(ValueDataSeries.Color))
+			_posColor = _positive.Color.Convert();
 	}
 
-    private string GetInputLabel()
-    {
-        return Input switch
-        {
-            InputType.Ticks => nameof(Strings.Ticks),
-            InputType.Asks => nameof(Strings.Asks),
-            InputType.Bids => nameof(Strings.Bids),
-            _ => nameof(Strings.Volume)
-        };
-    }
+	private string GetInputLabel()
+	{
+		return Input switch
+		{
+			InputType.Ticks => nameof(Strings.Ticks),
+			InputType.Asks => nameof(Strings.Asks),
+			InputType.Bids => nameof(Strings.Bids),
+			_ => nameof(Strings.Volume)
+		};
+	}
 
-    #endregion
+	private void CutThresholdsAt(int bar)
+	{
+		var b = Math.Max(0, bar);
+		_thrMajor.SetPointOfEndLine(b);
+		_thrMinor.SetPointOfEndLine(b);
+	}
+
+	#endregion
 }
