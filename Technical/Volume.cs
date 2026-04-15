@@ -452,11 +452,18 @@ public class Volume : Indicator
 		}
 	}
 
-	#endregion
+    protected override void OnDispose()
+    {
+        _positive.PropertyChanged -= PositiveChanged;
+        _negative.PropertyChanged -= NegativeChanged;
+        _neutral.PropertyChanged -= NeutralChanged;
+    }
 
-	#region Private methods
+    #endregion
 
-	private int GetMinWidth(RenderContext context, int startBar, int endBar)
+    #region Private methods
+
+    private int GetMinWidth(RenderContext context, int startBar, int endBar)
 	{
 		var maxLength = 0;
 
