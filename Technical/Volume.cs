@@ -426,7 +426,7 @@ public class Volume : Indicator
 
 		HighestVol.Calculate(bar, candle.Volume);
 
-		if (_useFilter && val > _filter)
+		if (_useFilter && val >= _filter)
 		{
 			_renderSeries.Colors[bar] = _filterColor;
 			return;
