@@ -263,7 +263,8 @@ public class Volume : Indicator
 		get => _posColor.Convert();
 		set
 		{
-			_positive.Color = value;
+            _posColor = value.Convert();
+            _positive.Color = value;
 			RaisePropertyChanged(nameof(PosColor));
 			RecalculateValues();
 		}
@@ -276,6 +277,7 @@ public class Volume : Indicator
 		get => _negColor.Convert();
 		set
 		{
+            _negColor = value.Convert();
             _negative.Color = value;
 			RaisePropertyChanged(nameof(NegColor));
 			RecalculateValues();
@@ -289,6 +291,7 @@ public class Volume : Indicator
 		get => _neutralColor.Convert();
         set
 		{
+            _neutralColor = value.Convert();
             _neutral.Color = value;
 			RaisePropertyChanged(nameof(NeutralColor));
 			RecalculateValues();
@@ -491,17 +494,20 @@ public class Volume : Indicator
 
 	private void NeutralChanged(object sender, PropertyChangedEventArgs e)
 	{
-		_neutralColor = _neutral.Color.Convert();
+        if (e.PropertyName == nameof(ValueDataSeries.Color))
+            _neutralColor = _neutral.Color.Convert();
 	}
 
 	private void NegativeChanged(object sender, PropertyChangedEventArgs e)
 	{
-		_negColor = _negative.Color.Convert();
+        if (e.PropertyName == nameof(ValueDataSeries.Color))
+            _negColor = _negative.Color.Convert();
 	}
 
 	private void PositiveChanged(object sender, PropertyChangedEventArgs e)
 	{
-		_posColor = _positive.Color.Convert();
+        if (e.PropertyName == nameof(ValueDataSeries.Color))
+            _posColor = _positive.Color.Convert();
 	}
 
     private string GetInputLabel()
