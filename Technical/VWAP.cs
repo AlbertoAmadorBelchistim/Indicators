@@ -982,7 +982,8 @@ public class VWAP : Indicator
 		var newSessionBetweenBars = previousBar != null && (
 			sessionCrossesMidnight
 				? (prevEndTime.TimeOfDay <= _customSessionStart && startTime.TimeOfDay > _customSessionStart) ||
-				(prevEndTime.TimeOfDay > prevEndTime.TimeOfDay && _customSessionStart <= startTime.TimeOfDay)
+				(prevEndTime.TimeOfDay > startTime.TimeOfDay &&
+				 (_customSessionStart <= startTime.TimeOfDay || _customSessionStart >= prevEndTime.TimeOfDay))
 				: prevEndTime.TimeOfDay <= _customSessionStart && startTime.TimeOfDay > _customSessionStart
 		);
 
