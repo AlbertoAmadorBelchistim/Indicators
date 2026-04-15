@@ -362,16 +362,21 @@ public class Volume : Indicator
 
     protected override void OnRender(RenderContext context, DrawingLayouts layout)
 	{
-		if (!ShowVolume || ChartInfo.ChartVisualMode != ChartVisualModes.Clusters || Panel == IndicatorDataProvider.CandlesPanel)
+        if (ChartInfo == null) 
 			return;
 
-		var minWidth = GetMinWidth(context, FirstVisibleBarNumber, LastVisibleBarNumber);
+        if (!ShowVolume || ChartInfo.ChartVisualMode != ChartVisualModes.Clusters || Panel == IndicatorDataProvider.CandlesPanel)
+			return;
+
+        var minWidth = GetMinWidth(context, FirstVisibleBarNumber, LastVisibleBarNumber);
 		var barWidth = ChartInfo.GetXByBar(1) - ChartInfo.GetXByBar(0);
 
 		if (minWidth > barWidth)
 			return;
 
-		var strHeight = context.MeasureString("0", Font.RenderObject).Height;
+        context.SetClip(Container.Region);
+
+        var strHeight = context.MeasureString("0", Font.RenderObject).Height;
 
 		var y = VolLocation switch
 		{
@@ -391,7 +396,9 @@ public class Volume : Indicator
 				strHeight);
 			context.DrawString(renderText, Font.RenderObject, TextColor, strRect, Format);
 		}
-	}
+
+        context.ResetClip();
+    }
 
 	protected override void OnCalculate(int bar, decimal value)
 	{
@@ -470,18 +477,16 @@ public class Volume : Indicator
 		for (var i = startBar; i <= endBar; i++)
 		{
 			var value = _renderSeries[i];
-			var length = $"{value:0.#####}".Length;
+            var renderText = ChartInfo.TryGetMinimizedVolumeString(value);
+            var length = renderText.Length;
 
-			if (length > maxLength)
+            if (length > maxLength)
 				maxLength = length;
 		}
 
-		var sampleStr = "";
+        var sampleStr = new string('0', maxLength);
 
-		for (var i = 0; i < maxLength; i++)
-			sampleStr += '0';
-
-		return context.MeasureString(sampleStr, Font.RenderObject).Width;
+        return context.MeasureString(sampleStr, Font.RenderObject).Width;
 	}
 
 	private void NeutralChanged(object sender, PropertyChangedEventArgs e)
