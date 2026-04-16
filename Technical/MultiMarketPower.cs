@@ -518,6 +518,17 @@ public class MultiMarketPower : Indicator
 		CalculateTrade(trade, true, newBar);
 	}
 
+	protected override void OnDispose()
+	{
+		lock (_locker)
+		{
+			_ticks.Clear();
+			_trades.Clear();
+		}
+		
+		base.OnDispose();
+	}
+
 	#endregion
 
 	#region Private methods
