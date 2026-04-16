@@ -71,11 +71,6 @@ public class MultiMarketPower : Indicator
 	private decimal _delta4;
 	private decimal _delta5;
 	private int _lastBar = -1;
-	private decimal _lastDelta1;
-	private decimal _lastDelta2;
-	private decimal _lastDelta3;
-	private decimal _lastDelta4;
-	private decimal _lastDelta5;
 	private CumulativeTrade _lastTrade;
 	private readonly object _locker = new();
 	private decimal _maxVolume1 = 5;
@@ -159,17 +154,17 @@ public class MultiMarketPower : Indicator
 	{
 		get => _filter1Series.Color;
 		set => _filter1Series.Color = value;
-    }
+	}
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LineWidth), GroupName = nameof(Strings.Filter1), Description = nameof(Strings.LineWidthDescription), Order = 160)]
-    [Range(1, 100)]
-    public int LineWidth1
-    {
-        get => _filter1Series.Width;
-        set => _filter1Series.Width = value;
-    }
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.LineWidth), GroupName = nameof(Strings.Filter1), Description = nameof(Strings.LineWidthDescription), Order = 160)]
+	[Range(1, 100)]
+	public int LineWidth1
+	{
+		get => _filter1Series.Width;
+		set => _filter1Series.Width = value;
+	}
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.Filter2), Description = nameof(Strings.UseFilterDescription), Order = 200)]
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.Filter2), Description = nameof(Strings.UseFilterDescription), Order = 200)]
 	public bool UseFilter2
 	{
 		get => _useFilter2;
@@ -211,17 +206,17 @@ public class MultiMarketPower : Indicator
 	{
 		get => _filter2Series.Color;
 		set => _filter2Series.Color = value;
-    }
+	}
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LineWidth), GroupName = nameof(Strings.Filter2), Description = nameof(Strings.LineWidthDescription), Order = 260)]
-    [Range(1, 100)]
-    public int LineWidth2
-    {
-        get => _filter2Series.Width;
-        set => _filter2Series.Width = value;
-    }
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.LineWidth), GroupName = nameof(Strings.Filter2), Description = nameof(Strings.LineWidthDescription), Order = 260)]
+	[Range(1, 100)]
+	public int LineWidth2
+	{
+		get => _filter2Series.Width;
+		set => _filter2Series.Width = value;
+	}
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.Filter3), Description = nameof(Strings.UseFilterDescription), Order = 300)]
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.Filter3), Description = nameof(Strings.UseFilterDescription), Order = 300)]
 	public bool UseFilter3
 	{
 		get => _useFilter3;
@@ -263,17 +258,17 @@ public class MultiMarketPower : Indicator
 	{
 		get => _filter3Series.Color;
 		set => _filter3Series.Color = value;
-    }
+	}
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LineWidth), GroupName = nameof(Strings.Filter3), Description = nameof(Strings.LineWidthDescription), Order = 360)]
-    [Range(1, 100)]
-    public int LineWidth3
-    {
-        get => _filter3Series.Width;
-        set => _filter3Series.Width = value;
-    }
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.LineWidth), GroupName = nameof(Strings.Filter3), Description = nameof(Strings.LineWidthDescription), Order = 360)]
+	[Range(1, 100)]
+	public int LineWidth3
+	{
+		get => _filter3Series.Width;
+		set => _filter3Series.Width = value;
+	}
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.Filter4), Description = nameof(Strings.UseFilterDescription), Order = 400)]
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.Filter4), Description = nameof(Strings.UseFilterDescription), Order = 400)]
 	public bool UseFilter4
 	{
 		get => _useFilter4;
@@ -315,17 +310,17 @@ public class MultiMarketPower : Indicator
 	{
 		get => _filter4Series.Color;
 		set => _filter4Series.Color = value;
-    }
+	}
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LineWidth), GroupName = nameof(Strings.Filter4), Description = nameof(Strings.LineWidthDescription), Order = 460)]
-    [Range(1, 100)]
-    public int LineWidth4
-    {
-        get => _filter4Series.Width;
-        set => _filter4Series.Width = value;
-    }
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.LineWidth), GroupName = nameof(Strings.Filter4), Description = nameof(Strings.LineWidthDescription), Order = 460)]
+	[Range(1, 100)]
+	public int LineWidth4
+	{
+		get => _filter4Series.Width;
+		set => _filter4Series.Width = value;
+	}
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.Filter5), Description = nameof(Strings.UseFilterDescription), Order = 500)]
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.Filter5), Description = nameof(Strings.UseFilterDescription), Order = 500)]
 	public bool UseFilter5
 	{
 		get => _useFilter5;
@@ -367,21 +362,21 @@ public class MultiMarketPower : Indicator
 	{
 		get => _filter5Series.Color;
 		set => _filter5Series.Color = value;
-    }
+	}
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LineWidth), GroupName = nameof(Strings.Filter5), Description = nameof(Strings.LineWidthDescription), Order = 560)]
-    [Range(1, 100)]
-    public int LineWidth5
-    {
-        get => _filter5Series.Width;
-        set => _filter5Series.Width = value;
-    }
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.LineWidth), GroupName = nameof(Strings.Filter5), Description = nameof(Strings.LineWidthDescription), Order = 560)]
+	[Range(1, 100)]
+	public int LineWidth5
+	{
+		get => _filter5Series.Width;
+		set => _filter5Series.Width = value;
+	}
 
-    #endregion
+	#endregion
 
-    #region ctor
+	#region ctor
 
-    public MultiMarketPower()
+	public MultiMarketPower()
 		: base(true)
 	{
 		Panel = IndicatorDataProvider.NewPanel;
@@ -436,7 +431,7 @@ public class MultiMarketPower : Indicator
 		var request = new CumulativeTradesRequest(GetCandle(_sessionBegin).Time);
 		_requestId = request.RequestId;
 		RequestForCumulativeTrades(request);
-    }
+	}
 	
 	protected override void OnCumulativeTradesResponse(CumulativeTradesRequest request, IEnumerable<CumulativeTrade> cumulativeTrades)
 	{
@@ -560,34 +555,34 @@ public class MultiMarketPower : Indicator
 
 				if (_lastTrade.Volume >= _minVolume2 && (_lastTrade.Volume <= _maxVolume2 || _maxVolume2 == 0))
 				{
+					_delta2 -= lastVolume;
 					if (prevBarReset)
 						_filter2Series[CurrentBar - 2] -= lastVolume;
 
-					_delta2 -= lastVolume;
 				}
 
 				if (_lastTrade.Volume >= _minVolume3 && (_lastTrade.Volume <= _maxVolume3 || _maxVolume3 == 0))
 				{
+					_delta3 -= lastVolume;
 					if (prevBarReset)
 						_filter3Series[CurrentBar - 2] -= lastVolume;
 
-					_delta3 -= lastVolume;
 				}
 
 				if (_lastTrade.Volume >= _minVolume4 && (_lastTrade.Volume <= _maxVolume4 || _maxVolume4 == 0))
 				{
+					_delta4 -= lastVolume;
 					if (prevBarReset)
 						_filter4Series[CurrentBar - 2] -= lastVolume;
 
-					_delta4 -= lastVolume;
 				}
 
 				if (_lastTrade.Volume >= _minVolume5 && (_lastTrade.Volume <= _maxVolume5 || _maxVolume5 == 0))
 				{
+					_delta5 -= lastVolume;
 					if (prevBarReset)
 						_filter5Series[CurrentBar - 2] -= lastVolume;
 
-					_delta5 -= lastVolume;
 				}
 			}
 		}
@@ -641,7 +636,7 @@ public class MultiMarketPower : Indicator
 		if (CumulativeTrades)
 		{
 			trades = trades.OrderBy(t => t.Time).ToList();
-            
+			
 			for (var i = _sessionBegin; i <= CurrentBar - 1; i++)
 			{
 				if (GetCandle(i) is null)
@@ -685,7 +680,7 @@ public class MultiMarketPower : Indicator
 		{
 			var trade = trades[bar];
 			searchIdx = bar;
-            
+			
 			if (trade.Direction is TradeDirection.Between)
 				continue;
 
@@ -698,7 +693,7 @@ public class MultiMarketPower : Indicator
 			candleTrades.Add(trade);
 		}
 
-        foreach (var tick in candleTrades)
+		foreach (var tick in candleTrades)
 		{
 			var deltaVolume = tick.Volume * (tick.Direction is TradeDirection.Buy ? 1 : -1);
 
@@ -758,16 +753,8 @@ public class MultiMarketPower : Indicator
 		return volume >= minFilter && (volume <= maxFilter || maxFilter == 0);
 	}
 
-	private void CalculateBarTrades(List<CumulativeTrade> trades, int bar, ref int searchIdx, bool realTime = false, bool newBar = false)
+	private void CalculateBarTrades(List<CumulativeTrade> trades, int bar, ref int searchIdx)
 	{
-		if (CumulativeTrades && realTime && !newBar)
-		{
-			_delta1 -= _lastDelta1;
-			_delta2 -= _lastDelta2;
-			_delta3 -= _lastDelta3;
-			_delta4 -= _lastDelta4;
-			_delta5 -= _lastDelta5;
-		}
 
 		var candle = GetCandle(bar);
 
@@ -792,43 +779,33 @@ public class MultiMarketPower : Indicator
 			candleTrades.Add(trade);
 		}
 
-        _lastDelta1 = candleTrades
-			.Where(x => x.Volume >= _minVolume1 && (x.Volume <= _maxVolume1 || _maxVolume1 == 0))
+        _delta1 += candleTrades
+            .Where(x => x.Volume >= _minVolume1 && (x.Volume <= _maxVolume1 || _maxVolume1 == 0))
 			.Sum(x => x.Volume * (x.Direction == TradeDirection.Buy ? 1 : -1));
-
-		_delta1 += _lastDelta1;
 
 		_filter1Series[bar] = _delta1;
 
-		_lastDelta2 = candleTrades
+        _delta2 += candleTrades
 			.Where(x => x.Volume >= _minVolume2 && (x.Volume <= _maxVolume2 || _maxVolume2 == 0))
 			.Sum(x => x.Volume * (x.Direction == TradeDirection.Buy ? 1 : -1));
 
-		_delta2 += _lastDelta2;
-
 		_filter2Series[bar] = _delta2;
 
-		_lastDelta3 = candleTrades
+        _delta3 += candleTrades
 			.Where(x => x.Volume >= _minVolume3 && (x.Volume <= _maxVolume3 || _maxVolume3 == 0))
 			.Sum(x => x.Volume * (x.Direction == TradeDirection.Buy ? 1 : -1));
 
-		_delta3 += _lastDelta3;
-
 		_filter3Series[bar] = _delta3;
 
-		_lastDelta4 = candleTrades
+        _delta4 += candleTrades
 			.Where(x => x.Volume >= _minVolume4 && (x.Volume <= _maxVolume4 || _maxVolume4 == 0))
 			.Sum(x => x.Volume * (x.Direction == TradeDirection.Buy ? 1 : -1));
 
-		_delta4 += _lastDelta4;
-
 		_filter4Series[bar] = _delta4;
 
-		_lastDelta5 = candleTrades
+        _delta5 += candleTrades
 			.Where(x => x.Volume >= _minVolume5 && (x.Volume <= _maxVolume5 || _maxVolume5 == 0))
 			.Sum(x => x.Volume * (x.Direction == TradeDirection.Buy ? 1 : -1));
-
-		_delta5 += _lastDelta5;
 
 		_filter5Series[bar] = _delta5;
 
