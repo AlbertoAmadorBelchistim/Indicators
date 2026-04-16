@@ -131,7 +131,9 @@ public partial class ClusterSearch : Indicator
 		if (!isValid)
 			return;
 
-		if (CalcType is CalcMode.MaxVolume)
+		// Exact zero Ask/Bid searches can depend on price levels that were not directly hit
+		// by the last trade, so the incremental path may miss live updates until refresh.
+		if (RequiresFullBarUpdateOnNewTrades())
 		{
 			CalculateBarFull(bar);
 			return;
@@ -699,6 +701,19 @@ public partial class ClusterSearch : Indicator
 	{
 		RecalculateValues();
 		RedrawChart();
+	}
+
+	private bool RequiresFullBarUpdateOnNewTrades()
+	{
+		if (CalcType is CalcMode.MaxVolume)
+			return true;
+
+		return !AutoFilter
+			&& CalcType is CalcMode.Ask or CalcMode.Bid
+			&& MinimumFilter.Enabled
+			&& MaximumFilter.Enabled
+			&& MinimumFilter.Value <= 0
+			&& MaximumFilter.Value >= 0;
 	}
 
 	private void AddClusterAlert(string msg)
