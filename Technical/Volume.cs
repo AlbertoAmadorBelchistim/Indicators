@@ -141,6 +141,7 @@ public class Volume : Indicator
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.Filter), Description = nameof(Strings.MinVolumeFilterCommonDescription))]
     [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
+    [Range(0, double.MaxValue)]
     public decimal FilterValue
     {
         get => _filter;
