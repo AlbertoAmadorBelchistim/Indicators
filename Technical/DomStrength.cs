@@ -27,8 +27,8 @@ public class DomStrength : Indicator
 	private CumulativeDelta _cDelta = new();
 	private decimal _cumAsks;
 	private decimal _cumBids;
-	private bool _initialized;
-	private object _locker = new();
+	private volatile bool _initialized;
+	private readonly object _locker = new();
 	private SortedList<decimal, decimal> _mDepthAsk = new();
 	private SortedList<decimal, decimal> _mDepthBid = new();
 	private decimal _percent = 50;
@@ -170,14 +170,17 @@ public class DomStrength : Indicator
 
 	protected override void OnNewTrade(MarketDataArg trade)
 	{
-		if (_initialized)
-			_trades.Add(trade);
-
-		if (_trades.Count > 100000)
+		lock (_locker)
 		{
-			_trades = _trades
-				.Skip(10000)
-				.ToList();
+			if (_initialized)
+				_trades.Add(trade);
+
+			if (_trades.Count > 100000)
+			{
+				_trades = _trades
+					.Skip(10000)
+					.ToList();
+			}
 		}
 	}
 
@@ -281,12 +284,18 @@ public class DomStrength : Indicator
 		var startBar = Math.Max(0, bar - Period);
 		var startTime = GetCandle(startBar).Time;
 
-		_buyVolume = _trades
-			.Where(x => x.Time >= startTime && x.Direction is TradeDirection.Buy)
+        List<MarketDataArg> tradesSnapshot;
+        lock (_locker)
+        {
+            tradesSnapshot = new List<MarketDataArg>(_trades);
+        }
+
+        _buyVolume = tradesSnapshot
+            .Where(x => x.Time >= startTime && x.Direction is TradeDirection.Buy)
 			.Sum(x => x.Volume);
 
-		_sellVolume = _trades
-			.Where(x => x.Time >= startTime && x.Direction is TradeDirection.Sell)
+		_sellVolume = tradesSnapshot
+            .Where(x => x.Time >= startTime && x.Direction is TradeDirection.Sell)
 			.Sum(x => x.Volume);
 
 		var buyRatio = (_cumAsks == 0
