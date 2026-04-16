@@ -77,7 +77,7 @@ public class MultiMarketPower : Indicator
 	private decimal _lastDelta4;
 	private decimal _lastDelta5;
 	private CumulativeTrade _lastTrade;
-	private object _locker = new();
+	private readonly object _locker = new();
 	private decimal _maxVolume1 = 5;
 	private decimal _maxVolume2 = 10;
 	private decimal _maxVolume3 = 20;
@@ -400,7 +400,7 @@ public class MultiMarketPower : Indicator
 	
 	protected override void OnCalculate(int bar, decimal value)
 	{
-		if (!_bigTradesIsReceived || bar != CurrentBar - 1)
+		if (!_bigTradesIsReceived || bar != CurrentBar - 1 || bar == 0)
 			return;
 
 		DataSeries.ForEach(ds =>
@@ -414,8 +414,12 @@ public class MultiMarketPower : Indicator
 	{
 		_bigTradesIsReceived = false;
 
-        _ticks.Clear();
-		_trades.Clear();
+		lock (_locker)
+		{
+			_ticks.Clear();
+			_trades.Clear();
+		}
+
 		var totalBars = CurrentBar - 1;
 		_sessionBegin = totalBars;
 		_lastBar = totalBars;
@@ -454,7 +458,10 @@ public class MultiMarketPower : Indicator
 
 		if (!_bigTradesIsReceived)
 		{
-			_ticks.Add(trade);
+			lock (_locker)
+			{
+				_ticks.Add(trade);
+			}
 			return;
 		}
 
@@ -473,7 +480,10 @@ public class MultiMarketPower : Indicator
 
 		if (!_bigTradesIsReceived)
 		{
-			_trades.Add(trade);
+			lock (_locker)
+			{
+				_trades.Add(trade);
+			}
 			return;
 		}
 
@@ -492,8 +502,11 @@ public class MultiMarketPower : Indicator
 
 		if (!_bigTradesIsReceived)
 		{
-			if (_trades.Count != 0)
-				_trades[^1] = trade;
+			lock (_locker)
+			{
+				if (_trades.Count != 0)
+					_trades[^1] = trade;
+			}
 			return;
 		}
 
@@ -598,43 +611,57 @@ public class MultiMarketPower : Indicator
 
 	private void CalculateHistory(List<CumulativeTrade> trades)
 	{
-		try
+		if (CurrentBar <= 0)
+			return;
+
+		List<MarketDataArg> ticksSnapshot;
+		List<CumulativeTrade> tradesSnapshot;
+
+		lock (_locker)
 		{
-			if(trades.Count is 0)
-				return;
-			
-			var searchIdx = 0;
+			ticksSnapshot = new List<MarketDataArg>(_ticks);
+			tradesSnapshot = new List<CumulativeTrade>(_trades);
+			_ticks.Clear();
+			_trades.Clear();
+		}
 
-            if (CumulativeTrades)
+		var searchIdx = 0;
+
+		if (CumulativeTrades)
+		{
+			trades = trades.OrderBy(t => t.Time).ToList();
+            
+			for (var i = _sessionBegin; i <= CurrentBar - 1; i++)
 			{
-				trades = trades.OrderBy(t => t.Time).ToList();
-                
-				for (var i = _sessionBegin; i <= CurrentBar - 1; i++)
-					CalculateBarTrades(trades, i, ref searchIdx);
-
-				foreach (var trade in _trades)
-					CalculateTrade(trade, false, false);
-			}
-			else
-			{
-				var ticks = trades
-					.SelectMany(x => x.Ticks)
-					.OrderBy(t=>t.Time)
-					.ToList();
-
-				for (var i = _sessionBegin; i <= CurrentBar - 1; i++)
-					CalculateBarTicks(ticks, i, ref searchIdx);
-
-				foreach (var tick in _ticks)
-					CalculateTick(tick);
+				if (GetCandle(i) is null)
+					return;
+					
+				CalculateBarTrades(trades, i, ref searchIdx);
 			}
 
-			RedrawChart();
+			foreach (var trade in tradesSnapshot)
+				CalculateTrade(trade, false, false);
 		}
-		catch (NullReferenceException)
+		else
 		{
-			//on reset exception ignored
+			var ticks = trades
+				.SelectMany(x => x.Ticks)
+				.OrderBy(t => t.Time)
+				.ToList();
+
+			for (var i = _sessionBegin; i <= CurrentBar - 1; i++)
+			{
+				if (GetCandle(i) is null)
+					return;
+					
+				CalculateBarTicks(ticks, i, ref searchIdx);
+			}
+
+			foreach (var tick in ticksSnapshot)
+				CalculateTick(tick);
 		}
+
+		RedrawChart();
 	}
 
 	private void CalculateBarTicks(List<MarketDataArg> trades, int i, ref int searchIdx)
