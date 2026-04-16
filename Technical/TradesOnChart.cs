@@ -185,6 +185,7 @@ public class TradesOnChart : Indicator
     {
         TradingStatisticsProvider.StatisticsRebuilt -= OnRecalculate;
         TradingStatisticsProvider.RawStatisticsSourceChanged -= OnTradingStatisticsProviderSourceChanged;
+        TradingStatisticsProvider.FilteredStatisticsSourceChanged -= OnTradingStatisticsProviderSourceChanged;
         TradingManager.PortfolioSelected -= TradingManager_PortfolioSelected;
         TradingManager.SecuritySelected -= OnSecuritySelected;
 
@@ -195,27 +196,51 @@ public class TradesOnChart : Indicator
     {
         TradingStatisticsProvider.StatisticsRebuilt += OnRecalculate;
         TradingStatisticsProvider.RawStatisticsSourceChanged += OnTradingStatisticsProviderSourceChanged;
+        TradingStatisticsProvider.FilteredStatisticsSourceChanged += OnTradingStatisticsProviderSourceChanged;
         TradingManager.PortfolioSelected += TradingManager_PortfolioSelected;
         TradingManager.SecuritySelected += OnSecuritySelected;
 
-        if (TradingStatisticsProvider.RawStatistics is { } stat)
-            OnTradingStatisticsProviderSourceChanged(stat);
+        RefreshStatisticsSource(forceRecalculate: true);
     }
 
     private void OnTradingStatisticsProviderSourceChanged(ITradingStatistics stat)
     {
-        if (_statistics != null)
-            _statistics.HistoryMyTrades.Added -= OnTradeAdded;
-
-        _statistics = stat;
-        _statistics.HistoryMyTrades.Added += OnTradeAdded;
-
-        OnRecalculate();
+        RefreshStatisticsSource();
     }
 
     private void TradingManager_PortfolioSelected(Portfolio obj)
     {
-	    OnRecalculate();
+	    RefreshStatisticsSource(forceRecalculate: true);
+    }
+
+    private void RefreshStatisticsSource(bool forceRecalculate = false)
+    {
+        var stat = TradingManager?.Portfolio?.IsReplay() == true
+            ? TradingStatisticsProvider.FilteredStatistics
+            : TradingStatisticsProvider.RawStatistics;
+
+        if (stat == null)
+        {
+            if (forceRecalculate)
+                OnRecalculate();
+
+            return;
+        }
+
+        if (!ReferenceEquals(_statistics, stat))
+        {
+            if (_statistics != null)
+                _statistics.HistoryMyTrades.Added -= OnTradeAdded;
+
+            _statistics = stat;
+            _statistics.HistoryMyTrades.Added += OnTradeAdded;
+
+            OnRecalculate();
+            return;
+        }
+
+        if (forceRecalculate)
+            OnRecalculate();
     }
 
     protected override void OnApplyDefaultColors()
