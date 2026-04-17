@@ -112,6 +112,8 @@ public class MultiMarketPower : Indicator
 
 	private int _requestId;
 	private int _sessionBegin;
+	private DateTime _historyEndTime;
+	private bool _pendingRealtimeReplay;
 
 	private List<MarketDataArg> _ticks = new();
 	private List<CumulativeTrade> _trades = new();
@@ -479,7 +481,7 @@ public class MultiMarketPower : Indicator
 				vds[bar] = vds[bar - 1];
 		});
 	}
-	
+
 	protected override void OnFinishRecalculate()
 	{
 		_bigTradesIsReceived = false;
@@ -490,24 +492,20 @@ public class MultiMarketPower : Indicator
 			_trades.Clear();
 		}
 
-		var totalBars = CurrentBar - 1;
-		_sessionBegin = totalBars;
-		_lastBar = totalBars;
+		_sessionBegin = FindSessionBeginBar();
+		_lastBar = CurrentBar - 1;
 
-		for (var i = totalBars; i >= 0; i--)
-		{
-			if (!IsNewSession(i))
-				continue;
+		var startTime = GetCandle(_sessionBegin).Time;
+		var lastFullyFormedBar = CurrentBar >= 3 ? CurrentBar - 2 : _sessionBegin;
+		var endTime = GetCandle(lastFullyFormedBar).LastTime;
+		_historyEndTime = endTime;
 
-			_sessionBegin = i;
-			break;
-		}
-
-		var request = new CumulativeTradesRequest(GetCandle(_sessionBegin).Time);
+		var request = new CumulativeTradesRequest(startTime, endTime, 0, 0);
 		_requestId = request.RequestId;
+		_pendingRealtimeReplay = true;
 		RequestForCumulativeTrades(request);
 	}
-	
+
 	protected override void OnCumulativeTradesResponse(CumulativeTradesRequest request, IEnumerable<CumulativeTrade> cumulativeTrades)
 	{
 		if (request.RequestId != _requestId)
@@ -615,6 +613,7 @@ public class MultiMarketPower : Indicator
 
 	private void ClearValues()
 	{
+		_pendingRealtimeReplay = false;
 		_bigTradesIsReceived = false;
 		DataSeries.ForEach(x => x.Clear());
 		_delta1 = _delta2 = _delta3 = _delta4 = _delta5 = 0;
