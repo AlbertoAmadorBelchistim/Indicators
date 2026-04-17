@@ -724,28 +724,41 @@ public class MultiMarketPower : Indicator
 
 	private void CalculateTick(MarketDataArg tick)
 	{
+		var bar = CurrentBar - 1;
+		if (bar < 0)
+			return;
+
+		if (tick.Direction is TradeDirection.Between)
+			return;
+
+		var newBar = bar != _lastBar;
+		if (newBar)
+			_lastBar = bar;
+
 		var deltaVolume = tick.Volume * (tick.Direction is TradeDirection.Buy ? 1 : -1);
 
-		if (IsFiltered(MinVolume1, MaxVolume1, tick.Volume))
+		if (IsFiltered(_minVolume1, _maxVolume1, tick.Volume))
 			_delta1 += deltaVolume;
 
-		if (IsFiltered(MinVolume2, MaxVolume2, tick.Volume))
+		if (IsFiltered(_minVolume2, _maxVolume2, tick.Volume))
 			_delta2 += deltaVolume;
 
-		if (IsFiltered(MinVolume3, MaxVolume3, tick.Volume))
+		if (IsFiltered(_minVolume3, _maxVolume3, tick.Volume))
 			_delta3 += deltaVolume;
 
-		if (IsFiltered(MinVolume4, MaxVolume4, tick.Volume))
+		if (IsFiltered(_minVolume4, _maxVolume4, tick.Volume))
 			_delta4 += deltaVolume;
 
-		if (IsFiltered(MinVolume5, MaxVolume5, tick.Volume))
+		if (IsFiltered(_minVolume5, _maxVolume5, tick.Volume))
 			_delta5 += deltaVolume;
 
-		_filter1Series[^1] = _delta1;
-		_filter2Series[^1] = _delta2;
-		_filter3Series[^1] = _delta3;
-		_filter4Series[^1] = _delta4;
-		_filter5Series[^1] = _delta5;
+		_filter1Series[bar] = _delta1;
+		_filter2Series[bar] = _delta2;
+		_filter3Series[bar] = _delta3;
+		_filter4Series[bar] = _delta4;
+		_filter5Series[bar] = _delta5;
+
+		RaiseBarValueChanged(bar);
 	}
 
 	private bool IsFiltered(decimal minFilter, decimal maxFilter, decimal volume)
