@@ -560,7 +560,12 @@ public class MultiMarketPower : Indicator
 		var newBar = _lastBar < CurrentBar - 1;
 
 		if (newBar)
+		{
 			_lastBar = CurrentBar - 1;
+
+			if (IsSessionStart(CurrentBar - 1))
+				ResetSessionState(CurrentBar - 1);
+		}
 
 		CalculateTrade(trade, false, newBar);
 	}
@@ -583,7 +588,12 @@ public class MultiMarketPower : Indicator
 		var newBar = _lastBar < CurrentBar - 1;
 
 		if (newBar)
+		{
 			_lastBar = CurrentBar - 1;
+
+			if (IsSessionStart(CurrentBar - 1))
+				ResetSessionState(CurrentBar - 1);
+		}
 
 		CalculateTrade(trade, true, newBar);
 	}
@@ -747,6 +757,9 @@ public class MultiMarketPower : Indicator
 
 	private void CalculateBarTicks(List<MarketDataArg> trades, int i, ref int searchIdx)
 	{
+		if (IsSessionStart(i))
+			ResetSessionState(i);
+
 		var candle = GetCandle(i);
 
 		var candleTrades = new List<MarketDataArg>();
@@ -810,6 +823,9 @@ public class MultiMarketPower : Indicator
 		if (newBar)
 			_lastBar = bar;
 
+		if (newBar && IsSessionStart(bar))
+			ResetSessionState(bar);
+
 		var deltaVolume = tick.Volume * (tick.Direction is TradeDirection.Buy ? 1 : -1);
 
 		if (IsFiltered(_minVolume1, _maxVolume1, tick.Volume))
@@ -843,6 +859,9 @@ public class MultiMarketPower : Indicator
 
 	private void CalculateBarTrades(List<CumulativeTrade> trades, int bar, ref int searchIdx)
 	{
+
+		if (IsSessionStart(bar))
+			ResetSessionState(bar);
 
 		var candle = GetCandle(bar);
 
@@ -944,6 +963,21 @@ public class MultiMarketPower : Indicator
 		}
 
 		return begin;
+	}
+
+	private void ResetSessionState(int bar)
+	{
+		_delta1 = 0;
+		_delta2 = 0;
+		_delta3 = 0;
+		_delta4 = 0;
+		_delta5 = 0;
+
+		_filter1Series[bar] = 0;
+		_filter2Series[bar] = 0;
+		_filter3Series[bar] = 0;
+		_filter4Series[bar] = 0;
+		_filter5Series[bar] = 0;
 	}
 
 	#endregion
