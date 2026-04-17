@@ -19,34 +19,35 @@ using Utils.Common;
 [HelpLink("https://help.atas.net/support/solutions/articles/72000602434")]
 public class MultiMarketPower : Indicator
 {
-    #region UI strings (pending localization — see NOTE at the top of this region)
+	#region UI strings (pending localization — see NOTE at the top of this region)
 
-    // NOTE to maintainers: these strings are hardcoded to keep this PR self-contained.
-    // On merge they are intended to be moved to Strings.resx and referenced via
-    // [Display(ResourceType = typeof(Strings), Name = nameof(Strings.<Key>), ...)].
-    // Each constant below maps 1:1 to one resource key.
+	// NOTE to maintainers: these strings are hardcoded to keep this PR self-contained.
+	// On merge they are intended to be moved to Strings.resx and referenced via
+	// [Display(ResourceType = typeof(Strings), Name = nameof(Strings.<Key>), ...)].
+	// Each constant below maps 1:1 to one resource key.
 
-    private const string DefaultSession_name = "Default Session";
+	private const string DefaultSession_name = "Default Session";
 	private const string SessionMode_name = "Session Mode";
 	private const string Session_group = "Session";
 	private const string CustomSessionStart_name = "Custom Session Start";
+	private const string SessionsBack_name = "Sessions Back";
 
-    #endregion
+	#endregion
 
-    #region Nested types
-    public enum SessionMode
-    {
-        [Display(Name = DefaultSession_name)]
-        DefaultSession,
+	#region Nested types
+	public enum SessionMode
+	{
+		[Display(Name = DefaultSession_name)]
+		DefaultSession,
 
-        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.CustomSession))]
-        CustomSession
-    }
-    #endregion
+		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.CustomSession))]
+		CustomSession
+	}
+	#endregion
 
-    #region Fields
+	#region Fields
 
-    private readonly ValueDataSeries _filter1Series = new("Filter1Series", "Filter1")
+	private readonly ValueDataSeries _filter1Series = new("Filter1Series", "Filter1")
 	{
 		Color = CrossColor.FromArgb(255, 135, 206, 235),
 		IsHidden = true,
@@ -121,43 +122,60 @@ public class MultiMarketPower : Indicator
 	private bool _useFilter4 = true;
 	private bool _useFilter5 = true;
 
-    private SessionMode _sessionMode = SessionMode.DefaultSession;
-    private TimeSpan _customSessionStart = new(15, 30, 0);
+	private SessionMode _sessionMode = SessionMode.DefaultSession;
+	private TimeSpan _customSessionStart = new(15, 30, 0);
+	private int _sessionsBack = 1;
 
-    #endregion
+	#endregion
 
-    #region Properties
+	#region Properties
 
-    [Display(Name = SessionMode_name, GroupName = Session_group, Order = 50)]
-    public SessionMode IndicatorSessionMode
-    {
-        get => _sessionMode;
-        set
-        {
-            if (_sessionMode == value)
-                return;
+	[Display(Name = SessionMode_name, GroupName = Session_group, Order = 50)]
+	public SessionMode IndicatorSessionMode
+	{
+		get => _sessionMode;
+		set
+		{
+			if (_sessionMode == value)
+				return;
 
-            _sessionMode = value;
-            RecalculateValues();
-        }
-    }
+			_sessionMode = value;
+			RecalculateValues();
+		}
+	}
 
-    [Display(Name = CustomSessionStart_name, GroupName = Session_group, Order = 60)]
-    [PostValueMode(PostValueModes.Delayed, DelayMilliseconds = 500)]
-    public TimeSpan CustomSessionStart
-    {
-        get => _customSessionStart;
-        set
-        {
-            if (_customSessionStart == value)
-                return;
+	[Display(Name = CustomSessionStart_name, GroupName = Session_group, Order = 60)]
+	[PostValueMode(PostValueModes.Delayed, DelayMilliseconds = 500)]
+	public TimeSpan CustomSessionStart
+	{
+		get => _customSessionStart;
+		set
+		{
+			if (_customSessionStart == value)
+				return;
 
-            _customSessionStart = value;
-            RecalculateValues();
-        }
-    }
+			_customSessionStart = value;
+			RecalculateValues();
+		}
+	}
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.CumulativeTrades), GroupName = nameof(Strings.Filters), Description = nameof(Strings.CumulativeTradesModeDescription), Order = 90)]
+	[Display(Name = SessionsBack_name, GroupName = Session_group, Order = 70)]
+	[PostValueMode(PostValueModes.Delayed, DelayMilliseconds = 500)]
+	[Range(1, 30)]
+	public int SessionsBack
+	{
+		get => _sessionsBack;
+		set
+		{
+			if (_sessionsBack == value)
+				return;
+
+			_sessionsBack = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.CumulativeTrades), GroupName = nameof(Strings.Filters), Description = nameof(Strings.CumulativeTradesModeDescription), Order = 90)]
 	[PostValueMode(PostValueModes.Delayed, DelayMilliseconds = 500)]
 	public bool CumulativeTrades
 	{
@@ -849,31 +867,31 @@ public class MultiMarketPower : Indicator
 			candleTrades.Add(trade);
 		}
 
-        _delta1 += candleTrades
-            .Where(x => x.Volume >= _minVolume1 && (x.Volume <= _maxVolume1 || _maxVolume1 == 0))
+		_delta1 += candleTrades
+			.Where(x => x.Volume >= _minVolume1 && (x.Volume <= _maxVolume1 || _maxVolume1 == 0))
 			.Sum(x => x.Volume * (x.Direction == TradeDirection.Buy ? 1 : -1));
 
 		_filter1Series[bar] = _delta1;
 
-        _delta2 += candleTrades
+		_delta2 += candleTrades
 			.Where(x => x.Volume >= _minVolume2 && (x.Volume <= _maxVolume2 || _maxVolume2 == 0))
 			.Sum(x => x.Volume * (x.Direction == TradeDirection.Buy ? 1 : -1));
 
 		_filter2Series[bar] = _delta2;
 
-        _delta3 += candleTrades
+		_delta3 += candleTrades
 			.Where(x => x.Volume >= _minVolume3 && (x.Volume <= _maxVolume3 || _maxVolume3 == 0))
 			.Sum(x => x.Volume * (x.Direction == TradeDirection.Buy ? 1 : -1));
 
 		_filter3Series[bar] = _delta3;
 
-        _delta4 += candleTrades
+		_delta4 += candleTrades
 			.Where(x => x.Volume >= _minVolume4 && (x.Volume <= _maxVolume4 || _maxVolume4 == 0))
 			.Sum(x => x.Volume * (x.Direction == TradeDirection.Buy ? 1 : -1));
 
 		_filter4Series[bar] = _delta4;
 
-        _delta5 += candleTrades
+		_delta5 += candleTrades
 			.Where(x => x.Volume >= _minVolume5 && (x.Volume <= _maxVolume5 || _maxVolume5 == 0))
 			.Sum(x => x.Volume * (x.Direction == TradeDirection.Buy ? 1 : -1));
 
@@ -883,26 +901,50 @@ public class MultiMarketPower : Indicator
 		_lastBar = bar;
 	}
 
-    private bool IsSessionStart(int bar)
-    {
-        if (bar <= 0)
-            return true;
+	private bool IsSessionStart(int bar)
+	{
+		if (bar <= 0)
+			return true;
 
-        if (_sessionMode == SessionMode.DefaultSession)
-            return IsNewSession(bar);
+		if (_sessionMode == SessionMode.DefaultSession)
+			return IsNewSession(bar);
 
-        var candle = GetCandle(bar);
-        var prev = GetCandle(bar - 1);
-        if (candle is null || prev is null)
-            return false;
+		var candle = GetCandle(bar);
+		var prev = GetCandle(bar - 1);
+		if (candle is null || prev is null)
+			return false;
 
-        var tzOffset = InstrumentInfo?.TimeZone ?? 0;
-        var candleTime = candle.Time.AddHours(tzOffset).TimeOfDay;
-        var prevTime = prev.Time.AddHours(tzOffset).TimeOfDay;
-        var boundary = _customSessionStart;
+		var tzOffset = InstrumentInfo?.TimeZone ?? 0;
+		var candleTime = candle.Time.AddHours(tzOffset).TimeOfDay;
+		var prevTime = prev.Time.AddHours(tzOffset).TimeOfDay;
+		var boundary = _customSessionStart;
 
-        return prevTime < boundary && candleTime >= boundary;
-    }
+		return prevTime < boundary && candleTime >= boundary;
+	}
 
-    #endregion
+	private int FindSessionBeginBar()
+	{
+		var lastBar = Math.Max(0, CurrentBar - 1);
+		var begin = lastBar;
+		var sessionsToFind = Math.Max(1, _sessionsBack);
+		var found = 0;
+
+		for (var i = lastBar; i >= 0; i--)
+		{
+			if (!IsSessionStart(i))
+				continue;
+
+			found++;
+
+			if (found >= sessionsToFind)
+			{
+				begin = i;
+				break;
+			}
+		}
+
+		return begin;
+	}
+
+	#endregion
 }
