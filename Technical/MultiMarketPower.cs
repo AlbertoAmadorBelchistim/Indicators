@@ -19,9 +19,34 @@ using Utils.Common;
 [HelpLink("https://help.atas.net/support/solutions/articles/72000602434")]
 public class MultiMarketPower : Indicator
 {
-	#region Fields
+    #region UI strings (pending localization — see NOTE at the top of this region)
 
-	private readonly ValueDataSeries _filter1Series = new("Filter1Series", "Filter1")
+    // NOTE to maintainers: these strings are hardcoded to keep this PR self-contained.
+    // On merge they are intended to be moved to Strings.resx and referenced via
+    // [Display(ResourceType = typeof(Strings), Name = nameof(Strings.<Key>), ...)].
+    // Each constant below maps 1:1 to one resource key.
+
+    private const string DefaultSession_name = "Default Session";
+	private const string SessionMode_name = "Session Mode";
+	private const string Session_group = "Session";
+	private const string CustomSessionStart_name = "Custom Session Start";
+
+    #endregion
+
+    #region Nested types
+    public enum SessionMode
+    {
+        [Display(Name = DefaultSession_name)]
+        DefaultSession,
+
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.CustomSession))]
+        CustomSession
+    }
+    #endregion
+
+    #region Fields
+
+    private readonly ValueDataSeries _filter1Series = new("Filter1Series", "Filter1")
 	{
 		Color = CrossColor.FromArgb(255, 135, 206, 235),
 		IsHidden = true,
@@ -96,11 +121,43 @@ public class MultiMarketPower : Indicator
 	private bool _useFilter4 = true;
 	private bool _useFilter5 = true;
 
-	#endregion
+    private SessionMode _sessionMode = SessionMode.DefaultSession;
+    private TimeSpan _customSessionStart = new(15, 30, 0);
 
-	#region Properties
+    #endregion
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.CumulativeTrades), GroupName = nameof(Strings.Filters), Description = nameof(Strings.CumulativeTradesModeDescription), Order = 90)]
+    #region Properties
+
+    [Display(Name = SessionMode_name, GroupName = Session_group, Order = 50)]
+    public SessionMode IndicatorSessionMode
+    {
+        get => _sessionMode;
+        set
+        {
+            if (_sessionMode == value)
+                return;
+
+            _sessionMode = value;
+            RecalculateValues();
+        }
+    }
+
+    [Display(Name = CustomSessionStart_name, GroupName = Session_group, Order = 60)]
+    [PostValueMode(PostValueModes.Delayed, DelayMilliseconds = 500)]
+    public TimeSpan CustomSessionStart
+    {
+        get => _customSessionStart;
+        set
+        {
+            if (_customSessionStart == value)
+                return;
+
+            _customSessionStart = value;
+            RecalculateValues();
+        }
+    }
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.CumulativeTrades), GroupName = nameof(Strings.Filters), Description = nameof(Strings.CumulativeTradesModeDescription), Order = 90)]
 	[PostValueMode(PostValueModes.Delayed, DelayMilliseconds = 500)]
 	public bool CumulativeTrades
 	{
@@ -826,5 +883,26 @@ public class MultiMarketPower : Indicator
 		_lastBar = bar;
 	}
 
-	#endregion
+    private bool IsSessionStart(int bar)
+    {
+        if (bar <= 0)
+            return true;
+
+        if (_sessionMode == SessionMode.DefaultSession)
+            return IsNewSession(bar);
+
+        var candle = GetCandle(bar);
+        var prev = GetCandle(bar - 1);
+        if (candle is null || prev is null)
+            return false;
+
+        var tzOffset = InstrumentInfo?.TimeZone ?? 0;
+        var candleTime = candle.Time.AddHours(tzOffset).TimeOfDay;
+        var prevTime = prev.Time.AddHours(tzOffset).TimeOfDay;
+        var boundary = _customSessionStart;
+
+        return prevTime < boundary && candleTime >= boundary;
+    }
+
+    #endregion
 }
