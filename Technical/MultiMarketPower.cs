@@ -513,8 +513,14 @@ public class MultiMarketPower : Indicator
 
 		ClearValues();
 		var trades = cumulativeTrades.ToList();
-		
+
 		CalculateHistory(trades);
+
+		if (_pendingRealtimeReplay)
+		{
+			ReplayBufferedRealtimeAfterHistory();
+			_pendingRealtimeReplay = false;
+		}
 
 		_bigTradesIsReceived = true;
 	}
@@ -704,33 +710,19 @@ public class MultiMarketPower : Indicator
 		if (CurrentBar <= 0)
 			return;
 
-		List<MarketDataArg> ticksSnapshot;
-		List<CumulativeTrade> tradesSnapshot;
-
-		lock (_locker)
-		{
-			ticksSnapshot = new List<MarketDataArg>(_ticks);
-			tradesSnapshot = new List<CumulativeTrade>(_trades);
-			_ticks.Clear();
-			_trades.Clear();
-		}
-
 		var searchIdx = 0;
 
 		if (CumulativeTrades)
 		{
 			trades = trades.OrderBy(t => t.Time).ToList();
-			
+
 			for (var i = _sessionBegin; i <= CurrentBar - 1; i++)
 			{
 				if (GetCandle(i) is null)
 					return;
-					
+
 				CalculateBarTrades(trades, i, ref searchIdx);
 			}
-
-			foreach (var trade in tradesSnapshot)
-				CalculateTrade(trade, false, false);
 		}
 		else
 		{
@@ -743,12 +735,9 @@ public class MultiMarketPower : Indicator
 			{
 				if (GetCandle(i) is null)
 					return;
-					
+
 				CalculateBarTicks(ticks, i, ref searchIdx);
 			}
-
-			foreach (var tick in ticksSnapshot)
-				CalculateTick(tick);
 		}
 
 		RedrawChart();
@@ -977,6 +966,42 @@ public class MultiMarketPower : Indicator
 		_filter3Series[bar] = 0;
 		_filter4Series[bar] = 0;
 		_filter5Series[bar] = 0;
+	}
+
+	private void ReplayBufferedRealtimeAfterHistory()
+	{
+		List<MarketDataArg> ticksSnapshot;
+		List<CumulativeTrade> tradesSnapshot;
+
+		lock (_locker)
+		{
+			ticksSnapshot = new List<MarketDataArg>(_ticks);
+			tradesSnapshot = new List<CumulativeTrade>(_trades);
+			_ticks.Clear();
+			_trades.Clear();
+		}
+
+		if (!CumulativeTrades && ticksSnapshot.Count > 0)
+		{
+			foreach (var tick in ticksSnapshot)
+			{
+				if (tick.Time <= _historyEndTime)
+					continue;
+
+				CalculateTick(tick);
+			}
+		}
+
+		if (CumulativeTrades && tradesSnapshot.Count > 0)
+		{
+			foreach (var trade in tradesSnapshot)
+			{
+				if (trade.Time <= _historyEndTime)
+					continue;
+
+				CalculateTrade(trade, isUpdate: false, newBar: false);
+			}
+		}
 	}
 
 	#endregion
