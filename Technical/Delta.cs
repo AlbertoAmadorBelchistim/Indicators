@@ -804,12 +804,14 @@ public class Delta : Indicator
 			if (candle.Close > candle.Open && deltaValue < 0)
 			{
 				_downSeries[bar] = _downCandles[bar].High;
-				hasDivergence = true;
+                _upSeries[bar] = 0;
+                hasDivergence = true;
 			}
 			else if (candle.Close < candle.Open && deltaValue > 0)
 			{
 				_upSeries[bar] = _candles[bar].High;
-				hasDivergence = true;
+                _downSeries[bar] = 0;
+                hasDivergence = true;
 			}
 			else
 			{
