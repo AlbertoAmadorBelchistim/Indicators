@@ -426,10 +426,6 @@ public class Delta : Indicator
 		ShowCurrentValue = false
 	};
 
-#pragma warning disable CS0414
-    private int _absorptionThreshold = 250;
-#pragma warning restore CS0414
-
 	private FilterInt _absorption = new(true) { Enabled = false, Value = 250 };
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Absorption), GroupName = nameof(Strings.Absorption),
@@ -591,9 +587,9 @@ public class Delta : Indicator
 
 		DataSeries.Add(_absorptionCandles);
 
-        UpAlert.PropertyChanged += OnUpAlertChanged;
-        DownAlert.PropertyChanged += OnDownAlertChanged;
-        _divergenceBarsFilter.PropertyChanged += OnDivergenceFilterChanged;
+		UpAlert.PropertyChanged += OnUpAlertChanged;
+		DownAlert.PropertyChanged += OnDownAlertChanged;
+		_divergenceBarsFilter.PropertyChanged += OnDivergenceFilterChanged;
 		_absorption.PropertyChanged += OnAbsorptionFilterChanged;
 
 		UpdateDivergenceCandlesVisibility();
@@ -1013,10 +1009,7 @@ public class Delta : Indicator
 				maxLength = length;
 		}
 
-		var sampleStr = "";
-
-		for (var i = 0; i < maxLength; i++)
-			sampleStr += '0';
+		var sampleStr = new string('0', maxLength);
 
 		return context.MeasureString(sampleStr, Font.RenderObject).Width;
 	}
@@ -1099,8 +1092,8 @@ public class Delta : Indicator
 		}
 	}
 
-    private void OnUpAlertChanged(object sender, PropertyChangedEventArgs e) => _lastBarAlert = 0;
-    private void OnDownAlertChanged(object sender, PropertyChangedEventArgs e) => _lastBarNegativeAlert = 0;
+	private void OnUpAlertChanged(object sender, PropertyChangedEventArgs e) => _lastBarAlert = 0;
+	private void OnDownAlertChanged(object sender, PropertyChangedEventArgs e) => _lastBarNegativeAlert = 0;
 
-    #endregion
+	#endregion
 }
