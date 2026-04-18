@@ -638,12 +638,13 @@ public class Delta : Indicator
 
 					var candle = GetCandle(i);
 					var x = ChartInfo.PriceChartContainer.GetXByBar(i, false);
+					var region = ChartInfo.PriceChartContainer.Region;
 
 					if (_upSeries[i] != 0)
 					{
 						var yPrice = ChartInfo.PriceChartContainer.GetYByPrice(candle.Low, false) + 10;
 
-						if (yPrice <= ChartInfo.PriceChartContainer.Region.Bottom)
+						if (yPrice >= region.Top && yPrice <= region.Bottom)
 						{
 							var rect = new Rectangle(x - 5, yPrice - 4, 8, 8);
 							context.FillEllipse(_upColor, rect);
@@ -654,7 +655,7 @@ public class Delta : Indicator
 					{
 						var yPrice = ChartInfo.PriceChartContainer.GetYByPrice(candle.High, false) - 10;
 
-						if (yPrice <= ChartInfo.PriceChartContainer.Region.Bottom)
+						if (yPrice >= region.Top && yPrice <= region.Bottom)
 						{
 							var rect = new Rectangle(x - 5, yPrice - 4, 8, 8);
 							context.FillEllipse(_downColor, rect);
