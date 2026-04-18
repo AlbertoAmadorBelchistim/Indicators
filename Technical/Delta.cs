@@ -591,9 +591,9 @@ public class Delta : Indicator
 
 		DataSeries.Add(_absorptionCandles);
 
-		UpAlert.PropertyChanged += (sender, e) => _lastBarAlert = 0;
-		DownAlert.PropertyChanged += (sender, e) => _lastBarNegativeAlert = 0;
-		_divergenceBarsFilter.PropertyChanged += OnDivergenceFilterChanged;
+        UpAlert.PropertyChanged += OnUpAlertChanged;
+        DownAlert.PropertyChanged += OnDownAlertChanged;
+        _divergenceBarsFilter.PropertyChanged += OnDivergenceFilterChanged;
 		_absorption.PropertyChanged += OnAbsorptionFilterChanged;
 
 		UpdateDivergenceCandlesVisibility();
@@ -1099,5 +1099,8 @@ public class Delta : Indicator
 		}
 	}
 
-	#endregion
+    private void OnUpAlertChanged(object sender, PropertyChangedEventArgs e) => _lastBarAlert = 0;
+    private void OnDownAlertChanged(object sender, PropertyChangedEventArgs e) => _lastBarNegativeAlert = 0;
+
+    #endregion
 }
