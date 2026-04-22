@@ -301,7 +301,7 @@ public class MboGridController
 	{
 		lock (_updateLock)
 		{
-			Reset();
+			ResetMbo();
 			UpdateList(marketByOrders);
 		}
 	}
@@ -662,9 +662,17 @@ public class MboGridController
 			if ((depth.IsAsk || depth.IsBid) &&
 			    depth.DataType is ATAS.Indicators.MarketDataType.Ask or ATAS.Indicators.MarketDataType.Bid)
 			{
+				// Volume == 0 means the level was removed. Drop it so stale entries don't
+				// accumulate and the L2 price range stays accurate.
+				if (depth.Volume <= 0)
+				{
+					if (_level2Data.Remove(depth.Price))
+						_isLevel2PriceRangeDirty = true;
+
+					return true;
+				}
+
 				var isNewPrice = !_level2Data.ContainsKey(depth.Price);
-				if (isNewPrice)
-					_level2Data.TryAdd(depth.Price, depth);
 				_level2Data[depth.Price] = depth;
 
 				if (isNewPrice)
@@ -687,17 +695,12 @@ public class MboGridController
 			if (getMarketDepthSnapshot == null)
 				return;
 
-			var marketDepthSnapshot = getMarketDepthSnapshot as MarketDataArg[] ?? getMarketDepthSnapshot.ToArray();
-			var array = marketDepthSnapshot.ToArray();
-
-			if (marketDepthSnapshot.Any())
+			foreach (var depth in getMarketDepthSnapshot)
 			{
-				foreach (var depth in array)
-				{
-					if (!_level2Data.ContainsKey(depth.Price))
-						_level2Data.TryAdd(depth.Price, depth);
-					_level2Data[depth.Price] = depth;
-				}
+				if (depth.Volume <= 0)
+					continue;
+
+				_level2Data[depth.Price] = depth;
 			}
 		}
 	}
@@ -706,17 +709,12 @@ public class MboGridController
 
 	#region Private methods
 
-	private void Reset()
+	private void ResetMbo()
 	{
 		_grid.Clear();
 		_priceVolume.Clear();
+		_mboHistory.Clear();
 		_isGridPriceRangeDirty = true;
-
-		lock (_level2UpdateLock)
-		{
-			_level2Data.Clear();
-			_isLevel2PriceRangeDirty = true;
-		}
 	}
 
 	private void UpdateList(IEnumerable<MarketByOrder> orders)
@@ -745,13 +743,24 @@ public class MboGridController
 						Price = existedOrder.Price
                     };
 
-					_priceVolume[existedOrder.Price] = _grid[existedOrder.Price].UpdateOrder(orderToDelete);
+					// Guard: existedOrder.Price may not exist in _grid after a reset
+					// or if the original order was never added (corrupt snapshot).
+					if (_grid.TryGetValue(existedOrder.Price, out var oldRow))
+					{
+						var oldResult = oldRow.UpdateOrder(orderToDelete);
+						if (oldResult.count == 0)
+							RemoveEmptyRow(existedOrder.Price);
+						else
+							_priceVolume[existedOrder.Price] = oldResult;
+                    }
                 }
 			}
 
 			_mboHistory[order.ExchangeOrderId] = order;
 
-			if (order.Type == MarketByOrderUpdateTypes.Delete)
+			// Drop history entry both for explicit Delete and for Change-with-Volume=0 (implicit delete).
+			if (order.Type == MarketByOrderUpdateTypes.Delete ||
+			    (order.Type == MarketByOrderUpdateTypes.Change && order.Volume == 0))
 				_mboHistory.Remove(order.ExchangeOrderId, out _);
 
             if (!_grid.ContainsKey(order.Price))
@@ -761,8 +770,22 @@ public class MboGridController
 				InvalidateGridPriceRange(order.Price);
             }
 
-            _priceVolume[order.Price] = _grid[order.Price].UpdateOrder(order);
+            var result = _grid[order.Price].UpdateOrder(order);
+
+			// Remove empty rows so _grid.Count can legitimately reach 0 again,
+			// which re-enables the L2 fallback path in GetItemInRow / GetPriceRange / etc.
+			if (result.count == 0)
+				RemoveEmptyRow(order.Price);
+			else
+				_priceVolume[order.Price] = result;
 		}
+	}
+
+	private void RemoveEmptyRow(decimal price)
+	{
+		_grid.Remove(price);
+		_priceVolume.Remove(price);
+		_isGridPriceRangeDirty = true;
 	}
 
 	private void InvalidateGridPriceRange(decimal newPrice)

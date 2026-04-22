@@ -91,8 +91,11 @@ public partial class MainIndicator : Indicator
 
     protected override async void OnInitialize()
     {
-        await SubscribeMarketByOrderData();
+        // Recreate the controller BEFORE subscribing: events that arrive during/after
+        // the subscription must land in this fresh controller, not in one that is
+        // about to be replaced (which would silently drop the initial snapshot).
         _gridController = new();
+        await SubscribeMarketByOrderData();
         _timer = new Timer();
         _timer.Elapsed += TickTok;
         _timer.Interval = 1000;
