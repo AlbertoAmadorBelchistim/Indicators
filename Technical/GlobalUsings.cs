@@ -19,5 +19,3 @@ global using CrossPen = System.Drawing.Pen;
 global using CrossPens = System.Drawing.Pens;
 
 #endif
-
-global using ATAS.Indicators.Heatmap;
