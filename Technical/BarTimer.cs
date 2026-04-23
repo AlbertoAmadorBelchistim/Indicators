@@ -305,21 +305,23 @@ namespace ATAS.Indicators.Technical
 					case "TimeFrame":
 						if (string.IsNullOrEmpty(renderText))
 						{
+							var rolledOver = _endTime <= MarketTime;
 							var diff = CurrentDifference();
 
-							if (UseAlertBefore || ShowAlertArea)
-							{
-								var seconds = diff.TotalSeconds;
+							var (newLastBeforeAlert, fireAlert, _) = EvaluateAlertBeforeState(
+								rolledOver,
+								diff.TotalSeconds,
+								AlertBeforeSeconds,
+								CurrentBar - 1,
+								_lastBeforeAlert,
+								UseAlertBefore,
+								ShowAlertArea);
 
-								if (seconds <= AlertBeforeSeconds && _lastBeforeAlert != CurrentBar - 1)
-								{
-									if (UseAlertBefore && _lastBeforeAlert != CurrentBar - 1)
-										AddAlert(AlertBeforeFile, InstrumentInfo.Instrument, $"New bar incoming: {seconds:0.} seconds", _areaBeforeColor,
-											_textBeforeColor);
+							_lastBeforeAlert = newLastBeforeAlert;
 
-									_lastBeforeAlert = CurrentBar - 1;
-								}
-							}
+							if (fireAlert)
+								AddAlert(AlertBeforeFile, InstrumentInfo.Instrument, $"New bar incoming: {diff.TotalSeconds:0.} seconds",
+									_areaBeforeColor, _textBeforeColor);
 
 							if (diff.TotalSeconds < 0)
 								diff = new TimeSpan();
@@ -440,6 +442,42 @@ namespace ATAS.Indicators.Technical
 				return int.Parse(ChartInfo.TimeFrame);
 
 			return 0;
+		}
+
+		#endregion
+
+		#region Private static methods
+
+		// Pure transition used by OnRender for the "color/alert before next candle" logic.
+		// Returns the next value of _lastBeforeAlert, whether an alert must fire this tick, and
+		// whether the alert area should currently be painted.
+		// rolledOver means "_endTime has already passed but OnCalculate for the new bar has not
+		// arrived yet" — without this reset the alert color would stay on after the bar closed.
+		private static (int lastBeforeAlert, bool fireAlert, bool drawAlertArea) EvaluateAlertBeforeState(
+			bool rolledOver,
+			double seconds,
+			int alertBeforeSeconds,
+			int currentBarIndex,
+			int lastBeforeAlert,
+			bool useAlertBefore,
+			bool showAlertArea)
+		{
+			if (rolledOver)
+				lastBeforeAlert = -1;
+
+			var fireAlert = false;
+
+			if ((useAlertBefore || showAlertArea) && !rolledOver
+				&& seconds <= alertBeforeSeconds && lastBeforeAlert != currentBarIndex)
+			{
+				if (useAlertBefore)
+					fireAlert = true;
+
+				lastBeforeAlert = currentBarIndex;
+			}
+
+			var drawAlertArea = showAlertArea && lastBeforeAlert == currentBarIndex;
+			return (lastBeforeAlert, fireAlert, drawAlertArea);
 		}
 
 		#endregion
