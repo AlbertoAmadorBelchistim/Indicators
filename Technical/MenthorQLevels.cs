@@ -5,7 +5,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 using Utils.Common.Logging;
 
 namespace ATAS.Indicators.Technical
@@ -234,6 +240,155 @@ namespace ATAS.Indicators.Technical
 
         #endregion
 
+        #region Nested types: API
+
+        // Six types taken from the decompiled reference. The full set supported
+        // by the real API lands in commit 5.
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        internal enum LevelType
+        {
+            blindspots,
+            swing_levels,
+            gamma_levels,
+            gamma_scalping,
+            gamma_levels_intraday,
+            gamma_scalping_intraday
+        }
+
+        private sealed class MqLevelValueDto
+        {
+            [JsonPropertyName("name")]
+            public string Name { get; set; }
+
+            [JsonPropertyName("value")]
+            public double Value { get; set; }
+        }
+
+        private sealed class MqLevelDto
+        {
+            [JsonPropertyName("level_type")]
+            public LevelType LevelType { get; set; }
+
+            [JsonPropertyName("date")]
+            public DateTime Date { get; set; }
+
+            [JsonPropertyName("level_values")]
+            public List<MqLevelValueDto> LevelValues { get; set; }
+        }
+
+        private sealed class MqNotExistingLevelDto
+        {
+            [JsonPropertyName("level_type")]
+            public LevelType LevelType { get; set; }
+        }
+
+        private sealed class MqLevelsDto
+        {
+            [JsonPropertyName("ticker")]
+            public string Ticker { get; set; }
+
+            [JsonPropertyName("ticker_mq")]
+            public string TickerMq { get; set; }
+
+            [JsonPropertyName("levels")]
+            public List<MqLevelDto> Levels { get; set; }
+
+            [JsonPropertyName("not_existing_levels")]
+            public List<MqNotExistingLevelDto> NotExistingLevels { get; set; }
+        }
+
+        private sealed class MqApi
+        {
+            private const string ApiUrl = "https://api.menthorq.io/getDailyLevels";
+            private const int DefaultRetryDelayMs = 1000;
+
+            private readonly HttpClient _httpClient;
+            private readonly string _apiKey;
+
+            private string _status;
+            private DateTime? _lastApiCall;
+
+            public string Status => _status;
+            public DateTime? LastApiCall => _lastApiCall;
+
+            public MqApi(string apiKey)
+            {
+                _apiKey = apiKey ?? string.Empty;
+                _httpClient = new HttpClient();
+
+                if (!string.IsNullOrEmpty(_apiKey))
+                    _httpClient.DefaultRequestHeaders.Add("X-API-Key", _apiKey);
+            }
+
+            public async Task<MqLevelsDto> GetLevelsAsync(string ticker, LevelType[] levelTypes, string userId)
+            {
+                if (string.IsNullOrEmpty(_apiKey))
+                {
+                    _status = "API Key not set";
+                    return null;
+                }
+
+                if (string.IsNullOrEmpty(userId))
+                {
+                    _status = "User ID (email) not set";
+                    return null;
+                }
+
+                if (string.IsNullOrEmpty(ticker))
+                {
+                    _status = "Ticker not available";
+                    return null;
+                }
+
+                var levelTypeString = string.Join(",", levelTypes);
+                var queryString =
+                    "?platform=atas" +
+                    $"&ticker={ticker}" +
+                    $"&level_type={levelTypeString}" +
+                    $"&user_id={Uri.EscapeDataString(userId)}";
+
+                var requestUrl = ApiUrl + queryString;
+
+                try
+                {
+                    HttpResponseMessage response;
+                    do
+                    {
+                        _lastApiCall = DateTime.Now;
+                        response = await _httpClient.GetAsync(requestUrl).ConfigureAwait(false);
+                        _status = response.StatusCode.ToString();
+
+                        if (response.StatusCode != HttpStatusCode.TooManyRequests)
+                            break;
+
+                        var delayMs = DefaultRetryDelayMs;
+                        if (response.Headers.TryGetValues("Retry-After", out var values)
+                            && int.TryParse(values.FirstOrDefault(), out var retryAfterSeconds)
+                            && retryAfterSeconds > 0)
+                        {
+                            delayMs = retryAfterSeconds * 1000;
+                        }
+
+                        await Task.Delay(delayMs).ConfigureAwait(false);
+                    }
+                    while (true);
+
+                    if (!response.IsSuccessStatusCode)
+                        return null;
+
+                    var jsonResponse = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    return JsonSerializer.Deserialize<MqLevelsDto>(jsonResponse);
+                }
+                catch (Exception ex)
+                {
+                    _status = "Error: " + ex.Message;
+                    return null;
+                }
+            }
+        }
+
+        #endregion
+
         #region Fields
 
         // Sources — plugins that emit ParsedEntry[]. Populated in EnsureSourcesInitialized.
@@ -251,6 +406,17 @@ namespace ATAS.Indicators.Technical
         private string _indexTextRaw = string.Empty;
         private string _futuresTextRaw = string.Empty;
         private decimal _textOffset;
+
+        // UI: API
+        private string _apiKey = string.Empty;
+        private string _userId = string.Empty;
+
+        // Runtime: API client, reconstructed on ApiKey change.
+        // Non-null from ctor on — callers never need a null-check.
+        private MqApi _api;
+
+        // UI: Ticker override. When non-empty, takes precedence over InstrumentInfo.
+        private string _tickerOverride = string.Empty;
 
         #endregion
 
@@ -359,16 +525,79 @@ namespace ATAS.Indicators.Technical
 
         #endregion
 
+        #region Properties: API
+
+        [Display(Name = "API Key",
+            GroupName = "API",
+            Description = "MenthorQ API key. When set together with User ID, the API becomes the active data source and manual text is ignored.",
+            Order = 110)]
+        public string ApiKey
+        {
+            get => _apiKey;
+            set
+            {
+                value ??= string.Empty;
+                if (string.Equals(_apiKey, value, StringComparison.Ordinal))
+                    return;
+
+                _apiKey = value;
+                _api = new MqApi(_apiKey);
+                _dataDirty = true;
+                RecalculateValues();
+            }
+        }
+
+        [Display(Name = "User ID (email)",
+            GroupName = "API",
+            Description = "Email associated with your MenthorQ account. Sent as the user_id query parameter on every request.",
+            Order = 120)]
+        public string UserId
+        {
+            get => _userId;
+            set
+            {
+                value ??= string.Empty;
+                if (string.Equals(_userId, value, StringComparison.Ordinal))
+                    return;
+
+                _userId = value;
+                _dataDirty = true;
+                RecalculateValues();
+            }
+        }
+
+        [Display(Name = "Ticker override",
+    GroupName = "API",
+    Description = "Optional. Leave empty to use the chart instrument (micros are auto-stripped: MES→ES, MNQ→NQ). Set a value to force a specific ticker (e.g. SPX on ES, or ES when the feed exposes ESH24).",
+    Order = 130)]
+        public string TickerOverride
+        {
+            get => _tickerOverride;
+            set
+            {
+                value ??= string.Empty;
+                if (string.Equals(_tickerOverride, value, StringComparison.Ordinal))
+                    return;
+
+                _tickerOverride = value;
+                _dataDirty = true;
+                RecalculateValues();
+            }
+        }
+
+        #endregion
+
         #region Ctor
 
         public MenthorQLevels()
             : base(useCandles: true)
         {
-            // Custom drawing is enabled from the first commit so that, as
-            // later commits add the renderer, there's no behavioural diff
-            // coming from the indicator constructor itself.
             EnableCustomDrawing = true;
             SubscribeToDrawingEvents(DrawingLayouts.Final);
+
+            // Construct with the (likely empty) default key so later code can
+            // call _api without null checks. The setter rebuilds it on change.
+            _api = new MqApi(_apiKey);
         }
 
         #endregion
@@ -727,6 +956,30 @@ namespace ATAS.Indicators.Technical
             bandType = prefix;
             mmdd = rest.Substring(0, 5);
             return true;
+        }
+
+        #endregion
+
+        #region Private methods: API
+
+        // Resolves the ticker sent to the MenthorQ API, honouring the manual
+        // override first, then falling back to the chart instrument with the
+        // micro-future prefix stripped.
+        private string ResolveTicker()
+        {
+            if (!string.IsNullOrWhiteSpace(_tickerOverride))
+                return _tickerOverride.Trim().ToUpperInvariant();
+
+            var instrument = InstrumentInfo?.Instrument;
+            if (string.IsNullOrEmpty(instrument))
+                return string.Empty;
+
+            // Micros: strip leading "M" on 3-character tickers.
+            // MES→ES, MNQ→NQ, MYM→YM, M2K→2K.
+            if (instrument.Length == 3 && instrument.StartsWith("M", StringComparison.Ordinal))
+                return instrument.Substring(1);
+
+            return instrument;
         }
 
         #endregion
