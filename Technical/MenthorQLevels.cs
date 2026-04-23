@@ -206,6 +206,41 @@ namespace ATAS.Indicators.Technical
             }
         }
 
+        private sealed class ApiSource : ILevelsSource
+        {
+            private readonly MenthorQLevels _owner;
+            private ParsedEntry[] _entries = Array.Empty<ParsedEntry>();
+
+            public ApiSource(MenthorQLevels owner)
+            {
+                _owner = owner ?? throw new ArgumentNullException(nameof(owner));
+            }
+
+            public string SourceId => "MenthorQ:Api";
+
+            // Self-gating: inactive while the user hasn't filled key + userId OR while
+            // the last fetch returned nothing. The engine commit will add explicit
+            // priority logic on top of this; for now this cleanly falls back to text.
+            public bool IsEnabled =>
+                !string.IsNullOrEmpty(_owner._apiKey)
+                && !string.IsNullOrEmpty(_owner._userId)
+                && _entries.Length > 0;
+
+            public bool TryGetEntries(out ParsedEntry[] entries, out string[] warnings)
+            {
+                entries = _entries;
+                warnings = Array.Empty<string>();
+                return true;
+            }
+
+            public void SetEntries(ParsedEntry[] entries)
+            {
+                _entries = entries ?? Array.Empty<ParsedEntry>();
+            }
+
+            public void Clear() => _entries = Array.Empty<ParsedEntry>();
+        }
+
         #endregion
 
         #region Nested types: parsing
@@ -393,7 +428,23 @@ namespace ATAS.Indicators.Technical
 
         // Sources — plugins that emit ParsedEntry[]. Populated in EnsureSourcesInitialized.
         private readonly List<ILevelsSource> _sources = new List<ILevelsSource>(2);
+
+        // API source — populated on every successful fetch.
+        private ApiSource _apiSource;
+
         private bool _sourcesInitialized;
+
+        // Full request set. The MenthorQ backend accepts all six on a single call
+        // and will simply omit missing blocks, so we always ask for everything.
+        private static readonly LevelType[] AllLevelTypes = new[]
+        {
+    LevelType.blindspots,
+    LevelType.swing_levels,
+    LevelType.gamma_levels,
+    LevelType.gamma_scalping,
+    LevelType.gamma_levels_intraday,
+    LevelType.gamma_scalping_intraday,
+};
 
         // Union of all enabled sources. Consumed by the engine in a later commit.
         private ParsedEntry[] _parsedEntries = Array.Empty<ParsedEntry>();
@@ -585,6 +636,22 @@ namespace ATAS.Indicators.Technical
             }
         }
 
+        [Display(Name = "Update Levels",
+    GroupName = "API",
+    Description = "Fetch latest levels from the MenthorQ API. Self-resets.",
+    Order = 140)]
+        public bool UpdateLevels
+        {
+            get => false;
+            set
+            {
+                if (!value)
+                    return;
+
+                _ = FetchAndParseLevelsAsync();
+            }
+        }
+
         #endregion
 
         #region Ctor
@@ -628,6 +695,9 @@ namespace ATAS.Indicators.Technical
 
             _sources.Clear();
             _sources.Add(new ManualTextSource(this));
+
+            _apiSource = new ApiSource(this);
+            _sources.Add(_apiSource);
 
             _sourcesInitialized = true;
         }
@@ -981,6 +1051,91 @@ namespace ATAS.Indicators.Technical
 
             return instrument;
         }
+
+        private async Task FetchAndParseLevelsAsync()
+        {
+            try
+            {
+                var ticker = ResolveTicker();
+                if (string.IsNullOrWhiteSpace(ticker) || string.IsNullOrWhiteSpace(_apiKey))
+                {
+                    this.LogWarn("MenthorQLevels: fetch skipped — ticker or API key missing.");
+                    return;
+                }
+
+                EnsureSourcesInitialized();
+
+                this.LogInfo($"MenthorQLevels: fetching ticker='{ticker}' userId='{_userId}'.");
+
+                var response = await _api
+                    .GetLevelsAsync(ticker, AllLevelTypes, _userId)
+                    .ConfigureAwait(false);
+
+                if (response?.Levels == null || response.Levels.Count == 0)
+                {
+                    _apiSource.Clear();
+                    _dataDirty = true;
+                    this.LogWarn($"MenthorQLevels: empty or null response (status='{_api.Status}').");
+                    RecalculateValues();
+                    return;
+                }
+
+                var entries = new List<ParsedEntry>(64);
+                var unmapped = 0;
+
+                foreach (var block in response.Levels)
+                {
+                    if (block?.LevelValues == null)
+                        continue;
+
+                    var blockIs0Dte = IsIntradayBlock(block.LevelType);
+
+                    foreach (var value in block.LevelValues)
+                    {
+                        if (value == null || string.IsNullOrWhiteSpace(value.Name))
+                            continue;
+
+                        if (!TryMapMenthorQLabel(value.Name, out var mapped))
+                        {
+                            unmapped++;
+                            mapped = new MappedLabel(
+                                displayLabel: value.Name,
+                                category: LevelCategory.Other,
+                                rank: 999,
+                                is0Dte: blockIs0Dte);
+                        }
+
+                        var lvlLabel = new LevelLabel(
+                            category: mapped.Category,
+                            rank: mapped.Rank,
+                            is0Dte: blockIs0Dte || mapped.Is0Dte,
+                            rawLabel: value.Name,
+                            displayLabel: mapped.DisplayLabel);
+
+                        entries.Add(new ParsedEntry(
+                            price: (decimal)value.Value,
+                            labels: new[] { lvlLabel },
+                            sourceId: "MenthorQ:Api"));
+                    }
+                }
+
+                _apiSource.SetEntries(entries.ToArray());
+                _dataDirty = true;
+
+                this.LogInfo($"MenthorQLevels: API returned {entries.Count} entries " +
+                             $"({unmapped} unmapped) across {response.Levels.Count} blocks.");
+
+                RecalculateValues();
+            }
+            catch (Exception ex)
+            {
+                this.LogError($"MenthorQLevels: fetch failed — {ex.Message}");
+            }
+        }
+
+        private static bool IsIntradayBlock(LevelType type)
+            => type == LevelType.gamma_levels_intraday
+            || type == LevelType.gamma_scalping_intraday;
 
         #endregion
     }
