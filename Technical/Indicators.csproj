@@ -15,9 +15,6 @@
     <Optimize Condition=" '$(Optimize)' == '' ">true</Optimize>
   </PropertyGroup>
 
-  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk.WindowsDesktop" Condition=" '$(Platform)' != 'Cross' " />
-  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk.WindowsDesktop" Condition=" '$(Platform)' != 'Cross' " />
-
 	<ItemGroup>
 		<Reference Include="Newtonsoft.Json">
 			<HintPath>C:\Program Files (x86)\ATAS Platform\Newtonsoft.Json.dll</HintPath>
