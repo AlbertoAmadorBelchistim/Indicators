@@ -218,7 +218,9 @@ public class VWAP : Indicator
     private decimal _stdev2 = 3;
     private int _targetBar;
     private VWAPMode _twapMode = VWAPMode.VWAP;
+#pragma warning disable CS0649
     private bool _userCalculation;
+#pragma warning restore CS0649
     private int _zeroBar;
     private VolumeType _volumeMode = VolumeType.Total;
     private System.Drawing.Color _bullishColor = GetColorFromHex("#FF2196F3").Convert();
@@ -737,7 +739,9 @@ public class VWAP : Indicator
 
 			if (bar != _zeroBar)
 			{
+#pragma warning disable CS0612
 				var period = Math.Min(bar - _zeroBar, Period);
+#pragma warning restore CS0612
 				var average = _vwapTwap.CalcAverage(period, bar);
 				var sqrSum = 0m;
 

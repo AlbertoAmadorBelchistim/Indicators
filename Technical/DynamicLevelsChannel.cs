@@ -362,7 +362,9 @@ namespace ATAS.Indicators.Technical
 
             switch (_calculationMode)
             {
+#pragma warning disable CS0612
                 case CalculationMode.Time:
+#pragma warning restore CS0612
                 case CalculationMode.Volume:
                     _pocSeries[bar] = _maxPrice;
                     break;

@@ -1,3 +1,4 @@
+#nullable enable annotations
 namespace DomV10;
 
 using System;

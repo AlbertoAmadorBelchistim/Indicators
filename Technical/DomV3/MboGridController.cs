@@ -1,4 +1,5 @@
-﻿namespace DomV10;
+﻿#nullable enable annotations
+namespace DomV10;
 
 using System;
 using System.Collections.Concurrent;

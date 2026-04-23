@@ -1,3 +1,4 @@
+#nullable enable annotations
 namespace ATAS.Indicators.Technical;
 
 using System;

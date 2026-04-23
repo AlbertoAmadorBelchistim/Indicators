@@ -90,7 +90,9 @@ namespace ATAS.Indicators.Technical
 		private bool _isUnsupportedTimeFrame;
 		private int _lastBar;
 		private int _lastBeforeAlert;
+#pragma warning disable CS0414
 		private int _lastSecond = -1;
+#pragma warning restore CS0414
 		private bool _offsetIsSet;
 		private Color _textColor;
 		private Location _timeLocation;

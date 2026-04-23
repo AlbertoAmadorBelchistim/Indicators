@@ -1,4 +1,5 @@
-﻿namespace ATAS.Indicators.Technical;
+﻿#nullable enable annotations
+namespace ATAS.Indicators.Technical;
 
 using System.ComponentModel;
 

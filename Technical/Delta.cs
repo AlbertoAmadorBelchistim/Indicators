@@ -416,7 +416,9 @@ public class Delta : Indicator
         ShowCurrentValue = false
     };
 
+#pragma warning disable CS0414
     private int _absorptionThreshold = 250;
+#pragma warning restore CS0414
 
     private FilterInt _absorption = new(true) { Enabled = false, Value = 250 };
 
