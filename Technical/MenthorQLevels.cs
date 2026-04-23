@@ -694,10 +694,15 @@ namespace ATAS.Indicators.Technical
                 return;
 
             _sources.Clear();
-            _sources.Add(new ManualTextSource(this));
 
+            // Registration order defines priority. The first enabled source in the
+            // list wins — see RebuildParsedEntriesIfNeeded. ApiSource is registered
+            // first because MenthorQ API is the intended primary feed when creds
+            // are configured; manual text is the offline / demo fallback.
             _apiSource = new ApiSource(this);
             _sources.Add(_apiSource);
+
+            _sources.Add(new ManualTextSource(this));
 
             _sourcesInitialized = true;
         }
@@ -709,8 +714,9 @@ namespace ATAS.Indicators.Technical
 
             EnsureSourcesInitialized();
 
-            var collected = new List<ParsedEntry>(64);
-            int totalWarnings = 0;
+            ILevelsSource winner = null;
+            ParsedEntry[] winnerEntries = Array.Empty<ParsedEntry>();
+            string[] winnerWarnings = Array.Empty<string>();
 
             for (int i = 0; i < _sources.Count; i++)
             {
@@ -721,24 +727,28 @@ namespace ATAS.Indicators.Technical
                 if (!src.TryGetEntries(out var entries, out var warnings))
                     continue;
 
-                if (entries != null && entries.Length > 0)
-                    collected.AddRange(entries);
-
-                if (warnings != null && warnings.Length > 0)
-                {
-                    totalWarnings += warnings.Length;
-                    for (int w = 0; w < warnings.Length; w++)
-                        this.LogWarn($"[{src.SourceId}] {warnings[w]}");
-                }
+                winner = src;
+                winnerEntries = entries ?? Array.Empty<ParsedEntry>();
+                winnerWarnings = warnings ?? Array.Empty<string>();
+                break;
             }
 
-            _parsedEntries = collected.Count == 0
-                ? Array.Empty<ParsedEntry>()
-                : collected.ToArray();
+            _parsedEntries = winnerEntries;
+
+            for (int w = 0; w < winnerWarnings.Length; w++)
+                this.LogWarn($"[{winner?.SourceId ?? "none"}] {winnerWarnings[w]}");
 
             _dataDirty = false;
 
-            this.LogInfo($"MenthorQLevels: rebuilt {_parsedEntries.Length} entries ({totalWarnings} warnings)");
+            if (winner != null)
+            {
+                this.LogInfo($"MenthorQLevels: rebuilt {_parsedEntries.Length} entries " +
+                             $"from {winner.SourceId} ({winnerWarnings.Length} warnings)");
+            }
+            else
+            {
+                this.LogInfo("MenthorQLevels: rebuilt 0 entries (no active source)");
+            }
         }
 
         #endregion
