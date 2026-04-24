@@ -381,7 +381,9 @@ public class CumulativeDelta : Indicator
 
     protected override void OnInitialize()
     {
-	    _candleSeries.DrawCandleBorder = true;
+        #if !ATAS_STABLE
+        _candleSeries.DrawCandleBorder = true;
+        #endif
     }
 
     protected override void OnApplyDefaultColors()
@@ -517,7 +519,7 @@ public class CumulativeDelta : Indicator
         }
     }
 
-    #endregion
+#endregion
 
     #region Private methods
 
