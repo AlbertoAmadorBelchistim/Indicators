@@ -140,8 +140,7 @@ public class TapePattern : Indicator
 	private DateTime _firstTime;
 	private bool _fixedSizes;
 	private bool _historyCalculated;
-	private CumulativeTrade _lastRenderedTrade;
-    private CumTradeExtended _lastRenderedTradeExt;
+	private CumTradeExtended _lastRenderedTradeExt;
     private int _lastSession;
 	private List<PriceSelectionValue> _lastTick = new();
 	private DateTime _lastTime;

@@ -19,6 +19,10 @@
 	<PropertyGroup Condition=" '$(Platform)' != 'Cross' ">
 		<UseWPF>True</UseWPF>
 		<TargetFramework>net10.0-windows</TargetFramework>
+	</PropertyGroup>
+
+	<!-- Technical indicators render via System.Drawing/GDI+ and ship as Windows-only visuals even inside the Cross (Avalonia) assembly, so CA1416 is globally suppressed (matches the oft Directory.Build.props convention that doesn't reach this external repo). -->
+	<PropertyGroup>
 		<NoWarn>$(NoWarn);CA1416</NoWarn>
 	</PropertyGroup>
 
@@ -26,9 +30,6 @@
     <Optimize Condition=" '$(Optimize)' == '' ">true</Optimize>
   </PropertyGroup>
 
-  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk.WindowsDesktop" Condition=" '$(Platform)' != 'Cross' " />
-  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk.WindowsDesktop" Condition=" '$(Platform)' != 'Cross' " />
-  
   <ItemGroup>
     <ProjectReference Include="..\..\..\GitLab\OFT\Attributes\Attributes.csproj" />
     <ProjectReference Include="..\..\..\GitLab\OFT\DataFeedsCore\DataFeedsCore.csproj" />

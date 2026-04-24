@@ -88,7 +88,9 @@ namespace ATAS.Indicators.Technical
             }
         }
 
+#pragma warning disable CS0618
         [Parameter]
+#pragma warning restore CS0618
         [Range(1, int.MaxValue)]
         [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Period), GroupName = nameof(Strings.Calculation), Description = nameof(Strings.PeriodDescription))]
         public int Period

@@ -110,7 +110,6 @@ public class WoodiesCCI : Indicator
 	private int _lsmaPeriod = 25;
 	private int _trendPeriod = 5;
 
-	private int _trendUp, _trendDown;
 	private Color _trendUpColor = DefaultColors.Blue;
 	private Color _trendDownColor = DefaultColors.Maroon;
 	private	Color _noTrendColor = DefaultColors.Gray;
