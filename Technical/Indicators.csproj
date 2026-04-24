@@ -32,7 +32,7 @@
 
   <!-- Configuration flavors: install path, assembly name, define constants, target framework -->
   <PropertyGroup Condition="'$(Configuration)' == 'Alpha'">
-    <DefineConstants>$(DefineConstants);ATAS_ALPHA</DefineConstants>
+    <DefineConstants>$(DefineConstants);ATAS_ALPHA;TAB_ATTRIBUTE_AVAILABLE</DefineConstants>
     <ATAS_BASE>C:\Program Files (x86)\ATAS Platform</ATAS_BASE>
     <AssemblyName>Indicators_Alpha</AssemblyName>
     <TargetFramework>net10.0-windows</TargetFramework>
@@ -60,13 +60,13 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'ATAS_X_Alpha'">
-    <DefineConstants>$(DefineConstants);ATAS_X_ALPHA</DefineConstants>
+    <DefineConstants>$(DefineConstants);ATAS_X_ALPHA;TAB_ATTRIBUTE_AVAILABLE</DefineConstants>
     <ATAS_BASE>C:\Program Files\ATAS X</ATAS_BASE>
     <AssemblyName>Indicators_X_Alpha</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'ATAS_X_Beta'">
-    <DefineConstants>$(DefineConstants);ATAS_X_BETA</DefineConstants>
+    <DefineConstants>$(DefineConstants);ATAS_X_BETA;TAB_ATTRIBUTE_AVAILABLE</DefineConstants>
     <ATAS_BASE>C:\Program Files\ATAS X beta</ATAS_BASE>
     <AssemblyName>Indicators_X_Beta</AssemblyName>
   </PropertyGroup>
