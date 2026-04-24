@@ -1,0 +1,4757 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutModule" xml:space="preserve">
+    <value>关于模块</value>
+  </data>
+  <data name="Absorption" xml:space="preserve">
+    <value>吸收</value>
+  </data>
+  <data name="AbsorptionThresholdDesc" xml:space="preserve">
+    <value>考虑吸收的收盘价与德尔塔极值之间的最小距离</value>
+  </data>
+  <data name="AccountAge" xml:space="preserve">
+    <value>账户年龄(天)</value>
+  </data>
+  <data name="AccountInfoDisplayDescription" xml:space="preserve">
+    <value>在图表上显示详细的账户信息</value>
+  </data>
+  <data name="AccountInformation" xml:space="preserve">
+    <value>账户信息</value>
+  </data>
+  <data name="AccountsCount" xml:space="preserve">
+    <value>{0} 个账户</value>
+  </data>
+  <data name="AccountSelectionMultipleAccounts" xml:space="preserve">
+    <value>{0} 个账户</value>
+  </data>
+  <data name="AccountSelectionMultipleAccountsFew" xml:space="preserve">
+    <value>{0} 个账户</value>
+  </data>
+  <data name="AccountSelectionOneAccount" xml:space="preserve">
+    <value>一个账户</value>
+  </data>
+  <data name="AccountSelectionSelectAccount" xml:space="preserve">
+    <value>选择账户</value>
+  </data>
+  <data name="AccountsTitle" xml:space="preserve">
+    <value>账户</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>动作</value>
+  </data>
+  <data name="ActivateGlobalLine" xml:space="preserve">
+    <value>激活全局线</value>
+  </data>
+  <data name="ActivityPeriod" xml:space="preserve">
+    <value>活跃期（天）</value>
+  </data>
+  <data name="ActivityPeriodFormat" xml:space="preserve">
+    <value>{0} 天</value>
+  </data>
+  <data name="AddElement" xml:space="preserve">
+    <value>添加元素</value>
+  </data>
+  <data name="AddPlaybook" xml:space="preserve">
+    <value>添加策略手册</value>
+  </data>
+  <data name="AddReplayTemplate" xml:space="preserve">
+    <value>添加回放模板</value>
+  </data>
+  <data name="AddRequiredWidget" xml:space="preserve">
+    <value>添加所需的组件</value>
+  </data>
+  <data name="AddToFavoriteTimeFrame" xml:space="preserve">
+    <value>添加到收藏夹</value>
+  </data>
+  <data name="AddWidget" xml:space="preserve">
+    <value>添加小部件</value>
+  </data>
+  <data name="AddWidgetLabel" xml:space="preserve">
+    <value>添加小部件</value>
+  </data>
+  <data name="AddWidgetToAreaLabel" xml:space="preserve">
+    <value>将图表、订单簿、时间和销售或任何其他小部件添加到此区域。</value>
+  </data>
+  <data name="AdvancedStatistics" xml:space="preserve">
+    <value>高级统计</value>
+  </data>
+  <data name="AlertFile" xml:space="preserve">
+    <value>警报文件</value>
+  </data>
+  <data name="AlertFileDescription" xml:space="preserve">
+    <value>自定义提醒声音设置。所选文件必须为WAV格式，并位于C:\Program Files (x86)\ATAS Platform\Sounds文件夹中。</value>
+  </data>
+  <data name="AlertFilterDescription" xml:space="preserve">
+    <value>达到手动设置的成交量水平时发出通知。</value>
+  </data>
+  <data name="AlertInterval" xml:space="preserve">
+    <value>警报重复间隔（秒）</value>
+  </data>
+  <data name="AlertIntervalDescription" xml:space="preserve">
+    <value>下一个重复警报的时间（以秒为单位）</value>
+  </data>
+  <data name="AlertNotifierSendError" xml:space="preserve">
+    <value>通过 '{0}' 发送警报时出错。</value>
+  </data>
+  <data name="AllAccounts" xml:space="preserve">
+    <value>所有账户</value>
+  </data>
+  <data name="AllInstruments" xml:space="preserve">
+    <value>所有工具</value>
+  </data>
+  <data name="AllPlaybooks" xml:space="preserve">
+    <value>所有策略</value>
+  </data>
+  <data name="AmpCqgGetDemoQuotes" xml:space="preserve">
+    <value>获取 AMP/CQG 演示报价</value>
+  </data>
+  <data name="ApplyAutoScale" xml:space="preserve">
+    <value>应用自动缩放</value>
+  </data>
+  <data name="ApplyAutoScaleDescription" xml:space="preserve">
+    <value>应用价格自动缩放</value>
+  </data>
+  <data name="AssignPlaybooks" xml:space="preserve">
+    <value>分配策略手册</value>
+  </data>
+  <data name="AtasXAccessDeniedHeader" xml:space="preserve">
+    <value>你没有 ATAS X 的访问权限</value>
+  </data>
+  <data name="AtasXAccessDeniedMessage" xml:space="preserve">
+    <value>你当前的套餐不支持此版本。要解锁 ATAS X (Beta) 的访问权限，你需要购买 Ultra 套餐。</value>
+  </data>
+  <data name="AtasXAccessDeniedPromoHeader" xml:space="preserve">
+    <value>你当前没有 ATAS X 的早期访问权限。</value>
+  </data>
+  <data name="AtasXAccessDeniedPromoMessage" xml:space="preserve">
+    <value>要解锁 ATAS X (Beta) 的早期访问权限，你需要购买 Ultra 套餐。</value>
+  </data>
+  <data name="AtasXAccessDeniedTitle" xml:space="preserve">
+    <value>ATAS X 早期访问</value>
+  </data>
+  <data name="ATRLength" xml:space="preserve">
+    <value>ATR周期</value>
+  </data>
+  <data name="ATRLengthDescription" xml:space="preserve">
+    <value>用于容差的 ATR 计算周期。</value>
+  </data>
+  <data name="AudioIntensity" xml:space="preserve">
+    <value>音频强度</value>
+  </data>
+  <data name="AudioTheme" xml:space="preserve">
+    <value>音频主题</value>
+  </data>
+  <data name="AutoAddCrossTradingIndicator" xml:space="preserve">
+    <value>自动添加/删除最佳价格指标</value>
+  </data>
+  <data name="AutoAddCrossTradingIndicatorDescription" xml:space="preserve">
+    <value>在激活或停用跨品种交易时，自动在图表上添加或删除跨品种交易最佳价格指标。</value>
+  </data>
+  <data name="AutoConnectedMarketDataOnly" xml:space="preserve">
+    <value>{0} 的自动连接器</value>
+  </data>
+  <data name="AutoReplay" xml:space="preserve">
+    <value>自动重播</value>
+  </data>
+  <data name="AvgLossInMoney" xml:space="preserve">
+    <value>平均亏损</value>
+  </data>
+  <data name="AvgTradeLength" xml:space="preserve">
+    <value>平均交易时长</value>
+  </data>
+  <data name="AvgTradesPerDay" xml:space="preserve">
+    <value>每日交易次数</value>
+  </data>
+  <data name="AvgWin" xml:space="preserve">
+    <value>平均盈利</value>
+  </data>
+  <data name="AvgWinLoss" xml:space="preserve">
+    <value>平均盈亏</value>
+  </data>
+  <data name="AxisLine" xml:space="preserve">
+    <value>轴线</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>返回</value>
+  </data>
+  <data name="BackgroundColor" xml:space="preserve">
+    <value>背景颜色</value>
+  </data>
+  <data name="BalanceWithColonAndSpaceLabel" xml:space="preserve">
+    <value>余额: </value>
+  </data>
+  <data name="BarClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="BarDirVsDeltaDivergenceDescription" xml:space="preserve">
+    <value>确定是否显示背离，当柱的方向和增量值相反时发生背离：在牛市柱的情况下，增量为负，而在熊市柱的情况下，增量为正。</value>
+  </data>
+  <data name="BarHigh" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="BarLow" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="BarOpen" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="BearDivergenceColor" xml:space="preserve">
+    <value>熊市背离颜色</value>
+  </data>
+  <data name="BestTrade" xml:space="preserve">
+    <value>最佳交易</value>
+  </data>
+  <data name="BinanceFutAccountInfoCategory" xml:space="preserve">
+    <value>账户信息</value>
+  </data>
+  <data name="BinanceFutAssetUpdateTime" xml:space="preserve">
+    <value>资产更新时间</value>
+  </data>
+  <data name="BinanceFutAvailableBalance" xml:space="preserve">
+    <value>可用余额</value>
+  </data>
+  <data name="BinanceFutBalanceCategory" xml:space="preserve">
+    <value>余额</value>
+  </data>
+  <data name="BinanceFutCanDeposit" xml:space="preserve">
+    <value>可以存款</value>
+  </data>
+  <data name="BinanceFutCanTrade" xml:space="preserve">
+    <value>可以交易</value>
+  </data>
+  <data name="BinanceFutCanWithdraw" xml:space="preserve">
+    <value>可以提取</value>
+  </data>
+  <data name="BinanceFutCrossUnPnl" xml:space="preserve">
+    <value>交叉未实现盈亏</value>
+  </data>
+  <data name="BinanceFutCrossWalletBalance" xml:space="preserve">
+    <value>跨钱包余额</value>
+  </data>
+  <data name="BinanceFutFeeBurn" xml:space="preserve">
+    <value>费用折扣</value>
+  </data>
+  <data name="BinanceFutFeeTier" xml:space="preserve">
+    <value>费用等级</value>
+  </data>
+  <data name="BinanceFutInitialMargin" xml:space="preserve">
+    <value>初始保证金</value>
+  </data>
+  <data name="BinanceFutMaintMargin" xml:space="preserve">
+    <value>维持保证金</value>
+  </data>
+  <data name="BinanceFutMarginAvailable" xml:space="preserve">
+    <value>可用保证金</value>
+  </data>
+  <data name="BinanceFutMarginBalance" xml:space="preserve">
+    <value>保证金余额</value>
+  </data>
+  <data name="BinanceFutMarginCategory" xml:space="preserve">
+    <value>保证金</value>
+  </data>
+  <data name="BinanceFutMaxWithdrawAmount" xml:space="preserve">
+    <value>最大提款金额</value>
+  </data>
+  <data name="BinanceFutMultiAssetsMargin" xml:space="preserve">
+    <value>多资产保证金</value>
+  </data>
+  <data name="BinanceFutOpenOrderInitialMargin" xml:space="preserve">
+    <value>未平仓订单初始保证金</value>
+  </data>
+  <data name="BinanceFutPositionInitialMargin" xml:space="preserve">
+    <value>头寸初始保证金</value>
+  </data>
+  <data name="BinanceFutUnrealizedProfit" xml:space="preserve">
+    <value>未实现利润</value>
+  </data>
+  <data name="BinanceFutWalletBalance" xml:space="preserve">
+    <value>钱包余额</value>
+  </data>
+  <data name="BinanceSpotAccountInfoCategory" xml:space="preserve">
+    <value>账户信息</value>
+  </data>
+  <data name="BinanceSpotAccountType" xml:space="preserve">
+    <value>账户类型</value>
+  </data>
+  <data name="BinanceSpotBrokered" xml:space="preserve">
+    <value>经纪</value>
+  </data>
+  <data name="BinanceSpotBuyerCommission" xml:space="preserve">
+    <value>买方佣金</value>
+  </data>
+  <data name="BinanceSpotCanDeposit" xml:space="preserve">
+    <value>可以存款</value>
+  </data>
+  <data name="BinanceSpotCanTrade" xml:space="preserve">
+    <value>可以交易</value>
+  </data>
+  <data name="BinanceSpotCanWithdraw" xml:space="preserve">
+    <value>可以提取</value>
+  </data>
+  <data name="BinanceSpotCommissionCategory" xml:space="preserve">
+    <value>佣金</value>
+  </data>
+  <data name="BinanceSpotLastAccountUpdate" xml:space="preserve">
+    <value>最后账户更新</value>
+  </data>
+  <data name="BinanceSpotMakerCommission" xml:space="preserve">
+    <value>做市商佣金</value>
+  </data>
+  <data name="BinanceSpotPermissionsCategory" xml:space="preserve">
+    <value>账户权限</value>
+  </data>
+  <data name="BinanceSpotPreventSor" xml:space="preserve">
+    <value>防止 SOR</value>
+  </data>
+  <data name="BinanceSpotRequireSelfTradePrevention" xml:space="preserve">
+    <value>要求自我交易预防</value>
+  </data>
+  <data name="BinanceSpotSellerCommission" xml:space="preserve">
+    <value>卖方佣金</value>
+  </data>
+  <data name="BinanceSpotTakerCommission" xml:space="preserve">
+    <value>成交者佣金</value>
+  </data>
+  <data name="BinanceSpotUid" xml:space="preserve">
+    <value>用户ID</value>
+  </data>
+  <data name="BitfinexBalance" xml:space="preserve">
+    <value>余额</value>
+  </data>
+  <data name="BitfinexBalanceAvailable" xml:space="preserve">
+    <value>可用余额</value>
+  </data>
+  <data name="BitfinexBalanceCategory" xml:space="preserve">
+    <value>余额</value>
+  </data>
+  <data name="BitfinexCurrency" xml:space="preserve">
+    <value>货币</value>
+  </data>
+  <data name="BitfinexUnsettledInterest" xml:space="preserve">
+    <value>未结清利息</value>
+  </data>
+  <data name="BitfinexWalletInfoCategory" xml:space="preserve">
+    <value>钱包信息</value>
+  </data>
+  <data name="BitfinexWalletType" xml:space="preserve">
+    <value>钱包类型</value>
+  </data>
+  <data name="BitgetAccountEquity" xml:space="preserve">
+    <value>账户权益</value>
+  </data>
+  <data name="BitgetAccountInfoCategory" xml:space="preserve">
+    <value>账户信息</value>
+  </data>
+  <data name="BitgetAvailable" xml:space="preserve">
+    <value>可用</value>
+  </data>
+  <data name="BitgetBalanceCategory" xml:space="preserve">
+    <value>余额</value>
+  </data>
+  <data name="BitgetBtcEquity" xml:space="preserve">
+    <value>BTC 权益</value>
+  </data>
+  <data name="BitgetCoupon" xml:space="preserve">
+    <value>优惠券</value>
+  </data>
+  <data name="BitgetCrossedMaxAvailable" xml:space="preserve">
+    <value>超出最大可用</value>
+  </data>
+  <data name="BitgetCrossedRiskRate" xml:space="preserve">
+    <value>交叉风险率</value>
+  </data>
+  <data name="BitgetFrozen" xml:space="preserve">
+    <value>冻结</value>
+  </data>
+  <data name="BitgetIsolatedMaxAvailable" xml:space="preserve">
+    <value>隔离最大可用</value>
+  </data>
+  <data name="BitgetLimitsCategory" xml:space="preserve">
+    <value>可用限制</value>
+  </data>
+  <data name="BitgetLocked" xml:space="preserve">
+    <value>锁定</value>
+  </data>
+  <data name="BitgetMarginCoin" xml:space="preserve">
+    <value>保证金币</value>
+  </data>
+  <data name="BitgetMaxOpenPosAvailable" xml:space="preserve">
+    <value>最大可用开仓头寸</value>
+  </data>
+  <data name="BitgetMaxTransferOut" xml:space="preserve">
+    <value>最大转出</value>
+  </data>
+  <data name="BitgetPnLCategory" xml:space="preserve">
+    <value>盈亏</value>
+  </data>
+  <data name="BitgetSpotBalanceCategory" xml:space="preserve">
+    <value>现货余额</value>
+  </data>
+  <data name="BitgetSpotFrozen" xml:space="preserve">
+    <value>冻结</value>
+  </data>
+  <data name="BitgetSpotLimitAvailable" xml:space="preserve">
+    <value>可用限额</value>
+  </data>
+  <data name="BitgetSpotLocked" xml:space="preserve">
+    <value>锁定</value>
+  </data>
+  <data name="BitgetUnrealizedPL" xml:space="preserve">
+    <value>未实现盈亏</value>
+  </data>
+  <data name="BitgetUsdtEquity" xml:space="preserve">
+    <value>USDT 股权</value>
+  </data>
+  <data name="BitmexAccountCategory" xml:space="preserve">
+    <value>账户信息</value>
+  </data>
+  <data name="BitmexAvailableMargin" xml:space="preserve">
+    <value>可用保证金</value>
+  </data>
+  <data name="BitmexCostCategory" xml:space="preserve">
+    <value>成本信息</value>
+  </data>
+  <data name="BitmexCurrency" xml:space="preserve">
+    <value>货币</value>
+  </data>
+  <data name="BitmexExcessMargin" xml:space="preserve">
+    <value>超额保证金</value>
+  </data>
+  <data name="BitmexExcessMarginPcnt" xml:space="preserve">
+    <value>超额保证金百分比</value>
+  </data>
+  <data name="BitmexGrossComm" xml:space="preserve">
+    <value>总佣金</value>
+  </data>
+  <data name="BitmexGrossExecCost" xml:space="preserve">
+    <value>总执行成本</value>
+  </data>
+  <data name="BitmexGrossMarkValue" xml:space="preserve">
+    <value>毛利值</value>
+  </data>
+  <data name="BitmexGrossOpenCost" xml:space="preserve">
+    <value>毛开放成本</value>
+  </data>
+  <data name="BitmexInitMargin" xml:space="preserve">
+    <value>初始保证金</value>
+  </data>
+  <data name="BitmexMaintMargin" xml:space="preserve">
+    <value>维持保证金</value>
+  </data>
+  <data name="BitmexMarginBalance" xml:space="preserve">
+    <value>保证金余额</value>
+  </data>
+  <data name="BitmexMarginBalancePcnt" xml:space="preserve">
+    <value>保证金余额百分比</value>
+  </data>
+  <data name="BitmexMarginCategory" xml:space="preserve">
+    <value>保证金信息</value>
+  </data>
+  <data name="BitmexMarginLeverage" xml:space="preserve">
+    <value>保证金杠杆</value>
+  </data>
+  <data name="BitmexMarginRequirementsCategory" xml:space="preserve">
+    <value>保证金要求</value>
+  </data>
+  <data name="BitmexMarginUsedPcnt" xml:space="preserve">
+    <value>已用保证金百分比</value>
+  </data>
+  <data name="BitmexPnlCategory" xml:space="preserve">
+    <value>未实现的利润和损失 (PnL)</value>
+  </data>
+  <data name="BitmexRealisedPnl" xml:space="preserve">
+    <value>已实现盈亏</value>
+  </data>
+  <data name="BitmexRiskLimit" xml:space="preserve">
+    <value>风险限额</value>
+  </data>
+  <data name="BitmexRiskValue" xml:space="preserve">
+    <value>风险值</value>
+  </data>
+  <data name="BitmexUnrealisedPnl" xml:space="preserve">
+    <value>未实现的盈亏</value>
+  </data>
+  <data name="BitmexUnrealisedProfit" xml:space="preserve">
+    <value>未实现利润</value>
+  </data>
+  <data name="BitmexWalletBalance" xml:space="preserve">
+    <value>钱包余额</value>
+  </data>
+  <data name="BitmexWithdrawableMargin" xml:space="preserve">
+    <value>可提取保证金</value>
+  </data>
+  <data name="BreakevenAndTrailing" xml:space="preserve">
+    <value>盈亏平衡与跟踪</value>
+  </data>
+  <data name="BreakevenTooltip" xml:space="preserve">
+    <value>允许在达到指定的利润值时移动止损订单。止损订单移动到盈亏平衡点仅触发一次。
+
+参数：
+• 盈亏平衡 — 应该将止损订单移动到另一个水平的利润值
+• 偏移量 — 在达到指定利润值后，止损订单应移动到的平均头寸价格的偏移量</value>
+  </data>
+  <data name="BreakevenTrailingRequiresSL" xml:space="preserve">
+    <value>盈亏平衡和跟踪功能仅在启用SL复选框后才会激活</value>
+  </data>
+  <data name="BreakoutRetestPeriodDescription" xml:space="preserve">
+    <value>用于识别枢轴点的回看K线数量。</value>
+  </data>
+  <data name="BreakoutRetestShowDelta" xml:space="preserve">
+    <value>显示 Delta</value>
+  </data>
+  <data name="BreakoutRetestShowVolume" xml:space="preserve">
+    <value>显示成交量</value>
+  </data>
+  <data name="BrushObjectDescription" xml:space="preserve">
+    <value>自定义曲线对象</value>
+  </data>
+  <data name="BrushTxt" xml:space="preserve">
+    <value>画笔</value>
+  </data>
+  <data name="BuildingClustersMsg" xml:space="preserve">
+    <value>建筑轮廓</value>
+  </data>
+  <data name="BuildingVolumeProfileMsg" xml:space="preserve">
+    <value>构建体积轮廓</value>
+  </data>
+  <data name="BullDivergenceColor" xml:space="preserve">
+    <value>牛市背离颜色</value>
+  </data>
+  <data name="BuyColor" xml:space="preserve">
+    <value>Buy 颜色</value>
+  </data>
+  <data name="BuySound" xml:space="preserve">
+    <value>购买声音</value>
+  </data>
+  <data name="BuyTradeLineColorDescription" xml:space="preserve">
+    <value>指定用于显示买入交易线条和标记的颜色。</value>
+  </data>
+  <data name="BybitAccountIMRate" xml:space="preserve">
+    <value>账户初始保证金率</value>
+  </data>
+  <data name="BybitAccountIMRateByMp" xml:space="preserve">
+    <value>初始保证金率（按 MP）</value>
+  </data>
+  <data name="BybitAccountInfoCategory" xml:space="preserve">
+    <value>账户信息</value>
+  </data>
+  <data name="BybitAccountLTV" xml:space="preserve">
+    <value>账户LTV</value>
+  </data>
+  <data name="BybitAccountMMRate" xml:space="preserve">
+    <value>账户维持保证金率</value>
+  </data>
+  <data name="BybitAccountMMRateByMp" xml:space="preserve">
+    <value>账户MM利率（按MP）</value>
+  </data>
+  <data name="BybitAccountType" xml:space="preserve">
+    <value>账户类型</value>
+  </data>
+  <data name="BybitAccruedInterest" xml:space="preserve">
+    <value>应计利息</value>
+  </data>
+  <data name="BybitAvailableToBorrow" xml:space="preserve">
+    <value>可借用</value>
+  </data>
+  <data name="BybitAvailableToWithdraw" xml:space="preserve">
+    <value>可提取金额</value>
+  </data>
+  <data name="BybitBalanceCategory" xml:space="preserve">
+    <value>余额</value>
+  </data>
+  <data name="BybitBonus" xml:space="preserve">
+    <value>奖金</value>
+  </data>
+  <data name="BybitBorrowAmount" xml:space="preserve">
+    <value>借款金额</value>
+  </data>
+  <data name="BybitCoinEquity" xml:space="preserve">
+    <value>币权</value>
+  </data>
+  <data name="BybitCoinInfoCategory" xml:space="preserve">
+    <value>币信息</value>
+  </data>
+  <data name="BybitCoinUsdValue" xml:space="preserve">
+    <value>美元价值</value>
+  </data>
+  <data name="BybitCoinWalletBalance" xml:space="preserve">
+    <value>币种钱包余额</value>
+  </data>
+  <data name="BybitCollateralSwitch" xml:space="preserve">
+    <value>抵押切换</value>
+  </data>
+  <data name="BybitCumRealisedPnl" xml:space="preserve">
+    <value>累计实现盈亏</value>
+  </data>
+  <data name="BybitLocked" xml:space="preserve">
+    <value>锁定</value>
+  </data>
+  <data name="BybitMarginCategory" xml:space="preserve">
+    <value>保证金</value>
+  </data>
+  <data name="BybitMarginCollateral" xml:space="preserve">
+    <value>保证金抵押</value>
+  </data>
+  <data name="BybitSpotBorrow" xml:space="preserve">
+    <value>现货借款</value>
+  </data>
+  <data name="BybitSpotHedgingQty" xml:space="preserve">
+    <value>现货对冲数量</value>
+  </data>
+  <data name="BybitTotalAvailableBalance" xml:space="preserve">
+    <value>总可用余额</value>
+  </data>
+  <data name="BybitTotalEquity" xml:space="preserve">
+    <value>总权益</value>
+  </data>
+  <data name="BybitTotalInitialMargin" xml:space="preserve">
+    <value>总初始保证金</value>
+  </data>
+  <data name="BybitTotalInitialMarginByMp" xml:space="preserve">
+    <value>总初始保证金（按 MP）</value>
+  </data>
+  <data name="BybitTotalMaintenanceMargin" xml:space="preserve">
+    <value>总维持保证金</value>
+  </data>
+  <data name="BybitTotalMaintenanceMarginByMp" xml:space="preserve">
+    <value>总维护保证金（按MP）</value>
+  </data>
+  <data name="BybitTotalMarginBalance" xml:space="preserve">
+    <value>总保证金余额</value>
+  </data>
+  <data name="BybitTotalOrderIM" xml:space="preserve">
+    <value>总初始保证金</value>
+  </data>
+  <data name="BybitTotalPerpUPL" xml:space="preserve">
+    <value>总永久UPL</value>
+  </data>
+  <data name="BybitTotalPositionIM" xml:space="preserve">
+    <value>总头寸IM</value>
+  </data>
+  <data name="BybitTotalPositionMM" xml:space="preserve">
+    <value>总头寸MM</value>
+  </data>
+  <data name="BybitTotalWalletBalance" xml:space="preserve">
+    <value>总钱包余额</value>
+  </data>
+  <data name="BybitUnrealisedPnl" xml:space="preserve">
+    <value>未实现的PnL</value>
+  </data>
+  <data name="CalculatingDeltaMsg" xml:space="preserve">
+    <value>计算增量</value>
+  </data>
+  <data name="CalculatingVwapMsg" xml:space="preserve">
+    <value>计算VWAP</value>
+  </data>
+  <data name="CancelAllOrders" xml:space="preserve">
+    <value>取消所有订单（所有账户）</value>
+  </data>
+  <data name="CancelAllOrdersAndPositionsTooltip" xml:space="preserve">
+    <value>取消所有订单并关闭所选账户的所有头寸</value>
+  </data>
+  <data name="CancelAllOrdersForInstrumentTooltip" xml:space="preserve">
+    <value>取消该工具的所有订单</value>
+  </data>
+  <data name="CancelCloseAll" xml:space="preserve">
+    <value>取消并关闭所有</value>
+  </data>
+  <data name="CancelClosingButton" xml:space="preserve">
+    <value>取消关闭</value>
+  </data>
+  <data name="CandlesDirectionMode" xml:space="preserve">
+    <value>蜡烛方向模式</value>
+  </data>
+  <data name="CandlesDirectionModeDescription" xml:space="preserve">
+    <value>确定如何计算蜡烛方向（向上/向下）以进行着色。可以选择传统的Close与Open、基于买卖压力的Delta、相对于蜡烛平均价格的Close与Median或相对于控制点的Close与POC。</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>更改密码</value>
+  </data>
+  <data name="ChangePeriodOrSelectAccount" xml:space="preserve">
+    <value>更改时间段或选择其他帐户。</value>
+  </data>
+  <data name="Changes_Trades" xml:space="preserve">
+    <value>变更，交易</value>
+  </data>
+  <data name="ChangeScale" xml:space="preserve">
+    <value>将比例更改为设定的步长</value>
+  </data>
+  <data name="ChangeScaleDescription" xml:space="preserve">
+    <value>鼠标滚轮滚动修饰键以更改价格比例。</value>
+  </data>
+  <data name="ChangeTariff" xml:space="preserve">
+    <value>更改计划</value>
+  </data>
+  <data name="CheckConnectorForMissingInstrument" xml:space="preserve">
+    <value>请等待连接初始化。如果仪器没有很快出现，请检查状态：</value>
+  </data>
+  <data name="ClearVolumeProfile" xml:space="preserve">
+    <value>清除音量配置文件</value>
+  </data>
+  <data name="CloseAllLabel" xml:space="preserve">
+    <value>关闭所有</value>
+  </data>
+  <data name="CloseAllPositions" xml:space="preserve">
+    <value>关闭所有头寸（所有账户）</value>
+  </data>
+  <data name="CloseAnywayButton" xml:space="preserve">
+    <value>还是关闭</value>
+  </data>
+  <data name="CloseCurrentWorkspaceMessage1" xml:space="preserve">
+    <value>保存您的工作区，以便下次启动应用时使用</value>
+  </data>
+  <data name="CloseCurrentWorkspaceMessage2" xml:space="preserve">
+    <value>工作区说明</value>
+  </data>
+  <data name="CloseOtherLabel" xml:space="preserve">
+    <value>关闭其他</value>
+  </data>
+  <data name="ClosePositionTooltip" xml:space="preserve">
+    <value>关闭头寸</value>
+  </data>
+  <data name="CloseTabQuestionMessage" xml:space="preserve">
+    <value>您确定要关闭此标签页吗？所有内容将丢失。</value>
+  </data>
+  <data name="CloseTabTitle" xml:space="preserve">
+    <value>关闭标签页</value>
+  </data>
+  <data name="CloseVsMedian" xml:space="preserve">
+    <value>收盘与中位数</value>
+  </data>
+  <data name="CloseVsOpen" xml:space="preserve">
+    <value>收盘与开盘</value>
+  </data>
+  <data name="CloseVsPOC" xml:space="preserve">
+    <value>收盘价与POC</value>
+  </data>
+  <data name="CloseWindowAndLoseData" xml:space="preserve">
+    <value>关闭窗口</value>
+  </data>
+  <data name="CloseWindowQuestionMessage" xml:space="preserve">
+    <value>关闭此窗口后，窗口的所有内容将丢失。您想怎么做？</value>
+  </data>
+  <data name="CloseWindowTitle" xml:space="preserve">
+    <value>关闭窗口</value>
+  </data>
+  <data name="CloseWithoutSavingBtn" xml:space="preserve">
+    <value>不保存关闭</value>
+  </data>
+  <data name="Clustering" xml:space="preserve">
+    <value>聚类</value>
+  </data>
+  <data name="ClusterPresetsLabel" xml:space="preserve">
+    <value>集群预设</value>
+  </data>
+  <data name="ClusterSettingButton" xml:space="preserve">
+    <value>集群设置...</value>
+  </data>
+  <data name="ColorDescription" xml:space="preserve">
+    <value>指定此元素的颜色。</value>
+  </data>
+  <data name="ColoredStatusLine" xml:space="preserve">
+    <value>按K线颜色显示OHLC</value>
+  </data>
+  <data name="ColumnSpacing" xml:space="preserve">
+    <value>列间距</value>
+  </data>
+  <data name="ColumnSpacingDescription" xml:space="preserve">
+    <value>标签和数值列之间的间距</value>
+  </data>
+  <data name="ConfirmationMultiplier" xml:space="preserve">
+    <value>确认乘数</value>
+  </data>
+  <data name="ConfirmationMultiplierDescription" xml:space="preserve">
+    <value>将主周期除以该值，并确定枢轴确认长度。</value>
+  </data>
+  <data name="ConnectAccountTitle" xml:space="preserve">
+    <value>连接账户</value>
+  </data>
+  <data name="ContinueWithEmptyWorkspace" xml:space="preserve">
+    <value>继续使用空工作区</value>
+  </data>
+  <data name="ContinueWorkspaceSubtitle" xml:space="preserve">
+    <value>要继续，请选择一个选项</value>
+  </data>
+  <data name="Contract" xml:space="preserve">
+    <value>合约</value>
+  </data>
+  <data name="CqgBalanceCategory" xml:space="preserve">
+    <value>余额与保证金</value>
+  </data>
+  <data name="CqgCashExcess" xml:space="preserve">
+    <value>现金过剩</value>
+  </data>
+  <data name="CqgCurrentBalance" xml:space="preserve">
+    <value>当前余额</value>
+  </data>
+  <data name="CqgLongOpenPositionsQty" xml:space="preserve">
+    <value>当前开放的多头头寸数量</value>
+  </data>
+  <data name="CqgMarginCredit" xml:space="preserve">
+    <value>保证金信贷</value>
+  </data>
+  <data name="CqgMinDaysTillExpiration" xml:space="preserve">
+    <value>到期前的最小天数</value>
+  </data>
+  <data name="CqgMvf" xml:space="preserve">
+    <value>期货市场价值（MVF）是指用于评估投资组合中期货合约当前价值的财务指标。该指标在代码中定义为CqgPortfolioExtendedInfo类中的一个可空十进制属性，名为"Mvf"。为了在使用时的清晰性，它被归类于特定的显示资源和组织下。</value>
+  </data>
+  <data name="CqgMvo" xml:space="preserve">
+    <value>期权的市场价值 (MVO)</value>
+  </data>
+  <data name="CqgNetChangePc" xml:space="preserve">
+    <value>净变化百分比</value>
+  </data>
+  <data name="CqgNoMultiplierPositionMargin" xml:space="preserve">
+    <value>头寸保证金（无乘数）</value>
+  </data>
+  <data name="CqgOptionPremium" xml:space="preserve">
+    <value>期权溢价</value>
+  </data>
+  <data name="CqgOptionsCategory" xml:space="preserve">
+    <value>期权与期货</value>
+  </data>
+  <data name="CqgOte" xml:space="preserve">
+    <value>开放交易权益 (OTE)</value>
+  </data>
+  <data name="CqgPnLCategory" xml:space="preserve">
+    <value>利润与损失</value>
+  </data>
+  <data name="CqgPositionMargin" xml:space="preserve">
+    <value>持仓保证金</value>
+  </data>
+  <data name="CqgPositionsCategory" xml:space="preserve">
+    <value>头寸和订单</value>
+  </data>
+  <data name="CqgProfitLoss" xml:space="preserve">
+    <value>利润/亏损</value>
+  </data>
+  <data name="CqgPurchasingPower" xml:space="preserve">
+    <value>购买力</value>
+  </data>
+  <data name="CqgPurchasingPowerLimit" xml:space="preserve">
+    <value>购买力限制</value>
+  </data>
+  <data name="CqgShortOpenPositionsQty" xml:space="preserve">
+    <value>短期开放头寸数量</value>
+  </data>
+  <data name="CqgTotalFilledOrders" xml:space="preserve">
+    <value>总成交订单</value>
+  </data>
+  <data name="CqgTotalFilledQty" xml:space="preserve">
+    <value>总成交量</value>
+  </data>
+  <data name="CqgTotalMargin" xml:space="preserve">
+    <value>总保证金</value>
+  </data>
+  <data name="CqgTotalParkedOrders" xml:space="preserve">
+    <value>总暂停订单</value>
+  </data>
+  <data name="CqgTotalWorkingOrders" xml:space="preserve">
+    <value>总挂单数</value>
+  </data>
+  <data name="CqgUnrealizedProfitLoss" xml:space="preserve">
+    <value>未实现利润/损失</value>
+  </data>
+  <data name="CqgYesterdayBalance" xml:space="preserve">
+    <value>昨天余额</value>
+  </data>
+  <data name="CqgYesterdayCollateral" xml:space="preserve">
+    <value>昨天的抵押品</value>
+  </data>
+  <data name="CqgYesterdayMvo" xml:space="preserve">
+    <value>昨天的MVO</value>
+  </data>
+  <data name="CqgYesterdayOte" xml:space="preserve">
+    <value>昨天的OTE</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>创建</value>
+  </data>
+  <data name="CreateFirstPlaybookHint" xml:space="preserve">
+    <value>点击"添加策略手册"创建您的第一个策略手册</value>
+  </data>
+  <data name="CreateNewPlaybook" xml:space="preserve">
+    <value>创建新策略手册</value>
+  </data>
+  <data name="CreatePlaybookHelperText" xml:space="preserve">
+    <value>添加新的策略手册来组织您的交易设置</value>
+  </data>
+  <data name="CrosshairLabel" xml:space="preserve">
+    <value>十字准线</value>
+  </data>
+  <data name="CrossTrading" xml:space="preserve">
+    <value>交叉交易</value>
+  </data>
+  <data name="CryptoDOM" xml:space="preserve">
+    <value>加密 DOM</value>
+  </data>
+  <data name="CryptoMetricsGroupDescription" xml:space="preserve">
+    <value>&lt;p&gt;加密市场特定数据分析。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;情绪监控：实时未平仓合约、强平和持仓比例。&lt;/li&gt;
+  &lt;li&gt;市场背景：基于基本面数据的积累和分配区域。&lt;/li&gt;
+  &lt;li&gt;资金流动：区块链和交易所上的网络活动和资金流。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;重要提示：某些指标的可用性取决于所选工具。&lt;/p&gt;</value>
+  </data>
+  <data name="CumulativePnL" xml:space="preserve">
+    <value>累积盈亏</value>
+  </data>
+  <data name="CurrentDay" xml:space="preserve">
+    <value>当天</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>本月</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>本周</value>
+  </data>
+  <data name="CustomFontSize" xml:space="preserve">
+    <value>自定义字体大小</value>
+  </data>
+  <data name="CustomPitch" xml:space="preserve">
+    <value>自定义音调</value>
+  </data>
+  <data name="CustomPreset" xml:space="preserve">
+    <value>自定义</value>
+  </data>
+  <data name="CustomSessionTimezoneHint" xml:space="preserve">
+    <value>请以您的本地时区输入交易时段时间。</value>
+  </data>
+  <data name="CycleWatchlistInstrumentNext" xml:space="preserve">
+    <value>观察列表：下一个工具</value>
+  </data>
+  <data name="CycleWatchlistInstrumentPrevious" xml:space="preserve">
+    <value>观察列表：上一个工具</value>
+  </data>
+  <data name="DailyPerformanceOverview" xml:space="preserve">
+    <value>每日业绩概览</value>
+  </data>
+  <data name="DailyPnL" xml:space="preserve">
+    <value>每日盈亏</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="DaysFixedTooltip" xml:space="preserve">
+    <value>启用此功能后，您可在不将指定天数重置为默认值的情况下更改时间范围。</value>
+  </data>
+  <data name="DaysLowerCase" xml:space="preserve">
+    <value>天</value>
+  </data>
+  <data name="DayTIF" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="DecreasePositionSize" xml:space="preserve">
+    <value>减少交易量</value>
+  </data>
+  <data name="DefaultWorkspaceItem" xml:space="preserve">
+    <value>默认工作区</value>
+  </data>
+  <data name="DeleteAccount" xml:space="preserve">
+    <value>删除账户？</value>
+  </data>
+  <data name="DeleteAccountConfirmation" xml:space="preserve">
+    <value>您确定要从统计数据中删除此帐户吗？
+数据将被永久删除。</value>
+  </data>
+  <data name="DeletePlaybook" xml:space="preserve">
+    <value>删除策略本</value>
+  </data>
+  <data name="DeletePlaybookConfirmation" xml:space="preserve">
+    <value>您确定要删除此策略手册吗？</value>
+  </data>
+  <data name="DeletingAccount" xml:space="preserve">
+    <value>删除账户</value>
+  </data>
+  <data name="DeltaChangeAlert" xml:space="preserve">
+    <value>Delta变化警报</value>
+  </data>
+  <data name="DeltaOverVolume" xml:space="preserve">
+    <value>成交量的增量</value>
+  </data>
+  <data name="DeltaPerVolumeAlert" xml:space="preserve">
+    <value>Delta/交易量警报</value>
+  </data>
+  <data name="DeltaToVolume" xml:space="preserve">
+    <value>Delta to volume</value>
+  </data>
+  <data name="DeltaVolumeProportional" xml:space="preserve">
+    <value>Delta proportional to volume</value>
+  </data>
+  <data name="DetailedPerformanceMetrics" xml:space="preserve">
+    <value>详细的业绩指标</value>
+  </data>
+  <data name="DetectTimeAutomatically" xml:space="preserve">
+    <value>自动检测时间</value>
+  </data>
+  <data name="Divergence" xml:space="preserve">
+    <value>发散</value>
+  </data>
+  <data name="DivergenceBars" xml:space="preserve">
+    <value>背离条是用于识别市场潜在反转的交易工具，通过发现价格走势与技术指标之间的背离来实现。它们帮助交易者可视化可能表明趋势减弱或市场方向可能变化的差异。该工具在增强股票和外汇交易中的决策能力方面特别有用。</value>
+  </data>
+  <data name="DivergenceDots" xml:space="preserve">
+    <value>背离点</value>
+  </data>
+  <data name="DOMPro" xml:space="preserve">
+    <value>DOM Pro</value>
+  </data>
+  <data name="DOMProDescription" xml:space="preserve">
+    <value>通用型DOM模板，专注于速度、精度与清晰度。非常适合日内高频交易：界面紧凑，订单操作直观，实时显示成交量和流动性。所需功能，一应俱全。</value>
+  </data>
+  <data name="DoNotLoadWorkspace" xml:space="preserve">
+    <value>请勿下载工作区</value>
+  </data>
+  <data name="DontAskAgainInTables" xml:space="preserve">
+    <value>在表格中不再询问确认</value>
+  </data>
+  <data name="DontCloseBtn" xml:space="preserve">
+    <value>不要关闭</value>
+  </data>
+  <data name="Drawing" xml:space="preserve">
+    <value>绘图</value>
+  </data>
+  <data name="DrawingObjectsOnPanel" xml:space="preserve">
+    <value>在面板上绘制对象</value>
+  </data>
+  <data name="DrawingPanelWidth" xml:space="preserve">
+    <value>面板宽度</value>
+  </data>
+  <data name="DuplicateConnectorCredentials" xml:space="preserve">
+    <value>具有相同凭据的连接器已连接。
+请使用现有连接或输入其他登录凭据。</value>
+  </data>
+  <data name="DxFeedAccountPermissionLiquidateOnly" xml:space="preserve">
+    <value>仅限清算</value>
+  </data>
+  <data name="DxFeedAccountPermissionReadOnly" xml:space="preserve">
+    <value>只读</value>
+  </data>
+  <data name="DxFeedAccountPermissionRiskPause" xml:space="preserve">
+    <value>风险暂停</value>
+  </data>
+  <data name="DxFeedAccountPermissionTrading" xml:space="preserve">
+    <value>交易</value>
+  </data>
+  <data name="DxFeedAccountStatusDisabled" xml:space="preserve">
+    <value>已禁用</value>
+  </data>
+  <data name="DxFeedAccountStatusEnabled" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="DxFeedAccountStatusFailed" xml:space="preserve">
+    <value>失败</value>
+  </data>
+  <data name="DxFeedAccountStatusInitialized" xml:space="preserve">
+    <value>已初始化</value>
+  </data>
+  <data name="DxFeedAccountStatusSuccess" xml:space="preserve">
+    <value>成功</value>
+  </data>
+  <data name="DxFeedPropTradingAccountCategory" xml:space="preserve">
+    <value>账户</value>
+  </data>
+  <data name="DxFeedPropTradingAccountDescription" xml:space="preserve">
+    <value>账户描述</value>
+  </data>
+  <data name="DxFeedPropTradingAccountHeader" xml:space="preserve">
+    <value>账户名称</value>
+  </data>
+  <data name="DxFeedPropTradingAccountNumber" xml:space="preserve">
+    <value>账户号码</value>
+  </data>
+  <data name="DxFeedPropTradingAccountPermission" xml:space="preserve">
+    <value>账户权限</value>
+  </data>
+  <data name="DxFeedPropTradingAccountStatus" xml:space="preserve">
+    <value>账户状态</value>
+  </data>
+  <data name="DxFeedPropTradingBalance" xml:space="preserve">
+    <value>余额</value>
+  </data>
+  <data name="DxFeedPropTradingBalanceCategory" xml:space="preserve">
+    <value>余额与保证金</value>
+  </data>
+  <data name="DxFeedPropTradingCurrency" xml:space="preserve">
+    <value>货币</value>
+  </data>
+  <data name="DxFeedPropTradingDailyNetPl" xml:space="preserve">
+    <value>每日净利润和损失（P&amp;L）</value>
+  </data>
+  <data name="DxFeedPropTradingDailyPl" xml:space="preserve">
+    <value>每日盈亏</value>
+  </data>
+  <data name="DxFeedPropTradingEquity" xml:space="preserve">
+    <value>股本</value>
+  </data>
+  <data name="DxFeedPropTradingIsEnabled" xml:space="preserve">
+    <value>已启用</value>
+  </data>
+  <data name="DxFeedPropTradingIsHedging" xml:space="preserve">
+    <value>是否对冲</value>
+  </data>
+  <data name="DxFeedPropTradingIsTradeCopierAllowed" xml:space="preserve">
+    <value>是否允许使用交易复制器</value>
+  </data>
+  <data name="DxFeedPropTradingIsTradingEnabled" xml:space="preserve">
+    <value>交易是否启用</value>
+  </data>
+  <data name="DxFeedPropTradingMarginAvailable" xml:space="preserve">
+    <value>可用保证金</value>
+  </data>
+  <data name="DxFeedPropTradingMarginUsed" xml:space="preserve">
+    <value>使用的保证金</value>
+  </data>
+  <data name="DxFeedPropTradingProfitTarget" xml:space="preserve">
+    <value>利润目标</value>
+  </data>
+  <data name="DxFeedPropTradingProfitTargetValue" xml:space="preserve">
+    <value>利润目标值</value>
+  </data>
+  <data name="DxFeedPropTradingRiskCategory" xml:space="preserve">
+    <value>风险管理</value>
+  </data>
+  <data name="DxFeedPropTradingSessionsCategory" xml:space="preserve">
+    <value>会议</value>
+  </data>
+  <data name="DxFeedPropTradingSessionsNumber" xml:space="preserve">
+    <value>会话数量</value>
+  </data>
+  <data name="DxFeedPropTradingSessionsNumberTarget" xml:space="preserve">
+    <value>会话目标</value>
+  </data>
+  <data name="DxFeedPropTradingStartBalance" xml:space="preserve">
+    <value>起始余额</value>
+  </data>
+  <data name="DxFeedPropTradingStopDrawdownIntraday" xml:space="preserve">
+    <value>日内止损</value>
+  </data>
+  <data name="DxFeedPropTradingStopDrawdownIntradayValue" xml:space="preserve">
+    <value>日内止损回撤值</value>
+  </data>
+  <data name="DxFeedPropTradingStopDrawdownOverall" xml:space="preserve">
+    <value>整体止损限额</value>
+  </data>
+  <data name="DxFeedPropTradingStopDrawdownOverallValue" xml:space="preserve">
+    <value>整体止损回撤值</value>
+  </data>
+  <data name="DxFeedPropTradingStopDrawdownWeekly" xml:space="preserve">
+    <value>每周止损</value>
+  </data>
+  <data name="DxFeedPropTradingStopDrawdownWeeklyValue" xml:space="preserve">
+    <value>每周止损值</value>
+  </data>
+  <data name="DxFeedPropTradingUserDailyLockoutEnabled" xml:space="preserve">
+    <value>用户每日锁定已启用</value>
+  </data>
+  <data name="DxFeedPropTradingUserDrawdownDailyBalance" xml:space="preserve">
+    <value>用户每日回撤余额</value>
+  </data>
+  <data name="DxFeedPropTradingUserDrawdownDailyValue" xml:space="preserve">
+    <value>用户每日回撤值</value>
+  </data>
+  <data name="DxFeedPropTradingUserDrawdownWeeklyBalance" xml:space="preserve">
+    <value>用户每周回撤余额</value>
+  </data>
+  <data name="DxFeedPropTradingUserDrawdownWeeklyValue" xml:space="preserve">
+    <value>用户每周回撤值</value>
+  </data>
+  <data name="DxFeedPropTradingUserLimitsCategory" xml:space="preserve">
+    <value>用户限制</value>
+  </data>
+  <data name="DxFeedPropTradingUserProfitDailyBalance" xml:space="preserve">
+    <value>用户每日利润余额</value>
+  </data>
+  <data name="DxFeedPropTradingUserProfitDailyValue" xml:space="preserve">
+    <value>用户每日利润值</value>
+  </data>
+  <data name="DxFeedPropTradingUserProfitWeeklyBalance" xml:space="preserve">
+    <value>用户每周利润余额</value>
+  </data>
+  <data name="DxFeedPropTradingUserProfitWeeklyValue" xml:space="preserve">
+    <value>用户每周利润值</value>
+  </data>
+  <data name="DxFeedPropTradingUserRiskRuleEnabled" xml:space="preserve">
+    <value>用户风险规则已启用</value>
+  </data>
+  <data name="EditDailyNote" xml:space="preserve">
+    <value>编辑每日笔记</value>
+  </data>
+  <data name="EditInExtendedSettingsTooltip" xml:space="preserve">
+    <value>在持仓开放时编辑设置，请使用扩展设置</value>
+  </data>
+  <data name="EditMenu" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="EditorButton" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="EditPlaybook" xml:space="preserve">
+    <value>编辑策略手册</value>
+  </data>
+  <data name="EditPlaybookHelperText" xml:space="preserve">
+    <value>修改您的策略手册设置</value>
+  </data>
+  <data name="EditStrategy" xml:space="preserve">
+    <value>编辑策略</value>
+  </data>
+  <data name="EditTrade" xml:space="preserve">
+    <value>编辑交易</value>
+  </data>
+  <data name="EditTradeMenu" xml:space="preserve">
+    <value>编辑...</value>
+  </data>
+  <data name="Emoji" xml:space="preserve">
+    <value>表情符号</value>
+  </data>
+  <data name="EnableCrossTrading" xml:space="preserve">
+    <value>启用跨交易</value>
+  </data>
+  <data name="EnableCrossTradingDescription" xml:space="preserve">
+    <value>该功能使用户能够在与当前图表或智能 DOM 中显示的金融工具不同的工具上执行交易。此功能允许交易者在执行另一项交易时分析一个市场，例如在交易 MES 的同时分析 ES。它有效地将市场分析与交易执行分开，从而增强了交易灵活性。</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="EnableImbalanceAlert" xml:space="preserve">
+    <value>启用不平衡警报</value>
+  </data>
+  <data name="Entry" xml:space="preserve">
+    <value>入场</value>
+  </data>
+  <data name="Equilibrium" xml:space="preserve">
+    <value>平衡</value>
+  </data>
+  <data name="ErrorSaveWorkspaceOnClosingMessage" xml:space="preserve">
+    <value>保存工作区时发生错误。</value>
+  </data>
+  <data name="ExanteAccount" xml:space="preserve">
+    <value>账户</value>
+  </data>
+  <data name="ExanteAccountCategory" xml:space="preserve">
+    <value>账户</value>
+  </data>
+  <data name="ExanteAvgPx" xml:space="preserve">
+    <value>平均价格</value>
+  </data>
+  <data name="ExanteCurrency" xml:space="preserve">
+    <value>货币</value>
+  </data>
+  <data name="ExanteCurrencySummaries" xml:space="preserve">
+    <value>货币摘要</value>
+  </data>
+  <data name="ExanteDefaultCurrency" xml:space="preserve">
+    <value>默认货币</value>
+  </data>
+  <data name="ExanteLongQty" xml:space="preserve">
+    <value>多头数量</value>
+  </data>
+  <data name="ExanteProfitAndLoss" xml:space="preserve">
+    <value>利润和损失</value>
+  </data>
+  <data name="ExanteShortQty" xml:space="preserve">
+    <value>短数量</value>
+  </data>
+  <data name="ExanteValue" xml:space="preserve">
+    <value>值</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>出场</value>
+  </data>
+  <data name="FailedToLoadPlatformSettingsMsg" xml:space="preserve">
+    <value>加载平台设置失败，使用默认设置。</value>
+  </data>
+  <data name="FavoriteDrawingObjects" xml:space="preserve">
+    <value>收藏的绘图对象</value>
+  </data>
+  <data name="FavoriteTimeframes" xml:space="preserve">
+    <value>收藏的时间框架</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>过滤</value>
+  </data>
+  <data name="Fire" xml:space="preserve">
+    <value>火</value>
+  </data>
+  <data name="FitToPriceRange" xml:space="preserve">
+    <value>适应价格范围</value>
+  </data>
+  <data name="FitToPriceRangeDescription" xml:space="preserve">
+    <value>仅在指定期间的最高点和最低点之间绘制会话区域</value>
+  </data>
+  <data name="FlattenAllConfirmationMessage" xml:space="preserve">
+    <value>您确定要关闭/取消所有头寸和订单吗？
+	此操作将影响所有选定的工具，并且无法撤消。</value>
+  </data>
+  <data name="FlattenAllConfirmationTitle" xml:space="preserve">
+    <value>确认操作</value>
+  </data>
+  <data name="FOK" xml:space="preserve">
+    <value>FOK</value>
+  </data>
+  <data name="Footprint" xml:space="preserve">
+    <value>足迹</value>
+  </data>
+  <data name="Forward" xml:space="preserve">
+    <value>向前</value>
+  </data>
+  <data name="FractalPeriodDescription" xml:space="preserve">
+    <value>识别分形所需的中心条两侧的条形数量。</value>
+  </data>
+  <data name="FullAccountDataLabel" xml:space="preserve">
+    <value>完整账户数据</value>
+  </data>
+  <data name="FullWidth" xml:space="preserve">
+    <value>全宽</value>
+  </data>
+  <data name="GeigerCounter" xml:space="preserve">
+    <value>盖革计数器</value>
+  </data>
+  <data name="GenerateRandom" xml:space="preserve">
+    <value>生成随机策略手册</value>
+  </data>
+  <data name="GlobalCrosshairLabel" xml:space="preserve">
+    <value>全局十字准星</value>
+  </data>
+  <data name="GoToWidgetFormat" xml:space="preserve">
+    <value>前往 {0}</value>
+  </data>
+  <data name="GrossPnL" xml:space="preserve">
+    <value>毛盈亏</value>
+  </data>
+  <data name="GTC" xml:space="preserve">
+    <value>GTC</value>
+  </data>
+  <data name="Heatmap3DMode" xml:space="preserve">
+    <value>3D模式</value>
+  </data>
+  <data name="HeatmapActivationThreshold" xml:space="preserve">
+    <value>激活阈值</value>
+  </data>
+  <data name="HeatmapAskColor" xml:space="preserve">
+    <value>询问颜色</value>
+  </data>
+  <data name="HeatmapAutoGain" xml:space="preserve">
+    <value>自动增益</value>
+  </data>
+  <data name="HeatmapBackdropColor" xml:space="preserve">
+    <value>背景颜色</value>
+  </data>
+  <data name="HeatmapBackdropSteepness" xml:space="preserve">
+    <value>背景陡度</value>
+  </data>
+  <data name="HeatmapBarWidthPercent" xml:space="preserve">
+    <value>条形宽度百分比</value>
+  </data>
+  <data name="HeatmapBestPriceAskColor" xml:space="preserve">
+    <value>最佳询价颜色</value>
+  </data>
+  <data name="HeatmapBestPriceBidColor" xml:space="preserve">
+    <value>最佳价格出价颜色</value>
+  </data>
+  <data name="HeatmapBestPrices" xml:space="preserve">
+    <value>最佳价格</value>
+  </data>
+  <data name="HeatmapBidColor" xml:space="preserve">
+    <value>出价颜色</value>
+  </data>
+  <data name="HeatmapBreakpointPercent" xml:space="preserve">
+    <value>断点百分比</value>
+  </data>
+  <data name="HeatmapBubbleAggregationWindow" xml:space="preserve">
+    <value>气泡聚合窗口</value>
+  </data>
+  <data name="HeatmapBubbleBuyColor" xml:space="preserve">
+    <value>气泡购买颜色</value>
+  </data>
+  <data name="HeatmapBubbleCalculation" xml:space="preserve">
+    <value>气泡计算</value>
+  </data>
+  <data name="HeatmapBubbleFill" xml:space="preserve">
+    <value>气泡填充</value>
+  </data>
+  <data name="HeatmapBubbleMaxRadius" xml:space="preserve">
+    <value>气泡最大半径</value>
+  </data>
+  <data name="HeatmapBubbles" xml:space="preserve">
+    <value>气泡</value>
+  </data>
+  <data name="HeatmapBubbleScaling" xml:space="preserve">
+    <value>气泡缩放</value>
+  </data>
+  <data name="HeatmapBubbleSellColor" xml:space="preserve">
+    <value>气泡销售颜色</value>
+  </data>
+  <data name="HeatmapBuyColor" xml:space="preserve">
+    <value>购买颜色</value>
+  </data>
+  <data name="HeatmapColorStabilizationPreset" xml:space="preserve">
+    <value>颜色稳定预设</value>
+  </data>
+  <data name="HeatmapCutoff" xml:space="preserve">
+    <value>截止</value>
+  </data>
+  <data name="HeatmapCutoffDeadband" xml:space="preserve">
+    <value>截止死区</value>
+  </data>
+  <data name="HeatmapCutoffSnapThreshold" xml:space="preserve">
+    <value>截止快照阈值</value>
+  </data>
+  <data name="HeatmapCvdCalculationMode" xml:space="preserve">
+    <value>CVD计算模式</value>
+  </data>
+  <data name="HeatmapCvdPanel" xml:space="preserve">
+    <value>CVD面板</value>
+  </data>
+  <data name="HeatmapCvdPanelHeight" xml:space="preserve">
+    <value>CVD面板高度</value>
+  </data>
+  <data name="HeatmapDepthIndicator" xml:space="preserve">
+    <value>深度指示器</value>
+  </data>
+  <data name="HeatmapDisplay" xml:space="preserve">
+    <value>显示</value>
+  </data>
+  <data name="HeatmapFallTime" xml:space="preserve">
+    <value>下降时间</value>
+  </data>
+  <data name="HeatmapHeightPercent" xml:space="preserve">
+    <value>高度百分比</value>
+  </data>
+  <data name="HeatmapIncludeZeros" xml:space="preserve">
+    <value>包含零</value>
+  </data>
+  <data name="HeatmapLevelSplitter" xml:space="preserve">
+    <value>级别分割器</value>
+  </data>
+  <data name="HeatmapLevelSplitterActivationPixels" xml:space="preserve">
+    <value>级别分割器激活像素</value>
+  </data>
+  <data name="HeatmapLevelSplitterColor" xml:space="preserve">
+    <value>级别分割器颜色</value>
+  </data>
+  <data name="HeatmapLevelSplitterThicknessPixels" xml:space="preserve">
+    <value>级别分隔符厚度（像素）</value>
+  </data>
+  <data name="HeatmapLoadingSubscribingMarketData" xml:space="preserve">
+    <value>正在订阅仪器市场数据...</value>
+  </data>
+  <data name="HeatmapLoadingWaitingForCurrentPrices" xml:space="preserve">
+    <value>等待当前市场价格...</value>
+  </data>
+  <data name="HeatmapLoadingWaitingForTickSize" xml:space="preserve">
+    <value>等待金融工具的最小变动价位...</value>
+  </data>
+  <data name="HeatmapLookupDeadband" xml:space="preserve">
+    <value>查找死区</value>
+  </data>
+  <data name="HeatmapLookupSnapThreshold" xml:space="preserve">
+    <value>查找快照阈值</value>
+  </data>
+  <data name="HeatmapLookupTime" xml:space="preserve">
+    <value>查找时间</value>
+  </data>
+  <data name="HeatmapLowerExactEnabled" xml:space="preserve">
+    <value>启用精确下限</value>
+  </data>
+  <data name="HeatmapLowerExactValue" xml:space="preserve">
+    <value>下确切值</value>
+  </data>
+  <data name="HeatmapLowerPercent" xml:space="preserve">
+    <value>下限 %</value>
+  </data>
+  <data name="HeatmapLowerPercentile" xml:space="preserve">
+    <value>下百分位</value>
+  </data>
+  <data name="HeatmapManualSigmaPx" xml:space="preserve">
+    <value>手动Sigma（px）</value>
+  </data>
+  <data name="HeatmapMaxFps" xml:space="preserve">
+    <value>最大帧率 (0 = 无限)</value>
+  </data>
+  <data name="HeatmapOpacity" xml:space="preserve">
+    <value>不透明度</value>
+  </data>
+  <data name="HeatmapPalette" xml:space="preserve">
+    <value>调色板</value>
+  </data>
+  <data name="HeatmapRendering" xml:space="preserve">
+    <value>热图渲染</value>
+  </data>
+  <data name="HeatmapRiseTime" xml:space="preserve">
+    <value>上升时间</value>
+  </data>
+  <data name="HeatmapScaleMode" xml:space="preserve">
+    <value>比例模式</value>
+  </data>
+  <data name="HeatmapSellColor" xml:space="preserve">
+    <value>销售颜色</value>
+  </data>
+  <data name="HeatmapShow3DMode" xml:space="preserve">
+    <value>3D模式</value>
+  </data>
+  <data name="HeatmapShowBestPrices" xml:space="preserve">
+    <value>显示最佳价格</value>
+  </data>
+  <data name="HeatmapShowCvdPanel" xml:space="preserve">
+    <value>显示CVD面板</value>
+  </data>
+  <data name="HeatmapShowDepthIndicator" xml:space="preserve">
+    <value>显示深度指示器</value>
+  </data>
+  <data name="HeatmapShowHeatmap" xml:space="preserve">
+    <value>显示热图</value>
+  </data>
+  <data name="HeatmapShowLabels" xml:space="preserve">
+    <value>显示标签</value>
+  </data>
+  <data name="HeatmapShowTrades" xml:space="preserve">
+    <value>显示交易</value>
+  </data>
+  <data name="HeatmapShowVolumeHistogram" xml:space="preserve">
+    <value>显示音量直方图</value>
+  </data>
+  <data name="HeatmapSigmaMaxPx" xml:space="preserve">
+    <value>Sigma Max (px)</value>
+  </data>
+  <data name="HeatmapSplitMode" xml:space="preserve">
+    <value>拆分模式</value>
+  </data>
+  <data name="HeatmapStartupLevels" xml:space="preserve">
+    <value>启动级别 (+/-)</value>
+  </data>
+  <data name="HeatmapTimeGrid" xml:space="preserve">
+    <value>时间网格</value>
+  </data>
+  <data name="HeatmapTimeTickSpacing" xml:space="preserve">
+    <value>时间刻度间距</value>
+  </data>
+  <data name="HeatmapTitle" xml:space="preserve">
+    <value>热图</value>
+  </data>
+  <data name="HeatmapUpperExactEnabled" xml:space="preserve">
+    <value>上限精确启用</value>
+  </data>
+  <data name="HeatmapUpperExactValue" xml:space="preserve">
+    <value>上确切值</value>
+  </data>
+  <data name="HeatmapUpperPercent" xml:space="preserve">
+    <value>上限 %</value>
+  </data>
+  <data name="HeatmapUpperPercentile" xml:space="preserve">
+    <value>上百分位</value>
+  </data>
+  <data name="HeatmapViewMenu" xml:space="preserve">
+    <value>视图</value>
+  </data>
+  <data name="HeatmapVolumeHistogramGroup" xml:space="preserve">
+    <value>体积直方图</value>
+  </data>
+  <data name="HeatmapWidthPercent" xml:space="preserve">
+    <value>宽度百分比</value>
+  </data>
+  <data name="HeightAlert" xml:space="preserve">
+    <value>高度警报</value>
+  </data>
+  <data name="HorizontalBars" xml:space="preserve">
+    <value>水平条</value>
+  </data>
+  <data name="HorizontalPosition" xml:space="preserve">
+    <value>水平位置</value>
+  </data>
+  <data name="HourlyPnL" xml:space="preserve">
+    <value>每小时盈亏</value>
+  </data>
+  <data name="IBAccountCategory" xml:space="preserve">
+    <value>账户</value>
+  </data>
+  <data name="IBAccountCode" xml:space="preserve">
+    <value>账户代码</value>
+  </data>
+  <data name="IBAccountReady" xml:space="preserve">
+    <value>账户已准备好</value>
+  </data>
+  <data name="IBAccountType" xml:space="preserve">
+    <value>账户类型</value>
+  </data>
+  <data name="IBAccruedCash" xml:space="preserve">
+    <value>应计现金</value>
+  </data>
+  <data name="IBAccruedDividend" xml:space="preserve">
+    <value>应计股息</value>
+  </data>
+  <data name="IBAvailableFunds" xml:space="preserve">
+    <value>可用资金</value>
+  </data>
+  <data name="IBBalanceCategory" xml:space="preserve">
+    <value>余额</value>
+  </data>
+  <data name="IBBuyingPower" xml:space="preserve">
+    <value>购买力</value>
+  </data>
+  <data name="IBCashBalance" xml:space="preserve">
+    <value>现金余额</value>
+  </data>
+  <data name="IBCurrency" xml:space="preserve">
+    <value>货币</value>
+  </data>
+  <data name="IBCushion" xml:space="preserve">
+    <value>缓冲</value>
+  </data>
+  <data name="IBDayTradesRemaining" xml:space="preserve">
+    <value>剩余日交易</value>
+  </data>
+  <data name="IBDayTradesRemainingT1" xml:space="preserve">
+    <value>剩余日内交易（T+1）</value>
+  </data>
+  <data name="IBDayTradesRemainingT2" xml:space="preserve">
+    <value>剩余日交易（T+2）</value>
+  </data>
+  <data name="IBDayTradesRemainingT3" xml:space="preserve">
+    <value>剩余日交易（T+3）</value>
+  </data>
+  <data name="IBDayTradesRemainingT4" xml:space="preserve">
+    <value>剩余日交易（T+4）</value>
+  </data>
+  <data name="IBEquityWithLoanValue" xml:space="preserve">
+    <value>考虑贷款价值的股权</value>
+  </data>
+  <data name="IBExcessLiquidity" xml:space="preserve">
+    <value>超额流动性</value>
+  </data>
+  <data name="IBExchangeRate" xml:space="preserve">
+    <value>汇率</value>
+  </data>
+  <data name="IBFullAvailableFunds" xml:space="preserve">
+    <value>可用资金总额</value>
+  </data>
+  <data name="IBFullExcessLiquidity" xml:space="preserve">
+    <value>完全超额流动性</value>
+  </data>
+  <data name="IBFullInitMarginReq" xml:space="preserve">
+    <value>全初始保证金要求</value>
+  </data>
+  <data name="IBFullMaintMarginReq" xml:space="preserve">
+    <value>"全维护保证金要求"表示在不考虑任何折扣或日内信用的情况下，投资组合所需的总维护保证金。这个值对于确保投资者在其账户中保持足够的资本以覆盖潜在损失至关重要。在代码中，它被定义为IBPortfolioExtendedInfo类中的一个可空十进制属性。</value>
+  </data>
+  <data name="IBFutureOptionValue" xml:space="preserve">
+    <value>期货期权价值</value>
+  </data>
+  <data name="IBFuturesPNL" xml:space="preserve">
+    <value>期货PNL</value>
+  </data>
+  <data name="IBGrossPositionValue" xml:space="preserve">
+    <value>总头寸价值</value>
+  </data>
+  <data name="IBInitMarginReq" xml:space="preserve">
+    <value>初始保证金要求</value>
+  </data>
+  <data name="IBLookAheadAvailableFunds" xml:space="preserve">
+    <value>预期可用资金</value>
+  </data>
+  <data name="IBLookAheadExcessLiquidity" xml:space="preserve">
+    <value>前瞻性超额流动性</value>
+  </data>
+  <data name="IBLookAheadInitMarginReq" xml:space="preserve">
+    <value>前瞻性初始保证金要求</value>
+  </data>
+  <data name="IBLookAheadMaintMarginReq" xml:space="preserve">
+    <value>前瞻性维护保证金要求</value>
+  </data>
+  <data name="IBMaintMarginReq" xml:space="preserve">
+    <value>维持保证金要求</value>
+  </data>
+  <data name="IBMarginCategory" xml:space="preserve">
+    <value>保证金</value>
+  </data>
+  <data name="IBMarketValuesCategory" xml:space="preserve">
+    <value>市场价值</value>
+  </data>
+  <data name="IBNetLiquidation" xml:space="preserve">
+    <value>净清算</value>
+  </data>
+  <data name="IBOptionMarketValue" xml:space="preserve">
+    <value>期权市场价值</value>
+  </data>
+  <data name="IBPnLCategory" xml:space="preserve">
+    <value>利润和损失</value>
+  </data>
+  <data name="IBPreviousDayEquityWithLoanValue" xml:space="preserve">
+    <value>前一天的贷款价值权益</value>
+  </data>
+  <data name="IBRealizedPnL" xml:space="preserve">
+    <value>已实现的PnL</value>
+  </data>
+  <data name="IBRegTEquity" xml:space="preserve">
+    <value>Reg T 股权</value>
+  </data>
+  <data name="IBRegTMargin" xml:space="preserve">
+    <value>Reg T保证金</value>
+  </data>
+  <data name="IBRegulatoryCategory" xml:space="preserve">
+    <value>监管</value>
+  </data>
+  <data name="IBSMA" xml:space="preserve">
+    <value>SMA</value>
+  </data>
+  <data name="IBStockMarketValue" xml:space="preserve">
+    <value>股票市场价值</value>
+  </data>
+  <data name="IBTotalCashBalance" xml:space="preserve">
+    <value>总现金余额</value>
+  </data>
+  <data name="IBTotalCashValue" xml:space="preserve">
+    <value>总现金价值</value>
+  </data>
+  <data name="IBUnrealizedPnL" xml:space="preserve">
+    <value>未实现的PnL</value>
+  </data>
+  <data name="IdentifyingIcebergsMsg" xml:space="preserve">
+    <value>识别冰山</value>
+  </data>
+  <data name="ImbalanceAlerts" xml:space="preserve">
+    <value>不平衡警报</value>
+  </data>
+  <data name="ImbalanceSound" xml:space="preserve">
+    <value>不平衡声音</value>
+  </data>
+  <data name="ImportantSettingsTitle" xml:space="preserve">
+    <value>重要设置</value>
+  </data>
+  <data name="IncreasePositionSize" xml:space="preserve">
+    <value>增加交易量</value>
+  </data>
+  <data name="IndicatorLoadError" xml:space="preserve">
+    <value>加载指标设置失败。该指标可能与此版本的平台不兼容。</value>
+  </data>
+  <data name="IndicatorProtectedFromDebugging" xml:space="preserve">
+    <value>该指标已启用调试保护。</value>
+  </data>
+  <data name="InstrumentDragHandleTooltip" xml:space="preserve">
+    <value>拖动到另一个模块以打开仪器</value>
+  </data>
+  <data name="InstrumentNotLoadedStrategySettingsHint" xml:space="preserve">
+    <value>该工具尚未加载。
+打开该工具的图表或智能 DOM 以启用策略设置。</value>
+  </data>
+  <data name="InstrumentNotSupportedByLiquidationsFeed" xml:space="preserve">
+    <value>当前工具不受清算数据馈送的支持。</value>
+  </data>
+  <data name="InstrumentNotSupportedByLongShortRatioFeed" xml:space="preserve">
+    <value>当前仪器不受长短比数据馈送的支持。</value>
+  </data>
+  <data name="InstrumentNotSupportedByOpenInterestFeed" xml:space="preserve">
+    <value>当前金融工具不受开放兴趣数据源支持。</value>
+  </data>
+  <data name="InstrumentsCountFilter" xml:space="preserve">
+    <value>{0} 个工具</value>
+  </data>
+  <data name="InsufficientDataForPeriod" xml:space="preserve">
+    <value>此期间数据不足。</value>
+  </data>
+  <data name="IOCShort" xml:space="preserve">
+    <value>IOC</value>
+  </data>
+  <data name="KeepDrawingMode" xml:space="preserve">
+    <value>继续绘图</value>
+  </data>
+  <data name="KrakenAvailable" xml:space="preserve">
+    <value>可用</value>
+  </data>
+  <data name="KrakenAvailableMargin" xml:space="preserve">
+    <value>可用保证金</value>
+  </data>
+  <data name="KrakenBalance" xml:space="preserve">
+    <value>余额</value>
+  </data>
+  <data name="KrakenBalanceValue" xml:space="preserve">
+    <value>余额值</value>
+  </data>
+  <data name="KrakenCashValue" xml:space="preserve">
+    <value>现金价值</value>
+  </data>
+  <data name="KrakenCollateralValue" xml:space="preserve">
+    <value>抵押价值</value>
+  </data>
+  <data name="KrakenConnectingUrl" xml:space="preserve">
+    <value>https://help.atas.net/support/solutions/articles/72000648190</value>
+  </data>
+  <data name="KrakenConversionSpread" xml:space="preserve">
+    <value>转换差价</value>
+  </data>
+  <data name="KrakenCurrencyAvailable" xml:space="preserve">
+    <value>可用</value>
+  </data>
+  <data name="KrakenCurrencyCollateralValue" xml:space="preserve">
+    <value>抵押价值</value>
+  </data>
+  <data name="KrakenCurrencyInfoCategory" xml:space="preserve">
+    <value>货币信息</value>
+  </data>
+  <data name="KrakenCurrencyQuantity" xml:space="preserve">
+    <value>数量</value>
+  </data>
+  <data name="KrakenCurrencyValue" xml:space="preserve">
+    <value>值</value>
+  </data>
+  <data name="KrakenDomDepth" xml:space="preserve">
+    <value>订单簿深度（仅适用于现货交易）</value>
+  </data>
+  <data name="KrakenFlexFuturesCategory" xml:space="preserve">
+    <value>灵活期货</value>
+  </data>
+  <data name="KrakenHaircut" xml:space="preserve">
+    <value>减值</value>
+  </data>
+  <data name="KrakenInitialMargin" xml:space="preserve">
+    <value>初始保证金</value>
+  </data>
+  <data name="KrakenInitialMarginWithoutOrders" xml:space="preserve">
+    <value>无订单的初始保证金</value>
+  </data>
+  <data name="KrakenInverseFuturesCategory" xml:space="preserve">
+    <value>反向期货</value>
+  </data>
+  <data name="KrakenMaintenanceMargin" xml:space="preserve">
+    <value>维持保证金</value>
+  </data>
+  <data name="KrakenMarginEquity" xml:space="preserve">
+    <value>保证金权益</value>
+  </data>
+  <data name="KrakenPnl" xml:space="preserve">
+    <value>盈亏</value>
+  </data>
+  <data name="KrakenPortfolioValue" xml:space="preserve">
+    <value>投资组合价值</value>
+  </data>
+  <data name="KrakenTotalUnrealized" xml:space="preserve">
+    <value>总未实现</value>
+  </data>
+  <data name="KrakenTotalUnrealizedAsMargin" xml:space="preserve">
+    <value>作为保证金的总未实现收益或损失</value>
+  </data>
+  <data name="KrakenUnrealizedFunding" xml:space="preserve">
+    <value>未实现资金</value>
+  </data>
+  <data name="LabelDisplay" xml:space="preserve">
+    <value>Label Display</value>
+  </data>
+  <data name="LabelDisplayDescription" xml:space="preserve">
+    <value>Control label visibility: Hide, Short (direction + result), Full (with prices)</value>
+  </data>
+  <data name="Large" xml:space="preserve">
+    <value>大</value>
+  </data>
+  <data name="LargeChangeScale" xml:space="preserve">
+    <value>10倍变化比例以设置步骤</value>
+  </data>
+  <data name="LargeChangeScaleDescription" xml:space="preserve">
+    <value>键=在鼠标滚动时的修饰键，以将价格比例更改为10倍</value>
+  </data>
+  <data name="LargeDecrementScale" xml:space="preserve">
+    <value>10倍价格递减缩放</value>
+  </data>
+  <data name="LargeDecrementScaleDescription" xml:space="preserve">
+    <value>10倍价格规模减少</value>
+  </data>
+  <data name="LargeIncrementScale" xml:space="preserve">
+    <value>10倍增量缩放价格</value>
+  </data>
+  <data name="LargeIncrementScaleDescription" xml:space="preserve">
+    <value>价格规模增加10倍</value>
+  </data>
+  <data name="LastDayTemplate" xml:space="preserve">
+    <value>最后一天</value>
+  </data>
+  <data name="LastTradeDate" xml:space="preserve">
+    <value>最后交易日期</value>
+  </data>
+  <data name="LayoutGroup" xml:space="preserve">
+    <value>布局</value>
+  </data>
+  <data name="LearningCenterPanelTitle" xml:space="preserve">
+    <value>学习中心</value>
+  </data>
+  <data name="LearningStep1Title" xml:space="preserve">
+    <value>步骤 1：平台</value>
+  </data>
+  <data name="LearningStep2Title" xml:space="preserve">
+    <value>步骤 2：交易</value>
+  </data>
+  <data name="LearningStep3Title" xml:space="preserve">
+    <value>步骤 3：链接</value>
+  </data>
+  <data name="LevelsDescription" xml:space="preserve">
+    <value>要分析的订单簿级别数量。更多级别提供更全面的市场流动性视图。</value>
+  </data>
+  <data name="Linear" xml:space="preserve">
+    <value>线性</value>
+  </data>
+  <data name="LiquidationOrdersAggregationModeGlobalDescription" xml:space="preserve">
+    <value>聚合来自各种符号和交易所的所有可用清算订单。</value>
+  </data>
+  <data name="LiquidationOrdersAggregationModeGlobalTitle" xml:space="preserve">
+    <value>全局聚合</value>
+  </data>
+  <data name="LiquidationOrdersAggregationModeLocalDescription" xml:space="preserve">
+    <value>为特定交易所的特定符号聚合清算订单。</value>
+  </data>
+  <data name="LiquidationOrdersAggregationModeLocalTitle" xml:space="preserve">
+    <value>本地聚合</value>
+  </data>
+  <data name="LiquidationOrdersAggregationModesDescription" xml:space="preserve">
+    <value>定义如何聚合清算事件。</value>
+  </data>
+  <data name="LiquidationOrdersAggregationModeSymbolGlobalDescription" xml:space="preserve">
+    <value>对在所有上市交易所的特定交易符号进行清算订单的汇总。</value>
+  </data>
+  <data name="LiquidationOrdersAggregationModeSymbolGlobalTitle" xml:space="preserve">
+    <value>符号全球聚合</value>
+  </data>
+  <data name="LiquidationTypesGlobal" xml:space="preserve">
+    <value>全球（所有符号和交易所）</value>
+  </data>
+  <data name="LiquidationTypesLocal" xml:space="preserve">
+    <value>当前工具和交易所</value>
+  </data>
+  <data name="LiquidationTypesSymbolGlobal" xml:space="preserve">
+    <value>当前工具（所有交易所）</value>
+  </data>
+  <data name="LoadingInstrument" xml:space="preserve">
+    <value>正在加载仪器...</value>
+  </data>
+  <data name="LoadPlatformSettingsErrorMsg" xml:space="preserve">
+    <value>加载平台设置失败。
+应用程序现在将关闭。</value>
+  </data>
+  <data name="LossColor" xml:space="preserve">
+    <value>亏损颜色</value>
+  </data>
+  <data name="LossTradeResultColorDescription" xml:space="preserve">
+    <value>指定用于亏损交易结果部分的颜色。</value>
+  </data>
+  <data name="Magenta" xml:space="preserve">
+    <value>品红</value>
+  </data>
+  <data name="MarketNewsRibbonPage" xml:space="preserve">
+    <value>市场新闻</value>
+  </data>
+  <data name="MaxAudioIntensity" xml:space="preserve">
+    <value>最大音频强度</value>
+  </data>
+  <data name="MaxConsecutiveLosses" xml:space="preserve">
+    <value>最大连续亏损</value>
+  </data>
+  <data name="MaxConsecutiveWins" xml:space="preserve">
+    <value>最大连续盈利</value>
+  </data>
+  <data name="MaxDeltaAlert" xml:space="preserve">
+    <value>最大Delta警报</value>
+  </data>
+  <data name="MaxDrawdownDate" xml:space="preserve">
+    <value>最大回撤日期</value>
+  </data>
+  <data name="MaximizeWidget" xml:space="preserve">
+    <value>最大化</value>
+  </data>
+  <data name="MaxReplayPeriod" xml:space="preserve">
+    <value>最大期限</value>
+  </data>
+  <data name="Med" xml:space="preserve">
+    <value>中等</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>中等</value>
+  </data>
+  <data name="Menu" xml:space="preserve">
+    <value>菜单</value>
+  </data>
+  <data name="MinAudioIntensity" xml:space="preserve">
+    <value>最小音频强度</value>
+  </data>
+  <data name="MinDeltaAlert" xml:space="preserve">
+    <value>最小Delta警报</value>
+  </data>
+  <data name="ModuleUpdateAvailable" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="MT5AccountCategory" xml:space="preserve">
+    <value>账户</value>
+  </data>
+  <data name="MT5Balance" xml:space="preserve">
+    <value>余额</value>
+  </data>
+  <data name="MT5BalanceCategory" xml:space="preserve">
+    <value>余额</value>
+  </data>
+  <data name="MT5Credit" xml:space="preserve">
+    <value>信用</value>
+  </data>
+  <data name="MT5Equity" xml:space="preserve">
+    <value>权益</value>
+  </data>
+  <data name="MT5ExpertAllowed" xml:space="preserve">
+    <value>允许专家顾问</value>
+  </data>
+  <data name="MT5FreeMargin" xml:space="preserve">
+    <value>自由保证金</value>
+  </data>
+  <data name="MT5Leverage" xml:space="preserve">
+    <value>杠杆</value>
+  </data>
+  <data name="MT5LimitOrders" xml:space="preserve">
+    <value>最大待处理订单</value>
+  </data>
+  <data name="MT5Margin" xml:space="preserve">
+    <value>保证金</value>
+  </data>
+  <data name="MT5MarginCategory" xml:space="preserve">
+    <value>保证金</value>
+  </data>
+  <data name="MT5MarginMode" xml:space="preserve">
+    <value>保证金模式</value>
+  </data>
+  <data name="MT5Profit" xml:space="preserve">
+    <value>利润</value>
+  </data>
+  <data name="MT5StopoutMode" xml:space="preserve">
+    <value>止损模式</value>
+  </data>
+  <data name="MT5TradeMode" xml:space="preserve">
+    <value>交易模式</value>
+  </data>
+  <data name="MyAddonsMenu" xml:space="preserve">
+    <value>我的插件</value>
+  </data>
+  <data name="NegativeColor" xml:space="preserve">
+    <value>负值颜色</value>
+  </data>
+  <data name="NegativeColorDescription" xml:space="preserve">
+    <value>负盈亏值的颜色</value>
+  </data>
+  <data name="NetPnL" xml:space="preserve">
+    <value>净盈亏</value>
+  </data>
+  <data name="NewWorkspaceTitle" xml:space="preserve">
+    <value>新工作区</value>
+  </data>
+  <data name="NinjaTraderBalanceCategory" xml:space="preserve">
+    <value>余额和现金</value>
+  </data>
+  <data name="NinjaTraderBuyingPower" xml:space="preserve">
+    <value>购买力</value>
+  </data>
+  <data name="NinjaTraderCommission" xml:space="preserve">
+    <value>佣金</value>
+  </data>
+  <data name="NinjaTraderDailyLossLimit" xml:space="preserve">
+    <value>每日损失限额</value>
+  </data>
+  <data name="NinjaTraderDailyProfitTrigger" xml:space="preserve">
+    <value>每日利润触发器</value>
+  </data>
+  <data name="NinjaTraderExcessInitialMargin" xml:space="preserve">
+    <value>超额初始保证金</value>
+  </data>
+  <data name="NinjaTraderExcessIntradayMargin" xml:space="preserve">
+    <value>额外的日内保证金</value>
+  </data>
+  <data name="NinjaTraderExcessMaintenanceMargin" xml:space="preserve">
+    <value>超额维持保证金</value>
+  </data>
+  <data name="NinjaTraderExcessPositionMargin" xml:space="preserve">
+    <value>超额头寸保证金</value>
+  </data>
+  <data name="NinjaTraderFee" xml:space="preserve">
+    <value>费用</value>
+  </data>
+  <data name="NinjaTraderFeesCategory" xml:space="preserve">
+    <value>费用</value>
+  </data>
+  <data name="NinjaTraderGrossRealizedProfitLoss" xml:space="preserve">
+    <value>毛收益/损失</value>
+  </data>
+  <data name="NinjaTraderInitialMargin" xml:space="preserve">
+    <value>初始保证金</value>
+  </data>
+  <data name="NinjaTraderIntradayMargin" xml:space="preserve">
+    <value>日内保证金</value>
+  </data>
+  <data name="NinjaTraderLongOptionValue" xml:space="preserve">
+    <value>长期期权价值</value>
+  </data>
+  <data name="NinjaTraderLongStockValue" xml:space="preserve">
+    <value>长期股票价值</value>
+  </data>
+  <data name="NinjaTraderLookAheadMaintenanceMargin" xml:space="preserve">
+    <value>前瞻性维护保证金</value>
+  </data>
+  <data name="NinjaTraderMaintenanceMargin" xml:space="preserve">
+    <value>维持保证金</value>
+  </data>
+  <data name="NinjaTraderMarginCategory" xml:space="preserve">
+    <value>保证金</value>
+  </data>
+  <data name="NinjaTraderNetLiquidation" xml:space="preserve">
+    <value>净清算</value>
+  </data>
+  <data name="NinjaTraderPnLCategory" xml:space="preserve">
+    <value>利润/损失</value>
+  </data>
+  <data name="NinjaTraderPositionMargin" xml:space="preserve">
+    <value>持仓保证金</value>
+  </data>
+  <data name="NinjaTraderRealizedProfitLoss" xml:space="preserve">
+    <value>已实现盈亏</value>
+  </data>
+  <data name="NinjaTraderRiskLimitsCategory" xml:space="preserve">
+    <value>风险限制</value>
+  </data>
+  <data name="NinjaTraderShortOptionValue" xml:space="preserve">
+    <value>短期期权价值</value>
+  </data>
+  <data name="NinjaTraderShortStockValue" xml:space="preserve">
+    <value>短期股票价值</value>
+  </data>
+  <data name="NinjaTraderSodCashValue" xml:space="preserve">
+    <value>日初现金价值</value>
+  </data>
+  <data name="NinjaTraderSodLiquidatingValue" xml:space="preserve">
+    <value>日初清算价值</value>
+  </data>
+  <data name="NinjaTraderTotalCashBalance" xml:space="preserve">
+    <value>总现金余额</value>
+  </data>
+  <data name="NinjaTraderTrailingMaxDrawdown" xml:space="preserve">
+    <value>跟踪最大回撤</value>
+  </data>
+  <data name="NinjaTraderUnrealizedProfitLoss" xml:space="preserve">
+    <value>未实现盈亏</value>
+  </data>
+  <data name="NinjaTraderValuesCategory" xml:space="preserve">
+    <value>资产类别</value>
+  </data>
+  <data name="NinjaTraderWeeklyLossLimit" xml:space="preserve">
+    <value>每周损失限制</value>
+  </data>
+  <data name="NinjaTraderWeeklyProfitLoss" xml:space="preserve">
+    <value>每周盈亏</value>
+  </data>
+  <data name="NinjaTraderWeeklyProfitTrigger" xml:space="preserve">
+    <value>每周利润触发器</value>
+  </data>
+  <data name="NoAccount" xml:space="preserve">
+    <value>[没有账户]</value>
+  </data>
+  <data name="NoDataSessionHint" xml:space="preserve">
+    <value>您可以在下方面板中更改交易时段。</value>
+  </data>
+  <data name="NoPlaybook" xml:space="preserve">
+    <value>无策略</value>
+  </data>
+  <data name="NoPlaybooksYet" xml:space="preserve">
+    <value>暂无策略手册</value>
+  </data>
+  <data name="NotificationFlowDirection" xml:space="preserve">
+    <value>方向</value>
+  </data>
+  <data name="NotificationFlowDirectionBottomToTop" xml:space="preserve">
+    <value>从下到上</value>
+  </data>
+  <data name="NotificationFlowDirectionDescription" xml:space="preserve">
+    <value>选择多条通知出现时的堆叠方向。</value>
+  </data>
+  <data name="NotificationFlowDirectionTopToBottom" xml:space="preserve">
+    <value>从上到下</value>
+  </data>
+  <data name="Off" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="OfflinePlaceholder" xml:space="preserve">
+    <value>[离线]</value>
+  </data>
+  <data name="OffsetX" xml:space="preserve">
+    <value>X 轴位移</value>
+  </data>
+  <data name="OffsetXDescription" xml:space="preserve">
+    <value>距离边缘的水平偏移</value>
+  </data>
+  <data name="OffsetY" xml:space="preserve">
+    <value>Y 轴位移</value>
+  </data>
+  <data name="OffsetYDescription" xml:space="preserve">
+    <value>距离边缘的垂直偏移</value>
+  </data>
+  <data name="OHLCPlusDescription" xml:space="preserve">
+    <value>扩展价格水平指标，显示多个时间周期的OHLC、均衡、POC和价值区域水平</value>
+  </data>
+  <data name="OkxAccountInfoCategory" xml:space="preserve">
+    <value>账户信息</value>
+  </data>
+  <data name="OkxAdjustedEquity" xml:space="preserve">
+    <value>调整后的权益</value>
+  </data>
+  <data name="OkxAvailableBalance" xml:space="preserve">
+    <value>可用余额</value>
+  </data>
+  <data name="OkxAvailableEquity" xml:space="preserve">
+    <value>可用权益</value>
+  </data>
+  <data name="OkxCashBalance" xml:space="preserve">
+    <value>现金余额</value>
+  </data>
+  <data name="OkxCoinEquity" xml:space="preserve">
+    <value>币权</value>
+  </data>
+  <data name="OkxCoinEquityUsd" xml:space="preserve">
+    <value>币权在美元中的价值</value>
+  </data>
+  <data name="OkxCoinInfoCategory" xml:space="preserve">
+    <value>币种信息</value>
+  </data>
+  <data name="OkxCoinIsolatedEquity" xml:space="preserve">
+    <value>币种隔离权益</value>
+  </data>
+  <data name="OkxCoinMarginRatio" xml:space="preserve">
+    <value>币种保证金比率</value>
+  </data>
+  <data name="OkxCoinOrderFrozen" xml:space="preserve">
+    <value>币种订单冻结</value>
+  </data>
+  <data name="OkxCoinUsdPrice" xml:space="preserve">
+    <value>币的美元价格</value>
+  </data>
+  <data name="OkxCrossLiability" xml:space="preserve">
+    <value>交叉责任</value>
+  </data>
+  <data name="OkxDiscountedEquity" xml:space="preserve">
+    <value>折扣股本</value>
+  </data>
+  <data name="OkxFrozenBalance" xml:space="preserve">
+    <value>冻结余额</value>
+  </data>
+  <data name="OkxInitialMargin" xml:space="preserve">
+    <value>初始保证金</value>
+  </data>
+  <data name="OkxInterest" xml:space="preserve">
+    <value>利息</value>
+  </data>
+  <data name="OkxIsolatedEquity" xml:space="preserve">
+    <value>隔离权益</value>
+  </data>
+  <data name="OkxIsolatedLiability" xml:space="preserve">
+    <value>隔离责任</value>
+  </data>
+  <data name="OkxIsolatedUnrealizedPnl" xml:space="preserve">
+    <value>隔离未实现盈亏</value>
+  </data>
+  <data name="OkxLiability" xml:space="preserve">
+    <value>负债</value>
+  </data>
+  <data name="OkxMaintenanceMargin" xml:space="preserve">
+    <value>维持保证金</value>
+  </data>
+  <data name="OkxMarginCategory" xml:space="preserve">
+    <value>保证金</value>
+  </data>
+  <data name="OkxMarginRatio" xml:space="preserve">
+    <value>保证金比率</value>
+  </data>
+  <data name="OkxMaxLoan" xml:space="preserve">
+    <value>最大贷款</value>
+  </data>
+  <data name="OkxNotionalLeverage" xml:space="preserve">
+    <value>名义杠杆</value>
+  </data>
+  <data name="OkxNotionalUsd" xml:space="preserve">
+    <value>名义美元价值</value>
+  </data>
+  <data name="OkxOrderFrozen" xml:space="preserve">
+    <value>订单冻结</value>
+  </data>
+  <data name="OkxSpotInUseAmount" xml:space="preserve">
+    <value>现货使用金额</value>
+  </data>
+  <data name="OkxStrategyEquity" xml:space="preserve">
+    <value>策略股本</value>
+  </data>
+  <data name="OkxTotalEquity" xml:space="preserve">
+    <value>总权益</value>
+  </data>
+  <data name="OkxUnrealizedPnl" xml:space="preserve">
+    <value>未实现的盈亏</value>
+  </data>
+  <data name="OkxUnrealizedPnlLiability" xml:space="preserve">
+    <value>未实现的PnL负债</value>
+  </data>
+  <data name="OnlyCryptoInstrumentsSupportedMessage" xml:space="preserve">
+    <value>当前的金融工具不受支持，请打开加密货币工具。</value>
+  </data>
+  <data name="OnlyThisChartLabel" xml:space="preserve">
+    <value>仅此图表</value>
+  </data>
+  <data name="OnlyTimeFrameChartsSupported" xml:space="preserve">
+    <value>仅支持标准时间框架图表（1M及以上）。</value>
+  </data>
+  <data name="OpenCloseMode" xml:space="preserve">
+    <value>开关模式是指在CustomHistogramm类中的特定设置，用于管理平台绘图对象中的数据可视化。它具有分组和描述等显示属性，增强了用户交互和清晰度。此模式是市场配置文件设置的核心，允许用户有效地自定义他们的分析工具。</value>
+  </data>
+  <data name="OpenInNewTabLabel" xml:space="preserve">
+    <value>在新标签页中打开</value>
+  </data>
+  <data name="OpenInNewWindowLabel" xml:space="preserve">
+    <value>在新窗口中打开</value>
+  </data>
+  <data name="OpenInstrumentManagerBtn" xml:space="preserve">
+    <value>打开仪器管理器</value>
+  </data>
+  <data name="OpenNewTab" xml:space="preserve">
+    <value>打开新标签页</value>
+  </data>
+  <data name="OpenXmlFileFilter" xml:space="preserve">
+    <value>Microsoft Excel 2007 (*.xlsx)|*.xlsx</value>
+  </data>
+  <data name="OptionsBoardAccountAndSeries" xml:space="preserve">
+    <value>账户和系列：</value>
+  </data>
+  <data name="OptionsBoardAccountRequired" xml:space="preserve">
+    <value>需要账户</value>
+  </data>
+  <data name="OptionsBoardAccountRequiredMessage" xml:space="preserve">
+    <value>请选择一个支持期权数据的交易账户</value>
+  </data>
+  <data name="OptionsBoardAllSeriesTypes" xml:space="preserve">
+    <value>所有类型</value>
+  </data>
+  <data name="OptionsBoardCollapseAll" xml:space="preserve">
+    <value>全部折叠</value>
+  </data>
+  <data name="OptionsBoardColumns" xml:space="preserve">
+    <value>列</value>
+  </data>
+  <data name="OptionsBoardContracts" xml:space="preserve">
+    <value>合同</value>
+  </data>
+  <data name="OptionsBoardExpandAll" xml:space="preserve">
+    <value>全部展开</value>
+  </data>
+  <data name="OptionsBoardHint" xml:space="preserve">
+    <value>使用上面的控件开始</value>
+  </data>
+  <data name="OptionsBoardLoadingData" xml:space="preserve">
+    <value>加载数据中...</value>
+  </data>
+  <data name="OptionsBoardLoadingDataMessage" xml:space="preserve">
+    <value>请稍候，正在加载期权数据</value>
+  </data>
+  <data name="OptionsBoardLoadingOptionSeries" xml:space="preserve">
+    <value>加载期权系列...</value>
+  </data>
+  <data name="OptionsBoardLoadingOptionSeriesMessage" xml:space="preserve">
+    <value>请稍候，正在加载期权系列</value>
+  </data>
+  <data name="OptionsBoardMultipleSeriesTypes" xml:space="preserve">
+    <value>{0} 种类</value>
+  </data>
+  <data name="OptionsBoardNotAvailableInReplay" xml:space="preserve">
+    <value>在回放模式下，选项板功能无法访问。用户在此回放功能期间无法查看或与选项板互动。此限制可能会影响依赖此功能的用户的分析和决策过程。</value>
+  </data>
+  <data name="OptionsBoardSelectSeries" xml:space="preserve">
+    <value>选择系列</value>
+  </data>
+  <data name="OptionsBoardSelectSeriesTypes" xml:space="preserve">
+    <value>选择类型</value>
+  </data>
+  <data name="OptionsBoardSeriesRequired" xml:space="preserve">
+    <value>需要系列</value>
+  </data>
+  <data name="OptionsBoardSeriesRequiredMessage" xml:space="preserve">
+    <value>请选择一个选项系列以查看选项板</value>
+  </data>
+  <data name="OptionsBoardSeriesType" xml:space="preserve">
+    <value>系列类型</value>
+  </data>
+  <data name="OptionsBoardSeriesTypeEndOfMonth" xml:space="preserve">
+    <value>月底</value>
+  </data>
+  <data name="OptionsBoardSeriesTypeRegular" xml:space="preserve">
+    <value>常规</value>
+  </data>
+  <data name="OptionsBoardSeriesTypeWeekly" xml:space="preserve">
+    <value>每周</value>
+  </data>
+  <data name="OptionsBoardStrikes" xml:space="preserve">
+    <value>打击</value>
+  </data>
+  <data name="OtherTimeframes" xml:space="preserve">
+    <value>其他时间框架</value>
+  </data>
+  <data name="PaceOfTape" xml:space="preserve">
+    <value>磁带节奏</value>
+  </data>
+  <data name="PanelSize" xml:space="preserve">
+    <value>面板大小</value>
+  </data>
+  <data name="PayWallFeature_ChartHistoryDepth" xml:space="preserve">
+    <value>图表历史深度（标准工具）</value>
+  </data>
+  <data name="PayWallFeature_CryptoChartHistoryDepth" xml:space="preserve">
+    <value>图表历史深度（加密货币工具）</value>
+  </data>
+  <data name="PayWallFeature_CryptoIndicatorsDisabled" xml:space="preserve">
+    <value>图表上指标的使用（针对加密货币工具）</value>
+  </data>
+  <data name="PayWallFeature_CryptoIndicatorsPerChart" xml:space="preserve">
+    <value>每个图表的最大指标（针对加密货币工具）</value>
+  </data>
+  <data name="PayWallFeature_CryptoInstrumentsCount" xml:space="preserve">
+    <value>加密工具数量</value>
+  </data>
+  <data name="PayWallFeature_CryptoTimeFrameCumulativeTradesDisabled" xml:space="preserve">
+    <value>累积交易时间框架的使用（针对加密货币工具）</value>
+  </data>
+  <data name="PayWallFeature_CryptoTimeFrameDeltaDisabled" xml:space="preserve">
+    <value>德尔塔时间框架的使用（针对加密货币工具）</value>
+  </data>
+  <data name="PayWallFeature_CryptoTimeFrameOrderFlowDisabled" xml:space="preserve">
+    <value>订单流时间框架的使用（针对加密货币工具）</value>
+  </data>
+  <data name="PayWallFeature_CryptoTimeFramePerRangeDisabled" xml:space="preserve">
+    <value>时间范围的使用（针对加密货币工具）</value>
+  </data>
+  <data name="PayWallFeature_CryptoTimeFramePerSecondsDisabled" xml:space="preserve">
+    <value>秒级时间框架的使用（针对加密货币工具）未启用。</value>
+  </data>
+  <data name="PayWallFeature_CryptoTimeFrameRenkoDisabled" xml:space="preserve">
+    <value>Renko时间框架的使用（针对加密货币工具）</value>
+  </data>
+  <data name="PayWallFeature_CryptoTimeFrameTicksDisabled" xml:space="preserve">
+    <value>滴答时间框架的使用（针对加密工具）</value>
+  </data>
+  <data name="PayWallFeature_CryptoTimeFrameUniqRangeDisabled" xml:space="preserve">
+    <value>独特时间范围的使用（针对加密货币工具）</value>
+  </data>
+  <data name="PayWallFeature_CryptoTimeFrameUniqReversalDisabled" xml:space="preserve">
+    <value>独特反转时间框架的使用（针对加密货币工具）</value>
+  </data>
+  <data name="PayWallFeature_CryptoTimeFrameVolumeDisabled" xml:space="preserve">
+    <value>交易量时间框架的使用（针对加密货币工具）</value>
+  </data>
+  <data name="PayWallFeature_FollowingManagerDisabled" xml:space="preserve">
+    <value>Following Manager的使用</value>
+  </data>
+  <data name="PayWallFeature_IndicatorsDisabled" xml:space="preserve">
+    <value>该功能允许用户在专为标准工具设计的图表上使用指标。此功能通过提供市场趋势的洞察力来增强交易者的分析能力。它对于改善交易策略中的决策制定特别有用。</value>
+  </data>
+  <data name="PayWallFeature_IndicatorsPerChart" xml:space="preserve">
+    <value>每个图表的最大指标数量（适用于标准工具）</value>
+  </data>
+  <data name="PayWallFeature_NonCryptoInstrumentsCount" xml:space="preserve">
+    <value>标准工具数量</value>
+  </data>
+  <data name="PayWallFeature_NonCryptoRealTimeInstrumentsDisabled" xml:space="preserve">
+    <value>标准工具实时数据的使用</value>
+  </data>
+  <data name="PayWallFeature_TimeFrameCumulativeTradesDisabled" xml:space="preserve">
+    <value>累积交易的时间框架使用（针对标准金融工具）</value>
+  </data>
+  <data name="PayWallFeature_TimeFrameDeltaDisabled" xml:space="preserve">
+    <value>德尔塔时间框架的使用（针对标准工具）</value>
+  </data>
+  <data name="PayWallFeature_TimeFrameOrderFlowDisabled" xml:space="preserve">
+    <value>订单流时间框架的使用（针对标准金融工具）</value>
+  </data>
+  <data name="PayWallFeature_TimeFramePerRangeDisabled" xml:space="preserve">
+    <value>时间范围的使用（针对标准工具）</value>
+  </data>
+  <data name="PayWallFeature_TimeFramePerSecondsDisabled" xml:space="preserve">
+    <value>秒级时间框架的使用（针对标准工具）</value>
+  </data>
+  <data name="PayWallFeature_TimeFrameRenkoDisabled" xml:space="preserve">
+    <value>Renko时间框架的使用（针对标准工具）</value>
+  </data>
+  <data name="PayWallFeature_TimeFrameTicksDisabled" xml:space="preserve">
+    <value>滴答时间框架的使用（针对标准工具）</value>
+  </data>
+  <data name="PayWallFeature_TimeFrameUniqRangeDisabled" xml:space="preserve">
+    <value>该功能专注于标准工具的独特时间框架的使用，允许进行独特的区间分析。此功能增强了在指定时间间隔内评估数据趋势的能力。旨在提高处理标准交易工具的用户的分析能力。</value>
+  </data>
+  <data name="PayWallFeature_TimeFrameUniqReversalDisabled" xml:space="preserve">
+    <value>独特反转时间框架的使用（针对标准工具）</value>
+  </data>
+  <data name="PayWallFeature_TimeFrameVolumeDisabled" xml:space="preserve">
+    <value>成交量时间框架的使用（针对标准工具）</value>
+  </data>
+  <data name="PayWallFeature_WatchlistInstrumentsCount" xml:space="preserve">
+    <value>观察列表中的工具数量</value>
+  </data>
+  <data name="Percentile" xml:space="preserve">
+    <value>百分位数</value>
+  </data>
+  <data name="Performance" xml:space="preserve">
+    <value>业绩</value>
+  </data>
+  <data name="PerformanceByDayOfWeek" xml:space="preserve">
+    <value>按星期的业绩</value>
+  </data>
+  <data name="PerformanceByHour" xml:space="preserve">
+    <value>按小时的业绩</value>
+  </data>
+  <data name="PerformanceMetrics" xml:space="preserve">
+    <value>业绩指标</value>
+  </data>
+  <data name="Period" xml:space="preserve">
+    <value>时期 </value>
+  </data>
+  <data name="PhemexAccountBalance" xml:space="preserve">
+    <value>账户余额</value>
+  </data>
+  <data name="PhemexAccountId" xml:space="preserve">
+    <value>账户ID</value>
+  </data>
+  <data name="PhemexAccountInfoCategory" xml:space="preserve">
+    <value>账户信息</value>
+  </data>
+  <data name="PhemexBalance" xml:space="preserve">
+    <value>余额</value>
+  </data>
+  <data name="PhemexBonusBalance" xml:space="preserve">
+    <value>奖金余额</value>
+  </data>
+  <data name="PhemexCurrency" xml:space="preserve">
+    <value>货币</value>
+  </data>
+  <data name="PhemexFeeCategory" xml:space="preserve">
+    <value>费用信息</value>
+  </data>
+  <data name="PhemexLockedTradingBalance" xml:space="preserve">
+    <value>锁定交易余额</value>
+  </data>
+  <data name="PhemexLockedWithdrawBalance" xml:space="preserve">
+    <value>锁定提款余额</value>
+  </data>
+  <data name="PhemexMakerFeeRate" xml:space="preserve">
+    <value>做市商费用率</value>
+  </data>
+  <data name="PhemexTakerFeeRate" xml:space="preserve">
+    <value>成交者费用率</value>
+  </data>
+  <data name="PhemexTotalUsedBalance" xml:space="preserve">
+    <value>总使用余额</value>
+  </data>
+  <data name="PhemexWalletInfoCategory" xml:space="preserve">
+    <value>钱包信息</value>
+  </data>
+  <data name="PlatformTimeAdjustedDaylight" xml:space="preserve">
+    <value>由于夏令时的变化，时间已被调整</value>
+  </data>
+  <data name="PlatformTimeSetToLocal" xml:space="preserve">
+    <value>该平台当前配置为显示本地时间，用户可以在“时区”部分修改这些设置</value>
+  </data>
+  <data name="PlatformVersion" xml:space="preserve">
+    <value>平台版本</value>
+  </data>
+  <data name="PlaybookDescription" xml:space="preserve">
+    <value>策略手册是您经常使用的交易策略或设置。用策略手册标记您的交易，以按策略跟踪表现并了解什么最有效。</value>
+  </data>
+  <data name="PlaybookPreview" xml:space="preserve">
+    <value>预览</value>
+  </data>
+  <data name="Playbooks" xml:space="preserve">
+    <value>策略手册</value>
+  </data>
+  <data name="PlaybooksCount" xml:space="preserve">
+    <value>{0} 个策略</value>
+  </data>
+  <data name="PlaybooksDescription" xml:space="preserve">
+    <value>创建策略并跟踪其表现</value>
+  </data>
+  <data name="Plus500AccountCategory" xml:space="preserve">
+    <value>账户</value>
+  </data>
+  <data name="Plus500AccountEnabled" xml:space="preserve">
+    <value>账户已启用</value>
+  </data>
+  <data name="Plus500AccountEnabledBackOfficeOnly" xml:space="preserve">
+    <value>仅限后台</value>
+  </data>
+  <data name="Plus500AccountEnabledDisabled" xml:space="preserve">
+    <value>已禁用</value>
+  </data>
+  <data name="Plus500AccountEnabledEnabled" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="Plus500AccountEnabledPitTradeOnly" xml:space="preserve">
+    <value>仅限交易所交易</value>
+  </data>
+  <data name="Plus500AccountMode" xml:space="preserve">
+    <value>账户模式</value>
+  </data>
+  <data name="Plus500AccountModeAutoLiq" xml:space="preserve">
+    <value>自动清算</value>
+  </data>
+  <data name="Plus500AccountModeByAccount" xml:space="preserve">
+    <value>按账户</value>
+  </data>
+  <data name="Plus500AccountModeByAccountDay" xml:space="preserve">
+    <value>按账户日</value>
+  </data>
+  <data name="Plus500AccountModeByContract" xml:space="preserve">
+    <value>按合同</value>
+  </data>
+  <data name="Plus500AccountModeByMarket" xml:space="preserve">
+    <value>按市场</value>
+  </data>
+  <data name="Plus500AccountModeByPortfolio" xml:space="preserve">
+    <value>按投资组合</value>
+  </data>
+  <data name="Plus500AccountModeT500" xml:space="preserve">
+    <value>T500</value>
+  </data>
+  <data name="Plus500AccountModeT500Demo" xml:space="preserve">
+    <value>T500 演示</value>
+  </data>
+  <data name="Plus500AccountModeUnknown" xml:space="preserve">
+    <value>未知</value>
+  </data>
+  <data name="Plus500AccountName" xml:space="preserve">
+    <value>账户名称</value>
+  </data>
+  <data name="Plus500AccountStatus" xml:space="preserve">
+    <value>账户状态</value>
+  </data>
+  <data name="Plus500AccountStatusBlocked" xml:space="preserve">
+    <value>已阻止</value>
+  </data>
+  <data name="Plus500AccountStatusDeleted" xml:space="preserve">
+    <value>已删除</value>
+  </data>
+  <data name="Plus500AccountStatusDisabled" xml:space="preserve">
+    <value>已禁用</value>
+  </data>
+  <data name="Plus500AccountStatusLossLimitExceeded" xml:space="preserve">
+    <value>损失限制已超出</value>
+  </data>
+  <data name="Plus500AccountStatusNotAccessible" xml:space="preserve">
+    <value>不可访问</value>
+  </data>
+  <data name="Plus500AccountStatusOk" xml:space="preserve">
+    <value>好的</value>
+  </data>
+  <data name="Plus500AccountStatusOutsideActiveTime" xml:space="preserve">
+    <value>非活跃时间</value>
+  </data>
+  <data name="Plus500AccountStatusPitTradeOnly" xml:space="preserve">
+    <value>仅限交易所交易</value>
+  </data>
+  <data name="Plus500AccountStatusUnknown" xml:space="preserve">
+    <value>未知</value>
+  </data>
+  <data name="Plus500AccountStatusUnrestricted" xml:space="preserve">
+    <value>无限制</value>
+  </data>
+  <data name="Plus500ActiveTimeStart" xml:space="preserve">
+    <value>活跃时间开始</value>
+  </data>
+  <data name="Plus500ActiveTimeStop" xml:space="preserve">
+    <value>主动时间停止</value>
+  </data>
+  <data name="Plus500AlertingMargin" xml:space="preserve">
+    <value>警报保证金</value>
+  </data>
+  <data name="Plus500AlertingTime" xml:space="preserve">
+    <value>警报时间</value>
+  </data>
+  <data name="Plus500BalanceCategory" xml:space="preserve">
+    <value>余额</value>
+  </data>
+  <data name="Plus500BaseMargin" xml:space="preserve">
+    <value>基础保证金</value>
+  </data>
+  <data name="Plus500DayLossLimit" xml:space="preserve">
+    <value>每日损失限制</value>
+  </data>
+  <data name="Plus500DayLossLimitPc" xml:space="preserve">
+    <value>日损失限制百分比</value>
+  </data>
+  <data name="Plus500DayMargin" xml:space="preserve">
+    <value>日间保证金</value>
+  </data>
+  <data name="Plus500DeltaCategory" xml:space="preserve">
+    <value>德尔塔与时间</value>
+  </data>
+  <data name="Plus500DisplayName" xml:space="preserve">
+    <value>显示名称</value>
+  </data>
+  <data name="Plus500FeesAndCommissions" xml:space="preserve">
+    <value>费用与佣金</value>
+  </data>
+  <data name="Plus500FilledDelta" xml:space="preserve">
+    <value>已填充的德尔塔</value>
+  </data>
+  <data name="Plus500Firm" xml:space="preserve">
+    <value>公司</value>
+  </data>
+  <data name="Plus500FirmId" xml:space="preserve">
+    <value>公司ID</value>
+  </data>
+  <data name="Plus500FullMargin" xml:space="preserve">
+    <value>全额保证金</value>
+  </data>
+  <data name="Plus500GroupName" xml:space="preserve">
+    <value>组名</value>
+  </data>
+  <data name="Plus500ImportedNetLiq" xml:space="preserve">
+    <value>进口净流动性</value>
+  </data>
+  <data name="Plus500ImportedNetLiqDate" xml:space="preserve">
+    <value>导入净流动性日期</value>
+  </data>
+  <data name="Plus500LongMp" xml:space="preserve">
+    <value>长期市值</value>
+  </data>
+  <data name="Plus500LossLimit" xml:space="preserve">
+    <value>损失限额</value>
+  </data>
+  <data name="Plus500LossLimitPc" xml:space="preserve">
+    <value>损失限制百分比</value>
+  </data>
+  <data name="Plus500MarginPc" xml:space="preserve">
+    <value>保证金百分比</value>
+  </data>
+  <data name="Plus500MarginTime" xml:space="preserve">
+    <value>保证金时间</value>
+  </data>
+  <data name="Plus500MarginType" xml:space="preserve">
+    <value>保证金类型</value>
+  </data>
+  <data name="Plus500MarginTypeFirmOrAccount" xml:space="preserve">
+    <value>公司或账户</value>
+  </data>
+  <data name="Plus500MarginTypeHedgeOrMember" xml:space="preserve">
+    <value>对冲或成员</value>
+  </data>
+  <data name="Plus500MarginTypeSpec" xml:space="preserve">
+    <value>投机性</value>
+  </data>
+  <data name="Plus500MaxAccountPosition" xml:space="preserve">
+    <value>最大账户头寸</value>
+  </data>
+  <data name="Plus500MaxClipSize" xml:space="preserve">
+    <value>最大剪辑大小</value>
+  </data>
+  <data name="Plus500MinBalance" xml:space="preserve">
+    <value>最低余额</value>
+  </data>
+  <data name="Plus500Mp" xml:space="preserve">
+    <value>市值计量</value>
+  </data>
+  <data name="Plus500MtmCategory" xml:space="preserve">
+    <value>按市值计价</value>
+  </data>
+  <data name="Plus500NetLiqCategory" xml:space="preserve">
+    <value>净流动性</value>
+  </data>
+  <data name="Plus500OptionsSettlement" xml:space="preserve">
+    <value>期权结算</value>
+  </data>
+  <data name="Plus500OrderRouting" xml:space="preserve">
+    <value>订单路由</value>
+  </data>
+  <data name="Plus500OvernightMarginPc" xml:space="preserve">
+    <value>隔夜保证金百分比</value>
+  </data>
+  <data name="Plus500OvernightUpl" xml:space="preserve">
+    <value>隔夜未实现盈亏</value>
+  </data>
+  <data name="Plus500PlRollover" xml:space="preserve">
+    <value>盈亏转移</value>
+  </data>
+  <data name="Plus500PositionRollover" xml:space="preserve">
+    <value>头寸展期</value>
+  </data>
+  <data name="Plus500Premium" xml:space="preserve">
+    <value>高级</value>
+  </data>
+  <data name="Plus500PreTradeDisabled" xml:space="preserve">
+    <value>预交易功能已禁用</value>
+  </data>
+  <data name="Plus500PreTradeMargin" xml:space="preserve">
+    <value>交易前保证金</value>
+  </data>
+  <data name="Plus500PrevImportedNetLiq" xml:space="preserve">
+    <value>之前导入的净流动性</value>
+  </data>
+  <data name="Plus500PrevImportedNetLiqDate" xml:space="preserve">
+    <value>上次导入的净流动性日期</value>
+  </data>
+  <data name="Plus500PrevMargin" xml:space="preserve">
+    <value>之前的保证金</value>
+  </data>
+  <data name="Plus500RiskDetails" xml:space="preserve">
+    <value>风险详情</value>
+  </data>
+  <data name="Plus500RiskManagementCategory" xml:space="preserve">
+    <value>风险管理</value>
+  </data>
+  <data name="Plus500ShortMp" xml:space="preserve">
+    <value>短期市值评估</value>
+  </data>
+  <data name="Plus500TradingCategory" xml:space="preserve">
+    <value>交易设置</value>
+  </data>
+  <data name="Plus500UsePlForMargin" xml:space="preserve">
+    <value>将盈亏用于保证金</value>
+  </data>
+  <data name="Plus500UsePremiumForMargin" xml:space="preserve">
+    <value>将高级用于保证金</value>
+  </data>
+  <data name="Plus500WarningCategory" xml:space="preserve">
+    <value>警告阈值</value>
+  </data>
+  <data name="Plus500WarningThresholdLossLimit" xml:space="preserve">
+    <value>警告阈值损失限制</value>
+  </data>
+  <data name="Plus500WarningThresholdMargin" xml:space="preserve">
+    <value>警告阈值保证金</value>
+  </data>
+  <data name="Plus500WarningThresholdMinNetEquity" xml:space="preserve">
+    <value>最低净资产警告阈值</value>
+  </data>
+  <data name="Plus500WarningThresholdPl" xml:space="preserve">
+    <value>警告阈值 P&amp;L</value>
+  </data>
+  <data name="Plus500WorkingDelta" xml:space="preserve">
+    <value>工作增量</value>
+  </data>
+  <data name="PnLBreakdown" xml:space="preserve">
+    <value>盈亏明细</value>
+  </data>
+  <data name="POC" xml:space="preserve">
+    <value>POC</value>
+  </data>
+  <data name="PointerLabel" xml:space="preserve">
+    <value>指针</value>
+  </data>
+  <data name="PositionColumn" xml:space="preserve">
+    <value>位置</value>
+  </data>
+  <data name="PositiveColor" xml:space="preserve">
+    <value>正值颜色</value>
+  </data>
+  <data name="PositiveColorDescription" xml:space="preserve">
+    <value>正盈亏值的颜色</value>
+  </data>
+  <data name="Preset" xml:space="preserve">
+    <value>预设</value>
+  </data>
+  <data name="PressureAlert" xml:space="preserve">
+    <value>压力警报</value>
+  </data>
+  <data name="PreviousDay" xml:space="preserve">
+    <value>昨天</value>
+  </data>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>上月</value>
+  </data>
+  <data name="PreviousWeek" xml:space="preserve">
+    <value>上周</value>
+  </data>
+  <data name="PriceAxisLinkDisable" xml:space="preserve">
+    <value>禁用链接</value>
+  </data>
+  <data name="PriceAxisLinkHintAlreadyLinkedFormat" xml:space="preserve">
+    <value>{0} 窗口已链接。</value>
+  </data>
+  <data name="PriceAxisLinkHintDifferentInstrumentFormat" xml:space="preserve">
+    <value>{0}窗口包含不同的工具。请在左侧或右侧放置一个相同工具的图表或热图。</value>
+  </data>
+  <data name="PriceAxisLinkHintPlaceAdjacent" xml:space="preserve">
+    <value>将相同工具的图表或热图放置在左侧或右侧以建立链接。</value>
+  </data>
+  <data name="PriceAxisLinkMenu" xml:space="preserve">
+    <value>链接价格轴</value>
+  </data>
+  <data name="PriceAxisLinkSideLeft" xml:space="preserve">
+    <value>左</value>
+  </data>
+  <data name="PriceAxisLinkSideRight" xml:space="preserve">
+    <value>右</value>
+  </data>
+  <data name="PriceAxisLinkWithSideWindowFormat" xml:space="preserve">
+    <value>链接到 {0} 窗口：{1}</value>
+  </data>
+  <data name="PriceDown" xml:space="preserve">
+    <value>价格下降</value>
+  </data>
+  <data name="PriceUp" xml:space="preserve">
+    <value>价格上涨</value>
+  </data>
+  <data name="ProfileWidthFactorDescription" xml:space="preserve">
+    <value>根据区域边界调整成交量轮廓的宽度。
+独立于自动比例功能。</value>
+  </data>
+  <data name="ProfitColor" xml:space="preserve">
+    <value>Profile 颜色</value>
+  </data>
+  <data name="ProfitLossByInstrument" xml:space="preserve">
+    <value>按品种的盈亏</value>
+  </data>
+  <data name="ProfitLossDistributionByHour" xml:space="preserve">
+    <value>按时间段的盈亏分布</value>
+  </data>
+  <data name="ProfitLossDistributionByWeekday" xml:space="preserve">
+    <value>按星期的盈亏分布</value>
+  </data>
+  <data name="ProfitTradeResultColorDescription" xml:space="preserve">
+    <value>指定用于盈利交易结果部分的颜色。</value>
+  </data>
+  <data name="Pulling" xml:space="preserve">
+    <value>拉取</value>
+  </data>
+  <data name="PullingAndStacking" xml:space="preserve">
+    <value>拉取和堆叠</value>
+  </data>
+  <data name="QuickStartTitle" xml:space="preserve">
+    <value>快速入门</value>
+  </data>
+  <data name="QuikAccruedInt" xml:space="preserve">
+    <value>应计收入</value>
+  </data>
+  <data name="QuikAccVarMargin" xml:space="preserve">
+    <value>累计变动保证金</value>
+  </data>
+  <data name="QuikAllAssets" xml:space="preserve">
+    <value>所有当前资产</value>
+  </data>
+  <data name="QuikAssets" xml:space="preserve">
+    <value>流动资产</value>
+  </data>
+  <data name="QuikAssetsCategory" xml:space="preserve">
+    <value>资产</value>
+  </data>
+  <data name="QuikAssetsWithoutHc" xml:space="preserve">
+    <value>无折扣资产</value>
+  </data>
+  <data name="QuikAvLimAll" xml:space="preserve">
+    <value>可用当前限额</value>
+  </data>
+  <data name="QuikBlockedCategory" xml:space="preserve">
+    <value>已阻止</value>
+  </data>
+  <data name="QuikCashLeverage" xml:space="preserve">
+    <value>现金杠杆</value>
+  </data>
+  <data name="QuikCbpLimit" xml:space="preserve">
+    <value>开放头寸限制</value>
+  </data>
+  <data name="QuikCbplPlanned" xml:space="preserve">
+    <value>计划净头寸</value>
+  </data>
+  <data name="QuikCbplUsed" xml:space="preserve">
+    <value>当前净头寸</value>
+  </data>
+  <data name="QuikCbplUsedForOrders" xml:space="preserve">
+    <value>净头寸（订单）</value>
+  </data>
+  <data name="QuikCbplUsedForPositions" xml:space="preserve">
+    <value>净头寸（头寸）</value>
+  </data>
+  <data name="QuikCbpPrevLimit" xml:space="preserve">
+    <value>之前的开放头寸限制</value>
+  </data>
+  <data name="QuikClientType" xml:space="preserve">
+    <value>客户类型</value>
+  </data>
+  <data name="QuikClientTypeCategory" xml:space="preserve">
+    <value>客户类型</value>
+  </data>
+  <data name="QuikClVarMargin" xml:space="preserve">
+    <value>清算变动保证金</value>
+  </data>
+  <data name="QuikCorrectedMargin" xml:space="preserve">
+    <value>修正边际</value>
+  </data>
+  <data name="QuikCurLeverage" xml:space="preserve">
+    <value>当前杠杆</value>
+  </data>
+  <data name="QuikCurrCode" xml:space="preserve">
+    <value>货币代码</value>
+  </data>
+  <data name="QuikCurrentBal" xml:space="preserve">
+    <value>当前余额</value>
+  </data>
+  <data name="QuikCurrTag" xml:space="preserve">
+    <value>计算参数</value>
+  </data>
+  <data name="QuikDemand" xml:space="preserve">
+    <value>需求</value>
+  </data>
+  <data name="QuikDerivativeAccountCategory" xml:space="preserve">
+    <value>账户信息</value>
+  </data>
+  <data name="QuikDerivativeFeesCategory" xml:space="preserve">
+    <value>费用</value>
+  </data>
+  <data name="QuikDerivativeLimitsCategory" xml:space="preserve">
+    <value>限额与头寸</value>
+  </data>
+  <data name="QuikDerivativeMarginCategory" xml:space="preserve">
+    <value>保证金与GO</value>
+  </data>
+  <data name="QuikDerVarMargin" xml:space="preserve">
+    <value>变动保证金</value>
+  </data>
+  <data name="QuikFirmId" xml:space="preserve">
+    <value>公司ID</value>
+  </data>
+  <data name="QuikFundsLevel" xml:space="preserve">
+    <value>资金充足水平</value>
+  </data>
+  <data name="QuikFutAccuredInt" xml:space="preserve">
+    <value>累计收入</value>
+  </data>
+  <data name="QuikFutAsset" xml:space="preserve">
+    <value>期货资产</value>
+  </data>
+  <data name="QuikFutDebt" xml:space="preserve">
+    <value>期货债务</value>
+  </data>
+  <data name="QuikFutPositionType" xml:space="preserve">
+    <value>期货头寸类型</value>
+  </data>
+  <data name="QuikFutPositionTypeLong" xml:space="preserve">
+    <value>长</value>
+  </data>
+  <data name="QuikFutPositionTypeNone" xml:space="preserve">
+    <value>未指定</value>
+  </data>
+  <data name="QuikFutPositionTypeShort" xml:space="preserve">
+    <value>短</value>
+  </data>
+  <data name="QuikFutRateAsset" xml:space="preserve">
+    <value>资金充足性</value>
+  </data>
+  <data name="QuikFutRateAssetOpen" xml:space="preserve">
+    <value>资金充足性（开放）</value>
+  </data>
+  <data name="QuikFutRateGo" xml:space="preserve">
+    <value>GO流动性系数</value>
+  </data>
+  <data name="QuikFutTotalAsset" xml:space="preserve">
+    <value>期货总资产</value>
+  </data>
+  <data name="QuikFuturesCategory" xml:space="preserve">
+    <value>期货市场</value>
+  </data>
+  <data name="QuikGoForOrders" xml:space="preserve">
+    <value>订单GO</value>
+  </data>
+  <data name="QuikGoForPositions" xml:space="preserve">
+    <value>GO用于职位</value>
+  </data>
+  <data name="QuikGoPlanned" xml:space="preserve">
+    <value>计划中的GO</value>
+  </data>
+  <data name="QuikGoWithoutOrders" xml:space="preserve">
+    <value>无订单执行</value>
+  </data>
+  <data name="QuikHaircuts" xml:space="preserve">
+    <value>发型折扣总和</value>
+  </data>
+  <data name="QuikInAllAssets" xml:space="preserve">
+    <value>所有初始资产</value>
+  </data>
+  <data name="QuikInAssets" xml:space="preserve">
+    <value>初始资产</value>
+  </data>
+  <data name="QuikIndicativeVarMargin" xml:space="preserve">
+    <value>指示性变动保证金</value>
+  </data>
+  <data name="QuikInitMargin" xml:space="preserve">
+    <value>初始保证金</value>
+  </data>
+  <data name="QuikIsFutures" xml:space="preserve">
+    <value>FORTS账户</value>
+  </data>
+  <data name="QuikIsLeverage" xml:space="preserve">
+    <value>客户方案</value>
+  </data>
+  <data name="QuikIsMarginal" xml:space="preserve">
+    <value>边际客户</value>
+  </data>
+  <data name="QuikIsQualClient" xml:space="preserve">
+    <value>合格客户</value>
+  </data>
+  <data name="QuikKgo" xml:space="preserve">
+    <value>客户GO系数</value>
+  </data>
+  <data name="QuikLeverage" xml:space="preserve">
+    <value>杠杆</value>
+  </data>
+  <data name="QuikLeverageTypeMarginDay" xml:space="preserve">
+    <value>保证金日 (МД)</value>
+  </data>
+  <data name="QuikLeverageTypeMarginLimitedLeverage" xml:space="preserve">
+    <value>保证金有限杠杆 (МОП)</value>
+  </data>
+  <data name="QuikLeverageTypeMarginWithLeverage" xml:space="preserve">
+    <value>杠杆保证金 (МЛ)</value>
+  </data>
+  <data name="QuikLeverageTypeMarginWithoutLeverage" xml:space="preserve">
+    <value>无杠杆保证金 (МП)</value>
+  </data>
+  <data name="QuikLeverageTypeNone" xml:space="preserve">
+    <value>未指定</value>
+  </data>
+  <data name="QuikLeverageTypeNonMargin" xml:space="preserve">
+    <value>非保证金 (C)</value>
+  </data>
+  <data name="QuikLimAll" xml:space="preserve">
+    <value>当前限制</value>
+  </data>
+  <data name="QuikLimBuy" xml:space="preserve">
+    <value>买入限价（保证金）</value>
+  </data>
+  <data name="QuikLimBuyAsset" xml:space="preserve">
+    <value>买入限价（抵押品）</value>
+  </data>
+  <data name="QuikLimitOpenPos" xml:space="preserve">
+    <value>计划净头寸</value>
+  </data>
+  <data name="QuikLimitsCategory" xml:space="preserve">
+    <value>限制</value>
+  </data>
+  <data name="QuikLimitType" xml:space="preserve">
+    <value>限额类型</value>
+  </data>
+  <data name="QuikLimitTypeCash" xml:space="preserve">
+    <value>现金</value>
+  </data>
+  <data name="QuikLimitTypeClearingCash" xml:space="preserve">
+    <value>清算现金</value>
+  </data>
+  <data name="QuikLimitTypeClearingCollateralCash" xml:space="preserve">
+    <value>清算抵押现金</value>
+  </data>
+  <data name="QuikLimitTypeCollateralCash" xml:space="preserve">
+    <value>抵押现金</value>
+  </data>
+  <data name="QuikLimitTypeCollateralForeign" xml:space="preserve">
+    <value>外币抵押品</value>
+  </data>
+  <data name="QuikLimitTypeOpenPositionsLimitSpot" xml:space="preserve">
+    <value>开放头寸限制（现货）</value>
+  </data>
+  <data name="QuikLimitTypeTotalCollateralForeignRub" xml:space="preserve">
+    <value>外币总抵押品（RUB）</value>
+  </data>
+  <data name="QuikLimitTypeTotalFunds" xml:space="preserve">
+    <value>总资金</value>
+  </data>
+  <data name="QuikLimNonMargin" xml:space="preserve">
+    <value>买入限价（非保证金）</value>
+  </data>
+  <data name="QuikLimSell" xml:space="preserve">
+    <value>卖出限价（保证金）</value>
+  </data>
+  <data name="QuikLiquidityCoef" xml:space="preserve">
+    <value>流动性系数</value>
+  </data>
+  <data name="QuikLockedBuy" xml:space="preserve">
+    <value>锁定购买</value>
+  </data>
+  <data name="QuikLockedBuyAsset" xml:space="preserve">
+    <value>锁定购买（抵押品）</value>
+  </data>
+  <data name="QuikLockedBuyMargin" xml:space="preserve">
+    <value>锁定购买（保证金）</value>
+  </data>
+  <data name="QuikLockedSell" xml:space="preserve">
+    <value>锁定出售</value>
+  </data>
+  <data name="QuikLockedValueCoef" xml:space="preserve">
+    <value>锁定购买（非保证金）</value>
+  </data>
+  <data name="QuikMargin" xml:space="preserve">
+    <value>保证金水平</value>
+  </data>
+  <data name="QuikMarginCategory" xml:space="preserve">
+    <value>利润</value>
+  </data>
+  <data name="QuikMinMargin" xml:space="preserve">
+    <value>最低保证金</value>
+  </data>
+  <data name="QuikMoneyCategory" xml:space="preserve">
+    <value>资金余额</value>
+  </data>
+  <data name="QuikMoneyLocked" xml:space="preserve">
+    <value>锁定资金</value>
+  </data>
+  <data name="QuikOpenLimit" xml:space="preserve">
+    <value>初始限额</value>
+  </data>
+  <data name="QuikOpenPos" xml:space="preserve">
+    <value>开放头寸</value>
+  </data>
+  <data name="QuikOpenPosLimitsCategory" xml:space="preserve">
+    <value>开放头寸限制</value>
+  </data>
+  <data name="QuikOptionsPremium" xml:space="preserve">
+    <value>期权溢价</value>
+  </data>
+  <data name="QuikOptLiquidCost" xml:space="preserve">
+    <value>期权清算价值</value>
+  </data>
+  <data name="QuikPlanedRateGo" xml:space="preserve">
+    <value>预期GO流动性系数</value>
+  </data>
+  <data name="QuikPnLCategory" xml:space="preserve">
+    <value>利润与损失</value>
+  </data>
+  <data name="QuikPortfolioValue" xml:space="preserve">
+    <value>投资组合价值</value>
+  </data>
+  <data name="QuikPositionsCategory" xml:space="preserve">
+    <value>头寸</value>
+  </data>
+  <data name="QuikProfitLoss" xml:space="preserve">
+    <value>利润/损失</value>
+  </data>
+  <data name="QuikRateChange" xml:space="preserve">
+    <value>利率变化 (%)</value>
+  </data>
+  <data name="QuikRateFutures" xml:space="preserve">
+    <value>资产/GO比率</value>
+  </data>
+  <data name="QuikRcv1" xml:space="preserve">
+    <value>风险覆盖比率 1</value>
+  </data>
+  <data name="QuikRcv2" xml:space="preserve">
+    <value>风险覆盖比率 2</value>
+  </data>
+  <data name="QuikRealVarMargin" xml:space="preserve">
+    <value>真实变动保证金</value>
+  </data>
+  <data name="QuikRiskCategory" xml:space="preserve">
+    <value>风险覆盖</value>
+  </data>
+  <data name="QuikRiskLevel" xml:space="preserve">
+    <value>风险等级</value>
+  </data>
+  <data name="QuikRiskLevelElevated" xml:space="preserve">
+    <value>高风险 (КПУР)</value>
+  </data>
+  <data name="QuikRiskLevelInitial" xml:space="preserve">
+    <value>初始风险 (KНУР)</value>
+  </data>
+  <data name="QuikRiskLevelNotSpecified" xml:space="preserve">
+    <value>未指定</value>
+  </data>
+  <data name="QuikRiskLevelSpecial" xml:space="preserve">
+    <value>特殊风险 (КОУР)</value>
+  </data>
+  <data name="QuikRiskLevelStandard" xml:space="preserve">
+    <value>标准风险 (КСУР)</value>
+  </data>
+  <data name="QuikStartLimitOpenPos" xml:space="preserve">
+    <value>开始开放头寸限制</value>
+  </data>
+  <data name="QuikStatusCoef" xml:space="preserve">
+    <value>账户状态系数</value>
+  </data>
+  <data name="QuikTotalLimitOpenPos" xml:space="preserve">
+    <value>总开放头寸限制</value>
+  </data>
+  <data name="QuikTotalLockedMoney" xml:space="preserve">
+    <value>总锁定资金</value>
+  </data>
+  <data name="QuikTotalMoneyBal" xml:space="preserve">
+    <value>总金额余额</value>
+  </data>
+  <data name="QuikTrdAccId" xml:space="preserve">
+    <value>交易账户</value>
+  </data>
+  <data name="QuikTsCommission" xml:space="preserve">
+    <value>交易费用</value>
+  </data>
+  <data name="QuikUsedLimOpenPos" xml:space="preserve">
+    <value>当前净头寸</value>
+  </data>
+  <data name="QuikValLong" xml:space="preserve">
+    <value>多头头寸</value>
+  </data>
+  <data name="QuikValLongAsset" xml:space="preserve">
+    <value>长期资产头寸</value>
+  </data>
+  <data name="QuikValLongMargin" xml:space="preserve">
+    <value>长期保证金头寸</value>
+  </data>
+  <data name="QuikValLongNet" xml:space="preserve">
+    <value>净多头头寸</value>
+  </data>
+  <data name="QuikValShort" xml:space="preserve">
+    <value>短仓</value>
+  </data>
+  <data name="QuikValShortNet" xml:space="preserve">
+    <value>净空头头寸</value>
+  </data>
+  <data name="QuikVarMargin" xml:space="preserve">
+    <value>变动保证金</value>
+  </data>
+  <data name="Rain" xml:space="preserve">
+    <value>雨</value>
+  </data>
+  <data name="RecognizingBigTradesMsg" xml:space="preserve">
+    <value>识别大宗交易</value>
+  </data>
+  <data name="RefreshAllCharts" xml:space="preserve">
+    <value>刷新所有图表</value>
+  </data>
+  <data name="RemoveFromFavoriteTimeFrame" xml:space="preserve">
+    <value>从收藏中移除</value>
+  </data>
+  <data name="RenameTab" xml:space="preserve">
+    <value>重命名标签</value>
+  </data>
+  <data name="ReplaceWidgetLabel" xml:space="preserve">
+    <value>替换小部件</value>
+  </data>
+  <data name="ResetVolumeProfile" xml:space="preserve">
+    <value>重置音量配置文件</value>
+  </data>
+  <data name="RestoreWidget" xml:space="preserve">
+    <value>恢复</value>
+  </data>
+  <data name="RiskManagementTitle" xml:space="preserve">
+    <value>风险管理</value>
+  </data>
+  <data name="RithmicAccountCategory" xml:space="preserve">
+    <value>账户</value>
+  </data>
+  <data name="RithmicAccountCreationTime" xml:space="preserve">
+    <value>账户创建时间</value>
+  </data>
+  <data name="RithmicAccountName" xml:space="preserve">
+    <value>账户名称</value>
+  </data>
+  <data name="RithmicAccountStatus" xml:space="preserve">
+    <value>账户状态</value>
+  </data>
+  <data name="RithmicAutoLiquidate" xml:space="preserve">
+    <value>自动清算</value>
+  </data>
+  <data name="RithmicAutoLiquidateAtSsm" xml:space="preserve">
+    <value>在SSM自动清算</value>
+  </data>
+  <data name="RithmicAutoLiquidateCriteria" xml:space="preserve">
+    <value>自动清算标准</value>
+  </data>
+  <data name="RithmicAutoLiquidateIgnoreOpenPnlWhenTrailing" xml:space="preserve">
+    <value>自动清算在跟踪时忽略未实现盈亏</value>
+  </data>
+  <data name="RithmicAutoLiquidateMaxMinAccountBalance" xml:space="preserve">
+    <value>自动清算最大最小账户余额</value>
+  </data>
+  <data name="RithmicAutoLiquidateThreshold" xml:space="preserve">
+    <value>自动清算阈值</value>
+  </data>
+  <data name="RithmicAutoLiquidateThresholdCurrentValue" xml:space="preserve">
+    <value>自动清算阈值当前值</value>
+  </data>
+  <data name="RithmicAutoLiquidationCategory" xml:space="preserve">
+    <value>自动清算</value>
+  </data>
+  <data name="RithmicBalanceCategory" xml:space="preserve">
+    <value>余额</value>
+  </data>
+  <data name="RithmicBuyLimit" xml:space="preserve">
+    <value>买入限价</value>
+  </data>
+  <data name="RithmicBuyWorkingQty" xml:space="preserve">
+    <value>当前买入订单数量</value>
+  </data>
+  <data name="RithmicCashOnHand" xml:space="preserve">
+    <value>手头现金</value>
+  </data>
+  <data name="RithmicCheckMinAccountBalance" xml:space="preserve">
+    <value>检查最低账户余额</value>
+  </data>
+  <data name="RithmicCurrency" xml:space="preserve">
+    <value>货币</value>
+  </data>
+  <data name="RithmicDefaultCommission" xml:space="preserve">
+    <value>默认佣金</value>
+  </data>
+  <data name="RithmicDisableOnAutoLiquidate" xml:space="preserve">
+    <value>禁用自动清算</value>
+  </data>
+  <data name="RithmicExcessBuyMargin" xml:space="preserve">
+    <value>超额购买保证金</value>
+  </data>
+  <data name="RithmicExcessSellMargin" xml:space="preserve">
+    <value>超额卖出保证金</value>
+  </data>
+  <data name="RithmicExposureCategory" xml:space="preserve">
+    <value>曝光</value>
+  </data>
+  <data name="RithmicImpliedMarginReserved" xml:space="preserve">
+    <value>隐含保证金保留</value>
+  </data>
+  <data name="RithmicImpliedNetQty" xml:space="preserve">
+    <value>隐含净数量</value>
+  </data>
+  <data name="RithmicLongExposure" xml:space="preserve">
+    <value>长期持仓</value>
+  </data>
+  <data name="RithmicLossLimit" xml:space="preserve">
+    <value>损失限制</value>
+  </data>
+  <data name="RithmicMaxOrderQty" xml:space="preserve">
+    <value>最大订单数量</value>
+  </data>
+  <data name="RithmicMinAccountBalance" xml:space="preserve">
+    <value>最低账户余额</value>
+  </data>
+  <data name="RithmicMinMarginBalance" xml:space="preserve">
+    <value>最低保证金余额</value>
+  </data>
+  <data name="RithmicReservedBuyingPower" xml:space="preserve">
+    <value>保留购买力</value>
+  </data>
+  <data name="RithmicReservedMargin" xml:space="preserve">
+    <value>保留保证金</value>
+  </data>
+  <data name="RithmicRiskManagementCategory" xml:space="preserve">
+    <value>风险管理</value>
+  </data>
+  <data name="RithmicRmsAlgorithm" xml:space="preserve">
+    <value>RMS算法</value>
+  </data>
+  <data name="RithmicSellLimit" xml:space="preserve">
+    <value>卖出限价</value>
+  </data>
+  <data name="RithmicSellWorkingQty" xml:space="preserve">
+    <value>正在出售的工作数量</value>
+  </data>
+  <data name="RithmicShortExposure" xml:space="preserve">
+    <value>短期敞口</value>
+  </data>
+  <data name="RithmicUseProductRmsCommission" xml:space="preserve">
+    <value>使用RMS佣金</value>
+  </data>
+  <data name="RmsAccount" xml:space="preserve">
+    <value>账户</value>
+  </data>
+  <data name="RmsActive" xml:space="preserve">
+    <value>活动</value>
+  </data>
+  <data name="RmsAnyTime" xml:space="preserve">
+    <value>随时</value>
+  </data>
+  <data name="RmsAnyTimeDescription" xml:space="preserve">
+    <value>即使在被阻止时，也可以随时更改设置</value>
+  </data>
+  <data name="RmsBlockAccountNow" xml:space="preserve">
+    <value>立即阻止账户</value>
+  </data>
+  <data name="RmsBlocked" xml:space="preserve">
+    <value>已阻止</value>
+  </data>
+  <data name="RmsBlockedSentenceMid" xml:space="preserve">
+    <value> 目前因以下原因被阻止 </value>
+  </data>
+  <data name="RmsBlockedSentenceStart" xml:space="preserve">
+    <value>账户 </value>
+  </data>
+  <data name="RmsBlockReason" xml:space="preserve">
+    <value>阻止原因</value>
+  </data>
+  <data name="RmsBlockReasonConsecutiveLosses" xml:space="preserve">
+    <value>连续亏损</value>
+  </data>
+  <data name="RmsBlockReasonConsecutiveLossesReached" xml:space="preserve">
+    <value>达到连续亏损限制</value>
+  </data>
+  <data name="RmsBlockReasonDailyLoss" xml:space="preserve">
+    <value>每日损失</value>
+  </data>
+  <data name="RmsBlockReasonDailyLossLimit" xml:space="preserve">
+    <value>每日损失限制</value>
+  </data>
+  <data name="RmsBlockReasonDailyLossReached" xml:space="preserve">
+    <value>每日损失限制已达到</value>
+  </data>
+  <data name="RmsBlockReasonDailyTarget" xml:space="preserve">
+    <value>每日目标</value>
+  </data>
+  <data name="RmsBlockReasonDailyTargetReached" xml:space="preserve">
+    <value>每日目标已达到</value>
+  </data>
+  <data name="RmsBlockReasonMaxTrades" xml:space="preserve">
+    <value>最大交易数量</value>
+  </data>
+  <data name="RmsBlockReasonMaxTradesLimit" xml:space="preserve">
+    <value>最大交易限制</value>
+  </data>
+  <data name="RmsBlockReasonMaxTradesReached" xml:space="preserve">
+    <value>达到最大交易限制</value>
+  </data>
+  <data name="RmsBreakingRulesTitle" xml:space="preserve">
+    <value>违反您的交易规则</value>
+  </data>
+  <data name="RmsCannotChangeSettings" xml:space="preserve">
+    <value>账户被锁定时无法更改设置。</value>
+  </data>
+  <data name="RmsConfirmDisabledText" xml:space="preserve">
+    <value>我明白，一旦达到限制，我将无法更改设置，直到每日重置。</value>
+  </data>
+  <data name="RmsConfirmPassphraseText" xml:space="preserve">
+    <value>我明白，当访问被阻止时，我需要输入一个纪律短语来更改设置</value>
+  </data>
+  <data name="RmsConfirmReduceOnlyText" xml:space="preserve">
+    <value>我明白，当达到限制时，我将只能平仓</value>
+  </data>
+  <data name="RmsConfirmSettingsChange" xml:space="preserve">
+    <value>确认设置更改</value>
+  </data>
+  <data name="RmsConsecutiveLosses" xml:space="preserve">
+    <value>连续损失</value>
+  </data>
+  <data name="RmsConsecutiveLossesLimit" xml:space="preserve">
+    <value>连续亏损限制</value>
+  </data>
+  <data name="RmsConsLossesThresholdFormat" xml:space="preserve">
+    <value>{0} (阈值: ${1:#,0})</value>
+  </data>
+  <data name="RmsCurrentPnl" xml:space="preserve">
+    <value>当前盈亏</value>
+  </data>
+  <data name="RmsDailyPnl" xml:space="preserve">
+    <value>每日盈亏</value>
+  </data>
+  <data name="RmsDailyPnlLimits" xml:space="preserve">
+    <value>每日盈亏限制</value>
+  </data>
+  <data name="RmsDailyReset" xml:space="preserve">
+    <value>每日重置</value>
+  </data>
+  <data name="RmsDetailDescription" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="RmsDetailIncludeCommissions" xml:space="preserve">
+    <value>包括佣金</value>
+  </data>
+  <data name="RmsDetailLimit" xml:space="preserve">
+    <value>限制</value>
+  </data>
+  <data name="RmsDetailPreviousReason" xml:space="preserve">
+    <value>先前原因</value>
+  </data>
+  <data name="RmsDetailReason" xml:space="preserve">
+    <value>原因</value>
+  </data>
+  <data name="RmsDetailResetTime" xml:space="preserve">
+    <value>重置时间</value>
+  </data>
+  <data name="RmsDetailSettingsMode" xml:space="preserve">
+    <value>设置模式</value>
+  </data>
+  <data name="RmsDetailWarning" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="RmsDisabledWhenBlocked" xml:space="preserve">
+    <value>被阻止时禁用</value>
+  </data>
+  <data name="RmsDisabledWhenBlockedDescription" xml:space="preserve">
+    <value>账户被阻止时无法更改设置</value>
+  </data>
+  <data name="RmsDistanceToLimit" xml:space="preserve">
+    <value>距离限制</value>
+  </data>
+  <data name="RmsDistanceToTarget" xml:space="preserve">
+    <value>距离目标</value>
+  </data>
+  <data name="RmsEnableProtection" xml:space="preserve">
+    <value>启用保护</value>
+  </data>
+  <data name="RmsEventLog" xml:space="preserve">
+    <value>事件日志</value>
+  </data>
+  <data name="RmsEventLogForFormat" xml:space="preserve">
+    <value>事件日志 — {0} #{1}</value>
+  </data>
+  <data name="RmsEventTitleAccountBlocked" xml:space="preserve">
+    <value>账户已被锁定</value>
+  </data>
+  <data name="RmsEventTitleDisciplineOverride" xml:space="preserve">
+    <value>用户覆盖了学科</value>
+  </data>
+  <data name="RmsEventTitleImmediateBlockConfirmed" xml:space="preserve">
+    <value>用户确认立即阻止</value>
+  </data>
+  <data name="RmsEventTitleProtectionModeEnabled" xml:space="preserve">
+    <value>用户启用了保护模式</value>
+  </data>
+  <data name="RmsEventTitleSettingsChanged" xml:space="preserve">
+    <value>风险设置已更新</value>
+  </data>
+  <data name="RmsEventTitleStateReset" xml:space="preserve">
+    <value>每日指标重置</value>
+  </data>
+  <data name="RmsEventTitleTargetReached" xml:space="preserve">
+    <value>每日目标已达成</value>
+  </data>
+  <data name="RmsEventTitleUnblockedBySettingsChange" xml:space="preserve">
+    <value>账户因设置更改而解锁</value>
+  </data>
+  <data name="RmsEventTitleUserConfirmedOverride" xml:space="preserve">
+    <value>用户确认覆盖</value>
+  </data>
+  <data name="RmsFileLockedMessageFormat" xml:space="preserve">
+    <value>无法保存风险管理数据 - 文件在另一个应用程序中打开。
+
+文件：{0}
+
+请关闭打开该文件的应用程序（例如 Excel），然后再试一次。</value>
+  </data>
+  <data name="RmsFileLockedTitle" xml:space="preserve">
+    <value>RMS文件正在使用中</value>
+  </data>
+  <data name="RmsImmediateBlockBannerText" xml:space="preserve">
+    <value>这些设置将立即阻止您的帐户！</value>
+  </data>
+  <data name="RmsImmediateBlockConfirmText" xml:space="preserve">
+    <value>我理解我的账户将立即被封锁</value>
+  </data>
+  <data name="RmsImmediateBlockReason1" xml:space="preserve">
+    <value>您当前的指标已经超过了您要设置的新限制。</value>
+  </data>
+  <data name="RmsImmediateBlockReason2" xml:space="preserve">
+    <value>账户将在保存后立即进入“仅减少”模式。</value>
+  </data>
+  <data name="RmsImmediateBlockReason3" xml:space="preserve">
+    <value>将禁止开设新头寸和增加现有头寸。</value>
+  </data>
+  <data name="RmsImmediateBlockReason4" xml:space="preserve">
+    <value>关闭头寸将仍然可用。</value>
+  </data>
+  <data name="RmsImmediateBlockWarning" xml:space="preserve">
+    <value>保存这些设置将立即阻止此帐户。</value>
+  </data>
+  <data name="RmsImmediateBlockWarningTitle" xml:space="preserve">
+    <value>立即阻止警告</value>
+  </data>
+  <data name="RmsIncludeCommissions" xml:space="preserve">
+    <value>包括佣金</value>
+  </data>
+  <data name="RmsKeepMyLimits" xml:space="preserve">
+    <value>保持我的限制</value>
+  </data>
+  <data name="RmsLimitReachedGeneric" xml:space="preserve">
+    <value>达到限制</value>
+  </data>
+  <data name="RmsLossesInARow" xml:space="preserve">
+    <value>连续损失</value>
+  </data>
+  <data name="RmsLossLimit" xml:space="preserve">
+    <value>损失限制</value>
+  </data>
+  <data name="RmsLossLimitPrefix" xml:space="preserve">
+    <value>损失限额：</value>
+  </data>
+  <data name="RmsLossThreshold" xml:space="preserve">
+    <value>损失阈值</value>
+  </data>
+  <data name="RmsMaxTradesPerDay" xml:space="preserve">
+    <value>每日最大交易次数</value>
+  </data>
+  <data name="RmsModeSettings" xml:space="preserve">
+    <value>模式设置</value>
+  </data>
+  <data name="RmsNextReset" xml:space="preserve">
+    <value>下一个重置：</value>
+  </data>
+  <data name="RmsNo" xml:space="preserve">
+    <value>来自 `RmsApiService.cs` 文件的代码片段包括条件检查，以确定是否应将佣金纳入利润和损失计算，使用三元运算符根据 `dto.IncludeCommissionsInPnL` 分配值。它还引用了各种设置和模式，例如响应模式和设置更改模式，为它们提供描述性名称。详细信息数组似乎捕获了有关不同风险管理参数的信息，以便进一步处理或显示。</value>
+  </data>
+  <data name="RmsNoLimits" xml:space="preserve">
+    <value>无限制</value>
+  </data>
+  <data name="RmsNoRms" xml:space="preserve">
+    <value>没有RMS</value>
+  </data>
+  <data name="RmsNotificationOnly" xml:space="preserve">
+    <value>仅通知</value>
+  </data>
+  <data name="RmsNotificationOnlyDescription" xml:space="preserve">
+    <value>仅限警报，交易不受限制</value>
+  </data>
+  <data name="RmsOverrideAnyway" xml:space="preserve">
+    <value>无论如何覆盖</value>
+  </data>
+  <data name="RmsPassphraseBannerText" xml:space="preserve">
+    <value>您即将覆盖自己的纪律</value>
+  </data>
+  <data name="RmsPassphraseRequired" xml:space="preserve">
+    <value>我正在打破我的交易纪律</value>
+  </data>
+  <data name="RmsPassphraseWhenBlocked" xml:space="preserve">
+    <value>被阻止时的密码短语</value>
+  </data>
+  <data name="RmsPassphraseWhenBlockedDescription" xml:space="preserve">
+    <value>必须输入一个纪律短语以在被阻止时更改设置</value>
+  </data>
+  <data name="RmsPhrasePlaceholder" xml:space="preserve">
+    <value>准确输入短语...</value>
+  </data>
+  <data name="RmsProfitTarget" xml:space="preserve">
+    <value>利润目标</value>
+  </data>
+  <data name="RmsProtectionDesignedTo" xml:space="preserve">
+    <value>这是为了：</value>
+  </data>
+  <data name="RmsProtectionModeBannerText" xml:space="preserve">
+    <value>您正在启用保护模式</value>
+  </data>
+  <data name="RmsProtectionModeWarning" xml:space="preserve">
+    <value>保护模式警告</value>
+  </data>
+  <data name="RmsProtectionPoint1" xml:space="preserve">
+    <value>• 保护您免受情绪交易决策的影响</value>
+  </data>
+  <data name="RmsProtectionPoint2" xml:space="preserve">
+    <value>• 防止在损失后对风险限额进行冲动更改</value>
+  </data>
+  <data name="RmsProtectionPoint3" xml:space="preserve">
+    <value>• 在最需要的时候强制执行纪律</value>
+  </data>
+  <data name="RmsReduceOnly" xml:space="preserve">
+    <value>仅减少</value>
+  </data>
+  <data name="RmsReduceOnlyDescription" xml:space="preserve">
+    <value>仅在达到任何限制时才能关闭头寸</value>
+  </data>
+  <data name="RmsReduceOnlyFullDescription" xml:space="preserve">
+    <value>当达到任何限制时，将阻止开设新头寸和增加现有头寸。关闭头寸仍然可用。</value>
+  </data>
+  <data name="RmsReduceOnlyPrefix" xml:space="preserve">
+    <value>仅减少：</value>
+  </data>
+  <data name="RmsRemaining" xml:space="preserve">
+    <value>剩余</value>
+  </data>
+  <data name="RmsResetDescription" xml:space="preserve">
+    <value>每日盈亏、交易数量和连续亏损将在此时重置</value>
+  </data>
+  <data name="RmsResetIn" xml:space="preserve">
+    <value>重置在</value>
+  </data>
+  <data name="RmsResetTime" xml:space="preserve">
+    <value>重置时间 (CT)</value>
+  </data>
+  <data name="RmsResponse" xml:space="preserve">
+    <value>响应</value>
+  </data>
+  <data name="RmsResponseMode" xml:space="preserve">
+    <value>响应模式</value>
+  </data>
+  <data name="RmsRiskSettings" xml:space="preserve">
+    <value>风险设置</value>
+  </data>
+  <data name="RmsRiskSettingsForFormat" xml:space="preserve">
+    <value>风险设置 — {0} #{1}</value>
+  </data>
+  <data name="RmsSaveChanges" xml:space="preserve">
+    <value>保存更改</value>
+  </data>
+  <data name="RmsServerTime" xml:space="preserve">
+    <value>服务器时间</value>
+  </data>
+  <data name="RmsSettingsAnytimeDescription" xml:space="preserve">
+    <value>您可以随时更改设置，即使帐户被暂时封锁。</value>
+  </data>
+  <data name="RmsSettingsChangeMode" xml:space="preserve">
+    <value>设置更改模式</value>
+  </data>
+  <data name="RmsSettingsDisabledDescription" xml:space="preserve">
+    <value>一旦达到限制，您将无法更改设置，直到每日重置。</value>
+  </data>
+  <data name="RmsSettingsLocked" xml:space="preserve">
+    <value>设置已锁定</value>
+  </data>
+  <data name="RmsSettingsPassphraseDescription" xml:space="preserve">
+    <value>一旦账户进入被阻止状态，您需要输入一个纪律短语才能更改设置。这创建了一个心理障碍，同时在真正需要时仍允许进行更改。</value>
+  </data>
+  <data name="RmsSettingsPrefix" xml:space="preserve">
+    <value>设置：</value>
+  </data>
+  <data name="RmsStatus" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="RmsTarget" xml:space="preserve">
+    <value>目标</value>
+  </data>
+  <data name="RmsTargetPrefix" xml:space="preserve">
+    <value>目标：</value>
+  </data>
+  <data name="RmsToday" xml:space="preserve">
+    <value>今天</value>
+  </data>
+  <data name="RmsTrades" xml:space="preserve">
+    <value>交易</value>
+  </data>
+  <data name="RmsTradingOrGamblingQuestion" xml:space="preserve">
+    <value>您是在交易还是在赌博？</value>
+  </data>
+  <data name="RmsTradingRiskLimits" xml:space="preserve">
+    <value>交易风险限额</value>
+  </data>
+  <data name="RmsTriggeredConsLossesFormat" xml:space="preserve">
+    <value>连续损失：{0} 超过限制 ({1})</value>
+  </data>
+  <data name="RmsTriggeredDailyLossFormat" xml:space="preserve">
+    <value>每日损失：当前的盈亏（P&amp;L）({0}) 超过限制 (-${1:#,0})</value>
+  </data>
+  <data name="RmsTriggeredDailyTargetFormat" xml:space="preserve">
+    <value>每日目标：当前盈亏 (P&amp;L) ({0}) 超过目标 (+${1:#,0})</value>
+  </data>
+  <data name="RmsTriggeredLimitsTitle" xml:space="preserve">
+    <value>将立即触发的限制：</value>
+  </data>
+  <data name="RmsTriggeredMaxTradesFormat" xml:space="preserve">
+    <value>最大交易：{0} 笔交易超过限制 ({1})</value>
+  </data>
+  <data name="RmsTypePhrasePrompt" xml:space="preserve">
+    <value>要继续，请输入确切的短语：</value>
+  </data>
+  <data name="RmsViewEventLog" xml:space="preserve">
+    <value>查看事件日志</value>
+  </data>
+  <data name="RmsWaitForReset" xml:space="preserve">
+    <value>请等待每日重置以更改设置。</value>
+  </data>
+  <data name="RmsWarningImmediateBlockConfirmed" xml:space="preserve">
+    <value>账户已被用户立即封锁</value>
+  </data>
+  <data name="RmsWarningPassphraseOverrideAccepted" xml:space="preserve">
+    <value>密码短语覆盖已接受</value>
+  </data>
+  <data name="RmsWarningProtectionModeEnabled" xml:space="preserve">
+    <value>保护模式已启用</value>
+  </data>
+  <data name="RmsWhatWillHappen" xml:space="preserve">
+    <value>会发生什么：</value>
+  </data>
+  <data name="RmsYes" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="SaveAndCloseBtn" xml:space="preserve">
+    <value>保存并关闭</value>
+  </data>
+  <data name="SaveAsNewWorkspaceLabel" xml:space="preserve">
+    <value>另存为新工作区</value>
+  </data>
+  <data name="SaveCurrentTimeTemplateBtn" xml:space="preserve">
+    <value>从当前时间保存模板</value>
+  </data>
+  <data name="SaveCurrentWorkspaceWithName" xml:space="preserve">
+    <value>使用名称保存当前工作区</value>
+  </data>
+  <data name="SaveDrawingVisibilityAsTitle" xml:space="preserve">
+    <value>将绘图可见性保存为</value>
+  </data>
+  <data name="SavePlaybooks" xml:space="preserve">
+    <value>保存策略手册</value>
+  </data>
+  <data name="SaveSimpleTemplateBtn" xml:space="preserve">
+    <value>保存简单模板</value>
+  </data>
+  <data name="SaveTemplateAsMenuItem" xml:space="preserve">
+    <value>另存为模板</value>
+  </data>
+  <data name="SaveTemplateFromCurrentTime" xml:space="preserve">
+    <value>保存模板（从当前时间）</value>
+  </data>
+  <data name="SaveTemplateFromCurrentTimeAs" xml:space="preserve">
+    <value>另存模板（从当前时间）</value>
+  </data>
+  <data name="SaveTemplateMenuItem" xml:space="preserve">
+    <value>保存模板</value>
+  </data>
+  <data name="SearchInstrumentNameHint" xml:space="preserve">
+    <value>要显示搜索结果，请开始输入工具的名称。</value>
+  </data>
+  <data name="SearchInstrumentNameNullText" xml:space="preserve">
+    <value>仪器名称</value>
+  </data>
+  <data name="SearchInstrumentNameNullTextDescription" xml:space="preserve">
+    <value>要查看搜索结果，只需开始输入工具的名称。这会根据您的输入提示相关建议。此功能通过快速引导您找到所需工具来增强用户体验。</value>
+  </data>
+  <data name="SecondaryTextColor" xml:space="preserve">
+    <value>辅助文本颜色</value>
+  </data>
+  <data name="SelectEmoji" xml:space="preserve">
+    <value>选择表情符号</value>
+  </data>
+  <data name="SelectInstrument" xml:space="preserve">
+    <value>选择工具</value>
+  </data>
+  <data name="SelectPlaybook" xml:space="preserve">
+    <value>选择策略</value>
+  </data>
+  <data name="SelectWorkspaceTitle" xml:space="preserve">
+    <value>选择工作区</value>
+  </data>
+  <data name="SellColor" xml:space="preserve">
+    <value>Sell 颜色</value>
+  </data>
+  <data name="SellSound" xml:space="preserve">
+    <value>出售声音</value>
+  </data>
+  <data name="SellTradeLineColorDescription" xml:space="preserve">
+    <value>指定用于显示卖出交易线条和标记的颜色。</value>
+  </data>
+  <data name="SessionDeltaAlert" xml:space="preserve">
+    <value>时段Delta警报</value>
+  </data>
+  <data name="SessionDeltaPerVolumeAlert" xml:space="preserve">
+    <value>时段Delta/交易量警报</value>
+  </data>
+  <data name="SessionName" xml:space="preserve">
+    <value>会话名称</value>
+  </data>
+  <data name="SessionTooShort" xml:space="preserve">
+    <value>交易时段时长必须至少为 {0} 小时。</value>
+  </data>
+  <data name="SessionVolumeAlert" xml:space="preserve">
+    <value>时段交易量警报</value>
+  </data>
+  <data name="SetFromDateToModulesTooltip" xml:space="preserve">
+    <value>Reloads data in all open modules (charts, indicators, SmartDOM) to the start date. Use this if you opened new panels after loading data or changed the replay period.</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="SetUpYourWorkspace" xml:space="preserve">
+    <value>设置您的工作区</value>
+  </data>
+  <data name="SharpeRatio" xml:space="preserve">
+    <value>夏普比率</value>
+  </data>
+  <data name="Show10Minutes" xml:space="preserve">
+    <value>显示10分钟</value>
+  </data>
+  <data name="Show15Seconds" xml:space="preserve">
+    <value>显示15秒</value>
+  </data>
+  <data name="Show1Minute" xml:space="preserve">
+    <value>显示1分钟</value>
+  </data>
+  <data name="Show20Minutes" xml:space="preserve">
+    <value>显示20分钟</value>
+  </data>
+  <data name="Show30Seconds" xml:space="preserve">
+    <value>显示30秒</value>
+  </data>
+  <data name="Show5Minutes" xml:space="preserve">
+    <value>显示5分钟</value>
+  </data>
+  <data name="Show5Seconds" xml:space="preserve">
+    <value>显示 5 秒</value>
+  </data>
+  <data name="ShowAccountId" xml:space="preserve">
+    <value>显示账户ID</value>
+  </data>
+  <data name="ShowAccountIdDescription" xml:space="preserve">
+    <value>显示账户标识符</value>
+  </data>
+  <data name="ShowAvailableBalance" xml:space="preserve">
+    <value>显示可用余额</value>
+  </data>
+  <data name="ShowAvailableBalanceDescription" xml:space="preserve">
+    <value>显示可用交易资金</value>
+  </data>
+  <data name="ShowBalance" xml:space="preserve">
+    <value>显示余额</value>
+  </data>
+  <data name="ShowBalanceDescription" xml:space="preserve">
+    <value>显示总余额</value>
+  </data>
+  <data name="ShowBarChangeValues" xml:space="preserve">
+    <value>柱状变化值</value>
+  </data>
+  <data name="ShowBlockedMargin" xml:space="preserve">
+    <value>显示冻结保证金</value>
+  </data>
+  <data name="ShowBlockedMarginDescription" xml:space="preserve">
+    <value>显示被持仓锁定的保证金</value>
+  </data>
+  <data name="ShowClosedPnL" xml:space="preserve">
+    <value>显示已平仓盈亏</value>
+  </data>
+  <data name="ShowClosedPnLDescription" xml:space="preserve">
+    <value>显示已实现盈亏</value>
+  </data>
+  <data name="ShowCurrency" xml:space="preserve">
+    <value>显示货币</value>
+  </data>
+  <data name="ShowCurrencyDescription" xml:space="preserve">
+    <value>显示账户货币</value>
+  </data>
+  <data name="ShowDepthChanges" xml:space="preserve">
+    <value>显示深度变化</value>
+  </data>
+  <data name="ShowDescription" xml:space="preserve">
+    <value>显示描述</value>
+  </data>
+  <data name="ShowFavoritesToolbar" xml:space="preserve">
+    <value>显示收藏工具栏</value>
+  </data>
+  <data name="ShowLeverage" xml:space="preserve">
+    <value>显示杠杆</value>
+  </data>
+  <data name="ShowLeverageDescription" xml:space="preserve">
+    <value>显示账户杠杆</value>
+  </data>
+  <data name="ShowOhlcValues" xml:space="preserve">
+    <value>OHLC值</value>
+  </data>
+  <data name="ShowOpenPnL" xml:space="preserve">
+    <value>显示持仓盈亏</value>
+  </data>
+  <data name="ShowOpenPnLDescription" xml:space="preserve">
+    <value>显示未实现盈亏</value>
+  </data>
+  <data name="ShowTemplatesInLists" xml:space="preserve">
+    <value>在列表中显示模板</value>
+  </data>
+  <data name="ShowTotalPnL" xml:space="preserve">
+    <value>显示总盈亏</value>
+  </data>
+  <data name="ShowTotalPnLDescription" xml:space="preserve">
+    <value>显示总盈亏</value>
+  </data>
+  <data name="ShowTradeTooltipDescription" xml:space="preserve">
+    <value>确定是否在悬停在交易标记上时显示包含交易详情的工具提示。</value>
+  </data>
+  <data name="ShowWhenSelected" xml:space="preserve">
+    <value>选中时显示</value>
+  </data>
+  <data name="SkipFlattenAllConfirmation" xml:space="preserve">
+    <value>跳过取消并关闭所有确认</value>
+  </data>
+  <data name="SkipFlattenAllConfirmationDescription" xml:space="preserve">
+    <value>关闭此小部件中的所有头寸和订单时，不要询问确认。</value>
+  </data>
+  <data name="SkipTableConfirmations" xml:space="preserve">
+    <value>跳过表格中的确认</value>
+  </data>
+  <data name="SkipTableConfirmationsDescription" xml:space="preserve">
+    <value>在表格中取消订单或关闭头寸时跳过确认对话框（订单、头寸、交易活动）。</value>
+  </data>
+  <data name="SlidingMaxMultiplier" xml:space="preserve">
+    <value>滑动周期乘数</value>
+  </data>
+  <data name="SlidingMaxMultiplierDescription" xml:space="preserve">
+    <value>用于计算滑动最大值的主周期乘数。跟踪最大值的时间窗口。</value>
+  </data>
+  <data name="Small" xml:space="preserve">
+    <value>小</value>
+  </data>
+  <data name="SmartDOMTemplateDamaged" xml:space="preserve">
+    <value>智能DOM模块的模板"{0}"已损坏。</value>
+  </data>
+  <data name="SmartDOMTemplateDamagedWithRecovery" xml:space="preserve">
+    <value>智能DOM模块的模板"{0}"已损坏。
+恢复模板？</value>
+  </data>
+  <data name="SmoothDescription" xml:space="preserve">
+    <value>应用于指标值的平滑周期。</value>
+  </data>
+  <data name="Smoothing" xml:space="preserve">
+    <value>平滑</value>
+  </data>
+  <data name="SnapCrosshairToPrice" xml:space="preserve">
+    <value>十字线吸附到价格</value>
+  </data>
+  <data name="SoundVolume" xml:space="preserve">
+    <value>音量</value>
+  </data>
+  <data name="Stacking" xml:space="preserve">
+    <value>堆叠</value>
+  </data>
+  <data name="StatisticsPeriodAll" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="StatisticsPeriodCustom" xml:space="preserve">
+    <value>自定义</value>
+  </data>
+  <data name="StatisticsPeriodLast30Days" xml:space="preserve">
+    <value>最近30天</value>
+  </data>
+  <data name="StatisticsPeriodLast3Months" xml:space="preserve">
+    <value>最近3个月</value>
+  </data>
+  <data name="StatisticsPeriodLast7Days" xml:space="preserve">
+    <value>最近7天</value>
+  </data>
+  <data name="StatisticsPeriodLastYear" xml:space="preserve">
+    <value>最近一年</value>
+  </data>
+  <data name="StatisticsPeriodToday" xml:space="preserve">
+    <value>今天</value>
+  </data>
+  <data name="StepScale" xml:space="preserve">
+    <value>缩放步骤</value>
+  </data>
+  <data name="StepScaleDescription" xml:space="preserve">
+    <value>此参数设置使用鼠标滚轮滚动时价格的缩放步长。</value>
+  </data>
+  <data name="StopPriceMode" xml:space="preserve">
+    <value>止损价格模式</value>
+  </data>
+  <data name="Style" xml:space="preserve">
+    <value>样式</value>
+  </data>
+  <data name="SupportEmailPlatformX" xml:space="preserve">
+    <value>x.support@atas.net</value>
+  </data>
+  <data name="SwitchTimeframeNext" xml:space="preserve">
+    <value>下一个时间框架</value>
+  </data>
+  <data name="SwitchTimeframePrevious" xml:space="preserve">
+    <value>切换时间框架：上一个</value>
+  </data>
+  <data name="SymbolAllocation" xml:space="preserve">
+    <value>品种分配</value>
+  </data>
+  <data name="SymbolInfoBaseCurrency" xml:space="preserve">
+    <value>Base currency</value>
+  </data>
+  <data name="SymbolInfoExpiration" xml:space="preserve">
+    <value>到期</value>
+  </data>
+  <data name="SymbolInfoLotMaxSize" xml:space="preserve">
+    <value>Max order size</value>
+  </data>
+  <data name="SymbolInfoLotMinSize" xml:space="preserve">
+    <value>Min order size</value>
+  </data>
+  <data name="SymbolInfoLotSize" xml:space="preserve">
+    <value>手数大小</value>
+  </data>
+  <data name="SymbolInfoMarginBuy" xml:space="preserve">
+    <value>Margin (buy)</value>
+  </data>
+  <data name="SymbolInfoMarginSell" xml:space="preserve">
+    <value>Margin (sell)</value>
+  </data>
+  <data name="SymbolInfoMaxPrice" xml:space="preserve">
+    <value>Max price</value>
+  </data>
+  <data name="SymbolInfoMinLot" xml:space="preserve">
+    <value>最小手数</value>
+  </data>
+  <data name="SymbolInfoMinPrice" xml:space="preserve">
+    <value>Min price</value>
+  </data>
+  <data name="SymbolInfoOptionType" xml:space="preserve">
+    <value>Option type</value>
+  </data>
+  <data name="SymbolInfoPointValue" xml:space="preserve">
+    <value>点值</value>
+  </data>
+  <data name="SymbolInfoPriceMultiplier" xml:space="preserve">
+    <value>Price multiplier</value>
+  </data>
+  <data name="SymbolInfoQuoteCurrency" xml:space="preserve">
+    <value>Quote currency</value>
+  </data>
+  <data name="SymbolInfoStrikePrice" xml:space="preserve">
+    <value>Strike price</value>
+  </data>
+  <data name="SymbolInfoVolumeMultiplier" xml:space="preserve">
+    <value>成交量乘数</value>
+  </data>
+  <data name="SymbolPerformance" xml:space="preserve">
+    <value>品种业绩</value>
+  </data>
+  <data name="TabLabel" xml:space="preserve">
+    <value>新标签</value>
+  </data>
+  <data name="TableActionConfirmationMessage" xml:space="preserve">
+    <value>您确定要关闭/取消头寸和订单吗？此操作无法撤消。</value>
+  </data>
+  <data name="TableActionConfirmationTitle" xml:space="preserve">
+    <value>确认操作</value>
+  </data>
+  <data name="TablesRibbonPage" xml:space="preserve">
+    <value>表格</value>
+  </data>
+  <data name="TariffLimitExceeded" xml:space="preserve">
+    <value>超出费用限制</value>
+  </data>
+  <data name="TelegramPlatformXAlphaTestChatLink" xml:space="preserve">
+    <value>https://t.me/+8koBVICFtWZkODNi</value>
+  </data>
+  <data name="Threshold" xml:space="preserve">
+    <value>阈值</value>
+  </data>
+  <data name="ThresholdLineColor" xml:space="preserve">
+    <value>阈值线颜色</value>
+  </data>
+  <data name="TillBar" xml:space="preserve">
+    <value>到酒吧</value>
+  </data>
+  <data name="TimeFrameAlreadyExists" xml:space="preserve">
+    <value>时间周期 '{0}' 已存在。</value>
+  </data>
+  <data name="TimeFramePresetDailyPlus" xml:space="preserve">
+    <value>每日+</value>
+  </data>
+  <data name="TimeFramePresetIntraday" xml:space="preserve">
+    <value>日内交易 (M1-H4)</value>
+  </data>
+  <data name="TimeFramePresetNameHint" xml:space="preserve">
+    <value>预设名称...</value>
+  </data>
+  <data name="TimeFramePresetSelectHint" xml:space="preserve">
+    <value>选择预设...</value>
+  </data>
+  <data name="TimeFramePresetTickBased" xml:space="preserve">
+    <value>基于刻度</value>
+  </data>
+  <data name="ToGetStartedAddAppropriateWidget" xml:space="preserve">
+    <value>要开始，请添加适当的组件。</value>
+  </data>
+  <data name="ToGetStartedWithPlatformOpenNewTab" xml:space="preserve">
+    <value>要开始使用该平台，请打开一个新标签页。</value>
+  </data>
+  <data name="ToggleAllDrawingObjects" xml:space="preserve">
+    <value>显示/隐藏所有绘图对象</value>
+  </data>
+  <data name="ToggleAllIndicators" xml:space="preserve">
+    <value>显示/隐藏所有指标</value>
+  </data>
+  <data name="ToggleAllIndicatorsAndDrawings" xml:space="preserve">
+    <value>显示/隐藏指标和图形</value>
+  </data>
+  <data name="ToggleChartUI" xml:space="preserve">
+    <value>显示/隐藏图表面板</value>
+  </data>
+  <data name="ToggleExtraFootprint" xml:space="preserve">
+    <value>显示/隐藏额外足迹</value>
+  </data>
+  <data name="ToggleFollowingManager" xml:space="preserve">
+    <value>切换关注管理器</value>
+  </data>
+  <data name="ToggleLevelsVisibilityHotKey" xml:space="preserve">
+    <value>切换所有级别的可见性</value>
+  </data>
+  <data name="TotalCommissions" xml:space="preserve">
+    <value>总佣金</value>
+  </data>
+  <data name="TotalLoss" xml:space="preserve">
+    <value>总亏损</value>
+  </data>
+  <data name="TotalProfit" xml:space="preserve">
+    <value>总盈利</value>
+  </data>
+  <data name="TPOOpenClose" xml:space="preserve">
+    <value>TPO. Open/Close</value>
+  </data>
+  <data name="TradeDetails" xml:space="preserve">
+    <value>交易详情</value>
+  </data>
+  <data name="TradeInfo" xml:space="preserve">
+    <value>交易信息</value>
+  </data>
+  <data name="TradersTalkMenu" xml:space="preserve">
+    <value>交易者谈话</value>
+  </data>
+  <data name="TradersTalkTitle" xml:space="preserve">
+    <value>交易者谈话</value>
+  </data>
+  <data name="TradesAlert" xml:space="preserve">
+    <value>交易警报</value>
+  </data>
+  <data name="TradingActivityTitle" xml:space="preserve">
+    <value>交易活动</value>
+  </data>
+  <data name="TradingCalendar" xml:space="preserve">
+    <value>交易日历</value>
+  </data>
+  <data name="TradingInstrument" xml:space="preserve">
+    <value>交叉交易</value>
+  </data>
+  <data name="TradingJournal" xml:space="preserve">
+    <value>交易日志</value>
+  </data>
+  <data name="TradingOnChart" xml:space="preserve">
+    <value>图表上的交易</value>
+  </data>
+  <data name="TradingPanel" xml:space="preserve">
+    <value>交易面板</value>
+  </data>
+  <data name="TradingPatterns" xml:space="preserve">
+    <value>交易模式</value>
+  </data>
+  <data name="TradingSettingsGroup" xml:space="preserve">
+    <value>交易</value>
+  </data>
+  <data name="TradingStrategiesTitle" xml:space="preserve">
+    <value>交易策略</value>
+  </data>
+  <data name="TradingVolumeDistributionBySymbol" xml:space="preserve">
+    <value>按品种的交易量分布</value>
+  </data>
+  <data name="TrailingTooltip" xml:space="preserve">
+    <value>允许在当前价格朝着增加头寸利润的方向移动SL订单。如果价格继续朝着利润移动，SL订单可以多次移动。
+
+参数：
+• 跟踪止损 — 价格必须从上一个水平移动的值，以便将SL订单移动到新水平
+• 跟踪步长 — 相对于之前SL订单价格移动SL订单的步长</value>
+  </data>
+  <data name="TrainingMinutes" xml:space="preserve">
+    <value>培训分钟</value>
+  </data>
+  <data name="TrainingMinutesDescription" xml:space="preserve">
+    <value>培训期间收集历史数据以计算流动性最大值。培训完成后，收集的值将根据培训阶段观察到的最大值进行标准化。</value>
+  </data>
+  <data name="TrainingPeriod" xml:space="preserve">
+    <value>训练期</value>
+  </data>
+  <data name="TransaqAsset" xml:space="preserve">
+    <value>资产类型代码</value>
+  </data>
+  <data name="TransaqBalanceCategory" xml:space="preserve">
+    <value>余额</value>
+  </data>
+  <data name="TransaqBasicInfoCategory" xml:space="preserve">
+    <value>基本信息</value>
+  </data>
+  <data name="TransaqBlocked" xml:space="preserve">
+    <value>被阻止的资金</value>
+  </data>
+  <data name="TransaqBought" xml:space="preserve">
+    <value>已购买</value>
+  </data>
+  <data name="TransaqClient" xml:space="preserve">
+    <value>客户ID</value>
+  </data>
+  <data name="TransaqClientType" xml:space="preserve">
+    <value>客户类型</value>
+  </data>
+  <data name="TransaqCommission" xml:space="preserve">
+    <value>收取的佣金</value>
+  </data>
+  <data name="TransaqCurrency" xml:space="preserve">
+    <value>货币</value>
+  </data>
+  <data name="TransaqCurrent" xml:space="preserve">
+    <value>当前资金</value>
+  </data>
+  <data name="TransaqFortsAcc" xml:space="preserve">
+    <value>FORTS账户</value>
+  </data>
+  <data name="TransaqFree" xml:space="preserve">
+    <value>自由资金</value>
+  </data>
+  <data name="TransaqMarkets" xml:space="preserve">
+    <value>市场</value>
+  </data>
+  <data name="TransaqOrdBuy" xml:space="preserve">
+    <value>在买入订单 + 佣金</value>
+  </data>
+  <data name="TransaqOrdBuyCond" xml:space="preserve">
+    <value>在条件购买订单中</value>
+  </data>
+  <data name="TransaqOrdersCategory" xml:space="preserve">
+    <value>订单</value>
+  </data>
+  <data name="TransaqRegister" xml:space="preserve">
+    <value>会计登记册</value>
+  </data>
+  <data name="TransaqSaldo" xml:space="preserve">
+    <value>当前余额</value>
+  </data>
+  <data name="TransaqSaldoIn" xml:space="preserve">
+    <value>期初余额</value>
+  </data>
+  <data name="TransaqShortName" xml:space="preserve">
+    <value>资产类型名称</value>
+  </data>
+  <data name="TransaqSold" xml:space="preserve">
+    <value>已售出</value>
+  </data>
+  <data name="TransaqUnion" xml:space="preserve">
+    <value>联合代码</value>
+  </data>
+  <data name="TransaqVarMargin" xml:space="preserve">
+    <value>变动保证金</value>
+  </data>
+  <data name="TtAccountCategory" xml:space="preserve">
+    <value>账户</value>
+  </data>
+  <data name="TtAccountId" xml:space="preserve">
+    <value>账户ID</value>
+  </data>
+  <data name="TtAccountName" xml:space="preserve">
+    <value>账户名称</value>
+  </data>
+  <data name="TtAssignedMarkets" xml:space="preserve">
+    <value>分配市场</value>
+  </data>
+  <data name="TtRiskCategory" xml:space="preserve">
+    <value>风险与市场</value>
+  </data>
+  <data name="UseAlertDescription" xml:space="preserve">
+    <value>指标检测到的事件通知。</value>
+  </data>
+  <data name="UserNotWhitelistedMessage" xml:space="preserve">
+    <value>很遗憾，您的帐户不在允许列表中，因此目前无法访问该平台。
+如果您想请求访问或认为这可能是一个错误，请联系支持团队，我们将乐意提供帮助。</value>
+  </data>
+  <data name="VAH" xml:space="preserve">
+    <value>VAH</value>
+  </data>
+  <data name="VAL" xml:space="preserve">
+    <value>VAL</value>
+  </data>
+  <data name="VerticalBar" xml:space="preserve">
+    <value>垂直条</value>
+  </data>
+  <data name="VerticalBars" xml:space="preserve">
+    <value>垂直条</value>
+  </data>
+  <data name="VerticalPosition" xml:space="preserve">
+    <value>垂直位置</value>
+  </data>
+  <data name="Visibility" xml:space="preserve">
+    <value>是否显示</value>
+  </data>
+  <data name="Visualization" xml:space="preserve">
+    <value>视觉化</value>
+  </data>
+  <data name="VolumePerSecondAlert" xml:space="preserve">
+    <value>交易量/秒警报</value>
+  </data>
+  <data name="VolumePressure" xml:space="preserve">
+    <value>成交量压力</value>
+  </data>
+  <data name="Vsync" xml:space="preserve">
+    <value>垂直同步</value>
+  </data>
+  <data name="VWAP" xml:space="preserve">
+    <value>VWAP</value>
+  </data>
+  <data name="VWMADescription" xml:space="preserve">
+    <value>成交量加权移动平均线（VWMA）指标是一种技术分析工具，它在计算资产的平均价格时考虑了不同价格水平的交易量。这使得对价格波动和市场行为有更细致的理解。VWMA 对于希望将其策略与价格走势和交易量相结合的交易者特别有用。</value>
+  </data>
+  <data name="WatchlistDragHandleTooltip" xml:space="preserve">
+    <value>在列表中更改顺序或拖动到模块以打开</value>
+  </data>
+  <data name="WatchlistFilterAdd" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="WatchlistFilterApply" xml:space="preserve">
+    <value>应用</value>
+  </data>
+  <data name="WatchlistFilterCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="WatchlistFilterConditions" xml:space="preserve">
+    <value>过滤条件：</value>
+  </data>
+  <data name="WatchlistFilterFieldAskQty" xml:space="preserve">
+    <value>询价数量</value>
+  </data>
+  <data name="WatchlistFilterFieldBidQty" xml:space="preserve">
+    <value>出价数量</value>
+  </data>
+  <data name="WatchlistFilterFieldChange" xml:space="preserve">
+    <value>更改</value>
+  </data>
+  <data name="WatchlistFilterFieldChangePercent" xml:space="preserve">
+    <value>变化 %</value>
+  </data>
+  <data name="WatchlistFilterFieldVolume" xml:space="preserve">
+    <value>音量</value>
+  </data>
+  <data name="WatchlistFilterLogicAnd" xml:space="preserve">
+    <value>和</value>
+  </data>
+  <data name="WatchlistFilterLogicOr" xml:space="preserve">
+    <value>或</value>
+  </data>
+  <data name="WatchlistFilterMenu" xml:space="preserve">
+    <value>过滤器</value>
+  </data>
+  <data name="WatchlistFilterOperatorEqual" xml:space="preserve">
+    <value>等于</value>
+  </data>
+  <data name="WatchlistFilterOperatorGreaterThan" xml:space="preserve">
+    <value>大于</value>
+  </data>
+  <data name="WatchlistFilterOperatorLessThan" xml:space="preserve">
+    <value>少于</value>
+  </data>
+  <data name="WatchlistFilterResetFilter" xml:space="preserve">
+    <value>重置过滤器</value>
+  </data>
+  <data name="WatchlistFilterTitle" xml:space="preserve">
+    <value>报价过滤器</value>
+  </data>
+  <data name="WatchlistListAlreadyExistsQuestion" xml:space="preserve">
+    <value>已经存在一个同名的列表。您想要覆盖它吗？</value>
+  </data>
+  <data name="WatchlistListNameLabel" xml:space="preserve">
+    <value>列表名称：</value>
+  </data>
+  <data name="WatchlistListNamePlaceholder" xml:space="preserve">
+    <value>输入列表名称</value>
+  </data>
+  <data name="WatchlistNewListTitle" xml:space="preserve">
+    <value>新列表</value>
+  </data>
+  <data name="WatchlistPresetBinanceFuturesUSDT" xml:space="preserve">
+    <value>WatchlistPresetBinanceFuturesUSDT</value>
+  </data>
+  <data name="WatchlistPresetBitgetFuturesUSDT" xml:space="preserve">
+    <value>BitgetFutures_USDT</value>
+  </data>
+  <data name="WatchlistPresetsMenu" xml:space="preserve">
+    <value>列表</value>
+  </data>
+  <data name="WatchlistPresetTop10USFutures" xml:space="preserve">
+    <value>美国前10期货</value>
+  </data>
+  <data name="WatchlistPresetTop6Delayed" xml:space="preserve">
+    <value>延迟的TOP 6</value>
+  </data>
+  <data name="WatchlistRenameListTitle" xml:space="preserve">
+    <value>重命名列表</value>
+  </data>
+  <data name="WatchlistSaveNewList" xml:space="preserve">
+    <value>保存新列表</value>
+  </data>
+  <data name="WebPages" xml:space="preserve">
+    <value>网页</value>
+  </data>
+  <data name="WebPagesTitle" xml:space="preserve">
+    <value>网页</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>周</value>
+  </data>
+  <data name="WeekdayPnL" xml:space="preserve">
+    <value>每周盈亏</value>
+  </data>
+  <data name="WeightDecay" xml:space="preserve">
+    <value>衰减比率</value>
+  </data>
+  <data name="WeightDecayDescription" xml:space="preserve">
+    <value>指数权重衰减参数。较低的值使接近市场的水平权重更大，而较高的值则在市场深度上更均匀地分配权重。</value>
+  </data>
+  <data name="White" xml:space="preserve">
+    <value>白色</value>
+  </data>
+  <data name="WhitebitAvailableBalance" xml:space="preserve">
+    <value>可用余额</value>
+  </data>
+  <data name="WhitebitCollateralAccountCategory" xml:space="preserve">
+    <value>账户信息</value>
+  </data>
+  <data name="WhitebitCollateralMarginCategory" xml:space="preserve">
+    <value>保证金</value>
+  </data>
+  <data name="WhitebitCollateralPnlCategory" xml:space="preserve">
+    <value>盈亏</value>
+  </data>
+  <data name="WhitebitEquity" xml:space="preserve">
+    <value>权益</value>
+  </data>
+  <data name="WhitebitFreeMargin" xml:space="preserve">
+    <value>自由保证金</value>
+  </data>
+  <data name="WhitebitFrozenBalance" xml:space="preserve">
+    <value>冻结余额</value>
+  </data>
+  <data name="WhitebitLeverage" xml:space="preserve">
+    <value>杠杆</value>
+  </data>
+  <data name="WhitebitMargin" xml:space="preserve">
+    <value>保证金</value>
+  </data>
+  <data name="WhitebitPnl" xml:space="preserve">
+    <value>盈亏</value>
+  </data>
+  <data name="WhitebitSpotBalanceCategory" xml:space="preserve">
+    <value>现货余额</value>
+  </data>
+  <data name="WhitebitUnrealizedFunding" xml:space="preserve">
+    <value>未实现资金</value>
+  </data>
+  <data name="WidgetLabel" xml:space="preserve">
+    <value>新小部件</value>
+  </data>
+  <data name="Widgets" xml:space="preserve">
+    <value>小部件</value>
+  </data>
+  <data name="WindowLabel" xml:space="preserve">
+    <value>新窗口</value>
+  </data>
+  <data name="WindowMenu" xml:space="preserve">
+    <value>窗口</value>
+  </data>
+  <data name="WinLossRatio" xml:space="preserve">
+    <value>盈亏比</value>
+  </data>
+  <data name="WinningDays" xml:space="preserve">
+    <value>盈利天数</value>
+  </data>
+  <data name="WinningDaysPercent" xml:space="preserve">
+    <value>盈利日 %</value>
+  </data>
+  <data name="WinRate" xml:space="preserve">
+    <value>胜率</value>
+  </data>
+  <data name="WorstTrade" xml:space="preserve">
+    <value>最差交易</value>
+  </data>
+  <data name="WriteToSupportEmailPlatformX" xml:space="preserve">
+    <value>写信至 x.support@atas.net</value>
+  </data>
+  <data name="Xylophone" xml:space="preserve">
+    <value>木琴</value>
+  </data>
+  <data name="YourTradingPerformanceOverTime" xml:space="preserve">
+    <value>您的交易业绩随时间变化</value>
+  </data>
+  <data name="YourWorkspaceLimitedTitle" xml:space="preserve">
+    <value>正在加载的工作区包含您计划中不可用的元素</value>
+  </data>
+  <data name="ZigZagTPOAndProfile" xml:space="preserve">
+    <value>ZigZag 成交量Profile &amp; TPO</value>
+  </data>
+</root>

@@ -118,6 +118,11 @@
 	  <None Include="**\*.Common.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Properties\FallbackResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FallbackResources.resx</DependentUpon>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -131,6 +136,16 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\FallBackResources.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>FallBackResources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Properties\FallBackResources.*.resx">
+			<DependentUpon>FallBackResources.resx</DependentUpon>
+		</EmbeddedResource>
+	</ItemGroup>
 
   <!-- File exclusions by platform -->
   <ItemGroup Condition=" '$(Platform)' == 'Cross' ">
@@ -158,10 +173,8 @@
   </ItemGroup>
 
   <Target Name="ValidateConfigurationPlatform" BeforeTargets="PrepareForBuild">
-    <Error Condition="'$(IsAtasX)' == 'true' And '$(Platform)' != 'Cross'"
-           Text="ATAS_X configurations must be built with Platform=Cross." />
-    <Error Condition="'$(IsAtasX)' != 'true' And '$(Platform)' == 'Cross'"
-           Text="Cross platform is only valid for ATAS_X configurations." />
+    <Error Condition="'$(IsAtasX)' == 'true' And '$(Platform)' != 'Cross'" Text="ATAS_X configurations must be built with Platform=Cross." />
+    <Error Condition="'$(IsAtasX)' != 'true' And '$(Platform)' == 'Cross'" Text="Cross platform is only valid for ATAS_X configurations." />
   </Target>
 
 </Project>
