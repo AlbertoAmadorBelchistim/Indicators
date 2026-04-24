@@ -1,0 +1,4759 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutModule" xml:space="preserve">
+    <value>Über das Modul</value>
+  </data>
+  <data name="Absorption" xml:space="preserve">
+    <value>Absorption</value>
+  </data>
+  <data name="AbsorptionThresholdDesc" xml:space="preserve">
+    <value>Mindestabstand zwischen dem Schlusskurs und den Delta-Extremen zur Berücksichtigung von Absorption</value>
+  </data>
+  <data name="AccountAge" xml:space="preserve">
+    <value>Kontoalter (Tage)</value>
+  </data>
+  <data name="AccountInfoDisplayDescription" xml:space="preserve">
+    <value>Zeigt detaillierte Kontoinformationen im Chart an</value>
+  </data>
+  <data name="AccountInformation" xml:space="preserve">
+    <value>Kontoinformationen</value>
+  </data>
+  <data name="AccountsCount" xml:space="preserve">
+    <value>{0} Konten</value>
+  </data>
+  <data name="AccountSelectionMultipleAccounts" xml:space="preserve">
+    <value>{0} Konten</value>
+  </data>
+  <data name="AccountSelectionMultipleAccountsFew" xml:space="preserve">
+    <value>{0} Konten</value>
+  </data>
+  <data name="AccountSelectionOneAccount" xml:space="preserve">
+    <value>Ein Konto</value>
+  </data>
+  <data name="AccountSelectionSelectAccount" xml:space="preserve">
+    <value>Konto auswählen</value>
+  </data>
+  <data name="AccountsTitle" xml:space="preserve">
+    <value>Konten</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>Aktion</value>
+  </data>
+  <data name="ActivateGlobalLine" xml:space="preserve">
+    <value>Globale Linie aktivieren</value>
+  </data>
+  <data name="ActivityPeriod" xml:space="preserve">
+    <value>Aktivitätszeitraum (Tage)</value>
+  </data>
+  <data name="ActivityPeriodFormat" xml:space="preserve">
+    <value>{0} Tag(e)</value>
+  </data>
+  <data name="AddElement" xml:space="preserve">
+    <value>Element hinzufügen</value>
+  </data>
+  <data name="AddPlaybook" xml:space="preserve">
+    <value>Playbook hinzufügen</value>
+  </data>
+  <data name="AddReplayTemplate" xml:space="preserve">
+    <value>Replay-Template erstellen</value>
+  </data>
+  <data name="AddRequiredWidget" xml:space="preserve">
+    <value>Fügen Sie das erforderliche Widget hinzu</value>
+  </data>
+  <data name="AddToFavoriteTimeFrame" xml:space="preserve">
+    <value>Zu Favoriten hinzufügen</value>
+  </data>
+  <data name="AddWidget" xml:space="preserve">
+    <value>Ein Widget hinzufügen</value>
+  </data>
+  <data name="AddWidgetLabel" xml:space="preserve">
+    <value>Widget hinzufügen</value>
+  </data>
+  <data name="AddWidgetToAreaLabel" xml:space="preserve">
+    <value>Fügen Sie ein Diagramm, ein Orderbuch, Zeit- und Verkaufsdaten oder ein anderes Widget in diesen Bereich ein.</value>
+  </data>
+  <data name="AdvancedStatistics" xml:space="preserve">
+    <value>Erweiterte Statistiken</value>
+  </data>
+  <data name="AlertFile" xml:space="preserve">
+    <value>Alarm Datei</value>
+  </data>
+  <data name="AlertFileDescription" xml:space="preserve">
+    <value>Einstellungen für benutzerdefinierte Warnsignale. Die ausgewählte Datei muss im WAV-Format vorliegen und sich im Ordner C:\Program Files (x86)\ATAS Platform\Sounds befinden.</value>
+  </data>
+  <data name="AlertFilterDescription" xml:space="preserve">
+    <value>Benachrichtigung bei Erreichen des manuell eingestellten Volumenniveaus.</value>
+  </data>
+  <data name="AlertInterval" xml:space="preserve">
+    <value>Wiederholungsintervall für Warnungen (Sek.)</value>
+  </data>
+  <data name="AlertIntervalDescription" xml:space="preserve">
+    <value>Zeit in Sekunden bis zur nächsten wiederholten Warnung</value>
+  </data>
+  <data name="AlertNotifierSendError" xml:space="preserve">
+    <value>Fehler beim Senden des Alerts über '{0}'.</value>
+  </data>
+  <data name="AllAccounts" xml:space="preserve">
+    <value>Alle Konten</value>
+  </data>
+  <data name="AllInstruments" xml:space="preserve">
+    <value>Alle Instrumente</value>
+  </data>
+  <data name="AllPlaybooks" xml:space="preserve">
+    <value>Alle Playbooks</value>
+  </data>
+  <data name="AmpCqgGetDemoQuotes" xml:space="preserve">
+    <value>AMP/CQG Demo-Kurse erhalten</value>
+  </data>
+  <data name="ApplyAutoScale" xml:space="preserve">
+    <value>Automatische Skalierung anwenden</value>
+  </data>
+  <data name="ApplyAutoScaleDescription" xml:space="preserve">
+    <value>Auto-Skalierung des Preises anwenden</value>
+  </data>
+  <data name="AssignPlaybooks" xml:space="preserve">
+    <value>Playbooks zuweisen</value>
+  </data>
+  <data name="AtasXAccessDeniedHeader" xml:space="preserve">
+    <value>Sie haben keinen Zugang zu ATAS X.</value>
+  </data>
+  <data name="AtasXAccessDeniedMessage" xml:space="preserve">
+    <value>Ihr aktueller Tarif unterstützt diese Version nicht. Um Zugang zu ATAS X (Beta) freizuschalten, müssen Sie den Ultra-Tarif erwerben.</value>
+  </data>
+  <data name="AtasXAccessDeniedPromoHeader" xml:space="preserve">
+    <value>Du hast keinen Frühzugang zu ATAS X.</value>
+  </data>
+  <data name="AtasXAccessDeniedPromoMessage" xml:space="preserve">
+    <value>Um den Frühzugang zu ATAS X (Beta) freizuschalten, müssen Sie den Ultra-Tarif erwerben.</value>
+  </data>
+  <data name="AtasXAccessDeniedTitle" xml:space="preserve">
+    <value>Frühzugang zu ATAS X</value>
+  </data>
+  <data name="ATRLength" xml:space="preserve">
+    <value>ATR-Periode</value>
+  </data>
+  <data name="ATRLengthDescription" xml:space="preserve">
+    <value>Periode der ATR-Berechnung, die für die Toleranz verwendet wird.</value>
+  </data>
+  <data name="AudioIntensity" xml:space="preserve">
+    <value>Audiointensität</value>
+  </data>
+  <data name="AudioTheme" xml:space="preserve">
+    <value>Audio-Thema</value>
+  </data>
+  <data name="AutoAddCrossTradingIndicator" xml:space="preserve">
+    <value>Bestpreise-Indikator automatisch hinzufügen/entfernen</value>
+  </data>
+  <data name="AutoAddCrossTradingIndicatorDescription" xml:space="preserve">
+    <value>Fügt den Cross-Trading-Bestpreise-Indikator automatisch zu Charts hinzu oder entfernt ihn, wenn Cross-Trading aktiviert oder deaktiviert wird.</value>
+  </data>
+  <data name="AutoConnectedMarketDataOnly" xml:space="preserve">
+    <value>Automatisch verbundener Connector für {0}</value>
+  </data>
+  <data name="AutoReplay" xml:space="preserve">
+    <value>Auto-Wiederholung</value>
+  </data>
+  <data name="AvgLossInMoney" xml:space="preserve">
+    <value>Durchschnittlicher Verlust</value>
+  </data>
+  <data name="AvgTradeLength" xml:space="preserve">
+    <value>Durchschn. Trade-Länge</value>
+  </data>
+  <data name="AvgTradesPerDay" xml:space="preserve">
+    <value>Trades pro Tag</value>
+  </data>
+  <data name="AvgWin" xml:space="preserve">
+    <value>Durchschnittlicher Gewinn</value>
+  </data>
+  <data name="AvgWinLoss" xml:space="preserve">
+    <value>Durchschn. Gewinn/Verlust</value>
+  </data>
+  <data name="AxisLine" xml:space="preserve">
+    <value>Achse Linie</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Zurück</value>
+  </data>
+  <data name="BackgroundColor" xml:space="preserve">
+    <value>Hintergrundfarbe</value>
+  </data>
+  <data name="BalanceWithColonAndSpaceLabel" xml:space="preserve">
+    <value>Saldo: </value>
+  </data>
+  <data name="BarClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="BarDirVsDeltaDivergenceDescription" xml:space="preserve">
+    <value>Bestimmt, ob eine Divergenz angezeigt werden soll, die auftritt, wenn die Richtung der Leiste und der Delta-Wert entgegengesetzt sind: im Falle einer bullischen Leiste ist das Delta negativ und im Falle einer bärischen Leiste ist das Delta positiv.</value>
+  </data>
+  <data name="BarHigh" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="BarLow" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="BarOpen" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="BearDivergenceColor" xml:space="preserve">
+    <value>Farbe der bärischen Divergenz</value>
+  </data>
+  <data name="BestTrade" xml:space="preserve">
+    <value>Bester Trade</value>
+  </data>
+  <data name="BinanceFutAccountInfoCategory" xml:space="preserve">
+    <value>Kontoinformationen</value>
+  </data>
+  <data name="BinanceFutAssetUpdateTime" xml:space="preserve">
+    <value>Aktualisierungszeit des Vermögenswerts</value>
+  </data>
+  <data name="BinanceFutAvailableBalance" xml:space="preserve">
+    <value>Verfügbarer Betrag</value>
+  </data>
+  <data name="BinanceFutBalanceCategory" xml:space="preserve">
+    <value>Guthaben</value>
+  </data>
+  <data name="BinanceFutCanDeposit" xml:space="preserve">
+    <value>Einzahlen erlaubt</value>
+  </data>
+  <data name="BinanceFutCanTrade" xml:space="preserve">
+    <value>Handel erlaubt</value>
+  </data>
+  <data name="BinanceFutCanWithdraw" xml:space="preserve">
+    <value>Kann abheben</value>
+  </data>
+  <data name="BinanceFutCrossUnPnl" xml:space="preserve">
+    <value>Kreuz Nichteingelöster PnL</value>
+  </data>
+  <data name="BinanceFutCrossWalletBalance" xml:space="preserve">
+    <value>Kreuz-Wallet-Balance</value>
+  </data>
+  <data name="BinanceFutFeeBurn" xml:space="preserve">
+    <value>Gebührenrabatt</value>
+  </data>
+  <data name="BinanceFutFeeTier" xml:space="preserve">
+    <value>Gebührenstufe</value>
+  </data>
+  <data name="BinanceFutInitialMargin" xml:space="preserve">
+    <value>Erste Margin</value>
+  </data>
+  <data name="BinanceFutMaintMargin" xml:space="preserve">
+    <value>Wartungsmarge</value>
+  </data>
+  <data name="BinanceFutMarginAvailable" xml:space="preserve">
+    <value>Verfügbare Marge</value>
+  </data>
+  <data name="BinanceFutMarginBalance" xml:space="preserve">
+    <value>Margin-Balance</value>
+  </data>
+  <data name="BinanceFutMarginCategory" xml:space="preserve">
+    <value>Margin</value>
+  </data>
+  <data name="BinanceFutMaxWithdrawAmount" xml:space="preserve">
+    <value>Maximale Abhebungsbetrag</value>
+  </data>
+  <data name="BinanceFutMultiAssetsMargin" xml:space="preserve">
+    <value>Multi-Assets-Marge</value>
+  </data>
+  <data name="BinanceFutOpenOrderInitialMargin" xml:space="preserve">
+    <value>Erste Margin für offene Aufträge</value>
+  </data>
+  <data name="BinanceFutPositionInitialMargin" xml:space="preserve">
+    <value>Positionsanfangsmargin</value>
+  </data>
+  <data name="BinanceFutUnrealizedProfit" xml:space="preserve">
+    <value>Nicht realisierter Gewinn</value>
+  </data>
+  <data name="BinanceFutWalletBalance" xml:space="preserve">
+    <value>Wallet-Balance</value>
+  </data>
+  <data name="BinanceSpotAccountInfoCategory" xml:space="preserve">
+    <value>Kontoinformationen</value>
+  </data>
+  <data name="BinanceSpotAccountType" xml:space="preserve">
+    <value>Kontotyp</value>
+  </data>
+  <data name="BinanceSpotBrokered" xml:space="preserve">
+    <value>Vermittelt</value>
+  </data>
+  <data name="BinanceSpotBuyerCommission" xml:space="preserve">
+    <value>Käuferprovision</value>
+  </data>
+  <data name="BinanceSpotCanDeposit" xml:space="preserve">
+    <value>Kann einzahlen</value>
+  </data>
+  <data name="BinanceSpotCanTrade" xml:space="preserve">
+    <value>Kann handeln</value>
+  </data>
+  <data name="BinanceSpotCanWithdraw" xml:space="preserve">
+    <value>Kann abgehoben werden</value>
+  </data>
+  <data name="BinanceSpotCommissionCategory" xml:space="preserve">
+    <value>Kommission</value>
+  </data>
+  <data name="BinanceSpotLastAccountUpdate" xml:space="preserve">
+    <value>Letzte Kontenaktualisierung</value>
+  </data>
+  <data name="BinanceSpotMakerCommission" xml:space="preserve">
+    <value>Maker-Kommission</value>
+  </data>
+  <data name="BinanceSpotPermissionsCategory" xml:space="preserve">
+    <value>Kontoberechtigungen</value>
+  </data>
+  <data name="BinanceSpotPreventSor" xml:space="preserve">
+    <value>SOR verhindern</value>
+  </data>
+  <data name="BinanceSpotRequireSelfTradePrevention" xml:space="preserve">
+    <value>Erforderliche Selbsthandelsprävention</value>
+  </data>
+  <data name="BinanceSpotSellerCommission" xml:space="preserve">
+    <value>Verkäuferprovision</value>
+  </data>
+  <data name="BinanceSpotTakerCommission" xml:space="preserve">
+    <value>Maker-Kommission</value>
+  </data>
+  <data name="BinanceSpotUid" xml:space="preserve">
+    <value>Benutzer-ID</value>
+  </data>
+  <data name="BitfinexBalance" xml:space="preserve">
+    <value>Guthaben</value>
+  </data>
+  <data name="BitfinexBalanceAvailable" xml:space="preserve">
+    <value>Verfügbares Guthaben</value>
+  </data>
+  <data name="BitfinexBalanceCategory" xml:space="preserve">
+    <value>Guthaben</value>
+  </data>
+  <data name="BitfinexCurrency" xml:space="preserve">
+    <value>Währung</value>
+  </data>
+  <data name="BitfinexUnsettledInterest" xml:space="preserve">
+    <value>Unbeglichene Zinsen</value>
+  </data>
+  <data name="BitfinexWalletInfoCategory" xml:space="preserve">
+    <value>Wallet-Informationen</value>
+  </data>
+  <data name="BitfinexWalletType" xml:space="preserve">
+    <value>Wallet-Typ</value>
+  </data>
+  <data name="BitgetAccountEquity" xml:space="preserve">
+    <value>Kontokapital</value>
+  </data>
+  <data name="BitgetAccountInfoCategory" xml:space="preserve">
+    <value>Kontoinformationen</value>
+  </data>
+  <data name="BitgetAvailable" xml:space="preserve">
+    <value>Verfügbar</value>
+  </data>
+  <data name="BitgetBalanceCategory" xml:space="preserve">
+    <value>Guthaben</value>
+  </data>
+  <data name="BitgetBtcEquity" xml:space="preserve">
+    <value>BTC Eigenkapital</value>
+  </data>
+  <data name="BitgetCoupon" xml:space="preserve">
+    <value>Gutschein</value>
+  </data>
+  <data name="BitgetCrossedMaxAvailable" xml:space="preserve">
+    <value>Maximal verfügbar überschritten</value>
+  </data>
+  <data name="BitgetCrossedRiskRate" xml:space="preserve">
+    <value>Überkreuzte Risikobewertung</value>
+  </data>
+  <data name="BitgetFrozen" xml:space="preserve">
+    <value>Eingefroren</value>
+  </data>
+  <data name="BitgetIsolatedMaxAvailable" xml:space="preserve">
+    <value>Isolierte maximal verfügbare Menge</value>
+  </data>
+  <data name="BitgetLimitsCategory" xml:space="preserve">
+    <value>Verfügbare Limits</value>
+  </data>
+  <data name="BitgetLocked" xml:space="preserve">
+    <value>Gesperrt</value>
+  </data>
+  <data name="BitgetMarginCoin" xml:space="preserve">
+    <value>Margin Coin</value>
+  </data>
+  <data name="BitgetMaxOpenPosAvailable" xml:space="preserve">
+    <value>Maximale offene Position verfügbar</value>
+  </data>
+  <data name="BitgetMaxTransferOut" xml:space="preserve">
+    <value>Maximaler Transfer nach außen</value>
+  </data>
+  <data name="BitgetPnLCategory" xml:space="preserve">
+    <value>Gewinn und Verlust</value>
+  </data>
+  <data name="BitgetSpotBalanceCategory" xml:space="preserve">
+    <value>Spot-Bilanz</value>
+  </data>
+  <data name="BitgetSpotFrozen" xml:space="preserve">
+    <value>Eingefroren</value>
+  </data>
+  <data name="BitgetSpotLimitAvailable" xml:space="preserve">
+    <value>Verfügbarer Limit</value>
+  </data>
+  <data name="BitgetSpotLocked" xml:space="preserve">
+    <value>Gesperrt</value>
+  </data>
+  <data name="BitgetUnrealizedPL" xml:space="preserve">
+    <value>Nicht realisierte PnL</value>
+  </data>
+  <data name="BitgetUsdtEquity" xml:space="preserve">
+    <value>USDT Eigenkapital</value>
+  </data>
+  <data name="BitmexAccountCategory" xml:space="preserve">
+    <value>Kontoinformationen</value>
+  </data>
+  <data name="BitmexAvailableMargin" xml:space="preserve">
+    <value>Verfügbarer Margin</value>
+  </data>
+  <data name="BitmexCostCategory" xml:space="preserve">
+    <value>Kosteninformationen</value>
+  </data>
+  <data name="BitmexCurrency" xml:space="preserve">
+    <value>Währung</value>
+  </data>
+  <data name="BitmexExcessMargin" xml:space="preserve">
+    <value>Übermäßige Marge</value>
+  </data>
+  <data name="BitmexExcessMarginPcnt" xml:space="preserve">
+    <value>Übermäßiger Margin %</value>
+  </data>
+  <data name="BitmexGrossComm" xml:space="preserve">
+    <value>Bruttokommission</value>
+  </data>
+  <data name="BitmexGrossExecCost" xml:space="preserve">
+    <value>Bruttokosten der Ausführung</value>
+  </data>
+  <data name="BitmexGrossMarkValue" xml:space="preserve">
+    <value>Bruttomarkwert</value>
+  </data>
+  <data name="BitmexGrossOpenCost" xml:space="preserve">
+    <value>Brutto offene Kosten</value>
+  </data>
+  <data name="BitmexInitMargin" xml:space="preserve">
+    <value>Initial Margin</value>
+  </data>
+  <data name="BitmexMaintMargin" xml:space="preserve">
+    <value>Wartungsmarge</value>
+  </data>
+  <data name="BitmexMarginBalance" xml:space="preserve">
+    <value>Margin-Balance</value>
+  </data>
+  <data name="BitmexMarginBalancePcnt" xml:space="preserve">
+    <value>Margin-Balance %</value>
+  </data>
+  <data name="BitmexMarginCategory" xml:space="preserve">
+    <value>Margin-Info</value>
+  </data>
+  <data name="BitmexMarginLeverage" xml:space="preserve">
+    <value>Margin Hebel</value>
+  </data>
+  <data name="BitmexMarginRequirementsCategory" xml:space="preserve">
+    <value>Marginanforderungen</value>
+  </data>
+  <data name="BitmexMarginUsedPcnt" xml:space="preserve">
+    <value>Margin verwendet %</value>
+  </data>
+  <data name="BitmexPnlCategory" xml:space="preserve">
+    <value>Nicht realisierte Gewinne und Verluste (PnL)</value>
+  </data>
+  <data name="BitmexRealisedPnl" xml:space="preserve">
+    <value>Realisierten PnL</value>
+  </data>
+  <data name="BitmexRiskLimit" xml:space="preserve">
+    <value>Risikobegrenzung</value>
+  </data>
+  <data name="BitmexRiskValue" xml:space="preserve">
+    <value>Risiko Wert</value>
+  </data>
+  <data name="BitmexUnrealisedPnl" xml:space="preserve">
+    <value>Nicht realisierte PnL</value>
+  </data>
+  <data name="BitmexUnrealisedProfit" xml:space="preserve">
+    <value>Nicht realisierter Gewinn</value>
+  </data>
+  <data name="BitmexWalletBalance" xml:space="preserve">
+    <value>Wallet-Balance</value>
+  </data>
+  <data name="BitmexWithdrawableMargin" xml:space="preserve">
+    <value>Abhebbares Margin</value>
+  </data>
+  <data name="BreakevenAndTrailing" xml:space="preserve">
+    <value>Break-even &amp; Trailing</value>
+  </data>
+  <data name="BreakevenTooltip" xml:space="preserve">
+    <value>Ermöglicht das Verschieben des SL-Orders, wenn ein bestimmter Gewinnwert für die Position erreicht wird. Das Verschieben des SL-Orders auf den Break-even-Punkt erfolgt nur einmal.
+
+Parameter:
+• Break-even — Gewinnwert, bei dem der SL-Order auf ein anderes Niveau verschoben werden soll
+• Offset — Offset vom durchschnittlichen Positionspreis, auf den der SL-Order nach Erreichen des angegebenen Gewinnwerts verschoben werden soll</value>
+  </data>
+  <data name="BreakevenTrailingRequiresSL" xml:space="preserve">
+    <value>Breakeven und Trailing werden erst aktiv, nachdem das SL-Checkbox aktiviert wurde</value>
+  </data>
+  <data name="BreakoutRetestPeriodDescription" xml:space="preserve">
+    <value>Anzahl der Balken, die für die Identifizierung von Pivot-Punkten zurückverfolgt werden.</value>
+  </data>
+  <data name="BreakoutRetestShowDelta" xml:space="preserve">
+    <value>Delta anzeigen</value>
+  </data>
+  <data name="BreakoutRetestShowVolume" xml:space="preserve">
+    <value>Volumen anzeigen</value>
+  </data>
+  <data name="BrushObjectDescription" xml:space="preserve">
+    <value>Benutzerdefiniertes Kurvenobjekt</value>
+  </data>
+  <data name="BrushTxt" xml:space="preserve">
+    <value>Pinsel</value>
+  </data>
+  <data name="BuildingClustersMsg" xml:space="preserve">
+    <value>Baugrundriss</value>
+  </data>
+  <data name="BuildingVolumeProfileMsg" xml:space="preserve">
+    <value>Erstellung eines Volumenprofils</value>
+  </data>
+  <data name="BullDivergenceColor" xml:space="preserve">
+    <value>Farbe der bullischen Divergenz</value>
+  </data>
+  <data name="BuyColor" xml:space="preserve">
+    <value>Buy Color</value>
+  </data>
+  <data name="BuySound" xml:space="preserve">
+    <value>Kaufgeräusch</value>
+  </data>
+  <data name="BuyTradeLineColorDescription" xml:space="preserve">
+    <value>Legt die Farbe fest, die für die Anzeige von Kaufhandelslinien und -markern verwendet wird.</value>
+  </data>
+  <data name="BybitAccountIMRate" xml:space="preserve">
+    <value>Kontoinitialmarginrate</value>
+  </data>
+  <data name="BybitAccountIMRateByMp" xml:space="preserve">
+    <value>Initial Margin Rate (Nach MP)</value>
+  </data>
+  <data name="BybitAccountInfoCategory" xml:space="preserve">
+    <value>Kontoinformationen</value>
+  </data>
+  <data name="BybitAccountLTV" xml:space="preserve">
+    <value>Konto-LTV</value>
+  </data>
+  <data name="BybitAccountMMRate" xml:space="preserve">
+    <value>Kontowartungs-Margenrate</value>
+  </data>
+  <data name="BybitAccountMMRateByMp" xml:space="preserve">
+    <value>Kontowartensatz MM (nach MP)</value>
+  </data>
+  <data name="BybitAccountType" xml:space="preserve">
+    <value>Kontotyp</value>
+  </data>
+  <data name="BybitAccruedInterest" xml:space="preserve">
+    <value>Aufgelaufene Zinsen</value>
+  </data>
+  <data name="BybitAvailableToBorrow" xml:space="preserve">
+    <value>Verfügbar zum Ausleihen</value>
+  </data>
+  <data name="BybitAvailableToWithdraw" xml:space="preserve">
+    <value>Verfügbar zum Abheben</value>
+  </data>
+  <data name="BybitBalanceCategory" xml:space="preserve">
+    <value>Guthaben</value>
+  </data>
+  <data name="BybitBonus" xml:space="preserve">
+    <value>Bonus</value>
+  </data>
+  <data name="BybitBorrowAmount" xml:space="preserve">
+    <value>Entleihbetrag</value>
+  </data>
+  <data name="BybitCoinEquity" xml:space="preserve">
+    <value>Münzkapital</value>
+  </data>
+  <data name="BybitCoinInfoCategory" xml:space="preserve">
+    <value>Münzinformation</value>
+  </data>
+  <data name="BybitCoinUsdValue" xml:space="preserve">
+    <value>USD-Wert</value>
+  </data>
+  <data name="BybitCoinWalletBalance" xml:space="preserve">
+    <value>Münzgeldbörse-Balance</value>
+  </data>
+  <data name="BybitCollateralSwitch" xml:space="preserve">
+    <value>Sicherheitenwechsel</value>
+  </data>
+  <data name="BybitCumRealisedPnl" xml:space="preserve">
+    <value>Kumuliertes realisiertes PnL</value>
+  </data>
+  <data name="BybitLocked" xml:space="preserve">
+    <value>Gesperrt</value>
+  </data>
+  <data name="BybitMarginCategory" xml:space="preserve">
+    <value>Margin</value>
+  </data>
+  <data name="BybitMarginCollateral" xml:space="preserve">
+    <value>Margin-Kollateral</value>
+  </data>
+  <data name="BybitSpotBorrow" xml:space="preserve">
+    <value>Spot-Darlehen</value>
+  </data>
+  <data name="BybitSpotHedgingQty" xml:space="preserve">
+    <value>Spot-Hedging-Menge</value>
+  </data>
+  <data name="BybitTotalAvailableBalance" xml:space="preserve">
+    <value>Gesamter verfügbarer Saldo</value>
+  </data>
+  <data name="BybitTotalEquity" xml:space="preserve">
+    <value>Gesamtvermögen</value>
+  </data>
+  <data name="BybitTotalInitialMargin" xml:space="preserve">
+    <value>Gesamte Anfangsmarge</value>
+  </data>
+  <data name="BybitTotalInitialMarginByMp" xml:space="preserve">
+    <value>Gesamte Initialmargin (nach MP)</value>
+  </data>
+  <data name="BybitTotalMaintenanceMargin" xml:space="preserve">
+    <value>Gesamte Wartungsmarge</value>
+  </data>
+  <data name="BybitTotalMaintenanceMarginByMp" xml:space="preserve">
+    <value>Gesamte Wartemarge (nach MP)</value>
+  </data>
+  <data name="BybitTotalMarginBalance" xml:space="preserve">
+    <value>Gesamter Margin-Balance</value>
+  </data>
+  <data name="BybitTotalOrderIM" xml:space="preserve">
+    <value>Gesamter Initialmargin</value>
+  </data>
+  <data name="BybitTotalPerpUPL" xml:space="preserve">
+    <value>Gesamt Perp UPL</value>
+  </data>
+  <data name="BybitTotalPositionIM" xml:space="preserve">
+    <value>Gesamte Position IM</value>
+  </data>
+  <data name="BybitTotalPositionMM" xml:space="preserve">
+    <value>Gesamte Position MM</value>
+  </data>
+  <data name="BybitTotalWalletBalance" xml:space="preserve">
+    <value>Gesamter Wallet-Balance</value>
+  </data>
+  <data name="BybitUnrealisedPnl" xml:space="preserve">
+    <value>Unrealisierter PnL</value>
+  </data>
+  <data name="CalculatingDeltaMsg" xml:space="preserve">
+    <value>Berechnung der Delta</value>
+  </data>
+  <data name="CalculatingVwapMsg" xml:space="preserve">
+    <value>Berechnung des VWAP</value>
+  </data>
+  <data name="CancelAllOrders" xml:space="preserve">
+    <value>Alle Bestellungen stornieren (alle Konten)</value>
+  </data>
+  <data name="CancelAllOrdersAndPositionsTooltip" xml:space="preserve">
+    <value>Alle Aufträge stornieren und alle Positionen für ausgewählte Konten schließen</value>
+  </data>
+  <data name="CancelAllOrdersForInstrumentTooltip" xml:space="preserve">
+    <value>Alle Aufträge für dieses Instrument stornieren</value>
+  </data>
+  <data name="CancelCloseAll" xml:space="preserve">
+    <value>Abbrechen und Alle schließen</value>
+  </data>
+  <data name="CancelClosingButton" xml:space="preserve">
+    <value>Schließen abbrechen</value>
+  </data>
+  <data name="CandlesDirectionMode" xml:space="preserve">
+    <value>Kerzenrichtungsmodus</value>
+  </data>
+  <data name="CandlesDirectionModeDescription" xml:space="preserve">
+    <value>Bestimmt, wie die Richtung der Kerze (auf/ab) für die Färbung berechnet wird. Wählen Sie zwischen Close vs Open (traditionell), Delta (basierend auf Kauf-/Verkaufsdruck), Close vs Median (relativ zum Durchschnittspreis der Kerze) oder Close vs POC (relativ zum Point of Control).</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Passwort ändern</value>
+  </data>
+  <data name="ChangePeriodOrSelectAccount" xml:space="preserve">
+    <value>Ändern Sie den Zeitraum oder wählen Sie ein anderes Konto aus.</value>
+  </data>
+  <data name="Changes_Trades" xml:space="preserve">
+    <value>Änderungen, Trades</value>
+  </data>
+  <data name="ChangeScale" xml:space="preserve">
+    <value>Skala auf festgelegten Schritt ändern</value>
+  </data>
+  <data name="ChangeScaleDescription" xml:space="preserve">
+    <value>Mausrad Scroll-Modifikatortaste zum Ändern des Preisskalas.</value>
+  </data>
+  <data name="ChangeTariff" xml:space="preserve">
+    <value>Tarif ändern</value>
+  </data>
+  <data name="CheckConnectorForMissingInstrument" xml:space="preserve">
+    <value>Bitte warten Sie, während die Verbindung initialisiert wird. Wenn das Gerät nicht in Kürze angezeigt wird, überprüfen Sie den Status:</value>
+  </data>
+  <data name="ClearVolumeProfile" xml:space="preserve">
+    <value>Volumenprofil zurücksetzen</value>
+  </data>
+  <data name="CloseAllLabel" xml:space="preserve">
+    <value>Alle schließen</value>
+  </data>
+  <data name="CloseAllPositions" xml:space="preserve">
+    <value>Alle Positionen schließen (alle Konten)</value>
+  </data>
+  <data name="CloseAnywayButton" xml:space="preserve">
+    <value>Trotzdem schließen</value>
+  </data>
+  <data name="CloseCurrentWorkspaceMessage1" xml:space="preserve">
+    <value>Speichern Sie Ihren Arbeitsbereich, um ihn beim nächsten Start der App wiederzuverwenden</value>
+  </data>
+  <data name="CloseCurrentWorkspaceMessage2" xml:space="preserve">
+    <value>Arbeitsbereichsanweisungen</value>
+  </data>
+  <data name="CloseOtherLabel" xml:space="preserve">
+    <value>Andere schließen</value>
+  </data>
+  <data name="ClosePositionTooltip" xml:space="preserve">
+    <value>Position schließen</value>
+  </data>
+  <data name="CloseTabQuestionMessage" xml:space="preserve">
+    <value>Sind Sie sicher, dass Sie diesen Tab schließen möchten? Alle Inhalte gehen verloren.</value>
+  </data>
+  <data name="CloseTabTitle" xml:space="preserve">
+    <value>Tab schließen</value>
+  </data>
+  <data name="CloseVsMedian" xml:space="preserve">
+    <value>Schluss vs Median</value>
+  </data>
+  <data name="CloseVsOpen" xml:space="preserve">
+    <value>Schluss vs. Eröffnung</value>
+  </data>
+  <data name="CloseVsPOC" xml:space="preserve">
+    <value>Schlusskurs vs POC</value>
+  </data>
+  <data name="CloseWindowAndLoseData" xml:space="preserve">
+    <value>Fenster schließen</value>
+  </data>
+  <data name="CloseWindowQuestionMessage" xml:space="preserve">
+    <value>Beim Schließen dieses Fensters geht der gesamte Inhalt des Fensters verloren. Was möchten Sie tun?</value>
+  </data>
+  <data name="CloseWindowTitle" xml:space="preserve">
+    <value>Fenster schließen</value>
+  </data>
+  <data name="CloseWithoutSavingBtn" xml:space="preserve">
+    <value>Ohne Speichern schließen</value>
+  </data>
+  <data name="Clustering" xml:space="preserve">
+    <value>Clusterbildung</value>
+  </data>
+  <data name="ClusterPresetsLabel" xml:space="preserve">
+    <value>Cluster-Voreinstellungen</value>
+  </data>
+  <data name="ClusterSettingButton" xml:space="preserve">
+    <value>Cluster-Einstellungen...</value>
+  </data>
+  <data name="ColorDescription" xml:space="preserve">
+    <value>Gibt die Farbe für dieses Element an.</value>
+  </data>
+  <data name="ColoredStatusLine" xml:space="preserve">
+    <value>OHLC nach Kerzenfarbe</value>
+  </data>
+  <data name="ColumnSpacing" xml:space="preserve">
+    <value>Spaltenabstand</value>
+  </data>
+  <data name="ColumnSpacingDescription" xml:space="preserve">
+    <value>Abstand zwischen Beschriftungs- und Wertspalten</value>
+  </data>
+  <data name="ConfirmationMultiplier" xml:space="preserve">
+    <value>Bestätigungs-Multiplikator</value>
+  </data>
+  <data name="ConfirmationMultiplierDescription" xml:space="preserve">
+    <value>Teilt die Hauptperiode durch diesen Wert und bestimmt die Bestätigungslänge.</value>
+  </data>
+  <data name="ConnectAccountTitle" xml:space="preserve">
+    <value>Ein Konto verbinden</value>
+  </data>
+  <data name="ContinueWithEmptyWorkspace" xml:space="preserve">
+    <value>Mit leerem Arbeitsbereich fortfahren</value>
+  </data>
+  <data name="ContinueWorkspaceSubtitle" xml:space="preserve">
+    <value>Um fortzufahren wählen Sie eine der Optionen</value>
+  </data>
+  <data name="Contract" xml:space="preserve">
+    <value>Kontrakt</value>
+  </data>
+  <data name="CqgBalanceCategory" xml:space="preserve">
+    <value>Bilanz &amp; Marge</value>
+  </data>
+  <data name="CqgCashExcess" xml:space="preserve">
+    <value>Bargeldüberschuss</value>
+  </data>
+  <data name="CqgCurrentBalance" xml:space="preserve">
+    <value>Aktueller Kontostand</value>
+  </data>
+  <data name="CqgLongOpenPositionsQty" xml:space="preserve">
+    <value>Anzahl der offenen Long-Positionen</value>
+  </data>
+  <data name="CqgMarginCredit" xml:space="preserve">
+    <value>Margin-Kredit</value>
+  </data>
+  <data name="CqgMinDaysTillExpiration" xml:space="preserve">
+    <value>Minimale Tage bis zum Ablauf</value>
+  </data>
+  <data name="CqgMvf" xml:space="preserve">
+    <value>Der Marktwert von Futures (MVF) bezieht sich auf eine finanzielle Kennzahl, die verwendet wird, um den aktuellen Wert von Futures-Kontrakten in einem Portfolio zu bewerten. Diese Kennzahl wird im Code als nullable Dezimal-Eigenschaft mit dem Namen "Mvf" innerhalb der Klasse CqgPortfolioExtendedInfo definiert. Sie wird unter bestimmten Anzeige-Ressourcen und Organisationen kategorisiert, um die Verwendung zu verdeutlichen.</value>
+  </data>
+  <data name="CqgMvo" xml:space="preserve">
+    <value>Marktwert von Optionen (MVO)</value>
+  </data>
+  <data name="CqgNetChangePc" xml:space="preserve">
+    <value>Nettoänderung %</value>
+  </data>
+  <data name="CqgNoMultiplierPositionMargin" xml:space="preserve">
+    <value>Positionsmargin (kein Multiplikator)</value>
+  </data>
+  <data name="CqgOptionPremium" xml:space="preserve">
+    <value>Optionsprämie</value>
+  </data>
+  <data name="CqgOptionsCategory" xml:space="preserve">
+    <value>Optionen &amp; Futures</value>
+  </data>
+  <data name="CqgOte" xml:space="preserve">
+    <value>Offenes Handelskapital (OTE)</value>
+  </data>
+  <data name="CqgPnLCategory" xml:space="preserve">
+    <value>Gewinn und Verlust</value>
+  </data>
+  <data name="CqgPositionMargin" xml:space="preserve">
+    <value>Positionsmarge</value>
+  </data>
+  <data name="CqgPositionsCategory" xml:space="preserve">
+    <value>Positionen und Aufträge</value>
+  </data>
+  <data name="CqgProfitLoss" xml:space="preserve">
+    <value>Gewinn/Verlust</value>
+  </data>
+  <data name="CqgPurchasingPower" xml:space="preserve">
+    <value>Kaufkraft</value>
+  </data>
+  <data name="CqgPurchasingPowerLimit" xml:space="preserve">
+    <value>Kaufkraftgrenze</value>
+  </data>
+  <data name="CqgShortOpenPositionsQty" xml:space="preserve">
+    <value>Menge der kurzen offenen Positionen</value>
+  </data>
+  <data name="CqgTotalFilledOrders" xml:space="preserve">
+    <value>Ges. ausgef. Aufträge</value>
+  </data>
+  <data name="CqgTotalFilledQty" xml:space="preserve">
+    <value>Gesamtmenge (ausgef.)</value>
+  </data>
+  <data name="CqgTotalMargin" xml:space="preserve">
+    <value>Gesamte Marge</value>
+  </data>
+  <data name="CqgTotalParkedOrders" xml:space="preserve">
+    <value>Ges. geparkte Auftr.</value>
+  </data>
+  <data name="CqgTotalWorkingOrders" xml:space="preserve">
+    <value>Ges. aktive Aufträge</value>
+  </data>
+  <data name="CqgUnrealizedProfitLoss" xml:space="preserve">
+    <value>Nicht realisierte Gewinne/Verluste</value>
+  </data>
+  <data name="CqgYesterdayBalance" xml:space="preserve">
+    <value>Gestern Bilanz</value>
+  </data>
+  <data name="CqgYesterdayCollateral" xml:space="preserve">
+    <value>Gestern Sicherheiten</value>
+  </data>
+  <data name="CqgYesterdayMvo" xml:space="preserve">
+    <value>Gestern MVO</value>
+  </data>
+  <data name="CqgYesterdayOte" xml:space="preserve">
+    <value>Gestern OTE</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Erstellen</value>
+  </data>
+  <data name="CreateFirstPlaybookHint" xml:space="preserve">
+    <value>Klicken Sie auf "Playbook hinzufügen", um Ihr erstes Playbook zu erstellen</value>
+  </data>
+  <data name="CreateNewPlaybook" xml:space="preserve">
+    <value>Neues Playbook erstellen</value>
+  </data>
+  <data name="CreatePlaybookHelperText" xml:space="preserve">
+    <value>Fügen Sie ein neues Playbook hinzu, um Ihre Trading-Setups zu strukturieren</value>
+  </data>
+  <data name="CrosshairLabel" xml:space="preserve">
+    <value>Fadenkreuz</value>
+  </data>
+  <data name="CrossTrading" xml:space="preserve">
+    <value>Cross-Trading</value>
+  </data>
+  <data name="CryptoDOM" xml:space="preserve">
+    <value>Krypto DOM</value>
+  </data>
+  <data name="CryptoMetricsGroupDescription" xml:space="preserve">
+    <value>&lt;p&gt;Analyse spezifischer Kryptomarktdaten.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Sentiment-Monitoring: offenes Interesse, Liquidierungen und Positionsverhältnisse in Echtzeit.&lt;/li&gt;
+  &lt;li&gt;Marktkontext: Akkumulations- und Distributionszonen auf Basis fundamentaler Daten.&lt;/li&gt;
+  &lt;li&gt;Kapitalbewegung: Netzwerkaktivität und Finanzströme auf der Blockchain und an Börsen.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Wichtig: Die Verfügbarkeit einiger Metriken hängt vom gewählten Instrument ab.&lt;/p&gt;</value>
+  </data>
+  <data name="CumulativePnL" xml:space="preserve">
+    <value>Kumulativer P&amp;L</value>
+  </data>
+  <data name="CurrentDay" xml:space="preserve">
+    <value>Aktueller Tag</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Aktuelles Monat</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Aktuelle Woche</value>
+  </data>
+  <data name="CustomFontSize" xml:space="preserve">
+    <value>Benutzerdefinierte Schriftgröße</value>
+  </data>
+  <data name="CustomPitch" xml:space="preserve">
+    <value>Benutzerdefinierte Tonhöhe</value>
+  </data>
+  <data name="CustomPreset" xml:space="preserve">
+    <value>Benutzerdefiniert</value>
+  </data>
+  <data name="CustomSessionTimezoneHint" xml:space="preserve">
+    <value>Geben Sie die Sitzungszeit in Ihrer lokalen Zeitzone ein.</value>
+  </data>
+  <data name="CycleWatchlistInstrumentNext" xml:space="preserve">
+    <value>Wachliste: Nächstes Instrument</value>
+  </data>
+  <data name="CycleWatchlistInstrumentPrevious" xml:space="preserve">
+    <value>Watchlist: Vorheriges Instrument</value>
+  </data>
+  <data name="DailyPerformanceOverview" xml:space="preserve">
+    <value>Tägliche Ergebnisübersicht</value>
+  </data>
+  <data name="DailyPnL" xml:space="preserve">
+    <value>Täglicher PnL</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="DaysFixedTooltip" xml:space="preserve">
+    <value>Durch Aktivieren dieser Funktion können Sie den Zeitrahmen ändern, ohne die angegebene Anzahl von Tagen auf die Standardwerte zurückzusetzen.</value>
+  </data>
+  <data name="DaysLowerCase" xml:space="preserve">
+    <value>tage</value>
+  </data>
+  <data name="DayTIF" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="DecreasePositionSize" xml:space="preserve">
+    <value>Handelsvolumen verringern</value>
+  </data>
+  <data name="DefaultWorkspaceItem" xml:space="preserve">
+    <value>Standardarbeitsbereich</value>
+  </data>
+  <data name="DeleteAccount" xml:space="preserve">
+    <value>Konto löschen?</value>
+  </data>
+  <data name="DeleteAccountConfirmation" xml:space="preserve">
+    <value>Sind Sie sicher, dass Sie dieses Konto aus den Statistiken löschen möchten?
+Die Daten werden dauerhaft gelöscht.</value>
+  </data>
+  <data name="DeletePlaybook" xml:space="preserve">
+    <value>Playbook löschen</value>
+  </data>
+  <data name="DeletePlaybookConfirmation" xml:space="preserve">
+    <value>Sind Sie sicher, dass Sie dieses Playbook löschen möchten?</value>
+  </data>
+  <data name="DeletingAccount" xml:space="preserve">
+    <value>Konto löschen</value>
+  </data>
+  <data name="DeltaChangeAlert" xml:space="preserve">
+    <value>Delta change alert</value>
+  </data>
+  <data name="DeltaOverVolume" xml:space="preserve">
+    <value>Delta over volume</value>
+  </data>
+  <data name="DeltaPerVolumeAlert" xml:space="preserve">
+    <value>Delta/Volume alert</value>
+  </data>
+  <data name="DeltaToVolume" xml:space="preserve">
+    <value>Delta zum Volumen</value>
+  </data>
+  <data name="DeltaVolumeProportional" xml:space="preserve">
+    <value>Delta proportional zum Volumen</value>
+  </data>
+  <data name="DetailedPerformanceMetrics" xml:space="preserve">
+    <value>Detaillierte Ergebnismetriken</value>
+  </data>
+  <data name="DetectTimeAutomatically" xml:space="preserve">
+    <value>Zeit automatisch erkennen</value>
+  </data>
+  <data name="Divergence" xml:space="preserve">
+    <value>Divergence</value>
+  </data>
+  <data name="DivergenceBars" xml:space="preserve">
+    <value>Divergence bars</value>
+  </data>
+  <data name="DivergenceDots" xml:space="preserve">
+    <value>Divergence dots</value>
+  </data>
+  <data name="DOMPro" xml:space="preserve">
+    <value>DOM Pro</value>
+  </data>
+  <data name="DOMProDescription" xml:space="preserve">
+    <value>Ein universelles DOM-Template mit Fokus auf Geschwindigkeit, Präzision und Übersichtlichkeit. Ideal für aktiven Intraday-Handel: kompakte Oberfläche, intuitive Ordersteuerung und Echtzeit-Visualisierung von Volumen und Liquidität. Alles Wichtige auf einen Blick.</value>
+  </data>
+  <data name="DoNotLoadWorkspace" xml:space="preserve">
+    <value>Laden Sie den Arbeitsbereich nicht herunter</value>
+  </data>
+  <data name="DontAskAgainInTables" xml:space="preserve">
+    <value>Nicht erneut nach Bestätigung in Tabellen fragen</value>
+  </data>
+  <data name="DontCloseBtn" xml:space="preserve">
+    <value>Nicht schließen</value>
+  </data>
+  <data name="Drawing" xml:space="preserve">
+    <value>Zeichnung</value>
+  </data>
+  <data name="DrawingObjectsOnPanel" xml:space="preserve">
+    <value>Zeichnen von Objekten auf dem Panel</value>
+  </data>
+  <data name="DrawingPanelWidth" xml:space="preserve">
+    <value>Panelbreite</value>
+  </data>
+  <data name="DuplicateConnectorCredentials" xml:space="preserve">
+    <value>Ein Connector mit denselben Anmeldedaten ist bereits verbunden.
+Verwenden Sie die vorhandene Verbindung oder geben Sie andere Anmeldedaten ein.</value>
+  </data>
+  <data name="DxFeedAccountPermissionLiquidateOnly" xml:space="preserve">
+    <value>Nur Liquidation</value>
+  </data>
+  <data name="DxFeedAccountPermissionReadOnly" xml:space="preserve">
+    <value>Nur lesen</value>
+  </data>
+  <data name="DxFeedAccountPermissionRiskPause" xml:space="preserve">
+    <value>Risikopause</value>
+  </data>
+  <data name="DxFeedAccountPermissionTrading" xml:space="preserve">
+    <value>Handel</value>
+  </data>
+  <data name="DxFeedAccountStatusDisabled" xml:space="preserve">
+    <value>Deaktiviert</value>
+  </data>
+  <data name="DxFeedAccountStatusEnabled" xml:space="preserve">
+    <value>Aktiviert</value>
+  </data>
+  <data name="DxFeedAccountStatusFailed" xml:space="preserve">
+    <value>Fehlgeschlagen</value>
+  </data>
+  <data name="DxFeedAccountStatusInitialized" xml:space="preserve">
+    <value>Initialisiert</value>
+  </data>
+  <data name="DxFeedAccountStatusSuccess" xml:space="preserve">
+    <value>Erfolg</value>
+  </data>
+  <data name="DxFeedPropTradingAccountCategory" xml:space="preserve">
+    <value>Konto</value>
+  </data>
+  <data name="DxFeedPropTradingAccountDescription" xml:space="preserve">
+    <value>Kontobeschreibung</value>
+  </data>
+  <data name="DxFeedPropTradingAccountHeader" xml:space="preserve">
+    <value>Kontoname</value>
+  </data>
+  <data name="DxFeedPropTradingAccountNumber" xml:space="preserve">
+    <value>Kontonummer</value>
+  </data>
+  <data name="DxFeedPropTradingAccountPermission" xml:space="preserve">
+    <value>Kontoberechtigung</value>
+  </data>
+  <data name="DxFeedPropTradingAccountStatus" xml:space="preserve">
+    <value>Kontostatus</value>
+  </data>
+  <data name="DxFeedPropTradingBalance" xml:space="preserve">
+    <value>Guthaben</value>
+  </data>
+  <data name="DxFeedPropTradingBalanceCategory" xml:space="preserve">
+    <value>Balance &amp; Marge</value>
+  </data>
+  <data name="DxFeedPropTradingCurrency" xml:space="preserve">
+    <value>Währung</value>
+  </data>
+  <data name="DxFeedPropTradingDailyNetPl" xml:space="preserve">
+    <value>Täglicher Nettogewinn und -verlust (P&amp;L)</value>
+  </data>
+  <data name="DxFeedPropTradingDailyPl" xml:space="preserve">
+    <value>Täglicher P&amp;L</value>
+  </data>
+  <data name="DxFeedPropTradingEquity" xml:space="preserve">
+    <value>Eigenkapital</value>
+  </data>
+  <data name="DxFeedPropTradingIsEnabled" xml:space="preserve">
+    <value>Ist aktiviert</value>
+  </data>
+  <data name="DxFeedPropTradingIsHedging" xml:space="preserve">
+    <value>Ist Hedging</value>
+  </data>
+  <data name="DxFeedPropTradingIsTradeCopierAllowed" xml:space="preserve">
+    <value>Ist Trade Copier erlaubt</value>
+  </data>
+  <data name="DxFeedPropTradingIsTradingEnabled" xml:space="preserve">
+    <value>Ist Handel aktiviert</value>
+  </data>
+  <data name="DxFeedPropTradingMarginAvailable" xml:space="preserve">
+    <value>Verfügbare Marge</value>
+  </data>
+  <data name="DxFeedPropTradingMarginUsed" xml:space="preserve">
+    <value>Verwendete Marge</value>
+  </data>
+  <data name="DxFeedPropTradingProfitTarget" xml:space="preserve">
+    <value>Gewinnziel</value>
+  </data>
+  <data name="DxFeedPropTradingProfitTargetValue" xml:space="preserve">
+    <value>Gewinnzielwert</value>
+  </data>
+  <data name="DxFeedPropTradingRiskCategory" xml:space="preserve">
+    <value>Risikomanagement</value>
+  </data>
+  <data name="DxFeedPropTradingSessionsCategory" xml:space="preserve">
+    <value>Sitzungen</value>
+  </data>
+  <data name="DxFeedPropTradingSessionsNumber" xml:space="preserve">
+    <value>Sitzungsnummer</value>
+  </data>
+  <data name="DxFeedPropTradingSessionsNumberTarget" xml:space="preserve">
+    <value>Zielanzahl der Sitzungen</value>
+  </data>
+  <data name="DxFeedPropTradingStartBalance" xml:space="preserve">
+    <value>Startguthaben</value>
+  </data>
+  <data name="DxFeedPropTradingStopDrawdownIntraday" xml:space="preserve">
+    <value>Stop Drawdown Intraday</value>
+  </data>
+  <data name="DxFeedPropTradingStopDrawdownIntradayValue" xml:space="preserve">
+    <value>Stop Drawdown Intraday-Wert</value>
+  </data>
+  <data name="DxFeedPropTradingStopDrawdownOverall" xml:space="preserve">
+    <value>Gesamte Drawdown-Grenze</value>
+  </data>
+  <data name="DxFeedPropTradingStopDrawdownOverallValue" xml:space="preserve">
+    <value>Gesamtwert der Stoppschleifen-Drawdown</value>
+  </data>
+  <data name="DxFeedPropTradingStopDrawdownWeekly" xml:space="preserve">
+    <value>Wöchentliche Stoppschleife</value>
+  </data>
+  <data name="DxFeedPropTradingStopDrawdownWeeklyValue" xml:space="preserve">
+    <value>Wöchentlicher Stop Drawdown-Wert</value>
+  </data>
+  <data name="DxFeedPropTradingUserDailyLockoutEnabled" xml:space="preserve">
+    <value>Tägliche Benutzerblockierung aktiviert</value>
+  </data>
+  <data name="DxFeedPropTradingUserDrawdownDailyBalance" xml:space="preserve">
+    <value>Tägliche Drawdown-Bilanz des Benutzers</value>
+  </data>
+  <data name="DxFeedPropTradingUserDrawdownDailyValue" xml:space="preserve">
+    <value>Täglicher Drawdown-Wert des Benutzers</value>
+  </data>
+  <data name="DxFeedPropTradingUserDrawdownWeeklyBalance" xml:space="preserve">
+    <value>Wöchentlicher Drawdown-Balance des Benutzers</value>
+  </data>
+  <data name="DxFeedPropTradingUserDrawdownWeeklyValue" xml:space="preserve">
+    <value>Wöchentlicher Drawdown-Wert des Benutzers</value>
+  </data>
+  <data name="DxFeedPropTradingUserLimitsCategory" xml:space="preserve">
+    <value>Benutzerlimits</value>
+  </data>
+  <data name="DxFeedPropTradingUserProfitDailyBalance" xml:space="preserve">
+    <value>Täglicher Gewinnsaldo des Benutzers</value>
+  </data>
+  <data name="DxFeedPropTradingUserProfitDailyValue" xml:space="preserve">
+    <value>Täglicher Benutzergewinnwert</value>
+  </data>
+  <data name="DxFeedPropTradingUserProfitWeeklyBalance" xml:space="preserve">
+    <value>Wöchentlicher Gewinnsaldo des Benutzers</value>
+  </data>
+  <data name="DxFeedPropTradingUserProfitWeeklyValue" xml:space="preserve">
+    <value>Wöchentlicher Gewinnwert des Benutzers</value>
+  </data>
+  <data name="DxFeedPropTradingUserRiskRuleEnabled" xml:space="preserve">
+    <value>Benutzer-Risiko-Regel aktiviert</value>
+  </data>
+  <data name="EditDailyNote" xml:space="preserve">
+    <value>Tagesnotiz bearbeiten</value>
+  </data>
+  <data name="EditInExtendedSettingsTooltip" xml:space="preserve">
+    <value>Um die Einstellungen zu ändern, während eine Position geöffnet ist, verwenden Sie die erweiterten Einstellungen</value>
+  </data>
+  <data name="EditMenu" xml:space="preserve">
+    <value>Bearbeiten</value>
+  </data>
+  <data name="EditorButton" xml:space="preserve">
+    <value>Bearbeiten</value>
+  </data>
+  <data name="EditPlaybook" xml:space="preserve">
+    <value>Playbook bearbeiten</value>
+  </data>
+  <data name="EditPlaybookHelperText" xml:space="preserve">
+    <value>Ändern Sie die Einstellungen Ihres Playbooks</value>
+  </data>
+  <data name="EditStrategy" xml:space="preserve">
+    <value>Strategie bearbeiten</value>
+  </data>
+  <data name="EditTrade" xml:space="preserve">
+    <value>Trade bearbeiten</value>
+  </data>
+  <data name="EditTradeMenu" xml:space="preserve">
+    <value>Bearbeiten...</value>
+  </data>
+  <data name="Emoji" xml:space="preserve">
+    <value>Emoji</value>
+  </data>
+  <data name="EnableCrossTrading" xml:space="preserve">
+    <value>Cross-Trading aktivieren</value>
+  </data>
+  <data name="EnableCrossTradingDescription" xml:space="preserve">
+    <value>Die Funktion ermöglicht es den Benutzern, Trades auf einem anderen Finanzinstrument auszuführen als dem, das derzeit im Chart oder Smart DOM angezeigt wird. Diese Funktionalität ermöglicht es Händlern, einen Markt zu analysieren, während sie auf einem anderen handeln, z. B. den ES zu analysieren, während sie den MES handeln. Sie trennt effektiv die Marktanalyse von der Trade-Ausführung und verbessert die Handelsflexibilität.</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="EnableImbalanceAlert" xml:space="preserve">
+    <value>Ungleichgewichtswarnung aktivieren</value>
+  </data>
+  <data name="Entry" xml:space="preserve">
+    <value>Einstieg</value>
+  </data>
+  <data name="Equilibrium" xml:space="preserve">
+    <value>Equilibrium</value>
+  </data>
+  <data name="ErrorSaveWorkspaceOnClosingMessage" xml:space="preserve">
+    <value>Beim Speichern des Arbeitsbereichs ist ein Fehler aufgetreten.</value>
+  </data>
+  <data name="ExanteAccount" xml:space="preserve">
+    <value>Konto</value>
+  </data>
+  <data name="ExanteAccountCategory" xml:space="preserve">
+    <value>Konto</value>
+  </data>
+  <data name="ExanteAvgPx" xml:space="preserve">
+    <value>Durchschnittspreis</value>
+  </data>
+  <data name="ExanteCurrency" xml:space="preserve">
+    <value>Währung</value>
+  </data>
+  <data name="ExanteCurrencySummaries" xml:space="preserve">
+    <value>Währungszusammenfassungen</value>
+  </data>
+  <data name="ExanteDefaultCurrency" xml:space="preserve">
+    <value>Standardwährung</value>
+  </data>
+  <data name="ExanteLongQty" xml:space="preserve">
+    <value>Lange Menge</value>
+  </data>
+  <data name="ExanteProfitAndLoss" xml:space="preserve">
+    <value>Gewinn und Verlust</value>
+  </data>
+  <data name="ExanteShortQty" xml:space="preserve">
+    <value>Kurzes Menge</value>
+  </data>
+  <data name="ExanteValue" xml:space="preserve">
+    <value>Wert</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Ausstieg</value>
+  </data>
+  <data name="FailedToLoadPlatformSettingsMsg" xml:space="preserve">
+    <value>Fehler beim Laden der Plattform-Einstellungen, Standard-Einstellungen werden verwendet.</value>
+  </data>
+  <data name="FavoriteDrawingObjects" xml:space="preserve">
+    <value>Bevorzugte Zeichnungsobjekte</value>
+  </data>
+  <data name="FavoriteTimeframes" xml:space="preserve">
+    <value>Bevorzugte Zeitrahmen</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="Fire" xml:space="preserve">
+    <value>Feuer</value>
+  </data>
+  <data name="FitToPriceRange" xml:space="preserve">
+    <value>In den Preisbereich passen</value>
+  </data>
+  <data name="FitToPriceRangeDescription" xml:space="preserve">
+    <value>Zeichnen Sie den Sitzungsbereich nur zwischen dem Höchst- und dem Tiefststand des Zeitraums</value>
+  </data>
+  <data name="FlattenAllConfirmationMessage" xml:space="preserve">
+    <value>Sind Sie sicher, dass Sie alle Positionen und Aufträge schließen/stornieren möchten?
+	Diese Aktion wirkt sich auf alle ausgewählten Instrumente aus und kann nicht rückgängig gemacht werden.</value>
+  </data>
+  <data name="FlattenAllConfirmationTitle" xml:space="preserve">
+    <value>Aktion bestätigen</value>
+  </data>
+  <data name="FOK" xml:space="preserve">
+    <value>FOK</value>
+  </data>
+  <data name="Footprint" xml:space="preserve">
+    <value>Fußabdruck</value>
+  </data>
+  <data name="Forward" xml:space="preserve">
+    <value>Vorwärts</value>
+  </data>
+  <data name="FractalPeriodDescription" xml:space="preserve">
+    <value>Die Anzahl der Balken auf jeder Seite des zentralen Balkens, die erforderlich ist, um ein Fraktal zu identifizieren.</value>
+  </data>
+  <data name="FullAccountDataLabel" xml:space="preserve">
+    <value>Vollständige Kontodaten</value>
+  </data>
+  <data name="FullWidth" xml:space="preserve">
+    <value>Volle Breite</value>
+  </data>
+  <data name="GeigerCounter" xml:space="preserve">
+    <value>Geigerzähler</value>
+  </data>
+  <data name="GenerateRandom" xml:space="preserve">
+    <value>Zufälliges Playbook generieren</value>
+  </data>
+  <data name="GlobalCrosshairLabel" xml:space="preserve">
+    <value>Globales Fadenkreuz</value>
+  </data>
+  <data name="GoToWidgetFormat" xml:space="preserve">
+    <value>Gehe zu {0}</value>
+  </data>
+  <data name="GrossPnL" xml:space="preserve">
+    <value>Brutto P&amp;L</value>
+  </data>
+  <data name="GTC" xml:space="preserve">
+    <value>GTC</value>
+  </data>
+  <data name="Heatmap3DMode" xml:space="preserve">
+    <value>3D-Modus</value>
+  </data>
+  <data name="HeatmapActivationThreshold" xml:space="preserve">
+    <value>Aktivierungsschwelle</value>
+  </data>
+  <data name="HeatmapAskColor" xml:space="preserve">
+    <value>Fragefarbe</value>
+  </data>
+  <data name="HeatmapAutoGain" xml:space="preserve">
+    <value>Automatische Verstärkung</value>
+  </data>
+  <data name="HeatmapBackdropColor" xml:space="preserve">
+    <value>Hintergrundfarbe</value>
+  </data>
+  <data name="HeatmapBackdropSteepness" xml:space="preserve">
+    <value>Hintergrundneigung</value>
+  </data>
+  <data name="HeatmapBarWidthPercent" xml:space="preserve">
+    <value>Barrenbreite Prozent</value>
+  </data>
+  <data name="HeatmapBestPriceAskColor" xml:space="preserve">
+    <value>Farbe der besten Preisask</value>
+  </data>
+  <data name="HeatmapBestPriceBidColor" xml:space="preserve">
+    <value>Farbe des besten Preisgebots</value>
+  </data>
+  <data name="HeatmapBestPrices" xml:space="preserve">
+    <value>Beste Preise</value>
+  </data>
+  <data name="HeatmapBidColor" xml:space="preserve">
+    <value>Gebotsfarbe</value>
+  </data>
+  <data name="HeatmapBreakpointPercent" xml:space="preserve">
+    <value>Breakpoint-Prozentsatz</value>
+  </data>
+  <data name="HeatmapBubbleAggregationWindow" xml:space="preserve">
+    <value>Blasenaggregationsfenster</value>
+  </data>
+  <data name="HeatmapBubbleBuyColor" xml:space="preserve">
+    <value>Blasen-Kauf-Farbe</value>
+  </data>
+  <data name="HeatmapBubbleCalculation" xml:space="preserve">
+    <value>Blasenauswertung</value>
+  </data>
+  <data name="HeatmapBubbleFill" xml:space="preserve">
+    <value>Blasenfüllung</value>
+  </data>
+  <data name="HeatmapBubbleMaxRadius" xml:space="preserve">
+    <value>Maximaler Radius der Blase</value>
+  </data>
+  <data name="HeatmapBubbles" xml:space="preserve">
+    <value>Blasen</value>
+  </data>
+  <data name="HeatmapBubbleScaling" xml:space="preserve">
+    <value>Blasenskalierung</value>
+  </data>
+  <data name="HeatmapBubbleSellColor" xml:space="preserve">
+    <value>Blasenverkaufsfarbe</value>
+  </data>
+  <data name="HeatmapBuyColor" xml:space="preserve">
+    <value>Kauf Farbe</value>
+  </data>
+  <data name="HeatmapColorStabilizationPreset" xml:space="preserve">
+    <value>Farbstabilisierungsvoreinstellung</value>
+  </data>
+  <data name="HeatmapCutoff" xml:space="preserve">
+    <value>Grenzwert</value>
+  </data>
+  <data name="HeatmapCutoffDeadband" xml:space="preserve">
+    <value>Ausschneide-Totband</value>
+  </data>
+  <data name="HeatmapCutoffSnapThreshold" xml:space="preserve">
+    <value>Schwellenwert für die Schnappverbindung</value>
+  </data>
+  <data name="HeatmapCvdCalculationMode" xml:space="preserve">
+    <value>CVD-Berechnungsmodus</value>
+  </data>
+  <data name="HeatmapCvdPanel" xml:space="preserve">
+    <value>CVD-Panel</value>
+  </data>
+  <data name="HeatmapCvdPanelHeight" xml:space="preserve">
+    <value>CVD-Panelhöhe</value>
+  </data>
+  <data name="HeatmapDepthIndicator" xml:space="preserve">
+    <value>Tiefenanzeige</value>
+  </data>
+  <data name="HeatmapDisplay" xml:space="preserve">
+    <value>Anzeige</value>
+  </data>
+  <data name="HeatmapFallTime" xml:space="preserve">
+    <value>Fallzeit</value>
+  </data>
+  <data name="HeatmapHeightPercent" xml:space="preserve">
+    <value>Höhe Prozent</value>
+  </data>
+  <data name="HeatmapIncludeZeros" xml:space="preserve">
+    <value>Nullen einbeziehen</value>
+  </data>
+  <data name="HeatmapLevelSplitter" xml:space="preserve">
+    <value>Level-Splitter</value>
+  </data>
+  <data name="HeatmapLevelSplitterActivationPixels" xml:space="preserve">
+    <value>Aktivierungspixel des Ebenenaufteilers</value>
+  </data>
+  <data name="HeatmapLevelSplitterColor" xml:space="preserve">
+    <value>Farbe des Ebenenaufteilers</value>
+  </data>
+  <data name="HeatmapLevelSplitterThicknessPixels" xml:space="preserve">
+    <value>Dicke des Ebenen-Splitters in Pixel</value>
+  </data>
+  <data name="HeatmapLoadingSubscribingMarketData" xml:space="preserve">
+    <value>Abonnieren von Marktdaten für das Instrument...</value>
+  </data>
+  <data name="HeatmapLoadingWaitingForCurrentPrices" xml:space="preserve">
+    <value>Warten auf die aktuellen Marktpreise...</value>
+  </data>
+  <data name="HeatmapLoadingWaitingForTickSize" xml:space="preserve">
+    <value>Warten auf den Tick-Größe des Instruments...</value>
+  </data>
+  <data name="HeatmapLookupDeadband" xml:space="preserve">
+    <value>Lookup Deadband</value>
+  </data>
+  <data name="HeatmapLookupSnapThreshold" xml:space="preserve">
+    <value>Lookup Snap Threshold</value>
+  </data>
+  <data name="HeatmapLookupTime" xml:space="preserve">
+    <value>Lookup-Zeit</value>
+  </data>
+  <data name="HeatmapLowerExactEnabled" xml:space="preserve">
+    <value>Niedriges genaues Aktiviert</value>
+  </data>
+  <data name="HeatmapLowerExactValue" xml:space="preserve">
+    <value>Genaues unteres Wert</value>
+  </data>
+  <data name="HeatmapLowerPercent" xml:space="preserve">
+    <value>Unterer %</value>
+  </data>
+  <data name="HeatmapLowerPercentile" xml:space="preserve">
+    <value>Unterer Perzentil</value>
+  </data>
+  <data name="HeatmapManualSigmaPx" xml:space="preserve">
+    <value>Manuelle Sigma (px)</value>
+  </data>
+  <data name="HeatmapMaxFps" xml:space="preserve">
+    <value>Max FPS (0 = unbegrenzt)</value>
+  </data>
+  <data name="HeatmapOpacity" xml:space="preserve">
+    <value>Opazität</value>
+  </data>
+  <data name="HeatmapPalette" xml:space="preserve">
+    <value>Palette</value>
+  </data>
+  <data name="HeatmapRendering" xml:space="preserve">
+    <value>Wärmebilddarstellung</value>
+  </data>
+  <data name="HeatmapRiseTime" xml:space="preserve">
+    <value>Anstiegszeit</value>
+  </data>
+  <data name="HeatmapScaleMode" xml:space="preserve">
+    <value>Skalenmodus</value>
+  </data>
+  <data name="HeatmapSellColor" xml:space="preserve">
+    <value>Verkauf Farbe</value>
+  </data>
+  <data name="HeatmapShow3DMode" xml:space="preserve">
+    <value>3D-Modus</value>
+  </data>
+  <data name="HeatmapShowBestPrices" xml:space="preserve">
+    <value>Beste Preise anzeigen</value>
+  </data>
+  <data name="HeatmapShowCvdPanel" xml:space="preserve">
+    <value>CVD-Panel anzeigen</value>
+  </data>
+  <data name="HeatmapShowDepthIndicator" xml:space="preserve">
+    <value>Tiefeindikator anzeigen</value>
+  </data>
+  <data name="HeatmapShowHeatmap" xml:space="preserve">
+    <value>Heatmap anzeigen</value>
+  </data>
+  <data name="HeatmapShowLabels" xml:space="preserve">
+    <value>Labels anzeigen</value>
+  </data>
+  <data name="HeatmapShowTrades" xml:space="preserve">
+    <value>Handelsanzeigen</value>
+  </data>
+  <data name="HeatmapShowVolumeHistogram" xml:space="preserve">
+    <value>Volumeng histogramm anzeigen</value>
+  </data>
+  <data name="HeatmapSigmaMaxPx" xml:space="preserve">
+    <value>Sigma Max (px)</value>
+  </data>
+  <data name="HeatmapSplitMode" xml:space="preserve">
+    <value>Split-Modus</value>
+  </data>
+  <data name="HeatmapStartupLevels" xml:space="preserve">
+    <value>Startup-Ebenen (+/-)</value>
+  </data>
+  <data name="HeatmapTimeGrid" xml:space="preserve">
+    <value>Zeitgitter</value>
+  </data>
+  <data name="HeatmapTimeTickSpacing" xml:space="preserve">
+    <value>Zeit-Tick-Abstand</value>
+  </data>
+  <data name="HeatmapTitle" xml:space="preserve">
+    <value>Wärmebild</value>
+  </data>
+  <data name="HeatmapUpperExactEnabled" xml:space="preserve">
+    <value>Obere genaue Einstellung aktiviert</value>
+  </data>
+  <data name="HeatmapUpperExactValue" xml:space="preserve">
+    <value>Obere genaue Wert</value>
+  </data>
+  <data name="HeatmapUpperPercent" xml:space="preserve">
+    <value>Oberer %</value>
+  </data>
+  <data name="HeatmapUpperPercentile" xml:space="preserve">
+    <value>Oberer Perzentil</value>
+  </data>
+  <data name="HeatmapViewMenu" xml:space="preserve">
+    <value>Ansicht</value>
+  </data>
+  <data name="HeatmapVolumeHistogramGroup" xml:space="preserve">
+    <value>Volumenhistogramm</value>
+  </data>
+  <data name="HeatmapWidthPercent" xml:space="preserve">
+    <value>Breite Prozent</value>
+  </data>
+  <data name="HeightAlert" xml:space="preserve">
+    <value>Height alert</value>
+  </data>
+  <data name="HorizontalBars" xml:space="preserve">
+    <value>Horizontale Balken</value>
+  </data>
+  <data name="HorizontalPosition" xml:space="preserve">
+    <value>Horizontale Position</value>
+  </data>
+  <data name="HourlyPnL" xml:space="preserve">
+    <value>Stündlicher P&amp;L</value>
+  </data>
+  <data name="IBAccountCategory" xml:space="preserve">
+    <value>Konto</value>
+  </data>
+  <data name="IBAccountCode" xml:space="preserve">
+    <value>Kontonummer</value>
+  </data>
+  <data name="IBAccountReady" xml:space="preserve">
+    <value>Konto bereit</value>
+  </data>
+  <data name="IBAccountType" xml:space="preserve">
+    <value>Kontotyp</value>
+  </data>
+  <data name="IBAccruedCash" xml:space="preserve">
+    <value>Aufgelaufene Bargeld</value>
+  </data>
+  <data name="IBAccruedDividend" xml:space="preserve">
+    <value>Aufgelaufene Dividende</value>
+  </data>
+  <data name="IBAvailableFunds" xml:space="preserve">
+    <value>Verfügbare Mittel</value>
+  </data>
+  <data name="IBBalanceCategory" xml:space="preserve">
+    <value>Bilanz</value>
+  </data>
+  <data name="IBBuyingPower" xml:space="preserve">
+    <value>Kaufkraft</value>
+  </data>
+  <data name="IBCashBalance" xml:space="preserve">
+    <value>Bargeldbestand</value>
+  </data>
+  <data name="IBCurrency" xml:space="preserve">
+    <value>Währung</value>
+  </data>
+  <data name="IBCushion" xml:space="preserve">
+    <value>Puffer</value>
+  </data>
+  <data name="IBDayTradesRemaining" xml:space="preserve">
+    <value>Verbleibende Tagesgeschäfte</value>
+  </data>
+  <data name="IBDayTradesRemainingT1" xml:space="preserve">
+    <value>Verbleibende Tagesgeschäfte (T+1)</value>
+  </data>
+  <data name="IBDayTradesRemainingT2" xml:space="preserve">
+    <value>Verbleibende Tagesgeschäfte (T+2)</value>
+  </data>
+  <data name="IBDayTradesRemainingT3" xml:space="preserve">
+    <value>Tägliche verbleibende Trades (T+3)</value>
+  </data>
+  <data name="IBDayTradesRemainingT4" xml:space="preserve">
+    <value>Verbleibende Tagesgeschäfte (T+4)</value>
+  </data>
+  <data name="IBEquityWithLoanValue" xml:space="preserve">
+    <value>Eigenkapital mit Darlehenswert</value>
+  </data>
+  <data name="IBExcessLiquidity" xml:space="preserve">
+    <value>Übermäßige Liquidität</value>
+  </data>
+  <data name="IBExchangeRate" xml:space="preserve">
+    <value>Wechselkurs</value>
+  </data>
+  <data name="IBFullAvailableFunds" xml:space="preserve">
+    <value>Voll verfügbare Mittel</value>
+  </data>
+  <data name="IBFullExcessLiquidity" xml:space="preserve">
+    <value>Vollständige überschüssige Liquidität</value>
+  </data>
+  <data name="IBFullInitMarginReq" xml:space="preserve">
+    <value>Vollständige Anfangsmargenanforderung</value>
+  </data>
+  <data name="IBFullMaintMarginReq" xml:space="preserve">
+    <value>Die "Vollständige Wartungsmargenanforderung" stellt die gesamte Wartungsmarge dar, die für ein Portfolio erforderlich ist, ohne Rabatte oder Intraday-Gutschriften zu berücksichtigen. Dieser Wert ist entscheidend, um sicherzustellen, dass Investoren über ausreichendes Kapital in ihren Konten verfügen, um potenzielle Verluste abzudecken. Im Code wird er als nullable Dezimal-Eigenschaft innerhalb der IBPortfolioExtendedInfo-Klasse definiert.</value>
+  </data>
+  <data name="IBFutureOptionValue" xml:space="preserve">
+    <value>Zukünftiger Optionswert</value>
+  </data>
+  <data name="IBFuturesPNL" xml:space="preserve">
+    <value>Futures PNL</value>
+  </data>
+  <data name="IBGrossPositionValue" xml:space="preserve">
+    <value>Bruttopositionswert</value>
+  </data>
+  <data name="IBInitMarginReq" xml:space="preserve">
+    <value>Initiale Marginanforderung</value>
+  </data>
+  <data name="IBLookAheadAvailableFunds" xml:space="preserve">
+    <value>Voraussichtliche verfügbare Mittel</value>
+  </data>
+  <data name="IBLookAheadExcessLiquidity" xml:space="preserve">
+    <value>Vorausschauende überschüssige Liquidität</value>
+  </data>
+  <data name="IBLookAheadInitMarginReq" xml:space="preserve">
+    <value>Vorausschaut Initial Margin-Anforderung</value>
+  </data>
+  <data name="IBLookAheadMaintMarginReq" xml:space="preserve">
+    <value>Vorausschauende Wartungsmargenanforderung</value>
+  </data>
+  <data name="IBMaintMarginReq" xml:space="preserve">
+    <value>Wartungsmargenanforderung</value>
+  </data>
+  <data name="IBMarginCategory" xml:space="preserve">
+    <value>Marge</value>
+  </data>
+  <data name="IBMarketValuesCategory" xml:space="preserve">
+    <value>Marktwerte</value>
+  </data>
+  <data name="IBNetLiquidation" xml:space="preserve">
+    <value>Netto-Liquidation</value>
+  </data>
+  <data name="IBOptionMarketValue" xml:space="preserve">
+    <value>Optionsmarktwert</value>
+  </data>
+  <data name="IBPnLCategory" xml:space="preserve">
+    <value>Gewinn und Verlust</value>
+  </data>
+  <data name="IBPreviousDayEquityWithLoanValue" xml:space="preserve">
+    <value>Eigenkapital des vorherigen Tages mit Darlehenswert</value>
+  </data>
+  <data name="IBRealizedPnL" xml:space="preserve">
+    <value>Realisiertes PnL</value>
+  </data>
+  <data name="IBRegTEquity" xml:space="preserve">
+    <value>Reg T Eigenkapital</value>
+  </data>
+  <data name="IBRegTMargin" xml:space="preserve">
+    <value>Reg T Margin</value>
+  </data>
+  <data name="IBRegulatoryCategory" xml:space="preserve">
+    <value>Regulatorisch</value>
+  </data>
+  <data name="IBSMA" xml:space="preserve">
+    <value>SMA</value>
+  </data>
+  <data name="IBStockMarketValue" xml:space="preserve">
+    <value>Börsenwert</value>
+  </data>
+  <data name="IBTotalCashBalance" xml:space="preserve">
+    <value>Gesamter Bargeldbestand</value>
+  </data>
+  <data name="IBTotalCashValue" xml:space="preserve">
+    <value>Gesamtbetrag in bar</value>
+  </data>
+  <data name="IBUnrealizedPnL" xml:space="preserve">
+    <value>Unrealisierter PnL</value>
+  </data>
+  <data name="IdentifyingIcebergsMsg" xml:space="preserve">
+    <value>Eisberge identifizieren</value>
+  </data>
+  <data name="ImbalanceAlerts" xml:space="preserve">
+    <value>Ungleichgewichtsalarme</value>
+  </data>
+  <data name="ImbalanceSound" xml:space="preserve">
+    <value>Ungleichgewichtsound</value>
+  </data>
+  <data name="ImportantSettingsTitle" xml:space="preserve">
+    <value>Wichtige Einstellungen</value>
+  </data>
+  <data name="IncreasePositionSize" xml:space="preserve">
+    <value>Handelsvolumen erhöhen</value>
+  </data>
+  <data name="IndicatorLoadError" xml:space="preserve">
+    <value>Fehler beim Laden der Indikatoreinstellungen. Der Indikator ist möglicherweise nicht mit dieser Version der Plattform kompatibel.</value>
+  </data>
+  <data name="IndicatorProtectedFromDebugging" xml:space="preserve">
+    <value>Der Indikator ist vor Debugging geschützt.</value>
+  </data>
+  <data name="InstrumentDragHandleTooltip" xml:space="preserve">
+    <value>Ziehen Sie in ein anderes Modul, um das Instrument zu öffnen</value>
+  </data>
+  <data name="InstrumentNotLoadedStrategySettingsHint" xml:space="preserve">
+    <value>Das Instrument ist nicht geladen.
+Öffnen Sie ein Diagramm oder Smart DOM für dieses Instrument, um die Strategieneinstellungen zu aktivieren.</value>
+  </data>
+  <data name="InstrumentNotSupportedByLiquidationsFeed" xml:space="preserve">
+    <value>Das aktuelle Instrument wird nicht vom Liquidations-Datenfeed unterstützt.</value>
+  </data>
+  <data name="InstrumentNotSupportedByLongShortRatioFeed" xml:space="preserve">
+    <value>Das aktuelle Instrument wird nicht vom Long/Short Ratio-Datenfeed unterstützt.</value>
+  </data>
+  <data name="InstrumentNotSupportedByOpenInterestFeed" xml:space="preserve">
+    <value>Das aktuelle Finanzinstrument wird vom Open Interest-Datenfeed nicht unterstützt.</value>
+  </data>
+  <data name="InstrumentsCountFilter" xml:space="preserve">
+    <value>{0} Instrumente</value>
+  </data>
+  <data name="InsufficientDataForPeriod" xml:space="preserve">
+    <value>Es liegen nicht genügend Daten für diesen Zeitraum vor.</value>
+  </data>
+  <data name="IOCShort" xml:space="preserve">
+    <value>IOC</value>
+  </data>
+  <data name="KeepDrawingMode" xml:space="preserve">
+    <value>Weiter zeichnen</value>
+  </data>
+  <data name="KrakenAvailable" xml:space="preserve">
+    <value>Verfügbar</value>
+  </data>
+  <data name="KrakenAvailableMargin" xml:space="preserve">
+    <value>Verfügbarer Margin</value>
+  </data>
+  <data name="KrakenBalance" xml:space="preserve">
+    <value>Guthaben</value>
+  </data>
+  <data name="KrakenBalanceValue" xml:space="preserve">
+    <value>Kontostandwert</value>
+  </data>
+  <data name="KrakenCashValue" xml:space="preserve">
+    <value>Bargeldwert</value>
+  </data>
+  <data name="KrakenCollateralValue" xml:space="preserve">
+    <value>Sicherheitswert</value>
+  </data>
+  <data name="KrakenConnectingUrl" xml:space="preserve">
+    <value>https://help.atas.net/support/solutions/articles/72000648190</value>
+  </data>
+  <data name="KrakenConversionSpread" xml:space="preserve">
+    <value>Konversionsspread</value>
+  </data>
+  <data name="KrakenCurrencyAvailable" xml:space="preserve">
+    <value>Verfügbar</value>
+  </data>
+  <data name="KrakenCurrencyCollateralValue" xml:space="preserve">
+    <value>Sicherheitswert</value>
+  </data>
+  <data name="KrakenCurrencyInfoCategory" xml:space="preserve">
+    <value>Währungsinformationen</value>
+  </data>
+  <data name="KrakenCurrencyQuantity" xml:space="preserve">
+    <value>Menge</value>
+  </data>
+  <data name="KrakenCurrencyValue" xml:space="preserve">
+    <value>Wert</value>
+  </data>
+  <data name="KrakenDomDepth" xml:space="preserve">
+    <value>Orderbuch-Tiefe (nur für Spot-Handel)</value>
+  </data>
+  <data name="KrakenFlexFuturesCategory" xml:space="preserve">
+    <value>Flex-Futures</value>
+  </data>
+  <data name="KrakenHaircut" xml:space="preserve">
+    <value>Haarschnitt</value>
+  </data>
+  <data name="KrakenInitialMargin" xml:space="preserve">
+    <value>Initial Margin</value>
+  </data>
+  <data name="KrakenInitialMarginWithoutOrders" xml:space="preserve">
+    <value>Initiale Margin ohne Aufträge</value>
+  </data>
+  <data name="KrakenInverseFuturesCategory" xml:space="preserve">
+    <value>Inverse Futures</value>
+  </data>
+  <data name="KrakenMaintenanceMargin" xml:space="preserve">
+    <value>Wartemarge</value>
+  </data>
+  <data name="KrakenMarginEquity" xml:space="preserve">
+    <value>Margin-Eigenkapital</value>
+  </data>
+  <data name="KrakenPnl" xml:space="preserve">
+    <value>Gewinn und Verlust</value>
+  </data>
+  <data name="KrakenPortfolioValue" xml:space="preserve">
+    <value>Portfoliowert</value>
+  </data>
+  <data name="KrakenTotalUnrealized" xml:space="preserve">
+    <value>Gesamte nicht realisierte</value>
+  </data>
+  <data name="KrakenTotalUnrealizedAsMargin" xml:space="preserve">
+    <value>Gesamte unrealisierten Gewinne oder Verluste als Margin</value>
+  </data>
+  <data name="KrakenUnrealizedFunding" xml:space="preserve">
+    <value>Nicht realisierte Finanzierung</value>
+  </data>
+  <data name="LabelDisplay" xml:space="preserve">
+    <value>Label Display</value>
+  </data>
+  <data name="LabelDisplayDescription" xml:space="preserve">
+    <value>Control label visibility: Hide, Short (direction + result), Full (with prices)</value>
+  </data>
+  <data name="Large" xml:space="preserve">
+    <value>Groß</value>
+  </data>
+  <data name="LargeChangeScale" xml:space="preserve">
+    <value>10-facher Änderungsmaßstab zum Festlegen des Schrittes</value>
+  </data>
+  <data name="LargeChangeScaleDescription" xml:space="preserve">
+    <value>Taste-Modifier bei der Mausrolle, um den Preisskalierungsfaktor um das 10-fache zu ändern</value>
+  </data>
+  <data name="LargeDecrementScale" xml:space="preserve">
+    <value>10-faches Preisdekrement-Skalierung</value>
+  </data>
+  <data name="LargeDecrementScaleDescription" xml:space="preserve">
+    <value>10-fache Preisskalenreduzierung</value>
+  </data>
+  <data name="LargeIncrementScale" xml:space="preserve">
+    <value>10-fache Erhöhung des Skalierungspreises</value>
+  </data>
+  <data name="LargeIncrementScaleDescription" xml:space="preserve">
+    <value>10-fache Preiserhöhung</value>
+  </data>
+  <data name="LastDayTemplate" xml:space="preserve">
+    <value>Letzter Tag</value>
+  </data>
+  <data name="LastTradeDate" xml:space="preserve">
+    <value>Letztes Trade-Datum</value>
+  </data>
+  <data name="LayoutGroup" xml:space="preserve">
+    <value>Layout</value>
+  </data>
+  <data name="LearningCenterPanelTitle" xml:space="preserve">
+    <value>Lernzentrum</value>
+  </data>
+  <data name="LearningStep1Title" xml:space="preserve">
+    <value>Schritt 1: Plattform</value>
+  </data>
+  <data name="LearningStep2Title" xml:space="preserve">
+    <value>Schritt 2: Handel</value>
+  </data>
+  <data name="LearningStep3Title" xml:space="preserve">
+    <value>Schritt 3: Links</value>
+  </data>
+  <data name="LevelsDescription" xml:space="preserve">
+    <value> Anzahl der zu analysierenden Orderbuch-Ebenen. Mehr Ebenen bieten ein vollständigeres Liquiditätsbild.</value>
+  </data>
+  <data name="Linear" xml:space="preserve">
+    <value>Linear</value>
+  </data>
+  <data name="LiquidationOrdersAggregationModeGlobalDescription" xml:space="preserve">
+    <value>Aggregiert alle verfügbaren Liquidationsaufträge über Symbole und Börsen.</value>
+  </data>
+  <data name="LiquidationOrdersAggregationModeGlobalTitle" xml:space="preserve">
+    <value>Globale Aggregation</value>
+  </data>
+  <data name="LiquidationOrdersAggregationModeLocalDescription" xml:space="preserve">
+    <value>Aggregiert Liquidationsaufträge für ein bestimmtes Symbol an einer bestimmten Börse.</value>
+  </data>
+  <data name="LiquidationOrdersAggregationModeLocalTitle" xml:space="preserve">
+    <value>Lokale Aggregation</value>
+  </data>
+  <data name="LiquidationOrdersAggregationModesDescription" xml:space="preserve">
+    <value>Definiert, wie Liquidationsereignisse aggregiert werden.</value>
+  </data>
+  <data name="LiquidationOrdersAggregationModeSymbolGlobalDescription" xml:space="preserve">
+    <value>Aggregiert Liquidationsaufträge für ein bestimmtes Symbol über alle Börsen, an denen es gelistet ist.</value>
+  </data>
+  <data name="LiquidationOrdersAggregationModeSymbolGlobalTitle" xml:space="preserve">
+    <value>Globale Symbolaggregation</value>
+  </data>
+  <data name="LiquidationTypesGlobal" xml:space="preserve">
+    <value>Global (Alle Symbole &amp; Börsen)</value>
+  </data>
+  <data name="LiquidationTypesLocal" xml:space="preserve">
+    <value>Aktuelles Instrument &amp; Börse</value>
+  </data>
+  <data name="LiquidationTypesSymbolGlobal" xml:space="preserve">
+    <value>Aktuelles Instrument (Alle Börsen)</value>
+  </data>
+  <data name="LoadingInstrument" xml:space="preserve">
+    <value>Instrument wird geladen…</value>
+  </data>
+  <data name="LoadPlatformSettingsErrorMsg" xml:space="preserve">
+    <value>Fehler beim Laden der Plattform-Einstellungen.
+Die Anwendung wird jetzt geschlossen.</value>
+  </data>
+  <data name="LossColor" xml:space="preserve">
+    <value>Verlustfarbe</value>
+  </data>
+  <data name="LossTradeResultColorDescription" xml:space="preserve">
+    <value>Legt die Farbe fest, die für den Ergebnisbereich von Verlustgeschäften verwendet wird.</value>
+  </data>
+  <data name="Magenta" xml:space="preserve">
+    <value>Magenta</value>
+  </data>
+  <data name="MarketNewsRibbonPage" xml:space="preserve">
+    <value>Marktnachrichten</value>
+  </data>
+  <data name="MaxAudioIntensity" xml:space="preserve">
+    <value>Maximale Audiointensität</value>
+  </data>
+  <data name="MaxConsecutiveLosses" xml:space="preserve">
+    <value>Max. aufeinanderfolgende Verluste</value>
+  </data>
+  <data name="MaxConsecutiveWins" xml:space="preserve">
+    <value>Max. aufeinanderfolgende Gewinne</value>
+  </data>
+  <data name="MaxDeltaAlert" xml:space="preserve">
+    <value>Max delta alert</value>
+  </data>
+  <data name="MaxDrawdownDate" xml:space="preserve">
+    <value>Datum des max. Drawdowns</value>
+  </data>
+  <data name="MaximizeWidget" xml:space="preserve">
+    <value>Maximieren</value>
+  </data>
+  <data name="MaxReplayPeriod" xml:space="preserve">
+    <value>Max. Zeitraum</value>
+  </data>
+  <data name="Med" xml:space="preserve">
+    <value>Mittel</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Mittel</value>
+  </data>
+  <data name="Menu" xml:space="preserve">
+    <value>Menü</value>
+  </data>
+  <data name="MinAudioIntensity" xml:space="preserve">
+    <value>Minimale Audiointensität</value>
+  </data>
+  <data name="MinDeltaAlert" xml:space="preserve">
+    <value>Min delta alert</value>
+  </data>
+  <data name="ModuleUpdateAvailable" xml:space="preserve">
+    <value>Aktualisierung</value>
+  </data>
+  <data name="MT5AccountCategory" xml:space="preserve">
+    <value>Konto</value>
+  </data>
+  <data name="MT5Balance" xml:space="preserve">
+    <value>Guthaben</value>
+  </data>
+  <data name="MT5BalanceCategory" xml:space="preserve">
+    <value>Guthaben</value>
+  </data>
+  <data name="MT5Credit" xml:space="preserve">
+    <value>Kredit</value>
+  </data>
+  <data name="MT5Equity" xml:space="preserve">
+    <value>Eigenkapital</value>
+  </data>
+  <data name="MT5ExpertAllowed" xml:space="preserve">
+    <value>Expertenberater erlaubt</value>
+  </data>
+  <data name="MT5FreeMargin" xml:space="preserve">
+    <value>Freie Marge</value>
+  </data>
+  <data name="MT5Leverage" xml:space="preserve">
+    <value>Hebel</value>
+  </data>
+  <data name="MT5LimitOrders" xml:space="preserve">
+    <value>Max. ausstehende Aufträge</value>
+  </data>
+  <data name="MT5Margin" xml:space="preserve">
+    <value>Margin</value>
+  </data>
+  <data name="MT5MarginCategory" xml:space="preserve">
+    <value>Marge</value>
+  </data>
+  <data name="MT5MarginMode" xml:space="preserve">
+    <value>Margin-Modus</value>
+  </data>
+  <data name="MT5Profit" xml:space="preserve">
+    <value>Gewinn</value>
+  </data>
+  <data name="MT5StopoutMode" xml:space="preserve">
+    <value>Stopout-Modus</value>
+  </data>
+  <data name="MT5TradeMode" xml:space="preserve">
+    <value>Handelsmodus</value>
+  </data>
+  <data name="MyAddonsMenu" xml:space="preserve">
+    <value>Meine Addons</value>
+  </data>
+  <data name="NegativeColor" xml:space="preserve">
+    <value>Negative Farbe</value>
+  </data>
+  <data name="NegativeColorDescription" xml:space="preserve">
+    <value>Farbe für negative PnL-Werte</value>
+  </data>
+  <data name="NetPnL" xml:space="preserve">
+    <value>Netto-PnL</value>
+  </data>
+  <data name="NewWorkspaceTitle" xml:space="preserve">
+    <value>Neuer Arbeitsbereich</value>
+  </data>
+  <data name="NinjaTraderBalanceCategory" xml:space="preserve">
+    <value>Guthaben &amp; Bargeld</value>
+  </data>
+  <data name="NinjaTraderBuyingPower" xml:space="preserve">
+    <value>Kaufkraft</value>
+  </data>
+  <data name="NinjaTraderCommission" xml:space="preserve">
+    <value>Kommission</value>
+  </data>
+  <data name="NinjaTraderDailyLossLimit" xml:space="preserve">
+    <value>Tägliches Verlustlimit</value>
+  </data>
+  <data name="NinjaTraderDailyProfitTrigger" xml:space="preserve">
+    <value>Täglicher Gewinnauslöser</value>
+  </data>
+  <data name="NinjaTraderExcessInitialMargin" xml:space="preserve">
+    <value>Übermäßige anfängliche Margin</value>
+  </data>
+  <data name="NinjaTraderExcessIntradayMargin" xml:space="preserve">
+    <value>Zusätzliche Intraday-Marge</value>
+  </data>
+  <data name="NinjaTraderExcessMaintenanceMargin" xml:space="preserve">
+    <value>Übermäßige Wartemarge</value>
+  </data>
+  <data name="NinjaTraderExcessPositionMargin" xml:space="preserve">
+    <value>Übermäßige Positionsmargin</value>
+  </data>
+  <data name="NinjaTraderFee" xml:space="preserve">
+    <value>Gebühr</value>
+  </data>
+  <data name="NinjaTraderFeesCategory" xml:space="preserve">
+    <value>Gebühren</value>
+  </data>
+  <data name="NinjaTraderGrossRealizedProfitLoss" xml:space="preserve">
+    <value>Brutto realisierter Gewinn/Verlust</value>
+  </data>
+  <data name="NinjaTraderInitialMargin" xml:space="preserve">
+    <value>Erste Margin</value>
+  </data>
+  <data name="NinjaTraderIntradayMargin" xml:space="preserve">
+    <value>Intraday-Marge</value>
+  </data>
+  <data name="NinjaTraderLongOptionValue" xml:space="preserve">
+    <value>Langfristiger Optionswert</value>
+  </data>
+  <data name="NinjaTraderLongStockValue" xml:space="preserve">
+    <value>Langfristiger Aktienwert</value>
+  </data>
+  <data name="NinjaTraderLookAheadMaintenanceMargin" xml:space="preserve">
+    <value>Vorausschautende Wartemarge</value>
+  </data>
+  <data name="NinjaTraderMaintenanceMargin" xml:space="preserve">
+    <value>Wartemarge</value>
+  </data>
+  <data name="NinjaTraderMarginCategory" xml:space="preserve">
+    <value>Margin</value>
+  </data>
+  <data name="NinjaTraderNetLiquidation" xml:space="preserve">
+    <value>Netto-Liquidation</value>
+  </data>
+  <data name="NinjaTraderPnLCategory" xml:space="preserve">
+    <value>Gewinn/Verlust</value>
+  </data>
+  <data name="NinjaTraderPositionMargin" xml:space="preserve">
+    <value>Positionsmargin</value>
+  </data>
+  <data name="NinjaTraderRealizedProfitLoss" xml:space="preserve">
+    <value>Realisierten P/L</value>
+  </data>
+  <data name="NinjaTraderRiskLimitsCategory" xml:space="preserve">
+    <value>Risikogrenzen</value>
+  </data>
+  <data name="NinjaTraderShortOptionValue" xml:space="preserve">
+    <value>Kurze Optionswert</value>
+  </data>
+  <data name="NinjaTraderShortStockValue" xml:space="preserve">
+    <value>Kurze Aktienbewertung</value>
+  </data>
+  <data name="NinjaTraderSodCashValue" xml:space="preserve">
+    <value>Start des Tages Bargeldwert</value>
+  </data>
+  <data name="NinjaTraderSodLiquidatingValue" xml:space="preserve">
+    <value>Start der Tagesliquidationswert</value>
+  </data>
+  <data name="NinjaTraderTotalCashBalance" xml:space="preserve">
+    <value>Gesamter Geldbestand</value>
+  </data>
+  <data name="NinjaTraderTrailingMaxDrawdown" xml:space="preserve">
+    <value>Trailing Max Drawdown</value>
+  </data>
+  <data name="NinjaTraderUnrealizedProfitLoss" xml:space="preserve">
+    <value>Nicht realisierte P/L</value>
+  </data>
+  <data name="NinjaTraderValuesCategory" xml:space="preserve">
+    <value>Vermögenswerte Kategorie</value>
+  </data>
+  <data name="NinjaTraderWeeklyLossLimit" xml:space="preserve">
+    <value>Wöchentlicher Verlustlimit</value>
+  </data>
+  <data name="NinjaTraderWeeklyProfitLoss" xml:space="preserve">
+    <value>Wöchentlicher Gewinn/Verlust</value>
+  </data>
+  <data name="NinjaTraderWeeklyProfitTrigger" xml:space="preserve">
+    <value>Wöchentlicher Gewinnauslöser</value>
+  </data>
+  <data name="NoAccount" xml:space="preserve">
+    <value>[kein Konto]</value>
+  </data>
+  <data name="NoDataSessionHint" xml:space="preserve">
+    <value>Sie können die Handelssitzung im unteren Bereich ändern.</value>
+  </data>
+  <data name="NoPlaybook" xml:space="preserve">
+    <value>Kein Playbook</value>
+  </data>
+  <data name="NoPlaybooksYet" xml:space="preserve">
+    <value>Noch keine Playbooks vorhanden</value>
+  </data>
+  <data name="NotificationFlowDirection" xml:space="preserve">
+    <value>Reihenfolge</value>
+  </data>
+  <data name="NotificationFlowDirectionBottomToTop" xml:space="preserve">
+    <value>Von unten nach oben</value>
+  </data>
+  <data name="NotificationFlowDirectionDescription" xml:space="preserve">
+    <value>Legt fest, in welcher Richtung Benachrichtigungen angeordnet werden.</value>
+  </data>
+  <data name="NotificationFlowDirectionTopToBottom" xml:space="preserve">
+    <value>Von oben nach unten</value>
+  </data>
+  <data name="Off" xml:space="preserve">
+    <value>Aus</value>
+  </data>
+  <data name="OfflinePlaceholder" xml:space="preserve">
+    <value>[offline]</value>
+  </data>
+  <data name="OffsetX" xml:space="preserve">
+    <value>OffsetX</value>
+  </data>
+  <data name="OffsetXDescription" xml:space="preserve">
+    <value>Horizontaler Abstand vom Rand</value>
+  </data>
+  <data name="OffsetY" xml:space="preserve">
+    <value>Offset Y</value>
+  </data>
+  <data name="OffsetYDescription" xml:space="preserve">
+    <value>Vertikaler Abstand vom Rand</value>
+  </data>
+  <data name="OHLCPlusDescription" xml:space="preserve">
+    <value>Erweiterte Preis-Level-Anzeige mit OHLC-, Gleichgewichts-, POC- und Value-Area-Levels für mehrere Zeiträume</value>
+  </data>
+  <data name="OkxAccountInfoCategory" xml:space="preserve">
+    <value>Kontoinformationen</value>
+  </data>
+  <data name="OkxAdjustedEquity" xml:space="preserve">
+    <value>Angepasstes Eigenkapital</value>
+  </data>
+  <data name="OkxAvailableBalance" xml:space="preserve">
+    <value>Verfügbarer Saldo</value>
+  </data>
+  <data name="OkxAvailableEquity" xml:space="preserve">
+    <value>Verfügbares Eigenkapital</value>
+  </data>
+  <data name="OkxCashBalance" xml:space="preserve">
+    <value>Bargeldbestand</value>
+  </data>
+  <data name="OkxCoinEquity" xml:space="preserve">
+    <value>Münzkapital</value>
+  </data>
+  <data name="OkxCoinEquityUsd" xml:space="preserve">
+    <value>Münzkapital in USD</value>
+  </data>
+  <data name="OkxCoinInfoCategory" xml:space="preserve">
+    <value>Münzinformation</value>
+  </data>
+  <data name="OkxCoinIsolatedEquity" xml:space="preserve">
+    <value>Isoliertes Eigenkapital der Münze</value>
+  </data>
+  <data name="OkxCoinMarginRatio" xml:space="preserve">
+    <value>Coin-Margin-Verhältnis</value>
+  </data>
+  <data name="OkxCoinOrderFrozen" xml:space="preserve">
+    <value>Eingefrorene Münzbestellung</value>
+  </data>
+  <data name="OkxCoinUsdPrice" xml:space="preserve">
+    <value>Coin USD Preis</value>
+  </data>
+  <data name="OkxCrossLiability" xml:space="preserve">
+    <value>Kreuzverantwortung</value>
+  </data>
+  <data name="OkxDiscountedEquity" xml:space="preserve">
+    <value>Rabattiertes Eigenkapital</value>
+  </data>
+  <data name="OkxFrozenBalance" xml:space="preserve">
+    <value>Eingefrorenes Guthaben</value>
+  </data>
+  <data name="OkxInitialMargin" xml:space="preserve">
+    <value>Initial Margin</value>
+  </data>
+  <data name="OkxInterest" xml:space="preserve">
+    <value>Zinsen</value>
+  </data>
+  <data name="OkxIsolatedEquity" xml:space="preserve">
+    <value>Isoliertes Eigenkapital</value>
+  </data>
+  <data name="OkxIsolatedLiability" xml:space="preserve">
+    <value>Isolierte Haftung</value>
+  </data>
+  <data name="OkxIsolatedUnrealizedPnl" xml:space="preserve">
+    <value>Isolierte unrealisierten PnL</value>
+  </data>
+  <data name="OkxLiability" xml:space="preserve">
+    <value>Verbindlichkeit</value>
+  </data>
+  <data name="OkxMaintenanceMargin" xml:space="preserve">
+    <value>Wartemarge</value>
+  </data>
+  <data name="OkxMarginCategory" xml:space="preserve">
+    <value>Margin</value>
+  </data>
+  <data name="OkxMarginRatio" xml:space="preserve">
+    <value>Margin-Verhältnis</value>
+  </data>
+  <data name="OkxMaxLoan" xml:space="preserve">
+    <value>Maximaler Kredit</value>
+  </data>
+  <data name="OkxNotionalLeverage" xml:space="preserve">
+    <value>Nominelles Hebel</value>
+  </data>
+  <data name="OkxNotionalUsd" xml:space="preserve">
+    <value>Nomineller USD-Wert</value>
+  </data>
+  <data name="OkxOrderFrozen" xml:space="preserve">
+    <value>Bestellung eingefroren</value>
+  </data>
+  <data name="OkxSpotInUseAmount" xml:space="preserve">
+    <value>Verfügbare Spotmenge</value>
+  </data>
+  <data name="OkxStrategyEquity" xml:space="preserve">
+    <value>Strategie Eigenkapital</value>
+  </data>
+  <data name="OkxTotalEquity" xml:space="preserve">
+    <value>Gesamtes Eigenkapital</value>
+  </data>
+  <data name="OkxUnrealizedPnl" xml:space="preserve">
+    <value>Unrealisierter Gewinn und Verlust</value>
+  </data>
+  <data name="OkxUnrealizedPnlLiability" xml:space="preserve">
+    <value>Nichterfüllte PnL-Verpflichtung</value>
+  </data>
+  <data name="OnlyCryptoInstrumentsSupportedMessage" xml:space="preserve">
+    <value>Aktuelles Instrument wird nicht unterstützt, bitte öffnen Sie ein Krypto-Instrument.</value>
+  </data>
+  <data name="OnlyThisChartLabel" xml:space="preserve">
+    <value>Nur dieses Diagramm</value>
+  </data>
+  <data name="OnlyTimeFrameChartsSupported" xml:space="preserve">
+    <value>Es werden nur Standard-Zeitfensterdiagramme (1M und höher) unterstützt.</value>
+  </data>
+  <data name="OpenCloseMode" xml:space="preserve">
+    <value>Der Open/Close-Modus bezieht sich auf eine spezifische Einstellung innerhalb der Klasse CustomHistogramm, die zur Verwaltung der Datenvisualisierung in den Zeichnungsobjekten einer Plattform verwendet wird. Er verfügt über Anzeigeattribute wie Gruppierung und Beschreibungen, die die Benutzerinteraktion und Klarheit verbessern. Dieser Modus ist integraler Bestandteil der Markprofil-Einstellungen und ermöglicht es den Benutzern, ihre Analysetools effektiv anzupassen.</value>
+  </data>
+  <data name="OpenInNewTabLabel" xml:space="preserve">
+    <value>In neuem Tab öffnen</value>
+  </data>
+  <data name="OpenInNewWindowLabel" xml:space="preserve">
+    <value>In neuem Fenster öffnen</value>
+  </data>
+  <data name="OpenInstrumentManagerBtn" xml:space="preserve">
+    <value>Instrumentenmanager öffnen</value>
+  </data>
+  <data name="OpenNewTab" xml:space="preserve">
+    <value>Einen neuen Tab öffnen</value>
+  </data>
+  <data name="OpenXmlFileFilter" xml:space="preserve">
+    <value>Microsoft Excel 2007 (*.xlsx)|*.xlsx</value>
+  </data>
+  <data name="OptionsBoardAccountAndSeries" xml:space="preserve">
+    <value>Konto und Serie:</value>
+  </data>
+  <data name="OptionsBoardAccountRequired" xml:space="preserve">
+    <value>Konto erforderlich</value>
+  </data>
+  <data name="OptionsBoardAccountRequiredMessage" xml:space="preserve">
+    <value>Bitte wählen Sie ein Handelskonto, das Optionsdaten unterstützt</value>
+  </data>
+  <data name="OptionsBoardAllSeriesTypes" xml:space="preserve">
+    <value>Alle Typen</value>
+  </data>
+  <data name="OptionsBoardCollapseAll" xml:space="preserve">
+    <value>Alle einklappen</value>
+  </data>
+  <data name="OptionsBoardColumns" xml:space="preserve">
+    <value>Spalten</value>
+  </data>
+  <data name="OptionsBoardContracts" xml:space="preserve">
+    <value>Verträge</value>
+  </data>
+  <data name="OptionsBoardExpandAll" xml:space="preserve">
+    <value>Alle erweitern</value>
+  </data>
+  <data name="OptionsBoardHint" xml:space="preserve">
+    <value>Verwenden Sie die Steuerelemente oben, um zu beginnen</value>
+  </data>
+  <data name="OptionsBoardLoadingData" xml:space="preserve">
+    <value>Daten werden geladen...</value>
+  </data>
+  <data name="OptionsBoardLoadingDataMessage" xml:space="preserve">
+    <value>Bitte warten Sie, während die Optionsdaten geladen werden</value>
+  </data>
+  <data name="OptionsBoardLoadingOptionSeries" xml:space="preserve">
+    <value>Lade Optionsserien...</value>
+  </data>
+  <data name="OptionsBoardLoadingOptionSeriesMessage" xml:space="preserve">
+    <value>Bitte warten Sie, während die Optionsserien geladen werden</value>
+  </data>
+  <data name="OptionsBoardMultipleSeriesTypes" xml:space="preserve">
+    <value>{0} Typen</value>
+  </data>
+  <data name="OptionsBoardNotAvailableInReplay" xml:space="preserve">
+    <value>Die Optionsboard-Funktion ist im Wiedergabemodus nicht zugänglich. Benutzer können während dieser Wiedergabefunktion nicht auf das Optionsboard zugreifen oder damit interagieren. Diese Einschränkung kann die Analyse- und Entscheidungsfindung für Benutzer, die auf diese Funktion angewiesen sind, beeinträchtigen.</value>
+  </data>
+  <data name="OptionsBoardSelectSeries" xml:space="preserve">
+    <value>Serie auswählen</value>
+  </data>
+  <data name="OptionsBoardSelectSeriesTypes" xml:space="preserve">
+    <value>Typen auswählen</value>
+  </data>
+  <data name="OptionsBoardSeriesRequired" xml:space="preserve">
+    <value>Serie erforderlich</value>
+  </data>
+  <data name="OptionsBoardSeriesRequiredMessage" xml:space="preserve">
+    <value>Bitte wählen Sie eine Optionsreihe, um das Optionsboard anzuzeigen</value>
+  </data>
+  <data name="OptionsBoardSeriesType" xml:space="preserve">
+    <value>Serientyp</value>
+  </data>
+  <data name="OptionsBoardSeriesTypeEndOfMonth" xml:space="preserve">
+    <value>Monatsende</value>
+  </data>
+  <data name="OptionsBoardSeriesTypeRegular" xml:space="preserve">
+    <value>Regulär</value>
+  </data>
+  <data name="OptionsBoardSeriesTypeWeekly" xml:space="preserve">
+    <value>Wöchentlich</value>
+  </data>
+  <data name="OptionsBoardStrikes" xml:space="preserve">
+    <value>Schläge</value>
+  </data>
+  <data name="OtherTimeframes" xml:space="preserve">
+    <value>Andere Zeitrahmen</value>
+  </data>
+  <data name="PaceOfTape" xml:space="preserve">
+    <value>Tape-Geschwindigkeit</value>
+  </data>
+  <data name="PanelSize" xml:space="preserve">
+    <value>Panelgröße</value>
+  </data>
+  <data name="PayWallFeature_ChartHistoryDepth" xml:space="preserve">
+    <value>Chart-Historie-Tiefe (Standardinstrumente)</value>
+  </data>
+  <data name="PayWallFeature_CryptoChartHistoryDepth" xml:space="preserve">
+    <value>Chartverlaufstiefe (Krypto-Instrumente)</value>
+  </data>
+  <data name="PayWallFeature_CryptoIndicatorsDisabled" xml:space="preserve">
+    <value>Nutzung von Indikatoren auf Charts (für Krypto-Instrumente)</value>
+  </data>
+  <data name="PayWallFeature_CryptoIndicatorsPerChart" xml:space="preserve">
+    <value>Maximale Indikatoren pro Chart (für Krypto-Instrumente)</value>
+  </data>
+  <data name="PayWallFeature_CryptoInstrumentsCount" xml:space="preserve">
+    <value>Anzahl der Krypto-Instrumente</value>
+  </data>
+  <data name="PayWallFeature_CryptoTimeFrameCumulativeTradesDisabled" xml:space="preserve">
+    <value>Nutzung des Zeitrahmens für kumulative Trades (für Krypto-Instrumente)</value>
+  </data>
+  <data name="PayWallFeature_CryptoTimeFrameDeltaDisabled" xml:space="preserve">
+    <value>Verwendung von Delta-Zeitfenstern (für Krypto-Instrumente)</value>
+  </data>
+  <data name="PayWallFeature_CryptoTimeFrameOrderFlowDisabled" xml:space="preserve">
+    <value>Nutzung von Orderflow-Zeitrahmen (für Krypto-Instrumente)</value>
+  </data>
+  <data name="PayWallFeature_CryptoTimeFramePerRangeDisabled" xml:space="preserve">
+    <value>Nutzung von Zeitrahmen (für Krypto-Instrumente)</value>
+  </data>
+  <data name="PayWallFeature_CryptoTimeFramePerSecondsDisabled" xml:space="preserve">
+    <value>Die Verwendung von Zeitrahmen in Sekunden (für Krypto-Instrumente) ist nicht aktiviert.</value>
+  </data>
+  <data name="PayWallFeature_CryptoTimeFrameRenkoDisabled" xml:space="preserve">
+    <value>Verwendung von Renko-Zeitrahmen (für Krypto-Instrumente)</value>
+  </data>
+  <data name="PayWallFeature_CryptoTimeFrameTicksDisabled" xml:space="preserve">
+    <value>Verwendung von Tick-Zeitfenstern (für Krypto-Instrumente)</value>
+  </data>
+  <data name="PayWallFeature_CryptoTimeFrameUniqRangeDisabled" xml:space="preserve">
+    <value>Verwendung einzigartiger Zeitrahmen (für Krypto-Instrumente)</value>
+  </data>
+  <data name="PayWallFeature_CryptoTimeFrameUniqReversalDisabled" xml:space="preserve">
+    <value>Verwendung einzigartiger Umkehrzeitrahmen (für Krypto-Instrumente)</value>
+  </data>
+  <data name="PayWallFeature_CryptoTimeFrameVolumeDisabled" xml:space="preserve">
+    <value>Nutzung von Volumenzeitrahmen (für Krypto-Instrumente)</value>
+  </data>
+  <data name="PayWallFeature_FollowingManagerDisabled" xml:space="preserve">
+    <value>Nutzung des Following Managers</value>
+  </data>
+  <data name="PayWallFeature_IndicatorsDisabled" xml:space="preserve">
+    <value>Die Funktion ermöglicht es Benutzern, Indikatoren auf Diagrammen zu verwenden, die speziell für Standardinstrumente entwickelt wurden. Diese Funktionalität verbessert die analytischen Fähigkeiten für Händler, indem sie Einblicke in Markttrends bietet. Sie ist besonders nützlich zur Verbesserung der Entscheidungsfindung bei Handelsstrategien.</value>
+  </data>
+  <data name="PayWallFeature_IndicatorsPerChart" xml:space="preserve">
+    <value>Maximale Indikatoren pro Chart (für Standardinstrumente)</value>
+  </data>
+  <data name="PayWallFeature_NonCryptoInstrumentsCount" xml:space="preserve">
+    <value>Anzahl der Standardinstrumente</value>
+  </data>
+  <data name="PayWallFeature_NonCryptoRealTimeInstrumentsDisabled" xml:space="preserve">
+    <value>Nutzung von Echtzeitdaten für Standardinstrumente</value>
+  </data>
+  <data name="PayWallFeature_TimeFrameCumulativeTradesDisabled" xml:space="preserve">
+    <value>Nutzung des Zeitrahmens für kumulative Trades (für Standardinstrumente)</value>
+  </data>
+  <data name="PayWallFeature_TimeFrameDeltaDisabled" xml:space="preserve">
+    <value>Verwendung von Delta-Zeitfenstern (für Standardinstrumente)</value>
+  </data>
+  <data name="PayWallFeature_TimeFrameOrderFlowDisabled" xml:space="preserve">
+    <value>Nutzung von Orderflow-Zeitfenstern (für Standardinstrumente)</value>
+  </data>
+  <data name="PayWallFeature_TimeFramePerRangeDisabled" xml:space="preserve">
+    <value>Nutzung von Zeitrahmen (für Standardinstrumente)</value>
+  </data>
+  <data name="PayWallFeature_TimeFramePerSecondsDisabled" xml:space="preserve">
+    <value>Nutzung von Sekunden-Zeitfenstern (für Standardinstrumente)</value>
+  </data>
+  <data name="PayWallFeature_TimeFrameRenkoDisabled" xml:space="preserve">
+    <value>Verwendung von Renko-Zeitfenstern (für Standardinstrumente)</value>
+  </data>
+  <data name="PayWallFeature_TimeFrameTicksDisabled" xml:space="preserve">
+    <value>Verwendung von Tick-Zeitrahmen (für Standardinstrumente)</value>
+  </data>
+  <data name="PayWallFeature_TimeFrameUniqRangeDisabled" xml:space="preserve">
+    <value>Die Funktion konzentriert sich auf die Verwendung einzigartiger Zeitrahmen für Standardinstrumente und ermöglicht eine differenzierte Bereichsanalyse. Diese Funktionalität verbessert die Fähigkeit, Datentrends innerhalb festgelegter Intervalle zu bewerten. Sie zielt darauf ab, die analytischen Fähigkeiten der Benutzer, die mit Standardhandelsinstrumenten arbeiten, zu verbessern.</value>
+  </data>
+  <data name="PayWallFeature_TimeFrameUniqReversalDisabled" xml:space="preserve">
+    <value>Verwendung einzigartiger Umkehrzeitrahmen (für Standardinstrumente)</value>
+  </data>
+  <data name="PayWallFeature_TimeFrameVolumeDisabled" xml:space="preserve">
+    <value>Nutzung von Volumenzeitrahmen (für Standardinstrumente)</value>
+  </data>
+  <data name="PayWallFeature_WatchlistInstrumentsCount" xml:space="preserve">
+    <value>Anzahl der Instrumente in den Beobachtungslisten</value>
+  </data>
+  <data name="Percentile" xml:space="preserve">
+    <value>Perzentil</value>
+  </data>
+  <data name="Performance" xml:space="preserve">
+    <value>Ergebnisse</value>
+  </data>
+  <data name="PerformanceByDayOfWeek" xml:space="preserve">
+    <value>Ergebnisse nach Wochentag</value>
+  </data>
+  <data name="PerformanceByHour" xml:space="preserve">
+    <value>Ergebnisse nach Stunde</value>
+  </data>
+  <data name="PerformanceMetrics" xml:space="preserve">
+    <value>Ergebnismetriken</value>
+  </data>
+  <data name="Period" xml:space="preserve">
+    <value>Periode</value>
+  </data>
+  <data name="PhemexAccountBalance" xml:space="preserve">
+    <value>Kontostand</value>
+  </data>
+  <data name="PhemexAccountId" xml:space="preserve">
+    <value>Kontoinformation</value>
+  </data>
+  <data name="PhemexAccountInfoCategory" xml:space="preserve">
+    <value>Kontoinformationen</value>
+  </data>
+  <data name="PhemexBalance" xml:space="preserve">
+    <value>Guthaben</value>
+  </data>
+  <data name="PhemexBonusBalance" xml:space="preserve">
+    <value>Bonusguthaben</value>
+  </data>
+  <data name="PhemexCurrency" xml:space="preserve">
+    <value>Währung</value>
+  </data>
+  <data name="PhemexFeeCategory" xml:space="preserve">
+    <value>Gebühreninformationen</value>
+  </data>
+  <data name="PhemexLockedTradingBalance" xml:space="preserve">
+    <value>Gesperrter Handelsbilanz</value>
+  </data>
+  <data name="PhemexLockedWithdrawBalance" xml:space="preserve">
+    <value>Gesperrter Abhebungsbetrag</value>
+  </data>
+  <data name="PhemexMakerFeeRate" xml:space="preserve">
+    <value>Maker-Gebührensatz</value>
+  </data>
+  <data name="PhemexTakerFeeRate" xml:space="preserve">
+    <value>Maker-Gebührensatz</value>
+  </data>
+  <data name="PhemexTotalUsedBalance" xml:space="preserve">
+    <value>Gesamter verwendeter Saldo</value>
+  </data>
+  <data name="PhemexWalletInfoCategory" xml:space="preserve">
+    <value>Wallet-Informationen</value>
+  </data>
+  <data name="PlatformTimeAdjustedDaylight" xml:space="preserve">
+    <value>Die Zeit wurde aufgrund der Änderung der Sommerzeit angepasst</value>
+  </data>
+  <data name="PlatformTimeSetToLocal" xml:space="preserve">
+    <value>Die Plattform ist derzeit so konfiguriert, dass sie die lokale Zeit anzeigt, und Benutzer haben die Möglichkeit, diese Einstellungen im Abschnitt "Zeitzonen" zu ändern.</value>
+  </data>
+  <data name="PlatformVersion" xml:space="preserve">
+    <value>Plattformversion</value>
+  </data>
+  <data name="PlaybookDescription" xml:space="preserve">
+    <value>Ein Playbook ist eine Handelsstrategie oder ein Setup, das Sie regelmäßig verwenden. Markieren Sie Ihre Trades mit Playbooks, um die Leistung nach Strategie zu verfolgen und zu verstehen, was am besten funktioniert.</value>
+  </data>
+  <data name="PlaybookPreview" xml:space="preserve">
+    <value>Vorschau</value>
+  </data>
+  <data name="Playbooks" xml:space="preserve">
+    <value>Playbooks</value>
+  </data>
+  <data name="PlaybooksCount" xml:space="preserve">
+    <value>{0} Playbooks</value>
+  </data>
+  <data name="PlaybooksDescription" xml:space="preserve">
+    <value>Erstellen Sie Strategien und verfolgen Sie deren Leistung</value>
+  </data>
+  <data name="Plus500AccountCategory" xml:space="preserve">
+    <value>Konto</value>
+  </data>
+  <data name="Plus500AccountEnabled" xml:space="preserve">
+    <value>Konto aktiviert</value>
+  </data>
+  <data name="Plus500AccountEnabledBackOfficeOnly" xml:space="preserve">
+    <value>Nur Back Office</value>
+  </data>
+  <data name="Plus500AccountEnabledDisabled" xml:space="preserve">
+    <value>Deaktiviert</value>
+  </data>
+  <data name="Plus500AccountEnabledEnabled" xml:space="preserve">
+    <value>Aktiviert</value>
+  </data>
+  <data name="Plus500AccountEnabledPitTradeOnly" xml:space="preserve">
+    <value>Nur Börsenhandel</value>
+  </data>
+  <data name="Plus500AccountMode" xml:space="preserve">
+    <value>Kontomodus</value>
+  </data>
+  <data name="Plus500AccountModeAutoLiq" xml:space="preserve">
+    <value>Automatische Liquidation</value>
+  </data>
+  <data name="Plus500AccountModeByAccount" xml:space="preserve">
+    <value>Nach Konto</value>
+  </data>
+  <data name="Plus500AccountModeByAccountDay" xml:space="preserve">
+    <value>Nach Kontotag</value>
+  </data>
+  <data name="Plus500AccountModeByContract" xml:space="preserve">
+    <value>Nach Vertrag</value>
+  </data>
+  <data name="Plus500AccountModeByMarket" xml:space="preserve">
+    <value>Nach Markt</value>
+  </data>
+  <data name="Plus500AccountModeByPortfolio" xml:space="preserve">
+    <value>Nach Portfolio</value>
+  </data>
+  <data name="Plus500AccountModeT500" xml:space="preserve">
+    <value>T500</value>
+  </data>
+  <data name="Plus500AccountModeT500Demo" xml:space="preserve">
+    <value>T500 Demo</value>
+  </data>
+  <data name="Plus500AccountModeUnknown" xml:space="preserve">
+    <value>Unbekannt</value>
+  </data>
+  <data name="Plus500AccountName" xml:space="preserve">
+    <value>Kontoname</value>
+  </data>
+  <data name="Plus500AccountStatus" xml:space="preserve">
+    <value>Kontostatus</value>
+  </data>
+  <data name="Plus500AccountStatusBlocked" xml:space="preserve">
+    <value>Blockiert</value>
+  </data>
+  <data name="Plus500AccountStatusDeleted" xml:space="preserve">
+    <value>Gelöscht</value>
+  </data>
+  <data name="Plus500AccountStatusDisabled" xml:space="preserve">
+    <value>Deaktiviert</value>
+  </data>
+  <data name="Plus500AccountStatusLossLimitExceeded" xml:space="preserve">
+    <value>Verlustlimit überschritten</value>
+  </data>
+  <data name="Plus500AccountStatusNotAccessible" xml:space="preserve">
+    <value>Nicht verfügbar</value>
+  </data>
+  <data name="Plus500AccountStatusOk" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="Plus500AccountStatusOutsideActiveTime" xml:space="preserve">
+    <value>Außerhalb der aktiven Zeit</value>
+  </data>
+  <data name="Plus500AccountStatusPitTradeOnly" xml:space="preserve">
+    <value>Nur Börsenhandel</value>
+  </data>
+  <data name="Plus500AccountStatusUnknown" xml:space="preserve">
+    <value>Unbekannt</value>
+  </data>
+  <data name="Plus500AccountStatusUnrestricted" xml:space="preserve">
+    <value>Uneingeschränkt</value>
+  </data>
+  <data name="Plus500ActiveTimeStart" xml:space="preserve">
+    <value>Aktiver Zeitstart</value>
+  </data>
+  <data name="Plus500ActiveTimeStop" xml:space="preserve">
+    <value>Aktive Zeitstopp</value>
+  </data>
+  <data name="Plus500AlertingMargin" xml:space="preserve">
+    <value>Alarmierungs-Marge</value>
+  </data>
+  <data name="Plus500AlertingTime" xml:space="preserve">
+    <value>Benachrichtigungszeit</value>
+  </data>
+  <data name="Plus500BalanceCategory" xml:space="preserve">
+    <value>Gleichgewicht</value>
+  </data>
+  <data name="Plus500BaseMargin" xml:space="preserve">
+    <value>Basis-Marge</value>
+  </data>
+  <data name="Plus500DayLossLimit" xml:space="preserve">
+    <value>Tagesverlustgrenze</value>
+  </data>
+  <data name="Plus500DayLossLimitPc" xml:space="preserve">
+    <value>Tagesverlustlimit-Prozentsatz</value>
+  </data>
+  <data name="Plus500DayMargin" xml:space="preserve">
+    <value>Tagesmargin</value>
+  </data>
+  <data name="Plus500DeltaCategory" xml:space="preserve">
+    <value>Delta &amp; Zeit</value>
+  </data>
+  <data name="Plus500DisplayName" xml:space="preserve">
+    <value>Anzeigename</value>
+  </data>
+  <data name="Plus500FeesAndCommissions" xml:space="preserve">
+    <value>Gebühren &amp; Provisionen</value>
+  </data>
+  <data name="Plus500FilledDelta" xml:space="preserve">
+    <value>Gefüllte Delta</value>
+  </data>
+  <data name="Plus500Firm" xml:space="preserve">
+    <value>Firma</value>
+  </data>
+  <data name="Plus500FirmId" xml:space="preserve">
+    <value>Firmen-ID</value>
+  </data>
+  <data name="Plus500FullMargin" xml:space="preserve">
+    <value>Vollständige Marge</value>
+  </data>
+  <data name="Plus500GroupName" xml:space="preserve">
+    <value>Gruppenname</value>
+  </data>
+  <data name="Plus500ImportedNetLiq" xml:space="preserve">
+    <value>Importierte Nettoliquidität</value>
+  </data>
+  <data name="Plus500ImportedNetLiqDate" xml:space="preserve">
+    <value>Importiertes Nettoliquiditätsdatum</value>
+  </data>
+  <data name="Plus500LongMp" xml:space="preserve">
+    <value>Langer Mark-to-Market</value>
+  </data>
+  <data name="Plus500LossLimit" xml:space="preserve">
+    <value>Verlustgrenze</value>
+  </data>
+  <data name="Plus500LossLimitPc" xml:space="preserve">
+    <value>Verlustlimit-Prozentsatz</value>
+  </data>
+  <data name="Plus500MarginPc" xml:space="preserve">
+    <value>Margin-Prozentsatz</value>
+  </data>
+  <data name="Plus500MarginTime" xml:space="preserve">
+    <value>Marginzeit</value>
+  </data>
+  <data name="Plus500MarginType" xml:space="preserve">
+    <value>Margentyp</value>
+  </data>
+  <data name="Plus500MarginTypeFirmOrAccount" xml:space="preserve">
+    <value>Firma oder Konto</value>
+  </data>
+  <data name="Plus500MarginTypeHedgeOrMember" xml:space="preserve">
+    <value>Hedge oder Mitglied</value>
+  </data>
+  <data name="Plus500MarginTypeSpec" xml:space="preserve">
+    <value>Spekulativ</value>
+  </data>
+  <data name="Plus500MaxAccountPosition" xml:space="preserve">
+    <value>Maximale Kontoposition</value>
+  </data>
+  <data name="Plus500MaxClipSize" xml:space="preserve">
+    <value>Maximale Clip-Größe</value>
+  </data>
+  <data name="Plus500MinBalance" xml:space="preserve">
+    <value>Mindestbetrag</value>
+  </data>
+  <data name="Plus500Mp" xml:space="preserve">
+    <value>Mark-to-Market</value>
+  </data>
+  <data name="Plus500MtmCategory" xml:space="preserve">
+    <value>Marktwertbewertung</value>
+  </data>
+  <data name="Plus500NetLiqCategory" xml:space="preserve">
+    <value>Netto-Liquidität</value>
+  </data>
+  <data name="Plus500OptionsSettlement" xml:space="preserve">
+    <value>Optionsabrechnung</value>
+  </data>
+  <data name="Plus500OrderRouting" xml:space="preserve">
+    <value>Auftragsrouting</value>
+  </data>
+  <data name="Plus500OvernightMarginPc" xml:space="preserve">
+    <value>Übernacht-Margenprozentsatz</value>
+  </data>
+  <data name="Plus500OvernightUpl" xml:space="preserve">
+    <value>Übernachtung Nichteingelöster P&amp;L</value>
+  </data>
+  <data name="Plus500PlRollover" xml:space="preserve">
+    <value>P&amp;L Übertragung</value>
+  </data>
+  <data name="Plus500PositionRollover" xml:space="preserve">
+    <value>Positionsrollover</value>
+  </data>
+  <data name="Plus500Premium" xml:space="preserve">
+    <value>Premium</value>
+  </data>
+  <data name="Plus500PreTradeDisabled" xml:space="preserve">
+    <value>Vorhandel deaktiviert</value>
+  </data>
+  <data name="Plus500PreTradeMargin" xml:space="preserve">
+    <value>Vorhandelsmarge</value>
+  </data>
+  <data name="Plus500PrevImportedNetLiq" xml:space="preserve">
+    <value>Vorher importierte Nettoliquidität</value>
+  </data>
+  <data name="Plus500PrevImportedNetLiqDate" xml:space="preserve">
+    <value>Datum der vorherigen importierten Nettoliquidität</value>
+  </data>
+  <data name="Plus500PrevMargin" xml:space="preserve">
+    <value>Vorherige Marge</value>
+  </data>
+  <data name="Plus500RiskDetails" xml:space="preserve">
+    <value>Risikodetails</value>
+  </data>
+  <data name="Plus500RiskManagementCategory" xml:space="preserve">
+    <value>Risikomanagement</value>
+  </data>
+  <data name="Plus500ShortMp" xml:space="preserve">
+    <value>Short Mark-to-Market</value>
+  </data>
+  <data name="Plus500TradingCategory" xml:space="preserve">
+    <value>Handelseinstellungen</value>
+  </data>
+  <data name="Plus500UsePlForMargin" xml:space="preserve">
+    <value>P&amp;L für Margin verwenden</value>
+  </data>
+  <data name="Plus500UsePremiumForMargin" xml:space="preserve">
+    <value>Premium für Margin verwenden</value>
+  </data>
+  <data name="Plus500WarningCategory" xml:space="preserve">
+    <value>Warnschwellen</value>
+  </data>
+  <data name="Plus500WarningThresholdLossLimit" xml:space="preserve">
+    <value>Warnschwellenverlustlimit</value>
+  </data>
+  <data name="Plus500WarningThresholdMargin" xml:space="preserve">
+    <value>Warnschwellenmarge</value>
+  </data>
+  <data name="Plus500WarningThresholdMinNetEquity" xml:space="preserve">
+    <value>Warnschwelle für min. Nettovermögen</value>
+  </data>
+  <data name="Plus500WarningThresholdPl" xml:space="preserve">
+    <value>Warnschwelle P&amp;L</value>
+  </data>
+  <data name="Plus500WorkingDelta" xml:space="preserve">
+    <value>Arbeitsdelta</value>
+  </data>
+  <data name="PnLBreakdown" xml:space="preserve">
+    <value>P&amp;L Aufschlüsselung</value>
+  </data>
+  <data name="POC" xml:space="preserve">
+    <value>POC</value>
+  </data>
+  <data name="PointerLabel" xml:space="preserve">
+    <value>Zeiger</value>
+  </data>
+  <data name="PositionColumn" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="PositiveColor" xml:space="preserve">
+    <value>Positive Farbe</value>
+  </data>
+  <data name="PositiveColorDescription" xml:space="preserve">
+    <value>Farbe für positive PnL-Werte</value>
+  </data>
+  <data name="Preset" xml:space="preserve">
+    <value>Voreinstellung</value>
+  </data>
+  <data name="PressureAlert" xml:space="preserve">
+    <value>Druckwarnung</value>
+  </data>
+  <data name="PreviousDay" xml:space="preserve">
+    <value>Vorheriger Tag</value>
+  </data>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>Vorheriger Monat</value>
+  </data>
+  <data name="PreviousWeek" xml:space="preserve">
+    <value>Letzte Woche</value>
+  </data>
+  <data name="PriceAxisLinkDisable" xml:space="preserve">
+    <value>Verknüpfung deaktivieren</value>
+  </data>
+  <data name="PriceAxisLinkHintAlreadyLinkedFormat" xml:space="preserve">
+    <value>{0} Fenster ist bereits verknüpft.</value>
+  </data>
+  <data name="PriceAxisLinkHintDifferentInstrumentFormat" xml:space="preserve">
+    <value>{0}-Fenster hat ein anderes Instrument. Platzieren Sie ein Diagramm oder eine Heatmap mit demselben Instrument links oder rechts.</value>
+  </data>
+  <data name="PriceAxisLinkHintPlaceAdjacent" xml:space="preserve">
+    <value>Platzieren Sie einen Chart oder eine Heatmap mit demselben Instrument links oder rechts, um eine Verknüpfung herzustellen.</value>
+  </data>
+  <data name="PriceAxisLinkMenu" xml:space="preserve">
+    <value>Preissachse verknüpfen</value>
+  </data>
+  <data name="PriceAxisLinkSideLeft" xml:space="preserve">
+    <value>links</value>
+  </data>
+  <data name="PriceAxisLinkSideRight" xml:space="preserve">
+    <value>rechts</value>
+  </data>
+  <data name="PriceAxisLinkWithSideWindowFormat" xml:space="preserve">
+    <value>Mit {0} Fenster verknüpfen: {1}</value>
+  </data>
+  <data name="PriceDown" xml:space="preserve">
+    <value>Preis runter</value>
+  </data>
+  <data name="PriceUp" xml:space="preserve">
+    <value>Preis hoch</value>
+  </data>
+  <data name="ProfileWidthFactorDescription" xml:space="preserve">
+    <value>Passt die Breite des Volumenprofils relativ zu den Bereichsgrenzen an.
+Funktioniert unabhängig von der automatischen Proportion.</value>
+  </data>
+  <data name="ProfitColor" xml:space="preserve">
+    <value>Gewinnfarbe</value>
+  </data>
+  <data name="ProfitLossByInstrument" xml:space="preserve">
+    <value>Gewinn/Verlust nach Instrument</value>
+  </data>
+  <data name="ProfitLossDistributionByHour" xml:space="preserve">
+    <value>Gewinn-/Verlustverteilung nach Tagesstunde</value>
+  </data>
+  <data name="ProfitLossDistributionByWeekday" xml:space="preserve">
+    <value>Gewinn-/Verlustverteilung nach Wochentag</value>
+  </data>
+  <data name="ProfitTradeResultColorDescription" xml:space="preserve">
+    <value>Legt die Farbe fest, die für den Ergebnisbereich von Gewinntrades verwendet wird.</value>
+  </data>
+  <data name="Pulling" xml:space="preserve">
+    <value>Pulling</value>
+  </data>
+  <data name="PullingAndStacking" xml:space="preserve">
+    <value>Pulling und Stacking</value>
+  </data>
+  <data name="QuickStartTitle" xml:space="preserve">
+    <value>Schnellstart</value>
+  </data>
+  <data name="QuikAccruedInt" xml:space="preserve">
+    <value>Aufgelaufene Einnahmen</value>
+  </data>
+  <data name="QuikAccVarMargin" xml:space="preserve">
+    <value>Kumulierte Var. Marge</value>
+  </data>
+  <data name="QuikAllAssets" xml:space="preserve">
+    <value>Alle aktuellen Vermögenswerte</value>
+  </data>
+  <data name="QuikAssets" xml:space="preserve">
+    <value>Umlaufvermögen</value>
+  </data>
+  <data name="QuikAssetsCategory" xml:space="preserve">
+    <value>Vermögenswerte</value>
+  </data>
+  <data name="QuikAssetsWithoutHc" xml:space="preserve">
+    <value>Vermögenswerte ohne Abschläge</value>
+  </data>
+  <data name="QuikAvLimAll" xml:space="preserve">
+    <value>Verfügbares Aktuelles Limit</value>
+  </data>
+  <data name="QuikBlockedCategory" xml:space="preserve">
+    <value>Blockiert</value>
+  </data>
+  <data name="QuikCashLeverage" xml:space="preserve">
+    <value>Kassenhebel</value>
+  </data>
+  <data name="QuikCbpLimit" xml:space="preserve">
+    <value>Limit für offene Positionen</value>
+  </data>
+  <data name="QuikCbplPlanned" xml:space="preserve">
+    <value>Geplante Nettopositionen</value>
+  </data>
+  <data name="QuikCbplUsed" xml:space="preserve">
+    <value>Aktuelle Nettopositionen</value>
+  </data>
+  <data name="QuikCbplUsedForOrders" xml:space="preserve">
+    <value>Netto-Positionen (Bestellungen)</value>
+  </data>
+  <data name="QuikCbplUsedForPositions" xml:space="preserve">
+    <value>Netto-Positionen (Positionen)</value>
+  </data>
+  <data name="QuikCbpPrevLimit" xml:space="preserve">
+    <value>Vorheriges Limit offener Positionen</value>
+  </data>
+  <data name="QuikClientType" xml:space="preserve">
+    <value>Kundentyp</value>
+  </data>
+  <data name="QuikClientTypeCategory" xml:space="preserve">
+    <value>Kundentyp</value>
+  </data>
+  <data name="QuikClVarMargin" xml:space="preserve">
+    <value>Clearing-Var.-Margin</value>
+  </data>
+  <data name="QuikCorrectedMargin" xml:space="preserve">
+    <value>Korrigierte Marge</value>
+  </data>
+  <data name="QuikCurLeverage" xml:space="preserve">
+    <value>Aktuelles Hebel</value>
+  </data>
+  <data name="QuikCurrCode" xml:space="preserve">
+    <value>Währungscode</value>
+  </data>
+  <data name="QuikCurrentBal" xml:space="preserve">
+    <value>Aktueller Kontostand</value>
+  </data>
+  <data name="QuikCurrTag" xml:space="preserve">
+    <value>Berechnungsparameter</value>
+  </data>
+  <data name="QuikDemand" xml:space="preserve">
+    <value>Nachfrage</value>
+  </data>
+  <data name="QuikDerivativeAccountCategory" xml:space="preserve">
+    <value>Kontoinformationen</value>
+  </data>
+  <data name="QuikDerivativeFeesCategory" xml:space="preserve">
+    <value>Gebühren</value>
+  </data>
+  <data name="QuikDerivativeLimitsCategory" xml:space="preserve">
+    <value>Grenzen &amp; Positionen</value>
+  </data>
+  <data name="QuikDerivativeMarginCategory" xml:space="preserve">
+    <value>Margin &amp; GO</value>
+  </data>
+  <data name="QuikDerVarMargin" xml:space="preserve">
+    <value>Variationsmarge</value>
+  </data>
+  <data name="QuikFirmId" xml:space="preserve">
+    <value>Firmen-ID</value>
+  </data>
+  <data name="QuikFundsLevel" xml:space="preserve">
+    <value>Fondsverfügbarkeitsniveau</value>
+  </data>
+  <data name="QuikFutAccuredInt" xml:space="preserve">
+    <value>Ansammeltes Einkommen</value>
+  </data>
+  <data name="QuikFutAsset" xml:space="preserve">
+    <value>Futures Vermögenswerte</value>
+  </data>
+  <data name="QuikFutDebt" xml:space="preserve">
+    <value>Futures-Schulden</value>
+  </data>
+  <data name="QuikFutPositionType" xml:space="preserve">
+    <value>Futures-Positionsart</value>
+  </data>
+  <data name="QuikFutPositionTypeLong" xml:space="preserve">
+    <value>Lang</value>
+  </data>
+  <data name="QuikFutPositionTypeNone" xml:space="preserve">
+    <value>Nicht angegeben</value>
+  </data>
+  <data name="QuikFutPositionTypeShort" xml:space="preserve">
+    <value>Kurz</value>
+  </data>
+  <data name="QuikFutRateAsset" xml:space="preserve">
+    <value>Mittelverfügbarkeit</value>
+  </data>
+  <data name="QuikFutRateAssetOpen" xml:space="preserve">
+    <value>Mittelverfügbarkeit (Offen)</value>
+  </data>
+  <data name="QuikFutRateGo" xml:space="preserve">
+    <value>GO Liquiditätskoeffizient</value>
+  </data>
+  <data name="QuikFutTotalAsset" xml:space="preserve">
+    <value>Gesamtvermögen aus Futures</value>
+  </data>
+  <data name="QuikFuturesCategory" xml:space="preserve">
+    <value>Futures-Markt</value>
+  </data>
+  <data name="QuikGoForOrders" xml:space="preserve">
+    <value>GO für Bestellungen</value>
+  </data>
+  <data name="QuikGoForPositions" xml:space="preserve">
+    <value>GO für Positionen</value>
+  </data>
+  <data name="QuikGoPlanned" xml:space="preserve">
+    <value>Geplantes GO</value>
+  </data>
+  <data name="QuikGoWithoutOrders" xml:space="preserve">
+    <value>GO ohne Aufträge</value>
+  </data>
+  <data name="QuikHaircuts" xml:space="preserve">
+    <value>Summe der Haircuts</value>
+  </data>
+  <data name="QuikInAllAssets" xml:space="preserve">
+    <value>Alle Anfangsvermögen</value>
+  </data>
+  <data name="QuikInAssets" xml:space="preserve">
+    <value>Anfangsvermögen</value>
+  </data>
+  <data name="QuikIndicativeVarMargin" xml:space="preserve">
+    <value>Indikative Variationsmarge</value>
+  </data>
+  <data name="QuikInitMargin" xml:space="preserve">
+    <value>Initiale Marge</value>
+  </data>
+  <data name="QuikIsFutures" xml:space="preserve">
+    <value>FORTS-Konto</value>
+  </data>
+  <data name="QuikIsLeverage" xml:space="preserve">
+    <value>Kundenmodell</value>
+  </data>
+  <data name="QuikIsMarginal" xml:space="preserve">
+    <value>Marginaler Kunde</value>
+  </data>
+  <data name="QuikIsQualClient" xml:space="preserve">
+    <value>Qualifizierter Kunde</value>
+  </data>
+  <data name="QuikKgo" xml:space="preserve">
+    <value>Client GO Koeffizient</value>
+  </data>
+  <data name="QuikLeverage" xml:space="preserve">
+    <value>Hebel</value>
+  </data>
+  <data name="QuikLeverageTypeMarginDay" xml:space="preserve">
+    <value>Margin Tag (МД)</value>
+  </data>
+  <data name="QuikLeverageTypeMarginLimitedLeverage" xml:space="preserve">
+    <value>Margin Begrenztes Hebel (МОП)</value>
+  </data>
+  <data name="QuikLeverageTypeMarginWithLeverage" xml:space="preserve">
+    <value>Margin mit Hebel (МЛ)</value>
+  </data>
+  <data name="QuikLeverageTypeMarginWithoutLeverage" xml:space="preserve">
+    <value>Margin ohne Hebel (МП)</value>
+  </data>
+  <data name="QuikLeverageTypeNone" xml:space="preserve">
+    <value>Nicht angegeben</value>
+  </data>
+  <data name="QuikLeverageTypeNonMargin" xml:space="preserve">
+    <value>Nicht-Margin (C)</value>
+  </data>
+  <data name="QuikLimAll" xml:space="preserve">
+    <value>Aktueller Limit</value>
+  </data>
+  <data name="QuikLimBuy" xml:space="preserve">
+    <value>Kaufgrenze (Margin)</value>
+  </data>
+  <data name="QuikLimBuyAsset" xml:space="preserve">
+    <value>Kaufgrenze (Sicherheit)</value>
+  </data>
+  <data name="QuikLimitOpenPos" xml:space="preserve">
+    <value>Geplante Nettopositionen</value>
+  </data>
+  <data name="QuikLimitsCategory" xml:space="preserve">
+    <value>Grenzen</value>
+  </data>
+  <data name="QuikLimitType" xml:space="preserve">
+    <value>Limittyp</value>
+  </data>
+  <data name="QuikLimitTypeCash" xml:space="preserve">
+    <value>Bargeld</value>
+  </data>
+  <data name="QuikLimitTypeClearingCash" xml:space="preserve">
+    <value>Clearing Cash</value>
+  </data>
+  <data name="QuikLimitTypeClearingCollateralCash" xml:space="preserve">
+    <value>Clearing-Kollateral in bar</value>
+  </data>
+  <data name="QuikLimitTypeCollateralCash" xml:space="preserve">
+    <value>Sicherheitskasse</value>
+  </data>
+  <data name="QuikLimitTypeCollateralForeign" xml:space="preserve">
+    <value>Fremdwährungsbesicherung</value>
+  </data>
+  <data name="QuikLimitTypeOpenPositionsLimitSpot" xml:space="preserve">
+    <value>Limit offener Positionen (Spot)</value>
+  </data>
+  <data name="QuikLimitTypeTotalCollateralForeignRub" xml:space="preserve">
+    <value>Gesamtsicherheit Fremdwährung (RUB)</value>
+  </data>
+  <data name="QuikLimitTypeTotalFunds" xml:space="preserve">
+    <value>Gesamtmittel</value>
+  </data>
+  <data name="QuikLimNonMargin" xml:space="preserve">
+    <value>Kaufgrenze (Nicht-Margin)</value>
+  </data>
+  <data name="QuikLimSell" xml:space="preserve">
+    <value>Verkaufslimit (Margin)</value>
+  </data>
+  <data name="QuikLiquidityCoef" xml:space="preserve">
+    <value>Liquiditätskoeffizient</value>
+  </data>
+  <data name="QuikLockedBuy" xml:space="preserve">
+    <value>Für Kauf gesperrt</value>
+  </data>
+  <data name="QuikLockedBuyAsset" xml:space="preserve">
+    <value>Für den Kauf gesperrt (Sicherheit)</value>
+  </data>
+  <data name="QuikLockedBuyMargin" xml:space="preserve">
+    <value>Gesperrt für Kauf (Margin)</value>
+  </data>
+  <data name="QuikLockedSell" xml:space="preserve">
+    <value>Für den Verkauf gesperrt</value>
+  </data>
+  <data name="QuikLockedValueCoef" xml:space="preserve">
+    <value>Gesperrt für Kauf (Nicht-Margin)</value>
+  </data>
+  <data name="QuikMargin" xml:space="preserve">
+    <value>Margin-Level</value>
+  </data>
+  <data name="QuikMarginCategory" xml:space="preserve">
+    <value>Marge</value>
+  </data>
+  <data name="QuikMinMargin" xml:space="preserve">
+    <value>Mindestmarge</value>
+  </data>
+  <data name="QuikMoneyCategory" xml:space="preserve">
+    <value>Geldsaldo</value>
+  </data>
+  <data name="QuikMoneyLocked" xml:space="preserve">
+    <value>Gesperrtes Geld</value>
+  </data>
+  <data name="QuikOpenLimit" xml:space="preserve">
+    <value>Anfangsgrenze</value>
+  </data>
+  <data name="QuikOpenPos" xml:space="preserve">
+    <value>Offene Positionen</value>
+  </data>
+  <data name="QuikOpenPosLimitsCategory" xml:space="preserve">
+    <value>Offene Positionslimits</value>
+  </data>
+  <data name="QuikOptionsPremium" xml:space="preserve">
+    <value>Optionsprämie</value>
+  </data>
+  <data name="QuikOptLiquidCost" xml:space="preserve">
+    <value>Options Liquidationswert</value>
+  </data>
+  <data name="QuikPlanedRateGo" xml:space="preserve">
+    <value>Erwarteter GO Liquiditätskoeff.</value>
+  </data>
+  <data name="QuikPnLCategory" xml:space="preserve">
+    <value>Gewinn &amp; Verlust</value>
+  </data>
+  <data name="QuikPortfolioValue" xml:space="preserve">
+    <value>Portfoliowert</value>
+  </data>
+  <data name="QuikPositionsCategory" xml:space="preserve">
+    <value>Positionen</value>
+  </data>
+  <data name="QuikProfitLoss" xml:space="preserve">
+    <value>Gewinn/Verlust</value>
+  </data>
+  <data name="QuikRateChange" xml:space="preserve">
+    <value>Änderung des Satzes (%)</value>
+  </data>
+  <data name="QuikRateFutures" xml:space="preserve">
+    <value>Vermögenswerte/GO-Verhältnis</value>
+  </data>
+  <data name="QuikRcv1" xml:space="preserve">
+    <value>Risikoabdeckungsverhältnis 1</value>
+  </data>
+  <data name="QuikRcv2" xml:space="preserve">
+    <value>Risikoabdeckungsverhältnis 2</value>
+  </data>
+  <data name="QuikRealVarMargin" xml:space="preserve">
+    <value>Echte Variationsmarge</value>
+  </data>
+  <data name="QuikRiskCategory" xml:space="preserve">
+    <value>Risikodeckung</value>
+  </data>
+  <data name="QuikRiskLevel" xml:space="preserve">
+    <value>Risikoebene</value>
+  </data>
+  <data name="QuikRiskLevelElevated" xml:space="preserve">
+    <value>Erhöhtes Risiko (КПУР)</value>
+  </data>
+  <data name="QuikRiskLevelInitial" xml:space="preserve">
+    <value>Anfängliches Risiko (KНУР)</value>
+  </data>
+  <data name="QuikRiskLevelNotSpecified" xml:space="preserve">
+    <value>Nicht angegeben</value>
+  </data>
+  <data name="QuikRiskLevelSpecial" xml:space="preserve">
+    <value>Besonderes Risiko (КОУР)</value>
+  </data>
+  <data name="QuikRiskLevelStandard" xml:space="preserve">
+    <value>Standardrisiko (КСУР)</value>
+  </data>
+  <data name="QuikStartLimitOpenPos" xml:space="preserve">
+    <value>Start Offene Positionen. Limit</value>
+  </data>
+  <data name="QuikStatusCoef" xml:space="preserve">
+    <value>Kontostatuskoeffizient</value>
+  </data>
+  <data name="QuikTotalLimitOpenPos" xml:space="preserve">
+    <value>Gesamtlimit für offene Positionen</value>
+  </data>
+  <data name="QuikTotalLockedMoney" xml:space="preserve">
+    <value>Gesamtbetrag der gesperrten Gelder</value>
+  </data>
+  <data name="QuikTotalMoneyBal" xml:space="preserve">
+    <value>Gesamter Geldsaldo</value>
+  </data>
+  <data name="QuikTrdAccId" xml:space="preserve">
+    <value>Handelskonto</value>
+  </data>
+  <data name="QuikTsCommission" xml:space="preserve">
+    <value>Börsengebühren</value>
+  </data>
+  <data name="QuikUsedLimOpenPos" xml:space="preserve">
+    <value>Aktuelle Nettopositionen</value>
+  </data>
+  <data name="QuikValLong" xml:space="preserve">
+    <value>Lange Positionen</value>
+  </data>
+  <data name="QuikValLongAsset" xml:space="preserve">
+    <value>Langfristige Vermögenspositionen</value>
+  </data>
+  <data name="QuikValLongMargin" xml:space="preserve">
+    <value>Lange Margin-Positionen</value>
+  </data>
+  <data name="QuikValLongNet" xml:space="preserve">
+    <value>Netto Long-Positionen</value>
+  </data>
+  <data name="QuikValShort" xml:space="preserve">
+    <value>Leerverkäufe</value>
+  </data>
+  <data name="QuikValShortNet" xml:space="preserve">
+    <value>Netto-Short-Positionen</value>
+  </data>
+  <data name="QuikVarMargin" xml:space="preserve">
+    <value>Variationsmargin</value>
+  </data>
+  <data name="Rain" xml:space="preserve">
+    <value>Regen</value>
+  </data>
+  <data name="RecognizingBigTradesMsg" xml:space="preserve">
+    <value>Erkennung großer Trades</value>
+  </data>
+  <data name="RefreshAllCharts" xml:space="preserve">
+    <value>Alle Diagramme aktualisieren</value>
+  </data>
+  <data name="RemoveFromFavoriteTimeFrame" xml:space="preserve">
+    <value>Aus Favoriten entfernen</value>
+  </data>
+  <data name="RenameTab" xml:space="preserve">
+    <value>Tab umbenennen</value>
+  </data>
+  <data name="ReplaceWidgetLabel" xml:space="preserve">
+    <value>Widget ersetzen</value>
+  </data>
+  <data name="ResetVolumeProfile" xml:space="preserve">
+    <value>Volumenprofil zurücksetzen</value>
+  </data>
+  <data name="RestoreWidget" xml:space="preserve">
+    <value>Wiederherstellen</value>
+  </data>
+  <data name="RiskManagementTitle" xml:space="preserve">
+    <value>Risikomanagement</value>
+  </data>
+  <data name="RithmicAccountCategory" xml:space="preserve">
+    <value>Konto</value>
+  </data>
+  <data name="RithmicAccountCreationTime" xml:space="preserve">
+    <value>Zeit der Kontoerstellung</value>
+  </data>
+  <data name="RithmicAccountName" xml:space="preserve">
+    <value>Kontoname</value>
+  </data>
+  <data name="RithmicAccountStatus" xml:space="preserve">
+    <value>Kontostatus</value>
+  </data>
+  <data name="RithmicAutoLiquidate" xml:space="preserve">
+    <value>Automatische Liquidation</value>
+  </data>
+  <data name="RithmicAutoLiquidateAtSsm" xml:space="preserve">
+    <value>Automatische Liquidation bei SSM</value>
+  </data>
+  <data name="RithmicAutoLiquidateCriteria" xml:space="preserve">
+    <value>Automatische Liquidationskriterien</value>
+  </data>
+  <data name="RithmicAutoLiquidateIgnoreOpenPnlWhenTrailing" xml:space="preserve">
+    <value>Automatische Liquidation Ignoriere offene PnL beim Trailing</value>
+  </data>
+  <data name="RithmicAutoLiquidateMaxMinAccountBalance" xml:space="preserve">
+    <value>Maximaler Minimalbetrag des Kontos für automatische Liquidation</value>
+  </data>
+  <data name="RithmicAutoLiquidateThreshold" xml:space="preserve">
+    <value>Automatischer Liquidationsschwellenwert</value>
+  </data>
+  <data name="RithmicAutoLiquidateThresholdCurrentValue" xml:space="preserve">
+    <value>Aktueller Wert des automatischen Liquidationsschwellenwerts</value>
+  </data>
+  <data name="RithmicAutoLiquidationCategory" xml:space="preserve">
+    <value>Automatische Liquidation</value>
+  </data>
+  <data name="RithmicBalanceCategory" xml:space="preserve">
+    <value>Bilanz</value>
+  </data>
+  <data name="RithmicBuyLimit" xml:space="preserve">
+    <value>Kaufgrenze</value>
+  </data>
+  <data name="RithmicBuyWorkingQty" xml:space="preserve">
+    <value>Aktive Kaufmenge</value>
+  </data>
+  <data name="RithmicCashOnHand" xml:space="preserve">
+    <value>Bargeldbestand</value>
+  </data>
+  <data name="RithmicCheckMinAccountBalance" xml:space="preserve">
+    <value>Überprüfen Sie den Mindestkontostand</value>
+  </data>
+  <data name="RithmicCurrency" xml:space="preserve">
+    <value>Währung</value>
+  </data>
+  <data name="RithmicDefaultCommission" xml:space="preserve">
+    <value>Standardprovision</value>
+  </data>
+  <data name="RithmicDisableOnAutoLiquidate" xml:space="preserve">
+    <value>Automatische Liquidation deaktivieren</value>
+  </data>
+  <data name="RithmicExcessBuyMargin" xml:space="preserve">
+    <value>Zusätzliche Kaufmarge</value>
+  </data>
+  <data name="RithmicExcessSellMargin" xml:space="preserve">
+    <value>Übermäßige Verkaufs-Marge</value>
+  </data>
+  <data name="RithmicExposureCategory" xml:space="preserve">
+    <value>Exposition</value>
+  </data>
+  <data name="RithmicImpliedMarginReserved" xml:space="preserve">
+    <value>Implizierte Margin reserviert</value>
+  </data>
+  <data name="RithmicImpliedNetQty" xml:space="preserve">
+    <value>Implizierte Nettomenge</value>
+  </data>
+  <data name="RithmicLongExposure" xml:space="preserve">
+    <value>Langfristige Exposition</value>
+  </data>
+  <data name="RithmicLossLimit" xml:space="preserve">
+    <value>Verlustgrenze</value>
+  </data>
+  <data name="RithmicMaxOrderQty" xml:space="preserve">
+    <value>Maximale Bestellmenge</value>
+  </data>
+  <data name="RithmicMinAccountBalance" xml:space="preserve">
+    <value>Mindestkontostand</value>
+  </data>
+  <data name="RithmicMinMarginBalance" xml:space="preserve">
+    <value>Minimales Margin-Guthaben</value>
+  </data>
+  <data name="RithmicReservedBuyingPower" xml:space="preserve">
+    <value>Reservierte Kaufkraft</value>
+  </data>
+  <data name="RithmicReservedMargin" xml:space="preserve">
+    <value>Reservierte Marge</value>
+  </data>
+  <data name="RithmicRiskManagementCategory" xml:space="preserve">
+    <value>Risikomanagement</value>
+  </data>
+  <data name="RithmicRmsAlgorithm" xml:space="preserve">
+    <value>RMS-Algorithmus</value>
+  </data>
+  <data name="RithmicSellLimit" xml:space="preserve">
+    <value>Verkaufslimit</value>
+  </data>
+  <data name="RithmicSellWorkingQty" xml:space="preserve">
+    <value>Verkauf Arbeitsmenge</value>
+  </data>
+  <data name="RithmicShortExposure" xml:space="preserve">
+    <value>Kurze Exposition</value>
+  </data>
+  <data name="RithmicUseProductRmsCommission" xml:space="preserve">
+    <value>RMS-Kommission verwenden</value>
+  </data>
+  <data name="RmsAccount" xml:space="preserve">
+    <value>Konto</value>
+  </data>
+  <data name="RmsActive" xml:space="preserve">
+    <value>Aktiv</value>
+  </data>
+  <data name="RmsAnyTime" xml:space="preserve">
+    <value>Jederzeit</value>
+  </data>
+  <data name="RmsAnyTimeDescription" xml:space="preserve">
+    <value>Kann die Einstellungen jederzeit ändern, auch wenn blockiert</value>
+  </data>
+  <data name="RmsBlockAccountNow" xml:space="preserve">
+    <value>Konto jetzt blockieren</value>
+  </data>
+  <data name="RmsBlocked" xml:space="preserve">
+    <value>Blockiert</value>
+  </data>
+  <data name="RmsBlockedSentenceMid" xml:space="preserve">
+    <value> ist derzeit aufgrund von </value>
+  </data>
+  <data name="RmsBlockedSentenceStart" xml:space="preserve">
+    <value>Konto </value>
+  </data>
+  <data name="RmsBlockReason" xml:space="preserve">
+    <value>Blockierungsgrund</value>
+  </data>
+  <data name="RmsBlockReasonConsecutiveLosses" xml:space="preserve">
+    <value>Konsekutive Verluste</value>
+  </data>
+  <data name="RmsBlockReasonConsecutiveLossesReached" xml:space="preserve">
+    <value>Limit für aufeinanderfolgende Verluste erreicht</value>
+  </data>
+  <data name="RmsBlockReasonDailyLoss" xml:space="preserve">
+    <value>Täglicher Verlust</value>
+  </data>
+  <data name="RmsBlockReasonDailyLossLimit" xml:space="preserve">
+    <value>Tägliches Verlustlimit</value>
+  </data>
+  <data name="RmsBlockReasonDailyLossReached" xml:space="preserve">
+    <value>Täglicher Verlustlimit erreicht</value>
+  </data>
+  <data name="RmsBlockReasonDailyTarget" xml:space="preserve">
+    <value>Tägliches Ziel</value>
+  </data>
+  <data name="RmsBlockReasonDailyTargetReached" xml:space="preserve">
+    <value>Tägliches Ziel erreicht</value>
+  </data>
+  <data name="RmsBlockReasonMaxTrades" xml:space="preserve">
+    <value>Maximaler Handel</value>
+  </data>
+  <data name="RmsBlockReasonMaxTradesLimit" xml:space="preserve">
+    <value>Maximaler Handelslimit</value>
+  </data>
+  <data name="RmsBlockReasonMaxTradesReached" xml:space="preserve">
+    <value>Maximales Handelslimit erreicht</value>
+  </data>
+  <data name="RmsBreakingRulesTitle" xml:space="preserve">
+    <value>Verstoß gegen Ihre Handelsregeln</value>
+  </data>
+  <data name="RmsCannotChangeSettings" xml:space="preserve">
+    <value>Einstellungen können nicht geändert werden, während das Konto gesperrt ist.</value>
+  </data>
+  <data name="RmsConfirmDisabledText" xml:space="preserve">
+    <value>Ich verstehe, dass ich die Einstellungen nicht ändern kann, sobald ein Limit erreicht ist, bis der tägliche Reset erfolgt.</value>
+  </data>
+  <data name="RmsConfirmPassphraseText" xml:space="preserve">
+    <value>Ich verstehe, dass ich einen Disziplin-Satz eingeben muss, um Einstellungen zu ändern, wenn der Zugriff blockiert ist</value>
+  </data>
+  <data name="RmsConfirmReduceOnlyText" xml:space="preserve">
+    <value>Ich verstehe, dass ich, wenn die Grenzen erreicht sind, nur Positionen schließen kann</value>
+  </data>
+  <data name="RmsConfirmSettingsChange" xml:space="preserve">
+    <value>Änderung der Einstellungen bestätigen</value>
+  </data>
+  <data name="RmsConsecutiveLosses" xml:space="preserve">
+    <value>Konsekutive Verluste</value>
+  </data>
+  <data name="RmsConsecutiveLossesLimit" xml:space="preserve">
+    <value>Grenze für aufeinanderfolgende Verluste</value>
+  </data>
+  <data name="RmsConsLossesThresholdFormat" xml:space="preserve">
+    <value>{0} (Schwelle: ${1:#,0})</value>
+  </data>
+  <data name="RmsCurrentPnl" xml:space="preserve">
+    <value>Aktuelles P&amp;L</value>
+  </data>
+  <data name="RmsDailyPnl" xml:space="preserve">
+    <value>Täglicher Gewinn und Verlust</value>
+  </data>
+  <data name="RmsDailyPnlLimits" xml:space="preserve">
+    <value>Tägliche P&amp;L-Grenzen</value>
+  </data>
+  <data name="RmsDailyReset" xml:space="preserve">
+    <value>Täglicher Reset</value>
+  </data>
+  <data name="RmsDetailDescription" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
+  <data name="RmsDetailIncludeCommissions" xml:space="preserve">
+    <value>Kommissionen einbeziehen</value>
+  </data>
+  <data name="RmsDetailLimit" xml:space="preserve">
+    <value>Limit</value>
+  </data>
+  <data name="RmsDetailPreviousReason" xml:space="preserve">
+    <value>Vorheriger Grund</value>
+  </data>
+  <data name="RmsDetailReason" xml:space="preserve">
+    <value>Grund</value>
+  </data>
+  <data name="RmsDetailResetTime" xml:space="preserve">
+    <value>Zurücksetzen Zeit</value>
+  </data>
+  <data name="RmsDetailSettingsMode" xml:space="preserve">
+    <value>Einstellungsmodus</value>
+  </data>
+  <data name="RmsDetailWarning" xml:space="preserve">
+    <value>Warnung</value>
+  </data>
+  <data name="RmsDisabledWhenBlocked" xml:space="preserve">
+    <value>Deaktiviert, wenn blockiert</value>
+  </data>
+  <data name="RmsDisabledWhenBlockedDescription" xml:space="preserve">
+    <value>Einstellungen können nicht geändert werden, während das Konto blockiert ist</value>
+  </data>
+  <data name="RmsDistanceToLimit" xml:space="preserve">
+    <value>Abstand zum Limit</value>
+  </data>
+  <data name="RmsDistanceToTarget" xml:space="preserve">
+    <value>Entfernung zum Ziel</value>
+  </data>
+  <data name="RmsEnableProtection" xml:space="preserve">
+    <value>Schutz aktivieren</value>
+  </data>
+  <data name="RmsEventLog" xml:space="preserve">
+    <value>Ereignisprotokoll</value>
+  </data>
+  <data name="RmsEventLogForFormat" xml:space="preserve">
+    <value>Ereignisprotokoll — {0} #{1}</value>
+  </data>
+  <data name="RmsEventTitleAccountBlocked" xml:space="preserve">
+    <value>Konto gesperrt</value>
+  </data>
+  <data name="RmsEventTitleDisciplineOverride" xml:space="preserve">
+    <value>Benutzer hat die Disziplin überschrieben</value>
+  </data>
+  <data name="RmsEventTitleImmediateBlockConfirmed" xml:space="preserve">
+    <value>Benutzer hat sofortige Sperrung bestätigt</value>
+  </data>
+  <data name="RmsEventTitleProtectionModeEnabled" xml:space="preserve">
+    <value>Benutzer hat den Schutzmodus aktiviert</value>
+  </data>
+  <data name="RmsEventTitleSettingsChanged" xml:space="preserve">
+    <value>Risikoeinstellungen aktualisiert</value>
+  </data>
+  <data name="RmsEventTitleStateReset" xml:space="preserve">
+    <value>Zurücksetzen der täglichen Metriken</value>
+  </data>
+  <data name="RmsEventTitleTargetReached" xml:space="preserve">
+    <value>Tägliches Ziel erreicht</value>
+  </data>
+  <data name="RmsEventTitleUnblockedBySettingsChange" xml:space="preserve">
+    <value>Konto durch Änderungen der Einstellungen entsperrt</value>
+  </data>
+  <data name="RmsEventTitleUserConfirmedOverride" xml:space="preserve">
+    <value>Benutzer hat das Überschreiben bestätigt</value>
+  </data>
+  <data name="RmsFileLockedMessageFormat" xml:space="preserve">
+    <value>Kann die Risikomanagementdaten nicht speichern – die Datei ist in einer anderen Anwendung geöffnet.
+
+Datei: {0}
+
+Bitte schließen Sie die Anwendung (z. B. Excel), die die Datei geöffnet hat, und versuchen Sie es erneut.</value>
+  </data>
+  <data name="RmsFileLockedTitle" xml:space="preserve">
+    <value>RMS-Datei ist in Verwendung</value>
+  </data>
+  <data name="RmsImmediateBlockBannerText" xml:space="preserve">
+    <value>Diese Einstellungen blockieren Ihr Konto sofort!</value>
+  </data>
+  <data name="RmsImmediateBlockConfirmText" xml:space="preserve">
+    <value>Ich verstehe, dass mein Konto sofort gesperrt wird</value>
+  </data>
+  <data name="RmsImmediateBlockReason1" xml:space="preserve">
+    <value>Ihre aktuellen Metriken überschreiten bereits die neuen Grenzen, die Sie festlegen.</value>
+  </data>
+  <data name="RmsImmediateBlockReason2" xml:space="preserve">
+    <value>Das Konto wechselt sofort nach dem Speichern in den "Nur Reduzieren"-Modus.</value>
+  </data>
+  <data name="RmsImmediateBlockReason3" xml:space="preserve">
+    <value>Das Eröffnen neuer Positionen und das Erhöhen bestehender Positionen wird blockiert.</value>
+  </data>
+  <data name="RmsImmediateBlockReason4" xml:space="preserve">
+    <value>Das Schließen von Positionen bleibt verfügbar.</value>
+  </data>
+  <data name="RmsImmediateBlockWarning" xml:space="preserve">
+    <value>Das Speichern dieser Einstellungen blockiert dieses Konto sofort.</value>
+  </data>
+  <data name="RmsImmediateBlockWarningTitle" xml:space="preserve">
+    <value>Sofortige Blockierungswarnung</value>
+  </data>
+  <data name="RmsIncludeCommissions" xml:space="preserve">
+    <value>Provisionen einbeziehen</value>
+  </data>
+  <data name="RmsKeepMyLimits" xml:space="preserve">
+    <value>Meine Limits behalten</value>
+  </data>
+  <data name="RmsLimitReachedGeneric" xml:space="preserve">
+    <value>Limit erreicht</value>
+  </data>
+  <data name="RmsLossesInARow" xml:space="preserve">
+    <value>Verluste in Folge</value>
+  </data>
+  <data name="RmsLossLimit" xml:space="preserve">
+    <value>Verlustgrenze</value>
+  </data>
+  <data name="RmsLossLimitPrefix" xml:space="preserve">
+    <value>Verlustgrenze:</value>
+  </data>
+  <data name="RmsLossThreshold" xml:space="preserve">
+    <value>Verlustschwelle</value>
+  </data>
+  <data name="RmsMaxTradesPerDay" xml:space="preserve">
+    <value>Maximale Trades pro Tag</value>
+  </data>
+  <data name="RmsModeSettings" xml:space="preserve">
+    <value>Modus Einstellungen</value>
+  </data>
+  <data name="RmsNextReset" xml:space="preserve">
+    <value>Nächster Reset:</value>
+  </data>
+  <data name="RmsNo" xml:space="preserve">
+    <value>Der Codeausschnitt aus der Datei `RmsApiService.cs` enthält Bedingungsprüfungen, um zu bestimmen, ob Provisionen in die Gewinn- und Verlustberechnungen einbezogen werden sollen, wobei ein ternärer Operator verwendet wird, um Werte basierend auf `dto.IncludeCommissionsInPnL` zuzuweisen. Es verweist auch auf verschiedene Einstellungen und Modi, wie den Antwortmodus und den Einstellungsänderungsmodus, und bietet beschreibende Namen dafür. Das Details-Array scheint Informationen über verschiedene Risikomanagementparameter für die weitere Verarbeitung oder Anzeige zu erfassen.</value>
+  </data>
+  <data name="RmsNoLimits" xml:space="preserve">
+    <value>keine Grenzen</value>
+  </data>
+  <data name="RmsNoRms" xml:space="preserve">
+    <value>Kein RMS</value>
+  </data>
+  <data name="RmsNotificationOnly" xml:space="preserve">
+    <value>Nur Benachrichtigung</value>
+  </data>
+  <data name="RmsNotificationOnlyDescription" xml:space="preserve">
+    <value>Nur Benachrichtigungen, Handel ist nicht eingeschränkt</value>
+  </data>
+  <data name="RmsOverrideAnyway" xml:space="preserve">
+    <value>Übergehen Sie trotzdem</value>
+  </data>
+  <data name="RmsPassphraseBannerText" xml:space="preserve">
+    <value>Sie sind dabei, Ihre eigene Disziplin zu überschreiben</value>
+  </data>
+  <data name="RmsPassphraseRequired" xml:space="preserve">
+    <value>Ich breche meine Handelsdisziplin</value>
+  </data>
+  <data name="RmsPassphraseWhenBlocked" xml:space="preserve">
+    <value>Passphrase bei Blockierung</value>
+  </data>
+  <data name="RmsPassphraseWhenBlockedDescription" xml:space="preserve">
+    <value>Muss eine Disziplinphrase eingeben, um Einstellungen zu ändern, wenn gesperrt</value>
+  </data>
+  <data name="RmsPhrasePlaceholder" xml:space="preserve">
+    <value>Geben Sie die Phrase genau ein...</value>
+  </data>
+  <data name="RmsProfitTarget" xml:space="preserve">
+    <value>Gewinnziel</value>
+  </data>
+  <data name="RmsProtectionDesignedTo" xml:space="preserve">
+    <value>Das ist dafür gedacht:</value>
+  </data>
+  <data name="RmsProtectionModeBannerText" xml:space="preserve">
+    <value>Sie aktivieren den Schutzmodus</value>
+  </data>
+  <data name="RmsProtectionModeWarning" xml:space="preserve">
+    <value>Warnung vor dem Schutzmodus</value>
+  </data>
+  <data name="RmsProtectionPoint1" xml:space="preserve">
+    <value>• Schützt Sie vor emotionalen Handelsentscheidungen</value>
+  </data>
+  <data name="RmsProtectionPoint2" xml:space="preserve">
+    <value>• Verhindern Sie impulsive Änderungen der Risikolimits nach Verlusten</value>
+  </data>
+  <data name="RmsProtectionPoint3" xml:space="preserve">
+    <value>• Setzen Sie Disziplin durch, wenn Sie sie am meisten benötigen</value>
+  </data>
+  <data name="RmsReduceOnly" xml:space="preserve">
+    <value>Nur reduzieren</value>
+  </data>
+  <data name="RmsReduceOnlyDescription" xml:space="preserve">
+    <value>Positionen können nur geschlossen werden, wenn ein Limit erreicht wird</value>
+  </data>
+  <data name="RmsReduceOnlyFullDescription" xml:space="preserve">
+    <value>Wenn ein Limit erreicht wird, wird das Öffnen neuer Positionen und das Erhöhen bestehender Positionen blockiert. Das Schließen von Positionen bleibt verfügbar.</value>
+  </data>
+  <data name="RmsReduceOnlyPrefix" xml:space="preserve">
+    <value>Nur Reduzieren:</value>
+  </data>
+  <data name="RmsRemaining" xml:space="preserve">
+    <value>Verbleibend</value>
+  </data>
+  <data name="RmsResetDescription" xml:space="preserve">
+    <value>Tägliche Gewinn- und Verlustzahlen, Handelsanzahl und aufeinanderfolgende Verluste werden zu diesem Zeitpunkt zurückgesetzt</value>
+  </data>
+  <data name="RmsResetIn" xml:space="preserve">
+    <value>Zurücksetzen in</value>
+  </data>
+  <data name="RmsResetTime" xml:space="preserve">
+    <value>Zeit zurücksetzen (CT)</value>
+  </data>
+  <data name="RmsResponse" xml:space="preserve">
+    <value>Antwort</value>
+  </data>
+  <data name="RmsResponseMode" xml:space="preserve">
+    <value>Antwortmodus</value>
+  </data>
+  <data name="RmsRiskSettings" xml:space="preserve">
+    <value>Risikoeinstellungen</value>
+  </data>
+  <data name="RmsRiskSettingsForFormat" xml:space="preserve">
+    <value>Risikoeinstellungen — {0} #{1}</value>
+  </data>
+  <data name="RmsSaveChanges" xml:space="preserve">
+    <value>Änderungen speichern</value>
+  </data>
+  <data name="RmsServerTime" xml:space="preserve">
+    <value>Serverzeit</value>
+  </data>
+  <data name="RmsSettingsAnytimeDescription" xml:space="preserve">
+    <value>Sie können die Einstellungen jederzeit ändern, auch wenn das Konto gesperrt ist.</value>
+  </data>
+  <data name="RmsSettingsChangeMode" xml:space="preserve">
+    <value>Einstellungsänderungsmodus</value>
+  </data>
+  <data name="RmsSettingsDisabledDescription" xml:space="preserve">
+    <value>Sie können die Einstellungen nicht ändern, sobald ein Limit erreicht ist, bis der tägliche Reset erfolgt.</value>
+  </data>
+  <data name="RmsSettingsLocked" xml:space="preserve">
+    <value>Einstellungen gesperrt</value>
+  </data>
+  <data name="RmsSettingsPassphraseDescription" xml:space="preserve">
+    <value>Sobald das Konto in den gesperrten Zustand versetzt wird, müssen Sie eine Disziplinphrase eingeben, um die Einstellungen zu ändern. Dies schafft eine psychologische Barriere und ermöglicht dennoch Änderungen, wenn es wirklich notwendig ist.</value>
+  </data>
+  <data name="RmsSettingsPrefix" xml:space="preserve">
+    <value>Einstellungen:</value>
+  </data>
+  <data name="RmsStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="RmsTarget" xml:space="preserve">
+    <value>Ziel</value>
+  </data>
+  <data name="RmsTargetPrefix" xml:space="preserve">
+    <value>Ziel:</value>
+  </data>
+  <data name="RmsToday" xml:space="preserve">
+    <value>Heute</value>
+  </data>
+  <data name="RmsTrades" xml:space="preserve">
+    <value>Handelsgeschäfte</value>
+  </data>
+  <data name="RmsTradingOrGamblingQuestion" xml:space="preserve">
+    <value>Handeln Sie oder spielen Sie Glücksspiel?</value>
+  </data>
+  <data name="RmsTradingRiskLimits" xml:space="preserve">
+    <value>Handelsrisikolimits</value>
+  </data>
+  <data name="RmsTriggeredConsLossesFormat" xml:space="preserve">
+    <value>Konsekutive Verluste: {0} überschreitet das Limit ({1})</value>
+  </data>
+  <data name="RmsTriggeredDailyLossFormat" xml:space="preserve">
+    <value>Täglicher Verlust: Aktuelle P&amp;L ({0}) überschreitet das Limit (-${1:#,0})</value>
+  </data>
+  <data name="RmsTriggeredDailyTargetFormat" xml:space="preserve">
+    <value>Tägliches Ziel: Aktueller Gewinn und Verlust (P&amp;L) ({0}) übersteigt das Ziel (+${1:#,0})</value>
+  </data>
+  <data name="RmsTriggeredLimitsTitle" xml:space="preserve">
+    <value>Grenzen, die sofort ausgelöst werden:</value>
+  </data>
+  <data name="RmsTriggeredMaxTradesFormat" xml:space="preserve">
+    <value>Maximale Trades: {0} Trades überschreiten das Limit ({1})</value>
+  </data>
+  <data name="RmsTypePhrasePrompt" xml:space="preserve">
+    <value>Um fortzufahren, geben Sie die genaue Phrase ein:</value>
+  </data>
+  <data name="RmsViewEventLog" xml:space="preserve">
+    <value>Ereignisprotokoll anzeigen</value>
+  </data>
+  <data name="RmsWaitForReset" xml:space="preserve">
+    <value>Warten Sie auf den täglichen Reset, um die Einstellungen zu ändern.</value>
+  </data>
+  <data name="RmsWarningImmediateBlockConfirmed" xml:space="preserve">
+    <value>Konto wurde sofort vom Benutzer blockiert</value>
+  </data>
+  <data name="RmsWarningPassphraseOverrideAccepted" xml:space="preserve">
+    <value>Passphrase-Überschreibung akzeptiert</value>
+  </data>
+  <data name="RmsWarningProtectionModeEnabled" xml:space="preserve">
+    <value>Schutzmodus aktiviert</value>
+  </data>
+  <data name="RmsWhatWillHappen" xml:space="preserve">
+    <value>Was wird passieren:</value>
+  </data>
+  <data name="RmsYes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="SaveAndCloseBtn" xml:space="preserve">
+    <value>Speichern und schließen</value>
+  </data>
+  <data name="SaveAsNewWorkspaceLabel" xml:space="preserve">
+    <value>Als neues Arbeitsbereich speichern</value>
+  </data>
+  <data name="SaveCurrentTimeTemplateBtn" xml:space="preserve">
+    <value>Eine Vorlage von der aktuellen Zeit speichern</value>
+  </data>
+  <data name="SaveCurrentWorkspaceWithName" xml:space="preserve">
+    <value>Speichern Sie den aktuellen Arbeitsbereich unter dem Namen</value>
+  </data>
+  <data name="SaveDrawingVisibilityAsTitle" xml:space="preserve">
+    <value>Zeichensichtbarkeit als speichern</value>
+  </data>
+  <data name="SavePlaybooks" xml:space="preserve">
+    <value>Playbooks speichern</value>
+  </data>
+  <data name="SaveSimpleTemplateBtn" xml:space="preserve">
+    <value>Ein einfaches Template speichern</value>
+  </data>
+  <data name="SaveTemplateAsMenuItem" xml:space="preserve">
+    <value>Vorlage speichern als</value>
+  </data>
+  <data name="SaveTemplateFromCurrentTime" xml:space="preserve">
+    <value>Vorlage speichern (ab aktueller Zeit)</value>
+  </data>
+  <data name="SaveTemplateFromCurrentTimeAs" xml:space="preserve">
+    <value>Vorlage speichern (ab aktueller Zeit) als</value>
+  </data>
+  <data name="SaveTemplateMenuItem" xml:space="preserve">
+    <value>Vorlage speichern</value>
+  </data>
+  <data name="SearchInstrumentNameHint" xml:space="preserve">
+    <value>Um Suchergebnisse anzuzeigen, beginnen Sie mit der Eingabe des Namens des Werkzeugs.</value>
+  </data>
+  <data name="SearchInstrumentNameNullText" xml:space="preserve">
+    <value>Instrumentenname</value>
+  </data>
+  <data name="SearchInstrumentNameNullTextDescription" xml:space="preserve">
+    <value>Um Suchergebnisse anzuzeigen, beginnen Sie einfach, den Namen des Werkzeugs einzugeben. Dies fordert relevante Vorschläge basierend auf Ihrer Eingabe an. Die Funktion verbessert die Benutzererfahrung, indem sie Sie schnell zum gewünschten Werkzeug führt.</value>
+  </data>
+  <data name="SecondaryTextColor" xml:space="preserve">
+    <value>Sekundäre Textfarbe</value>
+  </data>
+  <data name="SelectEmoji" xml:space="preserve">
+    <value>Emoji auswählen</value>
+  </data>
+  <data name="SelectInstrument" xml:space="preserve">
+    <value>Instrument auswählen</value>
+  </data>
+  <data name="SelectPlaybook" xml:space="preserve">
+    <value>Playbook auswählen</value>
+  </data>
+  <data name="SelectWorkspaceTitle" xml:space="preserve">
+    <value>Arbeitsbereich auswählen</value>
+  </data>
+  <data name="SellColor" xml:space="preserve">
+    <value>Sell Color</value>
+  </data>
+  <data name="SellSound" xml:space="preserve">
+    <value>Verkaufston</value>
+  </data>
+  <data name="SellTradeLineColorDescription" xml:space="preserve">
+    <value>Legt die Farbe fest, die für die Anzeige von Verkaufshandelslinien und -markern verwendet wird.</value>
+  </data>
+  <data name="SessionDeltaAlert" xml:space="preserve">
+    <value>Session delta alert</value>
+  </data>
+  <data name="SessionDeltaPerVolumeAlert" xml:space="preserve">
+    <value>Session delta/Volume alert</value>
+  </data>
+  <data name="SessionName" xml:space="preserve">
+    <value>Sitzungsname</value>
+  </data>
+  <data name="SessionTooShort" xml:space="preserve">
+    <value>Die Sitzungsdauer muss mindestens {0} Std. betragen.</value>
+  </data>
+  <data name="SessionVolumeAlert" xml:space="preserve">
+    <value>Session volume alert</value>
+  </data>
+  <data name="SetFromDateToModulesTooltip" xml:space="preserve">
+    <value>Reloads data in all open modules (charts, indicators, SmartDOM) to the start date. Use this if you opened new panels after loading data or changed the replay period.</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
+  <data name="SetUpYourWorkspace" xml:space="preserve">
+    <value>Richten Sie Ihren Arbeitsplatz ein</value>
+  </data>
+  <data name="SharpeRatio" xml:space="preserve">
+    <value>Sharpe-Ratio</value>
+  </data>
+  <data name="Show10Minutes" xml:space="preserve">
+    <value>10 Minuten anzeigen</value>
+  </data>
+  <data name="Show15Seconds" xml:space="preserve">
+    <value>15 Sekunden anzeigen</value>
+  </data>
+  <data name="Show1Minute" xml:space="preserve">
+    <value>1 Minute anzeigen</value>
+  </data>
+  <data name="Show20Minutes" xml:space="preserve">
+    <value>20 Minuten anzeigen</value>
+  </data>
+  <data name="Show30Seconds" xml:space="preserve">
+    <value>30 Sekunden anzeigen</value>
+  </data>
+  <data name="Show5Minutes" xml:space="preserve">
+    <value>Zeige 5 Minuten</value>
+  </data>
+  <data name="Show5Seconds" xml:space="preserve">
+    <value>5 Sekunden anzeigen</value>
+  </data>
+  <data name="ShowAccountId" xml:space="preserve">
+    <value>Konto-ID anzeigen</value>
+  </data>
+  <data name="ShowAccountIdDescription" xml:space="preserve">
+    <value>Kontoidentifikator anzeigen</value>
+  </data>
+  <data name="ShowAvailableBalance" xml:space="preserve">
+    <value>Verfügbares Guthaben anzeigen</value>
+  </data>
+  <data name="ShowAvailableBalanceDescription" xml:space="preserve">
+    <value>Verfügbare Handelsmittel anzeigen</value>
+  </data>
+  <data name="ShowBalance" xml:space="preserve">
+    <value>Guthaben anzeigen</value>
+  </data>
+  <data name="ShowBalanceDescription" xml:space="preserve">
+    <value>Gesamtguthaben anzeigen</value>
+  </data>
+  <data name="ShowBarChangeValues" xml:space="preserve">
+    <value>Barausänderungswerte</value>
+  </data>
+  <data name="ShowBlockedMargin" xml:space="preserve">
+    <value>Blockierte Marge anzeigen</value>
+  </data>
+  <data name="ShowBlockedMarginDescription" xml:space="preserve">
+    <value>Von offenen Positionen blockierte Marge anzeigen</value>
+  </data>
+  <data name="ShowClosedPnL" xml:space="preserve">
+    <value>Geschlossenen PnL anzeigen</value>
+  </data>
+  <data name="ShowClosedPnLDescription" xml:space="preserve">
+    <value>Realisierten Gewinn und Verlust anzeigen</value>
+  </data>
+  <data name="ShowCurrency" xml:space="preserve">
+    <value>Währung anzeigen</value>
+  </data>
+  <data name="ShowCurrencyDescription" xml:space="preserve">
+    <value>Kontowährung anzeigen</value>
+  </data>
+  <data name="ShowDepthChanges" xml:space="preserve">
+    <value>Show depth changes</value>
+  </data>
+  <data name="ShowDescription" xml:space="preserve">
+    <value>Show description</value>
+  </data>
+  <data name="ShowFavoritesToolbar" xml:space="preserve">
+    <value>Favoritenleiste anzeigen</value>
+  </data>
+  <data name="ShowLeverage" xml:space="preserve">
+    <value>Hebel anzeigen</value>
+  </data>
+  <data name="ShowLeverageDescription" xml:space="preserve">
+    <value>Kontohebel anzeigen</value>
+  </data>
+  <data name="ShowOhlcValues" xml:space="preserve">
+    <value>OHLC-Werte</value>
+  </data>
+  <data name="ShowOpenPnL" xml:space="preserve">
+    <value>Offenen PnL anzeigen</value>
+  </data>
+  <data name="ShowOpenPnLDescription" xml:space="preserve">
+    <value>Nicht realisierten Gewinn und Verlust anzeigen</value>
+  </data>
+  <data name="ShowTemplatesInLists" xml:space="preserve">
+    <value>Vorlagen in Listen anzeigen</value>
+  </data>
+  <data name="ShowTotalPnL" xml:space="preserve">
+    <value>Gesamt-PnL anzeigen</value>
+  </data>
+  <data name="ShowTotalPnLDescription" xml:space="preserve">
+    <value>Gesamten Gewinn und Verlust anzeigen</value>
+  </data>
+  <data name="ShowTradeTooltipDescription" xml:space="preserve">
+    <value>Bestimmt, ob ein Tooltip mit Trade-Details beim Hovern über Trade-Marker angezeigt werden soll.</value>
+  </data>
+  <data name="ShowWhenSelected" xml:space="preserve">
+    <value>Zeigen, wenn ausgewählt</value>
+  </data>
+  <data name="SkipFlattenAllConfirmation" xml:space="preserve">
+    <value>Überspringen Sie die Stornierung und schließen Sie alle Bestätigungen</value>
+  </data>
+  <data name="SkipFlattenAllConfirmationDescription" xml:space="preserve">
+    <value>Keine Bestätigung anfordern, wenn alle Positionen und Aufträge in diesem Widget geschlossen werden.</value>
+  </data>
+  <data name="SkipTableConfirmations" xml:space="preserve">
+    <value>Bestätigungen in Tabellen überspringen</value>
+  </data>
+  <data name="SkipTableConfirmationsDescription" xml:space="preserve">
+    <value>Bestätigungsdialoge beim Stornieren von Bestellungen oder Schließen von Positionen in Tabellen (Bestellungen, Positionen, Handelsaktivität) überspringen.</value>
+  </data>
+  <data name="SlidingMaxMultiplier" xml:space="preserve">
+    <value>Gleitender Periodenmultiplikator</value>
+  </data>
+  <data name="SlidingMaxMultiplierDescription" xml:space="preserve">
+    <value> Multiplikator für die Hauptperiode zur Berechnung gleitender Maximalwerte. Das Zeitfenster für die Verfolgung maximaler
+  Volumina entspricht Periode × Multiplikator. Beispiel: Bei Periode = 60s und Multiplikator = 5 werden Maximalwerte über 300s
+  (5 Minuten) verfolgt.</value>
+  </data>
+  <data name="Small" xml:space="preserve">
+    <value>Klein</value>
+  </data>
+  <data name="SmartDOMTemplateDamaged" xml:space="preserve">
+    <value>Die Vorlage "{0}" des Smart-DOM-Moduls ist beschädigt.</value>
+  </data>
+  <data name="SmartDOMTemplateDamagedWithRecovery" xml:space="preserve">
+    <value>Die Vorlage "{0}" des Smart-DOM-Moduls ist beschädigt.
+Vorlage wiederherstellen?</value>
+  </data>
+  <data name="SmoothDescription" xml:space="preserve">
+    <value>Glättungsperiode, die auf die Indikatorwerte angewendet wird.</value>
+  </data>
+  <data name="Smoothing" xml:space="preserve">
+    <value>Smoothing</value>
+  </data>
+  <data name="SnapCrosshairToPrice" xml:space="preserve">
+    <value>Fadenkreuz an Preis ausrichten</value>
+  </data>
+  <data name="SoundVolume" xml:space="preserve">
+    <value>Lautstärke</value>
+  </data>
+  <data name="Stacking" xml:space="preserve">
+    <value>Stacking</value>
+  </data>
+  <data name="StatisticsPeriodAll" xml:space="preserve">
+    <value>Alle</value>
+  </data>
+  <data name="StatisticsPeriodCustom" xml:space="preserve">
+    <value>Benutzerdefiniert</value>
+  </data>
+  <data name="StatisticsPeriodLast30Days" xml:space="preserve">
+    <value>Letzte 30 Tage</value>
+  </data>
+  <data name="StatisticsPeriodLast3Months" xml:space="preserve">
+    <value>Letzte 3 Monate</value>
+  </data>
+  <data name="StatisticsPeriodLast7Days" xml:space="preserve">
+    <value>Letzte 7 Tage</value>
+  </data>
+  <data name="StatisticsPeriodLastYear" xml:space="preserve">
+    <value>Letztes Jahr</value>
+  </data>
+  <data name="StatisticsPeriodToday" xml:space="preserve">
+    <value>Heute</value>
+  </data>
+  <data name="StepScale" xml:space="preserve">
+    <value>Skalierungsschritt</value>
+  </data>
+  <data name="StepScaleDescription" xml:space="preserve">
+    <value>Dieser Parameter legt die Skalierungsschrittweite des Preises beim Scrollen mit dem Mausrad fest.</value>
+  </data>
+  <data name="StopPriceMode" xml:space="preserve">
+    <value>Stoppreis-Modus</value>
+  </data>
+  <data name="Style" xml:space="preserve">
+    <value>Style</value>
+  </data>
+  <data name="SupportEmailPlatformX" xml:space="preserve">
+    <value>x.support@atas.net</value>
+  </data>
+  <data name="SwitchTimeframeNext" xml:space="preserve">
+    <value>Nächster Zeitrahmen</value>
+  </data>
+  <data name="SwitchTimeframePrevious" xml:space="preserve">
+    <value>Zeitrahmen wechseln: Vorherige</value>
+  </data>
+  <data name="SymbolAllocation" xml:space="preserve">
+    <value>Symbolzuteilung</value>
+  </data>
+  <data name="SymbolInfoBaseCurrency" xml:space="preserve">
+    <value>Base currency</value>
+  </data>
+  <data name="SymbolInfoExpiration" xml:space="preserve">
+    <value>Ablauf</value>
+  </data>
+  <data name="SymbolInfoLotMaxSize" xml:space="preserve">
+    <value>Max order size</value>
+  </data>
+  <data name="SymbolInfoLotMinSize" xml:space="preserve">
+    <value>Min order size</value>
+  </data>
+  <data name="SymbolInfoLotSize" xml:space="preserve">
+    <value>Lotgröße</value>
+  </data>
+  <data name="SymbolInfoMarginBuy" xml:space="preserve">
+    <value>Margin (buy)</value>
+  </data>
+  <data name="SymbolInfoMarginSell" xml:space="preserve">
+    <value>Margin (sell)</value>
+  </data>
+  <data name="SymbolInfoMaxPrice" xml:space="preserve">
+    <value>Max price</value>
+  </data>
+  <data name="SymbolInfoMinLot" xml:space="preserve">
+    <value>Min. Lot</value>
+  </data>
+  <data name="SymbolInfoMinPrice" xml:space="preserve">
+    <value>Min price</value>
+  </data>
+  <data name="SymbolInfoOptionType" xml:space="preserve">
+    <value>Option type</value>
+  </data>
+  <data name="SymbolInfoPointValue" xml:space="preserve">
+    <value>Punktwert</value>
+  </data>
+  <data name="SymbolInfoPriceMultiplier" xml:space="preserve">
+    <value>Price multiplier</value>
+  </data>
+  <data name="SymbolInfoQuoteCurrency" xml:space="preserve">
+    <value>Quote currency</value>
+  </data>
+  <data name="SymbolInfoStrikePrice" xml:space="preserve">
+    <value>Strike price</value>
+  </data>
+  <data name="SymbolInfoVolumeMultiplier" xml:space="preserve">
+    <value>Volumenmultiplikator</value>
+  </data>
+  <data name="SymbolPerformance" xml:space="preserve">
+    <value>Symbole nach Ergebnissen</value>
+  </data>
+  <data name="TabLabel" xml:space="preserve">
+    <value>Neuer Tab</value>
+  </data>
+  <data name="TableActionConfirmationMessage" xml:space="preserve">
+    <value>Sind Sie sicher, dass Sie Positionen und Bestellungen schließen/abbrechen möchten? Diese Aktion kann nicht rückgängig gemacht werden.</value>
+  </data>
+  <data name="TableActionConfirmationTitle" xml:space="preserve">
+    <value>Aktion bestätigen</value>
+  </data>
+  <data name="TablesRibbonPage" xml:space="preserve">
+    <value>Tabellen</value>
+  </data>
+  <data name="TariffLimitExceeded" xml:space="preserve">
+    <value>Tarifgrenze überschritten</value>
+  </data>
+  <data name="TelegramPlatformXAlphaTestChatLink" xml:space="preserve">
+    <value>https://t.me/+z6if1MntmTQxZjcy</value>
+  </data>
+  <data name="Threshold" xml:space="preserve">
+    <value>Schwellenwert</value>
+  </data>
+  <data name="ThresholdLineColor" xml:space="preserve">
+    <value>Schwellenlinienfarbe</value>
+  </data>
+  <data name="TillBar" xml:space="preserve">
+    <value>Bis zur Bar</value>
+  </data>
+  <data name="TimeFrameAlreadyExists" xml:space="preserve">
+    <value>Zeitrahmen '{0}' existiert bereits.</value>
+  </data>
+  <data name="TimeFramePresetDailyPlus" xml:space="preserve">
+    <value>Täglich+</value>
+  </data>
+  <data name="TimeFramePresetIntraday" xml:space="preserve">
+    <value>Intraday (M1-H4)</value>
+  </data>
+  <data name="TimeFramePresetNameHint" xml:space="preserve">
+    <value>Voreingestellter Name...</value>
+  </data>
+  <data name="TimeFramePresetSelectHint" xml:space="preserve">
+    <value>Voreinstellung auswählen...</value>
+  </data>
+  <data name="TimeFramePresetTickBased" xml:space="preserve">
+    <value>Tick-basiert</value>
+  </data>
+  <data name="ToGetStartedAddAppropriateWidget" xml:space="preserve">
+    <value>Um zu beginnen, fügen Sie das entsprechende Widget hinzu.</value>
+  </data>
+  <data name="ToGetStartedWithPlatformOpenNewTab" xml:space="preserve">
+    <value>Um mit der Plattform zu beginnen, öffnen Sie einen neuen Tab.</value>
+  </data>
+  <data name="ToggleAllDrawingObjects" xml:space="preserve">
+    <value>Alle Zeichnungsobjekte einblenden/ausblenden</value>
+  </data>
+  <data name="ToggleAllIndicators" xml:space="preserve">
+    <value>Alle Indikatoren ein-/ausblenden</value>
+  </data>
+  <data name="ToggleAllIndicatorsAndDrawings" xml:space="preserve">
+    <value>Indikatoren und Zeichnungen ein-/ausblenden</value>
+  </data>
+  <data name="ToggleChartUI" xml:space="preserve">
+    <value>Diagrammpanels anzeigen/ausblenden</value>
+  </data>
+  <data name="ToggleExtraFootprint" xml:space="preserve">
+    <value>Zusätzlichen Fußabdruck anzeigen/ausblenden</value>
+  </data>
+  <data name="ToggleFollowingManager" xml:space="preserve">
+    <value>Toggle Following Manager</value>
+  </data>
+  <data name="ToggleLevelsVisibilityHotKey" xml:space="preserve">
+    <value>Sichtbarkeit aller Ebenen umschalten</value>
+  </data>
+  <data name="TotalCommissions" xml:space="preserve">
+    <value>Gesamtprovisionen</value>
+  </data>
+  <data name="TotalLoss" xml:space="preserve">
+    <value>Gesamtverlust</value>
+  </data>
+  <data name="TotalProfit" xml:space="preserve">
+    <value>Gesamtgewinn</value>
+  </data>
+  <data name="TPOOpenClose" xml:space="preserve">
+    <value>TPO. Öffnen/Schließen</value>
+  </data>
+  <data name="TradeDetails" xml:space="preserve">
+    <value>Handelsdetails</value>
+  </data>
+  <data name="TradeInfo" xml:space="preserve">
+    <value>Handelsinformationen</value>
+  </data>
+  <data name="TradersTalkMenu" xml:space="preserve">
+    <value>TradersTalk</value>
+  </data>
+  <data name="TradersTalkTitle" xml:space="preserve">
+    <value>Händlergespräch</value>
+  </data>
+  <data name="TradesAlert" xml:space="preserve">
+    <value>Trades alert</value>
+  </data>
+  <data name="TradingActivityTitle" xml:space="preserve">
+    <value>Handelsaktivität</value>
+  </data>
+  <data name="TradingCalendar" xml:space="preserve">
+    <value>Handelskalender</value>
+  </data>
+  <data name="TradingInstrument" xml:space="preserve">
+    <value>Cross-Trading</value>
+  </data>
+  <data name="TradingJournal" xml:space="preserve">
+    <value>Trading Journal</value>
+  </data>
+  <data name="TradingOnChart" xml:space="preserve">
+    <value>Handel auf dem Chart</value>
+  </data>
+  <data name="TradingPanel" xml:space="preserve">
+    <value>Trading Panel</value>
+  </data>
+  <data name="TradingPatterns" xml:space="preserve">
+    <value>Handelsmuster</value>
+  </data>
+  <data name="TradingSettingsGroup" xml:space="preserve">
+    <value>Handel</value>
+  </data>
+  <data name="TradingStrategiesTitle" xml:space="preserve">
+    <value>Handelsstrategien</value>
+  </data>
+  <data name="TradingVolumeDistributionBySymbol" xml:space="preserve">
+    <value>Handelsvolumenverteilung nach Symbol</value>
+  </data>
+  <data name="TrailingTooltip" xml:space="preserve">
+    <value>Ermöglicht das Verschieben des SL-Orders, wenn sich der aktuelle Preis in Richtung einer Gewinnsteigerung für die Position bewegt. Wenn sich der Preis weiterhin in Richtung Gewinn bewegt, kann der SL-Order mehrfach verschoben werden.
+
+Parameter:
+• Trailing Stop — Wert, um den sich der Preis vom vorherigen Niveau bewegen muss, damit der SL-Order auf ein neues Niveau verschoben wird
+• Trailing Step — Schritt, bei dem der SL-Order relativ zum vorherigen SL-Order-Preis verschoben wird</value>
+  </data>
+  <data name="TrainingMinutes" xml:space="preserve">
+    <value>Trainingsminuten</value>
+  </data>
+  <data name="TrainingMinutesDescription" xml:space="preserve">
+    <value>Trainingsperiode zum Sammeln historischer Daten und Berechnung von Liquiditätsmaxima. Nach Abschluss werden Werte gegen beobachtete Maxima normalisiert.</value>
+  </data>
+  <data name="TrainingPeriod" xml:space="preserve">
+    <value>Trainingszeitraum</value>
+  </data>
+  <data name="TransaqAsset" xml:space="preserve">
+    <value>Vermögensart-Code</value>
+  </data>
+  <data name="TransaqBalanceCategory" xml:space="preserve">
+    <value>Gleichgewicht</value>
+  </data>
+  <data name="TransaqBasicInfoCategory" xml:space="preserve">
+    <value>Grundinformationen</value>
+  </data>
+  <data name="TransaqBlocked" xml:space="preserve">
+    <value>Blockierte Mittel</value>
+  </data>
+  <data name="TransaqBought" xml:space="preserve">
+    <value>Gekauft</value>
+  </data>
+  <data name="TransaqClient" xml:space="preserve">
+    <value>Kunden-ID</value>
+  </data>
+  <data name="TransaqClientType" xml:space="preserve">
+    <value>Kundenart</value>
+  </data>
+  <data name="TransaqCommission" xml:space="preserve">
+    <value>Erhobene Provision</value>
+  </data>
+  <data name="TransaqCurrency" xml:space="preserve">
+    <value>Währung</value>
+  </data>
+  <data name="TransaqCurrent" xml:space="preserve">
+    <value>Aktuelle Mittel</value>
+  </data>
+  <data name="TransaqFortsAcc" xml:space="preserve">
+    <value>FORTS-Konto</value>
+  </data>
+  <data name="TransaqFree" xml:space="preserve">
+    <value>Freie Mittel</value>
+  </data>
+  <data name="TransaqMarkets" xml:space="preserve">
+    <value>Märkte</value>
+  </data>
+  <data name="TransaqOrdBuy" xml:space="preserve">
+    <value>In Kaufaufträgen + Provision</value>
+  </data>
+  <data name="TransaqOrdBuyCond" xml:space="preserve">
+    <value>Bei bedingten Kaufaufträgen</value>
+  </data>
+  <data name="TransaqOrdersCategory" xml:space="preserve">
+    <value>Bestellungen</value>
+  </data>
+  <data name="TransaqRegister" xml:space="preserve">
+    <value>Buchhaltungsregister</value>
+  </data>
+  <data name="TransaqSaldo" xml:space="preserve">
+    <value>Aktueller Kontostand</value>
+  </data>
+  <data name="TransaqSaldoIn" xml:space="preserve">
+    <value>Eröffnungsbilanz</value>
+  </data>
+  <data name="TransaqShortName" xml:space="preserve">
+    <value>Vermögensart Name</value>
+  </data>
+  <data name="TransaqSold" xml:space="preserve">
+    <value>Verkauft</value>
+  </data>
+  <data name="TransaqUnion" xml:space="preserve">
+    <value>Union-Code</value>
+  </data>
+  <data name="TransaqVarMargin" xml:space="preserve">
+    <value>Variationsmarge</value>
+  </data>
+  <data name="TtAccountCategory" xml:space="preserve">
+    <value>Konto</value>
+  </data>
+  <data name="TtAccountId" xml:space="preserve">
+    <value>Kontonummer</value>
+  </data>
+  <data name="TtAccountName" xml:space="preserve">
+    <value>Kontoname</value>
+  </data>
+  <data name="TtAssignedMarkets" xml:space="preserve">
+    <value>Zugewiesene Märkte</value>
+  </data>
+  <data name="TtRiskCategory" xml:space="preserve">
+    <value>Risiko &amp; Märkte</value>
+  </data>
+  <data name="UseAlertDescription" xml:space="preserve">
+    <value>Benachrichtigungen über vom Indikator erkannte Ereignisse.</value>
+  </data>
+  <data name="UserNotWhitelistedMessage" xml:space="preserve">
+    <value>Leider ist Ihr Konto nicht auf der Whitelist, sodass der Zugriff auf die Plattform derzeit nicht verfügbar ist.
+Wenn Sie Zugang anfordern oder denken, dass dies ein Fehler sein könnte, wenden Sie sich bitte an unser Support-Team – wir helfen Ihnen gerne weiter.</value>
+  </data>
+  <data name="VAH" xml:space="preserve">
+    <value>VAH</value>
+  </data>
+  <data name="VAL" xml:space="preserve">
+    <value>VAL</value>
+  </data>
+  <data name="VerticalBar" xml:space="preserve">
+    <value>Vertikaler Balken</value>
+  </data>
+  <data name="VerticalBars" xml:space="preserve">
+    <value>Vertikale Balken</value>
+  </data>
+  <data name="VerticalPosition" xml:space="preserve">
+    <value>Vertikale Position</value>
+  </data>
+  <data name="Visibility" xml:space="preserve">
+    <value>Visibility</value>
+  </data>
+  <data name="Visualization" xml:space="preserve">
+    <value>Visualization</value>
+  </data>
+  <data name="VolumePerSecondAlert" xml:space="preserve">
+    <value>Volume/sec alert</value>
+  </data>
+  <data name="VolumePressure" xml:space="preserve">
+    <value>Volumendruck</value>
+  </data>
+  <data name="Vsync" xml:space="preserve">
+    <value>Vsync</value>
+  </data>
+  <data name="VWAP" xml:space="preserve">
+    <value>VWAP</value>
+  </data>
+  <data name="VWMADescription" xml:space="preserve">
+    <value>Der Volume Weighted Moving Average (VWMA) Indikator ist ein technisches Analysewerkzeug, das den durchschnittlichen Preis eines Vermögenswerts berechnet, während das Handelsvolumen auf verschiedenen Preisniveaus berücksichtigt wird. Dies ermöglicht ein nuancierteres Verständnis von Preisbewegungen und Marktverhalten. Der VWMA ist besonders nützlich für Händler, die ihre Strategien sowohl mit der Preisbewegung als auch mit dem Handelsvolumen in Einklang bringen möchten.</value>
+  </data>
+  <data name="WatchlistDragHandleTooltip" xml:space="preserve">
+    <value>Ändern Sie die Reihenfolge in der Liste oder ziehen Sie sie in ein Modul, um es zu öffnen</value>
+  </data>
+  <data name="WatchlistFilterAdd" xml:space="preserve">
+    <value>Hinzufügen</value>
+  </data>
+  <data name="WatchlistFilterApply" xml:space="preserve">
+    <value>Anwenden</value>
+  </data>
+  <data name="WatchlistFilterCancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="WatchlistFilterConditions" xml:space="preserve">
+    <value>Filterbedingungen:</value>
+  </data>
+  <data name="WatchlistFilterFieldAskQty" xml:space="preserve">
+    <value>Frage Menge</value>
+  </data>
+  <data name="WatchlistFilterFieldBidQty" xml:space="preserve">
+    <value>Gebotsmenge</value>
+  </data>
+  <data name="WatchlistFilterFieldChange" xml:space="preserve">
+    <value>Änderung</value>
+  </data>
+  <data name="WatchlistFilterFieldChangePercent" xml:space="preserve">
+    <value>Änderung %</value>
+  </data>
+  <data name="WatchlistFilterFieldVolume" xml:space="preserve">
+    <value>Volumen</value>
+  </data>
+  <data name="WatchlistFilterLogicAnd" xml:space="preserve">
+    <value>Und</value>
+  </data>
+  <data name="WatchlistFilterLogicOr" xml:space="preserve">
+    <value>Oder</value>
+  </data>
+  <data name="WatchlistFilterMenu" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="WatchlistFilterOperatorEqual" xml:space="preserve">
+    <value>Gleich</value>
+  </data>
+  <data name="WatchlistFilterOperatorGreaterThan" xml:space="preserve">
+    <value>Größer</value>
+  </data>
+  <data name="WatchlistFilterOperatorLessThan" xml:space="preserve">
+    <value>Weniger</value>
+  </data>
+  <data name="WatchlistFilterResetFilter" xml:space="preserve">
+    <value>Filter zurücksetzen</value>
+  </data>
+  <data name="WatchlistFilterTitle" xml:space="preserve">
+    <value>Zitatfilter</value>
+  </data>
+  <data name="WatchlistListAlreadyExistsQuestion" xml:space="preserve">
+    <value>Eine Liste mit diesem Namen existiert bereits. Möchten Sie sie überschreiben?</value>
+  </data>
+  <data name="WatchlistListNameLabel" xml:space="preserve">
+    <value>Listenname:</value>
+  </data>
+  <data name="WatchlistListNamePlaceholder" xml:space="preserve">
+    <value>Geben Sie den Listennamen ein</value>
+  </data>
+  <data name="WatchlistNewListTitle" xml:space="preserve">
+    <value>Neue Liste</value>
+  </data>
+  <data name="WatchlistPresetBinanceFuturesUSDT" xml:space="preserve">
+    <value>WatchlistPresetBinanceFuturesUSDT</value>
+  </data>
+  <data name="WatchlistPresetBitgetFuturesUSDT" xml:space="preserve">
+    <value>BitgetFutures_USDT</value>
+  </data>
+  <data name="WatchlistPresetsMenu" xml:space="preserve">
+    <value>Listen</value>
+  </data>
+  <data name="WatchlistPresetTop10USFutures" xml:space="preserve">
+    <value>TOP 10 US-Futures</value>
+  </data>
+  <data name="WatchlistPresetTop6Delayed" xml:space="preserve">
+    <value>TOP 6 mit Verzögerung</value>
+  </data>
+  <data name="WatchlistRenameListTitle" xml:space="preserve">
+    <value>Liste umbenennen</value>
+  </data>
+  <data name="WatchlistSaveNewList" xml:space="preserve">
+    <value>Neue Liste speichern</value>
+  </data>
+  <data name="WebPages" xml:space="preserve">
+    <value>Webseiten</value>
+  </data>
+  <data name="WebPagesTitle" xml:space="preserve">
+    <value>Webseiten</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Woche</value>
+  </data>
+  <data name="WeekdayPnL" xml:space="preserve">
+    <value>Wochentag P&amp;L</value>
+  </data>
+  <data name="WeightDecay" xml:space="preserve">
+    <value>Fade ratio</value>
+  </data>
+  <data name="WeightDecayDescription" xml:space="preserve">
+    <value>Parameter für exponentiellen Gewichtszerfall. Niedrigere Werte gewichten marktnahe Ebenen stärker, höhere Werte verteilen Gewichte gleichmäßiger über die Tiefe.</value>
+  </data>
+  <data name="White" xml:space="preserve">
+    <value>Weiß</value>
+  </data>
+  <data name="WhitebitAvailableBalance" xml:space="preserve">
+    <value>Verfügbarer Saldo</value>
+  </data>
+  <data name="WhitebitCollateralAccountCategory" xml:space="preserve">
+    <value>Kontoinformationen</value>
+  </data>
+  <data name="WhitebitCollateralMarginCategory" xml:space="preserve">
+    <value>Marge</value>
+  </data>
+  <data name="WhitebitCollateralPnlCategory" xml:space="preserve">
+    <value>Gewinn und Verlust</value>
+  </data>
+  <data name="WhitebitEquity" xml:space="preserve">
+    <value>Eigenkapital</value>
+  </data>
+  <data name="WhitebitFreeMargin" xml:space="preserve">
+    <value>Freie Marge</value>
+  </data>
+  <data name="WhitebitFrozenBalance" xml:space="preserve">
+    <value>Eingefrorenes Guthaben</value>
+  </data>
+  <data name="WhitebitLeverage" xml:space="preserve">
+    <value>Hebel</value>
+  </data>
+  <data name="WhitebitMargin" xml:space="preserve">
+    <value>Margin</value>
+  </data>
+  <data name="WhitebitPnl" xml:space="preserve">
+    <value>Gewinn und Verlust</value>
+  </data>
+  <data name="WhitebitSpotBalanceCategory" xml:space="preserve">
+    <value>Spot-Balance</value>
+  </data>
+  <data name="WhitebitUnrealizedFunding" xml:space="preserve">
+    <value>Nicht realisierte Finanzierung</value>
+  </data>
+  <data name="WidgetLabel" xml:space="preserve">
+    <value>Neues Widget</value>
+  </data>
+  <data name="Widgets" xml:space="preserve">
+    <value>Widgets</value>
+  </data>
+  <data name="WindowLabel" xml:space="preserve">
+    <value>Neues Fenster</value>
+  </data>
+  <data name="WindowMenu" xml:space="preserve">
+    <value>Fenster</value>
+  </data>
+  <data name="WinLossRatio" xml:space="preserve">
+    <value>Gewinn/Verlust-Verhältnis</value>
+  </data>
+  <data name="WinningDays" xml:space="preserve">
+    <value>Gewinnende Tage</value>
+  </data>
+  <data name="WinningDaysPercent" xml:space="preserve">
+    <value>Gewinntage %</value>
+  </data>
+  <data name="WinRate" xml:space="preserve">
+    <value>Gewinnrate</value>
+  </data>
+  <data name="WorstTrade" xml:space="preserve">
+    <value>Schlechtester Trade</value>
+  </data>
+  <data name="WriteToSupportEmailPlatformX" xml:space="preserve">
+    <value>Schreiben Sie an x.support@atas.net</value>
+  </data>
+  <data name="Xylophone" xml:space="preserve">
+    <value>Xylofon</value>
+  </data>
+  <data name="YourTradingPerformanceOverTime" xml:space="preserve">
+    <value>Ihre Handelsergebnisse im Zeitverlauf</value>
+  </data>
+  <data name="YourWorkspaceLimitedTitle" xml:space="preserve">
+    <value>Der zu ladende Arbeitsbereich enthält Elemente, die in Ihrem Plan nicht verfügbar sind</value>
+  </data>
+  <data name="ZigZagTPOAndProfile" xml:space="preserve">
+    <value>ZigZag Volumenprofil &amp; TPO</value>
+  </data>
+</root>
