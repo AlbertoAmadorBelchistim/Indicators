@@ -184,9 +184,11 @@ public class TradesOnChart : Indicator
 
     protected override void OnDispose()
     {
+        #if !ATAS_STABLE
         TradingStatisticsProvider.StatisticsRebuilt -= OnRecalculate;
         TradingStatisticsProvider.RawStatisticsSourceChanged -= OnTradingStatisticsProviderSourceChanged;
         TradingStatisticsProvider.FilteredStatisticsSourceChanged -= OnTradingStatisticsProviderSourceChanged;
+        #endif
         TradingManager.PortfolioSelected -= TradingManager_PortfolioSelected;
         TradingManager.SecuritySelected -= OnSecuritySelected;
 
@@ -195,9 +197,11 @@ public class TradesOnChart : Indicator
 
     protected override void OnInitialize()
     {
+        #if !ATAS_STABLE
         TradingStatisticsProvider.StatisticsRebuilt += OnRecalculate;
         TradingStatisticsProvider.RawStatisticsSourceChanged += OnTradingStatisticsProviderSourceChanged;
         TradingStatisticsProvider.FilteredStatisticsSourceChanged += OnTradingStatisticsProviderSourceChanged;
+        #endif
         TradingManager.PortfolioSelected += TradingManager_PortfolioSelected;
         TradingManager.SecuritySelected += OnSecuritySelected;
 
@@ -216,9 +220,15 @@ public class TradesOnChart : Indicator
 
     private void RefreshStatisticsSource(bool forceRecalculate = false)
     {
+        #if ATAS_STABLE
+        var stat = TradingManager?.Portfolio?.IsReplay() == true
+            ? TradingStatisticsProvider.Replay
+            : TradingStatisticsProvider.Realtime;
+        #else
         var stat = TradingManager?.Portfolio?.IsReplay() == true
             ? TradingStatisticsProvider.FilteredStatistics
             : TradingStatisticsProvider.RawStatistics;
+        #endif
 
         if (stat == null)
         {
