@@ -139,8 +139,10 @@ public class Delta : Indicator
 		ShowCurrentValue = false,
 		UseMinimizedModeIfEnabled = true,
 		Visible = false,
-		DrawCandleBorder = false
-	};
+		#if !ATAS_STABLE
+        DrawCandleBorder = false
+		#endif
+    };
 
 	private readonly CandleDataSeries _divergenceDownCandles = new("DivergenceDownCandles", "Divergence down candles")
 	{
@@ -148,8 +150,10 @@ public class Delta : Indicator
 		ShowCurrentValue = false,
 		UseMinimizedModeIfEnabled = true,
 		Visible = false,
-		DrawCandleBorder = false
-	};
+		#if !ATAS_STABLE
+        DrawCandleBorder = false
+		#endif
+    };
 
 	private readonly CandleDataSeries _downCandles = new("DownCandles", "Delta candles")
 	{
