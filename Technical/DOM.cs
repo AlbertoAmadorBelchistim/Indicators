@@ -413,7 +413,9 @@ public class DOM : Indicator
 		DataSeries[0] = _upScale;
 		DataSeries.Add(_downScale);
 
+		#if !ATAS_STABLE
 		IgnoreHistoryScale = true;
+		#endif
 		EnableCustomDrawing = true;
 		SubscribeToDrawingEvents(DrawingLayouts.Final);
 
@@ -434,7 +436,7 @@ public class DOM : Indicator
 		FilterColors.CollectionChanged += FiltersChanged;
 	}
 
-	#endregion
+#endregion
 
 	#region Protected methods
 
