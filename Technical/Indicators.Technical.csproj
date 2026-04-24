@@ -8,6 +8,8 @@
     <AssemblyOriginatorKeyFile>..\..\..\GitLab\OFT\OFT.snk</AssemblyOriginatorKeyFile>
     <Configurations>Debug;Release;Publish</Configurations>
     <Platforms>AnyCPU;Cross</Platforms>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsNotAsErrors>NU1903</WarningsNotAsErrors>
   </PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Platform)' == 'Cross' ">
