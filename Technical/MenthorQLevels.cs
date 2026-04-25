@@ -479,6 +479,12 @@ namespace ATAS.Indicators.Technical
         private readonly Dictionary<(LevelCategory, RenderTier), RenderPen> _haloPenCache
             = new Dictionary<(LevelCategory, RenderTier), RenderPen>();
 
+        // Default font for level labels. Static because it's invariant in this
+        // commit — user customisation will land via a FontSetting wrapper in a
+        // later commit. RenderFont is the canonical OFT drawing primitive for
+        // fonts, same cross-flavor story as RenderPen.
+        private static readonly RenderFont LabelFont = new RenderFont("Arial", 10);
+
         // Halo opacity. 80/255 ≈ 31% — strong enough to read on dark themes,
         // soft enough that the main line is still the dominant visual.
         private const int HaloAlpha = 80;
@@ -765,6 +771,29 @@ namespace ATAS.Indicators.Technical
                 int y = ChartInfo.GetYByPrice(level.Price, false);
 
                 context.DrawLine(pen, 0, y, xRight, y);
+            }
+
+            // Pass 3 — labels, anchored to the right edge of the chart and
+            // sitting just above each line. Drawn last so they paint over both
+            // the halo and the main line, never the other way round.
+            for (int i = 0; i < _levels.Length; i++)
+            {
+                var level = _levels[i];
+
+                if (level.Price < visible.Low || level.Price > visible.High)
+                    continue;
+
+                var text = level.DisplayText;
+                if (string.IsNullOrEmpty(text))
+                    continue;
+
+                var color = DefaultColorFor(level.Winner.Category);
+                int y = ChartInfo.GetYByPrice(level.Price, false);
+
+                var textSize = context.MeasureString(text, LabelFont);
+                int x = xRight - textSize.Width - 5;
+
+                context.DrawString(text, LabelFont, color, x, y - textSize.Height - 3);
             }
         }
 
