@@ -433,6 +433,63 @@ namespace ATAS.Indicators.Technical
 
         #endregion
 
+        #region Nested types: settings
+
+        // Per-category style settings exposed as a single expandable row in
+        // the property panel. ExpandableObjectConverter is the cross-flavor
+        // safe equivalent of OHLCPlus's custom WPF editor — it gives the same
+        // "click to expand" UX without the UserControl dependency that breaks
+        // ATAS X. The class implements INotifyPropertyChanged so the
+        // indicator can subscribe to changes and invalidate caches / redraw
+        // without polling.
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        public sealed class CategoryStyle : INotifyPropertyChanged
+        {
+            private bool _isVisible;
+            private Color _color;
+
+            public event PropertyChangedEventHandler PropertyChanged;
+
+            // Required by ATAS serialisation (parameterless ctor).
+            public CategoryStyle() { }
+
+            public CategoryStyle(bool isVisible, Color color)
+            {
+                _isVisible = isVisible;
+                _color = color;
+            }
+
+            [Display(Name = "Visible", Order = 10)]
+            public bool IsVisible
+            {
+                get => _isVisible;
+                set
+                {
+                    if (_isVisible == value) return;
+                    _isVisible = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsVisible)));
+                }
+            }
+
+            [Display(Name = "Color", Order = 20)]
+            public Color Color
+            {
+                get => _color;
+                set
+                {
+                    if (_color == value) return;
+                    _color = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Color)));
+                }
+            }
+
+            // Collapsed-row label. Default ToString would show the full type
+            // name; this gives the user the visibility state at a glance.
+            public override string ToString() => _isVisible ? "Visible" : "Hidden";
+        }
+
+        #endregion
+
         #region Fields
 
         // Sources — plugins that emit ParsedEntry[]. Populated in EnsureSourcesInitialized.
@@ -508,24 +565,6 @@ namespace ATAS.Indicators.Technical
 
         // UI: Ticker override. When non-empty, takes precedence over InstrumentInfo.
         private string _tickerOverride = string.Empty;
-
-        // Visibility toggles — one per LevelCategory. Initialised to true so a
-        // fresh instance shows every category. Setters trigger a forced
-        // redraw rather than a recalculation, because visibility never
-        // changes the underlying _levels — it only changes what gets painted.
-        private bool _showGammaWall = true;
-        private bool _showCallResistance = true;
-        private bool _showPutSupport = true;
-        private bool _showHighVolatilityLevel = true;
-        private bool _showRiskTrigger = true;
-        private bool _showUpperBand = true;
-        private bool _showLowerBand = true;
-        private bool _showGammaExposure = true;
-        private bool _showBlindSpot = true;
-        private bool _showDayMax = true;
-        private bool _showDayMin = true;
-        private bool _showSwing = true;
-        private bool _showOther = true;
 
         #endregion
 
@@ -712,212 +751,113 @@ namespace ATAS.Indicators.Technical
 
         #endregion
 
-        #region Properties: Visibility
+        #region Properties: Levels
 
-        [Display(Name = "Gamma Wall", GroupName = "Visibility",
-            Description = "Show GW levels (the gamma magnet — price of max total gamma).",
-            Order = 200)]
-        public bool ShowGammaWall
-        {
-            get => _showGammaWall;
-            set
-            {
-                if (_showGammaWall == value) return;
-                _showGammaWall = value;
-                RedrawChart();
-            }
-        }
+        // Each row is a single expandable property. The Display attribute
+        // here governs the row label and ordering inside the "Levels" group;
+        // the inner CategoryStyle's [Display] attributes govern the sub-row
+        // labels (Visible, Color) when the row is expanded.
 
-        [Display(Name = "Call Resistance", GroupName = "Visibility",
-            Description = "Show CR levels (the call wall).",
-            Order = 201)]
-        public bool ShowCallResistance
-        {
-            get => _showCallResistance;
-            set
-            {
-                if (_showCallResistance == value) return;
-                _showCallResistance = value;
-                RedrawChart();
-            }
-        }
+        [Display(Name = "Gamma Wall", GroupName = "Levels", Order = 200,
+            Description = "Visibility and colour for GW lines, halos and labels.")]
+        public CategoryStyle GammaWall { get; }
 
-        [Display(Name = "Put Support", GroupName = "Visibility",
-            Description = "Show PS levels (the put wall).",
-            Order = 202)]
-        public bool ShowPutSupport
-        {
-            get => _showPutSupport;
-            set
-            {
-                if (_showPutSupport == value) return;
-                _showPutSupport = value;
-                RedrawChart();
-            }
-        }
+        [Display(Name = "Call Resistance", GroupName = "Levels", Order = 201,
+            Description = "Visibility and colour for CR lines, halos and labels.")]
+        public CategoryStyle CallResistance { get; }
 
-        [Display(Name = "High Volatility Level", GroupName = "Visibility",
-            Description = "Show HVL levels (the volatility pivot).",
-            Order = 203)]
-        public bool ShowHighVolatilityLevel
-        {
-            get => _showHighVolatilityLevel;
-            set
-            {
-                if (_showHighVolatilityLevel == value) return;
-                _showHighVolatilityLevel = value;
-                RedrawChart();
-            }
-        }
+        [Display(Name = "Put Support", GroupName = "Levels", Order = 202,
+            Description = "Visibility and colour for PS lines, halos and labels.")]
+        public CategoryStyle PutSupport { get; }
 
-        [Display(Name = "Risk Trigger", GroupName = "Visibility",
-            Description = "Show RT MM-DD levels (date-anchored risk triggers).",
-            Order = 204)]
-        public bool ShowRiskTrigger
-        {
-            get => _showRiskTrigger;
-            set
-            {
-                if (_showRiskTrigger == value) return;
-                _showRiskTrigger = value;
-                RedrawChart();
-            }
-        }
+        [Display(Name = "High Volatility Level", GroupName = "Levels", Order = 203,
+            Description = "Visibility and colour for HVL lines, halos and labels.")]
+        public CategoryStyle HighVolatilityLevel { get; }
 
-        [Display(Name = "Upper Band", GroupName = "Visibility",
-            Description = "Show UB MM-DD levels (date-anchored upper bands).",
-            Order = 205)]
-        public bool ShowUpperBand
-        {
-            get => _showUpperBand;
-            set
-            {
-                if (_showUpperBand == value) return;
-                _showUpperBand = value;
-                RedrawChart();
-            }
-        }
+        [Display(Name = "Risk Trigger", GroupName = "Levels", Order = 204,
+            Description = "Visibility and colour for RT lines, halos and labels.")]
+        public CategoryStyle RiskTrigger { get; }
 
-        [Display(Name = "Lower Band", GroupName = "Visibility",
-            Description = "Show LB MM-DD levels (date-anchored lower bands).",
-            Order = 206)]
-        public bool ShowLowerBand
-        {
-            get => _showLowerBand;
-            set
-            {
-                if (_showLowerBand == value) return;
-                _showLowerBand = value;
-                RedrawChart();
-            }
-        }
+        [Display(Name = "Upper Band", GroupName = "Levels", Order = 205,
+            Description = "Visibility and colour for UB lines, halos and labels.")]
+        public CategoryStyle UpperBand { get; }
 
-        [Display(Name = "Gamma Exposure", GroupName = "Visibility",
-            Description = "Show GEX N levels (ranked gamma exposure — rank 1 strongest).",
-            Order = 207)]
-        public bool ShowGammaExposure
-        {
-            get => _showGammaExposure;
-            set
-            {
-                if (_showGammaExposure == value) return;
-                _showGammaExposure = value;
-                RedrawChart();
-            }
-        }
+        [Display(Name = "Lower Band", GroupName = "Levels", Order = 206,
+            Description = "Visibility and colour for LB lines, halos and labels.")]
+        public CategoryStyle LowerBand { get; }
 
-        [Display(Name = "Blind Spot", GroupName = "Visibility",
-            Description = "Show BL N levels (ranked blind spots).",
-            Order = 208)]
-        public bool ShowBlindSpot
-        {
-            get => _showBlindSpot;
-            set
-            {
-                if (_showBlindSpot == value) return;
-                _showBlindSpot = value;
-                RedrawChart();
-            }
-        }
+        [Display(Name = "Gamma Exposure", GroupName = "Levels", Order = 207,
+            Description = "Visibility and colour for GEX N lines, halos and labels.")]
+        public CategoryStyle GammaExposure { get; }
 
-        [Display(Name = "Day Max", GroupName = "Visibility",
-            Description = "Show 1D Max levels (daily high).",
-            Order = 209)]
-        public bool ShowDayMax
-        {
-            get => _showDayMax;
-            set
-            {
-                if (_showDayMax == value) return;
-                _showDayMax = value;
-                RedrawChart();
-            }
-        }
+        [Display(Name = "Blind Spot", GroupName = "Levels", Order = 208,
+            Description = "Visibility and colour for BL N lines, halos and labels.")]
+        public CategoryStyle BlindSpot { get; }
 
-        [Display(Name = "Day Min", GroupName = "Visibility",
-            Description = "Show 1D Min levels (daily low).",
-            Order = 210)]
-        public bool ShowDayMin
-        {
-            get => _showDayMin;
-            set
-            {
-                if (_showDayMin == value) return;
-                _showDayMin = value;
-                RedrawChart();
-            }
-        }
+        [Display(Name = "Day Max", GroupName = "Levels", Order = 209,
+            Description = "Visibility and colour for 1D Max lines, halos and labels.")]
+        public CategoryStyle DayMax { get; }
 
-        [Display(Name = "Swing", GroupName = "Visibility",
-            Description = "Show generic swing levels not matching UB / LB / RT.",
-            Order = 211)]
-        public bool ShowSwing
-        {
-            get => _showSwing;
-            set
-            {
-                if (_showSwing == value) return;
-                _showSwing = value;
-                RedrawChart();
-            }
-        }
+        [Display(Name = "Day Min", GroupName = "Levels", Order = 210,
+            Description = "Visibility and colour for 1D Min lines, halos and labels.")]
+        public CategoryStyle DayMin { get; }
 
-        [Display(Name = "Other", GroupName = "Visibility",
-            Description = "Show fallback / unrecognised labels.",
-            Order = 212)]
-        public bool ShowOther
-        {
-            get => _showOther;
-            set
-            {
-                if (_showOther == value) return;
-                _showOther = value;
-                RedrawChart();
-            }
-        }
+        [Display(Name = "Swing", GroupName = "Levels", Order = 211,
+            Description = "Visibility and colour for Swing lines, halos and labels.")]
+        public CategoryStyle Swing { get; }
+
+        [Display(Name = "Other", GroupName = "Levels", Order = 212,
+            Description = "Visibility and colour for fallback / unrecognised labels.")]
+        public CategoryStyle Other { get; }
 
         #endregion
 
-        #region Ctor
+        #region ctor
 
         public MenthorQLevels()
             : base(useCandles: true)
         {
-            // Canonical overlay-indicator setup. DenyToChangePanel keeps the
-            // indicator anchored to the price chart (it has no meaningful
-            // sub-panel rendering). DrawAbovePrice ensures lines paint on top
-            // of candles, which matches the user expectation for support /
-            // resistance levels — they should be visible at all times, not
-            // covered by a wick.
             DenyToChangePanel = true;
             DrawAbovePrice = true;
             EnableCustomDrawing = true;
             SubscribeToDrawingEvents(DrawingLayouts.Final);
 
             _api = new MqApi(_apiKey);
+
+            // Initialise the 13 styles with their default colour and Visible=true,
+            // then wire each one to OnStyleChanged so any sub-field edit
+            // propagates to the rendering layer without polling.
+            GammaWall = NewStyle(LevelCategory.GammaWall);
+            CallResistance = NewStyle(LevelCategory.CallResistance);
+            PutSupport = NewStyle(LevelCategory.PutSupport);
+            HighVolatilityLevel = NewStyle(LevelCategory.HighVolatilityLevel);
+            RiskTrigger = NewStyle(LevelCategory.RiskTrigger);
+            UpperBand = NewStyle(LevelCategory.UpperBand);
+            LowerBand = NewStyle(LevelCategory.LowerBand);
+            GammaExposure = NewStyle(LevelCategory.GammaExposure);
+            BlindSpot = NewStyle(LevelCategory.BlindSpot);
+            DayMax = NewStyle(LevelCategory.DayMax);
+            DayMin = NewStyle(LevelCategory.DayMin);
+            Swing = NewStyle(LevelCategory.Swing);
+            Other = NewStyle(LevelCategory.Other);
         }
 
-        #endregion
+        private CategoryStyle NewStyle(LevelCategory c)
+        {
+            var s = new CategoryStyle(isVisible: true, color: DefaultColorFor(c));
+            s.PropertyChanged += OnStyleChanged;
+            return s;
+        }
+
+        private void OnStyleChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(CategoryStyle.Color))
+                InvalidatePenCaches();
+
+            RedrawChart();
+        }
+
+#endregion
 
         #region Overrides
 
@@ -997,7 +937,7 @@ namespace ATAS.Indicators.Technical
                 if (string.IsNullOrEmpty(text))
                     continue;
 
-                var color = DefaultColorFor(level.Winner.Category);
+                var color = GetColorFor(level.Winner.Category);
                 int y = ChartInfo.GetYByPrice(level.Price, false);
 
                 var textSize = context.MeasureString(text, LabelFont);
@@ -1636,7 +1576,7 @@ namespace ATAS.Indicators.Technical
             if (_penCache.TryGetValue(key, out var pen))
                 return pen;
 
-            var color = DefaultColorFor(category);
+            var color = GetColorFor(category);
             var width = DefaultWidthFor(tier);
 
             pen = new RenderPen(color, width);
@@ -1650,7 +1590,7 @@ namespace ATAS.Indicators.Technical
             if (_haloPenCache.TryGetValue(key, out var pen))
                 return pen;
 
-            var baseColor = DefaultColorFor(category);
+            var baseColor = GetColorFor(category);
             var haloColor = Color.FromArgb(HaloAlpha, baseColor.R, baseColor.G, baseColor.B);
             var haloWidth = DefaultHaloWidthFor(tier);
 
@@ -1733,25 +1673,43 @@ namespace ATAS.Indicators.Technical
             _ => 1.0f
         };
 
-        // Visibility lookup — one branch per LevelCategory. Used by all three
-        // OnRender passes to skip levels whose winner category is hidden.
-        private bool IsCategoryVisible(LevelCategory c) => c switch
+        // Single switch instead of two parallel ones — the StyleFor lookup is
+        // the authoritative mapping from LevelCategory to its UI-bound style
+        // object.
+        private CategoryStyle StyleFor(LevelCategory c) => c switch
         {
-            LevelCategory.GammaWall => _showGammaWall,
-            LevelCategory.CallResistance => _showCallResistance,
-            LevelCategory.PutSupport => _showPutSupport,
-            LevelCategory.HighVolatilityLevel => _showHighVolatilityLevel,
-            LevelCategory.RiskTrigger => _showRiskTrigger,
-            LevelCategory.UpperBand => _showUpperBand,
-            LevelCategory.LowerBand => _showLowerBand,
-            LevelCategory.GammaExposure => _showGammaExposure,
-            LevelCategory.BlindSpot => _showBlindSpot,
-            LevelCategory.DayMax => _showDayMax,
-            LevelCategory.DayMin => _showDayMin,
-            LevelCategory.Swing => _showSwing,
-            LevelCategory.Other => _showOther,
-            _ => true
+            LevelCategory.GammaWall => GammaWall,
+            LevelCategory.CallResistance => CallResistance,
+            LevelCategory.PutSupport => PutSupport,
+            LevelCategory.HighVolatilityLevel => HighVolatilityLevel,
+            LevelCategory.RiskTrigger => RiskTrigger,
+            LevelCategory.UpperBand => UpperBand,
+            LevelCategory.LowerBand => LowerBand,
+            LevelCategory.GammaExposure => GammaExposure,
+            LevelCategory.BlindSpot => BlindSpot,
+            LevelCategory.DayMax => DayMax,
+            LevelCategory.DayMin => DayMin,
+            LevelCategory.Swing => Swing,
+            LevelCategory.Other => Other,
+            _ => null
         };
+
+        private bool IsCategoryVisible(LevelCategory c)
+            => StyleFor(c)?.IsVisible ?? true;
+
+        private Color GetColorFor(LevelCategory c)
+            => StyleFor(c)?.Color ?? Color.Gray;
+
+        // Drop both pen caches so the next OnRender rebuilds them with the
+        // fresh palette. Called from every Color setter. Race window with
+        // OnRender is bounded by a single dictionary clear; the worst case
+        // is one transient frame with a stale pen, which is invisible at
+        // 60fps.
+        private void InvalidatePenCaches()
+        {
+            _penCache.Clear();
+            _haloPenCache.Clear();
+        }
 
         #endregion
     }
