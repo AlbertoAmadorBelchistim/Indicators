@@ -10,6 +10,7 @@ using System.Linq;
 
 using ATAS.Indicators.Drawing;
 using ATAS.Indicators.Technical.Extensions;
+using ATAS.Indicators.Technical.Properties;
 
 using OFT.Attributes;
 using OFT.Localization;
@@ -727,16 +728,16 @@ public class ClusterStatistic : Indicator
     #region Delta Per Volume Alert
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.Enabled), GroupName = nameof(Strings.DeltaPerVolumeAlert), Description = nameof(Strings.UseAlertDescription), Order = 800, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.Enabled), GroupName = nameof(FallbackResources.DeltaPerVolumeAlert), Description = nameof(FallbackResources.UseAlertDescription), Order = 800, ResourceType = typeof(FallbackResources))]
     public bool UseDeltaPerVolumeAlert { get; set; }
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.Filter), GroupName = nameof(Strings.DeltaPerVolumeAlert), Description = nameof(Strings.AlertFilterDescription), Order = 810, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.Filter), GroupName = nameof(FallbackResources.DeltaPerVolumeAlert), Description = nameof(FallbackResources.AlertFilterDescription), Order = 810, ResourceType = typeof(FallbackResources))]
     [Range(0, 100)]
     public decimal DeltaPerVolumeAlertValue { get; set; }
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.DeltaPerVolumeAlert), Description = nameof(Strings.AlertFileDescription), Order = 820, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.AlertFile), GroupName = nameof(FallbackResources.DeltaPerVolumeAlert), Description = nameof(FallbackResources.AlertFileDescription), Order = 820, ResourceType = typeof(FallbackResources))]
     public string DeltaPerVolumeAlertFile { get; set; } = "alert1";
 
     #endregion
@@ -744,15 +745,15 @@ public class ClusterStatistic : Indicator
     #region Session Delta Alert
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.Enabled), GroupName = nameof(Strings.SessionDeltaAlert), Description = nameof(Strings.UseAlertDescription), Order = 900, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.Enabled), GroupName = nameof(FallbackResources.SessionDeltaAlert), Description = nameof(FallbackResources.UseAlertDescription), Order = 900, ResourceType = typeof(FallbackResources))]
     public bool UseSessionDeltaAlert { get; set; }
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.Filter), GroupName = nameof(Strings.SessionDeltaAlert), Description = nameof(Strings.AlertFilterDescription), Order = 910, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.Filter), GroupName = nameof(FallbackResources.SessionDeltaAlert), Description = nameof(FallbackResources.AlertFilterDescription), Order = 910, ResourceType = typeof(FallbackResources))]
     public decimal SessionDeltaAlertValue { get; set; }
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.SessionDeltaAlert), Description = nameof(Strings.AlertFileDescription), Order = 920, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.AlertFile), GroupName = nameof(FallbackResources.SessionDeltaAlert), Description = nameof(FallbackResources.AlertFileDescription), Order = 920, ResourceType = typeof(FallbackResources))]
     public string SessionDeltaAlertFile { get; set; } = "alert1";
 
     #endregion
@@ -760,15 +761,15 @@ public class ClusterStatistic : Indicator
     #region Session Delta Per Volume Alert
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.Enabled), GroupName = nameof(Strings.SessionDeltaPerVolumeAlert), Description = nameof(Strings.UseAlertDescription), Order = 1000, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.Enabled), GroupName = nameof(FallbackResources.SessionDeltaPerVolumeAlert), Description = nameof(FallbackResources.UseAlertDescription), Order = 1000, ResourceType = typeof(FallbackResources))]
     public bool UseSessionDeltaPerVolumeAlert { get; set; }
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.Filter), GroupName = nameof(Strings.SessionDeltaPerVolumeAlert), Description = nameof(Strings.AlertFilterDescription), Order = 1010, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.Filter), GroupName = nameof(FallbackResources.SessionDeltaPerVolumeAlert), Description = nameof(FallbackResources.AlertFilterDescription), Order = 1010, ResourceType = typeof(FallbackResources))]
     public decimal SessionDeltaPerVolumeAlertValue { get; set; }
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.SessionDeltaPerVolumeAlert), Description = nameof(Strings.AlertFileDescription), Order = 1020, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.AlertFile), GroupName = nameof(FallbackResources.SessionDeltaPerVolumeAlert), Description = nameof(FallbackResources.AlertFileDescription), Order = 1020, ResourceType = typeof(FallbackResources))]
     public string SessionDeltaPerVolumeAlertFile { get; set; } = "alert1";
 
     #endregion
@@ -776,15 +777,15 @@ public class ClusterStatistic : Indicator
     #region Max Delta Alert
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.Enabled), GroupName = nameof(Strings.MaxDeltaAlert), Description = nameof(Strings.UseAlertDescription), Order = 1100, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.Enabled), GroupName = nameof(FallbackResources.MaxDeltaAlert), Description = nameof(FallbackResources.UseAlertDescription), Order = 1100, ResourceType = typeof(FallbackResources))]
     public bool UseMaxDeltaAlert { get; set; }
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.Filter), GroupName = nameof(Strings.MaxDeltaAlert), Description = nameof(Strings.AlertFilterDescription), Order = 1110, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.Filter), GroupName = nameof(FallbackResources.MaxDeltaAlert), Description = nameof(FallbackResources.AlertFilterDescription), Order = 1110, ResourceType = typeof(FallbackResources))]
     public decimal MaxDeltaAlertValue { get; set; }
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.MaxDeltaAlert), Description = nameof(Strings.AlertFileDescription), Order = 1120, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.AlertFile), GroupName = nameof(FallbackResources.MaxDeltaAlert), Description = nameof(FallbackResources.AlertFileDescription), Order = 1120, ResourceType = typeof(FallbackResources))]
     public string MaxDeltaAlertFile { get; set; } = "alert1";
 
     #endregion
@@ -792,15 +793,15 @@ public class ClusterStatistic : Indicator
     #region Min Delta Alert
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.Enabled), GroupName = nameof(Strings.MinDeltaAlert), Description = nameof(Strings.UseAlertDescription), Order = 1200, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.Enabled), GroupName = nameof(FallbackResources.MinDeltaAlert), Description = nameof(FallbackResources.UseAlertDescription), Order = 1200, ResourceType = typeof(FallbackResources))]
     public bool UseMinDeltaAlert { get; set; }
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.Filter), GroupName = nameof(Strings.MinDeltaAlert), Description = nameof(Strings.AlertFilterDescription), Order = 1210, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.Filter), GroupName = nameof(FallbackResources.MinDeltaAlert), Description = nameof(FallbackResources.AlertFilterDescription), Order = 1210, ResourceType = typeof(FallbackResources))]
     public decimal MinDeltaAlertValue { get; set; }
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.MinDeltaAlert), Description = nameof(Strings.AlertFileDescription), Order = 1220, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.AlertFile), GroupName = nameof(FallbackResources.MinDeltaAlert), Description = nameof(FallbackResources.AlertFileDescription), Order = 1220, ResourceType = typeof(FallbackResources))]
     public string MinDeltaAlertFile { get; set; } = "alert1";
 
     #endregion
@@ -808,15 +809,15 @@ public class ClusterStatistic : Indicator
     #region Delta Change Alert
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.Enabled), GroupName = nameof(Strings.DeltaChangeAlert), Description = nameof(Strings.UseAlertDescription), Order = 1300, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.Enabled), GroupName = nameof(FallbackResources.DeltaChangeAlert), Description = nameof(FallbackResources.UseAlertDescription), Order = 1300, ResourceType = typeof(FallbackResources))]
     public bool UseDeltaChangeAlert { get; set; }
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.Filter), GroupName = nameof(Strings.DeltaChangeAlert), Description = nameof(Strings.AlertFilterDescription), Order = 1310, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.Filter), GroupName = nameof(FallbackResources.DeltaChangeAlert), Description = nameof(FallbackResources.AlertFilterDescription), Order = 1310, ResourceType = typeof(FallbackResources))]
     public decimal DeltaChangeAlertValue { get; set; }
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.DeltaChangeAlert), Description = nameof(Strings.AlertFileDescription), Order = 1320, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.AlertFile), GroupName = nameof(FallbackResources.DeltaChangeAlert), Description = nameof(FallbackResources.AlertFileDescription), Order = 1320, ResourceType = typeof(FallbackResources))]
     public string DeltaChangeAlertFile { get; set; } = "alert1";
 
     #endregion
@@ -824,16 +825,16 @@ public class ClusterStatistic : Indicator
     #region Volume Per Second Alert
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.Enabled), GroupName = nameof(Strings.VolumePerSecondAlert), Description = nameof(Strings.UseAlertDescription), Order = 1400, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.Enabled), GroupName = nameof(FallbackResources.VolumePerSecondAlert), Description = nameof(FallbackResources.UseAlertDescription), Order = 1400, ResourceType = typeof(FallbackResources))]
     public bool UseVolumePerSecondAlert { get; set; }
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.Filter), GroupName = nameof(Strings.VolumePerSecondAlert), Description = nameof(Strings.AlertFilterDescription), Order = 1410, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.Filter), GroupName = nameof(FallbackResources.VolumePerSecondAlert), Description = nameof(FallbackResources.AlertFilterDescription), Order = 1410, ResourceType = typeof(FallbackResources))]
     [Range(0, int.MaxValue)]
     public decimal VolumePerSecondAlertValue { get; set; }
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.VolumePerSecondAlert), Description = nameof(Strings.AlertFileDescription), Order = 1420, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.AlertFile), GroupName = nameof(FallbackResources.VolumePerSecondAlert), Description = nameof(FallbackResources.AlertFileDescription), Order = 1420, ResourceType = typeof(FallbackResources))]
     public string VolumePerSecondAlertFile { get; set; } = "alert1";
 
     #endregion
@@ -841,16 +842,16 @@ public class ClusterStatistic : Indicator
     #region Session Volume Alert
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.Enabled), GroupName = nameof(Strings.SessionVolumeAlert), Description = nameof(Strings.UseAlertDescription), Order = 1500, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.Enabled), GroupName = nameof(FallbackResources.SessionVolumeAlert), Description = nameof(FallbackResources.UseAlertDescription), Order = 1500, ResourceType = typeof(FallbackResources))]
     public bool UseSessionVolumeAlert { get; set; }
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.Filter), GroupName = nameof(Strings.SessionVolumeAlert), Description = nameof(Strings.AlertFilterDescription), Order = 1510, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.Filter), GroupName = nameof(FallbackResources.SessionVolumeAlert), Description = nameof(FallbackResources.AlertFilterDescription), Order = 1510, ResourceType = typeof(FallbackResources))]
     [Range(0, int.MaxValue)]
     public decimal SessionVolumeAlertValue { get; set; }
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.SessionVolumeAlert), Description = nameof(Strings.AlertFileDescription), Order = 1520, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.AlertFile), GroupName = nameof(FallbackResources.SessionVolumeAlert), Description = nameof(FallbackResources.AlertFileDescription), Order = 1520, ResourceType = typeof(FallbackResources))]
     public string SessionVolumeAlertFile { get; set; } = "alert1";
 
     #endregion
@@ -858,16 +859,16 @@ public class ClusterStatistic : Indicator
     #region Trades Alert
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.Enabled), GroupName = nameof(Strings.TradesAlert), Description = nameof(Strings.UseAlertDescription), Order = 1600, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.Enabled), GroupName = nameof(FallbackResources.TradesAlert), Description = nameof(FallbackResources.UseAlertDescription), Order = 1600, ResourceType = typeof(FallbackResources))]
     public bool UseTradesAlert { get; set; }
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.Filter), GroupName = nameof(Strings.TradesAlert), Description = nameof(Strings.AlertFilterDescription), Order = 1610, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.Filter), GroupName = nameof(FallbackResources.TradesAlert), Description = nameof(FallbackResources.AlertFilterDescription), Order = 1610, ResourceType = typeof(FallbackResources))]
     [Range(0, int.MaxValue)]
     public decimal TradesAlertValue { get; set; }
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.TradesAlert), Description = nameof(Strings.AlertFileDescription), Order = 1620, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.AlertFile), GroupName = nameof(FallbackResources.TradesAlert), Description = nameof(FallbackResources.AlertFileDescription), Order = 1620, ResourceType = typeof(FallbackResources))]
     public string TradesAlertFile { get; set; } = "alert1";
 
     #endregion
@@ -875,16 +876,16 @@ public class ClusterStatistic : Indicator
     #region Height Alert
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.Enabled), GroupName = nameof(Strings.HeightAlert), Description = nameof(Strings.UseAlertDescription), Order = 1700, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.Enabled), GroupName = nameof(FallbackResources.HeightAlert), Description = nameof(FallbackResources.UseAlertDescription), Order = 1700, ResourceType = typeof(FallbackResources))]
     public bool UseHeightAlert { get; set; }
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.Filter), GroupName = nameof(Strings.HeightAlert), Description = nameof(Strings.AlertFilterDescription), Order = 1710, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.Filter), GroupName = nameof(FallbackResources.HeightAlert), Description = nameof(FallbackResources.AlertFilterDescription), Order = 1710, ResourceType = typeof(FallbackResources))]
     [Range(0, int.MaxValue)]
     public decimal HeightAlertValue { get; set; }
 
     [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
-    [Display(Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.HeightAlert), Description = nameof(Strings.AlertFileDescription), Order = 1720, ResourceType = typeof(Strings))]
+    [Display(Name = nameof(FallbackResources.AlertFile), GroupName = nameof(FallbackResources.HeightAlert), Description = nameof(FallbackResources.AlertFileDescription), Order = 1720, ResourceType = typeof(FallbackResources))]
     public string HeightAlertFile { get; set; } = "alert1";
 
     #endregion

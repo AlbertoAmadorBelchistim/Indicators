@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Linq;
 using ATAS.DataFeedsCore;
 using ATAS.DataFeedsCore.Statistics;
+using ATAS.Indicators.Technical.Properties;
 using OFT.Attributes;
 using OFT.Localization;
 using OFT.Rendering.Context;
@@ -93,13 +94,13 @@ public class TradesOnChart : Indicator
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowLines), Description = nameof(Strings.IsNeedShowLinesDescription), GroupName = nameof(Strings.Visualization))]
     public bool ShowLine { get; set; } = true;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDescription), Description = nameof(Strings.ShowTradeTooltipDescription), GroupName = nameof(Strings.Visualization))]
+    [Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.ShowDescription), Description = nameof(FallbackResources.ShowTradeTooltipDescription), GroupName = nameof(FallbackResources.Visualization))]
     public bool ShowTooltip { get; set; } = true;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LabelDisplay), Description = nameof(Strings.LabelDisplayDescription), GroupName = nameof(Strings.Visualization))]
+    [Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.LabelDisplay), Description = nameof(FallbackResources.LabelDisplayDescription), GroupName = nameof(FallbackResources.Visualization))]
     public LabelDisplayMode LabelDisplay { get; set; } = LabelDisplayMode.Hide;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BuyColor), Description = nameof(Strings.BuyTradeLineColorDescription), GroupName = nameof(Strings.Visualization))]
+    [Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.BuyColor), Description = nameof(FallbackResources.BuyTradeLineColorDescription), GroupName = nameof(FallbackResources.Visualization))]
     public Color BuyColor 
     {
         get => _buyColor;
@@ -110,7 +111,7 @@ public class TradesOnChart : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.SellColor), Description = nameof(Strings.SellTradeLineColorDescription), GroupName = nameof(Strings.Visualization))]
+    [Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.SellColor), Description = nameof(FallbackResources.SellTradeLineColorDescription), GroupName = nameof(FallbackResources.Visualization))]
     public Color SellColor
     {
         get => _sellColor;
@@ -121,14 +122,14 @@ public class TradesOnChart : Indicator
         }
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ProfitColor), Description = nameof(Strings.ProfitTradeResultColorDescription), GroupName = nameof(Strings.Visualization))]
+    [Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.ProfitColor), Description = nameof(FallbackResources.ProfitTradeResultColorDescription), GroupName = nameof(FallbackResources.Visualization))]
     public Color ProfitColor
     {
         get => _profitColor;
         set => _profitColor = value;
     }
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LossColor), Description = nameof(Strings.LossTradeResultColorDescription), GroupName = nameof(Strings.Visualization))]
+    [Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.LossColor), Description = nameof(FallbackResources.LossTradeResultColorDescription), GroupName = nameof(FallbackResources.Visualization))]
     public Color LossColor
     {
         get => _lossColor;
@@ -512,7 +513,7 @@ public class TradesOnChart : Indicator
 
     #endregion
 
-    #endregion
+#endregion
 
     #region Private Methods
 
