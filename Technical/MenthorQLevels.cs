@@ -1,9 +1,11 @@
 ﻿using ATAS.Indicators;
 using OFT.Rendering.Context;
+using OFT.Rendering.Tools;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -116,6 +118,13 @@ namespace ATAS.Indicators.Technical
                 Winner = winner;
                 DisplayText = displayText ?? string.Empty;
             }
+        }
+
+        internal enum RenderTier
+        {
+            Thick = 0,   // flagship walls (GW, CR, PS, HVL)
+            Medium = 1,  // date-anchored bands/triggers, top-rank GEX/BL
+            Thin = 2     // everything weaker
         }
 
         #endregion
@@ -454,6 +463,14 @@ namespace ATAS.Indicators.Technical
         // a pre-built display text. Consumed by OnRender in a later commit.
         private Level[] _levels = Array.Empty<Level>();
 
+        // Render pen cache, keyed by (category, tier). Uses RenderPen — the
+        // canonical OFT drawing primitive — rather than System.Drawing.Pen,
+        // which would still work via ATAS X auto-conversion but is not the
+        // idiomatic choice in the SDK. Worst-case size is the cartesian
+        // product (categories × tiers), ~39 entries.
+        private readonly Dictionary<(LevelCategory, RenderTier), RenderPen> _penCache
+            = new Dictionary<(LevelCategory, RenderTier), RenderPen>();
+
         // Dirty flag — set by setters, consumed by RebuildParsedEntriesIfNeeded.
         private bool _dataDirty = true;
 
@@ -664,11 +681,17 @@ namespace ATAS.Indicators.Technical
         public MenthorQLevels()
             : base(useCandles: true)
         {
+            // Canonical overlay-indicator setup. DenyToChangePanel keeps the
+            // indicator anchored to the price chart (it has no meaningful
+            // sub-panel rendering). DrawAbovePrice ensures lines paint on top
+            // of candles, which matches the user expectation for support /
+            // resistance levels — they should be visible at all times, not
+            // covered by a wick.
+            DenyToChangePanel = true;
+            DrawAbovePrice = true;
             EnableCustomDrawing = true;
             SubscribeToDrawingEvents(DrawingLayouts.Final);
 
-            // Construct with the (likely empty) default key so later code can
-            // call _api without null checks. The setter rebuilds it on change.
             _api = new MqApi(_apiKey);
         }
 
@@ -686,7 +709,35 @@ namespace ATAS.Indicators.Technical
 
         protected override void OnRender(RenderContext context, DrawingLayouts layout)
         {
-            // Shell: no drawing yet.
+            if (_levels == null || _levels.Length == 0)
+                return;
+
+            if (ChartInfo == null)
+                return;
+
+            var visible = ChartInfo.PriceChartContainer;
+            if (visible == null)
+                return;
+
+            int xRight = Container.Region.Right;
+
+            for (int i = 0; i < _levels.Length; i++)
+            {
+                var level = _levels[i];
+
+                // Vertical culling. Cheaper than letting DrawLine clip — the
+                // price-range check is two decimal comparisons per level, vs a
+                // pixel-space transform plus a clip test inside DrawLine.
+                if (level.Price < visible.Low || level.Price > visible.High)
+                    continue;
+
+                var winner = level.Winner;
+                var tier = ClassifyTier(winner);
+                var pen = GetPen(winner.Category, tier);
+                int y = ChartInfo.GetYByPrice(level.Price, false);
+
+                context.DrawLine(pen, 0, y, xRight, y);
+            }
         }
 
         #endregion
@@ -1306,6 +1357,85 @@ namespace ATAS.Indicators.Technical
             LevelCategory.Swing => 20,
             LevelCategory.Other => 10,
             _ => 0
+        };
+
+        #endregion
+
+        #region Private methods: rendering
+
+        private RenderPen GetPen(LevelCategory category, RenderTier tier)
+        {
+            var key = (category, tier);
+            if (_penCache.TryGetValue(key, out var pen))
+                return pen;
+
+            var color = DefaultColorFor(category);
+            var width = DefaultWidthFor(tier);
+
+            pen = new RenderPen(color, width);
+            _penCache[key] = pen;
+            return pen;
+        }
+
+        // Map a Level (via its Winner) to a render tier. Tier drives line
+        // thickness; later commits will let it influence opacity and dash too.
+        private static RenderTier ClassifyTier(LevelLabel winner)
+        {
+            switch (winner.Category)
+            {
+                case LevelCategory.GammaWall:
+                case LevelCategory.CallResistance:
+                case LevelCategory.PutSupport:
+                case LevelCategory.HighVolatilityLevel:
+                    return RenderTier.Thick;
+
+                case LevelCategory.RiskTrigger:
+                case LevelCategory.UpperBand:
+                case LevelCategory.LowerBand:
+                    return RenderTier.Medium;
+
+                case LevelCategory.GammaExposure:
+                case LevelCategory.BlindSpot:
+                    // Top-2 ranks of GEX/BL are still meaningful walls; lower
+                    // ranks fade into the noise floor.
+                    return winner.Rank <= 2 ? RenderTier.Medium : RenderTier.Thin;
+
+                case LevelCategory.DayMin:
+                case LevelCategory.DayMax:
+                case LevelCategory.Swing:
+                case LevelCategory.Other:
+                default:
+                    return RenderTier.Thin;
+            }
+        }
+
+        // Default palette. Tuned for visibility on both light and dark themes
+        // without going overboard on saturation. Per-category overrides will
+        // land in the user-customisation commit.
+        private static Color DefaultColorFor(LevelCategory c) => c switch
+        {
+            LevelCategory.GammaWall => Color.Gold,
+            LevelCategory.CallResistance => Color.OrangeRed,
+            LevelCategory.PutSupport => Color.LimeGreen,
+            LevelCategory.HighVolatilityLevel => Color.Cyan,
+            LevelCategory.RiskTrigger => Color.Magenta,
+            LevelCategory.UpperBand => Color.DodgerBlue,
+            LevelCategory.LowerBand => Color.MediumSeaGreen,
+            LevelCategory.GammaExposure => Color.Goldenrod,
+            LevelCategory.BlindSpot => Color.LightGray,
+            LevelCategory.DayMax => Color.Salmon,
+            LevelCategory.DayMin => Color.LightGreen,
+            LevelCategory.Swing => Color.MediumPurple,
+            LevelCategory.Other => Color.White,
+            _ => Color.Gray
+        };
+
+        private static float DefaultWidthFor(RenderTier t) => t switch
+        {
+            RenderTier.Thick => 2.5f,
+            RenderTier.Medium => 1.5f,
+            RenderTier.Thin => 1.0f,
+            _ => 1.0f
         };
 
         #endregion
