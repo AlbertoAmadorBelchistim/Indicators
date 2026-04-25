@@ -449,6 +449,11 @@ namespace ATAS.Indicators.Technical
         // Union of all enabled sources. Consumed by the engine in a later commit.
         private ParsedEntry[] _parsedEntries = Array.Empty<ParsedEntry>();
 
+        // Final consumable output of the engine: one Level per unique price,
+        // with deduplicated labels, a winner that drives the visual style, and
+        // a pre-built display text. Consumed by OnRender in a later commit.
+        private Level[] _levels = Array.Empty<Level>();
+
         // Dirty flag — set by setters, consumed by RebuildParsedEntriesIfNeeded.
         private bool _dataDirty = true;
 
@@ -673,7 +678,7 @@ namespace ATAS.Indicators.Technical
 
         protected override void OnCalculate(int bar, decimal value)
         {
-            RebuildParsedEntriesIfNeeded();
+            RebuildLevelsIfNeeded();
 
             // Shell: _parsedEntries is populated but nothing consumes it yet.
             // Engine (dedup within source) lands in a later commit, followed by the renderer.
@@ -707,7 +712,7 @@ namespace ATAS.Indicators.Technical
             _sourcesInitialized = true;
         }
 
-        private void RebuildParsedEntriesIfNeeded()
+        private void RebuildLevelsIfNeeded()
         {
             if (!_dataDirty)
                 return;
@@ -734,6 +739,7 @@ namespace ATAS.Indicators.Technical
             }
 
             _parsedEntries = winnerEntries;
+            _levels = BuildLevels(_parsedEntries);
 
             for (int w = 0; w < winnerWarnings.Length; w++)
                 this.LogWarn($"[{winner?.SourceId ?? "none"}] {winnerWarnings[w]}");
@@ -743,7 +749,8 @@ namespace ATAS.Indicators.Technical
             if (winner != null)
             {
                 this.LogInfo($"MenthorQLevels: rebuilt {_parsedEntries.Length} entries " +
-                             $"from {winner.SourceId} ({winnerWarnings.Length} warnings)");
+                             $"→ {_levels.Length} levels from {winner.SourceId} " +
+                             $"({winnerWarnings.Length} warnings)");
             }
             else
             {
@@ -1146,6 +1153,160 @@ namespace ATAS.Indicators.Technical
         private static bool IsIntradayBlock(LevelType type)
             => type == LevelType.gamma_levels_intraday
             || type == LevelType.gamma_scalping_intraday;
+
+        #endregion
+
+        #region Private methods: engine
+
+        private static Level[] BuildLevels(ParsedEntry[] entries)
+        {
+            if (entries == null || entries.Length == 0)
+                return Array.Empty<Level>();
+
+            // Group by exact decimal price. Source-level rounding (API double →
+            // decimal cast) was applied at parse time, so we trust equality here.
+            var byPrice = new Dictionary<decimal, List<LevelLabel>>(entries.Length);
+
+            for (int i = 0; i < entries.Length; i++)
+            {
+                var e = entries[i];
+                if (e.Labels == null || e.Labels.Length == 0)
+                    continue;
+
+                if (!byPrice.TryGetValue(e.Price, out var bucket))
+                {
+                    bucket = new List<LevelLabel>(2);
+                    byPrice[e.Price] = bucket;
+                }
+
+                for (int k = 0; k < e.Labels.Length; k++)
+                    bucket.Add(e.Labels[k]);
+            }
+
+            if (byPrice.Count == 0)
+                return Array.Empty<Level>();
+
+            var result = new Level[byPrice.Count];
+            int idx = 0;
+
+            foreach (var kv in byPrice)
+            {
+                var price = kv.Key;
+                var deduped = DedupLabels(kv.Value);
+                var winner = PickWinner(deduped);
+                var displayText = BuildDisplayText(deduped, winner);
+
+                result[idx++] = new Level(price, deduped, winner, displayText);
+            }
+
+            return result;
+        }
+
+        // Dedup by the (Category, Rank, Is0Dte) tuple. Two labels that differ
+        // only in RawLabel or DisplayLabel collapse into one — the parser
+        // canonicalises display text, so any leftover difference is cosmetic.
+        private static LevelLabel[] DedupLabels(List<LevelLabel> labels)
+        {
+            if (labels == null || labels.Count == 0)
+                return Array.Empty<LevelLabel>();
+            if (labels.Count == 1)
+                return new[] { labels[0] };
+
+            var seen = new HashSet<(LevelCategory, int, bool)>();
+            var keep = new List<LevelLabel>(labels.Count);
+
+            for (int i = 0; i < labels.Count; i++)
+            {
+                var l = labels[i];
+                var key = (l.Category, l.Rank, l.Is0Dte);
+                if (seen.Add(key))
+                    keep.Add(l);
+            }
+
+            return keep.ToArray();
+        }
+
+        // Pick the label that drives the visual style. Three tie-breakers,
+        // in order: higher CategoryPriority wins; if equal, 0DTE wins over
+        // non-0DTE; if equal, lower Rank wins (rank 1 beats rank 5 in
+        // GEX/BL families, and flagship rank 0 beats numbered ranks within
+        // its family).
+        private static LevelLabel PickWinner(LevelLabel[] labels)
+        {
+            if (labels == null || labels.Length == 0)
+                return default;
+
+            var best = labels[0];
+            var bestPri = CategoryPriority(best.Category);
+
+            for (int i = 1; i < labels.Length; i++)
+            {
+                var cand = labels[i];
+                var candPri = CategoryPriority(cand.Category);
+
+                if (candPri > bestPri) { best = cand; bestPri = candPri; continue; }
+                if (candPri < bestPri) continue;
+
+                if (cand.Is0Dte && !best.Is0Dte) { best = cand; continue; }
+                if (!cand.Is0Dte && best.Is0Dte) continue;
+
+                if (cand.Rank < best.Rank) { best = cand; continue; }
+            }
+
+            return best;
+        }
+
+        // Concatenate distinct DisplayLabel values with " / ", winner first.
+        // Inputs are assumed deduped, so the equality check below is structural,
+        // not semantic.
+        private static string BuildDisplayText(LevelLabel[] labels, LevelLabel winner)
+        {
+            if (labels == null || labels.Length == 0)
+                return string.Empty;
+            if (labels.Length == 1)
+                return labels[0].DisplayLabel ?? string.Empty;
+
+            var sb = new StringBuilder(labels.Length * 8);
+            sb.Append(winner.DisplayLabel ?? string.Empty);
+
+            for (int i = 0; i < labels.Length; i++)
+            {
+                var l = labels[i];
+                if (l.Category == winner.Category
+                    && l.Rank == winner.Rank
+                    && l.Is0Dte == winner.Is0Dte)
+                    continue;
+
+                sb.Append(" / ");
+                sb.Append(l.DisplayLabel ?? string.Empty);
+            }
+
+            return sb.ToString();
+        }
+
+        // Category priority drives the visual tier. Higher = wins.
+        // Ordering encodes MenthorQ semantics: GammaWall is the magnet (price
+        // of max total gamma), CR/PS the flagship walls, HVL the volatility
+        // pivot, then date-anchored RiskTrigger and Bands, then the ranked
+        // GEX/BlindSpot families, then daily extremes, then Swing, then Other
+        // as the catch-all.
+        private static int CategoryPriority(LevelCategory c) => c switch
+        {
+            LevelCategory.GammaWall => 100,
+            LevelCategory.CallResistance => 90,
+            LevelCategory.PutSupport => 90,
+            LevelCategory.HighVolatilityLevel => 80,
+            LevelCategory.RiskTrigger => 70,
+            LevelCategory.UpperBand => 60,
+            LevelCategory.LowerBand => 60,
+            LevelCategory.GammaExposure => 50,
+            LevelCategory.BlindSpot => 40,
+            LevelCategory.DayMax => 30,
+            LevelCategory.DayMin => 30,
+            LevelCategory.Swing => 20,
+            LevelCategory.Other => 10,
+            _ => 0
+        };
 
         #endregion
     }
