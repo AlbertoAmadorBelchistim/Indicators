@@ -471,6 +471,18 @@ namespace ATAS.Indicators.Technical
         private readonly Dictionary<(LevelCategory, RenderTier), RenderPen> _penCache
             = new Dictionary<(LevelCategory, RenderTier), RenderPen>();
 
+        // Halo pen cache. Same shape as _penCache but the entries draw the
+        // glow under 0DTE levels — wider stroke, lower alpha. Halo width is
+        // per-tier (a 0DTE flagship deserves a bigger glow than a 0DTE
+        // swing), but the colour is derived from the category palette so the
+        // halo always reads as "the same level, in 0DTE mode".
+        private readonly Dictionary<(LevelCategory, RenderTier), RenderPen> _haloPenCache
+            = new Dictionary<(LevelCategory, RenderTier), RenderPen>();
+
+        // Halo opacity. 80/255 ≈ 31% — strong enough to read on dark themes,
+        // soft enough that the main line is still the dominant visual.
+        private const int HaloAlpha = 80;
+
         // Dirty flag — set by setters, consumed by RebuildParsedEntriesIfNeeded.
         private bool _dataDirty = true;
 
@@ -721,19 +733,35 @@ namespace ATAS.Indicators.Technical
 
             int xRight = Container.Region.Right;
 
+            // Pass 1 — halos for 0DTE levels. Drawn first so no halo can ever
+            // cover a main line of another level.
             for (int i = 0; i < _levels.Length; i++)
             {
                 var level = _levels[i];
 
-                // Vertical culling. Cheaper than letting DrawLine clip — the
-                // price-range check is two decimal comparisons per level, vs a
-                // pixel-space transform plus a clip test inside DrawLine.
                 if (level.Price < visible.Low || level.Price > visible.High)
                     continue;
 
-                var winner = level.Winner;
-                var tier = ClassifyTier(winner);
-                var pen = GetPen(winner.Category, tier);
+                if (!level.Winner.Is0Dte)
+                    continue;
+
+                var tier = ClassifyTier(level.Winner);
+                var halo = GetHaloPen(level.Winner.Category, tier);
+                int y = ChartInfo.GetYByPrice(level.Price, false);
+
+                context.DrawLine(halo, 0, y, xRight, y);
+            }
+
+            // Pass 2 — main lines on top of all halos.
+            for (int i = 0; i < _levels.Length; i++)
+            {
+                var level = _levels[i];
+
+                if (level.Price < visible.Low || level.Price > visible.High)
+                    continue;
+
+                var tier = ClassifyTier(level.Winner);
+                var pen = GetPen(level.Winner.Category, tier);
                 int y = ChartInfo.GetYByPrice(level.Price, false);
 
                 context.DrawLine(pen, 0, y, xRight, y);
@@ -1376,6 +1404,34 @@ namespace ATAS.Indicators.Technical
             _penCache[key] = pen;
             return pen;
         }
+
+        private RenderPen GetHaloPen(LevelCategory category, RenderTier tier)
+        {
+            var key = (category, tier);
+            if (_haloPenCache.TryGetValue(key, out var pen))
+                return pen;
+
+            var baseColor = DefaultColorFor(category);
+            var haloColor = Color.FromArgb(HaloAlpha, baseColor.R, baseColor.G, baseColor.B);
+            var haloWidth = DefaultHaloWidthFor(tier);
+
+            pen = new RenderPen(haloColor, haloWidth);
+            _haloPenCache[key] = pen;
+            return pen;
+        }
+
+        // Halo widths are an absolute table rather than "main + delta" so the
+        // thinnest tier still gets a halo wide enough to read as a glow rather
+        // than as a thicker line. The numbers are tuned to feel proportional
+        // to DefaultWidthFor without forcing a multiplicative formula that
+        // would collapse Thin into invisibility.
+        private static float DefaultHaloWidthFor(RenderTier t) => t switch
+        {
+            RenderTier.Thick => 8f,
+            RenderTier.Medium => 6f,
+            RenderTier.Thin => 4f,
+            _ => 4f
+        };
 
         // Map a Level (via its Winner) to a render tier. Tier drives line
         // thickness; later commits will let it influence opacity and dash too.
