@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Text;
 
 using ATAS.DataFeedsCore;
+using ATAS.Indicators.Technical.Properties;
 
 using OFT.Attributes;
 using OFT.Localization;
@@ -19,7 +20,7 @@ using OFT.Rendering.Tools;
 [HelpLink("https://help.atas.net/en/support/solutions/articles/72000648751-account-info-display")]
 [Category(IndicatorCategories.Trading)]
 [DisplayName("Account Info Display")]
-[Display(ResourceType = typeof(Strings), Description = nameof(Strings.AccountInfoDisplayDescription))]
+[Display(ResourceType = typeof(FallbackResources), Description = nameof(FallbackResources.AccountInfoDisplayDescription))]
 public class AccountInfoDisplay : Indicator
 {
 	#region Fields
@@ -58,16 +59,16 @@ public class AccountInfoDisplay : Indicator
 		set => _textColor = value.Convert();
 	}
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.PositiveColor),
-		Description = nameof(Strings.PositiveColorDescription), GroupName = nameof(Strings.Visualization))]
+	[Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.PositiveColor),
+		Description = nameof(FallbackResources.PositiveColorDescription), GroupName = nameof(FallbackResources.Visualization))]
 	public CrossColor PositiveColor
 	{
 		get => _positiveColor.Convert();
 		set => _positiveColor = value.Convert();
 	}
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.NegativeColor),
-		Description = nameof(Strings.NegativeColorDescription), GroupName = nameof(Strings.Visualization))]
+	[Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.NegativeColor),
+		Description = nameof(FallbackResources.NegativeColorDescription), GroupName = nameof(FallbackResources.Visualization))]
 	public CrossColor NegativeColor
 	{
 		get => _negativeColor.Convert();
@@ -91,62 +92,62 @@ public class AccountInfoDisplay : Indicator
 		set => _font = new RenderFont("Arial", value);
 	}
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowAccountId),
-		Description = nameof(Strings.ShowAccountIdDescription), GroupName = nameof(Strings.Settings))]
+	[Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.ShowAccountId),
+		Description = nameof(FallbackResources.ShowAccountIdDescription), GroupName = nameof(FallbackResources.Settings))]
 	public bool ShowAccountId { get; set; } = true;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowCurrency),
-		Description = nameof(Strings.ShowCurrencyDescription), GroupName = nameof(Strings.Settings))]
+	[Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.ShowCurrency),
+		Description = nameof(FallbackResources.ShowCurrencyDescription), GroupName = nameof(FallbackResources.Settings))]
 	public bool ShowCurrency { get; set; } = true;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowBalance),
-		Description = nameof(Strings.ShowBalanceDescription), GroupName = nameof(Strings.Settings))]
+	[Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.ShowBalance),
+		Description = nameof(FallbackResources.ShowBalanceDescription), GroupName = nameof(FallbackResources.Settings))]
 	public bool ShowBalance { get; set; } = true;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowAvailableBalance),
-		Description = nameof(Strings.ShowAvailableBalanceDescription), GroupName = nameof(Strings.Settings))]
+	[Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.ShowAvailableBalance),
+		Description = nameof(FallbackResources.ShowAvailableBalanceDescription), GroupName = nameof(FallbackResources.Settings))]
 	public bool ShowAvailableBalance { get; set; } = true;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowBlockedMargin),
-		Description = nameof(Strings.ShowBlockedMarginDescription), GroupName = nameof(Strings.Settings))]
+	[Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.ShowBlockedMargin),
+		Description = nameof(FallbackResources.ShowBlockedMarginDescription), GroupName = nameof(FallbackResources.Settings))]
 	public bool ShowMargin { get; set; } = false;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowLeverage),
-		Description = nameof(Strings.ShowLeverageDescription), GroupName = nameof(Strings.Settings))]
+	[Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.ShowLeverage),
+		Description = nameof(FallbackResources.ShowLeverageDescription), GroupName = nameof(FallbackResources.Settings))]
 	public bool ShowLeverage { get; set; } = true;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowOpenPnL),
-		Description = nameof(Strings.ShowOpenPnLDescription), GroupName = nameof(Strings.Settings))]
+	[Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.ShowOpenPnL),
+		Description = nameof(FallbackResources.ShowOpenPnLDescription), GroupName = nameof(FallbackResources.Settings))]
 	public bool ShowOpenPnL { get; set; } = true;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowClosedPnL),
-		Description = nameof(Strings.ShowClosedPnLDescription), GroupName = nameof(Strings.Settings))]
+	[Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.ShowClosedPnL),
+		Description = nameof(FallbackResources.ShowClosedPnLDescription), GroupName = nameof(FallbackResources.Settings))]
 	public bool ShowClosedPnL { get; set; } = true;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowTotalPnL),
-		Description = nameof(Strings.ShowTotalPnLDescription), GroupName = nameof(Strings.Settings))]
+	[Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.ShowTotalPnL),
+		Description = nameof(FallbackResources.ShowTotalPnLDescription), GroupName = nameof(FallbackResources.Settings))]
 	public bool ShowTotalPnL { get; set; } = false;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.HorizontalPosition),
-		GroupName = nameof(Strings.LayoutGroup))]
+	[Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.HorizontalPosition),
+		GroupName = nameof(FallbackResources.LayoutGroup))]
 	public HorizontalAlignment HorizontalPosition { get; set; } = HorizontalAlignment.Left;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.VerticalPosition),
-		GroupName = nameof(Strings.LayoutGroup))]
+	[Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.VerticalPosition),
+		GroupName = nameof(FallbackResources.LayoutGroup))]
 	public VerticalAlignment VerticalPosition { get; set; } = VerticalAlignment.Bottom;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.OffsetX),
-		Description = nameof(Strings.OffsetXDescription), GroupName = nameof(Strings.LayoutGroup))]
+	[Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.OffsetX),
+		Description = nameof(FallbackResources.OffsetXDescription), GroupName = nameof(FallbackResources.LayoutGroup))]
 	[Range(0, 1000)]
 	public int OffsetX { get; set; } = 20;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.OffsetY),
-		Description = nameof(Strings.OffsetYDescription), GroupName = nameof(Strings.LayoutGroup))]
+	[Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.OffsetY),
+		Description = nameof(FallbackResources.OffsetYDescription), GroupName = nameof(FallbackResources.LayoutGroup))]
 	[Range(0, 1000)]
 	public int OffsetY { get; set; } = 20;
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ColumnSpacing),
-		Description = nameof(Strings.ColumnSpacingDescription), GroupName = nameof(Strings.LayoutGroup))]
+	[Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.ColumnSpacing),
+		Description = nameof(FallbackResources.ColumnSpacingDescription), GroupName = nameof(FallbackResources.LayoutGroup))]
 	[Range(5, 50)]
 	public int ColumnSpacing { get; set; } = 15;
 
