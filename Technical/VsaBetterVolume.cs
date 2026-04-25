@@ -5,8 +5,9 @@ namespace ATAS.Indicators.Technical
 	using System.ComponentModel.DataAnnotations;
 
 	using ATAS.Indicators.Drawing;
+    using ATAS.Indicators.Technical.Properties;
 
-	using OFT.Attributes;
+    using OFT.Attributes;
     using OFT.Localization;
     using Color = System.Drawing.Color;
 	
@@ -82,7 +83,7 @@ namespace ATAS.Indicators.Technical
 	        }
         }
 
-        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Magenta), GroupName = nameof(Strings.Drawing), Description = nameof(Strings.ColorDescription), Order = 625)]
+        [Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.Magenta), GroupName = nameof(FallbackResources.Drawing), Description = nameof(FallbackResources.ColorDescription), Order = 625)]
         public CrossColor MagentaColor
         {
 	        get => _magentaColor.Convert();
@@ -104,7 +105,7 @@ namespace ATAS.Indicators.Technical
 	        }
         }
 
-        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.White), GroupName = nameof(Strings.Drawing), Description = nameof(Strings.ColorDescription), Order = 650)]
+        [Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.White), GroupName = nameof(FallbackResources.Drawing), Description = nameof(FallbackResources.ColorDescription), Order = 650)]
         public CrossColor WhiteColor
         {
 	        get => _whiteColor.Convert();
