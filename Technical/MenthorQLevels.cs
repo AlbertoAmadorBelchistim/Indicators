@@ -509,6 +509,24 @@ namespace ATAS.Indicators.Technical
         // UI: Ticker override. When non-empty, takes precedence over InstrumentInfo.
         private string _tickerOverride = string.Empty;
 
+        // Visibility toggles — one per LevelCategory. Initialised to true so a
+        // fresh instance shows every category. Setters trigger a forced
+        // redraw rather than a recalculation, because visibility never
+        // changes the underlying _levels — it only changes what gets painted.
+        private bool _showGammaWall = true;
+        private bool _showCallResistance = true;
+        private bool _showPutSupport = true;
+        private bool _showHighVolatilityLevel = true;
+        private bool _showRiskTrigger = true;
+        private bool _showUpperBand = true;
+        private bool _showLowerBand = true;
+        private bool _showGammaExposure = true;
+        private bool _showBlindSpot = true;
+        private bool _showDayMax = true;
+        private bool _showDayMin = true;
+        private bool _showSwing = true;
+        private bool _showOther = true;
+
         #endregion
 
         #region Properties: Manual text
@@ -694,6 +712,192 @@ namespace ATAS.Indicators.Technical
 
         #endregion
 
+        #region Properties: Visibility
+
+        [Display(Name = "Gamma Wall", GroupName = "Visibility",
+            Description = "Show GW levels (the gamma magnet — price of max total gamma).",
+            Order = 200)]
+        public bool ShowGammaWall
+        {
+            get => _showGammaWall;
+            set
+            {
+                if (_showGammaWall == value) return;
+                _showGammaWall = value;
+                RedrawChart();
+            }
+        }
+
+        [Display(Name = "Call Resistance", GroupName = "Visibility",
+            Description = "Show CR levels (the call wall).",
+            Order = 201)]
+        public bool ShowCallResistance
+        {
+            get => _showCallResistance;
+            set
+            {
+                if (_showCallResistance == value) return;
+                _showCallResistance = value;
+                RedrawChart();
+            }
+        }
+
+        [Display(Name = "Put Support", GroupName = "Visibility",
+            Description = "Show PS levels (the put wall).",
+            Order = 202)]
+        public bool ShowPutSupport
+        {
+            get => _showPutSupport;
+            set
+            {
+                if (_showPutSupport == value) return;
+                _showPutSupport = value;
+                RedrawChart();
+            }
+        }
+
+        [Display(Name = "High Volatility Level", GroupName = "Visibility",
+            Description = "Show HVL levels (the volatility pivot).",
+            Order = 203)]
+        public bool ShowHighVolatilityLevel
+        {
+            get => _showHighVolatilityLevel;
+            set
+            {
+                if (_showHighVolatilityLevel == value) return;
+                _showHighVolatilityLevel = value;
+                RedrawChart();
+            }
+        }
+
+        [Display(Name = "Risk Trigger", GroupName = "Visibility",
+            Description = "Show RT MM-DD levels (date-anchored risk triggers).",
+            Order = 204)]
+        public bool ShowRiskTrigger
+        {
+            get => _showRiskTrigger;
+            set
+            {
+                if (_showRiskTrigger == value) return;
+                _showRiskTrigger = value;
+                RedrawChart();
+            }
+        }
+
+        [Display(Name = "Upper Band", GroupName = "Visibility",
+            Description = "Show UB MM-DD levels (date-anchored upper bands).",
+            Order = 205)]
+        public bool ShowUpperBand
+        {
+            get => _showUpperBand;
+            set
+            {
+                if (_showUpperBand == value) return;
+                _showUpperBand = value;
+                RedrawChart();
+            }
+        }
+
+        [Display(Name = "Lower Band", GroupName = "Visibility",
+            Description = "Show LB MM-DD levels (date-anchored lower bands).",
+            Order = 206)]
+        public bool ShowLowerBand
+        {
+            get => _showLowerBand;
+            set
+            {
+                if (_showLowerBand == value) return;
+                _showLowerBand = value;
+                RedrawChart();
+            }
+        }
+
+        [Display(Name = "Gamma Exposure", GroupName = "Visibility",
+            Description = "Show GEX N levels (ranked gamma exposure — rank 1 strongest).",
+            Order = 207)]
+        public bool ShowGammaExposure
+        {
+            get => _showGammaExposure;
+            set
+            {
+                if (_showGammaExposure == value) return;
+                _showGammaExposure = value;
+                RedrawChart();
+            }
+        }
+
+        [Display(Name = "Blind Spot", GroupName = "Visibility",
+            Description = "Show BL N levels (ranked blind spots).",
+            Order = 208)]
+        public bool ShowBlindSpot
+        {
+            get => _showBlindSpot;
+            set
+            {
+                if (_showBlindSpot == value) return;
+                _showBlindSpot = value;
+                RedrawChart();
+            }
+        }
+
+        [Display(Name = "Day Max", GroupName = "Visibility",
+            Description = "Show 1D Max levels (daily high).",
+            Order = 209)]
+        public bool ShowDayMax
+        {
+            get => _showDayMax;
+            set
+            {
+                if (_showDayMax == value) return;
+                _showDayMax = value;
+                RedrawChart();
+            }
+        }
+
+        [Display(Name = "Day Min", GroupName = "Visibility",
+            Description = "Show 1D Min levels (daily low).",
+            Order = 210)]
+        public bool ShowDayMin
+        {
+            get => _showDayMin;
+            set
+            {
+                if (_showDayMin == value) return;
+                _showDayMin = value;
+                RedrawChart();
+            }
+        }
+
+        [Display(Name = "Swing", GroupName = "Visibility",
+            Description = "Show generic swing levels not matching UB / LB / RT.",
+            Order = 211)]
+        public bool ShowSwing
+        {
+            get => _showSwing;
+            set
+            {
+                if (_showSwing == value) return;
+                _showSwing = value;
+                RedrawChart();
+            }
+        }
+
+        [Display(Name = "Other", GroupName = "Visibility",
+            Description = "Show fallback / unrecognised labels.",
+            Order = 212)]
+        public bool ShowOther
+        {
+            get => _showOther;
+            set
+            {
+                if (_showOther == value) return;
+                _showOther = value;
+                RedrawChart();
+            }
+        }
+
+        #endregion
+
         #region Ctor
 
         public MenthorQLevels()
@@ -739,13 +943,15 @@ namespace ATAS.Indicators.Technical
 
             int xRight = Container.Region.Right;
 
-            // Pass 1 — halos for 0DTE levels. Drawn first so no halo can ever
-            // cover a main line of another level.
+            // Pass 1 — halos for 0DTE levels.
             for (int i = 0; i < _levels.Length; i++)
             {
                 var level = _levels[i];
 
                 if (level.Price < visible.Low || level.Price > visible.High)
+                    continue;
+
+                if (!IsCategoryVisible(level.Winner.Category))
                     continue;
 
                 if (!level.Winner.Is0Dte)
@@ -766,6 +972,9 @@ namespace ATAS.Indicators.Technical
                 if (level.Price < visible.Low || level.Price > visible.High)
                     continue;
 
+                if (!IsCategoryVisible(level.Winner.Category))
+                    continue;
+
                 var tier = ClassifyTier(level.Winner);
                 var pen = GetPen(level.Winner.Category, tier);
                 int y = ChartInfo.GetYByPrice(level.Price, false);
@@ -773,14 +982,15 @@ namespace ATAS.Indicators.Technical
                 context.DrawLine(pen, 0, y, xRight, y);
             }
 
-            // Pass 3 — labels, anchored to the right edge of the chart and
-            // sitting just above each line. Drawn last so they paint over both
-            // the halo and the main line, never the other way round.
+            // Pass 3 — labels.
             for (int i = 0; i < _levels.Length; i++)
             {
                 var level = _levels[i];
 
                 if (level.Price < visible.Low || level.Price > visible.High)
+                    continue;
+
+                if (!IsCategoryVisible(level.Winner.Category))
                     continue;
 
                 var text = level.DisplayText;
@@ -1521,6 +1731,26 @@ namespace ATAS.Indicators.Technical
             RenderTier.Medium => 1.5f,
             RenderTier.Thin => 1.0f,
             _ => 1.0f
+        };
+
+        // Visibility lookup — one branch per LevelCategory. Used by all three
+        // OnRender passes to skip levels whose winner category is hidden.
+        private bool IsCategoryVisible(LevelCategory c) => c switch
+        {
+            LevelCategory.GammaWall => _showGammaWall,
+            LevelCategory.CallResistance => _showCallResistance,
+            LevelCategory.PutSupport => _showPutSupport,
+            LevelCategory.HighVolatilityLevel => _showHighVolatilityLevel,
+            LevelCategory.RiskTrigger => _showRiskTrigger,
+            LevelCategory.UpperBand => _showUpperBand,
+            LevelCategory.LowerBand => _showLowerBand,
+            LevelCategory.GammaExposure => _showGammaExposure,
+            LevelCategory.BlindSpot => _showBlindSpot,
+            LevelCategory.DayMax => _showDayMax,
+            LevelCategory.DayMin => _showDayMin,
+            LevelCategory.Swing => _showSwing,
+            LevelCategory.Other => _showOther,
+            _ => true
         };
 
         #endregion
