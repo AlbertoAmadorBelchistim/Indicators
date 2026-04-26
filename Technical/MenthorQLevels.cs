@@ -528,6 +528,20 @@ namespace ATAS.Indicators.Technical
 
         #endregion
 
+        #region Nested types: debug overlay
+
+        public enum DebugOverlayLocation
+        {
+            TopLeft,
+            TopCenter,
+            TopRight,
+            BottomLeft,
+            BottomCenter,
+            BottomRight
+        }
+
+        #endregion
+
         #region Fields
 
         // Sources — plugins that emit ParsedEntry[]. Populated in EnsureSourcesInitialized.
@@ -636,6 +650,19 @@ namespace ATAS.Indicators.Technical
         // API: multiplier and offset, mirroring the Manual text pair.
         private decimal _apiMultiplier = 1m;
         private decimal _apiOffset;
+
+        // UI: debug overlay
+        private bool _enableDebugOverlay = false;
+        private DebugOverlayLocation _debugOverlayLocation = DebugOverlayLocation.TopRight;
+
+        // Tracks which source produced the current _levels. Set inside
+        // RebuildLevelsIfNeeded; consumed by the debug overlay so the user
+        // can see at a glance which feed is active without reading the log.
+        private string _lastActiveSourceId = "(none)";
+
+        // Static font for the debug overlay. Monospace so multi-line numeric
+        // state aligns cleanly. Cross-flavor like the label font.
+        private static readonly RenderFont DebugFont = new RenderFont("Consolas", 9);
 
         #endregion
 
@@ -972,6 +999,40 @@ namespace ATAS.Indicators.Technical
 
         #endregion
 
+        #region Properties: Diagnostics
+
+        [Display(Name = "Show debug overlay",
+            GroupName = "Diagnostics",
+            Description = "Renders a small status box in the top-left corner of the chart showing internal indicator state: resolved ticker, active source, level/entry counts, pending alerts, API status, and current text/API multiplier+offset values. Default off — turn on when diagnosing why levels are missing or misaligned.",
+            Order = 500)]
+        public bool EnableDebugOverlay
+        {
+            get => _enableDebugOverlay;
+            set
+            {
+                if (_enableDebugOverlay == value) return;
+                _enableDebugOverlay = value;
+                RedrawChart();
+            }
+        }
+
+        [Display(Name = "Overlay location",
+    GroupName = "Diagnostics",
+    Description = "Corner of the chart where the debug overlay is anchored. Default TopRight to avoid colliding with the OHLC info that ATAS draws in the top-left under the cursor.",
+    Order = 510)]
+        public DebugOverlayLocation OverlayLocation
+        {
+            get => _debugOverlayLocation;
+            set
+            {
+                if (_debugOverlayLocation == value) return;
+                _debugOverlayLocation = value;
+                RedrawChart();
+            }
+        }
+
+        #endregion
+
         #region ctor
 
         public MenthorQLevels()
@@ -1103,6 +1164,13 @@ namespace ATAS.Indicators.Technical
 
                 context.DrawString(text, LabelFont, color, x, y - textSize.Height - 3);
             }
+
+            // Pass 4 — debug overlay (opt-in). Drawn last so it sits on top of
+            // every other layer, including labels. Anchored to chart-frame
+            // coordinates rather than price coordinates, so it doesn't move
+            // with scrolling or zoom.
+            if (_enableDebugOverlay)
+                RenderDebugOverlay(context);
         }
 
         #endregion
@@ -1161,6 +1229,8 @@ namespace ATAS.Indicators.Technical
                 this.LogWarn($"[{winner?.SourceId ?? "none"}] {winnerWarnings[w]}");
 
             _dataDirty = false;
+
+            _lastActiveSourceId = winner?.SourceId ?? "(none)";
 
             if (winner != null)
             {
@@ -1869,6 +1939,89 @@ namespace ATAS.Indicators.Technical
         {
             _penCache.Clear();
             _haloPenCache.Clear();
+        }
+
+        private void RenderDebugOverlay(RenderContext context)
+        {
+            if (Container?.Region == null) return;
+
+            var ticker = string.IsNullOrEmpty(_tickerOverride)
+                ? (InstrumentInfo?.Instrument ?? "(no instrument)")
+                : $"{_tickerOverride} (override)";
+
+            var lastApiCall = _api?.LastApiCall?.ToString("HH:mm:ss") ?? "(never)";
+            var apiStatus = _api?.Status ?? "(uninit)";
+
+            var lines = new[]
+            {
+        $"Ticker     : {ResolveTicker()}  ({ticker})",
+        $"Source     : {_lastActiveSourceId}",
+        $"Entries    : {_parsedEntries.Length}  →  Levels: {_levels.Length}",
+        $"Alerts     : {(_enableAlerts ? "on" : "off")}  reversal={(_enableReversalAlerts ? "on" : "off")}  pending={_pendingAlerts.Count}  cooldown={_alertCooldownSeconds}s",
+        $"API        : status={apiStatus}  last={lastApiCall}",
+        $"Text xform : x {_textMultiplier}  +  {_textOffset}",
+        $"API xform  : x {_apiMultiplier}  +  {_apiOffset}"
+    };
+
+            // Measure widest line for the background rectangle.
+            int maxWidth = 0;
+            int lineHeight = 0;
+            for (int i = 0; i < lines.Length; i++)
+            {
+                var size = context.MeasureString(lines[i], DebugFont);
+                if (size.Width > maxWidth) maxWidth = size.Width;
+                if (size.Height > lineHeight) lineHeight = size.Height;
+            }
+            if (lineHeight == 0) lineHeight = 12; // safety fallback
+            lineHeight += 2; // small leading
+
+            const int padding = 6;
+            const int margin = 10;
+            int boxWidth = maxWidth + padding * 2;
+            int boxHeight = lineHeight * lines.Length + padding * 2;
+
+            GetOverlayAnchor(boxWidth, boxHeight, margin, padding, out int x, out int y);
+
+            var bgRect = new Rectangle(
+                x - padding,
+                y - padding,
+                boxWidth,
+                boxHeight);
+
+            // Semi-transparent black background — readable on both light and
+            // dark themes.
+            context.FillRectangle(Color.FromArgb(180, 0, 0, 0), bgRect);
+
+            // Lime green text — high contrast against the background, doesn't
+            // collide with any of the level palette colours.
+            var textColor = Color.LimeGreen;
+            for (int i = 0; i < lines.Length; i++)
+            {
+                context.DrawString(lines[i], DebugFont, textColor, x, y + i * lineHeight);
+            }
+        }
+
+        private void GetOverlayAnchor(int boxWidth, int boxHeight, int margin, int padding,
+    out int x, out int y)
+        {
+            var region = Container.Region;
+
+            int leftX = region.Left + margin + padding;
+            int rightX = region.Right - boxWidth - margin + padding;
+            int centerX = region.Left + (region.Width - boxWidth) / 2 + padding;
+            int topY = region.Top + margin + padding;
+            int bottomY = region.Bottom - boxHeight - margin + padding;
+
+            switch (_debugOverlayLocation)
+            {
+                case DebugOverlayLocation.TopLeft: x = leftX; y = topY; break;
+                case DebugOverlayLocation.TopCenter: x = centerX; y = topY; break;
+                case DebugOverlayLocation.TopRight: x = rightX; y = topY; break;
+                case DebugOverlayLocation.BottomLeft: x = leftX; y = bottomY; break;
+                case DebugOverlayLocation.BottomCenter: x = centerX; y = bottomY; break;
+                case DebugOverlayLocation.BottomRight: x = rightX; y = bottomY; break;
+                default: x = leftX; y = topY; break;
+            }
         }
 
         #endregion
