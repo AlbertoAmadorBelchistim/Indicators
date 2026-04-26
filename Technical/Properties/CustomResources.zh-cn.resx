@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <data name="Indicator_Description" xml:space="preserve"><value>在图表上绘制 MenthorQ 期权衍生价位（Gamma Wall、Call Resistance、Put Support 等），数据来源支持手动文本粘贴或 API 实时拉取，每个类别可自定义可见性和颜色，支持价位穿越提醒及反转通知，并提供可选的诊断叠加层。</value></data>
+
+  <data name="Group_ManualText" xml:space="preserve"><value>手动文本</value></data>
+  <data name="Group_Api" xml:space="preserve"><value>API</value></data>
+  <data name="Group_Levels" xml:space="preserve"><value>价位</value></data>
+  <data name="Group_Alerts" xml:space="preserve"><value>提醒</value></data>
+  <data name="Group_Diagnostics" xml:space="preserve"><value>诊断</value></data>
+
+  <data name="EnableManualText_DisplayName" xml:space="preserve"><value>启用</value></data>
+  <data name="EnableManualText_Description" xml:space="preserve"><value>允许将 MenthorQ 价位作为逗号分隔的文本粘贴。当 API 已配置且可用时,此项被忽略。</value></data>
+  <data name="IndexTextRaw_DisplayName" xml:space="preserve"><value>指数文本</value></data>
+  <data name="IndexTextRaw_Description" xml:space="preserve"><value>粘贴 MenthorQ 输出的指数或 ETF 代码数据(SPX / NDX / RUT, 或 SPY / QQQ / IWM)。下方的乘数和偏移按顺序应用到这些价格上。</value></data>
+  <data name="FuturesTextRaw_DisplayName" xml:space="preserve"><value>期货文本</value></data>
+  <data name="FuturesTextRaw_Description" xml:space="preserve"><value>粘贴 MenthorQ 输出的期货代码数据(ES / NQ / RTY)。偏移不会应用到这些价格上。</value></data>
+  <data name="TextMultiplier_DisplayName" xml:space="preserve"><value>乘数(指数到图表)</value></data>
+  <data name="TextMultiplier_Description" xml:space="preserve"><value>在偏移之前应用到指数文本的每个价格。最常见情况:ETF 数据 → 期货图表。当前指数水平的近似比率:SPY → ES ≈ 10、QQQ → NQ ≈ 41、IWM → RTY ≈ 10。比率随指数水平漂移 — 需定期重新校准。默认 1(不缩放)。期货文本永不变换。</value></data>
+  <data name="TextOffset_DisplayName" xml:space="preserve"><value>偏移(指数到图表)</value></data>
+  <data name="TextOffset_Description" xml:space="preserve"><value>加到从指数文本解析的每个价格上,用于将 SPX 价位对齐到 ES、NDX 到 NQ 等。期货文本永不应用偏移。</value></data>
+  <data name="ClearManualTextNow_DisplayName" xml:space="preserve"><value>清空文本字段</value></data>
+  <data name="ClearManualTextNow_Description" xml:space="preserve"><value>切换以同时清空指数和期货文本字段。自动复位。</value></data>
+
+  <data name="ApiKey_DisplayName" xml:space="preserve"><value>API 密钥</value></data>
+  <data name="ApiKey_Description" xml:space="preserve"><value>MenthorQ API 密钥。与 User ID 一同设置时,API 成为活动数据源,手动文本被忽略。</value></data>
+  <data name="UserId_DisplayName" xml:space="preserve"><value>User ID(邮箱)</value></data>
+  <data name="UserId_Description" xml:space="preserve"><value>与你的 MenthorQ 账户关联的邮箱。每次请求作为 user_id 查询参数发送。</value></data>
+  <data name="TickerOverride_DisplayName" xml:space="preserve"><value>覆盖代码</value></data>
+  <data name="TickerOverride_Description" xml:space="preserve"><value>可选。留空使用图表的合约(微型合约自动剥离:MES→ES、MNQ→NQ)。设置值以强制使用特定代码(例如在 ES 图表上用 SPX,或当行情显示 ESH24 时用 ES)。</value></data>
+  <data name="ApiMultiplier_DisplayName" xml:space="preserve"><value>乘数(API 到图表)</value></data>
+  <data name="ApiMultiplier_Description" xml:space="preserve"><value>在偏移之前应用到 API 拉取的每个价格。最常见情况:ETF API 源 → 期货图表。当前指数水平的近似比率:SPY → ES ≈ 10、QQQ → NQ ≈ 41、IWM → RTY ≈ 10。比率随指数水平漂移 — 需定期重新校准。默认 1(不缩放)。在引擎层应用 — 不会触发重新拉取 API。</value></data>
+  <data name="ApiOffset_DisplayName" xml:space="preserve"><value>偏移(API 到图表)</value></data>
+  <data name="ApiOffset_Description" xml:space="preserve"><value>在乘数之后加到 API 拉取的每个价格上。组合公式:(raw_price × multiplier) + offset。在引擎层应用 — 修改不会触发重新拉取 API。</value></data>
+  <data name="UpdateLevels_DisplayName" xml:space="preserve"><value>更新价位</value></data>
+  <data name="UpdateLevels_Description" xml:space="preserve"><value>从 MenthorQ API 拉取最新价位。自动复位。</value></data>
+
+  <data name="GammaWall_DisplayName" xml:space="preserve"><value>Gamma Wall</value></data>
+  <data name="GammaWall_Description" xml:space="preserve"><value>GW 线、光晕和标签的可见性与颜色。</value></data>
+  <data name="CallResistance_DisplayName" xml:space="preserve"><value>Call Resistance</value></data>
+  <data name="CallResistance_Description" xml:space="preserve"><value>CR 线、光晕和标签的可见性与颜色。</value></data>
+  <data name="PutSupport_DisplayName" xml:space="preserve"><value>Put Support</value></data>
+  <data name="PutSupport_Description" xml:space="preserve"><value>PS 线、光晕和标签的可见性与颜色。</value></data>
+  <data name="HighVolatilityLevel_DisplayName" xml:space="preserve"><value>High Volatility Level</value></data>
+  <data name="HighVolatilityLevel_Description" xml:space="preserve"><value>HVL 线、光晕和标签的可见性与颜色。</value></data>
+  <data name="RiskTrigger_DisplayName" xml:space="preserve"><value>Risk Trigger</value></data>
+  <data name="RiskTrigger_Description" xml:space="preserve"><value>RT 线、光晕和标签的可见性与颜色。</value></data>
+  <data name="UpperBand_DisplayName" xml:space="preserve"><value>Upper Band</value></data>
+  <data name="UpperBand_Description" xml:space="preserve"><value>UB 线、光晕和标签的可见性与颜色。</value></data>
+  <data name="LowerBand_DisplayName" xml:space="preserve"><value>Lower Band</value></data>
+  <data name="LowerBand_Description" xml:space="preserve"><value>LB 线、光晕和标签的可见性与颜色。</value></data>
+  <data name="GammaExposure_DisplayName" xml:space="preserve"><value>Gamma Exposure</value></data>
+  <data name="GammaExposure_Description" xml:space="preserve"><value>GEX N 线、光晕和标签的可见性与颜色。</value></data>
+  <data name="BlindSpot_DisplayName" xml:space="preserve"><value>Blind Spot</value></data>
+  <data name="BlindSpot_Description" xml:space="preserve"><value>BL N 线、光晕和标签的可见性与颜色。</value></data>
+  <data name="DayMax_DisplayName" xml:space="preserve"><value>日内最高</value></data>
+  <data name="DayMax_Description" xml:space="preserve"><value>1D Max 线、光晕和标签的可见性与颜色。</value></data>
+  <data name="DayMin_DisplayName" xml:space="preserve"><value>日内最低</value></data>
+  <data name="DayMin_Description" xml:space="preserve"><value>1D Min 线、光晕和标签的可见性与颜色。</value></data>
+  <data name="Swing_DisplayName" xml:space="preserve"><value>Swing</value></data>
+  <data name="Swing_Description" xml:space="preserve"><value>Swing 线、光晕和标签的可见性与颜色。</value></data>
+  <data name="Other_DisplayName" xml:space="preserve"><value>其他</value></data>
+  <data name="Other_Description" xml:space="preserve"><value>未识别或回退标签的可见性与颜色。</value></data>
+
+  <data name="EnableAlerts_DisplayName" xml:space="preserve"><value>启用提醒</value></data>
+  <data name="EnableAlerts_Description" xml:space="preserve"><value>价位穿越提醒的总开关。关闭时,无论类别可见性如何,都不会发出任何提醒。</value></data>
+  <data name="AlertSoundFile_DisplayName" xml:space="preserve"><value>声音文件</value></data>
+  <data name="AlertSoundFile_Description" xml:space="preserve"><value>提醒触发时播放的声音文件名。ATAS 从其声音目录解析内置名称如 'alert1.wav';绝对路径也可用。</value></data>
+  <data name="EnableReversalAlerts_DisplayName" xml:space="preserve"><value>反转提醒</value></data>
+  <data name="EnableReversalAlerts_Description" xml:space="preserve"><value>当穿越提醒触发后,价格在冷却窗口内反向穿回价位时,在冷却到期时发出后续提醒。</value></data>
+  <data name="AlertCooldownSeconds_DisplayName" xml:space="preserve"><value>冷却(秒)</value></data>
+  <data name="AlertCooldownSeconds_Description" xml:space="preserve"><value>同一价位连续提醒之间的最小时间。防止价格在价位附近震荡时产生提醒风暴。</value></data>
+
+  <data name="EnableDebugOverlay_DisplayName" xml:space="preserve"><value>显示诊断叠加层</value></data>
+  <data name="EnableDebugOverlay_Description" xml:space="preserve"><value>在图表的某个角落绘制小型状态框,显示指标内部状态:解析的代码、活动数据源、价位/条目数、待发提醒、API 状态以及当前的文本/API 乘数+偏移值。默认关闭 — 在诊断价位缺失或错位时打开。</value></data>
+  <data name="OverlayLocation_DisplayName" xml:space="preserve"><value>叠加层位置</value></data>
+  <data name="OverlayLocation_Description" xml:space="preserve"><value>诊断叠加层锚定的图表角落。默认 TopRight,以避免与 ATAS 在光标下方左上角绘制的 OHLC 信息重叠。</value></data>
+
+  <data name="Style_Visible_DisplayName" xml:space="preserve"><value>可见</value></data>
+  <data name="Style_Color_DisplayName" xml:space="preserve"><value>颜色</value></data>
+  <data name="Style_State_Visible" xml:space="preserve"><value>可见</value></data>
+  <data name="Style_State_Hidden" xml:space="preserve"><value>隐藏</value></data>
+
+  <data name="Alert_CrossedAbove" xml:space="preserve"><value>向上穿越 {0} @ {1}</value></data>
+  <data name="Alert_CrossedBelow" xml:space="preserve"><value>向下穿越 {0} @ {1}</value></data>
+  <data name="Alert_BackAbove" xml:space="preserve"><value>回到上方 {0} @ {1}</value></data>
+  <data name="Alert_BackBelow" xml:space="preserve"><value>回到下方 {0} @ {1}</value></data>
+
+  <data name="OverlayLocation_TopLeft" xml:space="preserve"><value>左上</value></data>
+  <data name="OverlayLocation_TopCenter" xml:space="preserve"><value>顶部居中</value></data>
+  <data name="OverlayLocation_TopRight" xml:space="preserve"><value>右上</value></data>
+  <data name="OverlayLocation_BottomLeft" xml:space="preserve"><value>左下</value></data>
+  <data name="OverlayLocation_BottomCenter" xml:space="preserve"><value>底部居中</value></data>
+  <data name="OverlayLocation_BottomRight" xml:space="preserve"><value>右下</value></data>
+
+  <data name="EnableAutoRefresh_DisplayName" xml:space="preserve"><value>自动刷新</value></data>
+  <data name="EnableAutoRefresh_Description" xml:space="preserve"><value>按照 MenthorQ 文档记录的盘中时间表自动刷新 API 价位(14 个固定 EST 更新时段:盘前 08:00 加上从 09:50 到 15:50 每 30 分钟一次)。每个时段后添加少量延迟,等待 MenthorQ 服务器数据稳定。开启时立即触发追赶式拉取。EOD 时段(18:30 / 23:00 EST)不会自动刷新;如有需要,在收盘后手动按 Update Levels。</value></data>
+
+</root>

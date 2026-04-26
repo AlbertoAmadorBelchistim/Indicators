@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <data name="Indicator_Description" xml:space="preserve"><value>चार्ट पर MenthorQ ऑप्शन-आधारित स्तर (Gamma Wall, Call Resistance, Put Support आदि) रेंडर करता है। मैन्युअल टेक्स्ट पेस्ट या लाइव API फ़ेच से डेटा स्रोत, प्रत्येक श्रेणी के लिए कस्टमाइज़ेबल विज़िबिलिटी और रंग, रिवर्सल नोटिफिकेशन के साथ क्रॉस-लेवल अलर्ट और एक वैकल्पिक डायग्नोस्टिक ओवरले।</value></data>
+
+  <data name="Group_ManualText" xml:space="preserve"><value>मैन्युअल टेक्स्ट</value></data>
+  <data name="Group_Api" xml:space="preserve"><value>API</value></data>
+  <data name="Group_Levels" xml:space="preserve"><value>स्तर</value></data>
+  <data name="Group_Alerts" xml:space="preserve"><value>अलर्ट</value></data>
+  <data name="Group_Diagnostics" xml:space="preserve"><value>डायग्नोस्टिक्स</value></data>
+
+  <data name="EnableManualText_DisplayName" xml:space="preserve"><value>सक्षम</value></data>
+  <data name="EnableManualText_Description" xml:space="preserve"><value>MenthorQ स्तरों को कॉमा-सेपरेटेड टेक्स्ट के रूप में पेस्ट करने की अनुमति देता है। जब API कॉन्फ़िगर और उपलब्ध हो, तब अनदेखा कर दिया जाता है।</value></data>
+  <data name="IndexTextRaw_DisplayName" xml:space="preserve"><value>इंडेक्स टेक्स्ट</value></data>
+  <data name="IndexTextRaw_Description" xml:space="preserve"><value>एक इंडेक्स या ETF टिकर (SPX / NDX / RUT, या SPY / QQQ / IWM) के लिए MenthorQ आउटपुट पेस्ट करें। नीचे का मल्टिप्लायर और ऑफसेट इन कीमतों पर उसी क्रम में लागू होते हैं।</value></data>
+  <data name="FuturesTextRaw_DisplayName" xml:space="preserve"><value>फ्यूचर्स टेक्स्ट</value></data>
+  <data name="FuturesTextRaw_Description" xml:space="preserve"><value>फ्यूचर्स टिकर (ES / NQ / RTY) के लिए MenthorQ आउटपुट पेस्ट करें। ऑफसेट इन कीमतों पर लागू नहीं होता।</value></data>
+  <data name="TextMultiplier_DisplayName" xml:space="preserve"><value>मल्टिप्लायर (इंडेक्स से चार्ट)</value></data>
+  <data name="TextMultiplier_Description" xml:space="preserve"><value>इंडेक्स टेक्स्ट की प्रत्येक कीमत पर ऑफसेट से पहले लागू होता है। सबसे आम केस: ETF डेटा → फ्यूचर्स चार्ट। वर्तमान इंडेक्स स्तरों पर अनुमानित अनुपात: SPY → ES ≈ 10, QQQ → NQ ≈ 41, IWM → RTY ≈ 10। अनुपात इंडेक्स स्तर के साथ बदलते हैं — समय-समय पर पुनः कैलिब्रेट करें। डिफ़ॉल्ट 1 (कोई स्केलिंग नहीं)। फ्यूचर्स टेक्स्ट कभी ट्रांसफ़ॉर्म नहीं होता।</value></data>
+  <data name="TextOffset_DisplayName" xml:space="preserve"><value>ऑफसेट (इंडेक्स से चार्ट)</value></data>
+  <data name="TextOffset_Description" xml:space="preserve"><value>इंडेक्स टेक्स्ट से पार्स की गई प्रत्येक कीमत में जोड़ा जाता है, ताकि SPX स्तर को ES से, NDX को NQ से आदि संरेखित किया जा सके। फ्यूचर्स टेक्स्ट पर ऑफसेट कभी लागू नहीं होता।</value></data>
+  <data name="ClearManualTextNow_DisplayName" xml:space="preserve"><value>टेक्स्ट फ़ील्ड साफ़ करें</value></data>
+  <data name="ClearManualTextNow_Description" xml:space="preserve"><value>इंडेक्स और फ्यूचर्स दोनों टेक्स्ट फ़ील्ड साफ़ करने के लिए टॉगल। स्वतः रीसेट होता है।</value></data>
+
+  <data name="ApiKey_DisplayName" xml:space="preserve"><value>API Key</value></data>
+  <data name="ApiKey_Description" xml:space="preserve"><value>MenthorQ API key। User ID के साथ सेट होने पर, API सक्रिय डेटा स्रोत बन जाता है और मैन्युअल टेक्स्ट अनदेखा कर दिया जाता है।</value></data>
+  <data name="UserId_DisplayName" xml:space="preserve"><value>User ID (ईमेल)</value></data>
+  <data name="UserId_Description" xml:space="preserve"><value>आपके MenthorQ खाते से जुड़ा ईमेल। हर रिक्वेस्ट पर user_id क्वेरी पैरामीटर के रूप में भेजा जाता है।</value></data>
+  <data name="TickerOverride_DisplayName" xml:space="preserve"><value>Ticker Override</value></data>
+  <data name="TickerOverride_Description" xml:space="preserve"><value>वैकल्पिक। चार्ट के इंस्ट्रूमेंट का उपयोग करने के लिए खाली छोड़ें (माइक्रो स्वतः हटा दिए जाते हैं: MES→ES, MNQ→NQ)। किसी विशिष्ट टिकर को बाध्य करने के लिए मान सेट करें (जैसे ES चार्ट पर SPX, या जब फ़ीड ESH24 दिखाए तब ES)।</value></data>
+  <data name="ApiMultiplier_DisplayName" xml:space="preserve"><value>मल्टिप्लायर (API से चार्ट)</value></data>
+  <data name="ApiMultiplier_Description" xml:space="preserve"><value>API द्वारा फ़ेच की गई प्रत्येक कीमत पर ऑफसेट से पहले लागू होता है। सबसे आम केस: ETF API फ़ीड → फ्यूचर्स चार्ट। वर्तमान इंडेक्स स्तरों पर अनुमानित अनुपात: SPY → ES ≈ 10, QQQ → NQ ≈ 41, IWM → RTY ≈ 10। अनुपात इंडेक्स स्तर के साथ बदलते हैं — समय-समय पर पुनः कैलिब्रेट करें। डिफ़ॉल्ट 1 (कोई स्केलिंग नहीं)। एंजिन-टाइम पर लागू होता है — API रिफ़ेच ट्रिगर नहीं करता।</value></data>
+  <data name="ApiOffset_DisplayName" xml:space="preserve"><value>ऑफसेट (API से चार्ट)</value></data>
+  <data name="ApiOffset_Description" xml:space="preserve"><value>API द्वारा फ़ेच की गई प्रत्येक कीमत पर मल्टिप्लायर के बाद जोड़ा जाता है। संयुक्त सूत्र: (raw_price × multiplier) + offset। एंजिन-टाइम पर लागू होता है — इसे बदलने से API रिफ़ेच ट्रिगर नहीं होता।</value></data>
+  <data name="UpdateLevels_DisplayName" xml:space="preserve"><value>स्तर अपडेट करें</value></data>
+  <data name="UpdateLevels_Description" xml:space="preserve"><value>MenthorQ API से नवीनतम स्तर फ़ेच करता है। स्वतः रीसेट होता है।</value></data>
+
+  <data name="GammaWall_DisplayName" xml:space="preserve"><value>Gamma Wall</value></data>
+  <data name="GammaWall_Description" xml:space="preserve"><value>GW लाइनों, हेलो और लेबल्स की विज़िबिलिटी और रंग।</value></data>
+  <data name="CallResistance_DisplayName" xml:space="preserve"><value>Call Resistance</value></data>
+  <data name="CallResistance_Description" xml:space="preserve"><value>CR लाइनों, हेलो और लेबल्स की विज़िबिलिटी और रंग।</value></data>
+  <data name="PutSupport_DisplayName" xml:space="preserve"><value>Put Support</value></data>
+  <data name="PutSupport_Description" xml:space="preserve"><value>PS लाइनों, हेलो और लेबल्स की विज़िबिलिटी और रंग।</value></data>
+  <data name="HighVolatilityLevel_DisplayName" xml:space="preserve"><value>High Volatility Level</value></data>
+  <data name="HighVolatilityLevel_Description" xml:space="preserve"><value>HVL लाइनों, हेलो और लेबल्स की विज़िबिलिटी और रंग।</value></data>
+  <data name="RiskTrigger_DisplayName" xml:space="preserve"><value>Risk Trigger</value></data>
+  <data name="RiskTrigger_Description" xml:space="preserve"><value>RT लाइनों, हेलो और लेबल्स की विज़िबिलिटी और रंग।</value></data>
+  <data name="UpperBand_DisplayName" xml:space="preserve"><value>Upper Band</value></data>
+  <data name="UpperBand_Description" xml:space="preserve"><value>UB लाइनों, हेलो और लेबल्स की विज़िबिलिटी और रंग।</value></data>
+  <data name="LowerBand_DisplayName" xml:space="preserve"><value>Lower Band</value></data>
+  <data name="LowerBand_Description" xml:space="preserve"><value>LB लाइनों, हेलो और लेबल्स की विज़िबिलिटी और रंग।</value></data>
+  <data name="GammaExposure_DisplayName" xml:space="preserve"><value>Gamma Exposure</value></data>
+  <data name="GammaExposure_Description" xml:space="preserve"><value>GEX N लाइनों, हेलो और लेबल्स की विज़िबिलिटी और रंग।</value></data>
+  <data name="BlindSpot_DisplayName" xml:space="preserve"><value>Blind Spot</value></data>
+  <data name="BlindSpot_Description" xml:space="preserve"><value>BL N लाइनों, हेलो और लेबल्स की विज़िबिलिटी और रंग।</value></data>
+  <data name="DayMax_DisplayName" xml:space="preserve"><value>दिन का उच्च</value></data>
+  <data name="DayMax_Description" xml:space="preserve"><value>1D Max लाइनों, हेलो और लेबल्स की विज़िबिलिटी और रंग।</value></data>
+  <data name="DayMin_DisplayName" xml:space="preserve"><value>दिन का निम्न</value></data>
+  <data name="DayMin_Description" xml:space="preserve"><value>1D Min लाइनों, हेलो और लेबल्स की विज़िबिलिटी और रंग।</value></data>
+  <data name="Swing_DisplayName" xml:space="preserve"><value>Swing</value></data>
+  <data name="Swing_Description" xml:space="preserve"><value>Swing लाइनों, हेलो और लेबल्स की विज़िबिलिटी और रंग।</value></data>
+  <data name="Other_DisplayName" xml:space="preserve"><value>अन्य</value></data>
+  <data name="Other_Description" xml:space="preserve"><value>अनरिकग्नाइज़्ड या फ़ॉलबैक लेबल्स के लिए विज़िबिलिटी और रंग।</value></data>
+
+  <data name="EnableAlerts_DisplayName" xml:space="preserve"><value>अलर्ट सक्षम करें</value></data>
+  <data name="EnableAlerts_Description" xml:space="preserve"><value>क्रॉस-लेवल अलर्ट का मास्टर स्विच। बंद होने पर, श्रेणी विज़िबिलिटी की परवाह किए बिना कुछ भी जारी नहीं किया जाता।</value></data>
+  <data name="AlertSoundFile_DisplayName" xml:space="preserve"><value>साउंड फ़ाइल</value></data>
+  <data name="AlertSoundFile_Description" xml:space="preserve"><value>अलर्ट ट्रिगर होने पर बजने वाली साउंड फ़ाइल का नाम। ATAS 'alert1.wav' जैसे बंडल नामों को अपनी साउंड डायरेक्टरी से रिज़ॉल्व करता है; निरपेक्ष पथ भी काम करते हैं।</value></data>
+  <data name="EnableReversalAlerts_DisplayName" xml:space="preserve"><value>रिवर्सल अलर्ट</value></data>
+  <data name="EnableReversalAlerts_Description" xml:space="preserve"><value>जब क्रॉस अलर्ट ट्रिगर होता है और कीमत कूलडाउन विंडो के भीतर स्तर के पार वापस लौटती है, तो कूलडाउन समाप्ति पर फ़ॉलो-अप अलर्ट जारी होता है।</value></data>
+  <data name="AlertCooldownSeconds_DisplayName" xml:space="preserve"><value>Cooldown (सेकंड)</value></data>
+  <data name="AlertCooldownSeconds_Description" xml:space="preserve"><value>एक ही स्तर मूल्य पर लगातार अलर्ट के बीच न्यूनतम समय। जब कीमत किसी स्तर के आसपास दोलन करती है तो अलर्ट तूफ़ान को रोकता है।</value></data>
+
+  <data name="EnableDebugOverlay_DisplayName" xml:space="preserve"><value>डीबग ओवरले दिखाएं</value></data>
+  <data name="EnableDebugOverlay_Description" xml:space="preserve"><value>चार्ट के एक कोने में एक छोटा स्टेटस बॉक्स रेंडर करता है जो इंडिकेटर की आंतरिक स्थिति दिखाता है: रिज़ॉल्व किया गया टिकर, सक्रिय स्रोत, स्तर/एंट्री गिनती, लंबित अलर्ट, API स्थिति, और वर्तमान टेक्स्ट/API मल्टिप्लायर+ऑफसेट मान। डिफ़ॉल्ट बंद — स्तर गायब या मिसअलाइन क्यों हैं इसका निदान करने के लिए चालू करें।</value></data>
+  <data name="OverlayLocation_DisplayName" xml:space="preserve"><value>ओवरले स्थान</value></data>
+  <data name="OverlayLocation_Description" xml:space="preserve"><value>चार्ट का वह कोना जहाँ डीबग ओवरले एंकर किया गया है। डिफ़ॉल्ट TopRight ताकि कर्सर के नीचे ATAS द्वारा शीर्ष-बाएँ कोने में खींची गई OHLC जानकारी से टकराव से बचा जा सके।</value></data>
+
+  <data name="Style_Visible_DisplayName" xml:space="preserve"><value>दृश्यमान</value></data>
+  <data name="Style_Color_DisplayName" xml:space="preserve"><value>रंग</value></data>
+  <data name="Style_State_Visible" xml:space="preserve"><value>दृश्यमान</value></data>
+  <data name="Style_State_Hidden" xml:space="preserve"><value>छिपा</value></data>
+
+  <data name="Alert_CrossedAbove" xml:space="preserve"><value>ऊपर क्रॉस किया {0} @ {1}</value></data>
+  <data name="Alert_CrossedBelow" xml:space="preserve"><value>नीचे क्रॉस किया {0} @ {1}</value></data>
+  <data name="Alert_BackAbove" xml:space="preserve"><value>वापस ऊपर {0} @ {1}</value></data>
+  <data name="Alert_BackBelow" xml:space="preserve"><value>वापस नीचे {0} @ {1}</value></data>
+
+  <data name="OverlayLocation_TopLeft" xml:space="preserve"><value>शीर्ष बाएँ</value></data>
+  <data name="OverlayLocation_TopCenter" xml:space="preserve"><value>शीर्ष केंद्र</value></data>
+  <data name="OverlayLocation_TopRight" xml:space="preserve"><value>शीर्ष दाएँ</value></data>
+  <data name="OverlayLocation_BottomLeft" xml:space="preserve"><value>नीचे बाएँ</value></data>
+  <data name="OverlayLocation_BottomCenter" xml:space="preserve"><value>नीचे केंद्र</value></data>
+  <data name="OverlayLocation_BottomRight" xml:space="preserve"><value>नीचे दाएँ</value></data>
+
+  <data name="EnableAutoRefresh_DisplayName" xml:space="preserve"><value>ऑटो रिफ़्रेश</value></data>
+  <data name="EnableAutoRefresh_Description" xml:space="preserve"><value>MenthorQ के डॉक्युमेंटेड इंट्राडे शेड्यूल के अनुसार API स्तरों को स्वतः रिफ़्रेश करता है (14 निश्चित EST अपडेट स्लॉट: प्री-मार्केट 08:00 बजे, साथ ही 09:50 से 15:50 तक हर 30 मिनट)। प्रत्येक स्लॉट के बाद थोड़ा विलंब डेटा को MenthorQ सर्वर पर स्थिर होने देता है। चालू करते ही तुरंत catch-up फ़ेच ट्रिगर होता है। EOD स्लॉट (18:30 / 23:00 EST) ऑटो रिफ़्रेश नहीं होते; आवश्यकतानुसार बाज़ार बंद होने के बाद Update Levels मैन्युअली दबाएं।</value></data>
+
+</root>
