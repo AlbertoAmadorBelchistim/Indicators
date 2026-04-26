@@ -183,9 +183,10 @@ namespace ATAS.Indicators.Technical
                 {
                     var r = ParseMenthorQText(
                         rawIndex,
+                        _owner.TextMultiplier,
                         _owner.TextOffset,
-                        applyOffset: true,
-                        sourceIdBase: "MenthorQ:Text:Index");
+                        applyTransform: true,
+                sourceIdBase: "MenthorQ:Text:Index");
 
                     if (r.Entries.Length > 0)
                         allEntries.AddRange(r.Entries);
@@ -199,7 +200,8 @@ namespace ATAS.Indicators.Technical
                     var r = ParseMenthorQText(
                         rawFut,
                         _owner.TextOffset,
-                        applyOffset: false,
+                        _owner.TextOffset,
+                        applyTransform: false,
                         sourceIdBase: "MenthorQ:Text:Futures");
 
                     if (r.Entries.Length > 0)
@@ -237,8 +239,28 @@ namespace ATAS.Indicators.Technical
 
             public bool TryGetEntries(out ParsedEntry[] entries, out string[] warnings)
             {
-                entries = _entries;
                 warnings = Array.Empty<string>();
+
+                var multiplier = _owner._apiMultiplier;
+                var offset = _owner._apiOffset;
+
+                // Fast path — no transform, hand the raw array back by reference.
+                if (multiplier == 1m && offset == 0m)
+                {
+                    entries = _entries;
+                    return true;
+                }
+
+                // Slow path — allocate a transformed copy. Runs at engine cadence
+                // (RebuildLevelsIfNeeded), not per-render frame, so allocation is rare.
+                var result = new ParsedEntry[_entries.Length];
+                for (int i = 0; i < _entries.Length; i++)
+                {
+                    var raw = _entries[i];
+                    var transformed = (raw.Price * multiplier) + offset;
+                    result[i] = new ParsedEntry(transformed, raw.Labels, raw.SourceId);
+                }
+                entries = result;
                 return true;
             }
 
@@ -606,6 +628,15 @@ namespace ATAS.Indicators.Technical
         private bool _alertStateInitialised = false;
         private decimal _lastObservedClose;
 
+        // Multiplier for the Index text path. Applied BEFORE TextOffset.
+        // Default 1 = no scaling, preserves the additive-only behaviour of
+        // previous commits.
+        private decimal _textMultiplier = 1m;
+
+        // API: multiplier and offset, mirroring the Manual text pair.
+        private decimal _apiMultiplier = 1m;
+        private decimal _apiOffset;
+
         #endregion
 
         #region Properties: Manual text
@@ -630,7 +661,7 @@ namespace ATAS.Indicators.Technical
 
         [Display(Name = "Index text",
             GroupName = "Manual text",
-            Description = "Paste MenthorQ output for the Index ticker (SPX / NDX / RUT). Offset below is added to these prices.",
+            Description = "Paste MenthorQ output for an Index or ETF ticker (SPX / NDX / RUT, or SPY / QQQ / IWM). Multiplier and offset below are applied to these prices in that order.",
             Order = 20)]
         public string IndexTextRaw
         {
@@ -661,6 +692,22 @@ namespace ATAS.Indicators.Technical
                     return;
 
                 _futuresTextRaw = value;
+                _dataDirty = true;
+                RecalculateValues();
+            }
+        }
+
+        [Display(Name = "Multiplier (Index to Chart)",
+            GroupName = "Manual text",
+            Description = "Applied to every Index-text price BEFORE the offset. Most common case: ETF data → Futures chart. Approx ratios at current index levels: SPY → ES ≈ 10, QQQ → NQ ≈ 41, IWM → RTY ≈ 10. Ratios drift with index level — recalibrate periodically. Default 1 (no scaling). Futures text is never transformed.",
+            Order = 35)]
+        public decimal TextMultiplier
+        {
+            get => _textMultiplier;
+            set
+            {
+                if (_textMultiplier == value) return;
+                _textMultiplier = value;
                 _dataDirty = true;
                 RecalculateValues();
             }
@@ -768,6 +815,38 @@ namespace ATAS.Indicators.Technical
                     return;
 
                 _tickerOverride = value;
+                _dataDirty = true;
+                RecalculateValues();
+            }
+        }
+
+        [Display(Name = "Multiplier (API to Chart)",
+            GroupName = "API",
+            Description = "Applied to every API-fetched price BEFORE the offset. Most common case: ETF API feed → Futures chart. Approx ratios at current index levels: SPY → ES ≈ 10, QQQ → NQ ≈ 41, IWM → RTY ≈ 10. Ratios drift with index level — recalibrate periodically. Default 1 (no scaling). Applied at engine time — does not trigger an API refetch.",
+            Order = 132)]
+        public decimal ApiMultiplier
+        {
+            get => _apiMultiplier;
+            set
+            {
+                if (_apiMultiplier == value) return;
+                _apiMultiplier = value;
+                _dataDirty = true;
+                RecalculateValues();
+            }
+        }
+
+        [Display(Name = "Offset (API to Chart)",
+            GroupName = "API",
+            Description = "Added to every API-fetched price AFTER the multiplier. Combined formula: (raw_price × multiplier) + offset. Applied at engine time — changing it does not trigger an API refetch.",
+            Order = 135)]
+        public decimal ApiOffset
+        {
+            get => _apiOffset;
+            set
+            {
+                if (_apiOffset == value) return;
+                _apiOffset = value;
                 _dataDirty = true;
                 RecalculateValues();
             }
@@ -1099,14 +1178,18 @@ namespace ATAS.Indicators.Technical
 
         #region Private methods: parsing
 
-        private static ParseResult ParseMenthorQText(string raw, decimal offset, bool applyOffset, string sourceIdBase)
+        private static ParseResult ParseMenthorQText(
+    string raw,
+    decimal multiplier,
+    decimal offset,
+    bool applyTransform,
+    string sourceIdBase)
         {
             if (string.IsNullOrWhiteSpace(raw))
                 return new ParseResult(Array.Empty<ParsedEntry>(), Array.Empty<string>());
 
             raw = raw.Trim();
 
-            // Optional prefix: "$TICKER:" — parsed only for traceability.
             string ticker = string.Empty;
             var colon = raw.IndexOf(':');
             if (colon > 0 && raw[0] == '$')
@@ -1124,7 +1207,6 @@ namespace ATAS.Indicators.Technical
             var warnings = new List<string>(8);
             var entries = new List<ParsedEntry>(parts.Length / 2);
 
-            // Parse as label/price pairs: (0,1), (2,3), ...
             for (int i = 0; i + 1 < parts.Length; i += 2)
             {
                 var labelRaw = (parts[i] ?? string.Empty).Trim();
@@ -1142,12 +1224,11 @@ namespace ATAS.Indicators.Technical
                     continue;
                 }
 
-                if (applyOffset)
-                    price += offset;
+                if (applyTransform)
+                    price = (price * multiplier) + offset;
 
                 if (!TryMapMenthorQLabel(labelRaw, out var mapped))
                 {
-                    // Unknown label — keep as Other and still plot it.
                     mapped = new MappedLabel(
                         displayLabel: NormalizeWhitespace(labelRaw),
                         category: LevelCategory.Other,
