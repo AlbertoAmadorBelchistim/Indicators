@@ -1,4 +1,5 @@
 ﻿using ATAS.Indicators;
+using ATAS.Indicators.Technical.Properties;
 using OFT.Rendering.Context;
 using OFT.Rendering.Tools;
 using System;
@@ -18,11 +19,13 @@ using Utils.Common.Logging;
 
 namespace ATAS.Indicators.Technical
 {
-	[Category("Custom")]
-	[DisplayName("MenthorQLevels")]
-	public sealed class MenthorQLevels : Indicator
-	{
-		#region Nested types: model
+    [Category("Custom")]
+    [DisplayName("MenthorQLevels")]
+    [Display(ResourceType = typeof(CustomResources),
+        Description = nameof(CustomResources.Indicator_Description))]
+    public sealed class MenthorQLevels : Indicator
+    {
+        #region Nested types: model
 
 		internal enum LevelCategory
 		{
@@ -506,8 +509,7 @@ namespace ATAS.Indicators.Technical
 
 			public event PropertyChangedEventHandler PropertyChanged;
 
-			// Required by ATAS serialisation (parameterless ctor).
-			public CategoryStyle() { }
+            public CategoryStyle() { }
 
 			public CategoryStyle(bool isVisible, Color color)
 			{
@@ -515,34 +517,39 @@ namespace ATAS.Indicators.Technical
 				_color = color;
 			}
 
-			[Display(Name = "Visible", Order = 10)]
-			public bool IsVisible
-			{
-				get => _isVisible;
-				set
-				{
-					if (_isVisible == value) return;
-					_isVisible = value;
-					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsVisible)));
-				}
-			}
+            [Display(ResourceType = typeof(CustomResources),
+                Name = nameof(CustomResources.Style_Visible_DisplayName),
+                Order = 10)]
+            public bool IsVisible
+            {
+                get => _isVisible;
+                set
+                {
+                    if (_isVisible == value) return;
+                    _isVisible = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsVisible)));
+                }
+            }
 
-			[Display(Name = "Color", Order = 20)]
-			public Color Color
-			{
-				get => _color;
-				set
-				{
-					if (_color == value) return;
-					_color = value;
-					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Color)));
-				}
-			}
+            [Display(ResourceType = typeof(CustomResources),
+                Name = nameof(CustomResources.Style_Color_DisplayName),
+                Order = 20)]
+            public Color Color
+            {
+                get => _color;
+                set
+                {
+                    if (_color == value) return;
+                    _color = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Color)));
+                }
+            }
 
-			// Collapsed-row label. Default ToString would show the full type
-			// name; this gives the user the visibility state at a glance.
-			public override string ToString() => _isVisible ? "Visible" : "Hidden";
-		}
+            public override string ToString()
+                => _isVisible
+                    ? CustomResources.Style_State_Visible
+                    : CustomResources.Style_State_Hidden;
+        }
 
 		#endregion
 
@@ -564,15 +571,32 @@ namespace ATAS.Indicators.Technical
 
 		#region Nested types: debug overlay
 
-		public enum DebugOverlayLocation
-		{
-			TopLeft,
-			TopCenter,
-			TopRight,
-			BottomLeft,
-			BottomCenter,
-			BottomRight
-		}
+        public enum DebugOverlayLocation
+        {
+            [Display(ResourceType = typeof(CustomResources),
+                Name = nameof(CustomResources.OverlayLocation_TopLeft))]
+            TopLeft,
+
+            [Display(ResourceType = typeof(CustomResources),
+                Name = nameof(CustomResources.OverlayLocation_TopCenter))]
+            TopCenter,
+
+            [Display(ResourceType = typeof(CustomResources),
+                Name = nameof(CustomResources.OverlayLocation_TopRight))]
+            TopRight,
+
+            [Display(ResourceType = typeof(CustomResources),
+                Name = nameof(CustomResources.OverlayLocation_BottomLeft))]
+            BottomLeft,
+
+            [Display(ResourceType = typeof(CustomResources),
+                Name = nameof(CustomResources.OverlayLocation_BottomCenter))]
+            BottomCenter,
+
+            [Display(ResourceType = typeof(CustomResources),
+                Name = nameof(CustomResources.OverlayLocation_BottomRight))]
+            BottomRight
+        }
 
 		#endregion
 
@@ -734,17 +758,18 @@ namespace ATAS.Indicators.Technical
 
 		#region Properties: Manual text
 
-		[Display(Name = "Enabled",
-			GroupName = "Manual text",
-			Description = "Enable pasting MenthorQ levels as comma-separated text. Ignored when the API is configured and reachable.",
-			Order = 10)]
-		public bool EnableManualText
-		{
-			get => _enableManualText;
-			set
-			{
-				if (_enableManualText == value)
-					return;
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.EnableManualText_DisplayName),
+            Description = nameof(CustomResources.EnableManualText_Description),
+            GroupName = nameof(CustomResources.Group_ManualText),
+            Order = 10)]
+        public bool EnableManualText
+        {
+            get => _enableManualText;
+            set
+            {
+                if (_enableManualText == value) 
+                    return;
 
 				_enableManualText = value;
 				_dataDirty = true;
@@ -752,18 +777,19 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Index text",
-			GroupName = "Manual text",
-			Description = "Paste MenthorQ output for an Index or ETF ticker (SPX / NDX / RUT, or SPY / QQQ / IWM). Multiplier and offset below are applied to these prices in that order.",
-			Order = 20)]
-		public string IndexTextRaw
-		{
-			get => _indexTextRaw;
-			set
-			{
-				value ??= string.Empty;
-				if (string.Equals(_indexTextRaw, value, StringComparison.Ordinal))
-					return;
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.IndexTextRaw_DisplayName),
+            Description = nameof(CustomResources.IndexTextRaw_Description),
+            GroupName = nameof(CustomResources.Group_ManualText),
+            Order = 20)]
+        public string IndexTextRaw
+        {
+            get => _indexTextRaw;
+            set
+            {
+                value ??= string.Empty;
+                if (string.Equals(_indexTextRaw, value, StringComparison.Ordinal)) 
+                    return;
 
 				_indexTextRaw = value;
 				_dataDirty = true;
@@ -771,18 +797,19 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Futures text",
-			GroupName = "Manual text",
-			Description = "Paste MenthorQ output for the Futures ticker (ES / NQ / RTY). Offset is not applied to these prices.",
-			Order = 30)]
-		public string FuturesTextRaw
-		{
-			get => _futuresTextRaw;
-			set
-			{
-				value ??= string.Empty;
-				if (string.Equals(_futuresTextRaw, value, StringComparison.Ordinal))
-					return;
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.FuturesTextRaw_DisplayName),
+            Description = nameof(CustomResources.FuturesTextRaw_Description),
+            GroupName = nameof(CustomResources.Group_ManualText),
+            Order = 30)]
+        public string FuturesTextRaw
+        {
+            get => _futuresTextRaw;
+            set
+            {
+                value ??= string.Empty;
+                if (string.Equals(_futuresTextRaw, value, StringComparison.Ordinal)) 
+                    return;
 
 				_futuresTextRaw = value;
 				_dataDirty = true;
@@ -790,33 +817,35 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Multiplier (Index to Chart)",
-			GroupName = "Manual text",
-			Description = "Applied to every Index-text price BEFORE the offset. Most common case: ETF data → Futures chart. Approx ratios at current index levels: SPY → ES ≈ 10, QQQ → NQ ≈ 41, IWM → RTY ≈ 10. Ratios drift with index level — recalibrate periodically. Default 1 (no scaling). Futures text is never transformed.",
-			Order = 35)]
-		public decimal TextMultiplier
-		{
-			get => _textMultiplier;
-			set
-			{
-				if (_textMultiplier == value) return;
-				_textMultiplier = value;
-				_dataDirty = true;
-				RecalculateValues();
-			}
-		}
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.TextMultiplier_DisplayName),
+            Description = nameof(CustomResources.TextMultiplier_Description),
+            GroupName = nameof(CustomResources.Group_ManualText),
+            Order = 35)]
+        public decimal TextMultiplier
+        {
+            get => _textMultiplier;
+            set
+            {
+                if (_textMultiplier == value) return;
+                _textMultiplier = value;
+                _dataDirty = true;
+                RecalculateValues();
+            }
+        }
 
-		[Display(Name = "Offset (Index to Chart)",
-			GroupName = "Manual text",
-			Description = "Added to every price parsed from the Index text, to align SPX levels to ES, NDX to NQ, etc. Futures text is never offset.",
-			Order = 40)]
-		public decimal TextOffset
-		{
-			get => _textOffset;
-			set
-			{
-				if (_textOffset == value)
-					return;
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.TextOffset_DisplayName),
+            Description = nameof(CustomResources.TextOffset_Description),
+            GroupName = nameof(CustomResources.Group_ManualText),
+            Order = 40)]
+        public decimal TextOffset
+        {
+            get => _textOffset;
+            set
+            {
+                if (_textOffset == value) 
+                    return;
 
 				_textOffset = value;
 				_dataDirty = true;
@@ -824,27 +853,27 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Clear text fields",
-			GroupName = "Manual text",
-			Description = "Toggle to clear both Index and Futures text fields. Self-resets.",
-			Order = 50)]
-		public bool ClearManualTextNow
-		{
-			get => false;
-			set
-			{
-				if (!value)
-					return;
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.ClearManualTextNow_DisplayName),
+            Description = nameof(CustomResources.ClearManualTextNow_Description),
+            GroupName = nameof(CustomResources.Group_ManualText),
+            Order = 50)]
+        public bool ClearManualTextNow
+        {
+            get => false;
+            set
+            {
+                if (!value) 
+                    return;
 
-				if (_indexTextRaw.Length == 0 && _futuresTextRaw.Length == 0)
-					return;
+                if (_indexTextRaw.Length == 0 && _futuresTextRaw.Length == 0) 
+                    return;
 
 				_indexTextRaw = string.Empty;
 				_futuresTextRaw = string.Empty;
 
-				// Force UI textboxes to refresh (matches legacy LevelsLolo behavior).
-				RaisePropertyChanged(nameof(IndexTextRaw));
-				RaisePropertyChanged(nameof(FuturesTextRaw));
+                RaisePropertyChanged(nameof(IndexTextRaw));
+                RaisePropertyChanged(nameof(FuturesTextRaw));
 
 				_dataDirty = true;
 				RecalculateValues();
@@ -855,18 +884,19 @@ namespace ATAS.Indicators.Technical
 
 		#region Properties: API
 
-		[Display(Name = "API Key",
-			GroupName = "API",
-			Description = "MenthorQ API key. When set together with User ID, the API becomes the active data source and manual text is ignored.",
-			Order = 110)]
-		public string ApiKey
-		{
-			get => _apiKey;
-			set
-			{
-				value ??= string.Empty;
-				if (string.Equals(_apiKey, value, StringComparison.Ordinal))
-					return;
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.ApiKey_DisplayName),
+            Description = nameof(CustomResources.ApiKey_Description),
+            GroupName = nameof(CustomResources.Group_Api),
+            Order = 110)]
+        public string ApiKey
+        {
+            get => _apiKey;
+            set
+            {
+                value ??= string.Empty;
+                if (string.Equals(_apiKey, value, StringComparison.Ordinal)) 
+                    return;
 
 				_apiKey = value;
 				_api = new MqApi(_apiKey);
@@ -875,18 +905,19 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "User ID (email)",
-			GroupName = "API",
-			Description = "Email associated with your MenthorQ account. Sent as the user_id query parameter on every request.",
-			Order = 120)]
-		public string UserId
-		{
-			get => _userId;
-			set
-			{
-				value ??= string.Empty;
-				if (string.Equals(_userId, value, StringComparison.Ordinal))
-					return;
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.UserId_DisplayName),
+            Description = nameof(CustomResources.UserId_Description),
+            GroupName = nameof(CustomResources.Group_Api),
+            Order = 120)]
+        public string UserId
+        {
+            get => _userId;
+            set
+            {
+                value ??= string.Empty;
+                if (string.Equals(_userId, value, StringComparison.Ordinal)) 
+                    return;
 
 				_userId = value;
 				_dataDirty = true;
@@ -894,18 +925,19 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Ticker override",
-	GroupName = "API",
-	Description = "Optional. Leave empty to use the chart instrument (micros are auto-stripped: MES→ES, MNQ→NQ). Set a value to force a specific ticker (e.g. SPX on ES, or ES when the feed exposes ESH24).",
-	Order = 130)]
-		public string TickerOverride
-		{
-			get => _tickerOverride;
-			set
-			{
-				value ??= string.Empty;
-				if (string.Equals(_tickerOverride, value, StringComparison.Ordinal))
-					return;
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.TickerOverride_DisplayName),
+            Description = nameof(CustomResources.TickerOverride_Description),
+            GroupName = nameof(CustomResources.Group_Api),
+            Order = 130)]
+        public string TickerOverride
+        {
+            get => _tickerOverride;
+            set
+            {
+                value ??= string.Empty;
+                if (string.Equals(_tickerOverride, value, StringComparison.Ordinal)) 
+                    return;
 
 				_tickerOverride = value;
 				_dataDirty = true;
@@ -913,64 +945,73 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Multiplier (API to Chart)",
-			GroupName = "API",
-			Description = "Applied to every API-fetched price BEFORE the offset. Most common case: ETF API feed → Futures chart. Approx ratios at current index levels: SPY → ES ≈ 10, QQQ → NQ ≈ 41, IWM → RTY ≈ 10. Ratios drift with index level — recalibrate periodically. Default 1 (no scaling). Applied at engine time — does not trigger an API refetch.",
-			Order = 132)]
-		public decimal ApiMultiplier
-		{
-			get => _apiMultiplier;
-			set
-			{
-				if (_apiMultiplier == value) return;
-				_apiMultiplier = value;
-				_dataDirty = true;
-				RecalculateValues();
-			}
-		}
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.ApiMultiplier_DisplayName),
+            Description = nameof(CustomResources.ApiMultiplier_Description),
+            GroupName = nameof(CustomResources.Group_Api),
+            Order = 132)]
+        public decimal ApiMultiplier
+        {
+            get => _apiMultiplier;
+            set
+            {
+                if (_apiMultiplier == value) 
+                    return;
 
-		[Display(Name = "Offset (API to Chart)",
-			GroupName = "API",
-			Description = "Added to every API-fetched price AFTER the multiplier. Combined formula: (raw_price × multiplier) + offset. Applied at engine time — changing it does not trigger an API refetch.",
-			Order = 135)]
-		public decimal ApiOffset
-		{
-			get => _apiOffset;
-			set
-			{
-				if (_apiOffset == value) return;
-				_apiOffset = value;
-				_dataDirty = true;
-				RecalculateValues();
-			}
-		}
+                _apiMultiplier = value;
+                _dataDirty = true;
+                RecalculateValues();
+            }
+        }
 
-		[Display(Name = "Update Levels",
-	GroupName = "API",
-	Description = "Fetch latest levels from the MenthorQ API. Self-resets.",
-	Order = 140)]
-		public bool UpdateLevels
-		{
-			get => false;
-			set
-			{
-				if (!value)
-					return;
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.ApiOffset_DisplayName),
+            Description = nameof(CustomResources.ApiOffset_Description),
+            GroupName = nameof(CustomResources.Group_Api),
+            Order = 135)]
+        public decimal ApiOffset
+        {
+            get => _apiOffset;
+            set
+            {
+                if (_apiOffset == value) 
+                    return;
+
+                _apiOffset = value;
+                _dataDirty = true;
+                RecalculateValues();
+            }
+        }
+
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.UpdateLevels_DisplayName),
+            Description = nameof(CustomResources.UpdateLevels_Description),
+            GroupName = nameof(CustomResources.Group_Api),
+            Order = 140)]
+        public bool UpdateLevels
+        {
+            get => false;
+            set
+            {
+                if (!value) 
+                    return;
 
 				_ = FetchAndParseLevelsAsync();
 			}
 		}
 
-		[Display(Name = "Auto refresh", GroupName = "API",
-	Description = "Automatically refresh API levels following MenthorQ's documented intraday schedule (14 fixed EST update slots: pre-market at 08:00 plus every 30 minutes from 09:50 to 15:50). A small post-slot delay lets the data settle on MenthorQ's end before the fetch fires. Toggling this on triggers an immediate catch-up fetch. EOD slots (18:30 / 23:00 EST) are not auto-refreshed; press Update Levels manually after market close if needed.",
-	Order = 142)]
-		public bool EnableAutoRefresh
-		{
-			get => _enableAutoRefresh;
-			set
-			{
-				if (_enableAutoRefresh == value) return;
-				_enableAutoRefresh = value;
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.EnableAutoRefresh_DisplayName),
+            Description = nameof(CustomResources.EnableAutoRefresh_Description),
+            GroupName = nameof(CustomResources.Group_Api),
+            Order = 142)]
+        public bool EnableAutoRefresh
+        {
+            get => _enableAutoRefresh;
+            set
+            {
+                if (_enableAutoRefresh == value) return;
+                _enableAutoRefresh = value;
 
 				// Catch-up: when the user toggles on mid-session, fetch
 				// immediately so the chart reflects the latest levels
@@ -984,137 +1025,181 @@ namespace ATAS.Indicators.Technical
 
 		#region Properties: Levels
 
-		// Each row is a single expandable property. The Display attribute
-		// here governs the row label and ordering inside the "Levels" group;
-		// the inner CategoryStyle's [Display] attributes govern the sub-row
-		// labels (Visible, Color) when the row is expanded.
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.GammaWall_DisplayName),
+            Description = nameof(CustomResources.GammaWall_Description),
+            GroupName = nameof(CustomResources.Group_Levels),
+            Order = 200)]
+        public CategoryStyle GammaWall { get; }
 
-		[Display(Name = "Gamma Wall", GroupName = "Levels", Order = 200,
-			Description = "Visibility and colour for GW lines, halos and labels.")]
-		public CategoryStyle GammaWall { get; }
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.CallResistance_DisplayName),
+            Description = nameof(CustomResources.CallResistance_Description),
+            GroupName = nameof(CustomResources.Group_Levels),
+            Order = 201)]
+        public CategoryStyle CallResistance { get; }
 
-		[Display(Name = "Call Resistance", GroupName = "Levels", Order = 201,
-			Description = "Visibility and colour for CR lines, halos and labels.")]
-		public CategoryStyle CallResistance { get; }
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.PutSupport_DisplayName),
+            Description = nameof(CustomResources.PutSupport_Description),
+            GroupName = nameof(CustomResources.Group_Levels),
+            Order = 202)]
+        public CategoryStyle PutSupport { get; }
 
-		[Display(Name = "Put Support", GroupName = "Levels", Order = 202,
-			Description = "Visibility and colour for PS lines, halos and labels.")]
-		public CategoryStyle PutSupport { get; }
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.HighVolatilityLevel_DisplayName),
+            Description = nameof(CustomResources.HighVolatilityLevel_Description),
+            GroupName = nameof(CustomResources.Group_Levels),
+            Order = 203)]
+        public CategoryStyle HighVolatilityLevel { get; }
 
-		[Display(Name = "High Volatility Level", GroupName = "Levels", Order = 203,
-			Description = "Visibility and colour for HVL lines, halos and labels.")]
-		public CategoryStyle HighVolatilityLevel { get; }
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.RiskTrigger_DisplayName),
+            Description = nameof(CustomResources.RiskTrigger_Description),
+            GroupName = nameof(CustomResources.Group_Levels),
+            Order = 204)]
+        public CategoryStyle RiskTrigger { get; }
 
-		[Display(Name = "Risk Trigger", GroupName = "Levels", Order = 204,
-			Description = "Visibility and colour for RT lines, halos and labels.")]
-		public CategoryStyle RiskTrigger { get; }
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.UpperBand_DisplayName),
+            Description = nameof(CustomResources.UpperBand_Description),
+            GroupName = nameof(CustomResources.Group_Levels),
+            Order = 205)]
+        public CategoryStyle UpperBand { get; }
 
-		[Display(Name = "Upper Band", GroupName = "Levels", Order = 205,
-			Description = "Visibility and colour for UB lines, halos and labels.")]
-		public CategoryStyle UpperBand { get; }
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.LowerBand_DisplayName),
+            Description = nameof(CustomResources.LowerBand_Description),
+            GroupName = nameof(CustomResources.Group_Levels),
+            Order = 206)]
+        public CategoryStyle LowerBand { get; }
 
-		[Display(Name = "Lower Band", GroupName = "Levels", Order = 206,
-			Description = "Visibility and colour for LB lines, halos and labels.")]
-		public CategoryStyle LowerBand { get; }
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.GammaExposure_DisplayName),
+            Description = nameof(CustomResources.GammaExposure_Description),
+            GroupName = nameof(CustomResources.Group_Levels),
+            Order = 207)]
+        public CategoryStyle GammaExposure { get; }
 
-		[Display(Name = "Gamma Exposure", GroupName = "Levels", Order = 207,
-			Description = "Visibility and colour for GEX N lines, halos and labels.")]
-		public CategoryStyle GammaExposure { get; }
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.BlindSpot_DisplayName),
+            Description = nameof(CustomResources.BlindSpot_Description),
+            GroupName = nameof(CustomResources.Group_Levels),
+            Order = 208)]
+        public CategoryStyle BlindSpot { get; }
 
-		[Display(Name = "Blind Spot", GroupName = "Levels", Order = 208,
-			Description = "Visibility and colour for BL N lines, halos and labels.")]
-		public CategoryStyle BlindSpot { get; }
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.DayMax_DisplayName),
+            Description = nameof(CustomResources.DayMax_Description),
+            GroupName = nameof(CustomResources.Group_Levels),
+            Order = 209)]
+        public CategoryStyle DayMax { get; }
 
-		[Display(Name = "Day Max", GroupName = "Levels", Order = 209,
-			Description = "Visibility and colour for 1D Max lines, halos and labels.")]
-		public CategoryStyle DayMax { get; }
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.DayMin_DisplayName),
+            Description = nameof(CustomResources.DayMin_Description),
+            GroupName = nameof(CustomResources.Group_Levels),
+            Order = 210)]
+        public CategoryStyle DayMin { get; }
 
-		[Display(Name = "Day Min", GroupName = "Levels", Order = 210,
-			Description = "Visibility and colour for 1D Min lines, halos and labels.")]
-		public CategoryStyle DayMin { get; }
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.Swing_DisplayName),
+            Description = nameof(CustomResources.Swing_Description),
+            GroupName = nameof(CustomResources.Group_Levels),
+            Order = 211)]
+        public CategoryStyle Swing { get; }
 
-		[Display(Name = "Swing", GroupName = "Levels", Order = 211,
-			Description = "Visibility and colour for Swing lines, halos and labels.")]
-		public CategoryStyle Swing { get; }
-
-		[Display(Name = "Other", GroupName = "Levels", Order = 212,
-			Description = "Visibility and colour for fallback / unrecognised labels.")]
-		public CategoryStyle Other { get; }
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.Other_DisplayName),
+            Description = nameof(CustomResources.Other_Description),
+            GroupName = nameof(CustomResources.Group_Levels),
+            Order = 212)]
+        public CategoryStyle Other { get; }
 
 		#endregion
 
 		#region Properties: Alerts
 
-		[Display(Name = "Enable alerts", GroupName = "Alerts",
-			Description = "Master switch for cross-level alerts. When off, nothing is emitted regardless of category visibility.",
-			Order = 400)]
-		public bool EnableAlerts
-		{
-			get => _enableAlerts;
-			set => _enableAlerts = value;
-		}
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.EnableAlerts_DisplayName),
+            Description = nameof(CustomResources.EnableAlerts_Description),
+            GroupName = nameof(CustomResources.Group_Alerts),
+            Order = 400)]
+        public bool EnableAlerts
+        {
+            get => _enableAlerts;
+            set => _enableAlerts = value;
+        }
 
-		[Display(Name = "Sound file", GroupName = "Alerts",
-			Description = "Filename of the sound played when an alert fires. ATAS resolves bundled names like 'alert1.wav' from its sound directory; absolute paths work too.",
-			Order = 410)]
-		public string AlertSoundFile
-		{
-			get => _alertSoundFile;
-			set => _alertSoundFile = value ?? string.Empty;
-		}
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.AlertSoundFile_DisplayName),
+            Description = nameof(CustomResources.AlertSoundFile_Description),
+            GroupName = nameof(CustomResources.Group_Alerts),
+            Order = 410)]
+        public string AlertSoundFile
+        {
+            get => _alertSoundFile;
+            set => _alertSoundFile = value ?? string.Empty;
+        }
 
-		[Display(Name = "Alert on reversal", GroupName = "Alerts",
-	Description = "When a cross alert fires and price reverts back across the level within the cooldown window, emit a follow-up alert at cooldown expiry.",
-	Order = 415)]
-		public bool EnableReversalAlerts
-		{
-			get => _enableReversalAlerts;
-			set => _enableReversalAlerts = value;
-		}
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.EnableReversalAlerts_DisplayName),
+            Description = nameof(CustomResources.EnableReversalAlerts_Description),
+            GroupName = nameof(CustomResources.Group_Alerts),
+            Order = 415)]
+        public bool EnableReversalAlerts
+        {
+            get => _enableReversalAlerts;
+            set => _enableReversalAlerts = value;
+        }
 
-		[Display(Name = "Cooldown (seconds)", GroupName = "Alerts",
-			Description = "Minimum time between consecutive alerts on the same level price. Prevents alert storms when price oscillates around a level.",
-			Order = 420)]
-		[Range(1, 3600)]
-		public int AlertCooldownSeconds
-		{
-			get => _alertCooldownSeconds;
-			set => _alertCooldownSeconds = Math.Max(1, value);
-		}
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.AlertCooldownSeconds_DisplayName),
+            Description = nameof(CustomResources.AlertCooldownSeconds_Description),
+            GroupName = nameof(CustomResources.Group_Alerts),
+            Order = 420)]
+        [Range(1, 3600)]
+        public int AlertCooldownSeconds
+        {
+            get => _alertCooldownSeconds;
+            set => _alertCooldownSeconds = Math.Max(1, value);
+        }
 
 		#endregion
 
 		#region Properties: Diagnostics
 
-		[Display(Name = "Show debug overlay",
-			GroupName = "Diagnostics",
-			Description = "Renders a small status box in the top-left corner of the chart showing internal indicator state: resolved ticker, active source, level/entry counts, pending alerts, API status, and current text/API multiplier+offset values. Default off — turn on when diagnosing why levels are missing or misaligned.",
-			Order = 500)]
-		public bool EnableDebugOverlay
-		{
-			get => _enableDebugOverlay;
-			set
-			{
-				if (_enableDebugOverlay == value) return;
-				_enableDebugOverlay = value;
-				RedrawChart();
-			}
-		}
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.EnableDebugOverlay_DisplayName),
+            Description = nameof(CustomResources.EnableDebugOverlay_Description),
+            GroupName = nameof(CustomResources.Group_Diagnostics),
+            Order = 500)]
+        public bool EnableDebugOverlay
+        {
+            get => _enableDebugOverlay;
+            set
+            {
+                if (_enableDebugOverlay == value) return;
+                _enableDebugOverlay = value;
+                RedrawChart();
+            }
+        }
 
-		[Display(Name = "Overlay location",
-	GroupName = "Diagnostics",
-	Description = "Corner of the chart where the debug overlay is anchored. Default TopRight to avoid colliding with the OHLC info that ATAS draws in the top-left under the cursor.",
-	Order = 510)]
-		public DebugOverlayLocation OverlayLocation
-		{
-			get => _debugOverlayLocation;
-			set
-			{
-				if (_debugOverlayLocation == value) return;
-				_debugOverlayLocation = value;
-				RedrawChart();
-			}
-		}
+        [Display(ResourceType = typeof(CustomResources),
+            Name = nameof(CustomResources.OverlayLocation_DisplayName),
+            Description = nameof(CustomResources.OverlayLocation_Description),
+            GroupName = nameof(CustomResources.Group_Diagnostics),
+            Order = 510)]
+        public DebugOverlayLocation OverlayLocation
+        {
+            get => _debugOverlayLocation;
+            set
+            {
+                if (_debugOverlayLocation == value) return;
+                _debugOverlayLocation = value;
+                RedrawChart();
+            }
+        }
 
 		#endregion
 
@@ -2320,9 +2405,11 @@ namespace ATAS.Indicators.Technical
 				if (_pendingAlerts.ContainsKey(level.Price))
 					continue;
 
-				var priceStr = level.Price.ToString("0.##", CultureInfo.InvariantCulture);
-				var direction = directionAbove ? "above" : "below";
-				var message = $"crossed {direction} {level.DisplayText} @ {priceStr}";
+                var priceStr = level.Price.ToString("0.##", CultureInfo.InvariantCulture);
+                var template = directionAbove
+                    ? CustomResources.Alert_CrossedAbove
+                    : CustomResources.Alert_CrossedBelow;
+                var message = string.Format(template, level.DisplayText, priceStr);
 
 				try
 				{
@@ -2392,9 +2479,11 @@ namespace ATAS.Indicators.Technical
 				// forward path against.
 				if (!IsCategoryVisible(lvl.Winner.Category)) continue;
 
-				var priceStr = levelPrice.ToString("0.##", CultureInfo.InvariantCulture);
-				var newSide = nowAbove ? "above" : "below";
-				var message = $"back {newSide} {lvl.DisplayText} @ {priceStr}";
+                var priceStr = levelPrice.ToString("0.##", CultureInfo.InvariantCulture);
+                var template = nowAbove
+                    ? CustomResources.Alert_BackAbove
+                    : CustomResources.Alert_BackBelow;
+                var message = string.Format(template, lvl.DisplayText, priceStr);
 
 				try
 				{
