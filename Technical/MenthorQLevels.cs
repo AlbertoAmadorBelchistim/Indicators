@@ -490,6 +490,22 @@ namespace ATAS.Indicators.Technical
 
         #endregion
 
+        #region Nested types: alerts
+
+        private readonly struct AlertRecord
+        {
+            public readonly DateTime FiredAt;
+            public readonly bool DirectionAbove;
+
+            public AlertRecord(DateTime firedAt, bool directionAbove)
+            {
+                FiredAt = firedAt;
+                DirectionAbove = directionAbove;
+            }
+        }
+
+        #endregion
+
         #region Fields
 
         // Sources — plugins that emit ParsedEntry[]. Populated in EnsureSourcesInitialized.
@@ -565,6 +581,30 @@ namespace ATAS.Indicators.Technical
 
         // UI: Ticker override. When non-empty, takes precedence over InstrumentInfo.
         private string _tickerOverride = string.Empty;
+
+        // UI: Alerts
+        private bool _enableAlerts = false;
+        private string _alertSoundFile = "alert1.wav";
+        private int _alertCooldownSeconds = 60;
+
+        // UI: reversal toggle
+        private bool _enableReversalAlerts = true;
+
+        // Pending alerts, keyed by level price. An entry exists from the
+        // moment a cross alert fires until either (a) the cooldown expires
+        // and the entry is processed (potentially emitting a reversal) and
+        // removed, or (b) the indicator is destroyed. Replaces the simpler
+        // _lastAlertTime from the previous commit because we now need to
+        // remember the alerted direction, not just the timestamp.
+        private readonly Dictionary<decimal, AlertRecord> _pendingAlerts
+            = new Dictionary<decimal, AlertRecord>();
+
+        // Last close observed by DetectAndFireAlerts. Used to detect
+        // transitions on a per-tick basis instead of per-bar basis. Reset to
+        // the current close on first call ever (or after a recalc that
+        // re-runs OnCalculate from bar 0).
+        private bool _alertStateInitialised = false;
+        private decimal _lastObservedClose;
 
         #endregion
 
@@ -812,6 +852,47 @@ namespace ATAS.Indicators.Technical
 
         #endregion
 
+        #region Properties: Alerts
+
+        [Display(Name = "Enable alerts", GroupName = "Alerts",
+            Description = "Master switch for cross-level alerts. When off, nothing is emitted regardless of category visibility.",
+            Order = 400)]
+        public bool EnableAlerts
+        {
+            get => _enableAlerts;
+            set => _enableAlerts = value;
+        }
+
+        [Display(Name = "Sound file", GroupName = "Alerts",
+            Description = "Filename of the sound played when an alert fires. ATAS resolves bundled names like 'alert1.wav' from its sound directory; absolute paths work too.",
+            Order = 410)]
+        public string AlertSoundFile
+        {
+            get => _alertSoundFile;
+            set => _alertSoundFile = value ?? string.Empty;
+        }
+
+        [Display(Name = "Alert on reversal", GroupName = "Alerts",
+    Description = "When a cross alert fires and price reverts back across the level within the cooldown window, emit a follow-up alert at cooldown expiry.",
+    Order = 415)]
+        public bool EnableReversalAlerts
+        {
+            get => _enableReversalAlerts;
+            set => _enableReversalAlerts = value;
+        }
+
+        [Display(Name = "Cooldown (seconds)", GroupName = "Alerts",
+            Description = "Minimum time between consecutive alerts on the same level price. Prevents alert storms when price oscillates around a level.",
+            Order = 420)]
+        [Range(1, 3600)]
+        public int AlertCooldownSeconds
+        {
+            get => _alertCooldownSeconds;
+            set => _alertCooldownSeconds = Math.Max(1, value);
+        }
+
+        #endregion
+
         #region ctor
 
         public MenthorQLevels()
@@ -857,16 +938,14 @@ namespace ATAS.Indicators.Technical
             RedrawChart();
         }
 
-#endregion
+        #endregion
 
         #region Overrides
 
         protected override void OnCalculate(int bar, decimal value)
         {
             RebuildLevelsIfNeeded();
-
-            // Shell: _parsedEntries is populated but nothing consumes it yet.
-            // Engine (dedup within source) lands in a later commit, followed by the renderer.
+            DetectAndFireAlerts(bar);
         }
 
         protected override void OnRender(RenderContext context, DrawingLayouts layout)
@@ -1709,6 +1788,157 @@ namespace ATAS.Indicators.Technical
         {
             _penCache.Clear();
             _haloPenCache.Clear();
+        }
+
+        #endregion
+
+        #region Private methods: alerts
+
+        private void DetectAndFireAlerts(int bar)
+        {
+            if (!_enableAlerts) return;
+            if (_levels == null || _levels.Length == 0) return;
+            if (bar < CurrentBar - 1) return;
+
+            var current = GetCandle(bar);
+            var currentClose = current.Close;
+            var now = DateTime.Now;
+            var ticker = InstrumentInfo?.Instrument ?? string.Empty;
+
+            // Process pending alerts whose cooldown has expired. May emit
+            // reversal notifications as a side effect. Done first so the
+            // _pendingAlerts table is in its post-expiry state when the
+            // cross-detection loop below consults it.
+            ProcessExpiredAlerts(currentClose, ticker, now);
+
+            // First call ever — seed and exit. No previous tick to compare.
+            if (!_alertStateInitialised)
+            {
+                _lastObservedClose = currentClose;
+                _alertStateInitialised = true;
+                return;
+            }
+
+            var prevObserved = _lastObservedClose;
+            _lastObservedClose = currentClose;
+
+            if (currentClose == prevObserved) return;
+
+            var lo = Math.Min(prevObserved, currentClose);
+            var hi = Math.Max(prevObserved, currentClose);
+            var directionAbove = currentClose > prevObserved;
+
+            for (int i = 0; i < _levels.Length; i++)
+            {
+                var level = _levels[i];
+
+                if (!IsCategoryVisible(level.Winner.Category))
+                    continue;
+
+                if (level.Price <= lo || level.Price >= hi)
+                    continue;
+
+                // Cooldown gate. ContainsKey is now equivalent to "cooldown
+                // active" because ProcessExpiredAlerts above has already
+                // dropped any entries whose cooldown expired this tick.
+                if (_pendingAlerts.ContainsKey(level.Price))
+                    continue;
+
+                var priceStr = level.Price.ToString("0.##", CultureInfo.InvariantCulture);
+                var direction = directionAbove ? "above" : "below";
+                var message = $"crossed {direction} {level.DisplayText} @ {priceStr}";
+
+                try
+                {
+                    AddAlert(_alertSoundFile, ticker, message,
+                        Color.Black.Convert(),
+                        Color.White.Convert());
+
+                    _pendingAlerts[level.Price] = new AlertRecord(now, directionAbove);
+
+                    this.LogInfo($"MenthorQLevels: alert — {ticker} {message}");
+                }
+                catch (Exception ex)
+                {
+                    this.LogWarn($"MenthorQLevels: alert failed for '{message}' — {ex.Message}");
+                }
+            }
+        }
+
+        private void ProcessExpiredAlerts(decimal currentClose, string ticker, DateTime now)
+        {
+            if (_pendingAlerts.Count == 0) return;
+
+            List<decimal> toRemove = null;
+
+            foreach (var kv in _pendingAlerts)
+            {
+                var levelPrice = kv.Key;
+                var record = kv.Value;
+
+                // Still inside the cooldown window — leave it alone.
+                if ((now - record.FiredAt).TotalSeconds < _alertCooldownSeconds)
+                    continue;
+
+                // Cooldown expired. Decide whether to emit a reversal before
+                // dropping the entry. Equality with the level price is treated
+                // as ambiguous (neither above nor below) and skipped silently.
+                toRemove ??= new List<decimal>();
+                toRemove.Add(levelPrice);
+
+                if (!_enableReversalAlerts) continue;
+                if (currentClose == levelPrice) continue;
+
+                var nowAbove = currentClose > levelPrice;
+                var reverted = record.DirectionAbove != nowAbove;
+
+                if (!reverted) continue;
+
+                // Look up the level. It may have been removed (user re-pegó
+                // text or refreshed API) since the alert fired, in which case
+                // we have no DisplayText / category and silently skip.
+                Level? matched = null;
+                for (int i = 0; i < _levels.Length; i++)
+                {
+                    if (_levels[i].Price == levelPrice)
+                    {
+                        matched = _levels[i];
+                        break;
+                    }
+                }
+
+                if (!matched.HasValue) continue;
+
+                var lvl = matched.Value;
+
+                // Visibility may have been toggled off in the meantime — alerting
+                // on a hidden level is the same kind of confusion we gate the
+                // forward path against.
+                if (!IsCategoryVisible(lvl.Winner.Category)) continue;
+
+                var priceStr = levelPrice.ToString("0.##", CultureInfo.InvariantCulture);
+                var newSide = nowAbove ? "above" : "below";
+                var message = $"back {newSide} {lvl.DisplayText} @ {priceStr}";
+
+                try
+                {
+                    AddAlert(_alertSoundFile, ticker, message,
+                        Color.Black.Convert(),
+                        Color.White.Convert());
+
+                    this.LogInfo($"MenthorQLevels: alert — {ticker} {message}");
+                }
+                catch (Exception ex)
+                {
+                    this.LogWarn($"MenthorQLevels: reversal alert failed for '{message}' — {ex.Message}");
+                }
+            }
+
+            if (toRemove != null)
+            {
+                for (int i = 0; i < toRemove.Count; i++)
+                    _pendingAlerts.Remove(toRemove[i]);
+            }
         }
 
         #endregion
