@@ -1094,6 +1094,14 @@ namespace ATAS.Indicators.Technical
             EnableCustomDrawing = true;
             SubscribeToDrawingEvents(DrawingLayouts.Final);
 
+            // Hide the default DataSeries[0] from the chart panel and from
+            // the indicator's draw list. The indicator renders entirely
+            // through OnRender against _levels; the base-class series has
+            // no values to plot and would otherwise show up under "Dibujado"
+            // as an empty 1px solid line entry.
+            DataSeries[0].IsHidden = true;
+            ((ValueDataSeries)DataSeries[0]).VisualType = VisualMode.Hide;
+
             _api = new MqApi(_apiKey);
 
             // Initialise the 13 styles with their default colour and Visible=true,
