@@ -664,6 +664,38 @@ namespace ATAS.Indicators.Technical
         // state aligns cleanly. Cross-flavor like the label font.
         private static readonly RenderFont DebugFont = new RenderFont("Consolas", 9);
 
+        // UI: auto-refresh
+        private bool _enableAutoRefresh;
+
+        // Per-day fired-slot ledger to ensure each slot fires once per day.
+        // Keyed by (Hour, Minute) in EST. Reset when nowEst.Date changes.
+        private DateTime _autoRefreshLastDate = DateTime.MinValue;
+        private readonly HashSet<(int Hour, int Minute)> _autoRefreshFiredSlotsToday = new();
+
+        // Cadence: a 30-second timer is enough to catch any slot's
+        // post-stabilisation window. The timer instance is also our
+        // subscribe/unsubscribe handle.
+        private static readonly TimeSpan AutoRefreshTimerInterval = TimeSpan.FromSeconds(30);
+
+        // Eastern Time zone — handles EST/EDT transitions automatically
+        // despite the Windows ID being labelled "Standard". Falls back to
+        // IANA name on non-Windows runtimes.
+        private static readonly TimeZoneInfo EasternTimeZone = ResolveEasternTimeZone();
+
+        // MenthorQ intraday update schedule (EST). Source: MenthorQ
+        // documentation. 1 pre-market slot at 08:00 plus 13 regular-session
+        // slots every 30 minutes from 09:50 to 15:50.
+        private static readonly (int Hour, int Minute)[] IntradayScheduleEst = new[]
+        {
+    (8, 0),
+    (9, 50), (10, 20), (10, 50),
+    (11, 20), (11, 50),
+    (12, 20), (12, 50),
+    (13, 20), (13, 50),
+    (14, 20), (14, 50),
+    (15, 20), (15, 50)
+};
+
         #endregion
 
         #region Properties: Manual text
@@ -892,6 +924,25 @@ namespace ATAS.Indicators.Technical
                     return;
 
                 _ = FetchAndParseLevelsAsync();
+            }
+        }
+
+        [Display(Name = "Auto refresh", GroupName = "API",
+    Description = "Automatically refresh API levels following MenthorQ's documented intraday schedule (14 fixed EST update slots: pre-market at 08:00 plus every 30 minutes from 09:50 to 15:50). A small post-slot delay lets the data settle on MenthorQ's end before the fetch fires. Toggling this on triggers an immediate catch-up fetch. EOD slots (18:30 / 23:00 EST) are not auto-refreshed; press Update Levels manually after market close if needed.",
+    Order = 142)]
+        public bool EnableAutoRefresh
+        {
+            get => _enableAutoRefresh;
+            set
+            {
+                if (_enableAutoRefresh == value) return;
+                _enableAutoRefresh = value;
+
+                // Catch-up: when the user toggles on mid-session, fetch
+                // immediately so the chart reflects the latest levels
+                // without waiting for the next scheduled slot.
+                if (value)
+                    _ = FetchAndParseLevelsAsync();
             }
         }
 
@@ -1171,6 +1222,18 @@ namespace ATAS.Indicators.Technical
             // with scrolling or zoom.
             if (_enableDebugOverlay)
                 RenderDebugOverlay(context);
+        }
+
+        protected override void OnInitialize()
+        {
+            base.OnInitialize();
+            SubscribeToTimer(AutoRefreshTimerInterval, OnAutoRefreshTick);
+        }
+
+        protected override void OnDispose()
+        {
+            UnsubscribeFromTimer(AutoRefreshTimerInterval, OnAutoRefreshTick);
+            base.OnDispose();
         }
 
         #endregion
@@ -1641,6 +1704,62 @@ namespace ATAS.Indicators.Technical
         private static bool IsIntradayBlock(LevelType type)
             => type == LevelType.gamma_levels_intraday
             || type == LevelType.gamma_scalping_intraday;
+
+        private void OnAutoRefreshTick()
+        {
+            if (!_enableAutoRefresh) return;
+            if (string.IsNullOrEmpty(_apiKey) || string.IsNullOrEmpty(_userId)) return;
+
+            var nowEst = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, EasternTimeZone);
+            var today = nowEst.Date;
+
+            // Day rollover: clear the per-day fired ledger so today's slots
+            // can fire fresh.
+            if (today != _autoRefreshLastDate)
+            {
+                _autoRefreshFiredSlotsToday.Clear();
+                _autoRefreshLastDate = today;
+            }
+
+            for (int i = 0; i < IntradayScheduleEst.Length; i++)
+            {
+                var slot = IntradayScheduleEst[i];
+                if (_autoRefreshFiredSlotsToday.Contains(slot)) continue;
+
+                var slotTime = today + new TimeSpan(slot.Hour, slot.Minute, 0);
+
+                // Fire window: 1 minute after the slot (server stabilisation
+                // buffer) up to 5 minutes after (catch-up tolerance for
+                // missed timer ticks, e.g. system suspend or a previous fetch
+                // still in flight).
+                var windowStart = slotTime + TimeSpan.FromMinutes(1);
+                var windowEnd = slotTime + TimeSpan.FromMinutes(5);
+
+                if (nowEst >= windowStart && nowEst < windowEnd)
+                {
+                    _autoRefreshFiredSlotsToday.Add(slot);
+                    _ = FetchAndParseLevelsAsync();
+                    this.LogInfo($"MenthorQLevels: scheduled refresh — slot {slot.Hour:D2}:{slot.Minute:D2} EST");
+                    return;
+                }
+            }
+        }
+
+        private static TimeZoneInfo ResolveEasternTimeZone()
+        {
+            // Windows ID first because ATAS runs on Windows. Falls back to
+            // the IANA name if the host is .NET 6+ on Linux/macOS.
+            try { return TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time"); }
+            catch (TimeZoneNotFoundException) { }
+
+            try { return TimeZoneInfo.FindSystemTimeZoneById("America/New_York"); }
+            catch (TimeZoneNotFoundException) { }
+
+            // Last-ditch fallback. Loses DST handling but the indicator
+            // still functions; the trader can switch off auto-refresh and
+            // press the manual button at the right times.
+            return TimeZoneInfo.Utc;
+        }
 
         #endregion
 
