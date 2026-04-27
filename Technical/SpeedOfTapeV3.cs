@@ -1,8 +1,11 @@
 ﻿using ATAS.Indicators;
+using ATAS.Indicators.Drawing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing;
+using System.Linq;
 using Utils.Common.Logging;
 
 namespace ATAS.Indicators.Technical
@@ -90,6 +93,21 @@ namespace ATAS.Indicators.Technical
             public decimal Speed { get; }
         }
 
+        /// <summary>
+        /// Single (timestamp, speed) datapoint kept inside the rolling
+        /// context buffer used to compute the percentile threshold.
+        /// </summary>
+        private readonly struct SpeedObservation
+        {
+            public SpeedObservation(DateTime time, decimal speed)
+            {
+                Time = time;
+                Speed = speed;
+            }
+            public DateTime Time { get; }
+            public decimal Speed { get; }
+        }
+
         #endregion
 
         #region Fields
@@ -105,6 +123,18 @@ namespace ATAS.Indicators.Technical
             UseMinimizedModeIfEnabled = false,
             ResetAlertsOnNewBar = true,
             ScaleIt = true
+        };
+
+        // Threshold line: aqua horizontal level showing the current
+        // percentile-derived burst boundary. Updated once per second from
+        // the rolling speed buffer in MaybeSampleSpeed.
+        private readonly ValueDataSeries _thresholdSeries = new ValueDataSeries("Threshold")
+        {
+            VisualType = VisualMode.Line,
+            Color = System.Drawing.Color.Aqua.Convert(),
+            Width = 2,
+            ScaleIt = true,
+            ShowZeroValue = false
         };
 
         // ─── Engine state ───────────────────────────────────────────────────
@@ -123,6 +153,26 @@ namespace ATAS.Indicators.Technical
         // the HWM is committed to _renderSeries[oldBar].
         private int _lastBar = -1;
         private decimal _currentBarHwm;
+
+        // How often a new speed observation is sampled into the context
+        // buffer. 1 Hz keeps the buffer at ~900 entries for a 15-min window
+        // and the percentile compute trivial — cheap and robust enough for
+        // session-rhythm tracking.
+        private static readonly TimeSpan SamplePeriod = TimeSpan.FromSeconds(1);
+
+        // Rolling buffer of speed observations over the last
+        // ContextWindowMinutes minutes. Populated by MaybeSampleSpeed,
+        // trimmed by TrimSpeedBuffer, read by ComputePercentile.
+        private readonly Queue<SpeedObservation> _speedBuffer = new Queue<SpeedObservation>();
+
+        // Trade-time of the last observation added; used to rate-limit
+        // MaybeSampleSpeed to one entry per SamplePeriod.
+        private DateTime _lastSampleTime = DateTime.MinValue;
+
+        // Cached percentile value, recomputed every time a new observation
+        // enters the buffer. Read by UpdateHistogram (writes the threshold
+        // series) and by event detection in C07.
+        private decimal _currentThreshold;
 
         // ─── Settings backing fields ────────────────────────────────────────
         // Kept private + exposed via Properties so the setters can trigger
@@ -154,7 +204,18 @@ namespace ATAS.Indicators.Technical
         public SpeedType DataType
         {
             get => _dataType;
-            set { _dataType = value; RecalculateValues(); }
+            set
+            {
+                _dataType = value;
+
+                // Buffer holds observations in the previous metric's units;
+                // clear so the threshold doesn't compare apples to oranges.
+                _speedBuffer.Clear();
+                _lastSampleTime = DateTime.MinValue;
+                _currentThreshold = 0m;
+
+                RecalculateValues();
+            }
         }
 
         [Display(Name = "Context window (minutes)",
@@ -194,6 +255,7 @@ namespace ATAS.Indicators.Technical
             ((ValueDataSeries)DataSeries[0]).VisualType = VisualMode.Hide;
 
             DataSeries.Add(_renderSeries);
+            DataSeries.Add(_thresholdSeries);
 
             this.LogInfo("SpeedOfTapeV3 scaffold loaded");
         }
@@ -232,6 +294,7 @@ namespace ATAS.Indicators.Technical
 
             TrimToTimeWindow(trade.Time);
             _currentSnapshot = ComputeInstantSnapshot();
+            MaybeSampleSpeed(trade.Time);
             UpdateHistogram();
         }
 
@@ -284,6 +347,51 @@ namespace ATAS.Indicators.Technical
         }
 
         /// <summary>
+        /// Adds the current snapshot's Speed to the rolling context buffer
+        /// at most once per SamplePeriod. Called on every trade; the
+        /// rate-limit prevents the buffer from blowing up in active markets
+        /// while still capturing enough observations for a stable percentile
+        /// over the configured ContextWindowMinutes.
+        /// </summary>
+        private void MaybeSampleSpeed(DateTime now)
+        {
+            if (now - _lastSampleTime < SamplePeriod) return;
+            _lastSampleTime = now;
+
+            _speedBuffer.Enqueue(new SpeedObservation(now, _currentSnapshot.Speed));
+            TrimSpeedBuffer(now);
+            _currentThreshold = ComputePercentile(_thresholdPercentile);
+        }
+
+        /// <summary>
+        /// Drops observations older than now - ContextWindowMinutes from the
+        /// front of the buffer. Mirrors TrimToTimeWindow but on minutes
+        /// instead of seconds.
+        /// </summary>
+        private void TrimSpeedBuffer(DateTime now)
+        {
+            var cutoff = now.AddMinutes(-_contextWindowMinutes);
+            while (_speedBuffer.Count > 0 && _speedBuffer.Peek().Time <= cutoff)
+                _speedBuffer.Dequeue();
+        }
+
+        /// <summary>
+        /// Returns the value at the requested percentile of the current
+        /// buffer using the nearest-rank method. P95 of N samples returns
+        /// the element at sorted index floor(0.95 * N). Returns 0 when the
+        /// buffer is empty (e.g. fresh start before the first sample).
+        /// </summary>
+        private decimal ComputePercentile(int percentile)
+        {
+            if (_speedBuffer.Count == 0) return 0m;
+
+            var sorted = _speedBuffer.Select(o => o.Speed).OrderBy(s => s).ToArray();
+            int idx = (int)(sorted.Length * percentile / 100m);
+            if (idx >= sorted.Length) idx = sorted.Length - 1;
+            return sorted[idx];
+        }
+
+        /// <summary>
         /// Bridges engine state to the histogram series. While the live bar
         /// is in progress, _renderSeries[bar] pulses with the current
         /// instantaneous speed. On bar transition, the just-closed bar is
@@ -301,14 +409,15 @@ namespace ATAS.Indicators.Technical
                     _renderSeries[_lastBar] = _currentBarHwm;
 
                 _lastBar = bar;
-                _currentBarHwm = _currentSnapshot.Speed;   // ← era _currentInstantSpeed
+                _currentBarHwm = _currentSnapshot.Speed;
             }
-            else if (_currentSnapshot.Speed > _currentBarHwm)   // ← era _currentInstantSpeed
+            else if (_currentSnapshot.Speed > _currentBarHwm)
             {
-                _currentBarHwm = _currentSnapshot.Speed;   // ← era _currentInstantSpeed
+                _currentBarHwm = _currentSnapshot.Speed;
             }
 
-            _renderSeries[bar] = _currentSnapshot.Speed;   // ← era _currentInstantSpeed
+            _renderSeries[bar] = _currentSnapshot.Speed;
+            _thresholdSeries[bar] = _currentThreshold;
         }
 
         #endregion
