@@ -1,5 +1,7 @@
 ﻿using ATAS.Indicators;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using Utils.Common.Logging;
 
 namespace ATAS.Indicators.Technical
@@ -11,21 +13,99 @@ namespace ATAS.Indicators.Technical
     {
         #region Nested types
 
-        // Filled in C02 (SpeedType) and C07 (TickSnapshot, EventRecord, SpeedState).
+        /// <summary>
+        /// Metric the engine computes over the sliding time window.
+        /// </summary>
+        public enum SpeedType
+        {
+            [Display(Name = "Ticks (HFT)")] Ticks,
+            [Display(Name = "Volume (Blocks)")] Volume,
+            [Display(Name = "Delta (Aggression)")] Delta,
+            [Display(Name = "Buy Volume")] Buys,
+            [Display(Name = "Sell Volume")] Sells
+        }
+
+        /// <summary>
+        /// Single trade snapshot kept inside the rolling time window.
+        /// Direction: +1 buy, -1 sell.
+        /// </summary>
+        private readonly struct TickSnapshot
+        {
+            public TickSnapshot(System.DateTime time, decimal volume, int direction, decimal price)
+            {
+                Time = time;
+                Volume = volume;
+                Direction = direction;
+                Price = price;
+            }
+
+            public System.DateTime Time { get; }
+            public decimal Volume { get; }
+            public int Direction { get; }
+            public decimal Price { get; }
+        }
 
         #endregion
 
         #region Fields
 
-        // Internal state and settings backing fields.
-        // Filled across C02–C13.
+        // Sliding window of trades observed in the last TimeWindow seconds.
+        // Populated by OnNewTrade (C03) and OnCumulativeTradesResponse (C12).
+        private readonly Queue<TickSnapshot> _tickQueue = new Queue<TickSnapshot>();
+
+        // Settings backing fields. Kept private + exposed via Properties so
+        // the setters can trigger RecalculateValues on parameter changes.
+        private int _timeWindow = 5;
+        private SpeedType _dataType = SpeedType.Ticks;
+        private int _contextWindowMinutes = 15;
+        private int _thresholdPercentile = 95;
 
         #endregion
 
         #region Properties
 
-        // [Display]-attributed parameters exposed in the indicator panel.
-        // Filled across C02–C13.
+        [Display(Name = "Time window (seconds)",
+                 GroupName = "Calculation",
+                 Description = "Length of the sliding window over which the speed metric is computed. Smaller values react faster but are noisier; larger values smooth out micro-bursts.",
+                 Order = 10)]
+        [Range(1, 600)]
+        public int TimeWindow
+        {
+            get => _timeWindow;
+            set { _timeWindow = value; RecalculateValues(); }
+        }
+
+        [Display(Name = "Data type",
+                 GroupName = "Calculation",
+                 Description = "Which metric the engine accumulates inside the time window. Ticks counts trades; Volume sums lots; Delta is signed buy-minus-sell volume; Buy/Sell Volume isolate one side.",
+                 Order = 20)]
+        public SpeedType DataType
+        {
+            get => _dataType;
+            set { _dataType = value; RecalculateValues(); }
+        }
+
+        [Display(Name = "Context window (minutes)",
+                 GroupName = "Threshold",
+                 Description = "How far back the engine looks to compute the percentile threshold. Adapts to time-of-day rhythm: short enough to track session phases, long enough to be statistically stable.",
+                 Order = 10)]
+        [Range(1, 120)]
+        public int ContextWindowMinutes
+        {
+            get => _contextWindowMinutes;
+            set { _contextWindowMinutes = value; RecalculateValues(); }
+        }
+
+        [Display(Name = "Threshold percentile",
+                 GroupName = "Threshold",
+                 Description = "Percentile of recent speed observations above which a burst is detected. P95 means 'speeds that occur only 5% of the time in the recent context'. Higher values are more selective.",
+                 Order = 20)]
+        [Range(50, 99)]
+        public int ThresholdPercentile
+        {
+            get => _thresholdPercentile;
+            set { _thresholdPercentile = value; RecalculateValues(); }
+        }
 
         #endregion
 
