@@ -50,21 +50,43 @@ namespace ATAS.Indicators.Technical
 
         #region Fields
 
+        // ─── DataSeries displayed in the panel ──────────────────────────────
+        // Speed histogram: live bar pulses with the current instantaneous
+        // speed; closed bars are frozen at their high water mark in
+        // UpdateHistogram() when a bar transition is detected.
+        private readonly ValueDataSeries _renderSeries = new ValueDataSeries("Speed")
+        {
+            VisualType = VisualMode.Histogram,
+            ShowZeroValue = false,
+            UseMinimizedModeIfEnabled = false,
+            ResetAlertsOnNewBar = true,
+            ScaleIt = true
+        };
+
+        // ─── Engine state ───────────────────────────────────────────────────
         // Sliding window of trades observed in the last TimeWindow seconds.
         // Populated by OnNewTrade (C03) and OnCumulativeTradesResponse (C12).
         private readonly Queue<TickSnapshot> _tickQueue = new Queue<TickSnapshot>();
 
-        // Settings backing fields. Kept private + exposed via Properties so
-        // the setters can trigger RecalculateValues on parameter changes.
+        // Latest instantaneous speed computed over the rolling tick queue.
+        // Updated on every OnNewTrade. Read by the histogram, event detection
+        // (C07) and the diagnostic tracepoints used in smoke tests.
+        private decimal _currentInstantSpeed;
+
+        // Bar transition tracking. _lastBar is -1 until the first trade
+        // arrives. _currentBarHwm tracks the highest instantaneous speed
+        // reached while the live bar is in progress; when a new bar starts
+        // the HWM is committed to _renderSeries[oldBar].
+        private int _lastBar = -1;
+        private decimal _currentBarHwm;
+
+        // ─── Settings backing fields ────────────────────────────────────────
+        // Kept private + exposed via Properties so the setters can trigger
+        // RecalculateValues on parameter changes.
         private int _timeWindow = 5;
         private SpeedType _dataType = SpeedType.Ticks;
         private int _contextWindowMinutes = 15;
         private int _thresholdPercentile = 95;
-
-        // Latest instantaneous speed computed over the rolling tick queue.
-        // Updated on every OnNewTrade. Read by the histogram (C04), event
-        // detection (C07) and the diagnostic tracepoints used in smoke tests.
-        private decimal _currentInstantSpeed;
 
         #endregion
 
@@ -127,6 +149,8 @@ namespace ATAS.Indicators.Technical
             DataSeries[0].IsHidden = true;
             ((ValueDataSeries)DataSeries[0]).VisualType = VisualMode.Hide;
 
+            DataSeries.Add(_renderSeries);
+
             this.LogInfo("SpeedOfTapeV3 scaffold loaded");
         }
 
@@ -164,6 +188,7 @@ namespace ATAS.Indicators.Technical
 
             TrimToTimeWindow(trade.Time);
             _currentInstantSpeed = ComputeInstantSpeed();
+            UpdateHistogram();
         }
 
         // Future market events:
@@ -217,6 +242,37 @@ namespace ATAS.Indicators.Technical
                 SpeedType.Sells => sells,
                 _ => 0
             };
+        }
+
+        /// <summary>
+        /// Bridges engine state to the histogram series. While the live bar
+        /// is in progress, _renderSeries[bar] pulses with the current
+        /// instantaneous speed. On bar transition, the just-closed bar is
+        /// frozen at its HWM so closed history reflects peak intensity, not
+        /// the value that happened to be live at the closing tick.
+        /// </summary>
+        private void UpdateHistogram()
+        {
+            int bar = CurrentBar - 1;
+            if (bar < 0) return;
+
+            if (bar != _lastBar)
+            {
+                // Bar transition: freeze the bar that just closed at its HWM.
+                if (_lastBar >= 0)
+                    _renderSeries[_lastBar] = _currentBarHwm;
+
+                _lastBar = bar;
+                _currentBarHwm = _currentInstantSpeed;
+            }
+            else if (_currentInstantSpeed > _currentBarHwm)
+            {
+                // Same bar still in progress: track the high water mark.
+                _currentBarHwm = _currentInstantSpeed;
+            }
+
+            // Live bar pulses with the current instant speed (not the HWM).
+            _renderSeries[bar] = _currentInstantSpeed;
         }
 
         #endregion
