@@ -46,6 +46,50 @@ namespace ATAS.Indicators.Technical
             public decimal Price { get; }
         }
 
+        /// <summary>
+        /// Aggregated metrics over the rolling window at a single instant.
+        /// Buy and Sell volumes are tracked in parallel — the user-selected
+        /// DataType only chooses which scalar gets compared to the threshold,
+        /// while the rest of the system (event color, efficiency, primary
+        /// direction, zone bounds) reads the rest of the snapshot directly.
+        /// </summary>
+        private readonly struct SpeedSnapshot
+        {
+            public SpeedSnapshot(int ticks, decimal volume, decimal buys, decimal sells,
+                                 decimal high, decimal low, SpeedType dataType)
+            {
+                Ticks = ticks;
+                Volume = volume;
+                Buys = buys;
+                Sells = sells;
+                Delta = buys - sells;
+                High = high;
+                Low = low;
+                Efficiency = volume == 0 ? 0m : Math.Abs(Delta) / volume;
+                IsBuyDominant = Delta >= 0;
+                Speed = dataType switch
+                {
+                    SpeedType.Ticks => ticks,
+                    SpeedType.Volume => volume,
+                    SpeedType.Delta => Math.Abs(Delta),
+                    SpeedType.Buys => buys,
+                    SpeedType.Sells => sells,
+                    _ => 0m
+                };
+            }
+
+            public int Ticks { get; }
+            public decimal Volume { get; }
+            public decimal Buys { get; }
+            public decimal Sells { get; }
+            public decimal Delta { get; }
+            public decimal High { get; }
+            public decimal Low { get; }
+            public decimal Efficiency { get; }
+            public bool IsBuyDominant { get; }
+            public decimal Speed { get; }
+        }
+
         #endregion
 
         #region Fields
@@ -68,10 +112,10 @@ namespace ATAS.Indicators.Technical
         // Populated by OnNewTrade (C03) and OnCumulativeTradesResponse (C12).
         private readonly Queue<TickSnapshot> _tickQueue = new Queue<TickSnapshot>();
 
-        // Latest instantaneous speed computed over the rolling tick queue.
-        // Updated on every OnNewTrade. Read by the histogram, event detection
-        // (C07) and the diagnostic tracepoints used in smoke tests.
-        private decimal _currentInstantSpeed;
+        // Latest engine snapshot computed over the rolling tick queue.
+        // Updated on every OnNewTrade. The histogram reads .Speed; downstream
+        // consumers (event detection, coloring, info panel) read the rest.
+        private SpeedSnapshot _currentSnapshot;
 
         // Bar transition tracking. _lastBar is -1 until the first trade
         // arrives. _currentBarHwm tracks the highest instantaneous speed
@@ -187,7 +231,7 @@ namespace ATAS.Indicators.Technical
             _tickQueue.Enqueue(snap);
 
             TrimToTimeWindow(trade.Time);
-            _currentInstantSpeed = ComputeInstantSpeed();
+            _currentSnapshot = ComputeInstantSnapshot();
             UpdateHistogram();
         }
 
@@ -211,37 +255,32 @@ namespace ATAS.Indicators.Technical
         }
 
         /// <summary>
-        /// Computes the instantaneous speed value for the currently selected
-        /// DataType, by aggregating over the trades inside the rolling window.
-        /// Returns 0 when the queue is empty.
-        ///
-        /// In C05 this method will be refactored to return a richer snapshot
-        /// carrying buy/sell metrics in parallel, to support symmetric
-        /// burst tracking.
+        /// Single-pass aggregation over the rolling tick queue. Returns all
+        /// metrics in parallel — buys and sells are accumulated independently
+        /// and the snapshot exposes both, plus the high/low price range
+        /// observed during the window. The caller decides what to do with
+        /// each field.
         /// </summary>
-        private decimal ComputeInstantSpeed()
+        private SpeedSnapshot ComputeInstantSnapshot()
         {
-            if (_tickQueue.Count == 0) return 0;
+            if (_tickQueue.Count == 0)
+                return new SpeedSnapshot(0, 0m, 0m, 0m, 0m, 0m, _dataType);
 
             int ticks = _tickQueue.Count;
-            decimal vol = 0, delta = 0, buys = 0, sells = 0;
+            decimal vol = 0m, buys = 0m, sells = 0m;
+            decimal high = decimal.MinValue, low = decimal.MaxValue;
 
             foreach (var t in _tickQueue)
             {
                 vol += t.Volume;
-                if (t.Direction == 1) { buys += t.Volume; delta += t.Volume; }
-                else { sells += t.Volume; delta -= t.Volume; }
+                if (t.Direction == 1) buys += t.Volume;
+                else sells += t.Volume;
+
+                if (t.Price > high) high = t.Price;
+                if (t.Price < low) low = t.Price;
             }
 
-            return _dataType switch
-            {
-                SpeedType.Ticks => ticks,
-                SpeedType.Volume => vol,
-                SpeedType.Delta => Math.Abs(delta),
-                SpeedType.Buys => buys,
-                SpeedType.Sells => sells,
-                _ => 0
-            };
+            return new SpeedSnapshot(ticks, vol, buys, sells, high, low, _dataType);
         }
 
         /// <summary>
@@ -258,21 +297,18 @@ namespace ATAS.Indicators.Technical
 
             if (bar != _lastBar)
             {
-                // Bar transition: freeze the bar that just closed at its HWM.
                 if (_lastBar >= 0)
                     _renderSeries[_lastBar] = _currentBarHwm;
 
                 _lastBar = bar;
-                _currentBarHwm = _currentInstantSpeed;
+                _currentBarHwm = _currentSnapshot.Speed;   // ← era _currentInstantSpeed
             }
-            else if (_currentInstantSpeed > _currentBarHwm)
+            else if (_currentSnapshot.Speed > _currentBarHwm)   // ← era _currentInstantSpeed
             {
-                // Same bar still in progress: track the high water mark.
-                _currentBarHwm = _currentInstantSpeed;
+                _currentBarHwm = _currentSnapshot.Speed;   // ← era _currentInstantSpeed
             }
 
-            // Live bar pulses with the current instant speed (not the HWM).
-            _renderSeries[bar] = _currentInstantSpeed;
+            _renderSeries[bar] = _currentSnapshot.Speed;   // ← era _currentInstantSpeed
         }
 
         #endregion
