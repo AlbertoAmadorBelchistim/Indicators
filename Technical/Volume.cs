@@ -110,7 +110,7 @@ public class Volume : Indicator
     #region Calculation
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Type), GroupName = nameof(Strings.Calculation), Description = nameof(Strings.SourceTypeDescription))]
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
 	public InputType Input
 	{
 		get => _input;
@@ -127,7 +127,7 @@ public class Volume : Indicator
     #region Filter
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.UseFilter), GroupName = nameof(Strings.Filter), Description = nameof(Strings.UseFilterDescription))]
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     public bool UseFilter
     {
         get => _useFilter;
@@ -140,7 +140,7 @@ public class Volume : Indicator
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.Filter), Description = nameof(Strings.MinVolumeFilterCommonDescription))]
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     public decimal FilterValue
     {
         get => _filter;
@@ -153,7 +153,7 @@ public class Volume : Indicator
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Color), GroupName = nameof(Strings.Filter), Description = nameof(Strings.FilterColorDescription))]
-    [Tab(TabName = nameof(Strings.Visualization), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public CrossColor FilterColor
     {
         get => _filterColor.Convert();
@@ -167,11 +167,11 @@ public class Volume : Indicator
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.UseAlerts), GroupName = nameof(Strings.Filter), Description = nameof(Strings.UseAlertsDescription))]
-    [Tab(TabName = nameof(Strings.Alerts), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
     public bool UseVolumeAlerts { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.Filter), Description = nameof(Strings.AlertFileDescription))]
-    [Tab(TabName = nameof(Strings.Alerts), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
     public string AlertVolumeFile { get; set; } = "alert1";
 
     #endregion
@@ -179,7 +179,7 @@ public class Volume : Indicator
     #region MaximumVolume
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Show), GroupName = nameof(Strings.MaximumVolume), Description = nameof(Strings.MaximumVolumeDescription))]
-    [Tab(TabName = nameof(Strings.Visualization), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public bool ShowMaxVolume
     {
         get => MaxVolSeries.VisualType is not VisualMode.Hide;
@@ -187,7 +187,7 @@ public class Volume : Indicator
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Period), GroupName = nameof(Strings.MaximumVolume), Description = nameof(Strings.MaximumVolumePeriodDescription))]
-    [Tab(TabName = nameof(Strings.Visualization), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     [Range(1, 100000)]
     public int HiVolPeriod
     {
@@ -196,7 +196,7 @@ public class Volume : Indicator
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Color), GroupName = nameof(Strings.MaximumVolume), Description = nameof(Strings.ColorDescription))]
-    [Tab(TabName = nameof(Strings.Visualization), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public CrossColor LineColor
     {
         get => MaxVolSeries.Color;
@@ -208,11 +208,11 @@ public class Volume : Indicator
     #region Volume label
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Show), GroupName = nameof(Strings.VolumeLabel), Description = nameof(Strings.VolumeLabelDescription))]
-    [Tab(TabName = nameof(Strings.Visualization), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public bool ShowVolume { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Color), GroupName = nameof(Strings.VolumeLabel), Description = nameof(Strings.LabelTextColorDescription))]
-    [Tab(TabName = nameof(Strings.Visualization), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public CrossColor FontColor
     {
         get => TextColor.Convert();
@@ -220,11 +220,11 @@ public class Volume : Indicator
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Location), GroupName = nameof(Strings.VolumeLabel), Description = nameof(Strings.LabelLocationDescription))]
-    [Tab(TabName = nameof(Strings.Visualization), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public Location VolLocation { get; set; } = Location.Middle;
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Font), GroupName = nameof(Strings.VolumeLabel), Description = nameof(Strings.FontSettingDescription))]
-    [Tab(TabName = nameof(Strings.Visualization), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public FontSetting Font { get; set; } = new("Arial", 10);
 
     #endregion
@@ -232,11 +232,11 @@ public class Volume : Indicator
     #region Divergence alert
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Enabled), GroupName = nameof(Strings.ReverseAlert), Description = nameof(Strings.ReverseAlertDescription))]
-    [Tab(TabName = nameof(Strings.Alerts), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
     public bool UseReverseAlerts { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.ReverseAlert), Description = nameof(Strings.AlertFileDescription))]
-    [Tab(TabName = nameof(Strings.Alerts), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
     public string AlertReverseFile { get; set; } = "alert1";
 
     #endregion
@@ -244,7 +244,7 @@ public class Volume : Indicator
     #region Drawing
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.DeltaColored), GroupName = nameof(Strings.Drawing), Description = nameof(Strings.DeltaColoredDescription))]
-    [Tab(TabName = nameof(Strings.Visualization), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
 	public bool DeltaColored
 	{
 		get => _deltaColored;
@@ -257,7 +257,7 @@ public class Volume : Indicator
 	}
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Positive), GroupName = nameof(Strings.Drawing), Description = nameof(Strings.PositiveValueColorDescription))]
-	[Tab(TabName = nameof(Strings.Visualization), ResourceType = typeof(Strings))]
+	[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
 	public CrossColor PosColor
 	{
 		get => _posColor.Convert();
@@ -270,7 +270,7 @@ public class Volume : Indicator
 	}
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Negative), GroupName = nameof(Strings.Drawing), Description = nameof(Strings.NegativeValueColorDescription))]
-	[Tab(TabName = nameof(Strings.Visualization), ResourceType = typeof(Strings))]
+	[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
 	public CrossColor NegColor
 	{
 		get => _negColor.Convert();
@@ -283,7 +283,7 @@ public class Volume : Indicator
 	}
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Neutral), GroupName = nameof(Strings.Drawing), Description = nameof(Strings.NeutralColorDescription))]
-	[Tab(TabName = nameof(Strings.Visualization), ResourceType = typeof(Strings))]
+	[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
 	public CrossColor NeutralColor
 	{
 		get => _neutralColor.Convert();
