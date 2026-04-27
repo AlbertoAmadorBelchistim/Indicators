@@ -1,4 +1,5 @@
 ﻿using ATAS.Indicators;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -59,6 +60,11 @@ namespace ATAS.Indicators.Technical
         private SpeedType _dataType = SpeedType.Ticks;
         private int _contextWindowMinutes = 15;
         private int _thresholdPercentile = 95;
+
+        // Latest instantaneous speed computed over the rolling tick queue.
+        // Updated on every OnNewTrade. Read by the histogram (C04), event
+        // detection (C07) and the diagnostic tracepoints used in smoke tests.
+        private decimal _currentInstantSpeed;
 
         #endregion
 
@@ -126,24 +132,92 @@ namespace ATAS.Indicators.Technical
 
         #endregion
 
-        #region Overrides
+        #region Overrides: Lifecycle
 
         protected override void OnCalculate(int bar, decimal value)
         {
-            // Engine lives in OnNewTrade (added in C03).
+            // Engine lives in OnNewTrade.
             // OnCalculate must be overridden to satisfy BaseIndicator's
             // abstract contract; intentionally left empty.
         }
 
-        // Future overrides: OnNewTrade (C03), OnCumulativeTradesResponse + OnFinishRecalculate (C12),
-        // OnRender (C08), OnDispose (C14).
+        // Future lifecycle overrides:
+        //   OnFinishRecalculate — C12 (historical replay trigger)
+        //   OnDispose           — C14 (cleanup + thread-safety pass)
 
         #endregion
 
-        #region Private methods
+        #region Overrides: Market events
 
-        // Engine, rendering helpers and alert dispatch.
-        // Filled across C03–C13.
+        /// <summary>
+        /// Live-only entry point. Called by ATAS once per real-time trade.
+        /// Adds the trade to the rolling window keyed on the trade's own
+        /// timestamp (NOT DateTime.UtcNow — that was the V2 reproducibility
+        /// bug between live and historical paths). Then trims the window and
+        /// recomputes the instantaneous speed.
+        /// </summary>
+        protected override void OnNewTrade(MarketDataArg trade)
+        {
+            var direction = trade.Direction == TradeDirection.Buy ? 1 : -1;
+            var snap = new TickSnapshot(trade.Time, trade.Volume, direction, trade.Price);
+            _tickQueue.Enqueue(snap);
+
+            TrimToTimeWindow(trade.Time);
+            _currentInstantSpeed = ComputeInstantSpeed();
+        }
+
+        // Future market events:
+        //   OnCumulativeTradesResponse — C12 (historical replay)
+
+        #endregion
+
+        #region Private methods: Engine
+
+        /// <summary>
+        /// Drops trades older than now - TimeWindow seconds from the front of
+        /// the queue. Called after every enqueue so the queue length is always
+        /// bounded by the configured time window.
+        /// </summary>
+        private void TrimToTimeWindow(DateTime now)
+        {
+            var cutoff = now.AddSeconds(-_timeWindow);
+            while (_tickQueue.Count > 0 && _tickQueue.Peek().Time <= cutoff)
+                _tickQueue.Dequeue();
+        }
+
+        /// <summary>
+        /// Computes the instantaneous speed value for the currently selected
+        /// DataType, by aggregating over the trades inside the rolling window.
+        /// Returns 0 when the queue is empty.
+        ///
+        /// In C05 this method will be refactored to return a richer snapshot
+        /// carrying buy/sell metrics in parallel, to support symmetric
+        /// burst tracking.
+        /// </summary>
+        private decimal ComputeInstantSpeed()
+        {
+            if (_tickQueue.Count == 0) return 0;
+
+            int ticks = _tickQueue.Count;
+            decimal vol = 0, delta = 0, buys = 0, sells = 0;
+
+            foreach (var t in _tickQueue)
+            {
+                vol += t.Volume;
+                if (t.Direction == 1) { buys += t.Volume; delta += t.Volume; }
+                else { sells += t.Volume; delta -= t.Volume; }
+            }
+
+            return _dataType switch
+            {
+                SpeedType.Ticks => ticks,
+                SpeedType.Volume => vol,
+                SpeedType.Delta => Math.Abs(delta),
+                SpeedType.Buys => buys,
+                SpeedType.Sells => sells,
+                _ => 0
+            };
+        }
 
         #endregion
     }
