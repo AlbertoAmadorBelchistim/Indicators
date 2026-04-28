@@ -108,6 +108,26 @@ namespace ATAS.Indicators.Technical
             public decimal Speed { get; }
         }
 
+        /// <summary>
+        /// A burst event detected when the engine's speed crossed the
+        /// threshold upward. Carries the full SpeedSnapshot at the moment
+        /// of crossing so downstream consumers (rectangles, extension line,
+        /// info panel) read all metrics — direction, efficiency, volume,
+        /// price range — from a single immutable record.
+        /// </summary>
+        private readonly struct EventRecord
+        {
+            public EventRecord(int bar, DateTime time, SpeedSnapshot snapshot)
+            {
+                Bar = bar;
+                Time = time;
+                Snapshot = snapshot;
+            }
+            public int Bar { get; }
+            public DateTime Time { get; }
+            public SpeedSnapshot Snapshot { get; }
+        }
+
         #endregion
 
         #region Fields
@@ -174,6 +194,18 @@ namespace ATAS.Indicators.Technical
         // series) and by event detection in C07.
         private decimal _currentThreshold;
 
+        // Last observed speed. Used by DetectEvents for last-vs-current
+        // upward-cross detection (event-based, not state-based — avoids
+        // emitting duplicate events while speed lingers above threshold).
+        private decimal _lastSpeed;
+
+        // Multi-burst cache: each bar maps to the list of events detected
+        // during it. Persistent (per spec — never pruned). The render layer
+        // (C08+) iterates this dictionary to draw rectangles and extension
+        // lines.
+        private readonly Dictionary<int, List<EventRecord>> _eventsByBar
+            = new Dictionary<int, List<EventRecord>>();
+
         // ─── Settings backing fields ────────────────────────────────────────
         // Kept private + exposed via Properties so the setters can trigger
         // RecalculateValues on parameter changes.
@@ -208,11 +240,13 @@ namespace ATAS.Indicators.Technical
             {
                 _dataType = value;
 
-                // Buffer holds observations in the previous metric's units;
-                // clear so the threshold doesn't compare apples to oranges.
+                // All caches that depend on the speed metric must be cleared
+                // when the metric (and thus the units) changes.
                 _speedBuffer.Clear();
                 _lastSampleTime = DateTime.MinValue;
                 _currentThreshold = 0m;
+                _lastSpeed = 0m;
+                _eventsByBar.Clear();
 
                 RecalculateValues();
             }
@@ -238,6 +272,16 @@ namespace ATAS.Indicators.Technical
         {
             get => _thresholdPercentile;
             set { _thresholdPercentile = value; RecalculateValues(); }
+        }
+
+        [Display(Name = "TEST: Inject burst",
+         GroupName = "Diagnostics",
+         Description = "Toggle to inject a synthetic burst event into the current bar. Used to smoke-test multi-burst detection without waiting for a natural cross. Removed in C15.",
+         Order = 1000)]
+        public bool TestInjectBurst
+        {
+            get => false;
+            set { if (value) TestInjectBurstNow(); }
         }
 
         #endregion
@@ -295,6 +339,7 @@ namespace ATAS.Indicators.Technical
             TrimToTimeWindow(trade.Time);
             _currentSnapshot = ComputeInstantSnapshot();
             MaybeSampleSpeed(trade.Time);
+            DetectEvents(trade.Time);
             UpdateHistogram();
         }
 
@@ -392,6 +437,50 @@ namespace ATAS.Indicators.Technical
         }
 
         /// <summary>
+        /// Event-based upward-cross detector. Compares the previous observed
+        /// speed against the current one — when previous was at-or-below the
+        /// threshold and current is strictly above, a new event is emitted
+        /// for the current bar. The state-based alternative ("speed > threshold
+        /// right now") would emit duplicate events on every trade while the
+        /// burst persists; this version emits exactly one event per crossing.
+        ///
+        /// Skips emission while the threshold is still 0 (warmup, buffer
+        /// hasn't sampled yet) so we don't spam events during the first
+        /// second after the indicator loads.
+        /// </summary>
+        private void DetectEvents(DateTime time)
+        {
+            int bar = CurrentBar - 1;
+            if (bar < 0) return;
+
+            decimal current = _currentSnapshot.Speed;
+            decimal threshold = _currentThreshold;
+
+            if (threshold <= 0m)
+            {
+                _lastSpeed = current;
+                return;
+            }
+
+            if (_lastSpeed <= threshold && current > threshold)
+            {
+                var evt = new EventRecord(bar, time, _currentSnapshot);
+
+                if (!_eventsByBar.TryGetValue(bar, out var list))
+                {
+                    list = new List<EventRecord>();
+                    _eventsByBar[bar] = list;
+                }
+                list.Add(evt);
+
+                var side = _currentSnapshot.IsBuyDominant ? "buy" : "sell";
+                this.LogInfo($"burst @ bar={bar} speed={current.ToString("0.00")} threshold={threshold.ToString("0.00")} side={side} eff={_currentSnapshot.Efficiency.ToString("0.00")} range={_currentSnapshot.Low}-{_currentSnapshot.High}");
+            }
+
+            _lastSpeed = current;
+        }
+
+        /// <summary>
         /// Bridges engine state to the histogram series. While the live bar
         /// is in progress, _renderSeries[bar] pulses with the current
         /// instantaneous speed. On bar transition, the just-closed bar is
@@ -418,6 +507,48 @@ namespace ATAS.Indicators.Technical
 
             _renderSeries[bar] = _currentSnapshot.Speed;
             _thresholdSeries[bar] = _currentThreshold;
+        }
+
+        #endregion
+
+        #region Private methods: Diagnostics
+
+        /// <summary>
+        /// TEMP: Forges a synthetic burst event and inserts it into the
+        /// current bar's event list. Bypasses the cross-detection path
+        /// (no threshold comparison, no _lastSpeed update) so the test is
+        /// reproducible regardless of market conditions.
+        ///
+        /// Removed in C15 along with all TEST: properties.
+        /// </summary>
+        private void TestInjectBurstNow()
+        {
+            int bar = CurrentBar - 1;
+            if (bar < 0) return;
+
+            var candle = GetCandle(bar);
+            decimal high = candle.High;
+            decimal low = candle.Low;
+
+            var forged = new SpeedSnapshot(
+                ticks: 100,
+                volume: 200m,
+                buys: 150m,
+                sells: 50m,
+                high: high,
+                low: low,
+                dataType: _dataType);
+
+            var evt = new EventRecord(bar, DateTime.UtcNow, forged);
+
+            if (!_eventsByBar.TryGetValue(bar, out var list))
+            {
+                list = new List<EventRecord>();
+                _eventsByBar[bar] = list;
+            }
+            list.Add(evt);
+
+            this.LogInfo($"TEST: injected burst @ bar={bar} (events in bar = {list.Count})");
         }
 
         #endregion
