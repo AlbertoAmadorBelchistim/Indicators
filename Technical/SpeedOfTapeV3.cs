@@ -1,5 +1,6 @@
 ﻿using ATAS.Indicators;
 using ATAS.Indicators.Drawing;
+using OFT.Rendering.Context;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -206,6 +207,14 @@ namespace ATAS.Indicators.Technical
         private readonly Dictionary<int, List<EventRecord>> _eventsByBar
             = new Dictionary<int, List<EventRecord>>();
 
+        // Color settings backing fields. The internal type is
+        // System.Drawing.Color because RenderContext consumes that directly
+        // during DrawZone; the panel-facing properties expose CrossColor and
+        // bridge with .Convert() at the boundary.
+        private System.Drawing.Color _buyColor = System.Drawing.Color.Lime;
+        private System.Drawing.Color _sellColor = System.Drawing.Color.Red;
+        private System.Drawing.Color _neutralColor = System.Drawing.Color.Gray;
+
         // ─── Settings backing fields ────────────────────────────────────────
         // Kept private + exposed via Properties so the setters can trigger
         // RecalculateValues on parameter changes.
@@ -274,10 +283,40 @@ namespace ATAS.Indicators.Technical
             set { _thresholdPercentile = value; RecalculateValues(); }
         }
 
+        [Display(Name = "Buy color",
+         GroupName = "Visuals",
+         Description = "Color of zones whose dominant side is buying. Efficiency near 1 paints close to this color; lower efficiency blends toward the neutral color.",
+         Order = 10)]
+        public CrossColor BuyColor
+        {
+            get => _buyColor.Convert();
+            set { _buyColor = value.Convert(); RedrawChart(); }
+        }
+
+        [Display(Name = "Sell color",
+                 GroupName = "Visuals",
+                 Description = "Color of zones whose dominant side is selling. Efficiency near 1 paints close to this color; lower efficiency blends toward the neutral color.",
+                 Order = 20)]
+        public CrossColor SellColor
+        {
+            get => _sellColor.Convert();
+            set { _sellColor = value.Convert(); RedrawChart(); }
+        }
+
+        [Display(Name = "Neutral color",
+                 GroupName = "Visuals",
+                 Description = "Color used when a burst is balanced (efficiency below 0.3). Also acts as the blend origin for low-efficiency directional bursts.",
+                 Order = 30)]
+        public CrossColor NeutralColor
+        {
+            get => _neutralColor.Convert();
+            set { _neutralColor = value.Convert(); RedrawChart(); }
+        }
+
         [Display(Name = "TEST: Inject burst",
-         GroupName = "Diagnostics",
-         Description = "Toggle to inject a synthetic burst event into the current bar. Used to smoke-test multi-burst detection without waiting for a natural cross. Removed in C15.",
-         Order = 1000)]
+                GroupName = "Diagnostics",
+                Description = "Toggle to inject a synthetic burst event into the current bar. Used to smoke-test multi-burst detection without waiting for a natural cross. Removed in C15.",
+                Order = 1000)]
         public bool TestInjectBurst
         {
             get => false;
@@ -345,6 +384,46 @@ namespace ATAS.Indicators.Technical
 
         // Future market events:
         //   OnCumulativeTradesResponse — C12 (historical replay)
+
+        #endregion
+
+        #region Overrides: Rendering
+
+        /// <summary>
+        /// Render entry point. Called by ATAS once per render frame for
+        /// every visible bar range. We iterate the events dictionary by
+        /// visible bar number, look up events for each bar, and draw a
+        /// zone rectangle per event. All bars and events are rendered on
+        /// every pass — the dictionary is read-only here, all mutation
+        /// happens in DetectEvents on the data thread.
+        /// </summary>
+        protected override void OnRender(RenderContext context, DrawingLayouts layout)
+        {
+            if (layout != DrawingLayouts.Final || ChartInfo == null || InstrumentInfo == null)
+                return;
+
+            context.SetClip(ChartInfo.PriceChartContainer.Region);
+
+            // Snapshot color fields once per frame — they're updated
+            // synchronously from setters that trigger RedrawChart, so reading
+            // them at the top of the frame is consistent.
+            var buyColor = _buyColor;
+            var sellColor = _sellColor;
+            var neutralColor = _neutralColor;
+
+            for (int bar = FirstVisibleBarNumber; bar <= LastVisibleBarNumber; bar++)
+            {
+                if (!_eventsByBar.TryGetValue(bar, out var events)) continue;
+
+                foreach (var evt in events)
+                {
+                    var color = ResolveZoneColor(evt.Snapshot, buyColor, sellColor, neutralColor);
+                    DrawZone(context, bar, evt.Snapshot.High, evt.Snapshot.Low, color);
+                }
+            }
+
+            context.ResetClip();
+        }
 
         #endregion
 
@@ -507,6 +586,78 @@ namespace ATAS.Indicators.Technical
 
             _renderSeries[bar] = _currentSnapshot.Speed;
             _thresholdSeries[bar] = _currentThreshold;
+        }
+
+        #endregion
+
+        #region Private methods: Rendering
+
+        /// <summary>
+        /// Decides which color to paint a zone with, based on the snapshot's
+        /// dominant side and efficiency. Bursts under 30% efficiency are
+        /// considered balanced and painted neutral regardless of side. Above
+        /// that, the color blends from neutral toward the side color in
+        /// proportion to efficiency: a 0.6-efficiency buy burst sits 60% of
+        /// the way along the gradient from neutral to buy color.
+        /// </summary>
+        private System.Drawing.Color ResolveZoneColor(
+            SpeedSnapshot snap,
+            System.Drawing.Color buy,
+            System.Drawing.Color sell,
+            System.Drawing.Color neutral)
+        {
+            if (snap.Efficiency < 0.3m) return neutral;
+
+            var target = snap.IsBuyDominant ? buy : sell;
+            return Blend(neutral, target, (double)snap.Efficiency);
+        }
+
+        /// <summary>
+        /// Linear RGB interpolation between two colors. ratio=0 returns
+        /// `from`, ratio=1 returns `to`, intermediate values are mixed
+        /// channel-wise. Clamped to [0, 1].
+        /// </summary>
+        private static System.Drawing.Color Blend(
+            System.Drawing.Color from,
+            System.Drawing.Color to,
+            double ratio)
+        {
+            if (ratio < 0) ratio = 0;
+            if (ratio > 1) ratio = 1;
+            var r = (int)(from.R + (to.R - from.R) * ratio);
+            var g = (int)(from.G + (to.G - from.G) * ratio);
+            var b = (int)(from.B + (to.B - from.B) * ratio);
+            return System.Drawing.Color.FromArgb(r, g, b);
+        }
+
+        /// <summary>
+        /// Renders one semi-transparent rectangle for an event. X-range is
+        /// the bar's column width; Y-range is the high/low of trades inside
+        /// the rolling window at the moment of the cross. Alpha is fixed at
+        /// 150/255: visible at first glance, but low enough that overlapping
+        /// zones in tight price ranges compound into a darker shade rather
+        /// than masking each other.
+        ///
+        /// If high == low (single-price burst) the rectangle would have
+        /// height 0; we add one tick to high so the zone is still visible.
+        /// </summary>
+        private void DrawZone(RenderContext context, int bar, decimal high, decimal low, System.Drawing.Color color)
+        {
+            if (high == low) high += InstrumentInfo.TickSize;
+
+            int y1 = ChartInfo.GetYByPrice(high, true);
+            int y2 = ChartInfo.GetYByPrice(low, false);
+            int top = Math.Min(y1, y2);
+            int height = Math.Abs(y2 - y1);
+            if (height < 1) height = 1;
+
+            int x = ChartInfo.GetXByBar(bar, true);
+            int width = (int)Math.Round((double)ChartInfo.PriceChartContainer.BarsWidth);
+            if (width < 1) width = 1;
+
+            var rect = new Rectangle(x, top, width, height);
+            var fill = System.Drawing.Color.FromArgb(150, color.R, color.G, color.B);
+            context.FillRectangle(fill, rect);
         }
 
         #endregion
