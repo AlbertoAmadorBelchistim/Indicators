@@ -438,15 +438,25 @@ namespace ATAS.Indicators.Technical
             var sellColor = _sellColor;
             var neutralColor = _neutralColor;
 
-            // Pass 1: zone rectangles, one per event in every visible bar.
+            // Pass 1: zone rectangles. The bar's primary event (highest speed)
+            // gets a 3-pixel border; secondary events get 1-pixel borders. The
+            // thickness difference creates a visual hierarchy at a glance —
+            // event details live in the floating info panel (C11), not in the
+            // chart itself.
             for (int bar = FirstVisibleBarNumber; bar <= LastVisibleBarNumber; bar++)
             {
-                if (!_eventsByBar.TryGetValue(bar, out var events)) continue;
+                if (!_eventsByBar.TryGetValue(bar, out var events) || events.Count == 0)
+                    continue;
+
+                TryGetPrimaryEvent(bar, out var primary);
 
                 foreach (var evt in events)
                 {
                     var color = ResolveZoneColor(evt.Snapshot, buyColor, sellColor, neutralColor);
-                    DrawZone(context, bar, evt.Snapshot.High, evt.Snapshot.Low, color);
+                    bool isPrimary =
+                        evt.Time == primary.Time && evt.Snapshot.Speed == primary.Snapshot.Speed;
+                    int penWidth = isPrimary ? 5 : 2;
+                    DrawZone(context, bar, evt.Snapshot.High, evt.Snapshot.Low, color, penWidth);
                 }
             }
 
@@ -669,33 +679,50 @@ namespace ATAS.Indicators.Technical
         }
 
         /// <summary>
-        /// Renders one semi-transparent rectangle for an event. X-range is
-        /// the bar's column width; Y-range is the high/low of trades inside
-        /// the rolling window at the moment of the cross. Alpha is fixed at
-        /// 150/255: visible at first glance, but low enough that overlapping
-        /// zones in tight price ranges compound into a darker shade rather
-        /// than masking each other.
-        ///
-        /// If high == low (single-price burst) the rectangle would have
-        /// height 0; we add one tick to high so the zone is still visible.
+        /// Renders a zone as four corner brackets (camera-viewfinder style)
+        /// rather than a full rectangle outline. The horizontal portions of
+        /// each bracket are short enough to leave the centred footprint
+        /// digits intact while still defining the zone's vertical extent
+        /// unambiguously when multiple zones overlap.
         /// </summary>
-        private void DrawZone(RenderContext context, int bar, decimal high, decimal low, System.Drawing.Color color)
+        private void DrawZone(RenderContext context, int bar, decimal high, decimal low, System.Drawing.Color color, int penWidth)
         {
             if (high == low) high += InstrumentInfo.TickSize;
 
             int y1 = ChartInfo.GetYByPrice(high, true);
             int y2 = ChartInfo.GetYByPrice(low, false);
             int top = Math.Min(y1, y2);
-            int height = Math.Abs(y2 - y1);
+            int bottom = Math.Max(y1, y2);
+            int height = bottom - top;
             if (height < 1) height = 1;
 
             int x = ChartInfo.GetXByBar(bar, true);
             int width = (int)Math.Round((double)ChartInfo.PriceChartContainer.BarsWidth);
             if (width < 1) width = 1;
+            int right = x + width;
 
-            var rect = new Rectangle(x, top, width, height);
-            var fill = System.Drawing.Color.FromArgb(150, color.R, color.G, color.B);
-            context.FillRectangle(fill, rect);
+            // Floor armLen at penWidth so the arm is always at least as long
+            // as it is thick — otherwise corners degenerate into blobs at high
+            // pen widths on small zones.
+            int armLen = Math.Max(penWidth, Math.Min(8, Math.Min(width, height) / 3));
+            int t = penWidth;
+
+            // Each corner = two filled rectangles meeting at the corner pixel.
+            // Top-left: horizontal bar going right + vertical bar going down.
+            context.FillRectangle(color, new Rectangle(x, top, armLen, t));
+            context.FillRectangle(color, new Rectangle(x, top, t, armLen));
+
+            // Top-right: horizontal bar going left + vertical bar going down.
+            context.FillRectangle(color, new Rectangle(right - armLen, top, armLen, t));
+            context.FillRectangle(color, new Rectangle(right - t, top, t, armLen));
+
+            // Bottom-left: horizontal bar going right + vertical bar going up.
+            context.FillRectangle(color, new Rectangle(x, bottom - t, armLen, t));
+            context.FillRectangle(color, new Rectangle(x, bottom - armLen, t, armLen));
+
+            // Bottom-right: horizontal bar going left + vertical bar going up.
+            context.FillRectangle(color, new Rectangle(right - armLen, bottom - t, armLen, t));
+            context.FillRectangle(color, new Rectangle(right - t, bottom - armLen, t, armLen));
         }
 
         /// <summary>
