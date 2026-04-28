@@ -255,11 +255,15 @@ namespace ATAS.Indicators.Technical
         // when capacity is exceeded.
         private readonly Queue<EventRecord> _recentEvents = new Queue<EventRecord>();
 
-        // Lock guarding _recentEvents. Mutated in DetectEvents (data thread)
-        // and read from DrawInfoPanel (UI thread); without protection the
-        // queue iteration in OnRender can throw InvalidOperationException
-        // when DetectEvents enqueues mid-frame.
-        private readonly object _recentEventsLock = new object();
+        // Single lock guarding ALL engine state — _tickQueue, _speedBuffer,
+        // _eventsByBar, _recentEvents, _alertedBars and the per-frame
+        // scalar fields like _currentSnapshot and _lastSpeed. Coarse but
+        // simple: the data thread holds it for the duration of OnNewTrade
+        // and OnCumulativeTradesResponse, the UI thread holds it briefly
+        // at the top of OnRender to snapshot what it needs, and property
+        // setters that mutate state hold it while doing so. Reentrant, so
+        // nested calls within already-locked methods are fine.
+        private readonly object _engineLock = new object();
 
         // True while OnCumulativeTradesResponse is iterating historical
         // trades. Used to suppress per-event log spam during replay; the
@@ -310,20 +314,10 @@ namespace ATAS.Indicators.Technical
             set
             {
                 _dataType = value;
-
-                // All caches that depend on the speed metric must be cleared
-                // when the metric (and thus the units) changes.
-                _speedBuffer.Clear();
-                _lastSampleTime = DateTime.MinValue;
-                _currentThreshold = 0m;
-                _lastSpeed = 0m;
-                _eventsByBar.Clear();
-
-                lock (_recentEventsLock)
+                lock (_engineLock)
                 {
-                    _recentEvents.Clear();
+                    ResetEngineState();
                 }
-
                 RecalculateValues();
             }
         }
@@ -434,8 +428,7 @@ namespace ATAS.Indicators.Technical
             {
                 _maxEventsInPanel = value;
 
-                // Shrink the queue immediately if the new cap is smaller.
-                lock (_recentEventsLock)
+                lock (_engineLock)
                 {
                     while (_recentEvents.Count > value)
                         _recentEvents.Dequeue();
@@ -534,7 +527,21 @@ namespace ATAS.Indicators.Technical
             RequestForCumulativeTrades(request);
         }
 
-        // OnDispose added in C14 (cleanup + thread-safety pass).
+        /// <summary>
+        /// Called by ATAS when the indicator is removed from the chart, the
+        /// chart is closed, or ATAS shuts down. Acquires _engineLock to
+        /// ensure no trade is being processed concurrently, then clears
+        /// all engine state to release the accumulated memory (events dict
+        /// can grow to thousands of entries on long sessions).
+        /// </summary>
+        protected override void OnDispose()
+        {
+            lock (_engineLock)
+            {
+                ResetEngineState();
+            }
+            base.OnDispose();
+        }
 
         #endregion
 
@@ -549,8 +556,11 @@ namespace ATAS.Indicators.Technical
         /// </summary>
         protected override void OnNewTrade(MarketDataArg trade)
         {
-            int direction = trade.Direction == TradeDirection.Buy ? 1 : -1;
-            ProcessTradeAt(trade.Time, trade.Volume, direction, trade.Price, CurrentBar - 1);
+            lock (_engineLock)
+            {
+                int direction = trade.Direction == TradeDirection.Buy ? 1 : -1;
+                ProcessTradeAt(trade.Time, trade.Volume, direction, trade.Price, CurrentBar - 1);
+            }
         }
 
         /// <summary>
@@ -563,45 +573,48 @@ namespace ATAS.Indicators.Technical
         /// guarantees the search start advances monotonically.
         /// </summary>
         protected override void OnCumulativeTradesResponse(
-            CumulativeTradesRequest request,
-            IEnumerable<CumulativeTrade> cumulativeTrades)
+    CumulativeTradesRequest request,
+    IEnumerable<CumulativeTrade> cumulativeTrades)
         {
             if (cumulativeTrades == null) return;
 
-            ResetEngineState();
-
-            _isReplaying = true;
-            try
+            lock (_engineLock)
             {
-                int searchStart = 0;
-                int processed = 0;
+                ResetEngineState();
 
-                foreach (var trade in cumulativeTrades)
+                _isReplaying = true;
+                try
                 {
-                    int bar = -1;
-                    for (int i = searchStart; i < CurrentBar; i++)
+                    int searchStart = 0;
+                    int processed = 0;
+
+                    foreach (var trade in cumulativeTrades)
                     {
-                        var c = GetCandle(i);
-                        if (trade.Time >= c.Time && trade.Time <= c.LastTime)
+                        int bar = -1;
+                        for (int i = searchStart; i < CurrentBar; i++)
                         {
-                            bar = i;
-                            searchStart = i;
-                            break;
+                            var c = GetCandle(i);
+                            if (trade.Time >= c.Time && trade.Time <= c.LastTime)
+                            {
+                                bar = i;
+                                searchStart = i;
+                                break;
+                            }
                         }
+                        if (bar < 0) continue;
+
+                        int direction = trade.Direction == TradeDirection.Buy ? 1 : -1;
+                        ProcessTradeAt(trade.Time, trade.Volume, direction, trade.FirstPrice, bar);
+                        processed++;
                     }
-                    if (bar < 0) continue;
 
-                    int direction = trade.Direction == TradeDirection.Buy ? 1 : -1;
-                    ProcessTradeAt(trade.Time, trade.Volume, direction, trade.FirstPrice, bar);
-                    processed++;
+                    int eventCount = _eventsByBar.Sum(kv => kv.Value.Count);
+                    this.LogInfo($"history replay complete — trades={processed} events={eventCount}");
                 }
-
-                int eventCount = _eventsByBar.Sum(kv => kv.Value.Count);
-                this.LogInfo($"history replay complete — trades={processed} events={eventCount}");
-            }
-            finally
-            {
-                _isReplaying = false;
+                finally
+                {
+                    _isReplaying = false;
+                }
             }
 
             RedrawChart();
@@ -624,23 +637,34 @@ namespace ATAS.Indicators.Technical
             if (layout != DrawingLayouts.Final || ChartInfo == null || InstrumentInfo == null)
                 return;
 
+            // Snapshot mutable engine state under the lock so the rest of
+            // the render pass operates on a stable copy. The data thread
+            // can resume processing trades immediately after the snapshot;
+            // the snapshots are short-lived per-frame allocations.
+            Dictionary<int, List<EventRecord>> eventsSnapshot;
+            List<EventRecord> recentSnapshot;
+            lock (_engineLock)
+            {
+                eventsSnapshot = new Dictionary<int, List<EventRecord>>(_eventsByBar.Count);
+                foreach (var kv in _eventsByBar)
+                    eventsSnapshot[kv.Key] = new List<EventRecord>(kv.Value);
+
+                recentSnapshot = _recentEvents.ToList();
+            }
+
             context.SetClip(ChartInfo.PriceChartContainer.Region);
 
             var buyColor = _buyColor;
             var sellColor = _sellColor;
             var neutralColor = _neutralColor;
 
-            // Pass 1: zone rectangles. The bar's primary event (highest speed)
-            // gets a 3-pixel border; secondary events get 1-pixel borders. The
-            // thickness difference creates a visual hierarchy at a glance —
-            // event details live in the floating info panel (C11), not in the
-            // chart itself.
+            // Pass 1: zone rectangles.
             for (int bar = FirstVisibleBarNumber; bar <= LastVisibleBarNumber; bar++)
             {
-                if (!_eventsByBar.TryGetValue(bar, out var events) || events.Count == 0)
+                if (!eventsSnapshot.TryGetValue(bar, out var events) || events.Count == 0)
                     continue;
 
-                TryGetPrimaryEvent(bar, out var primary);
+                if (!TryFindPrimaryEvent(events, out var primary)) continue;
 
                 foreach (var evt in events)
                 {
@@ -652,20 +676,20 @@ namespace ATAS.Indicators.Technical
                 }
             }
 
-            // Pass 2: primary event extension lines, one per bar that has
-            // any events. Anchored at the primary event's centre price,
-            // extending right with a fade-out tail.
+            // Pass 2: primary event extension lines.
             for (int bar = FirstVisibleBarNumber; bar <= LastVisibleBarNumber; bar++)
             {
-                if (!TryGetPrimaryEvent(bar, out var primary)) continue;
+                if (!eventsSnapshot.TryGetValue(bar, out var events) || events.Count == 0)
+                    continue;
+                if (!TryFindPrimaryEvent(events, out var primary)) continue;
                 var color = ResolveZoneColor(primary.Snapshot, buyColor, sellColor, neutralColor);
                 DrawExtensionLine(context, bar, primary.Snapshot, color);
             }
 
-            // Pass 3: floating info panel with most recent events.
+            // Pass 3: floating info panel using the recent-events snapshot.
             if (_showInfoPanel)
             {
-                DrawInfoPanel(context, buyColor, sellColor, neutralColor);
+                DrawInfoPanel(context, recentSnapshot, buyColor, sellColor, neutralColor);
             }
 
             context.ResetClip();
@@ -793,12 +817,11 @@ namespace ATAS.Indicators.Technical
                 }
                 list.Add(evt);
 
-                lock (_recentEventsLock)
-                {
-                    _recentEvents.Enqueue(evt);
-                    while (_recentEvents.Count > _maxEventsInPanel)
-                        _recentEvents.Dequeue();
-                }
+                // Caller (OnNewTrade or OnCumulativeTradesResponse) holds _engineLock,
+                // so direct mutation is safe.
+                _recentEvents.Enqueue(evt);
+                while (_recentEvents.Count > _maxEventsInPanel)
+                    _recentEvents.Dequeue();
 
                 MaybeFireAlert(time, bar, _currentSnapshot);
 
@@ -860,12 +883,9 @@ namespace ATAS.Indicators.Technical
         }
 
         /// <summary>
-        /// Clears all engine and panel state so the next batch of trades
-        /// (live or historical replay) starts from a clean slate. Used at
-        /// the start of OnCumulativeTradesResponse: the historical reply
-        /// is the source of truth for the chart's history, and any live
-        /// state that may have accumulated in the brief window between
-        /// OnFinishRecalculate and this callback is deliberately discarded.
+        /// Clears all engine and panel state. Caller must hold _engineLock —
+        /// every call site already does (DataType setter, OnDispose,
+        /// OnCumulativeTradesResponse).
         /// </summary>
         private void ResetEngineState()
         {
@@ -878,18 +898,9 @@ namespace ATAS.Indicators.Technical
             _currentThreshold = 0m;
             _lastSpeed = 0m;
             _eventsByBar.Clear();
-
-            // Alert state is also reset — historical replay should re-fill
-            // _alertedBars only for events that genuinely fire alerts (none
-            // do during replay, so the set effectively starts empty for the
-            // next live session).
             _alertedBars.Clear();
             _lastAlertTime = DateTime.MinValue;
-
-            lock (_recentEventsLock)
-            {
-                _recentEvents.Clear();
-            }
+            _recentEvents.Clear();
         }
 
         #endregion
@@ -1025,15 +1036,15 @@ namespace ATAS.Indicators.Technical
         }
 
         /// <summary>
-        /// Returns the highest-speed event recorded for a bar, if any.
-        /// Used to identify which event drives the persistent extension
-        /// line (only one line per bar — the most aggressive burst).
+        /// Finds the highest-speed event in a list. Used by OnRender after
+        /// snapshotting _eventsByBar — operates on the supplied list rather
+        /// than reading the field directly so the caller controls
+        /// concurrency.
         /// </summary>
-        private bool TryGetPrimaryEvent(int bar, out EventRecord primary)
+        private static bool TryFindPrimaryEvent(List<EventRecord> events, out EventRecord primary)
         {
             primary = default;
-            if (!_eventsByBar.TryGetValue(bar, out var events) || events.Count == 0)
-                return false;
+            if (events == null || events.Count == 0) return false;
 
             primary = events[0];
             var maxSpeed = primary.Snapshot.Speed;
@@ -1099,18 +1110,12 @@ namespace ATAS.Indicators.Technical
         /// visual semantics apply across panel and chart.
         ///
         /// Iteration is over a snapshot of _recentEvents taken under
-        /// _recentEventsLock to avoid racing with DetectEvents on the
+        /// _engineLockto avoid racing with DetectEvents on the
         /// data thread.
         /// </summary>
-        private void DrawInfoPanel(RenderContext context, System.Drawing.Color buy, System.Drawing.Color sell, System.Drawing.Color neutral)
+        private void DrawInfoPanel(RenderContext context, List<EventRecord> events, System.Drawing.Color buy, System.Drawing.Color sell, System.Drawing.Color neutral)
         {
             if (ChartInfo == null) return;
-
-            List<EventRecord> events;
-            lock (_recentEventsLock)
-            {
-                events = _recentEvents.ToList();
-            }
             if (events.Count == 0) return;
 
             // Newest first.
@@ -1239,43 +1244,38 @@ namespace ATAS.Indicators.Technical
             int bar = CurrentBar - 1;
             if (bar < 0) return;
 
-            var candle = GetCandle(bar);
-            decimal high = candle.High;
-            decimal low = candle.Low;
-
-            var forged = new SpeedSnapshot(
-                ticks: 100,
-                volume: 200m,
-                buys: 150m,
-                sells: 50m,
-                high: high,
-                low: low,
-                dataType: _dataType);
-
-            var evt = new EventRecord(bar, DateTime.UtcNow, forged);
-
-            if (!_eventsByBar.TryGetValue(bar, out var list))
+            lock (_engineLock)
             {
-                list = new List<EventRecord>();
-                _eventsByBar[bar] = list;
-            }
-            list.Add(evt);
+                var candle = GetCandle(bar);
+                decimal high = candle.High;
+                decimal low = candle.Low;
 
-            // Mirror the same enqueue that DetectEvents does for natural events,
-            // so injected bursts also surface in the floating info panel.
-            lock (_recentEventsLock)
-            {
+                var forged = new SpeedSnapshot(
+                    ticks: 100,
+                    volume: 200m,
+                    buys: 150m,
+                    sells: 50m,
+                    high: high,
+                    low: low,
+                    dataType: _dataType);
+
+                var evt = new EventRecord(bar, DateTime.UtcNow, forged);
+
+                if (!_eventsByBar.TryGetValue(bar, out var list))
+                {
+                    list = new List<EventRecord>();
+                    _eventsByBar[bar] = list;
+                }
+                list.Add(evt);
+
                 _recentEvents.Enqueue(evt);
                 while (_recentEvents.Count > _maxEventsInPanel)
                     _recentEvents.Dequeue();
+
+                MaybeFireAlert(DateTime.UtcNow, bar, forged);
+
+                this.LogInfo($"TEST: injected burst @ bar={bar} (events in bar = {list.Count})");
             }
-
-            // Mirror the alert path so synthetic events also trigger alerts
-            // (handy for verifying the audio/popup chain without waiting for
-            // a natural burst to fire).
-            MaybeFireAlert(DateTime.UtcNow, bar, forged);
-
-            this.LogInfo($"TEST: injected burst @ bar={bar} (events in bar = {list.Count})");
         }
 
         #endregion
