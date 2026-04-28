@@ -130,6 +130,18 @@ namespace ATAS.Indicators.Technical
             public SpeedSnapshot Snapshot { get; }
         }
 
+        /// <summary>
+        /// Corner anchor for the floating info panel. The panel always
+        /// renders inside the price chart region with a small margin.
+        /// </summary>
+        public enum InfoPanelLocation
+        {
+            [Display(Name = "Top right")] TopRight,
+            [Display(Name = "Top left")] TopLeft,
+            [Display(Name = "Bottom right")] BottomRight,
+            [Display(Name = "Bottom left")] BottomLeft
+        }
+
         #endregion
 
         #region Fields
@@ -182,6 +194,13 @@ namespace ATAS.Indicators.Technical
         // session-rhythm tracking.
         private static readonly TimeSpan SamplePeriod = TimeSpan.FromSeconds(1);
 
+        // Minimum number of samples required in the speed buffer before the
+        // percentile threshold is considered statistically meaningful and
+        // event detection is allowed. Below this count the buffer is too
+        // thin and any small uptick crosses the percentile by definition.
+        // At 1 Hz sampling this is ~30 seconds of warmup.
+        private const int MinSamplesForDetection = 30;
+
         // Rolling buffer of speed observations over the last
         // ContextWindowMinutes minutes. Populated by MaybeSampleSpeed,
         // trimmed by TrimSpeedBuffer, read by ComputePercentile.
@@ -216,12 +235,31 @@ namespace ATAS.Indicators.Technical
         private System.Drawing.Color _sellColor = System.Drawing.Color.Red;
         private System.Drawing.Color _neutralColor = System.Drawing.Color.Gray;
 
+        // Info panel settings backing fields.
+        private bool _showInfoPanel = true;
+        private InfoPanelLocation _infoPanelPosition = InfoPanelLocation.TopRight;
+        private int _maxEventsInPanel = 5;
+
+        // Font for panel rows. Monospace for clean column alignment.
+        private readonly RenderFont _panelFont = new RenderFont("Consolas", 9);
+
         // Extension line settings backing fields. ExtensionBars: number of
         // bars right of the primary event drawn at full opacity. FadeBars:
         // additional bars drawn with linearly decreasing alpha, ending
         // nearly transparent.
         private int _extensionBars = 10;
         private int _fadeBars = 5;
+
+        // Recent events shown in the floating info panel. Capped at
+        // _maxEventsInPanel — older entries are dequeued from the front
+        // when capacity is exceeded.
+        private readonly Queue<EventRecord> _recentEvents = new Queue<EventRecord>();
+
+        // Lock guarding _recentEvents. Mutated in DetectEvents (data thread)
+        // and read from DrawInfoPanel (UI thread); without protection the
+        // queue iteration in OnRender can throw InvalidOperationException
+        // when DetectEvents enqueues mid-frame.
+        private readonly object _recentEventsLock = new object();
 
         // ─── Settings backing fields ────────────────────────────────────────
         // Kept private + exposed via Properties so the setters can trigger
@@ -264,6 +302,11 @@ namespace ATAS.Indicators.Technical
                 _currentThreshold = 0m;
                 _lastSpeed = 0m;
                 _eventsByBar.Clear();
+
+                lock (_recentEventsLock)
+                {
+                    _recentEvents.Clear();
+                }
 
                 RecalculateValues();
             }
@@ -341,6 +384,49 @@ namespace ATAS.Indicators.Technical
         {
             get => _fadeBars;
             set { _fadeBars = value; RedrawChart(); }
+        }
+
+        [Display(Name = "Show info panel",
+         GroupName = "Info panel",
+         Description = "Toggle the floating panel that lists recent burst events with their metrics.",
+         Order = 10)]
+        public bool ShowInfoPanel
+        {
+            get => _showInfoPanel;
+            set { _showInfoPanel = value; RedrawChart(); }
+        }
+
+        [Display(Name = "Position",
+                 GroupName = "Info panel",
+                 Description = "Corner of the price chart where the info panel is anchored.",
+                 Order = 20)]
+        public InfoPanelLocation InfoPanelPosition
+        {
+            get => _infoPanelPosition;
+            set { _infoPanelPosition = value; RedrawChart(); }
+        }
+
+        [Display(Name = "Max events shown",
+                 GroupName = "Info panel",
+                 Description = "Number of most-recent burst events listed in the panel. Older events drop off the bottom as new ones arrive.",
+                 Order = 30)]
+        [Range(1, 20)]
+        public int MaxEventsInPanel
+        {
+            get => _maxEventsInPanel;
+            set
+            {
+                _maxEventsInPanel = value;
+
+                // Shrink the queue immediately if the new cap is smaller.
+                lock (_recentEventsLock)
+                {
+                    while (_recentEvents.Count > value)
+                        _recentEvents.Dequeue();
+                }
+
+                RedrawChart();
+            }
         }
 
         [Display(Name = "TEST: Inject burst",
@@ -470,6 +556,12 @@ namespace ATAS.Indicators.Technical
                 DrawExtensionLine(context, bar, primary.Snapshot, color);
             }
 
+            // Pass 3: floating info panel with most recent events.
+            if (_showInfoPanel)
+            {
+                DrawInfoPanel(context, buyColor, sellColor, neutralColor);
+            }
+
             context.ResetClip();
         }
 
@@ -583,7 +675,13 @@ namespace ATAS.Indicators.Technical
             decimal current = _currentSnapshot.Speed;
             decimal threshold = _currentThreshold;
 
-            if (threshold <= 0m)
+            // Skip during warmup. Two conditions:
+            //   (1) threshold is still 0 because the buffer hasn't sampled yet;
+            //   (2) the buffer has samples but too few to make the percentile
+            //       statistically meaningful. Without (2), the very first
+            //       trades after startup falsely trigger a burst because the
+            //       2-sample percentile is trivially crossed by any uptick.
+            if (threshold <= 0m || _speedBuffer.Count < MinSamplesForDetection)
             {
                 _lastSpeed = current;
                 return;
@@ -599,6 +697,14 @@ namespace ATAS.Indicators.Technical
                     _eventsByBar[bar] = list;
                 }
                 list.Add(evt);
+
+                // Append to recent-events queue for the floating panel.
+                lock (_recentEventsLock)
+                {
+                    _recentEvents.Enqueue(evt);
+                    while (_recentEvents.Count > _maxEventsInPanel)
+                        _recentEvents.Dequeue();
+                }
 
                 var side = _currentSnapshot.IsBuyDominant ? "buy" : "sell";
                 this.LogInfo($"burst @ bar={bar} speed={current.ToString("0.00")} threshold={threshold.ToString("0.00")} side={side} eff={_currentSnapshot.Efficiency.ToString("0.00")} range={_currentSnapshot.Low}-{_currentSnapshot.High}");
@@ -792,6 +898,137 @@ namespace ATAS.Indicators.Technical
             }
         }
 
+        /// <summary>
+        /// Renders the floating info panel anchored in the configured
+        /// corner of the price chart. The panel is sized to fit a title
+        /// row plus one row per recent event; rows are coloured by the
+        /// event's resolved zone colour (side + efficiency) so the same
+        /// visual semantics apply across panel and chart.
+        ///
+        /// Iteration is over a snapshot of _recentEvents taken under
+        /// _recentEventsLock to avoid racing with DetectEvents on the
+        /// data thread.
+        /// </summary>
+        private void DrawInfoPanel(RenderContext context, System.Drawing.Color buy, System.Drawing.Color sell, System.Drawing.Color neutral)
+        {
+            if (ChartInfo == null) return;
+
+            List<EventRecord> events;
+            lock (_recentEventsLock)
+            {
+                events = _recentEvents.ToList();
+            }
+            if (events.Count == 0) return;
+
+            // Newest first.
+            events.Reverse();
+
+            string title = $"SPEED OF TAPE — {events.Count} burst{(events.Count == 1 ? "" : "s")}";
+            const string columnHeader = "TIME      D  SPD    DELTA   EFF";
+
+            // Match the chart's x-axis timezone. Trade timestamps from the
+            // feed are in UTC; ATAS displays bar times using
+            // InstrumentInfo.TimeZone + CustomTimeZone as the offset from UTC.
+            // Applying the same offset here keeps panel times visually aligned
+            // with the candles below — change the chart timezone in ATAS
+            // settings and both move together.
+            double chartTzOffset = InstrumentInfo.TimeZone;
+
+            // Suffix shown next to the speed value depends on the active
+            // DataType — "t" for tick counts, "c" for contract volume
+            // (Volume, Delta, Buys and Sells all derive from contract counts).
+            // Delta is shown as a signed number in its own column with no
+            // suffix because the dedicated DELTA column already conveys it.
+            string speedSuffix = _dataType == SpeedType.Ticks ? "t" : "c";
+
+            var rows = new List<(string text, System.Drawing.Color color)>(events.Count);
+            foreach (var evt in events)
+            {
+                var snap = evt.Snapshot;
+                string side = snap.IsBuyDominant ? "▲" : "▼";
+                DateTime chartTime = evt.Time.AddHours(chartTzOffset);
+
+                string row = string.Format(
+                    "{0:HH:mm:ss}  {1}  {2,4:0}{5}  {3,5:+0;-0;0}  {4,3:0}%",
+                    chartTime,
+                    side,
+                    snap.Speed,
+                    snap.Delta,
+                    snap.Efficiency * 100m,
+                    speedSuffix);
+                var rowColor = ResolveZoneColor(snap, buy, sell, neutral);
+                rows.Add((row, rowColor));
+            }
+
+            // Measure dimensions.
+            var titleSize = context.MeasureString(title, _panelFont);
+            int rowHeight = (int)titleSize.Height;
+            int maxWidth = (int)titleSize.Width;
+
+            var headerSize = context.MeasureString(columnHeader, _panelFont);
+            if (headerSize.Width > maxWidth) maxWidth = (int)headerSize.Width;
+            if (headerSize.Height > rowHeight) rowHeight = (int)headerSize.Height;
+
+            foreach (var (text, _) in rows)
+            {
+                var sz = context.MeasureString(text, _panelFont);
+                if (sz.Width > maxWidth) maxWidth = (int)sz.Width;
+                if (sz.Height > rowHeight) rowHeight = (int)sz.Height;
+            }
+
+            const int padX = 8;
+            const int padY = 6;
+            const int titleSpacing = 4;
+            const int margin = 10;
+
+            int panelWidth = maxWidth + 2 * padX;
+            int panelHeight = padY * 2 + rowHeight + titleSpacing + rowHeight + (rowHeight * rows.Count);
+
+            var region = ChartInfo.PriceChartContainer.Region;
+            int panelX, panelY;
+            switch (_infoPanelPosition)
+            {
+                case InfoPanelLocation.TopLeft:
+                    panelX = region.Left + margin;
+                    panelY = region.Top + margin;
+                    break;
+                case InfoPanelLocation.BottomLeft:
+                    panelX = region.Left + margin;
+                    panelY = region.Bottom - margin - panelHeight;
+                    break;
+                case InfoPanelLocation.BottomRight:
+                    panelX = region.Right - margin - panelWidth;
+                    panelY = region.Bottom - margin - panelHeight;
+                    break;
+                case InfoPanelLocation.TopRight:
+                default:
+                    panelX = region.Right - margin - panelWidth;
+                    panelY = region.Top + margin;
+                    break;
+            }
+
+            // Background: dark, semi-transparent.
+            var bg = System.Drawing.Color.FromArgb(180, 15, 18, 24);
+            context.FillRectangle(bg, new Rectangle(panelX, panelY, panelWidth, panelHeight));
+
+            // Title row in muted gray.
+            var titleColor = System.Drawing.Color.FromArgb(220, 200, 200, 200);
+            context.DrawString(title, _panelFont, titleColor, panelX + padX, panelY + padY);
+
+            // Column header row — slightly dimmer than rows, slightly brighter than title.
+            var headerColor = System.Drawing.Color.FromArgb(180, 160, 160, 170);
+            int headerY = panelY + padY + rowHeight + titleSpacing;
+            context.DrawString(columnHeader, _panelFont, headerColor, panelX + padX, headerY);
+
+            // Event rows.
+            int rowY = headerY + rowHeight;
+            foreach (var (text, color) in rows)
+            {
+                context.DrawString(text, _panelFont, color, panelX + padX, rowY);
+                rowY += rowHeight;
+            }
+        }
+
         #endregion
 
         #region Private methods: Diagnostics
@@ -830,6 +1067,15 @@ namespace ATAS.Indicators.Technical
                 _eventsByBar[bar] = list;
             }
             list.Add(evt);
+
+            // Mirror the same enqueue that DetectEvents does for natural events,
+            // so injected bursts also surface in the floating info panel.
+            lock (_recentEventsLock)
+            {
+                _recentEvents.Enqueue(evt);
+                while (_recentEvents.Count > _maxEventsInPanel)
+                    _recentEvents.Dequeue();
+            }
 
             this.LogInfo($"TEST: injected burst @ bar={bar} (events in bar = {list.Count})");
         }
