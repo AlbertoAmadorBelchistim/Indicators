@@ -299,6 +299,7 @@ public class VWAP : Indicator
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ColoredDirection), GroupName = nameof(Strings.Visualization), Description = nameof(Strings.ColoredDirectionDescription), Order = 200)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public bool ColoredDirection
     {
         get => _coloredDirection;
@@ -311,6 +312,7 @@ public class VWAP : Indicator
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BullishColor), GroupName = nameof(Strings.Visualization), Description = nameof(Strings.BullishColorDescription), Order = 210)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public CrossColor BullishColor
     {
         get => _bullishColor.Convert();
@@ -322,6 +324,7 @@ public class VWAP : Indicator
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BearlishColor), GroupName = nameof(Strings.Visualization), Description = nameof(Strings.BearishColorDescription), Order = 220)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public CrossColor BearishColor
     {
         get => _bearishColor.Convert();
@@ -337,6 +340,7 @@ public class VWAP : Indicator
 
     [Parameter]
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Period), GroupName = nameof(Strings.Settings), Description = nameof(Strings.PeriodTypeDescription), Order = 10)]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     public VWAPPeriodType Type
     {
         get => _periodType;
@@ -348,6 +352,7 @@ public class VWAP : Indicator
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Mode), GroupName = nameof(Strings.Settings), Description = nameof(Strings.CalculationModeDescription), Order = 20)]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     public VWAPMode TWAPMode
     {
         get => _twapMode;
@@ -359,6 +364,7 @@ public class VWAP : Indicator
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VolumeType), GroupName = nameof(Strings.Settings), Description = nameof(Strings.VolumeTypeDescription), Order = 25)]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     public VolumeType VolumeMode
     {
         get => _volumeMode;
@@ -374,6 +380,7 @@ public class VWAP : Indicator
     public int Period { get; set; } = 300;
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.FirstDev), GroupName = nameof(Strings.Settings), Description = nameof(Strings.StdDevPeriodDescription), Order = 40)]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     [Range(0.0000001, 10000)]
     public decimal StDev
     {
@@ -386,6 +393,7 @@ public class VWAP : Indicator
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.SecondDev), GroupName = nameof(Strings.Settings), Description = nameof(Strings.StdDevPeriodDescription), Order = 50)]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     [Range(0.0000001, 10000)]
     public decimal StDev1
     {
@@ -398,6 +406,7 @@ public class VWAP : Indicator
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ThirdDev), GroupName = nameof(Strings.Settings), Description = nameof(Strings.StdDevPeriodDescription), Order = 60)]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     [Range(0.0000001, 10000)]
     public decimal StDev2
     {
@@ -410,6 +419,7 @@ public class VWAP : Indicator
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.SessionBegin), GroupName = nameof(Strings.Settings), Description = nameof(Strings.SessionBeginDescription), Order = 70)]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     public TimeSpan CustomSessionStart
     {
 	    get => _customSessionStart;
@@ -421,6 +431,7 @@ public class VWAP : Indicator
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.SessionEnd), GroupName = nameof(Strings.Settings), Description = nameof(Strings.SessionEndDescription), Order = 80)]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     public TimeSpan CustomSessionEnd
     {
 	    get => _customSessionEnd;
@@ -432,6 +443,7 @@ public class VWAP : Indicator
     }
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Calculation), Name = nameof(Strings.DaysLookBack), Order = int.MaxValue, Description = nameof(Strings.DaysLookBackDescription))]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     [Range(0, 1000)]
     public int Days
     {
@@ -444,6 +456,7 @@ public class VWAP : Indicator
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowFirstPartialPeriod), GroupName = nameof(Strings.Settings), Description = nameof(Strings.ShowFirstPeriodDescription), Order = 90)]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     public bool ShowFirstPeriod
     {
         get => _showFirstPeriod;
@@ -455,6 +468,7 @@ public class VWAP : Indicator
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAPOnly), GroupName = nameof(Strings.Settings), Description = nameof(Strings.ShowBaseElementOnlyDescription), Order = 100)]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     public bool VWAPOnly
     { 
         get => _vWAPOnly;
@@ -464,7 +478,7 @@ public class VWAP : Indicator
             SetVWAPOnly(_vWAPOnly);
         }
     }
-
+    
     #endregion
 
     #region ctor
