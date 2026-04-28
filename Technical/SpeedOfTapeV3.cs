@@ -266,6 +266,12 @@ namespace ATAS.Indicators.Technical
         // flag is cleared when replay finishes so live events log normally.
         private bool _isReplaying;
 
+        // Alert state. _alertedBars tracks which bars have already fired
+        // an alert this session so a second burst in the same bar doesn't
+        // fire again. _lastAlertTime gates the cooldown across bars.
+        private readonly HashSet<int> _alertedBars = new HashSet<int>();
+        private DateTime _lastAlertTime = DateTime.MinValue;
+
         // ─── Settings backing fields ────────────────────────────────────────
         // Kept private + exposed via Properties so the setters can trigger
         // RecalculateValues on parameter changes.
@@ -273,6 +279,11 @@ namespace ATAS.Indicators.Technical
         private SpeedType _dataType = SpeedType.Ticks;
         private int _contextWindowMinutes = 15;
         private int _thresholdPercentile = 95;
+
+        // Alerts settings backing fields.
+        private bool _useAlerts;
+        private string _alertFile = "alert1";
+        private int _alertCooldownSeconds = 60;
 
         #endregion
 
@@ -432,6 +443,37 @@ namespace ATAS.Indicators.Technical
 
                 RedrawChart();
             }
+        }
+
+        [Display(Name = "Use alerts",
+         GroupName = "Alerts",
+         Description = "Master toggle for audio + popup alerts on detected bursts. Off by default — enable explicitly when you want sound notifications.",
+         Order = 10)]
+        public bool UseAlerts
+        {
+            get => _useAlerts;
+            set => _useAlerts = value;
+        }
+
+        [Display(Name = "Alert sound file",
+                 GroupName = "Alerts",
+                 Description = "Name of the .wav file ATAS plays. Default 'alert1' is bundled with ATAS. Other built-in options include 'alert2', 'alert3', etc. Custom files can be placed in the ATAS sounds folder.",
+                 Order = 20)]
+        public string AlertFile
+        {
+            get => _alertFile;
+            set => _alertFile = value;
+        }
+
+        [Display(Name = "Alert cooldown (seconds)",
+                 GroupName = "Alerts",
+                 Description = "Minimum seconds between consecutive alerts, regardless of bar boundaries. Useful in short timeframes where per-bar deduplication alone allows too many alerts. Set to 0 to disable cooldown.",
+                 Order = 30)]
+        [Range(0, 3600)]
+        public int AlertCooldownSeconds
+        {
+            get => _alertCooldownSeconds;
+            set => _alertCooldownSeconds = value;
         }
 
         [Display(Name = "TEST: Inject burst",
@@ -758,6 +800,8 @@ namespace ATAS.Indicators.Technical
                         _recentEvents.Dequeue();
                 }
 
+                MaybeFireAlert(time, bar, _currentSnapshot);
+
                 if (!_isReplaying)
                 {
                     var side = _currentSnapshot.IsBuyDominant ? "buy" : "sell";
@@ -835,10 +879,60 @@ namespace ATAS.Indicators.Technical
             _lastSpeed = 0m;
             _eventsByBar.Clear();
 
+            // Alert state is also reset — historical replay should re-fill
+            // _alertedBars only for events that genuinely fire alerts (none
+            // do during replay, so the set effectively starts empty for the
+            // next live session).
+            _alertedBars.Clear();
+            _lastAlertTime = DateTime.MinValue;
+
             lock (_recentEventsLock)
             {
                 _recentEvents.Clear();
             }
+        }
+
+        #endregion
+
+        #region Private methods: Alerts
+
+        /// <summary>
+        /// Decides whether to fire a popup + audio alert for a freshly
+        /// detected event. Three gates in order:
+        ///   1. Replay flag — never fire during historical replay.
+        ///   2. Master toggle — UseAlerts must be on.
+        ///   3. Per-bar dedup — first burst of each bar wins; subsequent
+        ///      bursts in the same bar are silent.
+        ///   4. Cooldown — at least AlertCooldownSeconds between alerts
+        ///      across bars.
+        ///
+        /// The alert popup uses the burst's resolved zone color as the
+        /// background so the visual identity matches the chart marker.
+        /// Foreground is white for guaranteed contrast.
+        /// </summary>
+        private void MaybeFireAlert(DateTime time, int bar, SpeedSnapshot snap)
+        {
+            if (_isReplaying) return;
+            if (!_useAlerts) return;
+            if (_alertedBars.Contains(bar)) return;
+
+            if (_alertCooldownSeconds > 0)
+            {
+                var cooldown = TimeSpan.FromSeconds(_alertCooldownSeconds);
+                if (time - _lastAlertTime < cooldown) return;
+            }
+
+            _alertedBars.Add(bar);
+            _lastAlertTime = time;
+
+            string side = snap.IsBuyDominant ? "Buy" : "Sell";
+            string message = $"{side} burst — speed={snap.Speed:0} Δ{snap.Delta:+0;-0;0} eff={(snap.Efficiency * 100m):0}%";
+
+            var bg = (snap.IsBuyDominant ? _buyColor : _sellColor).Convert();
+            var fg = CrossColor.FromArgb(255, 255, 255, 255);
+
+            AddAlert(_alertFile, InstrumentInfo.Instrument, message, bg, fg);
+            this.LogInfo($"alert fired @ bar={bar}: {message}");
         }
 
         #endregion
@@ -1175,6 +1269,11 @@ namespace ATAS.Indicators.Technical
                 while (_recentEvents.Count > _maxEventsInPanel)
                     _recentEvents.Dequeue();
             }
+
+            // Mirror the alert path so synthetic events also trigger alerts
+            // (handy for verifying the audio/popup chain without waiting for
+            // a natural burst to fire).
+            MaybeFireAlert(DateTime.UtcNow, bar, forged);
 
             this.LogInfo($"TEST: injected burst @ bar={bar} (events in bar = {list.Count})");
         }
