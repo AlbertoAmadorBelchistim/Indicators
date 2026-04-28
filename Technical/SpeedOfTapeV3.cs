@@ -261,6 +261,11 @@ namespace ATAS.Indicators.Technical
         // when DetectEvents enqueues mid-frame.
         private readonly object _recentEventsLock = new object();
 
+        // True while OnCumulativeTradesResponse is iterating historical
+        // trades. Used to suppress per-event log spam during replay; the
+        // flag is cleared when replay finishes so live events log normally.
+        private bool _isReplaying;
+
         // ─── Settings backing fields ────────────────────────────────────────
         // Kept private + exposed via Properties so the setters can trigger
         // RecalculateValues on parameter changes.
@@ -470,9 +475,24 @@ namespace ATAS.Indicators.Technical
             // abstract contract; intentionally left empty.
         }
 
-        // Future lifecycle overrides:
-        //   OnFinishRecalculate — C12 (historical replay trigger)
-        //   OnDispose           — C14 (cleanup + thread-safety pass)
+        /// <summary>
+        /// Fires once after every chart recalculation (initial load and
+        /// every parameter change that triggers RecalculateValues).
+        /// We use it to issue a CumulativeTradesRequest covering the
+        /// chart's full historical time range; the response arrives in
+        /// OnCumulativeTradesResponse where the engine replays them.
+        /// </summary>
+        protected override void OnFinishRecalculate()
+        {
+            if (CurrentBar < 2) return;
+
+            var startTime = GetCandle(0).Time;
+            var endTime = GetCandle(CurrentBar - 1).LastTime;
+            var request = new CumulativeTradesRequest(startTime, endTime, 0, 0);
+            RequestForCumulativeTrades(request);
+        }
+
+        // OnDispose added in C14 (cleanup + thread-safety pass).
 
         #endregion
 
@@ -487,19 +507,63 @@ namespace ATAS.Indicators.Technical
         /// </summary>
         protected override void OnNewTrade(MarketDataArg trade)
         {
-            var direction = trade.Direction == TradeDirection.Buy ? 1 : -1;
-            var snap = new TickSnapshot(trade.Time, trade.Volume, direction, trade.Price);
-            _tickQueue.Enqueue(snap);
-
-            TrimToTimeWindow(trade.Time);
-            _currentSnapshot = ComputeInstantSnapshot();
-            MaybeSampleSpeed(trade.Time);
-            DetectEvents(trade.Time);
-            UpdateHistogram();
+            int direction = trade.Direction == TradeDirection.Buy ? 1 : -1;
+            ProcessTradeAt(trade.Time, trade.Volume, direction, trade.Price, CurrentBar - 1);
         }
 
-        // Future market events:
-        //   OnCumulativeTradesResponse — C12 (historical replay)
+        /// <summary>
+        /// Receives the historical trades requested in OnFinishRecalculate.
+        /// Resets engine state and replays the trades chronologically
+        /// through ProcessTradeAt so historical bars get their events,
+        /// histogram values and threshold buffer populated by the same
+        /// pipeline as live trades. Each trade's bar is found by linear
+        /// search resuming from the last hit — chronological ordering
+        /// guarantees the search start advances monotonically.
+        /// </summary>
+        protected override void OnCumulativeTradesResponse(
+            CumulativeTradesRequest request,
+            IEnumerable<CumulativeTrade> cumulativeTrades)
+        {
+            if (cumulativeTrades == null) return;
+
+            ResetEngineState();
+
+            _isReplaying = true;
+            try
+            {
+                int searchStart = 0;
+                int processed = 0;
+
+                foreach (var trade in cumulativeTrades)
+                {
+                    int bar = -1;
+                    for (int i = searchStart; i < CurrentBar; i++)
+                    {
+                        var c = GetCandle(i);
+                        if (trade.Time >= c.Time && trade.Time <= c.LastTime)
+                        {
+                            bar = i;
+                            searchStart = i;
+                            break;
+                        }
+                    }
+                    if (bar < 0) continue;
+
+                    int direction = trade.Direction == TradeDirection.Buy ? 1 : -1;
+                    ProcessTradeAt(trade.Time, trade.Volume, direction, trade.FirstPrice, bar);
+                    processed++;
+                }
+
+                int eventCount = _eventsByBar.Sum(kv => kv.Value.Count);
+                this.LogInfo($"history replay complete — trades={processed} events={eventCount}");
+            }
+            finally
+            {
+                _isReplaying = false;
+            }
+
+            RedrawChart();
+        }
 
         #endregion
 
@@ -656,31 +720,20 @@ namespace ATAS.Indicators.Technical
         }
 
         /// <summary>
-        /// Event-based upward-cross detector. Compares the previous observed
-        /// speed against the current one — when previous was at-or-below the
-        /// threshold and current is strictly above, a new event is emitted
-        /// for the current bar. The state-based alternative ("speed > threshold
-        /// right now") would emit duplicate events on every trade while the
-        /// burst persists; this version emits exactly one event per crossing.
-        ///
-        /// Skips emission while the threshold is still 0 (warmup, buffer
-        /// hasn't sampled yet) so we don't spam events during the first
-        /// second after the indicator loads.
+        /// Event-based upward-cross detector. Same logic as before but the
+        /// bar index is supplied explicitly so historical replay can
+        /// attribute events to their actual bars instead of CurrentBar - 1.
+        /// The per-event LogInfo is suppressed during replay (otherwise a
+        /// session with thousands of historical events would spam the log
+        /// for several seconds at indicator load).
         /// </summary>
-        private void DetectEvents(DateTime time)
+        private void DetectEvents(DateTime time, int bar)
         {
-            int bar = CurrentBar - 1;
             if (bar < 0) return;
 
             decimal current = _currentSnapshot.Speed;
             decimal threshold = _currentThreshold;
 
-            // Skip during warmup. Two conditions:
-            //   (1) threshold is still 0 because the buffer hasn't sampled yet;
-            //   (2) the buffer has samples but too few to make the percentile
-            //       statistically meaningful. Without (2), the very first
-            //       trades after startup falsely trigger a burst because the
-            //       2-sample percentile is trivially crossed by any uptick.
             if (threshold <= 0m || _speedBuffer.Count < MinSamplesForDetection)
             {
                 _lastSpeed = current;
@@ -698,7 +751,6 @@ namespace ATAS.Indicators.Technical
                 }
                 list.Add(evt);
 
-                // Append to recent-events queue for the floating panel.
                 lock (_recentEventsLock)
                 {
                     _recentEvents.Enqueue(evt);
@@ -706,8 +758,11 @@ namespace ATAS.Indicators.Technical
                         _recentEvents.Dequeue();
                 }
 
-                var side = _currentSnapshot.IsBuyDominant ? "buy" : "sell";
-                this.LogInfo($"burst @ bar={bar} speed={current.ToString("0.00")} threshold={threshold.ToString("0.00")} side={side} eff={_currentSnapshot.Efficiency.ToString("0.00")} range={_currentSnapshot.Low}-{_currentSnapshot.High}");
+                if (!_isReplaying)
+                {
+                    var side = _currentSnapshot.IsBuyDominant ? "buy" : "sell";
+                    this.LogInfo($"burst @ bar={bar} speed={current.ToString("0.00")} threshold={threshold.ToString("0.00")} side={side} eff={_currentSnapshot.Efficiency.ToString("0.00")} range={_currentSnapshot.Low}-{_currentSnapshot.High}");
+                }
             }
 
             _lastSpeed = current;
@@ -720,9 +775,8 @@ namespace ATAS.Indicators.Technical
         /// frozen at its HWM so closed history reflects peak intensity, not
         /// the value that happened to be live at the closing tick.
         /// </summary>
-        private void UpdateHistogram()
+        private void UpdateHistogram(int bar)
         {
-            int bar = CurrentBar - 1;
             if (bar < 0) return;
 
             if (bar != _lastBar)
@@ -740,6 +794,51 @@ namespace ATAS.Indicators.Technical
 
             _renderSeries[bar] = _currentSnapshot.Speed;
             _thresholdSeries[bar] = _currentThreshold;
+        }
+
+        /// <summary>
+        /// Unified per-trade entry point used by both live processing
+        /// (OnNewTrade) and historical replay (OnCumulativeTradesResponse).
+        /// The engine pipeline is identical in both cases — only the bar
+        /// attribution differs (live: CurrentBar - 1; historical: the bar
+        /// computed from the trade's timestamp).
+        /// </summary>
+        private void ProcessTradeAt(DateTime time, decimal volume, int direction, decimal price, int bar)
+        {
+            var snap = new TickSnapshot(time, volume, direction, price);
+            _tickQueue.Enqueue(snap);
+
+            TrimToTimeWindow(time);
+            _currentSnapshot = ComputeInstantSnapshot();
+            MaybeSampleSpeed(time);
+            DetectEvents(time, bar);
+            UpdateHistogram(bar);
+        }
+
+        /// <summary>
+        /// Clears all engine and panel state so the next batch of trades
+        /// (live or historical replay) starts from a clean slate. Used at
+        /// the start of OnCumulativeTradesResponse: the historical reply
+        /// is the source of truth for the chart's history, and any live
+        /// state that may have accumulated in the brief window between
+        /// OnFinishRecalculate and this callback is deliberately discarded.
+        /// </summary>
+        private void ResetEngineState()
+        {
+            _tickQueue.Clear();
+            _currentSnapshot = default;
+            _lastBar = -1;
+            _currentBarHwm = 0m;
+            _speedBuffer.Clear();
+            _lastSampleTime = DateTime.MinValue;
+            _currentThreshold = 0m;
+            _lastSpeed = 0m;
+            _eventsByBar.Clear();
+
+            lock (_recentEventsLock)
+            {
+                _recentEvents.Clear();
+            }
         }
 
         #endregion
