@@ -1,6 +1,7 @@
 ﻿using ATAS.Indicators;
 using ATAS.Indicators.Drawing;
 using OFT.Rendering.Context;
+using OFT.Rendering.Tools;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -215,6 +216,13 @@ namespace ATAS.Indicators.Technical
         private System.Drawing.Color _sellColor = System.Drawing.Color.Red;
         private System.Drawing.Color _neutralColor = System.Drawing.Color.Gray;
 
+        // Extension line settings backing fields. ExtensionBars: number of
+        // bars right of the primary event drawn at full opacity. FadeBars:
+        // additional bars drawn with linearly decreasing alpha, ending
+        // nearly transparent.
+        private int _extensionBars = 10;
+        private int _fadeBars = 5;
+
         // ─── Settings backing fields ────────────────────────────────────────
         // Kept private + exposed via Properties so the setters can trigger
         // RecalculateValues on parameter changes.
@@ -313,6 +321,28 @@ namespace ATAS.Indicators.Technical
             set { _neutralColor = value.Convert(); RedrawChart(); }
         }
 
+        [Display(Name = "Extension bars (full)",
+         GroupName = "Visuals",
+         Description = "Number of bars to the right of a primary event drawn at full opacity. The horizontal line marks the centre of the burst's price range as a transient support/resistance reference.",
+         Order = 40)]
+        [Range(0, 200)]
+        public int ExtensionBars
+        {
+            get => _extensionBars;
+            set { _extensionBars = value; RedrawChart(); }
+        }
+
+        [Display(Name = "Extension bars (fade)",
+                 GroupName = "Visuals",
+                 Description = "Number of bars after the full-opacity segment drawn with linearly decreasing alpha. Set to 0 for an abrupt cutoff; higher for a longer visual decay.",
+                 Order = 50)]
+        [Range(0, 100)]
+        public int FadeBars
+        {
+            get => _fadeBars;
+            set { _fadeBars = value; RedrawChart(); }
+        }
+
         [Display(Name = "TEST: Inject burst",
                 GroupName = "Diagnostics",
                 Description = "Toggle to inject a synthetic burst event into the current bar. Used to smoke-test multi-burst detection without waiting for a natural cross. Removed in C15.",
@@ -404,13 +434,11 @@ namespace ATAS.Indicators.Technical
 
             context.SetClip(ChartInfo.PriceChartContainer.Region);
 
-            // Snapshot color fields once per frame — they're updated
-            // synchronously from setters that trigger RedrawChart, so reading
-            // them at the top of the frame is consistent.
             var buyColor = _buyColor;
             var sellColor = _sellColor;
             var neutralColor = _neutralColor;
 
+            // Pass 1: zone rectangles, one per event in every visible bar.
             for (int bar = FirstVisibleBarNumber; bar <= LastVisibleBarNumber; bar++)
             {
                 if (!_eventsByBar.TryGetValue(bar, out var events)) continue;
@@ -420,6 +448,16 @@ namespace ATAS.Indicators.Technical
                     var color = ResolveZoneColor(evt.Snapshot, buyColor, sellColor, neutralColor);
                     DrawZone(context, bar, evt.Snapshot.High, evt.Snapshot.Low, color);
                 }
+            }
+
+            // Pass 2: primary event extension lines, one per bar that has
+            // any events. Anchored at the primary event's centre price,
+            // extending right with a fade-out tail.
+            for (int bar = FirstVisibleBarNumber; bar <= LastVisibleBarNumber; bar++)
+            {
+                if (!TryGetPrimaryEvent(bar, out var primary)) continue;
+                var color = ResolveZoneColor(primary.Snapshot, buyColor, sellColor, neutralColor);
+                DrawExtensionLine(context, bar, primary.Snapshot, color);
             }
 
             context.ResetClip();
@@ -658,6 +696,73 @@ namespace ATAS.Indicators.Technical
             var rect = new Rectangle(x, top, width, height);
             var fill = System.Drawing.Color.FromArgb(150, color.R, color.G, color.B);
             context.FillRectangle(fill, rect);
+        }
+
+        /// <summary>
+        /// Returns the highest-speed event recorded for a bar, if any.
+        /// Used to identify which event drives the persistent extension
+        /// line (only one line per bar — the most aggressive burst).
+        /// </summary>
+        private bool TryGetPrimaryEvent(int bar, out EventRecord primary)
+        {
+            primary = default;
+            if (!_eventsByBar.TryGetValue(bar, out var events) || events.Count == 0)
+                return false;
+
+            primary = events[0];
+            var maxSpeed = primary.Snapshot.Speed;
+            for (int i = 1; i < events.Count; i++)
+            {
+                if (events[i].Snapshot.Speed > maxSpeed)
+                {
+                    primary = events[i];
+                    maxSpeed = events[i].Snapshot.Speed;
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Draws a horizontal line anchored at the snapshot's mid-price and
+        /// extending to the right of the source bar. The first ExtensionBars
+        /// bars are drawn at full opacity as a single segment; the next
+        /// FadeBars are drawn one bar at a time with linearly decreasing
+        /// alpha. Both use the same color as the zone rectangle for the
+        /// primary event so the line and zone are visually unified.
+        /// </summary>
+        private void DrawExtensionLine(RenderContext context, int sourceBar, SpeedSnapshot snap, System.Drawing.Color color)
+        {
+            if (_extensionBars <= 0 && _fadeBars <= 0) return;
+
+            decimal centerPrice = (snap.High + snap.Low) / 2m;
+            int y = ChartInfo.GetYByPrice(centerPrice, false);
+
+            // Full-opacity segment, drawn as a single line.
+            if (_extensionBars > 0)
+            {
+                int x1 = ChartInfo.GetXByBar(sourceBar, true);
+                int x2 = ChartInfo.GetXByBar(sourceBar + _extensionBars, true);
+                var pen = new RenderPen(color, 2);
+                context.DrawLine(pen, x1, y, x2, y);
+            }
+
+            // Fade segments: one bar each, alpha decreasing linearly.
+            if (_fadeBars > 0)
+            {
+                for (int i = 0; i < _fadeBars; i++)
+                {
+                    double alphaRatio = 1.0 - (double)i / _fadeBars;
+                    int alpha = (int)(255 * alphaRatio);
+                    if (alpha <= 0) break;
+
+                    var fadeColor = System.Drawing.Color.FromArgb(alpha, color.R, color.G, color.B);
+                    int segStart = sourceBar + _extensionBars + i;
+                    int x1 = ChartInfo.GetXByBar(segStart, true);
+                    int x2 = ChartInfo.GetXByBar(segStart + 1, true);
+                    var pen = new RenderPen(fadeColor, 2);
+                    context.DrawLine(pen, x1, y, x2, y);
+                }
+            }
         }
 
         #endregion
