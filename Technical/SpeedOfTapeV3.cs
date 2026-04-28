@@ -142,6 +142,19 @@ namespace ATAS.Indicators.Technical
             [Display(Name = "Bottom left")] BottomLeft
         }
 
+        /// <summary>
+        /// Controls what the price panel shows. The histogram, threshold
+        /// line and floating info panel are independent of this setting —
+        /// only the zone overlays (rectangles and extension lines) are
+        /// affected.
+        /// </summary>
+        public enum ZoneDisplayMode
+        {
+            [Display(Name = "All events")] All,
+            [Display(Name = "Primary only")] PrimaryOnly,
+            [Display(Name = "Hidden")] Hidden
+        }
+
         #endregion
 
         #region Fields
@@ -187,6 +200,20 @@ namespace ATAS.Indicators.Technical
         // the HWM is committed to _renderSeries[oldBar].
         private int _lastBar = -1;
         private decimal _currentBarHwm;
+
+        // Snapshot at the moment the current bar's HWM was set. Used to
+        // colour the histogram bar with the same scheme the price panel
+        // uses for events: the bar reflects its peak moment's direction
+        // and efficiency, not just its magnitude.
+        private SpeedSnapshot _currentBarHwmSnapshot;
+
+        // Per-bar HWM snapshot. Lets the histogram bars be recoloured
+        // retroactively when BuyColor / SellColor / NeutralColor change —
+        // without this, only the live bar would update because Colors[bar]
+        // stores resolved colors that need to be re-resolved against the
+        // new palette.
+        private readonly Dictionary<int, SpeedSnapshot> _hwmByBar
+            = new Dictionary<int, SpeedSnapshot>();
 
         // How often a new speed observation is sampled into the context
         // buffer. 1 Hz keeps the buffer at ~900 entries for a 15-min window
@@ -234,6 +261,10 @@ namespace ATAS.Indicators.Technical
         private System.Drawing.Color _buyColor = System.Drawing.Color.Lime;
         private System.Drawing.Color _sellColor = System.Drawing.Color.Red;
         private System.Drawing.Color _neutralColor = System.Drawing.Color.Gray;
+
+        // Controls whether and how zone overlays are rendered in the
+        // price panel. Default 'All' — every detected event shows.
+        private ZoneDisplayMode _zoneDisplay = ZoneDisplayMode.All;
 
         // Info panel settings backing fields.
         private bool _showInfoPanel = true;
@@ -344,6 +375,16 @@ namespace ATAS.Indicators.Technical
             set { _thresholdPercentile = value; RecalculateValues(); }
         }
 
+        [Display(Name = "Zone display",
+         GroupName = "Visuals",
+         Description = "How burst zones appear in the price panel. 'All events' shows every detected burst (default). 'Primary only' shows only the highest-speed burst of each bar. 'Hidden' hides the price-panel overlay entirely; the histogram and floating info panel keep showing events.",
+         Order = 5)]
+        public ZoneDisplayMode ZoneDisplay
+        {
+            get => _zoneDisplay;
+            set { _zoneDisplay = value; RedrawChart(); }
+        }
+
         [Display(Name = "Buy color",
          GroupName = "Visuals",
          Description = "Color of zones whose dominant side is buying. Efficiency near 1 paints close to this color; lower efficiency blends toward the neutral color.",
@@ -351,7 +392,12 @@ namespace ATAS.Indicators.Technical
         public CrossColor BuyColor
         {
             get => _buyColor.Convert();
-            set { _buyColor = value.Convert(); RedrawChart(); }
+            set 
+            {   
+                _buyColor = value.Convert();
+                RecolorHistogram(); 
+                RedrawChart(); 
+            }
         }
 
         [Display(Name = "Sell color",
@@ -361,7 +407,12 @@ namespace ATAS.Indicators.Technical
         public CrossColor SellColor
         {
             get => _sellColor.Convert();
-            set { _sellColor = value.Convert(); RedrawChart(); }
+            set
+            {
+                _sellColor = value.Convert();
+                RecolorHistogram();
+                RedrawChart();
+            }
         }
 
         [Display(Name = "Neutral color",
@@ -371,7 +422,12 @@ namespace ATAS.Indicators.Technical
         public CrossColor NeutralColor
         {
             get => _neutralColor.Convert();
-            set { _neutralColor = value.Convert(); RedrawChart(); }
+            set
+            {
+                _neutralColor = value.Convert();
+                RecolorHistogram();
+                RedrawChart();
+            }
         }
 
         [Display(Name = "Extension bars (full)",
@@ -658,35 +714,47 @@ namespace ATAS.Indicators.Technical
             var sellColor = _sellColor;
             var neutralColor = _neutralColor;
 
-            // Pass 1: zone rectangles.
-            for (int bar = FirstVisibleBarNumber; bar <= LastVisibleBarNumber; bar++)
+            // Passes 1 and 2 (zone rectangles and extension lines) only run
+            // when the user wants the price panel overlay visible. Histogram,
+            // threshold line and floating panel are independent.
+            if (_zoneDisplay != ZoneDisplayMode.Hidden)
             {
-                if (!eventsSnapshot.TryGetValue(bar, out var events) || events.Count == 0)
-                    continue;
-
-                if (!TryFindPrimaryEvent(events, out var primary)) continue;
-
-                foreach (var evt in events)
+                // Pass 1: zone rectangles. In PrimaryOnly mode, secondary
+                // events are skipped so each bar shows at most one rectangle.
+                for (int bar = FirstVisibleBarNumber; bar <= LastVisibleBarNumber; bar++)
                 {
-                    var color = ResolveZoneColor(evt.Snapshot, buyColor, sellColor, neutralColor);
-                    bool isPrimary =
-                        evt.Time == primary.Time && evt.Snapshot.Speed == primary.Snapshot.Speed;
-                    int penWidth = isPrimary ? 5 : 2;
-                    DrawZone(context, bar, evt.Snapshot.High, evt.Snapshot.Low, color, penWidth);
+                    if (!eventsSnapshot.TryGetValue(bar, out var events) || events.Count == 0)
+                        continue;
+                    if (!TryFindPrimaryEvent(events, out var primary)) continue;
+
+                    foreach (var evt in events)
+                    {
+                        bool isPrimary =
+                            evt.Time == primary.Time && evt.Snapshot.Speed == primary.Snapshot.Speed;
+                        if (_zoneDisplay == ZoneDisplayMode.PrimaryOnly && !isPrimary)
+                            continue;
+
+                        var color = ResolveZoneColor(evt.Snapshot, buyColor, sellColor, neutralColor);
+                        int penWidth = isPrimary ? 5 : 2;
+                        DrawZone(context, bar, evt.Snapshot.High, evt.Snapshot.Low, color, penWidth);
+                    }
+                }
+
+                // Pass 2: primary event extension lines. Same in All and
+                // PrimaryOnly modes — only the primary draws its line.
+                for (int bar = FirstVisibleBarNumber; bar <= LastVisibleBarNumber; bar++)
+                {
+                    if (!eventsSnapshot.TryGetValue(bar, out var events) || events.Count == 0)
+                        continue;
+                    if (!TryFindPrimaryEvent(events, out var primary)) continue;
+                    var color = ResolveZoneColor(primary.Snapshot, buyColor, sellColor, neutralColor);
+                    DrawExtensionLine(context, bar, primary.Snapshot, color);
                 }
             }
 
-            // Pass 2: primary event extension lines.
-            for (int bar = FirstVisibleBarNumber; bar <= LastVisibleBarNumber; bar++)
-            {
-                if (!eventsSnapshot.TryGetValue(bar, out var events) || events.Count == 0)
-                    continue;
-                if (!TryFindPrimaryEvent(events, out var primary)) continue;
-                var color = ResolveZoneColor(primary.Snapshot, buyColor, sellColor, neutralColor);
-                DrawExtensionLine(context, bar, primary.Snapshot, color);
-            }
-
-            // Pass 3: floating info panel using the recent-events snapshot.
+            // Pass 3 (info panel) runs regardless of ZoneDisplay — the panel
+            // is the persistent log of events even if the user has chosen to
+            // keep the price chart clean.
             if (_showInfoPanel)
             {
                 DrawInfoPanel(context, recentSnapshot, buyColor, sellColor, neutralColor);
@@ -853,13 +921,22 @@ namespace ATAS.Indicators.Technical
 
                 _lastBar = bar;
                 _currentBarHwm = _currentSnapshot.Speed;
+                _currentBarHwmSnapshot = _currentSnapshot;
             }
             else if (_currentSnapshot.Speed > _currentBarHwm)
             {
                 _currentBarHwm = _currentSnapshot.Speed;
+                _currentBarHwmSnapshot = _currentSnapshot;
             }
 
+            _hwmByBar[bar] = _currentBarHwmSnapshot;   // ← añadir esta línea
+
             _renderSeries[bar] = _currentSnapshot.Speed;
+            _renderSeries.Colors[bar] = ResolveZoneColor(
+                _currentBarHwmSnapshot,
+                _buyColor,
+                _sellColor,
+                _neutralColor);
             _thresholdSeries[bar] = _currentThreshold;
         }
 
@@ -893,6 +970,8 @@ namespace ATAS.Indicators.Technical
             _currentSnapshot = default;
             _lastBar = -1;
             _currentBarHwm = 0m;
+            _currentBarHwmSnapshot = default;
+            _hwmByBar.Clear();
             _speedBuffer.Clear();
             _lastSampleTime = DateTime.MinValue;
             _currentThreshold = 0m;
@@ -986,6 +1065,28 @@ namespace ATAS.Indicators.Technical
             var g = (int)(from.G + (to.G - from.G) * ratio);
             var b = (int)(from.B + (to.B - from.B) * ratio);
             return System.Drawing.Color.FromArgb(r, g, b);
+        }
+
+        /// <summary>
+        /// Recomputes the colour of every histogram bar from its stored
+        /// HWM snapshot. Called from the BuyColor / SellColor /
+        /// NeutralColor setters so palette changes update closed bars
+        /// immediately, matching the live behaviour of the price-panel
+        /// rectangles whose colours are resolved fresh on every render.
+        /// </summary>
+        private void RecolorHistogram()
+        {
+            lock (_engineLock)
+            {
+                foreach (var kv in _hwmByBar)
+                {
+                    _renderSeries.Colors[kv.Key] = ResolveZoneColor(
+                        kv.Value,
+                        _buyColor,
+                        _sellColor,
+                        _neutralColor);
+                }
+            }
         }
 
         /// <summary>
