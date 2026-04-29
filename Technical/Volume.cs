@@ -141,6 +141,7 @@ public class Volume : Indicator
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.Filter), Description = nameof(Strings.MinVolumeFilterCommonDescription))]
     [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
+    [Range(0, double.MaxValue)]
     public decimal FilterValue
     {
         get => _filter;
@@ -263,7 +264,8 @@ public class Volume : Indicator
 		get => _posColor.Convert();
 		set
 		{
-			_positive.Color = value;
+            _posColor = value.Convert();
+            _positive.Color = value;
 			RaisePropertyChanged(nameof(PosColor));
 			RecalculateValues();
 		}
@@ -276,6 +278,7 @@ public class Volume : Indicator
 		get => _negColor.Convert();
 		set
 		{
+            _negColor = value.Convert();
             _negative.Color = value;
 			RaisePropertyChanged(nameof(NegColor));
 			RecalculateValues();
@@ -289,6 +292,7 @@ public class Volume : Indicator
 		get => _neutralColor.Convert();
         set
 		{
+            _neutralColor = value.Convert();
             _neutral.Color = value;
 			RaisePropertyChanged(nameof(NeutralColor));
 			RecalculateValues();
@@ -362,16 +366,21 @@ public class Volume : Indicator
 
     protected override void OnRender(RenderContext context, DrawingLayouts layout)
 	{
-		if (!ShowVolume || ChartInfo.ChartVisualMode != ChartVisualModes.Clusters || Panel == IndicatorDataProvider.CandlesPanel)
+        if (ChartInfo == null) 
 			return;
 
-		var minWidth = GetMinWidth(context, FirstVisibleBarNumber, LastVisibleBarNumber);
+        if (!ShowVolume || ChartInfo.ChartVisualMode != ChartVisualModes.Clusters || Panel == IndicatorDataProvider.CandlesPanel)
+			return;
+
+        var minWidth = GetMinWidth(context, FirstVisibleBarNumber, LastVisibleBarNumber);
 		var barWidth = ChartInfo.GetXByBar(1) - ChartInfo.GetXByBar(0);
 
 		if (minWidth > barWidth)
 			return;
 
-		var strHeight = context.MeasureString("0", Font.RenderObject).Height;
+        context.SetClip(Container.Region);
+
+        var strHeight = context.MeasureString("0", Font.RenderObject).Height;
 
 		var y = VolLocation switch
 		{
@@ -391,7 +400,9 @@ public class Volume : Indicator
 				strHeight);
 			context.DrawString(renderText, Font.RenderObject, TextColor, strRect, Format);
 		}
-	}
+
+        context.ResetClip();
+    }
 
 	protected override void OnCalculate(int bar, decimal value)
 	{
@@ -410,7 +421,7 @@ public class Volume : Indicator
 		{
 			if (UseVolumeAlerts && _lastVolumeAlert != bar && val >= _filter && _filter != 0)
 			{
-				AddAlert(AlertVolumeFile, $"Candle volume: {val}");
+				AddAlert(AlertVolumeFile, $"Candle {GetInputLabel()}: {val}");
 				_lastVolumeAlert = bar;
 			}
 
@@ -418,15 +429,15 @@ public class Volume : Indicator
 			{
 				if ((candle.Delta < 0 && candle.Close > candle.Open) || (candle.Delta > 0 && candle.Close < candle.Open))
 				{
-					AddAlert(AlertReverseFile, $"Candle volume: {val} (Reverse alert)");
+					AddAlert(AlertReverseFile, $"Candle {GetInputLabel()}: {val} (Reverse alert)");
 					_lastReverseAlert = bar;
 				}
 			}
 		}
 
-		HighestVol.Calculate(bar, candle.Volume);
+		HighestVol.Calculate(bar, val);
 
-		if (_useFilter && val > _filter)
+		if (_useFilter && val >= _filter)
 		{
 			_renderSeries.Colors[bar] = _filterColor;
 			return;
@@ -452,45 +463,64 @@ public class Volume : Indicator
 		}
 	}
 
-	#endregion
+    protected override void OnDispose()
+    {
+        _positive.PropertyChanged -= PositiveChanged;
+        _negative.PropertyChanged -= NegativeChanged;
+        _neutral.PropertyChanged -= NeutralChanged;
+    }
 
-	#region Private methods
+    #endregion
 
-	private int GetMinWidth(RenderContext context, int startBar, int endBar)
+    #region Private methods
+
+    private int GetMinWidth(RenderContext context, int startBar, int endBar)
 	{
 		var maxLength = 0;
 
 		for (var i = startBar; i <= endBar; i++)
 		{
 			var value = _renderSeries[i];
-			var length = $"{value:0.#####}".Length;
+            var renderText = ChartInfo.TryGetMinimizedVolumeString(value);
+            var length = renderText.Length;
 
-			if (length > maxLength)
+            if (length > maxLength)
 				maxLength = length;
 		}
 
-		var sampleStr = "";
+        var sampleStr = new string('0', maxLength);
 
-		for (var i = 0; i < maxLength; i++)
-			sampleStr += '0';
-
-		return context.MeasureString(sampleStr, Font.RenderObject).Width;
+        return context.MeasureString(sampleStr, Font.RenderObject).Width;
 	}
 
 	private void NeutralChanged(object sender, PropertyChangedEventArgs e)
 	{
-		_neutralColor = _neutral.Color.Convert();
+        if (e.PropertyName == nameof(ValueDataSeries.Color))
+            _neutralColor = _neutral.Color.Convert();
 	}
 
 	private void NegativeChanged(object sender, PropertyChangedEventArgs e)
 	{
-		_negColor = _negative.Color.Convert();
+        if (e.PropertyName == nameof(ValueDataSeries.Color))
+            _negColor = _negative.Color.Convert();
 	}
 
 	private void PositiveChanged(object sender, PropertyChangedEventArgs e)
 	{
-		_posColor = _positive.Color.Convert();
+        if (e.PropertyName == nameof(ValueDataSeries.Color))
+            _posColor = _positive.Color.Convert();
 	}
+
+    private string GetInputLabel()
+    {
+        return Input switch
+        {
+            InputType.Ticks => nameof(Strings.Ticks),
+            InputType.Asks => nameof(Strings.Asks),
+            InputType.Bids => nameof(Strings.Bids),
+            _ => nameof(Strings.Volume)
+        };
+    }
 
     #endregion
 }
