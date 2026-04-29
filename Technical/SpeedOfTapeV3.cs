@@ -251,6 +251,19 @@ namespace ATAS.Indicators.Technical
         // At 1 Hz sampling this is ~30 seconds of warmup.
         private const int MinSamplesForDetection = 30;
 
+        // Efficiency below which a burst is rendered with the neutral
+        // colour regardless of side. Bursts under this threshold are
+        // considered visually balanced — too much counterparty volume
+        // for a clear directional read. Chosen empirically; works well
+        // for the typical efficiency distribution of futures bursts.
+        private const decimal MinEfficiencyForDirectionalColor = 0.3m;
+
+        // How much to inflate the indicator panel's auto-scale ceiling
+        // above the maximum visible value (histogram peak or threshold,
+        // whichever is higher). Used by the transparent headroom series
+        // to prevent both elements from touching the panel's top edge.
+        private const decimal PanelHeadroomFactor = 1.15m;
+
         // Rolling buffer of speed observations over the last
         // ContextWindowMinutes minutes. Populated by MaybeSampleSpeed,
         // trimmed by TrimSpeedBuffer, read by ComputePercentile.
@@ -301,8 +314,8 @@ namespace ATAS.Indicators.Technical
         // bars right of the primary event drawn at full opacity. FadeBars:
         // additional bars drawn with linearly decreasing alpha, ending
         // nearly transparent.
-        private int _extensionBars = 10;
-        private int _fadeBars = 5;
+        private int _extensionBars = 3;
+        private int _fadeBars = 3;
 
         // Recent events shown in the floating info panel. Capped at
         // _maxEventsInPanel — older entries are dequeued from the front
@@ -336,7 +349,7 @@ namespace ATAS.Indicators.Technical
         private int _timeWindow = 5;
         private SpeedType _dataType = SpeedType.Ticks;
         private int _contextWindowMinutes = 15;
-        private int _thresholdPercentile = 95;
+        private int _thresholdPercentile = 97;
 
         // Alerts settings backing fields.
         private bool _useAlerts;
@@ -440,7 +453,7 @@ namespace ATAS.Indicators.Technical
 
         [Display(Name = "Neutral color",
                  GroupName = "Visuals",
-                 Description = "Color used when a burst is balanced (efficiency below 0.3). Also acts as the blend origin for low-efficiency directional bursts.",
+                 Description = "Color used when a burst is balanced (low efficiency). Also acts as the blend origin for low-efficiency directional bursts.",
                  Order = 30)]
         public CrossColor NeutralColor
         {
@@ -548,16 +561,6 @@ namespace ATAS.Indicators.Technical
             set => _alertCooldownSeconds = value;
         }
 
-        [Display(Name = "TEST: Inject burst",
-                GroupName = "Diagnostics",
-                Description = "Toggle to inject a synthetic burst event into the current bar. Used to smoke-test multi-burst detection without waiting for a natural cross. Removed in C15.",
-                Order = 1000)]
-        public bool TestInjectBurst
-        {
-            get => false;
-            set { if (value) TestInjectBurstNow(); }
-        }
-
         #endregion
 
         #region ctor
@@ -653,8 +656,8 @@ namespace ATAS.Indicators.Technical
         /// guarantees the search start advances monotonically.
         /// </summary>
         protected override void OnCumulativeTradesResponse(
-    CumulativeTradesRequest request,
-    IEnumerable<CumulativeTrade> cumulativeTrades)
+                    CumulativeTradesRequest request,
+                    IEnumerable<CumulativeTrade> cumulativeTrades)
         {
             if (cumulativeTrades == null) return;
 
@@ -705,12 +708,16 @@ namespace ATAS.Indicators.Technical
         #region Overrides: Rendering
 
         /// <summary>
-        /// Render entry point. Called by ATAS once per render frame for
-        /// every visible bar range. We iterate the events dictionary by
-        /// visible bar number, look up events for each bar, and draw a
-        /// zone rectangle per event. All bars and events are rendered on
-        /// every pass — the dictionary is read-only here, all mutation
-        /// happens in DetectEvents on the data thread.
+        /// Render entry point. Called by ATAS once per render frame.
+        /// Snapshots the events dictionary and recent-events queue under
+        /// _engineLock, then runs three render passes outside the lock:
+        ///   Pass 1 — zone rectangles on the price panel (gated by
+        ///            ZoneDisplay; PrimaryOnly suppresses secondary events).
+        ///   Pass 2 — primary event extension lines on the price panel
+        ///            (also gated by ZoneDisplay).
+        ///   Pass 3 — floating info panel in the configured corner
+        ///            (gated independently by ShowInfoPanel — the panel
+        ///            persists even when zone overlays are hidden).
         /// </summary>
         protected override void OnRender(RenderContext context, DrawingLayouts layout)
         {
@@ -953,7 +960,7 @@ namespace ATAS.Indicators.Technical
                 _currentBarHwmSnapshot = _currentSnapshot;
             }
 
-            _hwmByBar[bar] = _currentBarHwmSnapshot;   // ← añadir esta línea
+            _hwmByBar[bar] = _currentBarHwmSnapshot;
 
             _renderSeries[bar] = _currentSnapshot.Speed;
             _renderSeries.Colors[bar] = ResolveZoneColor(
@@ -963,7 +970,7 @@ namespace ATAS.Indicators.Technical
                 _neutralColor);
             _thresholdSeries[bar] = _currentThreshold;
             decimal panelMax = Math.Max(_currentSnapshot.Speed, _currentThreshold);
-            _headroomSeries[bar] = panelMax * 1.15m;
+            _headroomSeries[bar] = panelMax * PanelHeadroomFactor;
         }
 
         /// <summary>
@@ -1057,8 +1064,8 @@ namespace ATAS.Indicators.Technical
 
         /// <summary>
         /// Decides which color to paint a zone with, based on the snapshot's
-        /// dominant side and efficiency. Bursts under 30% efficiency are
-        /// considered balanced and painted neutral regardless of side. Above
+        /// dominant side and efficiency. Bursts under MinEfficiencyForDirectionalColor
+        /// are considered balanced and painted neutral regardless of side. Above
         /// that, the color blends from neutral toward the side color in
         /// proportion to efficiency: a 0.6-efficiency buy burst sits 60% of
         /// the way along the gradient from neutral to buy color.
@@ -1069,7 +1076,7 @@ namespace ATAS.Indicators.Technical
             System.Drawing.Color sell,
             System.Drawing.Color neutral)
         {
-            if (snap.Efficiency < 0.3m) return neutral;
+            if (snap.Efficiency < MinEfficiencyForDirectionalColor) return neutral;
 
             var target = snap.IsBuyDominant ? buy : sell;
             return Blend(neutral, target, (double)snap.Efficiency);
@@ -1237,7 +1244,7 @@ namespace ATAS.Indicators.Technical
         /// visual semantics apply across panel and chart.
         ///
         /// Iteration is over a snapshot of _recentEvents taken under
-        /// _engineLockto avoid racing with DetectEvents on the
+        /// _engineLock to avoid racing with DetectEvents on the
         /// data thread.
         /// </summary>
         private void DrawInfoPanel(RenderContext context, List<EventRecord> events, System.Drawing.Color buy, System.Drawing.Color sell, System.Drawing.Color neutral)
@@ -1253,10 +1260,10 @@ namespace ATAS.Indicators.Technical
 
             // Match the chart's x-axis timezone. Trade timestamps from the
             // feed are in UTC; ATAS displays bar times using
-            // InstrumentInfo.TimeZone + CustomTimeZone as the offset from UTC.
-            // Applying the same offset here keeps panel times visually aligned
-            // with the candles below — change the chart timezone in ATAS
-            // settings and both move together.
+            // InstrumentInfo.TimeZone as the offset from UTC. Applying the
+            // same offset here keeps panel times visually aligned with the
+            // candles below — change the chart timezone in ATAS settings
+            // and both move together.
             double chartTzOffset = InstrumentInfo.TimeZone;
 
             // Suffix shown next to the speed value depends on the active
@@ -1356,55 +1363,5 @@ namespace ATAS.Indicators.Technical
 
         #endregion
 
-        #region Private methods: Diagnostics
-
-        /// <summary>
-        /// TEMP: Forges a synthetic burst event and inserts it into the
-        /// current bar's event list. Bypasses the cross-detection path
-        /// (no threshold comparison, no _lastSpeed update) so the test is
-        /// reproducible regardless of market conditions.
-        ///
-        /// Removed in C15 along with all TEST: properties.
-        /// </summary>
-        private void TestInjectBurstNow()
-        {
-            int bar = CurrentBar - 1;
-            if (bar < 0) return;
-
-            lock (_engineLock)
-            {
-                var candle = GetCandle(bar);
-                decimal high = candle.High;
-                decimal low = candle.Low;
-
-                var forged = new SpeedSnapshot(
-                    ticks: 100,
-                    volume: 200m,
-                    buys: 150m,
-                    sells: 50m,
-                    high: high,
-                    low: low,
-                    dataType: _dataType);
-
-                var evt = new EventRecord(bar, DateTime.UtcNow, forged);
-
-                if (!_eventsByBar.TryGetValue(bar, out var list))
-                {
-                    list = new List<EventRecord>();
-                    _eventsByBar[bar] = list;
-                }
-                list.Add(evt);
-
-                _recentEvents.Enqueue(evt);
-                while (_recentEvents.Count > _maxEventsInPanel)
-                    _recentEvents.Dequeue();
-
-                MaybeFireAlert(DateTime.UtcNow, bar, forged);
-
-                this.LogInfo($"TEST: injected burst @ bar={bar} (events in bar = {list.Count})");
-            }
-        }
-
-        #endregion
     }
 }
