@@ -87,6 +87,7 @@ public class CumulativeDelta : Indicator
     #region Settings
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VisualMode), GroupName = nameof(Strings.Settings), Description = nameof(Strings.ChartDisplayModeDescription), Order = 10)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public SessionDeltaVisualMode Mode
     {
         get => _mode;
@@ -135,6 +136,7 @@ public class CumulativeDelta : Indicator
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.SessionDeltaMode), GroupName = nameof(Strings.Settings), Description = nameof(Strings.SessionModeDescription), Order = 20)]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     public SessionMode SessionCumDeltaMode 
     { 
         get => _sessionCumDeltaMode;
@@ -146,6 +148,7 @@ public class CumulativeDelta : Indicator
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.CustomSessionStart), GroupName = nameof(Strings.Settings), Description = nameof(Strings.CustomSessionStartDescription), Order = 25)]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     public TimeSpan CustomSessionStart
     {
         get => _customSessionStart;
@@ -159,6 +162,7 @@ public class CumulativeDelta : Indicator
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.UseScale), GroupName = nameof(Strings.Settings), Description = nameof(Strings.DisplayFromZeroDescription), Order = 30)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public bool UseScale
     {
         get => LineSeries[0].UseScale;
@@ -170,12 +174,15 @@ public class CumulativeDelta : Indicator
     #region Alerts
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.UseAlerts), GroupName = nameof(Strings.Alerts), Description = nameof(Strings.UseAlertsDescription), Order = 110)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
     public bool UseAlerts { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.Alerts), Description = nameof(Strings.AlertFileDescription), Order = 120)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
     public string AlertFile { get; set; } = "alert1";
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.RequiredChange), GroupName = nameof(Strings.Alerts), Description = nameof(Strings.AlertFilterDescription), Order = 130)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
     public decimal ChangeSize
     {
         get => _changeSize;
@@ -187,9 +194,11 @@ public class CumulativeDelta : Indicator
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.FontColor), GroupName = nameof(Strings.Alerts), Description = nameof(Strings.AlertTextColorDescription), Order = 140)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
     public Color AlertForeColor { get; set; } = Color.FromArgb(255, 247, 249, 249);
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BackGround), GroupName = nameof(Strings.Alerts), Description = nameof(Strings.AlertFillColorDescription), Order = 150)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
     public Color AlertBGColor { get; set; } = Color.FromArgb(255, 75, 72, 72);
 
     #endregion
@@ -197,6 +206,7 @@ public class CumulativeDelta : Indicator
     #region Drawing
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Positive), GroupName = nameof(Strings.Drawing), Description = nameof(Strings.PositiveValueColorDescription), Order = 210)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public CrossColor PosColor
     {
         get => _posColor.Convert();
@@ -210,6 +220,7 @@ public class CumulativeDelta : Indicator
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Negative), GroupName = nameof(Strings.Drawing), Description = nameof(Strings.NegativeValueColorDescription), Order = 220)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public CrossColor NegColor
     {
         get => _negColor.Convert();
@@ -223,6 +234,7 @@ public class CumulativeDelta : Indicator
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.TextColor), GroupName = nameof(Strings.Drawing), Description = nameof(Strings.AxisTextColorDescription), Order = 230)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public CrossColor TextColor
     {
         get => _candleSeries.ValuesColor.Convert();
@@ -233,13 +245,16 @@ public class CumulativeDelta : Indicator
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BorderColor), GroupName = nameof(Strings.Drawing), Description = nameof(Strings.BorderColorDescription), Order = 240)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public Indicators.FilterColor BorderColorFilter { get; set; } = new(false) { Value = Color.Gray.Convert() };
 
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Mode), GroupName = nameof(Strings.Drawing), Description = nameof(Strings.ElementDisplayModeDescription), Order = 250)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public FilterEnum<CandleVisualMode> CandleModeFilter { get; set; } = new(false);
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowValue), GroupName = nameof(Strings.Drawing), Description = nameof(Strings.ShowValueOnLabelDescription), Order = 260)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public bool ShowValue
     {
         get => _candleSeries.ShowCurrentValue;
@@ -252,6 +267,7 @@ public class CumulativeDelta : Indicator
 
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Visible), GroupName = nameof(Strings.Drawing), Description = nameof(Strings.IsVisibleDescription), Order = 270)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public bool IsVisible
     {
         get => _isVisible;
@@ -274,9 +290,11 @@ public class CumulativeDelta : Indicator
 
     [Range(1, int.MaxValue)]
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Width), GroupName = nameof(Strings.Drawing), Description = nameof(Strings.WidthDataSeriesDescription), Order = 280)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public FilterInt WidthFilter { get; set; } = new(false) { Value = 1 };
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LineStyle), GroupName = nameof(Strings.Drawing), Description = nameof(Strings.LineDashStyleDescription), Order = 290)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public FilterEnum<LineDashStyle> LineStyleFilter { get; set; } = new(false);
 
     #endregion

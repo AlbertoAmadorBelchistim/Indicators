@@ -334,7 +334,7 @@ public class ClusterStatistic : Indicator
 	
     #region Rows
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     [Display(Name = nameof(Strings.ShowAsk), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowAsksDescription), Order = 110, ResourceType = typeof(Strings))]
     public bool ShowAsk
     {
@@ -346,7 +346,7 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     [Display(Name = nameof(Strings.ShowBid), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowBidsDescription), Order = 110, ResourceType = typeof(Strings))]
     public bool ShowBid
     {
@@ -358,7 +358,7 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     [Display(Name = nameof(Strings.ShowDelta), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowDeltaDescription), Order = 120, ResourceType = typeof(Strings))]
     public bool ShowDelta
     {
@@ -370,7 +370,7 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     [Display(Name = nameof(Strings.ShowDeltaPerVolume), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowDeltaPerVolumeDescription), Order = 130, ResourceType = typeof(Strings))]
     public bool ShowDeltaPerVolume
     {
@@ -382,7 +382,7 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     [Display(Name = nameof(Strings.ShowSessionDelta), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowSessionDeltaDescription), Order = 140, ResourceType = typeof(Strings))]
     public bool ShowSessionDelta
     {
@@ -394,7 +394,7 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     [Display(Name = nameof(Strings.ShowSessionDeltaPerVolume), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowSessionDeltaPerVolumeDescription), Order = 150, ResourceType = typeof(Strings))]
     public bool ShowSessionDeltaPerVolume
     {
@@ -409,7 +409,7 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     [Display(Name = nameof(Strings.ShowMaximumDelta), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowMaximumDeltaDescription), Order = 160, ResourceType = typeof(Strings))]
     public bool ShowMaximumDelta
     {
@@ -421,7 +421,7 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     [Display(Name = nameof(Strings.ShowMinimumDelta), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowMinimumDeltaDescription), Order = 170, ResourceType = typeof(Strings))]
     public bool ShowMinimumDelta
     {
@@ -433,7 +433,7 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     [Display(Name = nameof(Strings.ShowDeltaChange), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowDeltaChangeDescription), Order = 175, ResourceType = typeof(Strings))]
     public bool ShowDeltaChange
     {
@@ -445,7 +445,7 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     [Display(Name = nameof(Strings.ShowVolume), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowVolumesDescription), Order = 180, ResourceType = typeof(Strings))]
     public bool ShowVolume
     {
@@ -457,7 +457,7 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     [Display(Name = nameof(Strings.ShowVolumePerSecond), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowVolumePerSecondDescription), Order = 190, ResourceType = typeof(Strings))]
     public bool ShowVolumePerSecond
     {
@@ -469,7 +469,7 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     [Display(Name = nameof(Strings.ShowSessionVolume), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowSessionVolumeDescription), Order = 191, ResourceType = typeof(Strings))]
     public bool ShowSessionVolume
     {
@@ -481,7 +481,7 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     [Display(Name = nameof(Strings.ShowTradesCount), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowTradesCountDescription), Order = 192, ResourceType = typeof(Strings))]
     public bool ShowTicks
     {
@@ -493,7 +493,7 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     [Display(Name = nameof(Strings.ShowHeight), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowCandleHeightDescription), Order = 193, ResourceType = typeof(Strings))]
     public bool ShowHighLow
     {
@@ -505,7 +505,7 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     [Display(Name = nameof(Strings.ShowTime), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowCandleTimeDescription), Order = 194, ResourceType = typeof(Strings))]
     public bool ShowTime
     {
@@ -517,7 +517,7 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     [Display(Name = nameof(Strings.ShowDuration), GroupName = nameof(Strings.Rows), Description = nameof(Strings.ShowCandleDurationDescription), Order = 196, ResourceType = typeof(Strings))]
     public bool ShowDuration
     {
@@ -533,7 +533,7 @@ public class ClusterStatistic : Indicator
 
     #region Session
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     [Display(Name = nameof(Strings.SessionDeltaMode), GroupName = nameof(Strings.Session), Description = nameof(Strings.SessionModeDescription), Order = 100, ResourceType = typeof(Strings))]
     public SessionMode SessionCumMode
     {
@@ -546,7 +546,7 @@ public class ClusterStatistic : Indicator
         }
     }
 
-    [Tab(TabName = nameof(Strings.Data), ResourceType = typeof(Strings))]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     [Display(Name = nameof(Strings.CustomSessionStart), GroupName = nameof(Strings.Session), Description = nameof(Strings.CustomSessionStartDescription), Order = 110, ResourceType = typeof(Strings))]
     public FilterTimeSpan CustomSessionStart
 	{
