@@ -24,6 +24,10 @@ public partial class ClusterSearch : Indicator
 	#region Fields
 
 	private readonly PriceSelectionDataSeries _renderDataSeries = new("RenderDataSeries", "Price");
+	private readonly PriceVolumeInfo _priceVolumeInfoCache = new();
+	private readonly CustomVolumeInfo _customVolumeInfoCache = new();
+	private readonly CustomVolumeInfo _pocCustomVolumeInfoCache = new();
+
 	private bool _autoFilter;
 	private decimal _autoFilterValue;
 
@@ -170,7 +174,9 @@ public partial class ClusterSearch : Indicator
 					continue;
 				}
 
-				var info = GetMergedClusterInfo(bar, price);
+				var info = _customVolumeInfoCache;
+
+				GetMergedClusterInfo(bar, price, info);
 
 				if (CheckClusterFilters(info, totalVolume))
 					PlaceToDataSeries(bar, info);
@@ -266,50 +272,17 @@ public partial class ClusterSearch : Indicator
 			if (!AutoFilter)
 				return;
 
-			var valuesList = new List<PriceSelectionValue>();
-
-			for (var i = 0; i < _renderDataSeries.Count; i++)
-			{
-				if (_renderDataSeries[i].Count is 0)
-					continue;
-
-				valuesList.AddRange(_renderDataSeries[i]);
-			}
-
-			if (valuesList.Count is 0)
+			if (!TryCalculateAutoFilterValue(out var threshold))
 				return;
 
-			valuesList = valuesList.OrderByDescending(x => (decimal)x.Context).ToList();
-
-			_autoFilterValue = valuesList.Count <= 10
-				? (decimal)valuesList.Last().Context
-				: (decimal)valuesList.Skip(10).First().Context;
+			_autoFilterValue = threshold;
 
 			_minFilter.PropertyChanged -= Filter_PropertyChanged;
 			MinimumFilter.Value = _autoFilterValue;
 			_minFilter.PropertyChanged += Filter_PropertyChanged;
 			_minFilterValue = MinimalFilter();
 
-			for (var i = 0; i < _renderDataSeries.Count; i++)
-			{
-				if (_renderDataSeries[i].Count is 0)
-					continue;
-
-				_renderDataSeries[i].RemoveAll(x => (decimal)x.Context < _autoFilterValue);
-
-				_renderDataSeries[i].ForEach(l =>
-				{
-					var clusterSize = FixedSizes ? _size : (int)((decimal)l.Context * _size / _minFilterValue);
-
-					if (!FixedSizes)
-					{
-						clusterSize = Math.Min(clusterSize, MaxSize);
-						clusterSize = Math.Max(clusterSize, MinSize);
-					}
-
-					l.Size = clusterSize;
-				});
-			}
+			TrimAndResizeBars(_autoFilterValue, _minFilterValue);
 		}
 		finally
 		{
@@ -323,28 +296,118 @@ public partial class ClusterSearch : Indicator
 
 	#region Private methods
 
+	// Find the 11th-largest Context value across all rendered clusters using a
+	// stack-allocated top-K buffer. If total count <= 10, returns the smallest.
+	private bool TryCalculateAutoFilterValue(out decimal value)
+	{
+		const int k = 11;
+		Span<decimal> top = stackalloc decimal[k];
+		
+		var topCount = 0;
+		var totalCount = 0;
+		var totalMin = decimal.MaxValue;
+
+		for (var i = 0; i < _renderDataSeries.Count; i++)
+		{
+			var bar = _renderDataSeries[i];
+			var count = bar.Count;
+
+			if (count is 0)
+				continue;
+
+			for (var j = 0; j < count; j++)
+			{
+				var v = (decimal)bar[j].Context;
+				totalCount++;
+
+				if (v < totalMin)
+					totalMin = v;
+
+				if (topCount < k)
+				{
+					var pos = topCount;
+
+					while (pos > 0 && top[pos - 1] > v)
+					{
+						top[pos] = top[pos - 1];
+						pos--;
+					}
+
+					top[pos] = v;
+					topCount++;
+				}
+				else if (v > top[0])
+				{
+					var pos = 0;
+
+					while (pos + 1 < k && top[pos + 1] < v)
+					{
+						top[pos] = top[pos + 1];
+						pos++;
+					}
+
+					top[pos] = v;
+				}
+			}
+		}
+
+		if (totalCount is 0)
+		{
+			value = 0;
+			return false;
+		}
+
+		value = totalCount <= 10 ? totalMin : top[0];
+		return true;
+	}
+
+	// Drop clusters below threshold and recompute Size for survivors in a single pass.
+	private void TrimAndResizeBars(decimal threshold, decimal minFilter)
+	{
+		for (var i = 0; i < _renderDataSeries.Count; i++)
+		{
+			var bar = _renderDataSeries[i];
+			var count = bar.Count;
+
+			if (count is 0)
+				continue;
+
+			var write = 0;
+
+			for (var j = 0; j < count; j++)
+			{
+				var l = bar[j];
+				var ctx = (decimal)l.Context;
+
+				if (ctx < threshold)
+					continue;
+
+				var clusterSize = FixedSizes ? _size : (int)(ctx * _size / minFilter);
+
+				if (!FixedSizes)
+				{
+					clusterSize = Math.Min(clusterSize, MaxSize);
+					clusterSize = Math.Max(clusterSize, MinSize);
+				}
+
+				l.Size = clusterSize;
+				bar[write++] = l;
+			}
+
+			if (write < count)
+				bar.RemoveRange(write, count - write);
+		}
+	}
+
 	private void SaveBarResults(int bar)
 	{
 		if (CheckBarFormation(GetCandle(bar)))
 		{
-			var copy = new SyncList<PriceSelectionValue>();
+			var copy = new SyncList<PriceSelectionValue>(_lastSeriesBar.Count);
 
 			foreach (var p in _lastSeriesBar)
 			{
-				copy.Add(new PriceSelectionValue(p.MinimumPrice)
-				{
-					MaximumPrice = p.MaximumPrice,
-					Size = p.Size,
-					Tooltip = p.Tooltip,
-					SelectionSide = p.SelectionSide,
-					VisualObject = p.VisualObject,
-					PriceSelectionColor = p.PriceSelectionColor,
-					ObjectColor = p.ObjectColor,
-					ObjectsTransparency = p.ObjectsTransparency,
-					Context = p.Context,
-					DrawValue = p.DrawValue,
-					RenderValue = p.RenderValue
-				});
+				copy.Add(p);
 			}
 
 			_renderDataSeries[bar] = copy;
@@ -375,16 +438,21 @@ public partial class ClusterSearch : Indicator
 		var totalVolume = GetTotalVolume(bar);
 		var ranges = GetPriceRanges(bar, endPrice);
 
+		var info = _customVolumeInfoCache;
+
 		if (CalcType is CalcMode.MaxVolume)
 		{
 			CustomVolumeInfo pocInfo = null;
 
 			for (var price = candle.Low; price <= endPrice; price += InstrumentInfo.TickSize)
 			{
-				var info = GetMergedClusterInfo(bar, price);
+				GetMergedClusterInfo(bar, price, info);
 
 				if (pocInfo is null || info.Volume > pocInfo.Volume)
-					pocInfo = info;
+				{
+					pocInfo = _pocCustomVolumeInfoCache;
+					info.CopyTo(pocInfo);
+				}
 			}
 
 			if (pocInfo is null || pocInfo.Volume is 0)
@@ -414,7 +482,7 @@ public partial class ClusterSearch : Indicator
 		{
 			for (var price = range.From; price <= range.To; price += InstrumentInfo.TickSize)
 			{
-				var info = GetMergedClusterInfo(bar, price);
+				GetMergedClusterInfo(bar, price, info);
 
 				if (CheckClusterFilters(info, totalVolume))
 					PlaceToDataSeries(bar, info);
@@ -422,9 +490,10 @@ public partial class ClusterSearch : Indicator
 		}
 	}
 
-	private CustomVolumeInfo GetMergedClusterInfo(int bar, decimal price)
+	private void GetMergedClusterInfo(int bar, decimal price, CustomVolumeInfo info)
 	{
-		var info = new CustomVolumeInfo(price);
+		info.Reset(price);
+
 		var endPrice = price + (PriceRange - 1) * InstrumentInfo.TickSize;
 		var endBar = Math.Max(0, bar - (BarsRange - 1));
 
@@ -434,7 +503,7 @@ public partial class ClusterSearch : Indicator
 
 			for (var p = price; p <= endPrice; p += InstrumentInfo.TickSize)
 			{
-				var level = candle.GetPriceVolumeInfo(p);
+				var level = candle.GetPriceVolumeInfo(p, _priceVolumeInfoCache);
 
 				if (level is null)
 					continue;
@@ -446,8 +515,6 @@ public partial class ClusterSearch : Indicator
 				info.Ticks += level.Ticks;
 			}
 		}
-
-		return info;
 	}
 
 	private bool CheckClusterFilters(CustomVolumeInfo info, decimal totalVolume)
