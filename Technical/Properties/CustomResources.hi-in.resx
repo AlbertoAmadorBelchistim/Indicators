@@ -146,4 +146,62 @@
   <data name="EnableAutoRefresh_DisplayName" xml:space="preserve"><value>ऑटो रिफ़्रेश</value></data>
   <data name="EnableAutoRefresh_Description" xml:space="preserve"><value>MenthorQ के डॉक्युमेंटेड इंट्राडे शेड्यूल के अनुसार API स्तरों को स्वतः रिफ़्रेश करता है (14 निश्चित EST अपडेट स्लॉट: प्री-मार्केट 08:00 बजे, साथ ही 09:50 से 15:50 तक हर 30 मिनट)। प्रत्येक स्लॉट के बाद थोड़ा विलंब डेटा को MenthorQ सर्वर पर स्थिर होने देता है। चालू करते ही तुरंत catch-up फ़ेच ट्रिगर होता है। EOD स्लॉट (18:30 / 23:00 EST) ऑटो रिफ़्रेश नहीं होते; आवश्यकतानुसार बाज़ार बंद होने के बाद Update Levels मैन्युअली दबाएं।</value></data>
 
+  <data name="SpeedOfTapeV3_Description" xml:space="preserve"><value>इवेंट-ड्रिवेन टेप स्पीड डिटेक्टर। डाइनैमिक हिस्टोग्राम जिसमें HWM-फ़्रोजन बार और बर्स्ट की दिशा के अनुसार कलर-कोडिंग होती है। इसमें पर्सेंटाइल-आधारित डाइनैमिक थ्रेशोल्ड लाइन, फीडिंग एक्सटेंशन लाइनों के साथ प्राइस पैनल जोन और रियल-टाइम मेट्रिक्स पैनल शामिल है।</value></data>
+
+  <data name="Group_Calculation" xml:space="preserve"><value>कैलकुलेशन</value></data>
+  <data name="Group_Threshold" xml:space="preserve"><value>थ्रेशोल्ड</value></data>
+  <data name="Group_Visuals" xml:space="preserve"><value>विजुअलाइजेशन</value></data>
+  <data name="Group_InfoPanel" xml:space="preserve"><value>इन्फो पैनल</value></data>
+
+  <data name="TimeWindow_DisplayName" xml:space="preserve"><value>समय अंतराल (सेकंड)</value></data>
+  <data name="TimeWindow_Description" xml:space="preserve"><value>स्पीड कैलकुलेशन के लिए स्लाइडिंग विंडो की लंबाई। कम मान अधिक प्रतिक्रियाशील होते हैं लेकिन शोर (noise) पैदा करते हैं; अधिक मान माइक्रो-बर्स्ट्स को स्मूथ करते हैं।</value></data>
+  <data name="DataType_DisplayName" xml:space="preserve"><value>डेटा का प्रकार</value></data>
+  <data name="DataType_Description" xml:space="preserve"><value>विंडो के भीतर एकत्रित मेट्रिक। Ticks: ट्रेड काउंट; Volume: कॉन्ट्रैक्ट्स का योग; Delta: खरीद-बिक्री आक्रामकता का अंतर; Buy/Sell Volume: एक पक्ष को अलग करता है।</value></data>
+
+  <data name="ContextWindowMinutes_DisplayName" xml:space="preserve"><value>कॉन्टेक्स्ट विंडो (मिनट)</value></data>
+  <data name="ContextWindowMinutes_Description" xml:space="preserve"><value>डाइनैमिक थ्रेशोल्ड की गणना के लिए लुकबैक अवधि। यह मार्केट की गति के अनुसार ढल जाता है: फेज परिवर्तन को ट्रैक करने के लिए पर्याप्त छोटा और स्थिरता के लिए पर्याप्त लंबा।</value></data>
+  <data name="ThresholdPercentile_DisplayName" xml:space="preserve"><value>थ्रेशोल्ड पर्सेंटाइल</value></data>
+  <data name="ThresholdPercentile_Description" xml:space="preserve"><value>वह स्पीड लेवल जिससे ऊपर बर्स्ट डिटेक्ट होता है। P95 का अर्थ है वे स्पीड जो केवल 5% समय होती हैं। उच्च मान चयनशीलता (selectivity) को बढ़ाते हैं।</value></data>
+
+  <data name="ZoneDisplay_DisplayName" xml:space="preserve"><value>जोन डिस्प्ले</value></data>
+  <data name="ZoneDisplay_Description" xml:space="preserve"><value>प्राइस चार्ट पर बर्स्ट जोन कैसे दिखाई देंगे। 'All events' हर डिटेक्शन दिखाता है; 'Primary only' प्रति कैंडल केवल उच्चतम स्पीड दिखाता है; 'Hidden' ओवरले को हटा देता है।</value></data>
+  <data name="BuyColor_DisplayName" xml:space="preserve"><value>खरीदार रंग</value></data>
+  <data name="BuyColor_Description" xml:space="preserve"><value>खरीद प्रभुत्व वाले जोन का रंग। 1 के करीब की दक्षता (efficiency) शुद्ध रंग दिखाती है; कम दक्षता न्यूट्रल रंग की ओर झुकती है।</value></data>
+  <data name="SellColor_DisplayName" xml:space="preserve"><value>विक्रेता रंग</value></data>
+  <data name="SellColor_Description" xml:space="preserve"><value>बिक्री प्रभुत्व वाले जोन का रंग। 1 के करीब की दक्षता शुद्ध रंग दिखाती है; कम दक्षता न्यूट्रल रंग की ओर झुकती है।</value></data>
+  <data name="NeutralColor_DisplayName" xml:space="preserve"><value>न्यूट्रल रंग</value></data>
+  <data name="NeutralColor_Description" xml:space="preserve"><value>संतुलित बर्स्ट (दक्षता &lt; 0.3) के लिए उपयोग किया जाने वाला रंग या कम दिशात्मक इवेंट्स के लिए मिश्रण का आधार।</value></data> 
+  <data name="ExtensionBars_DisplayName" xml:space="preserve"><value>एक्सटेंशन बार्स (पूर्ण ओपेसिटी)</value></data>
+  <data name="ExtensionBars_Description" xml:space="preserve"><value>पूर्ण ओपेसिटी के साथ दाईं ओर खींची गई बार्स की संख्या। क्षैतिज रेखा अस्थायी सपोर्ट/रेसिस्टेंस के रूप में बर्स्ट की प्राइस रेंज के केंद्र को चिह्नित करती है।</value></data>
+  <data name="FadeBars_DisplayName" xml:space="preserve"><value>एक्सटेंशन बार्स (फ़ेडिंग)</value></data>
+  <data name="FadeBars_Description" xml:space="preserve"><value>घटती पारदर्शिता (alpha) के साथ पूर्ण-ओपेसिटी सेगमेंट के बाद की बार्स की संख्या। अचानक कटऑफ के लिए 0 सेट करें।</value></data>
+
+  <data name="ShowInfoPanel_DisplayName" xml:space="preserve"><value>इन्फो पैनल दिखाएं</value></data>
+  <data name="ShowInfoPanel_Description" xml:space="preserve"><value>फ्लोटिंग पैनल को चालू करें जो हाल के बर्स्ट इवेंट्स और उनके मेट्रिक्स को सूचीबद्ध करता है।</value></data>
+  <data name="InfoPanelPosition_DisplayName" xml:space="preserve"><value>पोजीशन</value></data>
+  <data name="InfoPanelPosition_Description" xml:space="preserve"><value>चार्ट का कोना जहां इन्फो पैनल एंकर किया गया है।</value></data>
+  <data name="MaxEventsInPanel_DisplayName" xml:space="preserve"><value>अधिकतम इवेंट्स</value></data>
+  <data name="MaxEventsInPanel_Description" xml:space="preserve"><value>पैनल में दिखाई देने वाले हाल के बर्स्ट्स की संख्या। नया डेटा आने पर पुराने रिकॉर्ड अपने आप हट जाते हैं।</value></data>
+
+  <data name="UseAlerts_DisplayName" xml:space="preserve"><value>अलर्ट सक्षम करें</value></data>
+  <data name="UseAlerts_Description" xml:space="preserve"><value>बर्स्ट डिटेक्ट होने पर ऑडियो और पॉपअप नोटिफिकेशन के लिए मास्टर स्विच। डिफ़ॉल्ट रूप से बंद।</value></data>
+  <data name="AlertFile_DisplayName" xml:space="preserve"><value>अलर्ट साउंड फाइल</value></data>
+  <data name="AlertFile_Description" xml:space="preserve"><value>.wav फाइल का नाम। डिफ़ॉल्ट साउंड का उपयोग करें या ATAS साउंड फोल्डर में अपनी फाइलें रखें।</value></data>
+  <data name="SpeedOfTapeV3_AlertCooldownSeconds_DisplayName" xml:space="preserve"><value>कूलडाउन अंतराल (सेकंड)</value></data>
+  <data name="SpeedOfTapeV3_AlertCooldownSeconds_Description" xml:space="preserve"><value>साउंड स्पैम से बचने के लिए अलर्ट के बीच न्यूनतम समय। बिना किसी प्रतिबंध के सभी अलर्ट प्राप्त करने के लिए 0 सेट करें।</value></data>
+
+  <data name="SpeedType_Ticks" xml:space="preserve"><value>Ticks (HFT)</value></data>
+  <data name="SpeedType_Volume" xml:space="preserve"><value>Volume (Blocks)</value></data>
+  <data name="SpeedType_Delta" xml:space="preserve"><value>Delta (Aggression)</value></data>
+  <data name="SpeedType_Buys" xml:space="preserve"><value>Buy Volume</value></data>
+  <data name="SpeedType_Sells" xml:space="preserve"><value>Sell Volume</value></data>
+
+  <data name="InfoPanelLocation_TopRight" xml:space="preserve"><value>ऊपर दाएं (Top Right)</value></data>
+  <data name="InfoPanelLocation_TopLeft" xml:space="preserve"><value>ऊपर बाएं (Top Left)</value></data>
+  <data name="InfoPanelLocation_BottomRight" xml:space="preserve"><value>नीचे दाएं (Bottom Right)</value></data>
+  <data name="InfoPanelLocation_BottomLeft" xml:space="preserve"><value>नीचे बाएं (Bottom Left)</value></data>
+
+  <data name="ZoneDisplayMode_All" xml:space="preserve"><value>सभी इवेंट्स</value></data>
+  <data name="ZoneDisplayMode_PrimaryOnly" xml:space="preserve"><value>केवल प्राथमिक (Primary Only)</value></data>
+  <data name="ZoneDisplayMode_Hidden" xml:space="preserve"><value>छिपा हुआ (Hidden)</value></data>
 </root>

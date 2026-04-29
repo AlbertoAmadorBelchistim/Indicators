@@ -146,4 +146,62 @@
   <data name="EnableAutoRefresh_DisplayName" xml:space="preserve"><value>Авто-обновление</value></data>
   <data name="EnableAutoRefresh_Description" xml:space="preserve"><value>Автоматически обновляет уровни API согласно задокументированному внутридневному расписанию MenthorQ (14 фиксированных слотов EST: премаркет в 08:00 плюс каждые 30 минут с 09:50 до 15:50). Небольшая задержка после каждого слота даёт данным стабилизироваться на стороне MenthorQ. При включении сразу запускает догоняющий fetch. Слоты EOD (18:30 / 23:00 EST) автоматически не обновляются; при необходимости после закрытия рынка нажмите Update Levels вручную.</value></data>
 
+  <data name="SpeedOfTapeV3_Description" xml:space="preserve"><value>Событийный детектор скорости ленты сделок. Динамическая гистограмма с фиксацией баров на максимуме (HWM) и цветовой кодировкой направления всплеска. Включает адаптивную линию порога на основе процентилей, зоны на ценовом графике с линиями затухания и панель с метриками в реальном времени.</value></data>
+
+  <data name="Group_Calculation" xml:space="preserve"><value>Расчеты</value></data>
+  <data name="Group_Threshold" xml:space="preserve"><value>Порог (Threshold)</value></data>
+  <data name="Group_Visuals" xml:space="preserve"><value>Визуализация</value></data>
+  <data name="Group_InfoPanel" xml:space="preserve"><value>Инфо-панель</value></data>
+
+  <data name="TimeWindow_DisplayName" xml:space="preserve"><value>Временное окно (сек)</value></data>
+  <data name="TimeWindow_Description" xml:space="preserve"><value>Длина скользящего окна для расчета скорости. Меньшие значения повышают реактивность, но добавляют шума; большие — сглаживают микро-импульсы скорости.</value></data>
+  <data name="DataType_DisplayName" xml:space="preserve"><value>Тип данных</value></data>
+  <data name="DataType_Description" xml:space="preserve"><value>Метрика, накапливаемая в окне. Ticks: кол-во сделок; Volume: сумма контрактов; Delta: чистая разница между рыночной агрессией покупателей и продавцов.</value></data>
+
+  <data name="ContextWindowMinutes_DisplayName" xml:space="preserve"><value>Окно контекста (мин)</value></data>
+  <data name="ContextWindowMinutes_Description" xml:space="preserve"><value>Период ретроспективного анализа для расчета динамического порога. Адаптируется к волатильности сессии: достаточно короткий для отслеживания фаз и достаточно длинный для стабильности.</value></data>
+  <data name="ThresholdPercentile_DisplayName" xml:space="preserve"><value>Процентиль порога</value></data>
+  <data name="ThresholdPercentile_Description" xml:space="preserve"><value>Уровень скорости, выше которого фиксируется всплеск. P95 означает скорости, которые случаются лишь в 5% случаев в текущем контексте. Высокие значения делают фильтр более строгим.</value></data>
+
+  <data name="ZoneDisplay_DisplayName" xml:space="preserve"><value>Отображение зон</value></data>
+  <data name="ZoneDisplay_Description" xml:space="preserve"><value>Настройка отображения зон всплесков на графике цены. «Все события» показывает каждое срабатывание; «Только основные» — максимальный всплеск на свечу; «Скрыто» отключает оверлей на графике.</value></data>
+  <data name="BuyColor_DisplayName" xml:space="preserve"><value>Цвет покупок</value></data>
+  <data name="BuyColor_Description" xml:space="preserve"><value>Цвет зон с доминированием покупателей. При эффективности близкой к 1 используется чистый цвет; при низкой эффективности цвет смешивается с нейтральным.</value></data>
+  <data name="SellColor_DisplayName" xml:space="preserve"><value>Цвет продаж</value></data>
+  <data name="SellColor_Description" xml:space="preserve"><value>Цвет зон с доминированием продавцов. При эффективности близкой к 1 используется чистый цвет; при низкой эффективности цвет смешивается с нейтральным.</value></data>
+  <data name="NeutralColor_DisplayName" xml:space="preserve"><value>Нейтральный цвет</value></data>
+  <data name="NeutralColor_Description" xml:space="preserve"><value>Цвет для сбалансированных всплесков (эффективность &lt; 0.3) или базовый тон для смешивания слабонаправленных событий.</value></data>
+  <data name="ExtensionBars_DisplayName" xml:space="preserve"><value>Линии расширения (непрозрачные)</value></data>
+  <data name="ExtensionBars_Description" xml:space="preserve"><value>Количество свечей справа, отрисованных с полной прозрачностью. Линия отмечает центр ценового диапазона всплеска как временный уровень поддержки/сопротивления.</value></data>
+  <data name="FadeBars_DisplayName" xml:space="preserve"><value>Линии расширения (затухание)</value></data>
+  <data name="FadeBars_Description" xml:space="preserve"><value>Количество свечей после непрозрачного сегмента с линейно убывающей прозрачностью (alpha). Используйте 0 для резкого обрыва линии.</value></data>
+
+  <data name="ShowInfoPanel_DisplayName" xml:space="preserve"><value>Показать инфо-панель</value></data>
+  <data name="ShowInfoPanel_Description" xml:space="preserve"><value>Включает плавающее окно со списком последних всплесков и их характеристиками.</value></data>
+  <data name="InfoPanelPosition_DisplayName" xml:space="preserve"><value>Позиция</value></data>
+  <data name="InfoPanelPosition_Description" xml:space="preserve"><value>Угол графика, к которому привязана инфо-панель.</value></data>
+  <data name="MaxEventsInPanel_DisplayName" xml:space="preserve"><value>Макс. кол-во событий</value></data>
+  <data name="MaxEventsInPanel_Description" xml:space="preserve"><value>Количество видимых событий в панели. Старые записи автоматически удаляются при поступлении новых данных.</value></data>
+
+  <data name="UseAlerts_DisplayName" xml:space="preserve"><value>Включить алерты</value></data>
+  <data name="UseAlerts_Description" xml:space="preserve"><value>Мастер-выключатель звуковых и всплывающих уведомлений при обнаружении всплесков. По умолчанию отключено.</value></data>
+  <data name="AlertFile_DisplayName" xml:space="preserve"><value>Звуковой файл алерта</value></data>
+  <data name="AlertFile_Description" xml:space="preserve"><value>Имя файла .wav. Можно использовать стандартные ('alert1', 'alert2') или свои файлы в папке sounds программы ATAS.</value></data>
+  <data name="SpeedOfTapeV3_AlertCooldownSeconds_DisplayName" xml:space="preserve"><value>Кулдаун алертов (сек)</value></data>
+  <data name="SpeedOfTapeV3_AlertCooldownSeconds_Description" xml:space="preserve"><value>Минимальный интервал между оповещениями для предотвращения звукового спама. Установите 0, чтобы получать все алерты без ограничений.</value></data>
+
+  <data name="SpeedType_Ticks" xml:space="preserve"><value>Ticks (HFT)</value></data>
+  <data name="SpeedType_Volume" xml:space="preserve"><value>Объем (Блоки)</value></data>
+  <data name="SpeedType_Delta" xml:space="preserve"><value>Дельта (Агрессия)</value></data>
+  <data name="SpeedType_Buys" xml:space="preserve"><value>Объем покупок</value></data>
+  <data name="SpeedType_Sells" xml:space="preserve"><value>Объем продаж</value></data>
+
+  <data name="InfoPanelLocation_TopRight" xml:space="preserve"><value>Справа сверху</value></data>
+  <data name="InfoPanelLocation_TopLeft" xml:space="preserve"><value>Слева сверху</value></data>
+  <data name="InfoPanelLocation_BottomRight" xml:space="preserve"><value>Справа снизу</value></data>
+  <data name="InfoPanelLocation_BottomLeft" xml:space="preserve"><value>Слева снизу</value></data>
+
+  <data name="ZoneDisplayMode_All" xml:space="preserve"><value>Все события</value></data>
+  <data name="ZoneDisplayMode_PrimaryOnly" xml:space="preserve"><value>Только основные</value></data>
+  <data name="ZoneDisplayMode_Hidden" xml:space="preserve"><value>Скрыто</value></data>
 </root>

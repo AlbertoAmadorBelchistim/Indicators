@@ -146,4 +146,62 @@
   <data name="EnableAutoRefresh_DisplayName" xml:space="preserve"><value>自动刷新</value></data>
   <data name="EnableAutoRefresh_Description" xml:space="preserve"><value>按照 MenthorQ 文档记录的盘中时间表自动刷新 API 价位(14 个固定 EST 更新时段:盘前 08:00 加上从 09:50 到 15:50 每 30 分钟一次)。每个时段后添加少量延迟,等待 MenthorQ 服务器数据稳定。开启时立即触发追赶式拉取。EOD 时段(18:30 / 23:00 EST)不会自动刷新;如有需要,在收盘后手动按 Update Levels。</value></data>
 
+  <data name="SpeedOfTapeV3_Description" xml:space="preserve"><value>基于事件的盘口速度检测器。动态直方图显示高水位线 (HWM) 锁定条，并按爆发方向进行颜色编码。包含基于分位数的动态阈值线、带渐变延伸线的持久价格区域以及实时指标浮动面板。</value></data>
+
+  <data name="Group_Calculation" xml:space="preserve"><value>计算设置</value></data>
+  <data name="Group_Threshold" xml:space="preserve"><value>阈值设置</value></data>
+  <data name="Group_Visuals" xml:space="preserve"><value>视觉效果</value></data>
+  <data name="Group_InfoPanel" xml:space="preserve"><value>信息面板</value></data>
+
+  <data name="TimeWindow_DisplayName" xml:space="preserve"><value>时间窗口 (秒)</value></data>
+  <data name="TimeWindow_Description" xml:space="preserve"><value>计算速度指标的滑动窗口长度。较小的值反应更灵敏但噪声更多；较大的值则平滑微幅爆发。</value></data>
+  <data name="DataType_DisplayName" xml:space="preserve"><value>数据类型</value></data>
+  <data name="DataType_Description" xml:space="preserve"><value>窗口内累积的指标。Ticks：成交笔数；Volume：合约总量；Delta：买卖主动权差值；Buy/Sell Volume：隔离单侧成交量。</value></data>
+
+  <data name="ContextWindowMinutes_DisplayName" xml:space="preserve"><value>背景窗口 (分钟)</value></data>
+  <data name="ContextWindowMinutes_Description" xml:space="preserve"><value>用于计算动态阈值的回溯期。自适应盘中节奏：既能快速捕捉阶段转换，又能保持统计稳定性。</value></data>
+  <data name="ThresholdPercentile_DisplayName" xml:space="preserve"><value>阈值分位数</value></data>
+  <data name="ThresholdPercentile_Description" xml:space="preserve"><value>检测到爆发的速度水平。P95 表示在近期背景下仅 5% 时间出现的速度。数值越高，筛选越严苛。</value></data>
+
+  <data name="ZoneDisplay_DisplayName" xml:space="preserve"><value>区域显示</value></data>
+  <data name="ZoneDisplay_Description" xml:space="preserve"><value>爆发区域在价格图表上的显示方式。“全部事件”显示所有检测结果；“仅限主要”每根 K 线仅显示最高速爆发；“隐藏”关闭价格覆盖层。</value></data>
+  <data name="BuyColor_DisplayName" xml:space="preserve"><value>买入颜色</value></data>
+  <data name="BuyColor_Description" xml:space="preserve"><value>买入占优区域的颜色。效率接近 1 时显示纯色；效率较低时则向中性色过度。</value></data>
+  <data name="SellColor_DisplayName" xml:space="preserve"><value>卖出颜色</value></data>
+  <data name="SellColor_Description" xml:space="preserve"><value>卖出占优区域的颜色。效率接近 1 时显示纯色；效率较低时则向中性色过度。</value></data>
+  <data name="NeutralColor_DisplayName" xml:space="preserve"><value>中性颜色</value></data>
+  <data name="NeutralColor_Description" xml:space="preserve"><value>爆发处于平衡状态（效率 &lt; 0.3）时使用的颜色，或作为低效率方向性事件的混合基色。</value></data>
+  <data name="ExtensionBars_DisplayName" xml:space="preserve"><value>延伸条 (全不透明)</value></data>
+  <data name="ExtensionBars_Description" xml:space="preserve"><value>向右绘制的全不透明 K 线数量。水平线标记爆发价格范围的中心，作为临时支撑/阻力参考。</value></data>
+  <data name="FadeBars_DisplayName" xml:space="preserve"><value>延伸条 (渐变)</value></data>
+  <data name="FadeBars_Description" xml:space="preserve"><value>全不透明段之后，透明度 (alpha) 线性递减的 K 线数量。设为 0 表示立即切断。</value></data>
+
+  <data name="ShowInfoPanel_DisplayName" xml:space="preserve"><value>显示信息面板</value></data>
+  <data name="ShowInfoPanel_Description" xml:space="preserve"><value>启用显示近期爆发事件及其指标的浮动面板。</value></data>
+  <data name="InfoPanelPosition_DisplayName" xml:space="preserve"><value>面板位置</value></data>
+  <data name="InfoPanelPosition_Description" xml:space="preserve"><value>信息面板在图表中的锚定位置。</value></data>
+  <data name="MaxEventsInPanel_DisplayName" xml:space="preserve"><value>最大显示事件数</value></data>
+  <data name="MaxEventsInPanel_Description" xml:space="preserve"><value>面板中可见的近期爆发数量。新数据进入时，旧记录将自动移除。</value></data>
+
+  <data name="UseAlerts_DisplayName" xml:space="preserve"><value>启用报警</value></data>
+  <data name="UseAlerts_Description" xml:space="preserve"><value>爆发检测时的音频和弹窗通知总开关。默认关闭。</value></data>
+  <data name="AlertFile_DisplayName" xml:space="preserve"><value>报警声音文件</value></data>
+  <data name="AlertFile_Description" xml:space="preserve"><value>.wav 文件名称。可使用默认声音或将自定义文件放入 ATAS sounds 文件夹。</value></data>
+  <data name="SpeedOfTapeV3_AlertCooldownSeconds_DisplayName" xml:space="preserve"><value>报警冷却 (秒)</value></data>
+  <data name="SpeedOfTapeV3_AlertCooldownSeconds_Description" xml:space="preserve"><value>两次报警之间的最小间隔，防止声音干扰。设为 0 接收所有报警。</value></data>
+
+  <data name="SpeedType_Ticks" xml:space="preserve"><value>Ticks (高频)</value></data>
+  <data name="SpeedType_Volume" xml:space="preserve"><value>成交量 (大单)</value></data>
+  <data name="SpeedType_Delta" xml:space="preserve"><value>Delta (侵略性)</value></data>
+  <data name="SpeedType_Buys" xml:space="preserve"><value>买入量</value></data>
+  <data name="SpeedType_Sells" xml:space="preserve"><value>卖出量</value></data>
+
+  <data name="InfoPanelLocation_TopRight" xml:space="preserve"><value>右上角</value></data>
+  <data name="InfoPanelLocation_TopLeft" xml:space="preserve"><value>左上角</value></data>
+  <data name="InfoPanelLocation_BottomRight" xml:space="preserve"><value>右下角</value></data>
+  <data name="InfoPanelLocation_BottomLeft" xml:space="preserve"><value>左下角</value></data>
+
+  <data name="ZoneDisplayMode_All" xml:space="preserve"><value>所有事件</value></data>
+  <data name="ZoneDisplayMode_PrimaryOnly" xml:space="preserve"><value>仅限主要</value></data>
+  <data name="ZoneDisplayMode_Hidden" xml:space="preserve"><value>已隐藏</value></data>
 </root>
