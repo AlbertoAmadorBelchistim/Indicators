@@ -184,6 +184,29 @@ namespace ATAS.Indicators.Technical
             ShowZeroValue = false
         };
 
+        // Invisible companion series whose only purpose is to push the
+        // panel's auto-scale ceiling above both the histogram bars AND
+        // the threshold line. Critical decisions:
+        //   * VisualType = Histogram (not Hide). ATAS skips Hide-mode
+        //     series for panel scaling because IsVisible returns false
+        //     for them. Histogram mode with a fully transparent colour
+        //     keeps the series counted for scaling but invisible to the
+        //     eye.
+        //   * Per-bar value = max(speed, threshold) * 1.15. Padding only
+        //     against speed leaves the threshold spike-prone — when the
+        //     percentile briefly exceeds the bar's HWM (quiet bar in
+        //     a recently-active session), the threshold line clips.
+        //     Taking the max of both anchors is what guarantees both
+        //     fit.
+        private readonly ValueDataSeries _headroomSeries = new ValueDataSeries("Headroom")
+        {
+            VisualType = VisualMode.Histogram,
+            Color = System.Drawing.Color.FromArgb(0, 0, 0, 0).Convert(),
+            IsHidden = true,
+            ShowZeroValue = false,
+            ScaleIt = true
+        };
+
         // ─── Engine state ───────────────────────────────────────────────────
         // Sliding window of trades observed in the last TimeWindow seconds.
         // Populated by OnNewTrade (C03) and OnCumulativeTradesResponse (C12).
@@ -551,6 +574,7 @@ namespace ATAS.Indicators.Technical
 
             DataSeries.Add(_renderSeries);
             DataSeries.Add(_thresholdSeries);
+            DataSeries.Add(_headroomSeries);
 
             this.LogInfo("SpeedOfTapeV3 scaffold loaded");
         }
@@ -938,6 +962,8 @@ namespace ATAS.Indicators.Technical
                 _sellColor,
                 _neutralColor);
             _thresholdSeries[bar] = _currentThreshold;
+            decimal panelMax = Math.Max(_currentSnapshot.Speed, _currentThreshold);
+            _headroomSeries[bar] = panelMax * 1.15m;
         }
 
         /// <summary>
