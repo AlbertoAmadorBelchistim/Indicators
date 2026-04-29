@@ -56,10 +56,8 @@ public class DomStrength : Indicator
 			_period = value;
 			_buySeries.Clear();
 			_sellSeries.Clear();
-
-			if (_buySeries.Count > 0)
-				OnCalculate(CurrentBar - 1, 0);
-		}
+            RecalculateValues();
+        }
 	}
 
     [Parameter]
@@ -73,10 +71,8 @@ public class DomStrength : Indicator
 			_percent = value;
 			_buySeries.Clear();
 			_sellSeries.Clear();
-
-			if (_buySeries.Count > 0)
-				OnCalculate(CurrentBar - 1, 0);
-		}
+            RecalculateValues();
+        }
 	}
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Color80), GroupName = nameof(Strings.Color), Description = nameof(Strings.PercentColorDescription), Order = 200)]
@@ -124,12 +120,13 @@ public class DomStrength : Indicator
 		if (ChartInfo is null)
 			return;
 
-		var candles = (CandleDataSeries)DataSeries[0];
-
-		candles.UpCandleColor = ChartInfo.ColorsStore.UpCandleColor.Convert();
-		candles.DownCandleColor = ChartInfo.ColorsStore.DownCandleColor.Convert();
-		candles.BorderColor = ChartInfo.ColorsStore.BarBorderPen.Color.Convert();
-	}
+        if (DataSeries[0] is CandleDataSeries candles)
+        {
+            candles.UpCandleColor = ChartInfo.ColorsStore.UpCandleColor.Convert();
+            candles.DownCandleColor = ChartInfo.ColorsStore.DownCandleColor.Convert();
+            candles.BorderColor = ChartInfo.ColorsStore.BarBorderPen.Color.Convert();
+        }
+    }
 
 	protected override void OnInitialize()
 	{
@@ -275,11 +272,30 @@ public class DomStrength : Indicator
 		}
 	}
 
-	#endregion
+    protected override void OnDispose()
+    {
+        LevelDepth.PropertyChanged -= FilterDepthChanged;
+    }
 
-	#region Private methods
+    protected override void OnRecalculate()
+    {
+        lock (_locker)
+        {
+            _mDepthAsk.Clear();
+            _mDepthBid.Clear();
+        }
 
-	private void CalcRatio(int bar)
+        _buyVolume = 0;
+        _sellVolume = 0;
+        _cumAsks = 0;
+        _cumBids = 0;
+    }
+
+    #endregion
+
+    #region Private methods
+
+    private void CalcRatio(int bar)
 	{
 		var startBar = Math.Max(0, bar - Period);
 		var startTime = GetCandle(startBar).Time;
