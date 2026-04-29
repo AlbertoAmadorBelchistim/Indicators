@@ -146,4 +146,63 @@
   <data name="EnableAutoRefresh_DisplayName" xml:space="preserve"><value>Rafraîchissement auto</value></data>
   <data name="EnableAutoRefresh_Description" xml:space="preserve"><value>Rafraîchit automatiquement les niveaux API selon le calendrier intraday documenté par MenthorQ (14 créneaux fixes EST : pré-marché à 08:00 plus toutes les 30 minutes de 09:50 à 15:50). Un petit délai après chaque créneau permet aux données de se stabiliser côté MenthorQ. L'activation déclenche un fetch immédiat de rattrapage. Les créneaux EOD (18:30 / 23:00 EST) ne sont pas rafraîchis automatiquement ; appuyez sur Update Levels manuellement après la clôture si besoin.</value></data>
 
+
+  <data name="SpeedOfTapeV3_Description" xml:space="preserve"><value>Détecteur de vitesse du ruban basé sur les événements. Histogramme dynamique avec barres figées sur leur maximum (HWM) et colorées par direction du burst. Comprend une ligne de seuil dynamique par percentile, des zones persistantes sur le prix avec lignes de fondu, et un panneau flottant de métriques en temps réel.</value></data>
+
+  <data name="Group_Calculation" xml:space="preserve"><value>Calcul</value></data>
+  <data name="Group_Threshold" xml:space="preserve"><value>Seuil</value></data>
+  <data name="Group_Visuals" xml:space="preserve"><value>Visualisation</value></data>
+  <data name="Group_InfoPanel" xml:space="preserve"><value>Panneau d'information</value></data>
+
+  <data name="TimeWindow_DisplayName" xml:space="preserve"><value>Fenêtre temporelle (secondes)</value></data>
+  <data name="TimeWindow_Description" xml:space="preserve"><value>Longueur de la fenêtre glissante pour le calcul de la vitesse. Des valeurs plus petites augmentent la réactivité ; des valeurs plus grandes lissent les micro-impulsions.</value></data>
+  <data name="DataType_DisplayName" xml:space="preserve"><value>Type de donnée</value></data>
+  <data name="DataType_Description" xml:space="preserve"><value>Métrique accumulée dans la fenêtre. Ticks : compte les transactions ; Volume : somme des contrats ; Delta : différence nette acheteur/vendeur ; Volume Achat/Vente : isole un seul côté.</value></data>
+
+  <data name="ContextWindowMinutes_DisplayName" xml:space="preserve"><value>Fenêtre de contexte (minutes)</value></data>
+  <data name="ContextWindowMinutes_Description" xml:space="preserve"><value>Période rétrospective utilisée pour calculer le seuil dynamique. S'adapte au rythme de la session : assez court pour suivre les phases du marché, assez long pour la stabilité statistique.</value></data>
+  <data name="ThresholdPercentile_DisplayName" xml:space="preserve"><value>Percentile du seuil</value></data>
+  <data name="ThresholdPercentile_Description" xml:space="preserve"><value>Niveau de vitesse au-dessus duquel un burst est détecté. P95 indique des vitesses ne survenant que 5 % du temps. Des valeurs plus hautes augmentent la sélectivité.</value></data>
+
+  <data name="ZoneDisplay_DisplayName" xml:space="preserve"><value>Affichage des zones</value></data>
+  <data name="ZoneDisplay_Description" xml:space="preserve"><value>Définit l'apparition des zones sur le prix. 'Tous les événements' affiche chaque détection ; 'Primaire uniquement' ne montre que le burst maximal par bougie ; 'Masqué' désactive l'overlay.</value></data>
+  <data name="BuyColor_DisplayName" xml:space="preserve"><value>Couleur acheteur</value></data>
+  <data name="BuyColor_Description" xml:space="preserve"><value>Couleur des zones à dominance acheteuse. Une efficacité proche de 1 utilise cette couleur pure ; une efficacité moindre dégrade vers le neutre.</value></data>
+  <data name="SellColor_DisplayName" xml:space="preserve"><value>Couleur vendeur</value></data>
+  <data name="SellColor_Description" xml:space="preserve"><value>Couleur des zones à dominance vendeuse. Une efficacité proche de 1 utilise cette couleur pure ; une efficacité moindre dégrade vers le neutre.</value></data>
+  <data name="NeutralColor_DisplayName" xml:space="preserve"><value>Couleur neutre</value></data>
+  <data name="NeutralColor_Description" xml:space="preserve"><value>Couleur utilisée lorsque le burst est équilibré (efficacité &lt; 0.3) ou comme base de mélange pour les événements peu directionnels.</value></data>
+  <data name="ExtensionBars_DisplayName" xml:space="preserve"><value>Barres d'extension (opacité totale)</value></data>
+  <data name="ExtensionBars_Description" xml:space="preserve"><value>Nombre de barres à droite dessinées avec opacité maximale. La ligne marque le centre du prix du burst comme support/résistance transitoire.</value></data>
+  <data name="FadeBars_DisplayName" xml:space="preserve"><value>Barres d'extension (dégradé)</value></data>
+  <data name="FadeBars_Description" xml:space="preserve"><value>Nombre de barres après le segment opaque avec transparence (alpha) décroissante. Utilisez 0 pour une coupure nette.</value></data>
+
+  <data name="ShowInfoPanel_DisplayName" xml:space="preserve"><value>Afficher le panneau d'info</value></data>
+  <data name="ShowInfoPanel_Description" xml:space="preserve"><value>Active le panneau flottant listant les bursts récents et leurs métriques.</value></data>
+  <data name="InfoPanelPosition_DisplayName" xml:space="preserve"><value>Position</value></data>
+  <data name="InfoPanelPosition_Description" xml:space="preserve"><value>Coin du graphique où le panneau d'information est ancré.</value></data>
+  <data name="MaxEventsInPanel_DisplayName" xml:space="preserve"><value>Nombre max. d'événements</value></data>
+  <data name="MaxEventsInPanel_Description" xml:space="preserve"><value>Nombre de bursts récents visibles. Les plus anciens sont supprimés automatiquement à l'arrivée de nouvelles données.</value></data>
+
+  <data name="UseAlerts_DisplayName" xml:space="preserve"><value>Activer les alertes</value></data>
+  <data name="UseAlerts_Description" xml:space="preserve"><value>Interrupteur principal pour les alertes audio et pop-up lors d'un burst. Désactivé par défaut.</value></data>
+  <data name="AlertFile_DisplayName" xml:space="preserve"><value>Son de l'alerte</value></data>
+  <data name="AlertFile_Description" xml:space="preserve"><value>Nom du fichier .wav. Utilisez les sons par défaut ('alert1', 'alert2') ou des fichiers personnalisés dans le dossier sons d'ATAS.</value></data>
+  <data name="SpeedOfTapeV3_AlertCooldownSeconds_DisplayName" xml:space="preserve"><value>Délai d'attente (secondes)</value></data>
+  <data name="SpeedOfTapeV3_AlertCooldownSeconds_Description" xml:space="preserve"><value>Temps minimum entre les alertes pour éviter la saturation sonore. Mettez 0 pour recevoir toutes les notifications.</value></data>
+
+  <data name="SpeedType_Ticks" xml:space="preserve"><value>Ticks (HFT)</value></data>
+  <data name="SpeedType_Volume" xml:space="preserve"><value>Volume (Blocs)</value></data>
+  <data name="SpeedType_Delta" xml:space="preserve"><value>Delta (Agression)</value></data>
+  <data name="SpeedType_Buys" xml:space="preserve"><value>Volume Acheteur</value></data>
+  <data name="SpeedType_Sells" xml:space="preserve"><value>Volume Vendeur</value></data>
+
+  <data name="InfoPanelLocation_TopRight" xml:space="preserve"><value>Supérieur droit</value></data>
+  <data name="InfoPanelLocation_TopLeft" xml:space="preserve"><value>Supérieur gauche</value></data>
+  <data name="InfoPanelLocation_BottomRight" xml:space="preserve"><value>Inférieur droit</value></data>
+  <data name="InfoPanelLocation_BottomLeft" xml:space="preserve"><value>Inférieur gauche</value></data>
+
+  <data name="ZoneDisplayMode_All" xml:space="preserve"><value>Tous les événements</value></data>
+  <data name="ZoneDisplayMode_PrimaryOnly" xml:space="preserve"><value>Primaire uniquement</value></data>
+  <data name="ZoneDisplayMode_Hidden" xml:space="preserve"><value>Masqué</value></data>
 </root>
