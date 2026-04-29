@@ -95,7 +95,9 @@ public partial class ClusterSearch : Indicator
 
 	protected override void OnInitialize()
 	{
+		_maxFilter.PropertyChanged -= Filter_PropertyChanged;
 		_maxFilter.PropertyChanged += Filter_PropertyChanged;
+		_minFilter.PropertyChanged -= Filter_PropertyChanged;
 		_minFilter.PropertyChanged += Filter_PropertyChanged;
 		PipsFromHigh.PropertyChanged += Filter_PropertyChanged;
 		PipsFromLow.PropertyChanged += Filter_PropertyChanged;
@@ -805,7 +807,21 @@ public partial class ClusterSearch : Indicator
 	public Filter MinimumFilter
 	{
 		get => _minFilter;
-		set => SetTrackedProperty(ref _minFilter, value, _ => RecalculateValues());
+		set
+		{
+			var oldFilter = _minFilter;
+
+			SetProperty(ref _minFilter, value, () =>
+			{
+				if (oldFilter is not null)
+					oldFilter.PropertyChanged -= Filter_PropertyChanged;
+
+				if (_minFilter is not null)
+					_minFilter.PropertyChanged += Filter_PropertyChanged;
+
+				RecalculateValues();
+			});
+		}
 	}
 
 	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Filters), Description = nameof(Strings.MaximumFilterDescription),
@@ -813,7 +829,21 @@ public partial class ClusterSearch : Indicator
 	public Filter MaximumFilter
 	{
 		get => _maxFilter;
-		set => SetTrackedProperty(ref _maxFilter, value, _ => RecalculateValues());
+		set
+		{
+			var oldFilter = _maxFilter;
+
+			SetProperty(ref _maxFilter, value, () =>
+			{
+				if (oldFilter is not null)
+					oldFilter.PropertyChanged -= Filter_PropertyChanged;
+
+				if (_maxFilter is not null)
+					_maxFilter.PropertyChanged += Filter_PropertyChanged;
+
+				RecalculateValues();
+			});
+		}
 	}
 
 	[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Filters), Name = nameof(Strings.MinimumAverageTrade), Order = 470,
