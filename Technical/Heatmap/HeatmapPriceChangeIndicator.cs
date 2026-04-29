@@ -2,22 +2,62 @@ namespace ATAS.Indicators.Technical.Heatmap;
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using ATAS.Indicators.Heatmap;
 using OFT.Rendering.Heatmap;
 
+[HeatmapIndicator("heatmap.price-change")]
 public sealed class HeatmapPriceChangeIndicator
-	: IHeatmapIndicator<HeatmapPriceChangeSettings, HeatmapIndicatorSeriesSnapshot<HeatmapPriceChangeSample>>
+	: HeatmapIndicator<HeatmapPriceChangeSettings>
 	, IHeatmapWarmupIndicator
 	, IHeatmapTradeTickConsumer
 {
+	#region Nested types
+
+	private readonly record struct PricePoint(DateTime Time, long TimestampNanos, decimal Price, int TickCount);
+
+	#endregion
+
+	#region Const fields
+
 	private const decimal MinimumMaxValue = 0.01m;
+
+	#endregion
+
+	#region Static fields
+
+	private static readonly HeatmapIndicatorDescriptor _descriptor;
+	private static readonly HeatmapIndicatorVisualHandle _panel;
+	private static readonly HeatmapIndicatorSeriesHandle<HeatmapPriceChangeSample> _value;
+
+	#endregion
+
+	#region Static constructors
+
+	static HeatmapPriceChangeIndicator()
+	{
+		var build = HeatmapIndicator.Describe("heatmap.price-change", "Price Change");
+		_panel = build.SubPanelScalar("price-change.panel", "Price Change");
+		_value = _panel.Series<HeatmapPriceChangeSample>(
+			"price-change.value", HeatmapIndicatorSeriesRole.Scalar, HeatmapIndicatorValueKind.Scalar);
+		_descriptor = build.Done();
+	}
+
+	#endregion
+
+	#region Readonly initialized fields
 
 	private readonly object _sync = new();
 	private readonly List<PricePoint> _priceHistory = new();
 	private readonly HeatmapSeriesBuffer<HeatmapPriceChangeSample> _samples = new();
 
-	private HeatmapPriceChangeSettings _settings = HeatmapPriceChangeSettings.Default;
+	#endregion
+
+	#region Fields
+
+	private HeatmapPriceChangeSettings _settings = new();
 	private DateTime _trainingStartTime = DateTime.MinValue;
 	private DateTime _lastTickTime = DateTime.MinValue;
 	private DateTime _virtualCurrentTime = DateTime.MinValue;
@@ -27,18 +67,21 @@ public sealed class HeatmapPriceChangeIndicator
 	private decimal _currentValue;
 	private decimal _currentPrice;
 	private bool _isTrainingComplete;
-	private decimal _cachedValue;
-	private DateTime _cacheTime = DateTime.MinValue;
-	private HeatmapPriceChangeMode _cachedMode = HeatmapPriceChangeMode.StandardDeviation;
-	private HeatmapPriceChangePeriod _cachedPeriod = HeatmapPriceChangePeriod.OneMinute;
-	private readonly TimeSpan _cacheValidityPeriod = TimeSpan.FromMilliseconds(50);
 	private decimal _currentPeriodStartPrice;
 	private DateTime _currentPeriodStartTime = DateTime.MinValue;
 	private HeatmapPriceChangePeriod _currentPeriod = HeatmapPriceChangePeriod.OneMinute;
 
-	public string Id => "heatmap.price-change";
+	#endregion
+
+	#region Auto properties
 
 	public float CurrentValue { get; private set; }
+
+	#endregion
+
+	#region Properties
+
+	public override HeatmapIndicatorDescriptor Descriptor => _descriptor;
 
 	public bool IsTraining
 	{
@@ -49,16 +92,24 @@ public sealed class HeatmapPriceChangeIndicator
 		}
 	}
 
-	public void Configure(HeatmapPriceChangeSettings settings)
+	#endregion
+
+	#region Public methods
+
+	public override ValueTask ConfigureAsync(HeatmapPriceChangeSettings settings, CancellationToken cancellationToken)
 	{
+		cancellationToken.ThrowIfCancellationRequested();
+
 		lock (_sync)
 		{
-			_settings = settings with
+			_settings = new HeatmapPriceChangeSettings
 			{
-				TrainingPeriod = ValidateTrainingPeriod(settings.Period, settings.TrainingPeriod)
+				Version = settings.Version,
+				Mode = settings.Mode,
+				Period = settings.Period,
+				TrainingPeriod = ValidateTrainingPeriod(settings.Period, settings.TrainingPeriod),
+				PanelHeight = settings.PanelHeight
 			};
-
-			_cacheTime = DateTime.MinValue;
 
 			if (_currentPeriod != _settings.Period)
 			{
@@ -76,16 +127,47 @@ public sealed class HeatmapPriceChangeIndicator
 				CurrentValue = (float)NormalizeValue(_currentValue, _settings.Mode);
 			}
 		}
+
+		return ValueTask.CompletedTask;
 	}
 
-	public void Reset(HeatmapIndicatorContext context)
+	public override ValueTask ResetAsync(
+		HeatmapIndicatorContext context,
+		IHeatmapIndicatorRuntime runtime,
+		CancellationToken cancellationToken)
 	{
+		cancellationToken.ThrowIfCancellationRequested();
+
 		lock (_sync)
 		{
 			_priceHistory.Clear();
 			_samples.Clear();
 			ResetState();
 		}
+
+		return ValueTask.CompletedTask;
+	}
+
+	public override ValueTask<HeatmapIndicatorStateSnapshot?> GetSnapshotAsync(
+		HeatmapIndicatorSnapshotRequest request,
+		CancellationToken cancellationToken)
+	{
+		cancellationToken.ThrowIfCancellationRequested();
+
+		var sourceSnapshot = _samples.GetSnapshot(request, IsTraining);
+
+		var presentation = new HeatmapIndicatorVisualPresentation(
+			PanelHeight: _settings.PanelHeight,
+			ScalarScaleMode: HeatmapIndicatorScalarScaleMode.AutoVisible);
+
+		var state = _descriptor.NewState()
+			.Training(IsTraining || sourceSnapshot.IsTraining)
+			.Visual(_panel, v => v
+				.PresentationOverride(presentation)
+				.Series(_value, sourceSnapshot, sample => (decimal)sample.Value))
+			.Build();
+
+		return new ValueTask<HeatmapIndicatorStateSnapshot?>(state);
 	}
 
 	public async ValueTask WarmUpAsync(
@@ -96,6 +178,24 @@ public sealed class HeatmapPriceChangeIndicator
 		var ticks = await dataSources.Trades.GetTradeTicksAsync(request, cancellationToken).ConfigureAwait(false);
 		cancellationToken.ThrowIfCancellationRequested();
 		ProcessHistoricalTicks(ticks);
+	}
+
+	public ValueTask ProcessTicksAsync(
+		IReadOnlyList<HeatmapTradeTick> ticks,
+		CancellationToken cancellationToken)
+	{
+		cancellationToken.ThrowIfCancellationRequested();
+
+		// Live ticks arrive batched through the controller. Route each through
+		// the per-tick path that maintains incremental training / cleanup state
+		// rather than the bulk historical recompute used by warm-up.
+		for (var i = 0; i < ticks.Count; i++)
+		{
+			cancellationToken.ThrowIfCancellationRequested();
+			ProcessTick(ticks[i]);
+		}
+
+		return ValueTask.CompletedTask;
 	}
 
 	public void ProcessHistoricalTicks(IEnumerable<HeatmapTradeTick> ticks)
@@ -194,8 +294,6 @@ public sealed class HeatmapPriceChangeIndicator
 				_lastCleanupTime = tick.Time;
 			}
 
-			_cacheTime = DateTime.MinValue;
-
 			if (!_isTrainingComplete && tick.Time - _trainingStartTime >= TimeSpan.FromSeconds((int)trainingPeriod))
 			{
 				CalculateTrainingMaximums(tick.Time, settings.Mode, settings.Period, trainingPeriod);
@@ -215,39 +313,12 @@ public sealed class HeatmapPriceChangeIndicator
 		}
 	}
 
-	public void ProcessTimer(long timestampNanos)
-	{
-		lock (_sync)
-		{
-			if (_lastTickTime == DateTime.MinValue)
-				return;
-
-			if (_cacheTime != DateTime.MinValue &&
-			    DateTime.UtcNow - _cacheTime < _cacheValidityPeriod &&
-			    _cachedMode == _settings.Mode &&
-			    _cachedPeriod == _settings.Period)
-			{
-				RecordCurrentValue(timestampNanos, _settings.Mode, _cachedValue);
-				return;
-			}
-
-			_currentValue = CalculateValue(_virtualCurrentTime, _settings.Mode, _settings.Period);
-			_cachedValue = _currentValue;
-			_cacheTime = DateTime.UtcNow;
-			_cachedMode = _settings.Mode;
-			_cachedPeriod = _settings.Period;
-
-			RecordCurrentValue(timestampNanos, _settings.Mode);
-		}
-	}
-
-	public void ProcessTimer(HeatmapIndicatorTimerTick tick) => ProcessTimer(tick.TimestampNanos);
-
-	public HeatmapIndicatorSeriesSnapshot<HeatmapPriceChangeSample> GetSnapshot(HeatmapIndicatorSnapshotRequest request) =>
-		_samples.GetSnapshot(request, IsTraining);
-
 	public HeatmapPriceChangeSample GetValueAtOrBefore(long cutoffTimeNanos) =>
 		_samples.GetLatestAtOrBefore(cutoffTimeNanos)?.Value ?? default;
+
+	#endregion
+
+	#region Private methods
 
 	private void CalculateAndRecord(DateTime referenceTime, long timestampNanos)
 	{
@@ -262,21 +333,7 @@ public sealed class HeatmapPriceChangeIndicator
 		CurrentValue = (float)value;
 
 		if (timestampNanos > 0)
-			_samples.Append(timestampNanos, new HeatmapPriceChangeSample(CurrentValue));
-	}
-
-	private static HeatmapTrainingPeriod ValidateTrainingPeriod(HeatmapPriceChangePeriod period, HeatmapTrainingPeriod trainingPeriod)
-	{
-		if ((int)period <= (int)trainingPeriod)
-			return trainingPeriod;
-
-		if ((int)period <= 300)
-			return HeatmapTrainingPeriod.FiveMinutes;
-
-		if ((int)period <= 900)
-			return HeatmapTrainingPeriod.FifteenMinutes;
-
-		return HeatmapTrainingPeriod.OneHour;
+			_samples.Append(timestampNanos, new HeatmapPriceChangeSample { Value = CurrentValue });
 	}
 
 	private void CleanupOldData(DateTime currentTime, HeatmapTrainingPeriod trainingPeriod)
@@ -393,28 +450,6 @@ public sealed class HeatmapPriceChangeIndicator
 		};
 	}
 
-	private static decimal CalculateStandardDeviationInRange(List<PricePoint> data, decimal currentPrice, DateTime periodStart, DateTime periodEnd)
-	{
-		decimal weightedSum = 0;
-		var totalWeight = 0;
-
-		for (var i = 0; i < data.Count; i++)
-		{
-			var point = data[i];
-			if (point.Time < periodStart || point.Time > periodEnd)
-				continue;
-
-			weightedSum += point.Price * point.TickCount;
-			totalWeight += point.TickCount;
-		}
-
-		if (totalWeight == 0)
-			return 0;
-
-		var sma = weightedSum / totalWeight;
-		return currentPrice - sma;
-	}
-
 	private decimal CalculateRateOfChange(List<PricePoint> data, decimal currentPrice, DateTime referenceTime, int periodSeconds)
 	{
 		var period = (HeatmapPriceChangePeriod)periodSeconds;
@@ -428,17 +463,6 @@ public sealed class HeatmapPriceChangeIndicator
 		return referenceOldPrice == 0
 			? 0
 			: ((currentPrice - referenceOldPrice) / referenceOldPrice) * 100;
-	}
-
-	private static decimal GetPriceAtOrBeforeTime(DateTime targetTime, List<PricePoint> data)
-	{
-		for (var i = data.Count - 1; i >= 0; i--)
-		{
-			if (data[i].Time <= targetTime)
-				return data[i].Price;
-		}
-
-		return 0;
 	}
 
 	private decimal NormalizeValue(decimal value, HeatmapPriceChangeMode mode)
@@ -501,11 +525,61 @@ public sealed class HeatmapPriceChangeIndicator
 		_currentValue = 0;
 		_currentPrice = 0;
 		_isTrainingComplete = false;
-		_cacheTime = DateTime.MinValue;
 		_currentPeriodStartPrice = 0;
 		_currentPeriodStartTime = DateTime.MinValue;
 		CurrentValue = 0;
 	}
 
-	private readonly record struct PricePoint(DateTime Time, long TimestampNanos, decimal Price, int TickCount);
+	#endregion
+
+	#region Private static methods
+
+	private static HeatmapTrainingPeriod ValidateTrainingPeriod(HeatmapPriceChangePeriod period, HeatmapTrainingPeriod trainingPeriod)
+	{
+		if ((int)period <= (int)trainingPeriod)
+			return trainingPeriod;
+
+		if ((int)period <= 300)
+			return HeatmapTrainingPeriod.FiveMinutes;
+
+		if ((int)period <= 900)
+			return HeatmapTrainingPeriod.FifteenMinutes;
+
+		return HeatmapTrainingPeriod.OneHour;
+	}
+
+	private static decimal CalculateStandardDeviationInRange(List<PricePoint> data, decimal currentPrice, DateTime periodStart, DateTime periodEnd)
+	{
+		decimal weightedSum = 0;
+		var totalWeight = 0;
+
+		for (var i = 0; i < data.Count; i++)
+		{
+			var point = data[i];
+			if (point.Time < periodStart || point.Time > periodEnd)
+				continue;
+
+			weightedSum += point.Price * point.TickCount;
+			totalWeight += point.TickCount;
+		}
+
+		if (totalWeight == 0)
+			return 0;
+
+		var sma = weightedSum / totalWeight;
+		return currentPrice - sma;
+	}
+
+	private static decimal GetPriceAtOrBeforeTime(DateTime targetTime, List<PricePoint> data)
+	{
+		for (var i = data.Count - 1; i >= 0; i--)
+		{
+			if (data[i].Time <= targetTime)
+				return data[i].Price;
+		}
+
+		return 0;
+	}
+
+	#endregion
 }

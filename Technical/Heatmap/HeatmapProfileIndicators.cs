@@ -5,37 +5,100 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using ATAS.Indicators.Heatmap;
 using OFT.Rendering.Heatmap;
 
+[HeatmapIndicator("heatmap.vwap", DisplayName = "VWAP")]
 public sealed class HeatmapVwapIndicator
-	: IHeatmapIndicator<HeatmapVwapSettings, HeatmapIndicatorSeriesSnapshot<HeatmapPriceLineSample>>
+	: HeatmapIndicator<HeatmapVwapSettings>
 	, IHeatmapWarmupIndicator
 	, IHeatmapTradeTickConsumer
 {
-	private readonly object _sync = new();
+	#region Static fields
+
+	private static readonly HeatmapIndicatorDescriptor _descriptor;
+	private static readonly HeatmapIndicatorVisualHandle _line;
+	private static readonly HeatmapIndicatorSeriesHandle<HeatmapPriceLineSample> _price;
+
+	#endregion
+
+	#region Static constructors
+
+	static HeatmapVwapIndicator()
+	{
+		var build = HeatmapIndicator.Describe("heatmap.vwap", "VWAP");
+		_line = build.PriceLine("vwap.line", "VWAP");
+		_price = _line.Series<HeatmapPriceLineSample>(
+			"vwap.price",
+			HeatmapIndicatorSeriesRole.Price,
+			HeatmapIndicatorValueKind.Price);
+		_descriptor = build.Done();
+	}
+
+	#endregion
+
+	#region Readonly initialized fields
+
 	private readonly HeatmapSeriesBuffer<HeatmapPriceLineSample> _samples = new();
+
+	#endregion
+
+	#region Fields
+
 	private HeatmapIndicatorContext _context = CreateDefaultContext();
-	private HeatmapVwapSettings _settings = HeatmapVwapSettings.Default;
+	private HeatmapVwapSettings _settings = new();
 	private VwapAccumulator _current = new(HeatmapPeriodKey.Empty);
 	private VwapAccumulator? _previous;
 
-	public string Id => "heatmap.vwap";
+	#endregion
 
-	public void Configure(HeatmapVwapSettings settings)
+	#region Properties
+
+	public override HeatmapIndicatorDescriptor Descriptor => _descriptor;
+
+	#endregion
+
+	#region Public methods
+
+	public override ValueTask ConfigureAsync(HeatmapVwapSettings settings, CancellationToken cancellationToken)
 	{
-		lock (_sync)
-			_settings = settings;
+		cancellationToken.ThrowIfCancellationRequested();
+		_settings = settings;
+		return ValueTask.CompletedTask;
 	}
 
-	public void Reset(HeatmapIndicatorContext context)
+	public override ValueTask ResetAsync(
+		HeatmapIndicatorContext context,
+		IHeatmapIndicatorRuntime runtime,
+		CancellationToken cancellationToken)
 	{
-		lock (_sync)
-		{
-			_context = context;
-			_current = new VwapAccumulator(HeatmapPeriodKey.Empty);
-			_previous = null;
-			_samples.Clear();
-		}
+		cancellationToken.ThrowIfCancellationRequested();
+
+		_context = context;
+		_current = new VwapAccumulator(HeatmapPeriodKey.Empty);
+		_previous = null;
+		_samples.Clear();
+
+		return ValueTask.CompletedTask;
+	}
+
+	public override ValueTask<HeatmapIndicatorStateSnapshot?> GetSnapshotAsync(
+		HeatmapIndicatorSnapshotRequest request,
+		CancellationToken cancellationToken)
+	{
+		cancellationToken.ThrowIfCancellationRequested();
+
+		var source = _samples.GetSnapshot(request);
+		var style = new HeatmapIndicatorVisualStyle(
+			Color: ColorToHex(_settings.Color),
+			Thickness: _settings.Thickness);
+
+		var state = _descriptor.NewState()
+			.Training(source.IsTraining)
+			.Visual(_line, v => v.Series(_price, source, sample => sample.Price, style))
+			.Build();
+
+		return new ValueTask<HeatmapIndicatorStateSnapshot?>(state);
 	}
 
 	public async ValueTask WarmUpAsync(
@@ -43,9 +106,29 @@ public sealed class HeatmapVwapIndicator
 		IHeatmapIndicatorDataSources dataSources,
 		CancellationToken cancellationToken)
 	{
+		cancellationToken.ThrowIfCancellationRequested();
+
 		var ticks = await dataSources.Trades.GetTradeTicksAsync(request, cancellationToken).ConfigureAwait(false);
 		cancellationToken.ThrowIfCancellationRequested();
+
 		ProcessHistoricalTicks(ticks);
+	}
+
+	public ValueTask ProcessTicksAsync(
+		IReadOnlyList<HeatmapTradeTick> ticks,
+		CancellationToken cancellationToken)
+	{
+		cancellationToken.ThrowIfCancellationRequested();
+
+		foreach (var tick in ticks)
+		{
+			if (!IsEligibleTick(tick))
+				continue;
+
+			ProcessTickCore(tick);
+		}
+
+		return ValueTask.CompletedTask;
 	}
 
 	public void ProcessHistoricalTicks(IEnumerable<HeatmapTradeTick> ticks)
@@ -55,15 +138,12 @@ public sealed class HeatmapVwapIndicator
 			.OrderBy(tick => tick.TimestampNanos)
 			.ToList();
 
-		lock (_sync)
-		{
-			_current = new VwapAccumulator(HeatmapPeriodKey.Empty);
-			_previous = null;
-			_samples.Clear();
+		_current = new VwapAccumulator(HeatmapPeriodKey.Empty);
+		_previous = null;
+		_samples.Clear();
 
-			foreach (var tick in orderedTicks)
-				ProcessTickCore(tick);
-		}
+		foreach (var tick in orderedTicks)
+			ProcessTickCore(tick);
 	}
 
 	public void ProcessTick(HeatmapTradeTick tick)
@@ -71,19 +151,15 @@ public sealed class HeatmapVwapIndicator
 		if (!IsEligibleTick(tick))
 			return;
 
-		lock (_sync)
-			ProcessTickCore(tick);
-	}
-
-	public HeatmapIndicatorSeriesSnapshot<HeatmapPriceLineSample> GetSnapshot(HeatmapIndicatorSnapshotRequest request) =>
-		_samples.GetSnapshot(request);
-
-	public void ProcessTimer(HeatmapIndicatorTimerTick tick)
-	{
+		ProcessTickCore(tick);
 	}
 
 	public decimal GetValueAtOrBefore(long cutoffTimeNanos) =>
 		_samples.GetLatestAtOrBefore(cutoffTimeNanos)?.Value.Price ?? 0;
+
+	#endregion
+
+	#region Private methods
 
 	private void ProcessTickCore(HeatmapTradeTick tick)
 	{
@@ -106,19 +182,42 @@ public sealed class HeatmapVwapIndicator
 		};
 
 		if (value > 0)
-			_samples.Append(tick.TimestampNanos, new HeatmapPriceLineSample(value));
+			_samples.Append(tick.TimestampNanos, new HeatmapPriceLineSample { Price = value });
 	}
+
+	#endregion
+
+	#region Private static methods
 
 	private static bool IsEligibleTick(HeatmapTradeTick tick) =>
 		tick.TimestampNanos > 0 && tick.Price > 0 && tick.Volume > 0;
 
 	private static HeatmapIndicatorContext CreateDefaultContext() =>
-		new(string.Empty, 0, 1, TimeZoneInfo.Utc);
+		new()
+		{
+			InstrumentId = string.Empty,
+			TickSize = 0m,
+			LotSize = 1m,
+			TimeZone = TimeZoneInfo.Utc,
+		};
+
+	private static string ColorToHex(CrossColor color) =>
+		$"#{color.A:X2}{color.R:X2}{color.G:X2}{color.B:X2}";
+
+	#endregion
+
+	#region Nested types
 
 	private sealed class VwapAccumulator(HeatmapPeriodKey key)
 	{
+		#region Fields
+
 		private decimal _cumulativePriceVolume;
 		private decimal _cumulativeVolume;
+
+		#endregion
+
+		#region Properties
 
 		public HeatmapPeriodKey Key { get; } = key;
 
@@ -128,45 +227,135 @@ public sealed class HeatmapVwapIndicator
 			? _cumulativePriceVolume / _cumulativeVolume
 			: 0m;
 
+		#endregion
+
+		#region Public methods
+
 		public void Add(decimal price, decimal volume)
 		{
 			_cumulativePriceVolume += price * volume;
 			_cumulativeVolume += volume;
 		}
+
+		#endregion
 	}
+
+	#endregion
 }
 
+[HeatmapIndicator("heatmap.value-area", DisplayName = "Value Area")]
 public sealed class HeatmapValueAreaIndicator
-	: IHeatmapIndicator<HeatmapValueAreaSettings, HeatmapIndicatorSeriesSnapshot<HeatmapValueAreaSample>>
+	: HeatmapIndicator<HeatmapValueAreaSettings>
 	, IHeatmapWarmupIndicator
 	, IHeatmapTradeTickConsumer
 {
+	#region Const fields
+
 	private const decimal ValueAreaFraction = 0.70m;
 
-	private readonly object _sync = new();
+	#endregion
+
+	#region Static fields
+
+	private static readonly HeatmapIndicatorDescriptor _descriptor;
+	private static readonly HeatmapIndicatorVisualHandle _lines;
+	private static readonly HeatmapIndicatorSeriesHandle<HeatmapValueAreaSample> _poc;
+	private static readonly HeatmapIndicatorSeriesHandle<HeatmapValueAreaSample> _high;
+	private static readonly HeatmapIndicatorSeriesHandle<HeatmapValueAreaSample> _low;
+
+	#endregion
+
+	#region Static constructors
+
+	static HeatmapValueAreaIndicator()
+	{
+		var build = HeatmapIndicator.Describe("heatmap.value-area", "Value Area");
+		_lines = build.ValueArea("value-area.lines", "Value Area");
+		_poc = _lines.Series<HeatmapValueAreaSample>(
+			"value-area.poc", HeatmapIndicatorSeriesRole.Poc, HeatmapIndicatorValueKind.Price);
+		_high = _lines.Series<HeatmapValueAreaSample>(
+			"value-area.high", HeatmapIndicatorSeriesRole.ValueAreaHigh, HeatmapIndicatorValueKind.Price);
+		_low = _lines.Series<HeatmapValueAreaSample>(
+			"value-area.low", HeatmapIndicatorSeriesRole.ValueAreaLow, HeatmapIndicatorValueKind.Price);
+		_descriptor = build.Done();
+	}
+
+	#endregion
+
+	#region Readonly initialized fields
+
 	private readonly HeatmapSeriesBuffer<HeatmapValueAreaSample> _samples = new();
+
+	#endregion
+
+	#region Fields
+
 	private HeatmapIndicatorContext _context = CreateDefaultContext();
-	private HeatmapValueAreaSettings _settings = HeatmapValueAreaSettings.Default;
+	private HeatmapValueAreaSettings _settings = new();
 	private ValueAreaAccumulator _current = new(HeatmapPeriodKey.Empty);
 	private ValueAreaAccumulator? _previous;
 
-	public string Id => "heatmap.value-area";
+	#endregion
 
-	public void Configure(HeatmapValueAreaSettings settings)
+	#region Properties
+
+	public override HeatmapIndicatorDescriptor Descriptor => _descriptor;
+
+	#endregion
+
+	#region Public methods
+
+	public override ValueTask ConfigureAsync(HeatmapValueAreaSettings settings, CancellationToken cancellationToken)
 	{
-		lock (_sync)
-			_settings = settings;
+		cancellationToken.ThrowIfCancellationRequested();
+		_settings = settings;
+		return ValueTask.CompletedTask;
 	}
 
-	public void Reset(HeatmapIndicatorContext context)
+	public override ValueTask ResetAsync(
+		HeatmapIndicatorContext context,
+		IHeatmapIndicatorRuntime runtime,
+		CancellationToken cancellationToken)
 	{
-		lock (_sync)
-		{
-			_context = context;
-			_current = new ValueAreaAccumulator(HeatmapPeriodKey.Empty);
-			_previous = null;
-			_samples.Clear();
-		}
+		cancellationToken.ThrowIfCancellationRequested();
+
+		_context = context;
+		_current = new ValueAreaAccumulator(HeatmapPeriodKey.Empty);
+		_previous = null;
+		_samples.Clear();
+
+		return ValueTask.CompletedTask;
+	}
+
+	public override ValueTask<HeatmapIndicatorStateSnapshot?> GetSnapshotAsync(
+		HeatmapIndicatorSnapshotRequest request,
+		CancellationToken cancellationToken)
+	{
+		cancellationToken.ThrowIfCancellationRequested();
+
+		var source = _samples.GetSnapshot(request);
+		var pocStyle = new HeatmapIndicatorVisualStyle(
+			Color: ColorToHex(_settings.PocColor),
+			Thickness: _settings.PocThickness);
+		var valueAreaStyle = new HeatmapIndicatorVisualStyle(
+			Color: ColorToHex(_settings.ValueAreaColor),
+			Thickness: _settings.PocThickness);
+		var showValueArea = _settings.ShowValueArea;
+
+		var state = _descriptor.NewState()
+			.Training(source.IsTraining)
+			.Visual(_lines, v =>
+			{
+				v.Series(_poc, source, sample => sample.Poc, pocStyle);
+				if (showValueArea)
+				{
+					v.Series(_high, source, sample => sample.ValueAreaHigh, valueAreaStyle);
+					v.Series(_low, source, sample => sample.ValueAreaLow, valueAreaStyle);
+				}
+			})
+			.Build();
+
+		return new ValueTask<HeatmapIndicatorStateSnapshot?>(state);
 	}
 
 	public async ValueTask WarmUpAsync(
@@ -174,9 +363,29 @@ public sealed class HeatmapValueAreaIndicator
 		IHeatmapIndicatorDataSources dataSources,
 		CancellationToken cancellationToken)
 	{
+		cancellationToken.ThrowIfCancellationRequested();
+
 		var ticks = await dataSources.Trades.GetTradeTicksAsync(request, cancellationToken).ConfigureAwait(false);
 		cancellationToken.ThrowIfCancellationRequested();
+
 		ProcessHistoricalTicks(ticks);
+	}
+
+	public ValueTask ProcessTicksAsync(
+		IReadOnlyList<HeatmapTradeTick> ticks,
+		CancellationToken cancellationToken)
+	{
+		cancellationToken.ThrowIfCancellationRequested();
+
+		foreach (var tick in ticks)
+		{
+			if (!IsEligibleTick(tick))
+				continue;
+
+			ProcessTickCore(tick);
+		}
+
+		return ValueTask.CompletedTask;
 	}
 
 	public void ProcessHistoricalTicks(IEnumerable<HeatmapTradeTick> ticks)
@@ -186,15 +395,12 @@ public sealed class HeatmapValueAreaIndicator
 			.OrderBy(tick => tick.TimestampNanos)
 			.ToList();
 
-		lock (_sync)
-		{
-			_current = new ValueAreaAccumulator(HeatmapPeriodKey.Empty);
-			_previous = null;
-			_samples.Clear();
+		_current = new ValueAreaAccumulator(HeatmapPeriodKey.Empty);
+		_previous = null;
+		_samples.Clear();
 
-			foreach (var tick in orderedTicks)
-				ProcessTickCore(tick);
-		}
+		foreach (var tick in orderedTicks)
+			ProcessTickCore(tick);
 	}
 
 	public void ProcessTick(HeatmapTradeTick tick)
@@ -202,19 +408,15 @@ public sealed class HeatmapValueAreaIndicator
 		if (!IsEligibleTick(tick))
 			return;
 
-		lock (_sync)
-			ProcessTickCore(tick);
-	}
-
-	public HeatmapIndicatorSeriesSnapshot<HeatmapValueAreaSample> GetSnapshot(HeatmapIndicatorSnapshotRequest request) =>
-		_samples.GetSnapshot(request);
-
-	public void ProcessTimer(HeatmapIndicatorTimerTick tick)
-	{
+		ProcessTickCore(tick);
 	}
 
 	public HeatmapValueAreaSample GetValueAtOrBefore(long cutoffTimeNanos) =>
 		_samples.GetLatestAtOrBefore(cutoffTimeNanos)?.Value ?? default;
+
+	#endregion
+
+	#region Private methods
 
 	private void ProcessTickCore(HeatmapTradeTick tick)
 	{
@@ -240,18 +442,46 @@ public sealed class HeatmapValueAreaIndicator
 			_samples.Append(tick.TimestampNanos, value);
 	}
 
+	#endregion
+
+	#region Private static methods
+
 	private static bool IsEligibleTick(HeatmapTradeTick tick) =>
 		tick.TimestampNanos > 0 && tick.Price > 0 && tick.Volume > 0;
 
 	private static HeatmapIndicatorContext CreateDefaultContext() =>
-		new(string.Empty, 0, 1, TimeZoneInfo.Utc);
+		new()
+		{
+			InstrumentId = string.Empty,
+			TickSize = 0m,
+			LotSize = 1m,
+			TimeZone = TimeZoneInfo.Utc,
+		};
+
+	private static string ColorToHex(CrossColor color) =>
+		$"#{color.A:X2}{color.R:X2}{color.G:X2}{color.B:X2}";
+
+	#endregion
+
+	#region Nested types
 
 	private sealed class ValueAreaAccumulator(HeatmapPeriodKey key)
 	{
+		#region Readonly initialized fields
+
 		private readonly SortedDictionary<decimal, decimal> _volumeByPrice = new();
+
+		#endregion
+
+		#region Fields
+
 		private decimal _totalVolume;
 		private decimal _pocPrice;
 		private decimal _pocVolume;
+
+		#endregion
+
+		#region Properties
 
 		public HeatmapPeriodKey Key { get; } = key;
 
@@ -265,9 +495,18 @@ public sealed class HeatmapValueAreaIndicator
 					return default;
 
 				var (valueAreaLow, valueAreaHigh) = CalculateValueArea();
-				return new HeatmapValueAreaSample(_pocPrice, valueAreaHigh, valueAreaLow);
+				return new HeatmapValueAreaSample
+			{
+				Poc = _pocPrice,
+				ValueAreaHigh = valueAreaHigh,
+				ValueAreaLow = valueAreaLow,
+			};
 			}
 		}
+
+		#endregion
+
+		#region Public methods
 
 		public void Add(decimal price, decimal volume)
 		{
@@ -284,6 +523,10 @@ public sealed class HeatmapValueAreaIndicator
 				_pocVolume = updatedVolume;
 			}
 		}
+
+		#endregion
+
+		#region Private methods
 
 		private (decimal Low, decimal High) CalculateValueArea()
 		{
@@ -323,7 +566,11 @@ public sealed class HeatmapValueAreaIndicator
 
 			return (levels[lowIndex].Key, levels[highIndex].Key);
 		}
+
+		#endregion
 	}
+
+	#endregion
 }
 
 internal readonly record struct HeatmapPeriodKey(int Year, int Period, HeatmapProfileScope Scope)

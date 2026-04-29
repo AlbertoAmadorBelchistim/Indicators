@@ -1,117 +1,263 @@
 namespace ATAS.Indicators.Technical.Heatmap;
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using ATAS.Indicators.Heatmap;
 using OFT.Rendering.Heatmap;
+using static ATAS.Indicators.Technical.Heatmap.HeatmapSettingsColorHelpers;
 
+[HeatmapIndicator("heatmap.cvd")]
 public sealed class HeatmapCvdIndicator
-	: IHeatmapIndicator<HeatmapCvdSettings, HeatmapIndicatorSnapshot?>
-	, IHeatmapProfileConsumer
+	: HeatmapIndicator<HeatmapCvdSettings>
+	, IHeatmapWarmupIndicator
+	, IHeatmapTradeTickConsumer
 {
-	public const string PeriodDeltaMetricId = "cvd.period-delta";
+	#region Const fields
 
-	private HeatmapCvdSettings _settings;
-	private HeatmapMarketProfileSnapshot? _currentDay;
-	private HeatmapMarketProfileSnapshot? _currentWeek;
+	public const string ValueMetricId = "cvd.value";
 
-	public string Id => "heatmap.cvd";
+	#endregion
 
-	public void Configure(HeatmapCvdSettings settings) =>
-		_settings = settings;
+	#region Static fields
 
-	public void Reset(HeatmapIndicatorContext context)
+	private static readonly HeatmapIndicatorDescriptor _descriptor;
+	private static readonly HeatmapIndicatorVisualHandle _panel;
+	private static readonly HeatmapIndicatorSeriesHandle<long> _value;
+
+	#endregion
+
+	#region Static constructors
+
+	static HeatmapCvdIndicator()
 	{
-		_currentDay = null;
-		_currentWeek = null;
+		var build = HeatmapIndicator.Describe("heatmap.cvd", "CVD");
+		_panel = build.SubPanelScalar("cvd.panel", "CVD");
+		_value = _panel.Series<long>(
+			"cvd.value",
+			HeatmapIndicatorSeriesRole.Scalar,
+			HeatmapIndicatorValueKind.Integer,
+			metricId: ValueMetricId,
+			unit: "lots");
+		_descriptor = build.Done();
 	}
 
-	public void ProcessProfile(HeatmapMarketProfileSnapshot profile)
+	#endregion
+
+	#region Readonly initialized fields
+
+	private readonly HeatmapSeriesBuffer<long> _samples = new();
+	private readonly HeatmapIndicatorFallbackReWarmGuard _reWarmGuard = new();
+
+	#endregion
+
+	#region Fields
+
+	private HeatmapCvdSettings _settings = new();
+	private HeatmapIndicatorContext _context = new()
 	{
-		switch (profile.Period)
+		InstrumentId = string.Empty,
+		TickSize = 0m,
+		LotSize = 1m,
+		TimeZone = TimeZoneInfo.Local,
+	};
+	private HeatmapPeriodKey _currentPeriodKey = HeatmapPeriodKey.Empty;
+	private decimal _delta;
+	private CvdCalculationMode _configuredMode = CvdCalculationMode.FromDataStart;
+	private decimal _configuredLotSize = 1m;
+	private IHeatmapIndicatorRuntime? _runtime;
+
+	#endregion
+
+	#region Properties
+
+	public override HeatmapIndicatorDescriptor Descriptor => _descriptor;
+
+	#endregion
+
+	#region Public methods
+
+	public override ValueTask ConfigureAsync(HeatmapCvdSettings settings, CancellationToken cancellationToken)
+	{
+		cancellationToken.ThrowIfCancellationRequested();
+
+		ArgumentNullException.ThrowIfNull(settings);
+
+		var lotSize = NormalizeLotSize(settings.LotSize);
+		if (_configuredMode != settings.CalculationMode || _configuredLotSize != lotSize)
 		{
-			case HeatmapProfilePeriod.CurrentDay:
-				_currentDay = profile;
-				break;
-			case HeatmapProfilePeriod.CurrentWeek:
-				_currentWeek = profile;
-				break;
+			_samples.Clear();
+			_delta = 0m;
+			_currentPeriodKey = HeatmapPeriodKey.Empty;
+		}
+
+		_settings = settings;
+		_configuredMode = settings.CalculationMode;
+		_configuredLotSize = lotSize;
+
+		return ValueTask.CompletedTask;
+	}
+
+	public override ValueTask ResetAsync(
+		HeatmapIndicatorContext context,
+		IHeatmapIndicatorRuntime runtime,
+		CancellationToken cancellationToken)
+	{
+		cancellationToken.ThrowIfCancellationRequested();
+
+		_context = context;
+		_runtime = runtime;
+		_samples.Clear();
+		_delta = 0m;
+		_currentPeriodKey = HeatmapPeriodKey.Empty;
+		_reWarmGuard.Reset();
+
+		return ValueTask.CompletedTask;
+	}
+
+	public async ValueTask WarmUpAsync(
+		HeatmapIndicatorWarmupRequest request,
+		IHeatmapIndicatorDataSources dataSources,
+		CancellationToken cancellationToken)
+	{
+		cancellationToken.ThrowIfCancellationRequested();
+
+		_reWarmGuard.OnWarmedUp(request);
+
+		var ticks = await dataSources.Trades.GetTradeTicksAsync(request, cancellationToken).ConfigureAwait(false);
+		cancellationToken.ThrowIfCancellationRequested();
+		ProcessHistoricalTicks(ticks);
+	}
+
+	public async ValueTask ProcessTicksAsync(
+		IReadOnlyList<HeatmapTradeTick> ticks,
+		CancellationToken cancellationToken)
+	{
+		cancellationToken.ThrowIfCancellationRequested();
+
+		ProcessHistoricalTicks(ticks);
+
+		if (RequiresDataStartAnchor(_settings.CalculationMode) &&
+		    _runtime is { } runtime &&
+		    _reWarmGuard.ShouldRequestReWarm(ticks))
+		{
+			await runtime
+				.RequestReWarmAsync("cvd: data-start became known", cancellationToken)
+				.ConfigureAwait(false);
 		}
 	}
 
-	public void ProcessTimer(HeatmapIndicatorTimerTick tick)
+	public void ProcessHistoricalTicks(IEnumerable<HeatmapTradeTick> ticks)
 	{
+		var orderedTicks = ticks
+			.Where(IsEligibleTick)
+			.OrderBy(static tick => tick.TimestampNanos)
+			.ToArray();
+
+		_samples.Clear();
+		_delta = 0m;
+		_currentPeriodKey = HeatmapPeriodKey.Empty;
+
+		foreach (var tick in orderedTicks)
+			ProcessTickCore(tick);
 	}
 
-	public HeatmapIndicatorSnapshot? GetSnapshot(HeatmapIndicatorSnapshotRequest request)
+	public void ProcessTick(HeatmapTradeTick tick)
 	{
-		var state = GetStateSnapshot(request);
-		if (state == null)
-			return null;
+		if (!IsEligibleTick(tick))
+			return;
 
-		return new HeatmapIndicatorSnapshot(
-			Id,
-			"cvd",
-			IsEnabled: true,
-			IsTraining: false,
-			[
-				new HeatmapIndicatorVisual(
-					"cvd.period-delta",
-					HeatmapIndicatorVisualKind.SubPanelScalar,
-					"CVD",
-					[
-						new HeatmapIndicatorVisualSeries(
-							"cvd.period-delta.value",
-							HeatmapIndicatorSeriesRole.Scalar,
-							HeatmapIndicatorValueKind.Integer,
-							state.Visuals[0].Series[0].Samples,
-							MetricId: PeriodDeltaMetricId,
-							Unit: "lots")
-					])
-			]);
+		ProcessTickCore(tick);
 	}
 
-	public HeatmapIndicatorStateSnapshot? GetStateSnapshot(HeatmapIndicatorSnapshotRequest request)
+	public override ValueTask<HeatmapIndicatorStateSnapshot?> GetSnapshotAsync(
+		HeatmapIndicatorSnapshotRequest request,
+		CancellationToken cancellationToken)
 	{
-		if (!_settings.IsEnabled)
-			return null;
+		cancellationToken.ThrowIfCancellationRequested();
 
-		var profile = _settings.Mode switch
+		var source = _samples.GetSnapshot(request);
+		if (_settings.CalculationMode == CvdCalculationMode.FromVisibleRangeStart && source.Samples.Count > 0)
 		{
-			CvdCalculationMode.CurrentDay => _currentDay,
-			CvdCalculationMode.CurrentWeek => _currentWeek,
-			_ => null
+			var baseline = request.ViewStartTimeNanos > 0
+				? _samples.GetLatestAtOrBefore(request.ViewStartTimeNanos)?.Value ?? 0
+				: 0;
+
+			if (baseline != 0)
+			{
+				var normalized = source.Samples
+					.Select(sample => new HeatmapIndicatorSample<long>(
+						sample.TimestampNanos,
+						sample.Value - baseline))
+					.ToArray();
+
+				source = new HeatmapIndicatorSeriesSnapshot<long>(normalized, source.IsTraining);
+			}
+		}
+
+		var presentation = new HeatmapIndicatorVisualPresentation(
+			PanelHeight: _settings.PanelHeight,
+			PanelRenderMode: HeatmapIndicatorPanelRenderMode.PositiveNegativeScalar,
+			ScalarScaleMode: HeatmapIndicatorScalarScaleMode.AutoVisibleSymmetric,
+			ReferenceValue: 0f);
+		var style = new HeatmapIndicatorVisualStyle(Color: ToHex(_settings.Color));
+
+		var state = _descriptor.NewState()
+			.Training(source.IsTraining)
+			.Visual(_panel, v => v
+				.PresentationOverride(presentation)
+				.Series(_value, source, sample => sample, style))
+			.Build();
+
+		return new ValueTask<HeatmapIndicatorStateSnapshot?>(state);
+	}
+
+	#endregion
+
+	#region Private methods
+
+	private void ProcessTickCore(HeatmapTradeTick tick)
+	{
+		var scope = _settings.CalculationMode switch
+		{
+			CvdCalculationMode.CurrentDay => HeatmapProfileScope.CurrentDay,
+			CvdCalculationMode.CurrentWeek => HeatmapProfileScope.CurrentWeek,
+			_ => HeatmapProfileScope.DataStart
 		};
 
-		if (profile == null)
-			return null;
-		if (request.CutoffTimeNanos > 0 && profile.Value.TimestampNanos > request.CutoffTimeNanos)
-			return null;
+		var key = HeatmapPeriodResolver.Resolve(tick.Time, _context, scope);
+		if (_currentPeriodKey != key)
+		{
+			_currentPeriodKey = key;
+			_delta = 0m;
+		}
 
-		var lotSize = _settings.LotSize <= 0
-			? 1m
-			: _settings.LotSize;
-		var periodDelta = (long)decimal.Round(
-			profile.Value.Delta / lotSize,
-			0,
-			System.MidpointRounding.AwayFromZero);
+		_delta += tick.Direction == HeatmapTradeDirection.Buy
+			? tick.Volume
+			: -tick.Volume;
 
-		return new HeatmapIndicatorStateSnapshot(
-			Id,
-			IsEnabled: true,
-			IsTraining: false,
-			[
-				new HeatmapIndicatorVisualState(
-					"cvd.period-delta",
-					[
-						new HeatmapIndicatorSeriesState(
-							"cvd.period-delta.value",
-							[
-								new HeatmapIndicatorVisualSample(
-									profile.Value.TimestampNanos,
-									HeatmapIndicatorValue.FromInteger(periodDelta))
-							])
-					])
-			]);
+		_samples.Append(tick.TimestampNanos, ToLots(_delta, _configuredLotSize));
 	}
+
+	#endregion
+
+	#region Private static methods
+
+	private static bool RequiresDataStartAnchor(CvdCalculationMode mode) =>
+		mode is CvdCalculationMode.FromDataStart or CvdCalculationMode.FromVisibleRangeStart;
+
+	private static long ToLots(decimal delta, decimal lotSize) =>
+		(long)decimal.Round(delta / NormalizeLotSize(lotSize), 0, MidpointRounding.AwayFromZero);
+
+	private static decimal NormalizeLotSize(decimal lotSize) =>
+		lotSize <= 0 ? 1m : lotSize;
+
+	private static bool IsEligibleTick(HeatmapTradeTick tick) =>
+		tick.TimestampNanos > 0 &&
+		tick.Volume > 0 &&
+		(tick.Direction == HeatmapTradeDirection.Buy || tick.Direction == HeatmapTradeDirection.Sell);
+
+	#endregion
 }

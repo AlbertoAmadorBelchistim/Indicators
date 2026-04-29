@@ -2,30 +2,144 @@ namespace ATAS.Indicators.Technical.Heatmap;
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using ATAS.Indicators.Heatmap;
 using OFT.Rendering.Heatmap;
 
+[HeatmapIndicator("heatmap.ohlc-levels", DisplayName = "OHLC Levels")]
 public sealed class HeatmapOhlcLevelsIndicator
-	: IHeatmapIndicator<IReadOnlyList<HeatmapOhlcLevelSettings>, HeatmapIndicatorSnapshot?>
+	: HeatmapIndicator<HeatmapOhlcLevelsSettings>
 	, IHeatmapProfileConsumer
 {
-	private readonly object _sync = new();
-	private readonly Dictionary<HeatmapProfilePeriod, HeatmapMarketProfileSnapshot> _profiles = new();
-	private IReadOnlyList<HeatmapOhlcLevelSettings> _settings = [];
+	#region Const fields
 
-	public string Id => "heatmap.ohlc-levels";
+	private const string IndicatorTypeId = "heatmap.ohlc-levels";
+	private const string LevelsVisualId = "ohlc-levels.lines";
 
-	public void Configure(IReadOnlyList<HeatmapOhlcLevelSettings> settings)
+	#endregion
+
+	#region Static fields
+
+	private static readonly HeatmapIndicatorDescriptor _descriptor;
+	private static readonly HeatmapIndicatorVisualHandle _lines;
+	private static readonly Dictionary<HeatmapOhlcLevelKind, HeatmapIndicatorSeriesHandle<decimal>> _seriesByKind;
+
+	#endregion
+
+	#region Static constructors
+
+	static HeatmapOhlcLevelsIndicator()
 	{
-		lock (_sync)
-			_settings = settings;
+		var build = HeatmapIndicator.Describe(IndicatorTypeId, "OHLC Levels");
+		_lines = build.LevelLine(LevelsVisualId, "OHLC Levels");
+		_seriesByKind = new Dictionary<HeatmapOhlcLevelKind, HeatmapIndicatorSeriesHandle<decimal>>();
+		foreach (var kind in Enum.GetValues<HeatmapOhlcLevelKind>())
+		{
+			_seriesByKind[kind] = _lines.Series<decimal>(
+				$"ohlc-levels.{kind}",
+				HeatmapIndicatorSeriesRole.Level,
+				HeatmapIndicatorValueKind.Price);
+		}
+		_descriptor = build.Done();
 	}
 
-	public void Reset(HeatmapIndicatorContext context)
+	#endregion
+
+	#region Readonly initialized fields
+
+	private readonly object _sync = new();
+	private readonly Dictionary<HeatmapProfilePeriod, HeatmapMarketProfileSnapshot> _profiles = new();
+
+	#endregion
+
+	#region Fields
+
+	private HeatmapOhlcLevelsSettings _settings = new();
+
+	#endregion
+
+	#region Properties
+
+	public override HeatmapIndicatorDescriptor Descriptor => _descriptor;
+
+	#endregion
+
+	#region Public methods
+
+	public override ValueTask ConfigureAsync(HeatmapOhlcLevelsSettings settings, CancellationToken cancellationToken)
 	{
+		cancellationToken.ThrowIfCancellationRequested();
+
+		lock (_sync)
+			_settings = settings;
+
+		return ValueTask.CompletedTask;
+	}
+
+	public override ValueTask ResetAsync(
+		HeatmapIndicatorContext context,
+		IHeatmapIndicatorRuntime runtime,
+		CancellationToken cancellationToken)
+	{
+		cancellationToken.ThrowIfCancellationRequested();
+
 		lock (_sync)
 			_profiles.Clear();
+
+		return ValueTask.CompletedTask;
+	}
+
+	public override ValueTask<HeatmapIndicatorStateSnapshot?> GetSnapshotAsync(
+		HeatmapIndicatorSnapshotRequest request,
+		CancellationToken cancellationToken)
+	{
+		cancellationToken.ThrowIfCancellationRequested();
+
+		var resolved = new List<(HeatmapOhlcLevelSettings Level, decimal Price)>(_settings.Levels.Count);
+
+		lock (_sync)
+		{
+			foreach (var level in _settings.Levels)
+			{
+				if (level.Style?.IsVisible == false)
+					continue;
+
+				if (!TryResolvePrice(level.Kind, out var price) || price <= 0)
+					continue;
+
+				resolved.Add((level, price));
+			}
+		}
+
+		if (resolved.Count == 0)
+			return new ValueTask<HeatmapIndicatorStateSnapshot?>((HeatmapIndicatorStateSnapshot?)null);
+
+		var state = _descriptor.NewState()
+			.Visual(_lines, v =>
+			{
+				foreach (var (level, price) in resolved)
+				{
+					var samples = new[]
+					{
+						new HeatmapIndicatorVisualSample(request.CutoffTimeNanos, price),
+					};
+					v.Series(_seriesByKind[level.Kind], samples, level.Style);
+				}
+			})
+			.Build();
+
+		return new ValueTask<HeatmapIndicatorStateSnapshot?>(state);
+	}
+
+	public ValueTask ProcessProfileAsync(HeatmapMarketProfileSnapshot profile, CancellationToken cancellationToken)
+	{
+		cancellationToken.ThrowIfCancellationRequested();
+
+		ProcessProfile(profile);
+
+		return ValueTask.CompletedTask;
 	}
 
 	public void ProcessProfile(HeatmapMarketProfileSnapshot profile)
@@ -34,103 +148,9 @@ public sealed class HeatmapOhlcLevelsIndicator
 			_profiles[profile.Period] = profile;
 	}
 
-	public void ProcessTimer(HeatmapIndicatorTimerTick tick)
-	{
-	}
+	#endregion
 
-	public HeatmapIndicatorSnapshot? GetSnapshot(HeatmapIndicatorSnapshotRequest request)
-	{
-		List<HeatmapIndicatorVisual> visuals = [];
-
-		lock (_sync)
-		{
-			foreach (var level in _settings)
-			{
-				if (level.Style?.IsVisible == false ||
-				    !TryResolvePrice(level.Kind, out var price) ||
-				    price <= 0)
-					continue;
-
-				var visualId = string.IsNullOrWhiteSpace(level.Id)
-					? $"ohlc-level.{level.Kind}"
-					: level.Id;
-				var label = string.IsNullOrWhiteSpace(level.Label)
-					? level.Kind.ToString()
-					: level.Label;
-
-				visuals.Add(new HeatmapIndicatorVisual(
-					visualId,
-					HeatmapIndicatorVisualKind.LevelLine,
-					label,
-					[
-						new HeatmapIndicatorVisualSeries(
-							$"{visualId}.price",
-							HeatmapIndicatorSeriesRole.Level,
-							HeatmapIndicatorValueKind.Price,
-							[
-								new HeatmapIndicatorVisualSample(
-									request.EffectiveEndTimeNanos,
-									HeatmapIndicatorValue.FromPrice(price))
-							],
-							level.Style)
-					],
-					level.Style));
-			}
-		}
-
-		if (visuals.Count == 0)
-			return null;
-
-		return new HeatmapIndicatorSnapshot(
-			Id,
-			"ohlc-levels",
-			IsEnabled: true,
-			IsTraining: false,
-			visuals);
-	}
-
-	public HeatmapIndicatorStateSnapshot? GetStateSnapshot(HeatmapIndicatorSnapshotRequest request)
-	{
-		List<HeatmapIndicatorVisualState> visuals = [];
-
-		lock (_sync)
-		{
-			foreach (var level in _settings)
-			{
-				if (level.Style?.IsVisible == false ||
-				    !TryResolvePrice(level.Kind, out var price) ||
-				    price <= 0)
-					continue;
-
-				var visualId = string.IsNullOrWhiteSpace(level.Id)
-					? $"ohlc-level.{level.Kind}"
-					: level.Id;
-
-				visuals.Add(new HeatmapIndicatorVisualState(
-					visualId,
-					[
-						new HeatmapIndicatorSeriesState(
-							$"{visualId}.price",
-							[
-								new HeatmapIndicatorVisualSample(
-									request.EffectiveEndTimeNanos,
-									HeatmapIndicatorValue.FromPrice(price))
-							],
-							level.Style)
-					],
-					level.Style));
-			}
-		}
-
-		if (visuals.Count == 0)
-			return null;
-
-		return new HeatmapIndicatorStateSnapshot(
-			Id,
-			IsEnabled: true,
-			IsTraining: false,
-			visuals);
-	}
+	#region Private methods
 
 	private bool TryResolvePrice(HeatmapOhlcLevelKind kind, out decimal price)
 	{
@@ -184,4 +204,7 @@ public sealed class HeatmapOhlcLevelsIndicator
 
 		return price > 0;
 	}
+
+	#endregion
+
 }

@@ -1,6 +1,14 @@
 namespace ATAS.Indicators.Technical.Heatmap;
 
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Globalization;
+using OFT.Localization;
 using OFT.Rendering.Heatmap;
+using static ATAS.Indicators.Technical.Heatmap.HeatmapSettingsColorHelpers;
+
+#region Enums
 
 public enum HeatmapPriceChangeMode
 {
@@ -66,48 +74,221 @@ public enum HeatmapProfileScope
 	Contract
 }
 
+#endregion
+
+#region OHLC Level entry
+
+/// <summary>
+/// Single OHLC level entry inside <see cref="HeatmapOhlcLevelsSettings"/>.
+/// </summary>
 public readonly record struct HeatmapOhlcLevelSettings(
 	string Id,
 	HeatmapOhlcLevelKind Kind,
 	string Label,
 	HeatmapIndicatorVisualStyle? Style);
 
-public readonly record struct HeatmapVwapSettings(
-	bool IsEnabled,
-	HeatmapProfileScope Scope)
+#endregion
+
+#region Settings DTOs
+
+public sealed class HeatmapVwapSettings
 {
-	public static HeatmapVwapSettings Default { get; } = new(true, HeatmapProfileScope.CurrentDay);
+	#region Auto properties
+
+	/// <summary>Schema version. Increment when changing field semantics.</summary>
+	public int Version { get; set; } = 1;
+
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.HeatmapVwapInterval))]
+	public HeatmapProfileScope Scope { get; set; } = HeatmapProfileScope.CurrentDay;
+
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.HeatmapVwapLineColor))]
+	public CrossColor Color { get; set; } = ParseColor("#FF2962FF");
+
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.HeatmapVwapLineThickness))]
+	public float Thickness { get; set; } = 2f;
+
+	#endregion
 }
 
-public readonly record struct HeatmapValueAreaSettings(
-	bool IsEnabled,
-	HeatmapProfileScope Scope)
+public sealed class HeatmapValueAreaSettings
 {
-	public static HeatmapValueAreaSettings Default { get; } = new(true, HeatmapProfileScope.CurrentDay);
+	#region Auto properties
+
+	/// <summary>Schema version. Increment when changing field semantics.</summary>
+	public int Version { get; set; } = 1;
+
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.HeatmapPocInterval))]
+	public HeatmapProfileScope Scope { get; set; } = HeatmapProfileScope.CurrentDay;
+
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.HeatmapPocLineColor))]
+	public CrossColor PocColor { get; set; } = ParseColor("#FFFF6D00");
+
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.HeatmapPocLineThickness))]
+	public float PocThickness { get; set; } = 2f;
+
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.HeatmapShowValueArea))]
+	public bool ShowValueArea { get; set; } = false;
+
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.HeatmapValueAreaColor))]
+	public CrossColor ValueAreaColor { get; set; } = ParseColor("#80FF6D00");
+
+	#endregion
 }
 
-public readonly record struct HeatmapCvdSettings(
-	bool IsEnabled,
-	CvdCalculationMode Mode,
-	decimal LotSize);
-
-public readonly record struct HeatmapPriceChangeSettings(
-	HeatmapPriceChangeMode Mode,
-	HeatmapPriceChangePeriod Period,
-	HeatmapTrainingPeriod TrainingPeriod)
+public sealed class HeatmapCvdSettings
 {
-	public static HeatmapPriceChangeSettings Default { get; } = new(
-		HeatmapPriceChangeMode.StandardDeviation,
-		HeatmapPriceChangePeriod.OneMinute,
-		HeatmapTrainingPeriod.FifteenMinutes);
+	#region Auto properties
+
+	/// <summary>Schema version. Increment when changing field semantics.</summary>
+	public int Version { get; set; } = 1;
+
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.HeatmapCvdCalculationMode))]
+	public CvdCalculationMode CalculationMode { get; set; } = CvdCalculationMode.FromDataStart;
+
+	[Display(Name = "Lot Size")]
+	public decimal LotSize { get; set; } = 1m;
+
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.HeatmapCvdPanelHeight))]
+	public int PanelHeight { get; set; } = 120;
+
+	[Display(Name = "CVD Line Color")]
+	public CrossColor Color { get; set; } = ParseColor("#FF42A5F5");
+
+	#endregion
 }
 
-public readonly record struct HeatmapPressureSettings(
-	HeatmapPressureMode Mode,
-	HeatmapPressurePreset Preset)
+public sealed class HeatmapPriceChangeSettings
 {
-	public static HeatmapPressureSettings Default { get; } = new(
-		HeatmapPressureMode.Volume,
-		HeatmapPressurePreset.Medium);
+	#region Auto properties
+
+	/// <summary>Schema version. Increment when changing field semantics.</summary>
+	public int Version { get; set; } = 1;
+
+	[Display(Name = "Mode")]
+	public HeatmapPriceChangeMode Mode { get; set; } = HeatmapPriceChangeMode.StandardDeviation;
+
+	[Display(Name = "Period")]
+	public HeatmapPriceChangePeriod Period { get; set; } = HeatmapPriceChangePeriod.OneMinute;
+
+	[Display(Name = "Training Period")]
+	public HeatmapTrainingPeriod TrainingPeriod { get; set; } = HeatmapTrainingPeriod.FifteenMinutes;
+
+	[Display(Name = "Panel Height")]
+	public int PanelHeight { get; set; } = 80;
+
+	#endregion
 }
 
+public sealed class HeatmapPressureSettings
+{
+	#region Auto properties
+
+	/// <summary>Schema version. Increment when changing field semantics.</summary>
+	public int Version { get; set; } = 1;
+
+	[Display(Name = "Mode")]
+	public HeatmapPressureMode Mode { get; set; } = HeatmapPressureMode.Volume;
+
+	[Display(Name = "Preset")]
+	public HeatmapPressurePreset Preset { get; set; } = HeatmapPressurePreset.Medium;
+
+	[Display(Name = "Panel Height")]
+	public int PanelHeight { get; set; } = 80;
+
+	[Display(Name = "Threshold")]
+	public int Threshold { get; set; } = 80;
+
+	#endregion
+}
+
+public sealed class HeatmapOhlcLevelsSettings
+{
+	#region Auto properties
+
+	/// <summary>Schema version. Increment when changing field semantics.</summary>
+	public int Version { get; set; } = 1;
+
+	[Display(Name = "Levels")]
+	public List<HeatmapOhlcLevelSettings> Levels { get; set; } = CreateDefaultLevels();
+
+	#endregion
+
+	#region Public methods
+
+	public static List<HeatmapOhlcLevelSettings> CreateDefaultLevels() =>
+	[
+		new("currentDayHigh", HeatmapOhlcLevelKind.CurrentDayHigh, "Current Day High",
+			new HeatmapIndicatorVisualStyle(Color: "#FF26A69A", Thickness: 1.5f)),
+		new("currentDayLow", HeatmapOhlcLevelKind.CurrentDayLow, "Current Day Low",
+			new HeatmapIndicatorVisualStyle(Color: "#FFEF5350", Thickness: 1.5f)),
+		new("currentDayOpen", HeatmapOhlcLevelKind.CurrentDayOpen, "Current Day Open",
+			new HeatmapIndicatorVisualStyle(Color: "#FFFFEE58", Thickness: 1.5f)),
+		new("previousDayHigh", HeatmapOhlcLevelKind.PreviousDayHigh, "Previous Day High",
+			new HeatmapIndicatorVisualStyle(Color: "#8026A69A", Thickness: 1f)),
+		new("previousDayLow", HeatmapOhlcLevelKind.PreviousDayLow, "Previous Day Low",
+			new HeatmapIndicatorVisualStyle(Color: "#80EF5350", Thickness: 1f)),
+		new("previousDayClose", HeatmapOhlcLevelKind.PreviousDayClose, "Previous Day Close",
+			new HeatmapIndicatorVisualStyle(Color: "#80FFEE58", Thickness: 1f)),
+		new("currentWeekHigh", HeatmapOhlcLevelKind.CurrentWeekHigh, "Current Week High",
+			new HeatmapIndicatorVisualStyle(Color: "#FF42A5F5", Thickness: 1.5f)),
+		new("currentWeekLow", HeatmapOhlcLevelKind.CurrentWeekLow, "Current Week Low",
+			new HeatmapIndicatorVisualStyle(Color: "#FFAB47BC", Thickness: 1.5f)),
+		new("currentWeekOpen", HeatmapOhlcLevelKind.CurrentWeekOpen, "Current Week Open",
+			new HeatmapIndicatorVisualStyle(Color: "#FF78909C", Thickness: 1.5f)),
+		new("previousWeekHigh", HeatmapOhlcLevelKind.PreviousWeekHigh, "Previous Week High",
+			new HeatmapIndicatorVisualStyle(Color: "#8042A5F5", Thickness: 1f)),
+		new("previousWeekLow", HeatmapOhlcLevelKind.PreviousWeekLow, "Previous Week Low",
+			new HeatmapIndicatorVisualStyle(Color: "#80AB47BC", Thickness: 1f)),
+		new("previousWeekClose", HeatmapOhlcLevelKind.PreviousWeekClose, "Previous Week Close",
+			new HeatmapIndicatorVisualStyle(Color: "#8078909C", Thickness: 1f)),
+	];
+
+	#endregion
+}
+
+#endregion
+
+#region Helpers
+
+/// <summary>
+/// Internal helpers for parsing default colour literals declared on the
+/// settings DTOs. Mirrors <c>HeatmapSettings.ParseColor</c> in the platform —
+/// duplicated here because that method is internal and the Indicators
+/// assembly cannot reference it.
+/// </summary>
+internal static class HeatmapSettingsColorHelpers
+{
+	public static string ToHex(CrossColor color) =>
+		$"#{color.A:X2}{color.R:X2}{color.G:X2}{color.B:X2}";
+
+	public static CrossColor ParseColor(string text)
+	{
+		if (string.IsNullOrWhiteSpace(text))
+			return default;
+
+		var hex = text.AsSpan();
+
+		if (hex[0] == '#')
+			hex = hex[1..];
+
+		if (hex.Length is not (6 or 8))
+			return default;
+
+		if (hex.Length == 6 &&
+		    byte.TryParse(hex[..2], NumberStyles.HexNumber, null, out var r6) &&
+		    byte.TryParse(hex[2..4], NumberStyles.HexNumber, null, out var g6) &&
+		    byte.TryParse(hex[4..6], NumberStyles.HexNumber, null, out var b6))
+			return CrossColor.FromArgb(255, r6, g6, b6);
+
+		if (hex.Length == 8 &&
+		    byte.TryParse(hex[..2], NumberStyles.HexNumber, null, out var a8) &&
+		    byte.TryParse(hex[2..4], NumberStyles.HexNumber, null, out var r8) &&
+		    byte.TryParse(hex[4..6], NumberStyles.HexNumber, null, out var g8) &&
+		    byte.TryParse(hex[6..8], NumberStyles.HexNumber, null, out var b8))
+			return CrossColor.FromArgb(a8, r8, g8, b8);
+
+		return default;
+	}
+}
+
+#endregion
