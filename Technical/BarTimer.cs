@@ -185,6 +185,7 @@ namespace ATAS.Indicators.Technical
 
 		[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.ColorBeforeCandle), Name = nameof(Strings.AlertFile), Description = nameof(Strings.AlertBeforeFileDescription), Order = 510)]
 		[Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
+		[OFT.Attributes.Editors.SoundComboBoxEditor]
 		public string AlertBeforeFile { get; set; } = "alert1";
 
 		[Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.ColorBeforeCandle), Name = nameof(Strings.Seconds), Description = nameof(Strings.AlertBeforeSecondsDescription), Order = 520)]
