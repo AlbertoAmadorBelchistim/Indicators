@@ -735,11 +735,25 @@ public class InitialBalance : Indicator
 		return GetCandle(bar - 1).Time.AddHours(InstrumentInfo.TimeZone);
     }
 
-    #endregion
+	protected override void OnDispose()
+	{
+		_ibh.PropertyChanged -= DataSeriesPropertyChanged;
+		_ibl.PropertyChanged -= DataSeriesPropertyChanged;
+		_ibm.PropertyChanged -= DataSeriesPropertyChanged;
+		_ibhx1.PropertyChanged -= DataSeriesPropertyChanged;
+		_ibhx2.PropertyChanged -= DataSeriesPropertyChanged;
+		_ibhx3.PropertyChanged -= DataSeriesPropertyChanged;
+		_iblx1.PropertyChanged -= DataSeriesPropertyChanged;
+		_iblx2.PropertyChanged -= DataSeriesPropertyChanged;
+		_iblx3.PropertyChanged -= DataSeriesPropertyChanged;
+		_mid.PropertyChanged -= DataSeriesPropertyChanged;
+	}
 
-    #region Private methods
+	#endregion
 
-    private void DataSeriesPropertyChanged(object sender, PropertyChangedEventArgs e)
+	#region Private methods
+
+	private void DataSeriesPropertyChanged(object sender, PropertyChangedEventArgs e)
 	{
 		if (!_initialized)
 			return;
