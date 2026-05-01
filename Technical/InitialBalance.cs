@@ -337,7 +337,8 @@ public class InitialBalance : Indicator
     [Parameter]
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Multiplier1),
 		GroupName = nameof(Strings.Multiplier), Description = nameof(Strings.MultiplierDescription), Order = 100)]
-	public decimal X1
+    [Range(0.1, 100)]
+    public decimal X1
 	{
 		get => _x1;
 		set
@@ -350,7 +351,8 @@ public class InitialBalance : Indicator
     [Parameter]
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Multiplier2),
 		GroupName = nameof(Strings.Multiplier), Description = nameof(Strings.MultiplierDescription),Order = 110)]
-	public decimal X2
+    [Range(0.1, 100)]
+    public decimal X2
 	{
 		get => _x2;
 		set
@@ -363,7 +365,8 @@ public class InitialBalance : Indicator
     [Parameter]
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Multiplier3),
 		GroupName = nameof(Strings.Multiplier), Description = nameof(Strings.MultiplierDescription), Order = 120)]
-	public decimal X3
+    [Range(0.1, 100)]
+    public decimal X3
 	{
 		get => _x3;
 		set
