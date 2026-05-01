@@ -53,6 +53,7 @@ namespace ATAS.Indicators.Technical
         private PenSettings _penOther = new() { Color = CrossColor.FromArgb(255, 160, 160, 160), Width = 1 };
 
         private RenderFont _font = new("Arial", 10);
+        private int _fontSize = 10;
 
         private PenSettings _pen0DTEHalo = new()
         {
@@ -103,6 +104,19 @@ namespace ATAS.Indicators.Technical
         [Range(-500, 500)]
         public int OffsetY { get; set; } = 6;
 
+        [Display(Name = "Font size", GroupName = "Text", Order = 5)]
+        [Range(6, 48)]
+        public int FontSize
+        {
+            get => _fontSize;
+            set
+            {
+                _fontSize = value;
+                _font = new RenderFont("Arial", _fontSize);
+                RecalculateValues();
+            }
+        }
+
         [Display(Name = "Thick up to rank", GroupName = "Width tiers", Order = 1)]
         [Range(1, 20)] public int ThickMaxRank { get; set; } = 3;
 
@@ -117,14 +131,38 @@ namespace ATAS.Indicators.Technical
         [Display(Name = "Alpha (medium)", GroupName = "Alpha tiers", Order = 2)][Range(0, 255)] public int MediumAlpha { get; set; } = 210;
         [Display(Name = "Alpha (thin)", GroupName = "Alpha tiers", Order = 3)][Range(0, 255)] public int ThinAlpha { get; set; } = 160;
 
+        [Display(Name = "Combo (CO)", GroupName = "Pens", Order = 1)]
+        public PenSettings PenCombo { get => _penCombo; set => _penCombo = value; }
+
+        [Display(Name = "Large Gamma (LG)", GroupName = "Pens", Order = 2)]
+        public PenSettings PenLargeGamma { get => _penLargeGamma; set => _penLargeGamma = value; }
+
+        [Display(Name = "Volatility Trigger (VT)", GroupName = "Pens", Order = 3)]
+        public PenSettings PenVolTrigger { get => _penVolTrigger; set => _penVolTrigger = value; }
+
+        [Display(Name = "Call Wall (CW)", GroupName = "Pens", Order = 4)]
+        public PenSettings PenCallWall { get => _penCallWall; set => _penCallWall = value; }
+
+        [Display(Name = "Put Wall (PW)", GroupName = "Pens", Order = 5)]
+        public PenSettings PenPutWall { get => _penPutWall; set => _penPutWall = value; }
+
+        [Display(Name = "Zero Gamma (ZG)", GroupName = "Pens", Order = 6)]
+        public PenSettings PenZeroGamma { get => _penZeroGamma; set => _penZeroGamma = value; }
+
+        [Display(Name = "Other/Unknown", GroupName = "Pens", Order = 7)]
+        public PenSettings PenOther { get => _penOther; set => _penOther = value; }
+
         [Display(Name = "Enable 0DTE halo", GroupName = "Accents", Order = 1)]
         public bool Enable0DTEHalo { get; set; } = true;
 
-        [Display(Name = "0DTE halo alpha (0-255)", GroupName = "Accents", Order = 2)]
+        [Display(Name = "0DTE halo pen", GroupName = "Accents", Order = 2)]
+        public PenSettings Pen0DTEHalo { get => _pen0DTEHalo; set => _pen0DTEHalo = value; }
+
+        [Display(Name = "0DTE halo alpha (0-255)", GroupName = "Accents", Order = 3)]
         [Range(0, 255)]
         public int HaloAlpha { get; set; } = 120;
 
-        [Display(Name = "0DTE halo extra width (px)", GroupName = "Accents", Order = 3)]
+        [Display(Name = "0DTE halo extra width (px)", GroupName = "Accents", Order = 4)]
         [Range(0, 10)]
         public int HaloExtraWidth { get; set; } = 2;
 
