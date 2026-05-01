@@ -54,6 +54,12 @@ namespace ATAS.Indicators.Technical
 
         private RenderFont _font = new("Arial", 10);
 
+        private PenSettings _pen0DTEHalo = new()
+        {
+            Color = CrossColor.FromArgb(120, 0, 255, 255),   // cyan
+            Width = 1
+        };
+
         #endregion
 
         #region Properties
@@ -111,6 +117,17 @@ namespace ATAS.Indicators.Technical
         [Display(Name = "Alpha (medium)", GroupName = "Alpha tiers", Order = 2)][Range(0, 255)] public int MediumAlpha { get; set; } = 210;
         [Display(Name = "Alpha (thin)", GroupName = "Alpha tiers", Order = 3)][Range(0, 255)] public int ThinAlpha { get; set; } = 160;
 
+        [Display(Name = "Enable 0DTE halo", GroupName = "Accents", Order = 1)]
+        public bool Enable0DTEHalo { get; set; } = true;
+
+        [Display(Name = "0DTE halo alpha (0-255)", GroupName = "Accents", Order = 2)]
+        [Range(0, 255)]
+        public int HaloAlpha { get; set; } = 120;
+
+        [Display(Name = "0DTE halo extra width (px)", GroupName = "Accents", Order = 3)]
+        [Range(0, 10)]
+        public int HaloExtraWidth { get; set; } = 2;
+
         #endregion
 
         #region Constructor
@@ -161,7 +178,38 @@ namespace ATAS.Indicators.Technical
                     Width = width,
                     LineDashStyle = basePen.LineDashStyle
                 };
+
+                if (ml.Winner.Is0DTE)
+                {
+                    if (Enable0DTEHalo)
+                    {
+                        var haloC = _pen0DTEHalo.Color;
+                        var halo = new PenSettings
+                        {
+                            Color = CrossColor.FromArgb((byte)Math.Clamp(HaloAlpha, 0, 255), haloC.R, haloC.G, haloC.B),
+                            Width = Math.Max(1, width + HaloExtraWidth),
+                            LineDashStyle = LineDashStyle.Solid
+                        };
+                        context.DrawLine(halo.RenderObject, firstX, y, rightX, y);
+                    }
+                    effPen.LineDashStyle = LineDashStyle.Dash;
+                }
+
                 context.DrawLine(effPen.RenderObject, firstX, y, rightX, y);
+
+                bool highPriority = ml.Winner.Is0DTE
+                    && (ml.Winner.Cat is LabelCategory.LargeGamma or LabelCategory.PutWall or LabelCategory.CallWall)
+                    && ml.Winner.EffectiveRank <= ThickMaxRank;
+                if (highPriority)
+                {
+                    var accent = new PenSettings
+                    {
+                        Color = HighPriorityAccentColor,
+                        Width = 1,
+                        LineDashStyle = LineDashStyle.Dot
+                    };
+                    context.DrawLine(accent.RenderObject, firstX, y, rightX, y);
+                }
 
                 var size = context.MeasureString(ml.LabelText, _font);
                 int textX = RightAligned ? rightX - size.Width - OffsetX : firstX + OffsetX;
@@ -214,6 +262,8 @@ namespace ATAS.Indicators.Technical
         private static readonly Regex LabelPattern = new(
             @"^\s*(?<name>[A-Za-z ]+?)(?<rank>\d{1,3})?(?<suffix>\s+0DTE)?\s*$",
             RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+        private static readonly CrossColor HighPriorityAccentColor = CrossColor.FromArgb(220, 255, 64, 64);
 
         private static string NormalizeInvisible(string s)
         {
