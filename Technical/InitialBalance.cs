@@ -616,8 +616,11 @@ public class InitialBalance : Indicator
 			_calculate = true;
 			_highLowIsSet = false;
 			_lastStartBar = bar;
-			_endTime = candleFullDateTime.AddMinutes(_period);
             _isStarted = true;
+
+            if (PeriodMode is PeriodType.Minutes)
+                _endTime = candleFullDateTime.AddMinutes(_period);
+
 
             foreach (var dataSeries in DataSeries)
                 if (dataSeries is ValueDataSeries series)
