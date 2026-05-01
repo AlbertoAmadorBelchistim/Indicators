@@ -13,8 +13,6 @@ using OFT.Attributes;
 using OFT.Localization;
 using OFT.Rendering.Settings;
 
-using Pen = CrossPen;
-
 [DisplayName("Initial Balance")]
 [Category(IndicatorCategories.VolumeOrderFlow)]
 [Display(ResourceType = typeof(Strings), Description = nameof(Strings.InitialBalanceIndDescription))]
