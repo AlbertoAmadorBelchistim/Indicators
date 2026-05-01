@@ -118,49 +118,49 @@ public class InitialBalance : Indicator
         DescriptionKey = nameof(Strings.SessionAveragePriceDescription)
     };
 
-	private RangeDataSeries _ibhx32 = new("Ibhx32", "ibhx32")
+	private readonly RangeDataSeries _ibhx32 = new("Ibhx32", "ibhx32")
 	{
 		RangeColor = System.Drawing.Color.Transparent.Convert(),
 		DrawAbovePrice = false,
 		IsHidden = true
 	};
-	private RangeDataSeries _ibhx21 = new("Ibhx21", "ibhx21")
+	private readonly RangeDataSeries _ibhx21 = new("Ibhx21", "ibhx21")
 	{
 		RangeColor = System.Drawing.Color.Transparent.Convert(),
         DrawAbovePrice = false,
         IsHidden = true
 	};
-	private RangeDataSeries _ibhx1h = new("Ibhx1h", "ibhx1h")
+	private readonly RangeDataSeries _ibhx1h = new("Ibhx1h", "ibhx1h")
 	{
 		RangeColor = System.Drawing.Color.Transparent.Convert(),
         DrawAbovePrice = false,
         IsHidden = true
 	};
-	private RangeDataSeries _ibHm = new("IbHm", "ibHm")
+	private readonly RangeDataSeries _ibHm = new("IbHm", "ibHm")
 	{
 		RangeColor = System.Drawing.Color.Transparent.Convert(),
         DrawAbovePrice = false,
         IsHidden = true
 	};
-	private RangeDataSeries _ibMl = new("IbM1", "ibM1")
+	private readonly RangeDataSeries _ibMl = new("IbM1", "ibM1")
 	{
 		RangeColor = System.Drawing.Color.Transparent.Convert(),
         DrawAbovePrice = false,
         IsHidden = true
 	};
-	private RangeDataSeries _ibl1 = new("Ibl1", "ibl1")
+	private readonly RangeDataSeries _ibl1 = new("Ibl1", "ibl1")
 	{
 		RangeColor = System.Drawing.Color.Transparent.Convert(),
         DrawAbovePrice = false,
         IsHidden = true
 	};
-	private RangeDataSeries _iblx12 = new("Ibl12", "ibl12")
+	private readonly RangeDataSeries _iblx12 = new("Ibl12", "ibl12")
 	{
 		RangeColor = System.Drawing.Color.Transparent.Convert(),
         DrawAbovePrice = false,
         IsHidden = true
 	};
-	private RangeDataSeries _iblx23 = new("Ibl23", "ibl23")
+	private readonly RangeDataSeries _iblx23 = new("Ibl23", "ibl23")
 	{
 		RangeColor = System.Drawing.Color.Transparent.Convert(),
         DrawAbovePrice = false,
