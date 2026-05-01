@@ -1,4 +1,5 @@
-﻿using OFT.Rendering.Context;
+﻿using ATAS.Indicators.Technical.Properties;
+using OFT.Rendering.Context;
 using OFT.Rendering.Settings;
 using OFT.Rendering.Tools;
 using System;
@@ -13,6 +14,8 @@ namespace ATAS.Indicators.Technical
 {
     [Category("Custom")]
     [DisplayName("LevelsLolo")]
+    [Display(ResourceType = typeof(CustomResources),
+             Description = nameof(CustomResources.LevelsLolo_Description))]
     public class LevelsLolo : Indicator
     {
         #region Nested types
@@ -72,8 +75,11 @@ namespace ATAS.Indicators.Technical
 
         #region Properties
 
-        [Display(Name = "Raw text", GroupName = "Data", Order = 1,
-                 Description = "Example: $SP: CO44, 7073, LG07, 7048, ...")]
+        [Display(ResourceType = typeof(CustomResources),
+                 Name = nameof(CustomResources.LevelsLolo_RawText_DisplayName),
+                 GroupName = nameof(CustomResources.Group_Data),
+                 Description = nameof(CustomResources.LevelsLolo_RawText_Description),
+                 Order = 1)]
         public string RawText
         {
             get => _rawText;
@@ -89,29 +95,47 @@ namespace ATAS.Indicators.Technical
             }
         }
 
-        [Display(Name = "Clear text now", GroupName = "Data", Order = 2)]
+        [Display(ResourceType = typeof(CustomResources),
+                 Name = nameof(CustomResources.LevelsLolo_ClearTextNow_DisplayName),
+                 GroupName = nameof(CustomResources.Group_Data),
+                 Order = 2)]
         public bool ClearTextNow
         {
             get => false;
             set { if (value) { RawText = string.Empty; RaisePropertyChanged(nameof(RawText)); } }
         }
 
-        [Display(Name = "Right-aligned text", GroupName = "Text", Order = 1)]
+        [Display(ResourceType = typeof(CustomResources),
+                 Name = nameof(CustomResources.LevelsLolo_RightAligned_DisplayName),
+                 GroupName = nameof(CustomResources.Group_Text),
+                 Order = 1)]
         public bool RightAligned { get; set; } = true;
 
-        [Display(Name = "Last bar only", GroupName = "Text", Order = 2,
-                 Description = "Extend to last visible bar instead of full right edge.")]
+        [Display(ResourceType = typeof(CustomResources),
+                 Name = nameof(CustomResources.LevelsLolo_LastBarOnly_DisplayName),
+                 GroupName = nameof(CustomResources.Group_Text),
+                 Description = nameof(CustomResources.LevelsLolo_LastBarOnly_Description),
+                 Order = 2)]
         public bool LastBarOnly { get; set; } = true;
 
-        [Display(Name = "Offset X", GroupName = "Text", Order = 3)]
+        [Display(ResourceType = typeof(CustomResources),
+                 Name = nameof(CustomResources.LevelsLolo_OffsetX_DisplayName),
+                 GroupName = nameof(CustomResources.Group_Text),
+                 Order = 3)]
         [Range(0, 500)]
         public int OffsetX { get; set; } = 6;
 
-        [Display(Name = "Offset Y", GroupName = "Text", Order = 4)]
+        [Display(ResourceType = typeof(CustomResources),
+                 Name = nameof(CustomResources.LevelsLolo_OffsetY_DisplayName),
+                 GroupName = nameof(CustomResources.Group_Text),
+                 Order = 4)]
         [Range(-500, 500)]
         public int OffsetY { get; set; } = 6;
 
-        [Display(Name = "Font size", GroupName = "Text", Order = 5)]
+        [Display(ResourceType = typeof(CustomResources),
+                 Name = nameof(CustomResources.LevelsLolo_FontSize_DisplayName),
+                 GroupName = nameof(CustomResources.Group_Text),
+                 Order = 5)]
         [Range(6, 48)]
         public int FontSize
         {
@@ -124,52 +148,127 @@ namespace ATAS.Indicators.Technical
             }
         }
 
-        [Display(Name = "Thick up to rank", GroupName = "Width tiers", Order = 1)]
-        [Range(1, 20)] public int ThickMaxRank { get; set; } = 3;
+        [Display(ResourceType = typeof(CustomResources),
+                 Name = nameof(CustomResources.LevelsLolo_ThickMaxRank_DisplayName),
+                 GroupName = nameof(CustomResources.Group_WidthTiers),
+                 Order = 1)]
+        [Range(1, 20)]
+        public int ThickMaxRank { get; set; } = 3;
 
-        [Display(Name = "Medium up to rank", GroupName = "Width tiers", Order = 2)]
-        [Range(1, 50)] public int MediumMaxRank { get; set; } = 10;
+        [Display(ResourceType = typeof(CustomResources),
+                 Name = nameof(CustomResources.LevelsLolo_MediumMaxRank_DisplayName),
+                 GroupName = nameof(CustomResources.Group_WidthTiers),
+                 Order = 2)]
+        [Range(1, 50)]
+        public int MediumMaxRank { get; set; } = 10;
 
-        [Display(Name = "Width (thick)", GroupName = "Width tiers", Order = 3)][Range(1, 8)] public int ThickWidth { get; set; } = 3;
-        [Display(Name = "Width (medium)", GroupName = "Width tiers", Order = 4)][Range(1, 8)] public int MediumWidth { get; set; } = 2;
-        [Display(Name = "Width (thin)", GroupName = "Width tiers", Order = 5)][Range(1, 8)] public int ThinWidth { get; set; } = 1;
+        [Display(ResourceType = typeof(CustomResources),
+                 Name = nameof(CustomResources.LevelsLolo_ThickWidth_DisplayName),
+                 GroupName = nameof(CustomResources.Group_WidthTiers),
+                 Order = 3)]
+        [Range(1, 8)]
+        public int ThickWidth { get; set; } = 3;
 
-        [Display(Name = "Alpha (thick)", GroupName = "Alpha tiers", Order = 1)][Range(0, 255)] public int ThickAlpha { get; set; } = 255;
-        [Display(Name = "Alpha (medium)", GroupName = "Alpha tiers", Order = 2)][Range(0, 255)] public int MediumAlpha { get; set; } = 210;
-        [Display(Name = "Alpha (thin)", GroupName = "Alpha tiers", Order = 3)][Range(0, 255)] public int ThinAlpha { get; set; } = 160;
+        [Display(ResourceType = typeof(CustomResources),
+                 Name = nameof(CustomResources.LevelsLolo_MediumWidth_DisplayName),
+                 GroupName = nameof(CustomResources.Group_WidthTiers),
+                 Order = 4)]
+        [Range(1, 8)]
+        public int MediumWidth { get; set; } = 2;
 
-        [Display(Name = "Combo (CO)", GroupName = "Pens", Order = 1)]
+        [Display(ResourceType = typeof(CustomResources),
+                 Name = nameof(CustomResources.LevelsLolo_ThinWidth_DisplayName),
+                 GroupName = nameof(CustomResources.Group_WidthTiers),
+                 Order = 5)]
+        [Range(1, 8)]
+        public int ThinWidth { get; set; } = 1;
+
+        [Display(ResourceType = typeof(CustomResources),
+                 Name = nameof(CustomResources.LevelsLolo_ThickAlpha_DisplayName),
+                 GroupName = nameof(CustomResources.Group_AlphaTiers),
+                 Order = 1)]
+        [Range(0, 255)]
+        public int ThickAlpha { get; set; } = 255;
+
+        [Display(ResourceType = typeof(CustomResources),
+                 Name = nameof(CustomResources.LevelsLolo_MediumAlpha_DisplayName),
+                 GroupName = nameof(CustomResources.Group_AlphaTiers),
+                 Order = 2)]
+        [Range(0, 255)]
+        public int MediumAlpha { get; set; } = 210;
+
+        [Display(ResourceType = typeof(CustomResources),
+                 Name = nameof(CustomResources.LevelsLolo_ThinAlpha_DisplayName),
+                 GroupName = nameof(CustomResources.Group_AlphaTiers),
+                 Order = 3)]
+        [Range(0, 255)]
+        public int ThinAlpha { get; set; } = 160;
+
+        [Display(ResourceType = typeof(CustomResources),
+                 Name = nameof(CustomResources.LevelsLolo_PenCombo_DisplayName),
+                 GroupName = nameof(CustomResources.Group_Pens),
+                 Order = 1)]
         public PenSettings PenCombo { get => _penCombo; set => _penCombo = value; }
 
-        [Display(Name = "Large Gamma (LG)", GroupName = "Pens", Order = 2)]
+        [Display(ResourceType = typeof(CustomResources),
+                 Name = nameof(CustomResources.LevelsLolo_PenLargeGamma_DisplayName),
+                 GroupName = nameof(CustomResources.Group_Pens),
+                 Order = 2)]
         public PenSettings PenLargeGamma { get => _penLargeGamma; set => _penLargeGamma = value; }
 
-        [Display(Name = "Volatility Trigger (VT)", GroupName = "Pens", Order = 3)]
+        [Display(ResourceType = typeof(CustomResources),
+                 Name = nameof(CustomResources.LevelsLolo_PenVolTrigger_DisplayName),
+                 GroupName = nameof(CustomResources.Group_Pens),
+                 Order = 3)]
         public PenSettings PenVolTrigger { get => _penVolTrigger; set => _penVolTrigger = value; }
 
-        [Display(Name = "Call Wall (CW)", GroupName = "Pens", Order = 4)]
+        [Display(ResourceType = typeof(CustomResources),
+                 Name = nameof(CustomResources.LevelsLolo_PenCallWall_DisplayName),
+                 GroupName = nameof(CustomResources.Group_Pens),
+                 Order = 4)]
         public PenSettings PenCallWall { get => _penCallWall; set => _penCallWall = value; }
 
-        [Display(Name = "Put Wall (PW)", GroupName = "Pens", Order = 5)]
+        [Display(ResourceType = typeof(CustomResources),
+                 Name = nameof(CustomResources.LevelsLolo_PenPutWall_DisplayName),
+                 GroupName = nameof(CustomResources.Group_Pens),
+                 Order = 5)]
         public PenSettings PenPutWall { get => _penPutWall; set => _penPutWall = value; }
 
-        [Display(Name = "Zero Gamma (ZG)", GroupName = "Pens", Order = 6)]
+        [Display(ResourceType = typeof(CustomResources),
+                 Name = nameof(CustomResources.LevelsLolo_PenZeroGamma_DisplayName),
+                 GroupName = nameof(CustomResources.Group_Pens),
+                 Order = 6)]
         public PenSettings PenZeroGamma { get => _penZeroGamma; set => _penZeroGamma = value; }
 
-        [Display(Name = "Other/Unknown", GroupName = "Pens", Order = 7)]
+        [Display(ResourceType = typeof(CustomResources),
+                 Name = nameof(CustomResources.LevelsLolo_PenOther_DisplayName),
+                 GroupName = nameof(CustomResources.Group_Pens),
+                 Order = 7)]
         public PenSettings PenOther { get => _penOther; set => _penOther = value; }
 
-        [Display(Name = "Enable 0DTE halo", GroupName = "Accents", Order = 1)]
+        [Display(ResourceType = typeof(CustomResources),
+                 Name = nameof(CustomResources.LevelsLolo_Enable0DTEHalo_DisplayName),
+                 GroupName = nameof(CustomResources.Group_Accents),
+                 Order = 1)]
         public bool Enable0DTEHalo { get; set; } = true;
 
-        [Display(Name = "0DTE halo pen", GroupName = "Accents", Order = 2)]
+        [Display(ResourceType = typeof(CustomResources),
+                 Name = nameof(CustomResources.LevelsLolo_Pen0DTEHalo_DisplayName),
+                 GroupName = nameof(CustomResources.Group_Accents),
+                 Order = 2)]
         public PenSettings Pen0DTEHalo { get => _pen0DTEHalo; set => _pen0DTEHalo = value; }
 
-        [Display(Name = "0DTE halo alpha (0-255)", GroupName = "Accents", Order = 3)]
+        [Display(ResourceType = typeof(CustomResources),
+                 Name = nameof(CustomResources.LevelsLolo_HaloAlpha_DisplayName),
+                 GroupName = nameof(CustomResources.Group_Accents),
+                 Order = 3)]
         [Range(0, 255)]
         public int HaloAlpha { get; set; } = 120;
 
-        [Display(Name = "0DTE halo extra width (px)", GroupName = "Accents", Order = 4)]
+        [Display(ResourceType = typeof(CustomResources),
+                 Name = nameof(CustomResources.LevelsLolo_HaloExtraWidth_DisplayName),
+                 GroupName = nameof(CustomResources.Group_Accents),
+                 Order = 4)]
         [Range(0, 10)]
         public int HaloExtraWidth { get; set; } = 2;
 
