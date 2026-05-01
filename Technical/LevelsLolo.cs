@@ -61,6 +61,13 @@ namespace ATAS.Indicators.Technical
             Width = 1
         };
 
+        // Render pen cache.
+        // Keyed by effective (argb, width, style). PenSettings instances are created on
+        // demand and reused across frames with identical attributes. Orphaned entries
+        // (after the user edits a Pen* property) are harmless: the key space stays
+        // small in practice (< 64 distinct combinations).
+        private readonly Dictionary<(uint argb, int width, LineDashStyle style), PenSettings> _penCache = new();
+
         #endregion
 
         #region Properties
@@ -210,27 +217,20 @@ namespace ATAS.Indicators.Technical
                 if (ml.Winner.Cat == LabelCategory.ZeroGamma) { width = ThinWidth; alpha = (byte)ThinAlpha; }
 
                 var c = basePen.Color;
-                var effPen = new PenSettings
-                {
-                    Color = CrossColor.FromArgb(alpha, c.R, c.G, c.B),
-                    Width = width,
-                    LineDashStyle = basePen.LineDashStyle
-                };
+                var effColor = CrossColor.FromArgb(alpha, c.R, c.G, c.B);
+                var dashStyle = ml.Winner.Is0DTE ? LineDashStyle.Dash : basePen.LineDashStyle;
+                var effPen = GetCachedPen(effColor, width, dashStyle);
 
                 if (ml.Winner.Is0DTE)
                 {
                     if (Enable0DTEHalo)
                     {
                         var haloC = _pen0DTEHalo.Color;
-                        var halo = new PenSettings
-                        {
-                            Color = CrossColor.FromArgb((byte)Math.Clamp(HaloAlpha, 0, 255), haloC.R, haloC.G, haloC.B),
-                            Width = Math.Max(1, width + HaloExtraWidth),
-                            LineDashStyle = LineDashStyle.Solid
-                        };
+                        var haloColor = CrossColor.FromArgb((byte)Math.Clamp(HaloAlpha, 0, 255), haloC.R, haloC.G, haloC.B);
+                        var haloWidth = Math.Max(1, width + HaloExtraWidth);
+                        var halo = GetCachedPen(haloColor, haloWidth, LineDashStyle.Solid);
                         context.DrawLine(halo.RenderObject, firstX, y, rightX, y);
                     }
-                    effPen.LineDashStyle = LineDashStyle.Dash;
                 }
 
                 context.DrawLine(effPen.RenderObject, firstX, y, rightX, y);
@@ -240,12 +240,7 @@ namespace ATAS.Indicators.Technical
                     && ml.Winner.EffectiveRank <= ThickMaxRank;
                 if (highPriority)
                 {
-                    var accent = new PenSettings
-                    {
-                        Color = HighPriorityAccentColor,
-                        Width = 1,
-                        LineDashStyle = LineDashStyle.Dot
-                    };
+                    var accent = GetCachedPen(HighPriorityAccentColor, 1, LineDashStyle.Dot);
                     context.DrawLine(accent.RenderObject, firstX, y, rightX, y);
                 }
 
@@ -257,6 +252,12 @@ namespace ATAS.Indicators.Technical
                 if (textY < region.Top) textY = region.Top;
                 context.DrawString(ml.LabelText, _font, effPen.RenderObject.Color, textX, textY);
             }
+        }
+
+        protected override void OnDispose()
+        {
+            _penCache.Clear();
+            base.OnDispose();
         }
 
         #endregion
@@ -466,6 +467,22 @@ namespace ATAS.Indicators.Technical
         private int GetWidthTier(LabelToken w) =>
             w.EffectiveRank <= ThickMaxRank ? 0 :
             w.EffectiveRank <= MediumMaxRank ? 1 : 2;
+
+        private PenSettings GetCachedPen(CrossColor color, int width, LineDashStyle style)
+        {
+            uint argb = ((uint)color.A << 24)
+                      | ((uint)color.R << 16)
+                      | ((uint)color.G << 8)
+                      | (uint)color.B;
+
+            var key = (argb, width, style);
+            if (!_penCache.TryGetValue(key, out var pen))
+            {
+                pen = new PenSettings { Color = color, Width = width, LineDashStyle = style };
+                _penCache[key] = pen;
+            }
+            return pen;
+        }
 
         #endregion
     }
