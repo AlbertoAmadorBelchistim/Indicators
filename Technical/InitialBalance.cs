@@ -297,7 +297,7 @@ public class InitialBalance : Indicator
 	}
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.EndTime),
-		GroupName = nameof(Strings.SessionTime), Description = nameof(Strings.EndTimeDescription), Order = 20)]
+		GroupName = nameof(Strings.SessionTime), Description = nameof(Strings.EndTimeDescription), Order = 25)]
 	public TimeSpan EndDate
 	{
 		get => _endDate;
