@@ -1,4 +1,6 @@
 ﻿using OFT.Rendering.Context;
+using OFT.Rendering.Settings;
+using OFT.Rendering.Tools;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -42,6 +44,16 @@ namespace ATAS.Indicators.Technical
         private volatile IReadOnlyList<MergedLevel> _snapshot = Array.Empty<MergedLevel>();
         private string _rawText = string.Empty;
 
+        private PenSettings _penPutWall = new() { Color = CrossColor.FromArgb(255, 0, 255, 128), Width = 2 };
+        private PenSettings _penCallWall = new() { Color = CrossColor.FromArgb(255, 255, 64, 64), Width = 2 };
+        private PenSettings _penVolTrigger = new() { Color = CrossColor.FromArgb(255, 255, 215, 0), Width = 3 };
+        private PenSettings _penLargeGamma = new() { Color = CrossColor.FromArgb(255, 255, 136, 0), Width = 2 };
+        private PenSettings _penCombo = new() { Color = CrossColor.FromArgb(255, 255, 192, 77), Width = 1 };
+        private PenSettings _penZeroGamma = new() { Color = CrossColor.FromArgb(255, 170, 170, 170), Width = 1 };
+        private PenSettings _penOther = new() { Color = CrossColor.FromArgb(255, 160, 160, 160), Width = 1 };
+
+        private RenderFont _font = new("Arial", 10);
+
         #endregion
 
         #region Properties
@@ -70,6 +82,35 @@ namespace ATAS.Indicators.Technical
             set { if (value) { RawText = string.Empty; RaisePropertyChanged(nameof(RawText)); } }
         }
 
+        [Display(Name = "Right-aligned text", GroupName = "Text", Order = 1)]
+        public bool RightAligned { get; set; } = true;
+
+        [Display(Name = "Last bar only", GroupName = "Text", Order = 2,
+                 Description = "Extend to last visible bar instead of full right edge.")]
+        public bool LastBarOnly { get; set; } = true;
+
+        [Display(Name = "Offset X", GroupName = "Text", Order = 3)]
+        [Range(0, 500)]
+        public int OffsetX { get; set; } = 6;
+
+        [Display(Name = "Offset Y", GroupName = "Text", Order = 4)]
+        [Range(-500, 500)]
+        public int OffsetY { get; set; } = 6;
+
+        [Display(Name = "Thick up to rank", GroupName = "Width tiers", Order = 1)]
+        [Range(1, 20)] public int ThickMaxRank { get; set; } = 3;
+
+        [Display(Name = "Medium up to rank", GroupName = "Width tiers", Order = 2)]
+        [Range(1, 50)] public int MediumMaxRank { get; set; } = 10;
+
+        [Display(Name = "Width (thick)", GroupName = "Width tiers", Order = 3)][Range(1, 8)] public int ThickWidth { get; set; } = 3;
+        [Display(Name = "Width (medium)", GroupName = "Width tiers", Order = 4)][Range(1, 8)] public int MediumWidth { get; set; } = 2;
+        [Display(Name = "Width (thin)", GroupName = "Width tiers", Order = 5)][Range(1, 8)] public int ThinWidth { get; set; } = 1;
+
+        [Display(Name = "Alpha (thick)", GroupName = "Alpha tiers", Order = 1)][Range(0, 255)] public int ThickAlpha { get; set; } = 255;
+        [Display(Name = "Alpha (medium)", GroupName = "Alpha tiers", Order = 2)][Range(0, 255)] public int MediumAlpha { get; set; } = 210;
+        [Display(Name = "Alpha (thin)", GroupName = "Alpha tiers", Order = 3)][Range(0, 255)] public int ThinAlpha { get; set; } = 160;
+
         #endregion
 
         #region Constructor
@@ -91,7 +132,46 @@ namespace ATAS.Indicators.Technical
 
         protected override void OnCalculate(int bar, decimal value) { }
 
-        protected override void OnRender(RenderContext context, DrawingLayouts layout) { }
+        protected override void OnRender(RenderContext context, DrawingLayouts layout)
+        {
+            var snapshot = _snapshot;
+            if (snapshot.Count == 0) return;
+
+            var region = Container.Region;
+            int firstX = ChartInfo.GetXByBar(FirstVisibleBarNumber, false);
+            int rightX = LastBarOnly
+                ? ChartInfo.GetXByBar(LastVisibleBarNumber, false)
+                : region.Right;
+
+            foreach (var ml in snapshot)
+            {
+                int y = ChartInfo.GetYByPrice(ml.Price, false);
+                if (y < region.Top || y > region.Bottom) continue;
+
+                var basePen = GetBasePen(ml.Winner.Cat);
+                int tier = GetWidthTier(ml.Winner);
+                int width = tier switch { 0 => ThickWidth, 1 => MediumWidth, _ => ThinWidth };
+                byte alpha = tier switch { 0 => (byte)ThickAlpha, 1 => (byte)MediumAlpha, _ => (byte)ThinAlpha };
+                if (ml.Winner.Cat == LabelCategory.ZeroGamma) { width = ThinWidth; alpha = (byte)ThinAlpha; }
+
+                var c = basePen.Color;
+                var effPen = new PenSettings
+                {
+                    Color = CrossColor.FromArgb(alpha, c.R, c.G, c.B),
+                    Width = width,
+                    LineDashStyle = basePen.LineDashStyle
+                };
+                context.DrawLine(effPen.RenderObject, firstX, y, rightX, y);
+
+                var size = context.MeasureString(ml.LabelText, _font);
+                int textX = RightAligned ? rightX - size.Width - OffsetX : firstX + OffsetX;
+                int textY = y - size.Height - OffsetY;
+                if (textY < region.Top) textY = y + OffsetY;
+                if (textY + size.Height > region.Bottom) textY = region.Bottom - size.Height;
+                if (textY < region.Top) textY = region.Top;
+                context.DrawString(ml.LabelText, _font, effPen.RenderObject.Color, textX, textY);
+            }
+        }
 
         #endregion
 
@@ -279,6 +359,25 @@ namespace ATAS.Indicators.Technical
 
             return result;
         }
+
+        #endregion
+
+        #region Private methods
+
+        private PenSettings GetBasePen(LabelCategory c) => c switch
+        {
+            LabelCategory.Combo => _penCombo,
+            LabelCategory.LargeGamma => _penLargeGamma,
+            LabelCategory.VolTrigger => _penVolTrigger,
+            LabelCategory.CallWall => _penCallWall,
+            LabelCategory.PutWall => _penPutWall,
+            LabelCategory.ZeroGamma => _penZeroGamma,
+            _ => _penOther
+        };
+
+        private int GetWidthTier(LabelToken w) =>
+            w.EffectiveRank <= ThickMaxRank ? 0 :
+            w.EffectiveRank <= MediumMaxRank ? 1 : 2;
 
         #endregion
     }
