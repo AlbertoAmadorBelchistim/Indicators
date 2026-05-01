@@ -1,11 +1,21 @@
-﻿namespace ATAS.Indicators.Technical;
+namespace ATAS.Indicators.Technical;
 
 using System;
+using System.Collections.Generic;
 
 using OFT.Localization;
 
 public partial class ClusterSearch
 {
+	#region Private fields
+
+	private static readonly string _tipPrefix = "Cluster Search" + Environment.NewLine;
+
+	private CalcMode _tipSuffixFor = (CalcMode)(-1);
+	private string _tipSuffix = "";
+
+	#endregion
+
 	#region Private methods
 
 	//Binary search of insert index to keep price values sorted
@@ -40,9 +50,9 @@ public partial class ClusterSearch
 			_ => 0
 		};
 
-		var level = CreatePriceSelectionValue(cluster);
+		PriceSelectionValue level = null;
 
-        if (OnlyOneSelectionPerBar
+		if (OnlyOneSelectionPerBar
 		    && CalcType is not CalcMode.MaxVolume
 		    && _lastSeriesBar.Count is not 0)
 		{
@@ -53,30 +63,39 @@ public partial class ClusterSearch
 					: vol < value;
 
 				if (newMax)
+				{
+					level = CreatePriceSelectionValue(cluster);
 					_lastSeriesBar[0] = level;
+				}
 			}
 		}
 		else
 		{
+			level = CreatePriceSelectionValue(cluster);
 			InsertOrReplace(bar, level);
 		}
 
 		if (UseAlerts && _alertPrices.Add(cluster.Price) && _isFinishRecalculate)
-			AddClusterAlert(level.Tooltip);
+			AddClusterAlert(level?.Tooltip ?? CreateToolTip(value));
 	}
 
 	//Find index of price level by price
 	private int GetSeriesLevelIndex(int bar, decimal value)
 	{
-		int left = 0, right = _lastSeriesBar.Count;
+		return _lastSeriesBar.SyncGet(GetSeriesLevelIndex, value);
+	}
+
+	private static int GetSeriesLevelIndex(List<PriceSelectionValue> list, decimal value)
+	{
+		int left = 0, right = list.Count;
 
 		while (left < right)
 		{
 			var mid = left + (right - left) / 2;
 
-			if (_lastSeriesBar[mid].MinimumPrice < value)
+			if (list[mid].MinimumPrice < value)
 				left = mid + 1;
-			else if (_lastSeriesBar[mid].MinimumPrice > value)
+			else if (list[mid].MinimumPrice > value)
 				right = mid;
 			else
 				return mid;
@@ -146,20 +165,22 @@ public partial class ClusterSearch
 	//Create tooltip text for PriceSelectionValue
 	private string CreateToolTip(decimal value)
 	{
-		var tip = "Cluster Search" + Environment.NewLine + ChartInfo.TryGetMinimizedVolumeString(value) + " ";
-
-		tip += CalcType switch
+		if (_tipSuffixFor != CalcType)
 		{
-			CalcMode.Bid => Strings.Bid,
-			CalcMode.Ask => Strings.Ask,
-			CalcMode.Delta => Strings.Delta,
-			CalcMode.Volume => Strings.Volume,
-			CalcMode.Tick => Strings.Ticks,
-			CalcMode.MaxVolume => Strings.PocLevel,
-			_ => ""
-		};
+			_tipSuffix = " " + CalcType switch
+			{
+				CalcMode.Bid => Strings.Bid,
+				CalcMode.Ask => Strings.Ask,
+				CalcMode.Delta => Strings.Delta,
+				CalcMode.Volume => Strings.Volume,
+				CalcMode.Tick => Strings.Ticks,
+				CalcMode.MaxVolume => Strings.PocLevel,
+				_ => ""
+			};
+			_tipSuffixFor = CalcType;
+		}
 
-		return tip;
+		return _tipPrefix + ChartInfo.TryGetMinimizedVolumeString(value) + _tipSuffix;
 	}
 
 	#endregion

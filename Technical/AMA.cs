@@ -80,7 +80,12 @@ namespace ATAS.Indicators.Technical
 
 		#region Protected methods
 
-		protected override void OnCalculate(int bar, decimal value)
+		protected override void OnInitialize()
+		{
+			_renderSeries.ShowZeroValue = false;
+		}
+		
+        protected override void OnCalculate(int bar, decimal value)
 		{
 			if (bar == 0)
 				return;
@@ -88,7 +93,10 @@ namespace ATAS.Indicators.Technical
 			_diffSeries[bar] = Math.Abs(value - (decimal)SourceDataSeries[bar - 1]);
 
 			if (bar < _period)
-				return;
+			{
+				_renderSeries.SetPointOfEndLine(bar);
+                return;
+			}
 
 			var dir = value - (decimal)SourceDataSeries[bar - _period];
 			var vol = _diffSeries.CalcSum(_period, bar);

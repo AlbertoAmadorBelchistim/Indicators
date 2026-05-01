@@ -20,11 +20,29 @@ public partial class ClusterSearch
 
 		#endregion
 
-		#region ctor
-		
-		public CustomVolumeInfo(decimal price)
+		#region Public methods
+
+		public void Reset(decimal price)
 		{
 			Price = price;
+
+			Volume = default;
+			Bid = default;
+			Ask = default;
+			Between = default;
+			Ticks = default;
+			Time = default;
+		}
+
+		public void CopyTo(CustomVolumeInfo clone)
+		{
+			clone.Price = Price;
+			clone.Volume = Volume;
+			clone.Bid = Bid;
+			clone.Ask = Ask;
+			clone.Between = Between;
+			clone.Ticks = Ticks;
+			clone.Time = Time;
 		}
 
 		#endregion

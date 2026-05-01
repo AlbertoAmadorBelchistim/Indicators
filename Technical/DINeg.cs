@@ -23,7 +23,9 @@ namespace ATAS.Indicators.Technical
 
 		#region Properties
 
+#pragma warning disable CS0618
 		[Parameter]
+#pragma warning restore CS0618
 		[Display(ResourceType = typeof(Strings),
 			Name = nameof(Strings.Period),
 			GroupName = nameof(Strings.Common),

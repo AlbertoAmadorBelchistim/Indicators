@@ -155,7 +155,9 @@ public class DynamicLevels : Indicator
 						priceInfo.Value += info.Ticks;
 						break;
 					}
+#pragma warning disable CS0612
 					case MiddleClusterType.Time:
+#pragma warning restore CS0612
 					{
 						priceInfo.Value += info.Time;
 						break;
@@ -237,7 +239,9 @@ public class DynamicLevels : Indicator
 					priceInfo.Value++;
 					break;
 				}
+#pragma warning disable CS0612
 				case MiddleClusterType.Time:
+#pragma warning restore CS0612
 				{
 					priceInfo.Value++;
 					break;

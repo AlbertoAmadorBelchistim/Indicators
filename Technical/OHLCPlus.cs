@@ -1,3 +1,4 @@
+#nullable enable annotations
 namespace ATAS.Indicators.Technical;
 
 using OFT.Localization;
@@ -1027,7 +1028,9 @@ public class OHLCPlus : Indicator
         UpdateAllNeededLevelsFromCache();
     }
 
+#pragma warning disable CS0672
     protected override void OnFixedProfilesResponse(IndicatorCandle fixedProfileScaled, IndicatorCandle fixedProfileOriginScale, FixedProfilePeriods period)
+#pragma warning restore CS0672
     {
         _profileCandles[period] = fixedProfileOriginScale;
         UpdateLevels(period, fixedProfileOriginScale);
@@ -1099,7 +1102,9 @@ public class OHLCPlus : Indicator
             return;
         }
 
+#pragma warning disable CS0618
         GetFixedProfile(new FixedProfileRequest(period));
+#pragma warning restore CS0618
     }
 
     private void RecalcAllNeeds()
