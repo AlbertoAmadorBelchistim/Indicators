@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace ATAS.Indicators.Technical
@@ -220,6 +221,23 @@ namespace ATAS.Indicators.Technical
                         });
                     }
                 }
+            }
+
+            // Winner resolution and label text per price
+            foreach (var ml in result.Values)
+            {
+                if (ml.Labels.Count == 0) continue;
+
+                var winner = ml.Labels[0];
+                for (int i = 1; i < ml.Labels.Count; i++)
+                {
+                    var cand = ml.Labels[i];
+                    if (cand.EffectiveRank < winner.EffectiveRank) { winner = cand; continue; }
+                    if (cand.EffectiveRank > winner.EffectiveRank) continue;
+                    if (CategoryPriority(cand.Cat) < CategoryPriority(winner.Cat)) winner = cand;
+                }
+                ml.Winner = winner;
+                ml.LabelText = string.Join(" & ", ml.Labels.Select(FormatLabel));
             }
 
             return result;
