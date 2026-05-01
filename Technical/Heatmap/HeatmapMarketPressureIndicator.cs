@@ -8,7 +8,15 @@ using System.Threading.Tasks;
 using ATAS.Indicators.Heatmap;
 using OFT.Rendering.Heatmap;
 
-[HeatmapIndicator("heatmap.market-pressure")]
+// Reference indicator: paired buy/sell sub-panel scalar (Market Pressure).
+// Patterns: SubPanelPair visual with two HeatmapIndicatorSeriesHandle<T>
+//           (Buy + Sell) and per-series projection delegates, exponential-
+//           decay weighting, periodic event compression to bounded memory,
+//           persistent State.BeginUpdate lease, presentation override
+//           carrying a Threshold for the renderer.
+// Copy as a starting point for any indicator that publishes a paired
+// buyer-vs-seller scalar with bounded retention.
+[HeatmapIndicator(id: "heatmap.market-pressure", DisplayName = "Market Pressure")]
 public sealed class HeatmapMarketPressureIndicator
 	: HeatmapIndicator<HeatmapPressureSettings>
 	, IHeatmapWarmupIndicator
@@ -49,12 +57,14 @@ public sealed class HeatmapMarketPressureIndicator
 
 	static HeatmapMarketPressureIndicator()
 	{
-		var build = HeatmapIndicator.Describe("heatmap.market-pressure", "Market Pressure");
+		var build = Describe<HeatmapMarketPressureIndicator>();
 		_panel = build.SubPanelPair("market-pressure.panel", "Market Pressure");
 		_buy = _panel.Series<HeatmapPressureSample>(
-			"market-pressure.buy", HeatmapIndicatorSeriesRole.Buy, HeatmapIndicatorValueKind.Scalar);
+			"market-pressure.buy", HeatmapIndicatorSeriesRole.Buy, HeatmapIndicatorValueKind.Scalar,
+			sample => (decimal)sample.BuyNormalized);
 		_sell = _panel.Series<HeatmapPressureSample>(
-			"market-pressure.sell", HeatmapIndicatorSeriesRole.Sell, HeatmapIndicatorValueKind.Scalar);
+			"market-pressure.sell", HeatmapIndicatorSeriesRole.Sell, HeatmapIndicatorValueKind.Scalar,
+			sample => (decimal)sample.SellNormalized);
 		_descriptor = build.Done();
 	}
 
@@ -62,12 +72,10 @@ public sealed class HeatmapMarketPressureIndicator
 
 	#region Readonly initialized fields
 
-	private readonly object _sync = new();
 	private readonly List<PressureEvent> _buyerEvents = new();
 	private readonly List<PressureEvent> _sellerEvents = new();
 	private readonly List<HeatmapTradeTick> _historicalTicks = new();
 	private readonly List<PressureSnapshot> _historicalSnapshots = new();
-	private readonly HeatmapSeriesBuffer<HeatmapPressureSample> _samples = new();
 	private readonly TimeSpan _cacheValidityPeriod = TimeSpan.FromMilliseconds(50);
 
 	#endregion
@@ -83,7 +91,8 @@ public sealed class HeatmapMarketPressureIndicator
 	private DateTime _lastCleanupTime = DateTime.MinValue;
 	private DateTime _lastHistoricalCleanupTime = DateTime.MinValue;
 	private decimal _maxPressure = MinimumMaxPressure;
-	private bool _isTraining = true;
+	// volatile: read from external threads via IsTraining; controller serialises writes.
+	private volatile bool _isTraining = true;
 	private decimal _cachedBuyersPressure;
 	private decimal _cachedSellersPressure;
 	private DateTime _cacheTime = DateTime.MinValue;
@@ -102,14 +111,7 @@ public sealed class HeatmapMarketPressureIndicator
 
 	public override HeatmapIndicatorDescriptor Descriptor => _descriptor;
 
-	public bool IsTraining
-	{
-		get
-		{
-			lock (_sync)
-				return _isTraining;
-		}
-	}
+	public bool IsTraining => _isTraining;
 
 	#endregion
 
@@ -119,68 +121,11 @@ public sealed class HeatmapMarketPressureIndicator
 	{
 		cancellationToken.ThrowIfCancellationRequested();
 
-		lock (_sync)
-		{
-			_settings = settings;
-			_cacheTime = DateTime.MinValue;
-		}
+		_settings = settings;
+		_cacheTime = DateTime.MinValue;
 
 		RecalculateWithCurrentSettings();
 		return ValueTask.CompletedTask;
-	}
-
-	public override ValueTask ResetAsync(
-		HeatmapIndicatorContext context,
-		IHeatmapIndicatorRuntime runtime,
-		CancellationToken cancellationToken)
-	{
-		cancellationToken.ThrowIfCancellationRequested();
-
-		lock (_sync)
-		{
-			_buyerEvents.Clear();
-			_sellerEvents.Clear();
-			_historicalTicks.Clear();
-			_historicalSnapshots.Clear();
-			_samples.Clear();
-			_lastSnapshotTime = DateTime.MinValue;
-			_trainingStartTime = DateTime.MinValue;
-			_lastTickTime = DateTime.MinValue;
-			_virtualCurrentTime = DateTime.MinValue;
-			_lastMaxUpdateTime = DateTime.MinValue;
-			_lastCleanupTime = DateTime.MinValue;
-			_lastHistoricalCleanupTime = DateTime.MinValue;
-			_maxPressure = MinimumMaxPressure;
-			_isTraining = true;
-			_cacheTime = DateTime.MinValue;
-			CurrentBuyNormalized = 0;
-			CurrentSellNormalized = 0;
-		}
-
-		return ValueTask.CompletedTask;
-	}
-
-	public override ValueTask<HeatmapIndicatorStateSnapshot?> GetSnapshotAsync(
-		HeatmapIndicatorSnapshotRequest request,
-		CancellationToken cancellationToken)
-	{
-		cancellationToken.ThrowIfCancellationRequested();
-
-		var sourceSnapshot = _samples.GetSnapshot(request, IsTraining);
-
-		var presentation = new HeatmapIndicatorVisualPresentation(
-			PanelHeight: _settings.PanelHeight,
-			Threshold: _settings.Threshold);
-
-		var state = _descriptor.NewState()
-			.Training(IsTraining || sourceSnapshot.IsTraining)
-			.Visual(_panel, v => v
-				.PresentationOverride(presentation)
-				.Series(_buy, sourceSnapshot, sample => (decimal)sample.BuyNormalized)
-				.Series(_sell, sourceSnapshot, sample => (decimal)sample.SellNormalized))
-			.Build();
-
-		return new ValueTask<HeatmapIndicatorStateSnapshot?>(state);
 	}
 
 	public async ValueTask WarmUpAsync(
@@ -194,19 +139,29 @@ public sealed class HeatmapMarketPressureIndicator
 	}
 
 	public ValueTask ProcessTicksAsync(
-		IReadOnlyList<HeatmapTradeTick> ticks,
+		HeatmapTickBatch ticks,
 		CancellationToken cancellationToken)
 	{
 		cancellationToken.ThrowIfCancellationRequested();
+
+		var span = ticks.AsSpan();
+		if (span.Length == 0)
+			return ValueTask.CompletedTask;
 
 		// Live ticks arrive one-by-one through the controller's batching layer.
 		// Route each through the per-tick path that maintains incremental state
 		// (compression, cleanup, cache invalidation) instead of the bulk
 		// historical recompute used by warm-up.
-		foreach (var tick in ticks)
+		using var lease = State.BeginUpdate();
+		var visualLease = lease.Visual(_panel);
+		ApplyPresentation(visualLease);
+		var buyLease = visualLease.Series(_buy);
+		var sellLease = visualLease.Series(_sell);
+
+		for (var i = 0; i < span.Length; i++)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
-			ProcessTick(tick);
+			ProcessTick(span[i], buyLease, sellLease);
 		}
 
 		return ValueTask.CompletedTask;
@@ -252,7 +207,7 @@ public sealed class HeatmapMarketPressureIndicator
 
 		var searchStartTime = lastTickTime - trainingPeriod;
 		var ticksForMaxCalc = relevantTicks.Where(t => t.Time >= searchStartTime).ToList();
-		var calculatedMax = CalculateHistoricalMaximumsOutsideLock(
+		var calculatedMax = CalculateHistoricalMaximums(
 			buyerEvents,
 			sellerEvents,
 			[],
@@ -260,75 +215,124 @@ public sealed class HeatmapMarketPressureIndicator
 			lastTickTime,
 			halfLife);
 
-		lock (_sync)
-		{
-			_historicalTicks.Clear();
-			_historicalTicks.AddRange(relevantTicks);
-			_buyerEvents.Clear();
-			_buyerEvents.AddRange(buyerEvents);
-			_sellerEvents.Clear();
-			_sellerEvents.AddRange(sellerEvents);
+		_historicalTicks.Clear();
+		_historicalTicks.AddRange(relevantTicks);
+		_buyerEvents.Clear();
+		_buyerEvents.AddRange(buyerEvents);
+		_sellerEvents.Clear();
+		_sellerEvents.AddRange(sellerEvents);
 
-			_lastTickTime = lastTickTime;
-			_virtualCurrentTime = lastTickTime;
-			_trainingStartTime = lastTickTime;
-			_maxPressure = Math.Max(calculatedMax, MinimumMaxPressure);
-			_lastMaxUpdateTime = lastTickTime;
-			_lastCleanupTime = lastTickTime;
-		}
+		_lastTickTime = lastTickTime;
+		_virtualCurrentTime = lastTickTime;
+		_trainingStartTime = lastTickTime;
+		_maxPressure = Math.Max(calculatedMax, MinimumMaxPressure);
+		_lastMaxUpdateTime = lastTickTime;
+		_lastCleanupTime = lastTickTime;
+
+		using var lease = State.BeginUpdate();
+		var visualLease = lease.Visual(_panel);
+		ApplyPresentation(visualLease);
+		var buyLease = visualLease.Series(_buy);
+		buyLease.Clear();
+		var sellLease = visualLease.Series(_sell);
+		sellLease.Clear();
 
 		foreach (var tick in relevantTicks)
-			CalculateAndRecord(tick.Time, tick.TimestampNanos);
+			CalculateAndRecord(tick.Time, tick.TimestampNanos, buyLease, sellLease);
 	}
 
-	public void ProcessTick(HeatmapTradeTick tick)
+	public void ProcessTick(
+		HeatmapTradeTick tick,
+		IHeatmapSeriesLease<HeatmapPressureSample>? buyLease = null,
+		IHeatmapSeriesLease<HeatmapPressureSample>? sellLease = null)
 	{
 		if (!IsEligibleTick(tick))
 			return;
 
 		var mode = _settings.Mode;
 		var evt = new PressureEvent(tick.Time, GetWeight(tick, mode));
-		bool needCompress;
 
-		lock (_sync)
+		if (_trainingStartTime == DateTime.MinValue)
+			_trainingStartTime = tick.Time;
+
+		_lastTickTime = tick.Time;
+		_virtualCurrentTime = tick.Time;
+		_historicalTicks.Add(tick);
+
+		if ((tick.Time - _lastHistoricalCleanupTime).TotalSeconds >= 5)
 		{
-			if (_trainingStartTime == DateTime.MinValue)
-				_trainingStartTime = tick.Time;
-
-			_lastTickTime = tick.Time;
-			_virtualCurrentTime = tick.Time;
-			_historicalTicks.Add(tick);
-
-			if ((tick.Time - _lastHistoricalCleanupTime).TotalSeconds >= 5)
-			{
-				var cutoffTime = tick.Time - GetMaximumDataRetention();
-				_historicalTicks.RemoveAll(t => t.Time < cutoffTime);
-				_lastHistoricalCleanupTime = tick.Time;
-			}
-
-			if (tick.Direction == HeatmapTradeDirection.Buy)
-			{
-				_buyerEvents.Add(evt);
-				MaintainBufferSize(_buyerEvents, 10000);
-			}
-			else if (tick.Direction == HeatmapTradeDirection.Sell)
-			{
-				_sellerEvents.Add(evt);
-				MaintainBufferSize(_sellerEvents, 10000);
-			}
-
-			_cacheTime = DateTime.MinValue;
-			needCompress = (tick.Time - _lastSnapshotTime).TotalMinutes >= 1;
+			var cutoffTime = tick.Time - GetMaximumDataRetention();
+			_historicalTicks.RemoveAll(t => t.Time < cutoffTime);
+			_lastHistoricalCleanupTime = tick.Time;
 		}
+
+		if (tick.Direction == HeatmapTradeDirection.Buy)
+		{
+			_buyerEvents.Add(evt);
+			MaintainBufferSize(_buyerEvents, 10000);
+		}
+		else if (tick.Direction == HeatmapTradeDirection.Sell)
+		{
+			_sellerEvents.Add(evt);
+			MaintainBufferSize(_sellerEvents, 10000);
+		}
+
+		_cacheTime = DateTime.MinValue;
+		var needCompress = (tick.Time - _lastSnapshotTime).TotalMinutes >= 1;
 
 		if (needCompress)
 			CompressOldEventsToSnapshots(tick.Time, mode);
 
-		CalculateAndRecord(tick.Time, tick.TimestampNanos);
+		IHeatmapVisualStateLease? ownedLease = null;
+		if (buyLease == null || sellLease == null)
+		{
+			ownedLease = State.BeginUpdate();
+			var visualLease = ownedLease.Visual(_panel);
+			ApplyPresentation(visualLease);
+			buyLease = visualLease.Series(_buy);
+			sellLease = visualLease.Series(_sell);
+		}
+
+		try
+		{
+			CalculateAndRecord(tick.Time, tick.TimestampNanos, buyLease, sellLease);
+		}
+		finally
+		{
+			ownedLease?.Dispose();
+		}
 	}
 
-	public HeatmapPressureSample GetValueAtOrBefore(long cutoffTimeNanos) =>
-		_samples.GetLatestAtOrBefore(cutoffTimeNanos)?.Value ?? default;
+	#endregion
+
+	#region Protected methods
+
+	protected override ValueTask OnStateResetCoreAsync(
+		IHeatmapIndicatorContext context,
+		IHeatmapIndicatorRuntime runtime,
+		CancellationToken cancellationToken)
+	{
+		cancellationToken.ThrowIfCancellationRequested();
+
+		_buyerEvents.Clear();
+		_sellerEvents.Clear();
+		_historicalTicks.Clear();
+		_historicalSnapshots.Clear();
+		_lastSnapshotTime = DateTime.MinValue;
+		_trainingStartTime = DateTime.MinValue;
+		_lastTickTime = DateTime.MinValue;
+		_virtualCurrentTime = DateTime.MinValue;
+		_lastMaxUpdateTime = DateTime.MinValue;
+		_lastCleanupTime = DateTime.MinValue;
+		_lastHistoricalCleanupTime = DateTime.MinValue;
+		_maxPressure = MinimumMaxPressure;
+		_isTraining = true;
+		_cacheTime = DateTime.MinValue;
+		CurrentBuyNormalized = 0;
+		CurrentSellNormalized = 0;
+
+		return ValueTask.CompletedTask;
+	}
 
 	#endregion
 
@@ -340,32 +344,26 @@ public sealed class HeatmapMarketPressureIndicator
 		var preset = _settings.Preset;
 		var halfLife = GetHalfLifePeriod(preset);
 		var trainingPeriod = GetTrainingPeriod(preset);
-		DateTime lastTickTime;
-		List<HeatmapTradeTick> ticksToProcess;
-		List<PressureSnapshot> snapshotsCopy;
 
-		lock (_sync)
-		{
-			_buyerEvents.Clear();
-			_sellerEvents.Clear();
-			_maxPressure = MinimumMaxPressure;
-			_lastMaxUpdateTime = DateTime.MinValue;
-			_isTraining = true;
-			_cacheTime = DateTime.MinValue;
+		_buyerEvents.Clear();
+		_sellerEvents.Clear();
+		_maxPressure = MinimumMaxPressure;
+		_lastMaxUpdateTime = DateTime.MinValue;
+		_isTraining = true;
+		_cacheTime = DateTime.MinValue;
 
-			if (_historicalTicks.Count == 0)
-				return;
+		if (_historicalTicks.Count == 0)
+			return;
 
-			lastTickTime = _historicalTicks.Max(t => t.Time);
-			_trainingStartTime = lastTickTime;
-			_virtualCurrentTime = lastTickTime;
-			var cutoffTime = lastTickTime - TimeSpan.FromSeconds(halfLife.TotalSeconds * 5) - trainingPeriod;
-			ticksToProcess = _historicalTicks
-				.Where(t => t.Time >= cutoffTime)
-				.OrderBy(t => t.Time)
-				.ToList();
-			snapshotsCopy = _historicalSnapshots.ToList();
-		}
+		var lastTickTime = _historicalTicks.Max(t => t.Time);
+		_trainingStartTime = lastTickTime;
+		_virtualCurrentTime = lastTickTime;
+		var cutoffTime = lastTickTime - TimeSpan.FromSeconds(halfLife.TotalSeconds * 5) - trainingPeriod;
+		var ticksToProcess = _historicalTicks
+			.Where(t => t.Time >= cutoffTime)
+			.OrderBy(t => t.Time)
+			.ToList();
+		var snapshotsCopy = _historicalSnapshots.ToList();
 
 		if (ticksToProcess.Count == 0)
 			return;
@@ -388,7 +386,7 @@ public sealed class HeatmapMarketPressureIndicator
 
 		var searchStartTime = lastTickTime - trainingPeriod;
 		var ticksForMaxCalc = ticksToProcess.Where(t => t.Time >= searchStartTime).ToList();
-		var calculatedMax = CalculateHistoricalMaximumsOutsideLock(
+		var calculatedMax = CalculateHistoricalMaximums(
 			buyerEvents,
 			sellerEvents,
 			snapshotsCopy,
@@ -396,17 +394,18 @@ public sealed class HeatmapMarketPressureIndicator
 			lastTickTime,
 			halfLife);
 
-		lock (_sync)
-		{
-			_buyerEvents.AddRange(buyerEvents);
-			_sellerEvents.AddRange(sellerEvents);
-			_maxPressure = Math.Max(calculatedMax, MinimumMaxPressure);
-			_lastMaxUpdateTime = lastTickTime;
-			_lastCleanupTime = lastTickTime;
-		}
+		_buyerEvents.AddRange(buyerEvents);
+		_sellerEvents.AddRange(sellerEvents);
+		_maxPressure = Math.Max(calculatedMax, MinimumMaxPressure);
+		_lastMaxUpdateTime = lastTickTime;
+		_lastCleanupTime = lastTickTime;
 	}
 
-	private void CalculateAndRecord(DateTime referenceTime, long timestampNanos)
+	private void CalculateAndRecord(
+		DateTime referenceTime,
+		long timestampNanos,
+		IHeatmapSeriesLease<HeatmapPressureSample> buyLease,
+		IHeatmapSeriesLease<HeatmapPressureSample> sellLease)
 	{
 		var preset = _settings.Preset;
 		var halfLife = GetHalfLifePeriod(preset);
@@ -415,49 +414,57 @@ public sealed class HeatmapMarketPressureIndicator
 		decimal buyersNormalized;
 		decimal sellersNormalized;
 
-		lock (_sync)
+		if (_cacheTime != DateTime.MinValue &&
+		    referenceTime - _cacheTime < _cacheValidityPeriod &&
+		    _buyerEvents.Count > 0 &&
+		    _sellerEvents.Count > 0)
 		{
-			if (_cacheTime != DateTime.MinValue &&
-			    referenceTime - _cacheTime < _cacheValidityPeriod &&
-			    _buyerEvents.Count > 0 &&
-			    _sellerEvents.Count > 0)
-			{
-				var deltaSeconds = (referenceTime - _cacheTime).TotalSeconds;
-				var decay = Math.Exp(-deltaSeconds / halfLife.TotalSeconds);
-				buyersPressure = _cachedBuyersPressure * (decimal)decay;
-				sellersPressure = _cachedSellersPressure * (decimal)decay;
-			}
-			else
-			{
-				buyersPressure = CalculatePressureWithSnapshots(true, referenceTime, halfLife);
-				sellersPressure = CalculatePressureWithSnapshots(false, referenceTime, halfLife);
-				_cachedBuyersPressure = buyersPressure;
-				_cachedSellersPressure = sellersPressure;
-				_cacheTime = referenceTime;
-			}
-
-			if ((referenceTime - _lastCleanupTime).TotalSeconds >= 1)
-			{
-				CleanupOldEvents(_buyerEvents, referenceTime, halfLife);
-				CleanupOldEvents(_sellerEvents, referenceTime, halfLife);
-				_lastCleanupTime = referenceTime;
-			}
-
-			UpdateMaximumValue(buyersPressure, sellersPressure, referenceTime, preset);
-
-			buyersNormalized = Math.Min(100m, buyersPressure / _maxPressure * 100m);
-			sellersNormalized = Math.Min(100m, sellersPressure / _maxPressure * 100m);
+			var deltaSeconds = (referenceTime - _cacheTime).TotalSeconds;
+			var decay = Math.Exp(-deltaSeconds / halfLife.TotalSeconds);
+			buyersPressure = _cachedBuyersPressure * (decimal)decay;
+			sellersPressure = _cachedSellersPressure * (decimal)decay;
 		}
+		else
+		{
+			buyersPressure = CalculatePressureWithSnapshots(true, referenceTime, halfLife);
+			sellersPressure = CalculatePressureWithSnapshots(false, referenceTime, halfLife);
+			_cachedBuyersPressure = buyersPressure;
+			_cachedSellersPressure = sellersPressure;
+			_cacheTime = referenceTime;
+		}
+
+		if ((referenceTime - _lastCleanupTime).TotalSeconds >= 1)
+		{
+			CleanupOldEvents(_buyerEvents, referenceTime, halfLife);
+			CleanupOldEvents(_sellerEvents, referenceTime, halfLife);
+			_lastCleanupTime = referenceTime;
+		}
+
+		UpdateMaximumValue(buyersPressure, sellersPressure, referenceTime, preset);
+
+		buyersNormalized = Math.Min(100m, buyersPressure / _maxPressure * 100m);
+		sellersNormalized = Math.Min(100m, sellersPressure / _maxPressure * 100m);
 
 		CurrentBuyNormalized = (float)buyersNormalized;
 		CurrentSellNormalized = (float)sellersNormalized;
 
 		if (timestampNanos > 0)
-			_samples.Append(timestampNanos, new HeatmapPressureSample
 		{
-			BuyNormalized = CurrentBuyNormalized,
-			SellNormalized = CurrentSellNormalized,
-		});
+			var sample = new HeatmapPressureSample
+			{
+				BuyNormalized = CurrentBuyNormalized,
+				SellNormalized = CurrentSellNormalized,
+			};
+			buyLease.Append(timestampNanos, sample);
+			sellLease.Append(timestampNanos, sample);
+		}
+	}
+
+	private void ApplyPresentation(IHeatmapVisualLease visualLease)
+	{
+		visualLease.Presentation = new HeatmapIndicatorVisualPresentation(
+			PanelHeight: _settings.PanelHeight,
+			Threshold: _settings.Threshold);
 	}
 
 	private decimal CalculatePressureWithSnapshots(bool buyerSide, DateTime referenceTime, TimeSpan halfLife)
@@ -534,56 +541,53 @@ public sealed class HeatmapMarketPressureIndicator
 
 	private void CompressOldEventsToSnapshots(DateTime currentTime, HeatmapPressureMode mode)
 	{
-		lock (_sync)
+		var compressionBoundary = currentTime.AddMinutes(-10);
+
+		if (_lastSnapshotTime == DateTime.MinValue)
+			_lastSnapshotTime = _historicalTicks.FirstOrDefault().Time;
+
+		if (_lastSnapshotTime == DateTime.MinValue)
+			_lastSnapshotTime = currentTime;
+
+		var snapshotTime = _lastSnapshotTime;
+		while (snapshotTime < compressionBoundary)
 		{
-			var compressionBoundary = currentTime.AddMinutes(-10);
+			var snapshotEnd = snapshotTime.AddSeconds(SnapshotIntervalSeconds);
+			var ticksInWindow = _historicalTicks
+				.Where(t => t.Time >= snapshotTime && t.Time < snapshotEnd && IsEligibleTick(t))
+				.ToList();
 
-			if (_lastSnapshotTime == DateTime.MinValue)
-				_lastSnapshotTime = _historicalTicks.FirstOrDefault().Time;
-
-			if (_lastSnapshotTime == DateTime.MinValue)
-				_lastSnapshotTime = currentTime;
-
-			var snapshotTime = _lastSnapshotTime;
-			while (snapshotTime < compressionBoundary)
+			if (ticksInWindow.Count > 0)
 			{
-				var snapshotEnd = snapshotTime.AddSeconds(SnapshotIntervalSeconds);
-				var ticksInWindow = _historicalTicks
-					.Where(t => t.Time >= snapshotTime && t.Time < snapshotEnd && IsEligibleTick(t))
-					.ToList();
+				decimal buyerWeight;
+				decimal sellerWeight;
 
-				if (ticksInWindow.Count > 0)
+				if (mode == HeatmapPressureMode.Pace)
 				{
-					decimal buyerWeight;
-					decimal sellerWeight;
-
-					if (mode == HeatmapPressureMode.Pace)
-					{
-						buyerWeight = ticksInWindow.Count(t => t.Direction == HeatmapTradeDirection.Buy);
-						sellerWeight = ticksInWindow.Count(t => t.Direction == HeatmapTradeDirection.Sell);
-					}
-					else
-					{
-						buyerWeight = ticksInWindow.Where(t => t.Direction == HeatmapTradeDirection.Buy).Sum(t => t.Volume);
-						sellerWeight = ticksInWindow.Where(t => t.Direction == HeatmapTradeDirection.Sell).Sum(t => t.Volume);
-					}
-
-					_historicalSnapshots.Add(new PressureSnapshot(
-						snapshotTime,
-						snapshotEnd,
-						buyerWeight,
-						sellerWeight));
+					buyerWeight = ticksInWindow.Count(t => t.Direction == HeatmapTradeDirection.Buy);
+					sellerWeight = ticksInWindow.Count(t => t.Direction == HeatmapTradeDirection.Sell);
+				}
+				else
+				{
+					buyerWeight = ticksInWindow.Where(t => t.Direction == HeatmapTradeDirection.Buy).Sum(t => t.Volume);
+					sellerWeight = ticksInWindow.Where(t => t.Direction == HeatmapTradeDirection.Sell).Sum(t => t.Volume);
 				}
 
-				snapshotTime = snapshotEnd;
+				_historicalSnapshots.Add(new PressureSnapshot(
+					snapshotTime,
+					snapshotEnd,
+					buyerWeight,
+					sellerWeight));
 			}
 
-			_historicalTicks.RemoveAll(t => t.Time < compressionBoundary);
-			_lastSnapshotTime = snapshotTime;
-
-			var cutoffTime = currentTime - GetMaximumDataRetention();
-			_historicalSnapshots.RemoveAll(s => s.EndTime < cutoffTime);
+			snapshotTime = snapshotEnd;
 		}
+
+		_historicalTicks.RemoveAll(t => t.Time < compressionBoundary);
+		_lastSnapshotTime = snapshotTime;
+
+		var cutoffTime = currentTime - GetMaximumDataRetention();
+		_historicalSnapshots.RemoveAll(s => s.EndTime < cutoffTime);
 	}
 
 	#endregion
@@ -597,7 +601,7 @@ public sealed class HeatmapMarketPressureIndicator
 	private static decimal GetWeight(HeatmapTradeTick tick, HeatmapPressureMode mode) =>
 		mode == HeatmapPressureMode.Pace ? 1m : tick.Volume;
 
-	private static decimal CalculateHistoricalMaximumsOutsideLock(
+	private static decimal CalculateHistoricalMaximums(
 		List<PressureEvent> buyerEvents,
 		List<PressureEvent> sellerEvents,
 		List<PressureSnapshot> snapshots,

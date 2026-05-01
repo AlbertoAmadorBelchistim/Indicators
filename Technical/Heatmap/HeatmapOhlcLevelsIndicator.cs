@@ -8,14 +8,22 @@ using System.Threading.Tasks;
 using ATAS.Indicators.Heatmap;
 using OFT.Rendering.Heatmap;
 
-[HeatmapIndicator("heatmap.ohlc-levels", DisplayName = "OHLC Levels")]
+// Reference indicator: profile-driven dynamically-typed level lines (OHLC).
+// Patterns: IHeatmapProfileConsumer instead of IHeatmapTradeTickConsumer,
+//           LevelLine visual with one HeatmapIndicatorSeriesHandle<decimal>
+//           per HeatmapOhlcLevelKind, persistent State.BeginUpdate lease
+//           refreshed on each profile arrival, settings-driven series
+//           selection (clear + re-append on every profile to honour
+//           current visibility choices and styles).
+// Copy as a starting point for any indicator that draws horizontal levels
+// chosen at runtime by user settings.
+[HeatmapIndicator(id: "heatmap.ohlc-levels", DisplayName = "OHLC Levels")]
 public sealed class HeatmapOhlcLevelsIndicator
 	: HeatmapIndicator<HeatmapOhlcLevelsSettings>
 	, IHeatmapProfileConsumer
 {
 	#region Const fields
 
-	private const string IndicatorTypeId = "heatmap.ohlc-levels";
 	private const string LevelsVisualId = "ohlc-levels.lines";
 
 	#endregion
@@ -32,12 +40,12 @@ public sealed class HeatmapOhlcLevelsIndicator
 
 	static HeatmapOhlcLevelsIndicator()
 	{
-		var build = HeatmapIndicator.Describe(IndicatorTypeId, "OHLC Levels");
+		var build = Describe<HeatmapOhlcLevelsIndicator>();
 		_lines = build.LevelLine(LevelsVisualId, "OHLC Levels");
 		_seriesByKind = new Dictionary<HeatmapOhlcLevelKind, HeatmapIndicatorSeriesHandle<decimal>>();
 		foreach (var kind in Enum.GetValues<HeatmapOhlcLevelKind>())
 		{
-			_seriesByKind[kind] = _lines.Series<decimal>(
+			_seriesByKind[kind] = _lines.Series(
 				$"ohlc-levels.{kind}",
 				HeatmapIndicatorSeriesRole.Level,
 				HeatmapIndicatorValueKind.Price);
@@ -49,7 +57,6 @@ public sealed class HeatmapOhlcLevelsIndicator
 
 	#region Readonly initialized fields
 
-	private readonly object _sync = new();
 	private readonly Dictionary<HeatmapProfilePeriod, HeatmapMarketProfileSnapshot> _profiles = new();
 
 	#endregion
@@ -72,65 +79,10 @@ public sealed class HeatmapOhlcLevelsIndicator
 	{
 		cancellationToken.ThrowIfCancellationRequested();
 
-		lock (_sync)
-			_settings = settings;
+		_settings = settings;
+		RefreshLevels();
 
 		return ValueTask.CompletedTask;
-	}
-
-	public override ValueTask ResetAsync(
-		HeatmapIndicatorContext context,
-		IHeatmapIndicatorRuntime runtime,
-		CancellationToken cancellationToken)
-	{
-		cancellationToken.ThrowIfCancellationRequested();
-
-		lock (_sync)
-			_profiles.Clear();
-
-		return ValueTask.CompletedTask;
-	}
-
-	public override ValueTask<HeatmapIndicatorStateSnapshot?> GetSnapshotAsync(
-		HeatmapIndicatorSnapshotRequest request,
-		CancellationToken cancellationToken)
-	{
-		cancellationToken.ThrowIfCancellationRequested();
-
-		var resolved = new List<(HeatmapOhlcLevelSettings Level, decimal Price)>(_settings.Levels.Count);
-
-		lock (_sync)
-		{
-			foreach (var level in _settings.Levels)
-			{
-				if (level.Style?.IsVisible == false)
-					continue;
-
-				if (!TryResolvePrice(level.Kind, out var price) || price <= 0)
-					continue;
-
-				resolved.Add((level, price));
-			}
-		}
-
-		if (resolved.Count == 0)
-			return new ValueTask<HeatmapIndicatorStateSnapshot?>((HeatmapIndicatorStateSnapshot?)null);
-
-		var state = _descriptor.NewState()
-			.Visual(_lines, v =>
-			{
-				foreach (var (level, price) in resolved)
-				{
-					var samples = new[]
-					{
-						new HeatmapIndicatorVisualSample(request.CutoffTimeNanos, price),
-					};
-					v.Series(_seriesByKind[level.Kind], samples, level.Style);
-				}
-			})
-			.Build();
-
-		return new ValueTask<HeatmapIndicatorStateSnapshot?>(state);
 	}
 
 	public ValueTask ProcessProfileAsync(HeatmapMarketProfileSnapshot profile, CancellationToken cancellationToken)
@@ -144,13 +96,67 @@ public sealed class HeatmapOhlcLevelsIndicator
 
 	public void ProcessProfile(HeatmapMarketProfileSnapshot profile)
 	{
-		lock (_sync)
-			_profiles[profile.Period] = profile;
+		_profiles[profile.Period] = profile;
+		RefreshLevels();
+	}
+
+	#endregion
+
+	#region Protected methods
+
+	protected override ValueTask OnStateResetCoreAsync(
+		IHeatmapIndicatorContext context,
+		IHeatmapIndicatorRuntime runtime,
+		CancellationToken cancellationToken)
+	{
+		cancellationToken.ThrowIfCancellationRequested();
+		_profiles.Clear();
+		return ValueTask.CompletedTask;
 	}
 
 	#endregion
 
 	#region Private methods
+
+	private void RefreshLevels()
+	{
+		var resolved = new List<(HeatmapOhlcLevelSettings Level, decimal Price)>(_settings.Levels.Count);
+		foreach (var level in _settings.Levels)
+		{
+			if (!TryResolvePrice(level.Kind, out var price) || price <= 0)
+				continue;
+
+			resolved.Add((level, price));
+		}
+
+		long latestTimestampNanos = 0;
+		foreach (var profile in _profiles.Values)
+		{
+			if (profile.TimestampNanos > latestTimestampNanos)
+				latestTimestampNanos = profile.TimestampNanos;
+		}
+
+		using var lease = State.BeginUpdate();
+		var visualLease = lease.Visual(_lines);
+
+		// Clear every series so dropped / disabled levels disappear.
+		foreach (var seriesHandle in _seriesByKind.Values)
+			visualLease.Series(seriesHandle).Clear();
+
+		if (resolved.Count == 0 || latestTimestampNanos <= 0)
+			return;
+
+		// Re-append the active levels with their per-entry styles.
+		foreach (var (level, price) in resolved)
+		{
+			if (!_seriesByKind.TryGetValue(level.Kind, out var seriesHandle))
+				continue;
+
+			var seriesLease = visualLease.Series(seriesHandle);
+			seriesLease.Style = level.Style;
+			seriesLease.Append(latestTimestampNanos, price);
+		}
+	}
 
 	private bool TryResolvePrice(HeatmapOhlcLevelKind kind, out decimal price)
 	{
