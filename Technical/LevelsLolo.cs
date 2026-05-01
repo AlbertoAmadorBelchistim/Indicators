@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -31,6 +32,42 @@ namespace ATAS.Indicators.Technical
             public List<LabelToken> Labels = new();
             public LabelToken Winner;
             public string LabelText = "";
+        }
+
+        #endregion
+
+        #region Fields
+
+        // Immutable snapshot (replaced wholesale on each parse)
+        private volatile IReadOnlyList<MergedLevel> _snapshot = Array.Empty<MergedLevel>();
+        private string _rawText = string.Empty;
+
+        #endregion
+
+        #region Properties
+
+        [Display(Name = "Raw text", GroupName = "Data", Order = 1,
+                 Description = "Example: $SP: CO44, 7073, LG07, 7048, ...")]
+        public string RawText
+        {
+            get => _rawText;
+            set
+            {
+                _rawText = value ?? string.Empty;
+                var parsed = Parse(_rawText);
+                _snapshot = parsed.Values
+                                  .Where(ml => ml.Winner != null)
+                                  .OrderBy(ml => ml.Price)
+                                  .ToArray();
+                RecalculateValues();
+            }
+        }
+
+        [Display(Name = "Clear text now", GroupName = "Data", Order = 2)]
+        public bool ClearTextNow
+        {
+            get => false;
+            set { if (value) { RawText = string.Empty; RaisePropertyChanged(nameof(RawText)); } }
         }
 
         #endregion
