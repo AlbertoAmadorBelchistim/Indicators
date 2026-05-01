@@ -487,7 +487,8 @@ public class InitialBalance : Indicator
 		_iblx1.PropertyChanged += DataSeriesPropertyChanged;
 		_iblx2.PropertyChanged += DataSeriesPropertyChanged;
 		_iblx3.PropertyChanged += DataSeriesPropertyChanged;
-	}
+        _mid.PropertyChanged += DataSeriesPropertyChanged;
+    }
 
 	#endregion
 
