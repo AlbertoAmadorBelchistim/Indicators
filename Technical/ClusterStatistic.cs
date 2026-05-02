@@ -1713,7 +1713,7 @@ public class ClusterStatistic : Indicator
 				maxVolume = Math.Max(candle.Volume, maxVolume);
 				minDelta = Math.Min(candle.MinDelta, minDelta);
 				maxAsk = Math.Max(candle.Ask, maxAsk);
-				maxBid = Math.Max(candle.Ask, maxBid);
+				maxBid = Math.Max(candle.Bid, maxBid);
 				maxMaxDelta = Math.Max(Math.Abs(candle.MaxDelta), maxMaxDelta);
 				maxMinDelta = Math.Max(Math.Abs(candle.MinDelta), maxMinDelta);
 				maxSessionDelta = Math.Max(Math.Abs(_cDelta[i]), maxSessionDelta);
