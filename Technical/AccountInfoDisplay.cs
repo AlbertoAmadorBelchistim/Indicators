@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
-using System.Text;
 
 using ATAS.DataFeedsCore;
 
@@ -30,6 +29,7 @@ public class AccountInfoDisplay : Indicator
 	private Color _positiveColor = Color.FromArgb(0, 230, 118);
 	private Color _negativeColor = Color.FromArgb(255, 82, 82);
 	private Color _neutralColor = Color.FromArgb(150, 150, 150);
+	private RenderPen _borderPen = new(Color.Gray, 1);
 	private RenderFont _font = new("Arial", 11);
 	private RenderStringFormat _stringFormat = new()
 	{
@@ -89,7 +89,12 @@ public class AccountInfoDisplay : Indicator
 	public float FontSize
 	{
 		get => _font.Size;
-		set => _font = new RenderFont("Arial", value);
+		set
+		{
+			if (Math.Abs(_font.Size - value) < 0.01f) return;
+			var old = _font;
+			_font = new RenderFont("Arial", value);
+		}
 	}
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowAccountId),
@@ -204,7 +209,7 @@ public class AccountInfoDisplay : Indicator
 		}
 	}
 
-	protected override void OnCalculate(int bar, decimal value)
+    protected override void OnCalculate(int bar, decimal value)
 	{
 		// No calculation needed
 	}
@@ -225,7 +230,6 @@ public class AccountInfoDisplay : Indicator
 			return;
 
 		// Calculate proper dimensions for table layout
-		var lines = text.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
 		var lineHeight = context.MeasureString("A", _font).Height;
 
 		var maxLabelWidth = 0;
@@ -235,12 +239,11 @@ public class AccountInfoDisplay : Indicator
 		{
 			var labelWidth = (int)context.MeasureString(line.Label, _font).Width;
 			var valueWidth = (int)context.MeasureString(line.Value, _font).Width;
-
-				if (labelWidth > maxLabelWidth)
-					maxLabelWidth = labelWidth;
-				if (valueWidth > maxValueWidth)
-					maxValueWidth = valueWidth;
-			}
+			
+			if (labelWidth > maxLabelWidth)
+				maxLabelWidth = labelWidth;
+			if (valueWidth > maxValueWidth)
+				maxValueWidth = valueWidth;
 		}
 
 		var padding = 10;
@@ -320,7 +323,6 @@ public class AccountInfoDisplay : Indicator
 	private void DrawColoredText(RenderContext context, List<DisplayLine> lines,
 		Rectangle textRect, int maxLabelWidth)
 	{
-		var lines = text.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
 		var lineHeight = context.MeasureString("A", _font).Height;
 
 		// Calculate value column position
@@ -334,15 +336,6 @@ public class AccountInfoDisplay : Indicator
 			context.DrawString(line.Value, _font, ColorFor(line.RawForColoring), valueColumnX, currentY);
 			currentY += lineHeight;
 		}
-	}
-
-	private decimal ExtractNumericValue(string valueStr)
-	{
-		// Remove currency symbols and try to parse
-		var cleanStr = valueStr.Replace(",", "").Trim();
-		if (decimal.TryParse(cleanStr, out var result))
-			return result;
-		return 0;
 	}
 
 	private string FormatCurrency(decimal value)
