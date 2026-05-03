@@ -31,11 +31,7 @@ public class AccountInfoDisplay : Indicator
 	private Color _neutralColor = Color.FromArgb(150, 150, 150);
 	private RenderPen _borderPen = new(Color.Gray, 1);
 	private RenderFont _font = new("Arial", 11);
-	private RenderStringFormat _stringFormat = new()
-	{
-		LineAlignment = StringAlignment.Near,
-		Alignment = StringAlignment.Near
-	};
+	private const int Padding = 10;
 
 	private Portfolio _currentPortfolio;
 
@@ -209,14 +205,14 @@ public class AccountInfoDisplay : Indicator
 		}
 	}
 
-    protected override void OnCalculate(int bar, decimal value)
+	protected override void OnCalculate(int bar, decimal value)
 	{
 		// No calculation needed
 	}
 
 	protected override void OnRender(RenderContext context, DrawingLayouts layout)
 	{
-		if (ChartInfo == null || Container?.Region == null)
+		if (ChartInfo == null || Container == null)
 			return;
 
 		// Get current portfolio
@@ -246,9 +242,8 @@ public class AccountInfoDisplay : Indicator
 				maxValueWidth = valueWidth;
 		}
 
-		var padding = 10;
-		var rectWidth = maxLabelWidth + ColumnSpacing + maxValueWidth + padding * 2;
-		var rectHeight = lines.Count * lineHeight + padding * 2;
+		var rectWidth = maxLabelWidth + ColumnSpacing + maxValueWidth + Padding * 2;
+		var rectHeight = lines.Count * lineHeight + Padding * 2;
 
 		// Calculate position
 		var x = CalculateXPosition(rectWidth);
@@ -262,7 +257,7 @@ public class AccountInfoDisplay : Indicator
 		context.DrawRectangle(new RenderPen(Color.Gray, 1), rectangle);
 
 		// Draw text
-		var textRect = new Rectangle(x + padding, y + padding, rectWidth - padding * 2, rectHeight - padding * 2);
+		var textRect = new Rectangle(x + Padding, y + Padding, rectWidth - Padding * 2, rectHeight - Padding * 2);
 		DrawColoredText(context, lines, textRect, maxLabelWidth);
 	}
 
