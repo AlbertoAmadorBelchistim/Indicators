@@ -1,15 +1,18 @@
 ﻿using ATAS.Indicators.Drawing;
+using OFT.Attributes.Editors;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
+using Utils.Common.Logging;
 
 namespace ATAS.Indicators.Technical
 {
-    [DisplayName("Delta Patterns")]
-    [Category(IndicatorCategories.VolumeOrderFlow)]
-    public class DeltaPatterns : Indicator
-    {
+	[DisplayName("Delta Patterns")]
+	[Category(IndicatorCategories.VolumeOrderFlow)]
+	public class DeltaPatterns : Indicator
+	{
 		#region Nested Types: Pattern Model
 		public enum DeltaPattern
 		{
@@ -216,6 +219,76 @@ namespace ATAS.Indicators.Technical
             }
         }
 
+        public struct BarMetrics
+        {
+            public decimal Delta;
+            public decimal Volume;
+            public decimal MaxRunningDelta;
+            public decimal MinRunningDelta;
+            public decimal OpenPrice;
+            public decimal ClosePrice;
+            public decimal HighPrice;
+            public decimal LowPrice;
+        }
+
+        public sealed class BarMetricsCache
+        {
+            private BarMetrics[] _metrics = Array.Empty<BarMetrics>();
+            private bool[] _populated = Array.Empty<bool>();
+
+            public int BarCount { get; private set; }
+
+            public void EnsureCapacity(int requiredCount)
+            {
+                if (requiredCount <= _metrics.Length) return;
+                int newCapacity = Math.Max(requiredCount, Math.Max(_metrics.Length * 2, 1024));
+                Array.Resize(ref _metrics, newCapacity);
+                Array.Resize(ref _populated, newCapacity);
+            }
+
+            public void Set(int bar, BarMetrics value)
+            {
+                if (bar < 0) return;
+                EnsureCapacity(bar + 1);
+                _metrics[bar] = value;
+                _populated[bar] = true;
+                if (bar + 1 > BarCount) BarCount = bar + 1;
+            }
+
+            public bool TryGet(int bar, out BarMetrics value)
+            {
+                if (bar < 0 || bar >= _populated.Length || !_populated[bar])
+                {
+                    value = default;
+                    return false;
+                }
+                value = _metrics[bar];
+                return true;
+            }
+
+            public bool IsPopulated(int bar)
+            {
+                return bar >= 0 && bar < _populated.Length && _populated[bar];
+            }
+
+            public void Clear()
+            {
+                BarCount = 0;
+                if (_populated.Length > 0)
+                    Array.Clear(_populated, 0, _populated.Length);
+            }
+        }
+
+        #endregion
+
+        #region Fields
+
+        private readonly object _stateLock = new object();
+        private readonly RollingDeltaWindow _window = new RollingDeltaWindow();
+        private readonly BarMetricsCache _metrics = new BarMetricsCache();
+        private bool _historyLoaded;
+
+        private int _targetVolume = 2500;
 
         #endregion
 
@@ -273,28 +346,161 @@ namespace ATAS.Indicators.Technical
 		};
 
         #endregion
-        #region Ctor
 
-        public DeltaPatterns()
-            : base(useCandles: true)
+        #region Properties: Calculation
+
+        [Display(Name = "Target Volume", GroupName = "Calculation", Order = 1,
+            Description = "Rolling window size in contracts. Each snapshot summarises the last N traded contracts.")]
+        [PostValueMode(PostValueModes.OnLostFocus)]
+        public int TargetVolume
         {
-            Panel = IndicatorDataProvider.NewPanel;
-            DenyToChangePanel = true;
-
-            // Hide the implicit DataSeries[0] so the Drawing panel
-            // does not list a phantom 1px line for the indicator.
-            DataSeries[0].IsHidden = true;
-            ((ValueDataSeries)DataSeries[0]).VisualType = VisualMode.Hide;
+            get => _targetVolume;
+            set
+            {
+                var clamped = Math.Max(1, value);
+                if (_targetVolume == clamped) return;
+                _targetVolume = clamped;
+                RecalculateValues();
+            }
         }
 
         #endregion
 
-        #region Protected Methods
+        #region Ctor
 
-        protected override void OnCalculate(int bar, decimal value)
+        public DeltaPatterns()
+			: base(useCandles: true)
+		{
+			Panel = IndicatorDataProvider.NewPanel;
+			DenyToChangePanel = true;
+
+			// Hide the implicit DataSeries[0] so the Drawing panel
+			// does not list a phantom 1px line for the indicator.
+			DataSeries[0].IsHidden = true;
+			((ValueDataSeries)DataSeries[0]).VisualType = VisualMode.Hide;
+		}
+
+		#endregion
+
+		#region Protected Methods
+
+		protected override void OnCalculate(int bar, decimal value)
+		{
+			// Engine, classification, panel rendering, chart overlay
+			// and alerts all arrive in follow-up commits.
+		}
+
+        protected override void OnRecalculate()
         {
-            // Engine, classification, panel rendering, chart overlay
-            // and alerts all arrive in follow-up commits.
+            lock (_stateLock)
+            {
+                _window.Reset();
+                _metrics.Clear();
+                _historyLoaded = false;
+            }
+        }
+
+        protected override void OnFinishRecalculate()
+        {
+            bool needsFetch;
+            lock (_stateLock)
+            {
+                needsFetch = !_historyLoaded;
+            }
+
+            if (!needsFetch) return;
+            if (CurrentBar < 1) return;
+
+            var firstCandle = GetCandle(0);
+            var lastCandle = GetCandle(CurrentBar - 1);
+            var sessionStart = firstCandle.Time;
+            var sessionEnd = lastCandle?.LastTime ?? firstCandle.LastTime;
+
+            this.LogInfo($"DeltaPatterns: fetch started range={sessionStart:yyyy-MM-dd HH:mm:ss}-{sessionEnd:yyyy-MM-dd HH:mm:ss}, target {TargetVolume} contracts");
+
+            var request = new CumulativeTradesRequest(sessionStart, sessionEnd, 0, 0);
+            RequestForCumulativeTrades(request);
+        }
+
+        protected override void OnCumulativeTradesResponse(CumulativeTradesRequest request, IEnumerable<CumulativeTrade> cumulativeTrades)
+        {
+            if (cumulativeTrades == null) return;
+
+            int totalBars = CurrentBar - 1;
+            if (totalBars < 0) return;
+
+            int tradeCount = 0;
+            int barsCached = 0;
+
+            try
+            {
+                var target = (decimal)TargetVolume;
+                int currentBarIndex = 0;
+
+                lock (_stateLock)
+                {
+                    _window.Reset();
+                    _metrics.Clear();
+
+                    foreach (var trade in cumulativeTrades)
+                    {
+                        tradeCount++;
+
+                        while (currentBarIndex <= totalBars)
+                        {
+                            var candle = GetCandle(currentBarIndex);
+                            if (candle != null && candle.LastTime < trade.Time)
+                            {
+                                SnapshotBar(currentBarIndex);
+                                currentBarIndex++;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+
+                        int direction = trade.Direction == TradeDirection.Buy ? 1 : -1;
+                        _window.Push(trade.FirstPrice, trade.Volume, direction);
+                        _window.Trim(target);
+                    }
+
+                    while (currentBarIndex <= totalBars)
+                    {
+                        SnapshotBar(currentBarIndex);
+                        currentBarIndex++;
+                    }
+
+                    barsCached = _metrics.BarCount;
+                    _historyLoaded = true;
+                }
+
+                this.LogInfo($"DeltaPatterns: fetch completed {tradeCount} trades, {barsCached} bars cached");
+            }
+            catch (Exception ex)
+            {
+                this.LogError($"DeltaPatterns: fetch failed - {ex.Message}");
+            }
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        // Caller must hold _stateLock.
+        private void SnapshotBar(int bar)
+        {
+            _metrics.Set(bar, new BarMetrics
+            {
+                Delta = _window.CurrentDelta,
+                Volume = _window.CurrentVolume,
+                MaxRunningDelta = _window.MaxRunningDelta,
+                MinRunningDelta = _window.MinRunningDelta,
+                OpenPrice = _window.StartPrice,
+                ClosePrice = _window.EndPrice,
+                HighPrice = _window.HighPrice,
+                LowPrice = _window.LowPrice,
+            });
         }
 
         #endregion
