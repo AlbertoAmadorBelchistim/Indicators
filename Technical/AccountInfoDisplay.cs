@@ -1,6 +1,7 @@
 namespace ATAS.Indicators.Technical;
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
@@ -219,8 +220,8 @@ public class AccountInfoDisplay : Indicator
 			return;
 
 		// Build display text
-		var text = BuildDisplayText(portfolio);
-		if (string.IsNullOrEmpty(text))
+		var lines = BuildLines(portfolio);
+		if (lines.Count == 0)
 			return;
 
 		// Calculate proper dimensions for table layout
@@ -232,11 +233,8 @@ public class AccountInfoDisplay : Indicator
 
 		foreach (var line in lines)
 		{
-			var parts = line.Split('|');
-			if (parts.Length == 2)
-			{
-				var labelWidth = (int)context.MeasureString(parts[0], _font).Width;
-				var valueWidth = (int)context.MeasureString(parts[1], _font).Width;
+			var labelWidth = (int)context.MeasureString(line.Label, _font).Width;
+			var valueWidth = (int)context.MeasureString(line.Value, _font).Width;
 
 				if (labelWidth > maxLabelWidth)
 					maxLabelWidth = labelWidth;
@@ -247,7 +245,7 @@ public class AccountInfoDisplay : Indicator
 
 		var padding = 10;
 		var rectWidth = maxLabelWidth + ColumnSpacing + maxValueWidth + padding * 2;
-		var rectHeight = lines.Length * lineHeight + padding * 2;
+		var rectHeight = lines.Count * lineHeight + padding * 2;
 
 		// Calculate position
 		var x = CalculateXPosition(rectWidth);
@@ -262,7 +260,7 @@ public class AccountInfoDisplay : Indicator
 
 		// Draw text
 		var textRect = new Rectangle(x + padding, y + padding, rectWidth - padding * 2, rectHeight - padding * 2);
-		DrawColoredText(context, text, textRect, portfolio, maxLabelWidth);
+		DrawColoredText(context, lines, textRect, maxLabelWidth);
 	}
 
 	#endregion
@@ -275,41 +273,52 @@ public class AccountInfoDisplay : Indicator
 		RedrawChart();
 	}
 
-	private string BuildDisplayText(Portfolio portfolio)
+	private sealed record DisplayLine(string Label, string Value, decimal? RawForColoring);
+
+	private List<DisplayLine> BuildLines(Portfolio p)
 	{
-		var sb = new StringBuilder();
+		var lines = new List<DisplayLine>();
 
 		if (ShowAccountId)
-			sb.AppendLine($"Account|{portfolio.AccountID}");
+			lines.Add(new("Account", p.AccountID, null));
 
-		if (ShowCurrency && portfolio.Currency.HasValue)
-			sb.AppendLine($"Currency|{portfolio.Currency}");
+		if (ShowCurrency && p.Currency.HasValue)
+			lines.Add(new("Currency", p.Currency.Value.ToString(), null));
 
 		if (ShowBalance)
-			sb.AppendLine($"Balance|{FormatCurrency(portfolio.Balance)}");
+			lines.Add(new("Balance", FormatCurrency(p.Balance), null));
 
-		if (ShowAvailableBalance && portfolio.BalanceAvailable.HasValue)
-			sb.AppendLine($"Available|{FormatCurrency(portfolio.BalanceAvailable.Value)}");
+		if (ShowAvailableBalance && p.BalanceAvailable.HasValue)
+			lines.Add(new("Available", FormatCurrency(p.BalanceAvailable.Value), null));
 
 		if (ShowMargin)
-			sb.AppendLine($"Blocked Margin|{FormatCurrency(portfolio.BlockedMargin)}");
+			lines.Add(new("Blocked Margin", FormatCurrency(p.BlockedMargin), null));
 
-		if (ShowLeverage && portfolio.Leverage != 1)
-			sb.AppendLine($"Leverage|{portfolio.Leverage:F2}x");
+		if (ShowLeverage && p.Leverage != 1)
+			lines.Add(new("Leverage", $"{p.Leverage:F2}x", null));
 
 		if (ShowOpenPnL)
-			sb.AppendLine($"Open PnL|{FormatCurrency(portfolio.OpenPnL)}");
+			lines.Add(new("Open PnL", FormatCurrency(p.OpenPnL), p.OpenPnL));
 
 		if (ShowClosedPnL)
-			sb.AppendLine($"Closed PnL|{FormatCurrency(portfolio.ClosedPnL)}");
+			lines.Add(new("Closed PnL", FormatCurrency(p.ClosedPnL), p.ClosedPnL));
 
 		if (ShowTotalPnL)
-			sb.AppendLine($"Total PnL|{FormatCurrency(portfolio.ClosedPnL + portfolio.OpenPnL)}");
+			// Session-level total: OpenPnL + ClosedPnL (current session) — NOT
+			// Portfolio.TotalPnL, which uses TotalClosedPnL (cumulative across sessions).
+			lines.Add(new("Total PnL", FormatCurrency(p.ClosedPnL + p.OpenPnL), p.ClosedPnL + p.OpenPnL));
 
-		return sb.ToString().TrimEnd();
+		return lines;
 	}
 
-	private void DrawColoredText(RenderContext context, string text, Rectangle textRect, Portfolio portfolio, int maxLabelWidth)
+	private System.Drawing.Color ColorFor(decimal? raw)
+		=> raw is null ? _textColor
+		 : raw > 0m ? _positiveColor
+		 : raw < 0m ? _negativeColor
+					   : _neutralColor;
+
+	private void DrawColoredText(RenderContext context, List<DisplayLine> lines,
+		Rectangle textRect, int maxLabelWidth)
 	{
 		var lines = text.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
 		var lineHeight = context.MeasureString("A", _font).Height;
@@ -321,32 +330,8 @@ public class AccountInfoDisplay : Indicator
 		// Draw lines
 		foreach (var line in lines)
 		{
-			var parts = line.Split('|');
-			if (parts.Length == 2)
-			{
-				var label = parts[0];
-				var valueStr = parts[1];
-
-				// Draw label
-				context.DrawString(label, _font, _textColor, textRect.X, currentY);
-
-				// Determine color for value
-				var valueColor = _textColor;
-				if (line.Contains("PnL"))
-				{
-					var value = ExtractNumericValue(valueStr);
-					valueColor = value > 0 ? _positiveColor : (value < 0 ? _negativeColor : _neutralColor);
-				}
-
-				// Draw value
-				context.DrawString(valueStr, _font, valueColor, valueColumnX, currentY);
-			}
-			else
-			{
-				// Fallback for malformed lines
-				context.DrawString(line, _font, _textColor, textRect.X, currentY);
-			}
-
+			context.DrawString(line.Label, _font, _textColor, textRect.X, currentY);
+			context.DrawString(line.Value, _font, ColorFor(line.RawForColoring), valueColumnX, currentY);
 			currentY += lineHeight;
 		}
 	}
