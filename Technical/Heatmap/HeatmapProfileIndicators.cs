@@ -134,8 +134,9 @@ public sealed class HeatmapVwapIndicator
 
 		using (var lease = State.BeginUpdate())
 		{
-			var seriesLease = lease.Visual(_line).Series(_price);
-			ApplyStyle(lease.Visual(_line));
+			var visualLease = lease.Visual(_line);
+			ApplyStyle(visualLease);
+			var seriesLease = visualLease.Series(_price);
 
 			for (var i = 0; i < span.Length; i++)
 			{
@@ -153,14 +154,7 @@ public sealed class HeatmapVwapIndicator
 
 	public void ProcessHistoricalTicks(HeatmapTickBatch ticks)
 	{
-		var span = ticks.AsSpan();
-		var ordered = new List<HeatmapTradeTick>(span.Length);
-		for (var i = 0; i < span.Length; i++)
-		{
-			if (IsEligibleTick(span[i]))
-				ordered.Add(span[i]);
-		}
-		ordered.Sort(static (left, right) => left.TimestampNanos.CompareTo(right.TimestampNanos));
+		var ordered = OrderedTicks(ticks, HasValidTimestampPriceVolume);
 
 		_current = new VwapAccumulator(HeatmapPeriodKey.Empty);
 		_previous = null;
@@ -180,10 +174,7 @@ public sealed class HeatmapVwapIndicator
 
 	public void ProcessHistoricalTicks(IEnumerable<HeatmapTradeTick> ticks)
 	{
-		var orderedTicks = ticks
-			.Where(IsEligibleTick)
-			.OrderBy(tick => tick.TimestampNanos)
-			.ToList();
+		var orderedTicks = OrderedTicks(ticks, HasValidTimestampPriceVolume);
 
 		_current = new VwapAccumulator(HeatmapPeriodKey.Empty);
 		_previous = null;
@@ -238,7 +229,7 @@ public sealed class HeatmapVwapIndicator
 	private void ApplyStyle(IHeatmapVisualLease visualLease)
 	{
 		visualLease.Style = new HeatmapIndicatorVisualStyle(
-			Color: ColorToHex(Settings.Color),
+			Color: HeatmapIndicatorColors.ToHex(Settings.Color),
 			Thickness: Settings.Thickness);
 	}
 
@@ -247,10 +238,7 @@ public sealed class HeatmapVwapIndicator
 	#region Private static methods
 
 	private static bool IsEligibleTick(HeatmapTradeTick tick) =>
-		tick.TimestampNanos > 0 && tick.Price > 0 && tick.Volume > 0;
-
-	private static string ColorToHex(CrossColor color) =>
-		$"#{color.A:X2}{color.R:X2}{color.G:X2}{color.B:X2}";
+		HasValidTimestampPriceVolume(tick);
 
 	#endregion
 }
@@ -496,14 +484,7 @@ public sealed class HeatmapValueAreaIndicator
 
 	public void ProcessHistoricalTicks(HeatmapTickBatch ticks)
 	{
-		var span = ticks.AsSpan();
-		var ordered = new List<HeatmapTradeTick>(span.Length);
-		for (var i = 0; i < span.Length; i++)
-		{
-			if (IsEligibleTick(span[i]))
-				ordered.Add(span[i]);
-		}
-		ordered.Sort(static (left, right) => left.TimestampNanos.CompareTo(right.TimestampNanos));
+		var ordered = OrderedTicks(ticks, HasValidTimestampPriceVolume);
 
 		_current = new ValueAreaAccumulator(HeatmapPeriodKey.Empty);
 		_previous = null;
@@ -513,11 +494,9 @@ public sealed class HeatmapValueAreaIndicator
 		ApplyStyles(visualLease);
 
 		var pocLease = visualLease.Series(_poc);
-		pocLease.Clear();
 		var highLease = visualLease.Series(_high);
-		highLease.Clear();
 		var lowLease = visualLease.Series(_low);
-		lowLease.Clear();
+		ClearSeries(visualLease, _poc, _high, _low);
 		var publishValueArea = Settings.ShowValueArea;
 
 		foreach (var tick in ordered)
@@ -536,10 +515,7 @@ public sealed class HeatmapValueAreaIndicator
 
 	public void ProcessHistoricalTicks(IEnumerable<HeatmapTradeTick> ticks)
 	{
-		var orderedTicks = ticks
-			.Where(IsEligibleTick)
-			.OrderBy(tick => tick.TimestampNanos)
-			.ToList();
+		var orderedTicks = OrderedTicks(ticks, HasValidTimestampPriceVolume);
 
 		_current = new ValueAreaAccumulator(HeatmapPeriodKey.Empty);
 		_previous = null;
@@ -549,11 +525,9 @@ public sealed class HeatmapValueAreaIndicator
 		ApplyStyles(visualLease);
 
 		var pocLease = visualLease.Series(_poc);
-		pocLease.Clear();
 		var highLease = visualLease.Series(_high);
-		highLease.Clear();
 		var lowLease = visualLease.Series(_low);
-		lowLease.Clear();
+		ClearSeries(visualLease, _poc, _high, _low);
 		var publishValueArea = Settings.ShowValueArea;
 
 		foreach (var tick in orderedTicks)
@@ -607,10 +581,10 @@ public sealed class HeatmapValueAreaIndicator
 	private void ApplyStyles(IHeatmapVisualLease visualLease)
 	{
 		var pocStyle = new HeatmapIndicatorVisualStyle(
-			Color: ColorToHex(Settings.PocColor),
+			Color: HeatmapIndicatorColors.ToHex(Settings.PocColor),
 			Thickness: Settings.PocThickness);
 		var valueAreaStyle = new HeatmapIndicatorVisualStyle(
-			Color: ColorToHex(Settings.ValueAreaColor),
+			Color: HeatmapIndicatorColors.ToHex(Settings.ValueAreaColor),
 			Thickness: Settings.PocThickness);
 
 		visualLease.Style = pocStyle;
@@ -624,10 +598,7 @@ public sealed class HeatmapValueAreaIndicator
 	#region Private static methods
 
 	private static bool IsEligibleTick(HeatmapTradeTick tick) =>
-		tick.TimestampNanos > 0 && tick.Price > 0 && tick.Volume > 0;
-
-	private static string ColorToHex(CrossColor color) =>
-		$"#{color.A:X2}{color.R:X2}{color.G:X2}{color.B:X2}";
+		HasValidTimestampPriceVolume(tick);
 
 	#endregion
 }

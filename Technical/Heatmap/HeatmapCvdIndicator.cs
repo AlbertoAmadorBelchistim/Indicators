@@ -9,7 +9,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using ATAS.Indicators.Heatmap;
 using OFT.Rendering.Heatmap;
-using static ATAS.Indicators.Technical.Heatmap.HeatmapSettingsColorHelpers;
 
 // Reference indicator: tick-driven sub-panel scalar (Cumulative Volume Delta).
 // Patterns: SubPanelScalar visual with persistent State.BeginUpdate lease,
@@ -157,14 +156,7 @@ public sealed class HeatmapCvdIndicator
 
 	private void AppendTicksToState(HeatmapTickBatch ticks, bool clearExisting)
 	{
-		var span = ticks.AsSpan();
-		var ordered = new List<HeatmapTradeTick>(span.Length);
-		for (var i = 0; i < span.Length; i++)
-		{
-			if (IsEligibleTick(span[i]))
-				ordered.Add(span[i]);
-		}
-		ordered.Sort(static (left, right) => left.TimestampNanos.CompareTo(right.TimestampNanos));
+		var ordered = OrderedTicks(ticks, HasValidBuySellVolume);
 
 		if (!clearExisting && ordered.Count == 0)
 			return;
@@ -211,8 +203,7 @@ public sealed class HeatmapCvdIndicator
 
 	private void ApplyVisualOverrides()
 	{
-		using var lease = State.BeginUpdate();
-		ApplyVisualOverridesUnderLease(lease.Visual(_panel));
+		UpdateVisual(_panel, ApplyVisualOverridesUnderLease);
 	}
 
 	private void ApplyVisualOverridesUnderLease(IHeatmapVisualLease visualLease)
@@ -222,7 +213,7 @@ public sealed class HeatmapCvdIndicator
 			PanelRenderMode: HeatmapIndicatorPanelRenderMode.PositiveNegativeScalar,
 			ScalarScaleMode: HeatmapIndicatorScalarScaleMode.AutoVisibleSymmetric,
 			ReferenceValue: 0f);
-		visualLease.Style = new HeatmapIndicatorVisualStyle(Color: ToHex(Settings.Color));
+		visualLease.Style = new HeatmapIndicatorVisualStyle(Color: HeatmapIndicatorColors.ToHex(Settings.Color));
 	}
 
 	#endregion
@@ -237,11 +228,6 @@ public sealed class HeatmapCvdIndicator
 
 	private static decimal NormalizeLotSize(decimal lotSize) =>
 		lotSize <= 0 ? 1m : lotSize;
-
-	private static bool IsEligibleTick(HeatmapTradeTick tick) =>
-		tick.TimestampNanos > 0 &&
-		tick.Volume > 0 &&
-		(tick.Direction == HeatmapTradeDirection.Buy || tick.Direction == HeatmapTradeDirection.Sell);
 
 	#endregion
 }

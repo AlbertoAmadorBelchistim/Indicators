@@ -135,8 +135,7 @@ public sealed class HeatmapOhlcLevelsIndicator
 		var visualLease = lease.Visual(_lines);
 
 		// Clear every series so dropped / disabled levels disappear.
-		foreach (var seriesHandle in _seriesByKind.Values)
-			visualLease.Series(seriesHandle).Clear();
+		ClearSeries(visualLease, [.. _seriesByKind.Values]);
 
 		if (resolved.Count == 0 || latestTimestampNanos <= 0)
 			return;

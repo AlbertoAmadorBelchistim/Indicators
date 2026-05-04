@@ -5,10 +5,10 @@ namespace ATAS.Indicators.Technical.Heatmap;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Globalization;
+using ATAS.Indicators.Heatmap;
 using OFT.Localization;
 using OFT.Rendering.Heatmap;
-using static ATAS.Indicators.Technical.Heatmap.HeatmapSettingsColorHelpers;
+using static ATAS.Indicators.Heatmap.HeatmapIndicatorColors;
 
 #region Enums
 
@@ -75,9 +75,7 @@ public enum HeatmapProfileScope
 	LastMonth,
 	Contract
 }
-
 #endregion
-
 #region OHLC Level entry
 
 /// <summary>
@@ -90,7 +88,6 @@ public readonly record struct HeatmapOhlcLevelSettings(
 	HeatmapIndicatorVisualStyle? Style);
 
 #endregion
-
 #region Settings DTOs
 
 public sealed class HeatmapVwapSettings
@@ -104,7 +101,7 @@ public sealed class HeatmapVwapSettings
 	public HeatmapProfileScope Scope { get; set; } = HeatmapProfileScope.CurrentDay;
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.HeatmapVwapLineColor))]
-	public CrossColor Color { get; set; } = ParseColor("#FF2962FF");
+	public CrossColor Color { get; set; } = ParseHex("#FF2962FF");
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.HeatmapVwapLineThickness))]
 	public float Thickness { get; set; } = 2f;
@@ -123,7 +120,7 @@ public sealed class HeatmapValueAreaSettings
 	public HeatmapProfileScope Scope { get; set; } = HeatmapProfileScope.CurrentDay;
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.HeatmapPocLineColor))]
-	public CrossColor PocColor { get; set; } = ParseColor("#FFFF6D00");
+	public CrossColor PocColor { get; set; } = ParseHex("#FFFF6D00");
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.HeatmapPocLineThickness))]
 	public float PocThickness { get; set; } = 2f;
@@ -132,7 +129,7 @@ public sealed class HeatmapValueAreaSettings
 	public bool ShowValueArea { get; set; } = false;
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.HeatmapValueAreaColor))]
-	public CrossColor ValueAreaColor { get; set; } = ParseColor("#80FF6D00");
+	public CrossColor ValueAreaColor { get; set; } = ParseHex("#80FF6D00");
 
 	#endregion
 }
@@ -154,7 +151,7 @@ public sealed class HeatmapCvdSettings
 	public int PanelHeight { get; set; } = 120;
 
 	[Display(Name = "CVD Line Color")]
-	public CrossColor Color { get; set; } = ParseColor("#FF42A5F5");
+	public CrossColor Color { get; set; } = ParseHex("#FF42A5F5");
 
 	#endregion
 }
@@ -246,51 +243,6 @@ public sealed class HeatmapOhlcLevelsSettings
 	];
 
 	#endregion
-}
-
-#endregion
-
-#region Helpers
-
-/// <summary>
-/// Internal helpers for parsing default colour literals declared on the
-/// settings DTOs. Mirrors <c>HeatmapSettings.ParseColor</c> in the platform —
-/// duplicated here because that method is internal and the Indicators
-/// assembly cannot reference it.
-/// </summary>
-internal static class HeatmapSettingsColorHelpers
-{
-	public static string ToHex(CrossColor color) =>
-		$"#{color.A:X2}{color.R:X2}{color.G:X2}{color.B:X2}";
-
-	public static CrossColor ParseColor(string text)
-	{
-		if (string.IsNullOrWhiteSpace(text))
-			return default;
-
-		var hex = text.AsSpan();
-
-		if (hex[0] == '#')
-			hex = hex[1..];
-
-		if (hex.Length is not (6 or 8))
-			return default;
-
-		if (hex.Length == 6 &&
-		    byte.TryParse(hex[..2], NumberStyles.HexNumber, null, out var r6) &&
-		    byte.TryParse(hex[2..4], NumberStyles.HexNumber, null, out var g6) &&
-		    byte.TryParse(hex[4..6], NumberStyles.HexNumber, null, out var b6))
-			return CrossColor.FromArgb(255, r6, g6, b6);
-
-		if (hex.Length == 8 &&
-		    byte.TryParse(hex[..2], NumberStyles.HexNumber, null, out var a8) &&
-		    byte.TryParse(hex[2..4], NumberStyles.HexNumber, null, out var r8) &&
-		    byte.TryParse(hex[4..6], NumberStyles.HexNumber, null, out var g8) &&
-		    byte.TryParse(hex[6..8], NumberStyles.HexNumber, null, out var b8))
-			return CrossColor.FromArgb(a8, r8, g8, b8);
-
-		return default;
-	}
 }
 
 #endregion
