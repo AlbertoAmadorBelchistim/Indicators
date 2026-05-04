@@ -246,8 +246,8 @@ public class Ichimoku : Indicator
 		}
 		else
 		{
-			_downSeries[lineBar].Upper = _leadLine2[lineBar];
-			_downSeries[lineBar].Lower = _leadLine1[lineBar];
+			_downSeries[lineBar].Upper = _leadLine1[lineBar];
+			_downSeries[lineBar].Lower = _leadLine2[lineBar];
 
 			if (_leadLine1[lineBar - 1] > _leadLine2[lineBar - 1])
 				_upSeries[lineBar] = _downSeries[lineBar];
