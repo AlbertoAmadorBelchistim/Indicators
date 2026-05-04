@@ -4,6 +4,11 @@
     <AssemblyName>ATAS.Indicators.Technical</AssemblyName>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <LangVersion>latest</LangVersion>
+    <!-- Default: only allow nullable annotations syntax (`?`) without enabling
+         nullable warnings — keeps the legacy technical indicators compiling.
+         Heatmap files opt into the strict regime via `#nullable enable` at the
+         top of each file. -->
+    <Nullable>annotations</Nullable>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\..\GitLab\OFT\OFT.snk</AssemblyOriginatorKeyFile>
     <Configurations>Debug;Release;Publish</Configurations>

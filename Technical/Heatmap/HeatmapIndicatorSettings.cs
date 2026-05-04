@@ -1,3 +1,5 @@
+#nullable enable
+
 namespace ATAS.Indicators.Technical.Heatmap;
 
 using System;

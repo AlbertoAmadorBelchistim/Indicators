@@ -1,3 +1,5 @@
+#nullable enable
+
 namespace ATAS.Indicators.Technical.Heatmap;
 
 using System;
@@ -81,7 +83,6 @@ public sealed class HeatmapVwapIndicator
 
 	#region Fields
 
-	private HeatmapVwapSettings _settings = new();
 	private VwapAccumulator _current = new(HeatmapPeriodKey.Empty);
 	private VwapAccumulator? _previous;
 
@@ -90,17 +91,6 @@ public sealed class HeatmapVwapIndicator
 	#region Properties
 
 	public override HeatmapIndicatorDescriptor Descriptor => _descriptor;
-
-	#endregion
-
-	#region Public methods
-
-	public override ValueTask ConfigureAsync(HeatmapVwapSettings settings, CancellationToken cancellationToken)
-	{
-		cancellationToken.ThrowIfCancellationRequested();
-		_settings = settings;
-		return ValueTask.CompletedTask;
-	}
 
 	#endregion
 
@@ -217,7 +207,7 @@ public sealed class HeatmapVwapIndicator
 
 	private bool TryComputeNextValue(HeatmapTradeTick tick, out HeatmapPriceLineSample sample)
 	{
-		var key = HeatmapPeriodResolver.Resolve(tick.Time, Context, _settings.Scope);
+		var key = HeatmapPeriodResolver.Resolve(tick.Time, Context, Settings.Scope);
 		if (_current.Key != key)
 		{
 			if (_current.HasValue)
@@ -228,7 +218,7 @@ public sealed class HeatmapVwapIndicator
 
 		_current.Add(tick.Price, tick.Volume);
 
-		var value = _settings.Scope switch
+		var value = Settings.Scope switch
 		{
 			HeatmapProfileScope.LastDay or HeatmapProfileScope.LastWeek or HeatmapProfileScope.LastMonth =>
 				_previous?.Value ?? 0m,
@@ -248,8 +238,8 @@ public sealed class HeatmapVwapIndicator
 	private void ApplyStyle(IHeatmapVisualLease visualLease)
 	{
 		visualLease.Style = new HeatmapIndicatorVisualStyle(
-			Color: ColorToHex(_settings.Color),
-			Thickness: _settings.Thickness);
+			Color: ColorToHex(Settings.Color),
+			Thickness: Settings.Thickness);
 	}
 
 	#endregion
@@ -424,7 +414,6 @@ public sealed class HeatmapValueAreaIndicator
 
 	#region Fields
 
-	private HeatmapValueAreaSettings _settings = new();
 	private ValueAreaAccumulator _current = new(HeatmapPeriodKey.Empty);
 	private ValueAreaAccumulator? _previous;
 
@@ -433,17 +422,6 @@ public sealed class HeatmapValueAreaIndicator
 	#region Properties
 
 	public override HeatmapIndicatorDescriptor Descriptor => _descriptor;
-
-	#endregion
-
-	#region Public methods
-
-	public override ValueTask ConfigureAsync(HeatmapValueAreaSettings settings, CancellationToken cancellationToken)
-	{
-		cancellationToken.ThrowIfCancellationRequested();
-		_settings = settings;
-		return ValueTask.CompletedTask;
-	}
 
 	#endregion
 
@@ -493,7 +471,7 @@ public sealed class HeatmapValueAreaIndicator
 			var pocLease = visualLease.Series(_poc);
 			var highLease = visualLease.Series(_high);
 			var lowLease = visualLease.Series(_low);
-			var publishValueArea = _settings.ShowValueArea;
+			var publishValueArea = Settings.ShowValueArea;
 
 			for (var i = 0; i < span.Length; i++)
 			{
@@ -540,7 +518,7 @@ public sealed class HeatmapValueAreaIndicator
 		highLease.Clear();
 		var lowLease = visualLease.Series(_low);
 		lowLease.Clear();
-		var publishValueArea = _settings.ShowValueArea;
+		var publishValueArea = Settings.ShowValueArea;
 
 		foreach (var tick in ordered)
 		{
@@ -576,7 +554,7 @@ public sealed class HeatmapValueAreaIndicator
 		highLease.Clear();
 		var lowLease = visualLease.Series(_low);
 		lowLease.Clear();
-		var publishValueArea = _settings.ShowValueArea;
+		var publishValueArea = Settings.ShowValueArea;
 
 		foreach (var tick in orderedTicks)
 		{
@@ -598,7 +576,7 @@ public sealed class HeatmapValueAreaIndicator
 
 	private bool TryComputeNextValue(HeatmapTradeTick tick, out HeatmapValueAreaSample sample)
 	{
-		var key = HeatmapPeriodResolver.Resolve(tick.Time, Context, _settings.Scope);
+		var key = HeatmapPeriodResolver.Resolve(tick.Time, Context, Settings.Scope);
 		if (_current.Key != key)
 		{
 			if (_current.HasValue)
@@ -609,7 +587,7 @@ public sealed class HeatmapValueAreaIndicator
 
 		_current.Add(tick.Price, tick.Volume);
 
-		var value = _settings.Scope switch
+		var value = Settings.Scope switch
 		{
 			HeatmapProfileScope.LastDay or HeatmapProfileScope.LastWeek or HeatmapProfileScope.LastMonth =>
 				_previous?.Value ?? default,
@@ -629,11 +607,11 @@ public sealed class HeatmapValueAreaIndicator
 	private void ApplyStyles(IHeatmapVisualLease visualLease)
 	{
 		var pocStyle = new HeatmapIndicatorVisualStyle(
-			Color: ColorToHex(_settings.PocColor),
-			Thickness: _settings.PocThickness);
+			Color: ColorToHex(Settings.PocColor),
+			Thickness: Settings.PocThickness);
 		var valueAreaStyle = new HeatmapIndicatorVisualStyle(
-			Color: ColorToHex(_settings.ValueAreaColor),
-			Thickness: _settings.PocThickness);
+			Color: ColorToHex(Settings.ValueAreaColor),
+			Thickness: Settings.PocThickness);
 
 		visualLease.Style = pocStyle;
 		visualLease.Series(_poc).Style = pocStyle;

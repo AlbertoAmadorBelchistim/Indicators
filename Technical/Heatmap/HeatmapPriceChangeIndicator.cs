@@ -1,3 +1,5 @@
+#nullable enable
+
 namespace ATAS.Indicators.Technical.Heatmap;
 
 using System;
@@ -64,7 +66,6 @@ public sealed class HeatmapPriceChangeIndicator
 
 	#region Fields
 
-	private HeatmapPriceChangeSettings _settings = new();
 	private DateTime _trainingStartTime = DateTime.MinValue;
 	private DateTime _lastTickTime = DateTime.MinValue;
 	private DateTime _virtualCurrentTime = DateTime.MinValue;
@@ -101,29 +102,23 @@ public sealed class HeatmapPriceChangeIndicator
 	{
 		cancellationToken.ThrowIfCancellationRequested();
 
-		_settings = new HeatmapPriceChangeSettings
-		{
-			Version = settings.Version,
-			Mode = settings.Mode,
-			Period = settings.Period,
-			TrainingPeriod = ValidateTrainingPeriod(settings.Period, settings.TrainingPeriod),
-			PanelHeight = settings.PanelHeight
-		};
+		// TrainingPeriod is normalised lazily at every read site via
+		// ValidateTrainingPeriod — no need to reconstruct settings here.
 
-		if (_currentPeriod != _settings.Period)
+		if (_currentPeriod != settings.Period)
 		{
-			_currentPeriod = _settings.Period;
+			_currentPeriod = settings.Period;
 			_currentPeriodStartPrice = 0;
 			_currentPeriodStartTime = DateTime.MinValue;
 
 			if (_virtualCurrentTime != DateTime.MinValue && _currentPrice > 0)
-				UpdateCurrentPeriodWindow(_virtualCurrentTime, _currentPrice, _settings.Period);
+				UpdateCurrentPeriodWindow(_virtualCurrentTime, _currentPrice, settings.Period);
 		}
 
 		if (_lastTickTime != DateTime.MinValue)
 		{
-			_currentValue = CalculateValue(_virtualCurrentTime, _settings.Mode, _settings.Period);
-			CurrentValue = (float)NormalizeValue(_currentValue, _settings.Mode);
+			_currentValue = CalculateValue(_virtualCurrentTime, settings.Mode, settings.Period);
+			CurrentValue = (float)NormalizeValue(_currentValue, settings.Mode);
 		}
 
 		return ValueTask.CompletedTask;
@@ -168,8 +163,8 @@ public sealed class HeatmapPriceChangeIndicator
 
 	public void ProcessHistoricalTicks(IEnumerable<HeatmapTradeTick> ticks)
 	{
-		var trainingPeriod = ValidateTrainingPeriod(_settings.Period, _settings.TrainingPeriod);
-		var requiredSeconds = (int)trainingPeriod + (int)_settings.Period;
+		var trainingPeriod = ValidateTrainingPeriod(Settings.Period, Settings.TrainingPeriod);
+		var requiredSeconds = (int)trainingPeriod + (int)Settings.Period;
 		var bufferSeconds = requiredSeconds * 0.1;
 		var maxRetention = TimeSpan.FromSeconds(requiredSeconds + bufferSeconds);
 		var tempHistory = new List<PricePoint>();
@@ -222,7 +217,7 @@ public sealed class HeatmapPriceChangeIndicator
 		_virtualCurrentTime = lastTickTime;
 		_trainingStartTime = lastTickTime;
 
-		CalculateTrainingMaximums(lastTickTime, _settings.Mode, _settings.Period, trainingPeriod);
+		CalculateTrainingMaximums(lastTickTime, Settings.Mode, Settings.Period, trainingPeriod);
 
 		for (var i = 0; i < _priceHistory.Count; i++)
 		{
@@ -236,7 +231,7 @@ public sealed class HeatmapPriceChangeIndicator
 		if (tick.Price <= 0)
 			return;
 
-		var settings = _settings;
+		var settings = Settings;
 		var trainingPeriod = ValidateTrainingPeriod(settings.Period, settings.TrainingPeriod);
 
 		IHeatmapVisualStateLease? ownedLease = null;
@@ -320,9 +315,9 @@ public sealed class HeatmapPriceChangeIndicator
 
 	private void CalculateAndRecord(DateTime referenceTime, long timestampNanos, IHeatmapSeriesLease<HeatmapPriceChangeSample> seriesLease)
 	{
-		_currentValue = CalculateValue(referenceTime, _settings.Mode, _settings.Period);
+		_currentValue = CalculateValue(referenceTime, Settings.Mode, Settings.Period);
 		_currentPrice = _priceHistory.Count > 0 ? _priceHistory[^1].Price : 0;
-		RecordCurrentValue(timestampNanos, _settings.Mode, seriesLease);
+		RecordCurrentValue(timestampNanos, Settings.Mode, seriesLease);
 	}
 
 	private void RecordCurrentValue(long timestampNanos, HeatmapPriceChangeMode mode, IHeatmapSeriesLease<HeatmapPriceChangeSample> seriesLease, decimal? rawValue = null)
@@ -337,7 +332,7 @@ public sealed class HeatmapPriceChangeIndicator
 	private void ApplyPresentation(IHeatmapVisualLease visualLease)
 	{
 		visualLease.Presentation = new HeatmapIndicatorVisualPresentation(
-			PanelHeight: _settings.PanelHeight,
+			PanelHeight: Settings.PanelHeight,
 			ScalarScaleMode: HeatmapIndicatorScalarScaleMode.AutoVisible);
 	}
 

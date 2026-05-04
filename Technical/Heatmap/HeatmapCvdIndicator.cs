@@ -1,3 +1,5 @@
+#nullable enable
+
 namespace ATAS.Indicators.Technical.Heatmap;
 
 using System;
@@ -63,7 +65,6 @@ public sealed class HeatmapCvdIndicator
 
 	#region Fields
 
-	private HeatmapCvdSettings _settings = new();
 	private HeatmapPeriodKey _currentPeriodKey = HeatmapPeriodKey.Empty;
 	private decimal _delta;
 	private CvdCalculationMode _configuredMode = CvdCalculationMode.FromDataStart;
@@ -88,7 +89,6 @@ public sealed class HeatmapCvdIndicator
 		var lotSize = NormalizeLotSize(settings.LotSize);
 		var needsRebuild = _configuredMode != settings.CalculationMode || _configuredLotSize != lotSize;
 
-		_settings = settings;
 		_configuredMode = settings.CalculationMode;
 		_configuredLotSize = lotSize;
 
@@ -138,7 +138,7 @@ public sealed class HeatmapCvdIndicator
 
 		AppendTicksToState(ticks, clearExisting: false);
 
-		if (RequiresDataStartAnchor(_settings.CalculationMode) &&
+		if (RequiresDataStartAnchor(Settings.CalculationMode) &&
 		    Runtime is { } runtime &&
 		    _reWarmGuard.ShouldRequestReWarm(ticks))
 		{
@@ -190,7 +190,7 @@ public sealed class HeatmapCvdIndicator
 
 	private void ApplyTick(HeatmapTradeTick tick)
 	{
-		var scope = _settings.CalculationMode switch
+		var scope = Settings.CalculationMode switch
 		{
 			CvdCalculationMode.CurrentDay => HeatmapProfileScope.CurrentDay,
 			CvdCalculationMode.CurrentWeek => HeatmapProfileScope.CurrentWeek,
@@ -218,11 +218,11 @@ public sealed class HeatmapCvdIndicator
 	private void ApplyVisualOverridesUnderLease(IHeatmapVisualLease visualLease)
 	{
 		visualLease.Presentation = new HeatmapIndicatorVisualPresentation(
-			PanelHeight: _settings.PanelHeight,
+			PanelHeight: Settings.PanelHeight,
 			PanelRenderMode: HeatmapIndicatorPanelRenderMode.PositiveNegativeScalar,
 			ScalarScaleMode: HeatmapIndicatorScalarScaleMode.AutoVisibleSymmetric,
 			ReferenceValue: 0f);
-		visualLease.Style = new HeatmapIndicatorVisualStyle(Color: ToHex(_settings.Color));
+		visualLease.Style = new HeatmapIndicatorVisualStyle(Color: ToHex(Settings.Color));
 	}
 
 	#endregion

@@ -1,3 +1,5 @@
+#nullable enable
+
 namespace ATAS.Indicators.Technical.Heatmap;
 
 using System;
@@ -82,7 +84,6 @@ public sealed class HeatmapMarketPressureIndicator
 
 	#region Fields
 
-	private HeatmapPressureSettings _settings = new();
 	private DateTime _lastSnapshotTime = DateTime.MinValue;
 	private DateTime _trainingStartTime = DateTime.MinValue;
 	private DateTime _lastTickTime = DateTime.MinValue;
@@ -121,7 +122,6 @@ public sealed class HeatmapMarketPressureIndicator
 	{
 		cancellationToken.ThrowIfCancellationRequested();
 
-		_settings = settings;
 		_cacheTime = DateTime.MinValue;
 
 		RecalculateWithCurrentSettings();
@@ -169,8 +169,8 @@ public sealed class HeatmapMarketPressureIndicator
 
 	public void ProcessHistoricalTicks(IEnumerable<HeatmapTradeTick> ticks)
 	{
-		var mode = _settings.Mode;
-		var preset = _settings.Preset;
+		var mode = Settings.Mode;
+		var preset = Settings.Preset;
 		var halfLife = GetHalfLifePeriod(preset);
 		var trainingPeriod = GetTrainingPeriod(preset);
 		var sortedTicks = ticks
@@ -249,7 +249,7 @@ public sealed class HeatmapMarketPressureIndicator
 		if (!IsEligibleTick(tick))
 			return;
 
-		var mode = _settings.Mode;
+		var mode = Settings.Mode;
 		var evt = new PressureEvent(tick.Time, GetWeight(tick, mode));
 
 		if (_trainingStartTime == DateTime.MinValue)
@@ -340,8 +340,8 @@ public sealed class HeatmapMarketPressureIndicator
 
 	private void RecalculateWithCurrentSettings()
 	{
-		var mode = _settings.Mode;
-		var preset = _settings.Preset;
+		var mode = Settings.Mode;
+		var preset = Settings.Preset;
 		var halfLife = GetHalfLifePeriod(preset);
 		var trainingPeriod = GetTrainingPeriod(preset);
 
@@ -407,7 +407,7 @@ public sealed class HeatmapMarketPressureIndicator
 		IHeatmapSeriesLease<HeatmapPressureSample> buyLease,
 		IHeatmapSeriesLease<HeatmapPressureSample> sellLease)
 	{
-		var preset = _settings.Preset;
+		var preset = Settings.Preset;
 		var halfLife = GetHalfLifePeriod(preset);
 		decimal buyersPressure;
 		decimal sellersPressure;
@@ -463,8 +463,8 @@ public sealed class HeatmapMarketPressureIndicator
 	private void ApplyPresentation(IHeatmapVisualLease visualLease)
 	{
 		visualLease.Presentation = new HeatmapIndicatorVisualPresentation(
-			PanelHeight: _settings.PanelHeight,
-			Threshold: _settings.Threshold);
+			PanelHeight: Settings.PanelHeight,
+			Threshold: Settings.Threshold);
 	}
 
 	private decimal CalculatePressureWithSnapshots(bool buyerSide, DateTime referenceTime, TimeSpan halfLife)

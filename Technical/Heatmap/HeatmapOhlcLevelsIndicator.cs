@@ -1,3 +1,5 @@
+#nullable enable
+
 namespace ATAS.Indicators.Technical.Heatmap;
 
 using System;
@@ -61,12 +63,6 @@ public sealed class HeatmapOhlcLevelsIndicator
 
 	#endregion
 
-	#region Fields
-
-	private HeatmapOhlcLevelsSettings _settings = new();
-
-	#endregion
-
 	#region Properties
 
 	public override HeatmapIndicatorDescriptor Descriptor => _descriptor;
@@ -79,7 +75,6 @@ public sealed class HeatmapOhlcLevelsIndicator
 	{
 		cancellationToken.ThrowIfCancellationRequested();
 
-		_settings = settings;
 		RefreshLevels();
 
 		return ValueTask.CompletedTask;
@@ -120,8 +115,8 @@ public sealed class HeatmapOhlcLevelsIndicator
 
 	private void RefreshLevels()
 	{
-		var resolved = new List<(HeatmapOhlcLevelSettings Level, decimal Price)>(_settings.Levels.Count);
-		foreach (var level in _settings.Levels)
+		var resolved = new List<(HeatmapOhlcLevelSettings Level, decimal Price)>(Settings.Levels.Count);
+		foreach (var level in Settings.Levels)
 		{
 			if (!TryResolvePrice(level.Kind, out var price) || price <= 0)
 				continue;
