@@ -4,6 +4,7 @@ namespace ATAS.Indicators.Technical.Heatmap;
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using ATAS.Indicators.Heatmap;
 using OFT.Localization;
@@ -95,6 +96,7 @@ public sealed class HeatmapVwapSettings
 	#region Auto properties
 
 	/// <summary>Schema version. Increment when changing field semantics.</summary>
+	[Browsable(false)]
 	public int Version { get; set; } = 1;
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.HeatmapVwapInterval))]
@@ -114,6 +116,7 @@ public sealed class HeatmapValueAreaSettings
 	#region Auto properties
 
 	/// <summary>Schema version. Increment when changing field semantics.</summary>
+	[Browsable(false)]
 	public int Version { get; set; } = 1;
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.HeatmapPocInterval))]
@@ -139,6 +142,7 @@ public sealed class HeatmapCvdSettings
 	#region Auto properties
 
 	/// <summary>Schema version. Increment when changing field semantics.</summary>
+	[Browsable(false)]
 	public int Version { get; set; } = 1;
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.HeatmapCvdCalculationMode))]
@@ -161,6 +165,7 @@ public sealed class HeatmapPriceChangeSettings
 	#region Auto properties
 
 	/// <summary>Schema version. Increment when changing field semantics.</summary>
+	[Browsable(false)]
 	public int Version { get; set; } = 1;
 
 	[Display(Name = "Mode")]
@@ -183,6 +188,7 @@ public sealed class HeatmapPressureSettings
 	#region Auto properties
 
 	/// <summary>Schema version. Increment when changing field semantics.</summary>
+	[Browsable(false)]
 	public int Version { get; set; } = 1;
 
 	[Display(Name = "Mode")]
@@ -205,6 +211,7 @@ public sealed class HeatmapOhlcLevelsSettings
 	#region Auto properties
 
 	/// <summary>Schema version. Increment when changing field semantics.</summary>
+	[Browsable(false)]
 	public int Version { get; set; } = 1;
 
 	[Display(Name = "Levels")]
