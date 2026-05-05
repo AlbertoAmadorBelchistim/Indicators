@@ -279,6 +279,41 @@ namespace ATAS.Indicators.Technical
             }
         }
 
+        public sealed class BarPatternCache
+        {
+            private DeltaPattern[] _patterns = Array.Empty<DeltaPattern>();
+
+            public int BarCount { get; private set; }
+
+            public void EnsureCapacity(int requiredCount)
+            {
+                if (requiredCount <= _patterns.Length) return;
+                int newCapacity = Math.Max(requiredCount, Math.Max(_patterns.Length * 2, 1024));
+                Array.Resize(ref _patterns, newCapacity);
+            }
+
+            public void Set(int bar, DeltaPattern pattern)
+            {
+                if (bar < 0) return;
+                EnsureCapacity(bar + 1);
+                _patterns[bar] = pattern;
+                if (bar + 1 > BarCount) BarCount = bar + 1;
+            }
+
+            public DeltaPattern Get(int bar)
+            {
+                if (bar < 0 || bar >= BarCount) return DeltaPattern.None;
+                return _patterns[bar];
+            }
+
+            public void Clear()
+            {
+                BarCount = 0;
+                if (_patterns.Length > 0)
+                    Array.Clear(_patterns, 0, _patterns.Length);
+            }
+        }
+
         #endregion
 
         #region Fields
@@ -286,6 +321,7 @@ namespace ATAS.Indicators.Technical
         private readonly object _stateLock = new object();
         private readonly RollingDeltaWindow _window = new RollingDeltaWindow();
         private readonly BarMetricsCache _metrics = new BarMetricsCache();
+        private readonly BarPatternCache _patterns = new BarPatternCache();
         private bool _historyLoaded;
 
         private int _targetVolume = 2500;
@@ -396,6 +432,7 @@ namespace ATAS.Indicators.Technical
             {
                 _window.Reset();
                 _metrics.Clear();
+                _patterns.Clear();
                 _historyLoaded = false;
             }
         }
@@ -441,6 +478,7 @@ namespace ATAS.Indicators.Technical
                 {
                     _window.Reset();
                     _metrics.Clear();
+                    _patterns.Clear();
 
                     foreach (var trade in cumulativeTrades)
                     {
@@ -506,7 +544,7 @@ namespace ATAS.Indicators.Technical
         // Caller must hold _stateLock.
         private void SnapshotBar(int bar)
         {
-            _metrics.Set(bar, new BarMetrics
+            var snapshot = new BarMetrics
             {
                 Delta = _window.CurrentDelta,
                 Volume = _window.CurrentVolume,
@@ -516,7 +554,91 @@ namespace ATAS.Indicators.Technical
                 ClosePrice = _window.EndPrice,
                 HighPrice = _window.HighPrice,
                 LowPrice = _window.LowPrice,
-            });
+            };
+            _metrics.Set(bar, snapshot);
+            _patterns.Set(bar, Classify(snapshot));
+        }
+
+        public DeltaPattern Classify(BarMetrics snapshot)
+        {
+            if (snapshot.Volume <= 0m) return DeltaPattern.None;
+
+            return TryDetectDivergence(snapshot)
+                ?? TryDetectReversal(snapshot)
+                ?? TryDetectDominance(snapshot)
+                ?? TryDetectAggressive(snapshot)
+                ?? TryDetectNeutralStruggle(snapshot)
+                ?? DeltaPattern.None;
+        }
+
+        private DeltaPattern? TryDetectDivergence(BarMetrics m)
+        {
+            if (!Divergence.Enabled) return null;
+
+            decimal threshold = (decimal)TargetVolume * (Divergence.MinDeltaPercent / 100m);
+            if (Math.Abs(m.Delta) <= threshold) return null;
+
+            bool priceUp = m.ClosePrice > m.OpenPrice;
+            bool deltaUp = m.Delta > 0m;
+            if (priceUp == deltaUp) return null;
+
+            return deltaUp ? DeltaPattern.DivergenceBullish : DeltaPattern.DivergenceBearish;
+        }
+
+        private DeltaPattern? TryDetectReversal(BarMetrics m)
+        {
+            if (!Reversal.Enabled) return null;
+
+            decimal target = (decimal)TargetVolume;
+            decimal extreme = target * (Reversal.MinDeltaPercent / 100m);
+            decimal close = target * (Reversal.ClosePercent / 100m);
+
+            if (m.MaxRunningDelta > extreme && m.Delta < -close)
+                return DeltaPattern.ReversalSell;
+            if (m.MinRunningDelta < -extreme && m.Delta > close)
+                return DeltaPattern.ReversalBuy;
+            return null;
+        }
+
+        private DeltaPattern? TryDetectDominance(BarMetrics m)
+        {
+            if (!Dominance.Enabled) return null;
+
+            decimal target = (decimal)TargetVolume;
+            decimal threshold = target * (Dominance.MinDeltaPercent / 100m);
+            if (Math.Abs(m.Delta) <= threshold) return null;
+
+            decimal wick = target * (Dominance.WickTolerancePercent / 100m);
+
+            if (m.Delta > 0m && m.MinRunningDelta >= -wick)
+                return DeltaPattern.DominanceBuy;
+            if (m.Delta < 0m && m.MaxRunningDelta <= wick)
+                return DeltaPattern.DominanceSell;
+            return null;
+        }
+
+        private DeltaPattern? TryDetectAggressive(BarMetrics m)
+        {
+            if (!Aggressive.Enabled) return null;
+
+            decimal threshold = (decimal)TargetVolume * (Aggressive.MinDeltaPercent / 100m);
+            if (Math.Abs(m.Delta) <= threshold) return null;
+
+            return m.Delta > 0m ? DeltaPattern.AggressiveBuy : DeltaPattern.AggressiveSell;
+        }
+
+        private DeltaPattern? TryDetectNeutralStruggle(BarMetrics m)
+        {
+            if (!Neutral.Enabled) return null;
+            if (m.Volume <= 0m) return null;
+
+            decimal deltaPercent = Math.Abs(m.Delta / m.Volume * 100m);
+            if (deltaPercent > Neutral.MinDeltaPercent) return null;
+
+            decimal struggle = (decimal)TargetVolume * (Neutral.StrugglePercent / 100m);
+            if (m.MaxRunningDelta > struggle || m.MinRunningDelta < -struggle)
+                return DeltaPattern.NeutralStruggle;
+            return null;
         }
 
         #endregion
