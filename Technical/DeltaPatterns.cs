@@ -483,6 +483,22 @@ namespace ATAS.Indicators.Technical
             }
         }
 
+        protected override void OnNewTrade(MarketDataArg trade)
+        {
+            lock (_stateLock)
+            {
+                if (!_historyLoaded) return;
+
+                int direction = trade.Direction == TradeDirection.Buy ? 1 : -1;
+                _window.Push(trade.Price, trade.Volume, direction);
+                _window.Trim(TargetVolume);
+
+                int currentBar = CurrentBar - 1;
+                if (currentBar >= 0)
+                    SnapshotBar(currentBar);
+            }
+        }
+
         #endregion
 
         #region Private Methods
