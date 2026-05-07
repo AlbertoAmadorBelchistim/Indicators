@@ -412,14 +412,14 @@ namespace ATAS.Indicators.Technical
 		private decimal _sessionMaxAmp;
 
 		private const decimal ScaleAnchorMargin = 1.15m;
-        private const int MarkerPriceGap = 10;
+		private const int MarkerPriceGap = 10;
 
-        private readonly CandleDataSeries _cAggressive = new CandleDataSeries("Aggressive") { IsHidden = true, ShowCurrentValue = false};
-        private readonly CandleDataSeries _cDominance = new CandleDataSeries("Dominance") { IsHidden = true, ShowCurrentValue = false};
-        private readonly CandleDataSeries _cDivergence = new CandleDataSeries("Divergence") { IsHidden = true, ShowCurrentValue = false};
-        private readonly CandleDataSeries _cReversal = new CandleDataSeries("Reversal") { IsHidden = true, ShowCurrentValue = false};
-        private readonly CandleDataSeries _cNeutral = new CandleDataSeries("Neutral") { IsHidden = true, ShowCurrentValue = false};
-        private readonly CandleDataSeries _cNormal = new CandleDataSeries("Normal") { IsHidden = true, ShowCurrentValue = false};
+		private readonly CandleDataSeries _cAggressive = new CandleDataSeries("Aggressive") { IsHidden = true, ShowCurrentValue = false};
+		private readonly CandleDataSeries _cDominance = new CandleDataSeries("Dominance") { IsHidden = true, ShowCurrentValue = false};
+		private readonly CandleDataSeries _cDivergence = new CandleDataSeries("Divergence") { IsHidden = true, ShowCurrentValue = false};
+		private readonly CandleDataSeries _cReversal = new CandleDataSeries("Reversal") { IsHidden = true, ShowCurrentValue = false};
+		private readonly CandleDataSeries _cNeutral = new CandleDataSeries("Neutral") { IsHidden = true, ShowCurrentValue = false};
+		private readonly CandleDataSeries _cNormal = new CandleDataSeries("Normal") { IsHidden = true, ShowCurrentValue = false};
 
 		private readonly ValueDataSeries _scaleHigh = new ValueDataSeries("Scale High")
 		{
@@ -445,6 +445,13 @@ namespace ATAS.Indicators.Technical
 
 		private bool _showChartSignals = true;
 		private int _signalSize = 10;
+
+		private string _alertSoundFile = "alert1";
+		private decimal _alertCooldownSeconds = 30m;
+		private CrossColor _alertBackgroundColor = CrossColor.FromArgb(255, 75, 72, 72);
+		private CrossColor _alertForegroundColor = CrossColor.FromArgb(255, 247, 249, 249);
+
+		private DateTime _lastAlertTime = DateTime.MinValue;
 
 
 		#endregion
@@ -524,11 +531,11 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-        #endregion
+		#endregion
 
-        #region Properties: Visuals
+		#region Properties: Visuals
 
-        [Display(Name = "Show Chart Signals", GroupName = "Visuals", Order = 1,
+		[Display(Name = "Show Chart Signals", GroupName = "Visuals", Order = 1,
 			Description = "Toggle the marker overlay on the price chart.")]
 		public bool ShowChartSignals
 		{
@@ -554,6 +561,43 @@ namespace ATAS.Indicators.Technical
 				_signalSize = clamped;
 				RedrawChart();
 			}
+		}
+
+		#endregion
+
+		#region Properties: Alerts
+
+		[Display(Name = "Alert Sound File", GroupName = "Alerts", Order = 1,
+			Description = "Name of the sound file ATAS plays when an alert fires. Files live in the ATAS sounds folder.")]
+		public string AlertSoundFile
+		{
+			get => _alertSoundFile;
+			set => _alertSoundFile = string.IsNullOrWhiteSpace(value) ? "alert1" : value;
+		}
+
+		[Display(Name = "Alert Cooldown (seconds)", GroupName = "Alerts", Order = 2,
+			Description = "Minimum time between consecutive alerts. Applied globally across all pattern categories.")]
+		[PostValueMode(PostValueModes.OnLostFocus)]
+		public decimal AlertCooldownSeconds
+		{
+			get => _alertCooldownSeconds;
+			set => _alertCooldownSeconds = Math.Max(0m, Math.Min(3600m, value));
+		}
+
+		[Display(Name = "Alert Background", GroupName = "Alerts", Order = 3,
+			Description = "Background colour of the alert pop-up.")]
+		public CrossColor AlertBackgroundColor
+		{
+			get => _alertBackgroundColor;
+			set => _alertBackgroundColor = value;
+		}
+
+		[Display(Name = "Alert Foreground", GroupName = "Alerts", Order = 4,
+			Description = "Text colour of the alert pop-up.")]
+		public CrossColor AlertForegroundColor
+		{
+			get => _alertForegroundColor;
+			set => _alertForegroundColor = value;
 		}
 
 		#endregion
@@ -703,6 +747,10 @@ namespace ATAS.Indicators.Technical
 
 		protected override void OnNewTrade(MarketDataArg trade)
 		{
+			int liveBar;
+			DeltaPattern oldPattern;
+			DeltaPattern newPattern;
+
 			lock (_stateLock)
 			{
 				if (!_historyLoaded) return;
@@ -711,10 +759,22 @@ namespace ATAS.Indicators.Technical
 				_window.Push(trade.Price, trade.Volume, direction);
 				_window.Trim(TargetVolume);
 
-				int currentBar = CurrentBar - 1;
-				if (currentBar >= 0)
-					SnapshotBar(currentBar);
+				liveBar = CurrentBar - 1;
+				if (liveBar < 0) return;
+
+				oldPattern = _patterns.Get(liveBar);
+				SnapshotBar(liveBar);
+				newPattern = _patterns.Get(liveBar);
 			}
+
+			// Alert firing happens outside the lock so AddAlert's I/O does
+			// not stall the market-data thread. We only fire on transitions
+			// (oldPattern != newPattern) to debounce constant re-classifications
+			// of the same pattern across consecutive ticks.
+			if (newPattern != DeltaPattern.None && newPattern != oldPattern)
+				{
+				TryFireAlert(newPattern);
+				}
 		}
 
 		protected override void OnRender(RenderContext context, DrawingLayouts layout)
@@ -740,8 +800,8 @@ namespace ATAS.Indicators.Technical
 
 			for (int bar = firstBar; bar <= lastBar; bar++)
 			{
-                try
-               {
+				try
+			   {
 					if (!_metrics.TryGet(bar, out var m)) continue;
 					var pattern = _patterns.Get(bar);
 					if (pattern == DeltaPattern.None) continue;
@@ -772,26 +832,26 @@ namespace ATAS.Indicators.Technical
 							DrawDot(context, x, y, domSell, top: true);
 							break;
 						case DeltaPattern.DivergenceBullish:
-                            DrawDiamond(context, x, y, div, top: true);
-                            break;
-                        case DeltaPattern.DivergenceBearish:
-                            DrawDiamond(context, x, y, div, top: false);
-                            break;
+							DrawDiamond(context, x, y, div, top: true);
+							break;
+						case DeltaPattern.DivergenceBearish:
+							DrawDiamond(context, x, y, div, top: false);
+							break;
 						case DeltaPattern.ReversalBuy:
-                            DrawSquare(context, x, y, revBuy, top: false);
-                            break;
+							DrawSquare(context, x, y, revBuy, top: false);
+							break;
 						case DeltaPattern.ReversalSell:
-                            DrawSquare(context, x, y, revSell, top: true);
-                            break;
+							DrawSquare(context, x, y, revSell, top: true);
+							break;
 						case DeltaPattern.NeutralStruggle:
 							DrawDot(context, x, y, neu, top: true);
 							break;
 					}
 				}
 				catch (OverflowException)
-                {
+				{
 					return;
-                }
+				}
 			}
 		}
 
@@ -1057,7 +1117,7 @@ namespace ATAS.Indicators.Technical
 					break;
 
 				case nameof(PatternCategory.EnableAlert):
-					// No visual effect; the alert layer arrives in commit 11.
+					// The alert pipeline reads the flag at firing time; no cache rebuild needed.
 					break;
 			}
 		}
@@ -1118,15 +1178,15 @@ namespace ATAS.Indicators.Technical
 		}
 
 		private static decimal ResolveSignalPrice(DeltaPattern pattern, IndicatorCandle candle)
-        {
+		{
 			switch (pattern)
 			{
 				case DeltaPattern.AggressiveBuy:
 				case DeltaPattern.DominanceBuy:
 				case DeltaPattern.ReversalBuy:
 				case DeltaPattern.DivergenceBearish:
-                    return candle.Low;
-                case DeltaPattern.AggressiveSell:
+					return candle.Low;
+				case DeltaPattern.AggressiveSell:
 				case DeltaPattern.DominanceSell:
 				case DeltaPattern.ReversalSell:
 				case DeltaPattern.DivergenceBullish:
@@ -1138,31 +1198,159 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-private void DrawDot(RenderContext ctx, int x, int y, System.Drawing.Color color, bool top)
+		private void DrawDot(RenderContext ctx, int x, int y, System.Drawing.Color color, bool top)
+		{
+			int offset = top ? -SignalSize - MarkerPriceGap : MarkerPriceGap;
+			var rect = new Rectangle(x - SignalSize / 2, y + offset, SignalSize, SignalSize);
+			ctx.FillEllipse(color, rect);
+		}
+
+		private void DrawSquare(RenderContext ctx, int x, int y, System.Drawing.Color color, bool top)
+		{
+			int offset = top ? -SignalSize - MarkerPriceGap : MarkerPriceGap;
+			var rect = new Rectangle(x - SignalSize / 2, y + offset, SignalSize, SignalSize);
+			ctx.FillRectangle(color, rect);
+		}
+
+		private void DrawDiamond(RenderContext ctx, int x, int y, System.Drawing.Color color, bool top)
+		{
+			int s = SignalSize / 2 + 2;
+			int offsetY = top ? -s - MarkerPriceGap : s + MarkerPriceGap;
+			var p1 = new Point(x, y + offsetY - s);
+			var p2 = new Point(x + s, y + offsetY);
+			var p3 = new Point(x, y + offsetY + s);
+			var p4 = new Point(x - s, y + offsetY);
+			ctx.FillPolygon(color, new[] { p1, p2, p3, p4 });
+		}
+
+		private bool IsPatternAlertEnabled(DeltaPattern pattern)
+		{
+			switch (pattern)
+			{
+				case DeltaPattern.AggressiveBuy:
+				case DeltaPattern.AggressiveSell:
+					return Aggressive.EnableAlert;
+				case DeltaPattern.DominanceBuy:
+				case DeltaPattern.DominanceSell:
+					return Dominance.EnableAlert;
+				case DeltaPattern.DivergenceBullish:
+				case DeltaPattern.DivergenceBearish:
+					return Divergence.EnableAlert;
+				case DeltaPattern.ReversalBuy:
+				case DeltaPattern.ReversalSell:
+					return Reversal.EnableAlert;
+				case DeltaPattern.NeutralStruggle:
+					return Neutral.EnableAlert;
+				default:
+					return false;
+			}
+		}
+
+		private void TryFireAlert(DeltaPattern pattern)
+		{
+			if (!IsPatternAlertEnabled(pattern)) return;
+
+			var now = DateTime.UtcNow;
+			if ((now - _lastAlertTime).TotalSeconds < (double)AlertCooldownSeconds) return;
+
+			_lastAlertTime = now;
+
+			var instrument = InstrumentInfo?.Instrument ?? "?";
+			var message = $"DeltaPatterns: {pattern}";
+			AddAlert(AlertSoundFile, instrument, message, AlertBackgroundColor, AlertForegroundColor);
+
+			this.LogInfo($"DeltaPatterns: alert fired pattern={pattern} instrument={instrument}");
+		}
+
+        #endregion
+
+        #region Private Methods: Debug Hooks (temporary — removed in c15)
+
+        // Bypass IsPatternAlertEnabled and the cooldown gate.
+        // Use this to verify that the AddAlert dispatcher itself works
+        // (sound file path, popup colors, instrument tag) independent
+        // of category configuration.
+        [Browsable(false)]
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        public void DebugFireAlertRaw(DeltaPattern pattern)
         {
-            int offset = top ? -SignalSize - MarkerPriceGap : MarkerPriceGap;
-            var rect = new Rectangle(x - SignalSize / 2, y + offset, SignalSize, SignalSize);
-            ctx.FillEllipse(color, rect);
+            var instrument = InstrumentInfo?.Instrument ?? "?";
+            var message = $"DeltaPatterns[DBG-RAW]: {pattern}";
+            try
+            {
+                AddAlert(AlertSoundFile, instrument, message, AlertBackgroundColor, AlertForegroundColor);
+                this.LogInfo($"DeltaPatterns: debug raw alert fired pattern={pattern} instrument={instrument}");
+            }
+            catch (Exception ex)
+            {
+                this.LogError($"DeltaPatterns: debug raw alert dispatch failed - {ex.Message}");
+            }
         }
 
-        private void DrawSquare(RenderContext ctx, int x, int y, System.Drawing.Color color, bool top)
+        // Goes through the same gating as a real transition: respects
+        // category Enabled/EnableAlert and the global cooldown.
+        [Browsable(false)]
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        public void DebugFireAlertGated(DeltaPattern pattern)
         {
-            int offset = top ? -SignalSize - MarkerPriceGap : MarkerPriceGap;
-            var rect = new Rectangle(x - SignalSize / 2, y + offset, SignalSize, SignalSize);
-            ctx.FillRectangle(color, rect);
+            TryFireAlert(pattern);
         }
 
-        private void DrawDiamond(RenderContext ctx, int x, int y, System.Drawing.Color color, bool top)
+        // Forces the cooldown timer back to MinValue so the next call
+        // to DebugFireAlertGated / a real transition can fire immediately.
+        [Browsable(false)]
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        public void DebugResetAlertCooldown()
         {
-            int s = SignalSize / 2 + 2;
-            int offsetY = top ? -s - MarkerPriceGap : s + MarkerPriceGap;
-            var p1 = new Point(x, y + offsetY - s);
-            var p2 = new Point(x + s, y + offsetY);
-            var p3 = new Point(x, y + offsetY + s);
-            var p4 = new Point(x - s, y + offsetY);
-            ctx.FillPolygon(color, new[] { p1, p2, p3, p4 });
+            _lastAlertTime = DateTime.MinValue;
+            this.LogInfo("DeltaPatterns: debug cooldown reset");
         }
 
-		#endregion
-	}
+        // Simulates the OnNewTrade transition path end-to-end: rewrites
+        // the live bar's cached pattern to oldPattern, then invokes the
+        // gated alert with newPattern. Mirrors what would happen if the
+        // window classifier produced a transition naturally.
+        [Browsable(false)]
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        public void DebugSimulateTransition(DeltaPattern oldPattern, DeltaPattern newPattern)
+        {
+            int currentBar = CurrentBar - 1;
+            if (currentBar < 0)
+            {
+                this.LogError("DeltaPatterns: debug simulate transition skipped - no current bar");
+                return;
+            }
+
+            lock (_stateLock)
+            {
+                _patterns.Set(currentBar, oldPattern);
+            }
+
+            if (oldPattern != newPattern)
+                TryFireAlert(newPattern);
+
+            this.LogInfo($"DeltaPatterns: debug simulated transition {oldPattern} -> {newPattern}");
+        }
+
+        // Inspector helper: returns the current alert state as a single
+        // string for the Immediate Window. Avoids hand-evaluating
+        // private fields one at a time.
+        [Browsable(false)]
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        public string DebugAlertSnapshot()
+        {
+            return
+                $"sound='{AlertSoundFile}' " +
+                $"cooldown={AlertCooldownSeconds}s " +
+                $"lastAlertUtc={_lastAlertTime:yyyy-MM-dd HH:mm:ss.fff} " +
+                $"sinceLast={(DateTime.UtcNow - _lastAlertTime).TotalSeconds:0.000}s " +
+                $"agg={Aggressive.Enabled}/{Aggressive.EnableAlert} " +
+                $"dom={Dominance.Enabled}/{Dominance.EnableAlert} " +
+                $"div={Divergence.Enabled}/{Divergence.EnableAlert} " +
+                $"rev={Reversal.Enabled}/{Reversal.EnableAlert} " +
+                $"neu={Neutral.Enabled}/{Neutral.EnableAlert}";
+        }
+
+        #endregion
+    }
 }
