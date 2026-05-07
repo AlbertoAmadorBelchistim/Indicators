@@ -58,14 +58,6 @@ namespace ATAS.Indicators.Technical
                 set => Set(ref _visible, value);
             }
 
-            private CrossColor _color;
-            [DisplayName("Color")]
-            public CrossColor Color
-            {
-                get => _color;
-                set => Set(ref _color, value);
-            }
-
             private decimal _minDeltaPercent;
             [DisplayName("Min Delta %")]
             [PostValueMode(PostValueModes.OnLostFocus)]
@@ -98,7 +90,39 @@ namespace ATAS.Indicators.Technical
         }
 
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        public class DominancePatternCategory : PatternCategory
+        public class MonoPatternCategory : PatternCategory
+        {
+            private CrossColor _color;
+            [DisplayName("Color")]
+            public CrossColor Color
+            {
+                get => _color;
+                set => Set(ref _color, value);
+            }
+        }
+
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        public class DirectionalPatternCategory : PatternCategory
+        {
+            private CrossColor _buyColor;
+            [DisplayName("Buy Color")]
+            public CrossColor BuyColor
+            {
+                get => _buyColor;
+                set => Set(ref _buyColor, value);
+            }
+
+            private CrossColor _sellColor;
+            [DisplayName("Sell Color")]
+            public CrossColor SellColor
+            {
+                get => _sellColor;
+                set => Set(ref _sellColor, value);
+            }
+        }
+
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        public class DominancePatternCategory : DirectionalPatternCategory
         {
             private decimal _wickTolerancePercent;
             [DisplayName("Wick Tolerance %")]
@@ -111,7 +135,7 @@ namespace ATAS.Indicators.Technical
         }
 
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        public class ReversalPatternCategory : PatternCategory
+        public class ReversalPatternCategory : DirectionalPatternCategory
         {
             private decimal _closePercent;
             [DisplayName("Close Min %")]
@@ -124,7 +148,7 @@ namespace ATAS.Indicators.Technical
         }
 
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        public class NeutralPatternCategory : PatternCategory
+        public class NeutralPatternCategory : MonoPatternCategory
         {
             private decimal _strugglePercent;
             [DisplayName("Struggle %")]
@@ -382,6 +406,8 @@ namespace ATAS.Indicators.Technical
         private int _targetVolume = 2500;
 
         // Session-wide running maximum of per-bar raw amplitudes.
+        // Drives the global scale anchor so a single outlier in the
+        // session keeps the panel's vertical extent stable.
         private decimal _sessionMaxAmp;
 
         private const decimal ScaleAnchorMargin = 1.15m;
@@ -421,9 +447,10 @@ namespace ATAS.Indicators.Technical
 
         [Display(Name = "Aggressive", GroupName = "Patterns", Order = 10,
             Description = "Raw absolute delta of the rolling window over the threshold percentage.")]
-        public PatternCategory Aggressive { get; set; } = new PatternCategory
+        public DirectionalPatternCategory Aggressive { get; set; } = new DirectionalPatternCategory
         {
-            Color = System.Drawing.Color.Lime.Convert(),
+            BuyColor = System.Drawing.Color.Lime.Convert(),
+            SellColor = System.Drawing.Color.Red.Convert(),
             MinDeltaPercent = 15m,
         };
 
@@ -431,14 +458,15 @@ namespace ATAS.Indicators.Technical
             Description = "Sustained one-sided pressure with negligible counter-excursion in the rolling window.")]
         public DominancePatternCategory Dominance { get; set; } = new DominancePatternCategory
         {
-            Color = System.Drawing.Color.ForestGreen.Convert(),
+            BuyColor = System.Drawing.Color.ForestGreen.Convert(),
+            SellColor = System.Drawing.Color.DarkRed.Convert(),
             MinDeltaPercent = 12m,
             WickTolerancePercent = 0.1m,
         };
 
         [Display(Name = "Divergence", GroupName = "Patterns", Order = 30,
             Description = "The rolling window's price direction contradicts the net delta direction.")]
-        public PatternCategory Divergence { get; set; } = new PatternCategory
+        public MonoPatternCategory Divergence { get; set; } = new MonoPatternCategory
         {
             Color = System.Drawing.Color.Yellow.Convert(),
             MinDeltaPercent = 10m,
@@ -448,7 +476,8 @@ namespace ATAS.Indicators.Technical
             Description = "Delta extreme was reached and the window then closed past the threshold in the opposite direction. MinDeltaPercent is the extreme reached; ClosePercent is the close-side confirmation.")]
         public ReversalPatternCategory Reversal { get; set; } = new ReversalPatternCategory
         {
-            Color = System.Drawing.Color.Cyan.Convert(),
+            BuyColor = System.Drawing.Color.Cyan.Convert(),
+            SellColor = System.Drawing.Color.Orange.Convert(),
             MinDeltaPercent = 10m,
             ClosePercent = 2m,
         };
@@ -464,7 +493,7 @@ namespace ATAS.Indicators.Technical
 
         [Display(Name = "Normal", GroupName = "Patterns", Order = 60,
             Description = "Background coloring for windows that did not match any other pattern.")]
-        public PatternCategory Normal { get; set; } = new PatternCategory
+        public MonoPatternCategory Normal { get; set; } = new MonoPatternCategory
         {
             Color = System.Drawing.Color.DimGray.Convert(),
             Visible = false,
@@ -504,6 +533,10 @@ namespace ATAS.Indicators.Technical
             DataSeries[0].IsHidden = true;
             ((ValueDataSeries)DataSeries[0]).VisualType = VisualMode.Hide;
 
+            // Insert the scale anchors at the start of DataSeries so they
+            // take the priority slots ATAS' panel autoscale weighs first.
+            // Pattern matches the diapason-high / diapason-low ordering in
+            // ATAS' built-in Delta indicator.
             DataSeries.Insert(0, _scaleHigh);
             DataSeries.Insert(1, _scaleLow);
 
@@ -842,15 +875,22 @@ namespace ATAS.Indicators.Technical
 
         private void UpdateSeriesColors()
         {
-            SetCandleColor(_cAggressive, Aggressive.Color);
-            SetCandleColor(_cDominance, Dominance.Color);
-            SetCandleColor(_cDivergence, Divergence.Color);
-            SetCandleColor(_cReversal, Reversal.Color);
-            SetCandleColor(_cNeutral, Neutral.Color);
-            SetCandleColor(_cNormal, Normal.Color);
+            SetDirectionalCandleColor(_cAggressive, Aggressive);
+            SetDirectionalCandleColor(_cDominance, Dominance);
+            SetMonoCandleColor(_cDivergence, Divergence.Color);
+            SetDirectionalCandleColor(_cReversal, Reversal);
+            SetMonoCandleColor(_cNeutral, Neutral.Color);
+            SetMonoCandleColor(_cNormal, Normal.Color);
         }
 
-        private static void SetCandleColor(CandleDataSeries series, CrossColor color)
+        private static void SetDirectionalCandleColor(CandleDataSeries series, DirectionalPatternCategory cat)
+        {
+            series.UpCandleColor = cat.BuyColor;
+            series.DownCandleColor = cat.SellColor;
+            series.BorderColor = cat.BuyColor;
+        }
+
+        private static void SetMonoCandleColor(CandleDataSeries series, CrossColor color)
         {
             series.UpCandleColor = color;
             series.DownCandleColor = color;
@@ -878,7 +918,9 @@ namespace ATAS.Indicators.Technical
         {
             switch (e.PropertyName)
             {
-                case nameof(PatternCategory.Color):
+                case nameof(MonoPatternCategory.Color):
+                case nameof(DirectionalPatternCategory.BuyColor):
+                case nameof(DirectionalPatternCategory.SellColor):
                     UpdateSeriesColors();
                     RedrawChart();
                     break;
