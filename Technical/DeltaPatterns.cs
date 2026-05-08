@@ -476,12 +476,14 @@ namespace ATAS.Indicators.Technical
 		private int _debugOverlayOffsetX;
 		private int _debugOverlayOffsetY;
 
+        private volatile bool _disposed;
 
-		#endregion
 
-		#region Properties: Patterns
+        #endregion
 
-		[Display(Name = "Aggressive", GroupName = "Patterns", Order = 10,
+        #region Properties: Patterns
+
+        [Display(Name = "Aggressive", GroupName = "Patterns", Order = 10,
 			Description = "Raw absolute delta of the rolling window over the threshold percentage.")]
 		public DirectionalPatternCategory Aggressive { get; set; } = new DirectionalPatternCategory
 		{
@@ -743,7 +745,9 @@ namespace ATAS.Indicators.Technical
 
 		protected override void OnFinishRecalculate()
 		{
-			bool needsFetch;
+            if (_disposed) return;
+
+            bool needsFetch;
 			lock (_stateLock)
 			{
 				needsFetch = !_historyLoaded;
@@ -765,7 +769,9 @@ namespace ATAS.Indicators.Technical
 
 		protected override void OnCumulativeTradesResponse(CumulativeTradesRequest request, IEnumerable<CumulativeTrade> cumulativeTrades)
 		{
-			if (cumulativeTrades == null) return;
+            if (_disposed) return;
+
+            if (cumulativeTrades == null) return;
 
 			int totalBars = CurrentBar - 1;
 			if (totalBars < 0) return;
@@ -828,7 +834,9 @@ namespace ATAS.Indicators.Technical
 
 		protected override void OnNewTrade(MarketDataArg trade)
 		{
-			int liveBar;
+            if (_disposed) return;
+
+            int liveBar;
 			DeltaPattern oldPattern;
 			DeltaPattern newPattern;
 
@@ -860,7 +868,9 @@ namespace ATAS.Indicators.Technical
 
 		protected override void OnRender(RenderContext context, DrawingLayouts layout)
 		{
-			if (!ShowChartSignals) return;
+            if (_disposed) return;
+
+            if (!ShowChartSignals) return;
 			if (ChartInfo == null) return;
 			if (layout != DrawingLayouts.Final) return;
 
@@ -939,11 +949,34 @@ namespace ATAS.Indicators.Technical
 				DrawDebugOverlay(context, priceContainer);
 		}
 
-		#endregion
+        protected override void OnDispose()
+        {
+            // Mark first so any in-flight OnNewTrade / OnRender / category
+            // PropertyChanged callbacks observe the flag and bail out
+            // before they touch state that we are about to wipe.
+            _disposed = true;
 
-		#region Public Methods
+            UnhookCategoryHandlers();
 
-		public DeltaPattern Classify(BarMetrics snapshot)
+            lock (_stateLock)
+            {
+                _window.Reset();
+                _metrics.Clear();
+                _patterns.Clear();
+                _sessionMaxAmp = 0m;
+                _historyLoaded = false;
+            }
+
+            this.LogInfo("DeltaPatterns: disposed");
+
+            base.OnDispose();
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        public DeltaPattern Classify(BarMetrics snapshot)
 		{
 			if (snapshot.Volume <= 0m) return DeltaPattern.None;
 
@@ -1177,9 +1210,31 @@ namespace ATAS.Indicators.Technical
 			cat.PropertyChanged += OnCategoryPropertyChanged;
 		}
 
-		private void OnCategoryPropertyChanged(object sender, PropertyChangedEventArgs e)
+        #region Private Methods: Lifecycle
+
+        private void UnhookCategoryHandlers()
+        {
+            UnhookFrom(Aggressive);
+            UnhookFrom(Dominance);
+            UnhookFrom(Divergence);
+            UnhookFrom(Reversal);
+            UnhookFrom(Neutral);
+            UnhookFrom(Normal);
+        }
+
+        private void UnhookFrom(PatternCategory cat)
+        {
+            if (cat == null) return;
+            cat.PropertyChanged -= OnCategoryPropertyChanged;
+        }
+
+        #endregion
+
+        private void OnCategoryPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			switch (e.PropertyName)
+            if (_disposed) return;
+
+            switch (e.PropertyName)
 			{
 				case nameof(MonoPatternCategory.Color):
 				case nameof(DirectionalPatternCategory.BuyColor):
@@ -1513,7 +1568,9 @@ namespace ATAS.Indicators.Technical
 		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		public void DebugFireAlertRaw(DeltaPattern pattern)
 		{
-			var instrument = InstrumentInfo?.Instrument ?? "?";
+            if (_disposed) return;
+
+            var instrument = InstrumentInfo?.Instrument ?? "?";
 			var message = $"DeltaPatterns[DBG-RAW]: {pattern}";
 			try
 			{
@@ -1532,7 +1589,9 @@ namespace ATAS.Indicators.Technical
 		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		public void DebugFireAlertGated(DeltaPattern pattern)
 		{
-			TryFireAlert(pattern);
+            if (_disposed) return;
+
+            TryFireAlert(pattern);
 		}
 
 		// Forces the cooldown timer back to MinValue so the next call
@@ -1541,7 +1600,7 @@ namespace ATAS.Indicators.Technical
 		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		public void DebugResetAlertCooldown()
 		{
-			_lastAlertTime = DateTime.MinValue;
+            _lastAlertTime = DateTime.MinValue;
 			this.LogInfo("DeltaPatterns: debug cooldown reset");
 		}
 
@@ -1553,7 +1612,9 @@ namespace ATAS.Indicators.Technical
 		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		public void DebugSimulateTransition(DeltaPattern oldPattern, DeltaPattern newPattern)
 		{
-			int currentBar = CurrentBar - 1;
+            if (_disposed) return;
+
+            int currentBar = CurrentBar - 1;
 			if (currentBar < 0)
 			{
 				this.LogError("DeltaPatterns: debug simulate transition skipped - no current bar");
@@ -1590,6 +1651,6 @@ namespace ATAS.Indicators.Technical
 				$"neu={Neutral.Enabled}/{Neutral.EnableAlert}";
 		}
 
-		#endregion
-	}
+        #endregion
+    }
 }
