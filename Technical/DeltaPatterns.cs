@@ -1,6 +1,7 @@
 using ATAS.Indicators.Drawing;
 using OFT.Attributes.Editors;
 using OFT.Rendering.Context;
+using OFT.Rendering.Tools;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -159,6 +160,21 @@ namespace ATAS.Indicators.Technical
 				get => _strugglePercent;
 				set => Set(ref _strugglePercent, value);
 			}
+		}
+
+		public enum DebugOverlayMode
+		{
+			Off,
+			Compact,
+			Full,
+		}
+
+		public enum DebugOverlayCorner
+		{
+			TopRight,
+			TopLeft,
+			BottomRight,
+			BottomLeft,
 		}
 
 		#endregion
@@ -453,6 +469,13 @@ namespace ATAS.Indicators.Technical
 
 		private DateTime _lastAlertTime = DateTime.MinValue;
 
+		private DebugOverlayMode _debugOverlayMode = DebugOverlayMode.Off;
+		private DebugOverlayCorner _debugOverlayCorner = DebugOverlayCorner.TopRight;
+		private readonly RenderFont _hudFont = new RenderFont("Consolas", 11);
+		private readonly RenderPen _hudPen = new RenderPen(System.Drawing.Color.LightGray, 1);
+		private int _debugOverlayOffsetX;
+		private int _debugOverlayOffsetY;
+
 
 		#endregion
 
@@ -598,6 +621,64 @@ namespace ATAS.Indicators.Technical
 		{
 			get => _alertForegroundColor;
 			set => _alertForegroundColor = value;
+		}
+
+		#endregion
+
+		#region Properties: Diagnostics
+
+		[Display(Name = "Overlay Mode", GroupName = "Diagnostics", Order = 1,
+			Description = "Off hides the HUD. Compact shows the rolling window state and the live bar pattern. Full adds session-wide stats, cooldown remaining and per-category Enabled / Alert / Visible flags.")]
+		public DebugOverlayMode DebugOverlay
+		{
+			get => _debugOverlayMode;
+			set
+			{
+				if (_debugOverlayMode == value) return;
+				_debugOverlayMode = value;
+				RedrawChart();
+			}
+		}
+
+		[Display(Name = "Overlay Corner", GroupName = "Diagnostics", Order = 2,
+			Description = "Anchor corner of the HUD on the price chart container.")]
+		public DebugOverlayCorner DebugOverlayCornerProperty
+		{
+			get => _debugOverlayCorner;
+			set
+			{
+				if (_debugOverlayCorner == value) return;
+				_debugOverlayCorner = value;
+				RedrawChart();
+			}
+		}
+
+		[Display(Name = "Overlay Offset X", GroupName = "Diagnostics", Order = 3,
+			Description = "Horizontal nudge of the HUD anchor in pixels relative to the selected corner. Positive moves right, negative moves left. Useful for fine-tuning when the chosen corner overlaps another overlay.")]
+		[PostValueMode(PostValueModes.OnLostFocus)]
+		public int DebugOverlayOffsetX
+		{
+			get => _debugOverlayOffsetX;
+			set
+			{
+				if (_debugOverlayOffsetX == value) return;
+				_debugOverlayOffsetX = value;
+				RedrawChart();
+			}
+		}
+
+		[Display(Name = "Overlay Offset Y", GroupName = "Diagnostics", Order = 4,
+			Description = "Vertical nudge of the HUD anchor in pixels relative to the selected corner. Positive moves down, negative moves up.")]
+		[PostValueMode(PostValueModes.OnLostFocus)]
+		public int DebugOverlayOffsetY
+		{
+			get => _debugOverlayOffsetY;
+			set
+			{
+				if (_debugOverlayOffsetY == value) return;
+				_debugOverlayOffsetY = value;
+				RedrawChart();
+			}
 		}
 
 		#endregion
@@ -853,6 +934,9 @@ namespace ATAS.Indicators.Technical
 					return;
 				}
 			}
+
+			if (_debugOverlayMode != DebugOverlayMode.Off)
+				DrawDebugOverlay(context, priceContainer);
 		}
 
 		#endregion
@@ -1262,95 +1346,250 @@ namespace ATAS.Indicators.Technical
 			this.LogInfo($"DeltaPatterns: alert fired pattern={pattern} instrument={instrument}");
 		}
 
-        #endregion
+		#endregion
 
-        #region Private Methods: Debug Hooks (temporary — removed in c15)
+		#region Private Methods: Debug Overlay
 
-        // Bypass IsPatternAlertEnabled and the cooldown gate.
-        // Use this to verify that the AddAlert dispatcher itself works
-        // (sound file path, popup colors, instrument tag) independent
-        // of category configuration.
-        [Browsable(false)]
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public void DebugFireAlertRaw(DeltaPattern pattern)
-        {
-            var instrument = InstrumentInfo?.Instrument ?? "?";
-            var message = $"DeltaPatterns[DBG-RAW]: {pattern}";
-            try
-            {
-                AddAlert(AlertSoundFile, instrument, message, AlertBackgroundColor, AlertForegroundColor);
-                this.LogInfo($"DeltaPatterns: debug raw alert fired pattern={pattern} instrument={instrument}");
-            }
-            catch (Exception ex)
-            {
-                this.LogError($"DeltaPatterns: debug raw alert dispatch failed - {ex.Message}");
-            }
-        }
+		private void DrawDebugOverlay(RenderContext context, IChartContainer container)
+		{
+			List<string> lines;
+			try
+			{
+				lines = BuildDebugHudSnapshot(_debugOverlayMode);
+			}
+			catch (Exception ex)
+			{
+				this.LogError($"DeltaPatterns: HUD snapshot failed - {ex.Message}");
+				return;
+			}
 
-        // Goes through the same gating as a real transition: respects
-        // category Enabled/EnableAlert and the global cooldown.
-        [Browsable(false)]
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public void DebugFireAlertGated(DeltaPattern pattern)
-        {
-            TryFireAlert(pattern);
-        }
+			const int padding = 8;
+			const int lineHeight = 16;
+			const int margin = 10;
 
-        // Forces the cooldown timer back to MinValue so the next call
-        // to DebugFireAlertGated / a real transition can fire immediately.
-        [Browsable(false)]
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public void DebugResetAlertCooldown()
-        {
-            _lastAlertTime = DateTime.MinValue;
-            this.LogInfo("DeltaPatterns: debug cooldown reset");
-        }
+			int maxTextWidth = 0;
+			foreach (var line in lines)
+			{
+				if (string.IsNullOrEmpty(line)) continue;
+				var size = context.MeasureString(line, _hudFont);
+				if (size.Width > maxTextWidth) maxTextWidth = size.Width;
+			}
 
-        // Simulates the OnNewTrade transition path end-to-end: rewrites
-        // the live bar's cached pattern to oldPattern, then invokes the
-        // gated alert with newPattern. Mirrors what would happen if the
-        // window classifier produced a transition naturally.
-        [Browsable(false)]
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public void DebugSimulateTransition(DeltaPattern oldPattern, DeltaPattern newPattern)
-        {
-            int currentBar = CurrentBar - 1;
-            if (currentBar < 0)
-            {
-                this.LogError("DeltaPatterns: debug simulate transition skipped - no current bar");
-                return;
-            }
+			int width = maxTextWidth + padding * 2;
+			int height = lines.Count * lineHeight + padding * 2;
 
-            lock (_stateLock)
-            {
-                _patterns.Set(currentBar, oldPattern);
-            }
+			int x, y;
+			switch (_debugOverlayCorner)
+			{
+				case DebugOverlayCorner.TopLeft:
+					x = container.Region.X + margin;
+					y = container.Region.Y + margin;
+					break;
+				case DebugOverlayCorner.BottomLeft:
+					x = container.Region.X + margin;
+					y = container.Region.Y + container.Region.Height - height - margin;
+					break;
+				case DebugOverlayCorner.BottomRight:
+					x = container.Region.X + container.Region.Width - width - margin;
+					y = container.Region.Y + container.Region.Height - height - margin;
+					break;
+				case DebugOverlayCorner.TopRight:
+				default:
+					x = container.Region.X + container.Region.Width - width - margin;
+					y = container.Region.Y + margin;
+					break;
+			}
 
-            if (oldPattern != newPattern)
-                TryFireAlert(newPattern);
+			x += _debugOverlayOffsetX;
+			y += _debugOverlayOffsetY;
 
-            this.LogInfo($"DeltaPatterns: debug simulated transition {oldPattern} -> {newPattern}");
-        }
+			var bgRect = new Rectangle(x, y, width, height);
+			context.FillRectangle(System.Drawing.Color.FromArgb(210, 18, 18, 22), bgRect);
+			context.DrawRectangle(_hudPen, bgRect);
 
-        // Inspector helper: returns the current alert state as a single
-        // string for the Immediate Window. Avoids hand-evaluating
-        // private fields one at a time.
-        [Browsable(false)]
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public string DebugAlertSnapshot()
-        {
-            return
-                $"sound='{AlertSoundFile}' " +
-                $"cooldown={AlertCooldownSeconds}s " +
-                $"lastAlertUtc={_lastAlertTime:yyyy-MM-dd HH:mm:ss.fff} " +
-                $"sinceLast={(DateTime.UtcNow - _lastAlertTime).TotalSeconds:0.000}s " +
-                $"agg={Aggressive.Enabled}/{Aggressive.EnableAlert} " +
-                $"dom={Dominance.Enabled}/{Dominance.EnableAlert} " +
-                $"div={Divergence.Enabled}/{Divergence.EnableAlert} " +
-                $"rev={Reversal.Enabled}/{Reversal.EnableAlert} " +
-                $"neu={Neutral.Enabled}/{Neutral.EnableAlert}";
-        }
+			int textY = y + padding;
+			foreach (var line in lines)
+			{
+				context.DrawString(line, _hudFont, System.Drawing.Color.White, x + padding, textY);
+				textY += lineHeight;
+			}
+		}
 
-        #endregion
-    }
+		private List<string> BuildDebugHudSnapshot(DebugOverlayMode mode)
+		{
+			int liveBar;
+			DeltaPattern livePattern;
+			bool historyLoaded;
+			int barsCount;
+			int tickCount;
+			decimal volume, delta, maxRun, minRun;
+			decimal sessionMaxAmp;
+			DateTime lastAlertTime;
+
+			lock (_stateLock)
+			{
+				liveBar = CurrentBar - 1;
+				livePattern = liveBar >= 0 ? _patterns.Get(liveBar) : DeltaPattern.None;
+				historyLoaded = _historyLoaded;
+				barsCount = _metrics.BarCount;
+				tickCount = _window.TickCount;
+				volume = _window.CurrentVolume;
+				delta = _window.CurrentDelta;
+				maxRun = _window.MaxRunningDelta;
+				minRun = _window.MinRunningDelta;
+				sessionMaxAmp = _sessionMaxAmp;
+				lastAlertTime = _lastAlertTime;
+			}
+
+			var lines = new List<string>(24);
+			lines.Add("== DELTA PATTERNS ==");
+
+			if (mode == DebugOverlayMode.Full)
+			{
+				lines.Add(string.Empty);
+				lines.Add($"TargetVolume:  {TargetVolume}");
+				lines.Add($"HistoryLoaded: {historyLoaded}");
+				lines.Add($"BarsCached:    {barsCount}");
+				lines.Add($"SessionMaxAmp: {sessionMaxAmp:0}");
+			}
+
+			lines.Add(string.Empty);
+			lines.Add("Window");
+			lines.Add($"  Ticks:   {tickCount}");
+			lines.Add($"  Volume:  {volume:0}");
+			lines.Add($"  Delta:   {delta:+0;-0;0}");
+			lines.Add($"  MaxRun:  {maxRun:+0;-0;0}");
+			lines.Add($"  MinRun:  {minRun:+0;-0;0}");
+			lines.Add(string.Empty);
+			lines.Add($"Live bar:  {liveBar}");
+			lines.Add($"Pattern:   {livePattern}");
+			lines.Add(string.Empty);
+
+			if (mode == DebugOverlayMode.Full)
+			{				
+				string cooldownStatus;
+				if (lastAlertTime == DateTime.MinValue)
+				{
+					cooldownStatus = "ready";
+				}
+				else
+				{
+					double sinceLast = (DateTime.UtcNow - lastAlertTime).TotalSeconds;
+					double cooldown = (double)AlertCooldownSeconds;
+					cooldownStatus = sinceLast >= cooldown
+						? "ready"
+						: $"{cooldown - sinceLast:0.0}s left";
+				}
+
+				lines.Add($"Cooldown: {AlertCooldownSeconds}s ({cooldownStatus})");
+				lines.Add($"  Aggressive  {FormatCategoryFlags(Aggressive)}");
+				lines.Add($"  Dominance   {FormatCategoryFlags(Dominance)}");
+				lines.Add($"  Divergence  {FormatCategoryFlags(Divergence)}");
+				lines.Add($"  Reversal    {FormatCategoryFlags(Reversal)}");
+				lines.Add($"  Neutral     {FormatCategoryFlags(Neutral)}");
+				lines.Add(string.Empty);
+			}
+
+			return lines;
+		}
+
+		private static string FormatCategoryFlags(PatternCategory cat)
+		{
+			var enabled = cat.Enabled ? "ON " : "OFF";
+			var alert = cat.EnableAlert ? "ALRT" : "    ";
+			var visible = cat.Visible ? "VIS" : "HID";
+			return $"{enabled} {alert} {visible}";
+		}
+
+		#endregion
+
+		#region Private Methods: Debug Hooks (temporary — removed in c15)
+
+		// Bypass IsPatternAlertEnabled and the cooldown gate.
+		// Use this to verify that the AddAlert dispatcher itself works
+		// (sound file path, popup colors, instrument tag) independent
+		// of category configuration.
+		[Browsable(false)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+		public void DebugFireAlertRaw(DeltaPattern pattern)
+		{
+			var instrument = InstrumentInfo?.Instrument ?? "?";
+			var message = $"DeltaPatterns[DBG-RAW]: {pattern}";
+			try
+			{
+				AddAlert(AlertSoundFile, instrument, message, AlertBackgroundColor, AlertForegroundColor);
+				this.LogInfo($"DeltaPatterns: debug raw alert fired pattern={pattern} instrument={instrument}");
+			}
+			catch (Exception ex)
+			{
+				this.LogError($"DeltaPatterns: debug raw alert dispatch failed - {ex.Message}");
+			}
+		}
+
+		// Goes through the same gating as a real transition: respects
+		// category Enabled/EnableAlert and the global cooldown.
+		[Browsable(false)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+		public void DebugFireAlertGated(DeltaPattern pattern)
+		{
+			TryFireAlert(pattern);
+		}
+
+		// Forces the cooldown timer back to MinValue so the next call
+		// to DebugFireAlertGated / a real transition can fire immediately.
+		[Browsable(false)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+		public void DebugResetAlertCooldown()
+		{
+			_lastAlertTime = DateTime.MinValue;
+			this.LogInfo("DeltaPatterns: debug cooldown reset");
+		}
+
+		// Simulates the OnNewTrade transition path end-to-end: rewrites
+		// the live bar's cached pattern to oldPattern, then invokes the
+		// gated alert with newPattern. Mirrors what would happen if the
+		// window classifier produced a transition naturally.
+		[Browsable(false)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+		public void DebugSimulateTransition(DeltaPattern oldPattern, DeltaPattern newPattern)
+		{
+			int currentBar = CurrentBar - 1;
+			if (currentBar < 0)
+			{
+				this.LogError("DeltaPatterns: debug simulate transition skipped - no current bar");
+				return;
+			}
+
+			lock (_stateLock)
+			{
+				_patterns.Set(currentBar, oldPattern);
+			}
+
+			if (oldPattern != newPattern)
+				TryFireAlert(newPattern);
+
+			this.LogInfo($"DeltaPatterns: debug simulated transition {oldPattern} -> {newPattern}");
+		}
+
+		// Inspector helper: returns the current alert state as a single
+		// string for the Immediate Window. Avoids hand-evaluating
+		// private fields one at a time.
+		[Browsable(false)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+		public string DebugAlertSnapshot()
+		{
+			return
+				$"sound='{AlertSoundFile}' " +
+				$"cooldown={AlertCooldownSeconds}s " +
+				$"lastAlertUtc={_lastAlertTime:yyyy-MM-dd HH:mm:ss.fff} " +
+				$"sinceLast={(DateTime.UtcNow - _lastAlertTime).TotalSeconds:0.000}s " +
+				$"agg={Aggressive.Enabled}/{Aggressive.EnableAlert} " +
+				$"dom={Dominance.Enabled}/{Dominance.EnableAlert} " +
+				$"div={Divergence.Enabled}/{Divergence.EnableAlert} " +
+				$"rev={Reversal.Enabled}/{Reversal.EnableAlert} " +
+				$"neu={Neutral.Enabled}/{Neutral.EnableAlert}";
+		}
+
+		#endregion
+	}
 }
