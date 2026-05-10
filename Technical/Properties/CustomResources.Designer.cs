@@ -529,11 +529,29 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Highlights.
+        /// </summary>
+        public static string Group_Accents {
+            get {
+                return ResourceManager.GetString("Group_Accents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Alerts.
         /// </summary>
         public static string Group_Alerts {
             get {
                 return ResourceManager.GetString("Group_Alerts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Alpha tiers.
+        /// </summary>
+        public static string Group_AlphaTiers {
+            get {
+                return ResourceManager.GetString("Group_AlphaTiers", resourceCulture);
             }
         }
         
@@ -552,6 +570,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string Group_Calculation {
             get {
                 return ResourceManager.GetString("Group_Calculation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Data.
+        /// </summary>
+        public static string Group_Data {
+            get {
+                return ResourceManager.GetString("Group_Data", resourceCulture);
             }
         }
         
@@ -592,6 +619,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Line styles.
+        /// </summary>
+        public static string Group_Pens {
+            get {
+                return ResourceManager.GetString("Group_Pens", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Text.
+        /// </summary>
+        public static string Group_Text {
+            get {
+                return ResourceManager.GetString("Group_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Threshold.
         /// </summary>
         public static string Group_Threshold {
@@ -606,6 +651,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string Group_Visuals {
             get {
                 return ResourceManager.GetString("Group_Visuals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Width tiers.
+        /// </summary>
+        public static string Group_WidthTiers {
+            get {
+                return ResourceManager.GetString("Group_WidthTiers", resourceCulture);
             }
         }
         
@@ -759,6 +813,267 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string Labels_Header {
             get {
                 return ResourceManager.GetString("Labels_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Clear text now.
+        /// </summary>
+        public static string LevelsLolo_ClearTextNow_DisplayName {
+            get {
+                return ResourceManager.GetString("LevelsLolo_ClearTextNow_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Draws SpotGamma-style option levels (Combo, Large Gamma, Volatility Trigger, Call Wall, Put Wall, Zero Gamma) derived from comma-separated text. Features configurable line styles per category, rank-based width and opacity tiers, optional cyan halo for 0DTE labels, and a dotted highlight for high-priority 0DTE levels (LG/PW/CW within the thick tier)..
+        /// </summary>
+        public static string LevelsLolo_Description {
+            get {
+                return ResourceManager.GetString("LevelsLolo_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Enable 0DTE halo.
+        /// </summary>
+        public static string LevelsLolo_Enable0DTEHalo_DisplayName {
+            get {
+                return ResourceManager.GetString("LevelsLolo_Enable0DTEHalo_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Font size.
+        /// </summary>
+        public static string LevelsLolo_FontSize_DisplayName {
+            get {
+                return ResourceManager.GetString("LevelsLolo_FontSize_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a 0DTE halo opacity (0-255).
+        /// </summary>
+        public static string LevelsLolo_HaloAlpha_DisplayName {
+            get {
+                return ResourceManager.GetString("LevelsLolo_HaloAlpha_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a 0DTE halo extra width (px).
+        /// </summary>
+        public static string LevelsLolo_HaloExtraWidth_DisplayName {
+            get {
+                return ResourceManager.GetString("LevelsLolo_HaloExtraWidth_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Extend to the last visible bar instead of the right chart edge..
+        /// </summary>
+        public static string LevelsLolo_LastBarOnly_Description {
+            get {
+                return ResourceManager.GetString("LevelsLolo_LastBarOnly_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Last bar only.
+        /// </summary>
+        public static string LevelsLolo_LastBarOnly_DisplayName {
+            get {
+                return ResourceManager.GetString("LevelsLolo_LastBarOnly_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Opacity (medium).
+        /// </summary>
+        public static string LevelsLolo_MediumAlpha_DisplayName {
+            get {
+                return ResourceManager.GetString("LevelsLolo_MediumAlpha_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Medium up to rank.
+        /// </summary>
+        public static string LevelsLolo_MediumMaxRank_DisplayName {
+            get {
+                return ResourceManager.GetString("LevelsLolo_MediumMaxRank_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Width (medium).
+        /// </summary>
+        public static string LevelsLolo_MediumWidth_DisplayName {
+            get {
+                return ResourceManager.GetString("LevelsLolo_MediumWidth_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Offset X.
+        /// </summary>
+        public static string LevelsLolo_OffsetX_DisplayName {
+            get {
+                return ResourceManager.GetString("LevelsLolo_OffsetX_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Offset Y.
+        /// </summary>
+        public static string LevelsLolo_OffsetY_DisplayName {
+            get {
+                return ResourceManager.GetString("LevelsLolo_OffsetY_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a 0DTE halo style.
+        /// </summary>
+        public static string LevelsLolo_Pen0DTEHalo_DisplayName {
+            get {
+                return ResourceManager.GetString("LevelsLolo_Pen0DTEHalo_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Call Wall (CW).
+        /// </summary>
+        public static string LevelsLolo_PenCallWall_DisplayName {
+            get {
+                return ResourceManager.GetString("LevelsLolo_PenCallWall_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Combo (CO).
+        /// </summary>
+        public static string LevelsLolo_PenCombo_DisplayName {
+            get {
+                return ResourceManager.GetString("LevelsLolo_PenCombo_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Large Gamma (LG).
+        /// </summary>
+        public static string LevelsLolo_PenLargeGamma_DisplayName {
+            get {
+                return ResourceManager.GetString("LevelsLolo_PenLargeGamma_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Other / Unknown.
+        /// </summary>
+        public static string LevelsLolo_PenOther_DisplayName {
+            get {
+                return ResourceManager.GetString("LevelsLolo_PenOther_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Put Wall (PW).
+        /// </summary>
+        public static string LevelsLolo_PenPutWall_DisplayName {
+            get {
+                return ResourceManager.GetString("LevelsLolo_PenPutWall_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Volatility Trigger (VT).
+        /// </summary>
+        public static string LevelsLolo_PenVolTrigger_DisplayName {
+            get {
+                return ResourceManager.GetString("LevelsLolo_PenVolTrigger_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Zero Gamma (ZG).
+        /// </summary>
+        public static string LevelsLolo_PenZeroGamma_DisplayName {
+            get {
+                return ResourceManager.GetString("LevelsLolo_PenZeroGamma_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Example: $SP: CO44, 7073, LG07, 7048, ....
+        /// </summary>
+        public static string LevelsLolo_RawText_Description {
+            get {
+                return ResourceManager.GetString("LevelsLolo_RawText_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Raw text.
+        /// </summary>
+        public static string LevelsLolo_RawText_DisplayName {
+            get {
+                return ResourceManager.GetString("LevelsLolo_RawText_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Right-aligned text.
+        /// </summary>
+        public static string LevelsLolo_RightAligned_DisplayName {
+            get {
+                return ResourceManager.GetString("LevelsLolo_RightAligned_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Opacity (thick).
+        /// </summary>
+        public static string LevelsLolo_ThickAlpha_DisplayName {
+            get {
+                return ResourceManager.GetString("LevelsLolo_ThickAlpha_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Thick up to rank.
+        /// </summary>
+        public static string LevelsLolo_ThickMaxRank_DisplayName {
+            get {
+                return ResourceManager.GetString("LevelsLolo_ThickMaxRank_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Width (thick).
+        /// </summary>
+        public static string LevelsLolo_ThickWidth_DisplayName {
+            get {
+                return ResourceManager.GetString("LevelsLolo_ThickWidth_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Opacity (thin).
+        /// </summary>
+        public static string LevelsLolo_ThinAlpha_DisplayName {
+            get {
+                return ResourceManager.GetString("LevelsLolo_ThinAlpha_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Width (thin).
+        /// </summary>
+        public static string LevelsLolo_ThinWidth_DisplayName {
+            get {
+                return ResourceManager.GetString("LevelsLolo_ThinWidth_DisplayName", resourceCulture);
             }
         }
         
