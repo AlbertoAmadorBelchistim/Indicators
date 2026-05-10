@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <data name="Indicator_Description" xml:space="preserve"><value>Отображает на графике уровни опционов MenthorQ (Gamma Wall, Call Resistance, Put Support и т.д.) с возможностью ручного ввода или получения данных по API, настраиваемой видимостью и цветом для каждой категории, оповещениями о пересечении уровней с уведомлением о развороте и опциональным диагностическим оверлеем.</value></data>
+
+<data name="Group_ManualText" xml:space="preserve"><value>Ручной ввод текста</value></data>
+<data name="Group_Api" xml:space="preserve"><value>API</value></data>
+<data name="Group_Levels" xml:space="preserve"><value>Уровни</value></data>
+<data name="Group_Alerts" xml:space="preserve"><value>Оповещения</value></data>
+<data name="Group_Diagnostics" xml:space="preserve"><value>Диагностика</value></data>
+
+<data name="EnableManualText_DisplayName" xml:space="preserve"><value>Включено</value></data>
+<data name="EnableManualText_Description" xml:space="preserve"><value>Разрешает вставку уровней MenthorQ в виде текста, разделенного запятыми. Игнорируется, если настроен и доступен API.</value></data>
+<data name="IndexTextRaw_DisplayName" xml:space="preserve"><value>Текст индекса</value></data>
+<data name="IndexTextRaw_Description" xml:space="preserve"><value>Вставьте данные MenthorQ для тикера индекса или ETF (SPX / NDX / RUT или SPY / QQQ / IWM). Множитель и смещение (offset) применяются к этим ценам именно в таком порядке.</value></data>
+<data name="FuturesTextRaw_DisplayName" xml:space="preserve"><value>Текст фьючерсов</value></data>
+<data name="FuturesTextRaw_Description" xml:space="preserve"><value>Вставьте данные MenthorQ для тикера фьючерса (ES / NQ / RTY). Смещение к этим ценам не применяется.</value></data>
+<data name="TextMultiplier_DisplayName" xml:space="preserve"><value>Множитель (Индекс к Графику)</value></data>
+<data name="TextMultiplier_Description" xml:space="preserve"><value>Применяется к каждой цене из текста индекса ДО смещения. Типичный случай: данные ETF → график фьючерсов. По умолчанию 1 (без масштабирования).</value></data>
+<data name="TextOffset_DisplayName" xml:space="preserve"><value>Смещение (Индекс к Графику)</value></data>
+<data name="TextOffset_Description" xml:space="preserve"><value>Добавляется к каждой цене из текста индекса для выравнивания уровней SPX с ES, NDX с NQ и т.д. Текст фьючерсов смещения не получает.</value></data>
+<data name="ClearManualTextNow_DisplayName" xml:space="preserve"><value>Очистить текстовые поля</value></data>
+<data name="ClearManualTextNow_Description" xml:space="preserve"><value>Переключите, чтобы очистить текстовые поля индекса и фьючерсов. Сбрасывается автоматически.</value></data>
+
+<data name="ApiKey_DisplayName" xml:space="preserve"><value>Ключ API</value></data>
+<data name="ApiKey_Description" xml:space="preserve"><value>Ключ API MenthorQ. Если задан вместе с User ID, API становится активным источником данных, а ручной ввод игнорируется.</value></data>
+<data name="UserId_DisplayName" xml:space="preserve"><value>User ID (email)</value></data>
+<data name="UserId_Description" xml:space="preserve"><value>Email, привязанный к вашему аккаунту MenthorQ. Отправляется как параметр user_id при каждом запросе.</value></data>
+<data name="TickerOverride_DisplayName" xml:space="preserve"><value>Переопределить тикер</value></data>
+<data name="TickerOverride_Description" xml:space="preserve"><value>Опционально. Оставьте пустым, чтобы использовать инструмент графика (микро-тикеры пропускаются автоматически: MES→ES). Задайте значение для принудительного использования конкретного тикера (например, SPX на ES).</value></data>
+<data name="ApiMultiplier_DisplayName" xml:space="preserve"><value>Множитель (API к Графику)</value></data>
+<data name="ApiMultiplier_Description" xml:space="preserve"><value>Применяется к каждой цене, полученной по API, ДО смещения. Применяется во время выполнения — изменение не вызывает нового запроса к API.</value></data>
+<data name="ApiOffset_DisplayName" xml:space="preserve"><value>Смещение (API к Графику)</value></data>
+<data name="ApiOffset_Description" xml:space="preserve"><value>Добавляется к каждой цене API ПОСЛЕ множителя. Формула: (цена × множитель) + смещение. Применяется во время выполнения — изменение не вызывает нового запроса к API.</value></data>
+<data name="UpdateLevels_DisplayName" xml:space="preserve"><value>Обновить уровни</value></data>
+<data name="UpdateLevels_Description" xml:space="preserve"><value>Запрашивает последние уровни из API MenthorQ. Сбрасывается автоматически.</value></data>
+
+<data name="GammaWall_DisplayName" xml:space="preserve"><value>Gamma Wall</value></data>
+<data name="GammaWall_Description" xml:space="preserve"><value>Видимость и цвет для линий, ореолов и меток GW.</value></data>
+<data name="CallResistance_DisplayName" xml:space="preserve"><value>Call Resistance</value></data>
+<data name="CallResistance_Description" xml:space="preserve"><value>Видимость и цвет для линий, ореолов и меток CR.</value></data>
+<data name="PutSupport_DisplayName" xml:space="preserve"><value>Put Support</value></data>
+<data name="PutSupport_Description" xml:space="preserve"><value>Видимость и цвет для линий, ореолов и меток PS.</value></data>
+<data name="HighVolatilityLevel_DisplayName" xml:space="preserve"><value>High Volatility Level</value></data>
+<data name="HighVolatilityLevel_Description" xml:space="preserve"><value>Видимость и цвет для линий, ореолов и меток HVL.</value></data>
+<data name="RiskTrigger_DisplayName" xml:space="preserve"><value>Risk Trigger</value></data>
+<data name="RiskTrigger_Description" xml:space="preserve"><value>Видимость и цвет для линий, ореолов и меток RT.</value></data>
+<data name="UpperBand_DisplayName" xml:space="preserve"><value>Upper Band</value></data>
+<data name="UpperBand_Description" xml:space="preserve"><value>Видимость и цвет для линий, ореолов и меток UB.</value></data>
+<data name="LowerBand_DisplayName" xml:space="preserve"><value>Lower Band</value></data>
+<data name="LowerBand_Description" xml:space="preserve"><value>Видимость и цвет для линий, ореолов и меток LB.</value></data>
+<data name="GammaExposure_DisplayName" xml:space="preserve"><value>Gamma Exposure</value></data>
+<data name="GammaExposure_Description" xml:space="preserve"><value>Видимость и цвет для линий, ореолов и меток GEX N.</value></data>
+<data name="BlindSpot_DisplayName" xml:space="preserve"><value>Blind Spot</value></data>
+<data name="BlindSpot_Description" xml:space="preserve"><value>Видимость и цвет для линий, ореолов и меток BL N.</value></data>
+<data name="DayMax_DisplayName" xml:space="preserve"><value>Максимум дня</value></data>
+<data name="DayMax_Description" xml:space="preserve"><value>Видимость и цвет для 1D Max.</value></data>
+<data name="DayMin_DisplayName" xml:space="preserve"><value>Минимум дня</value></data>
+<data name="DayMin_Description" xml:space="preserve"><value>Видимость и цвет для 1D Min.</value></data>
+<data name="Swing_DisplayName" xml:space="preserve"><value>Swing</value></data>
+<data name="Swing_Description" xml:space="preserve"><value>Видимость и цвет для Swing.</value></data>
+<data name="Other_DisplayName" xml:space="preserve"><value>Другие</value></data>
+<data name="Other_Description" xml:space="preserve"><value>Видимость и цвет для нераспознанных меток.</value></data>
+
+<data name="EnableAlerts_DisplayName" xml:space="preserve"><value>Включить оповещения</value></data>
+<data name="EnableAlerts_Description" xml:space="preserve"><value>Главный переключатель для оповещений о пересечении уровней. Если выключено, ничего не срабатывает независимо от видимости категорий.</value></data>
+<data name="AlertSoundFile_DisplayName" xml:space="preserve"><value>Звуковой файл</value></data>
+<data name="AlertSoundFile_Description" xml:space="preserve"><value>Имя звукового файла, который воспроизводится при срабатывании оповещения. ATAS распознает встроенные файлы, такие как 'alert1.wav'.</value></data>
+<data name="EnableReversalAlerts_DisplayName" xml:space="preserve"><value>Оповещение о развороте</value></data>
+<data name="EnableReversalAlerts_Description" xml:space="preserve"><value>Если цена пересекает уровень обратно во время периода задержки (cooldown), выдает оповещение по истечении этого периода.</value></data>
+<data name="AlertCooldownSeconds_DisplayName" xml:space="preserve"><value>Задержка (секунды)</value></data>
+<data name="AlertCooldownSeconds_Description" xml:space="preserve"><value>Минимальное время между последовательными оповещениями на одном и том же уровне цены. Предотвращает шквал оповещений при колебаниях цены.</value></data>
+
+<data name="EnableDebugOverlay_DisplayName" xml:space="preserve"><value>Показать диагностический оверлей</value></data>
+<data name="EnableDebugOverlay_Description" xml:space="preserve"><value>Отображает небольшую панель состояния в углу графика с внутренним статусом индикатора. По умолчанию отключено.</value></data>
+<data name="OverlayLocation_DisplayName" xml:space="preserve"><value>Расположение оверлея</value></data>
+<data name="OverlayLocation_Description" xml:space="preserve"><value>Угол графика, где закреплен оверлей. По умолчанию Сверху Справа (TopRight), чтобы не перекрывать информацию OHLC.</value></data>
+
+<data name="Style_Visible_DisplayName" xml:space="preserve"><value>Видимый</value></data>
+<data name="Style_Color_DisplayName" xml:space="preserve"><value>Цвет</value></data>
+<data name="Style_State_Visible" xml:space="preserve"><value>Видимый</value></data>
+<data name="Style_State_Hidden" xml:space="preserve"><value>Скрытый</value></data>
+
+<data name="Alert_CrossedAbove" xml:space="preserve"><value>пересечение вверх {0} @ {1}</value></data>
+<data name="Alert_CrossedBelow" xml:space="preserve"><value>пересечение вниз {0} @ {1}</value></data>
+<data name="Alert_BackAbove" xml:space="preserve"><value>возврат наверх {0} @ {1}</value></data>
+<data name="Alert_BackBelow" xml:space="preserve"><value>возврат вниз {0} @ {1}</value></data>
+
+<data name="OverlayLocation_TopLeft" xml:space="preserve"><value>Сверху Слева</value></data>
+<data name="OverlayLocation_TopCenter" xml:space="preserve"><value>Сверху по Центру</value></data>
+<data name="OverlayLocation_TopRight" xml:space="preserve"><value>Сверху Справа</value></data>
+<data name="OverlayLocation_BottomLeft" xml:space="preserve"><value>Снизу Слева</value></data>
+<data name="OverlayLocation_BottomCenter" xml:space="preserve"><value>Снизу по Центру</value></data>
+<data name="OverlayLocation_BottomRight" xml:space="preserve"><value>Снизу Справа</value></data>
+
+<data name="EnableAutoRefresh_DisplayName" xml:space="preserve"><value>Автообновление</value></data>
+<data name="EnableAutoRefresh_Description" xml:space="preserve"><value>Автоматически обновляет уровни API согласно внутридневному расписанию MenthorQ. Применяет небольшой запас времени, чтобы данные стабилизировались на сервере.</value></data>
+
+<data name="Labels_Header" xml:space="preserve"><value>Метки</value></data>
+<data name="LabelAlignment_Name" xml:space="preserve"><value>Горизонтальное выравнивание</value></data>
+<data name="LabelAlignment_Description" xml:space="preserve"><value>Где по горизонтали закрепить текстовую метку уровня. Справа (по умолчанию) оставляет метки у правого края. По центру закрепляет их посередине, что полезно при загруженном DOM. Слева закрепляет у левого края с небольшим отступом. Исключительно визуальное изменение.</value></data>
+
+<data name="LabelAlignment_Right" xml:space="preserve"><value>Справа</value></data>
+<data name="LabelAlignment_Center" xml:space="preserve"><value>По центру</value></data>
+<data name="LabelAlignment_Left" xml:space="preserve"><value>Слева</value></data>
+
+</root>

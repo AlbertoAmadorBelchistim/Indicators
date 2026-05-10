@@ -125,6 +125,11 @@
 	  <None Include="**\*.Common.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Properties\CustomResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CustomResources.resx</DependentUpon>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -138,6 +143,16 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\CustomResources.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>CustomResources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Properties\CustomResources.*.resx">
+			<DependentUpon>CustomResources.resx</DependentUpon>
+		</EmbeddedResource>
+	</ItemGroup>
 
   <!-- File exclusions by platform -->
   <ItemGroup Condition=" '$(Platform)' == 'Cross' ">
