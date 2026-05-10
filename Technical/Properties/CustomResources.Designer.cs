@@ -115,6 +115,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a The .wav file name. Use defaults (&apos;alert1&apos;, &apos;alert2&apos;) or place custom files in the ATAS sounds folder..
+        /// </summary>
+        public static string AlertFile_Description {
+            get {
+                return ResourceManager.GetString("AlertFile_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Alert Sound File.
+        /// </summary>
+        public static string AlertFile_DisplayName {
+            get {
+                return ResourceManager.GetString("AlertFile_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Filename of the sound played when an alert fires. ATAS resolves bundled names like &apos;alert1.wav&apos; from its sound directory; absolute paths work too..
         /// </summary>
         public static string AlertSoundFile_Description {
@@ -205,6 +223,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Color for zones with buying dominance. Efficiency near 1 renders this color as pure; lower efficiency blends it toward the neutral color..
+        /// </summary>
+        public static string BuyColor_Description {
+            get {
+                return ResourceManager.GetString("BuyColor_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Buy Color.
+        /// </summary>
+        public static string BuyColor_DisplayName {
+            get {
+                return ResourceManager.GetString("BuyColor_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Visibility and color for CR lines, halos and labels..
         /// </summary>
         public static string CallResistance_Description {
@@ -237,6 +273,42 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string ClearManualTextNow_DisplayName {
             get {
                 return ResourceManager.GetString("ClearManualTextNow_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The lookback period used to compute the percentile threshold. Adapts to session volatility: short enough to track phase shifts, long enough to remain statistically stable..
+        /// </summary>
+        public static string ContextWindowMinutes_Description {
+            get {
+                return ResourceManager.GetString("ContextWindowMinutes_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Context Window (minutes).
+        /// </summary>
+        public static string ContextWindowMinutes_DisplayName {
+            get {
+                return ResourceManager.GetString("ContextWindowMinutes_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Metric accumulated within the time window. Ticks: counts operations; Volume: sums contracts; Delta: net difference between buying and selling aggression; Buy/Sell Volume: isolate a single side..
+        /// </summary>
+        public static string DataType_Description {
+            get {
+                return ResourceManager.GetString("DataType_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Data Type.
+        /// </summary>
+        public static string DataType_DisplayName {
+            get {
+                return ResourceManager.GetString("DataType_DisplayName", resourceCulture);
             }
         }
         
@@ -367,6 +439,42 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Number of bars to the right drawn at full opacity. The horizontal line marks the center of the burst&apos;s price range as a transient support/resistance reference..
+        /// </summary>
+        public static string ExtensionBars_Description {
+            get {
+                return ResourceManager.GetString("ExtensionBars_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Extension Bars (Full).
+        /// </summary>
+        public static string ExtensionBars_DisplayName {
+            get {
+                return ResourceManager.GetString("ExtensionBars_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Number of bars following the full-opacity segment drawn with linearly decreasing transparency (alpha). Set to 0 for an abrupt cutoff..
+        /// </summary>
+        public static string FadeBars_Description {
+            get {
+                return ResourceManager.GetString("FadeBars_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Extension Bars (Fade).
+        /// </summary>
+        public static string FadeBars_DisplayName {
+            get {
+                return ResourceManager.GetString("FadeBars_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Paste MenthorQ output for the Futures ticker (ES / NQ / RTY). Offset is not applied to these prices..
         /// </summary>
         public static string FuturesTextRaw_Description {
@@ -439,11 +547,29 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Calculation.
+        /// </summary>
+        public static string Group_Calculation {
+            get {
+                return ResourceManager.GetString("Group_Calculation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Diagnostics.
         /// </summary>
         public static string Group_Diagnostics {
             get {
                 return ResourceManager.GetString("Group_Diagnostics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Info Panel.
+        /// </summary>
+        public static string Group_InfoPanel {
+            get {
+                return ResourceManager.GetString("Group_InfoPanel", resourceCulture);
             }
         }
         
@@ -462,6 +588,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string Group_ManualText {
             get {
                 return ResourceManager.GetString("Group_ManualText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Threshold.
+        /// </summary>
+        public static string Group_Threshold {
+            get {
+                return ResourceManager.GetString("Group_Threshold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Visuals.
+        /// </summary>
+        public static string Group_Visuals {
+            get {
+                return ResourceManager.GetString("Group_Visuals", resourceCulture);
             }
         }
         
@@ -516,6 +660,60 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string LabelAlignment_Center {
             get {
                 return ResourceManager.GetString("LabelAlignment_Center", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Bottom Left.
+        /// </summary>
+        public static string InfoPanelLocation_BottomLeft {
+            get {
+                return ResourceManager.GetString("InfoPanelLocation_BottomLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Bottom Right.
+        /// </summary>
+        public static string InfoPanelLocation_BottomRight {
+            get {
+                return ResourceManager.GetString("InfoPanelLocation_BottomRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Top Left.
+        /// </summary>
+        public static string InfoPanelLocation_TopLeft {
+            get {
+                return ResourceManager.GetString("InfoPanelLocation_TopLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Top Right.
+        /// </summary>
+        public static string InfoPanelLocation_TopRight {
+            get {
+                return ResourceManager.GetString("InfoPanelLocation_TopRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Chart corner where the info panel is anchored..
+        /// </summary>
+        public static string InfoPanelPosition_Description {
+            get {
+                return ResourceManager.GetString("InfoPanelPosition_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Position.
+        /// </summary>
+        public static string InfoPanelPosition_DisplayName {
+            get {
+                return ResourceManager.GetString("InfoPanelPosition_DisplayName", resourceCulture);
             }
         }
         
@@ -579,6 +777,42 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string LowerBand_DisplayName {
             get {
                 return ResourceManager.GetString("LowerBand_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Number of recent bursts visible in the panel. Older events are automatically removed as new data arrives..
+        /// </summary>
+        public static string MaxEventsInPanel_Description {
+            get {
+                return ResourceManager.GetString("MaxEventsInPanel_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Max Events Shown.
+        /// </summary>
+        public static string MaxEventsInPanel_DisplayName {
+            get {
+                return ResourceManager.GetString("MaxEventsInPanel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Color used when a burst is balanced (efficiency below 0.3) or as the base for low-efficiency directional blends..
+        /// </summary>
+        public static string NeutralColor_Description {
+            get {
+                return ResourceManager.GetString("NeutralColor_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Neutral Color.
+        /// </summary>
+        public static string NeutralColor_DisplayName {
+            get {
+                return ResourceManager.GetString("NeutralColor_DisplayName", resourceCulture);
             }
         }
         
@@ -709,6 +943,114 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Color for zones with selling dominance. Efficiency near 1 renders this color as pure; lower efficiency blends it toward the neutral color..
+        /// </summary>
+        public static string SellColor_Description {
+            get {
+                return ResourceManager.GetString("SellColor_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Sell Color.
+        /// </summary>
+        public static string SellColor_DisplayName {
+            get {
+                return ResourceManager.GetString("SellColor_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Toggle the floating panel that lists the most recent burst events and their metrics..
+        /// </summary>
+        public static string ShowInfoPanel_Description {
+            get {
+                return ResourceManager.GetString("ShowInfoPanel_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show Info Panel.
+        /// </summary>
+        public static string ShowInfoPanel_DisplayName {
+            get {
+                return ResourceManager.GetString("ShowInfoPanel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Minimum time between alerts to prevent notification spam. Set to 0 to receive all alerts without restriction..
+        /// </summary>
+        public static string SpeedOfTapeV3_AlertCooldownSeconds_Description {
+            get {
+                return ResourceManager.GetString("SpeedOfTapeV3_AlertCooldownSeconds_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Alert Cooldown (seconds).
+        /// </summary>
+        public static string SpeedOfTapeV3_AlertCooldownSeconds_DisplayName {
+            get {
+                return ResourceManager.GetString("SpeedOfTapeV3_AlertCooldownSeconds_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Event-driven tape speed detector. Dynamic histogram with High Water Mark (HWM) frozen bars color-coded by burst direction. Features a dynamic percentile-based threshold, persistent price-panel zones with fading extension lines, and a floating info panel with real-time metrics..
+        /// </summary>
+        public static string SpeedOfTapeV3_Description {
+            get {
+                return ResourceManager.GetString("SpeedOfTapeV3_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Buy Volume.
+        /// </summary>
+        public static string SpeedType_Buys {
+            get {
+                return ResourceManager.GetString("SpeedType_Buys", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Delta (Aggression).
+        /// </summary>
+        public static string SpeedType_Delta {
+            get {
+                return ResourceManager.GetString("SpeedType_Delta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Sell Volume.
+        /// </summary>
+        public static string SpeedType_Sells {
+            get {
+                return ResourceManager.GetString("SpeedType_Sells", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Ticks (HFT).
+        /// </summary>
+        public static string SpeedType_Ticks {
+            get {
+                return ResourceManager.GetString("SpeedType_Ticks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Volume (Blocks).
+        /// </summary>
+        public static string SpeedType_Volume {
+            get {
+                return ResourceManager.GetString("SpeedType_Volume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Color.
         /// </summary>
         public static string Style_Color_DisplayName {
@@ -799,6 +1141,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Speed level above which a burst is detected. P95 represents speeds occurring only 5% of the time in the recent context. Higher values increase selectivity..
+        /// </summary>
+        public static string ThresholdPercentile_Description {
+            get {
+                return ResourceManager.GetString("ThresholdPercentile_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Threshold Percentile.
+        /// </summary>
+        public static string ThresholdPercentile_DisplayName {
+            get {
+                return ResourceManager.GetString("ThresholdPercentile_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Optional. Leave empty to use the chart instrument (micros are auto-stripped: MES→ES, MNQ→NQ). Set a value to force a specific ticker (e.g. SPX on ES, or ES when the feed exposes ESH24)..
         /// </summary>
         public static string TickerOverride_Description {
@@ -813,6 +1173,24 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string TickerOverride_DisplayName {
             get {
                 return ResourceManager.GetString("TickerOverride_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Length of the sliding window used to calculate speed. Smaller values increase reactivity but add noise; larger values smooth out micro-bursts..
+        /// </summary>
+        public static string TimeWindow_Description {
+            get {
+                return ResourceManager.GetString("TimeWindow_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Time Window (seconds).
+        /// </summary>
+        public static string TimeWindow_DisplayName {
+            get {
+                return ResourceManager.GetString("TimeWindow_DisplayName", resourceCulture);
             }
         }
         
@@ -853,6 +1231,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Master switch for audio and popup notifications on detected bursts. Disabled by default..
+        /// </summary>
+        public static string UseAlerts_Description {
+            get {
+                return ResourceManager.GetString("UseAlerts_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Enable Alerts.
+        /// </summary>
+        public static string UseAlerts_DisplayName {
+            get {
+                return ResourceManager.GetString("UseAlerts_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Email associated with your MenthorQ account. Sent as the user_id query parameter on every request..
         /// </summary>
         public static string UserId_Description {
@@ -867,6 +1263,51 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string UserId_DisplayName {
             get {
                 return ResourceManager.GetString("UserId_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Defines how burst zones appear on the price chart. &apos;All events&apos; shows every detection; &apos;Primary only&apos; highlights only the highest-speed burst per bar; &apos;Hidden&apos; disables the price overlay..
+        /// </summary>
+        public static string ZoneDisplay_Description {
+            get {
+                return ResourceManager.GetString("ZoneDisplay_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Zone Display.
+        /// </summary>
+        public static string ZoneDisplay_DisplayName {
+            get {
+                return ResourceManager.GetString("ZoneDisplay_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a All Events.
+        /// </summary>
+        public static string ZoneDisplayMode_All {
+            get {
+                return ResourceManager.GetString("ZoneDisplayMode_All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Hidden.
+        /// </summary>
+        public static string ZoneDisplayMode_Hidden {
+            get {
+                return ResourceManager.GetString("ZoneDisplayMode_Hidden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Primary Only.
+        /// </summary>
+        public static string ZoneDisplayMode_PrimaryOnly {
+            get {
+                return ResourceManager.GetString("ZoneDisplayMode_PrimaryOnly", resourceCulture);
             }
         }
     }
