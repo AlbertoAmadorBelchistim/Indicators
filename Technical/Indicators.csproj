@@ -118,6 +118,11 @@
 	  <None Include="**\*.Common.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Properties\CustomResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CustomResources.resx</DependentUpon>
+    </Compile>
     <Compile Update="Properties\FallbackResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -144,6 +149,16 @@
 		</EmbeddedResource>
 		<EmbeddedResource Update="Properties\FallBackResources.*.resx">
 			<DependentUpon>FallBackResources.resx</DependentUpon>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\CustomResources.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>CustomResources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Properties\CustomResources.*.resx">
+			<DependentUpon>CustomResources.resx</DependentUpon>
 		</EmbeddedResource>
 	</ItemGroup>
 
