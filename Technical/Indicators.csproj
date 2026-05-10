@@ -162,15 +162,19 @@
     <None Include="**\*.Common.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
   </ItemGroup>
 
-  <!-- Guard: ATAS_X configs require Cross platform, and vice versa -->
+	<ItemGroup Condition=" '$(Configuration)' == 'Stable' ">
+		<Compile Remove="RolloverDates.cs" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(Configuration)' != 'Alpha' And '$(Configuration)' != 'ATAS_X_Alpha' ">
+		<Compile Remove="Heatmap\Heatmap*.cs" />
+	</ItemGroup>
+
+	<!-- Guard: ATAS_X configs require Cross platform, and vice versa -->
   <PropertyGroup>
     <IsAtasX Condition="'$(Configuration)' == 'ATAS_X_Alpha' Or '$(Configuration)' == 'ATAS_X_Beta'">true</IsAtasX>
     <IsAtasX Condition="'$(IsAtasX)' == ''">false</IsAtasX>
   </PropertyGroup>
-
-  <ItemGroup Condition=" '$(Configuration)' == 'Stable' ">
-    <Compile Remove="RolloverDates.cs" />
-  </ItemGroup>
 
   <Target Name="ValidateConfigurationPlatform" BeforeTargets="PrepareForBuild">
     <Error Condition="'$(IsAtasX)' == 'true' And '$(Platform)' != 'Cross'" Text="ATAS_X configurations must be built with Platform=Cross." />
