@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+<data name="Indicator_Description" xml:space="preserve"><value>Affiche les niveaux dérivés d'options de MenthorQ (Gamma Wall, Call Resistance, Put Support, etc.) sur le graphique, avec collage de texte manuel ou appel API en direct, visibilité et couleur personnalisables par catégorie, alertes de croisement avec notification d'inversion, et une superposition de diagnostic en option.</value></data>
+
+<data name="Group_ManualText" xml:space="preserve"><value>Texte manuel</value></data>
+<data name="Group_Api" xml:space="preserve"><value>API</value></data>
+<data name="Group_Levels" xml:space="preserve"><value>Niveaux</value></data>
+<data name="Group_Alerts" xml:space="preserve"><value>Alertes</value></data>
+<data name="Group_Diagnostics" xml:space="preserve"><value>Diagnostic</value></data>
+
+<data name="EnableManualText_DisplayName" xml:space="preserve"><value>Activé</value></data>
+<data name="EnableManualText_Description" xml:space="preserve"><value>Permet de coller les niveaux MenthorQ sous forme de texte séparé par des virgules. Ignoré si l'API est configurée et accessible.</value></data>
+<data name="IndexTextRaw_DisplayName" xml:space="preserve"><value>Texte de l'indice</value></data>
+<data name="IndexTextRaw_Description" xml:space="preserve"><value>Collez le résultat MenthorQ pour un ticker d'indice ou d'ETF (SPX / NDX / RUT, ou SPY / QQQ / IWM). Le multiplicateur et le décalage (offset) ci-dessous s'appliquent à ces prix dans cet ordre.</value></data>
+<data name="FuturesTextRaw_DisplayName" xml:space="preserve"><value>Texte des contrats à terme</value></data>
+<data name="FuturesTextRaw_Description" xml:space="preserve"><value>Collez le résultat MenthorQ pour le ticker du contrat à terme (ES / NQ / RTY). Le décalage n'est pas appliqué à ces prix.</value></data>
+<data name="TextMultiplier_DisplayName" xml:space="preserve"><value>Multiplicateur (Indice vers Graphique)</value></data>
+<data name="TextMultiplier_Description" xml:space="preserve"><value>Appliqué à chaque prix du texte de l'indice AVANT le décalage. Cas typique : données ETF → graphique de contrats à terme. Ratios approximatifs actuels : SPY → ES ≈ 10, QQQ → NQ ≈ 41, IWM → RTY ≈ 10. Les ratios évoluent avec le niveau de l'indice — recalibrez périodiquement. Par défaut à 1 (pas de mise à l'échelle). Le texte des contrats à terme n'est jamais transformé.</value></data>
+<data name="TextOffset_DisplayName" xml:space="preserve"><value>Décalage (Indice vers Graphique)</value></data>
+<data name="TextOffset_Description" xml:space="preserve"><value>Ajouté à chaque prix du texte de l'indice pour aligner les niveaux SPX sur ES, NDX sur NQ, etc. Le texte des contrats à terme n'est jamais décalé.</value></data>
+<data name="ClearManualTextNow_DisplayName" xml:space="preserve"><value>Effacer les champs de texte</value></data>
+<data name="ClearManualTextNow_Description" xml:space="preserve"><value>Activez pour effacer les champs de texte de l'indice et des contrats à terme. Se réinitialise automatiquement.</value></data>
+
+<data name="ApiKey_DisplayName" xml:space="preserve"><value>Clé API</value></data>
+<data name="ApiKey_Description" xml:space="preserve"><value>Clé API MenthorQ. Lorsqu'elle est définie avec l'ID utilisateur, l'API devient la source de données active et le texte manuel est ignoré.</value></data>
+<data name="UserId_DisplayName" xml:space="preserve"><value>ID Utilisateur (e-mail)</value></data>
+<data name="UserId_Description" xml:space="preserve"><value>E-mail associé à votre compte MenthorQ. Envoyé comme paramètre user_id à chaque requête.</value></data>
+<data name="TickerOverride_DisplayName" xml:space="preserve"><value>Remplacer le ticker</value></data>
+<data name="TickerOverride_Description" xml:space="preserve"><value>Optionnel. Laissez vide pour utiliser l'instrument du graphique (les micros sont ignorés automatiquement : MES→ES, MNQ→NQ). Définissez une valeur pour forcer un ticker spécifique (ex. SPX sur un graphique ES, ou ES quand le flux expose ESH24).</value></data>
+<data name="ApiMultiplier_DisplayName" xml:space="preserve"><value>Multiplicateur (API vers Graphique)</value></data>
+<data name="ApiMultiplier_Description" xml:space="preserve"><value>Appliqué à chaque prix renvoyé par l'API AVANT le décalage. Par défaut à 1. Appliqué à l'exécution — sa modification ne déclenche pas une nouvelle requête API.</value></data>
+<data name="ApiOffset_DisplayName" xml:space="preserve"><value>Décalage (API vers Graphique)</value></data>
+<data name="ApiOffset_Description" xml:space="preserve"><value>Ajouté à chaque prix renvoyé par l'API APRÈS le multiplicateur. Formule : (prix_brut × multiplicateur) + décalage. Appliqué à l'exécution — sa modification ne déclenche pas une nouvelle requête API.</value></data>
+<data name="UpdateLevels_DisplayName" xml:space="preserve"><value>Mettre à jour les niveaux</value></data>
+<data name="UpdateLevels_Description" xml:space="preserve"><value>Récupère les derniers niveaux depuis l'API MenthorQ. Se réinitialise automatiquement.</value></data>
+
+<data name="GammaWall_DisplayName" xml:space="preserve"><value>Gamma Wall</value></data>
+<data name="GammaWall_Description" xml:space="preserve"><value>Visibilité et couleur pour les lignes, halos et étiquettes GW.</value></data>
+<data name="CallResistance_DisplayName" xml:space="preserve"><value>Call Resistance</value></data>
+<data name="CallResistance_Description" xml:space="preserve"><value>Visibilité et couleur pour les lignes, halos et étiquettes CR.</value></data>
+<data name="PutSupport_DisplayName" xml:space="preserve"><value>Put Support</value></data>
+<data name="PutSupport_Description" xml:space="preserve"><value>Visibilité et couleur pour les lignes, halos et étiquettes PS.</value></data>
+<data name="HighVolatilityLevel_DisplayName" xml:space="preserve"><value>High Volatility Level</value></data>
+<data name="HighVolatilityLevel_Description" xml:space="preserve"><value>Visibilité et couleur pour les lignes, halos et étiquettes HVL.</value></data>
+<data name="RiskTrigger_DisplayName" xml:space="preserve"><value>Risk Trigger</value></data>
+<data name="RiskTrigger_Description" xml:space="preserve"><value>Visibilité et couleur pour les lignes, halos et étiquettes RT.</value></data>
+<data name="UpperBand_DisplayName" xml:space="preserve"><value>Upper Band</value></data>
+<data name="UpperBand_Description" xml:space="preserve"><value>Visibilité et couleur pour les lignes, halos et étiquettes UB.</value></data>
+<data name="LowerBand_DisplayName" xml:space="preserve"><value>Lower Band</value></data>
+<data name="LowerBand_Description" xml:space="preserve"><value>Visibilité et couleur pour les lignes, halos et étiquettes LB.</value></data>
+<data name="GammaExposure_DisplayName" xml:space="preserve"><value>Gamma Exposure</value></data>
+<data name="GammaExposure_Description" xml:space="preserve"><value>Visibilité et couleur pour les lignes, halos et étiquettes GEX N.</value></data>
+<data name="BlindSpot_DisplayName" xml:space="preserve"><value>Blind Spot</value></data>
+<data name="BlindSpot_Description" xml:space="preserve"><value>Visibilité et couleur pour les lignes, halos et étiquettes BL N.</value></data>
+<data name="DayMax_DisplayName" xml:space="preserve"><value>Maximum du jour</value></data>
+<data name="DayMax_Description" xml:space="preserve"><value>Visibilité et couleur pour les lignes, halos et étiquettes 1D Max.</value></data>
+<data name="DayMin_DisplayName" xml:space="preserve"><value>Minimum du jour</value></data>
+<data name="DayMin_Description" xml:space="preserve"><value>Visibilité et couleur pour les lignes, halos et étiquettes 1D Min.</value></data>
+<data name="Swing_DisplayName" xml:space="preserve"><value>Swing</value></data>
+<data name="Swing_Description" xml:space="preserve"><value>Visibilité et couleur pour les lignes, halos et étiquettes Swing.</value></data>
+<data name="Other_DisplayName" xml:space="preserve"><value>Autres</value></data>
+<data name="Other_Description" xml:space="preserve"><value>Visibilité et couleur pour les étiquettes non reconnues ou de secours.</value></data>
+
+<data name="EnableAlerts_DisplayName" xml:space="preserve"><value>Activer les alertes</value></data>
+<data name="EnableAlerts_Description" xml:space="preserve"><value>Interrupteur principal pour les alertes de franchissement de niveau. S'il est désactivé, rien n'est émis, quelle que soit la visibilité de la catégorie.</value></data>
+<data name="AlertSoundFile_DisplayName" xml:space="preserve"><value>Fichier audio</value></data>
+<data name="AlertSoundFile_Description" xml:space="preserve"><value>Nom du fichier audio lu lorsqu'une alerte se déclenche. ATAS résout les fichiers intégrés comme 'alert1.wav' depuis son répertoire de sons ; les chemins absolus fonctionnent également.</value></data>
+<data name="EnableReversalAlerts_DisplayName" xml:space="preserve"><value>Alerte d'inversion</value></data>
+<data name="EnableReversalAlerts_Description" xml:space="preserve"><value>Lorsqu'une alerte se déclenche et que le prix franchit de nouveau le niveau en sens inverse pendant le délai de récupération (cooldown), émet une alerte de suivi à l'expiration du délai.</value></data>
+<data name="AlertCooldownSeconds_DisplayName" xml:space="preserve"><value>Délai de récupération (secondes)</value></data>
+<data name="AlertCooldownSeconds_Description" xml:space="preserve"><value>Temps minimum entre deux alertes consécutives sur le même niveau de prix. Évite les tempêtes d'alertes lorsque le prix oscille autour d'un niveau.</value></data>
+
+<data name="EnableDebugOverlay_DisplayName" xml:space="preserve"><value>Afficher la superposition de diagnostic</value></data>
+<data name="EnableDebugOverlay_Description" xml:space="preserve"><value>Affiche un petit panneau d'état dans un coin du graphique indiquant l'état interne de l'indicateur : ticker résolu, source active, etc. Désactivé par défaut.</value></data>
+<data name="OverlayLocation_DisplayName" xml:space="preserve"><value>Emplacement de la superposition</value></data>
+<data name="OverlayLocation_Description" xml:space="preserve"><value>Coin du graphique où la superposition est ancrée. Par défaut en haut à droite pour ne pas interférer avec les informations OHLC qu'ATAS dessine en haut à gauche.</value></data>
+
+<data name="Style_Visible_DisplayName" xml:space="preserve"><value>Visible</value></data>
+<data name="Style_Color_DisplayName" xml:space="preserve"><value>Couleur</value></data>
+<data name="Style_State_Visible" xml:space="preserve"><value>Visible</value></data>
+<data name="Style_State_Hidden" xml:space="preserve"><value>Masqué</value></data>
+
+<data name="Alert_CrossedAbove" xml:space="preserve"><value>croisement à la hausse {0} @ {1}</value></data>
+<data name="Alert_CrossedBelow" xml:space="preserve"><value>croisement à la baisse {0} @ {1}</value></data>
+<data name="Alert_BackAbove" xml:space="preserve"><value>retour à la hausse {0} @ {1}</value></data>
+<data name="Alert_BackBelow" xml:space="preserve"><value>retour à la baisse {0} @ {1}</value></data>
+
+<data name="OverlayLocation_TopLeft" xml:space="preserve"><value>En haut à gauche</value></data>
+<data name="OverlayLocation_TopCenter" xml:space="preserve"><value>En haut au centre</value></data>
+<data name="OverlayLocation_TopRight" xml:space="preserve"><value>En haut à droite</value></data>
+<data name="OverlayLocation_BottomLeft" xml:space="preserve"><value>En bas à gauche</value></data>
+<data name="OverlayLocation_BottomCenter" xml:space="preserve"><value>En bas au centre</value></data>
+<data name="OverlayLocation_BottomRight" xml:space="preserve"><value>En bas à droite</value></data>
+
+<data name="EnableAutoRefresh_DisplayName" xml:space="preserve"><value>Actualisation automatique</value></data>
+<data name="EnableAutoRefresh_Description" xml:space="preserve"><value>Actualise automatiquement les niveaux de l'API selon le calendrier intrajournalier documenté par MenthorQ. Applique une légère marge pour laisser les données se stabiliser sur le serveur. Son activation déclenche une synchronisation immédiate.</value></data>
+
+<data name="Labels_Header" xml:space="preserve"><value>Étiquettes</value></data>
+<data name="LabelAlignment_Name" xml:space="preserve"><value>Alignement horizontal</value></data>
+<data name="LabelAlignment_Description" xml:space="preserve"><value>Où ancrer horizontalement l'étiquette de texte de chaque niveau. Droite (par défaut) maintient le comportement précédent. Centre l'ancre au milieu, utile lorsque le côté droit est très chargé. Gauche l'ancre au bord gauche avec une petite marge. Modification purement visuelle.</value></data>
+
+<data name="LabelAlignment_Right" xml:space="preserve"><value>Droite</value></data>
+<data name="LabelAlignment_Center" xml:space="preserve"><value>Centre</value></data>
+<data name="LabelAlignment_Left" xml:space="preserve"><value>Gauche</value></data>
+
+</root>
