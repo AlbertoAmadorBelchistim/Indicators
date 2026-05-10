@@ -574,6 +574,19 @@ namespace ATAS.Indicators.Technical
 			BottomRight
 		}
 
+		// Horizontal anchor for level text labels. Default Right preserves the
+		// pre-existing behaviour (labels glued to the right edge of the chart
+		// area, just above the line). Center / Left are user-selectable
+		// alternatives for layouts where the right side is busy (e.g. heavy
+		// DOM, wide price axis) or where the trader simply prefers another
+		// anchor.
+		public enum LabelHorizontalAlignment
+		{
+			Right,
+			Center,
+			Left
+		}
+
 		#endregion
 
 		#region Fields
@@ -684,6 +697,11 @@ namespace ATAS.Indicators.Technical
 		// API: multiplier and offset, mirroring the Manual text pair.
 		private decimal _apiMultiplier = 1m;
 		private decimal _apiOffset;
+
+		// UI: label rendering
+		// Default Right keeps the renderer behaviour from previous commits —
+		// labels glued to the right edge of the chart area.
+		private LabelHorizontalAlignment _labelAlignment = LabelHorizontalAlignment.Right;
 
 		// UI: debug overlay
 		private bool _enableDebugOverlay = false;
@@ -1043,6 +1061,25 @@ namespace ATAS.Indicators.Technical
 
 		#endregion
 
+		#region Properties: Labels
+
+		[Display(Name = "Horizontal alignment",
+			GroupName = "Labels",
+			Description = "Where to anchor each level's text label horizontally. Right (default) keeps the previous behaviour — labels at the right edge of the chart area, just above the line. Center anchors them to the horizontal middle of the chart area, useful when the right side is busy with the price axis or a heavy DOM. Left anchors them to the left edge with a small padding. Pure visual change, no recalculation.",
+			Order = 300)]
+		public LabelHorizontalAlignment LabelAlignment
+		{
+			get => _labelAlignment;
+			set
+			{
+				if (_labelAlignment == value) return;
+				_labelAlignment = value;
+				RedrawChart();
+			}
+		}
+
+		#endregion
+
 		#region Properties: Alerts
 
 		[Display(Name = "Enable alerts", GroupName = "Alerts",
@@ -1194,6 +1231,10 @@ namespace ATAS.Indicators.Technical
 				return;
 
 			int xRight = Container.Region.Right;
+			int xLeft = Container.Region.Left;
+			// Padding (px) between the chart edge and the start/end of a label
+			// for the Right and Left alignments. Center alignment ignores it.
+			const int LabelEdgePadding = 5;
 
 			// Pass 1 — halos for 0DTE levels.
 			for (int i = 0; i < _levels.Length; i++)
@@ -1235,6 +1276,9 @@ namespace ATAS.Indicators.Technical
 			}
 
 			// Pass 3 — labels.
+			// Cache the alignment in a local so the per-level switch doesn't
+			// re-read the property accessor for every iteration.
+			var alignment = _labelAlignment;
 			for (int i = 0; i < _levels.Length; i++)
 			{
 				var level = _levels[i];
@@ -1259,7 +1303,24 @@ namespace ATAS.Indicators.Technical
 				int y = ChartInfo.GetYByPrice(level.Price, false);
 
 				var textSize = context.MeasureString(text, LabelFont);
-				int x = xRight - textSize.Width - 5;
+
+				int x;
+				switch (alignment)
+				{
+					case LabelHorizontalAlignment.Left:
+						x = xLeft + LabelEdgePadding;
+						break;
+					case LabelHorizontalAlignment.Center:
+						// Anchor the centre of the label to the centre of the
+						// chart area. Integer division is fine — sub-pixel
+						// precision isn't relevant at typical font sizes.
+						x = xLeft + ((xRight - xLeft) - textSize.Width) / 2;
+						break;
+					case LabelHorizontalAlignment.Right:
+					default:
+						x = xRight - textSize.Width - LabelEdgePadding;
+						break;
+				}
 
 				context.DrawString(text, LabelFont, color, x, y - textSize.Height - 3);
 			}
