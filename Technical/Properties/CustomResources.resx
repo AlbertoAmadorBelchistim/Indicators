@@ -213,4 +213,47 @@
   <data name="ZoneDisplayMode_PrimaryOnly" xml:space="preserve"><value>Primary Only</value></data>
   <data name="ZoneDisplayMode_Hidden" xml:space="preserve"><value>Hidden</value></data>
 
-  </root>
+  <!-- LevelsLolo: groups -->
+  <data name="Group_Data" xml:space="preserve"><value>Data</value></data>
+  <data name="Group_Text" xml:space="preserve"><value>Text</value></data>
+  <data name="Group_WidthTiers" xml:space="preserve"><value>Width tiers</value></data>
+  <data name="Group_AlphaTiers" xml:space="preserve"><value>Alpha tiers</value></data>
+  <data name="Group_Pens" xml:space="preserve"><value>Line styles</value></data>
+  <data name="Group_Accents" xml:space="preserve"><value>Highlights</value></data>
+ 
+  <!-- LevelsLolo: class-level description -->
+  <data name="LevelsLolo_Description" xml:space="preserve"><value>Draws SpotGamma-style option levels (Combo, Large Gamma, Volatility Trigger, Call Wall, Put Wall, Zero Gamma) derived from comma-separated text. Features configurable line styles per category, rank-based width and opacity tiers, optional cyan halo for 0DTE labels, and a dotted highlight for high-priority 0DTE levels (LG/PW/CW within the thick tier).</value></data>
+ 
+  <!-- LevelsLolo: property display names -->
+  <data name="LevelsLolo_RawText_DisplayName" xml:space="preserve"><value>Raw text</value></data>
+  <data name="LevelsLolo_ClearTextNow_DisplayName" xml:space="preserve"><value>Clear text now</value></data>
+  <data name="LevelsLolo_RightAligned_DisplayName" xml:space="preserve"><value>Right-aligned text</value></data>
+  <data name="LevelsLolo_LastBarOnly_DisplayName" xml:space="preserve"><value>Last bar only</value></data>
+  <data name="LevelsLolo_OffsetX_DisplayName" xml:space="preserve"><value>Offset X</value></data>
+  <data name="LevelsLolo_OffsetY_DisplayName" xml:space="preserve"><value>Offset Y</value></data>
+  <data name="LevelsLolo_FontSize_DisplayName" xml:space="preserve"><value>Font size</value></data>
+  <data name="LevelsLolo_ThickMaxRank_DisplayName" xml:space="preserve"><value>Thick up to rank</value></data>
+  <data name="LevelsLolo_MediumMaxRank_DisplayName" xml:space="preserve"><value>Medium up to rank</value></data>
+  <data name="LevelsLolo_ThickWidth_DisplayName" xml:space="preserve"><value>Width (thick)</value></data>
+  <data name="LevelsLolo_MediumWidth_DisplayName" xml:space="preserve"><value>Width (medium)</value></data>
+  <data name="LevelsLolo_ThinWidth_DisplayName" xml:space="preserve"><value>Width (thin)</value></data>
+  <data name="LevelsLolo_ThickAlpha_DisplayName" xml:space="preserve"><value>Opacity (thick)</value></data>
+  <data name="LevelsLolo_MediumAlpha_DisplayName" xml:space="preserve"><value>Opacity (medium)</value></data>
+  <data name="LevelsLolo_ThinAlpha_DisplayName" xml:space="preserve"><value>Opacity (thin)</value></data>
+  <data name="LevelsLolo_PenCombo_DisplayName" xml:space="preserve"><value>Combo (CO)</value></data>
+  <data name="LevelsLolo_PenLargeGamma_DisplayName" xml:space="preserve"><value>Large Gamma (LG)</value></data>
+  <data name="LevelsLolo_PenVolTrigger_DisplayName" xml:space="preserve"><value>Volatility Trigger (VT)</value></data>
+  <data name="LevelsLolo_PenCallWall_DisplayName" xml:space="preserve"><value>Call Wall (CW)</value></data>
+  <data name="LevelsLolo_PenPutWall_DisplayName" xml:space="preserve"><value>Put Wall (PW)</value></data>
+  <data name="LevelsLolo_PenZeroGamma_DisplayName" xml:space="preserve"><value>Zero Gamma (ZG)</value></data>
+  <data name="LevelsLolo_PenOther_DisplayName" xml:space="preserve"><value>Other / Unknown</value></data>
+  <data name="LevelsLolo_Enable0DTEHalo_DisplayName" xml:space="preserve"><value>Enable 0DTE halo</value></data>
+  <data name="LevelsLolo_Pen0DTEHalo_DisplayName" xml:space="preserve"><value>0DTE halo style</value></data>
+  <data name="LevelsLolo_HaloAlpha_DisplayName" xml:space="preserve"><value>0DTE halo opacity (0-255)</value></data>
+  <data name="LevelsLolo_HaloExtraWidth_DisplayName" xml:space="preserve"><value>0DTE halo extra width (px)</value></data>
+ 
+  <!-- LevelsLolo: property descriptions -->
+  <data name="LevelsLolo_RawText_Description" xml:space="preserve"><value>Example: $SP: CO44, 7073, LG07, 7048, ...</value></data>
+  <data name="LevelsLolo_LastBarOnly_Description" xml:space="preserve"><value>Extend to the last visible bar instead of the right chart edge.</value></data>
+  
+</root>
