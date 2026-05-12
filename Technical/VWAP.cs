@@ -1,11 +1,10 @@
 namespace ATAS.Indicators.Technical;
 
+using OFT.Attributes;
+using OFT.Localization;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-
-using OFT.Attributes;
-using OFT.Localization;
 
 [DisplayName("VWAP/TWAP")]
 [Category(IndicatorCategories.VolumeOrderFlow)]
@@ -54,21 +53,21 @@ public class VWAP : Indicator
     private static readonly CrossColor _middleFillDefaultColor = GetColorFromHex("#40808080");
     private static readonly CrossColor _lowerFillDefaultColor = GetColorFromHex("#4000FF00");
 
-    private readonly ValueDataSeries _lower = new("Lower", Strings.LowerStd1) 
+    private readonly ValueDataSeries _lower = new("Lower", Strings.LowerStd1)
     {
         Color = _upperLowerDefaultColor,
         VisualType = _upperLowerDefaultMode
     };
 
-    private readonly ValueDataSeries _lower1 = new("Lower1", Strings.LowerStd2) 
+    private readonly ValueDataSeries _lower1 = new("Lower1", Strings.LowerStd2)
     {
         Color = _upperLowerDefaultColor,
         VisualType = _upperLowerDefaultMode
     };
 
     private readonly ValueDataSeries _lower2 = new("Lower2", Strings.LowerStd3)
-    { 
-        Color = _upperLowerDefaultColor, 
+    {
+        Color = _upperLowerDefaultColor,
         VisualType = _upperLowerDefaultMode
     };
 
@@ -199,7 +198,7 @@ public class VWAP : Indicator
     private readonly ValueDataSeries _sumSrcSrcVol = new("sumSrcSrcVol");
     private readonly ValueDataSeries _totalVolToClose = new("volToClose");
     private readonly ValueDataSeries _totalVolume = new("totalVolume");
-    private readonly ValueDataSeries _vwapTwap = new("VwapTwap", "VWAP|TWAP") 
+    private readonly ValueDataSeries _vwapTwap = new("VwapTwap", "VWAP|TWAP")
     {
         Width = 3,
         Color = GetColorFromHex("#FFFF5252"),
@@ -226,9 +225,9 @@ public class VWAP : Indicator
     private System.Drawing.Color _bullishColor = GetColorFromHex("#FF2196F3").Convert();
     private System.Drawing.Color _bearishColor = GetColorFromHex("#FFB22222").Convert();
     private bool _coloredDirection = true;
-    private TimeSpan _customSessionEnd = new(23, 59, 59);
-    private TimeSpan _customSessionStart;
     private bool _vWAPOnly = true;
+    private FilterTimeSpan _customSessionStartFilter;
+    private FilterTimeSpan _customSessionEndFilter;
 
     #endregion
 
@@ -256,9 +255,9 @@ public class VWAP : Indicator
     public FilterKey StartKeyFilter { get; set; } = new(false) { Value = CrossKey.F };
 
     [Browsable(false)]
-    public CrossKey StartKey 
-    { 
-        get => StartKeyFilter.Value; 
+    public CrossKey StartKey
+    {
+        get => StartKeyFilter.Value;
         set => StartKeyFilter.Value = value;
     }
 
@@ -278,8 +277,8 @@ public class VWAP : Indicator
     public FilterBool SavePointFilter { get; set; } = new(false);
 
     [Browsable(false)]
-    public bool SavePoint 
-    { 
+    public bool SavePoint
+    {
         get => SavePointFilter.Value;
         set => SavePointFilter.Value = value;
     }
@@ -347,6 +346,7 @@ public class VWAP : Indicator
         set
         {
             _periodType = value;
+            CustomSessionStartFilter.Enabled = CustomSessionEndFilter.Enabled = value == VWAPPeriodType.Custom;
             RecalculateValues();
         }
     }
@@ -420,26 +420,40 @@ public class VWAP : Indicator
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.SessionBegin), GroupName = nameof(Strings.Settings), Description = nameof(Strings.SessionBeginDescription), Order = 70)]
     [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
+    public FilterTimeSpan CustomSessionStartFilter
+    {
+        get => _customSessionStartFilter;
+        set => SetTrackedProperty(ref _customSessionStartFilter, value, propName =>
+        {
+            if (propName == nameof(FilterTimeSpan.Value))
+                RecalculateValues();
+        });
+    }
+
+    [Browsable(false)]
     public TimeSpan CustomSessionStart
     {
-	    get => _customSessionStart;
-	    set
-	    {
-		    _customSessionStart = value;
-		    RecalculateValues();
-	    }
+        get => _customSessionStartFilter.Value;
+        set => _customSessionStartFilter.Value = value;
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.SessionEnd), GroupName = nameof(Strings.Settings), Description = nameof(Strings.SessionEndDescription), Order = 80)]
     [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
+    public FilterTimeSpan CustomSessionEndFilter
+    {
+        get => _customSessionEndFilter;
+        set => SetTrackedProperty(ref _customSessionEndFilter, value, propName =>
+        {
+            if (propName == nameof(FilterTimeSpan.Value))
+                RecalculateValues();
+        });
+    }
+
+    [Browsable(false)]
     public TimeSpan CustomSessionEnd
     {
-	    get => _customSessionEnd;
-	    set
-	    {
-		    _customSessionEnd = value;
-		    RecalculateValues();
-	    }
+        get => _customSessionEndFilter.Value;
+        set => _customSessionEndFilter.Value = value;
     }
 
     [Display(ResourceType = typeof(Strings), GroupName = nameof(Strings.Calculation), Name = nameof(Strings.DaysLookBack), Order = int.MaxValue, Description = nameof(Strings.DaysLookBackDescription))]
@@ -470,7 +484,7 @@ public class VWAP : Indicator
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VWAPOnly), GroupName = nameof(Strings.Settings), Description = nameof(Strings.ShowBaseElementOnlyDescription), Order = 100)]
     [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     public bool VWAPOnly
-    { 
+    {
         get => _vWAPOnly;
         set
         {
@@ -478,13 +492,13 @@ public class VWAP : Indicator
             SetVWAPOnly(_vWAPOnly);
         }
     }
-    
+
     #endregion
 
     #region ctor
 
-    public VWAP() 
-	    : base(DataSeriesType.HLC3)
+    public VWAP()
+        : base(DataSeriesType.HLC3)
     {
         _days = 20;
 
@@ -523,6 +537,10 @@ public class VWAP : Indicator
         DataSeries.Add(_lower2Background);
         DataSeries.Add(_lower2BackgroundRes);
 
+        CustomSessionStartFilter = new FilterTimeSpan(false);
+        CustomSessionEndFilter = new FilterTimeSpan(false) { Value = new TimeSpan(23, 59, 59) };
+        CustomSessionStartFilter.Enabled = CustomSessionEndFilter.Enabled = _periodType == VWAPPeriodType.Custom;
+
         ResetOnSessionFilter.PropertyChanged += ResetOnSessionFilter_PropertyChanged;
     }
 
@@ -538,8 +556,8 @@ public class VWAP : Indicator
 
     protected override void OnInitialize()
     {
-	    _prevNegValueSeries.ShowZeroValue = false;
-	    _prevPosValueSeries.ShowZeroValue = false;
+        _prevNegValueSeries.ShowZeroValue = false;
+        _prevPosValueSeries.ShowZeroValue = false;
     }
 
     protected override void OnRecalculate()
@@ -625,35 +643,35 @@ public class VWAP : Indicator
 
         if (Type is VWAPPeriodType.Custom && !InsideSession(bar))
         {
-	        DataSeries.ForEach(x =>
-	        {
-		        if (x is ValueDataSeries series)
-			        series.SetPointOfEndLine(bar - 1);
-	        });
-	        return;
+            DataSeries.ForEach(x =>
+            {
+                if (x is ValueDataSeries series)
+                    series.SetPointOfEndLine(bar - 1);
+            });
+            return;
         }
 
         if (!ShowFirstPeriod && !AllowCustomStartPoint && !_calcStarted
             && Type is VWAPPeriodType.Weekly or VWAPPeriodType.Monthly or VWAPPeriodType.Custom)
         {
-	        if (bar == 0 && Type is not VWAPPeriodType.Custom)
-		        return;
+            if (bar == 0 && Type is not VWAPPeriodType.Custom)
+                return;
 
-	        switch (Type)
-	        {
-		        case VWAPPeriodType.Weekly:
-			        _calcStarted = IsNewWeek(bar);
-			        break;
-		        case VWAPPeriodType.Monthly:
-			        _calcStarted = IsNewMonth(bar);
-			        break;
-		        case VWAPPeriodType.Custom:
-			        _calcStarted = IsNewCustomSession(bar);
-			        break;
-	        }
+            switch (Type)
+            {
+                case VWAPPeriodType.Weekly:
+                    _calcStarted = IsNewWeek(bar);
+                    break;
+                case VWAPPeriodType.Monthly:
+                    _calcStarted = IsNewMonth(bar);
+                    break;
+                case VWAPPeriodType.Custom:
+                    _calcStarted = IsNewCustomSession(bar);
+                    break;
+            }
 
-	        if (!_calcStarted)
-		        return;
+            if (!_calcStarted)
+                return;
         }
 
         var needReset = false;
@@ -686,150 +704,150 @@ public class VWAP : Indicator
             }
 
 
-			return;
-		}
+            return;
+        }
 
-		var prevCandle = GetCandle(bar - 1);
+        var prevCandle = GetCandle(bar - 1);
 
-		switch (Type)
-		{
-			case VWAPPeriodType.M15 when PeriodNumber(prevCandle.Time, TimeSpan.FromMinutes(15)) != PeriodNumber(candle.Time, TimeSpan.FromMinutes(15)):
-			case VWAPPeriodType.M30 when PeriodNumber(prevCandle.Time, TimeSpan.FromMinutes(30)) != PeriodNumber(candle.Time, TimeSpan.FromMinutes(30)):
+        switch (Type)
+        {
+            case VWAPPeriodType.M15 when PeriodNumber(prevCandle.Time, TimeSpan.FromMinutes(15)) != PeriodNumber(candle.Time, TimeSpan.FromMinutes(15)):
+            case VWAPPeriodType.M30 when PeriodNumber(prevCandle.Time, TimeSpan.FromMinutes(30)) != PeriodNumber(candle.Time, TimeSpan.FromMinutes(30)):
             case VWAPPeriodType.Hourly when prevCandle.Time.Hour != candle.Time.Hour:
             case VWAPPeriodType.H4 when PeriodNumber(prevCandle.Time, TimeSpan.FromHours(4)) != PeriodNumber(candle.Time, TimeSpan.FromHours(4)):
             case VWAPPeriodType.Daily when IsNewSession(bar):
-			case VWAPPeriodType.Weekly when IsNewWeek(bar):
-			case VWAPPeriodType.Monthly when IsNewMonth(bar):
-			case VWAPPeriodType.Custom when IsNewCustomSession(bar):
-				needReset = true;
+            case VWAPPeriodType.Weekly when IsNewWeek(bar):
+            case VWAPPeriodType.Monthly when IsNewMonth(bar):
+            case VWAPPeriodType.Custom when IsNewCustomSession(bar):
+                needReset = true;
                 break;
-		}
+        }
 
-		var setStartOfLine = needReset;
+        var setStartOfLine = needReset;
 
-		if (setStartOfLine && Type == VWAPPeriodType.Daily && ChartInfo.TimeFrame == "Daily")
-			setStartOfLine = false;
+        if (setStartOfLine && Type == VWAPPeriodType.Daily && ChartInfo.TimeFrame == "Daily")
+            setStartOfLine = false;
 
-		if (needReset && ((AllowCustomStartPoint && ResetOnSessionFilter.Enabled && ResetOnSessionFilter.Value) || !AllowCustomStartPoint))
-		{
-			_zeroBar = bar;
-			_totalVolume[bar] = volume;
-			_totalVolToClose[bar] = _twapMode == VWAPMode.TWAP ? typical : typical * volume;
-			_sumSrcSrcVol[bar] = volume * typical * typical;
+        if (needReset && ((AllowCustomStartPoint && ResetOnSessionFilter.Enabled && ResetOnSessionFilter.Value) || !AllowCustomStartPoint))
+        {
+            _zeroBar = bar;
+            _totalVolume[bar] = volume;
+            _totalVolToClose[bar] = _twapMode == VWAPMode.TWAP ? typical : typical * volume;
+            _sumSrcSrcVol[bar] = volume * typical * typical;
 
-			if (setStartOfLine)
-			{
-				if (!_upper1.IsThisPointOfStartBar(bar - 1))
-					_isReserved = !_isReserved;
+            if (setStartOfLine)
+            {
+                if (!_upper1.IsThisPointOfStartBar(bar - 1))
+                    _isReserved = !_isReserved;
 
-				((ValueDataSeries)DataSeries[0]).SetPointOfEndLine(bar - 1);
-				_upper.SetPointOfEndLine(bar - 1);
-				_lower.SetPointOfEndLine(bar - 1);
-				_upper1.SetPointOfEndLine(bar - 1);
-				_lower1.SetPointOfEndLine(bar - 1);
-				_upper2.SetPointOfEndLine(bar - 1);
-				_lower2.SetPointOfEndLine(bar - 1);
-			}
-		}
-		else
-		{
-			_totalVolume[bar] = _totalVolume[bar - 1] + volume;
-			_totalVolToClose[bar] = _totalVolToClose[bar - 1] + (_twapMode == VWAPMode.TWAP ? typical : typical * volume);
+                ((ValueDataSeries)DataSeries[0]).SetPointOfEndLine(bar - 1);
+                _upper.SetPointOfEndLine(bar - 1);
+                _lower.SetPointOfEndLine(bar - 1);
+                _upper1.SetPointOfEndLine(bar - 1);
+                _lower1.SetPointOfEndLine(bar - 1);
+                _upper2.SetPointOfEndLine(bar - 1);
+                _lower2.SetPointOfEndLine(bar - 1);
+            }
+        }
+        else
+        {
+            _totalVolume[bar] = _totalVolume[bar - 1] + volume;
+            _totalVolToClose[bar] = _totalVolToClose[bar - 1] + (_twapMode == VWAPMode.TWAP ? typical : typical * volume);
 
-			if (_twapMode is VWAPMode.VWAP)
-			{
-				var barVariance = volume * typical * typical;
-				_sumSrcSrcVol[bar] = _sumSrcSrcVol[bar - 1] + barVariance;
-			}
-		}
+            if (_twapMode is VWAPMode.VWAP)
+            {
+                var barVariance = volume * typical * typical;
+                _sumSrcSrcVol[bar] = _sumSrcSrcVol[bar - 1] + barVariance;
+            }
+        }
 
-		decimal stdDev = 0m, currentValue, lastValue;
+        decimal stdDev = 0m, currentValue, lastValue;
 
-		if (_twapMode == VWAPMode.TWAP)
-		{
-			_vwapTwap[bar] = _totalVolToClose[bar] / (bar - _zeroBar + 1);
-			currentValue = _vwapTwap[bar];
-			lastValue = _vwapTwap[bar - 1];
+        if (_twapMode == VWAPMode.TWAP)
+        {
+            _vwapTwap[bar] = _totalVolToClose[bar] / (bar - _zeroBar + 1);
+            currentValue = _vwapTwap[bar];
+            lastValue = _vwapTwap[bar - 1];
 
-			if (bar != _zeroBar)
-			{
+            if (bar != _zeroBar)
+            {
 #pragma warning disable CS0612
-				var period = Math.Min(bar - _zeroBar, Period);
+                var period = Math.Min(bar - _zeroBar, Period);
 #pragma warning restore CS0612
-				var average = _vwapTwap.CalcAverage(period, bar);
-				var sqrSum = 0m;
+                var average = _vwapTwap.CalcAverage(period, bar);
+                var sqrSum = 0m;
 
-				for (var i = bar - period; i <= bar; i++)
-				{
-					var diff = average - _vwapTwap[i];
-					sqrSum += diff * diff;
-				}
+                for (var i = bar - period; i <= bar; i++)
+                {
+                    var diff = average - _vwapTwap[i];
+                    sqrSum += diff * diff;
+                }
 
-				stdDev = (decimal)Math.Sqrt((double)sqrSum / period);
-			}
-		}
-		else
-		{
-			_vwapTwap[bar] = _totalVolToClose[bar] / _totalVolume[bar];
-			currentValue = _vwapTwap[bar];
-			lastValue = _vwapTwap[bar - 1];
+                stdDev = (decimal)Math.Sqrt((double)sqrSum / period);
+            }
+        }
+        else
+        {
+            _vwapTwap[bar] = _totalVolToClose[bar] / _totalVolume[bar];
+            currentValue = _vwapTwap[bar];
+            lastValue = _vwapTwap[bar - 1];
 
-			var variance = _sumSrcSrcVol[bar] / _totalVolume[bar] - currentValue * currentValue;
-			variance = variance < 0 ? 0 : variance;
-			stdDev = (decimal)Math.Sqrt((double)variance);
-		}
+            var variance = _sumSrcSrcVol[bar] / _totalVolume[bar] - currentValue * currentValue;
+            variance = variance < 0 ? 0 : variance;
+            stdDev = (decimal)Math.Sqrt((double)variance);
+        }
 
-		if (bar - _zeroBar > 1) //temp solution, colored series point bug
-		{
-			if (ColoredDirection && bar != 0)
-			{
-				_vwapTwap.Colors[bar] = _vwapTwap[bar] > _vwapTwap[bar - 1]
-					? _bullishColor
-					: _bearishColor;
-			}
-		}
+        if (bar - _zeroBar > 1) //temp solution, colored series point bug
+        {
+            if (ColoredDirection && bar != 0)
+            {
+                _vwapTwap.Colors[bar] = _vwapTwap[bar] > _vwapTwap[bar - 1]
+                    ? _bullishColor
+                    : _bearishColor;
+            }
+        }
 
-		var std = stdDev * _stdev;
-		var std1 = stdDev * _stdev1;
-		var std2 = stdDev * _stdev2;
+        var std = stdDev * _stdev;
+        var std1 = stdDev * _stdev1;
+        var std2 = stdDev * _stdev2;
 
-		_upper[bar] = currentValue + std;
-		_lower[bar] = currentValue - std;
-		_upper1[bar] = currentValue + std1;
-		_lower1[bar] = currentValue - std1;
-		_upper2[bar] = currentValue + std2;
-		_lower2[bar] = currentValue - std2;
+        _upper[bar] = currentValue + std;
+        _lower[bar] = currentValue - std;
+        _upper1[bar] = currentValue + std1;
+        _lower1[bar] = currentValue - std1;
+        _upper2[bar] = currentValue + std2;
+        _lower2[bar] = currentValue - std2;
 
-		SetBackgroundValues(bar, currentValue);
+        SetBackgroundValues(bar, currentValue);
 
-		if (bar == 0)
-			return;
+        if (bar == 0)
+            return;
 
-		if (needReset)
-		{
-			if (lastValue < currentValue)
-				_prevPosValueSeries[bar] = lastValue;
-			else
-				_prevNegValueSeries[bar] = lastValue;
-		}
-		else
-		{
-			var prevValue = _prevPosValueSeries[bar - 1] != 0
-				? _prevPosValueSeries[bar - 1]
-				: _prevNegValueSeries[bar - 1];
+        if (needReset)
+        {
+            if (lastValue < currentValue)
+                _prevPosValueSeries[bar] = lastValue;
+            else
+                _prevNegValueSeries[bar] = lastValue;
+        }
+        else
+        {
+            var prevValue = _prevPosValueSeries[bar - 1] != 0
+                ? _prevPosValueSeries[bar - 1]
+                : _prevNegValueSeries[bar - 1];
 
-			if (candle.Close >= prevValue)
-				_prevPosValueSeries[bar] = prevValue;
-			else
-				_prevNegValueSeries[bar] = prevValue;
-		}
+            if (candle.Close >= prevValue)
+                _prevPosValueSeries[bar] = prevValue;
+            else
+                _prevNegValueSeries[bar] = prevValue;
+        }
 
         if (_prevNegValueSeries[bar] is 0)
             _prevNegValueSeries.SetPointOfEndLine(bar);
 
         if (_prevPosValueSeries[bar] is 0)
-	        _prevPosValueSeries.SetPointOfEndLine(bar);
-	}
+            _prevPosValueSeries.SetPointOfEndLine(bar);
+    }
 
     #endregion
 
@@ -867,171 +885,175 @@ public class VWAP : Indicator
     }
 
     private void SetBackgroundValues(int bar, decimal value)
-	{
-		if (_isReserved)
-		{
-			_upper2BackgroundRes[bar].Upper = _upper2[bar];
-			_upper2BackgroundRes[bar].Lower = _upper1[bar];
+    {
+        if (_isReserved)
+        {
+            _upper2BackgroundRes[bar].Upper = _upper2[bar];
+            _upper2BackgroundRes[bar].Lower = _upper1[bar];
 
-			_upperBackgroundRes[bar].Upper = _upper1[bar];
-			_upperBackgroundRes[bar].Lower = _upper[bar];
+            _upperBackgroundRes[bar].Upper = _upper1[bar];
+            _upperBackgroundRes[bar].Lower = _upper[bar];
 
-			_midUpBackgroundRes[bar].Upper = _upper[bar];
-			_midUpBackgroundRes[bar].Lower = value;
+            _midUpBackgroundRes[bar].Upper = _upper[bar];
+            _midUpBackgroundRes[bar].Lower = value;
 
-			_midDownBackgroundRes[bar].Upper = value;
-			_midDownBackgroundRes[bar].Lower = _lower[bar];
+            _midDownBackgroundRes[bar].Upper = value;
+            _midDownBackgroundRes[bar].Lower = _lower[bar];
 
-			_lowerBackgroundRes[bar].Upper = _lower[bar];
-			_lowerBackgroundRes[bar].Lower = _lower1[bar];
+            _lowerBackgroundRes[bar].Upper = _lower[bar];
+            _lowerBackgroundRes[bar].Lower = _lower1[bar];
 
-			_lower2BackgroundRes[bar].Upper = _lower1[bar];
-			_lower2BackgroundRes[bar].Lower = _lower2[bar];
-		}
-		else
-		{
-			_upper2Background[bar].Upper = _upper2[bar];
-			_upper2Background[bar].Lower = _upper1[bar];
+            _lower2BackgroundRes[bar].Upper = _lower1[bar];
+            _lower2BackgroundRes[bar].Lower = _lower2[bar];
+        }
+        else
+        {
+            _upper2Background[bar].Upper = _upper2[bar];
+            _upper2Background[bar].Lower = _upper1[bar];
 
-			_upperBackground[bar].Upper = _upper1[bar];
-			_upperBackground[bar].Lower = _upper[bar];
+            _upperBackground[bar].Upper = _upper1[bar];
+            _upperBackground[bar].Lower = _upper[bar];
 
-			_midUpBackground[bar].Upper = _upper[bar];
-			_midUpBackground[bar].Lower = value;
+            _midUpBackground[bar].Upper = _upper[bar];
+            _midUpBackground[bar].Lower = value;
 
-			_midDownBackground[bar].Upper = value;
-			_midDownBackground[bar].Lower = _lower[bar];
+            _midDownBackground[bar].Upper = value;
+            _midDownBackground[bar].Lower = _lower[bar];
 
-			_lowerBackground[bar].Upper = _lower[bar];
-			_lowerBackground[bar].Lower = _lower1[bar];
+            _lowerBackground[bar].Upper = _lower[bar];
+            _lowerBackground[bar].Lower = _lower1[bar];
 
-			_lower2Background[bar].Upper = _lower1[bar];
-			_lower2Background[bar].Lower = _lower2[bar];
-		}
-	}
+            _lower2Background[bar].Upper = _lower1[bar];
+            _lower2Background[bar].Lower = _lower2[bar];
+        }
+    }
 
-	private void Lower2Changed(object sender, PropertyChangedEventArgs e)
-	{
-		var value = _lower2Background.GetType().GetProperty(e.PropertyName)?.GetValue(_lower2Background, null);
-		_lower2BackgroundRes.GetType().GetProperty(e.PropertyName)?.SetValue(_lower2BackgroundRes, value);
-	}
+    private void Lower2Changed(object sender, PropertyChangedEventArgs e)
+    {
+        var value = _lower2Background.GetType().GetProperty(e.PropertyName)?.GetValue(_lower2Background, null);
+        _lower2BackgroundRes.GetType().GetProperty(e.PropertyName)?.SetValue(_lower2BackgroundRes, value);
+    }
 
-	private void LowerChanged(object sender, PropertyChangedEventArgs e)
-	{
-		var value = _lowerBackground.GetType().GetProperty(e.PropertyName)?.GetValue(_lowerBackground, null);
-		_lowerBackgroundRes.GetType().GetProperty(e.PropertyName)?.SetValue(_lowerBackgroundRes, value);
-	}
+    private void LowerChanged(object sender, PropertyChangedEventArgs e)
+    {
+        var value = _lowerBackground.GetType().GetProperty(e.PropertyName)?.GetValue(_lowerBackground, null);
+        _lowerBackgroundRes.GetType().GetProperty(e.PropertyName)?.SetValue(_lowerBackgroundRes, value);
+    }
 
-	private void MidDownChanged(object sender, PropertyChangedEventArgs e)
-	{
-		var value = _midDownBackground.GetType().GetProperty(e.PropertyName)?.GetValue(_midDownBackground, null);
-		_midDownBackgroundRes.GetType().GetProperty(e.PropertyName)?.SetValue(_midDownBackgroundRes, value);
-	}
+    private void MidDownChanged(object sender, PropertyChangedEventArgs e)
+    {
+        var value = _midDownBackground.GetType().GetProperty(e.PropertyName)?.GetValue(_midDownBackground, null);
+        _midDownBackgroundRes.GetType().GetProperty(e.PropertyName)?.SetValue(_midDownBackgroundRes, value);
+    }
 
-	private void MidUpChanged(object sender, PropertyChangedEventArgs e)
-	{
-		var value = _midUpBackground.GetType().GetProperty(e.PropertyName)?.GetValue(_midUpBackground, null);
-		_midUpBackgroundRes.GetType().GetProperty(e.PropertyName)?.SetValue(_midUpBackgroundRes, value);
-	}
+    private void MidUpChanged(object sender, PropertyChangedEventArgs e)
+    {
+        var value = _midUpBackground.GetType().GetProperty(e.PropertyName)?.GetValue(_midUpBackground, null);
+        _midUpBackgroundRes.GetType().GetProperty(e.PropertyName)?.SetValue(_midUpBackgroundRes, value);
+    }
 
-	private void UpperChanged(object sender, PropertyChangedEventArgs e)
-	{
-		var value = _upperBackground.GetType().GetProperty(e.PropertyName)?.GetValue(_upperBackground, null);
-		_upperBackgroundRes.GetType().GetProperty(e.PropertyName)?.SetValue(_upperBackgroundRes, value);
-	}
+    private void UpperChanged(object sender, PropertyChangedEventArgs e)
+    {
+        var value = _upperBackground.GetType().GetProperty(e.PropertyName)?.GetValue(_upperBackground, null);
+        _upperBackgroundRes.GetType().GetProperty(e.PropertyName)?.SetValue(_upperBackgroundRes, value);
+    }
 
-	private void Upper2Changed(object sender, PropertyChangedEventArgs e)
-	{
-		var value = _upper2Background.GetType().GetProperty(e.PropertyName)?.GetValue(_upper2Background, null);
-		_upper2BackgroundRes.GetType().GetProperty(e.PropertyName)?.SetValue(_upper2BackgroundRes, value);
-	}
+    private void Upper2Changed(object sender, PropertyChangedEventArgs e)
+    {
+        var value = _upper2Background.GetType().GetProperty(e.PropertyName)?.GetValue(_upper2Background, null);
+        _upper2BackgroundRes.GetType().GetProperty(e.PropertyName)?.SetValue(_upper2BackgroundRes, value);
+    }
 
-	private int BarFromDate(DateTime date)
-	{
-		var bar = CurrentBar - 1;
+    private int BarFromDate(DateTime date)
+    {
+        var bar = CurrentBar - 1;
 
-		for (var i = CurrentBar - 1; i >= 0; i--)
-		{
-			var candle = GetCandle(i);
-			bar = i;
+        for (var i = CurrentBar - 1; i >= 0; i--)
+        {
+            var candle = GetCandle(i);
+            bar = i;
 
-			if (candle.Time <= date && candle.LastTime >= date)
-				break;
-		}
+            if (candle.Time <= date && candle.LastTime >= date)
+                break;
+        }
 
-		return bar;
-	}
+        return bar;
+    }
 
-	private bool IsNewCustomSession(int bar)
-	{
-		var currentBar = GetCandle(bar);
-		var previousBar = bar > 0 ? GetCandle(bar - 1) : null;
+    private bool IsNewCustomSession(int bar)
+    {
+        var currentBar = GetCandle(bar);
+        var previousBar = bar > 0 ? GetCandle(bar - 1) : null;
 
-		var startTime = currentBar.Time.AddHours(InstrumentInfo.TimeZone);
-		var endTime = currentBar.LastTime.AddHours(InstrumentInfo.TimeZone);
+        var startTime = currentBar.Time.AddHours(InstrumentInfo.TimeZone);
+        var endTime = currentBar.LastTime.AddHours(InstrumentInfo.TimeZone);
 
-		var prevEndTime = previousBar?.LastTime.AddHours(InstrumentInfo.TimeZone) ?? default;
+        var prevEndTime = previousBar?.LastTime.AddHours(InstrumentInfo.TimeZone) ?? default;
 
-		var sessionCrossesMidnight = _customSessionStart > _customSessionEnd;
+        var customSessionStart = _customSessionStartFilter.Value;
+        var customSessionEnd = _customSessionEndFilter.Value;
+        var sessionCrossesMidnight = customSessionStart > customSessionEnd;
 
-		var isFirstBarNewSession = bar == 0 && (
-			sessionCrossesMidnight
-				? startTime.TimeOfDay <= _customSessionStart || endTime.TimeOfDay > _customSessionStart
-				: startTime.TimeOfDay <= _customSessionStart && endTime.TimeOfDay > _customSessionStart
-		);
+        var isFirstBarNewSession = bar == 0 && (
+            sessionCrossesMidnight
+                ? startTime.TimeOfDay <= customSessionStart || endTime.TimeOfDay > customSessionStart
+                : startTime.TimeOfDay <= customSessionStart && endTime.TimeOfDay > customSessionStart
+        );
 
-		if (isFirstBarNewSession)
-		{
-			return true;
-		}
+        if (isFirstBarNewSession)
+        {
+            return true;
+        }
 
-		bool newSessionInCurrentBar;
-		
-		if (sessionCrossesMidnight)
-		{
-			newSessionInCurrentBar = (startTime.TimeOfDay <= _customSessionStart && endTime.TimeOfDay > _customSessionStart) ||
-				(startTime.TimeOfDay > endTime.TimeOfDay && (endTime.TimeOfDay > _customSessionStart || startTime.TimeOfDay <= _customSessionStart));
-		}
-		else
-		{
-			newSessionInCurrentBar = startTime.TimeOfDay <= _customSessionStart && endTime.TimeOfDay > _customSessionStart;
-		}
+        bool newSessionInCurrentBar;
 
-		var newSessionBetweenBars = previousBar != null && (
-			sessionCrossesMidnight
-				? (prevEndTime.TimeOfDay <= _customSessionStart && startTime.TimeOfDay > _customSessionStart) ||
-				(prevEndTime.TimeOfDay > startTime.TimeOfDay &&
-				 (_customSessionStart <= startTime.TimeOfDay || _customSessionStart >= prevEndTime.TimeOfDay))
-				: prevEndTime.TimeOfDay <= _customSessionStart && startTime.TimeOfDay > _customSessionStart
-		);
+        if (sessionCrossesMidnight)
+        {
+            newSessionInCurrentBar = (startTime.TimeOfDay <= customSessionStart && endTime.TimeOfDay > customSessionStart) ||
+                (startTime.TimeOfDay > endTime.TimeOfDay && (endTime.TimeOfDay > customSessionStart || startTime.TimeOfDay <= customSessionStart));
+        }
+        else
+        {
+            newSessionInCurrentBar = startTime.TimeOfDay <= customSessionStart && endTime.TimeOfDay > customSessionStart;
+        }
 
-		return newSessionInCurrentBar || newSessionBetweenBars;
-	}
+        var newSessionBetweenBars = previousBar != null && (
+            sessionCrossesMidnight
+                ? (prevEndTime.TimeOfDay <= customSessionStart && startTime.TimeOfDay > customSessionStart) ||
+                (prevEndTime.TimeOfDay > startTime.TimeOfDay &&
+                 (customSessionStart <= startTime.TimeOfDay || customSessionStart >= prevEndTime.TimeOfDay))
+                : prevEndTime.TimeOfDay <= customSessionStart && startTime.TimeOfDay > customSessionStart
+        );
+
+        return newSessionInCurrentBar || newSessionBetweenBars;
+    }
 
     private bool InsideSession(int bar)
-	{
-		var currentBar = GetCandle(bar);
+    {
+        var currentBar = GetCandle(bar);
 
-		var startTime = currentBar.Time.AddHours(InstrumentInfo.TimeZone);
-		var endTime = currentBar.LastTime.AddHours(InstrumentInfo.TimeZone);
+        var startTime = currentBar.Time.AddHours(InstrumentInfo.TimeZone);
+        var endTime = currentBar.LastTime.AddHours(InstrumentInfo.TimeZone);
 
-		var sessionCrossesMidnight = _customSessionStart > _customSessionEnd;
+        var customSessionStart = _customSessionStartFilter.Value;
+        var customSessionEnd = _customSessionEndFilter.Value;
+        var sessionCrossesMidnight = customSessionStart > customSessionEnd;
 
-		bool isInSession;
-		if (sessionCrossesMidnight)
-		{
-			isInSession = (startTime.TimeOfDay >= _customSessionStart || startTime.TimeOfDay <= _customSessionEnd) ||
-				(endTime.TimeOfDay >= _customSessionStart || endTime.TimeOfDay <= _customSessionEnd) ||
-				(startTime.TimeOfDay <= _customSessionEnd && endTime.TimeOfDay >= _customSessionStart);
-		}
-		else
-		{
-			isInSession = (startTime.TimeOfDay >= _customSessionStart && startTime.TimeOfDay <= _customSessionEnd) ||
-				(endTime.TimeOfDay >= _customSessionStart && endTime.TimeOfDay <= _customSessionEnd) ||
-				(startTime.TimeOfDay <= _customSessionEnd && endTime.TimeOfDay >= _customSessionStart);
-		}
+        bool isInSession;
+        if (sessionCrossesMidnight)
+        {
+            isInSession = (startTime.TimeOfDay >= customSessionStart || startTime.TimeOfDay <= customSessionEnd) ||
+                (endTime.TimeOfDay >= customSessionStart || endTime.TimeOfDay <= customSessionEnd) ||
+                (startTime.TimeOfDay <= customSessionEnd && endTime.TimeOfDay >= customSessionStart);
+        }
+        else
+        {
+            isInSession = (startTime.TimeOfDay >= customSessionStart && startTime.TimeOfDay <= customSessionEnd) ||
+                (endTime.TimeOfDay >= customSessionStart && endTime.TimeOfDay <= customSessionEnd) ||
+                (startTime.TimeOfDay <= customSessionEnd && endTime.TimeOfDay >= customSessionStart);
+        }
 
-		return isInSession;
+        return isInSession;
     }
 
     private static CrossColor GetColorFromHex(string hexString)
