@@ -97,6 +97,7 @@ public sealed class HeatmapMarketPressureIndicator
 	private decimal _cachedBuyersPressure;
 	private decimal _cachedSellersPressure;
 	private DateTime _cacheTime = DateTime.MinValue;
+	private bool _hasConfigured;
 	private HeatmapPressureMode _configuredMode = HeatmapPressureMode.Volume;
 	private HeatmapPressurePreset _configuredPreset = HeatmapPressurePreset.Medium;
 
@@ -123,20 +124,23 @@ public sealed class HeatmapMarketPressureIndicator
 	public override async ValueTask ConfigureAsync(HeatmapPressureSettings settings, CancellationToken cancellationToken)
 	{
 		cancellationToken.ThrowIfCancellationRequested();
-
 		ArgumentNullException.ThrowIfNull(settings);
 
-		var needsRebuild = _configuredMode != settings.Mode || _configuredPreset != settings.Preset;
+		var calculationChanged = _hasConfigured
+		                         && (_configuredMode != settings.Mode
+		                             || _configuredPreset != settings.Preset);
 
+		_hasConfigured = true;
 		_configuredMode = settings.Mode;
 		_configuredPreset = settings.Preset;
 
+		_cacheTime = DateTime.MinValue;
 		UpdateVisual(_panel, ApplyPresentation);
 
-		if (needsRebuild && Runtime is { } runtime)
+		if (calculationChanged && Runtime is { } runtime)
 		{
 			await runtime
-				.RequestStateResetAsync("pressure: mode/preset changed", cancellationToken)
+				.RequestStateResetAsync("market-pressure: calculation parameters changed", cancellationToken)
 				.ConfigureAwait(false);
 		}
 	}
