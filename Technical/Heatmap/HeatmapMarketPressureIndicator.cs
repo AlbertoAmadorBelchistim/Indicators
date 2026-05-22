@@ -97,6 +97,9 @@ public sealed class HeatmapMarketPressureIndicator
 	private decimal _cachedBuyersPressure;
 	private decimal _cachedSellersPressure;
 	private DateTime _cacheTime = DateTime.MinValue;
+	private bool _hasConfigured;
+	private HeatmapPressureMode _configuredMode = HeatmapPressureMode.Volume;
+	private HeatmapPressurePreset _configuredPreset = HeatmapPressurePreset.Medium;
 
 	#endregion
 
@@ -118,14 +121,28 @@ public sealed class HeatmapMarketPressureIndicator
 
 	#region Public methods
 
-	public override ValueTask ConfigureAsync(HeatmapPressureSettings settings, CancellationToken cancellationToken)
+	public override async ValueTask ConfigureAsync(HeatmapPressureSettings settings, CancellationToken cancellationToken)
 	{
 		cancellationToken.ThrowIfCancellationRequested();
+		ArgumentNullException.ThrowIfNull(settings);
+
+		var calculationChanged = _hasConfigured
+		                         && (_configuredMode != settings.Mode
+		                             || _configuredPreset != settings.Preset);
+
+		_hasConfigured = true;
+		_configuredMode = settings.Mode;
+		_configuredPreset = settings.Preset;
 
 		_cacheTime = DateTime.MinValue;
+		UpdateVisual(_panel, ApplyPresentation);
 
-		RecalculateWithCurrentSettings();
-		return ValueTask.CompletedTask;
+		if (calculationChanged && Runtime is { } runtime)
+		{
+			await runtime
+				.RequestStateResetAsync("market-pressure: calculation parameters changed", cancellationToken)
+				.ConfigureAwait(false);
+		}
 	}
 
 	public async ValueTask WarmUpAsync(
@@ -337,69 +354,6 @@ public sealed class HeatmapMarketPressureIndicator
 	#endregion
 
 	#region Private methods
-
-	private void RecalculateWithCurrentSettings()
-	{
-		var mode = Settings.Mode;
-		var preset = Settings.Preset;
-		var halfLife = GetHalfLifePeriod(preset);
-		var trainingPeriod = GetTrainingPeriod(preset);
-
-		_buyerEvents.Clear();
-		_sellerEvents.Clear();
-		_maxPressure = MinimumMaxPressure;
-		_lastMaxUpdateTime = DateTime.MinValue;
-		_isTraining = true;
-		_cacheTime = DateTime.MinValue;
-
-		if (_historicalTicks.Count == 0)
-			return;
-
-		var lastTickTime = _historicalTicks.Max(t => t.Time);
-		_trainingStartTime = lastTickTime;
-		_virtualCurrentTime = lastTickTime;
-		var cutoffTime = lastTickTime - TimeSpan.FromSeconds(halfLife.TotalSeconds * 5) - trainingPeriod;
-		var ticksToProcess = _historicalTicks
-			.Where(t => t.Time >= cutoffTime)
-			.OrderBy(t => t.Time)
-			.ToList();
-		var snapshotsCopy = _historicalSnapshots.ToList();
-
-		if (ticksToProcess.Count == 0)
-			return;
-
-		var eventsCutoffTime = lastTickTime - TimeSpan.FromSeconds(halfLife.TotalSeconds * 5);
-		var buyerEvents = new List<PressureEvent>();
-		var sellerEvents = new List<PressureEvent>();
-
-		foreach (var tick in ticksToProcess)
-		{
-			if (tick.Time < eventsCutoffTime)
-				continue;
-
-			var evt = new PressureEvent(tick.Time, GetWeight(tick, mode));
-			if (tick.Direction == HeatmapTradeDirection.Buy)
-				buyerEvents.Add(evt);
-			else if (tick.Direction == HeatmapTradeDirection.Sell)
-				sellerEvents.Add(evt);
-		}
-
-		var searchStartTime = lastTickTime - trainingPeriod;
-		var ticksForMaxCalc = ticksToProcess.Where(t => t.Time >= searchStartTime).ToList();
-		var calculatedMax = CalculateHistoricalMaximums(
-			buyerEvents,
-			sellerEvents,
-			snapshotsCopy,
-			ticksForMaxCalc,
-			lastTickTime,
-			halfLife);
-
-		_buyerEvents.AddRange(buyerEvents);
-		_sellerEvents.AddRange(sellerEvents);
-		_maxPressure = Math.Max(calculatedMax, MinimumMaxPressure);
-		_lastMaxUpdateTime = lastTickTime;
-		_lastCleanupTime = lastTickTime;
-	}
 
 	private void CalculateAndRecord(
 		DateTime referenceTime,

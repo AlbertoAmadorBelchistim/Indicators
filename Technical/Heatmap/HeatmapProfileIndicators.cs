@@ -171,12 +171,42 @@ public sealed class HeatmapValueAreaIndicator
 
 	private ValueAreaAccumulator _current = new(HeatmapPeriodKey.Empty);
 	private ValueAreaAccumulator? _previous;
+	private bool _hasConfigured;
+	private HeatmapProfileScope _configuredScope = HeatmapProfileScope.CurrentDay;
+	private bool _configuredShowValueArea;
 
 	#endregion
 
 	#region Properties
 
 	public override HeatmapIndicatorDescriptor Descriptor => _descriptor;
+
+	#endregion
+
+	#region Public methods
+
+	public override async ValueTask ConfigureAsync(HeatmapValueAreaSettings settings, CancellationToken cancellationToken)
+	{
+		cancellationToken.ThrowIfCancellationRequested();
+		ArgumentNullException.ThrowIfNull(settings);
+
+		var calculationChanged = _hasConfigured
+		                         && (_configuredScope != settings.Scope
+		                             || _configuredShowValueArea != settings.ShowValueArea);
+
+		_hasConfigured = true;
+		_configuredScope = settings.Scope;
+		_configuredShowValueArea = settings.ShowValueArea;
+
+		ApplyStyles();
+
+		if (calculationChanged && Runtime is { } runtime)
+		{
+			await runtime
+				.RequestStateResetAsync("value-area: calculation parameters changed", cancellationToken)
+				.ConfigureAwait(false);
+		}
+	}
 
 	#endregion
 
@@ -358,6 +388,12 @@ public sealed class HeatmapValueAreaIndicator
 		visualLease.Series(_poc).Style = pocStyle;
 		visualLease.Series(_high).Style = valueAreaStyle;
 		visualLease.Series(_low).Style = valueAreaStyle;
+	}
+
+	private void ApplyStyles()
+	{
+		using var lease = State.BeginUpdate();
+		ApplyStyles(lease.Visual(_lines));
 	}
 
 	#endregion

@@ -79,6 +79,10 @@ public sealed class HeatmapPriceChangeIndicator
 	private decimal _currentPeriodStartPrice;
 	private DateTime _currentPeriodStartTime = DateTime.MinValue;
 	private HeatmapPriceChangePeriod _currentPeriod = HeatmapPriceChangePeriod.OneMinute;
+	private bool _hasConfigured;
+	private HeatmapPriceChangeMode _configuredMode = HeatmapPriceChangeMode.StandardDeviation;
+	private HeatmapPriceChangePeriod _configuredPeriod = HeatmapPriceChangePeriod.OneMinute;
+	private HeatmapTrainingPeriod _configuredTrainingPeriod = HeatmapTrainingPeriod.FifteenMinutes;
 
 	#endregion
 
@@ -98,12 +102,22 @@ public sealed class HeatmapPriceChangeIndicator
 
 	#region Public methods
 
-	public override ValueTask ConfigureAsync(HeatmapPriceChangeSettings settings, CancellationToken cancellationToken)
+	public override async ValueTask ConfigureAsync(HeatmapPriceChangeSettings settings, CancellationToken cancellationToken)
 	{
 		cancellationToken.ThrowIfCancellationRequested();
+		ArgumentNullException.ThrowIfNull(settings);
 
 		// TrainingPeriod is normalised lazily at every read site via
 		// ValidateTrainingPeriod — no need to reconstruct settings here.
+		var calculationChanged = _hasConfigured
+		                         && (_configuredMode != settings.Mode
+		                             || _configuredPeriod != settings.Period
+		                             || _configuredTrainingPeriod != settings.TrainingPeriod);
+
+		_hasConfigured = true;
+		_configuredMode = settings.Mode;
+		_configuredPeriod = settings.Period;
+		_configuredTrainingPeriod = settings.TrainingPeriod;
 
 		if (_currentPeriod != settings.Period)
 		{
@@ -121,7 +135,14 @@ public sealed class HeatmapPriceChangeIndicator
 			CurrentValue = (float)NormalizeValue(_currentValue, settings.Mode);
 		}
 
-		return ValueTask.CompletedTask;
+		ApplyPresentation();
+
+		if (calculationChanged && Runtime is { } runtime)
+		{
+			await runtime
+				.RequestStateResetAsync("price-change: calculation parameters changed", cancellationToken)
+				.ConfigureAwait(false);
+		}
 	}
 
 	public async ValueTask WarmUpAsync(
@@ -334,6 +355,12 @@ public sealed class HeatmapPriceChangeIndicator
 		visualLease.Presentation = new HeatmapIndicatorVisualPresentation(
 			PanelHeight: Settings.PanelHeight,
 			ScalarScaleMode: HeatmapIndicatorScalarScaleMode.AutoVisible);
+	}
+
+	private void ApplyPresentation()
+	{
+		using var lease = State.BeginUpdate();
+		ApplyPresentation(lease.Visual(_panel));
 	}
 
 	private void CleanupOldData(DateTime currentTime, HeatmapTrainingPeriod trainingPeriod)
