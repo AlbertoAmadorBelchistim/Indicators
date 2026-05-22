@@ -213,7 +213,10 @@ public sealed class HeatmapCvdIndicator
 			PanelRenderMode: HeatmapIndicatorPanelRenderMode.PositiveNegativeScalar,
 			ScalarScaleMode: HeatmapIndicatorScalarScaleMode.AutoVisibleSymmetric,
 			ReferenceValue: 0f);
-		visualLease.Style = new HeatmapIndicatorVisualStyle(Color: HeatmapIndicatorColors.ToHex(Settings.Color));
+		visualLease.Style = new HeatmapIndicatorVisualStyle(
+			ColorScheme: new HeatmapIndicatorSplitColors(
+				Positive: HeatmapIndicatorColors.ToHex(Settings.PosColor),
+				Negative: HeatmapIndicatorColors.ToHex(Settings.NegColor)));
 	}
 
 	#endregion
