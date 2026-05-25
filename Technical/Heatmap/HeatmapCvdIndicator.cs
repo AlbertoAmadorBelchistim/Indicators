@@ -211,7 +211,7 @@ public sealed class HeatmapCvdIndicator
 		visualLease.Presentation = new HeatmapIndicatorVisualPresentation(
 			PanelHeight: Settings.PanelHeight,
 			PanelRenderMode: HeatmapIndicatorPanelRenderMode.PositiveNegativeScalar,
-			ScalarScaleMode: HeatmapIndicatorScalarScaleMode.AutoVisibleSymmetric,
+			ScalarScaleMode: HeatmapIndicatorScalarScaleMode.AutoVisible,
 			ReferenceValue: 0f);
 		visualLease.Style = new HeatmapIndicatorVisualStyle(
 			ColorScheme: new HeatmapIndicatorSplitColors(
