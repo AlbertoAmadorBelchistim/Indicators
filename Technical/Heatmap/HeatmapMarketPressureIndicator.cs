@@ -419,6 +419,10 @@ public sealed class HeatmapMarketPressureIndicator
 		visualLease.Presentation = new HeatmapIndicatorVisualPresentation(
 			PanelHeight: Settings.PanelHeight,
 			Threshold: Settings.Threshold);
+		visualLease.Style = new HeatmapIndicatorVisualStyle(
+			ColorScheme: new HeatmapIndicatorSplitColors(
+				Positive: HeatmapIndicatorColors.ToHex(Settings.BuyColor),
+				Negative: HeatmapIndicatorColors.ToHex(Settings.SellColor)));
 	}
 
 	private decimal CalculatePressureWithSnapshots(bool buyerSide, DateTime referenceTime, TimeSpan halfLife)

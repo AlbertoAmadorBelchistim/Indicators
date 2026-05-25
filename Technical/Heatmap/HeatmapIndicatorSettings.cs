@@ -96,17 +96,20 @@ public sealed class HeatmapCvdSettings : IHeatmapPanelHeightSettings
     [Browsable(false)]
     public int Version { get; set; } = 1;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.HeatmapCvdCalculationMode))]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.HeatmapCvdCalculationMode), GroupName = nameof(Strings.Settings), Order = 10)]
     public CvdCalculationMode CalculationMode { get; set; } = CvdCalculationMode.FromDataStart;
 
-    [Display(Name = "Lot Size")]
+    [Display(Name = nameof(Strings.LotSize), GroupName = nameof(Strings.Settings), ResourceType = typeof(Strings), Order = 20)]
     public decimal LotSize { get; set; } = 1m;
 
-    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.HeatmapCvdPanelHeight))]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.HeatmapCvdPanelHeight), GroupName = nameof(Strings.Drawing), Order = 10)]
     public int PanelHeight { get; set; } = 120;
 
-    [Display(Name = "CVD Line Color")]
-    public CrossColor Color { get; set; } = ParseHex("#FF42A5F5");
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Positive), GroupName = nameof(Strings.Drawing), Order = 20)]
+    public CrossColor PosColor { get; set; } = ParseHex("#FF008000");
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Negative), GroupName = nameof(Strings.Drawing), Order = 30)]
+    public CrossColor NegColor { get; set; } = ParseHex("#FFFF0000");
 
     #endregion
 }
@@ -142,17 +145,23 @@ public sealed class HeatmapPressureSettings : IHeatmapPanelHeightSettings
     [Browsable(false)]
     public int Version { get; set; } = 1;
 
-    [Display(Name = "Mode")]
+    [Display(Name = nameof(Strings.Mode), GroupName = nameof(Strings.Settings), ResourceType = typeof(Strings), Order = 10)]
     public HeatmapPressureMode Mode { get; set; } = HeatmapPressureMode.Volume;
 
-    [Display(Name = "Preset")]
+    [Display(Name = nameof(Strings.Preset), GroupName = nameof(Strings.Settings), ResourceType = typeof(Strings), Order = 20)]
     public HeatmapPressurePreset Preset { get; set; } = HeatmapPressurePreset.Medium;
 
-    [Display(Name = "Panel Height")]
+    [Display(Name = nameof(Strings.PanelHeight), GroupName = nameof(Strings.Drawing), ResourceType = typeof(Strings), Order = 10)]
     public int PanelHeight { get; set; } = 80;
 
-    [Display(Name = "Threshold")]
+    [Display(Name = nameof(Strings.Threshold), GroupName = nameof(Strings.Drawing), ResourceType = typeof(Strings), Order = 20)]
     public int Threshold { get; set; } = 80;
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BuyColor), GroupName = nameof(Strings.Drawing), Order = 30)]
+    public CrossColor BuyColor { get; set; } = ParseHex("#FF00A572");
+
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.SellColor), GroupName = nameof(Strings.Drawing), Order = 40)]
+    public CrossColor SellColor { get; set; } = ParseHex("#FFD53930");
 
     #endregion
 }
