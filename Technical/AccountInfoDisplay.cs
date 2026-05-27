@@ -88,7 +88,6 @@ public class AccountInfoDisplay : Indicator
 		set
 		{
 			if (Math.Abs(_font.Size - value) < 0.01f) return;
-			var old = _font;
 			_font = new RenderFont("Arial", value);
 		}
 	}
@@ -254,7 +253,7 @@ public class AccountInfoDisplay : Indicator
 		context.FillRectangle(_backgroundColor, rectangle);
 
 		// Draw border
-		context.DrawRectangle(new RenderPen(Color.Gray, 1), rectangle);
+		context.DrawRectangle(_borderPen, rectangle);
 
 		// Draw text
 		var textRect = new Rectangle(x + Padding, y + Padding, rectWidth - Padding * 2, rectHeight - Padding * 2);
@@ -302,7 +301,7 @@ public class AccountInfoDisplay : Indicator
 			lines.Add(new("Closed PnL", FormatCurrency(p.ClosedPnL), p.ClosedPnL));
 
 		if (ShowTotalPnL)
-			// Session-level total: OpenPnL + ClosedPnL (current session) — NOT
+			// Session-level total: OpenPnL + ClosedPnL (current session) - NOT
 			// Portfolio.TotalPnL, which uses TotalClosedPnL (cumulative across sessions).
 			lines.Add(new("Total PnL", FormatCurrency(p.ClosedPnL + p.OpenPnL), p.ClosedPnL + p.OpenPnL));
 
