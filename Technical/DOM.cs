@@ -492,9 +492,11 @@ public class DOM : Indicator
 
 				ResetColors();
 
-				var maxBid = MaxBid;
-				_maxPrice = Math.Min(MaxDepthPrice, maxBid * 1.3m);
-				_minPrice = Math.Max(MinDepthPrice, maxBid * 0.7m);
+				var anchor = _bids.Count > 0
+					? MaxBid
+					: (_asks.Count > 0 ? MinAsk : GetCandle(CurrentBar - 1).Close);
+				_maxPrice = Math.Min(MaxDepthPrice, anchor * 1.3m);
+				_minPrice = Math.Max(MinDepthPrice, anchor * 0.7m);
 
 				var maxLevel = FindMaxVolume();
 				_maxVolume = new VolumeInfo
