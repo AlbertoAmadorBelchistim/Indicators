@@ -14,10 +14,7 @@ namespace ATAS.Indicators.Technical
     using OFT.Localization;
     using OFT.Rendering.Context;
     using OFT.Rendering.Tools;
-
-	using Utils.Common.Logging;
-
-	[DisplayName("Maximum Levels")]
+    [DisplayName("Maximum Levels")]
 	[Category(IndicatorCategories.VolumeOrderFlow)]
     [Display(ResourceType = typeof(Strings), Description = nameof(Strings.MaxLevelsIndDescription))]
     [HelpLink("https://help.atas.net/support/solutions/articles/72000602426")]
@@ -260,14 +257,14 @@ namespace ATAS.Indicators.Technical
 			if (bar != CurrentBar - 1)
 				return;
 
-			var candle = GetCandle(bar);
-
 			if (!_candleRequested)
 			{
 				_candleRequested = true;
+				GetFixedProfile(new FixedProfileRequest(Period, TradingSession));
 				_lastSession = bar;
-				RequestProfileAsync(candle.LastTime);
 			}
+
+			var candle = GetCandle(bar);
 
 			if (UseAlert && _lastAlert != bar && _candle is not null)
 			{
@@ -285,22 +282,10 @@ namespace ATAS.Indicators.Technical
 			_prevClose = candle.Close;
 		}
 
-		private async void RequestProfileAsync(DateTime baseTime)
+		protected override void OnFixedProfilesResponse(IndicatorCandle fixedProfileScaled, IndicatorCandle fixedProfileOriginScale, FixedProfilePeriods period)
 		{
-			try
-			{
-				var response = await RequestFixedProfileAsync(new FixedProfileRequest(Period, TradingSession, baseTime));
-
-				if (response is { } r)
-				{
-					_candle = r.Original;
-					RedrawChart();
-				}
-			}
-			catch (Exception ex)
-			{
-				this.LogError(ex.Message, ex);
-			}
+			_candle = fixedProfileOriginScale;
+			RedrawChart();
 		}
 
 		protected override void OnRender(RenderContext context, DrawingLayouts layout)
