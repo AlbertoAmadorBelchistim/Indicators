@@ -82,7 +82,9 @@ namespace ATAS.Indicators.Technical
 		private decimal _filter = 10;
 		private object _locker = new();
 		private int _offset = 100;
+#pragma warning disable CS0414
         private string _priceFormat = "{0:0.##}";
+#pragma warning restore CS0414
         private bool _showSmallTrades = true;
         private int _size = 10;
         private int _spacing = 8;

@@ -1,6 +1,6 @@
-﻿using System.Drawing;
-using OFT.Rendering.Context;
+﻿using OFT.Rendering.Context;
 using OFT.Rendering.Tools;
+using System.Drawing;
 
 namespace DomV10;
 
@@ -8,7 +8,8 @@ using System;
 
 public partial class MainIndicator
 {
-    private RenderFont _font = new RenderFont("Arial", 0);
+    private const float MinFontSize = 0.5f;
+    private RenderFont _font = new RenderFont("Arial", 8);
     private decimal _cacheMaxHeight;
     private (float fontSize, float fontWidth) _cacheFontSize;
 
@@ -49,13 +50,13 @@ public partial class MainIndicator
 
     private (float fontSize, float fontWidth) SetFontSize(RenderContext context, decimal maxHeight)
     {
-	    var maxFontSize = (decimal)ChartInfo.PriceAxisFont.Size;
+        var maxFontSize = (decimal)ChartInfo.PriceAxisFont.Size;
 
-        if (maxHeight < 2) 
-	        return (0, 0);
+        if (maxHeight < 2)
+            return (0, 0);
 
         if (maxHeight == _cacheMaxHeight)
-	        return _cacheFontSize;
+            return _cacheFontSize;
 
         var direction = 0;
         var bestSize = (float)maxFontSize;
@@ -65,50 +66,64 @@ public partial class MainIndicator
         var x = 0;
 
         var indicate = maxHeight - 2;
-        
-        _font = new RenderFont("Arial", (float)bestSize);
-        do
+
+        if (bestSize < MinFontSize)
+            bestSize = MinFontSize;
+
+        _font = new RenderFont("Arial", bestSize);
+
+        try
         {
-            var size = context.MeasureString("#", _font);
-            var textSize = size.Height;
-
-            if (size.Height == indicate)
+            do
             {
-                bestSize = _font.Size;
-                bestW = size.Width;
-                break;
+                var size = context.MeasureString("#", _font);
+                var textSize = size.Height;
+
+                if (size.Height == indicate)
+                {
+                    bestSize = _font.Size;
+                    bestW = size.Width;
+                    break;
+                }
+
+                if (textSize < indicate)
+                {
+                    if (direction == 0) direction = 1;
+                    if (direction == -1) break;
+
+                    bestSize = _font.Size;
+                    bestW = size.Width;
+
+                    _font = new RenderFont(_font.FontFamily, (float)((decimal)_font.Size + increment));
+                    _lastHeight = size.Height;
+                    continue;
+                }
+
+                if (textSize > indicate)
+                {
+                    if (direction == 0) direction = -1;
+                    if (direction == 1) break;
+
+                    var nextSize = (float)((decimal)_font.Size - increment);
+
+                    if (nextSize < MinFontSize)
+                        break;
+
+                    _font = new RenderFont(_font.FontFamily, nextSize);
+                    _lastHeight = size.Height;
+                    bestSize = _font.Size;
+                    bestW = size.Width;
+
+                    continue;
+                }
             }
-
-            if (textSize < indicate)
-            {
-                if (direction == 0) direction = 1;
-                if (direction == -1) break;
-
-                bestSize = _font.Size;
-                bestW = size.Width;
-
-                _font = new RenderFont(_font.FontFamily, (float)((decimal)_font.Size + increment));
-                _lastHeight = size.Height;
-                continue;
-            }
-
-            if (textSize > indicate)
-            {
-                if (direction == 0) direction = -1;
-                if (direction == 1) break;
-
-                _font = new RenderFont(_font.FontFamily, (float)((decimal)_font.Size - increment));
-                _lastHeight = size.Height;
-                bestSize = _font.Size;
-                bestW = size.Width;
-
-                continue;
-            }
-        } 
-        while (x++ <= 100);
-
-		_cacheFontSize = (bestSize, bestW);
-        _cacheMaxHeight = maxHeight;
+            while (x++ <= 100);
+        }
+        finally
+        {
+            _cacheFontSize = (bestSize, bestW);
+            _cacheMaxHeight = maxHeight;
+        }
 
         return (bestSize, bestW);
     }

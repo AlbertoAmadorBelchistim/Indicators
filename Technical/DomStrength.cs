@@ -27,8 +27,8 @@ public class DomStrength : Indicator
 	private CumulativeDelta _cDelta = new();
 	private decimal _cumAsks;
 	private decimal _cumBids;
-	private bool _initialized;
-	private object _locker = new();
+	private volatile bool _initialized;
+	private readonly object _locker = new();
 	private SortedList<decimal, decimal> _mDepthAsk = new();
 	private SortedList<decimal, decimal> _mDepthBid = new();
 	private decimal _percent = 50;
@@ -56,10 +56,8 @@ public class DomStrength : Indicator
 			_period = value;
 			_buySeries.Clear();
 			_sellSeries.Clear();
-
-			if (_buySeries.Count > 0)
-				OnCalculate(CurrentBar - 1, 0);
-		}
+            RecalculateValues();
+        }
 	}
 
     [Parameter]
@@ -73,10 +71,8 @@ public class DomStrength : Indicator
 			_percent = value;
 			_buySeries.Clear();
 			_sellSeries.Clear();
-
-			if (_buySeries.Count > 0)
-				OnCalculate(CurrentBar - 1, 0);
-		}
+            RecalculateValues();
+        }
 	}
 
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Color80), GroupName = nameof(Strings.Color), Description = nameof(Strings.PercentColorDescription), Order = 200)]
@@ -124,12 +120,13 @@ public class DomStrength : Indicator
 		if (ChartInfo is null)
 			return;
 
-		var candles = (CandleDataSeries)DataSeries[0];
-
-		candles.UpCandleColor = ChartInfo.ColorsStore.UpCandleColor.Convert();
-		candles.DownCandleColor = ChartInfo.ColorsStore.DownCandleColor.Convert();
-		candles.BorderColor = ChartInfo.ColorsStore.BarBorderPen.Color.Convert();
-	}
+        if (DataSeries[0] is CandleDataSeries candles)
+        {
+            candles.UpCandleColor = ChartInfo.ColorsStore.UpCandleColor.Convert();
+            candles.DownCandleColor = ChartInfo.ColorsStore.DownCandleColor.Convert();
+            candles.BorderColor = ChartInfo.ColorsStore.BarBorderPen.Color.Convert();
+        }
+    }
 
 	protected override void OnInitialize()
 	{
@@ -170,14 +167,17 @@ public class DomStrength : Indicator
 
 	protected override void OnNewTrade(MarketDataArg trade)
 	{
-		if (_initialized)
-			_trades.Add(trade);
-
-		if (_trades.Count > 100000)
+		lock (_locker)
 		{
-			_trades = _trades
-				.Skip(10000)
-				.ToList();
+			if (_initialized)
+				_trades.Add(trade);
+
+			if (_trades.Count > 100000)
+			{
+				_trades = _trades
+					.Skip(10000)
+					.ToList();
+			}
 		}
 	}
 
@@ -272,21 +272,46 @@ public class DomStrength : Indicator
 		}
 	}
 
-	#endregion
+    protected override void OnDispose()
+    {
+        LevelDepth.PropertyChanged -= FilterDepthChanged;
+    }
 
-	#region Private methods
+    protected override void OnRecalculate()
+    {
+        lock (_locker)
+        {
+            _mDepthAsk.Clear();
+            _mDepthBid.Clear();
+        }
 
-	private void CalcRatio(int bar)
+        _buyVolume = 0;
+        _sellVolume = 0;
+        _cumAsks = 0;
+        _cumBids = 0;
+    }
+
+    #endregion
+
+    #region Private methods
+
+    private void CalcRatio(int bar)
 	{
 		var startBar = Math.Max(0, bar - Period);
 		var startTime = GetCandle(startBar).Time;
 
-		_buyVolume = _trades
-			.Where(x => x.Time >= startTime && x.Direction is TradeDirection.Buy)
+        List<MarketDataArg> tradesSnapshot;
+        lock (_locker)
+        {
+            tradesSnapshot = new List<MarketDataArg>(_trades);
+        }
+
+        _buyVolume = tradesSnapshot
+            .Where(x => x.Time >= startTime && x.Direction is TradeDirection.Buy)
 			.Sum(x => x.Volume);
 
-		_sellVolume = _trades
-			.Where(x => x.Time >= startTime && x.Direction is TradeDirection.Sell)
+		_sellVolume = tradesSnapshot
+            .Where(x => x.Time >= startTime && x.Direction is TradeDirection.Sell)
 			.Sum(x => x.Volume);
 
 		var buyRatio = (_cumAsks == 0
@@ -346,13 +371,13 @@ public class DomStrength : Indicator
 				{
 					_cumAsks = 0;
 
-					for (var i = 0; i <= LevelDepth.Value; i++)
+					for (var i = 0; i < LevelDepth.Value; i++)
 						_cumAsks += _mDepthAsk.Values[i];
 				}
 
 				if (_mDepthBid.Count <= LevelDepth.Value)
 				{
-					_cumBids = _mDepthAsk.Values
+					_cumBids = _mDepthBid.Values
 						.DefaultIfEmpty(0)
 						.Sum();
 				}
@@ -361,7 +386,7 @@ public class DomStrength : Indicator
 					_cumBids = 0;
 					var lastIdx = _mDepthBid.Values.Count - 1;
 
-					for (var i = 0; i <= LevelDepth.Value; i++)
+					for (var i = 0; i < LevelDepth.Value; i++)
 						_cumBids += _mDepthBid.Values[lastIdx - i];
 				}
 			}

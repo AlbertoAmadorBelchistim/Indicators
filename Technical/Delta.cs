@@ -212,6 +212,7 @@ public class Delta : Indicator
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.VisualMode), GroupName = nameof(Strings.Visualization),
         Description = nameof(Strings.VisualModeDescription), Order = 10)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public DeltaVisualMode Mode
     {
         get => _mode;
@@ -264,7 +265,7 @@ public class Delta : Indicator
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.MinimizedMode), GroupName = nameof(Strings.Visualization),
         Description = nameof(Strings.HistogramMinimizedModeDescription), Order = 20)]
-
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public bool MinimizedMode
     {
         get => _minimizedMode;
@@ -279,6 +280,7 @@ public class Delta : Indicator
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowCurrentValue), GroupName = nameof(Strings.Visualization),
         Description = nameof(Strings.ShowCurrentValueDescription), Order = 30)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public bool ShowCurrentValues
     {
         get => _showCurrentValues;
@@ -291,6 +293,7 @@ public class Delta : Indicator
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BullishColor), GroupName = nameof(Strings.Drawing),
         Description = nameof(Strings.PositiveValueColorDescription), Order = 40)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public CrossColor UpColor
     {
         get => _upColor.Convert();
@@ -304,6 +307,7 @@ public class Delta : Indicator
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BearlishColor), GroupName = nameof(Strings.Drawing),
         Description = nameof(Strings.NegativeValueColorDescription), Order = 50)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public CrossColor DownColor
     {
         get => _downColor.Convert();
@@ -318,6 +322,7 @@ public class Delta : Indicator
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.NeutralBorderColor), GroupName = nameof(Strings.Drawing),
         Description = nameof(Strings.NeutralValueDescription), Order = 60)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public CrossColor NeutralColor
     {
         get => _neutralColor.Convert();
@@ -335,6 +340,7 @@ public class Delta : Indicator
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BarsDirection), GroupName = nameof(Strings.Filters),
         Description = nameof(Strings.BarDirectionDescription), Order = 100)]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     public BarDirection BarsDirection
     {
         get => _barDirection;
@@ -347,6 +353,7 @@ public class Delta : Indicator
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.DeltaType), GroupName = nameof(Strings.Filters),
         Description = nameof(Strings.DeltaTypeDescription), Order = 110)]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     public DeltaType DeltaTypes
     {
         get => _deltaType;
@@ -361,6 +368,7 @@ public class Delta : Indicator
     [Range(0, int.MaxValue)]
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.Filters),
         Description = nameof(Strings.MinDeltaVolumeFilterCommonDescription), Order = 120)]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     public decimal Filter
     {
         get => _filter;
@@ -377,11 +385,13 @@ public class Delta : Indicator
 
     private Indicators.FilterColor _divergenceBarsFilter = new(true) { Enabled = false, Value = CrossColor.FromArgb(255, 255, 165, 0) };
 
-    [Display(ResourceType = typeof(Strings), Name = "DivergenceDots", GroupName = nameof(Strings.Divergence),
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.DivergenceDots), GroupName = nameof(Strings.Divergence),
         Description = nameof(Strings.BarDirVsDeltaDivergenceDescription), Order = 130)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public bool ShowDivergence { get; set; }
 
-    [Display(ResourceType = typeof(Strings), Name = "DivergenceBars", GroupName = nameof(Strings.Divergence), Order = 135)]
+    [Display(ResourceType = typeof(Strings), Name = nameof(Strings.DivergenceBars), GroupName = nameof(Strings.Divergence), Order = 135)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public Indicators.FilterColor DivergenceBarsFilter
     {
         get => _divergenceBarsFilter;
@@ -416,12 +426,15 @@ public class Delta : Indicator
         ShowCurrentValue = false
     };
 
+#pragma warning disable CS0414
     private int _absorptionThreshold = 250;
+#pragma warning restore CS0414
 
     private FilterInt _absorption = new(true) { Enabled = false, Value = 250 };
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Absorption), GroupName = nameof(Strings.Absorption),
-        Description = "AbsorptionThresholdDesc", Order = 140)]
+        Description = nameof(Strings.AbsorptionThresholdDesc), Order = 140)]
+    [Tab(TabName = nameof(Strings.Data), TabOrder = 0, ResourceType = typeof(Strings))]
     [Range(0, int.MaxValue)]
     public FilterInt Absorption
     {
@@ -464,10 +477,12 @@ public class Delta : Indicator
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Show), GroupName = nameof(Strings.VolumeLabel), Order = 200,
         Description = nameof(Strings.VolumeLabelDescription))]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public bool ShowVolume { get; set; }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Color), GroupName = nameof(Strings.VolumeLabel),
         Description = nameof(Strings.LabelTextColorDescription), Order = 210)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public CrossColor FontColor
     {
         get => _fontColor.Convert();
@@ -476,10 +491,12 @@ public class Delta : Indicator
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Location), GroupName = nameof(Strings.VolumeLabel),
         Description = nameof(Strings.LabelLocationDescription), Order = 220)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public Location VolLocation { get; set; } = Location.Middle;
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Font), GroupName = nameof(Strings.VolumeLabel),
         Description = nameof(Strings.FontSettingDescription), Order = 230)]
+    [Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
     public FontSetting Font { get; set; } = new("Arial", 10);
 
     #endregion
@@ -488,6 +505,7 @@ public class Delta : Indicator
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.UpAlert), GroupName = nameof(Strings.Alerts),
         Description = nameof(Strings.UpAlertFileFilterDescription), Order = 300)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
     [Range(0, int.MaxValue)]
     [DisplayFormat(DataFormatString = "F0")]
     public Filter UpAlert { get; set; } = new()
@@ -495,6 +513,7 @@ public class Delta : Indicator
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.DownAlert), GroupName = nameof(Strings.Alerts),
         Description = nameof(Strings.DownAlertFileFilterDescription), Order = 310)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
     [Range(int.MinValue, 0)]
     [DisplayFormat(DataFormatString = "F0")]
     public Filter DownAlert { get; set; } = new()
@@ -530,14 +549,17 @@ public class Delta : Indicator
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.AlertFile), GroupName = nameof(Strings.Alerts),
         Description = nameof(Strings.AlertFileDescription), Order = 320)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
     public string AlertFile { get; set; } = "alert1";
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.FontColor), GroupName = nameof(Strings.Alerts),
         Description = nameof(Strings.AlertTextColorDescription), Order = 330)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
     public CrossColor AlertForeColor { get; set; } = CrossColor.FromArgb(255, 247, 249, 249);
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BackGround), GroupName = nameof(Strings.Alerts),
         Description = nameof(Strings.AlertFillColorDescription), Order = 340)]
+    [Tab(TabName = nameof(Strings.Alerts), TabOrder = 2, ResourceType = typeof(Strings))]
     public CrossColor AlertBGColor { get; set; } = CrossColor.FromArgb(255, 75, 72, 72);
 
     #endregion

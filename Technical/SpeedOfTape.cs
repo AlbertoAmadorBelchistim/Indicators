@@ -281,14 +281,18 @@ namespace ATAS.Indicators.Technical
 				j--;
 			}
 
-			_sma.Calculate(bar, pace * 1.5m);
+			var filterValue = _type == SpeedOfTapeType.Delta
+				? Math.Abs(pace)
+				: pace;
+
+			_sma.Calculate(bar, filterValue * 1.5m);
 
 			if (!AutoFilter)
 				_smaSeries[bar] = Trades;
 			
 			_renderSeries[bar] = pace;
 
-            if (Math.Abs(pace) > _smaSeries[bar])
+            if (filterValue > _smaSeries[bar])
             {
 	            _renderSeries.Colors[bar] = _maxSpeedColor;
 				_paintBars[bar] = _maxSpeedColor.Convert();

@@ -60,7 +60,7 @@ namespace ATAS.Indicators.Technical
 
         #region Properties
 
-        [Display(ResourceType = typeof(Strings), Name = "Blue", GroupName = nameof(Strings.Drawing), Description = nameof(Strings.ColorDescription), Order = 610)]
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Blue), GroupName = nameof(Strings.Drawing), Description = nameof(Strings.ColorDescription), Order = 610)]
         public CrossColor BlueColor
         {
 	        get => _blueColor.Convert();
@@ -71,7 +71,7 @@ namespace ATAS.Indicators.Technical
 	        }
         }
 
-        [Display(ResourceType = typeof(Strings), Name = "Green", GroupName = nameof(Strings.Drawing), Description = nameof(Strings.ColorDescription), Order = 620)]
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Green), GroupName = nameof(Strings.Drawing), Description = nameof(Strings.ColorDescription), Order = 620)]
         public CrossColor GreenColor
         {
 	        get => _greenColor.Convert();
@@ -82,7 +82,7 @@ namespace ATAS.Indicators.Technical
 	        }
         }
 
-        [Display(ResourceType = typeof(Strings), Name = "Magenta", GroupName = nameof(Strings.Drawing), Description = nameof(Strings.ColorDescription), Order = 625)]
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Magenta), GroupName = nameof(Strings.Drawing), Description = nameof(Strings.ColorDescription), Order = 625)]
         public CrossColor MagentaColor
         {
 	        get => _magentaColor.Convert();
@@ -93,7 +93,7 @@ namespace ATAS.Indicators.Technical
 	        }
         }
 
-        [Display(ResourceType = typeof(Strings), Name = "Red", GroupName = nameof(Strings.Drawing), Description = nameof(Strings.ColorDescription), Order = 630)]
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Red), GroupName = nameof(Strings.Drawing), Description = nameof(Strings.ColorDescription), Order = 630)]
         public CrossColor RedColor
         {
 	        get => _redColor.Convert();
@@ -104,7 +104,7 @@ namespace ATAS.Indicators.Technical
 	        }
         }
 
-        [Display(ResourceType = typeof(Strings), Name = "White", GroupName = nameof(Strings.Drawing), Description = nameof(Strings.ColorDescription), Order = 650)]
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.White), GroupName = nameof(Strings.Drawing), Description = nameof(Strings.ColorDescription), Order = 650)]
         public CrossColor WhiteColor
         {
 	        get => _whiteColor.Convert();
@@ -114,7 +114,7 @@ namespace ATAS.Indicators.Technical
 		        RecalculateValues();
 	        }
         }
-        [Display(ResourceType = typeof(Strings), Name = "Yellow", GroupName = nameof(Strings.Drawing), Description = nameof(Strings.ColorDescription), Order = 660)]
+        [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Yellow), GroupName = nameof(Strings.Drawing), Description = nameof(Strings.ColorDescription), Order = 660)]
         public CrossColor YellowColor
         {
 	        get => _yellowColor.Convert();

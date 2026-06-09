@@ -122,8 +122,10 @@ public class SuperTrend : Indicator
 		series.VisualType = VisualMode.Square;
 		series.Width = 2;
 		series.ShowZeroValue = false;
+#pragma warning disable CS0612
 		DataSeries.Add(_upTrend);
 		DataSeries.Add(_dnTrend);
+#pragma warning restore CS0612
 		Add(_atr);
 	}
 
@@ -133,8 +135,10 @@ public class SuperTrend : Indicator
 
 	protected override void OnInitialize()
 	{
+#pragma warning disable CS0612
 		_upTrend.IsHidden = _dnTrend.IsHidden = true;
 		_upTrend.VisualType = _dnTrend.VisualType = VisualMode.Hide;
+#pragma warning restore CS0612
 	}
 
 	protected override void OnCalculate(int bar, decimal value)
