@@ -359,6 +359,10 @@ namespace ATAS.Indicators.Technical
                 DataSeries.ForEach(x => x.Clear());
                 Labels.Clear();
                 _prevDayHigh = _prevDayLow = _prevDayClose = 0;
+
+                // TODO: remove temporary diagnostic logging for the first-period fix
+                this.LogInfo("Pivots[first-period-fix v2]: recalc from bar 0, range={0}, customSession={1}, firstBarTime={2:yyyy-MM-dd HH:mm:ss}",
+                    PivotRange, UseCustomSession, GetCandle(0).Time);
             }
 
             if (RenderPeriodsFilter.Enabled && RenderPeriodsFilter.Value <= 0)
@@ -378,57 +382,79 @@ namespace ATAS.Indicators.Technical
 
             if (isNewSession && inSession && _lastNewSessionBar != bar)
             {
-                _sessionStarts.Enqueue(bar);
+                // Pivots are calculated from the HLC of the previous period, so they can be
+                // displayed only when that period is fully covered by the loaded history —
+                // otherwise the line values would change as more history is loaded. The
+                // session start at bar 0 is synthetic (history may begin mid-period), so a
+                // period is trusted as a calculation base only when its start was detected
+                // between two loaded bars.
+                var hasCompletePreviousPeriod = _lastNewSessionBar > 0;
 
-                if (RenderPeriodsFilter.Enabled)
+                if (hasCompletePreviousPeriod)
                 {
-                    while (_sessionStarts.Count > RenderPeriodsFilter.Value)
+                    _sessionStarts.Enqueue(bar);
+
+                    if (RenderPeriodsFilter.Enabled)
                     {
-                        RemoveLabels(_sessionStarts.Peek());
-
-                        for (var i = _sessionStarts.Dequeue(); i < _sessionStarts.Peek(); i++)
+                        while (_sessionStarts.Count > RenderPeriodsFilter.Value)
                         {
-                            _ppSeries[i] = 0;
-                            _s1Series[i] = 0;
-                            _s2Series[i] = 0;
-                            _s3Series[i] = 0;
+                            RemoveLabels(_sessionStarts.Peek());
 
-                            _r1Series[i] = 0;
-                            _r2Series[i] = 0;
-                            _r3Series[i] = 0;
+                            for (var i = _sessionStarts.Dequeue(); i < _sessionStarts.Peek(); i++)
+                            {
+                                _ppSeries[i] = 0;
+                                _s1Series[i] = 0;
+                                _s2Series[i] = 0;
+                                _s3Series[i] = 0;
 
-                            _m1Series[i] = 0;
-                            _m2Series[i] = 0;
-                            _m3Series[i] = 0;
-                            _m4Series[i] = 0;
+                                _r1Series[i] = 0;
+                                _r2Series[i] = 0;
+                                _r3Series[i] = 0;
+
+                                _m1Series[i] = 0;
+                                _m2Series[i] = 0;
+                                _m3Series[i] = 0;
+                                _m4Series[i] = 0;
+                            }
                         }
                     }
+
+                    _newSessionWasStarted = true;
+
+                    var close = _prevDayClose == 0 ? candle.Close : _prevDayClose;
+
+                    _pp = (_prevDayHigh + _prevDayLow + close) / 3;
+                    _s1 = 2 * _pp - _prevDayHigh;
+                    _r1 = 2 * _pp - _prevDayLow;
+                    _s2 = _pp - (_prevDayHigh - _prevDayLow);
+                    _r2 = _pp + (_prevDayHigh - _prevDayLow);
+
+                    _s3 = ThirdFormula is Formula.HighLow
+                        ? _pp - 2 * (_prevDayHigh - _prevDayLow)
+                        : _prevDayLow - 2 * (_prevDayHigh - _pp);
+
+                    _r3 = ThirdFormula is Formula.HighLow
+                        ? _pp + 2 * (_prevDayHigh - _prevDayLow)
+                        : _prevDayHigh + 2 * (_pp - _prevDayLow);
+
+                    _m1 = (_s1 + _s2) / 2;
+                    _m2 = (_s1 + _pp) / 2;
+                    _m3 = (_r1 + _pp) / 2;
+                    _m4 = (_r1 + _r2) / 2;
+
+                    // TODO: remove temporary diagnostic logging for the first-period fix
+                    this.LogInfo("Pivots[first-period-fix v2]: bar={0} time={1:yyyy-MM-dd HH:mm:ss} new period, prevHLC=({2}; {3}; {4}), PP={5}",
+                        bar, candle.Time, _prevDayHigh, _prevDayLow, close, _pp);
+                }
+                else
+                {
+                    // TODO: remove temporary diagnostic logging for the first-period fix
+                    this.LogInfo("Pivots[first-period-fix v2]: bar={0} time={1:yyyy-MM-dd HH:mm:ss} no complete previous period yet, pivots hidden",
+                        bar, candle.Time);
                 }
 
                 _lastNewSessionBar = bar;
                 _id = bar;
-                _newSessionWasStarted = true;
-
-                var close = _prevDayClose == 0 ? candle.Close : _prevDayClose;
-
-                _pp = (_prevDayHigh + _prevDayLow + close) / 3;
-                _s1 = 2 * _pp - _prevDayHigh;
-                _r1 = 2 * _pp - _prevDayLow;
-                _s2 = _pp - (_prevDayHigh - _prevDayLow);
-                _r2 = _pp + (_prevDayHigh - _prevDayLow);
-
-                _s3 = ThirdFormula is Formula.HighLow
-                    ? _pp - 2 * (_prevDayHigh - _prevDayLow)
-                    : _prevDayLow - 2 * (_prevDayHigh - _pp);
-
-                _r3 = ThirdFormula is Formula.HighLow
-                    ? _pp + 2 * (_prevDayHigh - _prevDayLow)
-                    : _prevDayHigh + 2 * (_pp - _prevDayLow);
-
-                _m1 = (_s1 + _s2) / 2;
-                _m2 = (_s1 + _pp) / 2;
-                _m3 = (_r1 + _pp) / 2;
-                _m4 = (_r1 + _r2) / 2;
 
                 _prevDayHigh = candle.High;
                 _prevDayLow = candle.Low;
@@ -466,6 +492,7 @@ namespace ATAS.Indicators.Technical
             }
 
             if (_showText
+                && _newSessionWasStarted
                 && Labels
                     .Select(x => x.Value.Bar)
                     .DefaultIfEmpty(0)
