@@ -2979,6 +2979,33 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Display mode for depth changes.
+        /// </summary>
+        public static string DepthChangesDisplayModeDescription {
+            get {
+                return ResourceManager.GetString("DepthChangesDisplayModeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Minimum size filter for depth changes.
+        /// </summary>
+        public static string DepthChangesFilterDescription {
+            get {
+                return ResourceManager.GetString("DepthChangesFilterDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Text color for depth change labels.
+        /// </summary>
+        public static string DepthChangesTextColorDescription {
+            get {
+                return ResourceManager.GetString("DepthChangesTextColorDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Detailed performance metrics.
         /// </summary>
         public static string DetailedPerformanceMetrics {
@@ -5953,6 +5980,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Mode.
+        /// </summary>
+        public static string Mode {
+            get {
+                return ResourceManager.GetString("Mode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a update.
         /// </summary>
         public static string ModuleUpdateAvailable {
@@ -8767,6 +8803,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string PullingAndStacking {
             get {
                 return ResourceManager.GetString("PullingAndStacking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Color for pulling (liquidity removed).
+        /// </summary>
+        public static string PullingDescription {
+            get {
+                return ResourceManager.GetString("PullingDescription", resourceCulture);
             }
         }
         
@@ -12033,6 +12078,15 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Show pulling/stacking depth changes.
+        /// </summary>
+        public static string ShowDepthChangesDescription {
+            get {
+                return ResourceManager.GetString("ShowDepthChangesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Show description.
         /// </summary>
         public static string ShowDescription {
@@ -12264,6 +12318,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string Stacking {
             get {
                 return ResourceManager.GetString("Stacking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Color for stacking (liquidity added).
+        /// </summary>
+        public static string StackingDescription {
+            get {
+                return ResourceManager.GetString("StackingDescription", resourceCulture);
             }
         }
         
@@ -12606,6 +12669,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string TelegramPlatformXAlphaTestChatLink {
             get {
                 return ResourceManager.GetString("TelegramPlatformXAlphaTestChatLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Text color.
+        /// </summary>
+        public static string TextColor {
+            get {
+                return ResourceManager.GetString("TextColor", resourceCulture);
             }
         }
         

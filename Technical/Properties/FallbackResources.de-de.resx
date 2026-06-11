@@ -1097,6 +1097,15 @@ Die Daten werden dauerhaft gelöscht.</value>
   <data name="DeltaVolumeProportional" xml:space="preserve">
     <value>Delta proportional zum Volumen</value>
   </data>
+  <data name="DepthChangesDisplayModeDescription" xml:space="preserve">
+    <value>Display mode for depth changes</value>
+  </data>
+  <data name="DepthChangesFilterDescription" xml:space="preserve">
+    <value>Minimum size filter for depth changes</value>
+  </data>
+  <data name="DepthChangesTextColorDescription" xml:space="preserve">
+    <value>Text color for depth change labels</value>
+  </data>
   <data name="DetailedPerformanceMetrics" xml:space="preserve">
     <value>Detaillierte Ergebnismetriken</value>
   </data>
@@ -2091,6 +2100,9 @@ Die Anwendung wird jetzt geschlossen.</value>
   <data name="MinDeltaAlert" xml:space="preserve">
     <value>Min delta alert</value>
   </data>
+  <data name="Mode" xml:space="preserve">
+    <value>Mode</value>
+  </data>
   <data name="ModuleUpdateAvailable" xml:space="preserve">
     <value>Aktualisierung</value>
   </data>
@@ -3030,6 +3042,9 @@ Funktioniert unabhängig von der automatischen Proportion.</value>
   </data>
   <data name="PullingAndStacking" xml:space="preserve">
     <value>Pulling und Stacking</value>
+  </data>
+  <data name="PullingDescription" xml:space="preserve">
+    <value>Color for pulling (liquidity removed)</value>
   </data>
   <data name="QuickStartTitle" xml:space="preserve">
     <value>Schnellstart</value>
@@ -4121,6 +4136,9 @@ Bitte schließen Sie die Anwendung (z. B. Excel), die die Datei geöffnet hat, u
   <data name="ShowDepthChanges" xml:space="preserve">
     <value>Show depth changes</value>
   </data>
+  <data name="ShowDepthChangesDescription" xml:space="preserve">
+    <value>Show pulling/stacking depth changes</value>
+  </data>
   <data name="ShowDescription" xml:space="preserve">
     <value>Show description</value>
   </data>
@@ -4201,6 +4219,9 @@ Vorlage wiederherstellen?</value>
   </data>
   <data name="Stacking" xml:space="preserve">
     <value>Stacking</value>
+  </data>
+  <data name="StackingDescription" xml:space="preserve">
+    <value>Color for stacking (liquidity added)</value>
   </data>
   <data name="StatisticsPeriodAll" xml:space="preserve">
     <value>Alle</value>
@@ -4315,6 +4336,9 @@ Vorlage wiederherstellen?</value>
   </data>
   <data name="TelegramPlatformXAlphaTestChatLink" xml:space="preserve">
     <value>https://t.me/+z6if1MntmTQxZjcy</value>
+  </data>
+  <data name="TextColor" xml:space="preserve">
+    <value>Text color</value>
   </data>
   <data name="Threshold" xml:space="preserve">
     <value>Schwellenwert</value>

@@ -1097,6 +1097,15 @@ Los datos se eliminarán permanentemente.</value>
   <data name="DeltaVolumeProportional" xml:space="preserve">
     <value>Delta proporcional al volumen</value>
   </data>
+  <data name="DepthChangesDisplayModeDescription" xml:space="preserve">
+    <value>Display mode for depth changes</value>
+  </data>
+  <data name="DepthChangesFilterDescription" xml:space="preserve">
+    <value>Minimum size filter for depth changes</value>
+  </data>
+  <data name="DepthChangesTextColorDescription" xml:space="preserve">
+    <value>Text color for depth change labels</value>
+  </data>
   <data name="DetailedPerformanceMetrics" xml:space="preserve">
     <value>Métricas de rendimiento detalladas</value>
   </data>
@@ -2091,6 +2100,9 @@ La aplicación se cerrará ahora.</value>
   <data name="MinDeltaAlert" xml:space="preserve">
     <value>Min delta alert</value>
   </data>
+  <data name="Mode" xml:space="preserve">
+    <value>Mode</value>
+  </data>
   <data name="ModuleUpdateAvailable" xml:space="preserve">
     <value>actualización</value>
   </data>
@@ -3030,6 +3042,9 @@ Funciona de forma independiente de la Proporción Automática.</value>
   </data>
   <data name="PullingAndStacking" xml:space="preserve">
     <value>Arrastrar y apilar</value>
+  </data>
+  <data name="PullingDescription" xml:space="preserve">
+    <value>Color for pulling (liquidity removed)</value>
   </data>
   <data name="QuickStartTitle" xml:space="preserve">
     <value>Inicio rápido</value>
@@ -4121,6 +4136,9 @@ Por favor, cierre la aplicación (por ejemplo, Excel) que tiene el archivo abier
   <data name="ShowDepthChanges" xml:space="preserve">
     <value>Mostrar cambios de profundidad</value>
   </data>
+  <data name="ShowDepthChangesDescription" xml:space="preserve">
+    <value>Show pulling/stacking depth changes</value>
+  </data>
   <data name="ShowDescription" xml:space="preserve">
     <value>Mostrar descripción</value>
   </data>
@@ -4199,6 +4217,9 @@ Por favor, cierre la aplicación (por ejemplo, Excel) que tiene el archivo abier
   </data>
   <data name="Stacking" xml:space="preserve">
     <value>Apilamiento</value>
+  </data>
+  <data name="StackingDescription" xml:space="preserve">
+    <value>Color for stacking (liquidity added)</value>
   </data>
   <data name="StatisticsPeriodAll" xml:space="preserve">
     <value>Todo</value>
@@ -4313,6 +4334,9 @@ Por favor, cierre la aplicación (por ejemplo, Excel) que tiene el archivo abier
   </data>
   <data name="TelegramPlatformXAlphaTestChatLink" xml:space="preserve">
     <value>https://t.me/+8koBVICFtWZkODNi</value>
+  </data>
+  <data name="TextColor" xml:space="preserve">
+    <value>Text color</value>
   </data>
   <data name="Threshold" xml:space="preserve">
     <value>Umbral</value>

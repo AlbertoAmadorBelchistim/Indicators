@@ -1098,6 +1098,15 @@
   <data name="DeltaVolumeProportional" xml:space="preserve">
     <value>डेल्टा वॉल्यूम के अनुसार</value>
   </data>
+  <data name="DepthChangesDisplayModeDescription" xml:space="preserve">
+    <value>Display mode for depth changes</value>
+  </data>
+  <data name="DepthChangesFilterDescription" xml:space="preserve">
+    <value>Minimum size filter for depth changes</value>
+  </data>
+  <data name="DepthChangesTextColorDescription" xml:space="preserve">
+    <value>Text color for depth change labels</value>
+  </data>
   <data name="DetailedPerformanceMetrics" xml:space="preserve">
     <value>विस्तृत प्रदर्शन मेट्रिक्स</value>
   </data>
@@ -2092,6 +2101,9 @@
   <data name="MinDeltaAlert" xml:space="preserve">
     <value>Min delta alert</value>
   </data>
+  <data name="Mode" xml:space="preserve">
+    <value>Mode</value>
+  </data>
   <data name="ModuleUpdateAvailable" xml:space="preserve">
     <value>अपडेट</value>
   </data>
@@ -3031,6 +3043,9 @@
   </data>
   <data name="PullingAndStacking" xml:space="preserve">
     <value>खींचना और ढेर लगाना</value>
+  </data>
+  <data name="PullingDescription" xml:space="preserve">
+    <value>Color for pulling (liquidity removed)</value>
   </data>
   <data name="QuickStartTitle" xml:space="preserve">
     <value>त्वरित प्रारंभ</value>
@@ -4122,6 +4137,9 @@
   <data name="ShowDepthChanges" xml:space="preserve">
     <value>गहराई में बदलाव दिखाएँ</value>
   </data>
+  <data name="ShowDepthChangesDescription" xml:space="preserve">
+    <value>Show pulling/stacking depth changes</value>
+  </data>
   <data name="ShowDescription" xml:space="preserve">
     <value>विवरण दिखाएं</value>
   </data>
@@ -4200,6 +4218,9 @@
   </data>
   <data name="Stacking" xml:space="preserve">
     <value>स्टैकिंग</value>
+  </data>
+  <data name="StackingDescription" xml:space="preserve">
+    <value>Color for stacking (liquidity added)</value>
   </data>
   <data name="StatisticsPeriodAll" xml:space="preserve">
     <value>सभी</value>
@@ -4314,6 +4335,9 @@
   </data>
   <data name="TelegramPlatformXAlphaTestChatLink" xml:space="preserve">
     <value>https://t.me/+8koBVICFtWZkODNi</value>
+  </data>
+  <data name="TextColor" xml:space="preserve">
+    <value>Text color</value>
   </data>
   <data name="Threshold" xml:space="preserve">
     <value>सीमा</value>
