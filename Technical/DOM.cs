@@ -20,6 +20,7 @@ using OFT.Rendering.Context;
 using OFT.Rendering.Helpers;
 using OFT.Rendering.Tools;
 using ATAS.DataFeedsCore.Dom;
+using ATAS.Indicators.Technical.Properties;
 using Utils.Common.Logging;
 
 using Color = System.Drawing.Color;
@@ -331,7 +332,7 @@ public class DOM : Indicator
 	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowCumulativeValues), GroupName = nameof(Strings.Other), Description = nameof(Strings.ShowCumulativeValuesDescription), Order = 300)]
 	public bool ShowCumulativeValues { get; set; }
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDepthChanges), GroupName = nameof(Strings.PullingAndStacking), Description = nameof(Strings.ShowDepthChangesDescription), Order = 320)]
+	[Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.ShowDepthChanges), GroupName = nameof(FallbackResources.PullingAndStacking), Description = nameof(FallbackResources.ShowDepthChangesDescription), Order = 320)]
 	public bool ShowDepthChanges
 	{
 		get => _showDepthChanges;
@@ -346,7 +347,7 @@ public class DOM : Indicator
 		}
 	}
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Mode), GroupName = nameof(Strings.PullingAndStacking), Description = nameof(Strings.DepthChangesDisplayModeDescription), Order = 325)]
+	[Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.Mode), GroupName = nameof(FallbackResources.PullingAndStacking), Description = nameof(FallbackResources.DepthChangesDisplayModeDescription), Order = 325)]
 	public DepthChangesMode DepthChangesDisplayMode
 	{
 		get => _depthChangesMode;
@@ -362,7 +363,7 @@ public class DOM : Indicator
 
 	[Range(0, int.MaxValue)]
 	[PostValueMode(PostValueModes.Delayed, DelayMilliseconds = 500)]
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Filter), GroupName = nameof(Strings.PullingAndStacking), Description = nameof(Strings.DepthChangesFilterDescription), Order = 330)]
+	[Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.Filter), GroupName = nameof(FallbackResources.PullingAndStacking), Description = nameof(FallbackResources.DepthChangesFilterDescription), Order = 330)]
 	public Filter DepthChangesFilter
 	{
 		get => _depthChangesFilter;
@@ -383,21 +384,21 @@ public class DOM : Indicator
 		}
 	}
 
-[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Pulling), GroupName = nameof(Strings.PullingAndStacking), Description = nameof(Strings.PullingDescription), Order = 340)]
+[Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.Pulling), GroupName = nameof(FallbackResources.PullingAndStacking), Description = nameof(FallbackResources.PullingDescription), Order = 340)]
 	public Color PullingColor
 	{
 		get => _pullingColor;
 		set => _pullingColor = value;
 	}
 
-[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Stacking), GroupName = nameof(Strings.PullingAndStacking), Description = nameof(Strings.StackingDescription), Order = 350)]
+[Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.Stacking), GroupName = nameof(FallbackResources.PullingAndStacking), Description = nameof(FallbackResources.StackingDescription), Order = 350)]
 	public Color StackingColor
 	{
 		get => _stackingColor;
 		set => _stackingColor = value;
 	}
 
-	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.TextColor), GroupName = nameof(Strings.PullingAndStacking), Description = nameof(Strings.DepthChangesTextColorDescription), Order = 360)]
+	[Display(ResourceType = typeof(FallbackResources), Name = nameof(FallbackResources.TextColor), GroupName = nameof(FallbackResources.PullingAndStacking), Description = nameof(FallbackResources.DepthChangesTextColorDescription), Order = 360)]
 	public Color DepthChangesTextColor
 	{
 		get => _depthChangesTextColor;
