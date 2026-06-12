@@ -256,4 +256,34 @@
   <!-- LevelsLolo: property descriptions -->
   <data name="LevelsLolo_RawText_Description" xml:space="preserve"><value>Exemple : $SP : CO44, 7073, LG07, 7048, ...</value></data>
   <data name="LevelsLolo_LastBarOnly_Description" xml:space="preserve"><value>Étendre jusqu'à la dernière bougie visible au lieu du bord droit du graphique.</value></data>
+  <!-- Volume thresholds: UI groups -->
+  <data name="Group_FixedThreshold" xml:space="preserve"><value>Seuil fixe</value></data>
+  <data name="Group_DynamicThreshold" xml:space="preserve"><value>Seuil dynamique</value></data>
+  <!-- Volume thresholds: properties (display name + description) -->
+  <data name="Volume_ShowThresholdLines_DisplayName" xml:space="preserve"><value>Afficher les lignes de seuil</value></data>
+  <data name="Volume_ShowThresholdLines_Description" xml:space="preserve"><value>Affiche des lignes de seuil horizontales sur le panneau Volume.</value></data>
+  <data name="Volume_FixedMinorLevel_DisplayName" xml:space="preserve"><value>Niveau inférieur</value></data>
+  <data name="Volume_FixedMinorLevel_Description" xml:space="preserve"><value>Valeur de la ligne de seuil inférieure.</value></data>
+  <data name="Volume_FixedMajorLevel_DisplayName" xml:space="preserve"><value>Niveau supérieur</value></data>
+  <data name="Volume_FixedMajorLevel_Description" xml:space="preserve"><value>Valeur de la ligne de seuil supérieure.</value></data>
+  <data name="Volume_Thresholds_DisplayName" xml:space="preserve"><value>Source du seuil</value></data>
+  <data name="Volume_Thresholds_Description" xml:space="preserve"><value>Source des lignes de seuil : niveaux fixes ou dynamique (moyenne + écart-type).</value></data>
+  <data name="Volume_SamplesForMeanStd_DisplayName" xml:space="preserve"><value>Barres d'initialisation</value></data>
+  <data name="Volume_SamplesForMeanStd_Description" xml:space="preserve"><value>Barres clôturées requises avant le tracé des seuils dynamiques.</value></data>
+  <data name="Volume_StdMultiplier_DisplayName" xml:space="preserve"><value>Multiplicateur d'écart-type</value></data>
+  <data name="Volume_StdMultiplier_Description" xml:space="preserve"><value>Niveau supérieur = moyenne + multiplicateur × écart-type. Niveau inférieur = moyenne.</value></data>
+  <data name="Volume_SessionMode_DisplayName" xml:space="preserve"><value>Fenêtre de session</value></data>
+  <data name="Volume_SessionMode_Description" xml:space="preserve"><value>Fenêtre délimitant les seuils dynamiques : heures RTH uniquement ou session complète.</value></data>
+  <data name="Volume_RthStart_DisplayName" xml:space="preserve"><value>Début RTH</value></data>
+  <data name="Volume_RthStart_Description" xml:space="preserve"><value>Début de la fenêtre RTH (heure de la plateforme).</value></data>
+  <data name="Volume_RthEnd_DisplayName" xml:space="preserve"><value>Fin RTH</value></data>
+  <data name="Volume_RthEnd_Description" xml:space="preserve"><value>Fin de la fenêtre RTH (heure de la plateforme).</value></data>
+  <!-- Volume thresholds: source & session-window enum values -->
+  <data name="ThresholdSource_Fixed" xml:space="preserve"><value>Fixe</value></data>
+  <data name="ThresholdSource_DynamicWelford" xml:space="preserve"><value>Dynamique (Welford)</value></data>
+  <data name="SessionWindowMode_Rth" xml:space="preserve"><value>RTH</value></data>
+  <data name="SessionWindowMode_Full24h" xml:space="preserve"><value>24h complètes</value></data>
+  <!-- Volume thresholds: data series names -->
+  <data name="Volume_SeriesThresholdMajor" xml:space="preserve"><value>Seuil majeur de volume</value></data>
+  <data name="Volume_SeriesThresholdMinor" xml:space="preserve"><value>Seuil mineur de volume</value></data>
 </root>

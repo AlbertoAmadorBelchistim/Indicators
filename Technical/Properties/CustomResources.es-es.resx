@@ -255,4 +255,34 @@
   <!-- LevelsLolo: property descriptions -->
   <data name="LevelsLolo_RawText_Description" xml:space="preserve"><value>Ejemplo: $SP: CO44, 7073, LG07, 7048, ...</value></data>
   <data name="LevelsLolo_LastBarOnly_Description" xml:space="preserve"><value>Extender hasta la última vela visible en lugar de hasta el borde derecho del gráfico.</value></data>
+  <!-- Volume thresholds: UI groups -->
+  <data name="Group_FixedThreshold" xml:space="preserve"><value>Umbral fijo</value></data>
+  <data name="Group_DynamicThreshold" xml:space="preserve"><value>Umbral dinámico</value></data>
+  <!-- Volume thresholds: properties (display name + description) -->
+  <data name="Volume_ShowThresholdLines_DisplayName" xml:space="preserve"><value>Mostrar líneas de umbral</value></data>
+  <data name="Volume_ShowThresholdLines_Description" xml:space="preserve"><value>Muestra líneas horizontales de umbral en el panel de Volumen.</value></data>
+  <data name="Volume_FixedMinorLevel_DisplayName" xml:space="preserve"><value>Nivel inferior</value></data>
+  <data name="Volume_FixedMinorLevel_Description" xml:space="preserve"><value>Valor de la línea de umbral inferior.</value></data>
+  <data name="Volume_FixedMajorLevel_DisplayName" xml:space="preserve"><value>Nivel superior</value></data>
+  <data name="Volume_FixedMajorLevel_Description" xml:space="preserve"><value>Valor de la línea de umbral superior.</value></data>
+  <data name="Volume_Thresholds_DisplayName" xml:space="preserve"><value>Origen del umbral</value></data>
+  <data name="Volume_Thresholds_Description" xml:space="preserve"><value>Origen de las líneas de umbral: niveles fijos o dinámico (media + desv. típica).</value></data>
+  <data name="Volume_SamplesForMeanStd_DisplayName" xml:space="preserve"><value>Muestras de calentamiento</value></data>
+  <data name="Volume_SamplesForMeanStd_Description" xml:space="preserve"><value>Barras cerradas necesarias antes de dibujar los umbrales dinámicos.</value></data>
+  <data name="Volume_StdMultiplier_DisplayName" xml:space="preserve"><value>Multiplicador de desv. típica</value></data>
+  <data name="Volume_StdMultiplier_Description" xml:space="preserve"><value>Nivel superior = media + multiplicador × desv. típica. Nivel inferior = media.</value></data>
+  <data name="Volume_SessionMode_DisplayName" xml:space="preserve"><value>Ventana de sesión</value></data>
+  <data name="Volume_SessionMode_Description" xml:space="preserve"><value>Ventana que delimita los umbrales dinámicos: solo horario RTH o la sesión completa del mercado.</value></data>
+  <data name="Volume_RthStart_DisplayName" xml:space="preserve"><value>Inicio RTH</value></data>
+  <data name="Volume_RthStart_Description" xml:space="preserve"><value>Inicio de la ventana RTH (hora de la plataforma).</value></data>
+  <data name="Volume_RthEnd_DisplayName" xml:space="preserve"><value>Fin RTH</value></data>
+  <data name="Volume_RthEnd_Description" xml:space="preserve"><value>Fin de la ventana RTH (hora de la plataforma).</value></data>
+  <!-- Volume thresholds: source & session-window enum values -->
+  <data name="ThresholdSource_Fixed" xml:space="preserve"><value>Fijo</value></data>
+  <data name="ThresholdSource_DynamicWelford" xml:space="preserve"><value>Dinámico (Welford)</value></data>
+  <data name="SessionWindowMode_Rth" xml:space="preserve"><value>RTH</value></data>
+  <data name="SessionWindowMode_Full24h" xml:space="preserve"><value>24h completas</value></data>
+  <!-- Volume thresholds: data series names -->
+  <data name="Volume_SeriesThresholdMajor" xml:space="preserve"><value>Umbral mayor de volumen</value></data>
+  <data name="Volume_SeriesThresholdMinor" xml:space="preserve"><value>Umbral menor de volumen</value></data>
 </root>

@@ -255,4 +255,34 @@
   <!-- LevelsLolo: property descriptions -->
   <data name="LevelsLolo_RawText_Description" xml:space="preserve"><value>उदाहरण: $SP: CO44, 7073, LG07, 7048, ...</value></data>
   <data name="LevelsLolo_LastBarOnly_Description" xml:space="preserve"><value>चार्ट के दाएं किनारे के बजाय अंतिम दृश्य बार (candle) तक विस्तारित करें।</value></data>
+  <!-- Volume thresholds: UI groups -->
+  <data name="Group_FixedThreshold" xml:space="preserve"><value>स्थिर थ्रेशोल्ड</value></data>
+  <data name="Group_DynamicThreshold" xml:space="preserve"><value>गतिशील थ्रेशोल्ड</value></data>
+  <!-- Volume thresholds: properties (display name + description) -->
+  <data name="Volume_ShowThresholdLines_DisplayName" xml:space="preserve"><value>थ्रेशोल्ड रेखाएँ दिखाएँ</value></data>
+  <data name="Volume_ShowThresholdLines_Description" xml:space="preserve"><value>वॉल्यूम पैनल पर क्षैतिज थ्रेशोल्ड रेखाएँ दिखाता है।</value></data>
+  <data name="Volume_FixedMinorLevel_DisplayName" xml:space="preserve"><value>निचला स्तर</value></data>
+  <data name="Volume_FixedMinorLevel_Description" xml:space="preserve"><value>निचली थ्रेशोल्ड रेखा का मान।</value></data>
+  <data name="Volume_FixedMajorLevel_DisplayName" xml:space="preserve"><value>ऊपरी स्तर</value></data>
+  <data name="Volume_FixedMajorLevel_Description" xml:space="preserve"><value>ऊपरी थ्रेशोल्ड रेखा का मान।</value></data>
+  <data name="Volume_Thresholds_DisplayName" xml:space="preserve"><value>थ्रेशोल्ड स्रोत</value></data>
+  <data name="Volume_Thresholds_Description" xml:space="preserve"><value>थ्रेशोल्ड रेखाओं का स्रोत: स्थिर स्तर या गतिशील (माध्य + मानक विचलन)।</value></data>
+  <data name="Volume_SamplesForMeanStd_DisplayName" xml:space="preserve"><value>वार्म-अप बार</value></data>
+  <data name="Volume_SamplesForMeanStd_Description" xml:space="preserve"><value>गतिशील थ्रेशोल्ड बनाने से पहले आवश्यक बंद बार।</value></data>
+  <data name="Volume_StdMultiplier_DisplayName" xml:space="preserve"><value>मानक विचलन गुणक</value></data>
+  <data name="Volume_StdMultiplier_Description" xml:space="preserve"><value>ऊपरी स्तर = माध्य + गुणक × मानक विचलन। निचला स्तर = माध्य।</value></data>
+  <data name="Volume_SessionMode_DisplayName" xml:space="preserve"><value>सत्र विंडो</value></data>
+  <data name="Volume_SessionMode_Description" xml:space="preserve"><value>गतिशील थ्रेशोल्ड की विंडो: केवल RTH घंटे या पूर्ण एक्सचेंज सत्र।</value></data>
+  <data name="Volume_RthStart_DisplayName" xml:space="preserve"><value>RTH प्रारंभ</value></data>
+  <data name="Volume_RthStart_Description" xml:space="preserve"><value>RTH विंडो का प्रारंभ (प्लेटफ़ॉर्म समय)।</value></data>
+  <data name="Volume_RthEnd_DisplayName" xml:space="preserve"><value>RTH समाप्ति</value></data>
+  <data name="Volume_RthEnd_Description" xml:space="preserve"><value>RTH विंडो की समाप्ति (प्लेटफ़ॉर्म समय)।</value></data>
+  <!-- Volume thresholds: source & session-window enum values -->
+  <data name="ThresholdSource_Fixed" xml:space="preserve"><value>स्थिर</value></data>
+  <data name="ThresholdSource_DynamicWelford" xml:space="preserve"><value>गतिशील (Welford)</value></data>
+  <data name="SessionWindowMode_Rth" xml:space="preserve"><value>RTH</value></data>
+  <data name="SessionWindowMode_Full24h" xml:space="preserve"><value>पूर्ण 24 घंटे</value></data>
+  <!-- Volume thresholds: data series names -->
+  <data name="Volume_SeriesThresholdMajor" xml:space="preserve"><value>वॉल्यूम प्रमुख थ्रेशोल्ड</value></data>
+  <data name="Volume_SeriesThresholdMinor" xml:space="preserve"><value>वॉल्यूम लघु थ्रेशोल्ड</value></data>
 </root>

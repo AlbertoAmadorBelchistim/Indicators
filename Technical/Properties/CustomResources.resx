@@ -256,4 +256,34 @@
   <data name="LevelsLolo_RawText_Description" xml:space="preserve"><value>Example: $SP: CO44, 7073, LG07, 7048, ...</value></data>
   <data name="LevelsLolo_LastBarOnly_Description" xml:space="preserve"><value>Extend to the last visible bar instead of the right chart edge.</value></data>
   
+  <!-- Volume thresholds: UI groups -->
+  <data name="Group_FixedThreshold" xml:space="preserve"><value>Fixed threshold</value></data>
+  <data name="Group_DynamicThreshold" xml:space="preserve"><value>Dynamic threshold</value></data>
+  <!-- Volume thresholds: properties (display name + description) -->
+  <data name="Volume_ShowThresholdLines_DisplayName" xml:space="preserve"><value>Show threshold lines</value></data>
+  <data name="Volume_ShowThresholdLines_Description" xml:space="preserve"><value>Show horizontal threshold lines on the Volume panel.</value></data>
+  <data name="Volume_FixedMinorLevel_DisplayName" xml:space="preserve"><value>Minor level</value></data>
+  <data name="Volume_FixedMinorLevel_Description" xml:space="preserve"><value>Value of the minor threshold line.</value></data>
+  <data name="Volume_FixedMajorLevel_DisplayName" xml:space="preserve"><value>Major level</value></data>
+  <data name="Volume_FixedMajorLevel_Description" xml:space="preserve"><value>Value of the major threshold line.</value></data>
+  <data name="Volume_Thresholds_DisplayName" xml:space="preserve"><value>Threshold source</value></data>
+  <data name="Volume_Thresholds_Description" xml:space="preserve"><value>Source of the threshold lines: fixed levels or dynamic (mean + std-dev).</value></data>
+  <data name="Volume_SamplesForMeanStd_DisplayName" xml:space="preserve"><value>Warm-up samples</value></data>
+  <data name="Volume_SamplesForMeanStd_Description" xml:space="preserve"><value>Closed bars required before dynamic thresholds are drawn.</value></data>
+  <data name="Volume_StdMultiplier_DisplayName" xml:space="preserve"><value>Std-dev multiplier</value></data>
+  <data name="Volume_StdMultiplier_Description" xml:space="preserve"><value>Major level = mean + multiplier * std-dev. Minor level = mean.</value></data>
+  <data name="Volume_SessionMode_DisplayName" xml:space="preserve"><value>Session window</value></data>
+  <data name="Volume_SessionMode_Description" xml:space="preserve"><value>Window that scopes dynamic thresholds: RTH hours only, or the full exchange session.</value></data>
+  <data name="Volume_RthStart_DisplayName" xml:space="preserve"><value>RTH start</value></data>
+  <data name="Volume_RthStart_Description" xml:space="preserve"><value>Start of the RTH window (platform time of day).</value></data>
+  <data name="Volume_RthEnd_DisplayName" xml:space="preserve"><value>RTH end</value></data>
+  <data name="Volume_RthEnd_Description" xml:space="preserve"><value>End of the RTH window (platform time of day).</value></data>
+  <!-- Volume thresholds: source & session-window enum values -->
+  <data name="ThresholdSource_Fixed" xml:space="preserve"><value>Fixed</value></data>
+  <data name="ThresholdSource_DynamicWelford" xml:space="preserve"><value>Dynamic (Welford)</value></data>
+  <data name="SessionWindowMode_Rth" xml:space="preserve"><value>RTH</value></data>
+  <data name="SessionWindowMode_Full24h" xml:space="preserve"><value>Full 24h</value></data>
+  <!-- Volume thresholds: data series names -->
+  <data name="Volume_SeriesThresholdMajor" xml:space="preserve"><value>Volume Threshold Major</value></data>
+  <data name="Volume_SeriesThresholdMinor" xml:space="preserve"><value>Volume Threshold Minor</value></data>
 </root>

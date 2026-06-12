@@ -255,4 +255,34 @@
   <!-- LevelsLolo: property descriptions -->
   <data name="LevelsLolo_RawText_Description" xml:space="preserve"><value>示例：$SP: CO44, 7073, LG07, 7048, ...</value></data>
   <data name="LevelsLolo_LastBarOnly_Description" xml:space="preserve"><value>延伸至最后一根可见 K 线，而非图表右侧边缘。</value></data>
+  <!-- Volume thresholds: UI groups -->
+  <data name="Group_FixedThreshold" xml:space="preserve"><value>固定阈值</value></data>
+  <data name="Group_DynamicThreshold" xml:space="preserve"><value>动态阈值</value></data>
+  <!-- Volume thresholds: properties (display name + description) -->
+  <data name="Volume_ShowThresholdLines_DisplayName" xml:space="preserve"><value>显示阈值线</value></data>
+  <data name="Volume_ShowThresholdLines_Description" xml:space="preserve"><value>在成交量面板上显示水平阈值线。</value></data>
+  <data name="Volume_FixedMinorLevel_DisplayName" xml:space="preserve"><value>较低水平</value></data>
+  <data name="Volume_FixedMinorLevel_Description" xml:space="preserve"><value>较低阈值线的数值。</value></data>
+  <data name="Volume_FixedMajorLevel_DisplayName" xml:space="preserve"><value>较高水平</value></data>
+  <data name="Volume_FixedMajorLevel_Description" xml:space="preserve"><value>较高阈值线的数值。</value></data>
+  <data name="Volume_Thresholds_DisplayName" xml:space="preserve"><value>阈值来源</value></data>
+  <data name="Volume_Thresholds_Description" xml:space="preserve"><value>阈值线的来源：固定水平或动态（均值 + 标准差）。</value></data>
+  <data name="Volume_SamplesForMeanStd_DisplayName" xml:space="preserve"><value>计算周期</value></data>
+  <data name="Volume_SamplesForMeanStd_Description" xml:space="preserve"><value>绘制动态阈值前所需的已收盘K线数量。</value></data>
+  <data name="Volume_StdMultiplier_DisplayName" xml:space="preserve"><value>标准差乘数</value></data>
+  <data name="Volume_StdMultiplier_Description" xml:space="preserve"><value>较高水平 = 均值 + 乘数 × 标准差。较低水平 = 均值。</value></data>
+  <data name="Volume_SessionMode_DisplayName" xml:space="preserve"><value>时段窗口</value></data>
+  <data name="Volume_SessionMode_Description" xml:space="preserve"><value>动态阈值的适用窗口：仅RTH时段或全交易时段。</value></data>
+  <data name="Volume_RthStart_DisplayName" xml:space="preserve"><value>RTH开始</value></data>
+  <data name="Volume_RthStart_Description" xml:space="preserve"><value>RTH窗口的开始时间（平台时间）。</value></data>
+  <data name="Volume_RthEnd_DisplayName" xml:space="preserve"><value>RTH结束</value></data>
+  <data name="Volume_RthEnd_Description" xml:space="preserve"><value>RTH窗口的结束时间（平台时间）。</value></data>
+  <!-- Volume thresholds: source & session-window enum values -->
+  <data name="ThresholdSource_Fixed" xml:space="preserve"><value>固定</value></data>
+  <data name="ThresholdSource_DynamicWelford" xml:space="preserve"><value>动态（Welford）</value></data>
+  <data name="SessionWindowMode_Rth" xml:space="preserve"><value>RTH</value></data>
+  <data name="SessionWindowMode_Full24h" xml:space="preserve"><value>全天24小时</value></data>
+  <!-- Volume thresholds: data series names -->
+  <data name="Volume_SeriesThresholdMajor" xml:space="preserve"><value>成交量主要阈值</value></data>
+  <data name="Volume_SeriesThresholdMinor" xml:space="preserve"><value>成交量次要阈值</value></data>
 </root>

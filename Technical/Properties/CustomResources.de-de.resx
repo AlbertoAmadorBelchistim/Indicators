@@ -255,4 +255,34 @@
   <!-- LevelsLolo: property descriptions -->
   <data name="LevelsLolo_RawText_Description" xml:space="preserve"><value>Beispiel: $SP: CO44, 7073, LG07, 7048, ...</value></data>
   <data name="LevelsLolo_LastBarOnly_Description" xml:space="preserve"><value>Verlängerung bis zur letzten sichtbaren Kerze statt bis zum rechten Chartrand.</value></data>
+  <!-- Volume thresholds: UI groups -->
+  <data name="Group_FixedThreshold" xml:space="preserve"><value>Fester Schwellenwert</value></data>
+  <data name="Group_DynamicThreshold" xml:space="preserve"><value>Dynamischer Schwellenwert</value></data>
+  <!-- Volume thresholds: properties (display name + description) -->
+  <data name="Volume_ShowThresholdLines_DisplayName" xml:space="preserve"><value>Schwellenwertlinien anzeigen</value></data>
+  <data name="Volume_ShowThresholdLines_Description" xml:space="preserve"><value>Zeigt horizontale Schwellenwertlinien im Volumen-Panel an.</value></data>
+  <data name="Volume_FixedMinorLevel_DisplayName" xml:space="preserve"><value>Unteres Niveau</value></data>
+  <data name="Volume_FixedMinorLevel_Description" xml:space="preserve"><value>Wert der unteren Schwellenwertlinie.</value></data>
+  <data name="Volume_FixedMajorLevel_DisplayName" xml:space="preserve"><value>Oberes Niveau</value></data>
+  <data name="Volume_FixedMajorLevel_Description" xml:space="preserve"><value>Wert der oberen Schwellenwertlinie.</value></data>
+  <data name="Volume_Thresholds_DisplayName" xml:space="preserve"><value>Schwellenwertquelle</value></data>
+  <data name="Volume_Thresholds_Description" xml:space="preserve"><value>Quelle der Schwellenwertlinien: feste Niveaus oder dynamisch (Mittelwert + Standardabweichung).</value></data>
+  <data name="Volume_SamplesForMeanStd_DisplayName" xml:space="preserve"><value>Aufwärmperioden</value></data>
+  <data name="Volume_SamplesForMeanStd_Description" xml:space="preserve"><value>Geschlossene Bars, bevor dynamische Schwellenwerte gezeichnet werden.</value></data>
+  <data name="Volume_StdMultiplier_DisplayName" xml:space="preserve"><value>Std-Abw.-Multiplikator</value></data>
+  <data name="Volume_StdMultiplier_Description" xml:space="preserve"><value>Oberes Niveau = Mittelwert + Multiplikator × Standardabweichung. Unteres Niveau = Mittelwert.</value></data>
+  <data name="Volume_SessionMode_DisplayName" xml:space="preserve"><value>Sitzungsfenster</value></data>
+  <data name="Volume_SessionMode_Description" xml:space="preserve"><value>Fenster für dynamische Schwellenwerte: nur RTH-Zeiten oder die gesamte Börsensitzung.</value></data>
+  <data name="Volume_RthStart_DisplayName" xml:space="preserve"><value>RTH-Beginn</value></data>
+  <data name="Volume_RthStart_Description" xml:space="preserve"><value>Beginn des RTH-Fensters (Plattformzeit).</value></data>
+  <data name="Volume_RthEnd_DisplayName" xml:space="preserve"><value>RTH-Ende</value></data>
+  <data name="Volume_RthEnd_Description" xml:space="preserve"><value>Ende des RTH-Fensters (Plattformzeit).</value></data>
+  <!-- Volume thresholds: source & session-window enum values -->
+  <data name="ThresholdSource_Fixed" xml:space="preserve"><value>Fest</value></data>
+  <data name="ThresholdSource_DynamicWelford" xml:space="preserve"><value>Dynamisch (Welford)</value></data>
+  <data name="SessionWindowMode_Rth" xml:space="preserve"><value>RTH</value></data>
+  <data name="SessionWindowMode_Full24h" xml:space="preserve"><value>Volle 24h</value></data>
+  <!-- Volume thresholds: data series names -->
+  <data name="Volume_SeriesThresholdMajor" xml:space="preserve"><value>Volumen-Schwellenwert oben</value></data>
+  <data name="Volume_SeriesThresholdMinor" xml:space="preserve"><value>Volumen-Schwellenwert unten</value></data>
 </root>

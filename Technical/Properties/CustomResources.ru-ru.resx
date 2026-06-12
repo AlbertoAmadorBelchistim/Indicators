@@ -255,4 +255,34 @@
   <!-- LevelsLolo: property descriptions -->
   <data name="LevelsLolo_RawText_Description" xml:space="preserve"><value>Пример: $SP: CO44, 7073, LG07, 7048, ...</value></data>
   <data name="LevelsLolo_LastBarOnly_Description" xml:space="preserve"><value>Продлевать до последней видимой свечи, а не до правого края графика.</value></data>
+  <!-- Volume thresholds: UI groups -->
+  <data name="Group_FixedThreshold" xml:space="preserve"><value>Фиксированный порог</value></data>
+  <data name="Group_DynamicThreshold" xml:space="preserve"><value>Динамический порог</value></data>
+  <!-- Volume thresholds: properties (display name + description) -->
+  <data name="Volume_ShowThresholdLines_DisplayName" xml:space="preserve"><value>Показывать линии порога</value></data>
+  <data name="Volume_ShowThresholdLines_Description" xml:space="preserve"><value>Показывает горизонтальные линии порога на панели объёма.</value></data>
+  <data name="Volume_FixedMinorLevel_DisplayName" xml:space="preserve"><value>Нижний уровень</value></data>
+  <data name="Volume_FixedMinorLevel_Description" xml:space="preserve"><value>Значение нижней пороговой линии.</value></data>
+  <data name="Volume_FixedMajorLevel_DisplayName" xml:space="preserve"><value>Верхний уровень</value></data>
+  <data name="Volume_FixedMajorLevel_Description" xml:space="preserve"><value>Значение верхней пороговой линии.</value></data>
+  <data name="Volume_Thresholds_DisplayName" xml:space="preserve"><value>Источник порога</value></data>
+  <data name="Volume_Thresholds_Description" xml:space="preserve"><value>Источник пороговых линий: фиксированные уровни или динамический (среднее + станд. отклонение).</value></data>
+  <data name="Volume_SamplesForMeanStd_DisplayName" xml:space="preserve"><value>Бары для инициализации</value></data>
+  <data name="Volume_SamplesForMeanStd_Description" xml:space="preserve"><value>Закрытые бары, необходимые перед отрисовкой динамических порогов.</value></data>
+  <data name="Volume_StdMultiplier_DisplayName" xml:space="preserve"><value>Множитель станд. отклонения</value></data>
+  <data name="Volume_StdMultiplier_Description" xml:space="preserve"><value>Верхний уровень = среднее + множитель × станд. отклонение. Нижний уровень = среднее.</value></data>
+  <data name="Volume_SessionMode_DisplayName" xml:space="preserve"><value>Окно сессии</value></data>
+  <data name="Volume_SessionMode_Description" xml:space="preserve"><value>Окно для динамических порогов: только часы RTH или вся биржевая сессия.</value></data>
+  <data name="Volume_RthStart_DisplayName" xml:space="preserve"><value>Начало RTH</value></data>
+  <data name="Volume_RthStart_Description" xml:space="preserve"><value>Начало окна RTH (время платформы).</value></data>
+  <data name="Volume_RthEnd_DisplayName" xml:space="preserve"><value>Конец RTH</value></data>
+  <data name="Volume_RthEnd_Description" xml:space="preserve"><value>Конец окна RTH (время платформы).</value></data>
+  <!-- Volume thresholds: source & session-window enum values -->
+  <data name="ThresholdSource_Fixed" xml:space="preserve"><value>Фиксированный</value></data>
+  <data name="ThresholdSource_DynamicWelford" xml:space="preserve"><value>Динамический (Welford)</value></data>
+  <data name="SessionWindowMode_Rth" xml:space="preserve"><value>RTH</value></data>
+  <data name="SessionWindowMode_Full24h" xml:space="preserve"><value>Полные 24ч</value></data>
+  <!-- Volume thresholds: data series names -->
+  <data name="Volume_SeriesThresholdMajor" xml:space="preserve"><value>Большой порог объёма</value></data>
+  <data name="Volume_SeriesThresholdMinor" xml:space="preserve"><value>Малый порог объёма</value></data>
 </root>

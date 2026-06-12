@@ -592,6 +592,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Dynamic threshold.
+        /// </summary>
+        public static string Group_DynamicThreshold {
+            get {
+                return ResourceManager.GetString("Group_DynamicThreshold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fixed threshold.
+        /// </summary>
+        public static string Group_FixedThreshold {
+            get {
+                return ResourceManager.GetString("Group_FixedThreshold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Info Panel.
         /// </summary>
         public static string Group_InfoPanel {
@@ -709,15 +727,6 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Center.
-        /// </summary>
-        public static string LabelAlignment_Center {
-            get {
-                return ResourceManager.GetString("LabelAlignment_Center", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Busca una cadena traducida similar a Bottom Left.
         /// </summary>
         public static string InfoPanelLocation_BottomLeft {
@@ -768,6 +777,15 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string InfoPanelPosition_DisplayName {
             get {
                 return ResourceManager.GetString("InfoPanelPosition_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Center.
+        /// </summary>
+        public static string LabelAlignment_Center {
+            get {
+                return ResourceManager.GetString("LabelAlignment_Center", resourceCulture);
             }
         }
         
@@ -1276,6 +1294,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Full 24h.
+        /// </summary>
+        public static string SessionWindowMode_Full24h {
+            get {
+                return ResourceManager.GetString("SessionWindowMode_Full24h", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a RTH.
+        /// </summary>
+        public static string SessionWindowMode_Rth {
+            get {
+                return ResourceManager.GetString("SessionWindowMode_Rth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Toggle the floating panel that lists the most recent burst events and their metrics..
         /// </summary>
         public static string ShowInfoPanel_Description {
@@ -1474,6 +1510,24 @@ namespace ATAS.Indicators.Technical.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Dynamic (Welford).
+        /// </summary>
+        public static string ThresholdSource_DynamicWelford {
+            get {
+                return ResourceManager.GetString("ThresholdSource_DynamicWelford", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fixed.
+        /// </summary>
+        public static string ThresholdSource_Fixed {
+            get {
+                return ResourceManager.GetString("ThresholdSource_Fixed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Optional. Leave empty to use the chart instrument (micros are auto-stripped: MES→ES, MNQ→NQ). Set a value to force a specific ticker (e.g. SPX on ES, or ES when the feed exposes ESH24)..
         /// </summary>
         public static string TickerOverride_Description {
@@ -1578,6 +1632,186 @@ namespace ATAS.Indicators.Technical.Properties {
         public static string UserId_DisplayName {
             get {
                 return ResourceManager.GetString("UserId_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Value of the major threshold line..
+        /// </summary>
+        public static string Volume_FixedMajorLevel_Description {
+            get {
+                return ResourceManager.GetString("Volume_FixedMajorLevel_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Major level.
+        /// </summary>
+        public static string Volume_FixedMajorLevel_DisplayName {
+            get {
+                return ResourceManager.GetString("Volume_FixedMajorLevel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Value of the minor threshold line..
+        /// </summary>
+        public static string Volume_FixedMinorLevel_Description {
+            get {
+                return ResourceManager.GetString("Volume_FixedMinorLevel_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Minor level.
+        /// </summary>
+        public static string Volume_FixedMinorLevel_DisplayName {
+            get {
+                return ResourceManager.GetString("Volume_FixedMinorLevel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a End of the RTH window (platform time of day)..
+        /// </summary>
+        public static string Volume_RthEnd_Description {
+            get {
+                return ResourceManager.GetString("Volume_RthEnd_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a RTH end.
+        /// </summary>
+        public static string Volume_RthEnd_DisplayName {
+            get {
+                return ResourceManager.GetString("Volume_RthEnd_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Start of the RTH window (platform time of day)..
+        /// </summary>
+        public static string Volume_RthStart_Description {
+            get {
+                return ResourceManager.GetString("Volume_RthStart_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a RTH start.
+        /// </summary>
+        public static string Volume_RthStart_DisplayName {
+            get {
+                return ResourceManager.GetString("Volume_RthStart_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Closed bars required before dynamic thresholds are drawn..
+        /// </summary>
+        public static string Volume_SamplesForMeanStd_Description {
+            get {
+                return ResourceManager.GetString("Volume_SamplesForMeanStd_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Warm-up samples.
+        /// </summary>
+        public static string Volume_SamplesForMeanStd_DisplayName {
+            get {
+                return ResourceManager.GetString("Volume_SamplesForMeanStd_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Volume Threshold Major.
+        /// </summary>
+        public static string Volume_SeriesThresholdMajor {
+            get {
+                return ResourceManager.GetString("Volume_SeriesThresholdMajor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Volume Threshold Minor.
+        /// </summary>
+        public static string Volume_SeriesThresholdMinor {
+            get {
+                return ResourceManager.GetString("Volume_SeriesThresholdMinor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Window that scopes dynamic thresholds: RTH hours only, or the full exchange session..
+        /// </summary>
+        public static string Volume_SessionMode_Description {
+            get {
+                return ResourceManager.GetString("Volume_SessionMode_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Session window.
+        /// </summary>
+        public static string Volume_SessionMode_DisplayName {
+            get {
+                return ResourceManager.GetString("Volume_SessionMode_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show horizontal threshold lines on the Volume panel..
+        /// </summary>
+        public static string Volume_ShowThresholdLines_Description {
+            get {
+                return ResourceManager.GetString("Volume_ShowThresholdLines_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Show threshold lines.
+        /// </summary>
+        public static string Volume_ShowThresholdLines_DisplayName {
+            get {
+                return ResourceManager.GetString("Volume_ShowThresholdLines_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Major level = mean + multiplier * std-dev. Minor level = mean..
+        /// </summary>
+        public static string Volume_StdMultiplier_Description {
+            get {
+                return ResourceManager.GetString("Volume_StdMultiplier_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Std-dev multiplier.
+        /// </summary>
+        public static string Volume_StdMultiplier_DisplayName {
+            get {
+                return ResourceManager.GetString("Volume_StdMultiplier_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Source of the threshold lines: fixed levels or dynamic (mean + std-dev)..
+        /// </summary>
+        public static string Volume_Thresholds_Description {
+            get {
+                return ResourceManager.GetString("Volume_Thresholds_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Threshold source.
+        /// </summary>
+        public static string Volume_Thresholds_DisplayName {
+            get {
+                return ResourceManager.GetString("Volume_Thresholds_DisplayName", resourceCulture);
             }
         }
         
