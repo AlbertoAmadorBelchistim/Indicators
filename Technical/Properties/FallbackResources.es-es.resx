@@ -4778,4 +4778,6 @@ Si desea solicitar acceso o cree que esto podría ser un error, comuníquese con
   <data name="ZigZagTPOAndProfile" xml:space="preserve">
     <value>ZigZag Perfil de Volumen &amp; TPO</value>
   </data>
+  <data name="DivergenceBarsDescription" xml:space="preserve"><value>Número de barras sobre las que se evalúa la divergencia de delta.</value></data>
+  <data name="DivergenceDotsDescription" xml:space="preserve"><value>Muestra puntos de divergencia de delta en el panel de precios.</value></data>
 </root>

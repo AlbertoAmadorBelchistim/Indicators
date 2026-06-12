@@ -281,4 +281,79 @@
   <data name="SessionWindowMode_Full24h" xml:space="preserve"><value>पूर्ण 24 घंटे</value></data>
   <data name="Volume_SeriesThresholdMajor" xml:space="preserve"><value>वॉल्यूम प्रमुख थ्रेशोल्ड</value></data>
   <data name="Volume_SeriesThresholdMinor" xml:space="preserve"><value>वॉल्यूम लघु थ्रेशोल्ड</value></data>
+  <data name="AverageColorMode_Fixed" xml:space="preserve"><value>Fixed</value></data>
+  <data name="AverageColorMode_Slope" xml:space="preserve"><value>Slope</value></data>
+  <data name="AverageColorMode_ZeroCross" xml:space="preserve"><value>Zero cross</value></data>
+  <data name="Delta_AlertCooldownBars_DisplayName" xml:space="preserve"><value>शांति अवधि</value></data>
+  <data name="Delta_AudioAtBarCloseOnly_Description" xml:space="preserve"><value>Trigger audio alerts only after the bar closes.</value></data>
+  <data name="Delta_AudioAtBarCloseOnly_DisplayName" xml:space="preserve"><value>Audio at bar close</value></data>
+  <data name="Delta_AudioDownLevel_Description" xml:space="preserve"><value>Threshold level used for bearish audio alerts.</value></data>
+  <data name="Delta_AudioDownLevel_DisplayName" xml:space="preserve"><value>Audio threshold -</value></data>
+  <data name="Delta_AudioEnabled_Description" xml:space="preserve"><value>Play sound when thresholds are crossed.</value></data>
+  <data name="Delta_AudioEnabled_DisplayName" xml:space="preserve"><value>Use audio alerts</value></data>
+  <data name="Delta_AudioUpLevel_Description" xml:space="preserve"><value>Threshold level used for bullish audio alerts.</value></data>
+  <data name="Delta_AudioUpLevel_DisplayName" xml:space="preserve"><value>Audio threshold +</value></data>
+  <data name="Delta_AverageColor_DisplayName" xml:space="preserve"><value>Base color</value></data>
+  <data name="Delta_AveragePeriod_DisplayName" xml:space="preserve"><value>औसत अवधि</value></data>
+  <data name="Delta_AverageWidth_DisplayName" xml:space="preserve"><value>लाइन की चौड़ाई</value></data>
+  <data name="Delta_AvgColorMode_DisplayName" xml:space="preserve"><value>Color mode</value></data>
+  <data name="Delta_AvgMode_DisplayName" xml:space="preserve"><value>गणना मोड</value></data>
+  <data name="Delta_AvgSlopeDownColor_DisplayName" xml:space="preserve"><value>Slope down color</value></data>
+  <data name="Delta_AvgSlopeUpColor_DisplayName" xml:space="preserve"><value>Slope up color</value></data>
+  <data name="Delta_DownColor_Description" xml:space="preserve"><value>नकारात्मक मूल्य वाले तत्व का रंग प्रदर्शित करता है।</value></data>
+  <data name="Delta_DownColor_DisplayName" xml:space="preserve"><value>Negative color</value></data>
+  <data name="Delta_DownMajorLevel_Description" xml:space="preserve"><value>Upper (in magnitude) threshold for negative delta.</value></data>
+  <data name="Delta_DownMajorLevel_DisplayName" xml:space="preserve"><value>Fixed - major</value></data>
+  <data name="Delta_DownMinorLevel_Description" xml:space="preserve"><value>Lower (in magnitude) threshold for negative delta.</value></data>
+  <data name="Delta_DownMinorLevel_DisplayName" xml:space="preserve"><value>Fixed - minor</value></data>
+  <data name="Delta_FontColor_Description" xml:space="preserve"><value>लेबल पाठ का रंग सेट करता है।</value></data>
+  <data name="Delta_FontColor_DisplayName" xml:space="preserve"><value>रंग</value></data>
+  <data name="Delta_Font_Description" xml:space="preserve"><value>फॉन्ट के लिए विभिन्न सेटिंग्स का वर्णन करता है।</value></data>
+  <data name="Delta_Font_DisplayName" xml:space="preserve"><value>फ़ॉन्ट</value></data>
+  <data name="Delta_NeutralColor_Description" xml:space="preserve"><value>मध्यस्थ मूल्यों के लिए उपयोग किए जाने वाले रंग को प्रस्तुत करता है</value></data>
+  <data name="Delta_NeutralColor_DisplayName" xml:space="preserve"><value>न्यूट्रल बॉर्डर कलर</value></data>
+  <data name="Delta_PriceSignalDownColor_Description" xml:space="preserve"><value>Color of bearish price markers.</value></data>
+  <data name="Delta_PriceSignalDownColor_DisplayName" xml:space="preserve"><value>Down marker color</value></data>
+  <data name="Delta_PriceSignalOffsetTicks_Description" xml:space="preserve"><value>Vertical offset for price markers, in ticks.</value></data>
+  <data name="Delta_PriceSignalOffsetTicks_DisplayName" xml:space="preserve"><value>ऊर्ध्वाधिकरण</value></data>
+  <data name="Delta_PriceSignalSize_Description" xml:space="preserve"><value>प्रवेश/निकास मार्करों का आकार।</value></data>
+  <data name="Delta_PriceSignalSize_DisplayName" xml:space="preserve"><value>मार्कर आकार</value></data>
+  <data name="Delta_PriceSignalUpColor_Description" xml:space="preserve"><value>Color of bullish price markers.</value></data>
+  <data name="Delta_PriceSignalUpColor_DisplayName" xml:space="preserve"><value>Up marker color</value></data>
+  <data name="Delta_RthEnd_Description" xml:space="preserve"><value>नियमित ट्रेडिंग घंटों का समाप्ति समय (एक्सचेंज समय)।</value></data>
+  <data name="Delta_RthEnd_DisplayName" xml:space="preserve"><value>RTH समाप्त</value></data>
+  <data name="Delta_RthStart_Description" xml:space="preserve"><value>Время начала регулярной торговой сессии (время биржи).</value></data>
+  <data name="Delta_RthStart_DisplayName" xml:space="preserve"><value>RTH शुरू</value></data>
+  <data name="Delta_SamplesForMeanStd_Description" xml:space="preserve"><value>गतिशील थ्रेशोल्ड सक्रिय होने से पहले आवश्यक न्यूनतम सैंपल।</value></data>
+  <data name="Delta_SamplesForMeanStd_DisplayName" xml:space="preserve"><value>औसत/Std के लिए सैंपल</value></data>
+  <data name="Delta_SessionMode_Description" xml:space="preserve"><value>गतिशील थ्रेशोल्ड रीसेट करने के लिए उपयोग होने वाली सेशन विंडो।</value></data>
+  <data name="Delta_SessionMode_DisplayName" xml:space="preserve"><value>सेशन विंडो</value></data>
+  <data name="Delta_ShowAverage_DisplayName" xml:space="preserve"><value>औसत दिखाएं</value></data>
+  <data name="Delta_ShowThresholdLines_Description" xml:space="preserve"><value>वॉल्यूम पैनल में क्षैतिज थ्रेशोल्ड लाइन्स दिखाएँ।</value></data>
+  <data name="Delta_ShowThresholdLines_DisplayName" xml:space="preserve"><value>थ्रेशोल्ड लाइन्स दिखाएँ</value></data>
+  <data name="Delta_ShowVolume_Description" xml:space="preserve"><value>वॉल्यूम लेबल और विवरण</value></data>
+  <data name="Delta_ShowVolume_DisplayName" xml:space="preserve"><value>दिखाएं</value></data>
+  <data name="Delta_StdMultiplier_Description" xml:space="preserve"><value>मेजर = औसत + k·Std. माइनर = औसत।</value></data>
+  <data name="Delta_StdMultiplier_DisplayName" xml:space="preserve"><value>Std गुणक</value></data>
+  <data name="Delta_Thresholds_Description" xml:space="preserve"><value>स्थिर या गतिशील (Welford) थ्रेशोल्ड चुनें।</value></data>
+  <data name="Delta_Thresholds_DisplayName" xml:space="preserve"><value>थ्रेशोल्ड स्रोत</value></data>
+  <data name="Delta_UpColor_Description" xml:space="preserve"><value>सकारात्मक मूल्य वाले तत्व का रंग प्रदर्शित करता है।</value></data>
+  <data name="Delta_UpColor_DisplayName" xml:space="preserve"><value>Positive color</value></data>
+  <data name="Delta_UpMajorLevel_Description" xml:space="preserve"><value>Upper threshold for positive delta.</value></data>
+  <data name="Delta_UpMajorLevel_DisplayName" xml:space="preserve"><value>Fixed + major</value></data>
+  <data name="Delta_UpMinorLevel_Description" xml:space="preserve"><value>Lower threshold for positive delta.</value></data>
+  <data name="Delta_UpMinorLevel_DisplayName" xml:space="preserve"><value>Fixed + minor</value></data>
+  <data name="Delta_VisualDownLevel_Description" xml:space="preserve"><value>Threshold level used for bearish visual alerts.</value></data>
+  <data name="Delta_VisualDownLevel_DisplayName" xml:space="preserve"><value>Visual threshold -</value></data>
+  <data name="Delta_VisualEnabled_Description" xml:space="preserve"><value>Show threshold markers on the price chart.</value></data>
+  <data name="Delta_VisualEnabled_DisplayName" xml:space="preserve"><value>Show markers</value></data>
+  <data name="Delta_VisualUpLevel_Description" xml:space="preserve"><value>Threshold level used for bullish visual alerts.</value></data>
+  <data name="Delta_VisualUpLevel_DisplayName" xml:space="preserve"><value>Visual threshold +</value></data>
+  <data name="Delta_VolLocation_Description" xml:space="preserve"><value>लेबल के प्रदर्शन स्थान को निर्धारित करता है।</value></data>
+  <data name="Delta_VolLocation_DisplayName" xml:space="preserve"><value>स्थान</value></data>
+  <data name="Group_Average" xml:space="preserve"><value>औसत</value></data>
+  <data name="Group_DeltaLabel" xml:space="preserve"><value>Delta label</value></data>
+  <data name="Group_Drawing" xml:space="preserve"><value>ड्राइंग</value></data>
+  <data name="ThresholdLevel_Major" xml:space="preserve"><value>Major</value></data>
+  <data name="ThresholdLevel_Minor" xml:space="preserve"><value>Minor</value></data>
 </root>

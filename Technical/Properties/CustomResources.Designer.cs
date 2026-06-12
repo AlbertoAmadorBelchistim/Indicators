@@ -1781,5 +1781,455 @@ namespace ATAS.Indicators.Technical.Properties {
                 return ResourceManager.GetString("Volume_SeriesThresholdMinor", resourceCulture);
             }
         }
+
+        public static string AverageColorMode_Fixed {
+            get {
+                return ResourceManager.GetString("AverageColorMode_Fixed", resourceCulture);
+            }
+        }
+
+        public static string AverageColorMode_Slope {
+            get {
+                return ResourceManager.GetString("AverageColorMode_Slope", resourceCulture);
+            }
+        }
+
+        public static string AverageColorMode_ZeroCross {
+            get {
+                return ResourceManager.GetString("AverageColorMode_ZeroCross", resourceCulture);
+            }
+        }
+
+        public static string Delta_AlertCooldownBars_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_AlertCooldownBars_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_AudioAtBarCloseOnly_Description {
+            get {
+                return ResourceManager.GetString("Delta_AudioAtBarCloseOnly_Description", resourceCulture);
+            }
+        }
+
+        public static string Delta_AudioAtBarCloseOnly_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_AudioAtBarCloseOnly_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_AudioDownLevel_Description {
+            get {
+                return ResourceManager.GetString("Delta_AudioDownLevel_Description", resourceCulture);
+            }
+        }
+
+        public static string Delta_AudioDownLevel_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_AudioDownLevel_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_AudioEnabled_Description {
+            get {
+                return ResourceManager.GetString("Delta_AudioEnabled_Description", resourceCulture);
+            }
+        }
+
+        public static string Delta_AudioEnabled_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_AudioEnabled_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_AudioUpLevel_Description {
+            get {
+                return ResourceManager.GetString("Delta_AudioUpLevel_Description", resourceCulture);
+            }
+        }
+
+        public static string Delta_AudioUpLevel_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_AudioUpLevel_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_AverageColor_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_AverageColor_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_AveragePeriod_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_AveragePeriod_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_AverageWidth_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_AverageWidth_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_AvgColorMode_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_AvgColorMode_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_AvgMode_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_AvgMode_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_AvgSlopeDownColor_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_AvgSlopeDownColor_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_AvgSlopeUpColor_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_AvgSlopeUpColor_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_DownColor_Description {
+            get {
+                return ResourceManager.GetString("Delta_DownColor_Description", resourceCulture);
+            }
+        }
+
+        public static string Delta_DownColor_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_DownColor_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_DownMajorLevel_Description {
+            get {
+                return ResourceManager.GetString("Delta_DownMajorLevel_Description", resourceCulture);
+            }
+        }
+
+        public static string Delta_DownMajorLevel_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_DownMajorLevel_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_DownMinorLevel_Description {
+            get {
+                return ResourceManager.GetString("Delta_DownMinorLevel_Description", resourceCulture);
+            }
+        }
+
+        public static string Delta_DownMinorLevel_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_DownMinorLevel_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_FontColor_Description {
+            get {
+                return ResourceManager.GetString("Delta_FontColor_Description", resourceCulture);
+            }
+        }
+
+        public static string Delta_FontColor_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_FontColor_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_Font_Description {
+            get {
+                return ResourceManager.GetString("Delta_Font_Description", resourceCulture);
+            }
+        }
+
+        public static string Delta_Font_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_Font_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_NeutralColor_Description {
+            get {
+                return ResourceManager.GetString("Delta_NeutralColor_Description", resourceCulture);
+            }
+        }
+
+        public static string Delta_NeutralColor_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_NeutralColor_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_PriceSignalDownColor_Description {
+            get {
+                return ResourceManager.GetString("Delta_PriceSignalDownColor_Description", resourceCulture);
+            }
+        }
+
+        public static string Delta_PriceSignalDownColor_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_PriceSignalDownColor_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_PriceSignalOffsetTicks_Description {
+            get {
+                return ResourceManager.GetString("Delta_PriceSignalOffsetTicks_Description", resourceCulture);
+            }
+        }
+
+        public static string Delta_PriceSignalOffsetTicks_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_PriceSignalOffsetTicks_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_PriceSignalSize_Description {
+            get {
+                return ResourceManager.GetString("Delta_PriceSignalSize_Description", resourceCulture);
+            }
+        }
+
+        public static string Delta_PriceSignalSize_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_PriceSignalSize_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_PriceSignalUpColor_Description {
+            get {
+                return ResourceManager.GetString("Delta_PriceSignalUpColor_Description", resourceCulture);
+            }
+        }
+
+        public static string Delta_PriceSignalUpColor_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_PriceSignalUpColor_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_RthEnd_Description {
+            get {
+                return ResourceManager.GetString("Delta_RthEnd_Description", resourceCulture);
+            }
+        }
+
+        public static string Delta_RthEnd_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_RthEnd_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_RthStart_Description {
+            get {
+                return ResourceManager.GetString("Delta_RthStart_Description", resourceCulture);
+            }
+        }
+
+        public static string Delta_RthStart_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_RthStart_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_SamplesForMeanStd_Description {
+            get {
+                return ResourceManager.GetString("Delta_SamplesForMeanStd_Description", resourceCulture);
+            }
+        }
+
+        public static string Delta_SamplesForMeanStd_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_SamplesForMeanStd_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_SessionMode_Description {
+            get {
+                return ResourceManager.GetString("Delta_SessionMode_Description", resourceCulture);
+            }
+        }
+
+        public static string Delta_SessionMode_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_SessionMode_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_ShowAverage_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_ShowAverage_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_ShowThresholdLines_Description {
+            get {
+                return ResourceManager.GetString("Delta_ShowThresholdLines_Description", resourceCulture);
+            }
+        }
+
+        public static string Delta_ShowThresholdLines_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_ShowThresholdLines_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_ShowVolume_Description {
+            get {
+                return ResourceManager.GetString("Delta_ShowVolume_Description", resourceCulture);
+            }
+        }
+
+        public static string Delta_ShowVolume_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_ShowVolume_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_StdMultiplier_Description {
+            get {
+                return ResourceManager.GetString("Delta_StdMultiplier_Description", resourceCulture);
+            }
+        }
+
+        public static string Delta_StdMultiplier_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_StdMultiplier_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_Thresholds_Description {
+            get {
+                return ResourceManager.GetString("Delta_Thresholds_Description", resourceCulture);
+            }
+        }
+
+        public static string Delta_Thresholds_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_Thresholds_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_UpColor_Description {
+            get {
+                return ResourceManager.GetString("Delta_UpColor_Description", resourceCulture);
+            }
+        }
+
+        public static string Delta_UpColor_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_UpColor_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_UpMajorLevel_Description {
+            get {
+                return ResourceManager.GetString("Delta_UpMajorLevel_Description", resourceCulture);
+            }
+        }
+
+        public static string Delta_UpMajorLevel_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_UpMajorLevel_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_UpMinorLevel_Description {
+            get {
+                return ResourceManager.GetString("Delta_UpMinorLevel_Description", resourceCulture);
+            }
+        }
+
+        public static string Delta_UpMinorLevel_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_UpMinorLevel_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_VisualDownLevel_Description {
+            get {
+                return ResourceManager.GetString("Delta_VisualDownLevel_Description", resourceCulture);
+            }
+        }
+
+        public static string Delta_VisualDownLevel_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_VisualDownLevel_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_VisualEnabled_Description {
+            get {
+                return ResourceManager.GetString("Delta_VisualEnabled_Description", resourceCulture);
+            }
+        }
+
+        public static string Delta_VisualEnabled_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_VisualEnabled_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_VisualUpLevel_Description {
+            get {
+                return ResourceManager.GetString("Delta_VisualUpLevel_Description", resourceCulture);
+            }
+        }
+
+        public static string Delta_VisualUpLevel_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_VisualUpLevel_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Delta_VolLocation_Description {
+            get {
+                return ResourceManager.GetString("Delta_VolLocation_Description", resourceCulture);
+            }
+        }
+
+        public static string Delta_VolLocation_DisplayName {
+            get {
+                return ResourceManager.GetString("Delta_VolLocation_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Group_Average {
+            get {
+                return ResourceManager.GetString("Group_Average", resourceCulture);
+            }
+        }
+
+        public static string Group_DeltaLabel {
+            get {
+                return ResourceManager.GetString("Group_DeltaLabel", resourceCulture);
+            }
+        }
+
+        public static string Group_Drawing {
+            get {
+                return ResourceManager.GetString("Group_Drawing", resourceCulture);
+            }
+        }
+
+        public static string ThresholdLevel_Major {
+            get {
+                return ResourceManager.GetString("ThresholdLevel_Major", resourceCulture);
+            }
+        }
+
+        public static string ThresholdLevel_Minor {
+            get {
+                return ResourceManager.GetString("ThresholdLevel_Minor", resourceCulture);
+            }
+        }
     }
 }

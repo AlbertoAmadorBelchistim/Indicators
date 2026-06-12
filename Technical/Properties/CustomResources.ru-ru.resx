@@ -281,4 +281,79 @@
   <data name="SessionWindowMode_Full24h" xml:space="preserve"><value>Полные 24ч</value></data>
   <data name="Volume_SeriesThresholdMajor" xml:space="preserve"><value>Большой порог объёма</value></data>
   <data name="Volume_SeriesThresholdMinor" xml:space="preserve"><value>Малый порог объёма</value></data>
+  <data name="AverageColorMode_Fixed" xml:space="preserve"><value>Fixed</value></data>
+  <data name="AverageColorMode_Slope" xml:space="preserve"><value>Slope</value></data>
+  <data name="AverageColorMode_ZeroCross" xml:space="preserve"><value>Zero cross</value></data>
+  <data name="Delta_AlertCooldownBars_DisplayName" xml:space="preserve"><value>Период охлаждения</value></data>
+  <data name="Delta_AudioAtBarCloseOnly_Description" xml:space="preserve"><value>Trigger audio alerts only after the bar closes.</value></data>
+  <data name="Delta_AudioAtBarCloseOnly_DisplayName" xml:space="preserve"><value>Audio at bar close</value></data>
+  <data name="Delta_AudioDownLevel_Description" xml:space="preserve"><value>Threshold level used for bearish audio alerts.</value></data>
+  <data name="Delta_AudioDownLevel_DisplayName" xml:space="preserve"><value>Audio threshold -</value></data>
+  <data name="Delta_AudioEnabled_Description" xml:space="preserve"><value>Play sound when thresholds are crossed.</value></data>
+  <data name="Delta_AudioEnabled_DisplayName" xml:space="preserve"><value>Use audio alerts</value></data>
+  <data name="Delta_AudioUpLevel_Description" xml:space="preserve"><value>Threshold level used for bullish audio alerts.</value></data>
+  <data name="Delta_AudioUpLevel_DisplayName" xml:space="preserve"><value>Audio threshold +</value></data>
+  <data name="Delta_AverageColor_DisplayName" xml:space="preserve"><value>Base color</value></data>
+  <data name="Delta_AveragePeriod_DisplayName" xml:space="preserve"><value>Период сглаживания</value></data>
+  <data name="Delta_AverageWidth_DisplayName" xml:space="preserve"><value>Ширина линии</value></data>
+  <data name="Delta_AvgColorMode_DisplayName" xml:space="preserve"><value>Color mode</value></data>
+  <data name="Delta_AvgMode_DisplayName" xml:space="preserve"><value>Тип расчетов</value></data>
+  <data name="Delta_AvgSlopeDownColor_DisplayName" xml:space="preserve"><value>Slope down color</value></data>
+  <data name="Delta_AvgSlopeUpColor_DisplayName" xml:space="preserve"><value>Slope up color</value></data>
+  <data name="Delta_DownColor_Description" xml:space="preserve"><value>Отображает цвет элемента с отрицательным значением.</value></data>
+  <data name="Delta_DownColor_DisplayName" xml:space="preserve"><value>Negative color</value></data>
+  <data name="Delta_DownMajorLevel_Description" xml:space="preserve"><value>Upper (in magnitude) threshold for negative delta.</value></data>
+  <data name="Delta_DownMajorLevel_DisplayName" xml:space="preserve"><value>Fixed - major</value></data>
+  <data name="Delta_DownMinorLevel_Description" xml:space="preserve"><value>Lower (in magnitude) threshold for negative delta.</value></data>
+  <data name="Delta_DownMinorLevel_DisplayName" xml:space="preserve"><value>Fixed - minor</value></data>
+  <data name="Delta_FontColor_Description" xml:space="preserve"><value>Устанавливает цвет текста метки.</value></data>
+  <data name="Delta_FontColor_DisplayName" xml:space="preserve"><value>Цвет</value></data>
+  <data name="Delta_Font_Description" xml:space="preserve"><value>Описывает различные настройки шрифта.</value></data>
+  <data name="Delta_Font_DisplayName" xml:space="preserve"><value>Шрифт</value></data>
+  <data name="Delta_NeutralColor_Description" xml:space="preserve"><value>Представляет цвет, используемый для нейтральных значений</value></data>
+  <data name="Delta_NeutralColor_DisplayName" xml:space="preserve"><value>Нейтральный цвет границы</value></data>
+  <data name="Delta_PriceSignalDownColor_Description" xml:space="preserve"><value>Color of bearish price markers.</value></data>
+  <data name="Delta_PriceSignalDownColor_DisplayName" xml:space="preserve"><value>Down marker color</value></data>
+  <data name="Delta_PriceSignalOffsetTicks_Description" xml:space="preserve"><value>Vertical offset for price markers, in ticks.</value></data>
+  <data name="Delta_PriceSignalOffsetTicks_DisplayName" xml:space="preserve"><value>Отступ по вертикали</value></data>
+  <data name="Delta_PriceSignalSize_Description" xml:space="preserve"><value>Размер маркеров входа/выхода.</value></data>
+  <data name="Delta_PriceSignalSize_DisplayName" xml:space="preserve"><value>Размер маркера</value></data>
+  <data name="Delta_PriceSignalUpColor_Description" xml:space="preserve"><value>Color of bullish price markers.</value></data>
+  <data name="Delta_PriceSignalUpColor_DisplayName" xml:space="preserve"><value>Up marker color</value></data>
+  <data name="Delta_RthEnd_Description" xml:space="preserve"><value>Время окончания регулярной торговой сессии (время биржи).</value></data>
+  <data name="Delta_RthEnd_DisplayName" xml:space="preserve"><value>Окончание RTH</value></data>
+  <data name="Delta_RthStart_Description" xml:space="preserve"><value>नियमित ट्रेडिंग घंटों का प्रारंभ समय (एक्सचेंज समय)।</value></data>
+  <data name="Delta_RthStart_DisplayName" xml:space="preserve"><value>Начало RTH</value></data>
+  <data name="Delta_SamplesForMeanStd_Description" xml:space="preserve"><value>Минимальное число выборок до активации динамических порогов.</value></data>
+  <data name="Delta_SamplesForMeanStd_DisplayName" xml:space="preserve"><value>Выборки для средн./Std</value></data>
+  <data name="Delta_SessionMode_Description" xml:space="preserve"><value>Окно сессии для сброса динамических порогов.</value></data>
+  <data name="Delta_SessionMode_DisplayName" xml:space="preserve"><value>Окно сессии</value></data>
+  <data name="Delta_ShowAverage_DisplayName" xml:space="preserve"><value>Отображать скользящую среднюю</value></data>
+  <data name="Delta_ShowThresholdLines_Description" xml:space="preserve"><value>Показывает горизонтальные линии порогов на панели объёма.</value></data>
+  <data name="Delta_ShowThresholdLines_DisplayName" xml:space="preserve"><value>Показывать линии порогов</value></data>
+  <data name="Delta_ShowVolume_Description" xml:space="preserve"><value>Отображать значение объема на графике (в кластерном режиме)</value></data>
+  <data name="Delta_ShowVolume_DisplayName" xml:space="preserve"><value>Отображать</value></data>
+  <data name="Delta_StdMultiplier_Description" xml:space="preserve"><value>Большой = среднее + k·Std. Малый = среднее.</value></data>
+  <data name="Delta_StdMultiplier_DisplayName" xml:space="preserve"><value>Множитель Std</value></data>
+  <data name="Delta_Thresholds_Description" xml:space="preserve"><value>Выбор фиксированных или динамических порогов (Welford).</value></data>
+  <data name="Delta_Thresholds_DisplayName" xml:space="preserve"><value>Источник порога</value></data>
+  <data name="Delta_UpColor_Description" xml:space="preserve"><value>Отображает цвет элемента с положительным значением.</value></data>
+  <data name="Delta_UpColor_DisplayName" xml:space="preserve"><value>Positive color</value></data>
+  <data name="Delta_UpMajorLevel_Description" xml:space="preserve"><value>Upper threshold for positive delta.</value></data>
+  <data name="Delta_UpMajorLevel_DisplayName" xml:space="preserve"><value>Fixed + major</value></data>
+  <data name="Delta_UpMinorLevel_Description" xml:space="preserve"><value>Lower threshold for positive delta.</value></data>
+  <data name="Delta_UpMinorLevel_DisplayName" xml:space="preserve"><value>Fixed + minor</value></data>
+  <data name="Delta_VisualDownLevel_Description" xml:space="preserve"><value>Threshold level used for bearish visual alerts.</value></data>
+  <data name="Delta_VisualDownLevel_DisplayName" xml:space="preserve"><value>Visual threshold -</value></data>
+  <data name="Delta_VisualEnabled_Description" xml:space="preserve"><value>Show threshold markers on the price chart.</value></data>
+  <data name="Delta_VisualEnabled_DisplayName" xml:space="preserve"><value>Show markers</value></data>
+  <data name="Delta_VisualUpLevel_Description" xml:space="preserve"><value>Threshold level used for bullish visual alerts.</value></data>
+  <data name="Delta_VisualUpLevel_DisplayName" xml:space="preserve"><value>Visual threshold +</value></data>
+  <data name="Delta_VolLocation_Description" xml:space="preserve"><value>Определяет местоположение отображения метки.</value></data>
+  <data name="Delta_VolLocation_DisplayName" xml:space="preserve"><value>Расположение</value></data>
+  <data name="Group_Average" xml:space="preserve"><value>Среднее</value></data>
+  <data name="Group_DeltaLabel" xml:space="preserve"><value>Delta label</value></data>
+  <data name="Group_Drawing" xml:space="preserve"><value>Отрисовка</value></data>
+  <data name="ThresholdLevel_Major" xml:space="preserve"><value>Major</value></data>
+  <data name="ThresholdLevel_Minor" xml:space="preserve"><value>Minor</value></data>
 </root>
