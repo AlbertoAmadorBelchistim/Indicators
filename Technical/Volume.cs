@@ -8,6 +8,7 @@ using System.Drawing;
 using ATAS.Indicators.Drawing;
 
 using OFT.Attributes;
+using OFT.Attributes.Editors;
 using OFT.Localization;
 using OFT.Rendering.Context;
 using OFT.Rendering.Settings;
@@ -47,6 +48,50 @@ public class Volume : Indicator
 
 		[Display(ResourceType = typeof(Strings), Name = nameof(Strings.Down))]
 		Down
+	}
+
+	public enum ThresholdSource
+	{
+		[Display(Name = TxtThresholdSourceFixed)]
+		Fixed,
+
+		[Display(Name = TxtThresholdSourceDynamicWelford)]
+		DynamicWelford
+	}
+
+	/// <summary>
+	/// Running mean / std-dev accumulator (Welford), O(1) per sample, no look-ahead.
+	/// </summary>
+	private struct WelfordAcc
+	{
+		public int Count;
+		public decimal Mean;
+		private decimal _m2;
+
+		public void Add(decimal x)
+		{
+			Count++;
+			var delta = x - Mean;
+			Mean += delta / Count;
+			var delta2 = x - Mean;
+			_m2 += delta * delta2;
+		}
+
+		public readonly decimal Std()
+		{
+			if (Count <= 1)
+				return 0m;
+
+			var variance = _m2 / (Count - 1);
+			return (decimal)Math.Sqrt((double)variance);
+		}
+
+		public void Reset()
+		{
+			Count = 0;
+			Mean = 0m;
+			_m2 = 0m;
+		}
 	}
 
 	#endregion
@@ -132,6 +177,16 @@ public class Volume : Indicator
 	private decimal _fixedMinorLevel = 1000m;
 	private decimal _fixedMajorLevel = 2000m;
 
+	// ===================== Thresholds (Dynamic - Welford) =====================
+
+	private ThresholdSource _thresholds = ThresholdSource.Fixed;
+	private int _samplesForMeanStd = 20;
+	private decimal _stdMultiplier = 2m;
+
+	private WelfordAcc _acc;
+	private int _lastBarFed = -1;
+	private int _sessionStartBar;
+
 	#endregion
 
 	#region UI strings (pending localization — see NOTE at the top of this region)
@@ -154,6 +209,18 @@ public class Volume : Indicator
 
 	private const string SeriesVolThrMajor = "Volume Threshold Major";
 	private const string SeriesVolThrMinor = "Volume Threshold Minor";
+
+	private const string UiGroupDynamicThreshold = "Dynamic threshold";
+
+	private const string TxtThresholds = "Threshold source";
+	private const string TxtThresholdsDesc = "Source of the threshold lines: fixed levels or dynamic (mean + std-dev).";
+	private const string TxtThresholdSourceFixed = "Fixed";
+	private const string TxtThresholdSourceDynamicWelford = "Dynamic (Welford)";
+
+	private const string TxtSamplesForMeanStd = "Warm-up samples";
+	private const string TxtSamplesForMeanStdDesc = "Closed bars required before dynamic thresholds are drawn.";
+	private const string TxtStdMultiplier = "Std-dev multiplier";
+	private const string TxtStdMultiplierDesc = "Major level = mean + multiplier * std-dev. Minor level = mean.";
 
 	#endregion
 
@@ -233,6 +300,59 @@ public class Volume : Indicator
 				return;
 
 			_fixedMajorLevel = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(Name = TxtThresholds, GroupName = UiGroupThresholds, Description = TxtThresholdsDesc, Order = 510)]
+	[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+	public ThresholdSource Thresholds
+	{
+		get => _thresholds;
+		set
+		{
+			if (_thresholds == value)
+				return;
+
+			_thresholds = value;
+			RaisePropertyChanged(nameof(Thresholds));
+			RecalculateValues();
+		}
+	}
+
+	[DisplayName(TxtSamplesForMeanStd)]
+	[Display(GroupName = UiGroupDynamicThreshold, Description = TxtSamplesForMeanStdDesc, Order = 570)]
+	[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+	[Range(2, 10000)]
+	[PostValueMode(PostValueModes.OnLostFocus)]
+	public int SamplesForMeanStd
+	{
+		get => _samplesForMeanStd;
+		set
+		{
+			if (_samplesForMeanStd == value)
+				return;
+
+			_samplesForMeanStd = value;
+			RecalculateValues();
+		}
+	}
+
+	[DisplayName(TxtStdMultiplier)]
+	[Display(GroupName = UiGroupDynamicThreshold, Description = TxtStdMultiplierDesc, Order = 580)]
+	[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+	[Range(0, 100)]
+	[DisplayFormat(DataFormatString = "F2")]
+	[PostValueMode(PostValueModes.OnLostFocus)]
+	public decimal StdMultiplier
+	{
+		get => _stdMultiplier;
+		set
+		{
+			if (_stdMultiplier == value)
+				return;
+
+			_stdMultiplier = value;
 			RecalculateValues();
 		}
 	}
@@ -526,19 +646,53 @@ public class Volume : Indicator
 	{
 		var candle = GetCandle(bar);
 
-		var val = Input switch
-		{
-			InputType.Ticks => candle.Ticks,
-			InputType.Asks => candle.Ask,
-			InputType.Bids => candle.Bid,
-			_ => candle.Volume
-		};
+		var val = GetInputValue(candle);
 		_renderSeries[bar] = val;
+
+		if (bar == 0)
+		{
+			ResetDynamicState(0);
+		}
+		else if (_thresholds == ThresholdSource.DynamicWelford && IsThresholdSessionStart(bar))
+		{
+			ResetDynamicState(bar);
+			CutThresholdsAt(bar - 1);
+		}
+
+		// Feed the last CLOSED bar exactly once, before computing this bar's threshold.
+		// Bars older than the current session start are never fed (no cross-session pollution).
+		if (_thresholds == ThresholdSource.DynamicWelford)
+		{
+			var barToFeed = bar - 1;
+
+			if (barToFeed >= _sessionStartBar && _lastBarFed != barToFeed)
+			{
+				var prevVal = GetInputValue(GetCandle(barToFeed));
+
+				if (prevVal >= 0)
+					_acc.Add(prevVal);
+
+				_lastBarFed = barToFeed;
+			}
+		}
 
 		if (_showThresholdLines)
 		{
-			_thrMinor[bar] = _fixedMinorLevel;
-			_thrMajor[bar] = _fixedMajorLevel;
+			var (minor, major, ready) = PickUpThresholds();
+
+			if (ready)
+			{
+				_thrMinor[bar] = minor;
+				_thrMajor[bar] = major;
+			}
+			else
+			{
+				CutThresholdsAt(bar - 1);
+			}
+		}
+		else
+		{
+			CutThresholdsAt(bar - 1);
 		}
 
 		if (bar == CurrentBar - 1)
@@ -651,6 +805,52 @@ public class Volume : Indicator
 		var b = Math.Max(0, bar);
 		_thrMajor.SetPointOfEndLine(b);
 		_thrMinor.SetPointOfEndLine(b);
+	}
+
+	private decimal GetInputValue(IndicatorCandle candle)
+	{
+		return Input switch
+		{
+			InputType.Ticks => candle.Ticks,
+			InputType.Asks => candle.Ask,
+			InputType.Bids => candle.Bid,
+			_ => candle.Volume
+		};
+	}
+
+	/// <summary>
+	/// Unified threshold accessor (project PickUpThreshold pattern).
+	/// Fixed: always ready. Dynamic: ready after the warm-up sample count.
+	/// </summary>
+	private (decimal Minor, decimal Major, bool Ready) PickUpThresholds()
+	{
+		if (_thresholds == ThresholdSource.Fixed)
+			return (_fixedMinorLevel, _fixedMajorLevel, true);
+
+		if (_acc.Count < _samplesForMeanStd)
+			return (0m, 0m, false);
+
+		var mean = _acc.Mean;
+
+		return (mean, mean + _stdMultiplier * _acc.Std(), true);
+	}
+
+	/// <summary>
+	/// Threshold-session boundary. Full-data mode follows the exchange session.
+	/// </summary>
+	private bool IsThresholdSessionStart(int bar)
+	{
+		if (bar <= 0)
+			return false;
+
+		return IsNewSession(bar);
+	}
+
+	private void ResetDynamicState(int sessionStartBar)
+	{
+		_acc.Reset();
+		_lastBarFed = -1;
+		_sessionStartBar = sessionStartBar;
 	}
 
 	#endregion
