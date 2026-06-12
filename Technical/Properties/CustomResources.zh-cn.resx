@@ -281,4 +281,79 @@
   <data name="SessionWindowMode_Full24h" xml:space="preserve"><value>全天24小时</value></data>
   <data name="Volume_SeriesThresholdMajor" xml:space="preserve"><value>成交量主要阈值</value></data>
   <data name="Volume_SeriesThresholdMinor" xml:space="preserve"><value>成交量次要阈值</value></data>
+  <data name="AverageColorMode_Fixed" xml:space="preserve"><value>Fixed</value></data>
+  <data name="AverageColorMode_Slope" xml:space="preserve"><value>Slope</value></data>
+  <data name="AverageColorMode_ZeroCross" xml:space="preserve"><value>Zero cross</value></data>
+  <data name="Delta_AlertCooldownBars_DisplayName" xml:space="preserve"><value>冷却期</value></data>
+  <data name="Delta_AudioAtBarCloseOnly_Description" xml:space="preserve"><value>Trigger audio alerts only after the bar closes.</value></data>
+  <data name="Delta_AudioAtBarCloseOnly_DisplayName" xml:space="preserve"><value>Audio at bar close</value></data>
+  <data name="Delta_AudioDownLevel_Description" xml:space="preserve"><value>Threshold level used for bearish audio alerts.</value></data>
+  <data name="Delta_AudioDownLevel_DisplayName" xml:space="preserve"><value>Audio threshold -</value></data>
+  <data name="Delta_AudioEnabled_Description" xml:space="preserve"><value>Play sound when thresholds are crossed.</value></data>
+  <data name="Delta_AudioEnabled_DisplayName" xml:space="preserve"><value>Use audio alerts</value></data>
+  <data name="Delta_AudioUpLevel_Description" xml:space="preserve"><value>Threshold level used for bullish audio alerts.</value></data>
+  <data name="Delta_AudioUpLevel_DisplayName" xml:space="preserve"><value>Audio threshold +</value></data>
+  <data name="Delta_AverageColor_DisplayName" xml:space="preserve"><value>Base color</value></data>
+  <data name="Delta_AveragePeriod_DisplayName" xml:space="preserve"><value>平均周期</value></data>
+  <data name="Delta_AverageWidth_DisplayName" xml:space="preserve"><value>线条宽度</value></data>
+  <data name="Delta_AvgColorMode_DisplayName" xml:space="preserve"><value>Color mode</value></data>
+  <data name="Delta_AvgMode_DisplayName" xml:space="preserve"><value>计算模式</value></data>
+  <data name="Delta_AvgSlopeDownColor_DisplayName" xml:space="preserve"><value>Slope down color</value></data>
+  <data name="Delta_AvgSlopeUpColor_DisplayName" xml:space="preserve"><value>Slope up color</value></data>
+  <data name="Delta_DownColor_Description" xml:space="preserve"><value>显示具有负值的元素的颜色。</value></data>
+  <data name="Delta_DownColor_DisplayName" xml:space="preserve"><value>Negative color</value></data>
+  <data name="Delta_DownMajorLevel_Description" xml:space="preserve"><value>Upper (in magnitude) threshold for negative delta.</value></data>
+  <data name="Delta_DownMajorLevel_DisplayName" xml:space="preserve"><value>Fixed - major</value></data>
+  <data name="Delta_DownMinorLevel_Description" xml:space="preserve"><value>Lower (in magnitude) threshold for negative delta.</value></data>
+  <data name="Delta_DownMinorLevel_DisplayName" xml:space="preserve"><value>Fixed - minor</value></data>
+  <data name="Delta_FontColor_Description" xml:space="preserve"><value>设置标签文本的颜色。</value></data>
+  <data name="Delta_FontColor_DisplayName" xml:space="preserve"><value>颜色</value></data>
+  <data name="Delta_Font_Description" xml:space="preserve"><value>描述了字体的各种设置。</value></data>
+  <data name="Delta_Font_DisplayName" xml:space="preserve"><value>字体</value></data>
+  <data name="Delta_NeutralColor_Description" xml:space="preserve"><value>表示用于中性值的颜色</value></data>
+  <data name="Delta_NeutralColor_DisplayName" xml:space="preserve"><value>中值边框颜色</value></data>
+  <data name="Delta_PriceSignalDownColor_Description" xml:space="preserve"><value>Color of bearish price markers.</value></data>
+  <data name="Delta_PriceSignalDownColor_DisplayName" xml:space="preserve"><value>Down marker color</value></data>
+  <data name="Delta_PriceSignalOffsetTicks_Description" xml:space="preserve"><value>Vertical offset for price markers, in ticks.</value></data>
+  <data name="Delta_PriceSignalOffsetTicks_DisplayName" xml:space="preserve"><value>垂直偏差</value></data>
+  <data name="Delta_PriceSignalSize_Description" xml:space="preserve"><value>入场/出场标记的大小。</value></data>
+  <data name="Delta_PriceSignalSize_DisplayName" xml:space="preserve"><value>标记大小</value></data>
+  <data name="Delta_PriceSignalUpColor_Description" xml:space="preserve"><value>Color of bullish price markers.</value></data>
+  <data name="Delta_PriceSignalUpColor_DisplayName" xml:space="preserve"><value>Up marker color</value></data>
+  <data name="Delta_RthEnd_Description" xml:space="preserve"><value>常规交易时段结束时间（交易所时间）。</value></data>
+  <data name="Delta_RthEnd_DisplayName" xml:space="preserve"><value>RTH 结束</value></data>
+  <data name="Delta_RthStart_Description" xml:space="preserve"><value>常规交易时段开始时间（交易所时间）。</value></data>
+  <data name="Delta_RthStart_DisplayName" xml:space="preserve"><value>RTH 开始</value></data>
+  <data name="Delta_SamplesForMeanStd_Description" xml:space="preserve"><value>动态阈值生效前所需的最小样本数。</value></data>
+  <data name="Delta_SamplesForMeanStd_DisplayName" xml:space="preserve"><value>均值/标准差样本数</value></data>
+  <data name="Delta_SessionMode_Description" xml:space="preserve"><value>用于重置动态阈值的会话窗口。</value></data>
+  <data name="Delta_SessionMode_DisplayName" xml:space="preserve"><value>会话窗口</value></data>
+  <data name="Delta_ShowAverage_DisplayName" xml:space="preserve"><value>显示平均值</value></data>
+  <data name="Delta_ShowThresholdLines_Description" xml:space="preserve"><value>在成交量面板中显示水平阈值线。</value></data>
+  <data name="Delta_ShowThresholdLines_DisplayName" xml:space="preserve"><value>显示阈值线</value></data>
+  <data name="Delta_ShowVolume_Description" xml:space="preserve"><value>交易量标签和描述</value></data>
+  <data name="Delta_ShowVolume_DisplayName" xml:space="preserve"><value>显示</value></data>
+  <data name="Delta_StdMultiplier_Description" xml:space="preserve"><value>主要 = 均值 + k·标准差；次级 = 均值。</value></data>
+  <data name="Delta_StdMultiplier_DisplayName" xml:space="preserve"><value>标准差系数</value></data>
+  <data name="Delta_Thresholds_Description" xml:space="preserve"><value>选择固定阈值或动态阈值（Welford）。</value></data>
+  <data name="Delta_Thresholds_DisplayName" xml:space="preserve"><value>阈值来源</value></data>
+  <data name="Delta_UpColor_Description" xml:space="preserve"><value>显示具有正值的元素的颜色。</value></data>
+  <data name="Delta_UpColor_DisplayName" xml:space="preserve"><value>Positive color</value></data>
+  <data name="Delta_UpMajorLevel_Description" xml:space="preserve"><value>Upper threshold for positive delta.</value></data>
+  <data name="Delta_UpMajorLevel_DisplayName" xml:space="preserve"><value>Fixed + major</value></data>
+  <data name="Delta_UpMinorLevel_Description" xml:space="preserve"><value>Lower threshold for positive delta.</value></data>
+  <data name="Delta_UpMinorLevel_DisplayName" xml:space="preserve"><value>Fixed + minor</value></data>
+  <data name="Delta_VisualDownLevel_Description" xml:space="preserve"><value>Threshold level used for bearish visual alerts.</value></data>
+  <data name="Delta_VisualDownLevel_DisplayName" xml:space="preserve"><value>Visual threshold -</value></data>
+  <data name="Delta_VisualEnabled_Description" xml:space="preserve"><value>Show threshold markers on the price chart.</value></data>
+  <data name="Delta_VisualEnabled_DisplayName" xml:space="preserve"><value>Show markers</value></data>
+  <data name="Delta_VisualUpLevel_Description" xml:space="preserve"><value>Threshold level used for bullish visual alerts.</value></data>
+  <data name="Delta_VisualUpLevel_DisplayName" xml:space="preserve"><value>Visual threshold +</value></data>
+  <data name="Delta_VolLocation_Description" xml:space="preserve"><value>指定标签的显示位置。</value></data>
+  <data name="Delta_VolLocation_DisplayName" xml:space="preserve"><value>Location</value></data>
+  <data name="Group_Average" xml:space="preserve"><value>平均值</value></data>
+  <data name="Group_DeltaLabel" xml:space="preserve"><value>Delta label</value></data>
+  <data name="Group_Drawing" xml:space="preserve"><value>绘图</value></data>
+  <data name="ThresholdLevel_Major" xml:space="preserve"><value>Major</value></data>
+  <data name="ThresholdLevel_Minor" xml:space="preserve"><value>Minor</value></data>
 </root>
