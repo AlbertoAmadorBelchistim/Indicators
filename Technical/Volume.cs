@@ -59,6 +59,15 @@ public class Volume : Indicator
 		DynamicWelford
 	}
 
+	public enum SessionWindowMode
+	{
+		[Display(Name = TxtSessionWindowModeRth)]
+		Rth,
+
+		[Display(Name = TxtSessionWindowModeFull24h)]
+		Full24h
+	}
+
 	/// <summary>
 	/// Running mean / std-dev accumulator (Welford), O(1) per sample, no look-ahead.
 	/// </summary>
@@ -187,6 +196,10 @@ public class Volume : Indicator
 	private int _lastBarFed = -1;
 	private int _sessionStartBar;
 
+	private SessionWindowMode _sessionMode = SessionWindowMode.Rth;
+	private TimeSpan _rthStart = new(9, 30, 0);
+	private TimeSpan _rthEnd = new(16, 0, 0);
+
 	#endregion
 
 	#region UI strings (pending localization — see NOTE at the top of this region)
@@ -221,6 +234,16 @@ public class Volume : Indicator
 	private const string TxtSamplesForMeanStdDesc = "Closed bars required before dynamic thresholds are drawn.";
 	private const string TxtStdMultiplier = "Std-dev multiplier";
 	private const string TxtStdMultiplierDesc = "Major level = mean + multiplier * std-dev. Minor level = mean.";
+
+	private const string TxtSessionMode = "Session window";
+	private const string TxtSessionModeDesc = "Window that scopes dynamic thresholds: RTH hours only, or the full exchange session.";
+	private const string TxtSessionWindowModeRth = "RTH";
+	private const string TxtSessionWindowModeFull24h = "Full 24h";
+
+	private const string TxtRthStart = "RTH start";
+	private const string TxtRthStartDesc = "Start of the RTH window (platform time of day).";
+	private const string TxtRthEnd = "RTH end";
+	private const string TxtRthEndDesc = "End of the RTH window (platform time of day).";
 
 	#endregion
 
@@ -353,6 +376,57 @@ public class Volume : Indicator
 				return;
 
 			_stdMultiplier = value;
+			RecalculateValues();
+		}
+	}
+
+	[DisplayName(TxtSessionMode)]
+	[Display(GroupName = UiGroupDynamicThreshold, Description = TxtSessionModeDesc, Order = 540)]
+	[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+	public SessionWindowMode SessionMode
+	{
+		get => _sessionMode;
+		set
+		{
+			if (_sessionMode == value)
+				return;
+
+			_sessionMode = value;
+			RaisePropertyChanged(nameof(SessionMode));
+			RecalculateValues();
+		}
+	}
+
+	[DisplayName(TxtRthStart)]
+	[Display(GroupName = UiGroupDynamicThreshold, Description = TxtRthStartDesc, Order = 550)]
+	[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+	[PostValueMode(PostValueModes.OnLostFocus)]
+	public TimeSpan RthStart
+	{
+		get => _rthStart;
+		set
+		{
+			if (_rthStart == value)
+				return;
+
+			_rthStart = value;
+			RecalculateValues();
+		}
+	}
+
+	[DisplayName(TxtRthEnd)]
+	[Display(GroupName = UiGroupDynamicThreshold, Description = TxtRthEndDesc, Order = 560)]
+	[Tab(TabName = nameof(Strings.Visualization), TabOrder = 1, ResourceType = typeof(Strings))]
+	[PostValueMode(PostValueModes.OnLostFocus)]
+	public TimeSpan RthEnd
+	{
+		get => _rthEnd;
+		set
+		{
+			if (_rthEnd == value)
+				return;
+
+			_rthEnd = value;
 			RecalculateValues();
 		}
 	}
@@ -667,10 +741,13 @@ public class Volume : Indicator
 
 			if (barToFeed >= _sessionStartBar && _lastBarFed != barToFeed)
 			{
-				var prevVal = GetInputValue(GetCandle(barToFeed));
+				if (InSession(barToFeed))
+				{
+					var prevVal = GetInputValue(GetCandle(barToFeed));
 
-				if (prevVal >= 0)
-					_acc.Add(prevVal);
+					if (prevVal >= 0)
+						_acc.Add(prevVal);
+				}
 
 				_lastBarFed = barToFeed;
 			}
@@ -680,7 +757,7 @@ public class Volume : Indicator
 		{
 			var (minor, major, ready) = PickUpThresholds();
 
-			if (ready)
+			if (ready && (_thresholds == ThresholdSource.Fixed || InSession(bar)))
 			{
 				_thrMinor[bar] = minor;
 				_thrMajor[bar] = major;
@@ -836,14 +913,35 @@ public class Volume : Indicator
 	}
 
 	/// <summary>
-	/// Threshold-session boundary. Full-data mode follows the exchange session.
+	/// True when the bar falls inside the configured threshold window.
+	/// RTH compares the candle's platform time of day; handles windows crossing midnight.
+	/// </summary>
+	private bool InSession(int bar)
+	{
+		if (_sessionMode == SessionWindowMode.Full24h)
+			return true;
+
+		var time = GetCandle(bar).Time.TimeOfDay;
+
+		if (_rthStart <= _rthEnd)
+			return time >= _rthStart && time < _rthEnd;
+
+		return time >= _rthStart || time < _rthEnd;
+	}
+
+	/// <summary>
+	/// Threshold-session boundary. Full 24h follows the exchange session;
+	/// RTH detects the outside->inside transition of the configured window.
 	/// </summary>
 	private bool IsThresholdSessionStart(int bar)
 	{
 		if (bar <= 0)
 			return false;
 
-		return IsNewSession(bar);
+		if (_sessionMode == SessionWindowMode.Full24h)
+			return IsNewSession(bar);
+
+		return !InSession(bar - 1) && InSession(bar);
 	}
 
 	private void ResetDynamicState(int sessionStartBar)
