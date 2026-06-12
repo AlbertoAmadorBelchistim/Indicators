@@ -1625,5 +1625,161 @@ namespace ATAS.Indicators.Technical.Properties {
                 return ResourceManager.GetString("ZoneDisplayMode_PrimaryOnly", resourceCulture);
             }
         }
+
+        public static string Group_FixedThreshold {
+            get {
+                return ResourceManager.GetString("Group_FixedThreshold", resourceCulture);
+            }
+        }
+
+        public static string Group_DynamicThreshold {
+            get {
+                return ResourceManager.GetString("Group_DynamicThreshold", resourceCulture);
+            }
+        }
+
+        public static string Volume_ShowThresholdLines_DisplayName {
+            get {
+                return ResourceManager.GetString("Volume_ShowThresholdLines_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Volume_ShowThresholdLines_Description {
+            get {
+                return ResourceManager.GetString("Volume_ShowThresholdLines_Description", resourceCulture);
+            }
+        }
+
+        public static string Volume_FixedMinorLevel_DisplayName {
+            get {
+                return ResourceManager.GetString("Volume_FixedMinorLevel_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Volume_FixedMinorLevel_Description {
+            get {
+                return ResourceManager.GetString("Volume_FixedMinorLevel_Description", resourceCulture);
+            }
+        }
+
+        public static string Volume_FixedMajorLevel_DisplayName {
+            get {
+                return ResourceManager.GetString("Volume_FixedMajorLevel_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Volume_FixedMajorLevel_Description {
+            get {
+                return ResourceManager.GetString("Volume_FixedMajorLevel_Description", resourceCulture);
+            }
+        }
+
+        public static string Volume_Thresholds_DisplayName {
+            get {
+                return ResourceManager.GetString("Volume_Thresholds_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Volume_Thresholds_Description {
+            get {
+                return ResourceManager.GetString("Volume_Thresholds_Description", resourceCulture);
+            }
+        }
+
+        public static string Volume_SamplesForMeanStd_DisplayName {
+            get {
+                return ResourceManager.GetString("Volume_SamplesForMeanStd_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Volume_SamplesForMeanStd_Description {
+            get {
+                return ResourceManager.GetString("Volume_SamplesForMeanStd_Description", resourceCulture);
+            }
+        }
+
+        public static string Volume_StdMultiplier_DisplayName {
+            get {
+                return ResourceManager.GetString("Volume_StdMultiplier_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Volume_StdMultiplier_Description {
+            get {
+                return ResourceManager.GetString("Volume_StdMultiplier_Description", resourceCulture);
+            }
+        }
+
+        public static string Volume_SessionMode_DisplayName {
+            get {
+                return ResourceManager.GetString("Volume_SessionMode_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Volume_SessionMode_Description {
+            get {
+                return ResourceManager.GetString("Volume_SessionMode_Description", resourceCulture);
+            }
+        }
+
+        public static string Volume_RthStart_DisplayName {
+            get {
+                return ResourceManager.GetString("Volume_RthStart_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Volume_RthStart_Description {
+            get {
+                return ResourceManager.GetString("Volume_RthStart_Description", resourceCulture);
+            }
+        }
+
+        public static string Volume_RthEnd_DisplayName {
+            get {
+                return ResourceManager.GetString("Volume_RthEnd_DisplayName", resourceCulture);
+            }
+        }
+
+        public static string Volume_RthEnd_Description {
+            get {
+                return ResourceManager.GetString("Volume_RthEnd_Description", resourceCulture);
+            }
+        }
+
+        public static string ThresholdSource_Fixed {
+            get {
+                return ResourceManager.GetString("ThresholdSource_Fixed", resourceCulture);
+            }
+        }
+
+        public static string ThresholdSource_DynamicWelford {
+            get {
+                return ResourceManager.GetString("ThresholdSource_DynamicWelford", resourceCulture);
+            }
+        }
+
+        public static string SessionWindowMode_Rth {
+            get {
+                return ResourceManager.GetString("SessionWindowMode_Rth", resourceCulture);
+            }
+        }
+
+        public static string SessionWindowMode_Full24h {
+            get {
+                return ResourceManager.GetString("SessionWindowMode_Full24h", resourceCulture);
+            }
+        }
+
+        public static string Volume_SeriesThresholdMajor {
+            get {
+                return ResourceManager.GetString("Volume_SeriesThresholdMajor", resourceCulture);
+            }
+        }
+
+        public static string Volume_SeriesThresholdMinor {
+            get {
+                return ResourceManager.GetString("Volume_SeriesThresholdMinor", resourceCulture);
+            }
+        }
     }
 }
