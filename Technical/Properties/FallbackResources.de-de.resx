@@ -4780,4 +4780,6 @@ Wenn Sie Zugang anfordern oder denken, dass dies ein Fehler sein könnte, wenden
   <data name="ZigZagTPOAndProfile" xml:space="preserve">
     <value>ZigZag Volumenprofil &amp; TPO</value>
   </data>
+  <data name="DivergenceBarsDescription" xml:space="preserve"><value>Hebt Divergenzbalken im Delta-Panel hervor, wenn Kerzenrichtung und Delta entgegengesetzt sind.</value></data>
+  <data name="DivergenceDotsDescription" xml:space="preserve"><value>Zeigt Divergenzmarkierungen im Preisdiagramm an, wenn Kerzenrichtung und Delta entgegengesetzt sind.</value></data>
 </root>

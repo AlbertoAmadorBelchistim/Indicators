@@ -4778,4 +4778,6 @@ Si vous souhaitez demander un accès ou pensez qu'il pourrait s'agir d'une erreu
   <data name="ZigZagTPOAndProfile" xml:space="preserve">
     <value>ZigZag Profil de Volume &amp; TPO</value>
   </data>
+  <data name="DivergenceBarsDescription" xml:space="preserve"><value>Met en évidence les barres de divergence dans le panneau Delta lorsque la direction de la bougie et le delta sont opposés.</value></data>
+  <data name="DivergenceDotsDescription" xml:space="preserve"><value>Affiche des marqueurs de divergence sur le prix lorsque la direction de la bougie et le delta sont opposés.</value></data>
 </root>

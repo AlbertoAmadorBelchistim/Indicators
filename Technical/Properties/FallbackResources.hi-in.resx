@@ -4779,4 +4779,6 @@
   <data name="ZigZagTPOAndProfile" xml:space="preserve">
     <value>ZigZag Profile &amp; TPO</value>
   </data>
+  <data name="DivergenceBarsDescription" xml:space="preserve"><value>जब कैंडल की दिशा और डेल्टा विपरीत हों, तब डेल्टा पैनल में डाइवर्जेंस बार को हाइलाइट करता है।</value></data>
+  <data name="DivergenceDotsDescription" xml:space="preserve"><value>जब कैंडल की दिशा और डेल्टा विपरीत हों, तब कीमत पर डाइवर्जेंस मार्कर दिखाता है।</value></data>
 </root>

@@ -4778,4 +4778,6 @@ If you’d like to request access or think this might be an error, please reach 
   <data name="ZigZagTPOAndProfile" xml:space="preserve">
     <value>ZigZag Volume Profile &amp; TPO</value>
   </data>
+  <data name="DivergenceBarsDescription" xml:space="preserve"><value>Highlights divergence bars in the Delta panel when bar direction and delta are opposite.</value></data>
+  <data name="DivergenceDotsDescription" xml:space="preserve"><value>Shows divergence markers on the price chart when bar direction and delta are opposite.</value></data>
 </root>

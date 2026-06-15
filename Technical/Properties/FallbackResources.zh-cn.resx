@@ -4778,4 +4778,6 @@
   <data name="ZigZagTPOAndProfile" xml:space="preserve">
     <value>ZigZag 成交量Profile &amp; TPO</value>
   </data>
+  <data name="DivergenceBarsDescription" xml:space="preserve"><value>当K线方向与Delta相反时，在Delta面板中高亮显示背离柱。</value></data>
+  <data name="DivergenceDotsDescription" xml:space="preserve"><value>当K线方向与Delta相反时，在价格上显示背离标记。</value></data>
 </root>

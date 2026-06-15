@@ -13990,5 +13990,17 @@ namespace ATAS.Indicators.Technical.Properties {
                 return ResourceManager.GetString("ZigZagTPOAndProfile", resourceCulture);
             }
         }
+
+        public static string DivergenceBarsDescription {
+            get {
+                return ResourceManager.GetString("DivergenceBarsDescription", resourceCulture);
+            }
+        }
+
+        public static string DivergenceDotsDescription {
+            get {
+                return ResourceManager.GetString("DivergenceDotsDescription", resourceCulture);
+            }
+        }
     }
 }
