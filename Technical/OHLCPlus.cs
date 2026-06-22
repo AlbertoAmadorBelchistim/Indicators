@@ -1032,8 +1032,10 @@ public class OHLCPlus : Indicator
     protected override void OnFixedProfilesResponse(IndicatorCandle fixedProfileScaled, IndicatorCandle fixedProfileOriginScale, FixedProfilePeriods period)
 #pragma warning restore CS0672
     {
-        _profileCandles[period] = fixedProfileOriginScale;
-        UpdateLevels(period, fixedProfileOriginScale);
+        // Use the scaled profile: it is binned to the current chart scale, so all levels
+        // (OHLC, POC, VWAP and the value area) line up with what the Profile indicator draws.
+        _profileCandles[period] = fixedProfileScaled;
+        UpdateLevels(period, fixedProfileScaled);
         RedrawChart();
     }
 
