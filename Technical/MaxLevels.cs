@@ -289,7 +289,7 @@ namespace ATAS.Indicators.Technical
 		{
 			try
 			{
-				var response = await RequestFixedProfileAsync(new FixedProfileRequest(Period, TradingSession, baseTime));
+				var response = await RequestFixedProfileAsync(new FixedProfileRequest(Period, TradingSession));
 
 				if (response is { } r)
 				{
@@ -341,7 +341,9 @@ namespace ATAS.Indicators.Technical
 					MaxLevelType.PositiveDelta => priceInfo.Ask - priceInfo.Bid,
 					MaxLevelType.NegativeDelta => priceInfo.Ask - priceInfo.Bid,
 					MaxLevelType.Tick => priceInfo.Ticks,
+#pragma warning disable CS0612
 					MaxLevelType.Time => priceInfo.Time,
+#pragma warning restore CS0612
 					_ => priceInfo.Volume
 				};
 
@@ -403,7 +405,9 @@ namespace ATAS.Indicators.Technical
 				MaxLevelType.NegativeDelta => _candle.MaxNegativeDeltaPriceInfo,
 				MaxLevelType.Volume => _candle.MaxVolumePriceInfo,
 				MaxLevelType.Tick => _candle.MaxTickPriceInfo,
+#pragma warning disable CS0612
 				MaxLevelType.Time => _candle.MaxTimePriceInfo,
+#pragma warning restore CS0612
 				_ => throw new ArgumentOutOfRangeException()
 			};
 		}

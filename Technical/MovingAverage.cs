@@ -232,8 +232,7 @@ public class MovingAverage : Indicator
         if (_lastAlert == bar && !RepeatAlert)
             return;
 
-        var close = GetCandle(bar).Close;
-        var onLine = Math.Abs(_data[bar] - close) / InstrumentInfo.TickSize <= AlertSensitivity;
+        var onLine = Math.Abs(_data[bar] - value) / InstrumentInfo.TickSize <= AlertSensitivity;
 
         if (onLine && !_onLine)
         {

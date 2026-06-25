@@ -22,7 +22,9 @@
 
         #region Properties
 
+#pragma warning disable CS0618
         [Parameter]
+#pragma warning restore CS0618
         [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShortPeriod), GroupName = nameof(Strings.Period), Description = nameof(Strings.ShortPeriodDescription), Order = 100)]
 		[Range(2, 10000)]
 		[LessThan<int>(nameof(LongPeriod), ErrorMessageResourceType = typeof(Strings), ErrorMessageResourceName = nameof(Strings.ValueMustBeLessThan))]
@@ -39,7 +41,9 @@
 			}
 		}
 
+#pragma warning disable CS0618
         [Parameter]
+#pragma warning restore CS0618
         [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LongPeriod), GroupName = nameof(Strings.Period), Description = nameof(Strings.LongPeriodDescription), Order = 110)]
 		[Range(2, 10000)]
 		[GreaterThan<int>(nameof(ShortPeriod), ErrorMessageResourceType = typeof(Strings), ErrorMessageResourceName = nameof(Strings.ValueMustBeGreaterThan))]
@@ -56,7 +60,9 @@
 			}
 		}
 
+#pragma warning disable CS0618
         [Parameter]
+#pragma warning restore CS0618
         [Display(ResourceType = typeof(Strings), Name = nameof(Strings.SignalPeriod), GroupName = nameof(Strings.Period), Description = nameof(Strings.SignalPeriodDescription), Order = 120)]
 		[Range(2, 10000)]
 		public int SignalPeriod
