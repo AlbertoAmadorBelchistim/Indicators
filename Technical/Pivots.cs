@@ -172,6 +172,7 @@ namespace ATAS.Indicators.Technical
         private decimal _m3;
         private decimal _m4;
         private bool _newSessionWasStarted;
+        private bool _firstBarStartsPeriod;
         private Period _pivotRange;
 
         private decimal _pp;
@@ -356,6 +357,7 @@ namespace ATAS.Indicators.Technical
                 _lastBar = 0;
                 _sessionStarts.Clear();
                 _newSessionWasStarted = false;
+                _firstBarStartsPeriod = IsFirstBarPeriodStart();
                 DataSeries.ForEach(x => x.Clear());
                 Labels.Clear();
                 _prevDayHigh = _prevDayLow = _prevDayClose = 0;
@@ -378,57 +380,70 @@ namespace ATAS.Indicators.Technical
 
             if (isNewSession && inSession && _lastNewSessionBar != bar)
             {
-                _sessionStarts.Enqueue(bar);
+                // Pivots are calculated from the HLC of the previous period, so they can be
+                // displayed only when that period is fully covered by the loaded history —
+                // otherwise the line values would change as more history is loaded. The
+                // session start at bar 0 is synthetic (history may begin mid-period), so the
+                // first period is trusted as a calculation base only when bar 0 is known to
+                // sit exactly on a period boundary.
+                var hasCompletePreviousPeriod = _lastNewSessionBar > 0
+                    || _lastNewSessionBar == 0 && _firstBarStartsPeriod;
 
-                if (RenderPeriodsFilter.Enabled)
+                if (hasCompletePreviousPeriod)
                 {
-                    while (_sessionStarts.Count > RenderPeriodsFilter.Value)
+                    _sessionStarts.Enqueue(bar);
+
+                    if (RenderPeriodsFilter.Enabled)
                     {
-                        RemoveLabels(_sessionStarts.Peek());
-
-                        for (var i = _sessionStarts.Dequeue(); i < _sessionStarts.Peek(); i++)
+                        while (_sessionStarts.Count > RenderPeriodsFilter.Value)
                         {
-                            _ppSeries[i] = 0;
-                            _s1Series[i] = 0;
-                            _s2Series[i] = 0;
-                            _s3Series[i] = 0;
+                            RemoveLabels(_sessionStarts.Peek());
 
-                            _r1Series[i] = 0;
-                            _r2Series[i] = 0;
-                            _r3Series[i] = 0;
+                            for (var i = _sessionStarts.Dequeue(); i < _sessionStarts.Peek(); i++)
+                            {
+                                _ppSeries[i] = 0;
+                                _s1Series[i] = 0;
+                                _s2Series[i] = 0;
+                                _s3Series[i] = 0;
 
-                            _m1Series[i] = 0;
-                            _m2Series[i] = 0;
-                            _m3Series[i] = 0;
-                            _m4Series[i] = 0;
+                                _r1Series[i] = 0;
+                                _r2Series[i] = 0;
+                                _r3Series[i] = 0;
+
+                                _m1Series[i] = 0;
+                                _m2Series[i] = 0;
+                                _m3Series[i] = 0;
+                                _m4Series[i] = 0;
+                            }
                         }
                     }
+
+                    _newSessionWasStarted = true;
+
+                    var close = _prevDayClose == 0 ? candle.Close : _prevDayClose;
+
+                    _pp = (_prevDayHigh + _prevDayLow + close) / 3;
+                    _s1 = 2 * _pp - _prevDayHigh;
+                    _r1 = 2 * _pp - _prevDayLow;
+                    _s2 = _pp - (_prevDayHigh - _prevDayLow);
+                    _r2 = _pp + (_prevDayHigh - _prevDayLow);
+
+                    _s3 = ThirdFormula is Formula.HighLow
+                        ? _pp - 2 * (_prevDayHigh - _prevDayLow)
+                        : _prevDayLow - 2 * (_prevDayHigh - _pp);
+
+                    _r3 = ThirdFormula is Formula.HighLow
+                        ? _pp + 2 * (_prevDayHigh - _prevDayLow)
+                        : _prevDayHigh + 2 * (_pp - _prevDayLow);
+
+                    _m1 = (_s1 + _s2) / 2;
+                    _m2 = (_s1 + _pp) / 2;
+                    _m3 = (_r1 + _pp) / 2;
+                    _m4 = (_r1 + _r2) / 2;
                 }
 
                 _lastNewSessionBar = bar;
                 _id = bar;
-                _newSessionWasStarted = true;
-
-                var close = _prevDayClose == 0 ? candle.Close : _prevDayClose;
-
-                _pp = (_prevDayHigh + _prevDayLow + close) / 3;
-                _s1 = 2 * _pp - _prevDayHigh;
-                _r1 = 2 * _pp - _prevDayLow;
-                _s2 = _pp - (_prevDayHigh - _prevDayLow);
-                _r2 = _pp + (_prevDayHigh - _prevDayLow);
-
-                _s3 = ThirdFormula is Formula.HighLow
-                    ? _pp - 2 * (_prevDayHigh - _prevDayLow)
-                    : _prevDayLow - 2 * (_prevDayHigh - _pp);
-
-                _r3 = ThirdFormula is Formula.HighLow
-                    ? _pp + 2 * (_prevDayHigh - _prevDayLow)
-                    : _prevDayHigh + 2 * (_pp - _prevDayLow);
-
-                _m1 = (_s1 + _s2) / 2;
-                _m2 = (_s1 + _pp) / 2;
-                _m3 = (_r1 + _pp) / 2;
-                _m4 = (_r1 + _r2) / 2;
 
                 _prevDayHigh = candle.High;
                 _prevDayLow = candle.Low;
@@ -466,6 +481,7 @@ namespace ATAS.Indicators.Technical
             }
 
             if (_showText
+                && _newSessionWasStarted
                 && Labels
                     .Select(x => x.Value.Bar)
                     .DefaultIfEmpty(0)
@@ -575,6 +591,54 @@ namespace ATAS.Indicators.Technical
         private Color ConvertColor(CrossColor cl)
         {
             return Color.FromArgb(cl.A, cl.R, cl.G, cl.B);
+        }
+
+        private bool IsFirstBarPeriodStart()
+        {
+            var time = GetCandle(0).Time;
+
+            // Non-time-based charts (tick, range, etc.) produce bars at arbitrary
+            // timestamps — alignment with a period boundary cannot be assumed.
+            if (time.Second != 0 || time.Millisecond != 0)
+                return false;
+
+            switch (PivotRange)
+            {
+                case Period.M1:
+                    return GetBeginTime(time, 1) == time;
+                case Period.M5:
+                    return GetBeginTime(time, 5) == time;
+                case Period.M10:
+                    return GetBeginTime(time, 10) == time;
+                case Period.M15:
+                    return GetBeginTime(time, 15) == time;
+                case Period.M30:
+                    return GetBeginTime(time, 30) == time;
+                case Period.Hourly:
+                    return time.Minute == 0;
+                case Period.H4:
+                    return GetBeginTime(time, 240) == time;
+                case Period.Daily:
+                    if (UseCustomSession)
+                        return time.AddHours(InstrumentInfo.TimeZone).TimeOfDay == _sessionBegin;
+
+                    // One second before a session start lies either in a non-working gap
+                    // or in the previous session — both are reported as a new session.
+                    return DataProvider?.IsNewSession(time.AddSeconds(-1), time) is true;
+                case Period.Weekly:
+                    // The 90-minute probe reaches across the pre-session maintenance break;
+                    // it cannot skip over a whole same-period session, and landing in a
+                    // longer gap (weekend, holiday) yields false, i.e. stays conservative.
+                    return !UseCustomSession && DataProvider is { } weekProvider
+                        && (weekProvider.IsNewWeek(time.AddSeconds(-1), time)
+                            || weekProvider.IsNewWeek(time.AddMinutes(-90), time));
+                case Period.Monthly:
+                    return !UseCustomSession && DataProvider is { } monthProvider
+                        && (monthProvider.IsNewMonth(time.AddSeconds(-1), time)
+                            || monthProvider.IsNewMonth(time.AddMinutes(-90), time));
+            }
+
+            return false;
         }
 
         private bool IsNeSession(int bar)
