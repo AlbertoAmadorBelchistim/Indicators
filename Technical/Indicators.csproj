@@ -158,6 +158,12 @@
 		<Compile Remove="RolloverDates.cs" />
 	</ItemGroup>
 
+	<!-- PlatformStrings stands in for OFT.Localization.Strings outside Alpha (see Compat/Localization/PlatformStrings.Generated.cs);
+	     Alpha builds use the platform class, so the generated resources are not embedded there. -->
+	<ItemGroup Condition=" '$(Configuration)' == 'Alpha' Or '$(Configuration)' == 'ATAS_X_Alpha' ">
+		<EmbeddedResource Remove="Compat\Localization\PlatformStrings*.resx" />
+	</ItemGroup>
+
 	<!-- The Heatmap SDK ships in every v8 flavor since the 2026-09 builds; only Stable (v7) lacks it. -->
 	<ItemGroup Condition=" '$(Configuration)' == 'Stable' ">
 		<Compile Remove="Heatmap\Heatmap*.cs" />

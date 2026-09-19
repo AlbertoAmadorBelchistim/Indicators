@@ -1,0 +1,1673 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="ABWMADescription" xml:space="preserve"><value>ABW MA 지표는 적응 이동 평균(AMA) 및 표준 편차(StdDev) 알고리즘을 기반으로 하는 거래 도구로, 현재 AMA 값이 이전 값을 지정된 비율 이상 초과할 때 "1" 및 "-1" 신호를 생성합니다. 이는 상승 또는 하강 편차를 나타내며, 그렇지 않으면 신호는 0입니다.</value></data>
+  <data name="ACDCDescription" xml:space="preserve"><value>ACDC 지표는 오실레이터와 이동 평균의 조합으로, 가격 역학의 변화를 식별하는 데 사용됩니다. 이는 두 이동 평균 간의 차이를 기반으로 하며, 스무딩을 위해 추가 이동 평균을 사용합니다. 이동 평균에 대해 네 가지 서로 다른 기간이 사용되며, 지표는 다양한 시장 조건에 맞게 조정될 수 있습니다.</value></data>
+  <data name="ACDescription" xml:space="preserve"><value>가속기 오실레이터(AC)는 Awesome Oscillator(AO)에서 파생된 기술 지표로, 시장 모멘텀의 가속 또는 감속을 측정합니다. 이는 제로 라인 위아래로 변동하는 히스토그램으로 구성되어 있으며, 양수 값은 강세 모멘텀을 나타내고 음수 값은 약세 모멘텀을 나타냅니다. 트레이더는 AC 지표를 사용하여 잠재적인 추세 반전 또는 지속 패턴을 식별합니다.</value></data>
+  <data name="ACRDescription" xml:space="preserve"><value>평균 캔들 범위(ACR) 지표는 세션 시작부터 현재 캔들까지의 캔들 평균 범위를 계산하고 이 평균 범위의 변화를 히스토그램을 통해 표시합니다.</value></data>
+  <data name="ADDescription" xml:space="preserve"><value>누적/분배(A/D) 지표는 거래량과 가격을 사용하여 주식의 누적 또는 분배를 평가하는 누적 도구입니다. A/D는 가격과 거래량 간의 불일치를 측정하여 현재 추세의 강도를 결정하는 데 도움을 줍니다. 가격이 상승하고 있지만 A/D가 하락하고 있다면, 이는 성장을 지원할 충분한 거래량이 없음을 나타낼 수 있으며, 가격이 하락할 가능성이 있습니다.
+
+계산:
+특정 양의 캔들 거래량이 현재 지표의 누적 값에 추가되거나 빼집니다. 종가가 캔들의 고가에 가까울수록 추가되는 양이 커집니다. 종가가 캔들의 저가에 가까울수록 빼는 양이 커집니다. 종가가 최대값과 최소값 사이에 엄격히 있을 경우, 지표의 값은 변하지 않습니다.
+A/D(i) = ((CLOSE(i) - LOW(i)) - (HIGH(i) - CLOSE(i)) * VOLUME(i) / (HIGH(i) - LOW(i)) + A/D(i-1)
+여기서:
+A/D(i) — 현재 바에 대한 누적/분배 지표의 값;
+CLOSE(i) — 바의 종가;
+LOW(i) — 바의 최저 가격;
+HIGH(i) — 바의 최고 가격;
+VOLUME(i) — 거래량;
+A/D(i-1) — 이전 바에 대한 누적/분배 지표의 값.</value></data>
+  <data name="ADFDescription" xml:space="preserve"><value>ADF(누적/분배 흐름) 지표는 AD(누적/분배) 지표의 확장 버전으로, 특정 기간의 이동 평균을 사용하여 누적 및 분배 흐름에 대한 실시간 정보를 제공합니다. 이는 거래량 및 가격 데이터를 기반으로 자산이 누적(상승)되고 있는지 또는 분배(하락)되고 있는지를 평가합니다.</value></data>
+  <data name="ADR" xml:space="preserve"><value>평균 일간 범위</value></data>
+  <data name="ADRDescription" xml:space="preserve"><value>ADR(평균 일일 범위) 지표는 지정된 과거 일수의 평균 가격 범위를 계산하고 현재 날짜에 표시합니다.</value></data>
+  <data name="ADX" xml:space="preserve"><value>평균 방향성 이동 지수(ADX)는 계산 및 정보를 제공합니다.</value></data>
+  <data name="ADXDescription" xml:space="preserve"><value>ADX(평균 방향 지수)는 트레이더가 시장 추세의 강도를 평가하는 데 사용하는 도구입니다. 이는 DX(방향 지수)와 WMA(가중 이동 평균)에서 제공하는 스무딩 메커니즘의 두 가지 주요 구성 요소로 구성됩니다. ADX 라인은 전체 추세 강도를 나타냅니다. ADX가 상승하면 추세가 강화되고 있음을 나타내며, ADX가 하락하면 추세가 약화되고 있음을 나타냅니다.</value></data>
+  <data name="ADXRDescription" xml:space="preserve"><value>ADXR(평균 방향 이동 등급)은 지정된 기간 동안 값을 매끄럽게 하여 ADX(평균 방향 지수)를 개선하는 기술 지표입니다. 이는 트레이더가 단기 변동성을 줄여 보다 일관되게 추세의 강도를 측정할 수 있도록 도와줍니다.</value></data>
+  <data name="AMADescription" xml:space="preserve"><value>적응형 이동 평균(AMA)은 가격 변동에 대한 민감도를 조정하여 시장 역학의 변화에 더 효율적으로 반응하는 매끄러운 이동 평균을 제공하는 기술 지표입니다.</value></data>
+  <data name="AODescription" xml:space="preserve"><value>빌 윌리엄스 오실레이터(어썸 오실레이터)는 시장 움직임의 강도를 측정하기 위한 지표입니다. 이 오실레이터는 34기간과 5기간의 단순 이동 평균(SMA) 간의 차이를 계산합니다. 현재 추세를 확인하거나 시장의 잠재적 반전을 나타내는 데 사용됩니다.</value></data>
+  <data name="ATR" xml:space="preserve"><value>ATR</value></data>
+  <data name="ATRDescription" xml:space="preserve"><value>평균 진폭 범위(ATR) 지표는 특정 기간 동안의 가격 변화 정도를 측정하여 자산의 변동성을 효과적으로 보여줍니다. 이는 트레이더와 투자자가 시장 변동성을 평가하고 정보에 기반한 결정을 내리는 데 유용한 도구입니다.</value></data>
+  <data name="ATRMultiplierDescription" xml:space="preserve"><value>허용 수준을 결정하기 위해 ATR에 적용되는 배수.</value></data>
+  <data name="ATRNDescription" xml:space="preserve"><value>ATR 노멀라이즈드는 ATR 지표의 정규화 버전으로, 현재 가격의 백분율로 변동성 수준을 측정하는 데 사용됩니다.</value></data>
+  <data name="AboveCandle" xml:space="preserve"><value>촛불 위</value></data>
+  <data name="AbovePrice" xml:space="preserve"><value>가격 이상</value></data>
+  <data name="AbsolutePrice" xml:space="preserve"><value>절대 가격</value></data>
+  <data name="Absorption" xml:space="preserve"><value>흡수</value></data>
+  <data name="AbsorptionThresholdDesc" xml:space="preserve"><value>흡수를 고려하기 위한 종가와 델타 극단 사이의 최소 거리</value></data>
+  <data name="AccelMax" xml:space="preserve"><value>최대 가속도</value></data>
+  <data name="AccelMaxDescription" xml:space="preserve"><value>이 속성은 가속 계수가 도달할 수 있는 최대값을 제한합니다. 이 제한은 강한 추세 시장에서 SAR의 민감도가 과도해지는 것을 방지합니다.</value></data>
+  <data name="AccelStart" xml:space="preserve"><value>가속 시작</value></data>
+  <data name="AccelStartDescription" xml:space="preserve"><value>이 속성은 Parabolic SAR 계산을 위한 초기 가속 계수를 설정합니다. 이는 가격 변화에 따라 SAR이 이동하는 속도를 결정합니다.</value></data>
+  <data name="AccelStep" xml:space="preserve"><value>가속 단계</value></data>
+  <data name="AccelStepDescription" xml:space="preserve"><value>AccelStep 속성은 가속 계수가 증가할 수 있는 단계 또는 증분을 지정합니다. 이 속성은 가속 계수를 조정할 수 있는 속도를 정의합니다. 가속 계수가 얼마나 빠르게 변경될 수 있는지를 제어할 수 있습니다.</value></data>
+  <data name="AccountInfoDisplayDescription" xml:space="preserve"><value>차트에 계좌 상세 정보를 표시합니다</value></data>
+  <data name="Accumulated" xml:space="preserve"><value>누적된</value></data>
+  <data name="ActiveVolumeDescription" xml:space="preserve"><value>"활성 볼륨" 지표는 지정된 날짜부터 시작하여 다양한 가격 수준에서의 누적 구매(Ask) 및 판매(Bid) 볼륨에 대한 실시간 데이터를 제공합니다.</value></data>
+  <data name="AdaptiveRsiAverageDescription" xml:space="preserve"><value>지표 Adaptive RSI Moving Average는 상대 강도 지수(RSI)의 적응형 이동 평균을 계산하고 표시합니다. 이는 입력 데이터에 지정된 데이터의 함수입니다. 이 지표는 입력 데이터와 RSI를 선택적으로 평활화할 수 있도록 허용합니다.</value></data>
+  <data name="AdxPeriod" xml:space="preserve"><value>ADX 기간</value></data>
+  <data name="AdxPeriodDescription" xml:space="preserve"><value>기본 ADX 계산에 사용되는 기간을 조정합니다.</value></data>
+  <data name="AlertBackgroundDescription" xml:space="preserve"><value>이 옵션은 경고 메시지의 배경 색상을 설정하는 데 사용됩니다. 사용자는 지표에 의해 생성된 알림 또는 경고의 배경 모양을 사용자 정의할 수 있습니다.</value></data>
+  <data name="AlertBeforeFileDescription" xml:space="preserve"><value>주 알림 전에 알림을 위한 사운드 파일을 지정합니다.</value></data>
+  <data name="AlertBeforeSecondsDescription" xml:space="preserve"><value>새 알림이 나타나기 전의 초 수를 설정합니다.</value></data>
+  <data name="AlertFile" xml:space="preserve"><value>알림 파일</value></data>
+  <data name="AlertFileDescription" xml:space="preserve"><value>사용자 정의 알림 소리 설정. 선택한 파일은 WAV 형식이어야 하며 C:\Program Files (x86)\ATAS Platform\Sounds 폴더에 있어야 합니다.</value></data>
+  <data name="AlertFillColorDescription" xml:space="preserve"><value>알림 창의 배경색을 설정합니다.</value></data>
+  <data name="AlertFilter" xml:space="preserve"><value>알림 필터</value></data>
+  <data name="AlertFilterDescription" xml:space="preserve"><value>수동으로 설정된 볼륨 수준에 도달했을 때 알림.</value></data>
+  <data name="AlertNewCandle" xml:space="preserve"><value>새 촛불 알림</value></data>
+  <data name="AlertPerBar" xml:space="preserve"><value>바별 경고</value></data>
+  <data name="AlertPerBarDescription" xml:space="preserve"><value>활성화되면 경고는 하나의 바 동안 한 번만 트리거됩니다.</value></data>
+  <data name="AlertTextColorDescription" xml:space="preserve"><value>알림 창에서 텍스트의 색상을 설정합니다.</value></data>
+  <data name="Alerts" xml:space="preserve"><value>알림</value></data>
+  <data name="AllLevelsColorDescription" xml:space="preserve"><value>모든 수준의 색상을 정의합니다.</value></data>
+  <data name="AllPeriodtxt" xml:space="preserve"><value>전체 기간</value></data>
+  <data name="AlligatorDescription" xml:space="preserve"><value>악어 기술 지표는 서로 다른 기간(13, 8, 5)의 세 개의 스무딩 이동 평균(SMA)의 일반적인 조합에 불과하며, 각각 다양한 기간(8, 5, 3)으로 이동됩니다. 이 기술 지표의 저자는 이동 평균을 구축하기 위해 중앙값을 사용합니다.</value></data>
+  <data name="AllowCustomStartPoint" xml:space="preserve"><value>사용자 정의 시작 지점 모드</value></data>
+  <data name="AllowCustomStartPointDescription" xml:space="preserve"><value>사용할 사용자 정의 시작점을 결정합니다.</value></data>
+  <data name="AnalysisPeriod" xml:space="preserve"><value>회고적 분석 기간</value></data>
+  <data name="AngleDescription" xml:space="preserve"><value>이 지표는 수평 차트 축과 현재 가격 및 주어진 기간 수 이전의 가격으로 형성된 직선 간의 각도를 계산합니다.</value></data>
+  <data name="Any" xml:space="preserve"><value>모든</value></data>
+  <data name="AnyWick" xml:space="preserve"><value>임의의 심지</value></data>
+  <data name="ApproximationAlert" xml:space="preserve"><value>근사 경고</value></data>
+  <data name="ApproximationFilter" xml:space="preserve"><value>근사 필터</value></data>
+  <data name="ApproximationFilterDescription" xml:space="preserve"><value>현재 가격이 알림을 트리거하기 위해 목표 수준에 접근해야 하는 틱 수를 정의합니다.</value></data>
+  <data name="AreaColor" xml:space="preserve"><value>영역 색상</value></data>
+  <data name="AreaColorDescription" xml:space="preserve"><value>차트의 특정 영역에 대한 색상을 설정합니다.</value></data>
+  <data name="AroonHighestDescription" xml:space="preserve"><value>마지막 최대값 이후 경과된 시간의 비율을 표시합니다.</value></data>
+  <data name="AroonIndicatorDescription" xml:space="preserve"><value>아룬 지표는 아룬 업과 아룬 다운으로 구성되어 있으며, 지정된 기간 내 마지막 고점 또는 저점 이후의 시간을 측정합니다. 이 지표는 추세의 강도를 평가하는 데 유용하며, 값이 높을수록 더 강한 추세를 나타냅니다.</value></data>
+  <data name="AroonLowestDescription" xml:space="preserve"><value>Aroon Lowest 지표는 특정 기간 내 최저 가격 이후 경과한 시간의 비율을 표시합니다. 이는 잠재적인 추세 반전을 식별하거나 현재 추세의 강도를 확인하는 데 사용할 수 있습니다. 이 정보는 트레이더와 투자자가 자신의 포지션에 대한 정보에 기반한 결정을 내리는 데 도움이 될 수 있습니다.</value></data>
+  <data name="AroonOscillatorDescription" xml:space="preserve"><value>아룬 오실레이터는 아룬 업과 아룬 다운 값의 차이를 측정하여 추세의 강도와 방향을 평가하는 기술적 지표입니다. 아룬 업이 아룬 다운보다 클 때 상승 추세를 나타내는 양의 값을 생성하고, 아룬 다운이 아룬 업보다 클 때 하락 추세를 나타내는 음의 값을 생성합니다. 오실레이터 값이 +100에 가까울수록 상승 추세가 강해지고, -100에 가까운 값은 더 강한 하락 추세를 나타냅니다.</value></data>
+  <data name="Ask" xml:space="preserve"><value>요청</value></data>
+  <data name="AskAlert" xml:space="preserve"><value>Ask 알림</value></data>
+  <data name="AskBGColorDescription" xml:space="preserve"><value>Ask 레벨 뒤의 배경색.</value></data>
+  <data name="AskBid" xml:space="preserve"><value>애스크/비드</value></data>
+  <data name="AskBidBarsDescription" xml:space="preserve"><value>Ask/Bid 볼륨 차이 바 지표는 단일 바 동안 판매 및 구매 볼륨의 차이를 촛대 차트로 보여줍니다. 최고가는 최대 볼륨 차이를 나타내고, 최저가는 최소 차이를 나타내며, 종가는 실제 차이를 나타냅니다. 이 지표는 각 바 동안의 거래 볼륨의 역학에 대한 통찰력을 제공합니다.</value></data>
+  <data name="AskBidImbalanceColor" xml:space="preserve"><value>매도/매수 불균형 색상</value></data>
+  <data name="AskBidVolume" xml:space="preserve"><value>Ask / Bid 거래량</value></data>
+  <data name="AskColor" xml:space="preserve"><value>색상 요청</value></data>
+  <data name="AskColorDescription" xml:space="preserve"><value>구매의 시각적 강조.</value></data>
+  <data name="AskFilter" xml:space="preserve"><value>Ask 필터</value></data>
+  <data name="AskRows" xml:space="preserve"><value>매도 행</value></data>
+  <data name="AskVisualizationSettingsDescription" xml:space="preserve"><value>매도 호가에서 체결된 거래를 위한 시각화 설정.</value></data>
+  <data name="Asks" xml:space="preserve"><value>매도</value></data>
+  <data name="AsksBackGround" xml:space="preserve"><value>Asks 배경</value></data>
+  <data name="AtHigh" xml:space="preserve"><value>최고가에서</value></data>
+  <data name="AtHighOrLow" xml:space="preserve"><value>최고 또는 최저</value></data>
+  <data name="AtLow" xml:space="preserve"><value>최저에서</value></data>
+  <data name="AtStart" xml:space="preserve"><value>시작 시</value></data>
+  <data name="AtrPeriodDescription" xml:space="preserve"><value>ATR 요소의 기간을 지정합니다.</value></data>
+  <data name="Author" xml:space="preserve"><value>저자</value></data>
+  <data name="Auto" xml:space="preserve"><value>자동</value></data>
+  <data name="AutoFilter" xml:space="preserve"><value>자동 필터</value></data>
+  <data name="AutoFilterPeriod" xml:space="preserve"><value>자동 필터 기간</value></data>
+  <data name="AutoUpdate" xml:space="preserve"><value>자동 업데이트</value></data>
+  <data name="Average" xml:space="preserve"><value>평균</value></data>
+  <data name="AverageDeltaIndDescription" xml:space="preserve"><value>이 지표는 특정 기간을 사용하여 EMA 또는 SMA를 사용하여 매끄러운 델타를 계산합니다.</value></data>
+  <data name="AveragePeriod" xml:space="preserve"><value>평균 기간</value></data>
+  <data name="AveragePriceBarDescription" xml:space="preserve"><value>Average Price for Bar 지표는 선택한 계산 모드에 따라 시가, 고가, 저가 및 종가를 기반으로 평균 값을 계산합니다.</value></data>
+  <data name="AverageVolumeSettingsDescription" xml:space="preserve"><value>평균 볼륨 요소에 대한 시각화 설정입니다.</value></data>
+  <data name="AvgVolumeLineSettingsDescription" xml:space="preserve"><value>평균 거래량 선에 대한 시각화 설정입니다.</value></data>
+  <data name="AxisTextColor" xml:space="preserve"><value>축 텍스트 색상</value></data>
+  <data name="AxisTextColorDescription" xml:space="preserve"><value>가격 축의 지표 값 레이블에 대한 텍스트 색상을 정의합니다.</value></data>
+  <data name="BBMultFactor" xml:space="preserve"><value>볼린저 밴드 곱셈 계수</value></data>
+  <data name="BBPeriod" xml:space="preserve"><value>볼린저 밴드 기간</value></data>
+  <data name="BBandsWidth" xml:space="preserve"><value>채널 너비</value></data>
+  <data name="BOPDescription" xml:space="preserve"><value>파워 밸런스(BOP) 지표는 시장에서 구매자와 판매자의 강도를 종가와 고가 및 저가의 비율을 분석하여 측정합니다. 그런 다음 단순 이동 평균(SMA)을 사용하여 매매 압력의 더 명확한 그림을 보여줍니다.</value></data>
+  <data name="BWMA" xml:space="preserve"><value>빌 윌리엄스 이동 평균</value></data>
+  <data name="BWMADescription" xml:space="preserve"><value>빌 윌리엄스 이동 평균 기술 지표는 특정 기간 동안의 금융 상품의 평균 가격 값을 보여줍니다. 단순 이동 평균과 달리, 금융 상품 가격을 수학적으로 평균화하지 않고 현재 값과 이전 지표 값만을 사용하여 계산합니다.
+지표는 다음 공식을 사용하여 계산됩니다:
+BWMA(t) = (1-1/N)*BWMA(t-1)+CLOSE(t)/N</value></data>
+  <data name="BackGround" xml:space="preserve"><value>배경</value></data>
+  <data name="BackGroundBuyColor" xml:space="preserve"><value>구매 배경 색상</value></data>
+  <data name="BackGroundSellColor" xml:space="preserve"><value>판매 시 배경 색상</value></data>
+  <data name="BackgroundBearlish" xml:space="preserve"><value>배경 약세</value></data>
+  <data name="BackgroundBullish" xml:space="preserve"><value>배경 강세</value></data>
+  <data name="BalanceOIDescription" xml:space="preserve"><value>온 밸런스 오픈 이자율은 오픈 이자율 지표의 변형입니다. 이 지표는 가격 움직임을 고려하여 특정 길이의 바에서 균형 잡힌 오픈 이자율을 계산하고 표시합니다. 증가하는 것은 구매자의 영향력이 증가함을 반영하고, 감소하는 것은 판매자의 영향력이 증가함을 반영합니다.</value></data>
+  <data name="BandsEnvelopeDescription" xml:space="preserve"><value>밴드/엔벨로프 지표는 차트에 플로팅된 두 개의 선으로 구성된 밴드로, 그 내부에 가격 차트가 위치합니다. 지표의 플로팅 방법은 볼린저 밴드의 플로팅을 정확히 반복하지만, 극단적인 선이 평균 선에서 얼마나 떨어져 있는지를 계산하는 것을 제외합니다. 볼린저 밴드는 표준 편차를 사용하여 계산되는 반면, 엔벨로프에서는 이 거리가 설정에서 수동으로 설정됩니다.</value></data>
+  <data name="Bar" xml:space="preserve"><value>바</value></data>
+  <data name="BarClose" xml:space="preserve"><value>닫기</value></data>
+  <data name="BarDifferenceDescription" xml:space="preserve"><value>BarDifference 지표는 현재 값과 특정 이전 바의 값 간의 가격 차이를 틱으로 측정합니다. 이는 주어진 기간 동안 가격 변화를 추적하는 데 유용하며 시장 움직임을 분석하는 도구로 사용할 수 있습니다.</value></data>
+  <data name="BarDirVsDeltaDivergenceDescription" xml:space="preserve"><value>바의 방향과 델타 값이 반대일 때 발생하는 다이버전스를 표시할지 여부를 결정합니다: 강세 바의 경우 델타는 음수이고, 약세 바의 경우 델타는 양수입니다.</value></data>
+  <data name="BarDirectionDescription" xml:space="preserve"><value>촛불의 방향을 결정합니다.</value></data>
+  <data name="BarHigh" xml:space="preserve"><value>높은</value></data>
+  <data name="BarLow" xml:space="preserve"><value>낮은</value></data>
+  <data name="BarNumberingDescription" xml:space="preserve"><value>이 지표는 차트에서 각 막대의 시퀀스 번호를 정기적으로 표시합니다. 이를 통해 사용자는 막대의 시퀀스를 쉽게 식별하고 시간에 따른 데이터 진행 상황을 추적할 수 있습니다. 이 도구는 데이터 세트 내의 트렌드와 패턴을 분석하는 데 유용할 수 있습니다.</value></data>
+  <data name="BarOpen" xml:space="preserve"><value>열기</value></data>
+  <data name="BarRangeIndDescription" xml:space="preserve"><value>지표는 각 막대의 크기에 해당하는 가격 값을 표시하고 지정된 기간 내에서 가장 높은 가격을 식별합니다.</value></data>
+  <data name="BarShiftDescription" xml:space="preserve"><value>이동할 바의 수를 정의합니다.</value></data>
+  <data name="BarTimerDescription" xml:space="preserve"><value>바 타이머 지표는 촛대가 닫히기 전 남은 시간을 표시하여 트레이더에게 거래 결정을 위한 남은 시간의 시각적 표현을 제공합니다. 이 기술 도구는 트레이더가 시간을 효과적으로 관리하고 촛대가 닫히기 전 남은 시간을 기반으로 정보에 입각한 결정을 내리는 데 도움을 줍니다.</value></data>
+  <data name="BarVolumeFilterDescription" xml:space="preserve"><value>"바의 거래량 필터" 지표는 트레이더가 차트에서 캔들의 거래량을 필터링하는 데 유용한 도구입니다. 거래량과 시간에 따라 캔들을 표시하거나 숨기기 위한 특정 기준을 설정할 수 있는 기능을 제공하여 보다 집중적인 분석과 의사 결정을 가능하게 합니다.</value></data>
+  <data name="Bars" xml:space="preserve"><value>바</value></data>
+  <data name="BarsCountFilter" xml:space="preserve"><value>바 수 필터</value></data>
+  <data name="BarsDirection" xml:space="preserve"><value>막대 방향</value></data>
+  <data name="BarsPatternDescription" xml:space="preserve"><value>Bars Pattern 지표는 지정된 설정에 따라 차트에서 캔들 패턴을 강조 표시하고 필터링하는 도구입니다. 필터링 조건을 모두 충족하는 캔들은 특정 색상으로 강조 표시됩니다.</value></data>
+  <data name="BarsRange" xml:space="preserve"><value>막대 범위</value></data>
+  <data name="BarsRangeDescription" xml:space="preserve"><value>이 속성은 주요 계산이 이루어지기 전에 집계해야 할 촛불의 수를 지정하는 데 사용됩니다.</value></data>
+  <data name="BaseLine" xml:space="preserve"><value>기준선</value></data>
+  <data name="BaseLinePeriodDescription" xml:space="preserve"><value>기준선에 대한 막대기로 측정된 기간.</value></data>
+  <data name="BaseLineSettingsDescription" xml:space="preserve"><value>기준선에 대한 시각화 설정.</value></data>
+  <data name="Bearish" xml:space="preserve"><value>약세</value></data>
+  <data name="BearishBreakColor" xml:space="preserve"><value>약세 돌파 색상</value></data>
+  <data name="BearishColor" xml:space="preserve"><value>베어리시 색상</value></data>
+  <data name="BearishColorDescription" xml:space="preserve"><value>하락 방향으로 이동하는 요소의 색상을 설정합니다.</value></data>
+  <data name="BearishFillColorDescription" xml:space="preserve"><value>베어리시 요소의 배경 채우기 색상을 정의합니다.</value></data>
+  <data name="BearishMovementSettingsDescription" xml:space="preserve"><value>약세 움직임 시각화 설정.</value></data>
+  <data name="BearishTrendDescription" xml:space="preserve"><value>가격 하락 움직임을 나타냅니다.</value></data>
+  <data name="Bearlish" xml:space="preserve"><value>약세</value></data>
+  <data name="BearlishColor" xml:space="preserve"><value>베어리시 색상</value></data>
+  <data name="BelowCandle" xml:space="preserve"><value>촛불 아래</value></data>
+  <data name="BestAskBGColorDescription" xml:space="preserve"><value>최고 매도 가격의 배경 색상.</value></data>
+  <data name="BestAskBackGround" xml:space="preserve"><value>BestAsk 배경</value></data>
+  <data name="BestBidBGColorDescription" xml:space="preserve"><value>최고 입찰 가격의 배경 색상.</value></data>
+  <data name="BestBidBackGround" xml:space="preserve"><value>최고 입찰 배경</value></data>
+  <data name="Between" xml:space="preserve"><value>사이에서</value></data>
+  <data name="BetweenColor" xml:space="preserve"><value>스프레드 내 거래</value></data>
+  <data name="BetweenColorDescription" xml:space="preserve"><value>장외 거래를 표시하는 요소의 색상을 정의합니다.</value></data>
+  <data name="Bid" xml:space="preserve"><value>입찰</value></data>
+  <data name="BidAlert" xml:space="preserve"><value>입찰 알림</value></data>
+  <data name="BidAndAsk" xml:space="preserve"><value>입찰 및 요청</value></data>
+  <data name="BidAsk" xml:space="preserve"><value>입찰 및 요청</value></data>
+  <data name="BidAskDescription" xml:space="preserve"><value>Bid Ask 지표는 Ask 가격(시장 구매) 또는 Bid 가격(시장 판매)에서 종료된 거래의 거래량을 분리하고 이 정보를 수평 제로 레벨 위와 아래의 히스토그램으로 표시합니다. 이를 통해 트레이더는 시장 구매 및 판매의 분포를 분석할 수 있습니다.</value></data>
+  <data name="BidAskImbalanceColor" xml:space="preserve"><value>매수/매도 불균형 색상</value></data>
+  <data name="BidAskVRDescription" xml:space="preserve"><value>입찰 요청 볼륨 비율은 구매 및 판매 볼륨의 비율을 나타내는 지표로, 이동 평균에 의해 평활화되어 시장 트렌드를 보다 정확하게 나타냅니다. 이 도구는 트레이더와 투자자가 시장에서 구매 압력과 판매 압력 간의 균형을 모니터링하는 데 유용할 수 있습니다.</value></data>
+  <data name="BidBGColorDescription" xml:space="preserve"><value>입찰 수준 뒤의 배경 색상.</value></data>
+  <data name="BidColor" xml:space="preserve"><value>입찰 색상</value></data>
+  <data name="BidColorDescription" xml:space="preserve"><value>판매의 시각적 강조.</value></data>
+  <data name="BidFilter" xml:space="preserve"><value>입찰 필터</value></data>
+  <data name="BidOrAsk" xml:space="preserve"><value>입찰 또는 요청</value></data>
+  <data name="BidRows" xml:space="preserve"><value>입찰 행</value></data>
+  <data name="BidVisualizationSettingsDescription" xml:space="preserve"><value>입찰 가격으로 종료된 거래에 대한 시각화 설정.</value></data>
+  <data name="Bids" xml:space="preserve"><value>입찰</value></data>
+  <data name="BidsBackGround" xml:space="preserve"><value>입찰 배경</value></data>
+  <data name="BlockMADescription" xml:space="preserve"><value>블록 이동 평균(BlockMA)은 단일 값이 아닌 특정 채널을 계산하며, 계산에 ATR 지표를 활용합니다. 이 독특한 접근 방식은 기술 분석의 다른 유형의 이동 평균과 차별화됩니다.</value></data>
+  <data name="Blue" xml:space="preserve"><value>파란색</value></data>
+  <data name="Body" xml:space="preserve"><value>본문</value></data>
+  <data name="BollingerBands" xml:space="preserve"><value>볼린저 밴드</value></data>
+  <data name="BollingerBandsBandwidthDescription" xml:space="preserve"><value>밴드폭 지표는 볼린저 밴드의 파생 지표로, 상단 밴드와 하단 밴드 간의 차이를 백분율로 측정합니다. 이는 변동성의 변화를 반영하며, 값이 감소하면 변동성이 약해지고, 값이 증가하면 변동성이 강화됨을 나타냅니다. 이 지표는 표준 편차를 기반으로 하며, 트레이더가 시장의 변동성과 잠재적인 거래 기회를 평가하는 데 도움을 줄 수 있습니다.</value></data>
+  <data name="BollingerBandsDescription" xml:space="preserve"><value>볼린저 밴드(BB) 지표는 기술 분석에서 유용한 도구로, 변동성, 과매수/과매도 조건 및 잠재적인 추세 반전에 대한 통찰력을 제공합니다. 이 지표는 일반적으로 단순 이동 평균(SMA)인 중앙선과 SMA에서의 표준 편차를 나타내는 두 개의 외부 밴드로 구성됩니다.</value></data>
+  <data name="BollingerBandsPercentDescription" xml:space="preserve"><value>볼린저 밴드 - 퍼센트는 볼린저 밴드를 기반으로 계산된 지표로, 현재 가격과 볼린저 수준 간의 백분율 차이를 나타냅니다. 이 지표는 금융 시장에서 변동성과 잠재적인 가격 반전을 측정하는 데 사용됩니다.</value></data>
+  <data name="BollingerSqueezeDescription" xml:space="preserve"><value>볼린저 스퀴즈 - 이 지표는 볼린저 밴드와 켈트너 채널 지표를 기반으로 합니다. 히스토그램은 켈트너 채널과 볼린저 밴드의 너비 간의 상대적 차이를 반영합니다.</value></data>
+  <data name="BollingerSqueezeV2Description" xml:space="preserve"><value>볼린저 스퀴즈 2 지표는 원래 볼린저 스퀴즈의 변형으로, 볼린저 밴드, 켈트너 채널, 모멘텀 및 지수 이동 평균 지표를 통합하여 시장 변동성과 잠재적인 가격 움직임에 대한 보다 포괄적인 분석을 제공합니다.</value></data>
+  <data name="BollingerSqueezeV3Description" xml:space="preserve"><value>볼린저 스퀴즈 3는 볼린저 스퀴즈 지표의 변형입니다. 계산 시 ATR 및 StdDev 지표가 사용됩니다.</value></data>
+  <data name="Border" xml:space="preserve"><value>테두리</value></data>
+  <data name="BorderColor" xml:space="preserve"><value>테두리 색상</value></data>
+  <data name="BorderColorDescription" xml:space="preserve"><value>지표에서 촛불과 막대의 테두리 색상.</value></data>
+  <data name="BorderStyleDescription" xml:space="preserve"><value>표시된 요소의 테두리 선 스타일을 설정합니다.</value></data>
+  <data name="BorderWidth" xml:space="preserve"><value>테두리 너비</value></data>
+  <data name="BorderWidthPixelDescription" xml:space="preserve"><value>표시된 요소의 테두리 너비를 설정합니다(픽셀 단위).</value></data>
+  <data name="Both" xml:space="preserve"><value>둘 다</value></data>
+  <data name="BottomBand" xml:space="preserve"><value>하단 밴드</value></data>
+  <data name="BottomBandDscription" xml:space="preserve"><value>범위의 하한을 설명합니다.</value></data>
+  <data name="BottomChannelSettingsDescription" xml:space="preserve"><value>하단 채널 라인에 대한 시각화 설정입니다.</value></data>
+  <data name="BottomLeft" xml:space="preserve"><value>왼쪽 아래</value></data>
+  <data name="BottomRight" xml:space="preserve"><value>오른쪽 아래</value></data>
+  <data name="BreakDnColor" xml:space="preserve"><value>하향 돌파 색상</value></data>
+  <data name="BreakUpColor" xml:space="preserve"><value>브레이크업 색상</value></data>
+  <data name="BrokenBearishDescription" xml:space="preserve"><value>깨진 약세 요소의 색상을 정의합니다.</value></data>
+  <data name="BrokenBullishDescription" xml:space="preserve"><value>깨진 강세 요소의 색상을 정의합니다.</value></data>
+  <data name="BrokenChannelColor" xml:space="preserve"><value>손상된 채널 색상</value></data>
+  <data name="Bullish" xml:space="preserve"><value>강세</value></data>
+  <data name="BullishBreakColor" xml:space="preserve"><value>강세 돌파 색상</value></data>
+  <data name="BullishColor" xml:space="preserve"><value>강세 색상</value></data>
+  <data name="BullishColorDescription" xml:space="preserve"><value>강세 방향을 가진 요소의 색상을 설정합니다.</value></data>
+  <data name="BullishFillColorDescription" xml:space="preserve"><value>강세 요소의 배경 채우기 색상을 정의합니다.</value></data>
+  <data name="BullishMovementSettingsDescription" xml:space="preserve"><value>강세 움직임 시각화 설정.</value></data>
+  <data name="BullishTrendDescription" xml:space="preserve"><value>"강세 추세"라는 용어는 주식이나 기타 자산의 가격이 상승하는 시장 상태를 나타냅니다. 이는 투자자들 사이에서 긍정적인 감정을 의미하며, 종종 시장의 성장과 낙관주의 기간을 나타냅니다. 트레이더는 이 용어를 사용하여 의사 결정 프로세스를 알리고 강세 시장에서 잠재적인 기회를 활용할 수 있습니다.</value></data>
+  <data name="BuyColor" xml:space="preserve"><value>구매 색상</value></data>
+  <data name="BuyOvershoot1Color" xml:space="preserve"><value>1색 초과 구매</value></data>
+  <data name="BuyOvershoot2Color" xml:space="preserve"><value>2색 오버슈트를 구매하세요</value></data>
+  <data name="BuyOvershoot3Color" xml:space="preserve"><value>오버슈트 3색 구매</value></data>
+  <data name="BuyOvershootColor" xml:space="preserve"><value>과잉 색상 구매</value></data>
+  <data name="BuySellModeDescription" xml:space="preserve"><value>사용 가능한 매매 모드 중 하나를 설정합니다.</value></data>
+  <data name="BuySellPower" xml:space="preserve"><value>매수/매도 강도</value></data>
+  <data name="BuySellPowerPeriodDescription" xml:space="preserve"><value>평균 이동 매수/매도 힘의 기간 값을 정의합니다.</value></data>
+  <data name="BuySellPowerSettingsDescription" xml:space="preserve"><value>매수/매도 힘의 우위를 표시하는 설정입니다.</value></data>
+  <data name="BuySignalColorDescription" xml:space="preserve"><value>매수 신호를 나타내는 요소의 색상을 설정합니다.</value></data>
+  <data name="BuySignalSettingsDescription" xml:space="preserve"><value>매수 신호에 대한 시각화 설정.</value></data>
+  <data name="BuyTradeLineColorDescription" xml:space="preserve"><value>매수 거래 라인 및 마커를 표시하는 데 사용되는 색상을 지정합니다.</value></data>
+  <data name="Buys" xml:space="preserve"><value>구매</value></data>
+  <data name="ByBar" xml:space="preserve"><value>바에 의해</value></data>
+  <data name="ByCandleDirection" xml:space="preserve"><value>촛불 방향에 따라</value></data>
+  <data name="CAVDescription" xml:space="preserve"><value>누적 조정 값은 가격과 그 지수 이동 평균 간의 편차의 총합을 계산합니다. 합계 값은 다음 공식을 사용하여 계산됩니다: AdjValt(X,n)=Xt−EMAt(X,n)</value></data>
+  <data name="CBIDescription" xml:space="preserve"><value>코니 브라운 복합 지수 – 이 지표는 RSI 지표의 불일치 문제를 해결합니다. 이는 RSI 값과 매끄럽게 처리된 RSI 값의 모멘텀 합계로 계산됩니다.</value></data>
+  <data name="CCIDescription" xml:space="preserve"><value>상품 채널 지수(CCI)는 특정 기간 동안의 평균 가격 수준에 비해 현재 가격 수준을 측정하고 자산이 과매도되었거나 과매수되었는지를 판단하는 데 도움을 주는 도구입니다. 상품 채널 지수(CCI)는 또한 추세의 약화 또는 완료와 방향의 변화를 인식하는 데 도움을 줍니다.</value></data>
+  <data name="CFODescription" xml:space="preserve"><value>찬데 예측 오실레이터(CFO)는 금융 상품의 예상 가격과 실제 가격 간의 차이를 측정하는 데 사용되는 도구입니다. 이는 백분율 차이로 계산되며, 예측된 값이 현재 가격보다 높은지 낮은지를 나타낼 수 있습니다. 오실레이터가 0보다 높으면 예측된 값이 현재 가격보다 높다는 것을 나타내며, 그 반대의 경우도 마찬가지입니다.</value></data>
+  <data name="CMFDescription" xml:space="preserve"><value>차이킨 머니 플로우(CMF)는 특정 기간 동안의 자금 흐름의 양을 측정하는 데 사용되는 기술적 분석 지표로, 증권 매매에 대한 압력을 나타냅니다. 사용자가 정의한 기간 동안의 자금 흐름을 합산하며, 일반적으로 20일 또는 21일의 기간이 인기가 있습니다. CMF는 매수 및 매도 압력의 미래 변화를 예측하는 데 도움이 될 수 있습니다.</value></data>
+  <data name="CMODescription" xml:space="preserve"><value>차이킨 오실레이터는 누적/분배 라인(ADL)에서 파생된 모멘텀 지표입니다. ADL에 적용된 서로 다른 길이의 두 개의 지수 이동 평균을 계산하여 하나에서 다른 하나를 빼서 모멘텀을 측정합니다. 오실레이터의 변동을 모니터링하면 모멘텀의 변화가 종종 추세의 변화를 선행하기 때문에 추세 변화를 예측하는 데 도움이 됩니다.</value></data>
+  <data name="CMSDescription" xml:space="preserve"><value>클리어 메소드 지표는 역사적 데이터를 사용하여 가격 동태에서 숨겨진 패턴과 특징을 감지합니다. 이는 가격의 고점, 저점 및 모멘텀 조건에 기반한 복잡한 계산을 포함합니다. 이를 통해 육안으로는 보이지 않는 트렌드와 패턴을 식별하는 데 도움이 됩니다.</value></data>
+  <data name="CalculateOnBarCloseDescription" xml:space="preserve"><value>이 설정은 지표 계산이 수행되는 시점을 제어합니다. 활성화되면 지표는 바가 완전히 형성되고 닫힐 때만 계산하고 값을 업데이트합니다.</value></data>
+  <data name="Calculation" xml:space="preserve"><value>계산</value></data>
+  <data name="CalculationMode" xml:space="preserve"><value>계산 모드</value></data>
+  <data name="CalculationModeDescription" xml:space="preserve"><value>지표의 계산 모드</value></data>
+  <data name="CalculationSettings" xml:space="preserve"><value>계산 설정</value></data>
+  <data name="CamarillaPivotsDescription" xml:space="preserve"><value>카마릴라 피봇 지표는 차트에서 카마릴라 피봇 수준에 대한 역사적 데이터를 표시합니다. 카마릴라 반전 수준은 1989년 닉 스콧에 의해 개발되었습니다. 이 수준은 일중 거래에서 주요 지지 및 저항 수준으로 사용됩니다. 이 수준은 이전 세션의 고가, 저가 및 종가에서 파생됩니다.</value></data>
+  <data name="CandleArea" xml:space="preserve"><value>양초 영역</value></data>
+  <data name="CandleAreaModeDescription" xml:space="preserve"><value>사용 가능한 촛대 영역 중 하나를 정의합니다.</value></data>
+  <data name="CandleBodyHeight" xml:space="preserve"><value>캔들 바디 높이</value></data>
+  <data name="CandleDirection" xml:space="preserve"><value>촛불 방향</value></data>
+  <data name="CandleDirectionDescription" xml:space="preserve"><value>촛불의 방향</value></data>
+  <data name="CandleHeight" xml:space="preserve"><value>양초 높이</value></data>
+  <data name="CandleSizeSettingsDescription" xml:space="preserve"><value>캔들 크기 요소에 대한 시각화 설정입니다.</value></data>
+  <data name="CandleStatisticsDescription" xml:space="preserve"><value>&lt;p&gt;모든 주요 캔들 정보 - 항상 표시됩니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;각 캔들의 거래량, 델타, 거래 수 및 지속 시간.&lt;/li&gt;
+  &lt;li&gt;항상 표시하거나 발자국 모드에서만 표시합니다.&lt;/li&gt;
+  &lt;li&gt;색상, 글꼴 및 레이블 배경 설정에 대한 유연한 설정.&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="Candles" xml:space="preserve"><value>촛불</value></data>
+  <data name="CciTrendDown" xml:space="preserve"><value>CCI 하락 추세</value></data>
+  <data name="CciTrendUp" xml:space="preserve"><value>CCI 상승 추세</value></data>
+  <data name="Center" xml:space="preserve"><value>가운데</value></data>
+  <data name="CenterAlign" xml:space="preserve"><value>가운데 정렬</value></data>
+  <data name="CenterAlignDescription" xml:space="preserve"><value>활성화되면 텍스트가 중앙에 정렬됩니다.</value></data>
+  <data name="ChaikinOscillatorDescription" xml:space="preserve"><value>차이킨 오실레이터는 누적 분배선의 3일 및 10일 EMA의 차이를 계산합니다. 이는 움직임 뒤에 있는 모멘텀을 분석하여 누적 분배선의 방향 변화를 예측하는 모멘텀 지표로 작용합니다.</value></data>
+  <data name="ChandeMomentumDescription" xml:space="preserve"><value>찬데 모멘텀 지표는 특정 기간 동안의 긍정적인 가격 변화와 부정적인 가격 변화를 비교하여 금융 상품의 모멘텀을 측정합니다. 이는 추세의 강도와 방향을 식별하는 데 도움이 되며, 시장 모멘텀을 평가하는 데 유용한 도구입니다.</value></data>
+  <data name="ChannelNegativeAreaSettingsDescription" xml:space="preserve"><value>중간선 값이 이전 값보다 낮은 경우 채널 영역에 대한 시각화 설정.</value></data>
+  <data name="ChannelNeutralAreaSettingsDescription" xml:space="preserve"><value>중간선 값이 이전 값과 동일한 채널 영역에 대한 시각화 설정.</value></data>
+  <data name="ChannelPositiveAreaSettingsDescription" xml:space="preserve"><value>중간선 값이 이전 값보다 큰 경우 채널 영역에 대한 시각화 설정입니다.</value></data>
+  <data name="ChartDisplayModeDescription" xml:space="preserve"><value>차트 프레젠테이션 옵션 중 하나를 나타냅니다.</value></data>
+  <data name="Circles" xml:space="preserve"><value>원</value></data>
+  <data name="Close" xml:space="preserve"><value>닫기</value></data>
+  <data name="ClosePartially" xml:space="preserve"><value>부분적으로 닫기</value></data>
+  <data name="ClosePrevDay" xml:space="preserve"><value>전일 종가</value></data>
+  <data name="CloseSessionAlertFilterDescription" xml:space="preserve"><value>활성화되면 세션을 닫을 때 지정된 사운드 파일로 경고가 생성됩니다.</value></data>
+  <data name="ClosingSession" xml:space="preserve"><value>세션 종료</value></data>
+  <data name="ClusterSearchAutofilterDescription" xml:space="preserve"><value>지정된 도구에 맞게 지표의 필터를 동적으로 조정할 수 있습니다. 자동 필터가 활성화되면 최대 및 최소 필터의 매개변수가 비활성화됩니다.</value></data>
+  <data name="ClusterSearchDescription" xml:space="preserve"><value>&lt;p&gt;주요 영역을 강조 표시하고 풋프린트 차트 분석을 단순화합니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;비정상적으로 높은 또는 낮은 볼륨의 클러스터.&lt;/li&gt;
+  &lt;li&gt;극단적인 델타 값을 가진 클러스터.&lt;/li&gt;
+  &lt;li&gt;시장 주문 활동이 증가한 영역.&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="ClusterSelectionTransparency" xml:space="preserve"><value>풋프린트 선택 투명도</value></data>
+  <data name="ClusterStatisticDescription" xml:space="preserve"><value>&lt;p&gt;캔들 내부의 확장된 활동 통계.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;구매 및 판매 볼륨, 총 캔들 볼륨, 초당 볼륨 및 세션당 볼륨.&lt;/li&gt;
+  &lt;li&gt;캔들 델타, 최대 및 최소 델타 값, 세션 시작부터의 델타 및 일일 볼륨에 대한 델타, 캔들 간의 델타 변화.&lt;/li&gt;
+  &lt;li&gt;거래 수, 틱 단위의 캔들 크기, 시작 시간 및 캔들 형성 기간.&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="ClustersMode" xml:space="preserve"><value>클러스터 모드</value></data>
+  <data name="ClustersModeDescription" xml:space="preserve"><value>차트가 클러스터 모드로 표시되는지 여부를 결정합니다.</value></data>
+  <data name="Color" xml:space="preserve"><value>색</value></data>
+  <data name="Color20" xml:space="preserve"><value>20% 색상</value></data>
+  <data name="Color50" xml:space="preserve"><value>50% 색상</value></data>
+  <data name="Color80" xml:space="preserve"><value>80% 색상</value></data>
+  <data name="ColorBarHighLowIndDescription" xml:space="preserve"><value>이 지표는 가격 범위가 상승하거나 하락한 캔들을 색칠합니다. 캔들의 최저가가 이전보다 낮아지고 최고가가 이전 캔들보다 높아지면 평균 색상이 선택됩니다.</value></data>
+  <data name="ColorBarOpenCloseDescription" xml:space="preserve"><value>이 인디케이터는 캔들을 방향에 따라 선택된 색으로 칠합니다.</value></data>
+  <data name="ColorBeforeCandle" xml:space="preserve"><value>새 촛불 전에 색상을 변경하십시오</value></data>
+  <data name="ColorDescription" xml:space="preserve"><value>이 요소의 색상을 지정합니다.</value></data>
+  <data name="ColorFilter" xml:space="preserve"><value>색상 필터</value></data>
+  <data name="ColorMinus20" xml:space="preserve"><value>-20% 색상</value></data>
+  <data name="ColorMinus50" xml:space="preserve"><value>-50% 색상</value></data>
+  <data name="ColorMinus80" xml:space="preserve"><value>-80% 색상</value></data>
+  <data name="ColorScheme" xml:space="preserve"><value>색 구성표</value></data>
+  <data name="ColorSchemeDescription" xml:space="preserve"><value>다양한 요소에 적용할 색상을 선택할 수 있도록 합니다. 다양한 디자인 요소에 대한 색 구성표를 사용자 정의하는 유연성을 제공합니다. 이는 시각적으로 매력적이고 일관된 디자인을 만드는 데 유용할 수 있습니다.</value></data>
+  <data name="ColoredDirection" xml:space="preserve"><value>색상 방향</value></data>
+  <data name="ColoredDirectionDescription" xml:space="preserve"><value>상승 및 하강 요소에 대해 서로 다른 색상을 사용할지 결정합니다.</value></data>
+  <data name="Colors" xml:space="preserve"><value>색상</value></data>
+  <data name="ColumnSpacing" xml:space="preserve"><value>열 간격</value></data>
+  <data name="ColumnSpacingDescription" xml:space="preserve"><value>레이블 열과 값 열 사이의 공간</value></data>
+  <data name="CombineSmallTrades" xml:space="preserve"><value>작은 거래 결합</value></data>
+  <data name="CombineSmallTradesDescription" xml:space="preserve"><value>활성화되면 필터를 통과하지 못하고 동일한 가격을 가진 거래를 결합합니다.</value></data>
+  <data name="Common" xml:space="preserve"><value>공통</value></data>
+  <data name="Contract" xml:space="preserve"><value>계약</value></data>
+  <data name="ConversionLinePeriodDescription" xml:space="preserve"><value>전환선의 기간은 막대기로 측정됩니다.</value></data>
+  <data name="ConversionLineSettingsDescription" xml:space="preserve"><value>전환 라인을 위한 시각화 설정.</value></data>
+  <data name="CoolDownAlertPeriodDescription" xml:space="preserve"><value>과도한 알림을 방지하기 위해 알림 간의 최소 시간 간격을 정의합니다. 사용자를 정보에 유지하고 알림 피로를 피하는 것 사이의 균형을 유지하는 데 도움이 됩니다.</value></data>
+  <data name="CoolDownPeriod" xml:space="preserve"><value>쿨다운 기간</value></data>
+  <data name="CoppockCurveDescription" xml:space="preserve"><value>코펙 곡선은 금융 상품의 장기 추세 변화를 식별하기 위해 가중 이동 평균 및 변화율 계산을 사용하는 기술 지표입니다. 이는 특정 기간 동안의 가격 변화 비율을 결합하여 추세의 잠재적 변화를 신호합니다. 이 지표는 장기 시장 추세에 기반하여 정보에 입각한 결정을 내리려는 트레이더와 투자자에게 유용할 수 있습니다.</value></data>
+  <data name="Copyright" xml:space="preserve"><value>저작권</value></data>
+  <data name="CotHighDescription" xml:space="preserve"><value>이 지표는 차트에서 새로운 가격 최고치가 도달할 때마다 0으로 재설정되는 누적 델타입니다.</value></data>
+  <data name="CumDeltaLineColorDescription" xml:space="preserve"><value>누적 델타 선을 표시하는 데 사용할 색상을 지정합니다.</value></data>
+  <data name="CumDeltaLineWidthDescription" xml:space="preserve"><value>고/저 라인을 표시하기 위한 선 너비를 정의합니다.</value></data>
+  <data name="Cumulative" xml:space="preserve"><value>누적</value></data>
+  <data name="CumulativeDailyVolumeDescription" xml:space="preserve"><value>이 지표는 일간 기간 동안의 누적 거래량을 표시합니다.</value></data>
+  <data name="CumulativeDeltaDescription" xml:space="preserve"><value>&lt;p&gt;시장 구매 및 판매의 누적 잔액 분석.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;시간에 따른 구매 또는 판매의 우세.&lt;/li&gt;
+  &lt;li&gt;가격 움직임과 누적 델타 간의 발산.&lt;/li&gt;
+  &lt;li&gt;세션 중 구매자와 판매자의 압력 변화.&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="CumulativeMode" xml:space="preserve"><value>누적 모드</value></data>
+  <data name="CumulativeModeAskColorDescription" xml:space="preserve"><value>누적 거래 모드에서 요청 수준을 표시하는 요소의 색상을 정의합니다.</value></data>
+  <data name="CumulativeModeBidColorDescription" xml:space="preserve"><value>누적 거래 모드에서 입찰 수준 표시의 색상을 정의합니다.</value></data>
+  <data name="CumulativeTrades" xml:space="preserve"><value>누적 거래</value></data>
+  <data name="CumulativeTradesModeDescription" xml:space="preserve"><value>누적 거래 모드는 누적 거래만 고려하는 계산 방법입니다. 이 모드는 개별 거래를 고려하지 않고 계산을 수행할 때 거래의 전체 합계를 봅니다. 다양한 금융 및 회계 응용 프로그램에서 사용할 수 있습니다.</value></data>
+  <data name="CurrentDay" xml:space="preserve"><value>현재 날짜</value></data>
+  <data name="CurrentDayHighDescription" xml:space="preserve"><value>현재 날짜의 최고 가격.</value></data>
+  <data name="CurrentDayLowDescription" xml:space="preserve"><value>현재 날짜의 최저 가격.</value></data>
+  <data name="CurrentDayMedianDescription" xml:space="preserve"><value>현재 날짜의 평균 가격.</value></data>
+  <data name="CurrentMonth" xml:space="preserve"><value>현재 월</value></data>
+  <data name="CurrentPriceDescription" xml:space="preserve"><value>지표는 차트에 선택한 금융 상품의 현재 가격을 표시합니다.</value></data>
+  <data name="CurrentTime" xml:space="preserve"><value>현재 시간</value></data>
+  <data name="CurrentTimeFrame" xml:space="preserve"><value>현재 시간 범위</value></data>
+  <data name="CurrentWeek" xml:space="preserve"><value>현재 주</value></data>
+  <data name="CustomDiapason" xml:space="preserve"><value>사용자 지정 범위</value></data>
+  <data name="CustomLabel" xml:space="preserve"><value>사용자 정의 텍스트</value></data>
+  <data name="CustomPrice" xml:space="preserve"><value>사용자 정의 가격</value></data>
+  <data name="CustomPriceFilterDescription" xml:space="preserve"><value>활성화되면 사용자가 설정한 시작 가격 수준이 결정되며, 그렇지 않으면 시스템에 의해 자동으로 결정됩니다.</value></data>
+  <data name="CustomPriceLevelsHeight" xml:space="preserve"><value>가격 수준의 사용자 정의 높이</value></data>
+  <data name="CustomPriceLevelsHeightDescription" xml:space="preserve"><value>단일 레벨의 높이(픽셀). 0 = 차트의 캔들 높이.</value></data>
+  <data name="CustomScale" xml:space="preserve"><value>사용자 정의 배율</value></data>
+  <data name="CustomSession" xml:space="preserve"><value>사용자 정의 세션</value></data>
+  <data name="CustomSessionInactive" xml:space="preserve"><value>"Daily Lines" 사용자 정의 세션이 비활성 상태입니다</value></data>
+  <data name="CustomSessionStart" xml:space="preserve"><value>사용자 지정 세션 시작</value></data>
+  <data name="CustomSessionStartDescription" xml:space="preserve"><value>사용자 정의 세션의 시작을 지정합니다</value></data>
+  <data name="CustomSessionStartFilterDescription" xml:space="preserve"><value>활성화되면 사용자 정의 세션의 시작을 지정합니다. 비활성화된 경우 기본 세션의 시작이 사용됩니다.</value></data>
+  <data name="CustomStartPrice" xml:space="preserve"><value>사용자 정의 시작 가격</value></data>
+  <data name="CustomStartPriceFilterDescription" xml:space="preserve"><value>활성화되면 항목에서 계산을 위한 자체 시작 가격을 설정할 수 있습니다.</value></data>
+  <data name="CustomTickSize" xml:space="preserve"><value>사용자 정의 틱 크기</value></data>
+  <data name="CustomTickSizeDescription" xml:space="preserve"><value>금융 상품의 통화로 측정되는 사용자 정의 틱 크기를 정의합니다.</value></data>
+  <data name="CustomVWAP" xml:space="preserve"><value>사용자 지정 VWAP 시작점</value></data>
+  <data name="DEMA" xml:space="preserve"><value>이중 지수 이동 평균</value></data>
+  <data name="DEMADescription" xml:space="preserve"><value>이중 지수 이동 평균은 다음 공식을 사용하여 계산되는 이동 평균의 변형입니다: DEMA(t) = 2*EMA(x(t)) - EMA(EMA(x(t)))</value></data>
+  <data name="DIMinusDescription" xml:space="preserve"><value>부정 방향 지표(DI-)는 금융 분석 및 기술 분석에서 가격 하락을 나타내는 데 사용됩니다. 이는 평균 방향성 지수(ADX)의 일부로, 트레이더가 추세의 강도를 식별하는 데 도움을 줍니다. 이 지표는 가격 움직임과 잠재적인 시장 추세를 이해하려는 투자자에게 중요합니다.</value></data>
+  <data name="DINeg" xml:space="preserve"><value>부정 방향 지표 DI-</value></data>
+  <data name="DINegIndDescription" xml:space="preserve"><value>지표 부정 방향 지수(DI-)는 가중 이동 평균(WMA)과 ATR을 사용하여 하락 추세의 강도를 표시합니다.</value></data>
+  <data name="DIPlusDescription" xml:space="preserve"><value>긍정적 방향 지표(DI+)는 가격 상승을 나타냅니다.</value></data>
+  <data name="DIPos" xml:space="preserve"><value>양의 방향 지표 DI+</value></data>
+  <data name="DIPosIndDescription" xml:space="preserve"><value>지표인 긍정 방향 지수(DI+)는 가중 이동 평균(WMA)과 ATR을 사용하여 상승 추세의 강도를 표시합니다.</value></data>
+  <data name="DMIDescription" xml:space="preserve"><value>다이나믹 모멘텀 지수(DMI) 지표는 우세한 추세의 강도와 방향을 평가하기 위해 설계되었습니다. 이는 특정 매개변수를 기반으로 상대 강도 지수(RSI)를 동적으로 계산하여 달성됩니다. 표준 편차와 단순 이동 평균을 사용하여 변동성을 평가하고 데이터를 부드럽게 합니다.</value></data>
+  <data name="DOMDescription" xml:space="preserve"><value>지표는 현재 매수 및 매도 수준과 해당 거래량을 실시간으로 표시합니다.</value></data>
+  <data name="DOMMaxFilterDescription" xml:space="preserve"><value>시장 깊이 수준의 최대 수를 결정합니다.</value></data>
+  <data name="DOMPercentDescription" xml:space="preserve"><value>볼륨과 DOM의 초기 비율로, 여기서 다이버전스가 결정됩니다.</value></data>
+  <data name="DXDescription" xml:space="preserve"><value>DX(방향성 이동 지수) 지표는 긍정적 움직임과 부정적 움직임을 비교하여 시장 추세의 강도를 측정합니다. 이는 추세의 방향과 강도에 대한 통찰력을 제공하여 트레이더가 정보에 기반한 결정을 내리는 데 도움을 줍니다.</value></data>
+  <data name="Daily" xml:space="preserve"><value>매일</value></data>
+  <data name="DailyChangeDescription" xml:space="preserve"><value>이 지표는 선택한 설정에 따라 현재 가격 변화를 현재 날짜의 개장 또는 전날의 종가와 관련하여 보여줍니다.</value></data>
+  <data name="DailyHighLowDescription" xml:space="preserve"><value>지표는 차트에서 하루의 최고 및 최저의 실시간 변화를 표시합니다. 또한 이전 날과 현재 날의 평균 가격 값을 표시하여 사용자가 시장 가격의 변동을 추적할 수 있도록 합니다.</value></data>
+  <data name="DailyLinesDescription" xml:space="preserve"><value>&lt;p&gt;선택한 기간의 주요 가격 수준.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;선택한 기간 또는 사용자 정의 세션의 Open / High / Low / Close 수준.&lt;/li&gt;
+  &lt;li&gt;최대 5 거래일의 거래량 데이터 지원.&lt;/li&gt;
+  &lt;li&gt;유연한 표시 설정: 선, 색상, 레이블 및 글꼴.&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="DashStyle" xml:space="preserve"><value>선 스타일</value></data>
+  <data name="Data" xml:space="preserve"><value>데이터</value></data>
+  <data name="Days" xml:space="preserve"><value>일</value></data>
+  <data name="DaysLookBack" xml:space="preserve"><value>과거 일수</value></data>
+  <data name="DaysLookBackDescription" xml:space="preserve"><value>지표를 계산할 때 고려되는 이전 날짜의 수를 나타냅니다.</value></data>
+  <data name="DeMarkerDescription" xml:space="preserve"><value>DeMarker(DeM) 지표는 최근 가격의 고점과 저점 간의 관계를 정량화하여 시장의 모멘텀을 평가합니다. 연속적인 고가와 저가를 기반으로 DeMax와 DeMin 두 값을 계산한 후, 단순 이동 평균(SMA)을 사용하여 이를 평활화합니다. 평활화된 DeMax와 평활화된 DeMax 및 DeMin의 합계의 비율은 시장의 모멘텀을 반영하며, 트레이더가 과매도 또는 과매 조건을 식별하는 데 도움을 줍니다.</value></data>
+  <data name="DeTrendedDescription" xml:space="preserve"><value>디트렌드 지표는 현재 가격 값에서 단순 이동 평균을 빼서 단기 가격 변동을 식별하는 데 사용됩니다. 이는 트레이더가 전체 추세에서의 편차와 시장에서의 잠재적 반전 또는 단기 가격 움직임을 포착하는 데 도움을 줍니다. 이동 평균의 길이는 사용자 정의 기간에 의해 결정됩니다.</value></data>
+  <data name="DeTrendedDiDescription" xml:space="preserve"><value>DeTrendedDi 지표는 현재 가격에서 단순 이동 평균(SMA) 값을 빼서 시장의 과매수/과매도 구역을 계산하는 데 사용되는 도구입니다. 이를 통해 지정된 기간 동안 현재 가격과 해당 SMA 간의 편차를 반영할 수 있습니다.</value></data>
+  <data name="DecreasedMomentumSettingsDescription" xml:space="preserve"><value>감소된 모멘텀 값을 나타내는 요소의 렌더링 설정.</value></data>
+  <data name="Default" xml:space="preserve"><value>기본값</value></data>
+  <data name="DegreeOf2PeriodDescription" xml:space="preserve"><value>숫자 2를 특정 거듭제곱으로 올려서 표현된 기간을 나타냅니다.</value></data>
+  <data name="DeleteStartPoint" xml:space="preserve"><value>시작점을 삭제</value></data>
+  <data name="DeleteStartPointKeyFilterDescription" xml:space="preserve"><value>이 필드가 활성화되어 있으면 사용자는 이전에 설정한 시작점을 삭제하기 위한 단축키를 정의할 수 있습니다.</value></data>
+  <data name="Delta" xml:space="preserve"><value>델타</value></data>
+  <data name="DeltaAlert" xml:space="preserve"><value>델타 알림</value></data>
+  <data name="DeltaChangeAlert" xml:space="preserve"><value>델타 변경 알림</value></data>
+  <data name="DeltaColored" xml:space="preserve"><value>델타 색상</value></data>
+  <data name="DeltaColoredCandlesDescription" xml:space="preserve"><value>지표는 특정 기간 동안의 총 델타를 계산하고 이 값이 설정된 최대값에 얼마나 가까운지를 결정합니다. 이 경우, 촛불은 색 구성표에 따라 칠해집니다.</value></data>
+  <data name="DeltaColoredDescription" xml:space="preserve"><value>요소를 델타 값에 따라 색칠할지 여부를 결정합니다.</value></data>
+  <data name="DeltaDescription" xml:space="preserve"><value>&lt;p&gt;캔들 내에서 시장 구매와 판매의 차이.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;움직임 내 압력의 강화 또는 약화.&lt;/li&gt;
+  &lt;li&gt;바 방향과 델타 값 간의 다이버전스.&lt;/li&gt;
+  &lt;li&gt;구매자와 판매자의 주도권 흡수 및 변화.&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="DeltaFilter" xml:space="preserve"><value>델타 필터</value></data>
+  <data name="DeltaFilterDescription" xml:space="preserve"><value>이 속성은 특정 가격 수준에 대한 델타 필터를 설정하는 데 사용됩니다. 값이 양수인 경우 필터는 델타가 지정된 값보다 크거나 같은 가격 수준만 허용합니다. 값이 음수인 경우 필터는 델타가 지정된 값보다 작거나 같은 가격 수준만 허용합니다.</value></data>
+  <data name="DeltaFilters" xml:space="preserve"><value>델타 필터</value></data>
+  <data name="DeltaImbalance" xml:space="preserve"><value>입찰 요청 불균형,%</value></data>
+  <data name="DeltaImbalanceDescription" xml:space="preserve"><value>이 속성은 해당 수준의 총 볼륨에 대한 매수(Ask) 또는 매도(Bid) 볼륨의 비율에 따라 가격 수준을 필터링합니다. 값이 양수인 경우 필터는 Ask 볼륨 비율이 해당 값 이상인 가격 수준만 허용합니다. 값이 음수인 경우 필터는 Bid 볼륨 비율이 해당 값 이상인 가격 수준만 허용합니다.</value></data>
+  <data name="DeltaPerVolumeAlert" xml:space="preserve"><value>델타/거래량 알림</value></data>
+  <data name="DeltaStrengthDescription" xml:space="preserve"><value>델타 강도 지표는 개장과 마감 사이의 가격 차이가 해당 바의 최대 가격 차이의 지정된 비율 이상이 아닌 바를 표시합니다. 이는 트레이더가 시장에서 중요한 가격 변동 및 잠재적 추세를 식별하는 데 도움이 될 수 있습니다. 이 지표는 가격 변동성과 강도를 기반으로 거래 결정을 내리는 데 유용할 수 있습니다.</value></data>
+  <data name="DeltaTurnaroundDescription" xml:space="preserve"><value>델타 턴어라운드 지표는 차트에서 잠재적인 추세 반전 포인트를 식별하며, 상승 및 하락 신호에 대한 특정 기준을 가지고 있습니다. 상승 신호의 조건: 두 개의 연속적인 약세 캔들이 있고 세 번째 캔들이 강세 캔들이며, 강세 캔들의 델타가 양수이고 그 저가가 이전 캔들의 저가보다 작거나 같아야 합니다. 하락 신호의 조건: 두 개의 연속적인 강세 캔들이 있고 세 번째 캔들이 약세 캔들이며, 약세 캔들의 델타가 음수이고 그 고가가 이전 캔들의 저가보다 크거나 같아야 합니다.</value></data>
+  <data name="DeltaType" xml:space="preserve"><value>델타 유형</value></data>
+  <data name="DeltaTypeDescription" xml:space="preserve"><value>델타 유형을 지정합니다: 양수, 음수 또는 둘 다.</value></data>
+  <data name="DemandDescription" xml:space="preserve"><value>수요 지수는 가격과 거래량을 독특한 방식으로 결합하여 가격 변화의 선행 지표로 작용하는 도구입니다. 수요 지수는 제임스 시벳에 의해 개발되었습니다. 제임스 시벳은 수요 지수를 해석하기 위한 여섯 가지 규칙을 정립했습니다. 여기에는 가격 반전의 신호로서의 사용과 가격과 수요 지수 간의 장기적인 발산에 기반한 시장의 고점 또는 저점의 표시가 포함됩니다.</value></data>
+  <data name="DepthChangesDisplayModeDescription" xml:space="preserve"><value>주문서 변경 사항이 표시되는 방식을 선택합니다: 순, 스택 전용, 인출 전용 또는 둘 다.</value></data>
+  <data name="DepthChangesFilterDescription" xml:space="preserve"><value>풀링 또는 스태킹 값을 표시하는 데 필요한 최소 절대 주문서 변경 사항.</value></data>
+  <data name="DepthChangesTextColorDescription" xml:space="preserve"><value>값을 끌어오고 쌓는 데 사용되는 텍스트 색상입니다.</value></data>
+  <data name="DepthLevelsCount" xml:space="preserve"><value>레벨 수</value></data>
+  <data name="DepthMarket" xml:space="preserve"><value>호가창</value></data>
+  <data name="DepthMarketFilter" xml:space="preserve"><value>시장 깊이 필터</value></data>
+  <data name="Deviation" xml:space="preserve"><value>편차</value></data>
+  <data name="DeviationPercentageDescription" xml:space="preserve"><value>현재 값과 이전 값 간의 차이 수준을 백분율로 측정합니다.</value></data>
+  <data name="DeviationRangeDescription" xml:space="preserve"><value>현재 가격에서 상단 및 하단 밴드가 얼마나 벗어나 있는지를 나타냅니다.</value></data>
+  <data name="DigitsAfterComma" xml:space="preserve"><value>볼륨 값의 소수점 이하 자리 수</value></data>
+  <data name="DigitsAfterCommaDescription" xml:space="preserve"><value>볼륨 값의 소수점 이하 자리 수</value></data>
+  <data name="DirectionOfZone" xml:space="preserve"><value>영역의 방향</value></data>
+  <data name="Disabled" xml:space="preserve"><value>비활성화됨</value></data>
+  <data name="DispersionDescription" xml:space="preserve"><value>분산 지표는 단순 이동 평균(SMA) 주위의 가격 값의 분산 또는 확산을 평가하는 데 사용되는 기술적 분석 도구입니다. 지정된 기간 내 가격 움직임의 변동성 또는 변동성에 대한 통찰력을 제공합니다.</value></data>
+  <data name="Displacement" xml:space="preserve"><value>변위</value></data>
+  <data name="DisplayBottom" xml:space="preserve"><value>하단에 표시</value></data>
+  <data name="DisplayClusterBorderDescription" xml:space="preserve"><value>클러스터의 테두리를 표시할지 여부를 결정합니다.</value></data>
+  <data name="DisplayFromZeroDescription" xml:space="preserve"><value>활성화되면 최소값이 양수인 경우 0에서 최대값까지, 최대값이 음수인 경우 0에서 최소값까지의 값을 표시합니다.</value></data>
+  <data name="DisplayHighLowLineDescription" xml:space="preserve"><value>고저선 요소를 표시할지 여부를 결정합니다.</value></data>
+  <data name="DisplayLabelChartBottomDescription" xml:space="preserve"><value>차트 하단에 레이블을 표시할 수 있습니다.</value></data>
+  <data name="DisplayLabelClustersModeOnlyDescription" xml:space="preserve"><value>활성화되면 레이블은 클러스터 모드에서만 표시됩니다</value></data>
+  <data name="DisplayMode" xml:space="preserve"><value>표시 모드</value></data>
+  <data name="DisplaySMADescription" xml:space="preserve"><value>이동 평균을 나타내는 요소를 표시할지 여부를 결정합니다.</value></data>
+  <data name="Divergence" xml:space="preserve"><value>발산</value></data>
+  <data name="DivergenceBars" xml:space="preserve"><value>다이버전스 바</value></data>
+  <data name="DivergenceDots" xml:space="preserve"><value>다이버전스 점</value></data>
+  <data name="DividedByPriceDescription" xml:space="preserve"><value>가격으로 나눈 1 - 이 지표는 역 차트를 반영합니다. 촛대 값은 1/초기 가격과 같습니다.</value></data>
+  <data name="Divisor" xml:space="preserve"><value>약수</value></data>
+  <data name="DivisorDescription" xml:space="preserve"><value>제수는 특정 계수로 결과를 나누어 더 편리한 형식으로 변환하는 데 사용되는 수학적 도구입니다. 계산 결과를 단순화하고 정리하는 데 도움을 줍니다.</value></data>
+  <data name="DmIndexDescription" xml:space="preserve"><value>방향성 이동 지수는 플러스 방향성 지표 (+DI)와 마이너스 방향성 지표 (-DI)를 사용하여 추세의 강도와 방향을 결정하는 기술적 지표입니다. +DI 또는 -DI의 우세는 각각 상승 추세 또는 하락 추세를 나타내며, 트레이더와 투자자에게 귀중한 시장 추세 정보를 제공합니다. 이 지표는 잠재적인 거래 기회를 식별하기 위해 기술 분석에서 일반적으로 사용됩니다.</value></data>
+  <data name="DmOscillatorDescription" xml:space="preserve"><value>방향성 이동 오실레이터는 플러스 방향 지표와 마이너스 방향 지표로 구성된 기술적 분석 도구입니다. 이 두 지표의 차이로 계산되며, 시장의 강세 및 약세 추세를 식별하는 데 사용됩니다. 오실레이터의 양수 값은 강세 추세를 나타내고, 음수 값은 약세 추세를 나타냅니다.</value></data>
+  <data name="DoNotShowAboveChart" xml:space="preserve"><value>차트 위에 표시하지 않음</value></data>
+  <data name="DoNotShowAboveChartDescription" xml:space="preserve"><value>활성화되면 막대 렌더링 영역에 요소가 표시되지 않습니다.</value></data>
+  <data name="Dodge" xml:space="preserve"><value>다지</value></data>
+  <data name="DomPowerDescription" xml:space="preserve"><value>이 지표는 시장 깊이(DOM)에서 구매자와 판매자의 비율을 보여줍니다. 포함된 내용은 다음과 같습니다:
+- 각 캔들에서의 총 매도 및 총 매수 값
+- 각 캔들에 대한 매도 및 매수 델타의 변동 범위(이 지표에서 델타는 매수-매도로 계산됨).
+
+지표의 파란색 범위(델타)는 매도와 매수의 합계 변화 범위입니다. 즉, 매도의 합계와 매수의 합계 간의 차이가 계산됩니다. 이 지표는 바 형성 중에 변동합니다. 범위는 이 지표의 최대값과 최소값을 표시합니다.</value></data>
+  <data name="DomStrengthDescription" xml:space="preserve"><value>DOM 강도 지표는 지정된 기간 동안의 거래량과 DOM의 현재 거래량 비율을 보여줍니다. 마커는 완료된 거래와 DOM의 현재 비율을 나타내는 색상으로 표시되며 Delta 지표 위에 표시됩니다. 위쪽 마커는 DOM의 매도량에 대한 매수 비율을 보여주고, 아래쪽 마커는 DOM의 매수량에 대한 매도 비율을 보여줍니다.</value></data>
+  <data name="DonchianDescription" xml:space="preserve"><value>돈치안 채널은 특정 기간 동안의 최고점과 최저점을 사용하여 채널을 생성하는 지표로, 시장 변동성을 모니터링하는 데 사용할 수 있습니다. 좁은 채널은 안정적인 가격을 나타내고, 넓은 채널은 가격 변동을 나타냅니다. 이 지표는 가격 움직임에 따라 잠재적인 거래 기회를 식별하는 데 유용합니다.</value></data>
+  <data name="DoubleStochasticBressertDescription" xml:space="preserve"><value>더블 스토캐스틱 브레서트 지표는 더블 스토캐스틱 지표의 변형으로, 더블 스토캐스틱 값의 EMA로 계산됩니다. 이는 기술적 분석에서 잠재적인 추세 반전을 식별하고 금융 시장에서 매수 또는 매도 신호를 생성하는 데 사용됩니다. 트레이더와 투자자는 이 지표를 사용하여 시장 모멘텀에 대한 통찰력을 얻고 정보에 기반한 거래 결정을 내립니다.</value></data>
+  <data name="DoubleStochasticDescription" xml:space="preserve"><value>더블 스토캐스틱 지표는 스토캐스틱 지표에서 파생된 것으로, 이미 계산된 스토캐스틱의 스토캐스틱 값으로 계산되어 잘못된 신호를 줄이는 데 도움이 됩니다. 이 수정은 스토캐스틱 지표의 정확성을 향상시키며 트레이더의 기술적 분석에 유용할 수 있습니다.</value></data>
+  <data name="Down" xml:space="preserve"><value>아래</value></data>
+  <data name="DownAlert" xml:space="preserve"><value>다운 알림</value></data>
+  <data name="DownAlertFileFilterDescription" xml:space="preserve"><value>활성화되면 지정된 사운드 파일 이름을 사용하여 다운스트림 신호가 존재할 때 경고가 트리거됩니다.</value></data>
+  <data name="DownAreaSettingsDescription" xml:space="preserve"><value>낙하 영역에 대한 시각화 설정입니다.</value></data>
+  <data name="DownTrendSettingsDescription" xml:space="preserve"><value>하락 추세 표시 설정.</value></data>
+  <data name="DrawAbovePriceDescription" xml:space="preserve"><value>차트에서 가격 데이터 위 또는 아래에 시각적 요소가 그려지는지 여부를 결정합니다. 활성화되면 인디케이터의 그래픽이 가격 플롯 위에 오버레이됩니다.</value></data>
+  <data name="DrawLinesDescription" xml:space="preserve"><value>차트에서 경계선의 표시를 활성화하거나 비활성화합니다.</value></data>
+  <data name="Drawing" xml:space="preserve"><value>그리기</value></data>
+  <data name="DtOscillatorDescription" xml:space="preserve"><value>DT 오실레이터 - 이 지표는 가격 대신 상대 강도 지수(RSI)를 기반으로 한 확률적 오실레이터를 표시합니다. 이 대체 계산 방법은 전통적인 확률적 오실레이터와 차별화됩니다.</value></data>
+  <data name="Duration" xml:space="preserve"><value>지속 시간</value></data>
+  <data name="DynamicLevelsChannelDescription" xml:space="preserve"><value>지표는 사용자가 선택한 기간을 고려하여 POC 수준과 VAH 및 VAL 수준에 의해 형성된 채널의 값을 동적으로 계산하고 표시합니다. 이러한 수준에 대한 가격 변화에 따라 매도 또는 매수 압력이 증가하는 신호가 생성됩니다.</value></data>
+  <data name="DynamicLevelsDescription" xml:space="preserve"><value>이 지표는 볼륨 데이터를 사용하여 VAH, VAL 및 POC와 같은 중요한 수준을 동적으로 계산하고 시각화합니다.
+*참고! 이 지표는 차트에 로드된 데이터를 기반으로 계산합니다. 즉, 차트에 5일의 데이터를 업로드하고 지표 기간에 한 달을 선택하면 한 달의 데이터는 계산되지 않고 5일의 데이터만 계산됩니다.</value></data>
+  <data name="EMA" xml:space="preserve"><value>지수 이동 평균</value></data>
+  <data name="EMADescription" xml:space="preserve"><value>가장 빠른 반응을 보이는 이동 평균.
+지수 이동 평균(EMA)은 다른 이동 평균보다 가격 변화에 더 빠르게 반응합니다.
+추세 방향과 모멘텀을 평가하는 데 도움이 됩니다. 종종 동적 지지 및 저항 수준으로 사용됩니다.</value></data>
+  <data name="EMALineSettingsDescription" xml:space="preserve"><value>EMA 라인의 시각화 설정.</value></data>
+  <data name="EMAPeriod" xml:space="preserve"><value>EMA 기간</value></data>
+  <data name="EMAPeriodDescription" xml:space="preserve"><value>지수 이동 평균(EMA)의 기간을 설정합니다</value></data>
+  <data name="EMVDescription" xml:space="preserve"><value>이동 용이성(또는 Arms의 이동 용이성 값, EMV로도 알려짐)은 시장에서 가격 변화가 얼마나 쉽게 발생하는지를 보여주기 위해 설계된 기술적 지표입니다. 가격 변화와 거래량 간의 관계를 분석하여 시장 가격이 얼마나 자유롭게 움직일 수 있는지에 대한 정보를 제공합니다.</value></data>
+  <data name="EfficiencyRatioPeriod" xml:space="preserve"><value>효율 비율 기간</value></data>
+  <data name="ElderRayDescription" xml:space="preserve"><value>엘더 레이 지표는 바의 고가와 저가 가격이 평균 가격 값에서 얼마나 벗어나는지를 분석하여 강세와 약세의 상대적 강도를 측정합니다.
+
+엘더 레이 지표는 알렉산더 엘더에 의해 개발되었으며, X선과 유사한 이름을 가지고 있습니다. 이는 강세와 약세의 힘 구조를 보여줍니다. 엘더 레이는 트렌드를 따르는 이동 평균과 두 개의 오실레이터의 조합입니다.</value></data>
+  <data name="ElementDisplayModeDescription" xml:space="preserve"><value>수준: 개별 수준, 누적: 누적 볼륨, 둘 다: 두 가지 옵션.</value></data>
+  <data name="ElementScaleValueDescription" xml:space="preserve"><value>시스템 또는 애플리케이션 내 요소의 스케일 값에 대한 설명입니다. 스케일 값이 어떻게 정의되는지와 요소의 크기 또는 치수를 결정하는 데 있어 그 역할을 명확히 합니다. 이 정보는 사용자 인터페이스 및 레이아웃 디자인 작업을 하는 개발자와 디자이너에게 관련이 있습니다.</value></data>
+  <data name="EmaPeriod1" xml:space="preserve"><value>지수 이동 평균 기간 1</value></data>
+  <data name="EmaPeriod2" xml:space="preserve"><value>지수 이동 평균 기간 2</value></data>
+  <data name="EmaPeriod3" xml:space="preserve"><value>지수 이동 평균 기간 3</value></data>
+  <data name="EmaPeriod4" xml:space="preserve"><value>지수 이동 평균 기간 4</value></data>
+  <data name="EmaPeriod5" xml:space="preserve"><value>지수 이동 평균 기간 5</value></data>
+  <data name="EmaPeriod6" xml:space="preserve"><value>지수 이동 평균 기간 6</value></data>
+  <data name="Enabled" xml:space="preserve"><value>활성화됨</value></data>
+  <data name="EnabledColorElementDescription" xml:space="preserve"><value>활성화되면 지정된 요소가 표시되고 특정 색상으로 설정됩니다.</value></data>
+  <data name="EndTime" xml:space="preserve"><value>종료 시간</value></data>
+  <data name="EndTimeDescription" xml:space="preserve"><value>거래 플랫폼의 종료 시간</value></data>
+  <data name="EndTimeFilterDescription" xml:space="preserve"><value>시간 필터의 종료 시간을 지정합니다.</value></data>
+  <data name="EntryCciPeriod" xml:space="preserve"><value>진입 CCI 기간</value></data>
+  <data name="Equilibrium" xml:space="preserve"><value>균형</value></data>
+  <data name="ErgodicDescription" xml:space="preserve"><value>에르고딕 지표는 가격 차이와 그 절대값을 계산하고, 단기 및 장기 기간에 대해 지수 평활화를 적용하며, 단기 지수 평활화와 장기 지수 평활화의 비율로 진정한 강도 지수(TSI)를 계산합니다. 그런 다음 신호선을 사용하고 TSI와 신호선 간의 차이로 최종 값을 형성하여 시장 트렌드의 변화에 대한 주요 포인트를 식별하는 데 도움을 줍니다.</value></data>
+  <data name="Estimator" xml:space="preserve"><value>추정기</value></data>
+  <data name="EstimatorLineSettingsDescription" xml:space="preserve"><value>추정선에 대한 시각화 설정.</value></data>
+  <data name="Exact" xml:space="preserve"><value>정확</value></data>
+  <data name="ExhaustionIndDescription" xml:space="preserve"><value>소진 지표는 가격이 상승하거나 하락할 때 거래량이 점진적으로 감소하는 것을 관찰하여 시장 활동의 약화를 감지합니다. 이러한 수요 감소는 ASK 및 BID 열의 감소된 거래량과 총 거래량에 반영됩니다. 이는 시장의 잠재적인 소진을 신호할 수 있습니다.</value></data>
+  <data name="ExtendLast" xml:space="preserve"><value>마지막 확장</value></data>
+  <data name="ExtendLastDescription" xml:space="preserve"><value>마지막 요소를 확장할지 여부를 결정합니다.</value></data>
+  <data name="ExtendLines" xml:space="preserve"><value>선 연장</value></data>
+  <data name="ExtendLinesDescription" xml:space="preserve"><value>라인을 연장할지 여부를 결정합니다.</value></data>
+  <data name="ExtendPrevious" xml:space="preserve"><value>이전 계속</value></data>
+  <data name="ExtendPreviousDescription" xml:space="preserve"><value>지정된 요소를 다음 요소의 시작까지 확장할지 여부를 결정합니다.</value></data>
+  <data name="ExternalChartsDescription" xml:space="preserve"><value>지표는 여러 개의 연속된 막대를 더 큰 시간 간격으로 "결합"할 수 있게 해줍니다.</value></data>
+  <data name="ExternalPeriod" xml:space="preserve"><value>외부 기간</value></data>
+  <data name="FCVDescription" xml:space="preserve"><value>이 인디케이터는 사용자 지정 틱 값을 사용(또는 사용하지 않음)하여 전체 계약 가치를 계산하고 표시합니다.</value></data>
+  <data name="FairValueGapDescription" xml:space="preserve"><value>이 지표는 현재 및 더 높은 시간대에서 공정 가치 갭을 찾습니다. 공정 가치 갭은 가장 왼쪽의 고점이 가장 오른쪽의 저점보다 낮거나 가장 왼쪽의 저점이 가장 오른쪽의 고점보다 높은 세 개의 바 범위에서 결정됩니다.</value></data>
+  <data name="FakeSeriesColor" xml:space="preserve"><value>가짜 시리즈 색상</value></data>
+  <data name="FastConst" xml:space="preserve"><value>빠른 스무딩 상수</value></data>
+  <data name="FastConstDescription" xml:space="preserve"><value>단기 가격 변동에 대한 민감도를 조정합니다.</value></data>
+  <data name="FastLine" xml:space="preserve"><value>패스트 라인</value></data>
+  <data name="FastLineSettingsDescription" xml:space="preserve"><value>빠른 선의 시각화 설정</value></data>
+  <data name="FillAreaDescription" xml:space="preserve"><value>지정된 색상으로 지정된 영역을 채울지 여부를 결정합니다.</value></data>
+  <data name="FillCandles" xml:space="preserve"><value>양초 채우기</value></data>
+  <data name="FillColor" xml:space="preserve"><value>채우기 색상</value></data>
+  <data name="FillColorDescription" xml:space="preserve"><value>요소의 채우기 색상을 설정합니다.</value></data>
+  <data name="Filter" xml:space="preserve"><value>필터</value></data>
+  <data name="Filter1" xml:space="preserve"><value>필터 №1</value></data>
+  <data name="Filter2" xml:space="preserve"><value>필터 №2</value></data>
+  <data name="Filter3" xml:space="preserve"><value>필터 №3</value></data>
+  <data name="Filter4" xml:space="preserve"><value>필터 №4</value></data>
+  <data name="Filter5" xml:space="preserve"><value>필터 번호 5</value></data>
+  <data name="FilterCandleColorDescription" xml:space="preserve"><value>필터 기준에 맞는 캔들의 색상을 설정합니다.</value></data>
+  <data name="FilterColor" xml:space="preserve"><value>필터 색상</value></data>
+  <data name="FilterColorDescription" xml:space="preserve"><value>필터 기준을 충족하지 않는 요소의 색상을 정의합니다.</value></data>
+  <data name="FilterEmptyMsg" xml:space="preserve"><value>필터가 비어 있습니다</value></data>
+  <data name="Filters" xml:space="preserve"><value>필터</value></data>
+  <data name="FiltersMaxVolumeDecimalColorDescription" xml:space="preserve"><value>지정된 임계값을 초과하는 거래량 레벨을 강조 표시합니다.</value></data>
+  <data name="FirstBar" xml:space="preserve"><value>첫 번째 바</value></data>
+  <data name="FirstBarDescription" xml:space="preserve"><value>활성화되면 요소의 표시가 계산에 참여한 바부터 시작됩니다.</value></data>
+  <data name="FirstDev" xml:space="preserve"><value>첫 번째 개발</value></data>
+  <data name="FirstLine" xml:space="preserve"><value>첫 번째 줄</value></data>
+  <data name="FisherTransformDescription" xml:space="preserve"><value>피셔 변환은 가격을 가우시안 정규 분포로 변환하는 기술 지표로, 최근 가격을 기반으로 극단적인 가격 변동을 식별하는 데 도움을 줍니다. 이는 자산 가격의 전환점을 찾고 추세 내에서 가격 파동을 분리하는 데 사용할 수 있습니다.</value></data>
+  <data name="FisherTransformInverseDescription" xml:space="preserve"><value>피셔 변환 역지표는 -1에서 1까지의 값을 생성하는 변환 함수로, 거래에서 오실레이터로 사용하기에 적합합니다.</value></data>
+  <data name="FisherTransformInverseRsiDescription" xml:space="preserve"><value>RSI가 포함된 역 피셔 변환은 RSI 지표 값을 중간 값으로 사용하는 역 피셔 변환 오실레이터의 변형입니다.</value></data>
+  <data name="FitToPriceRange" xml:space="preserve"><value>가격 범위에 맞추기</value></data>
+  <data name="FitToPriceRangeDescription" xml:space="preserve"><value>기간의 최고점과 최저점 사이에만 세션 영역을 그립니다</value></data>
+  <data name="FixedSizes" xml:space="preserve"><value>고정 크기</value></data>
+  <data name="FixedSizesDescription" xml:space="preserve"><value>"고정 크기" 옵션이 활성화되면 차트의 모든 볼륨이 실제 값과 관계없이 동일한 크기로 시각적으로 표시됩니다. 이 기능은 다양한 볼륨의 표준화된 시각적 표현을 만드는 데 도움이 됩니다.</value></data>
+  <data name="FixedThreshold" xml:space="preserve"><value>고정 임계값</value></data>
+  <data name="FixedValue" xml:space="preserve"><value>고정 값</value></data>
+  <data name="FlatColor" xml:space="preserve"><value>플랫 색상</value></data>
+  <data name="Font" xml:space="preserve"><value>글꼴</value></data>
+  <data name="FontColor" xml:space="preserve"><value>글꼴 색상</value></data>
+  <data name="FontSettingDescription" xml:space="preserve"><value>글꼴에 대한 다양한 설정을 지정합니다.</value></data>
+  <data name="FontSize" xml:space="preserve"><value>글꼴 크기</value></data>
+  <data name="FontSizeDescription" xml:space="preserve"><value>글꼴 크기를 설정합니다.</value></data>
+  <data name="ForceIndexDescription" xml:space="preserve"><value>포스 인덱스 지표 - 현재 종가와 이전 종가의 차이에 현재 캔들의 거래량을 곱하여 계산됩니다. 이 지표의 주요 아이디어는 시장에서 구매자와 판매자에 대한 압력의 강도를 판단하는 것입니다.</value></data>
+  <data name="Foreground" xml:space="preserve"><value>전경</value></data>
+  <data name="FractalPeriodDescription" xml:space="preserve"><value>프랙탈을 식별하는 데 필요한 중앙 바의 양쪽에 있는 바의 수.</value></data>
+  <data name="FractalsDescription" xml:space="preserve"><value>지표는 5개의 캔들 패턴을 기반으로 로컬 극값을 식별하고 표시합니다. 높은 극값은 중앙 캔들에 가장 높은 점이 위치하고 양쪽에 낮은 고점이 있을 때 발생합니다. 반대로, 낮은 극값은 중앙 캔들에 가장 낮은 점이 위치하고 양쪽에 높은 저점이 있을 때 특징지어집니다.</value></data>
+  <data name="FrameMultiplier" xml:space="preserve"><value>프레임 배수기</value></data>
+  <data name="FrameSize" xml:space="preserve"><value>프레임 크기</value></data>
+  <data name="Full" xml:space="preserve"><value>전체</value></data>
+  <data name="FullWidth" xml:space="preserve"><value>전체 너비</value></data>
+  <data name="GMMADescription" xml:space="preserve"><value>Guppy 다중 이동 평균(GMMA) 지표는 6개의 단기 이동 평균과 6개의 장기 이동 평균을 사용하여 추세의 강도와 지속 시간을 결정하는 추세 기술 지표입니다.</value></data>
+  <data name="GapsIndDescription" xml:space="preserve"><value>이 지표는 인접한 막대 간의 가격 차이를 결정하는 데 도움이 됩니다.</value></data>
+  <data name="General" xml:space="preserve"><value>일반</value></data>
+  <data name="GreatestSwingDescription" xml:space="preserve"><value>이 지표는 래리 윌리엄스의 저서 "단기 거래의 장기 비밀"의 GSV 개념을 기반으로 하지만, 특정 바의 극단을 포함하는 다른 계산을 사용합니다. 이는 가격이 움직일 수 있는 범위를 나타내는 채널을 나타내며, 트레이더에게 통찰력을 제공합니다.</value></data>
+  <data name="Green" xml:space="preserve"><value>녹색</value></data>
+  <data name="GreenSeriesColor" xml:space="preserve"><value>그린 시리즈 색상</value></data>
+  <data name="Grid" xml:space="preserve"><value>그리드</value></data>
+  <data name="GridColorDescription" xml:space="preserve"><value>빠른 정보 확인을 위한 시각적 데이터 분리.</value></data>
+  <data name="GridLineSettingsDescription" xml:space="preserve"><value>그리드 선에 대한 시각화 설정.</value></data>
+  <data name="GridRowHeihgtDescription" xml:space="preserve"><value>그리드 행의 높이를 설정합니다.</value></data>
+  <data name="GridStep" xml:space="preserve"><value>그리드 단계</value></data>
+  <data name="GridStyle" xml:space="preserve"><value>그리드 스타일</value></data>
+  <data name="H2" xml:space="preserve"><value>H2</value></data>
+  <data name="H4" xml:space="preserve"><value>H4</value></data>
+  <data name="H6" xml:space="preserve"><value>H6</value></data>
+  <data name="HHMMSS" xml:space="preserve"><value>hh:mm:ss</value></data>
+  <data name="HHMMSSPM" xml:space="preserve"><value>h:mm:ss am/pm</value></data>
+  <data name="HLAverage" xml:space="preserve"><value>HL 평균</value></data>
+  <data name="HLCAverage" xml:space="preserve"><value>HLC 평균</value></data>
+  <data name="HLCAveragePrevSessionDescription" xml:space="preserve"><value>이전 세션의 평균 가격 값은 (고가 + 저가 + 종가) / 3 공식을 사용하여 계산됩니다.</value></data>
+  <data name="HMADescription" xml:space="preserve"><value>헐 이동 평균(HMA)은 가격 평균을 계산하는 데 널리 사용되는 방법입니다. 이는 2005년 앨런 헐에 의해 전통적인 이동 평균의 한계, 특히 지연 및 노이즈 문제를 극복하기 위해 개발되었습니다. HMA는 가중 이동 평균을 사용하여 이러한 문제를 해결하여 노이즈가 줄어든 부드러운 가격 데이터를 생성합니다.</value></data>
+  <data name="HRangesDescription" xml:space="preserve"><value>HRanges 지표는 특정 조건에 따라 가격 범위를 결정하고 표시하도록 설계되었습니다. 5개의 캔들의 지역 극값이 고려됩니다. 형성 시점에서 범위는 평탄한 것으로 간주됩니다. 브레이크아웃 후, 브레이크아웃 방향에 따라 이 범위는 강세 또는 약세로 간주됩니다. 최대 볼륨 및 범위 내 바 수에 대한 필터를 설정할 수도 있습니다.</value></data>
+  <data name="HVRDescription" xml:space="preserve"><value>HVR(역사적 변동성 비율) 지표는 금융 상품의 역사적 변동성을 평가하기 위해 설계되었습니다. 이는 종가의 로그 수익률을 기반으로 단기 및 장기 변동성 간의 비율을 계산합니다. 비율이 상승하면 장기 대비 단기 변동성이 증가하고 있음을 나타내며, 이는 추세 역학의 변화를 시사할 수 있습니다.</value></data>
+  <data name="HeaderBackgroundDescription" xml:space="preserve"><value>빠른 행 탐색을 위한 헤더 강조 표시.</value></data>
+  <data name="Headers" xml:space="preserve"><value>헤더</value></data>
+  <data name="HeatmapCvdCalculationMode" xml:space="preserve"><value>CVD 계산 모드</value></data>
+  <data name="HeatmapCvdPanelHeight" xml:space="preserve"><value>CVD 패널 높이</value></data>
+  <data name="HeatmapPocInterval" xml:space="preserve"><value>POC 간격</value></data>
+  <data name="HeatmapPocLineColor" xml:space="preserve"><value>POC 라인 색상</value></data>
+  <data name="HeatmapPocLineThickness" xml:space="preserve"><value>POC 선 두께</value></data>
+  <data name="HeatmapShowValueArea" xml:space="preserve"><value>값 영역 표시</value></data>
+  <data name="HeatmapValueAreaColor" xml:space="preserve"><value>값 영역 색상</value></data>
+  <data name="Height" xml:space="preserve"><value>높이</value></data>
+  <data name="HeightAlert" xml:space="preserve"><value>높이 경고</value></data>
+  <data name="HeikenAshiDescription" xml:space="preserve"><value>헤이켄 아시(HA) - 이전 기간의 평균 가격 변동을 기반으로 한 시간 세그먼트의 인용 표현 유형입니다.</value></data>
+  <data name="HeikenAshiSmoothedDescription" xml:space="preserve"><value>Heiken-Ashi Smoothed는 Heiken-Ashi 지표를 기반으로 합니다. 지표 값은 원본과 유사하게 계산되며, 가중 이동 평균과 평활 이동 평균을 통해 추가적인 평활화가 적용됩니다. 이 평활화는 모든 원본 지표 값에 대해 다음 공식을 사용하여 적용됩니다: WMA(SMMA(x(t)))입니다.</value></data>
+  <data name="HerrickPayoffDescription" xml:space="preserve"><value>헤리크 페이오프 지수(HPI)는 선물 시장에서 자금의 유입과 유출을 측정하는 지수입니다. 이는 존 헤리크에 의해 개발되었으며 가격, 미결제 약정 및 거래량 변화의 분석을 기반으로 합니다.</value></data>
+  <data name="Hide" xml:space="preserve"><value>숨기기</value></data>
+  <data name="HideAll" xml:space="preserve"><value>모두 숨기기</value></data>
+  <data name="HideBackGround" xml:space="preserve"><value>배경 숨기기</value></data>
+  <data name="HideBarsCountUnfilteredRangesDescription" xml:space="preserve"><value>바 카운트 필터를 통과하지 않는 범위를 숨길지 여부를 결정합니다.</value></data>
+  <data name="HideBorder" xml:space="preserve"><value>테두리 숨기기</value></data>
+  <data name="HideBorderDescription" xml:space="preserve"><value>지정된 요소의 테두리 표시를 숨길지 여부를 결정합니다.</value></data>
+  <data name="HideGaps" xml:space="preserve"><value>간격 숨기기</value></data>
+  <data name="HideGapsDescription" xml:space="preserve"><value>차트에서 간격 표시를 숨길지 여부를 결정합니다.</value></data>
+  <data name="HideHeadersDescription" xml:space="preserve"><value>활성화되면 헤더 행이 숨겨집니다.</value></data>
+  <data name="HideLabelBackGroundDescription" xml:space="preserve"><value>이 옵션은 레이블 배경의 표시를 숨깁니다.</value></data>
+  <data name="HideMaxVolumeUnfilteredRangesDescription" xml:space="preserve"><value>최대 볼륨 필터를 통과하지 않는 범위를 숨길지 여부를 결정합니다.</value></data>
+  <data name="HideOlds" xml:space="preserve"><value>오래된 항목 숨기기</value></data>
+  <data name="HideOldsElementsDescription" xml:space="preserve"><value>이 요소를 기록에서 숨기고 현재 요소만 표시할 수 있습니다.</value></data>
+  <data name="HideRowsDescription" xml:space="preserve"><value>헤더 숨기기</value></data>
+  <data name="High" xml:space="preserve"><value>높음</value></data>
+  <data name="HighColor" xml:space="preserve"><value>하이 컬러</value></data>
+  <data name="HighLineColor" xml:space="preserve"><value>하이 라인 색상</value></data>
+  <data name="HighLow" xml:space="preserve"><value>고저</value></data>
+  <data name="HighLow2" xml:space="preserve"><value>(High + Low)/2</value></data>
+  <data name="HighLow2Close4" xml:space="preserve"><value>(고가 + 저가 + 2*종가)/4</value></data>
+  <data name="HighLowClose3" xml:space="preserve"><value>(고가 + 저가 + 종가)/3</value></data>
+  <data name="HighLowColor" xml:space="preserve"><value>하이로우 색상</value></data>
+  <data name="HighLowIndDescription" xml:space="preserve"><value>이 지표는 차트에서 마지막 n개의 바의 최고 및 최저 값을 표시하여 지정된 기간 내의 값 범위를 시각적으로 나타냅니다. 이는 시장의 추세와 잠재적인 지지 또는 저항 수준을 식별하는 데 유용할 수 있습니다.</value></data>
+  <data name="HighLowLineColorDescription" xml:space="preserve"><value>고/저 라인을 표시하는 데 사용할 색상을 정의합니다.</value></data>
+  <data name="HighRatio" xml:space="preserve"><value>최대 비율</value></data>
+  <data name="HighRatioColorDescription" xml:space="preserve"><value>높은 비율 요소의 색상을 정의합니다.</value></data>
+  <data name="HighRatioDescription" xml:space="preserve"><value>비율의 상한 값을 설정합니다.</value></data>
+  <data name="HighSession" xml:space="preserve"><value>높은 세션</value></data>
+  <data name="HigherTimeFrame" xml:space="preserve"><value>상위 시간 프레임</value></data>
+  <data name="Highest" xml:space="preserve"><value>최고</value></data>
+  <data name="HighestIndDescription" xml:space="preserve"><value>이 지표는 특정 기간 내에서 지정된 수의 바를 분석하여 최고 가격을 식별하는 데 도움을 줍니다. 이는 가격 변동을 추적하고 시장의 잠재적 트렌드를 식별하려는 트레이더와 분석가에게 유용합니다.</value></data>
+  <data name="HighestLowestPeriodDescription" xml:space="preserve"><value>최고 및 최저 구성 요소의 기간을 설정합니다.</value></data>
+  <data name="HighlightSignalBars" xml:space="preserve"><value>신호 막대 강조 표시</value></data>
+  <data name="HighlightSignalBarsDescription" xml:space="preserve"><value>신호 막대를 강조 표시할지 여부를 결정합니다.</value></data>
+  <data name="Histogram" xml:space="preserve"><value>히스토그램</value></data>
+  <data name="HistogramMinimizedModeDescription" xml:space="preserve"><value>이 모드에서는 모든 히스토그램 요소가 제로 라인 위에 표시됩니다.</value></data>
+  <data name="HistogramSize" xml:space="preserve"><value>히스토그램 크기</value></data>
+  <data name="HistogramWidthDescription" xml:space="preserve"><value>주문서 패널의 너비(픽셀).</value></data>
+  <data name="HorizontalOffset" xml:space="preserve"><value>수평 오프셋</value></data>
+  <data name="HorizontalPosition" xml:space="preserve"><value>수평 위치</value></data>
+  <data name="Hourly" xml:space="preserve"><value>매시간</value></data>
+  <data name="HurstExponentDescription" xml:space="preserve"><value>허스트 지수는 시간 시계열에서 장기 기억을 평가하기 위해 자가 상관과 시간 경과에 따른 상관 관계 감소 속도를 측정하는 데 사용됩니다. 이는 "의존 지수"로 간주되며, 시간 시계열이 평균 값 방향으로 지속적으로 감소하거나 과거 행동에 비해 특정 방향으로 집중되는 경향을 정량화합니다.</value></data>
+  <data name="IBHM" xml:space="preserve"><value>IBH-IBM</value></data>
+  <data name="IBHX1H" xml:space="preserve"><value>IBHX1-IBH</value></data>
+  <data name="IBHX21" xml:space="preserve"><value>IBHX2-1</value></data>
+  <data name="IBHX32" xml:space="preserve"><value>IBHX3-2</value></data>
+  <data name="IBL1" xml:space="preserve"><value>IBL-IBLX1</value></data>
+  <data name="IBLX12" xml:space="preserve"><value>IBLX1-2</value></data>
+  <data name="IBLX23" xml:space="preserve"><value>IBLX2-3</value></data>
+  <data name="IBML" xml:space="preserve"><value>IBM-IBL</value></data>
+  <data name="IchimokuDescription" xml:space="preserve"><value>이치모쿠는 지지 및 저항 수준을 식별하고, 시장 추세를 결정하며, 모멘텀을 평가하고, 거래 신호를 생성하는 데 사용되는 기술적 분석 도구입니다. 이는 트레이더와 투자자가 금융 시장에서 정보에 기반한 결정을 내리는 데 유용한 통찰력을 제공합니다.</value></data>
+  <data name="IgnoreWicks" xml:space="preserve"><value>캔들의 심지를 무시합니다</value></data>
+  <data name="IgnoreWicksDescription" xml:space="preserve"><value>조건이 활성화된 경우 계산을 위한 데이터는 캔들의 개장과 폐장 사이에서 가져오고, 조건이 비활성화된 경우에는 고가와 저가 사이에서 가져옵니다.</value></data>
+  <data name="IgnoreZeroValues" xml:space="preserve"><value>제로 값을 무시합니다</value></data>
+  <data name="IgnoreZeroValuesDescription" xml:space="preserve"><value>활성화되면, 제로 값은 계산에 포함되지 않습니다.</value></data>
+  <data name="ImageLocation" xml:space="preserve"><value>이미지 위치</value></data>
+  <data name="ImageLocationDescription" xml:space="preserve"><value>이미지의 표시 위치를 지정합니다.</value></data>
+  <data name="ImageOffsetXDescription" xml:space="preserve"><value>이미지의 x축 오프셋을 픽셀 단위로 설정합니다.</value></data>
+  <data name="ImageOffsetYDescription" xml:space="preserve"><value>이미지의 y축 오프셋을 픽셀 단위로 설정합니다.</value></data>
+  <data name="ImageTransparencyDescription" xml:space="preserve"><value>이미지의 투명도 구성 요소에 대한 값을 정의합니다.</value></data>
+  <data name="ImbalanceDifference" xml:space="preserve"><value>최소 차이</value></data>
+  <data name="ImbalanceRange" xml:space="preserve"><value>불균형 범위</value></data>
+  <data name="ImbalanceRatio" xml:space="preserve"><value>불균형 비율</value></data>
+  <data name="ImbalanceRatioIndDescription" xml:space="preserve"><value>이 지표는 지정된 비율에 따라 매수 및 매도 주문 간의 불균형을 측정하고 주어진 바 내에서 이러한 불균형의 수를 제공합니다. 이는 트레이더가 잠재적인 시장 불균형을 식별하고 데이터를 기반으로 정보에 입각한 거래 결정을 내리는 데 도움을 줍니다.</value></data>
+  <data name="ImbalanceVolume" xml:space="preserve"><value>불균형 거래량</value></data>
+  <data name="IncludeEqualHighLow" xml:space="preserve"><value>동일한 High 및 Low 포함</value></data>
+  <data name="IncludeEqualsValuesDescription" xml:space="preserve"><value>비교된 값이 동일한 경우를 고려할지 여부를 결정합니다.</value></data>
+  <data name="IncreasedMomentumSettingsDescription" xml:space="preserve"><value>증가된 모멘텀 값을 나타내는 요소에 대한 시각화 설정입니다.</value></data>
+  <data name="Indicator" xml:space="preserve"><value>지표</value></data>
+  <data name="IndicatorAuthorDescription" xml:space="preserve"><value>지표 아이디어의 저자는 지표 뒤에 있는 개념을 제안하고 개발하는 책임이 있습니다. 그들은 지표의 방향과 목적을 형성하는 데 중요한 역할을 합니다. 그들의 의견은 지표가 의도된 기준을 효과적으로 측정하도록 보장하는 데 필수적입니다.</value></data>
+  <data name="InertiaIndDescription" xml:space="preserve"><value>"관성" 지표는 이동 평균의 대안으로, 매수자와 매도자의 균형을 고려하여 예상 가격 변동을 계산합니다. 계산에는 "선형 회귀" 및 "상대적 활력 지수" 지표가 포함됩니다.</value></data>
+  <data name="InertiaV2IndDescription" xml:space="preserve"><value>"Inertia V2" 지표는 이동 평균의 대안으로, 더 복잡한 공식을 사용하고 "선형 회귀" 및 "상대적 활력 지수" 지표를 계산에 포함합니다. 또한 "표준 편차" 지표를 활용하여 현재의 매수자와 매도자의 균형을 유지하며, 첫 번째 버전과 구별됩니다.</value></data>
+  <data name="Info" xml:space="preserve"><value>정보</value></data>
+  <data name="InitialBalanceIndDescription" xml:space="preserve"><value>"초기 균형" (시작 균형) - 특정 기간의 "고"에서 "저"까지의 시작 영역을 선택하고 초기 값에 따라 차트에 선을 그리는 지표입니다. 초기 균형이 전날에 비해 좁은 경우 이 구역에서 가격 돌파가 예상된다고 여겨집니다. 초기 균형이 넓은 경우 가격은 해당 영역 내에서 머물 가능성이 높습니다.</value></data>
+  <data name="InsideEqualsBarDescription" xml:space="preserve"><value>"인사이드 바" 패턴은 각 강조 표시된 시리즈의 첫 번째 바의 고가와 저가 범위 내에 있는 바의 시리즈를 강조 표시합니다. 허용 오차 매개변수를 사용하면 캔들의 몸체가 고가/저가에서 허용 가능한 편차를 설정할 수 있습니다.</value></data>
+  <data name="InvertOutput" xml:space="preserve"><value>출력을 반전시키기</value></data>
+  <data name="InvertOutputDescription" xml:space="preserve"><value>출력 값을 반전시킬 필요가 있는지(값의 부호를 반대로 변경) 결정합니다.</value></data>
+  <data name="IsApproximationAlertDescription" xml:space="preserve"><value>가격이 특정 수준에 접근할 때 경고가 발행되는지 여부를 결정합니다.</value></data>
+  <data name="IsCustomSessionDescription" xml:space="preserve"><value>활성화되면 사용자 정의 세션을 사용할 수 있으며, 그렇지 않으면 기본 세션이 사용됩니다.</value></data>
+  <data name="IsLimitMaxLengthDescription" xml:space="preserve"><value>지정된 요소의 최대 길이를 제한할지 여부를 결정합니다.</value></data>
+  <data name="IsLineTillTouchDescription" xml:space="preserve"><value>라인을 바에 닿을 때까지 연장할지 여부를 결정합니다.</value></data>
+  <data name="IsNeedFillDescription" xml:space="preserve"><value>표시된 요소를 채워야 하는지 여부를 결정합니다.</value></data>
+  <data name="IsNeedShowCurrentTimeDescription" xml:space="preserve"><value>현재 시간을 표시할지 여부를 결정합니다.</value></data>
+  <data name="IsNeedShowLabelDescription" xml:space="preserve"><value>텍스트 레이블을 표시할지 여부를 결정합니다.</value></data>
+  <data name="IsNeedShowLinesDescription" xml:space="preserve"><value>차트에 선을 표시할지 여부를 결정합니다.</value></data>
+  <data name="IsSingalAlertDescription" xml:space="preserve"><value>지정된 신호가 나타날 때 경고를 발행할지 여부를 결정합니다.</value></data>
+  <data name="IsVisibleDescription" xml:space="preserve"><value>이 요소를 표시할지 여부를 결정합니다.</value></data>
+  <data name="JawAlligator" xml:space="preserve"><value>악어의 턱</value></data>
+  <data name="KAMADescription" xml:space="preserve"><value>카우프만 적응 이동 평균(KAMA)은 지수적으로 평활화된 이동 평균과 동적으로 변화하는 평활화 상수로서 변동성을 결정하고 적용하는 독특한 기술을 사용하는 적응 이동 평균의 일종입니다.</value></data>
+  <data name="KCMultFactor" xml:space="preserve"><value>켈트너 채널 배수 계수</value></data>
+  <data name="KCPeriod" xml:space="preserve"><value>Keltner Channel 기간</value></data>
+  <data name="KDJDescription" xml:space="preserve"><value>"KDJ" 지표는 거래 기회를 신호하기 위해 세 개의 선을 조합한 기술적 분석 도구입니다. 빨간 선이 파란 선 위에 있고 파란 선이 초록 선 위에 있을 때 매수 신호를 생성하며, 반대의 경우에는 매도 신호를 생성합니다. 지표의 효능은 선들 사이의 거리 기반으로, 간격이 넓을수록 신호가 강하다는 것을 나타냅니다.</value></data>
+  <data name="KdFastDescription" xml:space="preserve"><value>"KD-Fast" 또는 "패스트 스토캐스틱" 지표는 조지 C. 레인에 의해 개발된 일종의 스토캐스틱 오실레이터입니다. 이는 현재 종가와 특정 기간 동안의 최고가 및 최저가 범위 간의 관계를 평가하여 가격 변화율을 계산합니다. KD-Fast 지표는 차트에서 두 개의 선 "%K"와 "%D"로 표시되며, 모멘텀과 잠재적인 추세 반전 포인트에 대한 통찰력을 제공합니다.</value></data>
+  <data name="KdSlowDescription" xml:space="preserve"><value>"KD - Slow" 지표는 "KD - Fast" 지표의 수정된 버전으로, "%K" 선은 "KD - Fast" 지표의 "%D" 선이고, "%D" 선은 "%K" 선의 스무딩 버전입니다. 이 지표는 금융 거래에서 추세와 잠재적 반전 포인트를 분석하는 데 사용됩니다.</value></data>
+  <data name="KeltnerChannel" xml:space="preserve"><value>켈트너 채널</value></data>
+  <data name="KeltnerChannelDescription" xml:space="preserve"><value>켈트너 채널은 1960년 체스터 켈트너에 의해 개발된 기술적 분석 지표입니다. 세 개의 차트 라인을 사용합니다: 중간 라인은 '전형적인' 가격에 대한 10일 단순 이동 평균이며, 상단 및 하단 라인은 중간 라인에서 일일 가격 범위의 이동 평균을 더하고 빼서 얻습니다.</value></data>
+  <data name="KijunSen" xml:space="preserve"><value>기준선</value></data>
+  <data name="KurtosisDescription" xml:space="preserve"><value>커토시스 지표는 시장 분위기 지표로 사용되며, 커토시스, 패스트 커토시스 및 패스트/슬로우 커토시스로 구성됩니다. 차트에는 두 개의 곡선으로 표시되며, 정규 분포의 동태를 나타내며, 양수 값은 피크 값을 나타내고 음수 값은 그 반대를 나타냅니다.</value></data>
+  <data name="Label" xml:space="preserve"><value>레이블</value></data>
+  <data name="LabelDisplay" xml:space="preserve"><value>레이블 표시</value></data>
+  <data name="LabelDisplayDescription" xml:space="preserve"><value>라벨 가시성 제어: 숨기기, 짧게(방향 + 결과), 전체(가격 포함)</value></data>
+  <data name="LabelFillColorDescription" xml:space="preserve"><value>데이터를 편안하게 읽기 위한 설정.</value></data>
+  <data name="LabelLocation" xml:space="preserve"><value>레이블 위치</value></data>
+  <data name="LabelLocationDescription" xml:space="preserve"><value>레이블의 표시 위치를 지정합니다.</value></data>
+  <data name="LabelOffset" xml:space="preserve"><value>텍스트 오프셋</value></data>
+  <data name="LabelOffsetXDescription" xml:space="preserve"><value>레이블의 x축 오프셋을 픽셀 단위로 설정합니다.</value></data>
+  <data name="LabelOffsetYDescription" xml:space="preserve"><value>레이블의 Y축 오프셋을 픽셀 단위로 설정합니다.</value></data>
+  <data name="LabelTextColorDescription" xml:space="preserve"><value>호가창 레벨의 거래량 숫자 색상.</value></data>
+  <data name="LabelTextDescription" xml:space="preserve"><value>표시된 레이블의 텍스트를 정의합니다.</value></data>
+  <data name="LabelWidthDescription" xml:space="preserve"><value>레이블의 너비를 정의합니다.</value></data>
+  <data name="LaggingLinePeriodDescription" xml:space="preserve"><value>지연선에 대한 바에서 측정된 기간.</value></data>
+  <data name="LaggingLineSettingsDescription" xml:space="preserve"><value>지연 선에 대한 시각화 설정.</value></data>
+  <data name="LastBearishElementsNumber" xml:space="preserve"><value>최근 약세 요소 수</value></data>
+  <data name="LastBullishElementsNumber" xml:space="preserve"><value>마지막 강세 요소 수</value></data>
+  <data name="LayoutGroup" xml:space="preserve"><value>레이아웃</value></data>
+  <data name="Left" xml:space="preserve"><value>왼쪽</value></data>
+  <data name="Length" xml:space="preserve"><value>길이</value></data>
+  <data name="LevelValidTimeFilterDescription" xml:space="preserve"><value>활성화되면 발견된 수준이 유효하다고 간주되는 시간을 결정합니다.</value></data>
+  <data name="Levels" xml:space="preserve"><value>레벨</value></data>
+  <data name="LevelsMode" xml:space="preserve"><value>레벨 모드</value></data>
+  <data name="LimitMaxGapBodyLength" xml:space="preserve"><value>텍스트의 요소 간 최대 간격 길이를 제한합니다</value></data>
+  <data name="LinRegChannelDescription" xml:space="preserve"><value>이 지표는 선형 회귀 기울기를 사용하여 가격 차트에 지정된 편차와 동일한 너비의 채널을 표시합니다. 이 지표는 시장의 추세 방향과 강도를 평가하는 데 사용됩니다.</value></data>
+  <data name="LinRegSlopeDescription" xml:space="preserve"><value>"선형 회귀 기울기" 지표는 "선형 회귀" 선의 기울기 구성 요소를 표시하는 데 사용되며, 지정된 기간 동안 가격을 변경하는 데 필요한 시간을 보여줍니다. 이 지표는 가격 추세를 분석하고 시간에 따른 가격 변화율을 기반으로 예측을 하는 데 유용합니다.</value></data>
+  <data name="Line" xml:space="preserve"><value>선</value></data>
+  <data name="LineColorDescription" xml:space="preserve"><value>표시된 선의 색상을 결정합니다.</value></data>
+  <data name="LineDashStyle" xml:space="preserve"><value>선 스타일</value></data>
+  <data name="LineDashStyleDescription" xml:space="preserve"><value>차트의 선에 사용되는 대시 패턴을 지정하며, 시각적 차별화를 위해 실선, 점선, 대시선 또는 사용자 정의 패턴과 같은 스타일을 선택할 수 있습니다.</value></data>
+  <data name="LineLengthDescription" xml:space="preserve"><value>표시된 행의 길이를 결정합니다.</value></data>
+  <data name="LineSettings" xml:space="preserve"><value>라인 설정</value></data>
+  <data name="LineSettingsDescription" xml:space="preserve"><value>이 설정은 사용자가 선 표시 매개변수를 정의할 수 있도록 합니다. 선이 시각적으로 표시되는 방식을 조정할 수 있는 사용자 정의 옵션을 제공합니다.</value></data>
+  <data name="LineStyle" xml:space="preserve"><value>선 스타일</value></data>
+  <data name="LineTillTouch" xml:space="preserve"><value>터치까지의 선</value></data>
+  <data name="LineWidth" xml:space="preserve"><value>선 너비</value></data>
+  <data name="LineWidthDescription" xml:space="preserve"><value>표시된 선의 너비를 결정하는 방법을 설명합니다. 이는 그래픽 디스플레이나 인터페이스에서 선의 모양을 사용자 정의하는 데 유용할 수 있습니다. 시각적 표현에서 선의 너비를 제어하는 방법에 대한 간단하고 명확한 설명을 제공합니다. 그래픽 사용자 인터페이스나 시각화 작업을 하는 개발자와 디자이너에게 유용한 참고 자료입니다.</value></data>
+  <data name="LinearReg" xml:space="preserve"><value>선형 회귀</value></data>
+  <data name="LinearRegIndDescription" xml:space="preserve"><value>Linear Regression 지표는 특정 기간 동안 금융 상품 가격의 선형 회귀를 계산하고 표시합니다. 이는 과거 데이터에 직선을 맞추어 추세를 나타내며, 추세의 방향과 강도를 보여줍니다. 
+트레이더는 민감도를 조절하기 위해 기간을 조정할 수 있습니다. 
+이 지표는 추세, 잠재적 전환점을 식별하는 데 도움을 주며, 선형 회귀 분석에 기반하여 전체 가격 움직임의 근사치를 제공합니다. 그러나 포괄적인 시장 분석을 위해 다른 도구와 함께 사용하는 것이 중요합니다.</value></data>
+  <data name="LinearRegPeriodDescription" xml:space="preserve"><value>"선형 회귀" 모델의 기간을 설정합니다.</value></data>
+  <data name="LinkingToBar" xml:space="preserve"><value>막대에 연결됨</value></data>
+  <data name="LipsAlligator" xml:space="preserve"><value>립스 악어</value></data>
+  <data name="Location" xml:space="preserve"><value>위치</value></data>
+  <data name="LocationFilters" xml:space="preserve"><value>위치 필터</value></data>
+  <data name="LogoFilePathDescription" xml:space="preserve"><value>이미지 파일 (*.bmp, *.gif, *.jpeg, *.jpg, *.png, *.tiff)</value></data>
+  <data name="LogoIndDescription" xml:space="preserve"><value>이 지표는 차트 창에서 파일의 이미지를 배경으로 또는 차트 위에 오버레이하여 표시하는 데 사용됩니다.</value></data>
+  <data name="LogoLocation" xml:space="preserve"><value>위치</value></data>
+  <data name="LongPeriod" xml:space="preserve"><value>긴 기간</value></data>
+  <data name="LongPeriodColorDescription" xml:space="preserve"><value>장기 요소의 색상을 정의합니다.</value></data>
+  <data name="LongPeriodDDescription" xml:space="preserve"><value>"KD - 느림" 계산을 위한 "%D" 기간 설정.</value></data>
+  <data name="LongPeriodDescription" xml:space="preserve"><value>장기 이동 평균의 기간을 지정합니다</value></data>
+  <data name="LongStdDevPeriodDescription" xml:space="preserve"><value>이 기간은 데이터의 평균에 대한 장기 표준 편차가 계산되는 시간 간격을 정의합니다.</value></data>
+  <data name="LossColor" xml:space="preserve"><value>손실 색상</value></data>
+  <data name="LossTradeResultColorDescription" xml:space="preserve"><value>손실 거래의 결과 섹션에 사용되는 색상을 지정합니다.</value></data>
+  <data name="LotSize" xml:space="preserve"><value>로트 크기</value></data>
+  <data name="Low" xml:space="preserve"><value>낮은</value></data>
+  <data name="LowColor" xml:space="preserve"><value>최소 색상</value></data>
+  <data name="LowLineColor" xml:space="preserve"><value>하한선 색상</value></data>
+  <data name="LowRatio" xml:space="preserve"><value>낮은 비율</value></data>
+  <data name="LowRatioColorDescription" xml:space="preserve"><value>낮은 비율 요소의 색상을 정의합니다.</value></data>
+  <data name="LowRatioDescription" xml:space="preserve"><value>비율의 하한 값을 설정합니다.</value></data>
+  <data name="LowSession" xml:space="preserve"><value>낮은 세션</value></data>
+  <data name="Lower" xml:space="preserve"><value>하</value></data>
+  <data name="LowerFill" xml:space="preserve"><value>하단 채우기</value></data>
+  <data name="LowerFill2" xml:space="preserve"><value>하단 채우기 2</value></data>
+  <data name="LowerNegativeValueColorDescription" xml:space="preserve"><value>이전 값보다 낮은 음수 값을 가진 요소의 색상을 표시합니다.</value></data>
+  <data name="LowerSma" xml:space="preserve"><value>하단 SMA</value></data>
+  <data name="LowerStd1" xml:space="preserve"><value>하단 편차 1</value></data>
+  <data name="LowerStd2" xml:space="preserve"><value>하향 편차 2</value></data>
+  <data name="LowerStd3" xml:space="preserve"><value>하향 편차 3</value></data>
+  <data name="LowerWick" xml:space="preserve"><value>하단 심지</value></data>
+  <data name="LowerWickSettingsDescription" xml:space="preserve"><value>하단 심지 요소에 특별히 맞춤화된 시각화 설정입니다. 사용자가 이 요소의 모양을 선호에 따라 사용자 정의하고 조정할 수 있도록 합니다. 이 기능은 데이터 분석을 위한 더 큰 시각화 도구 또는 플랫폼의 일부일 가능성이 높습니다.</value></data>
+  <data name="Lowest" xml:space="preserve"><value>최소값</value></data>
+  <data name="LowestIndDescription" xml:space="preserve"><value>이 지표는 선택한 데이터 소스를 기반으로 주어진 기간 동안 특정 수의 바에 대한 최저 가격을 계산하고 표시합니다. 이는 트레이더와 분석가가 특정 기간 동안의 최저 가격 포인트를 식별하는 데 도움이 되며, 거래 결정을 내리는 데 유용할 수 있습니다.</value></data>
+  <data name="LsmaPeriod" xml:space="preserve"><value>LSMA 기간</value></data>
+  <data name="M1" xml:space="preserve"><value>M1</value></data>
+  <data name="M10" xml:space="preserve"><value>M10</value></data>
+  <data name="M15" xml:space="preserve"><value>M15</value></data>
+  <data name="M30" xml:space="preserve"><value>30분</value></data>
+  <data name="M5" xml:space="preserve"><value>M5</value></data>
+  <data name="MACD" xml:space="preserve"><value>이동 평균 수렴/발산</value></data>
+  <data name="MACDDescription" xml:space="preserve"><value>MACD 지표는 트렌드 분석 및 오실레이터로 사용할 수 있는 다목적 도구입니다. 이는 이동 평균 개념에 기반하며 시장 모멘텀의 시각적 표현을 제공합니다. ATAS 플랫폼에서는 분석을 위해 결합된 이동 평균과 히스토그램을 사용하여 구현됩니다.</value></data>
+  <data name="MACDVsSignalDiffSettingsDescription" xml:space="preserve"><value>MACD 선과 신호선 간의 차이에 대한 시각화 설정.</value></data>
+  <data name="MBOFilters" xml:space="preserve"><value>MBO 필터</value></data>
+  <data name="MFIDescription" xml:space="preserve"><value>이 지표는 자산에 투자되거나 인출되는 자금의 강도를 보여줍니다. 다시 말해, MFI는 거래량을 기반으로 가격 움직임의 속도를 측정하는 도구입니다. 이를 위해 긍정적인 현금 흐름과 부정적인 현금 흐름 및 그 비율이 비교됩니다.</value></data>
+  <data name="MMSS" xml:space="preserve"><value>mm:ss</value></data>
+  <data name="MMedDescription" xml:space="preserve"><value>이 지표는 단순 이동 평균의 변형으로, 산술 평균 대신 중앙값을 사용합니다. 이는 데이터에 대한 다른 관점을 제공할 수 있으며 특정 거래 또는 분석 시나리오에서 유용할 수 있습니다. 가격 변동을 부드럽게 하는 간단하지만 효과적인 도구입니다.</value></data>
+  <data name="MSIDescription" xml:space="preserve"><value>맥클렐런 합산 지수는 맥클렐런 오실레이터의 누적 합계이며, 긍정적 또는 부정적 값으로의 이동에 따라 거래 신호를 제공하는 데 사용됩니다. 제로 이상의 영역으로 이동하는 것은 강세 신호로 간주되며, 제로 이하의 영역으로 이동하는 것은 약세 신호로 간주되어 시장 동향을 예측하는 데 유용한 도구가 됩니다.</value></data>
+  <data name="MaDifferenceDescription" xml:space="preserve"><value>이동 평균 차이는 서로 다른 기간의 두 단순 이동 평균 간의 차이를 계산합니다.
+다음 공식을 사용하여 계산됩니다:
+ΔSMA = SMA1(x(t)) - SMA2(x(t)).</value></data>
+  <data name="MaEnvelopeDescription" xml:space="preserve"><value>이동 평균 엔벨로프는 가격 움직임을 따르기 위해 이동 평균 위와 아래에 평행한 밴드를 생성하는 기술적 분석 도구입니다. 트렌드 추종 지표로 사용할 수 있으며, 트렌드가 정의되지 않은 경우 과매수 및 과매도 수준을 결정하는 데에도 사용할 수 있습니다.</value></data>
+  <data name="MacdBbImprovedDescription" xml:space="preserve"><value>이것은 MACD 볼린저 밴드 지표의 개선된 버전입니다. 이 지표에서는 볼린저 밴드 값이 원래보다 지연이 적습니다.</value></data>
+  <data name="MacdBbStandartDescription" xml:space="preserve"><value>이것은 MACD 지표의 향상된 버전입니다. MACD 외에도 MACD 값에서 계산된 BollingerBands 지표가 차트에 추가됩니다.</value></data>
+  <data name="MacdLeaderDescription" xml:space="preserve"><value>지표는 추가 리더 라인이 있는 표준 MACD 지표를 플로팅합니다. 스무딩 방법에는 지연이 있으며, MACD는 이동 평균을 사용하기 때문에 일반적으로 가격에 비해 지연됩니다. 지연을 완전히 제거하는 것은 불가능하지만, 하나의 우회 방법이 있습니다. 가격/이동 평균 차이 구성 요소를 이동 평균에 다시 추가하는 것입니다. 이 기술은 제로 지연이라고 합니다. 리더 MACD는 이를 사용하여 MACD에 대한 선행 신호를 생성합니다.</value></data>
+  <data name="MacdVWDescription" xml:space="preserve"><value>이 지표(VW-MACD)는 Buff Dormeier에 의해 만들어졌으며 그의 저서 "볼륨 분석을 통한 투자"에 설명되어 있습니다. 이는 볼륨 가중 평균 가격 트렌드의 수렴과 발산을 나타냅니다. 볼륨을 사용함으로써 VM-MACD는 전통적인 MACD보다 더 민감하고 신뢰할 수 있습니다.
+MACD 차이를 계산할 때, 볼륨 가중 MACD는 두 개의 지수 이동 평균을 두 개의 해당 볼륨 가중 이동 평균으로 대체합니다. 따라서 VW-MACD는 볼륨 가중 단기 트렌드를 볼륨 가중 장기 트렌드와 분리합니다. 신호선은 여전히 지수 이동 평균으로 남아 있으며, VW-MACD 라인은 이미 볼륨 가중이 되어 있습니다.</value></data>
+  <data name="Magenta" xml:space="preserve"><value>마젠타</value></data>
+  <data name="MajorLevel" xml:space="preserve"><value>주요 레벨</value></data>
+  <data name="MajorLevelDescription" xml:space="preserve"><value>주요 임계선의 값.</value></data>
+  <data name="Margin" xml:space="preserve"><value>여백</value></data>
+  <data name="MarginValueDescription" xml:space="preserve"><value>해당 금융 상품의 마진 값을 거래소에서 확인할 수 있습니다.</value></data>
+  <data name="MarginZonesDescription" xml:space="preserve"><value>이 지표를 사용하면 지정된 매개변수를 기반으로 마진 영역을 자동으로 계산하고 시각화할 수 있습니다. 마진 영역 수준 = 마진 / 가격 틱.
+
+계산:
+마진 영역 수준 = 마진 / 가격 틱.
+예를 들어 유로 선물, 티커 6E를 살펴보겠습니다.
+마진 = 2300$
+틱 가격 = 6.25$
+마진 영역 수준 = 2300 / 6.25 = 368틱. 이는 마진 영역이 초기 가격에서 368틱 떨어진 거리에서 구축된다는 것을 의미합니다. 마진 영역의 높이는 이 거리의 10%인 36틱입니다.</value></data>
+  <data name="MarketFacilitationDescription" xml:space="preserve"><value>시장 촉진 지수(MFI) 지표는 일정 기간 동안 가격 변화와 거래량 변화 간의 관계를 분석하여 시장이 거래량 변화에 어떻게 반응하는지를 측정합니다. MFI는 (최고가 - 최저가) / 거래량 공식을 사용하여 계산되며, 시장 역학에 대한 통찰력을 제공합니다.</value></data>
+  <data name="MarketPowerDescription" xml:space="preserve"><value>이 지표는 선택한 필터의 거래를 기준으로 세션의 누적 델타를 구성하고 표시할 수 있게 합니다. 서버 부하를 최적화하기 위해 지표 데이터는 현재 세션에 대해서만 표시됩니다.</value></data>
+  <data name="MaxAskVolumeFilterCommonDescription" xml:space="preserve"><value>이 필터를 사용하면 사용자가 특정 값 이상인 매도량을 무시할 수 있어 과도하거나 관련 없는 데이터를 필터링할 수 있는 방법을 제공합니다. 이는 더 관련성 높은 매도량에 집중함으로써 데이터 분석을 간소화하고 의사 결정을 최적화하는 데 도움이 될 수 있습니다.</value></data>
+  <data name="MaxAvgTradeDescription" xml:space="preserve"><value>이 속성은 가격 수준이 유효하다고 간주되기 위해 필요한 최대 평균 거래를 결정하는 데 사용됩니다. 평균 거래는 가격 수준의 볼륨을 해당 수준의 틱 수로 나누어 계산됩니다. 결과 값이 이 속성을 초과하면 가격 수준은 고려에서 제외됩니다.</value></data>
+  <data name="MaxBidVolumeFilterCommonDescription" xml:space="preserve"><value>이 필터에서 설정된 값을 초과하는 입찰 볼륨은 무시됩니다.</value></data>
+  <data name="MaxCandleBodyHeightDescription" xml:space="preserve"><value>인디케이터가 표시될 수 있는 촛불 몸체의 최대 높이를 설정합니다. 이 값을 초과하는 몸체를 가진 촛불은 인디케이터의 고려에서 제외됩니다.</value></data>
+  <data name="MaxCandleBodyHeightFilterDescription" xml:space="preserve"><value>이 필터에서 설정된 값보다 몸체 높이가 큰 촛불은 무시됩니다.</value></data>
+  <data name="MaxCandleHeightDescription" xml:space="preserve"><value>이 매개변수는 인디케이터가 고려할 수 있는 촛불의 최대 높이(심지를 포함)를 지정합니다. 이 높이를 초과하는 촛불은 인디케이터에 의해 무시됩니다.</value></data>
+  <data name="MaxCandleHeightFilterDescription" xml:space="preserve"><value>이 필터는 지정된 값을 초과하는 높이를 가진 캔들을 무시하여 거래 또는 기술 분석에서 캔들스틱 패턴을 보다 정밀하게 분석할 수 있도록 합니다. 최대 캔들 높이를 설정함으로써 사용자는 분석 및 의사 결정 과정에 가장 관련성이 높은 캔들에 집중할 수 있습니다. 이는 데이터 해석 및 거래 전략의 정확성을 간소화하고 향상시키는 데 도움이 됩니다.</value></data>
+  <data name="MaxCumulativeVolume" xml:space="preserve"><value>최대 누적 볼륨</value></data>
+  <data name="MaxCumulativeVolumeDescription" xml:space="preserve"><value>계산을 위해 허용되는 누적 거래의 최대 볼륨을 정의합니다.</value></data>
+  <data name="MaxDeltaAlert" xml:space="preserve"><value>최대 델타 경고</value></data>
+  <data name="MaxDeltaFilterPercentDescription" xml:space="preserve"><value>델타 비율은 다음과 같이 정의됩니다. 양의 델타의 경우 최대 델타의 비율이고, 음의 델타의 경우 최소 델타의 비율입니다. 델타 비율을 초과하는 값은 계산에서 무시됩니다.</value></data>
+  <data name="MaxDeltaSettingsDescription" xml:space="preserve"><value>최대 델타 표시 설정.</value></data>
+  <data name="MaxDeltaVolumeFilterCommonDescription" xml:space="preserve"><value>이 필터에서 설정된 값을 초과하는 델타 볼륨은 무시됩니다.</value></data>
+  <data name="MaxDynamicPeriod" xml:space="preserve"><value>최대 동적 기간</value></data>
+  <data name="MaxGapBodyLength" xml:space="preserve"><value>문서 또는 텍스트 본문 요소 간의 최대 간격 길이</value></data>
+  <data name="MaxLengthDescription" xml:space="preserve"><value>지정된 요소의 최대 허용 길이를 정의합니다.</value></data>
+  <data name="MaxLevelsIndDescription" xml:space="preserve"><value>이 지표는 선택한 기간의 최대 볼륨 수준을 표시합니다.</value></data>
+  <data name="MaxMaxVolumeFilterDescription" xml:space="preserve"><value>이 필터에서 설정된 값을 초과하는 최대 볼륨은 무시됩니다.</value></data>
+  <data name="MaxPercentDescription" xml:space="preserve"><value>이 속성은 가격 수준이 유효하다고 간주되기 위해 허용되는 최대 볼륨 비율을 설정하는 데 사용됩니다. 볼륨 비율은 가격 수준의 볼륨을 촛불의 총 볼륨으로 나누고 100을 곱하여 계산됩니다. 결과 값이 이 속성보다 크면 가격 수준은 고려에서 제외됩니다. 속성이 0으로 설정되면 유효성 검사에서 사용되지 않습니다.</value></data>
+  <data name="MaxPeriod" xml:space="preserve"><value>최대 기간</value></data>
+  <data name="MaxPeriodDescription" xml:space="preserve"><value>계산을 위한 최대 기간을 정의합니다.</value></data>
+  <data name="MaxPriceLevelsCountDescription" xml:space="preserve"><value>계산을 위한 최대 가격 수준 수를 정의합니다.</value></data>
+  <data name="MaxPrintVolume" xml:space="preserve"><value>최대 인쇄 볼륨</value></data>
+  <data name="MaxSizeProportionVolumeDescription" xml:space="preserve"><value>막대 너비를 계산하는 데 사용되는 최대 볼륨. 자동 스케일이 비활성화되어 있을 때 활성화됩니다.</value></data>
+  <data name="MaxTickVolumeFilterCommonDescription" xml:space="preserve"><value>이 필터를 사용하면 사용자가 특정 값을 초과하는 틱 볼륨을 무시할 수 있어 분석에 가장 관련성이 높은 데이터에 집중할 수 있습니다. 임계값을 설정함으로써 사용자는 과도한 틱 볼륨을 제거하고 의사 결정 프로세스에 가장 중요한 데이터에 집중할 수 있습니다. 이 필터는 데이터 분석을 간소화하고 결과의 정확성을 향상시키는 데 도움이 될 수 있습니다.</value></data>
+  <data name="MaxTimeFilterDescription" xml:space="preserve"><value>일부 계산을 수행하기 위한 최대 시간 기간을 정의합니다.</value></data>
+  <data name="MaxValue" xml:space="preserve"><value>최대 값</value></data>
+  <data name="MaxVolColor" xml:space="preserve"><value>최대 볼륨 색상</value></data>
+  <data name="MaxVolColorDescription" xml:space="preserve"><value>최대 거래량 요소의 색을 설정합니다.</value></data>
+  <data name="MaxVolumeFilterCommonDescription" xml:space="preserve"><value>이 필터는 지정된 값을 초과하는 볼륨을 제외할 수 있도록 하여 특정 범위 내의 볼륨만 고려되도록 합니다.</value></data>
+  <data name="MaxVolumeLocation" xml:space="preserve"><value>최대 볼륨 위치</value></data>
+  <data name="MaxVolumeLocationDescription" xml:space="preserve"><value>캔들에서 최대 볼륨의 위치를 결정합니다.</value></data>
+  <data name="MaxVolumePercent" xml:space="preserve"><value>최대 볼륨 백분율</value></data>
+  <data name="Maximum" xml:space="preserve"><value>최대</value></data>
+  <data name="MaximumAsk" xml:space="preserve"><value>최대 매도</value></data>
+  <data name="MaximumAverageTrade" xml:space="preserve"><value>최대 평균 거래</value></data>
+  <data name="MaximumBid" xml:space="preserve"><value>최대 입찰</value></data>
+  <data name="MaximumCandleBodyHeight" xml:space="preserve"><value>최대 촛대 몸체 높이</value></data>
+  <data name="MaximumCandleHeight" xml:space="preserve"><value>최대 촛불 높이</value></data>
+  <data name="MaximumCandleWickHeight" xml:space="preserve"><value>양초 심의 최대 높이</value></data>
+  <data name="MaximumCount" xml:space="preserve"><value>최대 거래 수</value></data>
+  <data name="MaximumDelta" xml:space="preserve"><value>최대 델타</value></data>
+  <data name="MaximumFilterDescription" xml:space="preserve"><value>필터 최대값</value></data>
+  <data name="MaximumSize" xml:space="preserve"><value>최대 크기</value></data>
+  <data name="MaximumSizeDescription" xml:space="preserve"><value>모양의 최대 크기를 나타냅니다.</value></data>
+  <data name="MaximumTrades" xml:space="preserve"><value>최대 거래 수</value></data>
+  <data name="MaximumTradesCountDescription" xml:space="preserve"><value>이 설정은 계산에 포함될 수 있는 최대 거래 수를 결정합니다. 분석에 포함될 수 있는 거래 수를 제한하여 효율성과 정확성을 향상시킬 수 있습니다. 사용자는 특정 요구 사항 및 선호도에 따라 이 한계를 조정할 수 있습니다.</value></data>
+  <data name="MaximumVolume" xml:space="preserve"><value>최대 볼륨</value></data>
+  <data name="MaximumVolumeDescription" xml:space="preserve"><value>지정된 바 수에 대한 최대 볼륨 값의 선을 표시합니다</value></data>
+  <data name="MaximumVolumePeriodDescription" xml:space="preserve"><value>최대 거래량을 계산할 기간을 정의합니다.</value></data>
+  <data name="McClellanOscillatorDescription" xml:space="preserve"><value>맥클레란 오실레이터는 상승 및 하락하는 증권의 수를 분석하여 시장 폭을 측정하는 인기 있는 기술적 시장 지표입니다. 현재 시장 상황과 추세를 평가하는 데 널리 사용됩니다.</value></data>
+  <data name="MeanDevDescription" xml:space="preserve"><value>Mean Deviation 지표는 특정 기간 동안 가격이 단순 이동 평균(SMA)에서 벗어난 평균 편차를 계산하는 기술적 분석 도구입니다.</value></data>
+  <data name="MediumPeriodDescription" xml:space="preserve"><value>단기 및 장기 사이의 중기 이동 평균 기간을 정의합니다</value></data>
+  <data name="MidBandDescription" xml:space="preserve"><value>범위의 중간선을 설명합니다.</value></data>
+  <data name="MidChannelSettingsDescription" xml:space="preserve"><value>중간 채널 선의 시각화 설정.</value></data>
+  <data name="MidLevelColorDescription" xml:space="preserve"><value>중간 수준의 색상을 정의합니다.</value></data>
+  <data name="MidLineSettingsDescription" xml:space="preserve"><value>지정된 중간선에 대한 시각화 설정입니다.</value></data>
+  <data name="Middle" xml:space="preserve"><value>중간</value></data>
+  <data name="MiddleBand" xml:space="preserve"><value>중간 밴드</value></data>
+  <data name="MiddleFillDown" xml:space="preserve"><value>중간 채우기 아래로</value></data>
+  <data name="MiddleFillUp" xml:space="preserve"><value>중간 채우기</value></data>
+  <data name="Midpoint" xml:space="preserve"><value>중간점</value></data>
+  <data name="MidpointTouch" xml:space="preserve"><value>중간점 터치</value></data>
+  <data name="MinAskVolumeFilterCommonDescription" xml:space="preserve"><value>이 필터는 특정 값 이하의 매도 볼륨을 무시하는 데 사용됩니다. 최소 임계값을 충족하는 매도 볼륨만 포함하도록 결과를 좁히는 데 도움이 됩니다.</value></data>
+  <data name="MinAvgTradeDescription" xml:space="preserve"><value>이 속성은 가격 수준이 유효하다고 간주되기 위해 필요한 최소 평균 거래량을 결정하는 데 사용됩니다. 평균 거래량은 가격 수준의 볼륨을 해당 수준의 틱 수로 나누어 계산됩니다. 결과 값이 이 속성보다 작으면 가격 수준은 고려에서 제외됩니다.</value></data>
+  <data name="MinBidVolumeFilterCommonDescription" xml:space="preserve"><value>이 필터에서 설정된 값보다 낮은 입찰 볼륨은 무시됩니다.</value></data>
+  <data name="MinCandleBodyHeightDescription" xml:space="preserve"><value>지표가 해당 캔들에 표시되기 위해 필요한 캔들의 몸체의 최소 높이(시가와 종가의 차이)를 결정합니다. 이 최소 크기보다 작은 몸체를 가진 캔들은 지표에 의해 표시되지 않습니다.</value></data>
+  <data name="MinCandleBodyHeightFilterDescription" xml:space="preserve"><value>이 필터에서 설정된 값보다 몸체 높이가 낮은 캔들은 무시됩니다.</value></data>
+  <data name="MinCandleHeightDescription" xml:space="preserve"><value>이 매개변수는 지표를 활성화하는 데 필요한 촛불의 최소 높이(심지를 포함)를 설정합니다. 촛불의 높이가 이 값보다 낮으면 해당 촛불에는 지표가 적용되지 않습니다.</value></data>
+  <data name="MinCandleHeightFilterDescription" xml:space="preserve"><value>이 필터에서 설정한 값보다 높이가 낮은 촛불은 무시됩니다.</value></data>
+  <data name="MinCumulativeVolume" xml:space="preserve"><value>최소 누적 볼륨</value></data>
+  <data name="MinCumulativeVolumeDescription" xml:space="preserve"><value>누적 거래의 계산에 허용되는 최소 거래량을 정의합니다.</value></data>
+  <data name="MinDeltaAlert" xml:space="preserve"><value>최소 델타 경고</value></data>
+  <data name="MinDeltaFilterPercentDescription" xml:space="preserve"><value>델타 백분율은 다음과 같이 정의됩니다: 양의 델타의 경우 최대 델타의 백분율이고, 음의 델타의 경우 최소 델타의 백분율입니다. 델타 백분율보다 작은 값은 무시됩니다.</value></data>
+  <data name="MinDeltaSettingsDescription" xml:space="preserve"><value>최소 델타 디스플레이 설정.</value></data>
+  <data name="MinDeltaVolumeFilterCommonDescription" xml:space="preserve"><value>이 필터는 지정된 값보다 작은 델타 볼륨을 무시하고 더 큰 볼륨 변화만 고려합니다.</value></data>
+  <data name="MinLevelsRangeSizeDescription" xml:space="preserve"><value>지정된 범위 내에서 필요한 최소 레벨 수를 정의합니다.</value></data>
+  <data name="MinPercentDescription" xml:space="preserve"><value>이 속성은 가격 수준이 유효하다고 간주되기 위해 필요한 최소 볼륨 비율을 설정하는 데 사용됩니다. 볼륨 비율은 가격 수준의 볼륨을 캔들의 총 볼륨으로 나누고 100을 곱하여 계산됩니다. 결과 값이 이 속성보다 작으면 가격 수준은 고려에서 제외됩니다. 속성이 0으로 설정되면 유효성 검사에서 사용되지 않습니다.</value></data>
+  <data name="MinPeriod" xml:space="preserve"><value>최소 기간</value></data>
+  <data name="MinPrintVolume" xml:space="preserve"><value>최소 인쇄 볼륨</value></data>
+  <data name="MinRatioDescription" xml:space="preserve"><value>비율의 최소값을 정의합니다.</value></data>
+  <data name="MinRatioValueDescription" xml:space="preserve"><value>최소 비율 값을 나타냅니다.</value></data>
+  <data name="MinTickVolumeFilterCommonDescription" xml:space="preserve"><value>이 필터를 사용하면 사용자가 분석에서 고려될 최소 틱 볼륨을 지정할 수 있으며, 설정된 값보다 낮은 모든 틱 볼륨은 무시됩니다. 최소 틱 볼륨을 설정함으로써 사용자는 더 중요한 시장 움직임에 집중하고 데이터의 노이즈를 피할 수 있습니다.</value></data>
+  <data name="MinValue" xml:space="preserve"><value>최소값</value></data>
+  <data name="MinVolumeFilterCommonDescription" xml:space="preserve"><value>이 필터에 설정된 값보다 작은 볼륨은 무시됩니다.</value></data>
+  <data name="MinVolumeFilterDescription" xml:space="preserve"><value>볼륨이 적은 깊이 수준은 무시됩니다</value></data>
+  <data name="MinVolumePercent" xml:space="preserve"><value>최소 볼륨 비율</value></data>
+  <data name="MinimalDeviation" xml:space="preserve"><value>최소 편차</value></data>
+  <data name="MinimalGapDeviationDescription" xml:space="preserve"><value>유효한 갭 크기를 결정하기 위해 평균 캔들 크기에서의 최소 허용 편차를 정의합니다.</value></data>
+  <data name="MinimizedMode" xml:space="preserve"><value>축소 모드</value></data>
+  <data name="Minimum" xml:space="preserve"><value>최소</value></data>
+  <data name="MinimumAsk" xml:space="preserve"><value>최소 호가</value></data>
+  <data name="MinimumAverageTrade" xml:space="preserve"><value>최소 평균 거래</value></data>
+  <data name="MinimumBid" xml:space="preserve"><value>최소 입찰</value></data>
+  <data name="MinimumCandleBodyHeight" xml:space="preserve"><value>최소 캔들 바디 높이</value></data>
+  <data name="MinimumCandleHeight" xml:space="preserve"><value>최소 촛대 높이</value></data>
+  <data name="MinimumCandleWickHeight" xml:space="preserve"><value>최소 촛불 심지 높이</value></data>
+  <data name="MinimumCount" xml:space="preserve"><value>최소 거래 수</value></data>
+  <data name="MinimumDelta" xml:space="preserve"><value>최소 델타</value></data>
+  <data name="MinimumFilterDescription" xml:space="preserve"><value>최소 필터 값</value></data>
+  <data name="MinimumSize" xml:space="preserve"><value>최소 크기</value></data>
+  <data name="MinimumSizeDescription" xml:space="preserve"><value>모양의 최소 크기를 나타냅니다.</value></data>
+  <data name="MinimumTrades" xml:space="preserve"><value>최소 거래</value></data>
+  <data name="MinimumTradesCountDescription" xml:space="preserve"><value>계산에 허용되는 최소 거래 수를 정의합니다.</value></data>
+  <data name="MinimumVolume" xml:space="preserve"><value>최소 볼륨</value></data>
+  <data name="MinorLevel" xml:space="preserve"><value>보조 수준</value></data>
+  <data name="MinorLevelDescription" xml:space="preserve"><value>보조 임계선의 값.</value></data>
+  <data name="Minutes" xml:space="preserve"><value>분</value></data>
+  <data name="Mode" xml:space="preserve"><value>모드</value></data>
+  <data name="Momentum" xml:space="preserve"><value>모멘텀</value></data>
+  <data name="MomentumDescription" xml:space="preserve"><value>모멘텀 지표는 가격 변화율을 보여주는 간단하고 효율적인 도구로, 기술적 분석에서 사용됩니다. 가격 움직임의 강도를 평가하고 잠재적인 추세 반전을 식별하는 데 널리 사용됩니다. 이 지표는 가격 모멘텀에 기반하여 정보에 입각한 결정을 내리려는 트레이더와 투자자에게 가치가 있습니다.</value></data>
+  <data name="MomentumOscillatorDescription" xml:space="preserve"><value>가격 모멘텀 오실레이터(PMO)는 칼 스웬린이 만든 가격 비율 오실레이터로, 지수 이동 평균을 통해 이중 평활화를 사용합니다. 제로 라인 주위에서 진동하며, 그 방향은 힘이 강화되고 있는지 약화되고 있는지를 나타냅니다. 추세 각도의 가파름은 가격 움직임의 강도를 반영합니다.</value></data>
+  <data name="MomentumTrendDescription" xml:space="preserve"><value>모멘텀 트렌드 지표는 모멘텀 값의 변화를 분석하여 이전 바와 비교하여 증가했는지 감소했는지를 판단하는 도구입니다. 이 정보는 시장의 추세의 강도와 방향을 평가하는 데 사용될 수 있습니다.</value></data>
+  <data name="Monthly" xml:space="preserve"><value>매월</value></data>
+  <data name="MovingAverageIndDescription" xml:space="preserve"><value>이동 평균 지표는 다양한 인기 있는 이동 평균 지표를 결합하여 사용자가 분석을 위해 원하는 지표 유형을 쉽게 선택할 수 있도록 합니다.</value></data>
+  <data name="MovingType" xml:space="preserve"><value>이동 평균 유형</value></data>
+  <data name="MovingTypeDescription" xml:space="preserve"><value>이동 평균의 유형을 정의합니다.</value></data>
+  <data name="MultiMarketPowerDescription" xml:space="preserve"><value>이 지표는 하나의 창에서 여러 시장 권력 지표를 동시에 표시할 수 있도록 합니다.</value></data>
+  <data name="Multiplier" xml:space="preserve"><value>배수기</value></data>
+  <data name="Multiplier1" xml:space="preserve"><value>배수 1</value></data>
+  <data name="Multiplier1Description" xml:space="preserve"><value>첫 번째 채널 경계 계수 설정.</value></data>
+  <data name="Multiplier2" xml:space="preserve"><value>승수 2</value></data>
+  <data name="Multiplier2Description" xml:space="preserve"><value>두 번째 채널 경계 계수 설정.</value></data>
+  <data name="Multiplier3" xml:space="preserve"><value>배수 3</value></data>
+  <data name="MultiplierDescription" xml:space="preserve"><value>값을 편리한 형식으로 변환하는 곱셈 인자를 정의합니다.</value></data>
+  <data name="MurreyMathDescription" xml:space="preserve"><value>머레이 매스 거래 접근법은 TH 머레이 교수에 의해 개발되었으며, WD 갠의 원칙에 기반하고 0/8에서 8/8까지의 수준을 활용합니다. 이러한 수준은 서로 다른 운영 특성을 가지며, 일부는 지지 및 저항으로 작용하고 다른 일부는 가격을 끌어당기는 역할을 합니다.</value></data>
+  <data name="MutualFundBarsDescription" xml:space="preserve"><value>뮤추얼 펀드 바 지표는 현재 촛대의 종가와 이전 촛대의 종가를 OHLC 데이터와 촛대의 방향으로 사용하여 촛대 형식을 활용합니다.</value></data>
+  <data name="Negative" xml:space="preserve"><value>부정적인</value></data>
+  <data name="NegativeColor" xml:space="preserve"><value>부정 색상</value></data>
+  <data name="NegativeColorDescription" xml:space="preserve"><value>부정적인 PnL 값을 위한 색상</value></data>
+  <data name="NegativeDelta" xml:space="preserve"><value>부정 델타</value></data>
+  <data name="NegativeDeltaSettingsDescription" xml:space="preserve"><value>부정 델타 표시 설정.</value></data>
+  <data name="NegativeLineSettingsDescription" xml:space="preserve"><value>음수 선에 대한 시각화 설정.</value></data>
+  <data name="NegativeLsma" xml:space="preserve"><value>부정 LSMA</value></data>
+  <data name="NegativeValueColorDescription" xml:space="preserve"><value>음수 값을 가진 요소의 색상을 표시합니다.</value></data>
+  <data name="NegativeValueDescription" xml:space="preserve"><value>음수 값을 표시하는 데 사용되는 색상을 나타냅니다</value></data>
+  <data name="Neutral" xml:space="preserve"><value>중립</value></data>
+  <data name="NeutralBorderColor" xml:space="preserve"><value>중립 테두리 색상</value></data>
+  <data name="NeutralColor" xml:space="preserve"><value>중립 색상</value></data>
+  <data name="NeutralColorDescription" xml:space="preserve"><value>중립 방향의 요소에 대한 색상을 설정합니다.</value></data>
+  <data name="NeutralDeltaSettingsDescription" xml:space="preserve"><value>제로 델타 표시 설정.</value></data>
+  <data name="NeutralRatio" xml:space="preserve"><value>중립 비율</value></data>
+  <data name="NeutralRatioColorDescription" xml:space="preserve"><value>중립 비율 요소의 색상을 정의합니다.</value></data>
+  <data name="NeutralValueDescription" xml:space="preserve"><value>중립 값을 나타내는 데 사용되는 색상을 나타냅니다</value></data>
+  <data name="NewTrendColorDescription" xml:space="preserve"><value>새로운 트렌드가 시작되는 요소의 색상을 정의합니다.</value></data>
+  <data name="NoTrend" xml:space="preserve"><value>추세 없음</value></data>
+  <data name="None" xml:space="preserve"><value>없음</value></data>
+  <data name="OBVDescription" xml:space="preserve"><value>OBV(온 밸런스 볼륨)는 거래량과 가격 변화 간의 관계를 측정하는 기술적 지표입니다. 현재 막대의 종가가 이전 막대의 종가보다 높거나 낮은지에 따라 현재 막대의 거래량을 더하거나 뺍니다. 이 지표는 시장에서의 매수 및 매도 압력을 평가하는 간단한 방법을 제공합니다.</value></data>
+  <data name="OHLCAverage" xml:space="preserve"><value>OHLC 평균</value></data>
+  <data name="OHLCPlusDescription" xml:space="preserve"><value>OHLC(시가, 고가, 저가, 종가), 균형, 제어 포인트(POC) 및 여러 시간대에 걸친 가치 영역 수준과 같은 주요 금융 지표를 표시하는 고급 가격 수준 지표입니다. 이 지표는 트레이더에게 시장 동향을 분석하고 정보에 기반한 결정을 내리는 데 유용한 통찰력을 제공합니다. 이 지표는 시장의 중요한 수준을 강조하여 가격 행동에 대한 이해를 향상시킵니다.</value></data>
+  <data name="OIAnalyzerCumulativeTradesModeDescription" xml:space="preserve"><value>누적 거래: 이 경우 계산은 피드에서 발생한 시장 거래의 OI 변화만을 고려하여 이루어지며, 방향은 각각 상승 또는 하락하는 개방 이자 변화의 차이에 의해 결정됩니다.</value></data>
+  <data name="OIAnalyzerDescription" xml:space="preserve"><value>OI 분석기는 Bid/Ask 및 오픈 이자 지표를 결합하여 시장 동향과 매수자 및 매도자의 포지션 개시/종료 볼륨을 분석하는 도구입니다. 이는 러시아 시장의 선물 및 Binance 및 Bybit 거래소를 위해 특별히 설계되었으며, 실시간 데이터 분석을 위해 현재 거래일 내에서 작동합니다. 이 독특한 지표는 시장 분석 및 서버 부하 최적화를 위한 귀중한 통찰력을 제공합니다.</value></data>
+  <data name="OIAnalyzerSeparatedTradesModeDescription" xml:space="preserve"><value>별도 거래: 이 경우 실제 오픈 이자 변화는 매수 및 매도 거래에 대해 시장 주문 및 이와 결합된 제한 주문을 별도로 고려하여 계산됩니다.</value></data>
+  <data name="OISettingsDescription" xml:space="preserve"><value>오픈 이자 요소에 대한 시각화 설정.</value></data>
+  <data name="OSMADescription" xml:space="preserve"><value>이동 평균 오실레이터(OsMA) 지표는 MACD 지표의 변형이며, 다른 지표보다 더 일찍 매수 또는 매도 신호가 나타나기 때문에 선행 지표로 분류됩니다. 이는 추세 반전 또는 수정 확인에 사용됩니다.
+이동 평균 오실레이터 지표의 차트는 히스토그램으로 표시되어 시장의 과매수 및 과매도 조건을 식별할 수 있습니다. 이 지표는 MACD 지표와 동일하므로 두 가지를 함께 사용하면 더 큰 효과를 얻을 수 있다고 여겨집니다.
+이동 평균 오실레이터(OsMA) 기술 지표는 오실레이터와 오실레이터 평활화 간의 차이입니다. 이 경우, 주요 MACD 라인이 오실레이터로 사용되고 신호 라인이 평활화로 사용됩니다.</value></data>
+  <data name="ObjectSizeDescription" xml:space="preserve"><value>표시된 객체의 크기를 설정합니다.</value></data>
+  <data name="ObjectsColor" xml:space="preserve"><value>객체 색상</value></data>
+  <data name="Offset" xml:space="preserve"><value>오프셋</value></data>
+  <data name="OffsetMultiplier" xml:space="preserve"><value>오프셋 배수</value></data>
+  <data name="OffsetX" xml:space="preserve"><value>오프셋X</value></data>
+  <data name="OffsetXDescription" xml:space="preserve"><value>가장자리에서의 수평 오프셋</value></data>
+  <data name="OffsetY" xml:space="preserve"><value>Y축 오프셋</value></data>
+  <data name="OffsetYDescription" xml:space="preserve"><value>가장자리에서의 수직 오프셋</value></data>
+  <data name="OhlcPlusAbsolutePriceDescription" xml:space="preserve"><value>정확한 틱 가격에서 레벨을 계산합니다. 비활성화하면 프로필이 현재 차트 스케일에 따라 그룹화되어 레벨이 Profile 인디케이터의 그리기와 일치합니다.</value></data>
+  <data name="OhlcPlusAutoUpdateDescription" xml:space="preserve"><value>새 거래가 도착하면 레벨을 실시간으로 새로 고칩니다. 비활성화하면 프로필을 요청한 시점의 레벨이 고정됩니다.</value></data>
+  <data name="OhlcPlusTextColorDescription" xml:space="preserve"><value>레벨 텍스트 색상: 차트의 레이블, 가격 눈금의 가격 및 레벨 배지. Auto를 선택하면 텍스트 뒤의 배경과의 대비를 위해 색상이 자동으로 선택됩니다.</value></data>
+  <data name="OnBarClose" xml:space="preserve"><value>바 닫힘 시</value></data>
+  <data name="OnBarCloseDescription" xml:space="preserve"><value>이 속성이 선택된 경우, 동작은 막대가 닫힐 때 발생하며, 그렇지 않으면 즉시 발생합니다.</value></data>
+  <data name="OneSelectionPerBarDescription" xml:space="preserve"><value>이 설정은 바 또는 캔들스틱당 최대 하나의 선택만 이루어지도록 보장합니다.</value></data>
+  <data name="OnlyAlertsSupported" xml:space="preserve"><value>알림만 지원됩니다</value></data>
+  <data name="OnlyOneSelectionPerBar" xml:space="preserve"><value>바당 하나의 선택만 가능</value></data>
+  <data name="Open" xml:space="preserve"><value>열기</value></data>
+  <data name="OpenClose" xml:space="preserve"><value>열기 / 닫기</value></data>
+  <data name="OpenCurDay" xml:space="preserve"><value>현재 날짜 개장</value></data>
+  <data name="OpenHighLowClose4" xml:space="preserve"><value>(시가 + 고가 + 저가 + 종가)/4</value></data>
+  <data name="OpenInterestDescription" xml:space="preserve"><value>이 지표는 이 금융 상품에 대해 모든 시장 참가자가 보유한 계약의 오픈 숏 및 롱 포지션의 총 수를 보여줍니다.
+참고: 오픈 이자는 러시아 시장에서만 온라인으로 방송되며, 선물에 대해서만 해당됩니다. 외국 증권 거래소는 모든 거래소가 온라인으로 OI 데이터를 제출하는 것은 아니기 때문에 이를 실시간으로 구성할 수 없습니다. 일부 증권 거래소는 거래 세션 결과에 따라 이 데이터를 제출할 수 있지만, 다른 거래소는 전혀 제출하지 않을 수 있습니다.</value></data>
+  <data name="OpenLine" xml:space="preserve"><value>오픈 라인</value></data>
+  <data name="OpenLineDescription" xml:space="preserve"><value>지표는 거래 세션 시작 시 가격 수준을 보여줍니다.</value></data>
+  <data name="OpenRange" xml:space="preserve"><value>오픈 범위</value></data>
+  <data name="OpenSession" xml:space="preserve"><value>세션 시작</value></data>
+  <data name="OpenSessionAlertFilterDescription" xml:space="preserve"><value>활성화되면 세션을 열 때 지정된 사운드 파일로 경고가 생성됩니다.</value></data>
+  <data name="OrderBlockIndDescription" xml:space="preserve"><value>지표는 반전 캔들 주위에 영역을 형성합니다: 강세 블록의 경계는 마지막 하락 캔들에 의해 결정되고, 약세 블록은 마지막 상승 캔들에 의해 결정됩니다. 반전 캔들은 해당 기간 또는 이전 캔들에서 극단적인 고점/저점을 가질 수 있습니다.</value></data>
+  <data name="OrderBookAlertsIndDescription" xml:space="preserve"><value>이 지표는 지정된 수의 레벨 내에서 주문서를 분석하고 발견된 레벨의 볼륨이 지정된 것보다 높을 때 알림을 보냅니다.</value></data>
+  <data name="OrderFlowDescription" xml:space="preserve"><value>&lt;p&gt;직관적인 주문 흐름 시각화.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;차트에 기하학적 마커로 거래를 표시합니다.&lt;/li&gt;
+  &lt;li&gt;마커 크기 = 거래량. 큰 거래는 즉시 눈에 띕니다.&lt;/li&gt;
+  &lt;li&gt;마커 간 간격은 시장 활동을 반영합니다: 간격이 가까울수록 거래가 더 빠릅니다.&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="OrderFlowLinkingToBarDescription" xml:space="preserve"><value>활성화되면 주문 흐름의 그리기는 마지막 막대에서 시작되며, 그렇지 않으면 차트의 오른쪽 가장자리에서 시작됩니다.</value></data>
+  <data name="OrderSpeedIntervalDescription" xml:space="preserve"><value>이 매개변수는 시장에서의 매매 속도를 조정하는 데 사용되며, 현재 상황을 보다 정확하게 반영할 수 있도록 합니다.</value></data>
+  <data name="OrdersCountFilter" xml:space="preserve"><value>주문 수 필터</value></data>
+  <data name="Other" xml:space="preserve"><value>기타</value></data>
+  <data name="OutsideBarDescription" xml:space="preserve"><value>아웃사이드 바는 이전 바의 고점을 초과하는 고점과 이전 바의 저점을 하회하는 저점을 가진 바로 식별되며, 이는 시장 추세의 잠재적 반전 또는 중요한 가격 변동을 나타냅니다.</value></data>
+  <data name="Overbought" xml:space="preserve"><value>과매수</value></data>
+  <data name="Overbought1" xml:space="preserve"><value>과매수 수준 1</value></data>
+  <data name="Overbought2" xml:space="preserve"><value>과매수 수준 2</value></data>
+  <data name="Overbought3" xml:space="preserve"><value>과매수 수준 3</value></data>
+  <data name="OverboughtLimitDescription" xml:space="preserve"><value>하락이 예상되는 상한선을 정의합니다.</value></data>
+  <data name="Oversold" xml:space="preserve"><value>과매도</value></data>
+  <data name="Oversold1" xml:space="preserve"><value>과매도 수준 1</value></data>
+  <data name="Oversold2" xml:space="preserve"><value>과매도 수준 2</value></data>
+  <data name="Oversold3" xml:space="preserve"><value>과매도 수준 3</value></data>
+  <data name="OversoldLimitDescription" xml:space="preserve"><value>상승 움직임이 예상되는 하한선을 정의합니다.</value></data>
+  <data name="POC" xml:space="preserve"><value>POC</value></data>
+  <data name="POCLineSettingsDescription" xml:space="preserve"><value>POC 선의 시각화 설정.</value></data>
+  <data name="PaintBars" xml:space="preserve"><value>막대 그리기</value></data>
+  <data name="PaintBarsDescription" xml:space="preserve"><value>특정 색상으로 촛대를 칠할지 여부를 결정합니다.</value></data>
+  <data name="PanelHeight" xml:space="preserve"><value>패널 높이</value></data>
+  <data name="PanelHeightDescription" xml:space="preserve"><value>표시된 패널의 높이를 결정합니다.</value></data>
+  <data name="ParabolicSARDescription" xml:space="preserve"><value>파라볼릭 SAR은 트렌드 시장을 분석하는 데 사용되는 기술 지표로, 가격 차트에 표시됩니다. 이는 이동 평균과 유사하지만 더 가속된 속도로 이동하며 가격에 대한 위치를 변경합니다. 상승 추세에서는 지표가 가격 아래에 있고, 하락 추세에서는 가격 위에 있습니다.</value></data>
+  <data name="PenSettingsDescription" xml:space="preserve"><value>표시된 선의 색상, 스타일 및 너비에 대한 설정을 지정합니다.</value></data>
+  <data name="Percent" xml:space="preserve"><value>퍼센트</value></data>
+  <data name="PercentColorDescription" xml:space="preserve"><value>백분율 값에 따라 색상을 설정합니다.</value></data>
+  <data name="PercentagePriceDescription" xml:space="preserve"><value>퍼센트 가격 오실레이터는 단기 및 장기 지수 이동 평균(EMA) 간의 차이를 장기 EMA로 나눈 값으로 계산되는 기술 지표입니다. MACD와 비교할 때, 퍼센트 가격 오실레이터는 가격과 오실레이터 값 간의 다이버전스 신호를 보여주며 가격 극단을 보다 정확하게 강조하고, 보다 역동적인 움직임을 보입니다. 계산 공식은 (FastEMA - SlowEMA) / SlowEMA입니다.</value></data>
+  <data name="Period" xml:space="preserve"><value>기간</value></data>
+  <data name="Period1" xml:space="preserve"><value>기간 1</value></data>
+  <data name="Period2" xml:space="preserve"><value>기간 2</value></data>
+  <data name="Period3" xml:space="preserve"><value>3기</value></data>
+  <data name="PeriodD" xml:space="preserve"><value>기간 %D</value></data>
+  <data name="PeriodDescription" xml:space="preserve"><value>계산에 포함할 최근 캔들의 수량을 지정합니다.</value></data>
+  <data name="PeriodK" xml:space="preserve"><value>%K 기간</value></data>
+  <data name="PeriodType" xml:space="preserve"><value>기간 유형</value></data>
+  <data name="PeriodTypeDescription" xml:space="preserve"><value>제공된 기간 유형 중 하나를 선택할 수 있습니다.</value></data>
+  <data name="PeriodValueDefinerDescription" xml:space="preserve"><value>기간 값 정의자는 지표 계산에서 계산이 수행되는 시간 기간을 결정하는 데 사용되는 숫자 값입니다. 분석의 지속 시간 또는 빈도를 정의하는 데 도움이 되며, 다양한 재무 및 기술 분석 도구에서 중요한 매개변수입니다.</value></data>
+  <data name="PeriodsCountFilterDescription" xml:space="preserve"><value>활성화되면 사용할 기간의 수가 결정되며, 그렇지 않으면 모든 가능한 기간이 사용됩니다.</value></data>
+  <data name="PipsFromHigh" xml:space="preserve"><value>고점에서의 틱</value></data>
+  <data name="PipsFromHighDescription" xml:space="preserve"><value>이 속성은 캔들의 최고 가격에서 유효한 수준으로 간주될 수 있는 최대 거리(틱 단위)를 설정합니다. 수준과 캔들의 최고 가격 사이의 거리가 이 속성의 값을 초과하면 수준은 유효한 것으로 간주되지 않습니다.</value></data>
+  <data name="PipsFromLow" xml:space="preserve"><value>최저점에서의 틱</value></data>
+  <data name="PipsFromLowDescription" xml:space="preserve"><value>이 속성은 캔들의 최저 가격에서 유효한 수준으로 간주될 수 있는 최대 거리(틱 단위)를 설정합니다. 수준과 캔들의 최저 가격 사이의 거리가 이 속성의 값을 초과하면 수준은 유효하지 않은 것으로 간주됩니다.</value></data>
+  <data name="PivotLevelColorDescription" xml:space="preserve"><value>피벗 레벨의 색을 정의합니다.</value></data>
+  <data name="PivotRange" xml:space="preserve"><value>피벗 범위</value></data>
+  <data name="PivotsDescription" xml:space="preserve"><value>"피벗" 지표는 거래에서 가격 차트의 잠재적 지지 및 저항 수준을 식별하는 데 사용되는 사용자 정의 가능한 기술 분석 도구입니다. 이는 이전 기간의 고가, 저가 및 종가를 기반으로 피벗 포인트, 지지 수준, 저항 수준 및 중간점을 계산합니다. 사용자는 피벗 계산을 위한 기간을 사용자 정의하고, 피벗 포인트 계산을 위한 다양한 공식을 선택하며, 사용자 정의 거래 세션을 지정할 수 있는 유연성을 가집니다.</value></data>
+  <data name="PocAlert" xml:space="preserve"><value>가격이 POC 수준에 도달할 때 알림</value></data>
+  <data name="PocChangeAlert" xml:space="preserve"><value>POC 수준 변경 알림</value></data>
+  <data name="PocLevel" xml:space="preserve"><value>POC 수준</value></data>
+  <data name="PolarizedFractalDescription" xml:space="preserve"><value>편광 프랙탈 효율성은 현재 시장 가격의 효율성을 측정하는 기술적 지표입니다. 값은 100에서 -100까지 범위이며, 0 이상일 때는 상승 추세를 나타내고 0 미만일 때는 하락 추세를 나타냅니다. 트레이더는 지표 값이 -50 미만일 때 매수 포지션을 열고, 지표 값이 50을 초과할 때 매도 포지션을 여는 것이 권장됩니다.</value></data>
+  <data name="Positive" xml:space="preserve"><value>긍정적</value></data>
+  <data name="PositiveColor" xml:space="preserve"><value>긍정 색상</value></data>
+  <data name="PositiveColorDescription" xml:space="preserve"><value>긍정적인 PnL 값을 위한 색상</value></data>
+  <data name="PositiveDelta" xml:space="preserve"><value>긍정적인 델타</value></data>
+  <data name="PositiveDeltaSettingsDescription" xml:space="preserve"><value>양수 델타 표시 설정.</value></data>
+  <data name="PositiveLineSettingsDescription" xml:space="preserve"><value>양의 선 시각화 설정.</value></data>
+  <data name="PositiveLsma" xml:space="preserve"><value>긍정적인 LSMA</value></data>
+  <data name="PositiveValueColorDescription" xml:space="preserve"><value>양수 값을 가진 요소의 색상을 표시합니다.</value></data>
+  <data name="PositiveValueDescription" xml:space="preserve"><value>양수 값에 사용되는 색상을 나타냅니다</value></data>
+  <data name="Predict" xml:space="preserve"><value>예측하다</value></data>
+  <data name="PredictBarsCountDescription" xml:space="preserve"><value>예측을 위한 추정 막대 수를 결정합니다.</value></data>
+  <data name="Preset" xml:space="preserve"><value>프리셋</value></data>
+  <data name="PrevDayMedianDescription" xml:space="preserve"><value>전날의 평균 가격.</value></data>
+  <data name="PreviousDay" xml:space="preserve"><value>지난 날</value></data>
+  <data name="PreviousMonth" xml:space="preserve"><value>지난 달</value></data>
+  <data name="PreviousWeek" xml:space="preserve"><value>지난 주</value></data>
+  <data name="PriceChange" xml:space="preserve"><value>가격 변경</value></data>
+  <data name="PriceLevelsCountDescription" xml:space="preserve"><value>계산에 사용되는 가격 수준의 수를 결정하여 분석의 복잡성과 세분화에 대한 통찰력을 제공합니다. 이는 다양한 금융 모델과 알고리즘이 시장 행동을 정확하게 평가하고 예측하는 데 중요한 매개변수입니다. 계산에 포함된 가격 수준의 수를 아는 것은 정보에 기반한 정확한 거래 결정을 내리는 데 도움이 될 수 있습니다.</value></data>
+  <data name="PriceLocation" xml:space="preserve"><value>가격 위치</value></data>
+  <data name="PriceLocationDescription" xml:space="preserve"><value>캔들 내에서 특정 유형의 값을 가진 셀의 위치를 선택하며, 이는 지표가 검색 과정에서 고려합니다</value></data>
+  <data name="PriceOffset" xml:space="preserve"><value>가격 오프셋</value></data>
+  <data name="PriceRange" xml:space="preserve"><value>가격 범위</value></data>
+  <data name="PriceRangeDescription" xml:space="preserve"><value>계산에 집계될 가격 범위를 결정합니다. 범위는 매개변수에 지정된 틱 수에 의해 정의됩니다.</value></data>
+  <data name="PriceSelectionColor" xml:space="preserve"><value>가격 선택 색상</value></data>
+  <data name="PriceSelectionColorDescription" xml:space="preserve"><value>이 설정을 통해 사용자는 클러스터 내 가격 선택을 강조 표시할 색상을 선택할 수 있으며, 차트의 다른 요소와 시각적으로 구분됩니다.</value></data>
+  <data name="PriceSelectionTransparencyDescription" xml:space="preserve"><value>시각 객체의 투명도와 유사하게, 이 설정은 클러스터 내 강조된 요소의 투명도를 조정하여 시각적 외관에 대한 더 세밀한 제어를 가능하게 합니다.</value></data>
+  <data name="PrintLineForXBars" xml:space="preserve"><value>X 바에 대한 선 인쇄</value></data>
+  <data name="Profile" xml:space="preserve"><value>프로필</value></data>
+  <data name="ProfileAskValueColorDescription" xml:space="preserve"><value>매도 레벨 막대의 색상.</value></data>
+  <data name="ProfileBidValueColorDescription" xml:space="preserve"><value>Bid 레벨 바의 색</value></data>
+  <data name="ProfileFillColorDescription" xml:space="preserve"><value>볼륨 프로파일의 채우기 색상을 설정합니다.</value></data>
+  <data name="ProfileOffsetXDescription" xml:space="preserve"><value>차트에 대한 x축을 따라 프로필 오프셋을 픽셀 단위로 정의합니다.</value></data>
+  <data name="ProfilePeriodDescription" xml:space="preserve"><value>사용 가능한 프로필 기간 중 하나를 나타냅니다.</value></data>
+  <data name="ProfileWidthPixelsDescription" xml:space="preserve"><value>차트에서 볼륨 프로파일의 너비를 픽셀 단위로 설정합니다.</value></data>
+  <data name="ProfitColor" xml:space="preserve"><value>이익 색상</value></data>
+  <data name="ProfitTradeResultColorDescription" xml:space="preserve"><value>수익성 거래의 결과 섹션에 사용되는 색상을 지정합니다.</value></data>
+  <data name="ProportionVolume" xml:space="preserve"><value>비율 볼륨 지표는 차트에서 거래량의 변화를 상대적인 값으로 표시하는 데 사용됩니다.</value></data>
+  <data name="Pulling" xml:space="preserve"><value>풀링</value></data>
+  <data name="PullingAndStacking" xml:space="preserve"><value>끌어오기 및 쌓기</value></data>
+  <data name="PullingDescription" xml:space="preserve"><value>주문서에서 리미트 주문 제거.</value></data>
+  <data name="QQEDescription" xml:space="preserve"><value>정성적 정량적 추정(QQE) 지표는 인기 있는 상대 강도 지수(RSI) 지표의 부드러운 버전처럼 작동합니다. QQE는 RSI를 확장하여 두 개의 변동성 기반 라인을 추가합니다. 이 라인은 빠른 이동 평균과 느린 이동 평균의 평균 진폭(ATR) 값으로 구성됩니다.</value></data>
+  <data name="QStickDescription" xml:space="preserve"><value>Qstick 지표는 촛대 차트와 함께 사용하여 시장에서의 매수 또는 매도 강도를 측정하는 도구입니다. 특정 기간 동안의 시가와 종가의 차이에 대한 이동 평균을 계산하며, 양수 값은 매수 강도를 나타내고 음수 값은 매도 압력을 나타냅니다. 이는 가격 움직임과 잠재적인 거래 기회를 식별하는 데 도움이 될 수 있습니다.</value></data>
+  <data name="RMIDescription" xml:space="preserve"><value>상대 모멘텀 지수(RMI) 지표는 RSI 지표의 수정된 버전입니다. 이 지표는 지정된 거리에서 과거 촛대와 연속적인 촛대의 종가를 비교합니다. 선택한 기간이 길어질수록 지표 값은 더 부드러워집니다.</value></data>
+  <data name="RMODescription" xml:space="preserve"><value>RMO(라훌 모힌다 오실레이터) 지표는 거래에서 잠재적인 추세 반전을 식별하는 데 사용되는 기술적 분석 도구입니다. 이동 평균과 반전 패턴을 사용하여 매수 및 매도 신호를 생성합니다. 이 지표는 트레이더가 시장 추세에 대한 정보에 기반한 결정을 내리는 데 도움을 줄 수 있습니다.</value></data>
+  <data name="ROCDescription" xml:space="preserve"><value>변화율(ROC) 지표는 특정 기간 동안의 가격 변동 비율을 측정합니다. 이는 모멘텀 오실레이터로, 트레이더가 시장의 과매수 및 과매도 상태를 식별하는 데 도움을 줄 수 있습니다. ROC는 현재 가격을 설정된 기간 전의 가격과 비교하여 계산됩니다.</value></data>
+  <data name="RSI" xml:space="preserve"><value>상대강도지수</value></data>
+  <data name="RSIDescription" xml:space="preserve"><value>RSI 지표는 현재 추세의 강도와 가능한 반전 포인트를 결정하는 데 사용됩니다. RSI 지표는 특정 기간 동안의 가격 상승의 절대값을 동일한 기간 동안의 가격 하락 수준과 비교합니다. 계산 결과는 0%에서 100%까지의 값 범위로 차트에 곡선 형태로 표시됩니다.</value></data>
+  <data name="RVI" xml:space="preserve"><value>상대 활력 지수</value></data>
+  <data name="RVI1Description" xml:space="preserve"><value>RVI V1 지표는 4바 기간 동안 종가 변화와 시가 변화의 비율을 비교하여 상대적인 가격 강도를 측정합니다. 이는 상대 활력 지수의 한 종류이며, 마지막 4개의 캔들의 종가와 시가를 기반으로 합니다. 이 구현은 특정 기간 동안 상대적인 가격 강도를 평가하는 방법을 제공합니다.</value></data>
+  <data name="RVI2Description" xml:space="preserve"><value>상대 활력 지수 V2는 금융 분석에 사용하기 위해 원래 지표의 부드러운 값을 계산하는 지표입니다. 이는 원래 상대 활력 지수의 업데이트된 버전으로, 유사한 계산을 하지만 정확성을 높이기 위해 부드러운 값을 통합하고 있습니다. 이 지표는 기술적 분석에서 추세의 강도를 측정하는 데 일반적으로 사용됩니다.</value></data>
+  <data name="RVIDescription" xml:space="preserve"><value>상대 활력 지수(RVI) 지표는 거래 기간의 최소 가격이 아니라 종가와 시가를 비교합니다. 이는 특정 기간의 실제 가격 변화를 나타내며, 이 기간의 최대 범위(예: 1시간 또는 1일)를 조정하는 데 사용됩니다. RVI 지표는 스토캐스틱 오실레이터와 동일한 시스템을 사용하여 계산됩니다.</value></data>
+  <data name="RVIPeriodDescription" xml:space="preserve"><value>"상대적 활력 지수"의 기간을 설정합니다.</value></data>
+  <data name="RWIDescription" xml:space="preserve"><value>랜덤 워크 지수(RWI)는 가격 변동이 무작위인지 아니면 더 큰 추세의 일부인지 판단하는 데 사용되는 도구입니다. 이는 하락 추세의 강도를 나타내는 빨간색 선과 상승 추세의 강도를 나타내는 녹색 선으로 표현됩니다. 이 지수는 트레이더가 시장 추세를 식별하고 분석하는 데 도움을 줍니다.</value></data>
+  <data name="Range" xml:space="preserve"><value>범위</value></data>
+  <data name="RangeAreaDescription" xml:space="preserve"><value>범위 영역을 나타냅니다.</value></data>
+  <data name="RangeFilter" xml:space="preserve"><value>범위 필터</value></data>
+  <data name="RatioDescription" xml:space="preserve"><value>비율 - 두 숫자 간의 관계. 숫자 A와 B의 비율은 A:B로 표현될 수 있습니다. 비율 숫자는 약세 캔들 위와 강세 캔들 아래에 표시됩니다. 비교되는 두 숫자는 약세 캔들의 두 개의 가장 높은 매도 호가와 강세 캔들의 두 개의 가장 낮은 매수 호가입니다. 비율의 값이 낮은 비율과 중립 비율 사이의 숫자일 때, 비율 숫자는 검정색입니다. 비율 숫자가 중립 비율을 초과할 때, 비율 숫자는 파란색입니다.</value></data>
+  <data name="Rectangles" xml:space="preserve"><value>사각형</value></data>
+  <data name="Red" xml:space="preserve"><value>빨간색</value></data>
+  <data name="RelativeInPercent" xml:space="preserve"><value>상대 비율 %</value></data>
+  <data name="RelativeVolumeDescription" xml:space="preserve"><value>상대 볼륨은 볼륨 흐름의 증가 또는 감소를 측정하는 데 사용되는 도구입니다. 이는 현재 볼륨과 같은 시간대의 평균 볼륨 간의 비율을 결정합니다. 이는 거래 패턴 및 시장 활동을 이해하는 데 유용한 도구가 될 수 있습니다.</value></data>
+  <data name="RenderPeriods" xml:space="preserve"><value>표시된 기간 수</value></data>
+  <data name="RepeatAlert" xml:space="preserve"><value>알림 반복</value></data>
+  <data name="RepeatAlertDescription" xml:space="preserve"><value>옵션이 활성화되면 동일한 바에서 조건이 반복될 때 반복 알림이 생성됩니다. 그렇지 않으면 하나의 바에서 하나의 알림만 생성됩니다.</value></data>
+  <data name="RepulseDescription" xml:space="preserve"><value>Repulse 지표는 각 캔들에 대한 강세 또는 약세 압력을 곡선 형태로 측정하고 반영합니다. 이 지표에는 하나의 매개변수가 있습니다: 반동 기간. 계산에는 모든 4개의 캔들 가격이 사용되므로 지표 계산을 위한 가격 유형은 변경할 수 없습니다. 권장 사용 방법은 간단합니다:
+- 제로 라인을 위로 교차하는 것은 매수 신호로 해석됩니다
+- 제로 라인을 아래로 교차하는 것은 매도 신호로 해석됩니다.</value></data>
+  <data name="RequiredChange" xml:space="preserve"><value>필요한 변경</value></data>
+  <data name="RequiredChangeValueDescription" xml:space="preserve"><value>특정 매개변수의 변화량을 결정합니다.</value></data>
+  <data name="ResetOnSession" xml:space="preserve"><value>새 세션 시작 시 재설정</value></data>
+  <data name="ResetOnSessionFilterDescription" xml:space="preserve"><value>기능이 활성화되면 이전에 기억된 작업이 새 세션 시작 시 초기화됩니다.</value></data>
+  <data name="ResistanceColor" xml:space="preserve"><value>저항 색상</value></data>
+  <data name="ResistanceColorDescription" xml:space="preserve"><value>저항 수준 또는 저항 영역을 표시하는 요소의 색상을 정의합니다.</value></data>
+  <data name="ResistanceLevel" xml:space="preserve"><value>저항 수준</value></data>
+  <data name="ResistanceLevelDisplayDescription" xml:space="preserve"><value>가격이 하락할 수 있는 저항 수준을 표시합니다.</value></data>
+  <data name="ResistanceLineSettingsDescription" xml:space="preserve"><value>지정된 저항 수준 선에 대한 시각화 설정입니다.</value></data>
+  <data name="RetrospectiveAnalysis" xml:space="preserve"><value>회고 분석</value></data>
+  <data name="ReverseAlert" xml:space="preserve"><value>역 경고</value></data>
+  <data name="ReverseAlertDescription" xml:space="preserve"><value>다이버전스(캔들이 긍정적이고 델타가 부정적이거나 그 반대)에서 나타납니다</value></data>
+  <data name="Right" xml:space="preserve"><value>오른쪽</value></data>
+  <data name="RightToLeft" xml:space="preserve"><value>오른쪽에서 왼쪽으로</value></data>
+  <data name="RightToLeftDescription" xml:space="preserve"><value>바 성장 방향: 오른쪽 가장자리에서 오른쪽 또는 왼쪽으로.</value></data>
+  <data name="RolloverType" xml:space="preserve"><value>롤오버 유형</value></data>
+  <data name="RoundNrDescription" xml:space="preserve"><value>라운드 넘버 지표는 설정에서 지정된 단계에 따라 차트에 특정 수준을 플롯하는 데 사용됩니다. 이는 트레이더가 차트에서 라운드 넘버 수준을 식별하고 시각화하는 데 도움이 되며, 거래 결정을 내리는 데 유용할 수 있습니다. 이 지표는 틱을 기반으로 수준을 플롯하도록 사용자 정의할 수 있으며, 지원 및 저항 수준에 대한 시각적 참조를 제공합니다.</value></data>
+  <data name="RowWidth" xml:space="preserve"><value>행 너비</value></data>
+  <data name="Rows" xml:space="preserve"><value>행</value></data>
+  <data name="SMA" xml:space="preserve"><value>이동 평균</value></data>
+  <data name="SMA1" xml:space="preserve"><value>단순 이동 평균 1</value></data>
+  <data name="SMA2" xml:space="preserve"><value>단순 이동 평균 2</value></data>
+  <data name="SMAColor" xml:space="preserve"><value>SMA 색상</value></data>
+  <data name="SMADescription" xml:space="preserve"><value>단순 이동 평균(SMA)은 특정 기간(예: 15М, 1H, Daily)의 종가를 합산한 후, 얻어진 합계를 기간 수로 나누어 계산됩니다.</value></data>
+  <data name="SMALineColorDescription" xml:space="preserve"><value>SMA 선을 표시하기 위한 색상을 정의합니다.</value></data>
+  <data name="SMAPeriod" xml:space="preserve"><value>SMA 기간</value></data>
+  <data name="SMAPeriod1" xml:space="preserve"><value>SMA 기간 1</value></data>
+  <data name="SMAPeriod1Description" xml:space="preserve"><value>첫 번째 단순 이동 평균(SMA)의 기간을 설정합니다</value></data>
+  <data name="SMAPeriod2" xml:space="preserve"><value>SMA 기간 2</value></data>
+  <data name="SMAPeriod2Description" xml:space="preserve"><value>두 번째 단순 이동 평균(SMA)의 기간을 설정합니다</value></data>
+  <data name="SMAPeriod3" xml:space="preserve"><value>SMA 기간 3</value></data>
+  <data name="SMAPeriod3Description" xml:space="preserve"><value>세 번째 단순 이동 평균(SMA)의 기간을 설정합니다</value></data>
+  <data name="SMAPeriod4" xml:space="preserve"><value>SMA 기간 4</value></data>
+  <data name="SMAPeriod4Description" xml:space="preserve"><value>네 번째 단순 이동 평균(SMA)의 기간을 설정합니다</value></data>
+  <data name="SMAPeriodDescription" xml:space="preserve"><value>단순 이동 평균(SMA)의 기간을 설정합니다</value></data>
+  <data name="SMMA" xml:space="preserve"><value>스무딩 이동 평균</value></data>
+  <data name="SMMADescription" xml:space="preserve"><value>스무스 이동 평균(SMMA)은 단순 이동 평균(SMA)과 유사하며 노이즈를 줄이는 것을 목표로 합니다. 이 지표는 모든 가격을 고려하며 확장된 회귀 기간을 사용합니다. SMA와 달리 오래된 가격은 계산에 유지되지만 이동 평균에 미치는 영향은 최소화됩니다. 이 접근 방식은 노이즈를 줄이고 변동성을 억제하며 주요 트렌드를 포착합니다.</value></data>
+  <data name="SMMAPeriodDescription" xml:space="preserve"><value>스무스 이동 평균(SMMA)의 기간을 설정합니다.</value></data>
+  <data name="SPVODescription" xml:space="preserve"><value>단순 비율 거래량 오실레이터는 특정 증권의 거래량에 대한 두 이동 평균 간의 비율 차이를 측정합니다. 이는 트레이더와 분석가가 트렌드와 거래량의 잠재적 변화를 식별하는 데 도움을 주며, 정보에 기반한 투자 결정을 내리는 데 유용할 수 있습니다. 이 지표는 기술 분석에서 거래량과 가격 움직임 간의 관계를 이해하는 데 일반적으로 사용됩니다.</value></data>
+  <data name="SRLevels" xml:space="preserve"><value>지지 / 저항 수준</value></data>
+  <data name="SWWMADescription" xml:space="preserve"><value>사인파 가중 이동 평균은 사인 함수를 기반으로 한 가중 접근 방식을 사용하여 금융 상품 가격의 이동 평균을 계산하는 방법입니다.</value></data>
+  <data name="SZMA" xml:space="preserve"><value>단순 이동 평균 - 제로 건너뛰기</value></data>
+  <data name="SZMADescription" xml:space="preserve"><value>이 이동 평균 유형은 SMA의 변형입니다. 차이점은 평균 값을 계산할 때 0 값을 제외하여 값의 편향을 방지한다는 것입니다.</value></data>
+  <data name="SaveCustomStartingPointDescription" xml:space="preserve"><value>기능이 활성화되면 지표는 설정한 시작점을 기억합니다.</value></data>
+  <data name="SaveStartPoint" xml:space="preserve"><value>사용자 정의 시작점을 저장</value></data>
+  <data name="Scale" xml:space="preserve"><value>스케일</value></data>
+  <data name="SchaffTrendCycleDescription" xml:space="preserve"><value>샤프 트렌드 사이클(STC)은 시장 트렌드를 식별하고 트레이더에게 매수 및 매도 신호를 제공하는 데 사용되는 차트 지표입니다. STC는 오실레이터의 일종으로, 시간 프레임에 관계없이 통화 트렌드가 주기적인 패턴으로 가속화되고 감속한다는 가정에 기반합니다.</value></data>
+  <data name="SearchPrintsInsideTimeFilter" xml:space="preserve"><value>시간 필터 내에서 인쇄물 검색</value></data>
+  <data name="SecondDev" xml:space="preserve"><value>제2편차</value></data>
+  <data name="SecondLine" xml:space="preserve"><value>두 번째 줄</value></data>
+  <data name="Seconds" xml:space="preserve"><value>초</value></data>
+  <data name="SelectTimeframeDescription" xml:space="preserve"><value>사용자가 사용할 수 있는 다양한 시간 프레임 중에서 선택할 수 있도록 합니다. 자신의 요구에 가장 적합한 시간 프레임을 선택할 수 있는 옵션을 제공합니다.</value></data>
+  <data name="SellColor" xml:space="preserve"><value>판매 색상</value></data>
+  <data name="SellOvershoot1Color" xml:space="preserve"><value>판매 초과 1 색상</value></data>
+  <data name="SellOvershoot2Color" xml:space="preserve"><value>판매 초과 2 색상</value></data>
+  <data name="SellOvershoot3Color" xml:space="preserve"><value>3색 초과 판매</value></data>
+  <data name="SellOvershootColor" xml:space="preserve"><value>판매 초과 색상</value></data>
+  <data name="SellSignalColorDescription" xml:space="preserve"><value>매도 신호를 나타내는 요소의 색상을 설정합니다.</value></data>
+  <data name="SellSignalSettingsDescription" xml:space="preserve"><value>매도 신호에 대한 시각화 설정.</value></data>
+  <data name="SellTradeLineColorDescription" xml:space="preserve"><value>판매 거래 라인 및 마커를 표시하는 데 사용되는 색상을 지정합니다.</value></data>
+  <data name="Sells" xml:space="preserve"><value>판매</value></data>
+  <data name="SenkouSpanB" xml:space="preserve"><value>선행스팬 B</value></data>
+  <data name="SeparatedTrades" xml:space="preserve"><value>분리 거래</value></data>
+  <data name="Session" xml:space="preserve"><value>세션</value></data>
+  <data name="SessionAveragePriceDescription" xml:space="preserve"><value>특정 세션에 대한 평균 가격 수준을 설명합니다.</value></data>
+  <data name="SessionBegin" xml:space="preserve"><value>세션 시작</value></data>
+  <data name="SessionBeginDescription" xml:space="preserve"><value>데이터 기록의 시작 날짜를 정의합니다.</value></data>
+  <data name="SessionColorIndDescription" xml:space="preserve"><value>이 지표는 매 거래일마다 설정된 기간 동안 차트의 배경을 주기적으로 강조 표시할 수 있게 해줍니다. 예를 들어, 서로 다른 설정을 가진 이러한 지표를 몇 개 설정함으로써 주요 거래 플랫폼의 거래 세션을 강조하고 이들이 언제 시작되고 끝나며 서로 교차하는지를 시각화할 수 있습니다. 이는 특히 거래일의 개장 및 마감 시점에 더 높은 거래 활동과 도구의 변동성이 관찰되기 때문에 일중 거래 중에 고려하는 것이 중요할 수 있습니다.</value></data>
+  <data name="SessionDeltaAlert" xml:space="preserve"><value>세션 델타 알림</value></data>
+  <data name="SessionDeltaMode" xml:space="preserve"><value>세션 델타 모드</value></data>
+  <data name="SessionDeltaPerVolumeAlert" xml:space="preserve"><value>세션 델타/볼륨 경고</value></data>
+  <data name="SessionEnd" xml:space="preserve"><value>세션 종료</value></data>
+  <data name="SessionEndDescription" xml:space="preserve"><value>데이터 기록의 종료 날짜를 정의합니다.</value></data>
+  <data name="SessionModeDescription" xml:space="preserve"><value>세션 기반 델타 계산 모드를 활성화하거나 비활성화합니다.</value></data>
+  <data name="SessionTime" xml:space="preserve"><value>세션 시간</value></data>
+  <data name="SessionVolumeAlert" xml:space="preserve"><value>세션 볼륨 경고</value></data>
+  <data name="SetStartPoint" xml:space="preserve"><value>시작 지점 설정</value></data>
+  <data name="SetStartPointKeyFilterDescription" xml:space="preserve"><value>이 필드가 활성화되어 있으면 시작점을 설정하기 위한 단축키를 정의할 수 있습니다.</value></data>
+  <data name="Settings" xml:space="preserve"><value>설정</value></data>
+  <data name="Shift" xml:space="preserve"><value>Shift</value></data>
+  <data name="Short" xml:space="preserve"><value>Short</value></data>
+  <data name="ShortPeriod" xml:space="preserve"><value>짧은 기간</value></data>
+  <data name="ShortPeriodColorDescription" xml:space="preserve"><value>단기 요소의 색상을 정의합니다.</value></data>
+  <data name="ShortPeriodDDescription" xml:space="preserve"><value>"KD - Fast" 계산을 위한 "%D" 기간 설정.</value></data>
+  <data name="ShortPeriodDescription" xml:space="preserve"><value>단기 이동 평균의 기간을 지정합니다</value></data>
+  <data name="ShortPeriodKDescription" xml:space="preserve"><value>"KD - Fast" 계산을 위한 "%K" 기간 설정.</value></data>
+  <data name="ShortStdDevPeriodDescription" xml:space="preserve"><value>짧은 표준 편차 기간은 데이터의 평균을 기준으로 데이터의 변동성을 계산하는 데 사용되는 시간 간격을 나타냅니다. 이 기간은 데이터의 단기 변동을 분석하고 특정 시간 프레임 내에서 값이 얼마나 분산되어 있는지를 이해하는 데 도움이 됩니다. 이는 금융 시장에서 변동성과 위험을 평가하는 데 유용한 척도입니다.</value></data>
+  <data name="ShortValues" xml:space="preserve"><value>짧은 값을 표시</value></data>
+  <data name="Show" xml:space="preserve"><value>보여주기</value></data>
+  <data name="ShowAboveChart" xml:space="preserve"><value>차트 위에 표시</value></data>
+  <data name="ShowAccountId" xml:space="preserve"><value>계정 ID 표시</value></data>
+  <data name="ShowAccountIdDescription" xml:space="preserve"><value>계정 식별자 표시</value></data>
+  <data name="ShowAlertAreaDescription" xml:space="preserve"><value>알림이 발생할 때 표시된 요소의 강조 표시를 활성화하거나 비활성화합니다. 이는 알림에 주의를 끌어 사용자 경험을 향상시키는 데 도움이 될 수 있습니다.</value></data>
+  <data name="ShowArea" xml:space="preserve"><value>영역 표시</value></data>
+  <data name="ShowAsCandle" xml:space="preserve"><value>캔들로 표시</value></data>
+  <data name="ShowAsCandleDescription" xml:space="preserve"><value>활성화되면 요소가 촛불로 표시됩니다.</value></data>
+  <data name="ShowAsk" xml:space="preserve"><value>아스크 표시</value></data>
+  <data name="ShowAsksDescription" xml:space="preserve"><value>구매 볼륨.</value></data>
+  <data name="ShowAvailableBalance" xml:space="preserve"><value>사용 가능한 잔액 표시</value></data>
+  <data name="ShowAvailableBalanceDescription" xml:space="preserve"><value>거래를 위한 사용 가능한 자금을 표시합니다</value></data>
+  <data name="ShowAverage" xml:space="preserve"><value>이동 평균 표시</value></data>
+  <data name="ShowBalance" xml:space="preserve"><value>잔액 표시</value></data>
+  <data name="ShowBalanceDescription" xml:space="preserve"><value>총 잔액 표시</value></data>
+  <data name="ShowBars" xml:space="preserve"><value>막대 표시</value></data>
+  <data name="ShowBarsDescription" xml:space="preserve"><value>차트에 막대를 표시할지 여부를 결정합니다.</value></data>
+  <data name="ShowBaseElementOnlyDescription" xml:space="preserve"><value>활성화되면 기본 요소를 제외한 모든 요소가 숨겨집니다.</value></data>
+  <data name="ShowBid" xml:space="preserve"><value>매수 호가 표시</value></data>
+  <data name="ShowBidsDescription" xml:space="preserve"><value>판매량.</value></data>
+  <data name="ShowBlockedMargin" xml:space="preserve"><value>차단된 마진 표시</value></data>
+  <data name="ShowBlockedMarginDescription" xml:space="preserve"><value>열려 있는 포지션으로 잠긴 마진 표시</value></data>
+  <data name="ShowBotBlock" xml:space="preserve"><value>하단 블록 표시</value></data>
+  <data name="ShowBottomElementsDescription" xml:space="preserve"><value>하단에 요소를 표시할지 여부를 결정합니다.</value></data>
+  <data name="ShowBrokenChannel" xml:space="preserve"><value>고장난 채널 표시</value></data>
+  <data name="ShowBrokenChannelDescription" xml:space="preserve"><value>깨진 레벨을 표시할지 여부를 결정합니다.</value></data>
+  <data name="ShowCandleDurationDescription" xml:space="preserve"><value>캔들 지속 시간에 대한 정보.</value></data>
+  <data name="ShowCandleHeightDescription" xml:space="preserve"><value>캔들 크기(틱 단위).</value></data>
+  <data name="ShowCandleTimeDescription" xml:space="preserve"><value>캔들의 시작 시간.</value></data>
+  <data name="ShowClosedPnL" xml:space="preserve"><value>닫힌 PnL 표시</value></data>
+  <data name="ShowClosedPnLDescription" xml:space="preserve"><value>실현된 수익과 손실 표시</value></data>
+  <data name="ShowCumulative" xml:space="preserve"><value>누적 표시</value></data>
+  <data name="ShowCumulativeValues" xml:space="preserve"><value>누적 값 표시</value></data>
+  <data name="ShowCumulativeValuesDescription" xml:space="preserve"><value>패널 하단에 총 매수 및 매도 거래량의 비율을 표시합니다.</value></data>
+  <data name="ShowCurrency" xml:space="preserve"><value>통화 표시</value></data>
+  <data name="ShowCurrencyDescription" xml:space="preserve"><value>계좌 통화 표시</value></data>
+  <data name="ShowCurrentParameterInfoDescription" xml:space="preserve"><value>이 매개변수에 대한 정보를 표시할지 여부를 결정합니다.</value></data>
+  <data name="ShowCurrentParameterNameDescription" xml:space="preserve"><value>이 매개변수의 이름을 표시할지 여부를 결정합니다.</value></data>
+  <data name="ShowCurrentValue" xml:space="preserve"><value>값 표시</value></data>
+  <data name="ShowCurrentValueDescription" xml:space="preserve"><value>가격 패널에 데이터 시리즈의 현재 값을 표시할지 여부를 결정합니다.</value></data>
+  <data name="ShowDelta" xml:space="preserve"><value>델타</value></data>
+  <data name="ShowDeltaChange" xml:space="preserve"><value>델타 변화</value></data>
+  <data name="ShowDeltaChangeDescription" xml:space="preserve"><value>막대 간의 시장 방향 변화.</value></data>
+  <data name="ShowDeltaDescription" xml:space="preserve"><value>각 막대의 볼륨 차이.</value></data>
+  <data name="ShowDeltaPerVolume" xml:space="preserve"><value>델타/거래량 표시</value></data>
+  <data name="ShowDeltaPerVolumeDescription" xml:space="preserve"><value>총 볼륨에 대한 델타 불균형 (%).</value></data>
+  <data name="ShowDepthChanges" xml:space="preserve"><value>깊이 변경 표시</value></data>
+  <data name="ShowDepthChangesDescription" xml:space="preserve"><value>주문서 수준의 누적 풀링 및 스태킹 변화를 표시합니다.</value></data>
+  <data name="ShowDescription" xml:space="preserve"><value>설명 표시</value></data>
+  <data name="ShowDuration" xml:space="preserve"><value>표시 시간, 초</value></data>
+  <data name="ShowDurationHHMMSS" xml:space="preserve"><value>지속 시간 표시 HH:MM:SS</value></data>
+  <data name="ShowFibonacci" xml:space="preserve"><value>피보나치 표시</value></data>
+  <data name="ShowFibonacciDescription" xml:space="preserve"><value>피보나치 라인을 표시할지 여부를 결정합니다.</value></data>
+  <data name="ShowFirstPartialPeriod" xml:space="preserve"><value>첫 번째 부분 기간 표시</value></data>
+  <data name="ShowFirstPeriodDescription" xml:space="preserve"><value>이 요소를 이전 기간에 대해 표시할지 여부를 결정합니다.</value></data>
+  <data name="ShowGapsDescription" xml:space="preserve"><value>지정된 간격을 표시할지 여부를 결정합니다.</value></data>
+  <data name="ShowGrid" xml:space="preserve"><value>그리드 표시</value></data>
+  <data name="ShowHeight" xml:space="preserve"><value>높이</value></data>
+  <data name="ShowHighLow" xml:space="preserve"><value>High/Low 표시</value></data>
+  <data name="ShowInstrument" xml:space="preserve"><value>도구 표시</value></data>
+  <data name="ShowLabelsOfFinishedLines" xml:space="preserve"><value>완료된 라인의 레이블</value></data>
+  <data name="ShowLabelsOfFinishedLinesDescription" xml:space="preserve"><value>라인 끝에 레이블을 표시할지 여부를 결정합니다.</value></data>
+  <data name="ShowLevelsOnChartDescription" xml:space="preserve"><value>차트에 지정된 수준을 표시할지 여부를 결정합니다.</value></data>
+  <data name="ShowLeverage" xml:space="preserve"><value>레버리지 표시</value></data>
+  <data name="ShowLeverageDescription" xml:space="preserve"><value>계좌 레버리지 표시</value></data>
+  <data name="ShowLines" xml:space="preserve"><value>줄 표시</value></data>
+  <data name="ShowMaxValueDescription" xml:space="preserve"><value>최대 값을 가진 요소를 표시할지 여부를 결정합니다.</value></data>
+  <data name="ShowMaximumDelta" xml:space="preserve"><value>최대 델타</value></data>
+  <data name="ShowMaximumDeltaDescription" xml:space="preserve"><value>캔들 형성 중 최대 델타 값.</value></data>
+  <data name="ShowMidlineDescription" xml:space="preserve"><value>중간 선을 표시할지 여부를 결정합니다.</value></data>
+  <data name="ShowMinimumDelta" xml:space="preserve"><value>최소 델타</value></data>
+  <data name="ShowMinimumDeltaDescription" xml:space="preserve"><value>캔들 형성 중 최소 델타 값.</value></data>
+  <data name="ShowOnChart" xml:space="preserve"><value>차트에 표시</value></data>
+  <data name="ShowOpenPnL" xml:space="preserve"><value>열린 PnL 표시</value></data>
+  <data name="ShowOpenPnLDescription" xml:space="preserve"><value>실현되지 않은 이익과 손실 표시</value></data>
+  <data name="ShowOpenRangeDescription" xml:space="preserve"><value>초기 개장 범위를 표시할지 여부를 결정합니다.</value></data>
+  <data name="ShowOrdersCount" xml:space="preserve"><value>주문 수 표시</value></data>
+  <data name="ShowPeriod" xml:space="preserve"><value>기간 표시</value></data>
+  <data name="ShowPocLevel" xml:space="preserve"><value>POC 수준 표시</value></data>
+  <data name="ShowPocLevelDescription" xml:space="preserve"><value>POC 수준을 표시할지 여부를 결정합니다.</value></data>
+  <data name="ShowPrice" xml:space="preserve"><value>가격 표시</value></data>
+  <data name="ShowPriceLabels" xml:space="preserve"><value>가격 레이블 표시</value></data>
+  <data name="ShowPriceSelection" xml:space="preserve"><value>가격 선택 표시</value></data>
+  <data name="ShowPriceSelectionDescription" xml:space="preserve"><value>이 기능이 활성화되면 차트의 클러스터 내 가격 수준이 강조 표시되어 선택한 거래량 내에서 중요한 가격 포인트를 쉽게 식별할 수 있습니다.</value></data>
+  <data name="ShowSMA" xml:space="preserve"><value>SMA 표시</value></data>
+  <data name="ShowSelectedPriceOnPriceAxisDescription" xml:space="preserve"><value>가격이 가격 축에서 강조 표시되어야 하는지 여부를 결정합니다.</value></data>
+  <data name="ShowSessionDelta" xml:space="preserve"><value>세션 델타</value></data>
+  <data name="ShowSessionDeltaDescription" xml:space="preserve"><value>세션 시작 이후 누적된 매도와 매수의 불균형.</value></data>
+  <data name="ShowSessionDeltaPerVolume" xml:space="preserve"><value>세션 델타/볼륨</value></data>
+  <data name="ShowSessionDeltaPerVolumeDescription" xml:space="preserve"><value>총 일일 볼륨에 대한 델타 불균형.</value></data>
+  <data name="ShowSessionVolume" xml:space="preserve"><value>세션 볼륨</value></data>
+  <data name="ShowSessionVolumeDescription" xml:space="preserve"><value>세션의 누적 볼륨.</value></data>
+  <data name="ShowSignalNumbers" xml:space="preserve"><value>신호 번호 표시</value></data>
+  <data name="ShowSmallTrades" xml:space="preserve"><value>작은 거래 표시</value></data>
+  <data name="ShowSmallTradesDescription" xml:space="preserve"><value>필터 기준을 통과하지 않는 거래를 표시할지 여부를 결정합니다.</value></data>
+  <data name="ShowSupResLevelsDescription" xml:space="preserve"><value>지지 및 저항 수준을 표시할지 여부를 결정합니다.</value></data>
+  <data name="ShowThresholdLines" xml:space="preserve"><value>임계선 표시</value></data>
+  <data name="ShowThresholdLinesDescription" xml:space="preserve"><value>Volume 패널에 수평 임계선을 표시합니다.</value></data>
+  <data name="ShowTicks" xml:space="preserve"><value>틱 표시</value></data>
+  <data name="ShowTime" xml:space="preserve"><value>시간</value></data>
+  <data name="ShowTimeFrameLabel" xml:space="preserve"><value>시간 범위 레이블 표시</value></data>
+  <data name="ShowTopBlock" xml:space="preserve"><value>상단 블록 표시</value></data>
+  <data name="ShowTopElementsDescription" xml:space="preserve"><value>요소를 상단에 표시할지 여부를 결정합니다.</value></data>
+  <data name="ShowTotalPnL" xml:space="preserve"><value>총 PnL 표시</value></data>
+  <data name="ShowTotalPnLDescription" xml:space="preserve"><value>총 이익 및 손실 표시</value></data>
+  <data name="ShowTradeTooltipDescription" xml:space="preserve"><value>거래 마커에 마우스를 올릴 때 거래 세부정보가 포함된 툴팁을 표시할지 여부를 결정합니다.</value></data>
+  <data name="ShowTradesCount" xml:space="preserve"><value>거래 수</value></data>
+  <data name="ShowTradesCountDescription" xml:space="preserve"><value>거래 수에 대한 정보.</value></data>
+  <data name="ShowValue" xml:space="preserve"><value>값 표시</value></data>
+  <data name="ShowValueOnLabelDescription" xml:space="preserve"><value>레이블에 값을 표시할지 여부를 결정합니다.</value></data>
+  <data name="ShowVolume" xml:space="preserve"><value>거래량</value></data>
+  <data name="ShowVolumePerSecond" xml:space="preserve"><value>초당 볼륨</value></data>
+  <data name="ShowVolumePerSecondDescription" xml:space="preserve"><value>초당 거래량.</value></data>
+  <data name="ShowVolumesDescription" xml:space="preserve"><value>각 바의 거래량.</value></data>
+  <data name="Signal" xml:space="preserve"><value>신호</value></data>
+  <data name="SignalLineSettingsDescription" xml:space="preserve"><value>신호선 시각화 설정.</value></data>
+  <data name="SignalPeriod" xml:space="preserve"><value>신호 기간</value></data>
+  <data name="SignalPeriodDescription" xml:space="preserve"><value>신호 이동 평균의 기간을 지정합니다</value></data>
+  <data name="SingalAlert" xml:space="preserve"><value>신호 경고</value></data>
+  <data name="SitSeriesColor" xml:space="preserve"><value>좌석 시리즈 색상</value></data>
+  <data name="Size" xml:space="preserve"><value>크기</value></data>
+  <data name="SizeDescription" xml:space="preserve"><value>이 매개변수는 차트에서 선택의 표준 크기를 설정합니다.</value></data>
+  <data name="SlowConst" xml:space="preserve"><value>느린 스무딩 상수</value></data>
+  <data name="SlowConstDescription" xml:space="preserve"><value>장기 트렌드에 대한 반응성에 영향을 미칩니다.</value></data>
+  <data name="SlowFactor" xml:space="preserve"><value>느림 요소</value></data>
+  <data name="SlowLine" xml:space="preserve"><value>느린 라인</value></data>
+  <data name="SlowLineSettingsDescription" xml:space="preserve"><value>느린 선에 대한 시각화 설정입니다.</value></data>
+  <data name="SmaSetingsDescription" xml:space="preserve"><value>차트에 이동 평균을 표시하기 위한 설정입니다.</value></data>
+  <data name="Smooth" xml:space="preserve"><value>부드럽게</value></data>
+  <data name="SmoothDescription" xml:space="preserve"><value>지표 값에 적용되는 평활화 기간.</value></data>
+  <data name="SmoothLineSettingsDescription" xml:space="preserve"><value>부드러운 선을 만들기 위한 시각화 설정입니다.</value></data>
+  <data name="SmoothPeriodFilterDescription" xml:space="preserve"><value>활성화되면 계산은 주어진 기간을 사용하여 특정 매개변수의 스무딩을 수행합니다.</value></data>
+  <data name="Smoothing" xml:space="preserve"><value>평활화</value></data>
+  <data name="SourceDescription" xml:space="preserve"><value>사용자가 지표 계산을 위한 데이터 소스를 선택할 수 있도록 합니다. 특정 캔들 가격(시가, 종가 등) 또는 다른 지표를 사용할 수 있습니다.</value></data>
+  <data name="SourceTypeDescription" xml:space="preserve"><value>사용 가능한 데이터 소스 유형 중 하나를 나타냅니다.</value></data>
+  <data name="SpaceBetweenLabelsDescription" xml:space="preserve"><value>레이블 간의 거리 크기를 정의합니다.</value></data>
+  <data name="SpaceBetweenObjectsDescription" xml:space="preserve"><value>표시된 객체 간의 간격 값을 설정합니다.</value></data>
+  <data name="Spacing" xml:space="preserve"><value>간격</value></data>
+  <data name="SpeedInterval" xml:space="preserve"><value>속도 간격</value></data>
+  <data name="SpeedOfTapeAutoFilterDescription" xml:space="preserve"><value>활성화되면 필터 값이 자동으로 계산되며, 그렇지 않으면 지정된 값과 같습니다.</value></data>
+  <data name="SpeedOfTapeDescription" xml:space="preserve"><value>&lt;p&gt;실시간 거래 속도를 측정합니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;테이프에서 활동의 급증과 모멘텀 변화를 감지하는 데 도움이 됩니다.&lt;/li&gt;
+  &lt;li&gt;시간 프레임과 도구에 따라 사용자 정의가 필요합니다.&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="SpreadVolumeDescription" xml:space="preserve"><value>이 지표는 시간에 따라 매도 및 매수 가격에서 거래된 볼륨을 시각화하도록 설계되어 있으며, 시장 활동에 대한 통찰력을 제공합니다. 다양한 가격 수준에서 매도 및 매수 볼륨을 나타내는 색상 직사각형을 표시합니다.</value></data>
+  <data name="SqueezeMomentumDescription" xml:space="preserve"><value>지표는 스퀴즈 모멘텀을 사용하여 시장에서 진입점을 찾는 방법에 대한 정보를 제공합니다. 이는 변동성이 감소하고 가격 움직임이 시작됨을 나타내는 검은색 및 회색 점을 해석하는 방법을 설명합니다. 또한 점의 색상 변화가 가격 방향의 변화를 나타내며, 녹색은 강세 움직임을, 빨간색은 약세 움직임을 나타낸다고 설명합니다.
+가격 급등의 가능성을 미리 볼 수 있는 보편적인 지표로, 진입점을 찾는 데 도움을 줍니다.
+- 검은 점은 시장이 급격한 움직임을 준비하고 있음을 나타내며, 변동성이 감소하고 있습니다.
+- 검은 점 뒤의 회색 점은 펄스의 "압축"이 끝나고 가격 급등이 곧 시작될 것임을 의미합니다.
+색상 변화는 가격 방향의 변화를 나타냅니다.
+- 연두색 - 강세 가격 방향 (가격 상승).
+- 짙은 녹색 - 약세 시장으로의 전환 (가격 하락 시작).
+- 연한 빨간색 - 약세 가격 방향 (가격 하락).
+- 짙은 빨간색 - 강세 시장으로의 전환 (가격 상승 시작).</value></data>
+  <data name="StackedImbalanceDescription" xml:space="preserve"><value>&lt;p&gt;관심이 높은 영역을 식별합니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;구매자 또는 판매자의 우세가 뚜렷한 인접 레벨을 강조 표시합니다.&lt;/li&gt;
+  &lt;li&gt;단일 불균형이 아닌 캔들 내에서 지속적인 우세를 확인합니다.&lt;/li&gt;
+  &lt;li&gt;풋프린트 내의 공급 및 수요 압력을 분석합니다.&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="Stacking" xml:space="preserve"><value>스태킹</value></data>
+  <data name="StackingDescription" xml:space="preserve"><value>주문서에 제한 주문 추가.</value></data>
+  <data name="StarcBandsDescription" xml:space="preserve"><value>STARC Bands 지표는 표준 볼린저 밴드 지표의 대안입니다. STARC Bands는 안정적인 시장에서 좁아지고 변동성이 증가함에 따라 넓어집니다. 볼린저 밴드와 달리 STARC Bands는 종가와 표준 편차를 사용하지 않습니다. 이 지표는 계산에 평균 진폭(ATR)을 사용하여 변동성 수준에 대한 더 의미 있는 정보를 제공합니다. 계산을 위한 권장 ATR 기간은 10입니다.</value></data>
+  <data name="StartTime" xml:space="preserve"><value>시작 시간</value></data>
+  <data name="StartTimeDescription" xml:space="preserve"><value>거래 플랫폼의 시작 시간</value></data>
+  <data name="StartTimeFilterDescription" xml:space="preserve"><value>시간 필터의 시작 시간을 정의합니다.</value></data>
+  <data name="StdDev" xml:space="preserve"><value>표준 편차</value></data>
+  <data name="StdDevBandsDescription" xml:space="preserve"><value>표준 편차 밴드는 SMA 및 StdDev 지표를 기반으로 하는 기술 지표입니다. 이 지표는 두 개의 이동 평균(상위 및 하위)과 채널(상위 채널은 이동 평균 상위와 StdDev의 합계이며, 하위 채널은 이동 평균 하위와 StdDev의 차이로 구성됩니다.)로 구성됩니다.</value></data>
+  <data name="StdDevDescription" xml:space="preserve"><value>표준편차(StdDev)의 기술적 지표는 시장의 변동성을 측정합니다. 이 지표는 이동 평균에 대한 가격 범위를 특징짓습니다. 지표 값이 크면 시장은 변동성이 크고 바 가격은 이동 평균에 비해 상당히 분산되어 있습니다. 지표 값이 작으면 시장은 낮은 변동성에 노출되어 있으며 바 가격은 이동 평균에 충분히 가깝습니다.</value></data>
+  <data name="StdDevPeriodDescription" xml:space="preserve"><value>"표준 편차"의 기간을 설정할 수 있도록 하여 사용자가 표준 편차가 계산되는 시간 범위를 사용자 정의할 수 있도록 합니다.</value></data>
+  <data name="StdErrBandsDescription" xml:space="preserve"><value>StdErrBands 지표는 선형 회귀선 주위에 표준 오차 밴드를 계산하여 회귀선 주위의 가격 변동성 또는 분산을 시각적으로 나타냅니다. 이는 가격 움직임을 분석하고 잠재적인 지지 및 저항 영역을 식별하는 데 유용할 수 있습니다.</value></data>
+  <data name="StdPeriod" xml:space="preserve"><value>표준 편차 기간</value></data>
+  <data name="StdPeriodDescription" xml:space="preserve"><value>표준 편차를 계산하기 위한 기간을 결정합니다.</value></data>
+  <data name="Step" xml:space="preserve"><value>단계</value></data>
+  <data name="StepSizeInTicksDescription" xml:space="preserve"><value>틱으로 표현된 단계 크기를 정의합니다.</value></data>
+  <data name="Stochastic" xml:space="preserve"><value>스토캐스틱</value></data>
+  <data name="StochasticDescription" xml:space="preserve"><value>스토캐스틱 오실레이터 (stochastic, stochastics) - 특정 기간 동안의 가격 범위에 대한 현재 가격 위치를 나타내는 기술적 분석 지표입니다. 백분율로 측정됩니다.</value></data>
+  <data name="StochasticDiNapoliDescription" xml:space="preserve"><value>스토캐스틱 디나폴리 지표는 스무딩을 위해 지수 이동 평균을 통합한 스토캐스틱 오실레이터의 변형입니다. 스토캐스틱 오실레이터는 특정 기간 동안 증권의 종가가 가격 범위에 대해 어디에 위치하는지를 측정하며, 디나폴리 버전은 EMA를 사용하여 추가적인 스무딩을 제공합니다.</value></data>
+  <data name="StochasticMomentumDescription" xml:space="preserve"><value>스토캐스틱 모멘텀 지수(SMI)는 특정 기간 동안 고가-저가 범위의 중간값에 대한 종가의 위치를 측정하는 모멘텀 오실레이터입니다. 이는 과매수 및 과매도 시장 조건을 식별하는 데 유용한 도구로, 잠재적인 거래 신호에 도움이 됩니다.</value></data>
+  <data name="StochasticRsiDescription" xml:space="preserve"><value>스토캐스틱 RSI는 시장에서 과매도 및 과매수 영역을 식별하는 데 사용되는 기술적 분석 지표입니다. 특정 기간 동안 RSI 지표의 최대값과 최소값을 기반으로 계산되며, 0에서 1 사이의 범위로 차트에 선으로 표시됩니다.</value></data>
+  <data name="StochasticRsiPeriodDescription" xml:space="preserve"><value>스토캐스틱 RSI의 기간을 설정합니다.</value></data>
+  <data name="StochasticRsiRsiPeriodDescription" xml:space="preserve"><value>스토캐스틱 RSI 지표의 RSI 기간을 설정합니다.</value></data>
+  <data name="StohasticPercentileDescription" xml:space="preserve"><value>스토캐스틱 - 퍼센타일은 주어진 시간 간격에서 가격 위치를 기반으로 값을 계산하는 기술적 오실레이터입니다. 마지막 N개의 바를 오름차순으로 정렬하고, 정렬된 마지막 바의 수를 기간 값으로 나눈 다음, 이동 평균으로 값을 매끄럽게 합니다.</value></data>
+  <data name="StrongNegativeFlowColorDescription" xml:space="preserve"><value>강한 부정적인 현금 흐름을 나타내는 요소의 색상을 설정합니다.</value></data>
+  <data name="StrongPositiveFlowColorDescription" xml:space="preserve"><value>강한 긍정적 현금 흐름을 나타내는 요소의 색상을 설정합니다.</value></data>
+  <data name="SubPeriodsMode" xml:space="preserve"><value>자신의 열에 있는 문자/블록</value></data>
+  <data name="Summary" xml:space="preserve"><value>요약</value></data>
+  <data name="SuperTrendDescription" xml:space="preserve"><value>슈퍼트렌드 지표는 ATR 및 CCI 지표를 사용하여 트렌드 움직임의 방향과 지표의 수준을 결정합니다. 이는 High, Low, 배수 및 ATR 기간을 기반으로 상한 및 하한을 결정하는 계산 공식을 사용합니다. 이 지표는 트레이더가 시장의 트렌드를 식별하는 데 도움을 주기 위해 사용됩니다.
+슈퍼트렌드의 계산 공식:
+UpperLevel=(High[i]+Low[i])/2+Multiplier*Atr(Period)
+LowerLevel=(High[i]+Low[i])/2-Multiplier*Atr(Period)</value></data>
+  <data name="SupportColor" xml:space="preserve"><value>지원 색상</value></data>
+  <data name="SupportColorDescription" xml:space="preserve"><value>요소의 지원 수준 또는 지원 영역을 표시하는 색상을 정의합니다.</value></data>
+  <data name="SupportLevel" xml:space="preserve"><value>지원 수준</value></data>
+  <data name="SupportLevelDisplayDescription" xml:space="preserve"><value>가격이 상승할 수 있는 지지 수준을 표시합니다.</value></data>
+  <data name="SupportLineSettingsDescription" xml:space="preserve"><value>지정된 지원 수준 선에 대한 시각화 설정입니다.</value></data>
+  <data name="SwingHighLowDescription" xml:space="preserve"><value>스윙 하이 및 로우 지표는 예상되는 반전 포인트를 표시하는 데 사용됩니다. 차트에서 빨간 선은 매도 반전 포인트를 나타내고, 녹색 선은 매수 반전 포인트를 나타냅니다.</value></data>
+  <data name="SyntheticVixDescription" xml:space="preserve"><value>SyntheticVix 지표는 VIX(변동성 지수)의 합성 표현으로, 사용자가 미래 변동성에 대한 시장의 기대를 측정할 수 있도록 합니다. 이는 특정 기간 내의 최고 종가와 현재 최저가를 비교하여 값을 계산하며, 상대적 변동성의 척도를 제공합니다. 이 지표는 일반적으로 시장 심리를 평가하고 정보에 기반한 거래 결정을 내리는 데 사용됩니다.</value></data>
+  <data name="T3IndDescription" xml:space="preserve"><value>이 지표는 1998년 팀 틸슨에 의해 개발되었습니다.
+새로운 유형의 이동 평균을 개발하는 목적은 노이즈 필터링을 개선하고 지연을 줄이는 것입니다. 이는 대부분의 이동 평균에서 공통적으로 발생하는 단점입니다. 가격 시리즈의 여러 지수 평활화를 계산에 사용합니다. 가격이 아래에서 상승하는 T3 선을 교차하면 매수 신호가 되고, 하강하는 선을 위에서 교차하면 매도 신호가 됩니다. 이 지표는 지수 이동 평균의 6배 계산에 기반합니다.</value></data>
+  <data name="TDSequentialDescription" xml:space="preserve"><value>이 지표는 현재 캔들의 종가와 4개 캔들 전의 종가를 비교하여 잠재적인 추세 반전 신호를 표시합니다. 신호 번호 9에 도달하면 추세 반전의 높은 확률이 있습니다. 신호의 수가 13에 도달하면 반전의 확률이 증가합니다.</value></data>
+  <data name="TEMA" xml:space="preserve"><value>삼중 지수 이동 평균</value></data>
+  <data name="TEMADescription" xml:space="preserve"><value>삼중 지수 이동 평균(TEMA)은 삼중 지수 평활화 기법을 사용하여 이동 평균을 계산하는 기술적 분석 지표입니다. 이는 여러 개의 지수 이동 평균을 결합하여 지연을 줄이고 반응성을 개선하는 아이디어에 기반합니다. TEMA는 트렌드를 식별하고 금융 시장에서 매수 또는 매도 신호를 생성하는 데 사용됩니다.
+공식:
+TEMA(t) = 3*EMA(x(t)) - 3*EMA(EMA(x(t))) + EMA(EMA(EMA(x(t)))).</value></data>
+  <data name="TMA" xml:space="preserve"><value>삼각 이동 평균</value></data>
+  <data name="TMADescription" xml:space="preserve"><value>삼각 이동 평균의 주요 가중치는 가격 범위의 중간 부분에 있습니다. 사실, 이들은 두 번 평활화된 단순 이동 평균입니다. 단순 이동 평균의 길이는 선택한 기간 수의 짝수성에 따라 달라집니다.</value></data>
+  <data name="TPO" xml:space="preserve"><value>TPO</value></data>
+  <data name="TPOSubPeriodDescription" xml:space="preserve"><value>TPO 하위 기간의 분 수를 정의합니다.</value></data>
+  <data name="TPOSubPeriodMinutes" xml:space="preserve"><value>TPO 하위 기간, 분</value></data>
+  <data name="TRIXDescription" xml:space="preserve"><value>TRIX(삼중 지수 평활 이동 평균)은 특정 기간 동안 종가의 삼중 지수 평활 이동 평균의 비율을 나타내는 오실레이터입니다. 시장의 과매수 및 과매도 상태를 식별하고 그 진동에 따라 매수 및 매도 신호를 생성하는 데 사용됩니다. TRIX는 트레이더가 거래에 진입하거나 종료하는 것에 대한 정보에 기반한 결정을 내리는 데 도움을 줄 수 있습니다.</value></data>
+  <data name="TSIDescription" xml:space="preserve"><value>진정한 강도 지수(TSI)는 금융 시장 분석에 사용되는 기술적 지표입니다. 이는 가격 변화의 이중 평활화에 기반하며, 양수와 음수 값 사이에서 변동합니다. TSI 지표는 추세 방향을 식별하고, 과매도 및 과매수 조건을 파악하며, 다이버전스를 통해 추세 약화를 경고하는 데 유용합니다.</value></data>
+  <data name="TVIDescription" xml:space="preserve"><value>거래량 지수(TVI)는 틱 수준에서 가격 변동과 거래량 간의 상관관계를 측정하는 데 사용되는 지표입니다. 가격과 거래량의 틱별 변화를 분석하여 가격 움직임의 강도를 식별하는 데 도움을 줍니다. TVI는 시장 모멘텀을 평가하기 위해 트레이더들이 일반적으로 사용하는 간단한 도구입니다.</value></data>
+  <data name="TableCellWidthPixelsDescription" xml:space="preserve"><value>테이블 셀의 너비를 픽셀 단위로 설정합니다.</value></data>
+  <data name="TableOffsetXDescription" xml:space="preserve"><value>테이블의 x축 오프셋을 픽셀 단위로 설정합니다.</value></data>
+  <data name="TapePatternDescription" xml:space="preserve"><value>이 지표는 시장으로 유입되는 "원시" 주문 스트림을 처리하고 필터링하도록 설계되었습니다. 매우 민감한 설정을 통해 다양한 자동 다운로드 알고리즘을 계산하고 포지션 언로드를 관리합니다.
+Tape Patterns를 사용하면 다음과 같은 작업을 수행할 수 있습니다:
+- 현재 프린트 체인에서 최대 및 최소 볼륨을 감지할 수 있습니다.
+- 이 볼륨을 사용하여 필터링할 수 있습니다.
+- 원하는 프린트 간의 밀리초 단위의 시간을 확인할 수 있습니다.
+- 범위 내의 틱 수를 확인할 수 있습니다.
+- 거래 측면(매수/매도)을 감지할 수 있습니다.
+이 지표는 이러한 모든 데이터를 고려하여 차트에 표시합니다.
+
+중요! 서버의 부하를 최적화하기 위해 지표 데이터는 현재 세션에 대해서만 표시됩니다.</value></data>
+  <data name="TeethAlligator" xml:space="preserve"><value>악어의 이빨</value></data>
+  <data name="TenkanSen" xml:space="preserve"><value>전환선</value></data>
+  <data name="Text" xml:space="preserve"><value>텍스트</value></data>
+  <data name="TextColor" xml:space="preserve"><value>텍스트 색상</value></data>
+  <data name="TextLocation" xml:space="preserve"><value>텍스트 위치</value></data>
+  <data name="TextSettings" xml:space="preserve"><value>텍스트 설정</value></data>
+  <data name="TextSize" xml:space="preserve"><value>텍스트 크기</value></data>
+  <data name="TextSizeDescription" xml:space="preserve"><value>표시할 텍스트의 크기를 결정합니다.</value></data>
+  <data name="ThirdDev" xml:space="preserve"><value>세 번째 개발.</value></data>
+  <data name="ThirdFormula" xml:space="preserve"><value>세 번째 공식</value></data>
+  <data name="Threshold" xml:space="preserve"><value>임계값</value></data>
+  <data name="Thresholds" xml:space="preserve"><value>임계값</value></data>
+  <data name="TickCost" xml:space="preserve"><value>틱 비용</value></data>
+  <data name="TickCostValueDescription" xml:space="preserve"><value>해당 금융 상품에 대한 틱 비용 값을 거래소에서 볼 수 있습니다.</value></data>
+  <data name="TickSize" xml:space="preserve"><value>틱 크기</value></data>
+  <data name="TickSizeDescription" xml:space="preserve"><value>틱 크기를 정의하며, 이는 금융 상품의 통화로 측정됩니다.</value></data>
+  <data name="Ticks" xml:space="preserve"><value>틱</value></data>
+  <data name="TillBar" xml:space="preserve"><value>바까지</value></data>
+  <data name="Time" xml:space="preserve"><value>시간</value></data>
+  <data name="TimeBar" xml:space="preserve"><value>타임바</value></data>
+  <data name="TimeFilter" xml:space="preserve"><value>시간 필터</value></data>
+  <data name="TimeFilterSec" xml:space="preserve"><value>시간 필터(초)</value></data>
+  <data name="TimeFiltration" xml:space="preserve"><value>시간 필터링</value></data>
+  <data name="TimeFormat" xml:space="preserve"><value>시간 형식</value></data>
+  <data name="TimeFormatDescription" xml:space="preserve"><value>시간 표시 형식을 정의합니다.</value></data>
+  <data name="TimeFrame" xml:space="preserve"><value>시간 프레임</value></data>
+  <data name="TimeFrame1" xml:space="preserve"><value>타임프레임 1</value></data>
+  <data name="TimeFrame2" xml:space="preserve"><value>타임프레임 2</value></data>
+  <data name="TimeFrame3" xml:space="preserve"><value>타임프레임 3</value></data>
+  <data name="TimeFrame4" xml:space="preserve"><value>시간 프레임 4</value></data>
+  <data name="TimeFrom" xml:space="preserve"><value>시작 시간</value></data>
+  <data name="TimeFromDescription" xml:space="preserve"><value>이 매개변수는 시간 필터의 시작 시간을 설정합니다.</value></data>
+  <data name="TimeModeDescription" xml:space="preserve"><value>표시되는 시간 정보를 결정합니다.</value></data>
+  <data name="TimeSettings" xml:space="preserve"><value>시간 설정</value></data>
+  <data name="TimeTo" xml:space="preserve"><value>종료 시간</value></data>
+  <data name="TimeToDescription" xml:space="preserve"><value>이 매개변수는 시간 필터의 종료 시간을 설정합니다.</value></data>
+  <data name="TimeToEndOfCandle" xml:space="preserve"><value>바가 닫힐 때까지의 시간</value></data>
+  <data name="TimeZone" xml:space="preserve"><value>시간대</value></data>
+  <data name="TimeZoneDescription" xml:space="preserve"><value>시간을 수정하기 위해 사용자 지정 시간대를 설정할 수 있습니다.</value></data>
+  <data name="ToggleLevelsVisibilityHotKey" xml:space="preserve"><value>모든 레벨의 가시성을 전환합니다</value></data>
+  <data name="Tolerance" xml:space="preserve"><value>관용</value></data>
+  <data name="ToleranceDescription" xml:space="preserve"><value>허용 오차의 크기를 결정합니다.</value></data>
+  <data name="ToleranceTypeDescription" xml:space="preserve"><value>사용 가능한 공차 단위 중 하나를 정의합니다.</value></data>
+  <data name="TooSmallRows" xml:space="preserve"><value>가격 행의 높이가 렌더링하기에는 너무 작습니다</value></data>
+  <data name="TopBand" xml:space="preserve"><value>상단 밴드</value></data>
+  <data name="TopBandDscription" xml:space="preserve"><value>주어진 범위의 상한에 대한 설명을 제공합니다. 상단 밴드가 무엇인지와 전체 범위와의 관계를 명확하게 설명합니다. 제공된 정보는 간결하고 이해하기 쉽습니다.</value></data>
+  <data name="TopChannelSettingsDescription" xml:space="preserve"><value>상단 채널 라인에 대한 시각화 설정입니다.</value></data>
+  <data name="TopLeft" xml:space="preserve"><value>왼쪽 상단</value></data>
+  <data name="TopRight" xml:space="preserve"><value>오른쪽 위</value></data>
+  <data name="Total" xml:space="preserve"><value>합계</value></data>
+  <data name="TotalVolumeFilter" xml:space="preserve"><value>볼륨 필터</value></data>
+  <data name="Trades" xml:space="preserve"><value>거래</value></data>
+  <data name="TradesAlert" xml:space="preserve"><value>거래 알림</value></data>
+  <data name="TradesCountDescription" xml:space="preserve"><value>필터링할 거래 수를 정의합니다.</value></data>
+  <data name="TradesFilter" xml:space="preserve"><value>거래 필터</value></data>
+  <data name="TradesOnChartDescription" xml:space="preserve"><value>이 지표는 차트에서 "포지션 열기 - 포지션 닫기" 형식으로 거래를 시각화하도록 설계되었습니다.</value></data>
+  <data name="TradingSession" xml:space="preserve"><value>거래 세션</value></data>
+  <data name="TradingSessionDescription" xml:space="preserve"><value>거래 세션 설명은 데이터가 표시되어야 하는 금융 상품 거래 시간의 기간을 결정합니다. 이는 거래 세션을 나타내는 맥락과 거래 세션에 대한 차트 관련 정보 및 방법에서 사용됩니다.</value></data>
+  <data name="Transparency" xml:space="preserve"><value>행 가시성 조정.</value></data>
+  <data name="TrendCciPeriod" xml:space="preserve"><value>추세 CCI 기간</value></data>
+  <data name="TrendPeriod" xml:space="preserve"><value>트렌드 기간</value></data>
+  <data name="TrueRangeDescription" xml:space="preserve"><value>트루 레인지 지표는 기술적 분석에서 증권의 변동성을 측정하는 데 사용됩니다. 이는 고가와 저가의 차이, 이전 종가와 현재의 고가 및 저가 간의 차이를 고려합니다. 이 계산은 트레이더와 분석가가 특정 증권과 관련된 잠재적인 가격 움직임과 위험을 이해하는 데 도움을 줍니다.</value></data>
+  <data name="Type" xml:space="preserve"><value>유형</value></data>
+  <data name="UltimateOscillatorDescription" xml:space="preserve"><value>얼티밋 오실레이터는 1976년 래리 윌리엄스에 의해 개발된 기술 지표로, 여러 기간을 사용하여 가격 모멘텀을 측정합니다. 세 가지 다른 기간을 사용한 가중 평균을 통해 다른 오실레이터에 비해 변동성이 적고 거래 신호가 적습니다.</value></data>
+  <data name="UnderCurrentPriceLabel" xml:space="preserve"><value>현재 가격 레이블 아래</value></data>
+  <data name="UnfinishedAuctionModDescription" xml:space="preserve"><value>미완성 경매 - 미완성 비즈니스. 이 용어는 극단적인 가격 수준(상한, 하한 또는 둘 다)이 동시에 구매와 판매를 포함하는 상황을 설명하는 데 사용됩니다. 이 지표는 시장에서 유사한 상황을 검색하고 표시하는 데 사용됩니다.
+중요: 낮은 수준에서 강조 표시를 찾고 있다면, 낮은 수준에서의 입찰 수가 입찰 필터보다 많아야 하며, 매도 수량은 0보다 커야 합니다.
+높은 수준에서 강조 표시를 찾고 있다면, 높은 수준에서의 매도 수가 매도 필터보다 많아야 하며, 입찰 수량은 0보다 커야 합니다.</value></data>
+  <data name="Up" xml:space="preserve"><value>위</value></data>
+  <data name="UpAlert" xml:space="preserve"><value>Up 알림</value></data>
+  <data name="UpAlertFileFilterDescription" xml:space="preserve"><value>활성화되면 지정된 사운드 파일 이름을 사용하여 상승 신호가 감지될 때 경고가 트리거됩니다.</value></data>
+  <data name="UpAreaSettingsDescription" xml:space="preserve"><value>상승 영역에 대한 시각화 설정.</value></data>
+  <data name="UpDownVolume" xml:space="preserve"><value>상승 / 하락 볼륨</value></data>
+  <data name="UpDownVolumeRatioDescription" xml:space="preserve"><value>업다운 볼륨 비율 지표는 입찰/요청 볼륨 또는 강세/약세 바 볼륨을 기반으로 평균 상승/하락 비율을 계산합니다. 이는 시장 움직임의 강도와 방향에 대한 통찰력을 제공하여 트레이더가 정보에 기반한 결정을 내리는 데 도움을 줍니다.</value></data>
+  <data name="UpTrendSettingsDescription" xml:space="preserve"><value>상승 추세 표시 설정.</value></data>
+  <data name="Upper" xml:space="preserve"><value>상위</value></data>
+  <data name="UpperFill" xml:space="preserve"><value>대문자 채우기</value></data>
+  <data name="UpperFill2" xml:space="preserve"><value>상단 채우기 2</value></data>
+  <data name="UpperPositiveValueColorDescription" xml:space="preserve"><value>이전 값보다 큰 양수 값을 가진 요소의 색상을 표시합니다.</value></data>
+  <data name="UpperSma" xml:space="preserve"><value>상단 SMA</value></data>
+  <data name="UpperStd1" xml:space="preserve"><value>상위 편차 1</value></data>
+  <data name="UpperStd2" xml:space="preserve"><value>상위 편차 2</value></data>
+  <data name="UpperStd3" xml:space="preserve"><value>상위 편차 3</value></data>
+  <data name="UpperWick" xml:space="preserve"><value>상단 심지</value></data>
+  <data name="UpperWickSettingsDescription" xml:space="preserve"><value>상단 심지 요소에 대한 시각화 설정.</value></data>
+  <data name="UseAlert" xml:space="preserve"><value>알림 사용</value></data>
+  <data name="UseAlertBeforeDescription" xml:space="preserve"><value>새로운 주요 경고가 표시되기 몇 초 전에 소리 알림을 활성화하거나 비활성화할 수 있습니다.</value></data>
+  <data name="UseAlertDescription" xml:space="preserve"><value>"UseAlert" 설정을 사용하여 지표에 의해 정의된 특정 조건 또는 이벤트에 대한 알림을 활성화하는 방법을 설명합니다. 활성화되면 지표는 사용자에게 알림을 보내기 위해 알림을 전송합니다. 그러나 이 특정 설정에 대한 코드 사용 검색 결과는 없습니다.</value></data>
+  <data name="UseAlerts" xml:space="preserve"><value>알림 사용</value></data>
+  <data name="UseAlertsDescription" xml:space="preserve"><value>사운드 알림을 활성화하거나 비활성화합니다.</value></data>
+  <data name="UseAutoMaxSizeDetectionDescription" xml:space="preserve"><value>이 기능은 설정에서 수동으로 설정하지 않는 한 최대 요소 크기를 자동으로 감지할 수 있게 해줍니다. 이를 통해 사용자는 시스템이 크기를 결정하도록 하거나 스스로 설정할 수 있는 유연성을 제공합니다.</value></data>
+  <data name="UseAutoSize" xml:space="preserve"><value>자동 크기 사용</value></data>
+  <data name="UseCumTradesTimeFilterDescription" xml:space="preserve"><value>활성화되면 계산에는 거래의 완료와 시작 사이의 시간 간격이 미리 정의된 기간을 초과하지 않는 누적 거래만 포함됩니다.</value></data>
+  <data name="UseCustomDiapasonDescription" xml:space="preserve"><value>활성화되면 지표를 계산할 때 사용자 정의 값 범위가 사용되며, 그렇지 않으면 기본 값이 사용됩니다.</value></data>
+  <data name="UseFilter" xml:space="preserve"><value>필터 사용</value></data>
+  <data name="UseFilterDescription" xml:space="preserve"><value>계산에 이 필터를 사용할지 여부를 결정합니다.</value></data>
+  <data name="UseMA" xml:space="preserve"><value>이동 평균 사용</value></data>
+  <data name="UsePartialGapClosureDescription" xml:space="preserve"><value>부분 갭 클로저를 사용할지 여부를 결정합니다.</value></data>
+  <data name="UsePeriodDescription" xml:space="preserve"><value>활성화되면 지정된 기간이 지표 계산에 사용됩니다.</value></data>
+  <data name="UsePocChangeAlertDescription" xml:space="preserve"><value>POC 수준이 변경될 때 경고를 사용할지 여부를 결정합니다.</value></data>
+  <data name="UsePocTouchAlertDescription" xml:space="preserve"><value>가격이 POC 수준에 닿을 때 알림을 사용할지 여부를 결정합니다.</value></data>
+  <data name="UsePreviousClose" xml:space="preserve"><value>이전 종가 사용</value></data>
+  <data name="UsePreviousCloseDescription" xml:space="preserve"><value>이 기능은 이전 캔들의 종가를 고려하여 계산을 수행할 수 있게 하여 시장 동향 및 가격 변동에 대한 보다 포괄적이고 정확한 분석을 제공합니다. 계산에 이전 종가를 포함함으로써 트레이더는 거래 전략 및 잠재적인 진입 및 퇴출 지점에 대해 보다 정보에 기반한 결정을 내릴 수 있습니다. 이는 기술적 분석의 효과를 크게 향상시키고 전반적인 거래 성과를 개선할 수 있습니다.</value></data>
+  <data name="UseScale" xml:space="preserve"><value>스케일 사용</value></data>
+  <data name="UseScaleDescription" xml:space="preserve"><value>옵션이 활성화되면 지정된 값의 스케일을 사용하고, 비활성화되면 자동으로 설정됩니다.</value></data>
+  <data name="UseTimeFilter" xml:space="preserve"><value>시간 필터 사용</value></data>
+  <data name="UseTimeFilterDescription" xml:space="preserve"><value>이 설정은 지표에 대해 시간 기반 필터를 적용할 수 있도록 합니다. 활성화되면 지표는 지정된 시간 범위 내에 있는 캔들 데이터만 분석하고 표시합니다. 비활성화하면 지표는 모든 시간 프레임의 캔들을 고려합니다.</value></data>
+  <data name="UseTrueRangeDescription" xml:space="preserve"><value>이 옵션이 활성화되면 실제 범위가 사용되고, 비활성화되면 하이-로우 캔들스틱 크기가 사용됩니다.</value></data>
+  <data name="UseTrueRangeKc" xml:space="preserve"><value>TrueRange (KC) 사용</value></data>
+  <data name="UseVAHTouchAlertDescription" xml:space="preserve"><value>가격이 VAH 수준에 도달할 때 알림을 사용할지 여부를 결정합니다.</value></data>
+  <data name="UseVALTouchAlertDescription" xml:space="preserve"><value>가격이 VAL 수준에 도달할 때 알림을 사용할지 여부를 결정합니다.</value></data>
+  <data name="VAH" xml:space="preserve"><value>VAH</value></data>
+  <data name="VAHLineSettingsDescription" xml:space="preserve"><value>VAH 라인의 시각화 설정.</value></data>
+  <data name="VAL" xml:space="preserve"><value>VAL</value></data>
+  <data name="VALLineSettingsDescription" xml:space="preserve"><value>VAL 라인의 시각화 설정.</value></data>
+  <data name="VBRRDescription" xml:space="preserve"><value>볼륨 바 범위 비율은 바의 볼륨과 바의 높이 비율을 표시합니다.
+지표 계산 공식:
+VBBR(t) = Vol(t) / (high(t) - Low(t))</value></data>
+  <data name="VPFDescription" xml:space="preserve"><value>존 엘러스의 보스 예측 필터는 시장의 주기적 전환점을 신호하기 위해 설계된 새로운 지표입니다. 이 필터는 음의 그룹 지연을 가지고 있으며, 실제로 미래를 볼 수는 없지만 다른 지표보다 미리 트레이더에게 신호를 제공할 수 있습니다.</value></data>
+  <data name="VWAP" xml:space="preserve"><value>VWAP</value></data>
+  <data name="VWAPDescription" xml:space="preserve"><value>&lt;p&gt;일중 맥락 분석 및 공정 가격 영역.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;VWAP — 선택한 기간의 거래량 가중 평균 가격.&lt;/li&gt;
+  &lt;li&gt;TWAP — 시간 가중 평균 가격.&lt;/li&gt;
+  &lt;li&gt;현재 가격과 평균 값의 편차.&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="VWAPOnly" xml:space="preserve"><value>VWAP만</value></data>
+  <data name="VWMADescription" xml:space="preserve"><value>거래량 가중 이동 평균(VWMA) 지표는 다양한 가격 수준에서의 거래량을 고려하여 자산의 평균 가격을 계산하는 기술적 분석 도구입니다. 이를 통해 가격 움직임과 시장 행동에 대한 보다 미묘한 이해가 가능합니다. VWMA는 가격 행동과 거래량 모두에 전략을 맞추려는 트레이더에게 특히 유용합니다.</value></data>
+  <data name="VahAlert" xml:space="preserve"><value>VAH 수준 경고</value></data>
+  <data name="ValAlert" xml:space="preserve"><value>VAL 수준 경고</value></data>
+  <data name="Value" xml:space="preserve"><value>값</value></data>
+  <data name="ValueMustBeGreaterThan" xml:space="preserve"><value>{0} 보다 커야 합니다</value></data>
+  <data name="ValueMustBeLessThan" xml:space="preserve"><value>{0} 보다 작아야 합니다</value></data>
+  <data name="Values" xml:space="preserve"><value>값</value></data>
+  <data name="ValuesRangeDescription" xml:space="preserve"><value>허용되는 최소값과 최대값을 지정합니다.</value></data>
+  <data name="VerticalHorizontalFilterDescription" xml:space="preserve"><value>수직 수평 필터는 특정 기간 동안 최대값과 최소값의 차이와 값의 합계 비율을 계산하여 가격이 상승세인지 통합 단계인지 판단하는 도구입니다. 선택된 데이터 소스를 고려하여 정확한 평가를 제공합니다.</value></data>
+  <data name="VerticalOffset" xml:space="preserve"><value>수직 오프셋</value></data>
+  <data name="VerticalPosition" xml:space="preserve"><value>수직 위치</value></data>
+  <data name="Visibility" xml:space="preserve"><value>가시성</value></data>
+  <data name="Visible" xml:space="preserve"><value>보이기</value></data>
+  <data name="VisibleProportion" xml:space="preserve"><value>차트의 가시 부분에 따른 비율</value></data>
+  <data name="VisibleProportionDescription" xml:space="preserve"><value>현재 창의 데이터만 색으로 강조 표시.</value></data>
+  <data name="VisualMode" xml:space="preserve"><value>비주얼 모드</value></data>
+  <data name="VisualModeDescription" xml:space="preserve"><value>비주얼 모드 설정은 차트에서 선택 항목의 모양을 제어합니다. 선택된 요소가 어떻게 표시되는지를 결정하며, 다양한 선호도나 요구 사항에 맞게 사용자 정의할 수 있습니다.</value></data>
+  <data name="VisualModeHistogramDescription" xml:space="preserve"><value>각 막대에 수직 열을 표시합니다</value></data>
+  <data name="VisualObjectsDescription" xml:space="preserve"><value>이 설정을 통해 사용자는 차트의 시각적 객체 색상을 사용자 지정할 수 있습니다.</value></data>
+  <data name="VisualObjectsTransparency" xml:space="preserve"><value>시각 객체 투명도</value></data>
+  <data name="VisualObjectsTransparencyDescription" xml:space="preserve"><value>이 설정을 통해 사용자는 차트의 시각적 객체 투명도를 사용자 정의할 수 있습니다.</value></data>
+  <data name="VisualSettings" xml:space="preserve"><value>비주얼 설정</value></data>
+  <data name="Visualization" xml:space="preserve"><value>시각화</value></data>
+  <data name="VolatilityChaikinsDescription" xml:space="preserve"><value>차이킨 변동성 지표는 특정 기간 동안의 가격 범위를 측정하여 시장 변동성을 평가하는 데 사용되는 간단한 도구입니다. 최고 가격과 최저 가격의 차이를 계산하여 잠재적인 가격 변동에 대한 통찰력을 제공합니다. 이 지표는 트레이더가 시장에서 진입 및 퇴출 시점을 결정하는 데 도움을 주기 위해 일반적으로 사용됩니다.</value></data>
+  <data name="VolatilityHistDescription" xml:space="preserve"><value>이는 변동성 유형 중 하나입니다. 특정 기간의 과거 데이터를 기반으로 계산됩니다. 이 지표에서 역사적 변동성은 표준 편차로 계산됩니다.</value></data>
+  <data name="VolatilityTrendDescription" xml:space="preserve"><value>변동성 추세는 지정된 기간 동안의 최고 가격 값과 ATR 지표 값을 사용하여 계산되는 지표입니다. 이 값들은 예상되는 단기 추세를 나타냅니다.</value></data>
+  <data name="Volume" xml:space="preserve"><value>거래량</value></data>
+  <data name="VolumeAlert" xml:space="preserve"><value>볼륨 경고</value></data>
+  <data name="VolumeColorDescription" xml:space="preserve"><value>볼륨 요소의 색상을 설정합니다.</value></data>
+  <data name="VolumeFilter" xml:space="preserve"><value>볼륨 필터</value></data>
+  <data name="VolumeHistSettingsDescription" xml:space="preserve"><value>볼륨 히스토그램에 대한 시각화 설정.</value></data>
+  <data name="VolumeIndDescription" xml:space="preserve"><value>&lt;p&gt;각 캔들의 거래량을 히스토그램으로 표시합니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;막대의 높이는 거래량 크기에 해당합니다.&lt;/li&gt;
+  &lt;li&gt;차트에서 거래 활동의 변화를 빠르고 시각적으로 평가합니다.&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="VolumeIndexDescription" xml:space="preserve"><value>NVI(부정 거래량 지수)와 PVI(긍정 거래량 지수)는 거울과 같은 계산 방법을 사용하는 기술 지표이지만, 유사한 해석을 가지고 있으며, 각각 이전 기간에 비해 거래량이 감소하거나 증가하는 특정 기간의 가격 변화를 누적합니다.
+거래량 지수는 현재의 이익의 누적 합계에 이전 기간의 지수 값을 곱한 값으로, 현재 거래일의 거래량이 이전 거래일의 거래량보다 적거나(또는 많거나) 할 때 해당합니다.</value></data>
+  <data name="VolumeLabel" xml:space="preserve"><value>볼륨 레이블</value></data>
+  <data name="VolumeLabelDescription" xml:space="preserve"><value>볼륨 레이블 및 설명(클러스터 모드)</value></data>
+  <data name="VolumeMAPeriodDescription" xml:space="preserve"><value>볼륨 이동 평균의 기간을 나타냅니다.</value></data>
+  <data name="VolumeMoreNBars" xml:space="preserve"><value>볼륨은 마지막 N 바의 총 볼륨보다 큽니다</value></data>
+  <data name="VolumeMoreSma" xml:space="preserve"><value>볼륨이 SMA(N) 볼륨보다 많습니다</value></data>
+  <data name="VolumeOnChartDescription" xml:space="preserve"><value>&lt;p&gt;볼륨 지표의 쌍둥이 형제입니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;유일한 차이점은 별도의 패널이 아닌 차트 하단에 볼륨을 표시한다는 것입니다.&lt;/li&gt;
+  &lt;li&gt;각 캔들의 거래량과 시간에 따른 거래 활동의 변화를 보여줍니다.&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="VolumePerSecondAlert" xml:space="preserve"><value>볼륨/초 경고</value></data>
+  <data name="VolumePerTradeIndDescription" xml:space="preserve"><value>지표는 평균 거래량을 표시합니다.</value></data>
+  <data name="VolumeSettingsDescription" xml:space="preserve"><value>볼륨 요소에 대한 시각화 설정.</value></data>
+  <data name="VolumeSupResZonesDescription" xml:space="preserve"><value>이 지표는 프랙탈 저점 또는 고점에서의 중요한 거래량에 의존하며, 해당 특정 시간 프레임의 캔들 심지 길이에 따라 영역이 결정됩니다. 이는 트레이더가 트렌드를 반전시키거나 영역이 깨지고 이후에 재테스트될 때 그 지속성을 유지하는 데 중요한 역할을 하는 가격 수준을 식별하는 데 도움을 줍니다. 최대 4개의 서로 다른 기간을 동시에 사용할 수 있습니다.</value></data>
+  <data name="VolumeTrendDescription" xml:space="preserve"><value>가격 거래량 추세(PVT) 지표는 기술적 분석에서 사용되는 모멘텀 기반 도구로, 가격의 백분율 변화에 따라 거래량의 변화를 계산하여 자금 흐름을 측정합니다. 이는 추세를 확인하고 다이버전스를 통해 잠재적인 거래 신호를 식별할 수 있습니다.</value></data>
+  <data name="VolumeType" xml:space="preserve"><value>볼륨 유형</value></data>
+  <data name="VolumeTypeDescription" xml:space="preserve"><value>사용할 볼륨 유형을 결정하며, 특정 애플리케이션이나 사용 사례에 적합한 볼륨 유형의 사용자 정의 및 선택을 허용합니다.</value></data>
+  <data name="VolumeVisualizationType" xml:space="preserve"><value>볼륨 시각화 유형</value></data>
+  <data name="VolumeZoneIndDescription" xml:space="preserve"><value>볼륨 존 지표는 가격 움직임을 볼륨 변화와 관련하여 분석하는 것을 목표로 합니다. 이는 상승 및 하락 가격 움직임에 대한 볼륨의 지수 이동 평균(EMA) 비율을 계산합니다. 이 비율은 이후 백분율 척도로 정규화되어 잠재적인 과매수 또는 과매도 상태에 대한 통찰력을 제공합니다.</value></data>
+  <data name="VortexIndDescription" xml:space="preserve"><value>이 지표는 현재 및 이전의 고가/저가/종가를 기반으로 긍정적인 보텍스와 부정적인 보텍스를 계산하고 표시합니다.</value></data>
+  <data name="VsaBetterVolumeDescription" xml:space="preserve"><value>VSA Better Volume 지표는 틱 볼륨과 캔들 범위를 분석하여 추세 움직임, 수정 및 시장 반전 신호를 제공합니다. 볼륨과 캔들 스프레드를 기반으로 강세 및 약세 신호를 식별하며, 시장 조작에 대한 신호도 제공합니다. 이 지표는 낮은 틱 볼륨 캔들과 함께 추세의 끝과 수정 기간을 강조합니다.</value></data>
+  <data name="VsaWsdDescription" xml:space="preserve"><value>VSA - WSD 히스토그램 지표는 틱 볼륨 데이터를 분석하여 볼륨과 가격 간의 다이버전스를 식별하고 결과를 색상 차트에 표시하도록 설계되었습니다. 또한 공급 및 수요 값과 촛대 범위를 기반으로 지지 및 저항 수준을 식별할 수 있으며, 각 막대의 스프레드는 지표 히스토그램에서 흰색으로 표시됩니다.</value></data>
+  <data name="WADDescription" xml:space="preserve"><value>축적/분배 - 윌리엄스 지표는 시장에서의 상승 및 하락 가격 변동의 합계를 측정하며, 이는 시장 참가자에 의한 증권의 축적 및 분배를 나타냅니다. 이는 증권의 매매 활동을 기반으로 시장의 추세와 잠재적인 반전 포인트를 식별하는 데 도움을 줍니다.</value></data>
+  <data name="WAODescription" xml:space="preserve"><value>이 오실레이터는 서로 다른 기간의 두 가중 이동 평균 간의 차이를 보여줍니다.</value></data>
+  <data name="WMA" xml:space="preserve"><value>가중 이동 평균</value></data>
+  <data name="WMADescription" xml:space="preserve"><value>가중 이동 평균(WMA)은 최근 데이터 포인트에 더 많은 가중치를 부여하는 평균을 계산하는 방법입니다. 각 데이터 포인트에 대해 최신성에 따라 가중치를 할당한 다음, 가중치의 합으로 곱의 합을 나누어 가중 평균을 계산합니다.</value></data>
+  <data name="WMAPeriodDescription" xml:space="preserve"><value>가중 이동 평균(WMA)의 기간을 설정합니다.</value></data>
+  <data name="WPRDescription" xml:space="preserve"><value>WPR 지표(윌리엄스 퍼센트 범위 또는 윌리엄스 과매수/과매도 지수)는 래리 윌리엄스에 의해 가격 움직임의 속도를 추정하기 위해 발명되었으며, 특정 기간의 최대/최소 수준에 대한 종가의 위치를 보여줍니다. 이 지표는 기간의 현재 종가 수준을 실제 범위(최대/최소)에 대해 나타냅니다. 값(백분율)은 0%에서 (-100%)까지의 범위로 표시됩니다.</value></data>
+  <data name="WWMA" xml:space="preserve"><value>웰스 와일더 이동 평균</value></data>
+  <data name="WWMADescription" xml:space="preserve"><value>와일더의 이동 평균은 최근 데이터에 더 많은 가중치를 부여하는 와일더의 스무딩 접근 방식을 사용합니다. 계산 과정에는 현재 가격에 따라 이전 평균을 조정하는 것이 포함되어, 전통적인 방법보다 더 빠른 반응성을 가진 이동 평균이 생성됩니다. 이 방법은 기존 접근 방식보다 더 효율적이라고 알려져 있습니다.</value></data>
+  <data name="WaitingForNewTick" xml:space="preserve"><value>새로운 틱을 기다리는 중</value></data>
+  <data name="WatermarkIndDescription" xml:space="preserve"><value>차트에 워터마크를 표시하는 지표의 샘플입니다. 사용자 정의 텍스트를 표시하는 것도 가능합니다.</value></data>
+  <data name="WavePeriod" xml:space="preserve"><value>파동 주기</value></data>
+  <data name="WavetrendDescription" xml:space="preserve"><value>Wavetrend 오실레이터는 트레이더가 가격 변화, 과매수 및 과매도 상태, 추세 반전 포인트를 식별하는 데 도움을 주는 기술적 분석 도구입니다. 시장 모멘텀과 가격 추세의 잠재적 전환점을 측정하는 데 일반적으로 사용됩니다.</value></data>
+  <data name="WeakNegativeFlowColorDescription" xml:space="preserve"><value>약한 부정적인 현금 흐름을 나타내는 요소의 색상을 설정합니다.</value></data>
+  <data name="WeakPositiveFlowColorDescription" xml:space="preserve"><value>약한 긍정적 현금 흐름을 나타내는 요소의 색상을 설정합니다.</value></data>
+  <data name="WeakSeriesColor" xml:space="preserve"><value>약한 시리즈 색상</value></data>
+  <data name="Weekly" xml:space="preserve"><value>주간</value></data>
+  <data name="WeissWaveDescription" xml:space="preserve"><value>Weis Wave 지표는 방향이 바뀌기 전에 추세의 총 거래량을 시각화하는 데 사용되는 도구입니다. 이는 같은 방향으로 움직이는 연속 캔들의 거래량을 요약하여 수행됩니다. 이는 트레이더가 잠재적인 추세 변화를 식별하고 보다 정보에 기반한 결정을 내리는 데 도움이 될 수 있습니다.</value></data>
+  <data name="White" xml:space="preserve"><value>흰색</value></data>
+  <data name="Width" xml:space="preserve"><value>너비</value></data>
+  <data name="WidthDataSeriesDescription" xml:space="preserve"><value>지표 선 두께. "선" 표시 모드에서만 적용됩니다.</value></data>
+  <data name="WilliamsRDescription" xml:space="preserve"><value>윌리엄스 퍼센트 레인지(Williams’ %R)는 과매수 또는 과매도 시장 조건을 식별하고 잠재적인 시장 반전을 신호하는 데 사용되는 기술 지표입니다. 이는 특정 기간 동안의 최고가와 종가의 차이와 최고-최저 범위 간의 비율을 사용하여 계산되며, 100을 곱합니다. 
+%R = (max(High(n)) — Close(t)) / (max(High(n)) — min(Low(n)))
+이 지표는 편의성과 명확성을 위해 값 반전 기능도 가지고 있습니다.</value></data>
+  <data name="WoodiesCCIDescription" xml:space="preserve"><value>우디스 CCI 지표는 기존 CCI(상품 채널 지수)의 수정된 버전으로, 6과 14의 기간을 가진 두 개의 CCI로 구성됩니다. 빠른 곡선을 사용하여 느린 곡선의 움직임을 예측하며, 느린 CCI에 대한 히스토그램으로 보완됩니다. 우디스 CCI 지수의 주요 수준은 +-100, +-200 및 제로 라인입니다.</value></data>
+  <data name="Yellow" xml:space="preserve"><value>노란색</value></data>
+  <data name="ZLEMA" xml:space="preserve"><value>제로 래그 지수 이동평균</value></data>
+  <data name="ZLEMAIndDescription" xml:space="preserve"><value>제로 지연 지수 이동 평균(ZLEMA) 지표는 존 엘러스와 릭 웨이에 의해 만들어졌습니다. 더블 지수 이동 평균(DEMA) 및 트리플 지수 이동 평균(TEMA)과 마찬가지로, 목표는 모든 추세 추종 지표에 내재된 지연을 제거하고 시간에 따라 가격을 평균화하는 것입니다.</value></data>
+  <data name="ZScoreIndDescription" xml:space="preserve"><value>Z-점수(표준 점수)는 관측되거나 측정된 값의 상대적 분포를 측정하는 것으로, 그 상대 평균 분포가 몇 개의 표준 편차인지 나타냅니다. 이 지표는 가격이 평균값에서 얼마나 벗어났는지를 보여줍니다.</value></data>
+  <data name="ZeroLineDescription" xml:space="preserve"><value>제로 레벨을 표시합니다.</value></data>
+  <data name="ZeroValue" xml:space="preserve"><value>제로 값</value></data>
+  <data name="ZigzagIndDescription" xml:space="preserve"><value>ZigZag 지표는 가격이 지정된 비율로 반전될 때 차트에 점을 플로팅하고 이러한 점을 직선으로 연결합니다. 이는 가격 추세를 식별하는 데 도움이 되며 이러한 가격 변동에 대한 볼륨, 델타, 캔들 수 및 시간에 대한 정보도 제공합니다.</value></data>
+  <data name="Zone" xml:space="preserve"><value>존</value></data>
+  <data name="Zone100" xml:space="preserve"><value>100% 존</value></data>
+  <data name="Zone150" xml:space="preserve"><value>150% 영역</value></data>
+  <data name="Zone200" xml:space="preserve"><value>200% 존</value></data>
+  <data name="Zone25" xml:space="preserve"><value>25% 존</value></data>
+  <data name="Zone50" xml:space="preserve"><value>50% 영역</value></data>
+  <data name="Zone75" xml:space="preserve"><value>75% 존</value></data>
+  <data name="ZoneDirectionDescription" xml:space="preserve"><value>존에 대한 사용 가능한 방향 중 하나를 정의합니다.</value></data>
+  <data name="ZoneWidth" xml:space="preserve"><value>존 너비(일)</value></data>
+  <data name="m100" xml:space="preserve"><value>-100</value></data>
+  <data name="m200" xml:space="preserve"><value>-200</value></data>
+  <data name="m300" xml:space="preserve"><value>-300</value></data>
+  <data name="minus20" xml:space="preserve"><value>-20</value></data>
+  <data name="minus80" xml:space="preserve"><value>-80</value></data>
+  <data name="p100" xml:space="preserve"><value>100</value></data>
+  <data name="p200" xml:space="preserve"><value>200</value></data>
+  <data name="p300" xml:space="preserve"><value>300</value></data>
+</root>

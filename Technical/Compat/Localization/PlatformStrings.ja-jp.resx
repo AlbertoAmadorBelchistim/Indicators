@@ -1,0 +1,1673 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="ABWMADescription" xml:space="preserve"><value>ABW MAインジケーターは、適応移動平均（AMA）と標準偏差（StdDev）アルゴリズムに基づいたトレーディングツールであり、現在のAMA値が前の値を指定されたパーセンテージ以上に超えた場合に「1」または「-1」の信号を生成します。上昇または下降の偏差を示し、それ以外の場合は信号は0です。</value></data>
+  <data name="ACDCDescription" xml:space="preserve"><value>ACDCインジケーターは、オシレーターと移動平均の組み合わせであり、価格のダイナミクスの変化を特定するために使用されます。これは、2つの移動平均の差に基づいており、スムージングのために追加の移動平均を使用します。4つの異なる期間が移動平均に使用されており、インジケーターは異なる市場条件に適応できます。</value></data>
+  <data name="ACDescription" xml:space="preserve"><value>アクセラレーターオシレーター（AC）は、Awesome Oscillator（AO）から派生したテクニカル指標で、市場のモメンタムの加速または減速を測定します。ゼロラインの上下に変動するヒストグラムで構成されており、正の値は強気のモメンタムを示し、負の値は弱気のモメンタムを示します。トレーダーはAC指標を使用して、潜在的なトレンドの反転や継続パターンを特定します。</value></data>
+  <data name="ACRDescription" xml:space="preserve"><value>平均キャンドルレンジ（ACR）インジケーターは、セッションの開始から現在のキャンドルまでのキャンドルの平均レンジを計算し、この平均レンジの変化をヒストグラムで表示します。</value></data>
+  <data name="ADDescription" xml:space="preserve"><value>累積/分配（A/D）インジケーターは、ボリュームと価格を使用して株式の累積または分配を評価する累積ツールです。A/Dは、価格とボリュームの間の不一致を測定し、現在のトレンドの強さを判断するのに役立ちます。価格が上昇しているがA/Dが下降している場合、成長を支えるのに十分なボリュームがない可能性があり、価格が下落する可能性があります。
+
+計算：
+特定のキャンドルボリュームの量が、インジケーターの現在の累積値に加算または減算されます。終値がキャンドルの高値に近いほど、追加される量が大きくなります。終値がキャンドルの安値に近いほど、減算される量が大きくなります。終値が最大値と最小値の間に厳密にある場合、インジケーターの値は変わりません。
+A/D(i) = ((CLOSE(i) - LOW(i)) - (HIGH(i) - CLOSE(i)) * VOLUME(i) / (HIGH(i) - LOW(i)) + A/D(i-1)
+ここで：
+A/D(i) — 現在のバーの累積/分配インジケーターの値;
+CLOSE(i) — バーの終値;
+LOW(i) — バーの最小価格;
+HIGH(i) — バーの最大価格;
+VOLUME(i) — ボリューム;
+A/D(i-1) — 前のバーの累積/分配インジケーターの値。</value></data>
+  <data name="ADFDescription" xml:space="preserve"><value>ADF（累積/分配フロー）指標は、AD（累積/分配）指標の拡張版であり、特定の期間の移動平均を使用して、累積および分配フローに関するリアルタイム情報を提供します。これは、ボリュームと価格データに基づいて、資産が累積（上昇）しているのか、分配（下降）しているのかを評価します。</value></data>
+  <data name="ADR" xml:space="preserve"><value>平均日幅</value></data>
+  <data name="ADRDescription" xml:space="preserve"><value>ADR（平均日範囲）指標は、指定された過去の日数の平均価格範囲を計算し、現在の日に表示します。</value></data>
+  <data name="ADX" xml:space="preserve"><value>平均方向性運動指数（ADX）は、計算と情報提供を行います。</value></data>
+  <data name="ADXDescription" xml:space="preserve"><value>ADX（平均方向性指数）は、トレーダーが市場のトレンドの強さを評価するために使用するツールです。これは、DX（方向性指数）とWMA（加重移動平均）によるスムージングメカニズムの2つの主要なコンポーネントで構成されています。ADXラインは全体的なトレンドの強さを示します。ADXが上昇している場合はトレンドが強化されていることを示し、ADXが下降している場合はトレンドが弱まっていることを示します。</value></data>
+  <data name="ADXRDescription" xml:space="preserve"><value>ADXR（平均方向運動評価）は、指定された期間にわたってその値を平滑化することにより、ADX（平均方向指数）を改善するテクニカル指標です。これにより、トレーダーはトレンドの強さをより一貫して測定できるようになり、短期的な変動を減少させます。</value></data>
+  <data name="AMADescription" xml:space="preserve"><value>アダプティブ移動平均（AMA）は、価格の動きに対する感度を調整することで、市場のダイナミクスの変化により効率的に反応する平滑な移動平均を提供することを目的としたテクニカル指標です。</value></data>
+  <data name="AODescription" xml:space="preserve"><value>ビル・ウィリアムズオシレーター（Awesome Oscillator）は、市場の動きの強さを測定するための指標です。このオシレーターは、34期間と5期間の単純移動平均（SMA）の違いを計算します。現在のトレンドを確認したり、市場の潜在的な反転を示すために使用されます。</value></data>
+  <data name="ATR" xml:space="preserve"><value>ATR</value></data>
+  <data name="ATRDescription" xml:space="preserve"><value>平均真実範囲（ATR）指標は、特定の期間における価格変動の度合いを測定し、資産のボラティリティを効果的に示します。これは、トレーダーや投資家が市場のボラティリティを評価し、情報に基づいた意思決定を行うための貴重なツールです。</value></data>
+  <data name="ATRMultiplierDescription" xml:space="preserve"><value>ATRに適用される乗数は、許容レベルを決定します。</value></data>
+  <data name="ATRNDescription" xml:space="preserve"><value>ATRノーマライズドは、ATR指標の正規化バージョンであり、現在の価格のパーセンテージとしてボラティリティのレベルを測定するために使用されます。</value></data>
+  <data name="AboveCandle" xml:space="preserve"><value>キャンドルの上</value></data>
+  <data name="AbovePrice" xml:space="preserve"><value>価格以上</value></data>
+  <data name="AbsolutePrice" xml:space="preserve"><value>絶対価格</value></data>
+  <data name="Absorption" xml:space="preserve"><value>吸収</value></data>
+  <data name="AbsorptionThresholdDesc" xml:space="preserve"><value>吸収を考慮するための終値とデルタの極端値との最小距離</value></data>
+  <data name="AccelMax" xml:space="preserve"><value>最大加速度</value></data>
+  <data name="AccelMaxDescription" xml:space="preserve"><value>このプロパティは加速係数が到達できる最大値を制限します。この制限により、強いトレンド相場でSARの感度が過度にならないようにします。</value></data>
+  <data name="AccelStart" xml:space="preserve"><value>加速開始</value></data>
+  <data name="AccelStartDescription" xml:space="preserve"><value>このプロパティは、パラボリックSAR計算の初期加速因子を設定します。これは、価格の変動に応じてSARが移動する速度を決定します。</value></data>
+  <data name="AccelStep" xml:space="preserve"><value>加速ステップ</value></data>
+  <data name="AccelStepDescription" xml:space="preserve"><value>AccelStepプロパティは、加速係数が増加できるステップまたはインクリメントを指定します。このプロパティは、加速係数を調整できる速度を定義します。加速係数がどれだけ迅速に変化できるかを制御します。</value></data>
+  <data name="AccountInfoDisplayDescription" xml:space="preserve"><value>チャート上に口座の詳細情報を表示します</value></data>
+  <data name="Accumulated" xml:space="preserve"><value>累積された</value></data>
+  <data name="ActiveVolumeDescription" xml:space="preserve"><value>「アクティブボリューム」インジケーターは、指定された日付から始まるさまざまな価格レベルでの累積購入（Ask）および販売（Bid）ボリュームに関するリアルタイムデータを提供します。</value></data>
+  <data name="AdaptiveRsiAverageDescription" xml:space="preserve"><value>インジケーターAdaptive RSI Moving Averageは、相対力指数（RSI）の適応移動平均を計算して表示します。これは、入力データに指定されたデータの関数です。このインジケーターは、入力データとRSIの両方をオプションで平滑化することを許可します。</value></data>
+  <data name="AdxPeriod" xml:space="preserve"><value>ADX 期間</value></data>
+  <data name="AdxPeriodDescription" xml:space="preserve"><value>基礎となるADX計算に使用される期間を調整します。</value></data>
+  <data name="AlertBackgroundDescription" xml:space="preserve"><value>このオプションは、アラートメッセージの背景色を設定するために使用されます。ユーザーは、インジケーターによって生成された通知やアラートの背景の外観をカスタマイズできます。</value></data>
+  <data name="AlertBeforeFileDescription" xml:space="preserve"><value>主要なアラートの前に通知するためのサウンドファイルを指定します。</value></data>
+  <data name="AlertBeforeSecondsDescription" xml:space="preserve"><value>新しいアラートが表示される前の秒数を設定します。</value></data>
+  <data name="AlertFile" xml:space="preserve"><value>アラートファイル</value></data>
+  <data name="AlertFileDescription" xml:space="preserve"><value>カスタムアラート音設定。選択したファイルはWAV形式である必要があり、C:\Program Files (x86)\ATAS Platform\Soundsフォルダーに配置されている必要があります。</value></data>
+  <data name="AlertFillColorDescription" xml:space="preserve"><value>アラートウィンドウの背景色を設定します。</value></data>
+  <data name="AlertFilter" xml:space="preserve"><value>アラートフィルター</value></data>
+  <data name="AlertFilterDescription" xml:space="preserve"><value>手動で設定された音量レベルに達したときの通知。</value></data>
+  <data name="AlertNewCandle" xml:space="preserve"><value>新しいキャンドルのアラート</value></data>
+  <data name="AlertPerBar" xml:space="preserve"><value>バーごとのアラート</value></data>
+  <data name="AlertPerBarDescription" xml:space="preserve"><value>有効にすると、アラートは1つのバーの間に1回だけトリガーされます。</value></data>
+  <data name="AlertTextColorDescription" xml:space="preserve"><value>アラートウィンドウ内のテキストの色を設定します。</value></data>
+  <data name="Alerts" xml:space="preserve"><value>アラート</value></data>
+  <data name="AllLevelsColorDescription" xml:space="preserve"><value>すべてのレベルの色を定義します。</value></data>
+  <data name="AllPeriodtxt" xml:space="preserve"><value>すべての期間</value></data>
+  <data name="AlligatorDescription" xml:space="preserve"><value>アリゲーター技術指標は、異なる期間（13、8、5）の3つの平滑移動平均（SMA）の通常の組み合わせに過ぎず、それぞれ異なる期間（8、5、3）にシフトされています。この技術指標の著者は、移動平均を構築するために中央値を使用します。</value></data>
+  <data name="AllowCustomStartPoint" xml:space="preserve"><value>カスタム開始ポイントモード</value></data>
+  <data name="AllowCustomStartPointDescription" xml:space="preserve"><value>カスタムスタートポイントを使用するかどうかを決定します。</value></data>
+  <data name="AnalysisPeriod" xml:space="preserve"><value>回顧的分析期間</value></data>
+  <data name="AngleDescription" xml:space="preserve"><value>このインジケーターは、水平チャート軸と現在の価格と指定された数の期間前の価格によって形成された直線との間の角度を計算します。</value></data>
+  <data name="Any" xml:space="preserve"><value>任意</value></data>
+  <data name="AnyWick" xml:space="preserve"><value>任意のウィック</value></data>
+  <data name="ApproximationAlert" xml:space="preserve"><value>近似アラート</value></data>
+  <data name="ApproximationFilter" xml:space="preserve"><value>近似フィルター</value></data>
+  <data name="ApproximationFilterDescription" xml:space="preserve"><value>現在の価格がアラートをトリガーするためにターゲットレベルに近づかなければならないティックの数を定義します。</value></data>
+  <data name="AreaColor" xml:space="preserve"><value>エリアカラー</value></data>
+  <data name="AreaColorDescription" xml:space="preserve"><value>チャートの特定の領域の色を設定します。</value></data>
+  <data name="AroonHighestDescription" xml:space="preserve"><value>最後の最大値から経過した時間の割合を表示します。</value></data>
+  <data name="AroonIndicatorDescription" xml:space="preserve"><value>アroon指標は、アroon Upとアroon Downで構成され、指定された期間内の最後の高値または安値からの経過時間を測定します。この指標はトレンドの強さを評価するのに役立ち、値が高いほどトレンドが強いことを示します。</value></data>
+  <data name="AroonLowestDescription" xml:space="preserve"><value>Aroon Lowest指標は、指定された期間内の最低価格から経過した時間の割合を表示します。これは、潜在的なトレンドの反転を特定したり、現在のトレンドの強さを確認したりするために使用できます。この情報は、トレーダーや投資家が自分のポジションについて情報に基づいた意思決定を行うのに役立ちます。</value></data>
+  <data name="AroonOscillatorDescription" xml:space="preserve"><value>アローンオシレーターは、アローンアップとアローンダウンの値の違いを測定してトレンドの強さと方向を評価するテクニカル指標です。アローンアップがアローンダウンより大きい場合、上昇トレンドを示す正の値を生成し、アローンダウンがアローンアップより大きい場合、下降トレンドを示す負の値を生成します。オシレーターの値が+100に近いほど上昇トレンドが強く、-100に近い値はより強い下降トレンドを示唆します。</value></data>
+  <data name="Ask" xml:space="preserve"><value>アスク</value></data>
+  <data name="AskAlert" xml:space="preserve"><value>Ask アラート</value></data>
+  <data name="AskBGColorDescription" xml:space="preserve"><value>Askレベルの背後の背景色.</value></data>
+  <data name="AskBid" xml:space="preserve"><value>アスク/ビッド</value></data>
+  <data name="AskBidBarsDescription" xml:space="preserve"><value>Ask/Bidボリューム差バー指標は、単一のバーの間における売買ボリュームの差をキャンドルスティックチャートとして示します。高値は最大ボリューム差を、安値は最小差を、終値は実際の差を表します。この指標は、各バーの取引ボリュームのダイナミクスに関する洞察を提供します。</value></data>
+  <data name="AskBidImbalanceColor" xml:space="preserve"><value>アスク/ビッド不均衡の色</value></data>
+  <data name="AskBidVolume" xml:space="preserve"><value>Ask / Bid 出来高</value></data>
+  <data name="AskColor" xml:space="preserve"><value>色を尋ねる</value></data>
+  <data name="AskColorDescription" xml:space="preserve"><value>購入の視覚的ハイライト。</value></data>
+  <data name="AskFilter" xml:space="preserve"><value>Ask フィルター</value></data>
+  <data name="AskRows" xml:space="preserve"><value>アスク行</value></data>
+  <data name="AskVisualizationSettingsDescription" xml:space="preserve"><value>Ask価格でクローズされた取引のための視覚化設定。</value></data>
+  <data name="Asks" xml:space="preserve"><value>アスク</value></data>
+  <data name="AsksBackGround" xml:space="preserve"><value>Asks の背景</value></data>
+  <data name="AtHigh" xml:space="preserve"><value>高値で</value></data>
+  <data name="AtHighOrLow" xml:space="preserve"><value>高または低</value></data>
+  <data name="AtLow" xml:space="preserve"><value>ローで</value></data>
+  <data name="AtStart" xml:space="preserve"><value>開始時</value></data>
+  <data name="AtrPeriodDescription" xml:space="preserve"><value>ATR要素の期間を指定します。</value></data>
+  <data name="Author" xml:space="preserve"><value>著者</value></data>
+  <data name="Auto" xml:space="preserve"><value>自動</value></data>
+  <data name="AutoFilter" xml:space="preserve"><value>オートフィルター</value></data>
+  <data name="AutoFilterPeriod" xml:space="preserve"><value>オートフィルタ期間</value></data>
+  <data name="AutoUpdate" xml:space="preserve"><value>自動更新</value></data>
+  <data name="Average" xml:space="preserve"><value>平均</value></data>
+  <data name="AverageDeltaIndDescription" xml:space="preserve"><value>このインジケーターは、特定の期間を使用してEMAまたはSMAを使用してスムーズなデルタを計算します。</value></data>
+  <data name="AveragePeriod" xml:space="preserve"><value>平均期間</value></data>
+  <data name="AveragePriceBarDescription" xml:space="preserve"><value>Average Price for Bar インジケーターは、選択した計算モードに応じて、始値、高値、安値、終値に基づいて平均値を計算します。</value></data>
+  <data name="AverageVolumeSettingsDescription" xml:space="preserve"><value>平均ボリューム要素の視覚化設定。</value></data>
+  <data name="AvgVolumeLineSettingsDescription" xml:space="preserve"><value>平均ボリュームラインの視覚設定。</value></data>
+  <data name="AxisTextColor" xml:space="preserve"><value>軸のテキストカラー</value></data>
+  <data name="AxisTextColorDescription" xml:space="preserve"><value>価格軸のインジケーター値ラベルのテキストカラーを指定します。</value></data>
+  <data name="BBMultFactor" xml:space="preserve"><value>ボリンジャーバンドの乗数ファクター</value></data>
+  <data name="BBPeriod" xml:space="preserve"><value>ボリンジャーバンドの期間</value></data>
+  <data name="BBandsWidth" xml:space="preserve"><value>チャネル幅</value></data>
+  <data name="BOPDescription" xml:space="preserve"><value>バランスオブパワー（BOP）指標は、市場における買い手と売り手の強さを、終値と高値・安値の比率を分析することで測定します。その後、単純移動平均（SMA）を使用して平滑化され、買い圧力と売り圧力のより明確な状況を示します。</value></data>
+  <data name="BWMA" xml:space="preserve"><value>ビル・ウィリアムズ移動平均</value></data>
+  <data name="BWMADescription" xml:space="preserve"><value>ビル・ウィリアムズ移動平均テクニカルインジケーターは、特定の期間にわたる金融商品の平均価格を示します。単純移動平均とは異なり、金融商品の価格を数学的に平均化することはなく、計算には現在の値と前のインジケーターの値のみが使用されます。
+インジケーターは次の式に従って計算されます：
+BWMA(t) = (1-1/N)*BWMA(t-1)+CLOSE(t)/N</value></data>
+  <data name="BackGround" xml:space="preserve"><value>背景</value></data>
+  <data name="BackGroundBuyColor" xml:space="preserve"><value>購入の背景色</value></data>
+  <data name="BackGroundSellColor" xml:space="preserve"><value>売却時の背景色</value></data>
+  <data name="BackgroundBearlish" xml:space="preserve"><value>背景の弱気</value></data>
+  <data name="BackgroundBullish" xml:space="preserve"><value>背景強気</value></data>
+  <data name="BalanceOIDescription" xml:space="preserve"><value>オンバランスオープンインタレストは、オープンインタレスト指標のバリエーションです。この指標は、価格の動きに基づいて、特定のバーの長さでバランスのオープンインタレストを計算し表示します。増加は買い手の影響力の増加を反映し、減少は売り手の影響力の増加を反映します。</value></data>
+  <data name="BandsEnvelopeDescription" xml:space="preserve"><value>バンド/エンベロープ指標は、チャート上に描画された2本のラインバンドであり、その内部に価格チャートがあります。指標の描画方法は、ボリンジャーバンドの描画を正確に再現しますが、極端なラインが平均ラインからどれだけ離れているかの計算を除きます。ボリンジャーバンドが標準偏差を使用して計算されるのに対し、エンベロープではこの距離が設定で手動で設定されます。</value></data>
+  <data name="Bar" xml:space="preserve"><value>バー</value></data>
+  <data name="BarClose" xml:space="preserve"><value>閉じる</value></data>
+  <data name="BarDifferenceDescription" xml:space="preserve"><value>BarDifferenceインジケーターは、現在の値と特定の前のバーの値との価格差をティックで表したものです。これは、特定の期間にわたる価格変動を追跡するのに役立ち、市場の動きを分析するためのツールとして使用できます。</value></data>
+  <data name="BarDirVsDeltaDivergenceDescription" xml:space="preserve"><value>バーの方向とデルタ値が反対である場合に発生するダイバージェンスを表示するかどうかを決定します：強気のバーの場合、デルタは負であり、弱気のバーの場合、デルタは正です。</value></data>
+  <data name="BarDirectionDescription" xml:space="preserve"><value>キャンドルの方向を決定します。</value></data>
+  <data name="BarHigh" xml:space="preserve"><value>高い</value></data>
+  <data name="BarLow" xml:space="preserve"><value>低い</value></data>
+  <data name="BarNumberingDescription" xml:space="preserve"><value>このインジケーターは、チャート上の各バーのシーケンス番号を定期的に表示します。これにより、ユーザーはバーのシーケンスを簡単に特定し、時間の経過に伴うデータの進行状況を追跡できます。このツールは、データセット内のトレンドやパターンを分析するのに役立ちます。</value></data>
+  <data name="BarOpen" xml:space="preserve"><value>オープン</value></data>
+  <data name="BarRangeIndDescription" xml:space="preserve"><value>インジケーターは、各バーのサイズに対応する価格値を示し、指定されたバーの期間内での最高価格を特定します。</value></data>
+  <data name="BarShiftDescription" xml:space="preserve"><value>シフトするバーの数を定義します。</value></data>
+  <data name="BarTimerDescription" xml:space="preserve"><value>バータイマー指標は、キャンドルが閉じるまでの残り時間を表示し、トレーダーに取引決定のための残り時間の視覚的表現を提供します。この技術ツールは、トレーダーが時間を効果的に管理し、キャンドルが閉じる前の残り時間に基づいて情報に基づいた意思決定を行うのに役立ちます。</value></data>
+  <data name="BarVolumeFilterDescription" xml:space="preserve"><value>バーのボリュームフィルター指標は、トレーダーがチャート上のキャンドルのボリュームをフィルタリングするための便利なツールです。ボリュームと時間に基づいてキャンドルを表示または非表示にするための特定の基準を設定する機能を提供し、より集中した分析と意思決定を可能にします。</value></data>
+  <data name="Bars" xml:space="preserve"><value>バー</value></data>
+  <data name="BarsCountFilter" xml:space="preserve"><value>バー数フィルター</value></data>
+  <data name="BarsDirection" xml:space="preserve"><value>バーの方向</value></data>
+  <data name="BarsPatternDescription" xml:space="preserve"><value>Bars Pattern インジケーターは、指定された設定に従ってチャート上のキャンドルパターンを強調表示およびフィルタリングするためのツールです。フィルタリング条件をすべて満たすキャンドルは、特定の色で強調表示されます。</value></data>
+  <data name="BarsRange" xml:space="preserve"><value>バー範囲</value></data>
+  <data name="BarsRangeDescription" xml:space="preserve"><value>このプロパティは、主要な計算が行われる前に集約されるべきキャンドルの数を指定するために使用されます。</value></data>
+  <data name="BaseLine" xml:space="preserve"><value>ベースライン</value></data>
+  <data name="BaseLinePeriodDescription" xml:space="preserve"><value>ベースラインのためにバーで測定された期間。</value></data>
+  <data name="BaseLineSettingsDescription" xml:space="preserve"><value>ベースラインの視覚化設定。</value></data>
+  <data name="Bearish" xml:space="preserve"><value>弱気</value></data>
+  <data name="BearishBreakColor" xml:space="preserve"><value>ベアリッシュブレイクカラー</value></data>
+  <data name="BearishColor" xml:space="preserve"><value>ベアリッシュカラー</value></data>
+  <data name="BearishColorDescription" xml:space="preserve"><value>ベアリッシュ方向に動く要素の色を設定します。</value></data>
+  <data name="BearishFillColorDescription" xml:space="preserve"><value>ベアリッシュ要素の背景塗りつぶし色を定義します。</value></data>
+  <data name="BearishMovementSettingsDescription" xml:space="preserve"><value>ベアリッシュムーブメントの視覚化設定。</value></data>
+  <data name="BearishTrendDescription" xml:space="preserve"><value>価格の下落動向を表します。</value></data>
+  <data name="Bearlish" xml:space="preserve"><value>弱気</value></data>
+  <data name="BearlishColor" xml:space="preserve"><value>ベアリッシュカラー</value></data>
+  <data name="BelowCandle" xml:space="preserve"><value>キャンドルの下</value></data>
+  <data name="BestAskBGColorDescription" xml:space="preserve"><value>最良の売値の背景色。</value></data>
+  <data name="BestAskBackGround" xml:space="preserve"><value>BestAskの背景</value></data>
+  <data name="BestBidBGColorDescription" xml:space="preserve"><value>最良入札価格の背景色。</value></data>
+  <data name="BestBidBackGround" xml:space="preserve"><value>ベストビッドの背景</value></data>
+  <data name="Between" xml:space="preserve"><value>間で</value></data>
+  <data name="BetweenColor" xml:space="preserve"><value>スプレッド内の取引</value></data>
+  <data name="BetweenColorDescription" xml:space="preserve"><value>店頭取引を表示する要素の色を定義します。</value></data>
+  <data name="Bid" xml:space="preserve"><value>入札</value></data>
+  <data name="BidAlert" xml:space="preserve"><value>入札アラート</value></data>
+  <data name="BidAndAsk" xml:space="preserve"><value>ビッドとアスク</value></data>
+  <data name="BidAsk" xml:space="preserve"><value>ビッドとアスク</value></data>
+  <data name="BidAskDescription" xml:space="preserve"><value>Bid Askインジケーターは、Ask価格（市場での購入）またはBid価格（市場での販売）でクローズされた取引のボリュームを分け、この情報をゼロの水平レベルの上と下にあるヒストグラムで表示します。これにより、トレーダーは市場での購入と販売の分布を分析できます。</value></data>
+  <data name="BidAskImbalanceColor" xml:space="preserve"><value>入札/売却の不均衡の色</value></data>
+  <data name="BidAskVRDescription" xml:space="preserve"><value>ビッドアスクボリューム比率は、購入と販売のボリュームの比率を示す指標であり、移動平均によって平滑化され、市場のトレンドをより正確に表現します。このツールは、トレーダーや投資家が市場における購入圧力と販売圧力のバランスを監視するのに役立ちます。</value></data>
+  <data name="BidBGColorDescription" xml:space="preserve"><value>入札レベルの背後にある背景色。</value></data>
+  <data name="BidColor" xml:space="preserve"><value>ビッドカラー</value></data>
+  <data name="BidColorDescription" xml:space="preserve"><value>販売の視覚的強調。</value></data>
+  <data name="BidFilter" xml:space="preserve"><value>入札フィルター</value></data>
+  <data name="BidOrAsk" xml:space="preserve"><value>入札または要求</value></data>
+  <data name="BidRows" xml:space="preserve"><value>入札行</value></data>
+  <data name="BidVisualizationSettingsDescription" xml:space="preserve"><value>ビッド価格でクローズされた取引のための視覚化設定。</value></data>
+  <data name="Bids" xml:space="preserve"><value>入札</value></data>
+  <data name="BidsBackGround" xml:space="preserve"><value>ビッドの背景</value></data>
+  <data name="BlockMADescription" xml:space="preserve"><value>ブロック移動平均（BlockMA）は、単一の値ではなく特定のチャネルを計算し、計算にはATRインジケーターを利用します。この独自のアプローチは、テクニカル分析における他のタイプの移動平均とは異なります。</value></data>
+  <data name="Blue" xml:space="preserve"><value>青</value></data>
+  <data name="Body" xml:space="preserve"><value>本文</value></data>
+  <data name="BollingerBands" xml:space="preserve"><value>ボリンジャーバンド</value></data>
+  <data name="BollingerBandsBandwidthDescription" xml:space="preserve"><value>バンド幅指標はボリンジャーバンドの派生指標であり、上部バンドと下部バンドの差をパーセンテージで測定します。これはボラティリティの変化を反映しており、値が減少することでボラティリティの弱まりを示し、値が増加することでボラティリティの強まりを示します。この指標は標準偏差に基づいており、トレーダーが市場のボラティリティと潜在的な取引機会を評価するのに役立ちます。</value></data>
+  <data name="BollingerBandsDescription" xml:space="preserve"><value>ボリンジャーバンド（BB）指標は、テクニカル分析において貴重なツールであり、ボラティリティ、買われすぎ/売られすぎの状態、潜在的なトレンドの反転に関する洞察を提供します。この指標は、通常は単純移動平均（SMA）である中央線と、SMAからの標準偏差を表す2つの外側のバンドで構成されています。</value></data>
+  <data name="BollingerBandsPercentDescription" xml:space="preserve"><value>ボリンジャーバンド - パーセンテージは、ボリンジャーバンドに基づいて計算された指標であり、現在の価格とボリンジャーレベルとの間のパーセンテージの違いを表します。この指標は、金融市場におけるボラティリティと潜在的な価格反転を測定するために使用されます。</value></data>
+  <data name="BollingerSqueezeDescription" xml:space="preserve"><value>ボリンジャースクイーズ - このインジケーターはボリンジャーバンドとケルトナーチャンネルインジケーターに基づいています。ヒストグラムは、ケルトナーチャンネルとボリンジャーバンドの幅の相対的な違いを反映しています。</value></data>
+  <data name="BollingerSqueezeV2Description" xml:space="preserve"><value>ボリンジャースクイーズ2指標は、元のボリンジャースクイーズのバリエーションであり、ボリンジャーバンド、ケルトナーチャネル、モメンタム、および指数移動平均指標を組み込むことで、市場のボラティリティと潜在的な価格動向のより包括的な分析を提供します。</value></data>
+  <data name="BollingerSqueezeV3Description" xml:space="preserve"><value>ボリンジャースクイーズ3は、ボリンジャースクイーズインジケーターのバリエーションです。計算時にATRとStdDevインジケーターが使用されます。</value></data>
+  <data name="Border" xml:space="preserve"><value>枠線</value></data>
+  <data name="BorderColor" xml:space="preserve"><value>ボーダーの色</value></data>
+  <data name="BorderColorDescription" xml:space="preserve"><value>インジケーター内のキャンドルとバーの境界線の色。</value></data>
+  <data name="BorderStyleDescription" xml:space="preserve"><value>表示されている要素の境界線スタイルを設定します。</value></data>
+  <data name="BorderWidth" xml:space="preserve"><value>ボーダー幅</value></data>
+  <data name="BorderWidthPixelDescription" xml:space="preserve"><value>表示されている要素の境界の幅を設定します（ピクセル単位）。</value></data>
+  <data name="Both" xml:space="preserve"><value>両方</value></data>
+  <data name="BottomBand" xml:space="preserve"><value>下部バンド</value></data>
+  <data name="BottomBandDscription" xml:space="preserve"><value>範囲の下限を説明します。</value></data>
+  <data name="BottomChannelSettingsDescription" xml:space="preserve"><value>下部チャネルラインの視覚化設定。</value></data>
+  <data name="BottomLeft" xml:space="preserve"><value>左下</value></data>
+  <data name="BottomRight" xml:space="preserve"><value>右下隅</value></data>
+  <data name="BreakDnColor" xml:space="preserve"><value>ブレイクダウンカラー</value></data>
+  <data name="BreakUpColor" xml:space="preserve"><value>ブレイクアップカラー</value></data>
+  <data name="BrokenBearishDescription" xml:space="preserve"><value>壊れたベアリッシュ要素の色を定義します。</value></data>
+  <data name="BrokenBullishDescription" xml:space="preserve"><value>壊れた強気要素の色を定義します。</value></data>
+  <data name="BrokenChannelColor" xml:space="preserve"><value>破損したチャンネルの色</value></data>
+  <data name="Bullish" xml:space="preserve"><value>強気</value></data>
+  <data name="BullishBreakColor" xml:space="preserve"><value>強気のブレイクカラー</value></data>
+  <data name="BullishColor" xml:space="preserve"><value>強気の色</value></data>
+  <data name="BullishColorDescription" xml:space="preserve"><value>強気の方向を持つ要素の色を設定します。</value></data>
+  <data name="BullishFillColorDescription" xml:space="preserve"><value>強気要素の背景塗りつぶし色を定義します。</value></data>
+  <data name="BullishMovementSettingsDescription" xml:space="preserve"><value>強気の動きの視覚化設定。</value></data>
+  <data name="BullishTrendDescription" xml:space="preserve"><value>"ブルリッシュトレンド"という用語は、株式やその他の資産の価格が上昇している市場の状態を指します。これは、投資家の間でのポジティブな感情を示し、しばしば市場の成長と楽観主義の期間を示します。トレーダーは、この用語を使用して意思決定プロセスを情報に基づいて行い、ブル市場での潜在的な機会を活用することがあります。</value></data>
+  <data name="BuyColor" xml:space="preserve"><value>購入色</value></data>
+  <data name="BuyOvershoot1Color" xml:space="preserve"><value>1色のオーバーシュートを購入</value></data>
+  <data name="BuyOvershoot2Color" xml:space="preserve"><value>2色のオーバーシュートを購入</value></data>
+  <data name="BuyOvershoot3Color" xml:space="preserve"><value>オーバーシュート3色を購入</value></data>
+  <data name="BuyOvershootColor" xml:space="preserve"><value>オーバーシュートカラーを購入</value></data>
+  <data name="BuySellModeDescription" xml:space="preserve"><value>利用可能な売買モードの1つを設定します。</value></data>
+  <data name="BuySellPower" xml:space="preserve"><value>買/売の強さ</value></data>
+  <data name="BuySellPowerPeriodDescription" xml:space="preserve"><value>平均移動買売力の期間値を定義します。</value></data>
+  <data name="BuySellPowerSettingsDescription" xml:space="preserve"><value>売買力の優位性を表示するための設定。</value></data>
+  <data name="BuySignalColorDescription" xml:space="preserve"><value>購入信号を表す要素の色を設定します。</value></data>
+  <data name="BuySignalSettingsDescription" xml:space="preserve"><value>買いシグナルの視覚化設定。</value></data>
+  <data name="BuyTradeLineColorDescription" xml:space="preserve"><value>購入取引ラインとマーカーを表示するために使用される色を指定します。</value></data>
+  <data name="Buys" xml:space="preserve"><value>購入</value></data>
+  <data name="ByBar" xml:space="preserve"><value>バーによる</value></data>
+  <data name="ByCandleDirection" xml:space="preserve"><value>キャンドルの方向による</value></data>
+  <data name="CAVDescription" xml:space="preserve"><value>累積調整値は、価格とその指数移動平均との間の偏差の合計を計算します。合計値は次の式で計算されます：AdjValt(X,n)=Xt−EMAt(X,n)</value></data>
+  <data name="CBIDescription" xml:space="preserve"><value>コニー・ブラウン複合指数 – この指標はRSI指標の不一致の問題を解消します。これは、RSI値と平滑化されたRSI値からのモメンタムの合計として計算されます。</value></data>
+  <data name="CCIDescription" xml:space="preserve"><value>商品チャネル指数（CCI）は、特定の期間にわたる平均価格レベルに対する現在の価格レベルを測定し、資産が過剰に買われているか過剰に売られているかを判断するのに役立つツールです。商品チャネル指数（CCI）は、トレンドの弱まりや完了、そしてその方向の変化に気づくのにも役立ちます。</value></data>
+  <data name="CFODescription" xml:space="preserve"><value>チャンデ予測オシレーター（CFO）は、金融商品における予想価格と実際の価格の差を測定するために使用されるツールです。これは、パーセンテージの差として計算され、予測値が現在の価格よりも高いか低いかを示すことができます。オシレーターがゼロを上回ると、予測値が現在の価格よりも高いことを示し、その逆もまた然りです。</value></data>
+  <data name="CMFDescription" xml:space="preserve"><value>チャイキンマネーフロー（CMF）は、特定の期間における資金の流れの量を測定するために使用されるテクニカル分析指標であり、証券の売買に対する圧力を示します。ユーザー定義の期間の資金の流れを合計し、一般的な期間は20日または21日です。CMFは、売買圧力の将来の変化を予測するのに役立ちます。</value></data>
+  <data name="CMODescription" xml:space="preserve"><value>チャイキンオシレーターは、蓄積/分配ライン（ADL）から派生したモメンタム指標です。ADLに適用される異なる長さの2つの指数移動平均を計算し、一方を他方から引くことでモメンタムの測定値を提供します。オシレーターの変動を監視することで、モメンタムの変化がトレンドの変化に先行することが多いため、トレンドの変化を予測するのに役立ちます。</value></data>
+  <data name="CMSDescription" xml:space="preserve"><value>クリアメソッドインジケーターは、歴史的データを使用して価格の動態に隠れたパターンや特徴を検出します。これは、価格の高値、安値、およびモメンタム条件に基づく複雑な計算を含みます。これにより、肉眼では見えないトレンドやパターンを特定するのに役立ちます。</value></data>
+  <data name="CalculateOnBarCloseDescription" xml:space="preserve"><value>この設定は、インジケーターの計算が実行されるタイミングを制御します。有効にすると、インジケーターはバーが完全に形成されて閉じるまで、計算と値の更新を行いません。</value></data>
+  <data name="Calculation" xml:space="preserve"><value>計算</value></data>
+  <data name="CalculationMode" xml:space="preserve"><value>計算モード</value></data>
+  <data name="CalculationModeDescription" xml:space="preserve"><value>インジケーターの計算モード</value></data>
+  <data name="CalculationSettings" xml:space="preserve"><value>計算設定</value></data>
+  <data name="CamarillaPivotsDescription" xml:space="preserve"><value>カマリラピボットインジケーターは、チャート上のカマリラピボットレベルに関する履歴データを表示します。カマリラの反転レベルは、1989年にニック・スコットによって開発されました。これらのレベルは、日中取引における主要なサポートおよびレジスタンスレベルとして使用されます。これらのレベルは、前のセッションの高値、安値、および終値から導き出されます。</value></data>
+  <data name="CandleArea" xml:space="preserve"><value>キャンドルエリア</value></data>
+  <data name="CandleAreaModeDescription" xml:space="preserve"><value>利用可能なキャンドルエリアの1つを定義します。</value></data>
+  <data name="CandleBodyHeight" xml:space="preserve"><value>キャンドルボディの高さ</value></data>
+  <data name="CandleDirection" xml:space="preserve"><value>キャンドルの方向</value></data>
+  <data name="CandleDirectionDescription" xml:space="preserve"><value>キャンドルの方向</value></data>
+  <data name="CandleHeight" xml:space="preserve"><value>キャンドルの高さ</value></data>
+  <data name="CandleSizeSettingsDescription" xml:space="preserve"><value>キャンドルサイズ要素の視覚設定。</value></data>
+  <data name="CandleStatisticsDescription" xml:space="preserve"><value>&lt;p&gt;すべての重要なキャンドル情報 - 常に表示されます。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;各キャンドルのボリューム、デルタ、取引数、期間。&lt;/li&gt;
+  &lt;li&gt;常に表示するか、フットプリントモードのみで表示します。&lt;/li&gt;
+  &lt;li&gt;色、フォント、ラベルの背景設定の柔軟な設定。&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="Candles" xml:space="preserve"><value>キャンドル</value></data>
+  <data name="CciTrendDown" xml:space="preserve"><value>CCI トレンドダウン</value></data>
+  <data name="CciTrendUp" xml:space="preserve"><value>CCI 上昇トレンド</value></data>
+  <data name="Center" xml:space="preserve"><value>中央</value></data>
+  <data name="CenterAlign" xml:space="preserve"><value>中央揃え</value></data>
+  <data name="CenterAlignDescription" xml:space="preserve"><value>有効にすると、テキストが中央に配置されます。</value></data>
+  <data name="ChaikinOscillatorDescription" xml:space="preserve"><value>チャイキンオシレーターは、蓄積分配ラインの3日間と10日間のEMAの差を計算します。これは、動きの背後にあるモメンタムを分析することによって、蓄積分配ラインの方向の変化を予測するためのモメンタム指標として機能します。</value></data>
+  <data name="ChandeMomentumDescription" xml:space="preserve"><value>チャンデモメンタムインジケーターは、特定の期間にわたる正の価格変動と負の価格変動を比較することによって、金融商品のモメンタムを測定します。これはトレンドの強さと方向を特定するのに役立ち、市場のモメンタムを評価するための貴重なツールです。</value></data>
+  <data name="ChannelNegativeAreaSettingsDescription" xml:space="preserve"><value>中央値の値が前の値よりも低い場合のチャネル領域の視覚化設定。</value></data>
+  <data name="ChannelNeutralAreaSettingsDescription" xml:space="preserve"><value>中央値の値が前の値と等しいチャネルエリアの視覚化設定。</value></data>
+  <data name="ChannelPositiveAreaSettingsDescription" xml:space="preserve"><value>中央値の値が前の値よりも大きい場合のチャネルエリアの視覚化設定。</value></data>
+  <data name="ChartDisplayModeDescription" xml:space="preserve"><value>グラフのプレゼンテーションオプションの1つを表します。</value></data>
+  <data name="Circles" xml:space="preserve"><value>サークル</value></data>
+  <data name="Close" xml:space="preserve"><value>閉じる</value></data>
+  <data name="ClosePartially" xml:space="preserve"><value>部分的に閉じる</value></data>
+  <data name="ClosePrevDay" xml:space="preserve"><value>前日の終値</value></data>
+  <data name="CloseSessionAlertFilterDescription" xml:space="preserve"><value>有効にすると、セッションを閉じるときに指定されたサウンドファイルでアラートが生成されます。</value></data>
+  <data name="ClosingSession" xml:space="preserve"><value>セッションを閉じる</value></data>
+  <data name="ClusterSearchAutofilterDescription" xml:space="preserve"><value>指定されたインストゥルメントに合わせてインジケーターのフィルターを動的に調整することを可能にします。オートフィルターが有効になると、最大および最小フィルターのパラメーターが無効になります。</value></data>
+  <data name="ClusterSearchDescription" xml:space="preserve"><value>&lt;p&gt;重要なゾーンを強調表示し、フットプリントチャートの分析を簡素化します。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;異常に高いまたは低いボリュームのクラスター。&lt;/li&gt;
+  &lt;li&gt;極端なデルタ値のクラスター。&lt;/li&gt;
+  &lt;li&gt;市場注文の活動が増加しているゾーン。&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="ClusterSelectionTransparency" xml:space="preserve"><value>フットプリント選択の透明度</value></data>
+  <data name="ClusterStatisticDescription" xml:space="preserve"><value>&lt;p&gt;キャンドル内の拡張アクティビティ統計。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;購入および販売のボリューム、キャンドルの総ボリューム、秒あたりのボリュームおよびセッションあたりのボリューム。&lt;/li&gt;
+  &lt;li&gt;キャンドルのデルタ、最大および最小のデルタ値、セッション開始からのデルタおよび日次ボリュームに対するデルタ、キャンドル間のデルタの変化。&lt;/li&gt;
+  &lt;li&gt;取引の数、ティック単位のキャンドルサイズ、開始時間、およびキャンドル形成の期間。&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="ClustersMode" xml:space="preserve"><value>クラスター モード</value></data>
+  <data name="ClustersModeDescription" xml:space="preserve"><value>チャートがクラスターモードで表示されるかどうかを決定します。</value></data>
+  <data name="Color" xml:space="preserve"><value>色</value></data>
+  <data name="Color20" xml:space="preserve"><value>20% 色</value></data>
+  <data name="Color50" xml:space="preserve"><value>50% カラー</value></data>
+  <data name="Color80" xml:space="preserve"><value>80%の色</value></data>
+  <data name="ColorBarHighLowIndDescription" xml:space="preserve"><value>このインジケーターは、価格範囲が上昇または下降したキャンドルに色を付けます。キャンドルの安値が前のものより低くなり、高値が前のキャンドルより高くなると、平均色が選択されます。</value></data>
+  <data name="ColorBarOpenCloseDescription" xml:space="preserve"><value>このインジケーターは、ローソク足をその方向に応じて選択した色で塗ります。</value></data>
+  <data name="ColorBeforeCandle" xml:space="preserve"><value>新しいキャンドルの前に色を変更する</value></data>
+  <data name="ColorDescription" xml:space="preserve"><value>この要素の色を指定します。</value></data>
+  <data name="ColorFilter" xml:space="preserve"><value>カラーフィルター</value></data>
+  <data name="ColorMinus20" xml:space="preserve"><value>色 -20% 薄くする</value></data>
+  <data name="ColorMinus50" xml:space="preserve"><value>-50% カラー</value></data>
+  <data name="ColorMinus80" xml:space="preserve"><value>-80% 色</value></data>
+  <data name="ColorScheme" xml:space="preserve"><value>カラースキーム</value></data>
+  <data name="ColorSchemeDescription" xml:space="preserve"><value>さまざまな要素に適用するための色の範囲を選択できるようにします。さまざまなデザイン要素のカラースキームをカスタマイズする柔軟性を提供します。これは、視覚的に魅力的で一貫性のあるデザインを作成するのに役立ちます。</value></data>
+  <data name="ColoredDirection" xml:space="preserve"><value>カラー方向</value></data>
+  <data name="ColoredDirectionDescription" xml:space="preserve"><value>上昇要素と下降要素に異なる色を使用するかどうかを決定します。</value></data>
+  <data name="Colors" xml:space="preserve"><value>色</value></data>
+  <data name="ColumnSpacing" xml:space="preserve"><value>列の間隔</value></data>
+  <data name="ColumnSpacingDescription" xml:space="preserve"><value>ラベル列と値列の間のスペース</value></data>
+  <data name="CombineSmallTrades" xml:space="preserve"><value>小さな取引をまとめる</value></data>
+  <data name="CombineSmallTradesDescription" xml:space="preserve"><value>有効にすると、フィルターを通過しなかった同じ価格の取引を結合します。</value></data>
+  <data name="Common" xml:space="preserve"><value>共通</value></data>
+  <data name="Contract" xml:space="preserve"><value>契約</value></data>
+  <data name="ConversionLinePeriodDescription" xml:space="preserve"><value>転換ラインのためにバーで測定された期間。</value></data>
+  <data name="ConversionLineSettingsDescription" xml:space="preserve"><value>コンバージョンラインのための視覚設定。</value></data>
+  <data name="CoolDownAlertPeriodDescription" xml:space="preserve"><value>通知の過剰を防ぐために、アラート間の最小時間間隔を定義します。ユーザーに情報を提供し続けることと、アラート疲れを避けることのバランスを維持するのに役立ちます。</value></data>
+  <data name="CoolDownPeriod" xml:space="preserve"><value>クールダウン期間</value></data>
+  <data name="CoppockCurveDescription" xml:space="preserve"><value>コッポック曲線は、金融商品における長期的なトレンドの変化を特定するために、加重移動平均と変化率の計算を使用するテクニカル指標です。これは、特定の期間における価格のパーセンテージ変化を組み合わせて、トレンドの潜在的な変化を示します。この指標は、長期的な市場トレンドに基づいて情報に基づいた意思決定を行おうとするトレーダーや投資家にとって有用です。</value></data>
+  <data name="Copyright" xml:space="preserve"><value>著作権</value></data>
+  <data name="CotHighDescription" xml:space="preserve"><value>このインジケーターは、チャート上で新しい価格の高値が達成されるたびにゼロにリセットされる累積デルタです。</value></data>
+  <data name="CumDeltaLineColorDescription" xml:space="preserve"><value>累積デルタラインを表示するための色を指定します。</value></data>
+  <data name="CumDeltaLineWidthDescription" xml:space="preserve"><value>高低ラインを表示するためのライン幅を定義します。</value></data>
+  <data name="Cumulative" xml:space="preserve"><value>累積</value></data>
+  <data name="CumulativeDailyVolumeDescription" xml:space="preserve"><value>このインジケーターは日次期間の累積出来高を表示します。</value></data>
+  <data name="CumulativeDeltaDescription" xml:space="preserve"><value>&lt;p&gt;市場の購入と販売の累積残高の分析。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;時間の経過に伴う購入または販売の優位性。&lt;/li&gt;
+  &lt;li&gt;価格の動きと累積デルタとの間の乖離。&lt;/li&gt;
+  &lt;li&gt;セッション中の買い手と売り手の圧力の変化。&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="CumulativeMode" xml:space="preserve"><value>累積モード</value></data>
+  <data name="CumulativeModeAskColorDescription" xml:space="preserve"><value>累積取引モードにおけるアスクレベルを表示する要素の色を定義します。</value></data>
+  <data name="CumulativeModeBidColorDescription" xml:space="preserve"><value>累積取引モードにおける入札レベル表示の色を定義します。</value></data>
+  <data name="CumulativeTrades" xml:space="preserve"><value>累積取引</value></data>
+  <data name="CumulativeTradesModeDescription" xml:space="preserve"><value>累積取引モードは、累積トランザクションのみを考慮する計算方法です。このモードは個々の取引を考慮せず、計算を行う際にトランザクションの全体的な合計を見ます。さまざまな金融および会計アプリケーションで使用できます。</value></data>
+  <data name="CurrentDay" xml:space="preserve"><value>現在の日</value></data>
+  <data name="CurrentDayHighDescription" xml:space="preserve"><value>現在の日の最高価格。</value></data>
+  <data name="CurrentDayLowDescription" xml:space="preserve"><value>現在の日の最低価格。</value></data>
+  <data name="CurrentDayMedianDescription" xml:space="preserve"><value>現在の日の平均価格。</value></data>
+  <data name="CurrentMonth" xml:space="preserve"><value>現在の月</value></data>
+  <data name="CurrentPriceDescription" xml:space="preserve"><value>インジケーターは、チャート上に選択した金融商品の現在の価格を表示します。</value></data>
+  <data name="CurrentTime" xml:space="preserve"><value>現在の時刻</value></data>
+  <data name="CurrentTimeFrame" xml:space="preserve"><value>現在の時間枠</value></data>
+  <data name="CurrentWeek" xml:space="preserve"><value>現在の週</value></data>
+  <data name="CustomDiapason" xml:space="preserve"><value>カスタム範囲</value></data>
+  <data name="CustomLabel" xml:space="preserve"><value>カスタムテキスト</value></data>
+  <data name="CustomPrice" xml:space="preserve"><value>カスタム価格</value></data>
+  <data name="CustomPriceFilterDescription" xml:space="preserve"><value>有効にすると、ユーザーが設定した開始価格レベルが決定されます。そうでない場合は、システムによって自動的に決定されます。</value></data>
+  <data name="CustomPriceLevelsHeight" xml:space="preserve"><value>価格レベルのカスタム高さ</value></data>
+  <data name="CustomPriceLevelsHeightDescription" xml:space="preserve"><value>ピクセル単位での単一レベルの高さ。0 = チャート上のキャンドルの高さ。</value></data>
+  <data name="CustomScale" xml:space="preserve"><value>カスタムスケール</value></data>
+  <data name="CustomSession" xml:space="preserve"><value>カスタムセッション</value></data>
+  <data name="CustomSessionInactive" xml:space="preserve"><value>"Daily Lines" カスタムセッションは非アクティブです</value></data>
+  <data name="CustomSessionStart" xml:space="preserve"><value>カスタムセッション開始</value></data>
+  <data name="CustomSessionStartDescription" xml:space="preserve"><value>カスタムセッションの開始を指定します</value></data>
+  <data name="CustomSessionStartFilterDescription" xml:space="preserve"><value>有効にすると、カスタムセッションの開始を指定します。無効の場合は、デフォルトのセッションの開始が使用されます。</value></data>
+  <data name="CustomStartPrice" xml:space="preserve"><value>カスタム開始価格</value></data>
+  <data name="CustomStartPriceFilterDescription" xml:space="preserve"><value>有効にすると、アイテムは計算のために独自の開始価格を設定することを許可します。</value></data>
+  <data name="CustomTickSize" xml:space="preserve"><value>カスタムティックサイズ</value></data>
+  <data name="CustomTickSizeDescription" xml:space="preserve"><value>カスタムティックサイズを定義し、金融商品における通貨で測定します。</value></data>
+  <data name="CustomVWAP" xml:space="preserve"><value>カスタムVWAP開始点</value></data>
+  <data name="DEMA" xml:space="preserve"><value>二重指数移動平均</value></data>
+  <data name="DEMADescription" xml:space="preserve"><value>ダブル指数移動平均は、次の式で計算される移動平均のバリエーションです：DEMA(t) = 2*EMA(x(t)) - EMA(EMA(x(t)))</value></data>
+  <data name="DIMinusDescription" xml:space="preserve"><value>ネガティブ方向指標（DI-）は、金融分析およびテクニカル分析において価格の下落を示すために使用されます。これは平均方向性指数（ADX）の一部であり、トレーダーがトレンドの強さを特定するのに役立ちます。この指標は、価格の動きと潜在的な市場トレンドを理解しようとする投資家にとって重要です。</value></data>
+  <data name="DINeg" xml:space="preserve"><value>負の方向指標DI-</value></data>
+  <data name="DINegIndDescription" xml:space="preserve"><value>指標ネガティブ・ディレクショナル・インデックス（DI-）は、加重移動平均（WMA）とATRを使用して下落トレンドの強さを表示します。</value></data>
+  <data name="DIPlusDescription" xml:space="preserve"><value>ポジティブ・ディレクショナル・インジケーター（DI+）は価格の上昇を示します。</value></data>
+  <data name="DIPos" xml:space="preserve"><value>ポジティブ・ディレクショナル・インジケーターDI+</value></data>
+  <data name="DIPosIndDescription" xml:space="preserve"><value>指標であるポジティブ・ダイレクショナル・インデックス（DI+）は、加重移動平均（WMA）とATRを使用して上昇トレンドの強さを表示します。</value></data>
+  <data name="DMIDescription" xml:space="preserve"><value>ダイナミックモメンタムインデックス（DMI）指標は、優勢なトレンドの強さと方向を評価するために設計されています。これは、特定のパラメータに基づいて相対力指数（RSI）を動的に計算することで達成されます。標準偏差と単純移動平均を利用して、ボラティリティを評価しデータを平滑化します。</value></data>
+  <data name="DOMDescription" xml:space="preserve"><value>インジケーターは現在の買い気配と売り気配の水準およびその出来高をリアルタイムで表示します。</value></data>
+  <data name="DOMMaxFilterDescription" xml:space="preserve"><value>市場の深さレベルの最大数を決定します。</value></data>
+  <data name="DOMPercentDescription" xml:space="preserve"><value>ボリュームとDOMの初期比率であり、そこからダイバージェンスが決定されます。</value></data>
+  <data name="DXDescription" xml:space="preserve"><value>DX（方向性運動指数）指標は、正の動きと負の動きを比較することによって市場のトレンドの強さを測定します。トレンドの方向と強さに関する洞察を提供し、トレーダーが情報に基づいた意思決定を行うのに役立ちます。</value></data>
+  <data name="Daily" xml:space="preserve"><value>毎日</value></data>
+  <data name="DailyChangeDescription" xml:space="preserve"><value>このインジケーターは、選択した設定に応じて、現在の価格変動を現在の日のオープニングまたは前日のクローズに関連付けて示します。</value></data>
+  <data name="DailyHighLowDescription" xml:space="preserve"><value>インジケーターは、チャート上でその日の高値と安値のリアルタイムの変化を表示します。また、前日と当日の平均価格を表示し、ユーザーが市場価格の変動を追跡できるようにします。</value></data>
+  <data name="DailyLinesDescription" xml:space="preserve"><value>&lt;p&gt;選択した期間の重要な価格レベル。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;選択した期間またはカスタムセッションのOpen / High / Low / Closeレベル。&lt;/li&gt;
+  &lt;li&gt;最大5営業日のボリュームデータをサポート。&lt;/li&gt;
+  &lt;li&gt;柔軟な表示設定：ライン、色、ラベル、フォント。&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="DashStyle" xml:space="preserve"><value>ラインスタイル</value></data>
+  <data name="Data" xml:space="preserve"><value>データ</value></data>
+  <data name="Days" xml:space="preserve"><value>日</value></data>
+  <data name="DaysLookBack" xml:space="preserve"><value>過去の日数</value></data>
+  <data name="DaysLookBackDescription" xml:space="preserve"><value>指標を計算する際に考慮される前の日の数を指します。</value></data>
+  <data name="DeMarkerDescription" xml:space="preserve"><value>DeMarker（DeM）指標は、最近の価格の高値と安値の関係を定量化し、市場のモメンタムを評価します。連続する高値と安値に基づいてDeMaxとDeMinの2つの値を計算し、それらを単純移動平均（SMA）を使用して平滑化します。平滑化されたDeMaxと平滑化されたDeMaxとDeMinの合計の比率が市場のモメンタムを反映し、トレーダーが過剰買いや過剰売りの状態を特定するのに役立ちます。</value></data>
+  <data name="DeTrendedDescription" xml:space="preserve"><value>デトレンド指標は、現在の価格値から単純移動平均を引くことによって短期的な価格変動を特定するために使用されます。これにより、トレーダーは全体的なトレンドからの逸脱や市場における潜在的な反転または短期的な価格動向を見つけることができます。移動平均の長さはユーザー定義の期間によって決まります。</value></data>
+  <data name="DeTrendedDiDescription" xml:space="preserve"><value>DeTrendedDi指標は、現在の価格から単純移動平均（SMA）値を引くことによって、市場の過剰買い/過剰売りゾーンを計算するために使用されるツールです。これにより、指定された期間の現在の価格とそのSMAとの偏差が反映されます。</value></data>
+  <data name="DecreasedMomentumSettingsDescription" xml:space="preserve"><value>減少されたモーメント値を表す要素のレンダリング設定。</value></data>
+  <data name="Default" xml:space="preserve"><value>デフォルト</value></data>
+  <data name="DegreeOf2PeriodDescription" xml:space="preserve"><value>数2を特定の指数に上げることで表現される期間を表します。</value></data>
+  <data name="DeleteStartPoint" xml:space="preserve"><value>開始点を削除</value></data>
+  <data name="DeleteStartPointKeyFilterDescription" xml:space="preserve"><value>このフィールドがアクティブな場合、ユーザーは以前に設定した開始点を削除するためのホットキーを定義できます。</value></data>
+  <data name="Delta" xml:space="preserve"><value>デルタ</value></data>
+  <data name="DeltaAlert" xml:space="preserve"><value>デルタアラート</value></data>
+  <data name="DeltaChangeAlert" xml:space="preserve"><value>デルタ変更アラート</value></data>
+  <data name="DeltaColored" xml:space="preserve"><value>デルタカラー</value></data>
+  <data name="DeltaColoredCandlesDescription" xml:space="preserve"><value>インジケーターは特定の期間の合計デルタを計算し、この値が設定された最大値にどれだけ近いかを判断します。この場合、キャンドルはカラースキームに従って塗られます。</value></data>
+  <data name="DeltaColoredDescription" xml:space="preserve"><value>要素をデルタ値に基づいて色付けするかどうかを決定します。</value></data>
+  <data name="DeltaDescription" xml:space="preserve"><value>&lt;p&gt;キャンドル内の市場の購入と販売の違い。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;動きの中での圧力の強化または弱化。&lt;/li&gt;
+  &lt;li&gt;バーの方向とデルタ値の間のダイバージェンス。&lt;/li&gt;
+  &lt;li&gt;買い手と売り手のイニシアティブの吸収と変化。&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="DeltaFilter" xml:space="preserve"><value>デルタフィルター</value></data>
+  <data name="DeltaFilterDescription" xml:space="preserve"><value>このプロパティは、特定の価格レベルに対してデルタのフィルターを設定するために使用されます。値が正の場合、フィルターはデルタが指定された値以上の価格レベルのみを許可します。値が負の場合、フィルターはデルタが指定された値以下の価格レベルのみを許可します。</value></data>
+  <data name="DeltaFilters" xml:space="preserve"><value>デルタフィルター</value></data>
+  <data name="DeltaImbalance" xml:space="preserve"><value>ビッドアスクの不均衡,%</value></data>
+  <data name="DeltaImbalanceDescription" xml:space="preserve"><value>このプロパティは、レベルの総ボリュームに対する買い（Ask）または売り（Bid）ボリュームの割合に基づいて価格レベルをフィルタリングします。値が正の場合、フィルターはAskボリュームの割合がその値以上である価格レベルのみを許可します。値が負の場合、フィルターはBidボリュームの割合がその値以上である価格レベルのみを許可します。</value></data>
+  <data name="DeltaPerVolumeAlert" xml:space="preserve"><value>デルタ/出来高アラート</value></data>
+  <data name="DeltaStrengthDescription" xml:space="preserve"><value>デルタストレングス指標は、オープンからクローズまでの価格差が、そのバー内の最大価格差の指定されたパーセンテージ以上でないバーをマークします。これにより、トレーダーは市場における重要な価格変動や潜在的なトレンドの期間を特定するのに役立ちます。この指標は、価格のボラティリティと強さに基づいて取引の意思決定を行うために役立ちます。</value></data>
+  <data name="DeltaTurnaroundDescription" xml:space="preserve"><value>デルタターンアラウンド指標は、チャート上の潜在的なトレンド反転ポイントを特定し、上昇および下降信号のための特定の基準を持っています。上昇信号の条件：2つの連続したベアキャンドルがあり、3つ目のキャンドルがブルキャンドルであり、ブルキャンドルのデルタが正で、かつその安値が前のキャンドルの安値以下であること。下降信号の条件：2つの連続したブルキャンドルがあり、3つ目のキャンドルがベアキャンドルであり、ベアキャンドルのデルタが負で、かつその高値が前のキャンドルの安値以上であること。</value></data>
+  <data name="DeltaType" xml:space="preserve"><value>デルタタイプ</value></data>
+  <data name="DeltaTypeDescription" xml:space="preserve"><value>デルタの種類を指定します: 正、負、または両方。</value></data>
+  <data name="DemandDescription" xml:space="preserve"><value>需要指数は、価格とボリュームを独自の方法で組み合わせて、価格変動の先行指標として機能するツールです。需要指数は、ジェームズ・シベットによって開発されました。ジェームズ・シベットは、需要指数を解釈するための6つのルールを定式化しました。これには、価格の反転や、価格と需要指数の間の長期的な乖離に基づく市場の天井や底の指標としての使用が含まれます。</value></data>
+  <data name="DepthChangesDisplayModeDescription" xml:space="preserve"><value>注文書の変更が表示される方法を選択します：ネット、スタックのみ、引き出しのみ、または両方。</value></data>
+  <data name="DepthChangesFilterDescription" xml:space="preserve"><value>プルまたはスタッキング値を表示するために必要な最小絶対注文書の変更。</value></data>
+  <data name="DepthChangesTextColorDescription" xml:space="preserve"><value>プルおよびスタッキング値のテキストカラー。</value></data>
+  <data name="DepthLevelsCount" xml:space="preserve"><value>レベル数</value></data>
+  <data name="DepthMarket" xml:space="preserve"><value>板情報</value></data>
+  <data name="DepthMarketFilter" xml:space="preserve"><value>市場の深さフィルター</value></data>
+  <data name="Deviation" xml:space="preserve"><value>偏差</value></data>
+  <data name="DeviationPercentageDescription" xml:space="preserve"><value>現在の値とその以前の値との違いのレベルを、パーセンテージとして測定します。</value></data>
+  <data name="DeviationRangeDescription" xml:space="preserve"><value>現在の価格から上部および下部バンドがどれだけ逸脱しているかを示します。</value></data>
+  <data name="DigitsAfterComma" xml:space="preserve"><value>ボリューム値の小数点以下の桁数</value></data>
+  <data name="DigitsAfterCommaDescription" xml:space="preserve"><value>ボリューム値の小数点以下の桁数</value></data>
+  <data name="DirectionOfZone" xml:space="preserve"><value>ゾーンの方向</value></data>
+  <data name="Disabled" xml:space="preserve"><value>無効</value></data>
+  <data name="DispersionDescription" xml:space="preserve"><value>ディスパージョン指標は、単純移動平均（SMA）周辺の価格値の分散または広がりを評価するために使用されるテクニカル分析ツールです。指定された期間内の価格変動のボラティリティや変動性に関する洞察を提供します。</value></data>
+  <data name="Displacement" xml:space="preserve"><value>変位</value></data>
+  <data name="DisplayBottom" xml:space="preserve"><value>下部に表示</value></data>
+  <data name="DisplayClusterBorderDescription" xml:space="preserve"><value>クラスタの境界を表示するかどうかを決定します。</value></data>
+  <data name="DisplayFromZeroDescription" xml:space="preserve"><value>有効にすると、最小値が正の場合は0から最大値まで、最大値が負の場合は0から最小値までの値を表示します。</value></data>
+  <data name="DisplayHighLowLineDescription" xml:space="preserve"><value>高低ラインを表す要素を表示するかどうかを決定します。</value></data>
+  <data name="DisplayLabelChartBottomDescription" xml:space="preserve"><value>チャートの下部にラベルを表示できます。</value></data>
+  <data name="DisplayLabelClustersModeOnlyDescription" xml:space="preserve"><value>有効にすると、ラベルはクラスターモードでのみ表示されます</value></data>
+  <data name="DisplayMode" xml:space="preserve"><value>表示モード</value></data>
+  <data name="DisplaySMADescription" xml:space="preserve"><value>移動平均を表す要素を表示するかどうかを決定します。</value></data>
+  <data name="Divergence" xml:space="preserve"><value>発散</value></data>
+  <data name="DivergenceBars" xml:space="preserve"><value>ダイバージェンスバー</value></data>
+  <data name="DivergenceDots" xml:space="preserve"><value>ダイバージェンスドット</value></data>
+  <data name="DividedByPriceDescription" xml:space="preserve"><value>価格で割った1 - このインジケーターは逆チャートを反映しています。ローソク足の値は1/初期価格に等しいです。</value></data>
+  <data name="Divisor" xml:space="preserve"><value>約数</value></data>
+  <data name="DivisorDescription" xml:space="preserve"><value>除数は、特定の係数で結果を割るために使用され、さらなる使用のためにより便利な形式に変換する数学的ツールです。計算結果を簡素化し、整理するのに役立ちます。</value></data>
+  <data name="DmIndexDescription" xml:space="preserve"><value>方向性運動指数は、プラス方向性指標（+DI）とマイナス方向性指標（-DI）を使用して、トレンドの強さと方向を判断するテクニカル指標です。+DIまたは-DIのいずれかが優勢であることは、上昇トレンドまたは下降トレンドを示し、トレーダーや投資家に貴重な市場トレンド情報を提供します。この指標は、潜在的な取引機会を特定するためにテクニカル分析で一般的に使用されます。</value></data>
+  <data name="DmOscillatorDescription" xml:space="preserve"><value>方向性運動オシレーターは、プラス方向指標とマイナス方向指標から成るテクニカル分析ツールです。これら2つの指標の差として計算され、市場の強気および弱気トレンドを特定するために使用されます。オシレーターの正の値は強気トレンドを示し、負の値は弱気トレンドを示します。</value></data>
+  <data name="DoNotShowAboveChart" xml:space="preserve"><value>上のチャートを表示しない</value></data>
+  <data name="DoNotShowAboveChartDescription" xml:space="preserve"><value>有効にすると、バーのレンダリング領域に要素が表示されません。</value></data>
+  <data name="Dodge" xml:space="preserve"><value>ダッジ</value></data>
+  <data name="DomPowerDescription" xml:space="preserve"><value>このインジケーターは、DOM（Depth of Market）における買い手と売り手の比率を示します。含まれる内容は以下の通りです：
+- 各キャンドルの総アスクと総ビッドの値
+- 各キャンドルのアスクとビッドのデルタの変動範囲（このインジケーターではデルタはビッド-アスクとして計算されます）。
+
+インジケーター内の青い範囲（デルタ）は、ビッドとアスクの合計の変化範囲です。つまり、アスクの合計とビッドの合計の差が取られます。この指標はバーの形成中に変化します。範囲はこの指標の最大値と最小値を示します。</value></data>
+  <data name="DomStrengthDescription" xml:space="preserve"><value>DOM強度インジケーターは、指定された期間の取引量とDOM内の現在の取引量の比率を示します。マーカーは、完了した取引とDOMの現在の比率を示す色で表示され、Deltaインジケーターの上に表示されます。上部のマーカーは、DOM内の売り気配に対する買いの比率を示し、下部のマーカーは、DOM内の買い気配に対する売りの比率を示します。</value></data>
+  <data name="DonchianDescription" xml:space="preserve"><value>ドンチャンチャネルは、指定された期間内の最高値と最低値を使用してチャネルを作成するインジケーターであり、市場のボラティリティを監視するために使用できます。狭いチャネルは安定した価格を示し、広いチャネルは価格の変動を示します。このインジケーターは、価格の動きに基づいて潜在的な取引機会を特定するのに役立ちます。</value></data>
+  <data name="DoubleStochasticBressertDescription" xml:space="preserve"><value>ダブルストキャスティック・ブレッサート指標は、ダブルストキャスティック指標の変種であり、ダブルストキャスティック値のEMAとして計算されます。これは、テクニカル分析で潜在的なトレンドの反転を特定し、金融市場での売買シグナルを生成するために使用されます。トレーダーや投資家は、この指標を使用して市場のモメンタムを把握し、情報に基づいた取引判断を行います。</value></data>
+  <data name="DoubleStochasticDescription" xml:space="preserve"><value>ダブルストキャスティック指標はストキャスティック指標から派生したもので、すでに計算されたストキャスティックのストキャスティック値として計算され、偽のシグナルを減らすのに役立ちます。この修正により、ストキャスティック指標の精度が向上し、トレーダーのテクニカル分析に役立ちます。</value></data>
+  <data name="Down" xml:space="preserve"><value>下</value></data>
+  <data name="DownAlert" xml:space="preserve"><value>ダウンアラート</value></data>
+  <data name="DownAlertFileFilterDescription" xml:space="preserve"><value>有効化されると、指定されたサウンドファイル名を使用して、下流信号の存在時にアラートがトリガーされます。</value></data>
+  <data name="DownAreaSettingsDescription" xml:space="preserve"><value>落下エリアの視覚化設定。</value></data>
+  <data name="DownTrendSettingsDescription" xml:space="preserve"><value>ダウントレンドの表示設定。</value></data>
+  <data name="DrawAbovePriceDescription" xml:space="preserve"><value>チャート上の価格データの上または下に視覚要素が描画されるかどうかを決定します。有効にすると、インジケーターのグラフィックが価格プロットの上に重ねられます。</value></data>
+  <data name="DrawLinesDescription" xml:space="preserve"><value>チャート上の境界線の表示を有効または無効にします。</value></data>
+  <data name="Drawing" xml:space="preserve"><value>描画</value></data>
+  <data name="DtOscillatorDescription" xml:space="preserve"><value>DTオシレーター - このインジケーターは、価格ではなく相対力指数（RSI）に基づいたストキャスティックオシレーターを表示します。この計算方法の代替により、従来のストキャスティックオシレーターとは異なります。</value></data>
+  <data name="Duration" xml:space="preserve"><value>期間</value></data>
+  <data name="DynamicLevelsChannelDescription" xml:space="preserve"><value>インジケーターは、ユーザーが選択した期間を考慮して、POCレベルとVAHおよびVALレベルによって形成されたチャネルの値を動的に計算して表示します。これらのレベルに対する価格の変動に基づいて、売買圧力の増加を示す信号が生成されます。</value></data>
+  <data name="DynamicLevelsDescription" xml:space="preserve"><value>このインジケーターは、ボリュームデータを使用して、VAH、VAL、POCなどの重要なレベルを動的に計算および表示します。
+*注意！インジケーターは、チャートに読み込まれたデータに基づいて計算を行います。つまり、チャートに5日分のデータをアップロードし、インジケーターの期間に1か月を選択した場合、1か月分のデータは計算されず、5日分のみが計算されます。</value></data>
+  <data name="EMA" xml:space="preserve"><value>指数移動平均</value></data>
+  <data name="EMADescription" xml:space="preserve"><value>最も迅速な反応を持つ移動平均。
+指数移動平均（EMA）は、他の移動平均よりも価格変動に迅速に反応します。
+トレンドの方向性とモメンタムを評価するのに役立ちます。動的なサポートとレジスタンスとしてよく使用されます。</value></data>
+  <data name="EMALineSettingsDescription" xml:space="preserve"><value>EMAラインの視覚化設定。</value></data>
+  <data name="EMAPeriod" xml:space="preserve"><value>EMA期間</value></data>
+  <data name="EMAPeriodDescription" xml:space="preserve"><value>指数移動平均（EMA）の期間を設定します</value></data>
+  <data name="EMVDescription" xml:space="preserve"><value>移動の容易さ（またはアームズの移動の容易さの値、EMVとも呼ばれる）は、市場で価格変動がどれほど容易に発生するかを示すように設計されたテクニカル指標です。価格変動と取引量との関係を分析し、市場価格がどれだけ自由に動くことができるかに関する情報を提供します。</value></data>
+  <data name="EfficiencyRatioPeriod" xml:space="preserve"><value>効率比率期間</value></data>
+  <data name="ElderRayDescription" xml:space="preserve"><value>エルダー・レイ指標は、バーの高値と安値の価格が平均価格からどれだけ逸脱しているかを分析することで、強気と弱気の相対的な強さを測定します。
+
+エルダー・レイ指標はアレクサンダー・エルダーによって開発され、X線にちなんで名付けられました。これは、強気と弱気の力の構造を示します。エルダー・レイは、トレンドに従う移動平均と2つのオシレーターの組み合わせです。</value></data>
+  <data name="ElementDisplayModeDescription" xml:space="preserve"><value>レベル: 個別のレベル、累積: 累積ボリューム、両方: 両方のオプション。</value></data>
+  <data name="ElementScaleValueDescription" xml:space="preserve"><value>システムまたはアプリケーション内の要素のスケール値の説明です。スケール値がどのように定義されているか、および要素のサイズや寸法を決定する上での役割を明確にします。この情報は、ユーザーインターフェースおよびレイアウトデザインに取り組む開発者やデザイナーにとって重要です。</value></data>
+  <data name="EmaPeriod1" xml:space="preserve"><value>指数移動平均期間1</value></data>
+  <data name="EmaPeriod2" xml:space="preserve"><value>指数移動平均期間2</value></data>
+  <data name="EmaPeriod3" xml:space="preserve"><value>指数移動平均期間3</value></data>
+  <data name="EmaPeriod4" xml:space="preserve"><value>指数移動平均期間4</value></data>
+  <data name="EmaPeriod5" xml:space="preserve"><value>指数移動平均期間5</value></data>
+  <data name="EmaPeriod6" xml:space="preserve"><value>指数移動平均期間6</value></data>
+  <data name="Enabled" xml:space="preserve"><value>有効</value></data>
+  <data name="EnabledColorElementDescription" xml:space="preserve"><value>有効にすると、指定された要素が表示され、特定の色に設定されます。</value></data>
+  <data name="EndTime" xml:space="preserve"><value>終了時間</value></data>
+  <data name="EndTimeDescription" xml:space="preserve"><value>取引プラットフォームの終了時間</value></data>
+  <data name="EndTimeFilterDescription" xml:space="preserve"><value>時間フィルターの終了時刻を指定します。</value></data>
+  <data name="EntryCciPeriod" xml:space="preserve"><value>エントリーCCI期間</value></data>
+  <data name="Equilibrium" xml:space="preserve"><value>平衡</value></data>
+  <data name="ErgodicDescription" xml:space="preserve"><value>エルゴディック指標は、価格差とその絶対値を計算し、短期および長期のために指数平滑化を適用し、短期の指数平滑化と長期の比率として真の強度指数（TSI）も計算します。その後、信号線を使用し、TSIと信号線の差として最終値を形成し、市場トレンドの変化の重要なポイントを特定するのに役立ちます。</value></data>
+  <data name="Estimator" xml:space="preserve"><value>見積もり</value></data>
+  <data name="EstimatorLineSettingsDescription" xml:space="preserve"><value>見積もりラインの視覚設定。</value></data>
+  <data name="Exact" xml:space="preserve"><value>正確</value></data>
+  <data name="ExhaustionIndDescription" xml:space="preserve"><value>エクスハスションインジケーターは、価格が上昇または下降する際に取引量が徐々に減少することを観察することによって、市場活動の弱体化を検出します。この需要の減少は、ASKおよびBID列のボリュームの減少、さらには総ボリュームに反映されます。これは、市場の潜在的な疲弊を示す可能性があります。</value></data>
+  <data name="ExtendLast" xml:space="preserve"><value>最後を延長</value></data>
+  <data name="ExtendLastDescription" xml:space="preserve"><value>最後の要素を拡張するかどうかを決定します。</value></data>
+  <data name="ExtendLines" xml:space="preserve"><value>ラインを延長する</value></data>
+  <data name="ExtendLinesDescription" xml:space="preserve"><value>ラインを延長するかどうかを決定します。</value></data>
+  <data name="ExtendPrevious" xml:space="preserve"><value>前を続ける</value></data>
+  <data name="ExtendPreviousDescription" xml:space="preserve"><value>指定された要素を次の要素の開始まで拡張するかどうかを決定します。</value></data>
+  <data name="ExternalChartsDescription" xml:space="preserve"><value>インジケーターは、いくつかの連続したバーをより大きな時間間隔に「結合」することを可能にします。</value></data>
+  <data name="ExternalPeriod" xml:space="preserve"><value>外部期間</value></data>
+  <data name="FCVDescription" xml:space="preserve"><value>このインジケーターは、カスタムのティック値を使用する場合または使用しない場合の契約の総価値を計算して表示します。</value></data>
+  <data name="FairValueGapDescription" xml:space="preserve"><value>このインジケーターは、現在およびより高い時間枠で公正価値ギャップを見つけます。公正価値ギャップは、左端の高値が右端の安値よりも低いか、左端の安値が右端の高値よりも高いという条件を満たす三本のバーの範囲で決定されます。</value></data>
+  <data name="FakeSeriesColor" xml:space="preserve"><value>フェイクシリーズカラー</value></data>
+  <data name="FastConst" xml:space="preserve"><value>高速スムージング定数</value></data>
+  <data name="FastConstDescription" xml:space="preserve"><value>短期的な価格変動に対する感度を調整します。</value></data>
+  <data name="FastLine" xml:space="preserve"><value>ファストライン</value></data>
+  <data name="FastLineSettingsDescription" xml:space="preserve"><value>高速ラインの表示設定</value></data>
+  <data name="FillAreaDescription" xml:space="preserve"><value>指定された色で指定された領域を塗りつぶすかどうかを決定します。</value></data>
+  <data name="FillCandles" xml:space="preserve"><value>キャンドルを充填する</value></data>
+  <data name="FillColor" xml:space="preserve"><value>塗りつぶしの色</value></data>
+  <data name="FillColorDescription" xml:space="preserve"><value>要素の塗りつぶし色を設定します。</value></data>
+  <data name="Filter" xml:space="preserve"><value>フィルター</value></data>
+  <data name="Filter1" xml:space="preserve"><value>フィルター №1</value></data>
+  <data name="Filter2" xml:space="preserve"><value>フィルター №2</value></data>
+  <data name="Filter3" xml:space="preserve"><value>フィルター№3</value></data>
+  <data name="Filter4" xml:space="preserve"><value>フィルター №4</value></data>
+  <data name="Filter5" xml:space="preserve"><value>フィルター番号5</value></data>
+  <data name="FilterCandleColorDescription" xml:space="preserve"><value>フィルター条件に一致するキャンドルの色を設定します。</value></data>
+  <data name="FilterColor" xml:space="preserve"><value>フィルターカラー</value></data>
+  <data name="FilterColorDescription" xml:space="preserve"><value>フィルター基準を満たさない要素の色を定義します。</value></data>
+  <data name="FilterEmptyMsg" xml:space="preserve"><value>フィルターは空です</value></data>
+  <data name="Filters" xml:space="preserve"><value>フィルター</value></data>
+  <data name="FiltersMaxVolumeDecimalColorDescription" xml:space="preserve"><value>指定した閾値を超える出来高のレベルをハイライトします。</value></data>
+  <data name="FirstBar" xml:space="preserve"><value>ファーストバー</value></data>
+  <data name="FirstBarDescription" xml:space="preserve"><value>有効にすると、要素の表示は計算に参加したバーから始まります。</value></data>
+  <data name="FirstDev" xml:space="preserve"><value>ファーストデブ</value></data>
+  <data name="FirstLine" xml:space="preserve"><value>最初の行</value></data>
+  <data name="FisherTransformDescription" xml:space="preserve"><value>フィッシャー変換は、価格をガウス正規分布に変換するテクニカル指標であり、最近の価格に基づいて極端な価格変動を特定するのに役立ちます。これは、資産の価格の転換点を見つけるために使用でき、トレンド内の価格波を分離するのにも役立ちます。</value></data>
+  <data name="FisherTransformInverseDescription" xml:space="preserve"><value>フィッシャー変換逆指標は、-1から1までの値を生成する変換関数であり、取引におけるオシレーターとしての使用に適しています。</value></data>
+  <data name="FisherTransformInverseRsiDescription" xml:space="preserve"><value>RSIを用いた逆フィッシャートランスフォームは、RSIインジケーターの値を中間値として使用する逆フィッシャートランスフォームオシレーターのバリエーションです。</value></data>
+  <data name="FitToPriceRange" xml:space="preserve"><value>価格範囲に合わせる</value></data>
+  <data name="FitToPriceRangeDescription" xml:space="preserve"><value>期間の最高値と最低値の間にのみセッションエリアを描画します</value></data>
+  <data name="FixedSizes" xml:space="preserve"><value>固定サイズ</value></data>
+  <data name="FixedSizesDescription" xml:space="preserve"><value>「固定サイズ」オプションが有効になっている場合、チャート上のすべてのボリュームは、実際の値に関係なく同じサイズで視覚的に表示されます。この機能は、異なるボリュームの標準化された視覚表現を作成するのに役立ちます。</value></data>
+  <data name="FixedThreshold" xml:space="preserve"><value>固定しきい値</value></data>
+  <data name="FixedValue" xml:space="preserve"><value>固定値</value></data>
+  <data name="FlatColor" xml:space="preserve"><value>フラットカラー</value></data>
+  <data name="Font" xml:space="preserve"><value>フォント</value></data>
+  <data name="FontColor" xml:space="preserve"><value>フォントカラー</value></data>
+  <data name="FontSettingDescription" xml:space="preserve"><value>フォントのさまざまな設定を指定します。</value></data>
+  <data name="FontSize" xml:space="preserve"><value>フォントサイズ</value></data>
+  <data name="FontSizeDescription" xml:space="preserve"><value>フォントサイズを設定します。</value></data>
+  <data name="ForceIndexDescription" xml:space="preserve"><value>フォースインデックス指標 - 現在の終値と前の終値の差に、現在のキャンドルの取引量を掛けて計算されます。この指標の主なアイデアは、市場における買い手と売り手の価格への圧力の強さを判断することです。</value></data>
+  <data name="Foreground" xml:space="preserve"><value>前景</value></data>
+  <data name="FractalPeriodDescription" xml:space="preserve"><value>フラクタルを識別するために中央バーの両側に必要なバーの数。</value></data>
+  <data name="FractalsDescription" xml:space="preserve"><value>インジケーターは5本のキャンドルパターンに基づいてローカルエクストリームを特定し、表示します。高いエクストリームは、中央のキャンドルに最高点があり、両側に低い高値がある場合に発生します。逆に、低いエクストリームは、中央のキャンドルに最低点があり、両側に高い安値があることによって特徴付けられます。</value></data>
+  <data name="FrameMultiplier" xml:space="preserve"><value>フレームマルチプライヤー</value></data>
+  <data name="FrameSize" xml:space="preserve"><value>フレームサイズ</value></data>
+  <data name="Full" xml:space="preserve"><value>完全</value></data>
+  <data name="FullWidth" xml:space="preserve"><value>フル幅</value></data>
+  <data name="GMMADescription" xml:space="preserve"><value>グッピー複数移動平均（GMMA）指標は、トレンドの強さと持続時間を判断するために、6つの短期移動平均と6つの長期移動平均を使用するトレンド技術指標です。</value></data>
+  <data name="GapsIndDescription" xml:space="preserve"><value>このインジケーターは、隣接するバー間の価格ギャップを判断するのに役立ちます。</value></data>
+  <data name="General" xml:space="preserve"><value>一般</value></data>
+  <data name="GreatestSwingDescription" xml:space="preserve"><value>このインジケーターは、ラリー・ウィリアムズの著書「短期取引の長期的秘密」に基づくGSVコンセプトに基づいていますが、計算は特定のバーの極値を含む異なる方法で行われます。これは、価格が動くことができる範囲を示すチャネルを表しており、トレーダーに洞察を提供します。</value></data>
+  <data name="Green" xml:space="preserve"><value>グリーン</value></data>
+  <data name="GreenSeriesColor" xml:space="preserve"><value>グリーンシリーズの色</value></data>
+  <data name="Grid" xml:space="preserve"><value>グリッド</value></data>
+  <data name="GridColorDescription" xml:space="preserve"><value>情報を素早く読み取るための視覚的なデータ分離.</value></data>
+  <data name="GridLineSettingsDescription" xml:space="preserve"><value>グリッドラインの視覚化設定。</value></data>
+  <data name="GridRowHeihgtDescription" xml:space="preserve"><value>グリッド行の高さを設定します。</value></data>
+  <data name="GridStep" xml:space="preserve"><value>グリッドステップ</value></data>
+  <data name="GridStyle" xml:space="preserve"><value>グリッドスタイル</value></data>
+  <data name="H2" xml:space="preserve"><value>H2</value></data>
+  <data name="H4" xml:space="preserve"><value>H4</value></data>
+  <data name="H6" xml:space="preserve"><value>H6</value></data>
+  <data name="HHMMSS" xml:space="preserve"><value>hh:mm:ss</value></data>
+  <data name="HHMMSSPM" xml:space="preserve"><value>h:mm:ss am/pm</value></data>
+  <data name="HLAverage" xml:space="preserve"><value>HL平均</value></data>
+  <data name="HLCAverage" xml:space="preserve"><value>HLC平均</value></data>
+  <data name="HLCAveragePrevSessionDescription" xml:space="preserve"><value>前のセッションの平均価格値は、式 (高値 + 安値 + 終値) / 3 を使用して計算されます。</value></data>
+  <data name="HMADescription" xml:space="preserve"><value>ハル移動平均（HMA）は、価格の平均を計算するために広く使用されている方法です。これは、従来の移動平均の制限、特に遅延やノイズの問題を克服するために、2005年にアラン・ハルによって作成されました。HMAは、加重移動平均を使用することでこれらの課題に対処し、ノイズを減らした滑らかな価格データを生成します。</value></data>
+  <data name="HRangesDescription" xml:space="preserve"><value>HRangesインジケーターは、特定の条件に基づいて価格範囲を決定し表示するように設計されています。5本のキャンドルの局所的な極値が考慮されます。形成時には、範囲はフラットと見なされます。ブレイクアウト後、ブレイクアウトの方向に応じて、この範囲は強気または弱気と見なされます。最大ボリュームと範囲内のバーの数に対してフィルターを設定することも可能です。</value></data>
+  <data name="HVRDescription" xml:space="preserve"><value>HVR（歴史的ボラティリティ比率）指標は、金融商品の歴史的ボラティリティを評価するために設計されています。これは、終値の対数リターンに基づいて短期および長期のボラティリティの比率を計算します。比率が上昇することは、長期に対して短期のボラティリティが増加していることを示唆し、トレンドダイナミクスの変化を示す可能性があります。</value></data>
+  <data name="HeaderBackgroundDescription" xml:space="preserve"><value>行を素早く移動するためのヘッダーの強調表示。</value></data>
+  <data name="Headers" xml:space="preserve"><value>ヘッダー</value></data>
+  <data name="HeatmapCvdCalculationMode" xml:space="preserve"><value>CVD計算モード</value></data>
+  <data name="HeatmapCvdPanelHeight" xml:space="preserve"><value>CVDパネルの高さ</value></data>
+  <data name="HeatmapPocInterval" xml:space="preserve"><value>POC間隔</value></data>
+  <data name="HeatmapPocLineColor" xml:space="preserve"><value>POCラインカラー</value></data>
+  <data name="HeatmapPocLineThickness" xml:space="preserve"><value>POCラインの太さ</value></data>
+  <data name="HeatmapShowValueArea" xml:space="preserve"><value>バリューエリアを表示</value></data>
+  <data name="HeatmapValueAreaColor" xml:space="preserve"><value>バリューエリアカラー</value></data>
+  <data name="Height" xml:space="preserve"><value>高さ</value></data>
+  <data name="HeightAlert" xml:space="preserve"><value>高さ警告</value></data>
+  <data name="HeikenAshiDescription" xml:space="preserve"><value>ヘイケンアシ（HA） - 前の期間の平均価格変動に基づいた時間セグメントの引用の表現の一種です。</value></data>
+  <data name="HeikenAshiSmoothedDescription" xml:space="preserve"><value>Heiken-Ashi SmoothedはHeiken-Ashi指標に基づいています。指標の値は元のものと同様に計算され、加重移動平均と平滑移動平均による追加の平滑化が適用されます。この平滑化は、元の指標値すべてに対して次の式を使用して適用されます：WMA(SMMA(x(t)))。</value></data>
+  <data name="HerrickPayoffDescription" xml:space="preserve"><value>ヘリックペイオフ指数（HPI）は、先物市場における資金の流入と流出を測定する指数です。ジョン・ヘリックによって開発され、価格、オープンインタレスト、取引量の変化の分析に基づいています。</value></data>
+  <data name="Hide" xml:space="preserve"><value>隠す</value></data>
+  <data name="HideAll" xml:space="preserve"><value>すべてを非表示にする</value></data>
+  <data name="HideBackGround" xml:space="preserve"><value>背景を隠す</value></data>
+  <data name="HideBarsCountUnfilteredRangesDescription" xml:space="preserve"><value>バーカウントフィルターを通過しない範囲を非表示にするかどうかを決定します。</value></data>
+  <data name="HideBorder" xml:space="preserve"><value>境界線を隠す</value></data>
+  <data name="HideBorderDescription" xml:space="preserve"><value>指定された要素の境界線の表示を非表示にするかどうかを決定します。</value></data>
+  <data name="HideGaps" xml:space="preserve"><value>ギャップを隠す</value></data>
+  <data name="HideGapsDescription" xml:space="preserve"><value>チャート上のギャップの表示を非表示にするかどうかを決定します。</value></data>
+  <data name="HideHeadersDescription" xml:space="preserve"><value>有効にすると、ヘッダー行が非表示になります。</value></data>
+  <data name="HideLabelBackGroundDescription" xml:space="preserve"><value>このオプションは、ラベルの背景の表示を隠します。</value></data>
+  <data name="HideMaxVolumeUnfilteredRangesDescription" xml:space="preserve"><value>最大ボリュームフィルターを通過しない範囲を非表示にするかどうかを決定します。</value></data>
+  <data name="HideOlds" xml:space="preserve"><value>古いものを隠す</value></data>
+  <data name="HideOldsElementsDescription" xml:space="preserve"><value>履歴にあるこれらの要素を非表示にし、現在の要素のみを表示することができます。</value></data>
+  <data name="HideRowsDescription" xml:space="preserve"><value>ヘッダーを非表示にする</value></data>
+  <data name="High" xml:space="preserve"><value>高い</value></data>
+  <data name="HighColor" xml:space="preserve"><value>ハイカラー</value></data>
+  <data name="HighLineColor" xml:space="preserve"><value>ハイラインカラー</value></data>
+  <data name="HighLow" xml:space="preserve"><value>高低</value></data>
+  <data name="HighLow2" xml:space="preserve"><value>(High + Low)/2</value></data>
+  <data name="HighLow2Close4" xml:space="preserve"><value>(高値 + 安値 + 2*終値)/4</value></data>
+  <data name="HighLowClose3" xml:space="preserve"><value>(高値 + 安値 + 終値)/3</value></data>
+  <data name="HighLowColor" xml:space="preserve"><value>ハイローの色</value></data>
+  <data name="HighLowIndDescription" xml:space="preserve"><value>このインジケーターは、チャート上の最後のnバーの最高値と最低値を表示し、指定された期間内の値の範囲を視覚的に表現します。これは、市場のトレンドや潜在的なサポートまたはレジスタンスレベルを特定するのに役立ちます。</value></data>
+  <data name="HighLowLineColorDescription" xml:space="preserve"><value>高低ラインを表示するために使用する色を定義します。</value></data>
+  <data name="HighRatio" xml:space="preserve"><value>最大比率</value></data>
+  <data name="HighRatioColorDescription" xml:space="preserve"><value>高比率要素の色を定義します。</value></data>
+  <data name="HighRatioDescription" xml:space="preserve"><value>比率の高い境界値を設定します。</value></data>
+  <data name="HighSession" xml:space="preserve"><value>高セッション</value></data>
+  <data name="HigherTimeFrame" xml:space="preserve"><value>高時間枠</value></data>
+  <data name="Highest" xml:space="preserve"><value>最高</value></data>
+  <data name="HighestIndDescription" xml:space="preserve"><value>このインジケーターは、指定された期間内の最高価格を特定するのに役立ち、一定数のバーを分析します。これは、価格の変動を追跡し、市場の潜在的なトレンドを特定しようとするトレーダーやアナリストにとって便利です。</value></data>
+  <data name="HighestLowestPeriodDescription" xml:space="preserve"><value>最高および最低コンポーネントの期間を設定します。</value></data>
+  <data name="HighlightSignalBars" xml:space="preserve"><value>信号バーをハイライトする</value></data>
+  <data name="HighlightSignalBarsDescription" xml:space="preserve"><value>信号バーを強調表示するかどうかを決定します。</value></data>
+  <data name="Histogram" xml:space="preserve"><value>ヒストグラム</value></data>
+  <data name="HistogramMinimizedModeDescription" xml:space="preserve"><value>このモードでは、すべてのヒストグラム要素がゼロラインの上に表示されます。</value></data>
+  <data name="HistogramSize" xml:space="preserve"><value>ヒストグラムのサイズ</value></data>
+  <data name="HistogramWidthDescription" xml:space="preserve"><value>オーダーブックパネルの幅（ピクセル単位）。</value></data>
+  <data name="HorizontalOffset" xml:space="preserve"><value>水平オフセット</value></data>
+  <data name="HorizontalPosition" xml:space="preserve"><value>水平位置</value></data>
+  <data name="Hourly" xml:space="preserve"><value>毎時</value></data>
+  <data name="HurstExponentDescription" xml:space="preserve"><value>ハースト指数は、時間系列における長期記憶を評価するために、自動相関と時間の経過に伴う相関の減衰率を測定するために使用されます。これは「依存指数」と見なされ、時間系列が平均値の方向に一貫して減少する傾向や、過去の挙動に対して特定の方向に集中する傾向を定量化します。</value></data>
+  <data name="IBHM" xml:space="preserve"><value>IBH-IBM</value></data>
+  <data name="IBHX1H" xml:space="preserve"><value>IBHX1-IBH</value></data>
+  <data name="IBHX21" xml:space="preserve"><value>IBHX2-1</value></data>
+  <data name="IBHX32" xml:space="preserve"><value>IBHX3-2</value></data>
+  <data name="IBL1" xml:space="preserve"><value>IBL-IBLX1</value></data>
+  <data name="IBLX12" xml:space="preserve"><value>IBLX1-2</value></data>
+  <data name="IBLX23" xml:space="preserve"><value>IBLX2-3</value></data>
+  <data name="IBML" xml:space="preserve"><value>IBM-IBL</value></data>
+  <data name="IchimokuDescription" xml:space="preserve"><value>一目均衡表は、サポートとレジスタンスのレベルを特定し、市場のトレンドを判断し、モメンタムを評価し、トレーディングシグナルを生成するために使用されるテクニカル分析ツールです。これは、トレーダーや投資家が金融市場で情報に基づいた意思決定を行うための貴重な洞察を提供します。</value></data>
+  <data name="IgnoreWicks" xml:space="preserve"><value>ローソク足のヒゲを無視する</value></data>
+  <data name="IgnoreWicksDescription" xml:space="preserve"><value>条件がアクティブな場合、計算のためのデータはキャンドルのオープンとクローズの間から取得され、条件がアクティブでない場合は高値と安値の間から取得されます。</value></data>
+  <data name="IgnoreZeroValues" xml:space="preserve"><value>ゼロ値を無視する</value></data>
+  <data name="IgnoreZeroValuesDescription" xml:space="preserve"><value>有効にすると、ゼロ値は計算に含まれません。</value></data>
+  <data name="ImageLocation" xml:space="preserve"><value>画像の場所</value></data>
+  <data name="ImageLocationDescription" xml:space="preserve"><value>画像の表示位置を指定します。</value></data>
+  <data name="ImageOffsetXDescription" xml:space="preserve"><value>画像のx軸オフセットをピクセル単位で設定します。</value></data>
+  <data name="ImageOffsetYDescription" xml:space="preserve"><value>画像のy軸オフセットをピクセル単位で設定します。</value></data>
+  <data name="ImageTransparencyDescription" xml:space="preserve"><value>画像の透明度コンポーネントの値を定義します。</value></data>
+  <data name="ImbalanceDifference" xml:space="preserve"><value>最小差</value></data>
+  <data name="ImbalanceRange" xml:space="preserve"><value>不均衡範囲</value></data>
+  <data name="ImbalanceRatio" xml:space="preserve"><value>不均衡比率</value></data>
+  <data name="ImbalanceRatioIndDescription" xml:space="preserve"><value>この指標は、指定された比率に基づいて入札と売却の注文間の不均衡を測定し、特定のバー内のそのような不均衡の数を提供します。これは、トレーダーが潜在的な市場の不均衡を特定し、データに基づいて情報に基づいた取引決定を行うのに役立ちます。</value></data>
+  <data name="ImbalanceVolume" xml:space="preserve"><value>不均衡出来高</value></data>
+  <data name="IncludeEqualHighLow" xml:space="preserve"><value>等しいHighとLowを含める</value></data>
+  <data name="IncludeEqualsValuesDescription" xml:space="preserve"><value>比較される値が等しい場合を考慮するかどうかを決定します。</value></data>
+  <data name="IncreasedMomentumSettingsDescription" xml:space="preserve"><value>増加したモーメント値を表す要素の視覚化設定。</value></data>
+  <data name="Indicator" xml:space="preserve"><value>インジケーター</value></data>
+  <data name="IndicatorAuthorDescription" xml:space="preserve"><value>指標アイデアの著者は、指標の背後にある概念を提案し、開発する責任があります。彼らは指標の方向性と目的を形作る上で重要な役割を果たします。彼らの意見は、指標が意図した基準を効果的に測定することを保証するために不可欠です。</value></data>
+  <data name="InertiaIndDescription" xml:space="preserve"><value>「イナーシャ」インジケーターは移動平均の代替であり、買い手と売り手のバランスを考慮しながら期待される価格の動きを計算します。計算には「線形回帰」と「相対的活力指数」のインジケーターが含まれています。</value></data>
+  <data name="InertiaV2IndDescription" xml:space="preserve"><value>「Inertia V2」インジケーターは、移動平均の代替であり、より複雑な数式を使用し、「線形回帰」と「相対的活力指数」インジケーターを計算に組み込んでいます。また、「標準偏差」インジケーターを利用して、買い手と売り手の現在のバランスを維持し、初版とは異なります。</value></data>
+  <data name="Info" xml:space="preserve"><value>情報</value></data>
+  <data name="InitialBalanceIndDescription" xml:space="preserve"><value>"初期バランス"（初期残高） - 指標で、指定された期間の「高」から「低」までの開始エリアを選択し、初期値に基づいてチャートにラインを構築します。初期バランスが前日と比較して狭い場合、このゾーンでの価格の突破が期待できると考えられています。初期バランスが広い場合、価格はおそらくそのエリア内にとどまるでしょう。</value></data>
+  <data name="InsideEqualsBarDescription" xml:space="preserve"><value>"インサイドバー"は、各ハイライトされたシリーズの最初のバーの高値と安値の範囲内にあるバーのシリーズを強調表示します。トレランスパラメータを使用すると、キャンドルのボディが高値/安値から許容される偏差を設定できます。</value></data>
+  <data name="InvertOutput" xml:space="preserve"><value>出力を反転する</value></data>
+  <data name="InvertOutputDescription" xml:space="preserve"><value>出力値を反転させる必要があるかどうか（値の符号を反対に変更する）を判断します。</value></data>
+  <data name="IsApproximationAlertDescription" xml:space="preserve"><value>価格が特定のレベルに近づいたときにアラートが発行されるかどうかを決定します。</value></data>
+  <data name="IsCustomSessionDescription" xml:space="preserve"><value>有効にすると、カスタムセッションの使用が許可されます。それ以外の場合は、デフォルトのセッションが使用されます。</value></data>
+  <data name="IsLimitMaxLengthDescription" xml:space="preserve"><value>指定された要素の最大長を制限するかどうかを決定します。</value></data>
+  <data name="IsLineTillTouchDescription" xml:space="preserve"><value>ラインをバーに触れるまで延長するかどうかを決定します。</value></data>
+  <data name="IsNeedFillDescription" xml:space="preserve"><value>表示されている要素を入力する必要があるかどうかを決定します。</value></data>
+  <data name="IsNeedShowCurrentTimeDescription" xml:space="preserve"><value>現在の時間を表示するかどうかを決定します。</value></data>
+  <data name="IsNeedShowLabelDescription" xml:space="preserve"><value>テキストラベルを表示するかどうかを決定します。</value></data>
+  <data name="IsNeedShowLinesDescription" xml:space="preserve"><value>チャートにラインを表示するかどうかを決定します。</value></data>
+  <data name="IsSingalAlertDescription" xml:space="preserve"><value>指定された信号が現れたときにアラートを発行するかどうかを決定します。</value></data>
+  <data name="IsVisibleDescription" xml:space="preserve"><value>この要素を表示するかどうかを決定します。</value></data>
+  <data name="JawAlligator" xml:space="preserve"><value>ワニの顎</value></data>
+  <data name="KAMADescription" xml:space="preserve"><value>カウフマン適応移動平均（KAMA）は、指数平滑移動平均と、動的に変化する平滑化定数としてのボラティリティを決定し適用するための独自の手法を使用する適応移動平均の一種です。</value></data>
+  <data name="KCMultFactor" xml:space="preserve"><value>ケルトナーチャネルの乗数ファクター</value></data>
+  <data name="KCPeriod" xml:space="preserve"><value>Keltner Channel 期間</value></data>
+  <data name="KDJDescription" xml:space="preserve"><value>"KDJ"指標は、取引機会を示すために3本のラインの組み合わせを使用するテクニカル分析ツールです。赤いラインが青いラインの上にあり、青いラインが緑のラインの上にあるときに買い信号を生成し、逆の場合には売り信号を生成します。指標の有効性はライン間の距離に基づいており、距離が広いほど信号が強くなります。</value></data>
+  <data name="KdFastDescription" xml:space="preserve"><value>"KD-Fast"（ファストストキャスティック）指標は、ジョージ・C・レーンによって開発された一種のストキャスティックオシレーターです。これは、現在の終値と特定の期間における高値と安値の範囲との関係を評価し、価格変動率を計算します。KD-Fast指標は、チャート上で2本のライン「%K」と「%D」によって表され、モメンタムや潜在的なトレンド反転ポイントに関する洞察を提供します。</value></data>
+  <data name="KdSlowDescription" xml:space="preserve"><value>「KD - Slow」インジケーターは「KD - Fast」インジケーターの修正版であり、「%K」ラインは「KD - Fast」インジケーターの「%D」ラインであり、「%D」ラインは「%K」ラインの平滑化バージョンです。このインジケーターは、金融取引におけるトレンドと潜在的な反転ポイントを分析するために使用されます。</value></data>
+  <data name="KeltnerChannel" xml:space="preserve"><value>ケルトナーチャネル</value></data>
+  <data name="KeltnerChannelDescription" xml:space="preserve"><value>ケルトナーチャネルは、1960年にチェスター・ケルトナーによって開発されたテクニカル分析指標です。3本のチャートラインを使用します：中間線は「典型的」な価格の10日間の単純移動平均であり、上部および下部のラインは、中間線から日々の価格範囲の移動平均を加算および減算することによって得られます。</value></data>
+  <data name="KijunSen" xml:space="preserve"><value>基準線</value></data>
+  <data name="KurtosisDescription" xml:space="preserve"><value>カートシス指標は市場のムード指標として使用され、カートシス、ファストカートシス、ファスト/スローカートシスの3つの部分で構成されています。これはチャート上に2つの曲線で表示され、正規分布のダイナミクスを示し、正の値はピーク値を示し、負の値はその逆を示します。</value></data>
+  <data name="Label" xml:space="preserve"><value>ラベル</value></data>
+  <data name="LabelDisplay" xml:space="preserve"><value>ラベル表示</value></data>
+  <data name="LabelDisplayDescription" xml:space="preserve"><value>ラベルの可視性を制御します: 非表示、短縮（方向 + 結果）、フル（価格付き）</value></data>
+  <data name="LabelFillColorDescription" xml:space="preserve"><value>データを快適に読み取るための設定。</value></data>
+  <data name="LabelLocation" xml:space="preserve"><value>ラベルの位置</value></data>
+  <data name="LabelLocationDescription" xml:space="preserve"><value>ラベルの表示位置を指定します。</value></data>
+  <data name="LabelOffset" xml:space="preserve"><value>テキストオフセット</value></data>
+  <data name="LabelOffsetXDescription" xml:space="preserve"><value>ラベルのx軸オフセットをピクセル単位で設定します。</value></data>
+  <data name="LabelOffsetYDescription" xml:space="preserve"><value>ラベルのY軸オフセットをピクセル単位で設定します。</value></data>
+  <data name="LabelTextColorDescription" xml:space="preserve"><value>注文板のレベルに表示される出来高数値の色。</value></data>
+  <data name="LabelTextDescription" xml:space="preserve"><value>表示されたラベルのテキストを定義します。</value></data>
+  <data name="LabelWidthDescription" xml:space="preserve"><value>ラベルの幅を定義します。</value></data>
+  <data name="LaggingLinePeriodDescription" xml:space="preserve"><value>遅延ラインのためにバーで測定された期間。</value></data>
+  <data name="LaggingLineSettingsDescription" xml:space="preserve"><value>遅延ラインのための視覚化設定。</value></data>
+  <data name="LastBearishElementsNumber" xml:space="preserve"><value>最新の弱気要素の数</value></data>
+  <data name="LastBullishElementsNumber" xml:space="preserve"><value>最後の強気要素の数</value></data>
+  <data name="LayoutGroup" xml:space="preserve"><value>レイアウト</value></data>
+  <data name="Left" xml:space="preserve"><value>左</value></data>
+  <data name="Length" xml:space="preserve"><value>長さ</value></data>
+  <data name="LevelValidTimeFilterDescription" xml:space="preserve"><value>有効にすると、見つかったレベルが有効と見なされる時間を決定します。</value></data>
+  <data name="Levels" xml:space="preserve"><value>レベル</value></data>
+  <data name="LevelsMode" xml:space="preserve"><value>レベルモード</value></data>
+  <data name="LimitMaxGapBodyLength" xml:space="preserve"><value>テキスト内の要素間の最大ギャップの長さを制限します</value></data>
+  <data name="LinRegChannelDescription" xml:space="preserve"><value>このインジケーターは、指定された偏差に等しい幅のチャネルを線形回帰スロープを使用して価格チャートに表示します。このインジケーターは、市場のトレンドの方向と強さを評価するために使用されます。</value></data>
+  <data name="LinRegSlopeDescription" xml:space="preserve"><value>「線形回帰スロープ」インジケーターは、「線形回帰」ラインのスロープ成分を表示するために使用され、指定された期間内に価格を変更するために必要な時間を示します。このインジケーターは、価格のトレンドを分析し、時間の経過に伴う価格の変化率に基づいて予測を行うのに役立ちます。</value></data>
+  <data name="Line" xml:space="preserve"><value>ライン</value></data>
+  <data name="LineColorDescription" xml:space="preserve"><value>表示されている線の色を決定します。</value></data>
+  <data name="LineDashStyle" xml:space="preserve"><value>ラインスタイル</value></data>
+  <data name="LineDashStyleDescription" xml:space="preserve"><value>チャート内の線に使用されるダッシュパターンを指定し、視覚的な区別のためにソリッド、ドット、ダッシュ、またはカスタムパターンなどのスタイルを選択できるようにします。</value></data>
+  <data name="LineLengthDescription" xml:space="preserve"><value>表示された行の長さを決定します。</value></data>
+  <data name="LineSettings" xml:space="preserve"><value>ライン設定</value></data>
+  <data name="LineSettingsDescription" xml:space="preserve"><value>この設定では、ユーザーがラインの表示パラメータを定義できます。ラインの視覚的な表示方法を調整するためのカスタマイズオプションを提供します。</value></data>
+  <data name="LineStyle" xml:space="preserve"><value>線のスタイル</value></data>
+  <data name="LineTillTouch" xml:space="preserve"><value>タッチまでのライン</value></data>
+  <data name="LineWidth" xml:space="preserve"><value>ライン幅</value></data>
+  <data name="LineWidthDescription" xml:space="preserve"><value>表示される線の幅を決定する方法を説明します。これは、グラフィカルな表示やインターフェースでの線の外観をカスタマイズするのに役立ちます。視覚的表現における線の幅を制御する方法について、シンプルで明確な説明を提供します。グラフィカルユーザーインターフェースや視覚化に取り組む開発者やデザイナーにとって、役立つリファレンスです。</value></data>
+  <data name="LinearReg" xml:space="preserve"><value>線形回帰</value></data>
+  <data name="LinearRegIndDescription" xml:space="preserve"><value>Linear Regressionインジケーターは、特定の期間にわたる金融商品価格の線形回帰を計算し表示します。これは、過去のデータに直線をフィットさせることでトレンドを表し、トレンドの方向と強さを示します。 
+トレーダーは感度を制御するために期間を調整できます。 
+このインジケーターは、トレンドや潜在的な転換点を特定するのに役立ち、線形回帰分析に基づいて全体的な価格動向の近似を提供します。ただし、包括的な市場分析のためには他のツールと併用することが重要です。</value></data>
+  <data name="LinearRegPeriodDescription" xml:space="preserve"><value>"線形回帰"モデルの期間を設定します。</value></data>
+  <data name="LinkingToBar" xml:space="preserve"><value>バーにリンク</value></data>
+  <data name="LipsAlligator" xml:space="preserve"><value>リップスアリゲーター</value></data>
+  <data name="Location" xml:space="preserve"><value>位置</value></data>
+  <data name="LocationFilters" xml:space="preserve"><value>位置フィルター</value></data>
+  <data name="LogoFilePathDescription" xml:space="preserve"><value>画像ファイル (*.bmp, *.gif, *.jpeg, *.jpg, *.png, *.tiff)</value></data>
+  <data name="LogoIndDescription" xml:space="preserve"><value>このインジケーターは、チャートウィンドウにファイルから画像を表示するために使用され、背景としてまたはチャートの上に重ねて表示できます。</value></data>
+  <data name="LogoLocation" xml:space="preserve"><value>位置</value></data>
+  <data name="LongPeriod" xml:space="preserve"><value>長期</value></data>
+  <data name="LongPeriodColorDescription" xml:space="preserve"><value>長期要素の色を定義します。</value></data>
+  <data name="LongPeriodDDescription" xml:space="preserve"><value>"KD - スロー"計算のための"%D"期間の設定。</value></data>
+  <data name="LongPeriodDescription" xml:space="preserve"><value>長期移動平均の期間を指定します</value></data>
+  <data name="LongStdDevPeriodDescription" xml:space="preserve"><value>この期間は、データの長期的な標準偏差がその平均に対して計算される時間間隔を定義します。</value></data>
+  <data name="LossColor" xml:space="preserve"><value>損失色</value></data>
+  <data name="LossTradeResultColorDescription" xml:space="preserve"><value>損失取引の結果セクションに使用される色を指定します。</value></data>
+  <data name="LotSize" xml:space="preserve"><value>ロットサイズ</value></data>
+  <data name="Low" xml:space="preserve"><value>低い</value></data>
+  <data name="LowColor" xml:space="preserve"><value>最小色</value></data>
+  <data name="LowLineColor" xml:space="preserve"><value>ローレベルカラー</value></data>
+  <data name="LowRatio" xml:space="preserve"><value>低比率</value></data>
+  <data name="LowRatioColorDescription" xml:space="preserve"><value>低比率要素の色を定義します。</value></data>
+  <data name="LowRatioDescription" xml:space="preserve"><value>比率の下限値を設定します。</value></data>
+  <data name="LowSession" xml:space="preserve"><value>低セッション</value></data>
+  <data name="Lower" xml:space="preserve"><value>下</value></data>
+  <data name="LowerFill" xml:space="preserve"><value>下部の塗りつぶし</value></data>
+  <data name="LowerFill2" xml:space="preserve"><value>下部フィル 2</value></data>
+  <data name="LowerNegativeValueColorDescription" xml:space="preserve"><value>前の値よりも低い負の値を持つ要素の色を表示します。</value></data>
+  <data name="LowerSma" xml:space="preserve"><value>下部SMA</value></data>
+  <data name="LowerStd1" xml:space="preserve"><value>下側偏差 1</value></data>
+  <data name="LowerStd2" xml:space="preserve"><value>下方偏差 2</value></data>
+  <data name="LowerStd3" xml:space="preserve"><value>下方偏差3</value></data>
+  <data name="LowerWick" xml:space="preserve"><value>下ひげ</value></data>
+  <data name="LowerWickSettingsDescription" xml:space="preserve"><value>下ウィック要素専用の視覚設定です。ユーザーがこの要素の外観を好みに応じてカスタマイズおよび調整できるようにします。この機能は、データ分析のためのより大きな視覚化ツールまたはプラットフォームの一部である可能性があります。</value></data>
+  <data name="Lowest" xml:space="preserve"><value>最小値</value></data>
+  <data name="LowestIndDescription" xml:space="preserve"><value>このインジケーターは、選択したデータソースに基づいて、指定された期間内の特定のバー数の最低価格を計算して表示します。これにより、トレーダーやアナリストは特定の期間内の最低価格ポイントを特定でき、取引決定に役立ちます。</value></data>
+  <data name="LsmaPeriod" xml:space="preserve"><value>LSMA期間</value></data>
+  <data name="M1" xml:space="preserve"><value>M1</value></data>
+  <data name="M10" xml:space="preserve"><value>M10</value></data>
+  <data name="M15" xml:space="preserve"><value>M15</value></data>
+  <data name="M30" xml:space="preserve"><value>30分</value></data>
+  <data name="M5" xml:space="preserve"><value>M5</value></data>
+  <data name="MACD" xml:space="preserve"><value>移動平均収束/発散</value></data>
+  <data name="MACDDescription" xml:space="preserve"><value>MACDインジケーターは、トレンド分析やオシレーターとして使用できる多用途なツールです。これは移動平均の概念に基づいており、市場のモメンタムの視覚的表現を提供します。ATASプラットフォームでは、分析のために組み合わされた移動平均とヒストグラムを使用して実装されています。</value></data>
+  <data name="MACDVsSignalDiffSettingsDescription" xml:space="preserve"><value>MACDラインとシグナルラインの違いの視覚化設定。</value></data>
+  <data name="MBOFilters" xml:space="preserve"><value>MBOフィルター</value></data>
+  <data name="MFIDescription" xml:space="preserve"><value>この指標は、資産に投資または引き出されるお金の強度を示します。言い換えれば、MFIは取引量に基づいて価格の動きの速度を測定するためのツールです。これを行うために、正のキャッシュフローと負のキャッシュフローおよびその比率が比較されます。</value></data>
+  <data name="MMSS" xml:space="preserve"><value>mm:ss</value></data>
+  <data name="MMedDescription" xml:space="preserve"><value>このインジケーターは単純移動平均のバリエーションであり、算術平均の代わりに中央値を使用しています。これにより、データに対する異なる視点を提供し、特定の取引や分析シナリオで役立つ場合があります。価格の動きを平滑化するためのシンプルで効果的なツールです。</value></data>
+  <data name="MSIDescription" xml:space="preserve"><value>マクレラン総和指数は、マクレランオシレーターの累積和であり、その動きが正の値または負の値に入ることに基づいて取引信号を提供するために使用されます。ゼロを超える領域に移動することは強気信号と見なされ、ゼロ未満の領域に移動することは弱気信号と見なされるため、市場のトレンドを予測するための便利なツールとなります。</value></data>
+  <data name="MaDifferenceDescription" xml:space="preserve"><value>移動平均差は、異なる期間の2つの単純移動平均の差を計算します。
+次の式で計算されます：
+ΔSMA = SMA1(x(t)) - SMA2(x(t))。</value></data>
+  <data name="MaEnvelopeDescription" xml:space="preserve"><value>移動平均エンベロープは、価格の動きを追跡するために移動平均の上と下に平行なバンドを作成するテクニカル分析ツールです。トレンドフォロー指標として使用でき、トレンドが定義されていない場合には、過剰購入および過剰販売のレベルを決定するためにも使用できます。</value></data>
+  <data name="MacdBbImprovedDescription" xml:space="preserve"><value>これはMACDボリンジャーバンド指標の改良版です。この指標では、ボリンジャーバンドの値が元のものよりも遅延が少なくなっています。</value></data>
+  <data name="MacdBbStandartDescription" xml:space="preserve"><value>これはMACDインジケーターの強化版です。MACDに加えて、MACDの値から計算されたBollingerBandsインジケーターがチャートに追加されます。</value></data>
+  <data name="MacdLeaderDescription" xml:space="preserve"><value>インジケーターは、追加のリーダーラインを持つ標準のMACDインジケーターをプロットします。スムージング手法には遅延があり、MACDは移動平均を使用するため、通常は価格に対して遅れます。遅延を完全に排除することは不可能ですが、1つの回避策があります。それは、価格/移動平均の差分コンポーネントを移動平均に再追加することです。この技術はゼロラグと呼ばれます。リーダーMACDはこれを使用して、MACDのための先行信号を生成します。</value></data>
+  <data name="MacdVWDescription" xml:space="preserve"><value>この指標（VW-MACD）はバフ・ドーメイヤーによって作成され、彼の著書「ボリューム分析による投資」に記載されています。これは、ボリューム加重平均価格トレンドの収束と発散を表しています。ボリュームを使用することで、VM-MACDは従来のMACDよりも敏感で信頼性があります。
+MACDの差を計算する際、ボリューム加重MACDは2つの指数移動平均を2つの対応するボリューム加重移動平均に置き換えます。したがって、VW-MACDはボリューム加重の短期トレンドとボリューム加重の長期トレンドを分離します。信号線は指数移動平均として残りますが、VW-MACDラインはすでにボリューム加重されています。</value></data>
+  <data name="Magenta" xml:space="preserve"><value>マゼンタ</value></data>
+  <data name="MajorLevel" xml:space="preserve"><value>主要レベル</value></data>
+  <data name="MajorLevelDescription" xml:space="preserve"><value>主要しきい値線の値.</value></data>
+  <data name="Margin" xml:space="preserve"><value>マージン</value></data>
+  <data name="MarginValueDescription" xml:space="preserve"><value>取引所で特定の金融商品に対するマージン値を表示できます。</value></data>
+  <data name="MarginZonesDescription" xml:space="preserve"><value>このインジケーターを使用すると、指定されたパラメーターに基づいてマージンゾーンを自動的に計算および視覚化できます。マージンゾーンレベル = マージン / プライスタック。
+
+計算:
+マージンゾーンレベル = マージン / プライスタック。
+例えば、ユーロ先物、ティッカー6Eを考えてみましょう。
+マージン = 2300$
+ティック価格 = 6.25$
+マージンゾーンレベル = 2300 / 6.25 = 368ティック。これは、マージンゾーンが初期価格から368ティックの距離で構築されることを意味します。マージンゾーンの高さは、この距離の10％、つまり36ティックです。</value></data>
+  <data name="MarketFacilitationDescription" xml:space="preserve"><value>マーケットファシリテーションインデックス（MFI）指標は、価格変動と取引量変動の関係を分析し、時間の経過に伴う取引量の変化に対する市場の反応を測定します。MFIは、(高値 - 安値) / 取引量という式を使用して計算され、市場のダイナミクスに関する洞察を提供します。</value></data>
+  <data name="MarketPowerDescription" xml:space="preserve"><value>このインジケーターは、選択したフィルターの取引に基づいてセッションの累積デルタを構築・表示します。サーバー負荷を最適化するため、インジケーターのデータは現在のセッションのみ表示されます。</value></data>
+  <data name="MaxAskVolumeFilterCommonDescription" xml:space="preserve"><value>このフィルターを使用すると、ユーザーは特定の値を超えるアスクボリュームを無視できるため、過剰または無関係なデータをフィルタリングする方法を提供します。これにより、より関連性の高いアスクボリュームに焦点を当てることで、データ分析を効率化し、意思決定を最適化できます。</value></data>
+  <data name="MaxAvgTradeDescription" xml:space="preserve"><value>このプロパティは、価格レベルが有効と見なされるために必要な最大平均取引を決定するために使用されます。平均取引は、価格レベルのボリュームをそのレベルのティック数で割ることによって計算されます。得られた値がこのプロパティを超える場合、価格レベルは考慮から除外されます。</value></data>
+  <data name="MaxBidVolumeFilterCommonDescription" xml:space="preserve"><value>このフィルターで設定された値を超える入札ボリュームは無視されます。</value></data>
+  <data name="MaxCandleBodyHeightDescription" xml:space="preserve"><value>インジケーターが表示されるキャンドルのボディの最大高さを設定します。この値を超えるボディを持つキャンドルは、インジケーターの考慮から除外されます。</value></data>
+  <data name="MaxCandleBodyHeightFilterDescription" xml:space="preserve"><value>このフィルターで設定された値よりもボディの高さが大きいキャンドルは無視されます。</value></data>
+  <data name="MaxCandleHeightDescription" xml:space="preserve"><value>このパラメーターは、インジケーターが考慮するキャンドルの最大高さ（ウィックを含む）を指定します。この高さを超えるキャンドルはインジケーターによって無視されます。</value></data>
+  <data name="MaxCandleHeightFilterDescription" xml:space="preserve"><value>このフィルターは、指定された値を超える高さのキャンドルを無視し、トレーディングやテクニカル分析におけるキャンドルスティックパターンのより正確な分析を可能にします。最大キャンドルの高さを設定することで、ユーザーは分析や意思決定プロセスに最も関連するキャンドルに集中できます。これにより、データ解釈とトレーディング戦略の精度が向上し、効率化されます。</value></data>
+  <data name="MaxCumulativeVolume" xml:space="preserve"><value>最大累積ボリューム</value></data>
+  <data name="MaxCumulativeVolumeDescription" xml:space="preserve"><value>計算に使用できる累積取引の最大ボリュームを定義します。</value></data>
+  <data name="MaxDeltaAlert" xml:space="preserve"><value>最大デルタアラート</value></data>
+  <data name="MaxDeltaFilterPercentDescription" xml:space="preserve"><value>デルタパーセンテージは次のように定義されます。正のデルタの場合は最大デルタのパーセンテージであり、負のデルタの場合は最小デルタのパーセンテージです。デルタパーセンテージを超える値は計算から無視されます。</value></data>
+  <data name="MaxDeltaSettingsDescription" xml:space="preserve"><value>最大デルタ表示の設定.</value></data>
+  <data name="MaxDeltaVolumeFilterCommonDescription" xml:space="preserve"><value>このフィルターで設定された値を超えるデルタボリュームは無視されます。</value></data>
+  <data name="MaxDynamicPeriod" xml:space="preserve"><value>最大動的期間</value></data>
+  <data name="MaxGapBodyLength" xml:space="preserve"><value>ドキュメントまたはテキストのボディ要素間の最大ギャップ長</value></data>
+  <data name="MaxLengthDescription" xml:space="preserve"><value>指定された要素の最大許容長を定義します。</value></data>
+  <data name="MaxLevelsIndDescription" xml:space="preserve"><value>このインジケーターは、選択した期間の最大音量レベルを表示します。</value></data>
+  <data name="MaxMaxVolumeFilterDescription" xml:space="preserve"><value>このフィルターで設定された値を超える最大ボリュームは無視されます。</value></data>
+  <data name="MaxPercentDescription" xml:space="preserve"><value>このプロパティは、価格レベルが有効と見なされるために許可される最大ボリュームパーセンテージを設定するために使用されます。ボリュームパーセンテージは、価格レベルのボリュームをキャンドルの総ボリュームで割り、100を掛けることによって計算されます。結果の値がこのプロパティより大きい場合、価格レベルは考慮から除外されます。プロパティが0に設定されている場合、検証チェックには使用されません。</value></data>
+  <data name="MaxPeriod" xml:space="preserve"><value>最大期間</value></data>
+  <data name="MaxPeriodDescription" xml:space="preserve"><value>計算の最大期間を定義します。</value></data>
+  <data name="MaxPriceLevelsCountDescription" xml:space="preserve"><value>計算のための価格レベルの最大数を定義します。</value></data>
+  <data name="MaxPrintVolume" xml:space="preserve"><value>最大印刷ボリューム</value></data>
+  <data name="MaxSizeProportionVolumeDescription" xml:space="preserve"><value>バーの幅を計算するために使用される最大ボリューム。自動スケールが無効になっているときにアクティブです。</value></data>
+  <data name="MaxTickVolumeFilterCommonDescription" xml:space="preserve"><value>このフィルターを使用すると、ユーザーは特定の値を超えるティックボリュームを無視できるため、分析に最も関連性の高いデータに集中できます。しきい値を設定することで、ユーザーは過剰なティックボリュームを排除し、意思決定プロセスに最も重要なデータに焦点を当てることができます。このフィルターはデータ分析を効率化し、結果の正確性を向上させるのに役立ちます。</value></data>
+  <data name="MaxTimeFilterDescription" xml:space="preserve"><value>特定の計算を実行するための最大時間期間を定義します。</value></data>
+  <data name="MaxValue" xml:space="preserve"><value>最大値</value></data>
+  <data name="MaxVolColor" xml:space="preserve"><value>最大ボリュームカラー</value></data>
+  <data name="MaxVolColorDescription" xml:space="preserve"><value>最大出来高の要素の色を設定します。</value></data>
+  <data name="MaxVolumeFilterCommonDescription" xml:space="preserve"><value>このフィルターは、指定された値を超えるボリュームを除外することを可能にし、特定の範囲内のボリュームのみが考慮されるようにします。</value></data>
+  <data name="MaxVolumeLocation" xml:space="preserve"><value>最大音量の場所</value></data>
+  <data name="MaxVolumeLocationDescription" xml:space="preserve"><value>キャンドル内の最大ボリュームの位置を決定します。</value></data>
+  <data name="MaxVolumePercent" xml:space="preserve"><value>最大音量パーセント</value></data>
+  <data name="Maximum" xml:space="preserve"><value>最大</value></data>
+  <data name="MaximumAsk" xml:space="preserve"><value>最大のアスク</value></data>
+  <data name="MaximumAverageTrade" xml:space="preserve"><value>最大平均取引</value></data>
+  <data name="MaximumBid" xml:space="preserve"><value>最大入札</value></data>
+  <data name="MaximumCandleBodyHeight" xml:space="preserve"><value>キャンドルボディの最大高さ</value></data>
+  <data name="MaximumCandleHeight" xml:space="preserve"><value>最大キャンドル高さ</value></data>
+  <data name="MaximumCandleWickHeight" xml:space="preserve"><value>キャンドルのウィックの最大高さ</value></data>
+  <data name="MaximumCount" xml:space="preserve"><value>最大取引数</value></data>
+  <data name="MaximumDelta" xml:space="preserve"><value>最大デルタ</value></data>
+  <data name="MaximumFilterDescription" xml:space="preserve"><value>フィルターの最大値</value></data>
+  <data name="MaximumSize" xml:space="preserve"><value>最大サイズ</value></data>
+  <data name="MaximumSizeDescription" xml:space="preserve"><value>形状の最大サイズを示します。</value></data>
+  <data name="MaximumTrades" xml:space="preserve"><value>最大取引数</value></data>
+  <data name="MaximumTradesCountDescription" xml:space="preserve"><value>この設定は、計算に考慮できる最大取引数を決定します。分析に含めることができる取引の数を制限し、効率と精度を向上させる可能性があります。ユーザーは、特定のニーズや好みに基づいてこの制限を調整できます。</value></data>
+  <data name="MaximumVolume" xml:space="preserve"><value>最大ボリューム</value></data>
+  <data name="MaximumVolumeDescription" xml:space="preserve"><value>指定された本数のバーの最大ボリューム値のラインを表示します</value></data>
+  <data name="MaximumVolumePeriodDescription" xml:space="preserve"><value>最大出来高を計算する期間を定義します.</value></data>
+  <data name="McClellanOscillatorDescription" xml:space="preserve"><value>マクレランオシレーターは、上昇および下降している証券の数を分析することによって市場の幅を測定する人気のあるテクニカルマーケットインジケーターです。現在の市場状況やトレンドを評価するために広く使用されています。</value></data>
+  <data name="MeanDevDescription" xml:space="preserve"><value>Mean Deviationインジケーターは、指定された期間にわたって価格の単純移動平均(SMA)からの平均偏差を計算するためのテクニカル分析ツールです。</value></data>
+  <data name="MediumPeriodDescription" xml:space="preserve"><value>短期と長期の間にある中期移動平均の期間を定義します</value></data>
+  <data name="MidBandDescription" xml:space="preserve"><value>範囲の中間線を説明します。</value></data>
+  <data name="MidChannelSettingsDescription" xml:space="preserve"><value>中央チャネル線の表示設定。</value></data>
+  <data name="MidLevelColorDescription" xml:space="preserve"><value>中間レベルの色を定義します。</value></data>
+  <data name="MidLineSettingsDescription" xml:space="preserve"><value>指定されたミッドラインの視覚化設定。</value></data>
+  <data name="Middle" xml:space="preserve"><value>ミドル</value></data>
+  <data name="MiddleBand" xml:space="preserve"><value>ミドルバンド</value></data>
+  <data name="MiddleFillDown" xml:space="preserve"><value>中央にフィルダウン</value></data>
+  <data name="MiddleFillUp" xml:space="preserve"><value>ミドルフィルアップ</value></data>
+  <data name="Midpoint" xml:space="preserve"><value>中点</value></data>
+  <data name="MidpointTouch" xml:space="preserve"><value>中間点タッチ</value></data>
+  <data name="MinAskVolumeFilterCommonDescription" xml:space="preserve"><value>このフィルターは、特定の値を下回る売り注文のボリュームを無視するために使用されます。最小の閾値を満たす売り注文のボリュームのみを含むように結果を絞り込むのに役立ちます。</value></data>
+  <data name="MinAvgTradeDescription" xml:space="preserve"><value>このプロパティは、価格レベルが有効と見なされるために必要な最小平均取引量を決定するために使用されます。平均取引量は、価格レベルのボリュームをそのレベルのティック数で割ることによって計算されます。得られた値がこのプロパティよりも小さい場合、価格レベルは考慮から除外されます。</value></data>
+  <data name="MinBidVolumeFilterCommonDescription" xml:space="preserve"><value>このフィルターで設定された値未満の入札ボリュームは無視されます。</value></data>
+  <data name="MinCandleBodyHeightDescription" xml:space="preserve"><value>インジケーターがそのキャンドルに表示されるために必要なキャンドルのボディの最小高さ（始値と終値の差）を決定します。この最小サイズよりも小さいボディのキャンドルは、インジケーターによってマークされません。</value></data>
+  <data name="MinCandleBodyHeightFilterDescription" xml:space="preserve"><value>このフィルターで設定された値よりもボディの高さが低いキャンドルは無視されます。</value></data>
+  <data name="MinCandleHeightDescription" xml:space="preserve"><value>このパラメータは、インジケーターをトリガーするために必要なキャンドルの最小高さ（ウィックを含む）を設定します。キャンドルの高さがこの値を下回る場合、そのキャンドルにはインジケーターが適用されません。</value></data>
+  <data name="MinCandleHeightFilterDescription" xml:space="preserve"><value>このフィルターで設定された値よりも高さが低いキャンドルは無視されます。</value></data>
+  <data name="MinCumulativeVolume" xml:space="preserve"><value>最小累積ボリューム</value></data>
+  <data name="MinCumulativeVolumeDescription" xml:space="preserve"><value>累積取引の計算に許可される最小出来高を定義します。</value></data>
+  <data name="MinDeltaAlert" xml:space="preserve"><value>最小デルタアラート</value></data>
+  <data name="MinDeltaFilterPercentDescription" xml:space="preserve"><value>デルタパーセンテージは次のように定義されます：正のデルタの場合は最大デルタのパーセンテージであり、負のデルタの場合は最小デルタのパーセンテージです。デルタパーセンテージ未満の値は無視されます。</value></data>
+  <data name="MinDeltaSettingsDescription" xml:space="preserve"><value>最小デルタ表示設定。</value></data>
+  <data name="MinDeltaVolumeFilterCommonDescription" xml:space="preserve"><value>このフィルターは、指定された値よりも小さいデルタボリュームを無視し、より大きなボリュームの変化のみを考慮します。</value></data>
+  <data name="MinLevelsRangeSizeDescription" xml:space="preserve"><value>指定された範囲内で必要な最小レベル数を定義します。</value></data>
+  <data name="MinPercentDescription" xml:space="preserve"><value>このプロパティは、価格レベルが有効と見なされるために必要な最小ボリュームパーセンテージを設定するために使用されます。ボリュームパーセンテージは、価格レベルのボリュームをキャンドルの総ボリュームで割り、100を掛けることで計算されます。結果の値がこのプロパティよりも小さい場合、価格レベルは考慮から除外されます。プロパティが0に設定されている場合、検証チェックには使用されません。</value></data>
+  <data name="MinPeriod" xml:space="preserve"><value>最小期間</value></data>
+  <data name="MinPrintVolume" xml:space="preserve"><value>最小印刷ボリューム</value></data>
+  <data name="MinRatioDescription" xml:space="preserve"><value>比率の最小値を定義します。</value></data>
+  <data name="MinRatioValueDescription" xml:space="preserve"><value>最小比率値を表します。</value></data>
+  <data name="MinTickVolumeFilterCommonDescription" xml:space="preserve"><value>このフィルターでは、ユーザーが分析に考慮される最小ティックボリュームを指定でき、設定された値未満のティックボリュームは無視されます。最小ティックボリュームを設定することで、ユーザーはより重要な市場の動きに焦点を当て、データのノイズを避けることができます。</value></data>
+  <data name="MinValue" xml:space="preserve"><value>最小値</value></data>
+  <data name="MinVolumeFilterCommonDescription" xml:space="preserve"><value>このフィルターで設定された値未満のボリュームは無視されます。</value></data>
+  <data name="MinVolumeFilterDescription" xml:space="preserve"><value>ボリュームが少ない深さレベルは無視されます</value></data>
+  <data name="MinVolumePercent" xml:space="preserve"><value>最小ボリュームパーセント</value></data>
+  <data name="MinimalDeviation" xml:space="preserve"><value>最小偏差</value></data>
+  <data name="MinimalGapDeviationDescription" xml:space="preserve"><value>有効なギャップサイズを決定するための平均キャンドルサイズからの最小許容偏差を定義します。</value></data>
+  <data name="MinimizedMode" xml:space="preserve"><value>最小化モード</value></data>
+  <data name="Minimum" xml:space="preserve"><value>最小</value></data>
+  <data name="MinimumAsk" xml:space="preserve"><value>最小アスク</value></data>
+  <data name="MinimumAverageTrade" xml:space="preserve"><value>最小平均取引</value></data>
+  <data name="MinimumBid" xml:space="preserve"><value>最低入札</value></data>
+  <data name="MinimumCandleBodyHeight" xml:space="preserve"><value>キャンドルボディの最小高さ</value></data>
+  <data name="MinimumCandleHeight" xml:space="preserve"><value>最小キャンドル高さ</value></data>
+  <data name="MinimumCandleWickHeight" xml:space="preserve"><value>キャンドルウィックの最小高さ</value></data>
+  <data name="MinimumCount" xml:space="preserve"><value>最小取引数</value></data>
+  <data name="MinimumDelta" xml:space="preserve"><value>最小デルタ</value></data>
+  <data name="MinimumFilterDescription" xml:space="preserve"><value>最小フィルター値</value></data>
+  <data name="MinimumSize" xml:space="preserve"><value>最小サイズ</value></data>
+  <data name="MinimumSizeDescription" xml:space="preserve"><value>形状の最小サイズを示します。</value></data>
+  <data name="MinimumTrades" xml:space="preserve"><value>最小取引数</value></data>
+  <data name="MinimumTradesCountDescription" xml:space="preserve"><value>計算に許可される最小取引数を定義します。</value></data>
+  <data name="MinimumVolume" xml:space="preserve"><value>最小ボリューム</value></data>
+  <data name="MinorLevel" xml:space="preserve"><value>副次レベル</value></data>
+  <data name="MinorLevelDescription" xml:space="preserve"><value>副次的なしきい値線の値。</value></data>
+  <data name="Minutes" xml:space="preserve"><value>分</value></data>
+  <data name="Mode" xml:space="preserve"><value>モード</value></data>
+  <data name="Momentum" xml:space="preserve"><value>モメンタム</value></data>
+  <data name="MomentumDescription" xml:space="preserve"><value>モメンタム指標は、価格変動率を示すためにテクニカル分析で使用されるシンプルで効率的なツールです。価格の動きの強さを評価し、潜在的なトレンドの反転を特定するために広く使用されています。この指標は、価格のモメンタムに基づいて情報に基づいた意思決定を行おうとするトレーダーや投資家にとって価値があります。</value></data>
+  <data name="MomentumOscillatorDescription" xml:space="preserve"><value>プライスモメンタムオシレーター（PMO）は、カール・スウェンリンによって作成された価格のレートオシレーターで、指数移動平均を使用して二重平滑化を行います。ゼロラインの周りで振動し、その方向は力が強まっているか弱まっているかを示します。トレンド角の急勾配は、価格の動きの強さを反映しています。</value></data>
+  <data name="MomentumTrendDescription" xml:space="preserve"><value>モメンタムトレンド指標は、モメンタム値の変化を分析して、前のバーと比較して増加したか減少したかを判断するツールです。この情報は、市場のトレンドの強さと方向を評価するために使用できます。</value></data>
+  <data name="Monthly" xml:space="preserve"><value>毎月</value></data>
+  <data name="MovingAverageIndDescription" xml:space="preserve"><value>移動平均指標は、さまざまな人気の移動平均指標を組み合わせており、ユーザーが分析のために希望する指標タイプを簡単に選択できるようにします。</value></data>
+  <data name="MovingType" xml:space="preserve"><value>移動平均タイプ</value></data>
+  <data name="MovingTypeDescription" xml:space="preserve"><value>移動平均の種類を定義します。</value></data>
+  <data name="MultiMarketPowerDescription" xml:space="preserve"><value>このインジケーターは、1つのウィンドウに複数の市場力指標を同時に表示することを可能にします。</value></data>
+  <data name="Multiplier" xml:space="preserve"><value>乗数</value></data>
+  <data name="Multiplier1" xml:space="preserve"><value>乗数 1</value></data>
+  <data name="Multiplier1Description" xml:space="preserve"><value>最初のチャネルの境界係数の設定。</value></data>
+  <data name="Multiplier2" xml:space="preserve"><value>乗数 2</value></data>
+  <data name="Multiplier2Description" xml:space="preserve"><value>第二チャネル境界係数の設定。</value></data>
+  <data name="Multiplier3" xml:space="preserve"><value>乗数 3</value></data>
+  <data name="MultiplierDescription" xml:space="preserve"><value>値を便利な形式に変換する乗数を定義します。</value></data>
+  <data name="MurreyMathDescription" xml:space="preserve"><value>マレー・マスのトレーディングアプローチは、THマレー教授によって開発され、WDギャンの原則に基づいており、0/8から8/8までのレベルを利用しています。これらのレベルは異なる操作特性を持ち、一部はサポートやレジスタンスとして機能し、他は価格を引き寄せる役割を果たします。</value></data>
+  <data name="MutualFundBarsDescription" xml:space="preserve"><value>ミューチュアルファンドバーのインジケーターは、現在のキャンドルのクローズと前のキャンドルのクローズをOHLCデータとキャンドルの方向に使用するキャンドルスティック形式を利用しています。</value></data>
+  <data name="Negative" xml:space="preserve"><value>ネガティブ</value></data>
+  <data name="NegativeColor" xml:space="preserve"><value>負の色</value></data>
+  <data name="NegativeColorDescription" xml:space="preserve"><value>負のPnL値のための色</value></data>
+  <data name="NegativeDelta" xml:space="preserve"><value>ネガティブデルタ</value></data>
+  <data name="NegativeDeltaSettingsDescription" xml:space="preserve"><value>負のデルタ表示設定。</value></data>
+  <data name="NegativeLineSettingsDescription" xml:space="preserve"><value>負のラインの視覚化設定。</value></data>
+  <data name="NegativeLsma" xml:space="preserve"><value>ネガティブLSMA</value></data>
+  <data name="NegativeValueColorDescription" xml:space="preserve"><value>負の値を持つ要素の色を表示します。</value></data>
+  <data name="NegativeValueDescription" xml:space="preserve"><value>負の値に使用される色を表します</value></data>
+  <data name="Neutral" xml:space="preserve"><value>ニュートラル</value></data>
+  <data name="NeutralBorderColor" xml:space="preserve"><value>中立のボーダーカラー</value></data>
+  <data name="NeutralColor" xml:space="preserve"><value>ニュートラルカラー</value></data>
+  <data name="NeutralColorDescription" xml:space="preserve"><value>中立方向の要素の色を設定します。</value></data>
+  <data name="NeutralDeltaSettingsDescription" xml:space="preserve"><value>ゼロデルタ表示設定.</value></data>
+  <data name="NeutralRatio" xml:space="preserve"><value>中立比率</value></data>
+  <data name="NeutralRatioColorDescription" xml:space="preserve"><value>中立比率要素の色を定義します。</value></data>
+  <data name="NeutralValueDescription" xml:space="preserve"><value>中立的な値に使用される色を表します</value></data>
+  <data name="NewTrendColorDescription" xml:space="preserve"><value>新しいトレンドが始まる要素の色を定義します。</value></data>
+  <data name="NoTrend" xml:space="preserve"><value>トレンドなし</value></data>
+  <data name="None" xml:space="preserve"><value>該当なし</value></data>
+  <data name="OBVDescription" xml:space="preserve"><value>OBV（オンバランスボリューム）は、ボリュームと価格変動の関係を測定するテクニカル指標です。これは、現在のバーの終値が前のバーの終値よりも高いか低いかに基づいて、現在のバーのボリュームを加算または減算します。この指標は、市場における買い圧力と売り圧力を評価するための簡単な方法を提供します。</value></data>
+  <data name="OHLCAverage" xml:space="preserve"><value>OHLC平均</value></data>
+  <data name="OHLCPlusDescription" xml:space="preserve"><value>OHLC（始値、高値、安値、終値）、均衡、コントロールポイント（POC）、および複数の時間枠にわたるバリューエリアレベルなどの主要な金融指標を表示する高度な価格レベルインジケーターです。トレーダーに市場のトレンドを分析し、情報に基づいた意思決定を行うための貴重な洞察を提供します。このインジケーターは、市場の重要なレベルを強調することで価格動向の理解を深めます。</value></data>
+  <data name="OIAnalyzerCumulativeTradesModeDescription" xml:space="preserve"><value>累積取引：この場合、計算はフィード内で発生した市場取引のOIの変化のみを考慮して行われ、方向はそれぞれ上昇または下降するオープンインタレストの変化の差によって決定されます。</value></data>
+  <data name="OIAnalyzerDescription" xml:space="preserve"><value>OIアナライザーは、Bid/Askとオープンインタレストの指標を組み合わせて、市場のトレンドと買い手および売り手のポジションのオープン/クローズのボリュームを分析するツールです。これは、ロシア市場の先物およびBinanceおよびBybit取引所専用に設計されており、リアルタイムデータ分析のために現在の取引日内で動作します。このユニークな指標は、市場分析とサーバー負荷の最適化に貴重な洞察を提供します。</value></data>
+  <data name="OIAnalyzerSeparatedTradesModeDescription" xml:space="preserve"><value>分離取引：この場合、実際のオープンインタレストの変化は、買いと売りの取引について、市場注文とそれに組み合わされたリミット注文の両方を別々に考慮して計算されます。</value></data>
+  <data name="OISettingsDescription" xml:space="preserve"><value>オープンインタレストの要素に対する視覚化設定。</value></data>
+  <data name="OSMADescription" xml:space="preserve"><value>移動平均オシレーター（OsMA）指標はMACD指標の変種であり、先行指標に分類されます。なぜなら、他の指標よりも早く売買シグナルが出るからです。これはトレンドの反転や修正を確認するために使用されます。
+移動平均オシレーター指標のチャートはヒストグラムとして表示され、市場の過剰買いや過剰売りの状態を特定することができます。この指標はMACD指標と同一であるため、両者を組み合わせて使用することでより大きな効果が得られると考えられています。
+移動平均オシレーター（OsMA）技術指標は、オシレーターとオシレーターの平滑化との違いです。この場合、主なMACDラインがオシレーターとして使用され、信号ラインが平滑化として使用されます。</value></data>
+  <data name="ObjectSizeDescription" xml:space="preserve"><value>表示されるオブジェクトのサイズを設定します。</value></data>
+  <data name="ObjectsColor" xml:space="preserve"><value>オブジェクトの色</value></data>
+  <data name="Offset" xml:space="preserve"><value>オフセット</value></data>
+  <data name="OffsetMultiplier" xml:space="preserve"><value>オフセット乗数</value></data>
+  <data name="OffsetX" xml:space="preserve"><value>オフセットX</value></data>
+  <data name="OffsetXDescription" xml:space="preserve"><value>エッジからの水平オフセット</value></data>
+  <data name="OffsetY" xml:space="preserve"><value>Y軸オフセット</value></data>
+  <data name="OffsetYDescription" xml:space="preserve"><value>エッジからの垂直オフセット</value></data>
+  <data name="OhlcPlusAbsolutePriceDescription" xml:space="preserve"><value>正確なティック価格からレベルを算出します。無効にすると、プロファイルは現在のチャートスケールでグループ化され、レベルがProfileインジケーターの描画と一致します。</value></data>
+  <data name="OhlcPlusAutoUpdateDescription" xml:space="preserve"><value>新しい約定が到着するとレベルをリアルタイムで更新します。無効にすると、プロファイルを要求した時点でレベルは固定されます。</value></data>
+  <data name="OhlcPlusTextColorDescription" xml:space="preserve"><value>レベルのテキストの色：チャート上のラベル、価格目盛の価格、レベルバッジ。Auto を選択すると、テキスト背後の背景と識別しやすいように色が自動で選ばれます。</value></data>
+  <data name="OnBarClose" xml:space="preserve"><value>バーのクローズ時</value></data>
+  <data name="OnBarCloseDescription" xml:space="preserve"><value>このプロパティがチェックされている場合、アクションはバーが閉じるときに発生し、そうでない場合は即座に発生します。</value></data>
+  <data name="OneSelectionPerBarDescription" xml:space="preserve"><value>この設定により、バーまたはキャンドルスティックごとに最大1つの選択のみが行われることが保証されます。</value></data>
+  <data name="OnlyAlertsSupported" xml:space="preserve"><value>通知のみがサポートされています</value></data>
+  <data name="OnlyOneSelectionPerBar" xml:space="preserve"><value>バーごとに1つの選択のみ</value></data>
+  <data name="Open" xml:space="preserve"><value>オープン</value></data>
+  <data name="OpenClose" xml:space="preserve"><value>開く / 閉じる</value></data>
+  <data name="OpenCurDay" xml:space="preserve"><value>現在の日のオープン</value></data>
+  <data name="OpenHighLowClose4" xml:space="preserve"><value>(始値 + 高値 + 安値 + 終値)/4</value></data>
+  <data name="OpenInterestDescription" xml:space="preserve"><value>この指標は、この金融商品に対するすべての市場参加者が保有する契約のオープンショートおよびロングポジションの合計数を示します。
+注意: オープンインタレストはロシア市場でのみオンラインで放送され、先物にのみ適用されます。外国の株式取引所は、すべてがオンラインでOIデータを提出するわけではないため、リアルタイムで設定することができません。一部の株式取引所は、取引セッションの結果に基づいてこのデータを提出する場合がありますが、他の取引所はまったく提出しない場合もあります。</value></data>
+  <data name="OpenLine" xml:space="preserve"><value>オープンライン</value></data>
+  <data name="OpenLineDescription" xml:space="preserve"><value>インジケーターは、取引セッションの開始時の価格レベルを示します。</value></data>
+  <data name="OpenRange" xml:space="preserve"><value>オープンレンジ</value></data>
+  <data name="OpenSession" xml:space="preserve"><value>セッションを開始</value></data>
+  <data name="OpenSessionAlertFilterDescription" xml:space="preserve"><value>有効にすると、セッションを開くと指定されたサウンドファイルでアラートが生成されます。</value></data>
+  <data name="OrderBlockIndDescription" xml:space="preserve"><value>インジケーターは反転キャンドルの周りにゾーンを形成します：強気ブロックの境界は最後の下落キャンドルによって決定され、弱気ブロックは最後の上昇キャンドルによって決定されます。反転キャンドルは、その期間または前のキャンドルで極端な高値/安値を持つことがあります。</value></data>
+  <data name="OrderBookAlertsIndDescription" xml:space="preserve"><value>このインジケーターは、指定された数のレベル内でオーダーブックを分析し、見つかったレベルのボリュームが指定されたものよりも高い場合にアラートを送信します。</value></data>
+  <data name="OrderFlowDescription" xml:space="preserve"><value>&lt;p&gt;直感的な注文フローの視覚化。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;チャート上に幾何学的マーカーとして取引を表示します。&lt;/li&gt;
+  &lt;li&gt;マーカーのサイズ = 取引量。大きな取引はすぐに目立ちます。&lt;/li&gt;
+  &lt;li&gt;マーカー間の間隔は市場の活動を反映します：間隔が狭いほど、取引が速くなります。&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="OrderFlowLinkingToBarDescription" xml:space="preserve"><value>有効にすると、注文フローの描画は最後のバーから始まり、そうでない場合はチャートの右端から始まります。</value></data>
+  <data name="OrderSpeedIntervalDescription" xml:space="preserve"><value>このパラメータは、市場での売買速度を調整するために使用され、現在の状況をより正確に反映できるようにします。</value></data>
+  <data name="OrdersCountFilter" xml:space="preserve"><value>注文数フィルター</value></data>
+  <data name="Other" xml:space="preserve"><value>その他</value></data>
+  <data name="OutsideBarDescription" xml:space="preserve"><value>アウトサイドバーは、前のバーの高値を上回る高値と、前のバーの安値を下回る安値を持つバーによって識別され、市場トレンドの潜在的な反転または重要な価格変動を示します。</value></data>
+  <data name="Overbought" xml:space="preserve"><value>買われすぎ</value></data>
+  <data name="Overbought1" xml:space="preserve"><value>過剰購入レベル1</value></data>
+  <data name="Overbought2" xml:space="preserve"><value>過剰購入レベル2</value></data>
+  <data name="Overbought3" xml:space="preserve"><value>過剰購入レベル3</value></data>
+  <data name="OverboughtLimitDescription" xml:space="preserve"><value>下落が予想される上限を定義します。</value></data>
+  <data name="Oversold" xml:space="preserve"><value>売られすぎ</value></data>
+  <data name="Oversold1" xml:space="preserve"><value>売られすぎレベル1</value></data>
+  <data name="Oversold2" xml:space="preserve"><value>過剰売却レベル2</value></data>
+  <data name="Oversold3" xml:space="preserve"><value>過剰売却レベル3</value></data>
+  <data name="OversoldLimitDescription" xml:space="preserve"><value>上昇が期待できる下限を定義します。</value></data>
+  <data name="POC" xml:space="preserve"><value>POC</value></data>
+  <data name="POCLineSettingsDescription" xml:space="preserve"><value>POCラインの可視化設定.</value></data>
+  <data name="PaintBars" xml:space="preserve"><value>バーを描く</value></data>
+  <data name="PaintBarsDescription" xml:space="preserve"><value>特定の色でキャンドルを塗るかどうかを決定します。</value></data>
+  <data name="PanelHeight" xml:space="preserve"><value>パネルの高さ</value></data>
+  <data name="PanelHeightDescription" xml:space="preserve"><value>表示されているパネルの高さを決定します。</value></data>
+  <data name="ParabolicSARDescription" xml:space="preserve"><value>パラボリックSARは、トレンド市場を分析するために使用されるテクニカル指標で、価格チャートに表示されます。これは移動平均に似ていますが、より加速した速度で動き、価格に対する位置を変更します。上昇トレンドの間、指標は価格の下にあり、下降トレンドの間は価格の上にあります。</value></data>
+  <data name="PenSettingsDescription" xml:space="preserve"><value>表示される線の色、スタイル、幅の設定を指定します。</value></data>
+  <data name="Percent" xml:space="preserve"><value>パーセント</value></data>
+  <data name="PercentColorDescription" xml:space="preserve"><value>パーセンテージ値に応じて色を設定します。</value></data>
+  <data name="PercentagePriceDescription" xml:space="preserve"><value>パーセンテージ価格オシレーターは、短期および長期の指数移動平均（EMA）の差を長期EMAで割った値として計算されるテクニカル指標です。MACDと比較して、パーセンテージ価格オシレーターは価格とオシレーター値の間のダイバージェンスの信号を示し、価格の極端な値をより正確に強調し、よりダイナミックな動きを持っています。計算式は (FastEMA - SlowEMA) / SlowEMA です。</value></data>
+  <data name="Period" xml:space="preserve"><value>期間</value></data>
+  <data name="Period1" xml:space="preserve"><value>期間1</value></data>
+  <data name="Period2" xml:space="preserve"><value>期間2</value></data>
+  <data name="Period3" xml:space="preserve"><value>第3期</value></data>
+  <data name="PeriodD" xml:space="preserve"><value>期間 %D</value></data>
+  <data name="PeriodDescription" xml:space="preserve"><value>計算に含める最近のキャンドルの数量を指定します。</value></data>
+  <data name="PeriodK" xml:space="preserve"><value>期間 %K</value></data>
+  <data name="PeriodType" xml:space="preserve"><value>期間タイプ</value></data>
+  <data name="PeriodTypeDescription" xml:space="preserve"><value>提供された期間タイプのいずれかを選択できます。</value></data>
+  <data name="PeriodValueDefinerDescription" xml:space="preserve"><value>期間値定義子は、指標計算において計算が実行される時間期間を決定するために使用される数値です。分析の期間または頻度を定義するのに役立ち、さまざまな財務および技術分析ツールにおいて重要なパラメータです。</value></data>
+  <data name="PeriodsCountFilterDescription" xml:space="preserve"><value>有効にすると、使用する期間の数が決定され、それ以外の場合はすべての可能な期間が使用されます。</value></data>
+  <data name="PipsFromHigh" xml:space="preserve"><value>高値からのティック</value></data>
+  <data name="PipsFromHighDescription" xml:space="preserve"><value>このプロパティは、キャンドルの高値からの最大距離（ティック単位）を設定し、その距離内でレベルが有効と見なされることができます。レベルとキャンドルの高値との距離がこのプロパティの値を超える場合、レベルは有効とは見なされません。</value></data>
+  <data name="PipsFromLow" xml:space="preserve"><value>ローからのティック</value></data>
+  <data name="PipsFromLowDescription" xml:space="preserve"><value>このプロパティは、キャンドルの最安値からレベルが有効と見なされる最大距離（ティック単位）を設定します。レベルとキャンドルの最安値との距離がこのプロパティの値を超えると、レベルは有効とは見なされません。</value></data>
+  <data name="PivotLevelColorDescription" xml:space="preserve"><value>ピボットレベルの色を定義します。</value></data>
+  <data name="PivotRange" xml:space="preserve"><value>ピボット範囲</value></data>
+  <data name="PivotsDescription" xml:space="preserve"><value>「ピボット」インジケーターは、取引において価格チャート上の潜在的なサポートおよびレジスタンスレベルを特定するために使用されるカスタマイズ可能なテクニカル分析ツールです。これは、前の期間の高値、安値、および終値に基づいて、ピボットポイント、サポートレベル、レジスタンスレベル、および中間点を計算します。ユーザーは、ピボット計算のための期間をカスタマイズし、ピボットポイント計算のための異なる数式を選択し、カスタム取引セッションを指定する柔軟性を持っています。</value></data>
+  <data name="PocAlert" xml:space="preserve"><value>価格がPOCレベルに達したときのアラート</value></data>
+  <data name="PocChangeAlert" xml:space="preserve"><value>POCレベル変更アラート</value></data>
+  <data name="PocLevel" xml:space="preserve"><value>POCレベル</value></data>
+  <data name="PolarizedFractalDescription" xml:space="preserve"><value>偏光フラクタル効率は、現在の市場価格の効率を測定する技術的指標です。値は100から-100の範囲で、0を超えると上昇トレンドを示し、0未満では下降トレンドを示します。トレーダーには、指標の値が-50未満のときに買いポジションを開き、指標の値が50を超えるときに売りポジションを開くことが推奨されます。</value></data>
+  <data name="Positive" xml:space="preserve"><value>ポジティブ</value></data>
+  <data name="PositiveColor" xml:space="preserve"><value>ポジティブカラー</value></data>
+  <data name="PositiveColorDescription" xml:space="preserve"><value>正のPnL値のための色</value></data>
+  <data name="PositiveDelta" xml:space="preserve"><value>ポジティブデルタ</value></data>
+  <data name="PositiveDeltaSettingsDescription" xml:space="preserve"><value>正のデルタ表示設定。</value></data>
+  <data name="PositiveLineSettingsDescription" xml:space="preserve"><value>ポジティブラインの表示設定。</value></data>
+  <data name="PositiveLsma" xml:space="preserve"><value>ポジティブLSMA</value></data>
+  <data name="PositiveValueColorDescription" xml:space="preserve"><value>正の値を持つ要素の色を表示します。</value></data>
+  <data name="PositiveValueDescription" xml:space="preserve"><value>正の値に使用される色を表します</value></data>
+  <data name="Predict" xml:space="preserve"><value>予測する</value></data>
+  <data name="PredictBarsCountDescription" xml:space="preserve"><value>予測のための推定バー数を決定します。</value></data>
+  <data name="Preset" xml:space="preserve"><value>プリセット</value></data>
+  <data name="PrevDayMedianDescription" xml:space="preserve"><value>前日の平均価格。</value></data>
+  <data name="PreviousDay" xml:space="preserve"><value>前の日</value></data>
+  <data name="PreviousMonth" xml:space="preserve"><value>先月</value></data>
+  <data name="PreviousWeek" xml:space="preserve"><value>先週</value></data>
+  <data name="PriceChange" xml:space="preserve"><value>価格変更</value></data>
+  <data name="PriceLevelsCountDescription" xml:space="preserve"><value>計算に使用される価格レベルの数を決定し、分析の複雑さと粒度に関する洞察を提供します。これは、さまざまな金融モデルやアルゴリズムが市場の動作を正確に評価し予測するための重要なパラメータです。計算に関与する価格レベルの数を知ることで、情報に基づいた正確な取引判断を下すのに役立ちます。</value></data>
+  <data name="PriceLocation" xml:space="preserve"><value>価格の位置</value></data>
+  <data name="PriceLocationDescription" xml:space="preserve"><value>キャンドル内の特定のタイプの値を持つセルの位置を選択します。これは、インジケーターが検索時に考慮します</value></data>
+  <data name="PriceOffset" xml:space="preserve"><value>価格オフセット</value></data>
+  <data name="PriceRange" xml:space="preserve"><value>価格範囲</value></data>
+  <data name="PriceRangeDescription" xml:space="preserve"><value>計算に集約される価格の範囲を決定します。範囲は、パラメータに指定されたティックの数によって定義されます。</value></data>
+  <data name="PriceSelectionColor" xml:space="preserve"><value>価格選択色</value></data>
+  <data name="PriceSelectionColorDescription" xml:space="preserve"><value>この設定により、ユーザーはクラスター内の価格選択を強調表示する色を選択でき、チャート上の他の要素と視覚的に区別できます。</value></data>
+  <data name="PriceSelectionTransparencyDescription" xml:space="preserve"><value>視覚オブジェクトの透明度と同様に、この設定はクラスター内のハイライトされた要素の透明度を調整し、それらの視覚的外観をより細かく制御できるようにします。</value></data>
+  <data name="PrintLineForXBars" xml:space="preserve"><value>Xバーのためのラインを印刷</value></data>
+  <data name="Profile" xml:space="preserve"><value>プロファイル</value></data>
+  <data name="ProfileAskValueColorDescription" xml:space="preserve"><value>アスクレベルバーの色。</value></data>
+  <data name="ProfileBidValueColorDescription" xml:space="preserve"><value>Bidレベルのバーの色</value></data>
+  <data name="ProfileFillColorDescription" xml:space="preserve"><value>ボリュームプロファイルの塗りつぶし色を設定します。</value></data>
+  <data name="ProfileOffsetXDescription" xml:space="preserve"><value>チャートに対するx軸に沿ったプロファイルオフセットをピクセル単位で定義します。</value></data>
+  <data name="ProfilePeriodDescription" xml:space="preserve"><value>利用可能なプロファイル期間の1つを表します。</value></data>
+  <data name="ProfileWidthPixelsDescription" xml:space="preserve"><value>チャート上のボリュームプロファイルの幅をピクセル単位で設定します。</value></data>
+  <data name="ProfitColor" xml:space="preserve"><value>利益の色</value></data>
+  <data name="ProfitTradeResultColorDescription" xml:space="preserve"><value>利益のある取引の結果セクションに使用される色を指定します。</value></data>
+  <data name="ProportionVolume" xml:space="preserve"><value>比率出来高</value></data>
+  <data name="Pulling" xml:space="preserve"><value>プル</value></data>
+  <data name="PullingAndStacking" xml:space="preserve"><value>引き出しとスタッキング</value></data>
+  <data name="PullingDescription" xml:space="preserve"><value>注文書からのリミットオーダーの削除。</value></data>
+  <data name="QQEDescription" xml:space="preserve"><value>定性的定量的推定（QQE）指標は、人気のある相対力指数（RSI）指標の滑らかなバージョンとして機能します。QQEは、ボラティリティに基づく2つのラインを追加することでRSIを拡張します。これらのラインは、速いと遅い移動平均真の範囲（ATR）の値で構成されています。</value></data>
+  <data name="QStickDescription" xml:space="preserve"><value>Qstickインジケーターは、ローソク足チャートと共に使用することで、市場における買いまたは売りの強さを測定するためのツールです。特定の期間にわたる始値と終値の差の移動平均を計算し、正の値は買いの強さを示し、負の値は売り圧力を示します。これにより、価格の動きや潜在的な取引機会を特定するのに役立ちます。</value></data>
+  <data name="RMIDescription" xml:space="preserve"><value>相対モメンタムインデックス（RMI）指標は、RSI指標の修正版です。さらに、この指標は、指定された距離で過去のキャンドルと連続するキャンドルの終値を比較します。選択した期間が長いほど、指標の値は滑らかになります。</value></data>
+  <data name="RMODescription" xml:space="preserve"><value>RMO（ラフル・モヒンダー・オシレーター）指標は、トレーディングにおいて潜在的なトレンドの反転を特定するために使用されるテクニカル分析ツールです。移動平均と反転パターンを使用して、売買シグナルを生成します。この指標は、トレーダーが市場のトレンドについて情報に基づいた意思決定を行うのに役立ちます。</value></data>
+  <data name="ROCDescription" xml:space="preserve"><value>変化率（ROC）指標は、指定された期間にわたる価格のパーセンテージ変化を測定します。これはモメンタムオシレーターであり、トレーダーが市場の過剰買いおよび過剰売りの状態を特定するのに役立ちます。ROCは、現在の価格を指定された期間前の価格と比較することで計算されます。</value></data>
+  <data name="RSI" xml:space="preserve"><value>相対力指数</value></data>
+  <data name="RSIDescription" xml:space="preserve"><value>RSI指標は、現在のトレンドの強さや可能な反転ポイントを判断するために使用されます。RSI指標は、特定の期間における価格上昇の絶対値を同じ期間の価格下落レベルと比較します。計算結果は、0%から100%の値範囲で、チャート上に曲線の形で表示されます。</value></data>
+  <data name="RVI" xml:space="preserve"><value>相対活力指数</value></data>
+  <data name="RVI1Description" xml:space="preserve"><value>RVI V1インジケーターは、4バー期間にわたる終値の変化と始値の変化の比率を比較することによって相対的な価格の強さを測定します。これは相対的活力指数の一種であり、最後の4本のキャンドルの終値と始値に基づいています。この実装は、特定の期間にわたる相対的な価格の強さを評価する方法を提供します。</value></data>
+  <data name="RVI2Description" xml:space="preserve"><value>相対活力指数V2は、金融分析に使用するために元の指標の平滑化された値を計算する指標です。これは、元の相対活力指数の更新版であり、計算は似ていますが、精度を向上させるために平滑化された値を組み込んでいます。この指標は、トレンドの強さを測るためにテクニカル分析で一般的に使用されます。</value></data>
+  <data name="RVIDescription" xml:space="preserve"><value>相対活力指数（RVI）指標は、取引期間の最小価格ではなく、終値と始値を比較します。これは、期間の実際の価格変動を表し、この期間の最大範囲（例えば、1時間または1日）を調整するために使用されます。RVI指標は、ストキャスティックオシレーターと同じシステムを使用して計算されます。</value></data>
+  <data name="RVIPeriodDescription" xml:space="preserve"><value>"相対的活力指数"の期間を設定します。</value></data>
+  <data name="RWIDescription" xml:space="preserve"><value>ランダムウォークインデックス（RWI）は、価格の変動がランダムであるか、より大きなトレンドの一部であるかを判断するために使用されるツールです。これは、下落トレンドの強さを示す赤い線と、上昇トレンドの強さを示す緑の線の2本の線で表されます。このインデックスは、トレーダーが市場のトレンドを特定し分析するのに役立ちます。</value></data>
+  <data name="Range" xml:space="preserve"><value>範囲</value></data>
+  <data name="RangeAreaDescription" xml:space="preserve"><value>範囲エリアを表します。</value></data>
+  <data name="RangeFilter" xml:space="preserve"><value>範囲フィルター</value></data>
+  <data name="RatioDescription" xml:space="preserve"><value>比率 - 2つの数値の関係。数値AとBの比率はA:Bとして表現できます。比率の数値は、ベアキャンドルの上に、ブルキャンドルの下に表示されます。比較される2つの数値は、ベアキャンドルの2つの最高の売り注文とブルキャンドルの2つの最低の買い注文です。比率の値が低い比率と中立比率の間の数値である場合、比率の数値は黒です。比率の数値が中立比率を超える場合、比率の数値は青です。</value></data>
+  <data name="Rectangles" xml:space="preserve"><value>長方形</value></data>
+  <data name="Red" xml:space="preserve"><value>赤</value></data>
+  <data name="RelativeInPercent" xml:space="preserve"><value>相対的な割合%</value></data>
+  <data name="RelativeVolumeDescription" xml:space="preserve"><value>相対ボリュームは、ボリュームフローの増加または減少を測定するために使用されるツールです。これは、現在のボリュームと同じ時間帯の平均ボリュームとの比率を決定します。これは、取引パターンや市場活動を理解するための貴重なツールとなる可能性があります。</value></data>
+  <data name="RenderPeriods" xml:space="preserve"><value>表示される期間の数</value></data>
+  <data name="RepeatAlert" xml:space="preserve"><value>アラートを繰り返す</value></data>
+  <data name="RepeatAlertDescription" xml:space="preserve"><value>オプションが有効になっている場合、同じバーで条件が繰り返されると、繰り返しアラートが生成されます。そうでない場合は、1つのバーで1つのアラートのみが生成されます。</value></data>
+  <data name="RepulseDescription" xml:space="preserve"><value>Repulseインジケーターは、各キャンドルに関連する強気または弱気の圧力を曲線の形で測定し、反映します。このインジケーターには1つのパラメーターがあります：バウンス期間。計算にはすべての4つのキャンドル価格が使用されるため、インジケーター計算の価格タイプは変更できません。推奨される使用方法は簡単です：
+- ゼロラインを上に越えることは買いシグナルとして解釈されます
+- ゼロラインを下に越えることは売りシグナルとして解釈されます。</value></data>
+  <data name="RequiredChange" xml:space="preserve"><value>必要な変更</value></data>
+  <data name="RequiredChangeValueDescription" xml:space="preserve"><value>特定のパラメータの変化量を決定します。</value></data>
+  <data name="ResetOnSession" xml:space="preserve"><value>新しいセッションの開始時にリセット</value></data>
+  <data name="ResetOnSessionFilterDescription" xml:space="preserve"><value>機能が有効になると、以前に記憶されたアクションは新しいセッションの開始時にリセットされます。</value></data>
+  <data name="ResistanceColor" xml:space="preserve"><value>抵抗の色</value></data>
+  <data name="ResistanceColorDescription" xml:space="preserve"><value>抵抗レベルまたは抵抗ゾーンを表示する要素の色を定義します。</value></data>
+  <data name="ResistanceLevel" xml:space="preserve"><value>抵抗レベル</value></data>
+  <data name="ResistanceLevelDisplayDescription" xml:space="preserve"><value>価格が下に跳ね返る可能性のある抵抗レベルを表示します。</value></data>
+  <data name="ResistanceLineSettingsDescription" xml:space="preserve"><value>指定された抵抗レベルラインの視覚設定。</value></data>
+  <data name="RetrospectiveAnalysis" xml:space="preserve"><value>回顧分析</value></data>
+  <data name="ReverseAlert" xml:space="preserve"><value>リバースアラート</value></data>
+  <data name="ReverseAlertDescription" xml:space="preserve"><value>ダイバージェンス（キャンドルがポジティブでデルタがネガティブ、またはその逆）に表示されます</value></data>
+  <data name="Right" xml:space="preserve"><value>右</value></data>
+  <data name="RightToLeft" xml:space="preserve"><value>右から左</value></data>
+  <data name="RightToLeftDescription" xml:space="preserve"><value>バーの成長方向: 右端から右または左へ。</value></data>
+  <data name="RolloverType" xml:space="preserve"><value>ロールオーバータイプ</value></data>
+  <data name="RoundNrDescription" xml:space="preserve"><value>ラウンドナンバーインジケーターは、設定で指定されたステップに基づいてチャート上に特定のレベルをプロットするために使用されます。これにより、トレーダーはチャート上でラウンドナンバーのレベルを特定し視覚化することができ、取引の意思決定に役立ちます。このインジケーターは、ティックに基づいてレベルをプロットするようにカスタマイズでき、サポートおよびレジスタンスレベルの視覚的参照を提供します。</value></data>
+  <data name="RowWidth" xml:space="preserve"><value>行の幅</value></data>
+  <data name="Rows" xml:space="preserve"><value>行</value></data>
+  <data name="SMA" xml:space="preserve"><value>移動平均</value></data>
+  <data name="SMA1" xml:space="preserve"><value>単純移動平均 1</value></data>
+  <data name="SMA2" xml:space="preserve"><value>単純移動平均 2</value></data>
+  <data name="SMAColor" xml:space="preserve"><value>SMAの色</value></data>
+  <data name="SMADescription" xml:space="preserve"><value>単純移動平均（SMA）は、特定の期間（例：15М、1H、Daily）の終値を合計し、その合計を期間の数で割ることによって計算されます。</value></data>
+  <data name="SMALineColorDescription" xml:space="preserve"><value>SMAラインを表示するための色を定義します。</value></data>
+  <data name="SMAPeriod" xml:space="preserve"><value>SMA期間</value></data>
+  <data name="SMAPeriod1" xml:space="preserve"><value>SMA期間1</value></data>
+  <data name="SMAPeriod1Description" xml:space="preserve"><value>最初の単純移動平均（SMA）の期間を設定します</value></data>
+  <data name="SMAPeriod2" xml:space="preserve"><value>SMA期間2</value></data>
+  <data name="SMAPeriod2Description" xml:space="preserve"><value>第二の単純移動平均（SMA）の期間を設定します</value></data>
+  <data name="SMAPeriod3" xml:space="preserve"><value>SMA期間3</value></data>
+  <data name="SMAPeriod3Description" xml:space="preserve"><value>第三の単純移動平均（SMA）の期間を設定します</value></data>
+  <data name="SMAPeriod4" xml:space="preserve"><value>SMA期間4</value></data>
+  <data name="SMAPeriod4Description" xml:space="preserve"><value>第四の単純移動平均（SMA）の期間を設定します</value></data>
+  <data name="SMAPeriodDescription" xml:space="preserve"><value>単純移動平均（SMA）の期間を設定します</value></data>
+  <data name="SMMA" xml:space="preserve"><value>スムーズ移動平均</value></data>
+  <data name="SMMADescription" xml:space="preserve"><value>スムーズ移動平均（SMMA）は、単純移動平均（SMA）に似ており、ノイズを減らすことを目的としています。この指標はすべての価格を考慮し、拡張された振り返り期間を使用します。SMAとは異なり、古い価格は計算に保持されますが、その移動平均への影響は最小限です。このアプローチはノイズを減少させ、変動を抑え、主要なトレンドを捉えます。</value></data>
+  <data name="SMMAPeriodDescription" xml:space="preserve"><value>スムーズ移動平均（SMMA）の期間を設定します。</value></data>
+  <data name="SPVODescription" xml:space="preserve"><value>シンプルパーセンテージボリュームオシレーターは、特定の証券の取引量の2つの移動平均間のパーセンテージ差を測定します。これにより、トレーダーやアナリストはトレンドや取引量の潜在的な変化を特定でき、情報に基づいた投資判断を行うのに役立ちます。この指標は、ボリュームと価格の動きの関係を理解するために、テクニカル分析で一般的に使用されます。</value></data>
+  <data name="SRLevels" xml:space="preserve"><value>サポート / レジスタンスレベル</value></data>
+  <data name="SWWMADescription" xml:space="preserve"><value>サイン波加重移動平均は、サイン関数に基づいた加重アプローチを使用して、金融商品価格の移動平均を計算する方法です。</value></data>
+  <data name="SZMA" xml:space="preserve"><value>単純移動平均 - ゼロをスキップ</value></data>
+  <data name="SZMADescription" xml:space="preserve"><value>この移動平均のタイプはSMAのバリエーションです。違いは、平均値を計算する際にゼロ値が除外され、値にバイアスがかからないようにすることです。</value></data>
+  <data name="SaveCustomStartingPointDescription" xml:space="preserve"><value>機能が有効になると、インジケーターは設定した開始点を記憶します。</value></data>
+  <data name="SaveStartPoint" xml:space="preserve"><value>カスタムスタートポイントを保存</value></data>
+  <data name="Scale" xml:space="preserve"><value>スケール</value></data>
+  <data name="SchaffTrendCycleDescription" xml:space="preserve"><value>シャフトレンドサイクル（STC）は、市場のトレンドを特定し、トレーダーに売買シグナルを提供するために使用されるチャート指標です。STCはオシレーターの一種であり、時間枠に関係なく、通貨のトレンドが周期的なパターンで加速および減速するという仮定に基づいています。</value></data>
+  <data name="SearchPrintsInsideTimeFilter" xml:space="preserve"><value>時間フィルター内の印刷物を検索</value></data>
+  <data name="SecondDev" xml:space="preserve"><value>第2偏差</value></data>
+  <data name="SecondLine" xml:space="preserve"><value>第二行</value></data>
+  <data name="Seconds" xml:space="preserve"><value>秒</value></data>
+  <data name="SelectTimeframeDescription" xml:space="preserve"><value>ユーザーが利用可能なさまざまな時間枠から選択できるようにします。ニーズに最適な時間枠を選択するオプションを提供します。</value></data>
+  <data name="SellColor" xml:space="preserve"><value>販売色</value></data>
+  <data name="SellOvershoot1Color" xml:space="preserve"><value>販売超過1色</value></data>
+  <data name="SellOvershoot2Color" xml:space="preserve"><value>販売オーバーシュート2色</value></data>
+  <data name="SellOvershoot3Color" xml:space="preserve"><value>3色の売上超過を販売</value></data>
+  <data name="SellOvershootColor" xml:space="preserve"><value>売上オーバーシュートカラー</value></data>
+  <data name="SellSignalColorDescription" xml:space="preserve"><value>売却信号を表す要素の色を設定します。</value></data>
+  <data name="SellSignalSettingsDescription" xml:space="preserve"><value>売り信号の視覚化設定。</value></data>
+  <data name="SellTradeLineColorDescription" xml:space="preserve"><value>売買取引ラインとマーカーを表示するために使用される色を指定します。</value></data>
+  <data name="Sells" xml:space="preserve"><value>販売</value></data>
+  <data name="SenkouSpanB" xml:space="preserve"><value>先行スパンB</value></data>
+  <data name="SeparatedTrades" xml:space="preserve"><value>分離取引</value></data>
+  <data name="Session" xml:space="preserve"><value>セッション</value></data>
+  <data name="SessionAveragePriceDescription" xml:space="preserve"><value>特定のセッションの平均価格レベルを説明します。</value></data>
+  <data name="SessionBegin" xml:space="preserve"><value>セッション開始</value></data>
+  <data name="SessionBeginDescription" xml:space="preserve"><value>データ記録の開始日を定義します。</value></data>
+  <data name="SessionColorIndDescription" xml:space="preserve"><value>このインジケーターは、毎取引日ごとに設定された期間の間、チャートの背景を周期的に強調表示することを可能にします。たとえば、異なる設定のいくつかのインジケーターを設定することで、主要な取引プラットフォームの取引セッションを強調表示し、それらがいつ始まり、終わり、互いに交差するかを視覚化できます。これは、特に取引日のオープニングとクロージング時に、より高い取引活動と金融商品のボラティリティが観察されるため、日中取引中に考慮することが重要です。</value></data>
+  <data name="SessionDeltaAlert" xml:space="preserve"><value>セッションデルタアラート</value></data>
+  <data name="SessionDeltaMode" xml:space="preserve"><value>セッションデルタモード</value></data>
+  <data name="SessionDeltaPerVolumeAlert" xml:space="preserve"><value>セッションデルタ/ボリュームアラート</value></data>
+  <data name="SessionEnd" xml:space="preserve"><value>セッションの終了</value></data>
+  <data name="SessionEndDescription" xml:space="preserve"><value>データ記録の終了日を定義します。</value></data>
+  <data name="SessionModeDescription" xml:space="preserve"><value>セッションベースのデルタ計算モードを有効または無効にします。</value></data>
+  <data name="SessionTime" xml:space="preserve"><value>セッション時間</value></data>
+  <data name="SessionVolumeAlert" xml:space="preserve"><value>セッションボリュームアラート</value></data>
+  <data name="SetStartPoint" xml:space="preserve"><value>開始位置を設定する</value></data>
+  <data name="SetStartPointKeyFilterDescription" xml:space="preserve"><value>このフィールドがアクティブな場合、開始点を設定するためのホットキーを定義できます。</value></data>
+  <data name="Settings" xml:space="preserve"><value>設定</value></data>
+  <data name="Shift" xml:space="preserve"><value>シフト</value></data>
+  <data name="Short" xml:space="preserve"><value>Short</value></data>
+  <data name="ShortPeriod" xml:space="preserve"><value>短期間</value></data>
+  <data name="ShortPeriodColorDescription" xml:space="preserve"><value>短期要素の色を定義します。</value></data>
+  <data name="ShortPeriodDDescription" xml:space="preserve"><value>"KD - Fast"計算のための"%D"期間の設定。</value></data>
+  <data name="ShortPeriodDescription" xml:space="preserve"><value>短期移動平均の期間を指定します</value></data>
+  <data name="ShortPeriodKDescription" xml:space="preserve"><value>"KD - Fast" 計算のための "%K" 期間の設定。</value></data>
+  <data name="ShortStdDevPeriodDescription" xml:space="preserve"><value>短期標準偏差期間は、データの平均値に対する変動性を計算するために使用される時間間隔を指します。この期間は、データの短期的な変動を分析し、特定の時間枠内で値がどれほど分散しているかを理解するのに役立ちます。これは、金融市場におけるボラティリティとリスクを評価するための有用な指標です。</value></data>
+  <data name="ShortValues" xml:space="preserve"><value>短い値を表示</value></data>
+  <data name="Show" xml:space="preserve"><value>表示</value></data>
+  <data name="ShowAboveChart" xml:space="preserve"><value>チャートの上に表示</value></data>
+  <data name="ShowAccountId" xml:space="preserve"><value>アカウントIDを表示</value></data>
+  <data name="ShowAccountIdDescription" xml:space="preserve"><value>アカウント識別子を表示</value></data>
+  <data name="ShowAlertAreaDescription" xml:space="preserve"><value>アラートがトリガーされたときに表示されている要素のハイライトを有効または無効にします。これにより、アラートに注意を引くことでユーザーエクスペリエンスを向上させることができます。</value></data>
+  <data name="ShowArea" xml:space="preserve"><value>エリアを表示</value></data>
+  <data name="ShowAsCandle" xml:space="preserve"><value>ローソク足で表示</value></data>
+  <data name="ShowAsCandleDescription" xml:space="preserve"><value>有効にすると、要素がキャンドルとして表示されます。</value></data>
+  <data name="ShowAsk" xml:space="preserve"><value>アスクを表示</value></data>
+  <data name="ShowAsksDescription" xml:space="preserve"><value>購入ボリューム。</value></data>
+  <data name="ShowAvailableBalance" xml:space="preserve"><value>利用可能な残高を表示</value></data>
+  <data name="ShowAvailableBalanceDescription" xml:space="preserve"><value>取引のための利用可能な資金を表示する</value></data>
+  <data name="ShowAverage" xml:space="preserve"><value>移動平均を表示</value></data>
+  <data name="ShowBalance" xml:space="preserve"><value>残高を表示</value></data>
+  <data name="ShowBalanceDescription" xml:space="preserve"><value>合計残高を表示</value></data>
+  <data name="ShowBars" xml:space="preserve"><value>バーを表示</value></data>
+  <data name="ShowBarsDescription" xml:space="preserve"><value>チャートにバーを表示するかどうかを決定します。</value></data>
+  <data name="ShowBaseElementOnlyDescription" xml:space="preserve"><value>有効にすると、基本要素を除くすべての要素が非表示になります。</value></data>
+  <data name="ShowBid" xml:space="preserve"><value>ビッドを表示</value></data>
+  <data name="ShowBidsDescription" xml:space="preserve"><value>販売量。</value></data>
+  <data name="ShowBlockedMargin" xml:space="preserve"><value>ブロックされたマージンを表示</value></data>
+  <data name="ShowBlockedMarginDescription" xml:space="preserve"><value>オープンポジションによってロックされたマージンを表示</value></data>
+  <data name="ShowBotBlock" xml:space="preserve"><value>下部ブロックを表示</value></data>
+  <data name="ShowBottomElementsDescription" xml:space="preserve"><value>要素を下部に表示するかどうかを決定します。</value></data>
+  <data name="ShowBrokenChannel" xml:space="preserve"><value>壊れたチャンネルを表示</value></data>
+  <data name="ShowBrokenChannelDescription" xml:space="preserve"><value>壊れたレベルを表示するかどうかを決定します。</value></data>
+  <data name="ShowCandleDurationDescription" xml:space="preserve"><value>キャンドルの期間に関する情報。</value></data>
+  <data name="ShowCandleHeightDescription" xml:space="preserve"><value>ローソク足のサイズ（ティック単位）。</value></data>
+  <data name="ShowCandleTimeDescription" xml:space="preserve"><value>キャンドルの開始時間。</value></data>
+  <data name="ShowClosedPnL" xml:space="preserve"><value>クローズドPnLを表示</value></data>
+  <data name="ShowClosedPnLDescription" xml:space="preserve"><value>実現した利益と損失を表示</value></data>
+  <data name="ShowCumulative" xml:space="preserve"><value>累積表示を表示</value></data>
+  <data name="ShowCumulativeValues" xml:space="preserve"><value>累積値を表示</value></data>
+  <data name="ShowCumulativeValuesDescription" xml:space="preserve"><value>パネル下部に総BidおよびAsk出来高の比率を表示します。</value></data>
+  <data name="ShowCurrency" xml:space="preserve"><value>通貨を表示</value></data>
+  <data name="ShowCurrencyDescription" xml:space="preserve"><value>アカウントの通貨を表示</value></data>
+  <data name="ShowCurrentParameterInfoDescription" xml:space="preserve"><value>このパラメーターに関する情報を表示するかどうかを決定します。</value></data>
+  <data name="ShowCurrentParameterNameDescription" xml:space="preserve"><value>このパラメーターの名前を表示するかどうかを決定します。</value></data>
+  <data name="ShowCurrentValue" xml:space="preserve"><value>値を表示</value></data>
+  <data name="ShowCurrentValueDescription" xml:space="preserve"><value>価格パネルにデータ系列の現在の値を表示するかどうかを決定します。</value></data>
+  <data name="ShowDelta" xml:space="preserve"><value>デルタ</value></data>
+  <data name="ShowDeltaChange" xml:space="preserve"><value>デルタ変化</value></data>
+  <data name="ShowDeltaChangeDescription" xml:space="preserve"><value>バー間の市場の方向の変化。</value></data>
+  <data name="ShowDeltaDescription" xml:space="preserve"><value>各バーのボリュームの違い。</value></data>
+  <data name="ShowDeltaPerVolume" xml:space="preserve"><value>デルタ/出来高を表示</value></data>
+  <data name="ShowDeltaPerVolumeDescription" xml:space="preserve"><value>総ボリュームに対するデルタの不均衡 (%)。</value></data>
+  <data name="ShowDepthChanges" xml:space="preserve"><value>深さの変更を表示</value></data>
+  <data name="ShowDepthChangesDescription" xml:space="preserve"><value>注文書のレベルにおけるプルとスタッキングの累積変化を表示します。</value></data>
+  <data name="ShowDescription" xml:space="preserve"><value>説明を表示</value></data>
+  <data name="ShowDuration" xml:space="preserve"><value>表示時間、秒</value></data>
+  <data name="ShowDurationHHMMSS" xml:space="preserve"><value>表示時間 HH:MM:SS</value></data>
+  <data name="ShowFibonacci" xml:space="preserve"><value>フィボナッチを表示</value></data>
+  <data name="ShowFibonacciDescription" xml:space="preserve"><value>フィボナッチラインを表示するかどうかを決定します。</value></data>
+  <data name="ShowFirstPartialPeriod" xml:space="preserve"><value>最初の部分的な期間を表示</value></data>
+  <data name="ShowFirstPeriodDescription" xml:space="preserve"><value>前の期間に対してこの要素を表示するかどうかを決定します。</value></data>
+  <data name="ShowGapsDescription" xml:space="preserve"><value>指定されたギャップを表示するかどうかを決定します。</value></data>
+  <data name="ShowGrid" xml:space="preserve"><value>グリッドを表示</value></data>
+  <data name="ShowHeight" xml:space="preserve"><value>高さ</value></data>
+  <data name="ShowHighLow" xml:space="preserve"><value>High/Lowを表示</value></data>
+  <data name="ShowInstrument" xml:space="preserve"><value>インストゥルメントを表示</value></data>
+  <data name="ShowLabelsOfFinishedLines" xml:space="preserve"><value>完了したラインのラベル</value></data>
+  <data name="ShowLabelsOfFinishedLinesDescription" xml:space="preserve"><value>行の終わりにラベルを表示するかどうかを決定します。</value></data>
+  <data name="ShowLevelsOnChartDescription" xml:space="preserve"><value>チャートに指定されたレベルを表示するかどうかを決定します。</value></data>
+  <data name="ShowLeverage" xml:space="preserve"><value>レバレッジを表示</value></data>
+  <data name="ShowLeverageDescription" xml:space="preserve"><value>アカウントのレバレッジを表示</value></data>
+  <data name="ShowLines" xml:space="preserve"><value>行を表示</value></data>
+  <data name="ShowMaxValueDescription" xml:space="preserve"><value>最大値を持つ要素を表示するかどうかを決定します。</value></data>
+  <data name="ShowMaximumDelta" xml:space="preserve"><value>最大デルタ</value></data>
+  <data name="ShowMaximumDeltaDescription" xml:space="preserve"><value>ローソク足形成中の最大デルタ値.</value></data>
+  <data name="ShowMidlineDescription" xml:space="preserve"><value>中央線を表示するかどうかを決定します。</value></data>
+  <data name="ShowMinimumDelta" xml:space="preserve"><value>最小デルタ</value></data>
+  <data name="ShowMinimumDeltaDescription" xml:space="preserve"><value>キャンドル形成中の最小デルタ値。</value></data>
+  <data name="ShowOnChart" xml:space="preserve"><value>チャートに表示</value></data>
+  <data name="ShowOpenPnL" xml:space="preserve"><value>オープンPnLを表示</value></data>
+  <data name="ShowOpenPnLDescription" xml:space="preserve"><value>未実現の利益と損失を表示</value></data>
+  <data name="ShowOpenRangeDescription" xml:space="preserve"><value>初期のオープニングレンジを表示するかどうかを決定します。</value></data>
+  <data name="ShowOrdersCount" xml:space="preserve"><value>注文数を表示</value></data>
+  <data name="ShowPeriod" xml:space="preserve"><value>期間を表示</value></data>
+  <data name="ShowPocLevel" xml:space="preserve"><value>POCレベルを表示</value></data>
+  <data name="ShowPocLevelDescription" xml:space="preserve"><value>POCレベルを表示するかどうかを決定します。</value></data>
+  <data name="ShowPrice" xml:space="preserve"><value>価格を表示</value></data>
+  <data name="ShowPriceLabels" xml:space="preserve"><value>価格ラベルを表示</value></data>
+  <data name="ShowPriceSelection" xml:space="preserve"><value>価格選択を表示</value></data>
+  <data name="ShowPriceSelectionDescription" xml:space="preserve"><value>この機能を有効にすると、チャート上のクラスター内の価格レベルが強調表示され、選択した取引ボリューム内の重要な価格ポイントを特定しやすくなります。</value></data>
+  <data name="ShowSMA" xml:space="preserve"><value>SMAを表示</value></data>
+  <data name="ShowSelectedPriceOnPriceAxisDescription" xml:space="preserve"><value>価格が価格軸で強調表示されるべきかどうかを決定します。</value></data>
+  <data name="ShowSessionDelta" xml:space="preserve"><value>セッションデルタ</value></data>
+  <data name="ShowSessionDeltaDescription" xml:space="preserve"><value>セッション開始以来のアスクとビッドの累積不均衡。</value></data>
+  <data name="ShowSessionDeltaPerVolume" xml:space="preserve"><value>セッションのデルタ/ボリューム</value></data>
+  <data name="ShowSessionDeltaPerVolumeDescription" xml:space="preserve"><value>総日量に対するデルタの不均衡。</value></data>
+  <data name="ShowSessionVolume" xml:space="preserve"><value>セッションボリューム</value></data>
+  <data name="ShowSessionVolumeDescription" xml:space="preserve"><value>セッションの累積ボリューム。</value></data>
+  <data name="ShowSignalNumbers" xml:space="preserve"><value>信号番号を表示</value></data>
+  <data name="ShowSmallTrades" xml:space="preserve"><value>小さな取引を表示</value></data>
+  <data name="ShowSmallTradesDescription" xml:space="preserve"><value>フィルター基準を満たさない取引を表示するかどうかを決定します。</value></data>
+  <data name="ShowSupResLevelsDescription" xml:space="preserve"><value>サポートとレジスタンスレベルを表示するかどうかを決定します。</value></data>
+  <data name="ShowThresholdLines" xml:space="preserve"><value>閾値線を表示</value></data>
+  <data name="ShowThresholdLinesDescription" xml:space="preserve"><value>Volumeパネルに水平のしきい線を表示する。</value></data>
+  <data name="ShowTicks" xml:space="preserve"><value>ティックを表示</value></data>
+  <data name="ShowTime" xml:space="preserve"><value>時間</value></data>
+  <data name="ShowTimeFrameLabel" xml:space="preserve"><value>時間枠ラベルを表示</value></data>
+  <data name="ShowTopBlock" xml:space="preserve"><value>上部ブロックを表示</value></data>
+  <data name="ShowTopElementsDescription" xml:space="preserve"><value>要素を上部に表示するかどうかを決定します。</value></data>
+  <data name="ShowTotalPnL" xml:space="preserve"><value>合計PnLを表示</value></data>
+  <data name="ShowTotalPnLDescription" xml:space="preserve"><value>総利益と損失を表示</value></data>
+  <data name="ShowTradeTooltipDescription" xml:space="preserve"><value>トレードマーカーにマウスをホバーしたときにトレードの詳細を表示するツールチップを表示するかどうかを決定します。</value></data>
+  <data name="ShowTradesCount" xml:space="preserve"><value>取引の数</value></data>
+  <data name="ShowTradesCountDescription" xml:space="preserve"><value>取引の数に関する情報。</value></data>
+  <data name="ShowValue" xml:space="preserve"><value>値を表示</value></data>
+  <data name="ShowValueOnLabelDescription" xml:space="preserve"><value>ラベルに値を表示するかどうかを決定します。</value></data>
+  <data name="ShowVolume" xml:space="preserve"><value>出来高</value></data>
+  <data name="ShowVolumePerSecond" xml:space="preserve"><value>秒あたりのボリューム</value></data>
+  <data name="ShowVolumePerSecondDescription" xml:space="preserve"><value>1秒あたりの取引量。</value></data>
+  <data name="ShowVolumesDescription" xml:space="preserve"><value>各バーの取引量。</value></data>
+  <data name="Signal" xml:space="preserve"><value>信号</value></data>
+  <data name="SignalLineSettingsDescription" xml:space="preserve"><value>信号線の視覚化設定。</value></data>
+  <data name="SignalPeriod" xml:space="preserve"><value>信号期間</value></data>
+  <data name="SignalPeriodDescription" xml:space="preserve"><value>信号移動平均の期間を指定します</value></data>
+  <data name="SingalAlert" xml:space="preserve"><value>信号アラート</value></data>
+  <data name="SitSeriesColor" xml:space="preserve"><value>シートシリーズの色</value></data>
+  <data name="Size" xml:space="preserve"><value>サイズ</value></data>
+  <data name="SizeDescription" xml:space="preserve"><value>このパラメーターは、チャート上の選択の標準サイズを設定します。</value></data>
+  <data name="SlowConst" xml:space="preserve"><value>遅いスムージング定数</value></data>
+  <data name="SlowConstDescription" xml:space="preserve"><value>長期的なトレンドへの反応性に影響を与えます。</value></data>
+  <data name="SlowFactor" xml:space="preserve"><value>スローファクター</value></data>
+  <data name="SlowLine" xml:space="preserve"><value>スローライン</value></data>
+  <data name="SlowLineSettingsDescription" xml:space="preserve"><value>スローラインの視覚設定。</value></data>
+  <data name="SmaSetingsDescription" xml:space="preserve"><value>チャートに移動平均を表示するための設定。</value></data>
+  <data name="Smooth" xml:space="preserve"><value>スムーズ</value></data>
+  <data name="SmoothDescription" xml:space="preserve"><value>指標値に適用される平滑化期間。</value></data>
+  <data name="SmoothLineSettingsDescription" xml:space="preserve"><value>滑らかな線を作成するための視覚化設定。</value></data>
+  <data name="SmoothPeriodFilterDescription" xml:space="preserve"><value>有効にすると、計算は指定された期間を使用して特定のパラメータの平滑化を行います。</value></data>
+  <data name="Smoothing" xml:space="preserve"><value>平滑化</value></data>
+  <data name="SourceDescription" xml:space="preserve"><value>ユーザーがインジケーターを計算するためのデータソースを選択できるようにします。特定のローソク足の価格（始値、終値など）や、別のインジケーターを使用することができます。</value></data>
+  <data name="SourceTypeDescription" xml:space="preserve"><value>利用可能なデータソースタイプの1つを表します。</value></data>
+  <data name="SpaceBetweenLabelsDescription" xml:space="preserve"><value>ラベル間の距離のサイズを定義します。</value></data>
+  <data name="SpaceBetweenObjectsDescription" xml:space="preserve"><value>表示されているオブジェクト間の間隔値を設定します。</value></data>
+  <data name="Spacing" xml:space="preserve"><value>間隔</value></data>
+  <data name="SpeedInterval" xml:space="preserve"><value>スピードインターバル</value></data>
+  <data name="SpeedOfTapeAutoFilterDescription" xml:space="preserve"><value>有効にすると、フィルター値は自動的に計算されます。それ以外の場合は、指定された値と等しくなります。</value></data>
+  <data name="SpeedOfTapeDescription" xml:space="preserve"><value>&lt;p&gt;リアルタイムの取引速度を測定します。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;テープ内の活動のスパイクやモメンタムの変化に気付くのに役立ちます。&lt;/li&gt;
+  &lt;li&gt;時間枠とインストゥルメントに基づいてカスタマイズが必要です。&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="SpreadVolumeDescription" xml:space="preserve"><value>このインジケーターは、時間の経過とともに入札価格と売却価格で取引されたボリュームを視覚化するように設計されており、市場活動に関する洞察を提供します。異なる価格レベルでの入札および売却ボリュームを表すカラーレクタングルを表示します。</value></data>
+  <data name="SqueezeMomentumDescription" xml:space="preserve"><value>インジケーターは、スクイーズモメンタムを使用して市場でのエントリーポイントを見つける方法に関する情報を提供します。これは、ボラティリティの低下と価格の動きの開始を示す黒と灰色の点を解釈する方法を説明します。また、点の色の変化が価格の方向の変化を示す方法についても説明しており、緑は強気の動きを、赤は弱気の動きを表しています。
+価格の急上昇の可能性を事前に確認できるユニバーサルインジケーターであり、エントリーポイントを見つけるのに役立ちます。
+- 黒い点は、市場が急激な動きに備えていることを示し、ボラティリティが低下しています。
+- 黒い点の後の灰色の点は、脈動の「圧縮」が終了し、価格の急上昇が間もなく始まることを意味します。
+色の変化は価格の方向の変化を示します。
+- ライトグリーン - 強気の価格方向（価格が上昇）。
+- ダークグリーン - 弱気市場への移行（価格が下落し始める）。
+- ライトレッド - 弱気の価格方向（価格が下落）。
+- ダークレッド - 強気市場への移行（価格が上昇し始める）。</value></data>
+  <data name="StackedImbalanceDescription" xml:space="preserve"><value>&lt;p&gt;関心の高いエリアを特定します。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;買い手または売り手の優位性が明確な隣接レベルを強調表示します。&lt;/li&gt;
+  &lt;li&gt;単独の不均衡だけでなく、キャンドル内の持続的な優位性を確認します。&lt;/li&gt;
+  &lt;li&gt;フットプリント内の供給と需要の圧力を分析します。&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="Stacking" xml:space="preserve"><value>スタッキング</value></data>
+  <data name="StackingDescription" xml:space="preserve"><value>注文書へのリミットオーダーの追加。</value></data>
+  <data name="StarcBandsDescription" xml:space="preserve"><value>STARCバンド指標は、標準のボリンジャーバンド指標の代替です。STARCバンドは安定した市場で狭まり、ボラティリティが上昇すると広がります。ボリンジャーバンドとは異なり、STARCバンドは終値や標準偏差を使用しません。この指標は、計算に平均真範囲（ATR）を使用し、ボラティリティレベルに関するより意味のある情報を提供します。計算に推奨されるATR期間は10です。</value></data>
+  <data name="StartTime" xml:space="preserve"><value>開始時間</value></data>
+  <data name="StartTimeDescription" xml:space="preserve"><value>取引プラットフォームの開始時間</value></data>
+  <data name="StartTimeFilterDescription" xml:space="preserve"><value>時間フィルターの開始時間を定義します。</value></data>
+  <data name="StdDev" xml:space="preserve"><value>標準偏差</value></data>
+  <data name="StdDevBandsDescription" xml:space="preserve"><value>標準偏差バンドは、SMAおよびStdDevインジケーターに基づくテクニカルインジケーターです。このインジケーターは、2つの移動平均（高値と安値）とチャネル（上部チャネルは移動平均高値とStdDevの合計、下部チャネルは移動平均安値とStdDevの差）で構成されています。</value></data>
+  <data name="StdDevDescription" xml:space="preserve"><value>標準偏差（Standard Deviation、StdDev）のテクニカル指標は、市場のボラティリティを測定します。この指標は、移動平均に対する価格範囲を特徴付けます。指標の値が大きい場合、市場はボラティリティが高く、バーの価格は移動平均に対してかなり散らばっています。指標の値が小さい場合、市場は低ボラティリティにさらされており、バーの価格は移動平均に十分近いです。</value></data>
+  <data name="StdDevPeriodDescription" xml:space="preserve"><value>ユーザーが「標準偏差」の期間を設定できるようにし、標準偏差が計算される時間枠をカスタマイズできるようにします。</value></data>
+  <data name="StdErrBandsDescription" xml:space="preserve"><value>StdErrBandsインジケーターは、線形回帰線の周りに標準誤差バンドを計算し、回帰線の周りの価格のボラティリティまたは分散を視覚的に表現します。これは、価格の動きを分析し、サポートとレジスタンスの潜在的な領域を特定するのに役立ちます。</value></data>
+  <data name="StdPeriod" xml:space="preserve"><value>標準偏差期間</value></data>
+  <data name="StdPeriodDescription" xml:space="preserve"><value>標準偏差を計算するための期間を決定します。</value></data>
+  <data name="Step" xml:space="preserve"><value>ステップ</value></data>
+  <data name="StepSizeInTicksDescription" xml:space="preserve"><value>ティックで表現されたステップサイズを定義します。</value></data>
+  <data name="Stochastic" xml:space="preserve"><value>ストキャスティクス</value></data>
+  <data name="StochasticDescription" xml:space="preserve"><value>ストキャスティックオシレーター（stochastic, stochastics）- 過去の特定の期間における価格範囲に対する現在の価格位置を示すテクニカル分析指標です。パーセントで測定されます。</value></data>
+  <data name="StochasticDiNapoliDescription" xml:space="preserve"><value>ストキャスティック・ディナポリ指標は、スムージングのために指数移動平均を取り入れたストキャスティックオシレーターのバリエーションです。ストキャスティックオシレーターは、特定の期間における証券の終値の位置をその価格範囲に対して測定しますが、ディナポリ版はEMAを使用してさらにスムージングを追加します。</value></data>
+  <data name="StochasticMomentumDescription" xml:space="preserve"><value>ストキャスティックモメンタムインデックス（SMI）は、指定された期間における高値と安値の範囲の中点に対する終値の位置を測定するために使用されるモメンタムオシレーターです。これは、買われ過ぎや売られ過ぎの市場状況を特定するための便利なツールであり、潜在的な取引シグナルに役立ちます。</value></data>
+  <data name="StochasticRsiDescription" xml:space="preserve"><value>ストキャスティックRSIは、市場における売られすぎおよび買われすぎの領域を特定するために使用されるテクニカル分析指標です。特定の期間にわたるRSI指標の最大値と最小値に基づいて計算され、0から1の範囲内の線としてチャートに表示されます。</value></data>
+  <data name="StochasticRsiPeriodDescription" xml:space="preserve"><value>ストキャスティックRSIの期間を設定します。</value></data>
+  <data name="StochasticRsiRsiPeriodDescription" xml:space="preserve"><value>ストキャスティックRSIインジケーターのRSI期間を設定します。</value></data>
+  <data name="StohasticPercentileDescription" xml:space="preserve"><value>ストキャスティック - パーセンタイルは、特定の時間間隔における価格位置に基づいて値を計算するテクニカルオシレーターです。最後のN本のバーを昇順に並べ、並べられた最後のバーの数を期間値で割り、その後、移動平均で値を平滑化します。</value></data>
+  <data name="StrongNegativeFlowColorDescription" xml:space="preserve"><value>強い負のキャッシュフローを表す要素の色を設定します。</value></data>
+  <data name="StrongPositiveFlowColorDescription" xml:space="preserve"><value>強い正のキャッシュフローを表す要素の色を設定します。</value></data>
+  <data name="SubPeriodsMode" xml:space="preserve"><value>独自の列における文字/ブロック</value></data>
+  <data name="Summary" xml:space="preserve"><value>概要</value></data>
+  <data name="SuperTrendDescription" xml:space="preserve"><value>スーパートレンド指標は、ATRおよびCCI指標を使用して計算され、トレンドの動きの方向と指標のレベルを決定します。これは、高値、安値、乗数、およびATR期間に基づいて上限と下限を決定する計算式を使用します。この指標は、トレーダーが市場のトレンドを特定するのを助けるために使用されます。
+スーパートレンドの計算式:
+UpperLevel=(High[i]+Low[i])/2+Multiplier*Atr(Period)
+LowerLevel=(High[i]+Low[i])/2-Multiplier*Atr(Period)</value></data>
+  <data name="SupportColor" xml:space="preserve"><value>サポート色</value></data>
+  <data name="SupportColorDescription" xml:space="preserve"><value>サポートレベルまたは要素のサポートゾーンを表示するための色を定義します。</value></data>
+  <data name="SupportLevel" xml:space="preserve"><value>サポートレベル</value></data>
+  <data name="SupportLevelDisplayDescription" xml:space="preserve"><value>価格が上昇する可能性のあるサポートレベルを表示します。</value></data>
+  <data name="SupportLineSettingsDescription" xml:space="preserve"><value>指定されたサポートレベルラインの視覚化設定。</value></data>
+  <data name="SwingHighLowDescription" xml:space="preserve"><value>スイングハイとローのインジケーターは、予想される反転ポイントを表示するために使用されます。チャートでは、赤い線が売りの反転ポイントを示し、緑の線が買いの反転ポイントを示します。</value></data>
+  <data name="SyntheticVixDescription" xml:space="preserve"><value>SyntheticVix指標は、VIX（ボラティリティ指数）の合成表現であり、ユーザーが将来のボラティリティに対する市場の期待を測定できるようにします。これは、指定された期間内の最高の終値と現在の最低値を比較して値を計算し、相対的なボラティリティの尺度を提供します。この指標は、一般的に市場のセンチメントを評価し、情報に基づいた取引決定を行うために使用されます。</value></data>
+  <data name="T3IndDescription" xml:space="preserve"><value>このインジケーターは、1998年にティム・ティルソンによって開発されました。
+新しいタイプの移動平均を開発する目的は、ノイズフィルタリングを改善し、遅延を減少させることです。これはほとんどの移動平均に共通する欠点です。計算には価格系列の複数の指数平滑化が使用されます。価格が下から上昇するT3ラインを越えると、買い信号となり、下降するラインを上から越えると売り信号となります。このインジケーターは、指数移動平均の6回の計算に基づいています。</value></data>
+  <data name="TDSequentialDescription" xml:space="preserve"><value>このインジケーターは、現在のキャンドルのクローズと4本前のキャンドルのクローズを比較することに基づいて、潜在的なトレンド反転の信号を表示します。信号番号9に達すると、トレンド反転の高い確率があります。信号の数が13に達すると、反転の確率が増加します。</value></data>
+  <data name="TEMA" xml:space="preserve"><value>三重指数移動平均</value></data>
+  <data name="TEMADescription" xml:space="preserve"><value>トリプル指数移動平均（TEMA）は、三重指数平滑化技術を使用して移動平均を計算するテクニカル分析指標です。これは、複数の指数移動平均を組み合わせて遅延を減らし、応答性を向上させるという考えに基づいています。TEMAは、トレンドを特定し、金融市場での売買信号を生成するために使用されます。
+式:
+TEMA(t) = 3*EMA(x(t)) - 3*EMA(EMA(x(t))) + EMA(EMA(EMA(x(t)))).</value></data>
+  <data name="TMA" xml:space="preserve"><value>三角移動平均</value></data>
+  <data name="TMADescription" xml:space="preserve"><value>三角移動平均の主な重みは価格範囲の中央部分にあります。実際、これは二重に平滑化された単純移動平均です。単純移動平均の長さは、選択した期間の数の奇偶性に依存します。</value></data>
+  <data name="TPO" xml:space="preserve"><value>TPO</value></data>
+  <data name="TPOSubPeriodDescription" xml:space="preserve"><value>TPOサブ期間の分数を定義します。</value></data>
+  <data name="TPOSubPeriodMinutes" xml:space="preserve"><value>TPO サブ期間, 分</value></data>
+  <data name="TRIXDescription" xml:space="preserve"><value>TRIX（トリプル指数平滑移動平均）は、特定の期間における終値のトリプル指数平滑移動平均の割合を表すオシレーターです。市場の過剰買いや過剰売りの状態を特定し、その振動に基づいて売買シグナルを生成するために使用されます。TRIXは、トレーダーが取引の開始または終了に関する情報に基づいた意思決定を行うのに役立ちます。</value></data>
+  <data name="TSIDescription" xml:space="preserve"><value>真の強さ指数（TSI）は、金融市場分析で使用されるテクニカル指標です。これは価格変動の二重平滑化に基づいており、正の値と負の値の間で変動します。TSI指標は、トレンドの方向を特定し、売られすぎや買われすぎの状態を識別し、ダイバージェンスを通じてトレンドの弱まりを警告するのに役立ちます。</value></data>
+  <data name="TVIDescription" xml:space="preserve"><value>取引量指数（TVI）は、ティックレベルでの価格変動とボリュームの相関関係を測定するために使用される指標です。価格とボリュームのティックごとの変化を分析することで、価格の動きの強さを特定するのに役立ちます。TVIは、市場のモメンタムを評価するためにトレーダーによく使用されるシンプルなツールです。</value></data>
+  <data name="TableCellWidthPixelsDescription" xml:space="preserve"><value>テーブルセルの幅をピクセル単位で設定します。</value></data>
+  <data name="TableOffsetXDescription" xml:space="preserve"><value>テーブルのx軸オフセットをピクセル単位で設定します。</value></data>
+  <data name="TapePatternDescription" xml:space="preserve"><value>このインジケーターは、市場に流入する「生」の注文ストリームを処理およびフィルタリングするように設計されています。非常に敏感な設定を持ち、自動ダウンロードアルゴリズムを計算し、ポジションのアンロードを管理します。
+Tape Patternsを使用すると、以下のことが可能になります:
+- 現在のプリントチェーンで最大および最小のボリュームを検出できます
+- このボリュームを使用してフィルタリングできます
+- 希望するプリント間のミリ秒単位の時間を確認できます
+- 範囲内のティック数を確認できます
+- 取引の側（買い/売り）を検出できます。
+インジケーターはこれらのデータを考慮し、チャートに表示します。
+
+重要！サーバーの負荷を最適化するために、インジケーターデータは現在のセッションのみに表示されます。</value></data>
+  <data name="TeethAlligator" xml:space="preserve"><value>ワニの歯</value></data>
+  <data name="TenkanSen" xml:space="preserve"><value>転換線</value></data>
+  <data name="Text" xml:space="preserve"><value>テキスト</value></data>
+  <data name="TextColor" xml:space="preserve"><value>テキストカラー</value></data>
+  <data name="TextLocation" xml:space="preserve"><value>テキストの位置</value></data>
+  <data name="TextSettings" xml:space="preserve"><value>テキスト設定</value></data>
+  <data name="TextSize" xml:space="preserve"><value>テキストサイズ</value></data>
+  <data name="TextSizeDescription" xml:space="preserve"><value>表示するテキストのサイズを決定します。</value></data>
+  <data name="ThirdDev" xml:space="preserve"><value>第三の開発。</value></data>
+  <data name="ThirdFormula" xml:space="preserve"><value>第三の公式</value></data>
+  <data name="Threshold" xml:space="preserve"><value>しきい値</value></data>
+  <data name="Thresholds" xml:space="preserve"><value>閾値</value></data>
+  <data name="TickCost" xml:space="preserve"><value>ティックコスト</value></data>
+  <data name="TickCostValueDescription" xml:space="preserve"><value>取引所で特定の金融商品に対するティックコストの値を表示できます。</value></data>
+  <data name="TickSize" xml:space="preserve"><value>ティックサイズ</value></data>
+  <data name="TickSizeDescription" xml:space="preserve"><value>ティックサイズを定義します。これは、金融商品における通貨で測定されます。</value></data>
+  <data name="Ticks" xml:space="preserve"><value>ティック</value></data>
+  <data name="TillBar" xml:space="preserve"><value>バーまで</value></data>
+  <data name="Time" xml:space="preserve"><value>時間</value></data>
+  <data name="TimeBar" xml:space="preserve"><value>タイムバー</value></data>
+  <data name="TimeFilter" xml:space="preserve"><value>時間フィルター</value></data>
+  <data name="TimeFilterSec" xml:space="preserve"><value>時間フィルター（秒）</value></data>
+  <data name="TimeFiltration" xml:space="preserve"><value>時間フィルタリング</value></data>
+  <data name="TimeFormat" xml:space="preserve"><value>時間形式</value></data>
+  <data name="TimeFormatDescription" xml:space="preserve"><value>時刻の表示形式を定義します。</value></data>
+  <data name="TimeFrame" xml:space="preserve"><value>タイムフレーム</value></data>
+  <data name="TimeFrame1" xml:space="preserve"><value>時間枠 1</value></data>
+  <data name="TimeFrame2" xml:space="preserve"><value>時間枠 2</value></data>
+  <data name="TimeFrame3" xml:space="preserve"><value>タイムフレーム 3</value></data>
+  <data name="TimeFrame4" xml:space="preserve"><value>時間枠 4</value></data>
+  <data name="TimeFrom" xml:space="preserve"><value>開始時間</value></data>
+  <data name="TimeFromDescription" xml:space="preserve"><value>このパラメーターは、時間フィルターの開始時間を設定します。</value></data>
+  <data name="TimeModeDescription" xml:space="preserve"><value>表示される時間情報を決定します。</value></data>
+  <data name="TimeSettings" xml:space="preserve"><value>時間設定</value></data>
+  <data name="TimeTo" xml:space="preserve"><value>終了時間</value></data>
+  <data name="TimeToDescription" xml:space="preserve"><value>このパラメーターは、時間フィルターの終了時刻を設定します。</value></data>
+  <data name="TimeToEndOfCandle" xml:space="preserve"><value>バーが閉じるまでの時間</value></data>
+  <data name="TimeZone" xml:space="preserve"><value>タイムゾーン</value></data>
+  <data name="TimeZoneDescription" xml:space="preserve"><value>時間を修正するためにカスタムタイムゾーンを設定することを許可します。</value></data>
+  <data name="ToggleLevelsVisibilityHotKey" xml:space="preserve"><value>すべてのレベルの表示/非表示を切り替える</value></data>
+  <data name="Tolerance" xml:space="preserve"><value>寛容</value></data>
+  <data name="ToleranceDescription" xml:space="preserve"><value>トレランスのサイズを決定します。</value></data>
+  <data name="ToleranceTypeDescription" xml:space="preserve"><value>利用可能な公差単位の1つを定義します。</value></data>
+  <data name="TooSmallRows" xml:space="preserve"><value>価格行の高さがレンダリングするには小さすぎます</value></data>
+  <data name="TopBand" xml:space="preserve"><value>上部バンド</value></data>
+  <data name="TopBandDscription" xml:space="preserve"><value>指定された範囲の上限についての説明を提供します。上部バンドが何であるか、全体の範囲との関係について明確に説明しています。提供される情報は簡潔で理解しやすいです。</value></data>
+  <data name="TopChannelSettingsDescription" xml:space="preserve"><value>トップチャネルラインの視覚化設定。</value></data>
+  <data name="TopLeft" xml:space="preserve"><value>左上</value></data>
+  <data name="TopRight" xml:space="preserve"><value>右上</value></data>
+  <data name="Total" xml:space="preserve"><value>合計</value></data>
+  <data name="TotalVolumeFilter" xml:space="preserve"><value>ボリュームフィルター</value></data>
+  <data name="Trades" xml:space="preserve"><value>取引</value></data>
+  <data name="TradesAlert" xml:space="preserve"><value>取引アラート</value></data>
+  <data name="TradesCountDescription" xml:space="preserve"><value>フィルタリングする取引の数を定義します。</value></data>
+  <data name="TradesFilter" xml:space="preserve"><value>取引フィルター</value></data>
+  <data name="TradesOnChartDescription" xml:space="preserve"><value>このインジケーターは、チャート上で「ポジションを開く - ポジションを閉じる」という形式で取引を視覚化するように設計されています。</value></data>
+  <data name="TradingSession" xml:space="preserve"><value>トレーディングセッション</value></data>
+  <data name="TradingSessionDescription" xml:space="preserve"><value>取引セッションの説明は、データを表示する必要がある金融商品取引時間の期間を決定します。これは、取引セッションを表現する文脈や、取引セッションに関連するチャート情報およびメソッドで使用されます。</value></data>
+  <data name="Transparency" xml:space="preserve"><value>行の可視性調整。</value></data>
+  <data name="TrendCciPeriod" xml:space="preserve"><value>トレンドCCI期間</value></data>
+  <data name="TrendPeriod" xml:space="preserve"><value>トレンド期間</value></data>
+  <data name="TrueRangeDescription" xml:space="preserve"><value>トゥルーレンジ指標は、テクニカル分析で証券のボラティリティを測定するために使用されます。これは、高値と安値の差、および前回の終値と現在の高値と安値の差を考慮に入れます。この計算は、トレーダーやアナリストが特定の証券に関連する潜在的な価格変動とリスクを理解するのに役立ちます。</value></data>
+  <data name="Type" xml:space="preserve"><value>タイプ</value></data>
+  <data name="UltimateOscillatorDescription" xml:space="preserve"><value>アルティメットオシレーターは、1976年にラリー・ウィリアムズによって開発されたテクニカル指標で、複数の期間を使用して価格のモメンタムを測定します。3つの異なる期間を用いた加重平均を使用することで、他のオシレーターと比較してボラティリティが低く、トレーディングシグナルが少なくなります。</value></data>
+  <data name="UnderCurrentPriceLabel" xml:space="preserve"><value>現在の価格ラベルの下</value></data>
+  <data name="UnfinishedAuctionModDescription" xml:space="preserve"><value>未完了のオークション - 未完了のビジネス。この用語は、極端な価格レベル（上限、下限、または両方）が同時に購入と販売の両方を含む状況を説明するために使用されます。インジケーターは、市場で類似の状況を検索して表示するために使用されます。
+重要: 低レベルでのハイライトを探している場合は、低レベルでの入札が入札フィルターよりも多く、売り注文の数がゼロより大きい必要があります。
+高レベルでのハイライトを探している場合は、高レベルでの売り注文が売り注文フィルターよりも多く、入札の数がゼロより大きい必要があります。</value></data>
+  <data name="Up" xml:space="preserve"><value>上</value></data>
+  <data name="UpAlert" xml:space="preserve"><value>Upアラート</value></data>
+  <data name="UpAlertFileFilterDescription" xml:space="preserve"><value>有効化されると、指定された音声ファイル名を使用して、上昇信号が検出されたときにアラートがトリガーされます。</value></data>
+  <data name="UpAreaSettingsDescription" xml:space="preserve"><value>上昇エリアの視覚化設定。</value></data>
+  <data name="UpDownVolume" xml:space="preserve"><value>上昇 / 下降ボリューム</value></data>
+  <data name="UpDownVolumeRatioDescription" xml:space="preserve"><value>アップダウンボリューム比率インジケーターは、入札/要求ボリュームまたは強気/弱気のバーのボリュームに基づいて、平均的な上下比率を計算します。市場の動きの強さと方向に関する洞察を提供し、トレーダーが情報に基づいた意思決定を行うのに役立ちます。</value></data>
+  <data name="UpTrendSettingsDescription" xml:space="preserve"><value>上昇トレンド表示設定。</value></data>
+  <data name="Upper" xml:space="preserve"><value>上部</value></data>
+  <data name="UpperFill" xml:space="preserve"><value>アッパーフィル</value></data>
+  <data name="UpperFill2" xml:space="preserve"><value>上部フィル2</value></data>
+  <data name="UpperPositiveValueColorDescription" xml:space="preserve"><value>前の値よりも大きい正の値を持つ要素の色を表示します。</value></data>
+  <data name="UpperSma" xml:space="preserve"><value>上部SMA</value></data>
+  <data name="UpperStd1" xml:space="preserve"><value>上方偏差 1</value></data>
+  <data name="UpperStd2" xml:space="preserve"><value>上方偏差2</value></data>
+  <data name="UpperStd3" xml:space="preserve"><value>上部偏差 3</value></data>
+  <data name="UpperWick" xml:space="preserve"><value>上ひげ</value></data>
+  <data name="UpperWickSettingsDescription" xml:space="preserve"><value>上ヒゲ要素の視覚設定。</value></data>
+  <data name="UseAlert" xml:space="preserve"><value>アラートを使用する</value></data>
+  <data name="UseAlertBeforeDescription" xml:space="preserve"><value>新しいメインアラートが表示される数秒前にサウンド通知を有効または無効にすることができます。</value></data>
+  <data name="UseAlertDescription" xml:space="preserve"><value>インジケーターが検出したイベントに関する通知。</value></data>
+  <data name="UseAlerts" xml:space="preserve"><value>アラートを使用する</value></data>
+  <data name="UseAlertsDescription" xml:space="preserve"><value>サウンド通知を有効または無効にします。</value></data>
+  <data name="UseAutoMaxSizeDetectionDescription" xml:space="preserve"><value>この機能は、設定で手動で設定されていない限り、最大要素サイズの自動検出を可能にします。これにより、ユーザーはシステムにサイズを決定させるか、自分で設定するかの柔軟性が提供されます。</value></data>
+  <data name="UseAutoSize" xml:space="preserve"><value>自動サイズを使用する</value></data>
+  <data name="UseCumTradesTimeFilterDescription" xml:space="preserve"><value>有効にすると、計算には、取引の完了と開始の間の時間間隔が事前に定義された期間を超えない累積取引のみが含まれます。</value></data>
+  <data name="UseCustomDiapasonDescription" xml:space="preserve"><value>有効にすると、指標を計算する際にカスタム値の範囲が使用され、それ以外の場合はデフォルト値が使用されます。</value></data>
+  <data name="UseFilter" xml:space="preserve"><value>フィルターを使用する</value></data>
+  <data name="UseFilterDescription" xml:space="preserve"><value>このフィルターを計算に使用するかどうかを決定します。</value></data>
+  <data name="UseMA" xml:space="preserve"><value>移動平均を使用する</value></data>
+  <data name="UsePartialGapClosureDescription" xml:space="preserve"><value>部分的なギャップクローズを使用するかどうかを決定します。</value></data>
+  <data name="UsePeriodDescription" xml:space="preserve"><value>有効にすると、指定された期間が指標計算に使用されます。</value></data>
+  <data name="UsePocChangeAlertDescription" xml:space="preserve"><value>POCレベルが変更されたときにアラートを使用するかどうかを決定します。</value></data>
+  <data name="UsePocTouchAlertDescription" xml:space="preserve"><value>価格がPOCレベルに触れたときにアラートを使用するかどうかを決定します。</value></data>
+  <data name="UsePreviousClose" xml:space="preserve"><value>前のローソク足の終値を使用する</value></data>
+  <data name="UsePreviousCloseDescription" xml:space="preserve"><value>この機能は、前のキャンドルの終値を考慮に入れて計算を行うことを可能にし、市場のトレンドや価格の動きに関するより包括的で正確な分析を提供します。計算に前の終値を組み込むことで、トレーダーは取引戦略や潜在的なエントリーおよびエグジットポイントについてより情報に基づいた意思決定を行うことができます。これにより、テクニカル分析の効果が大幅に向上し、全体的な取引パフォーマンスが改善される可能性があります。</value></data>
+  <data name="UseScale" xml:space="preserve"><value>スケールを使用する</value></data>
+  <data name="UseScaleDescription" xml:space="preserve"><value>オプションが有効な場合は指定された値のスケールを使用し、無効な場合は自動に戻ります。</value></data>
+  <data name="UseTimeFilter" xml:space="preserve"><value>時間フィルターを使用する</value></data>
+  <data name="UseTimeFilterDescription" xml:space="preserve"><value>この設定は、インジケーターに対して時間ベースのフィルターを適用することを可能にします。アクティブにすると、インジケーターは指定された時間範囲内にあるキャンドルのデータのみを分析して表示します。オフにすると、インジケーターはすべての時間枠のキャンドルを考慮します。</value></data>
+  <data name="UseTrueRangeDescription" xml:space="preserve"><value>このオプションが有効になっている場合、真の範囲が使用され、それ以外の場合はハイローのローソク足サイズが使用されます。</value></data>
+  <data name="UseTrueRangeKc" xml:space="preserve"><value>TrueRange (KC) を使用する</value></data>
+  <data name="UseVAHTouchAlertDescription" xml:space="preserve"><value>価格がVAHレベルに触れたときにアラートを使用するかどうかを決定します。</value></data>
+  <data name="UseVALTouchAlertDescription" xml:space="preserve"><value>価格がVALレベルに達したときにアラートを使用するかどうかを決定します。</value></data>
+  <data name="VAH" xml:space="preserve"><value>VAH</value></data>
+  <data name="VAHLineSettingsDescription" xml:space="preserve"><value>VAHラインの表示設定。</value></data>
+  <data name="VAL" xml:space="preserve"><value>VAL</value></data>
+  <data name="VALLineSettingsDescription" xml:space="preserve"><value>VALラインの視覚化設定。</value></data>
+  <data name="VBRRDescription" xml:space="preserve"><value>ボリュームバー範囲比率は、バーのボリュームとバーの高さの比率を表示します。
+インジケーター計算の公式:
+VBBR(t) = Vol(t) / (high(t) - Low(t))</value></data>
+  <data name="VPFDescription" xml:space="preserve"><value>ジョン・エーラーズによるボス予測フィルターは、市場における周期的な転換点を示すために設計された新しいインジケーターです。これは負のグループ遅延を持ち、他のインジケーターよりも先にトレーダーに信号を提供する可能性がありますが、実際には未来を見ることはできません。</value></data>
+  <data name="VWAP" xml:space="preserve"><value>VWAP</value></data>
+  <data name="VWAPDescription" xml:space="preserve"><value>&lt;p&gt;日内のコンテキスト分析と公正価格ゾーン。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;VWAP — 選択した期間の出来高加重平均価格。&lt;/li&gt;
+  &lt;li&gt;TWAP — 時間加重平均価格。&lt;/li&gt;
+  &lt;li&gt;現在の価格の平均値からの偏差。&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="VWAPOnly" xml:space="preserve"><value>VWAPのみ</value></data>
+  <data name="VWMADescription" xml:space="preserve"><value>ボリューム加重移動平均（VWMA）インジケーターは、さまざまな価格レベルでの取引量を考慮しながら資産の平均価格を計算するテクニカル分析ツールです。これにより、価格の動きや市場の行動をより微妙に理解することができます。VWMAは、価格の動きと取引量の両方に戦略を合わせようとするトレーダーに特に役立ちます。</value></data>
+  <data name="VahAlert" xml:space="preserve"><value>VAHレベルアラート</value></data>
+  <data name="ValAlert" xml:space="preserve"><value>VALレベルアラート</value></data>
+  <data name="Value" xml:space="preserve"><value>値</value></data>
+  <data name="ValueMustBeGreaterThan" xml:space="preserve"><value>{0} より大きい必要があります</value></data>
+  <data name="ValueMustBeLessThan" xml:space="preserve"><value>{0} より小さい必要があります</value></data>
+  <data name="Values" xml:space="preserve"><value>値</value></data>
+  <data name="ValuesRangeDescription" xml:space="preserve"><value>許可される最小値と最大値を指定します。</value></data>
+  <data name="VerticalHorizontalFilterDescription" xml:space="preserve"><value>垂直水平フィルターは、特定の期間における最大値と最小値の差の比率を計算することによって、価格がトレンド中か統合中かを判断するために使用されるツールです。選択されたデータソースを考慮して、正確な評価を提供します。</value></data>
+  <data name="VerticalOffset" xml:space="preserve"><value>垂直オフセット</value></data>
+  <data name="VerticalPosition" xml:space="preserve"><value>垂直位置</value></data>
+  <data name="Visibility" xml:space="preserve"><value>可視性</value></data>
+  <data name="Visible" xml:space="preserve"><value>表示可能</value></data>
+  <data name="VisibleProportion" xml:space="preserve"><value>チャートの可視部分による比率</value></data>
+  <data name="VisibleProportionDescription" xml:space="preserve"><value>現在のウィンドウ内のデータのみを色付け表示.</value></data>
+  <data name="VisualMode" xml:space="preserve"><value>ビジュアルモード</value></data>
+  <data name="VisualModeDescription" xml:space="preserve"><value>ビジュアルモード設定は、チャート上の選択の外観を制御します。選択された要素がどのように表示されるかを決定し、さまざまな好みや要件に合わせてカスタマイズできます。</value></data>
+  <data name="VisualModeHistogramDescription" xml:space="preserve"><value>各バーに垂直の列を表示します</value></data>
+  <data name="VisualObjectsDescription" xml:space="preserve"><value>この設定により、ユーザーはチャート上の視覚オブジェクトの色をカスタマイズできます。</value></data>
+  <data name="VisualObjectsTransparency" xml:space="preserve"><value>視覚オブジェクトの透明度</value></data>
+  <data name="VisualObjectsTransparencyDescription" xml:space="preserve"><value>この設定により、ユーザーはチャート上の視覚オブジェクトの透明度をカスタマイズできます。</value></data>
+  <data name="VisualSettings" xml:space="preserve"><value>ビジュアル設定</value></data>
+  <data name="Visualization" xml:space="preserve"><value>視覚化</value></data>
+  <data name="VolatilityChaikinsDescription" xml:space="preserve"><value>チャイキンボラティリティ指標は、市場のボラティリティを測定するために特定の期間にわたる価格範囲を測定するシンプルなツールです。最高価格と最低価格の差を計算し、潜在的な価格変動についての洞察を提供します。この指標は、トレーダーが市場でのエントリーおよびエグジットポイントのタイミングに関する情報に基づいた意思決定を行うのに役立つため、一般的に使用されます。</value></data>
+  <data name="VolatilityHistDescription" xml:space="preserve"><value>これはボラティリティのタイプの一つです。特定の期間の過去のデータに基づいて計算されます。この指標では、歴史的ボラティリティは標準偏差として計算されます。</value></data>
+  <data name="VolatilityTrendDescription" xml:space="preserve"><value>ボラティリティトレンドは、指定された期間のピーク価格値とATR指標の値を使用して計算される指標です。これらの値は、短期的なトレンドを示唆しています。</value></data>
+  <data name="Volume" xml:space="preserve"><value>出来高</value></data>
+  <data name="VolumeAlert" xml:space="preserve"><value>ボリュームアラート</value></data>
+  <data name="VolumeColorDescription" xml:space="preserve"><value>ボリューム要素の色を設定します。</value></data>
+  <data name="VolumeFilter" xml:space="preserve"><value>ボリュームフィルター</value></data>
+  <data name="VolumeHistSettingsDescription" xml:space="preserve"><value>ボリュームヒストグラムの視覚化設定。</value></data>
+  <data name="VolumeIndDescription" xml:space="preserve"><value>&lt;p&gt;各キャンドルの取引量をヒストグラムとして表示します。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;バーの高さはボリュームのサイズに対応しています。&lt;/li&gt;
+  &lt;li&gt;チャート上の取引活動の変化を迅速かつ視覚的に評価します。&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="VolumeIndexDescription" xml:space="preserve"><value>NVI（ネガティブボリュームインデックス）とPVI（ポジティブボリュームインデックス）は、鏡のような計算方法を用いたテクニカル指標ですが、類似の解釈を持ち、前の期間に対してそれぞれ取引量が減少または増加している特定の期間の価格変動を蓄積します。
+ボリュームインデックスは、現在の利益の累積合計に前の期間のインデックス値を掛けたものであり、現在の日の取引量が前の日の取引量よりも少ない（または多い）時に等しくなります。</value></data>
+  <data name="VolumeLabel" xml:space="preserve"><value>ボリュームラベル</value></data>
+  <data name="VolumeLabelDescription" xml:space="preserve"><value>ボリュームのラベルと説明（クラスターモード）</value></data>
+  <data name="VolumeMAPeriodDescription" xml:space="preserve"><value>ボリューム移動平均の期間を表します。</value></data>
+  <data name="VolumeMoreNBars" xml:space="preserve"><value>ボリュームは最後のNバーの合計ボリュームよりも大きいです</value></data>
+  <data name="VolumeMoreSma" xml:space="preserve"><value>ボリュームはSMA(N)ボリュームよりも多い</value></data>
+  <data name="VolumeOnChartDescription" xml:space="preserve"><value>&lt;p&gt;ボリューム指標の双子の兄弟です。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;唯一の違いは、別のパネルではなく、チャートの下部にボリュームを表示することです。&lt;/li&gt;
+  &lt;li&gt;各キャンドルの取引量と時間の経過に伴う取引活動の変化を示します。&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="VolumePerSecondAlert" xml:space="preserve"><value>ボリューム/秒アラート</value></data>
+  <data name="VolumePerTradeIndDescription" xml:space="preserve"><value>インジケーターは平均取引量を表示します。</value></data>
+  <data name="VolumeSettingsDescription" xml:space="preserve"><value>ボリューム要素の視覚化設定。</value></data>
+  <data name="VolumeSupResZonesDescription" xml:space="preserve"><value>このインジケーターは、フラクタルの安値または高値での重要な取引量に依存しており、ゾーンは特定の時間枠のキャンドルウィックの長さによって決定されます。これにより、トレーダーはトレンドを反転させるか、ゾーンが破られて再テストされたときにその継続を維持する上で重要な役割を果たす価格レベルを特定できます。同時に最大4つの異なる期間を使用することが可能です。</value></data>
+  <data name="VolumeTrendDescription" xml:space="preserve"><value>プライスボリュームトレンド（PVT）指標は、テクニカル分析で使用されるモメンタムベースのツールで、価格の変化に基づいてボリュームの変化を計算することによって資金の流れを測定します。これはトレンドを確認し、ダイバージェンスを通じて潜在的なトレーディングシグナルを特定することができます。</value></data>
+  <data name="VolumeType" xml:space="preserve"><value>ボリュームタイプ</value></data>
+  <data name="VolumeTypeDescription" xml:space="preserve"><value>使用するボリュームタイプを決定し、特定のアプリケーションやユースケースに適したボリュームタイプのカスタマイズと選択を可能にします。</value></data>
+  <data name="VolumeVisualizationType" xml:space="preserve"><value>ボリューム視覚化タイプ</value></data>
+  <data name="VolumeZoneIndDescription" xml:space="preserve"><value>ボリュームゾーンインジケーターは、価格の動きとボリュームの変化を分析することを目的としています。これは、上昇および下降価格の動きに対するボリュームの指数移動平均（EMA）の比率を計算します。この比率はその後、パーセンテージスケールに正規化され、潜在的な買われすぎまたは売られすぎの状態についての洞察を提供します。</value></data>
+  <data name="VortexIndDescription" xml:space="preserve"><value>このインジケーターは、現在および過去の高値/安値/終値に基づいて、ポジティブボルテックスとネガティブボルテックスを計算して表示します。</value></data>
+  <data name="VsaBetterVolumeDescription" xml:space="preserve"><value>VSA Better Volumeインジケーターは、ティックボリュームとキャンドルレンジを分析して、トレンドの動き、修正、および市場の反転に関する信号を提供します。ボリュームとキャンドルスプレッドに基づいて強気および弱気の信号を特定し、市場メーカーによる市場操作の信号も提供します。このインジケーターは、低ティックボリュームキャンドルを伴うトレンドの終わりと修正期間も強調します。</value></data>
+  <data name="VsaWsdDescription" xml:space="preserve"><value>VSA - WSDヒストグラムインジケーターは、ティックボリュームデータを分析してボリュームと価格の間のダイバージェンスを特定し、結果をカラーチャートで表示するように設計されています。また、供給と需要の値およびローソク足の範囲に基づいてサポートとレジスタンスレベルを特定することもでき、インジケーターのヒストグラムでは各バーのスプレッドが白でマークされています。</value></data>
+  <data name="WADDescription" xml:space="preserve"><value>アキュムレーション/ディストリビューション - ウィリアムズ指標は、市場における上昇および下降の価格変動の合計を測定し、市場参加者による証券の蓄積と分配を表します。これは、証券の売買活動に基づいて市場のトレンドや潜在的な反転ポイントを特定するのに役立ちます。</value></data>
+  <data name="WAODescription" xml:space="preserve"><value>このオシレーターは、異なる期間の2つの加重移動平均の違いを示します。</value></data>
+  <data name="WMA" xml:space="preserve"><value>加重移動平均</value></data>
+  <data name="WMADescription" xml:space="preserve"><value>加重移動平均（WMA）は、最近のデータポイントにより多くの重みを与える平均を計算する方法です。各データポイントにその新しさに基づいて重みを割り当て、次に、積の合計を重みの合計で割ることによって加重平均を計算します。</value></data>
+  <data name="WMAPeriodDescription" xml:space="preserve"><value>加重移動平均（WMA）の期間を設定します。</value></data>
+  <data name="WPRDescription" xml:space="preserve"><value>WPR指標（ウィリアムズパーセントレンジまたはウィリアムズオーバーボート/オーバーソールドインデックス）は、ラリー・ウィリアムズによって価格の動きの速度を推定するために発明され、特定の期間の最大/最小レベルに対する終値の位置を示します。指標は、期間の現在の終値のレベルを実際の範囲（最大/最小）に対して示します。値（パーセントで）は0%から(-100%)の範囲で表示されます。</value></data>
+  <data name="WWMA" xml:space="preserve"><value>ウェルズ・ワイルダー移動平均</value></data>
+  <data name="WWMADescription" xml:space="preserve"><value>ワイルダーの移動平均は、最近のデータにより重みを置くワイルダーのスムージングアプローチを使用しています。計算プロセスには、現在の価格に基づいて前の平均を調整することが含まれ、結果として従来の方法よりも迅速な応答性を持つ移動平均が得られます。この方法は従来のアプローチよりも効率的であると言われています。</value></data>
+  <data name="WaitingForNewTick" xml:space="preserve"><value>新しいティックを待っています</value></data>
+  <data name="WatermarkIndDescription" xml:space="preserve"><value>チャートにウォーターマークを表示するインジケーターのサンプルです。カスタムテキストを表示することも可能です。</value></data>
+  <data name="WavePeriod" xml:space="preserve"><value>波の周期</value></data>
+  <data name="WavetrendDescription" xml:space="preserve"><value>Wavetrendオシレーターは、トレーダーが価格変動、買われすぎおよび売られすぎの状態、トレンド反転ポイントを特定するのに役立つテクニカル分析ツールです。市場のモメンタムや価格トレンドの潜在的な転換点を測るために一般的に使用されます。</value></data>
+  <data name="WeakNegativeFlowColorDescription" xml:space="preserve"><value>弱い負のキャッシュフローを表す要素の色を設定します。</value></data>
+  <data name="WeakPositiveFlowColorDescription" xml:space="preserve"><value>弱い正のキャッシュフローを示す要素の色を設定します。</value></data>
+  <data name="WeakSeriesColor" xml:space="preserve"><value>弱い系列の色</value></data>
+  <data name="Weekly" xml:space="preserve"><value>毎週</value></data>
+  <data name="WeissWaveDescription" xml:space="preserve"><value>ワイスウェーブ指標は、トレンドが方向を変える前の総ボリュームを視覚化するために使用されるツールです。これは、同じ方向に動く連続したキャンドルのボリュームを要約することによって行われます。これにより、トレーダーは潜在的なトレンドの変化を特定し、より情報に基づいた意思決定を行うのに役立ちます。</value></data>
+  <data name="White" xml:space="preserve"><value>ホワイト</value></data>
+  <data name="Width" xml:space="preserve"><value>幅</value></data>
+  <data name="WidthDataSeriesDescription" xml:space="preserve"><value>インジケーターの線の太さ。"ライン"表示モードでのみ適用されます。</value></data>
+  <data name="WilliamsRDescription" xml:space="preserve"><value>ウィリアムズパーセントレンジ（Williams’ %R）は、過剰買いまたは過剰売りの市場条件を特定し、市場の反転の可能性を示すために使用されるテクニカル指標です。これは、特定の期間における高値と終値の差と、高低範囲との比率を使用して計算され、100を掛け算します。 
+%R = (max(High(n)) — Close(t)) / (max(High(n)) — min(Low(n)))
+この指標には、便利さと明確さのために値の反転機能もあります。</value></data>
+  <data name="WoodiesCCIDescription" xml:space="preserve"><value>ウッディーズCCI指標は、従来のCCIを修正したバージョンであり、6と14の期間を持つ2つのCCIで構成されています。速い曲線を使用して遅い曲線の動きを予測し、遅いCCIのためのヒストグラムで補完されています。ウッディーズCCI指数の重要なレベルは、+-100、+-200、およびゼロラインです。</value></data>
+  <data name="Yellow" xml:space="preserve"><value>黄色</value></data>
+  <data name="ZLEMA" xml:space="preserve"><value>ゼロラグ指数移動平均</value></data>
+  <data name="ZLEMAIndDescription" xml:space="preserve"><value>ゼロラグ指数移動平均（ZLEMA）指標は、ジョン・エーラーズとリック・ウェイによって作成されました。ダブル指数移動平均（DEMA）やトリプル指数移動平均（TEMA）と同様に、目的はすべてのトレンドフォロー指標に固有の遅延を排除し、時間をかけて価格を平均化することです。</value></data>
+  <data name="ZScoreIndDescription" xml:space="preserve"><value>Zスコア（標準スコア）は、観測または測定された値の相対的な広がりを測定するもので、その相対的な平均の広がりが何標準偏差であるかを示します。この指標は、価格の平均値からの偏差の値を表示します。</value></data>
+  <data name="ZeroLineDescription" xml:space="preserve"><value>ゼロレベルを表示します。</value></data>
+  <data name="ZeroValue" xml:space="preserve"><value>ゼロ値</value></data>
+  <data name="ZigzagIndDescription" xml:space="preserve"><value>ZigZagインジケーターは、価格が指定されたパーセンテージで反転したときにチャート上にポイントをプロットし、これらのポイントを直線で接続します。これは価格トレンドを特定するのに役立ち、これらの価格変動に関するボリューム、デルタ、キャンドル数、時間の情報も提供します。</value></data>
+  <data name="Zone" xml:space="preserve"><value>ゾーン</value></data>
+  <data name="Zone100" xml:space="preserve"><value>100% ゾーン</value></data>
+  <data name="Zone150" xml:space="preserve"><value>150% ゾーン</value></data>
+  <data name="Zone200" xml:space="preserve"><value>200% ゾーン</value></data>
+  <data name="Zone25" xml:space="preserve"><value>25% ゾーン</value></data>
+  <data name="Zone50" xml:space="preserve"><value>50%ゾーン</value></data>
+  <data name="Zone75" xml:space="preserve"><value>75% ゾーン</value></data>
+  <data name="ZoneDirectionDescription" xml:space="preserve"><value>ゾーンの利用可能な方向の1つを定義します。</value></data>
+  <data name="ZoneWidth" xml:space="preserve"><value>ゾーン幅（日）</value></data>
+  <data name="m100" xml:space="preserve"><value>-100</value></data>
+  <data name="m200" xml:space="preserve"><value>-200</value></data>
+  <data name="m300" xml:space="preserve"><value>-300</value></data>
+  <data name="minus20" xml:space="preserve"><value>-20</value></data>
+  <data name="minus80" xml:space="preserve"><value>-80</value></data>
+  <data name="p100" xml:space="preserve"><value>100</value></data>
+  <data name="p200" xml:space="preserve"><value>200</value></data>
+  <data name="p300" xml:space="preserve"><value>300</value></data>
+</root>

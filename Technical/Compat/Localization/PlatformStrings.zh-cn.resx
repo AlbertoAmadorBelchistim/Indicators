@@ -1,0 +1,1652 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="ABWMADescription" xml:space="preserve"><value>Adaptive Binary Wave (ABW MA) 指标是一种交易工具，它基于自适应移动平均和标准差算法生成“1”和“-1”信号。它指示当前AMA值超过先前值的特定百分比，发出上升或下降偏差的信号，否则为0信号。</value></data>
+  <data name="ACDCDescription" xml:space="preserve"><value>AC DC Histogram 指标是一个结合了振荡器和移动平均线元素的综合工具。该指标基于两个移动平均线之间的差异，使用额外的移动平均线进行平滑，从而可以识别价格动态的变化。移动平均线使用了四个不同的周期，可以适应不同的市场条件。</value></data>
+  <data name="ACDescription" xml:space="preserve"><value>加速器振荡器（Bill Williams AC）是一个技术指标，用于测量当前市场动量的加速或减速。它源自令人敬畏的振荡器（AO），帮助交易员识别潜在的趋势逆转或继续模式。AC指标由一个在零线上下波动的柱状图组成，表明市场动量的强度。在零线上方的正值表明看涨动量，而在零线下方的负值表明看跌动量。</value></data>
+  <data name="ACRDescription" xml:space="preserve"><value>平均蜡烛范围（ACR）指标计算了从会话开始到当前蜡烛的平均范围，并通过直方图显示了这个平均范围的变化。</value></data>
+  <data name="ADDescription" xml:space="preserve"><value>积聚/分布（A/D）指标是一种累积工具，使用成交量和价格来评估股票的积聚或分布。A/D测量价格和成交量之间的差异，有助于确定当前趋势的强度。如果价格上涨但A/D下跌，这可能表明没有足够的成交量支持增长，价格可能会下跌。</value></data>
+  <data name="ADFDescription" xml:space="preserve"><value>“积累/分配流”（ADF）指标是“积累/分配”（AD）指标的扩展版本，使用特定周期的移动平均线实时提供关于积累和分配流的信息。它根据成交量和价格数据评估资产是在积累还是分配。</value></data>
+  <data name="ADR" xml:space="preserve"><value>平均日幅</value></data>
+  <data name="ADRDescription" xml:space="preserve"><value>ADR（Average Daily Range）指标计算指定数量的前几天的平均价格范围，然后在当前日期显示它。</value></data>
+  <data name="ADX" xml:space="preserve"><value>ADX</value></data>
+  <data name="ADXDescription" xml:space="preserve"><value>ADX（平均趋向指数）是交易者用来评估市场趋势强度的工具。它由两个主要组成部分组成：DX（方向指数）和由WMA（加权移动平均）提供的平滑机制。ADX线表示总体趋势强度。上升的ADX表明趋势正在加强，而下降的ADX表明趋势正在减弱。</value></data>
+  <data name="ADXRDescription" xml:space="preserve"><value>ADXR（Average Directional Movement Rating）是一种技术指标，通过在指定期间内平滑其数值，改进了ADX（Average Directional Index），帮助交易员更一致地衡量趋势的强度。它有助于减少短期波动。</value></data>
+  <data name="AMADescription" xml:space="preserve"><value>Adaptive Moving Average（AMA）是一种技术指标，它调整其对价格变动的敏感度，以提供对市场动态变化更有效响应的平滑移动平均线。</value></data>
+  <data name="AODescription" xml:space="preserve"><value>比尔·威廉姆斯振荡器（Awesome Oscillator）是一个旨在衡量市场运动强度的指标。该振荡器通过计算34周期和5周期的简单移动平均值之间的差异来使用，用于确认当前趋势或警示可能的逆转。</value></data>
+  <data name="ATR" xml:space="preserve"><value>ATR</value></data>
+  <data name="ATRDescription" xml:space="preserve"><value>Average True Range（ATR）指标测量特定时间段内价格变化的程度，有效地显示资产的波动性。</value></data>
+  <data name="ATRMultiplierDescription" xml:space="preserve"><value>应用于 ATR 的倍数，用于确定容差水平。</value></data>
+  <data name="ATRNDescription" xml:space="preserve"><value>ATR标准化是ATR指标的一种变体，它将波动率表示为当前价格的百分比。它用于评估市场波动性水平，并可以帮助交易员做出明智的决策。这种标准化版本使得更容易比较不同资产或时间段的波动性水平。</value></data>
+  <data name="AboveCandle" xml:space="preserve"><value>蜡烛上方</value></data>
+  <data name="AbovePrice" xml:space="preserve"><value>上述价格</value></data>
+  <data name="AbsolutePrice" xml:space="preserve"><value>固定价格</value></data>
+  <data name="Absorption" xml:space="preserve"><value>吸收</value></data>
+  <data name="AbsorptionThresholdDesc" xml:space="preserve"><value>考虑吸收的收盘价与德尔塔极值之间的最小距离</value></data>
+  <data name="AccelMax" xml:space="preserve"><value>最大加速度</value></data>
+  <data name="AccelMaxDescription" xml:space="preserve"><value>此属性限制了加速因子可以达到的最大值。这种限制确保了在高度趋势市场中 SAR 的灵敏度不会过高。</value></data>
+  <data name="AccelStart" xml:space="preserve"><value>初始加速度</value></data>
+  <data name="AccelStartDescription" xml:space="preserve"><value>此属性设置抛物线 SAR 计算的初始加速因子。它确定了 SAR 对价格变化的响应速度。</value></data>
+  <data name="AccelStep" xml:space="preserve"><value>加速步骤</value></data>
+  <data name="AccelStepDescription" xml:space="preserve"><value>AccelStep属性指定加速因子可以增加的步长或增量。</value></data>
+  <data name="AccountInfoDisplayDescription" xml:space="preserve"><value>在图表上显示详细的账户信息</value></data>
+  <data name="Accumulated" xml:space="preserve"><value>累计</value></data>
+  <data name="ActiveVolumeDescription" xml:space="preserve"><value>“活跃成交量”指标提供了从指定日期开始的不同价格水平上的累积买入（Ask）和卖出（Bid）量的实时数据。</value></data>
+  <data name="AdaptiveRsiAverageDescription" xml:space="preserve"><value>该指标计算并显示相对强弱指数（RSI）的自适应移动平均值，可选择平滑输入数据和RSI。</value></data>
+  <data name="AdxPeriod" xml:space="preserve"><value>ADX周期</value></data>
+  <data name="AdxPeriodDescription" xml:space="preserve"><value>调整在ADX计算中使用的周期。</value></data>
+  <data name="AlertBackgroundDescription" xml:space="preserve"><value>此选项用于设置警报消息的背景颜色。用户可以自定义通知或指标生成的警报的背景外观。</value></data>
+  <data name="AlertBeforeFileDescription" xml:space="preserve"><value>指定主要警报之前的通知声音文件。</value></data>
+  <data name="AlertBeforeSecondsDescription" xml:space="preserve"><value>设置新警报出现前的秒数。</value></data>
+  <data name="AlertFile" xml:space="preserve"><value>警报文件</value></data>
+  <data name="AlertFileDescription" xml:space="preserve"><value>自定义提醒声音设置。所选文件必须为WAV格式，并位于C:\Program Files (x86)\ATAS Platform\Sounds文件夹中。</value></data>
+  <data name="AlertFillColorDescription" xml:space="preserve"><value>设置警报窗口的背景颜色。</value></data>
+  <data name="AlertFilter" xml:space="preserve"><value>警报过滤</value></data>
+  <data name="AlertFilterDescription" xml:space="preserve"><value>达到手动设置的成交量水平时发出通知。</value></data>
+  <data name="AlertNewCandle" xml:space="preserve"><value>新蜡烛警报</value></data>
+  <data name="AlertPerBar" xml:space="preserve"><value>Alert per bar</value></data>
+  <data name="AlertPerBarDescription" xml:space="preserve"><value>如果启用，警报将在一个柱状图期间触发一次。</value></data>
+  <data name="AlertTextColorDescription" xml:space="preserve"><value>设置警报窗口中的文本颜色。</value></data>
+  <data name="Alerts" xml:space="preserve"><value>警报</value></data>
+  <data name="AllLevelsColorDescription" xml:space="preserve"><value>定义所有级别的颜色。</value></data>
+  <data name="AllPeriodtxt" xml:space="preserve"><value>整个周期</value></data>
+  <data name="AlligatorDescription" xml:space="preserve"><value>鳄鱼技术指标实际上是三个平滑移动平均线的组合，具有不同的周期（13、8和5），分别移动不同的周期（8、5和3）。该技术指标的作者使用中间价格来构建移动平均线。</value></data>
+  <data name="AllowCustomStartPoint" xml:space="preserve"><value>自定义起始点模式</value></data>
+  <data name="AllowCustomStartPointDescription" xml:space="preserve"><value>确定是否使用自定义起始点。</value></data>
+  <data name="AnalysisPeriod" xml:space="preserve"><value>追溯期分析</value></data>
+  <data name="AngleDescription" xml:space="preserve"><value>该指标计算水平图表轴与当前价格和给定数量周期前价格形成的直线之间的角度。</value></data>
+  <data name="Any" xml:space="preserve"><value>Any</value></data>
+  <data name="AnyWick" xml:space="preserve"><value>任意影线</value></data>
+  <data name="ApproximationAlert" xml:space="preserve"><value>近似值警报</value></data>
+  <data name="ApproximationFilter" xml:space="preserve"><value>近似值过滤</value></data>
+  <data name="ApproximationFilterDescription" xml:space="preserve"><value>定义了当前价格必须接近目标水平的ticks数量，以触发警报。</value></data>
+  <data name="AreaColor" xml:space="preserve"><value>区域颜色</value></data>
+  <data name="AreaColorDescription" xml:space="preserve"><value>设置图表上特定区域的颜色。</value></data>
+  <data name="AroonHighestDescription" xml:space="preserve"><value>显示自上次最高点以来已经过去的时间百分比。</value></data>
+  <data name="AroonIndicatorDescription" xml:space="preserve"><value>Aroon指标由Aroon Up和Aroon Down组成，衡量了在特定时期内自上次高点或低点以来的时间。该指标有助于评估趋势的强度，数值越接近100表示趋势越强。</value></data>
+  <data name="AroonLowestDescription" xml:space="preserve"><value>Aroon Lowest指标显示了特定时期内自最低价格以来经过的时间百分比。它可用于识别潜在的趋势逆转或确认当前趋势的强势。这些信息可以帮助交易员和投资者做出关于其头寸的明智决策。</value></data>
+  <data name="AroonOscillatorDescription" xml:space="preserve"><value>Aroon振荡器是一种技术指标，用于衡量Aroon Up和Aroon Down值之间的差异。它有助于评估趋势的强度和方向。当Aroon Up大于Aroon Down时，振荡器产生正值，表明上升趋势；当Aroon Down大于Aroon Up时，振荡器产生负值，表明下降趋势。振荡器值越接近+100，上升趋势越强，而值越接近-100则表明下降趋势更强。</value></data>
+  <data name="Ask" xml:space="preserve"><value>Ask</value></data>
+  <data name="AskAlert" xml:space="preserve"><value>Ask 警报</value></data>
+  <data name="AskBGColorDescription" xml:space="preserve"><value>卖出（Ask）级别背景颜色。</value></data>
+  <data name="AskBid" xml:space="preserve"><value>AskBid</value></data>
+  <data name="AskBidBarsDescription" xml:space="preserve"><value>Ask/Bid Volume Difference Bars指标显示了单个K线期间卖出和买入量的差异，以蜡烛图形式呈现。高点代表最大差异，低点代表最小差异，收盘价代表实际差异。该指标提供了关于每个K线期间交易量动态的见解。</value></data>
+  <data name="AskBidImbalanceColor" xml:space="preserve"><value>Ask/Bid 失衡颜色</value></data>
+  <data name="AskBidVolume" xml:space="preserve"><value>Ask / Bid volume</value></data>
+  <data name="AskColor" xml:space="preserve"><value>Ask 颜色</value></data>
+  <data name="AskColorDescription" xml:space="preserve"><value>买单的可视化突出显示。</value></data>
+  <data name="AskFilter" xml:space="preserve"><value>Ask 过滤</value></data>
+  <data name="AskRows" xml:space="preserve"><value>Ask 行</value></data>
+  <data name="AskVisualizationSettingsDescription" xml:space="preserve"><value>针对以卖出价成交的交易的可视化设置。</value></data>
+  <data name="Asks" xml:space="preserve"><value>Asks</value></data>
+  <data name="AsksBackGround" xml:space="preserve"><value>Asks 背景</value></data>
+  <data name="AtHigh" xml:space="preserve"><value>At High</value></data>
+  <data name="AtHighOrLow" xml:space="preserve"><value>At High or Low</value></data>
+  <data name="AtLow" xml:space="preserve"><value>At Low</value></data>
+  <data name="AtStart" xml:space="preserve"><value>At 开始</value></data>
+  <data name="AtrPeriodDescription" xml:space="preserve"><value>"指定ATR元素的周期。"</value></data>
+  <data name="Author" xml:space="preserve"><value>作者</value></data>
+  <data name="Auto" xml:space="preserve"><value>自动</value></data>
+  <data name="AutoFilter" xml:space="preserve"><value>自动过滤</value></data>
+  <data name="AutoFilterPeriod" xml:space="preserve"><value>自动过滤周期</value></data>
+  <data name="AutoUpdate" xml:space="preserve"><value>自动更新</value></data>
+  <data name="Average" xml:space="preserve"><value>平均值</value></data>
+  <data name="AverageDeltaIndDescription" xml:space="preserve"><value>该指标使用特定周期使用EMA或SMA计算平滑的增量。</value></data>
+  <data name="AveragePeriod" xml:space="preserve"><value>平均周期</value></data>
+  <data name="AveragePriceBarDescription" xml:space="preserve"><value>Average Price for Bar - 根据选择的计算模式，基于开盘价、最高价、最低价和收盘价计算平均值。</value></data>
+  <data name="AverageVolumeSettingsDescription" xml:space="preserve"><value>用于可视化平均体积元素的设置。</value></data>
+  <data name="AvgVolumeLineSettingsDescription" xml:space="preserve"><value>平均成交量线的可视化设置。</value></data>
+  <data name="AxisTextColor" xml:space="preserve"><value>价格轴字体颜色</value></data>
+  <data name="AxisTextColorDescription" xml:space="preserve"><value>定义价格轴标签的文本颜色。</value></data>
+  <data name="BBMultFactor" xml:space="preserve"><value>布林线乘法系数</value></data>
+  <data name="BBPeriod" xml:space="preserve"><value>布林线周期</value></data>
+  <data name="BBandsWidth" xml:space="preserve"><value>通道宽度</value></data>
+  <data name="BOPDescription" xml:space="preserve"><value>力量平衡（BOP）指标评估市场上买方相对卖方的力量。它通过计算确定特定时期内收盘价与最高价和最低价之间的比率来计算。然后使用简单移动平均线（SMA）对BOP值进行平滑处理，以提供更清晰的买卖压力平衡图像。</value></data>
+  <data name="BWMA" xml:space="preserve"><value>比尔·威廉姆斯移动平均线</value></data>
+  <data name="BWMADescription" xml:space="preserve"><value>Bill Williams移动平均技术指标显示了一段时间内工具的平均价格值。与简单移动平均相比，没有对工具价格进行数学平均，而是在计算中仅使用当前价格值和先前的指标值。
+该指标根据以下公式计算：
+BWMA(t) = (1-1/N)*BWMA(t-1)+CLOSE(t)/N</value></data>
+  <data name="BackGround" xml:space="preserve"><value>背景颜色</value></data>
+  <data name="BackGroundBuyColor" xml:space="preserve"><value>Buy 背景颜色</value></data>
+  <data name="BackGroundSellColor" xml:space="preserve"><value>Sell 背景颜色</value></data>
+  <data name="BackgroundBearlish" xml:space="preserve"><value>背景看跌</value></data>
+  <data name="BackgroundBullish" xml:space="preserve"><value>背景看涨</value></data>
+  <data name="BalanceOIDescription" xml:space="preserve"><value>该指标根据一定长度的K线计算并显示基于价格变动的持仓量。持仓量增加反映了买方影响力的增加，而减少反映了卖方影响力的增加。</value></data>
+  <data name="BandsEnvelopeDescription" xml:space="preserve"><value>在图表上绘制了一个两线带，价格图表位于其中。指标绘制方法完全重复了布林带的绘制，只是计算极端线与平均线的距离。布林带使用标准偏差进行计算，而信封中这个距离在设置中手动设置。</value></data>
+  <data name="Bar" xml:space="preserve"><value>条形图</value></data>
+  <data name="BarClose" xml:space="preserve"><value>Close</value></data>
+  <data name="BarDifferenceDescription" xml:space="preserve"><value>BarDifference 指标衡量当前值与特定先前柱状图上的值之间的价格差异，以跳数表示。它有助于跟踪一定时期内的价格变动，并可用作分析市场走势的工具。</value></data>
+  <data name="BarDirVsDeltaDivergenceDescription" xml:space="preserve"><value>确定是否显示背离，当柱的方向和增量值相反时发生背离：在牛市柱的情况下，增量为负，而在熊市柱的情况下，增量为正。</value></data>
+  <data name="BarDirectionDescription" xml:space="preserve"><value>确定蜡烛的方向。</value></data>
+  <data name="BarHigh" xml:space="preserve"><value>High</value></data>
+  <data name="BarLow" xml:space="preserve"><value>Low</value></data>
+  <data name="BarNumberingDescription" xml:space="preserve"><value>该指标以一定间隔显示每个柱的序号。</value></data>
+  <data name="BarOpen" xml:space="preserve"><value>Open</value></data>
+  <data name="BarRangeIndDescription" xml:space="preserve"><value>该指标显示了与每个柱的大小相对应的价格值，并确定了指定周期内的最高价格。</value></data>
+  <data name="BarShiftDescription" xml:space="preserve"><value>定义要移动的小节数。</value></data>
+  <data name="BarTimerDescription" xml:space="preserve"><value>Bar Timer指标显示蜡烛关闭前剩余的时间，为交易者提供了剩余时间的视觉表示，以便进行交易决策。这个技术工具帮助交易者有效地管理时间，并根据蜡烛关闭前剩余的时间做出明智的决策。</value></data>
+  <data name="BarVolumeFilterDescription" xml:space="preserve"><value>“柱形图的成交量过滤器”指标是一个有用的工具，可以帮助交易者过滤图表上的蜡烛成交量。它提供了根据成交量和时间设置特定标准来显示或隐藏蜡烛的能力，从而实现更加专注的分析和决策。</value></data>
+  <data name="Bars" xml:space="preserve"><value>条形图</value></data>
+  <data name="BarsCountFilter" xml:space="preserve"><value>条形图计数过滤</value></data>
+  <data name="BarsDirection" xml:space="preserve"><value>条形图方向</value></data>
+  <data name="BarsPatternDescription" xml:space="preserve"><value>Bars Pattern 指标是一个图表工具，根据用户定义的设置，突出和过滤蜡烛图案。它识别符合特定过滤条件的蜡烛，并用特定颜色突出显示。这有助于交易者轻松识别和分析图表上相关的蜡烛图案。</value></data>
+  <data name="BarsRange" xml:space="preserve"><value>条形图范围</value></data>
+  <data name="BarsRangeDescription" xml:space="preserve"><value>此属性用于指定在主要计算之前应聚合的蜡烛数量。</value></data>
+  <data name="BaseLine" xml:space="preserve"><value>基准线</value></data>
+  <data name="BaseLinePeriodDescription" xml:space="preserve"><value>基线的周期以条形图表示。</value></data>
+  <data name="BaseLineSettingsDescription" xml:space="preserve"><value>基线的可视化设置。</value></data>
+  <data name="Bearish" xml:space="preserve"><value>熊市的</value></data>
+  <data name="BearishBreakColor" xml:space="preserve"><value>空头突破颜色</value></data>
+  <data name="BearishColor" xml:space="preserve"><value>看跌颜色</value></data>
+  <data name="BearishColorDescription" xml:space="preserve"><value>设置向下走势的元素的颜色。</value></data>
+  <data name="BearishFillColorDescription" xml:space="preserve"><value>定义了熊市元素的背景填充颜色。</value></data>
+  <data name="BearishMovementSettingsDescription" xml:space="preserve"><value>看跌运动可视化设置。</value></data>
+  <data name="BearishTrendDescription" xml:space="preserve"><value>代表价格下跌的趋势。</value></data>
+  <data name="Bearlish" xml:space="preserve"><value>看跌</value></data>
+  <data name="BearlishColor" xml:space="preserve"><value>看跌颜色</value></data>
+  <data name="BelowCandle" xml:space="preserve"><value>蜡烛下方</value></data>
+  <data name="BestAskBGColorDescription" xml:space="preserve"><value>最优卖出价（Best Ask）背景颜色。</value></data>
+  <data name="BestAskBackGround" xml:space="preserve"><value>最佳Ask背景</value></data>
+  <data name="BestBidBGColorDescription" xml:space="preserve"><value>最优买入价（Best Bid）背景颜色。</value></data>
+  <data name="BestBidBackGround" xml:space="preserve"><value>最佳Bid背景</value></data>
+  <data name="Between" xml:space="preserve"><value>Between</value></data>
+  <data name="BetweenColor" xml:space="preserve"><value>价差内颜色</value></data>
+  <data name="BetweenColorDescription" xml:space="preserve"><value>定义用于显示场外交易的元素的颜色。</value></data>
+  <data name="Bid" xml:space="preserve"><value>买盘</value></data>
+  <data name="BidAlert" xml:space="preserve"><value>Bid 警报</value></data>
+  <data name="BidAndAsk" xml:space="preserve"><value>Bid and Ask</value></data>
+  <data name="BidAsk" xml:space="preserve"><value>BidAsk</value></data>
+  <data name="BidAskDescription" xml:space="preserve"><value>Bid Ask指标将以Ask价格（市场买入）或Bid价格（市场卖出）成交的交易量分开，并将这些信息呈现在零水平线上方和下方的柱状图中。这使交易员能够分析市场买入和卖出的分布情况。</value></data>
+  <data name="BidAskImbalanceColor" xml:space="preserve"><value>Bid/Ask 失衡颜色</value></data>
+  <data name="BidAskVRDescription" xml:space="preserve"><value>买卖量比率是指购买和销售量的比率，通过移动平均值平滑，以更准确地表示市场趋势。这个工具对于交易者和投资者来监测市场中购买和销售压力之间的平衡是有用的。</value></data>
+  <data name="BidBGColorDescription" xml:space="preserve"><value>买入（Bid）级别背景颜色。</value></data>
+  <data name="BidColor" xml:space="preserve"><value>Bid 颜色</value></data>
+  <data name="BidColorDescription" xml:space="preserve"><value>卖单的可视化突出显示。</value></data>
+  <data name="BidFilter" xml:space="preserve"><value>Bid 过滤</value></data>
+  <data name="BidOrAsk" xml:space="preserve"><value>Bid or Ask</value></data>
+  <data name="BidRows" xml:space="preserve"><value>Bid rows</value></data>
+  <data name="BidVisualizationSettingsDescription" xml:space="preserve"><value>交易以买价关闭的可视化设置。</value></data>
+  <data name="Bids" xml:space="preserve"><value>Bids</value></data>
+  <data name="BidsBackGround" xml:space="preserve"><value>Bid 背景</value></data>
+  <data name="BlockMADescription" xml:space="preserve"><value>这种类型的移动平均与其他类型不同之处在于，其计算结果不是单一数值，而是一个特定的通道。同时在计算中使用了ATR指标。</value></data>
+  <data name="Blue" xml:space="preserve"><value>蓝色</value></data>
+  <data name="Body" xml:space="preserve"><value>Body</value></data>
+  <data name="BollingerBands" xml:space="preserve"><value>布林线</value></data>
+  <data name="BollingerBandsBandwidthDescription" xml:space="preserve"><value>带宽指标是布林带的衍生物，用百分比衡量上下带之间的差异。它反映了波动性的变化，数值减小表示波动性减弱，数值增加表示波动性增强。该指标基于标准偏差，可以帮助交易者评估市场波动性和潜在交易机会。</value></data>
+  <data name="BollingerBandsDescription" xml:space="preserve"><value>布林带（BB）指标是技术分析中的有力工具，提供有关波动性、超买/超卖条件和潜在趋势逆转的宝贵见解。该指标由一个中线组成，通常是简单移动平均线（SMA），以及代表与SMA的标准偏差的两个外部带。</value></data>
+  <data name="BollingerBandsPercentDescription" xml:space="preserve"><value>布林带百分比是基于布林带指标计算的，表示当前价格与布林带水平之间的百分比差异</value></data>
+  <data name="BollingerSqueezeDescription" xml:space="preserve"><value>布林压缩 - 该指标基于BollingerBands和KeltnerChannel指标。直方图反映了KeltnerChannel和BollingerBands宽度之间的相对差异。</value></data>
+  <data name="BollingerSqueezeV2Description" xml:space="preserve"><value>Bollinger Squeeze 2指标是原始Bollinger Squeeze的变体，结合了Bollinger Bands、Keltner Channel、Momentum和Exponential Moving Average指标，更全面地分析市场波动性和潜在价格变动。</value></data>
+  <data name="BollingerSqueezeV3Description" xml:space="preserve"><value>Bollinger Squeeze 3是Bollinger Squeeze指标的一种变体，在计算时使用ATR和StdDev。</value></data>
+  <data name="Border" xml:space="preserve"><value>边框</value></data>
+  <data name="BorderColor" xml:space="preserve"><value>边框颜色</value></data>
+  <data name="BorderColorDescription" xml:space="preserve"><value>设置元素边框的颜色。</value></data>
+  <data name="BorderStyleDescription" xml:space="preserve"><value>设置显示元素的边框线样式。</value></data>
+  <data name="BorderWidth" xml:space="preserve"><value>边框宽度</value></data>
+  <data name="BorderWidthPixelDescription" xml:space="preserve"><value>设置显示元素边框的宽度（以像素为单位）。</value></data>
+  <data name="Both" xml:space="preserve"><value>Both</value></data>
+  <data name="BottomBand" xml:space="preserve"><value>Bottom Band</value></data>
+  <data name="BottomBandDscription" xml:space="preserve"><value>描述范围的下限。</value></data>
+  <data name="BottomChannelSettingsDescription" xml:space="preserve"><value>底部通道线的可视化设置。</value></data>
+  <data name="BottomLeft" xml:space="preserve"><value>左下角</value></data>
+  <data name="BottomRight" xml:space="preserve"><value>右下角</value></data>
+  <data name="BreakDnColor" xml:space="preserve"><value>Break Dn Color</value></data>
+  <data name="BreakUpColor" xml:space="preserve"><value>Break Up Color</value></data>
+  <data name="BrokenBearishDescription" xml:space="preserve"><value>定义了用于表示破碎的空头元素的颜色。</value></data>
+  <data name="BrokenBullishDescription" xml:space="preserve"><value>定义破损的看涨元素的颜色。</value></data>
+  <data name="BrokenChannelColor" xml:space="preserve"><value>修复通道颜色</value></data>
+  <data name="Bullish" xml:space="preserve"><value>看涨</value></data>
+  <data name="BullishBreakColor" xml:space="preserve"><value>看涨突破颜色</value></data>
+  <data name="BullishColor" xml:space="preserve"><value>看涨颜色</value></data>
+  <data name="BullishColorDescription" xml:space="preserve"><value>设置看涨方向元素的颜色。</value></data>
+  <data name="BullishFillColorDescription" xml:space="preserve"><value>定义看涨元素的背景填充颜色。</value></data>
+  <data name="BullishMovementSettingsDescription" xml:space="preserve"><value>看涨运动可视化设置。</value></data>
+  <data name="BullishTrendDescription" xml:space="preserve"><value>代表价格上涨的趋势。</value></data>
+  <data name="BuyColor" xml:space="preserve"><value>Buy 颜色</value></data>
+  <data name="BuyOvershoot1Color" xml:space="preserve"><value>Buy overshoot 1 color</value></data>
+  <data name="BuyOvershoot2Color" xml:space="preserve"><value>Buy overshoot 2 color</value></data>
+  <data name="BuyOvershoot3Color" xml:space="preserve"><value>Buy overshoot 3 color</value></data>
+  <data name="BuyOvershootColor" xml:space="preserve"><value>Buy overshoot color</value></data>
+  <data name="BuySellModeDescription" xml:space="preserve"><value>设置可用的买入/卖出模式之一。</value></data>
+  <data name="BuySellPower" xml:space="preserve"><value>Buy/Sell Power</value></data>
+  <data name="BuySellPowerPeriodDescription" xml:space="preserve"><value>定义了平均移动买卖力量的周期值。</value></data>
+  <data name="BuySellPowerSettingsDescription" xml:space="preserve"><value>显示买入/卖出力量优势的设置。</value></data>
+  <data name="BuySignalColorDescription" xml:space="preserve"><value>设置表示买入信号的元素的颜色。</value></data>
+  <data name="BuySignalSettingsDescription" xml:space="preserve"><value>买入信号的可视化设置。</value></data>
+  <data name="BuyTradeLineColorDescription" xml:space="preserve"><value>指定用于显示买入交易线条和标记的颜色。</value></data>
+  <data name="Buys" xml:space="preserve"><value>Buys</value></data>
+  <data name="ByBar" xml:space="preserve"><value>By Bar</value></data>
+  <data name="ByCandleDirection" xml:space="preserve"><value>按蜡烛方向</value></data>
+  <data name="CAVDescription" xml:space="preserve"><value>累积调整值计算价格与其指数移动平均值之间的偏差总和。求和值通过以下公式计算：AdjValt(X,n)=Xt−EMAt(X,n)</value></data>
+  <data name="CBIDescription" xml:space="preserve"><value>康妮·布朗复合指数 – 这个指标消除了RSI指标的差异问题。它是通过计算RSI值和平滑的RSI值的动量之和来计算的。</value></data>
+  <data name="CCIDescription" xml:space="preserve"><value>商品通道指数（CCI）是一种工具，它衡量当前价格水平相对于特定时期内的平均价格水平，并有助于确定资产何时被超买或超卖。商品通道指数（CCI）还有助于注意趋势的减弱或完成以及方向的变化。</value></data>
+  <data name="CFODescription" xml:space="preserve"><value>Chande预测振荡器（CFO）是一种工具，用于反映预期价格和实际价格之间的差异。它被计算为预期价格（由x周期线性回归确定）和当前工具价格之间的百分比差异。当振荡器高于零时，表明预测值高于当前价格，反之亦然。</value></data>
+  <data name="CMFDescription" xml:space="preserve"><value>Chaikin Money Flow (CMF)是一种技术分析指标，用于衡量特定时间段内的资金流量，表明买卖证券的压力。它总结了用户定义期间内的资金流量，常用期间为20或21天。 Chaikin的资金流量值介于1和-1之间。 CMF可用于进一步量化买卖压力的变化，并有助于预测未来的变化。</value></data>
+  <data name="CMODescription" xml:space="preserve"><value>Chaikin振荡器是从积累/分布线（ADL）衍生出的动量指标。它计算应用于ADL的两个不同长度的指数移动平均值。振荡器值通过从较长期的EMA中减去较短期的EMA获得。这提供了ADL动量的度量，由一条在正值和负值之间波动的线表示。监控这些波动有助于预测趋势变化，因为动量的变化往往先于趋势变化。</value></data>
+  <data name="CMSDescription" xml:space="preserve"><value>清晰方法指标使用历史数据来检测价格动态中的隐藏模式和特征。它涉及基于价格高点、低点和动量条件的复杂计算。这有助于识别可能对肉眼不可见的趋势和模式。</value></data>
+  <data name="CalculateOnBarCloseDescription" xml:space="preserve"><value>此设置控制指标计算的执行时间。启用后，指标将仅在一根完全形成并关闭的柱形图后进行计算和更新其值。</value></data>
+  <data name="Calculation" xml:space="preserve"><value>计算方式</value></data>
+  <data name="CalculationMode" xml:space="preserve"><value>计算模式</value></data>
+  <data name="CalculationModeDescription" xml:space="preserve"><value>指标计算模式</value></data>
+  <data name="CalculationSettings" xml:space="preserve"><value>计算设置</value></data>
+  <data name="CamarillaPivotsDescription" xml:space="preserve"><value>Camarilla Pivots指标显示图表上有关Camarilla枢轴水平的历史数据。Camarilla反转水平是由Nick Scott于1989年开发的。这些水平在日内交易中被用作主要支撑和阻力水平。这些水平是根据前一个交易日的最高、最低和收盘价计算出来的。</value></data>
+  <data name="CandleArea" xml:space="preserve"><value>蜡烛区域</value></data>
+  <data name="CandleAreaModeDescription" xml:space="preserve"><value>定义了一个可用的蜡烛区域。</value></data>
+  <data name="CandleBodyHeight" xml:space="preserve"><value>烛体高度</value></data>
+  <data name="CandleDirection" xml:space="preserve"><value>蜡烛方向</value></data>
+  <data name="CandleDirectionDescription" xml:space="preserve"><value>蜡烛的方向</value></data>
+  <data name="CandleHeight" xml:space="preserve"><value>蜡烛高度</value></data>
+  <data name="CandleSizeSettingsDescription" xml:space="preserve"><value>蜡烛大小元素的可视化设置。</value></data>
+  <data name="CandleStatisticsDescription" xml:space="preserve"><value>&lt;p&gt;所有重要的蜡烛信息——始终可见。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;每支蜡烛的交易量、Delta、交易数量和持续时间。&lt;/li&gt;
+  &lt;li&gt;永久显示或仅在足迹模式下显示。&lt;/li&gt;
+  &lt;li&gt;颜色、字体和标签背景的灵活设置。&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="Candles" xml:space="preserve"><value>蜡烛</value></data>
+  <data name="CciTrendDown" xml:space="preserve"><value>CCI 趋势下行</value></data>
+  <data name="CciTrendUp" xml:space="preserve"><value>CCI 上升趋势</value></data>
+  <data name="Center" xml:space="preserve"><value>居中</value></data>
+  <data name="CenterAlign" xml:space="preserve"><value>居中对齐</value></data>
+  <data name="CenterAlignDescription" xml:space="preserve"><value>如果启用，将文本居中对齐。</value></data>
+  <data name="ChaikinOscillatorDescription" xml:space="preserve"><value>查金振荡器计算累积分布线的3天和10天EMA之间的差异。它作为动量指标，通过分析动量来预测累积分布线的方向变化。</value></data>
+  <data name="ChandeMomentumDescription" xml:space="preserve"><value>钱德动量指标旨在通过计算特定时期内正价格变动的总和与负价格变动的总和之间的差异来评估金融工具的动量。它特别有助于识别趋势的强度和方向。</value></data>
+  <data name="ChannelNegativeAreaSettingsDescription" xml:space="preserve"><value>当中线值低于先前值时，通道区域的可视化设置。</value></data>
+  <data name="ChannelNeutralAreaSettingsDescription" xml:space="preserve"><value>通道区域的可视化设置，其中中线值等于上一个值。</value></data>
+  <data name="ChannelPositiveAreaSettingsDescription" xml:space="preserve"><value>当中线值高于先前值时，通道区域的可视化设置。</value></data>
+  <data name="ChartDisplayModeDescription" xml:space="preserve"><value>表示图表显示选项之一。</value></data>
+  <data name="Circles" xml:space="preserve"><value>圆圈</value></data>
+  <data name="Close" xml:space="preserve"><value>关闭</value></data>
+  <data name="ClosePartially" xml:space="preserve"><value>部分关闭</value></data>
+  <data name="ClosePrevDay" xml:space="preserve"><value>前一天收盘价</value></data>
+  <data name="CloseSessionAlertFilterDescription" xml:space="preserve"><value>如果启用，关闭会话时将生成具有指定声音文件的警报。</value></data>
+  <data name="ClosingSession" xml:space="preserve"><value>结束会话</value></data>
+  <data name="ClusterSearchAutofilterDescription" xml:space="preserve"><value>启用动态调整指标过滤器以适应特定工具。激活自动过滤功能会禁用最大和最小过滤器的参数。</value></data>
+  <data name="ClusterSearchDescription" xml:space="preserve"><value>&lt;p&gt;突出显示重要区域并简化足迹图表的工作。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;具有异常高或低交易量的集群。&lt;/li&gt;
+  &lt;li&gt;具有极端Delta值的集群。&lt;/li&gt;
+  &lt;li&gt;市场订单活动增加的区域。&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="ClusterSelectionTransparency" xml:space="preserve"><value>Footprint 选择透明度</value></data>
+  <data name="ClusterStatisticDescription" xml:space="preserve"><value>&lt;p&gt;蜡烛内部活动的扩展统计数据。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;买入和卖出交易量、蜡烛总交易量、每秒交易量和每个交易时段交易量。&lt;/li&gt;
+  &lt;li&gt;蜡烛Delta、Delta的最大值和最小值、从交易时段开始的Delta以及相对于每日交易量的Delta、蜡烛之间的Delta变化。&lt;/li&gt;
+  &lt;li&gt;交易数量、以tick为单位的蜡烛大小、开始时间和蜡烛形成持续时间。&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="ClustersMode" xml:space="preserve"><value>集群模式</value></data>
+  <data name="ClustersModeDescription" xml:space="preserve"><value>确定图表是否以集群模式显示。</value></data>
+  <data name="Color" xml:space="preserve"><value>颜色</value></data>
+  <data name="Color20" xml:space="preserve"><value>20% 颜色</value></data>
+  <data name="Color50" xml:space="preserve"><value>50% 颜色</value></data>
+  <data name="Color80" xml:space="preserve"><value>80% 颜色</value></data>
+  <data name="ColorBarHighLowIndDescription" xml:space="preserve"><value>该指标着色了价格范围上升或下降的蜡烛。如果蜡烛的最低点低于前一个蜡烛，并且最高点高于前一个蜡烛，则选择平均颜色。</value></data>
+  <data name="ColorBarOpenCloseDescription" xml:space="preserve"><value>该指标根据其方向使用选定的颜色对蜡烛进行着色。</value></data>
+  <data name="ColorBeforeCandle" xml:space="preserve"><value>在新蜡烛出现之前改变颜色</value></data>
+  <data name="ColorDescription" xml:space="preserve"><value>指定此元素的颜色。</value></data>
+  <data name="ColorFilter" xml:space="preserve"><value>颜色过滤器</value></data>
+  <data name="ColorMinus20" xml:space="preserve"><value>-20% 颜色</value></data>
+  <data name="ColorMinus50" xml:space="preserve"><value>-50% 颜色</value></data>
+  <data name="ColorMinus80" xml:space="preserve"><value>-80% 颜色</value></data>
+  <data name="ColorScheme" xml:space="preserve"><value>配色方案</value></data>
+  <data name="ColorSchemeDescription" xml:space="preserve"><value>允许用户选择各种颜色来应用于不同的元素。它提供了灵活性，可以定制各种设计元素的配色方案。这对于创建视觉上吸引人和连贯的设计非常有用。</value></data>
+  <data name="ColoredDirection" xml:space="preserve"><value>彩色方向</value></data>
+  <data name="ColoredDirectionDescription" xml:space="preserve"><value>决定是否使用不同的颜色来表示上升和下降的元素。</value></data>
+  <data name="Colors" xml:space="preserve"><value>颜色</value></data>
+  <data name="ColumnSpacing" xml:space="preserve"><value>列间距</value></data>
+  <data name="ColumnSpacingDescription" xml:space="preserve"><value>标签和数值列之间的间距</value></data>
+  <data name="CombineSmallTrades" xml:space="preserve"><value>合并小额交易</value></data>
+  <data name="CombineSmallTradesDescription" xml:space="preserve"><value>如果启用，将合并未通过筛选器且具有相同价格的交易。</value></data>
+  <data name="Common" xml:space="preserve"><value>常规设置</value></data>
+  <data name="Contract" xml:space="preserve"><value>合约</value></data>
+  <data name="ConversionLinePeriodDescription" xml:space="preserve"><value>转换线的周期，以柱状图表示。</value></data>
+  <data name="ConversionLineSettingsDescription" xml:space="preserve"><value>转换线的可视化设置。</value></data>
+  <data name="CoolDownAlertPeriodDescription" xml:space="preserve"><value>定义警报之间的最短时间间隔。</value></data>
+  <data name="CoolDownPeriod" xml:space="preserve"><value>冷却期</value></data>
+  <data name="CoppockCurveDescription" xml:space="preserve"><value>Coppock曲线是一个指标，旨在识别金融工具长期趋势的变化。它由两个变动率（ROC）计算的加权移动平均（WMA）之和组成，一个具有较短期（11）和另一个具有较长期（14）。 ROC测量指定期间内价格的百分比变化。</value></data>
+  <data name="Copyright" xml:space="preserve"><value>版权</value></data>
+  <data name="CotHighDescription" xml:space="preserve"><value>该指标是一个累积增量，每当图表上达到新的价格高点时，它就会重置为零。</value></data>
+  <data name="CumDeltaLineColorDescription" xml:space="preserve"><value>指定用于显示累积三角洲线的颜色。</value></data>
+  <data name="CumDeltaLineWidthDescription" xml:space="preserve"><value>定义用于显示高/低线的线宽。</value></data>
+  <data name="Cumulative" xml:space="preserve"><value>累积</value></data>
+  <data name="CumulativeDailyVolumeDescription" xml:space="preserve"><value>该指标显示了每日交易量的累积总量。</value></data>
+  <data name="CumulativeDeltaDescription" xml:space="preserve"><value>&lt;p&gt;分析市场买入和卖出的累积余额。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;动态中买入或卖出的优势。&lt;/li&gt;
+  &lt;li&gt;价格运动与累积Delta之间的背离。&lt;/li&gt;
+  &lt;li&gt;交易时段期间买家和卖家压力的变化。&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="CumulativeMode" xml:space="preserve"><value>累计模式</value></data>
+  <data name="CumulativeModeAskColorDescription" xml:space="preserve"><value>Ask 累计直方图的颜色。</value></data>
+  <data name="CumulativeModeBidColorDescription" xml:space="preserve"><value>Bid 累计直方图的颜色。</value></data>
+  <data name="CumulativeTrades" xml:space="preserve"><value>累计交易</value></data>
+  <data name="CumulativeTradesModeDescription" xml:space="preserve"><value>累积交易模式是一种计算方法，只考虑累积交易。该模式不考虑单个交易，而是在执行计算时查看交易的总和。它可以在各种金融和会计应用中使用。</value></data>
+  <data name="CurrentDay" xml:space="preserve"><value>当天</value></data>
+  <data name="CurrentDayHighDescription" xml:space="preserve"><value>当天最高价格。</value></data>
+  <data name="CurrentDayLowDescription" xml:space="preserve"><value>当天的最低价格。</value></data>
+  <data name="CurrentDayMedianDescription" xml:space="preserve"><value>当天的平均价格。</value></data>
+  <data name="CurrentMonth" xml:space="preserve"><value>本月</value></data>
+  <data name="CurrentPriceDescription" xml:space="preserve"><value>该指标用于在图表上显示特定工具的当前价格。</value></data>
+  <data name="CurrentTime" xml:space="preserve"><value>当前时间</value></data>
+  <data name="CurrentTimeFrame" xml:space="preserve"><value>当前时间框架</value></data>
+  <data name="CurrentWeek" xml:space="preserve"><value>本周</value></data>
+  <data name="CustomDiapason" xml:space="preserve"><value>自定义范围</value></data>
+  <data name="CustomLabel" xml:space="preserve"><value>自定义文本</value></data>
+  <data name="CustomPrice" xml:space="preserve"><value>自定义价格</value></data>
+  <data name="CustomPriceFilterDescription" xml:space="preserve"><value>如果启用，则确定用户设置的起始价格水平，否则将由系统自动确定。</value></data>
+  <data name="CustomPriceLevelsHeight" xml:space="preserve"><value>自定义价格水平的高度</value></data>
+  <data name="CustomPriceLevelsHeightDescription" xml:space="preserve"><value>单个级别的高度（像素）。0 = 图表上蜡烛的高度。</value></data>
+  <data name="CustomScale" xml:space="preserve"><value>自定义比例</value></data>
+  <data name="CustomSession" xml:space="preserve"><value>自定义会话</value></data>
+  <data name="CustomSessionInactive" xml:space="preserve"><value>自定义会话“Daily Lines”处于非活动状态</value></data>
+  <data name="CustomSessionStart" xml:space="preserve"><value>自定义会话开始</value></data>
+  <data name="CustomSessionStartDescription" xml:space="preserve"><value>指定自定义会话的开始</value></data>
+  <data name="CustomSessionStartFilterDescription" xml:space="preserve"><value>如果启用，则指定自定义会话的开始，否则将使用默认会话的开始。</value></data>
+  <data name="CustomStartPrice" xml:space="preserve"><value>自定义起价</value></data>
+  <data name="CustomStartPriceFilterDescription" xml:space="preserve"><value>如果启用，该项目允许您为计算设置自己的起始价格。</value></data>
+  <data name="CustomTickSize" xml:space="preserve"><value>自定义tick size</value></data>
+  <data name="CustomTickSizeDescription" xml:space="preserve"><value>定义了以工具货币计量的自定义tick size。</value></data>
+  <data name="CustomVWAP" xml:space="preserve"><value>自定义 VWAP 起点</value></data>
+  <data name="DEMA" xml:space="preserve"><value>双重指数移动平均线</value></data>
+  <data name="DEMADescription" xml:space="preserve"><value>双重指数移动平均是一种移动平均的变体，其计算公式如下：DEMA(t) = 2*EMA(x(t)) - EMA(EMA(x(t)))</value></data>
+  <data name="DIMinusDescription" xml:space="preserve"><value>负向定向指标（DI-）用于指示价格下跌。</value></data>
+  <data name="DINeg" xml:space="preserve"><value>DINeg</value></data>
+  <data name="DINegIndDescription" xml:space="preserve"><value>该指标使用加权移动平均线（WMA）和ATR来衡量下降趋势的强度。</value></data>
+  <data name="DIPlusDescription" xml:space="preserve"><value>正向趋向指标（DI+）表示价格上涨。</value></data>
+  <data name="DIPos" xml:space="preserve"><value>DIPos</value></data>
+  <data name="DIPosIndDescription" xml:space="preserve"><value>该指标使用加权移动平均线（WMA）和ATR显示上升趋势的强度。</value></data>
+  <data name="DMIDescription" xml:space="preserve"><value>Dynamic Momentum Index (DMI) 指标旨在评估主导趋势的强度和方向。它通过根据特定参数动态计算相对强弱指数（RSI）来实现这一点。它利用标准偏差和简单移动平均来评估波动性并平滑数据。</value></data>
+  <data name="DOMDescription" xml:space="preserve"><value>该指标实时显示当前的买入和卖出水平以及它们的成交量。</value></data>
+  <data name="DOMMaxFilterDescription" xml:space="preserve"><value>确定市场深度级别的最大数量。</value></data>
+  <data name="DOMPercentDescription" xml:space="preserve"><value>初始的成交量和DOM比率，用于确定分歧。</value></data>
+  <data name="DXDescription" xml:space="preserve"><value>DX（Directional Movement Index）指标通过比较正向和负向运动来衡量市场趋势的强度。它提供了有关趋势方向和强度的见解，帮助交易员做出明智的决策。</value></data>
+  <data name="Daily" xml:space="preserve"><value>Daily</value></data>
+  <data name="DailyChangeDescription" xml:space="preserve"><value>该指标显示了当前价格变动，相对于当前日开盘价或昨日收盘价，具体取决于所选设置。</value></data>
+  <data name="DailyHighLowDescription" xml:space="preserve"><value>该指标在图表上实时显示当天最高和最低的变化。它还显示前一天和当天的平均价格值，使用户能够跟踪市场价格的波动。</value></data>
+  <data name="DailyLinesDescription" xml:space="preserve"><value>&lt;p&gt;选定时期的关键价格水平。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;选定时期或自定义交易时段的开盘/最高/最低/收盘水平。&lt;/li&gt;
+  &lt;li&gt;支持加载最多5个交易日的交易量数据。&lt;/li&gt;
+  &lt;li&gt;灵活的显示设置:线条、颜色、标签和字体。&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="DashStyle" xml:space="preserve"><value>线条样式</value></data>
+  <data name="Data" xml:space="preserve"><value>数据</value></data>
+  <data name="Days" xml:space="preserve"><value>天</value></data>
+  <data name="DaysLookBack" xml:space="preserve"><value>Days look back</value></data>
+  <data name="DaysLookBackDescription" xml:space="preserve"><value>指计算指标时考虑的前几天的数量。</value></data>
+  <data name="DeMarkerDescription" xml:space="preserve"><value>DeMarker（DeM）指标量化了最近价格高点和低点之间的关系，以评估市场动量。它根据连续的高点和低点之间的差异计算了两个值，DeMax和DeMin。然后使用简单移动平均线（SMA）对这些值进行平滑处理。DeMarker指标计算为平滑的DeMax与平滑的DeMax和DeMin之和的比率。这个比率反映了市场的动量，较高的值表示更强劲的上行动量。该指标帮助交易员识别市场上可能的超买或超卖条件。</value></data>
+  <data name="DeTrendedDescription" xml:space="preserve"><value>DeTrended指标用于通过从当前价格值中减去简单移动平均值来识别短期价格波动。它帮助交易员发现与总体趋势的偏离以及市场上潜在的逆转或短期价格波动。移动平均线的长度由用户定义。</value></data>
+  <data name="DeTrendedDiDescription" xml:space="preserve"><value>DeTrendedDi指标是用于计算市场超买/超卖区域的工具。通过从当前价格中减去简单移动平均（SMA）值，该线反映了当前价格与其指定期间的SMA之间的偏差。</value></data>
+  <data name="DecreasedMomentumSettingsDescription" xml:space="preserve"><value>用于表示减少的动量值的渲染设置。</value></data>
+  <data name="Default" xml:space="preserve"><value>默认值</value></data>
+  <data name="DegreeOf2PeriodDescription" xml:space="preserve"><value>表示通过将数字2提高到一定的幂来表示的周期。</value></data>
+  <data name="DeleteStartPoint" xml:space="preserve"><value>删除起始点</value></data>
+  <data name="DeleteStartPointKeyFilterDescription" xml:space="preserve"><value>如果此字段处于活动状态，用户可以定义用于删除先前设置的起始点的快捷键。</value></data>
+  <data name="Delta" xml:space="preserve"><value>Delta</value></data>
+  <data name="DeltaAlert" xml:space="preserve"><value>Delta警报</value></data>
+  <data name="DeltaChangeAlert" xml:space="preserve"><value>Delta变化警报</value></data>
+  <data name="DeltaColored" xml:space="preserve"><value>Delta 颜色</value></data>
+  <data name="DeltaColoredCandlesDescription" xml:space="preserve"><value>该指标计算了特定时期的总增量，并确定其与设定最大值的接近程度。在这种情况下，蜡烛的绘制遵循了一种颜色方案。</value></data>
+  <data name="DeltaColoredDescription" xml:space="preserve"><value>确定是否根据它们的增量值对元素进行着色。</value></data>
+  <data name="DeltaDescription" xml:space="preserve"><value>&lt;p&gt;蜡烛内市场买入和卖出之间的差异。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;运动内压力的增强或减弱。&lt;/li&gt;
+  &lt;li&gt;条形方向与Delta值之间的背离。&lt;/li&gt;
+  &lt;li&gt;吸收以及买家和卖家之间主动权的变化。&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="DeltaFilter" xml:space="preserve"><value>Delta 过滤</value></data>
+  <data name="DeltaFilterDescription" xml:space="preserve"><value>此属性用于设置特定价格级别的增量过滤器。如果值为正数，则过滤器仅允许增量大于或等于该值的价格级别。如果值为负数，则过滤器仅允许增量小于或等于该值的价格级别。</value></data>
+  <data name="DeltaFilters" xml:space="preserve"><value>Delta 过滤</value></data>
+  <data name="DeltaImbalance" xml:space="preserve"><value>Bid Ask 失衡,%</value></data>
+  <data name="DeltaImbalanceDescription" xml:space="preserve"><value>此属性根据买入量（Ask）或卖出量（Bid）占该价格水平总成交量的百分比来筛选价格水平。正值：仅显示Ask成交量百分比大于或等于指定值的价格水平。                                        负值：仅显示Bid成交量百分比大于或等于过滤器绝对值的价格水平。</value></data>
+  <data name="DeltaPerVolumeAlert" xml:space="preserve"><value>Delta/交易量警报</value></data>
+  <data name="DeltaStrengthDescription" xml:space="preserve"><value>Delta Strength指标标记了价格差异不低于该柱中最大价格差异的特定百分比的柱子。这有助于交易员识别市场中重大价格波动和潜在趋势的时期。该指标对基于价格波动和强度做交易决策很有帮助。</value></data>
+  <data name="DeltaTurnaroundDescription" xml:space="preserve"><value>Delta Turnaround指标识别图表上潜在的趋势反转点，具体标准为上升和下降信号。上涨信号的条件：出现两根连续的看跌K线，且第三根K线为看涨K线，且看涨K线的Delta值为正，且其最低价小于或等于前一根K线的最低价。下跌信号的条件：出现两根连续的看涨K线，且第三根K线为看跌K线，且看跌K线的Delta值为负，且其最高价大于或等于前一根K线的最低价。</value></data>
+  <data name="DeltaType" xml:space="preserve"><value>Delta 类型</value></data>
+  <data name="DeltaTypeDescription" xml:space="preserve"><value>指定增量类型：正向、负向或两者皆有。</value></data>
+  <data name="DemandDescription" xml:space="preserve"><value>需求指数以一种特殊的方式结合价格和成交量，因此通常作为价格变化的领先指标。需求指数是由詹姆斯·西贝特开发的。
+詹姆斯·西贝特制定了六条规则来解释需求指数：
+- 需求指数与价格之间的分歧预示着即将发生的价格逆转。
+- 需求指数的极高值往往先于新价格高点的形成（该指数是领先指标）。
+- 新价格高点与需求指数的低峰的组合通常落在重要的价格高点上（该指数是同步指标）。
+- 需求指数穿过零水平通常发生在价格趋势逆转之后，并作为其确认（该指数是确认指标）。
+- 如果需求指数在零附近不断波动，当前价格趋势的潜力较弱，不会持续很长时间。
+- 价格与需求指数之间的重大长期分歧表明市场重要高点或低点。</value></data>
+  <data name="DepthChangesDisplayModeDescription" xml:space="preserve"><value>选择如何显示订单簿的变化：净变化、仅堆叠、仅撤回或两者兼有。</value></data>
+  <data name="DepthChangesFilterDescription" xml:space="preserve"><value>显示拉取或堆叠值所需的最低绝对订单簿变化。</value></data>
+  <data name="DepthChangesTextColorDescription" xml:space="preserve"><value>用于显示拉取和堆叠值的文本颜色。</value></data>
+  <data name="DepthLevelsCount" xml:space="preserve"><value>Level2深度层数</value></data>
+  <data name="DepthMarket" xml:space="preserve"><value>市场深度</value></data>
+  <data name="DepthMarketFilter" xml:space="preserve"><value>市场深度过滤</value></data>
+  <data name="Deviation" xml:space="preserve"><value>偏差</value></data>
+  <data name="DeviationPercentageDescription" xml:space="preserve"><value>确定当前值与其先前值之间的差异水平，以百分比表示。</value></data>
+  <data name="DeviationRangeDescription" xml:space="preserve"><value>表示上下轨与当前价格偏离的金额。</value></data>
+  <data name="DigitsAfterComma" xml:space="preserve"><value>交易量值中小数点后的数位</value></data>
+  <data name="DigitsAfterCommaDescription" xml:space="preserve"><value>交易量值中小数点后的数位</value></data>
+  <data name="DirectionOfZone" xml:space="preserve"><value>区域方向</value></data>
+  <data name="Disabled" xml:space="preserve"><value>停用</value></data>
+  <data name="DispersionDescription" xml:space="preserve"><value>离散度指标是用于分析价格值围绕简单移动平均值的散布的有用工具。它有助于了解在设定的时间段内价格波动的波动性和变化性，为技术分析提供宝贵的见解。</value></data>
+  <data name="Displacement" xml:space="preserve"><value>位移</value></data>
+  <data name="DisplayBottom" xml:space="preserve"><value>显示在底部</value></data>
+  <data name="DisplayClusterBorderDescription" xml:space="preserve"><value>确定是否显示集群边框。</value></data>
+  <data name="DisplayFromZeroDescription" xml:space="preserve"><value>启用时，显示从0到最大值，如果最小值为正，则显示从0到最小值，如果最大值为负。</value></data>
+  <data name="DisplayHighLowLineDescription" xml:space="preserve"><value>确定是否显示代表高/低线的元素。</value></data>
+  <data name="DisplayLabelChartBottomDescription" xml:space="preserve"><value>允许在图表底部显示标签。</value></data>
+  <data name="DisplayLabelClustersModeOnlyDescription" xml:space="preserve"><value>如果启用，标签仅在集群模式下显示</value></data>
+  <data name="DisplayMode" xml:space="preserve"><value>显示模式</value></data>
+  <data name="DisplaySMADescription" xml:space="preserve"><value>确定是否显示代表移动平均的元素。</value></data>
+  <data name="Divergence" xml:space="preserve"><value>发散</value></data>
+  <data name="DivergenceBars" xml:space="preserve"><value>背离柱</value></data>
+  <data name="DivergenceDots" xml:space="preserve"><value>背离点</value></data>
+  <data name="DividedByPriceDescription" xml:space="preserve"><value>1 Divided by Price - 该指标反映了反向图表。蜡烛图的值等于1/初始价格。</value></data>
+  <data name="Divisor" xml:space="preserve"><value>除数</value></data>
+  <data name="DivisorDescription" xml:space="preserve"><value>除数是用来通过除以特定系数将结果转换为更便于使用的格式的数学工具。</value></data>
+  <data name="DmIndexDescription" xml:space="preserve"><value>定向运动指数由正向指标（+DI）和负向指标（-DI）组成。(+DI)或(-DI)的优势分别表示上升趋势或下降趋势。</value></data>
+  <data name="DmOscillatorDescription" xml:space="preserve"><value>定向运动振荡器是一种技术分析工具，由正向指标和负向指标组成。它是由这两个指标之间的差异计算得出的，用于识别市场上的多头和空头趋势。振荡器的正值表示多头趋势，负值表示空头趋势。</value></data>
+  <data name="DoNotShowAboveChart" xml:space="preserve"><value>不显示上述图表</value></data>
+  <data name="DoNotShowAboveChartDescription" xml:space="preserve"><value>如果启用，则不在条形渲染区域显示元素。</value></data>
+  <data name="Dodge" xml:space="preserve"><value>Dodge</value></data>
+  <data name="DomPowerDescription" xml:space="preserve"><value>该指标显示了市场深度（DOM）中买家和卖家的比例。它包括：
+- 每根蜡烛上的总卖出和总买入价值
+- 每根蜡烛的卖出和买入价差变化范围（该指标中的Delta计算为卖出价-买入价）。</value></data>
+  <data name="DomStrengthDescription" xml:space="preserve"><value>DOM强度指示器显示了指定时期内的交易量与DOM当前交易量的比率。标记器的颜色表示已完成交易和DOM的比率，显示在Delta指示器的顶部。顶部的标记器显示买入与DOM中要约量的比率，而底部的标记器显示卖出与DOM中竞价量的比率。</value></data>
+  <data name="DonchianDescription" xml:space="preserve"><value>唐奇安通道是一个指标，它通过考虑最近n个周期内的最高高点和最低低点来形成。高点和低点之间的区域形成了所选周期的通道。
+
+唐奇安通道是用于监测市场价格波动的指标。如果价格稳定，唐奇安通道将相对较窄。如果价格波动，唐奇安通道将更宽。</value></data>
+  <data name="DoubleStochasticBressertDescription" xml:space="preserve"><value>双随机布雷塞特指标是双随机指标的变体，计算为双随机值的EMA。它用于技术分析，以识别潜在的趋势逆转，并在金融市场上生成买入或卖出信号。交易员和投资者使用该指标来了解市场动量并做出明智的交易决策。</value></data>
+  <data name="DoubleStochasticDescription" xml:space="preserve"><value>双重随机指标是从随机指标派生出来的，它是根据已经计算出来的随机指标的随机值计算出来的，有助于减少错误信号。</value></data>
+  <data name="Down" xml:space="preserve"><value>Down</value></data>
+  <data name="DownAlert" xml:space="preserve"><value>Down alert</value></data>
+  <data name="DownAlertFileFilterDescription" xml:space="preserve"><value>激活后，在下游信号存在时，使用指定的声音文件名称触发警报。</value></data>
+  <data name="DownAreaSettingsDescription" xml:space="preserve"><value>下降区域的可视化设置。</value></data>
+  <data name="DownTrendSettingsDescription" xml:space="preserve"><value>下降趋势显示设置。</value></data>
+  <data name="DrawAbovePriceDescription" xml:space="preserve"><value>确定在图表上绘制的视觉元素是在价格数据之上还是之下，当启用时，它会将指标的图形叠加在价格走势图上。</value></data>
+  <data name="DrawLinesDescription" xml:space="preserve"><value>启用或禁用图表上边界线的显示。</value></data>
+  <data name="Drawing" xml:space="preserve"><value>绘图</value></data>
+  <data name="DtOscillatorDescription" xml:space="preserve"><value>DT振荡器 - 该指标显示的是基于相对强弱指数（RSI）而不是价格的随机振荡器，这种替代计算方法使其与传统随机振荡器有所不同。</value></data>
+  <data name="Duration" xml:space="preserve"><value>持续时间</value></data>
+  <data name="DynamicLevelsChannelDescription" xml:space="preserve"><value>该指标动态计算并显示POC水平和由VAH和VAL水平形成的通道的值，考虑到用户选择的周期。根据价格相对于这些水平的变化，生成买入或卖出压力增加的信号。</value></data>
+  <data name="DynamicLevelsDescription" xml:space="preserve"><value>该指标使用成交量数据动态计算和显示重要水平，如VAH、VAL和POC。</value></data>
+  <data name="EMA" xml:space="preserve"><value>EMA</value></data>
+  <data name="EMADescription" xml:space="preserve"><value>具有"更好响应"的移动平均线。
+指数移动平均线(EMA)对价格变化的响应速度快于其他移动平均线。
+有助于评估趋势方向和动态。通常用作动态支撑和阻力水平。</value></data>
+  <data name="EMALineSettingsDescription" xml:space="preserve"><value>EMA线的可视化设置。</value></data>
+  <data name="EMAPeriod" xml:space="preserve"><value>EMA周期</value></data>
+  <data name="EMAPeriodDescription" xml:space="preserve"><value>设置指数移动平均线（EMA）的周期</value></data>
+  <data name="EMVDescription" xml:space="preserve"><value>移动便利指标（或阿姆斯移动便利值，也称为阿姆斯移动便利值的EMV）是一个技术指标，旨在显示市场上价格变动的轻松程度。它分析价格变动与交易量之间的关系，提供有关市场价格自由移动程度的信息。</value></data>
+  <data name="EfficiencyRatioPeriod" xml:space="preserve"><value>效率比周期</value></data>
+  <data name="ElderRayDescription" xml:space="preserve"><value>Elder Ray指标通过分析高低价格与平均价格值的偏差来衡量牛市和熊市的相对强度。
+
+Elder Ray指标是由亚历山大·埃尔德开发的，并以X射线类比命名。它显示了牛市和熊市的力量结构。Elder Ray是移动平均线和两个振荡器的组合。</value></data>
+  <data name="ElementDisplayModeDescription" xml:space="preserve"><value>Levels: 单独级别，Cumulative: 累计成交量，Both: 两种模式。</value></data>
+  <data name="ElementScaleValueDescription" xml:space="preserve"><value>自动缩放时，超出订单簿最外层级别的间距（以Tick为单位）。</value></data>
+  <data name="EmaPeriod1" xml:space="preserve"><value>指数移动平均周期1</value></data>
+  <data name="EmaPeriod2" xml:space="preserve"><value>指数移动平均周期2</value></data>
+  <data name="EmaPeriod3" xml:space="preserve"><value>指数移动平均周期3</value></data>
+  <data name="EmaPeriod4" xml:space="preserve"><value>指数移动平均周期4</value></data>
+  <data name="EmaPeriod5" xml:space="preserve"><value>指数移动平均周期5</value></data>
+  <data name="EmaPeriod6" xml:space="preserve"><value>指数移动平均周期6</value></data>
+  <data name="Enabled" xml:space="preserve"><value>启用</value></data>
+  <data name="EnabledColorElementDescription" xml:space="preserve"><value>启用时，显示指定的元素并将其设置为特定颜色。</value></data>
+  <data name="EndTime" xml:space="preserve"><value>结束时间</value></data>
+  <data name="EndTimeDescription" xml:space="preserve"><value>交易平台结束时间</value></data>
+  <data name="EndTimeFilterDescription" xml:space="preserve"><value>指定时间过滤器的结束时间。</value></data>
+  <data name="EntryCciPeriod" xml:space="preserve"><value>入场CCI周期</value></data>
+  <data name="Equilibrium" xml:space="preserve"><value>平衡</value></data>
+  <data name="ErgodicDescription" xml:space="preserve"><value>该指标计算价格差异及其绝对值，对短期和长期应用指数平滑，并计算真实强度指数（TSI），作为短期指数平滑与长期指数平滑的比率。然后使用信号线，并形成Ergodic指标的最终值，作为TSI与信号线之间的差异，有助于识别市场趋势变化的关键点。</value></data>
+  <data name="Estimator" xml:space="preserve"><value>估算</value></data>
+  <data name="EstimatorLineSettingsDescription" xml:space="preserve"><value>估计线的可视化设置。</value></data>
+  <data name="Exact" xml:space="preserve"><value>Exact</value></data>
+  <data name="ExhaustionIndDescription" xml:space="preserve"><value>当价格上涨或下跌时，交易量逐渐减少，表明市场活动减弱。这表明需求减少，在ASK（蜡烛顶部）和BID（蜡烛底部）列以及总交易量中的减少反映了这一点。</value></data>
+  <data name="ExtendLast" xml:space="preserve"><value>扩展最后一个</value></data>
+  <data name="ExtendLastDescription" xml:space="preserve"><value>确定是否应扩展最后一个元素。</value></data>
+  <data name="ExtendLines" xml:space="preserve"><value>延长线</value></data>
+  <data name="ExtendLinesDescription" xml:space="preserve"><value>确定是否应延长线条。</value></data>
+  <data name="ExtendPrevious" xml:space="preserve"><value>继续之前的</value></data>
+  <data name="ExtendPreviousDescription" xml:space="preserve"><value>确定是否应将指定元素延伸到下一个元素的开头。</value></data>
+  <data name="ExternalChartsDescription" xml:space="preserve"><value>该指标允许将连续的几个条形图组合成更大的时间间隔。</value></data>
+  <data name="ExternalPeriod" xml:space="preserve"><value>时间周期</value></data>
+  <data name="FCVDescription" xml:space="preserve"><value>该指标可以使用自定义的跳动值计算和显示完整的合同价值。</value></data>
+  <data name="FairValueGapDescription" xml:space="preserve"><value>该指标在当前和更高时间框架上找到公平价值差距。公平价值差距是通过一个三根柱范围确定的，其中最左侧的高点低于最右侧的低点，或者最左侧的低点高于最右侧的高点。</value></data>
+  <data name="FakeSeriesColor" xml:space="preserve"><value>假系列颜色</value></data>
+  <data name="FastConst" xml:space="preserve"><value>快速平滑常量</value></data>
+  <data name="FastConstDescription" xml:space="preserve"><value>调整对短期价格波动的敏感度。</value></data>
+  <data name="FastLine" xml:space="preserve"><value>快线</value></data>
+  <data name="FastLineSettingsDescription" xml:space="preserve"><value>快速线的可视化设置。</value></data>
+  <data name="FillAreaDescription" xml:space="preserve"><value>确定是否用指定的颜色填充指定的区域。</value></data>
+  <data name="FillCandles" xml:space="preserve"><value>填充蜡烛</value></data>
+  <data name="FillColor" xml:space="preserve"><value>填充颜色</value></data>
+  <data name="FillColorDescription" xml:space="preserve"><value>设置元素的填充颜色。</value></data>
+  <data name="Filter" xml:space="preserve"><value>过滤</value></data>
+  <data name="Filter1" xml:space="preserve"><value>过滤 №1</value></data>
+  <data name="Filter2" xml:space="preserve"><value>过滤 №2</value></data>
+  <data name="Filter3" xml:space="preserve"><value>过滤 №3</value></data>
+  <data name="Filter4" xml:space="preserve"><value>过滤 №4</value></data>
+  <data name="Filter5" xml:space="preserve"><value>过滤 №5</value></data>
+  <data name="FilterCandleColorDescription" xml:space="preserve"><value>设置符合过滤条件的蜡烛的颜色。</value></data>
+  <data name="FilterColor" xml:space="preserve"><value>颜色过滤</value></data>
+  <data name="FilterColorDescription" xml:space="preserve"><value>定义了未通过筛选器的元素的颜色。</value></data>
+  <data name="FilterEmptyMsg" xml:space="preserve"><value>过滤器为空</value></data>
+  <data name="Filters" xml:space="preserve"><value>过滤</value></data>
+  <data name="FiltersMaxVolumeDecimalColorDescription" xml:space="preserve"><value>高亮显示成交量超过指定阈值的级别。</value></data>
+  <data name="FirstBar" xml:space="preserve"><value>First Bar</value></data>
+  <data name="FirstBarDescription" xml:space="preserve"><value>如果启用，元素的显示将从参与计算的柱开始。</value></data>
+  <data name="FirstDev" xml:space="preserve"><value>First Dev</value></data>
+  <data name="FirstLine" xml:space="preserve"><value>第一行</value></data>
+  <data name="FisherTransformDescription" xml:space="preserve"><value>费舍尔变换是一种技术指标，它将价格转换为高斯正态分布。通过这种方式，该指标突出显示了基于最近价格的价格何时移动到了极端。这有助于识别资产价格的转折点。它还有助于显示趋势，并在趋势中分离价格波动。</value></data>
+  <data name="FisherTransformInverseDescription" xml:space="preserve"><value>Fisher Transform Inverse指标是一个转换函数，可以产生-1到1的值，非常适合用作交易中的振荡器。</value></data>
+  <data name="FisherTransformInverseRsiDescription" xml:space="preserve"><value>带有RSI的反Fisher变换是反Fisher变换振荡器的一种变体，其中RSI指标值被视为中间值。</value></data>
+  <data name="FitToPriceRange" xml:space="preserve"><value>适应价格范围</value></data>
+  <data name="FitToPriceRangeDescription" xml:space="preserve"><value>仅在指定期间的最高点和最低点之间绘制会话区域</value></data>
+  <data name="FixedSizes" xml:space="preserve"><value>固定尺寸</value></data>
+  <data name="FixedSizesDescription" xml:space="preserve"><value>当启用“固定大小”选项时，图表上的所有成交量都将以相同的大小进行视觉表示，而不考虑它们的实际值。此功能有助于创建不同成交量的标准化视觉表示。</value></data>
+  <data name="FixedThreshold" xml:space="preserve"><value>固定阈值</value></data>
+  <data name="FixedValue" xml:space="preserve"><value>固定值</value></data>
+  <data name="FlatColor" xml:space="preserve"><value>Flat 颜色</value></data>
+  <data name="Font" xml:space="preserve"><value>字体</value></data>
+  <data name="FontColor" xml:space="preserve"><value>字体颜色</value></data>
+  <data name="FontSettingDescription" xml:space="preserve"><value>描述了字体的各种设置。</value></data>
+  <data name="FontSize" xml:space="preserve"><value>字体大小</value></data>
+  <data name="FontSizeDescription" xml:space="preserve"><value>设置字体大小。</value></data>
+  <data name="ForceIndexDescription" xml:space="preserve"><value>力量指数 - 力量指数是通过当前收盘价与上一个收盘价的差值乘以当前蜡烛的交易量来计算的。该指标的主要思想是确定买方和卖方报价的压力强度。</value></data>
+  <data name="Foreground" xml:space="preserve"><value>前景色</value></data>
+  <data name="FractalPeriodDescription" xml:space="preserve"><value>识别分形所需的中心条两侧的条形数量。</value></data>
+  <data name="FractalsDescription" xml:space="preserve"><value>该指标基于5蜡烛图案识别和展示局部极值。当最高点位于中间蜡烛上，并且两侧的最高点逐渐减少时，就会出现高极值。相反，当最低点位于中间蜡烛上，并且两侧的最低点逐渐增加时，就会出现低极值。</value></data>
+  <data name="FrameMultiplier" xml:space="preserve"><value>帧数</value></data>
+  <data name="FrameSize" xml:space="preserve"><value>帧数大小</value></data>
+  <data name="Full" xml:space="preserve"><value>Full</value></data>
+  <data name="FullWidth" xml:space="preserve"><value>全宽</value></data>
+  <data name="GMMADescription" xml:space="preserve"><value>Guppy多重移动平均线（GMMA）指标是一种趋势技术指标，它使用6个短期和6个长期移动平均线来确定趋势的强度和持续时间。</value></data>
+  <data name="GapsIndDescription" xml:space="preserve"><value>该指标可帮助确定相邻K线之间的价格差距。</value></data>
+  <data name="General" xml:space="preserve"><value>常规</value></data>
+  <data name="GreatestSwingDescription" xml:space="preserve"><value>该指标基于拉里·威廉姆斯的《短期交易的长期秘密》一书中的GSV概念，但计算涉及特定条的极端而非当天的高低。它代表了一个通道，指示价格可以移动的范围。</value></data>
+  <data name="Green" xml:space="preserve"><value>绿色</value></data>
+  <data name="GreenSeriesColor" xml:space="preserve"><value>绿色系列</value></data>
+  <data name="Grid" xml:space="preserve"><value>网格</value></data>
+  <data name="GridColorDescription" xml:space="preserve"><value>数据的可视化分隔，便于快速读取信息。</value></data>
+  <data name="GridLineSettingsDescription" xml:space="preserve"><value>网格线的可视化设置。</value></data>
+  <data name="GridRowHeihgtDescription" xml:space="preserve"><value>设置网格行的高度。</value></data>
+  <data name="GridStep" xml:space="preserve"><value>网格间距</value></data>
+  <data name="GridStyle" xml:space="preserve"><value>网格样式</value></data>
+  <data name="H2" xml:space="preserve"><value>H2</value></data>
+  <data name="H4" xml:space="preserve"><value>H4</value></data>
+  <data name="H6" xml:space="preserve"><value>H6</value></data>
+  <data name="HHMMSS" xml:space="preserve"><value>hh:mm:ss</value></data>
+  <data name="HHMMSSPM" xml:space="preserve"><value>h:mm:ss am/pm</value></data>
+  <data name="HLAverage" xml:space="preserve"><value>HL 平均值</value></data>
+  <data name="HLCAverage" xml:space="preserve"><value>HLC平均值</value></data>
+  <data name="HLCAveragePrevSessionDescription" xml:space="preserve"><value>使用公式（最高 + 最低 + 收盘）/ 3 计算前一交易日的平均价格值。</value></data>
+  <data name="HMADescription" xml:space="preserve"><value>赫尔移动平均线（HMA）是一种广泛用于价格计算平均值的方法。它由Alan Hull于2005年开发，旨在克服传统移动平均线的局限，特别是滞后和噪音等问题。HMA通过使用加权移动平均线来解决这些挑战，从而产生更平滑的价格数据，减少噪音。</value></data>
+  <data name="HRangesDescription" xml:space="preserve"><value>HRanges指标旨在根据特定条件确定和显示价格范围。考虑了5根蜡烛的局部极值。在形成时，范围被认为是平的。突破后，根据突破方向，将该范围归类为看涨或看跌。还可以设置最大交易量和范围内的条形数量的过滤器。</value></data>
+  <data name="HVRDescription" xml:space="preserve"><value>“HVR”（历史波动率比率）指标旨在评估工具的历史波动率。它根据收盘价格的对数收益率计算短期和长期波动率之间的比率。增长的比率可能表明短期波动性相对于长期波动性的增加，可能表明趋势动态发生变化。</value></data>
+  <data name="HeaderBackgroundDescription" xml:space="preserve"><value>标题突出显示，便于快速浏览行。</value></data>
+  <data name="Headers" xml:space="preserve"><value>标头</value></data>
+  <data name="HeatmapCvdCalculationMode" xml:space="preserve"><value>CVD计算模式</value></data>
+  <data name="HeatmapCvdPanelHeight" xml:space="preserve"><value>CVD面板高度</value></data>
+  <data name="HeatmapPocInterval" xml:space="preserve"><value>POC间隔</value></data>
+  <data name="HeatmapPocLineColor" xml:space="preserve"><value>POC线颜色</value></data>
+  <data name="HeatmapPocLineThickness" xml:space="preserve"><value>POC线条厚度</value></data>
+  <data name="HeatmapShowValueArea" xml:space="preserve"><value>显示价值区域</value></data>
+  <data name="HeatmapValueAreaColor" xml:space="preserve"><value>价值区域颜色</value></data>
+  <data name="Height" xml:space="preserve"><value>高度</value></data>
+  <data name="HeightAlert" xml:space="preserve"><value>高度警报</value></data>
+  <data name="HeikenAshiDescription" xml:space="preserve"><value>Heiken Ashi（HA）- 基于前一时间段的平均价格波动的时间段报价表示类型。</value></data>
+  <data name="HeikenAshiSmoothedDescription" xml:space="preserve"><value>平滑的Heiken-Ashi基于Heiken-Ashi指标。指标值的计算方式与原始指标类似，但额外应用了加权和平滑的移动平均进行平滑处理。这种平滑处理适用于所有原始指标值，使用公式：WMA(SMMA(x(t))).</value></data>
+  <data name="HerrickPayoffDescription" xml:space="preserve"><value>Herrick收益指数（HPI）是一个衡量期货市场资金流入和流出的指数。它是由约翰·赫里克（John Herrick）开发的，基于对价格、未平仓合约和交易量变化的分析。</value></data>
+  <data name="Hide" xml:space="preserve"><value>隐藏</value></data>
+  <data name="HideAll" xml:space="preserve"><value>隐藏全部</value></data>
+  <data name="HideBackGround" xml:space="preserve"><value>隐藏背景</value></data>
+  <data name="HideBarsCountUnfilteredRangesDescription" xml:space="preserve"><value>确定是否隐藏未通过条形计数过滤器的范围。</value></data>
+  <data name="HideBorder" xml:space="preserve"><value>隐藏边框</value></data>
+  <data name="HideBorderDescription" xml:space="preserve"><value>确定是否隐藏指定元素的边框显示。</value></data>
+  <data name="HideGaps" xml:space="preserve"><value>隐藏间隙</value></data>
+  <data name="HideGapsDescription" xml:space="preserve"><value>确定是否隐藏图表上的间隙显示。</value></data>
+  <data name="HideHeadersDescription" xml:space="preserve"><value>如果启用，隐藏页眉行。</value></data>
+  <data name="HideLabelBackGroundDescription" xml:space="preserve"><value>此选项隐藏标签背景的显示。</value></data>
+  <data name="HideMaxVolumeUnfilteredRangesDescription" xml:space="preserve"><value>确定是否隐藏未通过最大交易量过滤器的范围。</value></data>
+  <data name="HideOlds" xml:space="preserve"><value>隐藏旧的</value></data>
+  <data name="HideOldsElementsDescription" xml:space="preserve"><value>允许隐藏历史记录中的旧元素，仅显示当前元素。</value></data>
+  <data name="HideRowsDescription" xml:space="preserve"><value>隐藏标题</value></data>
+  <data name="High" xml:space="preserve"><value>高</value></data>
+  <data name="HighColor" xml:space="preserve"><value>高色调</value></data>
+  <data name="HighLineColor" xml:space="preserve"><value>High 线条颜色</value></data>
+  <data name="HighLow" xml:space="preserve"><value>High-Low</value></data>
+  <data name="HighLow2" xml:space="preserve"><value>(最高价 + 最低价)/2</value></data>
+  <data name="HighLow2Close4" xml:space="preserve"><value>(最高价 + 最低价 + 2*收盘价)/4</value></data>
+  <data name="HighLowClose3" xml:space="preserve"><value>(最高价+ 最低价 + 收盘价)/3</value></data>
+  <data name="HighLowColor" xml:space="preserve"><value>High Low 颜色</value></data>
+  <data name="HighLowIndDescription" xml:space="preserve"><value>该指标显示图表上最近n个柱的最高值和最低值。</value></data>
+  <data name="HighLowLineColorDescription" xml:space="preserve"><value>定义用于显示高/低线的颜色。</value></data>
+  <data name="HighRatio" xml:space="preserve"><value>高比率</value></data>
+  <data name="HighRatioColorDescription" xml:space="preserve"><value>定义高比率元素的颜色。</value></data>
+  <data name="HighRatioDescription" xml:space="preserve"><value>设置比率的高边界值。</value></data>
+  <data name="HighSession" xml:space="preserve"><value>会话高度</value></data>
+  <data name="HigherTimeFrame" xml:space="preserve"><value>较高的时间框架</value></data>
+  <data name="Highest" xml:space="preserve"><value>最高</value></data>
+  <data name="HighestIndDescription" xml:space="preserve"><value>该指标通过分析一定数量的K线来帮助确定特定时期内的最高价格。它对于希望跟踪价格波动并识别市场潜在趋势的交易员和分析师非常有用。</value></data>
+  <data name="HighestLowestPeriodDescription" xml:space="preserve"><value>设置最高和最低组件的周期。</value></data>
+  <data name="HighlightSignalBars" xml:space="preserve"><value>Highlight signal bars</value></data>
+  <data name="HighlightSignalBarsDescription" xml:space="preserve"><value>确定是否突出显示信号栏。</value></data>
+  <data name="Histogram" xml:space="preserve"><value>Histogram</value></data>
+  <data name="HistogramMinimizedModeDescription" xml:space="preserve"><value>在此模式下，所有直方图元素都显示在零线以上。</value></data>
+  <data name="HistogramSize" xml:space="preserve"><value>Histogram size</value></data>
+  <data name="HistogramWidthDescription" xml:space="preserve"><value>订单簿面板宽度（像素）。</value></data>
+  <data name="HorizontalOffset" xml:space="preserve"><value>水平偏移</value></data>
+  <data name="HorizontalPosition" xml:space="preserve"><value>水平位置</value></data>
+  <data name="Hourly" xml:space="preserve"><value>Hourly</value></data>
+  <data name="HurstExponentDescription" xml:space="preserve"><value>赫斯特指数用于通过测量时间序列中的自相关性和相关性随时间衰减的速度来评估时间序列中的长期记忆。它被视为"依赖指数"，量化了时间序列倾向于在平均值方向上持续减少或相对于其过去行为在特定方向上集中的趋势。</value></data>
+  <data name="IBHM" xml:space="preserve"><value>IBH-IBM</value></data>
+  <data name="IBHX1H" xml:space="preserve"><value>IBHX1-IBH</value></data>
+  <data name="IBHX21" xml:space="preserve"><value>IBHX2-1</value></data>
+  <data name="IBHX32" xml:space="preserve"><value>IBHX3-2</value></data>
+  <data name="IBL1" xml:space="preserve"><value>IBL-IBLX1</value></data>
+  <data name="IBLX12" xml:space="preserve"><value>IBLX1-2</value></data>
+  <data name="IBLX23" xml:space="preserve"><value>IBLX2-3</value></data>
+  <data name="IBML" xml:space="preserve"><value>IBM-IBL</value></data>
+  <data name="IchimokuDescription" xml:space="preserve"><value>一种技术分析工具，可用于识别支撑和阻力水平，确定市场趋势，评估动量并生成交易信号。</value></data>
+  <data name="IgnoreWicks" xml:space="preserve"><value>忽略蜡烛阴影</value></data>
+  <data name="IgnoreWicksDescription" xml:space="preserve"><value>如果条件激活，则计算数据在蜡烛开盘和收盘之间获取，否则在最高价和最低价之间获取。</value></data>
+  <data name="IgnoreZeroValues" xml:space="preserve"><value>忽略零值</value></data>
+  <data name="IgnoreZeroValuesDescription" xml:space="preserve"><value>如果启用，零值在计算中不被纳入。</value></data>
+  <data name="ImageLocation" xml:space="preserve"><value>图片位置</value></data>
+  <data name="ImageLocationDescription" xml:space="preserve"><value>指定图像的显示位置。</value></data>
+  <data name="ImageOffsetXDescription" xml:space="preserve"><value>设置图像在x轴上的偏移量（以像素为单位）。</value></data>
+  <data name="ImageOffsetYDescription" xml:space="preserve"><value>设置图像在y轴上的偏移量（以像素为单位）。</value></data>
+  <data name="ImageTransparencyDescription" xml:space="preserve"><value>定义图像的透明度组件的值。</value></data>
+  <data name="ImbalanceDifference" xml:space="preserve"><value>最小差异</value></data>
+  <data name="ImbalanceRange" xml:space="preserve"><value>失衡范围</value></data>
+  <data name="ImbalanceRatio" xml:space="preserve"><value>失衡比率</value></data>
+  <data name="ImbalanceRatioIndDescription" xml:space="preserve"><value>该指标根据指定比率衡量买盘和卖盘订单之间的不平衡，并提供给定柱内此类不平衡的计数。它帮助交易员识别潜在的市场不平衡，并根据数据做出明智的交易决策。</value></data>
+  <data name="ImbalanceVolume" xml:space="preserve"><value>失衡量</value></data>
+  <data name="IncludeEqualHighLow" xml:space="preserve"><value>考虑相等的High和Low</value></data>
+  <data name="IncludeEqualsValuesDescription" xml:space="preserve"><value>确定是否要考虑比较的值相等的情况。</value></data>
+  <data name="IncreasedMomentumSettingsDescription" xml:space="preserve"><value>用于表示增加的动量值的可视化设置。</value></data>
+  <data name="Indicator" xml:space="preserve"><value>指标</value></data>
+  <data name="IndicatorAuthorDescription" xml:space="preserve"><value>指标作者的想法。</value></data>
+  <data name="InertiaIndDescription" xml:space="preserve"><value>“惯性”指标是移动平均线的替代品，它计算预期价格变动，同时考虑买方和卖方的平衡。它在计算中包含“线性回归”和“相对活力指数”指标。</value></data>
+  <data name="InertiaV2IndDescription" xml:space="preserve"><value>“Inertia V2”指标是移动平均线的替代品，使用了更复杂的公式，并在计算中包含了“线性回归”和“相对活力指数”指标。它还利用“标准偏差”指标维持买家和卖家的当前余额，这与第一个版本有所不同。</value></data>
+  <data name="Info" xml:space="preserve"><value>信息</value></data>
+  <data name="InitialBalanceIndDescription" xml:space="preserve"><value>"初始余额"（起始余额）- 指标，根据指定期间的“高”和“低”选择起始区域，并根据初始值在图表上构建线条。据信，如果起始余额与前一天相比较窄，可以预期该区域的价格突破；如果起始余额较宽，价格可能会在该区域内波动。</value></data>
+  <data name="InsideEqualsBarDescription" xml:space="preserve"><value>“Inside Bar”突出显示了一系列的柱状图，其实体位于每个突出显示系列中第一根柱状图的最高价和最低价之间。 容差参数允许设置蜡烛实体与最高价/最低价的可接受偏差。</value></data>
+  <data name="InvertOutput" xml:space="preserve"><value>反向输出</value></data>
+  <data name="InvertOutputDescription" xml:space="preserve"><value>确定是否需要反转（将值的符号改变为相反的）输出值。</value></data>
+  <data name="IsApproximationAlertDescription" xml:space="preserve"><value>确定当价格接近特定水平时是否触发警报。</value></data>
+  <data name="IsCustomSessionDescription" xml:space="preserve"><value>如果启用，允许使用自定义会话，否则将使用默认会话。</value></data>
+  <data name="IsLimitMaxLengthDescription" xml:space="preserve"><value>确定是否应限制指定元素的最大长度。</value></data>
+  <data name="IsLineTillTouchDescription" xml:space="preserve"><value>确定是否应将线延长到触及柱子。</value></data>
+  <data name="IsNeedFillDescription" xml:space="preserve"><value>确定显示的元素是否需要填充。</value></data>
+  <data name="IsNeedShowCurrentTimeDescription" xml:space="preserve"><value>确定是否显示当前时间。</value></data>
+  <data name="IsNeedShowLabelDescription" xml:space="preserve"><value>确定是否应显示文本标签。</value></data>
+  <data name="IsNeedShowLinesDescription" xml:space="preserve"><value>确定是否在图表上显示线条。</value></data>
+  <data name="IsSingalAlertDescription" xml:space="preserve"><value>确定是否在出现特定信号时发出警报。</value></data>
+  <data name="IsVisibleDescription" xml:space="preserve"><value>确定是否显示此元素。</value></data>
+  <data name="JawAlligator" xml:space="preserve"><value>Jaw alligator</value></data>
+  <data name="KAMADescription" xml:space="preserve"><value>“Kaufman自适应移动平均线（KAMA）”是一种自适应移动平均线，它基于指数平滑移动平均线和一种独特的技术来确定和应用波动率作为动态变化的平滑常数。</value></data>
+  <data name="KCMultFactor" xml:space="preserve"><value>凯尔特纳通道乘数系数</value></data>
+  <data name="KCPeriod" xml:space="preserve"><value>凯尔特纳通道周期</value></data>
+  <data name="KDJDescription" xml:space="preserve"><value>“KDJ”指标是由3条线组成的组合：快线、中线和慢线，它们的交叉给出了开启交易的信号。当线条交叉时，形成买入信号：红线在蓝线上方，蓝线在绿线上方。当线条以相反顺序交叉时，收到卖出信号：红线在蓝线下方，蓝线在绿线下方。请注意，线条之间的距离越远，信号越强。计算基于“KD - Slow”指标。</value></data>
+  <data name="KdFastDescription" xml:space="preserve"><value>“KD-Fast”，也称为“快速随机指标”，是由乔治·C·莱恩开发的一种随机振荡器。它评估了当前收盘价与一定时期内最高点和最低点范围之间的关系，从而计算价格变化率。 “快速随机”指标在图表上由两条线“%K”和“%D”表示，提供了动量和潜在趋势反转点的见解。</value></data>
+  <data name="KdSlowDescription" xml:space="preserve"><value>“KD - Slow”指标是“KD - Fast”指标的修改版本，“%K”线是“KD - Fast”指标的“%D”线，“%D”线是“%K”线的平滑版本。该指标用于分析金融交易中的趋势和潜在的反转点。</value></data>
+  <data name="KeltnerChannel" xml:space="preserve"><value>凯尔特纳通道</value></data>
+  <data name="KeltnerChannelDescription" xml:space="preserve"><value>“Keltner通道”（“MetaTrader”指标）是由切斯特·凯尔特纳（Chester Keltner）于1960年开发的经典技术分析指标。它使用三条图表线：中线是“典型”价格的十天简单移动平均值（（最高价+最低价+收盘价）/3），上下线是通过将每日价格范围的移动平均值（最高价和最低价之间的差异）加减中线得到的。</value></data>
+  <data name="KijunSen" xml:space="preserve"><value>基准线</value></data>
+  <data name="KurtosisDescription" xml:space="preserve"><value>“峰度”指标被用作市场情绪指标，由三部分组成：峰度、快速峰度和快/慢峰度。它在图表上由两条曲线显示，并显示正态分布的动态，正值表示峰值，负值表示相反。</value></data>
+  <data name="Label" xml:space="preserve"><value>标签</value></data>
+  <data name="LabelDisplay" xml:space="preserve"><value>Label Display</value></data>
+  <data name="LabelDisplayDescription" xml:space="preserve"><value>Control label visibility: Hide, Short (direction + result), Full (with prices)</value></data>
+  <data name="LabelFillColorDescription" xml:space="preserve"><value>便于数据阅读的设置。</value></data>
+  <data name="LabelLocation" xml:space="preserve"><value>标签位置</value></data>
+  <data name="LabelLocationDescription" xml:space="preserve"><value>指定标签的显示位置。</value></data>
+  <data name="LabelOffset" xml:space="preserve"><value>文本偏移量</value></data>
+  <data name="LabelOffsetXDescription" xml:space="preserve"><value>设置标签在x轴上的偏移量（以像素为单位）。</value></data>
+  <data name="LabelOffsetYDescription" xml:space="preserve"><value>设置标签在y轴上的偏移量（以像素为单位）。</value></data>
+  <data name="LabelTextColorDescription" xml:space="preserve"><value>订单簿各级别成交量数字的颜色。</value></data>
+  <data name="LabelTextDescription" xml:space="preserve"><value>定义显示标签中的文本。</value></data>
+  <data name="LabelWidthDescription" xml:space="preserve"><value>定义标签的宽度。</value></data>
+  <data name="LaggingLinePeriodDescription" xml:space="preserve"><value>滞后线的周期，以柱状图表示。</value></data>
+  <data name="LaggingLineSettingsDescription" xml:space="preserve"><value>滞后线的可视化设置。</value></data>
+  <data name="LastBearishElementsNumber" xml:space="preserve"><value>最后的熊市元素数量</value></data>
+  <data name="LastBullishElementsNumber" xml:space="preserve"><value>最后牛市元素数量</value></data>
+  <data name="LayoutGroup" xml:space="preserve"><value>布局</value></data>
+  <data name="Left" xml:space="preserve"><value>左</value></data>
+  <data name="Length" xml:space="preserve"><value>长度</value></data>
+  <data name="LevelValidTimeFilterDescription" xml:space="preserve"><value>如果启用，确定找到的水平被视为有效的时间。</value></data>
+  <data name="Levels" xml:space="preserve"><value>级别</value></data>
+  <data name="LevelsMode" xml:space="preserve"><value>级别模式</value></data>
+  <data name="LimitMaxGapBodyLength" xml:space="preserve"><value>限制正文中的最大间隔长度</value></data>
+  <data name="LinRegChannelDescription" xml:space="preserve"><value>该指标使用线性回归斜率在价格图表上创建一个通道，通道的宽度由指定的偏差确定。它用于评估市场趋势的方向和强度。</value></data>
+  <data name="LinRegSlopeDescription" xml:space="preserve"><value>“线性回归斜率”指标用于显示“线性回归”线的斜率组件，显示在指定时间内改变价格所需的时间。该指标有助于分析价格趋势，并根据价格随时间变化的速率进行预测。</value></data>
+  <data name="Line" xml:space="preserve"><value>线</value></data>
+  <data name="LineColorDescription" xml:space="preserve"><value>确定显示线的颜色。</value></data>
+  <data name="LineDashStyle" xml:space="preserve"><value>线条样式</value></data>
+  <data name="LineDashStyleDescription" xml:space="preserve"><value>指定图表中线条所使用的虚线模式，允许选择实线、虚线、点状或自定义模式等样式以进行视觉区分</value></data>
+  <data name="LineLengthDescription" xml:space="preserve"><value>确定显示行的长度。</value></data>
+  <data name="LineSettings" xml:space="preserve"><value>线条设置</value></data>
+  <data name="LineSettingsDescription" xml:space="preserve"><value>此设置允许您指定线条显示参数。</value></data>
+  <data name="LineStyle" xml:space="preserve"><value>线条样式</value></data>
+  <data name="LineTillTouch" xml:space="preserve"><value>直到触及线</value></data>
+  <data name="LineWidth" xml:space="preserve"><value>线条宽度</value></data>
+  <data name="LineWidthDescription" xml:space="preserve"><value>确定显示线的宽度。</value></data>
+  <data name="LinearReg" xml:space="preserve"><value>线性回归</value></data>
+  <data name="LinearRegIndDescription" xml:space="preserve"><value>Linear Regression指标计算并显示特定时期内金融工具价格的线性回归。它通过将一条直线拟合到历史数据来表示趋势，显示趋势的方向和强度。 
+交易者可以调整时期以控制灵敏度。 
+该指标有助于识别趋势、潜在转折点，并根据线性回归分析提供价格整体走势的近似值。然而，必须与其他工具结合使用，进行全面的市场分析。</value></data>
+  <data name="LinearRegPeriodDescription" xml:space="preserve"><value>设置“线性回归”模型的周期。</value></data>
+  <data name="LinkingToBar" xml:space="preserve"><value>链接到条形图</value></data>
+  <data name="LipsAlligator" xml:space="preserve"><value>Lips alligator</value></data>
+  <data name="Location" xml:space="preserve"><value>Location</value></data>
+  <data name="LocationFilters" xml:space="preserve"><value>位置过滤器</value></data>
+  <data name="LogoFilePathDescription" xml:space="preserve"><value>图像文件（*.bmp, *.gif, *.jpeg, *.jpg, *.png, *.tiff）。</value></data>
+  <data name="LogoIndDescription" xml:space="preserve"><value>此指标用于在图表窗口中显示来自文件的图像，可以显示在背景上或覆盖在图表上。</value></data>
+  <data name="LogoLocation" xml:space="preserve"><value>位置</value></data>
+  <data name="LongPeriod" xml:space="preserve"><value>长周期</value></data>
+  <data name="LongPeriodColorDescription" xml:space="preserve"><value>定义长期元素的颜色。</value></data>
+  <data name="LongPeriodDDescription" xml:space="preserve"><value>设置“KD - 慢速”计算的“%D”周期。</value></data>
+  <data name="LongPeriodDescription" xml:space="preserve"><value>指定长期移动平均的周期</value></data>
+  <data name="LongStdDevPeriodDescription" xml:space="preserve"><value>此期间确定了计算数据的长期标准偏差相对于其均值的范围。</value></data>
+  <data name="LossColor" xml:space="preserve"><value>亏损颜色</value></data>
+  <data name="LossTradeResultColorDescription" xml:space="preserve"><value>指定用于亏损交易结果部分的颜色。</value></data>
+  <data name="LotSize" xml:space="preserve"><value>批量大小</value></data>
+  <data name="Low" xml:space="preserve"><value>低</value></data>
+  <data name="LowColor" xml:space="preserve"><value>低色调</value></data>
+  <data name="LowLineColor" xml:space="preserve"><value>Low 线条颜色</value></data>
+  <data name="LowRatio" xml:space="preserve"><value>低值比率</value></data>
+  <data name="LowRatioColorDescription" xml:space="preserve"><value>定义低比率元素的颜色。</value></data>
+  <data name="LowRatioDescription" xml:space="preserve"><value>设置比率的下限值。</value></data>
+  <data name="LowSession" xml:space="preserve"><value>会话低度</value></data>
+  <data name="Lower" xml:space="preserve"><value>较低</value></data>
+  <data name="LowerFill" xml:space="preserve"><value>Lower fill</value></data>
+  <data name="LowerFill2" xml:space="preserve"><value>Lower fill 2</value></data>
+  <data name="LowerNegativeValueColorDescription" xml:space="preserve"><value>显示具有负值且低于先前值的元素的颜色。</value></data>
+  <data name="LowerSma" xml:space="preserve"><value>较低的SMA</value></data>
+  <data name="LowerStd1" xml:space="preserve"><value>下偏差1</value></data>
+  <data name="LowerStd2" xml:space="preserve"><value>下偏差2</value></data>
+  <data name="LowerStd3" xml:space="preserve"><value>下偏差3</value></data>
+  <data name="LowerWick" xml:space="preserve"><value>下影线</value></data>
+  <data name="LowerWickSettingsDescription" xml:space="preserve"><value>下影线元素的可视化设置。</value></data>
+  <data name="Lowest" xml:space="preserve"><value>最小值</value></data>
+  <data name="LowestIndDescription" xml:space="preserve"><value>该指标根据所选数据源，计算并显示在给定时间段内特定数量的K线的最低价格。它帮助交易员和分析师确定特定时期内的最低价格点，有助于做出交易决策。</value></data>
+  <data name="LsmaPeriod" xml:space="preserve"><value>LSMA周期</value></data>
+  <data name="M1" xml:space="preserve"><value>M1</value></data>
+  <data name="M10" xml:space="preserve"><value>M10</value></data>
+  <data name="M15" xml:space="preserve"><value>M15</value></data>
+  <data name="M30" xml:space="preserve"><value>M30</value></data>
+  <data name="M5" xml:space="preserve"><value>M5</value></data>
+  <data name="MACD" xml:space="preserve"><value>MACD</value></data>
+  <data name="MACDDescription" xml:space="preserve"><value>MACD（移动平均线收敛/发散）指标一方面属于振荡器类，另一方面属于复杂平均线类，因为它只是两个简单移动平均线（或指数移动平均线）的改进视觉感知。
+有两种构建和分析MACD的方法：
+- 线性MACD，更常用于趋势分析
+- MACD柱状图，更多地是根据分析方法和价值属于振荡器类。
+*在ATAS平台中，该指标使用了组合移动平均线和柱状图进行实现。</value></data>
+  <data name="MACDVsSignalDiffSettingsDescription" xml:space="preserve"><value>MACD线和信号线之间差异的可视化设置。</value></data>
+  <data name="MBOFilters" xml:space="preserve"><value>MBO过滤器</value></data>
+  <data name="MFIDescription" xml:space="preserve"><value>该指标显示了资金投入或撤出证券的强度。换句话说，MFI是一种衡量基于交易量的价格运动速度的工具。为了做到这一点，将比较正现金流和负现金流及其比率。</value></data>
+  <data name="MMSS" xml:space="preserve"><value>mm:ss</value></data>
+  <data name="MMedDescription" xml:space="preserve"><value>该指标类似于简单移动平均线，不同之处在于最终结果不是取值的算术平均值，而是它们的中位数。</value></data>
+  <data name="MSIDescription" xml:space="preserve"><value>麦克莱兰总和指数是麦克莱兰振荡器的累积和，用于根据其进入正值或负值的运动发出交易信号。移动到零上方被视为看涨信号，而移动到零下方被视为看跌信号，使其成为预测市场趋势的有用工具。</value></data>
+  <data name="MaDifferenceDescription" xml:space="preserve"><value>移动平均差是计算两个不同周期的简单移动平均值之间的差异。
+它是通过以下公式计算的：
+ΔSMA = SMA1(x(t)) - SMA2(x(t))。</value></data>
+  <data name="MaEnvelopeDescription" xml:space="preserve"><value>移动平均包络是一种技术分析工具，它在移动平均线上下创建平行带，以跟踪价格走势。它可以用作趋势跟踪指标，也可以在趋势未定义时确定超买和超卖水平。</value></data>
+  <data name="MacdBbImprovedDescription" xml:space="preserve"><value>这是MACD Bollinger Bands指标的改进版本。在这个指标中，Bollinger Bands的值比原始版本的滞后更小。</value></data>
+  <data name="MacdBbStandartDescription" xml:space="preserve"><value>这是MACD指标的增强版本。除了MACD之外，还将从MACD值计算出的BollingerBands指标添加到图表中。</value></data>
+  <data name="MacdLeaderDescription" xml:space="preserve"><value>该指标绘制了标准的MACD指标，并增加了Leader线。平滑方法会有滞后，由于MACD使用移动平均线，通常会滞后于价格。无法完全消除滞后，但有一个解决方法：将价格/移动平均线差值组件重新添加到移动平均线上。这种技术称为零滞后。Leader MACD使用它来为MACD生成领先信号。</value></data>
+  <data name="MacdVWDescription" xml:space="preserve"><value>这个指标（VW-MACD）是由Buff Dormeier创建的，并在他的书“用成交量分析进行投资”中描述。它代表了成交量加权平均价格趋势的收敛和发散。使用成交量使得VM-MACD比传统的MACD更敏感和可靠。
+在计算MACD差异时，成交量加权MACD用两个相应的成交量加权移动平均线取代了两个指数移动平均线。因此，VW-MACD根据成交量加权分离了短期趋势和长期趋势。信号线仍然保持为指数移动平均线，因为VW-MACD线已经是成交量加权的。</value></data>
+  <data name="Magenta" xml:space="preserve"><value>品红</value></data>
+  <data name="MajorLevel" xml:space="preserve"><value>主要水平</value></data>
+  <data name="MajorLevelDescription" xml:space="preserve"><value>主要阈值线的数值.</value></data>
+  <data name="Margin" xml:space="preserve"><value>保证金</value></data>
+  <data name="MarginValueDescription" xml:space="preserve"><value>可以在交易所上查看工具的保证金价值。</value></data>
+  <data name="MarginZonesDescription" xml:space="preserve"><value>此指标允许您根据指定的参数自动计算和可视化保证金区域。保证金区域水平=保证金/价格跳动。</value></data>
+  <data name="MarketFacilitationDescription" xml:space="preserve"><value>市场便利指数（MFI）指标分析了一段时间内价格变动和成交量变动之间的关系，以衡量市场对成交量变化的反应。它使用公式（最高价 – 最低价）/ 成交量计算MFI，提供市场动态的见解。</value></data>
+  <data name="MarketPowerDescription" xml:space="preserve"><value>Market Power 指标允许用户根据所选交易过滤器分析和显示会话的累积增量。它通过仅为当前会话显示数据来优化服务器负载。该指标有助于了解市场动态并做出明智的交易决策。</value></data>
+  <data name="MaxAskVolumeFilterCommonDescription" xml:space="preserve"><value>此过滤器允许用户忽略超过某个值的询价量，从而提供了一种过滤过多或无关数据的方法。它可以通过专注于更相关的询价量来帮助简化数据分析和优化决策。</value></data>
+  <data name="MaxAvgTradeDescription" xml:space="preserve"><value>此属性用于确定被视为有效的价格级别所需的最大平均交易量。平均交易量通过将价格级别的交易量除以该级别上的ticks数量来计算。如果得到的值大于此属性，则价格级别将被排除在考虑范围之外。</value></data>
+  <data name="MaxBidVolumeFilterCommonDescription" xml:space="preserve"><value>超过此过滤器中设置的值的出价量将被忽略。</value></data>
+  <data name="MaxCandleBodyHeightDescription" xml:space="preserve"><value>设置蜡烛实体的最大高度以显示指标。超过此值的蜡烛实体将被指标排除在外。</value></data>
+  <data name="MaxCandleBodyHeightFilterDescription" xml:space="preserve"><value>在此过滤器中设置的值大于烛身高度的蜡烛将被忽略。</value></data>
+  <data name="MaxCandleHeightDescription" xml:space="preserve"><value>此参数确定了指标激活的蜡烛的最大允许高度（包括上下影线）。超过此高度的蜡烛将被指标忽略。</value></data>
+  <data name="MaxCandleHeightFilterDescription" xml:space="preserve"><value>此过滤器忽略高度超过指定值的蜡烛，从而更精确地分析交易或技术分析中的蜡烛图案。通过设置最大蜡烛高度，用户可以专注于对其分析和决策过程最相关的蜡烛。这有助于简化和提高数据解释和交易策略的准确性。</value></data>
+  <data name="MaxCumulativeVolume" xml:space="preserve"><value>最大累计成交量</value></data>
+  <data name="MaxCumulativeVolumeDescription" xml:space="preserve"><value>定义了用于计算的累积交易的最大交易量。</value></data>
+  <data name="MaxDeltaAlert" xml:space="preserve"><value>最大Delta警报</value></data>
+  <data name="MaxDeltaFilterPercentDescription" xml:space="preserve"><value>增量百分比的定义如下：对于正增量，它是最大增量的百分比，对于负增量，它是最小增量的百分比。大于增量百分比的值在计算中被忽略。</value></data>
+  <data name="MaxDeltaSettingsDescription" xml:space="preserve"><value>最大增量显示设置。</value></data>
+  <data name="MaxDeltaVolumeFilterCommonDescription" xml:space="preserve"><value>此过滤器用于忽略超过某个数值的增量交易量。它有助于过滤异常大的交易量变化，从而实现更准确的数据分析。</value></data>
+  <data name="MaxDynamicPeriod" xml:space="preserve"><value>最大动态周期</value></data>
+  <data name="MaxGapBodyLength" xml:space="preserve"><value>文本主体中的最大间隔长度</value></data>
+  <data name="MaxLengthDescription" xml:space="preserve"><value>定义指定元素的最大允许长度。</value></data>
+  <data name="MaxLevelsIndDescription" xml:space="preserve"><value>此指标显示所选周期内的最大成交量水平。</value></data>
+  <data name="MaxMaxVolumeFilterDescription" xml:space="preserve"><value>超过此过滤器中设置的值的最大交易量将被忽略。</value></data>
+  <data name="MaxPercentDescription" xml:space="preserve"><value>该属性用于设置价格级别被视为有效的最大成交量百分比。成交量百分比通过将价格级别的成交量除以蜡烛的总成交量并乘以100来计算。如果计算出的值大于此属性，则价格级别将被排除在考虑之外。如果属性设置为0，则不会在验证检查中使用。</value></data>
+  <data name="MaxPeriod" xml:space="preserve"><value>最大周期</value></data>
+  <data name="MaxPeriodDescription" xml:space="preserve"><value>定义计算的最大周期。</value></data>
+  <data name="MaxPriceLevelsCountDescription" xml:space="preserve"><value>定义用于计算的最大价格级别数。</value></data>
+  <data name="MaxPrintVolume" xml:space="preserve"><value>最大打印量</value></data>
+  <data name="MaxSizeProportionVolumeDescription" xml:space="preserve"><value>用于计算柱宽的最大成交量。在关闭自动比例时生效。</value></data>
+  <data name="MaxTickVolumeFilterCommonDescription" xml:space="preserve"><value>此过滤器允许用户忽略超过一定值的tick成交量，有助于专注于最相关的数据进行分析。通过设置阈值，用户可以消除过多的tick成交量，集中在对其决策过程最重要的数据上。此过滤器可以帮助简化数据分析并提高结果的准确性。</value></data>
+  <data name="MaxTimeFilterDescription" xml:space="preserve"><value>定义了进行某些计算的最长时间段。</value></data>
+  <data name="MaxValue" xml:space="preserve"><value>最大值</value></data>
+  <data name="MaxVolColor" xml:space="preserve"><value>最大交易量颜色</value></data>
+  <data name="MaxVolColorDescription" xml:space="preserve"><value>设置具有最大体积的元素的颜色。</value></data>
+  <data name="MaxVolumeFilterCommonDescription" xml:space="preserve"><value>此过滤器允许排除超过指定值的成交量，确保只考虑特定范围内的成交量。</value></data>
+  <data name="MaxVolumeLocation" xml:space="preserve"><value>最大容量位置</value></data>
+  <data name="MaxVolumeLocationDescription" xml:space="preserve"><value>确定蜡烛中最大交易量的位置。</value></data>
+  <data name="MaxVolumePercent" xml:space="preserve"><value>最大音量百分比</value></data>
+  <data name="Maximum" xml:space="preserve"><value>最大</value></data>
+  <data name="MaximumAsk" xml:space="preserve"><value>最大Ask</value></data>
+  <data name="MaximumAverageTrade" xml:space="preserve"><value>最大平均交易量</value></data>
+  <data name="MaximumBid" xml:space="preserve"><value>Maximum bid</value></data>
+  <data name="MaximumCandleBodyHeight" xml:space="preserve"><value>最大烛体高度</value></data>
+  <data name="MaximumCandleHeight" xml:space="preserve"><value>最大烛体亮度</value></data>
+  <data name="MaximumCandleWickHeight" xml:space="preserve"><value>蜡烛最大蜡烛芯高度</value></data>
+  <data name="MaximumCount" xml:space="preserve"><value>最大交易数</value></data>
+  <data name="MaximumDelta" xml:space="preserve"><value>最大Delta</value></data>
+  <data name="MaximumFilterDescription" xml:space="preserve"><value>最大滤波器值</value></data>
+  <data name="MaximumSize" xml:space="preserve"><value>最大尺寸</value></data>
+  <data name="MaximumSizeDescription" xml:space="preserve"><value>指示形状的最大尺寸。</value></data>
+  <data name="MaximumTrades" xml:space="preserve"><value>最大交易</value></data>
+  <data name="MaximumTradesCountDescription" xml:space="preserve"><value>定义了可以纳入计算的最大交易数量。</value></data>
+  <data name="MaximumVolume" xml:space="preserve"><value>最大交易量</value></data>
+  <data name="MaximumVolumeDescription" xml:space="preserve"><value>显示指定数量的条形图的最大值线</value></data>
+  <data name="MaximumVolumePeriodDescription" xml:space="preserve"><value>定义计算最大成交量的周期。</value></data>
+  <data name="McClellanOscillatorDescription" xml:space="preserve"><value>麦克莱兰振荡器是一种流行的技术市场指标，通过分析上涨和下跌证券的数量来衡量市场广度。它被广泛用于评估当前市场条件和趋势。</value></data>
+  <data name="MeanDevDescription" xml:space="preserve"><value>Mean Deviation指标是一种用于技术分析的工具，用于计算价格在特定期间内与其简单移动平均值的平均偏差。</value></data>
+  <data name="MediumPeriodDescription" xml:space="preserve"><value>定义中期移动平均线的周期（介于短期和长期之间）</value></data>
+  <data name="MidBandDescription" xml:space="preserve"><value>描述范围的中线。</value></data>
+  <data name="MidChannelSettingsDescription" xml:space="preserve"><value>中间通道线的可视化设置。</value></data>
+  <data name="MidLevelColorDescription" xml:space="preserve"><value>定义中间级别颜色。</value></data>
+  <data name="MidLineSettingsDescription" xml:space="preserve"><value>指定中线的可视化设置。</value></data>
+  <data name="Middle" xml:space="preserve"><value>中间</value></data>
+  <data name="MiddleBand" xml:space="preserve"><value>中间通道</value></data>
+  <data name="MiddleFillDown" xml:space="preserve"><value>Middle fill down</value></data>
+  <data name="MiddleFillUp" xml:space="preserve"><value>Middle fill up</value></data>
+  <data name="Midpoint" xml:space="preserve"><value>中点</value></data>
+  <data name="MidpointTouch" xml:space="preserve"><value>中点触摸</value></data>
+  <data name="MinAskVolumeFilterCommonDescription" xml:space="preserve"><value>此过滤器用于忽略低于某个值的卖出量。它有助于缩小结果范围，只包括满足最低阈值的卖出量。</value></data>
+  <data name="MinAvgTradeDescription" xml:space="preserve"><value>此属性用于确定被视为有效的价格级别所需的最小平均交易量。平均交易量通过将价格级别的成交量除以该级别上的变动次数来计算。如果得到的值小于此属性，则价格级别将被排除在考虑范围之外。</value></data>
+  <data name="MinBidVolumeFilterCommonDescription" xml:space="preserve"><value>当使用该过滤器时，低于指定值的出价量将被忽略。</value></data>
+  <data name="MinCandleBodyHeightDescription" xml:space="preserve"><value>确定了显示指标所需的蜡烛身体的最小高度（开盘价和收盘价之间的差异）。如果蜡烛的身体小于此最小尺寸，指标将不会标记该蜡烛。</value></data>
+  <data name="MinCandleBodyHeightFilterDescription" xml:space="preserve"><value>在此过滤器中，身体高度小于设定值的蜡烛将被忽略。</value></data>
+  <data name="MinCandleHeightDescription" xml:space="preserve"><value>此参数设置了激活指标所需的蜡烛最小高度（包括上下影线）。如果蜡烛的高度低于此指定值，则该指标不会应用于该蜡烛。</value></data>
+  <data name="MinCandleHeightFilterDescription" xml:space="preserve"><value>在此筛选器中设置的值以下的蜡烛将被忽略。</value></data>
+  <data name="MinCumulativeVolume" xml:space="preserve"><value>最小累计交易量</value></data>
+  <data name="MinCumulativeVolumeDescription" xml:space="preserve"><value>定义了用于计算的累积交易的最小交易量。</value></data>
+  <data name="MinDeltaAlert" xml:space="preserve"><value>最小Delta警报</value></data>
+  <data name="MinDeltaFilterPercentDescription" xml:space="preserve"><value>增量百分比定义如下：对于正增量，它是最大增量的百分比，对于负增量，它是最小增量的百分比。小于增量百分比的值将被忽略。</value></data>
+  <data name="MinDeltaSettingsDescription" xml:space="preserve"><value>最小增量显示设置。</value></data>
+  <data name="MinDeltaVolumeFilterCommonDescription" xml:space="preserve"><value>此过滤器忽略低于指定值的增量交易量，只允许考虑更大的交易量变化。</value></data>
+  <data name="MinLevelsRangeSizeDescription" xml:space="preserve"><value>定义指定范围内所需的最小级别数。</value></data>
+  <data name="MinPercentDescription" xml:space="preserve"><value>该属性用于设置价格级别被视为有效所需的最低交易量百分比。交易量百分比通过将价格级别的交易量除以蜡烛的总交易量并乘以100来计算。如果计算得到的值小于此属性，则价格级别将被排除在考虑之外。如果该属性设置为0，则不会在验证检查中使用。</value></data>
+  <data name="MinPeriod" xml:space="preserve"><value>最小周期</value></data>
+  <data name="MinPrintVolume" xml:space="preserve"><value>最小打印量</value></data>
+  <data name="MinRatioDescription" xml:space="preserve"><value>定义比率的最小值。</value></data>
+  <data name="MinRatioValueDescription" xml:space="preserve"><value>表示最小比率值。</value></data>
+  <data name="MinTickVolumeFilterCommonDescription" xml:space="preserve"><value>此过滤器允许用户指定将在其分析中考虑的最小tick量，忽略低于设定值的任何tick量。通过设置最小tick量，用户可以专注于更重要的市场波动，并避免数据中的噪音。</value></data>
+  <data name="MinValue" xml:space="preserve"><value>最小值</value></data>
+  <data name="MinVolumeFilterCommonDescription" xml:space="preserve"><value>在计算中将忽略较小的交易量。</value></data>
+  <data name="MinVolumeFilterDescription" xml:space="preserve"><value>交易量较小的深度级别将被忽略</value></data>
+  <data name="MinVolumePercent" xml:space="preserve"><value>最小交易量百分比</value></data>
+  <data name="MinimalDeviation" xml:space="preserve"><value>最小偏差</value></data>
+  <data name="MinimalGapDeviationDescription" xml:space="preserve"><value>定义了确定有效间隙大小的平均蜡烛尺寸的最小可接受偏差。</value></data>
+  <data name="MinimizedMode" xml:space="preserve"><value>最小化模式</value></data>
+  <data name="Minimum" xml:space="preserve"><value>最小</value></data>
+  <data name="MinimumAsk" xml:space="preserve"><value>最小Ask</value></data>
+  <data name="MinimumAverageTrade" xml:space="preserve"><value>最小平均交易量</value></data>
+  <data name="MinimumBid" xml:space="preserve"><value>最小Bid</value></data>
+  <data name="MinimumCandleBodyHeight" xml:space="preserve"><value>最小烛体高度</value></data>
+  <data name="MinimumCandleHeight" xml:space="preserve"><value>最小蜡烛高度</value></data>
+  <data name="MinimumCandleWickHeight" xml:space="preserve"><value>蜡烛最小蜡芯高度</value></data>
+  <data name="MinimumCount" xml:space="preserve"><value>最小交易数</value></data>
+  <data name="MinimumDelta" xml:space="preserve"><value>最小Delta</value></data>
+  <data name="MinimumFilterDescription" xml:space="preserve"><value>最小过滤器值</value></data>
+  <data name="MinimumSize" xml:space="preserve"><value>最小尺寸</value></data>
+  <data name="MinimumSizeDescription" xml:space="preserve"><value>指示形状的最小尺寸。</value></data>
+  <data name="MinimumTrades" xml:space="preserve"><value>最小交易</value></data>
+  <data name="MinimumTradesCountDescription" xml:space="preserve"><value>定义了用于计算的最小交易数量。</value></data>
+  <data name="MinimumVolume" xml:space="preserve"><value>最小交易量</value></data>
+  <data name="MinorLevel" xml:space="preserve"><value>次要水平</value></data>
+  <data name="MinorLevelDescription" xml:space="preserve"><value>次要阈值线的数值。</value></data>
+  <data name="Minutes" xml:space="preserve"><value>分钟</value></data>
+  <data name="Mode" xml:space="preserve"><value>模式</value></data>
+  <data name="Momentum" xml:space="preserve"><value>动量</value></data>
+  <data name="MomentumDescription" xml:space="preserve"><value>动量指标是一种简单而高效的工具，用于技术分析中显示价格变化的速度。它被广泛用于评估价格走势的强度，并识别潜在的趋势逆转。这一指标对于寻求基于价格动量做出明智决策的交易员和投资者非常有价值。</value></data>
+  <data name="MomentumOscillatorDescription" xml:space="preserve"><value>价格动量振荡器（PMO）是由卡尔·斯文林创建的价格速率振荡器，它通过指数移动平均线进行双重平滑。它围绕零线振荡，其方向指示力量是增强还是减弱。趋势角度的陡峭程度反映了价格运动的强度。</value></data>
+  <data name="MomentumTrendDescription" xml:space="preserve"><value>动量趋势指标基于动量指标。它显示了动量值相对于上一个柱的增加或减少。</value></data>
+  <data name="Monthly" xml:space="preserve"><value>Monthly</value></data>
+  <data name="MovingAverageIndDescription" xml:space="preserve"><value>该指标结合了最流行的移动平均指标。用户只需选择所需的指标类型。</value></data>
+  <data name="MovingType" xml:space="preserve"><value>移动平均线类型</value></data>
+  <data name="MovingTypeDescription" xml:space="preserve"><value>定义移动平均类型。</value></data>
+  <data name="MultiMarketPowerDescription" xml:space="preserve"><value>该指标允许在一个窗口中同时显示多个市场力量指标。</value></data>
+  <data name="Multiplier" xml:space="preserve"><value>乘数</value></data>
+  <data name="Multiplier1" xml:space="preserve"><value>乘数 1</value></data>
+  <data name="Multiplier1Description" xml:space="preserve"><value>设置第一个通道边界系数。</value></data>
+  <data name="Multiplier2" xml:space="preserve"><value>乘数 2</value></data>
+  <data name="Multiplier2Description" xml:space="preserve"><value>第二通道边界系数设置。</value></data>
+  <data name="Multiplier3" xml:space="preserve"><value>乘数 3</value></data>
+  <data name="MultiplierDescription" xml:space="preserve"><value>定义一个乘法因子，将值转换为方便的格式。</value></data>
+  <data name="MurreyMathDescription" xml:space="preserve"><value>Murrey Math交易方法是由Murrey教授开发的，基于WD Gann的原则，并利用从0/8到8/8的级别。这些级别具有不同的操作特性，有些作为支撑和阻力，而其他吸引价格。</value></data>
+  <data name="MutualFundBarsDescription" xml:space="preserve"><value>该指标使用蜡烛图格式显示OHLC数据和蜡烛的方向，当前蜡烛的收盘价和上一个蜡烛的收盘价被用作主要数据点。</value></data>
+  <data name="Negative" xml:space="preserve"><value>负</value></data>
+  <data name="NegativeColor" xml:space="preserve"><value>负值颜色</value></data>
+  <data name="NegativeColorDescription" xml:space="preserve"><value>负盈亏值的颜色</value></data>
+  <data name="NegativeDelta" xml:space="preserve"><value>负 Delta</value></data>
+  <data name="NegativeDeltaSettingsDescription" xml:space="preserve"><value>负增量显示设置。</value></data>
+  <data name="NegativeLineSettingsDescription" xml:space="preserve"><value>负线的可视化设置。</value></data>
+  <data name="NegativeLsma" xml:space="preserve"><value>负LSMA</value></data>
+  <data name="NegativeValueColorDescription" xml:space="preserve"><value>显示具有负值的元素的颜色。</value></data>
+  <data name="NegativeValueDescription" xml:space="preserve"><value>表示用于显示负值的颜色</value></data>
+  <data name="Neutral" xml:space="preserve"><value>中值</value></data>
+  <data name="NeutralBorderColor" xml:space="preserve"><value>中值边框颜色</value></data>
+  <data name="NeutralColor" xml:space="preserve"><value>中值色调</value></data>
+  <data name="NeutralColorDescription" xml:space="preserve"><value>设置具有中性方向的元素的颜色。</value></data>
+  <data name="NeutralDeltaSettingsDescription" xml:space="preserve"><value>零增量显示设置。</value></data>
+  <data name="NeutralRatio" xml:space="preserve"><value>中值比率</value></data>
+  <data name="NeutralRatioColorDescription" xml:space="preserve"><value>定义中性比元素的颜色。</value></data>
+  <data name="NeutralValueDescription" xml:space="preserve"><value>表示用于中性值的颜色</value></data>
+  <data name="NewTrendColorDescription" xml:space="preserve"><value>定义新趋势开始时元素的颜色。</value></data>
+  <data name="NoTrend" xml:space="preserve"><value>无趋势</value></data>
+  <data name="None" xml:space="preserve"><value>无</value></data>
+  <data name="OBVDescription" xml:space="preserve"><value>OBV（On Balance Volume）是一种技术指标，它衡量了成交量和价格变动之间的关系。该指标根据当前K线的收盘价是高于还是低于前一根K线的收盘价，来增加或减少当前K线的成交量。该指标提供了一种简单的方法来评估市场上的买卖压力。</value></data>
+  <data name="OHLCAverage" xml:space="preserve"><value>OHLC平均值</value></data>
+  <data name="OHLCPlusDescription" xml:space="preserve"><value>扩展价格水平指标，显示多个时间周期的OHLC、均衡、POC和价值区域水平</value></data>
+  <data name="OIAnalyzerCumulativeTradesModeDescription" xml:space="preserve"><value>累积交易：在这种情况下，计算是根据只发生在数据源中的市场交易的OI变化进行的，方向由开仓利息变化的差异确定，分别为上升或下降。</value></data>
+  <data name="OIAnalyzerDescription" xml:space="preserve"><value>OI分析器是一种工具，它结合了买卖盘和未平仓合约利息指标，用于分析市场趋势和买方和卖方开仓/平仓头寸的交易量。它专门设计用于俄罗斯市场的期货，以及Binance和Bybit交易所，并在当前交易日内进行实时数据分析。这一独特的指标为市场分析和服务器负载优化提供了宝贵的见解。</value></data>
+  <data name="OIAnalyzerSeparatedTradesModeDescription" xml:space="preserve"><value>分开交易：在这种情况下，实际的未平仓量变化分别针对买入和卖出交易进行计算，包括与之结合的市价订单和限价订单。</value></data>
+  <data name="OISettingsDescription" xml:space="preserve"><value>开放利益元素的可视化设置。</value></data>
+  <data name="OSMADescription" xml:space="preserve"><value>移动平均振荡器（OsMA）指标是MACD指标的一种变体，属于领先指标，因为其买入或卖出信号比其他指标更早出现。它用于确认趋势的反转或修正。
+移动平均振荡器指标的图表显示为直方图，可以显示市场的超买和超卖条件。由于该指标与MACD指标相同，因此认为它们的联合使用会产生更大的效果。
+移动平均振荡器（OsMA）技术指标是振荡器和振荡器平滑之间的差异。在这种情况下，主要的MACD线被用作振荡器，信号线被用作平滑。</value></data>
+  <data name="ObjectSizeDescription" xml:space="preserve"><value>设置显示对象的大小。</value></data>
+  <data name="ObjectsColor" xml:space="preserve"><value>物体颜色</value></data>
+  <data name="Offset" xml:space="preserve"><value>长短</value></data>
+  <data name="OffsetMultiplier" xml:space="preserve"><value>偏置乘数</value></data>
+  <data name="OffsetX" xml:space="preserve"><value>X 轴位移</value></data>
+  <data name="OffsetXDescription" xml:space="preserve"><value>距离边缘的水平偏移</value></data>
+  <data name="OffsetY" xml:space="preserve"><value>Y 轴位移</value></data>
+  <data name="OffsetYDescription" xml:space="preserve"><value>距离边缘的垂直偏移</value></data>
+  <data name="OhlcPlusAbsolutePriceDescription" xml:space="preserve"><value>按精确逐笔（tick）价格计算水平。当禁用时，剖面会按当前图表刻度分组，以便这些水平与Profile指标的绘制相匹配。</value></data>
+  <data name="OhlcPlusAutoUpdateDescription" xml:space="preserve"><value>在有新交易到达时实时刷新级别。禁用时，级别会在请求配置文件时冻结。</value></data>
+  <data name="OhlcPlusTextColorDescription" xml:space="preserve"><value>级别文本的颜色：图表上的标签、价格刻度上的价格以及级别徽章。选择 Auto 时，颜色会自动选取，以与文本背后的背景形成对比。</value></data>
+  <data name="OnBarClose" xml:space="preserve"><value>在柱形图关闭时</value></data>
+  <data name="OnBarCloseDescription" xml:space="preserve"><value>如果勾选了此属性，则当柱形图关闭时，动作会发生，否则会立即发生。</value></data>
+  <data name="OneSelectionPerBarDescription" xml:space="preserve"><value>此设置确保每个条或蜡烛图只能进行一次最大选择。</value></data>
+  <data name="OnlyAlertsSupported" xml:space="preserve"><value>仅支持警报</value></data>
+  <data name="OnlyOneSelectionPerBar" xml:space="preserve"><value>每个条形图只有一个选择</value></data>
+  <data name="Open" xml:space="preserve"><value>使用</value></data>
+  <data name="OpenClose" xml:space="preserve"><value>打开 / 关闭</value></data>
+  <data name="OpenCurDay" xml:space="preserve"><value>当天开盘</value></data>
+  <data name="OpenHighLowClose4" xml:space="preserve"><value>(开盘价+最高价+最低价+收盘价)/4</value></data>
+  <data name="OpenInterestDescription" xml:space="preserve"><value>该指标显示了所有市场参与者持有的该工具的合约的开放空头和多头头寸的总数。
+注意：开放利息仅在俄罗斯市场上线广播，仅适用于期货。外国证券交易所无法实时配置它，因为并非所有交易所都在线提交OI数据。一些证券交易所可能基于交易会话结果提交这些数据，例如芝加哥证券交易所。有些证券交易所根本不提交OI(仅适用于期货)。</value></data>
+  <data name="OpenLine" xml:space="preserve"><value>打开线性通道</value></data>
+  <data name="OpenLineDescription" xml:space="preserve"><value>该指标显示了交易会话开始时的价格水平。</value></data>
+  <data name="OpenRange" xml:space="preserve"><value>开启范围</value></data>
+  <data name="OpenSession" xml:space="preserve"><value>打开会话</value></data>
+  <data name="OpenSessionAlertFilterDescription" xml:space="preserve"><value>如果启用，当打开会话时，将生成带有指定声音文件的警报。</value></data>
+  <data name="OrderBlockIndDescription" xml:space="preserve"><value>该指标在反转蜡烛周围形成区域：牛市区块的边界由最后一根下跌的蜡烛确定，熊市区块由最后一根上涨的蜡烛确定。反转蜡烛可以是在该时期内或在其前一根蜡烛中具有极端高/低点的蜡烛。</value></data>
+  <data name="OrderBookAlertsIndDescription" xml:space="preserve"><value>该指标分析指定数量级别内的订单簿，并在发现的级别的交易量高于指定交易量时发送警报。</value></data>
+  <data name="OrderFlowDescription" xml:space="preserve"><value>&lt;p&gt;直观易懂的订单流。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;以几何标记链的形式在图表上显示交易。&lt;/li&gt;
+  &lt;li&gt;标记大小=交易量。您将立即注意到一系列点背景下的大交易量。&lt;/li&gt;
+  &lt;li&gt;标记之间的间隔反映市场活动:它们越接近,交易节奏越高。&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="OrderFlowLinkingToBarDescription" xml:space="preserve"><value>如果启用，则订单流的绘制从最后一个柱状图开始，否则从图表的右边开始。</value></data>
+  <data name="OrderSpeedIntervalDescription" xml:space="preserve"><value>用于计算买卖活动速度的参数。单位为毫秒。通过调整该参数，您可以对买卖速度的计算进行微调，以更好地反映当前的市场情况。</value></data>
+  <data name="OrdersCountFilter" xml:space="preserve"><value>订单数量过滤器</value></data>
+  <data name="Other" xml:space="preserve"><value>其他</value></data>
+  <data name="OutsideBarDescription" xml:space="preserve"><value>外部条由高点超过前一条的高点和低点低于前一条的低点而特征，表明市场趋势可能出现逆转或价格出现重大波动。</value></data>
+  <data name="Overbought" xml:space="preserve"><value>超买</value></data>
+  <data name="Overbought1" xml:space="preserve"><value>超买Level1</value></data>
+  <data name="Overbought2" xml:space="preserve"><value>超买Level2</value></data>
+  <data name="Overbought3" xml:space="preserve"><value>超买Level3</value></data>
+  <data name="OverboughtLimitDescription" xml:space="preserve"><value>定义了上限，超过该上限预计会出现下行趋势。</value></data>
+  <data name="Oversold" xml:space="preserve"><value>超卖</value></data>
+  <data name="Oversold1" xml:space="preserve"><value>超卖Level1</value></data>
+  <data name="Oversold2" xml:space="preserve"><value>超卖Level2</value></data>
+  <data name="Oversold3" xml:space="preserve"><value>超卖Level3</value></data>
+  <data name="OversoldLimitDescription" xml:space="preserve"><value>定义了在给定情况下可以预期上升运动的下限。</value></data>
+  <data name="POC" xml:space="preserve"><value>POC</value></data>
+  <data name="POCLineSettingsDescription" xml:space="preserve"><value>POC线的可视化设置。</value></data>
+  <data name="PaintBars" xml:space="preserve"><value>绘制条形图</value></data>
+  <data name="PaintBarsDescription" xml:space="preserve"><value>确定是否用特定颜色绘制蜡烛。</value></data>
+  <data name="PanelHeight" xml:space="preserve"><value>面板高度</value></data>
+  <data name="PanelHeightDescription" xml:space="preserve"><value>确定显示面板的高度。</value></data>
+  <data name="ParabolicSARDescription" xml:space="preserve"><value>SAR（抛物线SAR）是一种用于分析趋势市场的技术指标。该指标显示在价格图表上。本质上，该指标类似于移动平均线，但不同之处在于抛物线SAR以更加加速的速度（AF - 加速因子）移动，并且可以根据价格改变其位置。在上升趋势期间，该指标位于价格下方，在下降趋势期间，该指标位于价格上方。</value></data>
+  <data name="PenSettingsDescription" xml:space="preserve"><value>指定显示线条的颜色、样式和宽度设置。</value></data>
+  <data name="Percent" xml:space="preserve"><value>百分比</value></data>
+  <data name="PercentColorDescription" xml:space="preserve"><value>根据百分比值设置颜色。</value></data>
+  <data name="PercentagePriceDescription" xml:space="preserve"><value>百分比价格振荡器是通过短期和长期EMA之间的差异除以长期EMA来计算的技术指标。与MACD相比，百分比价格振荡器显示了价格和振荡器值之间的分歧信号，并更准确地突出价格极端值，其动态变化更加明显。
+计算公式为：(FastEMA-SlowEMA)/SlowEMA</value></data>
+  <data name="Period" xml:space="preserve"><value>时期 </value></data>
+  <data name="Period1" xml:space="preserve"><value>周期 1</value></data>
+  <data name="Period2" xml:space="preserve"><value>周期 2</value></data>
+  <data name="Period3" xml:space="preserve"><value>周期 3</value></data>
+  <data name="PeriodD" xml:space="preserve"><value>周期 %D</value></data>
+  <data name="PeriodDescription" xml:space="preserve"><value>指定要包括在计算中的最近蜡烛的数量。</value></data>
+  <data name="PeriodK" xml:space="preserve"><value>周期 %K</value></data>
+  <data name="PeriodType" xml:space="preserve"><value>周期类型</value></data>
+  <data name="PeriodTypeDescription" xml:space="preserve"><value>允许您选择提供的周期类型之一。</value></data>
+  <data name="PeriodValueDefinerDescription" xml:space="preserve"><value>用于确定指标计算中的周期的数值。</value></data>
+  <data name="PeriodsCountFilterDescription" xml:space="preserve"><value>如果启用，则确定要使用的周期数，否则将使用所有可能的周期。</value></data>
+  <data name="PipsFromHigh" xml:space="preserve"><value>Ticks from High</value></data>
+  <data name="PipsFromHighDescription" xml:space="preserve"><value>此属性设置了离蜡烛高价的最大距离（以点为单位），在此距离内的水平线将被视为有效。如果水平线与蜡烛高价之间的距离超过此属性的值，则该水平线将不被视为有效。</value></data>
+  <data name="PipsFromLow" xml:space="preserve"><value>Ticks from Low</value></data>
+  <data name="PipsFromLowDescription" xml:space="preserve"><value>此属性设置了从蜡烛的最低价格到某个水平的最大距离（以ticks为单位），在此距离超过该属性值时，该水平将不被视为有效。</value></data>
+  <data name="PivotLevelColorDescription" xml:space="preserve"><value>定义了枢轴水平的颜色。</value></data>
+  <data name="PivotRange" xml:space="preserve"><value>枢纽范围</value></data>
+  <data name="PivotsDescription" xml:space="preserve"><value>“枢轴”指标是一种可定制的技术分析工具，用于交易中识别价格图表上潜在的支撑和阻力水平。它根据先前期间的最高、最低和收盘价格计算枢轴点、支撑水平、阻力水平和中点。用户可以灵活地定制枢轴计算的时间段，选择不同的枢轴点计算公式，并指定自定义交易时间段。</value></data>
+  <data name="PocAlert" xml:space="preserve"><value>POC 级别变化警报</value></data>
+  <data name="PocChangeAlert" xml:space="preserve"><value>POC级别变更警报</value></data>
+  <data name="PocLevel" xml:space="preserve"><value>POC级别</value></data>
+  <data name="PolarizedFractalDescription" xml:space="preserve"><value>极化分形效率是一个技术指标，用于衡量当前市场价格的效率。指标值范围从100到-100，当值大于0时表示上升趋势，当值小于0时表示下降趋势。建议交易者在指标值低于-50时开仓买入，指标值高于50时开仓卖出。</value></data>
+  <data name="Positive" xml:space="preserve"><value>正</value></data>
+  <data name="PositiveColor" xml:space="preserve"><value>正值颜色</value></data>
+  <data name="PositiveColorDescription" xml:space="preserve"><value>正盈亏值的颜色</value></data>
+  <data name="PositiveDelta" xml:space="preserve"><value>正 Delta</value></data>
+  <data name="PositiveDeltaSettingsDescription" xml:space="preserve"><value>正增量显示设置。</value></data>
+  <data name="PositiveLineSettingsDescription" xml:space="preserve"><value>正线可视化设置。</value></data>
+  <data name="PositiveLsma" xml:space="preserve"><value>正LSMA</value></data>
+  <data name="PositiveValueColorDescription" xml:space="preserve"><value>显示具有正值的元素的颜色。</value></data>
+  <data name="PositiveValueDescription" xml:space="preserve"><value>表示用于正值的颜色</value></data>
+  <data name="Predict" xml:space="preserve"><value>预测</value></data>
+  <data name="PredictBarsCountDescription" xml:space="preserve"><value>确定预测的条形图数量。</value></data>
+  <data name="Preset" xml:space="preserve"><value>预设</value></data>
+  <data name="PrevDayMedianDescription" xml:space="preserve"><value>前一天的平均价格。</value></data>
+  <data name="PreviousDay" xml:space="preserve"><value>昨天</value></data>
+  <data name="PreviousMonth" xml:space="preserve"><value>上月</value></data>
+  <data name="PreviousWeek" xml:space="preserve"><value>上周</value></data>
+  <data name="PriceChange" xml:space="preserve"><value>价格变化</value></data>
+  <data name="PriceLevelsCountDescription" xml:space="preserve"><value>确定参与计算的价格级别数量。</value></data>
+  <data name="PriceLocation" xml:space="preserve"><value>价格位置</value></data>
+  <data name="PriceLocationDescription" xml:space="preserve"><value>选择在蜡烛内具有特定类型值的单元格位置，该位置在搜索过程中由指标考虑</value></data>
+  <data name="PriceOffset" xml:space="preserve"><value>价格抵消</value></data>
+  <data name="PriceRange" xml:space="preserve"><value>价格范围</value></data>
+  <data name="PriceRangeDescription" xml:space="preserve"><value>它确定在计算中将聚合的价格范围。该范围由参数中指定的刻度数定义。</value></data>
+  <data name="PriceSelectionColor" xml:space="preserve"><value>价格选择颜色</value></data>
+  <data name="PriceSelectionColorDescription" xml:space="preserve"><value>此设置允许用户选择用于突出显示簇内价格选择的颜色，从而在视觉上将其与图表上的其他元素区分开来。</value></data>
+  <data name="PriceSelectionTransparencyDescription" xml:space="preserve"><value>类似于视觉对象的透明度，此设置调整了集群内突出显示元素的透明度，使用户能够更精细地控制它们的视觉外观。</value></data>
+  <data name="PrintLineForXBars" xml:space="preserve"><value>Print line for X bars</value></data>
+  <data name="Profile" xml:space="preserve"><value>Profile</value></data>
+  <data name="ProfileAskValueColorDescription" xml:space="preserve"><value>卖出（Ask）级别柱的颜色。</value></data>
+  <data name="ProfileBidValueColorDescription" xml:space="preserve"><value>买入（Bid）级别柱的颜色。</value></data>
+  <data name="ProfileFillColorDescription" xml:space="preserve"><value>设置成交量柱状图的填充颜色。</value></data>
+  <data name="ProfileOffsetXDescription" xml:space="preserve"><value>定义相对于图表在x轴上的配置文件偏移量（以像素为单位）。</value></data>
+  <data name="ProfilePeriodDescription" xml:space="preserve"><value>表示可用的配置文件周期之一。</value></data>
+  <data name="ProfileWidthPixelsDescription" xml:space="preserve"><value>设置图表上的成交量剖面的宽度（以像素为单位）。</value></data>
+  <data name="ProfitColor" xml:space="preserve"><value>Profile 颜色</value></data>
+  <data name="ProfitTradeResultColorDescription" xml:space="preserve"><value>指定用于盈利交易结果部分的颜色。</value></data>
+  <data name="ProportionVolume" xml:space="preserve"><value>交易量的比重</value></data>
+  <data name="Pulling" xml:space="preserve"><value>拉取</value></data>
+  <data name="PullingAndStacking" xml:space="preserve"><value>拉取和堆叠</value></data>
+  <data name="PullingDescription" xml:space="preserve"><value>从订单簿中移除限价订单。</value></data>
+  <data name="QQEDescription" xml:space="preserve"><value>定性定量估计（QQE）指标的工作原理类似于流行的相对强弱指数（RSI）指标的平滑版本。 QQE通过添加两条基于波动性的线来扩展RSI。这些线由快速和慢速移动的真实波幅（ATR）值组成。</value></data>
+  <data name="QStickDescription" xml:space="preserve"><value>Qstick指标是一个用于与蜡烛图一起测量市场买卖力量的工具。它计算了在一定时期内开盘价和收盘价之间的差值的移动平均值，正值表示买入力量，负值表示卖出压力。这有助于识别价格波动和潜在交易机会。</value></data>
+  <data name="RMIDescription" xml:space="preserve"><value>Relative Momentum Index (RMI) 指标基于RSI指标。此外，该指标将后续蜡烛的收盘价与过去的蜡烛进行比较（距离x蜡烛周期）。选择的周期越高，指标值就越平滑。</value></data>
+  <data name="RMODescription" xml:space="preserve"><value>RMO（Rahul Mohindar Oscillator）指标是用于识别交易中潜在趋势反转的技术分析工具。它涉及计算各种移动平均线，并识别反转模式以生成买入和卖出信号。</value></data>
+  <data name="ROCDescription" xml:space="preserve"><value>变动率（ROC）指标衡量了在指定周期内价格的百分比变化。这是一个动量振荡器，可以帮助交易员识别市场中的超买和超卖条件。ROC的计算是通过将当前价格与一定数量周期前的价格进行比较。</value></data>
+  <data name="RSI" xml:space="preserve"><value>RSI</value></data>
+  <data name="RSIDescription" xml:space="preserve"><value>该指标用于确定当前趋势的强度以及可能的反转点。RSI指标将特定时间段内的价格上涨的绝对值与同一时间段内的价格下跌水平进行比较，计算结果以曲线形式显示在图表上，值范围从0%到100%。</value></data>
+  <data name="RVI" xml:space="preserve"><value>RVI</value></data>
+  <data name="RVI1Description" xml:space="preserve"><value>该指标是RVI（相对活力指数）指标的一种变体。RVI V1通过比较收盘价变化与开盘价变化的比率来衡量相对价格强度，计算周期为四个周期。该实现基于最近四根蜡烛的收盘价和开盘价进行计算。</value></data>
+  <data name="RVI2Description" xml:space="preserve"><value>相对活力指数V2。计算方式类似于RVI指标的第一个版本。在第二个版本中，使用原始指标的平滑值进行计算。</value></data>
+  <data name="RVIDescription" xml:space="preserve"><value>相对活力指数或RVI指标。RVI指标使用与随机振荡器相同的系统进行计算。然而，与之相反的是，它将收盘水平与开盘水平进行比较，而不是与交易期间的最低价格进行比较。因此，活力指数代表了一个时期的实际价格变动，并用于调节该时期的最大范围，例如一小时或一天。</value></data>
+  <data name="RVIPeriodDescription" xml:space="preserve"><value>设置"相对活力指数"的周期。</value></data>
+  <data name="RWIDescription" xml:space="preserve"><value>随机漫步指数（RWI）有助于确定价格波动是随机的还是属于更大趋势的一部分。它由两条线表示，红色表示下降趋势的强度，绿色表示上升趋势的强度。</value></data>
+  <data name="Range" xml:space="preserve"><value>范围</value></data>
+  <data name="RangeAreaDescription" xml:space="preserve"><value>代表一个范围区域。</value></data>
+  <data name="RangeFilter" xml:space="preserve"><value>范围过滤</value></data>
+  <data name="RatioDescription" xml:space="preserve"><value>比率 - 两个数字之间的关系。数字A和B的比率可以表示为A:B。比率数字出现在熊市蜡烛上方，牛市蜡烛下方。比较的两个数字是熊市蜡烛的两个最高要价和牛市蜡烛的两个最低出价。当比率的值是介于低比率和中性比率之间的数字时，比率数字是黑色的。当比率数字的值高于中性比率时，比率数字是蓝色的。</value></data>
+  <data name="Rectangles" xml:space="preserve"><value>矩形</value></data>
+  <data name="Red" xml:space="preserve"><value>红色</value></data>
+  <data name="RelativeInPercent" xml:space="preserve"><value>相对百分比</value></data>
+  <data name="RelativeVolumeDescription" xml:space="preserve"><value>相对成交量是一个强大的工具，用于了解成交量是增加还是减少。它确定了当前成交量与同一时间的平均成交量的比率。</value></data>
+  <data name="RenderPeriods" xml:space="preserve"><value>渲染周期</value></data>
+  <data name="RepeatAlert" xml:space="preserve"><value>重复警报</value></data>
+  <data name="RepeatAlertDescription" xml:space="preserve"><value>如果选项已启用，则在相同的柱状图中重复条件时将生成重复警报，否则在一个柱状图中只生成一个警报。</value></data>
+  <data name="RepulseDescription" xml:space="preserve"><value>Repulse指标以曲线的形式测量和反映与每根蜡烛相关的多头或空头压力。该指标有一个参数：反弹周期。计算时使用了所有4个蜡烛的价格，因此无法更改指标计算的价格类型。推荐的使用方式很简单：
+- 向上穿越零线被解释为买入信号
+- 向下穿越零线被解释为卖出信号。</value></data>
+  <data name="RequiredChange" xml:space="preserve"><value>所需更改</value></data>
+  <data name="RequiredChangeValueDescription" xml:space="preserve"><value>确定特定参数的变化量。</value></data>
+  <data name="ResetOnSession" xml:space="preserve"><value>在新会话上重置</value></data>
+  <data name="ResetOnSessionFilterDescription" xml:space="preserve"><value>当功能启用时，以前记忆的操作将在新会话开始时重置。</value></data>
+  <data name="ResistanceColor" xml:space="preserve"><value>阻力颜色</value></data>
+  <data name="ResistanceColorDescription" xml:space="preserve"><value>定义元素中显示阻力级别或阻力区的颜色。</value></data>
+  <data name="ResistanceLevel" xml:space="preserve"><value>阻力级别</value></data>
+  <data name="ResistanceLevelDisplayDescription" xml:space="preserve"><value>显示阻力水平，价格可能会向下反弹。</value></data>
+  <data name="ResistanceLineSettingsDescription" xml:space="preserve"><value>指定阻力水平线的可视化设置。</value></data>
+  <data name="RetrospectiveAnalysis" xml:space="preserve"><value>回溯分析</value></data>
+  <data name="ReverseAlert" xml:space="preserve"><value>反向警报</value></data>
+  <data name="ReverseAlertDescription" xml:space="preserve"><value>出现背离（蜡烛是正的，而delta是负的或反之亦然）</value></data>
+  <data name="Right" xml:space="preserve"><value>右</value></data>
+  <data name="RightToLeft" xml:space="preserve"><value>从右到左</value></data>
+  <data name="RightToLeftDescription" xml:space="preserve"><value>柱的增长方向：从右边缘向右或向左延伸。</value></data>
+  <data name="RolloverType" xml:space="preserve"><value>转账类型</value></data>
+  <data name="RoundNrDescription" xml:space="preserve"><value>圆整数指标用于根据设置中指定的步骤在图表上绘制特定水平。它帮助交易员在图表上识别和可视化圆整数水平，这对于做交易决策可能有用。该指标可以根据ticks绘制水平，为支撑和阻力水平提供视觉参考。</value></data>
+  <data name="RowWidth" xml:space="preserve"><value>行宽</value></data>
+  <data name="Rows" xml:space="preserve"><value>行数</value></data>
+  <data name="SMA" xml:space="preserve"><value>移动平均线</value></data>
+  <data name="SMA1" xml:space="preserve"><value>简单移动平均线 1</value></data>
+  <data name="SMA2" xml:space="preserve"><value>简单移动平均线 2</value></data>
+  <data name="SMAColor" xml:space="preserve"><value>SMA 颜色</value></data>
+  <data name="SMADescription" xml:space="preserve"><value>简单移动平均线（SMA）是通过将特定时间段（例如 15М, 1H, Daily）的收盘价相加，然后除以周期数来计算的。</value></data>
+  <data name="SMALineColorDescription" xml:space="preserve"><value>定义显示SMA线的颜色。</value></data>
+  <data name="SMAPeriod" xml:space="preserve"><value>SMA 周期</value></data>
+  <data name="SMAPeriod1" xml:space="preserve"><value>SMA 周期 1</value></data>
+  <data name="SMAPeriod1Description" xml:space="preserve"><value>设置第一个简单移动平均线 (SMA) 的周期</value></data>
+  <data name="SMAPeriod2" xml:space="preserve"><value>SMA 周期 2</value></data>
+  <data name="SMAPeriod2Description" xml:space="preserve"><value>设置第二个简单移动平均线（SMA）的周期</value></data>
+  <data name="SMAPeriod3" xml:space="preserve"><value>SMA 周期 3</value></data>
+  <data name="SMAPeriod3Description" xml:space="preserve"><value>设置第三个简单移动平均线（SMA）的周期</value></data>
+  <data name="SMAPeriod4" xml:space="preserve"><value>SMA 周期 4</value></data>
+  <data name="SMAPeriod4Description" xml:space="preserve"><value>设置第四个简单移动平均线（SMA）的周期</value></data>
+  <data name="SMAPeriodDescription" xml:space="preserve"><value>设置简单移动平均线（SMA）的周期</value></data>
+  <data name="SMMA" xml:space="preserve"><value>平滑移动平均线</value></data>
+  <data name="SMMADescription" xml:space="preserve"><value>平滑移动平均（SMMA）类似于简单移动平均（SMA），其目的在于减少噪音。该指标考虑所有价格，使用了扩展的分析期。与SMA不同的是，旧价格在计算中保留，但由于其低权重，对移动平均的影响很小。这种方法减少了噪音，抑制了波动，并捕捉到了主导趋势。</value></data>
+  <data name="SMMAPeriodDescription" xml:space="preserve"><value>设置平滑移动平均线（SMMA）的周期。</value></data>
+  <data name="SPVODescription" xml:space="preserve"><value>简单百分比成交量振荡器显示了特定证券交易量的两个移动平均线之间的百分比差异。</value></data>
+  <data name="SRLevels" xml:space="preserve"><value>支撑/阻力级别</value></data>
+  <data name="SWWMADescription" xml:space="preserve"><value>正弦波加权移动平均是一种使用基于正弦函数的加权方法计算金融工具价格的移动平均的方法。</value></data>
+  <data name="SZMA" xml:space="preserve"><value>简单移动平均 - 跳过零值</value></data>
+  <data name="SZMADescription" xml:space="preserve"><value>这种移动平均线类型是SMA的一种变体。不同之处在于，在计算平均值时，排除零值以避免值的偏差。</value></data>
+  <data name="SaveCustomStartingPointDescription" xml:space="preserve"><value>当功能启用时，指示器将记住您设置的起始点。</value></data>
+  <data name="SaveStartPoint" xml:space="preserve"><value>保存自定义起点</value></data>
+  <data name="Scale" xml:space="preserve"><value>比例</value></data>
+  <data name="SchaffTrendCycleDescription" xml:space="preserve"><value>Schaff趋势循环（STC）是一种常用的图表指标，用于识别市场趋势并向交易者提供买卖信号。 STC是一种振荡器类型，基于这样的假设：无论时间框架如何，货币趋势都会以周期性模式加速和减速。</value></data>
+  <data name="SearchPrintsInsideTimeFilter" xml:space="preserve"><value>在指定时间范围内搜索打印</value></data>
+  <data name="SecondDev" xml:space="preserve"><value>偏差2</value></data>
+  <data name="SecondLine" xml:space="preserve"><value>第二行</value></data>
+  <data name="Seconds" xml:space="preserve"><value>秒</value></data>
+  <data name="SelectTimeframeDescription" xml:space="preserve"><value>允许您选择可用时间范围之一。</value></data>
+  <data name="SellColor" xml:space="preserve"><value>Sell 颜色</value></data>
+  <data name="SellOvershoot1Color" xml:space="preserve"><value>Sell overshoot 1 color</value></data>
+  <data name="SellOvershoot2Color" xml:space="preserve"><value>Sell overshoot 2 color</value></data>
+  <data name="SellOvershoot3Color" xml:space="preserve"><value>Sell overshoot 3 color</value></data>
+  <data name="SellOvershootColor" xml:space="preserve"><value>Sell overshoot color</value></data>
+  <data name="SellSignalColorDescription" xml:space="preserve"><value>设置代表卖出信号的元素的颜色。</value></data>
+  <data name="SellSignalSettingsDescription" xml:space="preserve"><value>卖出信号的可视化设置。</value></data>
+  <data name="SellTradeLineColorDescription" xml:space="preserve"><value>指定用于显示卖出交易线条和标记的颜色。</value></data>
+  <data name="Sells" xml:space="preserve"><value>Sells</value></data>
+  <data name="SenkouSpanB" xml:space="preserve"><value>先行跨度B</value></data>
+  <data name="SeparatedTrades" xml:space="preserve"><value>独立交易</value></data>
+  <data name="Session" xml:space="preserve"><value>会话</value></data>
+  <data name="SessionAveragePriceDescription" xml:space="preserve"><value>描述特定会话的平均价格水平。</value></data>
+  <data name="SessionBegin" xml:space="preserve"><value>会话开始</value></data>
+  <data name="SessionBeginDescription" xml:space="preserve"><value>定义数据记录的开始日期。</value></data>
+  <data name="SessionColorIndDescription" xml:space="preserve"><value>该指标允许在每个交易日周期性地突出显示图表的背景，持续一段时间。例如，通过设置几个具有不同设置的指标，我们可以突出显示主要交易平台的交易会话，并可视化它们何时开始、结束和相互交叉。在日内交易中考虑这一点可能很重要，因为在交易日开盘和收盘时通常会观察到更高的交易活动和工具波动性。</value></data>
+  <data name="SessionDeltaAlert" xml:space="preserve"><value>时段Delta警报</value></data>
+  <data name="SessionDeltaMode" xml:space="preserve"><value>Delta会话模式</value></data>
+  <data name="SessionDeltaPerVolumeAlert" xml:space="preserve"><value>时段Delta/交易量警报</value></data>
+  <data name="SessionEnd" xml:space="preserve"><value>收盘</value></data>
+  <data name="SessionEndDescription" xml:space="preserve"><value>定义数据记录的结束日期。</value></data>
+  <data name="SessionModeDescription" xml:space="preserve"><value>表示会话模式之一。</value></data>
+  <data name="SessionTime" xml:space="preserve"><value>开盘时间</value></data>
+  <data name="SessionVolumeAlert" xml:space="preserve"><value>时段交易量警报</value></data>
+  <data name="SetStartPoint" xml:space="preserve"><value>设定起始点</value></data>
+  <data name="SetStartPointKeyFilterDescription" xml:space="preserve"><value>如果此字段处于活动状态，则允许您为设置起始点定义快捷键。</value></data>
+  <data name="Settings" xml:space="preserve"><value>设置</value></data>
+  <data name="Shift" xml:space="preserve"><value>移动</value></data>
+  <data name="Short" xml:space="preserve"><value>Short</value></data>
+  <data name="ShortPeriod" xml:space="preserve"><value>短周期</value></data>
+  <data name="ShortPeriodColorDescription" xml:space="preserve"><value>定义短期元素的颜色。</value></data>
+  <data name="ShortPeriodDDescription" xml:space="preserve"><value>设置“KD - Fast”计算的“%D”周期。</value></data>
+  <data name="ShortPeriodDescription" xml:space="preserve"><value>指定短期移动平均的周期</value></data>
+  <data name="ShortPeriodKDescription" xml:space="preserve"><value>设置“%K”期限以进行“KD - Fast”计算。</value></data>
+  <data name="ShortStdDevPeriodDescription" xml:space="preserve"><value>该时期定义了计算数据短期标准偏差相对于其均值的时间间隔。</value></data>
+  <data name="ShortValues" xml:space="preserve"><value>显示缩写值</value></data>
+  <data name="Show" xml:space="preserve"><value>显示</value></data>
+  <data name="ShowAboveChart" xml:space="preserve"><value>显示上述图表</value></data>
+  <data name="ShowAccountId" xml:space="preserve"><value>显示账户ID</value></data>
+  <data name="ShowAccountIdDescription" xml:space="preserve"><value>显示账户标识符</value></data>
+  <data name="ShowAlertAreaDescription" xml:space="preserve"><value>允许用户在触发警报时启用或禁用对显示元素的突出显示。这可以通过吸引警报来帮助改善用户体验。</value></data>
+  <data name="ShowArea" xml:space="preserve"><value>显示区域</value></data>
+  <data name="ShowAsCandle" xml:space="preserve"><value>显示为蜡烛</value></data>
+  <data name="ShowAsCandleDescription" xml:space="preserve"><value>如果启用，将元素显示为蜡烛。</value></data>
+  <data name="ShowAsk" xml:space="preserve"><value>显示 Asks</value></data>
+  <data name="ShowAsksDescription" xml:space="preserve"><value>买入量。</value></data>
+  <data name="ShowAvailableBalance" xml:space="preserve"><value>显示可用余额</value></data>
+  <data name="ShowAvailableBalanceDescription" xml:space="preserve"><value>显示可用交易资金</value></data>
+  <data name="ShowAverage" xml:space="preserve"><value>显示平均值</value></data>
+  <data name="ShowBalance" xml:space="preserve"><value>显示余额</value></data>
+  <data name="ShowBalanceDescription" xml:space="preserve"><value>显示总余额</value></data>
+  <data name="ShowBars" xml:space="preserve"><value>显示条形图</value></data>
+  <data name="ShowBarsDescription" xml:space="preserve"><value>确定是否在图表上显示柱状图。</value></data>
+  <data name="ShowBaseElementOnlyDescription" xml:space="preserve"><value>如果启用，除了基本元素之外的所有元素都将被隐藏。</value></data>
+  <data name="ShowBid" xml:space="preserve"><value>显示 Bids</value></data>
+  <data name="ShowBidsDescription" xml:space="preserve"><value>卖出量。</value></data>
+  <data name="ShowBlockedMargin" xml:space="preserve"><value>显示冻结保证金</value></data>
+  <data name="ShowBlockedMarginDescription" xml:space="preserve"><value>显示被持仓锁定的保证金</value></data>
+  <data name="ShowBotBlock" xml:space="preserve"><value>显示底部区块</value></data>
+  <data name="ShowBottomElementsDescription" xml:space="preserve"><value>确定是否在底部显示元素。</value></data>
+  <data name="ShowBrokenChannel" xml:space="preserve"><value>显示故障频道</value></data>
+  <data name="ShowBrokenChannelDescription" xml:space="preserve"><value>确定是否显示损坏的级别。</value></data>
+  <data name="ShowCandleDurationDescription" xml:space="preserve"><value>K线持续时间信息。</value></data>
+  <data name="ShowCandleHeightDescription" xml:space="preserve"><value>K线的Tick大小。</value></data>
+  <data name="ShowCandleTimeDescription" xml:space="preserve"><value>K线开始时间。</value></data>
+  <data name="ShowClosedPnL" xml:space="preserve"><value>显示已平仓盈亏</value></data>
+  <data name="ShowClosedPnLDescription" xml:space="preserve"><value>显示已实现盈亏</value></data>
+  <data name="ShowCumulative" xml:space="preserve"><value>显示累积</value></data>
+  <data name="ShowCumulativeValues" xml:space="preserve"><value>显示累积值</value></data>
+  <data name="ShowCumulativeValuesDescription" xml:space="preserve"><value>在面板底部显示买入与卖出总成交量的比率。</value></data>
+  <data name="ShowCurrency" xml:space="preserve"><value>显示货币</value></data>
+  <data name="ShowCurrencyDescription" xml:space="preserve"><value>显示账户货币</value></data>
+  <data name="ShowCurrentParameterInfoDescription" xml:space="preserve"><value>确定是否显示有关此参数的信息。</value></data>
+  <data name="ShowCurrentParameterNameDescription" xml:space="preserve"><value>确定是否显示此参数的名称。</value></data>
+  <data name="ShowCurrentValue" xml:space="preserve"><value>显示值</value></data>
+  <data name="ShowCurrentValueDescription" xml:space="preserve"><value>确定是否在价格面板上显示数据系列的当前值。</value></data>
+  <data name="ShowDelta" xml:space="preserve"><value>差额</value></data>
+  <data name="ShowDeltaChange" xml:space="preserve"><value>差额变化</value></data>
+  <data name="ShowDeltaChangeDescription" xml:space="preserve"><value>K线之间的市场方向变化。</value></data>
+  <data name="ShowDeltaDescription" xml:space="preserve"><value>每根K线的成交量差值。</value></data>
+  <data name="ShowDeltaPerVolume" xml:space="preserve"><value>显示 Delta/Volume</value></data>
+  <data name="ShowDeltaPerVolumeDescription" xml:space="preserve"><value>Delta相对于总成交量的偏差（%）。</value></data>
+  <data name="ShowDepthChanges" xml:space="preserve"><value>显示深度变化</value></data>
+  <data name="ShowDepthChangesDescription" xml:space="preserve"><value>显示订单簿层级的累积拉取和堆叠变化。</value></data>
+  <data name="ShowDescription" xml:space="preserve"><value>显示描述</value></data>
+  <data name="ShowDuration" xml:space="preserve"><value>显示持续时间，秒</value></data>
+  <data name="ShowDurationHHMMSS" xml:space="preserve"><value>显示持续时间</value></data>
+  <data name="ShowFibonacci" xml:space="preserve"><value>显示斐波那契数列</value></data>
+  <data name="ShowFibonacciDescription" xml:space="preserve"><value>确定是否显示斐波那契线。</value></data>
+  <data name="ShowFirstPartialPeriod" xml:space="preserve"><value>显示第一个部分周期</value></data>
+  <data name="ShowFirstPeriodDescription" xml:space="preserve"><value>确定是否应该为上一个周期显示此元素。</value></data>
+  <data name="ShowGapsDescription" xml:space="preserve"><value>确定是否显示指定的间隙。</value></data>
+  <data name="ShowGrid" xml:space="preserve"><value>显示网格</value></data>
+  <data name="ShowHeight" xml:space="preserve"><value>高度</value></data>
+  <data name="ShowHighLow" xml:space="preserve"><value>显示High/Low</value></data>
+  <data name="ShowInstrument" xml:space="preserve"><value>显示品种</value></data>
+  <data name="ShowLabelsOfFinishedLines" xml:space="preserve"><value>完成线的标签</value></data>
+  <data name="ShowLabelsOfFinishedLinesDescription" xml:space="preserve"><value>确定是否在线条末尾显示标签。</value></data>
+  <data name="ShowLevelsOnChartDescription" xml:space="preserve"><value>确定是否在图表上显示指定的水平。</value></data>
+  <data name="ShowLeverage" xml:space="preserve"><value>显示杠杆</value></data>
+  <data name="ShowLeverageDescription" xml:space="preserve"><value>显示账户杠杆</value></data>
+  <data name="ShowLines" xml:space="preserve"><value>显示行</value></data>
+  <data name="ShowMaxValueDescription" xml:space="preserve"><value>确定是否显示具有最大值的元素。</value></data>
+  <data name="ShowMaximumDelta" xml:space="preserve"><value>最大差值</value></data>
+  <data name="ShowMaximumDeltaDescription" xml:space="preserve"><value>K线形成期间的最大Delta值。</value></data>
+  <data name="ShowMidlineDescription" xml:space="preserve"><value>确定是否显示中线。</value></data>
+  <data name="ShowMinimumDelta" xml:space="preserve"><value>最小差值</value></data>
+  <data name="ShowMinimumDeltaDescription" xml:space="preserve"><value>K线形成期间的最小Delta值。</value></data>
+  <data name="ShowOnChart" xml:space="preserve"><value>显示在图表上</value></data>
+  <data name="ShowOpenPnL" xml:space="preserve"><value>显示持仓盈亏</value></data>
+  <data name="ShowOpenPnLDescription" xml:space="preserve"><value>显示未实现盈亏</value></data>
+  <data name="ShowOpenRangeDescription" xml:space="preserve"><value>确定是否显示初始开盘范围。</value></data>
+  <data name="ShowOrdersCount" xml:space="preserve"><value>显示订单数量</value></data>
+  <data name="ShowPeriod" xml:space="preserve"><value>显示时间</value></data>
+  <data name="ShowPocLevel" xml:space="preserve"><value>显示POC级别</value></data>
+  <data name="ShowPocLevelDescription" xml:space="preserve"><value>确定是否显示POC级别。</value></data>
+  <data name="ShowPrice" xml:space="preserve"><value>显示价格</value></data>
+  <data name="ShowPriceLabels" xml:space="preserve"><value>显示价格标签</value></data>
+  <data name="ShowPriceSelection" xml:space="preserve"><value>显示价格选择</value></data>
+  <data name="ShowPriceSelectionDescription" xml:space="preserve"><value>启用此功能后，图表中的聚类内的价格水平将得到突出显示，使用户能够更轻松地识别所选交易量内的重要价格点。</value></data>
+  <data name="ShowSMA" xml:space="preserve"><value>显示SMA</value></data>
+  <data name="ShowSelectedPriceOnPriceAxisDescription" xml:space="preserve"><value>确定价格是否应在价格轴上突出显示。</value></data>
+  <data name="ShowSessionDelta" xml:space="preserve"><value>会话差值</value></data>
+  <data name="ShowSessionDeltaDescription" xml:space="preserve"><value>自交易时段开始以来累计的Ask和Bid失衡。</value></data>
+  <data name="ShowSessionDeltaPerVolume" xml:space="preserve"><value>会话差值/成交量</value></data>
+  <data name="ShowSessionDeltaPerVolumeDescription" xml:space="preserve"><value>Delta相对于全天总成交量的偏差。</value></data>
+  <data name="ShowSessionVolume" xml:space="preserve"><value>会话交易量</value></data>
+  <data name="ShowSessionVolumeDescription" xml:space="preserve"><value>交易时段的累计成交量。</value></data>
+  <data name="ShowSignalNumbers" xml:space="preserve"><value>显示信号编号</value></data>
+  <data name="ShowSmallTrades" xml:space="preserve"><value>显示小额交易</value></data>
+  <data name="ShowSmallTradesDescription" xml:space="preserve"><value>确定是否显示不符合筛选条件的交易。</value></data>
+  <data name="ShowSupResLevelsDescription" xml:space="preserve"><value>确定是否显示支撑和阻力水平。</value></data>
+  <data name="ShowThresholdLines" xml:space="preserve"><value>显示阈值线</value></data>
+  <data name="ShowThresholdLinesDescription" xml:space="preserve"><value>在 Volume 面板上显示水平阈值线。</value></data>
+  <data name="ShowTicks" xml:space="preserve"><value>显示Ticks</value></data>
+  <data name="ShowTime" xml:space="preserve"><value>时间</value></data>
+  <data name="ShowTimeFrameLabel" xml:space="preserve"><value>显示时间框架标签</value></data>
+  <data name="ShowTopBlock" xml:space="preserve"><value>显示顶部区块</value></data>
+  <data name="ShowTopElementsDescription" xml:space="preserve"><value>确定是否在顶部显示元素。</value></data>
+  <data name="ShowTotalPnL" xml:space="preserve"><value>显示总盈亏</value></data>
+  <data name="ShowTotalPnLDescription" xml:space="preserve"><value>显示总盈亏</value></data>
+  <data name="ShowTradeTooltipDescription" xml:space="preserve"><value>确定是否在悬停在交易标记上时显示包含交易详情的工具提示。</value></data>
+  <data name="ShowTradesCount" xml:space="preserve"><value>交易数量</value></data>
+  <data name="ShowTradesCountDescription" xml:space="preserve"><value>交易数量信息。</value></data>
+  <data name="ShowValue" xml:space="preserve"><value>显示值</value></data>
+  <data name="ShowValueOnLabelDescription" xml:space="preserve"><value>确定是否在标签上显示值。</value></data>
+  <data name="ShowVolume" xml:space="preserve"><value>成交量</value></data>
+  <data name="ShowVolumePerSecond" xml:space="preserve"><value>交易量/秒</value></data>
+  <data name="ShowVolumePerSecondDescription" xml:space="preserve"><value>每秒成交量。</value></data>
+  <data name="ShowVolumesDescription" xml:space="preserve"><value>每根K线的成交量。</value></data>
+  <data name="Signal" xml:space="preserve"><value>信号</value></data>
+  <data name="SignalLineSettingsDescription" xml:space="preserve"><value>信号线可视化设置。</value></data>
+  <data name="SignalPeriod" xml:space="preserve"><value>信号周期</value></data>
+  <data name="SignalPeriodDescription" xml:space="preserve"><value>指定信号移动平均的周期</value></data>
+  <data name="SingalAlert" xml:space="preserve"><value>信号警报</value></data>
+  <data name="SitSeriesColor" xml:space="preserve"><value>座位系列颜色</value></data>
+  <data name="Size" xml:space="preserve"><value>尺寸</value></data>
+  <data name="SizeDescription" xml:space="preserve"><value>此参数设置图表上选择的标准大小。</value></data>
+  <data name="SlowConst" xml:space="preserve"><value>慢速平滑常数值</value></data>
+  <data name="SlowConstDescription" xml:space="preserve"><value>影响长期趋势的响应能力。</value></data>
+  <data name="SlowFactor" xml:space="preserve"><value>延迟信息</value></data>
+  <data name="SlowLine" xml:space="preserve"><value>慢线</value></data>
+  <data name="SlowLineSettingsDescription" xml:space="preserve"><value>慢线的可视化设置。</value></data>
+  <data name="SmaSetingsDescription" xml:space="preserve"><value>显示移动平均线的设置。</value></data>
+  <data name="Smooth" xml:space="preserve"><value>平滑</value></data>
+  <data name="SmoothDescription" xml:space="preserve"><value>应用于指标值的平滑周期。</value></data>
+  <data name="SmoothLineSettingsDescription" xml:space="preserve"><value>用于创建平滑线条的可视化设置。</value></data>
+  <data name="SmoothPeriodFilterDescription" xml:space="preserve"><value>如果启用，计算将使用指定周期对特定参数进行平滑处理。</value></data>
+  <data name="Smoothing" xml:space="preserve"><value>平滑</value></data>
+  <data name="SourceDescription" xml:space="preserve"><value>允许用户选择用于计算指标的数据源。可以是特定的蜡烛价格，如开盘价、收盘价等，也可以是另一个指标</value></data>
+  <data name="SourceTypeDescription" xml:space="preserve"><value>表示可用数据源类型之一。</value></data>
+  <data name="SpaceBetweenLabelsDescription" xml:space="preserve"><value>定义标签之间的距离大小。</value></data>
+  <data name="SpaceBetweenObjectsDescription" xml:space="preserve"><value>设置显示对象之间的间距值。</value></data>
+  <data name="Spacing" xml:space="preserve"><value>间隔</value></data>
+  <data name="SpeedInterval" xml:space="preserve"><value>速度间隔</value></data>
+  <data name="SpeedOfTapeAutoFilterDescription" xml:space="preserve"><value>如果启用，则过滤器值将自动计算，否则等于指定值。</value></data>
+  <data name="SpeedOfTapeDescription" xml:space="preserve"><value>&lt;p&gt;实时测量交易速度。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;有助于及时注意到打印带中的活动激增和动量的开始。&lt;/li&gt;
+  &lt;li&gt;根据时间框架和工具需要单独设置。&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="SpreadVolumeDescription" xml:space="preserve"><value>该指标旨在随时间可视化按盘口和要价价格交易的成交量，提供对市场活动的洞察。它显示彩色矩形，代表不同价格水平上按盘口和要价价格交易的成交量。</value></data>
+  <data name="SqueezeMomentumDescription" xml:space="preserve"><value>指标提供有关如何使用挤压动量来寻找市场入场点的信息。它解释了如何解读黑点和灰点，这些点表示波动性下降和价格运动的开始。它还描述了点颜色的变化如何表示价格方向的变化，绿色代表多头移动，红色代表空头移动。
+一个通用指标，允许您提前看到价格爆发（挤压）的概率，帮助找到入场点。
+- 黑点表示市场正在准备发生剧烈运动，波动性正在降低。
+- 黑点之后的灰点，表示脉冲的压缩结束和价格爆发的早期开始。
+颜色的变化表示价格方向的变化。
+- 浅绿色 - 多头价格方向（价格上涨）。
+- 深绿色 - 转入空头市场（开始价格下跌）。
+- 浅红色 - 空头价格方向（价格下跌）。
+- 深红色 - 转入多头市场（开始价格上涨）。</value></data>
+  <data name="StackedImbalanceDescription" xml:space="preserve"><value>&lt;p&gt;识别兴趣增加的区域。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;突出显示具有明显买家或卖家优势的相邻水平。&lt;/li&gt;
+  &lt;li&gt;开始看到的不是单个失衡,而是蜡烛内持续的优势。&lt;/li&gt;
+  &lt;li&gt;分析足迹内的供需压力。&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="Stacking" xml:space="preserve"><value>堆叠</value></data>
+  <data name="StackingDescription" xml:space="preserve"><value>将限价订单添加到订单簿中。</value></data>
+  <data name="StarcBandsDescription" xml:space="preserve"><value>STARC Bands指标是标准布林带指标的替代品。STARC Bands在稳定市场上收窄，在波动性上升时扩大。与布林带不同，STARC Bands不使用收盘价和标准差。该指标使用平均真实范围（ATR）进行计算，提供有关波动水平的更有意义的信息。建议的ATR计算周期为10。</value></data>
+  <data name="StartTime" xml:space="preserve"><value>起始时间</value></data>
+  <data name="StartTimeDescription" xml:space="preserve"><value>交易平台的开始时间</value></data>
+  <data name="StartTimeFilterDescription" xml:space="preserve"><value>定义时间过滤器的开始时间。</value></data>
+  <data name="StdDev" xml:space="preserve"><value>标准差</value></data>
+  <data name="StdDevBandsDescription" xml:space="preserve"><value>标准偏差带技术指标使用SMA和StdDev指标创建两个移动平均线（高和低）和一个通道（上通道是移动平均线高和StdDev的总和，下通道是移动平均线低和StdDev的差）。</value></data>
+  <data name="StdDevDescription" xml:space="preserve"><value>标准差（Standard Deviation, StdDev）技术指标衡量市场波动性。该指标描述了价格范围相对于移动平均值的情况。如果指标值较大，则市场波动较大，柱状价格相对于移动平均值相当分散。如果指标值较小，则市场波动性较低，柱状价格相对于移动平均值足够接近。</value></data>
+  <data name="StdDevPeriodDescription" xml:space="preserve"><value>设置"标准偏差"的周期。</value></data>
+  <data name="StdErrBandsDescription" xml:space="preserve"><value>Standard Error Bands 指标计算线性回归线周围的标准误差带，从视觉上表示回归线周围的价格波动或离散度。</value></data>
+  <data name="StdPeriod" xml:space="preserve"><value>标准差期间</value></data>
+  <data name="StdPeriodDescription" xml:space="preserve"><value>确定计算标准差的周期。</value></data>
+  <data name="Step" xml:space="preserve"><value>Step</value></data>
+  <data name="StepSizeInTicksDescription" xml:space="preserve"><value>定义以滴答声表示的步长大小。</value></data>
+  <data name="Stochastic" xml:space="preserve"><value>随机</value></data>
+  <data name="StochasticDescription" xml:space="preserve"><value>随机指标（随机线）- 技术分析指标，指示当前价格相对于过去特定时期的价格范围的位置。以百分比表示。</value></data>
+  <data name="StochasticDiNapoliDescription" xml:space="preserve"><value>Preferred Stochastic - DiNapoli 指标是随机振荡器的一种变体，它结合了指数移动平均线以进行平滑处理。随机振荡器测量了一段时间内证券收盘价相对于其价格范围的位置，而DiNapoli版本则使用EMA进行进一步平滑处理。</value></data>
+  <data name="StochasticMomentumDescription" xml:space="preserve"><value>随机动量指数 是一种动量振荡器，用于测量收盘价相对于特定时间段内高低范围中点的位置。它有助于识别超买和超卖市场条件。</value></data>
+  <data name="StochasticRsiDescription" xml:space="preserve"><value>随机相对强弱指数（Stochastic RSI）是一种技术分析指标，用于识别市场中的超卖和超买区域。它是根据特定时间段内RSI指标的最大值和最小值计算的，并在图表上表示为0到1范围内的一条线。</value></data>
+  <data name="StochasticRsiPeriodDescription" xml:space="preserve"><value>设置随机RSI的周期。</value></data>
+  <data name="StochasticRsiRsiPeriodDescription" xml:space="preserve"><value>设置随机RSI指标的RSI周期。</value></data>
+  <data name="StohasticPercentileDescription" xml:space="preserve"><value>百分位随机指标是一种技术震荡器，根据给定时间间隔内的价格位置计算值。它将最后N个柱状图按升序排列，将最后一个柱状图的排列数除以周期值，然后用移动平均值平滑这些值。</value></data>
+  <data name="StrongNegativeFlowColorDescription" xml:space="preserve"><value>设置元素的颜色，以表示强烈的负现金流。</value></data>
+  <data name="StrongPositiveFlowColorDescription" xml:space="preserve"><value>设置表示强烈正现金流的元素的颜色。</value></data>
+  <data name="SubPeriodsMode" xml:space="preserve"><value>自己列中的字母/块</value></data>
+  <data name="Summary" xml:space="preserve"><value>概述</value></data>
+  <data name="SuperTrendDescription" xml:space="preserve"><value>SuperTrend指标是使用ATR和CCI指标计算的，以确定趋势运动的方向和指标水平。它使用计算公式根据High、Low、Multiplier和ATR周期来确定上下水平。该指标用于帮助交易员识别市场趋势。
+Calculation formula of the Super Trend:
+UpperLevel=(High[i]+Low[i])/2+Multiplier*Atr(Period)
+LowerLevel=(High[i]+Low[i])/2-Multiplier*Atr(Period)</value></data>
+  <data name="SupportColor" xml:space="preserve"><value>支撑颜色</value></data>
+  <data name="SupportColorDescription" xml:space="preserve"><value>定义了显示元素支撑水平或支撑区域的颜色。</value></data>
+  <data name="SupportLevel" xml:space="preserve"><value>支撑级别</value></data>
+  <data name="SupportLevelDisplayDescription" xml:space="preserve"><value>显示支撑水平，表明价格可以向上反弹的位置。</value></data>
+  <data name="SupportLineSettingsDescription" xml:space="preserve"><value>特定支撑线的可视化设置。</value></data>
+  <data name="SwingHighLowDescription" xml:space="preserve"><value>Swing High and Low指标用于显示预期的反转点。在图表中，红线显示卖出反转点，而绿线显示买入反转点。</value></data>
+  <data name="SyntheticVixDescription" xml:space="preserve"><value>SyntheticVix指标是VIX（波动率指数）的合成表示，允许用户衡量市场对未来波动性的预期。它根据特定期间内的最高收盘价与当前最低价进行比较计算出一个值，提供相对波动性的度量。</value></data>
+  <data name="T3IndDescription" xml:space="preserve"><value>该指标是由蒂姆·蒂尔森（Tim Tillson）于1998年开发的。
+开发新类型的移动平均线的目的是改善噪音过滤和减少滞后，这是大多数移动平均线的共同缺点。用于计算的是价格序列的多重指数平滑。如果价格从下方穿过上升的T3线，这是一个买入信号；如果从上方穿过下降的线，这是一个卖出信号。该指标基于指数移动平均线的六倍计算。</value></data>
+  <data name="TDSequentialDescription" xml:space="preserve"><value>该指标根据当前蜡烛的收盘价与4根蜡烛前的收盘价进行比较，显示潜在趋势反转的信号。当达到第9号信号时，趋势反转的可能性很高。如果信号数量达到13，则反转的可能性会增加。</value></data>
+  <data name="TEMA" xml:space="preserve"><value>三重指数移动平均线</value></data>
+  <data name="TEMADescription" xml:space="preserve"><value>三重指数移动平均线（TEMA）是一种技术分析指标，它使用三重指数平滑技术计算移动平均线。它的基本思想是结合多个指数移动平均线，以减少滞后并提高响应性。TEMA用于识别趋势并在金融市场上生成买入或卖出信号。</value></data>
+  <data name="TMA" xml:space="preserve"><value>三角移动平均线</value></data>
+  <data name="TMADescription" xml:space="preserve"><value>三角形移动平均线的主要权重落在价格范围的中间部分。事实上，它们是双平滑的简单移动平均线。简单移动平均线的长度取决于所选周期数的奇偶性。</value></data>
+  <data name="TPO" xml:space="preserve"><value>TPO</value></data>
+  <data name="TPOSubPeriodDescription" xml:space="preserve"><value>定义TPO子周期的分钟数。</value></data>
+  <data name="TPOSubPeriodMinutes" xml:space="preserve"><value>TPO 子周期, 分</value></data>
+  <data name="TRIXDescription" xml:space="preserve"><value>TRIX（三重指数平滑移动平均）是一个振荡器，表示特定时间段内收盘价的三重指数平滑移动平均的百分比。</value></data>
+  <data name="TSIDescription" xml:space="preserve"><value>真实强度指数（TSI）是金融市场分析中使用的技术指标。它基于价格变化的双重平滑，并在正负值之间波动。TSI指标有助于识别趋势方向，超买和超卖条件，并通过背离警告趋势的减弱。</value></data>
+  <data name="TVIDescription" xml:space="preserve"><value>交易量指数（TVI）是一个指标，用于衡量价格变动和tick级别的成交量之间的相关性。它通过分析价格和成交量的tick-by-tick变化来帮助识别价格走势的强度。TVI是一种简单的工具，常用于评估市场动量。</value></data>
+  <data name="TableCellWidthPixelsDescription" xml:space="preserve"><value>设置表格单元格宽度（以像素为单位）。</value></data>
+  <data name="TableOffsetXDescription" xml:space="preserve"><value>设置表格在像素中的x轴偏移量。</value></data>
+  <data name="TapePatternDescription" xml:space="preserve"><value>该指标旨在处理和过滤进入市场的“原始”订单流。它具有非常敏感的设置，用于计算不同的自动下载算法和管理仓位卸载。</value></data>
+  <data name="TeethAlligator" xml:space="preserve"><value>Teeth alligator</value></data>
+  <data name="TenkanSen" xml:space="preserve"><value>转换线</value></data>
+  <data name="Text" xml:space="preserve"><value>文本</value></data>
+  <data name="TextColor" xml:space="preserve"><value>文本颜色</value></data>
+  <data name="TextLocation" xml:space="preserve"><value>文本位置</value></data>
+  <data name="TextSettings" xml:space="preserve"><value>文本设置</value></data>
+  <data name="TextSize" xml:space="preserve"><value>文本大小</value></data>
+  <data name="TextSizeDescription" xml:space="preserve"><value>确定要显示的文本大小。</value></data>
+  <data name="ThirdDev" xml:space="preserve"><value>偏差 №3</value></data>
+  <data name="ThirdFormula" xml:space="preserve"><value>3rd Formula</value></data>
+  <data name="Threshold" xml:space="preserve"><value>阈值</value></data>
+  <data name="Thresholds" xml:space="preserve"><value>阈值</value></data>
+  <data name="TickCost" xml:space="preserve"><value>跳动点价值</value></data>
+  <data name="TickCostValueDescription" xml:space="preserve"><value>可以在交易所上查看该工具的Tick成本值。</value></data>
+  <data name="TickSize" xml:space="preserve"><value>跳动点大小</value></data>
+  <data name="TickSizeDescription" xml:space="preserve"><value>定义了以工具货币计量的最小价格变动。</value></data>
+  <data name="Ticks" xml:space="preserve"><value>Ticks</value></data>
+  <data name="TillBar" xml:space="preserve"><value>到酒吧</value></data>
+  <data name="Time" xml:space="preserve"><value>时间</value></data>
+  <data name="TimeBar" xml:space="preserve"><value>时间条</value></data>
+  <data name="TimeFilter" xml:space="preserve"><value>时间过滤</value></data>
+  <data name="TimeFilterSec" xml:space="preserve"><value>时间过滤（秒）</value></data>
+  <data name="TimeFiltration" xml:space="preserve"><value>按时间过滤</value></data>
+  <data name="TimeFormat" xml:space="preserve"><value>时间格式</value></data>
+  <data name="TimeFormatDescription" xml:space="preserve"><value>定义时间显示格式。</value></data>
+  <data name="TimeFrame" xml:space="preserve"><value>时间框架</value></data>
+  <data name="TimeFrame1" xml:space="preserve"><value>时间框架 1</value></data>
+  <data name="TimeFrame2" xml:space="preserve"><value>时间框架 2</value></data>
+  <data name="TimeFrame3" xml:space="preserve"><value>时间框架 3</value></data>
+  <data name="TimeFrame4" xml:space="preserve"><value>时间框架 4</value></data>
+  <data name="TimeFrom" xml:space="preserve"><value>开始时间</value></data>
+  <data name="TimeFromDescription" xml:space="preserve"><value>此参数设置时间过滤器的起始时间。</value></data>
+  <data name="TimeModeDescription" xml:space="preserve"><value>确定显示哪些时间信息。</value></data>
+  <data name="TimeSettings" xml:space="preserve"><value>时间设置</value></data>
+  <data name="TimeTo" xml:space="preserve"><value>结束时间</value></data>
+  <data name="TimeToDescription" xml:space="preserve"><value>此参数设置时间过滤器的结束时间。</value></data>
+  <data name="TimeToEndOfCandle" xml:space="preserve"><value>条形图收盘时间</value></data>
+  <data name="TimeZone" xml:space="preserve"><value>时区</value></data>
+  <data name="TimeZoneDescription" xml:space="preserve"><value>允许您设置自定义时区以校正时间。</value></data>
+  <data name="ToggleLevelsVisibilityHotKey" xml:space="preserve"><value>切换所有级别的可见性</value></data>
+  <data name="Tolerance" xml:space="preserve"><value>容忍度</value></data>
+  <data name="ToleranceDescription" xml:space="preserve"><value>确定公差的大小。</value></data>
+  <data name="ToleranceTypeDescription" xml:space="preserve"><value>定义了一个可用的公差单位。</value></data>
+  <data name="TooSmallRows" xml:space="preserve"><value>价格行高度太小无法渲染</value></data>
+  <data name="TopBand" xml:space="preserve"><value>通道的上限</value></data>
+  <data name="TopBandDscription" xml:space="preserve"><value>描述了范围的上限。</value></data>
+  <data name="TopChannelSettingsDescription" xml:space="preserve"><value>顶部通道线的可视化设置。</value></data>
+  <data name="TopLeft" xml:space="preserve"><value>左上方</value></data>
+  <data name="TopRight" xml:space="preserve"><value>右上方</value></data>
+  <data name="Total" xml:space="preserve"><value>总计</value></data>
+  <data name="TotalVolumeFilter" xml:space="preserve"><value>成交量过滤器</value></data>
+  <data name="Trades" xml:space="preserve"><value>交易</value></data>
+  <data name="TradesAlert" xml:space="preserve"><value>交易警报</value></data>
+  <data name="TradesCountDescription" xml:space="preserve"><value>定义要过滤的交易数量。</value></data>
+  <data name="TradesFilter" xml:space="preserve"><value>交易过滤</value></data>
+  <data name="TradesOnChartDescription" xml:space="preserve"><value>该指标旨在以“开仓 - 平仓”格式在图表上可视化交易。</value></data>
+  <data name="TradingSession" xml:space="preserve"><value>交易会话</value></data>
+  <data name="TradingSessionDescription" xml:space="preserve"><value>交易会话确定应显示数据的工具交易时间段。</value></data>
+  <data name="Transparency" xml:space="preserve"><value>行可见性调整。</value></data>
+  <data name="TrendCciPeriod" xml:space="preserve"><value>趋势CCI周期</value></data>
+  <data name="TrendPeriod" xml:space="preserve"><value>趋势周期</value></data>
+  <data name="TrueRangeDescription" xml:space="preserve"><value>真实波幅指标用于技术分析，用于衡量证券的波动性。它考虑了最高价和最低价之间的差异，以及前一收盘价和当前最高价和最低价之间的差异。这种计算有助于交易员和分析师了解特定证券的潜在价格波动和风险。</value></data>
+  <data name="Type" xml:space="preserve"><value>类型</value></data>
+  <data name="UltimateOscillatorDescription" xml:space="preserve"><value>终极振荡器是由拉里·威廉姆斯在1976年开发的技术指标，用于使用多个时期来测量价格动量。它使用三个不同时期的加权平均值，以提供比其他只使用单一时期的振荡器更少的波动性和更少的交易信号。</value></data>
+  <data name="UnderCurrentPriceLabel" xml:space="preserve"><value>当前价格标签下方</value></data>
+  <data name="UnfinishedAuctionModDescription" xml:space="preserve"><value>未完成的拍卖 - 未完成的交易。这个术语用于描述极端价格水平（上限、下限或两者）同时包含买入和卖出的情况。该指标用于在市场上搜索和显示类似的情况。
+重要提示：如果您正在寻找低水平的突出显示，您需要在低水平拥有比买入过滤器更多的买单，并且卖单的数量应大于零。
+如果您正在寻找高水平的突出显示，您需要在高水平拥有比卖出过滤器更多的卖单，并且买单的数量应大于零。</value></data>
+  <data name="Up" xml:space="preserve"><value>Up</value></data>
+  <data name="UpAlert" xml:space="preserve"><value>Up提醒</value></data>
+  <data name="UpAlertFileFilterDescription" xml:space="preserve"><value>激活后，当检测到上升信号时，使用指定的声音文件名称触发警报。</value></data>
+  <data name="UpAreaSettingsDescription" xml:space="preserve"><value>上升区域的可视化设置。</value></data>
+  <data name="UpDownVolume" xml:space="preserve"><value>Up / Down volume</value></data>
+  <data name="UpDownVolumeRatioDescription" xml:space="preserve"><value>该指标计算了平均上涨/下跌比率。计算基于买入和卖出量或看涨和看跌柱状图的量。</value></data>
+  <data name="UpTrendSettingsDescription" xml:space="preserve"><value>上升趋势显示设置。</value></data>
+  <data name="Upper" xml:space="preserve"><value>上部</value></data>
+  <data name="UpperFill" xml:space="preserve"><value>Upper fill</value></data>
+  <data name="UpperFill2" xml:space="preserve"><value>Upper fill 2</value></data>
+  <data name="UpperPositiveValueColorDescription" xml:space="preserve"><value>显示具有正值且大于先前值的元素的颜色。</value></data>
+  <data name="UpperSma" xml:space="preserve"><value>上限SMA</value></data>
+  <data name="UpperStd1" xml:space="preserve"><value>上偏差1</value></data>
+  <data name="UpperStd2" xml:space="preserve"><value>上偏差2</value></data>
+  <data name="UpperStd3" xml:space="preserve"><value>上偏差3</value></data>
+  <data name="UpperWick" xml:space="preserve"><value>上影线</value></data>
+  <data name="UpperWickSettingsDescription" xml:space="preserve"><value>上影线元素的可视化设置。</value></data>
+  <data name="UseAlert" xml:space="preserve"><value>使用警报</value></data>
+  <data name="UseAlertBeforeDescription" xml:space="preserve"><value>允许用户在新主要警报显示前的一定秒数内启用或禁用声音通知。</value></data>
+  <data name="UseAlertDescription" xml:space="preserve"><value>指标检测到的事件通知。</value></data>
+  <data name="UseAlerts" xml:space="preserve"><value>使用警报</value></data>
+  <data name="UseAlertsDescription" xml:space="preserve"><value>启用或禁用声音通知。</value></data>
+  <data name="UseAutoMaxSizeDetectionDescription" xml:space="preserve"><value>柱宽自动适应屏幕上显示的最大成交量。</value></data>
+  <data name="UseAutoSize" xml:space="preserve"><value>使用自动尺寸</value></data>
+  <data name="UseCumTradesTimeFilterDescription" xml:space="preserve"><value>如果激活，计算将仅包括累积交易，其中交易结束和开始之间的时间跨度不超过预定义的持续时间。</value></data>
+  <data name="UseCustomDiapasonDescription" xml:space="preserve"><value>如果启用，计算指标时将使用自定义值范围，否则使用默认值。</value></data>
+  <data name="UseFilter" xml:space="preserve"><value>使用过滤</value></data>
+  <data name="UseFilterDescription" xml:space="preserve"><value>确定是否在计算中使用此过滤器。</value></data>
+  <data name="UseMA" xml:space="preserve"><value>使用移动平均线</value></data>
+  <data name="UsePartialGapClosureDescription" xml:space="preserve"><value>确定是否使用部分间隙闭合。</value></data>
+  <data name="UsePeriodDescription" xml:space="preserve"><value>如果启用，指定的周期将用于指标计算。</value></data>
+  <data name="UsePocChangeAlertDescription" xml:space="preserve"><value>确定在POC水平发生变化时是否使用警报。</value></data>
+  <data name="UsePocTouchAlertDescription" xml:space="preserve"><value>确定价格触及POC水平时是否使用警报。</value></data>
+  <data name="UsePreviousClose" xml:space="preserve"><value>使用上根蜡烛的收盘价</value></data>
+  <data name="UsePreviousCloseDescription" xml:space="preserve"><value>确定计算是否应考虑前一根蜡烛的收盘价。</value></data>
+  <data name="UseScale" xml:space="preserve"><value>图形缩放</value></data>
+  <data name="UseScaleDescription" xml:space="preserve"><value>自动调整比例，使整个订单簿在屏幕上完整显示。</value></data>
+  <data name="UseTimeFilter" xml:space="preserve"><value>使用时间过滤</value></data>
+  <data name="UseTimeFilterDescription" xml:space="preserve"><value>此设置允许对指标应用基于时间的过滤器。启用后，指标仅分析和显示落在指定时间范围内的蜡烛图数据。如果禁用，指标将考虑所有时间框架内的蜡烛图数据。</value></data>
+  <data name="UseTrueRangeDescription" xml:space="preserve"><value>如果启用了此选项，则使用真实范围，否则使用高低蜡烛尺寸。</value></data>
+  <data name="UseTrueRangeKc" xml:space="preserve"><value>使用 TrueRange (KC)</value></data>
+  <data name="UseVAHTouchAlertDescription" xml:space="preserve"><value>确定当价格触及VAH水平时是否使用警报。</value></data>
+  <data name="UseVALTouchAlertDescription" xml:space="preserve"><value>确定当价格触及VAL水平时是否使用警报。</value></data>
+  <data name="VAH" xml:space="preserve"><value>VAH</value></data>
+  <data name="VAHLineSettingsDescription" xml:space="preserve"><value>VAH线的可视化设置。</value></data>
+  <data name="VAL" xml:space="preserve"><value>VAL</value></data>
+  <data name="VALLineSettingsDescription" xml:space="preserve"><value>VAL线的可视化设置。</value></data>
+  <data name="VBRRDescription" xml:space="preserve"><value>Volume Bar Range Ratio指标显示了条形图的成交量与高度的比率。
+指标计算公式为：VBBR(t) = Vol(t) / (high(t) - Low(t))</value></data>
+  <data name="VPFDescription" xml:space="preserve"><value>约翰·埃勒斯（John Ehlers）的沃斯预测滤波器是一种新的指标，旨在指示市场中的周期性转折点。它具有负群延迟，并且可能会提供比其他指标更早的信号，尽管它实际上不能看到未来。</value></data>
+  <data name="VWAP" xml:space="preserve"><value>VWAP</value></data>
+  <data name="VWAPDescription" xml:space="preserve"><value>&lt;p&gt;分析日内背景和公平价格区域。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;VWAP — 选定时期的成交量加权平均价格。&lt;/li&gt;
+  &lt;li&gt;TWAP — 时间加权平均价格。&lt;/li&gt;
+  &lt;li&gt;当前价格与平均值的偏差。&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="VWAPOnly" xml:space="preserve"><value>仅限VWAP</value></data>
+  <data name="VWMADescription" xml:space="preserve"><value>成交量加权移动平均线（VWMA）指标是一种技术分析工具，它在计算资产的平均价格时考虑了不同价格水平的交易量。这使得对价格波动和市场行为有更细致的理解。VWMA 对于希望将其策略与价格走势和交易量相结合的交易者特别有用。</value></data>
+  <data name="VahAlert" xml:space="preserve"><value>VAH level 警报</value></data>
+  <data name="ValAlert" xml:space="preserve"><value>VAL level 警报</value></data>
+  <data name="Value" xml:space="preserve"><value>值</value></data>
+  <data name="ValueMustBeGreaterThan" xml:space="preserve"><value>值必须大于{0}</value></data>
+  <data name="ValueMustBeLessThan" xml:space="preserve"><value>值必须小于{0}</value></data>
+  <data name="Values" xml:space="preserve"><value>值</value></data>
+  <data name="ValuesRangeDescription" xml:space="preserve"><value>指定允许的最小值和最大值。</value></data>
+  <data name="VerticalHorizontalFilterDescription" xml:space="preserve"><value>垂直水平过滤器用于通过计算特定时期内最大值和最小值之间的差异与值总和的比率来确定价格是趋势还是巩固阶段。它考虑了所选数据源以提供准确的评估。</value></data>
+  <data name="VerticalOffset" xml:space="preserve"><value>垂直偏差</value></data>
+  <data name="VerticalPosition" xml:space="preserve"><value>垂直位置</value></data>
+  <data name="Visibility" xml:space="preserve"><value>是否显示</value></data>
+  <data name="Visible" xml:space="preserve"><value>显示</value></data>
+  <data name="VisibleProportion" xml:space="preserve"><value>图表可见部分比例</value></data>
+  <data name="VisibleProportionDescription" xml:space="preserve"><value>仅在当前窗口中对数据进行颜色突出显示。</value></data>
+  <data name="VisualMode" xml:space="preserve"><value>视觉模式</value></data>
+  <data name="VisualModeDescription" xml:space="preserve"><value>视觉模式设置控制图表上选择的外观。它决定了选择的元素如何显示，并可以根据不同的偏好或要求进行定制。</value></data>
+  <data name="VisualModeHistogramDescription" xml:space="preserve"><value>在每个柱状图上显示一个垂直柱</value></data>
+  <data name="VisualObjectsDescription" xml:space="preserve"><value>此设置允许用户自定义图表上可视对象的颜色。</value></data>
+  <data name="VisualObjectsTransparency" xml:space="preserve"><value>视觉对象透明度</value></data>
+  <data name="VisualObjectsTransparencyDescription" xml:space="preserve"><value>此设置允许用户自定义图表上可视对象的透明度。</value></data>
+  <data name="VisualSettings" xml:space="preserve"><value>视觉设置</value></data>
+  <data name="Visualization" xml:space="preserve"><value>视觉化</value></data>
+  <data name="VolatilityChaikinsDescription" xml:space="preserve"><value>Chaikin波动率是一个简单而方便的指标，用于确定市场波动性。该工具测量特定时间范围内最高和最低价格之间的差异。</value></data>
+  <data name="VolatilityHistDescription" xml:space="preserve"><value>这是一种波动率类型。它是根据特定时间段的过去数据计算的。在这个指标中，历史波动率被计算为标准偏差。</value></data>
+  <data name="VolatilityTrendDescription" xml:space="preserve"><value>波动趋势指标在计算时使用了指定期间的峰值价格以及ATR指标值。这些数值表明了短期趋势。</value></data>
+  <data name="Volume" xml:space="preserve"><value>交易量</value></data>
+  <data name="VolumeAlert" xml:space="preserve"><value>交易量警报</value></data>
+  <data name="VolumeColorDescription" xml:space="preserve"><value>突出显示成交量柱。</value></data>
+  <data name="VolumeFilter" xml:space="preserve"><value>交易量过滤</value></data>
+  <data name="VolumeHistSettingsDescription" xml:space="preserve"><value>用于成交量直方图的可视化设置。</value></data>
+  <data name="VolumeIndDescription" xml:space="preserve"><value>&lt;p&gt;每支蜡烛的交易量以直方图形式显示。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;柱的高度对应于交易量大小。&lt;/li&gt;
+  &lt;li&gt;快速清晰地评估图表上交易活动的变化。&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="VolumeIndexDescription" xml:space="preserve"><value>NVI（Negative Volume Index）和PVI（Positive Volume Index）是技术指标，采用镜像式计算方法，但具有类似的解释，累积某些期间的价格变动，分别与前一期相比，交易量下降和增长。
+当当前交易日的交易量低于（或高于）前一交易日的交易量时，交易量指数等于当前利润乘以前一期的指数值的累积总和。</value></data>
+  <data name="VolumeLabel" xml:space="preserve"><value>交易量标签</value></data>
+  <data name="VolumeLabelDescription" xml:space="preserve"><value>交易量标签和描述</value></data>
+  <data name="VolumeMAPeriodDescription" xml:space="preserve"><value>代表成交量移动平均的周期。</value></data>
+  <data name="VolumeMoreNBars" xml:space="preserve"><value>成交量大于最近 N 根K线的总成交量</value></data>
+  <data name="VolumeMoreSma" xml:space="preserve"><value>成交量高于SMA(N)成交量</value></data>
+  <data name="VolumeOnChartDescription" xml:space="preserve"><value>&lt;p&gt;Volume指标的孪生兄弟。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;唯一的区别——在图表底部显示交易量,而不是在单独的面板中。&lt;/li&gt;
+  &lt;li&gt;显示每支蜡烛的交易量以及随时间变化的交易活动。&lt;/li&gt;
+&lt;/ul&gt;</value></data>
+  <data name="VolumePerSecondAlert" xml:space="preserve"><value>交易量/秒警报</value></data>
+  <data name="VolumePerTradeIndDescription" xml:space="preserve"><value>该指标显示平均交易量。</value></data>
+  <data name="VolumeSettingsDescription" xml:space="preserve"><value>体积元素的可视化设置。</value></data>
+  <data name="VolumeSupResZonesDescription" xml:space="preserve"><value>该指标使用交易量和蜡烛影线长度来识别分形低点或高点处的重要价格水平。这些水平可以指示潜在的趋势反转或延续，该指标允许同时使用最多4个不同周期。</value></data>
+  <data name="VolumeTrendDescription" xml:space="preserve"><value>价格成交量趋势（PVT）指标是一种基于动量的工具，用于技术分析，通过计算基于价格百分比变化的成交量变化来衡量资金流动。它可以通过背离确认趋势并识别潜在的交易信号。</value></data>
+  <data name="VolumeType" xml:space="preserve"><value>交易量类型</value></data>
+  <data name="VolumeTypeDescription" xml:space="preserve"><value>确定要使用的音量类型，允许自定义和选择特定应用程序或用例的适当音量类型。</value></data>
+  <data name="VolumeVisualizationType" xml:space="preserve"><value>交易量可视化类型</value></data>
+  <data name="VolumeZoneIndDescription" xml:space="preserve"><value>该指标旨在分析价格变动与成交量变化的关系。它通过计算上涨和下跌价格变动的成交量指数移动平均值的比率来实现。然后将该比率归一化为百分比比例，提供有关潜在超买或超卖条件的见解。</value></data>
+  <data name="VortexIndDescription" xml:space="preserve"><value>该指标根据当前和先前的最高/最低/收盘价格计算并显示正涡旋和负涡旋。</value></data>
+  <data name="VsaBetterVolumeDescription" xml:space="preserve"><value>VSA Better Volume指标分析tick量和蜡烛范围，以提供趋势运动、修正和市场逆转的信号。它根据成交量和蜡烛的散布来识别看涨和看跌的信号，以及市场操纵的信号。该指标还突出显示低tick量蜡烛的趋势结束和修正期。</value></data>
+  <data name="VsaWsdDescription" xml:space="preserve"><value>该指标旨在识别成交量和价格之间的背离。它处理tick成交量数据，并将分析结果呈现在彩色图表上。除了成交量外，VSA - WSD直方图指标还可以基于供需值和蜡烛范围找到支撑和阻力水平。在指示直方图上，每个条的价差，即该条的最高价和最低价之间的差额，用白色标记。</value></data>
+  <data name="WADDescription" xml:space="preserve"><value>积累/分布-威廉姆斯指标衡量市场上升和下降价格变动的总和，代表市场参与者对证券的积累和分布。它有助于根据证券的买卖活动在市场上识别趋势和潜在的反转点。</value></data>
+  <data name="WAODescription" xml:space="preserve"><value>该振荡器显示两个加权移动平均线之间的差异，这两个移动平均线具有不同的周期。</value></data>
+  <data name="WMA" xml:space="preserve"><value>加权移动平均线</value></data>
+  <data name="WMADescription" xml:space="preserve"><value>加权移动平均（WMA）是一种计算平均值的方法，它更加重视最近的数据点。它根据数据点的新近程度分配权重，然后通过将产品的总和除以权重的总和来计算加权平均值。</value></data>
+  <data name="WMAPeriodDescription" xml:space="preserve"><value>设置加权移动平均 (WMA) 的周期。</value></data>
+  <data name="WPRDescription" xml:space="preserve"><value>WPR指标（Williams’ Percent Range或Williams Overbought / Oversold Index）是由拉里·威廉姆斯发明的，用于估计价格运动的速度，并显示收盘价相对于某一时期的最大/最小水平的位置。该指标显示了当前收盘价相对于实际范围（最大/最小）的水平。值（以百分比表示）显示在0%到(-100%)的范围内。</value></data>
+  <data name="WWMA" xml:space="preserve"><value>威尔斯·怀尔德移动平均线</value></data>
+  <data name="WWMADescription" xml:space="preserve"><value>Wilder's Moving Average采用Wilder的平滑方法，更加重视最近的数据。计算过程涉及根据当前价格调整先前的平均值，从而产生具有更快响应性的移动平均值，比传统方法更有效。</value></data>
+  <data name="WaitingForNewTick" xml:space="preserve"><value>等待新 Tick</value></data>
+  <data name="WatermarkIndDescription" xml:space="preserve"><value>显示在图表上的水印指示器示例。也可以显示自定义文本。</value></data>
+  <data name="WavePeriod" xml:space="preserve"><value>波浪周期</value></data>
+  <data name="WavetrendDescription" xml:space="preserve"><value>一种显示价格变动并识别超买和超卖区域的振荡器。它还可以显示趋势反转点。</value></data>
+  <data name="WeakNegativeFlowColorDescription" xml:space="preserve"><value>设置表示弱负现金流的元素的颜色。</value></data>
+  <data name="WeakPositiveFlowColorDescription" xml:space="preserve"><value>设置表示弱正现金流的元素的颜色。</value></data>
+  <data name="WeakSeriesColor" xml:space="preserve"><value>弱系列颜色</value></data>
+  <data name="Weekly" xml:space="preserve"><value>Weekly</value></data>
+  <data name="WeissWaveDescription" xml:space="preserve"><value>Weis Wave指标用于在趋势改变方向之前显示总成交量。它通过总结连续蜡烛的成交量来实现这一点，这些蜡烛朝着相同的方向移动。</value></data>
+  <data name="White" xml:space="preserve"><value>白色</value></data>
+  <data name="Width" xml:space="preserve"><value>宽度</value></data>
+  <data name="WidthDataSeriesDescription" xml:space="preserve"><value>定义图表中线条或元素的粗细</value></data>
+  <data name="WilliamsRDescription" xml:space="preserve"><value>威廉姆斯百分比范围（Williams’ %R）是一种技术指标，用于识别超买或超卖的市场条件，并发出潜在的市场逆转信号。它是通过计算某一时期内最高价和收盘价之间的差值与最高-最低价范围的比值，再乘以100来计算的。该指标还具有一个值反转功能，以方便和清晰。</value></data>
+  <data name="WoodiesCCIDescription" xml:space="preserve"><value>Woodies CCI指标是传统CCI的修改版本，由两个CCI组成，周期分别为6和14。它使用快速曲线来预测慢曲线的运动，并通过直方图补充了慢CCI。Woodies CCI指数的值在零线附近变化-它们既没有上限也没有下限。指标的高值意味着当前价格“超买”，低值意味着价格“超卖”。Woodies CCI指数的关键水平为+-100、+-200和零线。</value></data>
+  <data name="Yellow" xml:space="preserve"><value>黄色</value></data>
+  <data name="ZLEMA" xml:space="preserve"><value>零滞后指数移动平均线（ZLEMA）</value></data>
+  <data name="ZLEMAIndDescription" xml:space="preserve"><value>零滞后指数移动平均（ZLEMA）指标是由约翰·埃勒斯（John Ehlers）和里克·韦（Rick Way）创建的，与双指数移动平均（DEMA）和三指数移动平均（TEMA）类似，旨在通过随时间对价格进行平均来消除趋势跟踪指标中的滞后。</value></data>
+  <data name="ZScoreIndDescription" xml:space="preserve"><value>Z-分数（标准分数）是观察或测量值相对传播的度量，指示其相对平均传播有多少个标准偏差。该指标显示价格偏离其平均值的值。</value></data>
+  <data name="ZeroLineDescription" xml:space="preserve"><value>显示零水平。</value></data>
+  <data name="ZeroValue" xml:space="preserve"><value>零值</value></data>
+  <data name="ZigzagIndDescription" xml:space="preserve"><value>ZigZag指标在图表上绘制点，当价格以指定百分比反转时，然后用直线连接这些点。它有助于识别价格趋势，并提供有关这些价格变动的成交量、增量、蜡烛数量和时间的信息。</value></data>
+  <data name="Zone" xml:space="preserve"><value>区域</value></data>
+  <data name="Zone100" xml:space="preserve"><value>100% 区域</value></data>
+  <data name="Zone150" xml:space="preserve"><value>150% 区域</value></data>
+  <data name="Zone200" xml:space="preserve"><value>200% 区域</value></data>
+  <data name="Zone25" xml:space="preserve"><value>25% 区域</value></data>
+  <data name="Zone50" xml:space="preserve"><value>50% 区域</value></data>
+  <data name="Zone75" xml:space="preserve"><value>75% 区域</value></data>
+  <data name="ZoneDirectionDescription" xml:space="preserve"><value>定义区域的一个可用方向。</value></data>
+  <data name="ZoneWidth" xml:space="preserve"><value>区域宽度(天)</value></data>
+  <data name="m100" xml:space="preserve"><value>-100</value></data>
+  <data name="m200" xml:space="preserve"><value>-200</value></data>
+  <data name="m300" xml:space="preserve"><value>-300</value></data>
+  <data name="minus20" xml:space="preserve"><value>-20</value></data>
+  <data name="minus80" xml:space="preserve"><value>-80</value></data>
+  <data name="p100" xml:space="preserve"><value>100</value></data>
+  <data name="p200" xml:space="preserve"><value>200</value></data>
+  <data name="p300" xml:space="preserve"><value>300</value></data>
+</root>
