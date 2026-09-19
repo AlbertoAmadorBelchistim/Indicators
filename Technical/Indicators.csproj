@@ -32,6 +32,7 @@
 
   <!-- Configuration flavors: install path, assembly name, define constants, target framework -->
   <PropertyGroup Condition="'$(Configuration)' == 'Alpha'">
+    <DevExpressDataVersion>v26.1</DevExpressDataVersion>
     <DefineConstants>$(DefineConstants);ATAS_ALPHA</DefineConstants>
     <ATAS_BASE>C:\Program Files (x86)\ATAS Platform</ATAS_BASE>
     <AssemblyName>Indicators_Alpha</AssemblyName>
@@ -39,6 +40,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Beta'">
+    <DevExpressDataVersion>v26.1</DevExpressDataVersion>
     <DefineConstants>$(DefineConstants);ATAS_BETA</DefineConstants>
     <ATAS_BASE>C:\Program Files (x86)\ATAS Platform beta</ATAS_BASE>
     <AssemblyName>Indicators_Beta</AssemblyName>
@@ -46,6 +48,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Latest'">
+    <DevExpressDataVersion>v25.2</DevExpressDataVersion>
     <DefineConstants>$(DefineConstants);ATAS_LATEST</DefineConstants>
     <ATAS_BASE>C:\Program Files (x86)\ATAS Platform latest</ATAS_BASE>
     <AssemblyName>Indicators_Latest</AssemblyName>
@@ -53,6 +56,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Stable'">
+    <DevExpressDataVersion>v23.2</DevExpressDataVersion>
     <DefineConstants>$(DefineConstants);ATAS_STABLE</DefineConstants>
     <ATAS_BASE>C:\Program Files (x86)\ATAS Platform stable</ATAS_BASE>
     <AssemblyName>Indicators_Stable</AssemblyName>
@@ -97,8 +101,11 @@
 		<Reference Include="OFT.Localization">
 			<HintPath>$(ATAS_BASE)\OFT.Localization.dll</HintPath>
 		</Reference>
-		<Reference Include="DevExpress.Data.v25.2" Condition=" '$(Platform)' != 'Cross' ">
-			<HintPath>$(ATAS_BASE)\DevExpress.Data.v25.2.dll</HintPath>
+		<!-- DevExpress.Data must match the version the flavor's own assemblies reference
+		     (stable v23.2, latest v25.2, beta/alpha v26.1); a mismatch makes the WPF markup
+		     compiler fail with MC1000 because the dependency cannot be resolved. -->
+		<Reference Include="DevExpress.Data.$(DevExpressDataVersion)" Condition=" '$(Platform)' != 'Cross' ">
+			<HintPath>$(ATAS_BASE)\DevExpress.Data.$(DevExpressDataVersion).dll</HintPath>
 		</Reference>
 		<Reference Include="Avalonia" Condition=" '$(Platform)' == 'Cross' ">
 			<HintPath>$(ATAS_BASE)\Avalonia.Base.dll</HintPath>
