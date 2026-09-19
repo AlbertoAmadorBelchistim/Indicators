@@ -123,7 +123,9 @@ namespace ATAS.Indicators.Technical
         public RSI()
 		{
 			Panel = IndicatorDataProvider.NewPanel;
+#if ATAS_ALPHA || ATAS_X_ALPHA
 			SupportsCalculationTimeFrame = true;
+#endif
 
 			LineSeries.Add(_downLine);
 			LineSeries.Add(_upLine);

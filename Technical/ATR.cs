@@ -64,7 +64,9 @@ public class ATR : Indicator
 		: base(true)
 	{
 		Panel = IndicatorDataProvider.NewPanel;
+#if ATAS_ALPHA || ATAS_X_ALPHA
 		SupportsCalculationTimeFrame = true;
+#endif
     }
 
 	#endregion

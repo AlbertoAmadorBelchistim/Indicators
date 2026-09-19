@@ -138,7 +138,9 @@ namespace ATAS.Indicators.Technical
 		public EMA()
 		{
             DataSeries[0] = _renderSeries;
+#if ATAS_ALPHA || ATAS_X_ALPHA
             SupportsCalculationTimeFrame = true;
+#endif
 		}
 
 		#endregion

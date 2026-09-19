@@ -118,7 +118,9 @@ public class SuperTrend : Indicator
 		: base(true)
 	{
 		DenyToChangePanel = true;
+#if ATAS_ALPHA || ATAS_X_ALPHA
 		SupportsCalculationTimeFrame = true;
+#endif
 		var series = (ValueDataSeries)DataSeries[0];
 		series.VisualType = VisualMode.Square;
 		series.Width = 2;
