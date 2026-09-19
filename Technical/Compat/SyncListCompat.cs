@@ -1,13 +1,13 @@
-#if ATAS_BETA || ATAS_LATEST || ATAS_STABLE
+#if ATAS_STABLE
 using System;
 using System.Collections.Generic;
 
 using Utils.Common.Collections.Synchronized;
 
 /// <summary>
-/// Compat extensions for SyncList&lt;T&gt; in Beta/Latest builds (8.0.13 DLLs) and Stable v7, which lack the
+/// Compat extensions for SyncList&lt;T&gt; in Stable v7, which lacks the
 /// RemoveRange/SyncGet/capacity-constructor APIs introduced upstream by PLAT-3738.
-/// Remove this file once Beta/Latest/Stable ship a Utils.Common with these members.
+/// Beta/Latest ship these members since the 2026-09 builds. Remove this file once Stable does.
 /// </summary>
 internal static class SyncListCompat
 {

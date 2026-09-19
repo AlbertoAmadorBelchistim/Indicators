@@ -407,7 +407,7 @@ public partial class ClusterSearch : Indicator
 	{
 		if (CheckBarFormation(GetCandle(bar)))
 		{
-#if ATAS_BETA || ATAS_LATEST || ATAS_STABLE
+#if ATAS_STABLE
 			var copy = new SyncList<PriceSelectionValue>();
 #else
 			var copy = new SyncList<PriceSelectionValue>(_lastSeriesBar.Count);

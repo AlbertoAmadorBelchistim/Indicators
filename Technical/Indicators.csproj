@@ -41,7 +41,7 @@
 
   <PropertyGroup Condition="'$(Configuration)' == 'Beta'">
     <DevExpressDataVersion>v26.1</DevExpressDataVersion>
-    <DefineConstants>$(DefineConstants);ATAS_BETA</DefineConstants>
+    <DefineConstants>$(DefineConstants);ATAS_BETA;TAB_ATTRIBUTE_AVAILABLE</DefineConstants>
     <ATAS_BASE>C:\Program Files (x86)\ATAS Platform beta</ATAS_BASE>
     <AssemblyName>Indicators_Beta</AssemblyName>
     <TargetFramework>net10.0-windows</TargetFramework>
@@ -49,7 +49,7 @@
 
   <PropertyGroup Condition="'$(Configuration)' == 'Latest'">
     <DevExpressDataVersion>v25.2</DevExpressDataVersion>
-    <DefineConstants>$(DefineConstants);ATAS_LATEST</DefineConstants>
+    <DefineConstants>$(DefineConstants);ATAS_LATEST;TAB_ATTRIBUTE_AVAILABLE</DefineConstants>
     <ATAS_BASE>C:\Program Files (x86)\ATAS Platform latest</ATAS_BASE>
     <AssemblyName>Indicators_Latest</AssemblyName>
     <TargetFramework>net10.0-windows</TargetFramework>
@@ -158,7 +158,8 @@
 		<Compile Remove="RolloverDates.cs" />
 	</ItemGroup>
 
-	<ItemGroup Condition=" '$(Configuration)' != 'Alpha' And '$(Configuration)' != 'ATAS_X_Alpha' ">
+	<!-- The Heatmap SDK ships in every v8 flavor since the 2026-09 builds; only Stable (v7) lacks it. -->
+	<ItemGroup Condition=" '$(Configuration)' == 'Stable' ">
 		<Compile Remove="Heatmap\Heatmap*.cs" />
 	</ItemGroup>
 
