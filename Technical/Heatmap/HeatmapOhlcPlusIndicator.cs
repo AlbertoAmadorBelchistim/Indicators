@@ -291,7 +291,9 @@ public sealed class HeatmapOhlcPlusIndicator
 
 		return new HeatmapIndicatorVisualStyle(
 			Color: ToHex(settings.Color),
+#if ATAS_ALPHA || ATAS_X_ALPHA
 			TextColor: settings.TextColor is { } textColor ? ToHex(textColor) : null,
+#endif
 			Thickness: settings.Width,
 			Label: resolvedLabel,
 			LineType: settings.LineType.ToString(),
