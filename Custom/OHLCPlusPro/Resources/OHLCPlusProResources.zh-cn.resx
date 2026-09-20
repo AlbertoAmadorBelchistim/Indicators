@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbsolutePrice" xml:space="preserve">
+    <value>固定价格</value>
+  </data>
+  <data name="AutoUpdate" xml:space="preserve">
+    <value>自动更新</value>
+  </data>
+  <data name="Bar" xml:space="preserve">
+    <value>条形图</value>
+  </data>
+  <data name="BarClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="BarHigh" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="BarLow" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="BarOpen" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="Calculation" xml:space="preserve">
+    <value>计算方式</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>颜色</value>
+  </data>
+  <data name="Contract" xml:space="preserve">
+    <value>合约</value>
+  </data>
+  <data name="CurrentDay" xml:space="preserve">
+    <value>当天</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>本月</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>本周</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="Equilibrium" xml:space="preserve">
+    <value>平衡</value>
+  </data>
+  <data name="FullWidth" xml:space="preserve">
+    <value>全宽</value>
+  </data>
+  <data name="Label" xml:space="preserve">
+    <value>标签</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>左</value>
+  </data>
+  <data name="Line" xml:space="preserve">
+    <value>线</value>
+  </data>
+  <data name="LineStyle" xml:space="preserve">
+    <value>线条样式</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="OHLCPlusDescription" xml:space="preserve">
+    <value>扩展价格水平指标，显示多个时间周期的OHLC、均衡、POC和价值区域水平</value>
+  </data>
+  <data name="OhlcPlusAbsolutePriceDescription" xml:space="preserve">
+    <value>按逐笔真实价格计算水平线。关闭时，成交分布按当前图表刻度归并，水平线与成交分布指标的画法一致。</value>
+  </data>
+  <data name="OhlcPlusAutoUpdateDescription" xml:space="preserve">
+    <value>随新成交实时更新水平线。关闭时，水平线冻结在请求成交分布的那一刻。</value>
+  </data>
+  <data name="OhlcPlusTextColorDescription" xml:space="preserve">
+    <value>水平线文字的颜色：图表上的标签、价格坐标轴上的价格以及水平线标记。选择自动时，颜色会自动挑选以与文字背后的背景形成对比。</value>
+  </data>
+  <data name="POC" xml:space="preserve">
+    <value>POC</value>
+  </data>
+  <data name="PreviousDay" xml:space="preserve">
+    <value>昨天</value>
+  </data>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>上月</value>
+  </data>
+  <data name="PreviousWeek" xml:space="preserve">
+    <value>上周</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>右</value>
+  </data>
+  <data name="ShowPrice" xml:space="preserve">
+    <value>显示价格</value>
+  </data>
+  <data name="TextColor" xml:space="preserve">
+    <value>文本颜色</value>
+  </data>
+  <data name="TillBar" xml:space="preserve">
+    <value>到酒吧</value>
+  </data>
+  <data name="ToggleLevelsVisibilityHotKey" xml:space="preserve">
+    <value>切换所有级别的可见性</value>
+  </data>
+  <data name="VAH" xml:space="preserve">
+    <value>VAH</value>
+  </data>
+  <data name="VAL" xml:space="preserve">
+    <value>VAL</value>
+  </data>
+  <data name="VWAP" xml:space="preserve">
+    <value>VWAP</value>
+  </data>
+  <data name="Visibility" xml:space="preserve">
+    <value>是否显示</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>宽度</value>
+  </data>
+</root>

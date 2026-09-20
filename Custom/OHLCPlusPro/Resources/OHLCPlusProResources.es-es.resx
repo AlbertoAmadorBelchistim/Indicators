@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbsolutePrice" xml:space="preserve">
+    <value>Precio absoluto</value>
+  </data>
+  <data name="AutoUpdate" xml:space="preserve">
+    <value>Actualización automática</value>
+  </data>
+  <data name="Bar" xml:space="preserve">
+    <value>Barra</value>
+  </data>
+  <data name="BarClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="BarHigh" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="BarLow" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="BarOpen" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="Calculation" xml:space="preserve">
+    <value>Cálculo</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="Contract" xml:space="preserve">
+    <value>Contrato</value>
+  </data>
+  <data name="CurrentDay" xml:space="preserve">
+    <value>Día actual</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Mes actual</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Semana actual</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Habilitado</value>
+  </data>
+  <data name="Equilibrium" xml:space="preserve">
+    <value>Equilibrio</value>
+  </data>
+  <data name="FullWidth" xml:space="preserve">
+    <value>Ancho completo</value>
+  </data>
+  <data name="Label" xml:space="preserve">
+    <value>Etiqueta</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>Izquierda</value>
+  </data>
+  <data name="Line" xml:space="preserve">
+    <value>Línea</value>
+  </data>
+  <data name="LineStyle" xml:space="preserve">
+    <value>Estilo de línea</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="OHLCPlusDescription" xml:space="preserve">
+    <value>Indicador extendido de niveles de precios que muestra OHLC, Equilibrio, POC y Value Area para múltiples períodos</value>
+  </data>
+  <data name="OhlcPlusAbsolutePriceDescription" xml:space="preserve">
+    <value>Calcula los niveles con los precios exactos de cada tick. Desactivado, el perfil se agrupa según la escala del gráfico y los niveles coinciden con lo que dibuja el indicador de perfil.</value>
+  </data>
+  <data name="OhlcPlusAutoUpdateDescription" xml:space="preserve">
+    <value>Actualiza los niveles en tiempo real según llegan operaciones. Desactivado, los niveles se congelan en el momento en que se pidió el perfil.</value>
+  </data>
+  <data name="OhlcPlusTextColorDescription" xml:space="preserve">
+    <value>Color del texto del nivel: la etiqueta del gráfico, el precio de la escala y la insignia del nivel. Con Auto, el color se elige solo para que contraste con el fondo que hay detrás del texto.</value>
+  </data>
+  <data name="POC" xml:space="preserve">
+    <value>POC</value>
+  </data>
+  <data name="PreviousDay" xml:space="preserve">
+    <value>Día anterior</value>
+  </data>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>Mes anterior</value>
+  </data>
+  <data name="PreviousWeek" xml:space="preserve">
+    <value>Semana anterior</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>A la derecha</value>
+  </data>
+  <data name="ShowPrice" xml:space="preserve">
+    <value>Mostrar precio</value>
+  </data>
+  <data name="TextColor" xml:space="preserve">
+    <value>Color de texto</value>
+  </data>
+  <data name="TillBar" xml:space="preserve">
+    <value>Hasta el bar</value>
+  </data>
+  <data name="ToggleLevelsVisibilityHotKey" xml:space="preserve">
+    <value>Alternar visibilidad de todos los niveles</value>
+  </data>
+  <data name="VAH" xml:space="preserve">
+    <value>VAH</value>
+  </data>
+  <data name="VAL" xml:space="preserve">
+    <value>VAL</value>
+  </data>
+  <data name="VWAP" xml:space="preserve">
+    <value>VWAP</value>
+  </data>
+  <data name="Visibility" xml:space="preserve">
+    <value>Visibilidad</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Ancho</value>
+  </data>
+</root>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbsolutePrice" xml:space="preserve">
+    <value>Абсолютная цена</value>
+  </data>
+  <data name="AutoUpdate" xml:space="preserve">
+    <value>Автообновление</value>
+  </data>
+  <data name="Bar" xml:space="preserve">
+    <value>Бар</value>
+  </data>
+  <data name="BarClose" xml:space="preserve">
+    <value>Закрытие</value>
+  </data>
+  <data name="BarHigh" xml:space="preserve">
+    <value>Максимум</value>
+  </data>
+  <data name="BarLow" xml:space="preserve">
+    <value>Минимум</value>
+  </data>
+  <data name="BarOpen" xml:space="preserve">
+    <value>Открытие</value>
+  </data>
+  <data name="Calculation" xml:space="preserve">
+    <value>Расчет</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Цвет</value>
+  </data>
+  <data name="Contract" xml:space="preserve">
+    <value>Контракт</value>
+  </data>
+  <data name="CurrentDay" xml:space="preserve">
+    <value>Текущий день</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Текущий месяц</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Текущая неделя</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Включен</value>
+  </data>
+  <data name="Equilibrium" xml:space="preserve">
+    <value>Середина</value>
+  </data>
+  <data name="FullWidth" xml:space="preserve">
+    <value>На всю ширину</value>
+  </data>
+  <data name="Label" xml:space="preserve">
+    <value>Надпись</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>Слева</value>
+  </data>
+  <data name="Line" xml:space="preserve">
+    <value>Линия</value>
+  </data>
+  <data name="LineStyle" xml:space="preserve">
+    <value>Стиль линии</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="OHLCPlusDescription" xml:space="preserve">
+    <value>Расширенный индикатор ценовых уровней, показывающий OHLC, равновесие, POC и Value Area для нескольких периодов</value>
+  </data>
+  <data name="OhlcPlusAbsolutePriceDescription" xml:space="preserve">
+    <value>Рассчитывает уровни по точным ценам тиков. При выключении профиль группируется по текущему масштабу графика, и уровни совпадают с отрисовкой индикатора профиля.</value>
+  </data>
+  <data name="OhlcPlusAutoUpdateDescription" xml:space="preserve">
+    <value>Обновляет уровни в реальном времени по мере поступления сделок. При выключении уровни остаются на момент запроса профиля.</value>
+  </data>
+  <data name="OhlcPlusTextColorDescription" xml:space="preserve">
+    <value>Цвет текста уровня: подпись на графике, цена на шкале и бейдж уровня. При «Авто» цвет подбирается автоматически для контраста с фоном под текстом.</value>
+  </data>
+  <data name="POC" xml:space="preserve">
+    <value>POC</value>
+  </data>
+  <data name="PreviousDay" xml:space="preserve">
+    <value>Прошлый день</value>
+  </data>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>Прошлый месяц</value>
+  </data>
+  <data name="PreviousWeek" xml:space="preserve">
+    <value>Прошлая неделя</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Справа</value>
+  </data>
+  <data name="ShowPrice" xml:space="preserve">
+    <value>Показать цену</value>
+  </data>
+  <data name="TextColor" xml:space="preserve">
+    <value>Цвет текста</value>
+  </data>
+  <data name="TillBar" xml:space="preserve">
+    <value>До бара</value>
+  </data>
+  <data name="ToggleLevelsVisibilityHotKey" xml:space="preserve">
+    <value>Переключить видимость всех уровней</value>
+  </data>
+  <data name="VAH" xml:space="preserve">
+    <value>VAH</value>
+  </data>
+  <data name="VAL" xml:space="preserve">
+    <value>VAL</value>
+  </data>
+  <data name="VWAP" xml:space="preserve">
+    <value>VWAP</value>
+  </data>
+  <data name="Visibility" xml:space="preserve">
+    <value>Видимость</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Ширина</value>
+  </data>
+</root>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbsolutePrice" xml:space="preserve">
+    <value>पूर्ण मूल्य</value>
+  </data>
+  <data name="AutoUpdate" xml:space="preserve">
+    <value>स्वतः अपडेट</value>
+  </data>
+  <data name="Bar" xml:space="preserve">
+    <value>बार</value>
+  </data>
+  <data name="BarClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="BarHigh" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="BarLow" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="BarOpen" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="Calculation" xml:space="preserve">
+    <value>गणना</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>रंग</value>
+  </data>
+  <data name="Contract" xml:space="preserve">
+    <value>अनुबंध</value>
+  </data>
+  <data name="CurrentDay" xml:space="preserve">
+    <value>वर्तमान दिन</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>वर्तमान महीना</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>वर्तमान सप्ताह</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>सक्षम</value>
+  </data>
+  <data name="Equilibrium" xml:space="preserve">
+    <value>संतुलन</value>
+  </data>
+  <data name="FullWidth" xml:space="preserve">
+    <value>पूर्ण चौड़ाई</value>
+  </data>
+  <data name="Label" xml:space="preserve">
+    <value>लेबल</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>बाएं</value>
+  </data>
+  <data name="Line" xml:space="preserve">
+    <value>लाइन</value>
+  </data>
+  <data name="LineStyle" xml:space="preserve">
+    <value>रेखा की शैली</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>कोई नहीं</value>
+  </data>
+  <data name="OHLCPlusDescription" xml:space="preserve">
+    <value>विस्तारित मूल्य स्तर संकेतक जो कई समय अवधि के लिए OHLC, संतुलन, POC और वैल्यू एरिया स्तर दिखाता है</value>
+  </data>
+  <data name="OhlcPlusAbsolutePriceDescription" xml:space="preserve">
+    <value>स्तरों की गणना सटीक टिक भावों से करता है। बंद होने पर प्रोफ़ाइल मौजूदा चार्ट स्केल के अनुसार समूहित होती है और स्तर प्रोफ़ाइल इंडिकेटर की ड्रॉइंग से मेल खाते हैं।</value>
+  </data>
+  <data name="OhlcPlusAutoUpdateDescription" xml:space="preserve">
+    <value>नए ट्रेड आते ही स्तर वास्तविक समय में अपडेट होते हैं। बंद होने पर स्तर प्रोफ़ाइल अनुरोध के समय पर स्थिर रहते हैं।</value>
+  </data>
+  <data name="OhlcPlusTextColorDescription" xml:space="preserve">
+    <value>स्तर के टेक्स्ट का रंग: चार्ट पर लेबल, प्राइस स्केल पर भाव और स्तर का बैज। ऑटो चुनने पर रंग अपने आप ऐसा चुना जाता है कि टेक्स्ट के पीछे की पृष्ठभूमि से अंतर दिखे।</value>
+  </data>
+  <data name="POC" xml:space="preserve">
+    <value>POC</value>
+  </data>
+  <data name="PreviousDay" xml:space="preserve">
+    <value>पिछला दिन</value>
+  </data>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>पिछला महीना</value>
+  </data>
+  <data name="PreviousWeek" xml:space="preserve">
+    <value>पिछले सप्ताह</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>दाएं</value>
+  </data>
+  <data name="ShowPrice" xml:space="preserve">
+    <value>कीमत दिखाएँ</value>
+  </data>
+  <data name="TextColor" xml:space="preserve">
+    <value>पाठ का रंग</value>
+  </data>
+  <data name="TillBar" xml:space="preserve">
+    <value>बार तक</value>
+  </data>
+  <data name="ToggleLevelsVisibilityHotKey" xml:space="preserve">
+    <value>सभी स्तरों की दृश्यता टॉगल करें</value>
+  </data>
+  <data name="VAH" xml:space="preserve">
+    <value>VAH</value>
+  </data>
+  <data name="VAL" xml:space="preserve">
+    <value>VAL</value>
+  </data>
+  <data name="VWAP" xml:space="preserve">
+    <value>VWAP</value>
+  </data>
+  <data name="Visibility" xml:space="preserve">
+    <value>दृश्यता</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>चौड़ाई</value>
+  </data>
+</root>

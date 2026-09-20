@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\AtasFlavors.props" />
+
+	<PropertyGroup>
+		<!-- Same assembly name in every flavor, so saved templates resolve the type after switching flavors. -->
+		<AssemblyName>OHLCPlusPro</AssemblyName>
+		<Version>0.1.0</Version>
+	</PropertyGroup>
+
+	<!-- The hotkey property and ProcessKeyDown use the platform key types, which live in Avalonia on
+	     ATAS X and in WPF on Windows. Only this indicator needs them, so the reference is here. -->
+	<ItemGroup Condition=" '$(Platform)' == 'Cross' ">
+		<Reference Include="Avalonia" Private="false">
+			<HintPath>$(ATAS_BASE)\Avalonia.Base.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+	<!-- The level editor of the property grid is WPF, so it only builds on the Windows flavors. -->
+	<ItemGroup Condition=" '$(Platform)' != 'Cross' ">
+		<Reference Include="Utils.Windows" Private="false">
+			<HintPath>$(ATAS_BASE)\Utils.Windows.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+	<!-- Localized UI strings. The public OHLCPlusProResources class is generated at build time
+	     from the neutral file (no checked-in Designer.cs); each culture file becomes a satellite
+	     assembly that the deploy step copies to the root of the Indicators folder. -->
+	<ItemGroup>
+		<EmbeddedResource Update="Resources\OHLCPlusProResources.resx">
+			<StronglyTypedLanguage>CSharp</StronglyTypedLanguage>
+			<StronglyTypedNamespace>ATAS.Indicators.Technical</StronglyTypedNamespace>
+			<StronglyTypedClassName>OHLCPlusProResources</StronglyTypedClassName>
+			<StronglyTypedFileName>$(IntermediateOutputPath)OHLCPlusProResources.Designer.cs</StronglyTypedFileName>
+			<StronglyTypedManifestPrefix>ATAS.Indicators.Technical.Resources</StronglyTypedManifestPrefix>
+			<PublicClass>true</PublicClass>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\OHLCPlusProResources.*.resx">
+			<DependentUpon>OHLCPlusProResources.resx</DependentUpon>
+		</EmbeddedResource>
+	</ItemGroup>
+</Project>
