@@ -1119,6 +1119,14 @@ namespace ATAS.Indicators.Technical
 
 			SnapshotUpTo(bar - 1);
 
+			// Trades without an aggressor side (Between) have no delta: they would otherwise be
+			// counted as sells and skew every pattern towards selling.
+			if (tick.Direction is not (TradeDirection.Buy or TradeDirection.Sell))
+			{
+				SnapshotUpTo(bar);
+				return;
+			}
+
 			int direction = tick.Direction == TradeDirection.Buy ? 1 : -1;
 			_window.Push(tick.Price, tick.Volume, direction);
 			_window.Trim(TargetVolume);
