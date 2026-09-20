@@ -15,6 +15,7 @@ namespace ATAS.Indicators.Technical
 {
 	[DisplayName("Delta Patterns")]
 	[Category(IndicatorCategories.VolumeOrderFlow)]
+	[Display(ResourceType = typeof(DeltaPatternsResources), Description = nameof(DeltaPatternsResources.DeltaPatterns_Description))]
 	public class DeltaPatterns : Indicator
 	{
 		#region Nested Types: Pattern Model
@@ -46,7 +47,8 @@ namespace ATAS.Indicators.Technical
 			}
 
 			private bool _enabled = true;
-			[DisplayName("Enabled")]
+			[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.Category_Enabled_DisplayName), Order = 10,
+				Description = nameof(DeltaPatternsResources.Category_Enabled_Description))]
 			public bool Enabled
 			{
 				get => _enabled;
@@ -54,7 +56,8 @@ namespace ATAS.Indicators.Technical
 			}
 
 			private bool _visible = true;
-			[DisplayName("Visible")]
+			[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.Category_Visible_DisplayName), Order = 20,
+				Description = nameof(DeltaPatternsResources.Category_Visible_Description))]
 			public bool Visible
 			{
 				get => _visible;
@@ -62,7 +65,8 @@ namespace ATAS.Indicators.Technical
 			}
 
 			private decimal _minDeltaPercent;
-			[DisplayName("Min Delta %")]
+			[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.Category_MinDeltaPercent_DisplayName), Order = 30,
+				Description = nameof(DeltaPatternsResources.Category_MinDeltaPercent_Description))]
 			[PostValueMode(PostValueModes.OnLostFocus)]
 			public decimal MinDeltaPercent
 			{
@@ -71,7 +75,8 @@ namespace ATAS.Indicators.Technical
 			}
 
 			private bool _enableAlert;
-			[DisplayName("Enable Alert")]
+			[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.Category_EnableAlert_DisplayName), Order = 70,
+				Description = nameof(DeltaPatternsResources.Category_EnableAlert_Description))]
 			public bool EnableAlert
 			{
 				get => _enableAlert;
@@ -81,10 +86,10 @@ namespace ATAS.Indicators.Technical
 			public override string ToString()
 			{
 				if (!Enabled)
-					return "Disabled";
+					return DeltaPatternsResources.CategorySummary_Disabled;
 
-				var visibility = Visible ? "Visible" : "Hidden";
-				var alert = EnableAlert ? " · Alert" : string.Empty;
+				var visibility = Visible ? DeltaPatternsResources.CategorySummary_Visible : DeltaPatternsResources.CategorySummary_Hidden;
+				var alert = EnableAlert ? " · " + DeltaPatternsResources.CategorySummary_Alert : string.Empty;
 
 				return MinDeltaPercent > 0m
 					? $"{visibility} · {MinDeltaPercent:0.#}%{alert}"
@@ -96,7 +101,8 @@ namespace ATAS.Indicators.Technical
 		public class MonoPatternCategory : PatternCategory
 		{
 			private CrossColor _color;
-			[DisplayName("Color")]
+			[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.Category_Color_DisplayName), Order = 50,
+				Description = nameof(DeltaPatternsResources.Category_Color_Description))]
 			public CrossColor Color
 			{
 				get => _color;
@@ -108,7 +114,8 @@ namespace ATAS.Indicators.Technical
 		public class DirectionalPatternCategory : PatternCategory
 		{
 			private CrossColor _buyColor;
-			[DisplayName("Buy Color")]
+			[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.Category_BuyColor_DisplayName), Order = 50,
+				Description = nameof(DeltaPatternsResources.Category_BuyColor_Description))]
 			public CrossColor BuyColor
 			{
 				get => _buyColor;
@@ -116,7 +123,8 @@ namespace ATAS.Indicators.Technical
 			}
 
 			private CrossColor _sellColor;
-			[DisplayName("Sell Color")]
+			[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.Category_SellColor_DisplayName), Order = 60,
+				Description = nameof(DeltaPatternsResources.Category_SellColor_Description))]
 			public CrossColor SellColor
 			{
 				get => _sellColor;
@@ -128,7 +136,8 @@ namespace ATAS.Indicators.Technical
 		public class DominancePatternCategory : DirectionalPatternCategory
 		{
 			private decimal _wickTolerancePercent;
-			[DisplayName("Wick Tolerance %")]
+			[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.Category_WickTolerancePercent_DisplayName), Order = 40,
+				Description = nameof(DeltaPatternsResources.Category_WickTolerancePercent_Description))]
 			[PostValueMode(PostValueModes.OnLostFocus)]
 			public decimal WickTolerancePercent
 			{
@@ -141,7 +150,8 @@ namespace ATAS.Indicators.Technical
 		public class ReversalPatternCategory : DirectionalPatternCategory
 		{
 			private decimal _closePercent;
-			[DisplayName("Close Min %")]
+			[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.Category_ClosePercent_DisplayName), Order = 40,
+				Description = nameof(DeltaPatternsResources.Category_ClosePercent_Description))]
 			[PostValueMode(PostValueModes.OnLostFocus)]
 			public decimal ClosePercent
 			{
@@ -154,7 +164,8 @@ namespace ATAS.Indicators.Technical
 		public class NeutralPatternCategory : MonoPatternCategory
 		{
 			private decimal _strugglePercent;
-			[DisplayName("Struggle %")]
+			[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.Category_StrugglePercent_DisplayName), Order = 40,
+				Description = nameof(DeltaPatternsResources.Category_StrugglePercent_Description))]
 			[PostValueMode(PostValueModes.OnLostFocus)]
 			public decimal StrugglePercent
 			{
@@ -165,16 +176,23 @@ namespace ATAS.Indicators.Technical
 
 		public enum DebugOverlayMode
 		{
+			[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.DebugOverlayMode_Off))]
 			Off,
+			[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.DebugOverlayMode_Compact))]
 			Compact,
+			[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.DebugOverlayMode_Full))]
 			Full,
 		}
 
 		public enum DebugOverlayCorner
 		{
+			[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.DebugOverlayCorner_TopRight))]
 			TopRight,
+			[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.DebugOverlayCorner_TopLeft))]
 			TopLeft,
+			[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.DebugOverlayCorner_BottomRight))]
 			BottomRight,
+			[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.DebugOverlayCorner_BottomLeft))]
 			BottomLeft,
 		}
 
@@ -458,14 +476,14 @@ namespace ATAS.Indicators.Technical
 		private const decimal ScaleAnchorMargin = 1.15m;
 		private const int MarkerPriceGap = 10;
 
-		private readonly CandleDataSeries _cAggressive = new CandleDataSeries("Aggressive") { IsHidden = true, ShowCurrentValue = false};
-		private readonly CandleDataSeries _cDominance = new CandleDataSeries("Dominance") { IsHidden = true, ShowCurrentValue = false};
-		private readonly CandleDataSeries _cDivergence = new CandleDataSeries("Divergence") { IsHidden = true, ShowCurrentValue = false};
-		private readonly CandleDataSeries _cReversal = new CandleDataSeries("Reversal") { IsHidden = true, ShowCurrentValue = false};
-		private readonly CandleDataSeries _cNeutral = new CandleDataSeries("Neutral") { IsHidden = true, ShowCurrentValue = false};
-		private readonly CandleDataSeries _cNormal = new CandleDataSeries("Normal") { IsHidden = true, ShowCurrentValue = false};
+		private readonly CandleDataSeries _cAggressive = new CandleDataSeries("Aggressive", DeltaPatternsResources.Series_Aggressive) { IsHidden = true, ShowCurrentValue = false};
+		private readonly CandleDataSeries _cDominance = new CandleDataSeries("Dominance", DeltaPatternsResources.Series_Dominance) { IsHidden = true, ShowCurrentValue = false};
+		private readonly CandleDataSeries _cDivergence = new CandleDataSeries("Divergence", DeltaPatternsResources.Series_Divergence) { IsHidden = true, ShowCurrentValue = false};
+		private readonly CandleDataSeries _cReversal = new CandleDataSeries("Reversal", DeltaPatternsResources.Series_Reversal) { IsHidden = true, ShowCurrentValue = false};
+		private readonly CandleDataSeries _cNeutral = new CandleDataSeries("Neutral", DeltaPatternsResources.Series_Neutral) { IsHidden = true, ShowCurrentValue = false};
+		private readonly CandleDataSeries _cNormal = new CandleDataSeries("Normal", DeltaPatternsResources.Series_Normal) { IsHidden = true, ShowCurrentValue = false};
 
-		private readonly ValueDataSeries _scaleHigh = new ValueDataSeries("Scale High")
+		private readonly ValueDataSeries _scaleHigh = new ValueDataSeries("Scale High", DeltaPatternsResources.Series_ScaleHigh)
 		{
 			VisualType = VisualMode.Hide,
 			IsHidden = true,
@@ -475,7 +493,7 @@ namespace ATAS.Indicators.Technical
 			IgnoredByAlerts = true,
 		};
 
-		private readonly ValueDataSeries _scaleLow = new ValueDataSeries("Scale Low")
+		private readonly ValueDataSeries _scaleLow = new ValueDataSeries("Scale Low", DeltaPatternsResources.Series_ScaleLow)
 		{
 			VisualType = VisualMode.Hide,
 			IsHidden = true,
@@ -516,8 +534,9 @@ namespace ATAS.Indicators.Technical
 
         #region Properties: Patterns
 
-        [Display(Name = "Aggressive", GroupName = "Patterns", Order = 10,
-			Description = "Raw absolute delta of the rolling window over the threshold percentage.")]
+        [Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.Aggressive_DisplayName),
+		GroupName = nameof(DeltaPatternsResources.Group_Patterns), Order = 10,
+		Description = nameof(DeltaPatternsResources.Aggressive_Description))]
 		public DirectionalPatternCategory Aggressive { get; set; } = new DirectionalPatternCategory
 		{
 			BuyColor = System.Drawing.Color.Lime.Convert(),
@@ -525,8 +544,9 @@ namespace ATAS.Indicators.Technical
 			MinDeltaPercent = 15m,
 		};
 
-		[Display(Name = "Dominance", GroupName = "Patterns", Order = 20,
-			Description = "Sustained one-sided pressure with negligible counter-excursion in the rolling window.")]
+		[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.Dominance_DisplayName),
+		GroupName = nameof(DeltaPatternsResources.Group_Patterns), Order = 20,
+		Description = nameof(DeltaPatternsResources.Dominance_Description))]
 		public DominancePatternCategory Dominance { get; set; } = new DominancePatternCategory
 		{
 			BuyColor = System.Drawing.Color.ForestGreen.Convert(),
@@ -535,16 +555,18 @@ namespace ATAS.Indicators.Technical
 			WickTolerancePercent = 0.1m,
 		};
 
-		[Display(Name = "Divergence", GroupName = "Patterns", Order = 30,
-			Description = "The rolling window's price direction contradicts the net delta direction.")]
+		[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.Divergence_DisplayName),
+		GroupName = nameof(DeltaPatternsResources.Group_Patterns), Order = 30,
+		Description = nameof(DeltaPatternsResources.Divergence_Description))]
 		public MonoPatternCategory Divergence { get; set; } = new MonoPatternCategory
 		{
 			Color = System.Drawing.Color.Yellow.Convert(),
 			MinDeltaPercent = 10m,
 		};
 
-		[Display(Name = "Reversal", GroupName = "Patterns", Order = 40,
-			Description = "Delta extreme was reached and the window then closed past the threshold in the opposite direction. MinDeltaPercent is the extreme reached; ClosePercent is the close-side confirmation.")]
+		[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.Reversal_DisplayName),
+		GroupName = nameof(DeltaPatternsResources.Group_Patterns), Order = 40,
+		Description = nameof(DeltaPatternsResources.Reversal_Description))]
 		public ReversalPatternCategory Reversal { get; set; } = new ReversalPatternCategory
 		{
 			BuyColor = System.Drawing.Color.Cyan.Convert(),
@@ -553,8 +575,9 @@ namespace ATAS.Indicators.Technical
 			ClosePercent = 2m,
 		};
 
-		[Display(Name = "Neutral", GroupName = "Patterns", Order = 50,
-			Description = "Small net delta combined with high internal struggle range. MinDeltaPercent is the maximum close range; StrugglePercent is the internal volatility floor.")]
+		[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.Neutral_DisplayName),
+		GroupName = nameof(DeltaPatternsResources.Group_Patterns), Order = 50,
+		Description = nameof(DeltaPatternsResources.Neutral_Description))]
 		public NeutralPatternCategory Neutral { get; set; } = new NeutralPatternCategory
 		{
 			Color = System.Drawing.Color.Silver.Convert(),
@@ -562,8 +585,9 @@ namespace ATAS.Indicators.Technical
 			StrugglePercent = 12m,
 		};
 
-		[Display(Name = "Normal", GroupName = "Patterns", Order = 60,
-			Description = "Background coloring for windows that did not match any other pattern.")]
+		[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.Normal_DisplayName),
+		GroupName = nameof(DeltaPatternsResources.Group_Patterns), Order = 60,
+		Description = nameof(DeltaPatternsResources.Normal_Description))]
 		public MonoPatternCategory Normal { get; set; } = new MonoPatternCategory
 		{
 			Color = System.Drawing.Color.DimGray.Convert(),
@@ -574,8 +598,9 @@ namespace ATAS.Indicators.Technical
 
 		#region Properties: Calculation
 
-		[Display(Name = "Target Volume", GroupName = "Calculation", Order = 1,
-			Description = "Rolling window size in contracts. Each snapshot summarises the last N traded contracts.")]
+		[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.TargetVolume_DisplayName),
+		GroupName = nameof(DeltaPatternsResources.Group_Calculation), Order = 1,
+		Description = nameof(DeltaPatternsResources.TargetVolume_Description))]
 		[PostValueMode(PostValueModes.OnLostFocus)]
 		public int TargetVolume
 		{
@@ -589,8 +614,9 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Sessions to Calculate", GroupName = "Calculation", Order = 2,
-			Description = "Number of the most recent sessions whose trades are requested and classified. 0 calculates the whole chart, which can take long on charts with many days loaded.")]
+		[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.SessionsToCalculate_DisplayName),
+		GroupName = nameof(DeltaPatternsResources.Group_Calculation), Order = 2,
+		Description = nameof(DeltaPatternsResources.SessionsToCalculate_Description))]
 		[Range(0, 1000)]
 		[PostValueMode(PostValueModes.OnLostFocus)]
 		public int SessionsToCalculate
@@ -609,8 +635,9 @@ namespace ATAS.Indicators.Technical
 
 		#region Properties: Visuals
 
-		[Display(Name = "Show Chart Signals", GroupName = "Visuals", Order = 1,
-			Description = "Toggle the marker overlay on the price chart.")]
+		[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.ShowChartSignals_DisplayName),
+		GroupName = nameof(DeltaPatternsResources.Group_Visuals), Order = 1,
+		Description = nameof(DeltaPatternsResources.ShowChartSignals_Description))]
 		public bool ShowChartSignals
 		{
 			get => _showChartSignals;
@@ -622,8 +649,9 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Signal Size", GroupName = "Visuals", Order = 2,
-			Description = "Edge length in pixels of each marker on the price chart. Clamped to 2..50.")]
+		[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.SignalSize_DisplayName),
+		GroupName = nameof(DeltaPatternsResources.Group_Visuals), Order = 2,
+		Description = nameof(DeltaPatternsResources.SignalSize_Description))]
 		[PostValueMode(PostValueModes.OnLostFocus)]
 		public int SignalSize
 		{
@@ -637,8 +665,9 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Scale Limit", GroupName = "Visuals", Order = 3,
-			Description = "Upper limit of the panel scale in contracts of delta. 0 scales to the largest window of the calculated range, so a single outlier can flatten the rest; a limit keeps the usual bars readable and lets the outliers go off the panel.")]
+		[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.ScaleLimit_DisplayName),
+		GroupName = nameof(DeltaPatternsResources.Group_Visuals), Order = 3,
+		Description = nameof(DeltaPatternsResources.ScaleLimit_Description))]
 		[Range(0, 100000000)]
 		[PostValueMode(PostValueModes.OnLostFocus)]
 		public decimal ScaleLimit
@@ -662,16 +691,18 @@ namespace ATAS.Indicators.Technical
 
 		#region Properties: Alerts
 
-		[Display(Name = "Alert Sound File", GroupName = "Alerts", Order = 1,
-			Description = "Name of the sound file ATAS plays when an alert fires. Files live in the ATAS sounds folder.")]
+		[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.AlertSoundFile_DisplayName),
+		GroupName = nameof(DeltaPatternsResources.Group_Alerts), Order = 1,
+		Description = nameof(DeltaPatternsResources.AlertSoundFile_Description))]
 		public string AlertSoundFile
 		{
 			get => _alertSoundFile;
 			set => _alertSoundFile = string.IsNullOrWhiteSpace(value) ? "alert1" : value;
 		}
 
-		[Display(Name = "Alert Cooldown (seconds)", GroupName = "Alerts", Order = 2,
-			Description = "Minimum time between consecutive alerts. Applied globally across all pattern categories.")]
+		[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.AlertCooldownSeconds_DisplayName),
+		GroupName = nameof(DeltaPatternsResources.Group_Alerts), Order = 2,
+		Description = nameof(DeltaPatternsResources.AlertCooldownSeconds_Description))]
 		[PostValueMode(PostValueModes.OnLostFocus)]
 		public decimal AlertCooldownSeconds
 		{
@@ -679,16 +710,18 @@ namespace ATAS.Indicators.Technical
 			set => _alertCooldownSeconds = Math.Max(0m, Math.Min(3600m, value));
 		}
 
-		[Display(Name = "Alert Background", GroupName = "Alerts", Order = 3,
-			Description = "Background colour of the alert pop-up.")]
+		[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.AlertBackgroundColor_DisplayName),
+		GroupName = nameof(DeltaPatternsResources.Group_Alerts), Order = 3,
+		Description = nameof(DeltaPatternsResources.AlertBackgroundColor_Description))]
 		public CrossColor AlertBackgroundColor
 		{
 			get => _alertBackgroundColor;
 			set => _alertBackgroundColor = value;
 		}
 
-		[Display(Name = "Alert Foreground", GroupName = "Alerts", Order = 4,
-			Description = "Text colour of the alert pop-up.")]
+		[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.AlertForegroundColor_DisplayName),
+		GroupName = nameof(DeltaPatternsResources.Group_Alerts), Order = 4,
+		Description = nameof(DeltaPatternsResources.AlertForegroundColor_Description))]
 		public CrossColor AlertForegroundColor
 		{
 			get => _alertForegroundColor;
@@ -699,8 +732,9 @@ namespace ATAS.Indicators.Technical
 
 		#region Properties: Diagnostics
 
-		[Display(Name = "Overlay Mode", GroupName = "Diagnostics", Order = 1,
-			Description = "Off hides the HUD. Compact shows the rolling window state and the live bar pattern. Full adds session-wide stats, cooldown remaining and per-category Enabled / Alert / Visible flags.")]
+		[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.OverlayMode_DisplayName),
+		GroupName = nameof(DeltaPatternsResources.Group_Diagnostics), Order = 1,
+		Description = nameof(DeltaPatternsResources.OverlayMode_Description))]
 		public DebugOverlayMode DebugOverlay
 		{
 			get => _debugOverlayMode;
@@ -712,8 +746,9 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Overlay Corner", GroupName = "Diagnostics", Order = 2,
-			Description = "Anchor corner of the HUD on the price chart container.")]
+		[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.OverlayCorner_DisplayName),
+		GroupName = nameof(DeltaPatternsResources.Group_Diagnostics), Order = 2,
+		Description = nameof(DeltaPatternsResources.OverlayCorner_Description))]
 		public DebugOverlayCorner DebugOverlayCornerProperty
 		{
 			get => _debugOverlayCorner;
@@ -725,8 +760,9 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Overlay Offset X", GroupName = "Diagnostics", Order = 3,
-			Description = "Horizontal nudge of the HUD anchor in pixels relative to the selected corner. Positive moves right, negative moves left. Useful for fine-tuning when the chosen corner overlaps another overlay.")]
+		[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.OverlayOffsetX_DisplayName),
+		GroupName = nameof(DeltaPatternsResources.Group_Diagnostics), Order = 3,
+		Description = nameof(DeltaPatternsResources.OverlayOffsetX_Description))]
 		[PostValueMode(PostValueModes.OnLostFocus)]
 		public int DebugOverlayOffsetX
 		{
@@ -739,8 +775,9 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Overlay Offset Y", GroupName = "Diagnostics", Order = 4,
-			Description = "Vertical nudge of the HUD anchor in pixels relative to the selected corner. Positive moves down, negative moves up.")]
+		[Display(ResourceType = typeof(DeltaPatternsResources), Name = nameof(DeltaPatternsResources.OverlayOffsetY_DisplayName),
+		GroupName = nameof(DeltaPatternsResources.Group_Diagnostics), Order = 4,
+		Description = nameof(DeltaPatternsResources.OverlayOffsetY_Description))]
 		[PostValueMode(PostValueModes.OnLostFocus)]
 		public int DebugOverlayOffsetY
 		{
