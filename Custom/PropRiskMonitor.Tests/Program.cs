@@ -13,6 +13,7 @@ internal static class Program
 			("TrailingDrawdown", TrailingDrawdownTests.Run),
 			("DailyRails", DailyRailsTests.Run),
 			("TradeLedger", TradeLedgerTests.Run),
+			("Recommendations", RecommendationTests.Run),
 		};
 
 		var failed = 0;
