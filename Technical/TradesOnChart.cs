@@ -95,6 +95,10 @@ public class TradesOnChart : Indicator
     private Color _lossColor;
     private float _lineWidth = 2f;
     private DashStyle _lineStyle = DashStyle.Dash;
+    private bool _showLine = true;
+    private bool _showTooltip = true;
+    private LabelDisplayMode _labelDisplay = LabelDisplayMode.Hide;
+    private int _markerSize = 2;
     private readonly List<Rectangle> _labelsAbove = new();
     private readonly List<Rectangle> _labelsBelow = new();
 
@@ -105,13 +109,37 @@ public class TradesOnChart : Indicator
     #region Properties
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowLines), Description = nameof(Strings.IsNeedShowLinesDescription), GroupName = nameof(Strings.Visualization))]
-    public bool ShowLine { get; set; } = true;
+    public bool ShowLine
+    {
+        get => _showLine;
+        set
+        {
+            _showLine = value;
+            RedrawChart();
+        }
+    }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.ShowDescription), Description = nameof(Strings.ShowTradeTooltipDescription), GroupName = nameof(Strings.Visualization))]
-    public bool ShowTooltip { get; set; } = true;
+    public bool ShowTooltip
+    {
+        get => _showTooltip;
+        set
+        {
+            _showTooltip = value;
+            RedrawChart();
+        }
+    }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LabelDisplay), Description = nameof(Strings.LabelDisplayDescription), GroupName = nameof(Strings.Visualization))]
-    public LabelDisplayMode LabelDisplay { get; set; } = LabelDisplayMode.Hide;
+    public LabelDisplayMode LabelDisplay
+    {
+        get => _labelDisplay;
+        set
+        {
+            _labelDisplay = value;
+            RedrawChart();
+        }
+    }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.BuyColor), Description = nameof(Strings.BuyTradeLineColorDescription), GroupName = nameof(Strings.Visualization))]
     public Color BuyColor 
@@ -121,6 +149,7 @@ public class TradesOnChart : Indicator
         {
             _buyColor = value;
             _buyPen = GetNewPen(_buyColor, _lineWidth, _lineStyle);
+            RedrawChart();
         }
     }
 
@@ -132,6 +161,7 @@ public class TradesOnChart : Indicator
         {
             _sellColor = value;
             _sellPen = GetNewPen(_sellColor, _lineWidth, _lineStyle);
+            RedrawChart();
         }
     }
 
@@ -139,14 +169,22 @@ public class TradesOnChart : Indicator
     public Color ProfitColor
     {
         get => _profitColor;
-        set => _profitColor = value;
+        set
+        {
+            _profitColor = value;
+            RedrawChart();
+        }
     }
 
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.LossColor), Description = nameof(Strings.LossTradeResultColorDescription), GroupName = nameof(Strings.Visualization))]
     public Color LossColor
     {
         get => _lossColor;
-        set => _lossColor = value;
+        set
+        {
+            _lossColor = value;
+            RedrawChart();
+        }
     }
 
     [Range(1, 20)]
@@ -159,6 +197,7 @@ public class TradesOnChart : Indicator
             _lineWidth = value;
             _buyPen = GetNewPen(_buyColor, _lineWidth, _lineStyle);
             _sellPen = GetNewPen(_sellColor, _lineWidth, _lineStyle);
+            RedrawChart();
         }
     }
 
@@ -171,12 +210,21 @@ public class TradesOnChart : Indicator
             _lineStyle = value;
             _buyPen = GetNewPen(_buyColor, _lineWidth, _lineStyle);
             _sellPen = GetNewPen(_sellColor, _lineWidth, _lineStyle);
+            RedrawChart();
         }
     }
 
     [Range(1, 10)]
     [Display(ResourceType = typeof(Strings), Name = nameof(Strings.Size), Description = nameof(Strings.SizeDescription), GroupName = nameof(Strings.Visualization))]
-    public int MarkerSize { get; set; } = 2;
+    public int MarkerSize
+    {
+        get => _markerSize;
+        set
+        {
+            _markerSize = value;
+            RedrawChart();
+        }
+    }
 
     #endregion
 
@@ -579,6 +627,9 @@ public class TradesOnChart : Indicator
             foreach (var trade in trades)
                 AddTrade(trade);
         }
+
+        // Rebuilds also come from statistics and portfolio events, outside a chart recalculation.
+        RedrawChart();
     }
 
     private void OnTradeAdded(HistoryMyTrade trade)
@@ -596,6 +647,9 @@ public class TradesOnChart : Indicator
 
             lock (_tradesSync)
                 AddTrade(tradeObj);
+
+            // Show the closed trade now, not on the next chart update.
+            RedrawChart();
         }
     }
 
