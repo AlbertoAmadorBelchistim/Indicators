@@ -15,7 +15,7 @@ using Utils.Common.Logging;
 
 [DisplayName("Smart Money Flow")]
 [Category(IndicatorCategories.VolumeOrderFlow)]
-[Description("Cumulative delta of five trade-size filters, with the smart money spread and its signal line.")]
+[Display(ResourceType = typeof(SmartMoneyFlowResources), Description = nameof(SmartMoneyFlowResources.SmartMoneyFlow_Description))]
 public class SmartMoneyFlow : Indicator
 {
 	#region Nested Types
@@ -23,39 +23,39 @@ public class SmartMoneyFlow : Indicator
 	public enum SessionMode
 	{
 		// The chart's default session.
-		[Display(Name = "Default session")]
+		[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.SessionMode_Default))]
 		Default,
 
 		// Sessions that start every day at CustomSessionStart, in chart time.
-		[Display(Name = "Custom start time")]
+		[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.SessionMode_Custom))]
 		Custom,
 
 		// No restart: the lines accumulate from the first calculated bar.
-		[Display(Name = "Continuous")]
+		[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.SessionMode_Continuous))]
 		Continuous
 	}
 
 	public enum ViewMode
 	{
 		// The five filter lines.
-		[Display(Name = "Filters")]
+		[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.ViewMode_Filters))]
 		Filters,
 
 		// The spread histogram.
-		[Display(Name = "Smart money spread")]
+		[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.ViewMode_Spread))]
 		Spread
 	}
 
 	// Side of the spread a filter counts on.
 	public enum FilterRole
 	{
-		[Display(Name = "None")]
+		[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterRole_None))]
 		None,
 
-		[Display(Name = "Smart money")]
+		[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterRole_Smart))]
 		Smart,
 
-		[Display(Name = "Dumb money")]
+		[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterRole_Dumb))]
 		Dumb
 	}
 
@@ -73,7 +73,7 @@ public class SmartMoneyFlow : Indicator
 	private readonly ValueDataSeries[] _filterSeries = new ValueDataSeries[FilterCount];
 
 	// Smart money minus dumb money, drawn as a histogram.
-	private readonly ValueDataSeries _spreadSeries = new("SpreadSeries", "Smart Money Spread")
+	private readonly ValueDataSeries _spreadSeries = new("SpreadSeries", SmartMoneyFlowResources.Series_Spread)
 	{
 		VisualType = VisualMode.Hide,
 		Width = 3,
@@ -82,7 +82,7 @@ public class SmartMoneyFlow : Indicator
 	};
 
 	// Simple moving average of the spread.
-	private readonly ValueDataSeries _signalSeries = new("SignalSeries", "Signal")
+	private readonly ValueDataSeries _signalSeries = new("SignalSeries", SmartMoneyFlowResources.Series_Signal)
 	{
 		Color = CrossColor.FromArgb(255, 255, 255, 255),
 		VisualType = VisualMode.Hide,
@@ -201,9 +201,9 @@ public class SmartMoneyFlow : Indicator
 
 	#region Properties
 
-	[Display(Name = "View", GroupName = "View",
-		Description = "Shows the filter lines or the smart money spread. Switching does not recalculate.",
-		Order = 1)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.View_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_View), Order = 1,
+		Description = nameof(SmartMoneyFlowResources.View_Description))]
 	public ViewMode View
 	{
 		get => _viewMode;
@@ -218,9 +218,9 @@ public class SmartMoneyFlow : Indicator
 		}
 	}
 
-	[Display(Name = "Cumulative trades", GroupName = "Calculation",
-		Description = "Counts cumulative trades (all the ticks of one aggressive order as one trade). Off: counts individual ticks.",
-		Order = 10)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.CumulativeTrades_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Calculation), Order = 10,
+		Description = nameof(SmartMoneyFlowResources.CumulativeTrades_Description))]
 	public bool CumulativeTrades
 	{
 		get => _cumulativeTrades;
@@ -238,9 +238,9 @@ public class SmartMoneyFlow : Indicator
 
 	#region Properties: Session
 
-	[Display(Name = "Session", GroupName = "Session",
-		Description = "Where the lines restart from 0: at each default session of the chart, every day at a custom time, or never (continuous).",
-		Order = 20)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.SessionType_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Session), Order = 20,
+		Description = nameof(SmartMoneyFlowResources.SessionType_Description))]
 	public SessionMode SessionType
 	{
 		get => _sessionMode;
@@ -254,9 +254,9 @@ public class SmartMoneyFlow : Indicator
 		}
 	}
 
-	[Display(Name = "Custom session start", GroupName = "Session",
-		Description = "Start time of the custom session, in chart time. A session runs until the same time the next day.",
-		Order = 25)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.CustomSessionStart_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Session), Order = 25,
+		Description = nameof(SmartMoneyFlowResources.CustomSessionStart_Description))]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public TimeSpan CustomSessionStart
 	{
@@ -271,9 +271,9 @@ public class SmartMoneyFlow : Indicator
 		}
 	}
 
-	[Display(Name = "Sessions to calculate", GroupName = "Session",
-		Description = "Number of sessions calculated, counting the current one: default or custom sessions, and default sessions in continuous mode. 0 = every loaded bar.",
-		Order = 30)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.Sessions_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Session), Order = 30,
+		Description = nameof(SmartMoneyFlowResources.Sessions_Description))]
 	[Range(0, 1000)]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public int Sessions
@@ -293,14 +293,18 @@ public class SmartMoneyFlow : Indicator
 
 	#region Properties: Filters
 
-	[Display(Name = "Enabled", GroupName = "Filter 1", Description = "Shows the line of this filter in the Filters view. The filter still counts in the spread.", Order = 100)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterEnabled_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter1), Order = 100,
+		Description = nameof(SmartMoneyFlowResources.FilterEnabled_Description))]
 	public bool UseFilter1
 	{
 		get => _useFilter[0];
 		set => SetUseFilter(0, value);
 	}
 
-	[Display(Name = "Minimum volume", GroupName = "Filter 1", Description = "Smallest trade size counted by this filter.", Order = 110)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterMinVolume_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter1), Order = 110,
+		Description = nameof(SmartMoneyFlowResources.FilterMinVolume_Description))]
 	[Range(0, 100000000)]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public decimal MinVolume1
@@ -309,7 +313,9 @@ public class SmartMoneyFlow : Indicator
 		set => SetVolumeRange(0, value, _maxVolume[0]);
 	}
 
-	[Display(Name = "Maximum volume", GroupName = "Filter 1", Description = "Largest trade size counted by this filter. 0 = no maximum.", Order = 120)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterMaxVolume_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter1), Order = 120,
+		Description = nameof(SmartMoneyFlowResources.FilterMaxVolume_Description))]
 	[Range(0, 100000000)]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public decimal MaxVolume1
@@ -318,21 +324,27 @@ public class SmartMoneyFlow : Indicator
 		set => SetVolumeRange(0, _minVolume[0], value);
 	}
 
-	[Display(Name = "Spread role", GroupName = "Filter 1", Description = "Side of the spread this filter counts on: smart money (added), dumb money (subtracted) or none.", Order = 130)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterSpreadRole_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter1), Order = 130,
+		Description = nameof(SmartMoneyFlowResources.FilterSpreadRole_Description))]
 	public FilterRole Role1
 	{
 		get => _role[0];
 		set => SetRole(0, value);
 	}
 
-	[Display(Name = "Color", GroupName = "Filter 1", Description = "Line color of this filter.", Order = 140)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterColor_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter1), Order = 140,
+		Description = nameof(SmartMoneyFlowResources.FilterColor_Description))]
 	public CrossColor Color1
 	{
 		get => _filterSeries[0].Color;
 		set => _filterSeries[0].Color = value;
 	}
 
-	[Display(Name = "Line width", GroupName = "Filter 1", Description = "Line width of this filter.", Order = 150)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterLineWidth_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter1), Order = 150,
+		Description = nameof(SmartMoneyFlowResources.FilterLineWidth_Description))]
 	[Range(1, 20)]
 	public int LineWidth1
 	{
@@ -340,14 +352,18 @@ public class SmartMoneyFlow : Indicator
 		set => _filterSeries[0].Width = value;
 	}
 
-	[Display(Name = "Enabled", GroupName = "Filter 2", Description = "Shows the line of this filter in the Filters view. The filter still counts in the spread.", Order = 200)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterEnabled_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter2), Order = 200,
+		Description = nameof(SmartMoneyFlowResources.FilterEnabled_Description))]
 	public bool UseFilter2
 	{
 		get => _useFilter[1];
 		set => SetUseFilter(1, value);
 	}
 
-	[Display(Name = "Minimum volume", GroupName = "Filter 2", Description = "Smallest trade size counted by this filter.", Order = 210)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterMinVolume_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter2), Order = 210,
+		Description = nameof(SmartMoneyFlowResources.FilterMinVolume_Description))]
 	[Range(0, 100000000)]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public decimal MinVolume2
@@ -356,7 +372,9 @@ public class SmartMoneyFlow : Indicator
 		set => SetVolumeRange(1, value, _maxVolume[1]);
 	}
 
-	[Display(Name = "Maximum volume", GroupName = "Filter 2", Description = "Largest trade size counted by this filter. 0 = no maximum.", Order = 220)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterMaxVolume_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter2), Order = 220,
+		Description = nameof(SmartMoneyFlowResources.FilterMaxVolume_Description))]
 	[Range(0, 100000000)]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public decimal MaxVolume2
@@ -365,21 +383,27 @@ public class SmartMoneyFlow : Indicator
 		set => SetVolumeRange(1, _minVolume[1], value);
 	}
 
-	[Display(Name = "Spread role", GroupName = "Filter 2", Description = "Side of the spread this filter counts on: smart money (added), dumb money (subtracted) or none.", Order = 230)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterSpreadRole_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter2), Order = 230,
+		Description = nameof(SmartMoneyFlowResources.FilterSpreadRole_Description))]
 	public FilterRole Role2
 	{
 		get => _role[1];
 		set => SetRole(1, value);
 	}
 
-	[Display(Name = "Color", GroupName = "Filter 2", Description = "Line color of this filter.", Order = 240)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterColor_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter2), Order = 240,
+		Description = nameof(SmartMoneyFlowResources.FilterColor_Description))]
 	public CrossColor Color2
 	{
 		get => _filterSeries[1].Color;
 		set => _filterSeries[1].Color = value;
 	}
 
-	[Display(Name = "Line width", GroupName = "Filter 2", Description = "Line width of this filter.", Order = 250)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterLineWidth_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter2), Order = 250,
+		Description = nameof(SmartMoneyFlowResources.FilterLineWidth_Description))]
 	[Range(1, 20)]
 	public int LineWidth2
 	{
@@ -387,14 +411,18 @@ public class SmartMoneyFlow : Indicator
 		set => _filterSeries[1].Width = value;
 	}
 
-	[Display(Name = "Enabled", GroupName = "Filter 3", Description = "Shows the line of this filter in the Filters view. The filter still counts in the spread.", Order = 300)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterEnabled_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter3), Order = 300,
+		Description = nameof(SmartMoneyFlowResources.FilterEnabled_Description))]
 	public bool UseFilter3
 	{
 		get => _useFilter[2];
 		set => SetUseFilter(2, value);
 	}
 
-	[Display(Name = "Minimum volume", GroupName = "Filter 3", Description = "Smallest trade size counted by this filter.", Order = 310)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterMinVolume_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter3), Order = 310,
+		Description = nameof(SmartMoneyFlowResources.FilterMinVolume_Description))]
 	[Range(0, 100000000)]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public decimal MinVolume3
@@ -403,7 +431,9 @@ public class SmartMoneyFlow : Indicator
 		set => SetVolumeRange(2, value, _maxVolume[2]);
 	}
 
-	[Display(Name = "Maximum volume", GroupName = "Filter 3", Description = "Largest trade size counted by this filter. 0 = no maximum.", Order = 320)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterMaxVolume_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter3), Order = 320,
+		Description = nameof(SmartMoneyFlowResources.FilterMaxVolume_Description))]
 	[Range(0, 100000000)]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public decimal MaxVolume3
@@ -412,21 +442,27 @@ public class SmartMoneyFlow : Indicator
 		set => SetVolumeRange(2, _minVolume[2], value);
 	}
 
-	[Display(Name = "Spread role", GroupName = "Filter 3", Description = "Side of the spread this filter counts on: smart money (added), dumb money (subtracted) or none.", Order = 330)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterSpreadRole_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter3), Order = 330,
+		Description = nameof(SmartMoneyFlowResources.FilterSpreadRole_Description))]
 	public FilterRole Role3
 	{
 		get => _role[2];
 		set => SetRole(2, value);
 	}
 
-	[Display(Name = "Color", GroupName = "Filter 3", Description = "Line color of this filter.", Order = 340)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterColor_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter3), Order = 340,
+		Description = nameof(SmartMoneyFlowResources.FilterColor_Description))]
 	public CrossColor Color3
 	{
 		get => _filterSeries[2].Color;
 		set => _filterSeries[2].Color = value;
 	}
 
-	[Display(Name = "Line width", GroupName = "Filter 3", Description = "Line width of this filter.", Order = 350)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterLineWidth_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter3), Order = 350,
+		Description = nameof(SmartMoneyFlowResources.FilterLineWidth_Description))]
 	[Range(1, 20)]
 	public int LineWidth3
 	{
@@ -434,14 +470,18 @@ public class SmartMoneyFlow : Indicator
 		set => _filterSeries[2].Width = value;
 	}
 
-	[Display(Name = "Enabled", GroupName = "Filter 4", Description = "Shows the line of this filter in the Filters view. The filter still counts in the spread.", Order = 400)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterEnabled_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter4), Order = 400,
+		Description = nameof(SmartMoneyFlowResources.FilterEnabled_Description))]
 	public bool UseFilter4
 	{
 		get => _useFilter[3];
 		set => SetUseFilter(3, value);
 	}
 
-	[Display(Name = "Minimum volume", GroupName = "Filter 4", Description = "Smallest trade size counted by this filter.", Order = 410)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterMinVolume_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter4), Order = 410,
+		Description = nameof(SmartMoneyFlowResources.FilterMinVolume_Description))]
 	[Range(0, 100000000)]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public decimal MinVolume4
@@ -450,7 +490,9 @@ public class SmartMoneyFlow : Indicator
 		set => SetVolumeRange(3, value, _maxVolume[3]);
 	}
 
-	[Display(Name = "Maximum volume", GroupName = "Filter 4", Description = "Largest trade size counted by this filter. 0 = no maximum.", Order = 420)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterMaxVolume_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter4), Order = 420,
+		Description = nameof(SmartMoneyFlowResources.FilterMaxVolume_Description))]
 	[Range(0, 100000000)]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public decimal MaxVolume4
@@ -459,21 +501,27 @@ public class SmartMoneyFlow : Indicator
 		set => SetVolumeRange(3, _minVolume[3], value);
 	}
 
-	[Display(Name = "Spread role", GroupName = "Filter 4", Description = "Side of the spread this filter counts on: smart money (added), dumb money (subtracted) or none.", Order = 430)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterSpreadRole_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter4), Order = 430,
+		Description = nameof(SmartMoneyFlowResources.FilterSpreadRole_Description))]
 	public FilterRole Role4
 	{
 		get => _role[3];
 		set => SetRole(3, value);
 	}
 
-	[Display(Name = "Color", GroupName = "Filter 4", Description = "Line color of this filter.", Order = 440)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterColor_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter4), Order = 440,
+		Description = nameof(SmartMoneyFlowResources.FilterColor_Description))]
 	public CrossColor Color4
 	{
 		get => _filterSeries[3].Color;
 		set => _filterSeries[3].Color = value;
 	}
 
-	[Display(Name = "Line width", GroupName = "Filter 4", Description = "Line width of this filter.", Order = 450)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterLineWidth_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter4), Order = 450,
+		Description = nameof(SmartMoneyFlowResources.FilterLineWidth_Description))]
 	[Range(1, 20)]
 	public int LineWidth4
 	{
@@ -481,14 +529,18 @@ public class SmartMoneyFlow : Indicator
 		set => _filterSeries[3].Width = value;
 	}
 
-	[Display(Name = "Enabled", GroupName = "Filter 5", Description = "Shows the line of this filter in the Filters view. The filter still counts in the spread.", Order = 500)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterEnabled_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter5), Order = 500,
+		Description = nameof(SmartMoneyFlowResources.FilterEnabled_Description))]
 	public bool UseFilter5
 	{
 		get => _useFilter[4];
 		set => SetUseFilter(4, value);
 	}
 
-	[Display(Name = "Minimum volume", GroupName = "Filter 5", Description = "Smallest trade size counted by this filter.", Order = 510)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterMinVolume_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter5), Order = 510,
+		Description = nameof(SmartMoneyFlowResources.FilterMinVolume_Description))]
 	[Range(0, 100000000)]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public decimal MinVolume5
@@ -497,7 +549,9 @@ public class SmartMoneyFlow : Indicator
 		set => SetVolumeRange(4, value, _maxVolume[4]);
 	}
 
-	[Display(Name = "Maximum volume", GroupName = "Filter 5", Description = "Largest trade size counted by this filter. 0 = no maximum.", Order = 520)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterMaxVolume_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter5), Order = 520,
+		Description = nameof(SmartMoneyFlowResources.FilterMaxVolume_Description))]
 	[Range(0, 100000000)]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public decimal MaxVolume5
@@ -506,21 +560,27 @@ public class SmartMoneyFlow : Indicator
 		set => SetVolumeRange(4, _minVolume[4], value);
 	}
 
-	[Display(Name = "Spread role", GroupName = "Filter 5", Description = "Side of the spread this filter counts on: smart money (added), dumb money (subtracted) or none.", Order = 530)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterSpreadRole_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter5), Order = 530,
+		Description = nameof(SmartMoneyFlowResources.FilterSpreadRole_Description))]
 	public FilterRole Role5
 	{
 		get => _role[4];
 		set => SetRole(4, value);
 	}
 
-	[Display(Name = "Color", GroupName = "Filter 5", Description = "Line color of this filter.", Order = 540)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterColor_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter5), Order = 540,
+		Description = nameof(SmartMoneyFlowResources.FilterColor_Description))]
 	public CrossColor Color5
 	{
 		get => _filterSeries[4].Color;
 		set => _filterSeries[4].Color = value;
 	}
 
-	[Display(Name = "Line width", GroupName = "Filter 5", Description = "Line width of this filter.", Order = 550)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.FilterLineWidth_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Filter5), Order = 550,
+		Description = nameof(SmartMoneyFlowResources.FilterLineWidth_Description))]
 	[Range(1, 20)]
 	public int LineWidth5
 	{
@@ -532,7 +592,9 @@ public class SmartMoneyFlow : Indicator
 
 	#region Properties: Spread
 
-	[Display(Name = "Positive color", GroupName = "Spread", Description = "Color of the spread bars at or above zero (two colors).", Order = 1010)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.SpreadPositiveColor_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Spread), Order = 1010,
+		Description = nameof(SmartMoneyFlowResources.SpreadPositiveColor_Description))]
 	public CrossColor SpreadPositiveColor
 	{
 		get => _spreadPositiveColor;
@@ -543,7 +605,9 @@ public class SmartMoneyFlow : Indicator
 		}
 	}
 
-	[Display(Name = "Negative color", GroupName = "Spread", Description = "Color of the spread bars below zero (two colors).", Order = 1020)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.SpreadNegativeColor_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Spread), Order = 1020,
+		Description = nameof(SmartMoneyFlowResources.SpreadNegativeColor_Description))]
 	public CrossColor SpreadNegativeColor
 	{
 		get => _spreadNegativeColor;
@@ -554,7 +618,9 @@ public class SmartMoneyFlow : Indicator
 		}
 	}
 
-	[Display(Name = "Show signal line", GroupName = "Spread", Description = "Draws the signal line over the spread in the Spread view.", Order = 1030)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.ShowSignalLine_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Spread), Order = 1030,
+		Description = nameof(SmartMoneyFlowResources.ShowSignalLine_Description))]
 	public bool ShowSignalLine
 	{
 		get => _showSignalLine;
@@ -566,7 +632,9 @@ public class SmartMoneyFlow : Indicator
 		}
 	}
 
-	[Display(Name = "Signal period", GroupName = "Spread", Description = "Number of bars of the signal line, a simple moving average of the spread. It restarts with each session.", Order = 1040)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.SignalPeriod_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Spread), Order = 1040,
+		Description = nameof(SmartMoneyFlowResources.SignalPeriod_Description))]
 	[Range(2, 500)]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public int SignalPeriod
@@ -582,14 +650,18 @@ public class SmartMoneyFlow : Indicator
 		}
 	}
 
-	[Display(Name = "Signal color", GroupName = "Spread", Description = "Color of the signal line.", Order = 1050)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.SignalColor_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Spread), Order = 1050,
+		Description = nameof(SmartMoneyFlowResources.SignalColor_Description))]
 	public CrossColor SignalColor
 	{
 		get => _signalSeries.Color;
 		set => _signalSeries.Color = value;
 	}
 
-	[Display(Name = "Signal line width", GroupName = "Spread", Description = "Width of the signal line.", Order = 1060)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.SignalWidth_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Spread), Order = 1060,
+		Description = nameof(SmartMoneyFlowResources.SignalWidth_Description))]
 	[Range(1, 20)]
 	public int SignalWidth
 	{
@@ -597,7 +669,9 @@ public class SmartMoneyFlow : Indicator
 		set => _signalSeries.Width = value;
 	}
 
-	[Display(Name = "Four colors", GroupName = "Spread", Description = "Colors the spread by its sign and by the direction of the signal line (rising or falling), instead of by sign only.", Order = 1070)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.UseFourColors_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Spread), Order = 1070,
+		Description = nameof(SmartMoneyFlowResources.UseFourColors_Description))]
 	public bool UseFourColors
 	{
 		get => _useFourColors;
@@ -608,7 +682,9 @@ public class SmartMoneyFlow : Indicator
 		}
 	}
 
-	[Display(Name = "Positive, signal rising", GroupName = "Spread", Description = "Four colors: spread at or above zero with a rising signal.", Order = 1080)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.PositiveRisingColor_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Spread), Order = 1080,
+		Description = nameof(SmartMoneyFlowResources.PositiveRisingColor_Description))]
 	public CrossColor PositiveRisingColor
 	{
 		get => _positiveRisingColor;
@@ -619,7 +695,9 @@ public class SmartMoneyFlow : Indicator
 		}
 	}
 
-	[Display(Name = "Positive, signal falling", GroupName = "Spread", Description = "Four colors: spread at or above zero with a falling signal.", Order = 1090)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.PositiveFallingColor_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Spread), Order = 1090,
+		Description = nameof(SmartMoneyFlowResources.PositiveFallingColor_Description))]
 	public CrossColor PositiveFallingColor
 	{
 		get => _positiveFallingColor;
@@ -630,7 +708,9 @@ public class SmartMoneyFlow : Indicator
 		}
 	}
 
-	[Display(Name = "Negative, signal rising", GroupName = "Spread", Description = "Four colors: spread below zero with a rising signal.", Order = 1100)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.NegativeRisingColor_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Spread), Order = 1100,
+		Description = nameof(SmartMoneyFlowResources.NegativeRisingColor_Description))]
 	public CrossColor NegativeRisingColor
 	{
 		get => _negativeRisingColor;
@@ -641,7 +721,9 @@ public class SmartMoneyFlow : Indicator
 		}
 	}
 
-	[Display(Name = "Negative, signal falling", GroupName = "Spread", Description = "Four colors: spread below zero with a falling signal.", Order = 1110)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.NegativeFallingColor_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Spread), Order = 1110,
+		Description = nameof(SmartMoneyFlowResources.NegativeFallingColor_Description))]
 	public CrossColor NegativeFallingColor
 	{
 		get => _negativeFallingColor;
@@ -656,28 +738,36 @@ public class SmartMoneyFlow : Indicator
 
 	#region Properties: Alerts
 
-	[Display(Name = "Spread crosses zero", GroupName = "Alerts", Description = "Alerts when the spread of the forming bar changes sign.", Order = 2010)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.AlertOnZeroCross_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Alerts), Order = 2010,
+		Description = nameof(SmartMoneyFlowResources.AlertOnZeroCross_Description))]
 	public bool AlertOnZeroCross
 	{
 		get => _alertOnZeroCross;
 		set => _alertOnZeroCross = value;
 	}
 
-	[Display(Name = "Spread crosses signal", GroupName = "Alerts", Description = "Alerts when the spread of the forming bar crosses the signal line.", Order = 2020)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.AlertOnSignalCross_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Alerts), Order = 2020,
+		Description = nameof(SmartMoneyFlowResources.AlertOnSignalCross_Description))]
 	public bool AlertOnSignalCross
 	{
 		get => _alertOnSignalCross;
 		set => _alertOnSignalCross = value;
 	}
 
-	[Display(Name = "Alert sound", GroupName = "Alerts", Description = "Sound file of the alerts.", Order = 2030)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.AlertFile_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Alerts), Order = 2030,
+		Description = nameof(SmartMoneyFlowResources.AlertFile_Description))]
 	public string AlertFile
 	{
 		get => _alertFile;
 		set => _alertFile = value;
 	}
 
-	[Display(Name = "Minimum time between alerts (seconds)", GroupName = "Alerts", Description = "Minimum time between two alerts of the same kind. Crosses in between do not alert.", Order = 2040)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.AlertCooldownSeconds_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Alerts), Order = 2040,
+		Description = nameof(SmartMoneyFlowResources.AlertCooldownSeconds_Description))]
 	[Range(0, 3600)]
 	public int AlertCooldownSeconds
 	{
@@ -689,9 +779,9 @@ public class SmartMoneyFlow : Indicator
 
 	#region Properties: Diagnostics
 
-	[Display(Name = "Detailed log", GroupName = "Diagnostics",
-		Description = "Writes to the ATAS log the values of the last 20 bars after each recalculation and of every bar that closes afterwards.",
-		Order = 3010)]
+	[Display(ResourceType = typeof(SmartMoneyFlowResources), Name = nameof(SmartMoneyFlowResources.DetailedLog_DisplayName),
+		GroupName = nameof(SmartMoneyFlowResources.Group_Diagnostics), Order = 3010,
+		Description = nameof(SmartMoneyFlowResources.DetailedLog_Description))]
 	public bool DetailedLog
 	{
 		get => _detailedLog;
@@ -719,9 +809,18 @@ public class SmartMoneyFlow : Indicator
 		};
 		var widths = new[] { 1, 2, 2, 3, 4 };
 
+		var names = new[]
+		{
+			SmartMoneyFlowResources.Series_Filter1,
+			SmartMoneyFlowResources.Series_Filter2,
+			SmartMoneyFlowResources.Series_Filter3,
+			SmartMoneyFlowResources.Series_Filter4,
+			SmartMoneyFlowResources.Series_Filter5
+		};
+
 		for (var i = 0; i < FilterCount; i++)
 		{
-			_filterSeries[i] = new ValueDataSeries($"Filter{i + 1}Series", $"Filter {i + 1}")
+			_filterSeries[i] = new ValueDataSeries($"Filter{i + 1}Series", names[i])
 			{
 				Color = colors[i],
 				Width = widths[i],
