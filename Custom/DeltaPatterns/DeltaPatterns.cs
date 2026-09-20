@@ -489,6 +489,7 @@ namespace ATAS.Indicators.Technical
 
 		private bool _showChartSignals = true;
 		private int _signalSize = 10;
+		private decimal _scaleLimit;
 
 		private string _alertSoundFile = "alert1";
 		private decimal _alertCooldownSeconds = 30m;
@@ -636,6 +637,27 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
+		[Display(Name = "Scale Limit", GroupName = "Visuals", Order = 3,
+			Description = "Upper limit of the panel scale in contracts of delta. 0 scales to the largest window of the calculated range, so a single outlier can flatten the rest; a limit keeps the usual bars readable and lets the outliers go off the panel.")]
+		[Range(0, 100000000)]
+		[PostValueMode(PostValueModes.OnLostFocus)]
+		public decimal ScaleLimit
+		{
+			get => _scaleLimit;
+			set
+			{
+				var clamped = Math.Max(0m, value);
+				if (_scaleLimit == clamped) return;
+				_scaleLimit = clamped;
+				UpdateScaleMode();
+
+				lock (_stateLock)
+					BroadcastScaleAnchor();
+
+				RedrawChart();
+			}
+		}
+
 		#endregion
 
 		#region Properties: Alerts
@@ -764,6 +786,7 @@ namespace ATAS.Indicators.Technical
 			DataSeries.Add(_cNormal);
 
 			UpdateSeriesColors();
+			UpdateScaleMode();
 			EnsureCategoryHooks();
 		}
 
@@ -1377,7 +1400,19 @@ namespace ATAS.Indicators.Technical
 		{
 			var floor = (decimal)TargetVolume * 0.1m;
 			var amp = _maxAmplitude < floor ? floor : _maxAmplitude;
-			return amp * ScaleAnchorMargin;
+			var anchor = amp * ScaleAnchorMargin;
+
+			return _scaleLimit > 0m && anchor > _scaleLimit ? _scaleLimit : anchor;
+		}
+
+		// With a scale limit the pattern candles stop driving the panel scale, so only the anchor
+		// series (capped at the limit) set it and larger windows go off the panel.
+		private void UpdateScaleMode()
+		{
+			var scaleIt = _scaleLimit <= 0m;
+
+			foreach (var series in new[] { _cAggressive, _cDominance, _cDivergence, _cReversal, _cNeutral, _cNormal })
+				series.ScaleIt = scaleIt;
 		}
 
 		// Caller must hold _stateLock.
