@@ -219,4 +219,40 @@
   <data name="AlertCooldownSeconds_Description" xml:space="preserve">
     <value>同一区域两次回测警报之间的最短时间。</value>
   </data>
+  <data name="CandleLocation_Any" xml:space="preserve">
+    <value>任意位置</value>
+  </data>
+  <data name="CandleLocation_AtHigh" xml:space="preserve">
+    <value>最高价处</value>
+  </data>
+  <data name="CandleLocation_AtLow" xml:space="preserve">
+    <value>最低价处</value>
+  </data>
+  <data name="CandleLocation_AtHighOrLow" xml:space="preserve">
+    <value>最高价或最低价处</value>
+  </data>
+  <data name="CandleLocation_Body" xml:space="preserve">
+    <value>实体</value>
+  </data>
+  <data name="CandleLocation_UpperWick" xml:space="preserve">
+    <value>上影线</value>
+  </data>
+  <data name="CandleLocation_LowerWick" xml:space="preserve">
+    <value>下影线</value>
+  </data>
+  <data name="CandleLocation_Wicks" xml:space="preserve">
+    <value>影线</value>
+  </data>
+  <data name="Location_DisplayName" xml:space="preserve">
+    <value>K线内位置</value>
+  </data>
+  <data name="Location_Description" xml:space="preserve">
+    <value>仅保留K线该部分的失衡；堆叠和区域由保留的失衡构成。最高价处：该行触及最高价（只能是买方失衡）。最低价处：该行触及最低价（只能是卖方失衡）。实体与影线以开盘价和收盘价划分。</value>
+  </data>
+  <data name="EdgeTicks_DisplayName" xml:space="preserve">
+    <value>距最高/最低价的跳数</value>
+  </data>
+  <data name="EdgeTicks_Description" xml:space="preserve">
+    <value>用于“最高价处/最低价处”：同时保留距最高价或最低价不超过该跳数的行。0 = 仅包含该价格的行。</value>
+  </data>
 </root>

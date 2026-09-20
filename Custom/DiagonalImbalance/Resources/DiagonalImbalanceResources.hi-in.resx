@@ -219,4 +219,40 @@
   <data name="AlertCooldownSeconds_Description" xml:space="preserve">
     <value>एक ही ज़ोन के दो रीटेस्ट अलर्ट के बीच न्यूनतम समय।</value>
   </data>
+  <data name="CandleLocation_Any" xml:space="preserve">
+    <value>कहीं भी</value>
+  </data>
+  <data name="CandleLocation_AtHigh" xml:space="preserve">
+    <value>हाई पर</value>
+  </data>
+  <data name="CandleLocation_AtLow" xml:space="preserve">
+    <value>लो पर</value>
+  </data>
+  <data name="CandleLocation_AtHighOrLow" xml:space="preserve">
+    <value>हाई या लो पर</value>
+  </data>
+  <data name="CandleLocation_Body" xml:space="preserve">
+    <value>बॉडी</value>
+  </data>
+  <data name="CandleLocation_UpperWick" xml:space="preserve">
+    <value>ऊपरी विक</value>
+  </data>
+  <data name="CandleLocation_LowerWick" xml:space="preserve">
+    <value>निचली विक</value>
+  </data>
+  <data name="CandleLocation_Wicks" xml:space="preserve">
+    <value>विक</value>
+  </data>
+  <data name="Location_DisplayName" xml:space="preserve">
+    <value>बार में स्थिति</value>
+  </data>
+  <data name="Location_Description" xml:space="preserve">
+    <value>केवल बार के इस हिस्से के असंतुलन रखता है; स्टैक और ज़ोन रखे गए असंतुलनों से बनते हैं। हाई पर: पंक्ति High तक पहुँचती है (केवल खरीद असंतुलन संभव)। लो पर: पंक्ति Low तक पहुँचती है (केवल बिक्री असंतुलन संभव)। बॉडी और विक को Open और Close से अलग किया जाता है।</value>
+  </data>
+  <data name="EdgeTicks_DisplayName" xml:space="preserve">
+    <value>हाई/लो से टिक</value>
+  </data>
+  <data name="EdgeTicks_Description" xml:space="preserve">
+    <value>हाई पर / लो पर के साथ: High या Low से इतने टिक या कम दूरी वाली पंक्तियाँ भी रखता है। 0 = केवल वही पंक्ति जिसमें वह है।</value>
+  </data>
 </root>

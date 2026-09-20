@@ -129,6 +129,44 @@ public class DiagonalImbalance : Indicator
 
 	#endregion
 
+	#region Nested Types: Scope
+
+	// Part of the bar where an imbalance row must be to be kept.
+	public enum CandleLocation
+	{
+		[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.CandleLocation_Any))]
+		Any,
+
+		// The row reaches the High (within EdgeTicks). Only buy imbalances can: the top row has no row above.
+		[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.CandleLocation_AtHigh))]
+		AtHigh,
+
+		// The row reaches the Low (within EdgeTicks). Only sell imbalances can: the bottom row has no row below.
+		[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.CandleLocation_AtLow))]
+		AtLow,
+
+		[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.CandleLocation_AtHighOrLow))]
+		AtHighOrLow,
+
+		// The row overlaps the body (Open..Close).
+		[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.CandleLocation_Body))]
+		Body,
+
+		// The whole row is above the body.
+		[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.CandleLocation_UpperWick))]
+		UpperWick,
+
+		// The whole row is below the body.
+		[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.CandleLocation_LowerWick))]
+		LowerWick,
+
+		// Upper or lower wick.
+		[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.CandleLocation_Wicks))]
+		Wicks
+	}
+
+	#endregion
+
 	#region Nested Types: Visuals
 
 	public enum MarkLayout
@@ -253,6 +291,8 @@ public class DiagonalImbalance : Indicator
 	private bool _useSessionFilter;
 	private TimeSpan _sessionStart = new(9, 30, 0);
 	private TimeSpan _sessionEnd = new(16, 0, 0);
+	private CandleLocation _location = CandleLocation.Any;
+	private int _edgeTicks;
 
 	// First bar evaluated, derived from Days on every recalculation.
 	private int _firstCalculatedBar;
@@ -451,6 +491,40 @@ public class DiagonalImbalance : Indicator
 				return;
 
 			_sessionEnd = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.Location_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Scope), Order = 90,
+		Description = nameof(DiagonalImbalanceResources.Location_Description))]
+	public CandleLocation Location
+	{
+		get => _location;
+		set
+		{
+			if (_location == value)
+				return;
+
+			_location = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.EdgeTicks_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Scope), Order = 95,
+		Description = nameof(DiagonalImbalanceResources.EdgeTicks_Description))]
+	[Range(0, 100)]
+	[PostValueMode(PostValueModes.OnLostFocus)]
+	public int EdgeTicks
+	{
+		get => _edgeTicks;
+		set
+		{
+			if (_edgeTicks == value)
+				return;
+
+			_edgeTicks = value;
 			RecalculateValues();
 		}
 	}
@@ -794,7 +868,8 @@ public class DiagonalImbalance : Indicator
 			$"ticks per row {_rowTicks}, stacked levels {_minStackedLevels}), {CountActiveZones()} active zones " +
 			$"(break rule {_zoneBreakMode}, max age {_maxZoneAgeBars}, max active {_maxActiveZones}); " +
 			$"scope from bar {_firstCalculatedBar} (days {_days}), session filter " +
-			$"{(_useSessionFilter ? $"{_sessionStart:hh\\:mm}-{_sessionEnd:hh\\:mm}" : "off")}.");
+			$"{(_useSessionFilter ? $"{_sessionStart:hh\\:mm}-{_sessionEnd:hh\\:mm}" : "off")}, " +
+			$"location {_location}{(UsesEdgeTicks() ? $" (edge ticks {_edgeTicks})" : "")}.");
 
 		if (!_detailedLog)
 			return;
@@ -1226,6 +1301,9 @@ public class DiagonalImbalance : Indicator
 
 		List<ImbalanceLevel> found = null;
 		var rowTop = rowSize - tickSize;
+		var edge = _edgeTicks * tickSize;
+		var bodyLow = Math.Min(candle.Open, candle.Close);
+		var bodyHigh = Math.Max(candle.Open, candle.Close);
 
 		for (var row = 1; row < rows; row++)
 		{
@@ -1235,15 +1313,39 @@ public class DiagonalImbalance : Indicator
 			var belowBid = _rowBid[row - 1];
 
 			// Buy imbalance at row R: Ask(R) against Bid(R - 1).
-			if (IsImbalance(ask, belowBid))
+			if (IsImbalance(ask, belowBid) && IsInLocation(price, price + rowTop, candle.Low, candle.High, bodyLow, bodyHigh, edge))
 				(found ??= new()).Add(new ImbalanceLevel(price, price + rowTop, true, ask, belowBid));
 
 			// Sell imbalance at row R - 1: Bid(R - 1) against Ask(R).
-			if (IsImbalance(belowBid, ask))
+			if (IsImbalance(belowBid, ask) && IsInLocation(belowPrice, belowPrice + rowTop, candle.Low, candle.High, bodyLow, bodyHigh, edge))
 				(found ??= new()).Add(new ImbalanceLevel(belowPrice, belowPrice + rowTop, false, belowBid, ask));
 		}
 
 		return found?.ToArray() ?? NoImbalances;
+	}
+
+	// Location of a row [rowLow, rowHigh] in the bar. A row reaches the High when its top is within
+	// edge of the High, and the Low likewise. The body is Open..Close: a row overlapping it is in the
+	// body, otherwise it lies entirely in the upper or the lower wick.
+	private bool IsInLocation(decimal rowLow, decimal rowHigh, decimal low, decimal high,
+		decimal bodyLow, decimal bodyHigh, decimal edge)
+	{
+		return _location switch
+		{
+			CandleLocation.AtHigh => rowHigh >= high - edge,
+			CandleLocation.AtLow => rowLow <= low + edge,
+			CandleLocation.AtHighOrLow => rowHigh >= high - edge || rowLow <= low + edge,
+			CandleLocation.Body => rowHigh >= bodyLow && rowLow <= bodyHigh,
+			CandleLocation.UpperWick => rowLow > bodyHigh,
+			CandleLocation.LowerWick => rowHigh < bodyLow,
+			CandleLocation.Wicks => rowLow > bodyHigh || rowHigh < bodyLow,
+			_ => true
+		};
+	}
+
+	private bool UsesEdgeTicks()
+	{
+		return _location is CandleLocation.AtHigh or CandleLocation.AtLow or CandleLocation.AtHighOrLow;
 	}
 
 	private static decimal RowStart(decimal price, decimal rowSize)

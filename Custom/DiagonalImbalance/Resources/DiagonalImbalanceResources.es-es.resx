@@ -219,4 +219,40 @@
   <data name="AlertCooldownSeconds_Description" xml:space="preserve">
     <value>Tiempo mínimo entre dos alertas de retest de la misma zona.</value>
   </data>
+  <data name="CandleLocation_Any" xml:space="preserve">
+    <value>Cualquiera</value>
+  </data>
+  <data name="CandleLocation_AtHigh" xml:space="preserve">
+    <value>En el máximo</value>
+  </data>
+  <data name="CandleLocation_AtLow" xml:space="preserve">
+    <value>En el mínimo</value>
+  </data>
+  <data name="CandleLocation_AtHighOrLow" xml:space="preserve">
+    <value>En el máximo o el mínimo</value>
+  </data>
+  <data name="CandleLocation_Body" xml:space="preserve">
+    <value>Cuerpo</value>
+  </data>
+  <data name="CandleLocation_UpperWick" xml:space="preserve">
+    <value>Mecha superior</value>
+  </data>
+  <data name="CandleLocation_LowerWick" xml:space="preserve">
+    <value>Mecha inferior</value>
+  </data>
+  <data name="CandleLocation_Wicks" xml:space="preserve">
+    <value>Mechas</value>
+  </data>
+  <data name="Location_DisplayName" xml:space="preserve">
+    <value>Ubicación en la vela</value>
+  </data>
+  <data name="Location_Description" xml:space="preserve">
+    <value>Solo conserva los desequilibrios de esta parte de la vela; los apilados y las zonas se forman con los que se conservan. En el máximo: la fila llega al High (solo puede ser un desequilibrio comprador). En el mínimo: la fila llega al Low (solo puede ser vendedor). El cuerpo y las mechas se separan por la apertura y el cierre.</value>
+  </data>
+  <data name="EdgeTicks_DisplayName" xml:space="preserve">
+    <value>Ticks desde el máximo/mínimo</value>
+  </data>
+  <data name="EdgeTicks_Description" xml:space="preserve">
+    <value>Con En el máximo / En el mínimo: también conserva las filas que quedan a este número de ticks o menos del High o del Low. 0 = solo la fila que lo contiene.</value>
+  </data>
 </root>

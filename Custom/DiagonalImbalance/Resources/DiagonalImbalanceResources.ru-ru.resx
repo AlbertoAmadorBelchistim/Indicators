@@ -219,4 +219,40 @@
   <data name="AlertCooldownSeconds_Description" xml:space="preserve">
     <value>Минимальное время между двумя оповещениями о ретесте одной зоны.</value>
   </data>
+  <data name="CandleLocation_Any" xml:space="preserve">
+    <value>Где угодно</value>
+  </data>
+  <data name="CandleLocation_AtHigh" xml:space="preserve">
+    <value>На максимуме</value>
+  </data>
+  <data name="CandleLocation_AtLow" xml:space="preserve">
+    <value>На минимуме</value>
+  </data>
+  <data name="CandleLocation_AtHighOrLow" xml:space="preserve">
+    <value>На максимуме или минимуме</value>
+  </data>
+  <data name="CandleLocation_Body" xml:space="preserve">
+    <value>Тело</value>
+  </data>
+  <data name="CandleLocation_UpperWick" xml:space="preserve">
+    <value>Верхняя тень</value>
+  </data>
+  <data name="CandleLocation_LowerWick" xml:space="preserve">
+    <value>Нижняя тень</value>
+  </data>
+  <data name="CandleLocation_Wicks" xml:space="preserve">
+    <value>Тени</value>
+  </data>
+  <data name="Location_DisplayName" xml:space="preserve">
+    <value>Положение в баре</value>
+  </data>
+  <data name="Location_Description" xml:space="preserve">
+    <value>Оставляет только дисбалансы в этой части бара; стеки и зоны строятся из оставшихся. На максимуме: строка достигает High (возможен только дисбаланс покупателей). На минимуме: строка достигает Low (возможен только дисбаланс продавцов). Тело и тени разделяются ценами открытия и закрытия.</value>
+  </data>
+  <data name="EdgeTicks_DisplayName" xml:space="preserve">
+    <value>Тиков от максимума/минимума</value>
+  </data>
+  <data name="EdgeTicks_Description" xml:space="preserve">
+    <value>Для «На максимуме» / «На минимуме»: также оставляет строки, находящиеся не дальше этого числа тиков от High или Low. 0 = только строка, содержащая его.</value>
+  </data>
 </root>

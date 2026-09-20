@@ -219,4 +219,40 @@
   <data name="AlertCooldownSeconds_Description" xml:space="preserve">
     <value>Minimum time between two retest alerts of the same zone.</value>
   </data>
+  <data name="CandleLocation_Any" xml:space="preserve">
+    <value>Anywhere</value>
+  </data>
+  <data name="CandleLocation_AtHigh" xml:space="preserve">
+    <value>At the high</value>
+  </data>
+  <data name="CandleLocation_AtLow" xml:space="preserve">
+    <value>At the low</value>
+  </data>
+  <data name="CandleLocation_AtHighOrLow" xml:space="preserve">
+    <value>At the high or low</value>
+  </data>
+  <data name="CandleLocation_Body" xml:space="preserve">
+    <value>Body</value>
+  </data>
+  <data name="CandleLocation_UpperWick" xml:space="preserve">
+    <value>Upper wick</value>
+  </data>
+  <data name="CandleLocation_LowerWick" xml:space="preserve">
+    <value>Lower wick</value>
+  </data>
+  <data name="CandleLocation_Wicks" xml:space="preserve">
+    <value>Wicks</value>
+  </data>
+  <data name="Location_DisplayName" xml:space="preserve">
+    <value>Location in the bar</value>
+  </data>
+  <data name="Location_Description" xml:space="preserve">
+    <value>Only keeps the imbalances in this part of the bar; stacks and zones are built from the kept imbalances. At the high: the row reaches the High (only buy imbalances can). At the low: the row reaches the Low (only sell imbalances can). Body, upper wick and lower wick are separated by the Open and Close.</value>
+  </data>
+  <data name="EdgeTicks_DisplayName" xml:space="preserve">
+    <value>Ticks from the high/low</value>
+  </data>
+  <data name="EdgeTicks_Description" xml:space="preserve">
+    <value>With At the high / At the low: also keeps the rows that end up to this number of ticks from the High or the Low. 0 = only the row that contains it.</value>
+  </data>
 </root>

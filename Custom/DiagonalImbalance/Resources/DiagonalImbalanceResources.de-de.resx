@@ -219,4 +219,40 @@
   <data name="AlertCooldownSeconds_Description" xml:space="preserve">
     <value>Mindestzeit zwischen zwei Retest-Alarmen derselben Zone.</value>
   </data>
+  <data name="CandleLocation_Any" xml:space="preserve">
+    <value>Überall</value>
+  </data>
+  <data name="CandleLocation_AtHigh" xml:space="preserve">
+    <value>Am Hoch</value>
+  </data>
+  <data name="CandleLocation_AtLow" xml:space="preserve">
+    <value>Am Tief</value>
+  </data>
+  <data name="CandleLocation_AtHighOrLow" xml:space="preserve">
+    <value>Am Hoch oder Tief</value>
+  </data>
+  <data name="CandleLocation_Body" xml:space="preserve">
+    <value>Körper</value>
+  </data>
+  <data name="CandleLocation_UpperWick" xml:space="preserve">
+    <value>Oberer Docht</value>
+  </data>
+  <data name="CandleLocation_LowerWick" xml:space="preserve">
+    <value>Unterer Docht</value>
+  </data>
+  <data name="CandleLocation_Wicks" xml:space="preserve">
+    <value>Dochte</value>
+  </data>
+  <data name="Location_DisplayName" xml:space="preserve">
+    <value>Position in der Kerze</value>
+  </data>
+  <data name="Location_Description" xml:space="preserve">
+    <value>Behält nur die Ungleichgewichte in diesem Teil der Kerze; Stapel und Zonen werden aus den behaltenen gebildet. Am Hoch: die Zeile erreicht das Hoch (nur Kauf-Ungleichgewichte möglich). Am Tief: die Zeile erreicht das Tief (nur Verkaufs-Ungleichgewichte möglich). Körper und Dochte werden durch Eröffnung und Schluss getrennt.</value>
+  </data>
+  <data name="EdgeTicks_DisplayName" xml:space="preserve">
+    <value>Ticks vom Hoch/Tief</value>
+  </data>
+  <data name="EdgeTicks_Description" xml:space="preserve">
+    <value>Bei Am Hoch / Am Tief: behält auch Zeilen, die höchstens so viele Ticks vom Hoch bzw. Tief entfernt sind. 0 = nur die Zeile, die es enthält.</value>
+  </data>
 </root>

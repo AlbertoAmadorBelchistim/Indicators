@@ -219,4 +219,40 @@
   <data name="AlertCooldownSeconds_Description" xml:space="preserve">
     <value>Délai minimal entre deux alertes de retest de la même zone.</value>
   </data>
+  <data name="CandleLocation_Any" xml:space="preserve">
+    <value>Partout</value>
+  </data>
+  <data name="CandleLocation_AtHigh" xml:space="preserve">
+    <value>Au plus haut</value>
+  </data>
+  <data name="CandleLocation_AtLow" xml:space="preserve">
+    <value>Au plus bas</value>
+  </data>
+  <data name="CandleLocation_AtHighOrLow" xml:space="preserve">
+    <value>Au plus haut ou au plus bas</value>
+  </data>
+  <data name="CandleLocation_Body" xml:space="preserve">
+    <value>Corps</value>
+  </data>
+  <data name="CandleLocation_UpperWick" xml:space="preserve">
+    <value>Mèche haute</value>
+  </data>
+  <data name="CandleLocation_LowerWick" xml:space="preserve">
+    <value>Mèche basse</value>
+  </data>
+  <data name="CandleLocation_Wicks" xml:space="preserve">
+    <value>Mèches</value>
+  </data>
+  <data name="Location_DisplayName" xml:space="preserve">
+    <value>Position dans la barre</value>
+  </data>
+  <data name="Location_Description" xml:space="preserve">
+    <value>Ne conserve que les déséquilibres de cette partie de la barre ; les empilements et les zones sont formés à partir de ceux conservés. Au plus haut : la ligne atteint le High (seul un déséquilibre acheteur est possible). Au plus bas : la ligne atteint le Low (seul un déséquilibre vendeur est possible). Le corps et les mèches sont séparés par l'ouverture et la clôture.</value>
+  </data>
+  <data name="EdgeTicks_DisplayName" xml:space="preserve">
+    <value>Ticks depuis le haut/bas</value>
+  </data>
+  <data name="EdgeTicks_Description" xml:space="preserve">
+    <value>Avec Au plus haut / Au plus bas : conserve aussi les lignes situées à ce nombre de ticks ou moins du High ou du Low. 0 = seulement la ligne qui le contient.</value>
+  </data>
 </root>
