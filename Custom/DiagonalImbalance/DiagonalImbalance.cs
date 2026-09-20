@@ -19,20 +19,24 @@ public class DiagonalImbalance : Indicator
 {
 	#region Nested Types: Engine
 
-	// One diagonal imbalance found in a bar.
-	// Buy:  Ask at Price against Bid one tick below.
-	// Sell: Bid at Price against Ask one tick above.
+	// One diagonal imbalance found in a bar, on a row of RowTicks price levels.
+	// Buy:  Ask of the row against Bid of the row below.
+	// Sell: Bid of the row against Ask of the row above.
+	// Price is the lowest price of the row and TopPrice the highest (equal when RowTicks is 1).
 	internal readonly struct ImbalanceLevel
 	{
-		public ImbalanceLevel(decimal price, bool isBuy, decimal dominant, decimal passive)
+		public ImbalanceLevel(decimal price, decimal topPrice, bool isBuy, decimal dominant, decimal passive)
 		{
 			Price = price;
+			TopPrice = topPrice;
 			IsBuy = isBuy;
 			Dominant = dominant;
 			Passive = passive;
 		}
 
 		public decimal Price { get; }
+
+		public decimal TopPrice { get; }
 
 		public bool IsBuy { get; }
 
@@ -186,6 +190,11 @@ public class DiagonalImbalance : Indicator
 	private bool _ignoreZeroLevels;
 	private decimal _minVolumeDifference;
 	private int _minStackedLevels = 3;
+	private int _rowTicks = 1;
+
+	// Per-row Ask and Bid sums of the bar being evaluated; reused between bars (calculation thread only).
+	private decimal[] _rowAsk = new decimal[64];
+	private decimal[] _rowBid = new decimal[64];
 
 	private ZoneBreakMode _zoneBreakMode = ZoneBreakMode.TradeThrough;
 	private int _maxZoneAgeBars;
@@ -272,6 +281,24 @@ public class DiagonalImbalance : Indicator
 				return;
 
 			_ignoreZeroLevels = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(Name = "Ticks per row", GroupName = "Calculation", Order = 125,
+		Description = "Number of price levels merged into one row before comparing, like a footprint with grouped rows. " +
+			"Rows are aligned to multiples of this size.")]
+	[Range(1, 50)]
+	[PostValueMode(PostValueModes.OnLostFocus)]
+	public int RowTicks
+	{
+		get => _rowTicks;
+		set
+		{
+			if (_rowTicks == value)
+				return;
+
+			_rowTicks = value;
 			RecalculateValues();
 		}
 	}
@@ -502,7 +529,7 @@ public class DiagonalImbalance : Indicator
 			$"{_historyBuyStacks} buy / {_historySellStacks} sell stacks " +
 			$"(ratio {_imbalanceRatio}, min dominant volume {_minDominantVolume}, " +
 			$"min volume difference {_minVolumeDifference}, ignore zero levels {_ignoreZeroLevels}, " +
-			$"stacked levels {_minStackedLevels}), {CountActiveZones()} active zones " +
+			$"ticks per row {_rowTicks}, stacked levels {_minStackedLevels}), {CountActiveZones()} active zones " +
 			$"(break rule {_zoneBreakMode}, max age {_maxZoneAgeBars}, max active {_maxActiveZones}).");
 
 		for (var bar = Math.Max(0, lastClosed - LoggedHistoryBars + 1); bar <= lastClosed; bar++)
@@ -588,7 +615,7 @@ public class DiagonalImbalance : Indicator
 			foreach (var level in levels)
 			{
 				// GetYByPrice(price, true) is the top edge of the price row.
-				var top = ChartInfo.GetYByPrice(level.Price, true);
+				var top = ChartInfo.GetYByPrice(level.TopPrice, true);
 				var bottom = ChartInfo.GetYByPrice(level.Price - tickSize, true);
 				var height = Math.Max(1, bottom - top);
 
@@ -734,9 +761,11 @@ public class DiagonalImbalance : Indicator
 			return _activeZones.Count;
 	}
 
-	// Walks the bar from Low to High. At each price P the Ask of P and the Bid of P - 1 tick
-	// are known, which is exactly the pair needed for a buy imbalance at P and for a sell
-	// imbalance at P - 1 tick (Bid of P - 1 tick against Ask of P).
+	// Merges the bar into rows of RowTicks price levels, aligned to multiples of the row size
+	// (with one tick per row each price is its own row), then compares each row with the row
+	// below: Ask of row R against Bid of row R-1 is a buy imbalance at R, and Bid of R-1 against
+	// Ask of R is a sell imbalance at R-1. Only rows inside the bar are compared, so the lowest
+	// row has no row below and the highest none above.
 	private ImbalanceLevel[] FindImbalances(int bar)
 	{
 		var tickSize = InstrumentInfo?.TickSize ?? 0m;
@@ -745,30 +774,59 @@ public class DiagonalImbalance : Indicator
 			return NoImbalances;
 
 		var candle = GetCandle(bar);
-		List<ImbalanceLevel> found = null;
+		var rowSize = tickSize * _rowTicks;
+		var firstRow = RowStart(candle.Low, rowSize);
+		var rows = (int)((RowStart(candle.High, rowSize) - firstRow) / rowSize) + 1;
 
-		var belowBid = 0m;
+		if (rows < 2)
+			return NoImbalances;
+
+		if (_rowAsk.Length < rows)
+		{
+			_rowAsk = new decimal[rows * 2];
+			_rowBid = new decimal[rows * 2];
+		}
+
+		Array.Clear(_rowAsk, 0, rows);
+		Array.Clear(_rowBid, 0, rows);
 
 		for (var price = candle.Low; price <= candle.High; price += tickSize)
 		{
 			var info = candle.GetPriceVolumeInfo(price, _levelCache);
-			var ask = info?.Ask ?? 0m;
-			var bid = info?.Bid ?? 0m;
 
-			var belowPrice = price - tickSize;
+			if (info is null)
+				continue;
 
-			// Buy imbalance at P: Ask(P) against Bid(P - 1 tick).
-			if (price > candle.Low && IsImbalance(ask, belowBid))
-				(found ??= new()).Add(new ImbalanceLevel(price, true, ask, belowBid));
+			var row = (int)((RowStart(price, rowSize) - firstRow) / rowSize);
+			_rowAsk[row] += info.Ask;
+			_rowBid[row] += info.Bid;
+		}
 
-			// Sell imbalance at P - 1 tick: Bid(P - 1 tick) against Ask(P).
-			if (price > candle.Low && IsImbalance(belowBid, ask))
-				(found ??= new()).Add(new ImbalanceLevel(belowPrice, false, belowBid, ask));
+		List<ImbalanceLevel> found = null;
+		var rowTop = rowSize - tickSize;
 
-			belowBid = bid;
+		for (var row = 1; row < rows; row++)
+		{
+			var price = firstRow + row * rowSize;
+			var belowPrice = price - rowSize;
+			var ask = _rowAsk[row];
+			var belowBid = _rowBid[row - 1];
+
+			// Buy imbalance at row R: Ask(R) against Bid(R - 1).
+			if (IsImbalance(ask, belowBid))
+				(found ??= new()).Add(new ImbalanceLevel(price, price + rowTop, true, ask, belowBid));
+
+			// Sell imbalance at row R - 1: Bid(R - 1) against Ask(R).
+			if (IsImbalance(belowBid, ask))
+				(found ??= new()).Add(new ImbalanceLevel(belowPrice, belowPrice + rowTop, false, belowBid, ask));
 		}
 
 		return found?.ToArray() ?? NoImbalances;
+	}
+
+	private static decimal RowStart(decimal price, decimal rowSize)
+	{
+		return Math.Floor(price / rowSize) * rowSize;
 	}
 
 	// Both levels of a comparison are always inside the bar (Low..High): the Low has no
@@ -790,9 +848,10 @@ public class DiagonalImbalance : Indicator
 		return dominant >= passive * _imbalanceRatio;
 	}
 
-	// Groups the imbalances of one bar into runs of consecutive price levels on the same side.
+	// Groups the imbalances of one bar into runs of consecutive rows on the same side.
 	// FindImbalances returns each side in ascending price order, so a single pass per side
-	// is enough: a level continues the run when it is exactly one tick above the previous one.
+	// is enough: a row continues the run when it starts exactly one row above the previous one.
+	// The block spans from the lowest price of its first row to the highest price of its last row.
 	private StackedBlock[] FindStacks(ImbalanceLevel[] levels)
 	{
 		var tickSize = InstrumentInfo?.TickSize ?? 0m;
@@ -800,6 +859,7 @@ public class DiagonalImbalance : Indicator
 		if (tickSize <= 0 || levels.Length < _minStackedLevels)
 			return NoStacks;
 
+		var rowSize = tickSize * _rowTicks;
 		List<StackedBlock> found = null;
 
 		for (var side = 0; side < 2; side++)
@@ -807,6 +867,7 @@ public class DiagonalImbalance : Indicator
 			var isBuy = side == 0;
 			var runLow = 0m;
 			var runHigh = 0m;
+			var lastStart = 0m;
 			var runLevels = 0;
 
 			foreach (var level in levels)
@@ -814,9 +875,10 @@ public class DiagonalImbalance : Indicator
 				if (level.IsBuy != isBuy)
 					continue;
 
-				if (runLevels > 0 && level.Price - runHigh == tickSize)
+				if (runLevels > 0 && level.Price - lastStart == rowSize)
 				{
-					runHigh = level.Price;
+					lastStart = level.Price;
+					runHigh = level.TopPrice;
 					runLevels++;
 					continue;
 				}
@@ -824,7 +886,8 @@ public class DiagonalImbalance : Indicator
 				if (runLevels >= _minStackedLevels)
 					(found ??= new()).Add(new StackedBlock(runLow, runHigh, isBuy, runLevels));
 
-				runLow = runHigh = level.Price;
+				runLow = lastStart = level.Price;
+				runHigh = level.TopPrice;
 				runLevels = 1;
 			}
 
@@ -842,6 +905,11 @@ public class DiagonalImbalance : Indicator
 	#endregion
 
 	#region Private Methods: Diagnostics
+
+	private static string FormatRow(ImbalanceLevel level)
+	{
+		return level.TopPrice == level.Price ? $"{level.Price}" : $"{level.Price}-{level.TopPrice}";
+	}
 
 	private void LogBar(int bar)
 	{
@@ -870,8 +938,8 @@ public class DiagonalImbalance : Indicator
 		{
 			var level = levels[i];
 			sb.Append(level.IsBuy
-				? $"; B@{level.Price} ask {level.Dominant} vs bid {level.Passive}"
-				: $"; S@{level.Price} bid {level.Dominant} vs ask {level.Passive}");
+				? $"; B@{FormatRow(level)} ask {level.Dominant} vs bid {level.Passive}"
+				: $"; S@{FormatRow(level)} bid {level.Dominant} vs ask {level.Passive}");
 		}
 
 		if (levels.Length > LoggedLevelsPerBar)
