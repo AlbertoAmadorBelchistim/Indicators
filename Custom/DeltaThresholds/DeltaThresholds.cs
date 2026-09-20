@@ -4,8 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing;
 
 using OFT.Attributes.Editors;
+using OFT.Rendering.Context;
 
 using ATAS.Indicators.Drawing;
 
@@ -38,6 +40,26 @@ public class DeltaThresholds : Indicator
 		// Only the bars that open between a start and an end time, in chart time.
 		[Display(Name = "Time window")]
 		TimeWindow
+	}
+
+	public enum ThresholdLevel
+	{
+		[Display(Name = "Major")]
+		Major,
+
+		[Display(Name = "Minor")]
+		Minor
+	}
+
+	public enum SignalTrigger
+	{
+		// The delta of the bar reached the level at some point (MaxDelta or MinDelta).
+		[Display(Name = "Level reached")]
+		Reached,
+
+		// The delta of the closed bar is beyond the level.
+		[Display(Name = "Bar close")]
+		BarClose
 	}
 
 	// Running mean and variance (Welford). One sample per closed bar.
@@ -130,6 +152,22 @@ public class DeltaThresholds : Indicator
 	private decimal _upMinorLevel = 200;
 	private decimal _downMinorLevel = -200;
 	private decimal _downMajorLevel = -300;
+
+	// Signals of each calculated bar, read by the render thread under _signalsLock.
+	private readonly List<(bool Up, bool Down)> _signals = new();
+	private readonly object _signalsLock = new();
+
+	private bool _showSignals = true;
+	private ThresholdLevel _signalUpLevel = ThresholdLevel.Major;
+	private ThresholdLevel _signalDownLevel = ThresholdLevel.Major;
+	private SignalTrigger _signalTrigger = SignalTrigger.Reached;
+	private int _signalOffsetTicks = 2;
+	private int _signalSize = 10;
+	private CrossColor _signalUpColor = CrossColor.FromArgb(255, 0, 255, 0);
+	private CrossColor _signalDownColor = CrossColor.FromArgb(255, 255, 0, 255);
+
+	// Visible signals copied under the lock by OnRender, reused between frames.
+	private readonly List<(int Bar, bool Up, bool Down)> _renderSignals = new();
 
 	private bool _showHistogram = true;
 	private CrossColor _upColor = CrossColor.FromArgb(255, 0, 170, 0);
@@ -341,6 +379,96 @@ public class DeltaThresholds : Indicator
 		set => _downMajorSeries.Color = value;
 	}
 
+	[Display(Name = "Show signals", GroupName = "Signals", Description = "Draws a triangle on the price chart when the delta of a bar reaches the selected level: below the bar for the up side, above it for the down side.", Order = 300)]
+	public bool ShowSignals
+	{
+		get => _showSignals;
+		set
+		{
+			_showSignals = value;
+			RedrawChart();
+		}
+	}
+
+	[Display(Name = "Trigger", GroupName = "Signals", Description = "Level reached: the delta of the bar reached the level at any time (its maximum or minimum), so the signal appears as soon as it happens and stays. Bar close: the delta of the closed bar is beyond the level.", Order = 310)]
+	public SignalTrigger Trigger
+	{
+		get => _signalTrigger;
+		set
+		{
+			_signalTrigger = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(Name = "Up level", GroupName = "Signals", Description = "Level used for the up signals.", Order = 320)]
+	public ThresholdLevel SignalUpLevel
+	{
+		get => _signalUpLevel;
+		set
+		{
+			_signalUpLevel = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(Name = "Down level", GroupName = "Signals", Description = "Level used for the down signals.", Order = 330)]
+	public ThresholdLevel SignalDownLevel
+	{
+		get => _signalDownLevel;
+		set
+		{
+			_signalDownLevel = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(Name = "Offset (ticks)", GroupName = "Signals", Description = "Distance between the bar and the triangle.", Order = 340)]
+	[Range(0, 1000)]
+	public int SignalOffsetTicks
+	{
+		get => _signalOffsetTicks;
+		set
+		{
+			_signalOffsetTicks = value;
+			RedrawChart();
+		}
+	}
+
+	[Display(Name = "Size", GroupName = "Signals", Description = "Size of the triangles in pixels.", Order = 350)]
+	[Range(4, 50)]
+	public int SignalSize
+	{
+		get => _signalSize;
+		set
+		{
+			_signalSize = value;
+			RedrawChart();
+		}
+	}
+
+	[Display(Name = "Up color", GroupName = "Signals", Description = "Color of the up triangles.", Order = 360)]
+	public CrossColor SignalUpColor
+	{
+		get => _signalUpColor;
+		set
+		{
+			_signalUpColor = value;
+			RedrawChart();
+		}
+	}
+
+	[Display(Name = "Down color", GroupName = "Signals", Description = "Color of the down triangles.", Order = 370)]
+	public CrossColor SignalDownColor
+	{
+		get => _signalDownColor;
+		set
+		{
+			_signalDownColor = value;
+			RedrawChart();
+		}
+	}
+
 	#endregion
 
 	#region Ctor
@@ -350,6 +478,9 @@ public class DeltaThresholds : Indicator
 	{
 		// Its own panel by default; it can be moved to another panel, for example the Delta indicator's.
 		Panel = IndicatorDataProvider.NewPanel;
+
+		EnableCustomDrawing = true;
+		SubscribeToDrawingEvents(DrawingLayouts.Final);
 
 		DataSeries[0] = _deltaSeries;
 		DataSeries.Add(_upMajorSeries);
@@ -374,6 +505,9 @@ public class DeltaThresholds : Indicator
 	// on every update of the forming bar.
 	protected override void OnRecalculate()
 	{
+		lock (_signalsLock)
+			_signals.Clear();
+
 		_levels.Clear();
 		_positive.Reset();
 		_negative.Reset();
@@ -389,6 +523,54 @@ public class DeltaThresholds : Indicator
 		// The levels of a bar are set when the bar is first calculated and stay fixed while it forms.
 		if (bar >= _levels.Count)
 			OpenBar(bar);
+
+		UpdateSignals(bar, false);
+	}
+
+	protected override void OnRender(RenderContext context, DrawingLayouts layout)
+	{
+		if (!_showSignals || ChartInfo is null || InstrumentInfo is null)
+			return;
+
+		_renderSignals.Clear();
+
+		lock (_signalsLock)
+		{
+			var last = Math.Min(LastVisibleBarNumber, _signals.Count - 1);
+
+			for (var bar = Math.Max(0, FirstVisibleBarNumber); bar <= last; bar++)
+			{
+				var (up, down) = _signals[bar];
+
+				if (up || down)
+					_renderSignals.Add((bar, up, down));
+			}
+		}
+
+		// The indicator may sit in its own panel: the triangles are drawn in the price panel's
+		// coordinates and kept inside it.
+		var container = ChartInfo.PriceChartContainer;
+		var region = container.Region;
+		var half = _signalSize / 2;
+		var offset = _signalOffsetTicks * InstrumentInfo.TickSize;
+
+		foreach (var (bar, up, down) in _renderSignals)
+		{
+			var candle = GetCandle(bar);
+			var x = container.GetXByBar(bar, false) + (int)container.BarsWidth / 2;
+
+			if (up)
+			{
+				var y = Clamp(container.GetYByPrice(candle.Low - offset, false) + half, region.Top + half, region.Bottom - half);
+				context.FillPolygon(_signalUpColor.Convert(), new[] { new Point(x, y - half), new Point(x - half, y + half), new Point(x + half, y + half) });
+			}
+
+			if (down)
+			{
+				var y = Clamp(container.GetYByPrice(candle.High + offset, false) - half, region.Top + half, region.Bottom - half);
+				context.FillPolygon(_signalDownColor.Convert(), new[] { new Point(x, y + half), new Point(x - half, y - half), new Point(x + half, y - half) });
+			}
+		}
 	}
 
 	#endregion
@@ -427,8 +609,14 @@ public class DeltaThresholds : Indicator
 		while (_levels.Count < bar)
 			_levels.Add(default);
 
-		if (bar > 0 && InWindow(bar - 1))
-			AddSamples(GetCandle(bar - 1));
+		if (bar > 0)
+		{
+			// Bar-close signals of the bar that has just closed.
+			UpdateSignals(bar - 1, true);
+
+			if (InWindow(bar - 1))
+				AddSamples(GetCandle(bar - 1));
+		}
 
 		if (IsSessionStart(bar))
 		{
@@ -452,6 +640,47 @@ public class DeltaThresholds : Indicator
 
 	// Start of the statistics: each default session, or each time window (its first bar inside
 	// the window, or the first bar of a new window day for a window that covers the whole day).
+	// Signals of a bar. Level reached: the bar's maximum or minimum delta against its levels, which
+	// only grows while the bar forms, so a signal appears as soon as it happens, stays, and is the
+	// same after a recalculation. Bar close: the final delta, evaluated once the bar has closed.
+	private void UpdateSignals(int bar, bool closed)
+	{
+		if (bar >= _levels.Count)
+			return;
+
+		var levels = _levels[bar];
+		var upLevel = _signalUpLevel == ThresholdLevel.Major ? levels.UpMajor : levels.UpMinor;
+		var downLevel = _signalDownLevel == ThresholdLevel.Major ? levels.DownMajor : levels.DownMinor;
+		var candle = GetCandle(bar);
+		bool up, down;
+
+		if (_signalTrigger == SignalTrigger.Reached)
+		{
+			up = upLevel > 0 && candle.MaxDelta >= upLevel;
+			down = downLevel < 0 && candle.MinDelta <= downLevel;
+		}
+		else if (closed)
+		{
+			up = upLevel > 0 && candle.Delta >= upLevel;
+			down = downLevel < 0 && candle.Delta <= downLevel;
+		}
+		else
+			return;
+
+		lock (_signalsLock)
+		{
+			while (_signals.Count <= bar)
+				_signals.Add(default);
+
+			_signals[bar] = (up, down);
+		}
+	}
+
+	private static int Clamp(int value, int min, int max)
+	{
+		return value < min ? min : value > max ? max : value;
+	}
+
 	private bool IsSessionStart(int bar)
 	{
 		if (bar == 0)
