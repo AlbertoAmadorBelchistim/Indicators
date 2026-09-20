@@ -386,6 +386,7 @@ namespace ATAS.Indicators.Technical
         private SpeedType _dataType = SpeedType.Ticks;
         private int _contextWindowMinutes = 15;
         private int _thresholdPercentile = 97;
+        private int _sessionsToCalculate = 5;
 
         // Alerts settings backing fields.
         private bool _useAlerts;
@@ -423,6 +424,17 @@ namespace ATAS.Indicators.Technical
                 }
                 RecalculateValues();
             }
+        }
+
+        [Display(Name = "Sessions to calculate",
+                 GroupName = "Calculation",
+                 Description = "Number of the most recent sessions whose trades are requested and replayed. 0 replays the whole chart, which can take long with many days loaded.",
+                 Order = 30)]
+        [Range(0, 1000)]
+        public int SessionsToCalculate
+        {
+            get => _sessionsToCalculate;
+            set { _sessionsToCalculate = Math.Max(0, value); RecalculateValues(); }
         }
 
         [Display(Name = "Context window (minutes)",
@@ -663,9 +675,12 @@ namespace ATAS.Indicators.Technical
                 return;
             }
 
-            var startTime = GetCandle(0).Time;
+            var firstBar = FirstCalculatedBar();
+            var startTime = GetCandle(firstBar).Time;
             var endTime = GetCandle(CurrentBar - 1).LastTime;
             var request = new CumulativeTradesRequest(startTime, endTime, 0, 0);
+
+            this.LogInfo($"history request {startTime:yyyy-MM-dd HH:mm:ss}-{endTime:yyyy-MM-dd HH:mm:ss} (bars {firstBar}-{CurrentBar - 1}, sessions {(_sessionsToCalculate > 0 ? _sessionsToCalculate.ToString() : "all")})");
 
             lock (_engineLock)
                 _requestId = request.RequestId;
@@ -1162,6 +1177,25 @@ namespace ATAS.Indicators.Technical
                 _ => 0
             };
             ProcessTradeAt(tick.Time, tick.Volume, direction, tick.Price, bar);
+        }
+
+        /// <summary>
+        /// First bar of the last SessionsToCalculate sessions, or 0 for the whole chart.
+        /// </summary>
+        private int FirstCalculatedBar()
+        {
+            if (_sessionsToCalculate <= 0)
+                return 0;
+
+            var sessions = 0;
+
+            for (var bar = CurrentBar - 1; bar > 0; bar--)
+            {
+                if (IsNewSession(bar) && ++sessions == _sessionsToCalculate)
+                    return bar;
+            }
+
+            return 0;
         }
 
         /// <summary>
