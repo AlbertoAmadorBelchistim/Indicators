@@ -337,6 +337,26 @@ namespace ATAS.Indicators.Technical
         // flag is cleared when replay finishes so live events log normally.
         private bool _isReplaying;
 
+        // History request and realtime join. Until the history response has been processed,
+        // realtime ticks are kept in _pendingTicks; afterwards they are replayed without the
+        // ones the history already contains (same timestamp, counted from the end of the
+        // history), so a recalculation gives the same result as the live run.
+        private int _requestId;
+        private bool _historyLoaded;
+        private readonly List<MarketDataArg> _pendingTicks = new List<MarketDataArg>();
+        private DateTime _historyEndTime;
+        private int _boundaryTickCount;
+
+        // Timestamp of the last processed tick and how many ticks carried it; copied when a
+        // recalculation starts buffering, to know which boundary ticks the buffer lacks.
+        private DateTime _lastTickTime;
+        private int _lastTickCount;
+        private DateTime _bufferStartTickTime;
+        private int _bufferStartTickCount;
+
+        // Last bar a tick was attributed to; the bar search starts from it.
+        private int _barCursor;
+
         // Alert state. _alertedBars tracks which bars have already fired
         // an alert this session so a second burst in the same bar doesn't
         // fire again. _lastAlertTime gates the cooldown across bars.
@@ -594,6 +614,23 @@ namespace ATAS.Indicators.Technical
         }
 
         /// <summary>
+        /// Starts a recalculation: the engine is cleared and realtime ticks
+        /// are buffered until the history response has been processed.
+        /// </summary>
+        protected override void OnRecalculate()
+        {
+            lock (_engineLock)
+            {
+                ResetEngineState();
+                _historyLoaded = false;
+                _requestId = 0;
+                _pendingTicks.Clear();
+                _bufferStartTickTime = _lastTickTime;
+                _bufferStartTickCount = _lastTickCount;
+            }
+        }
+
+        /// <summary>
         /// Fires once after every chart recalculation (initial load and
         /// every parameter change that triggers RecalculateValues).
         /// We use it to issue a CumulativeTradesRequest covering the
@@ -602,11 +639,21 @@ namespace ATAS.Indicators.Technical
         /// </summary>
         protected override void OnFinishRecalculate()
         {
-            if (CurrentBar < 2) return;
+            if (CurrentBar < 1)
+            {
+                lock (_engineLock)
+                    _historyLoaded = true;
+
+                return;
+            }
 
             var startTime = GetCandle(0).Time;
             var endTime = GetCandle(CurrentBar - 1).LastTime;
             var request = new CumulativeTradesRequest(startTime, endTime, 0, 0);
+
+            lock (_engineLock)
+                _requestId = request.RequestId;
+
             RequestForCumulativeTrades(request);
         }
 
@@ -641,8 +688,13 @@ namespace ATAS.Indicators.Technical
         {
             lock (_engineLock)
             {
-                int direction = trade.Direction == TradeDirection.Buy ? 1 : -1;
-                ProcessTradeAt(trade.Time, trade.Volume, direction, trade.Price, CurrentBar - 1);
+                if (!_historyLoaded)
+                {
+                    _pendingTicks.Add(trade);
+                    return;
+                }
+
+                ProcessTick(trade);
             }
         }
 
@@ -663,36 +715,38 @@ namespace ATAS.Indicators.Technical
 
             lock (_engineLock)
             {
+                if (request.RequestId != _requestId)
+                    return;
+            }
+
+            // The history is replayed from the ticks of the cumulative trades, the same data the
+            // realtime path receives. A cumulative trade groups several ticks into one trade with
+            // one price, so replaying it as one trade gave the history fewer ticks and narrower
+            // ranges than the live run.
+            var ticks = cumulativeTrades
+                .Where(t => t.Ticks != null)
+                .SelectMany(t => t.Ticks)
+                .OrderBy(t => t.Time)
+                .ToList();
+
+            lock (_engineLock)
+            {
                 ResetEngineState();
+
+                _historyEndTime = ticks.Count > 0 ? ticks[ticks.Count - 1].Time : DateTime.MinValue;
+                _boundaryTickCount = 0;
+
+                for (var i = ticks.Count - 1; i >= 0 && ticks[i].Time == _historyEndTime; i--)
+                    _boundaryTickCount++;
 
                 _isReplaying = true;
                 try
                 {
-                    int searchStart = 0;
-                    int processed = 0;
-
-                    foreach (var trade in cumulativeTrades)
-                    {
-                        int bar = -1;
-                        for (int i = searchStart; i < CurrentBar; i++)
-                        {
-                            var c = GetCandle(i);
-                            if (trade.Time >= c.Time && trade.Time <= c.LastTime)
-                            {
-                                bar = i;
-                                searchStart = i;
-                                break;
-                            }
-                        }
-                        if (bar < 0) continue;
-
-                        int direction = trade.Direction == TradeDirection.Buy ? 1 : -1;
-                        ProcessTradeAt(trade.Time, trade.Volume, direction, trade.FirstPrice, bar);
-                        processed++;
-                    }
+                    foreach (var tick in ticks)
+                        ProcessTick(tick);
 
                     int eventCount = _eventsByBar.Sum(kv => kv.Value.Count);
-                    this.LogInfo($"history replay complete — trades={processed} events={eventCount}");
+                    this.LogInfo($"history replay complete — ticks={ticks.Count} events={eventCount}");
                 }
                 finally
                 {
@@ -700,7 +754,60 @@ namespace ATAS.Indicators.Technical
                 }
             }
 
+            ReplayPendingTicks();
             RedrawChart();
+        }
+
+        /// <summary>
+        /// Replays the realtime ticks buffered while the history was pending, skipping the ones
+        /// the history already contains, then switches to realtime under the lock once the
+        /// buffer is empty.
+        /// </summary>
+        private void ReplayPendingTicks()
+        {
+            int boundaryToSkip;
+            var replayed = 0;
+            var skipped = 0;
+
+            lock (_engineLock)
+            {
+                boundaryToSkip = _boundaryTickCount -
+                    (_bufferStartTickTime == _historyEndTime ? _bufferStartTickCount : 0);
+            }
+
+            while (true)
+            {
+                List<MarketDataArg> batch;
+
+                lock (_engineLock)
+                {
+                    if (_pendingTicks.Count == 0)
+                    {
+                        _historyLoaded = true;
+                        break;
+                    }
+
+                    batch = new List<MarketDataArg>(_pendingTicks);
+                    _pendingTicks.Clear();
+                }
+
+                foreach (var tick in batch)
+                {
+                    lock (_engineLock)
+                    {
+                        if (tick.Time < _historyEndTime || (tick.Time == _historyEndTime && boundaryToSkip-- > 0))
+                        {
+                            skipped++;
+                            continue;
+                        }
+
+                        ProcessTick(tick);
+                        replayed++;
+                    }
+                }
+            }
+
+            this.LogInfo($"realtime started; buffered ticks: {replayed} replayed, {skipped} already in the history");
         }
 
         #endregion
@@ -980,6 +1087,53 @@ namespace ATAS.Indicators.Technical
         /// attribution differs (live: CurrentBar - 1; historical: the bar
         /// computed from the trade's timestamp).
         /// </summary>
+        /// <summary>
+        /// Attributes a tick to the bar that contains its time and runs it through the engine.
+        /// Used for the history, the buffered ticks and realtime alike. Caller holds _engineLock.
+        /// </summary>
+        private void ProcessTick(MarketDataArg tick)
+        {
+            if (tick.Time == _lastTickTime)
+                _lastTickCount++;
+            else
+            {
+                _lastTickTime = tick.Time;
+                _lastTickCount = 1;
+            }
+
+            var bar = BarOfTime(tick.Time);
+
+            if (bar < 0)
+                return;
+
+            int direction = tick.Direction == TradeDirection.Buy ? 1 : -1;
+            ProcessTradeAt(tick.Time, tick.Volume, direction, tick.Price, bar);
+        }
+
+        /// <summary>
+        /// Bar that contains a time: the last bar opened at or before it, or -1 before the first
+        /// bar. Ticks arrive in time order, so the search starts from the last bar found.
+        /// </summary>
+        private int BarOfTime(DateTime time)
+        {
+            if (CurrentBar == 0)
+                return -1;
+
+            var bar = Math.Min(Math.Max(0, _barCursor), CurrentBar - 1);
+
+            while (bar > 0 && GetCandle(bar).Time > time)
+                bar--;
+
+            if (GetCandle(bar).Time > time)
+                return -1;
+
+            while (bar + 1 < CurrentBar && GetCandle(bar + 1).Time <= time)
+                bar++;
+
+            _barCursor = bar;
+            return bar;
+        }
+
         private void ProcessTradeAt(DateTime time, decimal volume, int direction, decimal price, int bar)
         {
             var snap = new TickSnapshot(time, volume, direction, price);
@@ -1013,6 +1167,7 @@ namespace ATAS.Indicators.Technical
             _alertedBars.Clear();
             _lastAlertTime = DateTime.MinValue;
             _recentEvents.Clear();
+            _barCursor = 0;
         }
 
         #endregion
