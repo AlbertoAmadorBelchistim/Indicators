@@ -212,6 +212,18 @@ namespace ATAS.Indicators.Technical
         // Populated by OnNewTrade (C03) and OnCumulativeTradesResponse (C12).
         private readonly Queue<TickSnapshot> _tickQueue = new Queue<TickSnapshot>();
 
+        // Running aggregates of _tickQueue, updated on every enqueue and dequeue so a trade costs
+        // O(1) instead of a pass over the whole window. The price extremes use monotonic deques:
+        // _maxPrices holds decreasing prices from front to back and _minPrices increasing ones,
+        // so the front is always the extreme of the window.
+        private decimal _windowVolume;
+        private decimal _windowBuys;
+        private decimal _windowSells;
+        private long _nextTickSeq;
+        private readonly LinkedList<(long Seq, decimal Price)> _maxPrices = new LinkedList<(long Seq, decimal Price)>();
+        private readonly LinkedList<(long Seq, decimal Price)> _minPrices = new LinkedList<(long Seq, decimal Price)>();
+        private readonly Queue<long> _tickSeqs = new Queue<long>();
+
         // Latest engine snapshot computed over the rolling tick queue.
         // Updated on every OnNewTrade. The histogram reads .Speed; downstream
         // consumers (event detection, coloring, info panel) read the rest.
@@ -268,6 +280,10 @@ namespace ATAS.Indicators.Technical
         // ContextWindowMinutes minutes. Populated by MaybeSampleSpeed,
         // trimmed by TrimSpeedBuffer, read by ComputePercentile.
         private readonly Queue<SpeedObservation> _speedBuffer = new Queue<SpeedObservation>();
+
+        // The speeds of _speedBuffer kept sorted, so the percentile is a lookup instead of a
+        // sort of the whole buffer on every sample.
+        private readonly List<decimal> _sortedSpeeds = new List<decimal>();
 
         // Trade-time of the last observation added; used to rate-limit
         // MaybeSampleSpeed to one entry per SamplePeriod.
@@ -914,36 +930,53 @@ namespace ATAS.Indicators.Technical
         {
             var cutoff = now.AddSeconds(-_timeWindow);
             while (_tickQueue.Count > 0 && _tickQueue.Peek().Time <= cutoff)
-                _tickQueue.Dequeue();
+            {
+                var old = _tickQueue.Dequeue();
+                var seq = _tickSeqs.Dequeue();
+
+                _windowVolume -= old.Volume;
+
+                if (old.Direction == 1) _windowBuys -= old.Volume;
+                else if (old.Direction == -1) _windowSells -= old.Volume;
+
+                if (_maxPrices.Count > 0 && _maxPrices.First.Value.Seq == seq) _maxPrices.RemoveFirst();
+                if (_minPrices.Count > 0 && _minPrices.First.Value.Seq == seq) _minPrices.RemoveFirst();
+            }
         }
 
         /// <summary>
-        /// Single-pass aggregation over the rolling tick queue. Returns all
-        /// metrics in parallel — buys and sells are accumulated independently
-        /// and the snapshot exposes both, plus the high/low price range
-        /// observed during the window. The caller decides what to do with
-        /// each field.
+        /// Metrics of the rolling tick queue, read from its running aggregates:
+        /// buys and sells in parallel, plus the high/low price range observed
+        /// during the window. The caller decides what to do with each field.
         /// </summary>
         private SpeedSnapshot ComputeInstantSnapshot()
         {
             if (_tickQueue.Count == 0)
                 return new SpeedSnapshot(0, 0m, 0m, 0m, 0m, 0m, _dataType);
 
-            int ticks = _tickQueue.Count;
-            decimal vol = 0m, buys = 0m, sells = 0m;
-            decimal high = decimal.MinValue, low = decimal.MaxValue;
+            return new SpeedSnapshot(_tickQueue.Count, _windowVolume, _windowBuys, _windowSells,
+                _maxPrices.First.Value.Price, _minPrices.First.Value.Price, _dataType);
+        }
 
-            foreach (var t in _tickQueue)
-            {
-                vol += t.Volume;
-                if (t.Direction == 1) buys += t.Volume;
-                else if (t.Direction == -1) sells += t.Volume;
+        /// <summary>
+        /// Adds a trade to the rolling window and to its running aggregates.
+        /// </summary>
+        private void EnqueueTick(TickSnapshot tick)
+        {
+            var seq = _nextTickSeq++;
 
-                if (t.Price > high) high = t.Price;
-                if (t.Price < low) low = t.Price;
-            }
+            _tickQueue.Enqueue(tick);
+            _tickSeqs.Enqueue(seq);
+            _windowVolume += tick.Volume;
 
-            return new SpeedSnapshot(ticks, vol, buys, sells, high, low, _dataType);
+            if (tick.Direction == 1) _windowBuys += tick.Volume;
+            else if (tick.Direction == -1) _windowSells += tick.Volume;
+
+            while (_maxPrices.Count > 0 && _maxPrices.Last.Value.Price <= tick.Price) _maxPrices.RemoveLast();
+            _maxPrices.AddLast((seq, tick.Price));
+
+            while (_minPrices.Count > 0 && _minPrices.Last.Value.Price >= tick.Price) _minPrices.RemoveLast();
+            _minPrices.AddLast((seq, tick.Price));
         }
 
         /// <summary>
@@ -959,6 +992,7 @@ namespace ATAS.Indicators.Technical
             _lastSampleTime = now;
 
             _speedBuffer.Enqueue(new SpeedObservation(now, _currentSnapshot.Speed));
+            InsertSorted(_currentSnapshot.Speed);
             TrimSpeedBuffer(now);
             _currentThreshold = ComputePercentile(_thresholdPercentile);
         }
@@ -972,7 +1006,7 @@ namespace ATAS.Indicators.Technical
         {
             var cutoff = now.AddMinutes(-_contextWindowMinutes);
             while (_speedBuffer.Count > 0 && _speedBuffer.Peek().Time <= cutoff)
-                _speedBuffer.Dequeue();
+                RemoveSorted(_speedBuffer.Dequeue().Speed);
         }
 
         /// <summary>
@@ -985,10 +1019,23 @@ namespace ATAS.Indicators.Technical
         {
             if (_speedBuffer.Count == 0) return 0m;
 
-            var sorted = _speedBuffer.Select(o => o.Speed).OrderBy(s => s).ToArray();
-            int idx = (int)(sorted.Length * percentile / 100m);
-            if (idx >= sorted.Length) idx = sorted.Length - 1;
-            return sorted[idx];
+            int idx = (int)(_sortedSpeeds.Count * percentile / 100m);
+            if (idx >= _sortedSpeeds.Count) idx = _sortedSpeeds.Count - 1;
+            return _sortedSpeeds[idx];
+        }
+
+        private void InsertSorted(decimal speed)
+        {
+            var idx = _sortedSpeeds.BinarySearch(speed);
+            _sortedSpeeds.Insert(idx < 0 ? ~idx : idx, speed);
+        }
+
+        private void RemoveSorted(decimal speed)
+        {
+            var idx = _sortedSpeeds.BinarySearch(speed);
+
+            if (idx >= 0)
+                _sortedSpeeds.RemoveAt(idx);
         }
 
         /// <summary>
@@ -1144,7 +1191,7 @@ namespace ATAS.Indicators.Technical
         private void ProcessTradeAt(DateTime time, decimal volume, int direction, decimal price, int bar)
         {
             var snap = new TickSnapshot(time, volume, direction, price);
-            _tickQueue.Enqueue(snap);
+            EnqueueTick(snap);
 
             TrimToTimeWindow(time);
             _currentSnapshot = ComputeInstantSnapshot();
@@ -1161,12 +1208,19 @@ namespace ATAS.Indicators.Technical
         private void ResetEngineState()
         {
             _tickQueue.Clear();
+            _tickSeqs.Clear();
+            _windowVolume = 0m;
+            _windowBuys = 0m;
+            _windowSells = 0m;
+            _maxPrices.Clear();
+            _minPrices.Clear();
             _currentSnapshot = default;
             _lastBar = -1;
             _currentBarHwm = 0m;
             _currentBarHwmSnapshot = default;
             _hwmByBar.Clear();
             _speedBuffer.Clear();
+            _sortedSpeeds.Clear();
             _lastSampleTime = DateTime.MinValue;
             _currentThreshold = 0m;
             _lastSpeed = 0m;
