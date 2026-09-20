@@ -62,6 +62,43 @@ public class DiagonalImbalance : Indicator
 		public int Levels { get; }
 	}
 
+	// Zone created from a stacked block when its bar closes. It extends to the right until
+	// price trades through it: below Low for a buy zone, above High for a sell zone.
+	internal sealed class ImbalanceZone
+	{
+		public ImbalanceZone(int startBar, StackedBlock block)
+		{
+			StartBar = startBar;
+			Low = block.Low;
+			High = block.High;
+			IsBuy = block.IsBuy;
+			Levels = block.Levels;
+		}
+
+		public int StartBar { get; }
+
+		public decimal Low { get; }
+
+		public decimal High { get; }
+
+		public bool IsBuy { get; }
+
+		public int Levels { get; }
+
+		// Bar that traded through the zone; -1 while the zone is active.
+		public int EndBar { get; set; } = -1;
+
+		public bool IsActive => EndBar < 0;
+
+		// A buy zone (stacked Ask imbalances, acting as support) breaks when price trades below
+		// its lowest level; a sell zone (stacked Bid imbalances, resistance) when it trades above
+		// its highest level.
+		public bool IsBrokenBy(decimal barLow, decimal barHigh)
+		{
+			return IsBuy ? barLow < Low : barHigh > High;
+		}
+	}
+
 	#endregion
 
 	#region Fields
@@ -93,6 +130,12 @@ public class DiagonalImbalance : Indicator
 	private int _formingBar = -1;
 	private ImbalanceLevel[] _formingLevels = NoImbalances;
 
+	// Zones in creation order (StartBar ascending). Guarded by _barsLock.
+	private readonly List<ImbalanceZone> _zones = new();
+
+	// Visible zones copied under the lock by OnRender, reused between frames: (start, end, zone).
+	private readonly List<(int StartBar, int EndBar, ImbalanceZone Zone)> _renderZones = new();
+
 	// Visible bars copied under the lock by OnRender, reused between frames.
 	private readonly List<(int Bar, ImbalanceLevel[] Levels)> _renderBars = new();
 
@@ -107,6 +150,10 @@ public class DiagonalImbalance : Indicator
 	private bool _showMarks = true;
 	private Color _buyColor = Color.FromArgb(140, 0, 200, 83);
 	private Color _sellColor = Color.FromArgb(140, 229, 57, 53);
+
+	private bool _showZones = true;
+	private Color _buyZoneColor = Color.FromArgb(50, 0, 200, 83);
+	private Color _sellZoneColor = Color.FromArgb(50, 229, 57, 53);
 
 	private bool _historyLoaded;
 	private int _historyBuyCount;
@@ -243,6 +290,42 @@ public class DiagonalImbalance : Indicator
 		}
 	}
 
+	[Display(Name = "Show stacked zones", GroupName = "Visuals", Order = 230,
+		Description = "Draws each stacked imbalance as a zone that extends to the right until price trades through it.")]
+	public bool ShowZones
+	{
+		get => _showZones;
+		set
+		{
+			_showZones = value;
+			RedrawChart();
+		}
+	}
+
+	[Display(Name = "Buy zone color", GroupName = "Visuals", Order = 240,
+		Description = "Fill color of zones from stacked buy imbalances.")]
+	public CrossColor BuyZoneColor
+	{
+		get => _buyZoneColor.Convert();
+		set
+		{
+			_buyZoneColor = value.Convert();
+			RedrawChart();
+		}
+	}
+
+	[Display(Name = "Sell zone color", GroupName = "Visuals", Order = 250,
+		Description = "Fill color of zones from stacked sell imbalances.")]
+	public CrossColor SellZoneColor
+	{
+		get => _sellZoneColor.Convert();
+		set
+		{
+			_sellZoneColor = value.Convert();
+			RedrawChart();
+		}
+	}
+
 	#endregion
 
 	#region Ctor
@@ -276,6 +359,7 @@ public class DiagonalImbalance : Indicator
 		{
 			_barImbalances.Clear();
 			_barStacks.Clear();
+			_zones.Clear();
 			_formingBar = -1;
 			_formingLevels = NoImbalances;
 		}
@@ -319,7 +403,7 @@ public class DiagonalImbalance : Indicator
 			$"{_historyBuyStacks} buy / {_historySellStacks} sell stacks " +
 			$"(ratio {_imbalanceRatio}, min dominant volume {_minDominantVolume}, " +
 			$"min volume difference {_minVolumeDifference}, ignore zero levels {_ignoreZeroLevels}, " +
-			$"stacked levels {_minStackedLevels}).");
+			$"stacked levels {_minStackedLevels}), {CountActiveZones()} active zones.");
 
 		for (var bar = Math.Max(0, lastClosed - LoggedHistoryBars + 1); bar <= lastClosed; bar++)
 			LogBar(bar);
@@ -327,7 +411,7 @@ public class DiagonalImbalance : Indicator
 
 	protected override void OnRender(RenderContext context, DrawingLayouts layout)
 	{
-		if (!_showMarks || ChartInfo is null || InstrumentInfo is null)
+		if ((!_showMarks && !_showZones) || ChartInfo is null || InstrumentInfo is null)
 			return;
 
 		var tickSize = InstrumentInfo.TickSize;
@@ -345,10 +429,21 @@ public class DiagonalImbalance : Indicator
 		var rightWidth = split ? barWidth - leftWidth : barWidth;
 
 		_renderBars.Clear();
+		_renderZones.Clear();
 
 		lock (_barsLock)
 		{
 			var firstBar = Math.Max(0, FirstVisibleBarNumber);
+
+			if (_showZones)
+			{
+				foreach (var zone in _zones)
+				{
+					if (zone.StartBar <= LastVisibleBarNumber && (zone.IsActive || zone.EndBar >= firstBar))
+						_renderZones.Add((zone.StartBar, zone.EndBar, zone));
+				}
+			}
+
 			var lastBar = Math.Min(LastVisibleBarNumber, _barImbalances.Count - 1);
 
 			for (var bar = firstBar; bar <= lastBar; bar++)
@@ -362,6 +457,29 @@ public class DiagonalImbalance : Indicator
 			if (_formingBar >= firstBar && _formingBar <= LastVisibleBarNumber && _formingLevels.Length > 0)
 				_renderBars.Add((_formingBar, _formingLevels));
 		}
+
+		// Zones first, so the imbalance marks stay on top of them.
+		var chartRight = Container.Region.Right;
+
+		foreach (var (startBar, endBar, zone) in _renderZones)
+		{
+			// From the bar with the stack to the end of the breaking bar, or to the right edge
+			// of the chart while the zone is active.
+			var left = ChartInfo.GetXByBar(startBar);
+			var right = endBar < 0 ? chartRight : ChartInfo.GetXByBar(endBar) + barWidth;
+
+			if (right <= left)
+				continue;
+
+			var top = ChartInfo.GetYByPrice(zone.High, true);
+			var bottom = ChartInfo.GetYByPrice(zone.Low - tickSize, true);
+
+			context.FillRectangle(zone.IsBuy ? _buyZoneColor : _sellZoneColor,
+				new Rectangle(left, top, right - left, Math.Max(1, bottom - top)));
+		}
+
+		if (!_showMarks)
+			return;
 
 		foreach (var (bar, levels) in _renderBars)
 		{
@@ -395,11 +513,15 @@ public class DiagonalImbalance : Indicator
 	private void CalculateFormingBar(int bar)
 	{
 		var levels = FindImbalances(bar);
+		var candle = GetCandle(bar);
 
 		lock (_barsLock)
 		{
 			_formingBar = bar;
 			_formingLevels = levels;
+
+			// The High and Low of a forming bar only extend, so a break seen now is final.
+			BreakZones(bar, candle.Low, candle.High);
 		}
 	}
 
@@ -418,6 +540,14 @@ public class DiagonalImbalance : Indicator
 
 			_barImbalances[bar] = levels;
 			_barStacks[bar] = stacks;
+
+			// Existing zones are tested against this bar first; the bar's own stacks become
+			// zones afterwards, so a zone is only ever broken by a later bar.
+			var candle = GetCandle(bar);
+			BreakZones(bar, candle.Low, candle.High);
+
+			foreach (var stack in stacks)
+				_zones.Add(new ImbalanceZone(bar, stack));
 
 			if (_formingBar == bar)
 			{
@@ -446,6 +576,40 @@ public class DiagonalImbalance : Indicator
 		// possibly several at once). Bars without imbalances are not logged.
 		if (_historyLoaded && levels.Length > 0)
 			LogBar(bar);
+	}
+
+	// Called under _barsLock. Ends every active zone older than the bar that the bar trades through.
+	private void BreakZones(int bar, decimal barLow, decimal barHigh)
+	{
+		foreach (var zone in _zones)
+		{
+			if (!zone.IsActive || zone.StartBar >= bar || !zone.IsBrokenBy(barLow, barHigh))
+				continue;
+
+			zone.EndBar = bar;
+
+			if (_historyLoaded)
+			{
+				this.LogInfo($"DiagonalImbalance: zone {(zone.IsBuy ? "B" : "S")} {zone.Low}-{zone.High} " +
+					$"from bar {zone.StartBar} broken at bar {bar}.");
+			}
+		}
+	}
+
+	private int CountActiveZones()
+	{
+		lock (_barsLock)
+		{
+			var active = 0;
+
+			foreach (var zone in _zones)
+			{
+				if (zone.IsActive)
+					active++;
+			}
+
+			return active;
+		}
 	}
 
 	// Walks the bar from Low to High. At each price P the Ask of P and the Bid of P - 1 tick
