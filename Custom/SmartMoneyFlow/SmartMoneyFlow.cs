@@ -35,6 +35,17 @@ public class SmartMoneyFlow : Indicator
 		Continuous
 	}
 
+	public enum ViewMode
+	{
+		// The five filter lines.
+		[Display(Name = "Filters")]
+		Filters,
+
+		// The spread histogram.
+		[Display(Name = "Smart money spread")]
+		Spread
+	}
+
 	// Side of the spread a filter counts on.
 	public enum FilterRole
 	{
@@ -85,6 +96,8 @@ public class SmartMoneyFlow : Indicator
 	// Spread = sum of the smart money filters - sum of the dumb money filters.
 	// Default: the two largest sizes against the two smallest.
 	private readonly FilterRole[] _role = { FilterRole.Dumb, FilterRole.Dumb, FilterRole.None, FilterRole.Smart, FilterRole.Smart };
+
+	private ViewMode _viewMode = ViewMode.Filters;
 
 	// Spread histogram colors, by sign.
 	private CrossColor _spreadPositiveColor = CrossColor.FromArgb(255, 0, 255, 0);
@@ -153,6 +166,23 @@ public class SmartMoneyFlow : Indicator
 	#endregion
 
 	#region Properties
+
+	[Display(Name = "View", GroupName = "View",
+		Description = "Shows the filter lines or the smart money spread. Switching does not recalculate.",
+		Order = 1)]
+	public ViewMode View
+	{
+		get => _viewMode;
+		set
+		{
+			if (_viewMode == value)
+				return;
+
+			_viewMode = value;
+			UpdateVisibility();
+			RedrawChart();
+		}
+	}
 
 	[Display(Name = "Positive color", GroupName = "Spread", Description = "Color of the spread bars at or above zero.", Order = 1010)]
 	public CrossColor SpreadPositiveColor
@@ -243,7 +273,7 @@ public class SmartMoneyFlow : Indicator
 		}
 	}
 
-	[Display(Name = "Enabled", GroupName = "Filter 1", Description = "Shows the line of this filter.", Order = 100)]
+	[Display(Name = "Enabled", GroupName = "Filter 1", Description = "Shows the line of this filter in the Filters view. The filter still counts in the spread.", Order = 100)]
 	public bool UseFilter1
 	{
 		get => _useFilter[0];
@@ -290,7 +320,7 @@ public class SmartMoneyFlow : Indicator
 		set => _filterSeries[0].Width = value;
 	}
 
-	[Display(Name = "Enabled", GroupName = "Filter 2", Description = "Shows the line of this filter.", Order = 200)]
+	[Display(Name = "Enabled", GroupName = "Filter 2", Description = "Shows the line of this filter in the Filters view. The filter still counts in the spread.", Order = 200)]
 	public bool UseFilter2
 	{
 		get => _useFilter[1];
@@ -337,7 +367,7 @@ public class SmartMoneyFlow : Indicator
 		set => _filterSeries[1].Width = value;
 	}
 
-	[Display(Name = "Enabled", GroupName = "Filter 3", Description = "Shows the line of this filter.", Order = 300)]
+	[Display(Name = "Enabled", GroupName = "Filter 3", Description = "Shows the line of this filter in the Filters view. The filter still counts in the spread.", Order = 300)]
 	public bool UseFilter3
 	{
 		get => _useFilter[2];
@@ -384,7 +414,7 @@ public class SmartMoneyFlow : Indicator
 		set => _filterSeries[2].Width = value;
 	}
 
-	[Display(Name = "Enabled", GroupName = "Filter 4", Description = "Shows the line of this filter.", Order = 400)]
+	[Display(Name = "Enabled", GroupName = "Filter 4", Description = "Shows the line of this filter in the Filters view. The filter still counts in the spread.", Order = 400)]
 	public bool UseFilter4
 	{
 		get => _useFilter[3];
@@ -431,7 +461,7 @@ public class SmartMoneyFlow : Indicator
 		set => _filterSeries[3].Width = value;
 	}
 
-	[Display(Name = "Enabled", GroupName = "Filter 5", Description = "Shows the line of this filter.", Order = 500)]
+	[Display(Name = "Enabled", GroupName = "Filter 5", Description = "Shows the line of this filter in the Filters view. The filter still counts in the spread.", Order = 500)]
 	public bool UseFilter5
 	{
 		get => _useFilter[4];
@@ -635,6 +665,7 @@ public class SmartMoneyFlow : Indicator
 	{
 		_useFilter[filter] = value;
 		UpdateVisibility();
+		RedrawChart();
 	}
 
 	private void SetVolumeRange(int filter, decimal min, decimal max)
@@ -669,12 +700,15 @@ public class SmartMoneyFlow : Indicator
 		RedrawChart();
 	}
 
+	// Filters view: the enabled filter lines. Spread view: the spread histogram only.
 	private void UpdateVisibility()
 	{
-		for (var i = 0; i < FilterCount; i++)
-			_filterSeries[i].VisualType = _useFilter[i] ? VisualMode.Line : VisualMode.Hide;
+		var filters = _viewMode == ViewMode.Filters;
 
-		_spreadSeries.VisualType = VisualMode.Histogram;
+		for (var i = 0; i < FilterCount; i++)
+			_filterSeries[i].VisualType = filters && _useFilter[i] ? VisualMode.Line : VisualMode.Hide;
+
+		_spreadSeries.VisualType = filters ? VisualMode.Hide : VisualMode.Histogram;
 	}
 
 	// Called under _calcLock. Recalculates the spread and its color from the filter lines
