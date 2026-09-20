@@ -209,7 +209,7 @@ namespace ATAS.Indicators.Technical
 
         // ─── Engine state ───────────────────────────────────────────────────
         // Sliding window of trades observed in the last TimeWindow seconds.
-        // Populated by OnNewTrade (C03) and OnCumulativeTradesResponse (C12).
+        // Populated by ProcessTick, for the history and realtime alike.
         private readonly Queue<TickSnapshot> _tickQueue = new Queue<TickSnapshot>();
 
         // Running aggregates of _tickQueue, updated on every enqueue and dequeue so a trade costs
@@ -291,7 +291,7 @@ namespace ATAS.Indicators.Technical
 
         // Cached percentile value, recomputed every time a new observation
         // enters the buffer. Read by UpdateHistogram (writes the threshold
-        // series) and by event detection in C07.
+        // series) and by event detection.
         private decimal _currentThreshold;
 
         // Last observed speed. Used by DetectEvents for last-vs-current
@@ -300,9 +300,8 @@ namespace ATAS.Indicators.Technical
         private decimal _lastSpeed;
 
         // Multi-burst cache: each bar maps to the list of events detected
-        // during it. Persistent (per spec — never pruned). The render layer
-        // (C08+) iterates this dictionary to draw rectangles and extension
-        // lines.
+        // during it. Persistent (never pruned). The render layer iterates this
+        // dictionary to draw rectangles and extension lines.
         private readonly Dictionary<int, List<EventRecord>> _eventsByBar
             = new Dictionary<int, List<EventRecord>>();
 
@@ -410,7 +409,7 @@ namespace ATAS.Indicators.Technical
 
         [Display(Name = "Data type",
                  GroupName = "Calculation",
-                 Description = "Which metric the engine accumulates inside the time window. Ticks counts trades; Volume sums lots; Delta is signed buy-minus-sell volume; Buy/Sell Volume isolate one side.",
+                 Description = "Which metric the engine accumulates inside the time window. Ticks counts trades; Volume sums lots; Delta is the size of the buy-minus-sell volume, whichever side leads; Buy/Sell Volume isolate one side.",
                  Order = 20)]
         public SpeedType DataType
         {
@@ -627,7 +626,11 @@ namespace ATAS.Indicators.Technical
             DataSeries.Add(_thresholdSeries);
             DataSeries.Add(_headroomSeries);
 
-            this.LogInfo("SpeedOfTapeV3 scaffold loaded");
+        }
+
+        protected override void OnInitialize()
+        {
+            this.LogInfo($"SpeedOfTapeV3: initialized ({typeof(SpeedOfTapeV3).Assembly.GetName().Version}).");
         }
 
         #endregion
@@ -680,7 +683,7 @@ namespace ATAS.Indicators.Technical
             var endTime = GetCandle(CurrentBar - 1).LastTime;
             var request = new CumulativeTradesRequest(startTime, endTime, 0, 0);
 
-            this.LogInfo($"history request {startTime:yyyy-MM-dd HH:mm:ss}-{endTime:yyyy-MM-dd HH:mm:ss} (bars {firstBar}-{CurrentBar - 1}, sessions {(_sessionsToCalculate > 0 ? _sessionsToCalculate.ToString() : "all")})");
+            this.LogInfo($"SpeedOfTapeV3: history request {startTime:yyyy-MM-dd HH:mm:ss}-{endTime:yyyy-MM-dd HH:mm:ss} (bars {firstBar}-{CurrentBar - 1}, sessions {(_sessionsToCalculate > 0 ? _sessionsToCalculate.ToString() : "all")})");
 
             lock (_engineLock)
                 _requestId = request.RequestId;
@@ -777,7 +780,7 @@ namespace ATAS.Indicators.Technical
                         ProcessTick(tick);
 
                     int eventCount = _eventsByBar.Sum(kv => kv.Value.Count);
-                    this.LogInfo($"history replay complete — ticks={ticks.Count} events={eventCount}");
+                    this.LogInfo($"SpeedOfTapeV3: history replay complete — ticks={ticks.Count} events={eventCount}");
                 }
                 finally
                 {
@@ -838,7 +841,7 @@ namespace ATAS.Indicators.Technical
                 }
             }
 
-            this.LogInfo($"realtime started; buffered ticks: {replayed} replayed, {skipped} already in the history");
+            this.LogInfo($"SpeedOfTapeV3: realtime started; buffered ticks: {replayed} replayed, {skipped} already in the history");
         }
 
         #endregion
@@ -1096,7 +1099,7 @@ namespace ATAS.Indicators.Technical
                 if (!_isReplaying)
                 {
                     var side = _currentSnapshot.IsBuyDominant ? "buy" : "sell";
-                    this.LogInfo($"burst @ bar={bar} speed={current.ToString("0.00")} threshold={threshold.ToString("0.00")} side={side} eff={_currentSnapshot.Efficiency.ToString("0.00")} range={_currentSnapshot.Low}-{_currentSnapshot.High}");
+                    this.LogInfo($"SpeedOfTapeV3: burst @ bar={bar} speed={current.ToString("0.00")} threshold={threshold.ToString("0.00")} side={side} eff={_currentSnapshot.Efficiency.ToString("0.00")} range={_currentSnapshot.Low}-{_currentSnapshot.High}");
                 }
             }
 
@@ -1305,7 +1308,7 @@ namespace ATAS.Indicators.Technical
             var fg = CrossColor.FromArgb(255, 255, 255, 255);
 
             AddAlert(_alertFile, InstrumentInfo.Instrument, message, bg, fg);
-            this.LogInfo($"alert fired @ bar={bar}: {message}");
+            this.LogInfo($"SpeedOfTapeV3: alert fired @ bar={bar}: {message}");
         }
 
         #endregion
@@ -1487,6 +1490,22 @@ namespace ATAS.Indicators.Technical
         }
 
         /// <summary>
+        /// Converts a UTC time to the chart time zone. Stable and Latest only offer
+        /// whole hours; the others take the exact offset (half-hour zones included).
+        /// </summary>
+        private DateTime ChartTime(DateTime utc)
+        {
+            if (InstrumentInfo is null)
+                return utc;
+
+#if ATAS_STABLE || ATAS_LATEST
+            return utc.AddHours(InstrumentInfo.TimeZone);
+#else
+            return utc.Add(InstrumentInfo.TimeZoneOffset);
+#endif
+        }
+
+        /// <summary>
         /// Renders the floating info panel anchored in the configured
         /// corner of the price chart. The panel is sized to fit a title
         /// row plus one row per recent event; rows are coloured by the
@@ -1508,13 +1527,8 @@ namespace ATAS.Indicators.Technical
             string title = $"SPEED OF TAPE — {events.Count} burst{(events.Count == 1 ? "" : "s")}";
             const string columnHeader = "TIME      D  SPD    DELTA   EFF";
 
-            // Match the chart's x-axis timezone. Trade timestamps from the
-            // feed are in UTC; ATAS displays bar times using
-            // InstrumentInfo.TimeZone as the offset from UTC. Applying the
-            // same offset here keeps panel times visually aligned with the
-            // candles below — change the chart timezone in ATAS settings
-            // and both move together.
-            double chartTzOffset = InstrumentInfo.TimeZone;
+            // Trade timestamps from the feed are in UTC; the rows use the chart time zone, so
+            // they line up with the candles below.
 
             // Suffix shown next to the speed value depends on the active
             // DataType — "t" for tick counts, "c" for contract volume
@@ -1528,7 +1542,7 @@ namespace ATAS.Indicators.Technical
             {
                 var snap = evt.Snapshot;
                 string side = snap.IsBuyDominant ? "▲" : "▼";
-                DateTime chartTime = evt.Time.AddHours(chartTzOffset);
+                DateTime chartTime = ChartTime(evt.Time);
 
                 string row = string.Format(
                     "{0:HH:mm:ss}  {1}  {2,4:0}{5}  {3,5:+0;-0;0}  {4,3:0}%",
