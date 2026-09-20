@@ -446,6 +446,10 @@ namespace ATAS.Indicators.Technical
 		private int _bufferStartTickCount;
 
 		private int _targetVolume = 2500;
+		private int _sessionsToCalculate = 5;
+
+		// First bar of the calculated range. Bars before it have no snapshot.
+		private int _firstBar;
 
 		// Session-wide running maximum of per-bar raw amplitudes.
 		// Drives the global scale anchor so a single outlier in the
@@ -581,6 +585,22 @@ namespace ATAS.Indicators.Technical
 				var clamped = Math.Max(1, value);
 				if (_targetVolume == clamped) return;
 				_targetVolume = clamped;
+				RecalculateValues();
+			}
+		}
+
+		[Display(Name = "Sessions to Calculate", GroupName = "Calculation", Order = 2,
+			Description = "Number of the most recent sessions whose trades are requested and classified. 0 calculates the whole chart, which can take long on charts with many days loaded.")]
+		[Range(0, 1000)]
+		[PostValueMode(PostValueModes.OnLostFocus)]
+		public int SessionsToCalculate
+		{
+			get => _sessionsToCalculate;
+			set
+			{
+				var clamped = Math.Max(0, value);
+				if (_sessionsToCalculate == clamped) return;
+				_sessionsToCalculate = clamped;
 				RecalculateValues();
 			}
 		}
@@ -777,6 +797,7 @@ namespace ATAS.Indicators.Technical
 				_historyLoaded = false;
 				_requestId = 0;
 				_lastSnapshotBar = -1;
+				_firstBar = 0;
 				_pendingTicks.Clear();
 				_bufferStartTickTime = _lastTickTime;
 				_bufferStartTickCount = _lastTickCount;
@@ -797,12 +818,17 @@ namespace ATAS.Indicators.Technical
 			if (!needsFetch) return;
 			if (CurrentBar < 1) return;
 
-			var firstCandle = GetCandle(0);
+			var firstBar = FirstCalculatedBar();
+
+			lock (_stateLock)
+				_firstBar = firstBar;
+
+			var firstCandle = GetCandle(firstBar);
 			var lastCandle = GetCandle(CurrentBar - 1);
 			var sessionStart = firstCandle.Time;
 			var sessionEnd = lastCandle?.LastTime ?? firstCandle.LastTime;
 
-			this.LogInfo($"DeltaPatterns: fetch started range={sessionStart:yyyy-MM-dd HH:mm:ss}-{sessionEnd:yyyy-MM-dd HH:mm:ss}, target {TargetVolume} contracts");
+			this.LogInfo($"DeltaPatterns: fetch started range={sessionStart:yyyy-MM-dd HH:mm:ss}-{sessionEnd:yyyy-MM-dd HH:mm:ss} (bars {firstBar}-{CurrentBar - 1}, sessions {(_sessionsToCalculate > 0 ? _sessionsToCalculate.ToString() : "all")}), target {TargetVolume} contracts");
 
 			var request = new CumulativeTradesRequest(sessionStart, sessionEnd, 0, 0);
 
@@ -845,7 +871,7 @@ namespace ATAS.Indicators.Technical
 					_metrics.Clear();
 					_patterns.Clear();
 					_sessionMaxAmp = 0m;
-					_lastSnapshotBar = -1;
+					_lastSnapshotBar = _firstBar - 1;
 
 					_historyEndTime = ticks.Count > 0 ? ticks[ticks.Count - 1].Time : DateTime.MinValue;
 					_boundaryTickCount = 0;
@@ -1151,6 +1177,23 @@ namespace ATAS.Indicators.Technical
 				SnapshotBar(b);
 
 			_lastSnapshotBar = Math.Max(_lastSnapshotBar, bar);
+		}
+
+		// First bar of the last SessionsToCalculate sessions, or 0 for the whole chart.
+		private int FirstCalculatedBar()
+		{
+			if (_sessionsToCalculate <= 0)
+				return 0;
+
+			var sessions = 0;
+
+			for (var bar = CurrentBar - 1; bar > 0; bar--)
+			{
+				if (IsNewSession(bar) && ++sessions == _sessionsToCalculate)
+					return bar;
+			}
+
+			return 0;
 		}
 
 		// Bar that contains a time: the last bar opened at or before it, or -1 before the first bar.
