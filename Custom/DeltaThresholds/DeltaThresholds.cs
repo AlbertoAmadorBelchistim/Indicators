@@ -142,6 +142,9 @@ public class DeltaThresholds : Indicator
 
 	#region Fields
 
+	// Number of most recent bars written to the log after the history (detailed log).
+	private const int LoggedHistoryBars = 20;
+
 	// Delta of each bar (ask volume - bid volume), drawn as a histogram.
 	private readonly ValueDataSeries _deltaSeries = new("DeltaSeries", "Delta")
 	{
@@ -149,6 +152,10 @@ public class DeltaThresholds : Indicator
 		ShowZeroValue = false,
 		UseMinimizedModeIfEnabled = true
 	};
+
+	private bool _showHistogram = true;
+	private CrossColor _upColor = CrossColor.FromArgb(255, 0, 170, 0);
+	private CrossColor _downColor = CrossColor.FromArgb(255, 205, 0, 0);
 
 	// Threshold lines, drawn as one dash per bar so a level that changes between sessions or
 	// bars never draws a slanted connector. Zero values are not drawn.
@@ -235,13 +242,6 @@ public class DeltaThresholds : Indicator
 
 	private bool _detailedLog;
 
-	// Number of most recent bars written to the log after the history (detailed log).
-	private const int LoggedHistoryBars = 20;
-
-	private bool _showHistogram = true;
-	private CrossColor _upColor = CrossColor.FromArgb(255, 0, 170, 0);
-	private CrossColor _downColor = CrossColor.FromArgb(255, 205, 0, 0);
-
 	#endregion
 
 	#region Properties
@@ -280,6 +280,10 @@ public class DeltaThresholds : Indicator
 			RecalculateValues();
 		}
 	}
+
+	#endregion
+
+	#region Properties: Thresholds
 
 	[Display(Name = "Threshold source", GroupName = "Thresholds",
 		Description = "Fixed: the four levels below. Dynamic: from the bars of the session so far; minor = mean of the bar extremes, major = mean + multiplier x standard deviation.",
@@ -448,6 +452,10 @@ public class DeltaThresholds : Indicator
 		set => _downMajorSeries.Color = value;
 	}
 
+	#endregion
+
+	#region Properties: Signals
+
 	[Display(Name = "Show signals", GroupName = "Signals", Description = "Draws a triangle on the price chart when the delta of a bar reaches the selected level: below the bar for the up side, above it for the down side.", Order = 300)]
 	public bool ShowSignals
 	{
@@ -538,6 +546,10 @@ public class DeltaThresholds : Indicator
 		}
 	}
 
+	#endregion
+
+	#region Properties: Alerts
+
 	[Display(Name = "Enabled", GroupName = "Alerts", Description = "Alerts when the delta of a bar reaches the selected level (only in realtime).", Order = 400)]
 	public bool UseAlerts
 	{
@@ -580,6 +592,10 @@ public class DeltaThresholds : Indicator
 		get => _alertFile;
 		set => _alertFile = value;
 	}
+
+	#endregion
+
+	#region Properties: Average
 
 	[Display(Name = "Show average", GroupName = "Average", Description = "Draws a moving average of the bar delta.", Order = 500)]
 	public bool ShowAverage
@@ -667,6 +683,10 @@ public class DeltaThresholds : Indicator
 		get => _averageSeries.Width;
 		set => _averageSeries.Width = value;
 	}
+
+	#endregion
+
+	#region Properties: Diagnostics
 
 	[Display(Name = "Detailed log", GroupName = "Diagnostics", Description = "Writes to the ATAS log the delta, levels and signals of the last 20 bars after each recalculation and of every bar that closes afterwards.", Order = 900)]
 	public bool DetailedLog
