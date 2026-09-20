@@ -17,6 +17,8 @@ using OFT.Rendering.Control;
 using OFT.Rendering.Settings;
 using OFT.Rendering.Tools;
 
+using ATAS.Indicators.Technical.ClusterStatsCore;
+
 using Utils.Common.Logging;
 
 using Color = CrossColor;
@@ -68,6 +70,9 @@ public class ClusterStatisticPro : Indicator
 			Add(DataType.Time, new RenderInfo(14));
 			Add(DataType.Duration, new RenderInfo(15));
 			Add(DataType.DeltaSecond, new RenderInfo(16));
+			Add(DataType.BuyImbalance, new RenderInfo(17));
+			Add(DataType.SellImbalance, new RenderInfo(18));
+			Add(DataType.NetImbalance, new RenderInfo(19));
 		}
 
 		#endregion
@@ -225,6 +230,9 @@ public class ClusterStatisticPro : Indicator
 		Time,
 		Duration,
 		DeltaSecond,
+		BuyImbalance,
+		SellImbalance,
+		NetImbalance,
 		None
 	}
 
@@ -274,6 +282,14 @@ public class ClusterStatisticPro : Indicator
 
 	private readonly ValueDataSeries _volPerSecond = new("VolPerSecond");
 	private readonly ValueDataSeries _deltaPerSecond = new("DeltaPerSecond");
+	private readonly ValueDataSeries _buyImbalance = new("BuyImbalance");
+	private readonly ValueDataSeries _sellImbalance = new("SellImbalance");
+	private readonly ValueDataSeries _netImbalance = new("NetImbalance");
+	private readonly ValueDataSeries _stackedBuyImbalance = new("StackedBuyImbalance");
+	private readonly ValueDataSeries _stackedSellImbalance = new("StackedSellImbalance");
+	private readonly ValueDataSeries _stackedNetImbalance = new("StackedNetImbalance");
+	private readonly ImbalanceSettings _imbalance = new();
+	private readonly List<PriceLevel> _levels = new();
 
 	// Maxima of the rows added by this indicator, by row.
 	private readonly Dictionary<DataType, ClosedBarsMax> _rowMaxima = new();
@@ -529,6 +545,42 @@ public class ClusterStatisticPro : Indicator
     }
 
     [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowBuyImbalances), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowBuyImbalancesDescription), Order = 197, ResourceType = typeof(Res))]
+    public bool ShowBuyImbalance
+    {
+        get => RowsOrder[DataType.BuyImbalance].Enabled;
+        set
+        {
+            RowsOrder.SetEnabled(DataType.BuyImbalance, value);
+            OnImbalanceUseChanged();
+        }
+    }
+
+    [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowSellImbalances), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowSellImbalancesDescription), Order = 198, ResourceType = typeof(Res))]
+    public bool ShowSellImbalance
+    {
+        get => RowsOrder[DataType.SellImbalance].Enabled;
+        set
+        {
+            RowsOrder.SetEnabled(DataType.SellImbalance, value);
+            OnImbalanceUseChanged();
+        }
+    }
+
+    [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowNetImbalances), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowNetImbalancesDescription), Order = 199, ResourceType = typeof(Res))]
+    public bool ShowNetImbalance
+    {
+        get => RowsOrder[DataType.NetImbalance].Enabled;
+        set
+        {
+            RowsOrder.SetEnabled(DataType.NetImbalance, value);
+            OnImbalanceUseChanged();
+        }
+    }
+
+    [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
     [Display(Name = nameof(Res.ShowSessionVolume), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowSessionVolumeDescription), Order = 191, ResourceType = typeof(Res))]
     public bool ShowSessionVolume
     {
@@ -615,6 +667,49 @@ public class ClusterStatisticPro : Indicator
 			if (propName == nameof(FilterTimeSpan.Value) && _sessionMode == SessionMode.CustomSession)
 				RecalculateValues();
 		});
+    }
+
+    #endregion
+
+    #region Imbalances
+
+    [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ImbalanceThresholdPercentName), GroupName = nameof(Res.ImbalanceGroup), Description = nameof(Res.ImbalanceThresholdPercentDescription), Order = 150, ResourceType = typeof(Res))]
+    [Range(101, 10000)]
+    public int ImbalanceThreshold
+    {
+        get => (int)_imbalance.RatioPercent;
+        set
+        {
+            _imbalance.RatioPercent = value;
+            RebuildImbalances();
+        }
+    }
+
+    [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ImbalanceMinDominantVolumeName), GroupName = nameof(Res.ImbalanceGroup), Description = nameof(Res.ImbalanceMinDominantVolumeDescription), Order = 151, ResourceType = typeof(Res))]
+    [Range(0, 1000000)]
+    public int ImbalanceMinDominantVolume
+    {
+        get => (int)_imbalance.MinDominantVolume;
+        set
+        {
+            _imbalance.MinDominantVolume = value;
+            RebuildImbalances();
+        }
+    }
+
+    [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ImbalanceMinDifferenceName), GroupName = nameof(Res.ImbalanceGroup), Description = nameof(Res.ImbalanceMinDifferenceDescription), Order = 152, ResourceType = typeof(Res))]
+    [Range(0, 1000000)]
+    public int ImbalanceMinDifference
+    {
+        get => (int)_imbalance.MinDifference;
+        set
+        {
+            _imbalance.MinDifference = value;
+            RebuildImbalances();
+        }
     }
 
     #endregion
@@ -971,6 +1066,9 @@ public class ClusterStatisticPro : Indicator
 		ShowDescription = false;
 
 		_rowMaxima[DataType.DeltaSecond] = new ClosedBarsMax(_deltaPerSecond);
+		_rowMaxima[DataType.BuyImbalance] = new ClosedBarsMax(_buyImbalance);
+		_rowMaxima[DataType.SellImbalance] = new ClosedBarsMax(_sellImbalance);
+		_rowMaxima[DataType.NetImbalance] = new ClosedBarsMax(_netImbalance);
 
 		Font = new FontSetting("Arial", 9);
 		CustomSessionStart = new(false);
@@ -1095,6 +1193,9 @@ public class ClusterStatisticPro : Indicator
 
 		_volPerSecond[bar] = candle.Volume / candleSeconds;
 		_deltaPerSecond[bar] = candle.Delta / candleSeconds;
+
+		if (ShouldComputeImbalances())
+			CalculateImbalances(bar, candle);
 
 		foreach (var maximum in _rowMaxima.Values)
 			maximum.Update(bar);
@@ -1755,6 +1856,9 @@ public class ClusterStatisticPro : Indicator
 			DataType.SessionDelta => Blend(_cDelta[bar] > 0 ? AskColor : BidColor, BackGroundColor, rate),
 			DataType.DeltaChange => GetDeltaChangeBrush(bar, rate),
 			DataType.DeltaSecond => Blend(_deltaPerSecond[bar] > 0 ? AskColor : BidColor, BackGroundColor, rate),
+			DataType.BuyImbalance => Blend(AskColor, BackGroundColor, rate),
+			DataType.SellImbalance => Blend(BidColor, BackGroundColor, rate),
+			DataType.NetImbalance => Blend(_netImbalance[bar] >= 0 ? AskColor : BidColor, BackGroundColor, rate),
 			DataType.None => System.Drawing.Color.Transparent,
 			_ => throw new ArgumentOutOfRangeException()
 		};
@@ -1781,6 +1885,9 @@ public class ClusterStatisticPro : Indicator
 			DataType.Time => GetRate(_cVolume[bar], maxValues.CumVolume),
 			DataType.Duration => GetRate(_candleDurations[bar], maxValues.MaxDuration),
 			DataType.DeltaSecond => GetRate(Math.Abs(_deltaPerSecond[bar]), RowScale(type)),
+			DataType.BuyImbalance => GetRate(_buyImbalance[bar], RowScale(type)),
+			DataType.SellImbalance => GetRate(_sellImbalance[bar], RowScale(type)),
+			DataType.NetImbalance => GetRate(Math.Abs(_netImbalance[bar]), RowScale(type)),
 			DataType.None => 0,
 
 			_ => throw new ArgumentOutOfRangeException()
@@ -1910,6 +2017,9 @@ public class ClusterStatisticPro : Indicator
 			DataType.Time => candle.Time.Add(TimeOffset).ToString("HH:mm:ss"),
 			DataType.Duration => ((int)(candle.LastTime - candle.Time).TotalSeconds).ToString(),
 			DataType.DeltaSecond => ChartInfo.TryGetMinimizedVolumeString(_deltaPerSecond[bar]),
+			DataType.BuyImbalance => _buyImbalance[bar].ToString("0", CultureInfo.InvariantCulture),
+			DataType.SellImbalance => _sellImbalance[bar].ToString("0", CultureInfo.InvariantCulture),
+			DataType.NetImbalance => _netImbalance[bar].ToString("+0;-0;0", CultureInfo.InvariantCulture),
 			DataType.None => string.Empty,
 			_ => throw new ArgumentOutOfRangeException()
 		};
@@ -1997,10 +2107,60 @@ public class ClusterStatisticPro : Indicator
 			DataType.Time => "Time",
 			DataType.Duration => "Duration",
 			DataType.DeltaSecond => "Delta/sec",
+			DataType.BuyImbalance => "Buy Imb",
+			DataType.SellImbalance => "Sell Imb",
+			DataType.NetImbalance => "Net Imb",
 			DataType.None => string.Empty,
 
 			_ => throw new ArgumentOutOfRangeException()
 		};
+	}
+
+	private bool ShouldComputeImbalances()
+	{
+		return RowsOrder[DataType.BuyImbalance].Enabled
+			|| RowsOrder[DataType.SellImbalance].Enabled
+			|| RowsOrder[DataType.NetImbalance].Enabled;
+	}
+
+	private void CalculateImbalances(int bar, IndicatorCandle candle)
+	{
+		_levels.Clear();
+
+		foreach (var level in candle.GetAllPriceLevels())
+			_levels.Add(new PriceLevel(level.Price, level.Ask, level.Bid));
+
+		var counts = ImbalanceCounter.Count(_levels, _imbalance);
+
+		_buyImbalance[bar] = counts.Buy;
+		_sellImbalance[bar] = counts.Sell;
+		_netImbalance[bar] = counts.Net;
+		_stackedBuyImbalance[bar] = counts.StackedBuy;
+		_stackedSellImbalance[bar] = counts.StackedSell;
+		_stackedNetImbalance[bar] = counts.StackedNet;
+	}
+
+	// The imbalances are only calculated while a row (or the alert) uses them: when one starts
+	// using them, or their settings change, the history is calculated at once, without a full
+	// recalculation of the indicator.
+	private void OnImbalanceUseChanged()
+	{
+		if (ShouldComputeImbalances())
+			RebuildImbalances();
+	}
+
+	private void RebuildImbalances()
+	{
+		if (!ShouldComputeImbalances() || CurrentBar <= 0)
+			return;
+
+		for (var bar = 0; bar < CurrentBar; bar++)
+			CalculateImbalances(bar, GetCandle(bar));
+
+		foreach (var maximum in _rowMaxima.Values)
+			maximum.Update(CurrentBar - 1);
+
+		RedrawChart();
 	}
 
 	// A ratio given in percent, shown as a percentage (25%) or as a fraction (0.25).

@@ -114,6 +114,27 @@
   <data name="HideRowsDescription" xml:space="preserve">
     <value>Ocultar encabezamientos</value>
   </data>
+  <data name="ImbalanceGroup" xml:space="preserve">
+    <value>Desequilibrio</value>
+  </data>
+  <data name="ImbalanceMinDifferenceDescription" xml:space="preserve">
+    <value>Minimum difference between the dominant and the diagonal volume for an imbalance.</value>
+  </data>
+  <data name="ImbalanceMinDifferenceName" xml:space="preserve">
+    <value>Diferencia mínima de volumen</value>
+  </data>
+  <data name="ImbalanceMinDominantVolumeDescription" xml:space="preserve">
+    <value>Minimum volume of the dominant side for an imbalance.</value>
+  </data>
+  <data name="ImbalanceMinDominantVolumeName" xml:space="preserve">
+    <value>Volumen dominante mínimo</value>
+  </data>
+  <data name="ImbalanceThresholdPercentDescription" xml:space="preserve">
+    <value>Minimum ratio between the dominant volume and the diagonal one, in percent: 300 means 3 to 1. A diagonal with no volume is not compared.</value>
+  </data>
+  <data name="ImbalanceThresholdPercentName" xml:space="preserve">
+    <value>Umbral de desequilibrio (%)</value>
+  </data>
   <data name="LabelFillColorDescription" xml:space="preserve">
     <value>Configuración para una lectura cómoda de los datos.</value>
   </data>
@@ -168,6 +189,12 @@
   <data name="ShowBidsDescription" xml:space="preserve">
     <value>Volumen de venta.</value>
   </data>
+  <data name="ShowBuyImbalances" xml:space="preserve">
+    <value>Desequilibrios compradores</value>
+  </data>
+  <data name="ShowBuyImbalancesDescription" xml:space="preserve">
+    <value>Buy imbalances of the bar: levels whose ask volume dominates the bid volume one level below.</value>
+  </data>
   <data name="ShowCandleDurationDescription" xml:space="preserve">
     <value>Información sobre la duración de la vela.</value>
   </data>
@@ -218,6 +245,18 @@
   </data>
   <data name="ShowMinimumDeltaDescription" xml:space="preserve">
     <value>Valor mínimo del delta durante la formación de la vela.</value>
+  </data>
+  <data name="ShowNetImbalances" xml:space="preserve">
+    <value>Desequilibrios netos</value>
+  </data>
+  <data name="ShowNetImbalancesDescription" xml:space="preserve">
+    <value>Buy imbalances minus sell imbalances of the bar.</value>
+  </data>
+  <data name="ShowSellImbalances" xml:space="preserve">
+    <value>Desequilibrios vendedores</value>
+  </data>
+  <data name="ShowSellImbalancesDescription" xml:space="preserve">
+    <value>Sell imbalances of the bar: levels whose bid volume dominates the ask volume one level above.</value>
   </data>
   <data name="ShowSessionDelta" xml:space="preserve">
     <value>Session delta</value>

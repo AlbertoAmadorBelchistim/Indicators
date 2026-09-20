@@ -114,6 +114,27 @@
   <data name="HideRowsDescription" xml:space="preserve">
     <value>Masquer les en-têtes</value>
   </data>
+  <data name="ImbalanceGroup" xml:space="preserve">
+    <value>Déséquilibre</value>
+  </data>
+  <data name="ImbalanceMinDifferenceDescription" xml:space="preserve">
+    <value>Minimum difference between the dominant and the diagonal volume for an imbalance.</value>
+  </data>
+  <data name="ImbalanceMinDifferenceName" xml:space="preserve">
+    <value>Différence minimale de volume</value>
+  </data>
+  <data name="ImbalanceMinDominantVolumeDescription" xml:space="preserve">
+    <value>Minimum volume of the dominant side for an imbalance.</value>
+  </data>
+  <data name="ImbalanceMinDominantVolumeName" xml:space="preserve">
+    <value>Volume dominant minimum</value>
+  </data>
+  <data name="ImbalanceThresholdPercentDescription" xml:space="preserve">
+    <value>Minimum ratio between the dominant volume and the diagonal one, in percent: 300 means 3 to 1. A diagonal with no volume is not compared.</value>
+  </data>
+  <data name="ImbalanceThresholdPercentName" xml:space="preserve">
+    <value>Seuil de déséquilibre (%)</value>
+  </data>
   <data name="LabelFillColorDescription" xml:space="preserve">
     <value>Définit la couleur de fond de l'étiquette.</value>
   </data>
@@ -168,6 +189,12 @@
   <data name="ShowBidsDescription" xml:space="preserve">
     <value>Détermine s'il faut afficher des informations sur les volumes d'offres.</value>
   </data>
+  <data name="ShowBuyImbalances" xml:space="preserve">
+    <value>Déséquilibres acheteurs</value>
+  </data>
+  <data name="ShowBuyImbalancesDescription" xml:space="preserve">
+    <value>Buy imbalances of the bar: levels whose ask volume dominates the bid volume one level below.</value>
+  </data>
   <data name="ShowCandleDurationDescription" xml:space="preserve">
     <value>Détermine si les informations sur la durée de la bougie doivent être affichées.</value>
   </data>
@@ -218,6 +245,18 @@
   </data>
   <data name="ShowMinimumDeltaDescription" xml:space="preserve">
     <value>Détermine si les informations sur le delta minimum doivent être affichées.</value>
+  </data>
+  <data name="ShowNetImbalances" xml:space="preserve">
+    <value>Déséquilibres nets</value>
+  </data>
+  <data name="ShowNetImbalancesDescription" xml:space="preserve">
+    <value>Buy imbalances minus sell imbalances of the bar.</value>
+  </data>
+  <data name="ShowSellImbalances" xml:space="preserve">
+    <value>Déséquilibres vendeurs</value>
+  </data>
+  <data name="ShowSellImbalancesDescription" xml:space="preserve">
+    <value>Sell imbalances of the bar: levels whose bid volume dominates the ask volume one level above.</value>
   </data>
   <data name="ShowSessionDelta" xml:space="preserve">
     <value>Delta de session</value>
