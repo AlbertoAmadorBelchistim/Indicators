@@ -129,6 +129,12 @@
   <data name="None" xml:space="preserve">
     <value>Aucun</value>
   </data>
+  <data name="RatiosAsPercent" xml:space="preserve">
+    <value>Ratio en pourcentage</value>
+  </data>
+  <data name="RatiosAsPercentDescription" xml:space="preserve">
+    <value>Shows Delta/Volume and Session Delta/Volume as a percentage (25%) or as a fraction (0.25).</value>
+  </data>
   <data name="Rows" xml:space="preserve">
     <value>Lignes</value>
   </data>

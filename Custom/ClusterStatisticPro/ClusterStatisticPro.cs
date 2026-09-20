@@ -655,6 +655,10 @@ public class ClusterStatisticPro : Indicator
     public bool VisibleProportion { get; set; }
 
     [Tab(TabName = nameof(Res.Visualization), TabOrder = 1, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.RatiosAsPercent), GroupName = nameof(Res.Visualization), Description = nameof(Res.RatiosAsPercentDescription), Order = 225, ResourceType = typeof(Res))]
+    public bool RatiosAsPercent { get; set; } = true;
+
+    [Tab(TabName = nameof(Res.Visualization), TabOrder = 1, ResourceType = typeof(Res))]
     [Display(Name = nameof(Res.Volume), GroupName = nameof(Res.Visualization), Description = nameof(Res.VolumeColorDescription), Order = 230, ResourceType = typeof(Res))]
     public Color VolumeColor { get; set; } = System.Drawing.Color.DarkGray.Convert();
 
@@ -1892,9 +1896,9 @@ public class ClusterStatisticPro : Indicator
 			DataType.Ask => ChartInfo.TryGetMinimizedVolumeString(candle.Ask),
 			DataType.Bid => ChartInfo.TryGetMinimizedVolumeString(candle.Bid),
 			DataType.Delta => ChartInfo.TryGetMinimizedVolumeString(candle.Delta),
-			DataType.DeltaVolume => (Math.Abs(_deltaPerVol[bar]) >= 1 ? _deltaPerVol[bar].ToString("0.") : _deltaPerVol[bar].ToString("0.#")) + "%",
+			DataType.DeltaVolume => FormatRatio(candle.Volume == 0 ? 0 : candle.Delta * 100m / candle.Volume),
 			DataType.SessionDelta => ChartInfo.TryGetMinimizedVolumeString(_cDelta[bar]),
-			DataType.SessionDeltaVolume => (Math.Abs(_cDeltaPerVol[bar]) >= 1 ? _cDeltaPerVol[bar].ToString("0.") : _cDeltaPerVol[bar].ToString("0.#")) + "%",
+			DataType.SessionDeltaVolume => FormatRatio(_cDeltaPerVol[bar]),
 			DataType.MaxDelta => ChartInfo.TryGetMinimizedVolumeString(candle.MaxDelta),
 			DataType.MinDelta => ChartInfo.TryGetMinimizedVolumeString(candle.MinDelta),
 			DataType.DeltaChange => ChartInfo.TryGetMinimizedVolumeString(_deltaChange[bar]),
@@ -1997,6 +2001,15 @@ public class ClusterStatisticPro : Indicator
 
 			_ => throw new ArgumentOutOfRangeException()
 		};
+	}
+
+	// A ratio given in percent, shown as a percentage (25%) or as a fraction (0.25).
+	private string FormatRatio(decimal percent)
+	{
+		if (!RatiosAsPercent)
+			return (percent / 100m).ToString("0.00", CultureInfo.InvariantCulture);
+
+		return (Math.Abs(percent) >= 1 ? percent.ToString("0.", CultureInfo.InvariantCulture) : percent.ToString("0.#", CultureInfo.InvariantCulture)) + "%";
 	}
 
 	private decimal RowScale(DataType type)
