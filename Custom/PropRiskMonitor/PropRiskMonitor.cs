@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -71,6 +72,7 @@ public class PropRiskMonitor : Indicator
 
 	private const int Padding = 10;
 	private static readonly TimeSpan TimerPeriod = TimeSpan.FromSeconds(1);
+	private static readonly object TradeLogSync = new();
 	private static readonly TimeSpan SaveDelay = TimeSpan.FromSeconds(2);
 
 	private Color _backgroundColor = Color.FromArgb(200, 20, 25, 35);
@@ -575,6 +577,14 @@ public class PropRiskMonitor : Indicator
 
 	#endregion
 
+	#region Trade log
+
+	[Display(Name = "Write trade log", GroupName = "Trade log", Order = 10,
+		Description = "Appends every closed trade of the chart instrument (side, times, PnL, MFE, MAE, size) as one JSON line to trades-<account>.jsonl in the state folder.")]
+	public bool WriteTradeLog { get; set; }
+
+	#endregion
+
 	#region Layout
 
 	[Display(Name = "Horizontal position", GroupName = "Layout", Order = 10)]
@@ -842,6 +852,9 @@ public class PropRiskMonitor : Indicator
 					position != null && position.IsInPosition ? position.Volume : 0m,
 					position?.AveragePrice ?? 0m);
 
+				if (closed != null && WriteTradeLog)
+					AppendTradeLog(_accountKey, instrument, closed.Clone());
+
 				if (closed != null)
 					this.LogInfo($"PropRiskMonitor: {instrument} trade closed, {(closed.Side > 0 ? "long" : "short")} PnL {closed.Pnl:N2}, MFE {closed.MaxOpenPnl:N2}, MAE {closed.MinOpenPnl:N2}.");
 
@@ -939,6 +952,40 @@ public class PropRiskMonitor : Indicator
 				}
 			}
 		}
+	}
+
+	private void AppendTradeLog(string accountKey, string instrument, TradeRecord trade)
+	{
+		var line = JsonSerializer.Serialize(new
+		{
+			account = accountKey,
+			instrument,
+			side = trade.Side > 0 ? "long" : "short",
+			openUtc = trade.OpenTimeUtc,
+			closeUtc = trade.CloseTimeUtc,
+			pnl = trade.Pnl,
+			mfe = trade.MaxOpenPnl,
+			mae = trade.MinOpenPnl,
+			maxQuantity = trade.MaxQuantity
+		});
+
+		var path = Path.Combine(StateStore.DefaultDirectory, "trades-" + StateStore.FileNameOf(accountKey).Replace(".state.json", ".jsonl"));
+
+		Task.Run(() =>
+		{
+			try
+			{
+				lock (TradeLogSync)
+				{
+					Directory.CreateDirectory(StateStore.DefaultDirectory);
+					File.AppendAllText(path, line + Environment.NewLine);
+				}
+			}
+			catch (Exception ex)
+			{
+				this.LogWarn($"PropRiskMonitor: could not write the trade log: {ex.Message}");
+			}
+		});
 	}
 
 	// Only this chart's instruments are written; the other charts' trades on disk are kept.
