@@ -14,6 +14,8 @@ namespace ATAS.Indicators.Technical
 	using OFT.Rendering.Settings;
 	using OFT.Rendering.Tools;
 
+	using Utils.Common.Logging;
+
 	using Res = ATAS.Indicators.Technical.EquivalentStrikesResources;
 
 	[Category("Custom")]
@@ -247,6 +249,11 @@ namespace ATAS.Indicators.Technical
 		#endregion
 
 		#region Protected methods
+
+		protected override void OnInitialize()
+		{
+			this.LogInfo($"EquivalentStrikes: initialized ({typeof(EquivalentStrikes).Assembly.GetName().Version}).");
+		}
 
 		protected override void OnCalculate(int bar, decimal value)
 		{
