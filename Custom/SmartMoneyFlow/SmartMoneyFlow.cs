@@ -64,6 +64,12 @@ public class SmartMoneyFlow : Indicator
 	private int _firstBar;
 	private int _lastBar = -1;
 
+	// Number of sessions calculated, counting the current one; 0 = every loaded bar.
+	private int _sessions = 1;
+
+	// Whether each written bar starts a session: the lines restart from 0 there.
+	private readonly List<bool> _sessionStart = new();
+
 	// Id of the pending cumulative trades request; responses to older requests are ignored.
 	private int _requestId;
 
@@ -105,6 +111,24 @@ public class SmartMoneyFlow : Indicator
 	#endregion
 
 	#region Properties
+
+	[Display(Name = "Sessions to calculate", GroupName = "Session",
+		Description = "Number of sessions calculated, counting the current one. The lines restart from 0 at the start of each session. 0 = every loaded bar.",
+		Order = 30)]
+	[Range(0, 1000)]
+	[PostValueMode(PostValueModes.OnLostFocus)]
+	public int Sessions
+	{
+		get => _sessions;
+		set
+		{
+			if (_sessions == value)
+				return;
+
+			_sessions = value;
+			RecalculateValues();
+		}
+	}
 
 	[Display(Name = "Cumulative trades", GroupName = "Calculation",
 		Description = "Counts cumulative trades (all the ticks of one aggressive order as one trade). Off: counts individual ticks.",
@@ -383,6 +407,7 @@ public class SmartMoneyFlow : Indicator
 			_requestId = 0;
 			_lastBar = -1;
 			Array.Clear(_delta);
+			_sessionStart.Clear();
 			_historyReady = false;
 			_pendingTrades.Clear();
 			_pendingTicks.Clear();
@@ -496,16 +521,48 @@ public class SmartMoneyFlow : Indicator
 			_filterSeries[i].VisualType = _useFilter[i] ? VisualMode.Line : VisualMode.Hide;
 	}
 
-	// First bar of the current session.
+	// First bar of the oldest session calculated.
 	private int FindFirstBar()
 	{
+		if (_sessions <= 0)
+			return 0;
+
+		var found = 0;
+
 		for (var bar = CurrentBar - 1; bar > 0; bar--)
 		{
-			if (IsNewSession(bar))
+			if (!IsSessionStart(bar))
+				continue;
+
+			found++;
+
+			if (found == _sessions)
 				return bar;
 		}
 
 		return 0;
+	}
+
+	private bool IsSessionStart(int bar)
+	{
+		return bar == 0 || IsNewSession(bar);
+	}
+
+	// Called under _calcLock. Records whether the bar starts a session and, if so, restarts the
+	// running deltas. The first calculated bar always starts from 0.
+	private bool StartBar(int bar)
+	{
+		var start = bar == _firstBar || IsSessionStart(bar);
+
+		while (_sessionStart.Count <= bar)
+			_sessionStart.Add(false);
+
+		_sessionStart[bar] = start;
+
+		if (start)
+			Array.Clear(_delta);
+
+		return start;
 	}
 
 	private bool Matches(int filter, decimal volume)
@@ -547,10 +604,22 @@ public class SmartMoneyFlow : Indicator
 			if (diff == 0)
 				continue;
 
-			_delta[i] += diff;
+			// The change stops at the next session start: a later session does not carry it.
+			var inCurrentSession = true;
 
 			for (var b = bar; b <= _lastBar; b++)
+			{
+				if (b > bar && _sessionStart[b])
+				{
+					inCurrentSession = false;
+					break;
+				}
+
 				_filterSeries[i][b] += diff;
+			}
+
+			if (inCurrentSession)
+				_delta[i] += diff;
 		}
 	}
 
@@ -562,7 +631,12 @@ public class SmartMoneyFlow : Indicator
 			return;
 
 		for (var b = _lastBar + 1; b <= bar; b++)
+		{
+			if (StartBar(b) && b != _firstBar)
+				this.LogInfo($"SmartMoneyFlow: new session at bar {b} ({GetCandle(b).Time:yyyy-MM-dd HH:mm:ss}), lines restart from 0.");
+
 			WriteBar(b);
+		}
 
 		_lastBar = bar;
 	}
@@ -825,6 +899,7 @@ public class SmartMoneyFlow : Indicator
 				series.Clear();
 
 			Array.Clear(_delta);
+			_sessionStart.Clear();
 			lastBar = CurrentBar - 1;
 			_lastTrade = null;
 			_boundaryTrades.Clear();
@@ -890,7 +965,7 @@ public class SmartMoneyFlow : Indicator
 
 		this.LogInfo($"SmartMoneyFlow: history calculated, {count} {(_cumulativeTrades ? "cumulative trades" : "ticks")}" +
 			(count > 0 ? $" from {firstTime:yyyy-MM-dd HH:mm:ss.fff} to {lastTime:yyyy-MM-dd HH:mm:ss.fff}" : "") +
-			$", bars {_firstBar}-{lastBar}; last values {string.Join(" / ", _delta.Select(d => d.ToString("0.##")))}.");
+			$", bars {_firstBar}-{lastBar} ({_sessions} sessions); last values {string.Join(" / ", _delta.Select(d => d.ToString("0.##")))}.");
 
 		RedrawChart();
 	}
@@ -903,6 +978,7 @@ public class SmartMoneyFlow : Indicator
 
 		for (var bar = _firstBar; bar <= lastBar; bar++)
 		{
+			StartBar(bar);
 			var candle = GetCandle(bar);
 
 			while (index < items.Count && timeOf(items[index]) < candle.Time)
