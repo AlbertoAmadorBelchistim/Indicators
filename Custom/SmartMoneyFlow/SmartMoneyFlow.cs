@@ -35,6 +35,19 @@ public class SmartMoneyFlow : Indicator
 		Continuous
 	}
 
+	// Side of the spread a filter counts on.
+	public enum FilterRole
+	{
+		[Display(Name = "None")]
+		None,
+
+		[Display(Name = "Smart money")]
+		Smart,
+
+		[Display(Name = "Dumb money")]
+		Dumb
+	}
+
 	#endregion
 
 	#region Fields
@@ -68,6 +81,14 @@ public class SmartMoneyFlow : Indicator
 	private readonly decimal[] _minVolume = { 0, 6, 11, 21, 41 };
 	private readonly decimal[] _maxVolume = { 5, 10, 20, 40, 0 };
 	private readonly bool[] _useFilter = { true, true, true, true, true };
+
+	// Spread = sum of the smart money filters - sum of the dumb money filters.
+	// Default: the two largest sizes against the two smallest.
+	private readonly FilterRole[] _role = { FilterRole.Dumb, FilterRole.Dumb, FilterRole.None, FilterRole.Smart, FilterRole.Smart };
+
+	// Spread histogram colors, by sign.
+	private CrossColor _spreadPositiveColor = CrossColor.FromArgb(255, 0, 255, 0);
+	private CrossColor _spreadNegativeColor = CrossColor.FromArgb(255, 255, 0, 0);
 
 	// Cumulative trades (default) or individual ticks.
 	private bool _cumulativeTrades = true;
@@ -132,6 +153,28 @@ public class SmartMoneyFlow : Indicator
 	#endregion
 
 	#region Properties
+
+	[Display(Name = "Positive color", GroupName = "Spread", Description = "Color of the spread bars at or above zero.", Order = 1010)]
+	public CrossColor SpreadPositiveColor
+	{
+		get => _spreadPositiveColor;
+		set
+		{
+			_spreadPositiveColor = value;
+			RefreshSpreadColors();
+		}
+	}
+
+	[Display(Name = "Negative color", GroupName = "Spread", Description = "Color of the spread bars below zero.", Order = 1020)]
+	public CrossColor SpreadNegativeColor
+	{
+		get => _spreadNegativeColor;
+		set
+		{
+			_spreadNegativeColor = value;
+			RefreshSpreadColors();
+		}
+	}
 
 	[Display(Name = "Session", GroupName = "Session",
 		Description = "Where the lines restart from 0: at each default session of the chart, every day at a custom time, or never (continuous).",
@@ -225,6 +268,13 @@ public class SmartMoneyFlow : Indicator
 		set => SetVolumeRange(0, _minVolume[0], value);
 	}
 
+	[Display(Name = "Spread role", GroupName = "Filter 1", Description = "Side of the spread this filter counts on: smart money (added), dumb money (subtracted) or none.", Order = 130)]
+	public FilterRole Role1
+	{
+		get => _role[0];
+		set => SetRole(0, value);
+	}
+
 	[Display(Name = "Color", GroupName = "Filter 1", Description = "Line color of this filter.", Order = 140)]
 	public CrossColor Color1
 	{
@@ -263,6 +313,13 @@ public class SmartMoneyFlow : Indicator
 	{
 		get => _maxVolume[1];
 		set => SetVolumeRange(1, _minVolume[1], value);
+	}
+
+	[Display(Name = "Spread role", GroupName = "Filter 2", Description = "Side of the spread this filter counts on: smart money (added), dumb money (subtracted) or none.", Order = 230)]
+	public FilterRole Role2
+	{
+		get => _role[1];
+		set => SetRole(1, value);
 	}
 
 	[Display(Name = "Color", GroupName = "Filter 2", Description = "Line color of this filter.", Order = 240)]
@@ -305,6 +362,13 @@ public class SmartMoneyFlow : Indicator
 		set => SetVolumeRange(2, _minVolume[2], value);
 	}
 
+	[Display(Name = "Spread role", GroupName = "Filter 3", Description = "Side of the spread this filter counts on: smart money (added), dumb money (subtracted) or none.", Order = 330)]
+	public FilterRole Role3
+	{
+		get => _role[2];
+		set => SetRole(2, value);
+	}
+
 	[Display(Name = "Color", GroupName = "Filter 3", Description = "Line color of this filter.", Order = 340)]
 	public CrossColor Color3
 	{
@@ -345,6 +409,13 @@ public class SmartMoneyFlow : Indicator
 		set => SetVolumeRange(3, _minVolume[3], value);
 	}
 
+	[Display(Name = "Spread role", GroupName = "Filter 4", Description = "Side of the spread this filter counts on: smart money (added), dumb money (subtracted) or none.", Order = 430)]
+	public FilterRole Role4
+	{
+		get => _role[3];
+		set => SetRole(3, value);
+	}
+
 	[Display(Name = "Color", GroupName = "Filter 4", Description = "Line color of this filter.", Order = 440)]
 	public CrossColor Color4
 	{
@@ -383,6 +454,13 @@ public class SmartMoneyFlow : Indicator
 	{
 		get => _maxVolume[4];
 		set => SetVolumeRange(4, _minVolume[4], value);
+	}
+
+	[Display(Name = "Spread role", GroupName = "Filter 5", Description = "Side of the spread this filter counts on: smart money (added), dumb money (subtracted) or none.", Order = 530)]
+	public FilterRole Role5
+	{
+		get => _role[4];
+		set => SetRole(4, value);
 	}
 
 	[Display(Name = "Color", GroupName = "Filter 5", Description = "Line color of this filter.", Order = 540)]
@@ -569,10 +647,55 @@ public class SmartMoneyFlow : Indicator
 		RecalculateValues();
 	}
 
+	private void SetRole(int filter, FilterRole role)
+	{
+		if (_role[filter] == role)
+			return;
+
+		_role[filter] = role;
+
+		// The spread is derived from the filter lines: no recalculation needed.
+		lock (_calcLock)
+			UpdateSpread(_firstBar, _lastBar);
+
+		RedrawChart();
+	}
+
+	private void RefreshSpreadColors()
+	{
+		lock (_calcLock)
+			UpdateSpread(_firstBar, _lastBar);
+
+		RedrawChart();
+	}
+
 	private void UpdateVisibility()
 	{
 		for (var i = 0; i < FilterCount; i++)
 			_filterSeries[i].VisualType = _useFilter[i] ? VisualMode.Line : VisualMode.Hide;
+
+		_spreadSeries.VisualType = VisualMode.Histogram;
+	}
+
+	// Called under _calcLock. Recalculates the spread and its color from the filter lines
+	// for the bars from..to.
+	private void UpdateSpread(int from, int to)
+	{
+		for (var bar = Math.Max(from, 0); bar <= to; bar++)
+		{
+			decimal spread = 0;
+
+			for (var i = 0; i < FilterCount; i++)
+			{
+				if (_role[i] == FilterRole.Smart)
+					spread += _filterSeries[i][bar];
+				else if (_role[i] == FilterRole.Dumb)
+					spread -= _filterSeries[i][bar];
+			}
+
+			_spreadSeries[bar] = spread;
+			_spreadSeries.Colors[bar] = (spread >= 0 ? _spreadPositiveColor : _spreadNegativeColor).Convert();
+		}
 	}
 
 	// First bar of the oldest session calculated.
@@ -707,6 +830,8 @@ public class SmartMoneyFlow : Indicator
 			if (inCurrentSession)
 				_delta[i] += diff;
 		}
+
+		UpdateSpread(bar, _lastBar);
 	}
 
 	// Called under _calcLock. Opens every bar after the last written one up to the given bar,
@@ -967,6 +1092,8 @@ public class SmartMoneyFlow : Indicator
 	{
 		for (var i = 0; i < FilterCount; i++)
 			_filterSeries[i][bar] = _delta[i];
+
+		UpdateSpread(bar, bar);
 	}
 
 	// Rebuilds every bar from the first calculated bar with the trades of the response, or with
