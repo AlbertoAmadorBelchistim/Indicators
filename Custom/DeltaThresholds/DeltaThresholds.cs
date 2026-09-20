@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
+using System.Linq;
 
 using OFT.Attributes.Editors;
 using OFT.Rendering.Context;
@@ -231,6 +232,11 @@ public class DeltaThresholds : Indicator
 	// Running sum of the bar delta up to each bar: the SMA of any bar comes from two sums, so
 	// recalculating the forming bar on every update gives the same value as the history.
 	private readonly List<decimal> _deltaSums = new();
+
+	private bool _detailedLog;
+
+	// Number of most recent bars written to the log after the history (detailed log).
+	private const int LoggedHistoryBars = 20;
 
 	private bool _showHistogram = true;
 	private CrossColor _upColor = CrossColor.FromArgb(255, 0, 170, 0);
@@ -662,6 +668,13 @@ public class DeltaThresholds : Indicator
 		set => _averageSeries.Width = value;
 	}
 
+	[Display(Name = "Detailed log", GroupName = "Diagnostics", Description = "Writes to the ATAS log the delta, levels and signals of the last 20 bars after each recalculation and of every bar that closes afterwards.", Order = 900)]
+	public bool DetailedLog
+	{
+		get => _detailedLog;
+		set => _detailedLog = value;
+	}
+
 	#endregion
 
 	#region Ctor
@@ -734,6 +747,32 @@ public class DeltaThresholds : Indicator
 	{
 		_historyLoaded = true;
 		_firstLiveBar = CurrentBar;
+
+		int upSignals, downSignals;
+
+		lock (_signalsLock)
+		{
+			upSignals = _signals.Count(s => s.Up);
+			downSignals = _signals.Count(s => s.Down);
+		}
+
+		var last = CurrentBar - 1;
+		var levels = last >= 0 && last < _levels.Count ? _levels[last] : default;
+
+		this.LogInfo($"DeltaThresholds: history calculated, {CurrentBar} bars; source {_source}" +
+			(_source == ThresholdSource.Dynamic
+				? $" (multiplier {_stdMultiplier}, minimum bars {_minSamples}, window {WindowDescription()}; " +
+				$"session samples {_positive.Count} up / {_negative.Count} down)"
+				: "") +
+			$"; levels of the last bar {FormatLevels(levels)}; signals {_signalTrigger} " +
+			$"(up {_signalUpLevel}, down {_signalDownLevel}): {upSignals} up / {downSignals} down; " +
+			$"alerts {(_alertsEnabled ? (_alertAtBarClose ? "at bar close" : "when reached") : "off")}.");
+
+		if (!_detailedLog)
+			return;
+
+		for (var bar = Math.Max(0, last - LoggedHistoryBars + 1); bar <= last; bar++)
+			LogBar(bar);
 	}
 
 	protected override void OnRender(RenderContext context, DrawingLayouts layout)
@@ -826,6 +865,9 @@ public class DeltaThresholds : Indicator
 			if (_historyLoaded && _alertAtBarClose)
 				CheckCloseAlerts(bar - 1);
 
+			if (_historyLoaded && _detailedLog)
+				LogBar(bar - 1);
+
 			if (InWindow(bar - 1))
 				AddSamples(GetCandle(bar - 1));
 		}
@@ -834,6 +876,9 @@ public class DeltaThresholds : Indicator
 		{
 			_positive.Reset();
 			_negative.Reset();
+
+			if (_historyLoaded && _source == ThresholdSource.Dynamic)
+				this.LogInfo($"DeltaThresholds: statistics restart at bar {bar} ({GetCandle(bar).Time:yyyy-MM-dd HH:mm:ss}).");
 		}
 
 		var levels = _source != ThresholdSource.Dynamic
@@ -1004,6 +1049,35 @@ public class DeltaThresholds : Indicator
 		this.LogInfo($"DeltaThresholds: alert: {message}");
 		AddAlert(_alertFile, InstrumentInfo?.Instrument ?? string.Empty, message,
 			up ? _signalUpColor : _signalDownColor, CrossColor.FromArgb(255, 0, 0, 0));
+	}
+
+	private void LogBar(int bar)
+	{
+		if (bar < 0 || bar >= _levels.Count)
+			return;
+
+		var candle = GetCandle(bar);
+		(bool Up, bool Down) signals;
+
+		lock (_signalsLock)
+			signals = bar < _signals.Count ? _signals[bar] : default;
+
+		this.LogInfo($"DeltaThresholds: bar {bar} {candle.Time:yyyy-MM-dd HH:mm:ss}: delta {candle.Delta:0.##} " +
+			$"(max {candle.MaxDelta:0.##}, min {candle.MinDelta:0.##}); levels {FormatLevels(_levels[bar])}" +
+			$"{(signals.Up ? "; UP signal" : "")}{(signals.Down ? "; DOWN signal" : "")}" +
+			$"{(_showAverage ? $"; average {_averageSeries[bar]:0.##}" : "")}");
+	}
+
+	private static string FormatLevels(Levels levels)
+	{
+		return $"up {levels.UpMajor:0.##}/{levels.UpMinor:0.##}, down {levels.DownMinor:0.##}/{levels.DownMajor:0.##}";
+	}
+
+	private string WindowDescription()
+	{
+		return _windowMode == WindowMode.FullSession
+			? "full session"
+			: $"{_windowStart:hh\\:mm}-{_windowEnd:hh\\:mm}";
 	}
 
 	private static int Clamp(int value, int min, int max)
