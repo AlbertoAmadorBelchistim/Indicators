@@ -114,6 +114,21 @@ public class SmartMoneyFlow : Indicator
 	private CrossColor _negativeRisingColor = CrossColor.FromArgb(255, 65, 105, 225);
 	private CrossColor _negativeFallingColor = CrossColor.FromArgb(255, 220, 20, 60);
 
+	private bool _alertOnZeroCross;
+	private bool _alertOnSignalCross;
+	private string _alertFile = "alert2";
+	private int _alertCooldownSeconds = 60;
+
+	// Last non-zero sign seen in realtime of the spread and of spread - signal; 0 until the first
+	// observation after a recalculation or a new session, which never alerts.
+	private int _spreadSign;
+	private int _signalSign;
+	private DateTime _lastZeroAlertUtc = DateTime.MinValue;
+	private DateTime _lastSignalAlertUtc = DateTime.MinValue;
+
+	// Alerts produced under _calcLock and raised after it is released.
+	private readonly List<(string Message, bool Positive)> _pendingAlerts = new();
+
 	// Cumulative trades (default) or individual ticks.
 	private bool _cumulativeTrades = true;
 
@@ -313,6 +328,35 @@ public class SmartMoneyFlow : Indicator
 			_negativeFallingColor = value;
 			RefreshSpreadColors();
 		}
+	}
+
+	[Display(Name = "Spread crosses zero", GroupName = "Alerts", Description = "Alerts when the spread of the forming bar changes sign.", Order = 2010)]
+	public bool AlertOnZeroCross
+	{
+		get => _alertOnZeroCross;
+		set => _alertOnZeroCross = value;
+	}
+
+	[Display(Name = "Spread crosses signal", GroupName = "Alerts", Description = "Alerts when the spread of the forming bar crosses the signal line.", Order = 2020)]
+	public bool AlertOnSignalCross
+	{
+		get => _alertOnSignalCross;
+		set => _alertOnSignalCross = value;
+	}
+
+	[Display(Name = "Alert sound", GroupName = "Alerts", Description = "Sound file of the alerts.", Order = 2030)]
+	public string AlertFile
+	{
+		get => _alertFile;
+		set => _alertFile = value;
+	}
+
+	[Display(Name = "Minimum time between alerts (seconds)", GroupName = "Alerts", Description = "Minimum time between two alerts of the same kind. Crosses in between do not alert.", Order = 2040)]
+	[Range(0, 3600)]
+	public int AlertCooldownSeconds
+	{
+		get => _alertCooldownSeconds;
+		set => _alertCooldownSeconds = value;
 	}
 
 	[Display(Name = "Session", GroupName = "Session",
@@ -685,6 +729,9 @@ public class SmartMoneyFlow : Indicator
 			_lastTrade = null;
 			_bufferStartTickTime = _lastTickTime;
 			_bufferStartTickCount = _lastTickCount;
+			_spreadSign = 0;
+			_signalSign = 0;
+			_pendingAlerts.Clear();
 		}
 	}
 
@@ -760,10 +807,13 @@ public class SmartMoneyFlow : Indicator
 			}
 
 			bar = ProcessTick(trade);
+			CheckCrosses();
 		}
 
 		if (bar >= 0)
 			RaiseBarValueChanged(bar);
+
+		RaisePendingAlerts();
 	}
 
 	#endregion
@@ -1034,7 +1084,13 @@ public class SmartMoneyFlow : Indicator
 		for (var b = _lastBar + 1; b <= bar; b++)
 		{
 			if (StartBar(b) && b != _firstBar)
+			{
 				this.LogInfo($"SmartMoneyFlow: new session at bar {b} ({GetCandle(b).Time:yyyy-MM-dd HH:mm:ss}), lines restart from 0.");
+
+				// A restart from 0 is not a cross.
+				_spreadSign = 0;
+				_signalSign = 0;
+			}
 
 			WriteBar(b);
 		}
@@ -1068,10 +1124,13 @@ public class SmartMoneyFlow : Indicator
 			}
 
 			bar = ProcessTrade(trade, isUpdate, false);
+			CheckCrosses();
 		}
 
 		if (bar >= 0)
 			RaiseBarValueChanged(bar);
+
+		RaisePendingAlerts();
 	}
 
 	// Called under _calcLock. Counts a realtime trade, or replaces the volume of the last trade
@@ -1107,6 +1166,69 @@ public class SmartMoneyFlow : Indicator
 		_lastTradeBar = bar;
 
 		return _lastBar;
+	}
+
+	// Called under _calcLock, after a realtime change. Event-based: a cross is a change of sign
+	// between two observations of the forming bar, not the value being on one side, so a spread
+	// that stays on one side alerts once. Zero keeps the previous sign.
+	private void CheckCrosses()
+	{
+		if (!_historyReady || _lastBar < _firstBar || _lastBar < 0)
+			return;
+
+		var spread = _spreadSeries[_lastBar];
+		var signal = _signalSeries[_lastBar];
+		var now = DateTime.UtcNow;
+
+		if (DetectCross(spread, ref _spreadSign, out var above) && _alertOnZeroCross
+			&& (now - _lastZeroAlertUtc).TotalSeconds >= _alertCooldownSeconds)
+		{
+			_lastZeroAlertUtc = now;
+			_pendingAlerts.Add(($"Smart Money Flow: spread crossed {(above ? "above" : "below")} zero ({spread:0.##})", above));
+		}
+
+		if (DetectCross(spread - signal, ref _signalSign, out above) && _alertOnSignalCross
+			&& (now - _lastSignalAlertUtc).TotalSeconds >= _alertCooldownSeconds)
+		{
+			_lastSignalAlertUtc = now;
+			_pendingAlerts.Add(($"Smart Money Flow: spread crossed {(above ? "above" : "below")} the signal " +
+				$"(spread {spread:0.##}, signal {signal:0.##})", above));
+		}
+	}
+
+	// Whether value changed sign since the last observation; above is the new side.
+	private static bool DetectCross(decimal value, ref int lastSign, out bool above)
+	{
+		var sign = Math.Sign(value);
+		above = sign > 0;
+
+		if (sign == 0)
+			return false;
+
+		var crossed = lastSign != 0 && sign != lastSign;
+		lastSign = sign;
+		return crossed;
+	}
+
+	private void RaisePendingAlerts()
+	{
+		List<(string Message, bool Positive)> alerts;
+
+		lock (_calcLock)
+		{
+			if (_pendingAlerts.Count == 0)
+				return;
+
+			alerts = new List<(string Message, bool Positive)>(_pendingAlerts);
+			_pendingAlerts.Clear();
+		}
+
+		foreach (var (message, positive) in alerts)
+		{
+			this.LogInfo($"SmartMoneyFlow: alert: {message}");
+			AddAlert(_alertFile, InstrumentInfo?.Instrument ?? string.Empty, message,
+				positive ? _spreadPositiveColor : _spreadNegativeColor, CrossColor.FromArgb(255, 255, 255, 255));
+		}
 	}
 
 	// Called under _calcLock. Counts a realtime tick. Returns the last bar changed, or -1.
