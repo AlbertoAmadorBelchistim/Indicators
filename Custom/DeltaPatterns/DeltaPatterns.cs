@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Utils.Common.Logging;
 
@@ -420,6 +421,30 @@ namespace ATAS.Indicators.Technical
 		private readonly BarPatternCache _patterns = new BarPatternCache();
 		private bool _historyLoaded;
 
+		// Id of the pending history request; responses to older requests are ignored.
+		private int _requestId;
+
+		// Realtime ticks received while the history is pending, replayed after it.
+		private readonly List<MarketDataArg> _pendingTicks = new List<MarketDataArg>();
+
+		// Last bar whose snapshot has been taken. Bars are snapshotted in order: a bar is
+		// snapshotted after each of its ticks, and a bar without ticks with the window as it was.
+		private int _lastSnapshotBar = -1;
+
+		// Time of the last tick of the history response and how many response ticks have that
+		// time. Ticks carry no identity: buffered ticks older than that time, and as many with that
+		// time as the response has (minus those processed before buffering started), are already
+		// in the history.
+		private DateTime _historyEndTime;
+		private int _boundaryTickCount;
+
+		// Time of the last tick processed and how many had that time, and the same values when the
+		// last recalculation started buffering.
+		private DateTime _lastTickTime;
+		private int _lastTickCount;
+		private DateTime _bufferStartTickTime;
+		private int _bufferStartTickCount;
+
 		private int _targetVolume = 2500;
 
 		// Session-wide running maximum of per-bar raw amplitudes.
@@ -725,9 +750,16 @@ namespace ATAS.Indicators.Technical
 
 		protected override void OnCalculate(int bar, decimal value)
 		{
-			// The cache is populated by OnCumulativeTradesResponse for
-			// historical bars and by OnNewTrade for live bars; OnCalculate
-			// itself stays a no-op.
+			// Bars are snapshotted from the history response and from the ticks. A new realtime bar
+			// without ticks yet gets the snapshot of the window as it is, as the history does.
+			if (_disposed || bar != CurrentBar - 1)
+				return;
+
+			lock (_stateLock)
+			{
+				if (_historyLoaded)
+					SnapshotUpTo(bar);
+			}
 		}
 
 		protected override void OnRecalculate()
@@ -739,6 +771,11 @@ namespace ATAS.Indicators.Technical
 				_patterns.Clear();
 				_sessionMaxAmp = 0m;
 				_historyLoaded = false;
+				_requestId = 0;
+				_lastSnapshotBar = -1;
+				_pendingTicks.Clear();
+				_bufferStartTickTime = _lastTickTime;
+				_bufferStartTickCount = _lastTickCount;
 			}
 			EnsureCategoryHooks();
 		}
@@ -764,25 +801,39 @@ namespace ATAS.Indicators.Technical
 			this.LogInfo($"DeltaPatterns: fetch started range={sessionStart:yyyy-MM-dd HH:mm:ss}-{sessionEnd:yyyy-MM-dd HH:mm:ss}, target {TargetVolume} contracts");
 
 			var request = new CumulativeTradesRequest(sessionStart, sessionEnd, 0, 0);
+
+			lock (_stateLock)
+				_requestId = request.RequestId;
+
 			RequestForCumulativeTrades(request);
 		}
 
 		protected override void OnCumulativeTradesResponse(CumulativeTradesRequest request, IEnumerable<CumulativeTrade> cumulativeTrades)
 		{
-            if (_disposed) return;
+			if (_disposed) return;
 
-            if (cumulativeTrades == null) return;
+			if (cumulativeTrades == null) return;
 
-			int totalBars = CurrentBar - 1;
-			if (totalBars < 0) return;
+			lock (_stateLock)
+			{
+				if (request.RequestId != _requestId)
+					return;
+			}
 
-			int tradeCount = 0;
+			int tickCount = 0;
 			int barsCached = 0;
 
 			try
 			{
-				var target = (decimal)TargetVolume;
-				int currentBarIndex = 0;
+				// The history is rebuilt from the ticks of the cumulative trades, the same data the
+				// realtime path receives, so the window holds the same prices and sizes in both.
+				var ticks = cumulativeTrades
+					.Where(t => t.Ticks != null)
+					.SelectMany(t => t.Ticks)
+					.OrderBy(t => t.Time)
+					.ToList();
+
+				tickCount = ticks.Count;
 
 				lock (_stateLock)
 				{
@@ -790,69 +841,53 @@ namespace ATAS.Indicators.Technical
 					_metrics.Clear();
 					_patterns.Clear();
 					_sessionMaxAmp = 0m;
+					_lastSnapshotBar = -1;
 
-					foreach (var trade in cumulativeTrades)
-					{
-						tradeCount++;
+					_historyEndTime = ticks.Count > 0 ? ticks[ticks.Count - 1].Time : DateTime.MinValue;
+					_boundaryTickCount = 0;
 
-						while (currentBarIndex <= totalBars)
-						{
-							var candle = GetCandle(currentBarIndex);
-							if (candle != null && candle.LastTime < trade.Time)
-							{
-								SnapshotBar(currentBarIndex);
-								currentBarIndex++;
-							}
-							else
-							{
-								break;
-							}
-						}
+					for (var i = ticks.Count - 1; i >= 0 && ticks[i].Time == _historyEndTime; i--)
+						_boundaryTickCount++;
 
-						int direction = trade.Direction == TradeDirection.Buy ? 1 : -1;
-						_window.Push(trade.FirstPrice, trade.Volume, direction);
-						_window.Trim(target);
-					}
+					foreach (var tick in ticks)
+						ProcessTick(tick);
 
-					while (currentBarIndex <= totalBars)
-					{
-						SnapshotBar(currentBarIndex);
-						currentBarIndex++;
-					}
+					if (CurrentBar > 0)
+						SnapshotUpTo(CurrentBar - 1);
 
 					barsCached = _metrics.BarCount;
-					_historyLoaded = true;
 				}
 
-				this.LogInfo($"DeltaPatterns: fetch completed {tradeCount} trades, {barsCached} bars cached");
+				this.LogInfo($"DeltaPatterns: fetch completed {tickCount} ticks, {barsCached} bars cached");
 			}
 			catch (Exception ex)
 			{
 				this.LogError($"DeltaPatterns: fetch failed - {ex.Message}");
 			}
+
+			ReplayPendingTicks();
 		}
 
 		protected override void OnNewTrade(MarketDataArg trade)
 		{
-            if (_disposed) return;
+			if (_disposed) return;
 
-            int liveBar;
 			DeltaPattern oldPattern;
 			DeltaPattern newPattern;
 
 			lock (_stateLock)
 			{
-				if (!_historyLoaded) return;
+				if (!_historyLoaded)
+				{
+					_pendingTicks.Add(trade);
+					return;
+				}
 
-				int direction = trade.Direction == TradeDirection.Buy ? 1 : -1;
-				_window.Push(trade.Price, trade.Volume, direction);
-				_window.Trim(TargetVolume);
-
-				liveBar = CurrentBar - 1;
+				var liveBar = CurrentBar - 1;
 				if (liveBar < 0) return;
 
 				oldPattern = _patterns.Get(liveBar);
-				SnapshotBar(liveBar);
+				ProcessTick(trade);
 				newPattern = _patterns.Get(liveBar);
 			}
 
@@ -861,9 +896,7 @@ namespace ATAS.Indicators.Technical
 			// (oldPattern != newPattern) to debounce constant re-classifications
 			// of the same pattern across consecutive ticks.
 			if (newPattern != DeltaPattern.None && newPattern != oldPattern)
-				{
 				TryFireAlert(newPattern);
-				}
 		}
 
 		protected override void OnRender(RenderContext context, DrawingLayouts layout)
@@ -1065,6 +1098,116 @@ namespace ATAS.Indicators.Technical
 		#endregion
 
 		#region Private Methods: Rendering
+
+		// Caller must hold _stateLock. Adds a tick to the window in the bar that contains its time.
+		// Bars before it that have not been snapshotted yet (no ticks of their own) get the window
+		// as it was before the tick.
+		private void ProcessTick(MarketDataArg tick)
+		{
+			if (tick.Time == _lastTickTime)
+				_lastTickCount++;
+			else
+			{
+				_lastTickTime = tick.Time;
+				_lastTickCount = 1;
+			}
+
+			var bar = BarOfTime(tick.Time);
+
+			if (bar < 0)
+				return;
+
+			SnapshotUpTo(bar - 1);
+
+			int direction = tick.Direction == TradeDirection.Buy ? 1 : -1;
+			_window.Push(tick.Price, tick.Volume, direction);
+			_window.Trim(TargetVolume);
+
+			SnapshotBar(bar);
+			_lastSnapshotBar = Math.Max(_lastSnapshotBar, bar);
+		}
+
+		// Caller must hold _stateLock. Snapshots the bars after the last snapshotted one up to bar
+		// with the window as it is.
+		private void SnapshotUpTo(int bar)
+		{
+			for (var b = _lastSnapshotBar + 1; b <= bar; b++)
+				SnapshotBar(b);
+
+			_lastSnapshotBar = Math.Max(_lastSnapshotBar, bar);
+		}
+
+		// Bar that contains a time: the last bar opened at or before it, or -1 before the first bar.
+		// Ticks arrive in time order, so the search starts from the last snapshotted bar and
+		// normally moves forward by at most one bar.
+		private int BarOfTime(DateTime time)
+		{
+			if (CurrentBar == 0)
+				return -1;
+
+			var bar = Math.Min(Math.Max(0, _lastSnapshotBar), CurrentBar - 1);
+
+			while (bar > 0 && GetCandle(bar).Time > time)
+				bar--;
+
+			if (GetCandle(bar).Time > time)
+				return -1;
+
+			while (bar + 1 < CurrentBar && GetCandle(bar + 1).Time <= time)
+				bar++;
+
+			return bar;
+		}
+
+		// Replays the ticks buffered while the history was pending, then switches to realtime
+		// under the lock once the buffer is empty. Ticks already in the history are skipped.
+		private void ReplayPendingTicks()
+		{
+			int boundaryToSkip;
+			var replayed = 0;
+			var skipped = 0;
+
+			lock (_stateLock)
+			{
+				boundaryToSkip = _boundaryTickCount -
+					(_bufferStartTickTime == _historyEndTime ? _bufferStartTickCount : 0);
+			}
+
+			while (true)
+			{
+				List<MarketDataArg> batch;
+
+				lock (_stateLock)
+				{
+					if (_pendingTicks.Count == 0)
+					{
+						_historyLoaded = true;
+						break;
+					}
+
+					batch = new List<MarketDataArg>(_pendingTicks);
+					_pendingTicks.Clear();
+				}
+
+				foreach (var tick in batch)
+				{
+					lock (_stateLock)
+					{
+						if (tick.Time < _historyEndTime || (tick.Time == _historyEndTime && boundaryToSkip-- > 0))
+						{
+							skipped++;
+							continue;
+						}
+
+						ProcessTick(tick);
+						replayed++;
+					}
+				}
+			}
+
+			this.LogInfo($"DeltaPatterns: realtime started; buffered ticks: {replayed} replayed, {skipped} already in the history");
+			RedrawChart();
+		}
 
 		// Caller must hold _stateLock.
 		private void SnapshotBar(int bar)
