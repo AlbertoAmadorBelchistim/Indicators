@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<!-- Tests of the platform-independent engines of AdaptiveBigTrades (Core/). Runs outside ATAS with
+	     dotnet run, from Custom/AdaptiveBigTrades.Tests. -->
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net8.0</TargetFramework>
+		<RollForward>Major</RollForward>
+		<LangVersion>latest</LangVersion>
+		<Nullable>disable</Nullable>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Include="..\AdaptiveBigTrades\Core\**\*.cs" Link="Core\%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+</Project>
