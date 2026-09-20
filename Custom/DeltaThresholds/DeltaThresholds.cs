@@ -29,6 +29,17 @@ public class DeltaThresholds : Indicator
 		Dynamic
 	}
 
+	public enum WindowMode
+	{
+		// Every bar of the chart's default session.
+		[Display(Name = "Full session")]
+		FullSession,
+
+		// Only the bars that open between a start and an end time, in chart time.
+		[Display(Name = "Time window")]
+		TimeWindow
+	}
+
 	// Running mean and variance (Welford). One sample per closed bar.
 	internal struct RunningStats
 	{
@@ -105,6 +116,9 @@ public class DeltaThresholds : Indicator
 	private ThresholdSource _source = ThresholdSource.Fixed;
 	private decimal _stdMultiplier = 1m;
 	private int _minSamples = 1;
+	private WindowMode _windowMode = WindowMode.TimeWindow;
+	private TimeSpan _windowStart = new(9, 30, 0);
+	private TimeSpan _windowEnd = new(16, 0, 0);
 
 	// Dynamic source: statistics of the positive extreme (MaxDelta > 0) and of the size of the
 	// negative extreme (|MinDelta|, MinDelta < 0) of the closed bars of the current session.
@@ -195,6 +209,43 @@ public class DeltaThresholds : Indicator
 		set
 		{
 			_minSamples = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(Name = "Statistics window", GroupName = "Thresholds",
+		Description = "Dynamic source: bars used for the statistics. Full session: every bar, restarting at each default session. Time window: only bars that open between the start and end times; the statistics restart at each window start and there are no levels outside the window.",
+		Order = 95)]
+	public WindowMode Window
+	{
+		get => _windowMode;
+		set
+		{
+			_windowMode = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(Name = "Window start", GroupName = "Thresholds", Description = "Time window start, in chart time (included). A start later than the end crosses midnight.", Order = 96)]
+	[PostValueMode(PostValueModes.OnLostFocus)]
+	public TimeSpan WindowStart
+	{
+		get => _windowStart;
+		set
+		{
+			_windowStart = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(Name = "Window end", GroupName = "Thresholds", Description = "Time window end, in chart time (not included).", Order = 97)]
+	[PostValueMode(PostValueModes.OnLostFocus)]
+	public TimeSpan WindowEnd
+	{
+		get => _windowEnd;
+		set
+		{
+			_windowEnd = value;
 			RecalculateValues();
 		}
 	}
@@ -376,7 +427,7 @@ public class DeltaThresholds : Indicator
 		while (_levels.Count < bar)
 			_levels.Add(default);
 
-		if (bar > 0)
+		if (bar > 0 && InWindow(bar - 1))
 			AddSamples(GetCandle(bar - 1));
 
 		if (IsSessionStart(bar))
@@ -385,9 +436,11 @@ public class DeltaThresholds : Indicator
 			_negative.Reset();
 		}
 
-		var levels = _source == ThresholdSource.Dynamic
-			? DynamicLevels()
-			: new Levels(_upMajorLevel, _upMinorLevel, _downMinorLevel, _downMajorLevel);
+		var levels = _source != ThresholdSource.Dynamic
+			? new Levels(_upMajorLevel, _upMinorLevel, _downMinorLevel, _downMajorLevel)
+			: InWindow(bar)
+				? DynamicLevels()
+				: default;
 
 		_levels.Add(levels);
 
@@ -397,9 +450,48 @@ public class DeltaThresholds : Indicator
 		_downMajorSeries[bar] = levels.DownMajor;
 	}
 
+	// Start of the statistics: each default session, or each time window (its first bar inside
+	// the window, or the first bar of a new window day for a window that covers the whole day).
 	private bool IsSessionStart(int bar)
 	{
-		return bar == 0 || IsNewSession(bar);
+		if (bar == 0)
+			return true;
+
+		if (_windowMode == WindowMode.FullSession)
+			return IsNewSession(bar);
+
+		return InWindow(bar) && (!InWindow(bar - 1) || WindowDay(bar) != WindowDay(bar - 1));
+	}
+
+	private bool InWindow(int bar)
+	{
+		if (_windowMode == WindowMode.FullSession || _windowStart == _windowEnd)
+			return true;
+
+		var time = ChartTime(GetCandle(bar).Time).TimeOfDay;
+
+		return _windowStart < _windowEnd
+			? time >= _windowStart && time < _windowEnd
+			: time >= _windowStart || time < _windowEnd;
+	}
+
+	// Day of the window a bar opens in: its chart date shifted back by the window start, so a
+	// window that crosses midnight belongs to the day it started.
+	private DateTime WindowDay(int bar)
+	{
+		return (ChartTime(GetCandle(bar).Time) - _windowStart).Date;
+	}
+
+	private DateTime ChartTime(DateTime utc)
+	{
+		if (InstrumentInfo is null)
+			return utc;
+
+#if ATAS_STABLE || ATAS_LATEST
+		return utc.AddHours(InstrumentInfo.TimeZone);
+#else
+		return utc.Add(InstrumentInfo.TimeZoneOffset);
+#endif
 	}
 
 	private void AddSamples(IndicatorCandle candle)
