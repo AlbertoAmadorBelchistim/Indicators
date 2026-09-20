@@ -173,6 +173,7 @@ public class InitialBalance : Indicator
 	private bool _customSessionStart;
 	private int _days = 20;
     private bool _drawText = true;
+	private float _fontSize = 12f;
 	private TimeSpan _endDate;
 	private DateTime _endTime = DateTime.MaxValue;
 	private CrossColor _fillColor = DefaultColors.Yellow.Convert();
@@ -382,6 +383,19 @@ public class InitialBalance : Indicator
 		set
 		{
 			_drawText = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(ResourceType = typeof(Strings), Name = nameof(Strings.FontSize),
+		GroupName = nameof(Strings.Show), Description = nameof(Strings.FontSizeDescription), Order = 135)]
+	[Range(6, 40)]
+	public float FontSize
+	{
+		get => _fontSize;
+		set
+		{
+			_fontSize = value;
 			RecalculateValues();
 		}
 	}
@@ -704,34 +718,34 @@ public class InitialBalance : Indicator
         if (DrawText)
 		{
 			AddText(_lastStartBar + "Mid", "Mid", true, bar, mid, 0, 0, ConvertColor(_mid.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
+				System.Drawing.Color.Transparent, _fontSize, DrawingText.TextAlign.Right);
 
 			AddText(_lastStartBar + "IBH", "IBH", true, bar, _ibMax, 0, 0, ConvertColor(_ibh.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
+				System.Drawing.Color.Transparent, _fontSize, DrawingText.TextAlign.Right);
 
 			AddText(_lastStartBar + "IBL", "IBL", true, bar, _ibMin, 0, 0, ConvertColor(_ibl.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
+				System.Drawing.Color.Transparent, _fontSize, DrawingText.TextAlign.Right);
 
 			AddText(_lastStartBar + "IBM", "IBM", true, bar, _ibmValue, 0, 0, ConvertColor(_ibm.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
+				System.Drawing.Color.Transparent, _fontSize, DrawingText.TextAlign.Right);
 
 			AddText(_lastStartBar + "IBHX1", "IBHX1", true, bar, ibhx1, 0, 0, ConvertColor(_ibhx1.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
+				System.Drawing.Color.Transparent, _fontSize, DrawingText.TextAlign.Right);
 
 			AddText(_lastStartBar + "IBHX2", "IBHX2", true, bar, ibhx2, 0, 0, ConvertColor(_ibhx2.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
+				System.Drawing.Color.Transparent, _fontSize, DrawingText.TextAlign.Right);
 
 			AddText(_lastStartBar + "IBHX3", "IBHX3", true, bar, ibhx3, 0, 0, ConvertColor(_ibhx3.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
+				System.Drawing.Color.Transparent, _fontSize, DrawingText.TextAlign.Right);
 
 			AddText(_lastStartBar + "IBLX1", "IBLX1", true, bar, iblx1, 0, 0, ConvertColor(_iblx1.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
+				System.Drawing.Color.Transparent, _fontSize, DrawingText.TextAlign.Right);
 
 			AddText(_lastStartBar + "IBLX2", "IBLX2", true, bar, iblx2, 0, 0, ConvertColor(_iblx2.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
+				System.Drawing.Color.Transparent, _fontSize, DrawingText.TextAlign.Right);
 
 			AddText(_lastStartBar + "IBLX3", "IBLX3", true, bar, iblx3, 0, 0, ConvertColor(_iblx3.Color), System.Drawing.Color.Transparent,
-				System.Drawing.Color.Transparent, 12.0f, DrawingText.TextAlign.Right);
+				System.Drawing.Color.Transparent, _fontSize, DrawingText.TextAlign.Right);
 		}
 	}
 
