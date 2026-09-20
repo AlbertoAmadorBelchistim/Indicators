@@ -21,6 +21,9 @@
   <data name="AlertFilterDescription" xml:space="preserve">
     <value>Sets the value at which the alert is triggered.</value>
   </data>
+  <data name="AlertNetImbalanceTemplate" xml:space="preserve">
+    <value>ClusterStatistics Net Imbalance alert: {0} (thr={1})</value>
+  </data>
   <data name="Alerts" xml:space="preserve">
     <value>Alerts</value>
   </data>
@@ -146,6 +149,24 @@
   </data>
   <data name="MinDeltaAlert" xml:space="preserve">
     <value>Min delta alert</value>
+  </data>
+  <data name="NetImbalanceAlertDescription" xml:space="preserve">
+    <value>Alerts when the net imbalance of a bar reaches the threshold, by absolute value, at most once per bar.</value>
+  </data>
+  <data name="NetImbalanceAlertGroup" xml:space="preserve">
+    <value>Net Imbalance Alert</value>
+  </data>
+  <data name="NetImbalanceAlertThresholdAbs" xml:space="preserve">
+    <value>Threshold (abs)</value>
+  </data>
+  <data name="NetImbalanceAlertThresholdDescription" xml:space="preserve">
+    <value>Net imbalance, buy or sell, that triggers the alert.</value>
+  </data>
+  <data name="NetImbalanceAlertUseClosedCandle" xml:space="preserve">
+    <value>Use closed candle</value>
+  </data>
+  <data name="NetImbalanceAlertUseClosedCandleDescription" xml:space="preserve">
+    <value>On: checks each bar once when it closes, and alerts if it reached the threshold and the previous bar did not. Off: alerts while the bar forms, when the net imbalance crosses the threshold.</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>None</value>

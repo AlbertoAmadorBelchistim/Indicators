@@ -345,6 +345,9 @@ public class ClusterStatisticPro : Indicator
 	private int _lastTradesAlert;
 	private decimal _lastTradesValue;
 	private int _lastHeightAlert;
+	private bool _useNetImbalanceAlert;
+	private bool _netImbalanceAlertOnClose;
+	private readonly NetImbalanceAlert _netImbalanceAlert = new();
 	private decimal _lastHeightValue;
 
 	private RenderPen _linePen = new(System.Drawing.Color.Transparent);
@@ -1102,6 +1105,44 @@ public class ClusterStatisticPro : Indicator
 
     #endregion
 
+    #region Net imbalance alert
+
+    [Tab(TabName = nameof(Res.Alerts), TabOrder = 2, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.Enabled), GroupName = nameof(Res.NetImbalanceAlertGroup), Description = nameof(Res.NetImbalanceAlertDescription), Order = 1800, ResourceType = typeof(Res))]
+    public bool UseNetImbalanceAlert
+    {
+        get => _useNetImbalanceAlert;
+        set
+        {
+            _useNetImbalanceAlert = value;
+            _netImbalanceAlert.Reset();
+            OnImbalanceUseChanged();
+        }
+    }
+
+    [Tab(TabName = nameof(Res.Alerts), TabOrder = 2, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.NetImbalanceAlertThresholdAbs), GroupName = nameof(Res.NetImbalanceAlertGroup), Description = nameof(Res.NetImbalanceAlertThresholdDescription), Order = 1810, ResourceType = typeof(Res))]
+    [Range(1, 100000)]
+    public int NetImbalanceAlertValue { get; set; } = 6;
+
+    [Tab(TabName = nameof(Res.Alerts), TabOrder = 2, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.NetImbalanceAlertUseClosedCandle), GroupName = nameof(Res.NetImbalanceAlertGroup), Description = nameof(Res.NetImbalanceAlertUseClosedCandleDescription), Order = 1820, ResourceType = typeof(Res))]
+    public bool UseClosedCandleForNetImbalanceAlert
+    {
+        get => _netImbalanceAlertOnClose;
+        set
+        {
+            _netImbalanceAlertOnClose = value;
+            _netImbalanceAlert.Reset();
+        }
+    }
+
+    [Tab(TabName = nameof(Res.Alerts), TabOrder = 2, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.AlertFile), GroupName = nameof(Res.NetImbalanceAlertGroup), Description = nameof(Res.AlertFileDescription), Order = 1830, ResourceType = typeof(Res))]
+    public string NetImbalanceAlertFile { get; set; } = "alert1";
+
+    #endregion
+
     #endregion
 
     #region ctor
@@ -1254,6 +1295,9 @@ public class ClusterStatisticPro : Indicator
 
 		if (ShouldComputeImbalances())
 			CalculateImbalances(bar, candle);
+
+		if (_useNetImbalanceAlert && _alertsArmed && bar == CurrentBar - 1)
+			CheckNetImbalanceAlert(bar);
 
 		foreach (var maximum in _rowMaxima.Values)
 			maximum.Update(bar);
@@ -2193,7 +2237,8 @@ public class ClusterStatisticPro : Indicator
 			|| RowsOrder[DataType.NetImbalance].Enabled
 			|| RowsOrder[DataType.StackedBuyImbalance].Enabled
 			|| RowsOrder[DataType.StackedSellImbalance].Enabled
-			|| RowsOrder[DataType.StackedNetImbalance].Enabled;
+			|| RowsOrder[DataType.StackedNetImbalance].Enabled
+			|| _useNetImbalanceAlert;
 	}
 
 	private void CalculateImbalances(int bar, IndicatorCandle candle)
@@ -2211,6 +2256,27 @@ public class ClusterStatisticPro : Indicator
 		_stackedBuyImbalance[bar] = counts.StackedBuy;
 		_stackedSellImbalance[bar] = counts.StackedSell;
 		_stackedNetImbalance[bar] = counts.StackedNet;
+	}
+
+	private void CheckNetImbalanceAlert(int bar)
+	{
+		var threshold = Math.Max(1, NetImbalanceAlertValue);
+
+		if (_netImbalanceAlertOnClose)
+		{
+			// The bar that has just closed, once, on the first update of the next one.
+			var closed = bar - 1;
+
+			if (closed >= 0 && _netImbalanceAlert.OnBarClosed(closed, (int)_netImbalance[closed], closed > 0 ? (int)_netImbalance[closed - 1] : 0, threshold))
+				AddAlert(NetImbalanceAlertFile, string.Format(Res.AlertNetImbalanceTemplate, (int)_netImbalance[closed], threshold));
+
+			return;
+		}
+
+		var net = (int)_netImbalance[bar];
+
+		if (_netImbalanceAlert.OnLiveUpdate(bar, net, threshold))
+			AddAlert(NetImbalanceAlertFile, string.Format(Res.AlertNetImbalanceTemplate, net, threshold));
 	}
 
 	// The imbalances are only calculated while a row (or the alert) uses them: when one starts
