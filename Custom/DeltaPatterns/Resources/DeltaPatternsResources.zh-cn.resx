@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DeltaPatterns_Description" xml:space="preserve">
+    <value>将最近 N 手成交的滚动窗口归类为 Delta 形态（激进、主导、背离、反转、中性），并在价格图上标记和发出警报。</value>
+  </data>
+  <data name="Group_Patterns" xml:space="preserve">
+    <value>形态</value>
+  </data>
+  <data name="Group_Calculation" xml:space="preserve">
+    <value>计算</value>
+  </data>
+  <data name="Group_Visuals" xml:space="preserve">
+    <value>显示</value>
+  </data>
+  <data name="Group_Alerts" xml:space="preserve">
+    <value>警报</value>
+  </data>
+  <data name="Group_Diagnostics" xml:space="preserve">
+    <value>诊断</value>
+  </data>
+  <data name="DebugOverlayMode_Off" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="DebugOverlayMode_Compact" xml:space="preserve">
+    <value>紧凑</value>
+  </data>
+  <data name="DebugOverlayMode_Full" xml:space="preserve">
+    <value>完整</value>
+  </data>
+  <data name="DebugOverlayCorner_TopRight" xml:space="preserve">
+    <value>右上</value>
+  </data>
+  <data name="DebugOverlayCorner_TopLeft" xml:space="preserve">
+    <value>左上</value>
+  </data>
+  <data name="DebugOverlayCorner_BottomRight" xml:space="preserve">
+    <value>右下</value>
+  </data>
+  <data name="DebugOverlayCorner_BottomLeft" xml:space="preserve">
+    <value>左下</value>
+  </data>
+  <data name="Series_Aggressive" xml:space="preserve">
+    <value>激进</value>
+  </data>
+  <data name="Series_Dominance" xml:space="preserve">
+    <value>主导</value>
+  </data>
+  <data name="Series_Divergence" xml:space="preserve">
+    <value>背离</value>
+  </data>
+  <data name="Series_Reversal" xml:space="preserve">
+    <value>反转</value>
+  </data>
+  <data name="Series_Neutral" xml:space="preserve">
+    <value>中性</value>
+  </data>
+  <data name="Series_Normal" xml:space="preserve">
+    <value>普通</value>
+  </data>
+  <data name="Series_ScaleHigh" xml:space="preserve">
+    <value>刻度上限</value>
+  </data>
+  <data name="Series_ScaleLow" xml:space="preserve">
+    <value>刻度下限</value>
+  </data>
+  <data name="CategorySummary_Disabled" xml:space="preserve">
+    <value>已禁用</value>
+  </data>
+  <data name="CategorySummary_Visible" xml:space="preserve">
+    <value>可见</value>
+  </data>
+  <data name="CategorySummary_Hidden" xml:space="preserve">
+    <value>隐藏</value>
+  </data>
+  <data name="CategorySummary_Alert" xml:space="preserve">
+    <value>警报</value>
+  </data>
+  <data name="Aggressive_DisplayName" xml:space="preserve">
+    <value>激进</value>
+  </data>
+  <data name="Aggressive_Description" xml:space="preserve">
+    <value>窗口净 Delta 超过目标成交量的最小 Delta %。</value>
+  </data>
+  <data name="Dominance_DisplayName" xml:space="preserve">
+    <value>主导</value>
+  </data>
+  <data name="Dominance_Description" xml:space="preserve">
+    <value>单边 Delta 超过最小 %，且累计 Delta 反向偏离从未超过影线容差 %（均为目标成交量的百分比）。</value>
+  </data>
+  <data name="Divergence_DisplayName" xml:space="preserve">
+    <value>背离</value>
+  </data>
+  <data name="Divergence_Description" xml:space="preserve">
+    <value>窗口价格朝一个方向收盘，而超过最小 % 的净 Delta 指向相反方向。收盘等于开盘的窗口不算背离。</value>
+  </data>
+  <data name="Reversal_DisplayName" xml:space="preserve">
+    <value>反转</value>
+  </data>
+  <data name="Reversal_Description" xml:space="preserve">
+    <value>累计 Delta 在一侧达到最小 Delta %，而窗口在另一侧以超过最小收盘 % 收盘。</value>
+  </data>
+  <data name="Neutral_DisplayName" xml:space="preserve">
+    <value>中性</value>
+  </data>
+  <data name="Neutral_Description" xml:space="preserve">
+    <value>净 Delta 很小（最多为窗口成交量的最小 %），但累计 Delta 曾大幅偏向一侧（至少为目标成交量的争夺 %）：多空激烈争夺，无人胜出。</value>
+  </data>
+  <data name="Normal_DisplayName" xml:space="preserve">
+    <value>普通</value>
+  </data>
+  <data name="Normal_Description" xml:space="preserve">
+    <value>不符合任何其他形态的窗口颜色。仅“可见”和“颜色”有效。</value>
+  </data>
+  <data name="TargetVolume_DisplayName" xml:space="preserve">
+    <value>目标成交量</value>
+  </data>
+  <data name="TargetVolume_Description" xml:space="preserve">
+    <value>滚动窗口大小（合约数）：每根 K 线显示最近 N 手成交的状态。形态阈值是该值的百分比。</value>
+  </data>
+  <data name="SessionsToCalculate_DisplayName" xml:space="preserve">
+    <value>计算时段数</value>
+  </data>
+  <data name="SessionsToCalculate_Description" xml:space="preserve">
+    <value>请求并分类成交的最近时段数量。0 表示计算整个图表，加载天数多时可能较慢。</value>
+  </data>
+  <data name="ShowChartSignals_DisplayName" xml:space="preserve">
+    <value>在图表上显示信号</value>
+  </data>
+  <data name="ShowChartSignals_Description" xml:space="preserve">
+    <value>在价格图上为每根带可见形态的 K 线绘制标记。</value>
+  </data>
+  <data name="SignalSize_DisplayName" xml:space="preserve">
+    <value>信号大小</value>
+  </data>
+  <data name="SignalSize_Description" xml:space="preserve">
+    <value>标记大小（像素，2 到 50）。</value>
+  </data>
+  <data name="AlertSoundFile_DisplayName" xml:space="preserve">
+    <value>声音</value>
+  </data>
+  <data name="AlertSoundFile_Description" xml:space="preserve">
+    <value>警报触发时 ATAS 播放的声音文件。</value>
+  </data>
+  <data name="AlertCooldownSeconds_DisplayName" xml:space="preserve">
+    <value>冷却（秒）</value>
+  </data>
+  <data name="AlertCooldownSeconds_Description" xml:space="preserve">
+    <value>两次警报之间的最短时间，所有形态共用。</value>
+  </data>
+  <data name="AlertBackgroundColor_DisplayName" xml:space="preserve">
+    <value>背景</value>
+  </data>
+  <data name="AlertBackgroundColor_Description" xml:space="preserve">
+    <value>警报弹窗的背景颜色。</value>
+  </data>
+  <data name="AlertForegroundColor_DisplayName" xml:space="preserve">
+    <value>文字</value>
+  </data>
+  <data name="AlertForegroundColor_Description" xml:space="preserve">
+    <value>警报弹窗的文字颜色。</value>
+  </data>
+  <data name="OverlayMode_DisplayName" xml:space="preserve">
+    <value>状态面板</value>
+  </data>
+  <data name="OverlayMode_Description" xml:space="preserve">
+    <value>价格图上的状态面板。紧凑显示滚动窗口和实时形态；完整还显示图表统计、警报冷却和各形态开关。</value>
+  </data>
+  <data name="OverlayCorner_DisplayName" xml:space="preserve">
+    <value>面板位置</value>
+  </data>
+  <data name="OverlayCorner_Description" xml:space="preserve">
+    <value>状态面板在价格图上的角落。</value>
+  </data>
+  <data name="OverlayOffsetX_DisplayName" xml:space="preserve">
+    <value>面板水平偏移</value>
+  </data>
+  <data name="OverlayOffsetX_Description" xml:space="preserve">
+    <value>状态面板的水平偏移（像素），正值向右。</value>
+  </data>
+  <data name="OverlayOffsetY_DisplayName" xml:space="preserve">
+    <value>面板垂直偏移</value>
+  </data>
+  <data name="OverlayOffsetY_Description" xml:space="preserve">
+    <value>状态面板的垂直偏移（像素），正值向下。</value>
+  </data>
+  <data name="Category_Enabled_DisplayName" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="Category_Enabled_Description" xml:space="preserve">
+    <value>检测此形态。关闭时，窗口交给链中的下一个形态（背离、反转、主导、激进、中性）。</value>
+  </data>
+  <data name="Category_Visible_DisplayName" xml:space="preserve">
+    <value>可见</value>
+  </data>
+  <data name="Category_Visible_Description" xml:space="preserve">
+    <value>在面板和价格图上绘制此形态。隐藏的形态仍会被检测并可发出警报。</value>
+  </data>
+  <data name="Category_MinDeltaPercent_DisplayName" xml:space="preserve">
+    <value>最小 Delta %</value>
+  </data>
+  <data name="Category_MinDeltaPercent_Description" xml:space="preserve">
+    <value>Delta 阈值，为目标成交量的百分比（中性形态为窗口成交量百分比的最大净 Delta）。</value>
+  </data>
+  <data name="Category_EnableAlert_DisplayName" xml:space="preserve">
+    <value>警报</value>
+  </data>
+  <data name="Category_EnableAlert_Description" xml:space="preserve">
+    <value>实时窗口变为此形态时实时发出警报。</value>
+  </data>
+  <data name="Category_Color_DisplayName" xml:space="preserve">
+    <value>颜色</value>
+  </data>
+  <data name="Category_Color_Description" xml:space="preserve">
+    <value>形态颜色。</value>
+  </data>
+  <data name="Category_BuyColor_DisplayName" xml:space="preserve">
+    <value>买方颜色</value>
+  </data>
+  <data name="Category_BuyColor_Description" xml:space="preserve">
+    <value>形态买方一侧的颜色。</value>
+  </data>
+  <data name="Category_SellColor_DisplayName" xml:space="preserve">
+    <value>卖方颜色</value>
+  </data>
+  <data name="Category_SellColor_Description" xml:space="preserve">
+    <value>形态卖方一侧的颜色。</value>
+  </data>
+  <data name="Category_WickTolerancePercent_DisplayName" xml:space="preserve">
+    <value>影线容差 %</value>
+  </data>
+  <data name="Category_WickTolerancePercent_Description" xml:space="preserve">
+    <value>累计 Delta 逆主导方向的最大波动，为目标成交量的百分比。</value>
+  </data>
+  <data name="Category_ClosePercent_DisplayName" xml:space="preserve">
+    <value>最小收盘 %</value>
+  </data>
+  <data name="Category_ClosePercent_Description" xml:space="preserve">
+    <value>窗口在相反一侧收盘所需的净 Delta，为目标成交量的百分比。</value>
+  </data>
+  <data name="Category_StrugglePercent_DisplayName" xml:space="preserve">
+    <value>争夺 %</value>
+  </data>
+  <data name="Category_StrugglePercent_Description" xml:space="preserve">
+    <value>累计 Delta 必须向任一方向达到的幅度，为目标成交量的百分比。</value>
+  </data>
+  <data name="ScaleLimit_DisplayName" xml:space="preserve">
+    <value>刻度上限值</value>
+  </data>
+  <data name="ScaleLimit_Description" xml:space="preserve">
+    <value>面板刻度的上限（Delta 合约数）。0 表示按计算范围内最大的窗口缩放，单个极值可能压扁其余部分；设置上限后普通 K 线清晰可读，极值超出面板。</value>
+  </data>
+</root>

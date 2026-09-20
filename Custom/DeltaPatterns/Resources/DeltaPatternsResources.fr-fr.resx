@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DeltaPatterns_Description" xml:space="preserve">
+    <value>Classe une fenêtre glissante des N derniers contrats échangés en motifs de delta (agressif, domination, divergence, retournement, neutre), avec marqueurs sur le graphique des prix et alertes.</value>
+  </data>
+  <data name="Group_Patterns" xml:space="preserve">
+    <value>Motifs</value>
+  </data>
+  <data name="Group_Calculation" xml:space="preserve">
+    <value>Calcul</value>
+  </data>
+  <data name="Group_Visuals" xml:space="preserve">
+    <value>Affichage</value>
+  </data>
+  <data name="Group_Alerts" xml:space="preserve">
+    <value>Alertes</value>
+  </data>
+  <data name="Group_Diagnostics" xml:space="preserve">
+    <value>Diagnostic</value>
+  </data>
+  <data name="DebugOverlayMode_Off" xml:space="preserve">
+    <value>Désactivé</value>
+  </data>
+  <data name="DebugOverlayMode_Compact" xml:space="preserve">
+    <value>Compact</value>
+  </data>
+  <data name="DebugOverlayMode_Full" xml:space="preserve">
+    <value>Complet</value>
+  </data>
+  <data name="DebugOverlayCorner_TopRight" xml:space="preserve">
+    <value>En haut à droite</value>
+  </data>
+  <data name="DebugOverlayCorner_TopLeft" xml:space="preserve">
+    <value>En haut à gauche</value>
+  </data>
+  <data name="DebugOverlayCorner_BottomRight" xml:space="preserve">
+    <value>En bas à droite</value>
+  </data>
+  <data name="DebugOverlayCorner_BottomLeft" xml:space="preserve">
+    <value>En bas à gauche</value>
+  </data>
+  <data name="Series_Aggressive" xml:space="preserve">
+    <value>Agressif</value>
+  </data>
+  <data name="Series_Dominance" xml:space="preserve">
+    <value>Domination</value>
+  </data>
+  <data name="Series_Divergence" xml:space="preserve">
+    <value>Divergence</value>
+  </data>
+  <data name="Series_Reversal" xml:space="preserve">
+    <value>Retournement</value>
+  </data>
+  <data name="Series_Neutral" xml:space="preserve">
+    <value>Neutre</value>
+  </data>
+  <data name="Series_Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="Series_ScaleHigh" xml:space="preserve">
+    <value>Échelle haute</value>
+  </data>
+  <data name="Series_ScaleLow" xml:space="preserve">
+    <value>Échelle basse</value>
+  </data>
+  <data name="CategorySummary_Disabled" xml:space="preserve">
+    <value>Désactivé</value>
+  </data>
+  <data name="CategorySummary_Visible" xml:space="preserve">
+    <value>Visible</value>
+  </data>
+  <data name="CategorySummary_Hidden" xml:space="preserve">
+    <value>Masqué</value>
+  </data>
+  <data name="CategorySummary_Alert" xml:space="preserve">
+    <value>Alerte</value>
+  </data>
+  <data name="Aggressive_DisplayName" xml:space="preserve">
+    <value>Agressif</value>
+  </data>
+  <data name="Aggressive_Description" xml:space="preserve">
+    <value>Delta net de la fenêtre au-delà du % de delta minimal du volume cible.</value>
+  </data>
+  <data name="Dominance_DisplayName" xml:space="preserve">
+    <value>Domination</value>
+  </data>
+  <data name="Dominance_Description" xml:space="preserve">
+    <value>Delta unilatéral au-delà du % minimal dont le delta cumulé n'est jamais allé contre de plus que la tolérance de mèche % (en % du volume cible).</value>
+  </data>
+  <data name="Divergence_DisplayName" xml:space="preserve">
+    <value>Divergence</value>
+  </data>
+  <data name="Divergence_Description" xml:space="preserve">
+    <value>La fenêtre a clôturé dans un sens de prix alors que son delta net, au-delà du % minimal, va dans l'autre. Une fenêtre qui clôture à son ouverture n'est jamais une divergence.</value>
+  </data>
+  <data name="Reversal_DisplayName" xml:space="preserve">
+    <value>Retournement</value>
+  </data>
+  <data name="Reversal_Description" xml:space="preserve">
+    <value>Le delta cumulé a atteint le % de delta minimal d'un côté et la fenêtre a clôturé au-delà du % de clôture minimal de l'autre.</value>
+  </data>
+  <data name="Neutral_DisplayName" xml:space="preserve">
+    <value>Neutre</value>
+  </data>
+  <data name="Neutral_Description" xml:space="preserve">
+    <value>Petit delta net (au plus le % minimal du volume de la fenêtre) après que le delta cumulé s'est fortement écarté d'un côté (au moins le % de lutte du volume cible) : les deux camps se sont battus sans vainqueur.</value>
+  </data>
+  <data name="Normal_DisplayName" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="Normal_Description" xml:space="preserve">
+    <value>Couleur des fenêtres qui ne correspondent à aucun autre motif. Seuls Visible et Couleur s'appliquent.</value>
+  </data>
+  <data name="TargetVolume_DisplayName" xml:space="preserve">
+    <value>Volume cible</value>
+  </data>
+  <data name="TargetVolume_Description" xml:space="preserve">
+    <value>Taille de la fenêtre glissante en contrats : chaque barre montre l'état des N derniers contrats échangés. Les seuils des motifs sont des pourcentages de cette valeur.</value>
+  </data>
+  <data name="SessionsToCalculate_DisplayName" xml:space="preserve">
+    <value>Sessions à calculer</value>
+  </data>
+  <data name="SessionsToCalculate_Description" xml:space="preserve">
+    <value>Nombre des sessions les plus récentes dont les transactions sont demandées et classées. 0 calcule tout le graphique, ce qui peut être long avec beaucoup de jours chargés.</value>
+  </data>
+  <data name="ShowChartSignals_DisplayName" xml:space="preserve">
+    <value>Afficher les signaux sur le graphique</value>
+  </data>
+  <data name="ShowChartSignals_Description" xml:space="preserve">
+    <value>Dessine un marqueur sur le graphique des prix pour chaque barre avec un motif visible.</value>
+  </data>
+  <data name="SignalSize_DisplayName" xml:space="preserve">
+    <value>Taille du signal</value>
+  </data>
+  <data name="SignalSize_Description" xml:space="preserve">
+    <value>Taille des marqueurs en pixels (de 2 à 50).</value>
+  </data>
+  <data name="AlertSoundFile_DisplayName" xml:space="preserve">
+    <value>Son</value>
+  </data>
+  <data name="AlertSoundFile_Description" xml:space="preserve">
+    <value>Fichier son joué par ATAS au déclenchement d'une alerte.</value>
+  </data>
+  <data name="AlertCooldownSeconds_DisplayName" xml:space="preserve">
+    <value>Délai (secondes)</value>
+  </data>
+  <data name="AlertCooldownSeconds_Description" xml:space="preserve">
+    <value>Délai minimal entre deux alertes, commun à tous les motifs.</value>
+  </data>
+  <data name="AlertBackgroundColor_DisplayName" xml:space="preserve">
+    <value>Fond</value>
+  </data>
+  <data name="AlertBackgroundColor_Description" xml:space="preserve">
+    <value>Couleur de fond de la fenêtre d'alerte.</value>
+  </data>
+  <data name="AlertForegroundColor_DisplayName" xml:space="preserve">
+    <value>Texte</value>
+  </data>
+  <data name="AlertForegroundColor_Description" xml:space="preserve">
+    <value>Couleur du texte de la fenêtre d'alerte.</value>
+  </data>
+  <data name="OverlayMode_DisplayName" xml:space="preserve">
+    <value>Panneau d'état</value>
+  </data>
+  <data name="OverlayMode_Description" xml:space="preserve">
+    <value>Panneau d'état sur le graphique des prix. Compact montre la fenêtre glissante et le motif en direct ; Complet ajoute les statistiques du graphique, le délai des alertes et les options de chaque motif.</value>
+  </data>
+  <data name="OverlayCorner_DisplayName" xml:space="preserve">
+    <value>Coin du panneau</value>
+  </data>
+  <data name="OverlayCorner_Description" xml:space="preserve">
+    <value>Coin du graphique des prix où le panneau d'état est dessiné.</value>
+  </data>
+  <data name="OverlayOffsetX_DisplayName" xml:space="preserve">
+    <value>Décalage X du panneau</value>
+  </data>
+  <data name="OverlayOffsetX_Description" xml:space="preserve">
+    <value>Décalage horizontal du panneau d'état en pixels. Positif le déplace à droite.</value>
+  </data>
+  <data name="OverlayOffsetY_DisplayName" xml:space="preserve">
+    <value>Décalage Y du panneau</value>
+  </data>
+  <data name="OverlayOffsetY_Description" xml:space="preserve">
+    <value>Décalage vertical du panneau d'état en pixels. Positif le déplace vers le bas.</value>
+  </data>
+  <data name="Category_Enabled_DisplayName" xml:space="preserve">
+    <value>Activé</value>
+  </data>
+  <data name="Category_Enabled_Description" xml:space="preserve">
+    <value>Détecter ce motif. Désactivé, les fenêtres passent au motif suivant de la chaîne (divergence, retournement, domination, agressif, neutre).</value>
+  </data>
+  <data name="Category_Visible_DisplayName" xml:space="preserve">
+    <value>Visible</value>
+  </data>
+  <data name="Category_Visible_Description" xml:space="preserve">
+    <value>Dessiner ce motif dans le panneau et sur le graphique des prix. Un motif masqué est toujours détecté et peut alerter.</value>
+  </data>
+  <data name="Category_MinDeltaPercent_DisplayName" xml:space="preserve">
+    <value>% de delta minimal</value>
+  </data>
+  <data name="Category_MinDeltaPercent_Description" xml:space="preserve">
+    <value>Seuil de delta en % du volume cible (pour Neutre, le delta net maximal en % du volume de la fenêtre).</value>
+  </data>
+  <data name="Category_EnableAlert_DisplayName" xml:space="preserve">
+    <value>Alerte</value>
+  </data>
+  <data name="Category_EnableAlert_Description" xml:space="preserve">
+    <value>Alerter en temps réel quand la fenêtre en direct passe à ce motif.</value>
+  </data>
+  <data name="Category_Color_DisplayName" xml:space="preserve">
+    <value>Couleur</value>
+  </data>
+  <data name="Category_Color_Description" xml:space="preserve">
+    <value>Couleur du motif.</value>
+  </data>
+  <data name="Category_BuyColor_DisplayName" xml:space="preserve">
+    <value>Couleur acheteur</value>
+  </data>
+  <data name="Category_BuyColor_Description" xml:space="preserve">
+    <value>Couleur du côté acheteur du motif.</value>
+  </data>
+  <data name="Category_SellColor_DisplayName" xml:space="preserve">
+    <value>Couleur vendeur</value>
+  </data>
+  <data name="Category_SellColor_Description" xml:space="preserve">
+    <value>Couleur du côté vendeur du motif.</value>
+  </data>
+  <data name="Category_WickTolerancePercent_DisplayName" xml:space="preserve">
+    <value>Tolérance de mèche %</value>
+  </data>
+  <data name="Category_WickTolerancePercent_Description" xml:space="preserve">
+    <value>Plus grand mouvement du delta cumulé contre le côté dominant, en % du volume cible.</value>
+  </data>
+  <data name="Category_ClosePercent_DisplayName" xml:space="preserve">
+    <value>% de clôture minimal</value>
+  </data>
+  <data name="Category_ClosePercent_Description" xml:space="preserve">
+    <value>Delta net avec lequel la fenêtre doit clôturer du côté opposé, en % du volume cible.</value>
+  </data>
+  <data name="Category_StrugglePercent_DisplayName" xml:space="preserve">
+    <value>Lutte %</value>
+  </data>
+  <data name="Category_StrugglePercent_Description" xml:space="preserve">
+    <value>Jusqu'où le delta cumulé doit être allé d'un côté ou de l'autre, en % du volume cible.</value>
+  </data>
+  <data name="ScaleLimit_DisplayName" xml:space="preserve">
+    <value>Limite d'échelle</value>
+  </data>
+  <data name="ScaleLimit_Description" xml:space="preserve">
+    <value>Limite supérieure de l'échelle du panneau, en contrats de delta. 0 s'adapte à la plus grande fenêtre de la plage calculée, donc une valeur extrême peut écraser le reste ; avec une limite, les barres habituelles restent lisibles et les extrêmes sortent du panneau.</value>
+  </data>
+</root>

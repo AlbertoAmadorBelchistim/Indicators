@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DeltaPatterns_Description" xml:space="preserve">
+    <value>Klassifiziert ein gleitendes Fenster der letzten N gehandelten Kontrakte in Delta-Muster (aggressiv, Dominanz, Divergenz, Umkehr, neutral) mit Markierungen im Preischart und Alarmen.</value>
+  </data>
+  <data name="Group_Patterns" xml:space="preserve">
+    <value>Muster</value>
+  </data>
+  <data name="Group_Calculation" xml:space="preserve">
+    <value>Berechnung</value>
+  </data>
+  <data name="Group_Visuals" xml:space="preserve">
+    <value>Darstellung</value>
+  </data>
+  <data name="Group_Alerts" xml:space="preserve">
+    <value>Alarme</value>
+  </data>
+  <data name="Group_Diagnostics" xml:space="preserve">
+    <value>Diagnose</value>
+  </data>
+  <data name="DebugOverlayMode_Off" xml:space="preserve">
+    <value>Aus</value>
+  </data>
+  <data name="DebugOverlayMode_Compact" xml:space="preserve">
+    <value>Kompakt</value>
+  </data>
+  <data name="DebugOverlayMode_Full" xml:space="preserve">
+    <value>Vollständig</value>
+  </data>
+  <data name="DebugOverlayCorner_TopRight" xml:space="preserve">
+    <value>Oben rechts</value>
+  </data>
+  <data name="DebugOverlayCorner_TopLeft" xml:space="preserve">
+    <value>Oben links</value>
+  </data>
+  <data name="DebugOverlayCorner_BottomRight" xml:space="preserve">
+    <value>Unten rechts</value>
+  </data>
+  <data name="DebugOverlayCorner_BottomLeft" xml:space="preserve">
+    <value>Unten links</value>
+  </data>
+  <data name="Series_Aggressive" xml:space="preserve">
+    <value>Aggressiv</value>
+  </data>
+  <data name="Series_Dominance" xml:space="preserve">
+    <value>Dominanz</value>
+  </data>
+  <data name="Series_Divergence" xml:space="preserve">
+    <value>Divergenz</value>
+  </data>
+  <data name="Series_Reversal" xml:space="preserve">
+    <value>Umkehr</value>
+  </data>
+  <data name="Series_Neutral" xml:space="preserve">
+    <value>Neutral</value>
+  </data>
+  <data name="Series_Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="Series_ScaleHigh" xml:space="preserve">
+    <value>Skala oben</value>
+  </data>
+  <data name="Series_ScaleLow" xml:space="preserve">
+    <value>Skala unten</value>
+  </data>
+  <data name="CategorySummary_Disabled" xml:space="preserve">
+    <value>Deaktiviert</value>
+  </data>
+  <data name="CategorySummary_Visible" xml:space="preserve">
+    <value>Sichtbar</value>
+  </data>
+  <data name="CategorySummary_Hidden" xml:space="preserve">
+    <value>Ausgeblendet</value>
+  </data>
+  <data name="CategorySummary_Alert" xml:space="preserve">
+    <value>Alarm</value>
+  </data>
+  <data name="Aggressive_DisplayName" xml:space="preserve">
+    <value>Aggressiv</value>
+  </data>
+  <data name="Aggressive_Description" xml:space="preserve">
+    <value>Netto-Delta des Fensters jenseits von Min. Delta % des Zielvolumens.</value>
+  </data>
+  <data name="Dominance_DisplayName" xml:space="preserve">
+    <value>Dominanz</value>
+  </data>
+  <data name="Dominance_Description" xml:space="preserve">
+    <value>Einseitiges Delta jenseits von Min. Delta %, dessen laufendes Delta nie um mehr als die Docht-Toleranz % dagegen lief (beides in % des Zielvolumens).</value>
+  </data>
+  <data name="Divergence_DisplayName" xml:space="preserve">
+    <value>Divergenz</value>
+  </data>
+  <data name="Divergence_Description" xml:space="preserve">
+    <value>Das Fenster schloss in einer Preisrichtung, während sein Netto-Delta jenseits von Min. Delta % in die andere zeigt. Ein Fenster, das auf Eröffnungshöhe schließt, ist nie eine Divergenz.</value>
+  </data>
+  <data name="Reversal_DisplayName" xml:space="preserve">
+    <value>Umkehr</value>
+  </data>
+  <data name="Reversal_Description" xml:space="preserve">
+    <value>Das laufende Delta erreichte Min. Delta % auf einer Seite und das Fenster schloss jenseits von Min. Schluss % auf der anderen.</value>
+  </data>
+  <data name="Neutral_DisplayName" xml:space="preserve">
+    <value>Neutral</value>
+  </data>
+  <data name="Neutral_Description" xml:space="preserve">
+    <value>Kleines Netto-Delta (höchstens Min. Delta % des Fenstervolumens) nachdem das laufende Delta weit zu einer Seite lief (mindestens Kampf % des Zielvolumens): beide Seiten kämpften, keiner gewann.</value>
+  </data>
+  <data name="Normal_DisplayName" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="Normal_Description" xml:space="preserve">
+    <value>Farbe der Fenster, die zu keinem anderen Muster passen. Nur Sichtbar und Farbe gelten.</value>
+  </data>
+  <data name="TargetVolume_DisplayName" xml:space="preserve">
+    <value>Zielvolumen</value>
+  </data>
+  <data name="TargetVolume_Description" xml:space="preserve">
+    <value>Größe des gleitenden Fensters in Kontrakten: jede Kerze zeigt den Zustand der letzten N gehandelten Kontrakte. Die Musterschwellen sind Prozente dieses Werts.</value>
+  </data>
+  <data name="SessionsToCalculate_DisplayName" xml:space="preserve">
+    <value>Zu berechnende Sitzungen</value>
+  </data>
+  <data name="SessionsToCalculate_Description" xml:space="preserve">
+    <value>Anzahl der jüngsten Sitzungen, deren Trades abgefragt und klassifiziert werden. 0 berechnet den ganzen Chart, was bei vielen geladenen Tagen dauern kann.</value>
+  </data>
+  <data name="ShowChartSignals_DisplayName" xml:space="preserve">
+    <value>Signale im Chart anzeigen</value>
+  </data>
+  <data name="ShowChartSignals_Description" xml:space="preserve">
+    <value>Zeichnet eine Markierung im Preischart für jede Kerze mit sichtbarem Muster.</value>
+  </data>
+  <data name="SignalSize_DisplayName" xml:space="preserve">
+    <value>Signalgröße</value>
+  </data>
+  <data name="SignalSize_Description" xml:space="preserve">
+    <value>Größe der Markierungen in Pixeln (2 bis 50).</value>
+  </data>
+  <data name="AlertSoundFile_DisplayName" xml:space="preserve">
+    <value>Ton</value>
+  </data>
+  <data name="AlertSoundFile_Description" xml:space="preserve">
+    <value>Tondatei, die ATAS beim Auslösen eines Alarms abspielt.</value>
+  </data>
+  <data name="AlertCooldownSeconds_DisplayName" xml:space="preserve">
+    <value>Wartezeit (Sekunden)</value>
+  </data>
+  <data name="AlertCooldownSeconds_Description" xml:space="preserve">
+    <value>Mindestzeit zwischen zwei Alarmen, gemeinsam für alle Muster.</value>
+  </data>
+  <data name="AlertBackgroundColor_DisplayName" xml:space="preserve">
+    <value>Hintergrund</value>
+  </data>
+  <data name="AlertBackgroundColor_Description" xml:space="preserve">
+    <value>Hintergrundfarbe des Alarmfensters.</value>
+  </data>
+  <data name="AlertForegroundColor_DisplayName" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="AlertForegroundColor_Description" xml:space="preserve">
+    <value>Textfarbe des Alarmfensters.</value>
+  </data>
+  <data name="OverlayMode_DisplayName" xml:space="preserve">
+    <value>Statusanzeige</value>
+  </data>
+  <data name="OverlayMode_Description" xml:space="preserve">
+    <value>Statusanzeige im Preischart. Kompakt zeigt das gleitende Fenster und das Live-Muster; Vollständig ergänzt die Chartstatistik, die Alarm-Wartezeit und die Schalter jedes Musters.</value>
+  </data>
+  <data name="OverlayCorner_DisplayName" xml:space="preserve">
+    <value>Ecke der Anzeige</value>
+  </data>
+  <data name="OverlayCorner_Description" xml:space="preserve">
+    <value>Ecke des Preischarts, in der die Statusanzeige gezeichnet wird.</value>
+  </data>
+  <data name="OverlayOffsetX_DisplayName" xml:space="preserve">
+    <value>Versatz X der Anzeige</value>
+  </data>
+  <data name="OverlayOffsetX_Description" xml:space="preserve">
+    <value>Horizontaler Versatz der Statusanzeige in Pixeln. Positiv verschiebt nach rechts.</value>
+  </data>
+  <data name="OverlayOffsetY_DisplayName" xml:space="preserve">
+    <value>Versatz Y der Anzeige</value>
+  </data>
+  <data name="OverlayOffsetY_Description" xml:space="preserve">
+    <value>Vertikaler Versatz der Statusanzeige in Pixeln. Positiv verschiebt nach unten.</value>
+  </data>
+  <data name="Category_Enabled_DisplayName" xml:space="preserve">
+    <value>Aktiviert</value>
+  </data>
+  <data name="Category_Enabled_Description" xml:space="preserve">
+    <value>Dieses Muster erkennen. Aus: die Fenster gehen an das nächste Muster der Kette (Divergenz, Umkehr, Dominanz, aggressiv, neutral).</value>
+  </data>
+  <data name="Category_Visible_DisplayName" xml:space="preserve">
+    <value>Sichtbar</value>
+  </data>
+  <data name="Category_Visible_Description" xml:space="preserve">
+    <value>Dieses Muster im Panel und im Preischart zeichnen. Ein ausgeblendetes Muster wird weiter erkannt und kann alarmieren.</value>
+  </data>
+  <data name="Category_MinDeltaPercent_DisplayName" xml:space="preserve">
+    <value>Min. Delta %</value>
+  </data>
+  <data name="Category_MinDeltaPercent_Description" xml:space="preserve">
+    <value>Delta-Schwelle in % des Zielvolumens (bei Neutral das maximale Netto-Delta in % des Fenstervolumens).</value>
+  </data>
+  <data name="Category_EnableAlert_DisplayName" xml:space="preserve">
+    <value>Alarm</value>
+  </data>
+  <data name="Category_EnableAlert_Description" xml:space="preserve">
+    <value>In Echtzeit alarmieren, wenn das Live-Fenster zu diesem Muster wechselt.</value>
+  </data>
+  <data name="Category_Color_DisplayName" xml:space="preserve">
+    <value>Farbe</value>
+  </data>
+  <data name="Category_Color_Description" xml:space="preserve">
+    <value>Farbe des Musters.</value>
+  </data>
+  <data name="Category_BuyColor_DisplayName" xml:space="preserve">
+    <value>Käuferfarbe</value>
+  </data>
+  <data name="Category_BuyColor_Description" xml:space="preserve">
+    <value>Farbe der Käuferseite des Musters.</value>
+  </data>
+  <data name="Category_SellColor_DisplayName" xml:space="preserve">
+    <value>Verkäuferfarbe</value>
+  </data>
+  <data name="Category_SellColor_Description" xml:space="preserve">
+    <value>Farbe der Verkäuferseite des Musters.</value>
+  </data>
+  <data name="Category_WickTolerancePercent_DisplayName" xml:space="preserve">
+    <value>Docht-Toleranz %</value>
+  </data>
+  <data name="Category_WickTolerancePercent_Description" xml:space="preserve">
+    <value>Größte Bewegung des laufenden Deltas gegen die dominante Seite, in % des Zielvolumens.</value>
+  </data>
+  <data name="Category_ClosePercent_DisplayName" xml:space="preserve">
+    <value>Min. Schluss %</value>
+  </data>
+  <data name="Category_ClosePercent_Description" xml:space="preserve">
+    <value>Netto-Delta, mit dem das Fenster auf der Gegenseite schließen muss, in % des Zielvolumens.</value>
+  </data>
+  <data name="Category_StrugglePercent_DisplayName" xml:space="preserve">
+    <value>Kampf %</value>
+  </data>
+  <data name="Category_StrugglePercent_Description" xml:space="preserve">
+    <value>Wie weit das laufende Delta zu einer der beiden Seiten gegangen sein muss, in % des Zielvolumens.</value>
+  </data>
+  <data name="ScaleLimit_DisplayName" xml:space="preserve">
+    <value>Skalengrenze</value>
+  </data>
+  <data name="ScaleLimit_Description" xml:space="preserve">
+    <value>Obergrenze der Panelskala in Delta-Kontrakten. 0 skaliert auf das größte Fenster des berechneten Bereichs, sodass ein Ausreißer den Rest stauchen kann; mit einer Grenze bleiben die üblichen Kerzen lesbar und die Ausreißer ragen aus dem Panel.</value>
+  </data>
+</root>

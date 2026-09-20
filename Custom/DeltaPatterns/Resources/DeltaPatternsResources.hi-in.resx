@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DeltaPatterns_Description" xml:space="preserve">
+    <value>पिछले N ट्रेड किए गए कॉन्ट्रैक्ट की रोलिंग विंडो को डेल्टा पैटर्न (आक्रामक, प्रभुत्व, डाइवर्जेंस, रिवर्सल, न्यूट्रल) में वर्गीकृत करता है, प्राइस चार्ट पर मार्कर और अलर्ट के साथ।</value>
+  </data>
+  <data name="Group_Patterns" xml:space="preserve">
+    <value>पैटर्न</value>
+  </data>
+  <data name="Group_Calculation" xml:space="preserve">
+    <value>गणना</value>
+  </data>
+  <data name="Group_Visuals" xml:space="preserve">
+    <value>दृश्य</value>
+  </data>
+  <data name="Group_Alerts" xml:space="preserve">
+    <value>अलर्ट</value>
+  </data>
+  <data name="Group_Diagnostics" xml:space="preserve">
+    <value>निदान</value>
+  </data>
+  <data name="DebugOverlayMode_Off" xml:space="preserve">
+    <value>बंद</value>
+  </data>
+  <data name="DebugOverlayMode_Compact" xml:space="preserve">
+    <value>संक्षिप्त</value>
+  </data>
+  <data name="DebugOverlayMode_Full" xml:space="preserve">
+    <value>पूर्ण</value>
+  </data>
+  <data name="DebugOverlayCorner_TopRight" xml:space="preserve">
+    <value>ऊपर दाएँ</value>
+  </data>
+  <data name="DebugOverlayCorner_TopLeft" xml:space="preserve">
+    <value>ऊपर बाएँ</value>
+  </data>
+  <data name="DebugOverlayCorner_BottomRight" xml:space="preserve">
+    <value>नीचे दाएँ</value>
+  </data>
+  <data name="DebugOverlayCorner_BottomLeft" xml:space="preserve">
+    <value>नीचे बाएँ</value>
+  </data>
+  <data name="Series_Aggressive" xml:space="preserve">
+    <value>आक्रामक</value>
+  </data>
+  <data name="Series_Dominance" xml:space="preserve">
+    <value>प्रभुत्व</value>
+  </data>
+  <data name="Series_Divergence" xml:space="preserve">
+    <value>डाइवर्जेंस</value>
+  </data>
+  <data name="Series_Reversal" xml:space="preserve">
+    <value>रिवर्सल</value>
+  </data>
+  <data name="Series_Neutral" xml:space="preserve">
+    <value>न्यूट्रल</value>
+  </data>
+  <data name="Series_Normal" xml:space="preserve">
+    <value>सामान्य</value>
+  </data>
+  <data name="Series_ScaleHigh" xml:space="preserve">
+    <value>स्केल ऊपरी</value>
+  </data>
+  <data name="Series_ScaleLow" xml:space="preserve">
+    <value>स्केल निचला</value>
+  </data>
+  <data name="CategorySummary_Disabled" xml:space="preserve">
+    <value>अक्षम</value>
+  </data>
+  <data name="CategorySummary_Visible" xml:space="preserve">
+    <value>दृश्यमान</value>
+  </data>
+  <data name="CategorySummary_Hidden" xml:space="preserve">
+    <value>छिपा</value>
+  </data>
+  <data name="CategorySummary_Alert" xml:space="preserve">
+    <value>अलर्ट</value>
+  </data>
+  <data name="Aggressive_DisplayName" xml:space="preserve">
+    <value>आक्रामक</value>
+  </data>
+  <data name="Aggressive_Description" xml:space="preserve">
+    <value>विंडो का नेट डेल्टा लक्ष्य वॉल्यूम के न्यूनतम डेल्टा % से अधिक।</value>
+  </data>
+  <data name="Dominance_DisplayName" xml:space="preserve">
+    <value>प्रभुत्व</value>
+  </data>
+  <data name="Dominance_Description" xml:space="preserve">
+    <value>न्यूनतम % से अधिक एकतरफा डेल्टा, जिसका चालू डेल्टा कभी विक टॉलरेंस % से अधिक विपरीत नहीं गया (दोनों लक्ष्य वॉल्यूम के % में)।</value>
+  </data>
+  <data name="Divergence_DisplayName" xml:space="preserve">
+    <value>डाइवर्जेंस</value>
+  </data>
+  <data name="Divergence_Description" xml:space="preserve">
+    <value>विंडो एक मूल्य दिशा में बंद हुई जबकि न्यूनतम % से अधिक उसका नेट डेल्टा दूसरी ओर है। जो विंडो अपने ओपन पर बंद हो वह कभी डाइवर्जेंस नहीं।</value>
+  </data>
+  <data name="Reversal_DisplayName" xml:space="preserve">
+    <value>रिवर्सल</value>
+  </data>
+  <data name="Reversal_Description" xml:space="preserve">
+    <value>चालू डेल्टा एक ओर न्यूनतम डेल्टा % तक पहुँचा और विंडो दूसरी ओर न्यूनतम क्लोज़ % से आगे बंद हुई।</value>
+  </data>
+  <data name="Neutral_DisplayName" xml:space="preserve">
+    <value>न्यूट्रल</value>
+  </data>
+  <data name="Neutral_Description" xml:space="preserve">
+    <value>छोटा नेट डेल्टा (विंडो वॉल्यूम का अधिकतम न्यूनतम %) चालू डेल्टा के एक ओर दूर जाने (लक्ष्य वॉल्यूम का कम से कम संघर्ष %) के बाद: दोनों पक्ष लड़े, कोई नहीं जीता।</value>
+  </data>
+  <data name="Normal_DisplayName" xml:space="preserve">
+    <value>सामान्य</value>
+  </data>
+  <data name="Normal_Description" xml:space="preserve">
+    <value>जो विंडो किसी अन्य पैटर्न से मेल नहीं खाती उनका रंग। केवल दृश्यमान और रंग लागू होते हैं।</value>
+  </data>
+  <data name="TargetVolume_DisplayName" xml:space="preserve">
+    <value>लक्ष्य वॉल्यूम</value>
+  </data>
+  <data name="TargetVolume_Description" xml:space="preserve">
+    <value>रोलिंग विंडो का आकार कॉन्ट्रैक्ट में: हर बार पिछले N ट्रेड किए गए कॉन्ट्रैक्ट की स्थिति दिखाता है। पैटर्न थ्रेशोल्ड इस मान के प्रतिशत हैं।</value>
+  </data>
+  <data name="SessionsToCalculate_DisplayName" xml:space="preserve">
+    <value>गणना हेतु सत्र</value>
+  </data>
+  <data name="SessionsToCalculate_Description" xml:space="preserve">
+    <value>सबसे हाल के सत्रों की संख्या जिनके ट्रेड मांगे और वर्गीकृत किए जाते हैं। 0 पूरे चार्ट की गणना करता है, कई दिन लोड होने पर समय लग सकता है।</value>
+  </data>
+  <data name="ShowChartSignals_DisplayName" xml:space="preserve">
+    <value>चार्ट पर सिग्नल दिखाएँ</value>
+  </data>
+  <data name="ShowChartSignals_Description" xml:space="preserve">
+    <value>दृश्यमान पैटर्न वाले हर बार के लिए प्राइस चार्ट पर मार्कर बनाता है।</value>
+  </data>
+  <data name="SignalSize_DisplayName" xml:space="preserve">
+    <value>सिग्नल आकार</value>
+  </data>
+  <data name="SignalSize_Description" xml:space="preserve">
+    <value>मार्कर का आकार पिक्सेल में (2 से 50)।</value>
+  </data>
+  <data name="AlertSoundFile_DisplayName" xml:space="preserve">
+    <value>ध्वनि</value>
+  </data>
+  <data name="AlertSoundFile_Description" xml:space="preserve">
+    <value>अलर्ट आने पर ATAS द्वारा चलाई जाने वाली ध्वनि फ़ाइल।</value>
+  </data>
+  <data name="AlertCooldownSeconds_DisplayName" xml:space="preserve">
+    <value>कूलडाउन (सेकंड)</value>
+  </data>
+  <data name="AlertCooldownSeconds_Description" xml:space="preserve">
+    <value>दो अलर्ट के बीच न्यूनतम समय, सभी पैटर्न के लिए साझा।</value>
+  </data>
+  <data name="AlertBackgroundColor_DisplayName" xml:space="preserve">
+    <value>पृष्ठभूमि</value>
+  </data>
+  <data name="AlertBackgroundColor_Description" xml:space="preserve">
+    <value>अलर्ट पॉप-अप का पृष्ठभूमि रंग।</value>
+  </data>
+  <data name="AlertForegroundColor_DisplayName" xml:space="preserve">
+    <value>टेक्स्ट</value>
+  </data>
+  <data name="AlertForegroundColor_Description" xml:space="preserve">
+    <value>अलर्ट पॉप-अप का टेक्स्ट रंग।</value>
+  </data>
+  <data name="OverlayMode_DisplayName" xml:space="preserve">
+    <value>स्थिति पैनल</value>
+  </data>
+  <data name="OverlayMode_Description" xml:space="preserve">
+    <value>प्राइस चार्ट पर स्थिति पैनल। संक्षिप्त रोलिंग विंडो और लाइव पैटर्न दिखाता है; पूर्ण चार्ट आँकड़े, अलर्ट कूलडाउन और हर पैटर्न के फ़्लैग जोड़ता है।</value>
+  </data>
+  <data name="OverlayCorner_DisplayName" xml:space="preserve">
+    <value>पैनल कोना</value>
+  </data>
+  <data name="OverlayCorner_Description" xml:space="preserve">
+    <value>प्राइस चार्ट का कोना जहाँ स्थिति पैनल बनता है।</value>
+  </data>
+  <data name="OverlayOffsetX_DisplayName" xml:space="preserve">
+    <value>पैनल ऑफ़सेट X</value>
+  </data>
+  <data name="OverlayOffsetX_Description" xml:space="preserve">
+    <value>स्थिति पैनल का क्षैतिज ऑफ़सेट पिक्सेल में। धनात्मक दाएँ ले जाता है।</value>
+  </data>
+  <data name="OverlayOffsetY_DisplayName" xml:space="preserve">
+    <value>पैनल ऑफ़सेट Y</value>
+  </data>
+  <data name="OverlayOffsetY_Description" xml:space="preserve">
+    <value>स्थिति पैनल का ऊर्ध्वाधर ऑफ़सेट पिक्सेल में। धनात्मक नीचे ले जाता है।</value>
+  </data>
+  <data name="Category_Enabled_DisplayName" xml:space="preserve">
+    <value>सक्षम</value>
+  </data>
+  <data name="Category_Enabled_Description" xml:space="preserve">
+    <value>यह पैटर्न पहचानें। बंद होने पर विंडो श्रृंखला के अगले पैटर्न पर जाती हैं (डाइवर्जेंस, रिवर्सल, प्रभुत्व, आक्रामक, न्यूट्रल)।</value>
+  </data>
+  <data name="Category_Visible_DisplayName" xml:space="preserve">
+    <value>दृश्यमान</value>
+  </data>
+  <data name="Category_Visible_Description" xml:space="preserve">
+    <value>इस पैटर्न को पैनल और प्राइस चार्ट पर दिखाएँ। छिपा पैटर्न फिर भी पहचाना जाता है और अलर्ट दे सकता है।</value>
+  </data>
+  <data name="Category_MinDeltaPercent_DisplayName" xml:space="preserve">
+    <value>न्यूनतम डेल्टा %</value>
+  </data>
+  <data name="Category_MinDeltaPercent_Description" xml:space="preserve">
+    <value>लक्ष्य वॉल्यूम के प्रतिशत के रूप में डेल्टा थ्रेशोल्ड (न्यूट्रल के लिए, विंडो वॉल्यूम के % में अधिकतम नेट डेल्टा)।</value>
+  </data>
+  <data name="Category_EnableAlert_DisplayName" xml:space="preserve">
+    <value>अलर्ट</value>
+  </data>
+  <data name="Category_EnableAlert_Description" xml:space="preserve">
+    <value>लाइव विंडो इस पैटर्न में बदलने पर रीयल-टाइम में अलर्ट दें।</value>
+  </data>
+  <data name="Category_Color_DisplayName" xml:space="preserve">
+    <value>रंग</value>
+  </data>
+  <data name="Category_Color_Description" xml:space="preserve">
+    <value>पैटर्न का रंग।</value>
+  </data>
+  <data name="Category_BuyColor_DisplayName" xml:space="preserve">
+    <value>खरीद रंग</value>
+  </data>
+  <data name="Category_BuyColor_Description" xml:space="preserve">
+    <value>पैटर्न के खरीद पक्ष का रंग।</value>
+  </data>
+  <data name="Category_SellColor_DisplayName" xml:space="preserve">
+    <value>बिक्री रंग</value>
+  </data>
+  <data name="Category_SellColor_Description" xml:space="preserve">
+    <value>पैटर्न के बिक्री पक्ष का रंग।</value>
+  </data>
+  <data name="Category_WickTolerancePercent_DisplayName" xml:space="preserve">
+    <value>विक टॉलरेंस %</value>
+  </data>
+  <data name="Category_WickTolerancePercent_Description" xml:space="preserve">
+    <value>प्रभावी पक्ष के विरुद्ध चालू डेल्टा की सबसे बड़ी चाल, लक्ष्य वॉल्यूम के % में।</value>
+  </data>
+  <data name="Category_ClosePercent_DisplayName" xml:space="preserve">
+    <value>न्यूनतम क्लोज़ %</value>
+  </data>
+  <data name="Category_ClosePercent_Description" xml:space="preserve">
+    <value>विपरीत पक्ष में विंडो को जिस नेट डेल्टा से बंद होना है, लक्ष्य वॉल्यूम के % में।</value>
+  </data>
+  <data name="Category_StrugglePercent_DisplayName" xml:space="preserve">
+    <value>संघर्ष %</value>
+  </data>
+  <data name="Category_StrugglePercent_Description" xml:space="preserve">
+    <value>चालू डेल्टा को किसी भी ओर कितनी दूर जाना चाहिए, लक्ष्य वॉल्यूम के % में।</value>
+  </data>
+  <data name="ScaleLimit_DisplayName" xml:space="preserve">
+    <value>स्केल सीमा</value>
+  </data>
+  <data name="ScaleLimit_Description" xml:space="preserve">
+    <value>पैनल स्केल की ऊपरी सीमा, डेल्टा कॉन्ट्रैक्ट में। 0 गणना सीमा की सबसे बड़ी विंडो तक स्केल करता है, इसलिए एक चरम मान बाकी को दबा सकता है; सीमा के साथ सामान्य बार पढ़ने योग्य रहते हैं और चरम पैनल से बाहर जाते हैं।</value>
+  </data>
+</root>

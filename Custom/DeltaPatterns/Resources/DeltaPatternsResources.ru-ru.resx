@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DeltaPatterns_Description" xml:space="preserve">
+    <value>Классифицирует скользящее окно последних N проторгованных контрактов по паттернам дельты (агрессия, доминирование, дивергенция, разворот, нейтральный) с метками на ценовом графике и оповещениями.</value>
+  </data>
+  <data name="Group_Patterns" xml:space="preserve">
+    <value>Паттерны</value>
+  </data>
+  <data name="Group_Calculation" xml:space="preserve">
+    <value>Расчёт</value>
+  </data>
+  <data name="Group_Visuals" xml:space="preserve">
+    <value>Отображение</value>
+  </data>
+  <data name="Group_Alerts" xml:space="preserve">
+    <value>Оповещения</value>
+  </data>
+  <data name="Group_Diagnostics" xml:space="preserve">
+    <value>Диагностика</value>
+  </data>
+  <data name="DebugOverlayMode_Off" xml:space="preserve">
+    <value>Выкл.</value>
+  </data>
+  <data name="DebugOverlayMode_Compact" xml:space="preserve">
+    <value>Компактный</value>
+  </data>
+  <data name="DebugOverlayMode_Full" xml:space="preserve">
+    <value>Полный</value>
+  </data>
+  <data name="DebugOverlayCorner_TopRight" xml:space="preserve">
+    <value>Справа сверху</value>
+  </data>
+  <data name="DebugOverlayCorner_TopLeft" xml:space="preserve">
+    <value>Слева сверху</value>
+  </data>
+  <data name="DebugOverlayCorner_BottomRight" xml:space="preserve">
+    <value>Справа снизу</value>
+  </data>
+  <data name="DebugOverlayCorner_BottomLeft" xml:space="preserve">
+    <value>Слева снизу</value>
+  </data>
+  <data name="Series_Aggressive" xml:space="preserve">
+    <value>Агрессия</value>
+  </data>
+  <data name="Series_Dominance" xml:space="preserve">
+    <value>Доминирование</value>
+  </data>
+  <data name="Series_Divergence" xml:space="preserve">
+    <value>Дивергенция</value>
+  </data>
+  <data name="Series_Reversal" xml:space="preserve">
+    <value>Разворот</value>
+  </data>
+  <data name="Series_Neutral" xml:space="preserve">
+    <value>Нейтральный</value>
+  </data>
+  <data name="Series_Normal" xml:space="preserve">
+    <value>Обычный</value>
+  </data>
+  <data name="Series_ScaleHigh" xml:space="preserve">
+    <value>Верх шкалы</value>
+  </data>
+  <data name="Series_ScaleLow" xml:space="preserve">
+    <value>Низ шкалы</value>
+  </data>
+  <data name="CategorySummary_Disabled" xml:space="preserve">
+    <value>Отключено</value>
+  </data>
+  <data name="CategorySummary_Visible" xml:space="preserve">
+    <value>Видимый</value>
+  </data>
+  <data name="CategorySummary_Hidden" xml:space="preserve">
+    <value>Скрыт</value>
+  </data>
+  <data name="CategorySummary_Alert" xml:space="preserve">
+    <value>Оповещение</value>
+  </data>
+  <data name="Aggressive_DisplayName" xml:space="preserve">
+    <value>Агрессия</value>
+  </data>
+  <data name="Aggressive_Description" xml:space="preserve">
+    <value>Чистая дельта окна превышает мин. % дельты от целевого объёма.</value>
+  </data>
+  <data name="Dominance_DisplayName" xml:space="preserve">
+    <value>Доминирование</value>
+  </data>
+  <data name="Dominance_Description" xml:space="preserve">
+    <value>Односторонняя дельта сверх мин. %, накопленная дельта которой ни разу не уходила против больше чем на допуск тени % (оба в % от целевого объёма).</value>
+  </data>
+  <data name="Divergence_DisplayName" xml:space="preserve">
+    <value>Дивергенция</value>
+  </data>
+  <data name="Divergence_Description" xml:space="preserve">
+    <value>Окно закрылось в одном ценовом направлении, а его чистая дельта сверх мин. % указывает в другое. Окно, закрывшееся на уровне открытия, никогда не является дивергенцией.</value>
+  </data>
+  <data name="Reversal_DisplayName" xml:space="preserve">
+    <value>Разворот</value>
+  </data>
+  <data name="Reversal_Description" xml:space="preserve">
+    <value>Накопленная дельта достигла мин. % с одной стороны, а окно закрылось за мин. % закрытия с другой.</value>
+  </data>
+  <data name="Neutral_DisplayName" xml:space="preserve">
+    <value>Нейтральный</value>
+  </data>
+  <data name="Neutral_Description" xml:space="preserve">
+    <value>Малая чистая дельта (не более мин. % от объёма окна) после сильного отклонения накопленной дельты в одну сторону (не менее % борьбы от целевого объёма): обе стороны боролись, никто не победил.</value>
+  </data>
+  <data name="Normal_DisplayName" xml:space="preserve">
+    <value>Обычный</value>
+  </data>
+  <data name="Normal_Description" xml:space="preserve">
+    <value>Цвет окон, не подходящих ни под один другой паттерн. Действуют только «Видимый» и «Цвет».</value>
+  </data>
+  <data name="TargetVolume_DisplayName" xml:space="preserve">
+    <value>Целевой объём</value>
+  </data>
+  <data name="TargetVolume_Description" xml:space="preserve">
+    <value>Размер скользящего окна в контрактах: каждый бар показывает состояние последних N проторгованных контрактов. Пороги паттернов — проценты от этого значения.</value>
+  </data>
+  <data name="SessionsToCalculate_DisplayName" xml:space="preserve">
+    <value>Сессий для расчёта</value>
+  </data>
+  <data name="SessionsToCalculate_Description" xml:space="preserve">
+    <value>Количество последних сессий, сделки которых запрашиваются и классифицируются. 0 — весь график, что может занять много времени при большом числе загруженных дней.</value>
+  </data>
+  <data name="ShowChartSignals_DisplayName" xml:space="preserve">
+    <value>Показывать сигналы на графике</value>
+  </data>
+  <data name="ShowChartSignals_Description" xml:space="preserve">
+    <value>Рисует метку на ценовом графике для каждого бара с видимым паттерном.</value>
+  </data>
+  <data name="SignalSize_DisplayName" xml:space="preserve">
+    <value>Размер сигнала</value>
+  </data>
+  <data name="SignalSize_Description" xml:space="preserve">
+    <value>Размер меток в пикселях (от 2 до 50).</value>
+  </data>
+  <data name="AlertSoundFile_DisplayName" xml:space="preserve">
+    <value>Звук</value>
+  </data>
+  <data name="AlertSoundFile_Description" xml:space="preserve">
+    <value>Звуковой файл, который ATAS воспроизводит при оповещении.</value>
+  </data>
+  <data name="AlertCooldownSeconds_DisplayName" xml:space="preserve">
+    <value>Пауза (секунды)</value>
+  </data>
+  <data name="AlertCooldownSeconds_Description" xml:space="preserve">
+    <value>Минимальное время между двумя оповещениями, общее для всех паттернов.</value>
+  </data>
+  <data name="AlertBackgroundColor_DisplayName" xml:space="preserve">
+    <value>Фон</value>
+  </data>
+  <data name="AlertBackgroundColor_Description" xml:space="preserve">
+    <value>Цвет фона окна оповещения.</value>
+  </data>
+  <data name="AlertForegroundColor_DisplayName" xml:space="preserve">
+    <value>Текст</value>
+  </data>
+  <data name="AlertForegroundColor_Description" xml:space="preserve">
+    <value>Цвет текста окна оповещения.</value>
+  </data>
+  <data name="OverlayMode_DisplayName" xml:space="preserve">
+    <value>Панель состояния</value>
+  </data>
+  <data name="OverlayMode_Description" xml:space="preserve">
+    <value>Панель состояния на ценовом графике. Компактный показывает скользящее окно и текущий паттерн; Полный добавляет статистику графика, паузу оповещений и флаги каждого паттерна.</value>
+  </data>
+  <data name="OverlayCorner_DisplayName" xml:space="preserve">
+    <value>Угол панели</value>
+  </data>
+  <data name="OverlayCorner_Description" xml:space="preserve">
+    <value>Угол ценового графика, где рисуется панель состояния.</value>
+  </data>
+  <data name="OverlayOffsetX_DisplayName" xml:space="preserve">
+    <value>Смещение панели по X</value>
+  </data>
+  <data name="OverlayOffsetX_Description" xml:space="preserve">
+    <value>Горизонтальное смещение панели в пикселях. Положительное — вправо.</value>
+  </data>
+  <data name="OverlayOffsetY_DisplayName" xml:space="preserve">
+    <value>Смещение панели по Y</value>
+  </data>
+  <data name="OverlayOffsetY_Description" xml:space="preserve">
+    <value>Вертикальное смещение панели в пикселях. Положительное — вниз.</value>
+  </data>
+  <data name="Category_Enabled_DisplayName" xml:space="preserve">
+    <value>Включено</value>
+  </data>
+  <data name="Category_Enabled_Description" xml:space="preserve">
+    <value>Определять этот паттерн. Если выключено, окна переходят к следующему паттерну цепочки (дивергенция, разворот, доминирование, агрессия, нейтральный).</value>
+  </data>
+  <data name="Category_Visible_DisplayName" xml:space="preserve">
+    <value>Видимый</value>
+  </data>
+  <data name="Category_Visible_Description" xml:space="preserve">
+    <value>Рисовать паттерн на панели и на ценовом графике. Скрытый паттерн всё равно определяется и может оповещать.</value>
+  </data>
+  <data name="Category_MinDeltaPercent_DisplayName" xml:space="preserve">
+    <value>Мин. % дельты</value>
+  </data>
+  <data name="Category_MinDeltaPercent_Description" xml:space="preserve">
+    <value>Порог дельты в % от целевого объёма (для «Нейтрального» — максимальная чистая дельта в % от объёма окна).</value>
+  </data>
+  <data name="Category_EnableAlert_DisplayName" xml:space="preserve">
+    <value>Оповещение</value>
+  </data>
+  <data name="Category_EnableAlert_Description" xml:space="preserve">
+    <value>Оповещать в реальном времени, когда текущее окно переходит в этот паттерн.</value>
+  </data>
+  <data name="Category_Color_DisplayName" xml:space="preserve">
+    <value>Цвет</value>
+  </data>
+  <data name="Category_Color_Description" xml:space="preserve">
+    <value>Цвет паттерна.</value>
+  </data>
+  <data name="Category_BuyColor_DisplayName" xml:space="preserve">
+    <value>Цвет покупок</value>
+  </data>
+  <data name="Category_BuyColor_Description" xml:space="preserve">
+    <value>Цвет стороны покупок.</value>
+  </data>
+  <data name="Category_SellColor_DisplayName" xml:space="preserve">
+    <value>Цвет продаж</value>
+  </data>
+  <data name="Category_SellColor_Description" xml:space="preserve">
+    <value>Цвет стороны продаж.</value>
+  </data>
+  <data name="Category_WickTolerancePercent_DisplayName" xml:space="preserve">
+    <value>Допуск тени %</value>
+  </data>
+  <data name="Category_WickTolerancePercent_Description" xml:space="preserve">
+    <value>Наибольшее движение накопленной дельты против доминирующей стороны, в % от целевого объёма.</value>
+  </data>
+  <data name="Category_ClosePercent_DisplayName" xml:space="preserve">
+    <value>Мин. % закрытия</value>
+  </data>
+  <data name="Category_ClosePercent_Description" xml:space="preserve">
+    <value>Чистая дельта, с которой окно должно закрыться на противоположной стороне, в % от целевого объёма.</value>
+  </data>
+  <data name="Category_StrugglePercent_DisplayName" xml:space="preserve">
+    <value>% борьбы</value>
+  </data>
+  <data name="Category_StrugglePercent_Description" xml:space="preserve">
+    <value>Насколько далеко накопленная дельта должна была уйти в любую сторону, в % от целевого объёма.</value>
+  </data>
+  <data name="ScaleLimit_DisplayName" xml:space="preserve">
+    <value>Предел шкалы</value>
+  </data>
+  <data name="ScaleLimit_Description" xml:space="preserve">
+    <value>Верхний предел шкалы панели в контрактах дельты. 0 — по наибольшему окну рассчитанного диапазона, поэтому один выброс может сжать остальное; с пределом обычные бары читаемы, а выбросы выходят за панель.</value>
+  </data>
+</root>

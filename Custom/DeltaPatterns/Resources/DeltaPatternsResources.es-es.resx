@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DeltaPatterns_Description" xml:space="preserve">
+    <value>Clasifica una ventana móvil de los últimos N contratos negociados en patrones de delta (agresivo, dominancia, divergencia, giro, neutral), con marcas en el gráfico de precio y alertas.</value>
+  </data>
+  <data name="Group_Patterns" xml:space="preserve">
+    <value>Patrones</value>
+  </data>
+  <data name="Group_Calculation" xml:space="preserve">
+    <value>Cálculo</value>
+  </data>
+  <data name="Group_Visuals" xml:space="preserve">
+    <value>Visualización</value>
+  </data>
+  <data name="Group_Alerts" xml:space="preserve">
+    <value>Alertas</value>
+  </data>
+  <data name="Group_Diagnostics" xml:space="preserve">
+    <value>Diagnóstico</value>
+  </data>
+  <data name="DebugOverlayMode_Off" xml:space="preserve">
+    <value>Desactivado</value>
+  </data>
+  <data name="DebugOverlayMode_Compact" xml:space="preserve">
+    <value>Compacto</value>
+  </data>
+  <data name="DebugOverlayMode_Full" xml:space="preserve">
+    <value>Completo</value>
+  </data>
+  <data name="DebugOverlayCorner_TopRight" xml:space="preserve">
+    <value>Arriba a la derecha</value>
+  </data>
+  <data name="DebugOverlayCorner_TopLeft" xml:space="preserve">
+    <value>Arriba a la izquierda</value>
+  </data>
+  <data name="DebugOverlayCorner_BottomRight" xml:space="preserve">
+    <value>Abajo a la derecha</value>
+  </data>
+  <data name="DebugOverlayCorner_BottomLeft" xml:space="preserve">
+    <value>Abajo a la izquierda</value>
+  </data>
+  <data name="Series_Aggressive" xml:space="preserve">
+    <value>Agresivo</value>
+  </data>
+  <data name="Series_Dominance" xml:space="preserve">
+    <value>Dominancia</value>
+  </data>
+  <data name="Series_Divergence" xml:space="preserve">
+    <value>Divergencia</value>
+  </data>
+  <data name="Series_Reversal" xml:space="preserve">
+    <value>Giro</value>
+  </data>
+  <data name="Series_Neutral" xml:space="preserve">
+    <value>Neutral</value>
+  </data>
+  <data name="Series_Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="Series_ScaleHigh" xml:space="preserve">
+    <value>Escala superior</value>
+  </data>
+  <data name="Series_ScaleLow" xml:space="preserve">
+    <value>Escala inferior</value>
+  </data>
+  <data name="CategorySummary_Disabled" xml:space="preserve">
+    <value>Desactivado</value>
+  </data>
+  <data name="CategorySummary_Visible" xml:space="preserve">
+    <value>Visible</value>
+  </data>
+  <data name="CategorySummary_Hidden" xml:space="preserve">
+    <value>Oculto</value>
+  </data>
+  <data name="CategorySummary_Alert" xml:space="preserve">
+    <value>Alerta</value>
+  </data>
+  <data name="Aggressive_DisplayName" xml:space="preserve">
+    <value>Agresivo</value>
+  </data>
+  <data name="Aggressive_Description" xml:space="preserve">
+    <value>Delta neto de la ventana más allá del % mínimo de delta sobre el volumen objetivo.</value>
+  </data>
+  <data name="Dominance_DisplayName" xml:space="preserve">
+    <value>Dominancia</value>
+  </data>
+  <data name="Dominance_Description" xml:space="preserve">
+    <value>Delta de un solo lado más allá del % mínimo cuyo delta acumulado nunca fue en contra más del % de tolerancia de mecha (ambos en % del volumen objetivo).</value>
+  </data>
+  <data name="Divergence_DisplayName" xml:space="preserve">
+    <value>Divergencia</value>
+  </data>
+  <data name="Divergence_Description" xml:space="preserve">
+    <value>La ventana cerró en una dirección de precio y su delta neto, más allá del % mínimo, apunta a la contraria. Una ventana que cierra donde abrió nunca es divergencia.</value>
+  </data>
+  <data name="Reversal_DisplayName" xml:space="preserve">
+    <value>Giro</value>
+  </data>
+  <data name="Reversal_Description" xml:space="preserve">
+    <value>El delta acumulado llegó al % mínimo de delta por un lado y la ventana cerró más allá del % mínimo de cierre por el otro.</value>
+  </data>
+  <data name="Neutral_DisplayName" xml:space="preserve">
+    <value>Neutral</value>
+  </data>
+  <data name="Neutral_Description" xml:space="preserve">
+    <value>Delta neto pequeño (como mucho el % mínimo del volumen de la ventana) después de que el delta acumulado se alejara mucho hacia un lado (al menos el % de lucha del volumen objetivo): los dos lados pelearon y nadie ganó.</value>
+  </data>
+  <data name="Normal_DisplayName" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="Normal_Description" xml:space="preserve">
+    <value>Color de las ventanas que no encajan en ningún otro patrón. Solo se aplican Visible y Color.</value>
+  </data>
+  <data name="TargetVolume_DisplayName" xml:space="preserve">
+    <value>Volumen objetivo</value>
+  </data>
+  <data name="TargetVolume_Description" xml:space="preserve">
+    <value>Tamaño de la ventana móvil en contratos: cada barra muestra el estado de los últimos N contratos negociados. Los umbrales de los patrones son porcentajes de este valor.</value>
+  </data>
+  <data name="SessionsToCalculate_DisplayName" xml:space="preserve">
+    <value>Sesiones a calcular</value>
+  </data>
+  <data name="SessionsToCalculate_Description" xml:space="preserve">
+    <value>Número de sesiones más recientes cuyos trades se piden y clasifican. 0 calcula todo el gráfico, lo que puede tardar con muchos días cargados.</value>
+  </data>
+  <data name="ShowChartSignals_DisplayName" xml:space="preserve">
+    <value>Mostrar señales en el gráfico</value>
+  </data>
+  <data name="ShowChartSignals_Description" xml:space="preserve">
+    <value>Dibuja una marca en el gráfico de precio en cada barra con un patrón visible.</value>
+  </data>
+  <data name="SignalSize_DisplayName" xml:space="preserve">
+    <value>Tamaño de la señal</value>
+  </data>
+  <data name="SignalSize_Description" xml:space="preserve">
+    <value>Tamaño de las marcas en píxeles (de 2 a 50).</value>
+  </data>
+  <data name="AlertSoundFile_DisplayName" xml:space="preserve">
+    <value>Sonido</value>
+  </data>
+  <data name="AlertSoundFile_Description" xml:space="preserve">
+    <value>Archivo de sonido que ATAS reproduce al saltar una alerta.</value>
+  </data>
+  <data name="AlertCooldownSeconds_DisplayName" xml:space="preserve">
+    <value>Espera (segundos)</value>
+  </data>
+  <data name="AlertCooldownSeconds_Description" xml:space="preserve">
+    <value>Tiempo mínimo entre dos alertas, común a todos los patrones.</value>
+  </data>
+  <data name="AlertBackgroundColor_DisplayName" xml:space="preserve">
+    <value>Fondo</value>
+  </data>
+  <data name="AlertBackgroundColor_Description" xml:space="preserve">
+    <value>Color de fondo de la ventana de la alerta.</value>
+  </data>
+  <data name="AlertForegroundColor_DisplayName" xml:space="preserve">
+    <value>Texto</value>
+  </data>
+  <data name="AlertForegroundColor_Description" xml:space="preserve">
+    <value>Color del texto de la ventana de la alerta.</value>
+  </data>
+  <data name="OverlayMode_DisplayName" xml:space="preserve">
+    <value>Panel de estado</value>
+  </data>
+  <data name="OverlayMode_Description" xml:space="preserve">
+    <value>Panel de estado en el gráfico de precio. Compacto muestra la ventana móvil y el patrón en vivo; Completo añade la estadística del gráfico, la espera de alertas y los indicadores de cada patrón.</value>
+  </data>
+  <data name="OverlayCorner_DisplayName" xml:space="preserve">
+    <value>Esquina del panel</value>
+  </data>
+  <data name="OverlayCorner_Description" xml:space="preserve">
+    <value>Esquina del gráfico de precio donde se dibuja el panel de estado.</value>
+  </data>
+  <data name="OverlayOffsetX_DisplayName" xml:space="preserve">
+    <value>Desplazamiento X del panel</value>
+  </data>
+  <data name="OverlayOffsetX_Description" xml:space="preserve">
+    <value>Desplazamiento horizontal del panel de estado en píxeles. Positivo lo mueve a la derecha.</value>
+  </data>
+  <data name="OverlayOffsetY_DisplayName" xml:space="preserve">
+    <value>Desplazamiento Y del panel</value>
+  </data>
+  <data name="OverlayOffsetY_Description" xml:space="preserve">
+    <value>Desplazamiento vertical del panel de estado en píxeles. Positivo lo mueve hacia abajo.</value>
+  </data>
+  <data name="Category_Enabled_DisplayName" xml:space="preserve">
+    <value>Activado</value>
+  </data>
+  <data name="Category_Enabled_Description" xml:space="preserve">
+    <value>Detectar este patrón. Si está desactivado, las ventanas pasan al siguiente patrón de la cadena (divergencia, giro, dominancia, agresivo, neutral).</value>
+  </data>
+  <data name="Category_Visible_DisplayName" xml:space="preserve">
+    <value>Visible</value>
+  </data>
+  <data name="Category_Visible_Description" xml:space="preserve">
+    <value>Dibujar este patrón en el panel y en el gráfico de precio. Un patrón oculto se sigue detectando y puede avisar.</value>
+  </data>
+  <data name="Category_MinDeltaPercent_DisplayName" xml:space="preserve">
+    <value>% mínimo de delta</value>
+  </data>
+  <data name="Category_MinDeltaPercent_Description" xml:space="preserve">
+    <value>Umbral de delta en % del volumen objetivo (en Neutral, el delta neto máximo en % del volumen de la ventana).</value>
+  </data>
+  <data name="Category_EnableAlert_DisplayName" xml:space="preserve">
+    <value>Alerta</value>
+  </data>
+  <data name="Category_EnableAlert_Description" xml:space="preserve">
+    <value>Avisar en tiempo real cuando la ventana en vivo pasa a este patrón.</value>
+  </data>
+  <data name="Category_Color_DisplayName" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="Category_Color_Description" xml:space="preserve">
+    <value>Color del patrón.</value>
+  </data>
+  <data name="Category_BuyColor_DisplayName" xml:space="preserve">
+    <value>Color comprador</value>
+  </data>
+  <data name="Category_BuyColor_Description" xml:space="preserve">
+    <value>Color del lado comprador del patrón.</value>
+  </data>
+  <data name="Category_SellColor_DisplayName" xml:space="preserve">
+    <value>Color vendedor</value>
+  </data>
+  <data name="Category_SellColor_Description" xml:space="preserve">
+    <value>Color del lado vendedor del patrón.</value>
+  </data>
+  <data name="Category_WickTolerancePercent_DisplayName" xml:space="preserve">
+    <value>% de tolerancia de mecha</value>
+  </data>
+  <data name="Category_WickTolerancePercent_Description" xml:space="preserve">
+    <value>Mayor movimiento del delta acumulado en contra del lado dominante, en % del volumen objetivo.</value>
+  </data>
+  <data name="Category_ClosePercent_DisplayName" xml:space="preserve">
+    <value>% mínimo de cierre</value>
+  </data>
+  <data name="Category_ClosePercent_Description" xml:space="preserve">
+    <value>Delta neto con el que la ventana debe cerrar en el lado contrario, en % del volumen objetivo.</value>
+  </data>
+  <data name="Category_StrugglePercent_DisplayName" xml:space="preserve">
+    <value>% de lucha</value>
+  </data>
+  <data name="Category_StrugglePercent_Description" xml:space="preserve">
+    <value>Hasta dónde debe haber llegado el delta acumulado hacia cualquiera de los dos lados, en % del volumen objetivo.</value>
+  </data>
+  <data name="ScaleLimit_DisplayName" xml:space="preserve">
+    <value>Límite de escala</value>
+  </data>
+  <data name="ScaleLimit_Description" xml:space="preserve">
+    <value>Límite superior de la escala del panel, en contratos de delta. Con 0 la escala se ajusta a la mayor ventana del rango calculado, así que un valor extremo puede aplastar el resto; con un límite las barras normales se leen bien y los extremos se salen del panel.</value>
+  </data>
+</root>

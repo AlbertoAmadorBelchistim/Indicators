@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DeltaPatterns_Description" xml:space="preserve">
+    <value>Classifies a rolling window of the last N traded contracts into delta patterns (aggressive, dominance, divergence, reversal, neutral) with price-chart markers and alerts.</value>
+  </data>
+  <data name="Group_Patterns" xml:space="preserve">
+    <value>Patterns</value>
+  </data>
+  <data name="Group_Calculation" xml:space="preserve">
+    <value>Calculation</value>
+  </data>
+  <data name="Group_Visuals" xml:space="preserve">
+    <value>Visuals</value>
+  </data>
+  <data name="Group_Alerts" xml:space="preserve">
+    <value>Alerts</value>
+  </data>
+  <data name="Group_Diagnostics" xml:space="preserve">
+    <value>Diagnostics</value>
+  </data>
+  <data name="DebugOverlayMode_Off" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="DebugOverlayMode_Compact" xml:space="preserve">
+    <value>Compact</value>
+  </data>
+  <data name="DebugOverlayMode_Full" xml:space="preserve">
+    <value>Full</value>
+  </data>
+  <data name="DebugOverlayCorner_TopRight" xml:space="preserve">
+    <value>Top right</value>
+  </data>
+  <data name="DebugOverlayCorner_TopLeft" xml:space="preserve">
+    <value>Top left</value>
+  </data>
+  <data name="DebugOverlayCorner_BottomRight" xml:space="preserve">
+    <value>Bottom right</value>
+  </data>
+  <data name="DebugOverlayCorner_BottomLeft" xml:space="preserve">
+    <value>Bottom left</value>
+  </data>
+  <data name="Series_Aggressive" xml:space="preserve">
+    <value>Aggressive</value>
+  </data>
+  <data name="Series_Dominance" xml:space="preserve">
+    <value>Dominance</value>
+  </data>
+  <data name="Series_Divergence" xml:space="preserve">
+    <value>Divergence</value>
+  </data>
+  <data name="Series_Reversal" xml:space="preserve">
+    <value>Reversal</value>
+  </data>
+  <data name="Series_Neutral" xml:space="preserve">
+    <value>Neutral</value>
+  </data>
+  <data name="Series_Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="Series_ScaleHigh" xml:space="preserve">
+    <value>Scale high</value>
+  </data>
+  <data name="Series_ScaleLow" xml:space="preserve">
+    <value>Scale low</value>
+  </data>
+  <data name="CategorySummary_Disabled" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="CategorySummary_Visible" xml:space="preserve">
+    <value>Visible</value>
+  </data>
+  <data name="CategorySummary_Hidden" xml:space="preserve">
+    <value>Hidden</value>
+  </data>
+  <data name="CategorySummary_Alert" xml:space="preserve">
+    <value>Alert</value>
+  </data>
+  <data name="Aggressive_DisplayName" xml:space="preserve">
+    <value>Aggressive</value>
+  </data>
+  <data name="Aggressive_Description" xml:space="preserve">
+    <value>Net delta of the window beyond Min Delta % of the target volume.</value>
+  </data>
+  <data name="Dominance_DisplayName" xml:space="preserve">
+    <value>Dominance</value>
+  </data>
+  <data name="Dominance_Description" xml:space="preserve">
+    <value>One-sided delta beyond Min Delta % whose running delta never went against it by more than Wick Tolerance % (both as % of the target volume).</value>
+  </data>
+  <data name="Divergence_DisplayName" xml:space="preserve">
+    <value>Divergence</value>
+  </data>
+  <data name="Divergence_Description" xml:space="preserve">
+    <value>The window closed in one price direction while its net delta, beyond Min Delta %, points the other way. A window that closes at its open is never a divergence.</value>
+  </data>
+  <data name="Reversal_DisplayName" xml:space="preserve">
+    <value>Reversal</value>
+  </data>
+  <data name="Reversal_Description" xml:space="preserve">
+    <value>The running delta reached Min Delta % on one side and the window closed beyond Close Min % on the other.</value>
+  </data>
+  <data name="Neutral_DisplayName" xml:space="preserve">
+    <value>Neutral</value>
+  </data>
+  <data name="Neutral_Description" xml:space="preserve">
+    <value>Small net delta (at most Min Delta % of the window volume) after the running delta went far to one side (at least Struggle % of the target volume): both sides fought and nobody won.</value>
+  </data>
+  <data name="Normal_DisplayName" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="Normal_Description" xml:space="preserve">
+    <value>Colour of the windows that match no other pattern. Only Visible and Colour apply.</value>
+  </data>
+  <data name="TargetVolume_DisplayName" xml:space="preserve">
+    <value>Target volume</value>
+  </data>
+  <data name="TargetVolume_Description" xml:space="preserve">
+    <value>Size of the rolling window in contracts: each bar shows the state of the last N traded contracts. The pattern thresholds are percentages of this value.</value>
+  </data>
+  <data name="SessionsToCalculate_DisplayName" xml:space="preserve">
+    <value>Sessions to calculate</value>
+  </data>
+  <data name="SessionsToCalculate_Description" xml:space="preserve">
+    <value>Number of the most recent sessions whose trades are requested and classified. 0 calculates the whole chart, which can take long with many days loaded.</value>
+  </data>
+  <data name="ShowChartSignals_DisplayName" xml:space="preserve">
+    <value>Show chart signals</value>
+  </data>
+  <data name="ShowChartSignals_Description" xml:space="preserve">
+    <value>Draws a marker on the price chart for each bar with a visible pattern.</value>
+  </data>
+  <data name="SignalSize_DisplayName" xml:space="preserve">
+    <value>Signal size</value>
+  </data>
+  <data name="SignalSize_Description" xml:space="preserve">
+    <value>Size of the markers in pixels (2 to 50).</value>
+  </data>
+  <data name="AlertSoundFile_DisplayName" xml:space="preserve">
+    <value>Sound</value>
+  </data>
+  <data name="AlertSoundFile_Description" xml:space="preserve">
+    <value>Sound file ATAS plays when an alert fires.</value>
+  </data>
+  <data name="AlertCooldownSeconds_DisplayName" xml:space="preserve">
+    <value>Cooldown (seconds)</value>
+  </data>
+  <data name="AlertCooldownSeconds_Description" xml:space="preserve">
+    <value>Minimum time between two alerts, shared by all the patterns.</value>
+  </data>
+  <data name="AlertBackgroundColor_DisplayName" xml:space="preserve">
+    <value>Background</value>
+  </data>
+  <data name="AlertBackgroundColor_Description" xml:space="preserve">
+    <value>Background colour of the alert pop-up.</value>
+  </data>
+  <data name="AlertForegroundColor_DisplayName" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="AlertForegroundColor_Description" xml:space="preserve">
+    <value>Text colour of the alert pop-up.</value>
+  </data>
+  <data name="OverlayMode_DisplayName" xml:space="preserve">
+    <value>Overlay</value>
+  </data>
+  <data name="OverlayMode_Description" xml:space="preserve">
+    <value>Status panel on the price chart. Compact shows the rolling window and the live pattern; Full adds the chart-wide statistics, the alert cooldown and the flags of each pattern.</value>
+  </data>
+  <data name="OverlayCorner_DisplayName" xml:space="preserve">
+    <value>Overlay corner</value>
+  </data>
+  <data name="OverlayCorner_Description" xml:space="preserve">
+    <value>Corner of the price chart where the status panel is drawn.</value>
+  </data>
+  <data name="OverlayOffsetX_DisplayName" xml:space="preserve">
+    <value>Overlay offset X</value>
+  </data>
+  <data name="OverlayOffsetX_Description" xml:space="preserve">
+    <value>Horizontal offset of the status panel in pixels. Positive moves it right.</value>
+  </data>
+  <data name="OverlayOffsetY_DisplayName" xml:space="preserve">
+    <value>Overlay offset Y</value>
+  </data>
+  <data name="OverlayOffsetY_Description" xml:space="preserve">
+    <value>Vertical offset of the status panel in pixels. Positive moves it down.</value>
+  </data>
+  <data name="Category_Enabled_DisplayName" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="Category_Enabled_Description" xml:space="preserve">
+    <value>Detect this pattern. When off, the windows fall through to the next pattern of the chain (divergence, reversal, dominance, aggressive, neutral).</value>
+  </data>
+  <data name="Category_Visible_DisplayName" xml:space="preserve">
+    <value>Visible</value>
+  </data>
+  <data name="Category_Visible_Description" xml:space="preserve">
+    <value>Draw this pattern in the panel and on the price chart. A hidden pattern is still detected and can still alert.</value>
+  </data>
+  <data name="Category_MinDeltaPercent_DisplayName" xml:space="preserve">
+    <value>Min delta %</value>
+  </data>
+  <data name="Category_MinDeltaPercent_Description" xml:space="preserve">
+    <value>Delta threshold as a percentage of the target volume (for Neutral, the maximum net delta as a percentage of the window volume).</value>
+  </data>
+  <data name="Category_EnableAlert_DisplayName" xml:space="preserve">
+    <value>Alert</value>
+  </data>
+  <data name="Category_EnableAlert_Description" xml:space="preserve">
+    <value>Alert in realtime when the live window changes to this pattern.</value>
+  </data>
+  <data name="Category_Color_DisplayName" xml:space="preserve">
+    <value>Colour</value>
+  </data>
+  <data name="Category_Color_Description" xml:space="preserve">
+    <value>Colour of the pattern.</value>
+  </data>
+  <data name="Category_BuyColor_DisplayName" xml:space="preserve">
+    <value>Buy colour</value>
+  </data>
+  <data name="Category_BuyColor_Description" xml:space="preserve">
+    <value>Colour of the buying side of the pattern.</value>
+  </data>
+  <data name="Category_SellColor_DisplayName" xml:space="preserve">
+    <value>Sell colour</value>
+  </data>
+  <data name="Category_SellColor_Description" xml:space="preserve">
+    <value>Colour of the selling side of the pattern.</value>
+  </data>
+  <data name="Category_WickTolerancePercent_DisplayName" xml:space="preserve">
+    <value>Wick tolerance %</value>
+  </data>
+  <data name="Category_WickTolerancePercent_Description" xml:space="preserve">
+    <value>Largest move of the running delta against the dominant side, as a percentage of the target volume.</value>
+  </data>
+  <data name="Category_ClosePercent_DisplayName" xml:space="preserve">
+    <value>Close min %</value>
+  </data>
+  <data name="Category_ClosePercent_Description" xml:space="preserve">
+    <value>Net delta the window must close with on the opposite side, as a percentage of the target volume.</value>
+  </data>
+  <data name="Category_StrugglePercent_DisplayName" xml:space="preserve">
+    <value>Struggle %</value>
+  </data>
+  <data name="Category_StrugglePercent_Description" xml:space="preserve">
+    <value>How far the running delta must have gone to either side, as a percentage of the target volume.</value>
+  </data>
+  <data name="ScaleLimit_DisplayName" xml:space="preserve">
+    <value>Scale limit</value>
+  </data>
+  <data name="ScaleLimit_Description" xml:space="preserve">
+    <value>Upper limit of the panel scale in contracts of delta. 0 scales to the largest window of the calculated range, so a single outlier can flatten the rest; with a limit the usual bars stay readable and the outliers go off the panel.</value>
+  </data>
+</root>
