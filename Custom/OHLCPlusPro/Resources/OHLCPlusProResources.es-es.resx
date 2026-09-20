@@ -18,6 +18,9 @@
   <data name="AutoUpdate" xml:space="preserve">
     <value>Actualización automática</value>
   </data>
+  <data name="AvoidOverlap" xml:space="preserve">
+    <value>Evitar solapamiento</value>
+  </data>
   <data name="Bar" xml:space="preserve">
     <value>Barra</value>
   </data>
@@ -35,6 +38,9 @@
   </data>
   <data name="Calculation" xml:space="preserve">
     <value>Cálculo</value>
+  </data>
+  <data name="ClipLines" xml:space="preserve">
+    <value>Cortar las líneas en las etiquetas</value>
   </data>
   <data name="Color" xml:space="preserve">
     <value>Color</value>
@@ -92,6 +98,12 @@
   </data>
   <data name="OhlcPlusAutoUpdateDescription" xml:space="preserve">
     <value>Actualiza los niveles en tiempo real según llegan operaciones. Desactivado, los niveles se congelan en el momento en que se pidió el perfil.</value>
+  </data>
+  <data name="OhlcPlusAvoidOverlapDescription" xml:space="preserve">
+    <value>Las etiquetas que caen sobre otra se desplazan a los lados y, solo después, arriba o abajo.</value>
+  </data>
+  <data name="OhlcPlusClipLinesDescription" xml:space="preserve">
+    <value>La línea se corta en cada etiqueta que cruzaría y sigue después, en vez de tachar el texto.</value>
   </data>
   <data name="OhlcPlusLevelTextDescription" xml:space="preserve">
     <value>Texto de este nivel en el gráfico, en lugar del que construye la plantilla. Vacío usa la plantilla.</value>

@@ -18,6 +18,9 @@
   <data name="AutoUpdate" xml:space="preserve">
     <value>Auto update</value>
   </data>
+  <data name="AvoidOverlap" xml:space="preserve">
+    <value>Avoid overlap</value>
+  </data>
   <data name="Bar" xml:space="preserve">
     <value>Bar</value>
   </data>
@@ -35,6 +38,9 @@
   </data>
   <data name="Calculation" xml:space="preserve">
     <value>Calculation</value>
+  </data>
+  <data name="ClipLines" xml:space="preserve">
+    <value>Cut lines at the labels</value>
   </data>
   <data name="Color" xml:space="preserve">
     <value>Color</value>
@@ -92,6 +98,12 @@
   </data>
   <data name="OhlcPlusAutoUpdateDescription" xml:space="preserve">
     <value>Refresh levels in real time as new trades arrive. When disabled, levels are frozen at the moment the profile was requested.</value>
+  </data>
+  <data name="OhlcPlusAvoidOverlapDescription" xml:space="preserve">
+    <value>Labels that land on another one move sideways, and only then up or down.</value>
+  </data>
+  <data name="OhlcPlusClipLinesDescription" xml:space="preserve">
+    <value>A line stops at each label it would cross and starts again after it, instead of striking through the text.</value>
   </data>
   <data name="OhlcPlusLevelTextDescription" xml:space="preserve">
     <value>Text of this level on the chart, in place of the one built from the template. Empty uses the template.</value>

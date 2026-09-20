@@ -18,6 +18,9 @@
   <data name="AutoUpdate" xml:space="preserve">
     <value>स्वतः अपडेट</value>
   </data>
+  <data name="AvoidOverlap" xml:space="preserve">
+    <value>ओवरलैप से बचें</value>
+  </data>
   <data name="Bar" xml:space="preserve">
     <value>बार</value>
   </data>
@@ -35,6 +38,9 @@
   </data>
   <data name="Calculation" xml:space="preserve">
     <value>गणना</value>
+  </data>
+  <data name="ClipLines" xml:space="preserve">
+    <value>लेबल पर रेखाएँ काटें</value>
   </data>
   <data name="Color" xml:space="preserve">
     <value>रंग</value>
@@ -92,6 +98,12 @@
   </data>
   <data name="OhlcPlusAutoUpdateDescription" xml:space="preserve">
     <value>नए ट्रेड आते ही स्तर वास्तविक समय में अपडेट होते हैं। बंद होने पर स्तर प्रोफ़ाइल अनुरोध के समय पर स्थिर रहते हैं।</value>
+  </data>
+  <data name="OhlcPlusAvoidOverlapDescription" xml:space="preserve">
+    <value>जो लेबल दूसरे पर पड़ते हैं वे पहले अगल-बगल खिसकते हैं, उसके बाद ही ऊपर या नीचे।</value>
+  </data>
+  <data name="OhlcPlusClipLinesDescription" xml:space="preserve">
+    <value>रेखा हर उस लेबल पर रुक जाती है जिसे वह काटती और उसके बाद फिर शुरू होती है, टेक्स्ट पर से गुजरने के बजाय।</value>
   </data>
   <data name="OhlcPlusLevelTextDescription" xml:space="preserve">
     <value>इस स्तर का चार्ट पर टेक्स्ट, टेम्पलेट से बने टेक्स्ट की जगह। खाली रहने पर टेम्पलेट चलता है।</value>

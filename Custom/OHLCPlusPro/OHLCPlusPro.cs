@@ -227,6 +227,57 @@ public class OHLCPlusPro : Indicator
         public bool IsValid { get; }
     }
 
+    /// <summary>
+    /// One line and its label, measured and placed once the whole frame is known: a label can
+    /// only dodge the others when all of them are on the table.
+    /// </summary>
+    private readonly struct LabelRequest
+    {
+        public LabelRequest(string text, int anchorX, int y, bool alignRight, bool isBar,
+            LineType lineType, int lineX1, int lineX2, RenderPen pen, CrossColor? textColor, int priority, int sequence)
+        {
+            Text = text;
+            AnchorX = anchorX;
+            Y = y;
+            AlignRight = alignRight;
+            IsBar = isBar;
+            LineType = lineType;
+            LineX1 = lineX1;
+            LineX2 = lineX2;
+            Pen = pen;
+            TextColor = textColor;
+            Priority = priority;
+            Sequence = sequence;
+        }
+
+        public string Text { get; }
+
+        public int AnchorX { get; }
+
+        public int Y { get; }
+
+        public bool AlignRight { get; }
+
+        public bool IsBar { get; }
+
+        public LineType LineType { get; }
+
+        public int LineX1 { get; }
+
+        public int LineX2 { get; }
+
+        public RenderPen Pen { get; }
+
+        public CrossColor? TextColor { get; }
+
+        /// <summary>Lower goes first, and the first one placed keeps the spot it asked for.</summary>
+        public int Priority { get; }
+
+        public int Sequence { get; }
+
+        public bool HasText => Text.Length > 0;
+    }
+
     private sealed class RefEqComparer : IEqualityComparer<object>
     {
         public static readonly RefEqComparer Instance = new();
@@ -300,6 +351,21 @@ public class OHLCPlusPro : Indicator
     private readonly string[] _prefixes = ["D", "PD", "W", "PW", "M", "PM", "C"];
 
     private string _labelTemplate = "{prefix} {level}";
+
+    // Rebuilt on every frame: the labels of the frame and the rectangles already taken.
+    private readonly List<LabelRequest> _labelQueue = new(64);
+    private readonly List<Rectangle> _placedLabels = new(64);
+    private readonly List<(int Left, int Right)> _lineHoles = new(16);
+
+    /// <summary>Room left around a label before another one is considered to be on top of it.</summary>
+    private const int LabelPadding = 2;
+
+    private const int LabelProbeStep = 12;
+    private const int LabelMaxShift = 72;
+    private const int LabelVerticalSteps = 4;
+
+    private bool _avoidLabelOverlap = true;
+    private bool _clipLinesAtLabels = true;
 
     private int _lastBar = -1;
     private bool _candleRequested;
@@ -1133,6 +1199,32 @@ public class OHLCPlusPro : Indicator
 
     #endregion
 
+    #region Label layout
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.Labels), Name = nameof(Res.AvoidOverlap), Description = nameof(Res.OhlcPlusAvoidOverlapDescription), Order = 1195)]
+    public bool AvoidLabelOverlap
+    {
+        get => _avoidLabelOverlap;
+        set
+        {
+            _avoidLabelOverlap = value;
+            RedrawChart();
+        }
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.Labels), Name = nameof(Res.ClipLines), Description = nameof(Res.OhlcPlusClipLinesDescription), Order = 1196)]
+    public bool ClipLinesAtLabels
+    {
+        get => _clipLinesAtLabels;
+        set
+        {
+            _clipLinesAtLabels = value;
+            RedrawChart();
+        }
+    }
+
+    #endregion
+
     #region Prefixes
 
     [Display(ResourceType = typeof(Res), GroupName = nameof(Res.Prefixes), Name = nameof(Res.CurrentDay), Order = 1200)]
@@ -1299,6 +1391,9 @@ public class OHLCPlusPro : Indicator
         if (ChartInfo is null || InstrumentInfo is null)
             return;
 
+        _labelQueue.Clear();
+        _placedLabels.Clear();
+
         foreach (var period in AllPeriods)
         {
             var levels = LevelsOf(period);
@@ -1309,6 +1404,8 @@ public class OHLCPlusPro : Indicator
             for (var kind = 0; kind < LevelCount; kind++)
                 RenderLevel(context, period, kind, levels[kind]);
         }
+
+        FlushLabels(context);
     }
 
     #endregion
@@ -1520,58 +1617,203 @@ public class OHLCPlusPro : Indicator
         var renderPen = levelSettings.RenderPen;
         var labelText = BuildLabel(period, kind, levelSettings);
 
-        // Draw line first (if LineType != None)
-        switch (levelSettings.LineType)
-        {
-            case LineType.Bar:
-                // If label is at bar position, start line after the label to avoid overlap
-                if (levelSettings.LabelPosition == LabelPosition.Bar)
-                {
-                    // Calculate actual label width for better positioning
-                    var labelSize = context.MeasureString(labelText, _font);
-                    var labelStartX = currentBarRightX + 5;
-                    var lineStartX = labelStartX + labelSize.Width + 4; // 4px padding
-                    context.DrawLine(renderPen, lineStartX, y, chartWidth, y);
-                }
-                else
-                {
-                    // Normal bar line from right edge of bar to price axis
-                    context.DrawLine(renderPen, currentBarRightX, y, chartWidth, y);
-                }
-                break;
-            case LineType.Full:
-                context.DrawLine(renderPen, 0, y, chartWidth, y);
-                break;
-            case LineType.None:
-                // No line to draw
-                break;
-        }
-
-        // Draw price label (if ShowPrice == true)
+        // The price tag on the axis lives outside the chart area: nothing can collide with it.
         if (levelSettings.ShowPrice)
-        {
             DrawPriceLabel(context, level.Price, y, renderPen, levelSettings);
+
+        var alignRight = levelSettings.LabelPosition == LabelPosition.Right;
+        var isBar = levelSettings.LabelPosition == LabelPosition.Bar;
+
+        var anchorX = levelSettings.LabelPosition switch
+        {
+            LabelPosition.Bar => currentBarRightX + 5,
+            LabelPosition.Right => chartWidth - 5,
+            LabelPosition.Left => 5,
+            _ => 0,
+        };
+
+        var lineX1 = levelSettings.LineType == LineType.Bar ? currentBarRightX : 0;
+        var text = levelSettings.LabelPosition == LabelPosition.None ? string.Empty : labelText;
+
+        if (levelSettings.LineType == LineType.None && text.Length == 0)
+            return;
+
+        _labelQueue.Add(new LabelRequest(
+            text,
+            anchorX,
+            y,
+            alignRight,
+            isBar,
+            levelSettings.LineType,
+            lineX1,
+            chartWidth,
+            renderPen,
+            levelSettings.TextColor,
+            priority: 0,
+            sequence: _labelQueue.Count));
+    }
+
+    /// <summary>
+    /// Places every label of the frame and then draws the lines around them. Labels go first so a
+    /// line never crosses a text, and the ones that asked first keep their place.
+    /// </summary>
+    private void FlushLabels(RenderContext context)
+    {
+        if (_labelQueue.Count == 0)
+            return;
+
+        _labelQueue.Sort(static (a, b) =>
+        {
+            var byPriority = a.Priority.CompareTo(b.Priority);
+            return byPriority != 0 ? byPriority : a.Sequence.CompareTo(b.Sequence);
+        });
+
+        var placed = new List<(LabelRequest Request, Rectangle Rect, Size Size)>(_labelQueue.Count);
+
+        foreach (var request in _labelQueue)
+        {
+            if (!request.HasText)
+                continue;
+
+            var size = context.MeasureString(request.Text, _font);
+            var rect = BuildLabelRect(request, size);
+
+            if (_avoidLabelOverlap)
+                rect = FindFreeSpot(rect, request);
+
+            placed.Add((request, rect, size));
+            _placedLabels.Add(rect);
         }
 
-        // Draw text label (if LabelPosition != None)
-        switch (levelSettings.LabelPosition)
+        foreach (var (request, rect, size) in placed)
+            DrawTextLabel(context, request, rect, size);
+
+        foreach (var request in _labelQueue)
         {
-            case LabelPosition.Bar:
-                var barLabelX = currentBarRightX + 5;
-                DrawTextLabel(context, labelText, barLabelX, y, renderPen, levelSettings.TextColor, false);
-                break;
-            case LabelPosition.Right:
-                var rightLabelX = chartWidth - 5;
-                DrawTextLabel(context, labelText, rightLabelX, y, renderPen, levelSettings.TextColor, true);
-                break;
-            case LabelPosition.Left:
-                var leftLabelX = 5;
-                DrawTextLabel(context, labelText, leftLabelX, y, renderPen, levelSettings.TextColor, false);
-                break;
-            case LabelPosition.None:
-                // No text label to draw
-                break;
+            if (request.LineType != LineType.None)
+                DrawLineAroundLabels(context, request);
         }
+    }
+
+    private Rectangle BuildLabelRect(LabelRequest request, Size size)
+    {
+        var x = request.AlignRight ? request.AnchorX - size.Width : request.AnchorX;
+
+        // A label at the bar starts exactly where the line does; the others get some air.
+        var leftPadding = request.IsBar ? 0 : LabelPadding;
+
+        return new Rectangle(x - leftPadding, request.Y - size.Height / 2 - 1, size.Width + 4, size.Height + 2);
+    }
+
+    /// <summary>
+    /// Moves a label that landed on another one: first sideways, away from the price scale or
+    /// towards it, and only then up and down, which is where it starts to lie about its price.
+    /// </summary>
+    private Rectangle FindFreeSpot(Rectangle desired, LabelRequest request)
+    {
+        if (!IntersectsPlaced(desired))
+            return desired;
+
+        var direction = request.AlignRight ? -1 : 1;
+
+        for (var step = LabelProbeStep; step <= LabelMaxShift; step += LabelProbeStep)
+        {
+            var probe = desired;
+            probe.X = desired.X + step * direction;
+
+            if (probe.X >= 0 && probe.Right <= ChartInfo.PriceChartContainer.Region.Width && !IntersectsPlaced(probe))
+                return probe;
+        }
+
+        var height = desired.Height;
+
+        for (var step = 1; step <= LabelVerticalSteps; step++)
+        {
+            var offset = step * (height + LabelPadding);
+
+            var up = desired;
+            up.Y = desired.Y - offset;
+
+            if (up.Y >= 0 && !IntersectsPlaced(up))
+                return up;
+
+            var down = desired;
+            down.Y = desired.Y + offset;
+
+            if (down.Bottom <= ChartInfo.PriceChartContainer.Region.Height && !IntersectsPlaced(down))
+                return down;
+        }
+
+        return desired;
+    }
+
+    private bool IntersectsPlaced(Rectangle rect)
+    {
+        foreach (var placed in _placedLabels)
+        {
+            if (rect.IntersectsWith(placed))
+                return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>Draws the line of a level in the pieces the labels leave free.</summary>
+    private void DrawLineAroundLabels(RenderContext context, LabelRequest request)
+    {
+        var x1 = request.LineX1;
+        var x2 = request.LineX2;
+        var y = request.Y;
+
+        if (x2 <= x1)
+            return;
+
+        if (!_clipLinesAtLabels)
+        {
+            context.DrawLine(request.Pen, x1, y, x2, y);
+            return;
+        }
+
+        _lineHoles.Clear();
+
+        foreach (var rect in _placedLabels)
+        {
+            if (y < rect.Top || y >= rect.Bottom)
+                continue;
+
+            var left = rect.Left - LabelPadding;
+            var right = rect.Right + LabelPadding;
+
+            if (right <= x1 || left >= x2)
+                continue;
+
+            _lineHoles.Add((Math.Max(x1, left), Math.Min(x2, right)));
+        }
+
+        if (_lineHoles.Count == 0)
+        {
+            context.DrawLine(request.Pen, x1, y, x2, y);
+            return;
+        }
+
+        _lineHoles.Sort(static (a, b) => a.Left.CompareTo(b.Left));
+
+        // A piece shorter than this is a stub sticking out of a label, not a line.
+        const int MinSegment = 4;
+
+        var start = x1;
+
+        foreach (var (left, right) in _lineHoles)
+        {
+            if (left - start >= MinSegment)
+                context.DrawLine(request.Pen, start, y, left, y);
+
+            if (right > start)
+                start = right;
+        }
+
+        if (x2 - start >= MinSegment)
+            context.DrawLine(request.Pen, start, y, x2, y);
     }
 
     private void DrawPriceLabel(RenderContext context, decimal price, int y, RenderPen pen, LevelSettings levelSettings)
@@ -1604,25 +1846,18 @@ public class OHLCPlusPro : Indicator
         }
     }
 
-    private void DrawTextLabel(RenderContext context, string text, int x, int y, RenderPen pen, CrossColor? explicitTextColor, bool alignRight)
+    private void DrawTextLabel(RenderContext context, LabelRequest request, Rectangle rect, Size size)
     {
-        var size = context.MeasureString(text, _font);
         var backgroundColor = ChartInfo.ColorsStore.BaseBackgroundColor;
         // An explicit text color is used as is; Auto contrasts with the chart background the label sits on
-        var textColor = explicitTextColor ?? GetContrastingColor(backgroundColor.Convert());
+        var textColor = request.TextColor ?? GetContrastingColor(backgroundColor.Convert());
 
-        // Calculate rectangle position based on alignment
-        var rectX = alignRight ? x - size.Width : x;
-        var rect = new Rectangle(rectX - 2, y - size.Height / 2 - 1, size.Width + 4, size.Height + 2);
-
-        // Draw background with border
         context.FillRectangle(backgroundColor, rect);
-        context.DrawRectangle(pen, rect);
+        context.DrawRectangle(request.Pen, rect);
 
-        // Draw text
-        var textRect = new Rectangle(rectX, y - size.Height / 2, size.Width, size.Height);
-        var format = alignRight ? _stringRightFormat : _stringLeftFormat;
-        context.DrawString(text, _font, textColor.Convert(), textRect, format);
+        var textRect = new Rectangle(rect.X + LabelPadding, rect.Y + 1, size.Width, size.Height);
+        var format = request.AlignRight ? _stringRightFormat : _stringLeftFormat;
+        context.DrawString(request.Text, _font, textColor.Convert(), textRect, format);
     }
 
     #endregion
