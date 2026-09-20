@@ -39,7 +39,7 @@ public class TradesOnChart : Indicator
 		internal DateTime CloseTime { get; set; }
         internal decimal Volume { get; set; }
         internal string Security { get; set; }
-
+        internal TradeKey Key { get; }
 
 		public TradeObj(HistoryMyTrade trade)
 		{
@@ -52,8 +52,19 @@ public class TradesOnChart : Indicator
 			CloseTime = trade.CloseTime;
 			Volume = Math.Abs(trade.OpenVolume);
 			Security = trade.Security.Code;
+			Key = new TradeKey(trade.AccountID, trade.Security.SecurityId, trade.OpenTime, trade.CloseTime, trade.OpenPrice, trade.ClosePrice, trade.OpenVolume);
 		}
     }
+
+    // Identity of a trade, to add it only once when a history rebuild and a realtime event both report it.
+    internal readonly record struct TradeKey(
+        string AccountId,
+        string SecurityId,
+        DateTime OpenTime,
+        DateTime CloseTime,
+        decimal OpenPrice,
+        decimal ClosePrice,
+        decimal OpenVolume);
 
     public enum LabelDisplayMode
     {
@@ -75,6 +86,7 @@ public class TradesOnChart : Indicator
     private readonly List<TradeObj> _trades = new();
     private readonly object _tradesSync = new();
     private int _tradesGeneration;
+    private readonly HashSet<TradeKey> _tradeKeys = new();
     private Pen _buyPen;
     private Pen _sellPen;
     private Color _buyColor;
@@ -266,6 +278,7 @@ public class TradesOnChart : Indicator
         lock (_tradesSync)
         {
             _trades.Clear();
+            _tradeKeys.Clear();
             generation = ++_tradesGeneration;
         }
 
@@ -550,8 +563,12 @@ public class TradesOnChart : Indicator
         lock (_tradesSync)
         {
             // A newer recalculation started meanwhile: its trades replace these.
-            if (generation == _tradesGeneration)
-                _trades.AddRange(trades);
+            if (generation != _tradesGeneration)
+                return;
+
+            // A realtime event may already have added some of them.
+            foreach (var trade in trades)
+                AddTrade(trade);
         }
     }
 
@@ -569,8 +586,15 @@ public class TradesOnChart : Indicator
                 return;
 
             lock (_tradesSync)
-                _trades.Add(tradeObj);
+                AddTrade(tradeObj);
         }
+    }
+
+    // Caller holds _tradesSync.
+    private void AddTrade(TradeObj trade)
+    {
+        if (_tradeKeys.Add(trade.Key))
+            _trades.Add(trade);
     }
 
     private TradeObj? CreateTradePair(HistoryMyTrade trade)
