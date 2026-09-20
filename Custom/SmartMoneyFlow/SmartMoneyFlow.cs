@@ -103,6 +103,17 @@ public class SmartMoneyFlow : Indicator
 	private CrossColor _spreadPositiveColor = CrossColor.FromArgb(255, 0, 255, 0);
 	private CrossColor _spreadNegativeColor = CrossColor.FromArgb(255, 255, 0, 0);
 
+	// Signal: simple moving average of the spread within the session.
+	private bool _showSignalLine = true;
+	private int _signalPeriod = 14;
+
+	// Four-color spread: sign of the spread and direction of the signal.
+	private bool _useFourColors;
+	private CrossColor _positiveRisingColor = CrossColor.FromArgb(255, 0, 200, 0);
+	private CrossColor _positiveFallingColor = CrossColor.FromArgb(255, 255, 215, 0);
+	private CrossColor _negativeRisingColor = CrossColor.FromArgb(255, 65, 105, 225);
+	private CrossColor _negativeFallingColor = CrossColor.FromArgb(255, 220, 20, 60);
+
 	// Cumulative trades (default) or individual ticks.
 	private bool _cumulativeTrades = true;
 
@@ -184,7 +195,7 @@ public class SmartMoneyFlow : Indicator
 		}
 	}
 
-	[Display(Name = "Positive color", GroupName = "Spread", Description = "Color of the spread bars at or above zero.", Order = 1010)]
+	[Display(Name = "Positive color", GroupName = "Spread", Description = "Color of the spread bars at or above zero (two colors).", Order = 1010)]
 	public CrossColor SpreadPositiveColor
 	{
 		get => _spreadPositiveColor;
@@ -195,13 +206,111 @@ public class SmartMoneyFlow : Indicator
 		}
 	}
 
-	[Display(Name = "Negative color", GroupName = "Spread", Description = "Color of the spread bars below zero.", Order = 1020)]
+	[Display(Name = "Negative color", GroupName = "Spread", Description = "Color of the spread bars below zero (two colors).", Order = 1020)]
 	public CrossColor SpreadNegativeColor
 	{
 		get => _spreadNegativeColor;
 		set
 		{
 			_spreadNegativeColor = value;
+			RefreshSpreadColors();
+		}
+	}
+
+	[Display(Name = "Show signal line", GroupName = "Spread", Description = "Draws the signal line over the spread in the Spread view.", Order = 1030)]
+	public bool ShowSignalLine
+	{
+		get => _showSignalLine;
+		set
+		{
+			_showSignalLine = value;
+			UpdateVisibility();
+			RedrawChart();
+		}
+	}
+
+	[Display(Name = "Signal period", GroupName = "Spread", Description = "Number of bars of the signal line, a simple moving average of the spread. It restarts with each session.", Order = 1040)]
+	[Range(2, 500)]
+	[PostValueMode(PostValueModes.OnLostFocus)]
+	public int SignalPeriod
+	{
+		get => _signalPeriod;
+		set
+		{
+			if (_signalPeriod == value)
+				return;
+
+			_signalPeriod = value;
+			RefreshSpreadColors();
+		}
+	}
+
+	[Display(Name = "Signal color", GroupName = "Spread", Description = "Color of the signal line.", Order = 1050)]
+	public CrossColor SignalColor
+	{
+		get => _signalSeries.Color;
+		set => _signalSeries.Color = value;
+	}
+
+	[Display(Name = "Signal line width", GroupName = "Spread", Description = "Width of the signal line.", Order = 1060)]
+	[Range(1, 20)]
+	public int SignalWidth
+	{
+		get => _signalSeries.Width;
+		set => _signalSeries.Width = value;
+	}
+
+	[Display(Name = "Four colors", GroupName = "Spread", Description = "Colors the spread by its sign and by the direction of the signal line (rising or falling), instead of by sign only.", Order = 1070)]
+	public bool UseFourColors
+	{
+		get => _useFourColors;
+		set
+		{
+			_useFourColors = value;
+			RefreshSpreadColors();
+		}
+	}
+
+	[Display(Name = "Positive, signal rising", GroupName = "Spread", Description = "Four colors: spread at or above zero with a rising signal.", Order = 1080)]
+	public CrossColor PositiveRisingColor
+	{
+		get => _positiveRisingColor;
+		set
+		{
+			_positiveRisingColor = value;
+			RefreshSpreadColors();
+		}
+	}
+
+	[Display(Name = "Positive, signal falling", GroupName = "Spread", Description = "Four colors: spread at or above zero with a falling signal.", Order = 1090)]
+	public CrossColor PositiveFallingColor
+	{
+		get => _positiveFallingColor;
+		set
+		{
+			_positiveFallingColor = value;
+			RefreshSpreadColors();
+		}
+	}
+
+	[Display(Name = "Negative, signal rising", GroupName = "Spread", Description = "Four colors: spread below zero with a rising signal.", Order = 1100)]
+	public CrossColor NegativeRisingColor
+	{
+		get => _negativeRisingColor;
+		set
+		{
+			_negativeRisingColor = value;
+			RefreshSpreadColors();
+		}
+	}
+
+	[Display(Name = "Negative, signal falling", GroupName = "Spread", Description = "Four colors: spread below zero with a falling signal.", Order = 1110)]
+	public CrossColor NegativeFallingColor
+	{
+		get => _negativeFallingColor;
+		set
+		{
+			_negativeFallingColor = value;
 			RefreshSpreadColors();
 		}
 	}
@@ -709,13 +818,18 @@ public class SmartMoneyFlow : Indicator
 			_filterSeries[i].VisualType = filters && _useFilter[i] ? VisualMode.Line : VisualMode.Hide;
 
 		_spreadSeries.VisualType = filters ? VisualMode.Hide : VisualMode.Histogram;
+		_signalSeries.VisualType = !filters && _showSignalLine ? VisualMode.Line : VisualMode.Hide;
 	}
 
-	// Called under _calcLock. Recalculates the spread and its color from the filter lines
-	// for the bars from..to.
+	// Called under _calcLock. Recalculates the spread, the signal and the spread color from the
+	// filter lines for the bars from..to. The signal of a bar depends on the spread of the previous
+	// bars, and its color on the previous signal, so a range is always updated in ascending order
+	// up to the last bar that depends on the change.
 	private void UpdateSpread(int from, int to)
 	{
-		for (var bar = Math.Max(from, 0); bar <= to; bar++)
+		from = Math.Max(from, _firstBar);
+
+		for (var bar = from; bar <= to; bar++)
 		{
 			decimal spread = 0;
 
@@ -728,8 +842,50 @@ public class SmartMoneyFlow : Indicator
 			}
 
 			_spreadSeries[bar] = spread;
-			_spreadSeries.Colors[bar] = (spread >= 0 ? _spreadPositiveColor : _spreadNegativeColor).Convert();
 		}
+
+		for (var bar = from; bar <= to; bar++)
+		{
+			_signalSeries[bar] = Signal(bar);
+			_spreadSeries.Colors[bar] = SpreadColor(bar).Convert();
+		}
+	}
+
+	// Called under _calcLock. Simple moving average of the spread over the last SignalPeriod bars,
+	// without going back past the start of the session: the signal restarts with the lines.
+	private decimal Signal(int bar)
+	{
+		decimal sum = 0;
+		var count = 0;
+
+		for (var b = bar; b >= _firstBar && count < _signalPeriod; b--)
+		{
+			sum += _spreadSeries[b];
+			count++;
+
+			if (b < _sessionStart.Count && _sessionStart[b])
+				break;
+		}
+
+		return count > 0 ? sum / count : 0;
+	}
+
+	// Called under _calcLock. By sign only, or by sign and signal direction. At a session start
+	// the signal has no previous value and counts as rising.
+	private CrossColor SpreadColor(int bar)
+	{
+		var positive = _spreadSeries[bar] >= 0;
+
+		if (!_useFourColors)
+			return positive ? _spreadPositiveColor : _spreadNegativeColor;
+
+		var sessionStart = bar <= _firstBar || (bar < _sessionStart.Count && _sessionStart[bar]);
+		var rising = sessionStart || _signalSeries[bar] >= _signalSeries[bar - 1];
+
+		if (positive)
+			return rising ? _positiveRisingColor : _positiveFallingColor;
+
+		return rising ? _negativeRisingColor : _negativeFallingColor;
 	}
 
 	// First bar of the oldest session calculated.
