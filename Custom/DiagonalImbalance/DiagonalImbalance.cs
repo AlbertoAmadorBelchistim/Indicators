@@ -257,6 +257,8 @@ public class DiagonalImbalance : Indicator
 	// First bar evaluated, derived from Days on every recalculation.
 	private int _firstCalculatedBar;
 
+	private bool _detailedLog;
+
 	private bool _alertOnNewZone;
 	private bool _alertOnRetest;
 	private string _alertFile = "alert2";
@@ -634,6 +636,19 @@ public class DiagonalImbalance : Indicator
 
 	#endregion
 
+	#region Properties: Diagnostics
+
+	[Display(Name = "Detailed log", GroupName = "Diagnostics", Order = 900,
+		Description = "Writes every imbalance of the last 20 bars after a recalculation, and of every bar " +
+			"that closes afterwards, to the ATAS log. For checking the indicator against the footprint.")]
+	public bool DetailedLog
+	{
+		get => _detailedLog;
+		set => _detailedLog = value;
+	}
+
+	#endregion
+
 	#region Properties: Alerts
 
 	[Display(Name = "Alert on new zone", GroupName = "Alerts", Order = 400,
@@ -726,8 +741,11 @@ public class DiagonalImbalance : Indicator
 
 		if (bar < lastBar)
 		{
-			// Closed bar (history).
-			CalculateClosedBar(bar);
+			// Closed bar (history). A closed bar is final: if the platform calls again for a bar
+			// that is already evaluated, evaluating it twice would duplicate its zones and counters.
+			if (!IsCalculated(bar))
+				CalculateClosedBar(bar);
+
 			return;
 		}
 
@@ -756,6 +774,9 @@ public class DiagonalImbalance : Indicator
 			$"(break rule {_zoneBreakMode}, max age {_maxZoneAgeBars}, max active {_maxActiveZones}); " +
 			$"scope from bar {_firstCalculatedBar} (days {_days}), session filter " +
 			$"{(_useSessionFilter ? $"{_sessionStart:hh\\:mm}-{_sessionEnd:hh\\:mm}" : "off")}.");
+
+		if (!_detailedLog)
+			return;
 
 		for (var bar = Math.Max(0, lastClosed - LoggedHistoryBars + 1); bar <= lastClosed; bar++)
 			LogBar(bar);
@@ -981,7 +1002,7 @@ public class DiagonalImbalance : Indicator
 
 		// After the history, a bar only reaches this point when it closes (in realtime or replay,
 		// possibly several at once). Bars without imbalances are not logged.
-		if (_historyLoaded && levels.Length > 0)
+		if (_detailedLog && _historyLoaded && levels.Length > 0)
 			LogBar(bar);
 
 		RaisePendingAlerts();
