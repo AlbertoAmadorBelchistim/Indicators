@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AlertFile" xml:space="preserve">
+    <value>Звук</value>
+  </data>
+  <data name="AlertFileDescription" xml:space="preserve">
+    <value>Этот параметр позволяет пользователям указать название пользовательского звукового файла для звуков оповещения в платформе ATAS. Пользователи могут выбрать файл WAV, который будет воспроизводиться, когда условие оповещения будет выполнено. Выбранный файл WAV должен быть расположен в папке C:\Program Files (x86)\ATAS Platform\Sounds.</value>
+  </data>
+  <data name="AlertFilterDescription" xml:space="preserve">
+    <value>Устанавливает величину изменения CVD, при достижении которой срабатывает звуковое предупреждение.</value>
+  </data>
+  <data name="Alerts" xml:space="preserve">
+    <value>Алерты</value>
+  </data>
+  <data name="AskAlert" xml:space="preserve">
+    <value>Ask Alert</value>
+  </data>
+  <data name="AskColor" xml:space="preserve">
+    <value>Цвет Асков</value>
+  </data>
+  <data name="AskColorDescription" xml:space="preserve">
+    <value>Визуальное выделение покупок.</value>
+  </data>
+  <data name="BackGround" xml:space="preserve">
+    <value>Фон</value>
+  </data>
+  <data name="BidAlert" xml:space="preserve">
+    <value>Bid Alert</value>
+  </data>
+  <data name="BidColor" xml:space="preserve">
+    <value>Цвет бидов</value>
+  </data>
+  <data name="BidColorDescription" xml:space="preserve">
+    <value>Визуальное выделение продаж.</value>
+  </data>
+  <data name="CenterAlign" xml:space="preserve">
+    <value>Выравнивание по центру</value>
+  </data>
+  <data name="CenterAlignDescription" xml:space="preserve">
+    <value>При включении выравнивает текст по центру.</value>
+  </data>
+  <data name="ClusterStatisticDescription" xml:space="preserve">
+    <value>Индикатор позволяет получить исчерпывающую информацию о структуре каждого бара.</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Цвет</value>
+  </data>
+  <data name="CustomSession" xml:space="preserve">
+    <value>Пользовательская сессия</value>
+  </data>
+  <data name="CustomSessionStart" xml:space="preserve">
+    <value>Свое время начала сессии</value>
+  </data>
+  <data name="CustomSessionStartDescription" xml:space="preserve">
+    <value>Указывает начало пользовательской сессии</value>
+  </data>
+  <data name="Data" xml:space="preserve">
+    <value>Данные</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>По умолчанию</value>
+  </data>
+  <data name="DeltaAlert" xml:space="preserve">
+    <value>Алерт дельты</value>
+  </data>
+  <data name="DeltaChangeAlert" xml:space="preserve">
+    <value>Алерт изменения дельты</value>
+  </data>
+  <data name="DeltaPerVolumeAlert" xml:space="preserve">
+    <value>Алерт дельта/объем</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Включен</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Фильтр</value>
+  </data>
+  <data name="Font" xml:space="preserve">
+    <value>Шрифт</value>
+  </data>
+  <data name="FontSettingDescription" xml:space="preserve">
+    <value>Описывает различные настройки шрифта.</value>
+  </data>
+  <data name="Grid" xml:space="preserve">
+    <value>Сетка</value>
+  </data>
+  <data name="GridColorDescription" xml:space="preserve">
+    <value>Визуальное разделение данных для быстрого считывания информации.</value>
+  </data>
+  <data name="HeaderBackgroundDescription" xml:space="preserve">
+    <value>Выделение заголовков для быстрой навигации по строкам.</value>
+  </data>
+  <data name="Headers" xml:space="preserve">
+    <value>Заголовки</value>
+  </data>
+  <data name="HeightAlert" xml:space="preserve">
+    <value>Алерт высоты</value>
+  </data>
+  <data name="HideHeadersDescription" xml:space="preserve">
+    <value>Если включено, скрывает заголовочные строки.</value>
+  </data>
+  <data name="HideRowsDescription" xml:space="preserve">
+    <value>Скрыть заголовки</value>
+  </data>
+  <data name="LabelFillColorDescription" xml:space="preserve">
+    <value>Устанавливает цвет фона метки.</value>
+  </data>
+  <data name="LabelTextColorDescription" xml:space="preserve">
+    <value>Устанавливает цвет текста метки.</value>
+  </data>
+  <data name="MaxDeltaAlert" xml:space="preserve">
+    <value>Алерт макс. дельты</value>
+  </data>
+  <data name="MinDeltaAlert" xml:space="preserve">
+    <value>Алерт мин. дельты</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="Rows" xml:space="preserve">
+    <value>Строчки</value>
+  </data>
+  <data name="Session" xml:space="preserve">
+    <value>Сессия</value>
+  </data>
+  <data name="SessionDeltaAlert" xml:space="preserve">
+    <value>Алерт сессионной дельты</value>
+  </data>
+  <data name="SessionDeltaMode" xml:space="preserve">
+    <value>Дельта режим сессии</value>
+  </data>
+  <data name="SessionDeltaPerVolumeAlert" xml:space="preserve">
+    <value>Алерт сессионной дельты/объем</value>
+  </data>
+  <data name="SessionModeDescription" xml:space="preserve">
+    <value>Включает или выключает режим расчета дельты по сессиям.</value>
+  </data>
+  <data name="SessionVolumeAlert" xml:space="preserve">
+    <value>Алерт сессионного объема</value>
+  </data>
+  <data name="ShowAsk" xml:space="preserve">
+    <value>Отображать аски</value>
+  </data>
+  <data name="ShowAsksDescription" xml:space="preserve">
+    <value>Определяет, отображать ли информацию об объемах ask.</value>
+  </data>
+  <data name="ShowBid" xml:space="preserve">
+    <value>Отображать биды</value>
+  </data>
+  <data name="ShowBidsDescription" xml:space="preserve">
+    <value>Определяет, следует ли отображать информацию об объемах bid.</value>
+  </data>
+  <data name="ShowCandleDurationDescription" xml:space="preserve">
+    <value>Определяет, должна ли отображаться информация о длительности свечи.</value>
+  </data>
+  <data name="ShowCandleHeightDescription" xml:space="preserve">
+    <value>Определяет, следует ли отображать информацию о высоте свечи (в валюте).</value>
+  </data>
+  <data name="ShowCandleTimeDescription" xml:space="preserve">
+    <value>Определяет, следует ли отображать информацию о времени начала свечи.</value>
+  </data>
+  <data name="ShowDelta" xml:space="preserve">
+    <value>Дельта</value>
+  </data>
+  <data name="ShowDeltaChange" xml:space="preserve">
+    <value>Изменение дельты</value>
+  </data>
+  <data name="ShowDeltaChangeDescription" xml:space="preserve">
+    <value>Определяет, следует ли отображать информацию о разнице между дельтой текущей свечи и дельтой предыдущей.</value>
+  </data>
+  <data name="ShowDeltaDescription" xml:space="preserve">
+    <value>Определяет, следует ли отображать информацию о дельте.</value>
+  </data>
+  <data name="ShowDeltaPerVolume" xml:space="preserve">
+    <value>Отображать дельту/объем</value>
+  </data>
+  <data name="ShowDeltaPerVolumeDescription" xml:space="preserve">
+    <value>Определяет, следует ли отображать информацию о дельте относительно объема (процентное соотношение).</value>
+  </data>
+  <data name="ShowDuration" xml:space="preserve">
+    <value>Длительность свечки, сек</value>
+  </data>
+  <data name="ShowHeight" xml:space="preserve">
+    <value>Высота</value>
+  </data>
+  <data name="ShowMaximumDelta" xml:space="preserve">
+    <value>Максимальная дельта</value>
+  </data>
+  <data name="ShowMaximumDeltaDescription" xml:space="preserve">
+    <value>Определяет, следует ли отображать информацию о максимальной дельте.</value>
+  </data>
+  <data name="ShowMinimumDelta" xml:space="preserve">
+    <value>Минимальная дельта</value>
+  </data>
+  <data name="ShowMinimumDeltaDescription" xml:space="preserve">
+    <value>Определяет, следует ли отображать информацию о минимальной дельте.</value>
+  </data>
+  <data name="ShowSessionDelta" xml:space="preserve">
+    <value>Сессионная дельта</value>
+  </data>
+  <data name="ShowSessionDeltaDescription" xml:space="preserve">
+    <value>Определяет, следует ли отображать информацию о сессионной дельте.</value>
+  </data>
+  <data name="ShowSessionDeltaPerVolume" xml:space="preserve">
+    <value>Сессионная дельта/объем</value>
+  </data>
+  <data name="ShowSessionDeltaPerVolumeDescription" xml:space="preserve">
+    <value>Определяет, следует ли отображать информацию о дельте сессии по объему.</value>
+  </data>
+  <data name="ShowSessionVolume" xml:space="preserve">
+    <value>Сессионный объем</value>
+  </data>
+  <data name="ShowSessionVolumeDescription" xml:space="preserve">
+    <value>Определяет, следует ли отображать накопленную информацию об объеме в течение сессии.</value>
+  </data>
+  <data name="ShowTime" xml:space="preserve">
+    <value>Время</value>
+  </data>
+  <data name="ShowTradesCount" xml:space="preserve">
+    <value>Количество сделок</value>
+  </data>
+  <data name="ShowTradesCountDescription" xml:space="preserve">
+    <value>Определяет, следует ли отображать информацию о количестве сделок.</value>
+  </data>
+  <data name="ShowVolume" xml:space="preserve">
+    <value>Oбъем</value>
+  </data>
+  <data name="ShowVolumePerSecond" xml:space="preserve">
+    <value>Объем/секунды</value>
+  </data>
+  <data name="ShowVolumePerSecondDescription" xml:space="preserve">
+    <value>Определяет, следует ли отображать информацию об объеме в секунду.</value>
+  </data>
+  <data name="ShowVolumesDescription" xml:space="preserve">
+    <value>Определяет, следует ли отображать информацию об объемах.</value>
+  </data>
+  <data name="Text" xml:space="preserve">
+    <value>Текст</value>
+  </data>
+  <data name="TradesAlert" xml:space="preserve">
+    <value>Алерт сделок</value>
+  </data>
+  <data name="Transparency" xml:space="preserve">
+    <value>Регулировка видимости строк.</value>
+  </data>
+  <data name="UseAlertDescription" xml:space="preserve">
+    <value>Этот параметр позволяет получать уведомления о событиях или условиях, определенных индикатором. При активации индикатор отправит уведомление.</value>
+  </data>
+  <data name="VisibleProportion" xml:space="preserve">
+    <value>Отображать по градиенту</value>
+  </data>
+  <data name="VisibleProportionDescription" xml:space="preserve">
+    <value>Выделение данных цветом именно в текущем окне.</value>
+  </data>
+  <data name="Visualization" xml:space="preserve">
+    <value>Визуализация</value>
+  </data>
+  <data name="Volume" xml:space="preserve">
+    <value>Объем</value>
+  </data>
+  <data name="VolumeAlert" xml:space="preserve">
+    <value>Алерт объема</value>
+  </data>
+  <data name="VolumeColorDescription" xml:space="preserve">
+    <value>Выделение баров, отображающих объем.</value>
+  </data>
+  <data name="VolumePerSecondAlert" xml:space="preserve">
+    <value>Алерт объема/сек</value>
+  </data>
+</root>

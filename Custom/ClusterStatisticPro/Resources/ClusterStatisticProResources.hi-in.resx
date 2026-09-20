@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AlertFile" xml:space="preserve">
+    <value>अलर्ट फ़ाइल</value>
+  </data>
+  <data name="AlertFileDescription" xml:space="preserve">
+    <value>अलर्टफाइलडिस्क्रिप्शन पैरामीटर उपयोगकर्ताओं को एटीएस प्लेटफार्म में अलर्ट ध्वनियों के लिए एक कस्टम ऑडियो फ़ाइल का नाम सेट करने की सुविधा प्रदान करता है। उपयोगकर्ता WAV फ़ाइल का चयन कर सकते हैं, जो जब एक अलर्ट स्थिति पूरी होती है, बजाया जाएगा। चुनी गई WAV फ़ाइल को C:\Program Files (x86)\ATAS Platform\Sounds नामक फ़ोल्डर में स्थित होना चाहिए।</value>
+  </data>
+  <data name="AlertFilterDescription" xml:space="preserve">
+    <value>अलर्ट को ट्रिगर होने वाले मूल्य को सेट करता है।</value>
+  </data>
+  <data name="Alerts" xml:space="preserve">
+    <value>चेतावनियाँ</value>
+  </data>
+  <data name="AskAlert" xml:space="preserve">
+    <value>आपूर्ति चेतावनी</value>
+  </data>
+  <data name="AskColor" xml:space="preserve">
+    <value>पूछें रंग</value>
+  </data>
+  <data name="AskColorDescription" xml:space="preserve">
+    <value>खरीद का दृश्य हाइलाइटिंग।</value>
+  </data>
+  <data name="BackGround" xml:space="preserve">
+    <value>पृष्ठभूमि</value>
+  </data>
+  <data name="BidAlert" xml:space="preserve">
+    <value>बोली चेतावनी</value>
+  </data>
+  <data name="BidColor" xml:space="preserve">
+    <value>बिड रंग</value>
+  </data>
+  <data name="BidColorDescription" xml:space="preserve">
+    <value>बिक्री का दृश्य हाइलाइटिंग।</value>
+  </data>
+  <data name="CenterAlign" xml:space="preserve">
+    <value>केंद्र संरेखित करें</value>
+  </data>
+  <data name="CenterAlignDescription" xml:space="preserve">
+    <value>यदि सक्षम है, तो पाठ को केंद्र में संरेखित करता है।</value>
+  </data>
+  <data name="ClusterStatisticDescription" xml:space="preserve">
+    <value>यह टेम्पलेट प्रत्येक बार की संरचना के बारे में पूरी जानकारी प्राप्त करने की अनुमति देता है।</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>रंग</value>
+  </data>
+  <data name="CustomSession" xml:space="preserve">
+    <value>अनुकूलित सत्र</value>
+  </data>
+  <data name="CustomSessionStart" xml:space="preserve">
+    <value>कस्टम सत्र प्रारंभ</value>
+  </data>
+  <data name="CustomSessionStartDescription" xml:space="preserve">
+    <value>व्यक्तिगत सत्र की शुरुआत निर्दिष्ट करता है</value>
+  </data>
+  <data name="Data" xml:space="preserve">
+    <value>डेटा</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>डिफ़ॉल्ट</value>
+  </data>
+  <data name="DeltaAlert" xml:space="preserve">
+    <value>डेल्टा अलर्ट</value>
+  </data>
+  <data name="DeltaChangeAlert" xml:space="preserve">
+    <value>Delta change alert</value>
+  </data>
+  <data name="DeltaPerVolumeAlert" xml:space="preserve">
+    <value>Delta/Volume alert</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>सक्षम</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>फ़िल्टर</value>
+  </data>
+  <data name="Font" xml:space="preserve">
+    <value>फ़ॉन्ट</value>
+  </data>
+  <data name="FontSettingDescription" xml:space="preserve">
+    <value>फॉन्ट के लिए विभिन्न सेटिंग्स का वर्णन करता है।</value>
+  </data>
+  <data name="Grid" xml:space="preserve">
+    <value>1. ग्रिड</value>
+  </data>
+  <data name="GridColorDescription" xml:space="preserve">
+    <value>जानकारी की त्वरित पढ़ाई के लिए डेटा का दृश्य विभाजन।</value>
+  </data>
+  <data name="HeaderBackgroundDescription" xml:space="preserve">
+    <value>पंक्तियों में त्वरित नेविगेशन के लिए हेडर हाइलाइटिंग।</value>
+  </data>
+  <data name="Headers" xml:space="preserve">
+    <value>हैडर्स</value>
+  </data>
+  <data name="HeightAlert" xml:space="preserve">
+    <value>Height alert</value>
+  </data>
+  <data name="HideHeadersDescription" xml:space="preserve">
+    <value>यदि सक्षम है, शीर्षक पंक्तियों को छुपाता है।</value>
+  </data>
+  <data name="HideRowsDescription" xml:space="preserve">
+    <value>शीर्षक छिपाएँ</value>
+  </data>
+  <data name="LabelFillColorDescription" xml:space="preserve">
+    <value>लेबल के पृष्ठभूमि का रंग सेट करता है।</value>
+  </data>
+  <data name="LabelTextColorDescription" xml:space="preserve">
+    <value>लेबल पाठ का रंग सेट करता है।</value>
+  </data>
+  <data name="MaxDeltaAlert" xml:space="preserve">
+    <value>Max delta alert</value>
+  </data>
+  <data name="MinDeltaAlert" xml:space="preserve">
+    <value>Min delta alert</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>कोई नहीं</value>
+  </data>
+  <data name="Rows" xml:space="preserve">
+    <value>पंक्तियाँ</value>
+  </data>
+  <data name="Session" xml:space="preserve">
+    <value>सत्र</value>
+  </data>
+  <data name="SessionDeltaAlert" xml:space="preserve">
+    <value>Session delta alert</value>
+  </data>
+  <data name="SessionDeltaMode" xml:space="preserve">
+    <value>सत्र डेल्टा मोड</value>
+  </data>
+  <data name="SessionDeltaPerVolumeAlert" xml:space="preserve">
+    <value>Session delta/Volume alert</value>
+  </data>
+  <data name="SessionModeDescription" xml:space="preserve">
+    <value>एक सत्र मोड का प्रतिनिधित्व करता है।</value>
+  </data>
+  <data name="SessionVolumeAlert" xml:space="preserve">
+    <value>Session volume alert</value>
+  </data>
+  <data name="ShowAsk" xml:space="preserve">
+    <value>दिखाएं आस्क</value>
+  </data>
+  <data name="ShowAsksDescription" xml:space="preserve">
+    <value>निर्धारित करता है कि बोली वॉल्यूम की जानकारी प्रदर्शित करनी चाहिए या नहीं।</value>
+  </data>
+  <data name="ShowBid" xml:space="preserve">
+    <value>बिड दिखाएं</value>
+  </data>
+  <data name="ShowBidsDescription" xml:space="preserve">
+    <value>निर्धारित करता है कि बोली वॉल्यूम की जानकारी प्रदर्शित करनी चाहिए या नहीं।</value>
+  </data>
+  <data name="ShowCandleDurationDescription" xml:space="preserve">
+    <value>निर्धारित करता है कि मोमबत्ती के समय अवधि के बारे में जानकारी प्रदर्शित की जानी चाहिए या नहीं।</value>
+  </data>
+  <data name="ShowCandleHeightDescription" xml:space="preserve">
+    <value>निर्धारित करता है कि क्या मोमबत्ती की ऊँचाई के बारे में जानकारी (मुद्रा में) प्रदर्शित करनी चाहिए।</value>
+  </data>
+  <data name="ShowCandleTimeDescription" xml:space="preserve">
+    <value>निर्धारित करता है कि मोमबत्ती के प्रारंभ समय के बारे में जानकारी प्रदर्शित की जानी चाहिए या नहीं।</value>
+  </data>
+  <data name="ShowDelta" xml:space="preserve">
+    <value>डेल्टा दिखाएं</value>
+  </data>
+  <data name="ShowDeltaChange" xml:space="preserve">
+    <value>डेल्टा परिवर्तन दिखाएं</value>
+  </data>
+  <data name="ShowDeltaChangeDescription" xml:space="preserve">
+    <value>यह निर्धारित करता है कि वर्तमान मोमबत्ती और पिछले एक के बीच डेल्टा के अंतर की जानकारी प्रदर्शित करना चाहिए या नहीं।</value>
+  </data>
+  <data name="ShowDeltaDescription" xml:space="preserve">
+    <value>निर्धारित करता है कि डेल्टा के बारे में जानकारी प्रदर्शित की जानी चाहिए या नहीं।</value>
+  </data>
+  <data name="ShowDeltaPerVolume" xml:space="preserve">
+    <value>डेल्टा/वॉल्यूम दिखाएं</value>
+  </data>
+  <data name="ShowDeltaPerVolumeDescription" xml:space="preserve">
+    <value>निर्धारित करता है कि क्या वॉल्यूम प्रति डेल्टा की जानकारी प्रदर्शित की जानी चाहिए।</value>
+  </data>
+  <data name="ShowDuration" xml:space="preserve">
+    <value>दिखाएँ की अवधि, सेकंड</value>
+  </data>
+  <data name="ShowHeight" xml:space="preserve">
+    <value>ऊचाई दिखाएं</value>
+  </data>
+  <data name="ShowMaximumDelta" xml:space="preserve">
+    <value>अधिकतम डेल्टा दिखाएं</value>
+  </data>
+  <data name="ShowMaximumDeltaDescription" xml:space="preserve">
+    <value>निर्धारित करता है कि क्या अधिकतम डेल्टा के बारे में जानकारी दिखानी चाहिए।</value>
+  </data>
+  <data name="ShowMinimumDelta" xml:space="preserve">
+    <value>न्यूनतम डेल्टा दिखाएं</value>
+  </data>
+  <data name="ShowMinimumDeltaDescription" xml:space="preserve">
+    <value>न्यूनतम डेल्टा के बारे में जानकारी प्रदर्शित करना चाहिए या नहीं यह निर्धारित करता है।</value>
+  </data>
+  <data name="ShowSessionDelta" xml:space="preserve">
+    <value>सत्र डेल्टा दिखाएं</value>
+  </data>
+  <data name="ShowSessionDeltaDescription" xml:space="preserve">
+    <value>यह निर्धारित करता है कि सत्र डेल्टा के बारे में जानकारी प्रदर्शित करनी चाहिए या नहीं।</value>
+  </data>
+  <data name="ShowSessionDeltaPerVolume" xml:space="preserve">
+    <value>सत्र डेल्टा/वॉल्यूम दिखाएं</value>
+  </data>
+  <data name="ShowSessionDeltaPerVolumeDescription" xml:space="preserve">
+    <value>यह निर्धारित करता है कि क्या वॉल्यूम प्रति सत्र डेल्टा की जानकारी प्रदर्शित करनी चाहिए।</value>
+  </data>
+  <data name="ShowSessionVolume" xml:space="preserve">
+    <value>सत्र आयाम दिखाएं</value>
+  </data>
+  <data name="ShowSessionVolumeDescription" xml:space="preserve">
+    <value>यह निर्धारित करता है कि क्या सत्र में संचयी वॉल्यूम सूचना प्रदर्शित करनी चाहिए।</value>
+  </data>
+  <data name="ShowTime" xml:space="preserve">
+    <value>समय</value>
+  </data>
+  <data name="ShowTradesCount" xml:space="preserve">
+    <value>व्यापारों की संख्या दिखाएं</value>
+  </data>
+  <data name="ShowTradesCountDescription" xml:space="preserve">
+    <value>निर्धारित करता है कि क्या व्यापारों की संख्या की जानकारी प्रदर्शित करनी चाहिए।</value>
+  </data>
+  <data name="ShowVolume" xml:space="preserve">
+    <value>वॉल्यूम दिखाएं</value>
+  </data>
+  <data name="ShowVolumePerSecond" xml:space="preserve">
+    <value>प्रति सेकंड वॉल्यूम दिखाएं</value>
+  </data>
+  <data name="ShowVolumePerSecondDescription" xml:space="preserve">
+    <value>निर्धारित करता है कि प्रति सेकंड आयतन के बारे में जानकारी दिखानी चाहिए या नहीं।</value>
+  </data>
+  <data name="ShowVolumesDescription" xml:space="preserve">
+    <value>यह निर्धारित करता है कि आवाजों के बारे में जानकारी प्रदर्शित करनी चाहिए या नहीं।</value>
+  </data>
+  <data name="Text" xml:space="preserve">
+    <value>टेक्स्ट</value>
+  </data>
+  <data name="TradesAlert" xml:space="preserve">
+    <value>Trades alert</value>
+  </data>
+  <data name="Transparency" xml:space="preserve">
+    <value>पंक्ति दृश्यता समायोजन।</value>
+  </data>
+  <data name="UseAlertDescription" xml:space="preserve">
+    <value>यह सेटिंग इंडिकेटर द्वारा परिभाषित विशेष स्थितियों या घटनाओं के लिए चेतावनी सूचनाएँ सक्षम करती है। सक्रिय करने पर, इंडिकेटर एक चेतावनी भेजेगा।</value>
+  </data>
+  <data name="VisibleProportion" xml:space="preserve">
+    <value>चार्ट के दिखाई देने वाले हिस्से के अनुपात द्वारा</value>
+  </data>
+  <data name="VisibleProportionDescription" xml:space="preserve">
+    <value>केवल वर्तमान विंडो में डेटा का रंग हाइलाइटिंग।</value>
+  </data>
+  <data name="Visualization" xml:space="preserve">
+    <value>दृश्यीकरण</value>
+  </data>
+  <data name="Volume" xml:space="preserve">
+    <value>आयाम</value>
+  </data>
+  <data name="VolumeAlert" xml:space="preserve">
+    <value>वॉल्यूम चेतावनी</value>
+  </data>
+  <data name="VolumeColorDescription" xml:space="preserve">
+    <value>वॉल्यूम प्रदर्शित करने वाले बार का हाइलाइटिंग।</value>
+  </data>
+  <data name="VolumePerSecondAlert" xml:space="preserve">
+    <value>Volume/sec alert</value>
+  </data>
+</root>

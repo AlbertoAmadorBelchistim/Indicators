@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AlertFile" xml:space="preserve">
+    <value>Fichier d'alerte</value>
+  </data>
+  <data name="AlertFileDescription" xml:space="preserve">
+    <value>Le paramètre AlertFileDescription permet aux utilisateurs de spécifier le nom d'un fichier audio personnalisé pour les sons d'alerte dans la plateforme ATAS. Les utilisateurs peuvent sélectionner un fichier WAV qui sera joué lorsque une condition d'alerte est remplie. Le fichier WAV choisi doit être situé dans le dossier C:\Program Files (x86)\ATAS Platform\Sounds.</value>
+  </data>
+  <data name="AlertFilterDescription" xml:space="preserve">
+    <value>Définit la valeur à laquelle l'alerte est déclenchée.</value>
+  </data>
+  <data name="Alerts" xml:space="preserve">
+    <value>Alertes</value>
+  </data>
+  <data name="AskAlert" xml:space="preserve">
+    <value>Ask Alert</value>
+  </data>
+  <data name="AskColor" xml:space="preserve">
+    <value>Couleur de Ask</value>
+  </data>
+  <data name="AskColorDescription" xml:space="preserve">
+    <value>Mise en évidence visuelle des achats.</value>
+  </data>
+  <data name="BackGround" xml:space="preserve">
+    <value>Fond</value>
+  </data>
+  <data name="BidAlert" xml:space="preserve">
+    <value>Bid Alert</value>
+  </data>
+  <data name="BidColor" xml:space="preserve">
+    <value>Couleur de Bid</value>
+  </data>
+  <data name="BidColorDescription" xml:space="preserve">
+    <value>Mise en évidence visuelle des ventes.</value>
+  </data>
+  <data name="CenterAlign" xml:space="preserve">
+    <value>Alignement centré</value>
+  </data>
+  <data name="CenterAlignDescription" xml:space="preserve">
+    <value>Si activé, aligne le texte au centre.</value>
+  </data>
+  <data name="ClusterStatisticDescription" xml:space="preserve">
+    <value>Le modèle permet d'obtenir des informations complètes sur la structure de chaque barre.</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Couleur</value>
+  </data>
+  <data name="CustomSession" xml:space="preserve">
+    <value>Session personnalisée</value>
+  </data>
+  <data name="CustomSessionStart" xml:space="preserve">
+    <value>Heure de début de la session personnalisée</value>
+  </data>
+  <data name="CustomSessionStartDescription" xml:space="preserve">
+    <value>Spécifie le début de la session personnalisée</value>
+  </data>
+  <data name="Data" xml:space="preserve">
+    <value>Données</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Par défaut</value>
+  </data>
+  <data name="DeltaAlert" xml:space="preserve">
+    <value>DeltaAlert</value>
+  </data>
+  <data name="DeltaChangeAlert" xml:space="preserve">
+    <value>Delta change alert</value>
+  </data>
+  <data name="DeltaPerVolumeAlert" xml:space="preserve">
+    <value>Delta/Volume alert</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Activé</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filtre</value>
+  </data>
+  <data name="Font" xml:space="preserve">
+    <value>Police de caractère</value>
+  </data>
+  <data name="FontSettingDescription" xml:space="preserve">
+    <value>Décrit divers paramètres pour la police de caractères.</value>
+  </data>
+  <data name="Grid" xml:space="preserve">
+    <value>1.Grille</value>
+  </data>
+  <data name="GridColorDescription" xml:space="preserve">
+    <value>Séparation visuelle des données pour une lecture rapide des informations.</value>
+  </data>
+  <data name="HeaderBackgroundDescription" xml:space="preserve">
+    <value>Mise en évidence des en-têtes pour une navigation rapide entre les lignes.</value>
+  </data>
+  <data name="Headers" xml:space="preserve">
+    <value>En-têtes</value>
+  </data>
+  <data name="HeightAlert" xml:space="preserve">
+    <value>Height alert</value>
+  </data>
+  <data name="HideHeadersDescription" xml:space="preserve">
+    <value>Si activé, masque les lignes d'en-tête.</value>
+  </data>
+  <data name="HideRowsDescription" xml:space="preserve">
+    <value>Masquer les en-têtes</value>
+  </data>
+  <data name="LabelFillColorDescription" xml:space="preserve">
+    <value>Définit la couleur de fond de l'étiquette.</value>
+  </data>
+  <data name="LabelTextColorDescription" xml:space="preserve">
+    <value>Définit la couleur du texte de l'étiquette.</value>
+  </data>
+  <data name="MaxDeltaAlert" xml:space="preserve">
+    <value>Max delta alert</value>
+  </data>
+  <data name="MinDeltaAlert" xml:space="preserve">
+    <value>Min delta alert</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Aucun</value>
+  </data>
+  <data name="Rows" xml:space="preserve">
+    <value>Lignes</value>
+  </data>
+  <data name="Session" xml:space="preserve">
+    <value>Session</value>
+  </data>
+  <data name="SessionDeltaAlert" xml:space="preserve">
+    <value>Session delta alert</value>
+  </data>
+  <data name="SessionDeltaMode" xml:space="preserve">
+    <value>Mode de session delta</value>
+  </data>
+  <data name="SessionDeltaPerVolumeAlert" xml:space="preserve">
+    <value>Session delta/Volume alert</value>
+  </data>
+  <data name="SessionModeDescription" xml:space="preserve">
+    <value>Représente l'un des modes de session.</value>
+  </data>
+  <data name="SessionVolumeAlert" xml:space="preserve">
+    <value>Session volume alert</value>
+  </data>
+  <data name="ShowAsk" xml:space="preserve">
+    <value>Afficher des asks</value>
+  </data>
+  <data name="ShowAsksDescription" xml:space="preserve">
+    <value>Détermine s'il faut afficher des informations sur le volume des offres.</value>
+  </data>
+  <data name="ShowBid" xml:space="preserve">
+    <value>Afficher des bids</value>
+  </data>
+  <data name="ShowBidsDescription" xml:space="preserve">
+    <value>Détermine s'il faut afficher des informations sur les volumes d'offres.</value>
+  </data>
+  <data name="ShowCandleDurationDescription" xml:space="preserve">
+    <value>Détermine si les informations sur la durée de la bougie doivent être affichées.</value>
+  </data>
+  <data name="ShowCandleHeightDescription" xml:space="preserve">
+    <value>Détermine s'il faut afficher des informations sur la hauteur de la bougie (en devise).</value>
+  </data>
+  <data name="ShowCandleTimeDescription" xml:space="preserve">
+    <value>Détermine s'il faut afficher des informations sur l'heure de début de la bougie.</value>
+  </data>
+  <data name="ShowDelta" xml:space="preserve">
+    <value>Le delta</value>
+  </data>
+  <data name="ShowDeltaChange" xml:space="preserve">
+    <value>Le changement de delta</value>
+  </data>
+  <data name="ShowDeltaChangeDescription" xml:space="preserve">
+    <value>Détermine s'il faut afficher des informations sur la différence entre le delta de la bougie actuelle et le delta de la précédente.</value>
+  </data>
+  <data name="ShowDeltaDescription" xml:space="preserve">
+    <value>Détermine si les informations sur le delta doivent être affichées.</value>
+  </data>
+  <data name="ShowDeltaPerVolume" xml:space="preserve">
+    <value>Afficher le delta/volume</value>
+  </data>
+  <data name="ShowDeltaPerVolumeDescription" xml:space="preserve">
+    <value>Détermine si les informations sur le delta par volume doivent être affichées.</value>
+  </data>
+  <data name="ShowDuration" xml:space="preserve">
+    <value>Afficher la durée, sec</value>
+  </data>
+  <data name="ShowHeight" xml:space="preserve">
+    <value>La hauteur</value>
+  </data>
+  <data name="ShowMaximumDelta" xml:space="preserve">
+    <value>Le delta maximum</value>
+  </data>
+  <data name="ShowMaximumDeltaDescription" xml:space="preserve">
+    <value>Détermine s'il faut afficher des informations sur le delta maximum.</value>
+  </data>
+  <data name="ShowMinimumDelta" xml:space="preserve">
+    <value>Le delta minimal</value>
+  </data>
+  <data name="ShowMinimumDeltaDescription" xml:space="preserve">
+    <value>Détermine si les informations sur le delta minimum doivent être affichées.</value>
+  </data>
+  <data name="ShowSessionDelta" xml:space="preserve">
+    <value>Delta de session</value>
+  </data>
+  <data name="ShowSessionDeltaDescription" xml:space="preserve">
+    <value>Détermine s'il faut afficher des informations sur la différence de session.</value>
+  </data>
+  <data name="ShowSessionDeltaPerVolume" xml:space="preserve">
+    <value>Le delta/volume de session</value>
+  </data>
+  <data name="ShowSessionDeltaPerVolumeDescription" xml:space="preserve">
+    <value>Détermine s'il faut afficher des informations sur la delta de session par volume.</value>
+  </data>
+  <data name="ShowSessionVolume" xml:space="preserve">
+    <value>Le volume de session</value>
+  </data>
+  <data name="ShowSessionVolumeDescription" xml:space="preserve">
+    <value>Détermine s'il faut afficher les informations de volume cumulatif dans une session.</value>
+  </data>
+  <data name="ShowTime" xml:space="preserve">
+    <value>Heure</value>
+  </data>
+  <data name="ShowTradesCount" xml:space="preserve">
+    <value>Le nombre de transactions</value>
+  </data>
+  <data name="ShowTradesCountDescription" xml:space="preserve">
+    <value>Détermine s'il faut afficher des informations sur le nombre de transactions.</value>
+  </data>
+  <data name="ShowVolume" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="ShowVolumePerSecond" xml:space="preserve">
+    <value>Le volume/seconde</value>
+  </data>
+  <data name="ShowVolumePerSecondDescription" xml:space="preserve">
+    <value>Détermine s'il faut afficher des informations sur le volume par seconde.</value>
+  </data>
+  <data name="ShowVolumesDescription" xml:space="preserve">
+    <value>Détermine s'il faut afficher des informations sur les volumes.</value>
+  </data>
+  <data name="Text" xml:space="preserve">
+    <value>Texte</value>
+  </data>
+  <data name="TradesAlert" xml:space="preserve">
+    <value>Trades alert</value>
+  </data>
+  <data name="Transparency" xml:space="preserve">
+    <value>Réglage de la visibilité des lignes.</value>
+  </data>
+  <data name="UseAlertDescription" xml:space="preserve">
+    <value>Ce paramètre permet des notifications d'alerte pour des conditions ou événements spécifiques définis par l'indicateur. Lorsqu'il est activé, l'indicateur enverra une alerte.</value>
+  </data>
+  <data name="VisibleProportion" xml:space="preserve">
+    <value>Afficher par gradient</value>
+  </data>
+  <data name="VisibleProportionDescription" xml:space="preserve">
+    <value>Mise en évidence des données par couleur uniquement dans la fenêtre actuelle.</value>
+  </data>
+  <data name="Visualization" xml:space="preserve">
+    <value>Visualisation</value>
+  </data>
+  <data name="Volume" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="VolumeAlert" xml:space="preserve">
+    <value>Alerte de volume</value>
+  </data>
+  <data name="VolumeColorDescription" xml:space="preserve">
+    <value>Mise en évidence des barres affichant le volume.</value>
+  </data>
+  <data name="VolumePerSecondAlert" xml:space="preserve">
+    <value>Volume/sec alert</value>
+  </data>
+</root>
