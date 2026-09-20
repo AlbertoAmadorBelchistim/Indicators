@@ -14,6 +14,7 @@ internal static class Program
 			("DailyRails", DailyRailsTests.Run),
 			("TradeLedger", TradeLedgerTests.Run),
 			("Recommendations", RecommendationTests.Run),
+			("RailPrices", RailPriceTests.Run),
 		};
 
 		var failed = 0;
