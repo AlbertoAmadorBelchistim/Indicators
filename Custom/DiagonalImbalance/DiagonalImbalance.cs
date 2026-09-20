@@ -97,6 +97,17 @@ public class DiagonalImbalance : Indicator
 
 		public bool IsActive => EndBar < 0;
 
+		// Retest tracking for alerts: whether the last observed price was inside the zone
+		// (null until first observed) and when the last retest alert fired.
+		public bool? PriceInside { get; set; }
+
+		public DateTime LastRetestAlertUtc { get; set; } = DateTime.MinValue;
+
+		public bool Contains(decimal price)
+		{
+			return price >= Low && price <= High;
+		}
+
 		public void End(int bar, ZoneEnd reason)
 		{
 			EndBar = bar;
@@ -237,6 +248,14 @@ public class DiagonalImbalance : Indicator
 	private RenderPen _buyZonePen;
 	private RenderPen _sellZonePen;
 	private RenderFont _labelFont = new("Arial", 8);
+
+	private bool _alertOnNewZone;
+	private bool _alertOnRetest;
+	private string _alertFile = "alert2";
+	private int _alertCooldownSeconds = 60;
+
+	// Alerts produced under _barsLock and raised after it is released.
+	private readonly List<(string Message, bool IsBuy)> _pendingAlerts = new();
 
 	private bool _historyLoaded;
 	private int _historyBuyCount;
@@ -538,6 +557,43 @@ public class DiagonalImbalance : Indicator
 
 	#endregion
 
+	#region Properties: Alerts
+
+	[Display(Name = "Alert on new zone", GroupName = "Alerts", Order = 400,
+		Description = "Alert when a bar closes with a stacked imbalance and a new zone is created.")]
+	public bool AlertOnNewZone
+	{
+		get => _alertOnNewZone;
+		set => _alertOnNewZone = value;
+	}
+
+	[Display(Name = "Alert on zone retest", GroupName = "Alerts", Order = 410,
+		Description = "Alert when price moves from outside an active zone into it.")]
+	public bool AlertOnRetest
+	{
+		get => _alertOnRetest;
+		set => _alertOnRetest = value;
+	}
+
+	[Display(Name = "Alert sound", GroupName = "Alerts", Order = 420,
+		Description = "Sound file used by the alerts.")]
+	public string AlertFile
+	{
+		get => _alertFile;
+		set => _alertFile = value;
+	}
+
+	[Display(Name = "Retest cooldown (seconds)", GroupName = "Alerts", Order = 430,
+		Description = "Minimum time between two retest alerts of the same zone.")]
+	[Range(0, 86400)]
+	public int AlertCooldownSeconds
+	{
+		get => _alertCooldownSeconds;
+		set => _alertCooldownSeconds = value;
+	}
+
+	#endregion
+
 	#region Ctor
 
 	public DiagonalImbalance()
@@ -573,6 +629,7 @@ public class DiagonalImbalance : Indicator
 			_barStacks.Clear();
 			_zones.Clear();
 			_activeZones.Clear();
+			_pendingAlerts.Clear();
 			_formingBar = -1;
 			_formingLevels = NoImbalances;
 		}
@@ -771,10 +828,17 @@ public class DiagonalImbalance : Indicator
 			_formingBar = bar;
 			_formingLevels = levels;
 
+			// Before any zone can end on this update, so a retest that also breaks the zone
+			// (Touch rule) is still reported.
+			if (_historyLoaded)
+				CheckRetests(bar, candle.Close);
+
 			// The High and Low of a forming bar only extend, so a touch or a trade through seen now
 			// is final. Its Close is not, so CloseBeyond waits for the bar to close.
 			UpdateZones(bar, candle.Low, candle.High, candle.Close, false);
 		}
+
+		RaisePendingAlerts();
 	}
 
 	private void CalculateClosedBar(int bar)
@@ -799,7 +863,16 @@ public class DiagonalImbalance : Indicator
 			UpdateZones(bar, candle.Low, candle.High, candle.Close, true);
 
 			foreach (var stack in stacks)
-				AddZone(new ImbalanceZone(bar, stack));
+			{
+				var zone = new ImbalanceZone(bar, stack);
+				AddZone(zone);
+
+				if (_historyLoaded && _alertOnNewZone)
+				{
+					_pendingAlerts.Add(($"Diagonal Imbalance: new {(zone.IsBuy ? "buy" : "sell")} zone " +
+						$"{zone.Low}-{zone.High} (x{zone.Levels})", zone.IsBuy));
+				}
+			}
 
 			if (_formingBar == bar)
 			{
@@ -828,6 +901,56 @@ public class DiagonalImbalance : Indicator
 		// possibly several at once). Bars without imbalances are not logged.
 		if (_historyLoaded && levels.Length > 0)
 			LogBar(bar);
+
+		RaisePendingAlerts();
+	}
+
+	// Called under _barsLock. Event-based: a retest is the move of the last price from outside
+	// a zone into it, not the price being inside, so a price that stays in the zone alerts once.
+	private void CheckRetests(int bar, decimal price)
+	{
+		var now = DateTime.UtcNow;
+
+		foreach (var zone in _activeZones)
+		{
+			if (zone.StartBar >= bar)
+				continue;
+
+			var inside = zone.Contains(price);
+			var entered = inside && zone.PriceInside == false;
+			zone.PriceInside = inside;
+
+			if (!entered || !_alertOnRetest)
+				continue;
+
+			if ((now - zone.LastRetestAlertUtc).TotalSeconds < _alertCooldownSeconds)
+				continue;
+
+			zone.LastRetestAlertUtc = now;
+			_pendingAlerts.Add(($"Diagonal Imbalance: price {price} retests {(zone.IsBuy ? "buy" : "sell")} zone " +
+				$"{zone.Low}-{zone.High} from bar {zone.StartBar}", zone.IsBuy));
+		}
+	}
+
+	private void RaisePendingAlerts()
+	{
+		List<(string Message, bool IsBuy)> alerts;
+
+		lock (_barsLock)
+		{
+			if (_pendingAlerts.Count == 0)
+				return;
+
+			alerts = new List<(string Message, bool IsBuy)>(_pendingAlerts);
+			_pendingAlerts.Clear();
+		}
+
+		foreach (var (message, isBuy) in alerts)
+		{
+			this.LogInfo($"DiagonalImbalance: alert: {message}");
+			AddAlert(_alertFile, InstrumentInfo?.Instrument ?? string.Empty, message,
+				Opaque(isBuy ? _buyZoneColor : _sellZoneColor).Convert(), Color.White.Convert());
+		}
 	}
 
 	// Called under _barsLock. Ends the active zones older than the bar that the bar breaks
