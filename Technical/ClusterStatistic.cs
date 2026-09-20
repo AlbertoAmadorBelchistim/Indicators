@@ -288,6 +288,8 @@ public class ClusterStatistic : Indicator
 	private decimal _maxDeltaChange;
 	private decimal _maxDeltaPerVolume;
 	private decimal _maxDuration;
+	private decimal _maxClosedVolumeSec;
+	private int _volumeSecClosedBars;
 	private decimal _maxHeight;
 	private decimal _maxMaxDelta;
 	private decimal _maxMinDelta;
@@ -947,7 +949,7 @@ public class ClusterStatistic : Indicator
 			return base.ProcessMouseMove(e);
 
 		if (StrCount <= 1)
-			return base.ProcessMouseDown(e);
+			return base.ProcessMouseMove(e);
 
 		var height = Container.Region.Height / StrCount;
 
@@ -1017,6 +1019,18 @@ public class ClusterStatistic : Indicator
 			candleSeconds = 1;
 
 		_volPerSecond[bar] = candle.Volume / candleSeconds;
+
+		// Highest Volume/sec of the closed bars, kept here so rendering does not scan the history.
+		// The bar in progress is added when rendering: its rate is not final (one trade in its
+		// first second can be a very high rate), so it must not stay in the maximum.
+		if (bar == 0)
+		{
+			_maxClosedVolumeSec = 0;
+			_volumeSecClosedBars = 0;
+		}
+
+		for (; _volumeSecClosedBars < bar; _volumeSecClosedBars++)
+			_maxClosedVolumeSec = Math.Max(_volPerSecond[_volumeSecClosedBars], _maxClosedVolumeSec);
 
 		if (bar == 0)
 		{
@@ -1733,7 +1747,7 @@ public class ClusterStatistic : Indicator
 				maxDuration = Math.Max(_candleDurations[i], maxDuration);
 			}
 
-			maxVolumeSec = _volPerSecond.MAX(LastVisibleBarNumber - FirstVisibleBarNumber, LastVisibleBarNumber);
+			maxVolumeSec = _volPerSecond.MAX(LastVisibleBarNumber - FirstVisibleBarNumber + 1, LastVisibleBarNumber);
 		}
 		else
 		{
@@ -1752,7 +1766,9 @@ public class ClusterStatistic : Indicator
 			cumVolume = _cumVolume;
 			maxDeltaChange = _maxDeltaChange;
 			maxHeight = _maxHeight;
-			maxVolumeSec = _volPerSecond.MAX(CurrentBar - 1, CurrentBar - 1);
+			maxVolumeSec = CurrentBar > 0
+				? Math.Max(_maxClosedVolumeSec, _volPerSecond[CurrentBar - 1])
+				: 0;
 		}
 
 		return new MaxValues
