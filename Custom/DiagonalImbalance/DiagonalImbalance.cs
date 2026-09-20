@@ -9,6 +9,7 @@ using System.Text;
 
 using OFT.Attributes.Editors;
 using OFT.Rendering.Context;
+using OFT.Rendering.Tools;
 
 using Utils.Common.Logging;
 
@@ -117,6 +118,25 @@ public class DiagonalImbalance : Indicator
 
 	#endregion
 
+	#region Nested Types: Visuals
+
+	public enum MarkLayout
+	{
+		// Footprint halves when the bar is at least MinSplitBarWidth wide, full bar otherwise.
+		[Display(Name = "Auto")]
+		Auto,
+
+		// Sell marks on the left (Bid) half, buy marks on the right (Ask) half.
+		[Display(Name = "Footprint halves")]
+		FootprintHalves,
+
+		// Marks cover the whole bar width.
+		[Display(Name = "Full bar")]
+		FullBar
+	}
+
+	#endregion
+
 	#region Nested Types: Zones
 
 	public enum ZoneBreakMode
@@ -207,6 +227,16 @@ public class DiagonalImbalance : Indicator
 	private bool _showZones = true;
 	private Color _buyZoneColor = Color.FromArgb(50, 0, 200, 83);
 	private Color _sellZoneColor = Color.FromArgb(50, 229, 57, 53);
+
+	private MarkLayout _markLayout = MarkLayout.Auto;
+	private int _zoneBorderWidth = 1;
+	private bool _showZoneLabels = true;
+	private int _labelFontSize = 8;
+
+	// Rendering resources, rebuilt when the related properties change.
+	private RenderPen _buyZonePen;
+	private RenderPen _sellZonePen;
+	private RenderFont _labelFont = new("Arial", 8);
 
 	private bool _historyLoaded;
 	private int _historyBuyCount;
@@ -391,6 +421,19 @@ public class DiagonalImbalance : Indicator
 		}
 	}
 
+	[Display(Name = "Mark layout", GroupName = "Visuals", Order = 205,
+		Description = "Footprint halves: sell marks on the left (Bid) half and buy marks on the right (Ask) half. " +
+			"Full bar: marks use the whole bar width. Auto: halves when the bar is wide enough, full bar otherwise.")]
+	public MarkLayout MarksLayout
+	{
+		get => _markLayout;
+		set
+		{
+			_markLayout = value;
+			RedrawChart();
+		}
+	}
+
 	[Display(Name = "Buy imbalance color", GroupName = "Visuals", Order = 210,
 		Description = "Color of buy imbalances (Ask against the Bid one tick below).")]
 	public CrossColor BuyColor
@@ -435,6 +478,7 @@ public class DiagonalImbalance : Indicator
 		set
 		{
 			_buyZoneColor = value.Convert();
+			UpdateZonePens();
 			RedrawChart();
 		}
 	}
@@ -447,6 +491,47 @@ public class DiagonalImbalance : Indicator
 		set
 		{
 			_sellZoneColor = value.Convert();
+			UpdateZonePens();
+			RedrawChart();
+		}
+	}
+
+	[Display(Name = "Zone border width", GroupName = "Visuals", Order = 260,
+		Description = "Width of the zone outline, drawn in the zone color without transparency. 0 = no outline.")]
+	[Range(0, 5)]
+	public int ZoneBorderWidth
+	{
+		get => _zoneBorderWidth;
+		set
+		{
+			_zoneBorderWidth = value;
+			UpdateZonePens();
+			RedrawChart();
+		}
+	}
+
+	[Display(Name = "Show zone labels", GroupName = "Visuals", Order = 270,
+		Description = "Writes the number of stacked levels (for example x4) at the start of each zone.")]
+	public bool ShowZoneLabels
+	{
+		get => _showZoneLabels;
+		set
+		{
+			_showZoneLabels = value;
+			RedrawChart();
+		}
+	}
+
+	[Display(Name = "Label font size", GroupName = "Visuals", Order = 280,
+		Description = "Font size of the zone labels.")]
+	[Range(6, 24)]
+	public int LabelFontSize
+	{
+		get => _labelFontSize;
+		set
+		{
+			_labelFontSize = value;
+			_labelFont = new RenderFont("Arial", value);
 			RedrawChart();
 		}
 	}
@@ -467,6 +552,8 @@ public class DiagonalImbalance : Indicator
 
 		EnableCustomDrawing = true;
 		SubscribeToDrawingEvents(DrawingLayouts.Final);
+
+		UpdateZonePens();
 	}
 
 	#endregion
@@ -549,9 +636,14 @@ public class DiagonalImbalance : Indicator
 		var container = ChartInfo.PriceChartContainer;
 		var barWidth = Math.Max(1, (int)container.BarsWidth);
 
-		// Wide enough bars split like a Bid x Ask footprint: sell imbalances (Bid) on the left
-		// half, buy imbalances (Ask) on the right half. Narrow bars use the full width.
-		var split = barWidth >= MinSplitBarWidth;
+		// Footprint halves: sell imbalances (Bid) on the left half, buy imbalances (Ask) on the
+		// right half, like a Bid x Ask footprint. Auto uses halves only on wide enough bars.
+		var split = _markLayout switch
+		{
+			MarkLayout.FootprintHalves => barWidth >= 2,
+			MarkLayout.FullBar => false,
+			_ => barWidth >= MinSplitBarWidth
+		};
 		var leftWidth = split ? barWidth / 2 : barWidth;
 		var rightWidth = split ? barWidth - leftWidth : barWidth;
 
@@ -601,8 +693,24 @@ public class DiagonalImbalance : Indicator
 			var top = ChartInfo.GetYByPrice(zone.High, true);
 			var bottom = ChartInfo.GetYByPrice(zone.Low - tickSize, true);
 
-			context.FillRectangle(zone.IsBuy ? _buyZoneColor : _sellZoneColor,
-				new Rectangle(left, top, right - left, Math.Max(1, bottom - top)));
+			var rect = new Rectangle(left, top, right - left, Math.Max(1, bottom - top));
+			context.FillRectangle(zone.IsBuy ? _buyZoneColor : _sellZoneColor, rect);
+
+			if (_zoneBorderWidth > 0)
+				context.DrawRectangle(zone.IsBuy ? _buyZonePen : _sellZonePen, rect);
+
+			if (_showZoneLabels)
+			{
+				var label = $"x{zone.Levels}";
+				var size = context.MeasureString(label, _labelFont);
+
+				// Only when the label fits inside the zone.
+				if (size.Height <= rect.Height && size.Width + 4 <= rect.Width)
+				{
+					context.DrawString(label, _labelFont, Opaque(zone.IsBuy ? _buyZoneColor : _sellZoneColor),
+						rect.X + 2, rect.Y + (rect.Height - size.Height) / 2);
+				}
+			}
 		}
 
 		if (!_showMarks)
@@ -626,6 +734,22 @@ public class DiagonalImbalance : Indicator
 				context.FillRectangle(level.IsBuy ? _buyColor : _sellColor, rect);
 			}
 		}
+	}
+
+	#endregion
+
+	#region Private Methods: Drawing
+
+	private void UpdateZonePens()
+	{
+		var width = Math.Max(1, _zoneBorderWidth);
+		_buyZonePen = new RenderPen(Opaque(_buyZoneColor), width);
+		_sellZonePen = new RenderPen(Opaque(_sellZoneColor), width);
+	}
+
+	private static Color Opaque(Color color)
+	{
+		return Color.FromArgb(255, color.R, color.G, color.B);
 	}
 
 	#endregion
