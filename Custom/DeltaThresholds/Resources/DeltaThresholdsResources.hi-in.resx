@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DeltaThresholds_Description" xml:space="preserve">
+    <value>बार डेल्टा, स्थिर या सत्र-आधारित गतिशील थ्रेशोल्ड, प्राइस चार्ट सिग्नल और अलर्ट के साथ।</value>
+  </data>
+  <data name="Group_Histogram" xml:space="preserve">
+    <value>हिस्टोग्राम</value>
+  </data>
+  <data name="Group_Thresholds" xml:space="preserve">
+    <value>थ्रेशोल्ड</value>
+  </data>
+  <data name="Group_Signals" xml:space="preserve">
+    <value>सिग्नल</value>
+  </data>
+  <data name="Group_Alerts" xml:space="preserve">
+    <value>अलर्ट</value>
+  </data>
+  <data name="Group_Average" xml:space="preserve">
+    <value>औसत</value>
+  </data>
+  <data name="Group_Diagnostics" xml:space="preserve">
+    <value>निदान</value>
+  </data>
+  <data name="ThresholdSource_Fixed" xml:space="preserve">
+    <value>स्थिर</value>
+  </data>
+  <data name="ThresholdSource_Dynamic" xml:space="preserve">
+    <value>गतिशील (सत्र आँकड़े)</value>
+  </data>
+  <data name="WindowMode_FullSession" xml:space="preserve">
+    <value>पूरा सत्र</value>
+  </data>
+  <data name="WindowMode_TimeWindow" xml:space="preserve">
+    <value>समय खंड</value>
+  </data>
+  <data name="ThresholdLevel_Major" xml:space="preserve">
+    <value>प्रमुख</value>
+  </data>
+  <data name="ThresholdLevel_Minor" xml:space="preserve">
+    <value>गौण</value>
+  </data>
+  <data name="SignalTrigger_Reached" xml:space="preserve">
+    <value>स्तर तक पहुँचा</value>
+  </data>
+  <data name="SignalTrigger_BarClose" xml:space="preserve">
+    <value>बार क्लोज़</value>
+  </data>
+  <data name="AverageType_Sma" xml:space="preserve">
+    <value>SMA</value>
+  </data>
+  <data name="AverageType_Ema" xml:space="preserve">
+    <value>EMA</value>
+  </data>
+  <data name="AverageColoring_Fixed" xml:space="preserve">
+    <value>स्थिर</value>
+  </data>
+  <data name="AverageColoring_ZeroCross" xml:space="preserve">
+    <value>शून्य क्रॉस</value>
+  </data>
+  <data name="AverageColoring_Slope" xml:space="preserve">
+    <value>ढलान</value>
+  </data>
+  <data name="Series_Delta" xml:space="preserve">
+    <value>डेल्टा</value>
+  </data>
+  <data name="Series_UpMajor" xml:space="preserve">
+    <value>ऊपरी प्रमुख</value>
+  </data>
+  <data name="Series_UpMinor" xml:space="preserve">
+    <value>ऊपरी गौण</value>
+  </data>
+  <data name="Series_DownMinor" xml:space="preserve">
+    <value>निचला गौण</value>
+  </data>
+  <data name="Series_DownMajor" xml:space="preserve">
+    <value>निचला प्रमुख</value>
+  </data>
+  <data name="Series_Average" xml:space="preserve">
+    <value>औसत</value>
+  </data>
+  <data name="ShowHistogram_DisplayName" xml:space="preserve">
+    <value>हिस्टोग्राम दिखाएँ</value>
+  </data>
+  <data name="ShowHistogram_Description" xml:space="preserve">
+    <value>हर बार का डेल्टा बनाता है। केवल थ्रेशोल्ड दिखाने के लिए बंद करें, जैसे Delta इंडिकेटर के पैनल पर।</value>
+  </data>
+  <data name="UpColor_DisplayName" xml:space="preserve">
+    <value>धनात्मक रंग</value>
+  </data>
+  <data name="UpColor_Description" xml:space="preserve">
+    <value>धनात्मक डेल्टा वाले बार का रंग।</value>
+  </data>
+  <data name="DownColor_DisplayName" xml:space="preserve">
+    <value>ऋणात्मक रंग</value>
+  </data>
+  <data name="DownColor_Description" xml:space="preserve">
+    <value>ऋणात्मक डेल्टा वाले बार का रंग।</value>
+  </data>
+  <data name="Source_DisplayName" xml:space="preserve">
+    <value>थ्रेशोल्ड स्रोत</value>
+  </data>
+  <data name="Source_Description" xml:space="preserve">
+    <value>स्थिर: नीचे के चार स्तर। गतिशील: अब तक के सत्र के बार से; गौण = बार चरम का माध्य, प्रमुख = माध्य + गुणक x मानक विचलन।</value>
+  </data>
+  <data name="StdMultiplier_DisplayName" xml:space="preserve">
+    <value>मानक विचलन गुणक</value>
+  </data>
+  <data name="StdMultiplier_Description" xml:space="preserve">
+    <value>गतिशील स्रोत: प्रमुख स्तर = माध्य + यह मान x मानक विचलन।</value>
+  </data>
+  <data name="MinSamples_DisplayName" xml:space="preserve">
+    <value>न्यूनतम बार</value>
+  </data>
+  <data name="MinSamples_Description" xml:space="preserve">
+    <value>गतिशील स्रोत: स्तर बनाने और उपयोग करने से पहले सत्र के आवश्यक बंद बार।</value>
+  </data>
+  <data name="Window_DisplayName" xml:space="preserve">
+    <value>आँकड़ों की खिड़की</value>
+  </data>
+  <data name="Window_Description" xml:space="preserve">
+    <value>गतिशील स्रोत: आँकड़ों के लिए उपयोग होने वाले बार। पूरा सत्र: सभी बार, हर डिफ़ॉल्ट सत्र पर फिर शुरू। समय खंड: केवल प्रारंभ और अंत समय के बीच खुलने वाले बार; हर खंड की शुरुआत पर आँकड़े फिर शुरू होते हैं और खंड के बाहर कोई स्तर नहीं।</value>
+  </data>
+  <data name="WindowStart_DisplayName" xml:space="preserve">
+    <value>खंड प्रारंभ</value>
+  </data>
+  <data name="WindowStart_Description" xml:space="preserve">
+    <value>समय खंड प्रारंभ, चार्ट समय में (शामिल)। अंत से बाद का प्रारंभ आधी रात पार करता है।</value>
+  </data>
+  <data name="WindowEnd_DisplayName" xml:space="preserve">
+    <value>खंड अंत</value>
+  </data>
+  <data name="WindowEnd_Description" xml:space="preserve">
+    <value>समय खंड अंत, चार्ट समय में (शामिल नहीं)।</value>
+  </data>
+  <data name="ShowThresholdLines_DisplayName" xml:space="preserve">
+    <value>थ्रेशोल्ड लाइनें दिखाएँ</value>
+  </data>
+  <data name="ShowThresholdLines_Description" xml:space="preserve">
+    <value>चार थ्रेशोल्ड स्तर बनाता है।</value>
+  </data>
+  <data name="UpMajorLevel_DisplayName" xml:space="preserve">
+    <value>ऊपरी प्रमुख स्तर</value>
+  </data>
+  <data name="UpMajorLevel_Description" xml:space="preserve">
+    <value>स्थिर स्तर: मज़बूत धनात्मक डेल्टा।</value>
+  </data>
+  <data name="UpMinorLevel_DisplayName" xml:space="preserve">
+    <value>ऊपरी गौण स्तर</value>
+  </data>
+  <data name="UpMinorLevel_Description" xml:space="preserve">
+    <value>स्थिर स्तर: मध्यम धनात्मक डेल्टा।</value>
+  </data>
+  <data name="DownMinorLevel_DisplayName" xml:space="preserve">
+    <value>निचला गौण स्तर</value>
+  </data>
+  <data name="DownMinorLevel_Description" xml:space="preserve">
+    <value>स्थिर स्तर: मध्यम ऋणात्मक डेल्टा (0 या कम)।</value>
+  </data>
+  <data name="DownMajorLevel_DisplayName" xml:space="preserve">
+    <value>निचला प्रमुख स्तर</value>
+  </data>
+  <data name="DownMajorLevel_Description" xml:space="preserve">
+    <value>स्थिर स्तर: मज़बूत ऋणात्मक डेल्टा (0 या कम)।</value>
+  </data>
+  <data name="UpMajorColor_DisplayName" xml:space="preserve">
+    <value>ऊपरी प्रमुख रंग</value>
+  </data>
+  <data name="UpMajorColor_Description" xml:space="preserve">
+    <value>ऊपरी प्रमुख लाइन का रंग।</value>
+  </data>
+  <data name="UpMinorColor_DisplayName" xml:space="preserve">
+    <value>ऊपरी गौण रंग</value>
+  </data>
+  <data name="UpMinorColor_Description" xml:space="preserve">
+    <value>ऊपरी गौण लाइन का रंग।</value>
+  </data>
+  <data name="DownMinorColor_DisplayName" xml:space="preserve">
+    <value>निचला गौण रंग</value>
+  </data>
+  <data name="DownMinorColor_Description" xml:space="preserve">
+    <value>निचली गौण लाइन का रंग।</value>
+  </data>
+  <data name="DownMajorColor_DisplayName" xml:space="preserve">
+    <value>निचला प्रमुख रंग</value>
+  </data>
+  <data name="DownMajorColor_Description" xml:space="preserve">
+    <value>निचली प्रमुख लाइन का रंग।</value>
+  </data>
+  <data name="ShowSignals_DisplayName" xml:space="preserve">
+    <value>सिग्नल दिखाएँ</value>
+  </data>
+  <data name="ShowSignals_Description" xml:space="preserve">
+    <value>जब किसी बार का डेल्टा चुने गए स्तर तक पहुँचता है तो प्राइस चार्ट पर त्रिकोण बनाता है: ऊपरी पक्ष के लिए बार के नीचे, निचले के लिए ऊपर।</value>
+  </data>
+  <data name="Trigger_DisplayName" xml:space="preserve">
+    <value>ट्रिगर</value>
+  </data>
+  <data name="Trigger_Description" xml:space="preserve">
+    <value>स्तर तक पहुँचा: बार का डेल्टा किसी भी समय स्तर तक पहुँचा (अधिकतम या न्यूनतम), सिग्नल तुरंत दिखता है और रहता है। बार क्लोज़: बंद बार का डेल्टा स्तर से आगे है।</value>
+  </data>
+  <data name="SignalUpLevel_DisplayName" xml:space="preserve">
+    <value>ऊपरी स्तर</value>
+  </data>
+  <data name="SignalUpLevel_Description" xml:space="preserve">
+    <value>ऊपरी सिग्नल के लिए स्तर।</value>
+  </data>
+  <data name="SignalDownLevel_DisplayName" xml:space="preserve">
+    <value>निचला स्तर</value>
+  </data>
+  <data name="SignalDownLevel_Description" xml:space="preserve">
+    <value>निचले सिग्नल के लिए स्तर।</value>
+  </data>
+  <data name="SignalOffsetTicks_DisplayName" xml:space="preserve">
+    <value>दूरी (टिक)</value>
+  </data>
+  <data name="SignalOffsetTicks_Description" xml:space="preserve">
+    <value>बार और त्रिकोण के बीच दूरी।</value>
+  </data>
+  <data name="SignalSize_DisplayName" xml:space="preserve">
+    <value>आकार</value>
+  </data>
+  <data name="SignalSize_Description" xml:space="preserve">
+    <value>त्रिकोण का आकार पिक्सेल में।</value>
+  </data>
+  <data name="SignalUpColor_DisplayName" xml:space="preserve">
+    <value>ऊपरी रंग</value>
+  </data>
+  <data name="SignalUpColor_Description" xml:space="preserve">
+    <value>ऊपरी त्रिकोण का रंग।</value>
+  </data>
+  <data name="SignalDownColor_DisplayName" xml:space="preserve">
+    <value>निचला रंग</value>
+  </data>
+  <data name="SignalDownColor_Description" xml:space="preserve">
+    <value>निचले त्रिकोण का रंग।</value>
+  </data>
+  <data name="UseAlerts_DisplayName" xml:space="preserve">
+    <value>सक्रिय</value>
+  </data>
+  <data name="UseAlerts_Description" xml:space="preserve">
+    <value>जब किसी बार का डेल्टा चुने गए स्तर तक पहुँचता है तो अलर्ट देता है (केवल रीयल टाइम में)।</value>
+  </data>
+  <data name="AlertUpLevel_DisplayName" xml:space="preserve">
+    <value>ऊपरी स्तर</value>
+  </data>
+  <data name="AlertUpLevel_Description" xml:space="preserve">
+    <value>ऊपरी अलर्ट के लिए स्तर।</value>
+  </data>
+  <data name="AlertDownLevel_DisplayName" xml:space="preserve">
+    <value>निचला स्तर</value>
+  </data>
+  <data name="AlertDownLevel_Description" xml:space="preserve">
+    <value>निचले अलर्ट के लिए स्तर।</value>
+  </data>
+  <data name="AlertAtBarClose_DisplayName" xml:space="preserve">
+    <value>केवल बार क्लोज़ पर</value>
+  </data>
+  <data name="AlertAtBarClose_Description" xml:space="preserve">
+    <value>चालू: जब कोई बार स्तर से आगे डेल्टा के साथ बंद हो तो अलर्ट। बंद: जैसे ही बनते बार का डेल्टा स्तर तक पहुँचे, अलर्ट।</value>
+  </data>
+  <data name="AlertCooldownBars_DisplayName" xml:space="preserve">
+    <value>अलर्ट के बीच न्यूनतम बार</value>
+  </data>
+  <data name="AlertCooldownBars_Description" xml:space="preserve">
+    <value>एक ही पक्ष के दो अलर्ट के बीच न्यूनतम बार।</value>
+  </data>
+  <data name="AlertFile_DisplayName" xml:space="preserve">
+    <value>अलर्ट ध्वनि</value>
+  </data>
+  <data name="AlertFile_Description" xml:space="preserve">
+    <value>अलर्ट की ध्वनि फ़ाइल।</value>
+  </data>
+  <data name="ShowAverage_DisplayName" xml:space="preserve">
+    <value>औसत दिखाएँ</value>
+  </data>
+  <data name="ShowAverage_Description" xml:space="preserve">
+    <value>बार डेल्टा का मूविंग एवरेज बनाता है।</value>
+  </data>
+  <data name="AveragePeriod_DisplayName" xml:space="preserve">
+    <value>अवधि</value>
+  </data>
+  <data name="AveragePeriod_Description" xml:space="preserve">
+    <value>औसत के बार की संख्या।</value>
+  </data>
+  <data name="AverageKind_DisplayName" xml:space="preserve">
+    <value>प्रकार</value>
+  </data>
+  <data name="AverageKind_Description" xml:space="preserve">
+    <value>साधारण (SMA) या घातीय (EMA) मूविंग एवरेज।</value>
+  </data>
+  <data name="AverageColorMode_DisplayName" xml:space="preserve">
+    <value>रंग योजना</value>
+  </data>
+  <data name="AverageColorMode_Description" xml:space="preserve">
+    <value>स्थिर: लाइन का रंग। शून्य क्रॉस: शून्य या ऊपर ऊपरी रंग, नीचे निचला। ढलान: औसत बढ़ने या स्थिर रहने पर ऊपरी रंग, घटने पर निचला।</value>
+  </data>
+  <data name="AverageColor_DisplayName" xml:space="preserve">
+    <value>रंग</value>
+  </data>
+  <data name="AverageColor_Description" xml:space="preserve">
+    <value>स्थिर रंग योजना में लाइन का रंग।</value>
+  </data>
+  <data name="AverageUpColor_DisplayName" xml:space="preserve">
+    <value>ऊपरी रंग</value>
+  </data>
+  <data name="AverageUpColor_Description" xml:space="preserve">
+    <value>शून्य क्रॉस और ढलान: शून्य से ऊपर या बढ़ते समय का रंग।</value>
+  </data>
+  <data name="AverageDownColor_DisplayName" xml:space="preserve">
+    <value>निचला रंग</value>
+  </data>
+  <data name="AverageDownColor_Description" xml:space="preserve">
+    <value>शून्य क्रॉस और ढलान: शून्य से नीचे या घटते समय का रंग।</value>
+  </data>
+  <data name="AverageWidth_DisplayName" xml:space="preserve">
+    <value>लाइन की मोटाई</value>
+  </data>
+  <data name="AverageWidth_Description" xml:space="preserve">
+    <value>औसत लाइन की मोटाई।</value>
+  </data>
+  <data name="DetailedLog_DisplayName" xml:space="preserve">
+    <value>विस्तृत लॉग</value>
+  </data>
+  <data name="DetailedLog_Description" xml:space="preserve">
+    <value>हर पुनर्गणना के बाद अंतिम 20 बार और बाद में बंद होने वाले हर बार का डेल्टा, स्तर और सिग्नल ATAS लॉग में लिखता है।</value>
+  </data>
+</root>

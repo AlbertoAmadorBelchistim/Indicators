@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DeltaThresholds_Description" xml:space="preserve">
+    <value>Дельта бара с фиксированными или динамическими (по сессии) порогами, сигналами на ценовом графике и оповещениями.</value>
+  </data>
+  <data name="Group_Histogram" xml:space="preserve">
+    <value>Гистограмма</value>
+  </data>
+  <data name="Group_Thresholds" xml:space="preserve">
+    <value>Пороги</value>
+  </data>
+  <data name="Group_Signals" xml:space="preserve">
+    <value>Сигналы</value>
+  </data>
+  <data name="Group_Alerts" xml:space="preserve">
+    <value>Оповещения</value>
+  </data>
+  <data name="Group_Average" xml:space="preserve">
+    <value>Средняя</value>
+  </data>
+  <data name="Group_Diagnostics" xml:space="preserve">
+    <value>Диагностика</value>
+  </data>
+  <data name="ThresholdSource_Fixed" xml:space="preserve">
+    <value>Фиксированные</value>
+  </data>
+  <data name="ThresholdSource_Dynamic" xml:space="preserve">
+    <value>Динамические (статистика сессии)</value>
+  </data>
+  <data name="WindowMode_FullSession" xml:space="preserve">
+    <value>Вся сессия</value>
+  </data>
+  <data name="WindowMode_TimeWindow" xml:space="preserve">
+    <value>Временное окно</value>
+  </data>
+  <data name="ThresholdLevel_Major" xml:space="preserve">
+    <value>Основной</value>
+  </data>
+  <data name="ThresholdLevel_Minor" xml:space="preserve">
+    <value>Второстепенный</value>
+  </data>
+  <data name="SignalTrigger_Reached" xml:space="preserve">
+    <value>Уровень достигнут</value>
+  </data>
+  <data name="SignalTrigger_BarClose" xml:space="preserve">
+    <value>Закрытие бара</value>
+  </data>
+  <data name="AverageType_Sma" xml:space="preserve">
+    <value>SMA</value>
+  </data>
+  <data name="AverageType_Ema" xml:space="preserve">
+    <value>EMA</value>
+  </data>
+  <data name="AverageColoring_Fixed" xml:space="preserve">
+    <value>Фиксированный</value>
+  </data>
+  <data name="AverageColoring_ZeroCross" xml:space="preserve">
+    <value>Пересечение нуля</value>
+  </data>
+  <data name="AverageColoring_Slope" xml:space="preserve">
+    <value>Наклон</value>
+  </data>
+  <data name="Series_Delta" xml:space="preserve">
+    <value>Дельта</value>
+  </data>
+  <data name="Series_UpMajor" xml:space="preserve">
+    <value>Верхний основной</value>
+  </data>
+  <data name="Series_UpMinor" xml:space="preserve">
+    <value>Верхний второстепенный</value>
+  </data>
+  <data name="Series_DownMinor" xml:space="preserve">
+    <value>Нижний второстепенный</value>
+  </data>
+  <data name="Series_DownMajor" xml:space="preserve">
+    <value>Нижний основной</value>
+  </data>
+  <data name="Series_Average" xml:space="preserve">
+    <value>Средняя</value>
+  </data>
+  <data name="ShowHistogram_DisplayName" xml:space="preserve">
+    <value>Показывать гистограмму</value>
+  </data>
+  <data name="ShowHistogram_Description" xml:space="preserve">
+    <value>Рисует дельту каждого бара. Выключите, чтобы показывать только пороги, например на панели индикатора Delta.</value>
+  </data>
+  <data name="UpColor_DisplayName" xml:space="preserve">
+    <value>Положительный цвет</value>
+  </data>
+  <data name="UpColor_Description" xml:space="preserve">
+    <value>Цвет баров с положительной дельтой.</value>
+  </data>
+  <data name="DownColor_DisplayName" xml:space="preserve">
+    <value>Отрицательный цвет</value>
+  </data>
+  <data name="DownColor_Description" xml:space="preserve">
+    <value>Цвет баров с отрицательной дельтой.</value>
+  </data>
+  <data name="Source_DisplayName" xml:space="preserve">
+    <value>Источник порогов</value>
+  </data>
+  <data name="Source_Description" xml:space="preserve">
+    <value>Фиксированные: четыре уровня ниже. Динамические: по барам сессии на текущий момент; второстепенный = среднее экстремумов баров, основной = среднее + множитель x стандартное отклонение.</value>
+  </data>
+  <data name="StdMultiplier_DisplayName" xml:space="preserve">
+    <value>Множитель стандартного отклонения</value>
+  </data>
+  <data name="StdMultiplier_Description" xml:space="preserve">
+    <value>Динамический источник: основной уровень = среднее + это значение x стандартное отклонение.</value>
+  </data>
+  <data name="MinSamples_DisplayName" xml:space="preserve">
+    <value>Минимум баров</value>
+  </data>
+  <data name="MinSamples_Description" xml:space="preserve">
+    <value>Динамический источник: закрытые бары сессии, необходимые, прежде чем уровни будут нарисованы и использованы.</value>
+  </data>
+  <data name="Window_DisplayName" xml:space="preserve">
+    <value>Окно статистики</value>
+  </data>
+  <data name="Window_Description" xml:space="preserve">
+    <value>Динамический источник: бары для статистики. Вся сессия: все бары, сброс в каждой сессии по умолчанию. Временное окно: только бары, открывающиеся между началом и концом; статистика сбрасывается в начале каждого окна, вне окна уровней нет.</value>
+  </data>
+  <data name="WindowStart_DisplayName" xml:space="preserve">
+    <value>Начало окна</value>
+  </data>
+  <data name="WindowStart_Description" xml:space="preserve">
+    <value>Начало окна по времени графика (включительно). Начало позже конца переходит через полночь.</value>
+  </data>
+  <data name="WindowEnd_DisplayName" xml:space="preserve">
+    <value>Конец окна</value>
+  </data>
+  <data name="WindowEnd_Description" xml:space="preserve">
+    <value>Конец окна по времени графика (не включительно).</value>
+  </data>
+  <data name="ShowThresholdLines_DisplayName" xml:space="preserve">
+    <value>Показывать линии порогов</value>
+  </data>
+  <data name="ShowThresholdLines_Description" xml:space="preserve">
+    <value>Рисует четыре уровня порогов.</value>
+  </data>
+  <data name="UpMajorLevel_DisplayName" xml:space="preserve">
+    <value>Верхний основной уровень</value>
+  </data>
+  <data name="UpMajorLevel_Description" xml:space="preserve">
+    <value>Фиксированный уровень: сильная положительная дельта.</value>
+  </data>
+  <data name="UpMinorLevel_DisplayName" xml:space="preserve">
+    <value>Верхний второстепенный уровень</value>
+  </data>
+  <data name="UpMinorLevel_Description" xml:space="preserve">
+    <value>Фиксированный уровень: умеренная положительная дельта.</value>
+  </data>
+  <data name="DownMinorLevel_DisplayName" xml:space="preserve">
+    <value>Нижний второстепенный уровень</value>
+  </data>
+  <data name="DownMinorLevel_Description" xml:space="preserve">
+    <value>Фиксированный уровень: умеренная отрицательная дельта (0 или ниже).</value>
+  </data>
+  <data name="DownMajorLevel_DisplayName" xml:space="preserve">
+    <value>Нижний основной уровень</value>
+  </data>
+  <data name="DownMajorLevel_Description" xml:space="preserve">
+    <value>Фиксированный уровень: сильная отрицательная дельта (0 или ниже).</value>
+  </data>
+  <data name="UpMajorColor_DisplayName" xml:space="preserve">
+    <value>Цвет верхнего основного</value>
+  </data>
+  <data name="UpMajorColor_Description" xml:space="preserve">
+    <value>Цвет верхней основной линии.</value>
+  </data>
+  <data name="UpMinorColor_DisplayName" xml:space="preserve">
+    <value>Цвет верхнего второстепенного</value>
+  </data>
+  <data name="UpMinorColor_Description" xml:space="preserve">
+    <value>Цвет верхней второстепенной линии.</value>
+  </data>
+  <data name="DownMinorColor_DisplayName" xml:space="preserve">
+    <value>Цвет нижнего второстепенного</value>
+  </data>
+  <data name="DownMinorColor_Description" xml:space="preserve">
+    <value>Цвет нижней второстепенной линии.</value>
+  </data>
+  <data name="DownMajorColor_DisplayName" xml:space="preserve">
+    <value>Цвет нижнего основного</value>
+  </data>
+  <data name="DownMajorColor_Description" xml:space="preserve">
+    <value>Цвет нижней основной линии.</value>
+  </data>
+  <data name="ShowSignals_DisplayName" xml:space="preserve">
+    <value>Показывать сигналы</value>
+  </data>
+  <data name="ShowSignals_Description" xml:space="preserve">
+    <value>Рисует треугольник на ценовом графике, когда дельта бара достигает выбранного уровня: под баром для верхней стороны, над ним для нижней.</value>
+  </data>
+  <data name="Trigger_DisplayName" xml:space="preserve">
+    <value>Срабатывание</value>
+  </data>
+  <data name="Trigger_Description" xml:space="preserve">
+    <value>Уровень достигнут: дельта бара в какой-то момент достигла уровня (максимум или минимум), сигнал появляется сразу и остаётся. Закрытие бара: дельта закрытого бара за уровнем.</value>
+  </data>
+  <data name="SignalUpLevel_DisplayName" xml:space="preserve">
+    <value>Верхний уровень</value>
+  </data>
+  <data name="SignalUpLevel_Description" xml:space="preserve">
+    <value>Уровень для верхних сигналов.</value>
+  </data>
+  <data name="SignalDownLevel_DisplayName" xml:space="preserve">
+    <value>Нижний уровень</value>
+  </data>
+  <data name="SignalDownLevel_Description" xml:space="preserve">
+    <value>Уровень для нижних сигналов.</value>
+  </data>
+  <data name="SignalOffsetTicks_DisplayName" xml:space="preserve">
+    <value>Отступ (тики)</value>
+  </data>
+  <data name="SignalOffsetTicks_Description" xml:space="preserve">
+    <value>Расстояние между баром и треугольником.</value>
+  </data>
+  <data name="SignalSize_DisplayName" xml:space="preserve">
+    <value>Размер</value>
+  </data>
+  <data name="SignalSize_Description" xml:space="preserve">
+    <value>Размер треугольников в пикселях.</value>
+  </data>
+  <data name="SignalUpColor_DisplayName" xml:space="preserve">
+    <value>Цвет верхних</value>
+  </data>
+  <data name="SignalUpColor_Description" xml:space="preserve">
+    <value>Цвет верхних треугольников.</value>
+  </data>
+  <data name="SignalDownColor_DisplayName" xml:space="preserve">
+    <value>Цвет нижних</value>
+  </data>
+  <data name="SignalDownColor_Description" xml:space="preserve">
+    <value>Цвет нижних треугольников.</value>
+  </data>
+  <data name="UseAlerts_DisplayName" xml:space="preserve">
+    <value>Включены</value>
+  </data>
+  <data name="UseAlerts_Description" xml:space="preserve">
+    <value>Оповещает, когда дельта бара достигает выбранного уровня (только в реальном времени).</value>
+  </data>
+  <data name="AlertUpLevel_DisplayName" xml:space="preserve">
+    <value>Верхний уровень</value>
+  </data>
+  <data name="AlertUpLevel_Description" xml:space="preserve">
+    <value>Уровень для верхних оповещений.</value>
+  </data>
+  <data name="AlertDownLevel_DisplayName" xml:space="preserve">
+    <value>Нижний уровень</value>
+  </data>
+  <data name="AlertDownLevel_Description" xml:space="preserve">
+    <value>Уровень для нижних оповещений.</value>
+  </data>
+  <data name="AlertAtBarClose_DisplayName" xml:space="preserve">
+    <value>Только при закрытии бара</value>
+  </data>
+  <data name="AlertAtBarClose_Description" xml:space="preserve">
+    <value>Вкл.: оповещение, когда бар закрывается с дельтой за уровнем. Выкл.: оповещение, как только дельта формирующегося бара достигает уровня.</value>
+  </data>
+  <data name="AlertCooldownBars_DisplayName" xml:space="preserve">
+    <value>Минимум баров между оповещениями</value>
+  </data>
+  <data name="AlertCooldownBars_Description" xml:space="preserve">
+    <value>Минимальное число баров между двумя оповещениями одной стороны.</value>
+  </data>
+  <data name="AlertFile_DisplayName" xml:space="preserve">
+    <value>Звук оповещения</value>
+  </data>
+  <data name="AlertFile_Description" xml:space="preserve">
+    <value>Звуковой файл оповещений.</value>
+  </data>
+  <data name="ShowAverage_DisplayName" xml:space="preserve">
+    <value>Показывать среднюю</value>
+  </data>
+  <data name="ShowAverage_Description" xml:space="preserve">
+    <value>Рисует скользящую среднюю дельты бара.</value>
+  </data>
+  <data name="AveragePeriod_DisplayName" xml:space="preserve">
+    <value>Период</value>
+  </data>
+  <data name="AveragePeriod_Description" xml:space="preserve">
+    <value>Число баров средней.</value>
+  </data>
+  <data name="AverageKind_DisplayName" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="AverageKind_Description" xml:space="preserve">
+    <value>Простая (SMA) или экспоненциальная (EMA) скользящая средняя.</value>
+  </data>
+  <data name="AverageColorMode_DisplayName" xml:space="preserve">
+    <value>Окраска</value>
+  </data>
+  <data name="AverageColorMode_Description" xml:space="preserve">
+    <value>Фиксированный: цвет линии. Пересечение нуля: верхний цвет на нуле и выше, нижний ниже. Наклон: верхний цвет, пока средняя растёт или стоит, нижний, пока падает.</value>
+  </data>
+  <data name="AverageColor_DisplayName" xml:space="preserve">
+    <value>Цвет</value>
+  </data>
+  <data name="AverageColor_Description" xml:space="preserve">
+    <value>Цвет линии при фиксированной окраске.</value>
+  </data>
+  <data name="AverageUpColor_DisplayName" xml:space="preserve">
+    <value>Верхний цвет</value>
+  </data>
+  <data name="AverageUpColor_Description" xml:space="preserve">
+    <value>Пересечение нуля и наклон: цвет выше нуля или при росте.</value>
+  </data>
+  <data name="AverageDownColor_DisplayName" xml:space="preserve">
+    <value>Нижний цвет</value>
+  </data>
+  <data name="AverageDownColor_Description" xml:space="preserve">
+    <value>Пересечение нуля и наклон: цвет ниже нуля или при падении.</value>
+  </data>
+  <data name="AverageWidth_DisplayName" xml:space="preserve">
+    <value>Толщина линии</value>
+  </data>
+  <data name="AverageWidth_Description" xml:space="preserve">
+    <value>Толщина линии средней.</value>
+  </data>
+  <data name="DetailedLog_DisplayName" xml:space="preserve">
+    <value>Подробный журнал</value>
+  </data>
+  <data name="DetailedLog_Description" xml:space="preserve">
+    <value>Записывает в журнал ATAS дельту, уровни и сигналы последних 20 баров после каждого пересчёта и каждого закрывшегося затем бара.</value>
+  </data>
+</root>

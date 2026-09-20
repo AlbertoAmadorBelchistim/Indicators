@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DeltaThresholds_Description" xml:space="preserve">
+    <value>K线 Delta，带固定或按时段动态阈值、价格图信号和警报。</value>
+  </data>
+  <data name="Group_Histogram" xml:space="preserve">
+    <value>柱状图</value>
+  </data>
+  <data name="Group_Thresholds" xml:space="preserve">
+    <value>阈值</value>
+  </data>
+  <data name="Group_Signals" xml:space="preserve">
+    <value>信号</value>
+  </data>
+  <data name="Group_Alerts" xml:space="preserve">
+    <value>警报</value>
+  </data>
+  <data name="Group_Average" xml:space="preserve">
+    <value>均线</value>
+  </data>
+  <data name="Group_Diagnostics" xml:space="preserve">
+    <value>诊断</value>
+  </data>
+  <data name="ThresholdSource_Fixed" xml:space="preserve">
+    <value>固定</value>
+  </data>
+  <data name="ThresholdSource_Dynamic" xml:space="preserve">
+    <value>动态（时段统计）</value>
+  </data>
+  <data name="WindowMode_FullSession" xml:space="preserve">
+    <value>整个时段</value>
+  </data>
+  <data name="WindowMode_TimeWindow" xml:space="preserve">
+    <value>时间窗口</value>
+  </data>
+  <data name="ThresholdLevel_Major" xml:space="preserve">
+    <value>主要</value>
+  </data>
+  <data name="ThresholdLevel_Minor" xml:space="preserve">
+    <value>次要</value>
+  </data>
+  <data name="SignalTrigger_Reached" xml:space="preserve">
+    <value>触及水平</value>
+  </data>
+  <data name="SignalTrigger_BarClose" xml:space="preserve">
+    <value>K线收盘</value>
+  </data>
+  <data name="AverageType_Sma" xml:space="preserve">
+    <value>SMA</value>
+  </data>
+  <data name="AverageType_Ema" xml:space="preserve">
+    <value>EMA</value>
+  </data>
+  <data name="AverageColoring_Fixed" xml:space="preserve">
+    <value>固定</value>
+  </data>
+  <data name="AverageColoring_ZeroCross" xml:space="preserve">
+    <value>穿越零轴</value>
+  </data>
+  <data name="AverageColoring_Slope" xml:space="preserve">
+    <value>斜率</value>
+  </data>
+  <data name="Series_Delta" xml:space="preserve">
+    <value>Delta</value>
+  </data>
+  <data name="Series_UpMajor" xml:space="preserve">
+    <value>上方主要</value>
+  </data>
+  <data name="Series_UpMinor" xml:space="preserve">
+    <value>上方次要</value>
+  </data>
+  <data name="Series_DownMinor" xml:space="preserve">
+    <value>下方次要</value>
+  </data>
+  <data name="Series_DownMajor" xml:space="preserve">
+    <value>下方主要</value>
+  </data>
+  <data name="Series_Average" xml:space="preserve">
+    <value>均线</value>
+  </data>
+  <data name="ShowHistogram_DisplayName" xml:space="preserve">
+    <value>显示柱状图</value>
+  </data>
+  <data name="ShowHistogram_Description" xml:space="preserve">
+    <value>绘制每根K线的 Delta。关闭后只显示阈值，例如叠加在 Delta 指标面板上。</value>
+  </data>
+  <data name="UpColor_DisplayName" xml:space="preserve">
+    <value>正值颜色</value>
+  </data>
+  <data name="UpColor_Description" xml:space="preserve">
+    <value>Delta 为正的柱颜色。</value>
+  </data>
+  <data name="DownColor_DisplayName" xml:space="preserve">
+    <value>负值颜色</value>
+  </data>
+  <data name="DownColor_Description" xml:space="preserve">
+    <value>Delta 为负的柱颜色。</value>
+  </data>
+  <data name="Source_DisplayName" xml:space="preserve">
+    <value>阈值来源</value>
+  </data>
+  <data name="Source_Description" xml:space="preserve">
+    <value>固定：下面四个水平。动态：根据本时段已有的K线；次要 = K线极值的均值，主要 = 均值 + 倍数 x 标准差。</value>
+  </data>
+  <data name="StdMultiplier_DisplayName" xml:space="preserve">
+    <value>标准差倍数</value>
+  </data>
+  <data name="StdMultiplier_Description" xml:space="preserve">
+    <value>动态来源：主要水平 = 均值 + 该值 x 标准差。</value>
+  </data>
+  <data name="MinSamples_DisplayName" xml:space="preserve">
+    <value>最少K线数</value>
+  </data>
+  <data name="MinSamples_Description" xml:space="preserve">
+    <value>动态来源：绘制和使用水平前所需的本时段已收盘K线数。</value>
+  </data>
+  <data name="Window_DisplayName" xml:space="preserve">
+    <value>统计窗口</value>
+  </data>
+  <data name="Window_Description" xml:space="preserve">
+    <value>动态来源：用于统计的K线。整个时段：所有K线，每个默认时段重新开始。时间窗口：仅在开始与结束时间之间开盘的K线；每个窗口开始时统计重新开始，窗口外没有水平。</value>
+  </data>
+  <data name="WindowStart_DisplayName" xml:space="preserve">
+    <value>窗口开始</value>
+  </data>
+  <data name="WindowStart_Description" xml:space="preserve">
+    <value>时间窗口开始（图表时间，包含）。开始晚于结束表示跨越午夜。</value>
+  </data>
+  <data name="WindowEnd_DisplayName" xml:space="preserve">
+    <value>窗口结束</value>
+  </data>
+  <data name="WindowEnd_Description" xml:space="preserve">
+    <value>时间窗口结束（图表时间，不包含）。</value>
+  </data>
+  <data name="ShowThresholdLines_DisplayName" xml:space="preserve">
+    <value>显示阈值线</value>
+  </data>
+  <data name="ShowThresholdLines_Description" xml:space="preserve">
+    <value>绘制四个阈值水平。</value>
+  </data>
+  <data name="UpMajorLevel_DisplayName" xml:space="preserve">
+    <value>上方主要水平</value>
+  </data>
+  <data name="UpMajorLevel_Description" xml:space="preserve">
+    <value>固定水平：强正 Delta。</value>
+  </data>
+  <data name="UpMinorLevel_DisplayName" xml:space="preserve">
+    <value>上方次要水平</value>
+  </data>
+  <data name="UpMinorLevel_Description" xml:space="preserve">
+    <value>固定水平：中等正 Delta。</value>
+  </data>
+  <data name="DownMinorLevel_DisplayName" xml:space="preserve">
+    <value>下方次要水平</value>
+  </data>
+  <data name="DownMinorLevel_Description" xml:space="preserve">
+    <value>固定水平：中等负 Delta（0 或以下）。</value>
+  </data>
+  <data name="DownMajorLevel_DisplayName" xml:space="preserve">
+    <value>下方主要水平</value>
+  </data>
+  <data name="DownMajorLevel_Description" xml:space="preserve">
+    <value>固定水平：强负 Delta（0 或以下）。</value>
+  </data>
+  <data name="UpMajorColor_DisplayName" xml:space="preserve">
+    <value>上方主要颜色</value>
+  </data>
+  <data name="UpMajorColor_Description" xml:space="preserve">
+    <value>上方主要线的颜色。</value>
+  </data>
+  <data name="UpMinorColor_DisplayName" xml:space="preserve">
+    <value>上方次要颜色</value>
+  </data>
+  <data name="UpMinorColor_Description" xml:space="preserve">
+    <value>上方次要线的颜色。</value>
+  </data>
+  <data name="DownMinorColor_DisplayName" xml:space="preserve">
+    <value>下方次要颜色</value>
+  </data>
+  <data name="DownMinorColor_Description" xml:space="preserve">
+    <value>下方次要线的颜色。</value>
+  </data>
+  <data name="DownMajorColor_DisplayName" xml:space="preserve">
+    <value>下方主要颜色</value>
+  </data>
+  <data name="DownMajorColor_Description" xml:space="preserve">
+    <value>下方主要线的颜色。</value>
+  </data>
+  <data name="ShowSignals_DisplayName" xml:space="preserve">
+    <value>显示信号</value>
+  </data>
+  <data name="ShowSignals_Description" xml:space="preserve">
+    <value>当K线的 Delta 触及所选水平时在价格图上绘制三角形：上方信号在K线下方，下方信号在K线上方。</value>
+  </data>
+  <data name="Trigger_DisplayName" xml:space="preserve">
+    <value>触发方式</value>
+  </data>
+  <data name="Trigger_Description" xml:space="preserve">
+    <value>触及水平：K线的 Delta 在任意时刻触及该水平（最大值或最小值），信号立即出现并保留。K线收盘：已收盘K线的 Delta 超过该水平。</value>
+  </data>
+  <data name="SignalUpLevel_DisplayName" xml:space="preserve">
+    <value>上方水平</value>
+  </data>
+  <data name="SignalUpLevel_Description" xml:space="preserve">
+    <value>上方信号使用的水平。</value>
+  </data>
+  <data name="SignalDownLevel_DisplayName" xml:space="preserve">
+    <value>下方水平</value>
+  </data>
+  <data name="SignalDownLevel_Description" xml:space="preserve">
+    <value>下方信号使用的水平。</value>
+  </data>
+  <data name="SignalOffsetTicks_DisplayName" xml:space="preserve">
+    <value>偏移（跳）</value>
+  </data>
+  <data name="SignalOffsetTicks_Description" xml:space="preserve">
+    <value>K线与三角形之间的距离。</value>
+  </data>
+  <data name="SignalSize_DisplayName" xml:space="preserve">
+    <value>大小</value>
+  </data>
+  <data name="SignalSize_Description" xml:space="preserve">
+    <value>三角形大小（像素）。</value>
+  </data>
+  <data name="SignalUpColor_DisplayName" xml:space="preserve">
+    <value>上方颜色</value>
+  </data>
+  <data name="SignalUpColor_Description" xml:space="preserve">
+    <value>上方三角形的颜色。</value>
+  </data>
+  <data name="SignalDownColor_DisplayName" xml:space="preserve">
+    <value>下方颜色</value>
+  </data>
+  <data name="SignalDownColor_Description" xml:space="preserve">
+    <value>下方三角形的颜色。</value>
+  </data>
+  <data name="UseAlerts_DisplayName" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="UseAlerts_Description" xml:space="preserve">
+    <value>当K线的 Delta 触及所选水平时发出警报（仅实时）。</value>
+  </data>
+  <data name="AlertUpLevel_DisplayName" xml:space="preserve">
+    <value>上方水平</value>
+  </data>
+  <data name="AlertUpLevel_Description" xml:space="preserve">
+    <value>上方警报使用的水平。</value>
+  </data>
+  <data name="AlertDownLevel_DisplayName" xml:space="preserve">
+    <value>下方水平</value>
+  </data>
+  <data name="AlertDownLevel_Description" xml:space="preserve">
+    <value>下方警报使用的水平。</value>
+  </data>
+  <data name="AlertAtBarClose_DisplayName" xml:space="preserve">
+    <value>仅在K线收盘时</value>
+  </data>
+  <data name="AlertAtBarClose_Description" xml:space="preserve">
+    <value>开启：K线收盘时 Delta 超过该水平则警报。关闭：当前形成K线的 Delta 一触及该水平即警报。</value>
+  </data>
+  <data name="AlertCooldownBars_DisplayName" xml:space="preserve">
+    <value>警报间最少K线数</value>
+  </data>
+  <data name="AlertCooldownBars_Description" xml:space="preserve">
+    <value>同一方向两次警报之间的最少K线数。</value>
+  </data>
+  <data name="AlertFile_DisplayName" xml:space="preserve">
+    <value>警报声音</value>
+  </data>
+  <data name="AlertFile_Description" xml:space="preserve">
+    <value>警报的声音文件。</value>
+  </data>
+  <data name="ShowAverage_DisplayName" xml:space="preserve">
+    <value>显示均线</value>
+  </data>
+  <data name="ShowAverage_Description" xml:space="preserve">
+    <value>绘制K线 Delta 的移动平均线。</value>
+  </data>
+  <data name="AveragePeriod_DisplayName" xml:space="preserve">
+    <value>周期</value>
+  </data>
+  <data name="AveragePeriod_Description" xml:space="preserve">
+    <value>均线的K线数。</value>
+  </data>
+  <data name="AverageKind_DisplayName" xml:space="preserve">
+    <value>类型</value>
+  </data>
+  <data name="AverageKind_Description" xml:space="preserve">
+    <value>简单（SMA）或指数（EMA）移动平均。</value>
+  </data>
+  <data name="AverageColorMode_DisplayName" xml:space="preserve">
+    <value>着色方式</value>
+  </data>
+  <data name="AverageColorMode_Description" xml:space="preserve">
+    <value>固定：线条颜色。穿越零轴：零及以上用上方颜色，以下用下方颜色。斜率：均线上升或持平时用上方颜色，下降时用下方颜色。</value>
+  </data>
+  <data name="AverageColor_DisplayName" xml:space="preserve">
+    <value>颜色</value>
+  </data>
+  <data name="AverageColor_Description" xml:space="preserve">
+    <value>固定着色时的线条颜色。</value>
+  </data>
+  <data name="AverageUpColor_DisplayName" xml:space="preserve">
+    <value>上方颜色</value>
+  </data>
+  <data name="AverageUpColor_Description" xml:space="preserve">
+    <value>穿越零轴和斜率着色：零以上或上升时的颜色。</value>
+  </data>
+  <data name="AverageDownColor_DisplayName" xml:space="preserve">
+    <value>下方颜色</value>
+  </data>
+  <data name="AverageDownColor_Description" xml:space="preserve">
+    <value>穿越零轴和斜率着色：零以下或下降时的颜色。</value>
+  </data>
+  <data name="AverageWidth_DisplayName" xml:space="preserve">
+    <value>线宽</value>
+  </data>
+  <data name="AverageWidth_Description" xml:space="preserve">
+    <value>均线的宽度。</value>
+  </data>
+  <data name="DetailedLog_DisplayName" xml:space="preserve">
+    <value>详细日志</value>
+  </data>
+  <data name="DetailedLog_Description" xml:space="preserve">
+    <value>每次重新计算后，将最近 20 根K线及之后每根收盘K线的 Delta、水平和信号写入 ATAS 日志。</value>
+  </data>
+</root>

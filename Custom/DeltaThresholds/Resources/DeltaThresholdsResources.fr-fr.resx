@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DeltaThresholds_Description" xml:space="preserve">
+    <value>Delta par barre avec seuils fixes ou dynamiques par session, signaux sur le graphique des prix et alertes.</value>
+  </data>
+  <data name="Group_Histogram" xml:space="preserve">
+    <value>Histogramme</value>
+  </data>
+  <data name="Group_Thresholds" xml:space="preserve">
+    <value>Seuils</value>
+  </data>
+  <data name="Group_Signals" xml:space="preserve">
+    <value>Signaux</value>
+  </data>
+  <data name="Group_Alerts" xml:space="preserve">
+    <value>Alertes</value>
+  </data>
+  <data name="Group_Average" xml:space="preserve">
+    <value>Moyenne</value>
+  </data>
+  <data name="Group_Diagnostics" xml:space="preserve">
+    <value>Diagnostic</value>
+  </data>
+  <data name="ThresholdSource_Fixed" xml:space="preserve">
+    <value>Fixes</value>
+  </data>
+  <data name="ThresholdSource_Dynamic" xml:space="preserve">
+    <value>Dynamiques (statistiques de session)</value>
+  </data>
+  <data name="WindowMode_FullSession" xml:space="preserve">
+    <value>Session complète</value>
+  </data>
+  <data name="WindowMode_TimeWindow" xml:space="preserve">
+    <value>Plage horaire</value>
+  </data>
+  <data name="ThresholdLevel_Major" xml:space="preserve">
+    <value>Majeur</value>
+  </data>
+  <data name="ThresholdLevel_Minor" xml:space="preserve">
+    <value>Mineur</value>
+  </data>
+  <data name="SignalTrigger_Reached" xml:space="preserve">
+    <value>Niveau atteint</value>
+  </data>
+  <data name="SignalTrigger_BarClose" xml:space="preserve">
+    <value>Clôture de barre</value>
+  </data>
+  <data name="AverageType_Sma" xml:space="preserve">
+    <value>SMA</value>
+  </data>
+  <data name="AverageType_Ema" xml:space="preserve">
+    <value>EMA</value>
+  </data>
+  <data name="AverageColoring_Fixed" xml:space="preserve">
+    <value>Fixe</value>
+  </data>
+  <data name="AverageColoring_ZeroCross" xml:space="preserve">
+    <value>Passage à zéro</value>
+  </data>
+  <data name="AverageColoring_Slope" xml:space="preserve">
+    <value>Pente</value>
+  </data>
+  <data name="Series_Delta" xml:space="preserve">
+    <value>Delta</value>
+  </data>
+  <data name="Series_UpMajor" xml:space="preserve">
+    <value>Haut majeur</value>
+  </data>
+  <data name="Series_UpMinor" xml:space="preserve">
+    <value>Haut mineur</value>
+  </data>
+  <data name="Series_DownMinor" xml:space="preserve">
+    <value>Bas mineur</value>
+  </data>
+  <data name="Series_DownMajor" xml:space="preserve">
+    <value>Bas majeur</value>
+  </data>
+  <data name="Series_Average" xml:space="preserve">
+    <value>Moyenne</value>
+  </data>
+  <data name="ShowHistogram_DisplayName" xml:space="preserve">
+    <value>Afficher l'histogramme</value>
+  </data>
+  <data name="ShowHistogram_Description" xml:space="preserve">
+    <value>Trace le delta de chaque barre. Désactivez-le pour n'afficher que les seuils, par exemple sur le panneau de l'indicateur Delta.</value>
+  </data>
+  <data name="UpColor_DisplayName" xml:space="preserve">
+    <value>Couleur positive</value>
+  </data>
+  <data name="UpColor_Description" xml:space="preserve">
+    <value>Couleur des barres à delta positif.</value>
+  </data>
+  <data name="DownColor_DisplayName" xml:space="preserve">
+    <value>Couleur négative</value>
+  </data>
+  <data name="DownColor_Description" xml:space="preserve">
+    <value>Couleur des barres à delta négatif.</value>
+  </data>
+  <data name="Source_DisplayName" xml:space="preserve">
+    <value>Source des seuils</value>
+  </data>
+  <data name="Source_Description" xml:space="preserve">
+    <value>Fixes : les quatre niveaux ci-dessous. Dynamiques : à partir des barres de la session jusqu'ici ; mineur = moyenne des extrêmes, majeur = moyenne + multiplicateur x écart-type.</value>
+  </data>
+  <data name="StdMultiplier_DisplayName" xml:space="preserve">
+    <value>Multiplicateur de l'écart-type</value>
+  </data>
+  <data name="StdMultiplier_Description" xml:space="preserve">
+    <value>Source dynamique : niveau majeur = moyenne + cette valeur x écart-type.</value>
+  </data>
+  <data name="MinSamples_DisplayName" xml:space="preserve">
+    <value>Barres minimum</value>
+  </data>
+  <data name="MinSamples_Description" xml:space="preserve">
+    <value>Source dynamique : barres clôturées de la session nécessaires avant de tracer et d'utiliser les niveaux.</value>
+  </data>
+  <data name="Window_DisplayName" xml:space="preserve">
+    <value>Fenêtre des statistiques</value>
+  </data>
+  <data name="Window_Description" xml:space="preserve">
+    <value>Source dynamique : barres utilisées pour les statistiques. Session complète : toutes, en repartant à chaque session par défaut. Plage horaire : seulement les barres qui ouvrent entre le début et la fin ; les statistiques repartent à chaque début de plage et il n'y a pas de niveaux en dehors.</value>
+  </data>
+  <data name="WindowStart_DisplayName" xml:space="preserve">
+    <value>Début de la plage</value>
+  </data>
+  <data name="WindowStart_Description" xml:space="preserve">
+    <value>Début de la plage, en heure du graphique (inclus). Un début postérieur à la fin traverse minuit.</value>
+  </data>
+  <data name="WindowEnd_DisplayName" xml:space="preserve">
+    <value>Fin de la plage</value>
+  </data>
+  <data name="WindowEnd_Description" xml:space="preserve">
+    <value>Fin de la plage, en heure du graphique (exclu).</value>
+  </data>
+  <data name="ShowThresholdLines_DisplayName" xml:space="preserve">
+    <value>Afficher les lignes de seuil</value>
+  </data>
+  <data name="ShowThresholdLines_Description" xml:space="preserve">
+    <value>Trace les quatre niveaux de seuil.</value>
+  </data>
+  <data name="UpMajorLevel_DisplayName" xml:space="preserve">
+    <value>Niveau haut majeur</value>
+  </data>
+  <data name="UpMajorLevel_Description" xml:space="preserve">
+    <value>Niveau fixe : delta positif fort.</value>
+  </data>
+  <data name="UpMinorLevel_DisplayName" xml:space="preserve">
+    <value>Niveau haut mineur</value>
+  </data>
+  <data name="UpMinorLevel_Description" xml:space="preserve">
+    <value>Niveau fixe : delta positif modéré.</value>
+  </data>
+  <data name="DownMinorLevel_DisplayName" xml:space="preserve">
+    <value>Niveau bas mineur</value>
+  </data>
+  <data name="DownMinorLevel_Description" xml:space="preserve">
+    <value>Niveau fixe : delta négatif modéré (0 ou moins).</value>
+  </data>
+  <data name="DownMajorLevel_DisplayName" xml:space="preserve">
+    <value>Niveau bas majeur</value>
+  </data>
+  <data name="DownMajorLevel_Description" xml:space="preserve">
+    <value>Niveau fixe : delta négatif fort (0 ou moins).</value>
+  </data>
+  <data name="UpMajorColor_DisplayName" xml:space="preserve">
+    <value>Couleur haut majeur</value>
+  </data>
+  <data name="UpMajorColor_Description" xml:space="preserve">
+    <value>Couleur de la ligne haut majeur.</value>
+  </data>
+  <data name="UpMinorColor_DisplayName" xml:space="preserve">
+    <value>Couleur haut mineur</value>
+  </data>
+  <data name="UpMinorColor_Description" xml:space="preserve">
+    <value>Couleur de la ligne haut mineur.</value>
+  </data>
+  <data name="DownMinorColor_DisplayName" xml:space="preserve">
+    <value>Couleur bas mineur</value>
+  </data>
+  <data name="DownMinorColor_Description" xml:space="preserve">
+    <value>Couleur de la ligne bas mineur.</value>
+  </data>
+  <data name="DownMajorColor_DisplayName" xml:space="preserve">
+    <value>Couleur bas majeur</value>
+  </data>
+  <data name="DownMajorColor_Description" xml:space="preserve">
+    <value>Couleur de la ligne bas majeur.</value>
+  </data>
+  <data name="ShowSignals_DisplayName" xml:space="preserve">
+    <value>Afficher les signaux</value>
+  </data>
+  <data name="ShowSignals_Description" xml:space="preserve">
+    <value>Trace un triangle sur le graphique des prix quand le delta d'une barre atteint le niveau choisi : sous la barre pour le haut, au-dessus pour le bas.</value>
+  </data>
+  <data name="Trigger_DisplayName" xml:space="preserve">
+    <value>Déclenchement</value>
+  </data>
+  <data name="Trigger_Description" xml:space="preserve">
+    <value>Niveau atteint : le delta de la barre a atteint le niveau à un moment (son maximum ou minimum), le signal apparaît aussitôt et reste. Clôture de barre : le delta de la barre clôturée est au-delà du niveau.</value>
+  </data>
+  <data name="SignalUpLevel_DisplayName" xml:space="preserve">
+    <value>Niveau haut</value>
+  </data>
+  <data name="SignalUpLevel_Description" xml:space="preserve">
+    <value>Niveau utilisé pour les signaux hauts.</value>
+  </data>
+  <data name="SignalDownLevel_DisplayName" xml:space="preserve">
+    <value>Niveau bas</value>
+  </data>
+  <data name="SignalDownLevel_Description" xml:space="preserve">
+    <value>Niveau utilisé pour les signaux bas.</value>
+  </data>
+  <data name="SignalOffsetTicks_DisplayName" xml:space="preserve">
+    <value>Décalage (ticks)</value>
+  </data>
+  <data name="SignalOffsetTicks_Description" xml:space="preserve">
+    <value>Distance entre la barre et le triangle.</value>
+  </data>
+  <data name="SignalSize_DisplayName" xml:space="preserve">
+    <value>Taille</value>
+  </data>
+  <data name="SignalSize_Description" xml:space="preserve">
+    <value>Taille des triangles en pixels.</value>
+  </data>
+  <data name="SignalUpColor_DisplayName" xml:space="preserve">
+    <value>Couleur haut</value>
+  </data>
+  <data name="SignalUpColor_Description" xml:space="preserve">
+    <value>Couleur des triangles hauts.</value>
+  </data>
+  <data name="SignalDownColor_DisplayName" xml:space="preserve">
+    <value>Couleur bas</value>
+  </data>
+  <data name="SignalDownColor_Description" xml:space="preserve">
+    <value>Couleur des triangles bas.</value>
+  </data>
+  <data name="UseAlerts_DisplayName" xml:space="preserve">
+    <value>Activées</value>
+  </data>
+  <data name="UseAlerts_Description" xml:space="preserve">
+    <value>Alerte quand le delta d'une barre atteint le niveau choisi (en temps réel uniquement).</value>
+  </data>
+  <data name="AlertUpLevel_DisplayName" xml:space="preserve">
+    <value>Niveau haut</value>
+  </data>
+  <data name="AlertUpLevel_Description" xml:space="preserve">
+    <value>Niveau utilisé pour les alertes hautes.</value>
+  </data>
+  <data name="AlertDownLevel_DisplayName" xml:space="preserve">
+    <value>Niveau bas</value>
+  </data>
+  <data name="AlertDownLevel_Description" xml:space="preserve">
+    <value>Niveau utilisé pour les alertes basses.</value>
+  </data>
+  <data name="AlertAtBarClose_DisplayName" xml:space="preserve">
+    <value>Seulement à la clôture</value>
+  </data>
+  <data name="AlertAtBarClose_Description" xml:space="preserve">
+    <value>Activé : alerte quand une barre clôture avec un delta au-delà du niveau. Désactivé : alerte dès que le delta de la barre en cours atteint le niveau.</value>
+  </data>
+  <data name="AlertCooldownBars_DisplayName" xml:space="preserve">
+    <value>Barres minimum entre alertes</value>
+  </data>
+  <data name="AlertCooldownBars_Description" xml:space="preserve">
+    <value>Nombre minimum de barres entre deux alertes du même côté.</value>
+  </data>
+  <data name="AlertFile_DisplayName" xml:space="preserve">
+    <value>Son de l'alerte</value>
+  </data>
+  <data name="AlertFile_Description" xml:space="preserve">
+    <value>Fichier son des alertes.</value>
+  </data>
+  <data name="ShowAverage_DisplayName" xml:space="preserve">
+    <value>Afficher la moyenne</value>
+  </data>
+  <data name="ShowAverage_Description" xml:space="preserve">
+    <value>Trace une moyenne mobile du delta par barre.</value>
+  </data>
+  <data name="AveragePeriod_DisplayName" xml:space="preserve">
+    <value>Période</value>
+  </data>
+  <data name="AveragePeriod_Description" xml:space="preserve">
+    <value>Nombre de barres de la moyenne.</value>
+  </data>
+  <data name="AverageKind_DisplayName" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="AverageKind_Description" xml:space="preserve">
+    <value>Moyenne mobile simple (SMA) ou exponentielle (EMA).</value>
+  </data>
+  <data name="AverageColorMode_DisplayName" xml:space="preserve">
+    <value>Coloration</value>
+  </data>
+  <data name="AverageColorMode_Description" xml:space="preserve">
+    <value>Fixe : la couleur de la ligne. Passage à zéro : couleur haute à zéro ou au-dessus, basse en dessous. Pente : couleur haute tant que la moyenne monte ou reste, basse quand elle baisse.</value>
+  </data>
+  <data name="AverageColor_DisplayName" xml:space="preserve">
+    <value>Couleur</value>
+  </data>
+  <data name="AverageColor_Description" xml:space="preserve">
+    <value>Couleur de la ligne en coloration fixe.</value>
+  </data>
+  <data name="AverageUpColor_DisplayName" xml:space="preserve">
+    <value>Couleur haute</value>
+  </data>
+  <data name="AverageUpColor_Description" xml:space="preserve">
+    <value>Passage à zéro et pente : couleur au-dessus de zéro ou en hausse.</value>
+  </data>
+  <data name="AverageDownColor_DisplayName" xml:space="preserve">
+    <value>Couleur basse</value>
+  </data>
+  <data name="AverageDownColor_Description" xml:space="preserve">
+    <value>Passage à zéro et pente : couleur sous zéro ou en baisse.</value>
+  </data>
+  <data name="AverageWidth_DisplayName" xml:space="preserve">
+    <value>Épaisseur de ligne</value>
+  </data>
+  <data name="AverageWidth_Description" xml:space="preserve">
+    <value>Épaisseur de la ligne de moyenne.</value>
+  </data>
+  <data name="DetailedLog_DisplayName" xml:space="preserve">
+    <value>Journal détaillé</value>
+  </data>
+  <data name="DetailedLog_Description" xml:space="preserve">
+    <value>Écrit dans le journal ATAS le delta, les niveaux et les signaux des 20 dernières barres après chaque recalcul et de chaque barre clôturée ensuite.</value>
+  </data>
+</root>
