@@ -226,8 +226,8 @@ namespace ATAS.Indicators.Technical
 				{
 					var r = ParseMenthorQText(
 						rawFut,
-						_owner.TextOffset,
-						_owner.TextOffset,
+						multiplier: 1m,
+						offset: 0m,
 						applyTransform: false,
 						sourceIdBase: "MenthorQ:Text:Futures");
 
@@ -257,8 +257,7 @@ namespace ATAS.Indicators.Technical
 			public string SourceId => "MenthorQ:Api";
 
 			// Self-gating: inactive while the user hasn't filled key + userId OR while
-			// the last fetch returned nothing. The engine commit will add explicit
-			// priority logic on top of this; for now this cleanly falls back to text.
+			// the last fetch returned nothing, so the engine falls back to the text.
 			public bool IsEnabled =>
 				!string.IsNullOrEmpty(_owner._apiKey)
 				&& !string.IsNullOrEmpty(_owner._userId)
@@ -343,8 +342,8 @@ namespace ATAS.Indicators.Technical
 
 		#region Nested types: API
 
-		// Six types taken from the decompiled reference. The full set supported
-		// by the real API lands in commit 5.
+		// The level types requested from the API. An unknown value in a response fails the
+		// deserialization, so only requested types can appear.
 		[JsonConverter(typeof(JsonStringEnumConverter))]
 		internal enum LevelType
 		{
@@ -612,12 +611,12 @@ namespace ATAS.Indicators.Technical
 	LevelType.gamma_scalping_intraday,
 };
 
-		// Union of all enabled sources. Consumed by the engine in a later commit.
+		// Entries of the active source.
 		private ParsedEntry[] _parsedEntries = Array.Empty<ParsedEntry>();
 
 		// Final consumable output of the engine: one Level per unique price,
 		// with deduplicated labels, a winner that drives the visual style, and
-		// a pre-built display text. Consumed by OnRender in a later commit.
+		// a pre-built display text. Consumed by OnRender and the alerts.
 		private Level[] _levels = Array.Empty<Level>();
 
 		// Render pen cache, keyed by (category, tier). Uses RenderPen — the
@@ -636,9 +635,7 @@ namespace ATAS.Indicators.Technical
 		private readonly Dictionary<(LevelCategory, RenderTier), RenderPen> _haloPenCache
 			= new Dictionary<(LevelCategory, RenderTier), RenderPen>();
 
-		// Default font for level labels. Static because it's invariant in this
-		// commit — user customisation will land via a FontSetting wrapper in a
-		// later commit. RenderFont is the canonical OFT drawing primitive for
+		// Font for level labels. RenderFont is the canonical OFT drawing primitive for
 		// fonts, same cross-flavor story as RenderPen.
 		private static readonly RenderFont LabelFont = new RenderFont("Arial", 10);
 
@@ -678,7 +675,7 @@ namespace ATAS.Indicators.Technical
 
 		// UI: Alerts
 		private bool _enableAlerts = false;
-		private string _alertSoundFile = "alert1.wav";
+		private string _alertSoundFile = "alert1";
 		private int _alertCooldownSeconds = 60;
 
 		// UI: reversal toggle
@@ -687,22 +684,19 @@ namespace ATAS.Indicators.Technical
 		// Pending alerts, keyed by level price. An entry exists from the
 		// moment a cross alert fires until either (a) the cooldown expires
 		// and the entry is processed (potentially emitting a reversal) and
-		// removed, or (b) the indicator is destroyed. Replaces the simpler
-		// _lastAlertTime from the previous commit because we now need to
-		// remember the alerted direction, not just the timestamp.
+		// removed, or (b) the alerts are switched off. It remembers the alerted
+		// direction for the reversal check.
 		private readonly Dictionary<decimal, AlertRecord> _pendingAlerts
 			= new Dictionary<decimal, AlertRecord>();
 
 		// Last close observed by DetectAndFireAlerts. Used to detect
-		// transitions on a per-tick basis instead of per-bar basis. Reset to
-		// the current close on first call ever (or after a recalc that
-		// re-runs OnCalculate from bar 0).
+		// transitions on a per-tick basis instead of per-bar basis. Seeded with
+		// the close of the first call.
 		private bool _alertStateInitialised = false;
 		private decimal _lastObservedClose;
 
 		// Multiplier for the Index text path. Applied BEFORE TextOffset.
-		// Default 1 = no scaling, preserves the additive-only behaviour of
-		// previous commits.
+		// Default 1 = no scaling.
 		private decimal _textMultiplier = 1m;
 
 		// API: multiplier and offset, mirroring the Manual text pair.
@@ -710,8 +704,7 @@ namespace ATAS.Indicators.Technical
 		private decimal _apiOffset;
 
 		// UI: label rendering
-		// Default Right keeps the renderer behaviour from previous commits —
-		// labels glued to the right edge of the chart area.
+		// Default Right: labels glued to the right edge of the chart area.
 		private LabelHorizontalAlignment _labelAlignment = LabelHorizontalAlignment.Right;
 
 		// UI: debug overlay
@@ -1109,7 +1102,7 @@ namespace ATAS.Indicators.Technical
 		}
 
 		[Display(Name = "Sound file", GroupName = "Alerts",
-			Description = "Filename of the sound played when an alert fires. ATAS resolves bundled names like 'alert1.wav' from its sound directory; absolute paths work too.",
+			Description = "Sound played when an alert fires: the name of a file in the ATAS sounds folder (for example alert1).",
 			Order = 410)]
 		public string AlertSoundFile
 		{
@@ -1142,7 +1135,7 @@ namespace ATAS.Indicators.Technical
 
 		[Display(Name = "Show debug overlay",
 			GroupName = "Diagnostics",
-			Description = "Renders a small status box in the top-left corner of the chart showing internal indicator state: resolved ticker, active source, level/entry counts, pending alerts, API status, and current text/API multiplier+offset values. Default off — turn on when diagnosing why levels are missing or misaligned.",
+			Description = "Renders a small status box on the chart showing internal indicator state: resolved ticker, active source, level/entry counts, pending alerts, API status, and current text/API multiplier+offset values. Default off — turn on when diagnosing why levels are missing or misaligned.",
 			Order = 500)]
 		public bool EnableDebugOverlay
 		{
@@ -1356,6 +1349,7 @@ namespace ATAS.Indicators.Technical
 		protected override void OnInitialize()
 		{
 			base.OnInitialize();
+			this.LogInfo($"MenthorQLevels: initialized ({typeof(MenthorQLevels).Assembly.GetName().Version}).");
 			SubscribeToTimer(AutoRefreshTimerInterval, OnAutoRefreshTick);
 		}
 
@@ -2254,8 +2248,7 @@ namespace ATAS.Indicators.Technical
 			_ => 4f
 		};
 
-		// Map a Level (via its Winner) to a render tier. Tier drives line
-		// thickness; later commits will let it influence opacity and dash too.
+		// Map a Level (via its Winner) to a render tier. Tier drives line thickness.
 		private static RenderTier ClassifyTier(LevelLabel winner)
 		{
 			switch (winner.Category)
@@ -2287,8 +2280,7 @@ namespace ATAS.Indicators.Technical
 		}
 
 		// Default palette. Tuned for visibility on both light and dark themes
-		// without going overboard on saturation. Per-category overrides will
-		// land in the user-customisation commit.
+		// without going overboard on saturation. Each category can override it.
 		private static Color DefaultColorFor(LevelCategory c) => c switch
 		{
 			LevelCategory.GammaWall => Color.Gold,
