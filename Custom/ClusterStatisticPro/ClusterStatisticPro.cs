@@ -73,6 +73,9 @@ public class ClusterStatisticPro : Indicator
 			Add(DataType.BuyImbalance, new RenderInfo(17));
 			Add(DataType.SellImbalance, new RenderInfo(18));
 			Add(DataType.NetImbalance, new RenderInfo(19));
+			Add(DataType.StackedBuyImbalance, new RenderInfo(20));
+			Add(DataType.StackedSellImbalance, new RenderInfo(21));
+			Add(DataType.StackedNetImbalance, new RenderInfo(22));
 		}
 
 		#endregion
@@ -233,6 +236,9 @@ public class ClusterStatisticPro : Indicator
 		BuyImbalance,
 		SellImbalance,
 		NetImbalance,
+		StackedBuyImbalance,
+		StackedSellImbalance,
+		StackedNetImbalance,
 		None
 	}
 
@@ -581,6 +587,42 @@ public class ClusterStatisticPro : Indicator
     }
 
     [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowStackedBuyImbalances), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowStackedBuyImbalancesDescription), Order = 199, ResourceType = typeof(Res))]
+    public bool ShowStackedBuyImbalance
+    {
+        get => RowsOrder[DataType.StackedBuyImbalance].Enabled;
+        set
+        {
+            RowsOrder.SetEnabled(DataType.StackedBuyImbalance, value);
+            OnImbalanceUseChanged();
+        }
+    }
+
+    [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowStackedSellImbalances), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowStackedSellImbalancesDescription), Order = 199, ResourceType = typeof(Res))]
+    public bool ShowStackedSellImbalance
+    {
+        get => RowsOrder[DataType.StackedSellImbalance].Enabled;
+        set
+        {
+            RowsOrder.SetEnabled(DataType.StackedSellImbalance, value);
+            OnImbalanceUseChanged();
+        }
+    }
+
+    [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowStackedNetImbalances), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowStackedNetImbalancesDescription), Order = 199, ResourceType = typeof(Res))]
+    public bool ShowStackedNetImbalance
+    {
+        get => RowsOrder[DataType.StackedNetImbalance].Enabled;
+        set
+        {
+            RowsOrder.SetEnabled(DataType.StackedNetImbalance, value);
+            OnImbalanceUseChanged();
+        }
+    }
+
+    [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
     [Display(Name = nameof(Res.ShowSessionVolume), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowSessionVolumeDescription), Order = 191, ResourceType = typeof(Res))]
     public bool ShowSessionVolume
     {
@@ -708,6 +750,19 @@ public class ClusterStatisticPro : Indicator
         set
         {
             _imbalance.MinDifference = value;
+            RebuildImbalances();
+        }
+    }
+
+    [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.StackedImbalanceMinLevelsName), GroupName = nameof(Res.ImbalanceGroup), Description = nameof(Res.StackedImbalanceMinLevelsDescription), Order = 153, ResourceType = typeof(Res))]
+    [Range(2, 20)]
+    public int StackedImbalanceMinLevels
+    {
+        get => _imbalance.StackedMinLevels;
+        set
+        {
+            _imbalance.StackedMinLevels = value;
             RebuildImbalances();
         }
     }
@@ -1069,6 +1124,9 @@ public class ClusterStatisticPro : Indicator
 		_rowMaxima[DataType.BuyImbalance] = new ClosedBarsMax(_buyImbalance);
 		_rowMaxima[DataType.SellImbalance] = new ClosedBarsMax(_sellImbalance);
 		_rowMaxima[DataType.NetImbalance] = new ClosedBarsMax(_netImbalance);
+		_rowMaxima[DataType.StackedBuyImbalance] = new ClosedBarsMax(_stackedBuyImbalance);
+		_rowMaxima[DataType.StackedSellImbalance] = new ClosedBarsMax(_stackedSellImbalance);
+		_rowMaxima[DataType.StackedNetImbalance] = new ClosedBarsMax(_stackedNetImbalance);
 
 		Font = new FontSetting("Arial", 9);
 		CustomSessionStart = new(false);
@@ -1859,6 +1917,9 @@ public class ClusterStatisticPro : Indicator
 			DataType.BuyImbalance => Blend(AskColor, BackGroundColor, rate),
 			DataType.SellImbalance => Blend(BidColor, BackGroundColor, rate),
 			DataType.NetImbalance => Blend(_netImbalance[bar] >= 0 ? AskColor : BidColor, BackGroundColor, rate),
+			DataType.StackedBuyImbalance => Blend(AskColor, BackGroundColor, rate),
+			DataType.StackedSellImbalance => Blend(BidColor, BackGroundColor, rate),
+			DataType.StackedNetImbalance => Blend(_stackedNetImbalance[bar] >= 0 ? AskColor : BidColor, BackGroundColor, rate),
 			DataType.None => System.Drawing.Color.Transparent,
 			_ => throw new ArgumentOutOfRangeException()
 		};
@@ -1888,6 +1949,9 @@ public class ClusterStatisticPro : Indicator
 			DataType.BuyImbalance => GetRate(_buyImbalance[bar], RowScale(type)),
 			DataType.SellImbalance => GetRate(_sellImbalance[bar], RowScale(type)),
 			DataType.NetImbalance => GetRate(Math.Abs(_netImbalance[bar]), RowScale(type)),
+			DataType.StackedBuyImbalance => GetRate(_stackedBuyImbalance[bar], RowScale(type)),
+			DataType.StackedSellImbalance => GetRate(_stackedSellImbalance[bar], RowScale(type)),
+			DataType.StackedNetImbalance => GetRate(Math.Abs(_stackedNetImbalance[bar]), RowScale(type)),
 			DataType.None => 0,
 
 			_ => throw new ArgumentOutOfRangeException()
@@ -2020,6 +2084,9 @@ public class ClusterStatisticPro : Indicator
 			DataType.BuyImbalance => _buyImbalance[bar].ToString("0", CultureInfo.InvariantCulture),
 			DataType.SellImbalance => _sellImbalance[bar].ToString("0", CultureInfo.InvariantCulture),
 			DataType.NetImbalance => _netImbalance[bar].ToString("+0;-0;0", CultureInfo.InvariantCulture),
+			DataType.StackedBuyImbalance => _stackedBuyImbalance[bar].ToString("0", CultureInfo.InvariantCulture),
+			DataType.StackedSellImbalance => _stackedSellImbalance[bar].ToString("0", CultureInfo.InvariantCulture),
+			DataType.StackedNetImbalance => _stackedNetImbalance[bar].ToString("+0;-0;0", CultureInfo.InvariantCulture),
 			DataType.None => string.Empty,
 			_ => throw new ArgumentOutOfRangeException()
 		};
@@ -2110,6 +2177,9 @@ public class ClusterStatisticPro : Indicator
 			DataType.BuyImbalance => "Buy Imb",
 			DataType.SellImbalance => "Sell Imb",
 			DataType.NetImbalance => "Net Imb",
+			DataType.StackedBuyImbalance => "Buy Stk.",
+			DataType.StackedSellImbalance => "Sell Stk.",
+			DataType.StackedNetImbalance => "Net Stk.",
 			DataType.None => string.Empty,
 
 			_ => throw new ArgumentOutOfRangeException()
@@ -2120,7 +2190,10 @@ public class ClusterStatisticPro : Indicator
 	{
 		return RowsOrder[DataType.BuyImbalance].Enabled
 			|| RowsOrder[DataType.SellImbalance].Enabled
-			|| RowsOrder[DataType.NetImbalance].Enabled;
+			|| RowsOrder[DataType.NetImbalance].Enabled
+			|| RowsOrder[DataType.StackedBuyImbalance].Enabled
+			|| RowsOrder[DataType.StackedSellImbalance].Enabled
+			|| RowsOrder[DataType.StackedNetImbalance].Enabled;
 	}
 
 	private void CalculateImbalances(int bar, IndicatorCandle candle)

@@ -276,6 +276,24 @@
   <data name="ShowSessionVolumeDescription" xml:space="preserve">
     <value>Определяет, следует ли отображать накопленную информацию об объеме в течение сессии.</value>
   </data>
+  <data name="ShowStackedBuyImbalances" xml:space="preserve">
+    <value>Сложенные покупочные дисбалансы</value>
+  </data>
+  <data name="ShowStackedBuyImbalancesDescription" xml:space="preserve">
+    <value>Stacks of buy imbalances of the bar: runs of at least the minimum number of consecutive buy imbalance levels.</value>
+  </data>
+  <data name="ShowStackedNetImbalances" xml:space="preserve">
+    <value>Сложенные чистые дисбалансы</value>
+  </data>
+  <data name="ShowStackedNetImbalancesDescription" xml:space="preserve">
+    <value>Stacks of buy imbalances minus stacks of sell imbalances of the bar.</value>
+  </data>
+  <data name="ShowStackedSellImbalances" xml:space="preserve">
+    <value>Сложенные продажные дисбалансы</value>
+  </data>
+  <data name="ShowStackedSellImbalancesDescription" xml:space="preserve">
+    <value>Stacks of sell imbalances of the bar: runs of at least the minimum number of consecutive sell imbalance levels.</value>
+  </data>
   <data name="ShowTime" xml:space="preserve">
     <value>Время</value>
   </data>
@@ -296,6 +314,12 @@
   </data>
   <data name="ShowVolumesDescription" xml:space="preserve">
     <value>Определяет, следует ли отображать информацию об объемах.</value>
+  </data>
+  <data name="StackedImbalanceMinLevelsDescription" xml:space="preserve">
+    <value>Consecutive imbalance levels of the same side that make a stack.</value>
+  </data>
+  <data name="StackedImbalanceMinLevelsName" xml:space="preserve">
+    <value>Мин. сложенные уровни</value>
   </data>
   <data name="Text" xml:space="preserve">
     <value>Текст</value>

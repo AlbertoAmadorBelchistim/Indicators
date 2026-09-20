@@ -276,6 +276,24 @@
   <data name="ShowSessionVolumeDescription" xml:space="preserve">
     <value>Determines whether to display cumulative volume information within a session.</value>
   </data>
+  <data name="ShowStackedBuyImbalances" xml:space="preserve">
+    <value>Stacked Buy Imbalances</value>
+  </data>
+  <data name="ShowStackedBuyImbalancesDescription" xml:space="preserve">
+    <value>Stacks of buy imbalances of the bar: runs of at least the minimum number of consecutive buy imbalance levels.</value>
+  </data>
+  <data name="ShowStackedNetImbalances" xml:space="preserve">
+    <value>Stacked Net Imbalances</value>
+  </data>
+  <data name="ShowStackedNetImbalancesDescription" xml:space="preserve">
+    <value>Stacks of buy imbalances minus stacks of sell imbalances of the bar.</value>
+  </data>
+  <data name="ShowStackedSellImbalances" xml:space="preserve">
+    <value>Stacked Sell Imbalances</value>
+  </data>
+  <data name="ShowStackedSellImbalancesDescription" xml:space="preserve">
+    <value>Stacks of sell imbalances of the bar: runs of at least the minimum number of consecutive sell imbalance levels.</value>
+  </data>
   <data name="ShowTime" xml:space="preserve">
     <value>Time</value>
   </data>
@@ -296,6 +314,12 @@
   </data>
   <data name="ShowVolumesDescription" xml:space="preserve">
     <value>Determines whether to display volume information.</value>
+  </data>
+  <data name="StackedImbalanceMinLevelsDescription" xml:space="preserve">
+    <value>Consecutive imbalance levels of the same side that make a stack.</value>
+  </data>
+  <data name="StackedImbalanceMinLevelsName" xml:space="preserve">
+    <value>Stacked Min Levels</value>
   </data>
   <data name="Text" xml:space="preserve">
     <value>Text</value>
