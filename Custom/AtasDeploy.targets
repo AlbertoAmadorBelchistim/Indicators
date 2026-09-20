@@ -1,0 +1,53 @@
+<Project>
+	<!-- Guard: ATAS_X configurations require Platform=Cross, and vice versa. -->
+	<Target Name="ValidateConfigurationPlatform" BeforeTargets="PrepareForBuild">
+		<Error Condition=" '$(IsAtasX)' == 'true' And '$(Platform)' != 'Cross' "
+		       Text="ATAS_X configurations must be built with Platform=Cross." />
+		<Error Condition=" '$(IsAtasX)' != 'true' And '$(Platform)' == 'Cross' "
+		       Text="Cross platform is only valid for ATAS_X configurations." />
+	</Target>
+
+	<!-- Deploy after build. On Windows it is on by default; ATAS_COPY_ON_BUILD=false (environment or /p:)
+	     turns it off, and on other systems ATAS_COPY_ON_BUILD=true turns it on.
+	     Destination: for the Windows flavors ATAS_INDICATORS_DIR, default %APPDATA%\ATAS\Indicators;
+	     for ATAS X ATAS_X_INDICATORS_DIR, default %APPDATA%\ATAS X\Indicators.
+	     The Windows flavors share one Indicators folder, so building several flavors in a row would
+	     leave whichever was built last. Only the configurations listed in ATAS_DEPLOY_CONFIGURATIONS
+	     (default: Alpha;ATAS_X_Alpha) are deployed; set it to the flavor under test to change that.
+	     Copies the assembly, its PDB and the satellite resource assembly of one UI culture
+	     (ATAS_UI_CULTURE, default es-es). ATAS looks for satellites in the root of the Indicators
+	     folder, where every culture would have the same file name, so only one can be deployed. -->
+	<PropertyGroup>
+		<AtasDeployCulture>$(ATAS_UI_CULTURE)</AtasDeployCulture>
+		<AtasDeployCulture Condition=" '$(AtasDeployCulture)' == '' ">es-es</AtasDeployCulture>
+		<AtasCopyOnBuild>$(ATAS_COPY_ON_BUILD)</AtasCopyOnBuild>
+		<AtasCopyOnBuild Condition=" '$(AtasCopyOnBuild)' == '' And '$(OS)' == 'Windows_NT' ">true</AtasCopyOnBuild>
+		<AtasDeployConfigurations>$(ATAS_DEPLOY_CONFIGURATIONS)</AtasDeployConfigurations>
+		<AtasDeployConfigurations Condition=" '$(AtasDeployConfigurations)' == '' ">Alpha;ATAS_X_Alpha</AtasDeployConfigurations>
+		<AtasDeployThisConfiguration Condition=" $([System.String]::Concat(';', $(AtasDeployConfigurations), ';').Contains(';$(Configuration);')) ">true</AtasDeployThisConfiguration>
+		<!-- ATAS X keeps its own folder: ATAS_INDICATORS_DIR (Windows flavors) must not redirect it. -->
+		<AtasDeployDir Condition=" '$(IsAtasX)' == 'true' ">$(ATAS_X_INDICATORS_DIR)</AtasDeployDir>
+		<AtasDeployDir Condition=" '$(IsAtasX)' == 'true' And '$(AtasDeployDir)' == '' ">$(APPDATA)\ATAS X\Indicators</AtasDeployDir>
+		<AtasDeployDir Condition=" '$(IsAtasX)' != 'true' ">$(ATAS_INDICATORS_DIR)</AtasDeployDir>
+		<AtasDeployDir Condition=" '$(IsAtasX)' != 'true' And '$(AtasDeployDir)' == '' ">$(APPDATA)\ATAS\Indicators</AtasDeployDir>
+	</PropertyGroup>
+
+	<Target Name="DeployToAtas" AfterTargets="Build" Condition=" '$(AtasCopyOnBuild)' == 'true' And '$(AtasDeployThisConfiguration)' == 'true' ">
+		<ItemGroup>
+			<_AtasDeployFile Include="$(TargetPath)" />
+			<_AtasDeployFile Include="$(TargetDir)$(TargetName).pdb" Condition="Exists('$(TargetDir)$(TargetName).pdb')" />
+			<_AtasSatellite Include="$(TargetDir)$(AtasDeployCulture)\$(TargetName).resources.dll" Condition="Exists('$(TargetDir)$(AtasDeployCulture)\$(TargetName).resources.dll')" />
+		</ItemGroup>
+		<Message Importance="high" Text="Deploying $(TargetFileName) ($(Configuration), UI culture $(AtasDeployCulture)) to $(AtasDeployDir)" />
+		<Copy SourceFiles="@(_AtasDeployFile)" DestinationFolder="$(AtasDeployDir)" SkipUnchangedFiles="true" Retries="2" RetryDelayMilliseconds="300" />
+		<Copy SourceFiles="@(_AtasSatellite)" DestinationFolder="$(AtasDeployDir)" SkipUnchangedFiles="true" Retries="2" RetryDelayMilliseconds="300" />
+	</Target>
+
+	<Target Name="ReportSkippedAtasDeploy" AfterTargets="Build" Condition=" '$(AtasCopyOnBuild)' == 'true' And '$(AtasDeployThisConfiguration)' != 'true' ">
+		<Message Importance="high" Text="Not deploying $(TargetFileName): $(Configuration) is not in ATAS_DEPLOY_CONFIGURATIONS ($(AtasDeployConfigurations))." />
+	</Target>
+
+	<Target Name="ReportDisabledAtasDeploy" AfterTargets="Build" Condition=" '$(AtasCopyOnBuild)' != 'true' ">
+		<Message Importance="high" Text="Not deploying $(TargetFileName): ATAS_COPY_ON_BUILD is '$(ATAS_COPY_ON_BUILD)' (deploy is off; destination would be $(AtasDeployDir))." />
+	</Target>
+</Project>

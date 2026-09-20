@@ -1,0 +1,117 @@
+<Project>
+	<!-- Shared build settings for standalone indicator projects under Custom/.
+	     Each indicator builds into its own assembly for the six ATAS flavors:
+	     Alpha, Beta, Latest, Stable (Windows, AnyCPU) and ATAS_X_Alpha, ATAS_X_Beta (Cross). -->
+
+	<PropertyGroup>
+		<RootNamespace>ATAS.Indicators.Technical</RootNamespace>
+		<LangVersion>latest</LangVersion>
+		<Nullable>disable</Nullable>
+		<Configurations>ATAS_X_Alpha;ATAS_X_Beta;Alpha;Beta;Latest;Stable</Configurations>
+		<Platforms>AnyCPU;Cross</Platforms>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<WarningsNotAsErrors>NU1903</WarningsNotAsErrors>
+		<NoWarn>$(NoWarn);CA1416;CS8002</NoWarn>
+		<IntermediateOutputPath>obj\$(Configuration)\$(Platform)\</IntermediateOutputPath>
+		<OutputPath>bin\$(Configuration)\</OutputPath>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<!-- The platform provides every dependency at runtime: no deps.json, no copied references. -->
+		<GenerateDependencyFile>false</GenerateDependencyFile>
+		<CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+	</PropertyGroup>
+
+	<!-- Platform split: Cross = ATAS X (no WPF, net10.0), AnyCPU = Windows (WPF types available) -->
+	<PropertyGroup Condition=" '$(Platform)' == 'Cross' ">
+		<UseWPF>false</UseWPF>
+		<DefineConstants>$(DefineConstants);CROSS_PLATFORM</DefineConstants>
+		<TargetFramework>net10.0</TargetFramework>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(Platform)' != 'Cross' ">
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+
+	<!-- Flavors: define constants, default install path, target framework -->
+	<PropertyGroup Condition=" '$(Configuration)' == 'Alpha' ">
+		<DefineConstants>$(DefineConstants);ATAS_ALPHA;TAB_ATTRIBUTE_AVAILABLE</DefineConstants>
+		<ATAS_BASE Condition=" '$(ATAS_BASE)' == '' ">C:\Program Files (x86)\ATAS Platform</ATAS_BASE>
+		<TargetFramework>net10.0-windows</TargetFramework>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(Configuration)' == 'Beta' ">
+		<DefineConstants>$(DefineConstants);ATAS_BETA;TAB_ATTRIBUTE_AVAILABLE</DefineConstants>
+		<ATAS_BASE Condition=" '$(ATAS_BASE)' == '' ">C:\Program Files (x86)\ATAS Platform beta</ATAS_BASE>
+		<TargetFramework>net10.0-windows</TargetFramework>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(Configuration)' == 'Latest' ">
+		<DefineConstants>$(DefineConstants);ATAS_LATEST;TAB_ATTRIBUTE_AVAILABLE</DefineConstants>
+		<ATAS_BASE Condition=" '$(ATAS_BASE)' == '' ">C:\Program Files (x86)\ATAS Platform latest</ATAS_BASE>
+		<TargetFramework>net10.0-windows</TargetFramework>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(Configuration)' == 'Stable' ">
+		<DefineConstants>$(DefineConstants);ATAS_STABLE</DefineConstants>
+		<ATAS_BASE Condition=" '$(ATAS_BASE)' == '' ">C:\Program Files (x86)\ATAS Platform stable</ATAS_BASE>
+		<TargetFramework>net8.0-windows</TargetFramework>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(Configuration)' == 'ATAS_X_Alpha' ">
+		<DefineConstants>$(DefineConstants);ATAS_X_ALPHA;TAB_ATTRIBUTE_AVAILABLE</DefineConstants>
+		<ATAS_BASE Condition=" '$(ATAS_BASE)' == '' ">C:\Program Files\ATAS X</ATAS_BASE>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(Configuration)' == 'ATAS_X_Beta' ">
+		<DefineConstants>$(DefineConstants);ATAS_X_BETA;TAB_ATTRIBUTE_AVAILABLE</DefineConstants>
+		<ATAS_BASE Condition=" '$(ATAS_BASE)' == '' ">C:\Program Files\ATAS X beta</ATAS_BASE>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<IsAtasX Condition=" '$(Configuration)' == 'ATAS_X_Alpha' Or '$(Configuration)' == 'ATAS_X_Beta' ">true</IsAtasX>
+		<IsAtasX Condition=" '$(IsAtasX)' == '' ">false</IsAtasX>
+	</PropertyGroup>
+
+	<!-- Platform assemblies: referenced from the flavor's installation, never copied. -->
+	<ItemGroup>
+		<Reference Include="ATAS.Indicators" Private="false">
+			<HintPath>$(ATAS_BASE)\ATAS.Indicators.dll</HintPath>
+		</Reference>
+		<Reference Include="ATAS.DataFeedsCore" Private="false">
+			<HintPath>$(ATAS_BASE)\ATAS.DataFeedsCore.dll</HintPath>
+		</Reference>
+		<Reference Include="OFT.Attributes" Private="false">
+			<HintPath>$(ATAS_BASE)\OFT.Attributes.dll</HintPath>
+		</Reference>
+		<Reference Include="OFT.Rendering" Private="false">
+			<HintPath>$(ATAS_BASE)\OFT.Rendering.dll</HintPath>
+		</Reference>
+		<Reference Include="OFT.Localization" Private="false">
+			<HintPath>$(ATAS_BASE)\OFT.Localization.dll</HintPath>
+		</Reference>
+		<Reference Include="Utils.Common" Private="false">
+			<HintPath>$(ATAS_BASE)\Utils.Common.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(Platform)' == 'Cross' ">
+		<PackageReference Include="System.Drawing.Common" Version="10.0.0" PrivateAssets="all" />
+	</ItemGroup>
+	<ItemGroup Condition=" '$(Configuration)' == 'Stable' ">
+		<PackageReference Include="System.Drawing.Common" Version="8.0.0" PrivateAssets="all" />
+	</ItemGroup>
+
+	<!-- Sources shared by every standalone indicator (global usings, small helpers). -->
+	<ItemGroup>
+		<Compile Include="$(MSBuildThisFileDirectory)Shared\**\*.cs" Link="Shared\%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<!-- Platform-specific sources, same convention as Technical/ -->
+	<ItemGroup Condition=" '$(Platform)' == 'Cross' ">
+		<Compile Remove="**\*.Windows.cs" />
+	</ItemGroup>
+	<ItemGroup Condition=" '$(Platform)' != 'Cross' ">
+		<Compile Remove="**\*.Common.cs" />
+	</ItemGroup>
+
+	<Import Project="AtasDeploy.targets" />
+</Project>
