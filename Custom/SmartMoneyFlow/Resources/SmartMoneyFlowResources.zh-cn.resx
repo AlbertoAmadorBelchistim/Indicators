@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SmartMoneyFlow_Description" xml:space="preserve">
+    <value>按成交量大小分为五个过滤器的累计 Delta，附带聪明钱价差及其信号线。</value>
+  </data>
+  <data name="Group_View" xml:space="preserve">
+    <value>视图</value>
+  </data>
+  <data name="Group_Calculation" xml:space="preserve">
+    <value>计算</value>
+  </data>
+  <data name="Group_Session" xml:space="preserve">
+    <value>交易时段</value>
+  </data>
+  <data name="Group_Filter1" xml:space="preserve">
+    <value>过滤器 1</value>
+  </data>
+  <data name="Group_Filter2" xml:space="preserve">
+    <value>过滤器 2</value>
+  </data>
+  <data name="Group_Filter3" xml:space="preserve">
+    <value>过滤器 3</value>
+  </data>
+  <data name="Group_Filter4" xml:space="preserve">
+    <value>过滤器 4</value>
+  </data>
+  <data name="Group_Filter5" xml:space="preserve">
+    <value>过滤器 5</value>
+  </data>
+  <data name="Group_Spread" xml:space="preserve">
+    <value>价差</value>
+  </data>
+  <data name="Group_Alerts" xml:space="preserve">
+    <value>警报</value>
+  </data>
+  <data name="Group_Diagnostics" xml:space="preserve">
+    <value>诊断</value>
+  </data>
+  <data name="SessionMode_Default" xml:space="preserve">
+    <value>默认时段</value>
+  </data>
+  <data name="SessionMode_Custom" xml:space="preserve">
+    <value>自定义开始时间</value>
+  </data>
+  <data name="SessionMode_Continuous" xml:space="preserve">
+    <value>连续</value>
+  </data>
+  <data name="ViewMode_Filters" xml:space="preserve">
+    <value>过滤器</value>
+  </data>
+  <data name="ViewMode_Spread" xml:space="preserve">
+    <value>聪明钱价差</value>
+  </data>
+  <data name="FilterRole_None" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="FilterRole_Smart" xml:space="preserve">
+    <value>聪明钱</value>
+  </data>
+  <data name="FilterRole_Dumb" xml:space="preserve">
+    <value>散户资金</value>
+  </data>
+  <data name="Series_Filter1" xml:space="preserve">
+    <value>过滤器 1</value>
+  </data>
+  <data name="Series_Filter2" xml:space="preserve">
+    <value>过滤器 2</value>
+  </data>
+  <data name="Series_Filter3" xml:space="preserve">
+    <value>过滤器 3</value>
+  </data>
+  <data name="Series_Filter4" xml:space="preserve">
+    <value>过滤器 4</value>
+  </data>
+  <data name="Series_Filter5" xml:space="preserve">
+    <value>过滤器 5</value>
+  </data>
+  <data name="Series_Spread" xml:space="preserve">
+    <value>聪明钱价差</value>
+  </data>
+  <data name="Series_Signal" xml:space="preserve">
+    <value>信号</value>
+  </data>
+  <data name="View_DisplayName" xml:space="preserve">
+    <value>视图</value>
+  </data>
+  <data name="View_Description" xml:space="preserve">
+    <value>显示过滤器线或聪明钱价差。切换不会重新计算。</value>
+  </data>
+  <data name="CumulativeTrades_DisplayName" xml:space="preserve">
+    <value>累计成交</value>
+  </data>
+  <data name="CumulativeTrades_Description" xml:space="preserve">
+    <value>统计累计成交（一笔主动订单的所有逐笔成交视为一笔）。关闭：统计单笔逐笔成交。</value>
+  </data>
+  <data name="SessionType_DisplayName" xml:space="preserve">
+    <value>交易时段</value>
+  </data>
+  <data name="SessionType_Description" xml:space="preserve">
+    <value>线条从 0 重新开始的位置：图表的每个默认时段、每天的自定义时间，或从不（连续）。</value>
+  </data>
+  <data name="CustomSessionStart_DisplayName" xml:space="preserve">
+    <value>自定义时段开始</value>
+  </data>
+  <data name="CustomSessionStart_Description" xml:space="preserve">
+    <value>自定义时段的开始时间（图表时间）。一个时段持续到次日同一时间。</value>
+  </data>
+  <data name="Sessions_DisplayName" xml:space="preserve">
+    <value>计算时段数</value>
+  </data>
+  <data name="Sessions_Description" xml:space="preserve">
+    <value>计算的时段数（含当前时段）：默认或自定义时段，连续模式下按默认时段计。0 = 所有已加载的K线。</value>
+  </data>
+  <data name="FilterEnabled_DisplayName" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="FilterEnabled_Description" xml:space="preserve">
+    <value>在过滤器视图中显示该过滤器的线。该过滤器仍计入价差。</value>
+  </data>
+  <data name="FilterMinVolume_DisplayName" xml:space="preserve">
+    <value>最小成交量</value>
+  </data>
+  <data name="FilterMinVolume_Description" xml:space="preserve">
+    <value>该过滤器统计的最小成交量。</value>
+  </data>
+  <data name="FilterMaxVolume_DisplayName" xml:space="preserve">
+    <value>最大成交量</value>
+  </data>
+  <data name="FilterMaxVolume_Description" xml:space="preserve">
+    <value>该过滤器统计的最大成交量。0 = 无上限。</value>
+  </data>
+  <data name="FilterSpreadRole_DisplayName" xml:space="preserve">
+    <value>价差角色</value>
+  </data>
+  <data name="FilterSpreadRole_Description" xml:space="preserve">
+    <value>该过滤器计入价差的一侧：聪明钱（加）、散户资金（减）或无。</value>
+  </data>
+  <data name="FilterColor_DisplayName" xml:space="preserve">
+    <value>颜色</value>
+  </data>
+  <data name="FilterColor_Description" xml:space="preserve">
+    <value>该过滤器的线条颜色。</value>
+  </data>
+  <data name="FilterLineWidth_DisplayName" xml:space="preserve">
+    <value>线宽</value>
+  </data>
+  <data name="FilterLineWidth_Description" xml:space="preserve">
+    <value>该过滤器的线宽。</value>
+  </data>
+  <data name="SpreadPositiveColor_DisplayName" xml:space="preserve">
+    <value>正值颜色</value>
+  </data>
+  <data name="SpreadPositiveColor_Description" xml:space="preserve">
+    <value>价差柱在零及以上时的颜色（双色）。</value>
+  </data>
+  <data name="SpreadNegativeColor_DisplayName" xml:space="preserve">
+    <value>负值颜色</value>
+  </data>
+  <data name="SpreadNegativeColor_Description" xml:space="preserve">
+    <value>价差柱低于零时的颜色（双色）。</value>
+  </data>
+  <data name="ShowSignalLine_DisplayName" xml:space="preserve">
+    <value>显示信号线</value>
+  </data>
+  <data name="ShowSignalLine_Description" xml:space="preserve">
+    <value>在价差视图中于价差上方绘制信号线。</value>
+  </data>
+  <data name="SignalPeriod_DisplayName" xml:space="preserve">
+    <value>信号周期</value>
+  </data>
+  <data name="SignalPeriod_Description" xml:space="preserve">
+    <value>信号线（价差的简单移动平均）的K线数。每个时段重新开始。</value>
+  </data>
+  <data name="SignalColor_DisplayName" xml:space="preserve">
+    <value>信号颜色</value>
+  </data>
+  <data name="SignalColor_Description" xml:space="preserve">
+    <value>信号线的颜色。</value>
+  </data>
+  <data name="SignalWidth_DisplayName" xml:space="preserve">
+    <value>信号线宽</value>
+  </data>
+  <data name="SignalWidth_Description" xml:space="preserve">
+    <value>信号线的宽度。</value>
+  </data>
+  <data name="UseFourColors_DisplayName" xml:space="preserve">
+    <value>四色</value>
+  </data>
+  <data name="UseFourColors_Description" xml:space="preserve">
+    <value>按价差的符号和信号线方向（上升或下降）着色，而不仅按符号。</value>
+  </data>
+  <data name="PositiveRisingColor_DisplayName" xml:space="preserve">
+    <value>正值，信号上升</value>
+  </data>
+  <data name="PositiveRisingColor_Description" xml:space="preserve">
+    <value>四色：价差在零及以上且信号上升。</value>
+  </data>
+  <data name="PositiveFallingColor_DisplayName" xml:space="preserve">
+    <value>正值，信号下降</value>
+  </data>
+  <data name="PositiveFallingColor_Description" xml:space="preserve">
+    <value>四色：价差在零及以上且信号下降。</value>
+  </data>
+  <data name="NegativeRisingColor_DisplayName" xml:space="preserve">
+    <value>负值，信号上升</value>
+  </data>
+  <data name="NegativeRisingColor_Description" xml:space="preserve">
+    <value>四色：价差低于零且信号上升。</value>
+  </data>
+  <data name="NegativeFallingColor_DisplayName" xml:space="preserve">
+    <value>负值，信号下降</value>
+  </data>
+  <data name="NegativeFallingColor_Description" xml:space="preserve">
+    <value>四色：价差低于零且信号下降。</value>
+  </data>
+  <data name="AlertOnZeroCross_DisplayName" xml:space="preserve">
+    <value>价差穿越零</value>
+  </data>
+  <data name="AlertOnZeroCross_Description" xml:space="preserve">
+    <value>当前形成K线的价差改变符号时发出警报。</value>
+  </data>
+  <data name="AlertOnSignalCross_DisplayName" xml:space="preserve">
+    <value>价差穿越信号线</value>
+  </data>
+  <data name="AlertOnSignalCross_Description" xml:space="preserve">
+    <value>当前形成K线的价差穿越信号线时发出警报。</value>
+  </data>
+  <data name="AlertFile_DisplayName" xml:space="preserve">
+    <value>警报声音</value>
+  </data>
+  <data name="AlertFile_Description" xml:space="preserve">
+    <value>警报的声音文件。</value>
+  </data>
+  <data name="AlertCooldownSeconds_DisplayName" xml:space="preserve">
+    <value>警报最短间隔（秒）</value>
+  </data>
+  <data name="AlertCooldownSeconds_Description" xml:space="preserve">
+    <value>同类两次警报之间的最短时间。期间发生的穿越不发出警报。</value>
+  </data>
+  <data name="DetailedLog_DisplayName" xml:space="preserve">
+    <value>详细日志</value>
+  </data>
+  <data name="DetailedLog_Description" xml:space="preserve">
+    <value>每次重新计算后，将最近 20 根K线及之后每根收盘K线的数值写入 ATAS 日志。</value>
+  </data>
+</root>

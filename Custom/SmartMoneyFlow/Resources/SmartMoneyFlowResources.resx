@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SmartMoneyFlow_Description" xml:space="preserve">
+    <value>Cumulative delta of five trade-size filters, with the smart money spread and its signal line.</value>
+  </data>
+  <data name="Group_View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="Group_Calculation" xml:space="preserve">
+    <value>Calculation</value>
+  </data>
+  <data name="Group_Session" xml:space="preserve">
+    <value>Session</value>
+  </data>
+  <data name="Group_Filter1" xml:space="preserve">
+    <value>Filter 1</value>
+  </data>
+  <data name="Group_Filter2" xml:space="preserve">
+    <value>Filter 2</value>
+  </data>
+  <data name="Group_Filter3" xml:space="preserve">
+    <value>Filter 3</value>
+  </data>
+  <data name="Group_Filter4" xml:space="preserve">
+    <value>Filter 4</value>
+  </data>
+  <data name="Group_Filter5" xml:space="preserve">
+    <value>Filter 5</value>
+  </data>
+  <data name="Group_Spread" xml:space="preserve">
+    <value>Spread</value>
+  </data>
+  <data name="Group_Alerts" xml:space="preserve">
+    <value>Alerts</value>
+  </data>
+  <data name="Group_Diagnostics" xml:space="preserve">
+    <value>Diagnostics</value>
+  </data>
+  <data name="SessionMode_Default" xml:space="preserve">
+    <value>Default session</value>
+  </data>
+  <data name="SessionMode_Custom" xml:space="preserve">
+    <value>Custom start time</value>
+  </data>
+  <data name="SessionMode_Continuous" xml:space="preserve">
+    <value>Continuous</value>
+  </data>
+  <data name="ViewMode_Filters" xml:space="preserve">
+    <value>Filters</value>
+  </data>
+  <data name="ViewMode_Spread" xml:space="preserve">
+    <value>Smart money spread</value>
+  </data>
+  <data name="FilterRole_None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="FilterRole_Smart" xml:space="preserve">
+    <value>Smart money</value>
+  </data>
+  <data name="FilterRole_Dumb" xml:space="preserve">
+    <value>Dumb money</value>
+  </data>
+  <data name="Series_Filter1" xml:space="preserve">
+    <value>Filter 1</value>
+  </data>
+  <data name="Series_Filter2" xml:space="preserve">
+    <value>Filter 2</value>
+  </data>
+  <data name="Series_Filter3" xml:space="preserve">
+    <value>Filter 3</value>
+  </data>
+  <data name="Series_Filter4" xml:space="preserve">
+    <value>Filter 4</value>
+  </data>
+  <data name="Series_Filter5" xml:space="preserve">
+    <value>Filter 5</value>
+  </data>
+  <data name="Series_Spread" xml:space="preserve">
+    <value>Smart Money Spread</value>
+  </data>
+  <data name="Series_Signal" xml:space="preserve">
+    <value>Signal</value>
+  </data>
+  <data name="View_DisplayName" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="View_Description" xml:space="preserve">
+    <value>Shows the filter lines or the smart money spread. Switching does not recalculate.</value>
+  </data>
+  <data name="CumulativeTrades_DisplayName" xml:space="preserve">
+    <value>Cumulative trades</value>
+  </data>
+  <data name="CumulativeTrades_Description" xml:space="preserve">
+    <value>Counts cumulative trades (all the ticks of one aggressive order as one trade). Off: counts individual ticks.</value>
+  </data>
+  <data name="SessionType_DisplayName" xml:space="preserve">
+    <value>Session</value>
+  </data>
+  <data name="SessionType_Description" xml:space="preserve">
+    <value>Where the lines restart from 0: at each default session of the chart, every day at a custom time, or never (continuous).</value>
+  </data>
+  <data name="CustomSessionStart_DisplayName" xml:space="preserve">
+    <value>Custom session start</value>
+  </data>
+  <data name="CustomSessionStart_Description" xml:space="preserve">
+    <value>Start time of the custom session, in chart time. A session runs until the same time the next day.</value>
+  </data>
+  <data name="Sessions_DisplayName" xml:space="preserve">
+    <value>Sessions to calculate</value>
+  </data>
+  <data name="Sessions_Description" xml:space="preserve">
+    <value>Number of sessions calculated, counting the current one: default or custom sessions, and default sessions in continuous mode. 0 = every loaded bar.</value>
+  </data>
+  <data name="FilterEnabled_DisplayName" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="FilterEnabled_Description" xml:space="preserve">
+    <value>Shows the line of this filter in the Filters view. The filter still counts in the spread.</value>
+  </data>
+  <data name="FilterMinVolume_DisplayName" xml:space="preserve">
+    <value>Minimum volume</value>
+  </data>
+  <data name="FilterMinVolume_Description" xml:space="preserve">
+    <value>Smallest trade size counted by this filter.</value>
+  </data>
+  <data name="FilterMaxVolume_DisplayName" xml:space="preserve">
+    <value>Maximum volume</value>
+  </data>
+  <data name="FilterMaxVolume_Description" xml:space="preserve">
+    <value>Largest trade size counted by this filter. 0 = no maximum.</value>
+  </data>
+  <data name="FilterSpreadRole_DisplayName" xml:space="preserve">
+    <value>Spread role</value>
+  </data>
+  <data name="FilterSpreadRole_Description" xml:space="preserve">
+    <value>Side of the spread this filter counts on: smart money (added), dumb money (subtracted) or none.</value>
+  </data>
+  <data name="FilterColor_DisplayName" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="FilterColor_Description" xml:space="preserve">
+    <value>Line color of this filter.</value>
+  </data>
+  <data name="FilterLineWidth_DisplayName" xml:space="preserve">
+    <value>Line width</value>
+  </data>
+  <data name="FilterLineWidth_Description" xml:space="preserve">
+    <value>Line width of this filter.</value>
+  </data>
+  <data name="SpreadPositiveColor_DisplayName" xml:space="preserve">
+    <value>Positive color</value>
+  </data>
+  <data name="SpreadPositiveColor_Description" xml:space="preserve">
+    <value>Color of the spread bars at or above zero (two colors).</value>
+  </data>
+  <data name="SpreadNegativeColor_DisplayName" xml:space="preserve">
+    <value>Negative color</value>
+  </data>
+  <data name="SpreadNegativeColor_Description" xml:space="preserve">
+    <value>Color of the spread bars below zero (two colors).</value>
+  </data>
+  <data name="ShowSignalLine_DisplayName" xml:space="preserve">
+    <value>Show signal line</value>
+  </data>
+  <data name="ShowSignalLine_Description" xml:space="preserve">
+    <value>Draws the signal line over the spread in the Spread view.</value>
+  </data>
+  <data name="SignalPeriod_DisplayName" xml:space="preserve">
+    <value>Signal period</value>
+  </data>
+  <data name="SignalPeriod_Description" xml:space="preserve">
+    <value>Number of bars of the signal line, a simple moving average of the spread. It restarts with each session.</value>
+  </data>
+  <data name="SignalColor_DisplayName" xml:space="preserve">
+    <value>Signal color</value>
+  </data>
+  <data name="SignalColor_Description" xml:space="preserve">
+    <value>Color of the signal line.</value>
+  </data>
+  <data name="SignalWidth_DisplayName" xml:space="preserve">
+    <value>Signal line width</value>
+  </data>
+  <data name="SignalWidth_Description" xml:space="preserve">
+    <value>Width of the signal line.</value>
+  </data>
+  <data name="UseFourColors_DisplayName" xml:space="preserve">
+    <value>Four colors</value>
+  </data>
+  <data name="UseFourColors_Description" xml:space="preserve">
+    <value>Colors the spread by its sign and by the direction of the signal line (rising or falling), instead of by sign only.</value>
+  </data>
+  <data name="PositiveRisingColor_DisplayName" xml:space="preserve">
+    <value>Positive, signal rising</value>
+  </data>
+  <data name="PositiveRisingColor_Description" xml:space="preserve">
+    <value>Four colors: spread at or above zero with a rising signal.</value>
+  </data>
+  <data name="PositiveFallingColor_DisplayName" xml:space="preserve">
+    <value>Positive, signal falling</value>
+  </data>
+  <data name="PositiveFallingColor_Description" xml:space="preserve">
+    <value>Four colors: spread at or above zero with a falling signal.</value>
+  </data>
+  <data name="NegativeRisingColor_DisplayName" xml:space="preserve">
+    <value>Negative, signal rising</value>
+  </data>
+  <data name="NegativeRisingColor_Description" xml:space="preserve">
+    <value>Four colors: spread below zero with a rising signal.</value>
+  </data>
+  <data name="NegativeFallingColor_DisplayName" xml:space="preserve">
+    <value>Negative, signal falling</value>
+  </data>
+  <data name="NegativeFallingColor_Description" xml:space="preserve">
+    <value>Four colors: spread below zero with a falling signal.</value>
+  </data>
+  <data name="AlertOnZeroCross_DisplayName" xml:space="preserve">
+    <value>Spread crosses zero</value>
+  </data>
+  <data name="AlertOnZeroCross_Description" xml:space="preserve">
+    <value>Alerts when the spread of the forming bar changes sign.</value>
+  </data>
+  <data name="AlertOnSignalCross_DisplayName" xml:space="preserve">
+    <value>Spread crosses signal</value>
+  </data>
+  <data name="AlertOnSignalCross_Description" xml:space="preserve">
+    <value>Alerts when the spread of the forming bar crosses the signal line.</value>
+  </data>
+  <data name="AlertFile_DisplayName" xml:space="preserve">
+    <value>Alert sound</value>
+  </data>
+  <data name="AlertFile_Description" xml:space="preserve">
+    <value>Sound file of the alerts.</value>
+  </data>
+  <data name="AlertCooldownSeconds_DisplayName" xml:space="preserve">
+    <value>Minimum time between alerts (seconds)</value>
+  </data>
+  <data name="AlertCooldownSeconds_Description" xml:space="preserve">
+    <value>Minimum time between two alerts of the same kind. Crosses in between do not alert.</value>
+  </data>
+  <data name="DetailedLog_DisplayName" xml:space="preserve">
+    <value>Detailed log</value>
+  </data>
+  <data name="DetailedLog_Description" xml:space="preserve">
+    <value>Writes to the ATAS log the values of the last 20 bars after each recalculation and of every bar that closes afterwards.</value>
+  </data>
+</root>

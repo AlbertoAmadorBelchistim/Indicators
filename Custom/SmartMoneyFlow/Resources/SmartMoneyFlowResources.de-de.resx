@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SmartMoneyFlow_Description" xml:space="preserve">
+    <value>Kumuliertes Delta von fünf Handelsgrößenfiltern, mit dem Smart-Money-Spread und seiner Signallinie.</value>
+  </data>
+  <data name="Group_View" xml:space="preserve">
+    <value>Ansicht</value>
+  </data>
+  <data name="Group_Calculation" xml:space="preserve">
+    <value>Berechnung</value>
+  </data>
+  <data name="Group_Session" xml:space="preserve">
+    <value>Sitzung</value>
+  </data>
+  <data name="Group_Filter1" xml:space="preserve">
+    <value>Filter 1</value>
+  </data>
+  <data name="Group_Filter2" xml:space="preserve">
+    <value>Filter 2</value>
+  </data>
+  <data name="Group_Filter3" xml:space="preserve">
+    <value>Filter 3</value>
+  </data>
+  <data name="Group_Filter4" xml:space="preserve">
+    <value>Filter 4</value>
+  </data>
+  <data name="Group_Filter5" xml:space="preserve">
+    <value>Filter 5</value>
+  </data>
+  <data name="Group_Spread" xml:space="preserve">
+    <value>Spread</value>
+  </data>
+  <data name="Group_Alerts" xml:space="preserve">
+    <value>Alarme</value>
+  </data>
+  <data name="Group_Diagnostics" xml:space="preserve">
+    <value>Diagnose</value>
+  </data>
+  <data name="SessionMode_Default" xml:space="preserve">
+    <value>Standardsitzung</value>
+  </data>
+  <data name="SessionMode_Custom" xml:space="preserve">
+    <value>Eigene Startzeit</value>
+  </data>
+  <data name="SessionMode_Continuous" xml:space="preserve">
+    <value>Durchgehend</value>
+  </data>
+  <data name="ViewMode_Filters" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="ViewMode_Spread" xml:space="preserve">
+    <value>Smart-Money-Spread</value>
+  </data>
+  <data name="FilterRole_None" xml:space="preserve">
+    <value>Keine</value>
+  </data>
+  <data name="FilterRole_Smart" xml:space="preserve">
+    <value>Smart Money</value>
+  </data>
+  <data name="FilterRole_Dumb" xml:space="preserve">
+    <value>Dumb Money</value>
+  </data>
+  <data name="Series_Filter1" xml:space="preserve">
+    <value>Filter 1</value>
+  </data>
+  <data name="Series_Filter2" xml:space="preserve">
+    <value>Filter 2</value>
+  </data>
+  <data name="Series_Filter3" xml:space="preserve">
+    <value>Filter 3</value>
+  </data>
+  <data name="Series_Filter4" xml:space="preserve">
+    <value>Filter 4</value>
+  </data>
+  <data name="Series_Filter5" xml:space="preserve">
+    <value>Filter 5</value>
+  </data>
+  <data name="Series_Spread" xml:space="preserve">
+    <value>Smart-Money-Spread</value>
+  </data>
+  <data name="Series_Signal" xml:space="preserve">
+    <value>Signal</value>
+  </data>
+  <data name="View_DisplayName" xml:space="preserve">
+    <value>Ansicht</value>
+  </data>
+  <data name="View_Description" xml:space="preserve">
+    <value>Zeigt die Filterlinien oder den Smart-Money-Spread. Das Umschalten berechnet nicht neu.</value>
+  </data>
+  <data name="CumulativeTrades_DisplayName" xml:space="preserve">
+    <value>Kumulierte Trades</value>
+  </data>
+  <data name="CumulativeTrades_Description" xml:space="preserve">
+    <value>Zählt kumulierte Trades (alle Ticks einer aggressiven Order als ein Trade). Aus: zählt einzelne Ticks.</value>
+  </data>
+  <data name="SessionType_DisplayName" xml:space="preserve">
+    <value>Sitzung</value>
+  </data>
+  <data name="SessionType_Description" xml:space="preserve">
+    <value>Wo die Linien bei 0 neu beginnen: bei jeder Standardsitzung des Charts, täglich zu einer eigenen Zeit oder nie (durchgehend).</value>
+  </data>
+  <data name="CustomSessionStart_DisplayName" xml:space="preserve">
+    <value>Beginn der eigenen Sitzung</value>
+  </data>
+  <data name="CustomSessionStart_Description" xml:space="preserve">
+    <value>Startzeit der eigenen Sitzung in Chartzeit. Eine Sitzung dauert bis zur gleichen Uhrzeit am nächsten Tag.</value>
+  </data>
+  <data name="Sessions_DisplayName" xml:space="preserve">
+    <value>Zu berechnende Sitzungen</value>
+  </data>
+  <data name="Sessions_Description" xml:space="preserve">
+    <value>Anzahl der berechneten Sitzungen einschließlich der aktuellen: Standard- oder eigene Sitzungen, im durchgehenden Modus Standardsitzungen. 0 = alle geladenen Kerzen.</value>
+  </data>
+  <data name="FilterEnabled_DisplayName" xml:space="preserve">
+    <value>Aktiviert</value>
+  </data>
+  <data name="FilterEnabled_Description" xml:space="preserve">
+    <value>Zeigt die Linie dieses Filters in der Filteransicht. Der Filter zählt weiterhin im Spread.</value>
+  </data>
+  <data name="FilterMinVolume_DisplayName" xml:space="preserve">
+    <value>Mindestvolumen</value>
+  </data>
+  <data name="FilterMinVolume_Description" xml:space="preserve">
+    <value>Kleinste Handelsgröße, die dieser Filter zählt.</value>
+  </data>
+  <data name="FilterMaxVolume_DisplayName" xml:space="preserve">
+    <value>Höchstvolumen</value>
+  </data>
+  <data name="FilterMaxVolume_Description" xml:space="preserve">
+    <value>Größte Handelsgröße, die dieser Filter zählt. 0 = kein Maximum.</value>
+  </data>
+  <data name="FilterSpreadRole_DisplayName" xml:space="preserve">
+    <value>Rolle im Spread</value>
+  </data>
+  <data name="FilterSpreadRole_Description" xml:space="preserve">
+    <value>Seite des Spreads, auf der dieser Filter zählt: Smart Money (addiert), Dumb Money (subtrahiert) oder keine.</value>
+  </data>
+  <data name="FilterColor_DisplayName" xml:space="preserve">
+    <value>Farbe</value>
+  </data>
+  <data name="FilterColor_Description" xml:space="preserve">
+    <value>Linienfarbe dieses Filters.</value>
+  </data>
+  <data name="FilterLineWidth_DisplayName" xml:space="preserve">
+    <value>Linienbreite</value>
+  </data>
+  <data name="FilterLineWidth_Description" xml:space="preserve">
+    <value>Linienbreite dieses Filters.</value>
+  </data>
+  <data name="SpreadPositiveColor_DisplayName" xml:space="preserve">
+    <value>Positive Farbe</value>
+  </data>
+  <data name="SpreadPositiveColor_Description" xml:space="preserve">
+    <value>Farbe der Spread-Balken bei oder über null (zwei Farben).</value>
+  </data>
+  <data name="SpreadNegativeColor_DisplayName" xml:space="preserve">
+    <value>Negative Farbe</value>
+  </data>
+  <data name="SpreadNegativeColor_Description" xml:space="preserve">
+    <value>Farbe der Spread-Balken unter null (zwei Farben).</value>
+  </data>
+  <data name="ShowSignalLine_DisplayName" xml:space="preserve">
+    <value>Signallinie anzeigen</value>
+  </data>
+  <data name="ShowSignalLine_Description" xml:space="preserve">
+    <value>Zeichnet die Signallinie über den Spread in der Spread-Ansicht.</value>
+  </data>
+  <data name="SignalPeriod_DisplayName" xml:space="preserve">
+    <value>Signalperiode</value>
+  </data>
+  <data name="SignalPeriod_Description" xml:space="preserve">
+    <value>Anzahl der Kerzen der Signallinie, eines einfachen gleitenden Durchschnitts des Spreads. Sie beginnt mit jeder Sitzung neu.</value>
+  </data>
+  <data name="SignalColor_DisplayName" xml:space="preserve">
+    <value>Signalfarbe</value>
+  </data>
+  <data name="SignalColor_Description" xml:space="preserve">
+    <value>Farbe der Signallinie.</value>
+  </data>
+  <data name="SignalWidth_DisplayName" xml:space="preserve">
+    <value>Breite der Signallinie</value>
+  </data>
+  <data name="SignalWidth_Description" xml:space="preserve">
+    <value>Breite der Signallinie.</value>
+  </data>
+  <data name="UseFourColors_DisplayName" xml:space="preserve">
+    <value>Vier Farben</value>
+  </data>
+  <data name="UseFourColors_Description" xml:space="preserve">
+    <value>Färbt den Spread nach Vorzeichen und Richtung der Signallinie (steigend oder fallend) statt nur nach Vorzeichen.</value>
+  </data>
+  <data name="PositiveRisingColor_DisplayName" xml:space="preserve">
+    <value>Positiv, Signal steigend</value>
+  </data>
+  <data name="PositiveRisingColor_Description" xml:space="preserve">
+    <value>Vier Farben: Spread bei oder über null bei steigendem Signal.</value>
+  </data>
+  <data name="PositiveFallingColor_DisplayName" xml:space="preserve">
+    <value>Positiv, Signal fallend</value>
+  </data>
+  <data name="PositiveFallingColor_Description" xml:space="preserve">
+    <value>Vier Farben: Spread bei oder über null bei fallendem Signal.</value>
+  </data>
+  <data name="NegativeRisingColor_DisplayName" xml:space="preserve">
+    <value>Negativ, Signal steigend</value>
+  </data>
+  <data name="NegativeRisingColor_Description" xml:space="preserve">
+    <value>Vier Farben: Spread unter null bei steigendem Signal.</value>
+  </data>
+  <data name="NegativeFallingColor_DisplayName" xml:space="preserve">
+    <value>Negativ, Signal fallend</value>
+  </data>
+  <data name="NegativeFallingColor_Description" xml:space="preserve">
+    <value>Vier Farben: Spread unter null bei fallendem Signal.</value>
+  </data>
+  <data name="AlertOnZeroCross_DisplayName" xml:space="preserve">
+    <value>Spread kreuzt null</value>
+  </data>
+  <data name="AlertOnZeroCross_Description" xml:space="preserve">
+    <value>Alarmiert, wenn der Spread der laufenden Kerze das Vorzeichen wechselt.</value>
+  </data>
+  <data name="AlertOnSignalCross_DisplayName" xml:space="preserve">
+    <value>Spread kreuzt Signal</value>
+  </data>
+  <data name="AlertOnSignalCross_Description" xml:space="preserve">
+    <value>Alarmiert, wenn der Spread der laufenden Kerze die Signallinie kreuzt.</value>
+  </data>
+  <data name="AlertFile_DisplayName" xml:space="preserve">
+    <value>Alarmton</value>
+  </data>
+  <data name="AlertFile_Description" xml:space="preserve">
+    <value>Tondatei der Alarme.</value>
+  </data>
+  <data name="AlertCooldownSeconds_DisplayName" xml:space="preserve">
+    <value>Mindestabstand zwischen Alarmen (Sekunden)</value>
+  </data>
+  <data name="AlertCooldownSeconds_Description" xml:space="preserve">
+    <value>Mindestzeit zwischen zwei Alarmen derselben Art. Kreuzungen dazwischen lösen keinen Alarm aus.</value>
+  </data>
+  <data name="DetailedLog_DisplayName" xml:space="preserve">
+    <value>Ausführliches Protokoll</value>
+  </data>
+  <data name="DetailedLog_Description" xml:space="preserve">
+    <value>Schreibt die Werte der letzten 20 Kerzen nach jeder Neuberechnung und jeder danach geschlossenen Kerze ins ATAS-Protokoll.</value>
+  </data>
+</root>

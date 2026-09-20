@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SmartMoneyFlow_Description" xml:space="preserve">
+    <value>ट्रेड आकार के पाँच फ़िल्टरों का संचयी डेल्टा, स्मार्ट मनी स्प्रेड और उसकी सिग्नल लाइन के साथ।</value>
+  </data>
+  <data name="Group_View" xml:space="preserve">
+    <value>दृश्य</value>
+  </data>
+  <data name="Group_Calculation" xml:space="preserve">
+    <value>गणना</value>
+  </data>
+  <data name="Group_Session" xml:space="preserve">
+    <value>सत्र</value>
+  </data>
+  <data name="Group_Filter1" xml:space="preserve">
+    <value>फ़िल्टर 1</value>
+  </data>
+  <data name="Group_Filter2" xml:space="preserve">
+    <value>फ़िल्टर 2</value>
+  </data>
+  <data name="Group_Filter3" xml:space="preserve">
+    <value>फ़िल्टर 3</value>
+  </data>
+  <data name="Group_Filter4" xml:space="preserve">
+    <value>फ़िल्टर 4</value>
+  </data>
+  <data name="Group_Filter5" xml:space="preserve">
+    <value>फ़िल्टर 5</value>
+  </data>
+  <data name="Group_Spread" xml:space="preserve">
+    <value>स्प्रेड</value>
+  </data>
+  <data name="Group_Alerts" xml:space="preserve">
+    <value>अलर्ट</value>
+  </data>
+  <data name="Group_Diagnostics" xml:space="preserve">
+    <value>निदान</value>
+  </data>
+  <data name="SessionMode_Default" xml:space="preserve">
+    <value>डिफ़ॉल्ट सत्र</value>
+  </data>
+  <data name="SessionMode_Custom" xml:space="preserve">
+    <value>कस्टम प्रारंभ समय</value>
+  </data>
+  <data name="SessionMode_Continuous" xml:space="preserve">
+    <value>निरंतर</value>
+  </data>
+  <data name="ViewMode_Filters" xml:space="preserve">
+    <value>फ़िल्टर</value>
+  </data>
+  <data name="ViewMode_Spread" xml:space="preserve">
+    <value>स्मार्ट मनी स्प्रेड</value>
+  </data>
+  <data name="FilterRole_None" xml:space="preserve">
+    <value>कोई नहीं</value>
+  </data>
+  <data name="FilterRole_Smart" xml:space="preserve">
+    <value>स्मार्ट मनी</value>
+  </data>
+  <data name="FilterRole_Dumb" xml:space="preserve">
+    <value>डम्ब मनी</value>
+  </data>
+  <data name="Series_Filter1" xml:space="preserve">
+    <value>फ़िल्टर 1</value>
+  </data>
+  <data name="Series_Filter2" xml:space="preserve">
+    <value>फ़िल्टर 2</value>
+  </data>
+  <data name="Series_Filter3" xml:space="preserve">
+    <value>फ़िल्टर 3</value>
+  </data>
+  <data name="Series_Filter4" xml:space="preserve">
+    <value>फ़िल्टर 4</value>
+  </data>
+  <data name="Series_Filter5" xml:space="preserve">
+    <value>फ़िल्टर 5</value>
+  </data>
+  <data name="Series_Spread" xml:space="preserve">
+    <value>स्मार्ट मनी स्प्रेड</value>
+  </data>
+  <data name="Series_Signal" xml:space="preserve">
+    <value>सिग्नल</value>
+  </data>
+  <data name="View_DisplayName" xml:space="preserve">
+    <value>दृश्य</value>
+  </data>
+  <data name="View_Description" xml:space="preserve">
+    <value>फ़िल्टर लाइनें या स्मार्ट मनी स्प्रेड दिखाता है। बदलने से पुनर्गणना नहीं होती।</value>
+  </data>
+  <data name="CumulativeTrades_DisplayName" xml:space="preserve">
+    <value>संचयी ट्रेड</value>
+  </data>
+  <data name="CumulativeTrades_Description" xml:space="preserve">
+    <value>संचयी ट्रेड गिनता है (एक आक्रामक ऑर्डर के सभी टिक एक ट्रेड के रूप में)। बंद: अलग-अलग टिक गिनता है।</value>
+  </data>
+  <data name="SessionType_DisplayName" xml:space="preserve">
+    <value>सत्र</value>
+  </data>
+  <data name="SessionType_Description" xml:space="preserve">
+    <value>लाइनें 0 से कहाँ फिर शुरू होती हैं: चार्ट के हर डिफ़ॉल्ट सत्र पर, हर दिन कस्टम समय पर, या कभी नहीं (निरंतर)।</value>
+  </data>
+  <data name="CustomSessionStart_DisplayName" xml:space="preserve">
+    <value>कस्टम सत्र प्रारंभ</value>
+  </data>
+  <data name="CustomSessionStart_Description" xml:space="preserve">
+    <value>कस्टम सत्र का प्रारंभ समय, चार्ट समय में। एक सत्र अगले दिन उसी समय तक चलता है।</value>
+  </data>
+  <data name="Sessions_DisplayName" xml:space="preserve">
+    <value>गणना के सत्र</value>
+  </data>
+  <data name="Sessions_Description" xml:space="preserve">
+    <value>गणना किए जाने वाले सत्रों की संख्या, वर्तमान सहित: डिफ़ॉल्ट या कस्टम सत्र, और निरंतर मोड में डिफ़ॉल्ट सत्र। 0 = सभी लोड किए गए बार।</value>
+  </data>
+  <data name="FilterEnabled_DisplayName" xml:space="preserve">
+    <value>सक्रिय</value>
+  </data>
+  <data name="FilterEnabled_Description" xml:space="preserve">
+    <value>फ़िल्टर दृश्य में इस फ़िल्टर की लाइन दिखाता है। फ़िल्टर स्प्रेड में गिना जाता रहता है।</value>
+  </data>
+  <data name="FilterMinVolume_DisplayName" xml:space="preserve">
+    <value>न्यूनतम वॉल्यूम</value>
+  </data>
+  <data name="FilterMinVolume_Description" xml:space="preserve">
+    <value>इस फ़िल्टर द्वारा गिना जाने वाला सबसे छोटा ट्रेड आकार।</value>
+  </data>
+  <data name="FilterMaxVolume_DisplayName" xml:space="preserve">
+    <value>अधिकतम वॉल्यूम</value>
+  </data>
+  <data name="FilterMaxVolume_Description" xml:space="preserve">
+    <value>इस फ़िल्टर द्वारा गिना जाने वाला सबसे बड़ा ट्रेड आकार। 0 = कोई अधिकतम नहीं।</value>
+  </data>
+  <data name="FilterSpreadRole_DisplayName" xml:space="preserve">
+    <value>स्प्रेड में भूमिका</value>
+  </data>
+  <data name="FilterSpreadRole_Description" xml:space="preserve">
+    <value>स्प्रेड का वह पक्ष जिस पर यह फ़िल्टर गिना जाता है: स्मार्ट मनी (जोड़ा), डम्ब मनी (घटाया) या कोई नहीं।</value>
+  </data>
+  <data name="FilterColor_DisplayName" xml:space="preserve">
+    <value>रंग</value>
+  </data>
+  <data name="FilterColor_Description" xml:space="preserve">
+    <value>इस फ़िल्टर की लाइन का रंग।</value>
+  </data>
+  <data name="FilterLineWidth_DisplayName" xml:space="preserve">
+    <value>लाइन की मोटाई</value>
+  </data>
+  <data name="FilterLineWidth_Description" xml:space="preserve">
+    <value>इस फ़िल्टर की लाइन की मोटाई।</value>
+  </data>
+  <data name="SpreadPositiveColor_DisplayName" xml:space="preserve">
+    <value>धनात्मक रंग</value>
+  </data>
+  <data name="SpreadPositiveColor_Description" xml:space="preserve">
+    <value>शून्य या उससे ऊपर स्प्रेड बार का रंग (दो रंग)।</value>
+  </data>
+  <data name="SpreadNegativeColor_DisplayName" xml:space="preserve">
+    <value>ऋणात्मक रंग</value>
+  </data>
+  <data name="SpreadNegativeColor_Description" xml:space="preserve">
+    <value>शून्य से नीचे स्प्रेड बार का रंग (दो रंग)।</value>
+  </data>
+  <data name="ShowSignalLine_DisplayName" xml:space="preserve">
+    <value>सिग्नल लाइन दिखाएँ</value>
+  </data>
+  <data name="ShowSignalLine_Description" xml:space="preserve">
+    <value>स्प्रेड दृश्य में स्प्रेड के ऊपर सिग्नल लाइन बनाता है।</value>
+  </data>
+  <data name="SignalPeriod_DisplayName" xml:space="preserve">
+    <value>सिग्नल अवधि</value>
+  </data>
+  <data name="SignalPeriod_Description" xml:space="preserve">
+    <value>सिग्नल लाइन के बार की संख्या, जो स्प्रेड का साधारण मूविंग एवरेज है। हर सत्र के साथ फिर शुरू होती है।</value>
+  </data>
+  <data name="SignalColor_DisplayName" xml:space="preserve">
+    <value>सिग्नल का रंग</value>
+  </data>
+  <data name="SignalColor_Description" xml:space="preserve">
+    <value>सिग्नल लाइन का रंग।</value>
+  </data>
+  <data name="SignalWidth_DisplayName" xml:space="preserve">
+    <value>सिग्नल लाइन की मोटाई</value>
+  </data>
+  <data name="SignalWidth_Description" xml:space="preserve">
+    <value>सिग्नल लाइन की मोटाई।</value>
+  </data>
+  <data name="UseFourColors_DisplayName" xml:space="preserve">
+    <value>चार रंग</value>
+  </data>
+  <data name="UseFourColors_Description" xml:space="preserve">
+    <value>स्प्रेड को केवल चिह्न के बजाय उसके चिह्न और सिग्नल लाइन की दिशा (बढ़ती या घटती) से रंगता है।</value>
+  </data>
+  <data name="PositiveRisingColor_DisplayName" xml:space="preserve">
+    <value>धनात्मक, सिग्नल बढ़ रहा</value>
+  </data>
+  <data name="PositiveRisingColor_Description" xml:space="preserve">
+    <value>चार रंग: शून्य या उससे ऊपर स्प्रेड, सिग्नल बढ़ रहा।</value>
+  </data>
+  <data name="PositiveFallingColor_DisplayName" xml:space="preserve">
+    <value>धनात्मक, सिग्नल घट रहा</value>
+  </data>
+  <data name="PositiveFallingColor_Description" xml:space="preserve">
+    <value>चार रंग: शून्य या उससे ऊपर स्प्रेड, सिग्नल घट रहा।</value>
+  </data>
+  <data name="NegativeRisingColor_DisplayName" xml:space="preserve">
+    <value>ऋणात्मक, सिग्नल बढ़ रहा</value>
+  </data>
+  <data name="NegativeRisingColor_Description" xml:space="preserve">
+    <value>चार रंग: शून्य से नीचे स्प्रेड, सिग्नल बढ़ रहा।</value>
+  </data>
+  <data name="NegativeFallingColor_DisplayName" xml:space="preserve">
+    <value>ऋणात्मक, सिग्नल घट रहा</value>
+  </data>
+  <data name="NegativeFallingColor_Description" xml:space="preserve">
+    <value>चार रंग: शून्य से नीचे स्प्रेड, सिग्नल घट रहा।</value>
+  </data>
+  <data name="AlertOnZeroCross_DisplayName" xml:space="preserve">
+    <value>स्प्रेड शून्य पार करे</value>
+  </data>
+  <data name="AlertOnZeroCross_Description" xml:space="preserve">
+    <value>जब बनते बार का स्प्रेड चिह्न बदलता है तो अलर्ट देता है।</value>
+  </data>
+  <data name="AlertOnSignalCross_DisplayName" xml:space="preserve">
+    <value>स्प्रेड सिग्नल पार करे</value>
+  </data>
+  <data name="AlertOnSignalCross_Description" xml:space="preserve">
+    <value>जब बनते बार का स्प्रेड सिग्नल लाइन पार करता है तो अलर्ट देता है।</value>
+  </data>
+  <data name="AlertFile_DisplayName" xml:space="preserve">
+    <value>अलर्ट ध्वनि</value>
+  </data>
+  <data name="AlertFile_Description" xml:space="preserve">
+    <value>अलर्ट की ध्वनि फ़ाइल।</value>
+  </data>
+  <data name="AlertCooldownSeconds_DisplayName" xml:space="preserve">
+    <value>अलर्ट के बीच न्यूनतम समय (सेकंड)</value>
+  </data>
+  <data name="AlertCooldownSeconds_Description" xml:space="preserve">
+    <value>एक ही प्रकार के दो अलर्ट के बीच न्यूनतम समय। बीच में होने वाले क्रॉस पर अलर्ट नहीं होता।</value>
+  </data>
+  <data name="DetailedLog_DisplayName" xml:space="preserve">
+    <value>विस्तृत लॉग</value>
+  </data>
+  <data name="DetailedLog_Description" xml:space="preserve">
+    <value>हर पुनर्गणना के बाद अंतिम 20 बार और उसके बाद बंद होने वाले हर बार के मान ATAS लॉग में लिखता है।</value>
+  </data>
+</root>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SmartMoneyFlow_Description" xml:space="preserve">
+    <value>Кумулятивная дельта пяти фильтров по размеру сделок со спредом «умных денег» и его сигнальной линией.</value>
+  </data>
+  <data name="Group_View" xml:space="preserve">
+    <value>Вид</value>
+  </data>
+  <data name="Group_Calculation" xml:space="preserve">
+    <value>Расчёт</value>
+  </data>
+  <data name="Group_Session" xml:space="preserve">
+    <value>Сессия</value>
+  </data>
+  <data name="Group_Filter1" xml:space="preserve">
+    <value>Фильтр 1</value>
+  </data>
+  <data name="Group_Filter2" xml:space="preserve">
+    <value>Фильтр 2</value>
+  </data>
+  <data name="Group_Filter3" xml:space="preserve">
+    <value>Фильтр 3</value>
+  </data>
+  <data name="Group_Filter4" xml:space="preserve">
+    <value>Фильтр 4</value>
+  </data>
+  <data name="Group_Filter5" xml:space="preserve">
+    <value>Фильтр 5</value>
+  </data>
+  <data name="Group_Spread" xml:space="preserve">
+    <value>Спред</value>
+  </data>
+  <data name="Group_Alerts" xml:space="preserve">
+    <value>Оповещения</value>
+  </data>
+  <data name="Group_Diagnostics" xml:space="preserve">
+    <value>Диагностика</value>
+  </data>
+  <data name="SessionMode_Default" xml:space="preserve">
+    <value>Сессия по умолчанию</value>
+  </data>
+  <data name="SessionMode_Custom" xml:space="preserve">
+    <value>Своё время начала</value>
+  </data>
+  <data name="SessionMode_Continuous" xml:space="preserve">
+    <value>Непрерывно</value>
+  </data>
+  <data name="ViewMode_Filters" xml:space="preserve">
+    <value>Фильтры</value>
+  </data>
+  <data name="ViewMode_Spread" xml:space="preserve">
+    <value>Спред «умных денег»</value>
+  </data>
+  <data name="FilterRole_None" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="FilterRole_Smart" xml:space="preserve">
+    <value>«Умные деньги»</value>
+  </data>
+  <data name="FilterRole_Dumb" xml:space="preserve">
+    <value>«Глупые деньги»</value>
+  </data>
+  <data name="Series_Filter1" xml:space="preserve">
+    <value>Фильтр 1</value>
+  </data>
+  <data name="Series_Filter2" xml:space="preserve">
+    <value>Фильтр 2</value>
+  </data>
+  <data name="Series_Filter3" xml:space="preserve">
+    <value>Фильтр 3</value>
+  </data>
+  <data name="Series_Filter4" xml:space="preserve">
+    <value>Фильтр 4</value>
+  </data>
+  <data name="Series_Filter5" xml:space="preserve">
+    <value>Фильтр 5</value>
+  </data>
+  <data name="Series_Spread" xml:space="preserve">
+    <value>Спред «умных денег»</value>
+  </data>
+  <data name="Series_Signal" xml:space="preserve">
+    <value>Сигнал</value>
+  </data>
+  <data name="View_DisplayName" xml:space="preserve">
+    <value>Вид</value>
+  </data>
+  <data name="View_Description" xml:space="preserve">
+    <value>Показывает линии фильтров или спред «умных денег». Переключение не вызывает пересчёт.</value>
+  </data>
+  <data name="CumulativeTrades_DisplayName" xml:space="preserve">
+    <value>Кумулятивные сделки</value>
+  </data>
+  <data name="CumulativeTrades_Description" xml:space="preserve">
+    <value>Считает кумулятивные сделки (все тики одного агрессивного ордера как одну сделку). Выключено: считает отдельные тики.</value>
+  </data>
+  <data name="SessionType_DisplayName" xml:space="preserve">
+    <value>Сессия</value>
+  </data>
+  <data name="SessionType_Description" xml:space="preserve">
+    <value>Где линии начинаются с 0: в каждой сессии графика по умолчанию, каждый день в своё время или никогда (непрерывно).</value>
+  </data>
+  <data name="CustomSessionStart_DisplayName" xml:space="preserve">
+    <value>Начало своей сессии</value>
+  </data>
+  <data name="CustomSessionStart_Description" xml:space="preserve">
+    <value>Время начала своей сессии по времени графика. Сессия длится до того же времени следующего дня.</value>
+  </data>
+  <data name="Sessions_DisplayName" xml:space="preserve">
+    <value>Сессий для расчёта</value>
+  </data>
+  <data name="Sessions_Description" xml:space="preserve">
+    <value>Число рассчитываемых сессий, включая текущую: по умолчанию или свои, в непрерывном режиме — по умолчанию. 0 = все загруженные бары.</value>
+  </data>
+  <data name="FilterEnabled_DisplayName" xml:space="preserve">
+    <value>Включено</value>
+  </data>
+  <data name="FilterEnabled_Description" xml:space="preserve">
+    <value>Показывает линию этого фильтра в виде «Фильтры». Фильтр по-прежнему учитывается в спреде.</value>
+  </data>
+  <data name="FilterMinVolume_DisplayName" xml:space="preserve">
+    <value>Минимальный объём</value>
+  </data>
+  <data name="FilterMinVolume_Description" xml:space="preserve">
+    <value>Наименьший размер сделки, учитываемый этим фильтром.</value>
+  </data>
+  <data name="FilterMaxVolume_DisplayName" xml:space="preserve">
+    <value>Максимальный объём</value>
+  </data>
+  <data name="FilterMaxVolume_Description" xml:space="preserve">
+    <value>Наибольший размер сделки, учитываемый этим фильтром. 0 = без максимума.</value>
+  </data>
+  <data name="FilterSpreadRole_DisplayName" xml:space="preserve">
+    <value>Роль в спреде</value>
+  </data>
+  <data name="FilterSpreadRole_Description" xml:space="preserve">
+    <value>Сторона спреда, на которой учитывается фильтр: «умные деньги» (прибавляются), «глупые деньги» (вычитаются) или нет.</value>
+  </data>
+  <data name="FilterColor_DisplayName" xml:space="preserve">
+    <value>Цвет</value>
+  </data>
+  <data name="FilterColor_Description" xml:space="preserve">
+    <value>Цвет линии этого фильтра.</value>
+  </data>
+  <data name="FilterLineWidth_DisplayName" xml:space="preserve">
+    <value>Толщина линии</value>
+  </data>
+  <data name="FilterLineWidth_Description" xml:space="preserve">
+    <value>Толщина линии этого фильтра.</value>
+  </data>
+  <data name="SpreadPositiveColor_DisplayName" xml:space="preserve">
+    <value>Положительный цвет</value>
+  </data>
+  <data name="SpreadPositiveColor_Description" xml:space="preserve">
+    <value>Цвет столбцов спреда на нуле и выше (два цвета).</value>
+  </data>
+  <data name="SpreadNegativeColor_DisplayName" xml:space="preserve">
+    <value>Отрицательный цвет</value>
+  </data>
+  <data name="SpreadNegativeColor_Description" xml:space="preserve">
+    <value>Цвет столбцов спреда ниже нуля (два цвета).</value>
+  </data>
+  <data name="ShowSignalLine_DisplayName" xml:space="preserve">
+    <value>Показывать сигнальную линию</value>
+  </data>
+  <data name="ShowSignalLine_Description" xml:space="preserve">
+    <value>Рисует сигнальную линию поверх спреда в виде «Спред».</value>
+  </data>
+  <data name="SignalPeriod_DisplayName" xml:space="preserve">
+    <value>Период сигнала</value>
+  </data>
+  <data name="SignalPeriod_Description" xml:space="preserve">
+    <value>Число баров сигнальной линии — простой скользящей средней спреда. Начинается заново с каждой сессией.</value>
+  </data>
+  <data name="SignalColor_DisplayName" xml:space="preserve">
+    <value>Цвет сигнала</value>
+  </data>
+  <data name="SignalColor_Description" xml:space="preserve">
+    <value>Цвет сигнальной линии.</value>
+  </data>
+  <data name="SignalWidth_DisplayName" xml:space="preserve">
+    <value>Толщина сигнальной линии</value>
+  </data>
+  <data name="SignalWidth_Description" xml:space="preserve">
+    <value>Толщина сигнальной линии.</value>
+  </data>
+  <data name="UseFourColors_DisplayName" xml:space="preserve">
+    <value>Четыре цвета</value>
+  </data>
+  <data name="UseFourColors_Description" xml:space="preserve">
+    <value>Окрашивает спред по знаку и направлению сигнальной линии (растёт или падает), а не только по знаку.</value>
+  </data>
+  <data name="PositiveRisingColor_DisplayName" xml:space="preserve">
+    <value>Положительный, сигнал растёт</value>
+  </data>
+  <data name="PositiveRisingColor_Description" xml:space="preserve">
+    <value>Четыре цвета: спред на нуле и выше при растущем сигнале.</value>
+  </data>
+  <data name="PositiveFallingColor_DisplayName" xml:space="preserve">
+    <value>Положительный, сигнал падает</value>
+  </data>
+  <data name="PositiveFallingColor_Description" xml:space="preserve">
+    <value>Четыре цвета: спред на нуле и выше при падающем сигнале.</value>
+  </data>
+  <data name="NegativeRisingColor_DisplayName" xml:space="preserve">
+    <value>Отрицательный, сигнал растёт</value>
+  </data>
+  <data name="NegativeRisingColor_Description" xml:space="preserve">
+    <value>Четыре цвета: спред ниже нуля при растущем сигнале.</value>
+  </data>
+  <data name="NegativeFallingColor_DisplayName" xml:space="preserve">
+    <value>Отрицательный, сигнал падает</value>
+  </data>
+  <data name="NegativeFallingColor_Description" xml:space="preserve">
+    <value>Четыре цвета: спред ниже нуля при падающем сигнале.</value>
+  </data>
+  <data name="AlertOnZeroCross_DisplayName" xml:space="preserve">
+    <value>Спред пересекает ноль</value>
+  </data>
+  <data name="AlertOnZeroCross_Description" xml:space="preserve">
+    <value>Оповещает, когда спред формирующегося бара меняет знак.</value>
+  </data>
+  <data name="AlertOnSignalCross_DisplayName" xml:space="preserve">
+    <value>Спред пересекает сигнал</value>
+  </data>
+  <data name="AlertOnSignalCross_Description" xml:space="preserve">
+    <value>Оповещает, когда спред формирующегося бара пересекает сигнальную линию.</value>
+  </data>
+  <data name="AlertFile_DisplayName" xml:space="preserve">
+    <value>Звук оповещения</value>
+  </data>
+  <data name="AlertFile_Description" xml:space="preserve">
+    <value>Звуковой файл оповещений.</value>
+  </data>
+  <data name="AlertCooldownSeconds_DisplayName" xml:space="preserve">
+    <value>Минимальный интервал между оповещениями (секунды)</value>
+  </data>
+  <data name="AlertCooldownSeconds_Description" xml:space="preserve">
+    <value>Минимальное время между двумя оповещениями одного типа. Пересечения в этот промежуток не оповещаются.</value>
+  </data>
+  <data name="DetailedLog_DisplayName" xml:space="preserve">
+    <value>Подробный журнал</value>
+  </data>
+  <data name="DetailedLog_Description" xml:space="preserve">
+    <value>Записывает в журнал ATAS значения последних 20 баров после каждого пересчёта и каждого закрывшегося затем бара.</value>
+  </data>
+</root>
