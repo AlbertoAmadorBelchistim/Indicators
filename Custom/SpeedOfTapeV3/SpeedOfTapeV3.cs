@@ -386,6 +386,7 @@ namespace ATAS.Indicators.Technical
         private int _contextWindowMinutes = 15;
         private int _thresholdPercentile = 97;
         private int _sessionsToCalculate = 5;
+        private decimal _manualThreshold;
 
         // Alerts settings backing fields.
         private bool _useAlerts;
@@ -456,6 +457,17 @@ namespace ATAS.Indicators.Technical
         {
             get => _thresholdPercentile;
             set { _thresholdPercentile = value; RecalculateValues(); }
+        }
+
+        [Display(Name = "Manual threshold",
+                 GroupName = "Threshold",
+                 Description = "Fixed speed above which a burst is detected, in the units of the data type. 0 uses the percentile of the context window.",
+                 Order = 30)]
+        [Range(0, 100000000)]
+        public decimal ManualThreshold
+        {
+            get => _manualThreshold;
+            set { _manualThreshold = Math.Max(0m, value); RecalculateValues(); }
         }
 
         [Display(Name = "Zone display",
@@ -1012,7 +1024,9 @@ namespace ATAS.Indicators.Technical
             _speedBuffer.Enqueue(new SpeedObservation(now, _currentSnapshot.Speed));
             InsertSorted(_currentSnapshot.Speed);
             TrimSpeedBuffer(now);
-            _currentThreshold = ComputePercentile(_thresholdPercentile);
+            _currentThreshold = _manualThreshold > 0m
+                ? _manualThreshold
+                : ComputePercentile(_thresholdPercentile);
         }
 
         /// <summary>
@@ -1071,7 +1085,9 @@ namespace ATAS.Indicators.Technical
             decimal current = _currentSnapshot.Speed;
             decimal threshold = _currentThreshold;
 
-            if (threshold <= 0m || _speedBuffer.Count < MinSamplesForDetection)
+            // The warm-up only applies to the percentile: a manual threshold is valid from the
+            // first sample.
+            if (threshold <= 0m || (_manualThreshold <= 0m && _speedBuffer.Count < MinSamplesForDetection))
             {
                 _lastSpeed = current;
                 return;
