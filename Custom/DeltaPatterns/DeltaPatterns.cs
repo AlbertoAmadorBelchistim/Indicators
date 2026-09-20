@@ -494,6 +494,10 @@ namespace ATAS.Indicators.Technical
 
 		private DateTime _lastAlertTime = DateTime.MinValue;
 
+		// Pattern of the rolling window after the last processed tick. Alerts fire when it changes,
+		// so a pattern that persists into the next bar does not alert again.
+		private DeltaPattern _lastObservedPattern = DeltaPattern.None;
+
 		private DebugOverlayMode _debugOverlayMode = DebugOverlayMode.Off;
 		private DebugOverlayCorner _debugOverlayCorner = DebugOverlayCorner.TopRight;
 		private readonly RenderFont _hudFont = new RenderFont("Consolas", 11);
@@ -883,18 +887,22 @@ namespace ATAS.Indicators.Technical
 					return;
 				}
 
-				var liveBar = CurrentBar - 1;
-				if (liveBar < 0) return;
+				if (CurrentBar == 0) return;
 
-				oldPattern = _patterns.Get(liveBar);
 				ProcessTick(trade);
-				newPattern = _patterns.Get(liveBar);
+
+				if (_lastSnapshotBar < 0) return;
+
+				// Compare with the pattern after the previous tick, not with the one stored for the
+				// bar: the first tick of a new bar would otherwise see no pattern and alert again
+				// for a pattern that simply carries on.
+				oldPattern = _lastObservedPattern;
+				newPattern = _patterns.Get(_lastSnapshotBar);
+				_lastObservedPattern = newPattern;
 			}
 
-			// Alert firing happens outside the lock so AddAlert's I/O does
-			// not stall the market-data thread. We only fire on transitions
-			// (oldPattern != newPattern) to debounce constant re-classifications
-			// of the same pattern across consecutive ticks.
+			// Alert firing happens outside the lock so AddAlert's I/O does not stall the
+			// market-data thread.
 			if (newPattern != DeltaPattern.None && newPattern != oldPattern)
 				TryFireAlert(newPattern);
 		}
@@ -1190,6 +1198,7 @@ namespace ATAS.Indicators.Technical
 					if (_pendingTicks.Count == 0)
 					{
 						_historyLoaded = true;
+						_lastObservedPattern = _lastSnapshotBar >= 0 ? _patterns.Get(_lastSnapshotBar) : DeltaPattern.None;
 						break;
 					}
 
