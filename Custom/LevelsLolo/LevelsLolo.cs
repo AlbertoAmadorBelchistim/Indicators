@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Utils.Common.Logging;
 
 namespace ATAS.Indicators.Technical
 {
@@ -85,11 +86,12 @@ namespace ATAS.Indicators.Technical
                                   .Where(ml => ml.Winner != null)
                                   .OrderBy(ml => ml.Price)
                                   .ToArray();
-                RecalculateValues();
+                RedrawChart();
             }
         }
 
-        [Display(Name = "Clear text now", GroupName = "Data", Order = 2)]
+        [Display(Name = "Clear text now", GroupName = "Data", Order = 2,
+                 Description = "Clears the raw text and every level. Self-resets.")]
         public bool ClearTextNow
         {
             get => false;
@@ -120,14 +122,16 @@ namespace ATAS.Indicators.Technical
             {
                 _fontSize = value;
                 _font = new RenderFont("Arial", _fontSize);
-                RecalculateValues();
+                RedrawChart();
             }
         }
 
-        [Display(Name = "Thick up to rank", GroupName = "Width tiers", Order = 1)]
+        [Display(Name = "Thick up to rank", GroupName = "Width tiers", Order = 1,
+                 Description = "Levels with this rank or stronger (lower number) use the thick width and alpha. Labels without a number count as rank 0.")]
         [Range(1, 20)] public int ThickMaxRank { get; set; } = 3;
 
-        [Display(Name = "Medium up to rank", GroupName = "Width tiers", Order = 2)]
+        [Display(Name = "Medium up to rank", GroupName = "Width tiers", Order = 2,
+                 Description = "Levels up to this rank use the medium width and alpha; weaker ones the thin ones. Zero gamma is always thin.")]
         [Range(1, 50)] public int MediumMaxRank { get; set; } = 10;
 
         [Display(Name = "Width (thick)", GroupName = "Width tiers", Order = 3)][Range(1, 8)] public int ThickWidth { get; set; } = 3;
@@ -162,14 +166,16 @@ namespace ATAS.Indicators.Technical
         [Display(Name = "Enable 0DTE halo", GroupName = "Accents", Order = 1)]
         public bool Enable0DTEHalo { get; set; } = true;
 
-        [Display(Name = "0DTE halo pen", GroupName = "Accents", Order = 2)]
+        [Display(Name = "0DTE halo pen", GroupName = "Accents", Order = 2,
+                 Description = "Colour of the halo under 0DTE levels. Its width and alpha come from the two settings below.")]
         public PenSettings Pen0DTEHalo { get => _pen0DTEHalo; set => _pen0DTEHalo = value; }
 
         [Display(Name = "0DTE halo alpha (0-255)", GroupName = "Accents", Order = 3)]
         [Range(0, 255)]
         public int HaloAlpha { get; set; } = 120;
 
-        [Display(Name = "0DTE halo extra width (px)", GroupName = "Accents", Order = 4)]
+        [Display(Name = "0DTE halo extra width (px)", GroupName = "Accents", Order = 4,
+                 Description = "Width of the halo beyond the width of the level line.")]
         [Range(0, 10)]
         public int HaloExtraWidth { get; set; } = 2;
 
@@ -191,6 +197,11 @@ namespace ATAS.Indicators.Technical
         #endregion
 
         #region Overrides
+
+        protected override void OnInitialize()
+        {
+            this.LogInfo($"LevelsLolo: initialized ({typeof(LevelsLolo).Assembly.GetName().Version}).");
+        }
 
         protected override void OnCalculate(int bar, decimal value) { }
 
