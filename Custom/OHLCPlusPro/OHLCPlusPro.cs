@@ -384,6 +384,7 @@ public class OHLCPlusPro : Indicator
     // Rebuilt on every frame: the labels of the frame and the rectangles already taken.
     private readonly List<LabelRequest> _labelQueue = new(64);
     private readonly List<Rectangle> _placedLabels = new(64);
+    private readonly List<(LabelRequest Request, Rectangle Rect, Size Size)> _placedRequests = new(64);
     private readonly List<(int Left, int Right)> _lineHoles = new(16);
 
     /// <summary>Room left around a label before another one is considered to be on top of it.</summary>
@@ -2117,7 +2118,7 @@ public class OHLCPlusPro : Indicator
             return byPriority != 0 ? byPriority : a.Sequence.CompareTo(b.Sequence);
         });
 
-        var placed = new List<(LabelRequest Request, Rectangle Rect, Size Size)>(_labelQueue.Count);
+        _placedRequests.Clear();
 
         foreach (var request in _labelQueue)
         {
@@ -2130,11 +2131,11 @@ public class OHLCPlusPro : Indicator
             if (_avoidLabelOverlap)
                 rect = FindFreeSpot(rect, request);
 
-            placed.Add((request, rect, size));
+            _placedRequests.Add((request, rect, size));
             _placedLabels.Add(rect);
         }
 
-        foreach (var (request, rect, size) in placed)
+        foreach (var (request, rect, size) in _placedRequests)
             DrawTextLabel(context, request, rect, size);
 
         foreach (var request in _labelQueue)
