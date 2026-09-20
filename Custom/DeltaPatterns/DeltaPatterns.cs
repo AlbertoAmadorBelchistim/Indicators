@@ -1066,6 +1066,10 @@ namespace ATAS.Indicators.Technical
 			decimal threshold = (decimal)TargetVolume * (Divergence.MinDeltaPercent / 100m);
 			if (Math.Abs(m.Delta) <= threshold) return null;
 
+			// A window that closes where it opened has no price direction to diverge from. Without
+			// this check a flat window counted as "price down" and only positive delta diverged.
+			if (m.ClosePrice == m.OpenPrice) return null;
+
 			bool priceUp = m.ClosePrice > m.OpenPrice;
 			bool deltaUp = m.Delta > 0m;
 			if (priceUp == deltaUp) return null;
@@ -1477,6 +1481,11 @@ namespace ATAS.Indicators.Technical
 						ApplyBarToSeries(bar, m, pattern);
 					}
 				}
+
+				// The last pattern may have changed with the settings: take it as the one already
+				// observed so the next tick does not alert for the settings change.
+				if (_historyLoaded && _lastSnapshotBar >= 0)
+					_lastObservedPattern = _patterns.Get(_lastSnapshotBar);
 			}
 			RedrawChart();
 		}
