@@ -56,7 +56,7 @@ public abstract class NotifiableObject : INotifyPropertyChanged
         return true;
     }
 
-    protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
         => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 }
 
@@ -73,6 +73,7 @@ public class LevelSettings : NotifiableObject
     private int _width;
     private LineDashStyle _lineStyle;
     private LabelPosition _labelPosition;
+    private RenderPen? _renderPen;
 
     #endregion
       
@@ -141,8 +142,24 @@ public class LevelSettings : NotifiableObject
         set => SetField(ref _labelPosition, value);
     }
 
+    /// <summary>
+    /// Pen of the level, built once and kept until one of the settings behind it changes. The
+    /// chart asks for it on every frame and for every level.
+    /// </summary>
     [Browsable(false)]
-    public RenderPen RenderPen => new PenSettings { Color = Color, Width = Width, LineDashStyle = LineStyle }.RenderObject;
+    public RenderPen RenderPen => _renderPen ??= new PenSettings { Color = Color, Width = Width, LineDashStyle = LineStyle }.RenderObject;
+
+    #endregion
+
+    #region Methods
+
+    protected override void OnPropertyChanged([CallerMemberName] string propertyName = "")
+    {
+        // The color, the width and the style are baked into the pen: drop it and the next frame
+        // builds it again.
+        _renderPen = null;
+        base.OnPropertyChanged(propertyName);
+    }
 
     #endregion
 
@@ -180,11 +197,24 @@ public class OHLCPlusPro : Indicator
 {
     #region Nested types
 
-    private class LevelData
+    /// <summary>
+    /// One level, immutable on purpose: the profile responses arrive on a thread of the pool
+    /// while the chart is rendering, and a level is replaced as a whole rather than written into.
+    /// </summary>
+    private sealed class LevelData
     {
-        public decimal Price { get; set; }
-        public string Label { get; set; } = string.Empty;
-        public bool IsValid { get; set; }
+        public LevelData(string label, decimal price, bool isValid)
+        {
+            Label = label;
+            Price = price;
+            IsValid = isValid;
+        }
+
+        public decimal Price { get; }
+
+        public string Label { get; }
+
+        public bool IsValid { get; }
     }
 
     private sealed class RefEqComparer : IEqualityComparer<object>
@@ -984,7 +1014,11 @@ public class OHLCPlusPro : Indicator
         set
         {
             _useAbsolutePrices = value;
+
+            // The levels of the other mode would survive in the periods that have no profile yet.
+            _levels.Clear();
             UpdateAllNeededLevelsFromCache();
+            RedrawChart();
         }
     }
 
@@ -1037,6 +1071,16 @@ public class OHLCPlusPro : Indicator
         SubscribeAllLevels();
     }
 
+    protected override void OnDispose()
+    {
+        foreach (var ls in _subscribedLevels)
+            ls.PropertyChanged -= OnLevelSettingsChanged;
+
+        _subscribedLevels.Clear();
+        _periodByLevel.Clear();
+        base.OnDispose();
+    }
+
     public override bool ProcessKeyDown(CrossKeyEventArgs e)
     {
         if (ToggleVisibilityHotKey != null && ToggleVisibilityHotKey.Contains(e.Key))
@@ -1055,6 +1099,11 @@ public class OHLCPlusPro : Indicator
             _profileCandles.Clear();
             _originProfileCandles.Clear();
             _levels.Clear();
+
+            // A template restored after OnInitialize replaces the level objects: the new ones are
+            // not subscribed and their period is never requested. Both calls are idempotent.
+            RecalcAllNeeds();
+            SubscribeAllLevels();
         }
 
         if (bar == 0 || IsNewSession(bar) && _lastBar != bar)
@@ -1085,8 +1134,9 @@ public class OHLCPlusPro : Indicator
         // scale profile keeps exact tick prices and reads through to the live profile.
         _profileCandles[period] = fixedProfileScaled;
         _originProfileCandles[period] = fixedProfileOriginScale;
-        UpdateLevels(period, _useAbsolutePrices ? fixedProfileOriginScale : fixedProfileScaled);
-        RedrawChart();
+
+        if (UpdateLevels(period, _useAbsolutePrices ? fixedProfileOriginScale : fixedProfileScaled))
+            RedrawChart();
     }
 
     protected override void OnRender(RenderContext context, DrawingLayouts layout)
@@ -1119,11 +1169,12 @@ public class OHLCPlusPro : Indicator
     private void UpdateAllNeededLevelsFromCache()
     {
         var candles = _useAbsolutePrices ? _originProfileCandles : _profileCandles;
+        var changed = false;
 
         void UpdateIf(FixedProfilePeriods p)
         {
             if (IsNeeded(p) && candles.TryGetValue(p, out var candle) && candle is not null)
-                UpdateLevels(p, candle);
+                changed |= UpdateLevels(p, candle);
         }
 
         UpdateIf(FixedProfilePeriods.CurrentDay);
@@ -1134,7 +1185,10 @@ public class OHLCPlusPro : Indicator
         UpdateIf(FixedProfilePeriods.LastMonth);
         UpdateIf(FixedProfilePeriods.Contract);
 
-        RedrawChart();
+        // Every tick lands here through OnCalculate: redrawing the chart when no level moved is
+        // the most expensive thing this indicator could do for nothing.
+        if (changed)
+            RedrawChart();
     }
 
     private void RequestProfiles()
@@ -1242,26 +1296,31 @@ public class OHLCPlusPro : Indicator
                ContractEquilibriumLevel.Enabled || ContractPOCLevel.Enabled || ContractVWAPLevel.Enabled || ContractVAHLevel.Enabled || ContractVALLevel.Enabled;
     }
 
-    private void UpdateLevels(FixedProfilePeriods period, IndicatorCandle candle)
+    /// <summary>Reads a profile into its levels. Returns whether any of them moved.</summary>
+    private bool UpdateLevels(FixedProfilePeriods period, IndicatorCandle candle)
     {
-        if (candle == null) return;
+        if (candle == null)
+            return false;
 
         var keys = _keys[period];
+        var changed = false;
 
         // OHLC + EQ
-        UpdateLevel(keys[0], candle.Open);                          // Open
-        UpdateLevel(keys[1], candle.High);                          // High
-        UpdateLevel(keys[2], candle.Low);                           // Low
-        UpdateLevel(keys[3], candle.Close);                         // Close
-        UpdateLevel(keys[4], (candle.High + candle.Low) / 2);       // EQ
+        changed |= UpdateLevel(keys[0], candle.Open);                          // Open
+        changed |= UpdateLevel(keys[1], candle.High);                          // High
+        changed |= UpdateLevel(keys[2], candle.Low);                           // Low
+        changed |= UpdateLevel(keys[3], candle.Close);                         // Close
+        changed |= UpdateLevel(keys[4], (candle.High + candle.Low) / 2);       // EQ
 
         // POC
         if (candle.MaxVolumePriceInfo != null && candle.MaxVolumePriceInfo.Price > 0)
-            UpdateLevel(keys[5], candle.MaxVolumePriceInfo.Price);
+            changed |= UpdateLevel(keys[5], candle.MaxVolumePriceInfo.Price);
 
         // VWAP
-        if (candle.GetVwapCompat() > 0)
-            UpdateLevel(keys[6], candle.GetVwapCompat());
+        var vwap = candle.GetVwapCompat();
+
+        if (vwap > 0)
+            changed |= UpdateLevel(keys[6], vwap);
 
         // VAH/VAL
         if (candle.ValueArea != null &&
@@ -1269,21 +1328,20 @@ public class OHLCPlusPro : Indicator
             candle.ValueArea.ValueAreaLow > 0 &&
             candle.ValueArea.ValueAreaHigh >= candle.ValueArea.ValueAreaLow)
         {
-            UpdateLevel(keys[7], candle.ValueArea.ValueAreaHigh);
-            UpdateLevel(keys[8], candle.ValueArea.ValueAreaLow);
+            changed |= UpdateLevel(keys[7], candle.ValueArea.ValueAreaHigh);
+            changed |= UpdateLevel(keys[8], candle.ValueArea.ValueAreaLow);
         }
+
+        return changed;
     }
 
-    private void UpdateLevel(string key, decimal price)
+    private bool UpdateLevel(string key, decimal price)
     {
-        if (!_levels.TryGetValue(key, out var ld))
-        {
-            ld = new LevelData { Label = key };
-            _levels[key] = ld;
-        }
+        if (_levels.TryGetValue(key, out var previous) && previous.IsValid && previous.Price == price)
+            return false;
 
-        ld.Price = price;
-        ld.IsValid = true;
+        _levels[key] = new LevelData(key, price, true);
+        return true;
     }
 
     #endregion
@@ -1503,17 +1561,22 @@ public class OHLCPlusPro : Indicator
         if (sender is not LevelSettings ls)
             return;
 
-        if (e.PropertyName == nameof(LevelSettings.Enabled))
+        if (e.PropertyName != nameof(LevelSettings.Enabled))
         {
-            if (_periodByLevel.TryGetValue(ls, out var period))
-            {
-                RecalcNeedFor(period);
+            // Color, width, style, label position, price on the axis: nothing to recalculate,
+            // but the chart keeps the old frame until it is told to draw again.
+            RedrawChart();
+            return;
+        }
 
-                if (ls.Enabled && IsNeeded(period))
-                    RequestProfileForPeriod(period, force: false);
-                else
-                    RedrawChart();
-            }
+        if (_periodByLevel.TryGetValue(ls, out var period))
+        {
+            RecalcNeedFor(period);
+
+            if (ls.Enabled && IsNeeded(period))
+                RequestProfileForPeriod(period, force: false);
+            else
+                RedrawChart();
         }
     }
 
