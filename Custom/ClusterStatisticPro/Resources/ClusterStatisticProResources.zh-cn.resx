@@ -357,6 +357,18 @@
   <data name="ShowVolumesDescription" xml:space="preserve">
     <value>确定是否显示有关成交量的信息。</value>
   </data>
+  <data name="SotAutoFilterPeriodDescription" xml:space="preserve">
+    <value>Closed bars in the mean of the peaks.</value>
+  </data>
+  <data name="SotAutoFilterPeriodName" xml:space="preserve">
+    <value>过滤周期</value>
+  </data>
+  <data name="SotAutoFilterUseEmaDescription" xml:space="preserve">
+    <value>Exponential mean of the peaks; off, simple mean.</value>
+  </data>
+  <data name="SotAutoFilterUseEmaName" xml:space="preserve">
+    <value>EMA（关=SMA）</value>
+  </data>
   <data name="SotMinVolumeDescription" xml:space="preserve">
     <value>A speed only counts when the window holds at least this volume.</value>
   </data>
@@ -368,6 +380,12 @@
   </data>
   <data name="SotTimeWindowSecName" xml:space="preserve">
     <value>时间窗口（秒）</value>
+  </data>
+  <data name="SotUseAutoFilterDescription" xml:space="preserve">
+    <value>Colors the speed rows by how far each bar is above or below the mean of the recent bar peaks, instead of against the largest one.</value>
+  </data>
+  <data name="SotUseAutoFilterName" xml:space="preserve">
+    <value>使用过滤</value>
   </data>
   <data name="StackedImbalanceMinLevelsDescription" xml:space="preserve">
     <value>Consecutive imbalance levels of the same side that make a stack.</value>

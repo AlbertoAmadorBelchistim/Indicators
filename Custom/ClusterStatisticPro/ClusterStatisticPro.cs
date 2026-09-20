@@ -328,6 +328,12 @@ public class ClusterStatisticPro : Indicator
 	private int _tapeWindowSeconds = 5;
 	private int _tapeMinVolume = 150;
 	private int _tapeSessionsToLoad = 2;
+	private int _firstTapeBar = -1;
+	private PeakMean _meanVolPerSec;
+	private PeakMean _meanDeltaPerSec;
+	private bool _peakAutoFilter = true;
+	private int _peakAutoFilterPeriod = 3;
+	private bool _peakAutoFilterEma = true;
 	private readonly List<PriceLevel> _levels = new();
 
 	// Maxima of the rows added by this indicator, by row.
@@ -823,6 +829,43 @@ public class ClusterStatisticPro : Indicator
         {
             _tapeSessionsToLoad = Math.Max(0, value);
             OnTapeSettingsChanged();
+        }
+    }
+
+    [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.SotUseAutoFilterName), GroupName = nameof(Res.MaxVolPerSecGroup), Description = nameof(Res.SotUseAutoFilterDescription), Order = 143, ResourceType = typeof(Res))]
+    public bool SotUseAutoFilter
+    {
+        get => _peakAutoFilter;
+        set
+        {
+            _peakAutoFilter = value;
+            RebuildPeakMeans();
+        }
+    }
+
+    [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.SotAutoFilterPeriodName), GroupName = nameof(Res.MaxVolPerSecGroup), Description = nameof(Res.SotAutoFilterPeriodDescription), Order = 144, ResourceType = typeof(Res))]
+    [Range(1, 200)]
+    public int SotAutoFilterPeriod
+    {
+        get => _peakAutoFilterPeriod;
+        set
+        {
+            _peakAutoFilterPeriod = Math.Max(1, value);
+            RebuildPeakMeans();
+        }
+    }
+
+    [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.SotAutoFilterUseEmaName), GroupName = nameof(Res.MaxVolPerSecGroup), Description = nameof(Res.SotAutoFilterUseEmaDescription), Order = 145, ResourceType = typeof(Res))]
+    public bool SotAutoFilterUseEma
+    {
+        get => _peakAutoFilterEma;
+        set
+        {
+            _peakAutoFilterEma = value;
+            RebuildPeakMeans();
         }
     }
 
@@ -1478,6 +1521,8 @@ public class ClusterStatisticPro : Indicator
 
 			foreach (var type in new[] { DataType.PeakVolPerSec, DataType.PeakDeltaPerSec, DataType.PeakDeltaPerVol })
 				_rowMaxima[type].Recompute(CurrentBar);
+
+			RebuildPeakMeansLocked();
 		}
 
 		this.LogInfo($"ClusterStatisticPro: tape history {ticks.Count} prints; realtime buffer {replayed} replayed, {skipped} already in the history.");
@@ -1520,6 +1565,9 @@ public class ClusterStatisticPro : Indicator
 
 		if (_useNetImbalanceAlert && _alertsArmed && bar == CurrentBar - 1)
 			CheckNetImbalanceAlert(bar);
+
+		if (bar == CurrentBar - 1 && bar > 0)
+			AddClosedBarToPeakMeans(bar - 1);
 
 		foreach (var maximum in _rowMaxima.Values)
 			maximum.Update(bar);
@@ -2221,9 +2269,7 @@ public class ClusterStatisticPro : Indicator
 			DataType.StackedBuyImbalance => GetRate(_stackedBuyImbalance[bar], RowScale(type)),
 			DataType.StackedSellImbalance => GetRate(_stackedSellImbalance[bar], RowScale(type)),
 			DataType.StackedNetImbalance => GetRate(Math.Abs(_stackedNetImbalance[bar]), RowScale(type)),
-			DataType.PeakVolPerSec => GetRate(_peakVolPerSec[bar], RowScale(type)),
-			DataType.PeakDeltaPerSec => GetRate(Math.Abs(_peakDeltaPerSec[bar]), RowScale(type)),
-			DataType.PeakDeltaPerVol => GetRate(Math.Abs(_peakDeltaPerVol[bar]), RowScale(type)),
+			DataType.PeakVolPerSec or DataType.PeakDeltaPerSec or DataType.PeakDeltaPerVol => GetPeakRate(type, bar),
 			DataType.None => 0,
 
 			_ => throw new ArgumentOutOfRangeException()
@@ -2530,6 +2576,10 @@ public class ClusterStatisticPro : Indicator
 		}
 
 		var first = FirstTapeBar();
+
+		lock (_tapeSync)
+			_firstTapeBar = first;
+
 		var request = new CumulativeTradesRequest(GetCandle(first).Time, GetCandle(CurrentBar - 1).LastTime, 0, 0);
 
 		lock (_tapeSync)
@@ -2553,6 +2603,90 @@ public class ClusterStatisticPro : Indicator
 		}
 
 		return 0;
+	}
+
+	// The peak rows are scaled against the mean of the recent bar peaks (the auto filter) when it
+	// is on and has bars, otherwise against their maximum like the other rows.
+	private decimal GetPeakRate(DataType type, int bar)
+	{
+		decimal meanVol = 0, meanDelta = 0;
+
+		lock (_tapeSync)
+		{
+			if (_peakAutoFilter && _meanVolPerSec != null)
+			{
+				meanVol = _meanVolPerSec.MeanFor(bar);
+				meanDelta = _meanDeltaPerSec.MeanFor(bar);
+			}
+		}
+
+		var value = type switch
+		{
+			DataType.PeakVolPerSec => _peakVolPerSec[bar],
+			DataType.PeakDeltaPerSec => Math.Abs(_peakDeltaPerSec[bar]),
+			_ => Math.Abs(_peakDeltaPerVol[bar])
+		};
+
+		var mean = type switch
+		{
+			DataType.PeakVolPerSec => meanVol,
+			DataType.PeakDeltaPerSec => meanDelta,
+			_ => meanVol == 0 ? 0 : meanDelta / meanVol * 100m
+		};
+
+		return mean > 0 ? GetRateByMean(value, mean) : GetRate(value, RowScale(type));
+	}
+
+	// 10 to 100 by how far the value is above or below the mean; the power widens the contrast
+	// of the peaks above the mean.
+	private static decimal GetRateByMean(decimal value, decimal mean)
+	{
+		var ratio = (decimal)Math.Pow((double)(value / mean), 1.35);
+		const decimal low = 0.85m, high = 1.35m;
+
+		if (ratio <= low)
+			return 10;
+
+		if (ratio >= high)
+			return 100;
+
+		return 10 + (ratio - low) * (90 / (high - low));
+	}
+
+	private void RebuildPeakMeans()
+	{
+		lock (_tapeSync)
+			RebuildPeakMeansLocked();
+
+		RedrawChart();
+	}
+
+	// Caller holds _tapeSync. The closed bars with prints, in order.
+	private void RebuildPeakMeansLocked()
+	{
+		_meanVolPerSec = new PeakMean(_peakAutoFilterPeriod, _peakAutoFilterEma);
+		_meanDeltaPerSec = new PeakMean(_peakAutoFilterPeriod, _peakAutoFilterEma);
+
+		if (_tape == null || !_tapeHistoryLoaded || _firstTapeBar < 0)
+			return;
+
+		for (var bar = _firstTapeBar; bar < CurrentBar - 1; bar++)
+		{
+			_meanVolPerSec.AddClosedBar(bar, _peakVolPerSec[bar]);
+			_meanDeltaPerSec.AddClosedBar(bar, _peakDeltaPerSec[bar]);
+		}
+	}
+
+	private void AddClosedBarToPeakMeans(int bar)
+	{
+		lock (_tapeSync)
+		{
+			if (_tape == null || !_tapeHistoryLoaded || _meanVolPerSec == null || bar < _firstTapeBar || bar <= _meanVolPerSec.LastBar)
+				return;
+
+			_meanVolPerSec.AddClosedBar(bar, _peakVolPerSec[bar]);
+			_meanDeltaPerSec.AddClosedBar(bar, _peakDeltaPerSec[bar]);
+		}
 	}
 
 	// Caller holds _tapeSync.
