@@ -2,14 +2,17 @@ namespace ATAS.Indicators.Technical.DomPressureCore;
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 /// <summary>Which value of the DOM power a bar shows.</summary>
 public enum PowerSampling
 {
 	/// <summary>The last value seen while the bar was open.</summary>
+	[Display(Name = "Bar close")]
 	BarClose,
 
 	/// <summary>The average of every value seen while the bar was open.</summary>
+	[Display(Name = "Bar average")]
 	BarAverage
 }
 
