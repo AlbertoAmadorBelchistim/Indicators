@@ -4,6 +4,6 @@
 	<PropertyGroup>
 		<!-- Same assembly name in every flavor, so saved templates resolve the type after switching flavors. -->
 		<AssemblyName>DeltaPatterns</AssemblyName>
-		<Version>0.1.0</Version>
+		<Version>0.9.0</Version>
 	</PropertyGroup>
 </Project>

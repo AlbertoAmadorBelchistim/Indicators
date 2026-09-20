@@ -451,10 +451,9 @@ namespace ATAS.Indicators.Technical
 		// First bar of the calculated range. Bars before it have no snapshot.
 		private int _firstBar;
 
-		// Session-wide running maximum of per-bar raw amplitudes.
-		// Drives the global scale anchor so a single outlier in the
-		// session keeps the panel's vertical extent stable.
-		private decimal _sessionMaxAmp;
+		// Running maximum of the per-bar amplitudes over the calculated range (not reset per
+		// session). Drives the global scale anchor so the panel's vertical extent stays stable.
+		private decimal _maxAmplitude;
 
 		private const decimal ScaleAnchorMargin = 1.15m;
 		private const int MarkerPriceGap = 10;
@@ -786,6 +785,11 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
+		protected override void OnInitialize()
+		{
+			this.LogInfo($"DeltaPatterns: initialized ({typeof(DeltaPatterns).Assembly.GetName().Version}).");
+		}
+
 		protected override void OnRecalculate()
 		{
 			lock (_stateLock)
@@ -793,7 +797,7 @@ namespace ATAS.Indicators.Technical
 				_window.Reset();
 				_metrics.Clear();
 				_patterns.Clear();
-				_sessionMaxAmp = 0m;
+				_maxAmplitude = 0m;
 				_historyLoaded = false;
 				_requestId = 0;
 				_lastSnapshotBar = -1;
@@ -870,7 +874,7 @@ namespace ATAS.Indicators.Technical
 					_window.Reset();
 					_metrics.Clear();
 					_patterns.Clear();
-					_sessionMaxAmp = 0m;
+					_maxAmplitude = 0m;
 					_lastSnapshotBar = _firstBar - 1;
 
 					_historyEndTime = ticks.Count > 0 ? ticks[ticks.Count - 1].Time : DateTime.MinValue;
@@ -956,12 +960,23 @@ namespace ATAS.Indicators.Technical
 			int firstBar = FirstVisibleBarNumber;
 			int lastBar = LastVisibleBarNumber;
 
+			if (lastBar < firstBar) return;
+
+			// The caches are written by the market-data thread: copy the visible patterns under
+			// the lock and draw outside it.
+			var visible = new DeltaPattern[lastBar - firstBar + 1];
+
+			lock (_stateLock)
+			{
+				for (var bar = firstBar; bar <= lastBar; bar++)
+					visible[bar - firstBar] = _metrics.TryGet(bar, out _) ? _patterns.Get(bar) : DeltaPattern.None;
+			}
+
 			for (int bar = firstBar; bar <= lastBar; bar++)
 			{
 				try
-			   {
-					if (!_metrics.TryGet(bar, out var m)) continue;
-					var pattern = _patterns.Get(bar);
+				{
+					var pattern = visible[bar - firstBar];
 					if (pattern == DeltaPattern.None) continue;
 					if (!IsPatternMarkerVisible(pattern)) continue;
 
@@ -1030,7 +1045,7 @@ namespace ATAS.Indicators.Technical
                 _window.Reset();
                 _metrics.Clear();
                 _patterns.Clear();
-                _sessionMaxAmp = 0m;
+                _maxAmplitude = 0m;
                 _historyLoaded = false;
             }
 
@@ -1316,9 +1331,9 @@ namespace ATAS.Indicators.Technical
 			}
 
 			var rawAmp = ComputeRawAmplitude(m);
-			if (rawAmp > _sessionMaxAmp)
+			if (rawAmp > _maxAmplitude)
 			{
-				_sessionMaxAmp = rawAmp;
+				_maxAmplitude = rawAmp;
 				BroadcastScaleAnchor();
 			}
 			else
@@ -1361,7 +1376,7 @@ namespace ATAS.Indicators.Technical
 		private decimal ComputeDisplayAnchor()
 		{
 			var floor = (decimal)TargetVolume * 0.1m;
-			var amp = _sessionMaxAmp < floor ? floor : _sessionMaxAmp;
+			var amp = _maxAmplitude < floor ? floor : _maxAmplitude;
 			return amp * ScaleAnchorMargin;
 		}
 
@@ -1690,7 +1705,7 @@ namespace ATAS.Indicators.Technical
 			int barsCount;
 			int tickCount;
 			decimal volume, delta, maxRun, minRun;
-			decimal sessionMaxAmp;
+			decimal maxAmplitude;
 			DateTime lastAlertTime;
 
 			lock (_stateLock)
@@ -1704,7 +1719,7 @@ namespace ATAS.Indicators.Technical
 				delta = _window.CurrentDelta;
 				maxRun = _window.MaxRunningDelta;
 				minRun = _window.MinRunningDelta;
-				sessionMaxAmp = _sessionMaxAmp;
+				maxAmplitude = _maxAmplitude;
 				lastAlertTime = _lastAlertTime;
 			}
 
@@ -1717,7 +1732,7 @@ namespace ATAS.Indicators.Technical
 				lines.Add($"TargetVolume:  {TargetVolume}");
 				lines.Add($"HistoryLoaded: {historyLoaded}");
 				lines.Add($"BarsCached:    {barsCount}");
-				lines.Add($"SessionMaxAmp: {sessionMaxAmp:0}");
+				lines.Add($"MaxAmplitude: {maxAmplitude:0}");
 			}
 
 			lines.Add(string.Empty);
@@ -1769,100 +1784,5 @@ namespace ATAS.Indicators.Technical
 		}
 
 		#endregion
-
-		#region Private Methods: Debug Hooks (temporary — removed in c15)
-
-		// Bypass IsPatternAlertEnabled and the cooldown gate.
-		// Use this to verify that the AddAlert dispatcher itself works
-		// (sound file path, popup colors, instrument tag) independent
-		// of category configuration.
-		[Browsable(false)]
-		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-		public void DebugFireAlertRaw(DeltaPattern pattern)
-		{
-            if (_disposed) return;
-
-            var instrument = InstrumentInfo?.Instrument ?? "?";
-			var message = $"DeltaPatterns[DBG-RAW]: {pattern}";
-			try
-			{
-				AddAlert(AlertSoundFile, instrument, message, AlertBackgroundColor, AlertForegroundColor);
-				this.LogInfo($"DeltaPatterns: debug raw alert fired pattern={pattern} instrument={instrument}");
-			}
-			catch (Exception ex)
-			{
-				this.LogError($"DeltaPatterns: debug raw alert dispatch failed - {ex.Message}");
-			}
-		}
-
-		// Goes through the same gating as a real transition: respects
-		// category Enabled/EnableAlert and the global cooldown.
-		[Browsable(false)]
-		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-		public void DebugFireAlertGated(DeltaPattern pattern)
-		{
-            if (_disposed) return;
-
-            TryFireAlert(pattern);
-		}
-
-		// Forces the cooldown timer back to MinValue so the next call
-		// to DebugFireAlertGated / a real transition can fire immediately.
-		[Browsable(false)]
-		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-		public void DebugResetAlertCooldown()
-		{
-            _lastAlertTime = DateTime.MinValue;
-			this.LogInfo("DeltaPatterns: debug cooldown reset");
-		}
-
-		// Simulates the OnNewTrade transition path end-to-end: rewrites
-		// the live bar's cached pattern to oldPattern, then invokes the
-		// gated alert with newPattern. Mirrors what would happen if the
-		// window classifier produced a transition naturally.
-		[Browsable(false)]
-		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-		public void DebugSimulateTransition(DeltaPattern oldPattern, DeltaPattern newPattern)
-		{
-            if (_disposed) return;
-
-            int currentBar = CurrentBar - 1;
-			if (currentBar < 0)
-			{
-				this.LogError("DeltaPatterns: debug simulate transition skipped - no current bar");
-				return;
-			}
-
-			lock (_stateLock)
-			{
-				_patterns.Set(currentBar, oldPattern);
-			}
-
-			if (oldPattern != newPattern)
-				TryFireAlert(newPattern);
-
-			this.LogInfo($"DeltaPatterns: debug simulated transition {oldPattern} -> {newPattern}");
-		}
-
-		// Inspector helper: returns the current alert state as a single
-		// string for the Immediate Window. Avoids hand-evaluating
-		// private fields one at a time.
-		[Browsable(false)]
-		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-		public string DebugAlertSnapshot()
-		{
-			return
-				$"sound='{AlertSoundFile}' " +
-				$"cooldown={AlertCooldownSeconds}s " +
-				$"lastAlertUtc={_lastAlertTime:yyyy-MM-dd HH:mm:ss.fff} " +
-				$"sinceLast={(DateTime.UtcNow - _lastAlertTime).TotalSeconds:0.000}s " +
-				$"agg={Aggressive.Enabled}/{Aggressive.EnableAlert} " +
-				$"dom={Dominance.Enabled}/{Dominance.EnableAlert} " +
-				$"div={Divergence.Enabled}/{Divergence.EnableAlert} " +
-				$"rev={Reversal.Enabled}/{Reversal.EnableAlert} " +
-				$"neu={Neutral.Enabled}/{Neutral.EnableAlert}";
-		}
-
-        #endregion
     }
 }
