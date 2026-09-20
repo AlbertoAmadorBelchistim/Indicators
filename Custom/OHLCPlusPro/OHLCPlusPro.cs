@@ -15,6 +15,8 @@ using System.Runtime.CompilerServices;
 
 using ATAS.Indicators.Technical.OhlcPlusPro.Core;
 
+using Utils.Common.Logging;
+
 using Res = ATAS.Indicators.Technical.OHLCPlusProResources;
 
 public enum LabelPosition
@@ -1629,6 +1631,7 @@ public class OHLCPlusPro : Indicator
 
     protected override void OnInitialize()
     {
+        this.LogInfo($"OHLCPlusPro: initialized ({typeof(OHLCPlusPro).Assembly.GetName().Version}).");
         SubscribeAllLevels();
         RecalcAllNeeds();
     }
