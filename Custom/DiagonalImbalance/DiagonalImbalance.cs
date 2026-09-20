@@ -59,6 +59,7 @@ public class DiagonalImbalance : Indicator
 	private decimal _imbalanceRatio = 3m;
 	private decimal _minDominantVolume = 20m;
 	private bool _ignoreZeroLevels;
+	private decimal _minVolumeDifference;
 
 	private bool _historyLoaded;
 	private int _historyBuyCount;
@@ -98,6 +99,23 @@ public class DiagonalImbalance : Indicator
 				return;
 
 			_minDominantVolume = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(Name = "Minimum volume difference", GroupName = "Calculation", Order = 115,
+		Description = "Minimum difference between the dominant side and the diagonal passive side. 0 disables the filter.")]
+	[Range(0, 1000000)]
+	[PostValueMode(PostValueModes.OnLostFocus)]
+	public decimal MinVolumeDifference
+	{
+		get => _minVolumeDifference;
+		set
+		{
+			if (_minVolumeDifference == value)
+				return;
+
+			_minVolumeDifference = value;
 			RecalculateValues();
 		}
 	}
@@ -180,7 +198,8 @@ public class DiagonalImbalance : Indicator
 
 		this.LogInfo($"DiagonalImbalance: history calculated, {lastClosed + 1} closed bars, " +
 			$"{_historyBuyCount} buy / {_historySellCount} sell imbalances " +
-			$"(ratio {_imbalanceRatio}, min dominant volume {_minDominantVolume}, ignore zero levels {_ignoreZeroLevels}).");
+			$"(ratio {_imbalanceRatio}, min dominant volume {_minDominantVolume}, " +
+			$"min volume difference {_minVolumeDifference}, ignore zero levels {_ignoreZeroLevels}).");
 
 		for (var bar = Math.Max(0, lastClosed - LoggedHistoryBars + 1); bar <= lastClosed; bar++)
 			LogBar(bar);
@@ -256,6 +275,10 @@ public class DiagonalImbalance : Indicator
 	private bool IsImbalance(decimal dominant, decimal passive)
 	{
 		if (dominant <= 0 || dominant < _minDominantVolume)
+			return false;
+
+		// Absolute filter: a high ratio between two small numbers (e.g. 9 vs 2) is not significant.
+		if (dominant - passive < _minVolumeDifference)
 			return false;
 
 		// Zero passive side: infinite ratio, unless zero levels are ignored.
