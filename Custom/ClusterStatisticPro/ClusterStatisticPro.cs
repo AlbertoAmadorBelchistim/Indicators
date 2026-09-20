@@ -390,6 +390,8 @@ public class ClusterStatisticPro : Indicator
 	private decimal _lastHeightValue;
 
 	private RenderPen _linePen = new(System.Drawing.Color.Transparent);
+	private readonly RenderPen _outlinePenLight = new(System.Drawing.Color.White, 1);
+	private readonly RenderPen _outlinePenDark = new(System.Drawing.Color.Black, 1);
 	private decimal _maxAsk;
 	private decimal _maxBid;
 	private decimal _maxDelta;
@@ -965,6 +967,14 @@ public class ClusterStatisticPro : Indicator
     [Tab(TabName = nameof(Res.Visualization), TabOrder = 1, ResourceType = typeof(Res))]
     [Display(Name = nameof(Res.RatiosAsPercent), GroupName = nameof(Res.Visualization), Description = nameof(Res.RatiosAsPercentDescription), Order = 225, ResourceType = typeof(Res))]
     public bool RatiosAsPercent { get; set; } = true;
+
+    [Tab(TabName = nameof(Res.Visualization), TabOrder = 1, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ContrastText), GroupName = nameof(Res.Text), Description = nameof(Res.ContrastTextDescription), Order = 325, ResourceType = typeof(Res))]
+    public bool ContrastText { get; set; } = true;
+
+    [Tab(TabName = nameof(Res.Visualization), TabOrder = 1, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.HighlightStrongCells), GroupName = nameof(Res.Visualization), Description = nameof(Res.HighlightStrongCellsDescription), Order = 226, ResourceType = typeof(Res))]
+    public bool HighlightStrongCells { get; set; } = true;
 
     [Tab(TabName = nameof(Res.Visualization), TabOrder = 1, ResourceType = typeof(Res))]
     [Display(Name = nameof(Res.Volume), GroupName = nameof(Res.Visualization), Description = nameof(Res.VolumeColorDescription), Order = 230, ResourceType = typeof(Res))]
@@ -2200,6 +2210,12 @@ public class ClusterStatisticPro : Indicator
 
 		context.FillRectangle(bgBrush, rect);
 
+		var contrast = ContrastText ? ContrastColorOn(bgBrush) : _textColor;
+
+		// Outline of the strongest cells, in the contrast color of the cell.
+		if (HighlightStrongCells && rate >= 90m)
+			context.DrawRectangle(contrast.GetBrightness() > 0.5f ? _outlinePenLight : _outlinePenDark, rect);
+
 		if (showValues)
 		{
 			var text = GetValueText(type, candle, bar);
@@ -2209,7 +2225,7 @@ public class ClusterStatisticPro : Indicator
 				X = rect.X + _headerOffset
 			};
 
-			context.DrawString(text, Font.RenderObject, _textColor, textRect, _stringLeftFormat);
+			context.DrawString(text, Font.RenderObject, contrast, textRect, _stringLeftFormat);
 		}
 	}
 
@@ -2773,6 +2789,31 @@ public class ClusterStatisticPro : Indicator
 			maximum.Update(CurrentBar - 1);
 
 		RedrawChart();
+	}
+
+	// The text color that reads best on a cell: the chosen text color when it contrasts enough,
+	// otherwise white or black. A translucent cell is judged over the chart background.
+	private System.Drawing.Color ContrastColorOn(System.Drawing.Color cell)
+	{
+		var background = ChartInfo?.ColorsStore.BaseBackgroundColor ?? System.Drawing.Color.Black;
+		var a = cell.A / 255.0;
+		var r = cell.R * a + background.R * (1 - a);
+		var g = cell.G * a + background.G * (1 - a);
+		var b = cell.B * a + background.B * (1 - a);
+		var cellLuminance = Luminance(r, g, b);
+
+		var text = _textColor;
+		var textLuminance = Luminance(text.R, text.G, text.B);
+
+		if (Math.Abs(cellLuminance - textLuminance) >= 0.45)
+			return text;
+
+		return cellLuminance > 0.5 ? System.Drawing.Color.Black : System.Drawing.Color.White;
+	}
+
+	private static double Luminance(double r, double g, double b)
+	{
+		return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255.0;
 	}
 
 	// A ratio given in percent, shown as a percentage (25%) or as a fraction (0.25).

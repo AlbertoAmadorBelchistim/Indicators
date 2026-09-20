@@ -60,6 +60,12 @@
   <data name="Color" xml:space="preserve">
     <value>रंग</value>
   </data>
+  <data name="ContrastText" xml:space="preserve">
+    <value>Contrast text</value>
+  </data>
+  <data name="ContrastTextDescription" xml:space="preserve">
+    <value>Keeps the text color where it reads well and switches to white or black on the cells where it would not.</value>
+  </data>
   <data name="CustomSession" xml:space="preserve">
     <value>अनुकूलित सत्र</value>
   </data>
@@ -116,6 +122,12 @@
   </data>
   <data name="HideRowsDescription" xml:space="preserve">
     <value>शीर्षक छिपाएँ</value>
+  </data>
+  <data name="HighlightStrongCells" xml:space="preserve">
+    <value>Outline strong cells</value>
+  </data>
+  <data name="HighlightStrongCellsDescription" xml:space="preserve">
+    <value>Draws an outline around the cells at the top of their scale.</value>
   </data>
   <data name="ImbalanceGroup" xml:space="preserve">
     <value>असंतुलन</value>
