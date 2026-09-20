@@ -183,6 +183,12 @@
   <data name="ShowDeltaDescription" xml:space="preserve">
     <value>निर्धारित करता है कि डेल्टा के बारे में जानकारी प्रदर्शित की जानी चाहिए या नहीं।</value>
   </data>
+  <data name="ShowDeltaPerSecond" xml:space="preserve">
+    <value>डेल्टा/सेकंड</value>
+  </data>
+  <data name="ShowDeltaPerSecondDescription" xml:space="preserve">
+    <value>प्रति सेकंड डेल्टा दिखाएँ</value>
+  </data>
   <data name="ShowDeltaPerVolume" xml:space="preserve">
     <value>डेल्टा/वॉल्यूम दिखाएं</value>
   </data>

@@ -183,6 +183,12 @@
   <data name="ShowDeltaDescription" xml:space="preserve">
     <value>Diferencia entre volúmenes en cada barra.</value>
   </data>
+  <data name="ShowDeltaPerSecond" xml:space="preserve">
+    <value>Delta/seg</value>
+  </data>
+  <data name="ShowDeltaPerSecondDescription" xml:space="preserve">
+    <value>Mostrar delta por segundo</value>
+  </data>
   <data name="ShowDeltaPerVolume" xml:space="preserve">
     <value>Mostrar Delta/Volumen</value>
   </data>

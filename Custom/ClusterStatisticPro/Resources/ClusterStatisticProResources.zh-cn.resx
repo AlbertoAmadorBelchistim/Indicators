@@ -183,6 +183,12 @@
   <data name="ShowDeltaDescription" xml:space="preserve">
     <value>确定是否显示有关增量的信息。</value>
   </data>
+  <data name="ShowDeltaPerSecond" xml:space="preserve">
+    <value>Delta/秒</value>
+  </data>
+  <data name="ShowDeltaPerSecondDescription" xml:space="preserve">
+    <value>显示每秒 Delta</value>
+  </data>
   <data name="ShowDeltaPerVolume" xml:space="preserve">
     <value>显示 Delta/Volume</value>
   </data>

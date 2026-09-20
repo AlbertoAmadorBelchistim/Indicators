@@ -183,6 +183,12 @@
   <data name="ShowDeltaDescription" xml:space="preserve">
     <value>Определяет, следует ли отображать информацию о дельте.</value>
   </data>
+  <data name="ShowDeltaPerSecond" xml:space="preserve">
+    <value>Дельта/с</value>
+  </data>
+  <data name="ShowDeltaPerSecondDescription" xml:space="preserve">
+    <value>Показывать дельту в секунду</value>
+  </data>
   <data name="ShowDeltaPerVolume" xml:space="preserve">
     <value>Отображать дельту/объем</value>
   </data>

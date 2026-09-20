@@ -67,6 +67,7 @@ public class ClusterStatisticPro : Indicator
 			Add(DataType.Height, new RenderInfo(13));
 			Add(DataType.Time, new RenderInfo(14));
 			Add(DataType.Duration, new RenderInfo(15));
+			Add(DataType.DeltaSecond, new RenderInfo(16));
 		}
 
 		#endregion
@@ -119,6 +120,44 @@ public class ClusterStatisticPro : Indicator
 		}
 
 		#endregion
+	}
+
+	/// <summary>
+	/// Largest absolute value of a series over the closed bars, kept up to date from OnCalculate so
+	/// rendering does not scan the history. The bar in progress is added when read: its value is
+	/// not final, so it must not stay in the maximum.
+	/// </summary>
+	private sealed class ClosedBarsMax(ValueDataSeries series)
+	{
+		private decimal _max;
+		private int _closedBars;
+
+		public void Update(int bar)
+		{
+			if (bar == 0)
+			{
+				_max = 0;
+				_closedBars = 0;
+			}
+
+			for (; _closedBars < bar; _closedBars++)
+				_max = Math.Max(Math.Abs(series[_closedBars]), _max);
+		}
+
+		public decimal Value(int currentBar)
+		{
+			return currentBar > 0 ? Math.Max(_max, Math.Abs(series[currentBar - 1])) : 0;
+		}
+
+		public decimal Visible(int firstBar, int lastBar)
+		{
+			var max = 0m;
+
+			for (var i = Math.Max(0, firstBar); i <= lastBar; i++)
+				max = Math.Max(Math.Abs(series[i]), max);
+
+			return max;
+		}
 	}
 
 	public class RenderInfo(int order, bool enabled = false)
@@ -185,6 +224,7 @@ public class ClusterStatisticPro : Indicator
 		Height,
 		Time,
 		Duration,
+		DeltaSecond,
 		None
 	}
 
@@ -233,6 +273,11 @@ public class ClusterStatisticPro : Indicator
 	};
 
 	private readonly ValueDataSeries _volPerSecond = new("VolPerSecond");
+	private readonly ValueDataSeries _deltaPerSecond = new("DeltaPerSecond");
+
+	// Maxima of the rows added by this indicator, by row.
+	private readonly Dictionary<DataType, ClosedBarsMax> _rowMaxima = new();
+	private readonly Dictionary<DataType, decimal> _rowScale = new();
 	private bool _atHeader;
 
 	private bool _atPanel;
@@ -319,6 +364,7 @@ public class ClusterStatisticPro : Indicator
 	private bool _showTime;
 	private bool _showVolume;
 	private bool _showVolumePerSecond;
+	private bool _showDeltaPerSecond;
 	private System.Drawing.Color _textColor;
 	private int _fontHeight;
 	private SessionMode _sessionMode = SessionMode.DefaultSession;
@@ -467,6 +513,18 @@ public class ClusterStatisticPro : Indicator
         {
             _showVolumePerSecond = value;
             RowsOrder.SetEnabled(DataType.VolumeSecond, value);
+        }
+    }
+
+    [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowDeltaPerSecond), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowDeltaPerSecondDescription), Order = 190, ResourceType = typeof(Res))]
+    public bool ShowDeltaPerSecond
+    {
+        get => _showDeltaPerSecond;
+        set
+        {
+            _showDeltaPerSecond = value;
+            RowsOrder.SetEnabled(DataType.DeltaSecond, value);
         }
     }
 
@@ -908,6 +966,8 @@ public class ClusterStatisticPro : Indicator
 		((ValueDataSeries)DataSeries[0]).VisualType = VisualMode.Hide;
 		ShowDescription = false;
 
+		_rowMaxima[DataType.DeltaSecond] = new ClosedBarsMax(_deltaPerSecond);
+
 		Font = new FontSetting("Arial", 9);
 		CustomSessionStart = new(false);
     }
@@ -1030,6 +1090,10 @@ public class ClusterStatisticPro : Indicator
 			candleSeconds = 1;
 
 		_volPerSecond[bar] = candle.Volume / candleSeconds;
+		_deltaPerSecond[bar] = candle.Delta / candleSeconds;
+
+		foreach (var maximum in _rowMaxima.Values)
+			maximum.Update(bar);
 
 		// Highest Volume/sec of the closed bars, kept here so rendering does not scan the history.
 		// The bar in progress is added when rendering: its rate is not final (one trade in its
@@ -1686,6 +1750,7 @@ public class ClusterStatisticPro : Indicator
             DataType.SessionDeltaVolume => Blend(_cDeltaPerVol[bar] > 0 ? AskColor : BidColor, BackGroundColor, rate),
 			DataType.SessionDelta => Blend(_cDelta[bar] > 0 ? AskColor : BidColor, BackGroundColor, rate),
 			DataType.DeltaChange => GetDeltaChangeBrush(bar, rate),
+			DataType.DeltaSecond => Blend(_deltaPerSecond[bar] > 0 ? AskColor : BidColor, BackGroundColor, rate),
 			DataType.None => System.Drawing.Color.Transparent,
 			_ => throw new ArgumentOutOfRangeException()
 		};
@@ -1711,6 +1776,7 @@ public class ClusterStatisticPro : Indicator
 			DataType.Height => GetRate(_candleHeights[bar], maxValues.MaxHeight),
 			DataType.Time => GetRate(_cVolume[bar], maxValues.CumVolume),
 			DataType.Duration => GetRate(_candleDurations[bar], maxValues.MaxDuration),
+			DataType.DeltaSecond => GetRate(Math.Abs(_deltaPerSecond[bar]), RowScale(type)),
 			DataType.None => 0,
 
 			_ => throw new ArgumentOutOfRangeException()
@@ -1789,6 +1855,15 @@ public class ClusterStatisticPro : Indicator
 				: 0;
 		}
 
+		// Scales of the rows added by this indicator.
+		_rowScale.Clear();
+
+		foreach (var (type, maximum) in _rowMaxima)
+		{
+			if (RowsOrder[type].Enabled)
+				_rowScale[type] = VisibleProportion ? maximum.Visible(FirstVisibleBarNumber, LastVisibleBarNumber) : maximum.Value(CurrentBar);
+		}
+
 		return new MaxValues
 		{
 			MaxAsk = maxAsk,
@@ -1830,6 +1905,7 @@ public class ClusterStatisticPro : Indicator
 			DataType.Height => _candleHeights[bar].ToString(CultureInfo.InvariantCulture),
 			DataType.Time => candle.Time.Add(TimeOffset).ToString("HH:mm:ss"),
 			DataType.Duration => ((int)(candle.LastTime - candle.Time).TotalSeconds).ToString(),
+			DataType.DeltaSecond => ChartInfo.TryGetMinimizedVolumeString(_deltaPerSecond[bar]),
 			DataType.None => string.Empty,
 			_ => throw new ArgumentOutOfRangeException()
 		};
@@ -1916,10 +1992,16 @@ public class ClusterStatisticPro : Indicator
 			DataType.Height => "Height",
 			DataType.Time => "Time",
 			DataType.Duration => "Duration",
+			DataType.DeltaSecond => "Delta/sec",
 			DataType.None => string.Empty,
 
 			_ => throw new ArgumentOutOfRangeException()
 		};
+	}
+
+	private decimal RowScale(DataType type)
+	{
+		return _rowScale.TryGetValue(type, out var scale) ? scale : 0;
 	}
 
 	private decimal GetRate(decimal value, decimal maximumValue)

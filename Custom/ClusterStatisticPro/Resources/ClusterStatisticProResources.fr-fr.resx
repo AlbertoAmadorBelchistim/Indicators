@@ -183,6 +183,12 @@
   <data name="ShowDeltaDescription" xml:space="preserve">
     <value>Détermine si les informations sur le delta doivent être affichées.</value>
   </data>
+  <data name="ShowDeltaPerSecond" xml:space="preserve">
+    <value>Delta/s</value>
+  </data>
+  <data name="ShowDeltaPerSecondDescription" xml:space="preserve">
+    <value>Afficher le delta par seconde</value>
+  </data>
   <data name="ShowDeltaPerVolume" xml:space="preserve">
     <value>Afficher le delta/volume</value>
   </data>
