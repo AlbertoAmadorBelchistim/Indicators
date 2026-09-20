@@ -58,6 +58,7 @@ public class DiagonalImbalance : Indicator
 
 	private decimal _imbalanceRatio = 3m;
 	private decimal _minDominantVolume = 20m;
+	private bool _ignoreZeroLevels;
 
 	private bool _historyLoaded;
 	private int _historyBuyCount;
@@ -97,6 +98,22 @@ public class DiagonalImbalance : Indicator
 				return;
 
 			_minDominantVolume = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(Name = "Ignore zero levels", GroupName = "Calculation", Order = 120,
+		Description = "When enabled, a level whose diagonal passive side has no volume is never an imbalance. " +
+			"When disabled, it counts as an infinite ratio and only the minimum dominant volume applies.")]
+	public bool IgnoreZeroLevels
+	{
+		get => _ignoreZeroLevels;
+		set
+		{
+			if (_ignoreZeroLevels == value)
+				return;
+
+			_ignoreZeroLevels = value;
 			RecalculateValues();
 		}
 	}
@@ -163,7 +180,7 @@ public class DiagonalImbalance : Indicator
 
 		this.LogInfo($"DiagonalImbalance: history calculated, {lastClosed + 1} closed bars, " +
 			$"{_historyBuyCount} buy / {_historySellCount} sell imbalances " +
-			$"(ratio {_imbalanceRatio}, min dominant volume {_minDominantVolume}).");
+			$"(ratio {_imbalanceRatio}, min dominant volume {_minDominantVolume}, ignore zero levels {_ignoreZeroLevels}).");
 
 		for (var bar = Math.Max(0, lastClosed - LoggedHistoryBars + 1); bar <= lastClosed; bar++)
 			LogBar(bar);
@@ -233,12 +250,19 @@ public class DiagonalImbalance : Indicator
 		return found?.ToArray() ?? NoImbalances;
 	}
 
-	// A passive side of zero is not evaluated yet: those levels are skipped.
+	// Both levels of a comparison are always inside the bar (Low..High): the Low has no
+	// level below and the High none above, so the bar edges are never compared against
+	// prices that did not trade. Inside the bar, a price without trades reads as zero.
 	private bool IsImbalance(decimal dominant, decimal passive)
 	{
-		return passive > 0
-			&& dominant >= _minDominantVolume
-			&& dominant >= passive * _imbalanceRatio;
+		if (dominant <= 0 || dominant < _minDominantVolume)
+			return false;
+
+		// Zero passive side: infinite ratio, unless zero levels are ignored.
+		if (passive == 0)
+			return !_ignoreZeroLevels;
+
+		return dominant >= passive * _imbalanceRatio;
 	}
 
 	#endregion
