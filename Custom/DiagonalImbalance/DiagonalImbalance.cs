@@ -59,8 +59,14 @@ public class DiagonalImbalance : Indicator
 	// Imbalances per bar index; null until the bar has been calculated as a closed bar.
 	private readonly List<ImbalanceLevel[]> _barImbalances = new();
 
-	// Guards _barImbalances: written by the calculation thread, read by the render thread.
+	// Guards _barImbalances and the forming bar: written by the calculation thread,
+	// read by the render thread.
 	private readonly object _barsLock = new();
+
+	// Latest evaluation of the forming bar; replaced on every update and discarded
+	// once that bar closes and is evaluated as a closed bar.
+	private int _formingBar = -1;
+	private ImbalanceLevel[] _formingLevels = NoImbalances;
 
 	// Visible bars copied under the lock by OnRender, reused between frames.
 	private readonly List<(int Bar, ImbalanceLevel[] Levels)> _renderBars = new();
@@ -221,7 +227,11 @@ public class DiagonalImbalance : Indicator
 	protected override void OnRecalculate()
 	{
 		lock (_barsLock)
+		{
 			_barImbalances.Clear();
+			_formingBar = -1;
+			_formingLevels = NoImbalances;
+		}
 
 		_historyLoaded = false;
 		_historyBuyCount = 0;
@@ -239,10 +249,14 @@ public class DiagonalImbalance : Indicator
 			return;
 		}
 
-		// Forming bar: it is evaluated once it closes (the realtime evaluation of the
-		// forming bar comes later). A new forming bar means the previous one just closed.
+		// A new forming bar means the previous one just closed: evaluate it once as a closed bar.
 		if (bar > 0 && !IsCalculated(bar - 1))
 			CalculateClosedBar(bar - 1);
+
+		// Forming bar: re-evaluated in full on every update, because each level is compared
+		// with its neighbour and a trade on one level can change the result of the next one.
+		// A bar holds a few dozen levels, so the full pass is cheap enough to run per update.
+		CalculateFormingBar(bar);
 	}
 
 	protected override void OnFinishRecalculate()
@@ -293,6 +307,9 @@ public class DiagonalImbalance : Indicator
 				if (barLevels is { Length: > 0 })
 					_renderBars.Add((bar, barLevels));
 			}
+
+			if (_formingBar >= firstBar && _formingBar <= LastVisibleBarNumber && _formingLevels.Length > 0)
+				_renderBars.Add((_formingBar, _formingLevels));
 		}
 
 		foreach (var (bar, levels) in _renderBars)
@@ -324,6 +341,17 @@ public class DiagonalImbalance : Indicator
 		return bar < _barImbalances.Count && _barImbalances[bar] != null;
 	}
 
+	private void CalculateFormingBar(int bar)
+	{
+		var levels = FindImbalances(bar);
+
+		lock (_barsLock)
+		{
+			_formingBar = bar;
+			_formingLevels = levels;
+		}
+	}
+
 	private void CalculateClosedBar(int bar)
 	{
 		var levels = FindImbalances(bar);
@@ -334,6 +362,12 @@ public class DiagonalImbalance : Indicator
 				_barImbalances.Add(null);
 
 			_barImbalances[bar] = levels;
+
+			if (_formingBar == bar)
+			{
+				_formingBar = -1;
+				_formingLevels = NoImbalances;
+			}
 		}
 
 		foreach (var level in levels)
