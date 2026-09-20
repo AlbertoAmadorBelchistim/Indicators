@@ -93,6 +93,9 @@
   <data name="OhlcPlusAutoUpdateDescription" xml:space="preserve">
     <value>नए ट्रेड आते ही स्तर वास्तविक समय में अपडेट होते हैं। बंद होने पर स्तर प्रोफ़ाइल अनुरोध के समय पर स्थिर रहते हैं।</value>
   </data>
+  <data name="OhlcPlusLevelTextDescription" xml:space="preserve">
+    <value>इस स्तर का चार्ट पर टेक्स्ट, टेम्पलेट से बने टेक्स्ट की जगह। खाली रहने पर टेम्पलेट चलता है।</value>
+  </data>
   <data name="OhlcPlusTextColorDescription" xml:space="preserve">
     <value>स्तर के टेक्स्ट का रंग: चार्ट पर लेबल, प्राइस स्केल पर भाव और स्तर का बैज। ऑटो चुनने पर रंग अपने आप ऐसा चुना जाता है कि टेक्स्ट के पीछे की पृष्ठभूमि से अंतर दिखे।</value>
   </data>
@@ -116,6 +119,9 @@
   </data>
   <data name="ShowPrice" xml:space="preserve">
     <value>कीमत दिखाएँ</value>
+  </data>
+  <data name="Text" xml:space="preserve">
+    <value>टेक्स्ट</value>
   </data>
   <data name="TextColor" xml:space="preserve">
     <value>पाठ का रंग</value>

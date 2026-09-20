@@ -93,6 +93,9 @@
   <data name="OhlcPlusAutoUpdateDescription" xml:space="preserve">
     <value>Aktualisiert die Level in Echtzeit mit jedem neuen Trade. Deaktiviert bleiben die Level auf dem Stand der Profilanfrage.</value>
   </data>
+  <data name="OhlcPlusLevelTextDescription" xml:space="preserve">
+    <value>Text dieses Levels im Chart anstelle des aus der Vorlage gebildeten. Leer verwendet die Vorlage.</value>
+  </data>
   <data name="OhlcPlusTextColorDescription" xml:space="preserve">
     <value>Farbe des Level-Textes: Beschriftung im Chart, Kurs an der Preisskala und Level-Badge. Bei Auto wird die Farbe automatisch für den Kontrast zum Hintergrund gewählt.</value>
   </data>
@@ -116,6 +119,9 @@
   </data>
   <data name="ShowPrice" xml:space="preserve">
     <value>Show price</value>
+  </data>
+  <data name="Text" xml:space="preserve">
+    <value>Text</value>
   </data>
   <data name="TextColor" xml:space="preserve">
     <value>Text Farbe</value>

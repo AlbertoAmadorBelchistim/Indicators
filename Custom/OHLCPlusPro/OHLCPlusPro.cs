@@ -73,6 +73,7 @@ public class LevelSettings : NotifiableObject
     private int _width;
     private LineDashStyle _lineStyle;
     private LabelPosition _labelPosition;
+    private string _text = string.Empty;
     private RenderPen? _renderPen;
 
     #endregion
@@ -135,6 +136,16 @@ public class LevelSettings : NotifiableObject
         set => SetField(ref _lineStyle, value);
     }
 
+    /// <summary>
+    /// Text of this level, in place of the one the template builds. Empty means the template.
+    /// </summary>
+    [Display(ResourceType = typeof(Res), Name = nameof(Res.Text), Description = nameof(Res.OhlcPlusLevelTextDescription))]
+    public string Text
+    {
+        get => _text;
+        set => SetField(ref _text, value ?? string.Empty);
+    }
+
     [Display(ResourceType = typeof(Res), Name = nameof(Res.Label))]
     public LabelPosition LabelPosition 
     {
@@ -174,7 +185,8 @@ public class LevelSettings : NotifiableObject
         bool showPrice = true,
         LabelPosition labelPosition = LabelPosition.Bar,
         LineType lineType = LineType.Bar,
-        CrossColor? textColor = null
+        CrossColor? textColor = null,
+        string text = ""
     )
     {
         Enabled = enabled;
@@ -185,6 +197,7 @@ public class LevelSettings : NotifiableObject
         ShowPrice = showPrice;
         LabelPosition = labelPosition;
         LineType = lineType;
+        Text = text;
     }
 
     #endregion
@@ -1305,8 +1318,12 @@ public class OHLCPlusPro : Indicator
     /// <summary>
     /// Text of a level: the template with the prefix of its period and the name of its kind.
     /// </summary>
-    private string BuildLabel(FixedProfilePeriods period, int kind)
+    private string BuildLabel(FixedProfilePeriods period, int kind, LevelSettings levelSettings)
     {
+        // A text written on the level itself wins over the template.
+        if (levelSettings.Text.Length > 0)
+            return levelSettings.Text;
+
         var index = IndexOf(period);
         var prefix = index >= 0 ? _prefixes[index] : string.Empty;
         var text = kind >= 0 && kind < LevelCount ? _levelTexts[kind] : string.Empty;
@@ -1501,7 +1518,7 @@ public class OHLCPlusPro : Indicator
 
         // Get pen from LevelSettings
         var renderPen = levelSettings.RenderPen;
-        var labelText = BuildLabel(period, kind);
+        var labelText = BuildLabel(period, kind, levelSettings);
 
         // Draw line first (if LineType != None)
         switch (levelSettings.LineType)

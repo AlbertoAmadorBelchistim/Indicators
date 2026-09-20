@@ -93,6 +93,9 @@
   <data name="OhlcPlusAutoUpdateDescription" xml:space="preserve">
     <value>Обновляет уровни в реальном времени по мере поступления сделок. При выключении уровни остаются на момент запроса профиля.</value>
   </data>
+  <data name="OhlcPlusLevelTextDescription" xml:space="preserve">
+    <value>Текст этого уровня на графике вместо построенного по шаблону. Пусто — используется шаблон.</value>
+  </data>
   <data name="OhlcPlusTextColorDescription" xml:space="preserve">
     <value>Цвет текста уровня: подпись на графике, цена на шкале и бейдж уровня. При «Авто» цвет подбирается автоматически для контраста с фоном под текстом.</value>
   </data>
@@ -116,6 +119,9 @@
   </data>
   <data name="ShowPrice" xml:space="preserve">
     <value>Показать цену</value>
+  </data>
+  <data name="Text" xml:space="preserve">
+    <value>Текст</value>
   </data>
   <data name="TextColor" xml:space="preserve">
     <value>Цвет текста</value>

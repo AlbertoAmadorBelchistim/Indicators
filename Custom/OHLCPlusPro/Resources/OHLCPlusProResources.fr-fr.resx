@@ -93,6 +93,9 @@
   <data name="OhlcPlusAutoUpdateDescription" xml:space="preserve">
     <value>Met à jour les niveaux en temps réel à l'arrivée des transactions. Désactivé, les niveaux sont figés au moment de la demande du profil.</value>
   </data>
+  <data name="OhlcPlusLevelTextDescription" xml:space="preserve">
+    <value>Texte de ce niveau sur le graphique, à la place de celui construit par le modèle. Vide utilise le modèle.</value>
+  </data>
   <data name="OhlcPlusTextColorDescription" xml:space="preserve">
     <value>Couleur du texte du niveau : l'étiquette sur le graphique, le prix sur l'échelle et le badge du niveau. Avec Auto, la couleur est choisie pour contraster avec le fond derrière le texte.</value>
   </data>
@@ -116,6 +119,9 @@
   </data>
   <data name="ShowPrice" xml:space="preserve">
     <value>Afficher le prix</value>
+  </data>
+  <data name="Text" xml:space="preserve">
+    <value>Texte</value>
   </data>
   <data name="TextColor" xml:space="preserve">
     <value>Couleur du texte</value>

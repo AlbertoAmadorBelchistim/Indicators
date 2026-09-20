@@ -93,6 +93,9 @@
   <data name="OhlcPlusAutoUpdateDescription" xml:space="preserve">
     <value>随新成交实时更新水平线。关闭时，水平线冻结在请求成交分布的那一刻。</value>
   </data>
+  <data name="OhlcPlusLevelTextDescription" xml:space="preserve">
+    <value>该水平线在图表上的文字，取代按模板生成的文字。留空则用模板。</value>
+  </data>
   <data name="OhlcPlusTextColorDescription" xml:space="preserve">
     <value>水平线文字的颜色：图表上的标签、价格坐标轴上的价格以及水平线标记。选择自动时，颜色会自动挑选以与文字背后的背景形成对比。</value>
   </data>
@@ -116,6 +119,9 @@
   </data>
   <data name="ShowPrice" xml:space="preserve">
     <value>显示价格</value>
+  </data>
+  <data name="Text" xml:space="preserve">
+    <value>文本</value>
   </data>
   <data name="TextColor" xml:space="preserve">
     <value>文本颜色</value>

@@ -93,6 +93,9 @@
   <data name="OhlcPlusAutoUpdateDescription" xml:space="preserve">
     <value>Actualiza los niveles en tiempo real según llegan operaciones. Desactivado, los niveles se congelan en el momento en que se pidió el perfil.</value>
   </data>
+  <data name="OhlcPlusLevelTextDescription" xml:space="preserve">
+    <value>Texto de este nivel en el gráfico, en lugar del que construye la plantilla. Vacío usa la plantilla.</value>
+  </data>
   <data name="OhlcPlusTextColorDescription" xml:space="preserve">
     <value>Color del texto del nivel: la etiqueta del gráfico, el precio de la escala y la insignia del nivel. Con Auto, el color se elige solo para que contraste con el fondo que hay detrás del texto.</value>
   </data>
@@ -116,6 +119,9 @@
   </data>
   <data name="ShowPrice" xml:space="preserve">
     <value>Mostrar precio</value>
+  </data>
+  <data name="Text" xml:space="preserve">
+    <value>Texto</value>
   </data>
   <data name="TextColor" xml:space="preserve">
     <value>Color de texto</value>
