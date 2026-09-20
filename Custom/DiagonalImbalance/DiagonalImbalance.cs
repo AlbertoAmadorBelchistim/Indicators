@@ -15,7 +15,7 @@ using Utils.Common.Logging;
 
 [DisplayName("Diagonal Imbalance")]
 [Category(IndicatorCategories.VolumeOrderFlow)]
-[Description("Detects diagonal bid/ask imbalances in the footprint and stacked imbalance zones.")]
+[Display(ResourceType = typeof(DiagonalImbalanceResources), Description = nameof(DiagonalImbalanceResources.DiagonalImbalance_Description))]
 public class DiagonalImbalance : Indicator
 {
 	#region Nested Types: Engine
@@ -134,15 +134,15 @@ public class DiagonalImbalance : Indicator
 	public enum MarkLayout
 	{
 		// Footprint halves when the bar is at least MinSplitBarWidth wide, full bar otherwise.
-		[Display(Name = "Auto")]
+		[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.MarkLayout_Auto))]
 		Auto,
 
 		// Sell marks on the left (Bid) half, buy marks on the right (Ask) half.
-		[Display(Name = "Footprint halves")]
+		[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.MarkLayout_FootprintHalves))]
 		FootprintHalves,
 
 		// Marks cover the whole bar width.
-		[Display(Name = "Full bar")]
+		[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.MarkLayout_FullBar))]
 		FullBar
 	}
 
@@ -153,15 +153,15 @@ public class DiagonalImbalance : Indicator
 	public enum ZoneBreakMode
 	{
 		// Price trades into the zone.
-		[Display(Name = "Touch")]
+		[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.ZoneBreakMode_Touch))]
 		Touch,
 
 		// Price trades beyond the far edge of the zone (below a buy zone, above a sell zone).
-		[Display(Name = "Trade through")]
+		[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.ZoneBreakMode_TradeThrough))]
 		TradeThrough,
 
 		// A bar closes beyond the far edge of the zone. Only closed bars can break it.
-		[Display(Name = "Close beyond")]
+		[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.ZoneBreakMode_CloseBeyond))]
 		CloseBeyond
 	}
 
@@ -277,8 +277,9 @@ public class DiagonalImbalance : Indicator
 
 	#region Properties
 
-	[Display(Name = "Imbalance ratio", GroupName = "Calculation", Order = 100,
-		Description = "Minimum ratio between the dominant side and the diagonal passive side, e.g. 3 = 300%.")]
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.ImbalanceRatio_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Calculation), Order = 100,
+		Description = nameof(DiagonalImbalanceResources.ImbalanceRatio_Description))]
 	[Range(1, 100)]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public decimal ImbalanceRatio
@@ -294,8 +295,9 @@ public class DiagonalImbalance : Indicator
 		}
 	}
 
-	[Display(Name = "Minimum dominant volume", GroupName = "Calculation", Order = 110,
-		Description = "Minimum volume on the dominant side for a level to count as an imbalance.")]
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.MinDominantVolume_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Calculation), Order = 110,
+		Description = nameof(DiagonalImbalanceResources.MinDominantVolume_Description))]
 	[Range(0, 1000000)]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public decimal MinDominantVolume
@@ -311,8 +313,9 @@ public class DiagonalImbalance : Indicator
 		}
 	}
 
-	[Display(Name = "Minimum volume difference", GroupName = "Calculation", Order = 115,
-		Description = "Minimum difference between the dominant side and the diagonal passive side. 0 disables the filter.")]
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.MinVolumeDifference_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Calculation), Order = 115,
+		Description = nameof(DiagonalImbalanceResources.MinVolumeDifference_Description))]
 	[Range(0, 1000000)]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public decimal MinVolumeDifference
@@ -328,9 +331,9 @@ public class DiagonalImbalance : Indicator
 		}
 	}
 
-	[Display(Name = "Ignore zero levels", GroupName = "Calculation", Order = 120,
-		Description = "When enabled, a level whose diagonal passive side has no volume is never an imbalance. " +
-			"When disabled, it counts as an infinite ratio and only the minimum dominant volume applies.")]
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.IgnoreZeroLevels_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Calculation), Order = 120,
+		Description = nameof(DiagonalImbalanceResources.IgnoreZeroLevels_Description))]
 	public bool IgnoreZeroLevels
 	{
 		get => _ignoreZeroLevels;
@@ -344,9 +347,9 @@ public class DiagonalImbalance : Indicator
 		}
 	}
 
-	[Display(Name = "Ticks per row", GroupName = "Calculation", Order = 125,
-		Description = "Number of price levels merged into one row before comparing, like a footprint with grouped rows. " +
-			"Rows are aligned to multiples of this size.")]
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.RowTicks_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Calculation), Order = 125,
+		Description = nameof(DiagonalImbalanceResources.RowTicks_Description))]
 	[Range(1, 50)]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public int RowTicks
@@ -362,9 +365,9 @@ public class DiagonalImbalance : Indicator
 		}
 	}
 
-	[Display(Name = "Stacked imbalance levels", GroupName = "Calculation", Order = 130,
-		Description = "Minimum number of consecutive price levels with an imbalance on the same side " +
-			"to form a stacked imbalance.")]
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.MinStackedLevels_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Calculation), Order = 130,
+		Description = nameof(DiagonalImbalanceResources.MinStackedLevels_Description))]
 	[Range(2, 20)]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public int MinStackedLevels
@@ -384,8 +387,9 @@ public class DiagonalImbalance : Indicator
 
 	#region Properties: Scope
 
-	[Display(Name = "Days to calculate", GroupName = "Scope", Order = 50,
-		Description = "Number of sessions, counting the current one, in which imbalances are evaluated. 0 = the whole chart.")]
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.Days_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Scope), Order = 50,
+		Description = nameof(DiagonalImbalanceResources.Days_Description))]
 	[Range(0, 1000)]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public int Days
@@ -401,9 +405,9 @@ public class DiagonalImbalance : Indicator
 		}
 	}
 
-	[Display(Name = "Use session filter", GroupName = "Scope", Order = 60,
-		Description = "Only evaluate bars that open inside the session time range (chart time zone). " +
-			"Zones created inside the session keep extending and can break outside it.")]
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.UseSessionFilter_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Scope), Order = 60,
+		Description = nameof(DiagonalImbalanceResources.UseSessionFilter_Description))]
 	public bool UseSessionFilter
 	{
 		get => _useSessionFilter;
@@ -417,8 +421,9 @@ public class DiagonalImbalance : Indicator
 		}
 	}
 
-	[Display(Name = "Session start", GroupName = "Scope", Order = 70,
-		Description = "Start of the session time range (inclusive). A start later than the end spans midnight.")]
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.SessionStart_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Scope), Order = 70,
+		Description = nameof(DiagonalImbalanceResources.SessionStart_Description))]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public TimeSpan SessionStart
 	{
@@ -433,8 +438,9 @@ public class DiagonalImbalance : Indicator
 		}
 	}
 
-	[Display(Name = "Session end", GroupName = "Scope", Order = 80,
-		Description = "End of the session time range (exclusive).")]
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.SessionEnd_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Scope), Order = 80,
+		Description = nameof(DiagonalImbalanceResources.SessionEnd_Description))]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public TimeSpan SessionEnd
 	{
@@ -453,9 +459,9 @@ public class DiagonalImbalance : Indicator
 
 	#region Properties: Zones
 
-	[Display(Name = "Zone break rule", GroupName = "Zones", Order = 300,
-		Description = "Touch: price trades into the zone. Trade through: price trades beyond its far edge " +
-			"(below a buy zone, above a sell zone). Close beyond: a bar closes beyond its far edge.")]
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.BreakMode_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Zones), Order = 300,
+		Description = nameof(DiagonalImbalanceResources.BreakMode_Description))]
 	public ZoneBreakMode BreakMode
 	{
 		get => _zoneBreakMode;
@@ -469,8 +475,9 @@ public class DiagonalImbalance : Indicator
 		}
 	}
 
-	[Display(Name = "Maximum zone age (bars)", GroupName = "Zones", Order = 310,
-		Description = "A zone that has not been broken after this many bars stops extending. 0 = no limit.")]
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.MaxZoneAgeBars_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Zones), Order = 310,
+		Description = nameof(DiagonalImbalanceResources.MaxZoneAgeBars_Description))]
 	[Range(0, 100000)]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public int MaxZoneAgeBars
@@ -486,8 +493,9 @@ public class DiagonalImbalance : Indicator
 		}
 	}
 
-	[Display(Name = "Maximum active zones", GroupName = "Zones", Order = 320,
-		Description = "When a new zone would exceed this number of active zones, the oldest active zone stops extending. 0 = no limit.")]
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.MaxActiveZones_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Zones), Order = 320,
+		Description = nameof(DiagonalImbalanceResources.MaxActiveZones_Description))]
 	[Range(0, 1000)]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public int MaxActiveZones
@@ -507,8 +515,9 @@ public class DiagonalImbalance : Indicator
 
 	#region Properties: Visuals
 
-	[Display(Name = "Show imbalance marks", GroupName = "Visuals", Order = 200,
-		Description = "Highlights every level with a diagonal imbalance.")]
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.ShowMarks_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Visuals), Order = 200,
+		Description = nameof(DiagonalImbalanceResources.ShowMarks_Description))]
 	public bool ShowMarks
 	{
 		get => _showMarks;
@@ -519,9 +528,9 @@ public class DiagonalImbalance : Indicator
 		}
 	}
 
-	[Display(Name = "Mark layout", GroupName = "Visuals", Order = 205,
-		Description = "Footprint halves: sell marks on the left (Bid) half and buy marks on the right (Ask) half. " +
-			"Full bar: marks use the whole bar width. Auto: halves when the bar is wide enough, full bar otherwise.")]
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.MarksLayout_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Visuals), Order = 205,
+		Description = nameof(DiagonalImbalanceResources.MarksLayout_Description))]
 	public MarkLayout MarksLayout
 	{
 		get => _markLayout;
@@ -532,8 +541,9 @@ public class DiagonalImbalance : Indicator
 		}
 	}
 
-	[Display(Name = "Buy imbalance color", GroupName = "Visuals", Order = 210,
-		Description = "Color of buy imbalances (Ask against the Bid one tick below).")]
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.BuyColor_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Visuals), Order = 210,
+		Description = nameof(DiagonalImbalanceResources.BuyColor_Description))]
 	public CrossColor BuyColor
 	{
 		get => _buyColor.Convert();
@@ -544,8 +554,9 @@ public class DiagonalImbalance : Indicator
 		}
 	}
 
-	[Display(Name = "Sell imbalance color", GroupName = "Visuals", Order = 220,
-		Description = "Color of sell imbalances (Bid against the Ask one tick above).")]
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.SellColor_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Visuals), Order = 220,
+		Description = nameof(DiagonalImbalanceResources.SellColor_Description))]
 	public CrossColor SellColor
 	{
 		get => _sellColor.Convert();
@@ -556,8 +567,9 @@ public class DiagonalImbalance : Indicator
 		}
 	}
 
-	[Display(Name = "Show stacked zones", GroupName = "Visuals", Order = 230,
-		Description = "Draws each stacked imbalance as a zone that extends to the right until price trades through it.")]
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.ShowZones_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Visuals), Order = 230,
+		Description = nameof(DiagonalImbalanceResources.ShowZones_Description))]
 	public bool ShowZones
 	{
 		get => _showZones;
@@ -568,8 +580,9 @@ public class DiagonalImbalance : Indicator
 		}
 	}
 
-	[Display(Name = "Buy zone color", GroupName = "Visuals", Order = 240,
-		Description = "Fill color of zones from stacked buy imbalances.")]
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.BuyZoneColor_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Visuals), Order = 240,
+		Description = nameof(DiagonalImbalanceResources.BuyZoneColor_Description))]
 	public CrossColor BuyZoneColor
 	{
 		get => _buyZoneColor.Convert();
@@ -581,8 +594,9 @@ public class DiagonalImbalance : Indicator
 		}
 	}
 
-	[Display(Name = "Sell zone color", GroupName = "Visuals", Order = 250,
-		Description = "Fill color of zones from stacked sell imbalances.")]
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.SellZoneColor_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Visuals), Order = 250,
+		Description = nameof(DiagonalImbalanceResources.SellZoneColor_Description))]
 	public CrossColor SellZoneColor
 	{
 		get => _sellZoneColor.Convert();
@@ -594,8 +608,9 @@ public class DiagonalImbalance : Indicator
 		}
 	}
 
-	[Display(Name = "Zone border width", GroupName = "Visuals", Order = 260,
-		Description = "Width of the zone outline, drawn in the zone color without transparency. 0 = no outline.")]
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.ZoneBorderWidth_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Visuals), Order = 260,
+		Description = nameof(DiagonalImbalanceResources.ZoneBorderWidth_Description))]
 	[Range(0, 5)]
 	public int ZoneBorderWidth
 	{
@@ -608,8 +623,9 @@ public class DiagonalImbalance : Indicator
 		}
 	}
 
-	[Display(Name = "Show zone labels", GroupName = "Visuals", Order = 270,
-		Description = "Writes the number of stacked levels (for example x4) at the start of each zone.")]
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.ShowZoneLabels_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Visuals), Order = 270,
+		Description = nameof(DiagonalImbalanceResources.ShowZoneLabels_Description))]
 	public bool ShowZoneLabels
 	{
 		get => _showZoneLabels;
@@ -620,8 +636,9 @@ public class DiagonalImbalance : Indicator
 		}
 	}
 
-	[Display(Name = "Label font size", GroupName = "Visuals", Order = 280,
-		Description = "Font size of the zone labels.")]
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.LabelFontSize_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Visuals), Order = 280,
+		Description = nameof(DiagonalImbalanceResources.LabelFontSize_Description))]
 	[Range(6, 24)]
 	public int LabelFontSize
 	{
@@ -638,9 +655,9 @@ public class DiagonalImbalance : Indicator
 
 	#region Properties: Diagnostics
 
-	[Display(Name = "Detailed log", GroupName = "Diagnostics", Order = 900,
-		Description = "Writes every imbalance of the last 20 bars after a recalculation, and of every bar " +
-			"that closes afterwards, to the ATAS log. For checking the indicator against the footprint.")]
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.DetailedLog_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Diagnostics), Order = 900,
+		Description = nameof(DiagonalImbalanceResources.DetailedLog_Description))]
 	public bool DetailedLog
 	{
 		get => _detailedLog;
@@ -651,32 +668,36 @@ public class DiagonalImbalance : Indicator
 
 	#region Properties: Alerts
 
-	[Display(Name = "Alert on new zone", GroupName = "Alerts", Order = 400,
-		Description = "Alert when a bar closes with a stacked imbalance and a new zone is created.")]
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.AlertOnNewZone_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Alerts), Order = 400,
+		Description = nameof(DiagonalImbalanceResources.AlertOnNewZone_Description))]
 	public bool AlertOnNewZone
 	{
 		get => _alertOnNewZone;
 		set => _alertOnNewZone = value;
 	}
 
-	[Display(Name = "Alert on zone retest", GroupName = "Alerts", Order = 410,
-		Description = "Alert when price moves from outside an active zone into it.")]
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.AlertOnRetest_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Alerts), Order = 410,
+		Description = nameof(DiagonalImbalanceResources.AlertOnRetest_Description))]
 	public bool AlertOnRetest
 	{
 		get => _alertOnRetest;
 		set => _alertOnRetest = value;
 	}
 
-	[Display(Name = "Alert sound", GroupName = "Alerts", Order = 420,
-		Description = "Sound file used by the alerts.")]
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.AlertFile_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Alerts), Order = 420,
+		Description = nameof(DiagonalImbalanceResources.AlertFile_Description))]
 	public string AlertFile
 	{
 		get => _alertFile;
 		set => _alertFile = value;
 	}
 
-	[Display(Name = "Retest cooldown (seconds)", GroupName = "Alerts", Order = 430,
-		Description = "Minimum time between two retest alerts of the same zone.")]
+	[Display(ResourceType = typeof(DiagonalImbalanceResources), Name = nameof(DiagonalImbalanceResources.AlertCooldownSeconds_DisplayName),
+		GroupName = nameof(DiagonalImbalanceResources.Group_Alerts), Order = 430,
+		Description = nameof(DiagonalImbalanceResources.AlertCooldownSeconds_Description))]
 	[Range(0, 86400)]
 	public int AlertCooldownSeconds
 	{
