@@ -1418,6 +1418,11 @@ public class ClusterStatisticPro : Indicator
 
 	#region Protected methods
 
+	protected override void OnInitialize()
+	{
+		this.LogInfo($"ClusterStatisticPro: initialized ({typeof(ClusterStatisticPro).Assembly.GetName().Version}).");
+	}
+
 	protected override void OnRecalculate()
 	{
 		// The last bar is calculated with the history too: its values would "cross" the alert
