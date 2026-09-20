@@ -72,9 +72,12 @@ public class SmartMoneyFlow : Indicator
 	// Each entry is a copy taken when the event arrived; updates are kept as separate events.
 	private readonly List<(CumulativeTrade Trade, bool IsUpdate)> _pendingTrades = new();
 
-	// Time of the last trade in the history response. Buffered trades up to this time are
-	// already counted in the history.
+	// Time of the last trade in the history response, and the response trades counted at that
+	// time with their bar. Buffered trades before it, or equal to one of those, are already counted
+	// in the history. Several trades can share the last timestamp and the response does not say
+	// which one is still aggregating, so an update of any of them replaces its volume.
 	private DateTime _historyEndTime;
+	private readonly List<(CumulativeTrade Trade, int Bar)> _boundaryTrades = new();
 
 	// Last trade counted and the bar it was counted in. A cumulative trade keeps growing while
 	// it aggregates, and its updates replace the volume counted for it.
@@ -577,6 +580,7 @@ public class SmartMoneyFlow : Indicator
 	{
 		var replayed = 0;
 		var skipped = 0;
+		var updates = 0;
 
 		while (true)
 		{
@@ -598,8 +602,26 @@ public class SmartMoneyFlow : Indicator
 			{
 				lock (_calcLock)
 				{
-					// New trades up to the last history trade are already counted.
-					if (!isUpdate && trade.Time <= _historyEndTime)
+					if (isUpdate && _lastTrade != null && _lastTrade.IsEqual(trade))
+					{
+						// Also when the trade is the last one of the history: the update replaces
+						// the volume the response had for it.
+						ProcessTrade(trade, true, true);
+						updates++;
+						continue;
+					}
+
+					// An update of another trade with the last response time: that trade was the
+					// one still aggregating. It becomes the tracked last trade.
+					if (isUpdate && TrackBoundaryTrade(trade))
+					{
+						ProcessTrade(trade, true, true);
+						updates++;
+						continue;
+					}
+
+					// An update of any other trade is an orphan: its trade is final in the history.
+					if (isUpdate || IsInHistory(trade))
 					{
 						skipped++;
 						continue;
@@ -611,10 +633,61 @@ public class SmartMoneyFlow : Indicator
 			}
 		}
 
-		this.LogInfo($"SmartMoneyFlow: realtime started, {replayed} buffered events replayed, {skipped} already in the history.");
+		this.LogInfo($"SmartMoneyFlow: realtime started; buffered events: {replayed} new trades, " +
+			$"{updates} updates of the last trade, {skipped} skipped as already in the history.");
 
 		if (CurrentBar > 0)
 			RaiseBarValueChanged(CurrentBar - 1);
+	}
+
+	// Called under _calcLock. Whether a buffered trade is already counted in the history: it is
+	// older than the last response trade, or it has the same time and is one of the response trades
+	// at that time. Several trades can share a timestamp, so the time alone is not enough.
+	private bool IsInHistory(CumulativeTrade trade)
+	{
+		if (trade.Time < _historyEndTime)
+			return true;
+
+		if (trade.Time > _historyEndTime)
+			return false;
+
+		foreach (var (boundary, _) in _boundaryTrades)
+		{
+			if (boundary.IsEqual(trade))
+				return true;
+		}
+
+		return false;
+	}
+
+	// Called under _calcLock. When the trade is one of the response trades at the last response
+	// time, makes it the tracked last trade, with the volume and bar the history counted for it.
+	private bool TrackBoundaryTrade(CumulativeTrade trade)
+	{
+		for (var i = 0; i < _boundaryTrades.Count; i++)
+		{
+			var (boundary, bar) = _boundaryTrades[i];
+
+			if (!boundary.IsEqual(trade))
+				continue;
+
+			// The tracked trade leaves the list with its current volume, so tracking can
+			// return to it later from the right volume.
+			if (_lastTrade != null)
+			{
+				for (var j = 0; j < _boundaryTrades.Count; j++)
+				{
+					if (_boundaryTrades[j].Trade.IsEqual(_lastTrade))
+						_boundaryTrades[j] = (_lastTrade, _lastTradeBar);
+				}
+			}
+
+			_lastTrade = boundary;
+			_lastTradeBar = bar;
+			return true;
+		}
+
+		return false;
 	}
 
 	// Called under _calcLock. Writes the running deltas as the values of the bar.
@@ -646,6 +719,8 @@ public class SmartMoneyFlow : Indicator
 			lastBar = CurrentBar - 1;
 
 			var index = 0;
+			_lastTrade = null;
+			_boundaryTrades.Clear();
 
 			for (var bar = _firstBar; bar <= lastBar; bar++)
 			{
@@ -657,6 +732,15 @@ public class SmartMoneyFlow : Indicator
 				while (index < trades.Count && trades[index].Time <= candle.LastTime)
 				{
 					AddVolume(trades[index].Volume, trades[index].Direction);
+
+					// The last trade of the response may still be aggregating: its later
+					// updates must replace the volume counted here.
+					_lastTrade = trades[index];
+					_lastTradeBar = bar;
+
+					if (index == trades.Count - 1 || trades[index].Time == trades[^1].Time)
+						_boundaryTrades.Add((trades[index].MemberwiseClone(), bar));
+
 					index++;
 				}
 
@@ -664,8 +748,11 @@ public class SmartMoneyFlow : Indicator
 			}
 
 			_lastBar = lastBar;
+
+			if (_lastTrade != null)
+				_lastTrade = _lastTrade.MemberwiseClone();
+
 			_historyEndTime = trades.Count > 0 ? trades[^1].Time : DateTime.MinValue;
-			_lastTrade = null;
 		}
 
 		UpdateVisibility();
