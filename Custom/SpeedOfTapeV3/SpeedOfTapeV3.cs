@@ -33,7 +33,7 @@ namespace ATAS.Indicators.Technical
 
         /// <summary>
         /// Single trade snapshot kept inside the rolling time window.
-        /// Direction: +1 buy, -1 sell.
+        /// Direction: +1 buy, -1 sell, 0 no aggressor side.
         /// </summary>
         private readonly struct TickSnapshot
         {
@@ -937,7 +937,7 @@ namespace ATAS.Indicators.Technical
             {
                 vol += t.Volume;
                 if (t.Direction == 1) buys += t.Volume;
-                else sells += t.Volume;
+                else if (t.Direction == -1) sells += t.Volume;
 
                 if (t.Price > high) high = t.Price;
                 if (t.Price < low) low = t.Price;
@@ -1106,7 +1106,14 @@ namespace ATAS.Indicators.Technical
             if (bar < 0)
                 return;
 
-            int direction = tick.Direction == TradeDirection.Buy ? 1 : -1;
+            // Trades without an aggressor side (Between) count as ticks and volume but on neither
+            // side; they used to be counted as sells.
+            int direction = tick.Direction switch
+            {
+                TradeDirection.Buy => 1,
+                TradeDirection.Sell => -1,
+                _ => 0
+            };
             ProcessTradeAt(tick.Time, tick.Volume, direction, tick.Price, bar);
         }
 
