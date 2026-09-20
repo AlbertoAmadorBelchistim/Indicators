@@ -249,6 +249,14 @@ public class DiagonalImbalance : Indicator
 	private RenderPen _sellZonePen;
 	private RenderFont _labelFont = new("Arial", 8);
 
+	private int _days = 5;
+	private bool _useSessionFilter;
+	private TimeSpan _sessionStart = new(9, 30, 0);
+	private TimeSpan _sessionEnd = new(16, 0, 0);
+
+	// First bar evaluated, derived from Days on every recalculation.
+	private int _firstCalculatedBar;
+
 	private bool _alertOnNewZone;
 	private bool _alertOnRetest;
 	private string _alertFile = "alert2";
@@ -366,6 +374,75 @@ public class DiagonalImbalance : Indicator
 				return;
 
 			_minStackedLevels = value;
+			RecalculateValues();
+		}
+	}
+
+	#endregion
+
+	#region Properties: Scope
+
+	[Display(Name = "Days to calculate", GroupName = "Scope", Order = 50,
+		Description = "Number of sessions, counting the current one, in which imbalances are evaluated. 0 = the whole chart.")]
+	[Range(0, 1000)]
+	[PostValueMode(PostValueModes.OnLostFocus)]
+	public int Days
+	{
+		get => _days;
+		set
+		{
+			if (_days == value)
+				return;
+
+			_days = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(Name = "Use session filter", GroupName = "Scope", Order = 60,
+		Description = "Only evaluate bars that open inside the session time range (chart time zone). " +
+			"Zones created inside the session keep extending and can break outside it.")]
+	public bool UseSessionFilter
+	{
+		get => _useSessionFilter;
+		set
+		{
+			if (_useSessionFilter == value)
+				return;
+
+			_useSessionFilter = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(Name = "Session start", GroupName = "Scope", Order = 70,
+		Description = "Start of the session time range (inclusive). A start later than the end spans midnight.")]
+	[PostValueMode(PostValueModes.OnLostFocus)]
+	public TimeSpan SessionStart
+	{
+		get => _sessionStart;
+		set
+		{
+			if (_sessionStart == value)
+				return;
+
+			_sessionStart = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(Name = "Session end", GroupName = "Scope", Order = 80,
+		Description = "End of the session time range (exclusive).")]
+	[PostValueMode(PostValueModes.OnLostFocus)]
+	public TimeSpan SessionEnd
+	{
+		get => _sessionEnd;
+		set
+		{
+			if (_sessionEnd == value)
+				return;
+
+			_sessionEnd = value;
 			RecalculateValues();
 		}
 	}
@@ -639,6 +716,8 @@ public class DiagonalImbalance : Indicator
 		_historySellCount = 0;
 		_historyBuyStacks = 0;
 		_historySellStacks = 0;
+
+		_firstCalculatedBar = FindFirstCalculatedBar();
 	}
 
 	protected override void OnCalculate(int bar, decimal value)
@@ -674,7 +753,9 @@ public class DiagonalImbalance : Indicator
 			$"(ratio {_imbalanceRatio}, min dominant volume {_minDominantVolume}, " +
 			$"min volume difference {_minVolumeDifference}, ignore zero levels {_ignoreZeroLevels}, " +
 			$"ticks per row {_rowTicks}, stacked levels {_minStackedLevels}), {CountActiveZones()} active zones " +
-			$"(break rule {_zoneBreakMode}, max age {_maxZoneAgeBars}, max active {_maxActiveZones}).");
+			$"(break rule {_zoneBreakMode}, max age {_maxZoneAgeBars}, max active {_maxActiveZones}); " +
+			$"scope from bar {_firstCalculatedBar} (days {_days}), session filter " +
+			$"{(_useSessionFilter ? $"{_sessionStart:hh\\:mm}-{_sessionEnd:hh\\:mm}" : "off")}.");
 
 		for (var bar = Math.Max(0, lastClosed - LoggedHistoryBars + 1); bar <= lastClosed; bar++)
 			LogBar(bar);
@@ -820,7 +901,7 @@ public class DiagonalImbalance : Indicator
 
 	private void CalculateFormingBar(int bar)
 	{
-		var levels = FindImbalances(bar);
+		var levels = IsInScope(bar) ? FindImbalances(bar) : NoImbalances;
 		var candle = GetCandle(bar);
 
 		lock (_barsLock)
@@ -843,8 +924,9 @@ public class DiagonalImbalance : Indicator
 
 	private void CalculateClosedBar(int bar)
 	{
-		var levels = FindImbalances(bar);
-		var stacks = FindStacks(levels);
+		var inScope = IsInScope(bar);
+		var levels = inScope ? FindImbalances(bar) : NoImbalances;
+		var stacks = inScope ? FindStacks(levels) : NoStacks;
 
 		lock (_barsLock)
 		{
@@ -1006,6 +1088,57 @@ public class DiagonalImbalance : Indicator
 	{
 		lock (_barsLock)
 			return _activeZones.Count;
+	}
+
+	// Bars before the first calculated bar or, with the session filter, opening outside the
+	// session produce no imbalances and no zones. Zone updates still run on every bar.
+	private bool IsInScope(int bar)
+	{
+		if (bar < _firstCalculatedBar)
+			return false;
+
+		if (!_useSessionFilter || _sessionStart == _sessionEnd)
+			return true;
+
+		var time = ChartTime(GetCandle(bar).Time).TimeOfDay;
+
+		return _sessionStart < _sessionEnd
+			? time >= _sessionStart && time < _sessionEnd
+			: time >= _sessionStart || time < _sessionEnd;
+	}
+
+	private DateTime ChartTime(DateTime utc)
+	{
+		if (InstrumentInfo is null)
+			return utc;
+
+#if ATAS_STABLE || ATAS_LATEST
+		return utc.AddHours(InstrumentInfo.TimeZone);
+#else
+		return utc.Add(InstrumentInfo.TimeZoneOffset);
+#endif
+	}
+
+	// Walks back from the last bar counting session starts until Days sessions are covered.
+	private int FindFirstCalculatedBar()
+	{
+		if (_days <= 0)
+			return 0;
+
+		var sessions = 0;
+
+		for (var bar = CurrentBar - 1; bar > 0; bar--)
+		{
+			if (!IsNewSession(bar))
+				continue;
+
+			sessions++;
+
+			if (sessions == _days)
+				return bar;
+		}
+
+		return 0;
 	}
 
 	// Merges the bar into rows of RowTicks price levels, aligned to multiples of the row size
