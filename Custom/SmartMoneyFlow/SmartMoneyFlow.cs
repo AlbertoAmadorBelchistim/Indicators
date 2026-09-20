@@ -126,6 +126,14 @@ public class SmartMoneyFlow : Indicator
 	private DateTime _lastZeroAlertUtc = DateTime.MinValue;
 	private DateTime _lastSignalAlertUtc = DateTime.MinValue;
 
+	private bool _detailedLog;
+
+	// Number of most recent bars written to the log after the history (detailed log).
+	private const int LoggedHistoryBars = 20;
+
+	// Realtime updates that did not match the last trade and were counted as new trades.
+	private int _orphanUpdates;
+
 	// Alerts produced under _calcLock and raised after it is released.
 	private readonly List<(string Message, bool Positive)> _pendingAlerts = new();
 
@@ -357,6 +365,15 @@ public class SmartMoneyFlow : Indicator
 	{
 		get => _alertCooldownSeconds;
 		set => _alertCooldownSeconds = value;
+	}
+
+	[Display(Name = "Detailed log", GroupName = "Diagnostics",
+		Description = "Writes to the ATAS log the values of the last 20 bars after each recalculation and of every bar that closes afterwards.",
+		Order = 3010)]
+	public bool DetailedLog
+	{
+		get => _detailedLog;
+		set => _detailedLog = value;
 	}
 
 	[Display(Name = "Session", GroupName = "Session",
@@ -732,6 +749,7 @@ public class SmartMoneyFlow : Indicator
 			_spreadSign = 0;
 			_signalSign = 0;
 			_pendingAlerts.Clear();
+			_orphanUpdates = 0;
 		}
 	}
 
@@ -1081,6 +1099,10 @@ public class SmartMoneyFlow : Indicator
 		if (bar <= _lastBar)
 			return;
 
+		// The previous bar has closed.
+		if (_detailedLog && _historyReady && _lastBar >= _firstBar)
+			LogBar(_lastBar);
+
 		for (var b = _lastBar + 1; b <= bar; b++)
 		{
 			if (StartBar(b) && b != _firstBar)
@@ -1158,6 +1180,9 @@ public class SmartMoneyFlow : Indicator
 
 		if (isUpdate && fromBuffer)
 			return -1;
+
+		if (isUpdate)
+			_orphanUpdates++;
 
 		var bar = BarOfTime(trade.Time);
 		ApplyVolumeChange(bar, 0, trade.Direction, trade.Volume, trade.Direction);
@@ -1490,9 +1515,43 @@ public class SmartMoneyFlow : Indicator
 
 		this.LogInfo($"SmartMoneyFlow: history calculated, {count} {(_cumulativeTrades ? "cumulative trades" : "ticks")}" +
 			(count > 0 ? $" from {firstTime:yyyy-MM-dd HH:mm:ss.fff} to {lastTime:yyyy-MM-dd HH:mm:ss.fff}" : "") +
-			$", bars {_firstBar}-{lastBar} ({_sessions} sessions, {SessionDescription()}); last values {string.Join(" / ", _delta.Select(d => d.ToString("0.##")))}.");
+			$", bars {_firstBar}-{lastBar} ({_sessions} sessions, {SessionDescription()}); " +
+			$"filters {string.Join(", ", Enumerable.Range(0, FilterCount).Select(FilterDescription))}; signal period {_signalPeriod}.");
+
+		if (_detailedLog)
+		{
+			lock (_calcLock)
+			{
+				for (var bar = Math.Max(_firstBar, lastBar - LoggedHistoryBars + 1); bar <= lastBar; bar++)
+					LogBar(bar);
+			}
+		}
 
 		RedrawChart();
+	}
+
+	private string FilterDescription(int filter)
+	{
+		var role = _role[filter] switch
+		{
+			FilterRole.Smart => "smart",
+			FilterRole.Dumb => "dumb",
+			_ => "none"
+		};
+
+		var max = _maxVolume[filter] == 0 ? "+" : $"-{_maxVolume[filter]:0.##}";
+		return $"F{filter + 1} {_minVolume[filter]:0.##}{max} {role}";
+	}
+
+	// Called under _calcLock. One line with the values of a bar.
+	private void LogBar(int bar)
+	{
+		var values = string.Join(" / ", Enumerable.Range(0, FilterCount).Select(i => _filterSeries[i][bar].ToString("0.##")));
+		var orphans = _orphanUpdates > 0 ? $"; {_orphanUpdates} orphan updates so far" : "";
+
+		this.LogInfo($"SmartMoneyFlow: bar {bar} {GetCandle(bar).Time:yyyy-MM-dd HH:mm:ss}" +
+			$"{(bar < _sessionStart.Count && _sessionStart[bar] ? " (session start)" : "")}: " +
+			$"filters {values}; spread {_spreadSeries[bar]:0.##}; signal {_signalSeries[bar]:0.##}{orphans}");
 	}
 
 	private string SessionDescription()
