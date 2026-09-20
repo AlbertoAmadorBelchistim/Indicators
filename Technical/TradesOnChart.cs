@@ -478,27 +478,12 @@ public class TradesOnChart : Indicator
         var yPosition = baseY;
 
         var testRect = new Rectangle(labelX, yPosition, rectWidth, rectHeight);
-        var allLabels = _labelsAbove.Concat(_labelsBelow).ToList();
 
-        while (allLabels.Any(r => r.IntersectsWith(testRect)))
+        // Move the label past the labels it overlaps, without allocating on every frame.
+        while (FindOverlap(testRect, out var topmost, out var bottommost))
         {
-            var intersecting = allLabels.Where(r => r.IntersectsWith(testRect)).ToList();
-
-            if (intersecting.Any())
-            {
-                if (isAbove)
-                {
-                    var topmost = intersecting.Min(r => r.Y);
-                    yPosition = topmost - stepSize;
-                }
-                else
-                {
-                    var bottommost = intersecting.Max(r => r.Bottom);
-                    yPosition = bottommost + spacing;
-                }
-
-                testRect = new Rectangle(labelX, yPosition, rectWidth, rectHeight);
-            }
+            yPosition = isAbove ? topmost - stepSize : bottommost + spacing;
+            testRect = new Rectangle(labelX, yPosition, rectWidth, rectHeight);
         }
 
         var directionColor = trade.Direction == OrderDirections.Buy ? _buyColor : _sellColor;
@@ -526,6 +511,30 @@ public class TradesOnChart : Indicator
         var mouseOver = testRect.Contains(MouseLocationInfo.LastPosition);
 
         return (testRect, mouseOver);
+    }
+
+    // Whether the rectangle overlaps a drawn label, with the top and bottom of the overlapped ones.
+    private bool FindOverlap(Rectangle rect, out int topmost, out int bottommost)
+    {
+        topmost = int.MaxValue;
+        bottommost = int.MinValue;
+
+        AccumulateOverlap(_labelsAbove, rect, ref topmost, ref bottommost);
+        AccumulateOverlap(_labelsBelow, rect, ref topmost, ref bottommost);
+
+        return topmost != int.MaxValue;
+    }
+
+    private static void AccumulateOverlap(List<Rectangle> labels, Rectangle rect, ref int topmost, ref int bottommost)
+    {
+        foreach (var label in labels)
+        {
+            if (!label.IntersectsWith(rect))
+                continue;
+
+            topmost = Math.Min(topmost, label.Y);
+            bottommost = Math.Max(bottommost, label.Bottom);
+        }
     }
 
     #endregion
@@ -612,17 +621,28 @@ public class TradesOnChart : Indicator
         };
     }
 
+    // Last bar whose time is not after the given time, or -1. Bar times never decrease, so a
+    // binary search gives the same bar as a backward scan without visiting every bar per trade.
     private int GetBarByTime(DateTime time)
     {
-        for (int i = CurrentBar - 1; i >= 0; i--) 
-        {
-            var candle = GetCandle(i);
+        var lo = 0;
+        var hi = CurrentBar - 1;
+        var result = -1;
 
-            if (candle.Time <= time)
-                return i;
+        while (lo <= hi)
+        {
+            var mid = lo + (hi - lo) / 2;
+
+            if (GetCandle(mid).Time <= time)
+            {
+                result = mid;
+                lo = mid + 1;
+            }
+            else
+                hi = mid - 1;
         }
 
-        return -1;
+        return result;
     }
 
     private bool IsPointInTriangle(Point p, Point p0, Point p1, Point p2)
