@@ -76,6 +76,9 @@ public class ClusterStatisticPro : Indicator
 			Add(DataType.StackedBuyImbalance, new RenderInfo(20));
 			Add(DataType.StackedSellImbalance, new RenderInfo(21));
 			Add(DataType.StackedNetImbalance, new RenderInfo(22));
+			Add(DataType.PeakVolPerSec, new RenderInfo(23));
+			Add(DataType.PeakDeltaPerSec, new RenderInfo(24));
+			Add(DataType.PeakDeltaPerVol, new RenderInfo(25));
 		}
 
 		#endregion
@@ -155,6 +158,14 @@ public class ClusterStatisticPro : Indicator
 		public decimal Value(int currentBar)
 		{
 			return currentBar > 0 ? Math.Max(_max, Math.Abs(series[currentBar - 1])) : 0;
+		}
+
+		// For values written after OnCalculate went past them (the tape history arrives later).
+		public void Recompute(int currentBar)
+		{
+			_max = 0;
+			_closedBars = 0;
+			Update(Math.Max(0, currentBar - 1));
 		}
 
 		public decimal Visible(int firstBar, int lastBar)
@@ -239,6 +250,9 @@ public class ClusterStatisticPro : Indicator
 		StackedBuyImbalance,
 		StackedSellImbalance,
 		StackedNetImbalance,
+		PeakVolPerSec,
+		PeakDeltaPerSec,
+		PeakDeltaPerVol,
 		None
 	}
 
@@ -295,6 +309,25 @@ public class ClusterStatisticPro : Indicator
 	private readonly ValueDataSeries _stackedSellImbalance = new("StackedSellImbalance");
 	private readonly ValueDataSeries _stackedNetImbalance = new("StackedNetImbalance");
 	private readonly ImbalanceSettings _imbalance = new();
+
+	// Speed of the tape (peak rows): the engine, the history request and the realtime prints that
+	// arrive while the history is loading, guarded by _tapeSync. _tape is null while no peak row
+	// is shown.
+	private readonly ValueDataSeries _peakVolPerSec = new("PeakVolPerSec");
+	private readonly ValueDataSeries _peakDeltaPerSec = new("PeakDeltaPerSec");
+	private readonly ValueDataSeries _peakDeltaPerVol = new("PeakDeltaPerVol");
+	private readonly object _tapeSync = new();
+	private readonly List<Tick> _pendingTicks = new();
+	private PeakRateEngine _tape;
+	private bool _tapeHistoryLoaded;
+	private int _tapeRequestId;
+	private DateTime _lastTickTime;
+	private int _lastTickCount;
+	private DateTime _bufferStartTime;
+	private int _bufferStartCount;
+	private int _tapeWindowSeconds = 5;
+	private int _tapeMinVolume = 150;
+	private int _tapeSessionsToLoad = 2;
 	private readonly List<PriceLevel> _levels = new();
 
 	// Maxima of the rows added by this indicator, by row.
@@ -626,6 +659,42 @@ public class ClusterStatisticPro : Indicator
     }
 
     [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowPeakVolPerSec), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowPeakVolPerSecDescription), Order = 190, ResourceType = typeof(Res))]
+    public bool ShowPeakVolPerSec
+    {
+        get => RowsOrder[DataType.PeakVolPerSec].Enabled;
+        set
+        {
+            RowsOrder.SetEnabled(DataType.PeakVolPerSec, value);
+            OnTapeUseChanged();
+        }
+    }
+
+    [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowPeakDeltaPerSec), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowPeakDeltaPerSecDescription), Order = 190, ResourceType = typeof(Res))]
+    public bool ShowPeakDeltaPerSec
+    {
+        get => RowsOrder[DataType.PeakDeltaPerSec].Enabled;
+        set
+        {
+            RowsOrder.SetEnabled(DataType.PeakDeltaPerSec, value);
+            OnTapeUseChanged();
+        }
+    }
+
+    [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowPeakDeltaPerVol), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowPeakDeltaPerVolDescription), Order = 190, ResourceType = typeof(Res))]
+    public bool ShowPeakDeltaPerVol
+    {
+        get => RowsOrder[DataType.PeakDeltaPerVol].Enabled;
+        set
+        {
+            RowsOrder.SetEnabled(DataType.PeakDeltaPerVol, value);
+            OnTapeUseChanged();
+        }
+    }
+
+    [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
     [Display(Name = nameof(Res.ShowSessionVolume), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowSessionVolumeDescription), Order = 191, ResourceType = typeof(Res))]
     public bool ShowSessionVolume
     {
@@ -712,6 +781,49 @@ public class ClusterStatisticPro : Indicator
 			if (propName == nameof(FilterTimeSpan.Value) && _sessionMode == SessionMode.CustomSession)
 				RecalculateValues();
 		});
+    }
+
+    #endregion
+
+    #region Speed of tape
+
+    [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.SotTimeWindowSecName), GroupName = nameof(Res.MaxVolPerSecGroup), Description = nameof(Res.SotTimeWindowSecDescription), Order = 140, ResourceType = typeof(Res))]
+    [Range(1, 600)]
+    public int SotTimeWindowSec
+    {
+        get => _tapeWindowSeconds;
+        set
+        {
+            _tapeWindowSeconds = Math.Max(1, value);
+            OnTapeSettingsChanged();
+        }
+    }
+
+    [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.SotMinVolumeName), GroupName = nameof(Res.MaxVolPerSecGroup), Description = nameof(Res.SotMinVolumeDescription), Order = 141, ResourceType = typeof(Res))]
+    [Range(0, 1000000)]
+    public int SotMinVolume
+    {
+        get => _tapeMinVolume;
+        set
+        {
+            _tapeMinVolume = Math.Max(0, value);
+            OnTapeSettingsChanged();
+        }
+    }
+
+    [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.TapeSessionsToLoad), GroupName = nameof(Res.MaxVolPerSecGroup), Description = nameof(Res.TapeSessionsToLoadDescription), Order = 142, ResourceType = typeof(Res))]
+    [Range(0, 100)]
+    public int TapeSessionsToLoad
+    {
+        get => _tapeSessionsToLoad;
+        set
+        {
+            _tapeSessionsToLoad = Math.Max(0, value);
+            OnTapeSettingsChanged();
+        }
     }
 
     #endregion
@@ -1168,6 +1280,9 @@ public class ClusterStatisticPro : Indicator
 		_rowMaxima[DataType.StackedBuyImbalance] = new ClosedBarsMax(_stackedBuyImbalance);
 		_rowMaxima[DataType.StackedSellImbalance] = new ClosedBarsMax(_stackedSellImbalance);
 		_rowMaxima[DataType.StackedNetImbalance] = new ClosedBarsMax(_stackedNetImbalance);
+		_rowMaxima[DataType.PeakVolPerSec] = new ClosedBarsMax(_peakVolPerSec);
+		_rowMaxima[DataType.PeakDeltaPerSec] = new ClosedBarsMax(_peakDeltaPerSec);
+		_rowMaxima[DataType.PeakDeltaPerVol] = new ClosedBarsMax(_peakDeltaPerVol);
 
 		Font = new FontSetting("Arial", 9);
 		CustomSessionStart = new(false);
@@ -1255,11 +1370,118 @@ public class ClusterStatisticPro : Indicator
 		// The last bar is calculated with the history too: its values would "cross" the alert
 		// levels from zero and alert on every chart load or settings change.
 		_alertsArmed = false;
+
+		// The tape starts over: realtime prints wait in a buffer until the history is in.
+		lock (_tapeSync)
+		{
+			_tape = PeakRowsEnabled() ? new PeakRateEngine(_tapeWindowSeconds, _tapeMinVolume) : null;
+			_tapeHistoryLoaded = false;
+			_tapeRequestId = 0;
+			_pendingTicks.Clear();
+			_bufferStartTime = _lastTickTime;
+			_bufferStartCount = _lastTickCount;
+		}
 	}
 
 	protected override void OnFinishRecalculate()
 	{
 		_alertsArmed = true;
+		RequestTapeHistory();
+	}
+
+	protected override void OnNewTrade(MarketDataArg trade)
+	{
+		var tick = new Tick(trade.Time, trade.Volume, SideOf(trade.Direction));
+
+		lock (_tapeSync)
+		{
+			// Prints of the same time, counted to skip the ones the history already has.
+			if (tick.Time == _lastTickTime)
+				_lastTickCount++;
+			else
+			{
+				_lastTickTime = tick.Time;
+				_lastTickCount = 1;
+			}
+
+			if (_tape == null)
+				return;
+
+			if (!_tapeHistoryLoaded)
+			{
+				_pendingTicks.Add(tick);
+				return;
+			}
+
+			ProcessTick(BarOfTime(tick.Time), tick);
+		}
+	}
+
+	protected override void OnCumulativeTradesResponse(CumulativeTradesRequest request, IEnumerable<CumulativeTrade> cumulativeTrades)
+	{
+		lock (_tapeSync)
+		{
+			if (_tape == null || request.RequestId != _tapeRequestId)
+				return;
+		}
+
+		// The prints of the cumulative trades, the same data the realtime path receives.
+		var ticks = (cumulativeTrades ?? Enumerable.Empty<CumulativeTrade>())
+			.Where(t => t.Ticks != null)
+			.SelectMany(t => t.Ticks)
+			.Select(t => new Tick(t.Time, t.Volume, SideOf(t.Direction)))
+			.OrderBy(t => t.Time)
+			.ToList();
+
+		int replayed = 0, skipped = 0;
+
+		lock (_tapeSync)
+		{
+			if (_tape == null || request.RequestId != _tapeRequestId)
+				return;
+
+			var bar = 0;
+
+			foreach (var tick in ticks)
+			{
+				while (bar + 1 < CurrentBar && GetCandle(bar + 1).Time <= tick.Time)
+					bar++;
+
+				ProcessTick(bar, tick);
+			}
+
+			// Buffered realtime prints: the ones older than the end of the history are in it,
+			// and so are as many of the ones at its last time as it has, minus those that had
+			// already arrived when the buffer started.
+			var historyEnd = ticks.Count > 0 ? ticks[^1].Time : DateTime.MinValue;
+			var atEnd = 0;
+
+			for (var i = ticks.Count - 1; i >= 0 && ticks[i].Time == historyEnd; i--)
+				atEnd++;
+
+			var toSkip = atEnd - (_bufferStartTime == historyEnd ? _bufferStartCount : 0);
+
+			foreach (var tick in _pendingTicks)
+			{
+				if (tick.Time < historyEnd || (tick.Time == historyEnd && toSkip-- > 0))
+				{
+					skipped++;
+					continue;
+				}
+
+				ProcessTick(BarOfTime(tick.Time), tick);
+				replayed++;
+			}
+
+			_pendingTicks.Clear();
+			_tapeHistoryLoaded = true;
+
+			foreach (var type in new[] { DataType.PeakVolPerSec, DataType.PeakDeltaPerSec, DataType.PeakDeltaPerVol })
+				_rowMaxima[type].Recompute(CurrentBar);
+		}
+
+		this.LogInfo($"ClusterStatisticPro: tape history {ticks.Count} prints; realtime buffer {replayed} replayed, {skipped} already in the history.");
+		RedrawChart();
 	}
 
 	protected override void OnApplyDefaultColors()
@@ -1964,6 +2186,9 @@ public class ClusterStatisticPro : Indicator
 			DataType.StackedBuyImbalance => Blend(AskColor, BackGroundColor, rate),
 			DataType.StackedSellImbalance => Blend(BidColor, BackGroundColor, rate),
 			DataType.StackedNetImbalance => Blend(_stackedNetImbalance[bar] >= 0 ? AskColor : BidColor, BackGroundColor, rate),
+			DataType.PeakVolPerSec => Blend(VolumeColor, BackGroundColor, rate),
+			DataType.PeakDeltaPerSec => Blend(_peakDeltaPerSec[bar] >= 0 ? AskColor : BidColor, BackGroundColor, rate),
+			DataType.PeakDeltaPerVol => Blend(_peakDeltaPerVol[bar] >= 0 ? AskColor : BidColor, BackGroundColor, rate),
 			DataType.None => System.Drawing.Color.Transparent,
 			_ => throw new ArgumentOutOfRangeException()
 		};
@@ -1996,6 +2221,9 @@ public class ClusterStatisticPro : Indicator
 			DataType.StackedBuyImbalance => GetRate(_stackedBuyImbalance[bar], RowScale(type)),
 			DataType.StackedSellImbalance => GetRate(_stackedSellImbalance[bar], RowScale(type)),
 			DataType.StackedNetImbalance => GetRate(Math.Abs(_stackedNetImbalance[bar]), RowScale(type)),
+			DataType.PeakVolPerSec => GetRate(_peakVolPerSec[bar], RowScale(type)),
+			DataType.PeakDeltaPerSec => GetRate(Math.Abs(_peakDeltaPerSec[bar]), RowScale(type)),
+			DataType.PeakDeltaPerVol => GetRate(Math.Abs(_peakDeltaPerVol[bar]), RowScale(type)),
 			DataType.None => 0,
 
 			_ => throw new ArgumentOutOfRangeException()
@@ -2131,6 +2359,9 @@ public class ClusterStatisticPro : Indicator
 			DataType.StackedBuyImbalance => _stackedBuyImbalance[bar].ToString("0", CultureInfo.InvariantCulture),
 			DataType.StackedSellImbalance => _stackedSellImbalance[bar].ToString("0", CultureInfo.InvariantCulture),
 			DataType.StackedNetImbalance => _stackedNetImbalance[bar].ToString("+0;-0;0", CultureInfo.InvariantCulture),
+			DataType.PeakVolPerSec => ChartInfo.TryGetMinimizedVolumeString(Math.Round(_peakVolPerSec[bar])),
+			DataType.PeakDeltaPerSec => ChartInfo.TryGetMinimizedVolumeString(Math.Round(_peakDeltaPerSec[bar])),
+			DataType.PeakDeltaPerVol => FormatRatio(_peakDeltaPerVol[bar]),
 			DataType.None => string.Empty,
 			_ => throw new ArgumentOutOfRangeException()
 		};
@@ -2224,6 +2455,9 @@ public class ClusterStatisticPro : Indicator
 			DataType.StackedBuyImbalance => "Buy Stk.",
 			DataType.StackedSellImbalance => "Sell Stk.",
 			DataType.StackedNetImbalance => "Net Stk.",
+			DataType.PeakVolPerSec => "Max Vol/sec",
+			DataType.PeakDeltaPerSec => "Delta at Max vol/sec",
+			DataType.PeakDeltaPerVol => "Delta/Vol at Max vol/sec",
 			DataType.None => string.Empty,
 
 			_ => throw new ArgumentOutOfRangeException()
@@ -2256,6 +2490,111 @@ public class ClusterStatisticPro : Indicator
 		_stackedBuyImbalance[bar] = counts.StackedBuy;
 		_stackedSellImbalance[bar] = counts.StackedSell;
 		_stackedNetImbalance[bar] = counts.StackedNet;
+	}
+
+	private bool PeakRowsEnabled()
+	{
+		return RowsOrder[DataType.PeakVolPerSec].Enabled
+			|| RowsOrder[DataType.PeakDeltaPerSec].Enabled
+			|| RowsOrder[DataType.PeakDeltaPerVol].Enabled;
+	}
+
+	// The tape history is only requested while a peak row is shown: showing the first one (or
+	// hiding the last) recalculates, and so does a change of the tape settings while shown.
+	private void OnTapeUseChanged()
+	{
+		bool running;
+
+		lock (_tapeSync)
+			running = _tape != null;
+
+		if (running != PeakRowsEnabled())
+			RecalculateValues();
+	}
+
+	private void OnTapeSettingsChanged()
+	{
+		if (PeakRowsEnabled())
+			RecalculateValues();
+	}
+
+	private void RequestTapeHistory()
+	{
+		lock (_tapeSync)
+		{
+			if (_tape == null || CurrentBar < 1)
+			{
+				_tapeHistoryLoaded = true;
+				return;
+			}
+		}
+
+		var first = FirstTapeBar();
+		var request = new CumulativeTradesRequest(GetCandle(first).Time, GetCandle(CurrentBar - 1).LastTime, 0, 0);
+
+		lock (_tapeSync)
+			_tapeRequestId = request.RequestId;
+
+		this.LogInfo($"ClusterStatisticPro: tape history request from bar {first} of {CurrentBar}.");
+		RequestForCumulativeTrades(request);
+	}
+
+	private int FirstTapeBar()
+	{
+		if (_tapeSessionsToLoad <= 0)
+			return 0;
+
+		var sessions = 0;
+
+		for (var bar = CurrentBar - 1; bar > 0; bar--)
+		{
+			if (IsNewSession(bar) && ++sessions == _tapeSessionsToLoad)
+				return bar;
+		}
+
+		return 0;
+	}
+
+	// Caller holds _tapeSync.
+	private void ProcessTick(int bar, Tick tick)
+	{
+		if (bar < 0 || !_tape.Add(bar, tick) || !_tape.TryGet(bar, out var peak))
+			return;
+
+		_peakVolPerSec[bar] = peak.VolumePerSecond;
+		_peakDeltaPerSec[bar] = peak.DeltaPerSecond;
+		_peakDeltaPerVol[bar] = peak.DeltaPerVolume * 100m;
+	}
+
+	// Last bar starting at or before the time (bar times never decrease).
+	private int BarOfTime(DateTime time)
+	{
+		int lo = 0, hi = CurrentBar - 1, result = -1;
+
+		while (lo <= hi)
+		{
+			var mid = lo + (hi - lo) / 2;
+
+			if (GetCandle(mid).Time <= time)
+			{
+				result = mid;
+				lo = mid + 1;
+			}
+			else
+				hi = mid - 1;
+		}
+
+		return result;
+	}
+
+	private static int SideOf(TradeDirection direction)
+	{
+		return direction switch
+		{
+			TradeDirection.Buy => 1,
+			TradeDirection.Sell => -1,
+			_ => 0
+		};
 	}
 
 	private void CheckNetImbalanceAlert(int bar)

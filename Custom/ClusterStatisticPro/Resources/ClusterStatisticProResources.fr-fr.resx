@@ -147,6 +147,9 @@
   <data name="MaxDeltaAlert" xml:space="preserve">
     <value>Max delta alert</value>
   </data>
+  <data name="MaxVolPerSecGroup" xml:space="preserve">
+    <value>Vol max/s</value>
+  </data>
   <data name="MinDeltaAlert" xml:space="preserve">
     <value>Min delta alert</value>
   </data>
@@ -273,6 +276,24 @@
   <data name="ShowNetImbalancesDescription" xml:space="preserve">
     <value>Buy imbalances minus sell imbalances of the bar.</value>
   </data>
+  <data name="ShowPeakDeltaPerSec" xml:space="preserve">
+    <value>Delta au vol max/s</value>
+  </data>
+  <data name="ShowPeakDeltaPerSecDescription" xml:space="preserve">
+    <value>Delta per second at the moment of the highest speed of the bar.</value>
+  </data>
+  <data name="ShowPeakDeltaPerVol" xml:space="preserve">
+    <value>Delta/Vol au vol max/s</value>
+  </data>
+  <data name="ShowPeakDeltaPerVolDescription" xml:space="preserve">
+    <value>Delta share of the volume at the moment of the highest speed of the bar.</value>
+  </data>
+  <data name="ShowPeakVolPerSec" xml:space="preserve">
+    <value>Vol max/s</value>
+  </data>
+  <data name="ShowPeakVolPerSecDescription" xml:space="preserve">
+    <value>Highest speed of the tape in the bar: the volume of the last seconds (Time window) divided by the window, after each print.</value>
+  </data>
   <data name="ShowSellImbalances" xml:space="preserve">
     <value>Déséquilibres vendeurs</value>
   </data>
@@ -336,11 +357,29 @@
   <data name="ShowVolumesDescription" xml:space="preserve">
     <value>Détermine s'il faut afficher des informations sur les volumes.</value>
   </data>
+  <data name="SotMinVolumeDescription" xml:space="preserve">
+    <value>A speed only counts when the window holds at least this volume.</value>
+  </data>
+  <data name="SotMinVolumeName" xml:space="preserve">
+    <value>Volume minimum par fenêtre</value>
+  </data>
+  <data name="SotTimeWindowSecDescription" xml:space="preserve">
+    <value>Seconds of prints added up for the speed of the tape.</value>
+  </data>
+  <data name="SotTimeWindowSecName" xml:space="preserve">
+    <value>Fenêtre de temps (s)</value>
+  </data>
   <data name="StackedImbalanceMinLevelsDescription" xml:space="preserve">
     <value>Consecutive imbalance levels of the same side that make a stack.</value>
   </data>
   <data name="StackedImbalanceMinLevelsName" xml:space="preserve">
     <value>Niveaux empilés minimum</value>
+  </data>
+  <data name="TapeSessionsToLoad" xml:space="preserve">
+    <value>Sessions to load</value>
+  </data>
+  <data name="TapeSessionsToLoadDescription" xml:space="preserve">
+    <value>Sessions of prints loaded for the history of the speed rows, counting the current one. 0 loads the whole chart. Only requested while a speed row is shown.</value>
   </data>
   <data name="Text" xml:space="preserve">
     <value>Texte</value>
