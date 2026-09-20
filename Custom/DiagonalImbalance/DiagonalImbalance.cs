@@ -41,6 +41,27 @@ public class DiagonalImbalance : Indicator
 		public decimal Passive { get; }
 	}
 
+	// Run of at least MinStackedLevels consecutive price levels of a bar with an imbalance
+	// on the same side. Low and High are the prices of the lowest and highest level.
+	internal readonly struct StackedBlock
+	{
+		public StackedBlock(decimal low, decimal high, bool isBuy, int levels)
+		{
+			Low = low;
+			High = high;
+			IsBuy = isBuy;
+			Levels = levels;
+		}
+
+		public decimal Low { get; }
+
+		public decimal High { get; }
+
+		public bool IsBuy { get; }
+
+		public int Levels { get; }
+	}
+
 	#endregion
 
 	#region Fields
@@ -55,9 +76,13 @@ public class DiagonalImbalance : Indicator
 	private const int MinSplitBarWidth = 6;
 
 	private static readonly ImbalanceLevel[] NoImbalances = Array.Empty<ImbalanceLevel>();
+	private static readonly StackedBlock[] NoStacks = Array.Empty<StackedBlock>();
 
 	// Imbalances per bar index; null until the bar has been calculated as a closed bar.
 	private readonly List<ImbalanceLevel[]> _barImbalances = new();
+
+	// Stacked blocks per closed bar, same indexing as _barImbalances.
+	private readonly List<StackedBlock[]> _barStacks = new();
 
 	// Guards _barImbalances and the forming bar: written by the calculation thread,
 	// read by the render thread.
@@ -77,6 +102,7 @@ public class DiagonalImbalance : Indicator
 	private decimal _minDominantVolume = 20m;
 	private bool _ignoreZeroLevels;
 	private decimal _minVolumeDifference;
+	private int _minStackedLevels = 3;
 
 	private bool _showMarks = true;
 	private Color _buyColor = Color.FromArgb(140, 0, 200, 83);
@@ -85,6 +111,8 @@ public class DiagonalImbalance : Indicator
 	private bool _historyLoaded;
 	private int _historyBuyCount;
 	private int _historySellCount;
+	private int _historyBuyStacks;
+	private int _historySellStacks;
 
 	#endregion
 
@@ -153,6 +181,24 @@ public class DiagonalImbalance : Indicator
 				return;
 
 			_ignoreZeroLevels = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(Name = "Stacked imbalance levels", GroupName = "Calculation", Order = 130,
+		Description = "Minimum number of consecutive price levels with an imbalance on the same side " +
+			"to form a stacked imbalance.")]
+	[Range(2, 20)]
+	[PostValueMode(PostValueModes.OnLostFocus)]
+	public int MinStackedLevels
+	{
+		get => _minStackedLevels;
+		set
+		{
+			if (_minStackedLevels == value)
+				return;
+
+			_minStackedLevels = value;
 			RecalculateValues();
 		}
 	}
@@ -229,6 +275,7 @@ public class DiagonalImbalance : Indicator
 		lock (_barsLock)
 		{
 			_barImbalances.Clear();
+			_barStacks.Clear();
 			_formingBar = -1;
 			_formingLevels = NoImbalances;
 		}
@@ -236,6 +283,8 @@ public class DiagonalImbalance : Indicator
 		_historyLoaded = false;
 		_historyBuyCount = 0;
 		_historySellCount = 0;
+		_historyBuyStacks = 0;
+		_historySellStacks = 0;
 	}
 
 	protected override void OnCalculate(int bar, decimal value)
@@ -266,9 +315,11 @@ public class DiagonalImbalance : Indicator
 		var lastClosed = CurrentBar - 2;
 
 		this.LogInfo($"DiagonalImbalance: history calculated, {lastClosed + 1} closed bars, " +
-			$"{_historyBuyCount} buy / {_historySellCount} sell imbalances " +
+			$"{_historyBuyCount} buy / {_historySellCount} sell imbalances, " +
+			$"{_historyBuyStacks} buy / {_historySellStacks} sell stacks " +
 			$"(ratio {_imbalanceRatio}, min dominant volume {_minDominantVolume}, " +
-			$"min volume difference {_minVolumeDifference}, ignore zero levels {_ignoreZeroLevels}).");
+			$"min volume difference {_minVolumeDifference}, ignore zero levels {_ignoreZeroLevels}, " +
+			$"stacked levels {_minStackedLevels}).");
 
 		for (var bar = Math.Max(0, lastClosed - LoggedHistoryBars + 1); bar <= lastClosed; bar++)
 			LogBar(bar);
@@ -355,13 +406,18 @@ public class DiagonalImbalance : Indicator
 	private void CalculateClosedBar(int bar)
 	{
 		var levels = FindImbalances(bar);
+		var stacks = FindStacks(levels);
 
 		lock (_barsLock)
 		{
 			while (_barImbalances.Count <= bar)
+			{
 				_barImbalances.Add(null);
+				_barStacks.Add(NoStacks);
+			}
 
 			_barImbalances[bar] = levels;
+			_barStacks[bar] = stacks;
 
 			if (_formingBar == bar)
 			{
@@ -376,6 +432,14 @@ public class DiagonalImbalance : Indicator
 				_historyBuyCount++;
 			else
 				_historySellCount++;
+		}
+
+		foreach (var stack in stacks)
+		{
+			if (stack.IsBuy)
+				_historyBuyStacks++;
+			else
+				_historySellStacks++;
 		}
 
 		// After the history, a bar only reaches this point when it closes (in realtime or replay,
@@ -440,6 +504,55 @@ public class DiagonalImbalance : Indicator
 		return dominant >= passive * _imbalanceRatio;
 	}
 
+	// Groups the imbalances of one bar into runs of consecutive price levels on the same side.
+	// FindImbalances returns each side in ascending price order, so a single pass per side
+	// is enough: a level continues the run when it is exactly one tick above the previous one.
+	private StackedBlock[] FindStacks(ImbalanceLevel[] levels)
+	{
+		var tickSize = InstrumentInfo?.TickSize ?? 0m;
+
+		if (tickSize <= 0 || levels.Length < _minStackedLevels)
+			return NoStacks;
+
+		List<StackedBlock> found = null;
+
+		for (var side = 0; side < 2; side++)
+		{
+			var isBuy = side == 0;
+			var runLow = 0m;
+			var runHigh = 0m;
+			var runLevels = 0;
+
+			foreach (var level in levels)
+			{
+				if (level.IsBuy != isBuy)
+					continue;
+
+				if (runLevels > 0 && level.Price - runHigh == tickSize)
+				{
+					runHigh = level.Price;
+					runLevels++;
+					continue;
+				}
+
+				if (runLevels >= _minStackedLevels)
+					(found ??= new()).Add(new StackedBlock(runLow, runHigh, isBuy, runLevels));
+
+				runLow = runHigh = level.Price;
+				runLevels = 1;
+			}
+
+			if (runLevels >= _minStackedLevels)
+				(found ??= new()).Add(new StackedBlock(runLow, runHigh, isBuy, runLevels));
+		}
+
+		if (found is null)
+			return NoStacks;
+
+		found.Sort((a, b) => a.Low.CompareTo(b.Low));
+		return found.ToArray();
+	}
+
 	#endregion
 
 	#region Private Methods: Diagnostics
@@ -477,6 +590,9 @@ public class DiagonalImbalance : Indicator
 
 		if (levels.Length > LoggedLevelsPerBar)
 			sb.Append($"; +{levels.Length - LoggedLevelsPerBar} more");
+
+		foreach (var stack in _barStacks[bar])
+			sb.Append($"; STACK {(stack.IsBuy ? "B" : "S")} {stack.Low}-{stack.High} x{stack.Levels}");
 
 		this.LogInfo(sb.ToString());
 	}
