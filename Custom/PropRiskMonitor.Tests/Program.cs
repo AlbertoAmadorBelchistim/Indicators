@@ -10,6 +10,7 @@ internal static class Program
 		var suites = new List<(string Name, Action<Check> Run)>
 		{
 			("SessionClock", SessionClockTests.Run),
+			("TrailingDrawdown", TrailingDrawdownTests.Run),
 		};
 
 		var failed = 0;
