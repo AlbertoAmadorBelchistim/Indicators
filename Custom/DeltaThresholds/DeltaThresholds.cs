@@ -169,6 +169,24 @@ public class DeltaThresholds : Indicator
 	// Visible signals copied under the lock by OnRender, reused between frames.
 	private readonly List<(int Bar, bool Up, bool Down)> _renderSignals = new();
 
+	private bool _alertsEnabled;
+	private ThresholdLevel _alertUpLevel = ThresholdLevel.Major;
+	private ThresholdLevel _alertDownLevel = ThresholdLevel.Major;
+	private bool _alertAtBarClose = true;
+	private int _alertCooldownBars = 3;
+	private string _alertFile = "alert2";
+
+	// Realtime state of the alerts: bars from _firstLiveBar on opened after the history; the last
+	// bar of each side that alerted; and, for the forming bar, whether its level was already
+	// reached at the previous update.
+	private bool _historyLoaded;
+	private int _firstLiveBar;
+	private int _lastUpAlertBar = int.MinValue / 2;
+	private int _lastDownAlertBar = int.MinValue / 2;
+	private int _observedBar = -1;
+	private bool _upReachedBefore;
+	private bool _downReachedBefore;
+
 	private bool _showHistogram = true;
 	private CrossColor _upColor = CrossColor.FromArgb(255, 0, 170, 0);
 	private CrossColor _downColor = CrossColor.FromArgb(255, 205, 0, 0);
@@ -469,6 +487,49 @@ public class DeltaThresholds : Indicator
 		}
 	}
 
+	[Display(Name = "Enabled", GroupName = "Alerts", Description = "Alerts when the delta of a bar reaches the selected level (only in realtime).", Order = 400)]
+	public bool UseAlerts
+	{
+		get => _alertsEnabled;
+		set => _alertsEnabled = value;
+	}
+
+	[Display(Name = "Up level", GroupName = "Alerts", Description = "Level used for the up alerts.", Order = 410)]
+	public ThresholdLevel AlertUpLevel
+	{
+		get => _alertUpLevel;
+		set => _alertUpLevel = value;
+	}
+
+	[Display(Name = "Down level", GroupName = "Alerts", Description = "Level used for the down alerts.", Order = 420)]
+	public ThresholdLevel AlertDownLevel
+	{
+		get => _alertDownLevel;
+		set => _alertDownLevel = value;
+	}
+
+	[Display(Name = "Only at bar close", GroupName = "Alerts", Description = "On: alerts when a bar closes with its delta beyond the level. Off: alerts as soon as the delta of the forming bar reaches the level.", Order = 430)]
+	public bool AlertAtBarClose
+	{
+		get => _alertAtBarClose;
+		set => _alertAtBarClose = value;
+	}
+
+	[Display(Name = "Minimum bars between alerts", GroupName = "Alerts", Description = "Minimum number of bars between two alerts of the same side.", Order = 440)]
+	[Range(0, 1000)]
+	public int AlertCooldownBars
+	{
+		get => _alertCooldownBars;
+		set => _alertCooldownBars = value;
+	}
+
+	[Display(Name = "Alert sound", GroupName = "Alerts", Description = "Sound file of the alerts.", Order = 450)]
+	public string AlertFile
+	{
+		get => _alertFile;
+		set => _alertFile = value;
+	}
+
 	#endregion
 
 	#region Ctor
@@ -505,6 +566,10 @@ public class DeltaThresholds : Indicator
 	// on every update of the forming bar.
 	protected override void OnRecalculate()
 	{
+		_historyLoaded = false;
+		_observedBar = -1;
+		_lastUpAlertBar = _lastDownAlertBar = int.MinValue / 2;
+
 		lock (_signalsLock)
 			_signals.Clear();
 
@@ -525,6 +590,15 @@ public class DeltaThresholds : Indicator
 			OpenBar(bar);
 
 		UpdateSignals(bar, false);
+
+		if (_historyLoaded && bar == CurrentBar - 1 && !_alertAtBarClose)
+			CheckReachedAlerts(bar);
+	}
+
+	protected override void OnFinishRecalculate()
+	{
+		_historyLoaded = true;
+		_firstLiveBar = CurrentBar;
 	}
 
 	protected override void OnRender(RenderContext context, DrawingLayouts layout)
@@ -614,6 +688,9 @@ public class DeltaThresholds : Indicator
 			// Bar-close signals of the bar that has just closed.
 			UpdateSignals(bar - 1, true);
 
+			if (_historyLoaded && _alertAtBarClose)
+				CheckCloseAlerts(bar - 1);
+
 			if (InWindow(bar - 1))
 				AddSamples(GetCandle(bar - 1));
 		}
@@ -674,6 +751,83 @@ public class DeltaThresholds : Indicator
 
 			_signals[bar] = (up, down);
 		}
+	}
+
+	private decimal AlertLevel(int bar, bool up)
+	{
+		var levels = _levels[bar];
+
+		return up
+			? _alertUpLevel == ThresholdLevel.Major ? levels.UpMajor : levels.UpMinor
+			: _alertDownLevel == ThresholdLevel.Major ? levels.DownMajor : levels.DownMinor;
+	}
+
+	// Event-based: an alert fires when the forming bar goes from not having reached the level to
+	// having reached it. A bar that was already forming when the history finished and had
+	// already reached the level does not alert: that happened before.
+	private void CheckReachedAlerts(int bar)
+	{
+		if (!_alertsEnabled || bar >= _levels.Count)
+			return;
+
+		var candle = GetCandle(bar);
+		var upLevel = AlertLevel(bar, true);
+		var downLevel = AlertLevel(bar, false);
+		var upReached = upLevel > 0 && candle.MaxDelta >= upLevel;
+		var downReached = downLevel < 0 && candle.MinDelta <= downLevel;
+
+		if (_observedBar != bar)
+		{
+			// First observation of this bar: a bar that opened after the history starts from
+			// "not reached"; the bar forming at load starts from what it has already reached.
+			var preexisting = bar < _firstLiveBar;
+			_upReachedBefore = preexisting && upReached;
+			_downReachedBefore = preexisting && downReached;
+			_observedBar = bar;
+		}
+
+		if (upReached && !_upReachedBefore)
+			RaiseAlert(bar, true, $"Delta Thresholds: delta reached {upLevel:0.##} ({_alertUpLevel.ToString().ToLowerInvariant()} up level), bar delta {candle.Delta:0.##}");
+
+		if (downReached && !_downReachedBefore)
+			RaiseAlert(bar, false, $"Delta Thresholds: delta reached {downLevel:0.##} ({_alertDownLevel.ToString().ToLowerInvariant()} down level), bar delta {candle.Delta:0.##}");
+
+		_upReachedBefore = upReached;
+		_downReachedBefore = downReached;
+	}
+
+	// A bar that has just closed in realtime with its final delta beyond the level.
+	private void CheckCloseAlerts(int bar)
+	{
+		if (!_alertsEnabled || bar >= _levels.Count || bar < _firstLiveBar - 1)
+			return;
+
+		var delta = GetCandle(bar).Delta;
+		var upLevel = AlertLevel(bar, true);
+		var downLevel = AlertLevel(bar, false);
+
+		if (upLevel > 0 && delta >= upLevel)
+			RaiseAlert(bar, true, $"Delta Thresholds: bar closed with delta {delta:0.##} above {upLevel:0.##} ({_alertUpLevel.ToString().ToLowerInvariant()} up level)");
+
+		if (downLevel < 0 && delta <= downLevel)
+			RaiseAlert(bar, false, $"Delta Thresholds: bar closed with delta {delta:0.##} below {downLevel:0.##} ({_alertDownLevel.ToString().ToLowerInvariant()} down level)");
+	}
+
+	private void RaiseAlert(int bar, bool up, string message)
+	{
+		var last = up ? _lastUpAlertBar : _lastDownAlertBar;
+
+		if (bar - last < Math.Max(1, _alertCooldownBars))
+			return;
+
+		if (up)
+			_lastUpAlertBar = bar;
+		else
+			_lastDownAlertBar = bar;
+
+		this.LogInfo($"DeltaThresholds: alert: {message}");
+		AddAlert(_alertFile, InstrumentInfo?.Instrument ?? string.Empty, message,
+			up ? _signalUpColor : _signalDownColor, CrossColor.FromArgb(255, 0, 0, 0));
 	}
 
 	private static int Clamp(int value, int min, int max)
