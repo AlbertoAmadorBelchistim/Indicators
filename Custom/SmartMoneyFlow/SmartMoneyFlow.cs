@@ -10,6 +10,7 @@ using ATAS.Indicators.Drawing;
 
 using OFT.Attributes.Editors;
 
+using Utils.Common;
 using Utils.Common.Logging;
 
 [DisplayName("Smart Money Flow")]
@@ -62,6 +63,23 @@ public class SmartMoneyFlow : Indicator
 
 	// Id of the pending cumulative trades request; responses to older requests are ignored.
 	private int _requestId;
+
+	// False from a recalculation until the history response has been calculated and the
+	// trades received meanwhile have been replayed. Until then realtime trades are buffered.
+	private bool _historyReady;
+
+	// Realtime cumulative trade events received while the history is pending, in arrival order.
+	// Each entry is a copy taken when the event arrived; updates are kept as separate events.
+	private readonly List<(CumulativeTrade Trade, bool IsUpdate)> _pendingTrades = new();
+
+	// Time of the last trade in the history response. Buffered trades up to this time are
+	// already counted in the history.
+	private DateTime _historyEndTime;
+
+	// Last trade counted and the bar it was counted in. A cumulative trade keeps growing while
+	// it aggregates, and its updates replace the volume counted for it.
+	private CumulativeTrade _lastTrade;
+	private int _lastTradeBar;
 
 	#endregion
 
@@ -328,11 +346,23 @@ public class SmartMoneyFlow : Indicator
 			_requestId = 0;
 			_lastBar = -1;
 			Array.Clear(_delta);
+			_historyReady = false;
+			_pendingTrades.Clear();
+			_lastTrade = null;
 		}
 	}
 
 	protected override void OnCalculate(int bar, decimal value)
 	{
+		if (bar != CurrentBar - 1)
+			return;
+
+		// A new realtime bar starts with the running values of the previous one, before its first trade.
+		lock (_calcLock)
+		{
+			if (_historyReady)
+				EnsureBar(bar);
+		}
 	}
 
 	protected override void OnFinishRecalculate()
@@ -363,6 +393,17 @@ public class SmartMoneyFlow : Indicator
 		}
 
 		CalculateHistory(cumulativeTrades);
+		ReplayPendingTrades();
+	}
+
+	protected override void OnCumulativeTrade(CumulativeTrade trade)
+	{
+		OnRealtimeTrade(trade, false);
+	}
+
+	protected override void OnUpdateCumulativeTrade(CumulativeTrade trade)
+	{
+		OnRealtimeTrade(trade, true);
 	}
 
 	#endregion
@@ -420,6 +461,162 @@ public class SmartMoneyFlow : Indicator
 		}
 	}
 
+	// Signed volume that a trade adds to a filter: its size when the filter's range contains it, else 0.
+	private decimal Contribution(int filter, decimal volume, TradeDirection direction)
+	{
+		if (!Matches(filter, volume))
+			return 0;
+
+		return direction == TradeDirection.Buy ? volume : -volume;
+	}
+
+	// Called under _calcLock. Replaces what a trade added to the filters (old volume and direction,
+	// 0 for a new trade) with its new volume and direction, in the bar it belongs to and in every
+	// later bar, since the lines are cumulative.
+	private void ApplyVolumeChange(int bar, decimal oldVolume, TradeDirection oldDirection,
+		decimal newVolume, TradeDirection newDirection)
+	{
+		for (var i = 0; i < FilterCount; i++)
+		{
+			var diff = Contribution(i, newVolume, newDirection) - Contribution(i, oldVolume, oldDirection);
+
+			if (diff == 0)
+				continue;
+
+			_delta[i] += diff;
+
+			for (var b = bar; b <= _lastBar; b++)
+				_filterSeries[i][b] += diff;
+		}
+	}
+
+	// Called under _calcLock. Opens every bar after the last written one up to the given bar,
+	// starting each with the running values.
+	private void EnsureBar(int bar)
+	{
+		if (bar <= _lastBar)
+			return;
+
+		for (var b = _lastBar + 1; b <= bar; b++)
+			WriteBar(b);
+
+		_lastBar = bar;
+	}
+
+	// Called under _calcLock. Bar that contains a trade time: the last bar opened at or before it.
+	private int BarOfTime(DateTime time)
+	{
+		for (var bar = CurrentBar - 1; bar > _firstBar; bar--)
+		{
+			if (GetCandle(bar).Time <= time)
+				return bar;
+		}
+
+		return _firstBar;
+	}
+
+	private void OnRealtimeTrade(CumulativeTrade trade, bool isUpdate)
+	{
+		int bar;
+
+		lock (_calcLock)
+		{
+			if (!_historyReady)
+			{
+				// Copy: the platform may keep updating the same trade object.
+				_pendingTrades.Add((trade.MemberwiseClone(), isUpdate));
+				return;
+			}
+
+			bar = ProcessTrade(trade, isUpdate, false);
+		}
+
+		if (bar >= 0)
+			RaiseBarValueChanged(bar);
+	}
+
+	// Called under _calcLock. Counts a realtime trade, or replaces the volume of the last trade
+	// when it is an update of it. Returns the last bar changed, or -1.
+	//
+	// An update of a trade other than the last one counted is an orphan. While replaying the
+	// buffer it belongs to a trade already in the history, so it is skipped; in realtime it is
+	// counted as a new trade, as MultiMarketPower does.
+	private int ProcessTrade(CumulativeTrade trade, bool isUpdate, bool fromBuffer)
+	{
+		if (CurrentBar == 0)
+			return -1;
+
+		EnsureBar(CurrentBar - 1);
+
+		if (trade.Direction == TradeDirection.Between)
+			return _lastBar;
+
+		if (isUpdate && _lastTrade != null && _lastTrade.IsEqual(trade))
+		{
+			ApplyVolumeChange(_lastTradeBar, _lastTrade.Volume, _lastTrade.Direction, trade.Volume, trade.Direction);
+			_lastTrade = trade.MemberwiseClone();
+			return _lastBar;
+		}
+
+		if (isUpdate && fromBuffer)
+			return -1;
+
+		var bar = BarOfTime(trade.Time);
+		ApplyVolumeChange(bar, 0, trade.Direction, trade.Volume, trade.Direction);
+
+		_lastTrade = trade.MemberwiseClone();
+		_lastTradeBar = bar;
+
+		return _lastBar;
+	}
+
+	// Replays the trades buffered while the history was pending, then switches to realtime.
+	// The buffer is drained in batches without holding the lock across a whole batch; the
+	// switch happens under the lock once the buffer is empty, so no trade is left behind.
+	private void ReplayPendingTrades()
+	{
+		var replayed = 0;
+		var skipped = 0;
+
+		while (true)
+		{
+			List<(CumulativeTrade Trade, bool IsUpdate)> batch;
+
+			lock (_calcLock)
+			{
+				if (_pendingTrades.Count == 0)
+				{
+					_historyReady = true;
+					break;
+				}
+
+				batch = new List<(CumulativeTrade Trade, bool IsUpdate)>(_pendingTrades);
+				_pendingTrades.Clear();
+			}
+
+			foreach (var (trade, isUpdate) in batch)
+			{
+				lock (_calcLock)
+				{
+					// New trades up to the last history trade are already counted.
+					if (!isUpdate && trade.Time <= _historyEndTime)
+					{
+						skipped++;
+						continue;
+					}
+
+					ProcessTrade(trade, isUpdate, true);
+					replayed++;
+				}
+			}
+		}
+
+		this.LogInfo($"SmartMoneyFlow: realtime started, {replayed} buffered events replayed, {skipped} already in the history.");
+
+		if (CurrentBar > 0)
+			RaiseBarValueChanged(CurrentBar - 1);
+	}
+
 	// Called under _calcLock. Writes the running deltas as the values of the bar.
 	private void WriteBar(int bar)
 	{
@@ -467,6 +664,8 @@ public class SmartMoneyFlow : Indicator
 			}
 
 			_lastBar = lastBar;
+			_historyEndTime = trades.Count > 0 ? trades[^1].Time : DateTime.MinValue;
+			_lastTrade = null;
 		}
 
 		UpdateVisibility();
