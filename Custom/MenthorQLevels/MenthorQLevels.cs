@@ -1,4 +1,5 @@
 ﻿using ATAS.Indicators;
+using OFT.Attributes.Editors;
 using OFT.Rendering.Context;
 using OFT.Rendering.Tools;
 using System;
@@ -662,6 +663,16 @@ namespace ATAS.Indicators.Technical
 		// Non-null from ctor on — callers never need a null-check.
 		private MqApi _api;
 
+		// A fetch is due: set on creation and whenever the ticker or the credentials change, and
+		// started from OnCalculate on the last bar, once the instrument and every saved setting
+		// are known. Without it the API levels only appeared after Update Levels or the next
+		// scheduled slot.
+		private volatile bool _fetchPending = true;
+
+		// Incremented whenever the ticker or the credentials change. A response that comes back
+		// for an older generation is discarded, so it cannot replace the levels of the new ticker.
+		private int _fetchGeneration;
+
 		// UI: Ticker override. When non-empty, takes precedence over InstrumentInfo.
 		private string _tickerOverride = string.Empty;
 
@@ -877,6 +888,7 @@ namespace ATAS.Indicators.Technical
 			GroupName = "API",
 			Description = "MenthorQ API key. When set together with User ID, the API becomes the active data source and manual text is ignored.",
 			Order = 110)]
+		[PostValueMode(PostValueModes.OnLostFocus)]
 		public string ApiKey
 		{
 			get => _apiKey;
@@ -888,7 +900,7 @@ namespace ATAS.Indicators.Technical
 
 				_apiKey = value;
 				_api = new MqApi(_apiKey);
-				_dataDirty = true;
+				OnApiQueryChanged();
 				RecalculateValues();
 			}
 		}
@@ -897,6 +909,7 @@ namespace ATAS.Indicators.Technical
 			GroupName = "API",
 			Description = "Email associated with your MenthorQ account. Sent as the user_id query parameter on every request.",
 			Order = 120)]
+		[PostValueMode(PostValueModes.OnLostFocus)]
 		public string UserId
 		{
 			get => _userId;
@@ -907,7 +920,7 @@ namespace ATAS.Indicators.Technical
 					return;
 
 				_userId = value;
-				_dataDirty = true;
+				OnApiQueryChanged();
 				RecalculateValues();
 			}
 		}
@@ -916,6 +929,7 @@ namespace ATAS.Indicators.Technical
 	GroupName = "API",
 	Description = "Optional. Leave empty to use the chart instrument (micros are auto-stripped: MES→ES, MNQ→NQ). Set a value to force a specific ticker (e.g. SPX on ES, or ES when the feed exposes ESH24).",
 	Order = 130)]
+		[PostValueMode(PostValueModes.OnLostFocus)]
 		public string TickerOverride
 		{
 			get => _tickerOverride;
@@ -926,7 +940,7 @@ namespace ATAS.Indicators.Technical
 					return;
 
 				_tickerOverride = value;
-				_dataDirty = true;
+				OnApiQueryChanged();
 				RecalculateValues();
 			}
 		}
@@ -994,7 +1008,10 @@ namespace ATAS.Indicators.Technical
 				// immediately so the chart reflects the latest levels
 				// without waiting for the next scheduled slot.
 				if (value)
-					_ = FetchAndParseLevelsAsync();
+				{
+					_fetchPending = true;
+					StartPendingFetch();
+				}
 			}
 		}
 
@@ -1214,6 +1231,9 @@ namespace ATAS.Indicators.Technical
 
 		protected override void OnCalculate(int bar, decimal value)
 		{
+			if (_fetchPending && bar == CurrentBar - 1)
+				StartPendingFetch();
+
 			RebuildLevelsIfNeeded();
 			DetectAndFireAlerts(bar);
 		}
@@ -1792,8 +1812,28 @@ namespace ATAS.Indicators.Technical
             return s;
         }
 
+        // The levels of the previous ticker or account no longer apply: drop them and fetch again.
+        private void OnApiQueryChanged()
+        {
+            System.Threading.Interlocked.Increment(ref _fetchGeneration);
+            _apiSource?.Clear();
+            _dataDirty = true;
+            _fetchPending = true;
+        }
+
+        private void StartPendingFetch()
+        {
+            if (string.IsNullOrEmpty(_apiKey) || string.IsNullOrEmpty(_userId) || string.IsNullOrEmpty(ResolveTicker()))
+                return;
+
+            _fetchPending = false;
+            _ = FetchAndParseLevelsAsync();
+        }
+
         private async Task FetchAndParseLevelsAsync()
 		{
+			var generation = System.Threading.Volatile.Read(ref _fetchGeneration);
+
 			try
 			{
 				var ticker = ResolveTicker();
@@ -1810,6 +1850,12 @@ namespace ATAS.Indicators.Technical
 				var response = await _api
 					.GetLevelsAsync(ticker, AllLevelTypes, _userId)
 					.ConfigureAwait(false);
+
+				if (generation != System.Threading.Volatile.Read(ref _fetchGeneration))
+				{
+					this.LogInfo($"MenthorQLevels: response for '{ticker}' discarded, the ticker or the credentials changed meanwhile.");
+					return;
+				}
 
 				if (response?.Levels == null || response.Levels.Count == 0)
 				{
